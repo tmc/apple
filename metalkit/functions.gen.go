@@ -4,7 +4,6 @@ package metalkit
 
 import (
 	"fmt"
-	"unsafe"
 
 	"github.com/ebitengine/purego"
 	"github.com/tmc/apple/foundation"
@@ -80,10 +79,10 @@ func registerSymbol(dst *uintptr, errDst *error, handle uintptr, name, introduce
 	*errDst = nil
 }
 
-var _mTKMetalVertexDescriptorFromModelIO func(modelIODescriptor uintptr) *metal.MTLVertexDescriptor
+var _mTKMetalVertexDescriptorFromModelIO func(modelIODescriptor *objc.ID) *metal.MTLVertexDescriptor
 var _mTKMetalVertexDescriptorFromModelIOErr error
 
-func tryMTKMetalVertexDescriptorFromModelIO(modelIODescriptor uintptr) (*metal.MTLVertexDescriptor, error) {
+func tryMTKMetalVertexDescriptorFromModelIO(modelIODescriptor *objc.ID) (*metal.MTLVertexDescriptor, error) {
 	if _mTKMetalVertexDescriptorFromModelIO == nil {
 		return nil, symbolCallError("MTKMetalVertexDescriptorFromModelIO", "10.11", _mTKMetalVertexDescriptorFromModelIOErr)
 	}
@@ -93,7 +92,7 @@ func tryMTKMetalVertexDescriptorFromModelIO(modelIODescriptor uintptr) (*metal.M
 // MTKMetalVertexDescriptorFromModelIO returns a partially converted Metal vertex descriptor.
 //
 // See: https://developer.apple.com/documentation/MetalKit/MTKMetalVertexDescriptorFromModelIO(_:)
-func MTKMetalVertexDescriptorFromModelIO(modelIODescriptor uintptr) *metal.MTLVertexDescriptor {
+func MTKMetalVertexDescriptorFromModelIO(modelIODescriptor *objc.ID) *metal.MTLVertexDescriptor {
 	result, callErr := tryMTKMetalVertexDescriptorFromModelIO(modelIODescriptor)
 	if callErr != nil {
 		panic(callErr)
@@ -101,10 +100,10 @@ func MTKMetalVertexDescriptorFromModelIO(modelIODescriptor uintptr) *metal.MTLVe
 	return result
 }
 
-var _mTKMetalVertexDescriptorFromModelIOWithError func(modelIODescriptor uintptr, err *foundation.NSError) *metal.MTLVertexDescriptor
+var _mTKMetalVertexDescriptorFromModelIOWithError func(modelIODescriptor *objc.ID, err *foundation.NSError) *metal.MTLVertexDescriptor
 var _mTKMetalVertexDescriptorFromModelIOWithErrorErr error
 
-func tryMTKMetalVertexDescriptorFromModelIOWithError(modelIODescriptor uintptr, err *foundation.NSError) (*metal.MTLVertexDescriptor, error) {
+func tryMTKMetalVertexDescriptorFromModelIOWithError(modelIODescriptor *objc.ID, err *foundation.NSError) (*metal.MTLVertexDescriptor, error) {
 	if _mTKMetalVertexDescriptorFromModelIOWithError == nil {
 		return nil, symbolCallError("MTKMetalVertexDescriptorFromModelIOWithError", "10.12", _mTKMetalVertexDescriptorFromModelIOWithErrorErr)
 	}
@@ -114,7 +113,7 @@ func tryMTKMetalVertexDescriptorFromModelIOWithError(modelIODescriptor uintptr, 
 // MTKMetalVertexDescriptorFromModelIOWithError returns a partially converted Metal vertex descriptor, reporting any error that occurs.
 //
 // See: https://developer.apple.com/documentation/MetalKit/MTKMetalVertexDescriptorFromModelIOWithError
-func MTKMetalVertexDescriptorFromModelIOWithError(modelIODescriptor uintptr, err *foundation.NSError) *metal.MTLVertexDescriptor {
+func MTKMetalVertexDescriptorFromModelIOWithError(modelIODescriptor *objc.ID, err *foundation.NSError) *metal.MTLVertexDescriptor {
 	result, callErr := tryMTKMetalVertexDescriptorFromModelIOWithError(modelIODescriptor, err)
 	if callErr != nil {
 		panic(callErr)
@@ -122,10 +121,10 @@ func MTKMetalVertexDescriptorFromModelIOWithError(modelIODescriptor uintptr, err
 	return result
 }
 
-var _mTKMetalVertexFormatFromModelIO func(vertexFormat unsafe.Pointer) metal.MTLVertexFormat
+var _mTKMetalVertexFormatFromModelIO func(vertexFormat uint) metal.MTLVertexFormat
 var _mTKMetalVertexFormatFromModelIOErr error
 
-func tryMTKMetalVertexFormatFromModelIO(vertexFormat unsafe.Pointer) (metal.MTLVertexFormat, error) {
+func tryMTKMetalVertexFormatFromModelIO(vertexFormat uint) (metal.MTLVertexFormat, error) {
 	if _mTKMetalVertexFormatFromModelIO == nil {
 		return *new(metal.MTLVertexFormat), symbolCallError("MTKMetalVertexFormatFromModelIO", "10.11", _mTKMetalVertexFormatFromModelIOErr)
 	}
@@ -135,7 +134,7 @@ func tryMTKMetalVertexFormatFromModelIO(vertexFormat unsafe.Pointer) (metal.MTLV
 // MTKMetalVertexFormatFromModelIO returns a converted Metal vertex format.
 //
 // See: https://developer.apple.com/documentation/MetalKit/MTKMetalVertexFormatFromModelIO(_:)
-func MTKMetalVertexFormatFromModelIO(vertexFormat unsafe.Pointer) metal.MTLVertexFormat {
+func MTKMetalVertexFormatFromModelIO(vertexFormat uint) metal.MTLVertexFormat {
 	result, callErr := tryMTKMetalVertexFormatFromModelIO(vertexFormat)
 	if callErr != nil {
 		panic(callErr)
@@ -185,12 +184,12 @@ func MTKModelIOVertexDescriptorFromMetalWithError(metalDescriptor *metal.MTLVert
 	return result
 }
 
-var _mTKModelIOVertexFormatFromMetal func(vertexFormat metal.MTLVertexFormat) unsafe.Pointer
+var _mTKModelIOVertexFormatFromMetal func(vertexFormat metal.MTLVertexFormat) uint
 var _mTKModelIOVertexFormatFromMetalErr error
 
-func tryMTKModelIOVertexFormatFromMetal(vertexFormat metal.MTLVertexFormat) (unsafe.Pointer, error) {
+func tryMTKModelIOVertexFormatFromMetal(vertexFormat metal.MTLVertexFormat) (uint, error) {
 	if _mTKModelIOVertexFormatFromMetal == nil {
-		return nil, symbolCallError("MTKModelIOVertexFormatFromMetal", "10.11", _mTKModelIOVertexFormatFromMetalErr)
+		return 0, symbolCallError("MTKModelIOVertexFormatFromMetal", "10.11", _mTKModelIOVertexFormatFromMetalErr)
 	}
 	return _mTKModelIOVertexFormatFromMetal(vertexFormat), nil
 }
@@ -198,7 +197,7 @@ func tryMTKModelIOVertexFormatFromMetal(vertexFormat metal.MTLVertexFormat) (uns
 // MTKModelIOVertexFormatFromMetal returns a converted Model I/O vertex format.
 //
 // See: https://developer.apple.com/documentation/MetalKit/MTKModelIOVertexFormatFromMetal(_:)
-func MTKModelIOVertexFormatFromMetal(vertexFormat metal.MTLVertexFormat) unsafe.Pointer {
+func MTKModelIOVertexFormatFromMetal(vertexFormat metal.MTLVertexFormat) uint {
 	result, callErr := tryMTKModelIOVertexFormatFromMetal(vertexFormat)
 	if callErr != nil {
 		panic(callErr)

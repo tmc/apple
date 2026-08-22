@@ -80,6 +80,8 @@ type IVNFaceLandmarkRegion interface {
 	PointCount() uint
 
 	InitWithCoder(coder foundation.INSCoder) VNFaceLandmarkRegion
+	// The revision of the [VNRequest](<https://developer.apple.com/documentation/Vision/VNRequest>) subclass used to generate the implementing object.
+	RequestRevision() uint
 	EncodeWithCoder(coder foundation.INSCoder)
 }
 

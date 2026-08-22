@@ -141,7 +141,7 @@ const (
 	LAErrorCompanionNotAvailable LAError = -11
 	// LAErrorInvalidContext: The context was previously invalidated.
 	LAErrorInvalidContext    LAError = -10
-	LAErrorInvalidDimensions LAError = -12
+	LAErrorInvalidDimensions LAError = -14
 	// LAErrorNotInteractive: Displaying the required authentication user interface is forbidden.
 	LAErrorNotInteractive LAError = -1004
 	// LAErrorPasscodeNotSet: A passcode isn’t set on the device.
@@ -153,7 +153,7 @@ const (
 	// LAErrorUserFallback: The user tapped the fallback button in the authentication dialog, but no fallback is available for the authentication policy.
 	LAErrorUserFallback LAError = -3
 	// Deprecated.
-	LAErrorTouchIDLockout LAError = -6
+	LAErrorTouchIDLockout LAError = -8
 	// Deprecated.
 	LAErrorTouchIDNotAvailable LAError = -6
 	// Deprecated.
@@ -182,6 +182,8 @@ func (e LAError) String() string {
 		return "LAErrorCompanionNotAvailable"
 	case LAErrorInvalidContext:
 		return "LAErrorInvalidContext"
+	case LAErrorInvalidDimensions:
+		return "LAErrorInvalidDimensions"
 	case LAErrorNotInteractive:
 		return "LAErrorNotInteractive"
 	case LAErrorPasscodeNotSet:

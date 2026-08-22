@@ -113,8 +113,8 @@ type IGCMouseInput interface {
 	// Topic: Getting Change Information
 
 	// The block that the profile calls when the mouse moves.
-	MouseMovedHandler() GCMouseMoved
-	SetMouseMovedHandler(value GCMouseMoved)
+	MouseMovedHandler() GCMouseInputFloat32Float32Handler
+	SetMouseMovedHandler(value GCMouseInputFloat32Float32Handler)
 
 	// Topic: Accessing Buttons
 
@@ -155,12 +155,15 @@ func NewGCMouseInput() GCMouseInput {
 // The block that the profile calls when the mouse moves.
 //
 // See: https://developer.apple.com/documentation/GameController/GCMouseInput/mouseMovedHandler
-func (g GCMouseInput) MouseMovedHandler() GCMouseMoved {
-	rv := objc.Send[GCMouseMoved](g.ID, objc.Sel("mouseMovedHandler"))
-	return GCMouseMoved(rv)
+func (g GCMouseInput) MouseMovedHandler() GCMouseInputFloat32Float32Handler {
+	rv := objc.Send[objc.ID](g.ID, objc.Sel("mouseMovedHandler"))
+	_ = rv
+	return nil
 }
-func (g GCMouseInput) SetMouseMovedHandler(value GCMouseMoved) {
-	objc.Send[struct{}](g.ID, objc.Sel("setMouseMovedHandler:"), value)
+func (g GCMouseInput) SetMouseMovedHandler(value GCMouseInputFloat32Float32Handler) {
+	block, cleanup := NewGCMouseInputFloat32Float32Block(value)
+	defer cleanup()
+	objc.Send[struct{}](g.ID, objc.Sel("setMouseMovedHandler:"), block)
 }
 
 // The left button on the mouse.

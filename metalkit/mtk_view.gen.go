@@ -11,7 +11,6 @@ import (
 	"github.com/tmc/apple/foundation"
 	"github.com/tmc/apple/metal"
 	"github.com/tmc/apple/objc"
-	"github.com/tmc/apple/objectivec"
 	"github.com/tmc/apple/quartzcore"
 )
 
@@ -159,7 +158,7 @@ func (mc MTKViewClass) Alloc() MTKView {
 //
 // # Configuring the Render Target Properties
 //
-//   - [MTKView.DepthStencilPixelFormat]: The format used to generate the [depthStencilTexture](<doc://com.apple.metalkit/documentation/MetalKit/MTKView/depthStencilTexture>) object.
+//   - [MTKView.DepthStencilPixelFormat]: The format used to generate the [depthStencilTexture](<https://developer.apple.com/documentation/MetalKit/MTKView/depthStencilTexture>) object.
 //   - [MTKView.SetDepthStencilPixelFormat]
 //   - [MTKView.DepthStencilAttachmentTextureUsage]: The texture usage characteristics that the view uses when creating the depth and stencil textures.
 //   - [MTKView.SetDepthStencilAttachmentTextureUsage]
@@ -170,7 +169,7 @@ func (mc MTKViewClass) Alloc() MTKView {
 //
 // # Configuring Multisampling
 //
-//   - [MTKView.SampleCount]: The sample count used to generate the [multisampleColorTexture](<doc://com.apple.metalkit/documentation/MetalKit/MTKView/multisampleColorTexture>) object.
+//   - [MTKView.SampleCount]: The sample count used to generate the [multisampleColorTexture](<https://developer.apple.com/documentation/MetalKit/MTKView/multisampleColorTexture>) object.
 //   - [MTKView.SetSampleCount]
 //   - [MTKView.MultisampleColorAttachmentTextureUsage]: The texture usage characteristics that the view uses when creating multisample textures.
 //   - [MTKView.SetMultisampleColorAttachmentTextureUsage]
@@ -190,7 +189,7 @@ func (mc MTKViewClass) Alloc() MTKView {
 //   - [MTKView.SetPreferredFramesPerSecond]
 //   - [MTKView.IsPaused]: A Boolean value that indicates whether the draw loop is paused.
 //   - [MTKView.SetPaused]
-//   - [MTKView.EnableSetNeedsDisplay]: A Boolean value that indicates whether the view responds to [setNeedsDisplay()](<doc://com.apple.documentation/documentation/UIKit/UIView/setNeedsDisplay()>).
+//   - [MTKView.EnableSetNeedsDisplay]: A Boolean value that indicates whether the view responds to [setNeedsDisplay()](<https://developer.apple.com/documentation/UIKit/UIView/setNeedsDisplay()>).
 //   - [MTKView.SetEnableSetNeedsDisplay]
 //   - [MTKView.Draw]: Redraws the view’s contents immediately.
 //   - [MTKView.PresentsWithTransaction]: A Boolean value that determines whether the view presents its content using a Core Animation transaction.
@@ -198,7 +197,7 @@ func (mc MTKViewClass) Alloc() MTKView {
 //
 // # Releasing Memory
 //
-//   - [MTKView.ReleaseDrawables]: Releases the [depthStencilTexture](<doc://com.apple.metalkit/documentation/MetalKit/MTKView/depthStencilTexture>) and [multisampleColorTexture](<doc://com.apple.metalkit/documentation/MetalKit/MTKView/multisampleColorTexture>) objects.
+//   - [MTKView.ReleaseDrawables]: Releases the [depthStencilTexture](<https://developer.apple.com/documentation/MetalKit/MTKView/depthStencilTexture>) and [multisampleColorTexture](<https://developer.apple.com/documentation/MetalKit/MTKView/multisampleColorTexture>) objects.
 //
 // # Instance Properties
 //
@@ -263,7 +262,7 @@ func MTKViewFromID(id objc.ID) MTKView {
 //
 // # Configuring the Render Target Properties
 //
-//   - [IMTKView.DepthStencilPixelFormat]: The format used to generate the [depthStencilTexture](<doc://com.apple.metalkit/documentation/MetalKit/MTKView/depthStencilTexture>) object.
+//   - [IMTKView.DepthStencilPixelFormat]: The format used to generate the [depthStencilTexture](<https://developer.apple.com/documentation/MetalKit/MTKView/depthStencilTexture>) object.
 //   - [IMTKView.SetDepthStencilPixelFormat]
 //   - [IMTKView.DepthStencilAttachmentTextureUsage]: The texture usage characteristics that the view uses when creating the depth and stencil textures.
 //   - [IMTKView.SetDepthStencilAttachmentTextureUsage]
@@ -274,7 +273,7 @@ func MTKViewFromID(id objc.ID) MTKView {
 //
 // # Configuring Multisampling
 //
-//   - [IMTKView.SampleCount]: The sample count used to generate the [multisampleColorTexture](<doc://com.apple.metalkit/documentation/MetalKit/MTKView/multisampleColorTexture>) object.
+//   - [IMTKView.SampleCount]: The sample count used to generate the [multisampleColorTexture](<https://developer.apple.com/documentation/MetalKit/MTKView/multisampleColorTexture>) object.
 //   - [IMTKView.SetSampleCount]
 //   - [IMTKView.MultisampleColorAttachmentTextureUsage]: The texture usage characteristics that the view uses when creating multisample textures.
 //   - [IMTKView.SetMultisampleColorAttachmentTextureUsage]
@@ -294,7 +293,7 @@ func MTKViewFromID(id objc.ID) MTKView {
 //   - [IMTKView.SetPreferredFramesPerSecond]
 //   - [IMTKView.IsPaused]: A Boolean value that indicates whether the draw loop is paused.
 //   - [IMTKView.SetPaused]
-//   - [IMTKView.EnableSetNeedsDisplay]: A Boolean value that indicates whether the view responds to [setNeedsDisplay()](<doc://com.apple.documentation/documentation/UIKit/UIView/setNeedsDisplay()>).
+//   - [IMTKView.EnableSetNeedsDisplay]: A Boolean value that indicates whether the view responds to [setNeedsDisplay()](<https://developer.apple.com/documentation/UIKit/UIView/setNeedsDisplay()>).
 //   - [IMTKView.SetEnableSetNeedsDisplay]
 //   - [IMTKView.Draw]: Redraws the view’s contents immediately.
 //   - [IMTKView.PresentsWithTransaction]: A Boolean value that determines whether the view presents its content using a Core Animation transaction.
@@ -302,7 +301,7 @@ func MTKViewFromID(id objc.ID) MTKView {
 //
 // # Releasing Memory
 //
-//   - [IMTKView.ReleaseDrawables]: Releases the [depthStencilTexture](<doc://com.apple.metalkit/documentation/MetalKit/MTKView/depthStencilTexture>) and [multisampleColorTexture](<doc://com.apple.metalkit/documentation/MetalKit/MTKView/multisampleColorTexture>) objects.
+//   - [IMTKView.ReleaseDrawables]: Releases the [depthStencilTexture](<https://developer.apple.com/documentation/MetalKit/MTKView/depthStencilTexture>) and [multisampleColorTexture](<https://developer.apple.com/documentation/MetalKit/MTKView/multisampleColorTexture>) objects.
 //
 // # Instance Properties
 //
@@ -356,7 +355,7 @@ type IMTKView interface {
 
 	// Topic: Configuring the Render Target Properties
 
-	// The format used to generate the [depthStencilTexture](<doc://com.apple.metalkit/documentation/MetalKit/MTKView/depthStencilTexture>) object.
+	// The format used to generate the [depthStencilTexture](<https://developer.apple.com/documentation/MetalKit/MTKView/depthStencilTexture>) object.
 	DepthStencilPixelFormat() metal.MTLPixelFormat
 	SetDepthStencilPixelFormat(value metal.MTLPixelFormat)
 	// The texture usage characteristics that the view uses when creating the depth and stencil textures.
@@ -371,7 +370,7 @@ type IMTKView interface {
 
 	// Topic: Configuring Multisampling
 
-	// The sample count used to generate the [multisampleColorTexture](<doc://com.apple.metalkit/documentation/MetalKit/MTKView/multisampleColorTexture>) object.
+	// The sample count used to generate the [multisampleColorTexture](<https://developer.apple.com/documentation/MetalKit/MTKView/multisampleColorTexture>) object.
 	SampleCount() uint
 	SetSampleCount(value uint)
 	// The texture usage characteristics that the view uses when creating multisample textures.
@@ -400,7 +399,7 @@ type IMTKView interface {
 	// A Boolean value that indicates whether the draw loop is paused.
 	IsPaused() bool
 	SetPaused(value bool)
-	// A Boolean value that indicates whether the view responds to [setNeedsDisplay()](<doc://com.apple.documentation/documentation/UIKit/UIView/setNeedsDisplay()>).
+	// A Boolean value that indicates whether the view responds to [setNeedsDisplay()](<https://developer.apple.com/documentation/UIKit/UIView/setNeedsDisplay()>).
 	EnableSetNeedsDisplay() bool
 	SetEnableSetNeedsDisplay(value bool)
 	// Redraws the view’s contents immediately.
@@ -411,12 +410,12 @@ type IMTKView interface {
 
 	// Topic: Releasing Memory
 
-	// Releases the [depthStencilTexture](<doc://com.apple.metalkit/documentation/MetalKit/MTKView/depthStencilTexture>) and [multisampleColorTexture](<doc://com.apple.metalkit/documentation/MetalKit/MTKView/multisampleColorTexture>) objects.
+	// Releases the [depthStencilTexture](<https://developer.apple.com/documentation/MetalKit/MTKView/depthStencilTexture>) and [multisampleColorTexture](<https://developer.apple.com/documentation/MetalKit/MTKView/multisampleColorTexture>) objects.
 	ReleaseDrawables()
 
 	// Topic: Instance Properties
 
-	CurrentMTL4RenderPassDescriptor() objectivec.IObject
+	CurrentMTL4RenderPassDescriptor() metal.MTL4RenderPassDescriptor
 
 	ResidencySet() metal.MTLResidencySet
 }
@@ -1060,9 +1059,9 @@ func (v MTKView) SetPresentsWithTransaction(value bool) {
 // there is no requirement for an app to use this descriptor.
 //
 // See: https://developer.apple.com/documentation/MetalKit/MTKView/currentMTL4RenderPassDescriptor
-func (v MTKView) CurrentMTL4RenderPassDescriptor() objectivec.IObject {
+func (v MTKView) CurrentMTL4RenderPassDescriptor() metal.MTL4RenderPassDescriptor {
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("currentMTL4RenderPassDescriptor"))
-	return objectivec.Object{ID: rv}
+	return metal.MTL4RenderPassDescriptorFromID(objc.ID(rv))
 }
 
 // # Discussion

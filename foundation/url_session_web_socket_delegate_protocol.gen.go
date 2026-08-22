@@ -157,7 +157,8 @@ func (o NSURLSessionWebSocketDelegateObject) URLSessionDidFinishEventsForBackgro
 //
 // See: https://developer.apple.com/documentation/Foundation/URLSessionDelegate/urlSession(_:didReceive:completionHandler:)
 func (o NSURLSessionWebSocketDelegateObject) URLSessionDidReceiveChallengeCompletionHandler(session INSURLSession, challenge INSURLAuthenticationChallenge, completionHandler NSURLSessionAuthChallengeDispositionURLCredentialHandler) {
-	objc.Send[struct{}](o.ID, objc.Sel("URLSession:didReceiveChallenge:completionHandler:"), session, challenge, completionHandler)
+	_block2, _ := NewNSURLSessionAuthChallengeDispositionURLCredentialBlock(completionHandler)
+	objc.Send[struct{}](o.ID, objc.Sel("URLSession:didReceiveChallenge:completionHandler:"), session, challenge, _block2)
 }
 
 // Tells the delegate that the task finished transferring data.
@@ -198,12 +199,13 @@ func (o NSURLSessionWebSocketDelegateObject) URLSessionTaskDidCompleteWithError(
 //
 // # Discussion
 //
-// This method is called for tasks in default and ephemeral sessions. Tasks in
-// background sessions automatically follow redirects.
+// This method is called only for tasks in default and ephemeral sessions.
+// Tasks in background sessions automatically follow redirects.
 //
 // See: https://developer.apple.com/documentation/Foundation/URLSessionTaskDelegate/urlSession(_:task:willPerformHTTPRedirection:newRequest:completionHandler:)
 func (o NSURLSessionWebSocketDelegateObject) URLSessionTaskWillPerformHTTPRedirectionNewRequestCompletionHandler(session INSURLSession, task INSURLSessionTask, response INSHTTPURLResponse, request INSURLRequest, completionHandler URLRequestHandler) {
-	objc.Send[struct{}](o.ID, objc.Sel("URLSession:task:willPerformHTTPRedirection:newRequest:completionHandler:"), session, task, response, request, completionHandler)
+	_block4, _ := NewURLRequestBlock(completionHandler)
+	objc.Send[struct{}](o.ID, objc.Sel("URLSession:task:willPerformHTTPRedirection:newRequest:completionHandler:"), session, task, response, request, _block4)
 }
 
 // Periodically informs the delegate of the progress of sending body content
@@ -223,8 +225,8 @@ func (o NSURLSessionWebSocketDelegateObject) URLSessionTaskWillPerformHTTPRedire
 //
 // - From the length of the [NSData] object provided as the upload body. -
 // From the length of the file on disk provided as the upload body of an
-// upload task ( a download task). - From the `Content-Length` in the request
-// object, if you explicitly set it.
+// upload task (not a download task). - From the `Content-Length` in the
+// request object, if you explicitly set it.
 //
 // Otherwise, the value is [NSURLSessionTransferSizeUnknown] (`-1`) if you
 // provided a stream or body data object, or zero (`0`) if you did not.
@@ -267,7 +269,8 @@ func (o NSURLSessionWebSocketDelegateObject) URLSessionTaskDidSendBodyDataTotalB
 //
 // See: https://developer.apple.com/documentation/Foundation/URLSessionTaskDelegate/urlSession(_:task:needNewBodyStream:)
 func (o NSURLSessionWebSocketDelegateObject) URLSessionTaskNeedNewBodyStream(session INSURLSession, task INSURLSessionTask, completionHandler InputStreamHandler) {
-	objc.Send[struct{}](o.ID, objc.Sel("URLSession:task:needNewBodyStream:"), session, task, completionHandler)
+	_block2, _ := NewInputStreamBlock(completionHandler)
+	objc.Send[struct{}](o.ID, objc.Sel("URLSession:task:needNewBodyStream:"), session, task, _block2)
 }
 
 // Requests credentials from the delegate in response to an authentication
@@ -308,7 +311,7 @@ func (o NSURLSessionWebSocketDelegateObject) URLSessionTaskNeedNewBodyStream(ses
 // authentication, then you must either handle the authentication at the task
 // level or provide a task-level handler that calls the per-session handler
 // explicitly. The session delegate’s
-// [URLSessionDidReceiveChallengeCompletionHandler] method is called for
+// [URLSessionDidReceiveChallengeCompletionHandler] method is not called for
 // non-session-level challenges.
 //
 // See: https://developer.apple.com/documentation/Foundation/URLSessionTaskDelegate/urlSession(_:task:didReceive:completionHandler:)
@@ -318,7 +321,8 @@ func (o NSURLSessionWebSocketDelegateObject) URLSessionTaskNeedNewBodyStream(ses
 // [NSURLAuthenticationMethodNegotiate]: https://developer.apple.com/documentation/Foundation/NSURLAuthenticationMethodNegotiate
 // [NSURLAuthenticationMethodServerTrust]: https://developer.apple.com/documentation/Foundation/NSURLAuthenticationMethodServerTrust
 func (o NSURLSessionWebSocketDelegateObject) URLSessionTaskDidReceiveChallengeCompletionHandler(session INSURLSession, task INSURLSessionTask, challenge INSURLAuthenticationChallenge, completionHandler NSURLSessionAuthChallengeDispositionURLCredentialHandler) {
-	objc.Send[struct{}](o.ID, objc.Sel("URLSession:task:didReceiveChallenge:completionHandler:"), session, task, challenge, completionHandler)
+	_block3, _ := NewNSURLSessionAuthChallengeDispositionURLCredentialBlock(completionHandler)
+	objc.Send[struct{}](o.ID, objc.Sel("URLSession:task:didReceiveChallenge:completionHandler:"), session, task, challenge, _block3)
 }
 
 // Tells the delegate that a delayed URL session task will now begin loading.
@@ -349,7 +353,8 @@ func (o NSURLSessionWebSocketDelegateObject) URLSessionTaskDidReceiveChallengeCo
 //
 // See: https://developer.apple.com/documentation/Foundation/URLSessionTaskDelegate/urlSession(_:task:willBeginDelayedRequest:completionHandler:)
 func (o NSURLSessionWebSocketDelegateObject) URLSessionTaskWillBeginDelayedRequestCompletionHandler(session INSURLSession, task INSURLSessionTask, request INSURLRequest, completionHandler NSURLSessionDelayedRequestDispositionURLRequestHandler) {
-	objc.Send[struct{}](o.ID, objc.Sel("URLSession:task:willBeginDelayedRequest:completionHandler:"), session, task, request, completionHandler)
+	_block3, _ := NewNSURLSessionDelayedRequestDispositionURLRequestBlock(completionHandler)
+	objc.Send[struct{}](o.ID, objc.Sel("URLSession:task:willBeginDelayedRequest:completionHandler:"), session, task, request, _block3)
 }
 
 // Tells the delegate that the task is waiting until suitable connectivity is
@@ -416,7 +421,8 @@ func (o NSURLSessionWebSocketDelegateObject) URLSessionTaskDidReceiveInformation
 //
 // See: https://developer.apple.com/documentation/Foundation/URLSessionTaskDelegate/urlSession(_:task:needNewBodyStreamFrom:completionHandler:)
 func (o NSURLSessionWebSocketDelegateObject) URLSessionTaskNeedNewBodyStreamFromOffsetCompletionHandler(session INSURLSession, task INSURLSessionTask, offset int64, completionHandler InputStreamHandler) {
-	objc.Send[struct{}](o.ID, objc.Sel("URLSession:task:needNewBodyStreamFromOffset:completionHandler:"), session, task, offset, completionHandler)
+	_block3, _ := NewInputStreamBlock(completionHandler)
+	objc.Send[struct{}](o.ID, objc.Sel("URLSession:task:needNewBodyStreamFromOffset:completionHandler:"), session, task, offset, _block3)
 }
 
 // NSURLSessionWebSocketDelegateConfig holds optional typed callbacks for [NSURLSessionWebSocketDelegate] methods.
@@ -457,10 +463,22 @@ func NewNSURLSessionWebSocketDelegate(config NSURLSessionWebSocketDelegateConfig
 		methods = append(methods, objc.MethodDef{
 			Cmd: objc.RegisterName("URLSession:webSocketTask:didCloseWithCode:reason:"),
 			Fn: func(self objc.ID, _cmd objc.SEL, sessionID objc.ID, webSocketTaskID objc.ID, closeCode NSURLSessionWebSocketCloseCode, reasonID objc.ID) {
+				// Names which delegate was running if a panic unwinds out of
+				// it. The frames between here and the Objective-C caller are
+				// runtime and purego dispatch, so without this the traceback
+				// never says which selector dispatched. Deliberately no
+				// recover: see [objc.NoteDelegatePanic].
+				_delegateDone := false
+				defer func() {
+					if !_delegateDone {
+						objc.NoteDelegatePanic("NSURLSessionWebSocketDelegate", "URLSession:webSocketTask:didCloseWithCode:reason:")
+					}
+				}()
 				session := NSURLSessionFromID(sessionID)
 				webSocketTask := NSURLSessionWebSocketTaskFromID(webSocketTaskID)
 				reason := objectivec.ObjectFromID(reasonID)
 				fn(session, webSocketTask, closeCode, reason)
+				_delegateDone = true
 			},
 		})
 	}

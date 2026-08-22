@@ -140,8 +140,8 @@ type IGCMicroGamepad interface {
 	// Topic: Receiving a callback when input values change
 
 	// The block that this profile calls when an element’s value changes.
-	ValueChangedHandler() GCMicroGamepadValueChangedHandler
-	SetValueChangedHandler(value GCMicroGamepadValueChangedHandler)
+	ValueChangedHandler() GCMicroGamepadGCControllerElementHandler
+	SetValueChangedHandler(value GCMicroGamepadGCControllerElementHandler)
 
 	// Topic: Getting face button inputs
 
@@ -215,12 +215,15 @@ func (g GCMicroGamepad) Controller() IGCController {
 // changes, the profile only calls the block for the containing element.
 //
 // See: https://developer.apple.com/documentation/GameController/GCMicroGamepad/valueChangedHandler
-func (g GCMicroGamepad) ValueChangedHandler() GCMicroGamepadValueChangedHandler {
-	rv := objc.Send[GCMicroGamepadValueChangedHandler](g.ID, objc.Sel("valueChangedHandler"))
-	return GCMicroGamepadValueChangedHandler(rv)
+func (g GCMicroGamepad) ValueChangedHandler() GCMicroGamepadGCControllerElementHandler {
+	rv := objc.Send[objc.ID](g.ID, objc.Sel("valueChangedHandler"))
+	_ = rv
+	return nil
 }
-func (g GCMicroGamepad) SetValueChangedHandler(value GCMicroGamepadValueChangedHandler) {
-	objc.Send[struct{}](g.ID, objc.Sel("setValueChangedHandler:"), value)
+func (g GCMicroGamepad) SetValueChangedHandler(value GCMicroGamepadGCControllerElementHandler) {
+	block, cleanup := NewGCMicroGamepadGCControllerElementBlock(value)
+	defer cleanup()
+	objc.Send[struct{}](g.ID, objc.Sel("setValueChangedHandler:"), block)
 }
 
 // The menu face button that players use to enter the main menu and pause the

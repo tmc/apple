@@ -6,459 +6,93 @@ import (
 	"fmt"
 )
 
-type NS uint
+type NSASCIIStringEncodingConstants uint
 
 const (
 	// NSASCIIStringEncoding: Strict 7-bit ASCII encoding within 8-bit chars; ASCII values 0…127 only.
-	NSASCIIStringEncoding NS = 1
-	// NSArgumentEvaluationScriptError: The object specified by an argument could not be found.
-	NSArgumentEvaluationScriptError NS = 3
-	// NSArgumentsWrongScriptError: An argument (or more than one argument) is of the wrong type or is otherwise invalid.
-	NSArgumentsWrongScriptError NS = 6
-	// NSBundleErrorMaximum: The end of the range of error codes reserved for bundle errors.
-	NSBundleErrorMaximum NS = 5119
-	// NSBundleErrorMinimum: The start of the range of error codes reserved for bundle errors.
-	NSBundleErrorMinimum NS = 4992
-	// NSBundleOnDemandResourceExceededMaximumSizeError: The application exceeded the amount of on-demand resources content in use at one time.
-	NSBundleOnDemandResourceExceededMaximumSizeError NS = 4993
-	// NSBundleOnDemandResourceInvalidTagError: The application specified a tag that the system couldn’t find in the application tag manifest.
-	NSBundleOnDemandResourceInvalidTagError NS = 4994
-	NSBundleOnDemandResourceOutOfSpaceError NS = 4992
-	// NSCannotCreateScriptCommandError: Could not create the script command; an invalid or unrecognized Apple event was received.
-	NSCannotCreateScriptCommandError NS = 10
-	// NSCloudSharingConflictError: A conflict occurred during an attempt to save changes.
-	NSCloudSharingConflictError NS = 5123
-	// NSCloudSharingErrorMaximum: The end of the range of error codes reserved for cloud-sharing errors.
-	NSCloudSharingErrorMaximum NS = 5375
-	// NSCloudSharingErrorMinimum: The start of the range of error codes reserved for cloud-sharing errors.
-	NSCloudSharingErrorMinimum NS = 5120
-	// NSCloudSharingNetworkFailureError: Sharing failed due to a network failure.
-	NSCloudSharingNetworkFailureError NS = 5120
-	// NSCloudSharingNoPermissionError: The current user doesn’t have permission to perform the requested actions.
-	NSCloudSharingNoPermissionError NS = 5124
-	// NSCloudSharingOtherError: An otherwise unspecified cloud-sharing error occurred.
-	NSCloudSharingOtherError NS = 5375
-	// NSCloudSharingQuotaExceededError: The user doesn’t have enough storage space available to share the requested items.
-	NSCloudSharingQuotaExceededError NS = 5121
-	// NSCloudSharingTooManyParticipantsError: Additional participants couldn’t be added to the share, because the limit was reached.
-	NSCloudSharingTooManyParticipantsError NS = 5122
-	// NSCoderErrorMaximum: The end of the range of error codes reserved for coder errors.
-	NSCoderErrorMaximum NS = 4991
-	// NSCoderErrorMinimum: The start of the range of error codes reserved for coder errors.
-	NSCoderErrorMinimum NS = 4864
-	// NSCoderInvalidValueError: Data wasn’t valid to encode.
-	NSCoderInvalidValueError NS = 4866
-	// NSCoderReadCorruptError: Decoding failed due to corrupt data.
-	NSCoderReadCorruptError NS = 4864
-	// NSCoderValueNotFoundError: The requested data wasn’t found.
-	NSCoderValueNotFoundError NS = 4865
-	// NSCollectorDisabledOption: Specifies that the block is retained, and therefore ineligible for collection.
-	NSCollectorDisabledOption NS = 2
-	NSCompressionErrorMaximum NS = 5503
-	// NSCompressionErrorMinimum: The start of the range of error codes reserved for compression errors.
-	NSCompressionErrorMinimum NS = 5376
-	// NSCompressionFailedError: An error code value that indicates a failure to compress data using the provided algorithm.
-	NSCompressionFailedError NS = 5376
-	// NSContainerSpecifierError: Error evaluating container specifier.
-	NSContainerSpecifierError NS = 2
-	// NSDateComponentUndefined: Specifies a date component without a value.
-	NSDateComponentUndefined NS = 9223372036854775807
-	// NSDecompressionFailedError: An error code value that indicates a failure to decompress data using the provided algorithm.
-	NSDecompressionFailedError NS = 5377
-	// NSExecutableArchitectureMismatchError: The executable doesn’t provide an architecture compatible with the current process.
-	NSExecutableArchitectureMismatchError NS = 3585
-	// NSExecutableErrorMaximum: The end of the range of error codes reserved for errors related to executable files.
-	NSExecutableErrorMaximum NS = 3839
-	// NSExecutableErrorMinimum: The beginning of the range of error codes reserved for errors related to executable files.
-	NSExecutableErrorMinimum NS = 3584
-	// NSExecutableLinkError: The executable failed due to linking issues.
-	NSExecutableLinkError NS = 3588
-	// NSExecutableLoadError: Executable cannot be loaded for an otherwise-unspecified reason.
-	NSExecutableLoadError NS = 3587
-	// NSExecutableNotLoadableError: The executable type isn’t loadable in the current process.
-	NSExecutableNotLoadableError NS = 3584
-	// NSExecutableRuntimeMismatchError: The executable has Objective-C runtime information that’s incompatible with the current process.
-	NSExecutableRuntimeMismatchError NS = 3586
-	// NSFeatureUnsupportedError: The feature isn’t supported, because the file system lacks the feature, or required libraries are missing, or other similar reasons.
-	NSFeatureUnsupportedError NS = 3328
-	// NSFileErrorMaximum: The end of the range of error codes reserved for file errors.
-	NSFileErrorMaximum NS = 1023
-	// NSFileErrorMinimum: The start of the range of error codes reserved for file errors.
-	NSFileErrorMinimum NS = 0
-	// NSFileLockingError: The file could not be locked.
-	NSFileLockingError NS = 255
-	// NSFileManagerUnmountBusyError: The volume couldn’t be unmounted because it’s in use.
-	NSFileManagerUnmountBusyError NS = 769
-	// NSFileManagerUnmountUnknownError: The volume couldn’t be unmounted, for unknown reasons.
-	NSFileManagerUnmountUnknownError NS = 768
-	// NSFileNoSuchFileError: A filesystem operation was attempted on a non-existent file.
-	NSFileNoSuchFileError NS = 4
-	// NSFileReadCorruptFileError: Could not read because of a corrupted file, bad format, or similar reason.
-	NSFileReadCorruptFileError NS = 259
-	// NSFileReadInapplicableStringEncodingError: Could not read because the string encoding wasn’t applicable.
-	NSFileReadInapplicableStringEncodingError NS = 261
-	// NSFileReadInvalidFileNameError: Could not read because of an invalid file name.
-	NSFileReadInvalidFileNameError NS = 258
-	// NSFileReadNoPermissionError: Could not read because of a permission problem.
-	NSFileReadNoPermissionError NS = 257
-	// NSFileReadNoSuchFileError: Could not read because no such file was found.
-	NSFileReadNoSuchFileError NS = 260
-	// NSFileReadTooLargeError: Could not read because the specified file was too large.
-	NSFileReadTooLargeError NS = 263
-	// NSFileReadUnknownError: Could not read, for unknown reasons.
-	NSFileReadUnknownError NS = 256
-	// NSFileReadUnknownStringEncodingError: Could not read because the string coding of the file couldn’t be determined.
-	NSFileReadUnknownStringEncodingError NS = 264
-	// NSFileReadUnsupportedSchemeError: Could not read because the specified URL scheme is unsupported.
-	NSFileReadUnsupportedSchemeError NS = 262
-	// NSFileWriteFileExistsError: Could not perform an operation because the destination file already exists.
-	NSFileWriteFileExistsError NS = 516
-	// NSFileWriteInapplicableStringEncodingError: Could not write because the string encoding was not applicable.
-	NSFileWriteInapplicableStringEncodingError NS = 517
-	// NSFileWriteInvalidFileNameError: Could not write because of an invalid file name.
-	NSFileWriteInvalidFileNameError NS = 514
-	// NSFileWriteNoPermissionError: Could not write because of a permission problem.
-	NSFileWriteNoPermissionError NS = 513
-	// NSFileWriteOutOfSpaceError: Could not write because of a lack of disk space.
-	NSFileWriteOutOfSpaceError NS = 640
-	// NSFileWriteUnknownError: Could not write, for unknown reasons.
-	NSFileWriteUnknownError NS = 512
-	// NSFileWriteUnsupportedSchemeError: Could not write because the specified URL scheme is unsupported.
-	NSFileWriteUnsupportedSchemeError NS = 518
-	// NSFileWriteVolumeReadOnlyError: Could not write because the volume is read-only.
-	NSFileWriteVolumeReadOnlyError NS = 642
-	// NSFormattingError: A formatter couldn’t generate a string for an object, or parse a string into an object.
-	NSFormattingError NS = 2048
-	// NSFormattingErrorMaximum: The end of the range of error codes reserved for formatting errors.
-	NSFormattingErrorMaximum NS = 2559
-	// NSFormattingErrorMinimum: The start of the range of error codes reserved for formatting errors.
-	NSFormattingErrorMinimum NS = 2048
-	// NSHPUXOperatingSystem: Indicates the HP UX operating system.
-	NSHPUXOperatingSystem NS = 4
+	NSASCIIStringEncoding NSASCIIStringEncodingConstants = 1
 	// NSISO2022JPStringEncoding: ISO 2022 Japanese encoding for email.
-	NSISO2022JPStringEncoding NS = 21
+	NSISO2022JPStringEncoding NSASCIIStringEncodingConstants = 21
 	// NSISOLatin1StringEncoding: 8-bit ISO Latin 1 encoding.
-	NSISOLatin1StringEncoding NS = 5
+	NSISOLatin1StringEncoding NSASCIIStringEncodingConstants = 5
 	// NSISOLatin2StringEncoding: 8-bit ISO Latin 2 encoding.
-	NSISOLatin2StringEncoding NS = 9
-	// NSInternalScriptError: An unidentified internal error occurred; indicates an error in the scripting support of your application.
-	NSInternalScriptError NS = 8
-	// NSInternalSpecifierError: Other internal error.
-	NSInternalSpecifierError NS = 5
-	// NSInvalidIndexSpecifierError: Index out of bounds.
-	NSInvalidIndexSpecifierError NS = 4
+	NSISOLatin2StringEncoding NSASCIIStringEncodingConstants = 9
 	// NSJapaneseEUCStringEncoding: 8-bit EUC encoding for Japanese text.
-	NSJapaneseEUCStringEncoding NS = 3
-	// NSKeySpecifierEvaluationScriptError: The object or objects specified by a key (for commands that support key specifiers) could not be found.
-	NSKeySpecifierEvaluationScriptError NS = 2
-	// NSKeyValueValidationError: A key-value coding validation error.
-	NSKeyValueValidationError NS = 1024
-	// NSMACHOperatingSystem: Indicates the macOS operating system.
-	NSMACHOperatingSystem NS = 5
+	NSJapaneseEUCStringEncoding NSASCIIStringEncodingConstants = 3
 	// NSMacOSRomanStringEncoding: Classic Macintosh Roman encoding.
-	NSMacOSRomanStringEncoding NS = 30
+	NSMacOSRomanStringEncoding NSASCIIStringEncodingConstants = 30
 	// NSNEXTSTEPStringEncoding: 8-bit ASCII encoding with NEXTSTEP extensions.
-	NSNEXTSTEPStringEncoding NS = 2
-	// NSNoScriptError: No error.
-	NSNoScriptError NS = 0
-	// NSNoSpecifierError: No error encountered.
-	NSNoSpecifierError NS = 0
-	// NSNoTopLevelContainersSpecifierError: Someone called `evaluate` with `nil`.
-	NSNoTopLevelContainersSpecifierError NS = 1
+	NSNEXTSTEPStringEncoding NSASCIIStringEncodingConstants = 2
 	// NSNonLossyASCIIStringEncoding: 7-bit verbose ASCII to represent all Unicode characters.
-	NSNonLossyASCIIStringEncoding NS = 7
-	// NSOSF1OperatingSystem: Indicates the OSF/1 operating system.
-	NSOSF1OperatingSystem NS = 7
-	// NSOperationNotSupportedForKeyScriptError: The implementation of a scripting command signaled an error.
-	NSOperationNotSupportedForKeyScriptError NS = 9
-	// NSOperationNotSupportedForKeySpecifierError: Attempt made to perform an unsupported operation on some key.
-	NSOperationNotSupportedForKeySpecifierError NS = 6
-	// NSPropertyListErrorMaximum: The end of the range of error codes reserved for property list errors.
-	NSPropertyListErrorMaximum NS = 4095
-	// NSPropertyListErrorMinimum: The start of the range of error codes reserved for property list errors.
-	NSPropertyListErrorMinimum NS = 3840
-	// NSPropertyListReadCorruptError: Parsing of the property list failed.
-	NSPropertyListReadCorruptError NS = 3840
-	// NSPropertyListReadStreamError: Reading of the property list failed.
-	NSPropertyListReadStreamError NS = 3842
-	// NSPropertyListReadUnknownVersionError: The version number of the property list cannot be determined.
-	NSPropertyListReadUnknownVersionError NS = 3841
-	// NSPropertyListWriteInvalidError: Writing failed because of an invalid property list object, or an invalid property list type was specified.
-	NSPropertyListWriteInvalidError NS = 3852
-	// NSPropertyListWriteStreamError: Writing to the property list failed.
-	NSPropertyListWriteStreamError NS = 3851
-	// NSReceiverEvaluationScriptError: The object or objects specified by the direct parameter to a command could not be found.
-	NSReceiverEvaluationScriptError NS = 1
-	// NSReceiversCantHandleCommandScriptError: The receivers don’t support the command sent to them.
-	NSReceiversCantHandleCommandScriptError NS = 4
-	// NSRequiredArgumentsMissingScriptError: An argument (or more than one argument) is missing.
-	NSRequiredArgumentsMissingScriptError NS = 5
-	// NSScannedOption: Specifies allocation of scanned memory.
-	NSScannedOption NS = 1
+	NSNonLossyASCIIStringEncoding NSASCIIStringEncodingConstants = 7
 	// NSShiftJISStringEncoding: 8-bit Shift-JIS encoding for Japanese text.
-	NSShiftJISStringEncoding NS = 8
-	// NSSolarisOperatingSystem: Indicates the Solaris operating system.
-	NSSolarisOperatingSystem NS = 3
-	// NSSunOSOperatingSystem: Indicates the Sun OS operating system.
-	NSSunOSOperatingSystem NS = 6
+	NSShiftJISStringEncoding NSASCIIStringEncodingConstants = 8
 	// NSSymbolStringEncoding: 8-bit Adobe Symbol encoding vector.
-	NSSymbolStringEncoding NS = 6
+	NSSymbolStringEncoding NSASCIIStringEncodingConstants = 6
 	// NSUTF16BigEndianStringEncoding: [NSUTF16StringEncoding] encoding with explicit endianness specified.
-	NSUTF16BigEndianStringEncoding NS = 0x90000100
+	NSUTF16BigEndianStringEncoding NSASCIIStringEncodingConstants = 0x90000100
 	// NSUTF16LittleEndianStringEncoding: [NSUTF16StringEncoding] encoding with explicit endianness specified.
-	NSUTF16LittleEndianStringEncoding NS = 0x94000100
+	NSUTF16LittleEndianStringEncoding NSASCIIStringEncodingConstants = 0x94000100
 	// NSUTF16StringEncoding: # Discussion
-	NSUTF16StringEncoding NS = 10
+	NSUTF16StringEncoding NSASCIIStringEncodingConstants = 10
 	// NSUTF32BigEndianStringEncoding: [NSUTF32StringEncoding] encoding with explicit endianness specified.
-	NSUTF32BigEndianStringEncoding NS = 0x98000100
+	NSUTF32BigEndianStringEncoding NSASCIIStringEncodingConstants = 0x98000100
 	// NSUTF32LittleEndianStringEncoding: [NSUTF32StringEncoding] encoding with explicit endianness specified.
-	NSUTF32LittleEndianStringEncoding NS = 0x9c000100
+	NSUTF32LittleEndianStringEncoding NSASCIIStringEncodingConstants = 0x9c000100
 	// NSUTF32StringEncoding: 32-bit UTF encoding.
-	NSUTF32StringEncoding NS = 0x8c000100
+	NSUTF32StringEncoding NSASCIIStringEncodingConstants = 0x8c000100
 	// NSUTF8StringEncoding: An 8-bit representation of Unicode characters, suitable for transmission or storage by ASCII-based systems.
-	NSUTF8StringEncoding NS = 4
-	// NSUbiquitousFileErrorMaximum: The maximum error code value that represents an iCloud error.
-	NSUbiquitousFileErrorMaximum NS = 4607
-	// NSUbiquitousFileErrorMinimum: The minimum error code value that represents an iCloud error.
-	NSUbiquitousFileErrorMinimum NS = 4352
-	// NSUbiquitousFileNotUploadedDueToQuotaError: The item could not be uploaded to iCloud because it would make the account go over its quota.
-	NSUbiquitousFileNotUploadedDueToQuotaError NS = 4354
-	// NSUbiquitousFileUbiquityServerNotAvailable: A failure to connect to the iCloud servers.
-	NSUbiquitousFileUbiquityServerNotAvailable NS = 4355
-	// NSUbiquitousFileUnavailableError: The item has not been uploaded to iCloud by another device yet.
-	NSUbiquitousFileUnavailableError NS = 4353
+	NSUTF8StringEncoding NSASCIIStringEncodingConstants = 4
 	// NSUnicodeStringEncoding: The canonical Unicode encoding for string objects.
-	NSUnicodeStringEncoding NS = 10
-	// NSUnknownKeyScriptError: An unidentified error occurred; indicates an error in the scripting support of your application.
-	NSUnknownKeyScriptError NS = 7
-	// NSUnknownKeySpecifierError: Receivers do not understand the key.
-	NSUnknownKeySpecifierError NS = 3
-	// NSUserActivityConnectionUnavailableError: The user activity couldn’t be continued because a required connection wasn’t available.
-	NSUserActivityConnectionUnavailableError NS = 4609
-	// NSUserActivityErrorMaximum: The end of the range of error codes reserved for user activity errors.
-	NSUserActivityErrorMaximum NS = 4863
-	// NSUserActivityErrorMinimum: The start of the range of error codes reserved for user activity errors.
-	NSUserActivityErrorMinimum NS = 4608
-	// NSUserActivityHandoffFailedError: The data for the user activity wasn’t available.
-	NSUserActivityHandoffFailedError NS = 4608
-	// NSUserActivityHandoffUserInfoTooLargeError: The user info dictionary was too large to receive.
-	NSUserActivityHandoffUserInfoTooLargeError NS = 4611
-	// NSUserActivityRemoteApplicationTimedOutError: The remote application failed to send data within the specified time.
-	NSUserActivityRemoteApplicationTimedOutError NS = 4610
-	// NSUserCancelledError: The user canceled the operation (for example, by pressing Command-period).
-	NSUserCancelledError NS = 3072
-	// NSValidationErrorMaximum: The end of the range of error codes reserved for validation errors.
-	NSValidationErrorMaximum NS = 2047
-	// NSValidationErrorMinimum: The start of the range of error codes reserved for validation errors.
-	NSValidationErrorMinimum NS = 1024
-	// NSWindows95OperatingSystem: Indicates the Windows 95 operating system.
-	NSWindows95OperatingSystem NS = 2
+	NSUnicodeStringEncoding NSASCIIStringEncodingConstants = 10
 	// NSWindowsCP1250StringEncoding: Microsoft Windows codepage 1250; equivalent to WinLatin2.
-	NSWindowsCP1250StringEncoding NS = 15
+	NSWindowsCP1250StringEncoding NSASCIIStringEncodingConstants = 15
 	// NSWindowsCP1251StringEncoding: Microsoft Windows codepage 1251, encoding Cyrillic characters; equivalent to AdobeStandardCyrillic font encoding.
-	NSWindowsCP1251StringEncoding NS = 11
+	NSWindowsCP1251StringEncoding NSASCIIStringEncodingConstants = 11
 	// NSWindowsCP1252StringEncoding: Microsoft Windows codepage 1252; equivalent to WinLatin1.
-	NSWindowsCP1252StringEncoding NS = 12
+	NSWindowsCP1252StringEncoding NSASCIIStringEncodingConstants = 12
 	// NSWindowsCP1253StringEncoding: Microsoft Windows codepage 1253, encoding Greek characters.
-	NSWindowsCP1253StringEncoding NS = 13
+	NSWindowsCP1253StringEncoding NSASCIIStringEncodingConstants = 13
 	// NSWindowsCP1254StringEncoding: Microsoft Windows codepage 1254, encoding Turkish characters.
-	NSWindowsCP1254StringEncoding NS = 14
-	// NSWindowsNTOperatingSystem: Indicates the Windows NT operating system.
-	NSWindowsNTOperatingSystem NS = 1
-	// NSXPCConnectionCodeSigningRequirementFailure: A code-signing requirement check failed.
-	NSXPCConnectionCodeSigningRequirementFailure NS = 4102
-	// NSXPCConnectionErrorMaximum: The upper bounds of XPC connection error code values.
-	NSXPCConnectionErrorMaximum NS = 4224
-	// NSXPCConnectionErrorMinimum: The lower bounds of XPC connection error code values.
-	NSXPCConnectionErrorMinimum NS = 4096
-	// NSXPCConnectionInterrupted: The XPC connection was interrupted.
-	NSXPCConnectionInterrupted NS = 4097
-	// NSXPCConnectionInvalid: The XPC connection was invalid.
-	NSXPCConnectionInvalid NS = 4099
-	// NSXPCConnectionReplyInvalid: The XPC connection reply was invalid.
-	NSXPCConnectionReplyInvalid NS = 4101
-	// NS_BigEndian: The byte order is big endian.
-	NS_BigEndian NS = 2
-	// NS_LittleEndian: The byte order is little endian.
-	NS_LittleEndian NS = 1
-	// NS_UnknownByteOrder: The byte order is unknown.
-	NS_UnknownByteOrder NS = 0
-	// Deprecated: use NSDateComponentUndefined.
-	NSUndefinedDateComponent NS = 9223372036854775807
+	NSWindowsCP1254StringEncoding NSASCIIStringEncodingConstants = 14
 )
 
-func (e NS) String() string {
+func (e NSASCIIStringEncodingConstants) String() string {
 	switch e {
 	case NSASCIIStringEncoding:
 		return "NSASCIIStringEncoding"
-	case NSArgumentEvaluationScriptError:
-		return "NSArgumentEvaluationScriptError"
-	case NSArgumentsWrongScriptError:
-		return "NSArgumentsWrongScriptError"
-	case NSBundleErrorMaximum:
-		return "NSBundleErrorMaximum"
-	case NSBundleErrorMinimum:
-		return "NSBundleErrorMinimum"
-	case NSBundleOnDemandResourceExceededMaximumSizeError:
-		return "NSBundleOnDemandResourceExceededMaximumSizeError"
-	case NSBundleOnDemandResourceInvalidTagError:
-		return "NSBundleOnDemandResourceInvalidTagError"
-	case NSCannotCreateScriptCommandError:
-		return "NSCannotCreateScriptCommandError"
-	case NSCloudSharingConflictError:
-		return "NSCloudSharingConflictError"
-	case NSCloudSharingErrorMaximum:
-		return "NSCloudSharingErrorMaximum"
-	case NSCloudSharingErrorMinimum:
-		return "NSCloudSharingErrorMinimum"
-	case NSCloudSharingNoPermissionError:
-		return "NSCloudSharingNoPermissionError"
-	case NSCloudSharingQuotaExceededError:
-		return "NSCloudSharingQuotaExceededError"
-	case NSCloudSharingTooManyParticipantsError:
-		return "NSCloudSharingTooManyParticipantsError"
-	case NSCoderErrorMaximum:
-		return "NSCoderErrorMaximum"
-	case NSCoderErrorMinimum:
-		return "NSCoderErrorMinimum"
-	case NSCoderInvalidValueError:
-		return "NSCoderInvalidValueError"
-	case NSCoderValueNotFoundError:
-		return "NSCoderValueNotFoundError"
-	case NSCollectorDisabledOption:
-		return "NSCollectorDisabledOption"
-	case NSCompressionErrorMaximum:
-		return "NSCompressionErrorMaximum"
-	case NSCompressionErrorMinimum:
-		return "NSCompressionErrorMinimum"
-	case NSDateComponentUndefined:
-		return "NSDateComponentUndefined"
-	case NSDecompressionFailedError:
-		return "NSDecompressionFailedError"
-	case NSExecutableArchitectureMismatchError:
-		return "NSExecutableArchitectureMismatchError"
-	case NSExecutableErrorMaximum:
-		return "NSExecutableErrorMaximum"
-	case NSExecutableErrorMinimum:
-		return "NSExecutableErrorMinimum"
-	case NSExecutableLinkError:
-		return "NSExecutableLinkError"
-	case NSExecutableLoadError:
-		return "NSExecutableLoadError"
-	case NSExecutableRuntimeMismatchError:
-		return "NSExecutableRuntimeMismatchError"
-	case NSFeatureUnsupportedError:
-		return "NSFeatureUnsupportedError"
-	case NSFileErrorMaximum:
-		return "NSFileErrorMaximum"
-	case NSFileErrorMinimum:
-		return "NSFileErrorMinimum"
-	case NSFileLockingError:
-		return "NSFileLockingError"
-	case NSFileManagerUnmountBusyError:
-		return "NSFileManagerUnmountBusyError"
-	case NSFileManagerUnmountUnknownError:
-		return "NSFileManagerUnmountUnknownError"
-	case NSFileNoSuchFileError:
-		return "NSFileNoSuchFileError"
-	case NSFileReadCorruptFileError:
-		return "NSFileReadCorruptFileError"
-	case NSFileReadInapplicableStringEncodingError:
-		return "NSFileReadInapplicableStringEncodingError"
-	case NSFileReadInvalidFileNameError:
-		return "NSFileReadInvalidFileNameError"
-	case NSFileReadNoPermissionError:
-		return "NSFileReadNoPermissionError"
-	case NSFileReadNoSuchFileError:
-		return "NSFileReadNoSuchFileError"
-	case NSFileReadTooLargeError:
-		return "NSFileReadTooLargeError"
-	case NSFileReadUnknownError:
-		return "NSFileReadUnknownError"
-	case NSFileReadUnknownStringEncodingError:
-		return "NSFileReadUnknownStringEncodingError"
-	case NSFileReadUnsupportedSchemeError:
-		return "NSFileReadUnsupportedSchemeError"
-	case NSFileWriteFileExistsError:
-		return "NSFileWriteFileExistsError"
-	case NSFileWriteInapplicableStringEncodingError:
-		return "NSFileWriteInapplicableStringEncodingError"
-	case NSFileWriteInvalidFileNameError:
-		return "NSFileWriteInvalidFileNameError"
-	case NSFileWriteNoPermissionError:
-		return "NSFileWriteNoPermissionError"
-	case NSFileWriteOutOfSpaceError:
-		return "NSFileWriteOutOfSpaceError"
-	case NSFileWriteUnknownError:
-		return "NSFileWriteUnknownError"
-	case NSFileWriteUnsupportedSchemeError:
-		return "NSFileWriteUnsupportedSchemeError"
-	case NSFileWriteVolumeReadOnlyError:
-		return "NSFileWriteVolumeReadOnlyError"
-	case NSFormattingError:
-		return "NSFormattingError"
-	case NSFormattingErrorMaximum:
-		return "NSFormattingErrorMaximum"
 	case NSISO2022JPStringEncoding:
 		return "NSISO2022JPStringEncoding"
 	case NSISOLatin1StringEncoding:
 		return "NSISOLatin1StringEncoding"
 	case NSISOLatin2StringEncoding:
 		return "NSISOLatin2StringEncoding"
-	case NSInternalScriptError:
-		return "NSInternalScriptError"
-	case NSKeyValueValidationError:
-		return "NSKeyValueValidationError"
+	case NSJapaneseEUCStringEncoding:
+		return "NSJapaneseEUCStringEncoding"
 	case NSMacOSRomanStringEncoding:
 		return "NSMacOSRomanStringEncoding"
+	case NSNEXTSTEPStringEncoding:
+		return "NSNEXTSTEPStringEncoding"
 	case NSNonLossyASCIIStringEncoding:
 		return "NSNonLossyASCIIStringEncoding"
-	case NSPropertyListErrorMaximum:
-		return "NSPropertyListErrorMaximum"
-	case NSPropertyListErrorMinimum:
-		return "NSPropertyListErrorMinimum"
-	case NSPropertyListReadStreamError:
-		return "NSPropertyListReadStreamError"
-	case NSPropertyListReadUnknownVersionError:
-		return "NSPropertyListReadUnknownVersionError"
-	case NSPropertyListWriteInvalidError:
-		return "NSPropertyListWriteInvalidError"
-	case NSPropertyListWriteStreamError:
-		return "NSPropertyListWriteStreamError"
+	case NSShiftJISStringEncoding:
+		return "NSShiftJISStringEncoding"
+	case NSSymbolStringEncoding:
+		return "NSSymbolStringEncoding"
 	case NSUTF16BigEndianStringEncoding:
 		return "NSUTF16BigEndianStringEncoding"
 	case NSUTF16LittleEndianStringEncoding:
 		return "NSUTF16LittleEndianStringEncoding"
+	case NSUTF16StringEncoding:
+		return "NSUTF16StringEncoding"
 	case NSUTF32BigEndianStringEncoding:
 		return "NSUTF32BigEndianStringEncoding"
 	case NSUTF32LittleEndianStringEncoding:
 		return "NSUTF32LittleEndianStringEncoding"
 	case NSUTF32StringEncoding:
 		return "NSUTF32StringEncoding"
-	case NSUbiquitousFileErrorMaximum:
-		return "NSUbiquitousFileErrorMaximum"
-	case NSUbiquitousFileErrorMinimum:
-		return "NSUbiquitousFileErrorMinimum"
-	case NSUbiquitousFileNotUploadedDueToQuotaError:
-		return "NSUbiquitousFileNotUploadedDueToQuotaError"
-	case NSUbiquitousFileUbiquityServerNotAvailable:
-		return "NSUbiquitousFileUbiquityServerNotAvailable"
-	case NSUbiquitousFileUnavailableError:
-		return "NSUbiquitousFileUnavailableError"
-	case NSUserActivityConnectionUnavailableError:
-		return "NSUserActivityConnectionUnavailableError"
-	case NSUserActivityErrorMaximum:
-		return "NSUserActivityErrorMaximum"
-	case NSUserActivityErrorMinimum:
-		return "NSUserActivityErrorMinimum"
-	case NSUserActivityHandoffUserInfoTooLargeError:
-		return "NSUserActivityHandoffUserInfoTooLargeError"
-	case NSUserActivityRemoteApplicationTimedOutError:
-		return "NSUserActivityRemoteApplicationTimedOutError"
-	case NSUserCancelledError:
-		return "NSUserCancelledError"
-	case NSValidationErrorMaximum:
-		return "NSValidationErrorMaximum"
+	case NSUTF8StringEncoding:
+		return "NSUTF8StringEncoding"
 	case NSWindowsCP1250StringEncoding:
 		return "NSWindowsCP1250StringEncoding"
 	case NSWindowsCP1251StringEncoding:
@@ -469,20 +103,8 @@ func (e NS) String() string {
 		return "NSWindowsCP1253StringEncoding"
 	case NSWindowsCP1254StringEncoding:
 		return "NSWindowsCP1254StringEncoding"
-	case NSXPCConnectionCodeSigningRequirementFailure:
-		return "NSXPCConnectionCodeSigningRequirementFailure"
-	case NSXPCConnectionErrorMaximum:
-		return "NSXPCConnectionErrorMaximum"
-	case NSXPCConnectionErrorMinimum:
-		return "NSXPCConnectionErrorMinimum"
-	case NSXPCConnectionInterrupted:
-		return "NSXPCConnectionInterrupted"
-	case NSXPCConnectionInvalid:
-		return "NSXPCConnectionInvalid"
-	case NSXPCConnectionReplyInvalid:
-		return "NSXPCConnectionReplyInvalid"
 	default:
-		return fmt.Sprintf("NS(%d)", e)
+		return fmt.Sprintf("NSASCIIStringEncodingConstants(%d)", e)
 	}
 }
 
@@ -491,7 +113,7 @@ type NSActivityOptions uint64
 
 const (
 	// NSActivityAnimationTrackingEnabled: A flag to track the activity with an animation signpost interval.
-	NSActivityAnimationTrackingEnabled NSActivityOptions = 32769
+	NSActivityAnimationTrackingEnabled NSActivityOptions = 35184372088832
 	// NSActivityAutomaticTerminationDisabled: A flag to prevent automatic termination.
 	NSActivityAutomaticTerminationDisabled NSActivityOptions = 32768
 	// NSActivityBackground: A flag to indicate the app has initiated some kind of work, but not as the direct result of user request.
@@ -507,11 +129,11 @@ const (
 	// NSActivityTrackingEnabled: A flag to track the activity with a signpost interval.
 	NSActivityTrackingEnabled NSActivityOptions = 70368744177664
 	// NSActivityUserInitiated: A flag to indicate the app is performing a user-requested action.
-	NSActivityUserInitiated NSActivityOptions = 0
+	NSActivityUserInitiated NSActivityOptions = 16777215
 	// NSActivityUserInitiatedAllowingIdleSystemSleep: A flag to indicate the app is performing a user-requested action, but that the system can sleep on idle.
-	NSActivityUserInitiatedAllowingIdleSystemSleep NSActivityOptions = 0
+	NSActivityUserInitiatedAllowingIdleSystemSleep NSActivityOptions = 15728639
 	// NSActivityUserInteractive: A flag to indicate the app is responding to user interaction.
-	NSActivityUserInteractive NSActivityOptions = 1095216660481
+	NSActivityUserInteractive NSActivityOptions = 1095233437695
 )
 
 func (e NSActivityOptions) String() string {
@@ -534,6 +156,8 @@ func (e NSActivityOptions) String() string {
 		return "NSActivityTrackingEnabled"
 	case NSActivityUserInitiated:
 		return "NSActivityUserInitiated"
+	case NSActivityUserInitiatedAllowingIdleSystemSleep:
+		return "NSActivityUserInitiatedAllowingIdleSystemSleep"
 	case NSActivityUserInteractive:
 		return "NSActivityUserInteractive"
 	default:
@@ -542,15 +166,15 @@ func (e NSActivityOptions) String() string {
 }
 
 // See: https://developer.apple.com/documentation/Foundation/AlignmentOptions
-type AlignmentOptions int
+type AlignmentOptions uint64
 
 const (
 	// NSAlignAllEdgesInward: Aligns all edges inward.
-	NSAlignAllEdgesInward AlignmentOptions = 0
+	NSAlignAllEdgesInward AlignmentOptions = 15
 	// NSAlignAllEdgesNearest: Aligns all edges to the nearest value.
-	NSAlignAllEdgesNearest AlignmentOptions = 0
+	NSAlignAllEdgesNearest AlignmentOptions = 983040
 	// NSAlignAllEdgesOutward: Aligns all edges outwards.
-	NSAlignAllEdgesOutward AlignmentOptions = 0
+	NSAlignAllEdgesOutward AlignmentOptions = 3840
 	// NSAlignHeightInward: Specifies that alignment of the height should be to the nearest inward integral value.
 	NSAlignHeightInward AlignmentOptions = 32
 	// NSAlignHeightNearest: Specifies that alignment of the height should be to the nearest integral value.
@@ -582,7 +206,7 @@ const (
 	// NSAlignMinYOutward: Specifies that alignment of the minimum Y coordinate should be to the nearest outward integral value.
 	NSAlignMinYOutward AlignmentOptions = 512
 	// NSAlignRectFlipped: This option should be included  if the rectangle is in a flipped coordinate system.
-	NSAlignRectFlipped AlignmentOptions = -9223372036854775808
+	NSAlignRectFlipped AlignmentOptions = 9223372036854775808
 	// NSAlignWidthInward: Specifies that alignment of the width should be to the nearest inward integral value.
 	NSAlignWidthInward AlignmentOptions = 16
 	// NSAlignWidthNearest: Specifies that alignment of the width should be to the nearest integral value.
@@ -595,6 +219,10 @@ func (e AlignmentOptions) String() string {
 	switch e {
 	case NSAlignAllEdgesInward:
 		return "NSAlignAllEdgesInward"
+	case NSAlignAllEdgesNearest:
+		return "NSAlignAllEdgesNearest"
+	case NSAlignAllEdgesOutward:
+		return "NSAlignAllEdgesOutward"
 	case NSAlignHeightInward:
 		return "NSAlignHeightInward"
 	case NSAlignHeightNearest:
@@ -645,7 +273,7 @@ const (
 	NSAppleEventSendAlwaysInteract NSAppleEventSendOptions = 48
 	NSAppleEventSendCanInteract    NSAppleEventSendOptions = 32
 	NSAppleEventSendCanSwitchLayer NSAppleEventSendOptions = 64
-	NSAppleEventSendDefaultOptions NSAppleEventSendOptions = 3
+	NSAppleEventSendDefaultOptions NSAppleEventSendOptions = 35
 	NSAppleEventSendDontAnnotate   NSAppleEventSendOptions = 65536
 	NSAppleEventSendDontExecute    NSAppleEventSendOptions = 8192
 	NSAppleEventSendDontRecord     NSAppleEventSendOptions = 4096
@@ -677,6 +305,8 @@ func (e NSAppleEventSendOptions) String() string {
 		return "NSAppleEventSendNoReply"
 	case NSAppleEventSendQueueReply:
 		return "NSAppleEventSendQueueReply"
+	case NSAppleEventSendWaitForReply:
+		return "NSAppleEventSendWaitForReply"
 	default:
 		return fmt.Sprintf("NSAppleEventSendOptions(%d)", e)
 	}
@@ -708,9 +338,9 @@ type NSAttributedStringFormattingOptions uint
 
 const (
 	// NSAttributedStringFormattingApplyReplacementIndexAttribute: An option to apply to the replaced portions of text in a format string.
-	NSAttributedStringFormattingApplyReplacementIndexAttribute NSAttributedStringFormattingOptions = 1
+	NSAttributedStringFormattingApplyReplacementIndexAttribute NSAttributedStringFormattingOptions = 2
 	// NSAttributedStringFormattingInsertArgumentAttributesWithoutMerging: An option to replace the attributes in a substituted string with those of the provided attributed string.
-	NSAttributedStringFormattingInsertArgumentAttributesWithoutMerging NSAttributedStringFormattingOptions = 0
+	NSAttributedStringFormattingInsertArgumentAttributesWithoutMerging NSAttributedStringFormattingOptions = 1
 )
 
 func (e NSAttributedStringFormattingOptions) String() string {
@@ -816,7 +446,7 @@ func (e NSBinarySearchingOptions) String() string {
 	}
 }
 
-type NSBundleExecutableArchitecture uint
+type NSBundleExecutableArchitecture uint32
 
 const (
 	// NSBundleExecutableArchitectureARM64: The 64-bit ARM architecture.
@@ -900,7 +530,7 @@ const (
 	// NSByteCountFormatterUseTB: Displays terabytes in the formatter content.
 	NSByteCountFormatterUseTB NSByteCountFormatterUnits = 16
 	// NSByteCountFormatterUseYBOrHigher: Displays yottabytes in the formatter content.
-	NSByteCountFormatterUseYBOrHigher NSByteCountFormatterUnits = 0xff
+	NSByteCountFormatterUseYBOrHigher NSByteCountFormatterUnits = 65280
 	// NSByteCountFormatterUseZB: Displays zettabytes in the formatter content.
 	NSByteCountFormatterUseZB NSByteCountFormatterUnits = 128
 )
@@ -935,7 +565,7 @@ func (e NSByteCountFormatterUnits) String() string {
 }
 
 // See: https://developer.apple.com/documentation/Foundation/NSDecimalNumber/CalculationError
-type NSCalculationError int
+type NSCalculationError uint
 
 const (
 	// NSCalculationDivideByZero: The caller tried to divide by `0`.
@@ -975,11 +605,11 @@ const (
 	NSCalendarMatchFirst NSCalendarOptions = 4096
 	// NSCalendarMatchLast: Specifies that, if there are two or more matching times, the operation should return the last occurrence.
 	NSCalendarMatchLast NSCalendarOptions = 8192
-	// NSCalendarMatchNextTime: Specifies that, when there is no matching time before the end of the next instance of the next highest unit specified in the given [NSDateComponents] object, this method uses the  existing value of the missing unit and  preserve the lower units’ values.
+	// NSCalendarMatchNextTime: Specifies that, when there is no matching time before the end of the next instance of the next highest unit specified in the given [NSDateComponents] object, this method uses the next existing value of the missing unit and does not preserve the lower units’ values.
 	NSCalendarMatchNextTime NSCalendarOptions = 1024
-	// NSCalendarMatchNextTimePreservingSmallerUnits: Specifies that, when there is no matching time before the end of the next instance of the next highest unit specified in the given [NSDateComponents] object, this method uses the  existing value of the missing unit and preserves the lower units’ values.
+	// NSCalendarMatchNextTimePreservingSmallerUnits: Specifies that, when there is no matching time before the end of the next instance of the next highest unit specified in the given [NSDateComponents] object, this method uses the next existing value of the missing unit and preserves the lower units’ values.
 	NSCalendarMatchNextTimePreservingSmallerUnits NSCalendarOptions = 512
-	// NSCalendarMatchPreviousTimePreservingSmallerUnits: Specifies that, when there is no matching time before the end of the next instance of the next highest unit specified in the given [NSDateComponents] object, this method uses the  existing value of the missing unit and preserves the lower units’ values.
+	// NSCalendarMatchPreviousTimePreservingSmallerUnits: Specifies that, when there is no matching time before the end of the next instance of the next highest unit specified in the given [NSDateComponents] object, this method uses the previous existing value of the missing unit and preserves the lower units’ values.
 	NSCalendarMatchPreviousTimePreservingSmallerUnits NSCalendarOptions = 256
 	// NSCalendarMatchStrictly: Specifies that the operation should travel as far forward or backward as necessary looking for a match.
 	NSCalendarMatchStrictly NSCalendarOptions = 2
@@ -1426,6 +1056,24 @@ func (e NSDataWritingOptions) String() string {
 	}
 }
 
+type NSDateComponentUndefinedConstants int
+
+const (
+	// NSDateComponentUndefined: Specifies a date component without a value.
+	NSDateComponentUndefined NSDateComponentUndefinedConstants = 9223372036854775807
+	// Deprecated: use NSDateComponentUndefined.
+	NSUndefinedDateComponent NSDateComponentUndefinedConstants = 9223372036854775807
+)
+
+func (e NSDateComponentUndefinedConstants) String() string {
+	switch e {
+	case NSDateComponentUndefined:
+		return "NSDateComponentUndefined"
+	default:
+		return fmt.Sprintf("NSDateComponentUndefinedConstants(%d)", e)
+	}
+}
+
 // See: https://developer.apple.com/documentation/Foundation/DateComponentsFormatter/UnitsStyle-swift.enum
 type NSDateComponentsFormatterUnitsStyle int
 
@@ -1470,7 +1118,7 @@ const (
 	// NSDateComponentsFormatterZeroFormattingBehaviorDefault: The default formatting behavior.
 	NSDateComponentsFormatterZeroFormattingBehaviorDefault NSDateComponentsFormatterZeroFormattingBehavior = 1
 	// NSDateComponentsFormatterZeroFormattingBehaviorDropAll: The drop all zero units behavior.
-	NSDateComponentsFormatterZeroFormattingBehaviorDropAll NSDateComponentsFormatterZeroFormattingBehavior = 0
+	NSDateComponentsFormatterZeroFormattingBehaviorDropAll NSDateComponentsFormatterZeroFormattingBehavior = 14
 	// NSDateComponentsFormatterZeroFormattingBehaviorDropLeading: The drop leading zeroes formatting behavior.
 	NSDateComponentsFormatterZeroFormattingBehaviorDropLeading NSDateComponentsFormatterZeroFormattingBehavior = 2
 	// NSDateComponentsFormatterZeroFormattingBehaviorDropMiddle: The drop middle zero units behavior.
@@ -1495,6 +1143,8 @@ func (e NSDateComponentsFormatterZeroFormattingBehavior) String() string {
 		return "NSDateComponentsFormatterZeroFormattingBehaviorDropMiddle"
 	case NSDateComponentsFormatterZeroFormattingBehaviorDropTrailing:
 		return "NSDateComponentsFormatterZeroFormattingBehaviorDropTrailing"
+	case NSDateComponentsFormatterZeroFormattingBehaviorNone:
+		return "NSDateComponentsFormatterZeroFormattingBehaviorNone"
 	case NSDateComponentsFormatterZeroFormattingBehaviorPad:
 		return "NSDateComponentsFormatterZeroFormattingBehaviorPad"
 	default:
@@ -1669,11 +1319,11 @@ type NSEnergyFormatterUnit int
 
 const (
 	// NSEnergyFormatterUnitCalorie: The calorie unit.
-	NSEnergyFormatterUnitCalorie NSEnergyFormatterUnit = 1792
+	NSEnergyFormatterUnitCalorie NSEnergyFormatterUnit = 1793
 	// NSEnergyFormatterUnitJoule: The joule unit.
 	NSEnergyFormatterUnitJoule NSEnergyFormatterUnit = 11
 	// NSEnergyFormatterUnitKilocalorie: The kilocalorie unit.
-	NSEnergyFormatterUnitKilocalorie NSEnergyFormatterUnit = 1792
+	NSEnergyFormatterUnitKilocalorie NSEnergyFormatterUnit = 1794
 	// NSEnergyFormatterUnitKilojoule: The kilojoule unit.
 	NSEnergyFormatterUnitKilojoule NSEnergyFormatterUnit = 14
 )
@@ -1684,6 +1334,8 @@ func (e NSEnergyFormatterUnit) String() string {
 		return "NSEnergyFormatterUnitCalorie"
 	case NSEnergyFormatterUnitJoule:
 		return "NSEnergyFormatterUnitJoule"
+	case NSEnergyFormatterUnitKilocalorie:
+		return "NSEnergyFormatterUnitKilocalorie"
 	case NSEnergyFormatterUnitKilojoule:
 		return "NSEnergyFormatterUnitKilojoule"
 	default:
@@ -1944,6 +1596,332 @@ func (e NSFileManagerUploadLocalVersionConflictPolicy) String() string {
 		return "NSFileManagerUploadConflictPolicyFailOnConflict"
 	default:
 		return fmt.Sprintf("NSFileManagerUploadLocalVersionConflictPolicy(%d)", e)
+	}
+}
+
+type NSFileNoSuchFileErrorConstants int
+
+const (
+	// NSBundleErrorMaximum: The end of the range of error codes reserved for bundle errors.
+	NSBundleErrorMaximum NSFileNoSuchFileErrorConstants = 5119
+	// NSBundleErrorMinimum: The start of the range of error codes reserved for bundle errors.
+	NSBundleErrorMinimum NSFileNoSuchFileErrorConstants = 4992
+	// NSBundleOnDemandResourceExceededMaximumSizeError: The application exceeded the amount of on-demand resources content in use at one time.
+	NSBundleOnDemandResourceExceededMaximumSizeError NSFileNoSuchFileErrorConstants = 4993
+	// NSBundleOnDemandResourceInvalidTagError: The application specified a tag that the system couldn’t find in the application tag manifest.
+	NSBundleOnDemandResourceInvalidTagError NSFileNoSuchFileErrorConstants = 4994
+	NSBundleOnDemandResourceOutOfSpaceError NSFileNoSuchFileErrorConstants = 4992
+	// NSCloudSharingConflictError: A conflict occurred during an attempt to save changes.
+	NSCloudSharingConflictError NSFileNoSuchFileErrorConstants = 5123
+	// NSCloudSharingErrorMaximum: The end of the range of error codes reserved for cloud-sharing errors.
+	NSCloudSharingErrorMaximum NSFileNoSuchFileErrorConstants = 5375
+	// NSCloudSharingErrorMinimum: The start of the range of error codes reserved for cloud-sharing errors.
+	NSCloudSharingErrorMinimum NSFileNoSuchFileErrorConstants = 5120
+	// NSCloudSharingNetworkFailureError: Sharing failed due to a network failure.
+	NSCloudSharingNetworkFailureError NSFileNoSuchFileErrorConstants = 5120
+	// NSCloudSharingNoPermissionError: The current user doesn’t have permission to perform the requested actions.
+	NSCloudSharingNoPermissionError NSFileNoSuchFileErrorConstants = 5124
+	// NSCloudSharingOtherError: An otherwise unspecified cloud-sharing error occurred.
+	NSCloudSharingOtherError NSFileNoSuchFileErrorConstants = 5375
+	// NSCloudSharingQuotaExceededError: The user doesn’t have enough storage space available to share the requested items.
+	NSCloudSharingQuotaExceededError NSFileNoSuchFileErrorConstants = 5121
+	// NSCloudSharingTooManyParticipantsError: Additional participants couldn’t be added to the share, because the limit was reached.
+	NSCloudSharingTooManyParticipantsError NSFileNoSuchFileErrorConstants = 5122
+	// NSCoderErrorMaximum: The end of the range of error codes reserved for coder errors.
+	NSCoderErrorMaximum NSFileNoSuchFileErrorConstants = 4991
+	// NSCoderErrorMinimum: The start of the range of error codes reserved for coder errors.
+	NSCoderErrorMinimum NSFileNoSuchFileErrorConstants = 4864
+	// NSCoderInvalidValueError: Data wasn’t valid to encode.
+	NSCoderInvalidValueError NSFileNoSuchFileErrorConstants = 4866
+	// NSCoderReadCorruptError: Decoding failed due to corrupt data.
+	NSCoderReadCorruptError NSFileNoSuchFileErrorConstants = 4864
+	// NSCoderValueNotFoundError: The requested data wasn’t found.
+	NSCoderValueNotFoundError NSFileNoSuchFileErrorConstants = 4865
+	NSCompressionErrorMaximum NSFileNoSuchFileErrorConstants = 5503
+	// NSCompressionErrorMinimum: The start of the range of error codes reserved for compression errors.
+	NSCompressionErrorMinimum NSFileNoSuchFileErrorConstants = 5376
+	// NSCompressionFailedError: An error code value that indicates a failure to compress data using the provided algorithm.
+	NSCompressionFailedError NSFileNoSuchFileErrorConstants = 5376
+	// NSDecompressionFailedError: An error code value that indicates a failure to decompress data using the provided algorithm.
+	NSDecompressionFailedError NSFileNoSuchFileErrorConstants = 5377
+	// NSExecutableArchitectureMismatchError: The executable doesn’t provide an architecture compatible with the current process.
+	NSExecutableArchitectureMismatchError NSFileNoSuchFileErrorConstants = 3585
+	// NSExecutableErrorMaximum: The end of the range of error codes reserved for errors related to executable files.
+	NSExecutableErrorMaximum NSFileNoSuchFileErrorConstants = 3839
+	// NSExecutableErrorMinimum: The beginning of the range of error codes reserved for errors related to executable files.
+	NSExecutableErrorMinimum NSFileNoSuchFileErrorConstants = 3584
+	// NSExecutableLinkError: The executable failed due to linking issues.
+	NSExecutableLinkError NSFileNoSuchFileErrorConstants = 3588
+	// NSExecutableLoadError: Executable cannot be loaded for an otherwise-unspecified reason.
+	NSExecutableLoadError NSFileNoSuchFileErrorConstants = 3587
+	// NSExecutableNotLoadableError: The executable type isn’t loadable in the current process.
+	NSExecutableNotLoadableError NSFileNoSuchFileErrorConstants = 3584
+	// NSExecutableRuntimeMismatchError: The executable has Objective-C runtime information that’s incompatible with the current process.
+	NSExecutableRuntimeMismatchError NSFileNoSuchFileErrorConstants = 3586
+	// NSFeatureUnsupportedError: The feature isn’t supported, because the file system lacks the feature, or required libraries are missing, or other similar reasons.
+	NSFeatureUnsupportedError NSFileNoSuchFileErrorConstants = 3328
+	// NSFileErrorMaximum: The end of the range of error codes reserved for file errors.
+	NSFileErrorMaximum NSFileNoSuchFileErrorConstants = 1023
+	// NSFileErrorMinimum: The start of the range of error codes reserved for file errors.
+	NSFileErrorMinimum NSFileNoSuchFileErrorConstants = 0
+	// NSFileLockingError: The file could not be locked.
+	NSFileLockingError NSFileNoSuchFileErrorConstants = 255
+	// NSFileManagerUnmountBusyError: The volume couldn’t be unmounted because it’s in use.
+	NSFileManagerUnmountBusyError NSFileNoSuchFileErrorConstants = 769
+	// NSFileManagerUnmountUnknownError: The volume couldn’t be unmounted, for unknown reasons.
+	NSFileManagerUnmountUnknownError NSFileNoSuchFileErrorConstants = 768
+	// NSFileNoSuchFileError: A filesystem operation was attempted on a non-existent file.
+	NSFileNoSuchFileError NSFileNoSuchFileErrorConstants = 4
+	// NSFileReadCorruptFileError: Could not read because of a corrupted file, bad format, or similar reason.
+	NSFileReadCorruptFileError NSFileNoSuchFileErrorConstants = 259
+	// NSFileReadInapplicableStringEncodingError: Could not read because the string encoding wasn’t applicable.
+	NSFileReadInapplicableStringEncodingError NSFileNoSuchFileErrorConstants = 261
+	// NSFileReadInvalidFileNameError: Could not read because of an invalid file name.
+	NSFileReadInvalidFileNameError NSFileNoSuchFileErrorConstants = 258
+	// NSFileReadNoPermissionError: Could not read because of a permission problem.
+	NSFileReadNoPermissionError NSFileNoSuchFileErrorConstants = 257
+	// NSFileReadNoSuchFileError: Could not read because no such file was found.
+	NSFileReadNoSuchFileError NSFileNoSuchFileErrorConstants = 260
+	// NSFileReadTooLargeError: Could not read because the specified file was too large.
+	NSFileReadTooLargeError NSFileNoSuchFileErrorConstants = 263
+	// NSFileReadUnknownError: Could not read, for unknown reasons.
+	NSFileReadUnknownError NSFileNoSuchFileErrorConstants = 256
+	// NSFileReadUnknownStringEncodingError: Could not read because the string coding of the file couldn’t be determined.
+	NSFileReadUnknownStringEncodingError NSFileNoSuchFileErrorConstants = 264
+	// NSFileReadUnsupportedSchemeError: Could not read because the specified URL scheme is unsupported.
+	NSFileReadUnsupportedSchemeError NSFileNoSuchFileErrorConstants = 262
+	// NSFileWriteFileExistsError: Could not perform an operation because the destination file already exists.
+	NSFileWriteFileExistsError NSFileNoSuchFileErrorConstants = 516
+	// NSFileWriteInapplicableStringEncodingError: Could not write because the string encoding was not applicable.
+	NSFileWriteInapplicableStringEncodingError NSFileNoSuchFileErrorConstants = 517
+	// NSFileWriteInvalidFileNameError: Could not write because of an invalid file name.
+	NSFileWriteInvalidFileNameError NSFileNoSuchFileErrorConstants = 514
+	// NSFileWriteNoPermissionError: Could not write because of a permission problem.
+	NSFileWriteNoPermissionError NSFileNoSuchFileErrorConstants = 513
+	// NSFileWriteOutOfSpaceError: Could not write because of a lack of disk space.
+	NSFileWriteOutOfSpaceError NSFileNoSuchFileErrorConstants = 640
+	// NSFileWriteUnknownError: Could not write, for unknown reasons.
+	NSFileWriteUnknownError NSFileNoSuchFileErrorConstants = 512
+	// NSFileWriteUnsupportedSchemeError: Could not write because the specified URL scheme is unsupported.
+	NSFileWriteUnsupportedSchemeError NSFileNoSuchFileErrorConstants = 518
+	// NSFileWriteVolumeReadOnlyError: Could not write because the volume is read-only.
+	NSFileWriteVolumeReadOnlyError NSFileNoSuchFileErrorConstants = 642
+	// NSFormattingError: A formatter couldn’t generate a string for an object, or parse a string into an object.
+	NSFormattingError NSFileNoSuchFileErrorConstants = 2048
+	// NSFormattingErrorMaximum: The end of the range of error codes reserved for formatting errors.
+	NSFormattingErrorMaximum NSFileNoSuchFileErrorConstants = 2559
+	// NSFormattingErrorMinimum: The start of the range of error codes reserved for formatting errors.
+	NSFormattingErrorMinimum NSFileNoSuchFileErrorConstants = 2048
+	// NSKeyValueValidationError: A key-value coding validation error.
+	NSKeyValueValidationError NSFileNoSuchFileErrorConstants = 1024
+	// NSPropertyListErrorMaximum: The end of the range of error codes reserved for property list errors.
+	NSPropertyListErrorMaximum NSFileNoSuchFileErrorConstants = 4095
+	// NSPropertyListErrorMinimum: The start of the range of error codes reserved for property list errors.
+	NSPropertyListErrorMinimum NSFileNoSuchFileErrorConstants = 3840
+	// NSPropertyListReadCorruptError: Parsing of the property list failed.
+	NSPropertyListReadCorruptError NSFileNoSuchFileErrorConstants = 3840
+	// NSPropertyListReadStreamError: Reading of the property list failed.
+	NSPropertyListReadStreamError NSFileNoSuchFileErrorConstants = 3842
+	// NSPropertyListReadUnknownVersionError: The version number of the property list cannot be determined.
+	NSPropertyListReadUnknownVersionError NSFileNoSuchFileErrorConstants = 3841
+	// NSPropertyListWriteInvalidError: Writing failed because of an invalid property list object, or an invalid property list type was specified.
+	NSPropertyListWriteInvalidError NSFileNoSuchFileErrorConstants = 3852
+	// NSPropertyListWriteStreamError: Writing to the property list failed.
+	NSPropertyListWriteStreamError NSFileNoSuchFileErrorConstants = 3851
+	// NSUbiquitousFileErrorMaximum: The maximum error code value that represents an iCloud error.
+	NSUbiquitousFileErrorMaximum NSFileNoSuchFileErrorConstants = 4607
+	// NSUbiquitousFileErrorMinimum: The minimum error code value that represents an iCloud error.
+	NSUbiquitousFileErrorMinimum NSFileNoSuchFileErrorConstants = 4352
+	// NSUbiquitousFileNotUploadedDueToQuotaError: The item could not be uploaded to iCloud because it would make the account go over its quota.
+	NSUbiquitousFileNotUploadedDueToQuotaError NSFileNoSuchFileErrorConstants = 4354
+	// NSUbiquitousFileUbiquityServerNotAvailable: A failure to connect to the iCloud servers.
+	NSUbiquitousFileUbiquityServerNotAvailable NSFileNoSuchFileErrorConstants = 4355
+	// NSUbiquitousFileUnavailableError: The item has not been uploaded to iCloud by another device yet.
+	NSUbiquitousFileUnavailableError NSFileNoSuchFileErrorConstants = 4353
+	// NSUserActivityConnectionUnavailableError: The user activity couldn’t be continued because a required connection wasn’t available.
+	NSUserActivityConnectionUnavailableError NSFileNoSuchFileErrorConstants = 4609
+	// NSUserActivityErrorMaximum: The end of the range of error codes reserved for user activity errors.
+	NSUserActivityErrorMaximum NSFileNoSuchFileErrorConstants = 4863
+	// NSUserActivityErrorMinimum: The start of the range of error codes reserved for user activity errors.
+	NSUserActivityErrorMinimum NSFileNoSuchFileErrorConstants = 4608
+	// NSUserActivityHandoffFailedError: The data for the user activity wasn’t available.
+	NSUserActivityHandoffFailedError NSFileNoSuchFileErrorConstants = 4608
+	// NSUserActivityHandoffUserInfoTooLargeError: The user info dictionary was too large to receive.
+	NSUserActivityHandoffUserInfoTooLargeError NSFileNoSuchFileErrorConstants = 4611
+	// NSUserActivityRemoteApplicationTimedOutError: The remote application failed to send data within the specified time.
+	NSUserActivityRemoteApplicationTimedOutError NSFileNoSuchFileErrorConstants = 4610
+	// NSUserCancelledError: The user canceled the operation (for example, by pressing Command-period).
+	NSUserCancelledError NSFileNoSuchFileErrorConstants = 3072
+	// NSValidationErrorMaximum: The end of the range of error codes reserved for validation errors.
+	NSValidationErrorMaximum NSFileNoSuchFileErrorConstants = 2047
+	// NSValidationErrorMinimum: The start of the range of error codes reserved for validation errors.
+	NSValidationErrorMinimum NSFileNoSuchFileErrorConstants = 1024
+	// NSXPCConnectionCodeSigningRequirementFailure: A code-signing requirement check failed.
+	NSXPCConnectionCodeSigningRequirementFailure NSFileNoSuchFileErrorConstants = 4102
+	// NSXPCConnectionErrorMaximum: The upper bounds of XPC connection error code values.
+	NSXPCConnectionErrorMaximum NSFileNoSuchFileErrorConstants = 4224
+	// NSXPCConnectionErrorMinimum: The lower bounds of XPC connection error code values.
+	NSXPCConnectionErrorMinimum NSFileNoSuchFileErrorConstants = 4096
+	// NSXPCConnectionInterrupted: The XPC connection was interrupted.
+	NSXPCConnectionInterrupted NSFileNoSuchFileErrorConstants = 4097
+	// NSXPCConnectionInvalid: The XPC connection was invalid.
+	NSXPCConnectionInvalid NSFileNoSuchFileErrorConstants = 4099
+	// NSXPCConnectionReplyInvalid: The XPC connection reply was invalid.
+	NSXPCConnectionReplyInvalid NSFileNoSuchFileErrorConstants = 4101
+)
+
+func (e NSFileNoSuchFileErrorConstants) String() string {
+	switch e {
+	case NSBundleErrorMaximum:
+		return "NSBundleErrorMaximum"
+	case NSBundleErrorMinimum:
+		return "NSBundleErrorMinimum"
+	case NSBundleOnDemandResourceExceededMaximumSizeError:
+		return "NSBundleOnDemandResourceExceededMaximumSizeError"
+	case NSBundleOnDemandResourceInvalidTagError:
+		return "NSBundleOnDemandResourceInvalidTagError"
+	case NSCloudSharingConflictError:
+		return "NSCloudSharingConflictError"
+	case NSCloudSharingErrorMaximum:
+		return "NSCloudSharingErrorMaximum"
+	case NSCloudSharingErrorMinimum:
+		return "NSCloudSharingErrorMinimum"
+	case NSCloudSharingNoPermissionError:
+		return "NSCloudSharingNoPermissionError"
+	case NSCloudSharingQuotaExceededError:
+		return "NSCloudSharingQuotaExceededError"
+	case NSCloudSharingTooManyParticipantsError:
+		return "NSCloudSharingTooManyParticipantsError"
+	case NSCoderErrorMaximum:
+		return "NSCoderErrorMaximum"
+	case NSCoderErrorMinimum:
+		return "NSCoderErrorMinimum"
+	case NSCoderInvalidValueError:
+		return "NSCoderInvalidValueError"
+	case NSCoderValueNotFoundError:
+		return "NSCoderValueNotFoundError"
+	case NSCompressionErrorMaximum:
+		return "NSCompressionErrorMaximum"
+	case NSCompressionErrorMinimum:
+		return "NSCompressionErrorMinimum"
+	case NSDecompressionFailedError:
+		return "NSDecompressionFailedError"
+	case NSExecutableArchitectureMismatchError:
+		return "NSExecutableArchitectureMismatchError"
+	case NSExecutableErrorMaximum:
+		return "NSExecutableErrorMaximum"
+	case NSExecutableErrorMinimum:
+		return "NSExecutableErrorMinimum"
+	case NSExecutableLinkError:
+		return "NSExecutableLinkError"
+	case NSExecutableLoadError:
+		return "NSExecutableLoadError"
+	case NSExecutableRuntimeMismatchError:
+		return "NSExecutableRuntimeMismatchError"
+	case NSFeatureUnsupportedError:
+		return "NSFeatureUnsupportedError"
+	case NSFileErrorMaximum:
+		return "NSFileErrorMaximum"
+	case NSFileErrorMinimum:
+		return "NSFileErrorMinimum"
+	case NSFileLockingError:
+		return "NSFileLockingError"
+	case NSFileManagerUnmountBusyError:
+		return "NSFileManagerUnmountBusyError"
+	case NSFileManagerUnmountUnknownError:
+		return "NSFileManagerUnmountUnknownError"
+	case NSFileNoSuchFileError:
+		return "NSFileNoSuchFileError"
+	case NSFileReadCorruptFileError:
+		return "NSFileReadCorruptFileError"
+	case NSFileReadInapplicableStringEncodingError:
+		return "NSFileReadInapplicableStringEncodingError"
+	case NSFileReadInvalidFileNameError:
+		return "NSFileReadInvalidFileNameError"
+	case NSFileReadNoPermissionError:
+		return "NSFileReadNoPermissionError"
+	case NSFileReadNoSuchFileError:
+		return "NSFileReadNoSuchFileError"
+	case NSFileReadTooLargeError:
+		return "NSFileReadTooLargeError"
+	case NSFileReadUnknownError:
+		return "NSFileReadUnknownError"
+	case NSFileReadUnknownStringEncodingError:
+		return "NSFileReadUnknownStringEncodingError"
+	case NSFileReadUnsupportedSchemeError:
+		return "NSFileReadUnsupportedSchemeError"
+	case NSFileWriteFileExistsError:
+		return "NSFileWriteFileExistsError"
+	case NSFileWriteInapplicableStringEncodingError:
+		return "NSFileWriteInapplicableStringEncodingError"
+	case NSFileWriteInvalidFileNameError:
+		return "NSFileWriteInvalidFileNameError"
+	case NSFileWriteNoPermissionError:
+		return "NSFileWriteNoPermissionError"
+	case NSFileWriteOutOfSpaceError:
+		return "NSFileWriteOutOfSpaceError"
+	case NSFileWriteUnknownError:
+		return "NSFileWriteUnknownError"
+	case NSFileWriteUnsupportedSchemeError:
+		return "NSFileWriteUnsupportedSchemeError"
+	case NSFileWriteVolumeReadOnlyError:
+		return "NSFileWriteVolumeReadOnlyError"
+	case NSFormattingError:
+		return "NSFormattingError"
+	case NSFormattingErrorMaximum:
+		return "NSFormattingErrorMaximum"
+	case NSKeyValueValidationError:
+		return "NSKeyValueValidationError"
+	case NSPropertyListErrorMaximum:
+		return "NSPropertyListErrorMaximum"
+	case NSPropertyListErrorMinimum:
+		return "NSPropertyListErrorMinimum"
+	case NSPropertyListReadStreamError:
+		return "NSPropertyListReadStreamError"
+	case NSPropertyListReadUnknownVersionError:
+		return "NSPropertyListReadUnknownVersionError"
+	case NSPropertyListWriteInvalidError:
+		return "NSPropertyListWriteInvalidError"
+	case NSPropertyListWriteStreamError:
+		return "NSPropertyListWriteStreamError"
+	case NSUbiquitousFileErrorMaximum:
+		return "NSUbiquitousFileErrorMaximum"
+	case NSUbiquitousFileErrorMinimum:
+		return "NSUbiquitousFileErrorMinimum"
+	case NSUbiquitousFileNotUploadedDueToQuotaError:
+		return "NSUbiquitousFileNotUploadedDueToQuotaError"
+	case NSUbiquitousFileUbiquityServerNotAvailable:
+		return "NSUbiquitousFileUbiquityServerNotAvailable"
+	case NSUbiquitousFileUnavailableError:
+		return "NSUbiquitousFileUnavailableError"
+	case NSUserActivityConnectionUnavailableError:
+		return "NSUserActivityConnectionUnavailableError"
+	case NSUserActivityErrorMaximum:
+		return "NSUserActivityErrorMaximum"
+	case NSUserActivityErrorMinimum:
+		return "NSUserActivityErrorMinimum"
+	case NSUserActivityHandoffUserInfoTooLargeError:
+		return "NSUserActivityHandoffUserInfoTooLargeError"
+	case NSUserActivityRemoteApplicationTimedOutError:
+		return "NSUserActivityRemoteApplicationTimedOutError"
+	case NSUserCancelledError:
+		return "NSUserCancelledError"
+	case NSValidationErrorMaximum:
+		return "NSValidationErrorMaximum"
+	case NSXPCConnectionCodeSigningRequirementFailure:
+		return "NSXPCConnectionCodeSigningRequirementFailure"
+	case NSXPCConnectionErrorMaximum:
+		return "NSXPCConnectionErrorMaximum"
+	case NSXPCConnectionErrorMinimum:
+		return "NSXPCConnectionErrorMinimum"
+	case NSXPCConnectionInterrupted:
+		return "NSXPCConnectionInterrupted"
+	case NSXPCConnectionInvalid:
+		return "NSXPCConnectionInvalid"
+	case NSXPCConnectionReplyInvalid:
+		return "NSXPCConnectionReplyInvalid"
+	default:
+		return fmt.Sprintf("NSFileNoSuchFileErrorConstants(%d)", e)
 	}
 }
 
@@ -2780,19 +2758,19 @@ const (
 	// NSLengthFormatterUnitCentimeter: The centimeter unit.
 	NSLengthFormatterUnitCentimeter NSLengthFormatterUnit = 9
 	// NSLengthFormatterUnitFoot: The foot unit.
-	NSLengthFormatterUnitFoot NSLengthFormatterUnit = 1280
+	NSLengthFormatterUnitFoot NSLengthFormatterUnit = 1282
 	// NSLengthFormatterUnitInch: The inch unit.
-	NSLengthFormatterUnitInch NSLengthFormatterUnit = 1280
+	NSLengthFormatterUnitInch NSLengthFormatterUnit = 1281
 	// NSLengthFormatterUnitKilometer: The kilometer unit.
 	NSLengthFormatterUnitKilometer NSLengthFormatterUnit = 14
 	// NSLengthFormatterUnitMeter: The meter unit.
 	NSLengthFormatterUnitMeter NSLengthFormatterUnit = 11
 	// NSLengthFormatterUnitMile: The mile unit.
-	NSLengthFormatterUnitMile NSLengthFormatterUnit = 1280
+	NSLengthFormatterUnitMile NSLengthFormatterUnit = 1284
 	// NSLengthFormatterUnitMillimeter: The millimeter unit.
 	NSLengthFormatterUnitMillimeter NSLengthFormatterUnit = 8
 	// NSLengthFormatterUnitYard: The yard unit.
-	NSLengthFormatterUnitYard NSLengthFormatterUnit = 1280
+	NSLengthFormatterUnitYard NSLengthFormatterUnit = 1283
 )
 
 func (e NSLengthFormatterUnit) String() string {
@@ -2801,12 +2779,18 @@ func (e NSLengthFormatterUnit) String() string {
 		return "NSLengthFormatterUnitCentimeter"
 	case NSLengthFormatterUnitFoot:
 		return "NSLengthFormatterUnitFoot"
+	case NSLengthFormatterUnitInch:
+		return "NSLengthFormatterUnitInch"
 	case NSLengthFormatterUnitKilometer:
 		return "NSLengthFormatterUnitKilometer"
 	case NSLengthFormatterUnitMeter:
 		return "NSLengthFormatterUnitMeter"
+	case NSLengthFormatterUnitMile:
+		return "NSLengthFormatterUnitMile"
 	case NSLengthFormatterUnitMillimeter:
 		return "NSLengthFormatterUnitMillimeter"
+	case NSLengthFormatterUnitYard:
+		return "NSLengthFormatterUnitYard"
 	default:
 		return fmt.Sprintf("NSLengthFormatterUnit(%d)", e)
 	}
@@ -2941,11 +2925,11 @@ const (
 	// NSMassFormatterUnitKilogram: The kilogram unit.
 	NSMassFormatterUnitKilogram NSMassFormatterUnit = 14
 	// NSMassFormatterUnitOunce: The ounce unit.
-	NSMassFormatterUnitOunce NSMassFormatterUnit = 1536
+	NSMassFormatterUnitOunce NSMassFormatterUnit = 1537
 	// NSMassFormatterUnitPound: The pound unit.
-	NSMassFormatterUnitPound NSMassFormatterUnit = 1536
+	NSMassFormatterUnitPound NSMassFormatterUnit = 1538
 	// NSMassFormatterUnitStone: The stone unit.
-	NSMassFormatterUnitStone NSMassFormatterUnit = 1536
+	NSMassFormatterUnitStone NSMassFormatterUnit = 1539
 )
 
 func (e NSMassFormatterUnit) String() string {
@@ -2956,6 +2940,10 @@ func (e NSMassFormatterUnit) String() string {
 		return "NSMassFormatterUnitKilogram"
 	case NSMassFormatterUnitOunce:
 		return "NSMassFormatterUnitOunce"
+	case NSMassFormatterUnitPound:
+		return "NSMassFormatterUnitPound"
+	case NSMassFormatterUnitStone:
+		return "NSMassFormatterUnitStone"
 	default:
 		return fmt.Sprintf("NSMassFormatterUnit(%d)", e)
 	}
@@ -3118,6 +3106,102 @@ func (e NSNetServicesError) String() string {
 		return "NSNetServicesUnknownError"
 	default:
 		return fmt.Sprintf("NSNetServicesError(%d)", e)
+	}
+}
+
+type NSNoScriptErrorConstants int
+
+const (
+	// NSArgumentEvaluationScriptError: The object specified by an argument could not be found.
+	NSArgumentEvaluationScriptError NSNoScriptErrorConstants = 3
+	// NSArgumentsWrongScriptError: An argument (or more than one argument) is of the wrong type or is otherwise invalid.
+	NSArgumentsWrongScriptError NSNoScriptErrorConstants = 6
+	// NSCannotCreateScriptCommandError: Could not create the script command; an invalid or unrecognized Apple event was received.
+	NSCannotCreateScriptCommandError NSNoScriptErrorConstants = 10
+	// NSInternalScriptError: An unidentified internal error occurred; indicates an error in the scripting support of your application.
+	NSInternalScriptError NSNoScriptErrorConstants = 8
+	// NSKeySpecifierEvaluationScriptError: The object or objects specified by a key (for commands that support key specifiers) could not be found.
+	NSKeySpecifierEvaluationScriptError NSNoScriptErrorConstants = 2
+	// NSNoScriptError: No error.
+	NSNoScriptError NSNoScriptErrorConstants = 0
+	// NSOperationNotSupportedForKeyScriptError: The implementation of a scripting command signaled an error.
+	NSOperationNotSupportedForKeyScriptError NSNoScriptErrorConstants = 9
+	// NSReceiverEvaluationScriptError: The object or objects specified by the direct parameter to a command could not be found.
+	NSReceiverEvaluationScriptError NSNoScriptErrorConstants = 1
+	// NSReceiversCantHandleCommandScriptError: The receivers don’t support the command sent to them.
+	NSReceiversCantHandleCommandScriptError NSNoScriptErrorConstants = 4
+	// NSRequiredArgumentsMissingScriptError: An argument (or more than one argument) is missing.
+	NSRequiredArgumentsMissingScriptError NSNoScriptErrorConstants = 5
+	// NSUnknownKeyScriptError: An unidentified error occurred; indicates an error in the scripting support of your application.
+	NSUnknownKeyScriptError NSNoScriptErrorConstants = 7
+)
+
+func (e NSNoScriptErrorConstants) String() string {
+	switch e {
+	case NSArgumentEvaluationScriptError:
+		return "NSArgumentEvaluationScriptError"
+	case NSArgumentsWrongScriptError:
+		return "NSArgumentsWrongScriptError"
+	case NSCannotCreateScriptCommandError:
+		return "NSCannotCreateScriptCommandError"
+	case NSInternalScriptError:
+		return "NSInternalScriptError"
+	case NSKeySpecifierEvaluationScriptError:
+		return "NSKeySpecifierEvaluationScriptError"
+	case NSNoScriptError:
+		return "NSNoScriptError"
+	case NSOperationNotSupportedForKeyScriptError:
+		return "NSOperationNotSupportedForKeyScriptError"
+	case NSReceiverEvaluationScriptError:
+		return "NSReceiverEvaluationScriptError"
+	case NSReceiversCantHandleCommandScriptError:
+		return "NSReceiversCantHandleCommandScriptError"
+	case NSRequiredArgumentsMissingScriptError:
+		return "NSRequiredArgumentsMissingScriptError"
+	case NSUnknownKeyScriptError:
+		return "NSUnknownKeyScriptError"
+	default:
+		return fmt.Sprintf("NSNoScriptErrorConstants(%d)", e)
+	}
+}
+
+type NSNoSpecifierErrorConstants int
+
+const (
+	// NSContainerSpecifierError: Error evaluating container specifier.
+	NSContainerSpecifierError NSNoSpecifierErrorConstants = 2
+	// NSInternalSpecifierError: Other internal error.
+	NSInternalSpecifierError NSNoSpecifierErrorConstants = 5
+	// NSInvalidIndexSpecifierError: Index out of bounds.
+	NSInvalidIndexSpecifierError NSNoSpecifierErrorConstants = 4
+	// NSNoSpecifierError: No error encountered.
+	NSNoSpecifierError NSNoSpecifierErrorConstants = 0
+	// NSNoTopLevelContainersSpecifierError: Someone called `evaluate` with `nil`.
+	NSNoTopLevelContainersSpecifierError NSNoSpecifierErrorConstants = 1
+	// NSOperationNotSupportedForKeySpecifierError: Attempt made to perform an unsupported operation on some key.
+	NSOperationNotSupportedForKeySpecifierError NSNoSpecifierErrorConstants = 6
+	// NSUnknownKeySpecifierError: Receivers do not understand the key.
+	NSUnknownKeySpecifierError NSNoSpecifierErrorConstants = 3
+)
+
+func (e NSNoSpecifierErrorConstants) String() string {
+	switch e {
+	case NSContainerSpecifierError:
+		return "NSContainerSpecifierError"
+	case NSInternalSpecifierError:
+		return "NSInternalSpecifierError"
+	case NSInvalidIndexSpecifierError:
+		return "NSInvalidIndexSpecifierError"
+	case NSNoSpecifierError:
+		return "NSNoSpecifierError"
+	case NSNoTopLevelContainersSpecifierError:
+		return "NSNoTopLevelContainersSpecifierError"
+	case NSOperationNotSupportedForKeySpecifierError:
+		return "NSOperationNotSupportedForKeySpecifierError"
+	case NSUnknownKeySpecifierError:
+		return "NSUnknownKeySpecifierError"
+	default:
+		return fmt.Sprintf("NSNoSpecifierErrorConstants(%d)", e)
 	}
 }
 
@@ -3323,7 +3407,7 @@ func (e NSNumberFormatterStyle) String() string {
 	}
 }
 
-type NSOpenStepUnicodeReserved uint
+type NSOpenStepUnicodeReserved uint32
 
 const (
 	// NSOpenStepUnicodeReservedBase: Specifies lower bound for a Unicode character range reserved for Apple’s corporate use (the range is `0xF400–0xF8FF`).
@@ -4021,6 +4105,26 @@ func (e NSSaveOptions) String() string {
 	}
 }
 
+type NSScannedOptionConstants uint
+
+const (
+	// NSCollectorDisabledOption: Specifies that the block is retained, and therefore ineligible for collection.
+	NSCollectorDisabledOption NSScannedOptionConstants = 2
+	// NSScannedOption: Specifies allocation of scanned memory.
+	NSScannedOption NSScannedOptionConstants = 1
+)
+
+func (e NSScannedOptionConstants) String() string {
+	switch e {
+	case NSCollectorDisabledOption:
+		return "NSCollectorDisabledOption"
+	case NSScannedOption:
+		return "NSScannedOption"
+	default:
+		return fmt.Sprintf("NSScannedOptionConstants(%d)", e)
+	}
+}
+
 // See: https://developer.apple.com/documentation/Foundation/FileManager/SearchPathDirectory
 type NSSearchPathDirectory uint
 
@@ -4239,7 +4343,7 @@ func (e NSStreamEvent) String() string {
 }
 
 // See: https://developer.apple.com/documentation/Foundation/Stream/Status
-type NSStreamStatus int
+type NSStreamStatus uint
 
 const (
 	// NSStreamStatusAtEnd: There is no more data to read, or no more data can be written to the stream.
@@ -4333,24 +4437,36 @@ func (e NSStringCompareOptions) String() string {
 }
 
 // See: https://developer.apple.com/documentation/Foundation/NSString/DrawingOptions
-type NSStringDrawingOptions uint32
+type NSStringDrawingOptions int
 
 const (
-	OptionsResolvesNaturalAlignmentWithBaseWritingDirection NSStringDrawingOptions = 0
-	TruncatesLastVisibleLine                                NSStringDrawingOptions = 0
-	UsesDeviceMetrics                                       NSStringDrawingOptions = 0
-	UsesFontLeading                                         NSStringDrawingOptions = 0
-	UsesLineFragmentOrigin                                  NSStringDrawingOptions = 0
+	OptionsResolvesNaturalAlignmentWithBaseWritingDirection NSStringDrawingOptions = 512
+	TruncatesLastVisibleLine                                NSStringDrawingOptions = 32
+	UsesDeviceMetrics                                       NSStringDrawingOptions = 8
+	UsesFontLeading                                         NSStringDrawingOptions = 2
+	UsesLineFragmentOrigin                                  NSStringDrawingOptions = 1
 	// Deprecated.
-	DisableScreenFontSubstitution NSStringDrawingOptions = 0
+	DisableScreenFontSubstitution NSStringDrawingOptions = 4
 	// Deprecated.
-	OneShot NSStringDrawingOptions = 0
+	OneShot NSStringDrawingOptions = 16
 )
 
 func (e NSStringDrawingOptions) String() string {
 	switch e {
 	case OptionsResolvesNaturalAlignmentWithBaseWritingDirection:
 		return "OptionsResolvesNaturalAlignmentWithBaseWritingDirection"
+	case TruncatesLastVisibleLine:
+		return "TruncatesLastVisibleLine"
+	case UsesDeviceMetrics:
+		return "UsesDeviceMetrics"
+	case UsesFontLeading:
+		return "UsesFontLeading"
+	case UsesLineFragmentOrigin:
+		return "UsesLineFragmentOrigin"
+	case DisableScreenFontSubstitution:
+		return "DisableScreenFontSubstitution"
+	case OneShot:
+		return "OneShot"
 	default:
 		return fmt.Sprintf("NSStringDrawingOptions(%d)", e)
 	}
@@ -4494,21 +4610,23 @@ func (e NSTestComparisonOperation) String() string {
 	}
 }
 
-type NSTextCheckingAll uint
+type NSTextCheckingAll uint64
 
 const (
 	// NSTextCheckingAllCustomTypes: Checking types that can be used by clients.
-	NSTextCheckingAllCustomTypes NSTextCheckingAll = 0xffffffff
+	NSTextCheckingAllCustomTypes NSTextCheckingAll = 18446744069414584320
 	// NSTextCheckingAllSystemTypes: Checking types supported by the system.
 	NSTextCheckingAllSystemTypes NSTextCheckingAll = 0xffffffff
 	// NSTextCheckingAllTypes: All possible checking types, both system- and user-supported.
-	NSTextCheckingAllTypes NSTextCheckingAll = 0
+	NSTextCheckingAllTypes NSTextCheckingAll = 18446744073709551615
 )
 
 func (e NSTextCheckingAll) String() string {
 	switch e {
 	case NSTextCheckingAllCustomTypes:
 		return "NSTextCheckingAllCustomTypes"
+	case NSTextCheckingAllSystemTypes:
+		return "NSTextCheckingAllSystemTypes"
 	case NSTextCheckingAllTypes:
 		return "NSTextCheckingAllTypes"
 	default:
@@ -4742,19 +4860,19 @@ type NSURLError int
 
 const (
 	// NSURLErrorAppTransportSecurityRequiresSecureConnection: App Transport Security disallowed a connection because there is no secure network connection.
-	NSURLErrorAppTransportSecurityRequiresSecureConnection NSURLError = -1016
+	NSURLErrorAppTransportSecurityRequiresSecureConnection NSURLError = -1022
 	// NSURLErrorBackgroundSessionInUseByAnotherProcess: An app or app extension attempted to connect to a background session that is already connected to a process.
-	NSURLErrorBackgroundSessionInUseByAnotherProcess NSURLError = -3001
+	NSURLErrorBackgroundSessionInUseByAnotherProcess NSURLError = -996
 	// NSURLErrorBackgroundSessionRequiresSharedContainer: The shared container identifier of the URL session configuration is needed but hasn’t been set.
-	NSURLErrorBackgroundSessionRequiresSharedContainer NSURLError = -3002
+	NSURLErrorBackgroundSessionRequiresSharedContainer NSURLError = -995
 	// NSURLErrorBackgroundSessionWasDisconnected: The app is suspended or exits while a background data task is processing.
-	NSURLErrorBackgroundSessionWasDisconnected NSURLError = -3000
+	NSURLErrorBackgroundSessionWasDisconnected NSURLError = -997
 	// NSURLErrorBadServerResponse: The URL Loading System received bad data from the server.
 	NSURLErrorBadServerResponse NSURLError = -1011
 	// NSURLErrorBadURL: A malformed URL prevented a URL request from being initiated.
 	NSURLErrorBadURL NSURLError = -1000
 	// NSURLErrorCallIsActive: A connection was attempted while a phone call was active on a network that doesn’t support simultaneous phone and data communication, such as EDGE or GPRS.
-	NSURLErrorCallIsActive NSURLError = -3005
+	NSURLErrorCallIsActive NSURLError = -1019
 	// NSURLErrorCancelled: An asynchronous load has been canceled.
 	NSURLErrorCancelled NSURLError = -999
 	// NSURLErrorCannotCloseFile: A download task couldn’t close the downloaded file on disk.
@@ -4788,9 +4906,9 @@ const (
 	// NSURLErrorDNSLookupFailed: The host address couldn’t be found via DNS lookup.
 	NSURLErrorDNSLookupFailed NSURLError = -1006
 	// NSURLErrorDataLengthExceedsMaximum: The length of the resource data exceeded the maximum allowed.
-	NSURLErrorDataLengthExceedsMaximum NSURLError = -1101
+	NSURLErrorDataLengthExceedsMaximum NSURLError = -1103
 	// NSURLErrorDataNotAllowed: The cellular network disallowed a connection.
-	NSURLErrorDataNotAllowed NSURLError = -3004
+	NSURLErrorDataNotAllowed NSURLError = -1020
 	// NSURLErrorDownloadDecodingFailedMidStream: A download task failed to decode an encoded file during the download.
 	NSURLErrorDownloadDecodingFailedMidStream NSURLError = -3006
 	// NSURLErrorDownloadDecodingFailedToComplete: A download task failed to decode an encoded file after downloading.
@@ -4800,11 +4918,11 @@ const (
 	// NSURLErrorFileIsDirectory: A request for an FTP file resulted in the server responding that the file is not a plain file, but a directory.
 	NSURLErrorFileIsDirectory NSURLError = -1101
 	// NSURLErrorFileOutsideSafeArea: An internal file operation failed.
-	NSURLErrorFileOutsideSafeArea NSURLError = -1100
+	NSURLErrorFileOutsideSafeArea NSURLError = -1104
 	// NSURLErrorHTTPTooManyRedirects: A redirect loop was detected or the threshold for number of allowable redirects was exceeded (currently 16).
 	NSURLErrorHTTPTooManyRedirects NSURLError = -1007
 	// NSURLErrorInternationalRoamingOff: The attempted connection required activating a data context while roaming, but international roaming is disabled.
-	NSURLErrorInternationalRoamingOff NSURLError = -3006
+	NSURLErrorInternationalRoamingOff NSURLError = -1018
 	// NSURLErrorNetworkConnectionLost: A client or server connection was severed in the middle of an in-progress load.
 	NSURLErrorNetworkConnectionLost NSURLError = -1005
 	// NSURLErrorNoPermissionsToReadFile: A resource couldn’t be read because of insufficient permissions.
@@ -4814,7 +4932,7 @@ const (
 	// NSURLErrorRedirectToNonExistentLocation: A redirect was specified by way of server response code, but the server didn’t accompany this code with a redirect URL.
 	NSURLErrorRedirectToNonExistentLocation NSURLError = -1010
 	// NSURLErrorRequestBodyStreamExhausted: A body stream was needed but the client did not provide one.
-	NSURLErrorRequestBodyStreamExhausted NSURLError = -3003
+	NSURLErrorRequestBodyStreamExhausted NSURLError = -1021
 	// NSURLErrorResourceUnavailable: A requested resource couldn’t be retrieved.
 	NSURLErrorResourceUnavailable NSURLError = -1008
 	// NSURLErrorSecureConnectionFailed: An attempt to establish a secure connection failed for reasons that can’t be expressed more specifically.
@@ -4859,14 +4977,24 @@ func (e NSURLError) String() string {
 		return "NSURLErrorCallIsActive"
 	case NSURLErrorCancelled:
 		return "NSURLErrorCancelled"
+	case NSURLErrorCannotCloseFile:
+		return "NSURLErrorCannotCloseFile"
 	case NSURLErrorCannotConnectToHost:
 		return "NSURLErrorCannotConnectToHost"
+	case NSURLErrorCannotCreateFile:
+		return "NSURLErrorCannotCreateFile"
+	case NSURLErrorCannotDecodeContentData:
+		return "NSURLErrorCannotDecodeContentData"
 	case NSURLErrorCannotDecodeRawData:
 		return "NSURLErrorCannotDecodeRawData"
 	case NSURLErrorCannotFindHost:
 		return "NSURLErrorCannotFindHost"
 	case NSURLErrorCannotLoadFromNetwork:
 		return "NSURLErrorCannotLoadFromNetwork"
+	case NSURLErrorCannotMoveFile:
+		return "NSURLErrorCannotMoveFile"
+	case NSURLErrorCannotOpenFile:
+		return "NSURLErrorCannotOpenFile"
 	case NSURLErrorCannotParseResponse:
 		return "NSURLErrorCannotParseResponse"
 	case NSURLErrorCannotRemoveFile:
@@ -4881,14 +5009,22 @@ func (e NSURLError) String() string {
 		return "NSURLErrorDNSLookupFailed"
 	case NSURLErrorDataLengthExceedsMaximum:
 		return "NSURLErrorDataLengthExceedsMaximum"
+	case NSURLErrorDataNotAllowed:
+		return "NSURLErrorDataNotAllowed"
 	case NSURLErrorDownloadDecodingFailedMidStream:
 		return "NSURLErrorDownloadDecodingFailedMidStream"
 	case NSURLErrorDownloadDecodingFailedToComplete:
 		return "NSURLErrorDownloadDecodingFailedToComplete"
 	case NSURLErrorFileDoesNotExist:
 		return "NSURLErrorFileDoesNotExist"
+	case NSURLErrorFileIsDirectory:
+		return "NSURLErrorFileIsDirectory"
+	case NSURLErrorFileOutsideSafeArea:
+		return "NSURLErrorFileOutsideSafeArea"
 	case NSURLErrorHTTPTooManyRedirects:
 		return "NSURLErrorHTTPTooManyRedirects"
+	case NSURLErrorInternationalRoamingOff:
+		return "NSURLErrorInternationalRoamingOff"
 	case NSURLErrorNetworkConnectionLost:
 		return "NSURLErrorNetworkConnectionLost"
 	case NSURLErrorNoPermissionsToReadFile:
@@ -4897,6 +5033,8 @@ func (e NSURLError) String() string {
 		return "NSURLErrorNotConnectedToInternet"
 	case NSURLErrorRedirectToNonExistentLocation:
 		return "NSURLErrorRedirectToNonExistentLocation"
+	case NSURLErrorRequestBodyStreamExhausted:
+		return "NSURLErrorRequestBodyStreamExhausted"
 	case NSURLErrorResourceUnavailable:
 		return "NSURLErrorResourceUnavailable"
 	case NSURLErrorSecureConnectionFailed:
@@ -4979,7 +5117,7 @@ func (e NSURLErrorNetworkUnavailableReason) String() string {
 }
 
 // See: https://developer.apple.com/documentation/Foundation/NSURLHandle/Status-swift.enum
-type NSURLHandleStatus int
+type NSURLHandleStatus uint
 
 const (
 	// NSURLHandleLoadFailed: The resource data failed to load.
@@ -5425,14 +5563,38 @@ func (e NSURLSessionWebSocketMessageType) String() string {
 
 const (
 	// NSUbiquitousKeyValueStoreAccountChange: A constant that indicates the current Apple account changed.
-	NSUbiquitousKeyValueStoreAccountChange uint = 3
+	NSUbiquitousKeyValueStoreAccountChange int = 3
 	// NSUbiquitousKeyValueStoreInitialSyncChange: A constant that indicates the initial attempt to load keys and values from iCloud is in progress.
-	NSUbiquitousKeyValueStoreInitialSyncChange uint = 1
+	NSUbiquitousKeyValueStoreInitialSyncChange int = 1
 	// NSUbiquitousKeyValueStoreQuotaViolationChange: A constant that indicates an attempt to write data exceeded the quota limits.
-	NSUbiquitousKeyValueStoreQuotaViolationChange uint = 2
+	NSUbiquitousKeyValueStoreQuotaViolationChange int = 2
 	// NSUbiquitousKeyValueStoreServerChange: A constant that indicates a value changed in iCloud.
-	NSUbiquitousKeyValueStoreServerChange uint = 0
+	NSUbiquitousKeyValueStoreServerChange int = 0
 )
+
+type NSUnknownbyteorder uint32
+
+const (
+	// NS_BigEndian: The byte order is big endian.
+	NS_BigEndian NSUnknownbyteorder = 2
+	// NS_LittleEndian: The byte order is little endian.
+	NS_LittleEndian NSUnknownbyteorder = 1
+	// NS_UnknownByteOrder: The byte order is unknown.
+	NS_UnknownByteOrder NSUnknownbyteorder = 0
+)
+
+func (e NSUnknownbyteorder) String() string {
+	switch e {
+	case NS_BigEndian:
+		return "NS_BigEndian"
+	case NS_LittleEndian:
+		return "NS_LittleEndian"
+	case NS_UnknownByteOrder:
+		return "NS_UnknownByteOrder"
+	default:
+		return fmt.Sprintf("NSUnknownbyteorder(%d)", e)
+	}
+}
 
 // See: https://developer.apple.com/documentation/Foundation/NSUserNotification/ActivationType-swift.enum
 type NSUserNotificationActivationType int
@@ -5521,7 +5683,47 @@ func (e NSWhoseSubelementIdentifier) String() string {
 	}
 }
 
-type NSWrapCalendar uint
+type NSWindowsNTOperatingSystemConstants uint32
+
+const (
+	// NSHPUXOperatingSystem: Indicates the HP UX operating system.
+	NSHPUXOperatingSystem NSWindowsNTOperatingSystemConstants = 4
+	// NSMACHOperatingSystem: Indicates the macOS operating system.
+	NSMACHOperatingSystem NSWindowsNTOperatingSystemConstants = 5
+	// NSOSF1OperatingSystem: Indicates the OSF/1 operating system.
+	NSOSF1OperatingSystem NSWindowsNTOperatingSystemConstants = 7
+	// NSSolarisOperatingSystem: Indicates the Solaris operating system.
+	NSSolarisOperatingSystem NSWindowsNTOperatingSystemConstants = 3
+	// NSSunOSOperatingSystem: Indicates the Sun OS operating system.
+	NSSunOSOperatingSystem NSWindowsNTOperatingSystemConstants = 6
+	// NSWindows95OperatingSystem: Indicates the Windows 95 operating system.
+	NSWindows95OperatingSystem NSWindowsNTOperatingSystemConstants = 2
+	// NSWindowsNTOperatingSystem: Indicates the Windows NT operating system.
+	NSWindowsNTOperatingSystem NSWindowsNTOperatingSystemConstants = 1
+)
+
+func (e NSWindowsNTOperatingSystemConstants) String() string {
+	switch e {
+	case NSHPUXOperatingSystem:
+		return "NSHPUXOperatingSystem"
+	case NSMACHOperatingSystem:
+		return "NSMACHOperatingSystem"
+	case NSOSF1OperatingSystem:
+		return "NSOSF1OperatingSystem"
+	case NSSolarisOperatingSystem:
+		return "NSSolarisOperatingSystem"
+	case NSSunOSOperatingSystem:
+		return "NSSunOSOperatingSystem"
+	case NSWindows95OperatingSystem:
+		return "NSWindows95OperatingSystem"
+	case NSWindowsNTOperatingSystem:
+		return "NSWindowsNTOperatingSystem"
+	default:
+		return fmt.Sprintf("NSWindowsNTOperatingSystemConstants(%d)", e)
+	}
+}
+
+type NSWrapCalendar uint32
 
 const (
 	// Deprecated: use NSCalendar.Options.wrapComponents.
@@ -5659,7 +5861,7 @@ func (e NSXMLDocumentContentKind) String() string {
 	}
 }
 
-type NSXMLNodeKind int
+type NSXMLNodeKind uint
 
 const (
 	NSXMLAttributeDeclarationKind  NSXMLNodeKind = 10
@@ -5710,7 +5912,7 @@ func (e NSXMLNodeKind) String() string {
 	}
 }
 
-type NSXMLNodeOptions uint32
+type NSXMLNodeOptions uint
 
 const (
 	NSXMLDocumentIncludeContentTypeDeclaration  NSXMLNodeOptions = 262144

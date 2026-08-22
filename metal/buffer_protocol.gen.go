@@ -39,7 +39,7 @@ type MTLBuffer interface {
 	// See: https://developer.apple.com/documentation/Metal/MTLBuffer/makeRemoteBufferView(_:)
 	NewRemoteBufferViewForDevice(device MTLDevice) MTLBuffer
 
-	// Creates a tensor that shares storage with this buffer.
+	// Creates a single-plane tensor with the specified descriptor that shares storage with this buffer.
 	//
 	// See: https://developer.apple.com/documentation/Metal/MTLBuffer/makeTensor(descriptor:offset:)
 	NewTensorWithDescriptorOffsetError(descriptor IMTLTensorDescriptor, offset uint) (MTLTensor, error)
@@ -201,27 +201,30 @@ func (o MTLBufferObject) NewRemoteBufferViewForDevice(device MTLDevice) MTLBuffe
 	return MTLBufferObjectFromID(rv)
 }
 
-// Creates a tensor that shares storage with this buffer.
+// Creates a single-plane tensor with the specified descriptor that shares
+// storage with this buffer.
 //
-// descriptor: A description of the properties for the new tensor.
+// descriptor: The tensor descriptor configuring the data plane.
 //
-// offset: Offset into the buffer at which the data of the tensor begins.
+// offset: The byte offset into the buffer where tensor data begins.
 //
 // # Return Value
 //
-// The created [MTLTensor] instance, or `nil` if the function failed.
+// A tensor, or `nil` if validation fails.
 //
 // # Discussion
 //
-// `offset` must be 0 when [MTLTensorDescriptor.Usage] contains
-// [MTLTensorUsageMachineLearning].
+// This method validates the constraints documented on [MTLTensorDescriptor],
+// and additionally requires:
 //
-// When [MTLTensorDescriptor.DataType] is a sub-byte [MTLTensorDataType],
-// `offset` must be aligned to 128 bytes. Although only required for sub-byte
-// types, applying 128-byte alignment for all [MTLTensorDataType] values
-// improves performance.
+// - `offset` is 0 when [MTLTensorDescriptor.Usage] contains
+// [MTLTensorUsageMachineLearning]. - `offset` is aligned to 128 bytes if the
+// data plane uses a format [MTLTensorDataType]. - `offset` is aligned to the
+// size of the data type in bytes otherwise.
 //
-// See [MTLTensorDescriptor] for more information.
+// This method doesn’t create tensors that contain auxiliary planes. Use
+// [NewTensorWithDescriptorAttachmentsError] instead to create a multi-plane
+// tensor with per-plane buffer backing storage.
 //
 // See: https://developer.apple.com/documentation/Metal/MTLBuffer/makeTensor(descriptor:offset:)
 //

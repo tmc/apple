@@ -1415,7 +1415,7 @@ var (
 	//
 	// See: https://developer.apple.com/documentation/Security/kSecPolicyKU_DataEncipherment
 	KSecPolicyKU_DataEncipherment string
-	// KSecPolicyKU_DecipherOnly is if true, the certificate’s key usage must allow it to be used for decryption.
+	// KSecPolicyKU_DecipherOnly is if true, the certificate’s key usage must allow it to be used only for decryption.
 	//
 	// See: https://developer.apple.com/documentation/Security/kSecPolicyKU_DecipherOnly
 	KSecPolicyKU_DecipherOnly string
@@ -1423,7 +1423,7 @@ var (
 	//
 	// See: https://developer.apple.com/documentation/Security/kSecPolicyKU_DigitalSignature
 	KSecPolicyKU_DigitalSignature string
-	// KSecPolicyKU_EncipherOnly is if true, the certificate’s key usage must allow it to be used for encryption.
+	// KSecPolicyKU_EncipherOnly is if true, the certificate’s key usage must allow it to be used only for encryption.
 	//
 	// See: https://developer.apple.com/documentation/Security/kSecPolicyKU_EncipherOnly
 	KSecPolicyKU_EncipherOnly string
@@ -1851,42 +1851,82 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "gGuidAppleCSP"); err == nil && ptr != 0 {
+		// Opaque/struct symbol (e.g. CSSM_GUID): store the symbol address
+		// itself. The symbol is not a pointer, so dereferencing its first
+		// word as one is both wrong and trips -race checkptr alignment for
+		// sub-pointer-aligned structs.
 		gGuidAppleCSP = unsafe.Pointer(ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "gGuidAppleCSPDL"); err == nil && ptr != 0 {
+		// Opaque/struct symbol (e.g. CSSM_GUID): store the symbol address
+		// itself. The symbol is not a pointer, so dereferencing its first
+		// word as one is both wrong and trips -race checkptr alignment for
+		// sub-pointer-aligned structs.
 		gGuidAppleCSPDL = unsafe.Pointer(ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "gGuidAppleDotMacDL"); err == nil && ptr != 0 {
+		// Opaque/struct symbol (e.g. CSSM_GUID): store the symbol address
+		// itself. The symbol is not a pointer, so dereferencing its first
+		// word as one is both wrong and trips -race checkptr alignment for
+		// sub-pointer-aligned structs.
 		gGuidAppleDotMacDL = unsafe.Pointer(ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "gGuidAppleDotMacTP"); err == nil && ptr != 0 {
+		// Opaque/struct symbol (e.g. CSSM_GUID): store the symbol address
+		// itself. The symbol is not a pointer, so dereferencing its first
+		// word as one is both wrong and trips -race checkptr alignment for
+		// sub-pointer-aligned structs.
 		gGuidAppleDotMacTP = unsafe.Pointer(ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "gGuidAppleFileDL"); err == nil && ptr != 0 {
+		// Opaque/struct symbol (e.g. CSSM_GUID): store the symbol address
+		// itself. The symbol is not a pointer, so dereferencing its first
+		// word as one is both wrong and trips -race checkptr alignment for
+		// sub-pointer-aligned structs.
 		gGuidAppleFileDL = unsafe.Pointer(ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "gGuidAppleLDAPDL"); err == nil && ptr != 0 {
+		// Opaque/struct symbol (e.g. CSSM_GUID): store the symbol address
+		// itself. The symbol is not a pointer, so dereferencing its first
+		// word as one is both wrong and trips -race checkptr alignment for
+		// sub-pointer-aligned structs.
 		gGuidAppleLDAPDL = unsafe.Pointer(ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "gGuidAppleSdCSPDL"); err == nil && ptr != 0 {
+		// Opaque/struct symbol (e.g. CSSM_GUID): store the symbol address
+		// itself. The symbol is not a pointer, so dereferencing its first
+		// word as one is both wrong and trips -race checkptr alignment for
+		// sub-pointer-aligned structs.
 		gGuidAppleSdCSPDL = unsafe.Pointer(ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "gGuidAppleX509CL"); err == nil && ptr != 0 {
+		// Opaque/struct symbol (e.g. CSSM_GUID): store the symbol address
+		// itself. The symbol is not a pointer, so dereferencing its first
+		// word as one is both wrong and trips -race checkptr alignment for
+		// sub-pointer-aligned structs.
 		gGuidAppleX509CL = unsafe.Pointer(ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "gGuidAppleX509TP"); err == nil && ptr != 0 {
+		// Opaque/struct symbol (e.g. CSSM_GUID): store the symbol address
+		// itself. The symbol is not a pointer, so dereferencing its first
+		// word as one is both wrong and trips -race checkptr alignment for
+		// sub-pointer-aligned structs.
 		gGuidAppleX509TP = unsafe.Pointer(ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "gGuidCssm"); err == nil && ptr != 0 {
+		// Opaque/struct symbol (e.g. CSSM_GUID): store the symbol address
+		// itself. The symbol is not a pointer, so dereferencing its first
+		// word as one is both wrong and trips -race checkptr alignment for
+		// sub-pointer-aligned structs.
 		gGuidCssm = unsafe.Pointer(ptr)
 	}
 
@@ -4041,351 +4081,351 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kSecKeyAlgorithmECDHKeyExchangeCofactor"); err == nil && ptr != 0 {
-		KSecKeyAlgorithmECDHKeyExchangeCofactor = *(*SecKeyAlgorithm)(unsafe.Pointer(ptr))
+		KSecKeyAlgorithmECDHKeyExchangeCofactor = objc.ValueAt[SecKeyAlgorithm](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kSecKeyAlgorithmECDHKeyExchangeCofactorX963SHA1"); err == nil && ptr != 0 {
-		KSecKeyAlgorithmECDHKeyExchangeCofactorX963SHA1 = *(*SecKeyAlgorithm)(unsafe.Pointer(ptr))
+		KSecKeyAlgorithmECDHKeyExchangeCofactorX963SHA1 = objc.ValueAt[SecKeyAlgorithm](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kSecKeyAlgorithmECDHKeyExchangeCofactorX963SHA224"); err == nil && ptr != 0 {
-		KSecKeyAlgorithmECDHKeyExchangeCofactorX963SHA224 = *(*SecKeyAlgorithm)(unsafe.Pointer(ptr))
+		KSecKeyAlgorithmECDHKeyExchangeCofactorX963SHA224 = objc.ValueAt[SecKeyAlgorithm](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kSecKeyAlgorithmECDHKeyExchangeCofactorX963SHA256"); err == nil && ptr != 0 {
-		KSecKeyAlgorithmECDHKeyExchangeCofactorX963SHA256 = *(*SecKeyAlgorithm)(unsafe.Pointer(ptr))
+		KSecKeyAlgorithmECDHKeyExchangeCofactorX963SHA256 = objc.ValueAt[SecKeyAlgorithm](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kSecKeyAlgorithmECDHKeyExchangeCofactorX963SHA384"); err == nil && ptr != 0 {
-		KSecKeyAlgorithmECDHKeyExchangeCofactorX963SHA384 = *(*SecKeyAlgorithm)(unsafe.Pointer(ptr))
+		KSecKeyAlgorithmECDHKeyExchangeCofactorX963SHA384 = objc.ValueAt[SecKeyAlgorithm](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kSecKeyAlgorithmECDHKeyExchangeCofactorX963SHA512"); err == nil && ptr != 0 {
-		KSecKeyAlgorithmECDHKeyExchangeCofactorX963SHA512 = *(*SecKeyAlgorithm)(unsafe.Pointer(ptr))
+		KSecKeyAlgorithmECDHKeyExchangeCofactorX963SHA512 = objc.ValueAt[SecKeyAlgorithm](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kSecKeyAlgorithmECDHKeyExchangeStandard"); err == nil && ptr != 0 {
-		KSecKeyAlgorithmECDHKeyExchangeStandard = *(*SecKeyAlgorithm)(unsafe.Pointer(ptr))
+		KSecKeyAlgorithmECDHKeyExchangeStandard = objc.ValueAt[SecKeyAlgorithm](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kSecKeyAlgorithmECDHKeyExchangeStandardX963SHA1"); err == nil && ptr != 0 {
-		KSecKeyAlgorithmECDHKeyExchangeStandardX963SHA1 = *(*SecKeyAlgorithm)(unsafe.Pointer(ptr))
+		KSecKeyAlgorithmECDHKeyExchangeStandardX963SHA1 = objc.ValueAt[SecKeyAlgorithm](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kSecKeyAlgorithmECDHKeyExchangeStandardX963SHA224"); err == nil && ptr != 0 {
-		KSecKeyAlgorithmECDHKeyExchangeStandardX963SHA224 = *(*SecKeyAlgorithm)(unsafe.Pointer(ptr))
+		KSecKeyAlgorithmECDHKeyExchangeStandardX963SHA224 = objc.ValueAt[SecKeyAlgorithm](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kSecKeyAlgorithmECDHKeyExchangeStandardX963SHA256"); err == nil && ptr != 0 {
-		KSecKeyAlgorithmECDHKeyExchangeStandardX963SHA256 = *(*SecKeyAlgorithm)(unsafe.Pointer(ptr))
+		KSecKeyAlgorithmECDHKeyExchangeStandardX963SHA256 = objc.ValueAt[SecKeyAlgorithm](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kSecKeyAlgorithmECDHKeyExchangeStandardX963SHA384"); err == nil && ptr != 0 {
-		KSecKeyAlgorithmECDHKeyExchangeStandardX963SHA384 = *(*SecKeyAlgorithm)(unsafe.Pointer(ptr))
+		KSecKeyAlgorithmECDHKeyExchangeStandardX963SHA384 = objc.ValueAt[SecKeyAlgorithm](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kSecKeyAlgorithmECDHKeyExchangeStandardX963SHA512"); err == nil && ptr != 0 {
-		KSecKeyAlgorithmECDHKeyExchangeStandardX963SHA512 = *(*SecKeyAlgorithm)(unsafe.Pointer(ptr))
+		KSecKeyAlgorithmECDHKeyExchangeStandardX963SHA512 = objc.ValueAt[SecKeyAlgorithm](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kSecKeyAlgorithmECDSASignatureDigestRFC4754"); err == nil && ptr != 0 {
-		KSecKeyAlgorithmECDSASignatureDigestRFC4754 = *(*SecKeyAlgorithm)(unsafe.Pointer(ptr))
+		KSecKeyAlgorithmECDSASignatureDigestRFC4754 = objc.ValueAt[SecKeyAlgorithm](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kSecKeyAlgorithmECDSASignatureDigestRFC4754SHA1"); err == nil && ptr != 0 {
-		KSecKeyAlgorithmECDSASignatureDigestRFC4754SHA1 = *(*SecKeyAlgorithm)(unsafe.Pointer(ptr))
+		KSecKeyAlgorithmECDSASignatureDigestRFC4754SHA1 = objc.ValueAt[SecKeyAlgorithm](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kSecKeyAlgorithmECDSASignatureDigestRFC4754SHA224"); err == nil && ptr != 0 {
-		KSecKeyAlgorithmECDSASignatureDigestRFC4754SHA224 = *(*SecKeyAlgorithm)(unsafe.Pointer(ptr))
+		KSecKeyAlgorithmECDSASignatureDigestRFC4754SHA224 = objc.ValueAt[SecKeyAlgorithm](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kSecKeyAlgorithmECDSASignatureDigestRFC4754SHA256"); err == nil && ptr != 0 {
-		KSecKeyAlgorithmECDSASignatureDigestRFC4754SHA256 = *(*SecKeyAlgorithm)(unsafe.Pointer(ptr))
+		KSecKeyAlgorithmECDSASignatureDigestRFC4754SHA256 = objc.ValueAt[SecKeyAlgorithm](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kSecKeyAlgorithmECDSASignatureDigestRFC4754SHA384"); err == nil && ptr != 0 {
-		KSecKeyAlgorithmECDSASignatureDigestRFC4754SHA384 = *(*SecKeyAlgorithm)(unsafe.Pointer(ptr))
+		KSecKeyAlgorithmECDSASignatureDigestRFC4754SHA384 = objc.ValueAt[SecKeyAlgorithm](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kSecKeyAlgorithmECDSASignatureDigestRFC4754SHA512"); err == nil && ptr != 0 {
-		KSecKeyAlgorithmECDSASignatureDigestRFC4754SHA512 = *(*SecKeyAlgorithm)(unsafe.Pointer(ptr))
+		KSecKeyAlgorithmECDSASignatureDigestRFC4754SHA512 = objc.ValueAt[SecKeyAlgorithm](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kSecKeyAlgorithmECDSASignatureDigestX962"); err == nil && ptr != 0 {
-		KSecKeyAlgorithmECDSASignatureDigestX962 = *(*SecKeyAlgorithm)(unsafe.Pointer(ptr))
+		KSecKeyAlgorithmECDSASignatureDigestX962 = objc.ValueAt[SecKeyAlgorithm](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kSecKeyAlgorithmECDSASignatureDigestX962SHA1"); err == nil && ptr != 0 {
-		KSecKeyAlgorithmECDSASignatureDigestX962SHA1 = *(*SecKeyAlgorithm)(unsafe.Pointer(ptr))
+		KSecKeyAlgorithmECDSASignatureDigestX962SHA1 = objc.ValueAt[SecKeyAlgorithm](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kSecKeyAlgorithmECDSASignatureDigestX962SHA224"); err == nil && ptr != 0 {
-		KSecKeyAlgorithmECDSASignatureDigestX962SHA224 = *(*SecKeyAlgorithm)(unsafe.Pointer(ptr))
+		KSecKeyAlgorithmECDSASignatureDigestX962SHA224 = objc.ValueAt[SecKeyAlgorithm](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kSecKeyAlgorithmECDSASignatureDigestX962SHA256"); err == nil && ptr != 0 {
-		KSecKeyAlgorithmECDSASignatureDigestX962SHA256 = *(*SecKeyAlgorithm)(unsafe.Pointer(ptr))
+		KSecKeyAlgorithmECDSASignatureDigestX962SHA256 = objc.ValueAt[SecKeyAlgorithm](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kSecKeyAlgorithmECDSASignatureDigestX962SHA384"); err == nil && ptr != 0 {
-		KSecKeyAlgorithmECDSASignatureDigestX962SHA384 = *(*SecKeyAlgorithm)(unsafe.Pointer(ptr))
+		KSecKeyAlgorithmECDSASignatureDigestX962SHA384 = objc.ValueAt[SecKeyAlgorithm](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kSecKeyAlgorithmECDSASignatureDigestX962SHA512"); err == nil && ptr != 0 {
-		KSecKeyAlgorithmECDSASignatureDigestX962SHA512 = *(*SecKeyAlgorithm)(unsafe.Pointer(ptr))
+		KSecKeyAlgorithmECDSASignatureDigestX962SHA512 = objc.ValueAt[SecKeyAlgorithm](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kSecKeyAlgorithmECDSASignatureMessageRFC4754SHA1"); err == nil && ptr != 0 {
-		KSecKeyAlgorithmECDSASignatureMessageRFC4754SHA1 = *(*SecKeyAlgorithm)(unsafe.Pointer(ptr))
+		KSecKeyAlgorithmECDSASignatureMessageRFC4754SHA1 = objc.ValueAt[SecKeyAlgorithm](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kSecKeyAlgorithmECDSASignatureMessageRFC4754SHA224"); err == nil && ptr != 0 {
-		KSecKeyAlgorithmECDSASignatureMessageRFC4754SHA224 = *(*SecKeyAlgorithm)(unsafe.Pointer(ptr))
+		KSecKeyAlgorithmECDSASignatureMessageRFC4754SHA224 = objc.ValueAt[SecKeyAlgorithm](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kSecKeyAlgorithmECDSASignatureMessageRFC4754SHA256"); err == nil && ptr != 0 {
-		KSecKeyAlgorithmECDSASignatureMessageRFC4754SHA256 = *(*SecKeyAlgorithm)(unsafe.Pointer(ptr))
+		KSecKeyAlgorithmECDSASignatureMessageRFC4754SHA256 = objc.ValueAt[SecKeyAlgorithm](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kSecKeyAlgorithmECDSASignatureMessageRFC4754SHA384"); err == nil && ptr != 0 {
-		KSecKeyAlgorithmECDSASignatureMessageRFC4754SHA384 = *(*SecKeyAlgorithm)(unsafe.Pointer(ptr))
+		KSecKeyAlgorithmECDSASignatureMessageRFC4754SHA384 = objc.ValueAt[SecKeyAlgorithm](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kSecKeyAlgorithmECDSASignatureMessageRFC4754SHA512"); err == nil && ptr != 0 {
-		KSecKeyAlgorithmECDSASignatureMessageRFC4754SHA512 = *(*SecKeyAlgorithm)(unsafe.Pointer(ptr))
+		KSecKeyAlgorithmECDSASignatureMessageRFC4754SHA512 = objc.ValueAt[SecKeyAlgorithm](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kSecKeyAlgorithmECDSASignatureMessageX962SHA1"); err == nil && ptr != 0 {
-		KSecKeyAlgorithmECDSASignatureMessageX962SHA1 = *(*SecKeyAlgorithm)(unsafe.Pointer(ptr))
+		KSecKeyAlgorithmECDSASignatureMessageX962SHA1 = objc.ValueAt[SecKeyAlgorithm](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kSecKeyAlgorithmECDSASignatureMessageX962SHA224"); err == nil && ptr != 0 {
-		KSecKeyAlgorithmECDSASignatureMessageX962SHA224 = *(*SecKeyAlgorithm)(unsafe.Pointer(ptr))
+		KSecKeyAlgorithmECDSASignatureMessageX962SHA224 = objc.ValueAt[SecKeyAlgorithm](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kSecKeyAlgorithmECDSASignatureMessageX962SHA256"); err == nil && ptr != 0 {
-		KSecKeyAlgorithmECDSASignatureMessageX962SHA256 = *(*SecKeyAlgorithm)(unsafe.Pointer(ptr))
+		KSecKeyAlgorithmECDSASignatureMessageX962SHA256 = objc.ValueAt[SecKeyAlgorithm](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kSecKeyAlgorithmECDSASignatureMessageX962SHA384"); err == nil && ptr != 0 {
-		KSecKeyAlgorithmECDSASignatureMessageX962SHA384 = *(*SecKeyAlgorithm)(unsafe.Pointer(ptr))
+		KSecKeyAlgorithmECDSASignatureMessageX962SHA384 = objc.ValueAt[SecKeyAlgorithm](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kSecKeyAlgorithmECDSASignatureMessageX962SHA512"); err == nil && ptr != 0 {
-		KSecKeyAlgorithmECDSASignatureMessageX962SHA512 = *(*SecKeyAlgorithm)(unsafe.Pointer(ptr))
+		KSecKeyAlgorithmECDSASignatureMessageX962SHA512 = objc.ValueAt[SecKeyAlgorithm](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kSecKeyAlgorithmECDSASignatureRFC4754"); err == nil && ptr != 0 {
-		KSecKeyAlgorithmECDSASignatureRFC4754 = *(*SecKeyAlgorithm)(unsafe.Pointer(ptr))
+		KSecKeyAlgorithmECDSASignatureRFC4754 = objc.ValueAt[SecKeyAlgorithm](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kSecKeyAlgorithmECIESEncryptionCofactorVariableIVX963SHA224AESGCM"); err == nil && ptr != 0 {
-		KSecKeyAlgorithmECIESEncryptionCofactorVariableIVX963SHA224AESGCM = *(*SecKeyAlgorithm)(unsafe.Pointer(ptr))
+		KSecKeyAlgorithmECIESEncryptionCofactorVariableIVX963SHA224AESGCM = objc.ValueAt[SecKeyAlgorithm](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kSecKeyAlgorithmECIESEncryptionCofactorVariableIVX963SHA256AESGCM"); err == nil && ptr != 0 {
-		KSecKeyAlgorithmECIESEncryptionCofactorVariableIVX963SHA256AESGCM = *(*SecKeyAlgorithm)(unsafe.Pointer(ptr))
+		KSecKeyAlgorithmECIESEncryptionCofactorVariableIVX963SHA256AESGCM = objc.ValueAt[SecKeyAlgorithm](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kSecKeyAlgorithmECIESEncryptionCofactorVariableIVX963SHA384AESGCM"); err == nil && ptr != 0 {
-		KSecKeyAlgorithmECIESEncryptionCofactorVariableIVX963SHA384AESGCM = *(*SecKeyAlgorithm)(unsafe.Pointer(ptr))
+		KSecKeyAlgorithmECIESEncryptionCofactorVariableIVX963SHA384AESGCM = objc.ValueAt[SecKeyAlgorithm](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kSecKeyAlgorithmECIESEncryptionCofactorVariableIVX963SHA512AESGCM"); err == nil && ptr != 0 {
-		KSecKeyAlgorithmECIESEncryptionCofactorVariableIVX963SHA512AESGCM = *(*SecKeyAlgorithm)(unsafe.Pointer(ptr))
+		KSecKeyAlgorithmECIESEncryptionCofactorVariableIVX963SHA512AESGCM = objc.ValueAt[SecKeyAlgorithm](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kSecKeyAlgorithmECIESEncryptionCofactorX963SHA1AESGCM"); err == nil && ptr != 0 {
-		KSecKeyAlgorithmECIESEncryptionCofactorX963SHA1AESGCM = *(*SecKeyAlgorithm)(unsafe.Pointer(ptr))
+		KSecKeyAlgorithmECIESEncryptionCofactorX963SHA1AESGCM = objc.ValueAt[SecKeyAlgorithm](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kSecKeyAlgorithmECIESEncryptionCofactorX963SHA224AESGCM"); err == nil && ptr != 0 {
-		KSecKeyAlgorithmECIESEncryptionCofactorX963SHA224AESGCM = *(*SecKeyAlgorithm)(unsafe.Pointer(ptr))
+		KSecKeyAlgorithmECIESEncryptionCofactorX963SHA224AESGCM = objc.ValueAt[SecKeyAlgorithm](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kSecKeyAlgorithmECIESEncryptionCofactorX963SHA256AESGCM"); err == nil && ptr != 0 {
-		KSecKeyAlgorithmECIESEncryptionCofactorX963SHA256AESGCM = *(*SecKeyAlgorithm)(unsafe.Pointer(ptr))
+		KSecKeyAlgorithmECIESEncryptionCofactorX963SHA256AESGCM = objc.ValueAt[SecKeyAlgorithm](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kSecKeyAlgorithmECIESEncryptionCofactorX963SHA384AESGCM"); err == nil && ptr != 0 {
-		KSecKeyAlgorithmECIESEncryptionCofactorX963SHA384AESGCM = *(*SecKeyAlgorithm)(unsafe.Pointer(ptr))
+		KSecKeyAlgorithmECIESEncryptionCofactorX963SHA384AESGCM = objc.ValueAt[SecKeyAlgorithm](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kSecKeyAlgorithmECIESEncryptionCofactorX963SHA512AESGCM"); err == nil && ptr != 0 {
-		KSecKeyAlgorithmECIESEncryptionCofactorX963SHA512AESGCM = *(*SecKeyAlgorithm)(unsafe.Pointer(ptr))
+		KSecKeyAlgorithmECIESEncryptionCofactorX963SHA512AESGCM = objc.ValueAt[SecKeyAlgorithm](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kSecKeyAlgorithmECIESEncryptionStandardVariableIVX963SHA224AESGCM"); err == nil && ptr != 0 {
-		KSecKeyAlgorithmECIESEncryptionStandardVariableIVX963SHA224AESGCM = *(*SecKeyAlgorithm)(unsafe.Pointer(ptr))
+		KSecKeyAlgorithmECIESEncryptionStandardVariableIVX963SHA224AESGCM = objc.ValueAt[SecKeyAlgorithm](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kSecKeyAlgorithmECIESEncryptionStandardVariableIVX963SHA256AESGCM"); err == nil && ptr != 0 {
-		KSecKeyAlgorithmECIESEncryptionStandardVariableIVX963SHA256AESGCM = *(*SecKeyAlgorithm)(unsafe.Pointer(ptr))
+		KSecKeyAlgorithmECIESEncryptionStandardVariableIVX963SHA256AESGCM = objc.ValueAt[SecKeyAlgorithm](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kSecKeyAlgorithmECIESEncryptionStandardVariableIVX963SHA384AESGCM"); err == nil && ptr != 0 {
-		KSecKeyAlgorithmECIESEncryptionStandardVariableIVX963SHA384AESGCM = *(*SecKeyAlgorithm)(unsafe.Pointer(ptr))
+		KSecKeyAlgorithmECIESEncryptionStandardVariableIVX963SHA384AESGCM = objc.ValueAt[SecKeyAlgorithm](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kSecKeyAlgorithmECIESEncryptionStandardVariableIVX963SHA512AESGCM"); err == nil && ptr != 0 {
-		KSecKeyAlgorithmECIESEncryptionStandardVariableIVX963SHA512AESGCM = *(*SecKeyAlgorithm)(unsafe.Pointer(ptr))
+		KSecKeyAlgorithmECIESEncryptionStandardVariableIVX963SHA512AESGCM = objc.ValueAt[SecKeyAlgorithm](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kSecKeyAlgorithmECIESEncryptionStandardX963SHA1AESGCM"); err == nil && ptr != 0 {
-		KSecKeyAlgorithmECIESEncryptionStandardX963SHA1AESGCM = *(*SecKeyAlgorithm)(unsafe.Pointer(ptr))
+		KSecKeyAlgorithmECIESEncryptionStandardX963SHA1AESGCM = objc.ValueAt[SecKeyAlgorithm](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kSecKeyAlgorithmECIESEncryptionStandardX963SHA224AESGCM"); err == nil && ptr != 0 {
-		KSecKeyAlgorithmECIESEncryptionStandardX963SHA224AESGCM = *(*SecKeyAlgorithm)(unsafe.Pointer(ptr))
+		KSecKeyAlgorithmECIESEncryptionStandardX963SHA224AESGCM = objc.ValueAt[SecKeyAlgorithm](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kSecKeyAlgorithmECIESEncryptionStandardX963SHA256AESGCM"); err == nil && ptr != 0 {
-		KSecKeyAlgorithmECIESEncryptionStandardX963SHA256AESGCM = *(*SecKeyAlgorithm)(unsafe.Pointer(ptr))
+		KSecKeyAlgorithmECIESEncryptionStandardX963SHA256AESGCM = objc.ValueAt[SecKeyAlgorithm](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kSecKeyAlgorithmECIESEncryptionStandardX963SHA384AESGCM"); err == nil && ptr != 0 {
-		KSecKeyAlgorithmECIESEncryptionStandardX963SHA384AESGCM = *(*SecKeyAlgorithm)(unsafe.Pointer(ptr))
+		KSecKeyAlgorithmECIESEncryptionStandardX963SHA384AESGCM = objc.ValueAt[SecKeyAlgorithm](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kSecKeyAlgorithmECIESEncryptionStandardX963SHA512AESGCM"); err == nil && ptr != 0 {
-		KSecKeyAlgorithmECIESEncryptionStandardX963SHA512AESGCM = *(*SecKeyAlgorithm)(unsafe.Pointer(ptr))
+		KSecKeyAlgorithmECIESEncryptionStandardX963SHA512AESGCM = objc.ValueAt[SecKeyAlgorithm](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kSecKeyAlgorithmRSAEncryptionOAEPSHA1"); err == nil && ptr != 0 {
-		KSecKeyAlgorithmRSAEncryptionOAEPSHA1 = *(*SecKeyAlgorithm)(unsafe.Pointer(ptr))
+		KSecKeyAlgorithmRSAEncryptionOAEPSHA1 = objc.ValueAt[SecKeyAlgorithm](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kSecKeyAlgorithmRSAEncryptionOAEPSHA1AESGCM"); err == nil && ptr != 0 {
-		KSecKeyAlgorithmRSAEncryptionOAEPSHA1AESGCM = *(*SecKeyAlgorithm)(unsafe.Pointer(ptr))
+		KSecKeyAlgorithmRSAEncryptionOAEPSHA1AESGCM = objc.ValueAt[SecKeyAlgorithm](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kSecKeyAlgorithmRSAEncryptionOAEPSHA224"); err == nil && ptr != 0 {
-		KSecKeyAlgorithmRSAEncryptionOAEPSHA224 = *(*SecKeyAlgorithm)(unsafe.Pointer(ptr))
+		KSecKeyAlgorithmRSAEncryptionOAEPSHA224 = objc.ValueAt[SecKeyAlgorithm](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kSecKeyAlgorithmRSAEncryptionOAEPSHA224AESGCM"); err == nil && ptr != 0 {
-		KSecKeyAlgorithmRSAEncryptionOAEPSHA224AESGCM = *(*SecKeyAlgorithm)(unsafe.Pointer(ptr))
+		KSecKeyAlgorithmRSAEncryptionOAEPSHA224AESGCM = objc.ValueAt[SecKeyAlgorithm](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kSecKeyAlgorithmRSAEncryptionOAEPSHA256"); err == nil && ptr != 0 {
-		KSecKeyAlgorithmRSAEncryptionOAEPSHA256 = *(*SecKeyAlgorithm)(unsafe.Pointer(ptr))
+		KSecKeyAlgorithmRSAEncryptionOAEPSHA256 = objc.ValueAt[SecKeyAlgorithm](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kSecKeyAlgorithmRSAEncryptionOAEPSHA256AESGCM"); err == nil && ptr != 0 {
-		KSecKeyAlgorithmRSAEncryptionOAEPSHA256AESGCM = *(*SecKeyAlgorithm)(unsafe.Pointer(ptr))
+		KSecKeyAlgorithmRSAEncryptionOAEPSHA256AESGCM = objc.ValueAt[SecKeyAlgorithm](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kSecKeyAlgorithmRSAEncryptionOAEPSHA384"); err == nil && ptr != 0 {
-		KSecKeyAlgorithmRSAEncryptionOAEPSHA384 = *(*SecKeyAlgorithm)(unsafe.Pointer(ptr))
+		KSecKeyAlgorithmRSAEncryptionOAEPSHA384 = objc.ValueAt[SecKeyAlgorithm](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kSecKeyAlgorithmRSAEncryptionOAEPSHA384AESGCM"); err == nil && ptr != 0 {
-		KSecKeyAlgorithmRSAEncryptionOAEPSHA384AESGCM = *(*SecKeyAlgorithm)(unsafe.Pointer(ptr))
+		KSecKeyAlgorithmRSAEncryptionOAEPSHA384AESGCM = objc.ValueAt[SecKeyAlgorithm](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kSecKeyAlgorithmRSAEncryptionOAEPSHA512"); err == nil && ptr != 0 {
-		KSecKeyAlgorithmRSAEncryptionOAEPSHA512 = *(*SecKeyAlgorithm)(unsafe.Pointer(ptr))
+		KSecKeyAlgorithmRSAEncryptionOAEPSHA512 = objc.ValueAt[SecKeyAlgorithm](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kSecKeyAlgorithmRSAEncryptionOAEPSHA512AESGCM"); err == nil && ptr != 0 {
-		KSecKeyAlgorithmRSAEncryptionOAEPSHA512AESGCM = *(*SecKeyAlgorithm)(unsafe.Pointer(ptr))
+		KSecKeyAlgorithmRSAEncryptionOAEPSHA512AESGCM = objc.ValueAt[SecKeyAlgorithm](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kSecKeyAlgorithmRSAEncryptionPKCS1"); err == nil && ptr != 0 {
-		KSecKeyAlgorithmRSAEncryptionPKCS1 = *(*SecKeyAlgorithm)(unsafe.Pointer(ptr))
+		KSecKeyAlgorithmRSAEncryptionPKCS1 = objc.ValueAt[SecKeyAlgorithm](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kSecKeyAlgorithmRSAEncryptionRaw"); err == nil && ptr != 0 {
-		KSecKeyAlgorithmRSAEncryptionRaw = *(*SecKeyAlgorithm)(unsafe.Pointer(ptr))
+		KSecKeyAlgorithmRSAEncryptionRaw = objc.ValueAt[SecKeyAlgorithm](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kSecKeyAlgorithmRSASignatureDigestPKCS1v15Raw"); err == nil && ptr != 0 {
-		KSecKeyAlgorithmRSASignatureDigestPKCS1v15Raw = *(*SecKeyAlgorithm)(unsafe.Pointer(ptr))
+		KSecKeyAlgorithmRSASignatureDigestPKCS1v15Raw = objc.ValueAt[SecKeyAlgorithm](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kSecKeyAlgorithmRSASignatureDigestPKCS1v15SHA1"); err == nil && ptr != 0 {
-		KSecKeyAlgorithmRSASignatureDigestPKCS1v15SHA1 = *(*SecKeyAlgorithm)(unsafe.Pointer(ptr))
+		KSecKeyAlgorithmRSASignatureDigestPKCS1v15SHA1 = objc.ValueAt[SecKeyAlgorithm](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kSecKeyAlgorithmRSASignatureDigestPKCS1v15SHA224"); err == nil && ptr != 0 {
-		KSecKeyAlgorithmRSASignatureDigestPKCS1v15SHA224 = *(*SecKeyAlgorithm)(unsafe.Pointer(ptr))
+		KSecKeyAlgorithmRSASignatureDigestPKCS1v15SHA224 = objc.ValueAt[SecKeyAlgorithm](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kSecKeyAlgorithmRSASignatureDigestPKCS1v15SHA256"); err == nil && ptr != 0 {
-		KSecKeyAlgorithmRSASignatureDigestPKCS1v15SHA256 = *(*SecKeyAlgorithm)(unsafe.Pointer(ptr))
+		KSecKeyAlgorithmRSASignatureDigestPKCS1v15SHA256 = objc.ValueAt[SecKeyAlgorithm](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kSecKeyAlgorithmRSASignatureDigestPKCS1v15SHA384"); err == nil && ptr != 0 {
-		KSecKeyAlgorithmRSASignatureDigestPKCS1v15SHA384 = *(*SecKeyAlgorithm)(unsafe.Pointer(ptr))
+		KSecKeyAlgorithmRSASignatureDigestPKCS1v15SHA384 = objc.ValueAt[SecKeyAlgorithm](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kSecKeyAlgorithmRSASignatureDigestPKCS1v15SHA512"); err == nil && ptr != 0 {
-		KSecKeyAlgorithmRSASignatureDigestPKCS1v15SHA512 = *(*SecKeyAlgorithm)(unsafe.Pointer(ptr))
+		KSecKeyAlgorithmRSASignatureDigestPKCS1v15SHA512 = objc.ValueAt[SecKeyAlgorithm](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kSecKeyAlgorithmRSASignatureDigestPSSSHA1"); err == nil && ptr != 0 {
-		KSecKeyAlgorithmRSASignatureDigestPSSSHA1 = *(*SecKeyAlgorithm)(unsafe.Pointer(ptr))
+		KSecKeyAlgorithmRSASignatureDigestPSSSHA1 = objc.ValueAt[SecKeyAlgorithm](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kSecKeyAlgorithmRSASignatureDigestPSSSHA224"); err == nil && ptr != 0 {
-		KSecKeyAlgorithmRSASignatureDigestPSSSHA224 = *(*SecKeyAlgorithm)(unsafe.Pointer(ptr))
+		KSecKeyAlgorithmRSASignatureDigestPSSSHA224 = objc.ValueAt[SecKeyAlgorithm](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kSecKeyAlgorithmRSASignatureDigestPSSSHA256"); err == nil && ptr != 0 {
-		KSecKeyAlgorithmRSASignatureDigestPSSSHA256 = *(*SecKeyAlgorithm)(unsafe.Pointer(ptr))
+		KSecKeyAlgorithmRSASignatureDigestPSSSHA256 = objc.ValueAt[SecKeyAlgorithm](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kSecKeyAlgorithmRSASignatureDigestPSSSHA384"); err == nil && ptr != 0 {
-		KSecKeyAlgorithmRSASignatureDigestPSSSHA384 = *(*SecKeyAlgorithm)(unsafe.Pointer(ptr))
+		KSecKeyAlgorithmRSASignatureDigestPSSSHA384 = objc.ValueAt[SecKeyAlgorithm](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kSecKeyAlgorithmRSASignatureDigestPSSSHA512"); err == nil && ptr != 0 {
-		KSecKeyAlgorithmRSASignatureDigestPSSSHA512 = *(*SecKeyAlgorithm)(unsafe.Pointer(ptr))
+		KSecKeyAlgorithmRSASignatureDigestPSSSHA512 = objc.ValueAt[SecKeyAlgorithm](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kSecKeyAlgorithmRSASignatureMessagePKCS1v15SHA1"); err == nil && ptr != 0 {
-		KSecKeyAlgorithmRSASignatureMessagePKCS1v15SHA1 = *(*SecKeyAlgorithm)(unsafe.Pointer(ptr))
+		KSecKeyAlgorithmRSASignatureMessagePKCS1v15SHA1 = objc.ValueAt[SecKeyAlgorithm](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kSecKeyAlgorithmRSASignatureMessagePKCS1v15SHA224"); err == nil && ptr != 0 {
-		KSecKeyAlgorithmRSASignatureMessagePKCS1v15SHA224 = *(*SecKeyAlgorithm)(unsafe.Pointer(ptr))
+		KSecKeyAlgorithmRSASignatureMessagePKCS1v15SHA224 = objc.ValueAt[SecKeyAlgorithm](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kSecKeyAlgorithmRSASignatureMessagePKCS1v15SHA256"); err == nil && ptr != 0 {
-		KSecKeyAlgorithmRSASignatureMessagePKCS1v15SHA256 = *(*SecKeyAlgorithm)(unsafe.Pointer(ptr))
+		KSecKeyAlgorithmRSASignatureMessagePKCS1v15SHA256 = objc.ValueAt[SecKeyAlgorithm](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kSecKeyAlgorithmRSASignatureMessagePKCS1v15SHA384"); err == nil && ptr != 0 {
-		KSecKeyAlgorithmRSASignatureMessagePKCS1v15SHA384 = *(*SecKeyAlgorithm)(unsafe.Pointer(ptr))
+		KSecKeyAlgorithmRSASignatureMessagePKCS1v15SHA384 = objc.ValueAt[SecKeyAlgorithm](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kSecKeyAlgorithmRSASignatureMessagePKCS1v15SHA512"); err == nil && ptr != 0 {
-		KSecKeyAlgorithmRSASignatureMessagePKCS1v15SHA512 = *(*SecKeyAlgorithm)(unsafe.Pointer(ptr))
+		KSecKeyAlgorithmRSASignatureMessagePKCS1v15SHA512 = objc.ValueAt[SecKeyAlgorithm](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kSecKeyAlgorithmRSASignatureMessagePSSSHA1"); err == nil && ptr != 0 {
-		KSecKeyAlgorithmRSASignatureMessagePSSSHA1 = *(*SecKeyAlgorithm)(unsafe.Pointer(ptr))
+		KSecKeyAlgorithmRSASignatureMessagePSSSHA1 = objc.ValueAt[SecKeyAlgorithm](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kSecKeyAlgorithmRSASignatureMessagePSSSHA224"); err == nil && ptr != 0 {
-		KSecKeyAlgorithmRSASignatureMessagePSSSHA224 = *(*SecKeyAlgorithm)(unsafe.Pointer(ptr))
+		KSecKeyAlgorithmRSASignatureMessagePSSSHA224 = objc.ValueAt[SecKeyAlgorithm](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kSecKeyAlgorithmRSASignatureMessagePSSSHA256"); err == nil && ptr != 0 {
-		KSecKeyAlgorithmRSASignatureMessagePSSSHA256 = *(*SecKeyAlgorithm)(unsafe.Pointer(ptr))
+		KSecKeyAlgorithmRSASignatureMessagePSSSHA256 = objc.ValueAt[SecKeyAlgorithm](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kSecKeyAlgorithmRSASignatureMessagePSSSHA384"); err == nil && ptr != 0 {
-		KSecKeyAlgorithmRSASignatureMessagePSSSHA384 = *(*SecKeyAlgorithm)(unsafe.Pointer(ptr))
+		KSecKeyAlgorithmRSASignatureMessagePSSSHA384 = objc.ValueAt[SecKeyAlgorithm](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kSecKeyAlgorithmRSASignatureMessagePSSSHA512"); err == nil && ptr != 0 {
-		KSecKeyAlgorithmRSASignatureMessagePSSSHA512 = *(*SecKeyAlgorithm)(unsafe.Pointer(ptr))
+		KSecKeyAlgorithmRSASignatureMessagePSSSHA512 = objc.ValueAt[SecKeyAlgorithm](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kSecKeyAlgorithmRSASignatureRaw"); err == nil && ptr != 0 {
-		KSecKeyAlgorithmRSASignatureRaw = *(*SecKeyAlgorithm)(unsafe.Pointer(ptr))
+		KSecKeyAlgorithmRSASignatureRaw = objc.ValueAt[SecKeyAlgorithm](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kSecKeyAttributeName"); err == nil && ptr != 0 {
@@ -4399,11 +4439,11 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kSecKeyKeyExchangeParameterRequestedSize"); err == nil && ptr != 0 {
-		KSecKeyKeyExchangeParameterRequestedSize = *(*SecKeyKeyExchangeParameter)(unsafe.Pointer(ptr))
+		KSecKeyKeyExchangeParameterRequestedSize = objc.ValueAt[SecKeyKeyExchangeParameter](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kSecKeyKeyExchangeParameterSharedInfo"); err == nil && ptr != 0 {
-		KSecKeyKeyExchangeParameterSharedInfo = *(*SecKeyKeyExchangeParameter)(unsafe.Pointer(ptr))
+		KSecKeyKeyExchangeParameterSharedInfo = objc.ValueAt[SecKeyKeyExchangeParameter](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kSecMatchCaseInsensitive"); err == nil && ptr != 0 {
@@ -6317,7 +6357,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kSecRandomDefault"); err == nil && ptr != 0 {
-		KSecRandomDefault = *(*SecRandomRef)(unsafe.Pointer(ptr))
+		KSecRandomDefault = objc.ValueAt[SecRandomRef](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kSecReturnAttributes"); err == nil && ptr != 0 {
@@ -6581,322 +6621,642 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "oidAdCAIssuer"); err == nil && ptr != 0 {
+		// Opaque/struct symbol (e.g. CSSM_GUID): store the symbol address
+		// itself. The symbol is not a pointer, so dereferencing its first
+		// word as one is both wrong and trips -race checkptr alignment for
+		// sub-pointer-aligned structs.
 		oidAdCAIssuer = unsafe.Pointer(ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "oidAdOCSP"); err == nil && ptr != 0 {
+		// Opaque/struct symbol (e.g. CSSM_GUID): store the symbol address
+		// itself. The symbol is not a pointer, so dereferencing its first
+		// word as one is both wrong and trips -race checkptr alignment for
+		// sub-pointer-aligned structs.
 		oidAdOCSP = unsafe.Pointer(ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "oidAnsip384r1"); err == nil && ptr != 0 {
+		// Opaque/struct symbol (e.g. CSSM_GUID): store the symbol address
+		// itself. The symbol is not a pointer, so dereferencing its first
+		// word as one is both wrong and trips -race checkptr alignment for
+		// sub-pointer-aligned structs.
 		oidAnsip384r1 = unsafe.Pointer(ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "oidAnsip521r1"); err == nil && ptr != 0 {
+		// Opaque/struct symbol (e.g. CSSM_GUID): store the symbol address
+		// itself. The symbol is not a pointer, so dereferencing its first
+		// word as one is both wrong and trips -race checkptr alignment for
+		// sub-pointer-aligned structs.
 		oidAnsip521r1 = unsafe.Pointer(ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "oidAnyExtendedKeyUsage"); err == nil && ptr != 0 {
+		// Opaque/struct symbol (e.g. CSSM_GUID): store the symbol address
+		// itself. The symbol is not a pointer, so dereferencing its first
+		// word as one is both wrong and trips -race checkptr alignment for
+		// sub-pointer-aligned structs.
 		oidAnyExtendedKeyUsage = unsafe.Pointer(ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "oidAnyPolicy"); err == nil && ptr != 0 {
+		// Opaque/struct symbol (e.g. CSSM_GUID): store the symbol address
+		// itself. The symbol is not a pointer, so dereferencing its first
+		// word as one is both wrong and trips -race checkptr alignment for
+		// sub-pointer-aligned structs.
 		oidAnyPolicy = unsafe.Pointer(ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "oidAuthorityInfoAccess"); err == nil && ptr != 0 {
+		// Opaque/struct symbol (e.g. CSSM_GUID): store the symbol address
+		// itself. The symbol is not a pointer, so dereferencing its first
+		// word as one is both wrong and trips -race checkptr alignment for
+		// sub-pointer-aligned structs.
 		oidAuthorityInfoAccess = unsafe.Pointer(ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "oidAuthorityKeyIdentifier"); err == nil && ptr != 0 {
+		// Opaque/struct symbol (e.g. CSSM_GUID): store the symbol address
+		// itself. The symbol is not a pointer, so dereferencing its first
+		// word as one is both wrong and trips -race checkptr alignment for
+		// sub-pointer-aligned structs.
 		oidAuthorityKeyIdentifier = unsafe.Pointer(ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "oidBasicConstraints"); err == nil && ptr != 0 {
+		// Opaque/struct symbol (e.g. CSSM_GUID): store the symbol address
+		// itself. The symbol is not a pointer, so dereferencing its first
+		// word as one is both wrong and trips -race checkptr alignment for
+		// sub-pointer-aligned structs.
 		oidBasicConstraints = unsafe.Pointer(ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "oidCertificatePolicies"); err == nil && ptr != 0 {
+		// Opaque/struct symbol (e.g. CSSM_GUID): store the symbol address
+		// itself. The symbol is not a pointer, so dereferencing its first
+		// word as one is both wrong and trips -race checkptr alignment for
+		// sub-pointer-aligned structs.
 		oidCertificatePolicies = unsafe.Pointer(ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "oidCommonName"); err == nil && ptr != 0 {
+		// Opaque/struct symbol (e.g. CSSM_GUID): store the symbol address
+		// itself. The symbol is not a pointer, so dereferencing its first
+		// word as one is both wrong and trips -race checkptr alignment for
+		// sub-pointer-aligned structs.
 		oidCommonName = unsafe.Pointer(ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "oidCountryName"); err == nil && ptr != 0 {
+		// Opaque/struct symbol (e.g. CSSM_GUID): store the symbol address
+		// itself. The symbol is not a pointer, so dereferencing its first
+		// word as one is both wrong and trips -race checkptr alignment for
+		// sub-pointer-aligned structs.
 		oidCountryName = unsafe.Pointer(ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "oidCrlDistributionPoints"); err == nil && ptr != 0 {
+		// Opaque/struct symbol (e.g. CSSM_GUID): store the symbol address
+		// itself. The symbol is not a pointer, so dereferencing its first
+		// word as one is both wrong and trips -race checkptr alignment for
+		// sub-pointer-aligned structs.
 		oidCrlDistributionPoints = unsafe.Pointer(ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "oidDescription"); err == nil && ptr != 0 {
+		// Opaque/struct symbol (e.g. CSSM_GUID): store the symbol address
+		// itself. The symbol is not a pointer, so dereferencing its first
+		// word as one is both wrong and trips -race checkptr alignment for
+		// sub-pointer-aligned structs.
 		oidDescription = unsafe.Pointer(ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "oidEcPrime192v1"); err == nil && ptr != 0 {
+		// Opaque/struct symbol (e.g. CSSM_GUID): store the symbol address
+		// itself. The symbol is not a pointer, so dereferencing its first
+		// word as one is both wrong and trips -race checkptr alignment for
+		// sub-pointer-aligned structs.
 		oidEcPrime192v1 = unsafe.Pointer(ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "oidEcPrime256v1"); err == nil && ptr != 0 {
+		// Opaque/struct symbol (e.g. CSSM_GUID): store the symbol address
+		// itself. The symbol is not a pointer, so dereferencing its first
+		// word as one is both wrong and trips -race checkptr alignment for
+		// sub-pointer-aligned structs.
 		oidEcPrime256v1 = unsafe.Pointer(ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "oidEcPubKey"); err == nil && ptr != 0 {
+		// Opaque/struct symbol (e.g. CSSM_GUID): store the symbol address
+		// itself. The symbol is not a pointer, so dereferencing its first
+		// word as one is both wrong and trips -race checkptr alignment for
+		// sub-pointer-aligned structs.
 		oidEcPubKey = unsafe.Pointer(ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "oidEmailAddress"); err == nil && ptr != 0 {
+		// Opaque/struct symbol (e.g. CSSM_GUID): store the symbol address
+		// itself. The symbol is not a pointer, so dereferencing its first
+		// word as one is both wrong and trips -race checkptr alignment for
+		// sub-pointer-aligned structs.
 		oidEmailAddress = unsafe.Pointer(ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "oidEntrustVersInfo"); err == nil && ptr != 0 {
+		// Opaque/struct symbol (e.g. CSSM_GUID): store the symbol address
+		// itself. The symbol is not a pointer, so dereferencing its first
+		// word as one is both wrong and trips -race checkptr alignment for
+		// sub-pointer-aligned structs.
 		oidEntrustVersInfo = unsafe.Pointer(ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "oidExtendedKeyUsage"); err == nil && ptr != 0 {
+		// Opaque/struct symbol (e.g. CSSM_GUID): store the symbol address
+		// itself. The symbol is not a pointer, so dereferencing its first
+		// word as one is both wrong and trips -race checkptr alignment for
+		// sub-pointer-aligned structs.
 		oidExtendedKeyUsage = unsafe.Pointer(ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "oidExtendedKeyUsageClientAuth"); err == nil && ptr != 0 {
+		// Opaque/struct symbol (e.g. CSSM_GUID): store the symbol address
+		// itself. The symbol is not a pointer, so dereferencing its first
+		// word as one is both wrong and trips -race checkptr alignment for
+		// sub-pointer-aligned structs.
 		oidExtendedKeyUsageClientAuth = unsafe.Pointer(ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "oidExtendedKeyUsageCodeSigning"); err == nil && ptr != 0 {
+		// Opaque/struct symbol (e.g. CSSM_GUID): store the symbol address
+		// itself. The symbol is not a pointer, so dereferencing its first
+		// word as one is both wrong and trips -race checkptr alignment for
+		// sub-pointer-aligned structs.
 		oidExtendedKeyUsageCodeSigning = unsafe.Pointer(ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "oidExtendedKeyUsageEmailProtection"); err == nil && ptr != 0 {
+		// Opaque/struct symbol (e.g. CSSM_GUID): store the symbol address
+		// itself. The symbol is not a pointer, so dereferencing its first
+		// word as one is both wrong and trips -race checkptr alignment for
+		// sub-pointer-aligned structs.
 		oidExtendedKeyUsageEmailProtection = unsafe.Pointer(ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "oidExtendedKeyUsageIPSec"); err == nil && ptr != 0 {
+		// Opaque/struct symbol (e.g. CSSM_GUID): store the symbol address
+		// itself. The symbol is not a pointer, so dereferencing its first
+		// word as one is both wrong and trips -race checkptr alignment for
+		// sub-pointer-aligned structs.
 		oidExtendedKeyUsageIPSec = unsafe.Pointer(ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "oidExtendedKeyUsageMicrosoftSGC"); err == nil && ptr != 0 {
+		// Opaque/struct symbol (e.g. CSSM_GUID): store the symbol address
+		// itself. The symbol is not a pointer, so dereferencing its first
+		// word as one is both wrong and trips -race checkptr alignment for
+		// sub-pointer-aligned structs.
 		oidExtendedKeyUsageMicrosoftSGC = unsafe.Pointer(ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "oidExtendedKeyUsageNetscapeSGC"); err == nil && ptr != 0 {
+		// Opaque/struct symbol (e.g. CSSM_GUID): store the symbol address
+		// itself. The symbol is not a pointer, so dereferencing its first
+		// word as one is both wrong and trips -race checkptr alignment for
+		// sub-pointer-aligned structs.
 		oidExtendedKeyUsageNetscapeSGC = unsafe.Pointer(ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "oidExtendedKeyUsageOCSPSigning"); err == nil && ptr != 0 {
+		// Opaque/struct symbol (e.g. CSSM_GUID): store the symbol address
+		// itself. The symbol is not a pointer, so dereferencing its first
+		// word as one is both wrong and trips -race checkptr alignment for
+		// sub-pointer-aligned structs.
 		oidExtendedKeyUsageOCSPSigning = unsafe.Pointer(ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "oidExtendedKeyUsageServerAuth"); err == nil && ptr != 0 {
+		// Opaque/struct symbol (e.g. CSSM_GUID): store the symbol address
+		// itself. The symbol is not a pointer, so dereferencing its first
+		// word as one is both wrong and trips -race checkptr alignment for
+		// sub-pointer-aligned structs.
 		oidExtendedKeyUsageServerAuth = unsafe.Pointer(ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "oidExtendedKeyUsageTimeStamping"); err == nil && ptr != 0 {
+		// Opaque/struct symbol (e.g. CSSM_GUID): store the symbol address
+		// itself. The symbol is not a pointer, so dereferencing its first
+		// word as one is both wrong and trips -race checkptr alignment for
+		// sub-pointer-aligned structs.
 		oidExtendedKeyUsageTimeStamping = unsafe.Pointer(ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "oidFee"); err == nil && ptr != 0 {
+		// Opaque/struct symbol (e.g. CSSM_GUID): store the symbol address
+		// itself. The symbol is not a pointer, so dereferencing its first
+		// word as one is both wrong and trips -race checkptr alignment for
+		// sub-pointer-aligned structs.
 		oidFee = unsafe.Pointer(ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "oidFriendlyName"); err == nil && ptr != 0 {
+		// Opaque/struct symbol (e.g. CSSM_GUID): store the symbol address
+		// itself. The symbol is not a pointer, so dereferencing its first
+		// word as one is both wrong and trips -race checkptr alignment for
+		// sub-pointer-aligned structs.
 		oidFriendlyName = unsafe.Pointer(ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "oidGoogleEmbeddedSignedCertificateTimestamp"); err == nil && ptr != 0 {
+		// Opaque/struct symbol (e.g. CSSM_GUID): store the symbol address
+		// itself. The symbol is not a pointer, so dereferencing its first
+		// word as one is both wrong and trips -race checkptr alignment for
+		// sub-pointer-aligned structs.
 		oidGoogleEmbeddedSignedCertificateTimestamp = unsafe.Pointer(ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "oidGoogleOCSPSignedCertificateTimestamp"); err == nil && ptr != 0 {
+		// Opaque/struct symbol (e.g. CSSM_GUID): store the symbol address
+		// itself. The symbol is not a pointer, so dereferencing its first
+		// word as one is both wrong and trips -race checkptr alignment for
+		// sub-pointer-aligned structs.
 		oidGoogleOCSPSignedCertificateTimestamp = unsafe.Pointer(ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "oidInhibitAnyPolicy"); err == nil && ptr != 0 {
+		// Opaque/struct symbol (e.g. CSSM_GUID): store the symbol address
+		// itself. The symbol is not a pointer, so dereferencing its first
+		// word as one is both wrong and trips -race checkptr alignment for
+		// sub-pointer-aligned structs.
 		oidInhibitAnyPolicy = unsafe.Pointer(ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "oidIssuerAltName"); err == nil && ptr != 0 {
+		// Opaque/struct symbol (e.g. CSSM_GUID): store the symbol address
+		// itself. The symbol is not a pointer, so dereferencing its first
+		// word as one is both wrong and trips -race checkptr alignment for
+		// sub-pointer-aligned structs.
 		oidIssuerAltName = unsafe.Pointer(ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "oidKeyUsage"); err == nil && ptr != 0 {
+		// Opaque/struct symbol (e.g. CSSM_GUID): store the symbol address
+		// itself. The symbol is not a pointer, so dereferencing its first
+		// word as one is both wrong and trips -race checkptr alignment for
+		// sub-pointer-aligned structs.
 		oidKeyUsage = unsafe.Pointer(ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "oidLocalKeyId"); err == nil && ptr != 0 {
+		// Opaque/struct symbol (e.g. CSSM_GUID): store the symbol address
+		// itself. The symbol is not a pointer, so dereferencing its first
+		// word as one is both wrong and trips -race checkptr alignment for
+		// sub-pointer-aligned structs.
 		oidLocalKeyId = unsafe.Pointer(ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "oidLocalityName"); err == nil && ptr != 0 {
+		// Opaque/struct symbol (e.g. CSSM_GUID): store the symbol address
+		// itself. The symbol is not a pointer, so dereferencing its first
+		// word as one is both wrong and trips -race checkptr alignment for
+		// sub-pointer-aligned structs.
 		oidLocalityName = unsafe.Pointer(ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "oidMSNTPrincipalName"); err == nil && ptr != 0 {
+		// Opaque/struct symbol (e.g. CSSM_GUID): store the symbol address
+		// itself. The symbol is not a pointer, so dereferencing its first
+		// word as one is both wrong and trips -race checkptr alignment for
+		// sub-pointer-aligned structs.
 		oidMSNTPrincipalName = unsafe.Pointer(ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "oidMd2"); err == nil && ptr != 0 {
+		// Opaque/struct symbol (e.g. CSSM_GUID): store the symbol address
+		// itself. The symbol is not a pointer, so dereferencing its first
+		// word as one is both wrong and trips -race checkptr alignment for
+		// sub-pointer-aligned structs.
 		oidMd2 = unsafe.Pointer(ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "oidMd2Rsa"); err == nil && ptr != 0 {
+		// Opaque/struct symbol (e.g. CSSM_GUID): store the symbol address
+		// itself. The symbol is not a pointer, so dereferencing its first
+		// word as one is both wrong and trips -race checkptr alignment for
+		// sub-pointer-aligned structs.
 		oidMd2Rsa = unsafe.Pointer(ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "oidMd4"); err == nil && ptr != 0 {
+		// Opaque/struct symbol (e.g. CSSM_GUID): store the symbol address
+		// itself. The symbol is not a pointer, so dereferencing its first
+		// word as one is both wrong and trips -race checkptr alignment for
+		// sub-pointer-aligned structs.
 		oidMd4 = unsafe.Pointer(ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "oidMd4Rsa"); err == nil && ptr != 0 {
+		// Opaque/struct symbol (e.g. CSSM_GUID): store the symbol address
+		// itself. The symbol is not a pointer, so dereferencing its first
+		// word as one is both wrong and trips -race checkptr alignment for
+		// sub-pointer-aligned structs.
 		oidMd4Rsa = unsafe.Pointer(ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "oidMd5"); err == nil && ptr != 0 {
+		// Opaque/struct symbol (e.g. CSSM_GUID): store the symbol address
+		// itself. The symbol is not a pointer, so dereferencing its first
+		// word as one is both wrong and trips -race checkptr alignment for
+		// sub-pointer-aligned structs.
 		oidMd5 = unsafe.Pointer(ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "oidMd5Fee"); err == nil && ptr != 0 {
+		// Opaque/struct symbol (e.g. CSSM_GUID): store the symbol address
+		// itself. The symbol is not a pointer, so dereferencing its first
+		// word as one is both wrong and trips -race checkptr alignment for
+		// sub-pointer-aligned structs.
 		oidMd5Fee = unsafe.Pointer(ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "oidMd5Rsa"); err == nil && ptr != 0 {
+		// Opaque/struct symbol (e.g. CSSM_GUID): store the symbol address
+		// itself. The symbol is not a pointer, so dereferencing its first
+		// word as one is both wrong and trips -race checkptr alignment for
+		// sub-pointer-aligned structs.
 		oidMd5Rsa = unsafe.Pointer(ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "oidNameConstraints"); err == nil && ptr != 0 {
+		// Opaque/struct symbol (e.g. CSSM_GUID): store the symbol address
+		// itself. The symbol is not a pointer, so dereferencing its first
+		// word as one is both wrong and trips -race checkptr alignment for
+		// sub-pointer-aligned structs.
 		oidNameConstraints = unsafe.Pointer(ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "oidNetscapeCertType"); err == nil && ptr != 0 {
+		// Opaque/struct symbol (e.g. CSSM_GUID): store the symbol address
+		// itself. The symbol is not a pointer, so dereferencing its first
+		// word as one is both wrong and trips -race checkptr alignment for
+		// sub-pointer-aligned structs.
 		oidNetscapeCertType = unsafe.Pointer(ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "oidOrganizationName"); err == nil && ptr != 0 {
+		// Opaque/struct symbol (e.g. CSSM_GUID): store the symbol address
+		// itself. The symbol is not a pointer, so dereferencing its first
+		// word as one is both wrong and trips -race checkptr alignment for
+		// sub-pointer-aligned structs.
 		oidOrganizationName = unsafe.Pointer(ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "oidOrganizationalUnitName"); err == nil && ptr != 0 {
+		// Opaque/struct symbol (e.g. CSSM_GUID): store the symbol address
+		// itself. The symbol is not a pointer, so dereferencing its first
+		// word as one is both wrong and trips -race checkptr alignment for
+		// sub-pointer-aligned structs.
 		oidOrganizationalUnitName = unsafe.Pointer(ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "oidPolicyConstraints"); err == nil && ptr != 0 {
+		// Opaque/struct symbol (e.g. CSSM_GUID): store the symbol address
+		// itself. The symbol is not a pointer, so dereferencing its first
+		// word as one is both wrong and trips -race checkptr alignment for
+		// sub-pointer-aligned structs.
 		oidPolicyConstraints = unsafe.Pointer(ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "oidPolicyMappings"); err == nil && ptr != 0 {
+		// Opaque/struct symbol (e.g. CSSM_GUID): store the symbol address
+		// itself. The symbol is not a pointer, so dereferencing its first
+		// word as one is both wrong and trips -race checkptr alignment for
+		// sub-pointer-aligned structs.
 		oidPolicyMappings = unsafe.Pointer(ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "oidPrivateKeyUsagePeriod"); err == nil && ptr != 0 {
+		// Opaque/struct symbol (e.g. CSSM_GUID): store the symbol address
+		// itself. The symbol is not a pointer, so dereferencing its first
+		// word as one is both wrong and trips -race checkptr alignment for
+		// sub-pointer-aligned structs.
 		oidPrivateKeyUsagePeriod = unsafe.Pointer(ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "oidQtCps"); err == nil && ptr != 0 {
+		// Opaque/struct symbol (e.g. CSSM_GUID): store the symbol address
+		// itself. The symbol is not a pointer, so dereferencing its first
+		// word as one is both wrong and trips -race checkptr alignment for
+		// sub-pointer-aligned structs.
 		oidQtCps = unsafe.Pointer(ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "oidQtUNotice"); err == nil && ptr != 0 {
+		// Opaque/struct symbol (e.g. CSSM_GUID): store the symbol address
+		// itself. The symbol is not a pointer, so dereferencing its first
+		// word as one is both wrong and trips -race checkptr alignment for
+		// sub-pointer-aligned structs.
 		oidQtUNotice = unsafe.Pointer(ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "oidRsa"); err == nil && ptr != 0 {
+		// Opaque/struct symbol (e.g. CSSM_GUID): store the symbol address
+		// itself. The symbol is not a pointer, so dereferencing its first
+		// word as one is both wrong and trips -race checkptr alignment for
+		// sub-pointer-aligned structs.
 		oidRsa = unsafe.Pointer(ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "oidSha1"); err == nil && ptr != 0 {
+		// Opaque/struct symbol (e.g. CSSM_GUID): store the symbol address
+		// itself. The symbol is not a pointer, so dereferencing its first
+		// word as one is both wrong and trips -race checkptr alignment for
+		// sub-pointer-aligned structs.
 		oidSha1 = unsafe.Pointer(ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "oidSha1Dsa"); err == nil && ptr != 0 {
+		// Opaque/struct symbol (e.g. CSSM_GUID): store the symbol address
+		// itself. The symbol is not a pointer, so dereferencing its first
+		// word as one is both wrong and trips -race checkptr alignment for
+		// sub-pointer-aligned structs.
 		oidSha1Dsa = unsafe.Pointer(ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "oidSha1DsaCommonOIW"); err == nil && ptr != 0 {
+		// Opaque/struct symbol (e.g. CSSM_GUID): store the symbol address
+		// itself. The symbol is not a pointer, so dereferencing its first
+		// word as one is both wrong and trips -race checkptr alignment for
+		// sub-pointer-aligned structs.
 		oidSha1DsaCommonOIW = unsafe.Pointer(ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "oidSha1DsaOIW"); err == nil && ptr != 0 {
+		// Opaque/struct symbol (e.g. CSSM_GUID): store the symbol address
+		// itself. The symbol is not a pointer, so dereferencing its first
+		// word as one is both wrong and trips -race checkptr alignment for
+		// sub-pointer-aligned structs.
 		oidSha1DsaOIW = unsafe.Pointer(ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "oidSha1Ecdsa"); err == nil && ptr != 0 {
+		// Opaque/struct symbol (e.g. CSSM_GUID): store the symbol address
+		// itself. The symbol is not a pointer, so dereferencing its first
+		// word as one is both wrong and trips -race checkptr alignment for
+		// sub-pointer-aligned structs.
 		oidSha1Ecdsa = unsafe.Pointer(ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "oidSha1Fee"); err == nil && ptr != 0 {
+		// Opaque/struct symbol (e.g. CSSM_GUID): store the symbol address
+		// itself. The symbol is not a pointer, so dereferencing its first
+		// word as one is both wrong and trips -race checkptr alignment for
+		// sub-pointer-aligned structs.
 		oidSha1Fee = unsafe.Pointer(ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "oidSha1Rsa"); err == nil && ptr != 0 {
+		// Opaque/struct symbol (e.g. CSSM_GUID): store the symbol address
+		// itself. The symbol is not a pointer, so dereferencing its first
+		// word as one is both wrong and trips -race checkptr alignment for
+		// sub-pointer-aligned structs.
 		oidSha1Rsa = unsafe.Pointer(ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "oidSha1RsaOIW"); err == nil && ptr != 0 {
+		// Opaque/struct symbol (e.g. CSSM_GUID): store the symbol address
+		// itself. The symbol is not a pointer, so dereferencing its first
+		// word as one is both wrong and trips -race checkptr alignment for
+		// sub-pointer-aligned structs.
 		oidSha1RsaOIW = unsafe.Pointer(ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "oidSha224"); err == nil && ptr != 0 {
+		// Opaque/struct symbol (e.g. CSSM_GUID): store the symbol address
+		// itself. The symbol is not a pointer, so dereferencing its first
+		// word as one is both wrong and trips -race checkptr alignment for
+		// sub-pointer-aligned structs.
 		oidSha224 = unsafe.Pointer(ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "oidSha224Ecdsa"); err == nil && ptr != 0 {
+		// Opaque/struct symbol (e.g. CSSM_GUID): store the symbol address
+		// itself. The symbol is not a pointer, so dereferencing its first
+		// word as one is both wrong and trips -race checkptr alignment for
+		// sub-pointer-aligned structs.
 		oidSha224Ecdsa = unsafe.Pointer(ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "oidSha224Rsa"); err == nil && ptr != 0 {
+		// Opaque/struct symbol (e.g. CSSM_GUID): store the symbol address
+		// itself. The symbol is not a pointer, so dereferencing its first
+		// word as one is both wrong and trips -race checkptr alignment for
+		// sub-pointer-aligned structs.
 		oidSha224Rsa = unsafe.Pointer(ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "oidSha256"); err == nil && ptr != 0 {
+		// Opaque/struct symbol (e.g. CSSM_GUID): store the symbol address
+		// itself. The symbol is not a pointer, so dereferencing its first
+		// word as one is both wrong and trips -race checkptr alignment for
+		// sub-pointer-aligned structs.
 		oidSha256 = unsafe.Pointer(ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "oidSha256Ecdsa"); err == nil && ptr != 0 {
+		// Opaque/struct symbol (e.g. CSSM_GUID): store the symbol address
+		// itself. The symbol is not a pointer, so dereferencing its first
+		// word as one is both wrong and trips -race checkptr alignment for
+		// sub-pointer-aligned structs.
 		oidSha256Ecdsa = unsafe.Pointer(ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "oidSha256Rsa"); err == nil && ptr != 0 {
+		// Opaque/struct symbol (e.g. CSSM_GUID): store the symbol address
+		// itself. The symbol is not a pointer, so dereferencing its first
+		// word as one is both wrong and trips -race checkptr alignment for
+		// sub-pointer-aligned structs.
 		oidSha256Rsa = unsafe.Pointer(ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "oidSha384"); err == nil && ptr != 0 {
+		// Opaque/struct symbol (e.g. CSSM_GUID): store the symbol address
+		// itself. The symbol is not a pointer, so dereferencing its first
+		// word as one is both wrong and trips -race checkptr alignment for
+		// sub-pointer-aligned structs.
 		oidSha384 = unsafe.Pointer(ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "oidSha384Ecdsa"); err == nil && ptr != 0 {
+		// Opaque/struct symbol (e.g. CSSM_GUID): store the symbol address
+		// itself. The symbol is not a pointer, so dereferencing its first
+		// word as one is both wrong and trips -race checkptr alignment for
+		// sub-pointer-aligned structs.
 		oidSha384Ecdsa = unsafe.Pointer(ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "oidSha384Rsa"); err == nil && ptr != 0 {
+		// Opaque/struct symbol (e.g. CSSM_GUID): store the symbol address
+		// itself. The symbol is not a pointer, so dereferencing its first
+		// word as one is both wrong and trips -race checkptr alignment for
+		// sub-pointer-aligned structs.
 		oidSha384Rsa = unsafe.Pointer(ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "oidSha512"); err == nil && ptr != 0 {
+		// Opaque/struct symbol (e.g. CSSM_GUID): store the symbol address
+		// itself. The symbol is not a pointer, so dereferencing its first
+		// word as one is both wrong and trips -race checkptr alignment for
+		// sub-pointer-aligned structs.
 		oidSha512 = unsafe.Pointer(ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "oidSha512Ecdsa"); err == nil && ptr != 0 {
+		// Opaque/struct symbol (e.g. CSSM_GUID): store the symbol address
+		// itself. The symbol is not a pointer, so dereferencing its first
+		// word as one is both wrong and trips -race checkptr alignment for
+		// sub-pointer-aligned structs.
 		oidSha512Ecdsa = unsafe.Pointer(ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "oidSha512Rsa"); err == nil && ptr != 0 {
+		// Opaque/struct symbol (e.g. CSSM_GUID): store the symbol address
+		// itself. The symbol is not a pointer, so dereferencing its first
+		// word as one is both wrong and trips -race checkptr alignment for
+		// sub-pointer-aligned structs.
 		oidSha512Rsa = unsafe.Pointer(ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "oidStateOrProvinceName"); err == nil && ptr != 0 {
+		// Opaque/struct symbol (e.g. CSSM_GUID): store the symbol address
+		// itself. The symbol is not a pointer, so dereferencing its first
+		// word as one is both wrong and trips -race checkptr alignment for
+		// sub-pointer-aligned structs.
 		oidStateOrProvinceName = unsafe.Pointer(ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "oidSubjectAltName"); err == nil && ptr != 0 {
+		// Opaque/struct symbol (e.g. CSSM_GUID): store the symbol address
+		// itself. The symbol is not a pointer, so dereferencing its first
+		// word as one is both wrong and trips -race checkptr alignment for
+		// sub-pointer-aligned structs.
 		oidSubjectAltName = unsafe.Pointer(ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "oidSubjectInfoAccess"); err == nil && ptr != 0 {
+		// Opaque/struct symbol (e.g. CSSM_GUID): store the symbol address
+		// itself. The symbol is not a pointer, so dereferencing its first
+		// word as one is both wrong and trips -race checkptr alignment for
+		// sub-pointer-aligned structs.
 		oidSubjectInfoAccess = unsafe.Pointer(ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "oidSubjectKeyIdentifier"); err == nil && ptr != 0 {
+		// Opaque/struct symbol (e.g. CSSM_GUID): store the symbol address
+		// itself. The symbol is not a pointer, so dereferencing its first
+		// word as one is both wrong and trips -race checkptr alignment for
+		// sub-pointer-aligned structs.
 		oidSubjectKeyIdentifier = unsafe.Pointer(ptr)
 	}
 

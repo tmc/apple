@@ -4,8 +4,8 @@ package avfaudio
 
 import (
 	"sync"
-	"unsafe"
 
+	"github.com/tmc/apple/audiotoolbox"
 	"github.com/tmc/apple/objc"
 )
 
@@ -116,7 +116,7 @@ func NewAVAudioUnitVarispeed() AVAudioUnitVarispeed {
 // raises an exception.
 //
 // See: https://developer.apple.com/documentation/AVFAudio/AVAudioUnitTimeEffect/init(audioComponentDescription:)
-func NewAudioUnitVarispeedWithAudioComponentDescription(audioComponentDescription unsafe.Pointer) AVAudioUnitVarispeed {
+func NewAudioUnitVarispeedWithAudioComponentDescription(audioComponentDescription audiotoolbox.AudioComponentDescription) AVAudioUnitVarispeed {
 	instance := getAVAudioUnitVarispeedClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithAudioComponentDescription:"), audioComponentDescription)
 	return AVAudioUnitVarispeedFromID(rv)
@@ -132,7 +132,7 @@ func NewAudioUnitVarispeedWithAudioComponentDescription(audioComponentDescriptio
 // Similarly changing the rate to `0.5`, results in the output audio playing
 // one octave lower.
 //
-// The audio unit measures the pitch in , a logarithmic value you use for
+// The audio unit measures the pitch in cents, a logarithmic value you use for
 // measuring musical intervals. One octave is equal to 1200 cents. One musical
 // semitone is equal to 100 cents.
 //

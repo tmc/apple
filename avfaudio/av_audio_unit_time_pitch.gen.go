@@ -4,8 +4,8 @@ package avfaudio
 
 import (
 	"sync"
-	"unsafe"
 
+	"github.com/tmc/apple/audiotoolbox"
 	"github.com/tmc/apple/objc"
 )
 
@@ -132,7 +132,7 @@ func NewAVAudioUnitTimePitch() AVAudioUnitTimePitch {
 // raises an exception.
 //
 // See: https://developer.apple.com/documentation/AVFAudio/AVAudioUnitTimeEffect/init(audioComponentDescription:)
-func NewAudioUnitTimePitchWithAudioComponentDescription(audioComponentDescription unsafe.Pointer) AVAudioUnitTimePitch {
+func NewAudioUnitTimePitchWithAudioComponentDescription(audioComponentDescription audiotoolbox.AudioComponentDescription) AVAudioUnitTimePitch {
 	instance := getAVAudioUnitTimePitchClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithAudioComponentDescription:"), audioComponentDescription)
 	return AVAudioUnitTimePitchFromID(rv)
@@ -158,7 +158,7 @@ func (a AVAudioUnitTimePitch) SetOverlap(value float32) {
 //
 // # Discussion
 //
-// The audio unit measures the pitch in , a logarithmic value you use for
+// The audio unit measures the pitch in cents, a logarithmic value you use for
 // measuring musical intervals. One octave is equal to 1200 cents. One musical
 // semitone is equal to 100 cents.
 //

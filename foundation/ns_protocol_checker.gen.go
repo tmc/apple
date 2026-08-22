@@ -157,7 +157,7 @@ func NewNSProtocolChecker() NSProtocolChecker {
 // See: https://developer.apple.com/documentation/Foundation/NSProtocolChecker/init(target:protocol:)
 func NewProtocolCheckerWithTargetProtocol(anObject objectivec.NSObject, aProtocol *objectivec.Protocol) NSProtocolChecker {
 	instance := getNSProtocolCheckerClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithTarget:protocol:"), anObject, aProtocol)
+	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithTarget:protocol:"), anObject, aProtocol.ID)
 	return NSProtocolCheckerFromID(rv)
 }
 
@@ -174,7 +174,7 @@ func NewProtocolCheckerWithTargetProtocol(anObject objectivec.NSObject, aProtoco
 //
 // See: https://developer.apple.com/documentation/Foundation/NSProtocolChecker/init(target:protocol:)
 func (p NSProtocolChecker) InitWithTargetProtocol(anObject objectivec.NSObject, aProtocol *objectivec.Protocol) NSProtocolChecker {
-	rv := objc.Send[NSProtocolChecker](p.ID, objc.Sel("initWithTarget:protocol:"), anObject, aProtocol)
+	rv := objc.Send[NSProtocolChecker](p.ID, objc.Sel("initWithTarget:protocol:"), anObject, aProtocol.ID)
 	return rv
 }
 
@@ -188,7 +188,7 @@ func (p NSProtocolChecker) InitWithTargetProtocol(anObject objectivec.NSObject, 
 //
 // See: https://developer.apple.com/documentation/Foundation/NSProtocolChecker/protocolCheckerWithTarget:protocol:
 func (_NSProtocolCheckerClass NSProtocolCheckerClass) ProtocolCheckerWithTargetProtocol(anObject objectivec.NSObject, aProtocol *objectivec.Protocol) NSProtocolChecker {
-	rv := objc.Send[objc.ID](objc.ID(_NSProtocolCheckerClass.class), objc.Sel("protocolCheckerWithTarget:protocol:"), anObject, aProtocol)
+	rv := objc.Send[objc.ID](objc.ID(_NSProtocolCheckerClass.class), objc.Sel("protocolCheckerWithTarget:protocol:"), anObject, aProtocol.ID)
 	return NSProtocolCheckerFromID(rv)
 }
 

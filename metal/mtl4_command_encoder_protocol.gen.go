@@ -161,9 +161,10 @@ func (o MTL4CommandEncoderObject) PushDebugGroup(string_ string) {
 // that depend on those fences when your app commits the enclosing
 // [MTLCommandBuffer].
 //
-// To synchronize different stages within a single pass, create an because a
-// fence can only synchronize memory operations between different passes. For
-// more information, see [Synchronizing stages within a pass].
+// To synchronize different stages within a single pass, create an intrapass
+// barrier because a fence can only synchronize memory operations between
+// different passes. For more information, see [Synchronizing stages within a
+// pass].
 //
 // See: https://developer.apple.com/documentation/Metal/MTL4CommandEncoder/updateFence(_:afterEncoderStages:)
 //
@@ -211,9 +212,10 @@ func (o MTL4CommandEncoderObject) UpdateFenceAfterEncoderStages(fence MTLFence, 
 // that depend on those fences when your app commits the enclosing
 // [MTLCommandBuffer].
 //
-// To synchronize different stages within a single pass, create an because a
-// fence can only synchronize memory operations between different passes. For
-// more information, see [Synchronizing stages within a pass].
+// To synchronize different stages within a single pass, create an intrapass
+// barrier because a fence can only synchronize memory operations between
+// different passes. For more information, see [Synchronizing stages within a
+// pass].
 //
 // See: https://developer.apple.com/documentation/Metal/MTL4CommandEncoder/waitForFence(_:beforeEncoderStages:)
 //
@@ -239,9 +241,9 @@ func (o MTL4CommandEncoderObject) WaitForFenceBeforeEncoderStages(fence MTLFence
 // # Discussion
 //
 // Encode a barrier that guarantees that any subsequent work you encode in the
-// , corresponding to `beforeEncoderStages`, doesn’t begin until all prior
-// commands in this command encoder, corresponding to `afterEncoderStages`,
-// completes.
+// current command encoder, corresponding to `beforeEncoderStages`, doesn’t
+// begin until all prior commands in this command encoder, corresponding to
+// `afterEncoderStages`, completes.
 //
 // When calling this method, it’s your responsibility to ensure parameters
 // `afterEncoderStages` and `beforeEncoderStages` contain a combination of
@@ -316,9 +318,9 @@ func (o MTL4CommandEncoderObject) BarrierAfterQueueStagesBeforeStagesVisibilityO
 // # Discussion
 //
 // This method encodes a barrier that guarantees that any work you encode
-// using , corresponding to `beforeQueueStages`, don’t begin until all
-// commands you previously encode in the current encoder (and prior encoders),
-// corresponding to `afterStages`, complete.
+// using subsequent command encoders, corresponding to `beforeQueueStages`,
+// don’t begin until all commands you previously encode in the current
+// encoder (and prior encoders), corresponding to `afterStages`, complete.
 //
 // When calling this method, you can pass any [MTLStages] to parameters
 // `afterStages` and `beforeQueueStages`, even stages that don’t relate to

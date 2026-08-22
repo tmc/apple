@@ -40,6 +40,16 @@ type NSColorPickingDefault interface {
 	// See: https://developer.apple.com/documentation/AppKit/NSColorPickingDefault/buttonToolTip()
 	ButtonToolTip() string
 
+	// Sent when the color panel’s opacity controls have been hidden or displayed.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSColorPickingDefault/alphaControlAddedOrRemoved(_:)
+	AlphaControlAddedOrRemoved(sender objectivec.IObject)
+
+	// Tells the recever when the color panel’s view size changes in a way that might affect the color picker.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSColorPickingDefault/viewSizeChanged(_:)
+	ViewSizeChanged(sender objectivec.IObject)
+
 	// Tells the receiver to attach the given color list, if it isn’t already displaying the list.
 	//
 	// See: https://developer.apple.com/documentation/AppKit/NSColorPickingDefault/attachColorList(_:)

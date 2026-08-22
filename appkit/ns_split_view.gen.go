@@ -451,9 +451,9 @@ func (s NSSplitView) DrawDividerInRect(rect corefoundation.CGRect) {
 //
 // # Discussion
 //
-// The position is because the bounds of the split view and the current
-// position of other dividers dictate it. positions result from letting the
-// delegate apply constraints to the possible positions.
+// The position is possible because the bounds of the split view and the
+// current position of other dividers dictate it. Allowable positions result
+// from letting the delegate apply constraints to the possible positions.
 //
 // You can invoke this method to determine the range of values that you can
 // pass to [NSSplitView.SetPositionOfDividerAtIndex]. You can also invoke it
@@ -484,9 +484,9 @@ func (s NSSplitView) MinPossiblePositionOfDividerAtIndex(dividerIndex int) float
 //
 // # Discussion
 //
-// The position is because the bounds of the split view and the current
-// position of other dividers dictate it. positions result from letting the
-// delegate apply constraints to the possible positions.
+// The position is possible because the bounds of the split view and the
+// current position of other dividers dictate it. Allowable positions result
+// from letting the delegate apply constraints to the possible positions.
 //
 // You can invoke this method to determine the range of values that you can
 // pass to [NSSplitView.SetPositionOfDividerAtIndex]. You can also invoke it

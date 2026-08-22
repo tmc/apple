@@ -70,7 +70,8 @@ func UNUserNotificationCenterDelegateObjectFromID(id objc.ID) UNUserNotification
 //
 // [Declaring your actionable notification types]: https://developer.apple.com/documentation/UserNotifications/declaring-your-actionable-notification-types
 func (o UNUserNotificationCenterDelegateObject) UserNotificationCenterDidReceiveNotificationResponseWithCompletionHandler(center IUNUserNotificationCenter, response IUNNotificationResponse, completionHandler VoidHandler) {
-	objc.Send[struct{}](o.ID, objc.Sel("userNotificationCenter:didReceiveNotificationResponse:withCompletionHandler:"), center, response, completionHandler)
+	_block2, _ := NewVoidBlock(completionHandler)
+	objc.Send[struct{}](o.ID, objc.Sel("userNotificationCenter:didReceiveNotificationResponse:withCompletionHandler:"), center, response, _block2)
 }
 
 // Asks the delegate how to handle a notification that arrived while the app
@@ -115,7 +116,8 @@ func (o UNUserNotificationCenterDelegateObject) UserNotificationCenterDidReceive
 //
 // [UNNotificationPresentationOptionNone]: https://developer.apple.com/documentation/UserNotifications/UNNotificationPresentationOptionNone
 func (o UNUserNotificationCenterDelegateObject) UserNotificationCenterWillPresentNotificationWithCompletionHandler(center IUNUserNotificationCenter, notification IUNNotification, completionHandler UNNotificationPresentationOptionsHandler) {
-	objc.Send[struct{}](o.ID, objc.Sel("userNotificationCenter:willPresentNotification:withCompletionHandler:"), center, notification, completionHandler)
+	_block2, _ := NewUNNotificationPresentationOptionsBlock(completionHandler)
+	objc.Send[struct{}](o.ID, objc.Sel("userNotificationCenter:willPresentNotification:withCompletionHandler:"), center, notification, _block2)
 }
 
 // Asks the delegate to display the in-app notification settings.
@@ -163,9 +165,21 @@ func NewUNUserNotificationCenterDelegate(config UNUserNotificationCenterDelegate
 		methods = append(methods, objc.MethodDef{
 			Cmd: objc.RegisterName("userNotificationCenter:openSettingsForNotification:"),
 			Fn: func(self objc.ID, _cmd objc.SEL, centerID objc.ID, notificationID objc.ID) {
+				// Names which delegate was running if a panic unwinds out of
+				// it. The frames between here and the Objective-C caller are
+				// runtime and purego dispatch, so without this the traceback
+				// never says which selector dispatched. Deliberately no
+				// recover: see [objc.NoteDelegatePanic].
+				_delegateDone := false
+				defer func() {
+					if !_delegateDone {
+						objc.NoteDelegatePanic("UNUserNotificationCenterDelegate", "userNotificationCenter:openSettingsForNotification:")
+					}
+				}()
 				center := UNUserNotificationCenterFromID(centerID)
 				notification := UNNotificationFromID(notificationID)
 				fn(center, notification)
+				_delegateDone = true
 			},
 		})
 	}

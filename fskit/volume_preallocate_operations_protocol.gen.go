@@ -22,11 +22,6 @@ type FSVolumePreallocateOperations interface {
 	//
 	// See: https://developer.apple.com/documentation/FSKit/FSVolume/PreallocateOperations/isPreallocateInhibited
 	IsPreallocateInhibited() bool
-
-	// A Boolean value that instructs FSKit not to call this protocol’s methods, even if the volume conforms to it.
-	//
-	// See: https://developer.apple.com/documentation/FSKit/FSVolume/PreallocateOperations/isPreallocateInhibited
-	PreallocateInhibited() bool
 	SetPreallocateInhibited(value bool)
 }
 
@@ -66,16 +61,9 @@ func FSVolumePreallocateOperationsObjectFromID(id objc.ID) FSVolumePreallocateOp
 //
 // See: https://developer.apple.com/documentation/FSKit/FSVolume/PreallocateOperations/preallocateSpace(for:at:length:flags:replyHandler:)
 func (o FSVolumePreallocateOperationsObject) PreallocateSpaceForItemAtOffsetLengthFlagsReplyHandler(item IFSItem, offset int64, length uintptr, flags FSPreallocateFlags, reply size_tErrorHandler) {
-	objc.Send[struct{}](o.ID, objc.Sel("preallocateSpaceForItem:atOffset:length:flags:replyHandler:"), item, offset, length, flags, reply)
-}
-
-// A Boolean value that instructs FSKit not to call this protocol’s methods,
-// even if the volume conforms to it.
-//
-// See: https://developer.apple.com/documentation/FSKit/FSVolume/PreallocateOperations/isPreallocateInhibited
-func (o FSVolumePreallocateOperationsObject) IsPreallocateInhibited() bool {
-	rv := objc.Send[bool](o.ID, objc.Sel("isPreallocateInhibited"))
-	return rv
+	_block4, _cleanup4 := Newsize_tErrorBlock(reply)
+	defer _cleanup4()
+	objc.Send[struct{}](o.ID, objc.Sel("preallocateSpaceForItem:atOffset:length:flags:replyHandler:"), item, offset, length, flags, objc.ID(_block4))
 }
 
 // A Boolean value that instructs FSKit not to call this protocol’s methods,
@@ -88,7 +76,7 @@ func (o FSVolumePreallocateOperationsObject) IsPreallocateInhibited() bool {
 // no effect.
 //
 // See: https://developer.apple.com/documentation/FSKit/FSVolume/PreallocateOperations/isPreallocateInhibited
-func (o FSVolumePreallocateOperationsObject) PreallocateInhibited() bool {
+func (o FSVolumePreallocateOperationsObject) IsPreallocateInhibited() bool {
 	rv := objc.Send[bool](o.ID, objc.Sel("isPreallocateInhibited"))
 	return bool(rv)
 }

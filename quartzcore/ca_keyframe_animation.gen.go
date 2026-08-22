@@ -207,6 +207,13 @@ func NewCAKeyframeAnimation() CAKeyframeAnimation {
 	return rv
 }
 
+// See: https://developer.apple.com/documentation/QuartzCore/CAAnimation/init(coder:)
+func NewKeyframeAnimationWithCoder(coder foundation.INSCoder) CAKeyframeAnimation {
+	instance := getCAKeyframeAnimationClass().Alloc()
+	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
+	return CAKeyframeAnimationFromID(rv)
+}
+
 // Creates and returns an [CAPropertyAnimation] instance for the specified key
 // path.
 //
@@ -350,8 +357,8 @@ func (k CAKeyframeAnimation) SetKeyTimes(value []foundation.NSNumber) {
 //
 // You can use this array to apply ease-in, ease-out, or custom timing curves
 // to the points that lie between two keyframe values. If the number of
-// keyframes in the values property is , then this property should contain
-// `-1` objects.
+// keyframes in the values property is n, then this property should contain
+// n`-1` objects.
 //
 // If you provide timing information in the [CAKeyframeAnimation.KeyTimes]
 // property, the timing functions you specify using this property further

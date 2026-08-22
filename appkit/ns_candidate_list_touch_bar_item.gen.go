@@ -56,7 +56,7 @@ func (nc NSCandidateListTouchBarItemClass) Alloc() NSCandidateListTouchBarItem {
 // # Populating the candidate list
 //
 //   - [NSCandidateListTouchBarItem.SetCandidatesForSelectedRangeInString]: Sets an array of candidate objects to be displayed in the candidate list bar item.
-//   - [NSCandidateListTouchBarItem.Candidates]: The array of candidate objects previously set by [setCandidates(_:forSelectedRange:in:)](<doc://com.apple.appkit/documentation/AppKit/NSCandidateListTouchBarItem/setCandidates(_:forSelectedRange:in:)>).
+//   - [NSCandidateListTouchBarItem.Candidates]: The array of candidate objects previously set by [setCandidates(_:forSelectedRange:in:)](<https://developer.apple.com/documentation/AppKit/NSCandidateListTouchBarItem/setCandidates(_:forSelectedRange:in:)>).
 //   - [NSCandidateListTouchBarItem.AttributedStringForCandidate]: A block that converts a candidate object into an attributed string for display in the candidate list item.
 //   - [NSCandidateListTouchBarItem.SetAttributedStringForCandidate]
 //   - [NSCandidateListTouchBarItem.AllowsTextInputContextCandidates]: A Boolean value that specifies whether a candidate list item displays candidates from text input providers.
@@ -102,7 +102,7 @@ func NSCandidateListTouchBarItemFromID(id objc.ID) NSCandidateListTouchBarItem {
 // # Populating the candidate list
 //
 //   - [INSCandidateListTouchBarItem.SetCandidatesForSelectedRangeInString]: Sets an array of candidate objects to be displayed in the candidate list bar item.
-//   - [INSCandidateListTouchBarItem.Candidates]: The array of candidate objects previously set by [setCandidates(_:forSelectedRange:in:)](<doc://com.apple.appkit/documentation/AppKit/NSCandidateListTouchBarItem/setCandidates(_:forSelectedRange:in:)>).
+//   - [INSCandidateListTouchBarItem.Candidates]: The array of candidate objects previously set by [setCandidates(_:forSelectedRange:in:)](<https://developer.apple.com/documentation/AppKit/NSCandidateListTouchBarItem/setCandidates(_:forSelectedRange:in:)>).
 //   - [INSCandidateListTouchBarItem.AttributedStringForCandidate]: A block that converts a candidate object into an attributed string for display in the candidate list item.
 //   - [INSCandidateListTouchBarItem.SetAttributedStringForCandidate]
 //   - [INSCandidateListTouchBarItem.AllowsTextInputContextCandidates]: A Boolean value that specifies whether a candidate list item displays candidates from text input providers.
@@ -137,7 +137,7 @@ type INSCandidateListTouchBarItem interface {
 
 	// Sets an array of candidate objects to be displayed in the candidate list bar item.
 	SetCandidatesForSelectedRangeInString(candidates []objectivec.IObject, selectedRange foundation.NSRange, originalString string)
-	// The array of candidate objects previously set by [setCandidates(_:forSelectedRange:in:)](<doc://com.apple.appkit/documentation/AppKit/NSCandidateListTouchBarItem/setCandidates(_:forSelectedRange:in:)>).
+	// The array of candidate objects previously set by [setCandidates(_:forSelectedRange:in:)](<https://developer.apple.com/documentation/AppKit/NSCandidateListTouchBarItem/setCandidates(_:forSelectedRange:in:)>).
 	Candidates() []objectivec.IObject
 	// A block that converts a candidate object into an attributed string for display in the candidate list item.
 	AttributedStringForCandidate() NSAttributedStringIObjectHandler

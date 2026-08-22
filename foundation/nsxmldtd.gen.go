@@ -73,7 +73,7 @@ func (xc XMLDTDClass) Alloc() XMLDTD {
 // # Initializing an NSXMLDTD Object
 //
 //   - [XMLDTD.InitWithContentsOfURLOptionsError]: Initializes and returns an [NSXMLDTD] object created from the DTD declarations in a URL-referenced source.
-//   - [XMLDTD.InitWithDataOptionsError]: Initializes and returns an [NSXMLDTD] object created from the DTD declarations encapsulated in an [NSData](<doc://com.apple.foundation/documentation/Foundation/NSData>) object
+//   - [XMLDTD.InitWithDataOptionsError]: Initializes and returns an [NSXMLDTD] object created from the DTD declarations encapsulated in an [NSData](<https://developer.apple.com/documentation/Foundation/NSData>) object
 //
 // # Managing DTD Identifiers
 //
@@ -120,7 +120,7 @@ func NSXMLDTDFromID(id objc.ID) XMLDTD { return XMLDTDFromID(id) }
 // # Initializing an NSXMLDTD Object
 //
 //   - [IXMLDTD.InitWithContentsOfURLOptionsError]: Initializes and returns an [NSXMLDTD] object created from the DTD declarations in a URL-referenced source.
-//   - [IXMLDTD.InitWithDataOptionsError]: Initializes and returns an [NSXMLDTD] object created from the DTD declarations encapsulated in an [NSData](<doc://com.apple.foundation/documentation/Foundation/NSData>) object
+//   - [IXMLDTD.InitWithDataOptionsError]: Initializes and returns an [NSXMLDTD] object created from the DTD declarations encapsulated in an [NSData](<https://developer.apple.com/documentation/Foundation/NSData>) object
 //
 // # Managing DTD Identifiers
 //
@@ -152,7 +152,7 @@ type IXMLDTD interface {
 
 	// Initializes and returns an [NSXMLDTD] object created from the DTD declarations in a URL-referenced source.
 	InitWithContentsOfURLOptionsError(url INSURL, mask NSXMLNodeOptions) (XMLDTD, error)
-	// Initializes and returns an [NSXMLDTD] object created from the DTD declarations encapsulated in an [NSData](<doc://com.apple.foundation/documentation/Foundation/NSData>) object
+	// Initializes and returns an [NSXMLDTD] object created from the DTD declarations encapsulated in an [NSData](<https://developer.apple.com/documentation/Foundation/NSData>) object
 	InitWithDataOptionsError(data INSData, mask NSXMLNodeOptions) (XMLDTD, error)
 
 	// Topic: Managing DTD Identifiers
@@ -239,6 +239,9 @@ func NewXMLDTDWithContentsOfURLOptionsError(url INSURL, mask NSXMLNodeOptions) (
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
 		return XMLDTD{}, NSErrorFrom(errorPtr)
 	}
+	if rv == 0 {
+		return XMLDTD{}, objc.ErrInitFailed
+	}
 	return XMLDTDFromID(rv), nil
 }
 
@@ -273,6 +276,9 @@ func NewXMLDTDWithDataOptionsError(data INSData, mask NSXMLNodeOptions) (XMLDTD,
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
 		return XMLDTD{}, NSErrorFrom(errorPtr)
+	}
+	if rv == 0 {
+		return XMLDTD{}, objc.ErrInitFailed
 	}
 	return XMLDTDFromID(rv), nil
 }
@@ -343,7 +349,7 @@ func (x XMLDTD) InitWithContentsOfURLOptionsError(url INSURL, mask NSXMLNodeOpti
 	rv := objc.Send[objc.ID](x.ID, objc.Sel("initWithContentsOfURL:options:error:"), url, mask, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
-		return XMLDTD{}, NSErrorFrom(errorPtr)
+		return *new(XMLDTD), NSErrorFrom(errorPtr)
 	}
 	return NSXMLDTDFromID(rv), nil
 
@@ -378,7 +384,7 @@ func (x XMLDTD) InitWithDataOptionsError(data INSData, mask NSXMLNodeOptions) (X
 	rv := objc.Send[objc.ID](x.ID, objc.Sel("initWithData:options:error:"), data, mask, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
-		return XMLDTD{}, NSErrorFrom(errorPtr)
+		return *new(XMLDTD), NSErrorFrom(errorPtr)
 	}
 	return NSXMLDTDFromID(rv), nil
 

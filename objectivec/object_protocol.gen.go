@@ -3,8 +3,6 @@
 package objectivec
 
 import (
-	"unsafe"
-
 	"github.com/tmc/apple/objc"
 )
 
@@ -13,32 +11,52 @@ import (
 // See: https://developer.apple.com/documentation/ObjectiveC/NSObjectProtocol
 type NSObject interface {
 
+	// Returns a Boolean value that indicates whether the receiver and a given object are equal.
+	//
+	// See: https://developer.apple.com/documentation/ObjectiveC/NSObjectProtocol/isEqual(_:)
+	IsEqual(object IObject) bool
+
 	// Returns the receiver.
 	//
 	// See: https://developer.apple.com/documentation/ObjectiveC/NSObjectProtocol/self()
-	Self() unsafe.Pointer
+	Self() IObject
 
 	// Returns a Boolean value that indicates whether the receiver is an instance of given class or an instance of any class that inherits from that class.
 	//
 	// See: https://developer.apple.com/documentation/ObjectiveC/NSObjectProtocol/isKind(of:)
-	IsKindOfClass(aClass objc.Class) bool
+	IsKindOfClass(aClass Class) bool
 
 	// Returns a Boolean value that indicates whether the receiver is an instance of a given class.
 	//
 	// See: https://developer.apple.com/documentation/ObjectiveC/NSObjectProtocol/isMember(of:)
-	IsMemberOfClass(aClass objc.Class) bool
+	IsMemberOfClass(aClass Class) bool
 
 	// Returns a Boolean value that indicates whether the receiver implements or inherits a method that can respond to a specified message.
 	//
 	// See: https://developer.apple.com/documentation/ObjectiveC/NSObjectProtocol/responds(to:)
-	RespondsToSelector(aSelector objc.SEL) bool
+	RespondsToSelector(aSelector SEL) bool
 
 	// Returns a Boolean value that indicates whether the receiver conforms to a given protocol.
 	//
 	// See: https://developer.apple.com/documentation/ObjectiveC/NSObjectProtocol/conforms(to:)
 	ConformsToProtocol(aProtocol *Protocol) bool
 
-	// Returns a Boolean value that indicates whether the receiver does not descend from [NSObject](<doc://com.apple.objectivec/documentation/ObjectiveC/NSObject-swift.class>).
+	// Sends a specified message to the receiver and returns the result of the message.
+	//
+	// See: https://developer.apple.com/documentation/ObjectiveC/NSObjectProtocol/perform(_:)
+	PerformSelector(aSelector SEL) IObject
+
+	// Sends a message to the receiver with an object as the argument.
+	//
+	// See: https://developer.apple.com/documentation/ObjectiveC/NSObjectProtocol/perform(_:with:)
+	PerformSelectorWithObject(aSelector SEL, object IObject) IObject
+
+	// Sends a message to the receiver with two objects as arguments.
+	//
+	// See: https://developer.apple.com/documentation/ObjectiveC/NSObjectProtocol/perform(_:with:with:)
+	PerformSelectorWithObjectWithObject(aSelector SEL, object1 IObject, object2 IObject) IObject
+
+	// Returns a Boolean value that indicates whether the receiver does not descend from [NSObject](<https://developer.apple.com/documentation/ObjectiveC/NSObject-swift.class>).
 	//
 	// See: https://developer.apple.com/documentation/ObjectiveC/NSObjectProtocol/isProxy()
 	IsProxy() bool
@@ -56,7 +74,7 @@ type NSObject interface {
 	// Increments the receiver’s reference count.
 	//
 	// See: https://developer.apple.com/documentation/ObjectiveC/NSObject-c.protocol/retain
-	Retain() unsafe.Pointer
+	Retain() IObject
 
 	// Do not use this method.
 	//
@@ -142,9 +160,9 @@ func (o NSObjectObject) IsEqual(object IObject) bool {
 // The receiver.
 //
 // See: https://developer.apple.com/documentation/ObjectiveC/NSObjectProtocol/self()
-func (o NSObjectObject) Self() unsafe.Pointer {
-	rv := objc.Send[unsafe.Pointer](o.ID, objc.Sel("self"))
-	return rv
+func (o NSObjectObject) Self() IObject {
+	rv := objc.Send[objc.ID](o.ID, objc.Sel("self"))
+	return Object{ID: rv}
 }
 
 // Returns a Boolean value that indicates whether the receiver is an instance
@@ -183,7 +201,7 @@ func (o NSObjectObject) Self() unsafe.Pointer {
 // [NSArchiver]: https://developer.apple.com/documentation/Foundation/NSArchiver
 // [NSArray]: https://developer.apple.com/documentation/Foundation/NSArray
 // [NSCoder]: https://developer.apple.com/documentation/Foundation/NSCoder
-func (o NSObjectObject) IsKindOfClass(aClass objc.Class) bool {
+func (o NSObjectObject) IsKindOfClass(aClass Class) bool {
 	rv := objc.Send[bool](o.ID, objc.Sel("isKindOfClass:"), aClass)
 	return rv
 }
@@ -206,7 +224,7 @@ func (o NSObjectObject) IsKindOfClass(aClass objc.Class) bool {
 // receiver is a specific Class object.
 //
 // See: https://developer.apple.com/documentation/ObjectiveC/NSObjectProtocol/isMember(of:)
-func (o NSObjectObject) IsMemberOfClass(aClass objc.Class) bool {
+func (o NSObjectObject) IsMemberOfClass(aClass Class) bool {
 	rv := objc.Send[bool](o.ID, objc.Sel("isMemberOfClass:"), aClass)
 	return rv
 }
@@ -244,7 +262,7 @@ func (o NSObjectObject) IsMemberOfClass(aClass objc.Class) bool {
 // See: https://developer.apple.com/documentation/ObjectiveC/NSObjectProtocol/responds(to:)
 //
 // [instancesRespond(to:)]: https://developer.apple.com/documentation/ObjectiveC/NSObject-swift.class/instancesRespond(to:)
-func (o NSObjectObject) RespondsToSelector(aSelector objc.SEL) bool {
+func (o NSObjectObject) RespondsToSelector(aSelector SEL) bool {
 	rv := objc.Send[bool](o.ID, objc.Sel("respondsToSelector:"), aSelector)
 	return rv
 }
@@ -270,7 +288,7 @@ func (o NSObjectObject) RespondsToSelector(aSelector objc.SEL) bool {
 // [NSObject]: https://developer.apple.com/documentation/ObjectiveC/NSObject-swift.class
 // [conforms(to:)]: https://developer.apple.com/documentation/ObjectiveC/NSObject-swift.class/conforms(to:)
 func (o NSObjectObject) ConformsToProtocol(aProtocol *Protocol) bool {
-	rv := objc.Send[bool](o.ID, objc.Sel("conformsToProtocol:"), aProtocol)
+	rv := objc.Send[bool](o.ID, objc.Sel("conformsToProtocol:"), aProtocol.ID)
 	return rv
 }
 
@@ -312,8 +330,9 @@ func (o NSObjectObject) ConformsToProtocol(aProtocol *Protocol) bool {
 // Due to this uncertainty, the compiler generates a warning if you supply a
 // variable selector while using ARC to manage memory. Because it can’t
 // determine ownership of the returned object at compile-time, ARC makes the
-// assumption that the caller does need to take ownership, but this may not be
-// true. The compiler warning alerts you to the potential for a memory leak.
+// assumption that the caller does not need to take ownership, but this may
+// not be true. The compiler warning alerts you to the potential for a memory
+// leak.
 //
 // To avoid the warning, if you know that `aSelector` has no return value, you
 // might be able to use [performSelector(onMainThread:with:waitUntilDone:)] or
@@ -340,7 +359,7 @@ func (o NSObjectObject) ConformsToProtocol(aProtocol *Protocol) bool {
 // [performSelector(onMainThread:with:waitUntilDone:)]: https://developer.apple.com/documentation/ObjectiveC/NSObject-swift.class/performSelector(onMainThread:with:waitUntilDone:)
 // [takeRetainedValue()]: https://developer.apple.com/documentation/Swift/Unmanaged/takeRetainedValue()
 // [takeUnretainedValue()]: https://developer.apple.com/documentation/Swift/Unmanaged/takeUnretainedValue()
-func (o NSObjectObject) PerformSelector(aSelector objc.SEL) IObject {
+func (o NSObjectObject) PerformSelector(aSelector SEL) IObject {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("performSelector:"), aSelector)
 	return Object{ID: rv}
 }
@@ -367,7 +386,7 @@ func (o NSObjectObject) PerformSelector(aSelector objc.SEL) IObject {
 //
 // [invalidArgumentException]: https://developer.apple.com/documentation/Foundation/NSExceptionName/invalidArgumentException
 // [NSInvocation]: https://developer.apple.com/documentation/Foundation/NSInvocation
-func (o NSObjectObject) PerformSelectorWithObject(aSelector objc.SEL, object IObject) IObject {
+func (o NSObjectObject) PerformSelectorWithObject(aSelector SEL, object IObject) IObject {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("performSelector:withObject:"), aSelector, object)
 	return Object{ID: rv}
 }
@@ -396,7 +415,7 @@ func (o NSObjectObject) PerformSelectorWithObject(aSelector objc.SEL, object IOb
 //
 // [invalidArgumentException]: https://developer.apple.com/documentation/Foundation/NSExceptionName/invalidArgumentException
 // [NSInvocation]: https://developer.apple.com/documentation/Foundation/NSInvocation
-func (o NSObjectObject) PerformSelectorWithObjectWithObject(aSelector objc.SEL, object1 IObject, object2 IObject) IObject {
+func (o NSObjectObject) PerformSelectorWithObjectWithObject(aSelector SEL, object1 IObject, object2 IObject) IObject {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("performSelector:withObject:withObject:"), aSelector, object1, object2)
 	return Object{ID: rv}
 }
@@ -499,9 +518,9 @@ func (o NSObjectObject) Release() {
 //
 // [Advanced Memory Management Programming Guide]: https://developer.apple.com/library/archive/documentation/Cocoa/Conceptual/MemoryMgmt/Articles/MemoryMgmt.html#//apple_ref/doc/uid/10000011i
 // [Transitioning to ARC Release Notes]: https://developer.apple.com/library/archive/releasenotes/ObjectiveC/RN-TransitioningToARC/Introduction/Introduction.html#//apple_ref/doc/uid/TP40011226
-func (o NSObjectObject) Retain() unsafe.Pointer {
-	rv := objc.Send[unsafe.Pointer](o.ID, objc.Sel("retain"))
-	return rv
+func (o NSObjectObject) Retain() IObject {
+	rv := objc.Send[objc.ID](o.ID, objc.Sel("retain"))
+	return Object{ID: rv}
 }
 
 // Do not use this method.

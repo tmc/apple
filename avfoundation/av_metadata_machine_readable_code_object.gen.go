@@ -5,9 +5,9 @@ package avfoundation
 import (
 	"sync"
 
+	"github.com/tmc/apple/coreimage"
 	"github.com/tmc/apple/foundation"
 	"github.com/tmc/apple/objc"
-	"github.com/tmc/apple/objectivec"
 )
 
 // The class instance for the [AVMetadataMachineReadableCodeObject] class.
@@ -96,7 +96,7 @@ type IAVMetadataMachineReadableCodeObject interface {
 	// The points defining the (x, 	y) locations of the corners.
 	Corners() foundation.INSDictionary
 	// A barcode description for use in Core Image.
-	Descriptor() objectivec.IObject
+	Descriptor() coreimage.CIBarcodeDescriptor
 	// Returns the error-corrected data decoded into a human-readable string.
 	StringValue() string
 }
@@ -151,9 +151,9 @@ func (m AVMetadataMachineReadableCodeObject) Corners() foundation.INSDictionary 
 // A barcode description for use in Core Image.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVMetadataMachineReadableCodeObject/descriptor
-func (m AVMetadataMachineReadableCodeObject) Descriptor() objectivec.IObject {
+func (m AVMetadataMachineReadableCodeObject) Descriptor() coreimage.CIBarcodeDescriptor {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("descriptor"))
-	return objectivec.Object{ID: rv}
+	return coreimage.CIBarcodeDescriptorFromID(objc.ID(rv))
 }
 
 // Returns the error-corrected data decoded into a human-readable string.

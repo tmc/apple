@@ -88,7 +88,7 @@ func (nc NSProgressIndicatorClass) Alloc() NSProgressIndicator {
 //   - [NSProgressIndicator.SetIndeterminate]
 //   - [NSProgressIndicator.Style]: The style of the progress indicator (bar or spinning).
 //   - [NSProgressIndicator.SetStyle]
-//   - [NSProgressIndicator.SizeToFit]: This action method resizes the progress indicator to an appropriate size depending on the value of [style](<doc://com.apple.appkit/documentation/AppKit/NSProgressIndicator/style-swift.property>).
+//   - [NSProgressIndicator.SizeToFit]: This action method resizes the progress indicator to an appropriate size depending on the value of [style](<https://developer.apple.com/documentation/AppKit/NSProgressIndicator/style-swift.property>).
 //   - [NSProgressIndicator.IsDisplayedWhenStopped]: A Boolean that indicates whether the progress indicator hides itself when it isn’t animating.
 //   - [NSProgressIndicator.SetDisplayedWhenStopped]
 //
@@ -144,14 +144,13 @@ func NSProgressIndicatorFromID(id objc.ID) NSProgressIndicator {
 //   - [INSProgressIndicator.SetIndeterminate]
 //   - [INSProgressIndicator.Style]: The style of the progress indicator (bar or spinning).
 //   - [INSProgressIndicator.SetStyle]
-//   - [INSProgressIndicator.SizeToFit]: This action method resizes the progress indicator to an appropriate size depending on the value of [style](<doc://com.apple.appkit/documentation/AppKit/NSProgressIndicator/style-swift.property>).
+//   - [INSProgressIndicator.SizeToFit]: This action method resizes the progress indicator to an appropriate size depending on the value of [style](<https://developer.apple.com/documentation/AppKit/NSProgressIndicator/style-swift.property>).
 //   - [INSProgressIndicator.IsDisplayedWhenStopped]: A Boolean that indicates whether the progress indicator hides itself when it isn’t animating.
 //   - [INSProgressIndicator.SetDisplayedWhenStopped]
 //
 // See: https://developer.apple.com/documentation/AppKit/NSProgressIndicator
 type INSProgressIndicator interface {
 	INSView
-	NSAccessibilityGroup
 
 	// Topic: Animating the progress indicator
 
@@ -200,7 +199,7 @@ type INSProgressIndicator interface {
 	// The style of the progress indicator (bar or spinning).
 	Style() NSProgressIndicatorStyle
 	SetStyle(value NSProgressIndicatorStyle)
-	// This action method resizes the progress indicator to an appropriate size depending on the value of [style](<doc://com.apple.appkit/documentation/AppKit/NSProgressIndicator/style-swift.property>).
+	// This action method resizes the progress indicator to an appropriate size depending on the value of [style](<https://developer.apple.com/documentation/AppKit/NSProgressIndicator/style-swift.property>).
 	SizeToFit()
 	// A Boolean that indicates whether the progress indicator hides itself when it isn’t animating.
 	IsDisplayedWhenStopped() bool
@@ -312,25 +311,6 @@ func (p NSProgressIndicator) IncrementBy(delta float64) {
 // See: https://developer.apple.com/documentation/AppKit/NSProgressIndicator/sizeToFit()
 func (p NSProgressIndicator) SizeToFit() {
 	objc.Send[objc.ID](p.ID, objc.Sel("sizeToFit"))
-}
-
-// Returns the progress indicator’s value.
-//
-// # Return Value
-//
-// The value of the progress indicator.
-//
-// # Discussion
-//
-// This method is the getter for the [NSAccessibilityProtocol] protocol’s
-// [accessibilityValue] property.
-//
-// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProgressIndicator/accessibilityValue()
-//
-// [accessibilityValue]: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityValue
-func (p NSProgressIndicator) AccessibilityValue() foundation.NSNumber {
-	rv := objc.Send[objc.ID](p.ID, objc.Sel("accessibilityValue"))
-	return foundation.NSNumberFromID(rv)
 }
 
 // A Boolean that indicates whether the progress indicator implements
@@ -533,85 +513,3 @@ func (p NSProgressIndicator) SetDisplayedWhenStopped(value bool) {
 }
 
 // Protocol methods for NSAccessibilityProgressIndicator
-
-// Returns the accessibility element’s frame in screen coordinates.
-//
-// # Return Value
-//
-// The element’s frame in screen coordinates.
-//
-// # Discussion
-//
-// This method is the getter for the [NSAccessibilityProtocol] protocol’s
-// [accessibilityFrame] property. This method is called whenever accessibility
-// clients request the [size] or [position] attributes.
-//
-// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityElementProtocol/accessibilityFrame()
-//
-// [accessibilityFrame]: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityFrame
-// [position]: https://developer.apple.com/documentation/AppKit/NSAccessibility-swift.struct/Attribute/position
-// [size]: https://developer.apple.com/documentation/AppKit/NSAccessibility-swift.struct/Attribute/size
-func (o NSProgressIndicator) AccessibilityFrame() corefoundation.CGRect {
-	rv := objc.Send[corefoundation.CGRect](o.ID, objc.Sel("accessibilityFrame"))
-	return rv
-}
-
-// Returns the accessibility element’s parent in the accessibility
-// hierarchy.
-//
-// # Return Value
-//
-// The element’s parent in the accessibility hierarchy.
-//
-// # Discussion
-//
-// This method is the getter for the [NSAccessibilityProtocol] protocol’s
-// [accessibilityParent] property.
-//
-// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityElementProtocol/accessibilityParent()
-//
-// [accessibilityParent]: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityParent
-func (o NSProgressIndicator) AccessibilityParent() objectivec.IObject {
-	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilityParent"))
-	return objectivec.Object{ID: rv}
-}
-
-// Returns the accessibility element’s identity.
-//
-// # Return Value
-//
-// Returns the unique ID for the accessibility element. It is often used in
-// automated testing.
-//
-// # Discussion
-//
-// This method is the getter for the [NSAccessibilityProtocol] protocol’s
-// [accessibilityIdentifier] property.
-//
-// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityElementProtocol/accessibilityIdentifier()
-//
-// [accessibilityIdentifier]: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityIdentifier
-func (o NSProgressIndicator) AccessibilityIdentifier() string {
-	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilityIdentifier"))
-	return foundation.NSStringFromID(rv).String()
-}
-
-// Returns a Boolean value that indicates whether the accessibility element
-// has the keyboard focus.
-//
-// # Return Value
-//
-// true if this element has the keyboard focus; otherwise, false.
-//
-// # Discussion
-//
-// This method is the getter for the [NSAccessibilityProtocol] protocol’s
-// [accessibilityFocused] property.
-//
-// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityElementProtocol/isAccessibilityFocused()
-//
-// [accessibilityFocused]: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityFocused
-func (o NSProgressIndicator) IsAccessibilityFocused() bool {
-	rv := objc.Send[bool](o.ID, objc.Sel("isAccessibilityFocused"))
-	return rv
-}

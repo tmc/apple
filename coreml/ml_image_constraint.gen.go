@@ -47,15 +47,15 @@ func (mc MLImageConstraintClass) Alloc() MLImageConstraint {
 //
 // # Overview
 //
-// In CoreML, an is a collection of pixels represented by [CVPixelBuffer]
-// (Swift) or [CVPixelBuffer] (Objective-C). An is a model input or output
-// that accepts or produces, respectively, an image bundled in an
-// [MLFeatureValue]. [MLImageConstraint] defines the image feature’s
-// limitations for the images within an [MLFeatureValue].
+// In CoreML, an image is a collection of pixels represented by
+// [CVPixelBuffer] (Swift) or [CVPixelBuffer] (Objective-C). An image feature
+// is a model input or output that accepts or produces, respectively, an image
+// bundled in an [MLFeatureValue]. [MLImageConstraint] defines the image
+// feature’s limitations for the images within an [MLFeatureValue].
 //
 // If a model has an image feature for an input or output, the model author
-// uses an by creating an [MLFeatureDescription]. The feature description for
-// an image input or output has:
+// uses an image feature description by creating an [MLFeatureDescription].
+// The feature description for an image input or output has:
 //
 // - Its [MLFeatureDescription.Type] property set to [MLFeatureTypeImage] -
 // Its [MLFeatureDescription.ImageConstraint] property set to an

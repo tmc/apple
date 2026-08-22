@@ -218,6 +218,9 @@ func NewAudioFileForReadingCommonFormatInterleavedError(fileURL foundation.NSURL
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
 		return AVAudioFile{}, foundation.NSErrorFrom(errorPtr)
 	}
+	if rv == 0 {
+		return AVAudioFile{}, objc.ErrInitFailed
+	}
 	return AVAudioFileFromID(rv), nil
 }
 
@@ -238,6 +241,9 @@ func NewAudioFileForReadingError(fileURL foundation.NSURL) (AVAudioFile, error) 
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
 		return AVAudioFile{}, foundation.NSErrorFrom(errorPtr)
+	}
+	if rv == 0 {
+		return AVAudioFile{}, objc.ErrInitFailed
 	}
 	return AVAudioFileFromID(rv), nil
 }
@@ -274,6 +280,9 @@ func NewAudioFileForWritingSettingsCommonFormatInterleavedError(fileURL foundati
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
 		return AVAudioFile{}, foundation.NSErrorFrom(errorPtr)
 	}
+	if rv == 0 {
+		return AVAudioFile{}, objc.ErrInitFailed
+	}
 	return AVAudioFileFromID(rv), nil
 }
 
@@ -305,6 +314,9 @@ func NewAudioFileForWritingSettingsError(fileURL foundation.NSURL, settings foun
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
 		return AVAudioFile{}, foundation.NSErrorFrom(errorPtr)
+	}
+	if rv == 0 {
+		return AVAudioFile{}, objc.ErrInitFailed
 	}
 	return AVAudioFileFromID(rv), nil
 }

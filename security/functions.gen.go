@@ -9,9 +9,9 @@ import (
 	"github.com/ebitengine/purego"
 	"github.com/tmc/apple/corefoundation"
 	"github.com/tmc/apple/dispatch"
-	"github.com/tmc/apple/kernel"
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
+	"github.com/tmc/apple/xpc"
 )
 
 type unavailableSymbolError struct {
@@ -131,7 +131,7 @@ func tryAuthorizationCopyRightsAsync(authorization AuthorizationRef, rights *Aut
 	if _authorizationCopyRightsAsync == nil {
 		return symbolCallError("AuthorizationCopyRightsAsync", "10.7", _authorizationCopyRightsAsyncErr)
 	}
-	_block0Value := objc.NewBlock(func(_ objc.Block, blockArg0 int, blockArg1 *AuthorizationItemSet) {
+	_block0Value := objc.NewBlock(func(_ objc.Block, blockArg0 int32, blockArg1 *AuthorizationItemSet) {
 		callbackBlock(blockArg0, blockArg1)
 	})
 	defer _block0Value.Release()
@@ -2608,14 +2608,14 @@ func CSSM_ChangeKeyOwner(CSPHandle CSSM_CSP_HANDLE, AccessCred unsafe.Pointer, K
 	return result
 }
 
-var _cSSM_DL_Authenticate func(DLDBHandle unsafe.Pointer, AccessRequest CSSM_DB_ACCESS_TYPE, AccessCred unsafe.Pointer) CSSM_RETURN
+var _cSSM_DL_Authenticate func(DLDBHandle *[2]uint64, AccessRequest CSSM_DB_ACCESS_TYPE, AccessCred unsafe.Pointer) CSSM_RETURN
 var _cSSM_DL_AuthenticateErr error
 
-func tryCSSM_DL_Authenticate(DLDBHandle unsafe.Pointer, AccessRequest CSSM_DB_ACCESS_TYPE, AccessCred unsafe.Pointer) (CSSM_RETURN, error) {
+func tryCSSM_DL_Authenticate(DLDBHandle [2]uint64, AccessRequest CSSM_DB_ACCESS_TYPE, AccessCred unsafe.Pointer) (CSSM_RETURN, error) {
 	if _cSSM_DL_Authenticate == nil {
 		return *new(CSSM_RETURN), symbolCallError("CSSM_DL_Authenticate", "10.0", _cSSM_DL_AuthenticateErr)
 	}
-	return _cSSM_DL_Authenticate(DLDBHandle, AccessRequest, AccessCred), nil
+	return _cSSM_DL_Authenticate(&DLDBHandle, AccessRequest, AccessCred), nil
 }
 
 // CSSM_DL_Authenticate.
@@ -2623,7 +2623,7 @@ func tryCSSM_DL_Authenticate(DLDBHandle unsafe.Pointer, AccessRequest CSSM_DB_AC
 // Deprecated: Deprecated since macOS 10.7.
 //
 // See: https://developer.apple.com/documentation/Security/CSSM_DL_Authenticate
-func CSSM_DL_Authenticate(DLDBHandle unsafe.Pointer, AccessRequest CSSM_DB_ACCESS_TYPE, AccessCred unsafe.Pointer) CSSM_RETURN {
+func CSSM_DL_Authenticate(DLDBHandle [2]uint64, AccessRequest CSSM_DB_ACCESS_TYPE, AccessCred unsafe.Pointer) CSSM_RETURN {
 	result, callErr := tryCSSM_DL_Authenticate(DLDBHandle, AccessRequest, AccessCred)
 	if callErr != nil {
 		panic(callErr)
@@ -2631,14 +2631,14 @@ func CSSM_DL_Authenticate(DLDBHandle unsafe.Pointer, AccessRequest CSSM_DB_ACCES
 	return result
 }
 
-var _cSSM_DL_ChangeDbAcl func(DLDBHandle unsafe.Pointer, AccessCred unsafe.Pointer, AclEdit unsafe.Pointer) CSSM_RETURN
+var _cSSM_DL_ChangeDbAcl func(DLDBHandle *[2]uint64, AccessCred unsafe.Pointer, AclEdit unsafe.Pointer) CSSM_RETURN
 var _cSSM_DL_ChangeDbAclErr error
 
-func tryCSSM_DL_ChangeDbAcl(DLDBHandle unsafe.Pointer, AccessCred unsafe.Pointer, AclEdit unsafe.Pointer) (CSSM_RETURN, error) {
+func tryCSSM_DL_ChangeDbAcl(DLDBHandle [2]uint64, AccessCred unsafe.Pointer, AclEdit unsafe.Pointer) (CSSM_RETURN, error) {
 	if _cSSM_DL_ChangeDbAcl == nil {
 		return *new(CSSM_RETURN), symbolCallError("CSSM_DL_ChangeDbAcl", "10.0", _cSSM_DL_ChangeDbAclErr)
 	}
-	return _cSSM_DL_ChangeDbAcl(DLDBHandle, AccessCred, AclEdit), nil
+	return _cSSM_DL_ChangeDbAcl(&DLDBHandle, AccessCred, AclEdit), nil
 }
 
 // CSSM_DL_ChangeDbAcl.
@@ -2646,7 +2646,7 @@ func tryCSSM_DL_ChangeDbAcl(DLDBHandle unsafe.Pointer, AccessCred unsafe.Pointer
 // Deprecated: Deprecated since macOS 10.7.
 //
 // See: https://developer.apple.com/documentation/Security/CSSM_DL_ChangeDbAcl
-func CSSM_DL_ChangeDbAcl(DLDBHandle unsafe.Pointer, AccessCred unsafe.Pointer, AclEdit unsafe.Pointer) CSSM_RETURN {
+func CSSM_DL_ChangeDbAcl(DLDBHandle [2]uint64, AccessCred unsafe.Pointer, AclEdit unsafe.Pointer) CSSM_RETURN {
 	result, callErr := tryCSSM_DL_ChangeDbAcl(DLDBHandle, AccessCred, AclEdit)
 	if callErr != nil {
 		panic(callErr)
@@ -2654,14 +2654,14 @@ func CSSM_DL_ChangeDbAcl(DLDBHandle unsafe.Pointer, AccessCred unsafe.Pointer, A
 	return result
 }
 
-var _cSSM_DL_ChangeDbOwner func(DLDBHandle unsafe.Pointer, AccessCred unsafe.Pointer, NewOwner unsafe.Pointer) CSSM_RETURN
+var _cSSM_DL_ChangeDbOwner func(DLDBHandle *[2]uint64, AccessCred unsafe.Pointer, NewOwner unsafe.Pointer) CSSM_RETURN
 var _cSSM_DL_ChangeDbOwnerErr error
 
-func tryCSSM_DL_ChangeDbOwner(DLDBHandle unsafe.Pointer, AccessCred unsafe.Pointer, NewOwner unsafe.Pointer) (CSSM_RETURN, error) {
+func tryCSSM_DL_ChangeDbOwner(DLDBHandle [2]uint64, AccessCred unsafe.Pointer, NewOwner unsafe.Pointer) (CSSM_RETURN, error) {
 	if _cSSM_DL_ChangeDbOwner == nil {
 		return *new(CSSM_RETURN), symbolCallError("CSSM_DL_ChangeDbOwner", "10.0", _cSSM_DL_ChangeDbOwnerErr)
 	}
-	return _cSSM_DL_ChangeDbOwner(DLDBHandle, AccessCred, NewOwner), nil
+	return _cSSM_DL_ChangeDbOwner(&DLDBHandle, AccessCred, NewOwner), nil
 }
 
 // CSSM_DL_ChangeDbOwner.
@@ -2669,7 +2669,7 @@ func tryCSSM_DL_ChangeDbOwner(DLDBHandle unsafe.Pointer, AccessCred unsafe.Point
 // Deprecated: Deprecated since macOS 10.7.
 //
 // See: https://developer.apple.com/documentation/Security/CSSM_DL_ChangeDbOwner
-func CSSM_DL_ChangeDbOwner(DLDBHandle unsafe.Pointer, AccessCred unsafe.Pointer, NewOwner unsafe.Pointer) CSSM_RETURN {
+func CSSM_DL_ChangeDbOwner(DLDBHandle [2]uint64, AccessCred unsafe.Pointer, NewOwner unsafe.Pointer) CSSM_RETURN {
 	result, callErr := tryCSSM_DL_ChangeDbOwner(DLDBHandle, AccessCred, NewOwner)
 	if callErr != nil {
 		panic(callErr)
@@ -2677,14 +2677,14 @@ func CSSM_DL_ChangeDbOwner(DLDBHandle unsafe.Pointer, AccessCred unsafe.Pointer,
 	return result
 }
 
-var _cSSM_DL_CreateRelation func(DLDBHandle unsafe.Pointer, RelationID CSSM_DB_RECORDTYPE, RelationName string, NumberOfAttributes uint32, pAttributeInfo unsafe.Pointer, NumberOfIndexes uint32, pIndexInfo unsafe.Pointer) CSSM_RETURN
+var _cSSM_DL_CreateRelation func(DLDBHandle *[2]uint64, RelationID CSSM_DB_RECORDTYPE, RelationName string, NumberOfAttributes uint32, pAttributeInfo unsafe.Pointer, NumberOfIndexes uint32, pIndexInfo unsafe.Pointer) CSSM_RETURN
 var _cSSM_DL_CreateRelationErr error
 
-func tryCSSM_DL_CreateRelation(DLDBHandle unsafe.Pointer, RelationID CSSM_DB_RECORDTYPE, RelationName string, NumberOfAttributes uint32, pAttributeInfo unsafe.Pointer, NumberOfIndexes uint32, pIndexInfo unsafe.Pointer) (CSSM_RETURN, error) {
+func tryCSSM_DL_CreateRelation(DLDBHandle [2]uint64, RelationID CSSM_DB_RECORDTYPE, RelationName string, NumberOfAttributes uint32, pAttributeInfo unsafe.Pointer, NumberOfIndexes uint32, pIndexInfo unsafe.Pointer) (CSSM_RETURN, error) {
 	if _cSSM_DL_CreateRelation == nil {
 		return *new(CSSM_RETURN), symbolCallError("CSSM_DL_CreateRelation", "10.0", _cSSM_DL_CreateRelationErr)
 	}
-	return _cSSM_DL_CreateRelation(DLDBHandle, RelationID, RelationName, NumberOfAttributes, pAttributeInfo, NumberOfIndexes, pIndexInfo), nil
+	return _cSSM_DL_CreateRelation(&DLDBHandle, RelationID, RelationName, NumberOfAttributes, pAttributeInfo, NumberOfIndexes, pIndexInfo), nil
 }
 
 // CSSM_DL_CreateRelation.
@@ -2692,7 +2692,7 @@ func tryCSSM_DL_CreateRelation(DLDBHandle unsafe.Pointer, RelationID CSSM_DB_REC
 // Deprecated: Deprecated since macOS 10.7.
 //
 // See: https://developer.apple.com/documentation/Security/CSSM_DL_CreateRelation
-func CSSM_DL_CreateRelation(DLDBHandle unsafe.Pointer, RelationID CSSM_DB_RECORDTYPE, RelationName string, NumberOfAttributes uint32, pAttributeInfo unsafe.Pointer, NumberOfIndexes uint32, pIndexInfo unsafe.Pointer) CSSM_RETURN {
+func CSSM_DL_CreateRelation(DLDBHandle [2]uint64, RelationID CSSM_DB_RECORDTYPE, RelationName string, NumberOfAttributes uint32, pAttributeInfo unsafe.Pointer, NumberOfIndexes uint32, pIndexInfo unsafe.Pointer) CSSM_RETURN {
 	result, callErr := tryCSSM_DL_CreateRelation(DLDBHandle, RelationID, RelationName, NumberOfAttributes, pAttributeInfo, NumberOfIndexes, pIndexInfo)
 	if callErr != nil {
 		panic(callErr)
@@ -2700,14 +2700,14 @@ func CSSM_DL_CreateRelation(DLDBHandle unsafe.Pointer, RelationID CSSM_DB_RECORD
 	return result
 }
 
-var _cSSM_DL_DataAbortQuery func(DLDBHandle unsafe.Pointer, ResultsHandle CSSM_HANDLE) CSSM_RETURN
+var _cSSM_DL_DataAbortQuery func(DLDBHandle *[2]uint64, ResultsHandle CSSM_HANDLE) CSSM_RETURN
 var _cSSM_DL_DataAbortQueryErr error
 
-func tryCSSM_DL_DataAbortQuery(DLDBHandle unsafe.Pointer, ResultsHandle CSSM_HANDLE) (CSSM_RETURN, error) {
+func tryCSSM_DL_DataAbortQuery(DLDBHandle [2]uint64, ResultsHandle CSSM_HANDLE) (CSSM_RETURN, error) {
 	if _cSSM_DL_DataAbortQuery == nil {
 		return *new(CSSM_RETURN), symbolCallError("CSSM_DL_DataAbortQuery", "10.0", _cSSM_DL_DataAbortQueryErr)
 	}
-	return _cSSM_DL_DataAbortQuery(DLDBHandle, ResultsHandle), nil
+	return _cSSM_DL_DataAbortQuery(&DLDBHandle, ResultsHandle), nil
 }
 
 // CSSM_DL_DataAbortQuery.
@@ -2715,7 +2715,7 @@ func tryCSSM_DL_DataAbortQuery(DLDBHandle unsafe.Pointer, ResultsHandle CSSM_HAN
 // Deprecated: Deprecated since macOS 10.7.
 //
 // See: https://developer.apple.com/documentation/Security/CSSM_DL_DataAbortQuery
-func CSSM_DL_DataAbortQuery(DLDBHandle unsafe.Pointer, ResultsHandle CSSM_HANDLE) CSSM_RETURN {
+func CSSM_DL_DataAbortQuery(DLDBHandle [2]uint64, ResultsHandle CSSM_HANDLE) CSSM_RETURN {
 	result, callErr := tryCSSM_DL_DataAbortQuery(DLDBHandle, ResultsHandle)
 	if callErr != nil {
 		panic(callErr)
@@ -2723,14 +2723,14 @@ func CSSM_DL_DataAbortQuery(DLDBHandle unsafe.Pointer, ResultsHandle CSSM_HANDLE
 	return result
 }
 
-var _cSSM_DL_DataDelete func(DLDBHandle unsafe.Pointer, UniqueRecordIdentifier unsafe.Pointer) CSSM_RETURN
+var _cSSM_DL_DataDelete func(DLDBHandle *[2]uint64, UniqueRecordIdentifier unsafe.Pointer) CSSM_RETURN
 var _cSSM_DL_DataDeleteErr error
 
-func tryCSSM_DL_DataDelete(DLDBHandle unsafe.Pointer, UniqueRecordIdentifier unsafe.Pointer) (CSSM_RETURN, error) {
+func tryCSSM_DL_DataDelete(DLDBHandle [2]uint64, UniqueRecordIdentifier unsafe.Pointer) (CSSM_RETURN, error) {
 	if _cSSM_DL_DataDelete == nil {
 		return *new(CSSM_RETURN), symbolCallError("CSSM_DL_DataDelete", "10.0", _cSSM_DL_DataDeleteErr)
 	}
-	return _cSSM_DL_DataDelete(DLDBHandle, UniqueRecordIdentifier), nil
+	return _cSSM_DL_DataDelete(&DLDBHandle, UniqueRecordIdentifier), nil
 }
 
 // CSSM_DL_DataDelete.
@@ -2738,7 +2738,7 @@ func tryCSSM_DL_DataDelete(DLDBHandle unsafe.Pointer, UniqueRecordIdentifier uns
 // Deprecated: Deprecated since macOS 10.7.
 //
 // See: https://developer.apple.com/documentation/Security/CSSM_DL_DataDelete
-func CSSM_DL_DataDelete(DLDBHandle unsafe.Pointer, UniqueRecordIdentifier unsafe.Pointer) CSSM_RETURN {
+func CSSM_DL_DataDelete(DLDBHandle [2]uint64, UniqueRecordIdentifier unsafe.Pointer) CSSM_RETURN {
 	result, callErr := tryCSSM_DL_DataDelete(DLDBHandle, UniqueRecordIdentifier)
 	if callErr != nil {
 		panic(callErr)
@@ -2746,14 +2746,14 @@ func CSSM_DL_DataDelete(DLDBHandle unsafe.Pointer, UniqueRecordIdentifier unsafe
 	return result
 }
 
-var _cSSM_DL_DataGetFirst func(DLDBHandle unsafe.Pointer, Query unsafe.Pointer, ResultsHandle CSSM_HANDLE_PTR, Attributes unsafe.Pointer, Data unsafe.Pointer, UniqueId unsafe.Pointer) CSSM_RETURN
+var _cSSM_DL_DataGetFirst func(DLDBHandle *[2]uint64, Query unsafe.Pointer, ResultsHandle CSSM_HANDLE_PTR, Attributes unsafe.Pointer, Data unsafe.Pointer, UniqueId unsafe.Pointer) CSSM_RETURN
 var _cSSM_DL_DataGetFirstErr error
 
-func tryCSSM_DL_DataGetFirst(DLDBHandle unsafe.Pointer, Query unsafe.Pointer, ResultsHandle CSSM_HANDLE_PTR, Attributes unsafe.Pointer, Data unsafe.Pointer, UniqueId unsafe.Pointer) (CSSM_RETURN, error) {
+func tryCSSM_DL_DataGetFirst(DLDBHandle [2]uint64, Query unsafe.Pointer, ResultsHandle CSSM_HANDLE_PTR, Attributes unsafe.Pointer, Data unsafe.Pointer, UniqueId unsafe.Pointer) (CSSM_RETURN, error) {
 	if _cSSM_DL_DataGetFirst == nil {
 		return *new(CSSM_RETURN), symbolCallError("CSSM_DL_DataGetFirst", "10.0", _cSSM_DL_DataGetFirstErr)
 	}
-	return _cSSM_DL_DataGetFirst(DLDBHandle, Query, ResultsHandle, Attributes, Data, UniqueId), nil
+	return _cSSM_DL_DataGetFirst(&DLDBHandle, Query, ResultsHandle, Attributes, Data, UniqueId), nil
 }
 
 // CSSM_DL_DataGetFirst.
@@ -2761,7 +2761,7 @@ func tryCSSM_DL_DataGetFirst(DLDBHandle unsafe.Pointer, Query unsafe.Pointer, Re
 // Deprecated: Deprecated since macOS 10.7.
 //
 // See: https://developer.apple.com/documentation/Security/CSSM_DL_DataGetFirst
-func CSSM_DL_DataGetFirst(DLDBHandle unsafe.Pointer, Query unsafe.Pointer, ResultsHandle CSSM_HANDLE_PTR, Attributes unsafe.Pointer, Data unsafe.Pointer, UniqueId unsafe.Pointer) CSSM_RETURN {
+func CSSM_DL_DataGetFirst(DLDBHandle [2]uint64, Query unsafe.Pointer, ResultsHandle CSSM_HANDLE_PTR, Attributes unsafe.Pointer, Data unsafe.Pointer, UniqueId unsafe.Pointer) CSSM_RETURN {
 	result, callErr := tryCSSM_DL_DataGetFirst(DLDBHandle, Query, ResultsHandle, Attributes, Data, UniqueId)
 	if callErr != nil {
 		panic(callErr)
@@ -2769,14 +2769,14 @@ func CSSM_DL_DataGetFirst(DLDBHandle unsafe.Pointer, Query unsafe.Pointer, Resul
 	return result
 }
 
-var _cSSM_DL_DataGetFromUniqueRecordId func(DLDBHandle unsafe.Pointer, UniqueRecord unsafe.Pointer, Attributes unsafe.Pointer, Data unsafe.Pointer) CSSM_RETURN
+var _cSSM_DL_DataGetFromUniqueRecordId func(DLDBHandle *[2]uint64, UniqueRecord unsafe.Pointer, Attributes unsafe.Pointer, Data unsafe.Pointer) CSSM_RETURN
 var _cSSM_DL_DataGetFromUniqueRecordIdErr error
 
-func tryCSSM_DL_DataGetFromUniqueRecordId(DLDBHandle unsafe.Pointer, UniqueRecord unsafe.Pointer, Attributes unsafe.Pointer, Data unsafe.Pointer) (CSSM_RETURN, error) {
+func tryCSSM_DL_DataGetFromUniqueRecordId(DLDBHandle [2]uint64, UniqueRecord unsafe.Pointer, Attributes unsafe.Pointer, Data unsafe.Pointer) (CSSM_RETURN, error) {
 	if _cSSM_DL_DataGetFromUniqueRecordId == nil {
 		return *new(CSSM_RETURN), symbolCallError("CSSM_DL_DataGetFromUniqueRecordId", "10.0", _cSSM_DL_DataGetFromUniqueRecordIdErr)
 	}
-	return _cSSM_DL_DataGetFromUniqueRecordId(DLDBHandle, UniqueRecord, Attributes, Data), nil
+	return _cSSM_DL_DataGetFromUniqueRecordId(&DLDBHandle, UniqueRecord, Attributes, Data), nil
 }
 
 // CSSM_DL_DataGetFromUniqueRecordId.
@@ -2784,7 +2784,7 @@ func tryCSSM_DL_DataGetFromUniqueRecordId(DLDBHandle unsafe.Pointer, UniqueRecor
 // Deprecated: Deprecated since macOS 10.7.
 //
 // See: https://developer.apple.com/documentation/Security/CSSM_DL_DataGetFromUniqueRecordId
-func CSSM_DL_DataGetFromUniqueRecordId(DLDBHandle unsafe.Pointer, UniqueRecord unsafe.Pointer, Attributes unsafe.Pointer, Data unsafe.Pointer) CSSM_RETURN {
+func CSSM_DL_DataGetFromUniqueRecordId(DLDBHandle [2]uint64, UniqueRecord unsafe.Pointer, Attributes unsafe.Pointer, Data unsafe.Pointer) CSSM_RETURN {
 	result, callErr := tryCSSM_DL_DataGetFromUniqueRecordId(DLDBHandle, UniqueRecord, Attributes, Data)
 	if callErr != nil {
 		panic(callErr)
@@ -2792,14 +2792,14 @@ func CSSM_DL_DataGetFromUniqueRecordId(DLDBHandle unsafe.Pointer, UniqueRecord u
 	return result
 }
 
-var _cSSM_DL_DataGetNext func(DLDBHandle unsafe.Pointer, ResultsHandle CSSM_HANDLE, Attributes unsafe.Pointer, Data unsafe.Pointer, UniqueId unsafe.Pointer) CSSM_RETURN
+var _cSSM_DL_DataGetNext func(DLDBHandle *[2]uint64, ResultsHandle CSSM_HANDLE, Attributes unsafe.Pointer, Data unsafe.Pointer, UniqueId unsafe.Pointer) CSSM_RETURN
 var _cSSM_DL_DataGetNextErr error
 
-func tryCSSM_DL_DataGetNext(DLDBHandle unsafe.Pointer, ResultsHandle CSSM_HANDLE, Attributes unsafe.Pointer, Data unsafe.Pointer, UniqueId unsafe.Pointer) (CSSM_RETURN, error) {
+func tryCSSM_DL_DataGetNext(DLDBHandle [2]uint64, ResultsHandle CSSM_HANDLE, Attributes unsafe.Pointer, Data unsafe.Pointer, UniqueId unsafe.Pointer) (CSSM_RETURN, error) {
 	if _cSSM_DL_DataGetNext == nil {
 		return *new(CSSM_RETURN), symbolCallError("CSSM_DL_DataGetNext", "10.0", _cSSM_DL_DataGetNextErr)
 	}
-	return _cSSM_DL_DataGetNext(DLDBHandle, ResultsHandle, Attributes, Data, UniqueId), nil
+	return _cSSM_DL_DataGetNext(&DLDBHandle, ResultsHandle, Attributes, Data, UniqueId), nil
 }
 
 // CSSM_DL_DataGetNext.
@@ -2807,7 +2807,7 @@ func tryCSSM_DL_DataGetNext(DLDBHandle unsafe.Pointer, ResultsHandle CSSM_HANDLE
 // Deprecated: Deprecated since macOS 10.7.
 //
 // See: https://developer.apple.com/documentation/Security/CSSM_DL_DataGetNext
-func CSSM_DL_DataGetNext(DLDBHandle unsafe.Pointer, ResultsHandle CSSM_HANDLE, Attributes unsafe.Pointer, Data unsafe.Pointer, UniqueId unsafe.Pointer) CSSM_RETURN {
+func CSSM_DL_DataGetNext(DLDBHandle [2]uint64, ResultsHandle CSSM_HANDLE, Attributes unsafe.Pointer, Data unsafe.Pointer, UniqueId unsafe.Pointer) CSSM_RETURN {
 	result, callErr := tryCSSM_DL_DataGetNext(DLDBHandle, ResultsHandle, Attributes, Data, UniqueId)
 	if callErr != nil {
 		panic(callErr)
@@ -2815,14 +2815,14 @@ func CSSM_DL_DataGetNext(DLDBHandle unsafe.Pointer, ResultsHandle CSSM_HANDLE, A
 	return result
 }
 
-var _cSSM_DL_DataInsert func(DLDBHandle unsafe.Pointer, RecordType CSSM_DB_RECORDTYPE, Attributes unsafe.Pointer, Data unsafe.Pointer, UniqueId unsafe.Pointer) CSSM_RETURN
+var _cSSM_DL_DataInsert func(DLDBHandle *[2]uint64, RecordType CSSM_DB_RECORDTYPE, Attributes unsafe.Pointer, Data unsafe.Pointer, UniqueId unsafe.Pointer) CSSM_RETURN
 var _cSSM_DL_DataInsertErr error
 
-func tryCSSM_DL_DataInsert(DLDBHandle unsafe.Pointer, RecordType CSSM_DB_RECORDTYPE, Attributes unsafe.Pointer, Data unsafe.Pointer, UniqueId unsafe.Pointer) (CSSM_RETURN, error) {
+func tryCSSM_DL_DataInsert(DLDBHandle [2]uint64, RecordType CSSM_DB_RECORDTYPE, Attributes unsafe.Pointer, Data unsafe.Pointer, UniqueId unsafe.Pointer) (CSSM_RETURN, error) {
 	if _cSSM_DL_DataInsert == nil {
 		return *new(CSSM_RETURN), symbolCallError("CSSM_DL_DataInsert", "10.0", _cSSM_DL_DataInsertErr)
 	}
-	return _cSSM_DL_DataInsert(DLDBHandle, RecordType, Attributes, Data, UniqueId), nil
+	return _cSSM_DL_DataInsert(&DLDBHandle, RecordType, Attributes, Data, UniqueId), nil
 }
 
 // CSSM_DL_DataInsert.
@@ -2830,7 +2830,7 @@ func tryCSSM_DL_DataInsert(DLDBHandle unsafe.Pointer, RecordType CSSM_DB_RECORDT
 // Deprecated: Deprecated since macOS 10.7.
 //
 // See: https://developer.apple.com/documentation/Security/CSSM_DL_DataInsert
-func CSSM_DL_DataInsert(DLDBHandle unsafe.Pointer, RecordType CSSM_DB_RECORDTYPE, Attributes unsafe.Pointer, Data unsafe.Pointer, UniqueId unsafe.Pointer) CSSM_RETURN {
+func CSSM_DL_DataInsert(DLDBHandle [2]uint64, RecordType CSSM_DB_RECORDTYPE, Attributes unsafe.Pointer, Data unsafe.Pointer, UniqueId unsafe.Pointer) CSSM_RETURN {
 	result, callErr := tryCSSM_DL_DataInsert(DLDBHandle, RecordType, Attributes, Data, UniqueId)
 	if callErr != nil {
 		panic(callErr)
@@ -2838,14 +2838,14 @@ func CSSM_DL_DataInsert(DLDBHandle unsafe.Pointer, RecordType CSSM_DB_RECORDTYPE
 	return result
 }
 
-var _cSSM_DL_DataModify func(DLDBHandle unsafe.Pointer, RecordType CSSM_DB_RECORDTYPE, UniqueRecordIdentifier unsafe.Pointer, AttributesToBeModified unsafe.Pointer, DataToBeModified unsafe.Pointer, ModifyMode CSSM_DB_MODIFY_MODE) CSSM_RETURN
+var _cSSM_DL_DataModify func(DLDBHandle *[2]uint64, RecordType CSSM_DB_RECORDTYPE, UniqueRecordIdentifier unsafe.Pointer, AttributesToBeModified unsafe.Pointer, DataToBeModified unsafe.Pointer, ModifyMode CSSM_DB_MODIFY_MODE) CSSM_RETURN
 var _cSSM_DL_DataModifyErr error
 
-func tryCSSM_DL_DataModify(DLDBHandle unsafe.Pointer, RecordType CSSM_DB_RECORDTYPE, UniqueRecordIdentifier unsafe.Pointer, AttributesToBeModified unsafe.Pointer, DataToBeModified unsafe.Pointer, ModifyMode CSSM_DB_MODIFY_MODE) (CSSM_RETURN, error) {
+func tryCSSM_DL_DataModify(DLDBHandle [2]uint64, RecordType CSSM_DB_RECORDTYPE, UniqueRecordIdentifier unsafe.Pointer, AttributesToBeModified unsafe.Pointer, DataToBeModified unsafe.Pointer, ModifyMode CSSM_DB_MODIFY_MODE) (CSSM_RETURN, error) {
 	if _cSSM_DL_DataModify == nil {
 		return *new(CSSM_RETURN), symbolCallError("CSSM_DL_DataModify", "10.0", _cSSM_DL_DataModifyErr)
 	}
-	return _cSSM_DL_DataModify(DLDBHandle, RecordType, UniqueRecordIdentifier, AttributesToBeModified, DataToBeModified, ModifyMode), nil
+	return _cSSM_DL_DataModify(&DLDBHandle, RecordType, UniqueRecordIdentifier, AttributesToBeModified, DataToBeModified, ModifyMode), nil
 }
 
 // CSSM_DL_DataModify.
@@ -2853,7 +2853,7 @@ func tryCSSM_DL_DataModify(DLDBHandle unsafe.Pointer, RecordType CSSM_DB_RECORDT
 // Deprecated: Deprecated since macOS 10.7.
 //
 // See: https://developer.apple.com/documentation/Security/CSSM_DL_DataModify
-func CSSM_DL_DataModify(DLDBHandle unsafe.Pointer, RecordType CSSM_DB_RECORDTYPE, UniqueRecordIdentifier unsafe.Pointer, AttributesToBeModified unsafe.Pointer, DataToBeModified unsafe.Pointer, ModifyMode CSSM_DB_MODIFY_MODE) CSSM_RETURN {
+func CSSM_DL_DataModify(DLDBHandle [2]uint64, RecordType CSSM_DB_RECORDTYPE, UniqueRecordIdentifier unsafe.Pointer, AttributesToBeModified unsafe.Pointer, DataToBeModified unsafe.Pointer, ModifyMode CSSM_DB_MODIFY_MODE) CSSM_RETURN {
 	result, callErr := tryCSSM_DL_DataModify(DLDBHandle, RecordType, UniqueRecordIdentifier, AttributesToBeModified, DataToBeModified, ModifyMode)
 	if callErr != nil {
 		panic(callErr)
@@ -2861,14 +2861,14 @@ func CSSM_DL_DataModify(DLDBHandle unsafe.Pointer, RecordType CSSM_DB_RECORDTYPE
 	return result
 }
 
-var _cSSM_DL_DbClose func(DLDBHandle unsafe.Pointer) CSSM_RETURN
+var _cSSM_DL_DbClose func(DLDBHandle *[2]uint64) CSSM_RETURN
 var _cSSM_DL_DbCloseErr error
 
-func tryCSSM_DL_DbClose(DLDBHandle unsafe.Pointer) (CSSM_RETURN, error) {
+func tryCSSM_DL_DbClose(DLDBHandle [2]uint64) (CSSM_RETURN, error) {
 	if _cSSM_DL_DbClose == nil {
 		return *new(CSSM_RETURN), symbolCallError("CSSM_DL_DbClose", "10.0", _cSSM_DL_DbCloseErr)
 	}
-	return _cSSM_DL_DbClose(DLDBHandle), nil
+	return _cSSM_DL_DbClose(&DLDBHandle), nil
 }
 
 // CSSM_DL_DbClose.
@@ -2876,7 +2876,7 @@ func tryCSSM_DL_DbClose(DLDBHandle unsafe.Pointer) (CSSM_RETURN, error) {
 // Deprecated: Deprecated since macOS 10.7.
 //
 // See: https://developer.apple.com/documentation/Security/CSSM_DL_DbClose
-func CSSM_DL_DbClose(DLDBHandle unsafe.Pointer) CSSM_RETURN {
+func CSSM_DL_DbClose(DLDBHandle [2]uint64) CSSM_RETURN {
 	result, callErr := tryCSSM_DL_DbClose(DLDBHandle)
 	if callErr != nil {
 		panic(callErr)
@@ -2953,14 +2953,14 @@ func CSSM_DL_DbOpen(DLHandle CSSM_DL_HANDLE, DbName string, DbLocation unsafe.Po
 	return result
 }
 
-var _cSSM_DL_DestroyRelation func(DLDBHandle unsafe.Pointer, RelationID CSSM_DB_RECORDTYPE) CSSM_RETURN
+var _cSSM_DL_DestroyRelation func(DLDBHandle *[2]uint64, RelationID CSSM_DB_RECORDTYPE) CSSM_RETURN
 var _cSSM_DL_DestroyRelationErr error
 
-func tryCSSM_DL_DestroyRelation(DLDBHandle unsafe.Pointer, RelationID CSSM_DB_RECORDTYPE) (CSSM_RETURN, error) {
+func tryCSSM_DL_DestroyRelation(DLDBHandle [2]uint64, RelationID CSSM_DB_RECORDTYPE) (CSSM_RETURN, error) {
 	if _cSSM_DL_DestroyRelation == nil {
 		return *new(CSSM_RETURN), symbolCallError("CSSM_DL_DestroyRelation", "10.0", _cSSM_DL_DestroyRelationErr)
 	}
-	return _cSSM_DL_DestroyRelation(DLDBHandle, RelationID), nil
+	return _cSSM_DL_DestroyRelation(&DLDBHandle, RelationID), nil
 }
 
 // CSSM_DL_DestroyRelation.
@@ -2968,7 +2968,7 @@ func tryCSSM_DL_DestroyRelation(DLDBHandle unsafe.Pointer, RelationID CSSM_DB_RE
 // Deprecated: Deprecated since macOS 10.7.
 //
 // See: https://developer.apple.com/documentation/Security/CSSM_DL_DestroyRelation
-func CSSM_DL_DestroyRelation(DLDBHandle unsafe.Pointer, RelationID CSSM_DB_RECORDTYPE) CSSM_RETURN {
+func CSSM_DL_DestroyRelation(DLDBHandle [2]uint64, RelationID CSSM_DB_RECORDTYPE) CSSM_RETURN {
 	result, callErr := tryCSSM_DL_DestroyRelation(DLDBHandle, RelationID)
 	if callErr != nil {
 		panic(callErr)
@@ -2999,14 +2999,14 @@ func CSSM_DL_FreeNameList(DLHandle CSSM_DL_HANDLE, NameList unsafe.Pointer) CSSM
 	return result
 }
 
-var _cSSM_DL_FreeUniqueRecord func(DLDBHandle unsafe.Pointer, UniqueRecord unsafe.Pointer) CSSM_RETURN
+var _cSSM_DL_FreeUniqueRecord func(DLDBHandle *[2]uint64, UniqueRecord unsafe.Pointer) CSSM_RETURN
 var _cSSM_DL_FreeUniqueRecordErr error
 
-func tryCSSM_DL_FreeUniqueRecord(DLDBHandle unsafe.Pointer, UniqueRecord unsafe.Pointer) (CSSM_RETURN, error) {
+func tryCSSM_DL_FreeUniqueRecord(DLDBHandle [2]uint64, UniqueRecord unsafe.Pointer) (CSSM_RETURN, error) {
 	if _cSSM_DL_FreeUniqueRecord == nil {
 		return *new(CSSM_RETURN), symbolCallError("CSSM_DL_FreeUniqueRecord", "10.0", _cSSM_DL_FreeUniqueRecordErr)
 	}
-	return _cSSM_DL_FreeUniqueRecord(DLDBHandle, UniqueRecord), nil
+	return _cSSM_DL_FreeUniqueRecord(&DLDBHandle, UniqueRecord), nil
 }
 
 // CSSM_DL_FreeUniqueRecord.
@@ -3014,7 +3014,7 @@ func tryCSSM_DL_FreeUniqueRecord(DLDBHandle unsafe.Pointer, UniqueRecord unsafe.
 // Deprecated: Deprecated since macOS 10.7.
 //
 // See: https://developer.apple.com/documentation/Security/CSSM_DL_FreeUniqueRecord
-func CSSM_DL_FreeUniqueRecord(DLDBHandle unsafe.Pointer, UniqueRecord unsafe.Pointer) CSSM_RETURN {
+func CSSM_DL_FreeUniqueRecord(DLDBHandle [2]uint64, UniqueRecord unsafe.Pointer) CSSM_RETURN {
 	result, callErr := tryCSSM_DL_FreeUniqueRecord(DLDBHandle, UniqueRecord)
 	if callErr != nil {
 		panic(callErr)
@@ -3022,14 +3022,14 @@ func CSSM_DL_FreeUniqueRecord(DLDBHandle unsafe.Pointer, UniqueRecord unsafe.Poi
 	return result
 }
 
-var _cSSM_DL_GetDbAcl func(DLDBHandle unsafe.Pointer, SelectionTag unsafe.Pointer, NumberOfAclInfos *uint32, AclInfos unsafe.Pointer) CSSM_RETURN
+var _cSSM_DL_GetDbAcl func(DLDBHandle *[2]uint64, SelectionTag unsafe.Pointer, NumberOfAclInfos *uint32, AclInfos unsafe.Pointer) CSSM_RETURN
 var _cSSM_DL_GetDbAclErr error
 
-func tryCSSM_DL_GetDbAcl(DLDBHandle unsafe.Pointer, SelectionTag unsafe.Pointer, NumberOfAclInfos *uint32, AclInfos unsafe.Pointer) (CSSM_RETURN, error) {
+func tryCSSM_DL_GetDbAcl(DLDBHandle [2]uint64, SelectionTag unsafe.Pointer, NumberOfAclInfos *uint32, AclInfos unsafe.Pointer) (CSSM_RETURN, error) {
 	if _cSSM_DL_GetDbAcl == nil {
 		return *new(CSSM_RETURN), symbolCallError("CSSM_DL_GetDbAcl", "10.0", _cSSM_DL_GetDbAclErr)
 	}
-	return _cSSM_DL_GetDbAcl(DLDBHandle, SelectionTag, NumberOfAclInfos, AclInfos), nil
+	return _cSSM_DL_GetDbAcl(&DLDBHandle, SelectionTag, NumberOfAclInfos, AclInfos), nil
 }
 
 // CSSM_DL_GetDbAcl.
@@ -3037,7 +3037,7 @@ func tryCSSM_DL_GetDbAcl(DLDBHandle unsafe.Pointer, SelectionTag unsafe.Pointer,
 // Deprecated: Deprecated since macOS 10.7.
 //
 // See: https://developer.apple.com/documentation/Security/CSSM_DL_GetDbAcl
-func CSSM_DL_GetDbAcl(DLDBHandle unsafe.Pointer, SelectionTag unsafe.Pointer, NumberOfAclInfos *uint32, AclInfos unsafe.Pointer) CSSM_RETURN {
+func CSSM_DL_GetDbAcl(DLDBHandle [2]uint64, SelectionTag unsafe.Pointer, NumberOfAclInfos *uint32, AclInfos unsafe.Pointer) CSSM_RETURN {
 	result, callErr := tryCSSM_DL_GetDbAcl(DLDBHandle, SelectionTag, NumberOfAclInfos, AclInfos)
 	if callErr != nil {
 		panic(callErr)
@@ -3045,14 +3045,14 @@ func CSSM_DL_GetDbAcl(DLDBHandle unsafe.Pointer, SelectionTag unsafe.Pointer, Nu
 	return result
 }
 
-var _cSSM_DL_GetDbNameFromHandle func(DLDBHandle unsafe.Pointer, DbName string) CSSM_RETURN
+var _cSSM_DL_GetDbNameFromHandle func(DLDBHandle *[2]uint64, DbName string) CSSM_RETURN
 var _cSSM_DL_GetDbNameFromHandleErr error
 
-func tryCSSM_DL_GetDbNameFromHandle(DLDBHandle unsafe.Pointer, DbName string) (CSSM_RETURN, error) {
+func tryCSSM_DL_GetDbNameFromHandle(DLDBHandle [2]uint64, DbName string) (CSSM_RETURN, error) {
 	if _cSSM_DL_GetDbNameFromHandle == nil {
 		return *new(CSSM_RETURN), symbolCallError("CSSM_DL_GetDbNameFromHandle", "10.0", _cSSM_DL_GetDbNameFromHandleErr)
 	}
-	return _cSSM_DL_GetDbNameFromHandle(DLDBHandle, DbName), nil
+	return _cSSM_DL_GetDbNameFromHandle(&DLDBHandle, DbName), nil
 }
 
 // CSSM_DL_GetDbNameFromHandle.
@@ -3060,7 +3060,7 @@ func tryCSSM_DL_GetDbNameFromHandle(DLDBHandle unsafe.Pointer, DbName string) (C
 // Deprecated: Deprecated since macOS 10.7.
 //
 // See: https://developer.apple.com/documentation/Security/CSSM_DL_GetDbNameFromHandle
-func CSSM_DL_GetDbNameFromHandle(DLDBHandle unsafe.Pointer, DbName string) CSSM_RETURN {
+func CSSM_DL_GetDbNameFromHandle(DLDBHandle [2]uint64, DbName string) CSSM_RETURN {
 	result, callErr := tryCSSM_DL_GetDbNameFromHandle(DLDBHandle, DbName)
 	if callErr != nil {
 		panic(callErr)
@@ -3091,14 +3091,14 @@ func CSSM_DL_GetDbNames(DLHandle CSSM_DL_HANDLE, NameList unsafe.Pointer) CSSM_R
 	return result
 }
 
-var _cSSM_DL_GetDbOwner func(DLDBHandle unsafe.Pointer, Owner unsafe.Pointer) CSSM_RETURN
+var _cSSM_DL_GetDbOwner func(DLDBHandle *[2]uint64, Owner unsafe.Pointer) CSSM_RETURN
 var _cSSM_DL_GetDbOwnerErr error
 
-func tryCSSM_DL_GetDbOwner(DLDBHandle unsafe.Pointer, Owner unsafe.Pointer) (CSSM_RETURN, error) {
+func tryCSSM_DL_GetDbOwner(DLDBHandle [2]uint64, Owner unsafe.Pointer) (CSSM_RETURN, error) {
 	if _cSSM_DL_GetDbOwner == nil {
 		return *new(CSSM_RETURN), symbolCallError("CSSM_DL_GetDbOwner", "10.0", _cSSM_DL_GetDbOwnerErr)
 	}
-	return _cSSM_DL_GetDbOwner(DLDBHandle, Owner), nil
+	return _cSSM_DL_GetDbOwner(&DLDBHandle, Owner), nil
 }
 
 // CSSM_DL_GetDbOwner.
@@ -3106,7 +3106,7 @@ func tryCSSM_DL_GetDbOwner(DLDBHandle unsafe.Pointer, Owner unsafe.Pointer) (CSS
 // Deprecated: Deprecated since macOS 10.7.
 //
 // See: https://developer.apple.com/documentation/Security/CSSM_DL_GetDbOwner
-func CSSM_DL_GetDbOwner(DLDBHandle unsafe.Pointer, Owner unsafe.Pointer) CSSM_RETURN {
+func CSSM_DL_GetDbOwner(DLDBHandle [2]uint64, Owner unsafe.Pointer) CSSM_RETURN {
 	result, callErr := tryCSSM_DL_GetDbOwner(DLDBHandle, Owner)
 	if callErr != nil {
 		panic(callErr)
@@ -3114,14 +3114,14 @@ func CSSM_DL_GetDbOwner(DLDBHandle unsafe.Pointer, Owner unsafe.Pointer) CSSM_RE
 	return result
 }
 
-var _cSSM_DL_PassThrough func(DLDBHandle unsafe.Pointer, PassThroughId uint32, InputParams unsafe.Pointer, OutputParams unsafe.Pointer) CSSM_RETURN
+var _cSSM_DL_PassThrough func(DLDBHandle *[2]uint64, PassThroughId uint32, InputParams unsafe.Pointer, OutputParams unsafe.Pointer) CSSM_RETURN
 var _cSSM_DL_PassThroughErr error
 
-func tryCSSM_DL_PassThrough(DLDBHandle unsafe.Pointer, PassThroughId uint32, InputParams unsafe.Pointer, OutputParams unsafe.Pointer) (CSSM_RETURN, error) {
+func tryCSSM_DL_PassThrough(DLDBHandle [2]uint64, PassThroughId uint32, InputParams unsafe.Pointer, OutputParams unsafe.Pointer) (CSSM_RETURN, error) {
 	if _cSSM_DL_PassThrough == nil {
 		return *new(CSSM_RETURN), symbolCallError("CSSM_DL_PassThrough", "10.0", _cSSM_DL_PassThroughErr)
 	}
-	return _cSSM_DL_PassThrough(DLDBHandle, PassThroughId, InputParams, OutputParams), nil
+	return _cSSM_DL_PassThrough(&DLDBHandle, PassThroughId, InputParams, OutputParams), nil
 }
 
 // CSSM_DL_PassThrough.
@@ -3129,7 +3129,7 @@ func tryCSSM_DL_PassThrough(DLDBHandle unsafe.Pointer, PassThroughId uint32, Inp
 // Deprecated: Deprecated since macOS 10.7.
 //
 // See: https://developer.apple.com/documentation/Security/CSSM_DL_PassThrough
-func CSSM_DL_PassThrough(DLDBHandle unsafe.Pointer, PassThroughId uint32, InputParams unsafe.Pointer, OutputParams unsafe.Pointer) CSSM_RETURN {
+func CSSM_DL_PassThrough(DLDBHandle [2]uint64, PassThroughId uint32, InputParams unsafe.Pointer, OutputParams unsafe.Pointer) CSSM_RETURN {
 	result, callErr := tryCSSM_DL_PassThrough(DLDBHandle, PassThroughId, InputParams, OutputParams)
 	if callErr != nil {
 		panic(callErr)
@@ -5460,10 +5460,10 @@ func MDS_Uninstall(MdsHandle MDS_HANDLE) CSSM_RETURN {
 	return result
 }
 
-var _secAccessControlCreateWithFlags func(allocator corefoundation.CFAllocatorRef, protection corefoundation.CFTypeRef, flags SecAccessControlCreateFlags, err *corefoundation.CFErrorRef) SecAccessControlRef
+var _secAccessControlCreateWithFlags func(allocator corefoundation.CFAllocatorRef, protection corefoundation.CFTypeRef, flags uint64, err *corefoundation.CFErrorRef) SecAccessControlRef
 var _secAccessControlCreateWithFlagsErr error
 
-func trySecAccessControlCreateWithFlags(allocator corefoundation.CFAllocatorRef, protection corefoundation.CFTypeRef, flags SecAccessControlCreateFlags, err *corefoundation.CFErrorRef) (SecAccessControlRef, error) {
+func trySecAccessControlCreateWithFlags(allocator corefoundation.CFAllocatorRef, protection corefoundation.CFTypeRef, flags uint64, err *corefoundation.CFErrorRef) (SecAccessControlRef, error) {
 	if _secAccessControlCreateWithFlags == nil {
 		return *new(SecAccessControlRef), symbolCallError("SecAccessControlCreateWithFlags", "10.10", _secAccessControlCreateWithFlagsErr)
 	}
@@ -5473,7 +5473,7 @@ func trySecAccessControlCreateWithFlags(allocator corefoundation.CFAllocatorRef,
 // SecAccessControlCreateWithFlags creates a new access control object with the specified protection type and flags.
 //
 // See: https://developer.apple.com/documentation/Security/SecAccessControlCreateWithFlags(_:_:_:_:)
-func SecAccessControlCreateWithFlags(allocator corefoundation.CFAllocatorRef, protection corefoundation.CFTypeRef, flags SecAccessControlCreateFlags, err *corefoundation.CFErrorRef) SecAccessControlRef {
+func SecAccessControlCreateWithFlags(allocator corefoundation.CFAllocatorRef, protection corefoundation.CFTypeRef, flags uint64, err *corefoundation.CFErrorRef) SecAccessControlRef {
 	result, callErr := trySecAccessControlCreateWithFlags(allocator, protection, flags, err)
 	if callErr != nil {
 		panic(callErr)
@@ -6505,10 +6505,10 @@ func SecCodeCopyStaticCode(code SecCodeRef, flags SecCSFlags, staticCode *SecSta
 	return result
 }
 
-var _secCodeCreateWithXPCMessage func(message unsafe.Pointer, flags SecCSFlags, target *SecCodeRef) int32
+var _secCodeCreateWithXPCMessage func(message xpc.Xpc_object_t, flags SecCSFlags, target *SecCodeRef) int32
 var _secCodeCreateWithXPCMessageErr error
 
-func trySecCodeCreateWithXPCMessage(message unsafe.Pointer, flags SecCSFlags, target *SecCodeRef) (int32, error) {
+func trySecCodeCreateWithXPCMessage(message xpc.Xpc_object_t, flags SecCSFlags, target *SecCodeRef) (int32, error) {
 	if _secCodeCreateWithXPCMessage == nil {
 		return 0, symbolCallError("SecCodeCreateWithXPCMessage", "10.0", _secCodeCreateWithXPCMessageErr)
 	}
@@ -6518,7 +6518,7 @@ func trySecCodeCreateWithXPCMessage(message unsafe.Pointer, flags SecCSFlags, ta
 // SecCodeCreateWithXPCMessage.
 //
 // See: https://developer.apple.com/documentation/Security/SecCodeCreateWithXPCMessage(_:_:_:)
-func SecCodeCreateWithXPCMessage(message unsafe.Pointer, flags SecCSFlags, target *SecCodeRef) int32 {
+func SecCodeCreateWithXPCMessage(message xpc.Xpc_object_t, flags SecCSFlags, target *SecCodeRef) int32 {
 	result, callErr := trySecCodeCreateWithXPCMessage(message, flags, target)
 	if callErr != nil {
 		panic(callErr)
@@ -7673,10 +7673,10 @@ func SecPolicyCreateBasicX509() SecPolicyRef {
 	return result
 }
 
-var _secPolicyCreateRevocation func(revocationFlags uint64) SecPolicyRef
+var _secPolicyCreateRevocation func(revocationFlags uint) SecPolicyRef
 var _secPolicyCreateRevocationErr error
 
-func trySecPolicyCreateRevocation(revocationFlags uint64) (SecPolicyRef, error) {
+func trySecPolicyCreateRevocation(revocationFlags uint) (SecPolicyRef, error) {
 	if _secPolicyCreateRevocation == nil {
 		return *new(SecPolicyRef), symbolCallError("SecPolicyCreateRevocation", "10.9", _secPolicyCreateRevocationErr)
 	}
@@ -7686,7 +7686,7 @@ func trySecPolicyCreateRevocation(revocationFlags uint64) (SecPolicyRef, error) 
 // SecPolicyCreateRevocation returns a policy object for checking revocation of certificates.
 //
 // See: https://developer.apple.com/documentation/Security/SecPolicyCreateRevocation(_:)
-func SecPolicyCreateRevocation(revocationFlags uint64) SecPolicyRef {
+func SecPolicyCreateRevocation(revocationFlags uint) SecPolicyRef {
 	result, callErr := trySecPolicyCreateRevocation(revocationFlags)
 	if callErr != nil {
 		panic(callErr)
@@ -7964,10 +7964,10 @@ func SecPolicySetValue(policyRef SecPolicyRef, value unsafe.Pointer) int32 {
 	return result
 }
 
-var _secRandomCopyBytes func(rnd SecRandomRef, count uintptr, bytes unsafe.Pointer) int
+var _secRandomCopyBytes func(rnd SecRandomRef, count uintptr, bytes unsafe.Pointer) int32
 var _secRandomCopyBytesErr error
 
-func trySecRandomCopyBytes(rnd SecRandomRef, count uintptr, bytes unsafe.Pointer) (int, error) {
+func trySecRandomCopyBytes(rnd SecRandomRef, count uintptr, bytes unsafe.Pointer) (int32, error) {
 	if _secRandomCopyBytes == nil {
 		return 0, symbolCallError("SecRandomCopyBytes", "10.7", _secRandomCopyBytesErr)
 	}
@@ -7977,7 +7977,7 @@ func trySecRandomCopyBytes(rnd SecRandomRef, count uintptr, bytes unsafe.Pointer
 // SecRandomCopyBytes generates an array of cryptographically secure random bytes.
 //
 // See: https://developer.apple.com/documentation/Security/SecRandomCopyBytes(_:_:_:)
-func SecRandomCopyBytes(rnd SecRandomRef, count uintptr, bytes unsafe.Pointer) int {
+func SecRandomCopyBytes(rnd SecRandomRef, count uintptr, bytes unsafe.Pointer) int32 {
 	result, callErr := trySecRandomCopyBytes(rnd, count, bytes)
 	if callErr != nil {
 		panic(callErr)
@@ -8563,7 +8563,7 @@ func trySecTrustEvaluateAsyncWithError(trust SecTrustRef, queue dispatch.Queue, 
 	if _secTrustEvaluateAsyncWithError == nil {
 		return 0, symbolCallError("SecTrustEvaluateAsyncWithError", "10.15", _secTrustEvaluateAsyncWithErrorErr)
 	}
-	_block0Value := objc.NewBlock(func(_ objc.Block, blockArg0 kernel.Pointer, blockArg1 bool, blockArg2 kernel.Pointer) {
+	_block0Value := objc.NewBlock(func(_ objc.Block, blockArg0 *SecTrustRef, blockArg1 bool, blockArg2 corefoundation.CFErrorRef) {
 		result(blockArg0, blockArg1, blockArg2)
 	})
 	defer _block0Value.Release()

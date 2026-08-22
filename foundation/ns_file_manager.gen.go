@@ -198,7 +198,7 @@ func (fc FileManagerClass) Alloc() FileManager {
 // # Converting file paths to strings
 //
 //   - [FileManager.FileSystemRepresentationWithPath]: Returns a C-string representation of a given path that properly encodes Unicode strings for use by the file system.
-//   - [FileManager.StringWithFileSystemRepresentationLength]: Returns an [NSString](<doc://com.apple.foundation/documentation/Foundation/NSString>) object whose contents are derived from the specified C-string path.
+//   - [FileManager.StringWithFileSystemRepresentationLength]: Returns an [NSString](<https://developer.apple.com/documentation/Foundation/NSString>) object whose contents are derived from the specified C-string path.
 //
 // # Managing the delegate
 //
@@ -336,7 +336,7 @@ func NSFileManagerFromID(id objc.ID) FileManager { return FileManagerFromID(id) 
 // # Converting file paths to strings
 //
 //   - [IFileManager.FileSystemRepresentationWithPath]: Returns a C-string representation of a given path that properly encodes Unicode strings for use by the file system.
-//   - [IFileManager.StringWithFileSystemRepresentationLength]: Returns an [NSString](<doc://com.apple.foundation/documentation/Foundation/NSString>) object whose contents are derived from the specified C-string path.
+//   - [IFileManager.StringWithFileSystemRepresentationLength]: Returns an [NSString](<https://developer.apple.com/documentation/Foundation/NSString>) object whose contents are derived from the specified C-string path.
 //
 // # Managing the delegate
 //
@@ -510,7 +510,7 @@ type IFileManager interface {
 
 	// Returns a C-string representation of a given path that properly encodes Unicode strings for use by the file system.
 	FileSystemRepresentationWithPath(path string) string
-	// Returns an [NSString](<doc://com.apple.foundation/documentation/Foundation/NSString>) object whose contents are derived from the specified C-string path.
+	// Returns an [NSString](<https://developer.apple.com/documentation/Foundation/NSString>) object whose contents are derived from the specified C-string path.
 	StringWithFileSystemRepresentationLength(str string, len_ uint) string
 
 	// Topic: Managing the delegate
@@ -532,7 +532,7 @@ type IFileManager interface {
 	UnmountVolumeAtURLOptionsCompletionHandler(url INSURL, mask NSFileManagerUnmountOptions, completionHandler ErrorHandler)
 
 	// Returns a directory enumerator object that can be used to perform a deep enumeration of the directory at the specified URL.
-	EnumeratorAtURLIncludingPropertiesForKeysOptionsErrorHandler(url INSURL, keys []string, mask NSDirectoryEnumerationOptions, handler URLErrorHandler) INSDirectoryEnumerator
+	EnumeratorAtURLIncludingPropertiesForKeysOptionsErrorHandler(url INSURL, keys []string, mask NSDirectoryEnumerationOptions, handler BoolURLErrorHandler) INSDirectoryEnumerator
 }
 
 // Init initializes the instance.
@@ -1615,8 +1615,8 @@ func (f FileManager) IsUbiquitousItemAtURL(url INSURL) bool {
 // you specify may contain additional subdirectories so that you can organize
 // your files hierarchically in iCloud. However, you are responsible for
 // creating those intermediate subdirectories (using the [NSFileManager]
-// class) in your iCloud container directory. When moving a file , this is the
-// location on the local device.
+// class) in your iCloud container directory. When moving a file out of
+// iCloud, this is the location on the local device.
 //
 // # Discussion
 //
@@ -2743,8 +2743,8 @@ func (f FileManager) UnmountVolumeAtURLOptionsCompletionHandler(url INSURL, mask
 // See: https://developer.apple.com/documentation/Foundation/NSFileManager/enumeratorAtURL:includingPropertiesForKeys:options:errorHandler:
 //
 // [FileManager.DirectoryEnumerationOptions]: https://developer.apple.com/documentation/Foundation/FileManager/DirectoryEnumerationOptions
-func (f FileManager) EnumeratorAtURLIncludingPropertiesForKeysOptionsErrorHandler(url INSURL, keys []string, mask NSDirectoryEnumerationOptions, handler URLErrorHandler) INSDirectoryEnumerator {
-	_block3, _ := NewURLErrorBlock(handler)
+func (f FileManager) EnumeratorAtURLIncludingPropertiesForKeysOptionsErrorHandler(url INSURL, keys []string, mask NSDirectoryEnumerationOptions, handler BoolURLErrorHandler) INSDirectoryEnumerator {
+	_block3, _ := NewBoolURLErrorBlock(handler)
 	rv := objc.Send[objc.ID](f.ID, objc.Sel("enumeratorAtURL:includingPropertiesForKeys:options:errorHandler:"), url, keys, mask, _block3)
 	return NSDirectoryEnumeratorFromID(rv)
 }
@@ -2834,8 +2834,8 @@ func (f FileManager) SetDelegate(value NSFileManagerDelegate) {
 //
 // The current directory path is the starting point for any relative paths you
 // specify. For example, if the current directory is `/tmp` and you specify a
-// relative pathname of `reports/info.Txt()`, the resulting full path for the
-// item is `/tmp/reports/info.Txt()`.
+// relative pathname of `reports/info.txt`, the resulting full path for the
+// item is `/tmp/reports/info.txt`.
 //
 // When an app is launched, this property is initially set to the app’s
 // current working directory. If the current working directory is not

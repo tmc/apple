@@ -11,7 +11,7 @@ import (
 
 var _ = fmt.Sprintf
 
-// A set of optional methods implemented by the delegate of an [NSAlert](<doc://com.apple.appkit/documentation/AppKit/NSAlert>) object to respond to a user’s request for help.
+// A set of optional methods implemented by the delegate of an [NSAlert](<https://developer.apple.com/documentation/AppKit/NSAlert>) object to respond to a user’s request for help.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSAlertDelegate
 type NSAlertDelegate interface {
@@ -93,8 +93,21 @@ func NewNSAlertDelegate(config NSAlertDelegateConfig) NSAlertDelegateObject {
 		methods = append(methods, objc.MethodDef{
 			Cmd: objc.RegisterName("alertShowHelp:"),
 			Fn: func(self objc.ID, _cmd objc.SEL, alertID objc.ID) bool {
+				// Names which delegate was running if a panic unwinds out of
+				// it. The frames between here and the Objective-C caller are
+				// runtime and purego dispatch, so without this the traceback
+				// never says which selector dispatched. Deliberately no
+				// recover: see [objc.NoteDelegatePanic].
+				_delegateDone := false
+				defer func() {
+					if !_delegateDone {
+						objc.NoteDelegatePanic("NSAlertDelegate", "alertShowHelp:")
+					}
+				}()
 				alert := NSAlertFromID(alertID)
-				return fn(alert)
+				_delegateResult := fn(alert)
+				_delegateDone = true
+				return _delegateResult
 			},
 		})
 	}

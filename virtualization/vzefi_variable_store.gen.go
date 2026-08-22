@@ -138,6 +138,9 @@ func NewEFIVariableStoreCreatingVariableStoreAtURLOptionsError(URL foundation.NS
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
 		return VZEFIVariableStore{}, foundation.NSErrorFrom(errorPtr)
 	}
+	if rv == 0 {
+		return VZEFIVariableStore{}, objc.ErrInitFailed
+	}
 	return VZEFIVariableStoreFromID(rv), nil
 }
 
@@ -145,7 +148,7 @@ func NewEFIVariableStoreCreatingVariableStoreAtURLOptionsError(URL foundation.NS
 //
 // URL: The URL of the location on disk that contains the stored EFI information.
 //
-// See: https://developer.apple.com/documentation/Virtualization/VZEFIVariableStore/init(url:)-83pcn
+// See: https://developer.apple.com/documentation/Virtualization/VZEFIVariableStore/init(url:)
 func NewEFIVariableStoreWithURL(URL foundation.NSURL) VZEFIVariableStore {
 	instance := getVZEFIVariableStoreClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithURL:"), URL)
@@ -178,7 +181,7 @@ func (e VZEFIVariableStore) InitCreatingVariableStoreAtURLOptionsError(URL found
 //
 // URL: The URL of the location on disk that contains the stored EFI information.
 //
-// See: https://developer.apple.com/documentation/Virtualization/VZEFIVariableStore/init(url:)-83pcn
+// See: https://developer.apple.com/documentation/Virtualization/VZEFIVariableStore/init(url:)
 func (e VZEFIVariableStore) InitWithURL(URL foundation.NSURL) VZEFIVariableStore {
 	rv := objc.Send[VZEFIVariableStore](e.ID, objc.Sel("initWithURL:"), URL)
 	return rv

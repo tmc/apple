@@ -665,3 +665,13 @@ func (l NSLayoutConstraint) ShouldBeArchived() bool {
 func (l NSLayoutConstraint) SetShouldBeArchived(value bool) {
 	objc.Send[struct{}](l.ID, objc.Sel("setShouldBeArchived:"), value)
 }
+
+// Protocol methods for NSAnimatablePropertyContainer
+
+// Sets the option dictionary that maps event trigger keys to animation
+// objects.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSAnimatablePropertyContainer/animations
+func (o NSLayoutConstraint) SetAnimations(value foundation.INSDictionary) {
+	objc.Send[struct{}](o.ID, objc.Sel("setAnimations:"), value)
+}

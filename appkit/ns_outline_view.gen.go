@@ -241,7 +241,6 @@ func NSOutlineViewFromID(id objc.ID) NSOutlineView {
 // See: https://developer.apple.com/documentation/AppKit/NSOutlineView
 type INSOutlineView interface {
 	INSTableView
-	NSAccessibilityOutline
 
 	// Topic: Accessing the Data Source
 
@@ -1017,85 +1016,3 @@ func (o NSOutlineView) SetAutosaveExpandedItems(value bool) {
 }
 
 // Protocol methods for NSAccessibilityOutline
-
-// Returns the accessibility element’s frame in screen coordinates.
-//
-// # Return Value
-//
-// The element’s frame in screen coordinates.
-//
-// # Discussion
-//
-// This method is the getter for the [NSAccessibilityProtocol] protocol’s
-// [accessibilityFrame] property. This method is called whenever accessibility
-// clients request the [size] or [position] attributes.
-//
-// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityElementProtocol/accessibilityFrame()
-//
-// [accessibilityFrame]: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityFrame
-// [position]: https://developer.apple.com/documentation/AppKit/NSAccessibility-swift.struct/Attribute/position
-// [size]: https://developer.apple.com/documentation/AppKit/NSAccessibility-swift.struct/Attribute/size
-func (o NSOutlineView) AccessibilityFrame() corefoundation.CGRect {
-	rv := objc.Send[corefoundation.CGRect](o.ID, objc.Sel("accessibilityFrame"))
-	return rv
-}
-
-// Returns the accessibility element’s parent in the accessibility
-// hierarchy.
-//
-// # Return Value
-//
-// The element’s parent in the accessibility hierarchy.
-//
-// # Discussion
-//
-// This method is the getter for the [NSAccessibilityProtocol] protocol’s
-// [accessibilityParent] property.
-//
-// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityElementProtocol/accessibilityParent()
-//
-// [accessibilityParent]: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityParent
-func (o NSOutlineView) AccessibilityParent() objectivec.IObject {
-	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilityParent"))
-	return objectivec.Object{ID: rv}
-}
-
-// Returns the accessibility element’s identity.
-//
-// # Return Value
-//
-// Returns the unique ID for the accessibility element. It is often used in
-// automated testing.
-//
-// # Discussion
-//
-// This method is the getter for the [NSAccessibilityProtocol] protocol’s
-// [accessibilityIdentifier] property.
-//
-// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityElementProtocol/accessibilityIdentifier()
-//
-// [accessibilityIdentifier]: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityIdentifier
-func (o NSOutlineView) AccessibilityIdentifier() string {
-	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilityIdentifier"))
-	return foundation.NSStringFromID(rv).String()
-}
-
-// Returns a Boolean value that indicates whether the accessibility element
-// has the keyboard focus.
-//
-// # Return Value
-//
-// true if this element has the keyboard focus; otherwise, false.
-//
-// # Discussion
-//
-// This method is the getter for the [NSAccessibilityProtocol] protocol’s
-// [accessibilityFocused] property.
-//
-// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityElementProtocol/isAccessibilityFocused()
-//
-// [accessibilityFocused]: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityFocused
-func (o NSOutlineView) IsAccessibilityFocused() bool {
-	rv := objc.Send[bool](o.ID, objc.Sel("isAccessibilityFocused"))
-	return rv
-}

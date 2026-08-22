@@ -91,6 +91,15 @@ type INSPreviewRepresentingActivityItem interface {
 	InitWithItemTitleImageIcon(item objectivec.IObject, title string, image INSImage, icon INSImage) NSPreviewRepresentingActivityItem
 	// Creates a metadata object that provides a title and images for a shareable item.
 	InitWithItemTitleImageProviderIconProvider(item objectivec.IObject, title string, imageProvider foundation.NSItemProvider, iconProvider foundation.NSItemProvider) NSPreviewRepresentingActivityItem
+
+	// An object that provides an icon that represents the item’s source.
+	IconProvider() foundation.NSItemProvider
+	// An object that provides a visual representation of the item.
+	ImageProvider() foundation.NSItemProvider
+	// The app-specific item you want to share.
+	Item() objectivec.IObject
+	// A localized string that contains the name of the item.
+	Title() string
 }
 
 // Init initializes the instance.

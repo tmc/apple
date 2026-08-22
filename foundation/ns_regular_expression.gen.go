@@ -318,7 +318,6 @@ func NSRegularExpressionFromID(id objc.ID) NSRegularExpression {
 // See: https://developer.apple.com/documentation/Foundation/NSRegularExpression
 type INSRegularExpression interface {
 	objectivec.IObject
-	NSSecureCoding
 
 	// Topic: Creating Regular Expressions
 
@@ -365,6 +364,9 @@ type INSRegularExpression interface {
 	// Call the Block periodically during long-running match operations. This option has no effect for methods other than
 	ReportProgress() NSMatchingOptions
 	SetNSMatchingReportProgress(value NSMatchingOptions)
+	// Encodes the receiver using a given archiver.
+	EncodeWithCoder(coder INSCoder)
+	InitWithCoder(coder INSCoder) NSRegularExpression
 }
 
 // Init initializes the instance.
@@ -418,6 +420,9 @@ func NewRegularExpressionWithPatternOptionsError(pattern string, options NSRegul
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
 		return NSRegularExpression{}, NSErrorFrom(errorPtr)
+	}
+	if rv == 0 {
+		return NSRegularExpression{}, objc.ErrInitFailed
 	}
 	return NSRegularExpressionFromID(rv), nil
 }
@@ -572,7 +577,8 @@ func (r NSRegularExpression) NumberOfMatchesInStringOptionsRange(string_ string,
 //
 // [NSRegularExpression.MatchingFlags]: https://developer.apple.com/documentation/Foundation/NSRegularExpression/MatchingFlags
 func (r NSRegularExpression) EnumerateMatchesInStringOptionsRangeUsingBlock(string_ string, options NSMatchingOptions, range_ NSRange, block TextCheckingResultNSMatchingFlagsBoolHandler) {
-	_block3, _ := NewTextCheckingResultNSMatchingFlagsBoolBlock(block)
+	_block3, _cleanup3 := NewTextCheckingResultNSMatchingFlagsBoolBlock(block)
+	defer _cleanup3()
 	objc.Send[objc.ID](r.ID, objc.Sel("enumerateMatchesInString:options:range:usingBlock:"), objc.String(string_), options, range_, _block3)
 }
 

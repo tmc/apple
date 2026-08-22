@@ -22,11 +22,6 @@ type FSVolumeAccessCheckOperations interface {
 	//
 	// See: https://developer.apple.com/documentation/FSKit/FSVolume/AccessCheckOperations/isAccessCheckInhibited
 	IsAccessCheckInhibited() bool
-
-	// A Boolean value that instructs FSKit not to call this protocol’s methods, even if the volume conforms to it.
-	//
-	// See: https://developer.apple.com/documentation/FSKit/FSVolume/AccessCheckOperations/isAccessCheckInhibited
-	AccessCheckInhibited() bool
 	SetAccessCheckInhibited(value bool)
 }
 
@@ -62,16 +57,9 @@ func FSVolumeAccessCheckOperationsObjectFromID(id objc.ID) FSVolumeAccessCheckOp
 //
 // See: https://developer.apple.com/documentation/FSKit/FSVolume/AccessCheckOperations/checkAccess(to:requestedAccess:replyHandler:)
 func (o FSVolumeAccessCheckOperationsObject) CheckAccessToItemRequestedAccessReplyHandler(theItem IFSItem, access FSAccessMask, reply BoolErrorHandler) {
-	objc.Send[struct{}](o.ID, objc.Sel("checkAccessToItem:requestedAccess:replyHandler:"), theItem, access, reply)
-}
-
-// A Boolean value that instructs FSKit not to call this protocol’s methods,
-// even if the volume conforms to it.
-//
-// See: https://developer.apple.com/documentation/FSKit/FSVolume/AccessCheckOperations/isAccessCheckInhibited
-func (o FSVolumeAccessCheckOperationsObject) IsAccessCheckInhibited() bool {
-	rv := objc.Send[bool](o.ID, objc.Sel("isAccessCheckInhibited"))
-	return rv
+	_block2, _cleanup2 := NewBoolErrorBlock(reply)
+	defer _cleanup2()
+	objc.Send[struct{}](o.ID, objc.Sel("checkAccessToItem:requestedAccess:replyHandler:"), theItem, access, objc.ID(_block2))
 }
 
 // A Boolean value that instructs FSKit not to call this protocol’s methods,
@@ -84,7 +72,7 @@ func (o FSVolumeAccessCheckOperationsObject) IsAccessCheckInhibited() bool {
 // no effect.
 //
 // See: https://developer.apple.com/documentation/FSKit/FSVolume/AccessCheckOperations/isAccessCheckInhibited
-func (o FSVolumeAccessCheckOperationsObject) AccessCheckInhibited() bool {
+func (o FSVolumeAccessCheckOperationsObject) IsAccessCheckInhibited() bool {
 	rv := objc.Send[bool](o.ID, objc.Sel("isAccessCheckInhibited"))
 	return bool(rv)
 }

@@ -4,6 +4,7 @@ package foundation
 
 import (
 	"sync"
+	"unsafe"
 
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
@@ -135,7 +136,6 @@ func NSIndexPathFromID(id objc.ID) NSIndexPath {
 // See: https://developer.apple.com/documentation/Foundation/NSIndexPath
 type INSIndexPath interface {
 	objectivec.IObject
-	NSSecureCoding
 
 	// Topic: Creating and Initializing Index Paths
 
@@ -174,6 +174,10 @@ type INSIndexPath interface {
 	IndexAtPosition(position uint) uint
 	// Copies the indexes stored in the index path from the positions specified by the position range into the specified indexes.
 	GetIndexesRange(indexes *uint, positionRange NSRange)
+
+	// Encodes the receiver using a given archiver.
+	EncodeWithCoder(coder INSCoder)
+	InitWithCoder(coder INSCoder) NSIndexPath
 }
 
 // Init initializes the instance.
@@ -422,7 +426,7 @@ func (i NSIndexPath) IndexAtPosition(position uint) uint {
 // [NSUInteger]: https://developer.apple.com/documentation/ObjectiveC/NSUInteger
 // [rangeException]: https://developer.apple.com/documentation/Foundation/NSExceptionName/rangeException
 func (i NSIndexPath) GetIndexesRange(indexes *uint, positionRange NSRange) {
-	objc.Send[objc.ID](i.ID, objc.Sel("getIndexes:range:"), indexes, positionRange)
+	objc.Send[objc.ID](i.ID, objc.Sel("getIndexes:range:"), unsafe.Pointer(indexes), positionRange)
 }
 
 // Encodes the receiver using a given archiver.

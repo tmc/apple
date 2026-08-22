@@ -4,10 +4,8 @@ package cloudkit
 
 import (
 	"sync"
-	"unsafe"
 
 	"github.com/tmc/apple/foundation"
-	"github.com/tmc/apple/kernel"
 	"github.com/tmc/apple/objc"
 )
 
@@ -149,11 +147,13 @@ type ICKQuerySubscription interface {
 	// Topic: Accessing the Subscription Metadata
 
 	// The type of record that the subscription queries.
-	RecordType() unsafe.Pointer
-	SetRecordType(value kernel.Pointer)
+	RecordType() CKRecordType
+	SetRecordType(value CKRecordType)
 	// The ID of the record zone that the subscription queries.
 	ZoneID() ICKRecordZoneID
 	SetZoneID(value ICKRecordZoneID)
+
+	InitWithRecordTypePredicateSubscriptionIDOptions(recordType CKRecordType, predicate foundation.NSPredicate, subscriptionID CKSubscriptionID, querySubscriptionOptions CKQuerySubscriptionOptions) CKQuerySubscription
 }
 
 // Init initializes the instance.
@@ -184,6 +184,11 @@ func NewCKQuerySubscriptionWithCoder(aDecoder foundation.INSCoder) CKQuerySubscr
 	instance := getCKQuerySubscriptionClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), aDecoder)
 	return CKQuerySubscriptionFromID(rv)
+}
+
+func (c CKQuerySubscription) InitWithRecordTypePredicateSubscriptionIDOptions(recordType CKRecordType, predicate foundation.NSPredicate, subscriptionID CKSubscriptionID, querySubscriptionOptions CKQuerySubscriptionOptions) CKQuerySubscription {
+	rv := objc.Send[CKQuerySubscription](c.ID, objc.Sel("initWithRecordType:predicate:subscriptionID:options:"), objc.String(string(recordType)), predicate, objc.String(string(subscriptionID)), querySubscriptionOptions)
+	return rv
 }
 
 // The matching criteria to apply to records.
@@ -233,12 +238,12 @@ func (c CKQuerySubscription) QuerySubscriptionOptions() CKQuerySubscriptionOptio
 // The type of record that the subscription queries.
 //
 // See: https://developer.apple.com/documentation/cloudkit/ckquerysubscription/recordtype-4qgdo
-func (c CKQuerySubscription) RecordType() unsafe.Pointer {
-	rv := objc.Send[unsafe.Pointer](c.ID, objc.Sel("recordType"))
-	return rv
+func (c CKQuerySubscription) RecordType() CKRecordType {
+	rv := objc.Send[objc.ID](c.ID, objc.Sel("recordType"))
+	return CKRecordType(foundation.NSStringFromID(rv).String())
 }
-func (c CKQuerySubscription) SetRecordType(value kernel.Pointer) {
-	objc.Send[struct{}](c.ID, objc.Sel("setRecordType:"), value)
+func (c CKQuerySubscription) SetRecordType(value CKRecordType) {
+	objc.Send[struct{}](c.ID, objc.Sel("setRecordType:"), objc.String(string(value)))
 }
 
 // The ID of the record zone that the subscription queries.

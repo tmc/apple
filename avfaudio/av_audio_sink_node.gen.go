@@ -4,9 +4,7 @@ package avfaudio
 
 import (
 	"sync"
-	"unsafe"
 
-	"github.com/tmc/apple/coreaudiotypes"
 	"github.com/tmc/apple/objc"
 )
 
@@ -94,7 +92,7 @@ type IAVAudioSinkNode interface {
 	// Topic: Creating an Audio Sink Node
 
 	// Creates an audio sink node with a block that receives audio data.
-	InitWithReceiverBlock(block AVAudioSinkNodeReceiverBlock) AVAudioSinkNode
+	InitWithReceiverBlock(block IntAudioTimeStampHandler) AVAudioSinkNode
 }
 
 // Init initializes the instance.
@@ -132,9 +130,10 @@ func NewAVAudioSinkNode() AVAudioSinkNode {
 // input format.
 //
 // See: https://developer.apple.com/documentation/AVFAudio/AVAudioSinkNode/init(receiverBlock:)
-func NewAudioSinkNodeWithReceiverBlock(block AVAudioSinkNodeReceiverBlock) AVAudioSinkNode {
+func NewAudioSinkNodeWithReceiverBlock(block IntAudioTimeStampHandler) AVAudioSinkNode {
+	_block0, _ := NewIntAudioTimeStampBlock(block)
 	instance := getAVAudioSinkNodeClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithReceiverBlock:"), block)
+	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithReceiverBlock:"), _block0)
 	return AVAudioSinkNodeFromID(rv)
 }
 
@@ -156,11 +155,8 @@ var _avaudiosinknode_initwithreceiverblock_p0_key byte
 // input format.
 //
 // See: https://developer.apple.com/documentation/AVFAudio/AVAudioSinkNode/init(receiverBlock:)
-func (a AVAudioSinkNode) InitWithReceiverBlock(block AVAudioSinkNodeReceiverBlock) AVAudioSinkNode {
-	_block0 := objc.NewBlock(func(_ objc.Block, arg0 unsafe.Pointer, arg1 uint32, arg2 unsafe.Pointer) int {
-		return block((*coreaudiotypes.AudioTimeStamp)(arg0), arg1, (*coreaudiotypes.AudioBufferList)(arg2))
-	})
-	rv := objc.Send[AVAudioSinkNode](a.ID, objc.Sel("initWithReceiverBlock:"), objc.ID(_block0))
-	objc.AssociateBlockWithReceiver(rv.ID, &_avaudiosinknode_initwithreceiverblock_p0_key, _block0)
+func (a AVAudioSinkNode) InitWithReceiverBlock(block IntAudioTimeStampHandler) AVAudioSinkNode {
+	_block0, _ := NewIntAudioTimeStampBlock(block)
+	rv := objc.Send[AVAudioSinkNode](a.ID, objc.Sel("initWithReceiverBlock:"), _block0)
 	return rv
 }

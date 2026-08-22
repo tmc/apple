@@ -77,12 +77,12 @@ func registerSymbol(dst *uintptr, errDst *error, handle uintptr, name, introduce
 	*errDst = nil
 }
 
-var _cACurrentMediaTime func() float64
+var _cACurrentMediaTime func() corefoundation.CFTimeInterval
 var _cACurrentMediaTimeErr error
 
-func tryCACurrentMediaTime() (float64, error) {
+func tryCACurrentMediaTime() (corefoundation.CFTimeInterval, error) {
 	if _cACurrentMediaTime == nil {
-		return 0.0, symbolCallError("CACurrentMediaTime", "10.5", _cACurrentMediaTimeErr)
+		return *new(corefoundation.CFTimeInterval), symbolCallError("CACurrentMediaTime", "10.5", _cACurrentMediaTimeErr)
 	}
 	return _cACurrentMediaTime(), nil
 }
@@ -90,7 +90,7 @@ func tryCACurrentMediaTime() (float64, error) {
 // CACurrentMediaTime returns the current absolute time, in seconds.
 //
 // See: https://developer.apple.com/documentation/QuartzCore/CACurrentMediaTime()
-func CACurrentMediaTime() float64 {
+func CACurrentMediaTime() corefoundation.CFTimeInterval {
 	result, callErr := tryCACurrentMediaTime()
 	if callErr != nil {
 		panic(callErr)

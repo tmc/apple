@@ -164,7 +164,7 @@ func NewVideoCompositionLayerInstructionWithCoder(coder foundation.INSCoder) AVV
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVVideoCompositionLayerInstruction/getCropRectangleRamp(for:startCropRectangle:endCropRectangle:timeRange:)
 func (v AVVideoCompositionLayerInstruction) GetCropRectangleRampForTimeStartCropRectangleEndCropRectangleTimeRange(time coremedia.CMTime, startCropRectangle *corefoundation.CGRect, endCropRectangle *corefoundation.CGRect, timeRange *coremedia.CMTimeRange) bool {
-	rv := objc.Send[bool](v.ID, objc.Sel("getCropRectangleRampForTime:startCropRectangle:endCropRectangle:timeRange:"), time, startCropRectangle, endCropRectangle, timeRange)
+	rv := objc.Send[bool](v.ID, objc.Sel("getCropRectangleRampForTime:startCropRectangle:endCropRectangle:timeRange:"), time, unsafe.Pointer(startCropRectangle), unsafe.Pointer(endCropRectangle), unsafe.Pointer(timeRange))
 	return rv
 }
 
@@ -233,7 +233,7 @@ func (v AVVideoCompositionLayerInstruction) GetOpacityRampForTimeStartOpacityEnd
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVVideoCompositionLayerInstruction/getTransformRamp(for:start:end:timeRange:)
 func (v AVVideoCompositionLayerInstruction) GetTransformRampForTimeStartTransformEndTransformTimeRange(time coremedia.CMTime, startTransform *corefoundation.CGAffineTransform, endTransform *corefoundation.CGAffineTransform, timeRange *coremedia.CMTimeRange) bool {
-	rv := objc.Send[bool](v.ID, objc.Sel("getTransformRampForTime:startTransform:endTransform:timeRange:"), time, startTransform, endTransform, timeRange)
+	rv := objc.Send[bool](v.ID, objc.Sel("getTransformRampForTime:startTransform:endTransform:timeRange:"), time, unsafe.Pointer(startTransform), unsafe.Pointer(endTransform), unsafe.Pointer(timeRange))
 	return rv
 }
 

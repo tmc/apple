@@ -119,6 +119,13 @@ func NewUNCalendarNotificationTrigger() UNCalendarNotificationTrigger {
 	return rv
 }
 
+// See: https://developer.apple.com/documentation/UserNotifications/UNNotificationTrigger/init(coder:)
+func NewUNCalendarNotificationTriggerWithCoder(coder foundation.INSCoder) UNCalendarNotificationTrigger {
+	instance := getUNCalendarNotificationTriggerClass().Alloc()
+	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
+	return UNCalendarNotificationTriggerFromID(rv)
+}
+
 // Creates a calendar trigger using the date components parameter.
 //
 // dateComponents: The temporal information to use when constructing the trigger. Provide only

@@ -78,6 +78,17 @@ type IGCSteeringWheelElement interface {
 
 	// The maximum number of degrees that the user can rotate the wheel.
 	MaximumDegreesOfRotation() float32
+
+	// An input object that provides absolute axis values.
+	AbsoluteInput() GCAxisInput
+	// The element’s aliases to use when accessing it with the subscript notation.
+	Aliases() foundation.INSSet
+	// The localized name for the element.
+	LocalizedName() string
+	// An input object that provides relative axis values.
+	RelativeInput() GCRelativeInput
+	// A system symbol for the element.
+	SfSymbolsName() string
 }
 
 // Init initializes the instance.

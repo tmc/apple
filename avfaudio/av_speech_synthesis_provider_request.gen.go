@@ -132,7 +132,7 @@ func NewSpeechSynthesisProviderRequestWithCoder(coder foundation.INSCoder) AVSpe
 //
 // voice: The voice to use in the speech request.
 //
-// See: https://developer.apple.com/documentation/AVFAudio/AVSpeechSynthesisProviderRequest/init(ssmlRepresentation:voice:)-7elh
+// See: https://developer.apple.com/documentation/AVFAudio/AVSpeechSynthesisProviderRequest/init(ssmlRepresentation:voice:)
 func NewSpeechSynthesisProviderRequestWithSSMLRepresentationVoice(text string, voice IAVSpeechSynthesisProviderVoice) AVSpeechSynthesisProviderRequest {
 	instance := getAVSpeechSynthesisProviderRequestClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithSSMLRepresentation:voice:"), objc.String(text), voice)
@@ -145,7 +145,7 @@ func NewSpeechSynthesisProviderRequestWithSSMLRepresentationVoice(text string, v
 //
 // voice: The voice to use in the speech request.
 //
-// See: https://developer.apple.com/documentation/AVFAudio/AVSpeechSynthesisProviderRequest/init(ssmlRepresentation:voice:)-7elh
+// See: https://developer.apple.com/documentation/AVFAudio/AVSpeechSynthesisProviderRequest/init(ssmlRepresentation:voice:)
 func (s AVSpeechSynthesisProviderRequest) InitWithSSMLRepresentationVoice(text string, voice IAVSpeechSynthesisProviderVoice) AVSpeechSynthesisProviderRequest {
 	rv := objc.Send[AVSpeechSynthesisProviderRequest](s.ID, objc.Sel("initWithSSMLRepresentation:voice:"), objc.String(text), voice)
 	return rv

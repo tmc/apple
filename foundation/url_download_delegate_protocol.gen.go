@@ -407,9 +407,22 @@ func NewNSURLDownloadDelegate(config NSURLDownloadDelegateConfig) NSURLDownloadD
 		methods = append(methods, objc.MethodDef{
 			Cmd: objc.RegisterName("download:canAuthenticateAgainstProtectionSpace:"),
 			Fn: func(self objc.ID, _cmd objc.SEL, connectionID objc.ID, protectionSpaceID objc.ID) bool {
+				// Names which delegate was running if a panic unwinds out of
+				// it. The frames between here and the Objective-C caller are
+				// runtime and purego dispatch, so without this the traceback
+				// never says which selector dispatched. Deliberately no
+				// recover: see [objc.NoteDelegatePanic].
+				_delegateDone := false
+				defer func() {
+					if !_delegateDone {
+						objc.NoteDelegatePanic("NSURLDownloadDelegate", "download:canAuthenticateAgainstProtectionSpace:")
+					}
+				}()
 				connection := NSURLDownloadFromID(connectionID)
 				protectionSpace := NSURLProtectionSpaceFromID(protectionSpaceID)
-				return fn(connection, protectionSpace)
+				_delegateResult := fn(connection, protectionSpace)
+				_delegateDone = true
+				return _delegateResult
 			},
 		})
 	}
@@ -419,9 +432,21 @@ func NewNSURLDownloadDelegate(config NSURLDownloadDelegateConfig) NSURLDownloadD
 		methods = append(methods, objc.MethodDef{
 			Cmd: objc.RegisterName("download:didCancelAuthenticationChallenge:"),
 			Fn: func(self objc.ID, _cmd objc.SEL, downloadID objc.ID, challengeID objc.ID) {
+				// Names which delegate was running if a panic unwinds out of
+				// it. The frames between here and the Objective-C caller are
+				// runtime and purego dispatch, so without this the traceback
+				// never says which selector dispatched. Deliberately no
+				// recover: see [objc.NoteDelegatePanic].
+				_delegateDone := false
+				defer func() {
+					if !_delegateDone {
+						objc.NoteDelegatePanic("NSURLDownloadDelegate", "download:didCancelAuthenticationChallenge:")
+					}
+				}()
 				download := NSURLDownloadFromID(downloadID)
 				challenge := NSURLAuthenticationChallengeFromID(challengeID)
 				fn(download, challenge)
+				_delegateDone = true
 			},
 		})
 	}
@@ -431,9 +456,21 @@ func NewNSURLDownloadDelegate(config NSURLDownloadDelegateConfig) NSURLDownloadD
 		methods = append(methods, objc.MethodDef{
 			Cmd: objc.RegisterName("download:didReceiveAuthenticationChallenge:"),
 			Fn: func(self objc.ID, _cmd objc.SEL, downloadID objc.ID, challengeID objc.ID) {
+				// Names which delegate was running if a panic unwinds out of
+				// it. The frames between here and the Objective-C caller are
+				// runtime and purego dispatch, so without this the traceback
+				// never says which selector dispatched. Deliberately no
+				// recover: see [objc.NoteDelegatePanic].
+				_delegateDone := false
+				defer func() {
+					if !_delegateDone {
+						objc.NoteDelegatePanic("NSURLDownloadDelegate", "download:didReceiveAuthenticationChallenge:")
+					}
+				}()
 				download := NSURLDownloadFromID(downloadID)
 				challenge := NSURLAuthenticationChallengeFromID(challengeID)
 				fn(download, challenge)
+				_delegateDone = true
 			},
 		})
 	}
@@ -443,8 +480,21 @@ func NewNSURLDownloadDelegate(config NSURLDownloadDelegateConfig) NSURLDownloadD
 		methods = append(methods, objc.MethodDef{
 			Cmd: objc.RegisterName("downloadShouldUseCredentialStorage:"),
 			Fn: func(self objc.ID, _cmd objc.SEL, downloadID objc.ID) bool {
+				// Names which delegate was running if a panic unwinds out of
+				// it. The frames between here and the Objective-C caller are
+				// runtime and purego dispatch, so without this the traceback
+				// never says which selector dispatched. Deliberately no
+				// recover: see [objc.NoteDelegatePanic].
+				_delegateDone := false
+				defer func() {
+					if !_delegateDone {
+						objc.NoteDelegatePanic("NSURLDownloadDelegate", "downloadShouldUseCredentialStorage:")
+					}
+				}()
 				download := NSURLDownloadFromID(downloadID)
-				return fn(download)
+				_delegateResult := fn(download)
+				_delegateDone = true
+				return _delegateResult
 			},
 		})
 	}
@@ -454,8 +504,20 @@ func NewNSURLDownloadDelegate(config NSURLDownloadDelegateConfig) NSURLDownloadD
 		methods = append(methods, objc.MethodDef{
 			Cmd: objc.RegisterName("downloadDidBegin:"),
 			Fn: func(self objc.ID, _cmd objc.SEL, downloadID objc.ID) {
+				// Names which delegate was running if a panic unwinds out of
+				// it. The frames between here and the Objective-C caller are
+				// runtime and purego dispatch, so without this the traceback
+				// never says which selector dispatched. Deliberately no
+				// recover: see [objc.NoteDelegatePanic].
+				_delegateDone := false
+				defer func() {
+					if !_delegateDone {
+						objc.NoteDelegatePanic("NSURLDownloadDelegate", "downloadDidBegin:")
+					}
+				}()
 				download := NSURLDownloadFromID(downloadID)
 				fn(download)
+				_delegateDone = true
 			},
 		})
 	}
@@ -465,9 +527,21 @@ func NewNSURLDownloadDelegate(config NSURLDownloadDelegateConfig) NSURLDownloadD
 		methods = append(methods, objc.MethodDef{
 			Cmd: objc.RegisterName("download:didReceiveResponse:"),
 			Fn: func(self objc.ID, _cmd objc.SEL, downloadID objc.ID, responseID objc.ID) {
+				// Names which delegate was running if a panic unwinds out of
+				// it. The frames between here and the Objective-C caller are
+				// runtime and purego dispatch, so without this the traceback
+				// never says which selector dispatched. Deliberately no
+				// recover: see [objc.NoteDelegatePanic].
+				_delegateDone := false
+				defer func() {
+					if !_delegateDone {
+						objc.NoteDelegatePanic("NSURLDownloadDelegate", "download:didReceiveResponse:")
+					}
+				}()
 				download := NSURLDownloadFromID(downloadID)
 				response := NSURLResponseFromID(responseID)
 				fn(download, response)
+				_delegateDone = true
 			},
 		})
 	}
@@ -477,8 +551,20 @@ func NewNSURLDownloadDelegate(config NSURLDownloadDelegateConfig) NSURLDownloadD
 		methods = append(methods, objc.MethodDef{
 			Cmd: objc.RegisterName("download:didReceiveDataOfLength:"),
 			Fn: func(self objc.ID, _cmd objc.SEL, downloadID objc.ID, length uint) {
+				// Names which delegate was running if a panic unwinds out of
+				// it. The frames between here and the Objective-C caller are
+				// runtime and purego dispatch, so without this the traceback
+				// never says which selector dispatched. Deliberately no
+				// recover: see [objc.NoteDelegatePanic].
+				_delegateDone := false
+				defer func() {
+					if !_delegateDone {
+						objc.NoteDelegatePanic("NSURLDownloadDelegate", "download:didReceiveDataOfLength:")
+					}
+				}()
 				download := NSURLDownloadFromID(downloadID)
 				fn(download, length)
+				_delegateDone = true
 			},
 		})
 	}
@@ -488,9 +574,21 @@ func NewNSURLDownloadDelegate(config NSURLDownloadDelegateConfig) NSURLDownloadD
 		methods = append(methods, objc.MethodDef{
 			Cmd: objc.RegisterName("download:willResumeWithResponse:fromByte:"),
 			Fn: func(self objc.ID, _cmd objc.SEL, downloadID objc.ID, responseID objc.ID, startingByte int64) {
+				// Names which delegate was running if a panic unwinds out of
+				// it. The frames between here and the Objective-C caller are
+				// runtime and purego dispatch, so without this the traceback
+				// never says which selector dispatched. Deliberately no
+				// recover: see [objc.NoteDelegatePanic].
+				_delegateDone := false
+				defer func() {
+					if !_delegateDone {
+						objc.NoteDelegatePanic("NSURLDownloadDelegate", "download:willResumeWithResponse:fromByte:")
+					}
+				}()
 				download := NSURLDownloadFromID(downloadID)
 				response := NSURLResponseFromID(responseID)
 				fn(download, response, startingByte)
+				_delegateDone = true
 			},
 		})
 	}
@@ -500,10 +598,23 @@ func NewNSURLDownloadDelegate(config NSURLDownloadDelegateConfig) NSURLDownloadD
 		methods = append(methods, objc.MethodDef{
 			Cmd: objc.RegisterName("download:willSendRequest:redirectResponse:"),
 			Fn: func(self objc.ID, _cmd objc.SEL, downloadID objc.ID, requestID objc.ID, redirectResponseID objc.ID) objc.ID {
+				// Names which delegate was running if a panic unwinds out of
+				// it. The frames between here and the Objective-C caller are
+				// runtime and purego dispatch, so without this the traceback
+				// never says which selector dispatched. Deliberately no
+				// recover: see [objc.NoteDelegatePanic].
+				_delegateDone := false
+				defer func() {
+					if !_delegateDone {
+						objc.NoteDelegatePanic("NSURLDownloadDelegate", "download:willSendRequest:redirectResponse:")
+					}
+				}()
 				download := NSURLDownloadFromID(downloadID)
 				request := NSURLRequestFromID(requestID)
 				redirectResponse := NSURLResponseFromID(redirectResponseID)
-				return fn(download, request, redirectResponse).GetID()
+				_delegateResult := fn(download, request, redirectResponse).GetID()
+				_delegateDone = true
+				return _delegateResult
 			},
 		})
 	}
@@ -513,9 +624,21 @@ func NewNSURLDownloadDelegate(config NSURLDownloadDelegateConfig) NSURLDownloadD
 		methods = append(methods, objc.MethodDef{
 			Cmd: objc.RegisterName("download:didFailWithError:"),
 			Fn: func(self objc.ID, _cmd objc.SEL, downloadID objc.ID, error_ID objc.ID) {
+				// Names which delegate was running if a panic unwinds out of
+				// it. The frames between here and the Objective-C caller are
+				// runtime and purego dispatch, so without this the traceback
+				// never says which selector dispatched. Deliberately no
+				// recover: see [objc.NoteDelegatePanic].
+				_delegateDone := false
+				defer func() {
+					if !_delegateDone {
+						objc.NoteDelegatePanic("NSURLDownloadDelegate", "download:didFailWithError:")
+					}
+				}()
 				download := NSURLDownloadFromID(downloadID)
 				error_ := objectivec.ObjectFromID(error_ID)
 				fn(download, error_)
+				_delegateDone = true
 			},
 		})
 	}
@@ -525,8 +648,20 @@ func NewNSURLDownloadDelegate(config NSURLDownloadDelegateConfig) NSURLDownloadD
 		methods = append(methods, objc.MethodDef{
 			Cmd: objc.RegisterName("downloadDidFinish:"),
 			Fn: func(self objc.ID, _cmd objc.SEL, downloadID objc.ID) {
+				// Names which delegate was running if a panic unwinds out of
+				// it. The frames between here and the Objective-C caller are
+				// runtime and purego dispatch, so without this the traceback
+				// never says which selector dispatched. Deliberately no
+				// recover: see [objc.NoteDelegatePanic].
+				_delegateDone := false
+				defer func() {
+					if !_delegateDone {
+						objc.NoteDelegatePanic("NSURLDownloadDelegate", "downloadDidFinish:")
+					}
+				}()
 				download := NSURLDownloadFromID(downloadID)
 				fn(download)
+				_delegateDone = true
 			},
 		})
 	}

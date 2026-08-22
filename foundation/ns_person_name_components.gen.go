@@ -265,17 +265,17 @@ func (nc NSPersonNameComponentsClass) Alloc() NSPersonNameComponents {
 //
 // # Accessing Person Name Components
 //
-//   - [NSPersonNameComponents.NamePrefix]: The portion of a name’s full form of address that precedes the name itself .
+//   - [NSPersonNameComponents.NamePrefix]: The portion of a name’s full form of address that precedes the name itself (for example, “Dr.,” “Mr.,” “Ms.”).
 //   - [NSPersonNameComponents.SetNamePrefix]
-//   - [NSPersonNameComponents.GivenName]: Name bestowed upon an individual to differentiate them from other members of a group that share a family name .
+//   - [NSPersonNameComponents.GivenName]: Name bestowed upon an individual to differentiate them from other members of a group that share a family name (for example, “Johnathan”).
 //   - [NSPersonNameComponents.SetGivenName]
-//   - [NSPersonNameComponents.MiddleName]: Secondary name bestowed upon an individual to differentiate them from others that have the same given name .
+//   - [NSPersonNameComponents.MiddleName]: Secondary name bestowed upon an individual to differentiate them from others that have the same given name (for example, “Maple”).
 //   - [NSPersonNameComponents.SetMiddleName]
-//   - [NSPersonNameComponents.FamilyName]: Name bestowed upon an individual to denote membership in a group or family. .
+//   - [NSPersonNameComponents.FamilyName]: Name bestowed upon an individual to denote membership in a group or family. (for example, “Appleseed”).
 //   - [NSPersonNameComponents.SetFamilyName]
-//   - [NSPersonNameComponents.NameSuffix]: The portion of a name’s full form of address that follows the name itself .
+//   - [NSPersonNameComponents.NameSuffix]: The portion of a name’s full form of address that follows the name itself (for example, “Esq.,” “Jr.,” “Ph.D.”).
 //   - [NSPersonNameComponents.SetNameSuffix]
-//   - [NSPersonNameComponents.Nickname]: Name substituted for the purposes of familiarity .
+//   - [NSPersonNameComponents.Nickname]: Name substituted for the purposes of familiarity (for example, “Johnny”).
 //   - [NSPersonNameComponents.SetNickname]
 //   - [NSPersonNameComponents.PhoneticRepresentation]: The phonetic representation name components of the receiver.
 //   - [NSPersonNameComponents.SetPhoneticRepresentation]
@@ -302,17 +302,17 @@ func NSPersonNameComponentsFromID(id objc.ID) NSPersonNameComponents {
 //
 // # Accessing Person Name Components
 //
-//   - [INSPersonNameComponents.NamePrefix]: The portion of a name’s full form of address that precedes the name itself .
+//   - [INSPersonNameComponents.NamePrefix]: The portion of a name’s full form of address that precedes the name itself (for example, “Dr.,” “Mr.,” “Ms.”).
 //   - [INSPersonNameComponents.SetNamePrefix]
-//   - [INSPersonNameComponents.GivenName]: Name bestowed upon an individual to differentiate them from other members of a group that share a family name .
+//   - [INSPersonNameComponents.GivenName]: Name bestowed upon an individual to differentiate them from other members of a group that share a family name (for example, “Johnathan”).
 //   - [INSPersonNameComponents.SetGivenName]
-//   - [INSPersonNameComponents.MiddleName]: Secondary name bestowed upon an individual to differentiate them from others that have the same given name .
+//   - [INSPersonNameComponents.MiddleName]: Secondary name bestowed upon an individual to differentiate them from others that have the same given name (for example, “Maple”).
 //   - [INSPersonNameComponents.SetMiddleName]
-//   - [INSPersonNameComponents.FamilyName]: Name bestowed upon an individual to denote membership in a group or family. .
+//   - [INSPersonNameComponents.FamilyName]: Name bestowed upon an individual to denote membership in a group or family. (for example, “Appleseed”).
 //   - [INSPersonNameComponents.SetFamilyName]
-//   - [INSPersonNameComponents.NameSuffix]: The portion of a name’s full form of address that follows the name itself .
+//   - [INSPersonNameComponents.NameSuffix]: The portion of a name’s full form of address that follows the name itself (for example, “Esq.,” “Jr.,” “Ph.D.”).
 //   - [INSPersonNameComponents.SetNameSuffix]
-//   - [INSPersonNameComponents.Nickname]: Name substituted for the purposes of familiarity .
+//   - [INSPersonNameComponents.Nickname]: Name substituted for the purposes of familiarity (for example, “Johnny”).
 //   - [INSPersonNameComponents.SetNickname]
 //   - [INSPersonNameComponents.PhoneticRepresentation]: The phonetic representation name components of the receiver.
 //   - [INSPersonNameComponents.SetPhoneticRepresentation]
@@ -320,31 +320,34 @@ func NSPersonNameComponentsFromID(id objc.ID) NSPersonNameComponents {
 // See: https://developer.apple.com/documentation/Foundation/NSPersonNameComponents
 type INSPersonNameComponents interface {
 	objectivec.IObject
-	NSSecureCoding
 
 	// Topic: Accessing Person Name Components
 
-	// The portion of a name’s full form of address that precedes the name itself .
+	// The portion of a name’s full form of address that precedes the name itself (for example, “Dr.,” “Mr.,” “Ms.”).
 	NamePrefix() string
 	SetNamePrefix(value string)
-	// Name bestowed upon an individual to differentiate them from other members of a group that share a family name .
+	// Name bestowed upon an individual to differentiate them from other members of a group that share a family name (for example, “Johnathan”).
 	GivenName() string
 	SetGivenName(value string)
-	// Secondary name bestowed upon an individual to differentiate them from others that have the same given name .
+	// Secondary name bestowed upon an individual to differentiate them from others that have the same given name (for example, “Maple”).
 	MiddleName() string
 	SetMiddleName(value string)
-	// Name bestowed upon an individual to denote membership in a group or family. .
+	// Name bestowed upon an individual to denote membership in a group or family. (for example, “Appleseed”).
 	FamilyName() string
 	SetFamilyName(value string)
-	// The portion of a name’s full form of address that follows the name itself .
+	// The portion of a name’s full form of address that follows the name itself (for example, “Esq.,” “Jr.,” “Ph.D.”).
 	NameSuffix() string
 	SetNameSuffix(value string)
-	// Name substituted for the purposes of familiarity .
+	// Name substituted for the purposes of familiarity (for example, “Johnny”).
 	Nickname() string
 	SetNickname(value string)
 	// The phonetic representation name components of the receiver.
 	PhoneticRepresentation() INSPersonNameComponents
 	SetPhoneticRepresentation(value INSPersonNameComponents)
+
+	// Encodes the receiver using a given archiver.
+	EncodeWithCoder(coder INSCoder)
+	InitWithCoder(coder INSCoder) NSPersonNameComponents
 }
 
 // Init initializes the instance.
@@ -389,7 +392,7 @@ func (p NSPersonNameComponents) InitWithCoder(coder INSCoder) NSPersonNameCompon
 }
 
 // The portion of a name’s full form of address that precedes the name
-// itself .
+// itself (for example, “Dr.,” “Mr.,” “Ms.”).
 //
 // See: https://developer.apple.com/documentation/Foundation/NSPersonNameComponents/namePrefix
 func (p NSPersonNameComponents) NamePrefix() string {
@@ -401,7 +404,7 @@ func (p NSPersonNameComponents) SetNamePrefix(value string) {
 }
 
 // Name bestowed upon an individual to differentiate them from other members
-// of a group that share a family name .
+// of a group that share a family name (for example, “Johnathan”).
 //
 // # Discussion
 //
@@ -418,7 +421,7 @@ func (p NSPersonNameComponents) SetGivenName(value string) {
 }
 
 // Secondary name bestowed upon an individual to differentiate them from
-// others that have the same given name .
+// others that have the same given name (for example, “Maple”).
 //
 // See: https://developer.apple.com/documentation/Foundation/NSPersonNameComponents/middleName
 func (p NSPersonNameComponents) MiddleName() string {
@@ -430,7 +433,7 @@ func (p NSPersonNameComponents) SetMiddleName(value string) {
 }
 
 // Name bestowed upon an individual to denote membership in a group or family.
-// .
+// (for example, “Appleseed”).
 //
 // See: https://developer.apple.com/documentation/Foundation/NSPersonNameComponents/familyName
 func (p NSPersonNameComponents) FamilyName() string {
@@ -442,7 +445,7 @@ func (p NSPersonNameComponents) SetFamilyName(value string) {
 }
 
 // The portion of a name’s full form of address that follows the name itself
-// .
+// (for example, “Esq.,” “Jr.,” “Ph.D.”).
 //
 // See: https://developer.apple.com/documentation/Foundation/NSPersonNameComponents/nameSuffix
 func (p NSPersonNameComponents) NameSuffix() string {
@@ -453,7 +456,8 @@ func (p NSPersonNameComponents) SetNameSuffix(value string) {
 	objc.Send[struct{}](p.ID, objc.Sel("setNameSuffix:"), objc.String(value))
 }
 
-// Name substituted for the purposes of familiarity .
+// Name substituted for the purposes of familiarity (for example,
+// “Johnny”).
 //
 // See: https://developer.apple.com/documentation/Foundation/NSPersonNameComponents/nickname
 func (p NSPersonNameComponents) Nickname() string {

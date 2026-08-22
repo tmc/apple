@@ -4,7 +4,6 @@ package appkit
 
 import (
 	"sync"
-	"unsafe"
 
 	"github.com/tmc/apple/foundation"
 	"github.com/tmc/apple/objc"
@@ -78,7 +77,7 @@ func (nc NSResponderClass) Alloc() NSResponder {
 // # Changing the First Responder
 //
 //   - [NSResponder.AcceptsFirstResponder]: A Boolean value that indicates whether the responder accepts first responder status.
-//   - [NSResponder.BecomeFirstResponder]: Notifies the receiver that it’s about to become first responder in its [NSWindow](<doc://com.apple.appkit/documentation/AppKit/NSWindow>).
+//   - [NSResponder.BecomeFirstResponder]: Notifies the receiver that it’s about to become first responder in its [NSWindow](<https://developer.apple.com/documentation/AppKit/NSWindow>).
 //   - [NSResponder.ResignFirstResponder]: Notifies the receiver that it’s been asked to relinquish its status as first responder in its window.
 //   - [NSResponder.ValidateProposedFirstResponderForEvent]: Allows controls to determine when they should become first responder.
 //
@@ -190,7 +189,7 @@ func (nc NSResponderClass) Alloc() NSResponder {
 //
 // # Supporting the Touch Bar
 //
-//   - [NSResponder.MakeTouchBar]: Your custom subclass of the [NSResponder] class should override this method to create and configure your subclass’s default [NSTouchBar](<doc://com.apple.appkit/documentation/AppKit/NSTouchBar>) object.
+//   - [NSResponder.MakeTouchBar]: Your custom subclass of the [NSResponder] class should override this method to create and configure your subclass’s default [NSTouchBar](<https://developer.apple.com/documentation/AppKit/NSTouchBar>) object.
 //
 // # Performing Text Find Actions
 //
@@ -234,7 +233,7 @@ func NSResponderFromID(id objc.ID) NSResponder {
 // # Changing the First Responder
 //
 //   - [INSResponder.AcceptsFirstResponder]: A Boolean value that indicates whether the responder accepts first responder status.
-//   - [INSResponder.BecomeFirstResponder]: Notifies the receiver that it’s about to become first responder in its [NSWindow](<doc://com.apple.appkit/documentation/AppKit/NSWindow>).
+//   - [INSResponder.BecomeFirstResponder]: Notifies the receiver that it’s about to become first responder in its [NSWindow](<https://developer.apple.com/documentation/AppKit/NSWindow>).
 //   - [INSResponder.ResignFirstResponder]: Notifies the receiver that it’s been asked to relinquish its status as first responder in its window.
 //   - [INSResponder.ValidateProposedFirstResponderForEvent]: Allows controls to determine when they should become first responder.
 //
@@ -346,7 +345,7 @@ func NSResponderFromID(id objc.ID) NSResponder {
 //
 // # Supporting the Touch Bar
 //
-//   - [INSResponder.MakeTouchBar]: Your custom subclass of the [NSResponder] class should override this method to create and configure your subclass’s default [NSTouchBar](<doc://com.apple.appkit/documentation/AppKit/NSTouchBar>) object.
+//   - [INSResponder.MakeTouchBar]: Your custom subclass of the [NSResponder] class should override this method to create and configure your subclass’s default [NSTouchBar](<https://developer.apple.com/documentation/AppKit/NSTouchBar>) object.
 //
 // # Performing Text Find Actions
 //
@@ -376,7 +375,7 @@ type INSResponder interface {
 
 	// A Boolean value that indicates whether the responder accepts first responder status.
 	AcceptsFirstResponder() bool
-	// Notifies the receiver that it’s about to become first responder in its [NSWindow](<doc://com.apple.appkit/documentation/AppKit/NSWindow>).
+	// Notifies the receiver that it’s about to become first responder in its [NSWindow](<https://developer.apple.com/documentation/AppKit/NSWindow>).
 	BecomeFirstResponder() bool
 	// Notifies the receiver that it’s been asked to relinquish its status as first responder in its window.
 	ResignFirstResponder() bool
@@ -482,7 +481,7 @@ type INSResponder interface {
 	// Presents an error alert to the user as an application-modal dialog.
 	PresentError(error_ foundation.NSError) bool
 	// Presents an error alert to the user as a document-modal sheet attached to document window.
-	PresentErrorModalForWindowDelegateDidPresentSelectorContextInfo(error_ foundation.NSError, window INSWindow, delegate objectivec.IObject, didPresentSelector objc.SEL, contextInfo unsafe.Pointer)
+	PresentErrorModalForWindowDelegateDidPresentSelectorContextInfo(error_ foundation.NSError, window INSWindow, delegate objectivec.IObject, didPresentSelector objc.SEL, contextInfo uintptr)
 	// Returns a custom version of the supplied error object that’s more suitable for presentation in alert sheets and dialogs.
 	WillPresentError(error_ foundation.NSError) foundation.NSError
 
@@ -546,7 +545,7 @@ type INSResponder interface {
 
 	// Topic: Supporting the Touch Bar
 
-	// Your custom subclass of the [NSResponder] class should override this method to create and configure your subclass’s default [NSTouchBar](<doc://com.apple.appkit/documentation/AppKit/NSTouchBar>) object.
+	// Your custom subclass of the [NSResponder] class should override this method to create and configure your subclass’s default [NSTouchBar](<https://developer.apple.com/documentation/AppKit/NSTouchBar>) object.
 	MakeTouchBar() INSTouchBar
 
 	// Topic: Performing Text Find Actions
@@ -570,6 +569,8 @@ type INSResponder interface {
 	MouseCancelled(event INSEvent)
 	ShowWritingTools(sender objectivec.IObject)
 
+	// Restores the state necessary to continue the specified user activity.
+	RestoreUserActivityState(userActivity foundation.NSUserActivity)
 	// Implemented by subclasses to invoke the help system, displaying information relevant to the receiver and its current state.
 	ShowContextHelp(sender objectivec.IObject)
 	EncodeWithCoder(coder foundation.INSCoder)
@@ -1325,7 +1326,7 @@ func (r NSResponder) PresentError(error_ foundation.NSError) bool {
 // See: https://developer.apple.com/documentation/AppKit/NSResponder/presentError(_:modalFor:delegate:didPresent:contextInfo:)
 //
 // [NSError]: https://developer.apple.com/documentation/Foundation/NSError
-func (r NSResponder) PresentErrorModalForWindowDelegateDidPresentSelectorContextInfo(error_ foundation.NSError, window INSWindow, delegate objectivec.IObject, didPresentSelector objc.SEL, contextInfo unsafe.Pointer) {
+func (r NSResponder) PresentErrorModalForWindowDelegateDidPresentSelectorContextInfo(error_ foundation.NSError, window INSWindow, delegate objectivec.IObject, didPresentSelector objc.SEL, contextInfo uintptr) {
 	objc.Send[objc.ID](r.ID, objc.Sel("presentError:modalForWindow:delegate:didPresentSelector:contextInfo:"), error_, window, delegate, didPresentSelector, contextInfo)
 }
 

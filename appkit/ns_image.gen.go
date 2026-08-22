@@ -4,6 +4,7 @@ package appkit
 
 import (
 	"sync"
+	"unsafe"
 
 	"github.com/tmc/apple/corefoundation"
 	"github.com/tmc/apple/coregraphics"
@@ -544,6 +545,12 @@ type INSImage interface {
 
 	// Initializes an instance with a property list object and a type string.
 	InitWithPasteboardPropertyListOfType(propertyList objectivec.IObject, type_ NSPasteboardType) NSImage
+	// Returns a property list object to represent the receiver on a pasteboard as an object of a specified type.
+	PasteboardPropertyListForType(type_ NSPasteboardType) objectivec.IObject
+	// Returns an array of UTI strings of data types the receiver can write to a given pasteboard.
+	WritableTypesForPasteboard(pasteboard INSPasteboard) []string
+	// Returns options for writing data of a specified type to a given pasteboard.
+	WritingOptionsForTypePasteboard(type_ NSPasteboardType, pasteboard INSPasteboard) NSPasteboardWritingOptions
 	EncodeWithCoder(coder foundation.INSCoder)
 }
 
@@ -726,7 +733,7 @@ func NewImageNamed(name NSImageName) NSImage {
 //
 // This is not a designated initializer.
 //
-// See: https://developer.apple.com/documentation/AppKit/NSImage/init(cgImage:size:)-8oznv
+// See: https://developer.apple.com/documentation/AppKit/NSImage/init(cgImage:size:)
 //
 // [NSZeroSize]: https://developer.apple.com/documentation/Foundation/NSZeroSize
 // [zero]: https://developer.apple.com/documentation/CoreFoundation/CGSize/zero
@@ -1237,7 +1244,7 @@ func (i NSImage) InitWithDataIgnoringOrientation(data foundation.NSData) NSImage
 //
 // This is not a designated initializer.
 //
-// See: https://developer.apple.com/documentation/AppKit/NSImage/init(cgImage:size:)-8oznv
+// See: https://developer.apple.com/documentation/AppKit/NSImage/init(cgImage:size:)
 //
 // [NSZeroSize]: https://developer.apple.com/documentation/Foundation/NSZeroSize
 // [zero]: https://developer.apple.com/documentation/CoreFoundation/CGSize/zero
@@ -1655,7 +1662,7 @@ func (i NSImage) TIFFRepresentationUsingCompressionFactor(comp NSTIFFCompression
 //
 // [CGImage]: https://developer.apple.com/documentation/CoreGraphics/CGImage
 func (i NSImage) CGImageForProposedRectContextHints(proposedDestRect *corefoundation.CGRect, referenceContext INSGraphicsContext, hints foundation.INSDictionary) coregraphics.CGImageRef {
-	rv := objc.Send[coregraphics.CGImageRef](i.ID, objc.Sel("CGImageForProposedRect:context:hints:"), proposedDestRect, referenceContext, hints)
+	rv := objc.Send[coregraphics.CGImageRef](i.ID, objc.Sel("CGImageForProposedRect:context:hints:"), unsafe.Pointer(proposedDestRect), referenceContext, hints)
 	return coregraphics.CGImageRef(rv)
 }
 
@@ -2423,5 +2430,7 @@ func (_NSImageClass NSImageClass) ImageUnfilteredTypes() []string {
 	rv := objc.Send[[]objc.ID](objc.ID(_NSImageClass.class), objc.Sel("imageUnfilteredTypes"))
 	return objc.ConvertSliceToStrings(rv)
 }
+
+// Protocol methods for NSPasteboardReading
 
 // Protocol methods for NSPasteboardWriting

@@ -20,13 +20,7 @@
 //   - [MTKMeshBufferAllocator]: An interface for allocating a MetalKit buffer that backs the vertex data of a Model I/O mesh, suitable for use in a Metal app.
 //   - [MTKSubmesh]: A container for the index data of a Model I/O submesh, suitable for use in a Metal app.
 //   - [Conversion Functions]: Convert between Metal and Model I/O vertex representations.
-//   - [Model Errors]: Learn about errors thrown by model handling methods. ([MTKModelError])
-//
-// # Macros
-//
-//   - MTK_EXPORT
-//   - MTK_EXTERN
-//   - MTK_INLINE//
+//   - [Model Errors]: Learn about errors thrown by model handling methods. ([MTKModelError])//
 //
 // # Key Types
 //
@@ -48,9 +42,11 @@ import (
 	"github.com/ebitengine/purego"
 )
 
-// frameworkPaths lists paths to try when loading the MetalKit library.
-// The framework bundle path is tried first; a /usr/lib dylib fallback covers
-// C-API frameworks that are not in the dyld shared cache as bundles.
+// frameworkPaths lists paths to try when loading the MetalKit library,
+// in order. Frameworks whose symbols live in a known dylib resolve to that
+// dylib alone; the rest try the framework bundle first and then a /usr/lib
+// dylib fallback, which covers C-API frameworks that are not in the dyld
+// shared cache as bundles.
 var frameworkPaths = []string{
 	"/System/Library/Frameworks/MetalKit.framework/MetalKit",
 	"/usr/lib/libMetalKit.dylib",

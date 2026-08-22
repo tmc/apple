@@ -4,6 +4,7 @@ package foundation
 
 import (
 	"sync"
+	"unsafe"
 
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
@@ -92,6 +93,10 @@ func (nc NSScriptCommandDescriptionClass) Alloc() NSScriptCommandDescription {
 //   - [NSScriptCommandDescription.CreateCommandInstance]: Creates and returns an instance of the command object described by the receiver.
 //   - [NSScriptCommandDescription.CreateCommandInstanceWithZone]: Creates and returns an instance of the command object described by the receiver in the specified memory zone.
 //
+// # Initializers
+//
+//   - [NSScriptCommandDescription.InitWithCoder]
+//
 // See: https://developer.apple.com/documentation/Foundation/NSScriptCommandDescription
 type NSScriptCommandDescription struct {
 	objectivec.Object
@@ -138,6 +143,10 @@ func NSScriptCommandDescriptionFromID(id objc.ID) NSScriptCommandDescription {
 //   - [INSScriptCommandDescription.CreateCommandInstance]: Creates and returns an instance of the command object described by the receiver.
 //   - [INSScriptCommandDescription.CreateCommandInstanceWithZone]: Creates and returns an instance of the command object described by the receiver in the specified memory zone.
 //
+// # Initializers
+//
+//   - [INSScriptCommandDescription.InitWithCoder]
+//
 // See: https://developer.apple.com/documentation/Foundation/NSScriptCommandDescription
 type INSScriptCommandDescription interface {
 	objectivec.IObject
@@ -183,7 +192,14 @@ type INSScriptCommandDescription interface {
 	// Creates and returns an instance of the command object described by the receiver.
 	CreateCommandInstance() INSScriptCommand
 	// Creates and returns an instance of the command object described by the receiver in the specified memory zone.
-	CreateCommandInstanceWithZone(zone NSZone) INSScriptCommand
+	CreateCommandInstanceWithZone(zone unsafe.Pointer) INSScriptCommand
+
+	// Topic: Initializers
+
+	InitWithCoder(inCoder INSCoder) NSScriptCommandDescription
+
+	// Encodes the receiver using a given archiver.
+	EncodeWithCoder(coder INSCoder)
 }
 
 // Init initializes the instance.
@@ -339,12 +355,14 @@ func (s NSScriptCommandDescription) CreateCommandInstance() INSScriptCommand {
 //
 // zone: The memory zone from which to allocate the command.
 //
+// zone is a [*foundation.NSZone].
+//
 // # Return Value
 //
 // The command object, instantiated from [NSScriptCommand] or a subclass.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSScriptCommandDescription/createCommandInstance(with:)
-func (s NSScriptCommandDescription) CreateCommandInstanceWithZone(zone NSZone) INSScriptCommand {
+func (s NSScriptCommandDescription) CreateCommandInstanceWithZone(zone unsafe.Pointer) INSScriptCommand {
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("createCommandInstanceWithZone:"), zone)
 	return NSScriptCommandFromID(rv)
 }

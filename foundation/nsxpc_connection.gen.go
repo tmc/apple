@@ -54,9 +54,9 @@ func (nc NSXPCConnectionClass) Alloc() NSXPCConnection {
 //
 // # Creating a connection
 //
-//   - [NSXPCConnection.InitWithListenerEndpoint]: Initializes an [NSXPCConnection](<doc://com.apple.foundation/documentation/Foundation/NSXPCConnection>) object to connect to an [NSXPCListener](<doc://com.apple.foundation/documentation/Foundation/NSXPCListener>) object in another process, identified by an [NSXPCListenerEndpoint](<doc://com.apple.foundation/documentation/Foundation/NSXPCListenerEndpoint>) object.
-//   - [NSXPCConnection.InitWithMachServiceNameOptions]: Initializes an [NSXPCConnection](<doc://com.apple.foundation/documentation/Foundation/NSXPCConnection>) object to connect to a LaunchAgent or LaunchDaemon with a name advertised in a `launchd.Plist()`.
-//   - [NSXPCConnection.InitWithServiceName]: Initializes an [NSXPCConnection](<doc://com.apple.foundation/documentation/Foundation/NSXPCConnection>) object to connect to an [NSXPCListener](<doc://com.apple.foundation/documentation/Foundation/NSXPCListener>) object in an XPC service, identified by a service name.
+//   - [NSXPCConnection.InitWithListenerEndpoint]: Initializes an [NSXPCConnection](<https://developer.apple.com/documentation/Foundation/NSXPCConnection>) object to connect to an [NSXPCListener](<https://developer.apple.com/documentation/Foundation/NSXPCListener>) object in another process, identified by an [NSXPCListenerEndpoint](<https://developer.apple.com/documentation/Foundation/NSXPCListenerEndpoint>) object.
+//   - [NSXPCConnection.InitWithMachServiceNameOptions]: Initializes an [NSXPCConnection](<https://developer.apple.com/documentation/Foundation/NSXPCConnection>) object to connect to a LaunchAgent or LaunchDaemon with a name advertised in a `launchd.Plist()`.
+//   - [NSXPCConnection.InitWithServiceName]: Initializes an [NSXPCConnection](<https://developer.apple.com/documentation/Foundation/NSXPCConnection>) object to connect to an [NSXPCListener](<https://developer.apple.com/documentation/Foundation/NSXPCListener>) object in an XPC service, identified by a service name.
 //
 // # Managing connection state
 //
@@ -73,12 +73,12 @@ func (nc NSXPCConnectionClass) Alloc() NSXPCConnection {
 // # Managing the connection interface
 //
 //   - [NSXPCConnection.ServiceName]: The name of the XPC service that this connection was configured to connect to.
-//   - [NSXPCConnection.Endpoint]: If the connection was created with an [NSXPCListenerEndpoint](<doc://com.apple.foundation/documentation/Foundation/NSXPCListenerEndpoint>) object, returns the endpoint object used.
-//   - [NSXPCConnection.ExportedInterface]: The [NSXPCInterface](<doc://com.apple.foundation/documentation/Foundation/NSXPCInterface>) object that describes the protocol for the exported object on this connection.
+//   - [NSXPCConnection.Endpoint]: If the connection was created with an [NSXPCListenerEndpoint](<https://developer.apple.com/documentation/Foundation/NSXPCListenerEndpoint>) object, returns the endpoint object used.
+//   - [NSXPCConnection.ExportedInterface]: The [NSXPCInterface](<https://developer.apple.com/documentation/Foundation/NSXPCInterface>) object that describes the protocol for the exported object on this connection.
 //   - [NSXPCConnection.SetExportedInterface]
 //   - [NSXPCConnection.ExportedObject]: An exported object for the connection.
 //   - [NSXPCConnection.SetExportedObject]
-//   - [NSXPCConnection.RemoteObjectInterface]: Defines the [NSXPCInterface](<doc://com.apple.foundation/documentation/Foundation/NSXPCInterface>) object that describes the protocol for the object represented by the `remoteObjectProxy`.
+//   - [NSXPCConnection.RemoteObjectInterface]: Defines the [NSXPCInterface](<https://developer.apple.com/documentation/Foundation/NSXPCInterface>) object that describes the protocol for the object represented by the `remoteObjectProxy`.
 //   - [NSXPCConnection.SetRemoteObjectInterface]
 //
 // # Working with security attributes
@@ -111,9 +111,9 @@ func NSXPCConnectionFromID(id objc.ID) NSXPCConnection {
 //
 // # Creating a connection
 //
-//   - [INSXPCConnection.InitWithListenerEndpoint]: Initializes an [NSXPCConnection](<doc://com.apple.foundation/documentation/Foundation/NSXPCConnection>) object to connect to an [NSXPCListener](<doc://com.apple.foundation/documentation/Foundation/NSXPCListener>) object in another process, identified by an [NSXPCListenerEndpoint](<doc://com.apple.foundation/documentation/Foundation/NSXPCListenerEndpoint>) object.
-//   - [INSXPCConnection.InitWithMachServiceNameOptions]: Initializes an [NSXPCConnection](<doc://com.apple.foundation/documentation/Foundation/NSXPCConnection>) object to connect to a LaunchAgent or LaunchDaemon with a name advertised in a `launchd.Plist()`.
-//   - [INSXPCConnection.InitWithServiceName]: Initializes an [NSXPCConnection](<doc://com.apple.foundation/documentation/Foundation/NSXPCConnection>) object to connect to an [NSXPCListener](<doc://com.apple.foundation/documentation/Foundation/NSXPCListener>) object in an XPC service, identified by a service name.
+//   - [INSXPCConnection.InitWithListenerEndpoint]: Initializes an [NSXPCConnection](<https://developer.apple.com/documentation/Foundation/NSXPCConnection>) object to connect to an [NSXPCListener](<https://developer.apple.com/documentation/Foundation/NSXPCListener>) object in another process, identified by an [NSXPCListenerEndpoint](<https://developer.apple.com/documentation/Foundation/NSXPCListenerEndpoint>) object.
+//   - [INSXPCConnection.InitWithMachServiceNameOptions]: Initializes an [NSXPCConnection](<https://developer.apple.com/documentation/Foundation/NSXPCConnection>) object to connect to a LaunchAgent or LaunchDaemon with a name advertised in a `launchd.Plist()`.
+//   - [INSXPCConnection.InitWithServiceName]: Initializes an [NSXPCConnection](<https://developer.apple.com/documentation/Foundation/NSXPCConnection>) object to connect to an [NSXPCListener](<https://developer.apple.com/documentation/Foundation/NSXPCListener>) object in an XPC service, identified by a service name.
 //
 // # Managing connection state
 //
@@ -130,12 +130,12 @@ func NSXPCConnectionFromID(id objc.ID) NSXPCConnection {
 // # Managing the connection interface
 //
 //   - [INSXPCConnection.ServiceName]: The name of the XPC service that this connection was configured to connect to.
-//   - [INSXPCConnection.Endpoint]: If the connection was created with an [NSXPCListenerEndpoint](<doc://com.apple.foundation/documentation/Foundation/NSXPCListenerEndpoint>) object, returns the endpoint object used.
-//   - [INSXPCConnection.ExportedInterface]: The [NSXPCInterface](<doc://com.apple.foundation/documentation/Foundation/NSXPCInterface>) object that describes the protocol for the exported object on this connection.
+//   - [INSXPCConnection.Endpoint]: If the connection was created with an [NSXPCListenerEndpoint](<https://developer.apple.com/documentation/Foundation/NSXPCListenerEndpoint>) object, returns the endpoint object used.
+//   - [INSXPCConnection.ExportedInterface]: The [NSXPCInterface](<https://developer.apple.com/documentation/Foundation/NSXPCInterface>) object that describes the protocol for the exported object on this connection.
 //   - [INSXPCConnection.SetExportedInterface]
 //   - [INSXPCConnection.ExportedObject]: An exported object for the connection.
 //   - [INSXPCConnection.SetExportedObject]
-//   - [INSXPCConnection.RemoteObjectInterface]: Defines the [NSXPCInterface](<doc://com.apple.foundation/documentation/Foundation/NSXPCInterface>) object that describes the protocol for the object represented by the `remoteObjectProxy`.
+//   - [INSXPCConnection.RemoteObjectInterface]: Defines the [NSXPCInterface](<https://developer.apple.com/documentation/Foundation/NSXPCInterface>) object that describes the protocol for the object represented by the `remoteObjectProxy`.
 //   - [INSXPCConnection.SetRemoteObjectInterface]
 //
 // # Working with security attributes
@@ -156,11 +156,11 @@ type INSXPCConnection interface {
 
 	// Topic: Creating a connection
 
-	// Initializes an [NSXPCConnection](<doc://com.apple.foundation/documentation/Foundation/NSXPCConnection>) object to connect to an [NSXPCListener](<doc://com.apple.foundation/documentation/Foundation/NSXPCListener>) object in another process, identified by an [NSXPCListenerEndpoint](<doc://com.apple.foundation/documentation/Foundation/NSXPCListenerEndpoint>) object.
+	// Initializes an [NSXPCConnection](<https://developer.apple.com/documentation/Foundation/NSXPCConnection>) object to connect to an [NSXPCListener](<https://developer.apple.com/documentation/Foundation/NSXPCListener>) object in another process, identified by an [NSXPCListenerEndpoint](<https://developer.apple.com/documentation/Foundation/NSXPCListenerEndpoint>) object.
 	InitWithListenerEndpoint(endpoint INSXPCListenerEndpoint) NSXPCConnection
-	// Initializes an [NSXPCConnection](<doc://com.apple.foundation/documentation/Foundation/NSXPCConnection>) object to connect to a LaunchAgent or LaunchDaemon with a name advertised in a `launchd.Plist()`.
+	// Initializes an [NSXPCConnection](<https://developer.apple.com/documentation/Foundation/NSXPCConnection>) object to connect to a LaunchAgent or LaunchDaemon with a name advertised in a `launchd.Plist()`.
 	InitWithMachServiceNameOptions(name string, options NSXPCConnectionOptions) NSXPCConnection
-	// Initializes an [NSXPCConnection](<doc://com.apple.foundation/documentation/Foundation/NSXPCConnection>) object to connect to an [NSXPCListener](<doc://com.apple.foundation/documentation/Foundation/NSXPCListener>) object in an XPC service, identified by a service name.
+	// Initializes an [NSXPCConnection](<https://developer.apple.com/documentation/Foundation/NSXPCConnection>) object to connect to an [NSXPCListener](<https://developer.apple.com/documentation/Foundation/NSXPCListener>) object in an XPC service, identified by a service name.
 	InitWithServiceName(serviceName string) NSXPCConnection
 
 	// Topic: Managing connection state
@@ -186,15 +186,15 @@ type INSXPCConnection interface {
 
 	// The name of the XPC service that this connection was configured to connect to.
 	ServiceName() string
-	// If the connection was created with an [NSXPCListenerEndpoint](<doc://com.apple.foundation/documentation/Foundation/NSXPCListenerEndpoint>) object, returns the endpoint object used.
+	// If the connection was created with an [NSXPCListenerEndpoint](<https://developer.apple.com/documentation/Foundation/NSXPCListenerEndpoint>) object, returns the endpoint object used.
 	Endpoint() INSXPCListenerEndpoint
-	// The [NSXPCInterface](<doc://com.apple.foundation/documentation/Foundation/NSXPCInterface>) object that describes the protocol for the exported object on this connection.
+	// The [NSXPCInterface](<https://developer.apple.com/documentation/Foundation/NSXPCInterface>) object that describes the protocol for the exported object on this connection.
 	ExportedInterface() INSXPCInterface
 	SetExportedInterface(value INSXPCInterface)
 	// An exported object for the connection.
 	ExportedObject() objectivec.IObject
 	SetExportedObject(value objectivec.IObject)
-	// Defines the [NSXPCInterface](<doc://com.apple.foundation/documentation/Foundation/NSXPCInterface>) object that describes the protocol for the object represented by the `remoteObjectProxy`.
+	// Defines the [NSXPCInterface](<https://developer.apple.com/documentation/Foundation/NSXPCInterface>) object that describes the protocol for the object represented by the `remoteObjectProxy`.
 	RemoteObjectInterface() INSXPCInterface
 	SetRemoteObjectInterface(value INSXPCInterface)
 

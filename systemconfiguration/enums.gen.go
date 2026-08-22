@@ -6,7 +6,7 @@ import (
 	"fmt"
 )
 
-type KSCBondStatus int
+type KSCBondStatus uint32
 
 const (
 	// KSCBondStatusLinkInvalid: The link state is not valid (such as down, half-duplex, or wrong speed).
@@ -38,7 +38,7 @@ func (e KSCBondStatus) String() string {
 	}
 }
 
-type KSCNetworkFlags uint
+type KSCNetworkFlags uint32
 
 const (
 	// KSCNetworkFlagsConnectionAutomatic: The specified node name or address can be reached using the current network configuration, but a connection must first be established.
@@ -78,15 +78,15 @@ func (e KSCNetworkFlags) String() string {
 	}
 }
 
-type KSCStatus int
+type KSCStatus uint32
 
 const (
 	// KSCStatusAccessError: Permission is denied; you must be root to obtain a lock.
 	KSCStatusAccessError KSCStatus = 1003
 	// KSCStatusConnectionIgnore: Network connection information is not available at this time.
-	KSCStatusConnectionIgnore KSCStatus = 4003
+	KSCStatusConnectionIgnore KSCStatus = 5002
 	// KSCStatusConnectionNoService: Network service for the connection is not available.
-	KSCStatusConnectionNoService KSCStatus = 4002
+	KSCStatusConnectionNoService KSCStatus = 5001
 	// KSCStatusFailed: A nonspecific failure occurred.
 	KSCStatusFailed KSCStatus = 1001
 	// KSCStatusInvalidArgument: An invalid argument was specified.
@@ -276,6 +276,14 @@ func (e SCNetworkConnectionStatus) String() string {
 type SCNetworkReachabilityFlags uint32
 
 const (
+	// KSCNetworkReachabilityFlagsConnectionAutomatic: The specified node name or address can be reached using the current network configuration, but a connection must first be established.
+	KSCNetworkReachabilityFlagsConnectionAutomatic SCNetworkReachabilityFlags = 8
+	// KSCNetworkReachabilityFlagsConnectionOnDemand: The specified node name or address can be reached using the current network configuration, but a connection must first be established.
+	KSCNetworkReachabilityFlagsConnectionOnDemand SCNetworkReachabilityFlags = 32
+	// KSCNetworkReachabilityFlagsConnectionOnTraffic: The specified node name or address can be reached using the current network configuration, but a connection must first be established.
+	KSCNetworkReachabilityFlagsConnectionOnTraffic SCNetworkReachabilityFlags = 8
+	// KSCNetworkReachabilityFlagsConnectionRequired: The specified node name or address can be reached using the current network configuration, but a connection must first be established.
+	KSCNetworkReachabilityFlagsConnectionRequired SCNetworkReachabilityFlags = 4
 	// KSCNetworkReachabilityFlagsInterventionRequired: The specified node name or address can be reached using the current network configuration, but a connection must first be established.
 	KSCNetworkReachabilityFlagsInterventionRequired SCNetworkReachabilityFlags = 16
 	// KSCNetworkReachabilityFlagsIsDirect: Network traffic to the specified node name or address will not go through a gateway, but is routed directly to one of the interfaces in the system.
@@ -283,7 +291,7 @@ const (
 	// KSCNetworkReachabilityFlagsIsLocalAddress: The specified node name or address is one that is associated with a network interface on the current system.
 	KSCNetworkReachabilityFlagsIsLocalAddress SCNetworkReachabilityFlags = 65536
 	// KSCNetworkReachabilityFlagsIsWWAN: The specified node name or address can be reached via a cellular connection, such as EDGE or GPRS.
-	KSCNetworkReachabilityFlagsIsWWAN SCNetworkReachabilityFlags = 131073
+	KSCNetworkReachabilityFlagsIsWWAN SCNetworkReachabilityFlags = 262144
 	// KSCNetworkReachabilityFlagsReachable: The specified node name or address can be reached using the current network configuration.
 	KSCNetworkReachabilityFlagsReachable SCNetworkReachabilityFlags = 2
 	// KSCNetworkReachabilityFlagsTransientConnection: The specified node name or address can be reached via a transient connection, such as PPP.
@@ -292,6 +300,12 @@ const (
 
 func (e SCNetworkReachabilityFlags) String() string {
 	switch e {
+	case KSCNetworkReachabilityFlagsConnectionAutomatic:
+		return "KSCNetworkReachabilityFlagsConnectionAutomatic"
+	case KSCNetworkReachabilityFlagsConnectionOnDemand:
+		return "KSCNetworkReachabilityFlagsConnectionOnDemand"
+	case KSCNetworkReachabilityFlagsConnectionRequired:
+		return "KSCNetworkReachabilityFlagsConnectionRequired"
 	case KSCNetworkReachabilityFlagsInterventionRequired:
 		return "KSCNetworkReachabilityFlagsInterventionRequired"
 	case KSCNetworkReachabilityFlagsIsDirect:
@@ -312,4 +326,20 @@ func (e SCNetworkReachabilityFlags) String() string {
 // See: https://developer.apple.com/documentation/SystemConfiguration/SCPreferencesNotification
 type SCPreferencesNotification uint32
 
-const ()
+const (
+	// KSCPreferencesNotificationApply: Indicates when a request has been made to apply the currently saved preferences to the active system configuration.
+	KSCPreferencesNotificationApply SCPreferencesNotification = 2
+	// KSCPreferencesNotificationCommit: Indicates when new preferences have been saved.
+	KSCPreferencesNotificationCommit SCPreferencesNotification = 1
+)
+
+func (e SCPreferencesNotification) String() string {
+	switch e {
+	case KSCPreferencesNotificationApply:
+		return "KSCPreferencesNotificationApply"
+	case KSCPreferencesNotificationCommit:
+		return "KSCPreferencesNotificationCommit"
+	default:
+		return fmt.Sprintf("SCPreferencesNotification(%d)", e)
+	}
+}

@@ -52,10 +52,11 @@ func (uc URLAuthenticationChallengeClass) Alloc() URLAuthenticationChallenge {
 // the information you’ll need when deciding how to handle a server’s
 // request for authentication.
 //
-// At the core of that authentication challenge is a that defines the type of
-// authentication being requested, the host and port number, the networking
-// protocol, and (where applicable) the authentication realm (a group of
-// related URLs on the same server that share a single set of credentials).
+// At the core of that authentication challenge is a protection space that
+// defines the type of authentication being requested, the host and port
+// number, the networking protocol, and (where applicable) the authentication
+// realm (a group of related URLs on the same server that share a single set
+// of credentials).
 //
 // # Creating an authentication challenge instance
 //
@@ -128,7 +129,6 @@ func NSURLAuthenticationChallengeFromID(id objc.ID) URLAuthenticationChallenge {
 // See: https://developer.apple.com/documentation/Foundation/URLAuthenticationChallenge
 type IURLAuthenticationChallenge interface {
 	objectivec.IObject
-	NSSecureCoding
 
 	// Topic: Creating an authentication challenge instance
 
@@ -160,6 +160,10 @@ type IURLAuthenticationChallenge interface {
 
 	// The sender of the challenge.
 	Sender() NSURLAuthenticationChallengeSender
+
+	// Encodes the receiver using a given archiver.
+	EncodeWithCoder(coder INSCoder)
+	InitWithCoder(coder INSCoder) URLAuthenticationChallenge
 }
 
 // Init initializes the instance.
@@ -388,8 +392,8 @@ func (u URLAuthenticationChallenge) FailureResponse() INSURLResponse {
 //
 // # Discussion
 //
-// The previous failure count includes failures from protection spaces, not
-// just the current one.
+// The previous failure count includes failures from all protection spaces,
+// not just the current one.
 //
 // See: https://developer.apple.com/documentation/Foundation/URLAuthenticationChallenge/previousFailureCount
 func (u URLAuthenticationChallenge) PreviousFailureCount() int {
@@ -437,9 +441,9 @@ func (u URLAuthenticationChallenge) Error() INSError {
 // # Discussion
 //
 // If you are using the [NSURLSession] API, this value is purely
-// informational, because you respond to authentication challenges in your
-// [NSURLSessionDelegate] or [NSURLSessionTaskDelegate] implementations, by
-// passing [URLSession.AuthChallengeDisposition] constants to the provided
+// informational, because you must respond to authentication challenges in
+// your [NSURLSessionDelegate] or [NSURLSessionTaskDelegate] implementations,
+// by passing [URLSession.AuthChallengeDisposition] constants to the provided
 // completion handler blocks.
 //
 // However, if you are using the legacy [NSURLConnection] or [NSURLDownload]

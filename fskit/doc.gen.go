@@ -79,18 +79,6 @@
 //   - [FSMetadataRange]: A range that describes contiguous metadata segments on disk.
 //   - [FSProbeResult]: An object that represents the results of a specific probe. ([FSMatchResult])
 //
-// # Macros
-//
-//   - FSKIT_API_AVAILABILITY_V1
-//   - FSKIT_API_UNAVAILABLE_V1
-//   - FS_ALWAYS_EXPORT
-//   - FS_EXPORT
-//   - FS_EXPORT_INTERNAL
-//   - FS_EXTERN
-//   - FS_SUPPORTED_VISIBILITY
-//   - FSKIT_API_AVAILABILITY_V2
-//   - FSKIT_API_AVAILABILITY_V2_4
-//
 // # Key Types
 //
 //   - [FSItemAttributes] - Attributes of an item, such as size, creation and modification times, and user and group identifiers.
@@ -112,9 +100,11 @@ import (
 	"github.com/ebitengine/purego"
 )
 
-// frameworkPaths lists paths to try when loading the FSKit library.
-// The framework bundle path is tried first; a /usr/lib dylib fallback covers
-// C-API frameworks that are not in the dyld shared cache as bundles.
+// frameworkPaths lists paths to try when loading the FSKit library,
+// in order. Frameworks whose symbols live in a known dylib resolve to that
+// dylib alone; the rest try the framework bundle first and then a /usr/lib
+// dylib fallback, which covers C-API frameworks that are not in the dyld
+// shared cache as bundles.
 var frameworkPaths = []string{
 	"/System/Library/Frameworks/FSKit.framework/FSKit",
 	"/usr/lib/libFSKit.dylib",

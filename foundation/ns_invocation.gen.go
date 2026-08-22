@@ -396,7 +396,7 @@ func (_NSInvocationClass NSInvocationClass) InvocationWithMethodSignature(sig IN
 //
 // See: https://developer.apple.com/documentation/Foundation/NSInvocation/selector
 func (i NSInvocation) Selector() objectivec.SEL {
-	rv := objc.Send[objectivec.SEL](i.ID, objc.Sel("selector"))
+	rv := objc.Send[objc.SEL](i.ID, objc.Sel("selector"))
 	return objectivec.SEL(rv)
 }
 func (i NSInvocation) SetSelector(value objectivec.SEL) {

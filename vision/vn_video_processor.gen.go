@@ -133,7 +133,7 @@ func NewVNVideoProcessor() VNVideoProcessor {
 // videoURL: The video asset URL. The specified asset must be a video format supported
 // by AVFoundation.
 //
-// See: https://developer.apple.com/documentation/Vision/VNVideoProcessor/init(url:)-94b7
+// See: https://developer.apple.com/documentation/Vision/VNVideoProcessor/init(url:)
 func NewVideoProcessorWithURL(videoURL foundation.NSURL) VNVideoProcessor {
 	instance := getVNVideoProcessorClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithURL:"), videoURL)
@@ -146,7 +146,7 @@ func NewVideoProcessorWithURL(videoURL foundation.NSURL) VNVideoProcessor {
 // videoURL: The video asset URL. The specified asset must be a video format supported
 // by AVFoundation.
 //
-// See: https://developer.apple.com/documentation/Vision/VNVideoProcessor/init(url:)-94b7
+// See: https://developer.apple.com/documentation/Vision/VNVideoProcessor/init(url:)
 func (v VNVideoProcessor) InitWithURL(videoURL foundation.NSURL) VNVideoProcessor {
 	rv := objc.Send[VNVideoProcessor](v.ID, objc.Sel("initWithURL:"), videoURL)
 	return rv

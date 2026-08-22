@@ -63,7 +63,7 @@ func (nc NSMutableArrayClass) Alloc() NSMutableArray {
 //
 // In addition to the provided instance methods, such as
 // [NSMutableArray.ReplaceObjectAtIndexWithObject], you can access [NSArray]
-// values by their indexes using .
+// values by their indexes using subscripting.
 //
 // # Subclassing Notes
 //
@@ -129,8 +129,8 @@ func (nc NSMutableArrayClass) Alloc() NSMutableArray {
 //
 //   - [NSMutableArray.ExchangeObjectAtIndexWithObjectAtIndex]: Exchanges the objects in the array at given indexes.
 //   - [NSMutableArray.SortUsingDescriptors]: Sorts the receiver using a given array of sort descriptors.
-//   - [NSMutableArray.SortUsingComparator]: Sorts the receiver in ascending order using the comparison method specified by a given [Comparator](<doc://com.apple.foundation/documentation/Foundation/Comparator>) block.
-//   - [NSMutableArray.SortWithOptionsUsingComparator]: Sorts the receiver in ascending order using the specified options and the comparison method specified by a given [Comparator](<doc://com.apple.foundation/documentation/Foundation/Comparator>) block.
+//   - [NSMutableArray.SortUsingComparator]: Sorts the receiver in ascending order using the comparison method specified by a given [Comparator](<https://developer.apple.com/documentation/Foundation/Comparator>) block.
+//   - [NSMutableArray.SortWithOptionsUsingComparator]: Sorts the receiver in ascending order using the specified options and the comparison method specified by a given [Comparator](<https://developer.apple.com/documentation/Foundation/Comparator>) block.
 //   - [NSMutableArray.SortUsingFunctionContext]: Sorts the receiver in ascending order as defined by the comparison function `compare`.
 //   - [NSMutableArray.SortUsingSelector]: Sorts the receiver in ascending order, as determined by the comparison method specified by a given selector.
 //
@@ -195,8 +195,8 @@ func NSMutableArrayFromID(id objc.ID) NSMutableArray {
 //
 //   - [INSMutableArray.ExchangeObjectAtIndexWithObjectAtIndex]: Exchanges the objects in the array at given indexes.
 //   - [INSMutableArray.SortUsingDescriptors]: Sorts the receiver using a given array of sort descriptors.
-//   - [INSMutableArray.SortUsingComparator]: Sorts the receiver in ascending order using the comparison method specified by a given [Comparator](<doc://com.apple.foundation/documentation/Foundation/Comparator>) block.
-//   - [INSMutableArray.SortWithOptionsUsingComparator]: Sorts the receiver in ascending order using the specified options and the comparison method specified by a given [Comparator](<doc://com.apple.foundation/documentation/Foundation/Comparator>) block.
+//   - [INSMutableArray.SortUsingComparator]: Sorts the receiver in ascending order using the comparison method specified by a given [Comparator](<https://developer.apple.com/documentation/Foundation/Comparator>) block.
+//   - [INSMutableArray.SortWithOptionsUsingComparator]: Sorts the receiver in ascending order using the specified options and the comparison method specified by a given [Comparator](<https://developer.apple.com/documentation/Foundation/Comparator>) block.
 //   - [INSMutableArray.SortUsingFunctionContext]: Sorts the receiver in ascending order as defined by the comparison function `compare`.
 //   - [INSMutableArray.SortUsingSelector]: Sorts the receiver in ascending order, as determined by the comparison method specified by a given selector.
 //
@@ -267,14 +267,14 @@ type INSMutableArray interface {
 	ExchangeObjectAtIndexWithObjectAtIndex(idx1 uint, idx2 uint)
 	// Sorts the receiver using a given array of sort descriptors.
 	SortUsingDescriptors(sortDescriptors []NSSortDescriptor)
-	// Sorts the receiver in ascending order using the comparison method specified by a given [Comparator](<doc://com.apple.foundation/documentation/Foundation/Comparator>) block.
-	SortUsingComparator(cmptr NSComparator)
-	// Sorts the receiver in ascending order using the specified options and the comparison method specified by a given [Comparator](<doc://com.apple.foundation/documentation/Foundation/Comparator>) block.
-	SortWithOptionsUsingComparator(opts NSSortOptions, cmptr NSComparator)
+	// Sorts the receiver in ascending order using the comparison method specified by a given [Comparator](<https://developer.apple.com/documentation/Foundation/Comparator>) block.
+	SortUsingComparator(cmptr NSComparisonResultIObjectHandler)
+	// Sorts the receiver in ascending order using the specified options and the comparison method specified by a given [Comparator](<https://developer.apple.com/documentation/Foundation/Comparator>) block.
+	SortWithOptionsUsingComparator(opts NSSortOptions, cmptr NSComparisonResultIObjectHandler)
 	// Sorts the receiver in ascending order as defined by the comparison function `compare`.
-	SortUsingFunctionContext(compare objectivec.IObject, context unsafe.Pointer)
+	SortUsingFunctionContext(compare func(objectivec.IObject, objectivec.IObject, unsafe.Pointer) int, context unsafe.Pointer)
 	// Sorts the receiver in ascending order, as determined by the comparison method specified by a given selector.
-	SortUsingSelector(comparator objectivec.SEL)
+	SortUsingSelector(comparator objc.SEL)
 
 	ApplyDifference(difference INSOrderedCollectionDifference)
 	// Replaces the object at the index with the new object, possibly adding the object.
@@ -856,12 +856,10 @@ func (m NSMutableArray) SortUsingDescriptors(sortDescriptors []NSSortDescriptor)
 // cmptr: A comparator block.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSMutableArray/sort(comparator:)
-func (m NSMutableArray) SortUsingComparator(cmptr NSComparator) {
-	_block0 := objc.NewBlock(func(_ objc.Block, arg0 objc.ID, arg1 objc.ID) NSComparisonResult {
-		return cmptr(objectivec.ObjectFromID(arg0), objectivec.ObjectFromID(arg1))
-	})
-	defer _block0.Release()
-	objc.Send[objc.ID](m.ID, objc.Sel("sortUsingComparator:"), objc.ID(_block0))
+func (m NSMutableArray) SortUsingComparator(cmptr NSComparisonResultIObjectHandler) {
+	_block0, _cleanup0 := NewNSComparisonResultIObjectBlock(cmptr)
+	defer _cleanup0()
+	objc.Send[objc.ID](m.ID, objc.Sel("sortUsingComparator:"), _block0)
 }
 
 // Sorts the receiver in ascending order using the specified options and the
@@ -873,12 +871,10 @@ func (m NSMutableArray) SortUsingComparator(cmptr NSComparator) {
 // cmptr: A comparator block.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSMutableArray/sort(options:usingComparator:)
-func (m NSMutableArray) SortWithOptionsUsingComparator(opts NSSortOptions, cmptr NSComparator) {
-	_block1 := objc.NewBlock(func(_ objc.Block, arg0 objc.ID, arg1 objc.ID) NSComparisonResult {
-		return cmptr(objectivec.ObjectFromID(arg0), objectivec.ObjectFromID(arg1))
-	})
-	defer _block1.Release()
-	objc.Send[objc.ID](m.ID, objc.Sel("sortWithOptions:usingComparator:"), opts, objc.ID(_block1))
+func (m NSMutableArray) SortWithOptionsUsingComparator(opts NSSortOptions, cmptr NSComparisonResultIObjectHandler) {
+	_block1, _cleanup1 := NewNSComparisonResultIObjectBlock(cmptr)
+	defer _cleanup1()
+	objc.Send[objc.ID](m.ID, objc.Sel("sortWithOptions:usingComparator:"), opts, _block1)
 }
 
 // Sorts the receiver in ascending order as defined by the comparison function
@@ -900,7 +896,7 @@ func (m NSMutableArray) SortWithOptionsUsingComparator(opts NSSortOptions, cmptr
 // such as whether character sorting is case sensitive or case insensitive.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSMutableArray/sort(_:context:)
-func (m NSMutableArray) SortUsingFunctionContext(compare objectivec.IObject, context unsafe.Pointer) {
+func (m NSMutableArray) SortUsingFunctionContext(compare func(objectivec.IObject, objectivec.IObject, unsafe.Pointer) int, context unsafe.Pointer) {
 	objc.Send[objc.ID](m.ID, objc.Sel("sortUsingFunction:context:"), compare, context)
 }
 
@@ -917,7 +913,7 @@ func (m NSMutableArray) SortUsingFunctionContext(compare objectivec.IObject, con
 // [NSOrderedSame] if they are equal.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSMutableArray/sort(using:)-537vs
-func (m NSMutableArray) SortUsingSelector(comparator objectivec.SEL) {
+func (m NSMutableArray) SortUsingSelector(comparator objc.SEL) {
 	objc.Send[objc.ID](m.ID, objc.Sel("sortUsingSelector:"), comparator)
 }
 

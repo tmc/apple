@@ -63,7 +63,9 @@ func FSVolumeItemDeactivationObjectFromID(id objc.ID) FSVolumeItemDeactivationOb
 //
 // See: https://developer.apple.com/documentation/FSKit/FSVolume/ItemDeactivation/deactivateItem(_:replyHandler:)
 func (o FSVolumeItemDeactivationObject) DeactivateItemReplyHandler(item IFSItem, reply ErrorHandler) {
-	objc.Send[struct{}](o.ID, objc.Sel("deactivateItem:replyHandler:"), item, reply)
+	_block1, _cleanup1 := NewErrorBlock(reply)
+	defer _cleanup1()
+	objc.Send[struct{}](o.ID, objc.Sel("deactivateItem:replyHandler:"), item, objc.ID(_block1))
 }
 
 // A property that tells FSKit to which types of items the deactivation

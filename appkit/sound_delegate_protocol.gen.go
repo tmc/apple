@@ -11,7 +11,7 @@ import (
 
 var _ = fmt.Sprintf
 
-// A set of optional methods implemented by delegates of [NSSound](<doc://com.apple.appkit/documentation/AppKit/NSSound>) objects.
+// A set of optional methods implemented by delegates of [NSSound](<https://developer.apple.com/documentation/AppKit/NSSound>) objects.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSSoundDelegate
 type NSSoundDelegate interface {
@@ -85,8 +85,20 @@ func NewNSSoundDelegate(config NSSoundDelegateConfig) NSSoundDelegateObject {
 		methods = append(methods, objc.MethodDef{
 			Cmd: objc.RegisterName("sound:didFinishPlaying:"),
 			Fn: func(self objc.ID, _cmd objc.SEL, soundID objc.ID, flag bool) {
+				// Names which delegate was running if a panic unwinds out of
+				// it. The frames between here and the Objective-C caller are
+				// runtime and purego dispatch, so without this the traceback
+				// never says which selector dispatched. Deliberately no
+				// recover: see [objc.NoteDelegatePanic].
+				_delegateDone := false
+				defer func() {
+					if !_delegateDone {
+						objc.NoteDelegatePanic("NSSoundDelegate", "sound:didFinishPlaying:")
+					}
+				}()
 				sound := NSSoundFromID(soundID)
 				fn(sound, flag)
+				_delegateDone = true
 			},
 		})
 	}

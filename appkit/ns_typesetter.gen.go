@@ -4,6 +4,7 @@ package appkit
 
 import (
 	"sync"
+	"unsafe"
 
 	"github.com/tmc/apple/corefoundation"
 	"github.com/tmc/apple/foundation"
@@ -359,7 +360,7 @@ type INSTypesetter interface {
 	// Topic: Performing font substitution
 
 	// Returns a screen font suitable for use in place of a given font.
-	SubstituteFontForFont(originalFont NSFont) NSFont
+	SubstituteFontForFont(originalFont INSFont) INSFont
 
 	// Topic: Getting the location of text tabs
 
@@ -526,7 +527,7 @@ func (t NSTypesetter) BaselineOffsetInLayoutManagerGlyphIndex(layoutMgr INSLayou
 // rotated.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTypesetter/substituteFont(for:)
-func (t NSTypesetter) SubstituteFontForFont(originalFont NSFont) NSFont {
+func (t NSTypesetter) SubstituteFontForFont(originalFont INSFont) INSFont {
 	rv := objc.Send[objc.ID](t.ID, objc.Sel("substituteFontForFont:"), originalFont)
 	return NSFontFromID(rv)
 }
@@ -775,7 +776,7 @@ func (t NSTypesetter) LayoutCharactersInRangeForLayoutManagerMaximumNumberOfLine
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTypesetter/layoutGlyphs(in:startingAtGlyphIndex:maxNumberOfLineFragments:nextGlyphIndex:)
 func (t NSTypesetter) LayoutGlyphsInLayoutManagerStartingAtGlyphIndexMaxNumberOfLineFragmentsNextGlyphIndex(layoutManager INSLayoutManager, startGlyphIndex uint, maxNumLines uint, nextGlyph *uint) {
-	objc.Send[objc.ID](t.ID, objc.Sel("layoutGlyphsInLayoutManager:startingAtGlyphIndex:maxNumberOfLineFragments:nextGlyphIndex:"), layoutManager, startGlyphIndex, maxNumLines, nextGlyph)
+	objc.Send[objc.ID](t.ID, objc.Sel("layoutGlyphsInLayoutManager:startingAtGlyphIndex:maxNumberOfLineFragments:nextGlyphIndex:"), layoutManager, startGlyphIndex, maxNumLines, unsafe.Pointer(nextGlyph))
 }
 
 // Returns the bounding rectangle for the specified control glyph with the
@@ -1076,7 +1077,7 @@ func (t NSTypesetter) SetAttachmentSizeForGlyphRange(attachmentSize corefoundati
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTypesetter/setBidiLevels(_:forGlyphRange:)
 func (t NSTypesetter) SetBidiLevelsForGlyphRange(levels *uint8, glyphRange foundation.NSRange) {
-	objc.Send[objc.ID](t.ID, objc.Sel("setBidiLevels:forGlyphRange:"), levels, glyphRange)
+	objc.Send[objc.ID](t.ID, objc.Sel("setBidiLevels:forGlyphRange:"), unsafe.Pointer(levels), glyphRange)
 }
 
 // Sets whether the specified glyphs exceed the bounds of the line fragment in
@@ -1231,7 +1232,7 @@ func (_NSTypesetterClass NSTypesetterClass) SharedSystemTypesetterForBehavior(be
 // the screen.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTypesetter/printingAdjustment(in:forNominallySpacedGlyphRange:packedGlyphs:count:)
-func (_NSTypesetterClass NSTypesetterClass) PrintingAdjustmentInLayoutManagerForNominallySpacedGlyphRangePackedGlyphsCount(layoutMgr INSLayoutManager, nominallySpacedGlyphsRange foundation.NSRange, packedGlyphs *uint8, packedGlyphsCount uint) corefoundation.CGSize {
+func (_NSTypesetterClass NSTypesetterClass) PrintingAdjustmentInLayoutManagerForNominallySpacedGlyphRangePackedGlyphsCount(layoutMgr INSLayoutManager, nominallySpacedGlyphsRange foundation.NSRange, packedGlyphs []uint8, packedGlyphsCount uint) corefoundation.CGSize {
 	rv := objc.Send[corefoundation.CGSize](objc.ID(_NSTypesetterClass.class), objc.Sel("printingAdjustmentInLayoutManager:forNominallySpacedGlyphRange:packedGlyphs:count:"), layoutMgr, nominallySpacedGlyphsRange, objc.CArray(packedGlyphs), packedGlyphsCount)
 	return corefoundation.CGSize(rv)
 }

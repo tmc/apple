@@ -121,6 +121,15 @@ type IGCRacingWheel interface {
 	Capture() IGCRacingWheel
 	// A Boolean value that indicates whether the object is a snapshot of a racing wheel.
 	IsSnapshot() bool
+
+	// The dispatch queue that the framework uses to call element value change handlers.
+	HandlerQueue() dispatch.Queue
+	// The device’s physical input profile, such as a controller’s extended gamepad.
+	PhysicalInputProfile() IGCPhysicalInputProfile
+	// The product category that identifies the type of controller.
+	ProductCategory() string
+	// The manufacturer-provided name for the device, or the user’s name for the device.
+	VendorName() string
 }
 
 // Init initializes the instance.

@@ -30,6 +30,11 @@ type NSTextInputClient interface {
 	// See: https://developer.apple.com/documentation/AppKit/NSTextInputClient/selectedRange()
 	SelectedRange() foundation.NSRange
 
+	// Replaces a specified range in the receiver’s text storage with the given string and sets the selection.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSTextInputClient/setMarkedText(_:selectedRange:replacementRange:)
+	SetMarkedTextSelectedRangeReplacementRange(string_ objectivec.IObject, selectedRange foundation.NSRange, replacementRange foundation.NSRange)
+
 	// Unmarks the marked text.
 	//
 	// See: https://developer.apple.com/documentation/AppKit/NSTextInputClient/unmarkText()
@@ -44,6 +49,11 @@ type NSTextInputClient interface {
 	//
 	// See: https://developer.apple.com/documentation/AppKit/NSTextInputClient/attributedSubstring(forProposedRange:actualRange:)
 	AttributedSubstringForProposedRangeActualRange(range_ foundation.NSRange, actualRange foundation.NSRangePointer) foundation.NSAttributedString
+
+	// Inserts the given string into the receiver, replacing the specified content.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSTextInputClient/insertText(_:replacementRange:)
+	InsertTextReplacementRange(string_ objectivec.IObject, replacementRange foundation.NSRange)
 
 	// Returns the index of the character whose bounding rectangle includes the given point.
 	//

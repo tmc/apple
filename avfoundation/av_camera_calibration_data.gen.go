@@ -4,7 +4,6 @@ package avfoundation
 
 import (
 	"sync"
-	"unsafe"
 
 	"github.com/tmc/apple/corefoundation"
 	"github.com/tmc/apple/foundation"
@@ -108,11 +107,11 @@ type IAVCameraCalibrationData interface {
 	// Topic: Mapping pixels to scene geometry
 
 	// A matrix that relates a camera’s internal properties to an ideal pinhole-camera model.
-	IntrinsicMatrix() unsafe.Pointer
+	IntrinsicMatrix() [3][4]float32
 	// The image dimensions to which the camera’s intrinsic matrix values are relative.
 	IntrinsicMatrixReferenceDimensions() corefoundation.CGSize
 	// A matrix relating a camera’s position and orientation to a world or scene coordinate system.
-	ExtrinsicMatrix() unsafe.Pointer
+	ExtrinsicMatrix() [4][4]float32
 	// The size, in millimeters, of one image pixel.
 	PixelSize() float32
 
@@ -164,9 +163,9 @@ func NewAVCameraCalibrationData() AVCameraCalibrationData {
 // from the center of that pixel.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCameraCalibrationData/intrinsicMatrix
-func (c AVCameraCalibrationData) IntrinsicMatrix() unsafe.Pointer {
-	rv := objc.Send[unsafe.Pointer](c.ID, objc.Sel("intrinsicMatrix"))
-	return rv
+func (c AVCameraCalibrationData) IntrinsicMatrix() [3][4]float32 {
+	rv := objc.Send[[3][4]float32](c.ID, objc.Sel("intrinsicMatrix"))
+	return [3][4]float32(rv)
 }
 
 // The image dimensions to which the camera’s intrinsic matrix values are
@@ -200,9 +199,9 @@ func (c AVCameraCalibrationData) IntrinsicMatrixReferenceDimensions() corefounda
 // this camera is the reference camera.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCameraCalibrationData/extrinsicMatrix
-func (c AVCameraCalibrationData) ExtrinsicMatrix() unsafe.Pointer {
-	rv := objc.Send[unsafe.Pointer](c.ID, objc.Sel("extrinsicMatrix"))
-	return rv
+func (c AVCameraCalibrationData) ExtrinsicMatrix() [4][4]float32 {
+	rv := objc.Send[[4][4]float32](c.ID, objc.Sel("extrinsicMatrix"))
+	return [4][4]float32(rv)
 }
 
 // The size, in millimeters, of one image pixel.

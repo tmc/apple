@@ -37,7 +37,7 @@ func NewErrorBlock(handler ErrorHandler) (objc.ID, func()) {
 }
 
 // SFSpeechRecognitionResultErrorHandler handles The block to call when partial or final results are available, or when an error occurs.
-//   - result: A [SFSpeechRecognitionResult](<doc://com.apple.speech/documentation/Speech/SFSpeechRecognitionResult>) containing the partial or final transcriptions of the audio content.
+//   - result: A [SFSpeechRecognitionResult](<https://developer.apple.com/documentation/Speech/SFSpeechRecognitionResult>) containing the partial or final transcriptions of the audio content.
 //   - error: An error object if a problem occurred. This parameter is `nil` if speech recognition was successful.
 //
 // The error can be type-asserted to *foundation.NSError for Domain, Code, and UserInfo.

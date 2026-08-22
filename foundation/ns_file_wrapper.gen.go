@@ -123,6 +123,10 @@ func (fc FileWrapperClass) Alloc() FileWrapper {
 //   - [FileWrapper.Icon]: The icon that represents the file wrapper.
 //   - [FileWrapper.SetIcon]
 //
+// # Initializers
+//
+//   - [FileWrapper.InitWithCoder]
+//
 // See: https://developer.apple.com/documentation/Foundation/FileWrapper
 type FileWrapper struct {
 	objectivec.Object
@@ -195,10 +199,13 @@ func NSFileWrapperFromID(id objc.ID) FileWrapper { return FileWrapperFromID(id) 
 //   - [IFileWrapper.Icon]: The icon that represents the file wrapper.
 //   - [IFileWrapper.SetIcon]
 //
+// # Initializers
+//
+//   - [IFileWrapper.InitWithCoder]
+//
 // See: https://developer.apple.com/documentation/Foundation/FileWrapper
 type IFileWrapper interface {
 	objectivec.IObject
-	NSSecureCoding
 
 	// Topic: Creating File Wrappers
 
@@ -273,6 +280,13 @@ type IFileWrapper interface {
 	// The icon that represents the file wrapper.
 	Icon() objectivec.IObject
 	SetIcon(value objectivec.IObject)
+
+	// Topic: Initializers
+
+	InitWithCoder(inCoder INSCoder) FileWrapper
+
+	// Encodes the receiver using a given archiver.
+	EncodeWithCoder(coder INSCoder)
 }
 
 // Init initializes the instance.
@@ -430,7 +444,7 @@ func NewFileWrapperWithSerializedRepresentation(serializeRepresentation INSData)
 // each node within that directory. Use the [NSFileWrapper.FileWrappers]
 // property to get the file wrappers of the nodes contained by the directory.
 //
-// See: https://developer.apple.com/documentation/Foundation/FileWrapper/init(url:options:)-70161
+// See: https://developer.apple.com/documentation/Foundation/FileWrapper/init(url:options:)
 //
 // [FileWrapper.ReadingOptions]: https://developer.apple.com/documentation/Foundation/FileWrapper/ReadingOptions
 func NewFileWrapperWithURLOptionsError(url INSURL, options NSFileWrapperReadingOptions) (FileWrapper, error) {
@@ -440,6 +454,9 @@ func NewFileWrapperWithURLOptionsError(url INSURL, options NSFileWrapperReadingO
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
 		return FileWrapper{}, NSErrorFrom(errorPtr)
+	}
+	if rv == 0 {
+		return FileWrapper{}, objc.ErrInitFailed
 	}
 	return FileWrapperFromID(rv), nil
 }
@@ -464,7 +481,7 @@ func NewFileWrapperWithURLOptionsError(url INSURL, options NSFileWrapperReadingO
 // each node within that directory. Use the [NSFileWrapper.FileWrappers]
 // property to get the file wrappers of the nodes contained by the directory.
 //
-// See: https://developer.apple.com/documentation/Foundation/FileWrapper/init(url:options:)-70161
+// See: https://developer.apple.com/documentation/Foundation/FileWrapper/init(url:options:)
 //
 // [FileWrapper.ReadingOptions]: https://developer.apple.com/documentation/Foundation/FileWrapper/ReadingOptions
 func (f FileWrapper) InitWithURLOptionsError(url INSURL, options NSFileWrapperReadingOptions) (FileWrapper, error) {
@@ -472,7 +489,7 @@ func (f FileWrapper) InitWithURLOptionsError(url INSURL, options NSFileWrapperRe
 	rv := objc.Send[objc.ID](f.ID, objc.Sel("initWithURL:options:error:"), url, options, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
-		return FileWrapper{}, NSErrorFrom(errorPtr)
+		return *new(FileWrapper), NSErrorFrom(errorPtr)
 	}
 	return NSFileWrapperFromID(rv), nil
 

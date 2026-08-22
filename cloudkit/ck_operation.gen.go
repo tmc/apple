@@ -5,6 +5,7 @@ package cloudkit
 import (
 	"sync"
 
+	"github.com/tmc/apple/corefoundation"
 	"github.com/tmc/apple/foundation"
 	"github.com/tmc/apple/objc"
 )
@@ -60,16 +61,17 @@ func (cc CKOperationClass) Alloc() CKOperation {
 //
 // # Long-Lived Operations
 //
-// A is an operation that continues to run after the user closes the app. To
-// specify a long-lived operation, set [CKOperation.IsLongLived] to true,
-// provide a completion handler, and execute the operation. To get the
-// identifiers of all running long-lived operations, use the
-// [allLongLivedOperationIDs()] method that [CKContainer] provides. To get a
-// specific long-lived operation, use the [longLivedOperation(for:)] method.
-// Make sure you set the completion handler of a long-lived operation before
-// you execute it so that the system can notify you when it completes and you
-// can process the results. Do not execute an operation, change it to
-// long-lived, and execute it again as a long-lived operation.
+// A long-lived operation is an operation that continues to run after the user
+// closes the app. To specify a long-lived operation, set
+// [CKOperation.IsLongLived] to true, provide a completion handler, and
+// execute the operation. To get the identifiers of all running long-lived
+// operations, use the [allLongLivedOperationIDs()] method that [CKContainer]
+// provides. To get a specific long-lived operation, use the
+// [longLivedOperation(for:)] method. Make sure you set the completion handler
+// of a long-lived operation before you execute it so that the system can
+// notify you when it completes and you can process the results. Do not
+// execute an operation, change it to long-lived, and execute it again as a
+// long-lived operation.
 //
 // The following is the typical life cycle of a long-lived operation:
 //
@@ -174,11 +176,11 @@ type ICKOperation interface {
 	IsLongLived() bool
 	SetLongLived(value bool)
 	// The timeout interval when waiting for additional data.
-	TimeoutIntervalForRequest() float64
-	SetTimeoutIntervalForRequest(value float64)
+	TimeoutIntervalForRequest() corefoundation.CFTimeInterval
+	SetTimeoutIntervalForRequest(value corefoundation.CFTimeInterval)
 	// The maximum amount of time that a resource request can use.
-	TimeoutIntervalForResource() float64
-	SetTimeoutIntervalForResource(value float64)
+	TimeoutIntervalForResource() corefoundation.CFTimeInterval
+	SetTimeoutIntervalForResource(value corefoundation.CFTimeInterval)
 }
 
 // Init initializes the instance.
@@ -295,21 +297,21 @@ func (c CKOperation) SetLongLived(value bool) {
 // The timeout interval when waiting for additional data.
 //
 // See: https://developer.apple.com/documentation/cloudkit/ckoperation/timeoutintervalforrequest
-func (c CKOperation) TimeoutIntervalForRequest() float64 {
-	rv := objc.Send[float64](c.ID, objc.Sel("timeoutIntervalForRequest"))
-	return rv
+func (c CKOperation) TimeoutIntervalForRequest() corefoundation.CFTimeInterval {
+	rv := objc.Send[corefoundation.CFTimeInterval](c.ID, objc.Sel("timeoutIntervalForRequest"))
+	return corefoundation.CFTimeInterval(rv)
 }
-func (c CKOperation) SetTimeoutIntervalForRequest(value float64) {
+func (c CKOperation) SetTimeoutIntervalForRequest(value corefoundation.CFTimeInterval) {
 	objc.Send[struct{}](c.ID, objc.Sel("setTimeoutIntervalForRequest:"), value)
 }
 
 // The maximum amount of time that a resource request can use.
 //
 // See: https://developer.apple.com/documentation/cloudkit/ckoperation/timeoutintervalforresource
-func (c CKOperation) TimeoutIntervalForResource() float64 {
-	rv := objc.Send[float64](c.ID, objc.Sel("timeoutIntervalForResource"))
-	return rv
+func (c CKOperation) TimeoutIntervalForResource() corefoundation.CFTimeInterval {
+	rv := objc.Send[corefoundation.CFTimeInterval](c.ID, objc.Sel("timeoutIntervalForResource"))
+	return corefoundation.CFTimeInterval(rv)
 }
-func (c CKOperation) SetTimeoutIntervalForResource(value float64) {
+func (c CKOperation) SetTimeoutIntervalForResource(value corefoundation.CFTimeInterval) {
 	objc.Send[struct{}](c.ID, objc.Sel("setTimeoutIntervalForResource:"), value)
 }

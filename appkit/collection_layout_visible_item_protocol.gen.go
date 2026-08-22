@@ -15,11 +15,6 @@ import (
 type NSCollectionLayoutVisibleItem interface {
 	objectivec.IObject
 
-	// A Boolean value that determines whether the item is hidden.
-	//
-	// See: https://developer.apple.com/documentation/AppKit/NSCollectionLayoutVisibleItem/isHidden
-	IsHidden() bool
-
 	// The name of the item.
 	//
 	// See: https://developer.apple.com/documentation/AppKit/NSCollectionLayoutVisibleItem/name
@@ -49,7 +44,7 @@ type NSCollectionLayoutVisibleItem interface {
 	// A Boolean value that determines whether the item is hidden.
 	//
 	// See: https://developer.apple.com/documentation/AppKit/NSCollectionLayoutVisibleItem/isHidden
-	Hidden() bool
+	IsHidden() bool
 	SetHidden(value bool)
 
 	// The frame rectangle, which describes the item’s location and size in its section’s coordinate system.
@@ -90,14 +85,6 @@ func NSCollectionLayoutVisibleItemObjectFromID(id objc.ID) NSCollectionLayoutVis
 	return NSCollectionLayoutVisibleItemObject{
 		Object: objectivec.ObjectFromID(id),
 	}
-}
-
-// A Boolean value that determines whether the item is hidden.
-//
-// See: https://developer.apple.com/documentation/AppKit/NSCollectionLayoutVisibleItem/isHidden
-func (o NSCollectionLayoutVisibleItemObject) IsHidden() bool {
-	rv := objc.Send[bool](o.ID, objc.Sel("isHidden"))
-	return rv
 }
 
 // The name of the item.
@@ -148,7 +135,7 @@ func (o NSCollectionLayoutVisibleItemObject) SetAlpha(value float64) {
 // A Boolean value that determines whether the item is hidden.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSCollectionLayoutVisibleItem/isHidden
-func (o NSCollectionLayoutVisibleItemObject) Hidden() bool {
+func (o NSCollectionLayoutVisibleItemObject) IsHidden() bool {
 	rv := objc.Send[bool](o.ID, objc.Sel("isHidden"))
 	return bool(rv)
 }

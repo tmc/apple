@@ -77,6 +77,7 @@ func (fc FileHandleClass) Alloc() FileHandle {
 //
 //   - [FileHandle.InitWithFileDescriptor]: Creates and returns a file handle object associated with the specified file descriptor.
 //   - [FileHandle.InitWithFileDescriptorCloseOnDealloc]: Creates and returns a file handle object associated with the specified file descriptor and deallocation policy.
+//   - [FileHandle.InitWithCoder]: Returns a file handle initialized from data in an unarchiver.
 //
 // # Getting a File Descriptor
 //
@@ -142,6 +143,7 @@ func NSFileHandleFromID(id objc.ID) FileHandle { return FileHandleFromID(id) }
 //
 //   - [IFileHandle.InitWithFileDescriptor]: Creates and returns a file handle object associated with the specified file descriptor.
 //   - [IFileHandle.InitWithFileDescriptorCloseOnDealloc]: Creates and returns a file handle object associated with the specified file descriptor and deallocation policy.
+//   - [IFileHandle.InitWithCoder]: Returns a file handle initialized from data in an unarchiver.
 //
 // # Getting a File Descriptor
 //
@@ -186,19 +188,20 @@ func NSFileHandleFromID(id objc.ID) FileHandle { return FileHandleFromID(id) }
 // See: https://developer.apple.com/documentation/Foundation/FileHandle
 type IFileHandle interface {
 	objectivec.IObject
-	NSSecureCoding
 
 	// Topic: Creating a File Handle
 
 	// Creates and returns a file handle object associated with the specified file descriptor.
-	InitWithFileDescriptor(fd int) FileHandle
+	InitWithFileDescriptor(fd int32) FileHandle
 	// Creates and returns a file handle object associated with the specified file descriptor and deallocation policy.
-	InitWithFileDescriptorCloseOnDealloc(fd int, closeopt bool) FileHandle
+	InitWithFileDescriptorCloseOnDealloc(fd int32, closeopt bool) FileHandle
+	// Returns a file handle initialized from data in an unarchiver.
+	InitWithCoder(coder INSCoder) FileHandle
 
 	// Topic: Getting a File Descriptor
 
 	// The POSIX file descriptor associated with the receiver.
-	FileDescriptor() int
+	FileDescriptor() int32
 
 	// Topic: Reading from a File Handle Synchronously
 
@@ -252,6 +255,8 @@ type IFileHandle interface {
 	// The position of the file pointer within the file represented by the file handle.
 	OffsetInFile() uint64
 
+	// Encodes the receiver using a given archiver.
+	EncodeWithCoder(coder INSCoder)
 	// Get the current position of the file pointer within the file.
 	GetOffsetError() (uint64, error)
 	// Reads the available data synchronously up to the end of file or maximum number of bytes.
@@ -335,6 +340,9 @@ func NewFileHandleForReadingFromURLError(url INSURL) (FileHandle, error) {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
 		return FileHandle{}, NSErrorFrom(errorPtr)
 	}
+	if rv == 0 {
+		return FileHandle{}, objc.ErrInitFailed
+	}
 	return FileHandleFromID(rv), nil
 }
 
@@ -386,6 +394,9 @@ func NewFileHandleForUpdatingURLError(url INSURL) (FileHandle, error) {
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
 		return FileHandle{}, NSErrorFrom(errorPtr)
+	}
+	if rv == 0 {
+		return FileHandle{}, objc.ErrInitFailed
 	}
 	return FileHandleFromID(rv), nil
 }
@@ -439,6 +450,9 @@ func NewFileHandleForWritingToURLError(url INSURL) (FileHandle, error) {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
 		return FileHandle{}, NSErrorFrom(errorPtr)
 	}
+	if rv == 0 {
+		return FileHandle{}, objc.ErrInitFailed
+	}
 	return FileHandleFromID(rv), nil
 }
 
@@ -473,7 +487,7 @@ func NewFileHandleWithCoder(coder INSCoder) FileHandle {
 // call as `fileDescriptor`.
 //
 // See: https://developer.apple.com/documentation/Foundation/FileHandle/init(fileDescriptor:)
-func NewFileHandleWithFileDescriptor(fd int) FileHandle {
+func NewFileHandleWithFileDescriptor(fd int32) FileHandle {
 	instance := getFileHandleClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithFileDescriptor:"), fd)
 	return FileHandleFromID(rv)
@@ -501,7 +515,7 @@ func NewFileHandleWithFileDescriptor(fd int) FileHandle {
 // for you automatically, pass true for the `flag` parameter.
 //
 // See: https://developer.apple.com/documentation/Foundation/FileHandle/init(fileDescriptor:closeOnDealloc:)
-func NewFileHandleWithFileDescriptorCloseOnDealloc(fd int, closeopt bool) FileHandle {
+func NewFileHandleWithFileDescriptorCloseOnDealloc(fd int32, closeopt bool) FileHandle {
 	instance := getFileHandleClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithFileDescriptor:closeOnDealloc:"), fd, closeopt)
 	return FileHandleFromID(rv)
@@ -529,7 +543,7 @@ func NewFileHandleWithFileDescriptorCloseOnDealloc(fd int, closeopt bool) FileHa
 // call as `fileDescriptor`.
 //
 // See: https://developer.apple.com/documentation/Foundation/FileHandle/init(fileDescriptor:)
-func (f FileHandle) InitWithFileDescriptor(fd int) FileHandle {
+func (f FileHandle) InitWithFileDescriptor(fd int32) FileHandle {
 	rv := objc.Send[FileHandle](f.ID, objc.Sel("initWithFileDescriptor:"), fd)
 	return rv
 }
@@ -556,7 +570,7 @@ func (f FileHandle) InitWithFileDescriptor(fd int) FileHandle {
 // for you automatically, pass true for the `flag` parameter.
 //
 // See: https://developer.apple.com/documentation/Foundation/FileHandle/init(fileDescriptor:closeOnDealloc:)
-func (f FileHandle) InitWithFileDescriptorCloseOnDealloc(fd int, closeopt bool) FileHandle {
+func (f FileHandle) InitWithFileDescriptorCloseOnDealloc(fd int32, closeopt bool) FileHandle {
 	rv := objc.Send[FileHandle](f.ID, objc.Sel("initWithFileDescriptor:closeOnDealloc:"), fd, closeopt)
 	return rv
 }
@@ -588,8 +602,9 @@ func (f FileHandle) InitWithCoder(coder INSCoder) FileHandle {
 //
 // The receiver must be created by an [NSFileHandle.InitWithFileDescriptor]
 // message that takes as an argument a stream-type socket created by the
-// appropriate system routine, . In other words, you must `bind()` the socket,
-// and ensure that the socket has a connection backlog defined by `listen()`.
+// appropriate system routine, and that is being listened on. In other words,
+// you must `bind()` the socket, and ensure that the socket has a connection
+// backlog defined by `listen()`.
 //
 // The object that will write data to the returned file handle must add itself
 // as an observer of [NSFileHandleConnectionAccepted].
@@ -1064,8 +1079,8 @@ func (f FileHandle) WriteDataError(data INSData) (bool, error) {
 // exception.
 //
 // See: https://developer.apple.com/documentation/Foundation/FileHandle/fileDescriptor
-func (f FileHandle) FileDescriptor() int {
-	rv := objc.Send[int](f.ID, objc.Sel("fileDescriptor"))
+func (f FileHandle) FileDescriptor() int32 {
+	rv := objc.Send[int32](f.ID, objc.Sel("fileDescriptor"))
 	return rv
 }
 

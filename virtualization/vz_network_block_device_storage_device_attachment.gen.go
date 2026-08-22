@@ -191,7 +191,7 @@ func NewVZNetworkBlockDeviceStorageDeviceAttachment() VZNetworkBlockDeviceStorag
 //
 // URL: The NBD’s URI represented as a URL.
 //
-// See: https://developer.apple.com/documentation/Virtualization/VZNetworkBlockDeviceStorageDeviceAttachment/init(url:)-6q4m7
+// See: https://developer.apple.com/documentation/Virtualization/VZNetworkBlockDeviceStorageDeviceAttachment/init(url:)
 func NewNetworkBlockDeviceStorageDeviceAttachmentWithURLError(URL foundation.NSURL) (VZNetworkBlockDeviceStorageDeviceAttachment, error) {
 	var errorPtr objc.ID
 	instance := getVZNetworkBlockDeviceStorageDeviceAttachmentClass().Alloc()
@@ -199,6 +199,9 @@ func NewNetworkBlockDeviceStorageDeviceAttachmentWithURLError(URL foundation.NSU
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
 		return VZNetworkBlockDeviceStorageDeviceAttachment{}, foundation.NSErrorFrom(errorPtr)
+	}
+	if rv == 0 {
+		return VZNetworkBlockDeviceStorageDeviceAttachment{}, objc.ErrInitFailed
 	}
 	return VZNetworkBlockDeviceStorageDeviceAttachmentFromID(rv), nil
 }
@@ -238,6 +241,9 @@ func NewNetworkBlockDeviceStorageDeviceAttachmentWithURLTimeoutForcedReadOnlySyn
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
 		return VZNetworkBlockDeviceStorageDeviceAttachment{}, foundation.NSErrorFrom(errorPtr)
 	}
+	if rv == 0 {
+		return VZNetworkBlockDeviceStorageDeviceAttachment{}, objc.ErrInitFailed
+	}
 	return VZNetworkBlockDeviceStorageDeviceAttachmentFromID(rv), nil
 }
 
@@ -246,7 +252,7 @@ func NewNetworkBlockDeviceStorageDeviceAttachmentWithURLTimeoutForcedReadOnlySyn
 //
 // URL: The NBD’s URI represented as a URL.
 //
-// See: https://developer.apple.com/documentation/Virtualization/VZNetworkBlockDeviceStorageDeviceAttachment/init(url:)-6q4m7
+// See: https://developer.apple.com/documentation/Virtualization/VZNetworkBlockDeviceStorageDeviceAttachment/init(url:)
 func (n VZNetworkBlockDeviceStorageDeviceAttachment) InitWithURLError(URL foundation.NSURL) (VZNetworkBlockDeviceStorageDeviceAttachment, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](n.ID, objc.Sel("initWithURL:error:"), URL, unsafe.Pointer(&errorPtr))

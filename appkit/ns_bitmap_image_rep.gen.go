@@ -4,8 +4,10 @@ package appkit
 
 import (
 	"sync"
+	"unsafe"
 
 	"github.com/tmc/apple/coregraphics"
+	"github.com/tmc/apple/coreimage"
 	"github.com/tmc/apple/foundation"
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
@@ -228,7 +230,7 @@ type INSBitmapImageRep interface {
 	// Returns a bitmap image representation from a Core Graphics image object.
 	InitWithCGImage(cgImage coregraphics.CGImageRef) NSBitmapImageRep
 	// Returns a bitmap image representation from a Core Image object.
-	InitWithCIImage(ciImage objectivec.IObject) NSBitmapImageRep
+	InitWithCIImage(ciImage *coreimage.CIImage) NSBitmapImageRep
 	// Initializes a newly allocated bitmap image representation from the specified data.
 	InitWithData(data foundation.NSData) NSBitmapImageRep
 	// Initializes a newly allocated bitmap image representation for incremental loading.
@@ -456,7 +458,7 @@ func NewBitmapImageRepForIncrementalLoad() NSBitmapImageRep {
 // [NSBitmapImageRep.Format]: https://developer.apple.com/documentation/AppKit/NSBitmapImageRep/Format
 func NewBitmapImageRepWithBitmapDataPlanesPixelsWidePixelsHighBitsPerSampleSamplesPerPixelHasAlphaIsPlanarColorSpaceNameBitmapFormatBytesPerRowBitsPerPixel(planes *uint8, width int, height int, bps int, spp int, alpha bool, isPlanar bool, colorSpaceName NSColorSpaceName, bitmapFormat NSBitmapFormat, rBytes int, pBits int) NSBitmapImageRep {
 	instance := getNSBitmapImageRepClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithBitmapDataPlanes:pixelsWide:pixelsHigh:bitsPerSample:samplesPerPixel:hasAlpha:isPlanar:colorSpaceName:bitmapFormat:bytesPerRow:bitsPerPixel:"), planes, width, height, bps, spp, alpha, isPlanar, objc.String(string(colorSpaceName)), bitmapFormat, rBytes, pBits)
+	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithBitmapDataPlanes:pixelsWide:pixelsHigh:bitsPerSample:samplesPerPixel:hasAlpha:isPlanar:colorSpaceName:bitmapFormat:bytesPerRow:bitsPerPixel:"), unsafe.Pointer(planes), width, height, bps, spp, alpha, isPlanar, objc.String(string(colorSpaceName)), bitmapFormat, rBytes, pBits)
 	return NSBitmapImageRepFromID(rv)
 }
 
@@ -563,7 +565,7 @@ func NewBitmapImageRepWithBitmapDataPlanesPixelsWidePixelsHighBitsPerSampleSampl
 // See: https://developer.apple.com/documentation/AppKit/NSBitmapImageRep/init(bitmapDataPlanes:pixelsWide:pixelsHigh:bitsPerSample:samplesPerPixel:hasAlpha:isPlanar:colorSpaceName:bytesPerRow:bitsPerPixel:)
 func NewBitmapImageRepWithBitmapDataPlanesPixelsWidePixelsHighBitsPerSampleSamplesPerPixelHasAlphaIsPlanarColorSpaceNameBytesPerRowBitsPerPixel(planes *uint8, width int, height int, bps int, spp int, alpha bool, isPlanar bool, colorSpaceName NSColorSpaceName, rBytes int, pBits int) NSBitmapImageRep {
 	instance := getNSBitmapImageRepClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithBitmapDataPlanes:pixelsWide:pixelsHigh:bitsPerSample:samplesPerPixel:hasAlpha:isPlanar:colorSpaceName:bytesPerRow:bitsPerPixel:"), planes, width, height, bps, spp, alpha, isPlanar, objc.String(string(colorSpaceName)), rBytes, pBits)
+	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithBitmapDataPlanes:pixelsWide:pixelsHigh:bitsPerSample:samplesPerPixel:hasAlpha:isPlanar:colorSpaceName:bytesPerRow:bitsPerPixel:"), unsafe.Pointer(planes), width, height, bps, spp, alpha, isPlanar, objc.String(string(colorSpaceName)), rBytes, pBits)
 	return NSBitmapImageRepFromID(rv)
 }
 
@@ -585,7 +587,7 @@ func NewBitmapImageRepWithBitmapDataPlanesPixelsWidePixelsHighBitsPerSampleSampl
 // pixel data requires the creation of a copy of that data in memory. Changes
 // to that data are not saved back to the Core Graphics image.
 //
-// See: https://developer.apple.com/documentation/AppKit/NSBitmapImageRep/init(cgImage:)-7o5tz
+// See: https://developer.apple.com/documentation/AppKit/NSBitmapImageRep/init(cgImage:)
 func NewBitmapImageRepWithCGImage(cgImage coregraphics.CGImageRef) NSBitmapImageRep {
 	instance := getNSBitmapImageRepClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCGImage:"), cgImage)
@@ -622,14 +624,14 @@ func NewBitmapImageRepWithCGImage(cgImage coregraphics.CGImageRef) NSBitmapImage
 // If you pass in a [CIImage] object whose extents are not finite, this method
 // raises an exception.
 //
-// See: https://developer.apple.com/documentation/AppKit/NSBitmapImageRep/init(ciImage:)-7bi19
+// See: https://developer.apple.com/documentation/AppKit/NSBitmapImageRep/init(ciImage:)
 //
 // [CIImage]: https://developer.apple.com/documentation/CoreImage/CIImage
 //
 // [CIImage]: https://developer.apple.com/documentation/CoreImage/CIImage
-func NewBitmapImageRepWithCIImage(ciImage objectivec.IObject) NSBitmapImageRep {
+func NewBitmapImageRepWithCIImage(ciImage *coreimage.CIImage) NSBitmapImageRep {
 	instance := getNSBitmapImageRepClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCIImage:"), ciImage)
+	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCIImage:"), ciImage.ID)
 	return NSBitmapImageRepFromID(rv)
 }
 
@@ -797,7 +799,7 @@ func (b NSBitmapImageRep) ColorizeByMappingGrayToColorBlackMappingWhiteMapping(m
 //
 // [NSBitmapImageRep.Format]: https://developer.apple.com/documentation/AppKit/NSBitmapImageRep/Format
 func (b NSBitmapImageRep) InitWithBitmapDataPlanesPixelsWidePixelsHighBitsPerSampleSamplesPerPixelHasAlphaIsPlanarColorSpaceNameBitmapFormatBytesPerRowBitsPerPixel(planes *uint8, width int, height int, bps int, spp int, alpha bool, isPlanar bool, colorSpaceName NSColorSpaceName, bitmapFormat NSBitmapFormat, rBytes int, pBits int) NSBitmapImageRep {
-	rv := objc.Send[NSBitmapImageRep](b.ID, objc.Sel("initWithBitmapDataPlanes:pixelsWide:pixelsHigh:bitsPerSample:samplesPerPixel:hasAlpha:isPlanar:colorSpaceName:bitmapFormat:bytesPerRow:bitsPerPixel:"), planes, width, height, bps, spp, alpha, isPlanar, objc.String(string(colorSpaceName)), bitmapFormat, rBytes, pBits)
+	rv := objc.Send[NSBitmapImageRep](b.ID, objc.Sel("initWithBitmapDataPlanes:pixelsWide:pixelsHigh:bitsPerSample:samplesPerPixel:hasAlpha:isPlanar:colorSpaceName:bitmapFormat:bytesPerRow:bitsPerPixel:"), unsafe.Pointer(planes), width, height, bps, spp, alpha, isPlanar, objc.String(string(colorSpaceName)), bitmapFormat, rBytes, pBits)
 	return rv
 }
 
@@ -903,7 +905,7 @@ func (b NSBitmapImageRep) InitWithBitmapDataPlanesPixelsWidePixelsHighBitsPerSam
 //
 // See: https://developer.apple.com/documentation/AppKit/NSBitmapImageRep/init(bitmapDataPlanes:pixelsWide:pixelsHigh:bitsPerSample:samplesPerPixel:hasAlpha:isPlanar:colorSpaceName:bytesPerRow:bitsPerPixel:)
 func (b NSBitmapImageRep) InitWithBitmapDataPlanesPixelsWidePixelsHighBitsPerSampleSamplesPerPixelHasAlphaIsPlanarColorSpaceNameBytesPerRowBitsPerPixel(planes *uint8, width int, height int, bps int, spp int, alpha bool, isPlanar bool, colorSpaceName NSColorSpaceName, rBytes int, pBits int) NSBitmapImageRep {
-	rv := objc.Send[NSBitmapImageRep](b.ID, objc.Sel("initWithBitmapDataPlanes:pixelsWide:pixelsHigh:bitsPerSample:samplesPerPixel:hasAlpha:isPlanar:colorSpaceName:bytesPerRow:bitsPerPixel:"), planes, width, height, bps, spp, alpha, isPlanar, objc.String(string(colorSpaceName)), rBytes, pBits)
+	rv := objc.Send[NSBitmapImageRep](b.ID, objc.Sel("initWithBitmapDataPlanes:pixelsWide:pixelsHigh:bitsPerSample:samplesPerPixel:hasAlpha:isPlanar:colorSpaceName:bytesPerRow:bitsPerPixel:"), unsafe.Pointer(planes), width, height, bps, spp, alpha, isPlanar, objc.String(string(colorSpaceName)), rBytes, pBits)
 	return rv
 }
 
@@ -925,7 +927,7 @@ func (b NSBitmapImageRep) InitWithBitmapDataPlanesPixelsWidePixelsHighBitsPerSam
 // pixel data requires the creation of a copy of that data in memory. Changes
 // to that data are not saved back to the Core Graphics image.
 //
-// See: https://developer.apple.com/documentation/AppKit/NSBitmapImageRep/init(cgImage:)-7o5tz
+// See: https://developer.apple.com/documentation/AppKit/NSBitmapImageRep/init(cgImage:)
 func (b NSBitmapImageRep) InitWithCGImage(cgImage coregraphics.CGImageRef) NSBitmapImageRep {
 	rv := objc.Send[NSBitmapImageRep](b.ID, objc.Sel("initWithCGImage:"), cgImage)
 	return rv
@@ -961,13 +963,13 @@ func (b NSBitmapImageRep) InitWithCGImage(cgImage coregraphics.CGImageRef) NSBit
 // If you pass in a [CIImage] object whose extents are not finite, this method
 // raises an exception.
 //
-// See: https://developer.apple.com/documentation/AppKit/NSBitmapImageRep/init(ciImage:)-7bi19
+// See: https://developer.apple.com/documentation/AppKit/NSBitmapImageRep/init(ciImage:)
 //
 // [CIImage]: https://developer.apple.com/documentation/CoreImage/CIImage
 //
 // [CIImage]: https://developer.apple.com/documentation/CoreImage/CIImage
-func (b NSBitmapImageRep) InitWithCIImage(ciImage objectivec.IObject) NSBitmapImageRep {
-	rv := objc.Send[NSBitmapImageRep](b.ID, objc.Sel("initWithCIImage:"), ciImage)
+func (b NSBitmapImageRep) InitWithCIImage(ciImage *coreimage.CIImage) NSBitmapImageRep {
+	rv := objc.Send[NSBitmapImageRep](b.ID, objc.Sel("initWithCIImage:"), ciImage.ID)
 	return rv
 }
 
@@ -1027,7 +1029,7 @@ func (b NSBitmapImageRep) InitForIncrementalLoad() NSBitmapImageRep {
 //
 // See: https://developer.apple.com/documentation/AppKit/NSBitmapImageRep/getBitmapDataPlanes(_:)
 func (b NSBitmapImageRep) GetBitmapDataPlanes(data *uint8) {
-	objc.Send[objc.ID](b.ID, objc.Sel("getBitmapDataPlanes:"), data)
+	objc.Send[objc.ID](b.ID, objc.Sel("getBitmapDataPlanes:"), unsafe.Pointer(data))
 }
 
 // Returns a TIFF representation of the image using the specified compression.

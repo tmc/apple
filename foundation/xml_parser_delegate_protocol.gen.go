@@ -423,8 +423,20 @@ func NewNSXMLParserDelegate(config NSXMLParserDelegateConfig) NSXMLParserDelegat
 		methods = append(methods, objc.MethodDef{
 			Cmd: objc.RegisterName("parserDidStartDocument:"),
 			Fn: func(self objc.ID, _cmd objc.SEL, parserID objc.ID) {
+				// Names which delegate was running if a panic unwinds out of
+				// it. The frames between here and the Objective-C caller are
+				// runtime and purego dispatch, so without this the traceback
+				// never says which selector dispatched. Deliberately no
+				// recover: see [objc.NoteDelegatePanic].
+				_delegateDone := false
+				defer func() {
+					if !_delegateDone {
+						objc.NoteDelegatePanic("NSXMLParserDelegate", "parserDidStartDocument:")
+					}
+				}()
 				parser := NSXMLParserFromID(parserID)
 				fn(parser)
+				_delegateDone = true
 			},
 		})
 	}
@@ -434,8 +446,20 @@ func NewNSXMLParserDelegate(config NSXMLParserDelegateConfig) NSXMLParserDelegat
 		methods = append(methods, objc.MethodDef{
 			Cmd: objc.RegisterName("parserDidEndDocument:"),
 			Fn: func(self objc.ID, _cmd objc.SEL, parserID objc.ID) {
+				// Names which delegate was running if a panic unwinds out of
+				// it. The frames between here and the Objective-C caller are
+				// runtime and purego dispatch, so without this the traceback
+				// never says which selector dispatched. Deliberately no
+				// recover: see [objc.NoteDelegatePanic].
+				_delegateDone := false
+				defer func() {
+					if !_delegateDone {
+						objc.NoteDelegatePanic("NSXMLParserDelegate", "parserDidEndDocument:")
+					}
+				}()
 				parser := NSXMLParserFromID(parserID)
 				fn(parser)
+				_delegateDone = true
 			},
 		})
 	}
@@ -445,9 +469,21 @@ func NewNSXMLParserDelegate(config NSXMLParserDelegateConfig) NSXMLParserDelegat
 		methods = append(methods, objc.MethodDef{
 			Cmd: objc.RegisterName("parser:parseErrorOccurred:"),
 			Fn: func(self objc.ID, _cmd objc.SEL, parserID objc.ID, parseErrorID objc.ID) {
+				// Names which delegate was running if a panic unwinds out of
+				// it. The frames between here and the Objective-C caller are
+				// runtime and purego dispatch, so without this the traceback
+				// never says which selector dispatched. Deliberately no
+				// recover: see [objc.NoteDelegatePanic].
+				_delegateDone := false
+				defer func() {
+					if !_delegateDone {
+						objc.NoteDelegatePanic("NSXMLParserDelegate", "parser:parseErrorOccurred:")
+					}
+				}()
 				parser := NSXMLParserFromID(parserID)
 				parseError := objectivec.ObjectFromID(parseErrorID)
 				fn(parser, parseError)
+				_delegateDone = true
 			},
 		})
 	}
@@ -457,9 +493,21 @@ func NewNSXMLParserDelegate(config NSXMLParserDelegateConfig) NSXMLParserDelegat
 		methods = append(methods, objc.MethodDef{
 			Cmd: objc.RegisterName("parser:validationErrorOccurred:"),
 			Fn: func(self objc.ID, _cmd objc.SEL, parserID objc.ID, validationErrorID objc.ID) {
+				// Names which delegate was running if a panic unwinds out of
+				// it. The frames between here and the Objective-C caller are
+				// runtime and purego dispatch, so without this the traceback
+				// never says which selector dispatched. Deliberately no
+				// recover: see [objc.NoteDelegatePanic].
+				_delegateDone := false
+				defer func() {
+					if !_delegateDone {
+						objc.NoteDelegatePanic("NSXMLParserDelegate", "parser:validationErrorOccurred:")
+					}
+				}()
 				parser := NSXMLParserFromID(parserID)
 				validationError := objectivec.ObjectFromID(validationErrorID)
 				fn(parser, validationError)
+				_delegateDone = true
 			},
 		})
 	}
@@ -469,9 +517,21 @@ func NewNSXMLParserDelegate(config NSXMLParserDelegateConfig) NSXMLParserDelegat
 		methods = append(methods, objc.MethodDef{
 			Cmd: objc.RegisterName("parser:foundCDATA:"),
 			Fn: func(self objc.ID, _cmd objc.SEL, parserID objc.ID, CDATABlockID objc.ID) {
+				// Names which delegate was running if a panic unwinds out of
+				// it. The frames between here and the Objective-C caller are
+				// runtime and purego dispatch, so without this the traceback
+				// never says which selector dispatched. Deliberately no
+				// recover: see [objc.NoteDelegatePanic].
+				_delegateDone := false
+				defer func() {
+					if !_delegateDone {
+						objc.NoteDelegatePanic("NSXMLParserDelegate", "parser:foundCDATA:")
+					}
+				}()
 				parser := NSXMLParserFromID(parserID)
 				CDATABlock := objectivec.ObjectFromID(CDATABlockID)
 				fn(parser, CDATABlock)
+				_delegateDone = true
 			},
 		})
 	}

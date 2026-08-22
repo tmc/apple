@@ -62,7 +62,6 @@ func (nc NSMutableOrderedSetClass) Alloc() NSMutableOrderedSet {
 // # Adding, Removing, and Reordering Entries
 //
 //   - [NSMutableOrderedSet.AddObject]: Appends a given object to the end of the mutable ordered set, if it is not already a member.
-//   - [NSMutableOrderedSet.AddObjectsCount]: Appends the given number of objects from a given C array to the end of the mutable ordered set.
 //   - [NSMutableOrderedSet.AddObjectsFromArray]: Appends to the end of the mutable ordered set each object contained in a given array that is not already a member.
 //   - [NSMutableOrderedSet.InsertObjectAtIndex]: Inserts the given object at the specified index of the mutable ordered set, if it is not already a member.
 //   - [NSMutableOrderedSet.InsertObjectsAtIndexes]: Inserts the objects in the array at the specified indexes.
@@ -74,7 +73,6 @@ func (nc NSMutableOrderedSetClass) Alloc() NSMutableOrderedSet {
 //   - [NSMutableOrderedSet.RemoveAllObjects]: Removes all the objects from the mutable ordered set.
 //   - [NSMutableOrderedSet.ReplaceObjectAtIndexWithObject]: Replaces the object at the specified index with the new object.
 //   - [NSMutableOrderedSet.ReplaceObjectsAtIndexesWithObjects]: Replaces the objects at the specified indexes with the new objects.
-//   - [NSMutableOrderedSet.ReplaceObjectsInRangeWithObjectsCount]: Replaces the objects in the receiving mutable ordered set at the range with the specified number of objects from a given C array.
 //   - [NSMutableOrderedSet.SetObjectAtIndex]: Appends or replaces the object at the specified index.
 //   - [NSMutableOrderedSet.MoveObjectsAtIndexesToIndex]: Moves the objects at the specified indexes to the new location.
 //   - [NSMutableOrderedSet.ExchangeObjectAtIndexWithObjectAtIndex]: Exchanges the object at the specified index with the object at the other index.
@@ -120,7 +118,6 @@ func NSMutableOrderedSetFromID(id objc.ID) NSMutableOrderedSet {
 // # Adding, Removing, and Reordering Entries
 //
 //   - [INSMutableOrderedSet.AddObject]: Appends a given object to the end of the mutable ordered set, if it is not already a member.
-//   - [INSMutableOrderedSet.AddObjectsCount]: Appends the given number of objects from a given C array to the end of the mutable ordered set.
 //   - [INSMutableOrderedSet.AddObjectsFromArray]: Appends to the end of the mutable ordered set each object contained in a given array that is not already a member.
 //   - [INSMutableOrderedSet.InsertObjectAtIndex]: Inserts the given object at the specified index of the mutable ordered set, if it is not already a member.
 //   - [INSMutableOrderedSet.InsertObjectsAtIndexes]: Inserts the objects in the array at the specified indexes.
@@ -132,7 +129,6 @@ func NSMutableOrderedSetFromID(id objc.ID) NSMutableOrderedSet {
 //   - [INSMutableOrderedSet.RemoveAllObjects]: Removes all the objects from the mutable ordered set.
 //   - [INSMutableOrderedSet.ReplaceObjectAtIndexWithObject]: Replaces the object at the specified index with the new object.
 //   - [INSMutableOrderedSet.ReplaceObjectsAtIndexesWithObjects]: Replaces the objects at the specified indexes with the new objects.
-//   - [INSMutableOrderedSet.ReplaceObjectsInRangeWithObjectsCount]: Replaces the objects in the receiving mutable ordered set at the range with the specified number of objects from a given C array.
 //   - [INSMutableOrderedSet.SetObjectAtIndex]: Appends or replaces the object at the specified index.
 //   - [INSMutableOrderedSet.MoveObjectsAtIndexesToIndex]: Moves the objects at the specified indexes to the new location.
 //   - [INSMutableOrderedSet.ExchangeObjectAtIndexWithObjectAtIndex]: Exchanges the object at the specified index with the object at the other index.
@@ -167,8 +163,6 @@ type INSMutableOrderedSet interface {
 
 	// Appends a given object to the end of the mutable ordered set, if it is not already a member.
 	AddObject(object objectivec.IObject)
-	// Appends the given number of objects from a given C array to the end of the mutable ordered set.
-	AddObjectsCount(objects []objectivec.IObject, count uint)
 	// Appends to the end of the mutable ordered set each object contained in a given array that is not already a member.
 	AddObjectsFromArray(array []objectivec.IObject)
 	// Inserts the given object at the specified index of the mutable ordered set, if it is not already a member.
@@ -191,8 +185,6 @@ type INSMutableOrderedSet interface {
 	ReplaceObjectAtIndexWithObject(idx uint, object objectivec.IObject)
 	// Replaces the objects at the specified indexes with the new objects.
 	ReplaceObjectsAtIndexesWithObjects(indexes INSIndexSet, objects []objectivec.IObject)
-	// Replaces the objects in the receiving mutable ordered set at the range with the specified number of objects from a given C array.
-	ReplaceObjectsInRangeWithObjectsCount(range_ NSRange, objects []objectivec.IObject, count uint)
 	// Appends or replaces the object at the specified index.
 	SetObjectAtIndex(obj objectivec.IObject, idx uint)
 	// Moves the objects at the specified indexes to the new location.
@@ -207,11 +199,11 @@ type INSMutableOrderedSet interface {
 	// Sorts the receiving ordered set using a given array of sort descriptors.
 	SortUsingDescriptors(sortDescriptors []NSSortDescriptor)
 	// Sorts the mutable ordered set using the comparison method specified by the comparator block.
-	SortUsingComparator(cmptr NSComparator)
+	SortUsingComparator(cmptr NSComparisonResultIObjectHandler)
 	// Sorts the mutable ordered set using the specified options and the comparison method specified by a given comparator block.
-	SortWithOptionsUsingComparator(opts NSSortOptions, cmptr NSComparator)
+	SortWithOptionsUsingComparator(opts NSSortOptions, cmptr NSComparisonResultIObjectHandler)
 	// Sorts the specified range of the mutable ordered set using the specified options and the comparison method specified by a given comparator block.
-	SortRangeOptionsUsingComparator(range_ NSRange, opts NSSortOptions, cmptr NSComparator)
+	SortRangeOptionsUsingComparator(range_ NSRange, opts NSSortOptions, cmptr NSComparisonResultIObjectHandler)
 
 	// Topic: Combining and Recombining Entries
 
@@ -504,20 +496,6 @@ func (m NSMutableOrderedSet) AddObject(object objectivec.IObject) {
 	objc.Send[objc.ID](m.ID, objc.Sel("addObject:"), object)
 }
 
-// Appends the given number of objects from a given C array to the end of the
-// mutable ordered set.
-//
-// objects: A C array of objects.
-//
-// count: The number of values from the objects C array to append to the mutable
-// ordered set. This number will be the count of the new array—it must not
-// be negative or greater than the number of elements in objects.
-//
-// See: https://developer.apple.com/documentation/Foundation/NSMutableOrderedSet/add(_:count:)
-func (m NSMutableOrderedSet) AddObjectsCount(objects []objectivec.IObject, count uint) {
-	objc.Send[objc.ID](m.ID, objc.Sel("addObjects:count:"), objc.CArray(objects), count)
-}
-
 // Appends to the end of the mutable ordered set each object contained in a
 // given array that is not already a member.
 //
@@ -683,27 +661,6 @@ func (m NSMutableOrderedSet) ReplaceObjectsAtIndexesWithObjects(indexes INSIndex
 	objc.Send[objc.ID](m.ID, objc.Sel("replaceObjectsAtIndexes:withObjects:"), indexes, objectivec.IObjectSliceToNSArray(objects))
 }
 
-// Replaces the objects in the receiving mutable ordered set at the range with
-// the specified number of objects from a given C array.
-//
-// range: The range of the objects to replace.
-//
-// objects: A C array of objects.
-//
-// count: The number of values from the objects C array to insert in place of the
-// objects in `range`. This number will be the count of the new array—it
-// must not be negative or greater than the number of elements in objects.
-//
-// # Discussion
-//
-// Elements are added to the new array in the same order they appear in
-// objects, up to but not including index count.
-//
-// See: https://developer.apple.com/documentation/Foundation/NSMutableOrderedSet/replaceObjects(in:with:count:)
-func (m NSMutableOrderedSet) ReplaceObjectsInRangeWithObjectsCount(range_ NSRange, objects []objectivec.IObject, count uint) {
-	objc.Send[objc.ID](m.ID, objc.Sel("replaceObjectsInRange:withObjects:count:"), range_, objc.CArray(objects), count)
-}
-
 // Appends or replaces the object at the specified index.
 //
 // obj: The object to insert or append.
@@ -777,12 +734,10 @@ func (m NSMutableOrderedSet) SortUsingDescriptors(sortDescriptors []NSSortDescri
 // cmptr: A comparator block.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSMutableOrderedSet/sort(comparator:)
-func (m NSMutableOrderedSet) SortUsingComparator(cmptr NSComparator) {
-	_block0 := objc.NewBlock(func(_ objc.Block, arg0 objc.ID, arg1 objc.ID) NSComparisonResult {
-		return cmptr(objectivec.ObjectFromID(arg0), objectivec.ObjectFromID(arg1))
-	})
-	defer _block0.Release()
-	objc.Send[objc.ID](m.ID, objc.Sel("sortUsingComparator:"), objc.ID(_block0))
+func (m NSMutableOrderedSet) SortUsingComparator(cmptr NSComparisonResultIObjectHandler) {
+	_block0, _cleanup0 := NewNSComparisonResultIObjectBlock(cmptr)
+	defer _cleanup0()
+	objc.Send[objc.ID](m.ID, objc.Sel("sortUsingComparator:"), _block0)
 }
 
 // Sorts the mutable ordered set using the specified options and the
@@ -794,12 +749,10 @@ func (m NSMutableOrderedSet) SortUsingComparator(cmptr NSComparator) {
 // cmptr: A comparator block.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSMutableOrderedSet/sort(options:usingComparator:)
-func (m NSMutableOrderedSet) SortWithOptionsUsingComparator(opts NSSortOptions, cmptr NSComparator) {
-	_block1 := objc.NewBlock(func(_ objc.Block, arg0 objc.ID, arg1 objc.ID) NSComparisonResult {
-		return cmptr(objectivec.ObjectFromID(arg0), objectivec.ObjectFromID(arg1))
-	})
-	defer _block1.Release()
-	objc.Send[objc.ID](m.ID, objc.Sel("sortWithOptions:usingComparator:"), opts, objc.ID(_block1))
+func (m NSMutableOrderedSet) SortWithOptionsUsingComparator(opts NSSortOptions, cmptr NSComparisonResultIObjectHandler) {
+	_block1, _cleanup1 := NewNSComparisonResultIObjectBlock(cmptr)
+	defer _cleanup1()
+	objc.Send[objc.ID](m.ID, objc.Sel("sortWithOptions:usingComparator:"), opts, _block1)
 }
 
 // Sorts the specified range of the mutable ordered set using the specified
@@ -813,12 +766,10 @@ func (m NSMutableOrderedSet) SortWithOptionsUsingComparator(opts NSSortOptions, 
 // cmptr: A comparator block.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSMutableOrderedSet/sortRange(_:options:usingComparator:)
-func (m NSMutableOrderedSet) SortRangeOptionsUsingComparator(range_ NSRange, opts NSSortOptions, cmptr NSComparator) {
-	_block2 := objc.NewBlock(func(_ objc.Block, arg0 objc.ID, arg1 objc.ID) NSComparisonResult {
-		return cmptr(objectivec.ObjectFromID(arg0), objectivec.ObjectFromID(arg1))
-	})
-	defer _block2.Release()
-	objc.Send[objc.ID](m.ID, objc.Sel("sortRange:options:usingComparator:"), range_, opts, objc.ID(_block2))
+func (m NSMutableOrderedSet) SortRangeOptionsUsingComparator(range_ NSRange, opts NSSortOptions, cmptr NSComparisonResultIObjectHandler) {
+	_block2, _cleanup2 := NewNSComparisonResultIObjectBlock(cmptr)
+	defer _cleanup2()
+	objc.Send[objc.ID](m.ID, objc.Sel("sortRange:options:usingComparator:"), range_, opts, _block2)
 }
 
 // Removes from the receiving ordered set each object that isn’t a member of

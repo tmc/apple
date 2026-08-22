@@ -166,7 +166,7 @@ func NewWebResourceWithCoder(coder foundation.INSCoder) WebResource {
 //
 // An initialized web resource.
 //
-// See: https://developer.apple.com/documentation/WebKit/WebResource/init(data:url:mimeType:textEncodingName:frameName:)-914h4
+// See: https://developer.apple.com/documentation/WebKit/WebResource/init(data:url:mimeType:textEncodingName:frameName:)
 func NewWebResourceWithDataURLMIMETypeTextEncodingNameFrameName(data foundation.NSData, URL foundation.NSURL, MIMEType string, textEncodingName string, frameName string) WebResource {
 	instance := getWebResourceClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithData:URL:MIMEType:textEncodingName:frameName:"), data, URL, objc.String(MIMEType), objc.String(textEncodingName), objc.String(frameName))
@@ -191,7 +191,7 @@ func NewWebResourceWithDataURLMIMETypeTextEncodingNameFrameName(data foundation.
 //
 // An initialized web resource.
 //
-// See: https://developer.apple.com/documentation/WebKit/WebResource/init(data:url:mimeType:textEncodingName:frameName:)-914h4
+// See: https://developer.apple.com/documentation/WebKit/WebResource/init(data:url:mimeType:textEncodingName:frameName:)
 func (w WebResource) InitWithDataURLMIMETypeTextEncodingNameFrameName(data foundation.NSData, URL foundation.NSURL, MIMEType string, textEncodingName string, frameName string) WebResource {
 	rv := objc.Send[WebResource](w.ID, objc.Sel("initWithData:URL:MIMEType:textEncodingName:frameName:"), data, URL, objc.String(MIMEType), objc.String(textEncodingName), objc.String(frameName))
 	return rv

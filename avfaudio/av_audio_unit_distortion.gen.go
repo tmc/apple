@@ -4,8 +4,8 @@ package avfaudio
 
 import (
 	"sync"
-	"unsafe"
 
+	"github.com/tmc/apple/audiotoolbox"
 	"github.com/tmc/apple/objc"
 )
 
@@ -135,7 +135,7 @@ func NewAVAudioUnitDistortion() AVAudioUnitDistortion {
 // A new [AVAudioUnitEffect] instance.
 //
 // See: https://developer.apple.com/documentation/AVFAudio/AVAudioUnitEffect/init(audioComponentDescription:)
-func NewAudioUnitDistortionWithAudioComponentDescription(audioComponentDescription unsafe.Pointer) AVAudioUnitDistortion {
+func NewAudioUnitDistortionWithAudioComponentDescription(audioComponentDescription audiotoolbox.AudioComponentDescription) AVAudioUnitDistortion {
 	instance := getAVAudioUnitDistortionClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithAudioComponentDescription:"), audioComponentDescription)
 	return AVAudioUnitDistortionFromID(rv)

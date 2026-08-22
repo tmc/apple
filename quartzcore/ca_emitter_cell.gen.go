@@ -58,7 +58,7 @@ func (cc CAEmitterCellClass) Alloc() CAEmitterCell {
 //
 //   - [CAEmitterCell.Contents]: An object that provides the contents of the layer. Animatable.
 //   - [CAEmitterCell.SetContents]
-//   - [CAEmitterCell.ContentsRect]: A rectangle (in the unit coordinate space) that specifies the portion of [contents](<doc://com.apple.quartzcore/documentation/QuartzCore/CAEmitterCell/contents>) that the receiver should draw. Animatable.
+//   - [CAEmitterCell.ContentsRect]: A rectangle (in the unit coordinate space) that specifies the portion of [contents](<https://developer.apple.com/documentation/QuartzCore/CAEmitterCell/contents>) that the receiver should draw. Animatable.
 //   - [CAEmitterCell.SetContentsRect]
 //   - [CAEmitterCell.EmitterCells]: An optional array containing the sub-cells of this cell.
 //   - [CAEmitterCell.SetEmitterCells]
@@ -119,7 +119,7 @@ func (cc CAEmitterCellClass) Alloc() CAEmitterCell {
 //
 //   - [CAEmitterCell.Lifetime]: The lifetime of the cell, in seconds. Animatable.
 //   - [CAEmitterCell.SetLifetime]
-//   - [CAEmitterCell.LifetimeRange]: The mean value by which the [lifetime](<doc://com.apple.quartzcore/documentation/QuartzCore/CAEmitterCell/lifetime>) of the cell can vary. Animatable.
+//   - [CAEmitterCell.LifetimeRange]: The mean value by which the [lifetime](<https://developer.apple.com/documentation/QuartzCore/CAEmitterCell/lifetime>) of the cell can vary. Animatable.
 //   - [CAEmitterCell.SetLifetimeRange]
 //   - [CAEmitterCell.BirthRate]: The number of emitted objects created every second. Animatable.
 //   - [CAEmitterCell.SetBirthRate]
@@ -161,7 +161,7 @@ func CAEmitterCellFromID(id objc.ID) CAEmitterCell {
 //
 //   - [ICAEmitterCell.Contents]: An object that provides the contents of the layer. Animatable.
 //   - [ICAEmitterCell.SetContents]
-//   - [ICAEmitterCell.ContentsRect]: A rectangle (in the unit coordinate space) that specifies the portion of [contents](<doc://com.apple.quartzcore/documentation/QuartzCore/CAEmitterCell/contents>) that the receiver should draw. Animatable.
+//   - [ICAEmitterCell.ContentsRect]: A rectangle (in the unit coordinate space) that specifies the portion of [contents](<https://developer.apple.com/documentation/QuartzCore/CAEmitterCell/contents>) that the receiver should draw. Animatable.
 //   - [ICAEmitterCell.SetContentsRect]
 //   - [ICAEmitterCell.EmitterCells]: An optional array containing the sub-cells of this cell.
 //   - [ICAEmitterCell.SetEmitterCells]
@@ -222,7 +222,7 @@ func CAEmitterCellFromID(id objc.ID) CAEmitterCell {
 //
 //   - [ICAEmitterCell.Lifetime]: The lifetime of the cell, in seconds. Animatable.
 //   - [ICAEmitterCell.SetLifetime]
-//   - [ICAEmitterCell.LifetimeRange]: The mean value by which the [lifetime](<doc://com.apple.quartzcore/documentation/QuartzCore/CAEmitterCell/lifetime>) of the cell can vary. Animatable.
+//   - [ICAEmitterCell.LifetimeRange]: The mean value by which the [lifetime](<https://developer.apple.com/documentation/QuartzCore/CAEmitterCell/lifetime>) of the cell can vary. Animatable.
 //   - [ICAEmitterCell.SetLifetimeRange]
 //   - [ICAEmitterCell.BirthRate]: The number of emitted objects created every second. Animatable.
 //   - [ICAEmitterCell.SetBirthRate]
@@ -252,7 +252,7 @@ type ICAEmitterCell interface {
 	// An object that provides the contents of the layer. Animatable.
 	Contents() objectivec.IObject
 	SetContents(value objectivec.IObject)
-	// A rectangle (in the unit coordinate space) that specifies the portion of [contents](<doc://com.apple.quartzcore/documentation/QuartzCore/CAEmitterCell/contents>) that the receiver should draw. Animatable.
+	// A rectangle (in the unit coordinate space) that specifies the portion of [contents](<https://developer.apple.com/documentation/QuartzCore/CAEmitterCell/contents>) that the receiver should draw. Animatable.
 	ContentsRect() corefoundation.CGRect
 	SetContentsRect(value corefoundation.CGRect)
 	// An optional array containing the sub-cells of this cell.
@@ -339,7 +339,7 @@ type ICAEmitterCell interface {
 	// The lifetime of the cell, in seconds. Animatable.
 	Lifetime() float32
 	SetLifetime(value float32)
-	// The mean value by which the [lifetime](<doc://com.apple.quartzcore/documentation/QuartzCore/CAEmitterCell/lifetime>) of the cell can vary. Animatable.
+	// The mean value by which the [lifetime](<https://developer.apple.com/documentation/QuartzCore/CAEmitterCell/lifetime>) of the cell can vary. Animatable.
 	LifetimeRange() float32
 	SetLifetimeRange(value float32)
 	// The number of emitted objects created every second. Animatable.
@@ -369,6 +369,23 @@ type ICAEmitterCell interface {
 	// Returns a Boolean value indicating whether the value for a given key should be archived.
 	ShouldArchiveValueForKey(key string) bool
 
+	// Determines if the receiver plays in the reverse upon completion.
+	Autoreverses() bool
+	// Specifies the begin time of the receiver in relation to its parent object, if applicable.
+	BeginTime() corefoundation.CFTimeInterval
+	// Specifies the basic duration of the animation, in seconds.
+	Duration() corefoundation.CFTimeInterval
+	// Determines if the receiver’s presentation is frozen or removed once its active duration has completed.
+	FillMode() CAMediaTimingFillMode
+	InitWithCoder(coder foundation.INSCoder) CAEmitterCell
+	// Determines the number of times the animation will repeat.
+	RepeatCount() float32
+	// Determines how many seconds the animation will repeat for.
+	RepeatDuration() corefoundation.CFTimeInterval
+	// Specifies how time is mapped to receiver’s time space from the parent time space.
+	Speed() float32
+	// Specifies an additional time offset in active local time.
+	TimeOffset() corefoundation.CFTimeInterval
 	EncodeWithCoder(coder foundation.INSCoder)
 }
 
@@ -389,6 +406,13 @@ func NewCAEmitterCell() CAEmitterCell {
 	class := getCAEmitterCellClass()
 	rv := objc.Send[CAEmitterCell](objc.ID(class.class), objc.Sel("new"))
 	return rv
+}
+
+// See: https://developer.apple.com/documentation/QuartzCore/CAEmitterCell/init(coder:)
+func NewEmitterCellWithCoder(coder foundation.INSCoder) CAEmitterCell {
+	instance := getCAEmitterCellClass().Alloc()
+	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
+	return CAEmitterCellFromID(rv)
 }
 
 // Returns a Boolean value indicating whether the value for a given key should
@@ -443,6 +467,12 @@ func (e CAEmitterCell) Duration() corefoundation.CFTimeInterval {
 func (e CAEmitterCell) FillMode() CAMediaTimingFillMode {
 	rv := objc.Send[objc.ID](e.ID, objc.Sel("fillMode"))
 	return CAMediaTimingFillMode(foundation.NSStringFromID(rv).String())
+}
+
+// See: https://developer.apple.com/documentation/QuartzCore/CAEmitterCell/init(coder:)
+func (e CAEmitterCell) InitWithCoder(coder foundation.INSCoder) CAEmitterCell {
+	rv := objc.Send[CAEmitterCell](e.ID, objc.Sel("initWithCoder:"), coder)
+	return rv
 }
 
 // Determines the number of times the animation will repeat.

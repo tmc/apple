@@ -5,7 +5,8 @@
 package avfaudio
 
 import (
-	"github.com/tmc/apple/kernel"
+	"unsafe"
+
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -31,12 +32,12 @@ func (a AVAudioPlayer) SetIntendedSpatialExperience(value unsafe.Pointer) {
 // property to assign output to play to different channels.
 //
 // See: https://developer.apple.com/documentation/AVFAudio/AVAudioPlayer/channelAssignments
-func (a AVAudioPlayer) ChannelAssignments() []kernel.ID {
+func (a AVAudioPlayer) ChannelAssignments() []objectivec.IObject {
 	rv := objc.Send[[]objc.ID](a.ID, objc.Sel("channelAssignments"))
-	return objc.ConvertSlice(rv, func(id objc.ID) kernel.ID {
-		return kernel.DFromID(id)
+	return objc.ConvertSlice(rv, func(id objc.ID) objectivec.IObject {
+		return objectivec.Object{ID: id}
 	})
 }
-func (a AVAudioPlayer) SetChannelAssignments(value []kernel.ID) {
+func (a AVAudioPlayer) SetChannelAssignments(value []objectivec.IObject) {
 	objc.Send[struct{}](a.ID, objc.Sel("setChannelAssignments:"), objectivec.IObjectSliceToNSArray(value))
 }

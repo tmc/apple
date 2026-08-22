@@ -3,8 +3,6 @@
 package foundation
 
 import (
-	"unsafe"
-
 	"github.com/ebitengine/purego"
 	"github.com/tmc/apple/objc"
 )
@@ -2423,11 +2421,11 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSAppleEventTimeOutDefault"); err == nil && ptr != 0 {
-		AppleEventTimeOutDefault = *(*float64)(unsafe.Pointer(ptr))
+		AppleEventTimeOutDefault = objc.ValueAt[float64](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSAppleEventTimeOutNone"); err == nil && ptr != 0 {
-		AppleEventTimeOutNone = *(*float64)(unsafe.Pointer(ptr))
+		AppleEventTimeOutNone = objc.ValueAt[float64](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSAppleScriptErrorAppName"); err == nil && ptr != 0 {
@@ -2861,7 +2859,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSDeallocateZombies"); err == nil && ptr != 0 {
-		DeallocateZombies = *(*bool)(unsafe.Pointer(ptr))
+		DeallocateZombies = objc.ValueAt[bool](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSDebugDescriptionErrorKey"); err == nil && ptr != 0 {
@@ -2875,7 +2873,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSDebugEnabled"); err == nil && ptr != 0 {
-		DebugEnabled = *(*bool)(unsafe.Pointer(ptr))
+		DebugEnabled = objc.ValueAt[bool](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSDecimalNumberDivideByZeroException"); err == nil && ptr != 0 {
@@ -2979,7 +2977,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSEdgeInsetsZero"); err == nil && ptr != 0 {
-		EdgeInsetsZero = *(*NSEdgeInsets)(unsafe.Pointer(ptr))
+		EdgeInsetsZero = objc.ValueAt[NSEdgeInsets](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSExtensionHostDidBecomeActiveNotification"); err == nil && ptr != 0 {
@@ -3513,7 +3511,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSFoundationVersionNumber"); err == nil && ptr != 0 {
-		FoundationVersionNumber = *(*float64)(unsafe.Pointer(ptr))
+		FoundationVersionNumber = objc.ValueAt[float64](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSGenericException"); err == nil && ptr != 0 {
@@ -3847,15 +3845,15 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSIntegerHashCallBacks"); err == nil && ptr != 0 {
-		IntegerHashCallBacks = *(*NSHashTableCallBacks)(unsafe.Pointer(ptr))
+		IntegerHashCallBacks = objc.ValueAt[NSHashTableCallBacks](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSIntegerMapKeyCallBacks"); err == nil && ptr != 0 {
-		IntegerMapKeyCallBacks = *(*NSMapTableKeyCallBacks)(unsafe.Pointer(ptr))
+		IntegerMapKeyCallBacks = objc.ValueAt[NSMapTableKeyCallBacks](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSIntegerMapValueCallBacks"); err == nil && ptr != 0 {
-		IntegerMapValueCallBacks = *(*NSMapTableValueCallBacks)(unsafe.Pointer(ptr))
+		IntegerMapValueCallBacks = objc.ValueAt[NSMapTableValueCallBacks](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSInternalInconsistencyException"); err == nil && ptr != 0 {
@@ -3979,7 +3977,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSKeepAllocationStatistics"); err == nil && ptr != 0 {
-		KeepAllocationStatistics = *(*bool)(unsafe.Pointer(ptr))
+		KeepAllocationStatistics = objc.ValueAt[bool](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSKeyValueChangeIndexesKey"); err == nil && ptr != 0 {
@@ -6773,31 +6771,31 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSNonOwnedPointerHashCallBacks"); err == nil && ptr != 0 {
-		NonOwnedPointerHashCallBacks = *(*NSHashTableCallBacks)(unsafe.Pointer(ptr))
+		NonOwnedPointerHashCallBacks = objc.ValueAt[NSHashTableCallBacks](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSNonOwnedPointerMapKeyCallBacks"); err == nil && ptr != 0 {
-		NonOwnedPointerMapKeyCallBacks = *(*NSMapTableKeyCallBacks)(unsafe.Pointer(ptr))
+		NonOwnedPointerMapKeyCallBacks = objc.ValueAt[NSMapTableKeyCallBacks](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSNonOwnedPointerMapValueCallBacks"); err == nil && ptr != 0 {
-		NonOwnedPointerMapValueCallBacks = *(*NSMapTableValueCallBacks)(unsafe.Pointer(ptr))
+		NonOwnedPointerMapValueCallBacks = objc.ValueAt[NSMapTableValueCallBacks](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSNonOwnedPointerOrNullMapKeyCallBacks"); err == nil && ptr != 0 {
-		NonOwnedPointerOrNullMapKeyCallBacks = *(*NSMapTableKeyCallBacks)(unsafe.Pointer(ptr))
+		NonOwnedPointerOrNullMapKeyCallBacks = objc.ValueAt[NSMapTableKeyCallBacks](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSNonRetainedObjectHashCallBacks"); err == nil && ptr != 0 {
-		NonRetainedObjectHashCallBacks = *(*NSHashTableCallBacks)(unsafe.Pointer(ptr))
+		NonRetainedObjectHashCallBacks = objc.ValueAt[NSHashTableCallBacks](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSNonRetainedObjectMapKeyCallBacks"); err == nil && ptr != 0 {
-		NonRetainedObjectMapKeyCallBacks = *(*NSMapTableKeyCallBacks)(unsafe.Pointer(ptr))
+		NonRetainedObjectMapKeyCallBacks = objc.ValueAt[NSMapTableKeyCallBacks](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSNonRetainedObjectMapValueCallBacks"); err == nil && ptr != 0 {
-		NonRetainedObjectMapValueCallBacks = *(*NSMapTableValueCallBacks)(unsafe.Pointer(ptr))
+		NonRetainedObjectMapValueCallBacks = objc.ValueAt[NSMapTableValueCallBacks](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSOSStatusErrorDomain"); err == nil && ptr != 0 {
@@ -6811,7 +6809,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSObjectHashCallBacks"); err == nil && ptr != 0 {
-		ObjectHashCallBacks = *(*NSHashTableCallBacks)(unsafe.Pointer(ptr))
+		ObjectHashCallBacks = objc.ValueAt[NSHashTableCallBacks](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSObjectInaccessibleException"); err == nil && ptr != 0 {
@@ -6825,11 +6823,11 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSObjectMapKeyCallBacks"); err == nil && ptr != 0 {
-		ObjectMapKeyCallBacks = *(*NSMapTableKeyCallBacks)(unsafe.Pointer(ptr))
+		ObjectMapKeyCallBacks = objc.ValueAt[NSMapTableKeyCallBacks](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSObjectMapValueCallBacks"); err == nil && ptr != 0 {
-		ObjectMapValueCallBacks = *(*NSMapTableValueCallBacks)(unsafe.Pointer(ptr))
+		ObjectMapValueCallBacks = objc.ValueAt[NSMapTableValueCallBacks](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSObjectNotAvailableException"); err == nil && ptr != 0 {
@@ -6863,19 +6861,19 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSOwnedObjectIdentityHashCallBacks"); err == nil && ptr != 0 {
-		OwnedObjectIdentityHashCallBacks = *(*NSHashTableCallBacks)(unsafe.Pointer(ptr))
+		OwnedObjectIdentityHashCallBacks = objc.ValueAt[NSHashTableCallBacks](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSOwnedPointerHashCallBacks"); err == nil && ptr != 0 {
-		OwnedPointerHashCallBacks = *(*NSHashTableCallBacks)(unsafe.Pointer(ptr))
+		OwnedPointerHashCallBacks = objc.ValueAt[NSHashTableCallBacks](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSOwnedPointerMapKeyCallBacks"); err == nil && ptr != 0 {
-		OwnedPointerMapKeyCallBacks = *(*NSMapTableKeyCallBacks)(unsafe.Pointer(ptr))
+		OwnedPointerMapKeyCallBacks = objc.ValueAt[NSMapTableKeyCallBacks](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSOwnedPointerMapValueCallBacks"); err == nil && ptr != 0 {
-		OwnedPointerMapValueCallBacks = *(*NSMapTableValueCallBacks)(unsafe.Pointer(ptr))
+		OwnedPointerMapValueCallBacks = objc.ValueAt[NSMapTableValueCallBacks](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSPOSIXErrorDomain"); err == nil && ptr != 0 {
@@ -6979,7 +6977,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSPointerToStructHashCallBacks"); err == nil && ptr != 0 {
-		PointerToStructHashCallBacks = *(*NSHashTableCallBacks)(unsafe.Pointer(ptr))
+		PointerToStructHashCallBacks = objc.ValueAt[NSHashTableCallBacks](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSPortDidBecomeInvalidNotification"); err == nil && ptr != 0 {
@@ -8823,19 +8821,19 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSURLSessionTaskPriorityDefault"); err == nil && ptr != 0 {
-		URLSessionTaskPriorityDefault = *(*float32)(unsafe.Pointer(ptr))
+		URLSessionTaskPriorityDefault = objc.ValueAt[float32](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSURLSessionTaskPriorityHigh"); err == nil && ptr != 0 {
-		URLSessionTaskPriorityHigh = *(*float32)(unsafe.Pointer(ptr))
+		URLSessionTaskPriorityHigh = objc.ValueAt[float32](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSURLSessionTaskPriorityLow"); err == nil && ptr != 0 {
-		URLSessionTaskPriorityLow = *(*float32)(unsafe.Pointer(ptr))
+		URLSessionTaskPriorityLow = objc.ValueAt[float32](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSURLSessionTransferSizeUnknown"); err == nil && ptr != 0 {
-		URLSessionTransferSizeUnknown = *(*int64)(unsafe.Pointer(ptr))
+		URLSessionTransferSizeUnknown = objc.ValueAt[int64](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSURLSessionUploadTaskResumeData"); err == nil && ptr != 0 {
@@ -9829,7 +9827,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSUserDefaultsSizeLimitExceededNotification"); err == nil && ptr != 0 {
-		NSUserDefaultsSizeLimitExceededNotification = *(*NSNotification)(unsafe.Pointer(ptr))
+		NSUserDefaultsSizeLimitExceededNotification = objc.ValueAt[NSNotification](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSWillBecomeMultiThreadedNotification"); err == nil && ptr != 0 {
@@ -9853,7 +9851,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSZombieEnabled"); err == nil && ptr != 0 {
-		ZombieEnabled = *(*bool)(unsafe.Pointer(ptr))
+		ZombieEnabled = objc.ValueAt[bool](ptr)
 	}
 
 }
@@ -9915,7 +9913,7 @@ var NSLinguisticTagSchemes struct {
 	LexicalClass NSLinguisticTagScheme
 	// NameType: Classifies tokens according to whether they are part of a named entity.
 	NameType NSLinguisticTagScheme
-	// NameTypeOrLexicalClass: Classifies tokens corresponding to names according to [nameType](<doc://com.apple.foundation/documentation/Foundation/NSLinguisticTagScheme/nameType>), and classifies all other tokens according to [lexicalClass](<doc://com.apple.foundation/documentation/Foundation/NSLinguisticTagScheme/lexicalClass>).
+	// NameTypeOrLexicalClass: Classifies tokens corresponding to names according to [nameType](<https://developer.apple.com/documentation/Foundation/NSLinguisticTagScheme/nameType>), and classifies all other tokens according to [lexicalClass](<https://developer.apple.com/documentation/Foundation/NSLinguisticTagScheme/lexicalClass>).
 	NameTypeOrLexicalClass NSLinguisticTagScheme
 	// Script: Supplies the script for a token, if one can be determined.
 	Script NSLinguisticTagScheme
@@ -10080,7 +10078,7 @@ var NSURLUbiquitousItemDownloadingStatuss struct {
 	Current NSURLUbiquitousItemDownloadingStatus
 	// Downloaded: A local copy of this item exists, but it is stale. The most recent version will be downloaded as soon as possible.
 	Downloaded NSURLUbiquitousItemDownloadingStatus
-	// NotDownloaded: This item has not been downloaded yet. Use [startDownloadingUbiquitousItem(at:)](<doc://com.apple.foundation/documentation/Foundation/FileManager/startDownloadingUbiquitousItem(at:)>) to download it.
+	// NotDownloaded: This item has not been downloaded yet. Use [startDownloadingUbiquitousItem(at:)](<https://developer.apple.com/documentation/Foundation/FileManager/startDownloadingUbiquitousItem(at:)>) to download it.
 	NotDownloaded NSURLUbiquitousItemDownloadingStatus
 }
 

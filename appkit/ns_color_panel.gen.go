@@ -71,8 +71,8 @@ func (nc NSColorPanelClass) Alloc() NSColorPanel {
 //
 // # Managing color lists
 //
-//   - [NSColorPanel.AttachColorList]: Adds the list of [NSColor] objects specified to all the color pickers in the receiver that display color lists by invoking [attachColorList(_:)](<doc://com.apple.appkit/documentation/AppKit/NSColorPanel/attachColorList(_:)>) on all color pickers in the application.
-//   - [NSColorPanel.DetachColorList]: Removes the list of colors from all the color pickers in the receiver that display color lists by invoking [detachColorList(_:)](<doc://com.apple.appkit/documentation/AppKit/NSColorPanel/detachColorList(_:)>) on all color pickers in the application.
+//   - [NSColorPanel.AttachColorList]: Adds the list of [NSColor] objects specified to all the color pickers in the receiver that display color lists by invoking [attachColorList(_:)](<https://developer.apple.com/documentation/AppKit/NSColorPanel/attachColorList(_:)>) on all color pickers in the application.
+//   - [NSColorPanel.DetachColorList]: Removes the list of colors from all the color pickers in the receiver that display color lists by invoking [detachColorList(_:)](<https://developer.apple.com/documentation/AppKit/NSColorPanel/detachColorList(_:)>) on all color pickers in the application.
 //
 // # Setting color
 //
@@ -123,8 +123,8 @@ func NSColorPanelFromID(id objc.ID) NSColorPanel {
 //
 // # Managing color lists
 //
-//   - [INSColorPanel.AttachColorList]: Adds the list of [NSColor] objects specified to all the color pickers in the receiver that display color lists by invoking [attachColorList(_:)](<doc://com.apple.appkit/documentation/AppKit/NSColorPanel/attachColorList(_:)>) on all color pickers in the application.
-//   - [INSColorPanel.DetachColorList]: Removes the list of colors from all the color pickers in the receiver that display color lists by invoking [detachColorList(_:)](<doc://com.apple.appkit/documentation/AppKit/NSColorPanel/detachColorList(_:)>) on all color pickers in the application.
+//   - [INSColorPanel.AttachColorList]: Adds the list of [NSColor] objects specified to all the color pickers in the receiver that display color lists by invoking [attachColorList(_:)](<https://developer.apple.com/documentation/AppKit/NSColorPanel/attachColorList(_:)>) on all color pickers in the application.
+//   - [INSColorPanel.DetachColorList]: Removes the list of colors from all the color pickers in the receiver that display color lists by invoking [detachColorList(_:)](<https://developer.apple.com/documentation/AppKit/NSColorPanel/detachColorList(_:)>) on all color pickers in the application.
 //
 // # Setting color
 //
@@ -168,9 +168,9 @@ type INSColorPanel interface {
 
 	// Topic: Managing color lists
 
-	// Adds the list of [NSColor] objects specified to all the color pickers in the receiver that display color lists by invoking [attachColorList(_:)](<doc://com.apple.appkit/documentation/AppKit/NSColorPanel/attachColorList(_:)>) on all color pickers in the application.
+	// Adds the list of [NSColor] objects specified to all the color pickers in the receiver that display color lists by invoking [attachColorList(_:)](<https://developer.apple.com/documentation/AppKit/NSColorPanel/attachColorList(_:)>) on all color pickers in the application.
 	AttachColorList(colorList INSColorList)
-	// Removes the list of colors from all the color pickers in the receiver that display color lists by invoking [detachColorList(_:)](<doc://com.apple.appkit/documentation/AppKit/NSColorPanel/detachColorList(_:)>) on all color pickers in the application.
+	// Removes the list of colors from all the color pickers in the receiver that display color lists by invoking [detachColorList(_:)](<https://developer.apple.com/documentation/AppKit/NSColorPanel/detachColorList(_:)>) on all color pickers in the application.
 	DetachColorList(colorList INSColorList)
 
 	// Topic: Setting color

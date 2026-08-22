@@ -3,8 +3,6 @@
 package avfaudio
 
 import (
-	"unsafe"
-
 	"github.com/ebitengine/purego"
 	"github.com/tmc/apple/foundation"
 	"github.com/tmc/apple/objc"
@@ -230,28 +228,6 @@ var (
 	//
 	// See: https://developer.apple.com/documentation/AVFAudio/AVAudioSession/Location/upper
 	AVAudioSessionLocationUpper objc.ID
-	// See: https://developer.apple.com/documentation/avfaudio/avaudiosession/mode-swift.struct/default
-	AVAudioSessionModeDefault objc.ID
-	// See: https://developer.apple.com/documentation/avfaudio/avaudiosession/mode-swift.struct/dualroute
-	AVAudioSessionModeDualRoute objc.ID
-	// See: https://developer.apple.com/documentation/avfaudio/avaudiosession/mode-swift.struct/gamechat
-	AVAudioSessionModeGameChat objc.ID
-	// See: https://developer.apple.com/documentation/avfaudio/avaudiosession/mode-swift.struct/measurement
-	AVAudioSessionModeMeasurement objc.ID
-	// See: https://developer.apple.com/documentation/avfaudio/avaudiosession/mode-swift.struct/movieplayback
-	AVAudioSessionModeMoviePlayback objc.ID
-	// See: https://developer.apple.com/documentation/avfaudio/avaudiosession/mode-swift.struct/shortformvideo
-	AVAudioSessionModeShortFormVideo objc.ID
-	// See: https://developer.apple.com/documentation/avfaudio/avaudiosession/mode-swift.struct/spokenaudio
-	AVAudioSessionModeSpokenAudio objc.ID
-	// See: https://developer.apple.com/documentation/avfaudio/avaudiosession/mode-swift.struct/videochat
-	AVAudioSessionModeVideoChat objc.ID
-	// See: https://developer.apple.com/documentation/avfaudio/avaudiosession/mode-swift.struct/videorecording
-	AVAudioSessionModeVideoRecording objc.ID
-	// See: https://developer.apple.com/documentation/avfaudio/avaudiosession/mode-swift.struct/voicechat
-	AVAudioSessionModeVoiceChat objc.ID
-	// See: https://developer.apple.com/documentation/avfaudio/avaudiosession/mode-swift.struct/voiceprompt
-	AVAudioSessionModeVoicePrompt objc.ID
 	// AVAudioSessionOrientationBack is a data source that points outward from the back of the device, away from the user.
 	//
 	// See: https://developer.apple.com/documentation/AVFAudio/AVAudioSession/Orientation/back
@@ -291,6 +267,8 @@ var (
 	// See: https://developer.apple.com/documentation/AVFAudio/AVAudioSession/PolarPattern/subcardioid
 	AVAudioSessionPolarPatternSubcardioid objc.ID
 )
+
+var ()
 
 var (
 	// AVExtendedNoteOnEventDefaultInstrument is a constant that represents the default instrument identifier.
@@ -620,103 +598,103 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "AVAudioSessionAvailableInputsChangeNotification"); err == nil && ptr != 0 {
-		AVAudioSessionAvailableInputsChangeNotification = *(*foundation.NSNotification)(unsafe.Pointer(ptr))
+		AVAudioSessionAvailableInputsChangeNotification = objc.ValueAt[foundation.NSNotification](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "AVAudioSessionCategoryAmbient"); err == nil && ptr != 0 {
-		AVAudioSessionCategoryAmbient = *(*objc.ID)(unsafe.Pointer(ptr))
+		AVAudioSessionCategoryAmbient = objc.ValueAt[objc.ID](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "AVAudioSessionCategoryAudioProcessing"); err == nil && ptr != 0 {
-		AVAudioSessionCategoryAudioProcessing = *(*objc.ID)(unsafe.Pointer(ptr))
+		AVAudioSessionCategoryAudioProcessing = objc.ValueAt[objc.ID](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "AVAudioSessionCategoryMultiRoute"); err == nil && ptr != 0 {
-		AVAudioSessionCategoryMultiRoute = *(*objc.ID)(unsafe.Pointer(ptr))
+		AVAudioSessionCategoryMultiRoute = objc.ValueAt[objc.ID](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "AVAudioSessionCategoryPlayAndRecord"); err == nil && ptr != 0 {
-		AVAudioSessionCategoryPlayAndRecord = *(*objc.ID)(unsafe.Pointer(ptr))
+		AVAudioSessionCategoryPlayAndRecord = objc.ValueAt[objc.ID](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "AVAudioSessionCategoryPlayback"); err == nil && ptr != 0 {
-		AVAudioSessionCategoryPlayback = *(*objc.ID)(unsafe.Pointer(ptr))
+		AVAudioSessionCategoryPlayback = objc.ValueAt[objc.ID](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "AVAudioSessionCategoryRecord"); err == nil && ptr != 0 {
-		AVAudioSessionCategoryRecord = *(*objc.ID)(unsafe.Pointer(ptr))
+		AVAudioSessionCategoryRecord = objc.ValueAt[objc.ID](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "AVAudioSessionCategorySoloAmbient"); err == nil && ptr != 0 {
-		AVAudioSessionCategorySoloAmbient = *(*objc.ID)(unsafe.Pointer(ptr))
+		AVAudioSessionCategorySoloAmbient = objc.ValueAt[objc.ID](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "AVAudioSessionInterruptionNotification"); err == nil && ptr != 0 {
-		AVAudioSessionInterruptionNotification = *(*foundation.NSNotification)(unsafe.Pointer(ptr))
+		AVAudioSessionInterruptionNotification = objc.ValueAt[foundation.NSNotification](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "AVAudioSessionLocationLower"); err == nil && ptr != 0 {
-		AVAudioSessionLocationLower = *(*objc.ID)(unsafe.Pointer(ptr))
+		AVAudioSessionLocationLower = objc.ValueAt[objc.ID](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "AVAudioSessionLocationUpper"); err == nil && ptr != 0 {
-		AVAudioSessionLocationUpper = *(*objc.ID)(unsafe.Pointer(ptr))
+		AVAudioSessionLocationUpper = objc.ValueAt[objc.ID](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "AVAudioSessionMediaServicesWereLostNotification"); err == nil && ptr != 0 {
-		AVAudioSessionMediaServicesWereLostNotification = *(*foundation.NSNotification)(unsafe.Pointer(ptr))
+		AVAudioSessionMediaServicesWereLostNotification = objc.ValueAt[foundation.NSNotification](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "AVAudioSessionMediaServicesWereResetNotification"); err == nil && ptr != 0 {
-		AVAudioSessionMediaServicesWereResetNotification = *(*foundation.NSNotification)(unsafe.Pointer(ptr))
+		AVAudioSessionMediaServicesWereResetNotification = objc.ValueAt[foundation.NSNotification](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "AVAudioSessionMicrophoneInjectionCapabilitiesChangeNotification"); err == nil && ptr != 0 {
-		AVAudioSessionMicrophoneInjectionCapabilitiesChangeNotification = *(*foundation.NSNotification)(unsafe.Pointer(ptr))
+		AVAudioSessionMicrophoneInjectionCapabilitiesChangeNotification = objc.ValueAt[foundation.NSNotification](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "AVAudioSessionModeDefault"); err == nil && ptr != 0 {
-		AVAudioSessionModeDefault = *(*objc.ID)(unsafe.Pointer(ptr))
+		uints.Default = objc.ValueAt[uint](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "AVAudioSessionModeDualRoute"); err == nil && ptr != 0 {
-		AVAudioSessionModeDualRoute = *(*objc.ID)(unsafe.Pointer(ptr))
+		uints.DualRoute = objc.ValueAt[uint](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "AVAudioSessionModeGameChat"); err == nil && ptr != 0 {
-		AVAudioSessionModeGameChat = *(*objc.ID)(unsafe.Pointer(ptr))
+		uints.GameChat = objc.ValueAt[uint](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "AVAudioSessionModeMeasurement"); err == nil && ptr != 0 {
-		AVAudioSessionModeMeasurement = *(*objc.ID)(unsafe.Pointer(ptr))
+		uints.Measurement = objc.ValueAt[uint](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "AVAudioSessionModeMoviePlayback"); err == nil && ptr != 0 {
-		AVAudioSessionModeMoviePlayback = *(*objc.ID)(unsafe.Pointer(ptr))
+		uints.MoviePlayback = objc.ValueAt[uint](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "AVAudioSessionModeShortFormVideo"); err == nil && ptr != 0 {
-		AVAudioSessionModeShortFormVideo = *(*objc.ID)(unsafe.Pointer(ptr))
+		uints.ShortFormVideo = objc.ValueAt[uint](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "AVAudioSessionModeSpokenAudio"); err == nil && ptr != 0 {
-		AVAudioSessionModeSpokenAudio = *(*objc.ID)(unsafe.Pointer(ptr))
+		uints.SpokenAudio = objc.ValueAt[uint](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "AVAudioSessionModeVideoChat"); err == nil && ptr != 0 {
-		AVAudioSessionModeVideoChat = *(*objc.ID)(unsafe.Pointer(ptr))
+		uints.VideoChat = objc.ValueAt[uint](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "AVAudioSessionModeVideoRecording"); err == nil && ptr != 0 {
-		AVAudioSessionModeVideoRecording = *(*objc.ID)(unsafe.Pointer(ptr))
+		uints.VideoRecording = objc.ValueAt[uint](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "AVAudioSessionModeVoiceChat"); err == nil && ptr != 0 {
-		AVAudioSessionModeVoiceChat = *(*objc.ID)(unsafe.Pointer(ptr))
+		uints.VoiceChat = objc.ValueAt[uint](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "AVAudioSessionModeVoicePrompt"); err == nil && ptr != 0 {
-		AVAudioSessionModeVoicePrompt = *(*objc.ID)(unsafe.Pointer(ptr))
+		uints.VoicePrompt = objc.ValueAt[uint](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "AVAudioSessionMuteStateKey"); err == nil && ptr != 0 {
@@ -730,71 +708,71 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "AVAudioSessionOrientationBack"); err == nil && ptr != 0 {
-		AVAudioSessionOrientationBack = *(*objc.ID)(unsafe.Pointer(ptr))
+		AVAudioSessionOrientationBack = objc.ValueAt[objc.ID](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "AVAudioSessionOrientationBottom"); err == nil && ptr != 0 {
-		AVAudioSessionOrientationBottom = *(*objc.ID)(unsafe.Pointer(ptr))
+		AVAudioSessionOrientationBottom = objc.ValueAt[objc.ID](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "AVAudioSessionOrientationFront"); err == nil && ptr != 0 {
-		AVAudioSessionOrientationFront = *(*objc.ID)(unsafe.Pointer(ptr))
+		AVAudioSessionOrientationFront = objc.ValueAt[objc.ID](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "AVAudioSessionOrientationLeft"); err == nil && ptr != 0 {
-		AVAudioSessionOrientationLeft = *(*objc.ID)(unsafe.Pointer(ptr))
+		AVAudioSessionOrientationLeft = objc.ValueAt[objc.ID](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "AVAudioSessionOrientationRight"); err == nil && ptr != 0 {
-		AVAudioSessionOrientationRight = *(*objc.ID)(unsafe.Pointer(ptr))
+		AVAudioSessionOrientationRight = objc.ValueAt[objc.ID](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "AVAudioSessionOrientationTop"); err == nil && ptr != 0 {
-		AVAudioSessionOrientationTop = *(*objc.ID)(unsafe.Pointer(ptr))
+		AVAudioSessionOrientationTop = objc.ValueAt[objc.ID](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "AVAudioSessionOutputMuteStateChangeNotification"); err == nil && ptr != 0 {
-		AVAudioSessionOutputMuteStateChangeNotification = *(*foundation.NSNotification)(unsafe.Pointer(ptr))
+		AVAudioSessionOutputMuteStateChangeNotification = objc.ValueAt[foundation.NSNotification](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "AVAudioSessionPolarPatternCardioid"); err == nil && ptr != 0 {
-		AVAudioSessionPolarPatternCardioid = *(*objc.ID)(unsafe.Pointer(ptr))
+		AVAudioSessionPolarPatternCardioid = objc.ValueAt[objc.ID](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "AVAudioSessionPolarPatternOmnidirectional"); err == nil && ptr != 0 {
-		AVAudioSessionPolarPatternOmnidirectional = *(*objc.ID)(unsafe.Pointer(ptr))
+		AVAudioSessionPolarPatternOmnidirectional = objc.ValueAt[objc.ID](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "AVAudioSessionPolarPatternStereo"); err == nil && ptr != 0 {
-		AVAudioSessionPolarPatternStereo = *(*objc.ID)(unsafe.Pointer(ptr))
+		AVAudioSessionPolarPatternStereo = objc.ValueAt[objc.ID](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "AVAudioSessionPolarPatternSubcardioid"); err == nil && ptr != 0 {
-		AVAudioSessionPolarPatternSubcardioid = *(*objc.ID)(unsafe.Pointer(ptr))
+		AVAudioSessionPolarPatternSubcardioid = objc.ValueAt[objc.ID](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "AVAudioSessionRenderingCapabilitiesChangeNotification"); err == nil && ptr != 0 {
-		AVAudioSessionRenderingCapabilitiesChangeNotification = *(*foundation.NSNotification)(unsafe.Pointer(ptr))
+		AVAudioSessionRenderingCapabilitiesChangeNotification = objc.ValueAt[foundation.NSNotification](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "AVAudioSessionRenderingModeChangeNotification"); err == nil && ptr != 0 {
-		AVAudioSessionRenderingModeChangeNotification = *(*foundation.NSNotification)(unsafe.Pointer(ptr))
+		AVAudioSessionRenderingModeChangeNotification = objc.ValueAt[foundation.NSNotification](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "AVAudioSessionRouteChangeNotification"); err == nil && ptr != 0 {
-		AVAudioSessionRouteChangeNotification = *(*foundation.NSNotification)(unsafe.Pointer(ptr))
+		AVAudioSessionRouteChangeNotification = objc.ValueAt[foundation.NSNotification](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "AVAudioSessionSilenceSecondaryAudioHintNotification"); err == nil && ptr != 0 {
-		AVAudioSessionSilenceSecondaryAudioHintNotification = *(*foundation.NSNotification)(unsafe.Pointer(ptr))
+		AVAudioSessionSilenceSecondaryAudioHintNotification = objc.ValueAt[foundation.NSNotification](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "AVAudioSessionSpatialPlaybackCapabilitiesChangedNotification"); err == nil && ptr != 0 {
-		AVAudioSessionSpatialPlaybackCapabilitiesChangedNotification = *(*foundation.NSNotification)(unsafe.Pointer(ptr))
+		AVAudioSessionSpatialPlaybackCapabilitiesChangedNotification = objc.ValueAt[foundation.NSNotification](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "AVAudioSessionUserIntentToUnmuteOutputNotification"); err == nil && ptr != 0 {
-		AVAudioSessionUserIntentToUnmuteOutputNotification = *(*foundation.NSNotification)(unsafe.Pointer(ptr))
+		AVAudioSessionUserIntentToUnmuteOutputNotification = objc.ValueAt[foundation.NSNotification](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "AVAudioUnitComponentManagerRegistrationsChangedNotification"); err == nil && ptr != 0 {
@@ -1028,7 +1006,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "AVExtendedNoteOnEventDefaultInstrument"); err == nil && ptr != 0 {
-		AVExtendedNoteOnEventDefaultInstrument = *(*uint32)(unsafe.Pointer(ptr))
+		AVExtendedNoteOnEventDefaultInstrument = objc.ValueAt[uint32](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "AVFormatIDKey"); err == nil && ptr != 0 {
@@ -1182,15 +1160,15 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "AVSpeechUtteranceDefaultSpeechRate"); err == nil && ptr != 0 {
-		AVSpeechUtteranceDefaultSpeechRate = *(*float32)(unsafe.Pointer(ptr))
+		AVSpeechUtteranceDefaultSpeechRate = objc.ValueAt[float32](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "AVSpeechUtteranceMaximumSpeechRate"); err == nil && ptr != 0 {
-		AVSpeechUtteranceMaximumSpeechRate = *(*float32)(unsafe.Pointer(ptr))
+		AVSpeechUtteranceMaximumSpeechRate = objc.ValueAt[float32](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "AVSpeechUtteranceMinimumSpeechRate"); err == nil && ptr != 0 {
-		AVSpeechUtteranceMinimumSpeechRate = *(*float32)(unsafe.Pointer(ptr))
+		AVSpeechUtteranceMinimumSpeechRate = objc.ValueAt[float32](ptr)
 	}
 
 }
@@ -1241,4 +1219,30 @@ var AVAudioSequencerInfoDictionaryKeys struct {
 	TrackNumber AVAudioSequencerInfoDictionaryKey
 	// Year: A key that represents the year.
 	Year AVAudioSequencerInfoDictionaryKey
+}
+
+// uints provides typed accessors for [uint] constants.
+var uints struct {
+	// Default: The default audio session mode.
+	Default uint
+	// DualRoute: A mode that provides simultaneous use of the built-in microphone/speaker and a secondary audio device that supports input and output.
+	DualRoute uint
+	// GameChat: A mode that the GameKit framework sets on behalf of an application that uses GameKit’s voice chat service.
+	GameChat uint
+	// Measurement: A mode that indicates that your app is performing measurement of audio input or output.
+	Measurement uint
+	// MoviePlayback: A mode that indicates that your app is playing back movie content.
+	MoviePlayback uint
+	// ShortFormVideo: Appropriate for applications playing short-form video content.
+	ShortFormVideo uint
+	// SpokenAudio: A mode used for continuous spoken audio to pause the audio when another app plays a short audio prompt.
+	SpokenAudio uint
+	// VideoChat: A mode that indicates that your app is engaging in online video conferencing.
+	VideoChat uint
+	// VideoRecording: A mode that indicates that your app is recording a movie.
+	VideoRecording uint
+	// VoiceChat: A mode that indicates that your app is performing two-way voice communication, such as using Voice over Internet Protocol (VoIP).
+	VoiceChat uint
+	// VoicePrompt: A mode that indicates that your app plays audio using text-to-speech.
+	VoicePrompt uint
 }

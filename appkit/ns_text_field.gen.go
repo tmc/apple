@@ -401,6 +401,11 @@ type INSTextField interface {
 	// Specifies the behavior for resolving `NSTextAlignment.Natural()` to the visual alignment.
 	ResolvesNaturalAlignmentWithBaseWritingDirection() bool
 	SetResolvesNaturalAlignmentWithBaseWritingDirection(value bool)
+
+	// The semantic meaning for a text input area.
+	ContentType() NSTextContentType
+	// Returns a Boolean value that indicates whether the sender should be enabled.
+	ValidateUserInterfaceItem(item NSValidatedUserInterfaceItem) bool
 }
 
 // Init initializes the instance.
@@ -658,123 +663,6 @@ func (t NSTextField) TextShouldEndEditing(textObject INSText) bool {
 // [textDidEndEditingNotification]: https://developer.apple.com/documentation/AppKit/NSControl/textDidEndEditingNotification
 func (t NSTextField) TextDidEndEditing(notification foundation.NSNotification) {
 	objc.Send[objc.ID](t.ID, objc.Sel("textDidEndEditing:"), notification)
-}
-
-// Returns the attributed substring for the specified range of characters.
-//
-// range: The range of characters.
-//
-// # Return Value
-//
-// An attributed string representing the specified characters.
-//
-// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityStaticText/accessibilityAttributedString(for:)
-func (t NSTextField) AccessibilityAttributedStringForRange(range_ foundation.NSRange) foundation.NSAttributedString {
-	rv := objc.Send[objc.ID](t.ID, objc.Sel("accessibilityAttributedStringForRange:"), range_)
-	return foundation.NSAttributedStringFromID(rv)
-}
-
-// Returns the rectangle that encloses the specified range of characters.
-//
-// range: The range of characters.
-//
-// # Return Value
-//
-// The rectangle that encloses the specified characters.
-//
-// # Discussion
-//
-// If the range crosses a line boundary, the returned rectangle will fully
-// enclose all the lines of characters.
-//
-// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityNavigableStaticText/accessibilityFrame(for:)
-func (t NSTextField) AccessibilityFrameForRange(range_ foundation.NSRange) corefoundation.CGRect {
-	rv := objc.Send[corefoundation.CGRect](t.ID, objc.Sel("accessibilityFrameForRange:"), range_)
-	return corefoundation.CGRect(rv)
-}
-
-// Returns the line number for the line that contains the specified character
-// index.
-//
-// index: The index for a character.
-//
-// # Return Value
-//
-// The line number for the line holding the specified character index.
-//
-// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityNavigableStaticText/accessibilityLine(for:)
-func (t NSTextField) AccessibilityLineForIndex(index int) int {
-	rv := objc.Send[int](t.ID, objc.Sel("accessibilityLineForIndex:"), index)
-	return rv
-}
-
-// Returns the range of characters in the specified line.
-//
-// lineNumber: The line number to be examined.
-//
-// # Return Value
-//
-// The range of characters for the specified line number. If the line ends
-// with a newline character, including the newline is preferred.
-//
-// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityNavigableStaticText/accessibilityRange(forLine:)
-func (t NSTextField) AccessibilityRangeForLine(lineNumber int) foundation.NSRange {
-	rv := objc.Send[foundation.NSRange](t.ID, objc.Sel("accessibilityRangeForLine:"), lineNumber)
-	return foundation.NSRange(rv)
-}
-
-// Returns the substring for the specified range.
-//
-// range: A range of characters contained by this element.
-//
-// # Return Value
-//
-// The substring specified by the given range.
-//
-// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityNavigableStaticText/accessibilityString(for:)
-func (t NSTextField) AccessibilityStringForRange(range_ foundation.NSRange) string {
-	rv := objc.Send[objc.ID](t.ID, objc.Sel("accessibilityStringForRange:"), range_)
-	return foundation.NSStringFromID(rv).String()
-}
-
-// Returns the text that the accessibility element displays.
-//
-// # Return Value
-//
-// The text displayed by the element.
-//
-// # Discussion
-//
-// This method is the getter for the [NSAccessibilityProtocol] protocol’s
-// [accessibilityValue] property.
-//
-// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityStaticText/accessibilityValue()
-//
-// [accessibilityValue]: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityValue
-func (t NSTextField) AccessibilityValue() string {
-	rv := objc.Send[objc.ID](t.ID, objc.Sel("accessibilityValue"))
-	return foundation.NSStringFromID(rv).String()
-}
-
-// Returns the range of visible characters in the document.
-//
-// # Return Value
-//
-// The range of the visible characters in the document. This method should
-// return the range for entire lines. Characters that are horizontally clipped
-// are included in this range.
-//
-// # Discussion
-//
-// This method is the getter for the [NSAccessibilityProtocol] protocol’s
-// [accessibilityVisibleCharacterRange] property.
-//
-// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityStaticText/accessibilityVisibleCharacterRange()
-//
-// [accessibilityVisibleCharacterRange]: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityVisibleCharacterRange
-func (t NSTextField) AccessibilityVisibleCharacterRange() foundation.NSRange {
-	rv := objc.Send[foundation.NSRange](t.ID, objc.Sel("accessibilityVisibleCharacterRange"))
-	return foundation.NSRange(rv)
 }
 
 // The semantic meaning for a text input area.
@@ -1172,88 +1060,6 @@ func (t NSTextField) SetResolvesNaturalAlignmentWithBaseWritingDirection(value b
 }
 
 // Protocol methods for NSAccessibilityNavigableStaticText
-
-// Returns the accessibility element’s frame in screen coordinates.
-//
-// # Return Value
-//
-// The element’s frame in screen coordinates.
-//
-// # Discussion
-//
-// This method is the getter for the [NSAccessibilityProtocol] protocol’s
-// [accessibilityFrame] property. This method is called whenever accessibility
-// clients request the [size] or [position] attributes.
-//
-// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityElementProtocol/accessibilityFrame()
-//
-// [accessibilityFrame]: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityFrame
-// [position]: https://developer.apple.com/documentation/AppKit/NSAccessibility-swift.struct/Attribute/position
-// [size]: https://developer.apple.com/documentation/AppKit/NSAccessibility-swift.struct/Attribute/size
-func (o NSTextField) AccessibilityFrame() corefoundation.CGRect {
-	rv := objc.Send[corefoundation.CGRect](o.ID, objc.Sel("accessibilityFrame"))
-	return rv
-}
-
-// Returns the accessibility element’s parent in the accessibility
-// hierarchy.
-//
-// # Return Value
-//
-// The element’s parent in the accessibility hierarchy.
-//
-// # Discussion
-//
-// This method is the getter for the [NSAccessibilityProtocol] protocol’s
-// [accessibilityParent] property.
-//
-// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityElementProtocol/accessibilityParent()
-//
-// [accessibilityParent]: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityParent
-func (o NSTextField) AccessibilityParent() objectivec.IObject {
-	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilityParent"))
-	return objectivec.Object{ID: rv}
-}
-
-// Returns the accessibility element’s identity.
-//
-// # Return Value
-//
-// Returns the unique ID for the accessibility element. It is often used in
-// automated testing.
-//
-// # Discussion
-//
-// This method is the getter for the [NSAccessibilityProtocol] protocol’s
-// [accessibilityIdentifier] property.
-//
-// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityElementProtocol/accessibilityIdentifier()
-//
-// [accessibilityIdentifier]: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityIdentifier
-func (o NSTextField) AccessibilityIdentifier() string {
-	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilityIdentifier"))
-	return foundation.NSStringFromID(rv).String()
-}
-
-// Returns a Boolean value that indicates whether the accessibility element
-// has the keyboard focus.
-//
-// # Return Value
-//
-// true if this element has the keyboard focus; otherwise, false.
-//
-// # Discussion
-//
-// This method is the getter for the [NSAccessibilityProtocol] protocol’s
-// [accessibilityFocused] property.
-//
-// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityElementProtocol/isAccessibilityFocused()
-//
-// [accessibilityFocused]: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityFocused
-func (o NSTextField) IsAccessibilityFocused() bool {
-	rv := objc.Send[bool](o.ID, objc.Sel("isAccessibilityFocused"))
-	return rv
-}
 
 // Protocol methods for NSTextContent
 

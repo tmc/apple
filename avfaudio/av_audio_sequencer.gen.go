@@ -228,7 +228,7 @@ type IAVAudioSequencer interface {
 	// Topic: Setting the User Callback
 
 	// Adds a callback that the sequencer calls each time it encounters a user event during playback.
-	SetUserCallback(userCallback AVAudioSequencerUserCallback)
+	SetUserCallback(userCallback AVMusicTrackDataFloat64Handler)
 
 	// Topic: Getting Sequence Properties
 
@@ -541,12 +541,9 @@ var _avaudiosequencer_setusercallback_p0_key byte
 // the sequencer. Set the callback to `nil` to disable it.
 //
 // See: https://developer.apple.com/documentation/AVFAudio/AVAudioSequencer/setUserCallback(_:)
-func (a AVAudioSequencer) SetUserCallback(userCallback AVAudioSequencerUserCallback) {
-	_block0 := objc.NewBlock(func(_ objc.Block, arg0 objc.ID, arg1 objc.ID, arg2 float64) {
-		userCallback(AVMusicTrackFromID(arg0), foundation.NSDataFromID(arg1), arg2)
-	})
-	objc.Send[objc.ID](a.ID, objc.Sel("setUserCallback:"), objc.ID(_block0))
-	objc.AssociateBlockWithReceiver(a.ID, &_avaudiosequencer_setusercallback_p0_key, _block0)
+func (a AVAudioSequencer) SetUserCallback(userCallback AVMusicTrackDataFloat64Handler) {
+	_block0, _ := NewAVMusicTrackDataFloat64Block(userCallback)
+	objc.Send[objc.ID](a.ID, objc.Sel("setUserCallback:"), _block0)
 }
 
 // Gets a data object that contains the events from the sequence.

@@ -77,7 +77,7 @@ type IAVAssetPlaybackAssistant interface {
 	// Topic: Loading playback configuration options
 
 	// Loads playback configuration options for an asset.
-	LoadPlaybackConfigurationOptionsWithCompletionHandler(completionHandler VoidHandler)
+	LoadPlaybackConfigurationOptionsWithCompletionHandler(completionHandler stringArrayHandler)
 }
 
 // Init initializes the instance.
@@ -116,22 +116,26 @@ func NewAssetPlaybackAssistantWithAsset(asset IAVAsset) AVAssetPlaybackAssistant
 // the asset.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVAssetPlaybackAssistant/loadPlaybackConfigurationOptions(completionHandler:)
-func (a AVAssetPlaybackAssistant) LoadPlaybackConfigurationOptionsWithCompletionHandler(completionHandler VoidHandler) {
-	_block0, _ := NewVoidBlock(completionHandler)
+func (a AVAssetPlaybackAssistant) LoadPlaybackConfigurationOptionsWithCompletionHandler(completionHandler stringArrayHandler) {
+	_block0, _ := NewstringArrayBlock(completionHandler)
 	objc.Send[objc.ID](a.ID, objc.Sel("loadPlaybackConfigurationOptionsWithCompletionHandler:"), _block0)
 }
 
 // LoadPlaybackConfigurationOptions is a synchronous wrapper around [AVAssetPlaybackAssistant.LoadPlaybackConfigurationOptionsWithCompletionHandler].
 // It blocks until the completion handler fires or the context is cancelled.
-func (a AVAssetPlaybackAssistant) LoadPlaybackConfigurationOptions(ctx context.Context) error {
-	done := make(chan struct{}, 1)
-	a.LoadPlaybackConfigurationOptionsWithCompletionHandler(func() {
-		done <- struct{}{}
+func (a AVAssetPlaybackAssistant) LoadPlaybackConfigurationOptions(ctx context.Context) ([]string, error) {
+	done := make(chan []string, 1)
+	a.LoadPlaybackConfigurationOptionsWithCompletionHandler(func(val *[]string) {
+		var out []string
+		if val != nil {
+			out = append(out, (*val)...)
+		}
+		done <- out
 	})
 	select {
-	case <-done:
-		return nil
+	case r := <-done:
+		return r, nil
 	case <-ctx.Done():
-		return ctx.Err()
+		return nil, ctx.Err()
 	}
 }

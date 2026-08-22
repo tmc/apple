@@ -83,8 +83,8 @@ type ISFAcousticFeature interface {
 	// The duration of the audio frame.
 	FrameDuration() foundation.NSTimeInterval
 	// An array of feature values, one value per audio frame, corresponding to a transcript segment of recorded audio.
-	AcousticFeatureValuePerFrame() float64
-	SetAcousticFeatureValuePerFrame(value float64)
+	AcousticFeatureValuePerFrame() []float64
+	SetAcousticFeatureValuePerFrame(value []float64)
 
 	EncodeWithCoder(coder foundation.INSCoder)
 }
@@ -124,10 +124,12 @@ func (a SFAcousticFeature) FrameDuration() foundation.NSTimeInterval {
 // transcript segment of recorded audio.
 //
 // See: https://developer.apple.com/documentation/speech/sfacousticfeature/acousticfeaturevalueperframe-5krkk
-func (a SFAcousticFeature) AcousticFeatureValuePerFrame() float64 {
-	rv := objc.Send[float64](a.ID, objc.Sel("acousticFeatureValuePerFrame"))
-	return rv
+func (a SFAcousticFeature) AcousticFeatureValuePerFrame() []float64 {
+	rv := objc.Send[[]objc.ID](a.ID, objc.Sel("acousticFeatureValuePerFrame"))
+	return objc.ConvertSlice(rv, func(id objc.ID) float64 {
+		return float64(objc.Send[float64](id, objc.Sel("doubleValue")))
+	})
 }
-func (a SFAcousticFeature) SetAcousticFeatureValuePerFrame(value float64) {
-	objc.Send[struct{}](a.ID, objc.Sel("setAcousticFeatureValuePerFrame:"), value)
+func (a SFAcousticFeature) SetAcousticFeatureValuePerFrame(value []float64) {
+	objc.Send[struct{}](a.ID, objc.Sel("setAcousticFeatureValuePerFrame:"), objectivec.NumberSliceToNSArray(value))
 }

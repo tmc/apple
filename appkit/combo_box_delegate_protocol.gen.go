@@ -426,8 +426,20 @@ func NewNSComboBoxDelegate(config NSComboBoxDelegateConfig) NSComboBoxDelegateOb
 		methods = append(methods, objc.MethodDef{
 			Cmd: objc.RegisterName("comboBoxSelectionDidChange:"),
 			Fn: func(self objc.ID, _cmd objc.SEL, notificationID objc.ID) {
+				// Names which delegate was running if a panic unwinds out of
+				// it. The frames between here and the Objective-C caller are
+				// runtime and purego dispatch, so without this the traceback
+				// never says which selector dispatched. Deliberately no
+				// recover: see [objc.NoteDelegatePanic].
+				_delegateDone := false
+				defer func() {
+					if !_delegateDone {
+						objc.NoteDelegatePanic("NSComboBoxDelegate", "comboBoxSelectionDidChange:")
+					}
+				}()
 				notification := foundation.NSNotificationFromID(notificationID)
 				fn(notification)
+				_delegateDone = true
 			},
 		})
 	}
@@ -437,8 +449,20 @@ func NewNSComboBoxDelegate(config NSComboBoxDelegateConfig) NSComboBoxDelegateOb
 		methods = append(methods, objc.MethodDef{
 			Cmd: objc.RegisterName("comboBoxSelectionIsChanging:"),
 			Fn: func(self objc.ID, _cmd objc.SEL, notificationID objc.ID) {
+				// Names which delegate was running if a panic unwinds out of
+				// it. The frames between here and the Objective-C caller are
+				// runtime and purego dispatch, so without this the traceback
+				// never says which selector dispatched. Deliberately no
+				// recover: see [objc.NoteDelegatePanic].
+				_delegateDone := false
+				defer func() {
+					if !_delegateDone {
+						objc.NoteDelegatePanic("NSComboBoxDelegate", "comboBoxSelectionIsChanging:")
+					}
+				}()
 				notification := foundation.NSNotificationFromID(notificationID)
 				fn(notification)
+				_delegateDone = true
 			},
 		})
 	}
@@ -448,8 +472,20 @@ func NewNSComboBoxDelegate(config NSComboBoxDelegateConfig) NSComboBoxDelegateOb
 		methods = append(methods, objc.MethodDef{
 			Cmd: objc.RegisterName("comboBoxWillDismiss:"),
 			Fn: func(self objc.ID, _cmd objc.SEL, notificationID objc.ID) {
+				// Names which delegate was running if a panic unwinds out of
+				// it. The frames between here and the Objective-C caller are
+				// runtime and purego dispatch, so without this the traceback
+				// never says which selector dispatched. Deliberately no
+				// recover: see [objc.NoteDelegatePanic].
+				_delegateDone := false
+				defer func() {
+					if !_delegateDone {
+						objc.NoteDelegatePanic("NSComboBoxDelegate", "comboBoxWillDismiss:")
+					}
+				}()
 				notification := foundation.NSNotificationFromID(notificationID)
 				fn(notification)
+				_delegateDone = true
 			},
 		})
 	}
@@ -459,8 +495,20 @@ func NewNSComboBoxDelegate(config NSComboBoxDelegateConfig) NSComboBoxDelegateOb
 		methods = append(methods, objc.MethodDef{
 			Cmd: objc.RegisterName("comboBoxWillPopUp:"),
 			Fn: func(self objc.ID, _cmd objc.SEL, notificationID objc.ID) {
+				// Names which delegate was running if a panic unwinds out of
+				// it. The frames between here and the Objective-C caller are
+				// runtime and purego dispatch, so without this the traceback
+				// never says which selector dispatched. Deliberately no
+				// recover: see [objc.NoteDelegatePanic].
+				_delegateDone := false
+				defer func() {
+					if !_delegateDone {
+						objc.NoteDelegatePanic("NSComboBoxDelegate", "comboBoxWillPopUp:")
+					}
+				}()
 				notification := foundation.NSNotificationFromID(notificationID)
 				fn(notification)
+				_delegateDone = true
 			},
 		})
 	}

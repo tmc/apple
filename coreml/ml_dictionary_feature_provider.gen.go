@@ -104,6 +104,10 @@ type IMLDictionaryFeatureProvider interface {
 	// The backing dictionary.
 	Dictionary() foundation.INSDictionary
 
+	// The set of valid feature names.
+	FeatureNames() foundation.INSSet
+	// Accesses the feature value given the feature’s name.
+	FeatureValueForName(featureName string) IMLFeatureValue
 	InitWithCoder(coder foundation.INSCoder) MLDictionaryFeatureProvider
 	EncodeWithCoder(coder foundation.INSCoder)
 }
@@ -146,6 +150,9 @@ func NewDictionaryFeatureProviderWithDictionaryError(dictionary foundation.INSDi
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
 		return MLDictionaryFeatureProvider{}, foundation.NSErrorFrom(errorPtr)
+	}
+	if rv == 0 {
+		return MLDictionaryFeatureProvider{}, objc.ErrInitFailed
 	}
 	return MLDictionaryFeatureProviderFromID(rv), nil
 }

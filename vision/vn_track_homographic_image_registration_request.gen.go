@@ -101,9 +101,10 @@ func NewVNTrackHomographicImageRegistrationRequest() VNTrackHomographicImageRegi
 // completionHandler: The callback the system invokes when it completes the request.
 //
 // See: https://developer.apple.com/documentation/Vision/VNTrackHomographicImageRegistrationRequest/init(completionHandler:)
-func NewTrackHomographicImageRegistrationRequestWithCompletionHandler(completionHandler VNRequestCompletionHandler) VNTrackHomographicImageRegistrationRequest {
+func NewTrackHomographicImageRegistrationRequestWithCompletionHandler(completionHandler VNRequestErrorHandler) VNTrackHomographicImageRegistrationRequest {
+	_block0, _ := NewVNRequestErrorBlock(completionHandler)
 	instance := getVNTrackHomographicImageRegistrationRequestClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCompletionHandler:"), completionHandler)
+	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCompletionHandler:"), _block0)
 	return VNTrackHomographicImageRegistrationRequestFromID(rv)
 }
 
@@ -121,8 +122,9 @@ func NewTrackHomographicImageRegistrationRequestWithCompletionHandler(completion
 //
 // [CMTime]: https://developer.apple.com/documentation/CoreMedia/CMTime
 // [zero]: https://developer.apple.com/documentation/CoreMedia/CMTime/zero
-func NewTrackHomographicImageRegistrationRequestWithFrameAnalysisSpacingCompletionHandler(frameAnalysisSpacing coremedia.CMTime, completionHandler VNRequestCompletionHandler) VNTrackHomographicImageRegistrationRequest {
+func NewTrackHomographicImageRegistrationRequestWithFrameAnalysisSpacingCompletionHandler(frameAnalysisSpacing coremedia.CMTime, completionHandler VNRequestErrorHandler) VNTrackHomographicImageRegistrationRequest {
+	_block1, _ := NewVNRequestErrorBlock(completionHandler)
 	instance := getVNTrackHomographicImageRegistrationRequestClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithFrameAnalysisSpacing:completionHandler:"), frameAnalysisSpacing, completionHandler)
+	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithFrameAnalysisSpacing:completionHandler:"), frameAnalysisSpacing, _block1)
 	return VNTrackHomographicImageRegistrationRequestFromID(rv)
 }

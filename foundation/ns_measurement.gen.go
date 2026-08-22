@@ -122,7 +122,6 @@ func NSMeasurementFromID(id objc.ID) NSMeasurement {
 // See: https://developer.apple.com/documentation/Foundation/NSMeasurement
 type INSMeasurement interface {
 	objectivec.IObject
-	NSSecureCoding
 
 	// Topic: Creating Measurements
 
@@ -149,6 +148,10 @@ type INSMeasurement interface {
 	MeasurementByAddingMeasurement(measurement INSMeasurement) INSMeasurement
 	// Returns a new measurement by subtracting the specified measurement from the receiver.
 	MeasurementBySubtractingMeasurement(measurement INSMeasurement) INSMeasurement
+
+	// Encodes the receiver using a given archiver.
+	EncodeWithCoder(coder INSCoder)
+	InitWithCoder(coder INSCoder) NSMeasurement
 }
 
 // Init initializes the instance.

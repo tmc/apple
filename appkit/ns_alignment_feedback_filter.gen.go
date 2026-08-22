@@ -73,14 +73,14 @@ func (nc NSAlignmentFeedbackFilterClass) Alloc() NSAlignmentFeedbackFilter {
 // [NSAlignmentFeedbackFilter.UpdateWithPanRecognizer]
 //
 // - Store the location of the object before it moves in response to the
-// event. This is considered the location of the object. - Move the object to
-// its new location in response to the event. This is the location where the
-// object will reside if no alignment occurs. - Store the new location of the
-// object. This is considered the location of the object. - Determine where
-// the object will move to be aligned. This is considered the location of the
-// object. - Request a feedback token based on the previous location, default
-// location, and aligned location. To do this, call one of the following
-// methods:
+// event. This is considered the previous location of the object. - Move the
+// object to its new location in response to the event. This is the location
+// where the object will reside if no alignment occurs. - Store the new
+// location of the object. This is considered the default location of the
+// object. - Determine where the object will move to be aligned. This is
+// considered the aligned location of the object. - Request a feedback token
+// based on the previous location, default location, and aligned location. To
+// do this, call one of the following methods:
 //
 // -
 // [NSAlignmentFeedbackFilter.AlignmentFeedbackTokenForMovementInViewPreviousPointAlignedPointDefaultPoint]

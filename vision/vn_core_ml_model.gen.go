@@ -132,12 +132,15 @@ func NewVNCoreMLModel() VNCoreMLModel {
 // will yield an [VNErrorInvalidModel] error.
 //
 // See: https://developer.apple.com/documentation/Vision/VNCoreMLModel/init(for:)
-func NewCoreMLModelForMLModelError(model objectivec.IObject) (VNCoreMLModel, error) {
+func NewCoreMLModelForMLModelError(model *coreml.MLModel) (VNCoreMLModel, error) {
 	var errorPtr objc.ID
-	rv := objc.Send[objc.ID](objc.ID(getVNCoreMLModelClass().class), objc.Sel("modelForMLModel:error:"), model, unsafe.Pointer(&errorPtr))
+	rv := objc.Send[objc.ID](objc.ID(getVNCoreMLModelClass().class), objc.Sel("modelForMLModel:error:"), model.ID, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
 		return VNCoreMLModel{}, foundation.NSErrorFrom(errorPtr)
+	}
+	if rv == 0 {
+		return VNCoreMLModel{}, objc.ErrInitFailed
 	}
 	return VNCoreMLModelFromID(rv), nil
 }

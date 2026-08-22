@@ -135,6 +135,7 @@ type ICKRecordZoneID interface {
 	OwnerName() string
 
 	EncodeWithCoder(coder foundation.INSCoder)
+	InitWithZoneNameOwnerName(zoneName string, ownerName string) CKRecordZoneID
 }
 
 // Init initializes the instance.
@@ -158,6 +159,10 @@ func NewCKRecordZoneID() CKRecordZoneID {
 
 func (c CKRecordZoneID) EncodeWithCoder(coder foundation.INSCoder) {
 	objc.Send[objc.ID](c.ID, objc.Sel("encodeWithCoder:"), coder)
+}
+func (c CKRecordZoneID) InitWithZoneNameOwnerName(zoneName string, ownerName string) CKRecordZoneID {
+	rv := objc.Send[CKRecordZoneID](c.ID, objc.Sel("initWithZoneName:ownerName:"), objc.String(zoneName), objc.String(ownerName))
+	return rv
 }
 
 // The unique name of the record zone.

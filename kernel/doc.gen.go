@@ -18,60 +18,32 @@
 //
 // # IOKit Drivers
 //
-//   - [IOKit Fundamentals]: Implement a driver for your custom hardware using a third-party kernel extension. ([IOService], [IOPlatformIO], [IORegistryEntry], [IORegistryIterator], [IOSharedDataQueue])
+//   - [IOKit Fundamentals]: Implement a driver for your custom hardware using a third-party kernel extension. ([IOService], [IORegistryEntry], [IORegistryIterator], [IOKitDiagnosticsParameters], [DriverDescription])
 //   - [Hardware Families]: Add support for specific hardware protocols such as USB, and for standard network, serial, audio, and graphics interfaces.
-//   - [Driver Support]: Explore the device registry and access power-management utilities and other shared driver features. ([ApplePlatformExpert], [IODTPlatformExpert], [IOPlatformExpert], [IOPlatformExpertDevice], [IOPlatformDevice])
+//   - [Driver Support]: Explore the device registry and access power-management utilities and other shared driver features. ([IOACPIAddressSpaceDescriptor], [IOACPIAddressSpaceID], [IOPMPowerState])
 //   - libkern: Access the runtime support and base classes of the kernel library. ([MD5_CTX])
 //
 // # BSD
 //
-//   - architecture: Access machine-level and architectural information about the current platform. ([Cpuid_arch_perf_leaf_t], [Cpuid_cache_desc_t], [Cpuid_mwait_leaf_t], [Cpuid_thermal_leaf_t], [Cpuid_tsc_leaf_t])
-//   - bsm: Audit resource usage on the system. ([Au_asflgs_t], [Au_asid_t], [Au_class_t], [Au_ctlmode_t], [Au_emod_t])
 //   - hfs: Access HFS file-system data structures. ([HFSCatalogFile], [HFSCatalogFolder], [HFSCatalogKey], [HFSCatalogThread], [HFSExtentDescriptor])
-//   - kern: Access kernel-level interfaces including clock, task, kernel extension, lock, and compression utilities.
-//   - Math: Perform mathematical operations and manipulate integer, float, and double values.
-//   - miscfs: Access device nodes and other file-system entities.
-//   - net: Access network-related utilities. ([Ifnet_attach_proto_param], [Ifnet_attach_proto_param_v2], [Ifnet_demux_desc], [Ifnet_family_t], [Ifnet_init_params])
-//   - Strings: Compare, convert, and catenate strings and access the resulting content of those strings.
-//   - sys: Access general system utilities for time, file systems, and system information. ([Vnode_attr], [Vnode_fsparam], [Vnode_t], [Vnodeopv_desc], [Vnodeopv_entry_desc])
-//   - vfs: Access the virtual file-system interfaces.
-//   - vm: Interact with the virtual memory system.
+//   - net: Access network-related utilities. ([Ifnet_attach_proto_param], [Ifnet_attach_proto_param_v2], [Ifnet_demux_desc], [Ifnet_init_params])
+//   - sys: Access general system utilities for time, file systems, and system information. ([Vnode_attr])
 //
 // # Mach
 //
-//   - mach: Access Mach interfaces including processor, memory, thread, and semaphore support. ([Mach_msg_audit_trailer_t], [Mach_msg_base_t], [Mach_msg_body_t], [Mach_msg_context_trailer_t], [Mach_msg_empty_rcv_t])
-//   - [mach-o]: Access interfaces associated with the Mach-O runtime. ([Dyld_info_command], [Dyld_kernel_image_info_array_t], [Dyld_uuid_info_32], [Dyld_uuid_info_64], [Dyld_uuid_info_64_v2])
+//   - [mach-o]: Access interfaces associated with the Mach-O runtime. ([Dyld_info_command], [Dyld_uuid_info_32], [Dyld_uuid_info_64], [Dyld_uuid_info_64_v2])
 //
 // # Utilities
 //
-//   - Debugging: Debug your kernel extensions using the kernel debugger, assertions, exceptions, backtraces, and logging.
 //   - AppleDSP: Perform digital signal processing on data. ([IIRChannel])
 //
 // # Additional Reference
 //
 //   - [Kernel Functions] ([Nlist])
 //   - [Kernel Structures] ([BTHeaderRec], [BTNodeDescriptor], [Boot_Video], [Boot_VideoV1], [CS_BlobIndex])
-//   - [Kernel Data Types] ([AVIDType], [AbsoluteTime], [AsyncPendingTrans], [BDDiscInfo], [BDFeatures])
+//   - [Kernel Data Types] ([AVIDType], [AbsoluteTime], [BDDiscInfo], [BDFeatures], [BDMediaType])
 //   - [Kernel Enumerations] ([EFI_MEMORY_TYPE], [EFI_RESET_TYPE], [EXBrightMessageType], [EXDisplayPipeIndicator], [IOAudioDevicePowerState])
-//   - [Kernel Constants] ([Arcade_upcall_subsystem], [Audit_triggers_subsystem], [Catch_exc_subsystem], [Catch_mach_exc_subsystem], [Clock_reply_subsystem])
-//
-// # Classes
-//
-//   - [IOCatalogue]: In-kernel database for IOKit driver personalities.
-//   - [IOEventLink]
-//   - [IOEventLinkInterface]
-//   - [IOGuardPageMemoryDescriptor]
-//   - [IOHIDTranslationService]
-//   - [IOServiceStateNotificationDispatchSource]
-//   - [IOServiceStateNotificationDispatchSourceInterface]
-//   - [IOWorkGroup]
-//   - [IOWorkGroupInterface]
-//   - [OSAction_IOHIDEventService__CopyEvent]
-//   - [OSAction_IOHIDEventService__CopyEventInterface]
-//   - [OSAction_IOHIDEventService__SetLED]
-//   - [OSAction_IOHIDEventService__SetLEDInterface]
-//   - [OSAction_IOHIDEventService__SetUserProperties]
-//   - [OSAction_IOHIDEventService__SetUserPropertiesInterface]//
+//   - [Kernel Constants] ([Arcade_upcall_subsystem], [Audit_triggers_subsystem], [Catch_exc_subsystem], [Catch_mach_exc_subsystem], [Clock_reply_subsystem])//
 //
 // [Debugging a custom kernel extension]: https://developer.apple.com/documentation/apple-silicon/debugging-a-custom-kernel-extension
 // [Driver Support]: https://developer.apple.com/documentation/kernel/driver_support
@@ -89,15 +61,19 @@
 package kernel
 
 import (
+	"fmt"
+	"os"
+
 	"github.com/ebitengine/purego"
 )
 
-// frameworkPaths lists paths to try when loading the kernel library.
-// The framework bundle path is tried first; a /usr/lib dylib fallback covers
-// C-API frameworks that are not in the dyld shared cache as bundles.
+// frameworkPaths lists paths to try when loading the kernel library,
+// in order. Frameworks whose symbols live in a known dylib resolve to that
+// dylib alone; the rest try the framework bundle first and then a /usr/lib
+// dylib fallback, which covers C-API frameworks that are not in the dyld
+// shared cache as bundles.
 var frameworkPaths = []string{
-	"/System/Library/Frameworks/kernel.framework/kernel",
-	"/usr/lib/libkernel.dylib",
+	"/usr/lib/libSystem.B.dylib",
 }
 
 // frameworkHandle is the handle to the loaded framework.
@@ -110,5 +86,11 @@ func init() {
 			frameworkHandle = h
 			return
 		}
+	}
+	// Loading is best-effort: the warning is silent by default because a missing
+	// framework is harmless unless one of its symbols is actually called. Set
+	// APPLE_FRAMEWORK_LOAD_DEBUG to surface load failures while diagnosing.
+	if os.Getenv("APPLE_FRAMEWORK_LOAD_DEBUG") != "" {
+		fmt.Fprintf(os.Stderr, "warning: kernel: failed to load framework from any known path\n")
 	}
 }

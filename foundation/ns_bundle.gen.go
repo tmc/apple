@@ -377,7 +377,7 @@ type IBundle interface {
 	// Topic: Loading Nib Files
 
 	// Loads a nib from the bundle with the specified file name and owner.
-	LoadNibNamedOwnerTopLevelObjects(nibName INSString, owner objectivec.IObject, topLevelObjects INSArray) bool
+	LoadNibNamedOwnerTopLevelObjects(nibName INSString, owner objectivec.IObject, topLevelObjects *NSArray) bool
 
 	// Topic: Finding Resource Files
 
@@ -628,7 +628,7 @@ func NewBundleWithPath(path string) Bundle {
 // instance. You can also use the [NSBundleClass.BundleWithURL] class method
 // to obtain a bundle identified by its file URL.
 //
-// See: https://developer.apple.com/documentation/Foundation/Bundle/init(url:)-3n9rf
+// See: https://developer.apple.com/documentation/Foundation/Bundle/init(url:)
 func NewBundleWithURL(url INSURL) Bundle {
 	instance := getBundleClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithURL:"), url)
@@ -656,7 +656,7 @@ func NewBundleWithURL(url INSURL) Bundle {
 // instance. You can also use the [NSBundleClass.BundleWithURL] class method
 // to obtain a bundle identified by its file URL.
 //
-// See: https://developer.apple.com/documentation/Foundation/Bundle/init(url:)-3n9rf
+// See: https://developer.apple.com/documentation/Foundation/Bundle/init(url:)
 func (b Bundle) InitWithURL(url INSURL) Bundle {
 	rv := objc.Send[Bundle](b.ID, objc.Sel("initWithURL:"), url)
 	return rv
@@ -717,8 +717,8 @@ func (b Bundle) InitWithPath(path string) Bundle {
 // See: https://developer.apple.com/documentation/Foundation/Bundle/loadNibNamed(_:owner:topLevelObjects:)
 //
 // [NSNib]: https://developer.apple.com/documentation/AppKit/NSNib
-func (b Bundle) LoadNibNamedOwnerTopLevelObjects(nibName INSString, owner objectivec.IObject, topLevelObjects INSArray) bool {
-	rv := objc.Send[bool](b.ID, objc.Sel("loadNibNamed:owner:topLevelObjects:"), nibName, owner, topLevelObjects)
+func (b Bundle) LoadNibNamedOwnerTopLevelObjects(nibName INSString, owner objectivec.IObject, topLevelObjects *NSArray) bool {
+	rv := objc.Send[bool](b.ID, objc.Sel("loadNibNamed:owner:topLevelObjects:"), nibName, owner, unsafe.Pointer(topLevelObjects))
 	return rv
 }
 
@@ -739,7 +739,7 @@ func (b Bundle) LoadNibNamedOwnerTopLevelObjects(nibName INSString, owner object
 //
 // subpath: The path of a top-level bundle directory. This must be a valid path. For
 // example, to specify the bundle directory for a Mac app, you might specify
-// the path `/Applications/MyApp.App()`.
+// the path `/Applications/MyApp.app`.
 //
 // # Return Value
 //

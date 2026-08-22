@@ -4,10 +4,8 @@ package cloudkit
 
 import (
 	"sync"
-	"unsafe"
 
 	"github.com/tmc/apple/foundation"
-	"github.com/tmc/apple/kernel"
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -138,6 +136,10 @@ func (cc CKRecordClass) Alloc() CKRecord {
 // tag, which you need later to sync records in a local database with those in
 // CloudKit.
 //
+// # Accessing the Record’s Fields
+//
+//   - [CKRecord.ObjectForKeyedSubscript]: Returns the object that the record stores for the specified key.
+//
 // # Accessing the Record’s Metadata
 //
 //   - [CKRecord.RecordID]: The unique ID of the record.
@@ -197,6 +199,10 @@ func CKRecordFromID(id objc.ID) CKRecord {
 
 // An interface definition for the [CKRecord] class.
 //
+// # Accessing the Record’s Fields
+//
+//   - [ICKRecord.ObjectForKeyedSubscript]: Returns the object that the record stores for the specified key.
+//
 // # Accessing the Record’s Metadata
 //
 //   - [ICKRecord.RecordID]: The unique ID of the record.
@@ -236,13 +242,18 @@ func CKRecordFromID(id objc.ID) CKRecord {
 type ICKRecord interface {
 	objectivec.IObject
 
+	// Topic: Accessing the Record’s Fields
+
+	// Returns the object that the record stores for the specified key.
+	ObjectForKeyedSubscript(key CKRecordFieldKey) CKRecordValue
+
 	// Topic: Accessing the Record’s Metadata
 
 	// The unique ID of the record.
 	RecordID() ICKRecordID
 	// The value that your app defines to identify the type of record.
-	RecordType() unsafe.Pointer
-	SetRecordType(value kernel.Pointer)
+	RecordType() CKRecordType
+	SetRecordType(value CKRecordType)
 	// The time when CloudKit first saves the record to the server.
 	CreationDate() foundation.NSDate
 	// The ID of the user who creates the record.
@@ -285,7 +296,16 @@ type ICKRecord interface {
 
 	InitWithCoder(coder foundation.INSCoder) CKRecord
 
+	// Returns an array of the record’s keys.
+	AllKeys() []string
+	// Returns an array of keys with recent changes to their values.
+	ChangedKeys() []string
+	// Returns the object that the record stores for the specified key.
+	ObjectForKey(key CKRecordFieldKey) CKRecordValue
+	// Stores an object in the record using the specified key.
+	SetObjectForKey(object CKRecordValue, key CKRecordFieldKey)
 	EncodeWithCoder(coder foundation.INSCoder)
+	InitWithRecordTypeRecordID(recordType CKRecordType, recordID ICKRecordID) CKRecord
 }
 
 // Init initializes the instance.
@@ -485,6 +505,10 @@ func (c CKRecord) SetObjectForKey(object CKRecordValue, key CKRecordFieldKey) {
 func (c CKRecord) EncodeWithCoder(coder foundation.INSCoder) {
 	objc.Send[objc.ID](c.ID, objc.Sel("encodeWithCoder:"), coder)
 }
+func (c CKRecord) InitWithRecordTypeRecordID(recordType CKRecordType, recordID ICKRecordID) CKRecord {
+	rv := objc.Send[CKRecord](c.ID, objc.Sel("initWithRecordType:recordID:"), objc.String(string(recordType)), recordID)
+	return rv
+}
 
 // The unique ID of the record.
 //
@@ -515,12 +539,12 @@ func (c CKRecord) RecordID() ICKRecordID {
 // The value that your app defines to identify the type of record.
 //
 // See: https://developer.apple.com/documentation/cloudkit/ckrecord/recordtype-6v7au
-func (c CKRecord) RecordType() unsafe.Pointer {
-	rv := objc.Send[unsafe.Pointer](c.ID, objc.Sel("recordType"))
-	return rv
+func (c CKRecord) RecordType() CKRecordType {
+	rv := objc.Send[objc.ID](c.ID, objc.Sel("recordType"))
+	return CKRecordType(foundation.NSStringFromID(rv).String())
 }
-func (c CKRecord) SetRecordType(value kernel.Pointer) {
-	objc.Send[struct{}](c.ID, objc.Sel("setRecordType:"), value)
+func (c CKRecord) SetRecordType(value CKRecordType) {
+	objc.Send[struct{}](c.ID, objc.Sel("setRecordType:"), objc.String(string(value)))
 }
 
 // The time when CloudKit first saves the record to the server.

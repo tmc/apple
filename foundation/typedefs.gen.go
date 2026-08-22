@@ -13,7 +13,7 @@ import (
 // CompletionHandler is a completion handler for getting an asynchronous attributed string.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSAttributedString/CompletionHandler
-type CompletionHandler = func(NSAttributedString, INSDictionary, kernel.Pointer)
+type CompletionHandler = func(attributedString NSAttributedString, attributes INSDictionary, error_ unsafe.Pointer)
 
 // NSAppleEventManagerSuspensionID is identifies an Apple event whose handling has been suspended. Can be used to resume handling of the Apple event.
 //
@@ -223,7 +223,7 @@ type NSSizePointer = *corefoundation.CGSize
 // NSSocketNativeHandle is type for the platform-specific native socket handle.
 //
 // See: https://developer.apple.com/documentation/Foundation/SocketNativeHandle
-type NSSocketNativeHandle = int
+type NSSocketNativeHandle = int32
 
 // NSStreamNetworkServiceTypeValue is [NSStream] defines these string constants for specifying the service type of a stream.
 //
@@ -313,7 +313,7 @@ type NSURLUbiquitousSharedItemPermissions = string
 type NSURLUbiquitousSharedItemRole = string
 
 // See: https://developer.apple.com/documentation/Foundation/NSUncaughtExceptionHandler
-type NSUncaughtExceptionHandler = kernel.Pointer
+type NSUncaughtExceptionHandler = *kernel.ID
 
 // NSUndoManagerUserInfoKey is an extensible namespace for undo and redo user info keys.
 //
@@ -353,7 +353,8 @@ type NSValueTransformerName = string
 // NSZone is a type used to identify and manage memory zones.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSZone
-type NSZone = unsafe.Pointer
+// NSZone is an unresolved C aggregate typedef.
+type NSZone unsafe.Pointer
 
 // Unichar is type for UTF-16 code units.
 //

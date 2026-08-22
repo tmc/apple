@@ -213,6 +213,29 @@ type IAVAudioEnvironmentNode interface {
 
 	// An unused input bus.
 	NextAvailableInputBus() AVAudioNodeBus
+
+	// Gets the audio mixing destination object that corresponds to the specified mixer node and input bus.
+	DestinationForMixerBus(mixer IAVAudioNode, bus AVAudioNodeBus) IAVAudioMixingDestination
+	// A value that simulates filtering of the direct path of sound due to an obstacle.
+	Obstruction() float32
+	// A value that simulates filtering of the direct and reverb paths of sound due to an obstacle.
+	Occlusion() float32
+	// The bus’s stereo pan.
+	Pan() float32
+	// The in-head mode for a point source.
+	PointSourceInHeadMode() AVAudio3DMixingPointSourceInHeadMode
+	// The location of the source in the 3D environment.
+	Position() AVAudio3DPoint
+	// A value that changes the playback rate of the input signal.
+	Rate() float32
+	// The type of rendering algorithm the mixer uses.
+	RenderingAlgorithm() AVAudio3DMixingRenderingAlgorithm
+	// A value that controls the blend of dry and reverb processed audio.
+	ReverbBlend() float32
+	// The source mode for the input bus of the audio environment node.
+	SourceMode() AVAudio3DMixingSourceMode
+	// The bus’s input volume.
+	Volume() float32
 }
 
 // Init initializes the instance.

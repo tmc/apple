@@ -48,7 +48,8 @@ func WKWebExtensionTabObjectFromID(id objc.ID) WKWebExtensionTabObject {
 //
 // See: https://developer.apple.com/documentation/WebKit/WKWebExtensionTab/activate(for:completionHandler:)
 func (o WKWebExtensionTabObject) ActivateForWebExtensionContextCompletionHandler(context IWKWebExtensionContext, completionHandler ErrorHandler) {
-	objc.Send[struct{}](o.ID, objc.Sel("activateForWebExtensionContext:completionHandler:"), context, completionHandler)
+	_block1, _ := NewErrorBlock(completionHandler)
+	objc.Send[struct{}](o.ID, objc.Sel("activateForWebExtensionContext:completionHandler:"), context, _block1)
 }
 
 // Called to close the tab.
@@ -64,7 +65,8 @@ func (o WKWebExtensionTabObject) ActivateForWebExtensionContextCompletionHandler
 //
 // See: https://developer.apple.com/documentation/WebKit/WKWebExtensionTab/close(for:completionHandler:)
 func (o WKWebExtensionTabObject) CloseForWebExtensionContextCompletionHandler(context IWKWebExtensionContext, completionHandler ErrorHandler) {
-	objc.Send[struct{}](o.ID, objc.Sel("closeForWebExtensionContext:completionHandler:"), context, completionHandler)
+	_block1, _ := NewErrorBlock(completionHandler)
+	objc.Send[struct{}](o.ID, objc.Sel("closeForWebExtensionContext:completionHandler:"), context, _block1)
 }
 
 // Called to detect the locale of the webpage currently loaded in the tab.
@@ -81,7 +83,8 @@ func (o WKWebExtensionTabObject) CloseForWebExtensionContextCompletionHandler(co
 //
 // See: https://developer.apple.com/documentation/WebKit/WKWebExtensionTab/detectWebpageLocale(for:completionHandler:)
 func (o WKWebExtensionTabObject) DetectWebpageLocaleForWebExtensionContextCompletionHandler(context IWKWebExtensionContext, completionHandler LocaleErrorHandler) {
-	objc.Send[struct{}](o.ID, objc.Sel("detectWebpageLocaleForWebExtensionContext:completionHandler:"), context, completionHandler)
+	_block1, _ := NewLocaleErrorBlock(completionHandler)
+	objc.Send[struct{}](o.ID, objc.Sel("detectWebpageLocaleForWebExtensionContext:completionHandler:"), context, _block1)
 }
 
 // Called to duplicate the tab.
@@ -103,7 +106,8 @@ func (o WKWebExtensionTabObject) DetectWebpageLocaleForWebExtensionContextComple
 //
 // See: https://developer.apple.com/documentation/WebKit/WKWebExtensionTab/duplicate(using:for:completionHandler:)
 func (o WKWebExtensionTabObject) DuplicateUsingConfigurationForWebExtensionContextCompletionHandler(configuration IWKWebExtensionTabConfiguration, context IWKWebExtensionContext, completionHandler WKWebExtensionTabErrorHandler) {
-	objc.Send[struct{}](o.ID, objc.Sel("duplicateUsingConfiguration:forWebExtensionContext:completionHandler:"), configuration, context, completionHandler)
+	_block2, _ := NewWKWebExtensionTabErrorBlock(completionHandler)
+	objc.Send[struct{}](o.ID, objc.Sel("duplicateUsingConfiguration:forWebExtensionContext:completionHandler:"), configuration, context, _block2)
 }
 
 // Called to navigate the tab to the previous page in its history.
@@ -120,7 +124,8 @@ func (o WKWebExtensionTabObject) DuplicateUsingConfigurationForWebExtensionConte
 //
 // See: https://developer.apple.com/documentation/WebKit/WKWebExtensionTab/goBack(for:completionHandler:)
 func (o WKWebExtensionTabObject) GoBackForWebExtensionContextCompletionHandler(context IWKWebExtensionContext, completionHandler ErrorHandler) {
-	objc.Send[struct{}](o.ID, objc.Sel("goBackForWebExtensionContext:completionHandler:"), context, completionHandler)
+	_block1, _ := NewErrorBlock(completionHandler)
+	objc.Send[struct{}](o.ID, objc.Sel("goBackForWebExtensionContext:completionHandler:"), context, _block1)
 }
 
 // Called to navigate the tab to the next page in its history.
@@ -137,7 +142,8 @@ func (o WKWebExtensionTabObject) GoBackForWebExtensionContextCompletionHandler(c
 //
 // See: https://developer.apple.com/documentation/WebKit/WKWebExtensionTab/goForward(for:completionHandler:)
 func (o WKWebExtensionTabObject) GoForwardForWebExtensionContextCompletionHandler(context IWKWebExtensionContext, completionHandler ErrorHandler) {
-	objc.Send[struct{}](o.ID, objc.Sel("goForwardForWebExtensionContext:completionHandler:"), context, completionHandler)
+	_block1, _ := NewErrorBlock(completionHandler)
+	objc.Send[struct{}](o.ID, objc.Sel("goForwardForWebExtensionContext:completionHandler:"), context, _block1)
 }
 
 // Called when the index of the tab in the window is needed.
@@ -272,7 +278,8 @@ func (o WKWebExtensionTabObject) IsSelectedForWebExtensionContext(context IWKWeb
 //
 // See: https://developer.apple.com/documentation/WebKit/WKWebExtensionTab/loadURL(_:for:completionHandler:)
 func (o WKWebExtensionTabObject) LoadURLForWebExtensionContextCompletionHandler(url foundation.NSURL, context IWKWebExtensionContext, completionHandler ErrorHandler) {
-	objc.Send[struct{}](o.ID, objc.Sel("loadURL:forWebExtensionContext:completionHandler:"), url, context, completionHandler)
+	_block2, _ := NewErrorBlock(completionHandler)
+	objc.Send[struct{}](o.ID, objc.Sel("loadURL:forWebExtensionContext:completionHandler:"), url, context, _block2)
 }
 
 // Called when the parent tab for the tab is needed.
@@ -323,7 +330,8 @@ func (o WKWebExtensionTabObject) PendingURLForWebExtensionContext(context IWKWeb
 //
 // See: https://developer.apple.com/documentation/WebKit/WKWebExtensionTab/reload(fromOrigin:for:completionHandler:)
 func (o WKWebExtensionTabObject) ReloadFromOriginForWebExtensionContextCompletionHandler(fromOrigin bool, context IWKWebExtensionContext, completionHandler ErrorHandler) {
-	objc.Send[struct{}](o.ID, objc.Sel("reloadFromOrigin:forWebExtensionContext:completionHandler:"), fromOrigin, context, completionHandler)
+	_block2, _ := NewErrorBlock(completionHandler)
+	objc.Send[struct{}](o.ID, objc.Sel("reloadFromOrigin:forWebExtensionContext:completionHandler:"), fromOrigin, context, _block2)
 }
 
 // Called to set the mute state of the tab.
@@ -341,7 +349,8 @@ func (o WKWebExtensionTabObject) ReloadFromOriginForWebExtensionContextCompletio
 //
 // See: https://developer.apple.com/documentation/WebKit/WKWebExtensionTab/setMuted(_:for:completionHandler:)
 func (o WKWebExtensionTabObject) SetMutedForWebExtensionContextCompletionHandler(muted bool, context IWKWebExtensionContext, completionHandler ErrorHandler) {
-	objc.Send[struct{}](o.ID, objc.Sel("setMuted:forWebExtensionContext:completionHandler:"), muted, context, completionHandler)
+	_block2, _ := NewErrorBlock(completionHandler)
+	objc.Send[struct{}](o.ID, objc.Sel("setMuted:forWebExtensionContext:completionHandler:"), muted, context, _block2)
 }
 
 // Called to set or clear the parent tab for the tab.
@@ -360,7 +369,8 @@ func (o WKWebExtensionTabObject) SetMutedForWebExtensionContextCompletionHandler
 //
 // See: https://developer.apple.com/documentation/WebKit/WKWebExtensionTab/setParentTab(_:for:completionHandler:)
 func (o WKWebExtensionTabObject) SetParentTabForWebExtensionContextCompletionHandler(parentTab WKWebExtensionTab, context IWKWebExtensionContext, completionHandler ErrorHandler) {
-	objc.Send[struct{}](o.ID, objc.Sel("setParentTab:forWebExtensionContext:completionHandler:"), parentTab, context, completionHandler)
+	_block2, _ := NewErrorBlock(completionHandler)
+	objc.Send[struct{}](o.ID, objc.Sel("setParentTab:forWebExtensionContext:completionHandler:"), parentTab, context, _block2)
 }
 
 // Called to set the pinned state of the tab.
@@ -382,7 +392,8 @@ func (o WKWebExtensionTabObject) SetParentTabForWebExtensionContextCompletionHan
 //
 // See: https://developer.apple.com/documentation/WebKit/WKWebExtensionTab/setPinned(_:for:completionHandler:)
 func (o WKWebExtensionTabObject) SetPinnedForWebExtensionContextCompletionHandler(pinned bool, context IWKWebExtensionContext, completionHandler ErrorHandler) {
-	objc.Send[struct{}](o.ID, objc.Sel("setPinned:forWebExtensionContext:completionHandler:"), pinned, context, completionHandler)
+	_block2, _ := NewErrorBlock(completionHandler)
+	objc.Send[struct{}](o.ID, objc.Sel("setPinned:forWebExtensionContext:completionHandler:"), pinned, context, _block2)
 }
 
 // Called to set the reader mode for the tab.
@@ -400,7 +411,8 @@ func (o WKWebExtensionTabObject) SetPinnedForWebExtensionContextCompletionHandle
 //
 // See: https://developer.apple.com/documentation/WebKit/WKWebExtensionTab/setReaderModeActive(_:for:completionHandler:)
 func (o WKWebExtensionTabObject) SetReaderModeActiveForWebExtensionContextCompletionHandler(active bool, context IWKWebExtensionContext, completionHandler ErrorHandler) {
-	objc.Send[struct{}](o.ID, objc.Sel("setReaderModeActive:forWebExtensionContext:completionHandler:"), active, context, completionHandler)
+	_block2, _ := NewErrorBlock(completionHandler)
+	objc.Send[struct{}](o.ID, objc.Sel("setReaderModeActive:forWebExtensionContext:completionHandler:"), active, context, _block2)
 }
 
 // Called to set the selected state of the tab.
@@ -422,7 +434,8 @@ func (o WKWebExtensionTabObject) SetReaderModeActiveForWebExtensionContextComple
 //
 // See: https://developer.apple.com/documentation/WebKit/WKWebExtensionTab/setSelected(_:for:completionHandler:)
 func (o WKWebExtensionTabObject) SetSelectedForWebExtensionContextCompletionHandler(selected bool, context IWKWebExtensionContext, completionHandler ErrorHandler) {
-	objc.Send[struct{}](o.ID, objc.Sel("setSelected:forWebExtensionContext:completionHandler:"), selected, context, completionHandler)
+	_block2, _ := NewErrorBlock(completionHandler)
+	objc.Send[struct{}](o.ID, objc.Sel("setSelected:forWebExtensionContext:completionHandler:"), selected, context, _block2)
 }
 
 // Called to set the zoom factor of the tab.
@@ -440,7 +453,8 @@ func (o WKWebExtensionTabObject) SetSelectedForWebExtensionContextCompletionHand
 //
 // See: https://developer.apple.com/documentation/WebKit/WKWebExtensionTab/setZoomFactor(_:for:completionHandler:)
 func (o WKWebExtensionTabObject) SetZoomFactorForWebExtensionContextCompletionHandler(zoomFactor float64, context IWKWebExtensionContext, completionHandler ErrorHandler) {
-	objc.Send[struct{}](o.ID, objc.Sel("setZoomFactor:forWebExtensionContext:completionHandler:"), zoomFactor, context, completionHandler)
+	_block2, _ := NewErrorBlock(completionHandler)
+	objc.Send[struct{}](o.ID, objc.Sel("setZoomFactor:forWebExtensionContext:completionHandler:"), zoomFactor, context, _block2)
 }
 
 // Called to determine if the tab should bypass host permission checks.
@@ -507,7 +521,8 @@ func (o WKWebExtensionTabObject) SizeForWebExtensionContext(context IWKWebExtens
 //
 // See: https://developer.apple.com/documentation/WebKit/WKWebExtensionTab/takeSnapshot(using:for:completionHandler:)
 func (o WKWebExtensionTabObject) TakeSnapshotUsingConfigurationForWebExtensionContextCompletionHandler(configuration IWKSnapshotConfiguration, context IWKWebExtensionContext, completionHandler ImageErrorHandler) {
-	objc.Send[struct{}](o.ID, objc.Sel("takeSnapshotUsingConfiguration:forWebExtensionContext:completionHandler:"), configuration, context, completionHandler)
+	_block2, _ := NewImageErrorBlock(completionHandler)
+	objc.Send[struct{}](o.ID, objc.Sel("takeSnapshotUsingConfiguration:forWebExtensionContext:completionHandler:"), configuration, context, _block2)
 }
 
 // Called when the title of the tab is needed.

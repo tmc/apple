@@ -150,8 +150,8 @@ func (cc CKSyncEngineClass) Alloc() CKSyncEngine {
 // respects this throttle and tries again after the error’s retry-after
 // time.
 //
-// [CKSyncEngine] does handle errors that require application-specific logic.
-// For example, if you try to save a record and get a
+// [CKSyncEngine] does not handle errors that require application-specific
+// logic. For example, if you try to save a record and get a
 // [CKError.Code.serverRecordChanged], you need to handle that error yourself.
 // There are plenty of errors that the sync engine cannot handle on your
 // behalf, see [CKError] for a list of all the possible errors.

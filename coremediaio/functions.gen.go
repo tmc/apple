@@ -9,6 +9,7 @@ import (
 	"github.com/ebitengine/purego"
 	"github.com/tmc/apple/corefoundation"
 	"github.com/tmc/apple/coremedia"
+	"github.com/tmc/apple/corevideo"
 	"github.com/tmc/apple/dispatch"
 	"github.com/tmc/apple/objc"
 )
@@ -319,10 +320,10 @@ func CMIOObjectIsPropertySettable(objectID CMIOObjectID, address *CMIOObjectProp
 	return result
 }
 
-var _cMIOObjectPropertiesChanged func(owningPlugIn CMIOHardwarePlugInRef, objectID CMIOObjectID, numberAddresses uint32, addresses CMIOObjectPropertyAddress) int32
+var _cMIOObjectPropertiesChanged func(owningPlugIn CMIOHardwarePlugInRef, objectID CMIOObjectID, numberAddresses uint32, addresses *CMIOObjectPropertyAddress) int32
 var _cMIOObjectPropertiesChangedErr error
 
-func tryCMIOObjectPropertiesChanged(owningPlugIn CMIOHardwarePlugInRef, objectID CMIOObjectID, numberAddresses uint32, addresses CMIOObjectPropertyAddress) (int32, error) {
+func tryCMIOObjectPropertiesChanged(owningPlugIn CMIOHardwarePlugInRef, objectID CMIOObjectID, numberAddresses uint32, addresses *CMIOObjectPropertyAddress) (int32, error) {
 	if _cMIOObjectPropertiesChanged == nil {
 		return 0, symbolCallError("CMIOObjectPropertiesChanged", "10.7", _cMIOObjectPropertiesChangedErr)
 	}
@@ -334,7 +335,7 @@ func tryCMIOObjectPropertiesChanged(owningPlugIn CMIOHardwarePlugInRef, objectID
 // Deprecated: Deprecated since macOS 12.3.
 //
 // See: https://developer.apple.com/documentation/CoreMediaIO/CMIOObjectPropertiesChanged
-func CMIOObjectPropertiesChanged(owningPlugIn CMIOHardwarePlugInRef, objectID CMIOObjectID, numberAddresses uint32, addresses CMIOObjectPropertyAddress) int32 {
+func CMIOObjectPropertiesChanged(owningPlugIn CMIOHardwarePlugInRef, objectID CMIOObjectID, numberAddresses uint32, addresses *CMIOObjectPropertyAddress) int32 {
 	result, callErr := tryCMIOObjectPropertiesChanged(owningPlugIn, objectID, numberAddresses, addresses)
 	if callErr != nil {
 		panic(callErr)
@@ -430,10 +431,10 @@ func CMIOObjectShow(objectID CMIOObjectID) {
 	}
 }
 
-var _cMIOObjectsPublishedAndDied func(owningPlugIn CMIOHardwarePlugInRef, owningObjectID CMIOObjectID, numberPublishedCMIOObjects uint32, publishedCMIOObjects CMIOObjectID, numberDeadCMIOObjects uint32, deadCMIOObjects CMIOObjectID) int32
+var _cMIOObjectsPublishedAndDied func(owningPlugIn CMIOHardwarePlugInRef, owningObjectID CMIOObjectID, numberPublishedCMIOObjects uint32, publishedCMIOObjects *CMIOObjectID, numberDeadCMIOObjects uint32, deadCMIOObjects *CMIOObjectID) int32
 var _cMIOObjectsPublishedAndDiedErr error
 
-func tryCMIOObjectsPublishedAndDied(owningPlugIn CMIOHardwarePlugInRef, owningObjectID CMIOObjectID, numberPublishedCMIOObjects uint32, publishedCMIOObjects CMIOObjectID, numberDeadCMIOObjects uint32, deadCMIOObjects CMIOObjectID) (int32, error) {
+func tryCMIOObjectsPublishedAndDied(owningPlugIn CMIOHardwarePlugInRef, owningObjectID CMIOObjectID, numberPublishedCMIOObjects uint32, publishedCMIOObjects *CMIOObjectID, numberDeadCMIOObjects uint32, deadCMIOObjects *CMIOObjectID) (int32, error) {
 	if _cMIOObjectsPublishedAndDied == nil {
 		return 0, symbolCallError("CMIOObjectsPublishedAndDied", "10.7", _cMIOObjectsPublishedAndDiedErr)
 	}
@@ -445,7 +446,7 @@ func tryCMIOObjectsPublishedAndDied(owningPlugIn CMIOHardwarePlugInRef, owningOb
 // Deprecated: Deprecated since macOS 12.3.
 //
 // See: https://developer.apple.com/documentation/CoreMediaIO/CMIOObjectsPublishedAndDied
-func CMIOObjectsPublishedAndDied(owningPlugIn CMIOHardwarePlugInRef, owningObjectID CMIOObjectID, numberPublishedCMIOObjects uint32, publishedCMIOObjects CMIOObjectID, numberDeadCMIOObjects uint32, deadCMIOObjects CMIOObjectID) int32 {
+func CMIOObjectsPublishedAndDied(owningPlugIn CMIOHardwarePlugInRef, owningObjectID CMIOObjectID, numberPublishedCMIOObjects uint32, publishedCMIOObjects *CMIOObjectID, numberDeadCMIOObjects uint32, deadCMIOObjects *CMIOObjectID) int32 {
 	result, callErr := tryCMIOObjectsPublishedAndDied(owningPlugIn, owningObjectID, numberPublishedCMIOObjects, publishedCMIOObjects, numberDeadCMIOObjects, deadCMIOObjects)
 	if callErr != nil {
 		panic(callErr)
@@ -453,10 +454,10 @@ func CMIOObjectsPublishedAndDied(owningPlugIn CMIOHardwarePlugInRef, owningObjec
 	return result
 }
 
-var _cMIOSampleBufferCopyNonRequiredAttachments func(sourceSBuf uintptr, destSBuf uintptr, attachmentMode unsafe.Pointer) int32
+var _cMIOSampleBufferCopyNonRequiredAttachments func(sourceSBuf uintptr, destSBuf uintptr, attachmentMode uint32) int32
 var _cMIOSampleBufferCopyNonRequiredAttachmentsErr error
 
-func tryCMIOSampleBufferCopyNonRequiredAttachments(sourceSBuf uintptr, destSBuf uintptr, attachmentMode unsafe.Pointer) (int32, error) {
+func tryCMIOSampleBufferCopyNonRequiredAttachments(sourceSBuf uintptr, destSBuf uintptr, attachmentMode uint32) (int32, error) {
 	if _cMIOSampleBufferCopyNonRequiredAttachments == nil {
 		return 0, symbolCallError("CMIOSampleBufferCopyNonRequiredAttachments", "10.7", _cMIOSampleBufferCopyNonRequiredAttachmentsErr)
 	}
@@ -466,7 +467,7 @@ func tryCMIOSampleBufferCopyNonRequiredAttachments(sourceSBuf uintptr, destSBuf 
 // CMIOSampleBufferCopyNonRequiredAttachments.
 //
 // See: https://developer.apple.com/documentation/CoreMediaIO/CMIOSampleBufferCopyNonRequiredAttachments
-func CMIOSampleBufferCopyNonRequiredAttachments(sourceSBuf uintptr, destSBuf uintptr, attachmentMode unsafe.Pointer) int32 {
+func CMIOSampleBufferCopyNonRequiredAttachments(sourceSBuf uintptr, destSBuf uintptr, attachmentMode uint32) int32 {
 	result, callErr := tryCMIOSampleBufferCopyNonRequiredAttachments(sourceSBuf, destSBuf, attachmentMode)
 	if callErr != nil {
 		panic(callErr)
@@ -489,6 +490,48 @@ func tryCMIOSampleBufferCopySampleAttachments(sourceSBuf uintptr, destSBuf uintp
 // See: https://developer.apple.com/documentation/CoreMediaIO/CMIOSampleBufferCopySampleAttachments
 func CMIOSampleBufferCopySampleAttachments(sourceSBuf uintptr, destSBuf uintptr) int32 {
 	result, callErr := tryCMIOSampleBufferCopySampleAttachments(sourceSBuf, destSBuf)
+	if callErr != nil {
+		panic(callErr)
+	}
+	return result
+}
+
+var _cMIOSampleBufferCreate func(allocator corefoundation.CFAllocatorRef, dataBuffer coremedia.CMBlockBufferRef, formatDescription uintptr, numSamples uint32, numSampleTimingEntries uint32, sampleTimingArray *coremedia.CMSampleTimingInfo, numSampleSizeEntries uint32, sampleSizeArray *uintptr, sequenceNumber uint64, discontinuityFlags uint32, sBufOut *coremedia.CMSampleBufferRef) int32
+var _cMIOSampleBufferCreateErr error
+
+func tryCMIOSampleBufferCreate(allocator corefoundation.CFAllocatorRef, dataBuffer coremedia.CMBlockBufferRef, formatDescription uintptr, numSamples uint32, numSampleTimingEntries uint32, sampleTimingArray *coremedia.CMSampleTimingInfo, numSampleSizeEntries uint32, sampleSizeArray *uintptr, sequenceNumber uint64, discontinuityFlags uint32, sBufOut *coremedia.CMSampleBufferRef) (int32, error) {
+	if _cMIOSampleBufferCreate == nil {
+		return 0, symbolCallError("CMIOSampleBufferCreate", "10.7", _cMIOSampleBufferCreateErr)
+	}
+	return _cMIOSampleBufferCreate(allocator, dataBuffer, formatDescription, numSamples, numSampleTimingEntries, sampleTimingArray, numSampleSizeEntries, sampleSizeArray, sequenceNumber, discontinuityFlags, sBufOut), nil
+}
+
+// CMIOSampleBufferCreate.
+//
+// See: https://developer.apple.com/documentation/CoreMediaIO/CMIOSampleBufferCreate
+func CMIOSampleBufferCreate(allocator corefoundation.CFAllocatorRef, dataBuffer coremedia.CMBlockBufferRef, formatDescription uintptr, numSamples uint32, numSampleTimingEntries uint32, sampleTimingArray *coremedia.CMSampleTimingInfo, numSampleSizeEntries uint32, sampleSizeArray *uintptr, sequenceNumber uint64, discontinuityFlags uint32, sBufOut *coremedia.CMSampleBufferRef) int32 {
+	result, callErr := tryCMIOSampleBufferCreate(allocator, dataBuffer, formatDescription, numSamples, numSampleTimingEntries, sampleTimingArray, numSampleSizeEntries, sampleSizeArray, sequenceNumber, discontinuityFlags, sBufOut)
+	if callErr != nil {
+		panic(callErr)
+	}
+	return result
+}
+
+var _cMIOSampleBufferCreateForImageBuffer func(allocator corefoundation.CFAllocatorRef, imageBuffer corevideo.CVImageBufferRef, formatDescription uintptr, sampleTiming *coremedia.CMSampleTimingInfo, sequenceNumber uint64, discontinuityFlags uint32, sBufOut *coremedia.CMSampleBufferRef) int32
+var _cMIOSampleBufferCreateForImageBufferErr error
+
+func tryCMIOSampleBufferCreateForImageBuffer(allocator corefoundation.CFAllocatorRef, imageBuffer corevideo.CVImageBufferRef, formatDescription uintptr, sampleTiming *coremedia.CMSampleTimingInfo, sequenceNumber uint64, discontinuityFlags uint32, sBufOut *coremedia.CMSampleBufferRef) (int32, error) {
+	if _cMIOSampleBufferCreateForImageBuffer == nil {
+		return 0, symbolCallError("CMIOSampleBufferCreateForImageBuffer", "10.7", _cMIOSampleBufferCreateForImageBufferErr)
+	}
+	return _cMIOSampleBufferCreateForImageBuffer(allocator, imageBuffer, formatDescription, sampleTiming, sequenceNumber, discontinuityFlags, sBufOut), nil
+}
+
+// CMIOSampleBufferCreateForImageBuffer.
+//
+// See: https://developer.apple.com/documentation/CoreMediaIO/CMIOSampleBufferCreateForImageBuffer
+func CMIOSampleBufferCreateForImageBuffer(allocator corefoundation.CFAllocatorRef, imageBuffer corevideo.CVImageBufferRef, formatDescription uintptr, sampleTiming *coremedia.CMSampleTimingInfo, sequenceNumber uint64, discontinuityFlags uint32, sBufOut *coremedia.CMSampleBufferRef) int32 {
+	result, callErr := tryCMIOSampleBufferCreateForImageBuffer(allocator, imageBuffer, formatDescription, sampleTiming, sequenceNumber, discontinuityFlags, sBufOut)
 	if callErr != nil {
 		panic(callErr)
 	}
@@ -598,6 +641,48 @@ func CMIOSampleBufferSetSequenceNumber(allocator corefoundation.CFAllocatorRef, 
 	}
 }
 
+var _cMIOStreamClockConvertHostTimeToDeviceTime func(hostTime uint64, clock corefoundation.CFTypeRef) coremedia.CMTime
+var _cMIOStreamClockConvertHostTimeToDeviceTimeErr error
+
+func tryCMIOStreamClockConvertHostTimeToDeviceTime(hostTime uint64, clock corefoundation.CFTypeRef) (coremedia.CMTime, error) {
+	if _cMIOStreamClockConvertHostTimeToDeviceTime == nil {
+		return coremedia.CMTime{}, symbolCallError("CMIOStreamClockConvertHostTimeToDeviceTime", "10.7", _cMIOStreamClockConvertHostTimeToDeviceTimeErr)
+	}
+	return _cMIOStreamClockConvertHostTimeToDeviceTime(hostTime, clock), nil
+}
+
+// CMIOStreamClockConvertHostTimeToDeviceTime.
+//
+// See: https://developer.apple.com/documentation/CoreMediaIO/CMIOStreamClockConvertHostTimeToDeviceTime(_:_:)
+func CMIOStreamClockConvertHostTimeToDeviceTime(hostTime uint64, clock corefoundation.CFTypeRef) coremedia.CMTime {
+	result, callErr := tryCMIOStreamClockConvertHostTimeToDeviceTime(hostTime, clock)
+	if callErr != nil {
+		panic(callErr)
+	}
+	return result
+}
+
+var _cMIOStreamClockCreate func(allocator corefoundation.CFAllocatorRef, clockName corefoundation.CFStringRef, sourceIdentifier unsafe.Pointer, getTimeCallMinimumInterval coremedia.CMTime, numberOfEventsForRateSmoothing uint32, numberOfAveragesForRateSmoothing uint32, clock *corefoundation.CFTypeRef) int32
+var _cMIOStreamClockCreateErr error
+
+func tryCMIOStreamClockCreate(allocator corefoundation.CFAllocatorRef, clockName corefoundation.CFStringRef, sourceIdentifier unsafe.Pointer, getTimeCallMinimumInterval coremedia.CMTime, numberOfEventsForRateSmoothing uint32, numberOfAveragesForRateSmoothing uint32, clock *corefoundation.CFTypeRef) (int32, error) {
+	if _cMIOStreamClockCreate == nil {
+		return 0, symbolCallError("CMIOStreamClockCreate", "10.7", _cMIOStreamClockCreateErr)
+	}
+	return _cMIOStreamClockCreate(allocator, clockName, sourceIdentifier, getTimeCallMinimumInterval, numberOfEventsForRateSmoothing, numberOfAveragesForRateSmoothing, clock), nil
+}
+
+// CMIOStreamClockCreate.
+//
+// See: https://developer.apple.com/documentation/CoreMediaIO/CMIOStreamClockCreate(_:_:_:_:_:_:_:)
+func CMIOStreamClockCreate(allocator corefoundation.CFAllocatorRef, clockName corefoundation.CFStringRef, sourceIdentifier unsafe.Pointer, getTimeCallMinimumInterval coremedia.CMTime, numberOfEventsForRateSmoothing uint32, numberOfAveragesForRateSmoothing uint32, clock *corefoundation.CFTypeRef) int32 {
+	result, callErr := tryCMIOStreamClockCreate(allocator, clockName, sourceIdentifier, getTimeCallMinimumInterval, numberOfEventsForRateSmoothing, numberOfAveragesForRateSmoothing, clock)
+	if callErr != nil {
+		panic(callErr)
+	}
+	return result
+}
+
 var _cMIOStreamClockInvalidate func(clock corefoundation.CFTypeRef) int32
 var _cMIOStreamClockInvalidateErr error
 
@@ -613,6 +698,27 @@ func tryCMIOStreamClockInvalidate(clock corefoundation.CFTypeRef) (int32, error)
 // See: https://developer.apple.com/documentation/CoreMediaIO/CMIOStreamClockInvalidate(_:)
 func CMIOStreamClockInvalidate(clock corefoundation.CFTypeRef) int32 {
 	result, callErr := tryCMIOStreamClockInvalidate(clock)
+	if callErr != nil {
+		panic(callErr)
+	}
+	return result
+}
+
+var _cMIOStreamClockPostTimingEvent func(eventTime coremedia.CMTime, hostTime uint64, resynchronize bool, clock corefoundation.CFTypeRef) int32
+var _cMIOStreamClockPostTimingEventErr error
+
+func tryCMIOStreamClockPostTimingEvent(eventTime coremedia.CMTime, hostTime uint64, resynchronize bool, clock corefoundation.CFTypeRef) (int32, error) {
+	if _cMIOStreamClockPostTimingEvent == nil {
+		return 0, symbolCallError("CMIOStreamClockPostTimingEvent", "10.7", _cMIOStreamClockPostTimingEventErr)
+	}
+	return _cMIOStreamClockPostTimingEvent(eventTime, hostTime, resynchronize, clock), nil
+}
+
+// CMIOStreamClockPostTimingEvent.
+//
+// See: https://developer.apple.com/documentation/CoreMediaIO/CMIOStreamClockPostTimingEvent(_:_:_:_:)
+func CMIOStreamClockPostTimingEvent(eventTime coremedia.CMTime, hostTime uint64, resynchronize bool, clock corefoundation.CFTypeRef) int32 {
+	result, callErr := tryCMIOStreamClockPostTimingEvent(eventTime, hostTime, resynchronize, clock)
 	if callErr != nil {
 		panic(callErr)
 	}
@@ -747,12 +853,17 @@ func init() {
 	registerFunc(&_cMIOObjectsPublishedAndDied, &_cMIOObjectsPublishedAndDiedErr, frameworkHandle, "CMIOObjectsPublishedAndDied", "10.7")
 	registerFunc(&_cMIOSampleBufferCopyNonRequiredAttachments, &_cMIOSampleBufferCopyNonRequiredAttachmentsErr, frameworkHandle, "CMIOSampleBufferCopyNonRequiredAttachments", "10.7")
 	registerFunc(&_cMIOSampleBufferCopySampleAttachments, &_cMIOSampleBufferCopySampleAttachmentsErr, frameworkHandle, "CMIOSampleBufferCopySampleAttachments", "10.7")
+	registerFunc(&_cMIOSampleBufferCreate, &_cMIOSampleBufferCreateErr, frameworkHandle, "CMIOSampleBufferCreate", "10.7")
+	registerFunc(&_cMIOSampleBufferCreateForImageBuffer, &_cMIOSampleBufferCreateForImageBufferErr, frameworkHandle, "CMIOSampleBufferCreateForImageBuffer", "10.7")
 	registerFunc(&_cMIOSampleBufferCreateNoDataMarker, &_cMIOSampleBufferCreateNoDataMarkerErr, frameworkHandle, "CMIOSampleBufferCreateNoDataMarker", "10.7")
 	registerFunc(&_cMIOSampleBufferGetDiscontinuityFlags, &_cMIOSampleBufferGetDiscontinuityFlagsErr, frameworkHandle, "CMIOSampleBufferGetDiscontinuityFlags", "10.7")
 	registerFunc(&_cMIOSampleBufferGetSequenceNumber, &_cMIOSampleBufferGetSequenceNumberErr, frameworkHandle, "CMIOSampleBufferGetSequenceNumber", "10.7")
 	registerFunc(&_cMIOSampleBufferSetDiscontinuityFlags, &_cMIOSampleBufferSetDiscontinuityFlagsErr, frameworkHandle, "CMIOSampleBufferSetDiscontinuityFlags", "10.7")
 	registerFunc(&_cMIOSampleBufferSetSequenceNumber, &_cMIOSampleBufferSetSequenceNumberErr, frameworkHandle, "CMIOSampleBufferSetSequenceNumber", "10.7")
+	registerFunc(&_cMIOStreamClockConvertHostTimeToDeviceTime, &_cMIOStreamClockConvertHostTimeToDeviceTimeErr, frameworkHandle, "CMIOStreamClockConvertHostTimeToDeviceTime", "10.7")
+	registerFunc(&_cMIOStreamClockCreate, &_cMIOStreamClockCreateErr, frameworkHandle, "CMIOStreamClockCreate", "10.7")
 	registerFunc(&_cMIOStreamClockInvalidate, &_cMIOStreamClockInvalidateErr, frameworkHandle, "CMIOStreamClockInvalidate", "10.7")
+	registerFunc(&_cMIOStreamClockPostTimingEvent, &_cMIOStreamClockPostTimingEventErr, frameworkHandle, "CMIOStreamClockPostTimingEvent", "10.7")
 	registerFunc(&_cMIOStreamCopyBufferQueue, &_cMIOStreamCopyBufferQueueErr, frameworkHandle, "CMIOStreamCopyBufferQueue", "10.7")
 	registerFunc(&_cMIOStreamDeckCueTo, &_cMIOStreamDeckCueToErr, frameworkHandle, "CMIOStreamDeckCueTo", "10.7")
 	registerFunc(&_cMIOStreamDeckJog, &_cMIOStreamDeckJogErr, frameworkHandle, "CMIOStreamDeckJog", "10.7")

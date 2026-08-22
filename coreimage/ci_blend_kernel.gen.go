@@ -155,10 +155,10 @@ func NewCIBlendKernel() CIBlendKernel {
 // # Specifying Compiler and Linker Options
 //
 // To use MSL as the shader language for a [CIKernel], you must specify some
-// options in Xcode under the tab of your project’s target. The first option
-// you need to specify is an `-fcikernel` flag in the Other Metal Compiler
-// Flags option. The second is to add a user-defined setting with a key called
-// `MTLLINKER_FLAGS` with a value of `-`
+// options in Xcode under the Build Settings tab of your project’s target.
+// The first option you need to specify is an `-fcikernel` flag in the Other
+// Metal Compiler Flags option. The second is to add a user-defined setting
+// with a key called `MTLLINKER_FLAGS` with a value of `-`
 //
 // [media-2929842]
 //
@@ -205,6 +205,9 @@ func NewBlendKernelWithFunctionNameFromMetalLibraryDataError(name string, data f
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
 		return CIBlendKernel{}, foundation.NSErrorFrom(errorPtr)
 	}
+	if rv == 0 {
+		return CIBlendKernel{}, objc.ErrInitFailed
+	}
 	return CIBlendKernelFromID(rv), nil
 }
 
@@ -230,12 +233,15 @@ func NewBlendKernelWithFunctionNameFromMetalLibraryDataError(name string, data f
 // the same filter graph as traditional CIKL kernels.
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIKernel/init(functionName:fromMetalLibraryData:outputPixelFormat:)
-func NewBlendKernelWithFunctionNameFromMetalLibraryDataOutputPixelFormatError(name string, data foundation.NSData, format int) (CIBlendKernel, error) {
+func NewBlendKernelWithFunctionNameFromMetalLibraryDataOutputPixelFormatError(name string, data foundation.NSData, format CIFormat) (CIBlendKernel, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](objc.ID(getCIBlendKernelClass().class), objc.Sel("kernelWithFunctionName:fromMetalLibraryData:outputPixelFormat:error:"), objc.String(name), data, format, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
 		return CIBlendKernel{}, foundation.NSErrorFrom(errorPtr)
+	}
+	if rv == 0 {
+		return CIBlendKernel{}, objc.ErrInitFailed
 	}
 	return CIBlendKernelFromID(rv), nil
 }

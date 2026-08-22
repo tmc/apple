@@ -14,16 +14,6 @@ import (
 type MTLBinding interface {
 	objectivec.IObject
 
-	// Argument protocol.
-	//
-	// See: https://developer.apple.com/documentation/Metal/MTLBinding/isArgument
-	IsArgument() bool
-
-	// Used protocol.
-	//
-	// See: https://developer.apple.com/documentation/Metal/MTLBinding/isUsed
-	IsUsed() bool
-
 	// access protocol.
 	//
 	// See: https://developer.apple.com/documentation/Metal/MTLBinding/access
@@ -37,12 +27,12 @@ type MTLBinding interface {
 	// argument protocol.
 	//
 	// See: https://developer.apple.com/documentation/Metal/MTLBinding/isArgument
-	Argument() bool
+	IsArgument() bool
 
 	// used protocol.
 	//
 	// See: https://developer.apple.com/documentation/Metal/MTLBinding/isUsed
-	Used() bool
+	IsUsed() bool
 
 	// name protocol.
 	//
@@ -72,18 +62,6 @@ func MTLBindingObjectFromID(id objc.ID) MTLBindingObject {
 	}
 }
 
-// See: https://developer.apple.com/documentation/Metal/MTLBinding/isArgument
-func (o MTLBindingObject) IsArgument() bool {
-	rv := objc.Send[bool](o.ID, objc.Sel("isArgument"))
-	return rv
-}
-
-// See: https://developer.apple.com/documentation/Metal/MTLBinding/isUsed
-func (o MTLBindingObject) IsUsed() bool {
-	rv := objc.Send[bool](o.ID, objc.Sel("isUsed"))
-	return rv
-}
-
 // See: https://developer.apple.com/documentation/Metal/MTLBinding/access
 func (o MTLBindingObject) Access() MTLBindingAccess {
 	rv := objc.Send[MTLBindingAccess](o.ID, objc.Sel("access"))
@@ -97,13 +75,13 @@ func (o MTLBindingObject) Index() uint {
 }
 
 // See: https://developer.apple.com/documentation/Metal/MTLBinding/isArgument
-func (o MTLBindingObject) Argument() bool {
+func (o MTLBindingObject) IsArgument() bool {
 	rv := objc.Send[bool](o.ID, objc.Sel("isArgument"))
 	return bool(rv)
 }
 
 // See: https://developer.apple.com/documentation/Metal/MTLBinding/isUsed
-func (o MTLBindingObject) Used() bool {
+func (o MTLBindingObject) IsUsed() bool {
 	rv := objc.Send[bool](o.ID, objc.Sel("isUsed"))
 	return bool(rv)
 }

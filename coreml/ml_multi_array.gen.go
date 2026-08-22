@@ -50,8 +50,8 @@ func (mc MLMultiArrayClass) Alloc() MLMultiArray {
 //
 // # Overview
 //
-// A multidimensional array, or , is one of the underlying types of an
-// [MLFeatureValue] that stores numeric values in multiple dimensions. All
+// A multidimensional array, or multiarray, is one of the underlying types of
+// an [MLFeatureValue] that stores numeric values in multiple dimensions. All
 // elements in an [MLMultiArray] instance are one of the same type, and one of
 // the types that [MLMultiArrayDataType] defines:
 //
@@ -63,11 +63,11 @@ func (mc MLMultiArrayClass) Alloc() MLMultiArray {
 //
 // Each dimension in a multiarray is typically significant or meaningful. For
 // example, a model could have an input that accepts images as a multiarray of
-// pixels with three dimensions, C x H x W. The first dimension, ,_
+// pixels with three dimensions, C x H x W. The first dimension, C,_
 // _represents the number of color channels, and the second and third
-// dimensions, and , represent the image’s height and width, respectively.
-// The number of dimensions and size of each dimension define the
-// multiarray’s .
+// dimensions, H and W, represent the image’s height and width,
+// respectively. The number of dimensions and size of each dimension define
+// the multiarray’s shape.
 //
 // The [MLMultiArray.Shape] property is an integer array that has an element
 // for each dimension in the multiarray. Each element in [MLMultiArray.Shape]
@@ -316,6 +316,9 @@ func NewMultiArrayWithShapeDataTypeError(shape []foundation.NSNumber, dataType M
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
 		return MLMultiArray{}, foundation.NSErrorFrom(errorPtr)
 	}
+	if rv == 0 {
+		return MLMultiArray{}, objc.ErrInitFailed
+	}
 	return MLMultiArrayFromID(rv), nil
 }
 
@@ -406,7 +409,7 @@ func (m MLMultiArray) InitWithDataPointerShapeDataTypeStridesDeallocatorError(da
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
 		return MLMultiArray{}, foundation.NSErrorFrom(errorPtr)
 	}
-	objc.AssociateBlockWithReceiver(rv, &_mlmultiarray_initwithdatapointer_shape_datatype_strides_deallocator_error_p4_key, _block4)
+	objc.AssociateBlockWithReceiver(rv, &_mlmultiarray_initwithdatapointer_shape_datatype_strides_deallocator_error_p4_key, objc.Block(_block4))
 	return MLMultiArrayFromID(rv), nil
 
 }
@@ -526,7 +529,8 @@ func (m MLMultiArray) ObjectForKeyedSubscript(key []foundation.NSNumber) foundat
 //
 // See: https://developer.apple.com/documentation/CoreML/MLMultiArray/getBytesWithHandler:
 func (m MLMultiArray) GetBytesWithHandler(handler UnsafePointerIntHandler) {
-	_block0, _ := NewUnsafePointerIntBlock(handler)
+	_block0, _cleanup0 := NewUnsafePointerIntBlock(handler)
+	defer _cleanup0()
 	objc.Send[objc.ID](m.ID, objc.Sel("getBytesWithHandler:"), _block0)
 }
 
@@ -548,7 +552,8 @@ func (m MLMultiArray) GetBytesWithHandler(handler UnsafePointerIntHandler) {
 //
 // See: https://developer.apple.com/documentation/CoreML/MLMultiArray/getMutableBytesWithHandler:
 func (m MLMultiArray) GetMutableBytesWithHandler(handler UnsafePointerIntNumberArrayHandler) {
-	_block0, _ := NewUnsafePointerIntNumberArrayBlock(handler)
+	_block0, _cleanup0 := NewUnsafePointerIntNumberArrayBlock(handler)
+	defer _cleanup0()
 	objc.Send[objc.ID](m.ID, objc.Sel("getMutableBytesWithHandler:"), _block0)
 }
 

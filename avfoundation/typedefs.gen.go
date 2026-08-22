@@ -21,7 +21,7 @@ type AVAssetImageGeneratorApertureMode = string
 // AVAssetImageGeneratorCompletionHandler is a type alias for a closure that provides the result of an image generation request.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVAssetImageGeneratorCompletionHandler
-type AVAssetImageGeneratorCompletionHandler = func(coremedia.CMTime, *coregraphics.CGImageRef, coremedia.CMTime, AVAssetImageGeneratorResult, foundation.NSError)
+type AVAssetImageGeneratorCompletionHandler = func(requestedTime coremedia.CMTime, image *coregraphics.CGImageRef, actualTime coremedia.CMTime, result AVAssetImageGeneratorResult, error_ foundation.NSError)
 
 // AVAssetImageGeneratorDynamicRangePolicy is a type that specifies the dynamic range policy to apply when generating images.
 //
@@ -187,6 +187,11 @@ type AVPlayerRateDidChangeReason = string
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVPlayer/WaitingReason
 type AVPlayerWaitingReason = string
+
+// AVProVideoStorageBusyReason is a reason that Pro Video Storage may be busy.
+//
+// See: https://developer.apple.com/documentation/AVFoundation/AVProVideoStorage/BusyReason
+type AVProVideoStorageBusyReason = string
 
 // AVSemanticSegmentationMatteType is a structure that defines the types of segmentation matte images that you can capture along with the primary image.
 //

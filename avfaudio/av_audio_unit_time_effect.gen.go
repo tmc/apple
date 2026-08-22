@@ -4,8 +4,8 @@ package avfaudio
 
 import (
 	"sync"
-	"unsafe"
 
+	"github.com/tmc/apple/audiotoolbox"
 	"github.com/tmc/apple/objc"
 )
 
@@ -93,7 +93,7 @@ type IAVAudioUnitTimeEffect interface {
 	// Topic: Creating a time effect
 
 	// Creates a time effect audio unit with the specified description.
-	InitWithAudioComponentDescription(audioComponentDescription unsafe.Pointer) AVAudioUnitTimeEffect
+	InitWithAudioComponentDescription(audioComponentDescription audiotoolbox.AudioComponentDescription) AVAudioUnitTimeEffect
 
 	// Topic: Getting and setting the time effect
 
@@ -136,7 +136,7 @@ func NewAVAudioUnitTimeEffect() AVAudioUnitTimeEffect {
 // raises an exception.
 //
 // See: https://developer.apple.com/documentation/AVFAudio/AVAudioUnitTimeEffect/init(audioComponentDescription:)
-func NewAudioUnitTimeEffectWithAudioComponentDescription(audioComponentDescription unsafe.Pointer) AVAudioUnitTimeEffect {
+func NewAudioUnitTimeEffectWithAudioComponentDescription(audioComponentDescription audiotoolbox.AudioComponentDescription) AVAudioUnitTimeEffect {
 	instance := getAVAudioUnitTimeEffectClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithAudioComponentDescription:"), audioComponentDescription)
 	return AVAudioUnitTimeEffectFromID(rv)
@@ -145,8 +145,6 @@ func NewAudioUnitTimeEffectWithAudioComponentDescription(audioComponentDescripti
 // Creates a time effect audio unit with the specified description.
 //
 // audioComponentDescription: The description of the audio unit to create.
-//
-// audioComponentDescription is a [audiotoolbox.AudioComponentDescription].
 //
 // # Return Value
 //
@@ -159,7 +157,7 @@ func NewAudioUnitTimeEffectWithAudioComponentDescription(audioComponentDescripti
 // raises an exception.
 //
 // See: https://developer.apple.com/documentation/AVFAudio/AVAudioUnitTimeEffect/init(audioComponentDescription:)
-func (a AVAudioUnitTimeEffect) InitWithAudioComponentDescription(audioComponentDescription unsafe.Pointer) AVAudioUnitTimeEffect {
+func (a AVAudioUnitTimeEffect) InitWithAudioComponentDescription(audioComponentDescription audiotoolbox.AudioComponentDescription) AVAudioUnitTimeEffect {
 	rv := objc.Send[AVAudioUnitTimeEffect](a.ID, objc.Sel("initWithAudioComponentDescription:"), audioComponentDescription)
 	return rv
 }

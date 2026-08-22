@@ -7,7 +7,6 @@ import (
 	"unsafe"
 
 	"github.com/tmc/apple/foundation"
-	"github.com/tmc/apple/kernel"
 	"github.com/tmc/apple/metal"
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
@@ -112,7 +111,7 @@ type IMTKMesh interface {
 	// Topic: Initialization
 
 	// Initializes a MetalKit mesh and its submeshes from a Model I/O mesh.
-	InitWithMeshDeviceError(mesh kernel.ID, device metal.MTLDevice) (MTKMesh, error)
+	InitWithMeshDeviceError(mesh objectivec.IObject, device metal.MTLDevice) (MTKMesh, error)
 
 	// Topic: Submeshes
 
@@ -166,7 +165,8 @@ func NewMTKMesh() MTKMesh {
 //
 // # Discussion
 //
-// This initializer does initialize any children meshes of the Model I/O mesh.
+// This initializer does not initialize any children meshes of the Model I/O
+// mesh.
 //
 // All vertex buffers in the source Model I/O mesh and the index buffer of
 // each of its submeshes must have been created with a
@@ -182,13 +182,16 @@ func NewMTKMesh() MTKMesh {
 // [Table data omitted]
 //
 // See: https://developer.apple.com/documentation/MetalKit/MTKMesh/init(mesh:device:)
-func NewMeshWithMeshDeviceError(mesh kernel.ID, device metal.MTLDevice) (MTKMesh, error) {
+func NewMeshWithMeshDeviceError(mesh objectivec.IObject, device metal.MTLDevice) (MTKMesh, error) {
 	var errorPtr objc.ID
 	instance := getMTKMeshClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithMesh:device:error:"), mesh, device, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
 		return MTKMesh{}, foundation.NSErrorFrom(errorPtr)
+	}
+	if rv == 0 {
+		return MTKMesh{}, objc.ErrInitFailed
 	}
 	return MTKMeshFromID(rv), nil
 }
@@ -199,15 +202,14 @@ func NewMeshWithMeshDeviceError(mesh kernel.ID, device metal.MTLDevice) (MTKMesh
 //
 // device: The Metal device on which to create MetalKit mesh resources.
 //
-// mesh is a [*modelio.MDLMesh].
-//
 // # Return Value
 //
 // A new MetalKit mesh object, or `nil` if an error occured.
 //
 // # Discussion
 //
-// This initializer does initialize any children meshes of the Model I/O mesh.
+// This initializer does not initialize any children meshes of the Model I/O
+// mesh.
 //
 // All vertex buffers in the source Model I/O mesh and the index buffer of
 // each of its submeshes must have been created with a
@@ -223,7 +225,7 @@ func NewMeshWithMeshDeviceError(mesh kernel.ID, device metal.MTLDevice) (MTKMesh
 // [Table data omitted]
 //
 // See: https://developer.apple.com/documentation/MetalKit/MTKMesh/init(mesh:device:)
-func (m MTKMesh) InitWithMeshDeviceError(mesh kernel.ID, device metal.MTLDevice) (MTKMesh, error) {
+func (m MTKMesh) InitWithMeshDeviceError(mesh objectivec.IObject, device metal.MTLDevice) (MTKMesh, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("initWithMesh:device:error:"), mesh, device, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
@@ -247,8 +249,6 @@ func (m MTKMesh) InitWithMeshDeviceError(mesh kernel.ID, device metal.MTLDevice)
 //
 // error: A pointer to an [NSError] object if an error occurred, or `nil` if all
 // MetalKit mesh initializations succeeded.
-//
-// asset is a [*modelio.MDLAsset].
 //
 // # Return Value
 //
@@ -278,9 +278,9 @@ func (m MTKMesh) InitWithMeshDeviceError(mesh kernel.ID, device metal.MTLDevice)
 //
 // [NSError]: https://developer.apple.com/documentation/Foundation/NSError
 // [MDLMesh]: https://developer.apple.com/documentation/ModelIO/MDLMesh
-func (_MTKMeshClass MTKMeshClass) NewMeshesFromAssetDeviceSourceMeshesError(asset objectivec.IObject, device metal.MTLDevice, sourceMeshes []kernel.ID) ([]MTKMesh, error) {
+func (_MTKMeshClass MTKMeshClass) NewMeshesFromAssetDeviceSourceMeshesError(asset *uintptr, device metal.MTLDevice, sourceMeshes *foundation.NSArray) ([]MTKMesh, error) {
 	var errorPtr objc.ID
-	rv := objc.Send[[]objc.ID](objc.ID(_MTKMeshClass.class), objc.Sel("newMeshesFromAsset:device:sourceMeshes:error:"), asset, device, sourceMeshes, unsafe.Pointer(&errorPtr))
+	rv := objc.Send[[]objc.ID](objc.ID(_MTKMeshClass.class), objc.Sel("newMeshesFromAsset:device:sourceMeshes:error:"), asset, device, unsafe.Pointer(sourceMeshes), unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
 		return nil, foundation.NSErrorFrom(errorPtr)

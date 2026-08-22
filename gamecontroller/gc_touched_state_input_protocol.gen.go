@@ -19,11 +19,6 @@ type GCTouchedStateInput interface {
 	// See: https://developer.apple.com/documentation/GameController/GCTouchedStateInput/isTouched
 	IsTouched() bool
 
-	// A Boolean value that indicates whether the user touches the button.
-	//
-	// See: https://developer.apple.com/documentation/GameController/GCTouchedStateInput/isTouched
-	Touched() bool
-
 	// The time of the most recent touch state change.
 	//
 	// See: https://developer.apple.com/documentation/GameController/GCTouchedStateInput/lastTouchedStateTimestamp
@@ -59,14 +54,6 @@ func GCTouchedStateInputObjectFromID(id objc.ID) GCTouchedStateInputObject {
 
 // A Boolean value that indicates whether the user touches the button.
 //
-// See: https://developer.apple.com/documentation/GameController/GCTouchedStateInput/isTouched
-func (o GCTouchedStateInputObject) IsTouched() bool {
-	rv := objc.Send[bool](o.ID, objc.Sel("isTouched"))
-	return rv
-}
-
-// A Boolean value that indicates whether the user touches the button.
-//
 // # Discussion
 //
 // For controllers that support capacitive touch, the user can start touching
@@ -75,7 +62,7 @@ func (o GCTouchedStateInputObject) IsTouched() bool {
 // when the value property is greater than `0`.
 //
 // See: https://developer.apple.com/documentation/GameController/GCTouchedStateInput/isTouched
-func (o GCTouchedStateInputObject) Touched() bool {
+func (o GCTouchedStateInputObject) IsTouched() bool {
 	rv := objc.Send[bool](o.ID, objc.Sel("isTouched"))
 	return bool(rv)
 }

@@ -130,6 +130,10 @@ func (nc NSScriptObjectSpecifierClass) Alloc() NSScriptObjectSpecifier {
 //
 //   - [NSScriptObjectSpecifier.Descriptor]: Returns an Apple event descriptor that represents the receiver.
 //
+// # Initializers
+//
+//   - [NSScriptObjectSpecifier.InitWithCoder]
+//
 // See: https://developer.apple.com/documentation/Foundation/NSScriptObjectSpecifier
 //
 // [Cocoa Scripting Guide]: https://developer.apple.com/library/archive/documentation/Cocoa/Conceptual/ScriptableCocoaApplications/SApps_intro/SAppsIntro.html#//apple_ref/doc/uid/TP40002164
@@ -193,6 +197,10 @@ func NSScriptObjectSpecifierFromID(id objc.ID) NSScriptObjectSpecifier {
 //
 //   - [INSScriptObjectSpecifier.Descriptor]: Returns an Apple event descriptor that represents the receiver.
 //
+// # Initializers
+//
+//   - [INSScriptObjectSpecifier.InitWithCoder]
+//
 // See: https://developer.apple.com/documentation/Foundation/NSScriptObjectSpecifier
 type INSScriptObjectSpecifier interface {
 	objectivec.IObject
@@ -254,6 +262,13 @@ type INSScriptObjectSpecifier interface {
 
 	// Returns an Apple event descriptor that represents the receiver.
 	Descriptor() INSAppleEventDescriptor
+
+	// Topic: Initializers
+
+	InitWithCoder(inCoder INSCoder) NSScriptObjectSpecifier
+
+	// Encodes the receiver using a given archiver.
+	EncodeWithCoder(coder INSCoder)
 }
 
 // Init initializes the instance.

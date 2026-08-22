@@ -103,7 +103,9 @@ func FSVolumeKernelOffloadedIOOperationsObjectFromID(id objc.ID) FSVolumeKernelO
 //
 // [unspecified]: https://developer.apple.com/documentation/FSKit/FSOperationID/unspecified
 func (o FSVolumeKernelOffloadedIOOperationsObject) BlockmapFileOffsetLengthFlagsOperationIDPackerReplyHandler(file IFSItem, offset int64, length uintptr, flags FSBlockmapFlags, operationID FSOperationID, packer IFSExtentPacker, reply ErrorHandler) {
-	objc.Send[struct{}](o.ID, objc.Sel("blockmapFile:offset:length:flags:operationID:packer:replyHandler:"), file, offset, length, flags, operationID, packer, reply)
+	_block6, _cleanup6 := NewErrorBlock(reply)
+	defer _cleanup6()
+	objc.Send[struct{}](o.ID, objc.Sel("blockmapFile:offset:length:flags:operationID:packer:replyHandler:"), file, offset, length, flags, operationID, packer, objc.ID(_block6))
 }
 
 // Completes an I/O operation for a given file.
@@ -144,7 +146,9 @@ func (o FSVolumeKernelOffloadedIOOperationsObject) BlockmapFileOffsetLengthFlags
 //
 // [unspecified]: https://developer.apple.com/documentation/FSKit/FSOperationID/unspecified
 func (o FSVolumeKernelOffloadedIOOperationsObject) CompleteIOForFileOffsetLengthStatusFlagsOperationIDReplyHandler(file IFSItem, offset int64, length uintptr, status foundation.NSError, flags FSCompleteIOFlags, operationID FSOperationID, reply ErrorHandler) {
-	objc.Send[struct{}](o.ID, objc.Sel("completeIOForFile:offset:length:status:flags:operationID:replyHandler:"), file, offset, length, status, flags, operationID, reply)
+	_block6, _cleanup6 := NewErrorBlock(reply)
+	defer _cleanup6()
+	objc.Send[struct{}](o.ID, objc.Sel("completeIOForFile:offset:length:status:flags:operationID:replyHandler:"), file, offset, length, status, flags, operationID, objc.ID(_block6))
 }
 
 // Creates a new file item and map its disk space.
@@ -181,7 +185,9 @@ func (o FSVolumeKernelOffloadedIOOperationsObject) CompleteIOForFileOffsetLength
 //
 // See: https://developer.apple.com/documentation/FSKit/FSVolumeKernelOffloadedIOOperations/createFile(name:in:attributes:packer:replyHandler:)
 func (o FSVolumeKernelOffloadedIOOperationsObject) CreateFileNamedInDirectoryAttributesPackerReplyHandler(name IFSFileName, directory IFSItem, attributes IFSItemSetAttributesRequest, packer IFSExtentPacker, reply FSItemFSFileNameErrorHandler) {
-	objc.Send[struct{}](o.ID, objc.Sel("createFileNamed:inDirectory:attributes:packer:replyHandler:"), name, directory, attributes, packer, reply)
+	_block4, _cleanup4 := NewFSItemFSFileNameErrorBlock(reply)
+	defer _cleanup4()
+	objc.Send[struct{}](o.ID, objc.Sel("createFileNamed:inDirectory:attributes:packer:replyHandler:"), name, directory, attributes, packer, objc.ID(_block4))
 }
 
 // Looks up an item within a directory and maps its disk space.
@@ -209,7 +215,9 @@ func (o FSVolumeKernelOffloadedIOOperationsObject) CreateFileNamedInDirectoryAtt
 //
 // See: https://developer.apple.com/documentation/FSKit/FSVolumeKernelOffloadedIOOperations/lookupItem(name:in:packer:replyHandler:)
 func (o FSVolumeKernelOffloadedIOOperationsObject) LookupItemNamedInDirectoryPackerReplyHandler(name IFSFileName, directory IFSItem, packer IFSExtentPacker, reply FSItemFSFileNameErrorHandler) {
-	objc.Send[struct{}](o.ID, objc.Sel("lookupItemNamed:inDirectory:packer:replyHandler:"), name, directory, packer, reply)
+	_block3, _cleanup3 := NewFSItemFSFileNameErrorBlock(reply)
+	defer _cleanup3()
+	objc.Send[struct{}](o.ID, objc.Sel("lookupItemNamed:inDirectory:packer:replyHandler:"), name, directory, packer, objc.ID(_block3))
 }
 
 // Preallocates and maps disk space for the given file.
@@ -239,5 +247,7 @@ func (o FSVolumeKernelOffloadedIOOperationsObject) LookupItemNamedInDirectoryPac
 //
 // See: https://developer.apple.com/documentation/FSKit/FSVolumeKernelOffloadedIOOperations/preallocateSpace(for:at:length:flags:packer:replyHandler:)
 func (o FSVolumeKernelOffloadedIOOperationsObject) PreallocateSpaceForFileAtOffsetLengthFlagsPackerReplyHandler(file IFSItem, offset int64, length uintptr, flags FSPreallocateFlags, packer IFSExtentPacker, reply size_tErrorHandler) {
-	objc.Send[struct{}](o.ID, objc.Sel("preallocateSpaceForFile:atOffset:length:flags:packer:replyHandler:"), file, offset, length, flags, packer, reply)
+	_block5, _cleanup5 := Newsize_tErrorBlock(reply)
+	defer _cleanup5()
+	objc.Send[struct{}](o.ID, objc.Sel("preallocateSpaceForFile:atOffset:length:flags:packer:replyHandler:"), file, offset, length, flags, packer, objc.ID(_block5))
 }

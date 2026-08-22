@@ -53,8 +53,9 @@ func (uc UserDefaultsClass) Alloc() UserDefaults {
 // configuration details. The system also stores configuration details that
 // apply to all apps, such as the current language settings for the device. In
 // your code, you check values from this system and use them to dynamically
-// alter your app’s appearance or behavior. The term refers to the fact that
-// the stored data determines the default startup state and behavior.
+// alter your app’s appearance or behavior. The term defaults refers to the
+// fact that the stored data determines the default startup state and
+// behavior.
 //
 // To access the defaults system, obtain a [UserDefaults] object and call its
 // methods to read and write values. The

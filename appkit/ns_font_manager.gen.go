@@ -67,7 +67,7 @@ func (nc NSFontManagerClass) Alloc() NSFontManager {
 //
 // # Getting Available Fonts
 //
-//   - [NSFontManager.AvailableFonts]: The names of the fonts available in the system (not the [NSFont](<doc://com.apple.appkit/documentation/AppKit/NSFont>) objects themselves).
+//   - [NSFontManager.AvailableFonts]: The names of the fonts available in the system (not the [NSFont](<https://developer.apple.com/documentation/AppKit/NSFont>) objects themselves).
 //   - [NSFontManager.AvailableFontFamilies]: The names of the font families available in the system.
 //   - [NSFontManager.AvailableFontNamesWithTraits]: Returns the names of the fonts available in the system whose traits are described exactly by the given font trait mask (not the [NSFont] objects themselves).
 //   - [NSFontManager.AvailableMembersOfFontFamily]: Returns an array with one entry for each available member of a font family.
@@ -153,7 +153,7 @@ func NSFontManagerFromID(id objc.ID) NSFontManager {
 //
 // # Getting Available Fonts
 //
-//   - [INSFontManager.AvailableFonts]: The names of the fonts available in the system (not the [NSFont](<doc://com.apple.appkit/documentation/AppKit/NSFont>) objects themselves).
+//   - [INSFontManager.AvailableFonts]: The names of the fonts available in the system (not the [NSFont](<https://developer.apple.com/documentation/AppKit/NSFont>) objects themselves).
 //   - [INSFontManager.AvailableFontFamilies]: The names of the font families available in the system.
 //   - [INSFontManager.AvailableFontNamesWithTraits]: Returns the names of the fonts available in the system whose traits are described exactly by the given font trait mask (not the [NSFont] objects themselves).
 //   - [INSFontManager.AvailableMembersOfFontFamily]: Returns an array with one entry for each available member of a font family.
@@ -226,21 +226,21 @@ type INSFontManager interface {
 
 	// Topic: Getting Available Fonts
 
-	// The names of the fonts available in the system (not the [NSFont](<doc://com.apple.appkit/documentation/AppKit/NSFont>) objects themselves).
+	// The names of the fonts available in the system (not the [NSFont](<https://developer.apple.com/documentation/AppKit/NSFont>) objects themselves).
 	AvailableFonts() []string
 	// The names of the font families available in the system.
 	AvailableFontFamilies() []string
 	// Returns the names of the fonts available in the system whose traits are described exactly by the given font trait mask (not the [NSFont] objects themselves).
 	AvailableFontNamesWithTraits(someTraits NSFontTraitMask) []string
 	// Returns an array with one entry for each available member of a font family.
-	AvailableMembersOfFontFamily(fam string) []foundation.INSArray
+	AvailableMembersOfFontFamily(fam string) []foundation.NSArray
 
 	// Topic: Setting and Examining the Selected Font
 
 	// Records the specified font as the currently selected font and updates the Font panel.
-	SetSelectedFontIsMultiple(fontObj NSFont, flag bool)
+	SetSelectedFontIsMultiple(fontObj INSFont, flag bool)
 	// The currently selected font object.
-	SelectedFont() NSFont
+	SelectedFont() INSFont
 	// A Boolean value that indicates whether the currently selected font has multiple fonts.
 	IsMultiple() bool
 	// A Boolean value that indicates whether a responder handled the font manager’s action message.
@@ -266,22 +266,22 @@ type INSFontManager interface {
 	// Topic: Converting Fonts Automatically
 
 	// Converts the given font according to the object that initiated a font change, typically the Font panel or Font menu.
-	ConvertFont(fontObj NSFont) NSFont
+	ConvertFont(fontObj INSFont) INSFont
 
 	// Topic: Converting Fonts Manually
 
 	// Returns a font whose traits are as similar as possible to those of the given font except for the typeface, which is changed to the given typeface.
-	ConvertFontToFace(fontObj NSFont, typeface string) NSFont
+	ConvertFontToFace(fontObj INSFont, typeface string) INSFont
 	// Returns a font whose traits are as similar as possible to those of the given font except for the font family, which is changed to the given family.
-	ConvertFontToFamily(fontObj NSFont, family string) NSFont
+	ConvertFontToFamily(fontObj INSFont, family string) INSFont
 	// Returns a new version of the font object containing a single additional trait.
-	ConvertFontToHaveTrait(fontObj NSFont, trait NSFontTraitMask) NSFont
+	ConvertFontToHaveTrait(fontObj INSFont, trait NSFontTraitMask) INSFont
 	// Returns a new version of a font object without the specified traits.
-	ConvertFontToNotHaveTrait(fontObj NSFont, trait NSFontTraitMask) NSFont
+	ConvertFontToNotHaveTrait(fontObj INSFont, trait NSFontTraitMask) INSFont
 	// Returns a font object whose traits are the same as those of the given font, except for the size, which is changed to the given size.
-	ConvertFontToSize(fontObj NSFont, size float64) NSFont
+	ConvertFontToSize(fontObj INSFont, size float64) INSFont
 	// Returns a font object whose weight is greater or lesser than that of the given font.
-	ConvertWeightOfFont(upFlag bool, fontObj NSFont) NSFont
+	ConvertWeightOfFont(upFlag bool, fontObj INSFont) INSFont
 	// The current font conversion action.
 	CurrentFontAction() NSFontAction
 	// Converts font traits to a new traits mask value.
@@ -290,16 +290,16 @@ type INSFontManager interface {
 	// Topic: Getting a Particular Font
 
 	// Attempts to load a font with the specified characteristics.
-	FontWithFamilyTraitsWeightSize(family string, traits NSFontTraitMask, weight int, size float64) NSFont
+	FontWithFamilyTraitsWeightSize(family string, traits NSFontTraitMask, weight int, size float64) INSFont
 
 	// Topic: Examining Fonts
 
 	// Returns the traits of the given font.
-	TraitsOfFont(fontObj NSFont) NSFontTraitMask
+	TraitsOfFont(fontObj INSFont) NSFontTraitMask
 	// Indicates whether the given font has all the specified traits.
 	FontNamedHasTraits(fName string, someTraits NSFontTraitMask) bool
 	// Returns an approximation of the specified font’s weight.
-	WeightOfFont(fontObj NSFont) int
+	WeightOfFont(fontObj INSFont) int
 
 	// Topic: Managing the Font Panel and Font Menu
 
@@ -307,7 +307,7 @@ type INSFontManager interface {
 	IsEnabled() bool
 	SetEnabled(value bool)
 	// Returns the application’s shared Font panel object, creating it if necessary.
-	FontPanel(create bool) NSFontPanel
+	FontPanel(create bool) INSFontPanel
 	// Records the given menu as the application’s Font menu.
 	SetFontMenu(newMenu INSMenu)
 	// Returns the menu that’s connected to the font conversion system, creating it if necessary.
@@ -328,6 +328,9 @@ type INSFontManager interface {
 	SetSelectedAttributesIsMultiple(attributes foundation.INSDictionary, flag bool)
 	// Converts attributes in response to an object initiating an attribute change, typically the Font panel or Font menu.
 	ConvertAttributes(attributes foundation.INSDictionary) foundation.INSDictionary
+
+	// Implemented to override the default action of enabling or disabling a specific menu item.
+	ValidateMenuItem(menuItem INSMenuItem) bool
 }
 
 // Init initializes the instance.
@@ -402,9 +405,9 @@ func (f NSFontManager) AvailableFontNamesWithTraits(someTraits NSFontTraitMask) 
 // For example, if you call `@"Times"`, it might return an array like this:
 //
 // See: https://developer.apple.com/documentation/AppKit/NSFontManager/availableMembers(ofFontFamily:)
-func (f NSFontManager) AvailableMembersOfFontFamily(fam string) []foundation.INSArray {
+func (f NSFontManager) AvailableMembersOfFontFamily(fam string) []foundation.NSArray {
 	rv := objc.Send[[]objc.ID](f.ID, objc.Sel("availableMembersOfFontFamily:"), objc.String(fam))
-	return objc.ConvertSlice(rv, func(id objc.ID) foundation.INSArray {
+	return objc.ConvertSlice(rv, func(id objc.ID) foundation.NSArray {
 		return foundation.NSArrayFromID(id)
 	})
 }
@@ -429,7 +432,7 @@ func (f NSFontManager) AvailableMembersOfFontFamily(fam string) []foundation.INS
 // See: https://developer.apple.com/documentation/AppKit/NSFontManager/setSelectedFont(_:isMultiple:)
 //
 // [changeFont:]: https://developer.apple.com/documentation/ObjectiveC/NSObject-swift.class/changeFont:
-func (f NSFontManager) SetSelectedFontIsMultiple(fontObj NSFont, flag bool) {
+func (f NSFontManager) SetSelectedFontIsMultiple(fontObj INSFont, flag bool) {
 	objc.Send[objc.ID](f.ID, objc.Sel("setSelectedFont:isMultiple:"), fontObj, flag)
 }
 
@@ -601,7 +604,7 @@ func (f NSFontManager) OrderFrontFontPanel(sender objectivec.IObject) {
 // more information.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSFontManager/convert(_:)
-func (f NSFontManager) ConvertFont(fontObj NSFont) NSFont {
+func (f NSFontManager) ConvertFont(fontObj INSFont) INSFont {
 	rv := objc.Send[objc.ID](f.ID, objc.Sel("convertFont:"), fontObj)
 	return NSFontFromID(rv)
 }
@@ -626,7 +629,7 @@ func (f NSFontManager) ConvertFont(fontObj NSFont) NSFont {
 // based on an approximate numeric scale of 0 to 15.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSFontManager/convert(_:toFace:)
-func (f NSFontManager) ConvertFontToFace(fontObj NSFont, typeface string) NSFont {
+func (f NSFontManager) ConvertFontToFace(fontObj INSFont, typeface string) INSFont {
 	rv := objc.Send[objc.ID](f.ID, objc.Sel("convertFont:toFace:"), fontObj, objc.String(typeface))
 	return NSFontFromID(rv)
 }
@@ -651,7 +654,7 @@ func (f NSFontManager) ConvertFontToFace(fontObj NSFont, typeface string) NSFont
 // based on an approximate numeric scale of 0 to 15.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSFontManager/convert(_:toFamily:)
-func (f NSFontManager) ConvertFontToFamily(fontObj NSFont, family string) NSFont {
+func (f NSFontManager) ConvertFontToFamily(fontObj INSFont, family string) INSFont {
 	rv := objc.Send[objc.ID](f.ID, objc.Sel("convertFont:toFamily:"), fontObj, objc.String(family))
 	return NSFontFromID(rv)
 }
@@ -676,7 +679,7 @@ func (f NSFontManager) ConvertFontToFamily(fontObj NSFont, family string) NSFont
 // trait, respectively.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSFontManager/convert(_:toHaveTrait:)
-func (f NSFontManager) ConvertFontToHaveTrait(fontObj NSFont, trait NSFontTraitMask) NSFont {
+func (f NSFontManager) ConvertFontToHaveTrait(fontObj INSFont, trait NSFontTraitMask) INSFont {
 	rv := objc.Send[objc.ID](f.ID, objc.Sel("convertFont:toHaveTrait:"), fontObj, trait)
 	return NSFontFromID(rv)
 }
@@ -695,7 +698,7 @@ func (f NSFontManager) ConvertFontToHaveTrait(fontObj NSFont, trait NSFontTraitM
 // can’t be converted.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSFontManager/convert(_:toNotHaveTrait:)
-func (f NSFontManager) ConvertFontToNotHaveTrait(fontObj NSFont, trait NSFontTraitMask) NSFont {
+func (f NSFontManager) ConvertFontToNotHaveTrait(fontObj INSFont, trait NSFontTraitMask) INSFont {
 	rv := objc.Send[objc.ID](f.ID, objc.Sel("convertFont:toNotHaveTrait:"), fontObj, trait)
 	return NSFontFromID(rv)
 }
@@ -713,7 +716,7 @@ func (f NSFontManager) ConvertFontToNotHaveTrait(fontObj NSFont, trait NSFontTra
 // can’t be converted.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSFontManager/convert(_:toSize:)
-func (f NSFontManager) ConvertFontToSize(fontObj NSFont, size float64) NSFont {
+func (f NSFontManager) ConvertFontToSize(fontObj INSFont, size float64) INSFont {
 	rv := objc.Send[objc.ID](f.ID, objc.Sel("convertFont:toSize:"), fontObj, size)
 	return NSFontFromID(rv)
 }
@@ -745,7 +748,7 @@ func (f NSFontManager) ConvertFontToSize(fontObj NSFont, size float64) NSFont {
 // interpretation of weight conversion.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSFontManager/convertWeight(_:of:)
-func (f NSFontManager) ConvertWeightOfFont(upFlag bool, fontObj NSFont) NSFont {
+func (f NSFontManager) ConvertWeightOfFont(upFlag bool, fontObj INSFont) INSFont {
 	rv := objc.Send[objc.ID](f.ID, objc.Sel("convertWeight:ofFont:"), upFlag, fontObj)
 	return NSFontFromID(rv)
 }
@@ -792,7 +795,7 @@ func (f NSFontManager) ConvertFontTraits(traits NSFontTraitMask) NSFontTraitMask
 // A font with the specified characteristics if successful, or `nil` if not.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSFontManager/font(withFamily:traits:weight:size:)
-func (f NSFontManager) FontWithFamilyTraitsWeightSize(family string, traits NSFontTraitMask, weight int, size float64) NSFont {
+func (f NSFontManager) FontWithFamilyTraitsWeightSize(family string, traits NSFontTraitMask, weight int, size float64) INSFont {
 	rv := objc.Send[objc.ID](f.ID, objc.Sel("fontWithFamily:traits:weight:size:"), objc.String(family), traits, weight, size)
 	return NSFontFromID(rv)
 }
@@ -807,7 +810,7 @@ func (f NSFontManager) FontWithFamilyTraitsWeightSize(family string, traits NSFo
 // [Constants] with the C bitwise OR operator.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSFontManager/traits(of:)
-func (f NSFontManager) TraitsOfFont(fontObj NSFont) NSFontTraitMask {
+func (f NSFontManager) TraitsOfFont(fontObj INSFont) NSFontTraitMask {
 	rv := objc.Send[NSFontTraitMask](f.ID, objc.Sel("traitsOfFont:"), fontObj)
 	return NSFontTraitMask(rv)
 }
@@ -849,7 +852,7 @@ func (f NSFontManager) FontNamedHasTraits(fName string, someTraits NSFontTraitMa
 // exact weight with which `fontObj` was initialized.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSFontManager/weight(of:)
-func (f NSFontManager) WeightOfFont(fontObj NSFont) int {
+func (f NSFontManager) WeightOfFont(fontObj INSFont) int {
 	rv := objc.Send[int](f.ID, objc.Sel("weightOfFont:"), fontObj)
 	return rv
 }
@@ -865,7 +868,7 @@ func (f NSFontManager) WeightOfFont(fontObj NSFont) int {
 // The application’s shared Font panel object.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSFontManager/fontPanel(_:)
-func (f NSFontManager) FontPanel(create bool) NSFontPanel {
+func (f NSFontManager) FontPanel(create bool) INSFontPanel {
 	rv := objc.Send[objc.ID](f.ID, objc.Sel("fontPanel:"), create)
 	return NSFontPanelFromID(rv)
 }
@@ -1037,7 +1040,7 @@ func (f NSFontManager) AvailableFontFamilies() []string {
 // the Font panel like this:
 //
 // See: https://developer.apple.com/documentation/AppKit/NSFontManager/selectedFont
-func (f NSFontManager) SelectedFont() NSFont {
+func (f NSFontManager) SelectedFont() INSFont {
 	rv := objc.Send[objc.ID](f.ID, objc.Sel("selectedFont"))
 	return NSFontFromID(objc.ID(rv))
 }

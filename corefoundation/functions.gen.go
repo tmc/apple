@@ -100,10 +100,10 @@ func CFAbsoluteTimeGetCurrent() CFAbsoluteTime {
 	return result
 }
 
-var _cFAllocatorAllocate func(allocator CFAllocatorRef, size int, hint uint64) unsafe.Pointer
+var _cFAllocatorAllocate func(allocator CFAllocatorRef, size CFIndex, hint CFOptionFlags) unsafe.Pointer
 var _cFAllocatorAllocateErr error
 
-func tryCFAllocatorAllocate(allocator CFAllocatorRef, size int, hint uint64) (unsafe.Pointer, error) {
+func tryCFAllocatorAllocate(allocator CFAllocatorRef, size CFIndex, hint CFOptionFlags) (unsafe.Pointer, error) {
 	if _cFAllocatorAllocate == nil {
 		return nil, symbolCallError("CFAllocatorAllocate", "", _cFAllocatorAllocateErr)
 	}
@@ -113,7 +113,7 @@ func tryCFAllocatorAllocate(allocator CFAllocatorRef, size int, hint uint64) (un
 // CFAllocatorAllocate allocates memory using the specified allocator.
 //
 // See: https://developer.apple.com/documentation/CoreFoundation/CFAllocatorAllocate(_:_:_:)
-func CFAllocatorAllocate(allocator CFAllocatorRef, size int, hint uint64) unsafe.Pointer {
+func CFAllocatorAllocate(allocator CFAllocatorRef, size CFIndex, hint CFOptionFlags) unsafe.Pointer {
 	result, callErr := tryCFAllocatorAllocate(allocator, size, hint)
 	if callErr != nil {
 		panic(callErr)
@@ -121,10 +121,10 @@ func CFAllocatorAllocate(allocator CFAllocatorRef, size int, hint uint64) unsafe
 	return result
 }
 
-var _cFAllocatorAllocateBytes func(allocator CFAllocatorRef, size int, hint uint64) unsafe.Pointer
+var _cFAllocatorAllocateBytes func(allocator CFAllocatorRef, size CFIndex, hint CFOptionFlags) unsafe.Pointer
 var _cFAllocatorAllocateBytesErr error
 
-func tryCFAllocatorAllocateBytes(allocator CFAllocatorRef, size int, hint uint64) (unsafe.Pointer, error) {
+func tryCFAllocatorAllocateBytes(allocator CFAllocatorRef, size CFIndex, hint CFOptionFlags) (unsafe.Pointer, error) {
 	if _cFAllocatorAllocateBytes == nil {
 		return nil, symbolCallError("CFAllocatorAllocateBytes", "15.0", _cFAllocatorAllocateBytesErr)
 	}
@@ -134,7 +134,7 @@ func tryCFAllocatorAllocateBytes(allocator CFAllocatorRef, size int, hint uint64
 // CFAllocatorAllocateBytes.
 //
 // See: https://developer.apple.com/documentation/CoreFoundation/CFAllocatorAllocateBytes(_:_:_:)
-func CFAllocatorAllocateBytes(allocator CFAllocatorRef, size int, hint uint64) unsafe.Pointer {
+func CFAllocatorAllocateBytes(allocator CFAllocatorRef, size CFIndex, hint CFOptionFlags) unsafe.Pointer {
 	result, callErr := tryCFAllocatorAllocateBytes(allocator, size, hint)
 	if callErr != nil {
 		panic(callErr)
@@ -142,10 +142,10 @@ func CFAllocatorAllocateBytes(allocator CFAllocatorRef, size int, hint uint64) u
 	return result
 }
 
-var _cFAllocatorAllocateTyped func(allocator CFAllocatorRef, size int, descriptor CFAllocatorTypeID, hint uint64) unsafe.Pointer
+var _cFAllocatorAllocateTyped func(allocator CFAllocatorRef, size CFIndex, descriptor CFAllocatorTypeID, hint CFOptionFlags) unsafe.Pointer
 var _cFAllocatorAllocateTypedErr error
 
-func tryCFAllocatorAllocateTyped(allocator CFAllocatorRef, size int, descriptor CFAllocatorTypeID, hint uint64) (unsafe.Pointer, error) {
+func tryCFAllocatorAllocateTyped(allocator CFAllocatorRef, size CFIndex, descriptor CFAllocatorTypeID, hint CFOptionFlags) (unsafe.Pointer, error) {
 	if _cFAllocatorAllocateTyped == nil {
 		return nil, symbolCallError("CFAllocatorAllocateTyped", "15.0", _cFAllocatorAllocateTypedErr)
 	}
@@ -155,7 +155,7 @@ func tryCFAllocatorAllocateTyped(allocator CFAllocatorRef, size int, descriptor 
 // CFAllocatorAllocateTyped.
 //
 // See: https://developer.apple.com/documentation/CoreFoundation/CFAllocatorAllocateTyped(_:_:_:_:)
-func CFAllocatorAllocateTyped(allocator CFAllocatorRef, size int, descriptor CFAllocatorTypeID, hint uint64) unsafe.Pointer {
+func CFAllocatorAllocateTyped(allocator CFAllocatorRef, size CFIndex, descriptor CFAllocatorTypeID, hint CFOptionFlags) unsafe.Pointer {
 	result, callErr := tryCFAllocatorAllocateTyped(allocator, size, descriptor, hint)
 	if callErr != nil {
 		panic(callErr)
@@ -266,12 +266,12 @@ func CFAllocatorGetDefault() CFAllocatorRef {
 	return result
 }
 
-var _cFAllocatorGetPreferredSizeForSize func(allocator CFAllocatorRef, size int, hint uint64) int
+var _cFAllocatorGetPreferredSizeForSize func(allocator CFAllocatorRef, size CFIndex, hint CFOptionFlags) CFIndex
 var _cFAllocatorGetPreferredSizeForSizeErr error
 
-func tryCFAllocatorGetPreferredSizeForSize(allocator CFAllocatorRef, size int, hint uint64) (int, error) {
+func tryCFAllocatorGetPreferredSizeForSize(allocator CFAllocatorRef, size CFIndex, hint CFOptionFlags) (CFIndex, error) {
 	if _cFAllocatorGetPreferredSizeForSize == nil {
-		return 0, symbolCallError("CFAllocatorGetPreferredSizeForSize", "", _cFAllocatorGetPreferredSizeForSizeErr)
+		return *new(CFIndex), symbolCallError("CFAllocatorGetPreferredSizeForSize", "", _cFAllocatorGetPreferredSizeForSizeErr)
 	}
 	return _cFAllocatorGetPreferredSizeForSize(allocator, size, hint), nil
 }
@@ -279,7 +279,7 @@ func tryCFAllocatorGetPreferredSizeForSize(allocator CFAllocatorRef, size int, h
 // CFAllocatorGetPreferredSizeForSize obtains the number of bytes likely to be allocated upon a specific request.
 //
 // See: https://developer.apple.com/documentation/CoreFoundation/CFAllocatorGetPreferredSizeForSize(_:_:_:)
-func CFAllocatorGetPreferredSizeForSize(allocator CFAllocatorRef, size int, hint uint64) int {
+func CFAllocatorGetPreferredSizeForSize(allocator CFAllocatorRef, size CFIndex, hint CFOptionFlags) CFIndex {
 	result, callErr := tryCFAllocatorGetPreferredSizeForSize(allocator, size, hint)
 	if callErr != nil {
 		panic(callErr)
@@ -287,12 +287,12 @@ func CFAllocatorGetPreferredSizeForSize(allocator CFAllocatorRef, size int, hint
 	return result
 }
 
-var _cFAllocatorGetTypeID func() uint
+var _cFAllocatorGetTypeID func() CFTypeID
 var _cFAllocatorGetTypeIDErr error
 
-func tryCFAllocatorGetTypeID() (uint, error) {
+func tryCFAllocatorGetTypeID() (CFTypeID, error) {
 	if _cFAllocatorGetTypeID == nil {
-		return 0, symbolCallError("CFAllocatorGetTypeID", "", _cFAllocatorGetTypeIDErr)
+		return *new(CFTypeID), symbolCallError("CFAllocatorGetTypeID", "", _cFAllocatorGetTypeIDErr)
 	}
 	return _cFAllocatorGetTypeID(), nil
 }
@@ -300,7 +300,7 @@ func tryCFAllocatorGetTypeID() (uint, error) {
 // CFAllocatorGetTypeID returns the type identifier for the CFAllocator opaque type.
 //
 // See: https://developer.apple.com/documentation/CoreFoundation/CFAllocatorGetTypeID()
-func CFAllocatorGetTypeID() uint {
+func CFAllocatorGetTypeID() CFTypeID {
 	result, callErr := tryCFAllocatorGetTypeID()
 	if callErr != nil {
 		panic(callErr)
@@ -308,10 +308,10 @@ func CFAllocatorGetTypeID() uint {
 	return result
 }
 
-var _cFAllocatorReallocate func(allocator CFAllocatorRef, ptr unsafe.Pointer, newsize int, hint uint64) unsafe.Pointer
+var _cFAllocatorReallocate func(allocator CFAllocatorRef, ptr unsafe.Pointer, newsize CFIndex, hint CFOptionFlags) unsafe.Pointer
 var _cFAllocatorReallocateErr error
 
-func tryCFAllocatorReallocate(allocator CFAllocatorRef, ptr unsafe.Pointer, newsize int, hint uint64) (unsafe.Pointer, error) {
+func tryCFAllocatorReallocate(allocator CFAllocatorRef, ptr unsafe.Pointer, newsize CFIndex, hint CFOptionFlags) (unsafe.Pointer, error) {
 	if _cFAllocatorReallocate == nil {
 		return nil, symbolCallError("CFAllocatorReallocate", "", _cFAllocatorReallocateErr)
 	}
@@ -321,7 +321,7 @@ func tryCFAllocatorReallocate(allocator CFAllocatorRef, ptr unsafe.Pointer, news
 // CFAllocatorReallocate reallocates memory using the specified allocator.
 //
 // See: https://developer.apple.com/documentation/CoreFoundation/CFAllocatorReallocate(_:_:_:_:)
-func CFAllocatorReallocate(allocator CFAllocatorRef, ptr unsafe.Pointer, newsize int, hint uint64) unsafe.Pointer {
+func CFAllocatorReallocate(allocator CFAllocatorRef, ptr unsafe.Pointer, newsize CFIndex, hint CFOptionFlags) unsafe.Pointer {
 	result, callErr := tryCFAllocatorReallocate(allocator, ptr, newsize, hint)
 	if callErr != nil {
 		panic(callErr)
@@ -329,10 +329,10 @@ func CFAllocatorReallocate(allocator CFAllocatorRef, ptr unsafe.Pointer, newsize
 	return result
 }
 
-var _cFAllocatorReallocateBytes func(allocator CFAllocatorRef, ptr unsafe.Pointer, newsize int, hint uint64) unsafe.Pointer
+var _cFAllocatorReallocateBytes func(allocator CFAllocatorRef, ptr unsafe.Pointer, newsize CFIndex, hint CFOptionFlags) unsafe.Pointer
 var _cFAllocatorReallocateBytesErr error
 
-func tryCFAllocatorReallocateBytes(allocator CFAllocatorRef, ptr unsafe.Pointer, newsize int, hint uint64) (unsafe.Pointer, error) {
+func tryCFAllocatorReallocateBytes(allocator CFAllocatorRef, ptr unsafe.Pointer, newsize CFIndex, hint CFOptionFlags) (unsafe.Pointer, error) {
 	if _cFAllocatorReallocateBytes == nil {
 		return nil, symbolCallError("CFAllocatorReallocateBytes", "15.0", _cFAllocatorReallocateBytesErr)
 	}
@@ -342,7 +342,7 @@ func tryCFAllocatorReallocateBytes(allocator CFAllocatorRef, ptr unsafe.Pointer,
 // CFAllocatorReallocateBytes.
 //
 // See: https://developer.apple.com/documentation/CoreFoundation/CFAllocatorReallocateBytes(_:_:_:_:)
-func CFAllocatorReallocateBytes(allocator CFAllocatorRef, ptr unsafe.Pointer, newsize int, hint uint64) unsafe.Pointer {
+func CFAllocatorReallocateBytes(allocator CFAllocatorRef, ptr unsafe.Pointer, newsize CFIndex, hint CFOptionFlags) unsafe.Pointer {
 	result, callErr := tryCFAllocatorReallocateBytes(allocator, ptr, newsize, hint)
 	if callErr != nil {
 		panic(callErr)
@@ -350,10 +350,10 @@ func CFAllocatorReallocateBytes(allocator CFAllocatorRef, ptr unsafe.Pointer, ne
 	return result
 }
 
-var _cFAllocatorReallocateTyped func(allocator CFAllocatorRef, ptr unsafe.Pointer, newsize int, descriptor CFAllocatorTypeID, hint uint64) unsafe.Pointer
+var _cFAllocatorReallocateTyped func(allocator CFAllocatorRef, ptr unsafe.Pointer, newsize CFIndex, descriptor CFAllocatorTypeID, hint CFOptionFlags) unsafe.Pointer
 var _cFAllocatorReallocateTypedErr error
 
-func tryCFAllocatorReallocateTyped(allocator CFAllocatorRef, ptr unsafe.Pointer, newsize int, descriptor CFAllocatorTypeID, hint uint64) (unsafe.Pointer, error) {
+func tryCFAllocatorReallocateTyped(allocator CFAllocatorRef, ptr unsafe.Pointer, newsize CFIndex, descriptor CFAllocatorTypeID, hint CFOptionFlags) (unsafe.Pointer, error) {
 	if _cFAllocatorReallocateTyped == nil {
 		return nil, symbolCallError("CFAllocatorReallocateTyped", "15.0", _cFAllocatorReallocateTypedErr)
 	}
@@ -363,7 +363,7 @@ func tryCFAllocatorReallocateTyped(allocator CFAllocatorRef, ptr unsafe.Pointer,
 // CFAllocatorReallocateTyped.
 //
 // See: https://developer.apple.com/documentation/CoreFoundation/CFAllocatorReallocateTyped(_:_:_:_:_:)
-func CFAllocatorReallocateTyped(allocator CFAllocatorRef, ptr unsafe.Pointer, newsize int, descriptor CFAllocatorTypeID, hint uint64) unsafe.Pointer {
+func CFAllocatorReallocateTyped(allocator CFAllocatorRef, ptr unsafe.Pointer, newsize CFIndex, descriptor CFAllocatorTypeID, hint CFOptionFlags) unsafe.Pointer {
 	result, callErr := tryCFAllocatorReallocateTyped(allocator, ptr, newsize, descriptor, hint)
 	if callErr != nil {
 		panic(callErr)
@@ -451,12 +451,12 @@ func CFArrayApplyFunction(theArray CFArrayRef, range_ CFRange, applier CFArrayAp
 	}
 }
 
-var _cFArrayBSearchValues func(theArray CFArrayRef, range_ CFRange, value unsafe.Pointer, comparator CFComparatorFunction, context unsafe.Pointer) int
+var _cFArrayBSearchValues func(theArray CFArrayRef, range_ CFRange, value unsafe.Pointer, comparator CFComparatorFunction, context unsafe.Pointer) CFIndex
 var _cFArrayBSearchValuesErr error
 
-func tryCFArrayBSearchValues(theArray CFArrayRef, range_ CFRange, value unsafe.Pointer, comparator CFComparatorFunction, context unsafe.Pointer) (int, error) {
+func tryCFArrayBSearchValues(theArray CFArrayRef, range_ CFRange, value unsafe.Pointer, comparator CFComparatorFunction, context unsafe.Pointer) (CFIndex, error) {
 	if _cFArrayBSearchValues == nil {
-		return 0, symbolCallError("CFArrayBSearchValues", "", _cFArrayBSearchValuesErr)
+		return *new(CFIndex), symbolCallError("CFArrayBSearchValues", "", _cFArrayBSearchValuesErr)
 	}
 	return _cFArrayBSearchValues(theArray, range_, value, comparator, context), nil
 }
@@ -464,7 +464,7 @@ func tryCFArrayBSearchValues(theArray CFArrayRef, range_ CFRange, value unsafe.P
 // CFArrayBSearchValues searches an array for a value using a binary search algorithm.
 //
 // See: https://developer.apple.com/documentation/CoreFoundation/CFArrayBSearchValues(_:_:_:_:_:)
-func CFArrayBSearchValues(theArray CFArrayRef, range_ CFRange, value unsafe.Pointer, comparator CFComparatorFunction, context unsafe.Pointer) int {
+func CFArrayBSearchValues(theArray CFArrayRef, range_ CFRange, value unsafe.Pointer, comparator CFComparatorFunction, context unsafe.Pointer) CFIndex {
 	result, callErr := tryCFArrayBSearchValues(theArray, range_, value, comparator, context)
 	if callErr != nil {
 		panic(callErr)
@@ -493,10 +493,10 @@ func CFArrayContainsValue(theArray CFArrayRef, range_ CFRange, value unsafe.Poin
 	return result
 }
 
-var _cFArrayCreate func(allocator CFAllocatorRef, values unsafe.Pointer, numValues int, callBacks *CFArrayCallBacks) CFArrayRef
+var _cFArrayCreate func(allocator CFAllocatorRef, values unsafe.Pointer, numValues CFIndex, callBacks *CFArrayCallBacks) CFArrayRef
 var _cFArrayCreateErr error
 
-func tryCFArrayCreate(allocator CFAllocatorRef, values unsafe.Pointer, numValues int, callBacks *CFArrayCallBacks) (CFArrayRef, error) {
+func tryCFArrayCreate(allocator CFAllocatorRef, values unsafe.Pointer, numValues CFIndex, callBacks *CFArrayCallBacks) (CFArrayRef, error) {
 	if _cFArrayCreate == nil {
 		return *new(CFArrayRef), symbolCallError("CFArrayCreate", "", _cFArrayCreateErr)
 	}
@@ -506,7 +506,7 @@ func tryCFArrayCreate(allocator CFAllocatorRef, values unsafe.Pointer, numValues
 // CFArrayCreate creates a new immutable array with the given values.
 //
 // See: https://developer.apple.com/documentation/CoreFoundation/CFArrayCreate(_:_:_:_:)
-func CFArrayCreate(allocator CFAllocatorRef, values unsafe.Pointer, numValues int, callBacks *CFArrayCallBacks) CFArrayRef {
+func CFArrayCreate(allocator CFAllocatorRef, values unsafe.Pointer, numValues CFIndex, callBacks *CFArrayCallBacks) CFArrayRef {
 	result, callErr := tryCFArrayCreate(allocator, values, numValues, callBacks)
 	if callErr != nil {
 		panic(callErr)
@@ -535,10 +535,10 @@ func CFArrayCreateCopy(allocator CFAllocatorRef, theArray CFArrayRef) CFArrayRef
 	return result
 }
 
-var _cFArrayCreateMutable func(allocator CFAllocatorRef, capacity int, callBacks *CFArrayCallBacks) CFMutableArrayRef
+var _cFArrayCreateMutable func(allocator CFAllocatorRef, capacity CFIndex, callBacks *CFArrayCallBacks) CFMutableArrayRef
 var _cFArrayCreateMutableErr error
 
-func tryCFArrayCreateMutable(allocator CFAllocatorRef, capacity int, callBacks *CFArrayCallBacks) (CFMutableArrayRef, error) {
+func tryCFArrayCreateMutable(allocator CFAllocatorRef, capacity CFIndex, callBacks *CFArrayCallBacks) (CFMutableArrayRef, error) {
 	if _cFArrayCreateMutable == nil {
 		return *new(CFMutableArrayRef), symbolCallError("CFArrayCreateMutable", "", _cFArrayCreateMutableErr)
 	}
@@ -548,7 +548,7 @@ func tryCFArrayCreateMutable(allocator CFAllocatorRef, capacity int, callBacks *
 // CFArrayCreateMutable creates a new empty mutable array.
 //
 // See: https://developer.apple.com/documentation/CoreFoundation/CFArrayCreateMutable(_:_:_:)
-func CFArrayCreateMutable(allocator CFAllocatorRef, capacity int, callBacks *CFArrayCallBacks) CFMutableArrayRef {
+func CFArrayCreateMutable(allocator CFAllocatorRef, capacity CFIndex, callBacks *CFArrayCallBacks) CFMutableArrayRef {
 	result, callErr := tryCFArrayCreateMutable(allocator, capacity, callBacks)
 	if callErr != nil {
 		panic(callErr)
@@ -556,10 +556,10 @@ func CFArrayCreateMutable(allocator CFAllocatorRef, capacity int, callBacks *CFA
 	return result
 }
 
-var _cFArrayCreateMutableCopy func(allocator CFAllocatorRef, capacity int, theArray CFArrayRef) CFMutableArrayRef
+var _cFArrayCreateMutableCopy func(allocator CFAllocatorRef, capacity CFIndex, theArray CFArrayRef) CFMutableArrayRef
 var _cFArrayCreateMutableCopyErr error
 
-func tryCFArrayCreateMutableCopy(allocator CFAllocatorRef, capacity int, theArray CFArrayRef) (CFMutableArrayRef, error) {
+func tryCFArrayCreateMutableCopy(allocator CFAllocatorRef, capacity CFIndex, theArray CFArrayRef) (CFMutableArrayRef, error) {
 	if _cFArrayCreateMutableCopy == nil {
 		return *new(CFMutableArrayRef), symbolCallError("CFArrayCreateMutableCopy", "", _cFArrayCreateMutableCopyErr)
 	}
@@ -569,7 +569,7 @@ func tryCFArrayCreateMutableCopy(allocator CFAllocatorRef, capacity int, theArra
 // CFArrayCreateMutableCopy creates a new mutable array with the values from another array.
 //
 // See: https://developer.apple.com/documentation/CoreFoundation/CFArrayCreateMutableCopy(_:_:_:)
-func CFArrayCreateMutableCopy(allocator CFAllocatorRef, capacity int, theArray CFArrayRef) CFMutableArrayRef {
+func CFArrayCreateMutableCopy(allocator CFAllocatorRef, capacity CFIndex, theArray CFArrayRef) CFMutableArrayRef {
 	result, callErr := tryCFArrayCreateMutableCopy(allocator, capacity, theArray)
 	if callErr != nil {
 		panic(callErr)
@@ -577,10 +577,10 @@ func CFArrayCreateMutableCopy(allocator CFAllocatorRef, capacity int, theArray C
 	return result
 }
 
-var _cFArrayExchangeValuesAtIndices func(theArray CFMutableArrayRef, idx1 int, idx2 int)
+var _cFArrayExchangeValuesAtIndices func(theArray CFMutableArrayRef, idx1 CFIndex, idx2 CFIndex)
 var _cFArrayExchangeValuesAtIndicesErr error
 
-func tryCFArrayExchangeValuesAtIndices(theArray CFMutableArrayRef, idx1 int, idx2 int) error {
+func tryCFArrayExchangeValuesAtIndices(theArray CFMutableArrayRef, idx1 CFIndex, idx2 CFIndex) error {
 	if _cFArrayExchangeValuesAtIndices == nil {
 		return symbolCallError("CFArrayExchangeValuesAtIndices", "", _cFArrayExchangeValuesAtIndicesErr)
 	}
@@ -591,18 +591,18 @@ func tryCFArrayExchangeValuesAtIndices(theArray CFMutableArrayRef, idx1 int, idx
 // CFArrayExchangeValuesAtIndices exchanges the values at two indices of an array.
 //
 // See: https://developer.apple.com/documentation/CoreFoundation/CFArrayExchangeValuesAtIndices(_:_:_:)
-func CFArrayExchangeValuesAtIndices(theArray CFMutableArrayRef, idx1 int, idx2 int) {
+func CFArrayExchangeValuesAtIndices(theArray CFMutableArrayRef, idx1 CFIndex, idx2 CFIndex) {
 	if callErr := tryCFArrayExchangeValuesAtIndices(theArray, idx1, idx2); callErr != nil {
 		panic(callErr)
 	}
 }
 
-var _cFArrayGetCount func(theArray CFArrayRef) int
+var _cFArrayGetCount func(theArray CFArrayRef) CFIndex
 var _cFArrayGetCountErr error
 
-func tryCFArrayGetCount(theArray CFArrayRef) (int, error) {
+func tryCFArrayGetCount(theArray CFArrayRef) (CFIndex, error) {
 	if _cFArrayGetCount == nil {
-		return 0, symbolCallError("CFArrayGetCount", "", _cFArrayGetCountErr)
+		return *new(CFIndex), symbolCallError("CFArrayGetCount", "", _cFArrayGetCountErr)
 	}
 	return _cFArrayGetCount(theArray), nil
 }
@@ -610,7 +610,7 @@ func tryCFArrayGetCount(theArray CFArrayRef) (int, error) {
 // CFArrayGetCount returns the number of values currently in an array.
 //
 // See: https://developer.apple.com/documentation/CoreFoundation/CFArrayGetCount(_:)
-func CFArrayGetCount(theArray CFArrayRef) int {
+func CFArrayGetCount(theArray CFArrayRef) CFIndex {
 	result, callErr := tryCFArrayGetCount(theArray)
 	if callErr != nil {
 		panic(callErr)
@@ -618,12 +618,12 @@ func CFArrayGetCount(theArray CFArrayRef) int {
 	return result
 }
 
-var _cFArrayGetCountOfValue func(theArray CFArrayRef, range_ CFRange, value unsafe.Pointer) int
+var _cFArrayGetCountOfValue func(theArray CFArrayRef, range_ CFRange, value unsafe.Pointer) CFIndex
 var _cFArrayGetCountOfValueErr error
 
-func tryCFArrayGetCountOfValue(theArray CFArrayRef, range_ CFRange, value unsafe.Pointer) (int, error) {
+func tryCFArrayGetCountOfValue(theArray CFArrayRef, range_ CFRange, value unsafe.Pointer) (CFIndex, error) {
 	if _cFArrayGetCountOfValue == nil {
-		return 0, symbolCallError("CFArrayGetCountOfValue", "", _cFArrayGetCountOfValueErr)
+		return *new(CFIndex), symbolCallError("CFArrayGetCountOfValue", "", _cFArrayGetCountOfValueErr)
 	}
 	return _cFArrayGetCountOfValue(theArray, range_, value), nil
 }
@@ -631,7 +631,7 @@ func tryCFArrayGetCountOfValue(theArray CFArrayRef, range_ CFRange, value unsafe
 // CFArrayGetCountOfValue counts the number of times a given value occurs in an array.
 //
 // See: https://developer.apple.com/documentation/CoreFoundation/CFArrayGetCountOfValue(_:_:_:)
-func CFArrayGetCountOfValue(theArray CFArrayRef, range_ CFRange, value unsafe.Pointer) int {
+func CFArrayGetCountOfValue(theArray CFArrayRef, range_ CFRange, value unsafe.Pointer) CFIndex {
 	result, callErr := tryCFArrayGetCountOfValue(theArray, range_, value)
 	if callErr != nil {
 		panic(callErr)
@@ -639,12 +639,12 @@ func CFArrayGetCountOfValue(theArray CFArrayRef, range_ CFRange, value unsafe.Po
 	return result
 }
 
-var _cFArrayGetFirstIndexOfValue func(theArray CFArrayRef, range_ CFRange, value unsafe.Pointer) int
+var _cFArrayGetFirstIndexOfValue func(theArray CFArrayRef, range_ CFRange, value unsafe.Pointer) CFIndex
 var _cFArrayGetFirstIndexOfValueErr error
 
-func tryCFArrayGetFirstIndexOfValue(theArray CFArrayRef, range_ CFRange, value unsafe.Pointer) (int, error) {
+func tryCFArrayGetFirstIndexOfValue(theArray CFArrayRef, range_ CFRange, value unsafe.Pointer) (CFIndex, error) {
 	if _cFArrayGetFirstIndexOfValue == nil {
-		return 0, symbolCallError("CFArrayGetFirstIndexOfValue", "", _cFArrayGetFirstIndexOfValueErr)
+		return *new(CFIndex), symbolCallError("CFArrayGetFirstIndexOfValue", "", _cFArrayGetFirstIndexOfValueErr)
 	}
 	return _cFArrayGetFirstIndexOfValue(theArray, range_, value), nil
 }
@@ -652,7 +652,7 @@ func tryCFArrayGetFirstIndexOfValue(theArray CFArrayRef, range_ CFRange, value u
 // CFArrayGetFirstIndexOfValue searches an array forward for a value.
 //
 // See: https://developer.apple.com/documentation/CoreFoundation/CFArrayGetFirstIndexOfValue(_:_:_:)
-func CFArrayGetFirstIndexOfValue(theArray CFArrayRef, range_ CFRange, value unsafe.Pointer) int {
+func CFArrayGetFirstIndexOfValue(theArray CFArrayRef, range_ CFRange, value unsafe.Pointer) CFIndex {
 	result, callErr := tryCFArrayGetFirstIndexOfValue(theArray, range_, value)
 	if callErr != nil {
 		panic(callErr)
@@ -660,12 +660,12 @@ func CFArrayGetFirstIndexOfValue(theArray CFArrayRef, range_ CFRange, value unsa
 	return result
 }
 
-var _cFArrayGetLastIndexOfValue func(theArray CFArrayRef, range_ CFRange, value unsafe.Pointer) int
+var _cFArrayGetLastIndexOfValue func(theArray CFArrayRef, range_ CFRange, value unsafe.Pointer) CFIndex
 var _cFArrayGetLastIndexOfValueErr error
 
-func tryCFArrayGetLastIndexOfValue(theArray CFArrayRef, range_ CFRange, value unsafe.Pointer) (int, error) {
+func tryCFArrayGetLastIndexOfValue(theArray CFArrayRef, range_ CFRange, value unsafe.Pointer) (CFIndex, error) {
 	if _cFArrayGetLastIndexOfValue == nil {
-		return 0, symbolCallError("CFArrayGetLastIndexOfValue", "", _cFArrayGetLastIndexOfValueErr)
+		return *new(CFIndex), symbolCallError("CFArrayGetLastIndexOfValue", "", _cFArrayGetLastIndexOfValueErr)
 	}
 	return _cFArrayGetLastIndexOfValue(theArray, range_, value), nil
 }
@@ -673,7 +673,7 @@ func tryCFArrayGetLastIndexOfValue(theArray CFArrayRef, range_ CFRange, value un
 // CFArrayGetLastIndexOfValue searches an array backward for a value.
 //
 // See: https://developer.apple.com/documentation/CoreFoundation/CFArrayGetLastIndexOfValue(_:_:_:)
-func CFArrayGetLastIndexOfValue(theArray CFArrayRef, range_ CFRange, value unsafe.Pointer) int {
+func CFArrayGetLastIndexOfValue(theArray CFArrayRef, range_ CFRange, value unsafe.Pointer) CFIndex {
 	result, callErr := tryCFArrayGetLastIndexOfValue(theArray, range_, value)
 	if callErr != nil {
 		panic(callErr)
@@ -681,12 +681,12 @@ func CFArrayGetLastIndexOfValue(theArray CFArrayRef, range_ CFRange, value unsaf
 	return result
 }
 
-var _cFArrayGetTypeID func() uint
+var _cFArrayGetTypeID func() CFTypeID
 var _cFArrayGetTypeIDErr error
 
-func tryCFArrayGetTypeID() (uint, error) {
+func tryCFArrayGetTypeID() (CFTypeID, error) {
 	if _cFArrayGetTypeID == nil {
-		return 0, symbolCallError("CFArrayGetTypeID", "", _cFArrayGetTypeIDErr)
+		return *new(CFTypeID), symbolCallError("CFArrayGetTypeID", "", _cFArrayGetTypeIDErr)
 	}
 	return _cFArrayGetTypeID(), nil
 }
@@ -694,7 +694,7 @@ func tryCFArrayGetTypeID() (uint, error) {
 // CFArrayGetTypeID returns the type identifier for the CFArray opaque type.
 //
 // See: https://developer.apple.com/documentation/CoreFoundation/CFArrayGetTypeID()
-func CFArrayGetTypeID() uint {
+func CFArrayGetTypeID() CFTypeID {
 	result, callErr := tryCFArrayGetTypeID()
 	if callErr != nil {
 		panic(callErr)
@@ -702,10 +702,10 @@ func CFArrayGetTypeID() uint {
 	return result
 }
 
-var _cFArrayGetValueAtIndex func(theArray CFArrayRef, idx int) unsafe.Pointer
+var _cFArrayGetValueAtIndex func(theArray CFArrayRef, idx CFIndex) unsafe.Pointer
 var _cFArrayGetValueAtIndexErr error
 
-func tryCFArrayGetValueAtIndex(theArray CFArrayRef, idx int) (unsafe.Pointer, error) {
+func tryCFArrayGetValueAtIndex(theArray CFArrayRef, idx CFIndex) (unsafe.Pointer, error) {
 	if _cFArrayGetValueAtIndex == nil {
 		return nil, symbolCallError("CFArrayGetValueAtIndex", "", _cFArrayGetValueAtIndexErr)
 	}
@@ -715,7 +715,7 @@ func tryCFArrayGetValueAtIndex(theArray CFArrayRef, idx int) (unsafe.Pointer, er
 // CFArrayGetValueAtIndex retrieves a value at a given index.
 //
 // See: https://developer.apple.com/documentation/CoreFoundation/CFArrayGetValueAtIndex(_:_:)
-func CFArrayGetValueAtIndex(theArray CFArrayRef, idx int) unsafe.Pointer {
+func CFArrayGetValueAtIndex(theArray CFArrayRef, idx CFIndex) unsafe.Pointer {
 	result, callErr := tryCFArrayGetValueAtIndex(theArray, idx)
 	if callErr != nil {
 		panic(callErr)
@@ -743,10 +743,10 @@ func CFArrayGetValues(theArray CFArrayRef, range_ CFRange, values unsafe.Pointer
 	}
 }
 
-var _cFArrayInsertValueAtIndex func(theArray CFMutableArrayRef, idx int, value unsafe.Pointer)
+var _cFArrayInsertValueAtIndex func(theArray CFMutableArrayRef, idx CFIndex, value unsafe.Pointer)
 var _cFArrayInsertValueAtIndexErr error
 
-func tryCFArrayInsertValueAtIndex(theArray CFMutableArrayRef, idx int, value unsafe.Pointer) error {
+func tryCFArrayInsertValueAtIndex(theArray CFMutableArrayRef, idx CFIndex, value unsafe.Pointer) error {
 	if _cFArrayInsertValueAtIndex == nil {
 		return symbolCallError("CFArrayInsertValueAtIndex", "", _cFArrayInsertValueAtIndexErr)
 	}
@@ -757,7 +757,7 @@ func tryCFArrayInsertValueAtIndex(theArray CFMutableArrayRef, idx int, value uns
 // CFArrayInsertValueAtIndex inserts a value into an array at a given index.
 //
 // See: https://developer.apple.com/documentation/CoreFoundation/CFArrayInsertValueAtIndex(_:_:_:)
-func CFArrayInsertValueAtIndex(theArray CFMutableArrayRef, idx int, value unsafe.Pointer) {
+func CFArrayInsertValueAtIndex(theArray CFMutableArrayRef, idx CFIndex, value unsafe.Pointer) {
 	if callErr := tryCFArrayInsertValueAtIndex(theArray, idx, value); callErr != nil {
 		panic(callErr)
 	}
@@ -783,10 +783,10 @@ func CFArrayRemoveAllValues(theArray CFMutableArrayRef) {
 	}
 }
 
-var _cFArrayRemoveValueAtIndex func(theArray CFMutableArrayRef, idx int)
+var _cFArrayRemoveValueAtIndex func(theArray CFMutableArrayRef, idx CFIndex)
 var _cFArrayRemoveValueAtIndexErr error
 
-func tryCFArrayRemoveValueAtIndex(theArray CFMutableArrayRef, idx int) error {
+func tryCFArrayRemoveValueAtIndex(theArray CFMutableArrayRef, idx CFIndex) error {
 	if _cFArrayRemoveValueAtIndex == nil {
 		return symbolCallError("CFArrayRemoveValueAtIndex", "", _cFArrayRemoveValueAtIndexErr)
 	}
@@ -797,16 +797,16 @@ func tryCFArrayRemoveValueAtIndex(theArray CFMutableArrayRef, idx int) error {
 // CFArrayRemoveValueAtIndex removes the value at a given index from an array.
 //
 // See: https://developer.apple.com/documentation/CoreFoundation/CFArrayRemoveValueAtIndex(_:_:)
-func CFArrayRemoveValueAtIndex(theArray CFMutableArrayRef, idx int) {
+func CFArrayRemoveValueAtIndex(theArray CFMutableArrayRef, idx CFIndex) {
 	if callErr := tryCFArrayRemoveValueAtIndex(theArray, idx); callErr != nil {
 		panic(callErr)
 	}
 }
 
-var _cFArrayReplaceValues func(theArray CFMutableArrayRef, range_ CFRange, newValues unsafe.Pointer, newCount int)
+var _cFArrayReplaceValues func(theArray CFMutableArrayRef, range_ CFRange, newValues unsafe.Pointer, newCount CFIndex)
 var _cFArrayReplaceValuesErr error
 
-func tryCFArrayReplaceValues(theArray CFMutableArrayRef, range_ CFRange, newValues unsafe.Pointer, newCount int) error {
+func tryCFArrayReplaceValues(theArray CFMutableArrayRef, range_ CFRange, newValues unsafe.Pointer, newCount CFIndex) error {
 	if _cFArrayReplaceValues == nil {
 		return symbolCallError("CFArrayReplaceValues", "", _cFArrayReplaceValuesErr)
 	}
@@ -817,16 +817,16 @@ func tryCFArrayReplaceValues(theArray CFMutableArrayRef, range_ CFRange, newValu
 // CFArrayReplaceValues replaces a range of values in an array.
 //
 // See: https://developer.apple.com/documentation/CoreFoundation/CFArrayReplaceValues(_:_:_:_:)
-func CFArrayReplaceValues(theArray CFMutableArrayRef, range_ CFRange, newValues unsafe.Pointer, newCount int) {
+func CFArrayReplaceValues(theArray CFMutableArrayRef, range_ CFRange, newValues unsafe.Pointer, newCount CFIndex) {
 	if callErr := tryCFArrayReplaceValues(theArray, range_, newValues, newCount); callErr != nil {
 		panic(callErr)
 	}
 }
 
-var _cFArraySetValueAtIndex func(theArray CFMutableArrayRef, idx int, value unsafe.Pointer)
+var _cFArraySetValueAtIndex func(theArray CFMutableArrayRef, idx CFIndex, value unsafe.Pointer)
 var _cFArraySetValueAtIndexErr error
 
-func tryCFArraySetValueAtIndex(theArray CFMutableArrayRef, idx int, value unsafe.Pointer) error {
+func tryCFArraySetValueAtIndex(theArray CFMutableArrayRef, idx CFIndex, value unsafe.Pointer) error {
 	if _cFArraySetValueAtIndex == nil {
 		return symbolCallError("CFArraySetValueAtIndex", "", _cFArraySetValueAtIndexErr)
 	}
@@ -837,7 +837,7 @@ func tryCFArraySetValueAtIndex(theArray CFMutableArrayRef, idx int, value unsafe
 // CFArraySetValueAtIndex changes the value at a given index in an array.
 //
 // See: https://developer.apple.com/documentation/CoreFoundation/CFArraySetValueAtIndex(_:_:_:)
-func CFArraySetValueAtIndex(theArray CFMutableArrayRef, idx int, value unsafe.Pointer) {
+func CFArraySetValueAtIndex(theArray CFMutableArrayRef, idx CFIndex, value unsafe.Pointer) {
 	if callErr := tryCFArraySetValueAtIndex(theArray, idx, value); callErr != nil {
 		panic(callErr)
 	}
@@ -925,10 +925,10 @@ func CFAttributedStringCreateCopy(alloc CFAllocatorRef, aStr CFAttributedStringR
 	return result
 }
 
-var _cFAttributedStringCreateMutable func(alloc CFAllocatorRef, maxLength int) CFMutableAttributedStringRef
+var _cFAttributedStringCreateMutable func(alloc CFAllocatorRef, maxLength CFIndex) CFMutableAttributedStringRef
 var _cFAttributedStringCreateMutableErr error
 
-func tryCFAttributedStringCreateMutable(alloc CFAllocatorRef, maxLength int) (CFMutableAttributedStringRef, error) {
+func tryCFAttributedStringCreateMutable(alloc CFAllocatorRef, maxLength CFIndex) (CFMutableAttributedStringRef, error) {
 	if _cFAttributedStringCreateMutable == nil {
 		return *new(CFMutableAttributedStringRef), symbolCallError("CFAttributedStringCreateMutable", "", _cFAttributedStringCreateMutableErr)
 	}
@@ -938,7 +938,7 @@ func tryCFAttributedStringCreateMutable(alloc CFAllocatorRef, maxLength int) (CF
 // CFAttributedStringCreateMutable creates a mutable attributed string.
 //
 // See: https://developer.apple.com/documentation/CoreFoundation/CFAttributedStringCreateMutable(_:_:)
-func CFAttributedStringCreateMutable(alloc CFAllocatorRef, maxLength int) CFMutableAttributedStringRef {
+func CFAttributedStringCreateMutable(alloc CFAllocatorRef, maxLength CFIndex) CFMutableAttributedStringRef {
 	result, callErr := tryCFAttributedStringCreateMutable(alloc, maxLength)
 	if callErr != nil {
 		panic(callErr)
@@ -946,10 +946,10 @@ func CFAttributedStringCreateMutable(alloc CFAllocatorRef, maxLength int) CFMuta
 	return result
 }
 
-var _cFAttributedStringCreateMutableCopy func(alloc CFAllocatorRef, maxLength int, aStr CFAttributedStringRef) CFMutableAttributedStringRef
+var _cFAttributedStringCreateMutableCopy func(alloc CFAllocatorRef, maxLength CFIndex, aStr CFAttributedStringRef) CFMutableAttributedStringRef
 var _cFAttributedStringCreateMutableCopyErr error
 
-func tryCFAttributedStringCreateMutableCopy(alloc CFAllocatorRef, maxLength int, aStr CFAttributedStringRef) (CFMutableAttributedStringRef, error) {
+func tryCFAttributedStringCreateMutableCopy(alloc CFAllocatorRef, maxLength CFIndex, aStr CFAttributedStringRef) (CFMutableAttributedStringRef, error) {
 	if _cFAttributedStringCreateMutableCopy == nil {
 		return *new(CFMutableAttributedStringRef), symbolCallError("CFAttributedStringCreateMutableCopy", "", _cFAttributedStringCreateMutableCopyErr)
 	}
@@ -959,7 +959,7 @@ func tryCFAttributedStringCreateMutableCopy(alloc CFAllocatorRef, maxLength int,
 // CFAttributedStringCreateMutableCopy creates a mutable copy of an attributed string.
 //
 // See: https://developer.apple.com/documentation/CoreFoundation/CFAttributedStringCreateMutableCopy(_:_:_:)
-func CFAttributedStringCreateMutableCopy(alloc CFAllocatorRef, maxLength int, aStr CFAttributedStringRef) CFMutableAttributedStringRef {
+func CFAttributedStringCreateMutableCopy(alloc CFAllocatorRef, maxLength CFIndex, aStr CFAttributedStringRef) CFMutableAttributedStringRef {
 	result, callErr := tryCFAttributedStringCreateMutableCopy(alloc, maxLength, aStr)
 	if callErr != nil {
 		panic(callErr)
@@ -1008,10 +1008,10 @@ func CFAttributedStringEndEditing(aStr CFMutableAttributedStringRef) {
 	}
 }
 
-var _cFAttributedStringGetAttribute func(aStr CFAttributedStringRef, loc int, attrName CFStringRef, effectiveRange *CFRange) CFTypeRef
+var _cFAttributedStringGetAttribute func(aStr CFAttributedStringRef, loc CFIndex, attrName CFStringRef, effectiveRange *CFRange) CFTypeRef
 var _cFAttributedStringGetAttributeErr error
 
-func tryCFAttributedStringGetAttribute(aStr CFAttributedStringRef, loc int, attrName CFStringRef, effectiveRange *CFRange) (CFTypeRef, error) {
+func tryCFAttributedStringGetAttribute(aStr CFAttributedStringRef, loc CFIndex, attrName CFStringRef, effectiveRange *CFRange) (CFTypeRef, error) {
 	if _cFAttributedStringGetAttribute == nil {
 		return *new(CFTypeRef), symbolCallError("CFAttributedStringGetAttribute", "", _cFAttributedStringGetAttributeErr)
 	}
@@ -1021,7 +1021,7 @@ func tryCFAttributedStringGetAttribute(aStr CFAttributedStringRef, loc int, attr
 // CFAttributedStringGetAttribute returns the value of a given attribute of an attributed string at a specified location.
 //
 // See: https://developer.apple.com/documentation/CoreFoundation/CFAttributedStringGetAttribute(_:_:_:_:)
-func CFAttributedStringGetAttribute(aStr CFAttributedStringRef, loc int, attrName CFStringRef, effectiveRange *CFRange) CFTypeRef {
+func CFAttributedStringGetAttribute(aStr CFAttributedStringRef, loc CFIndex, attrName CFStringRef, effectiveRange *CFRange) CFTypeRef {
 	result, callErr := tryCFAttributedStringGetAttribute(aStr, loc, attrName, effectiveRange)
 	if callErr != nil {
 		panic(callErr)
@@ -1029,10 +1029,10 @@ func CFAttributedStringGetAttribute(aStr CFAttributedStringRef, loc int, attrNam
 	return result
 }
 
-var _cFAttributedStringGetAttributeAndLongestEffectiveRange func(aStr CFAttributedStringRef, loc int, attrName CFStringRef, inRange CFRange, longestEffectiveRange *CFRange) CFTypeRef
+var _cFAttributedStringGetAttributeAndLongestEffectiveRange func(aStr CFAttributedStringRef, loc CFIndex, attrName CFStringRef, inRange CFRange, longestEffectiveRange *CFRange) CFTypeRef
 var _cFAttributedStringGetAttributeAndLongestEffectiveRangeErr error
 
-func tryCFAttributedStringGetAttributeAndLongestEffectiveRange(aStr CFAttributedStringRef, loc int, attrName CFStringRef, inRange CFRange, longestEffectiveRange *CFRange) (CFTypeRef, error) {
+func tryCFAttributedStringGetAttributeAndLongestEffectiveRange(aStr CFAttributedStringRef, loc CFIndex, attrName CFStringRef, inRange CFRange, longestEffectiveRange *CFRange) (CFTypeRef, error) {
 	if _cFAttributedStringGetAttributeAndLongestEffectiveRange == nil {
 		return *new(CFTypeRef), symbolCallError("CFAttributedStringGetAttributeAndLongestEffectiveRange", "", _cFAttributedStringGetAttributeAndLongestEffectiveRangeErr)
 	}
@@ -1042,7 +1042,7 @@ func tryCFAttributedStringGetAttributeAndLongestEffectiveRange(aStr CFAttributed
 // CFAttributedStringGetAttributeAndLongestEffectiveRange returns the value of a given attribute of an attributed string at a specified location.
 //
 // See: https://developer.apple.com/documentation/CoreFoundation/CFAttributedStringGetAttributeAndLongestEffectiveRange(_:_:_:_:_:)
-func CFAttributedStringGetAttributeAndLongestEffectiveRange(aStr CFAttributedStringRef, loc int, attrName CFStringRef, inRange CFRange, longestEffectiveRange *CFRange) CFTypeRef {
+func CFAttributedStringGetAttributeAndLongestEffectiveRange(aStr CFAttributedStringRef, loc CFIndex, attrName CFStringRef, inRange CFRange, longestEffectiveRange *CFRange) CFTypeRef {
 	result, callErr := tryCFAttributedStringGetAttributeAndLongestEffectiveRange(aStr, loc, attrName, inRange, longestEffectiveRange)
 	if callErr != nil {
 		panic(callErr)
@@ -1050,10 +1050,10 @@ func CFAttributedStringGetAttributeAndLongestEffectiveRange(aStr CFAttributedStr
 	return result
 }
 
-var _cFAttributedStringGetAttributes func(aStr CFAttributedStringRef, loc int, effectiveRange *CFRange) CFDictionaryRef
+var _cFAttributedStringGetAttributes func(aStr CFAttributedStringRef, loc CFIndex, effectiveRange *CFRange) CFDictionaryRef
 var _cFAttributedStringGetAttributesErr error
 
-func tryCFAttributedStringGetAttributes(aStr CFAttributedStringRef, loc int, effectiveRange *CFRange) (CFDictionaryRef, error) {
+func tryCFAttributedStringGetAttributes(aStr CFAttributedStringRef, loc CFIndex, effectiveRange *CFRange) (CFDictionaryRef, error) {
 	if _cFAttributedStringGetAttributes == nil {
 		return *new(CFDictionaryRef), symbolCallError("CFAttributedStringGetAttributes", "", _cFAttributedStringGetAttributesErr)
 	}
@@ -1063,7 +1063,7 @@ func tryCFAttributedStringGetAttributes(aStr CFAttributedStringRef, loc int, eff
 // CFAttributedStringGetAttributes returns the attributes of an attributed string at a specified location.
 //
 // See: https://developer.apple.com/documentation/CoreFoundation/CFAttributedStringGetAttributes(_:_:_:)
-func CFAttributedStringGetAttributes(aStr CFAttributedStringRef, loc int, effectiveRange *CFRange) CFDictionaryRef {
+func CFAttributedStringGetAttributes(aStr CFAttributedStringRef, loc CFIndex, effectiveRange *CFRange) CFDictionaryRef {
 	result, callErr := tryCFAttributedStringGetAttributes(aStr, loc, effectiveRange)
 	if callErr != nil {
 		panic(callErr)
@@ -1071,10 +1071,10 @@ func CFAttributedStringGetAttributes(aStr CFAttributedStringRef, loc int, effect
 	return result
 }
 
-var _cFAttributedStringGetAttributesAndLongestEffectiveRange func(aStr CFAttributedStringRef, loc int, inRange CFRange, longestEffectiveRange *CFRange) CFDictionaryRef
+var _cFAttributedStringGetAttributesAndLongestEffectiveRange func(aStr CFAttributedStringRef, loc CFIndex, inRange CFRange, longestEffectiveRange *CFRange) CFDictionaryRef
 var _cFAttributedStringGetAttributesAndLongestEffectiveRangeErr error
 
-func tryCFAttributedStringGetAttributesAndLongestEffectiveRange(aStr CFAttributedStringRef, loc int, inRange CFRange, longestEffectiveRange *CFRange) (CFDictionaryRef, error) {
+func tryCFAttributedStringGetAttributesAndLongestEffectiveRange(aStr CFAttributedStringRef, loc CFIndex, inRange CFRange, longestEffectiveRange *CFRange) (CFDictionaryRef, error) {
 	if _cFAttributedStringGetAttributesAndLongestEffectiveRange == nil {
 		return *new(CFDictionaryRef), symbolCallError("CFAttributedStringGetAttributesAndLongestEffectiveRange", "", _cFAttributedStringGetAttributesAndLongestEffectiveRangeErr)
 	}
@@ -1084,7 +1084,7 @@ func tryCFAttributedStringGetAttributesAndLongestEffectiveRange(aStr CFAttribute
 // CFAttributedStringGetAttributesAndLongestEffectiveRange returns the attributes of an attributed string at a specified location.
 //
 // See: https://developer.apple.com/documentation/CoreFoundation/CFAttributedStringGetAttributesAndLongestEffectiveRange(_:_:_:_:)
-func CFAttributedStringGetAttributesAndLongestEffectiveRange(aStr CFAttributedStringRef, loc int, inRange CFRange, longestEffectiveRange *CFRange) CFDictionaryRef {
+func CFAttributedStringGetAttributesAndLongestEffectiveRange(aStr CFAttributedStringRef, loc CFIndex, inRange CFRange, longestEffectiveRange *CFRange) CFDictionaryRef {
 	result, callErr := tryCFAttributedStringGetAttributesAndLongestEffectiveRange(aStr, loc, inRange, longestEffectiveRange)
 	if callErr != nil {
 		panic(callErr)
@@ -1113,12 +1113,12 @@ func CFAttributedStringGetBidiLevelsAndResolvedDirections(attributedString CFAtt
 	return result
 }
 
-var _cFAttributedStringGetLength func(aStr CFAttributedStringRef) int
+var _cFAttributedStringGetLength func(aStr CFAttributedStringRef) CFIndex
 var _cFAttributedStringGetLengthErr error
 
-func tryCFAttributedStringGetLength(aStr CFAttributedStringRef) (int, error) {
+func tryCFAttributedStringGetLength(aStr CFAttributedStringRef) (CFIndex, error) {
 	if _cFAttributedStringGetLength == nil {
-		return 0, symbolCallError("CFAttributedStringGetLength", "", _cFAttributedStringGetLengthErr)
+		return *new(CFIndex), symbolCallError("CFAttributedStringGetLength", "", _cFAttributedStringGetLengthErr)
 	}
 	return _cFAttributedStringGetLength(aStr), nil
 }
@@ -1126,7 +1126,7 @@ func tryCFAttributedStringGetLength(aStr CFAttributedStringRef) (int, error) {
 // CFAttributedStringGetLength returns the length of the attributed string in characters.
 //
 // See: https://developer.apple.com/documentation/CoreFoundation/CFAttributedStringGetLength(_:)
-func CFAttributedStringGetLength(aStr CFAttributedStringRef) int {
+func CFAttributedStringGetLength(aStr CFAttributedStringRef) CFIndex {
 	result, callErr := tryCFAttributedStringGetLength(aStr)
 	if callErr != nil {
 		panic(callErr)
@@ -1197,12 +1197,12 @@ func CFAttributedStringGetString(aStr CFAttributedStringRef) CFStringRef {
 	return result
 }
 
-var _cFAttributedStringGetTypeID func() uint
+var _cFAttributedStringGetTypeID func() CFTypeID
 var _cFAttributedStringGetTypeIDErr error
 
-func tryCFAttributedStringGetTypeID() (uint, error) {
+func tryCFAttributedStringGetTypeID() (CFTypeID, error) {
 	if _cFAttributedStringGetTypeID == nil {
-		return 0, symbolCallError("CFAttributedStringGetTypeID", "", _cFAttributedStringGetTypeIDErr)
+		return *new(CFTypeID), symbolCallError("CFAttributedStringGetTypeID", "", _cFAttributedStringGetTypeIDErr)
 	}
 	return _cFAttributedStringGetTypeID(), nil
 }
@@ -1210,7 +1210,7 @@ func tryCFAttributedStringGetTypeID() (uint, error) {
 // CFAttributedStringGetTypeID returns the type identifier for the CFAttributedString opaque type.
 //
 // See: https://developer.apple.com/documentation/CoreFoundation/CFAttributedStringGetTypeID()
-func CFAttributedStringGetTypeID() uint {
+func CFAttributedStringGetTypeID() CFTypeID {
 	result, callErr := tryCFAttributedStringGetTypeID()
 	if callErr != nil {
 		panic(callErr)
@@ -1400,10 +1400,10 @@ func CFBagContainsValue(theBag CFBagRef, value unsafe.Pointer) bool {
 	return result
 }
 
-var _cFBagCreate func(allocator CFAllocatorRef, values unsafe.Pointer, numValues int, callBacks *CFBagCallBacks) CFBagRef
+var _cFBagCreate func(allocator CFAllocatorRef, values unsafe.Pointer, numValues CFIndex, callBacks *CFBagCallBacks) CFBagRef
 var _cFBagCreateErr error
 
-func tryCFBagCreate(allocator CFAllocatorRef, values unsafe.Pointer, numValues int, callBacks *CFBagCallBacks) (CFBagRef, error) {
+func tryCFBagCreate(allocator CFAllocatorRef, values unsafe.Pointer, numValues CFIndex, callBacks *CFBagCallBacks) (CFBagRef, error) {
 	if _cFBagCreate == nil {
 		return *new(CFBagRef), symbolCallError("CFBagCreate", "", _cFBagCreateErr)
 	}
@@ -1413,7 +1413,7 @@ func tryCFBagCreate(allocator CFAllocatorRef, values unsafe.Pointer, numValues i
 // CFBagCreate creates an immutable bag containing specified values.
 //
 // See: https://developer.apple.com/documentation/CoreFoundation/CFBagCreate(_:_:_:_:)
-func CFBagCreate(allocator CFAllocatorRef, values unsafe.Pointer, numValues int, callBacks *CFBagCallBacks) CFBagRef {
+func CFBagCreate(allocator CFAllocatorRef, values unsafe.Pointer, numValues CFIndex, callBacks *CFBagCallBacks) CFBagRef {
 	result, callErr := tryCFBagCreate(allocator, values, numValues, callBacks)
 	if callErr != nil {
 		panic(callErr)
@@ -1442,10 +1442,10 @@ func CFBagCreateCopy(allocator CFAllocatorRef, theBag CFBagRef) CFBagRef {
 	return result
 }
 
-var _cFBagCreateMutable func(allocator CFAllocatorRef, capacity int, callBacks *CFBagCallBacks) CFMutableBagRef
+var _cFBagCreateMutable func(allocator CFAllocatorRef, capacity CFIndex, callBacks *CFBagCallBacks) CFMutableBagRef
 var _cFBagCreateMutableErr error
 
-func tryCFBagCreateMutable(allocator CFAllocatorRef, capacity int, callBacks *CFBagCallBacks) (CFMutableBagRef, error) {
+func tryCFBagCreateMutable(allocator CFAllocatorRef, capacity CFIndex, callBacks *CFBagCallBacks) (CFMutableBagRef, error) {
 	if _cFBagCreateMutable == nil {
 		return *new(CFMutableBagRef), symbolCallError("CFBagCreateMutable", "", _cFBagCreateMutableErr)
 	}
@@ -1455,7 +1455,7 @@ func tryCFBagCreateMutable(allocator CFAllocatorRef, capacity int, callBacks *CF
 // CFBagCreateMutable creates a new empty mutable bag.
 //
 // See: https://developer.apple.com/documentation/CoreFoundation/CFBagCreateMutable(_:_:_:)
-func CFBagCreateMutable(allocator CFAllocatorRef, capacity int, callBacks *CFBagCallBacks) CFMutableBagRef {
+func CFBagCreateMutable(allocator CFAllocatorRef, capacity CFIndex, callBacks *CFBagCallBacks) CFMutableBagRef {
 	result, callErr := tryCFBagCreateMutable(allocator, capacity, callBacks)
 	if callErr != nil {
 		panic(callErr)
@@ -1463,10 +1463,10 @@ func CFBagCreateMutable(allocator CFAllocatorRef, capacity int, callBacks *CFBag
 	return result
 }
 
-var _cFBagCreateMutableCopy func(allocator CFAllocatorRef, capacity int, theBag CFBagRef) CFMutableBagRef
+var _cFBagCreateMutableCopy func(allocator CFAllocatorRef, capacity CFIndex, theBag CFBagRef) CFMutableBagRef
 var _cFBagCreateMutableCopyErr error
 
-func tryCFBagCreateMutableCopy(allocator CFAllocatorRef, capacity int, theBag CFBagRef) (CFMutableBagRef, error) {
+func tryCFBagCreateMutableCopy(allocator CFAllocatorRef, capacity CFIndex, theBag CFBagRef) (CFMutableBagRef, error) {
 	if _cFBagCreateMutableCopy == nil {
 		return *new(CFMutableBagRef), symbolCallError("CFBagCreateMutableCopy", "", _cFBagCreateMutableCopyErr)
 	}
@@ -1476,7 +1476,7 @@ func tryCFBagCreateMutableCopy(allocator CFAllocatorRef, capacity int, theBag CF
 // CFBagCreateMutableCopy creates a new mutable bag with the values from another bag.
 //
 // See: https://developer.apple.com/documentation/CoreFoundation/CFBagCreateMutableCopy(_:_:_:)
-func CFBagCreateMutableCopy(allocator CFAllocatorRef, capacity int, theBag CFBagRef) CFMutableBagRef {
+func CFBagCreateMutableCopy(allocator CFAllocatorRef, capacity CFIndex, theBag CFBagRef) CFMutableBagRef {
 	result, callErr := tryCFBagCreateMutableCopy(allocator, capacity, theBag)
 	if callErr != nil {
 		panic(callErr)
@@ -1484,12 +1484,12 @@ func CFBagCreateMutableCopy(allocator CFAllocatorRef, capacity int, theBag CFBag
 	return result
 }
 
-var _cFBagGetCount func(theBag CFBagRef) int
+var _cFBagGetCount func(theBag CFBagRef) CFIndex
 var _cFBagGetCountErr error
 
-func tryCFBagGetCount(theBag CFBagRef) (int, error) {
+func tryCFBagGetCount(theBag CFBagRef) (CFIndex, error) {
 	if _cFBagGetCount == nil {
-		return 0, symbolCallError("CFBagGetCount", "", _cFBagGetCountErr)
+		return *new(CFIndex), symbolCallError("CFBagGetCount", "", _cFBagGetCountErr)
 	}
 	return _cFBagGetCount(theBag), nil
 }
@@ -1497,7 +1497,7 @@ func tryCFBagGetCount(theBag CFBagRef) (int, error) {
 // CFBagGetCount returns the number of values currently in a bag.
 //
 // See: https://developer.apple.com/documentation/CoreFoundation/CFBagGetCount(_:)
-func CFBagGetCount(theBag CFBagRef) int {
+func CFBagGetCount(theBag CFBagRef) CFIndex {
 	result, callErr := tryCFBagGetCount(theBag)
 	if callErr != nil {
 		panic(callErr)
@@ -1505,12 +1505,12 @@ func CFBagGetCount(theBag CFBagRef) int {
 	return result
 }
 
-var _cFBagGetCountOfValue func(theBag CFBagRef, value unsafe.Pointer) int
+var _cFBagGetCountOfValue func(theBag CFBagRef, value unsafe.Pointer) CFIndex
 var _cFBagGetCountOfValueErr error
 
-func tryCFBagGetCountOfValue(theBag CFBagRef, value unsafe.Pointer) (int, error) {
+func tryCFBagGetCountOfValue(theBag CFBagRef, value unsafe.Pointer) (CFIndex, error) {
 	if _cFBagGetCountOfValue == nil {
-		return 0, symbolCallError("CFBagGetCountOfValue", "", _cFBagGetCountOfValueErr)
+		return *new(CFIndex), symbolCallError("CFBagGetCountOfValue", "", _cFBagGetCountOfValueErr)
 	}
 	return _cFBagGetCountOfValue(theBag, value), nil
 }
@@ -1518,7 +1518,7 @@ func tryCFBagGetCountOfValue(theBag CFBagRef, value unsafe.Pointer) (int, error)
 // CFBagGetCountOfValue returns the number of times a value occurs in a bag.
 //
 // See: https://developer.apple.com/documentation/CoreFoundation/CFBagGetCountOfValue(_:_:)
-func CFBagGetCountOfValue(theBag CFBagRef, value unsafe.Pointer) int {
+func CFBagGetCountOfValue(theBag CFBagRef, value unsafe.Pointer) CFIndex {
 	result, callErr := tryCFBagGetCountOfValue(theBag, value)
 	if callErr != nil {
 		panic(callErr)
@@ -1526,12 +1526,12 @@ func CFBagGetCountOfValue(theBag CFBagRef, value unsafe.Pointer) int {
 	return result
 }
 
-var _cFBagGetTypeID func() uint
+var _cFBagGetTypeID func() CFTypeID
 var _cFBagGetTypeIDErr error
 
-func tryCFBagGetTypeID() (uint, error) {
+func tryCFBagGetTypeID() (CFTypeID, error) {
 	if _cFBagGetTypeID == nil {
-		return 0, symbolCallError("CFBagGetTypeID", "", _cFBagGetTypeIDErr)
+		return *new(CFTypeID), symbolCallError("CFBagGetTypeID", "", _cFBagGetTypeIDErr)
 	}
 	return _cFBagGetTypeID(), nil
 }
@@ -1539,7 +1539,7 @@ func tryCFBagGetTypeID() (uint, error) {
 // CFBagGetTypeID returns the type identifier for the CFBag opaque type.
 //
 // See: https://developer.apple.com/documentation/CoreFoundation/CFBagGetTypeID()
-func CFBagGetTypeID() uint {
+func CFBagGetTypeID() CFTypeID {
 	result, callErr := tryCFBagGetTypeID()
 	if callErr != nil {
 		panic(callErr)
@@ -1750,10 +1750,10 @@ func CFBinaryHeapContainsValue(heap CFBinaryHeapRef, value unsafe.Pointer) bool 
 	return result
 }
 
-var _cFBinaryHeapCreate func(allocator CFAllocatorRef, capacity int, callBacks *CFBinaryHeapCallBacks, compareContext *CFBinaryHeapCompareContext) CFBinaryHeapRef
+var _cFBinaryHeapCreate func(allocator CFAllocatorRef, capacity CFIndex, callBacks *CFBinaryHeapCallBacks, compareContext *CFBinaryHeapCompareContext) CFBinaryHeapRef
 var _cFBinaryHeapCreateErr error
 
-func tryCFBinaryHeapCreate(allocator CFAllocatorRef, capacity int, callBacks *CFBinaryHeapCallBacks, compareContext *CFBinaryHeapCompareContext) (CFBinaryHeapRef, error) {
+func tryCFBinaryHeapCreate(allocator CFAllocatorRef, capacity CFIndex, callBacks *CFBinaryHeapCallBacks, compareContext *CFBinaryHeapCompareContext) (CFBinaryHeapRef, error) {
 	if _cFBinaryHeapCreate == nil {
 		return *new(CFBinaryHeapRef), symbolCallError("CFBinaryHeapCreate", "", _cFBinaryHeapCreateErr)
 	}
@@ -1763,7 +1763,7 @@ func tryCFBinaryHeapCreate(allocator CFAllocatorRef, capacity int, callBacks *CF
 // CFBinaryHeapCreate creates a new mutable or fixed-mutable binary heap.
 //
 // See: https://developer.apple.com/documentation/CoreFoundation/CFBinaryHeapCreate(_:_:_:_:)
-func CFBinaryHeapCreate(allocator CFAllocatorRef, capacity int, callBacks *CFBinaryHeapCallBacks, compareContext *CFBinaryHeapCompareContext) CFBinaryHeapRef {
+func CFBinaryHeapCreate(allocator CFAllocatorRef, capacity CFIndex, callBacks *CFBinaryHeapCallBacks, compareContext *CFBinaryHeapCompareContext) CFBinaryHeapRef {
 	result, callErr := tryCFBinaryHeapCreate(allocator, capacity, callBacks, compareContext)
 	if callErr != nil {
 		panic(callErr)
@@ -1771,10 +1771,10 @@ func CFBinaryHeapCreate(allocator CFAllocatorRef, capacity int, callBacks *CFBin
 	return result
 }
 
-var _cFBinaryHeapCreateCopy func(allocator CFAllocatorRef, capacity int, heap CFBinaryHeapRef) CFBinaryHeapRef
+var _cFBinaryHeapCreateCopy func(allocator CFAllocatorRef, capacity CFIndex, heap CFBinaryHeapRef) CFBinaryHeapRef
 var _cFBinaryHeapCreateCopyErr error
 
-func tryCFBinaryHeapCreateCopy(allocator CFAllocatorRef, capacity int, heap CFBinaryHeapRef) (CFBinaryHeapRef, error) {
+func tryCFBinaryHeapCreateCopy(allocator CFAllocatorRef, capacity CFIndex, heap CFBinaryHeapRef) (CFBinaryHeapRef, error) {
 	if _cFBinaryHeapCreateCopy == nil {
 		return *new(CFBinaryHeapRef), symbolCallError("CFBinaryHeapCreateCopy", "", _cFBinaryHeapCreateCopyErr)
 	}
@@ -1784,7 +1784,7 @@ func tryCFBinaryHeapCreateCopy(allocator CFAllocatorRef, capacity int, heap CFBi
 // CFBinaryHeapCreateCopy creates a new mutable or fixed-mutable binary heap with the values from a pre-existing binary heap.
 //
 // See: https://developer.apple.com/documentation/CoreFoundation/CFBinaryHeapCreateCopy(_:_:_:)
-func CFBinaryHeapCreateCopy(allocator CFAllocatorRef, capacity int, heap CFBinaryHeapRef) CFBinaryHeapRef {
+func CFBinaryHeapCreateCopy(allocator CFAllocatorRef, capacity CFIndex, heap CFBinaryHeapRef) CFBinaryHeapRef {
 	result, callErr := tryCFBinaryHeapCreateCopy(allocator, capacity, heap)
 	if callErr != nil {
 		panic(callErr)
@@ -1792,12 +1792,12 @@ func CFBinaryHeapCreateCopy(allocator CFAllocatorRef, capacity int, heap CFBinar
 	return result
 }
 
-var _cFBinaryHeapGetCount func(heap CFBinaryHeapRef) int
+var _cFBinaryHeapGetCount func(heap CFBinaryHeapRef) CFIndex
 var _cFBinaryHeapGetCountErr error
 
-func tryCFBinaryHeapGetCount(heap CFBinaryHeapRef) (int, error) {
+func tryCFBinaryHeapGetCount(heap CFBinaryHeapRef) (CFIndex, error) {
 	if _cFBinaryHeapGetCount == nil {
-		return 0, symbolCallError("CFBinaryHeapGetCount", "", _cFBinaryHeapGetCountErr)
+		return *new(CFIndex), symbolCallError("CFBinaryHeapGetCount", "", _cFBinaryHeapGetCountErr)
 	}
 	return _cFBinaryHeapGetCount(heap), nil
 }
@@ -1805,7 +1805,7 @@ func tryCFBinaryHeapGetCount(heap CFBinaryHeapRef) (int, error) {
 // CFBinaryHeapGetCount returns the number of values currently in a binary heap.
 //
 // See: https://developer.apple.com/documentation/CoreFoundation/CFBinaryHeapGetCount(_:)
-func CFBinaryHeapGetCount(heap CFBinaryHeapRef) int {
+func CFBinaryHeapGetCount(heap CFBinaryHeapRef) CFIndex {
 	result, callErr := tryCFBinaryHeapGetCount(heap)
 	if callErr != nil {
 		panic(callErr)
@@ -1813,12 +1813,12 @@ func CFBinaryHeapGetCount(heap CFBinaryHeapRef) int {
 	return result
 }
 
-var _cFBinaryHeapGetCountOfValue func(heap CFBinaryHeapRef, value unsafe.Pointer) int
+var _cFBinaryHeapGetCountOfValue func(heap CFBinaryHeapRef, value unsafe.Pointer) CFIndex
 var _cFBinaryHeapGetCountOfValueErr error
 
-func tryCFBinaryHeapGetCountOfValue(heap CFBinaryHeapRef, value unsafe.Pointer) (int, error) {
+func tryCFBinaryHeapGetCountOfValue(heap CFBinaryHeapRef, value unsafe.Pointer) (CFIndex, error) {
 	if _cFBinaryHeapGetCountOfValue == nil {
-		return 0, symbolCallError("CFBinaryHeapGetCountOfValue", "", _cFBinaryHeapGetCountOfValueErr)
+		return *new(CFIndex), symbolCallError("CFBinaryHeapGetCountOfValue", "", _cFBinaryHeapGetCountOfValueErr)
 	}
 	return _cFBinaryHeapGetCountOfValue(heap, value), nil
 }
@@ -1826,7 +1826,7 @@ func tryCFBinaryHeapGetCountOfValue(heap CFBinaryHeapRef, value unsafe.Pointer) 
 // CFBinaryHeapGetCountOfValue counts the number of times a given value occurs in a binary heap.
 //
 // See: https://developer.apple.com/documentation/CoreFoundation/CFBinaryHeapGetCountOfValue(_:_:)
-func CFBinaryHeapGetCountOfValue(heap CFBinaryHeapRef, value unsafe.Pointer) int {
+func CFBinaryHeapGetCountOfValue(heap CFBinaryHeapRef, value unsafe.Pointer) CFIndex {
 	result, callErr := tryCFBinaryHeapGetCountOfValue(heap, value)
 	if callErr != nil {
 		panic(callErr)
@@ -1876,12 +1876,12 @@ func CFBinaryHeapGetMinimumIfPresent(heap CFBinaryHeapRef, value unsafe.Pointer)
 	return result
 }
 
-var _cFBinaryHeapGetTypeID func() uint
+var _cFBinaryHeapGetTypeID func() CFTypeID
 var _cFBinaryHeapGetTypeIDErr error
 
-func tryCFBinaryHeapGetTypeID() (uint, error) {
+func tryCFBinaryHeapGetTypeID() (CFTypeID, error) {
 	if _cFBinaryHeapGetTypeID == nil {
-		return 0, symbolCallError("CFBinaryHeapGetTypeID", "", _cFBinaryHeapGetTypeIDErr)
+		return *new(CFTypeID), symbolCallError("CFBinaryHeapGetTypeID", "", _cFBinaryHeapGetTypeIDErr)
 	}
 	return _cFBinaryHeapGetTypeID(), nil
 }
@@ -1889,7 +1889,7 @@ func tryCFBinaryHeapGetTypeID() (uint, error) {
 // CFBinaryHeapGetTypeID returns the type identifier of the [CFBinaryHeap] opaque type.
 //
 // See: https://developer.apple.com/documentation/CoreFoundation/CFBinaryHeapGetTypeID()
-func CFBinaryHeapGetTypeID() uint {
+func CFBinaryHeapGetTypeID() CFTypeID {
 	result, callErr := tryCFBinaryHeapGetTypeID()
 	if callErr != nil {
 		panic(callErr)
@@ -1978,10 +1978,10 @@ func CFBitVectorContainsBit(bv CFBitVectorRef, range_ CFRange, value CFBit) bool
 	return result
 }
 
-var _cFBitVectorCreate func(allocator CFAllocatorRef, bytes *byte, numBits int) CFBitVectorRef
+var _cFBitVectorCreate func(allocator CFAllocatorRef, bytes *byte, numBits CFIndex) CFBitVectorRef
 var _cFBitVectorCreateErr error
 
-func tryCFBitVectorCreate(allocator CFAllocatorRef, bytes []byte, numBits int) (CFBitVectorRef, error) {
+func tryCFBitVectorCreate(allocator CFAllocatorRef, bytes []byte, numBits CFIndex) (CFBitVectorRef, error) {
 	if _cFBitVectorCreate == nil {
 		return *new(CFBitVectorRef), symbolCallError("CFBitVectorCreate", "", _cFBitVectorCreateErr)
 	}
@@ -1991,7 +1991,7 @@ func tryCFBitVectorCreate(allocator CFAllocatorRef, bytes []byte, numBits int) (
 // CFBitVectorCreate creates an immutable bit vector from a block of memory.
 //
 // See: https://developer.apple.com/documentation/CoreFoundation/CFBitVectorCreate(_:_:_:)
-func CFBitVectorCreate(allocator CFAllocatorRef, bytes []byte, numBits int) CFBitVectorRef {
+func CFBitVectorCreate(allocator CFAllocatorRef, bytes []byte, numBits CFIndex) CFBitVectorRef {
 	result, callErr := tryCFBitVectorCreate(allocator, bytes, numBits)
 	if callErr != nil {
 		panic(callErr)
@@ -2020,10 +2020,10 @@ func CFBitVectorCreateCopy(allocator CFAllocatorRef, bv CFBitVectorRef) CFBitVec
 	return result
 }
 
-var _cFBitVectorCreateMutable func(allocator CFAllocatorRef, capacity int) CFMutableBitVectorRef
+var _cFBitVectorCreateMutable func(allocator CFAllocatorRef, capacity CFIndex) CFMutableBitVectorRef
 var _cFBitVectorCreateMutableErr error
 
-func tryCFBitVectorCreateMutable(allocator CFAllocatorRef, capacity int) (CFMutableBitVectorRef, error) {
+func tryCFBitVectorCreateMutable(allocator CFAllocatorRef, capacity CFIndex) (CFMutableBitVectorRef, error) {
 	if _cFBitVectorCreateMutable == nil {
 		return *new(CFMutableBitVectorRef), symbolCallError("CFBitVectorCreateMutable", "", _cFBitVectorCreateMutableErr)
 	}
@@ -2033,7 +2033,7 @@ func tryCFBitVectorCreateMutable(allocator CFAllocatorRef, capacity int) (CFMuta
 // CFBitVectorCreateMutable creates a mutable bit vector.
 //
 // See: https://developer.apple.com/documentation/CoreFoundation/CFBitVectorCreateMutable(_:_:)
-func CFBitVectorCreateMutable(allocator CFAllocatorRef, capacity int) CFMutableBitVectorRef {
+func CFBitVectorCreateMutable(allocator CFAllocatorRef, capacity CFIndex) CFMutableBitVectorRef {
 	result, callErr := tryCFBitVectorCreateMutable(allocator, capacity)
 	if callErr != nil {
 		panic(callErr)
@@ -2041,10 +2041,10 @@ func CFBitVectorCreateMutable(allocator CFAllocatorRef, capacity int) CFMutableB
 	return result
 }
 
-var _cFBitVectorCreateMutableCopy func(allocator CFAllocatorRef, capacity int, bv CFBitVectorRef) CFMutableBitVectorRef
+var _cFBitVectorCreateMutableCopy func(allocator CFAllocatorRef, capacity CFIndex, bv CFBitVectorRef) CFMutableBitVectorRef
 var _cFBitVectorCreateMutableCopyErr error
 
-func tryCFBitVectorCreateMutableCopy(allocator CFAllocatorRef, capacity int, bv CFBitVectorRef) (CFMutableBitVectorRef, error) {
+func tryCFBitVectorCreateMutableCopy(allocator CFAllocatorRef, capacity CFIndex, bv CFBitVectorRef) (CFMutableBitVectorRef, error) {
 	if _cFBitVectorCreateMutableCopy == nil {
 		return *new(CFMutableBitVectorRef), symbolCallError("CFBitVectorCreateMutableCopy", "", _cFBitVectorCreateMutableCopyErr)
 	}
@@ -2054,7 +2054,7 @@ func tryCFBitVectorCreateMutableCopy(allocator CFAllocatorRef, capacity int, bv 
 // CFBitVectorCreateMutableCopy creates a new mutable bit vector from a pre-existing bit vector.
 //
 // See: https://developer.apple.com/documentation/CoreFoundation/CFBitVectorCreateMutableCopy(_:_:_:)
-func CFBitVectorCreateMutableCopy(allocator CFAllocatorRef, capacity int, bv CFBitVectorRef) CFMutableBitVectorRef {
+func CFBitVectorCreateMutableCopy(allocator CFAllocatorRef, capacity CFIndex, bv CFBitVectorRef) CFMutableBitVectorRef {
 	result, callErr := tryCFBitVectorCreateMutableCopy(allocator, capacity, bv)
 	if callErr != nil {
 		panic(callErr)
@@ -2062,10 +2062,10 @@ func CFBitVectorCreateMutableCopy(allocator CFAllocatorRef, capacity int, bv CFB
 	return result
 }
 
-var _cFBitVectorFlipBitAtIndex func(bv CFMutableBitVectorRef, idx int)
+var _cFBitVectorFlipBitAtIndex func(bv CFMutableBitVectorRef, idx CFIndex)
 var _cFBitVectorFlipBitAtIndexErr error
 
-func tryCFBitVectorFlipBitAtIndex(bv CFMutableBitVectorRef, idx int) error {
+func tryCFBitVectorFlipBitAtIndex(bv CFMutableBitVectorRef, idx CFIndex) error {
 	if _cFBitVectorFlipBitAtIndex == nil {
 		return symbolCallError("CFBitVectorFlipBitAtIndex", "", _cFBitVectorFlipBitAtIndexErr)
 	}
@@ -2076,7 +2076,7 @@ func tryCFBitVectorFlipBitAtIndex(bv CFMutableBitVectorRef, idx int) error {
 // CFBitVectorFlipBitAtIndex flips a bit value in a bit vector.
 //
 // See: https://developer.apple.com/documentation/CoreFoundation/CFBitVectorFlipBitAtIndex(_:_:)
-func CFBitVectorFlipBitAtIndex(bv CFMutableBitVectorRef, idx int) {
+func CFBitVectorFlipBitAtIndex(bv CFMutableBitVectorRef, idx CFIndex) {
 	if callErr := tryCFBitVectorFlipBitAtIndex(bv, idx); callErr != nil {
 		panic(callErr)
 	}
@@ -2102,10 +2102,10 @@ func CFBitVectorFlipBits(bv CFMutableBitVectorRef, range_ CFRange) {
 	}
 }
 
-var _cFBitVectorGetBitAtIndex func(bv CFBitVectorRef, idx int) CFBit
+var _cFBitVectorGetBitAtIndex func(bv CFBitVectorRef, idx CFIndex) CFBit
 var _cFBitVectorGetBitAtIndexErr error
 
-func tryCFBitVectorGetBitAtIndex(bv CFBitVectorRef, idx int) (CFBit, error) {
+func tryCFBitVectorGetBitAtIndex(bv CFBitVectorRef, idx CFIndex) (CFBit, error) {
 	if _cFBitVectorGetBitAtIndex == nil {
 		return *new(CFBit), symbolCallError("CFBitVectorGetBitAtIndex", "", _cFBitVectorGetBitAtIndexErr)
 	}
@@ -2115,7 +2115,7 @@ func tryCFBitVectorGetBitAtIndex(bv CFBitVectorRef, idx int) (CFBit, error) {
 // CFBitVectorGetBitAtIndex returns the bit value at a given index in a bit vector.
 //
 // See: https://developer.apple.com/documentation/CoreFoundation/CFBitVectorGetBitAtIndex(_:_:)
-func CFBitVectorGetBitAtIndex(bv CFBitVectorRef, idx int) CFBit {
+func CFBitVectorGetBitAtIndex(bv CFBitVectorRef, idx CFIndex) CFBit {
 	result, callErr := tryCFBitVectorGetBitAtIndex(bv, idx)
 	if callErr != nil {
 		panic(callErr)
@@ -2143,12 +2143,12 @@ func CFBitVectorGetBits(bv CFBitVectorRef, range_ CFRange, bytes []byte) {
 	}
 }
 
-var _cFBitVectorGetCount func(bv CFBitVectorRef) int
+var _cFBitVectorGetCount func(bv CFBitVectorRef) CFIndex
 var _cFBitVectorGetCountErr error
 
-func tryCFBitVectorGetCount(bv CFBitVectorRef) (int, error) {
+func tryCFBitVectorGetCount(bv CFBitVectorRef) (CFIndex, error) {
 	if _cFBitVectorGetCount == nil {
-		return 0, symbolCallError("CFBitVectorGetCount", "", _cFBitVectorGetCountErr)
+		return *new(CFIndex), symbolCallError("CFBitVectorGetCount", "", _cFBitVectorGetCountErr)
 	}
 	return _cFBitVectorGetCount(bv), nil
 }
@@ -2156,7 +2156,7 @@ func tryCFBitVectorGetCount(bv CFBitVectorRef) (int, error) {
 // CFBitVectorGetCount returns the number of bit values in a bit vector.
 //
 // See: https://developer.apple.com/documentation/CoreFoundation/CFBitVectorGetCount(_:)
-func CFBitVectorGetCount(bv CFBitVectorRef) int {
+func CFBitVectorGetCount(bv CFBitVectorRef) CFIndex {
 	result, callErr := tryCFBitVectorGetCount(bv)
 	if callErr != nil {
 		panic(callErr)
@@ -2164,12 +2164,12 @@ func CFBitVectorGetCount(bv CFBitVectorRef) int {
 	return result
 }
 
-var _cFBitVectorGetCountOfBit func(bv CFBitVectorRef, range_ CFRange, value CFBit) int
+var _cFBitVectorGetCountOfBit func(bv CFBitVectorRef, range_ CFRange, value CFBit) CFIndex
 var _cFBitVectorGetCountOfBitErr error
 
-func tryCFBitVectorGetCountOfBit(bv CFBitVectorRef, range_ CFRange, value CFBit) (int, error) {
+func tryCFBitVectorGetCountOfBit(bv CFBitVectorRef, range_ CFRange, value CFBit) (CFIndex, error) {
 	if _cFBitVectorGetCountOfBit == nil {
-		return 0, symbolCallError("CFBitVectorGetCountOfBit", "", _cFBitVectorGetCountOfBitErr)
+		return *new(CFIndex), symbolCallError("CFBitVectorGetCountOfBit", "", _cFBitVectorGetCountOfBitErr)
 	}
 	return _cFBitVectorGetCountOfBit(bv, range_, value), nil
 }
@@ -2177,7 +2177,7 @@ func tryCFBitVectorGetCountOfBit(bv CFBitVectorRef, range_ CFRange, value CFBit)
 // CFBitVectorGetCountOfBit counts the number of times a certain bit value occurs within a range of bits in a bit vector.
 //
 // See: https://developer.apple.com/documentation/CoreFoundation/CFBitVectorGetCountOfBit(_:_:_:)
-func CFBitVectorGetCountOfBit(bv CFBitVectorRef, range_ CFRange, value CFBit) int {
+func CFBitVectorGetCountOfBit(bv CFBitVectorRef, range_ CFRange, value CFBit) CFIndex {
 	result, callErr := tryCFBitVectorGetCountOfBit(bv, range_, value)
 	if callErr != nil {
 		panic(callErr)
@@ -2185,12 +2185,12 @@ func CFBitVectorGetCountOfBit(bv CFBitVectorRef, range_ CFRange, value CFBit) in
 	return result
 }
 
-var _cFBitVectorGetFirstIndexOfBit func(bv CFBitVectorRef, range_ CFRange, value CFBit) int
+var _cFBitVectorGetFirstIndexOfBit func(bv CFBitVectorRef, range_ CFRange, value CFBit) CFIndex
 var _cFBitVectorGetFirstIndexOfBitErr error
 
-func tryCFBitVectorGetFirstIndexOfBit(bv CFBitVectorRef, range_ CFRange, value CFBit) (int, error) {
+func tryCFBitVectorGetFirstIndexOfBit(bv CFBitVectorRef, range_ CFRange, value CFBit) (CFIndex, error) {
 	if _cFBitVectorGetFirstIndexOfBit == nil {
-		return 0, symbolCallError("CFBitVectorGetFirstIndexOfBit", "", _cFBitVectorGetFirstIndexOfBitErr)
+		return *new(CFIndex), symbolCallError("CFBitVectorGetFirstIndexOfBit", "", _cFBitVectorGetFirstIndexOfBitErr)
 	}
 	return _cFBitVectorGetFirstIndexOfBit(bv, range_, value), nil
 }
@@ -2198,7 +2198,7 @@ func tryCFBitVectorGetFirstIndexOfBit(bv CFBitVectorRef, range_ CFRange, value C
 // CFBitVectorGetFirstIndexOfBit locates the first occurrence of a certain bit value within a range of bits in a bit vector.
 //
 // See: https://developer.apple.com/documentation/CoreFoundation/CFBitVectorGetFirstIndexOfBit(_:_:_:)
-func CFBitVectorGetFirstIndexOfBit(bv CFBitVectorRef, range_ CFRange, value CFBit) int {
+func CFBitVectorGetFirstIndexOfBit(bv CFBitVectorRef, range_ CFRange, value CFBit) CFIndex {
 	result, callErr := tryCFBitVectorGetFirstIndexOfBit(bv, range_, value)
 	if callErr != nil {
 		panic(callErr)
@@ -2206,12 +2206,12 @@ func CFBitVectorGetFirstIndexOfBit(bv CFBitVectorRef, range_ CFRange, value CFBi
 	return result
 }
 
-var _cFBitVectorGetLastIndexOfBit func(bv CFBitVectorRef, range_ CFRange, value CFBit) int
+var _cFBitVectorGetLastIndexOfBit func(bv CFBitVectorRef, range_ CFRange, value CFBit) CFIndex
 var _cFBitVectorGetLastIndexOfBitErr error
 
-func tryCFBitVectorGetLastIndexOfBit(bv CFBitVectorRef, range_ CFRange, value CFBit) (int, error) {
+func tryCFBitVectorGetLastIndexOfBit(bv CFBitVectorRef, range_ CFRange, value CFBit) (CFIndex, error) {
 	if _cFBitVectorGetLastIndexOfBit == nil {
-		return 0, symbolCallError("CFBitVectorGetLastIndexOfBit", "", _cFBitVectorGetLastIndexOfBitErr)
+		return *new(CFIndex), symbolCallError("CFBitVectorGetLastIndexOfBit", "", _cFBitVectorGetLastIndexOfBitErr)
 	}
 	return _cFBitVectorGetLastIndexOfBit(bv, range_, value), nil
 }
@@ -2219,7 +2219,7 @@ func tryCFBitVectorGetLastIndexOfBit(bv CFBitVectorRef, range_ CFRange, value CF
 // CFBitVectorGetLastIndexOfBit locates the last occurrence of a certain bit value within a range of bits in a bit vector.
 //
 // See: https://developer.apple.com/documentation/CoreFoundation/CFBitVectorGetLastIndexOfBit(_:_:_:)
-func CFBitVectorGetLastIndexOfBit(bv CFBitVectorRef, range_ CFRange, value CFBit) int {
+func CFBitVectorGetLastIndexOfBit(bv CFBitVectorRef, range_ CFRange, value CFBit) CFIndex {
 	result, callErr := tryCFBitVectorGetLastIndexOfBit(bv, range_, value)
 	if callErr != nil {
 		panic(callErr)
@@ -2227,12 +2227,12 @@ func CFBitVectorGetLastIndexOfBit(bv CFBitVectorRef, range_ CFRange, value CFBit
 	return result
 }
 
-var _cFBitVectorGetTypeID func() uint
+var _cFBitVectorGetTypeID func() CFTypeID
 var _cFBitVectorGetTypeIDErr error
 
-func tryCFBitVectorGetTypeID() (uint, error) {
+func tryCFBitVectorGetTypeID() (CFTypeID, error) {
 	if _cFBitVectorGetTypeID == nil {
-		return 0, symbolCallError("CFBitVectorGetTypeID", "", _cFBitVectorGetTypeIDErr)
+		return *new(CFTypeID), symbolCallError("CFBitVectorGetTypeID", "", _cFBitVectorGetTypeIDErr)
 	}
 	return _cFBitVectorGetTypeID(), nil
 }
@@ -2240,7 +2240,7 @@ func tryCFBitVectorGetTypeID() (uint, error) {
 // CFBitVectorGetTypeID returns the type identifier for the CFBitVector opaque type.
 //
 // See: https://developer.apple.com/documentation/CoreFoundation/CFBitVectorGetTypeID()
-func CFBitVectorGetTypeID() uint {
+func CFBitVectorGetTypeID() CFTypeID {
 	result, callErr := tryCFBitVectorGetTypeID()
 	if callErr != nil {
 		panic(callErr)
@@ -2268,10 +2268,10 @@ func CFBitVectorSetAllBits(bv CFMutableBitVectorRef, value CFBit) {
 	}
 }
 
-var _cFBitVectorSetBitAtIndex func(bv CFMutableBitVectorRef, idx int, value CFBit)
+var _cFBitVectorSetBitAtIndex func(bv CFMutableBitVectorRef, idx CFIndex, value CFBit)
 var _cFBitVectorSetBitAtIndexErr error
 
-func tryCFBitVectorSetBitAtIndex(bv CFMutableBitVectorRef, idx int, value CFBit) error {
+func tryCFBitVectorSetBitAtIndex(bv CFMutableBitVectorRef, idx CFIndex, value CFBit) error {
 	if _cFBitVectorSetBitAtIndex == nil {
 		return symbolCallError("CFBitVectorSetBitAtIndex", "", _cFBitVectorSetBitAtIndexErr)
 	}
@@ -2282,7 +2282,7 @@ func tryCFBitVectorSetBitAtIndex(bv CFMutableBitVectorRef, idx int, value CFBit)
 // CFBitVectorSetBitAtIndex sets the value of a particular bit in a bit vector.
 //
 // See: https://developer.apple.com/documentation/CoreFoundation/CFBitVectorSetBitAtIndex(_:_:_:)
-func CFBitVectorSetBitAtIndex(bv CFMutableBitVectorRef, idx int, value CFBit) {
+func CFBitVectorSetBitAtIndex(bv CFMutableBitVectorRef, idx CFIndex, value CFBit) {
 	if callErr := tryCFBitVectorSetBitAtIndex(bv, idx, value); callErr != nil {
 		panic(callErr)
 	}
@@ -2308,10 +2308,10 @@ func CFBitVectorSetBits(bv CFMutableBitVectorRef, range_ CFRange, value CFBit) {
 	}
 }
 
-var _cFBitVectorSetCount func(bv CFMutableBitVectorRef, count int)
+var _cFBitVectorSetCount func(bv CFMutableBitVectorRef, count CFIndex)
 var _cFBitVectorSetCountErr error
 
-func tryCFBitVectorSetCount(bv CFMutableBitVectorRef, count int) error {
+func tryCFBitVectorSetCount(bv CFMutableBitVectorRef, count CFIndex) error {
 	if _cFBitVectorSetCount == nil {
 		return symbolCallError("CFBitVectorSetCount", "", _cFBitVectorSetCountErr)
 	}
@@ -2322,18 +2322,18 @@ func tryCFBitVectorSetCount(bv CFMutableBitVectorRef, count int) error {
 // CFBitVectorSetCount changes the size of a mutable bit vector.
 //
 // See: https://developer.apple.com/documentation/CoreFoundation/CFBitVectorSetCount(_:_:)
-func CFBitVectorSetCount(bv CFMutableBitVectorRef, count int) {
+func CFBitVectorSetCount(bv CFMutableBitVectorRef, count CFIndex) {
 	if callErr := tryCFBitVectorSetCount(bv, count); callErr != nil {
 		panic(callErr)
 	}
 }
 
-var _cFBooleanGetTypeID func() uint
+var _cFBooleanGetTypeID func() CFTypeID
 var _cFBooleanGetTypeIDErr error
 
-func tryCFBooleanGetTypeID() (uint, error) {
+func tryCFBooleanGetTypeID() (CFTypeID, error) {
 	if _cFBooleanGetTypeID == nil {
-		return 0, symbolCallError("CFBooleanGetTypeID", "", _cFBooleanGetTypeIDErr)
+		return *new(CFTypeID), symbolCallError("CFBooleanGetTypeID", "", _cFBooleanGetTypeIDErr)
 	}
 	return _cFBooleanGetTypeID(), nil
 }
@@ -2341,7 +2341,7 @@ func tryCFBooleanGetTypeID() (uint, error) {
 // CFBooleanGetTypeID returns the Core Foundation type identifier for the CFBoolean opaque type.
 //
 // See: https://developer.apple.com/documentation/CoreFoundation/CFBooleanGetTypeID()
-func CFBooleanGetTypeID() uint {
+func CFBooleanGetTypeID() CFTypeID {
 	result, callErr := tryCFBooleanGetTypeID()
 	if callErr != nil {
 		panic(callErr)
@@ -3228,12 +3228,12 @@ func CFBundleGetPlugIn(bundle CFBundleRef) CFPlugInRef {
 	return result
 }
 
-var _cFBundleGetTypeID func() uint
+var _cFBundleGetTypeID func() CFTypeID
 var _cFBundleGetTypeIDErr error
 
-func tryCFBundleGetTypeID() (uint, error) {
+func tryCFBundleGetTypeID() (CFTypeID, error) {
 	if _cFBundleGetTypeID == nil {
-		return 0, symbolCallError("CFBundleGetTypeID", "", _cFBundleGetTypeIDErr)
+		return *new(CFTypeID), symbolCallError("CFBundleGetTypeID", "", _cFBundleGetTypeIDErr)
 	}
 	return _cFBundleGetTypeID(), nil
 }
@@ -3241,7 +3241,7 @@ func tryCFBundleGetTypeID() (uint, error) {
 // CFBundleGetTypeID returns the type identifier for the CFBundle opaque type.
 //
 // See: https://developer.apple.com/documentation/CoreFoundation/CFBundleGetTypeID()
-func CFBundleGetTypeID() uint {
+func CFBundleGetTypeID() CFTypeID {
 	result, callErr := tryCFBundleGetTypeID()
 	if callErr != nil {
 		panic(callErr)
@@ -3458,10 +3458,10 @@ func CFBundleUnloadExecutable(bundle CFBundleRef) {
 	}
 }
 
-var _cFCalendarAddComponents func(calendar CFCalendarRef, at *CFAbsoluteTime, options uint64, componentDesc string) bool
+var _cFCalendarAddComponents func(calendar CFCalendarRef, at *CFAbsoluteTime, options CFOptionFlags, componentDesc string) bool
 var _cFCalendarAddComponentsErr error
 
-func tryCFCalendarAddComponents(calendar CFCalendarRef, at *CFAbsoluteTime, options uint64, componentDesc string) (bool, error) {
+func tryCFCalendarAddComponents(calendar CFCalendarRef, at *CFAbsoluteTime, options CFOptionFlags, componentDesc string) (bool, error) {
 	if _cFCalendarAddComponents == nil {
 		return false, symbolCallError("CFCalendarAddComponents", "", _cFCalendarAddComponentsErr)
 	}
@@ -3471,7 +3471,7 @@ func tryCFCalendarAddComponents(calendar CFCalendarRef, at *CFAbsoluteTime, opti
 // CFCalendarAddComponents computes the absolute time when specified components are added to a given absolute time.
 //
 // See: https://developer.apple.com/documentation/CoreFoundation/CFCalendarAddComponents
-func CFCalendarAddComponents(calendar CFCalendarRef, at *CFAbsoluteTime, options uint64, componentDesc string) bool {
+func CFCalendarAddComponents(calendar CFCalendarRef, at *CFAbsoluteTime, options CFOptionFlags, componentDesc string) bool {
 	result, callErr := tryCFCalendarAddComponents(calendar, at, options, componentDesc)
 	if callErr != nil {
 		panic(callErr)
@@ -3605,10 +3605,10 @@ func CFCalendarDecomposeAbsoluteTime(calendar CFCalendarRef, at CFAbsoluteTime, 
 	return result
 }
 
-var _cFCalendarGetComponentDifference func(calendar CFCalendarRef, startingAT CFAbsoluteTime, resultAT CFAbsoluteTime, options uint64, componentDesc string) bool
+var _cFCalendarGetComponentDifference func(calendar CFCalendarRef, startingAT CFAbsoluteTime, resultAT CFAbsoluteTime, options CFOptionFlags, componentDesc string) bool
 var _cFCalendarGetComponentDifferenceErr error
 
-func tryCFCalendarGetComponentDifference(calendar CFCalendarRef, startingAT CFAbsoluteTime, resultAT CFAbsoluteTime, options uint64, componentDesc string) (bool, error) {
+func tryCFCalendarGetComponentDifference(calendar CFCalendarRef, startingAT CFAbsoluteTime, resultAT CFAbsoluteTime, options CFOptionFlags, componentDesc string) (bool, error) {
 	if _cFCalendarGetComponentDifference == nil {
 		return false, symbolCallError("CFCalendarGetComponentDifference", "", _cFCalendarGetComponentDifferenceErr)
 	}
@@ -3618,7 +3618,7 @@ func tryCFCalendarGetComponentDifference(calendar CFCalendarRef, startingAT CFAb
 // CFCalendarGetComponentDifference computes the difference between the two absolute times, in terms of specified calendrical components.
 //
 // See: https://developer.apple.com/documentation/CoreFoundation/CFCalendarGetComponentDifference
-func CFCalendarGetComponentDifference(calendar CFCalendarRef, startingAT CFAbsoluteTime, resultAT CFAbsoluteTime, options uint64, componentDesc string) bool {
+func CFCalendarGetComponentDifference(calendar CFCalendarRef, startingAT CFAbsoluteTime, resultAT CFAbsoluteTime, options CFOptionFlags, componentDesc string) bool {
 	result, callErr := tryCFCalendarGetComponentDifference(calendar, startingAT, resultAT, options, componentDesc)
 	if callErr != nil {
 		panic(callErr)
@@ -3626,12 +3626,12 @@ func CFCalendarGetComponentDifference(calendar CFCalendarRef, startingAT CFAbsol
 	return result
 }
 
-var _cFCalendarGetFirstWeekday func(calendar CFCalendarRef) int
+var _cFCalendarGetFirstWeekday func(calendar CFCalendarRef) CFIndex
 var _cFCalendarGetFirstWeekdayErr error
 
-func tryCFCalendarGetFirstWeekday(calendar CFCalendarRef) (int, error) {
+func tryCFCalendarGetFirstWeekday(calendar CFCalendarRef) (CFIndex, error) {
 	if _cFCalendarGetFirstWeekday == nil {
-		return 0, symbolCallError("CFCalendarGetFirstWeekday", "", _cFCalendarGetFirstWeekdayErr)
+		return *new(CFIndex), symbolCallError("CFCalendarGetFirstWeekday", "", _cFCalendarGetFirstWeekdayErr)
 	}
 	return _cFCalendarGetFirstWeekday(calendar), nil
 }
@@ -3639,7 +3639,7 @@ func tryCFCalendarGetFirstWeekday(calendar CFCalendarRef) (int, error) {
 // CFCalendarGetFirstWeekday returns the index of first weekday for a specified calendar.
 //
 // See: https://developer.apple.com/documentation/CoreFoundation/CFCalendarGetFirstWeekday(_:)
-func CFCalendarGetFirstWeekday(calendar CFCalendarRef) int {
+func CFCalendarGetFirstWeekday(calendar CFCalendarRef) CFIndex {
 	result, callErr := tryCFCalendarGetFirstWeekday(calendar)
 	if callErr != nil {
 		panic(callErr)
@@ -3689,12 +3689,12 @@ func CFCalendarGetMaximumRangeOfUnit(calendar CFCalendarRef, unit CFCalendarUnit
 	return result
 }
 
-var _cFCalendarGetMinimumDaysInFirstWeek func(calendar CFCalendarRef) int
+var _cFCalendarGetMinimumDaysInFirstWeek func(calendar CFCalendarRef) CFIndex
 var _cFCalendarGetMinimumDaysInFirstWeekErr error
 
-func tryCFCalendarGetMinimumDaysInFirstWeek(calendar CFCalendarRef) (int, error) {
+func tryCFCalendarGetMinimumDaysInFirstWeek(calendar CFCalendarRef) (CFIndex, error) {
 	if _cFCalendarGetMinimumDaysInFirstWeek == nil {
-		return 0, symbolCallError("CFCalendarGetMinimumDaysInFirstWeek", "", _cFCalendarGetMinimumDaysInFirstWeekErr)
+		return *new(CFIndex), symbolCallError("CFCalendarGetMinimumDaysInFirstWeek", "", _cFCalendarGetMinimumDaysInFirstWeekErr)
 	}
 	return _cFCalendarGetMinimumDaysInFirstWeek(calendar), nil
 }
@@ -3702,7 +3702,7 @@ func tryCFCalendarGetMinimumDaysInFirstWeek(calendar CFCalendarRef) (int, error)
 // CFCalendarGetMinimumDaysInFirstWeek returns the minimum number of days in the first week of a specified calendar.
 //
 // See: https://developer.apple.com/documentation/CoreFoundation/CFCalendarGetMinimumDaysInFirstWeek(_:)
-func CFCalendarGetMinimumDaysInFirstWeek(calendar CFCalendarRef) int {
+func CFCalendarGetMinimumDaysInFirstWeek(calendar CFCalendarRef) CFIndex {
 	result, callErr := tryCFCalendarGetMinimumDaysInFirstWeek(calendar)
 	if callErr != nil {
 		panic(callErr)
@@ -3731,12 +3731,12 @@ func CFCalendarGetMinimumRangeOfUnit(calendar CFCalendarRef, unit CFCalendarUnit
 	return result
 }
 
-var _cFCalendarGetOrdinalityOfUnit func(calendar CFCalendarRef, smallerUnit CFCalendarUnit, biggerUnit CFCalendarUnit, at CFAbsoluteTime) int
+var _cFCalendarGetOrdinalityOfUnit func(calendar CFCalendarRef, smallerUnit CFCalendarUnit, biggerUnit CFCalendarUnit, at CFAbsoluteTime) CFIndex
 var _cFCalendarGetOrdinalityOfUnitErr error
 
-func tryCFCalendarGetOrdinalityOfUnit(calendar CFCalendarRef, smallerUnit CFCalendarUnit, biggerUnit CFCalendarUnit, at CFAbsoluteTime) (int, error) {
+func tryCFCalendarGetOrdinalityOfUnit(calendar CFCalendarRef, smallerUnit CFCalendarUnit, biggerUnit CFCalendarUnit, at CFAbsoluteTime) (CFIndex, error) {
 	if _cFCalendarGetOrdinalityOfUnit == nil {
-		return 0, symbolCallError("CFCalendarGetOrdinalityOfUnit", "", _cFCalendarGetOrdinalityOfUnitErr)
+		return *new(CFIndex), symbolCallError("CFCalendarGetOrdinalityOfUnit", "", _cFCalendarGetOrdinalityOfUnitErr)
 	}
 	return _cFCalendarGetOrdinalityOfUnit(calendar, smallerUnit, biggerUnit, at), nil
 }
@@ -3744,7 +3744,7 @@ func tryCFCalendarGetOrdinalityOfUnit(calendar CFCalendarRef, smallerUnit CFCale
 // CFCalendarGetOrdinalityOfUnit returns the ordinal number of a calendrical unit within a larger unit at a specified absolute time.
 //
 // See: https://developer.apple.com/documentation/CoreFoundation/CFCalendarGetOrdinalityOfUnit(_:_:_:_:)
-func CFCalendarGetOrdinalityOfUnit(calendar CFCalendarRef, smallerUnit CFCalendarUnit, biggerUnit CFCalendarUnit, at CFAbsoluteTime) int {
+func CFCalendarGetOrdinalityOfUnit(calendar CFCalendarRef, smallerUnit CFCalendarUnit, biggerUnit CFCalendarUnit, at CFAbsoluteTime) CFIndex {
 	result, callErr := tryCFCalendarGetOrdinalityOfUnit(calendar, smallerUnit, biggerUnit, at)
 	if callErr != nil {
 		panic(callErr)
@@ -3773,10 +3773,10 @@ func CFCalendarGetRangeOfUnit(calendar CFCalendarRef, smallerUnit CFCalendarUnit
 	return result
 }
 
-var _cFCalendarGetTimeRangeOfUnit func(calendar CFCalendarRef, unit CFCalendarUnit, at CFAbsoluteTime, startp *CFAbsoluteTime, tip *float64) bool
+var _cFCalendarGetTimeRangeOfUnit func(calendar CFCalendarRef, unit CFCalendarUnit, at CFAbsoluteTime, startp *CFAbsoluteTime, tip *CFTimeInterval) bool
 var _cFCalendarGetTimeRangeOfUnitErr error
 
-func tryCFCalendarGetTimeRangeOfUnit(calendar CFCalendarRef, unit CFCalendarUnit, at CFAbsoluteTime, startp *CFAbsoluteTime, tip *float64) (bool, error) {
+func tryCFCalendarGetTimeRangeOfUnit(calendar CFCalendarRef, unit CFCalendarUnit, at CFAbsoluteTime, startp *CFAbsoluteTime, tip *CFTimeInterval) (bool, error) {
 	if _cFCalendarGetTimeRangeOfUnit == nil {
 		return false, symbolCallError("CFCalendarGetTimeRangeOfUnit", "10.5", _cFCalendarGetTimeRangeOfUnitErr)
 	}
@@ -3786,7 +3786,7 @@ func tryCFCalendarGetTimeRangeOfUnit(calendar CFCalendarRef, unit CFCalendarUnit
 // CFCalendarGetTimeRangeOfUnit returns by reference the start time and duration of a given calendar unit that contains a given absolute time.
 //
 // See: https://developer.apple.com/documentation/CoreFoundation/CFCalendarGetTimeRangeOfUnit(_:_:_:_:_:)
-func CFCalendarGetTimeRangeOfUnit(calendar CFCalendarRef, unit CFCalendarUnit, at CFAbsoluteTime, startp *CFAbsoluteTime, tip *float64) bool {
+func CFCalendarGetTimeRangeOfUnit(calendar CFCalendarRef, unit CFCalendarUnit, at CFAbsoluteTime, startp *CFAbsoluteTime, tip *CFTimeInterval) bool {
 	result, callErr := tryCFCalendarGetTimeRangeOfUnit(calendar, unit, at, startp, tip)
 	if callErr != nil {
 		panic(callErr)
@@ -3794,12 +3794,12 @@ func CFCalendarGetTimeRangeOfUnit(calendar CFCalendarRef, unit CFCalendarUnit, a
 	return result
 }
 
-var _cFCalendarGetTypeID func() uint
+var _cFCalendarGetTypeID func() CFTypeID
 var _cFCalendarGetTypeIDErr error
 
-func tryCFCalendarGetTypeID() (uint, error) {
+func tryCFCalendarGetTypeID() (CFTypeID, error) {
 	if _cFCalendarGetTypeID == nil {
-		return 0, symbolCallError("CFCalendarGetTypeID", "", _cFCalendarGetTypeIDErr)
+		return *new(CFTypeID), symbolCallError("CFCalendarGetTypeID", "", _cFCalendarGetTypeIDErr)
 	}
 	return _cFCalendarGetTypeID(), nil
 }
@@ -3807,7 +3807,7 @@ func tryCFCalendarGetTypeID() (uint, error) {
 // CFCalendarGetTypeID returns the type identifier for the CFCalendar opaque type.
 //
 // See: https://developer.apple.com/documentation/CoreFoundation/CFCalendarGetTypeID()
-func CFCalendarGetTypeID() uint {
+func CFCalendarGetTypeID() CFTypeID {
 	result, callErr := tryCFCalendarGetTypeID()
 	if callErr != nil {
 		panic(callErr)
@@ -3815,10 +3815,10 @@ func CFCalendarGetTypeID() uint {
 	return result
 }
 
-var _cFCalendarSetFirstWeekday func(calendar CFCalendarRef, wkdy int)
+var _cFCalendarSetFirstWeekday func(calendar CFCalendarRef, wkdy CFIndex)
 var _cFCalendarSetFirstWeekdayErr error
 
-func tryCFCalendarSetFirstWeekday(calendar CFCalendarRef, wkdy int) error {
+func tryCFCalendarSetFirstWeekday(calendar CFCalendarRef, wkdy CFIndex) error {
 	if _cFCalendarSetFirstWeekday == nil {
 		return symbolCallError("CFCalendarSetFirstWeekday", "", _cFCalendarSetFirstWeekdayErr)
 	}
@@ -3829,7 +3829,7 @@ func tryCFCalendarSetFirstWeekday(calendar CFCalendarRef, wkdy int) error {
 // CFCalendarSetFirstWeekday sets the first weekday for a calendar.
 //
 // See: https://developer.apple.com/documentation/CoreFoundation/CFCalendarSetFirstWeekday(_:_:)
-func CFCalendarSetFirstWeekday(calendar CFCalendarRef, wkdy int) {
+func CFCalendarSetFirstWeekday(calendar CFCalendarRef, wkdy CFIndex) {
 	if callErr := tryCFCalendarSetFirstWeekday(calendar, wkdy); callErr != nil {
 		panic(callErr)
 	}
@@ -3855,10 +3855,10 @@ func CFCalendarSetLocale(calendar CFCalendarRef, locale CFLocaleRef) {
 	}
 }
 
-var _cFCalendarSetMinimumDaysInFirstWeek func(calendar CFCalendarRef, mwd int)
+var _cFCalendarSetMinimumDaysInFirstWeek func(calendar CFCalendarRef, mwd CFIndex)
 var _cFCalendarSetMinimumDaysInFirstWeekErr error
 
-func tryCFCalendarSetMinimumDaysInFirstWeek(calendar CFCalendarRef, mwd int) error {
+func tryCFCalendarSetMinimumDaysInFirstWeek(calendar CFCalendarRef, mwd CFIndex) error {
 	if _cFCalendarSetMinimumDaysInFirstWeek == nil {
 		return symbolCallError("CFCalendarSetMinimumDaysInFirstWeek", "", _cFCalendarSetMinimumDaysInFirstWeekErr)
 	}
@@ -3869,7 +3869,7 @@ func tryCFCalendarSetMinimumDaysInFirstWeek(calendar CFCalendarRef, mwd int) err
 // CFCalendarSetMinimumDaysInFirstWeek sets the minimum number of days in the first week of a specified calendar.
 //
 // See: https://developer.apple.com/documentation/CoreFoundation/CFCalendarSetMinimumDaysInFirstWeek(_:_:)
-func CFCalendarSetMinimumDaysInFirstWeek(calendar CFCalendarRef, mwd int) {
+func CFCalendarSetMinimumDaysInFirstWeek(calendar CFCalendarRef, mwd CFIndex) {
 	if callErr := tryCFCalendarSetMinimumDaysInFirstWeek(calendar, mwd); callErr != nil {
 		panic(callErr)
 	}
@@ -4124,12 +4124,12 @@ func CFCharacterSetGetPredefined(theSetIdentifier CFCharacterSetPredefinedSet) C
 	return result
 }
 
-var _cFCharacterSetGetTypeID func() uint
+var _cFCharacterSetGetTypeID func() CFTypeID
 var _cFCharacterSetGetTypeIDErr error
 
-func tryCFCharacterSetGetTypeID() (uint, error) {
+func tryCFCharacterSetGetTypeID() (CFTypeID, error) {
 	if _cFCharacterSetGetTypeID == nil {
-		return 0, symbolCallError("CFCharacterSetGetTypeID", "", _cFCharacterSetGetTypeIDErr)
+		return *new(CFTypeID), symbolCallError("CFCharacterSetGetTypeID", "", _cFCharacterSetGetTypeIDErr)
 	}
 	return _cFCharacterSetGetTypeID(), nil
 }
@@ -4137,7 +4137,7 @@ func tryCFCharacterSetGetTypeID() (uint, error) {
 // CFCharacterSetGetTypeID returns the type identifier of the CFCharacterSet opaque type.
 //
 // See: https://developer.apple.com/documentation/CoreFoundation/CFCharacterSetGetTypeID()
-func CFCharacterSetGetTypeID() uint {
+func CFCharacterSetGetTypeID() CFTypeID {
 	result, callErr := tryCFCharacterSetGetTypeID()
 	if callErr != nil {
 		panic(callErr)
@@ -4145,10 +4145,10 @@ func CFCharacterSetGetTypeID() uint {
 	return result
 }
 
-var _cFCharacterSetHasMemberInPlane func(theSet CFCharacterSetRef, thePlane int) bool
+var _cFCharacterSetHasMemberInPlane func(theSet CFCharacterSetRef, thePlane CFIndex) bool
 var _cFCharacterSetHasMemberInPlaneErr error
 
-func tryCFCharacterSetHasMemberInPlane(theSet CFCharacterSetRef, thePlane int) (bool, error) {
+func tryCFCharacterSetHasMemberInPlane(theSet CFCharacterSetRef, thePlane CFIndex) (bool, error) {
 	if _cFCharacterSetHasMemberInPlane == nil {
 		return false, symbolCallError("CFCharacterSetHasMemberInPlane", "", _cFCharacterSetHasMemberInPlaneErr)
 	}
@@ -4158,7 +4158,7 @@ func tryCFCharacterSetHasMemberInPlane(theSet CFCharacterSetRef, thePlane int) (
 // CFCharacterSetHasMemberInPlane reports whether or not a character set contains at least one member character in the specified plane.
 //
 // See: https://developer.apple.com/documentation/CoreFoundation/CFCharacterSetHasMemberInPlane(_:_:)
-func CFCharacterSetHasMemberInPlane(theSet CFCharacterSetRef, thePlane int) bool {
+func CFCharacterSetHasMemberInPlane(theSet CFCharacterSetRef, thePlane CFIndex) bool {
 	result, callErr := tryCFCharacterSetHasMemberInPlane(theSet, thePlane)
 	if callErr != nil {
 		panic(callErr)
@@ -4350,10 +4350,10 @@ func CFCopyDescription(cf CFTypeRef) CFStringRef {
 	return result
 }
 
-var _cFCopyTypeIDDescription func(type_id uint) CFStringRef
+var _cFCopyTypeIDDescription func(type_id CFTypeID) CFStringRef
 var _cFCopyTypeIDDescriptionErr error
 
-func tryCFCopyTypeIDDescription(type_id uint) (CFStringRef, error) {
+func tryCFCopyTypeIDDescription(type_id CFTypeID) (CFStringRef, error) {
 	if _cFCopyTypeIDDescription == nil {
 		return *new(CFStringRef), symbolCallError("CFCopyTypeIDDescription", "", _cFCopyTypeIDDescriptionErr)
 	}
@@ -4363,7 +4363,7 @@ func tryCFCopyTypeIDDescription(type_id uint) (CFStringRef, error) {
 // CFCopyTypeIDDescription returns a textual description of a Core Foundation type, as identified by its type ID, which can be used when debugging.
 //
 // See: https://developer.apple.com/documentation/CoreFoundation/CFCopyTypeIDDescription(_:)
-func CFCopyTypeIDDescription(type_id uint) CFStringRef {
+func CFCopyTypeIDDescription(type_id CFTypeID) CFStringRef {
 	result, callErr := tryCFCopyTypeIDDescription(type_id)
 	if callErr != nil {
 		panic(callErr)
@@ -4371,10 +4371,10 @@ func CFCopyTypeIDDescription(type_id uint) CFStringRef {
 	return result
 }
 
-var _cFDataAppendBytes func(theData CFMutableDataRef, bytes *byte, length int)
+var _cFDataAppendBytes func(theData CFMutableDataRef, bytes *byte, length CFIndex)
 var _cFDataAppendBytesErr error
 
-func tryCFDataAppendBytes(theData CFMutableDataRef, bytes []byte, length int) error {
+func tryCFDataAppendBytes(theData CFMutableDataRef, bytes []byte, length CFIndex) error {
 	if _cFDataAppendBytes == nil {
 		return symbolCallError("CFDataAppendBytes", "", _cFDataAppendBytesErr)
 	}
@@ -4385,16 +4385,16 @@ func tryCFDataAppendBytes(theData CFMutableDataRef, bytes []byte, length int) er
 // CFDataAppendBytes appends the bytes from a byte buffer to the contents of a CFData object.
 //
 // See: https://developer.apple.com/documentation/CoreFoundation/CFDataAppendBytes(_:_:_:)
-func CFDataAppendBytes(theData CFMutableDataRef, bytes []byte, length int) {
+func CFDataAppendBytes(theData CFMutableDataRef, bytes []byte, length CFIndex) {
 	if callErr := tryCFDataAppendBytes(theData, bytes, length); callErr != nil {
 		panic(callErr)
 	}
 }
 
-var _cFDataCreate func(allocator CFAllocatorRef, bytes *byte, length int) CFDataRef
+var _cFDataCreate func(allocator CFAllocatorRef, bytes *byte, length CFIndex) CFDataRef
 var _cFDataCreateErr error
 
-func tryCFDataCreate(allocator CFAllocatorRef, bytes []byte, length int) (CFDataRef, error) {
+func tryCFDataCreate(allocator CFAllocatorRef, bytes []byte, length CFIndex) (CFDataRef, error) {
 	if _cFDataCreate == nil {
 		return *new(CFDataRef), symbolCallError("CFDataCreate", "", _cFDataCreateErr)
 	}
@@ -4404,7 +4404,7 @@ func tryCFDataCreate(allocator CFAllocatorRef, bytes []byte, length int) (CFData
 // CFDataCreate creates an immutable CFData object using data copied from a specified byte buffer.
 //
 // See: https://developer.apple.com/documentation/CoreFoundation/CFDataCreate(_:_:_:)
-func CFDataCreate(allocator CFAllocatorRef, bytes []byte, length int) CFDataRef {
+func CFDataCreate(allocator CFAllocatorRef, bytes []byte, length CFIndex) CFDataRef {
 	result, callErr := tryCFDataCreate(allocator, bytes, length)
 	if callErr != nil {
 		panic(callErr)
@@ -4433,10 +4433,10 @@ func CFDataCreateCopy(allocator CFAllocatorRef, theData CFDataRef) CFDataRef {
 	return result
 }
 
-var _cFDataCreateMutable func(allocator CFAllocatorRef, capacity int) CFMutableDataRef
+var _cFDataCreateMutable func(allocator CFAllocatorRef, capacity CFIndex) CFMutableDataRef
 var _cFDataCreateMutableErr error
 
-func tryCFDataCreateMutable(allocator CFAllocatorRef, capacity int) (CFMutableDataRef, error) {
+func tryCFDataCreateMutable(allocator CFAllocatorRef, capacity CFIndex) (CFMutableDataRef, error) {
 	if _cFDataCreateMutable == nil {
 		return *new(CFMutableDataRef), symbolCallError("CFDataCreateMutable", "", _cFDataCreateMutableErr)
 	}
@@ -4446,7 +4446,7 @@ func tryCFDataCreateMutable(allocator CFAllocatorRef, capacity int) (CFMutableDa
 // CFDataCreateMutable creates an empty CFMutableData object.
 //
 // See: https://developer.apple.com/documentation/CoreFoundation/CFDataCreateMutable(_:_:)
-func CFDataCreateMutable(allocator CFAllocatorRef, capacity int) CFMutableDataRef {
+func CFDataCreateMutable(allocator CFAllocatorRef, capacity CFIndex) CFMutableDataRef {
 	result, callErr := tryCFDataCreateMutable(allocator, capacity)
 	if callErr != nil {
 		panic(callErr)
@@ -4454,10 +4454,10 @@ func CFDataCreateMutable(allocator CFAllocatorRef, capacity int) CFMutableDataRe
 	return result
 }
 
-var _cFDataCreateMutableCopy func(allocator CFAllocatorRef, capacity int, theData CFDataRef) CFMutableDataRef
+var _cFDataCreateMutableCopy func(allocator CFAllocatorRef, capacity CFIndex, theData CFDataRef) CFMutableDataRef
 var _cFDataCreateMutableCopyErr error
 
-func tryCFDataCreateMutableCopy(allocator CFAllocatorRef, capacity int, theData CFDataRef) (CFMutableDataRef, error) {
+func tryCFDataCreateMutableCopy(allocator CFAllocatorRef, capacity CFIndex, theData CFDataRef) (CFMutableDataRef, error) {
 	if _cFDataCreateMutableCopy == nil {
 		return *new(CFMutableDataRef), symbolCallError("CFDataCreateMutableCopy", "", _cFDataCreateMutableCopyErr)
 	}
@@ -4467,7 +4467,7 @@ func tryCFDataCreateMutableCopy(allocator CFAllocatorRef, capacity int, theData 
 // CFDataCreateMutableCopy creates a CFMutableData object by copying another CFData object.
 //
 // See: https://developer.apple.com/documentation/CoreFoundation/CFDataCreateMutableCopy(_:_:_:)
-func CFDataCreateMutableCopy(allocator CFAllocatorRef, capacity int, theData CFDataRef) CFMutableDataRef {
+func CFDataCreateMutableCopy(allocator CFAllocatorRef, capacity CFIndex, theData CFDataRef) CFMutableDataRef {
 	result, callErr := tryCFDataCreateMutableCopy(allocator, capacity, theData)
 	if callErr != nil {
 		panic(callErr)
@@ -4475,10 +4475,10 @@ func CFDataCreateMutableCopy(allocator CFAllocatorRef, capacity int, theData CFD
 	return result
 }
 
-var _cFDataCreateWithBytesNoCopy func(allocator CFAllocatorRef, bytes *byte, length int, bytesDeallocator CFAllocatorRef) CFDataRef
+var _cFDataCreateWithBytesNoCopy func(allocator CFAllocatorRef, bytes *byte, length CFIndex, bytesDeallocator CFAllocatorRef) CFDataRef
 var _cFDataCreateWithBytesNoCopyErr error
 
-func tryCFDataCreateWithBytesNoCopy(allocator CFAllocatorRef, bytes []byte, length int, bytesDeallocator CFAllocatorRef) (CFDataRef, error) {
+func tryCFDataCreateWithBytesNoCopy(allocator CFAllocatorRef, bytes []byte, length CFIndex, bytesDeallocator CFAllocatorRef) (CFDataRef, error) {
 	if _cFDataCreateWithBytesNoCopy == nil {
 		return *new(CFDataRef), symbolCallError("CFDataCreateWithBytesNoCopy", "", _cFDataCreateWithBytesNoCopyErr)
 	}
@@ -4488,7 +4488,7 @@ func tryCFDataCreateWithBytesNoCopy(allocator CFAllocatorRef, bytes []byte, leng
 // CFDataCreateWithBytesNoCopy creates an immutable CFData object from an external (client-owned) byte buffer.
 //
 // See: https://developer.apple.com/documentation/CoreFoundation/CFDataCreateWithBytesNoCopy(_:_:_:_:)
-func CFDataCreateWithBytesNoCopy(allocator CFAllocatorRef, bytes []byte, length int, bytesDeallocator CFAllocatorRef) CFDataRef {
+func CFDataCreateWithBytesNoCopy(allocator CFAllocatorRef, bytes []byte, length CFIndex, bytesDeallocator CFAllocatorRef) CFDataRef {
 	result, callErr := tryCFDataCreateWithBytesNoCopy(allocator, bytes, length, bytesDeallocator)
 	if callErr != nil {
 		panic(callErr)
@@ -4578,12 +4578,12 @@ func CFDataGetBytes(theData CFDataRef, range_ CFRange, buffer []byte) {
 	}
 }
 
-var _cFDataGetLength func(theData CFDataRef) int
+var _cFDataGetLength func(theData CFDataRef) CFIndex
 var _cFDataGetLengthErr error
 
-func tryCFDataGetLength(theData CFDataRef) (int, error) {
+func tryCFDataGetLength(theData CFDataRef) (CFIndex, error) {
 	if _cFDataGetLength == nil {
-		return 0, symbolCallError("CFDataGetLength", "", _cFDataGetLengthErr)
+		return *new(CFIndex), symbolCallError("CFDataGetLength", "", _cFDataGetLengthErr)
 	}
 	return _cFDataGetLength(theData), nil
 }
@@ -4591,7 +4591,7 @@ func tryCFDataGetLength(theData CFDataRef) (int, error) {
 // CFDataGetLength returns the number of bytes contained by a CFData object.
 //
 // See: https://developer.apple.com/documentation/CoreFoundation/CFDataGetLength(_:)
-func CFDataGetLength(theData CFDataRef) int {
+func CFDataGetLength(theData CFDataRef) CFIndex {
 	result, callErr := tryCFDataGetLength(theData)
 	if callErr != nil {
 		panic(callErr)
@@ -4620,12 +4620,12 @@ func CFDataGetMutableBytePtr(theData CFMutableDataRef) *uint8 {
 	return result
 }
 
-var _cFDataGetTypeID func() uint
+var _cFDataGetTypeID func() CFTypeID
 var _cFDataGetTypeIDErr error
 
-func tryCFDataGetTypeID() (uint, error) {
+func tryCFDataGetTypeID() (CFTypeID, error) {
 	if _cFDataGetTypeID == nil {
-		return 0, symbolCallError("CFDataGetTypeID", "", _cFDataGetTypeIDErr)
+		return *new(CFTypeID), symbolCallError("CFDataGetTypeID", "", _cFDataGetTypeIDErr)
 	}
 	return _cFDataGetTypeID(), nil
 }
@@ -4633,7 +4633,7 @@ func tryCFDataGetTypeID() (uint, error) {
 // CFDataGetTypeID returns the type identifier for the CFData opaque type.
 //
 // See: https://developer.apple.com/documentation/CoreFoundation/CFDataGetTypeID()
-func CFDataGetTypeID() uint {
+func CFDataGetTypeID() CFTypeID {
 	result, callErr := tryCFDataGetTypeID()
 	if callErr != nil {
 		panic(callErr)
@@ -4641,10 +4641,10 @@ func CFDataGetTypeID() uint {
 	return result
 }
 
-var _cFDataIncreaseLength func(theData CFMutableDataRef, extraLength int)
+var _cFDataIncreaseLength func(theData CFMutableDataRef, extraLength CFIndex)
 var _cFDataIncreaseLengthErr error
 
-func tryCFDataIncreaseLength(theData CFMutableDataRef, extraLength int) error {
+func tryCFDataIncreaseLength(theData CFMutableDataRef, extraLength CFIndex) error {
 	if _cFDataIncreaseLength == nil {
 		return symbolCallError("CFDataIncreaseLength", "", _cFDataIncreaseLengthErr)
 	}
@@ -4655,16 +4655,16 @@ func tryCFDataIncreaseLength(theData CFMutableDataRef, extraLength int) error {
 // CFDataIncreaseLength increases the length of a CFMutableData object’s internal byte buffer, zero-filling the extension to the buffer.
 //
 // See: https://developer.apple.com/documentation/CoreFoundation/CFDataIncreaseLength(_:_:)
-func CFDataIncreaseLength(theData CFMutableDataRef, extraLength int) {
+func CFDataIncreaseLength(theData CFMutableDataRef, extraLength CFIndex) {
 	if callErr := tryCFDataIncreaseLength(theData, extraLength); callErr != nil {
 		panic(callErr)
 	}
 }
 
-var _cFDataReplaceBytes func(theData CFMutableDataRef, range_ CFRange, newBytes *byte, newLength int)
+var _cFDataReplaceBytes func(theData CFMutableDataRef, range_ CFRange, newBytes *byte, newLength CFIndex)
 var _cFDataReplaceBytesErr error
 
-func tryCFDataReplaceBytes(theData CFMutableDataRef, range_ CFRange, newBytes []byte, newLength int) error {
+func tryCFDataReplaceBytes(theData CFMutableDataRef, range_ CFRange, newBytes []byte, newLength CFIndex) error {
 	if _cFDataReplaceBytes == nil {
 		return symbolCallError("CFDataReplaceBytes", "", _cFDataReplaceBytesErr)
 	}
@@ -4675,16 +4675,16 @@ func tryCFDataReplaceBytes(theData CFMutableDataRef, range_ CFRange, newBytes []
 // CFDataReplaceBytes replaces those bytes in a CFMutableData object that fall within a specified range with other bytes.
 //
 // See: https://developer.apple.com/documentation/CoreFoundation/CFDataReplaceBytes(_:_:_:_:)
-func CFDataReplaceBytes(theData CFMutableDataRef, range_ CFRange, newBytes []byte, newLength int) {
+func CFDataReplaceBytes(theData CFMutableDataRef, range_ CFRange, newBytes []byte, newLength CFIndex) {
 	if callErr := tryCFDataReplaceBytes(theData, range_, newBytes, newLength); callErr != nil {
 		panic(callErr)
 	}
 }
 
-var _cFDataSetLength func(theData CFMutableDataRef, length int)
+var _cFDataSetLength func(theData CFMutableDataRef, length CFIndex)
 var _cFDataSetLengthErr error
 
-func tryCFDataSetLength(theData CFMutableDataRef, length int) error {
+func tryCFDataSetLength(theData CFMutableDataRef, length CFIndex) error {
 	if _cFDataSetLength == nil {
 		return symbolCallError("CFDataSetLength", "", _cFDataSetLengthErr)
 	}
@@ -4695,7 +4695,7 @@ func tryCFDataSetLength(theData CFMutableDataRef, length int) error {
 // CFDataSetLength resets the length of a CFMutableData object’s internal byte buffer.
 //
 // See: https://developer.apple.com/documentation/CoreFoundation/CFDataSetLength(_:_:)
-func CFDataSetLength(theData CFMutableDataRef, length int) {
+func CFDataSetLength(theData CFMutableDataRef, length CFIndex) {
 	if callErr := tryCFDataSetLength(theData, length); callErr != nil {
 		panic(callErr)
 	}
@@ -4785,10 +4785,10 @@ func CFDateFormatterCreate(allocator CFAllocatorRef, locale CFLocaleRef, dateSty
 	return result
 }
 
-var _cFDateFormatterCreateDateFormatFromTemplate func(allocator CFAllocatorRef, tmplate CFStringRef, options uint64, locale CFLocaleRef) CFStringRef
+var _cFDateFormatterCreateDateFormatFromTemplate func(allocator CFAllocatorRef, tmplate CFStringRef, options CFOptionFlags, locale CFLocaleRef) CFStringRef
 var _cFDateFormatterCreateDateFormatFromTemplateErr error
 
-func tryCFDateFormatterCreateDateFormatFromTemplate(allocator CFAllocatorRef, tmplate CFStringRef, options uint64, locale CFLocaleRef) (CFStringRef, error) {
+func tryCFDateFormatterCreateDateFormatFromTemplate(allocator CFAllocatorRef, tmplate CFStringRef, options CFOptionFlags, locale CFLocaleRef) (CFStringRef, error) {
 	if _cFDateFormatterCreateDateFormatFromTemplate == nil {
 		return *new(CFStringRef), symbolCallError("CFDateFormatterCreateDateFormatFromTemplate", "10.6", _cFDateFormatterCreateDateFormatFromTemplateErr)
 	}
@@ -4798,7 +4798,7 @@ func tryCFDateFormatterCreateDateFormatFromTemplate(allocator CFAllocatorRef, tm
 // CFDateFormatterCreateDateFormatFromTemplate returns a localized date format string representing the given date format components arranged appropriately for the specified locale.
 //
 // See: https://developer.apple.com/documentation/CoreFoundation/CFDateFormatterCreateDateFormatFromTemplate(_:_:_:_:)
-func CFDateFormatterCreateDateFormatFromTemplate(allocator CFAllocatorRef, tmplate CFStringRef, options uint64, locale CFLocaleRef) CFStringRef {
+func CFDateFormatterCreateDateFormatFromTemplate(allocator CFAllocatorRef, tmplate CFStringRef, options CFOptionFlags, locale CFLocaleRef) CFStringRef {
 	result, callErr := tryCFDateFormatterCreateDateFormatFromTemplate(allocator, tmplate, options, locale)
 	if callErr != nil {
 		panic(callErr)
@@ -4995,12 +4995,12 @@ func CFDateFormatterGetTimeStyle(formatter CFDateFormatterRef) CFDateFormatterSt
 	return result
 }
 
-var _cFDateFormatterGetTypeID func() uint
+var _cFDateFormatterGetTypeID func() CFTypeID
 var _cFDateFormatterGetTypeIDErr error
 
-func tryCFDateFormatterGetTypeID() (uint, error) {
+func tryCFDateFormatterGetTypeID() (CFTypeID, error) {
 	if _cFDateFormatterGetTypeID == nil {
-		return 0, symbolCallError("CFDateFormatterGetTypeID", "", _cFDateFormatterGetTypeIDErr)
+		return *new(CFTypeID), symbolCallError("CFDateFormatterGetTypeID", "", _cFDateFormatterGetTypeIDErr)
 	}
 	return _cFDateFormatterGetTypeID(), nil
 }
@@ -5008,7 +5008,7 @@ func tryCFDateFormatterGetTypeID() (uint, error) {
 // CFDateFormatterGetTypeID returns the type identifier for CFDateFormatter.
 //
 // See: https://developer.apple.com/documentation/CoreFoundation/CFDateFormatterGetTypeID()
-func CFDateFormatterGetTypeID() uint {
+func CFDateFormatterGetTypeID() CFTypeID {
 	result, callErr := tryCFDateFormatterGetTypeID()
 	if callErr != nil {
 		panic(callErr)
@@ -5077,12 +5077,12 @@ func CFDateGetAbsoluteTime(theDate CFDateRef) CFAbsoluteTime {
 	return result
 }
 
-var _cFDateGetTimeIntervalSinceDate func(theDate CFDateRef, otherDate CFDateRef) float64
+var _cFDateGetTimeIntervalSinceDate func(theDate CFDateRef, otherDate CFDateRef) CFTimeInterval
 var _cFDateGetTimeIntervalSinceDateErr error
 
-func tryCFDateGetTimeIntervalSinceDate(theDate CFDateRef, otherDate CFDateRef) (float64, error) {
+func tryCFDateGetTimeIntervalSinceDate(theDate CFDateRef, otherDate CFDateRef) (CFTimeInterval, error) {
 	if _cFDateGetTimeIntervalSinceDate == nil {
-		return 0.0, symbolCallError("CFDateGetTimeIntervalSinceDate", "", _cFDateGetTimeIntervalSinceDateErr)
+		return *new(CFTimeInterval), symbolCallError("CFDateGetTimeIntervalSinceDate", "", _cFDateGetTimeIntervalSinceDateErr)
 	}
 	return _cFDateGetTimeIntervalSinceDate(theDate, otherDate), nil
 }
@@ -5090,7 +5090,7 @@ func tryCFDateGetTimeIntervalSinceDate(theDate CFDateRef, otherDate CFDateRef) (
 // CFDateGetTimeIntervalSinceDate returns the number of elapsed seconds between the given [CFDate] objects.
 //
 // See: https://developer.apple.com/documentation/CoreFoundation/CFDateGetTimeIntervalSinceDate(_:_:)
-func CFDateGetTimeIntervalSinceDate(theDate CFDateRef, otherDate CFDateRef) float64 {
+func CFDateGetTimeIntervalSinceDate(theDate CFDateRef, otherDate CFDateRef) CFTimeInterval {
 	result, callErr := tryCFDateGetTimeIntervalSinceDate(theDate, otherDate)
 	if callErr != nil {
 		panic(callErr)
@@ -5098,12 +5098,12 @@ func CFDateGetTimeIntervalSinceDate(theDate CFDateRef, otherDate CFDateRef) floa
 	return result
 }
 
-var _cFDateGetTypeID func() uint
+var _cFDateGetTypeID func() CFTypeID
 var _cFDateGetTypeIDErr error
 
-func tryCFDateGetTypeID() (uint, error) {
+func tryCFDateGetTypeID() (CFTypeID, error) {
 	if _cFDateGetTypeID == nil {
-		return 0, symbolCallError("CFDateGetTypeID", "", _cFDateGetTypeIDErr)
+		return *new(CFTypeID), symbolCallError("CFDateGetTypeID", "", _cFDateGetTypeIDErr)
 	}
 	return _cFDateGetTypeID(), nil
 }
@@ -5111,7 +5111,7 @@ func tryCFDateGetTypeID() (uint, error) {
 // CFDateGetTypeID returns the type identifier for the [CFDate] opaque type.
 //
 // See: https://developer.apple.com/documentation/CoreFoundation/CFDateGetTypeID()
-func CFDateGetTypeID() uint {
+func CFDateGetTypeID() CFTypeID {
 	result, callErr := tryCFDateGetTypeID()
 	if callErr != nil {
 		panic(callErr)
@@ -5201,10 +5201,10 @@ func CFDictionaryContainsValue(theDict CFDictionaryRef, value unsafe.Pointer) bo
 	return result
 }
 
-var _cFDictionaryCreate func(allocator CFAllocatorRef, keys unsafe.Pointer, values unsafe.Pointer, numValues int, keyCallBacks *CFDictionaryKeyCallBacks, valueCallBacks *CFDictionaryValueCallBacks) CFDictionaryRef
+var _cFDictionaryCreate func(allocator CFAllocatorRef, keys unsafe.Pointer, values unsafe.Pointer, numValues CFIndex, keyCallBacks *CFDictionaryKeyCallBacks, valueCallBacks *CFDictionaryValueCallBacks) CFDictionaryRef
 var _cFDictionaryCreateErr error
 
-func tryCFDictionaryCreate(allocator CFAllocatorRef, keys unsafe.Pointer, values unsafe.Pointer, numValues int, keyCallBacks *CFDictionaryKeyCallBacks, valueCallBacks *CFDictionaryValueCallBacks) (CFDictionaryRef, error) {
+func tryCFDictionaryCreate(allocator CFAllocatorRef, keys unsafe.Pointer, values unsafe.Pointer, numValues CFIndex, keyCallBacks *CFDictionaryKeyCallBacks, valueCallBacks *CFDictionaryValueCallBacks) (CFDictionaryRef, error) {
 	if _cFDictionaryCreate == nil {
 		return *new(CFDictionaryRef), symbolCallError("CFDictionaryCreate", "", _cFDictionaryCreateErr)
 	}
@@ -5214,7 +5214,7 @@ func tryCFDictionaryCreate(allocator CFAllocatorRef, keys unsafe.Pointer, values
 // CFDictionaryCreate creates an immutable dictionary containing the specified key-value pairs.
 //
 // See: https://developer.apple.com/documentation/CoreFoundation/CFDictionaryCreate(_:_:_:_:_:_:)
-func CFDictionaryCreate(allocator CFAllocatorRef, keys unsafe.Pointer, values unsafe.Pointer, numValues int, keyCallBacks *CFDictionaryKeyCallBacks, valueCallBacks *CFDictionaryValueCallBacks) CFDictionaryRef {
+func CFDictionaryCreate(allocator CFAllocatorRef, keys unsafe.Pointer, values unsafe.Pointer, numValues CFIndex, keyCallBacks *CFDictionaryKeyCallBacks, valueCallBacks *CFDictionaryValueCallBacks) CFDictionaryRef {
 	result, callErr := tryCFDictionaryCreate(allocator, keys, values, numValues, keyCallBacks, valueCallBacks)
 	if callErr != nil {
 		panic(callErr)
@@ -5243,10 +5243,10 @@ func CFDictionaryCreateCopy(allocator CFAllocatorRef, theDict CFDictionaryRef) C
 	return result
 }
 
-var _cFDictionaryCreateMutable func(allocator CFAllocatorRef, capacity int, keyCallBacks *CFDictionaryKeyCallBacks, valueCallBacks *CFDictionaryValueCallBacks) CFMutableDictionaryRef
+var _cFDictionaryCreateMutable func(allocator CFAllocatorRef, capacity CFIndex, keyCallBacks *CFDictionaryKeyCallBacks, valueCallBacks *CFDictionaryValueCallBacks) CFMutableDictionaryRef
 var _cFDictionaryCreateMutableErr error
 
-func tryCFDictionaryCreateMutable(allocator CFAllocatorRef, capacity int, keyCallBacks *CFDictionaryKeyCallBacks, valueCallBacks *CFDictionaryValueCallBacks) (CFMutableDictionaryRef, error) {
+func tryCFDictionaryCreateMutable(allocator CFAllocatorRef, capacity CFIndex, keyCallBacks *CFDictionaryKeyCallBacks, valueCallBacks *CFDictionaryValueCallBacks) (CFMutableDictionaryRef, error) {
 	if _cFDictionaryCreateMutable == nil {
 		return *new(CFMutableDictionaryRef), symbolCallError("CFDictionaryCreateMutable", "", _cFDictionaryCreateMutableErr)
 	}
@@ -5256,7 +5256,7 @@ func tryCFDictionaryCreateMutable(allocator CFAllocatorRef, capacity int, keyCal
 // CFDictionaryCreateMutable creates a new mutable dictionary.
 //
 // See: https://developer.apple.com/documentation/CoreFoundation/CFDictionaryCreateMutable(_:_:_:_:)
-func CFDictionaryCreateMutable(allocator CFAllocatorRef, capacity int, keyCallBacks *CFDictionaryKeyCallBacks, valueCallBacks *CFDictionaryValueCallBacks) CFMutableDictionaryRef {
+func CFDictionaryCreateMutable(allocator CFAllocatorRef, capacity CFIndex, keyCallBacks *CFDictionaryKeyCallBacks, valueCallBacks *CFDictionaryValueCallBacks) CFMutableDictionaryRef {
 	result, callErr := tryCFDictionaryCreateMutable(allocator, capacity, keyCallBacks, valueCallBacks)
 	if callErr != nil {
 		panic(callErr)
@@ -5264,10 +5264,10 @@ func CFDictionaryCreateMutable(allocator CFAllocatorRef, capacity int, keyCallBa
 	return result
 }
 
-var _cFDictionaryCreateMutableCopy func(allocator CFAllocatorRef, capacity int, theDict CFDictionaryRef) CFMutableDictionaryRef
+var _cFDictionaryCreateMutableCopy func(allocator CFAllocatorRef, capacity CFIndex, theDict CFDictionaryRef) CFMutableDictionaryRef
 var _cFDictionaryCreateMutableCopyErr error
 
-func tryCFDictionaryCreateMutableCopy(allocator CFAllocatorRef, capacity int, theDict CFDictionaryRef) (CFMutableDictionaryRef, error) {
+func tryCFDictionaryCreateMutableCopy(allocator CFAllocatorRef, capacity CFIndex, theDict CFDictionaryRef) (CFMutableDictionaryRef, error) {
 	if _cFDictionaryCreateMutableCopy == nil {
 		return *new(CFMutableDictionaryRef), symbolCallError("CFDictionaryCreateMutableCopy", "", _cFDictionaryCreateMutableCopyErr)
 	}
@@ -5277,7 +5277,7 @@ func tryCFDictionaryCreateMutableCopy(allocator CFAllocatorRef, capacity int, th
 // CFDictionaryCreateMutableCopy creates a new mutable dictionary with the key-value pairs from another dictionary.
 //
 // See: https://developer.apple.com/documentation/CoreFoundation/CFDictionaryCreateMutableCopy(_:_:_:)
-func CFDictionaryCreateMutableCopy(allocator CFAllocatorRef, capacity int, theDict CFDictionaryRef) CFMutableDictionaryRef {
+func CFDictionaryCreateMutableCopy(allocator CFAllocatorRef, capacity CFIndex, theDict CFDictionaryRef) CFMutableDictionaryRef {
 	result, callErr := tryCFDictionaryCreateMutableCopy(allocator, capacity, theDict)
 	if callErr != nil {
 		panic(callErr)
@@ -5285,12 +5285,12 @@ func CFDictionaryCreateMutableCopy(allocator CFAllocatorRef, capacity int, theDi
 	return result
 }
 
-var _cFDictionaryGetCount func(theDict CFDictionaryRef) int
+var _cFDictionaryGetCount func(theDict CFDictionaryRef) CFIndex
 var _cFDictionaryGetCountErr error
 
-func tryCFDictionaryGetCount(theDict CFDictionaryRef) (int, error) {
+func tryCFDictionaryGetCount(theDict CFDictionaryRef) (CFIndex, error) {
 	if _cFDictionaryGetCount == nil {
-		return 0, symbolCallError("CFDictionaryGetCount", "", _cFDictionaryGetCountErr)
+		return *new(CFIndex), symbolCallError("CFDictionaryGetCount", "", _cFDictionaryGetCountErr)
 	}
 	return _cFDictionaryGetCount(theDict), nil
 }
@@ -5298,7 +5298,7 @@ func tryCFDictionaryGetCount(theDict CFDictionaryRef) (int, error) {
 // CFDictionaryGetCount returns the number of key-value pairs in a dictionary.
 //
 // See: https://developer.apple.com/documentation/CoreFoundation/CFDictionaryGetCount(_:)
-func CFDictionaryGetCount(theDict CFDictionaryRef) int {
+func CFDictionaryGetCount(theDict CFDictionaryRef) CFIndex {
 	result, callErr := tryCFDictionaryGetCount(theDict)
 	if callErr != nil {
 		panic(callErr)
@@ -5306,12 +5306,12 @@ func CFDictionaryGetCount(theDict CFDictionaryRef) int {
 	return result
 }
 
-var _cFDictionaryGetCountOfKey func(theDict CFDictionaryRef, key unsafe.Pointer) int
+var _cFDictionaryGetCountOfKey func(theDict CFDictionaryRef, key unsafe.Pointer) CFIndex
 var _cFDictionaryGetCountOfKeyErr error
 
-func tryCFDictionaryGetCountOfKey(theDict CFDictionaryRef, key unsafe.Pointer) (int, error) {
+func tryCFDictionaryGetCountOfKey(theDict CFDictionaryRef, key unsafe.Pointer) (CFIndex, error) {
 	if _cFDictionaryGetCountOfKey == nil {
-		return 0, symbolCallError("CFDictionaryGetCountOfKey", "", _cFDictionaryGetCountOfKeyErr)
+		return *new(CFIndex), symbolCallError("CFDictionaryGetCountOfKey", "", _cFDictionaryGetCountOfKeyErr)
 	}
 	return _cFDictionaryGetCountOfKey(theDict, key), nil
 }
@@ -5319,7 +5319,7 @@ func tryCFDictionaryGetCountOfKey(theDict CFDictionaryRef, key unsafe.Pointer) (
 // CFDictionaryGetCountOfKey returns the number of times a key occurs in a dictionary.
 //
 // See: https://developer.apple.com/documentation/CoreFoundation/CFDictionaryGetCountOfKey(_:_:)
-func CFDictionaryGetCountOfKey(theDict CFDictionaryRef, key unsafe.Pointer) int {
+func CFDictionaryGetCountOfKey(theDict CFDictionaryRef, key unsafe.Pointer) CFIndex {
 	result, callErr := tryCFDictionaryGetCountOfKey(theDict, key)
 	if callErr != nil {
 		panic(callErr)
@@ -5327,12 +5327,12 @@ func CFDictionaryGetCountOfKey(theDict CFDictionaryRef, key unsafe.Pointer) int 
 	return result
 }
 
-var _cFDictionaryGetCountOfValue func(theDict CFDictionaryRef, value unsafe.Pointer) int
+var _cFDictionaryGetCountOfValue func(theDict CFDictionaryRef, value unsafe.Pointer) CFIndex
 var _cFDictionaryGetCountOfValueErr error
 
-func tryCFDictionaryGetCountOfValue(theDict CFDictionaryRef, value unsafe.Pointer) (int, error) {
+func tryCFDictionaryGetCountOfValue(theDict CFDictionaryRef, value unsafe.Pointer) (CFIndex, error) {
 	if _cFDictionaryGetCountOfValue == nil {
-		return 0, symbolCallError("CFDictionaryGetCountOfValue", "", _cFDictionaryGetCountOfValueErr)
+		return *new(CFIndex), symbolCallError("CFDictionaryGetCountOfValue", "", _cFDictionaryGetCountOfValueErr)
 	}
 	return _cFDictionaryGetCountOfValue(theDict, value), nil
 }
@@ -5340,7 +5340,7 @@ func tryCFDictionaryGetCountOfValue(theDict CFDictionaryRef, value unsafe.Pointe
 // CFDictionaryGetCountOfValue counts the number of times a given value occurs in the dictionary.
 //
 // See: https://developer.apple.com/documentation/CoreFoundation/CFDictionaryGetCountOfValue(_:_:)
-func CFDictionaryGetCountOfValue(theDict CFDictionaryRef, value unsafe.Pointer) int {
+func CFDictionaryGetCountOfValue(theDict CFDictionaryRef, value unsafe.Pointer) CFIndex {
 	result, callErr := tryCFDictionaryGetCountOfValue(theDict, value)
 	if callErr != nil {
 		panic(callErr)
@@ -5368,12 +5368,12 @@ func CFDictionaryGetKeysAndValues(theDict CFDictionaryRef, keys unsafe.Pointer, 
 	}
 }
 
-var _cFDictionaryGetTypeID func() uint
+var _cFDictionaryGetTypeID func() CFTypeID
 var _cFDictionaryGetTypeIDErr error
 
-func tryCFDictionaryGetTypeID() (uint, error) {
+func tryCFDictionaryGetTypeID() (CFTypeID, error) {
 	if _cFDictionaryGetTypeID == nil {
-		return 0, symbolCallError("CFDictionaryGetTypeID", "", _cFDictionaryGetTypeIDErr)
+		return *new(CFTypeID), symbolCallError("CFDictionaryGetTypeID", "", _cFDictionaryGetTypeIDErr)
 	}
 	return _cFDictionaryGetTypeID(), nil
 }
@@ -5381,7 +5381,7 @@ func tryCFDictionaryGetTypeID() (uint, error) {
 // CFDictionaryGetTypeID returns the type identifier for the CFDictionary opaque type.
 //
 // See: https://developer.apple.com/documentation/CoreFoundation/CFDictionaryGetTypeID()
-func CFDictionaryGetTypeID() uint {
+func CFDictionaryGetTypeID() CFTypeID {
 	result, callErr := tryCFDictionaryGetTypeID()
 	if callErr != nil {
 		panic(callErr)
@@ -5616,10 +5616,10 @@ func CFErrorCopyUserInfo(err CFErrorRef) CFDictionaryRef {
 	return result
 }
 
-var _cFErrorCreate func(allocator CFAllocatorRef, domain CFErrorDomain, code int, userInfo CFDictionaryRef) CFErrorRef
+var _cFErrorCreate func(allocator CFAllocatorRef, domain CFErrorDomain, code CFIndex, userInfo CFDictionaryRef) CFErrorRef
 var _cFErrorCreateErr error
 
-func tryCFErrorCreate(allocator CFAllocatorRef, domain CFErrorDomain, code int, userInfo CFDictionaryRef) (CFErrorRef, error) {
+func tryCFErrorCreate(allocator CFAllocatorRef, domain CFErrorDomain, code CFIndex, userInfo CFDictionaryRef) (CFErrorRef, error) {
 	if _cFErrorCreate == nil {
 		return *new(CFErrorRef), symbolCallError("CFErrorCreate", "10.5", _cFErrorCreateErr)
 	}
@@ -5629,7 +5629,7 @@ func tryCFErrorCreate(allocator CFAllocatorRef, domain CFErrorDomain, code int, 
 // CFErrorCreate creates a new CFError object.
 //
 // See: https://developer.apple.com/documentation/CoreFoundation/CFErrorCreate(_:_:_:_:)
-func CFErrorCreate(allocator CFAllocatorRef, domain CFErrorDomain, code int, userInfo CFDictionaryRef) CFErrorRef {
+func CFErrorCreate(allocator CFAllocatorRef, domain CFErrorDomain, code CFIndex, userInfo CFDictionaryRef) CFErrorRef {
 	result, callErr := tryCFErrorCreate(allocator, domain, code, userInfo)
 	if callErr != nil {
 		panic(callErr)
@@ -5637,10 +5637,10 @@ func CFErrorCreate(allocator CFAllocatorRef, domain CFErrorDomain, code int, use
 	return result
 }
 
-var _cFErrorCreateWithUserInfoKeysAndValues func(allocator CFAllocatorRef, domain CFErrorDomain, code int, userInfoKeys unsafe.Pointer, userInfoValues unsafe.Pointer, numUserInfoValues int) CFErrorRef
+var _cFErrorCreateWithUserInfoKeysAndValues func(allocator CFAllocatorRef, domain CFErrorDomain, code CFIndex, userInfoKeys unsafe.Pointer, userInfoValues unsafe.Pointer, numUserInfoValues CFIndex) CFErrorRef
 var _cFErrorCreateWithUserInfoKeysAndValuesErr error
 
-func tryCFErrorCreateWithUserInfoKeysAndValues(allocator CFAllocatorRef, domain CFErrorDomain, code int, userInfoKeys unsafe.Pointer, userInfoValues unsafe.Pointer, numUserInfoValues int) (CFErrorRef, error) {
+func tryCFErrorCreateWithUserInfoKeysAndValues(allocator CFAllocatorRef, domain CFErrorDomain, code CFIndex, userInfoKeys unsafe.Pointer, userInfoValues unsafe.Pointer, numUserInfoValues CFIndex) (CFErrorRef, error) {
 	if _cFErrorCreateWithUserInfoKeysAndValues == nil {
 		return *new(CFErrorRef), symbolCallError("CFErrorCreateWithUserInfoKeysAndValues", "10.5", _cFErrorCreateWithUserInfoKeysAndValuesErr)
 	}
@@ -5650,7 +5650,7 @@ func tryCFErrorCreateWithUserInfoKeysAndValues(allocator CFAllocatorRef, domain 
 // CFErrorCreateWithUserInfoKeysAndValues creates a new CFError object using given keys and values to create the user info dictionary.
 //
 // See: https://developer.apple.com/documentation/CoreFoundation/CFErrorCreateWithUserInfoKeysAndValues(_:_:_:_:_:_:)
-func CFErrorCreateWithUserInfoKeysAndValues(allocator CFAllocatorRef, domain CFErrorDomain, code int, userInfoKeys unsafe.Pointer, userInfoValues unsafe.Pointer, numUserInfoValues int) CFErrorRef {
+func CFErrorCreateWithUserInfoKeysAndValues(allocator CFAllocatorRef, domain CFErrorDomain, code CFIndex, userInfoKeys unsafe.Pointer, userInfoValues unsafe.Pointer, numUserInfoValues CFIndex) CFErrorRef {
 	result, callErr := tryCFErrorCreateWithUserInfoKeysAndValues(allocator, domain, code, userInfoKeys, userInfoValues, numUserInfoValues)
 	if callErr != nil {
 		panic(callErr)
@@ -5658,12 +5658,12 @@ func CFErrorCreateWithUserInfoKeysAndValues(allocator CFAllocatorRef, domain CFE
 	return result
 }
 
-var _cFErrorGetCode func(err CFErrorRef) int
+var _cFErrorGetCode func(err CFErrorRef) CFIndex
 var _cFErrorGetCodeErr error
 
-func tryCFErrorGetCode(err CFErrorRef) (int, error) {
+func tryCFErrorGetCode(err CFErrorRef) (CFIndex, error) {
 	if _cFErrorGetCode == nil {
-		return 0, symbolCallError("CFErrorGetCode", "10.5", _cFErrorGetCodeErr)
+		return *new(CFIndex), symbolCallError("CFErrorGetCode", "10.5", _cFErrorGetCodeErr)
 	}
 	return _cFErrorGetCode(err), nil
 }
@@ -5671,7 +5671,7 @@ func tryCFErrorGetCode(err CFErrorRef) (int, error) {
 // CFErrorGetCode returns the error code for a given CFError.
 //
 // See: https://developer.apple.com/documentation/CoreFoundation/CFErrorGetCode(_:)
-func CFErrorGetCode(err CFErrorRef) int {
+func CFErrorGetCode(err CFErrorRef) CFIndex {
 	result, callErr := tryCFErrorGetCode(err)
 	if callErr != nil {
 		panic(callErr)
@@ -5700,12 +5700,12 @@ func CFErrorGetDomain(err CFErrorRef) CFErrorDomain {
 	return result
 }
 
-var _cFErrorGetTypeID func() uint
+var _cFErrorGetTypeID func() CFTypeID
 var _cFErrorGetTypeIDErr error
 
-func tryCFErrorGetTypeID() (uint, error) {
+func tryCFErrorGetTypeID() (CFTypeID, error) {
 	if _cFErrorGetTypeID == nil {
-		return 0, symbolCallError("CFErrorGetTypeID", "10.5", _cFErrorGetTypeIDErr)
+		return *new(CFTypeID), symbolCallError("CFErrorGetTypeID", "10.5", _cFErrorGetTypeIDErr)
 	}
 	return _cFErrorGetTypeID(), nil
 }
@@ -5713,7 +5713,7 @@ func tryCFErrorGetTypeID() (uint, error) {
 // CFErrorGetTypeID returns the type identifier for the CFError opaque type.
 //
 // See: https://developer.apple.com/documentation/CoreFoundation/CFErrorGetTypeID()
-func CFErrorGetTypeID() uint {
+func CFErrorGetTypeID() CFTypeID {
 	result, callErr := tryCFErrorGetTypeID()
 	if callErr != nil {
 		panic(callErr)
@@ -5742,10 +5742,10 @@ func CFFileDescriptorCreate(allocator CFAllocatorRef, fd CFFileDescriptorNativeD
 	return result
 }
 
-var _cFFileDescriptorCreateRunLoopSource func(allocator CFAllocatorRef, f CFFileDescriptorRef, order int) CFRunLoopSourceRef
+var _cFFileDescriptorCreateRunLoopSource func(allocator CFAllocatorRef, f CFFileDescriptorRef, order CFIndex) CFRunLoopSourceRef
 var _cFFileDescriptorCreateRunLoopSourceErr error
 
-func tryCFFileDescriptorCreateRunLoopSource(allocator CFAllocatorRef, f CFFileDescriptorRef, order int) (CFRunLoopSourceRef, error) {
+func tryCFFileDescriptorCreateRunLoopSource(allocator CFAllocatorRef, f CFFileDescriptorRef, order CFIndex) (CFRunLoopSourceRef, error) {
 	if _cFFileDescriptorCreateRunLoopSource == nil {
 		return *new(CFRunLoopSourceRef), symbolCallError("CFFileDescriptorCreateRunLoopSource", "10.5", _cFFileDescriptorCreateRunLoopSourceErr)
 	}
@@ -5755,7 +5755,7 @@ func tryCFFileDescriptorCreateRunLoopSource(allocator CFAllocatorRef, f CFFileDe
 // CFFileDescriptorCreateRunLoopSource creates a new runloop source for a given CFFileDescriptor.
 //
 // See: https://developer.apple.com/documentation/CoreFoundation/CFFileDescriptorCreateRunLoopSource(_:_:_:)
-func CFFileDescriptorCreateRunLoopSource(allocator CFAllocatorRef, f CFFileDescriptorRef, order int) CFRunLoopSourceRef {
+func CFFileDescriptorCreateRunLoopSource(allocator CFAllocatorRef, f CFFileDescriptorRef, order CFIndex) CFRunLoopSourceRef {
 	result, callErr := tryCFFileDescriptorCreateRunLoopSource(allocator, f, order)
 	if callErr != nil {
 		panic(callErr)
@@ -5763,10 +5763,10 @@ func CFFileDescriptorCreateRunLoopSource(allocator CFAllocatorRef, f CFFileDescr
 	return result
 }
 
-var _cFFileDescriptorDisableCallBacks func(f CFFileDescriptorRef, callBackTypes uint64)
+var _cFFileDescriptorDisableCallBacks func(f CFFileDescriptorRef, callBackTypes CFOptionFlags)
 var _cFFileDescriptorDisableCallBacksErr error
 
-func tryCFFileDescriptorDisableCallBacks(f CFFileDescriptorRef, callBackTypes uint64) error {
+func tryCFFileDescriptorDisableCallBacks(f CFFileDescriptorRef, callBackTypes CFOptionFlags) error {
 	if _cFFileDescriptorDisableCallBacks == nil {
 		return symbolCallError("CFFileDescriptorDisableCallBacks", "10.5", _cFFileDescriptorDisableCallBacksErr)
 	}
@@ -5777,16 +5777,16 @@ func tryCFFileDescriptorDisableCallBacks(f CFFileDescriptorRef, callBackTypes ui
 // CFFileDescriptorDisableCallBacks disables callbacks for a given CFFileDescriptor.
 //
 // See: https://developer.apple.com/documentation/CoreFoundation/CFFileDescriptorDisableCallBacks(_:_:)
-func CFFileDescriptorDisableCallBacks(f CFFileDescriptorRef, callBackTypes uint64) {
+func CFFileDescriptorDisableCallBacks(f CFFileDescriptorRef, callBackTypes CFOptionFlags) {
 	if callErr := tryCFFileDescriptorDisableCallBacks(f, callBackTypes); callErr != nil {
 		panic(callErr)
 	}
 }
 
-var _cFFileDescriptorEnableCallBacks func(f CFFileDescriptorRef, callBackTypes uint64)
+var _cFFileDescriptorEnableCallBacks func(f CFFileDescriptorRef, callBackTypes CFOptionFlags)
 var _cFFileDescriptorEnableCallBacksErr error
 
-func tryCFFileDescriptorEnableCallBacks(f CFFileDescriptorRef, callBackTypes uint64) error {
+func tryCFFileDescriptorEnableCallBacks(f CFFileDescriptorRef, callBackTypes CFOptionFlags) error {
 	if _cFFileDescriptorEnableCallBacks == nil {
 		return symbolCallError("CFFileDescriptorEnableCallBacks", "10.5", _cFFileDescriptorEnableCallBacksErr)
 	}
@@ -5797,7 +5797,7 @@ func tryCFFileDescriptorEnableCallBacks(f CFFileDescriptorRef, callBackTypes uin
 // CFFileDescriptorEnableCallBacks enables callbacks for a given CFFileDescriptor.
 //
 // See: https://developer.apple.com/documentation/CoreFoundation/CFFileDescriptorEnableCallBacks(_:_:)
-func CFFileDescriptorEnableCallBacks(f CFFileDescriptorRef, callBackTypes uint64) {
+func CFFileDescriptorEnableCallBacks(f CFFileDescriptorRef, callBackTypes CFOptionFlags) {
 	if callErr := tryCFFileDescriptorEnableCallBacks(f, callBackTypes); callErr != nil {
 		panic(callErr)
 	}
@@ -5844,12 +5844,12 @@ func CFFileDescriptorGetNativeDescriptor(f CFFileDescriptorRef) CFFileDescriptor
 	return result
 }
 
-var _cFFileDescriptorGetTypeID func() uint
+var _cFFileDescriptorGetTypeID func() CFTypeID
 var _cFFileDescriptorGetTypeIDErr error
 
-func tryCFFileDescriptorGetTypeID() (uint, error) {
+func tryCFFileDescriptorGetTypeID() (CFTypeID, error) {
 	if _cFFileDescriptorGetTypeID == nil {
-		return 0, symbolCallError("CFFileDescriptorGetTypeID", "10.5", _cFFileDescriptorGetTypeIDErr)
+		return *new(CFTypeID), symbolCallError("CFFileDescriptorGetTypeID", "10.5", _cFFileDescriptorGetTypeIDErr)
 	}
 	return _cFFileDescriptorGetTypeID(), nil
 }
@@ -5857,7 +5857,7 @@ func tryCFFileDescriptorGetTypeID() (uint, error) {
 // CFFileDescriptorGetTypeID returns the type identifier for the CFFileDescriptor opaque type.
 //
 // See: https://developer.apple.com/documentation/CoreFoundation/CFFileDescriptorGetTypeID()
-func CFFileDescriptorGetTypeID() uint {
+func CFFileDescriptorGetTypeID() CFTypeID {
 	result, callErr := tryCFFileDescriptorGetTypeID()
 	if callErr != nil {
 		panic(callErr)
@@ -6095,12 +6095,12 @@ func CFFileSecurityGetOwner(fileSec CFFileSecurityRef, owner *uint32) bool {
 	return result
 }
 
-var _cFFileSecurityGetTypeID func() uint
+var _cFFileSecurityGetTypeID func() CFTypeID
 var _cFFileSecurityGetTypeIDErr error
 
-func tryCFFileSecurityGetTypeID() (uint, error) {
+func tryCFFileSecurityGetTypeID() (CFTypeID, error) {
 	if _cFFileSecurityGetTypeID == nil {
-		return 0, symbolCallError("CFFileSecurityGetTypeID", "10.7", _cFFileSecurityGetTypeIDErr)
+		return *new(CFTypeID), symbolCallError("CFFileSecurityGetTypeID", "10.7", _cFFileSecurityGetTypeIDErr)
 	}
 	return _cFFileSecurityGetTypeID(), nil
 }
@@ -6108,7 +6108,7 @@ func tryCFFileSecurityGetTypeID() (uint, error) {
 // CFFileSecurityGetTypeID returns the type identifier for the [CFFileSecurityRef] opaque type.
 //
 // See: https://developer.apple.com/documentation/CoreFoundation/CFFileSecurityGetTypeID()
-func CFFileSecurityGetTypeID() uint {
+func CFFileSecurityGetTypeID() CFTypeID {
 	result, callErr := tryCFFileSecurityGetTypeID()
 	if callErr != nil {
 		panic(callErr)
@@ -6263,12 +6263,12 @@ func CFGetAllocator(cf CFTypeRef) CFAllocatorRef {
 	return result
 }
 
-var _cFGetRetainCount func(cf CFTypeRef) int
+var _cFGetRetainCount func(cf CFTypeRef) CFIndex
 var _cFGetRetainCountErr error
 
-func tryCFGetRetainCount(cf CFTypeRef) (int, error) {
+func tryCFGetRetainCount(cf CFTypeRef) (CFIndex, error) {
 	if _cFGetRetainCount == nil {
-		return 0, symbolCallError("CFGetRetainCount", "", _cFGetRetainCountErr)
+		return *new(CFIndex), symbolCallError("CFGetRetainCount", "", _cFGetRetainCountErr)
 	}
 	return _cFGetRetainCount(cf), nil
 }
@@ -6276,7 +6276,7 @@ func tryCFGetRetainCount(cf CFTypeRef) (int, error) {
 // CFGetRetainCount returns the reference count of a Core Foundation object.
 //
 // See: https://developer.apple.com/documentation/CoreFoundation/CFGetRetainCount(_:)
-func CFGetRetainCount(cf CFTypeRef) int {
+func CFGetRetainCount(cf CFTypeRef) CFIndex {
 	result, callErr := tryCFGetRetainCount(cf)
 	if callErr != nil {
 		panic(callErr)
@@ -6284,12 +6284,12 @@ func CFGetRetainCount(cf CFTypeRef) int {
 	return result
 }
 
-var _cFGetTypeID func(cf CFTypeRef) uint
+var _cFGetTypeID func(cf CFTypeRef) CFTypeID
 var _cFGetTypeIDErr error
 
-func tryCFGetTypeID(cf CFTypeRef) (uint, error) {
+func tryCFGetTypeID(cf CFTypeRef) (CFTypeID, error) {
 	if _cFGetTypeID == nil {
-		return 0, symbolCallError("CFGetTypeID", "", _cFGetTypeIDErr)
+		return *new(CFTypeID), symbolCallError("CFGetTypeID", "", _cFGetTypeIDErr)
 	}
 	return _cFGetTypeID(cf), nil
 }
@@ -6297,7 +6297,7 @@ func tryCFGetTypeID(cf CFTypeRef) (uint, error) {
 // CFGetTypeID returns the unique identifier of an opaque type to which a Core Foundation object belongs.
 //
 // See: https://developer.apple.com/documentation/CoreFoundation/CFGetTypeID(_:)
-func CFGetTypeID(cf CFTypeRef) uint {
+func CFGetTypeID(cf CFTypeRef) CFTypeID {
 	result, callErr := tryCFGetTypeID(cf)
 	if callErr != nil {
 		panic(callErr)
@@ -6305,12 +6305,12 @@ func CFGetTypeID(cf CFTypeRef) uint {
 	return result
 }
 
-var _cFHash func(cf CFTypeRef) uint
+var _cFHash func(cf CFTypeRef) CFHashCode
 var _cFHashErr error
 
-func tryCFHash(cf CFTypeRef) (uint, error) {
+func tryCFHash(cf CFTypeRef) (CFHashCode, error) {
 	if _cFHash == nil {
-		return 0, symbolCallError("CFHash", "", _cFHashErr)
+		return *new(CFHashCode), symbolCallError("CFHash", "", _cFHashErr)
 	}
 	return _cFHash(cf), nil
 }
@@ -6318,7 +6318,7 @@ func tryCFHash(cf CFTypeRef) (uint, error) {
 // CFHash returns a code that can be used to identify an object in a hashing structure.
 //
 // See: https://developer.apple.com/documentation/CoreFoundation/CFHash(_:)
-func CFHash(cf CFTypeRef) uint {
+func CFHash(cf CFTypeRef) CFHashCode {
 	result, callErr := tryCFHash(cf)
 	if callErr != nil {
 		panic(callErr)
@@ -6536,10 +6536,10 @@ func CFLocaleCreateCanonicalLanguageIdentifierFromString(allocator CFAllocatorRe
 	return result
 }
 
-var _cFLocaleCreateCanonicalLocaleIdentifierFromScriptManagerCodes func(allocator CFAllocatorRef, lcode unsafe.Pointer, rcode unsafe.Pointer) CFLocaleIdentifier
+var _cFLocaleCreateCanonicalLocaleIdentifierFromScriptManagerCodes func(allocator CFAllocatorRef, lcode int16, rcode int16) CFLocaleIdentifier
 var _cFLocaleCreateCanonicalLocaleIdentifierFromScriptManagerCodesErr error
 
-func tryCFLocaleCreateCanonicalLocaleIdentifierFromScriptManagerCodes(allocator CFAllocatorRef, lcode unsafe.Pointer, rcode unsafe.Pointer) (CFLocaleIdentifier, error) {
+func tryCFLocaleCreateCanonicalLocaleIdentifierFromScriptManagerCodes(allocator CFAllocatorRef, lcode int16, rcode int16) (CFLocaleIdentifier, error) {
 	if _cFLocaleCreateCanonicalLocaleIdentifierFromScriptManagerCodes == nil {
 		return *new(CFLocaleIdentifier), symbolCallError("CFLocaleCreateCanonicalLocaleIdentifierFromScriptManagerCodes", "", _cFLocaleCreateCanonicalLocaleIdentifierFromScriptManagerCodesErr)
 	}
@@ -6549,7 +6549,7 @@ func tryCFLocaleCreateCanonicalLocaleIdentifierFromScriptManagerCodes(allocator 
 // CFLocaleCreateCanonicalLocaleIdentifierFromScriptManagerCodes returns a canonical locale identifier from given language and region codes.
 //
 // See: https://developer.apple.com/documentation/CoreFoundation/CFLocaleCreateCanonicalLocaleIdentifierFromScriptManagerCodes(_:_:_:)
-func CFLocaleCreateCanonicalLocaleIdentifierFromScriptManagerCodes(allocator CFAllocatorRef, lcode unsafe.Pointer, rcode unsafe.Pointer) CFLocaleIdentifier {
+func CFLocaleCreateCanonicalLocaleIdentifierFromScriptManagerCodes(allocator CFAllocatorRef, lcode int16, rcode int16) CFLocaleIdentifier {
 	result, callErr := tryCFLocaleCreateCanonicalLocaleIdentifierFromScriptManagerCodes(allocator, lcode, rcode)
 	if callErr != nil {
 		panic(callErr)
@@ -6746,12 +6746,12 @@ func CFLocaleGetSystem() CFLocaleRef {
 	return result
 }
 
-var _cFLocaleGetTypeID func() uint
+var _cFLocaleGetTypeID func() CFTypeID
 var _cFLocaleGetTypeIDErr error
 
-func tryCFLocaleGetTypeID() (uint, error) {
+func tryCFLocaleGetTypeID() (CFTypeID, error) {
 	if _cFLocaleGetTypeID == nil {
-		return 0, symbolCallError("CFLocaleGetTypeID", "", _cFLocaleGetTypeIDErr)
+		return *new(CFTypeID), symbolCallError("CFLocaleGetTypeID", "", _cFLocaleGetTypeIDErr)
 	}
 	return _cFLocaleGetTypeID(), nil
 }
@@ -6759,7 +6759,7 @@ func tryCFLocaleGetTypeID() (uint, error) {
 // CFLocaleGetTypeID returns the type identifier for the CFLocale opaque type.
 //
 // See: https://developer.apple.com/documentation/CoreFoundation/CFLocaleGetTypeID()
-func CFLocaleGetTypeID() uint {
+func CFLocaleGetTypeID() CFTypeID {
 	result, callErr := tryCFLocaleGetTypeID()
 	if callErr != nil {
 		panic(callErr)
@@ -6830,10 +6830,10 @@ func CFMachPortCreate(allocator CFAllocatorRef, callout CFMachPortCallBack, cont
 	return result
 }
 
-var _cFMachPortCreateRunLoopSource func(allocator CFAllocatorRef, port CFMachPortRef, order int) CFRunLoopSourceRef
+var _cFMachPortCreateRunLoopSource func(allocator CFAllocatorRef, port CFMachPortRef, order CFIndex) CFRunLoopSourceRef
 var _cFMachPortCreateRunLoopSourceErr error
 
-func tryCFMachPortCreateRunLoopSource(allocator CFAllocatorRef, port CFMachPortRef, order int) (CFRunLoopSourceRef, error) {
+func tryCFMachPortCreateRunLoopSource(allocator CFAllocatorRef, port CFMachPortRef, order CFIndex) (CFRunLoopSourceRef, error) {
 	if _cFMachPortCreateRunLoopSource == nil {
 		return *new(CFRunLoopSourceRef), symbolCallError("CFMachPortCreateRunLoopSource", "", _cFMachPortCreateRunLoopSourceErr)
 	}
@@ -6843,7 +6843,7 @@ func tryCFMachPortCreateRunLoopSource(allocator CFAllocatorRef, port CFMachPortR
 // CFMachPortCreateRunLoopSource creates a CFRunLoopSource object for a CFMachPort object.
 //
 // See: https://developer.apple.com/documentation/CoreFoundation/CFMachPortCreateRunLoopSource(_:_:_:)
-func CFMachPortCreateRunLoopSource(allocator CFAllocatorRef, port CFMachPortRef, order int) CFRunLoopSourceRef {
+func CFMachPortCreateRunLoopSource(allocator CFAllocatorRef, port CFMachPortRef, order CFIndex) CFRunLoopSourceRef {
 	result, callErr := tryCFMachPortCreateRunLoopSource(allocator, port, order)
 	if callErr != nil {
 		panic(callErr)
@@ -6934,12 +6934,12 @@ func CFMachPortGetPort(port CFMachPortRef) uint32 {
 	return result
 }
 
-var _cFMachPortGetTypeID func() uint
+var _cFMachPortGetTypeID func() CFTypeID
 var _cFMachPortGetTypeIDErr error
 
-func tryCFMachPortGetTypeID() (uint, error) {
+func tryCFMachPortGetTypeID() (CFTypeID, error) {
 	if _cFMachPortGetTypeID == nil {
-		return 0, symbolCallError("CFMachPortGetTypeID", "", _cFMachPortGetTypeIDErr)
+		return *new(CFTypeID), symbolCallError("CFMachPortGetTypeID", "", _cFMachPortGetTypeIDErr)
 	}
 	return _cFMachPortGetTypeID(), nil
 }
@@ -6947,7 +6947,7 @@ func tryCFMachPortGetTypeID() (uint, error) {
 // CFMachPortGetTypeID returns the type identifier for the CFMachPort opaque type.
 //
 // See: https://developer.apple.com/documentation/CoreFoundation/CFMachPortGetTypeID()
-func CFMachPortGetTypeID() uint {
+func CFMachPortGetTypeID() CFTypeID {
 	result, callErr := tryCFMachPortGetTypeID()
 	if callErr != nil {
 		panic(callErr)
@@ -7079,10 +7079,10 @@ func CFMessagePortCreateRemote(allocator CFAllocatorRef, name CFStringRef) CFMes
 	return result
 }
 
-var _cFMessagePortCreateRunLoopSource func(allocator CFAllocatorRef, local CFMessagePortRef, order int) CFRunLoopSourceRef
+var _cFMessagePortCreateRunLoopSource func(allocator CFAllocatorRef, local CFMessagePortRef, order CFIndex) CFRunLoopSourceRef
 var _cFMessagePortCreateRunLoopSourceErr error
 
-func tryCFMessagePortCreateRunLoopSource(allocator CFAllocatorRef, local CFMessagePortRef, order int) (CFRunLoopSourceRef, error) {
+func tryCFMessagePortCreateRunLoopSource(allocator CFAllocatorRef, local CFMessagePortRef, order CFIndex) (CFRunLoopSourceRef, error) {
 	if _cFMessagePortCreateRunLoopSource == nil {
 		return *new(CFRunLoopSourceRef), symbolCallError("CFMessagePortCreateRunLoopSource", "", _cFMessagePortCreateRunLoopSourceErr)
 	}
@@ -7092,7 +7092,7 @@ func tryCFMessagePortCreateRunLoopSource(allocator CFAllocatorRef, local CFMessa
 // CFMessagePortCreateRunLoopSource creates a CFRunLoopSource object for a CFMessagePort object.
 //
 // See: https://developer.apple.com/documentation/CoreFoundation/CFMessagePortCreateRunLoopSource(_:_:_:)
-func CFMessagePortCreateRunLoopSource(allocator CFAllocatorRef, local CFMessagePortRef, order int) CFRunLoopSourceRef {
+func CFMessagePortCreateRunLoopSource(allocator CFAllocatorRef, local CFMessagePortRef, order CFIndex) CFRunLoopSourceRef {
 	result, callErr := tryCFMessagePortCreateRunLoopSource(allocator, local, order)
 	if callErr != nil {
 		panic(callErr)
@@ -7162,12 +7162,12 @@ func CFMessagePortGetName(ms CFMessagePortRef) CFStringRef {
 	return result
 }
 
-var _cFMessagePortGetTypeID func() uint
+var _cFMessagePortGetTypeID func() CFTypeID
 var _cFMessagePortGetTypeIDErr error
 
-func tryCFMessagePortGetTypeID() (uint, error) {
+func tryCFMessagePortGetTypeID() (CFTypeID, error) {
 	if _cFMessagePortGetTypeID == nil {
-		return 0, symbolCallError("CFMessagePortGetTypeID", "", _cFMessagePortGetTypeIDErr)
+		return *new(CFTypeID), symbolCallError("CFMessagePortGetTypeID", "", _cFMessagePortGetTypeIDErr)
 	}
 	return _cFMessagePortGetTypeID(), nil
 }
@@ -7175,7 +7175,7 @@ func tryCFMessagePortGetTypeID() (uint, error) {
 // CFMessagePortGetTypeID returns the type identifier for the CFMessagePort opaque type.
 //
 // See: https://developer.apple.com/documentation/CoreFoundation/CFMessagePortGetTypeID()
-func CFMessagePortGetTypeID() uint {
+func CFMessagePortGetTypeID() CFTypeID {
 	result, callErr := tryCFMessagePortGetTypeID()
 	if callErr != nil {
 		panic(callErr)
@@ -7245,10 +7245,10 @@ func CFMessagePortIsValid(ms CFMessagePortRef) bool {
 	return result
 }
 
-var _cFMessagePortSendRequest func(remote CFMessagePortRef, msgid int32, data CFDataRef, sendTimeout float64, rcvTimeout float64, replyMode CFStringRef, returnData *CFDataRef) int32
+var _cFMessagePortSendRequest func(remote CFMessagePortRef, msgid int32, data CFDataRef, sendTimeout CFTimeInterval, rcvTimeout CFTimeInterval, replyMode CFStringRef, returnData *CFDataRef) int32
 var _cFMessagePortSendRequestErr error
 
-func tryCFMessagePortSendRequest(remote CFMessagePortRef, msgid int32, data CFDataRef, sendTimeout float64, rcvTimeout float64, replyMode CFStringRef, returnData *CFDataRef) (int32, error) {
+func tryCFMessagePortSendRequest(remote CFMessagePortRef, msgid int32, data CFDataRef, sendTimeout CFTimeInterval, rcvTimeout CFTimeInterval, replyMode CFStringRef, returnData *CFDataRef) (int32, error) {
 	if _cFMessagePortSendRequest == nil {
 		return 0, symbolCallError("CFMessagePortSendRequest", "", _cFMessagePortSendRequestErr)
 	}
@@ -7258,7 +7258,7 @@ func tryCFMessagePortSendRequest(remote CFMessagePortRef, msgid int32, data CFDa
 // CFMessagePortSendRequest sends a message to a remote CFMessagePort object.
 //
 // See: https://developer.apple.com/documentation/CoreFoundation/CFMessagePortSendRequest(_:_:_:_:_:_:_:)
-func CFMessagePortSendRequest(remote CFMessagePortRef, msgid int32, data CFDataRef, sendTimeout float64, rcvTimeout float64, replyMode CFStringRef, returnData *CFDataRef) int32 {
+func CFMessagePortSendRequest(remote CFMessagePortRef, msgid int32, data CFDataRef, sendTimeout CFTimeInterval, rcvTimeout CFTimeInterval, replyMode CFStringRef, returnData *CFDataRef) int32 {
 	result, callErr := tryCFMessagePortSendRequest(remote, msgid, data, sendTimeout, rcvTimeout, replyMode, returnData)
 	if callErr != nil {
 		panic(callErr)
@@ -7410,12 +7410,12 @@ func CFNotificationCenterGetLocalCenter() CFNotificationCenterRef {
 	return result
 }
 
-var _cFNotificationCenterGetTypeID func() uint
+var _cFNotificationCenterGetTypeID func() CFTypeID
 var _cFNotificationCenterGetTypeIDErr error
 
-func tryCFNotificationCenterGetTypeID() (uint, error) {
+func tryCFNotificationCenterGetTypeID() (CFTypeID, error) {
 	if _cFNotificationCenterGetTypeID == nil {
-		return 0, symbolCallError("CFNotificationCenterGetTypeID", "", _cFNotificationCenterGetTypeIDErr)
+		return *new(CFTypeID), symbolCallError("CFNotificationCenterGetTypeID", "", _cFNotificationCenterGetTypeIDErr)
 	}
 	return _cFNotificationCenterGetTypeID(), nil
 }
@@ -7423,7 +7423,7 @@ func tryCFNotificationCenterGetTypeID() (uint, error) {
 // CFNotificationCenterGetTypeID returns the type identifier for the CFNotificationCenter opaque type.
 //
 // See: https://developer.apple.com/documentation/CoreFoundation/CFNotificationCenterGetTypeID()
-func CFNotificationCenterGetTypeID() uint {
+func CFNotificationCenterGetTypeID() CFTypeID {
 	result, callErr := tryCFNotificationCenterGetTypeID()
 	if callErr != nil {
 		panic(callErr)
@@ -7451,10 +7451,10 @@ func CFNotificationCenterPostNotification(center CFNotificationCenterRef, name C
 	}
 }
 
-var _cFNotificationCenterPostNotificationWithOptions func(center CFNotificationCenterRef, name CFNotificationName, object unsafe.Pointer, userInfo CFDictionaryRef, options uint64)
+var _cFNotificationCenterPostNotificationWithOptions func(center CFNotificationCenterRef, name CFNotificationName, object unsafe.Pointer, userInfo CFDictionaryRef, options CFOptionFlags)
 var _cFNotificationCenterPostNotificationWithOptionsErr error
 
-func tryCFNotificationCenterPostNotificationWithOptions(center CFNotificationCenterRef, name CFNotificationName, object unsafe.Pointer, userInfo CFDictionaryRef, options uint64) error {
+func tryCFNotificationCenterPostNotificationWithOptions(center CFNotificationCenterRef, name CFNotificationName, object unsafe.Pointer, userInfo CFDictionaryRef, options CFOptionFlags) error {
 	if _cFNotificationCenterPostNotificationWithOptions == nil {
 		return symbolCallError("CFNotificationCenterPostNotificationWithOptions", "", _cFNotificationCenterPostNotificationWithOptionsErr)
 	}
@@ -7465,7 +7465,7 @@ func tryCFNotificationCenterPostNotificationWithOptions(center CFNotificationCen
 // CFNotificationCenterPostNotificationWithOptions posts a notification for an object using specified options.
 //
 // See: https://developer.apple.com/documentation/CoreFoundation/CFNotificationCenterPostNotificationWithOptions(_:_:_:_:_:)
-func CFNotificationCenterPostNotificationWithOptions(center CFNotificationCenterRef, name CFNotificationName, object unsafe.Pointer, userInfo CFDictionaryRef, options uint64) {
+func CFNotificationCenterPostNotificationWithOptions(center CFNotificationCenterRef, name CFNotificationName, object unsafe.Pointer, userInfo CFDictionaryRef, options CFOptionFlags) {
 	if callErr := tryCFNotificationCenterPostNotificationWithOptions(center, name, object, userInfo, options); callErr != nil {
 		panic(callErr)
 	}
@@ -7511,12 +7511,12 @@ func CFNotificationCenterRemoveObserver(center CFNotificationCenterRef, observer
 	}
 }
 
-var _cFNullGetTypeID func() uint
+var _cFNullGetTypeID func() CFTypeID
 var _cFNullGetTypeIDErr error
 
-func tryCFNullGetTypeID() (uint, error) {
+func tryCFNullGetTypeID() (CFTypeID, error) {
 	if _cFNullGetTypeID == nil {
-		return 0, symbolCallError("CFNullGetTypeID", "", _cFNullGetTypeIDErr)
+		return *new(CFTypeID), symbolCallError("CFNullGetTypeID", "", _cFNullGetTypeIDErr)
 	}
 	return _cFNullGetTypeID(), nil
 }
@@ -7524,7 +7524,7 @@ func tryCFNullGetTypeID() (uint, error) {
 // CFNullGetTypeID returns the type identifier for the CFNull opaque type.
 //
 // See: https://developer.apple.com/documentation/CoreFoundation/CFNullGetTypeID()
-func CFNullGetTypeID() uint {
+func CFNullGetTypeID() CFTypeID {
 	result, callErr := tryCFNullGetTypeID()
 	if callErr != nil {
 		panic(callErr)
@@ -7616,10 +7616,10 @@ func CFNumberFormatterCreate(allocator CFAllocatorRef, locale CFLocaleRef, style
 	return result
 }
 
-var _cFNumberFormatterCreateNumberFromString func(allocator CFAllocatorRef, formatter CFNumberFormatterRef, string_ CFStringRef, rangep *CFRange, options uint64) CFNumberRef
+var _cFNumberFormatterCreateNumberFromString func(allocator CFAllocatorRef, formatter CFNumberFormatterRef, string_ CFStringRef, rangep *CFRange, options CFOptionFlags) CFNumberRef
 var _cFNumberFormatterCreateNumberFromStringErr error
 
-func tryCFNumberFormatterCreateNumberFromString(allocator CFAllocatorRef, formatter CFNumberFormatterRef, string_ CFStringRef, rangep *CFRange, options uint64) (CFNumberRef, error) {
+func tryCFNumberFormatterCreateNumberFromString(allocator CFAllocatorRef, formatter CFNumberFormatterRef, string_ CFStringRef, rangep *CFRange, options CFOptionFlags) (CFNumberRef, error) {
 	if _cFNumberFormatterCreateNumberFromString == nil {
 		return *new(CFNumberRef), symbolCallError("CFNumberFormatterCreateNumberFromString", "", _cFNumberFormatterCreateNumberFromStringErr)
 	}
@@ -7629,7 +7629,7 @@ func tryCFNumberFormatterCreateNumberFromString(allocator CFAllocatorRef, format
 // CFNumberFormatterCreateNumberFromString returns a number object representing a given string.
 //
 // See: https://developer.apple.com/documentation/CoreFoundation/CFNumberFormatterCreateNumberFromString(_:_:_:_:_:)
-func CFNumberFormatterCreateNumberFromString(allocator CFAllocatorRef, formatter CFNumberFormatterRef, string_ CFStringRef, rangep *CFRange, options uint64) CFNumberRef {
+func CFNumberFormatterCreateNumberFromString(allocator CFAllocatorRef, formatter CFNumberFormatterRef, string_ CFStringRef, rangep *CFRange, options CFOptionFlags) CFNumberRef {
 	result, callErr := tryCFNumberFormatterCreateNumberFromString(allocator, formatter, string_, rangep, options)
 	if callErr != nil {
 		panic(callErr)
@@ -7763,12 +7763,12 @@ func CFNumberFormatterGetStyle(formatter CFNumberFormatterRef) CFNumberFormatter
 	return result
 }
 
-var _cFNumberFormatterGetTypeID func() uint
+var _cFNumberFormatterGetTypeID func() CFTypeID
 var _cFNumberFormatterGetTypeIDErr error
 
-func tryCFNumberFormatterGetTypeID() (uint, error) {
+func tryCFNumberFormatterGetTypeID() (CFTypeID, error) {
 	if _cFNumberFormatterGetTypeID == nil {
-		return 0, symbolCallError("CFNumberFormatterGetTypeID", "", _cFNumberFormatterGetTypeIDErr)
+		return *new(CFTypeID), symbolCallError("CFNumberFormatterGetTypeID", "", _cFNumberFormatterGetTypeIDErr)
 	}
 	return _cFNumberFormatterGetTypeID(), nil
 }
@@ -7776,7 +7776,7 @@ func tryCFNumberFormatterGetTypeID() (uint, error) {
 // CFNumberFormatterGetTypeID returns the type identifier for the [CFNumberFormatter] opaque type.
 //
 // See: https://developer.apple.com/documentation/CoreFoundation/CFNumberFormatterGetTypeID()
-func CFNumberFormatterGetTypeID() uint {
+func CFNumberFormatterGetTypeID() CFTypeID {
 	result, callErr := tryCFNumberFormatterGetTypeID()
 	if callErr != nil {
 		panic(callErr)
@@ -7845,12 +7845,12 @@ func CFNumberFormatterSetProperty(formatter CFNumberFormatterRef, key CFNumberFo
 	}
 }
 
-var _cFNumberGetByteSize func(number CFNumberRef) int
+var _cFNumberGetByteSize func(number CFNumberRef) CFIndex
 var _cFNumberGetByteSizeErr error
 
-func tryCFNumberGetByteSize(number CFNumberRef) (int, error) {
+func tryCFNumberGetByteSize(number CFNumberRef) (CFIndex, error) {
 	if _cFNumberGetByteSize == nil {
-		return 0, symbolCallError("CFNumberGetByteSize", "", _cFNumberGetByteSizeErr)
+		return *new(CFIndex), symbolCallError("CFNumberGetByteSize", "", _cFNumberGetByteSizeErr)
 	}
 	return _cFNumberGetByteSize(number), nil
 }
@@ -7858,7 +7858,7 @@ func tryCFNumberGetByteSize(number CFNumberRef) (int, error) {
 // CFNumberGetByteSize returns the number of bytes used by a CFNumber object to store its value.
 //
 // See: https://developer.apple.com/documentation/CoreFoundation/CFNumberGetByteSize(_:)
-func CFNumberGetByteSize(number CFNumberRef) int {
+func CFNumberGetByteSize(number CFNumberRef) CFIndex {
 	result, callErr := tryCFNumberGetByteSize(number)
 	if callErr != nil {
 		panic(callErr)
@@ -7887,12 +7887,12 @@ func CFNumberGetType(number CFNumberRef) CFNumberType {
 	return result
 }
 
-var _cFNumberGetTypeID func() uint
+var _cFNumberGetTypeID func() CFTypeID
 var _cFNumberGetTypeIDErr error
 
-func tryCFNumberGetTypeID() (uint, error) {
+func tryCFNumberGetTypeID() (CFTypeID, error) {
 	if _cFNumberGetTypeID == nil {
-		return 0, symbolCallError("CFNumberGetTypeID", "", _cFNumberGetTypeIDErr)
+		return *new(CFTypeID), symbolCallError("CFNumberGetTypeID", "", _cFNumberGetTypeIDErr)
 	}
 	return _cFNumberGetTypeID(), nil
 }
@@ -7900,7 +7900,7 @@ func tryCFNumberGetTypeID() (uint, error) {
 // CFNumberGetTypeID returns the type identifier for the CFNumber opaque type.
 //
 // See: https://developer.apple.com/documentation/CoreFoundation/CFNumberGetTypeID()
-func CFNumberGetTypeID() uint {
+func CFNumberGetTypeID() CFTypeID {
 	result, callErr := tryCFNumberGetTypeID()
 	if callErr != nil {
 		panic(callErr)
@@ -8054,12 +8054,12 @@ func CFPlugInGetBundle(plugIn CFPlugInRef) CFBundleRef {
 	return result
 }
 
-var _cFPlugInGetTypeID func() uint
+var _cFPlugInGetTypeID func() CFTypeID
 var _cFPlugInGetTypeIDErr error
 
-func tryCFPlugInGetTypeID() (uint, error) {
+func tryCFPlugInGetTypeID() (CFTypeID, error) {
 	if _cFPlugInGetTypeID == nil {
-		return 0, symbolCallError("CFPlugInGetTypeID", "", _cFPlugInGetTypeIDErr)
+		return *new(CFTypeID), symbolCallError("CFPlugInGetTypeID", "", _cFPlugInGetTypeIDErr)
 	}
 	return _cFPlugInGetTypeID(), nil
 }
@@ -8067,7 +8067,7 @@ func tryCFPlugInGetTypeID() (uint, error) {
 // CFPlugInGetTypeID returns the type identifier for the [CFPlugIn] opaque type.
 //
 // See: https://developer.apple.com/documentation/CoreFoundation/CFPlugInGetTypeID()
-func CFPlugInGetTypeID() uint {
+func CFPlugInGetTypeID() CFTypeID {
 	result, callErr := tryCFPlugInGetTypeID()
 	if callErr != nil {
 		panic(callErr)
@@ -8096,10 +8096,10 @@ func CFPlugInInstanceCreate(allocator CFAllocatorRef, factoryUUID CFUUIDRef, typ
 	return result
 }
 
-var _cFPlugInInstanceCreateWithInstanceDataSize func(allocator CFAllocatorRef, instanceDataSize int, deallocateInstanceFunction CFPlugInInstanceDeallocateInstanceDataFunction, factoryName CFStringRef, getInterfaceFunction CFPlugInInstanceGetInterfaceFunction) CFPlugInInstanceRef
+var _cFPlugInInstanceCreateWithInstanceDataSize func(allocator CFAllocatorRef, instanceDataSize CFIndex, deallocateInstanceFunction CFPlugInInstanceDeallocateInstanceDataFunction, factoryName CFStringRef, getInterfaceFunction CFPlugInInstanceGetInterfaceFunction) CFPlugInInstanceRef
 var _cFPlugInInstanceCreateWithInstanceDataSizeErr error
 
-func tryCFPlugInInstanceCreateWithInstanceDataSize(allocator CFAllocatorRef, instanceDataSize int, deallocateInstanceFunction CFPlugInInstanceDeallocateInstanceDataFunction, factoryName CFStringRef, getInterfaceFunction CFPlugInInstanceGetInterfaceFunction) (CFPlugInInstanceRef, error) {
+func tryCFPlugInInstanceCreateWithInstanceDataSize(allocator CFAllocatorRef, instanceDataSize CFIndex, deallocateInstanceFunction CFPlugInInstanceDeallocateInstanceDataFunction, factoryName CFStringRef, getInterfaceFunction CFPlugInInstanceGetInterfaceFunction) (CFPlugInInstanceRef, error) {
 	if _cFPlugInInstanceCreateWithInstanceDataSize == nil {
 		return *new(CFPlugInInstanceRef), symbolCallError("CFPlugInInstanceCreateWithInstanceDataSize", "", _cFPlugInInstanceCreateWithInstanceDataSizeErr)
 	}
@@ -8109,7 +8109,7 @@ func tryCFPlugInInstanceCreateWithInstanceDataSize(allocator CFAllocatorRef, ins
 // CFPlugInInstanceCreateWithInstanceDataSize not recommended.
 //
 // See: https://developer.apple.com/documentation/CoreFoundation/CFPlugInInstanceCreateWithInstanceDataSize(_:_:_:_:_:)
-func CFPlugInInstanceCreateWithInstanceDataSize(allocator CFAllocatorRef, instanceDataSize int, deallocateInstanceFunction CFPlugInInstanceDeallocateInstanceDataFunction, factoryName CFStringRef, getInterfaceFunction CFPlugInInstanceGetInterfaceFunction) CFPlugInInstanceRef {
+func CFPlugInInstanceCreateWithInstanceDataSize(allocator CFAllocatorRef, instanceDataSize CFIndex, deallocateInstanceFunction CFPlugInInstanceDeallocateInstanceDataFunction, factoryName CFStringRef, getInterfaceFunction CFPlugInInstanceGetInterfaceFunction) CFPlugInInstanceRef {
 	result, callErr := tryCFPlugInInstanceCreateWithInstanceDataSize(allocator, instanceDataSize, deallocateInstanceFunction, factoryName, getInterfaceFunction)
 	if callErr != nil {
 		panic(callErr)
@@ -8180,12 +8180,12 @@ func CFPlugInInstanceGetInterfaceFunctionTable(instance CFPlugInInstanceRef, int
 	return result
 }
 
-var _cFPlugInInstanceGetTypeID func() uint
+var _cFPlugInInstanceGetTypeID func() CFTypeID
 var _cFPlugInInstanceGetTypeIDErr error
 
-func tryCFPlugInInstanceGetTypeID() (uint, error) {
+func tryCFPlugInInstanceGetTypeID() (CFTypeID, error) {
 	if _cFPlugInInstanceGetTypeID == nil {
-		return 0, symbolCallError("CFPlugInInstanceGetTypeID", "", _cFPlugInInstanceGetTypeIDErr)
+		return *new(CFTypeID), symbolCallError("CFPlugInInstanceGetTypeID", "", _cFPlugInInstanceGetTypeIDErr)
 	}
 	return _cFPlugInInstanceGetTypeID(), nil
 }
@@ -8193,7 +8193,7 @@ func tryCFPlugInInstanceGetTypeID() (uint, error) {
 // CFPlugInInstanceGetTypeID not recommended.
 //
 // See: https://developer.apple.com/documentation/CoreFoundation/CFPlugInInstanceGetTypeID()
-func CFPlugInInstanceGetTypeID() uint {
+func CFPlugInInstanceGetTypeID() CFTypeID {
 	result, callErr := tryCFPlugInInstanceGetTypeID()
 	if callErr != nil {
 		panic(callErr)
@@ -8534,12 +8534,12 @@ func CFPreferencesGetAppBooleanValue(key CFStringRef, applicationID CFStringRef,
 	return result
 }
 
-var _cFPreferencesGetAppIntegerValue func(key CFStringRef, applicationID CFStringRef, keyExistsAndHasValidFormat *bool) int
+var _cFPreferencesGetAppIntegerValue func(key CFStringRef, applicationID CFStringRef, keyExistsAndHasValidFormat *bool) CFIndex
 var _cFPreferencesGetAppIntegerValueErr error
 
-func tryCFPreferencesGetAppIntegerValue(key CFStringRef, applicationID CFStringRef, keyExistsAndHasValidFormat *bool) (int, error) {
+func tryCFPreferencesGetAppIntegerValue(key CFStringRef, applicationID CFStringRef, keyExistsAndHasValidFormat *bool) (CFIndex, error) {
 	if _cFPreferencesGetAppIntegerValue == nil {
-		return 0, symbolCallError("CFPreferencesGetAppIntegerValue", "", _cFPreferencesGetAppIntegerValueErr)
+		return *new(CFIndex), symbolCallError("CFPreferencesGetAppIntegerValue", "", _cFPreferencesGetAppIntegerValueErr)
 	}
 	return _cFPreferencesGetAppIntegerValue(key, applicationID, keyExistsAndHasValidFormat), nil
 }
@@ -8547,7 +8547,7 @@ func tryCFPreferencesGetAppIntegerValue(key CFStringRef, applicationID CFStringR
 // CFPreferencesGetAppIntegerValue convenience function that directly obtains an integer preference value for the specified key.
 //
 // See: https://developer.apple.com/documentation/CoreFoundation/CFPreferencesGetAppIntegerValue(_:_:_:)
-func CFPreferencesGetAppIntegerValue(key CFStringRef, applicationID CFStringRef, keyExistsAndHasValidFormat *bool) int {
+func CFPreferencesGetAppIntegerValue(key CFStringRef, applicationID CFStringRef, keyExistsAndHasValidFormat *bool) CFIndex {
 	result, callErr := tryCFPreferencesGetAppIntegerValue(key, applicationID, keyExistsAndHasValidFormat)
 	if callErr != nil {
 		panic(callErr)
@@ -8656,10 +8656,10 @@ func CFPreferencesSynchronize(applicationID CFStringRef, userName CFStringRef, h
 	return result
 }
 
-var _cFPropertyListCreateData func(allocator CFAllocatorRef, propertyList CFPropertyListRef, format CFPropertyListFormat, options uint64, err *CFErrorRef) CFDataRef
+var _cFPropertyListCreateData func(allocator CFAllocatorRef, propertyList CFPropertyListRef, format CFPropertyListFormat, options CFOptionFlags, err *CFErrorRef) CFDataRef
 var _cFPropertyListCreateDataErr error
 
-func tryCFPropertyListCreateData(allocator CFAllocatorRef, propertyList CFPropertyListRef, format CFPropertyListFormat, options uint64, err *CFErrorRef) (CFDataRef, error) {
+func tryCFPropertyListCreateData(allocator CFAllocatorRef, propertyList CFPropertyListRef, format CFPropertyListFormat, options CFOptionFlags, err *CFErrorRef) (CFDataRef, error) {
 	if _cFPropertyListCreateData == nil {
 		return *new(CFDataRef), symbolCallError("CFPropertyListCreateData", "10.6", _cFPropertyListCreateDataErr)
 	}
@@ -8669,7 +8669,7 @@ func tryCFPropertyListCreateData(allocator CFAllocatorRef, propertyList CFProper
 // CFPropertyListCreateData returns a CFData object containing a serialized representation of a given property list in a specified format.
 //
 // See: https://developer.apple.com/documentation/CoreFoundation/CFPropertyListCreateData(_:_:_:_:_:)
-func CFPropertyListCreateData(allocator CFAllocatorRef, propertyList CFPropertyListRef, format CFPropertyListFormat, options uint64, err *CFErrorRef) CFDataRef {
+func CFPropertyListCreateData(allocator CFAllocatorRef, propertyList CFPropertyListRef, format CFPropertyListFormat, options CFOptionFlags, err *CFErrorRef) CFDataRef {
 	result, callErr := tryCFPropertyListCreateData(allocator, propertyList, format, options, err)
 	if callErr != nil {
 		panic(callErr)
@@ -8677,10 +8677,10 @@ func CFPropertyListCreateData(allocator CFAllocatorRef, propertyList CFPropertyL
 	return result
 }
 
-var _cFPropertyListCreateDeepCopy func(allocator CFAllocatorRef, propertyList CFPropertyListRef, mutabilityOption uint64) CFPropertyListRef
+var _cFPropertyListCreateDeepCopy func(allocator CFAllocatorRef, propertyList CFPropertyListRef, mutabilityOption CFOptionFlags) CFPropertyListRef
 var _cFPropertyListCreateDeepCopyErr error
 
-func tryCFPropertyListCreateDeepCopy(allocator CFAllocatorRef, propertyList CFPropertyListRef, mutabilityOption uint64) (CFPropertyListRef, error) {
+func tryCFPropertyListCreateDeepCopy(allocator CFAllocatorRef, propertyList CFPropertyListRef, mutabilityOption CFOptionFlags) (CFPropertyListRef, error) {
 	if _cFPropertyListCreateDeepCopy == nil {
 		return *new(CFPropertyListRef), symbolCallError("CFPropertyListCreateDeepCopy", "", _cFPropertyListCreateDeepCopyErr)
 	}
@@ -8690,7 +8690,7 @@ func tryCFPropertyListCreateDeepCopy(allocator CFAllocatorRef, propertyList CFPr
 // CFPropertyListCreateDeepCopy recursively creates a copy of a given property list.
 //
 // See: https://developer.apple.com/documentation/CoreFoundation/CFPropertyListCreateDeepCopy(_:_:_:)
-func CFPropertyListCreateDeepCopy(allocator CFAllocatorRef, propertyList CFPropertyListRef, mutabilityOption uint64) CFPropertyListRef {
+func CFPropertyListCreateDeepCopy(allocator CFAllocatorRef, propertyList CFPropertyListRef, mutabilityOption CFOptionFlags) CFPropertyListRef {
 	result, callErr := tryCFPropertyListCreateDeepCopy(allocator, propertyList, mutabilityOption)
 	if callErr != nil {
 		panic(callErr)
@@ -8698,10 +8698,10 @@ func CFPropertyListCreateDeepCopy(allocator CFAllocatorRef, propertyList CFPrope
 	return result
 }
 
-var _cFPropertyListCreateWithData func(allocator CFAllocatorRef, data CFDataRef, options uint64, format *CFPropertyListFormat, err *CFErrorRef) CFPropertyListRef
+var _cFPropertyListCreateWithData func(allocator CFAllocatorRef, data CFDataRef, options CFOptionFlags, format *CFPropertyListFormat, err *CFErrorRef) CFPropertyListRef
 var _cFPropertyListCreateWithDataErr error
 
-func tryCFPropertyListCreateWithData(allocator CFAllocatorRef, data CFDataRef, options uint64, format *CFPropertyListFormat, err *CFErrorRef) (CFPropertyListRef, error) {
+func tryCFPropertyListCreateWithData(allocator CFAllocatorRef, data CFDataRef, options CFOptionFlags, format *CFPropertyListFormat, err *CFErrorRef) (CFPropertyListRef, error) {
 	if _cFPropertyListCreateWithData == nil {
 		return *new(CFPropertyListRef), symbolCallError("CFPropertyListCreateWithData", "10.6", _cFPropertyListCreateWithDataErr)
 	}
@@ -8711,7 +8711,7 @@ func tryCFPropertyListCreateWithData(allocator CFAllocatorRef, data CFDataRef, o
 // CFPropertyListCreateWithData creates a property list from a given CFData object.
 //
 // See: https://developer.apple.com/documentation/CoreFoundation/CFPropertyListCreateWithData(_:_:_:_:_:)
-func CFPropertyListCreateWithData(allocator CFAllocatorRef, data CFDataRef, options uint64, format *CFPropertyListFormat, err *CFErrorRef) CFPropertyListRef {
+func CFPropertyListCreateWithData(allocator CFAllocatorRef, data CFDataRef, options CFOptionFlags, format *CFPropertyListFormat, err *CFErrorRef) CFPropertyListRef {
 	result, callErr := tryCFPropertyListCreateWithData(allocator, data, options, format, err)
 	if callErr != nil {
 		panic(callErr)
@@ -8719,10 +8719,10 @@ func CFPropertyListCreateWithData(allocator CFAllocatorRef, data CFDataRef, opti
 	return result
 }
 
-var _cFPropertyListCreateWithStream func(allocator CFAllocatorRef, stream CFReadStreamRef, streamLength int, options uint64, format *CFPropertyListFormat, err *CFErrorRef) CFPropertyListRef
+var _cFPropertyListCreateWithStream func(allocator CFAllocatorRef, stream CFReadStreamRef, streamLength CFIndex, options CFOptionFlags, format *CFPropertyListFormat, err *CFErrorRef) CFPropertyListRef
 var _cFPropertyListCreateWithStreamErr error
 
-func tryCFPropertyListCreateWithStream(allocator CFAllocatorRef, stream CFReadStreamRef, streamLength int, options uint64, format *CFPropertyListFormat, err *CFErrorRef) (CFPropertyListRef, error) {
+func tryCFPropertyListCreateWithStream(allocator CFAllocatorRef, stream CFReadStreamRef, streamLength CFIndex, options CFOptionFlags, format *CFPropertyListFormat, err *CFErrorRef) (CFPropertyListRef, error) {
 	if _cFPropertyListCreateWithStream == nil {
 		return *new(CFPropertyListRef), symbolCallError("CFPropertyListCreateWithStream", "10.6", _cFPropertyListCreateWithStreamErr)
 	}
@@ -8732,7 +8732,7 @@ func tryCFPropertyListCreateWithStream(allocator CFAllocatorRef, stream CFReadSt
 // CFPropertyListCreateWithStream create and return a property list with a CFReadStream input.
 //
 // See: https://developer.apple.com/documentation/CoreFoundation/CFPropertyListCreateWithStream(_:_:_:_:_:_:)
-func CFPropertyListCreateWithStream(allocator CFAllocatorRef, stream CFReadStreamRef, streamLength int, options uint64, format *CFPropertyListFormat, err *CFErrorRef) CFPropertyListRef {
+func CFPropertyListCreateWithStream(allocator CFAllocatorRef, stream CFReadStreamRef, streamLength CFIndex, options CFOptionFlags, format *CFPropertyListFormat, err *CFErrorRef) CFPropertyListRef {
 	result, callErr := tryCFPropertyListCreateWithStream(allocator, stream, streamLength, options, format, err)
 	if callErr != nil {
 		panic(callErr)
@@ -8761,12 +8761,12 @@ func CFPropertyListIsValid(plist CFPropertyListRef, format CFPropertyListFormat)
 	return result
 }
 
-var _cFPropertyListWrite func(propertyList CFPropertyListRef, stream CFWriteStreamRef, format CFPropertyListFormat, options uint64, err *CFErrorRef) int
+var _cFPropertyListWrite func(propertyList CFPropertyListRef, stream CFWriteStreamRef, format CFPropertyListFormat, options CFOptionFlags, err *CFErrorRef) CFIndex
 var _cFPropertyListWriteErr error
 
-func tryCFPropertyListWrite(propertyList CFPropertyListRef, stream CFWriteStreamRef, format CFPropertyListFormat, options uint64, err *CFErrorRef) (int, error) {
+func tryCFPropertyListWrite(propertyList CFPropertyListRef, stream CFWriteStreamRef, format CFPropertyListFormat, options CFOptionFlags, err *CFErrorRef) (CFIndex, error) {
 	if _cFPropertyListWrite == nil {
-		return 0, symbolCallError("CFPropertyListWrite", "10.6", _cFPropertyListWriteErr)
+		return *new(CFIndex), symbolCallError("CFPropertyListWrite", "10.6", _cFPropertyListWriteErr)
 	}
 	return _cFPropertyListWrite(propertyList, stream, format, options, err), nil
 }
@@ -8774,7 +8774,7 @@ func tryCFPropertyListWrite(propertyList CFPropertyListRef, stream CFWriteStream
 // CFPropertyListWrite write the bytes of a serialized property list out to a stream.
 //
 // See: https://developer.apple.com/documentation/CoreFoundation/CFPropertyListWrite(_:_:_:_:_:)
-func CFPropertyListWrite(propertyList CFPropertyListRef, stream CFWriteStreamRef, format CFPropertyListFormat, options uint64, err *CFErrorRef) int {
+func CFPropertyListWrite(propertyList CFPropertyListRef, stream CFWriteStreamRef, format CFPropertyListFormat, options CFOptionFlags, err *CFErrorRef) CFIndex {
 	result, callErr := tryCFPropertyListWrite(propertyList, stream, format, options, err)
 	if callErr != nil {
 		panic(callErr)
@@ -8865,10 +8865,10 @@ func CFReadStreamCopyProperty(stream CFReadStreamRef, propertyName CFStreamPrope
 	return result
 }
 
-var _cFReadStreamCreateWithBytesNoCopy func(alloc CFAllocatorRef, bytes *byte, length int, bytesDeallocator CFAllocatorRef) CFReadStreamRef
+var _cFReadStreamCreateWithBytesNoCopy func(alloc CFAllocatorRef, bytes *byte, length CFIndex, bytesDeallocator CFAllocatorRef) CFReadStreamRef
 var _cFReadStreamCreateWithBytesNoCopyErr error
 
-func tryCFReadStreamCreateWithBytesNoCopy(alloc CFAllocatorRef, bytes []byte, length int, bytesDeallocator CFAllocatorRef) (CFReadStreamRef, error) {
+func tryCFReadStreamCreateWithBytesNoCopy(alloc CFAllocatorRef, bytes []byte, length CFIndex, bytesDeallocator CFAllocatorRef) (CFReadStreamRef, error) {
 	if _cFReadStreamCreateWithBytesNoCopy == nil {
 		return *new(CFReadStreamRef), symbolCallError("CFReadStreamCreateWithBytesNoCopy", "", _cFReadStreamCreateWithBytesNoCopyErr)
 	}
@@ -8878,7 +8878,7 @@ func tryCFReadStreamCreateWithBytesNoCopy(alloc CFAllocatorRef, bytes []byte, le
 // CFReadStreamCreateWithBytesNoCopy creates a readable stream for a block of memory.
 //
 // See: https://developer.apple.com/documentation/CoreFoundation/CFReadStreamCreateWithBytesNoCopy(_:_:_:_:)
-func CFReadStreamCreateWithBytesNoCopy(alloc CFAllocatorRef, bytes []byte, length int, bytesDeallocator CFAllocatorRef) CFReadStreamRef {
+func CFReadStreamCreateWithBytesNoCopy(alloc CFAllocatorRef, bytes []byte, length CFIndex, bytesDeallocator CFAllocatorRef) CFReadStreamRef {
 	result, callErr := tryCFReadStreamCreateWithBytesNoCopy(alloc, bytes, length, bytesDeallocator)
 	if callErr != nil {
 		panic(callErr)
@@ -8907,10 +8907,10 @@ func CFReadStreamCreateWithFile(alloc CFAllocatorRef, fileURL CFURLRef) CFReadSt
 	return result
 }
 
-var _cFReadStreamGetBuffer func(stream CFReadStreamRef, maxBytesToRead int, numBytesRead *int) *uint8
+var _cFReadStreamGetBuffer func(stream CFReadStreamRef, maxBytesToRead CFIndex, numBytesRead *CFIndex) *uint8
 var _cFReadStreamGetBufferErr error
 
-func tryCFReadStreamGetBuffer(stream CFReadStreamRef, maxBytesToRead int, numBytesRead *int) (*uint8, error) {
+func tryCFReadStreamGetBuffer(stream CFReadStreamRef, maxBytesToRead CFIndex, numBytesRead *CFIndex) (*uint8, error) {
 	if _cFReadStreamGetBuffer == nil {
 		return nil, symbolCallError("CFReadStreamGetBuffer", "", _cFReadStreamGetBufferErr)
 	}
@@ -8920,7 +8920,7 @@ func tryCFReadStreamGetBuffer(stream CFReadStreamRef, maxBytesToRead int, numByt
 // CFReadStreamGetBuffer returns a pointer to a stream’s internal buffer of unread data, if possible.
 //
 // See: https://developer.apple.com/documentation/CoreFoundation/CFReadStreamGetBuffer(_:_:_:)
-func CFReadStreamGetBuffer(stream CFReadStreamRef, maxBytesToRead int, numBytesRead *int) *uint8 {
+func CFReadStreamGetBuffer(stream CFReadStreamRef, maxBytesToRead CFIndex, numBytesRead *CFIndex) *uint8 {
 	result, callErr := tryCFReadStreamGetBuffer(stream, maxBytesToRead, numBytesRead)
 	if callErr != nil {
 		panic(callErr)
@@ -8940,7 +8940,7 @@ func tryCFReadStreamGetError(stream CFReadStreamRef) (CFStreamError, error) {
 
 // CFReadStreamGetError returns the error status of a stream.
 //
-// Deprecated: Use [CFReadStreamCopyError(_:)](<doc://com.apple.corefoundation/documentation/CoreFoundation/CFReadStreamCopyError(_:)>) instead.
+// Deprecated: Use [CFReadStreamCopyError(_:)](<https://developer.apple.com/documentation/CoreFoundation/CFReadStreamCopyError(_:)>) instead.
 //
 // See: https://developer.apple.com/documentation/CoreFoundation/CFReadStreamGetError(_:)
 func CFReadStreamGetError(stream CFReadStreamRef) CFStreamError {
@@ -8972,12 +8972,12 @@ func CFReadStreamGetStatus(stream CFReadStreamRef) CFStreamStatus {
 	return result
 }
 
-var _cFReadStreamGetTypeID func() uint
+var _cFReadStreamGetTypeID func() CFTypeID
 var _cFReadStreamGetTypeIDErr error
 
-func tryCFReadStreamGetTypeID() (uint, error) {
+func tryCFReadStreamGetTypeID() (CFTypeID, error) {
 	if _cFReadStreamGetTypeID == nil {
-		return 0, symbolCallError("CFReadStreamGetTypeID", "", _cFReadStreamGetTypeIDErr)
+		return *new(CFTypeID), symbolCallError("CFReadStreamGetTypeID", "", _cFReadStreamGetTypeIDErr)
 	}
 	return _cFReadStreamGetTypeID(), nil
 }
@@ -8985,7 +8985,7 @@ func tryCFReadStreamGetTypeID() (uint, error) {
 // CFReadStreamGetTypeID returns the type identifier the [CFReadStream] opaque type.
 //
 // See: https://developer.apple.com/documentation/CoreFoundation/CFReadStreamGetTypeID()
-func CFReadStreamGetTypeID() uint {
+func CFReadStreamGetTypeID() CFTypeID {
 	result, callErr := tryCFReadStreamGetTypeID()
 	if callErr != nil {
 		panic(callErr)
@@ -9035,12 +9035,12 @@ func CFReadStreamOpen(stream CFReadStreamRef) bool {
 	return result
 }
 
-var _cFReadStreamRead func(stream CFReadStreamRef, buffer *byte, bufferLength int) int
+var _cFReadStreamRead func(stream CFReadStreamRef, buffer *byte, bufferLength CFIndex) CFIndex
 var _cFReadStreamReadErr error
 
-func tryCFReadStreamRead(stream CFReadStreamRef, buffer []byte, bufferLength int) (int, error) {
+func tryCFReadStreamRead(stream CFReadStreamRef, buffer []byte, bufferLength CFIndex) (CFIndex, error) {
 	if _cFReadStreamRead == nil {
-		return 0, symbolCallError("CFReadStreamRead", "", _cFReadStreamReadErr)
+		return *new(CFIndex), symbolCallError("CFReadStreamRead", "", _cFReadStreamReadErr)
 	}
 	return _cFReadStreamRead(stream, unsafe.SliceData(buffer), bufferLength), nil
 }
@@ -9048,7 +9048,7 @@ func tryCFReadStreamRead(stream CFReadStreamRef, buffer []byte, bufferLength int
 // CFReadStreamRead reads data from a readable stream.
 //
 // See: https://developer.apple.com/documentation/CoreFoundation/CFReadStreamRead(_:_:_:)
-func CFReadStreamRead(stream CFReadStreamRef, buffer []byte, bufferLength int) int {
+func CFReadStreamRead(stream CFReadStreamRef, buffer []byte, bufferLength CFIndex) CFIndex {
 	result, callErr := tryCFReadStreamRead(stream, buffer, bufferLength)
 	if callErr != nil {
 		panic(callErr)
@@ -9076,10 +9076,10 @@ func CFReadStreamScheduleWithRunLoop(stream CFReadStreamRef, runLoop CFRunLoopRe
 	}
 }
 
-var _cFReadStreamSetClient func(stream CFReadStreamRef, streamEvents uint64, clientCB CFReadStreamClientCallBack, clientContext *CFStreamClientContext) bool
+var _cFReadStreamSetClient func(stream CFReadStreamRef, streamEvents CFOptionFlags, clientCB CFReadStreamClientCallBack, clientContext *CFStreamClientContext) bool
 var _cFReadStreamSetClientErr error
 
-func tryCFReadStreamSetClient(stream CFReadStreamRef, streamEvents uint64, clientCB CFReadStreamClientCallBack, clientContext *CFStreamClientContext) (bool, error) {
+func tryCFReadStreamSetClient(stream CFReadStreamRef, streamEvents CFOptionFlags, clientCB CFReadStreamClientCallBack, clientContext *CFStreamClientContext) (bool, error) {
 	if _cFReadStreamSetClient == nil {
 		return false, symbolCallError("CFReadStreamSetClient", "", _cFReadStreamSetClientErr)
 	}
@@ -9089,7 +9089,7 @@ func tryCFReadStreamSetClient(stream CFReadStreamRef, streamEvents uint64, clien
 // CFReadStreamSetClient assigns a client to a stream, which receives callbacks when certain events occur.
 //
 // See: https://developer.apple.com/documentation/CoreFoundation/CFReadStreamSetClient(_:_:_:_:)
-func CFReadStreamSetClient(stream CFReadStreamRef, streamEvents uint64, clientCB CFReadStreamClientCallBack, clientContext *CFStreamClientContext) bool {
+func CFReadStreamSetClient(stream CFReadStreamRef, streamEvents CFOptionFlags, clientCB CFReadStreamClientCallBack, clientContext *CFStreamClientContext) bool {
 	result, callErr := tryCFReadStreamSetClient(stream, streamEvents, clientCB, clientContext)
 	if callErr != nil {
 		panic(callErr)
@@ -9447,12 +9447,12 @@ func CFRunLoopGetNextTimerFireDate(rl CFRunLoopRef, mode CFRunLoopMode) CFAbsolu
 	return result
 }
 
-var _cFRunLoopGetTypeID func() uint
+var _cFRunLoopGetTypeID func() CFTypeID
 var _cFRunLoopGetTypeIDErr error
 
-func tryCFRunLoopGetTypeID() (uint, error) {
+func tryCFRunLoopGetTypeID() (CFTypeID, error) {
 	if _cFRunLoopGetTypeID == nil {
-		return 0, symbolCallError("CFRunLoopGetTypeID", "", _cFRunLoopGetTypeIDErr)
+		return *new(CFTypeID), symbolCallError("CFRunLoopGetTypeID", "", _cFRunLoopGetTypeIDErr)
 	}
 	return _cFRunLoopGetTypeID(), nil
 }
@@ -9460,7 +9460,7 @@ func tryCFRunLoopGetTypeID() (uint, error) {
 // CFRunLoopGetTypeID returns the type identifier for the CFRunLoop opaque type.
 //
 // See: https://developer.apple.com/documentation/CoreFoundation/CFRunLoopGetTypeID()
-func CFRunLoopGetTypeID() uint {
+func CFRunLoopGetTypeID() CFTypeID {
 	result, callErr := tryCFRunLoopGetTypeID()
 	if callErr != nil {
 		panic(callErr)
@@ -9489,10 +9489,10 @@ func CFRunLoopIsWaiting(rl CFRunLoopRef) bool {
 	return result
 }
 
-var _cFRunLoopObserverCreate func(allocator CFAllocatorRef, activities uint64, repeats bool, order int, callout CFRunLoopObserverCallBack, context *CFRunLoopObserverContext) CFRunLoopObserverRef
+var _cFRunLoopObserverCreate func(allocator CFAllocatorRef, activities CFOptionFlags, repeats bool, order CFIndex, callout CFRunLoopObserverCallBack, context *CFRunLoopObserverContext) CFRunLoopObserverRef
 var _cFRunLoopObserverCreateErr error
 
-func tryCFRunLoopObserverCreate(allocator CFAllocatorRef, activities uint64, repeats bool, order int, callout CFRunLoopObserverCallBack, context *CFRunLoopObserverContext) (CFRunLoopObserverRef, error) {
+func tryCFRunLoopObserverCreate(allocator CFAllocatorRef, activities CFOptionFlags, repeats bool, order CFIndex, callout CFRunLoopObserverCallBack, context *CFRunLoopObserverContext) (CFRunLoopObserverRef, error) {
 	if _cFRunLoopObserverCreate == nil {
 		return *new(CFRunLoopObserverRef), symbolCallError("CFRunLoopObserverCreate", "", _cFRunLoopObserverCreateErr)
 	}
@@ -9502,7 +9502,7 @@ func tryCFRunLoopObserverCreate(allocator CFAllocatorRef, activities uint64, rep
 // CFRunLoopObserverCreate creates a CFRunLoopObserver object with a function callback.
 //
 // See: https://developer.apple.com/documentation/CoreFoundation/CFRunLoopObserverCreate(_:_:_:_:_:_:)
-func CFRunLoopObserverCreate(allocator CFAllocatorRef, activities uint64, repeats bool, order int, callout CFRunLoopObserverCallBack, context *CFRunLoopObserverContext) CFRunLoopObserverRef {
+func CFRunLoopObserverCreate(allocator CFAllocatorRef, activities CFOptionFlags, repeats bool, order CFIndex, callout CFRunLoopObserverCallBack, context *CFRunLoopObserverContext) CFRunLoopObserverRef {
 	result, callErr := tryCFRunLoopObserverCreate(allocator, activities, repeats, order, callout, context)
 	if callErr != nil {
 		panic(callErr)
@@ -9510,10 +9510,10 @@ func CFRunLoopObserverCreate(allocator CFAllocatorRef, activities uint64, repeat
 	return result
 }
 
-var _cFRunLoopObserverCreateWithHandler func(allocator CFAllocatorRef, activities uint64, repeats bool, order int) CFRunLoopObserverRef
+var _cFRunLoopObserverCreateWithHandler func(allocator CFAllocatorRef, activities CFOptionFlags, repeats bool, order CFIndex) CFRunLoopObserverRef
 var _cFRunLoopObserverCreateWithHandlerErr error
 
-func tryCFRunLoopObserverCreateWithHandler(allocator CFAllocatorRef, activities uint64, repeats bool, order int) (CFRunLoopObserverRef, error) {
+func tryCFRunLoopObserverCreateWithHandler(allocator CFAllocatorRef, activities CFOptionFlags, repeats bool, order CFIndex) (CFRunLoopObserverRef, error) {
 	if _cFRunLoopObserverCreateWithHandler == nil {
 		return *new(CFRunLoopObserverRef), symbolCallError("CFRunLoopObserverCreateWithHandler", "10.7", _cFRunLoopObserverCreateWithHandlerErr)
 	}
@@ -9523,7 +9523,7 @@ func tryCFRunLoopObserverCreateWithHandler(allocator CFAllocatorRef, activities 
 // CFRunLoopObserverCreateWithHandler creates a CFRunLoopObserver object with a block-based handler.
 //
 // See: https://developer.apple.com/documentation/CoreFoundation/CFRunLoopObserverCreateWithHandler(_:_:_:_:_:)
-func CFRunLoopObserverCreateWithHandler(allocator CFAllocatorRef, activities uint64, repeats bool, order int) CFRunLoopObserverRef {
+func CFRunLoopObserverCreateWithHandler(allocator CFAllocatorRef, activities CFOptionFlags, repeats bool, order CFIndex) CFRunLoopObserverRef {
 	result, callErr := tryCFRunLoopObserverCreateWithHandler(allocator, activities, repeats, order)
 	if callErr != nil {
 		panic(callErr)
@@ -9552,12 +9552,12 @@ func CFRunLoopObserverDoesRepeat(observer CFRunLoopObserverRef) bool {
 	return result
 }
 
-var _cFRunLoopObserverGetActivities func(observer CFRunLoopObserverRef) uint64
+var _cFRunLoopObserverGetActivities func(observer CFRunLoopObserverRef) CFOptionFlags
 var _cFRunLoopObserverGetActivitiesErr error
 
-func tryCFRunLoopObserverGetActivities(observer CFRunLoopObserverRef) (uint64, error) {
+func tryCFRunLoopObserverGetActivities(observer CFRunLoopObserverRef) (CFOptionFlags, error) {
 	if _cFRunLoopObserverGetActivities == nil {
-		return 0, symbolCallError("CFRunLoopObserverGetActivities", "", _cFRunLoopObserverGetActivitiesErr)
+		return *new(CFOptionFlags), symbolCallError("CFRunLoopObserverGetActivities", "", _cFRunLoopObserverGetActivitiesErr)
 	}
 	return _cFRunLoopObserverGetActivities(observer), nil
 }
@@ -9565,7 +9565,7 @@ func tryCFRunLoopObserverGetActivities(observer CFRunLoopObserverRef) (uint64, e
 // CFRunLoopObserverGetActivities returns the run loop stages during which an observer runs.
 //
 // See: https://developer.apple.com/documentation/CoreFoundation/CFRunLoopObserverGetActivities(_:)
-func CFRunLoopObserverGetActivities(observer CFRunLoopObserverRef) uint64 {
+func CFRunLoopObserverGetActivities(observer CFRunLoopObserverRef) CFOptionFlags {
 	result, callErr := tryCFRunLoopObserverGetActivities(observer)
 	if callErr != nil {
 		panic(callErr)
@@ -9593,12 +9593,12 @@ func CFRunLoopObserverGetContext(observer CFRunLoopObserverRef, context *CFRunLo
 	}
 }
 
-var _cFRunLoopObserverGetOrder func(observer CFRunLoopObserverRef) int
+var _cFRunLoopObserverGetOrder func(observer CFRunLoopObserverRef) CFIndex
 var _cFRunLoopObserverGetOrderErr error
 
-func tryCFRunLoopObserverGetOrder(observer CFRunLoopObserverRef) (int, error) {
+func tryCFRunLoopObserverGetOrder(observer CFRunLoopObserverRef) (CFIndex, error) {
 	if _cFRunLoopObserverGetOrder == nil {
-		return 0, symbolCallError("CFRunLoopObserverGetOrder", "", _cFRunLoopObserverGetOrderErr)
+		return *new(CFIndex), symbolCallError("CFRunLoopObserverGetOrder", "", _cFRunLoopObserverGetOrderErr)
 	}
 	return _cFRunLoopObserverGetOrder(observer), nil
 }
@@ -9606,7 +9606,7 @@ func tryCFRunLoopObserverGetOrder(observer CFRunLoopObserverRef) (int, error) {
 // CFRunLoopObserverGetOrder returns the ordering parameter for a CFRunLoopObserver object.
 //
 // See: https://developer.apple.com/documentation/CoreFoundation/CFRunLoopObserverGetOrder(_:)
-func CFRunLoopObserverGetOrder(observer CFRunLoopObserverRef) int {
+func CFRunLoopObserverGetOrder(observer CFRunLoopObserverRef) CFIndex {
 	result, callErr := tryCFRunLoopObserverGetOrder(observer)
 	if callErr != nil {
 		panic(callErr)
@@ -9614,12 +9614,12 @@ func CFRunLoopObserverGetOrder(observer CFRunLoopObserverRef) int {
 	return result
 }
 
-var _cFRunLoopObserverGetTypeID func() uint
+var _cFRunLoopObserverGetTypeID func() CFTypeID
 var _cFRunLoopObserverGetTypeIDErr error
 
-func tryCFRunLoopObserverGetTypeID() (uint, error) {
+func tryCFRunLoopObserverGetTypeID() (CFTypeID, error) {
 	if _cFRunLoopObserverGetTypeID == nil {
-		return 0, symbolCallError("CFRunLoopObserverGetTypeID", "", _cFRunLoopObserverGetTypeIDErr)
+		return *new(CFTypeID), symbolCallError("CFRunLoopObserverGetTypeID", "", _cFRunLoopObserverGetTypeIDErr)
 	}
 	return _cFRunLoopObserverGetTypeID(), nil
 }
@@ -9627,7 +9627,7 @@ func tryCFRunLoopObserverGetTypeID() (uint, error) {
 // CFRunLoopObserverGetTypeID returns the type identifier for the CFRunLoopObserver opaque type.
 //
 // See: https://developer.apple.com/documentation/CoreFoundation/CFRunLoopObserverGetTypeID()
-func CFRunLoopObserverGetTypeID() uint {
+func CFRunLoopObserverGetTypeID() CFTypeID {
 	result, callErr := tryCFRunLoopObserverGetTypeID()
 	if callErr != nil {
 		panic(callErr)
@@ -9776,10 +9776,10 @@ func CFRunLoopRun() {
 	}
 }
 
-var _cFRunLoopRunInMode func(mode CFRunLoopMode, seconds float64, returnAfterSourceHandled bool) CFRunLoopRunResult
+var _cFRunLoopRunInMode func(mode CFRunLoopMode, seconds CFTimeInterval, returnAfterSourceHandled bool) CFRunLoopRunResult
 var _cFRunLoopRunInModeErr error
 
-func tryCFRunLoopRunInMode(mode CFRunLoopMode, seconds float64, returnAfterSourceHandled bool) (CFRunLoopRunResult, error) {
+func tryCFRunLoopRunInMode(mode CFRunLoopMode, seconds CFTimeInterval, returnAfterSourceHandled bool) (CFRunLoopRunResult, error) {
 	if _cFRunLoopRunInMode == nil {
 		return *new(CFRunLoopRunResult), symbolCallError("CFRunLoopRunInMode", "", _cFRunLoopRunInModeErr)
 	}
@@ -9789,7 +9789,7 @@ func tryCFRunLoopRunInMode(mode CFRunLoopMode, seconds float64, returnAfterSourc
 // CFRunLoopRunInMode runs the current thread’s CFRunLoop object in a particular mode.
 //
 // See: https://developer.apple.com/documentation/CoreFoundation/CFRunLoopRunInMode(_:_:_:)
-func CFRunLoopRunInMode(mode CFRunLoopMode, seconds float64, returnAfterSourceHandled bool) CFRunLoopRunResult {
+func CFRunLoopRunInMode(mode CFRunLoopMode, seconds CFTimeInterval, returnAfterSourceHandled bool) CFRunLoopRunResult {
 	result, callErr := tryCFRunLoopRunInMode(mode, seconds, returnAfterSourceHandled)
 	if callErr != nil {
 		panic(callErr)
@@ -9797,10 +9797,10 @@ func CFRunLoopRunInMode(mode CFRunLoopMode, seconds float64, returnAfterSourceHa
 	return result
 }
 
-var _cFRunLoopSourceCreate func(allocator CFAllocatorRef, order int, context *CFRunLoopSourceContext) CFRunLoopSourceRef
+var _cFRunLoopSourceCreate func(allocator CFAllocatorRef, order CFIndex, context *CFRunLoopSourceContext) CFRunLoopSourceRef
 var _cFRunLoopSourceCreateErr error
 
-func tryCFRunLoopSourceCreate(allocator CFAllocatorRef, order int, context *CFRunLoopSourceContext) (CFRunLoopSourceRef, error) {
+func tryCFRunLoopSourceCreate(allocator CFAllocatorRef, order CFIndex, context *CFRunLoopSourceContext) (CFRunLoopSourceRef, error) {
 	if _cFRunLoopSourceCreate == nil {
 		return *new(CFRunLoopSourceRef), symbolCallError("CFRunLoopSourceCreate", "", _cFRunLoopSourceCreateErr)
 	}
@@ -9810,7 +9810,7 @@ func tryCFRunLoopSourceCreate(allocator CFAllocatorRef, order int, context *CFRu
 // CFRunLoopSourceCreate creates a CFRunLoopSource object.
 //
 // See: https://developer.apple.com/documentation/CoreFoundation/CFRunLoopSourceCreate(_:_:_:)
-func CFRunLoopSourceCreate(allocator CFAllocatorRef, order int, context *CFRunLoopSourceContext) CFRunLoopSourceRef {
+func CFRunLoopSourceCreate(allocator CFAllocatorRef, order CFIndex, context *CFRunLoopSourceContext) CFRunLoopSourceRef {
 	result, callErr := tryCFRunLoopSourceCreate(allocator, order, context)
 	if callErr != nil {
 		panic(callErr)
@@ -9838,12 +9838,12 @@ func CFRunLoopSourceGetContext(source CFRunLoopSourceRef, context *CFRunLoopSour
 	}
 }
 
-var _cFRunLoopSourceGetOrder func(source CFRunLoopSourceRef) int
+var _cFRunLoopSourceGetOrder func(source CFRunLoopSourceRef) CFIndex
 var _cFRunLoopSourceGetOrderErr error
 
-func tryCFRunLoopSourceGetOrder(source CFRunLoopSourceRef) (int, error) {
+func tryCFRunLoopSourceGetOrder(source CFRunLoopSourceRef) (CFIndex, error) {
 	if _cFRunLoopSourceGetOrder == nil {
-		return 0, symbolCallError("CFRunLoopSourceGetOrder", "", _cFRunLoopSourceGetOrderErr)
+		return *new(CFIndex), symbolCallError("CFRunLoopSourceGetOrder", "", _cFRunLoopSourceGetOrderErr)
 	}
 	return _cFRunLoopSourceGetOrder(source), nil
 }
@@ -9851,7 +9851,7 @@ func tryCFRunLoopSourceGetOrder(source CFRunLoopSourceRef) (int, error) {
 // CFRunLoopSourceGetOrder returns the ordering parameter for a CFRunLoopSource object.
 //
 // See: https://developer.apple.com/documentation/CoreFoundation/CFRunLoopSourceGetOrder(_:)
-func CFRunLoopSourceGetOrder(source CFRunLoopSourceRef) int {
+func CFRunLoopSourceGetOrder(source CFRunLoopSourceRef) CFIndex {
 	result, callErr := tryCFRunLoopSourceGetOrder(source)
 	if callErr != nil {
 		panic(callErr)
@@ -9859,12 +9859,12 @@ func CFRunLoopSourceGetOrder(source CFRunLoopSourceRef) int {
 	return result
 }
 
-var _cFRunLoopSourceGetTypeID func() uint
+var _cFRunLoopSourceGetTypeID func() CFTypeID
 var _cFRunLoopSourceGetTypeIDErr error
 
-func tryCFRunLoopSourceGetTypeID() (uint, error) {
+func tryCFRunLoopSourceGetTypeID() (CFTypeID, error) {
 	if _cFRunLoopSourceGetTypeID == nil {
-		return 0, symbolCallError("CFRunLoopSourceGetTypeID", "", _cFRunLoopSourceGetTypeIDErr)
+		return *new(CFTypeID), symbolCallError("CFRunLoopSourceGetTypeID", "", _cFRunLoopSourceGetTypeIDErr)
 	}
 	return _cFRunLoopSourceGetTypeID(), nil
 }
@@ -9872,7 +9872,7 @@ func tryCFRunLoopSourceGetTypeID() (uint, error) {
 // CFRunLoopSourceGetTypeID returns the type identifier of the CFRunLoopSource opaque type.
 //
 // See: https://developer.apple.com/documentation/CoreFoundation/CFRunLoopSourceGetTypeID()
-func CFRunLoopSourceGetTypeID() uint {
+func CFRunLoopSourceGetTypeID() CFTypeID {
 	result, callErr := tryCFRunLoopSourceGetTypeID()
 	if callErr != nil {
 		panic(callErr)
@@ -9961,10 +9961,10 @@ func CFRunLoopStop(rl CFRunLoopRef) {
 	}
 }
 
-var _cFRunLoopTimerCreate func(allocator CFAllocatorRef, fireDate CFAbsoluteTime, interval float64, flags uint64, order int, callout CFRunLoopTimerCallBack, context *CFRunLoopTimerContext) CFRunLoopTimerRef
+var _cFRunLoopTimerCreate func(allocator CFAllocatorRef, fireDate CFAbsoluteTime, interval CFTimeInterval, flags CFOptionFlags, order CFIndex, callout CFRunLoopTimerCallBack, context *CFRunLoopTimerContext) CFRunLoopTimerRef
 var _cFRunLoopTimerCreateErr error
 
-func tryCFRunLoopTimerCreate(allocator CFAllocatorRef, fireDate CFAbsoluteTime, interval float64, flags uint64, order int, callout CFRunLoopTimerCallBack, context *CFRunLoopTimerContext) (CFRunLoopTimerRef, error) {
+func tryCFRunLoopTimerCreate(allocator CFAllocatorRef, fireDate CFAbsoluteTime, interval CFTimeInterval, flags CFOptionFlags, order CFIndex, callout CFRunLoopTimerCallBack, context *CFRunLoopTimerContext) (CFRunLoopTimerRef, error) {
 	if _cFRunLoopTimerCreate == nil {
 		return *new(CFRunLoopTimerRef), symbolCallError("CFRunLoopTimerCreate", "", _cFRunLoopTimerCreateErr)
 	}
@@ -9974,7 +9974,7 @@ func tryCFRunLoopTimerCreate(allocator CFAllocatorRef, fireDate CFAbsoluteTime, 
 // CFRunLoopTimerCreate creates a new CFRunLoopTimer object with a function callback.
 //
 // See: https://developer.apple.com/documentation/CoreFoundation/CFRunLoopTimerCreate(_:_:_:_:_:_:_:)
-func CFRunLoopTimerCreate(allocator CFAllocatorRef, fireDate CFAbsoluteTime, interval float64, flags uint64, order int, callout CFRunLoopTimerCallBack, context *CFRunLoopTimerContext) CFRunLoopTimerRef {
+func CFRunLoopTimerCreate(allocator CFAllocatorRef, fireDate CFAbsoluteTime, interval CFTimeInterval, flags CFOptionFlags, order CFIndex, callout CFRunLoopTimerCallBack, context *CFRunLoopTimerContext) CFRunLoopTimerRef {
 	result, callErr := tryCFRunLoopTimerCreate(allocator, fireDate, interval, flags, order, callout, context)
 	if callErr != nil {
 		panic(callErr)
@@ -9982,10 +9982,10 @@ func CFRunLoopTimerCreate(allocator CFAllocatorRef, fireDate CFAbsoluteTime, int
 	return result
 }
 
-var _cFRunLoopTimerCreateWithHandler func(allocator CFAllocatorRef, fireDate CFAbsoluteTime, interval float64, flags uint64, order int) CFRunLoopTimerRef
+var _cFRunLoopTimerCreateWithHandler func(allocator CFAllocatorRef, fireDate CFAbsoluteTime, interval CFTimeInterval, flags CFOptionFlags, order CFIndex) CFRunLoopTimerRef
 var _cFRunLoopTimerCreateWithHandlerErr error
 
-func tryCFRunLoopTimerCreateWithHandler(allocator CFAllocatorRef, fireDate CFAbsoluteTime, interval float64, flags uint64, order int) (CFRunLoopTimerRef, error) {
+func tryCFRunLoopTimerCreateWithHandler(allocator CFAllocatorRef, fireDate CFAbsoluteTime, interval CFTimeInterval, flags CFOptionFlags, order CFIndex) (CFRunLoopTimerRef, error) {
 	if _cFRunLoopTimerCreateWithHandler == nil {
 		return *new(CFRunLoopTimerRef), symbolCallError("CFRunLoopTimerCreateWithHandler", "10.7", _cFRunLoopTimerCreateWithHandlerErr)
 	}
@@ -9995,7 +9995,7 @@ func tryCFRunLoopTimerCreateWithHandler(allocator CFAllocatorRef, fireDate CFAbs
 // CFRunLoopTimerCreateWithHandler creates a new CFRunLoopTimer object with a block-based handler.
 //
 // See: https://developer.apple.com/documentation/CoreFoundation/CFRunLoopTimerCreateWithHandler(_:_:_:_:_:_:)
-func CFRunLoopTimerCreateWithHandler(allocator CFAllocatorRef, fireDate CFAbsoluteTime, interval float64, flags uint64, order int) CFRunLoopTimerRef {
+func CFRunLoopTimerCreateWithHandler(allocator CFAllocatorRef, fireDate CFAbsoluteTime, interval CFTimeInterval, flags CFOptionFlags, order CFIndex) CFRunLoopTimerRef {
 	result, callErr := tryCFRunLoopTimerCreateWithHandler(allocator, fireDate, interval, flags, order)
 	if callErr != nil {
 		panic(callErr)
@@ -10044,12 +10044,12 @@ func CFRunLoopTimerGetContext(timer CFRunLoopTimerRef, context *CFRunLoopTimerCo
 	}
 }
 
-var _cFRunLoopTimerGetInterval func(timer CFRunLoopTimerRef) float64
+var _cFRunLoopTimerGetInterval func(timer CFRunLoopTimerRef) CFTimeInterval
 var _cFRunLoopTimerGetIntervalErr error
 
-func tryCFRunLoopTimerGetInterval(timer CFRunLoopTimerRef) (float64, error) {
+func tryCFRunLoopTimerGetInterval(timer CFRunLoopTimerRef) (CFTimeInterval, error) {
 	if _cFRunLoopTimerGetInterval == nil {
-		return 0.0, symbolCallError("CFRunLoopTimerGetInterval", "", _cFRunLoopTimerGetIntervalErr)
+		return *new(CFTimeInterval), symbolCallError("CFRunLoopTimerGetInterval", "", _cFRunLoopTimerGetIntervalErr)
 	}
 	return _cFRunLoopTimerGetInterval(timer), nil
 }
@@ -10057,7 +10057,7 @@ func tryCFRunLoopTimerGetInterval(timer CFRunLoopTimerRef) (float64, error) {
 // CFRunLoopTimerGetInterval returns the firing interval of a repeating CFRunLoopTimer object.
 //
 // See: https://developer.apple.com/documentation/CoreFoundation/CFRunLoopTimerGetInterval(_:)
-func CFRunLoopTimerGetInterval(timer CFRunLoopTimerRef) float64 {
+func CFRunLoopTimerGetInterval(timer CFRunLoopTimerRef) CFTimeInterval {
 	result, callErr := tryCFRunLoopTimerGetInterval(timer)
 	if callErr != nil {
 		panic(callErr)
@@ -10086,12 +10086,12 @@ func CFRunLoopTimerGetNextFireDate(timer CFRunLoopTimerRef) CFAbsoluteTime {
 	return result
 }
 
-var _cFRunLoopTimerGetOrder func(timer CFRunLoopTimerRef) int
+var _cFRunLoopTimerGetOrder func(timer CFRunLoopTimerRef) CFIndex
 var _cFRunLoopTimerGetOrderErr error
 
-func tryCFRunLoopTimerGetOrder(timer CFRunLoopTimerRef) (int, error) {
+func tryCFRunLoopTimerGetOrder(timer CFRunLoopTimerRef) (CFIndex, error) {
 	if _cFRunLoopTimerGetOrder == nil {
-		return 0, symbolCallError("CFRunLoopTimerGetOrder", "", _cFRunLoopTimerGetOrderErr)
+		return *new(CFIndex), symbolCallError("CFRunLoopTimerGetOrder", "", _cFRunLoopTimerGetOrderErr)
 	}
 	return _cFRunLoopTimerGetOrder(timer), nil
 }
@@ -10099,7 +10099,7 @@ func tryCFRunLoopTimerGetOrder(timer CFRunLoopTimerRef) (int, error) {
 // CFRunLoopTimerGetOrder returns the ordering parameter for a CFRunLoopTimer object.
 //
 // See: https://developer.apple.com/documentation/CoreFoundation/CFRunLoopTimerGetOrder(_:)
-func CFRunLoopTimerGetOrder(timer CFRunLoopTimerRef) int {
+func CFRunLoopTimerGetOrder(timer CFRunLoopTimerRef) CFIndex {
 	result, callErr := tryCFRunLoopTimerGetOrder(timer)
 	if callErr != nil {
 		panic(callErr)
@@ -10107,12 +10107,12 @@ func CFRunLoopTimerGetOrder(timer CFRunLoopTimerRef) int {
 	return result
 }
 
-var _cFRunLoopTimerGetTolerance func(timer CFRunLoopTimerRef) float64
+var _cFRunLoopTimerGetTolerance func(timer CFRunLoopTimerRef) CFTimeInterval
 var _cFRunLoopTimerGetToleranceErr error
 
-func tryCFRunLoopTimerGetTolerance(timer CFRunLoopTimerRef) (float64, error) {
+func tryCFRunLoopTimerGetTolerance(timer CFRunLoopTimerRef) (CFTimeInterval, error) {
 	if _cFRunLoopTimerGetTolerance == nil {
-		return 0.0, symbolCallError("CFRunLoopTimerGetTolerance", "10.9", _cFRunLoopTimerGetToleranceErr)
+		return *new(CFTimeInterval), symbolCallError("CFRunLoopTimerGetTolerance", "10.9", _cFRunLoopTimerGetToleranceErr)
 	}
 	return _cFRunLoopTimerGetTolerance(timer), nil
 }
@@ -10120,7 +10120,7 @@ func tryCFRunLoopTimerGetTolerance(timer CFRunLoopTimerRef) (float64, error) {
 // CFRunLoopTimerGetTolerance.
 //
 // See: https://developer.apple.com/documentation/CoreFoundation/CFRunLoopTimerGetTolerance(_:)
-func CFRunLoopTimerGetTolerance(timer CFRunLoopTimerRef) float64 {
+func CFRunLoopTimerGetTolerance(timer CFRunLoopTimerRef) CFTimeInterval {
 	result, callErr := tryCFRunLoopTimerGetTolerance(timer)
 	if callErr != nil {
 		panic(callErr)
@@ -10128,12 +10128,12 @@ func CFRunLoopTimerGetTolerance(timer CFRunLoopTimerRef) float64 {
 	return result
 }
 
-var _cFRunLoopTimerGetTypeID func() uint
+var _cFRunLoopTimerGetTypeID func() CFTypeID
 var _cFRunLoopTimerGetTypeIDErr error
 
-func tryCFRunLoopTimerGetTypeID() (uint, error) {
+func tryCFRunLoopTimerGetTypeID() (CFTypeID, error) {
 	if _cFRunLoopTimerGetTypeID == nil {
-		return 0, symbolCallError("CFRunLoopTimerGetTypeID", "", _cFRunLoopTimerGetTypeIDErr)
+		return *new(CFTypeID), symbolCallError("CFRunLoopTimerGetTypeID", "", _cFRunLoopTimerGetTypeIDErr)
 	}
 	return _cFRunLoopTimerGetTypeID(), nil
 }
@@ -10141,7 +10141,7 @@ func tryCFRunLoopTimerGetTypeID() (uint, error) {
 // CFRunLoopTimerGetTypeID returns the type identifier of the CFRunLoopTimer opaque type.
 //
 // See: https://developer.apple.com/documentation/CoreFoundation/CFRunLoopTimerGetTypeID()
-func CFRunLoopTimerGetTypeID() uint {
+func CFRunLoopTimerGetTypeID() CFTypeID {
 	result, callErr := tryCFRunLoopTimerGetTypeID()
 	if callErr != nil {
 		panic(callErr)
@@ -10210,10 +10210,10 @@ func CFRunLoopTimerSetNextFireDate(timer CFRunLoopTimerRef, fireDate CFAbsoluteT
 	}
 }
 
-var _cFRunLoopTimerSetTolerance func(timer CFRunLoopTimerRef, tolerance float64)
+var _cFRunLoopTimerSetTolerance func(timer CFRunLoopTimerRef, tolerance CFTimeInterval)
 var _cFRunLoopTimerSetToleranceErr error
 
-func tryCFRunLoopTimerSetTolerance(timer CFRunLoopTimerRef, tolerance float64) error {
+func tryCFRunLoopTimerSetTolerance(timer CFRunLoopTimerRef, tolerance CFTimeInterval) error {
 	if _cFRunLoopTimerSetTolerance == nil {
 		return symbolCallError("CFRunLoopTimerSetTolerance", "10.9", _cFRunLoopTimerSetToleranceErr)
 	}
@@ -10224,7 +10224,7 @@ func tryCFRunLoopTimerSetTolerance(timer CFRunLoopTimerRef, tolerance float64) e
 // CFRunLoopTimerSetTolerance.
 //
 // See: https://developer.apple.com/documentation/CoreFoundation/CFRunLoopTimerSetTolerance(_:_:)
-func CFRunLoopTimerSetTolerance(timer CFRunLoopTimerRef, tolerance float64) {
+func CFRunLoopTimerSetTolerance(timer CFRunLoopTimerRef, tolerance CFTimeInterval) {
 	if callErr := tryCFRunLoopTimerSetTolerance(timer, tolerance); callErr != nil {
 		panic(callErr)
 	}
@@ -10311,10 +10311,10 @@ func CFSetContainsValue(theSet CFSetRef, value unsafe.Pointer) bool {
 	return result
 }
 
-var _cFSetCreate func(allocator CFAllocatorRef, values unsafe.Pointer, numValues int, callBacks *CFSetCallBacks) CFSetRef
+var _cFSetCreate func(allocator CFAllocatorRef, values unsafe.Pointer, numValues CFIndex, callBacks *CFSetCallBacks) CFSetRef
 var _cFSetCreateErr error
 
-func tryCFSetCreate(allocator CFAllocatorRef, values unsafe.Pointer, numValues int, callBacks *CFSetCallBacks) (CFSetRef, error) {
+func tryCFSetCreate(allocator CFAllocatorRef, values unsafe.Pointer, numValues CFIndex, callBacks *CFSetCallBacks) (CFSetRef, error) {
 	if _cFSetCreate == nil {
 		return *new(CFSetRef), symbolCallError("CFSetCreate", "", _cFSetCreateErr)
 	}
@@ -10324,7 +10324,7 @@ func tryCFSetCreate(allocator CFAllocatorRef, values unsafe.Pointer, numValues i
 // CFSetCreate creates an immutable CFSet object containing supplied values.
 //
 // See: https://developer.apple.com/documentation/CoreFoundation/CFSetCreate(_:_:_:_:)
-func CFSetCreate(allocator CFAllocatorRef, values unsafe.Pointer, numValues int, callBacks *CFSetCallBacks) CFSetRef {
+func CFSetCreate(allocator CFAllocatorRef, values unsafe.Pointer, numValues CFIndex, callBacks *CFSetCallBacks) CFSetRef {
 	result, callErr := tryCFSetCreate(allocator, values, numValues, callBacks)
 	if callErr != nil {
 		panic(callErr)
@@ -10353,10 +10353,10 @@ func CFSetCreateCopy(allocator CFAllocatorRef, theSet CFSetRef) CFSetRef {
 	return result
 }
 
-var _cFSetCreateMutable func(allocator CFAllocatorRef, capacity int, callBacks *CFSetCallBacks) CFMutableSetRef
+var _cFSetCreateMutable func(allocator CFAllocatorRef, capacity CFIndex, callBacks *CFSetCallBacks) CFMutableSetRef
 var _cFSetCreateMutableErr error
 
-func tryCFSetCreateMutable(allocator CFAllocatorRef, capacity int, callBacks *CFSetCallBacks) (CFMutableSetRef, error) {
+func tryCFSetCreateMutable(allocator CFAllocatorRef, capacity CFIndex, callBacks *CFSetCallBacks) (CFMutableSetRef, error) {
 	if _cFSetCreateMutable == nil {
 		return *new(CFMutableSetRef), symbolCallError("CFSetCreateMutable", "", _cFSetCreateMutableErr)
 	}
@@ -10366,7 +10366,7 @@ func tryCFSetCreateMutable(allocator CFAllocatorRef, capacity int, callBacks *CF
 // CFSetCreateMutable creates an empty CFMutableSet object.
 //
 // See: https://developer.apple.com/documentation/CoreFoundation/CFSetCreateMutable(_:_:_:)
-func CFSetCreateMutable(allocator CFAllocatorRef, capacity int, callBacks *CFSetCallBacks) CFMutableSetRef {
+func CFSetCreateMutable(allocator CFAllocatorRef, capacity CFIndex, callBacks *CFSetCallBacks) CFMutableSetRef {
 	result, callErr := tryCFSetCreateMutable(allocator, capacity, callBacks)
 	if callErr != nil {
 		panic(callErr)
@@ -10374,10 +10374,10 @@ func CFSetCreateMutable(allocator CFAllocatorRef, capacity int, callBacks *CFSet
 	return result
 }
 
-var _cFSetCreateMutableCopy func(allocator CFAllocatorRef, capacity int, theSet CFSetRef) CFMutableSetRef
+var _cFSetCreateMutableCopy func(allocator CFAllocatorRef, capacity CFIndex, theSet CFSetRef) CFMutableSetRef
 var _cFSetCreateMutableCopyErr error
 
-func tryCFSetCreateMutableCopy(allocator CFAllocatorRef, capacity int, theSet CFSetRef) (CFMutableSetRef, error) {
+func tryCFSetCreateMutableCopy(allocator CFAllocatorRef, capacity CFIndex, theSet CFSetRef) (CFMutableSetRef, error) {
 	if _cFSetCreateMutableCopy == nil {
 		return *new(CFMutableSetRef), symbolCallError("CFSetCreateMutableCopy", "", _cFSetCreateMutableCopyErr)
 	}
@@ -10387,7 +10387,7 @@ func tryCFSetCreateMutableCopy(allocator CFAllocatorRef, capacity int, theSet CF
 // CFSetCreateMutableCopy creates a new mutable set with the values from another set.
 //
 // See: https://developer.apple.com/documentation/CoreFoundation/CFSetCreateMutableCopy(_:_:_:)
-func CFSetCreateMutableCopy(allocator CFAllocatorRef, capacity int, theSet CFSetRef) CFMutableSetRef {
+func CFSetCreateMutableCopy(allocator CFAllocatorRef, capacity CFIndex, theSet CFSetRef) CFMutableSetRef {
 	result, callErr := tryCFSetCreateMutableCopy(allocator, capacity, theSet)
 	if callErr != nil {
 		panic(callErr)
@@ -10395,12 +10395,12 @@ func CFSetCreateMutableCopy(allocator CFAllocatorRef, capacity int, theSet CFSet
 	return result
 }
 
-var _cFSetGetCount func(theSet CFSetRef) int
+var _cFSetGetCount func(theSet CFSetRef) CFIndex
 var _cFSetGetCountErr error
 
-func tryCFSetGetCount(theSet CFSetRef) (int, error) {
+func tryCFSetGetCount(theSet CFSetRef) (CFIndex, error) {
 	if _cFSetGetCount == nil {
-		return 0, symbolCallError("CFSetGetCount", "", _cFSetGetCountErr)
+		return *new(CFIndex), symbolCallError("CFSetGetCount", "", _cFSetGetCountErr)
 	}
 	return _cFSetGetCount(theSet), nil
 }
@@ -10408,7 +10408,7 @@ func tryCFSetGetCount(theSet CFSetRef) (int, error) {
 // CFSetGetCount returns the number of values currently in a set.
 //
 // See: https://developer.apple.com/documentation/CoreFoundation/CFSetGetCount(_:)
-func CFSetGetCount(theSet CFSetRef) int {
+func CFSetGetCount(theSet CFSetRef) CFIndex {
 	result, callErr := tryCFSetGetCount(theSet)
 	if callErr != nil {
 		panic(callErr)
@@ -10416,12 +10416,12 @@ func CFSetGetCount(theSet CFSetRef) int {
 	return result
 }
 
-var _cFSetGetCountOfValue func(theSet CFSetRef, value unsafe.Pointer) int
+var _cFSetGetCountOfValue func(theSet CFSetRef, value unsafe.Pointer) CFIndex
 var _cFSetGetCountOfValueErr error
 
-func tryCFSetGetCountOfValue(theSet CFSetRef, value unsafe.Pointer) (int, error) {
+func tryCFSetGetCountOfValue(theSet CFSetRef, value unsafe.Pointer) (CFIndex, error) {
 	if _cFSetGetCountOfValue == nil {
-		return 0, symbolCallError("CFSetGetCountOfValue", "", _cFSetGetCountOfValueErr)
+		return *new(CFIndex), symbolCallError("CFSetGetCountOfValue", "", _cFSetGetCountOfValueErr)
 	}
 	return _cFSetGetCountOfValue(theSet, value), nil
 }
@@ -10429,7 +10429,7 @@ func tryCFSetGetCountOfValue(theSet CFSetRef, value unsafe.Pointer) (int, error)
 // CFSetGetCountOfValue returns the number of values in a set that match a given value.
 //
 // See: https://developer.apple.com/documentation/CoreFoundation/CFSetGetCountOfValue(_:_:)
-func CFSetGetCountOfValue(theSet CFSetRef, value unsafe.Pointer) int {
+func CFSetGetCountOfValue(theSet CFSetRef, value unsafe.Pointer) CFIndex {
 	result, callErr := tryCFSetGetCountOfValue(theSet, value)
 	if callErr != nil {
 		panic(callErr)
@@ -10437,12 +10437,12 @@ func CFSetGetCountOfValue(theSet CFSetRef, value unsafe.Pointer) int {
 	return result
 }
 
-var _cFSetGetTypeID func() uint
+var _cFSetGetTypeID func() CFTypeID
 var _cFSetGetTypeIDErr error
 
-func tryCFSetGetTypeID() (uint, error) {
+func tryCFSetGetTypeID() (CFTypeID, error) {
 	if _cFSetGetTypeID == nil {
-		return 0, symbolCallError("CFSetGetTypeID", "", _cFSetGetTypeIDErr)
+		return *new(CFTypeID), symbolCallError("CFSetGetTypeID", "", _cFSetGetTypeIDErr)
 	}
 	return _cFSetGetTypeID(), nil
 }
@@ -10450,7 +10450,7 @@ func tryCFSetGetTypeID() (uint, error) {
 // CFSetGetTypeID returns the type identifier for the CFSet type.
 //
 // See: https://developer.apple.com/documentation/CoreFoundation/CFSetGetTypeID()
-func CFSetGetTypeID() uint {
+func CFSetGetTypeID() CFTypeID {
 	result, callErr := tryCFSetGetTypeID()
 	if callErr != nil {
 		panic(callErr)
@@ -10640,10 +10640,10 @@ func CFShowStr(str CFStringRef) {
 	}
 }
 
-var _cFSocketConnectToAddress func(s CFSocketRef, address CFDataRef, timeout float64) CFSocketError
+var _cFSocketConnectToAddress func(s CFSocketRef, address CFDataRef, timeout CFTimeInterval) CFSocketError
 var _cFSocketConnectToAddressErr error
 
-func tryCFSocketConnectToAddress(s CFSocketRef, address CFDataRef, timeout float64) (CFSocketError, error) {
+func tryCFSocketConnectToAddress(s CFSocketRef, address CFDataRef, timeout CFTimeInterval) (CFSocketError, error) {
 	if _cFSocketConnectToAddress == nil {
 		return *new(CFSocketError), symbolCallError("CFSocketConnectToAddress", "", _cFSocketConnectToAddressErr)
 	}
@@ -10653,7 +10653,7 @@ func tryCFSocketConnectToAddress(s CFSocketRef, address CFDataRef, timeout float
 // CFSocketConnectToAddress opens a connection to a remote socket.
 //
 // See: https://developer.apple.com/documentation/CoreFoundation/CFSocketConnectToAddress(_:_:_:)
-func CFSocketConnectToAddress(s CFSocketRef, address CFDataRef, timeout float64) CFSocketError {
+func CFSocketConnectToAddress(s CFSocketRef, address CFDataRef, timeout CFTimeInterval) CFSocketError {
 	result, callErr := tryCFSocketConnectToAddress(s, address, timeout)
 	if callErr != nil {
 		panic(callErr)
@@ -10703,10 +10703,10 @@ func CFSocketCopyPeerAddress(s CFSocketRef) CFDataRef {
 	return result
 }
 
-var _cFSocketCopyRegisteredSocketSignature func(nameServerSignature *CFSocketSignature, timeout float64, name CFStringRef, signature *CFSocketSignature, nameServerAddress *CFDataRef) CFSocketError
+var _cFSocketCopyRegisteredSocketSignature func(nameServerSignature *CFSocketSignature, timeout CFTimeInterval, name CFStringRef, signature *CFSocketSignature, nameServerAddress *CFDataRef) CFSocketError
 var _cFSocketCopyRegisteredSocketSignatureErr error
 
-func tryCFSocketCopyRegisteredSocketSignature(nameServerSignature *CFSocketSignature, timeout float64, name CFStringRef, signature *CFSocketSignature, nameServerAddress *CFDataRef) (CFSocketError, error) {
+func tryCFSocketCopyRegisteredSocketSignature(nameServerSignature *CFSocketSignature, timeout CFTimeInterval, name CFStringRef, signature *CFSocketSignature, nameServerAddress *CFDataRef) (CFSocketError, error) {
 	if _cFSocketCopyRegisteredSocketSignature == nil {
 		return *new(CFSocketError), symbolCallError("CFSocketCopyRegisteredSocketSignature", "", _cFSocketCopyRegisteredSocketSignatureErr)
 	}
@@ -10716,7 +10716,7 @@ func tryCFSocketCopyRegisteredSocketSignature(nameServerSignature *CFSocketSigna
 // CFSocketCopyRegisteredSocketSignature returns a socket signature registered with a CFSocket name server.
 //
 // See: https://developer.apple.com/documentation/CoreFoundation/CFSocketCopyRegisteredSocketSignature(_:_:_:_:_:)
-func CFSocketCopyRegisteredSocketSignature(nameServerSignature *CFSocketSignature, timeout float64, name CFStringRef, signature *CFSocketSignature, nameServerAddress *CFDataRef) CFSocketError {
+func CFSocketCopyRegisteredSocketSignature(nameServerSignature *CFSocketSignature, timeout CFTimeInterval, name CFStringRef, signature *CFSocketSignature, nameServerAddress *CFDataRef) CFSocketError {
 	result, callErr := tryCFSocketCopyRegisteredSocketSignature(nameServerSignature, timeout, name, signature, nameServerAddress)
 	if callErr != nil {
 		panic(callErr)
@@ -10724,10 +10724,10 @@ func CFSocketCopyRegisteredSocketSignature(nameServerSignature *CFSocketSignatur
 	return result
 }
 
-var _cFSocketCopyRegisteredValue func(nameServerSignature *CFSocketSignature, timeout float64, name CFStringRef, value *CFPropertyListRef, nameServerAddress *CFDataRef) CFSocketError
+var _cFSocketCopyRegisteredValue func(nameServerSignature *CFSocketSignature, timeout CFTimeInterval, name CFStringRef, value *CFPropertyListRef, nameServerAddress *CFDataRef) CFSocketError
 var _cFSocketCopyRegisteredValueErr error
 
-func tryCFSocketCopyRegisteredValue(nameServerSignature *CFSocketSignature, timeout float64, name CFStringRef, value *CFPropertyListRef, nameServerAddress *CFDataRef) (CFSocketError, error) {
+func tryCFSocketCopyRegisteredValue(nameServerSignature *CFSocketSignature, timeout CFTimeInterval, name CFStringRef, value *CFPropertyListRef, nameServerAddress *CFDataRef) (CFSocketError, error) {
 	if _cFSocketCopyRegisteredValue == nil {
 		return *new(CFSocketError), symbolCallError("CFSocketCopyRegisteredValue", "", _cFSocketCopyRegisteredValueErr)
 	}
@@ -10737,7 +10737,7 @@ func tryCFSocketCopyRegisteredValue(nameServerSignature *CFSocketSignature, time
 // CFSocketCopyRegisteredValue returns a value registered with a CFSocket name server.
 //
 // See: https://developer.apple.com/documentation/CoreFoundation/CFSocketCopyRegisteredValue(_:_:_:_:_:)
-func CFSocketCopyRegisteredValue(nameServerSignature *CFSocketSignature, timeout float64, name CFStringRef, value *CFPropertyListRef, nameServerAddress *CFDataRef) CFSocketError {
+func CFSocketCopyRegisteredValue(nameServerSignature *CFSocketSignature, timeout CFTimeInterval, name CFStringRef, value *CFPropertyListRef, nameServerAddress *CFDataRef) CFSocketError {
 	result, callErr := tryCFSocketCopyRegisteredValue(nameServerSignature, timeout, name, value, nameServerAddress)
 	if callErr != nil {
 		panic(callErr)
@@ -10745,10 +10745,10 @@ func CFSocketCopyRegisteredValue(nameServerSignature *CFSocketSignature, timeout
 	return result
 }
 
-var _cFSocketCreate func(allocator CFAllocatorRef, protocolFamily int32, socketType int32, protocol_ int32, callBackTypes uint64, callout CFSocketCallBack, context *CFSocketContext) CFSocketRef
+var _cFSocketCreate func(allocator CFAllocatorRef, protocolFamily int32, socketType int32, protocol_ int32, callBackTypes CFOptionFlags, callout CFSocketCallBack, context *CFSocketContext) CFSocketRef
 var _cFSocketCreateErr error
 
-func tryCFSocketCreate(allocator CFAllocatorRef, protocolFamily int32, socketType int32, protocol_ int32, callBackTypes uint64, callout CFSocketCallBack, context *CFSocketContext) (CFSocketRef, error) {
+func tryCFSocketCreate(allocator CFAllocatorRef, protocolFamily int32, socketType int32, protocol_ int32, callBackTypes CFOptionFlags, callout CFSocketCallBack, context *CFSocketContext) (CFSocketRef, error) {
 	if _cFSocketCreate == nil {
 		return *new(CFSocketRef), symbolCallError("CFSocketCreate", "", _cFSocketCreateErr)
 	}
@@ -10758,7 +10758,7 @@ func tryCFSocketCreate(allocator CFAllocatorRef, protocolFamily int32, socketTyp
 // CFSocketCreate creates a CFSocket object of a specified protocol and type.
 //
 // See: https://developer.apple.com/documentation/CoreFoundation/CFSocketCreate(_:_:_:_:_:_:_:)
-func CFSocketCreate(allocator CFAllocatorRef, protocolFamily int32, socketType int32, protocol_ int32, callBackTypes uint64, callout CFSocketCallBack, context *CFSocketContext) CFSocketRef {
+func CFSocketCreate(allocator CFAllocatorRef, protocolFamily int32, socketType int32, protocol_ int32, callBackTypes CFOptionFlags, callout CFSocketCallBack, context *CFSocketContext) CFSocketRef {
 	result, callErr := tryCFSocketCreate(allocator, protocolFamily, socketType, protocol_, callBackTypes, callout, context)
 	if callErr != nil {
 		panic(callErr)
@@ -10766,10 +10766,10 @@ func CFSocketCreate(allocator CFAllocatorRef, protocolFamily int32, socketType i
 	return result
 }
 
-var _cFSocketCreateConnectedToSocketSignature func(allocator CFAllocatorRef, signature *CFSocketSignature, callBackTypes uint64, callout CFSocketCallBack, context *CFSocketContext, timeout float64) CFSocketRef
+var _cFSocketCreateConnectedToSocketSignature func(allocator CFAllocatorRef, signature *CFSocketSignature, callBackTypes CFOptionFlags, callout CFSocketCallBack, context *CFSocketContext, timeout CFTimeInterval) CFSocketRef
 var _cFSocketCreateConnectedToSocketSignatureErr error
 
-func tryCFSocketCreateConnectedToSocketSignature(allocator CFAllocatorRef, signature *CFSocketSignature, callBackTypes uint64, callout CFSocketCallBack, context *CFSocketContext, timeout float64) (CFSocketRef, error) {
+func tryCFSocketCreateConnectedToSocketSignature(allocator CFAllocatorRef, signature *CFSocketSignature, callBackTypes CFOptionFlags, callout CFSocketCallBack, context *CFSocketContext, timeout CFTimeInterval) (CFSocketRef, error) {
 	if _cFSocketCreateConnectedToSocketSignature == nil {
 		return *new(CFSocketRef), symbolCallError("CFSocketCreateConnectedToSocketSignature", "", _cFSocketCreateConnectedToSocketSignatureErr)
 	}
@@ -10779,7 +10779,7 @@ func tryCFSocketCreateConnectedToSocketSignature(allocator CFAllocatorRef, signa
 // CFSocketCreateConnectedToSocketSignature creates a CFSocket object and opens a connection to a remote socket.
 //
 // See: https://developer.apple.com/documentation/CoreFoundation/CFSocketCreateConnectedToSocketSignature(_:_:_:_:_:_:)
-func CFSocketCreateConnectedToSocketSignature(allocator CFAllocatorRef, signature *CFSocketSignature, callBackTypes uint64, callout CFSocketCallBack, context *CFSocketContext, timeout float64) CFSocketRef {
+func CFSocketCreateConnectedToSocketSignature(allocator CFAllocatorRef, signature *CFSocketSignature, callBackTypes CFOptionFlags, callout CFSocketCallBack, context *CFSocketContext, timeout CFTimeInterval) CFSocketRef {
 	result, callErr := tryCFSocketCreateConnectedToSocketSignature(allocator, signature, callBackTypes, callout, context, timeout)
 	if callErr != nil {
 		panic(callErr)
@@ -10787,10 +10787,10 @@ func CFSocketCreateConnectedToSocketSignature(allocator CFAllocatorRef, signatur
 	return result
 }
 
-var _cFSocketCreateRunLoopSource func(allocator CFAllocatorRef, s CFSocketRef, order int) CFRunLoopSourceRef
+var _cFSocketCreateRunLoopSource func(allocator CFAllocatorRef, s CFSocketRef, order CFIndex) CFRunLoopSourceRef
 var _cFSocketCreateRunLoopSourceErr error
 
-func tryCFSocketCreateRunLoopSource(allocator CFAllocatorRef, s CFSocketRef, order int) (CFRunLoopSourceRef, error) {
+func tryCFSocketCreateRunLoopSource(allocator CFAllocatorRef, s CFSocketRef, order CFIndex) (CFRunLoopSourceRef, error) {
 	if _cFSocketCreateRunLoopSource == nil {
 		return *new(CFRunLoopSourceRef), symbolCallError("CFSocketCreateRunLoopSource", "", _cFSocketCreateRunLoopSourceErr)
 	}
@@ -10800,7 +10800,7 @@ func tryCFSocketCreateRunLoopSource(allocator CFAllocatorRef, s CFSocketRef, ord
 // CFSocketCreateRunLoopSource creates a CFRunLoopSource object for a CFSocket object.
 //
 // See: https://developer.apple.com/documentation/CoreFoundation/CFSocketCreateRunLoopSource(_:_:_:)
-func CFSocketCreateRunLoopSource(allocator CFAllocatorRef, s CFSocketRef, order int) CFRunLoopSourceRef {
+func CFSocketCreateRunLoopSource(allocator CFAllocatorRef, s CFSocketRef, order CFIndex) CFRunLoopSourceRef {
 	result, callErr := tryCFSocketCreateRunLoopSource(allocator, s, order)
 	if callErr != nil {
 		panic(callErr)
@@ -10808,10 +10808,10 @@ func CFSocketCreateRunLoopSource(allocator CFAllocatorRef, s CFSocketRef, order 
 	return result
 }
 
-var _cFSocketCreateWithNative func(allocator CFAllocatorRef, sock CFSocketNativeHandle, callBackTypes uint64, callout CFSocketCallBack, context *CFSocketContext) CFSocketRef
+var _cFSocketCreateWithNative func(allocator CFAllocatorRef, sock CFSocketNativeHandle, callBackTypes CFOptionFlags, callout CFSocketCallBack, context *CFSocketContext) CFSocketRef
 var _cFSocketCreateWithNativeErr error
 
-func tryCFSocketCreateWithNative(allocator CFAllocatorRef, sock CFSocketNativeHandle, callBackTypes uint64, callout CFSocketCallBack, context *CFSocketContext) (CFSocketRef, error) {
+func tryCFSocketCreateWithNative(allocator CFAllocatorRef, sock CFSocketNativeHandle, callBackTypes CFOptionFlags, callout CFSocketCallBack, context *CFSocketContext) (CFSocketRef, error) {
 	if _cFSocketCreateWithNative == nil {
 		return *new(CFSocketRef), symbolCallError("CFSocketCreateWithNative", "", _cFSocketCreateWithNativeErr)
 	}
@@ -10821,7 +10821,7 @@ func tryCFSocketCreateWithNative(allocator CFAllocatorRef, sock CFSocketNativeHa
 // CFSocketCreateWithNative creates a CFSocket object for a pre-existing native socket.
 //
 // See: https://developer.apple.com/documentation/CoreFoundation/CFSocketCreateWithNative(_:_:_:_:_:)
-func CFSocketCreateWithNative(allocator CFAllocatorRef, sock CFSocketNativeHandle, callBackTypes uint64, callout CFSocketCallBack, context *CFSocketContext) CFSocketRef {
+func CFSocketCreateWithNative(allocator CFAllocatorRef, sock CFSocketNativeHandle, callBackTypes CFOptionFlags, callout CFSocketCallBack, context *CFSocketContext) CFSocketRef {
 	result, callErr := tryCFSocketCreateWithNative(allocator, sock, callBackTypes, callout, context)
 	if callErr != nil {
 		panic(callErr)
@@ -10829,10 +10829,10 @@ func CFSocketCreateWithNative(allocator CFAllocatorRef, sock CFSocketNativeHandl
 	return result
 }
 
-var _cFSocketCreateWithSocketSignature func(allocator CFAllocatorRef, signature *CFSocketSignature, callBackTypes uint64, callout CFSocketCallBack, context *CFSocketContext) CFSocketRef
+var _cFSocketCreateWithSocketSignature func(allocator CFAllocatorRef, signature *CFSocketSignature, callBackTypes CFOptionFlags, callout CFSocketCallBack, context *CFSocketContext) CFSocketRef
 var _cFSocketCreateWithSocketSignatureErr error
 
-func tryCFSocketCreateWithSocketSignature(allocator CFAllocatorRef, signature *CFSocketSignature, callBackTypes uint64, callout CFSocketCallBack, context *CFSocketContext) (CFSocketRef, error) {
+func tryCFSocketCreateWithSocketSignature(allocator CFAllocatorRef, signature *CFSocketSignature, callBackTypes CFOptionFlags, callout CFSocketCallBack, context *CFSocketContext) (CFSocketRef, error) {
 	if _cFSocketCreateWithSocketSignature == nil {
 		return *new(CFSocketRef), symbolCallError("CFSocketCreateWithSocketSignature", "", _cFSocketCreateWithSocketSignatureErr)
 	}
@@ -10842,7 +10842,7 @@ func tryCFSocketCreateWithSocketSignature(allocator CFAllocatorRef, signature *C
 // CFSocketCreateWithSocketSignature creates a CFSocket object using information from a CFSocketSignature structure.
 //
 // See: https://developer.apple.com/documentation/CoreFoundation/CFSocketCreateWithSocketSignature(_:_:_:_:_:)
-func CFSocketCreateWithSocketSignature(allocator CFAllocatorRef, signature *CFSocketSignature, callBackTypes uint64, callout CFSocketCallBack, context *CFSocketContext) CFSocketRef {
+func CFSocketCreateWithSocketSignature(allocator CFAllocatorRef, signature *CFSocketSignature, callBackTypes CFOptionFlags, callout CFSocketCallBack, context *CFSocketContext) CFSocketRef {
 	result, callErr := tryCFSocketCreateWithSocketSignature(allocator, signature, callBackTypes, callout, context)
 	if callErr != nil {
 		panic(callErr)
@@ -10850,10 +10850,10 @@ func CFSocketCreateWithSocketSignature(allocator CFAllocatorRef, signature *CFSo
 	return result
 }
 
-var _cFSocketDisableCallBacks func(s CFSocketRef, callBackTypes uint64)
+var _cFSocketDisableCallBacks func(s CFSocketRef, callBackTypes CFOptionFlags)
 var _cFSocketDisableCallBacksErr error
 
-func tryCFSocketDisableCallBacks(s CFSocketRef, callBackTypes uint64) error {
+func tryCFSocketDisableCallBacks(s CFSocketRef, callBackTypes CFOptionFlags) error {
 	if _cFSocketDisableCallBacks == nil {
 		return symbolCallError("CFSocketDisableCallBacks", "", _cFSocketDisableCallBacksErr)
 	}
@@ -10864,16 +10864,16 @@ func tryCFSocketDisableCallBacks(s CFSocketRef, callBackTypes uint64) error {
 // CFSocketDisableCallBacks disables the callback function of a CFSocket object for certain types of socket activity.
 //
 // See: https://developer.apple.com/documentation/CoreFoundation/CFSocketDisableCallBacks(_:_:)
-func CFSocketDisableCallBacks(s CFSocketRef, callBackTypes uint64) {
+func CFSocketDisableCallBacks(s CFSocketRef, callBackTypes CFOptionFlags) {
 	if callErr := tryCFSocketDisableCallBacks(s, callBackTypes); callErr != nil {
 		panic(callErr)
 	}
 }
 
-var _cFSocketEnableCallBacks func(s CFSocketRef, callBackTypes uint64)
+var _cFSocketEnableCallBacks func(s CFSocketRef, callBackTypes CFOptionFlags)
 var _cFSocketEnableCallBacksErr error
 
-func tryCFSocketEnableCallBacks(s CFSocketRef, callBackTypes uint64) error {
+func tryCFSocketEnableCallBacks(s CFSocketRef, callBackTypes CFOptionFlags) error {
 	if _cFSocketEnableCallBacks == nil {
 		return symbolCallError("CFSocketEnableCallBacks", "", _cFSocketEnableCallBacksErr)
 	}
@@ -10884,7 +10884,7 @@ func tryCFSocketEnableCallBacks(s CFSocketRef, callBackTypes uint64) error {
 // CFSocketEnableCallBacks enables the callback function of a CFSocket object for certain types of socket activity.
 //
 // See: https://developer.apple.com/documentation/CoreFoundation/CFSocketEnableCallBacks(_:_:)
-func CFSocketEnableCallBacks(s CFSocketRef, callBackTypes uint64) {
+func CFSocketEnableCallBacks(s CFSocketRef, callBackTypes CFOptionFlags) {
 	if callErr := tryCFSocketEnableCallBacks(s, callBackTypes); callErr != nil {
 		panic(callErr)
 	}
@@ -10952,12 +10952,12 @@ func CFSocketGetNative(s CFSocketRef) CFSocketNativeHandle {
 	return result
 }
 
-var _cFSocketGetSocketFlags func(s CFSocketRef) uint64
+var _cFSocketGetSocketFlags func(s CFSocketRef) CFOptionFlags
 var _cFSocketGetSocketFlagsErr error
 
-func tryCFSocketGetSocketFlags(s CFSocketRef) (uint64, error) {
+func tryCFSocketGetSocketFlags(s CFSocketRef) (CFOptionFlags, error) {
 	if _cFSocketGetSocketFlags == nil {
-		return 0, symbolCallError("CFSocketGetSocketFlags", "", _cFSocketGetSocketFlagsErr)
+		return *new(CFOptionFlags), symbolCallError("CFSocketGetSocketFlags", "", _cFSocketGetSocketFlagsErr)
 	}
 	return _cFSocketGetSocketFlags(s), nil
 }
@@ -10965,7 +10965,7 @@ func tryCFSocketGetSocketFlags(s CFSocketRef) (uint64, error) {
 // CFSocketGetSocketFlags returns flags that control certain behaviors of a CFSocket object.
 //
 // See: https://developer.apple.com/documentation/CoreFoundation/CFSocketGetSocketFlags(_:)
-func CFSocketGetSocketFlags(s CFSocketRef) uint64 {
+func CFSocketGetSocketFlags(s CFSocketRef) CFOptionFlags {
 	result, callErr := tryCFSocketGetSocketFlags(s)
 	if callErr != nil {
 		panic(callErr)
@@ -10973,12 +10973,12 @@ func CFSocketGetSocketFlags(s CFSocketRef) uint64 {
 	return result
 }
 
-var _cFSocketGetTypeID func() uint
+var _cFSocketGetTypeID func() CFTypeID
 var _cFSocketGetTypeIDErr error
 
-func tryCFSocketGetTypeID() (uint, error) {
+func tryCFSocketGetTypeID() (CFTypeID, error) {
 	if _cFSocketGetTypeID == nil {
-		return 0, symbolCallError("CFSocketGetTypeID", "", _cFSocketGetTypeIDErr)
+		return *new(CFTypeID), symbolCallError("CFSocketGetTypeID", "", _cFSocketGetTypeIDErr)
 	}
 	return _cFSocketGetTypeID(), nil
 }
@@ -10986,7 +10986,7 @@ func tryCFSocketGetTypeID() (uint, error) {
 // CFSocketGetTypeID returns the type identifier for the CFSocket opaque type.
 //
 // See: https://developer.apple.com/documentation/CoreFoundation/CFSocketGetTypeID()
-func CFSocketGetTypeID() uint {
+func CFSocketGetTypeID() CFTypeID {
 	result, callErr := tryCFSocketGetTypeID()
 	if callErr != nil {
 		panic(callErr)
@@ -11035,10 +11035,10 @@ func CFSocketIsValid(s CFSocketRef) bool {
 	return result
 }
 
-var _cFSocketRegisterSocketSignature func(nameServerSignature *CFSocketSignature, timeout float64, name CFStringRef, signature *CFSocketSignature) CFSocketError
+var _cFSocketRegisterSocketSignature func(nameServerSignature *CFSocketSignature, timeout CFTimeInterval, name CFStringRef, signature *CFSocketSignature) CFSocketError
 var _cFSocketRegisterSocketSignatureErr error
 
-func tryCFSocketRegisterSocketSignature(nameServerSignature *CFSocketSignature, timeout float64, name CFStringRef, signature *CFSocketSignature) (CFSocketError, error) {
+func tryCFSocketRegisterSocketSignature(nameServerSignature *CFSocketSignature, timeout CFTimeInterval, name CFStringRef, signature *CFSocketSignature) (CFSocketError, error) {
 	if _cFSocketRegisterSocketSignature == nil {
 		return *new(CFSocketError), symbolCallError("CFSocketRegisterSocketSignature", "", _cFSocketRegisterSocketSignatureErr)
 	}
@@ -11048,7 +11048,7 @@ func tryCFSocketRegisterSocketSignature(nameServerSignature *CFSocketSignature, 
 // CFSocketRegisterSocketSignature registers a socket signature with a CFSocket name server.
 //
 // See: https://developer.apple.com/documentation/CoreFoundation/CFSocketRegisterSocketSignature(_:_:_:_:)
-func CFSocketRegisterSocketSignature(nameServerSignature *CFSocketSignature, timeout float64, name CFStringRef, signature *CFSocketSignature) CFSocketError {
+func CFSocketRegisterSocketSignature(nameServerSignature *CFSocketSignature, timeout CFTimeInterval, name CFStringRef, signature *CFSocketSignature) CFSocketError {
 	result, callErr := tryCFSocketRegisterSocketSignature(nameServerSignature, timeout, name, signature)
 	if callErr != nil {
 		panic(callErr)
@@ -11056,10 +11056,10 @@ func CFSocketRegisterSocketSignature(nameServerSignature *CFSocketSignature, tim
 	return result
 }
 
-var _cFSocketRegisterValue func(nameServerSignature *CFSocketSignature, timeout float64, name CFStringRef, value CFPropertyListRef) CFSocketError
+var _cFSocketRegisterValue func(nameServerSignature *CFSocketSignature, timeout CFTimeInterval, name CFStringRef, value CFPropertyListRef) CFSocketError
 var _cFSocketRegisterValueErr error
 
-func tryCFSocketRegisterValue(nameServerSignature *CFSocketSignature, timeout float64, name CFStringRef, value CFPropertyListRef) (CFSocketError, error) {
+func tryCFSocketRegisterValue(nameServerSignature *CFSocketSignature, timeout CFTimeInterval, name CFStringRef, value CFPropertyListRef) (CFSocketError, error) {
 	if _cFSocketRegisterValue == nil {
 		return *new(CFSocketError), symbolCallError("CFSocketRegisterValue", "", _cFSocketRegisterValueErr)
 	}
@@ -11069,7 +11069,7 @@ func tryCFSocketRegisterValue(nameServerSignature *CFSocketSignature, timeout fl
 // CFSocketRegisterValue registers a property-list value with a CFSocket name server.
 //
 // See: https://developer.apple.com/documentation/CoreFoundation/CFSocketRegisterValue(_:_:_:_:)
-func CFSocketRegisterValue(nameServerSignature *CFSocketSignature, timeout float64, name CFStringRef, value CFPropertyListRef) CFSocketError {
+func CFSocketRegisterValue(nameServerSignature *CFSocketSignature, timeout CFTimeInterval, name CFStringRef, value CFPropertyListRef) CFSocketError {
 	result, callErr := tryCFSocketRegisterValue(nameServerSignature, timeout, name, value)
 	if callErr != nil {
 		panic(callErr)
@@ -11077,10 +11077,10 @@ func CFSocketRegisterValue(nameServerSignature *CFSocketSignature, timeout float
 	return result
 }
 
-var _cFSocketSendData func(s CFSocketRef, address CFDataRef, data CFDataRef, timeout float64) CFSocketError
+var _cFSocketSendData func(s CFSocketRef, address CFDataRef, data CFDataRef, timeout CFTimeInterval) CFSocketError
 var _cFSocketSendDataErr error
 
-func tryCFSocketSendData(s CFSocketRef, address CFDataRef, data CFDataRef, timeout float64) (CFSocketError, error) {
+func tryCFSocketSendData(s CFSocketRef, address CFDataRef, data CFDataRef, timeout CFTimeInterval) (CFSocketError, error) {
 	if _cFSocketSendData == nil {
 		return *new(CFSocketError), symbolCallError("CFSocketSendData", "", _cFSocketSendDataErr)
 	}
@@ -11090,7 +11090,7 @@ func tryCFSocketSendData(s CFSocketRef, address CFDataRef, data CFDataRef, timeo
 // CFSocketSendData sends data over a CFSocket object.
 //
 // See: https://developer.apple.com/documentation/CoreFoundation/CFSocketSendData(_:_:_:_:)
-func CFSocketSendData(s CFSocketRef, address CFDataRef, data CFDataRef, timeout float64) CFSocketError {
+func CFSocketSendData(s CFSocketRef, address CFDataRef, data CFDataRef, timeout CFTimeInterval) CFSocketError {
 	result, callErr := tryCFSocketSendData(s, address, data, timeout)
 	if callErr != nil {
 		panic(callErr)
@@ -11139,10 +11139,10 @@ func CFSocketSetDefaultNameRegistryPortNumber(port uint16) {
 	}
 }
 
-var _cFSocketSetSocketFlags func(s CFSocketRef, flags uint64)
+var _cFSocketSetSocketFlags func(s CFSocketRef, flags CFOptionFlags)
 var _cFSocketSetSocketFlagsErr error
 
-func tryCFSocketSetSocketFlags(s CFSocketRef, flags uint64) error {
+func tryCFSocketSetSocketFlags(s CFSocketRef, flags CFOptionFlags) error {
 	if _cFSocketSetSocketFlags == nil {
 		return symbolCallError("CFSocketSetSocketFlags", "", _cFSocketSetSocketFlagsErr)
 	}
@@ -11153,16 +11153,16 @@ func tryCFSocketSetSocketFlags(s CFSocketRef, flags uint64) error {
 // CFSocketSetSocketFlags sets flags that control certain behaviors of a CFSocket object.
 //
 // See: https://developer.apple.com/documentation/CoreFoundation/CFSocketSetSocketFlags(_:_:)
-func CFSocketSetSocketFlags(s CFSocketRef, flags uint64) {
+func CFSocketSetSocketFlags(s CFSocketRef, flags CFOptionFlags) {
 	if callErr := tryCFSocketSetSocketFlags(s, flags); callErr != nil {
 		panic(callErr)
 	}
 }
 
-var _cFSocketUnregister func(nameServerSignature *CFSocketSignature, timeout float64, name CFStringRef) CFSocketError
+var _cFSocketUnregister func(nameServerSignature *CFSocketSignature, timeout CFTimeInterval, name CFStringRef) CFSocketError
 var _cFSocketUnregisterErr error
 
-func tryCFSocketUnregister(nameServerSignature *CFSocketSignature, timeout float64, name CFStringRef) (CFSocketError, error) {
+func tryCFSocketUnregister(nameServerSignature *CFSocketSignature, timeout CFTimeInterval, name CFStringRef) (CFSocketError, error) {
 	if _cFSocketUnregister == nil {
 		return *new(CFSocketError), symbolCallError("CFSocketUnregister", "", _cFSocketUnregisterErr)
 	}
@@ -11172,7 +11172,7 @@ func tryCFSocketUnregister(nameServerSignature *CFSocketSignature, timeout float
 // CFSocketUnregister unregisters a value or socket signature with a CFSocket name server.
 //
 // See: https://developer.apple.com/documentation/CoreFoundation/CFSocketUnregister(_:_:_:)
-func CFSocketUnregister(nameServerSignature *CFSocketSignature, timeout float64, name CFStringRef) CFSocketError {
+func CFSocketUnregister(nameServerSignature *CFSocketSignature, timeout CFTimeInterval, name CFStringRef) CFSocketError {
 	result, callErr := tryCFSocketUnregister(nameServerSignature, timeout, name)
 	if callErr != nil {
 		panic(callErr)
@@ -11180,10 +11180,10 @@ func CFSocketUnregister(nameServerSignature *CFSocketSignature, timeout float64,
 	return result
 }
 
-var _cFStreamCreateBoundPair func(alloc CFAllocatorRef, readStream *CFReadStreamRef, writeStream *CFWriteStreamRef, transferBufferSize int)
+var _cFStreamCreateBoundPair func(alloc CFAllocatorRef, readStream *CFReadStreamRef, writeStream *CFWriteStreamRef, transferBufferSize CFIndex)
 var _cFStreamCreateBoundPairErr error
 
-func tryCFStreamCreateBoundPair(alloc CFAllocatorRef, readStream *CFReadStreamRef, writeStream *CFWriteStreamRef, transferBufferSize int) error {
+func tryCFStreamCreateBoundPair(alloc CFAllocatorRef, readStream *CFReadStreamRef, writeStream *CFWriteStreamRef, transferBufferSize CFIndex) error {
 	if _cFStreamCreateBoundPair == nil {
 		return symbolCallError("CFStreamCreateBoundPair", "", _cFStreamCreateBoundPairErr)
 	}
@@ -11194,7 +11194,7 @@ func tryCFStreamCreateBoundPair(alloc CFAllocatorRef, readStream *CFReadStreamRe
 // CFStreamCreateBoundPair creates a bound pair of read and write streams.
 //
 // See: https://developer.apple.com/documentation/CoreFoundation/CFStreamCreateBoundPair(_:_:_:_:)
-func CFStreamCreateBoundPair(alloc CFAllocatorRef, readStream *CFReadStreamRef, writeStream *CFWriteStreamRef, transferBufferSize int) {
+func CFStreamCreateBoundPair(alloc CFAllocatorRef, readStream *CFReadStreamRef, writeStream *CFWriteStreamRef, transferBufferSize CFIndex) {
 	if callErr := tryCFStreamCreateBoundPair(alloc, readStream, writeStream, transferBufferSize); callErr != nil {
 		panic(callErr)
 	}
@@ -11286,10 +11286,10 @@ func CFStringAppend(theString CFMutableStringRef, appendedString CFStringRef) {
 	}
 }
 
-var _cFStringAppendCString func(theString CFMutableStringRef, cStr string, encoding uint32)
+var _cFStringAppendCString func(theString CFMutableStringRef, cStr string, encoding CFStringEncoding)
 var _cFStringAppendCStringErr error
 
-func tryCFStringAppendCString(theString CFMutableStringRef, cStr string, encoding uint32) error {
+func tryCFStringAppendCString(theString CFMutableStringRef, cStr string, encoding CFStringEncoding) error {
 	if _cFStringAppendCString == nil {
 		return symbolCallError("CFStringAppendCString", "", _cFStringAppendCStringErr)
 	}
@@ -11300,16 +11300,16 @@ func tryCFStringAppendCString(theString CFMutableStringRef, cStr string, encodin
 // CFStringAppendCString appends a C string to the character contents of a CFMutableString object.
 //
 // See: https://developer.apple.com/documentation/CoreFoundation/CFStringAppendCString(_:_:_:)
-func CFStringAppendCString(theString CFMutableStringRef, cStr string, encoding uint32) {
+func CFStringAppendCString(theString CFMutableStringRef, cStr string, encoding CFStringEncoding) {
 	if callErr := tryCFStringAppendCString(theString, cStr, encoding); callErr != nil {
 		panic(callErr)
 	}
 }
 
-var _cFStringAppendCharacters func(theString CFMutableStringRef, chars *uint16, numChars int)
+var _cFStringAppendCharacters func(theString CFMutableStringRef, chars *uint16, numChars CFIndex)
 var _cFStringAppendCharactersErr error
 
-func tryCFStringAppendCharacters(theString CFMutableStringRef, chars *uint16, numChars int) error {
+func tryCFStringAppendCharacters(theString CFMutableStringRef, chars *uint16, numChars CFIndex) error {
 	if _cFStringAppendCharacters == nil {
 		return symbolCallError("CFStringAppendCharacters", "", _cFStringAppendCharactersErr)
 	}
@@ -11320,7 +11320,7 @@ func tryCFStringAppendCharacters(theString CFMutableStringRef, chars *uint16, nu
 // CFStringAppendCharacters appends a buffer of Unicode characters to the character contents of a CFMutableString object.
 //
 // See: https://developer.apple.com/documentation/CoreFoundation/CFStringAppendCharacters(_:_:_:)
-func CFStringAppendCharacters(theString CFMutableStringRef, chars *uint16, numChars int) {
+func CFStringAppendCharacters(theString CFMutableStringRef, chars *uint16, numChars CFIndex) {
 	if callErr := tryCFStringAppendCharacters(theString, chars, numChars); callErr != nil {
 		panic(callErr)
 	}
@@ -11366,10 +11366,10 @@ func CFStringAppendFormatAndArguments(theString CFMutableStringRef, formatOption
 	}
 }
 
-var _cFStringAppendPascalString func(theString CFMutableStringRef, pStr unsafe.Pointer, encoding uint32)
+var _cFStringAppendPascalString func(theString CFMutableStringRef, pStr unsafe.Pointer, encoding CFStringEncoding)
 var _cFStringAppendPascalStringErr error
 
-func tryCFStringAppendPascalString(theString CFMutableStringRef, pStr unsafe.Pointer, encoding uint32) error {
+func tryCFStringAppendPascalString(theString CFMutableStringRef, pStr unsafe.Pointer, encoding CFStringEncoding) error {
 	if _cFStringAppendPascalString == nil {
 		return symbolCallError("CFStringAppendPascalString", "", _cFStringAppendPascalStringErr)
 	}
@@ -11380,7 +11380,7 @@ func tryCFStringAppendPascalString(theString CFMutableStringRef, pStr unsafe.Poi
 // CFStringAppendPascalString appends a Pascal string to the character contents of a CFMutableString object.
 //
 // See: https://developer.apple.com/documentation/CoreFoundation/CFStringAppendPascalString(_:_:_:)
-func CFStringAppendPascalString(theString CFMutableStringRef, pStr unsafe.Pointer, encoding uint32) {
+func CFStringAppendPascalString(theString CFMutableStringRef, pStr unsafe.Pointer, encoding CFStringEncoding) {
 	if callErr := tryCFStringAppendPascalString(theString, pStr, encoding); callErr != nil {
 		panic(callErr)
 	}
@@ -11469,10 +11469,10 @@ func CFStringCompareWithOptionsAndLocale(theString1 CFStringRef, theString2 CFSt
 	return result
 }
 
-var _cFStringConvertEncodingToIANACharSetName func(encoding uint32) CFStringRef
+var _cFStringConvertEncodingToIANACharSetName func(encoding CFStringEncoding) CFStringRef
 var _cFStringConvertEncodingToIANACharSetNameErr error
 
-func tryCFStringConvertEncodingToIANACharSetName(encoding uint32) (CFStringRef, error) {
+func tryCFStringConvertEncodingToIANACharSetName(encoding CFStringEncoding) (CFStringRef, error) {
 	if _cFStringConvertEncodingToIANACharSetName == nil {
 		return *new(CFStringRef), symbolCallError("CFStringConvertEncodingToIANACharSetName", "", _cFStringConvertEncodingToIANACharSetNameErr)
 	}
@@ -11482,7 +11482,7 @@ func tryCFStringConvertEncodingToIANACharSetName(encoding uint32) (CFStringRef, 
 // CFStringConvertEncodingToIANACharSetName returns the name of the IANA registry “charset” that is the closest mapping to a specified string encoding.
 //
 // See: https://developer.apple.com/documentation/CoreFoundation/CFStringConvertEncodingToIANACharSetName(_:)
-func CFStringConvertEncodingToIANACharSetName(encoding uint32) CFStringRef {
+func CFStringConvertEncodingToIANACharSetName(encoding CFStringEncoding) CFStringRef {
 	result, callErr := tryCFStringConvertEncodingToIANACharSetName(encoding)
 	if callErr != nil {
 		panic(callErr)
@@ -11490,10 +11490,10 @@ func CFStringConvertEncodingToIANACharSetName(encoding uint32) CFStringRef {
 	return result
 }
 
-var _cFStringConvertEncodingToNSStringEncoding func(encoding uint32) uint
+var _cFStringConvertEncodingToNSStringEncoding func(encoding CFStringEncoding) uint
 var _cFStringConvertEncodingToNSStringEncodingErr error
 
-func tryCFStringConvertEncodingToNSStringEncoding(encoding uint32) (uint, error) {
+func tryCFStringConvertEncodingToNSStringEncoding(encoding CFStringEncoding) (uint, error) {
 	if _cFStringConvertEncodingToNSStringEncoding == nil {
 		return 0, symbolCallError("CFStringConvertEncodingToNSStringEncoding", "", _cFStringConvertEncodingToNSStringEncodingErr)
 	}
@@ -11503,7 +11503,7 @@ func tryCFStringConvertEncodingToNSStringEncoding(encoding uint32) (uint, error)
 // CFStringConvertEncodingToNSStringEncoding returns the Cocoa encoding constant that maps most closely to a given Core Foundation encoding constant.
 //
 // See: https://developer.apple.com/documentation/CoreFoundation/CFStringConvertEncodingToNSStringEncoding(_:)
-func CFStringConvertEncodingToNSStringEncoding(encoding uint32) uint {
+func CFStringConvertEncodingToNSStringEncoding(encoding CFStringEncoding) uint {
 	result, callErr := tryCFStringConvertEncodingToNSStringEncoding(encoding)
 	if callErr != nil {
 		panic(callErr)
@@ -11511,10 +11511,10 @@ func CFStringConvertEncodingToNSStringEncoding(encoding uint32) uint {
 	return result
 }
 
-var _cFStringConvertEncodingToWindowsCodepage func(encoding uint32) uint32
+var _cFStringConvertEncodingToWindowsCodepage func(encoding CFStringEncoding) uint32
 var _cFStringConvertEncodingToWindowsCodepageErr error
 
-func tryCFStringConvertEncodingToWindowsCodepage(encoding uint32) (uint32, error) {
+func tryCFStringConvertEncodingToWindowsCodepage(encoding CFStringEncoding) (uint32, error) {
 	if _cFStringConvertEncodingToWindowsCodepage == nil {
 		return 0, symbolCallError("CFStringConvertEncodingToWindowsCodepage", "", _cFStringConvertEncodingToWindowsCodepageErr)
 	}
@@ -11524,7 +11524,7 @@ func tryCFStringConvertEncodingToWindowsCodepage(encoding uint32) (uint32, error
 // CFStringConvertEncodingToWindowsCodepage returns the Windows codepage identifier that maps most closely to a given Core Foundation encoding constant.
 //
 // See: https://developer.apple.com/documentation/CoreFoundation/CFStringConvertEncodingToWindowsCodepage(_:)
-func CFStringConvertEncodingToWindowsCodepage(encoding uint32) uint32 {
+func CFStringConvertEncodingToWindowsCodepage(encoding CFStringEncoding) uint32 {
 	result, callErr := tryCFStringConvertEncodingToWindowsCodepage(encoding)
 	if callErr != nil {
 		panic(callErr)
@@ -11532,12 +11532,12 @@ func CFStringConvertEncodingToWindowsCodepage(encoding uint32) uint32 {
 	return result
 }
 
-var _cFStringConvertIANACharSetNameToEncoding func(theString CFStringRef) uint32
+var _cFStringConvertIANACharSetNameToEncoding func(theString CFStringRef) CFStringEncoding
 var _cFStringConvertIANACharSetNameToEncodingErr error
 
-func tryCFStringConvertIANACharSetNameToEncoding(theString CFStringRef) (uint32, error) {
+func tryCFStringConvertIANACharSetNameToEncoding(theString CFStringRef) (CFStringEncoding, error) {
 	if _cFStringConvertIANACharSetNameToEncoding == nil {
-		return 0, symbolCallError("CFStringConvertIANACharSetNameToEncoding", "", _cFStringConvertIANACharSetNameToEncodingErr)
+		return *new(CFStringEncoding), symbolCallError("CFStringConvertIANACharSetNameToEncoding", "", _cFStringConvertIANACharSetNameToEncodingErr)
 	}
 	return _cFStringConvertIANACharSetNameToEncoding(theString), nil
 }
@@ -11545,7 +11545,7 @@ func tryCFStringConvertIANACharSetNameToEncoding(theString CFStringRef) (uint32,
 // CFStringConvertIANACharSetNameToEncoding returns the Core Foundation encoding constant that is the closest mapping to a given IANA registry “charset” name.
 //
 // See: https://developer.apple.com/documentation/CoreFoundation/CFStringConvertIANACharSetNameToEncoding(_:)
-func CFStringConvertIANACharSetNameToEncoding(theString CFStringRef) uint32 {
+func CFStringConvertIANACharSetNameToEncoding(theString CFStringRef) CFStringEncoding {
 	result, callErr := tryCFStringConvertIANACharSetNameToEncoding(theString)
 	if callErr != nil {
 		panic(callErr)
@@ -11553,12 +11553,12 @@ func CFStringConvertIANACharSetNameToEncoding(theString CFStringRef) uint32 {
 	return result
 }
 
-var _cFStringConvertNSStringEncodingToEncoding func(encoding uint) uint32
+var _cFStringConvertNSStringEncodingToEncoding func(encoding uint) CFStringEncoding
 var _cFStringConvertNSStringEncodingToEncodingErr error
 
-func tryCFStringConvertNSStringEncodingToEncoding(encoding uint) (uint32, error) {
+func tryCFStringConvertNSStringEncodingToEncoding(encoding uint) (CFStringEncoding, error) {
 	if _cFStringConvertNSStringEncodingToEncoding == nil {
-		return 0, symbolCallError("CFStringConvertNSStringEncodingToEncoding", "", _cFStringConvertNSStringEncodingToEncodingErr)
+		return *new(CFStringEncoding), symbolCallError("CFStringConvertNSStringEncodingToEncoding", "", _cFStringConvertNSStringEncodingToEncodingErr)
 	}
 	return _cFStringConvertNSStringEncodingToEncoding(encoding), nil
 }
@@ -11566,7 +11566,7 @@ func tryCFStringConvertNSStringEncodingToEncoding(encoding uint) (uint32, error)
 // CFStringConvertNSStringEncodingToEncoding returns the Core Foundation encoding constant that is the closest mapping to a given Cocoa encoding.
 //
 // See: https://developer.apple.com/documentation/CoreFoundation/CFStringConvertNSStringEncodingToEncoding(_:)
-func CFStringConvertNSStringEncodingToEncoding(encoding uint) uint32 {
+func CFStringConvertNSStringEncodingToEncoding(encoding uint) CFStringEncoding {
 	result, callErr := tryCFStringConvertNSStringEncodingToEncoding(encoding)
 	if callErr != nil {
 		panic(callErr)
@@ -11574,12 +11574,12 @@ func CFStringConvertNSStringEncodingToEncoding(encoding uint) uint32 {
 	return result
 }
 
-var _cFStringConvertWindowsCodepageToEncoding func(codepage uint32) uint32
+var _cFStringConvertWindowsCodepageToEncoding func(codepage uint32) CFStringEncoding
 var _cFStringConvertWindowsCodepageToEncodingErr error
 
-func tryCFStringConvertWindowsCodepageToEncoding(codepage uint32) (uint32, error) {
+func tryCFStringConvertWindowsCodepageToEncoding(codepage uint32) (CFStringEncoding, error) {
 	if _cFStringConvertWindowsCodepageToEncoding == nil {
-		return 0, symbolCallError("CFStringConvertWindowsCodepageToEncoding", "", _cFStringConvertWindowsCodepageToEncodingErr)
+		return *new(CFStringEncoding), symbolCallError("CFStringConvertWindowsCodepageToEncoding", "", _cFStringConvertWindowsCodepageToEncodingErr)
 	}
 	return _cFStringConvertWindowsCodepageToEncoding(codepage), nil
 }
@@ -11587,7 +11587,7 @@ func tryCFStringConvertWindowsCodepageToEncoding(codepage uint32) (uint32, error
 // CFStringConvertWindowsCodepageToEncoding returns the Core Foundation encoding constant that is the closest mapping to a given Windows codepage identifier.
 //
 // See: https://developer.apple.com/documentation/CoreFoundation/CFStringConvertWindowsCodepageToEncoding(_:)
-func CFStringConvertWindowsCodepageToEncoding(codepage uint32) uint32 {
+func CFStringConvertWindowsCodepageToEncoding(codepage uint32) CFStringEncoding {
 	result, callErr := tryCFStringConvertWindowsCodepageToEncoding(codepage)
 	if callErr != nil {
 		panic(callErr)
@@ -11679,10 +11679,10 @@ func CFStringCreateCopy(alloc CFAllocatorRef, theString CFStringRef) CFStringRef
 	return result
 }
 
-var _cFStringCreateExternalRepresentation func(alloc CFAllocatorRef, theString CFStringRef, encoding uint32, lossByte uint8) CFDataRef
+var _cFStringCreateExternalRepresentation func(alloc CFAllocatorRef, theString CFStringRef, encoding CFStringEncoding, lossByte uint8) CFDataRef
 var _cFStringCreateExternalRepresentationErr error
 
-func tryCFStringCreateExternalRepresentation(alloc CFAllocatorRef, theString CFStringRef, encoding uint32, lossByte uint8) (CFDataRef, error) {
+func tryCFStringCreateExternalRepresentation(alloc CFAllocatorRef, theString CFStringRef, encoding CFStringEncoding, lossByte uint8) (CFDataRef, error) {
 	if _cFStringCreateExternalRepresentation == nil {
 		return *new(CFDataRef), symbolCallError("CFStringCreateExternalRepresentation", "", _cFStringCreateExternalRepresentationErr)
 	}
@@ -11692,7 +11692,7 @@ func tryCFStringCreateExternalRepresentation(alloc CFAllocatorRef, theString CFS
 // CFStringCreateExternalRepresentation creates an “external representation” of a CFString object, that is, a CFData object.
 //
 // See: https://developer.apple.com/documentation/CoreFoundation/CFStringCreateExternalRepresentation(_:_:_:_:)
-func CFStringCreateExternalRepresentation(alloc CFAllocatorRef, theString CFStringRef, encoding uint32, lossByte uint8) CFDataRef {
+func CFStringCreateExternalRepresentation(alloc CFAllocatorRef, theString CFStringRef, encoding CFStringEncoding, lossByte uint8) CFDataRef {
 	result, callErr := tryCFStringCreateExternalRepresentation(alloc, theString, encoding, lossByte)
 	if callErr != nil {
 		panic(callErr)
@@ -11700,10 +11700,10 @@ func CFStringCreateExternalRepresentation(alloc CFAllocatorRef, theString CFStri
 	return result
 }
 
-var _cFStringCreateFromExternalRepresentation func(alloc CFAllocatorRef, data CFDataRef, encoding uint32) CFStringRef
+var _cFStringCreateFromExternalRepresentation func(alloc CFAllocatorRef, data CFDataRef, encoding CFStringEncoding) CFStringRef
 var _cFStringCreateFromExternalRepresentationErr error
 
-func tryCFStringCreateFromExternalRepresentation(alloc CFAllocatorRef, data CFDataRef, encoding uint32) (CFStringRef, error) {
+func tryCFStringCreateFromExternalRepresentation(alloc CFAllocatorRef, data CFDataRef, encoding CFStringEncoding) (CFStringRef, error) {
 	if _cFStringCreateFromExternalRepresentation == nil {
 		return *new(CFStringRef), symbolCallError("CFStringCreateFromExternalRepresentation", "", _cFStringCreateFromExternalRepresentationErr)
 	}
@@ -11713,7 +11713,7 @@ func tryCFStringCreateFromExternalRepresentation(alloc CFAllocatorRef, data CFDa
 // CFStringCreateFromExternalRepresentation creates a string from its “external representation.”
 //
 // See: https://developer.apple.com/documentation/CoreFoundation/CFStringCreateFromExternalRepresentation(_:_:_:)
-func CFStringCreateFromExternalRepresentation(alloc CFAllocatorRef, data CFDataRef, encoding uint32) CFStringRef {
+func CFStringCreateFromExternalRepresentation(alloc CFAllocatorRef, data CFDataRef, encoding CFStringEncoding) CFStringRef {
 	result, callErr := tryCFStringCreateFromExternalRepresentation(alloc, data, encoding)
 	if callErr != nil {
 		panic(callErr)
@@ -11721,10 +11721,10 @@ func CFStringCreateFromExternalRepresentation(alloc CFAllocatorRef, data CFDataR
 	return result
 }
 
-var _cFStringCreateMutable func(alloc CFAllocatorRef, maxLength int) CFMutableStringRef
+var _cFStringCreateMutable func(alloc CFAllocatorRef, maxLength CFIndex) CFMutableStringRef
 var _cFStringCreateMutableErr error
 
-func tryCFStringCreateMutable(alloc CFAllocatorRef, maxLength int) (CFMutableStringRef, error) {
+func tryCFStringCreateMutable(alloc CFAllocatorRef, maxLength CFIndex) (CFMutableStringRef, error) {
 	if _cFStringCreateMutable == nil {
 		return *new(CFMutableStringRef), symbolCallError("CFStringCreateMutable", "", _cFStringCreateMutableErr)
 	}
@@ -11734,7 +11734,7 @@ func tryCFStringCreateMutable(alloc CFAllocatorRef, maxLength int) (CFMutableStr
 // CFStringCreateMutable creates an empty CFMutableString object.
 //
 // See: https://developer.apple.com/documentation/CoreFoundation/CFStringCreateMutable(_:_:)
-func CFStringCreateMutable(alloc CFAllocatorRef, maxLength int) CFMutableStringRef {
+func CFStringCreateMutable(alloc CFAllocatorRef, maxLength CFIndex) CFMutableStringRef {
 	result, callErr := tryCFStringCreateMutable(alloc, maxLength)
 	if callErr != nil {
 		panic(callErr)
@@ -11742,10 +11742,10 @@ func CFStringCreateMutable(alloc CFAllocatorRef, maxLength int) CFMutableStringR
 	return result
 }
 
-var _cFStringCreateMutableCopy func(alloc CFAllocatorRef, maxLength int, theString CFStringRef) CFMutableStringRef
+var _cFStringCreateMutableCopy func(alloc CFAllocatorRef, maxLength CFIndex, theString CFStringRef) CFMutableStringRef
 var _cFStringCreateMutableCopyErr error
 
-func tryCFStringCreateMutableCopy(alloc CFAllocatorRef, maxLength int, theString CFStringRef) (CFMutableStringRef, error) {
+func tryCFStringCreateMutableCopy(alloc CFAllocatorRef, maxLength CFIndex, theString CFStringRef) (CFMutableStringRef, error) {
 	if _cFStringCreateMutableCopy == nil {
 		return *new(CFMutableStringRef), symbolCallError("CFStringCreateMutableCopy", "", _cFStringCreateMutableCopyErr)
 	}
@@ -11755,7 +11755,7 @@ func tryCFStringCreateMutableCopy(alloc CFAllocatorRef, maxLength int, theString
 // CFStringCreateMutableCopy creates a mutable copy of a string.
 //
 // See: https://developer.apple.com/documentation/CoreFoundation/CFStringCreateMutableCopy(_:_:_:)
-func CFStringCreateMutableCopy(alloc CFAllocatorRef, maxLength int, theString CFStringRef) CFMutableStringRef {
+func CFStringCreateMutableCopy(alloc CFAllocatorRef, maxLength CFIndex, theString CFStringRef) CFMutableStringRef {
 	result, callErr := tryCFStringCreateMutableCopy(alloc, maxLength, theString)
 	if callErr != nil {
 		panic(callErr)
@@ -11763,10 +11763,10 @@ func CFStringCreateMutableCopy(alloc CFAllocatorRef, maxLength int, theString CF
 	return result
 }
 
-var _cFStringCreateMutableWithExternalCharactersNoCopy func(alloc CFAllocatorRef, chars *uint16, numChars int, capacity int, externalCharactersAllocator CFAllocatorRef) CFMutableStringRef
+var _cFStringCreateMutableWithExternalCharactersNoCopy func(alloc CFAllocatorRef, chars *uint16, numChars CFIndex, capacity CFIndex, externalCharactersAllocator CFAllocatorRef) CFMutableStringRef
 var _cFStringCreateMutableWithExternalCharactersNoCopyErr error
 
-func tryCFStringCreateMutableWithExternalCharactersNoCopy(alloc CFAllocatorRef, chars *uint16, numChars int, capacity int, externalCharactersAllocator CFAllocatorRef) (CFMutableStringRef, error) {
+func tryCFStringCreateMutableWithExternalCharactersNoCopy(alloc CFAllocatorRef, chars *uint16, numChars CFIndex, capacity CFIndex, externalCharactersAllocator CFAllocatorRef) (CFMutableStringRef, error) {
 	if _cFStringCreateMutableWithExternalCharactersNoCopy == nil {
 		return *new(CFMutableStringRef), symbolCallError("CFStringCreateMutableWithExternalCharactersNoCopy", "", _cFStringCreateMutableWithExternalCharactersNoCopyErr)
 	}
@@ -11776,7 +11776,7 @@ func tryCFStringCreateMutableWithExternalCharactersNoCopy(alloc CFAllocatorRef, 
 // CFStringCreateMutableWithExternalCharactersNoCopy creates a CFMutableString object whose Unicode character buffer is controlled externally.
 //
 // See: https://developer.apple.com/documentation/CoreFoundation/CFStringCreateMutableWithExternalCharactersNoCopy(_:_:_:_:_:)
-func CFStringCreateMutableWithExternalCharactersNoCopy(alloc CFAllocatorRef, chars *uint16, numChars int, capacity int, externalCharactersAllocator CFAllocatorRef) CFMutableStringRef {
+func CFStringCreateMutableWithExternalCharactersNoCopy(alloc CFAllocatorRef, chars *uint16, numChars CFIndex, capacity CFIndex, externalCharactersAllocator CFAllocatorRef) CFMutableStringRef {
 	result, callErr := tryCFStringCreateMutableWithExternalCharactersNoCopy(alloc, chars, numChars, capacity, externalCharactersAllocator)
 	if callErr != nil {
 		panic(callErr)
@@ -11826,10 +11826,10 @@ func CFStringCreateStringWithValidatedFormatAndArguments(alloc CFAllocatorRef, f
 	return result
 }
 
-var _cFStringCreateWithBytes func(alloc CFAllocatorRef, bytes *byte, numBytes int, encoding uint32, isExternalRepresentation bool) CFStringRef
+var _cFStringCreateWithBytes func(alloc CFAllocatorRef, bytes *byte, numBytes CFIndex, encoding CFStringEncoding, isExternalRepresentation bool) CFStringRef
 var _cFStringCreateWithBytesErr error
 
-func tryCFStringCreateWithBytes(alloc CFAllocatorRef, bytes []byte, numBytes int, encoding uint32, isExternalRepresentation bool) (CFStringRef, error) {
+func tryCFStringCreateWithBytes(alloc CFAllocatorRef, bytes []byte, numBytes CFIndex, encoding CFStringEncoding, isExternalRepresentation bool) (CFStringRef, error) {
 	if _cFStringCreateWithBytes == nil {
 		return *new(CFStringRef), symbolCallError("CFStringCreateWithBytes", "", _cFStringCreateWithBytesErr)
 	}
@@ -11839,7 +11839,7 @@ func tryCFStringCreateWithBytes(alloc CFAllocatorRef, bytes []byte, numBytes int
 // CFStringCreateWithBytes creates a string from a buffer containing characters in a specified encoding.
 //
 // See: https://developer.apple.com/documentation/CoreFoundation/CFStringCreateWithBytes(_:_:_:_:_:)
-func CFStringCreateWithBytes(alloc CFAllocatorRef, bytes []byte, numBytes int, encoding uint32, isExternalRepresentation bool) CFStringRef {
+func CFStringCreateWithBytes(alloc CFAllocatorRef, bytes []byte, numBytes CFIndex, encoding CFStringEncoding, isExternalRepresentation bool) CFStringRef {
 	result, callErr := tryCFStringCreateWithBytes(alloc, bytes, numBytes, encoding, isExternalRepresentation)
 	if callErr != nil {
 		panic(callErr)
@@ -11847,10 +11847,10 @@ func CFStringCreateWithBytes(alloc CFAllocatorRef, bytes []byte, numBytes int, e
 	return result
 }
 
-var _cFStringCreateWithBytesNoCopy func(alloc CFAllocatorRef, bytes *byte, numBytes int, encoding uint32, isExternalRepresentation bool, contentsDeallocator CFAllocatorRef) CFStringRef
+var _cFStringCreateWithBytesNoCopy func(alloc CFAllocatorRef, bytes *byte, numBytes CFIndex, encoding CFStringEncoding, isExternalRepresentation bool, contentsDeallocator CFAllocatorRef) CFStringRef
 var _cFStringCreateWithBytesNoCopyErr error
 
-func tryCFStringCreateWithBytesNoCopy(alloc CFAllocatorRef, bytes []byte, numBytes int, encoding uint32, isExternalRepresentation bool, contentsDeallocator CFAllocatorRef) (CFStringRef, error) {
+func tryCFStringCreateWithBytesNoCopy(alloc CFAllocatorRef, bytes []byte, numBytes CFIndex, encoding CFStringEncoding, isExternalRepresentation bool, contentsDeallocator CFAllocatorRef) (CFStringRef, error) {
 	if _cFStringCreateWithBytesNoCopy == nil {
 		return *new(CFStringRef), symbolCallError("CFStringCreateWithBytesNoCopy", "", _cFStringCreateWithBytesNoCopyErr)
 	}
@@ -11860,7 +11860,7 @@ func tryCFStringCreateWithBytesNoCopy(alloc CFAllocatorRef, bytes []byte, numByt
 // CFStringCreateWithBytesNoCopy creates a string from a buffer, containing characters in a specified encoding, that might serve as the backing store for the new string.
 //
 // See: https://developer.apple.com/documentation/CoreFoundation/CFStringCreateWithBytesNoCopy(_:_:_:_:_:_:)
-func CFStringCreateWithBytesNoCopy(alloc CFAllocatorRef, bytes []byte, numBytes int, encoding uint32, isExternalRepresentation bool, contentsDeallocator CFAllocatorRef) CFStringRef {
+func CFStringCreateWithBytesNoCopy(alloc CFAllocatorRef, bytes []byte, numBytes CFIndex, encoding CFStringEncoding, isExternalRepresentation bool, contentsDeallocator CFAllocatorRef) CFStringRef {
 	result, callErr := tryCFStringCreateWithBytesNoCopy(alloc, bytes, numBytes, encoding, isExternalRepresentation, contentsDeallocator)
 	if callErr != nil {
 		panic(callErr)
@@ -11868,10 +11868,10 @@ func CFStringCreateWithBytesNoCopy(alloc CFAllocatorRef, bytes []byte, numBytes 
 	return result
 }
 
-var _cFStringCreateWithCString func(alloc CFAllocatorRef, cStr string, encoding uint32) CFStringRef
+var _cFStringCreateWithCString func(alloc CFAllocatorRef, cStr string, encoding CFStringEncoding) CFStringRef
 var _cFStringCreateWithCStringErr error
 
-func tryCFStringCreateWithCString(alloc CFAllocatorRef, cStr string, encoding uint32) (CFStringRef, error) {
+func tryCFStringCreateWithCString(alloc CFAllocatorRef, cStr string, encoding CFStringEncoding) (CFStringRef, error) {
 	if _cFStringCreateWithCString == nil {
 		return *new(CFStringRef), symbolCallError("CFStringCreateWithCString", "", _cFStringCreateWithCStringErr)
 	}
@@ -11881,7 +11881,7 @@ func tryCFStringCreateWithCString(alloc CFAllocatorRef, cStr string, encoding ui
 // CFStringCreateWithCString creates an immutable string from a C string.
 //
 // See: https://developer.apple.com/documentation/CoreFoundation/CFStringCreateWithCString(_:_:_:)
-func CFStringCreateWithCString(alloc CFAllocatorRef, cStr string, encoding uint32) CFStringRef {
+func CFStringCreateWithCString(alloc CFAllocatorRef, cStr string, encoding CFStringEncoding) CFStringRef {
 	result, callErr := tryCFStringCreateWithCString(alloc, cStr, encoding)
 	if callErr != nil {
 		panic(callErr)
@@ -11889,10 +11889,10 @@ func CFStringCreateWithCString(alloc CFAllocatorRef, cStr string, encoding uint3
 	return result
 }
 
-var _cFStringCreateWithCStringNoCopy func(alloc CFAllocatorRef, cStr string, encoding uint32, contentsDeallocator CFAllocatorRef) CFStringRef
+var _cFStringCreateWithCStringNoCopy func(alloc CFAllocatorRef, cStr string, encoding CFStringEncoding, contentsDeallocator CFAllocatorRef) CFStringRef
 var _cFStringCreateWithCStringNoCopyErr error
 
-func tryCFStringCreateWithCStringNoCopy(alloc CFAllocatorRef, cStr string, encoding uint32, contentsDeallocator CFAllocatorRef) (CFStringRef, error) {
+func tryCFStringCreateWithCStringNoCopy(alloc CFAllocatorRef, cStr string, encoding CFStringEncoding, contentsDeallocator CFAllocatorRef) (CFStringRef, error) {
 	if _cFStringCreateWithCStringNoCopy == nil {
 		return *new(CFStringRef), symbolCallError("CFStringCreateWithCStringNoCopy", "", _cFStringCreateWithCStringNoCopyErr)
 	}
@@ -11902,7 +11902,7 @@ func tryCFStringCreateWithCStringNoCopy(alloc CFAllocatorRef, cStr string, encod
 // CFStringCreateWithCStringNoCopy creates a CFString object from an external C string buffer that might serve as the backing store for the object.
 //
 // See: https://developer.apple.com/documentation/CoreFoundation/CFStringCreateWithCStringNoCopy(_:_:_:_:)
-func CFStringCreateWithCStringNoCopy(alloc CFAllocatorRef, cStr string, encoding uint32, contentsDeallocator CFAllocatorRef) CFStringRef {
+func CFStringCreateWithCStringNoCopy(alloc CFAllocatorRef, cStr string, encoding CFStringEncoding, contentsDeallocator CFAllocatorRef) CFStringRef {
 	result, callErr := tryCFStringCreateWithCStringNoCopy(alloc, cStr, encoding, contentsDeallocator)
 	if callErr != nil {
 		panic(callErr)
@@ -11910,10 +11910,10 @@ func CFStringCreateWithCStringNoCopy(alloc CFAllocatorRef, cStr string, encoding
 	return result
 }
 
-var _cFStringCreateWithCharacters func(alloc CFAllocatorRef, chars *uint16, numChars int) CFStringRef
+var _cFStringCreateWithCharacters func(alloc CFAllocatorRef, chars *uint16, numChars CFIndex) CFStringRef
 var _cFStringCreateWithCharactersErr error
 
-func tryCFStringCreateWithCharacters(alloc CFAllocatorRef, chars *uint16, numChars int) (CFStringRef, error) {
+func tryCFStringCreateWithCharacters(alloc CFAllocatorRef, chars *uint16, numChars CFIndex) (CFStringRef, error) {
 	if _cFStringCreateWithCharacters == nil {
 		return *new(CFStringRef), symbolCallError("CFStringCreateWithCharacters", "", _cFStringCreateWithCharactersErr)
 	}
@@ -11923,7 +11923,7 @@ func tryCFStringCreateWithCharacters(alloc CFAllocatorRef, chars *uint16, numCha
 // CFStringCreateWithCharacters creates a string from a buffer of Unicode characters.
 //
 // See: https://developer.apple.com/documentation/CoreFoundation/CFStringCreateWithCharacters(_:_:_:)
-func CFStringCreateWithCharacters(alloc CFAllocatorRef, chars *uint16, numChars int) CFStringRef {
+func CFStringCreateWithCharacters(alloc CFAllocatorRef, chars *uint16, numChars CFIndex) CFStringRef {
 	result, callErr := tryCFStringCreateWithCharacters(alloc, chars, numChars)
 	if callErr != nil {
 		panic(callErr)
@@ -11931,10 +11931,10 @@ func CFStringCreateWithCharacters(alloc CFAllocatorRef, chars *uint16, numChars 
 	return result
 }
 
-var _cFStringCreateWithCharactersNoCopy func(alloc CFAllocatorRef, chars *uint16, numChars int, contentsDeallocator CFAllocatorRef) CFStringRef
+var _cFStringCreateWithCharactersNoCopy func(alloc CFAllocatorRef, chars *uint16, numChars CFIndex, contentsDeallocator CFAllocatorRef) CFStringRef
 var _cFStringCreateWithCharactersNoCopyErr error
 
-func tryCFStringCreateWithCharactersNoCopy(alloc CFAllocatorRef, chars *uint16, numChars int, contentsDeallocator CFAllocatorRef) (CFStringRef, error) {
+func tryCFStringCreateWithCharactersNoCopy(alloc CFAllocatorRef, chars *uint16, numChars CFIndex, contentsDeallocator CFAllocatorRef) (CFStringRef, error) {
 	if _cFStringCreateWithCharactersNoCopy == nil {
 		return *new(CFStringRef), symbolCallError("CFStringCreateWithCharactersNoCopy", "", _cFStringCreateWithCharactersNoCopyErr)
 	}
@@ -11944,7 +11944,7 @@ func tryCFStringCreateWithCharactersNoCopy(alloc CFAllocatorRef, chars *uint16, 
 // CFStringCreateWithCharactersNoCopy creates a string from a buffer of Unicode characters that might serve as the backing store for the object.
 //
 // See: https://developer.apple.com/documentation/CoreFoundation/CFStringCreateWithCharactersNoCopy(_:_:_:_:)
-func CFStringCreateWithCharactersNoCopy(alloc CFAllocatorRef, chars *uint16, numChars int, contentsDeallocator CFAllocatorRef) CFStringRef {
+func CFStringCreateWithCharactersNoCopy(alloc CFAllocatorRef, chars *uint16, numChars CFIndex, contentsDeallocator CFAllocatorRef) CFStringRef {
 	result, callErr := tryCFStringCreateWithCharactersNoCopy(alloc, chars, numChars, contentsDeallocator)
 	if callErr != nil {
 		panic(callErr)
@@ -12015,10 +12015,10 @@ func CFStringCreateWithFormatAndArguments(alloc CFAllocatorRef, formatOptions CF
 	return result
 }
 
-var _cFStringCreateWithPascalString func(alloc CFAllocatorRef, pStr unsafe.Pointer, encoding uint32) CFStringRef
+var _cFStringCreateWithPascalString func(alloc CFAllocatorRef, pStr unsafe.Pointer, encoding CFStringEncoding) CFStringRef
 var _cFStringCreateWithPascalStringErr error
 
-func tryCFStringCreateWithPascalString(alloc CFAllocatorRef, pStr unsafe.Pointer, encoding uint32) (CFStringRef, error) {
+func tryCFStringCreateWithPascalString(alloc CFAllocatorRef, pStr unsafe.Pointer, encoding CFStringEncoding) (CFStringRef, error) {
 	if _cFStringCreateWithPascalString == nil {
 		return *new(CFStringRef), symbolCallError("CFStringCreateWithPascalString", "", _cFStringCreateWithPascalStringErr)
 	}
@@ -12028,7 +12028,7 @@ func tryCFStringCreateWithPascalString(alloc CFAllocatorRef, pStr unsafe.Pointer
 // CFStringCreateWithPascalString creates an immutable CFString object from a Pascal string.
 //
 // See: https://developer.apple.com/documentation/CoreFoundation/CFStringCreateWithPascalString(_:_:_:)
-func CFStringCreateWithPascalString(alloc CFAllocatorRef, pStr unsafe.Pointer, encoding uint32) CFStringRef {
+func CFStringCreateWithPascalString(alloc CFAllocatorRef, pStr unsafe.Pointer, encoding CFStringEncoding) CFStringRef {
 	result, callErr := tryCFStringCreateWithPascalString(alloc, pStr, encoding)
 	if callErr != nil {
 		panic(callErr)
@@ -12036,10 +12036,10 @@ func CFStringCreateWithPascalString(alloc CFAllocatorRef, pStr unsafe.Pointer, e
 	return result
 }
 
-var _cFStringCreateWithPascalStringNoCopy func(alloc CFAllocatorRef, pStr unsafe.Pointer, encoding uint32, contentsDeallocator CFAllocatorRef) CFStringRef
+var _cFStringCreateWithPascalStringNoCopy func(alloc CFAllocatorRef, pStr unsafe.Pointer, encoding CFStringEncoding, contentsDeallocator CFAllocatorRef) CFStringRef
 var _cFStringCreateWithPascalStringNoCopyErr error
 
-func tryCFStringCreateWithPascalStringNoCopy(alloc CFAllocatorRef, pStr unsafe.Pointer, encoding uint32, contentsDeallocator CFAllocatorRef) (CFStringRef, error) {
+func tryCFStringCreateWithPascalStringNoCopy(alloc CFAllocatorRef, pStr unsafe.Pointer, encoding CFStringEncoding, contentsDeallocator CFAllocatorRef) (CFStringRef, error) {
 	if _cFStringCreateWithPascalStringNoCopy == nil {
 		return *new(CFStringRef), symbolCallError("CFStringCreateWithPascalStringNoCopy", "", _cFStringCreateWithPascalStringNoCopyErr)
 	}
@@ -12049,7 +12049,7 @@ func tryCFStringCreateWithPascalStringNoCopy(alloc CFAllocatorRef, pStr unsafe.P
 // CFStringCreateWithPascalStringNoCopy creates a CFString object from an external Pascal string buffer that might serve as the backing store for the object.
 //
 // See: https://developer.apple.com/documentation/CoreFoundation/CFStringCreateWithPascalStringNoCopy(_:_:_:_:)
-func CFStringCreateWithPascalStringNoCopy(alloc CFAllocatorRef, pStr unsafe.Pointer, encoding uint32, contentsDeallocator CFAllocatorRef) CFStringRef {
+func CFStringCreateWithPascalStringNoCopy(alloc CFAllocatorRef, pStr unsafe.Pointer, encoding CFStringEncoding, contentsDeallocator CFAllocatorRef) CFStringRef {
 	result, callErr := tryCFStringCreateWithPascalStringNoCopy(alloc, pStr, encoding, contentsDeallocator)
 	if callErr != nil {
 		panic(callErr)
@@ -12119,12 +12119,12 @@ func CFStringFind(theString CFStringRef, stringToFind CFStringRef, compareOption
 	return result
 }
 
-var _cFStringFindAndReplace func(theString CFMutableStringRef, stringToFind CFStringRef, replacementString CFStringRef, rangeToSearch CFRange, compareOptions CFStringCompareFlags) int
+var _cFStringFindAndReplace func(theString CFMutableStringRef, stringToFind CFStringRef, replacementString CFStringRef, rangeToSearch CFRange, compareOptions CFStringCompareFlags) CFIndex
 var _cFStringFindAndReplaceErr error
 
-func tryCFStringFindAndReplace(theString CFMutableStringRef, stringToFind CFStringRef, replacementString CFStringRef, rangeToSearch CFRange, compareOptions CFStringCompareFlags) (int, error) {
+func tryCFStringFindAndReplace(theString CFMutableStringRef, stringToFind CFStringRef, replacementString CFStringRef, rangeToSearch CFRange, compareOptions CFStringCompareFlags) (CFIndex, error) {
 	if _cFStringFindAndReplace == nil {
-		return 0, symbolCallError("CFStringFindAndReplace", "", _cFStringFindAndReplaceErr)
+		return *new(CFIndex), symbolCallError("CFStringFindAndReplace", "", _cFStringFindAndReplaceErr)
 	}
 	return _cFStringFindAndReplace(theString, stringToFind, replacementString, rangeToSearch, compareOptions), nil
 }
@@ -12132,7 +12132,7 @@ func tryCFStringFindAndReplace(theString CFMutableStringRef, stringToFind CFStri
 // CFStringFindAndReplace replaces all occurrences of a substring within a given range.
 //
 // See: https://developer.apple.com/documentation/CoreFoundation/CFStringFindAndReplace(_:_:_:_:_:)
-func CFStringFindAndReplace(theString CFMutableStringRef, stringToFind CFStringRef, replacementString CFStringRef, rangeToSearch CFRange, compareOptions CFStringCompareFlags) int {
+func CFStringFindAndReplace(theString CFMutableStringRef, stringToFind CFStringRef, replacementString CFStringRef, rangeToSearch CFRange, compareOptions CFStringCompareFlags) CFIndex {
 	result, callErr := tryCFStringFindAndReplace(theString, stringToFind, replacementString, rangeToSearch, compareOptions)
 	if callErr != nil {
 		panic(callErr)
@@ -12223,12 +12223,12 @@ func CFStringFold(theString CFMutableStringRef, theFlags CFStringCompareFlags, t
 	}
 }
 
-var _cFStringGetBytes func(theString CFStringRef, range_ CFRange, encoding uint32, lossByte uint8, isExternalRepresentation bool, buffer *byte, maxBufLen int, usedBufLen *int) int
+var _cFStringGetBytes func(theString CFStringRef, range_ CFRange, encoding CFStringEncoding, lossByte uint8, isExternalRepresentation bool, buffer *byte, maxBufLen CFIndex, usedBufLen *CFIndex) CFIndex
 var _cFStringGetBytesErr error
 
-func tryCFStringGetBytes(theString CFStringRef, range_ CFRange, encoding uint32, lossByte uint8, isExternalRepresentation bool, buffer []byte, maxBufLen int, usedBufLen *int) (int, error) {
+func tryCFStringGetBytes(theString CFStringRef, range_ CFRange, encoding CFStringEncoding, lossByte uint8, isExternalRepresentation bool, buffer []byte, maxBufLen CFIndex, usedBufLen *CFIndex) (CFIndex, error) {
 	if _cFStringGetBytes == nil {
-		return 0, symbolCallError("CFStringGetBytes", "", _cFStringGetBytesErr)
+		return *new(CFIndex), symbolCallError("CFStringGetBytes", "", _cFStringGetBytesErr)
 	}
 	return _cFStringGetBytes(theString, range_, encoding, lossByte, isExternalRepresentation, unsafe.SliceData(buffer), maxBufLen, usedBufLen), nil
 }
@@ -12236,7 +12236,7 @@ func tryCFStringGetBytes(theString CFStringRef, range_ CFRange, encoding uint32,
 // CFStringGetBytes fetches a range of the characters from a string into a byte buffer after converting the characters to a specified encoding.
 //
 // See: https://developer.apple.com/documentation/CoreFoundation/CFStringGetBytes(_:_:_:_:_:_:_:_:)
-func CFStringGetBytes(theString CFStringRef, range_ CFRange, encoding uint32, lossByte uint8, isExternalRepresentation bool, buffer []byte, maxBufLen int, usedBufLen *int) int {
+func CFStringGetBytes(theString CFStringRef, range_ CFRange, encoding CFStringEncoding, lossByte uint8, isExternalRepresentation bool, buffer []byte, maxBufLen CFIndex, usedBufLen *CFIndex) CFIndex {
 	result, callErr := tryCFStringGetBytes(theString, range_, encoding, lossByte, isExternalRepresentation, buffer, maxBufLen, usedBufLen)
 	if callErr != nil {
 		panic(callErr)
@@ -12244,10 +12244,10 @@ func CFStringGetBytes(theString CFStringRef, range_ CFRange, encoding uint32, lo
 	return result
 }
 
-var _cFStringGetCString func(theString CFStringRef, buffer *byte, bufferSize int, encoding uint32) bool
+var _cFStringGetCString func(theString CFStringRef, buffer *byte, bufferSize CFIndex, encoding CFStringEncoding) bool
 var _cFStringGetCStringErr error
 
-func tryCFStringGetCString(theString CFStringRef, buffer *byte, bufferSize int, encoding uint32) (bool, error) {
+func tryCFStringGetCString(theString CFStringRef, buffer *byte, bufferSize CFIndex, encoding CFStringEncoding) (bool, error) {
 	if _cFStringGetCString == nil {
 		return false, symbolCallError("CFStringGetCString", "", _cFStringGetCStringErr)
 	}
@@ -12257,7 +12257,7 @@ func tryCFStringGetCString(theString CFStringRef, buffer *byte, bufferSize int, 
 // CFStringGetCString copies the character contents of a string to a local C string buffer after converting the characters to a given encoding.
 //
 // See: https://developer.apple.com/documentation/CoreFoundation/CFStringGetCString(_:_:_:_:)
-func CFStringGetCString(theString CFStringRef, buffer *byte, bufferSize int, encoding uint32) bool {
+func CFStringGetCString(theString CFStringRef, buffer *byte, bufferSize CFIndex, encoding CFStringEncoding) bool {
 	result, callErr := tryCFStringGetCString(theString, buffer, bufferSize, encoding)
 	if callErr != nil {
 		panic(callErr)
@@ -12265,10 +12265,10 @@ func CFStringGetCString(theString CFStringRef, buffer *byte, bufferSize int, enc
 	return result
 }
 
-var _cFStringGetCStringPtr func(theString CFStringRef, encoding uint32) *byte
+var _cFStringGetCStringPtr func(theString CFStringRef, encoding CFStringEncoding) *byte
 var _cFStringGetCStringPtrErr error
 
-func tryCFStringGetCStringPtr(theString CFStringRef, encoding uint32) (*byte, error) {
+func tryCFStringGetCStringPtr(theString CFStringRef, encoding CFStringEncoding) (*byte, error) {
 	if _cFStringGetCStringPtr == nil {
 		return nil, symbolCallError("CFStringGetCStringPtr", "", _cFStringGetCStringPtrErr)
 	}
@@ -12278,7 +12278,7 @@ func tryCFStringGetCStringPtr(theString CFStringRef, encoding uint32) (*byte, er
 // CFStringGetCStringPtr quickly obtains a pointer to a C-string buffer containing the characters of a string in a given encoding.
 //
 // See: https://developer.apple.com/documentation/CoreFoundation/CFStringGetCStringPtr(_:_:)
-func CFStringGetCStringPtr(theString CFStringRef, encoding uint32) *byte {
+func CFStringGetCStringPtr(theString CFStringRef, encoding CFStringEncoding) *byte {
 	result, callErr := tryCFStringGetCStringPtr(theString, encoding)
 	if callErr != nil {
 		panic(callErr)
@@ -12286,10 +12286,10 @@ func CFStringGetCStringPtr(theString CFStringRef, encoding uint32) *byte {
 	return result
 }
 
-var _cFStringGetCharacterAtIndex func(theString CFStringRef, idx int) uint16
+var _cFStringGetCharacterAtIndex func(theString CFStringRef, idx CFIndex) uint16
 var _cFStringGetCharacterAtIndexErr error
 
-func tryCFStringGetCharacterAtIndex(theString CFStringRef, idx int) (uint16, error) {
+func tryCFStringGetCharacterAtIndex(theString CFStringRef, idx CFIndex) (uint16, error) {
 	if _cFStringGetCharacterAtIndex == nil {
 		return 0, symbolCallError("CFStringGetCharacterAtIndex", "", _cFStringGetCharacterAtIndexErr)
 	}
@@ -12299,7 +12299,7 @@ func tryCFStringGetCharacterAtIndex(theString CFStringRef, idx int) (uint16, err
 // CFStringGetCharacterAtIndex returns the Unicode character at a specified location in a string.
 //
 // See: https://developer.apple.com/documentation/CoreFoundation/CFStringGetCharacterAtIndex(_:_:)
-func CFStringGetCharacterAtIndex(theString CFStringRef, idx int) uint16 {
+func CFStringGetCharacterAtIndex(theString CFStringRef, idx CFIndex) uint16 {
 	result, callErr := tryCFStringGetCharacterAtIndex(theString, idx)
 	if callErr != nil {
 		panic(callErr)
@@ -12369,12 +12369,12 @@ func CFStringGetDoubleValue(str CFStringRef) float64 {
 	return result
 }
 
-var _cFStringGetFastestEncoding func(theString CFStringRef) uint32
+var _cFStringGetFastestEncoding func(theString CFStringRef) CFStringEncoding
 var _cFStringGetFastestEncodingErr error
 
-func tryCFStringGetFastestEncoding(theString CFStringRef) (uint32, error) {
+func tryCFStringGetFastestEncoding(theString CFStringRef) (CFStringEncoding, error) {
 	if _cFStringGetFastestEncoding == nil {
-		return 0, symbolCallError("CFStringGetFastestEncoding", "", _cFStringGetFastestEncodingErr)
+		return *new(CFStringEncoding), symbolCallError("CFStringGetFastestEncoding", "", _cFStringGetFastestEncodingErr)
 	}
 	return _cFStringGetFastestEncoding(theString), nil
 }
@@ -12382,7 +12382,7 @@ func tryCFStringGetFastestEncoding(theString CFStringRef) (uint32, error) {
 // CFStringGetFastestEncoding returns for a CFString object the character encoding that requires the least conversion time.
 //
 // See: https://developer.apple.com/documentation/CoreFoundation/CFStringGetFastestEncoding(_:)
-func CFStringGetFastestEncoding(theString CFStringRef) uint32 {
+func CFStringGetFastestEncoding(theString CFStringRef) CFStringEncoding {
 	result, callErr := tryCFStringGetFastestEncoding(theString)
 	if callErr != nil {
 		panic(callErr)
@@ -12390,10 +12390,10 @@ func CFStringGetFastestEncoding(theString CFStringRef) uint32 {
 	return result
 }
 
-var _cFStringGetFileSystemRepresentation func(string_ CFStringRef, buffer *byte, maxBufLen int) bool
+var _cFStringGetFileSystemRepresentation func(string_ CFStringRef, buffer *byte, maxBufLen CFIndex) bool
 var _cFStringGetFileSystemRepresentationErr error
 
-func tryCFStringGetFileSystemRepresentation(string_ CFStringRef, buffer *byte, maxBufLen int) (bool, error) {
+func tryCFStringGetFileSystemRepresentation(string_ CFStringRef, buffer *byte, maxBufLen CFIndex) (bool, error) {
 	if _cFStringGetFileSystemRepresentation == nil {
 		return false, symbolCallError("CFStringGetFileSystemRepresentation", "", _cFStringGetFileSystemRepresentationErr)
 	}
@@ -12403,7 +12403,7 @@ func tryCFStringGetFileSystemRepresentation(string_ CFStringRef, buffer *byte, m
 // CFStringGetFileSystemRepresentation extracts the contents of a string as a [NULL]-terminated 8-bit string appropriate for passing to POSIX APIs.
 //
 // See: https://developer.apple.com/documentation/CoreFoundation/CFStringGetFileSystemRepresentation(_:_:_:)
-func CFStringGetFileSystemRepresentation(string_ CFStringRef, buffer *byte, maxBufLen int) bool {
+func CFStringGetFileSystemRepresentation(string_ CFStringRef, buffer *byte, maxBufLen CFIndex) bool {
 	result, callErr := tryCFStringGetFileSystemRepresentation(string_, buffer, maxBufLen)
 	if callErr != nil {
 		panic(callErr)
@@ -12411,12 +12411,12 @@ func CFStringGetFileSystemRepresentation(string_ CFStringRef, buffer *byte, maxB
 	return result
 }
 
-var _cFStringGetHyphenationLocationBeforeIndex func(string_ CFStringRef, location int, limitRange CFRange, options uint64, locale CFLocaleRef, character *uint32) int
+var _cFStringGetHyphenationLocationBeforeIndex func(string_ CFStringRef, location CFIndex, limitRange CFRange, options CFOptionFlags, locale CFLocaleRef, character *uint32) CFIndex
 var _cFStringGetHyphenationLocationBeforeIndexErr error
 
-func tryCFStringGetHyphenationLocationBeforeIndex(string_ CFStringRef, location int, limitRange CFRange, options uint64, locale CFLocaleRef, character *uint32) (int, error) {
+func tryCFStringGetHyphenationLocationBeforeIndex(string_ CFStringRef, location CFIndex, limitRange CFRange, options CFOptionFlags, locale CFLocaleRef, character *uint32) (CFIndex, error) {
 	if _cFStringGetHyphenationLocationBeforeIndex == nil {
-		return 0, symbolCallError("CFStringGetHyphenationLocationBeforeIndex", "10.7", _cFStringGetHyphenationLocationBeforeIndexErr)
+		return *new(CFIndex), symbolCallError("CFStringGetHyphenationLocationBeforeIndex", "10.7", _cFStringGetHyphenationLocationBeforeIndexErr)
 	}
 	return _cFStringGetHyphenationLocationBeforeIndex(string_, location, limitRange, options, locale, character), nil
 }
@@ -12424,7 +12424,7 @@ func tryCFStringGetHyphenationLocationBeforeIndex(string_ CFStringRef, location 
 // CFStringGetHyphenationLocationBeforeIndex retrieve the first potential hyphenation location found before the specified location.
 //
 // See: https://developer.apple.com/documentation/CoreFoundation/CFStringGetHyphenationLocationBeforeIndex(_:_:_:_:_:_:)
-func CFStringGetHyphenationLocationBeforeIndex(string_ CFStringRef, location int, limitRange CFRange, options uint64, locale CFLocaleRef, character *uint32) int {
+func CFStringGetHyphenationLocationBeforeIndex(string_ CFStringRef, location CFIndex, limitRange CFRange, options CFOptionFlags, locale CFLocaleRef, character *uint32) CFIndex {
 	result, callErr := tryCFStringGetHyphenationLocationBeforeIndex(string_, location, limitRange, options, locale, character)
 	if callErr != nil {
 		panic(callErr)
@@ -12453,12 +12453,12 @@ func CFStringGetIntValue(str CFStringRef) int32 {
 	return result
 }
 
-var _cFStringGetLength func(theString CFStringRef) int
+var _cFStringGetLength func(theString CFStringRef) CFIndex
 var _cFStringGetLengthErr error
 
-func tryCFStringGetLength(theString CFStringRef) (int, error) {
+func tryCFStringGetLength(theString CFStringRef) (CFIndex, error) {
 	if _cFStringGetLength == nil {
-		return 0, symbolCallError("CFStringGetLength", "", _cFStringGetLengthErr)
+		return *new(CFIndex), symbolCallError("CFStringGetLength", "", _cFStringGetLengthErr)
 	}
 	return _cFStringGetLength(theString), nil
 }
@@ -12466,7 +12466,7 @@ func tryCFStringGetLength(theString CFStringRef) (int, error) {
 // CFStringGetLength returns the number (in terms of UTF-16 code pairs) of Unicode characters in a string.
 //
 // See: https://developer.apple.com/documentation/CoreFoundation/CFStringGetLength(_:)
-func CFStringGetLength(theString CFStringRef) int {
+func CFStringGetLength(theString CFStringRef) CFIndex {
 	result, callErr := tryCFStringGetLength(theString)
 	if callErr != nil {
 		panic(callErr)
@@ -12474,10 +12474,10 @@ func CFStringGetLength(theString CFStringRef) int {
 	return result
 }
 
-var _cFStringGetLineBounds func(theString CFStringRef, range_ CFRange, lineBeginIndex *int, lineEndIndex *int, contentsEndIndex *int)
+var _cFStringGetLineBounds func(theString CFStringRef, range_ CFRange, lineBeginIndex *CFIndex, lineEndIndex *CFIndex, contentsEndIndex *CFIndex)
 var _cFStringGetLineBoundsErr error
 
-func tryCFStringGetLineBounds(theString CFStringRef, range_ CFRange, lineBeginIndex *int, lineEndIndex *int, contentsEndIndex *int) error {
+func tryCFStringGetLineBounds(theString CFStringRef, range_ CFRange, lineBeginIndex *CFIndex, lineEndIndex *CFIndex, contentsEndIndex *CFIndex) error {
 	if _cFStringGetLineBounds == nil {
 		return symbolCallError("CFStringGetLineBounds", "", _cFStringGetLineBoundsErr)
 	}
@@ -12488,16 +12488,16 @@ func tryCFStringGetLineBounds(theString CFStringRef, range_ CFRange, lineBeginIn
 // CFStringGetLineBounds given a range of characters in a string, obtains the line bounds—that is, the indexes of the first character and the final characters of the lines containing the range.
 //
 // See: https://developer.apple.com/documentation/CoreFoundation/CFStringGetLineBounds(_:_:_:_:_:)
-func CFStringGetLineBounds(theString CFStringRef, range_ CFRange, lineBeginIndex *int, lineEndIndex *int, contentsEndIndex *int) {
+func CFStringGetLineBounds(theString CFStringRef, range_ CFRange, lineBeginIndex *CFIndex, lineEndIndex *CFIndex, contentsEndIndex *CFIndex) {
 	if callErr := tryCFStringGetLineBounds(theString, range_, lineBeginIndex, lineEndIndex, contentsEndIndex); callErr != nil {
 		panic(callErr)
 	}
 }
 
-var _cFStringGetListOfAvailableEncodings func() *uint32
+var _cFStringGetListOfAvailableEncodings func() *CFStringEncoding
 var _cFStringGetListOfAvailableEncodingsErr error
 
-func tryCFStringGetListOfAvailableEncodings() (*uint32, error) {
+func tryCFStringGetListOfAvailableEncodings() (*CFStringEncoding, error) {
 	if _cFStringGetListOfAvailableEncodings == nil {
 		return nil, symbolCallError("CFStringGetListOfAvailableEncodings", "", _cFStringGetListOfAvailableEncodingsErr)
 	}
@@ -12507,7 +12507,7 @@ func tryCFStringGetListOfAvailableEncodings() (*uint32, error) {
 // CFStringGetListOfAvailableEncodings returns a pointer to a list of string encodings supported by the current system.
 //
 // See: https://developer.apple.com/documentation/CoreFoundation/CFStringGetListOfAvailableEncodings()
-func CFStringGetListOfAvailableEncodings() *uint32 {
+func CFStringGetListOfAvailableEncodings() *CFStringEncoding {
 	result, callErr := tryCFStringGetListOfAvailableEncodings()
 	if callErr != nil {
 		panic(callErr)
@@ -12515,12 +12515,12 @@ func CFStringGetListOfAvailableEncodings() *uint32 {
 	return result
 }
 
-var _cFStringGetMaximumSizeForEncoding func(length int, encoding uint32) int
+var _cFStringGetMaximumSizeForEncoding func(length CFIndex, encoding CFStringEncoding) CFIndex
 var _cFStringGetMaximumSizeForEncodingErr error
 
-func tryCFStringGetMaximumSizeForEncoding(length int, encoding uint32) (int, error) {
+func tryCFStringGetMaximumSizeForEncoding(length CFIndex, encoding CFStringEncoding) (CFIndex, error) {
 	if _cFStringGetMaximumSizeForEncoding == nil {
-		return 0, symbolCallError("CFStringGetMaximumSizeForEncoding", "", _cFStringGetMaximumSizeForEncodingErr)
+		return *new(CFIndex), symbolCallError("CFStringGetMaximumSizeForEncoding", "", _cFStringGetMaximumSizeForEncodingErr)
 	}
 	return _cFStringGetMaximumSizeForEncoding(length, encoding), nil
 }
@@ -12528,7 +12528,7 @@ func tryCFStringGetMaximumSizeForEncoding(length int, encoding uint32) (int, err
 // CFStringGetMaximumSizeForEncoding returns the maximum number of bytes a string of a specified length (in Unicode characters) will take up if encoded in a specified encoding.
 //
 // See: https://developer.apple.com/documentation/CoreFoundation/CFStringGetMaximumSizeForEncoding(_:_:)
-func CFStringGetMaximumSizeForEncoding(length int, encoding uint32) int {
+func CFStringGetMaximumSizeForEncoding(length CFIndex, encoding CFStringEncoding) CFIndex {
 	result, callErr := tryCFStringGetMaximumSizeForEncoding(length, encoding)
 	if callErr != nil {
 		panic(callErr)
@@ -12536,12 +12536,12 @@ func CFStringGetMaximumSizeForEncoding(length int, encoding uint32) int {
 	return result
 }
 
-var _cFStringGetMaximumSizeOfFileSystemRepresentation func(string_ CFStringRef) int
+var _cFStringGetMaximumSizeOfFileSystemRepresentation func(string_ CFStringRef) CFIndex
 var _cFStringGetMaximumSizeOfFileSystemRepresentationErr error
 
-func tryCFStringGetMaximumSizeOfFileSystemRepresentation(string_ CFStringRef) (int, error) {
+func tryCFStringGetMaximumSizeOfFileSystemRepresentation(string_ CFStringRef) (CFIndex, error) {
 	if _cFStringGetMaximumSizeOfFileSystemRepresentation == nil {
-		return 0, symbolCallError("CFStringGetMaximumSizeOfFileSystemRepresentation", "", _cFStringGetMaximumSizeOfFileSystemRepresentationErr)
+		return *new(CFIndex), symbolCallError("CFStringGetMaximumSizeOfFileSystemRepresentation", "", _cFStringGetMaximumSizeOfFileSystemRepresentationErr)
 	}
 	return _cFStringGetMaximumSizeOfFileSystemRepresentation(string_), nil
 }
@@ -12549,7 +12549,7 @@ func tryCFStringGetMaximumSizeOfFileSystemRepresentation(string_ CFStringRef) (i
 // CFStringGetMaximumSizeOfFileSystemRepresentation determines the upper bound on the number of bytes required to hold the file system representation of the string.
 //
 // See: https://developer.apple.com/documentation/CoreFoundation/CFStringGetMaximumSizeOfFileSystemRepresentation(_:)
-func CFStringGetMaximumSizeOfFileSystemRepresentation(string_ CFStringRef) int {
+func CFStringGetMaximumSizeOfFileSystemRepresentation(string_ CFStringRef) CFIndex {
 	result, callErr := tryCFStringGetMaximumSizeOfFileSystemRepresentation(string_)
 	if callErr != nil {
 		panic(callErr)
@@ -12557,12 +12557,12 @@ func CFStringGetMaximumSizeOfFileSystemRepresentation(string_ CFStringRef) int {
 	return result
 }
 
-var _cFStringGetMostCompatibleMacStringEncoding func(encoding uint32) uint32
+var _cFStringGetMostCompatibleMacStringEncoding func(encoding CFStringEncoding) CFStringEncoding
 var _cFStringGetMostCompatibleMacStringEncodingErr error
 
-func tryCFStringGetMostCompatibleMacStringEncoding(encoding uint32) (uint32, error) {
+func tryCFStringGetMostCompatibleMacStringEncoding(encoding CFStringEncoding) (CFStringEncoding, error) {
 	if _cFStringGetMostCompatibleMacStringEncoding == nil {
-		return 0, symbolCallError("CFStringGetMostCompatibleMacStringEncoding", "", _cFStringGetMostCompatibleMacStringEncodingErr)
+		return *new(CFStringEncoding), symbolCallError("CFStringGetMostCompatibleMacStringEncoding", "", _cFStringGetMostCompatibleMacStringEncodingErr)
 	}
 	return _cFStringGetMostCompatibleMacStringEncoding(encoding), nil
 }
@@ -12570,7 +12570,7 @@ func tryCFStringGetMostCompatibleMacStringEncoding(encoding uint32) (uint32, err
 // CFStringGetMostCompatibleMacStringEncoding returns the most compatible Mac OS script value for the given input encoding.
 //
 // See: https://developer.apple.com/documentation/CoreFoundation/CFStringGetMostCompatibleMacStringEncoding(_:)
-func CFStringGetMostCompatibleMacStringEncoding(encoding uint32) uint32 {
+func CFStringGetMostCompatibleMacStringEncoding(encoding CFStringEncoding) CFStringEncoding {
 	result, callErr := tryCFStringGetMostCompatibleMacStringEncoding(encoding)
 	if callErr != nil {
 		panic(callErr)
@@ -12578,10 +12578,10 @@ func CFStringGetMostCompatibleMacStringEncoding(encoding uint32) uint32 {
 	return result
 }
 
-var _cFStringGetNameOfEncoding func(encoding uint32) CFStringRef
+var _cFStringGetNameOfEncoding func(encoding CFStringEncoding) CFStringRef
 var _cFStringGetNameOfEncodingErr error
 
-func tryCFStringGetNameOfEncoding(encoding uint32) (CFStringRef, error) {
+func tryCFStringGetNameOfEncoding(encoding CFStringEncoding) (CFStringRef, error) {
 	if _cFStringGetNameOfEncoding == nil {
 		return *new(CFStringRef), symbolCallError("CFStringGetNameOfEncoding", "", _cFStringGetNameOfEncodingErr)
 	}
@@ -12591,7 +12591,7 @@ func tryCFStringGetNameOfEncoding(encoding uint32) (CFStringRef, error) {
 // CFStringGetNameOfEncoding returns the canonical name of a specified string encoding.
 //
 // See: https://developer.apple.com/documentation/CoreFoundation/CFStringGetNameOfEncoding(_:)
-func CFStringGetNameOfEncoding(encoding uint32) CFStringRef {
+func CFStringGetNameOfEncoding(encoding CFStringEncoding) CFStringRef {
 	result, callErr := tryCFStringGetNameOfEncoding(encoding)
 	if callErr != nil {
 		panic(callErr)
@@ -12599,10 +12599,10 @@ func CFStringGetNameOfEncoding(encoding uint32) CFStringRef {
 	return result
 }
 
-var _cFStringGetParagraphBounds func(string_ CFStringRef, range_ CFRange, parBeginIndex *int, parEndIndex *int, contentsEndIndex *int)
+var _cFStringGetParagraphBounds func(string_ CFStringRef, range_ CFRange, parBeginIndex *CFIndex, parEndIndex *CFIndex, contentsEndIndex *CFIndex)
 var _cFStringGetParagraphBoundsErr error
 
-func tryCFStringGetParagraphBounds(string_ CFStringRef, range_ CFRange, parBeginIndex *int, parEndIndex *int, contentsEndIndex *int) error {
+func tryCFStringGetParagraphBounds(string_ CFStringRef, range_ CFRange, parBeginIndex *CFIndex, parEndIndex *CFIndex, contentsEndIndex *CFIndex) error {
 	if _cFStringGetParagraphBounds == nil {
 		return symbolCallError("CFStringGetParagraphBounds", "10.5", _cFStringGetParagraphBoundsErr)
 	}
@@ -12613,16 +12613,16 @@ func tryCFStringGetParagraphBounds(string_ CFStringRef, range_ CFRange, parBegin
 // CFStringGetParagraphBounds given a range of characters in a string, obtains the paragraph bounds—that is, the indexes of the first character and the final characters of the paragraph(s) containing the range.
 //
 // See: https://developer.apple.com/documentation/CoreFoundation/CFStringGetParagraphBounds(_:_:_:_:_:)
-func CFStringGetParagraphBounds(string_ CFStringRef, range_ CFRange, parBeginIndex *int, parEndIndex *int, contentsEndIndex *int) {
+func CFStringGetParagraphBounds(string_ CFStringRef, range_ CFRange, parBeginIndex *CFIndex, parEndIndex *CFIndex, contentsEndIndex *CFIndex) {
 	if callErr := tryCFStringGetParagraphBounds(string_, range_, parBeginIndex, parEndIndex, contentsEndIndex); callErr != nil {
 		panic(callErr)
 	}
 }
 
-var _cFStringGetPascalString func(theString CFStringRef, buffer *byte, bufferSize int, encoding uint32) bool
+var _cFStringGetPascalString func(theString CFStringRef, buffer *byte, bufferSize CFIndex, encoding CFStringEncoding) bool
 var _cFStringGetPascalStringErr error
 
-func tryCFStringGetPascalString(theString CFStringRef, buffer *byte, bufferSize int, encoding uint32) (bool, error) {
+func tryCFStringGetPascalString(theString CFStringRef, buffer *byte, bufferSize CFIndex, encoding CFStringEncoding) (bool, error) {
 	if _cFStringGetPascalString == nil {
 		return false, symbolCallError("CFStringGetPascalString", "", _cFStringGetPascalStringErr)
 	}
@@ -12632,7 +12632,7 @@ func tryCFStringGetPascalString(theString CFStringRef, buffer *byte, bufferSize 
 // CFStringGetPascalString copies the character contents of a CFString object to a local Pascal string buffer after converting the characters to a requested encoding.
 //
 // See: https://developer.apple.com/documentation/CoreFoundation/CFStringGetPascalString(_:_:_:_:)
-func CFStringGetPascalString(theString CFStringRef, buffer *byte, bufferSize int, encoding uint32) bool {
+func CFStringGetPascalString(theString CFStringRef, buffer *byte, bufferSize CFIndex, encoding CFStringEncoding) bool {
 	result, callErr := tryCFStringGetPascalString(theString, buffer, bufferSize, encoding)
 	if callErr != nil {
 		panic(callErr)
@@ -12640,10 +12640,10 @@ func CFStringGetPascalString(theString CFStringRef, buffer *byte, bufferSize int
 	return result
 }
 
-var _cFStringGetPascalStringPtr func(theString CFStringRef, encoding uint32) *byte
+var _cFStringGetPascalStringPtr func(theString CFStringRef, encoding CFStringEncoding) *byte
 var _cFStringGetPascalStringPtrErr error
 
-func tryCFStringGetPascalStringPtr(theString CFStringRef, encoding uint32) (*byte, error) {
+func tryCFStringGetPascalStringPtr(theString CFStringRef, encoding CFStringEncoding) (*byte, error) {
 	if _cFStringGetPascalStringPtr == nil {
 		return nil, symbolCallError("CFStringGetPascalStringPtr", "", _cFStringGetPascalStringPtrErr)
 	}
@@ -12653,7 +12653,7 @@ func tryCFStringGetPascalStringPtr(theString CFStringRef, encoding uint32) (*byt
 // CFStringGetPascalStringPtr quickly obtains a pointer to a Pascal buffer containing the characters of a string in a given encoding.
 //
 // See: https://developer.apple.com/documentation/CoreFoundation/CFStringGetPascalStringPtr(_:_:)
-func CFStringGetPascalStringPtr(theString CFStringRef, encoding uint32) *byte {
+func CFStringGetPascalStringPtr(theString CFStringRef, encoding CFStringEncoding) *byte {
 	result, callErr := tryCFStringGetPascalStringPtr(theString, encoding)
 	if callErr != nil {
 		panic(callErr)
@@ -12661,10 +12661,10 @@ func CFStringGetPascalStringPtr(theString CFStringRef, encoding uint32) *byte {
 	return result
 }
 
-var _cFStringGetRangeOfComposedCharactersAtIndex func(theString CFStringRef, theIndex int) CFRange
+var _cFStringGetRangeOfComposedCharactersAtIndex func(theString CFStringRef, theIndex CFIndex) CFRange
 var _cFStringGetRangeOfComposedCharactersAtIndexErr error
 
-func tryCFStringGetRangeOfComposedCharactersAtIndex(theString CFStringRef, theIndex int) (CFRange, error) {
+func tryCFStringGetRangeOfComposedCharactersAtIndex(theString CFStringRef, theIndex CFIndex) (CFRange, error) {
 	if _cFStringGetRangeOfComposedCharactersAtIndex == nil {
 		return CFRange{}, symbolCallError("CFStringGetRangeOfComposedCharactersAtIndex", "", _cFStringGetRangeOfComposedCharactersAtIndexErr)
 	}
@@ -12674,7 +12674,7 @@ func tryCFStringGetRangeOfComposedCharactersAtIndex(theString CFStringRef, theIn
 // CFStringGetRangeOfComposedCharactersAtIndex returns the range of the composed character sequence at a specified index.
 //
 // See: https://developer.apple.com/documentation/CoreFoundation/CFStringGetRangeOfComposedCharactersAtIndex(_:_:)
-func CFStringGetRangeOfComposedCharactersAtIndex(theString CFStringRef, theIndex int) CFRange {
+func CFStringGetRangeOfComposedCharactersAtIndex(theString CFStringRef, theIndex CFIndex) CFRange {
 	result, callErr := tryCFStringGetRangeOfComposedCharactersAtIndex(theString, theIndex)
 	if callErr != nil {
 		panic(callErr)
@@ -12682,12 +12682,12 @@ func CFStringGetRangeOfComposedCharactersAtIndex(theString CFStringRef, theIndex
 	return result
 }
 
-var _cFStringGetSmallestEncoding func(theString CFStringRef) uint32
+var _cFStringGetSmallestEncoding func(theString CFStringRef) CFStringEncoding
 var _cFStringGetSmallestEncodingErr error
 
-func tryCFStringGetSmallestEncoding(theString CFStringRef) (uint32, error) {
+func tryCFStringGetSmallestEncoding(theString CFStringRef) (CFStringEncoding, error) {
 	if _cFStringGetSmallestEncoding == nil {
-		return 0, symbolCallError("CFStringGetSmallestEncoding", "", _cFStringGetSmallestEncodingErr)
+		return *new(CFStringEncoding), symbolCallError("CFStringGetSmallestEncoding", "", _cFStringGetSmallestEncodingErr)
 	}
 	return _cFStringGetSmallestEncoding(theString), nil
 }
@@ -12695,7 +12695,7 @@ func tryCFStringGetSmallestEncoding(theString CFStringRef) (uint32, error) {
 // CFStringGetSmallestEncoding returns the smallest encoding on the current system for the character contents of a string.
 //
 // See: https://developer.apple.com/documentation/CoreFoundation/CFStringGetSmallestEncoding(_:)
-func CFStringGetSmallestEncoding(theString CFStringRef) uint32 {
+func CFStringGetSmallestEncoding(theString CFStringRef) CFStringEncoding {
 	result, callErr := tryCFStringGetSmallestEncoding(theString)
 	if callErr != nil {
 		panic(callErr)
@@ -12703,12 +12703,12 @@ func CFStringGetSmallestEncoding(theString CFStringRef) uint32 {
 	return result
 }
 
-var _cFStringGetSystemEncoding func() uint32
+var _cFStringGetSystemEncoding func() CFStringEncoding
 var _cFStringGetSystemEncodingErr error
 
-func tryCFStringGetSystemEncoding() (uint32, error) {
+func tryCFStringGetSystemEncoding() (CFStringEncoding, error) {
 	if _cFStringGetSystemEncoding == nil {
-		return 0, symbolCallError("CFStringGetSystemEncoding", "", _cFStringGetSystemEncodingErr)
+		return *new(CFStringEncoding), symbolCallError("CFStringGetSystemEncoding", "", _cFStringGetSystemEncodingErr)
 	}
 	return _cFStringGetSystemEncoding(), nil
 }
@@ -12716,7 +12716,7 @@ func tryCFStringGetSystemEncoding() (uint32, error) {
 // CFStringGetSystemEncoding returns the default encoding used by the operating system when it creates strings.
 //
 // See: https://developer.apple.com/documentation/CoreFoundation/CFStringGetSystemEncoding()
-func CFStringGetSystemEncoding() uint32 {
+func CFStringGetSystemEncoding() CFStringEncoding {
 	result, callErr := tryCFStringGetSystemEncoding()
 	if callErr != nil {
 		panic(callErr)
@@ -12724,12 +12724,12 @@ func CFStringGetSystemEncoding() uint32 {
 	return result
 }
 
-var _cFStringGetTypeID func() uint
+var _cFStringGetTypeID func() CFTypeID
 var _cFStringGetTypeIDErr error
 
-func tryCFStringGetTypeID() (uint, error) {
+func tryCFStringGetTypeID() (CFTypeID, error) {
 	if _cFStringGetTypeID == nil {
-		return 0, symbolCallError("CFStringGetTypeID", "", _cFStringGetTypeIDErr)
+		return *new(CFTypeID), symbolCallError("CFStringGetTypeID", "", _cFStringGetTypeIDErr)
 	}
 	return _cFStringGetTypeID(), nil
 }
@@ -12737,7 +12737,7 @@ func tryCFStringGetTypeID() (uint, error) {
 // CFStringGetTypeID returns the type identifier for the CFString opaque type.
 //
 // See: https://developer.apple.com/documentation/CoreFoundation/CFStringGetTypeID()
-func CFStringGetTypeID() uint {
+func CFStringGetTypeID() CFTypeID {
 	result, callErr := tryCFStringGetTypeID()
 	if callErr != nil {
 		panic(callErr)
@@ -12787,10 +12787,10 @@ func CFStringHasSuffix(theString CFStringRef, suffix CFStringRef) bool {
 	return result
 }
 
-var _cFStringInsert func(str CFMutableStringRef, idx int, insertedStr CFStringRef)
+var _cFStringInsert func(str CFMutableStringRef, idx CFIndex, insertedStr CFStringRef)
 var _cFStringInsertErr error
 
-func tryCFStringInsert(str CFMutableStringRef, idx int, insertedStr CFStringRef) error {
+func tryCFStringInsert(str CFMutableStringRef, idx CFIndex, insertedStr CFStringRef) error {
 	if _cFStringInsert == nil {
 		return symbolCallError("CFStringInsert", "", _cFStringInsertErr)
 	}
@@ -12801,16 +12801,16 @@ func tryCFStringInsert(str CFMutableStringRef, idx int, insertedStr CFStringRef)
 // CFStringInsert inserts a string at a specified location in the character buffer of a CFMutableString object.
 //
 // See: https://developer.apple.com/documentation/CoreFoundation/CFStringInsert(_:_:_:)
-func CFStringInsert(str CFMutableStringRef, idx int, insertedStr CFStringRef) {
+func CFStringInsert(str CFMutableStringRef, idx CFIndex, insertedStr CFStringRef) {
 	if callErr := tryCFStringInsert(str, idx, insertedStr); callErr != nil {
 		panic(callErr)
 	}
 }
 
-var _cFStringIsEncodingAvailable func(encoding uint32) bool
+var _cFStringIsEncodingAvailable func(encoding CFStringEncoding) bool
 var _cFStringIsEncodingAvailableErr error
 
-func tryCFStringIsEncodingAvailable(encoding uint32) (bool, error) {
+func tryCFStringIsEncodingAvailable(encoding CFStringEncoding) (bool, error) {
 	if _cFStringIsEncodingAvailable == nil {
 		return false, symbolCallError("CFStringIsEncodingAvailable", "", _cFStringIsEncodingAvailableErr)
 	}
@@ -12820,7 +12820,7 @@ func tryCFStringIsEncodingAvailable(encoding uint32) (bool, error) {
 // CFStringIsEncodingAvailable determines whether a given Core Foundation string encoding is available on the current system.
 //
 // See: https://developer.apple.com/documentation/CoreFoundation/CFStringIsEncodingAvailable(_:)
-func CFStringIsEncodingAvailable(encoding uint32) bool {
+func CFStringIsEncodingAvailable(encoding CFStringEncoding) bool {
 	result, callErr := tryCFStringIsEncodingAvailable(encoding)
 	if callErr != nil {
 		panic(callErr)
@@ -12889,10 +12889,10 @@ func CFStringNormalize(theString CFMutableStringRef, theForm CFStringNormalizati
 	}
 }
 
-var _cFStringPad func(theString CFMutableStringRef, padString CFStringRef, length int, indexIntoPad int)
+var _cFStringPad func(theString CFMutableStringRef, padString CFStringRef, length CFIndex, indexIntoPad CFIndex)
 var _cFStringPadErr error
 
-func tryCFStringPad(theString CFMutableStringRef, padString CFStringRef, length int, indexIntoPad int) error {
+func tryCFStringPad(theString CFMutableStringRef, padString CFStringRef, length CFIndex, indexIntoPad CFIndex) error {
 	if _cFStringPad == nil {
 		return symbolCallError("CFStringPad", "", _cFStringPadErr)
 	}
@@ -12903,7 +12903,7 @@ func tryCFStringPad(theString CFMutableStringRef, padString CFStringRef, length 
 // CFStringPad enlarges a string, padding it with specified characters, or truncates the string.
 //
 // See: https://developer.apple.com/documentation/CoreFoundation/CFStringPad(_:_:_:_:)
-func CFStringPad(theString CFMutableStringRef, padString CFStringRef, length int, indexIntoPad int) {
+func CFStringPad(theString CFMutableStringRef, padString CFStringRef, length CFIndex, indexIntoPad CFIndex) {
 	if callErr := tryCFStringPad(theString, padString, length, indexIntoPad); callErr != nil {
 		panic(callErr)
 	}
@@ -12949,10 +12949,10 @@ func CFStringReplaceAll(theString CFMutableStringRef, replacement CFStringRef) {
 	}
 }
 
-var _cFStringSetExternalCharactersNoCopy func(theString CFMutableStringRef, chars *uint16, length int, capacity int)
+var _cFStringSetExternalCharactersNoCopy func(theString CFMutableStringRef, chars *uint16, length CFIndex, capacity CFIndex)
 var _cFStringSetExternalCharactersNoCopyErr error
 
-func tryCFStringSetExternalCharactersNoCopy(theString CFMutableStringRef, chars *uint16, length int, capacity int) error {
+func tryCFStringSetExternalCharactersNoCopy(theString CFMutableStringRef, chars *uint16, length CFIndex, capacity CFIndex) error {
 	if _cFStringSetExternalCharactersNoCopy == nil {
 		return symbolCallError("CFStringSetExternalCharactersNoCopy", "", _cFStringSetExternalCharactersNoCopyErr)
 	}
@@ -12963,7 +12963,7 @@ func tryCFStringSetExternalCharactersNoCopy(theString CFMutableStringRef, chars 
 // CFStringSetExternalCharactersNoCopy notifies a CFMutableString object that its external backing store of Unicode characters has changed.
 //
 // See: https://developer.apple.com/documentation/CoreFoundation/CFStringSetExternalCharactersNoCopy(_:_:_:_:)
-func CFStringSetExternalCharactersNoCopy(theString CFMutableStringRef, chars *uint16, length int, capacity int) {
+func CFStringSetExternalCharactersNoCopy(theString CFMutableStringRef, chars *uint16, length CFIndex, capacity CFIndex) {
 	if callErr := tryCFStringSetExternalCharactersNoCopy(theString, chars, length, capacity); callErr != nil {
 		panic(callErr)
 	}
@@ -13011,10 +13011,10 @@ func CFStringTokenizerCopyBestStringLanguage(string_ CFStringRef, range_ CFRange
 	return result
 }
 
-var _cFStringTokenizerCopyCurrentTokenAttribute func(tokenizer CFStringTokenizerRef, attribute uint64) CFTypeRef
+var _cFStringTokenizerCopyCurrentTokenAttribute func(tokenizer CFStringTokenizerRef, attribute CFOptionFlags) CFTypeRef
 var _cFStringTokenizerCopyCurrentTokenAttributeErr error
 
-func tryCFStringTokenizerCopyCurrentTokenAttribute(tokenizer CFStringTokenizerRef, attribute uint64) (CFTypeRef, error) {
+func tryCFStringTokenizerCopyCurrentTokenAttribute(tokenizer CFStringTokenizerRef, attribute CFOptionFlags) (CFTypeRef, error) {
 	if _cFStringTokenizerCopyCurrentTokenAttribute == nil {
 		return *new(CFTypeRef), symbolCallError("CFStringTokenizerCopyCurrentTokenAttribute", "10.5", _cFStringTokenizerCopyCurrentTokenAttributeErr)
 	}
@@ -13024,7 +13024,7 @@ func tryCFStringTokenizerCopyCurrentTokenAttribute(tokenizer CFStringTokenizerRe
 // CFStringTokenizerCopyCurrentTokenAttribute returns a given attribute of the current token.
 //
 // See: https://developer.apple.com/documentation/CoreFoundation/CFStringTokenizerCopyCurrentTokenAttribute(_:_:)
-func CFStringTokenizerCopyCurrentTokenAttribute(tokenizer CFStringTokenizerRef, attribute uint64) CFTypeRef {
+func CFStringTokenizerCopyCurrentTokenAttribute(tokenizer CFStringTokenizerRef, attribute CFOptionFlags) CFTypeRef {
 	result, callErr := tryCFStringTokenizerCopyCurrentTokenAttribute(tokenizer, attribute)
 	if callErr != nil {
 		panic(callErr)
@@ -13032,10 +13032,10 @@ func CFStringTokenizerCopyCurrentTokenAttribute(tokenizer CFStringTokenizerRef, 
 	return result
 }
 
-var _cFStringTokenizerCreate func(alloc CFAllocatorRef, string_ CFStringRef, range_ CFRange, options uint64, locale CFLocaleRef) CFStringTokenizerRef
+var _cFStringTokenizerCreate func(alloc CFAllocatorRef, string_ CFStringRef, range_ CFRange, options CFOptionFlags, locale CFLocaleRef) CFStringTokenizerRef
 var _cFStringTokenizerCreateErr error
 
-func tryCFStringTokenizerCreate(alloc CFAllocatorRef, string_ CFStringRef, range_ CFRange, options uint64, locale CFLocaleRef) (CFStringTokenizerRef, error) {
+func tryCFStringTokenizerCreate(alloc CFAllocatorRef, string_ CFStringRef, range_ CFRange, options CFOptionFlags, locale CFLocaleRef) (CFStringTokenizerRef, error) {
 	if _cFStringTokenizerCreate == nil {
 		return *new(CFStringTokenizerRef), symbolCallError("CFStringTokenizerCreate", "10.5", _cFStringTokenizerCreateErr)
 	}
@@ -13045,7 +13045,7 @@ func tryCFStringTokenizerCreate(alloc CFAllocatorRef, string_ CFStringRef, range
 // CFStringTokenizerCreate returns a tokenizer for a given string.
 //
 // See: https://developer.apple.com/documentation/CoreFoundation/CFStringTokenizerCreate(_:_:_:_:_:)
-func CFStringTokenizerCreate(alloc CFAllocatorRef, string_ CFStringRef, range_ CFRange, options uint64, locale CFLocaleRef) CFStringTokenizerRef {
+func CFStringTokenizerCreate(alloc CFAllocatorRef, string_ CFStringRef, range_ CFRange, options CFOptionFlags, locale CFLocaleRef) CFStringTokenizerRef {
 	result, callErr := tryCFStringTokenizerCreate(alloc, string_, range_, options, locale)
 	if callErr != nil {
 		panic(callErr)
@@ -13053,12 +13053,12 @@ func CFStringTokenizerCreate(alloc CFAllocatorRef, string_ CFStringRef, range_ C
 	return result
 }
 
-var _cFStringTokenizerGetCurrentSubTokens func(tokenizer CFStringTokenizerRef, ranges *CFRange, maxRangeLength int, derivedSubTokens CFMutableArrayRef) int
+var _cFStringTokenizerGetCurrentSubTokens func(tokenizer CFStringTokenizerRef, ranges *CFRange, maxRangeLength CFIndex, derivedSubTokens CFMutableArrayRef) CFIndex
 var _cFStringTokenizerGetCurrentSubTokensErr error
 
-func tryCFStringTokenizerGetCurrentSubTokens(tokenizer CFStringTokenizerRef, ranges *CFRange, maxRangeLength int, derivedSubTokens CFMutableArrayRef) (int, error) {
+func tryCFStringTokenizerGetCurrentSubTokens(tokenizer CFStringTokenizerRef, ranges *CFRange, maxRangeLength CFIndex, derivedSubTokens CFMutableArrayRef) (CFIndex, error) {
 	if _cFStringTokenizerGetCurrentSubTokens == nil {
-		return 0, symbolCallError("CFStringTokenizerGetCurrentSubTokens", "10.5", _cFStringTokenizerGetCurrentSubTokensErr)
+		return *new(CFIndex), symbolCallError("CFStringTokenizerGetCurrentSubTokens", "10.5", _cFStringTokenizerGetCurrentSubTokensErr)
 	}
 	return _cFStringTokenizerGetCurrentSubTokens(tokenizer, ranges, maxRangeLength, derivedSubTokens), nil
 }
@@ -13066,7 +13066,7 @@ func tryCFStringTokenizerGetCurrentSubTokens(tokenizer CFStringTokenizerRef, ran
 // CFStringTokenizerGetCurrentSubTokens retrieves the subtokens or derived subtokens contained in the compound token.
 //
 // See: https://developer.apple.com/documentation/CoreFoundation/CFStringTokenizerGetCurrentSubTokens(_:_:_:_:)
-func CFStringTokenizerGetCurrentSubTokens(tokenizer CFStringTokenizerRef, ranges *CFRange, maxRangeLength int, derivedSubTokens CFMutableArrayRef) int {
+func CFStringTokenizerGetCurrentSubTokens(tokenizer CFStringTokenizerRef, ranges *CFRange, maxRangeLength CFIndex, derivedSubTokens CFMutableArrayRef) CFIndex {
 	result, callErr := tryCFStringTokenizerGetCurrentSubTokens(tokenizer, ranges, maxRangeLength, derivedSubTokens)
 	if callErr != nil {
 		panic(callErr)
@@ -13095,12 +13095,12 @@ func CFStringTokenizerGetCurrentTokenRange(tokenizer CFStringTokenizerRef) CFRan
 	return result
 }
 
-var _cFStringTokenizerGetTypeID func() uint
+var _cFStringTokenizerGetTypeID func() CFTypeID
 var _cFStringTokenizerGetTypeIDErr error
 
-func tryCFStringTokenizerGetTypeID() (uint, error) {
+func tryCFStringTokenizerGetTypeID() (CFTypeID, error) {
 	if _cFStringTokenizerGetTypeID == nil {
-		return 0, symbolCallError("CFStringTokenizerGetTypeID", "10.5", _cFStringTokenizerGetTypeIDErr)
+		return *new(CFTypeID), symbolCallError("CFStringTokenizerGetTypeID", "10.5", _cFStringTokenizerGetTypeIDErr)
 	}
 	return _cFStringTokenizerGetTypeID(), nil
 }
@@ -13108,7 +13108,7 @@ func tryCFStringTokenizerGetTypeID() (uint, error) {
 // CFStringTokenizerGetTypeID returns the type ID for CFStringTokenizer.
 //
 // See: https://developer.apple.com/documentation/CoreFoundation/CFStringTokenizerGetTypeID()
-func CFStringTokenizerGetTypeID() uint {
+func CFStringTokenizerGetTypeID() CFTypeID {
 	result, callErr := tryCFStringTokenizerGetTypeID()
 	if callErr != nil {
 		panic(callErr)
@@ -13116,10 +13116,10 @@ func CFStringTokenizerGetTypeID() uint {
 	return result
 }
 
-var _cFStringTokenizerGoToTokenAtIndex func(tokenizer CFStringTokenizerRef, index int) CFStringTokenizerTokenType
+var _cFStringTokenizerGoToTokenAtIndex func(tokenizer CFStringTokenizerRef, index CFIndex) CFStringTokenizerTokenType
 var _cFStringTokenizerGoToTokenAtIndexErr error
 
-func tryCFStringTokenizerGoToTokenAtIndex(tokenizer CFStringTokenizerRef, index int) (CFStringTokenizerTokenType, error) {
+func tryCFStringTokenizerGoToTokenAtIndex(tokenizer CFStringTokenizerRef, index CFIndex) (CFStringTokenizerTokenType, error) {
 	if _cFStringTokenizerGoToTokenAtIndex == nil {
 		return *new(CFStringTokenizerTokenType), symbolCallError("CFStringTokenizerGoToTokenAtIndex", "10.5", _cFStringTokenizerGoToTokenAtIndexErr)
 	}
@@ -13129,7 +13129,7 @@ func tryCFStringTokenizerGoToTokenAtIndex(tokenizer CFStringTokenizerRef, index 
 // CFStringTokenizerGoToTokenAtIndex finds a token that includes the character at a given index, and set it as the current token.
 //
 // See: https://developer.apple.com/documentation/CoreFoundation/CFStringTokenizerGoToTokenAtIndex(_:_:)
-func CFStringTokenizerGoToTokenAtIndex(tokenizer CFStringTokenizerRef, index int) CFStringTokenizerTokenType {
+func CFStringTokenizerGoToTokenAtIndex(tokenizer CFStringTokenizerRef, index CFIndex) CFStringTokenizerTokenType {
 	result, callErr := tryCFStringTokenizerGoToTokenAtIndex(tokenizer, index)
 	if callErr != nil {
 		panic(callErr)
@@ -13406,10 +13406,10 @@ func CFTimeZoneCreateWithName(allocator CFAllocatorRef, name CFStringRef, tryAbb
 	return result
 }
 
-var _cFTimeZoneCreateWithTimeIntervalFromGMT func(allocator CFAllocatorRef, ti float64) CFTimeZoneRef
+var _cFTimeZoneCreateWithTimeIntervalFromGMT func(allocator CFAllocatorRef, ti CFTimeInterval) CFTimeZoneRef
 var _cFTimeZoneCreateWithTimeIntervalFromGMTErr error
 
-func tryCFTimeZoneCreateWithTimeIntervalFromGMT(allocator CFAllocatorRef, ti float64) (CFTimeZoneRef, error) {
+func tryCFTimeZoneCreateWithTimeIntervalFromGMT(allocator CFAllocatorRef, ti CFTimeInterval) (CFTimeZoneRef, error) {
 	if _cFTimeZoneCreateWithTimeIntervalFromGMT == nil {
 		return *new(CFTimeZoneRef), symbolCallError("CFTimeZoneCreateWithTimeIntervalFromGMT", "", _cFTimeZoneCreateWithTimeIntervalFromGMTErr)
 	}
@@ -13419,7 +13419,7 @@ func tryCFTimeZoneCreateWithTimeIntervalFromGMT(allocator CFAllocatorRef, ti flo
 // CFTimeZoneCreateWithTimeIntervalFromGMT returns a time zone object for the specified time interval offset from Greenwich Mean Time (GMT).
 //
 // See: https://developer.apple.com/documentation/CoreFoundation/CFTimeZoneCreateWithTimeIntervalFromGMT(_:_:)
-func CFTimeZoneCreateWithTimeIntervalFromGMT(allocator CFAllocatorRef, ti float64) CFTimeZoneRef {
+func CFTimeZoneCreateWithTimeIntervalFromGMT(allocator CFAllocatorRef, ti CFTimeInterval) CFTimeZoneRef {
 	result, callErr := tryCFTimeZoneCreateWithTimeIntervalFromGMT(allocator, ti)
 	if callErr != nil {
 		panic(callErr)
@@ -13448,12 +13448,12 @@ func CFTimeZoneGetData(tz CFTimeZoneRef) CFDataRef {
 	return result
 }
 
-var _cFTimeZoneGetDaylightSavingTimeOffset func(tz CFTimeZoneRef, at CFAbsoluteTime) float64
+var _cFTimeZoneGetDaylightSavingTimeOffset func(tz CFTimeZoneRef, at CFAbsoluteTime) CFTimeInterval
 var _cFTimeZoneGetDaylightSavingTimeOffsetErr error
 
-func tryCFTimeZoneGetDaylightSavingTimeOffset(tz CFTimeZoneRef, at CFAbsoluteTime) (float64, error) {
+func tryCFTimeZoneGetDaylightSavingTimeOffset(tz CFTimeZoneRef, at CFAbsoluteTime) (CFTimeInterval, error) {
 	if _cFTimeZoneGetDaylightSavingTimeOffset == nil {
-		return 0.0, symbolCallError("CFTimeZoneGetDaylightSavingTimeOffset", "10.5", _cFTimeZoneGetDaylightSavingTimeOffsetErr)
+		return *new(CFTimeInterval), symbolCallError("CFTimeZoneGetDaylightSavingTimeOffset", "10.5", _cFTimeZoneGetDaylightSavingTimeOffsetErr)
 	}
 	return _cFTimeZoneGetDaylightSavingTimeOffset(tz, at), nil
 }
@@ -13461,7 +13461,7 @@ func tryCFTimeZoneGetDaylightSavingTimeOffset(tz CFTimeZoneRef, at CFAbsoluteTim
 // CFTimeZoneGetDaylightSavingTimeOffset returns the daylight saving time offset for a time zone at a given time.
 //
 // See: https://developer.apple.com/documentation/CoreFoundation/CFTimeZoneGetDaylightSavingTimeOffset(_:_:)
-func CFTimeZoneGetDaylightSavingTimeOffset(tz CFTimeZoneRef, at CFAbsoluteTime) float64 {
+func CFTimeZoneGetDaylightSavingTimeOffset(tz CFTimeZoneRef, at CFAbsoluteTime) CFTimeInterval {
 	result, callErr := tryCFTimeZoneGetDaylightSavingTimeOffset(tz, at)
 	if callErr != nil {
 		panic(callErr)
@@ -13511,12 +13511,12 @@ func CFTimeZoneGetNextDaylightSavingTimeTransition(tz CFTimeZoneRef, at CFAbsolu
 	return result
 }
 
-var _cFTimeZoneGetSecondsFromGMT func(tz CFTimeZoneRef, at CFAbsoluteTime) float64
+var _cFTimeZoneGetSecondsFromGMT func(tz CFTimeZoneRef, at CFAbsoluteTime) CFTimeInterval
 var _cFTimeZoneGetSecondsFromGMTErr error
 
-func tryCFTimeZoneGetSecondsFromGMT(tz CFTimeZoneRef, at CFAbsoluteTime) (float64, error) {
+func tryCFTimeZoneGetSecondsFromGMT(tz CFTimeZoneRef, at CFAbsoluteTime) (CFTimeInterval, error) {
 	if _cFTimeZoneGetSecondsFromGMT == nil {
-		return 0.0, symbolCallError("CFTimeZoneGetSecondsFromGMT", "", _cFTimeZoneGetSecondsFromGMTErr)
+		return *new(CFTimeInterval), symbolCallError("CFTimeZoneGetSecondsFromGMT", "", _cFTimeZoneGetSecondsFromGMTErr)
 	}
 	return _cFTimeZoneGetSecondsFromGMT(tz, at), nil
 }
@@ -13524,7 +13524,7 @@ func tryCFTimeZoneGetSecondsFromGMT(tz CFTimeZoneRef, at CFAbsoluteTime) (float6
 // CFTimeZoneGetSecondsFromGMT returns the difference in seconds between the receiver and Greenwich Mean Time (GMT) at the specified date.
 //
 // See: https://developer.apple.com/documentation/CoreFoundation/CFTimeZoneGetSecondsFromGMT(_:_:)
-func CFTimeZoneGetSecondsFromGMT(tz CFTimeZoneRef, at CFAbsoluteTime) float64 {
+func CFTimeZoneGetSecondsFromGMT(tz CFTimeZoneRef, at CFAbsoluteTime) CFTimeInterval {
 	result, callErr := tryCFTimeZoneGetSecondsFromGMT(tz, at)
 	if callErr != nil {
 		panic(callErr)
@@ -13532,12 +13532,12 @@ func CFTimeZoneGetSecondsFromGMT(tz CFTimeZoneRef, at CFAbsoluteTime) float64 {
 	return result
 }
 
-var _cFTimeZoneGetTypeID func() uint
+var _cFTimeZoneGetTypeID func() CFTypeID
 var _cFTimeZoneGetTypeIDErr error
 
-func tryCFTimeZoneGetTypeID() (uint, error) {
+func tryCFTimeZoneGetTypeID() (CFTypeID, error) {
 	if _cFTimeZoneGetTypeID == nil {
-		return 0, symbolCallError("CFTimeZoneGetTypeID", "", _cFTimeZoneGetTypeIDErr)
+		return *new(CFTypeID), symbolCallError("CFTimeZoneGetTypeID", "", _cFTimeZoneGetTypeIDErr)
 	}
 	return _cFTimeZoneGetTypeID(), nil
 }
@@ -13545,7 +13545,7 @@ func tryCFTimeZoneGetTypeID() (uint, error) {
 // CFTimeZoneGetTypeID returns the type identifier for the CFTimeZone opaque type.
 //
 // See: https://developer.apple.com/documentation/CoreFoundation/CFTimeZoneGetTypeID()
-func CFTimeZoneGetTypeID() uint {
+func CFTimeZoneGetTypeID() CFTypeID {
 	result, callErr := tryCFTimeZoneGetTypeID()
 	if callErr != nil {
 		panic(callErr)
@@ -13716,10 +13716,10 @@ func CFTreeFindRoot(tree CFTreeRef) CFTreeRef {
 	return result
 }
 
-var _cFTreeGetChildAtIndex func(tree CFTreeRef, idx int) CFTreeRef
+var _cFTreeGetChildAtIndex func(tree CFTreeRef, idx CFIndex) CFTreeRef
 var _cFTreeGetChildAtIndexErr error
 
-func tryCFTreeGetChildAtIndex(tree CFTreeRef, idx int) (CFTreeRef, error) {
+func tryCFTreeGetChildAtIndex(tree CFTreeRef, idx CFIndex) (CFTreeRef, error) {
 	if _cFTreeGetChildAtIndex == nil {
 		return *new(CFTreeRef), symbolCallError("CFTreeGetChildAtIndex", "", _cFTreeGetChildAtIndexErr)
 	}
@@ -13729,7 +13729,7 @@ func tryCFTreeGetChildAtIndex(tree CFTreeRef, idx int) (CFTreeRef, error) {
 // CFTreeGetChildAtIndex returns the child of a tree at the specified index.
 //
 // See: https://developer.apple.com/documentation/CoreFoundation/CFTreeGetChildAtIndex(_:_:)
-func CFTreeGetChildAtIndex(tree CFTreeRef, idx int) CFTreeRef {
+func CFTreeGetChildAtIndex(tree CFTreeRef, idx CFIndex) CFTreeRef {
 	result, callErr := tryCFTreeGetChildAtIndex(tree, idx)
 	if callErr != nil {
 		panic(callErr)
@@ -13737,12 +13737,12 @@ func CFTreeGetChildAtIndex(tree CFTreeRef, idx int) CFTreeRef {
 	return result
 }
 
-var _cFTreeGetChildCount func(tree CFTreeRef) int
+var _cFTreeGetChildCount func(tree CFTreeRef) CFIndex
 var _cFTreeGetChildCountErr error
 
-func tryCFTreeGetChildCount(tree CFTreeRef) (int, error) {
+func tryCFTreeGetChildCount(tree CFTreeRef) (CFIndex, error) {
 	if _cFTreeGetChildCount == nil {
-		return 0, symbolCallError("CFTreeGetChildCount", "", _cFTreeGetChildCountErr)
+		return *new(CFIndex), symbolCallError("CFTreeGetChildCount", "", _cFTreeGetChildCountErr)
 	}
 	return _cFTreeGetChildCount(tree), nil
 }
@@ -13750,7 +13750,7 @@ func tryCFTreeGetChildCount(tree CFTreeRef) (int, error) {
 // CFTreeGetChildCount returns the number of children in a tree.
 //
 // See: https://developer.apple.com/documentation/CoreFoundation/CFTreeGetChildCount(_:)
-func CFTreeGetChildCount(tree CFTreeRef) int {
+func CFTreeGetChildCount(tree CFTreeRef) CFIndex {
 	result, callErr := tryCFTreeGetChildCount(tree)
 	if callErr != nil {
 		panic(callErr)
@@ -13861,12 +13861,12 @@ func CFTreeGetParent(tree CFTreeRef) CFTreeRef {
 	return result
 }
 
-var _cFTreeGetTypeID func() uint
+var _cFTreeGetTypeID func() CFTypeID
 var _cFTreeGetTypeIDErr error
 
-func tryCFTreeGetTypeID() (uint, error) {
+func tryCFTreeGetTypeID() (CFTypeID, error) {
 	if _cFTreeGetTypeID == nil {
-		return 0, symbolCallError("CFTreeGetTypeID", "", _cFTreeGetTypeIDErr)
+		return *new(CFTypeID), symbolCallError("CFTreeGetTypeID", "", _cFTreeGetTypeIDErr)
 	}
 	return _cFTreeGetTypeID(), nil
 }
@@ -13874,7 +13874,7 @@ func tryCFTreeGetTypeID() (uint, error) {
 // CFTreeGetTypeID returns the type identifier of the CFTree opaque type.
 //
 // See: https://developer.apple.com/documentation/CoreFoundation/CFTreeGetTypeID()
-func CFTreeGetTypeID() uint {
+func CFTreeGetTypeID() CFTypeID {
 	result, callErr := tryCFTreeGetTypeID()
 	if callErr != nil {
 		panic(callErr)
@@ -14399,10 +14399,10 @@ func CFURLCopyUserName(anURL CFURLRef) CFStringRef {
 	return result
 }
 
-var _cFURLCreateAbsoluteURLWithBytes func(alloc CFAllocatorRef, relativeURLBytes *byte, length int, encoding uint32, baseURL CFURLRef, useCompatibilityMode bool) CFURLRef
+var _cFURLCreateAbsoluteURLWithBytes func(alloc CFAllocatorRef, relativeURLBytes *byte, length CFIndex, encoding CFStringEncoding, baseURL CFURLRef, useCompatibilityMode bool) CFURLRef
 var _cFURLCreateAbsoluteURLWithBytesErr error
 
-func tryCFURLCreateAbsoluteURLWithBytes(alloc CFAllocatorRef, relativeURLBytes []byte, length int, encoding uint32, baseURL CFURLRef, useCompatibilityMode bool) (CFURLRef, error) {
+func tryCFURLCreateAbsoluteURLWithBytes(alloc CFAllocatorRef, relativeURLBytes []byte, length CFIndex, encoding CFStringEncoding, baseURL CFURLRef, useCompatibilityMode bool) (CFURLRef, error) {
 	if _cFURLCreateAbsoluteURLWithBytes == nil {
 		return *new(CFURLRef), symbolCallError("CFURLCreateAbsoluteURLWithBytes", "", _cFURLCreateAbsoluteURLWithBytesErr)
 	}
@@ -14412,7 +14412,7 @@ func tryCFURLCreateAbsoluteURLWithBytes(alloc CFAllocatorRef, relativeURLBytes [
 // CFURLCreateAbsoluteURLWithBytes creates a new [CFURL] object by resolving the relative portion of a URL, specified as bytes, against its given base URL.
 //
 // See: https://developer.apple.com/documentation/CoreFoundation/CFURLCreateAbsoluteURLWithBytes(_:_:_:_:_:_:)
-func CFURLCreateAbsoluteURLWithBytes(alloc CFAllocatorRef, relativeURLBytes []byte, length int, encoding uint32, baseURL CFURLRef, useCompatibilityMode bool) CFURLRef {
+func CFURLCreateAbsoluteURLWithBytes(alloc CFAllocatorRef, relativeURLBytes []byte, length CFIndex, encoding CFStringEncoding, baseURL CFURLRef, useCompatibilityMode bool) CFURLRef {
 	result, callErr := tryCFURLCreateAbsoluteURLWithBytes(alloc, relativeURLBytes, length, encoding, baseURL, useCompatibilityMode)
 	if callErr != nil {
 		panic(callErr)
@@ -14567,10 +14567,10 @@ func CFURLCreateCopyDeletingPathExtension(allocator CFAllocatorRef, url CFURLRef
 	return result
 }
 
-var _cFURLCreateData func(allocator CFAllocatorRef, url CFURLRef, encoding uint32, escapeWhitespace bool) CFDataRef
+var _cFURLCreateData func(allocator CFAllocatorRef, url CFURLRef, encoding CFStringEncoding, escapeWhitespace bool) CFDataRef
 var _cFURLCreateDataErr error
 
-func tryCFURLCreateData(allocator CFAllocatorRef, url CFURLRef, encoding uint32, escapeWhitespace bool) (CFDataRef, error) {
+func tryCFURLCreateData(allocator CFAllocatorRef, url CFURLRef, encoding CFStringEncoding, escapeWhitespace bool) (CFDataRef, error) {
 	if _cFURLCreateData == nil {
 		return *new(CFDataRef), symbolCallError("CFURLCreateData", "", _cFURLCreateDataErr)
 	}
@@ -14580,7 +14580,7 @@ func tryCFURLCreateData(allocator CFAllocatorRef, url CFURLRef, encoding uint32,
 // CFURLCreateData creates a [CFData] object containing the content of a given URL.
 //
 // See: https://developer.apple.com/documentation/CoreFoundation/CFURLCreateData(_:_:_:_:)
-func CFURLCreateData(allocator CFAllocatorRef, url CFURLRef, encoding uint32, escapeWhitespace bool) CFDataRef {
+func CFURLCreateData(allocator CFAllocatorRef, url CFURLRef, encoding CFStringEncoding, escapeWhitespace bool) CFDataRef {
 	result, callErr := tryCFURLCreateData(allocator, url, encoding, escapeWhitespace)
 	if callErr != nil {
 		panic(callErr)
@@ -14630,10 +14630,10 @@ func CFURLCreateFileReferenceURL(allocator CFAllocatorRef, url CFURLRef, err *CF
 	return result
 }
 
-var _cFURLCreateFromFileSystemRepresentation func(allocator CFAllocatorRef, buffer *byte, bufLen int, isDirectory bool) CFURLRef
+var _cFURLCreateFromFileSystemRepresentation func(allocator CFAllocatorRef, buffer *byte, bufLen CFIndex, isDirectory bool) CFURLRef
 var _cFURLCreateFromFileSystemRepresentationErr error
 
-func tryCFURLCreateFromFileSystemRepresentation(allocator CFAllocatorRef, buffer []byte, bufLen int, isDirectory bool) (CFURLRef, error) {
+func tryCFURLCreateFromFileSystemRepresentation(allocator CFAllocatorRef, buffer []byte, bufLen CFIndex, isDirectory bool) (CFURLRef, error) {
 	if _cFURLCreateFromFileSystemRepresentation == nil {
 		return *new(CFURLRef), symbolCallError("CFURLCreateFromFileSystemRepresentation", "", _cFURLCreateFromFileSystemRepresentationErr)
 	}
@@ -14643,7 +14643,7 @@ func tryCFURLCreateFromFileSystemRepresentation(allocator CFAllocatorRef, buffer
 // CFURLCreateFromFileSystemRepresentation creates a new [CFURL] object for a file system entity using the native representation.
 //
 // See: https://developer.apple.com/documentation/CoreFoundation/CFURLCreateFromFileSystemRepresentation(_:_:_:_:)
-func CFURLCreateFromFileSystemRepresentation(allocator CFAllocatorRef, buffer []byte, bufLen int, isDirectory bool) CFURLRef {
+func CFURLCreateFromFileSystemRepresentation(allocator CFAllocatorRef, buffer []byte, bufLen CFIndex, isDirectory bool) CFURLRef {
 	result, callErr := tryCFURLCreateFromFileSystemRepresentation(allocator, buffer, bufLen, isDirectory)
 	if callErr != nil {
 		panic(callErr)
@@ -14651,10 +14651,10 @@ func CFURLCreateFromFileSystemRepresentation(allocator CFAllocatorRef, buffer []
 	return result
 }
 
-var _cFURLCreateFromFileSystemRepresentationRelativeToBase func(allocator CFAllocatorRef, buffer *byte, bufLen int, isDirectory bool, baseURL CFURLRef) CFURLRef
+var _cFURLCreateFromFileSystemRepresentationRelativeToBase func(allocator CFAllocatorRef, buffer *byte, bufLen CFIndex, isDirectory bool, baseURL CFURLRef) CFURLRef
 var _cFURLCreateFromFileSystemRepresentationRelativeToBaseErr error
 
-func tryCFURLCreateFromFileSystemRepresentationRelativeToBase(allocator CFAllocatorRef, buffer []byte, bufLen int, isDirectory bool, baseURL CFURLRef) (CFURLRef, error) {
+func tryCFURLCreateFromFileSystemRepresentationRelativeToBase(allocator CFAllocatorRef, buffer []byte, bufLen CFIndex, isDirectory bool, baseURL CFURLRef) (CFURLRef, error) {
 	if _cFURLCreateFromFileSystemRepresentationRelativeToBase == nil {
 		return *new(CFURLRef), symbolCallError("CFURLCreateFromFileSystemRepresentationRelativeToBase", "", _cFURLCreateFromFileSystemRepresentationRelativeToBaseErr)
 	}
@@ -14664,7 +14664,7 @@ func tryCFURLCreateFromFileSystemRepresentationRelativeToBase(allocator CFAlloca
 // CFURLCreateFromFileSystemRepresentationRelativeToBase creates a [CFURL] object from a native character string path relative to a base URL.
 //
 // See: https://developer.apple.com/documentation/CoreFoundation/CFURLCreateFromFileSystemRepresentationRelativeToBase(_:_:_:_:_:)
-func CFURLCreateFromFileSystemRepresentationRelativeToBase(allocator CFAllocatorRef, buffer []byte, bufLen int, isDirectory bool, baseURL CFURLRef) CFURLRef {
+func CFURLCreateFromFileSystemRepresentationRelativeToBase(allocator CFAllocatorRef, buffer []byte, bufLen CFIndex, isDirectory bool, baseURL CFURLRef) CFURLRef {
 	result, callErr := tryCFURLCreateFromFileSystemRepresentationRelativeToBase(allocator, buffer, bufLen, isDirectory, baseURL)
 	if callErr != nil {
 		panic(callErr)
@@ -14735,10 +14735,10 @@ func CFURLCreateStringByReplacingPercentEscapes(allocator CFAllocatorRef, origin
 	return result
 }
 
-var _cFURLCreateWithBytes func(allocator CFAllocatorRef, URLBytes *byte, length int, encoding uint32, baseURL CFURLRef) CFURLRef
+var _cFURLCreateWithBytes func(allocator CFAllocatorRef, URLBytes *byte, length CFIndex, encoding CFStringEncoding, baseURL CFURLRef) CFURLRef
 var _cFURLCreateWithBytesErr error
 
-func tryCFURLCreateWithBytes(allocator CFAllocatorRef, URLBytes []byte, length int, encoding uint32, baseURL CFURLRef) (CFURLRef, error) {
+func tryCFURLCreateWithBytes(allocator CFAllocatorRef, URLBytes []byte, length CFIndex, encoding CFStringEncoding, baseURL CFURLRef) (CFURLRef, error) {
 	if _cFURLCreateWithBytes == nil {
 		return *new(CFURLRef), symbolCallError("CFURLCreateWithBytes", "", _cFURLCreateWithBytesErr)
 	}
@@ -14748,7 +14748,7 @@ func tryCFURLCreateWithBytes(allocator CFAllocatorRef, URLBytes []byte, length i
 // CFURLCreateWithBytes creates a [CFURL] object using a given character bytes.
 //
 // See: https://developer.apple.com/documentation/CoreFoundation/CFURLCreateWithBytes(_:_:_:_:_:)
-func CFURLCreateWithBytes(allocator CFAllocatorRef, URLBytes []byte, length int, encoding uint32, baseURL CFURLRef) CFURLRef {
+func CFURLCreateWithBytes(allocator CFAllocatorRef, URLBytes []byte, length CFIndex, encoding CFStringEncoding, baseURL CFURLRef) CFURLRef {
 	result, callErr := tryCFURLCreateWithBytes(allocator, URLBytes, length, encoding, baseURL)
 	if callErr != nil {
 		panic(callErr)
@@ -14861,12 +14861,12 @@ func CFURLEnumeratorCreateForMountedVolumes(alloc CFAllocatorRef, option CFURLEn
 	return result
 }
 
-var _cFURLEnumeratorGetDescendentLevel func(enumerator CFURLEnumeratorRef) int
+var _cFURLEnumeratorGetDescendentLevel func(enumerator CFURLEnumeratorRef) CFIndex
 var _cFURLEnumeratorGetDescendentLevelErr error
 
-func tryCFURLEnumeratorGetDescendentLevel(enumerator CFURLEnumeratorRef) (int, error) {
+func tryCFURLEnumeratorGetDescendentLevel(enumerator CFURLEnumeratorRef) (CFIndex, error) {
 	if _cFURLEnumeratorGetDescendentLevel == nil {
-		return 0, symbolCallError("CFURLEnumeratorGetDescendentLevel", "10.6", _cFURLEnumeratorGetDescendentLevelErr)
+		return *new(CFIndex), symbolCallError("CFURLEnumeratorGetDescendentLevel", "10.6", _cFURLEnumeratorGetDescendentLevelErr)
 	}
 	return _cFURLEnumeratorGetDescendentLevel(enumerator), nil
 }
@@ -14874,7 +14874,7 @@ func tryCFURLEnumeratorGetDescendentLevel(enumerator CFURLEnumeratorRef) (int, e
 // CFURLEnumeratorGetDescendentLevel returns the number of levels a recursive directory enumerator has descended.
 //
 // See: https://developer.apple.com/documentation/CoreFoundation/CFURLEnumeratorGetDescendentLevel(_:)
-func CFURLEnumeratorGetDescendentLevel(enumerator CFURLEnumeratorRef) int {
+func CFURLEnumeratorGetDescendentLevel(enumerator CFURLEnumeratorRef) CFIndex {
 	result, callErr := tryCFURLEnumeratorGetDescendentLevel(enumerator)
 	if callErr != nil {
 		panic(callErr)
@@ -14903,12 +14903,12 @@ func CFURLEnumeratorGetNextURL(enumerator CFURLEnumeratorRef, url *CFURLRef, err
 	return result
 }
 
-var _cFURLEnumeratorGetTypeID func() uint
+var _cFURLEnumeratorGetTypeID func() CFTypeID
 var _cFURLEnumeratorGetTypeIDErr error
 
-func tryCFURLEnumeratorGetTypeID() (uint, error) {
+func tryCFURLEnumeratorGetTypeID() (CFTypeID, error) {
 	if _cFURLEnumeratorGetTypeID == nil {
-		return 0, symbolCallError("CFURLEnumeratorGetTypeID", "10.6", _cFURLEnumeratorGetTypeIDErr)
+		return *new(CFTypeID), symbolCallError("CFURLEnumeratorGetTypeID", "10.6", _cFURLEnumeratorGetTypeIDErr)
 	}
 	return _cFURLEnumeratorGetTypeID(), nil
 }
@@ -14916,7 +14916,7 @@ func tryCFURLEnumeratorGetTypeID() (uint, error) {
 // CFURLEnumeratorGetTypeID returns the opaque type identifier for the CFURLEnumerator opaque type.
 //
 // See: https://developer.apple.com/documentation/CoreFoundation/CFURLEnumeratorGetTypeID()
-func CFURLEnumeratorGetTypeID() uint {
+func CFURLEnumeratorGetTypeID() CFTypeID {
 	result, callErr := tryCFURLEnumeratorGetTypeID()
 	if callErr != nil {
 		panic(callErr)
@@ -14986,12 +14986,12 @@ func CFURLGetByteRangeForComponent(url CFURLRef, component CFURLComponentType, r
 	return result
 }
 
-var _cFURLGetBytes func(url CFURLRef, buffer *byte, bufferLength int) int
+var _cFURLGetBytes func(url CFURLRef, buffer *byte, bufferLength CFIndex) CFIndex
 var _cFURLGetBytesErr error
 
-func tryCFURLGetBytes(url CFURLRef, buffer []byte, bufferLength int) (int, error) {
+func tryCFURLGetBytes(url CFURLRef, buffer []byte, bufferLength CFIndex) (CFIndex, error) {
 	if _cFURLGetBytes == nil {
-		return 0, symbolCallError("CFURLGetBytes", "", _cFURLGetBytesErr)
+		return *new(CFIndex), symbolCallError("CFURLGetBytes", "", _cFURLGetBytesErr)
 	}
 	return _cFURLGetBytes(url, unsafe.SliceData(buffer), bufferLength), nil
 }
@@ -14999,7 +14999,7 @@ func tryCFURLGetBytes(url CFURLRef, buffer []byte, bufferLength int) (int, error
 // CFURLGetBytes returns by reference the byte representation of a URL object.
 //
 // See: https://developer.apple.com/documentation/CoreFoundation/CFURLGetBytes(_:_:_:)
-func CFURLGetBytes(url CFURLRef, buffer []byte, bufferLength int) int {
+func CFURLGetBytes(url CFURLRef, buffer []byte, bufferLength CFIndex) CFIndex {
 	result, callErr := tryCFURLGetBytes(url, buffer, bufferLength)
 	if callErr != nil {
 		panic(callErr)
@@ -15007,10 +15007,10 @@ func CFURLGetBytes(url CFURLRef, buffer []byte, bufferLength int) int {
 	return result
 }
 
-var _cFURLGetFileSystemRepresentation func(url CFURLRef, resolveAgainstBase bool, buffer *byte, maxBufLen int) bool
+var _cFURLGetFileSystemRepresentation func(url CFURLRef, resolveAgainstBase bool, buffer *byte, maxBufLen CFIndex) bool
 var _cFURLGetFileSystemRepresentationErr error
 
-func tryCFURLGetFileSystemRepresentation(url CFURLRef, resolveAgainstBase bool, buffer []byte, maxBufLen int) (bool, error) {
+func tryCFURLGetFileSystemRepresentation(url CFURLRef, resolveAgainstBase bool, buffer []byte, maxBufLen CFIndex) (bool, error) {
 	if _cFURLGetFileSystemRepresentation == nil {
 		return false, symbolCallError("CFURLGetFileSystemRepresentation", "", _cFURLGetFileSystemRepresentationErr)
 	}
@@ -15020,7 +15020,7 @@ func tryCFURLGetFileSystemRepresentation(url CFURLRef, resolveAgainstBase bool, 
 // CFURLGetFileSystemRepresentation fills a buffer with the file system’s native string representation of a given URL’s path.
 //
 // See: https://developer.apple.com/documentation/CoreFoundation/CFURLGetFileSystemRepresentation(_:_:_:_:)
-func CFURLGetFileSystemRepresentation(url CFURLRef, resolveAgainstBase bool, buffer []byte, maxBufLen int) bool {
+func CFURLGetFileSystemRepresentation(url CFURLRef, resolveAgainstBase bool, buffer []byte, maxBufLen CFIndex) bool {
 	result, callErr := tryCFURLGetFileSystemRepresentation(url, resolveAgainstBase, buffer, maxBufLen)
 	if callErr != nil {
 		panic(callErr)
@@ -15070,12 +15070,12 @@ func CFURLGetString(anURL CFURLRef) CFStringRef {
 	return result
 }
 
-var _cFURLGetTypeID func() uint
+var _cFURLGetTypeID func() CFTypeID
 var _cFURLGetTypeIDErr error
 
-func tryCFURLGetTypeID() (uint, error) {
+func tryCFURLGetTypeID() (CFTypeID, error) {
 	if _cFURLGetTypeID == nil {
-		return 0, symbolCallError("CFURLGetTypeID", "", _cFURLGetTypeIDErr)
+		return *new(CFTypeID), symbolCallError("CFURLGetTypeID", "", _cFURLGetTypeIDErr)
 	}
 	return _cFURLGetTypeID(), nil
 }
@@ -15083,7 +15083,7 @@ func tryCFURLGetTypeID() (uint, error) {
 // CFURLGetTypeID returns the type identifier for the [CFURL] opaque type.
 //
 // See: https://developer.apple.com/documentation/CoreFoundation/CFURLGetTypeID()
-func CFURLGetTypeID() uint {
+func CFURLGetTypeID() CFTypeID {
 	result, callErr := tryCFURLGetTypeID()
 	if callErr != nil {
 		panic(callErr)
@@ -15404,12 +15404,12 @@ func CFUUIDGetConstantUUIDWithBytes(alloc CFAllocatorRef, byte0 uint8, byte1 uin
 	return result
 }
 
-var _cFUUIDGetTypeID func() uint
+var _cFUUIDGetTypeID func() CFTypeID
 var _cFUUIDGetTypeIDErr error
 
-func tryCFUUIDGetTypeID() (uint, error) {
+func tryCFUUIDGetTypeID() (CFTypeID, error) {
 	if _cFUUIDGetTypeID == nil {
-		return 0, symbolCallError("CFUUIDGetTypeID", "", _cFUUIDGetTypeIDErr)
+		return *new(CFTypeID), symbolCallError("CFUUIDGetTypeID", "", _cFUUIDGetTypeIDErr)
 	}
 	return _cFUUIDGetTypeID(), nil
 }
@@ -15417,7 +15417,7 @@ func tryCFUUIDGetTypeID() (uint, error) {
 // CFUUIDGetTypeID returns the type identifier for all CFUUID objects.
 //
 // See: https://developer.apple.com/documentation/CoreFoundation/CFUUIDGetTypeID()
-func CFUUIDGetTypeID() uint {
+func CFUUIDGetTypeID() CFTypeID {
 	result, callErr := tryCFUUIDGetTypeID()
 	if callErr != nil {
 		panic(callErr)
@@ -15467,10 +15467,10 @@ func CFUserNotificationCancel(userNotification CFUserNotificationRef) int32 {
 	return result
 }
 
-var _cFUserNotificationCreate func(allocator CFAllocatorRef, timeout float64, flags uint64, err *int32, dictionary CFDictionaryRef) CFUserNotificationRef
+var _cFUserNotificationCreate func(allocator CFAllocatorRef, timeout CFTimeInterval, flags CFOptionFlags, err *int32, dictionary CFDictionaryRef) CFUserNotificationRef
 var _cFUserNotificationCreateErr error
 
-func tryCFUserNotificationCreate(allocator CFAllocatorRef, timeout float64, flags uint64, err *int32, dictionary CFDictionaryRef) (CFUserNotificationRef, error) {
+func tryCFUserNotificationCreate(allocator CFAllocatorRef, timeout CFTimeInterval, flags CFOptionFlags, err *int32, dictionary CFDictionaryRef) (CFUserNotificationRef, error) {
 	if _cFUserNotificationCreate == nil {
 		return *new(CFUserNotificationRef), symbolCallError("CFUserNotificationCreate", "10.0", _cFUserNotificationCreateErr)
 	}
@@ -15480,7 +15480,7 @@ func tryCFUserNotificationCreate(allocator CFAllocatorRef, timeout float64, flag
 // CFUserNotificationCreate creates a CFUserNotification object and displays its notification dialog on screen.
 //
 // See: https://developer.apple.com/documentation/CoreFoundation/CFUserNotificationCreate(_:_:_:_:_:)
-func CFUserNotificationCreate(allocator CFAllocatorRef, timeout float64, flags uint64, err *int32, dictionary CFDictionaryRef) CFUserNotificationRef {
+func CFUserNotificationCreate(allocator CFAllocatorRef, timeout CFTimeInterval, flags CFOptionFlags, err *int32, dictionary CFDictionaryRef) CFUserNotificationRef {
 	result, callErr := tryCFUserNotificationCreate(allocator, timeout, flags, err, dictionary)
 	if callErr != nil {
 		panic(callErr)
@@ -15488,10 +15488,10 @@ func CFUserNotificationCreate(allocator CFAllocatorRef, timeout float64, flags u
 	return result
 }
 
-var _cFUserNotificationCreateRunLoopSource func(allocator CFAllocatorRef, userNotification CFUserNotificationRef, callout CFUserNotificationCallBack, order int) CFRunLoopSourceRef
+var _cFUserNotificationCreateRunLoopSource func(allocator CFAllocatorRef, userNotification CFUserNotificationRef, callout CFUserNotificationCallBack, order CFIndex) CFRunLoopSourceRef
 var _cFUserNotificationCreateRunLoopSourceErr error
 
-func tryCFUserNotificationCreateRunLoopSource(allocator CFAllocatorRef, userNotification CFUserNotificationRef, callout CFUserNotificationCallBack, order int) (CFRunLoopSourceRef, error) {
+func tryCFUserNotificationCreateRunLoopSource(allocator CFAllocatorRef, userNotification CFUserNotificationRef, callout CFUserNotificationCallBack, order CFIndex) (CFRunLoopSourceRef, error) {
 	if _cFUserNotificationCreateRunLoopSource == nil {
 		return *new(CFRunLoopSourceRef), symbolCallError("CFUserNotificationCreateRunLoopSource", "10.0", _cFUserNotificationCreateRunLoopSourceErr)
 	}
@@ -15501,7 +15501,7 @@ func tryCFUserNotificationCreateRunLoopSource(allocator CFAllocatorRef, userNoti
 // CFUserNotificationCreateRunLoopSource creates a run loop source for a user notification.
 //
 // See: https://developer.apple.com/documentation/CoreFoundation/CFUserNotificationCreateRunLoopSource(_:_:_:_:)
-func CFUserNotificationCreateRunLoopSource(allocator CFAllocatorRef, userNotification CFUserNotificationRef, callout CFUserNotificationCallBack, order int) CFRunLoopSourceRef {
+func CFUserNotificationCreateRunLoopSource(allocator CFAllocatorRef, userNotification CFUserNotificationRef, callout CFUserNotificationCallBack, order CFIndex) CFRunLoopSourceRef {
 	result, callErr := tryCFUserNotificationCreateRunLoopSource(allocator, userNotification, callout, order)
 	if callErr != nil {
 		panic(callErr)
@@ -15509,10 +15509,10 @@ func CFUserNotificationCreateRunLoopSource(allocator CFAllocatorRef, userNotific
 	return result
 }
 
-var _cFUserNotificationDisplayAlert func(timeout float64, flags uint64, iconURL CFURLRef, soundURL CFURLRef, localizationURL CFURLRef, alertHeader CFStringRef, alertMessage CFStringRef, defaultButtonTitle CFStringRef, alternateButtonTitle CFStringRef, otherButtonTitle CFStringRef, responseFlags *uint64) int32
+var _cFUserNotificationDisplayAlert func(timeout CFTimeInterval, flags CFOptionFlags, iconURL CFURLRef, soundURL CFURLRef, localizationURL CFURLRef, alertHeader CFStringRef, alertMessage CFStringRef, defaultButtonTitle CFStringRef, alternateButtonTitle CFStringRef, otherButtonTitle CFStringRef, responseFlags *CFOptionFlags) int32
 var _cFUserNotificationDisplayAlertErr error
 
-func tryCFUserNotificationDisplayAlert(timeout float64, flags uint64, iconURL CFURLRef, soundURL CFURLRef, localizationURL CFURLRef, alertHeader CFStringRef, alertMessage CFStringRef, defaultButtonTitle CFStringRef, alternateButtonTitle CFStringRef, otherButtonTitle CFStringRef, responseFlags *uint64) (int32, error) {
+func tryCFUserNotificationDisplayAlert(timeout CFTimeInterval, flags CFOptionFlags, iconURL CFURLRef, soundURL CFURLRef, localizationURL CFURLRef, alertHeader CFStringRef, alertMessage CFStringRef, defaultButtonTitle CFStringRef, alternateButtonTitle CFStringRef, otherButtonTitle CFStringRef, responseFlags *CFOptionFlags) (int32, error) {
 	if _cFUserNotificationDisplayAlert == nil {
 		return 0, symbolCallError("CFUserNotificationDisplayAlert", "10.0", _cFUserNotificationDisplayAlertErr)
 	}
@@ -15522,7 +15522,7 @@ func tryCFUserNotificationDisplayAlert(timeout float64, flags uint64, iconURL CF
 // CFUserNotificationDisplayAlert displays a user notification dialog and waits for a user response.
 //
 // See: https://developer.apple.com/documentation/CoreFoundation/CFUserNotificationDisplayAlert(_:_:_:_:_:_:_:_:_:_:_:)
-func CFUserNotificationDisplayAlert(timeout float64, flags uint64, iconURL CFURLRef, soundURL CFURLRef, localizationURL CFURLRef, alertHeader CFStringRef, alertMessage CFStringRef, defaultButtonTitle CFStringRef, alternateButtonTitle CFStringRef, otherButtonTitle CFStringRef, responseFlags *uint64) int32 {
+func CFUserNotificationDisplayAlert(timeout CFTimeInterval, flags CFOptionFlags, iconURL CFURLRef, soundURL CFURLRef, localizationURL CFURLRef, alertHeader CFStringRef, alertMessage CFStringRef, defaultButtonTitle CFStringRef, alternateButtonTitle CFStringRef, otherButtonTitle CFStringRef, responseFlags *CFOptionFlags) int32 {
 	result, callErr := tryCFUserNotificationDisplayAlert(timeout, flags, iconURL, soundURL, localizationURL, alertHeader, alertMessage, defaultButtonTitle, alternateButtonTitle, otherButtonTitle, responseFlags)
 	if callErr != nil {
 		panic(callErr)
@@ -15530,10 +15530,10 @@ func CFUserNotificationDisplayAlert(timeout float64, flags uint64, iconURL CFURL
 	return result
 }
 
-var _cFUserNotificationDisplayNotice func(timeout float64, flags uint64, iconURL CFURLRef, soundURL CFURLRef, localizationURL CFURLRef, alertHeader CFStringRef, alertMessage CFStringRef, defaultButtonTitle CFStringRef) int32
+var _cFUserNotificationDisplayNotice func(timeout CFTimeInterval, flags CFOptionFlags, iconURL CFURLRef, soundURL CFURLRef, localizationURL CFURLRef, alertHeader CFStringRef, alertMessage CFStringRef, defaultButtonTitle CFStringRef) int32
 var _cFUserNotificationDisplayNoticeErr error
 
-func tryCFUserNotificationDisplayNotice(timeout float64, flags uint64, iconURL CFURLRef, soundURL CFURLRef, localizationURL CFURLRef, alertHeader CFStringRef, alertMessage CFStringRef, defaultButtonTitle CFStringRef) (int32, error) {
+func tryCFUserNotificationDisplayNotice(timeout CFTimeInterval, flags CFOptionFlags, iconURL CFURLRef, soundURL CFURLRef, localizationURL CFURLRef, alertHeader CFStringRef, alertMessage CFStringRef, defaultButtonTitle CFStringRef) (int32, error) {
 	if _cFUserNotificationDisplayNotice == nil {
 		return 0, symbolCallError("CFUserNotificationDisplayNotice", "10.0", _cFUserNotificationDisplayNoticeErr)
 	}
@@ -15543,7 +15543,7 @@ func tryCFUserNotificationDisplayNotice(timeout float64, flags uint64, iconURL C
 // CFUserNotificationDisplayNotice displays a user notification dialog that does not need a user response.
 //
 // See: https://developer.apple.com/documentation/CoreFoundation/CFUserNotificationDisplayNotice(_:_:_:_:_:_:_:_:)
-func CFUserNotificationDisplayNotice(timeout float64, flags uint64, iconURL CFURLRef, soundURL CFURLRef, localizationURL CFURLRef, alertHeader CFStringRef, alertMessage CFStringRef, defaultButtonTitle CFStringRef) int32 {
+func CFUserNotificationDisplayNotice(timeout CFTimeInterval, flags CFOptionFlags, iconURL CFURLRef, soundURL CFURLRef, localizationURL CFURLRef, alertHeader CFStringRef, alertMessage CFStringRef, defaultButtonTitle CFStringRef) int32 {
 	result, callErr := tryCFUserNotificationDisplayNotice(timeout, flags, iconURL, soundURL, localizationURL, alertHeader, alertMessage, defaultButtonTitle)
 	if callErr != nil {
 		panic(callErr)
@@ -15572,10 +15572,10 @@ func CFUserNotificationGetResponseDictionary(userNotification CFUserNotification
 	return result
 }
 
-var _cFUserNotificationGetResponseValue func(userNotification CFUserNotificationRef, key CFStringRef, idx int) CFStringRef
+var _cFUserNotificationGetResponseValue func(userNotification CFUserNotificationRef, key CFStringRef, idx CFIndex) CFStringRef
 var _cFUserNotificationGetResponseValueErr error
 
-func tryCFUserNotificationGetResponseValue(userNotification CFUserNotificationRef, key CFStringRef, idx int) (CFStringRef, error) {
+func tryCFUserNotificationGetResponseValue(userNotification CFUserNotificationRef, key CFStringRef, idx CFIndex) (CFStringRef, error) {
 	if _cFUserNotificationGetResponseValue == nil {
 		return *new(CFStringRef), symbolCallError("CFUserNotificationGetResponseValue", "10.0", _cFUserNotificationGetResponseValueErr)
 	}
@@ -15585,7 +15585,7 @@ func tryCFUserNotificationGetResponseValue(userNotification CFUserNotificationRe
 // CFUserNotificationGetResponseValue extracts the values of the text fields from a dismissed notification dialog.
 //
 // See: https://developer.apple.com/documentation/CoreFoundation/CFUserNotificationGetResponseValue(_:_:_:)
-func CFUserNotificationGetResponseValue(userNotification CFUserNotificationRef, key CFStringRef, idx int) CFStringRef {
+func CFUserNotificationGetResponseValue(userNotification CFUserNotificationRef, key CFStringRef, idx CFIndex) CFStringRef {
 	result, callErr := tryCFUserNotificationGetResponseValue(userNotification, key, idx)
 	if callErr != nil {
 		panic(callErr)
@@ -15593,12 +15593,12 @@ func CFUserNotificationGetResponseValue(userNotification CFUserNotificationRef, 
 	return result
 }
 
-var _cFUserNotificationGetTypeID func() uint
+var _cFUserNotificationGetTypeID func() CFTypeID
 var _cFUserNotificationGetTypeIDErr error
 
-func tryCFUserNotificationGetTypeID() (uint, error) {
+func tryCFUserNotificationGetTypeID() (CFTypeID, error) {
 	if _cFUserNotificationGetTypeID == nil {
-		return 0, symbolCallError("CFUserNotificationGetTypeID", "10.0", _cFUserNotificationGetTypeIDErr)
+		return *new(CFTypeID), symbolCallError("CFUserNotificationGetTypeID", "10.0", _cFUserNotificationGetTypeIDErr)
 	}
 	return _cFUserNotificationGetTypeID(), nil
 }
@@ -15606,7 +15606,7 @@ func tryCFUserNotificationGetTypeID() (uint, error) {
 // CFUserNotificationGetTypeID returns the type identifier for the [CFUserNotification] opaque type.
 //
 // See: https://developer.apple.com/documentation/CoreFoundation/CFUserNotificationGetTypeID()
-func CFUserNotificationGetTypeID() uint {
+func CFUserNotificationGetTypeID() CFTypeID {
 	result, callErr := tryCFUserNotificationGetTypeID()
 	if callErr != nil {
 		panic(callErr)
@@ -15614,10 +15614,10 @@ func CFUserNotificationGetTypeID() uint {
 	return result
 }
 
-var _cFUserNotificationReceiveResponse func(userNotification CFUserNotificationRef, timeout float64, responseFlags *uint64) int32
+var _cFUserNotificationReceiveResponse func(userNotification CFUserNotificationRef, timeout CFTimeInterval, responseFlags *CFOptionFlags) int32
 var _cFUserNotificationReceiveResponseErr error
 
-func tryCFUserNotificationReceiveResponse(userNotification CFUserNotificationRef, timeout float64, responseFlags *uint64) (int32, error) {
+func tryCFUserNotificationReceiveResponse(userNotification CFUserNotificationRef, timeout CFTimeInterval, responseFlags *CFOptionFlags) (int32, error) {
 	if _cFUserNotificationReceiveResponse == nil {
 		return 0, symbolCallError("CFUserNotificationReceiveResponse", "10.0", _cFUserNotificationReceiveResponseErr)
 	}
@@ -15627,7 +15627,7 @@ func tryCFUserNotificationReceiveResponse(userNotification CFUserNotificationRef
 // CFUserNotificationReceiveResponse waits for the user to respond to a notification or for the notification to time out.
 //
 // See: https://developer.apple.com/documentation/CoreFoundation/CFUserNotificationReceiveResponse(_:_:_:)
-func CFUserNotificationReceiveResponse(userNotification CFUserNotificationRef, timeout float64, responseFlags *uint64) int32 {
+func CFUserNotificationReceiveResponse(userNotification CFUserNotificationRef, timeout CFTimeInterval, responseFlags *CFOptionFlags) int32 {
 	result, callErr := tryCFUserNotificationReceiveResponse(userNotification, timeout, responseFlags)
 	if callErr != nil {
 		panic(callErr)
@@ -15635,10 +15635,10 @@ func CFUserNotificationReceiveResponse(userNotification CFUserNotificationRef, t
 	return result
 }
 
-var _cFUserNotificationUpdate func(userNotification CFUserNotificationRef, timeout float64, flags uint64, dictionary CFDictionaryRef) int32
+var _cFUserNotificationUpdate func(userNotification CFUserNotificationRef, timeout CFTimeInterval, flags CFOptionFlags, dictionary CFDictionaryRef) int32
 var _cFUserNotificationUpdateErr error
 
-func tryCFUserNotificationUpdate(userNotification CFUserNotificationRef, timeout float64, flags uint64, dictionary CFDictionaryRef) (int32, error) {
+func tryCFUserNotificationUpdate(userNotification CFUserNotificationRef, timeout CFTimeInterval, flags CFOptionFlags, dictionary CFDictionaryRef) (int32, error) {
 	if _cFUserNotificationUpdate == nil {
 		return 0, symbolCallError("CFUserNotificationUpdate", "10.0", _cFUserNotificationUpdateErr)
 	}
@@ -15648,7 +15648,7 @@ func tryCFUserNotificationUpdate(userNotification CFUserNotificationRef, timeout
 // CFUserNotificationUpdate updates a displayed user notification dialog with new user interface information.
 //
 // See: https://developer.apple.com/documentation/CoreFoundation/CFUserNotificationUpdate(_:_:_:_:)
-func CFUserNotificationUpdate(userNotification CFUserNotificationRef, timeout float64, flags uint64, dictionary CFDictionaryRef) int32 {
+func CFUserNotificationUpdate(userNotification CFUserNotificationRef, timeout CFTimeInterval, flags CFOptionFlags, dictionary CFDictionaryRef) int32 {
 	result, callErr := tryCFUserNotificationUpdate(userNotification, timeout, flags, dictionary)
 	if callErr != nil {
 		panic(callErr)
@@ -15781,10 +15781,10 @@ func CFWriteStreamCreateWithAllocatedBuffers(alloc CFAllocatorRef, bufferAllocat
 	return result
 }
 
-var _cFWriteStreamCreateWithBuffer func(alloc CFAllocatorRef, buffer *byte, bufferCapacity int) CFWriteStreamRef
+var _cFWriteStreamCreateWithBuffer func(alloc CFAllocatorRef, buffer *byte, bufferCapacity CFIndex) CFWriteStreamRef
 var _cFWriteStreamCreateWithBufferErr error
 
-func tryCFWriteStreamCreateWithBuffer(alloc CFAllocatorRef, buffer []byte, bufferCapacity int) (CFWriteStreamRef, error) {
+func tryCFWriteStreamCreateWithBuffer(alloc CFAllocatorRef, buffer []byte, bufferCapacity CFIndex) (CFWriteStreamRef, error) {
 	if _cFWriteStreamCreateWithBuffer == nil {
 		return *new(CFWriteStreamRef), symbolCallError("CFWriteStreamCreateWithBuffer", "", _cFWriteStreamCreateWithBufferErr)
 	}
@@ -15794,7 +15794,7 @@ func tryCFWriteStreamCreateWithBuffer(alloc CFAllocatorRef, buffer []byte, buffe
 // CFWriteStreamCreateWithBuffer creates a writable stream for a fixed-size block of memory.
 //
 // See: https://developer.apple.com/documentation/CoreFoundation/CFWriteStreamCreateWithBuffer(_:_:_:)
-func CFWriteStreamCreateWithBuffer(alloc CFAllocatorRef, buffer []byte, bufferCapacity int) CFWriteStreamRef {
+func CFWriteStreamCreateWithBuffer(alloc CFAllocatorRef, buffer []byte, bufferCapacity CFIndex) CFWriteStreamRef {
 	result, callErr := tryCFWriteStreamCreateWithBuffer(alloc, buffer, bufferCapacity)
 	if callErr != nil {
 		panic(callErr)
@@ -15835,7 +15835,7 @@ func tryCFWriteStreamGetError(stream CFWriteStreamRef) (CFStreamError, error) {
 
 // CFWriteStreamGetError returns the error status of a stream.
 //
-// Deprecated: Use [CFWriteStreamCopyError(_:)](<doc://com.apple.corefoundation/documentation/CoreFoundation/CFWriteStreamCopyError(_:)>) instead.
+// Deprecated: Use [CFWriteStreamCopyError(_:)](<https://developer.apple.com/documentation/CoreFoundation/CFWriteStreamCopyError(_:)>) instead.
 //
 // See: https://developer.apple.com/documentation/CoreFoundation/CFWriteStreamGetError(_:)
 func CFWriteStreamGetError(stream CFWriteStreamRef) CFStreamError {
@@ -15867,12 +15867,12 @@ func CFWriteStreamGetStatus(stream CFWriteStreamRef) CFStreamStatus {
 	return result
 }
 
-var _cFWriteStreamGetTypeID func() uint
+var _cFWriteStreamGetTypeID func() CFTypeID
 var _cFWriteStreamGetTypeIDErr error
 
-func tryCFWriteStreamGetTypeID() (uint, error) {
+func tryCFWriteStreamGetTypeID() (CFTypeID, error) {
 	if _cFWriteStreamGetTypeID == nil {
-		return 0, symbolCallError("CFWriteStreamGetTypeID", "", _cFWriteStreamGetTypeIDErr)
+		return *new(CFTypeID), symbolCallError("CFWriteStreamGetTypeID", "", _cFWriteStreamGetTypeIDErr)
 	}
 	return _cFWriteStreamGetTypeID(), nil
 }
@@ -15880,7 +15880,7 @@ func tryCFWriteStreamGetTypeID() (uint, error) {
 // CFWriteStreamGetTypeID returns the type identifier of all CFWriteStream objects.
 //
 // See: https://developer.apple.com/documentation/CoreFoundation/CFWriteStreamGetTypeID()
-func CFWriteStreamGetTypeID() uint {
+func CFWriteStreamGetTypeID() CFTypeID {
 	result, callErr := tryCFWriteStreamGetTypeID()
 	if callErr != nil {
 		panic(callErr)
@@ -15929,10 +15929,10 @@ func CFWriteStreamScheduleWithRunLoop(stream CFWriteStreamRef, runLoop CFRunLoop
 	}
 }
 
-var _cFWriteStreamSetClient func(stream CFWriteStreamRef, streamEvents uint64, clientCB CFWriteStreamClientCallBack, clientContext *CFStreamClientContext) bool
+var _cFWriteStreamSetClient func(stream CFWriteStreamRef, streamEvents CFOptionFlags, clientCB CFWriteStreamClientCallBack, clientContext *CFStreamClientContext) bool
 var _cFWriteStreamSetClientErr error
 
-func tryCFWriteStreamSetClient(stream CFWriteStreamRef, streamEvents uint64, clientCB CFWriteStreamClientCallBack, clientContext *CFStreamClientContext) (bool, error) {
+func tryCFWriteStreamSetClient(stream CFWriteStreamRef, streamEvents CFOptionFlags, clientCB CFWriteStreamClientCallBack, clientContext *CFStreamClientContext) (bool, error) {
 	if _cFWriteStreamSetClient == nil {
 		return false, symbolCallError("CFWriteStreamSetClient", "", _cFWriteStreamSetClientErr)
 	}
@@ -15942,7 +15942,7 @@ func tryCFWriteStreamSetClient(stream CFWriteStreamRef, streamEvents uint64, cli
 // CFWriteStreamSetClient assigns a client to a stream, which receives callbacks when certain events occur.
 //
 // See: https://developer.apple.com/documentation/CoreFoundation/CFWriteStreamSetClient(_:_:_:_:)
-func CFWriteStreamSetClient(stream CFWriteStreamRef, streamEvents uint64, clientCB CFWriteStreamClientCallBack, clientContext *CFStreamClientContext) bool {
+func CFWriteStreamSetClient(stream CFWriteStreamRef, streamEvents CFOptionFlags, clientCB CFWriteStreamClientCallBack, clientContext *CFStreamClientContext) bool {
 	result, callErr := tryCFWriteStreamSetClient(stream, streamEvents, clientCB, clientContext)
 	if callErr != nil {
 		panic(callErr)
@@ -16011,12 +16011,12 @@ func CFWriteStreamUnscheduleFromRunLoop(stream CFWriteStreamRef, runLoop CFRunLo
 	}
 }
 
-var _cFWriteStreamWrite func(stream CFWriteStreamRef, buffer *byte, bufferLength int) int
+var _cFWriteStreamWrite func(stream CFWriteStreamRef, buffer *byte, bufferLength CFIndex) CFIndex
 var _cFWriteStreamWriteErr error
 
-func tryCFWriteStreamWrite(stream CFWriteStreamRef, buffer []byte, bufferLength int) (int, error) {
+func tryCFWriteStreamWrite(stream CFWriteStreamRef, buffer []byte, bufferLength CFIndex) (CFIndex, error) {
 	if _cFWriteStreamWrite == nil {
-		return 0, symbolCallError("CFWriteStreamWrite", "", _cFWriteStreamWriteErr)
+		return *new(CFIndex), symbolCallError("CFWriteStreamWrite", "", _cFWriteStreamWriteErr)
 	}
 	return _cFWriteStreamWrite(stream, unsafe.SliceData(buffer), bufferLength), nil
 }
@@ -16024,7 +16024,7 @@ func tryCFWriteStreamWrite(stream CFWriteStreamRef, buffer []byte, bufferLength 
 // CFWriteStreamWrite writes data to a writable stream.
 //
 // See: https://developer.apple.com/documentation/CoreFoundation/CFWriteStreamWrite(_:_:_:)
-func CFWriteStreamWrite(stream CFWriteStreamRef, buffer []byte, bufferLength int) int {
+func CFWriteStreamWrite(stream CFWriteStreamRef, buffer []byte, bufferLength CFIndex) CFIndex {
 	result, callErr := tryCFWriteStreamWrite(stream, buffer, bufferLength)
 	if callErr != nil {
 		panic(callErr)
@@ -16074,10 +16074,10 @@ func CFXMLCreateStringByUnescapingEntities(allocator CFAllocatorRef, string_ CFS
 	return result
 }
 
-var _cFXMLNodeCreate func(alloc CFAllocatorRef, xmlType uint32, dataString CFStringRef, additionalInfoPtr unsafe.Pointer, version int) unsafe.Pointer
+var _cFXMLNodeCreate func(alloc CFAllocatorRef, xmlType uint32, dataString CFStringRef, additionalInfoPtr unsafe.Pointer, version CFIndex) unsafe.Pointer
 var _cFXMLNodeCreateErr error
 
-func tryCFXMLNodeCreate(alloc CFAllocatorRef, xmlType uint32, dataString CFStringRef, additionalInfoPtr unsafe.Pointer, version int) (unsafe.Pointer, error) {
+func tryCFXMLNodeCreate(alloc CFAllocatorRef, xmlType uint32, dataString CFStringRef, additionalInfoPtr unsafe.Pointer, version CFIndex) (unsafe.Pointer, error) {
 	if _cFXMLNodeCreate == nil {
 		return nil, symbolCallError("CFXMLNodeCreate", "10.0", _cFXMLNodeCreateErr)
 	}
@@ -16089,7 +16089,7 @@ func tryCFXMLNodeCreate(alloc CFAllocatorRef, xmlType uint32, dataString CFStrin
 // Deprecated: Deprecated since macOS 10.8.
 //
 // See: https://developer.apple.com/documentation/CoreFoundation/CFXMLNodeCreate
-func CFXMLNodeCreate(alloc CFAllocatorRef, xmlType uint32, dataString CFStringRef, additionalInfoPtr unsafe.Pointer, version int) unsafe.Pointer {
+func CFXMLNodeCreate(alloc CFAllocatorRef, xmlType uint32, dataString CFStringRef, additionalInfoPtr unsafe.Pointer, version CFIndex) unsafe.Pointer {
 	result, callErr := tryCFXMLNodeCreate(alloc, xmlType, dataString, additionalInfoPtr, version)
 	if callErr != nil {
 		panic(callErr)
@@ -16189,12 +16189,12 @@ func CFXMLNodeGetTypeCode(node unsafe.Pointer) uint32 {
 	return result
 }
 
-var _cFXMLNodeGetTypeID func() uint
+var _cFXMLNodeGetTypeID func() CFTypeID
 var _cFXMLNodeGetTypeIDErr error
 
-func tryCFXMLNodeGetTypeID() (uint, error) {
+func tryCFXMLNodeGetTypeID() (CFTypeID, error) {
 	if _cFXMLNodeGetTypeID == nil {
-		return 0, symbolCallError("CFXMLNodeGetTypeID", "10.0", _cFXMLNodeGetTypeIDErr)
+		return *new(CFTypeID), symbolCallError("CFXMLNodeGetTypeID", "10.0", _cFXMLNodeGetTypeIDErr)
 	}
 	return _cFXMLNodeGetTypeID(), nil
 }
@@ -16204,7 +16204,7 @@ func tryCFXMLNodeGetTypeID() (uint, error) {
 // Deprecated: Deprecated since macOS 10.8.
 //
 // See: https://developer.apple.com/documentation/CoreFoundation/CFXMLNodeGetTypeID
-func CFXMLNodeGetTypeID() uint {
+func CFXMLNodeGetTypeID() CFTypeID {
 	result, callErr := tryCFXMLNodeGetTypeID()
 	if callErr != nil {
 		panic(callErr)
@@ -16212,12 +16212,12 @@ func CFXMLNodeGetTypeID() uint {
 	return result
 }
 
-var _cFXMLNodeGetVersion func(node unsafe.Pointer) int
+var _cFXMLNodeGetVersion func(node unsafe.Pointer) CFIndex
 var _cFXMLNodeGetVersionErr error
 
-func tryCFXMLNodeGetVersion(node unsafe.Pointer) (int, error) {
+func tryCFXMLNodeGetVersion(node unsafe.Pointer) (CFIndex, error) {
 	if _cFXMLNodeGetVersion == nil {
-		return 0, symbolCallError("CFXMLNodeGetVersion", "10.0", _cFXMLNodeGetVersionErr)
+		return *new(CFIndex), symbolCallError("CFXMLNodeGetVersion", "10.0", _cFXMLNodeGetVersionErr)
 	}
 	return _cFXMLNodeGetVersion(node), nil
 }
@@ -16227,7 +16227,7 @@ func tryCFXMLNodeGetVersion(node unsafe.Pointer) (int, error) {
 // Deprecated: Deprecated since macOS 10.8.
 //
 // See: https://developer.apple.com/documentation/CoreFoundation/CFXMLNodeGetVersion
-func CFXMLNodeGetVersion(node unsafe.Pointer) int {
+func CFXMLNodeGetVersion(node unsafe.Pointer) CFIndex {
 	result, callErr := tryCFXMLNodeGetVersion(node)
 	if callErr != nil {
 		panic(callErr)
@@ -16280,10 +16280,10 @@ func CFXMLParserCopyErrorDescription(parser CFXMLParserRef) CFStringRef {
 	return result
 }
 
-var _cFXMLParserCreate func(allocator CFAllocatorRef, xmlData CFDataRef, dataSource CFURLRef, parseOptions uint64, versionOfNodes int, callBacks *CFXMLParserCallBacks, context *CFXMLParserContext) CFXMLParserRef
+var _cFXMLParserCreate func(allocator CFAllocatorRef, xmlData CFDataRef, dataSource CFURLRef, parseOptions CFOptionFlags, versionOfNodes CFIndex, callBacks *CFXMLParserCallBacks, context *CFXMLParserContext) CFXMLParserRef
 var _cFXMLParserCreateErr error
 
-func tryCFXMLParserCreate(allocator CFAllocatorRef, xmlData CFDataRef, dataSource CFURLRef, parseOptions uint64, versionOfNodes int, callBacks *CFXMLParserCallBacks, context *CFXMLParserContext) (CFXMLParserRef, error) {
+func tryCFXMLParserCreate(allocator CFAllocatorRef, xmlData CFDataRef, dataSource CFURLRef, parseOptions CFOptionFlags, versionOfNodes CFIndex, callBacks *CFXMLParserCallBacks, context *CFXMLParserContext) (CFXMLParserRef, error) {
 	if _cFXMLParserCreate == nil {
 		return *new(CFXMLParserRef), symbolCallError("CFXMLParserCreate", "10.0", _cFXMLParserCreateErr)
 	}
@@ -16295,7 +16295,7 @@ func tryCFXMLParserCreate(allocator CFAllocatorRef, xmlData CFDataRef, dataSourc
 // Deprecated: Deprecated since macOS 10.8.
 //
 // See: https://developer.apple.com/documentation/CoreFoundation/CFXMLParserCreate
-func CFXMLParserCreate(allocator CFAllocatorRef, xmlData CFDataRef, dataSource CFURLRef, parseOptions uint64, versionOfNodes int, callBacks *CFXMLParserCallBacks, context *CFXMLParserContext) CFXMLParserRef {
+func CFXMLParserCreate(allocator CFAllocatorRef, xmlData CFDataRef, dataSource CFURLRef, parseOptions CFOptionFlags, versionOfNodes CFIndex, callBacks *CFXMLParserCallBacks, context *CFXMLParserContext) CFXMLParserRef {
 	result, callErr := tryCFXMLParserCreate(allocator, xmlData, dataSource, parseOptions, versionOfNodes, callBacks, context)
 	if callErr != nil {
 		panic(callErr)
@@ -16303,10 +16303,10 @@ func CFXMLParserCreate(allocator CFAllocatorRef, xmlData CFDataRef, dataSource C
 	return result
 }
 
-var _cFXMLParserCreateWithDataFromURL func(allocator CFAllocatorRef, dataSource CFURLRef, parseOptions uint64, versionOfNodes int, callBacks *CFXMLParserCallBacks, context *CFXMLParserContext) CFXMLParserRef
+var _cFXMLParserCreateWithDataFromURL func(allocator CFAllocatorRef, dataSource CFURLRef, parseOptions CFOptionFlags, versionOfNodes CFIndex, callBacks *CFXMLParserCallBacks, context *CFXMLParserContext) CFXMLParserRef
 var _cFXMLParserCreateWithDataFromURLErr error
 
-func tryCFXMLParserCreateWithDataFromURL(allocator CFAllocatorRef, dataSource CFURLRef, parseOptions uint64, versionOfNodes int, callBacks *CFXMLParserCallBacks, context *CFXMLParserContext) (CFXMLParserRef, error) {
+func tryCFXMLParserCreateWithDataFromURL(allocator CFAllocatorRef, dataSource CFURLRef, parseOptions CFOptionFlags, versionOfNodes CFIndex, callBacks *CFXMLParserCallBacks, context *CFXMLParserContext) (CFXMLParserRef, error) {
 	if _cFXMLParserCreateWithDataFromURL == nil {
 		return *new(CFXMLParserRef), symbolCallError("CFXMLParserCreateWithDataFromURL", "10.0", _cFXMLParserCreateWithDataFromURLErr)
 	}
@@ -16318,7 +16318,7 @@ func tryCFXMLParserCreateWithDataFromURL(allocator CFAllocatorRef, dataSource CF
 // Deprecated: Deprecated since macOS 10.8.
 //
 // See: https://developer.apple.com/documentation/CoreFoundation/CFXMLParserCreateWithDataFromURL
-func CFXMLParserCreateWithDataFromURL(allocator CFAllocatorRef, dataSource CFURLRef, parseOptions uint64, versionOfNodes int, callBacks *CFXMLParserCallBacks, context *CFXMLParserContext) CFXMLParserRef {
+func CFXMLParserCreateWithDataFromURL(allocator CFAllocatorRef, dataSource CFURLRef, parseOptions CFOptionFlags, versionOfNodes CFIndex, callBacks *CFXMLParserCallBacks, context *CFXMLParserContext) CFXMLParserRef {
 	result, callErr := tryCFXMLParserCreateWithDataFromURL(allocator, dataSource, parseOptions, versionOfNodes, callBacks, context)
 	if callErr != nil {
 		panic(callErr)
@@ -16393,12 +16393,12 @@ func CFXMLParserGetDocument(parser CFXMLParserRef) unsafe.Pointer {
 	return result
 }
 
-var _cFXMLParserGetLineNumber func(parser CFXMLParserRef) int
+var _cFXMLParserGetLineNumber func(parser CFXMLParserRef) CFIndex
 var _cFXMLParserGetLineNumberErr error
 
-func tryCFXMLParserGetLineNumber(parser CFXMLParserRef) (int, error) {
+func tryCFXMLParserGetLineNumber(parser CFXMLParserRef) (CFIndex, error) {
 	if _cFXMLParserGetLineNumber == nil {
-		return 0, symbolCallError("CFXMLParserGetLineNumber", "10.0", _cFXMLParserGetLineNumberErr)
+		return *new(CFIndex), symbolCallError("CFXMLParserGetLineNumber", "10.0", _cFXMLParserGetLineNumberErr)
 	}
 	return _cFXMLParserGetLineNumber(parser), nil
 }
@@ -16408,7 +16408,7 @@ func tryCFXMLParserGetLineNumber(parser CFXMLParserRef) (int, error) {
 // Deprecated: Deprecated since macOS 10.8.
 //
 // See: https://developer.apple.com/documentation/CoreFoundation/CFXMLParserGetLineNumber
-func CFXMLParserGetLineNumber(parser CFXMLParserRef) int {
+func CFXMLParserGetLineNumber(parser CFXMLParserRef) CFIndex {
 	result, callErr := tryCFXMLParserGetLineNumber(parser)
 	if callErr != nil {
 		panic(callErr)
@@ -16416,12 +16416,12 @@ func CFXMLParserGetLineNumber(parser CFXMLParserRef) int {
 	return result
 }
 
-var _cFXMLParserGetLocation func(parser CFXMLParserRef) int
+var _cFXMLParserGetLocation func(parser CFXMLParserRef) CFIndex
 var _cFXMLParserGetLocationErr error
 
-func tryCFXMLParserGetLocation(parser CFXMLParserRef) (int, error) {
+func tryCFXMLParserGetLocation(parser CFXMLParserRef) (CFIndex, error) {
 	if _cFXMLParserGetLocation == nil {
-		return 0, symbolCallError("CFXMLParserGetLocation", "10.0", _cFXMLParserGetLocationErr)
+		return *new(CFIndex), symbolCallError("CFXMLParserGetLocation", "10.0", _cFXMLParserGetLocationErr)
 	}
 	return _cFXMLParserGetLocation(parser), nil
 }
@@ -16431,7 +16431,7 @@ func tryCFXMLParserGetLocation(parser CFXMLParserRef) (int, error) {
 // Deprecated: Deprecated since macOS 10.8.
 //
 // See: https://developer.apple.com/documentation/CoreFoundation/CFXMLParserGetLocation
-func CFXMLParserGetLocation(parser CFXMLParserRef) int {
+func CFXMLParserGetLocation(parser CFXMLParserRef) CFIndex {
 	result, callErr := tryCFXMLParserGetLocation(parser)
 	if callErr != nil {
 		panic(callErr)
@@ -16485,12 +16485,12 @@ func CFXMLParserGetStatusCode(parser CFXMLParserRef) CFXMLParserStatusCode {
 	return result
 }
 
-var _cFXMLParserGetTypeID func() uint
+var _cFXMLParserGetTypeID func() CFTypeID
 var _cFXMLParserGetTypeIDErr error
 
-func tryCFXMLParserGetTypeID() (uint, error) {
+func tryCFXMLParserGetTypeID() (CFTypeID, error) {
 	if _cFXMLParserGetTypeID == nil {
-		return 0, symbolCallError("CFXMLParserGetTypeID", "10.0", _cFXMLParserGetTypeIDErr)
+		return *new(CFTypeID), symbolCallError("CFXMLParserGetTypeID", "10.0", _cFXMLParserGetTypeIDErr)
 	}
 	return _cFXMLParserGetTypeID(), nil
 }
@@ -16500,7 +16500,7 @@ func tryCFXMLParserGetTypeID() (uint, error) {
 // Deprecated: Deprecated since macOS 10.8.
 //
 // See: https://developer.apple.com/documentation/CoreFoundation/CFXMLParserGetTypeID
-func CFXMLParserGetTypeID() uint {
+func CFXMLParserGetTypeID() CFTypeID {
 	result, callErr := tryCFXMLParserGetTypeID()
 	if callErr != nil {
 		panic(callErr)
@@ -16531,10 +16531,10 @@ func CFXMLParserParse(parser CFXMLParserRef) bool {
 	return result
 }
 
-var _cFXMLTreeCreateFromData func(allocator CFAllocatorRef, xmlData CFDataRef, dataSource CFURLRef, parseOptions uint64, versionOfNodes int) CFXMLTreeRef
+var _cFXMLTreeCreateFromData func(allocator CFAllocatorRef, xmlData CFDataRef, dataSource CFURLRef, parseOptions CFOptionFlags, versionOfNodes CFIndex) CFXMLTreeRef
 var _cFXMLTreeCreateFromDataErr error
 
-func tryCFXMLTreeCreateFromData(allocator CFAllocatorRef, xmlData CFDataRef, dataSource CFURLRef, parseOptions uint64, versionOfNodes int) (CFXMLTreeRef, error) {
+func tryCFXMLTreeCreateFromData(allocator CFAllocatorRef, xmlData CFDataRef, dataSource CFURLRef, parseOptions CFOptionFlags, versionOfNodes CFIndex) (CFXMLTreeRef, error) {
 	if _cFXMLTreeCreateFromData == nil {
 		return *new(CFXMLTreeRef), symbolCallError("CFXMLTreeCreateFromData", "10.0", _cFXMLTreeCreateFromDataErr)
 	}
@@ -16546,7 +16546,7 @@ func tryCFXMLTreeCreateFromData(allocator CFAllocatorRef, xmlData CFDataRef, dat
 // Deprecated: Deprecated since macOS 10.8.
 //
 // See: https://developer.apple.com/documentation/CoreFoundation/CFXMLTreeCreateFromData
-func CFXMLTreeCreateFromData(allocator CFAllocatorRef, xmlData CFDataRef, dataSource CFURLRef, parseOptions uint64, versionOfNodes int) CFXMLTreeRef {
+func CFXMLTreeCreateFromData(allocator CFAllocatorRef, xmlData CFDataRef, dataSource CFURLRef, parseOptions CFOptionFlags, versionOfNodes CFIndex) CFXMLTreeRef {
 	result, callErr := tryCFXMLTreeCreateFromData(allocator, xmlData, dataSource, parseOptions, versionOfNodes)
 	if callErr != nil {
 		panic(callErr)
@@ -16554,10 +16554,10 @@ func CFXMLTreeCreateFromData(allocator CFAllocatorRef, xmlData CFDataRef, dataSo
 	return result
 }
 
-var _cFXMLTreeCreateFromDataWithError func(allocator CFAllocatorRef, xmlData CFDataRef, dataSource CFURLRef, parseOptions uint64, versionOfNodes int, errorDict *CFDictionaryRef) CFXMLTreeRef
+var _cFXMLTreeCreateFromDataWithError func(allocator CFAllocatorRef, xmlData CFDataRef, dataSource CFURLRef, parseOptions CFOptionFlags, versionOfNodes CFIndex, errorDict *CFDictionaryRef) CFXMLTreeRef
 var _cFXMLTreeCreateFromDataWithErrorErr error
 
-func tryCFXMLTreeCreateFromDataWithError(allocator CFAllocatorRef, xmlData CFDataRef, dataSource CFURLRef, parseOptions uint64, versionOfNodes int, errorDict *CFDictionaryRef) (CFXMLTreeRef, error) {
+func tryCFXMLTreeCreateFromDataWithError(allocator CFAllocatorRef, xmlData CFDataRef, dataSource CFURLRef, parseOptions CFOptionFlags, versionOfNodes CFIndex, errorDict *CFDictionaryRef) (CFXMLTreeRef, error) {
 	if _cFXMLTreeCreateFromDataWithError == nil {
 		return *new(CFXMLTreeRef), symbolCallError("CFXMLTreeCreateFromDataWithError", "10.0", _cFXMLTreeCreateFromDataWithErrorErr)
 	}
@@ -16569,7 +16569,7 @@ func tryCFXMLTreeCreateFromDataWithError(allocator CFAllocatorRef, xmlData CFDat
 // Deprecated: Deprecated since macOS 10.8.
 //
 // See: https://developer.apple.com/documentation/CoreFoundation/CFXMLTreeCreateFromDataWithError
-func CFXMLTreeCreateFromDataWithError(allocator CFAllocatorRef, xmlData CFDataRef, dataSource CFURLRef, parseOptions uint64, versionOfNodes int, errorDict *CFDictionaryRef) CFXMLTreeRef {
+func CFXMLTreeCreateFromDataWithError(allocator CFAllocatorRef, xmlData CFDataRef, dataSource CFURLRef, parseOptions CFOptionFlags, versionOfNodes CFIndex, errorDict *CFDictionaryRef) CFXMLTreeRef {
 	result, callErr := tryCFXMLTreeCreateFromDataWithError(allocator, xmlData, dataSource, parseOptions, versionOfNodes, errorDict)
 	if callErr != nil {
 		panic(callErr)
@@ -16577,10 +16577,10 @@ func CFXMLTreeCreateFromDataWithError(allocator CFAllocatorRef, xmlData CFDataRe
 	return result
 }
 
-var _cFXMLTreeCreateWithDataFromURL func(allocator CFAllocatorRef, dataSource CFURLRef, parseOptions uint64, versionOfNodes int) CFXMLTreeRef
+var _cFXMLTreeCreateWithDataFromURL func(allocator CFAllocatorRef, dataSource CFURLRef, parseOptions CFOptionFlags, versionOfNodes CFIndex) CFXMLTreeRef
 var _cFXMLTreeCreateWithDataFromURLErr error
 
-func tryCFXMLTreeCreateWithDataFromURL(allocator CFAllocatorRef, dataSource CFURLRef, parseOptions uint64, versionOfNodes int) (CFXMLTreeRef, error) {
+func tryCFXMLTreeCreateWithDataFromURL(allocator CFAllocatorRef, dataSource CFURLRef, parseOptions CFOptionFlags, versionOfNodes CFIndex) (CFXMLTreeRef, error) {
 	if _cFXMLTreeCreateWithDataFromURL == nil {
 		return *new(CFXMLTreeRef), symbolCallError("CFXMLTreeCreateWithDataFromURL", "10.0", _cFXMLTreeCreateWithDataFromURLErr)
 	}
@@ -16592,7 +16592,7 @@ func tryCFXMLTreeCreateWithDataFromURL(allocator CFAllocatorRef, dataSource CFUR
 // Deprecated: Deprecated since macOS 10.8.
 //
 // See: https://developer.apple.com/documentation/CoreFoundation/CFXMLTreeCreateWithDataFromURL
-func CFXMLTreeCreateWithDataFromURL(allocator CFAllocatorRef, dataSource CFURLRef, parseOptions uint64, versionOfNodes int) CFXMLTreeRef {
+func CFXMLTreeCreateWithDataFromURL(allocator CFAllocatorRef, dataSource CFURLRef, parseOptions CFOptionFlags, versionOfNodes CFIndex) CFXMLTreeRef {
 	result, callErr := tryCFXMLTreeCreateWithDataFromURL(allocator, dataSource, parseOptions, versionOfNodes)
 	if callErr != nil {
 		panic(callErr)

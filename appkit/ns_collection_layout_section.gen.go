@@ -169,8 +169,8 @@ type INSCollectionLayoutSection interface {
 	// Topic: Rendering items
 
 	// A closure called before each layout cycle to allow modification of the items in the section immediately before they’re displayed.
-	VisibleItemsInvalidationHandler() NSCollectionLayoutSectionVisibleItemsInvalidationHandler
-	SetVisibleItemsInvalidationHandler(value NSCollectionLayoutSectionVisibleItemsInvalidationHandler)
+	VisibleItemsInvalidationHandler() CGPointNSCollectionLayoutEnvironmentHandler
+	SetVisibleItemsInvalidationHandler(value CGPointNSCollectionLayoutEnvironmentHandler)
 
 	// Topic: Deprecated
 
@@ -283,12 +283,15 @@ func (c NSCollectionLayoutSection) SetDecorationItems(value []NSCollectionLayout
 // items in the section immediately before they’re displayed.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSCollectionLayoutSection/visibleItemsInvalidationHandler
-func (c NSCollectionLayoutSection) VisibleItemsInvalidationHandler() NSCollectionLayoutSectionVisibleItemsInvalidationHandler {
-	rv := objc.Send[NSCollectionLayoutSectionVisibleItemsInvalidationHandler](c.ID, objc.Sel("visibleItemsInvalidationHandler"))
-	return NSCollectionLayoutSectionVisibleItemsInvalidationHandler(rv)
+func (c NSCollectionLayoutSection) VisibleItemsInvalidationHandler() CGPointNSCollectionLayoutEnvironmentHandler {
+	rv := objc.Send[objc.ID](c.ID, objc.Sel("visibleItemsInvalidationHandler"))
+	_ = rv
+	return nil
 }
-func (c NSCollectionLayoutSection) SetVisibleItemsInvalidationHandler(value NSCollectionLayoutSectionVisibleItemsInvalidationHandler) {
-	objc.Send[struct{}](c.ID, objc.Sel("setVisibleItemsInvalidationHandler:"), value)
+func (c NSCollectionLayoutSection) SetVisibleItemsInvalidationHandler(value CGPointNSCollectionLayoutEnvironmentHandler) {
+	block, cleanup := NewCGPointNSCollectionLayoutEnvironmentBlock(value)
+	defer cleanup()
+	objc.Send[struct{}](c.ID, objc.Sel("setVisibleItemsInvalidationHandler:"), block)
 }
 
 // A Boolean value that indicates whether the section’s supplementary items

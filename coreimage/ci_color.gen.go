@@ -213,7 +213,7 @@ func NewCIColor() CIColor {
 //
 // An initialized [CIColor] instance.
 //
-// See: https://developer.apple.com/documentation/CoreImage/CIColor/init(cgColor:)-1hzk4
+// See: https://developer.apple.com/documentation/CoreImage/CIColor/init(cgColor:)
 func NewColorWithCGColor(color coregraphics.CGColorRef) CIColor {
 	instance := getCIColorClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCGColor:"), color)
@@ -371,7 +371,7 @@ func NewColorWithString(representation string) CIColor {
 //
 // An initialized [CIColor] instance.
 //
-// See: https://developer.apple.com/documentation/CoreImage/CIColor/init(cgColor:)-1hzk4
+// See: https://developer.apple.com/documentation/CoreImage/CIColor/init(cgColor:)
 func (c CIColor) InitWithCGColor(color coregraphics.CGColorRef) CIColor {
 	rv := objc.Send[CIColor](c.ID, objc.Sel("initWithCGColor:"), color)
 	return rv

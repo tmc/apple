@@ -5,6 +5,8 @@
 package avfaudio
 
 import (
+	"unsafe"
+
 	"github.com/tmc/apple/objc"
 )
 

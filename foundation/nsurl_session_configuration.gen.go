@@ -4,6 +4,7 @@ package foundation
 
 import (
 	"sync"
+	"unsafe"
 
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
@@ -346,11 +347,11 @@ type IURLSessionConfiguration interface {
 	URLCredentialStorage() INSURLCredentialStorage
 	SetURLCredentialStorage(value INSURLCredentialStorage)
 	// The minimum TLS protocol to accept during protocol negotiation.
-	TLSMinimumSupportedProtocol() uint
-	SetTLSMinimumSupportedProtocol(value uint)
+	TLSMinimumSupportedProtocol() unsafe.Pointer
+	SetTLSMinimumSupportedProtocol(value unsafe.Pointer)
 	// The maximum TLS protocol version that the client should request when making connections in this session.
-	TLSMaximumSupportedProtocol() uint
-	SetTLSMaximumSupportedProtocol(value uint)
+	TLSMaximumSupportedProtocol() unsafe.Pointer
+	SetTLSMaximumSupportedProtocol(value unsafe.Pointer)
 	RequiresDNSSECValidation() bool
 	SetRequiresDNSSECValidation(value bool)
 
@@ -798,11 +799,11 @@ func (u URLSessionConfiguration) SetURLCredentialStorage(value INSURLCredentialS
 // tasks within sessions based on this configuration.
 //
 // See: https://developer.apple.com/documentation/Foundation/URLSessionConfiguration/tlsMinimumSupportedProtocol
-func (u URLSessionConfiguration) TLSMinimumSupportedProtocol() uint {
-	rv := objc.Send[uint](u.ID, objc.Sel("TLSMinimumSupportedProtocol"))
+func (u URLSessionConfiguration) TLSMinimumSupportedProtocol() unsafe.Pointer {
+	rv := objc.Send[unsafe.Pointer](u.ID, objc.Sel("TLSMinimumSupportedProtocol"))
 	return rv
 }
-func (u URLSessionConfiguration) SetTLSMinimumSupportedProtocol(value uint) {
+func (u URLSessionConfiguration) SetTLSMinimumSupportedProtocol(value unsafe.Pointer) {
 	objc.Send[struct{}](u.ID, objc.Sel("setTLSMinimumSupportedProtocol:"), value)
 }
 
@@ -815,11 +816,11 @@ func (u URLSessionConfiguration) SetTLSMinimumSupportedProtocol(value uint) {
 // tasks within sessions based on this configuration.
 //
 // See: https://developer.apple.com/documentation/Foundation/URLSessionConfiguration/tlsMaximumSupportedProtocol
-func (u URLSessionConfiguration) TLSMaximumSupportedProtocol() uint {
-	rv := objc.Send[uint](u.ID, objc.Sel("TLSMaximumSupportedProtocol"))
+func (u URLSessionConfiguration) TLSMaximumSupportedProtocol() unsafe.Pointer {
+	rv := objc.Send[unsafe.Pointer](u.ID, objc.Sel("TLSMaximumSupportedProtocol"))
 	return rv
 }
-func (u URLSessionConfiguration) SetTLSMaximumSupportedProtocol(value uint) {
+func (u URLSessionConfiguration) SetTLSMaximumSupportedProtocol(value unsafe.Pointer) {
 	objc.Send[struct{}](u.ID, objc.Sel("setTLSMaximumSupportedProtocol:"), value)
 }
 
@@ -1231,7 +1232,7 @@ func (u URLSessionConfiguration) SetProxyConfigurations(value []objectivec.Objec
 // the user’s keychain. It also stores cookies (by default) in the same
 // shared cookie store as the [NSURLConnection] and [NSURLDownload] classes.
 //
-// Modifying the returned session configuration object does affect any
+// Modifying the returned session configuration object does not affect any
 // configuration objects returned by future calls to this method, and does not
 // change the default behavior for existing sessions. It is therefore always
 // safe to use the returned object as a starting point for additional

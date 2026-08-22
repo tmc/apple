@@ -12,7 +12,7 @@ import (
 
 var _ = fmt.Sprintf
 
-// A set of optional methods implemented by the delegate of an [NSText](<doc://com.apple.appkit/documentation/AppKit/NSText>) object to edit text and change text formats.
+// A set of optional methods implemented by the delegate of an [NSText](<https://developer.apple.com/documentation/AppKit/NSText>) object to edit text and change text formats.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTextDelegate
 type NSTextDelegate interface {
@@ -129,7 +129,7 @@ type NSTextDelegateConfig struct {
 	TextShouldBeginEditing func(textObject NSText) bool
 	// TextDidBeginEditing — Informs the delegate that the text object has begun editing (that the user has begun changing it).
 	TextDidBeginEditing func(notification foundation.NSNotification)
-	// TextShouldEndEditing — Invoked from a text object’s implementation of [resignFirstResponder()](<doc://com.apple.appkit/documentation/AppKit/NSResponder/resignFirstResponder()>), this method requests permission for `aTextObject` to end editing.
+	// TextShouldEndEditing — Invoked from a text object’s implementation of [resignFirstResponder()](<https://developer.apple.com/documentation/AppKit/NSResponder/resignFirstResponder()>), this method requests permission for `aTextObject` to end editing.
 	TextShouldEndEditing func(textObject NSText) bool
 	// TextDidEndEditing — Informs the delegate that the text object has finished editing (that it has resigned first responder status).
 	TextDidEndEditing func(notification foundation.NSNotification)
@@ -158,8 +158,20 @@ func NewNSTextDelegate(config NSTextDelegateConfig) NSTextDelegateObject {
 		methods = append(methods, objc.MethodDef{
 			Cmd: objc.RegisterName("textDidChange:"),
 			Fn: func(self objc.ID, _cmd objc.SEL, notificationID objc.ID) {
+				// Names which delegate was running if a panic unwinds out of
+				// it. The frames between here and the Objective-C caller are
+				// runtime and purego dispatch, so without this the traceback
+				// never says which selector dispatched. Deliberately no
+				// recover: see [objc.NoteDelegatePanic].
+				_delegateDone := false
+				defer func() {
+					if !_delegateDone {
+						objc.NoteDelegatePanic("NSTextDelegate", "textDidChange:")
+					}
+				}()
 				notification := foundation.NSNotificationFromID(notificationID)
 				fn(notification)
+				_delegateDone = true
 			},
 		})
 	}
@@ -169,8 +181,21 @@ func NewNSTextDelegate(config NSTextDelegateConfig) NSTextDelegateObject {
 		methods = append(methods, objc.MethodDef{
 			Cmd: objc.RegisterName("textShouldBeginEditing:"),
 			Fn: func(self objc.ID, _cmd objc.SEL, textObjectID objc.ID) bool {
+				// Names which delegate was running if a panic unwinds out of
+				// it. The frames between here and the Objective-C caller are
+				// runtime and purego dispatch, so without this the traceback
+				// never says which selector dispatched. Deliberately no
+				// recover: see [objc.NoteDelegatePanic].
+				_delegateDone := false
+				defer func() {
+					if !_delegateDone {
+						objc.NoteDelegatePanic("NSTextDelegate", "textShouldBeginEditing:")
+					}
+				}()
 				textObject := NSTextFromID(textObjectID)
-				return fn(textObject)
+				_delegateResult := fn(textObject)
+				_delegateDone = true
+				return _delegateResult
 			},
 		})
 	}
@@ -180,8 +205,20 @@ func NewNSTextDelegate(config NSTextDelegateConfig) NSTextDelegateObject {
 		methods = append(methods, objc.MethodDef{
 			Cmd: objc.RegisterName("textDidBeginEditing:"),
 			Fn: func(self objc.ID, _cmd objc.SEL, notificationID objc.ID) {
+				// Names which delegate was running if a panic unwinds out of
+				// it. The frames between here and the Objective-C caller are
+				// runtime and purego dispatch, so without this the traceback
+				// never says which selector dispatched. Deliberately no
+				// recover: see [objc.NoteDelegatePanic].
+				_delegateDone := false
+				defer func() {
+					if !_delegateDone {
+						objc.NoteDelegatePanic("NSTextDelegate", "textDidBeginEditing:")
+					}
+				}()
 				notification := foundation.NSNotificationFromID(notificationID)
 				fn(notification)
+				_delegateDone = true
 			},
 		})
 	}
@@ -191,8 +228,21 @@ func NewNSTextDelegate(config NSTextDelegateConfig) NSTextDelegateObject {
 		methods = append(methods, objc.MethodDef{
 			Cmd: objc.RegisterName("textShouldEndEditing:"),
 			Fn: func(self objc.ID, _cmd objc.SEL, textObjectID objc.ID) bool {
+				// Names which delegate was running if a panic unwinds out of
+				// it. The frames between here and the Objective-C caller are
+				// runtime and purego dispatch, so without this the traceback
+				// never says which selector dispatched. Deliberately no
+				// recover: see [objc.NoteDelegatePanic].
+				_delegateDone := false
+				defer func() {
+					if !_delegateDone {
+						objc.NoteDelegatePanic("NSTextDelegate", "textShouldEndEditing:")
+					}
+				}()
 				textObject := NSTextFromID(textObjectID)
-				return fn(textObject)
+				_delegateResult := fn(textObject)
+				_delegateDone = true
+				return _delegateResult
 			},
 		})
 	}
@@ -202,8 +252,20 @@ func NewNSTextDelegate(config NSTextDelegateConfig) NSTextDelegateObject {
 		methods = append(methods, objc.MethodDef{
 			Cmd: objc.RegisterName("textDidEndEditing:"),
 			Fn: func(self objc.ID, _cmd objc.SEL, notificationID objc.ID) {
+				// Names which delegate was running if a panic unwinds out of
+				// it. The frames between here and the Objective-C caller are
+				// runtime and purego dispatch, so without this the traceback
+				// never says which selector dispatched. Deliberately no
+				// recover: see [objc.NoteDelegatePanic].
+				_delegateDone := false
+				defer func() {
+					if !_delegateDone {
+						objc.NoteDelegatePanic("NSTextDelegate", "textDidEndEditing:")
+					}
+				}()
 				notification := foundation.NSNotificationFromID(notificationID)
 				fn(notification)
+				_delegateDone = true
 			},
 		})
 	}

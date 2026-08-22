@@ -11,6 +11,7 @@ import (
 	"github.com/tmc/apple/dispatch"
 	"github.com/tmc/apple/kernel"
 	"github.com/tmc/apple/objc"
+	"github.com/tmc/apple/objectivec"
 )
 
 type unavailableSymbolError struct {
@@ -81,10 +82,10 @@ func registerSymbol(dst *uintptr, errDst *error, handle uintptr, name, introduce
 	*errDst = nil
 }
 
-var _cGAcquireDisplayFadeReservation func(seconds float32, token *CGDisplayFadeReservationToken) CGError
+var _cGAcquireDisplayFadeReservation func(seconds CGDisplayReservationInterval, token *CGDisplayFadeReservationToken) CGError
 var _cGAcquireDisplayFadeReservationErr error
 
-func tryCGAcquireDisplayFadeReservation(seconds float32, token *CGDisplayFadeReservationToken) (CGError, error) {
+func tryCGAcquireDisplayFadeReservation(seconds CGDisplayReservationInterval, token *CGDisplayFadeReservationToken) (CGError, error) {
 	if _cGAcquireDisplayFadeReservation == nil {
 		return *new(CGError), symbolCallError("CGAcquireDisplayFadeReservation", "10.2", _cGAcquireDisplayFadeReservationErr)
 	}
@@ -94,7 +95,7 @@ func tryCGAcquireDisplayFadeReservation(seconds float32, token *CGDisplayFadeRes
 // CGAcquireDisplayFadeReservation reserves the fade hardware for a specified time interval.
 //
 // See: https://developer.apple.com/documentation/CoreGraphics/CGAcquireDisplayFadeReservation(_:_:)
-func CGAcquireDisplayFadeReservation(seconds float32, token *CGDisplayFadeReservationToken) CGError {
+func CGAcquireDisplayFadeReservation(seconds CGDisplayReservationInterval, token *CGDisplayFadeReservationToken) CGError {
 	result, callErr := tryCGAcquireDisplayFadeReservation(seconds, token)
 	if callErr != nil {
 		panic(callErr)
@@ -375,10 +376,10 @@ func CGAffineTransformTranslate(t corefoundation.CGAffineTransform, tx float64, 
 	return result
 }
 
-var _cGAssociateMouseAndMouseCursorPosition func(connected bool) CGError
+var _cGAssociateMouseAndMouseCursorPosition func(connected int32) CGError
 var _cGAssociateMouseAndMouseCursorPositionErr error
 
-func tryCGAssociateMouseAndMouseCursorPosition(connected bool) (CGError, error) {
+func tryCGAssociateMouseAndMouseCursorPosition(connected int32) (CGError, error) {
 	if _cGAssociateMouseAndMouseCursorPosition == nil {
 		return *new(CGError), symbolCallError("CGAssociateMouseAndMouseCursorPosition", "10.0", _cGAssociateMouseAndMouseCursorPositionErr)
 	}
@@ -388,7 +389,7 @@ func tryCGAssociateMouseAndMouseCursorPosition(connected bool) (CGError, error) 
 // CGAssociateMouseAndMouseCursorPosition connects or disconnects the mouse and cursor while an application is in the foreground.
 //
 // See: https://developer.apple.com/documentation/CoreGraphics/CGAssociateMouseAndMouseCursorPosition(_:)
-func CGAssociateMouseAndMouseCursorPosition(connected bool) CGError {
+func CGAssociateMouseAndMouseCursorPosition(connected int32) CGError {
 	result, callErr := tryCGAssociateMouseAndMouseCursorPosition(connected)
 	if callErr != nil {
 		panic(callErr)
@@ -1636,20 +1637,20 @@ func CGColorSpaceCreateICCBased(nComponents uintptr, range_ *float64, profile CG
 	return result
 }
 
-var _cGColorSpaceCreateIndexed func(baseSpace CGColorSpaceRef, lastIndex uintptr, colorTable string) CGColorSpaceRef
+var _cGColorSpaceCreateIndexed func(baseSpace CGColorSpaceRef, lastIndex uintptr, colorTable *byte) CGColorSpaceRef
 var _cGColorSpaceCreateIndexedErr error
 
-func tryCGColorSpaceCreateIndexed(baseSpace CGColorSpaceRef, lastIndex uintptr, colorTable string) (CGColorSpaceRef, error) {
+func tryCGColorSpaceCreateIndexed(baseSpace CGColorSpaceRef, lastIndex uintptr, colorTable []byte) (CGColorSpaceRef, error) {
 	if _cGColorSpaceCreateIndexed == nil {
 		return *new(CGColorSpaceRef), symbolCallError("CGColorSpaceCreateIndexed", "10.0", _cGColorSpaceCreateIndexedErr)
 	}
-	return _cGColorSpaceCreateIndexed(baseSpace, lastIndex, colorTable), nil
+	return _cGColorSpaceCreateIndexed(baseSpace, lastIndex, unsafe.SliceData(colorTable)), nil
 }
 
 // CGColorSpaceCreateIndexed creates an indexed color space, consisting of colors specified by a color lookup table.
 //
 // See: https://developer.apple.com/documentation/CoreGraphics/CGColorSpace/init(indexedBaseSpace:last:colorTable:)
-func CGColorSpaceCreateIndexed(baseSpace CGColorSpaceRef, lastIndex uintptr, colorTable string) CGColorSpaceRef {
+func CGColorSpaceCreateIndexed(baseSpace CGColorSpaceRef, lastIndex uintptr, colorTable []byte) CGColorSpaceRef {
 	result, callErr := tryCGColorSpaceCreateIndexed(baseSpace, lastIndex, colorTable)
 	if callErr != nil {
 		panic(callErr)
@@ -2159,10 +2160,10 @@ func CGCompleteDisplayConfiguration(config CGDisplayConfigRef, option CGConfigur
 	return result
 }
 
-var _cGConfigureDisplayFadeEffect func(config CGDisplayConfigRef, fadeOutSeconds float32, fadeInSeconds float32, fadeRed float32, fadeGreen float32, fadeBlue float32) CGError
+var _cGConfigureDisplayFadeEffect func(config CGDisplayConfigRef, fadeOutSeconds CGDisplayFadeInterval, fadeInSeconds CGDisplayFadeInterval, fadeRed float32, fadeGreen float32, fadeBlue float32) CGError
 var _cGConfigureDisplayFadeEffectErr error
 
-func tryCGConfigureDisplayFadeEffect(config CGDisplayConfigRef, fadeOutSeconds float32, fadeInSeconds float32, fadeRed float32, fadeGreen float32, fadeBlue float32) (CGError, error) {
+func tryCGConfigureDisplayFadeEffect(config CGDisplayConfigRef, fadeOutSeconds CGDisplayFadeInterval, fadeInSeconds CGDisplayFadeInterval, fadeRed float32, fadeGreen float32, fadeBlue float32) (CGError, error) {
 	if _cGConfigureDisplayFadeEffect == nil {
 		return *new(CGError), symbolCallError("CGConfigureDisplayFadeEffect", "10.2", _cGConfigureDisplayFadeEffectErr)
 	}
@@ -2172,7 +2173,7 @@ func tryCGConfigureDisplayFadeEffect(config CGDisplayConfigRef, fadeOutSeconds f
 // CGConfigureDisplayFadeEffect modifies the settings of the built-in fade effect that occurs during a display configuration.
 //
 // See: https://developer.apple.com/documentation/CoreGraphics/CGConfigureDisplayFadeEffect(_:_:_:_:_:_:)
-func CGConfigureDisplayFadeEffect(config CGDisplayConfigRef, fadeOutSeconds float32, fadeInSeconds float32, fadeRed float32, fadeGreen float32, fadeBlue float32) CGError {
+func CGConfigureDisplayFadeEffect(config CGDisplayConfigRef, fadeOutSeconds CGDisplayFadeInterval, fadeInSeconds CGDisplayFadeInterval, fadeRed float32, fadeGreen float32, fadeBlue float32) CGError {
 	result, callErr := tryCGConfigureDisplayFadeEffect(config, fadeOutSeconds, fadeInSeconds, fadeRed, fadeGreen, fadeBlue)
 	if callErr != nil {
 		panic(callErr)
@@ -2180,10 +2181,10 @@ func CGConfigureDisplayFadeEffect(config CGDisplayConfigRef, fadeOutSeconds floa
 	return result
 }
 
-var _cGConfigureDisplayMirrorOfDisplay func(config CGDisplayConfigRef, display uint32, master uint32) CGError
+var _cGConfigureDisplayMirrorOfDisplay func(config CGDisplayConfigRef, display CGDirectDisplayID, master CGDirectDisplayID) CGError
 var _cGConfigureDisplayMirrorOfDisplayErr error
 
-func tryCGConfigureDisplayMirrorOfDisplay(config CGDisplayConfigRef, display uint32, master uint32) (CGError, error) {
+func tryCGConfigureDisplayMirrorOfDisplay(config CGDisplayConfigRef, display CGDirectDisplayID, master CGDirectDisplayID) (CGError, error) {
 	if _cGConfigureDisplayMirrorOfDisplay == nil {
 		return *new(CGError), symbolCallError("CGConfigureDisplayMirrorOfDisplay", "10.2", _cGConfigureDisplayMirrorOfDisplayErr)
 	}
@@ -2193,7 +2194,7 @@ func tryCGConfigureDisplayMirrorOfDisplay(config CGDisplayConfigRef, display uin
 // CGConfigureDisplayMirrorOfDisplay changes the configuration of a mirroring set.
 //
 // See: https://developer.apple.com/documentation/CoreGraphics/CGConfigureDisplayMirrorOfDisplay(_:_:_:)
-func CGConfigureDisplayMirrorOfDisplay(config CGDisplayConfigRef, display uint32, master uint32) CGError {
+func CGConfigureDisplayMirrorOfDisplay(config CGDisplayConfigRef, display CGDirectDisplayID, master CGDirectDisplayID) CGError {
 	result, callErr := tryCGConfigureDisplayMirrorOfDisplay(config, display, master)
 	if callErr != nil {
 		panic(callErr)
@@ -2201,10 +2202,10 @@ func CGConfigureDisplayMirrorOfDisplay(config CGDisplayConfigRef, display uint32
 	return result
 }
 
-var _cGConfigureDisplayOrigin func(config CGDisplayConfigRef, display uint32, x int32, y int32) CGError
+var _cGConfigureDisplayOrigin func(config CGDisplayConfigRef, display CGDirectDisplayID, x int32, y int32) CGError
 var _cGConfigureDisplayOriginErr error
 
-func tryCGConfigureDisplayOrigin(config CGDisplayConfigRef, display uint32, x int32, y int32) (CGError, error) {
+func tryCGConfigureDisplayOrigin(config CGDisplayConfigRef, display CGDirectDisplayID, x int32, y int32) (CGError, error) {
 	if _cGConfigureDisplayOrigin == nil {
 		return *new(CGError), symbolCallError("CGConfigureDisplayOrigin", "10.0", _cGConfigureDisplayOriginErr)
 	}
@@ -2214,7 +2215,7 @@ func tryCGConfigureDisplayOrigin(config CGDisplayConfigRef, display uint32, x in
 // CGConfigureDisplayOrigin configures the origin of a display relative to the global display coordinate space.
 //
 // See: https://developer.apple.com/documentation/CoreGraphics/CGConfigureDisplayOrigin(_:_:_:_:)
-func CGConfigureDisplayOrigin(config CGDisplayConfigRef, display uint32, x int32, y int32) CGError {
+func CGConfigureDisplayOrigin(config CGDisplayConfigRef, display CGDirectDisplayID, x int32, y int32) CGError {
 	result, callErr := tryCGConfigureDisplayOrigin(config, display, x, y)
 	if callErr != nil {
 		panic(callErr)
@@ -2222,10 +2223,10 @@ func CGConfigureDisplayOrigin(config CGDisplayConfigRef, display uint32, x int32
 	return result
 }
 
-var _cGConfigureDisplayStereoOperation func(config CGDisplayConfigRef, display uint32, stereo bool, forceBlueLine bool) CGError
+var _cGConfigureDisplayStereoOperation func(config CGDisplayConfigRef, display CGDirectDisplayID, stereo int32, forceBlueLine int32) CGError
 var _cGConfigureDisplayStereoOperationErr error
 
-func tryCGConfigureDisplayStereoOperation(config CGDisplayConfigRef, display uint32, stereo bool, forceBlueLine bool) (CGError, error) {
+func tryCGConfigureDisplayStereoOperation(config CGDisplayConfigRef, display CGDirectDisplayID, stereo int32, forceBlueLine int32) (CGError, error) {
 	if _cGConfigureDisplayStereoOperation == nil {
 		return *new(CGError), symbolCallError("CGConfigureDisplayStereoOperation", "10.4", _cGConfigureDisplayStereoOperationErr)
 	}
@@ -2235,7 +2236,7 @@ func tryCGConfigureDisplayStereoOperation(config CGDisplayConfigRef, display uin
 // CGConfigureDisplayStereoOperation enables or disables stereo operation for a display, as part of a display configuration.
 //
 // See: https://developer.apple.com/documentation/CoreGraphics/CGConfigureDisplayStereoOperation(_:_:_:_:)
-func CGConfigureDisplayStereoOperation(config CGDisplayConfigRef, display uint32, stereo bool, forceBlueLine bool) CGError {
+func CGConfigureDisplayStereoOperation(config CGDisplayConfigRef, display CGDirectDisplayID, stereo int32, forceBlueLine int32) CGError {
 	result, callErr := tryCGConfigureDisplayStereoOperation(config, display, stereo, forceBlueLine)
 	if callErr != nil {
 		panic(callErr)
@@ -2243,10 +2244,10 @@ func CGConfigureDisplayStereoOperation(config CGDisplayConfigRef, display uint32
 	return result
 }
 
-var _cGConfigureDisplayWithDisplayMode func(config CGDisplayConfigRef, display uint32, mode CGDisplayModeRef, options corefoundation.CFDictionaryRef) CGError
+var _cGConfigureDisplayWithDisplayMode func(config CGDisplayConfigRef, display CGDirectDisplayID, mode CGDisplayModeRef, options corefoundation.CFDictionaryRef) CGError
 var _cGConfigureDisplayWithDisplayModeErr error
 
-func tryCGConfigureDisplayWithDisplayMode(config CGDisplayConfigRef, display uint32, mode CGDisplayModeRef, options corefoundation.CFDictionaryRef) (CGError, error) {
+func tryCGConfigureDisplayWithDisplayMode(config CGDisplayConfigRef, display CGDirectDisplayID, mode CGDisplayModeRef, options corefoundation.CFDictionaryRef) (CGError, error) {
 	if _cGConfigureDisplayWithDisplayMode == nil {
 		return *new(CGError), symbolCallError("CGConfigureDisplayWithDisplayMode", "10.6", _cGConfigureDisplayWithDisplayModeErr)
 	}
@@ -2256,7 +2257,7 @@ func tryCGConfigureDisplayWithDisplayMode(config CGDisplayConfigRef, display uin
 // CGConfigureDisplayWithDisplayMode configures the display mode of a display.
 //
 // See: https://developer.apple.com/documentation/CoreGraphics/CGConfigureDisplayWithDisplayMode(_:_:_:_:)
-func CGConfigureDisplayWithDisplayMode(config CGDisplayConfigRef, display uint32, mode CGDisplayModeRef, options corefoundation.CFDictionaryRef) CGError {
+func CGConfigureDisplayWithDisplayMode(config CGDisplayConfigRef, display CGDirectDisplayID, mode CGDisplayModeRef, options corefoundation.CFDictionaryRef) CGError {
 	result, callErr := tryCGConfigureDisplayWithDisplayMode(config, display, mode, options)
 	if callErr != nil {
 		panic(callErr)
@@ -2264,10 +2265,10 @@ func CGConfigureDisplayWithDisplayMode(config CGDisplayConfigRef, display uint32
 	return result
 }
 
-var _cGContextAddArc func(c CGContextRef, x float64, y float64, radius float64, startAngle float64, endAngle float64, clockwise int)
+var _cGContextAddArc func(c CGContextRef, x float64, y float64, radius float64, startAngle float64, endAngle float64, clockwise int32)
 var _cGContextAddArcErr error
 
-func tryCGContextAddArc(c CGContextRef, x float64, y float64, radius float64, startAngle float64, endAngle float64, clockwise int) error {
+func tryCGContextAddArc(c CGContextRef, x float64, y float64, radius float64, startAngle float64, endAngle float64, clockwise int32) error {
 	if _cGContextAddArc == nil {
 		return symbolCallError("CGContextAddArc", "10.0", _cGContextAddArcErr)
 	}
@@ -2278,7 +2279,7 @@ func tryCGContextAddArc(c CGContextRef, x float64, y float64, radius float64, st
 // CGContextAddArc adds an arc of a circle to the current path, possibly preceded by a straight line segment
 //
 // See: https://developer.apple.com/documentation/CoreGraphics/CGContextAddArc
-func CGContextAddArc(c CGContextRef, x float64, y float64, radius float64, startAngle float64, endAngle float64, clockwise int) {
+func CGContextAddArc(c CGContextRef, x float64, y float64, radius float64, startAngle float64, endAngle float64, clockwise int32) {
 	if callErr := tryCGContextAddArc(c, x, y, radius, startAngle, endAngle, clockwise); callErr != nil {
 		panic(callErr)
 	}
@@ -2952,10 +2953,10 @@ func CGContextDrawLinearGradient(c CGContextRef, gradient CGGradientRef, startPo
 	}
 }
 
-var _cGContextDrawPDFDocument func(c CGContextRef, rect corefoundation.CGRect, document CGPDFDocumentRef, page int)
+var _cGContextDrawPDFDocument func(c CGContextRef, rect corefoundation.CGRect, document CGPDFDocumentRef, page int32)
 var _cGContextDrawPDFDocumentErr error
 
-func tryCGContextDrawPDFDocument(c CGContextRef, rect corefoundation.CGRect, document CGPDFDocumentRef, page int) error {
+func tryCGContextDrawPDFDocument(c CGContextRef, rect corefoundation.CGRect, document CGPDFDocumentRef, page int32) error {
 	if _cGContextDrawPDFDocument == nil {
 		return symbolCallError("CGContextDrawPDFDocument", "10.0", _cGContextDrawPDFDocumentErr)
 	}
@@ -2968,7 +2969,7 @@ func tryCGContextDrawPDFDocument(c CGContextRef, rect corefoundation.CGRect, doc
 // Deprecated: Deprecated since macOS 10.5.
 //
 // See: https://developer.apple.com/documentation/CoreGraphics/CGContextDrawPDFDocument
-func CGContextDrawPDFDocument(c CGContextRef, rect corefoundation.CGRect, document CGPDFDocumentRef, page int) {
+func CGContextDrawPDFDocument(c CGContextRef, rect corefoundation.CGRect, document CGPDFDocumentRef, page int32) {
 	if callErr := tryCGContextDrawPDFDocument(c, rect, document, page); callErr != nil {
 		panic(callErr)
 	}
@@ -5125,10 +5126,32 @@ func CGDataProviderRetain(provider CGDataProviderRef) CGDataProviderRef {
 	return result
 }
 
-var _cGDisplayBounds func(display uint32) corefoundation.CGRect
+var _cGDirectDisplayCopyCurrentMetalDevice func(display CGDirectDisplayID) unsafe.Pointer
+var _cGDirectDisplayCopyCurrentMetalDeviceErr error
+
+func tryCGDirectDisplayCopyCurrentMetalDevice(display CGDirectDisplayID) (objectivec.IObject, error) {
+	if _cGDirectDisplayCopyCurrentMetalDevice == nil {
+		return nil, symbolCallError("CGDirectDisplayCopyCurrentMetalDevice", "10.11", _cGDirectDisplayCopyCurrentMetalDeviceErr)
+	}
+	rv := _cGDirectDisplayCopyCurrentMetalDevice(display)
+	return objectivec.ObjectFromID(objc.IDFrom(rv)), nil
+}
+
+// CGDirectDisplayCopyCurrentMetalDevice returns the GPU device instance that’s currently driving a display.
+//
+// See: https://developer.apple.com/documentation/CoreGraphics/CGDirectDisplayCopyCurrentMetalDevice(_:)
+func CGDirectDisplayCopyCurrentMetalDevice(display CGDirectDisplayID) objectivec.IObject {
+	result, callErr := tryCGDirectDisplayCopyCurrentMetalDevice(display)
+	if callErr != nil {
+		panic(callErr)
+	}
+	return result
+}
+
+var _cGDisplayBounds func(display CGDirectDisplayID) corefoundation.CGRect
 var _cGDisplayBoundsErr error
 
-func tryCGDisplayBounds(display uint32) (corefoundation.CGRect, error) {
+func tryCGDisplayBounds(display CGDirectDisplayID) (corefoundation.CGRect, error) {
 	if _cGDisplayBounds == nil {
 		return corefoundation.CGRect{}, symbolCallError("CGDisplayBounds", "10.0", _cGDisplayBoundsErr)
 	}
@@ -5138,7 +5161,7 @@ func tryCGDisplayBounds(display uint32) (corefoundation.CGRect, error) {
 // CGDisplayBounds returns the bounds of a display in the global display coordinate space.
 //
 // See: https://developer.apple.com/documentation/CoreGraphics/CGDisplayBounds(_:)
-func CGDisplayBounds(display uint32) corefoundation.CGRect {
+func CGDisplayBounds(display CGDirectDisplayID) corefoundation.CGRect {
 	result, callErr := tryCGDisplayBounds(display)
 	if callErr != nil {
 		panic(callErr)
@@ -5146,10 +5169,10 @@ func CGDisplayBounds(display uint32) corefoundation.CGRect {
 	return result
 }
 
-var _cGDisplayCapture func(display uint32) CGError
+var _cGDisplayCapture func(display CGDirectDisplayID) CGError
 var _cGDisplayCaptureErr error
 
-func tryCGDisplayCapture(display uint32) (CGError, error) {
+func tryCGDisplayCapture(display CGDirectDisplayID) (CGError, error) {
 	if _cGDisplayCapture == nil {
 		return *new(CGError), symbolCallError("CGDisplayCapture", "10.0", _cGDisplayCaptureErr)
 	}
@@ -5159,7 +5182,7 @@ func tryCGDisplayCapture(display uint32) (CGError, error) {
 // CGDisplayCapture obtains exclusive use of a display, preventing other applications and system services from using the display or changing its configuration.
 //
 // See: https://developer.apple.com/documentation/CoreGraphics/CGDisplayCapture(_:)
-func CGDisplayCapture(display uint32) CGError {
+func CGDisplayCapture(display CGDirectDisplayID) CGError {
 	result, callErr := tryCGDisplayCapture(display)
 	if callErr != nil {
 		panic(callErr)
@@ -5167,10 +5190,10 @@ func CGDisplayCapture(display uint32) CGError {
 	return result
 }
 
-var _cGDisplayCaptureWithOptions func(display uint32, options CGCaptureOptions) CGError
+var _cGDisplayCaptureWithOptions func(display CGDirectDisplayID, options CGCaptureOptions) CGError
 var _cGDisplayCaptureWithOptionsErr error
 
-func tryCGDisplayCaptureWithOptions(display uint32, options CGCaptureOptions) (CGError, error) {
+func tryCGDisplayCaptureWithOptions(display CGDirectDisplayID, options CGCaptureOptions) (CGError, error) {
 	if _cGDisplayCaptureWithOptions == nil {
 		return *new(CGError), symbolCallError("CGDisplayCaptureWithOptions", "10.3", _cGDisplayCaptureWithOptionsErr)
 	}
@@ -5180,7 +5203,7 @@ func tryCGDisplayCaptureWithOptions(display uint32, options CGCaptureOptions) (C
 // CGDisplayCaptureWithOptions obtains exclusive use of a display for an application using the options you specify.
 //
 // See: https://developer.apple.com/documentation/CoreGraphics/CGDisplayCaptureWithOptions(_:_:)
-func CGDisplayCaptureWithOptions(display uint32, options CGCaptureOptions) CGError {
+func CGDisplayCaptureWithOptions(display CGDirectDisplayID, options CGCaptureOptions) CGError {
 	result, callErr := tryCGDisplayCaptureWithOptions(display, options)
 	if callErr != nil {
 		panic(callErr)
@@ -5188,10 +5211,10 @@ func CGDisplayCaptureWithOptions(display uint32, options CGCaptureOptions) CGErr
 	return result
 }
 
-var _cGDisplayCopyAllDisplayModes func(display uint32, options corefoundation.CFDictionaryRef) corefoundation.CFArrayRef
+var _cGDisplayCopyAllDisplayModes func(display CGDirectDisplayID, options corefoundation.CFDictionaryRef) corefoundation.CFArrayRef
 var _cGDisplayCopyAllDisplayModesErr error
 
-func tryCGDisplayCopyAllDisplayModes(display uint32, options corefoundation.CFDictionaryRef) (corefoundation.CFArrayRef, error) {
+func tryCGDisplayCopyAllDisplayModes(display CGDirectDisplayID, options corefoundation.CFDictionaryRef) (corefoundation.CFArrayRef, error) {
 	if _cGDisplayCopyAllDisplayModes == nil {
 		return *new(corefoundation.CFArrayRef), symbolCallError("CGDisplayCopyAllDisplayModes", "10.6", _cGDisplayCopyAllDisplayModesErr)
 	}
@@ -5201,7 +5224,7 @@ func tryCGDisplayCopyAllDisplayModes(display uint32, options corefoundation.CFDi
 // CGDisplayCopyAllDisplayModes returns information about the currently available display modes.
 //
 // See: https://developer.apple.com/documentation/CoreGraphics/CGDisplayCopyAllDisplayModes(_:_:)
-func CGDisplayCopyAllDisplayModes(display uint32, options corefoundation.CFDictionaryRef) corefoundation.CFArrayRef {
+func CGDisplayCopyAllDisplayModes(display CGDirectDisplayID, options corefoundation.CFDictionaryRef) corefoundation.CFArrayRef {
 	result, callErr := tryCGDisplayCopyAllDisplayModes(display, options)
 	if callErr != nil {
 		panic(callErr)
@@ -5209,10 +5232,10 @@ func CGDisplayCopyAllDisplayModes(display uint32, options corefoundation.CFDicti
 	return result
 }
 
-var _cGDisplayCopyColorSpace func(display uint32) CGColorSpaceRef
+var _cGDisplayCopyColorSpace func(display CGDirectDisplayID) CGColorSpaceRef
 var _cGDisplayCopyColorSpaceErr error
 
-func tryCGDisplayCopyColorSpace(display uint32) (CGColorSpaceRef, error) {
+func tryCGDisplayCopyColorSpace(display CGDirectDisplayID) (CGColorSpaceRef, error) {
 	if _cGDisplayCopyColorSpace == nil {
 		return *new(CGColorSpaceRef), symbolCallError("CGDisplayCopyColorSpace", "10.5", _cGDisplayCopyColorSpaceErr)
 	}
@@ -5222,7 +5245,7 @@ func tryCGDisplayCopyColorSpace(display uint32) (CGColorSpaceRef, error) {
 // CGDisplayCopyColorSpace returns the color space for a display.
 //
 // See: https://developer.apple.com/documentation/CoreGraphics/CGDisplayCopyColorSpace(_:)
-func CGDisplayCopyColorSpace(display uint32) CGColorSpaceRef {
+func CGDisplayCopyColorSpace(display CGDirectDisplayID) CGColorSpaceRef {
 	result, callErr := tryCGDisplayCopyColorSpace(display)
 	if callErr != nil {
 		panic(callErr)
@@ -5230,10 +5253,10 @@ func CGDisplayCopyColorSpace(display uint32) CGColorSpaceRef {
 	return result
 }
 
-var _cGDisplayCopyDisplayMode func(display uint32) CGDisplayModeRef
+var _cGDisplayCopyDisplayMode func(display CGDirectDisplayID) CGDisplayModeRef
 var _cGDisplayCopyDisplayModeErr error
 
-func tryCGDisplayCopyDisplayMode(display uint32) (CGDisplayModeRef, error) {
+func tryCGDisplayCopyDisplayMode(display CGDirectDisplayID) (CGDisplayModeRef, error) {
 	if _cGDisplayCopyDisplayMode == nil {
 		return *new(CGDisplayModeRef), symbolCallError("CGDisplayCopyDisplayMode", "10.6", _cGDisplayCopyDisplayModeErr)
 	}
@@ -5243,7 +5266,7 @@ func tryCGDisplayCopyDisplayMode(display uint32) (CGDisplayModeRef, error) {
 // CGDisplayCopyDisplayMode returns information about a display’s current configuration.
 //
 // See: https://developer.apple.com/documentation/CoreGraphics/CGDisplayCopyDisplayMode(_:)
-func CGDisplayCopyDisplayMode(display uint32) CGDisplayModeRef {
+func CGDisplayCopyDisplayMode(display CGDirectDisplayID) CGDisplayModeRef {
 	result, callErr := tryCGDisplayCopyDisplayMode(display)
 	if callErr != nil {
 		panic(callErr)
@@ -5251,10 +5274,10 @@ func CGDisplayCopyDisplayMode(display uint32) CGDisplayModeRef {
 	return result
 }
 
-var _cGDisplayCreateImage func(displayID uint32) CGImageRef
+var _cGDisplayCreateImage func(displayID CGDirectDisplayID) CGImageRef
 var _cGDisplayCreateImageErr error
 
-func tryCGDisplayCreateImage(displayID uint32) (CGImageRef, error) {
+func tryCGDisplayCreateImage(displayID CGDirectDisplayID) (CGImageRef, error) {
 	if _cGDisplayCreateImage == nil {
 		return *new(CGImageRef), symbolCallError("CGDisplayCreateImage", "", _cGDisplayCreateImageErr)
 	}
@@ -5266,7 +5289,7 @@ func tryCGDisplayCreateImage(displayID uint32) (CGImageRef, error) {
 // Deprecated: Please use ScreenCaptureKit instead.
 //
 // See: https://developer.apple.com/documentation/CoreGraphics/CGDisplayCreateImage(_:)
-func CGDisplayCreateImage(displayID uint32) CGImageRef {
+func CGDisplayCreateImage(displayID CGDirectDisplayID) CGImageRef {
 	result, callErr := tryCGDisplayCreateImage(displayID)
 	if callErr != nil {
 		panic(callErr)
@@ -5274,10 +5297,10 @@ func CGDisplayCreateImage(displayID uint32) CGImageRef {
 	return result
 }
 
-var _cGDisplayCreateImageForRect func(display uint32, rect corefoundation.CGRect) CGImageRef
+var _cGDisplayCreateImageForRect func(display CGDirectDisplayID, rect corefoundation.CGRect) CGImageRef
 var _cGDisplayCreateImageForRectErr error
 
-func tryCGDisplayCreateImageForRect(display uint32, rect corefoundation.CGRect) (CGImageRef, error) {
+func tryCGDisplayCreateImageForRect(display CGDirectDisplayID, rect corefoundation.CGRect) (CGImageRef, error) {
 	if _cGDisplayCreateImageForRect == nil {
 		return *new(CGImageRef), symbolCallError("CGDisplayCreateImageForRect", "", _cGDisplayCreateImageForRectErr)
 	}
@@ -5289,7 +5312,7 @@ func tryCGDisplayCreateImageForRect(display uint32, rect corefoundation.CGRect) 
 // Deprecated: Please use ScreenCaptureKit instead.
 //
 // See: https://developer.apple.com/documentation/CoreGraphics/CGDisplayCreateImage(_:rect:)
-func CGDisplayCreateImageForRect(display uint32, rect corefoundation.CGRect) CGImageRef {
+func CGDisplayCreateImageForRect(display CGDirectDisplayID, rect corefoundation.CGRect) CGImageRef {
 	result, callErr := tryCGDisplayCreateImageForRect(display, rect)
 	if callErr != nil {
 		panic(callErr)
@@ -5297,10 +5320,10 @@ func CGDisplayCreateImageForRect(display uint32, rect corefoundation.CGRect) CGI
 	return result
 }
 
-var _cGDisplayFade func(token CGDisplayFadeReservationToken, duration float32, startBlend CGDisplayBlendFraction, endBlend CGDisplayBlendFraction, redBlend float32, greenBlend float32, blueBlend float32, synchronous bool) CGError
+var _cGDisplayFade func(token CGDisplayFadeReservationToken, duration CGDisplayFadeInterval, startBlend CGDisplayBlendFraction, endBlend CGDisplayBlendFraction, redBlend float32, greenBlend float32, blueBlend float32, synchronous int32) CGError
 var _cGDisplayFadeErr error
 
-func tryCGDisplayFade(token CGDisplayFadeReservationToken, duration float32, startBlend CGDisplayBlendFraction, endBlend CGDisplayBlendFraction, redBlend float32, greenBlend float32, blueBlend float32, synchronous bool) (CGError, error) {
+func tryCGDisplayFade(token CGDisplayFadeReservationToken, duration CGDisplayFadeInterval, startBlend CGDisplayBlendFraction, endBlend CGDisplayBlendFraction, redBlend float32, greenBlend float32, blueBlend float32, synchronous int32) (CGError, error) {
 	if _cGDisplayFade == nil {
 		return *new(CGError), symbolCallError("CGDisplayFade", "10.2", _cGDisplayFadeErr)
 	}
@@ -5310,7 +5333,7 @@ func tryCGDisplayFade(token CGDisplayFadeReservationToken, duration float32, sta
 // CGDisplayFade performs a single fade operation.
 //
 // See: https://developer.apple.com/documentation/CoreGraphics/CGDisplayFade(_:_:_:_:_:_:_:_:)
-func CGDisplayFade(token CGDisplayFadeReservationToken, duration float32, startBlend CGDisplayBlendFraction, endBlend CGDisplayBlendFraction, redBlend float32, greenBlend float32, blueBlend float32, synchronous bool) CGError {
+func CGDisplayFade(token CGDisplayFadeReservationToken, duration CGDisplayFadeInterval, startBlend CGDisplayBlendFraction, endBlend CGDisplayBlendFraction, redBlend float32, greenBlend float32, blueBlend float32, synchronous int32) CGError {
 	result, callErr := tryCGDisplayFade(token, duration, startBlend, endBlend, redBlend, greenBlend, blueBlend, synchronous)
 	if callErr != nil {
 		panic(callErr)
@@ -5318,10 +5341,10 @@ func CGDisplayFade(token CGDisplayFadeReservationToken, duration float32, startB
 	return result
 }
 
-var _cGDisplayGammaTableCapacity func(display uint32) uint32
+var _cGDisplayGammaTableCapacity func(display CGDirectDisplayID) uint32
 var _cGDisplayGammaTableCapacityErr error
 
-func tryCGDisplayGammaTableCapacity(display uint32) (uint32, error) {
+func tryCGDisplayGammaTableCapacity(display CGDirectDisplayID) (uint32, error) {
 	if _cGDisplayGammaTableCapacity == nil {
 		return 0, symbolCallError("CGDisplayGammaTableCapacity", "10.3", _cGDisplayGammaTableCapacityErr)
 	}
@@ -5331,7 +5354,7 @@ func tryCGDisplayGammaTableCapacity(display uint32) (uint32, error) {
 // CGDisplayGammaTableCapacity returns the capacity, or number of entries, in the gamma table for a display.
 //
 // See: https://developer.apple.com/documentation/CoreGraphics/CGDisplayGammaTableCapacity(_:)
-func CGDisplayGammaTableCapacity(display uint32) uint32 {
+func CGDisplayGammaTableCapacity(display CGDirectDisplayID) uint32 {
 	result, callErr := tryCGDisplayGammaTableCapacity(display)
 	if callErr != nil {
 		panic(callErr)
@@ -5339,10 +5362,10 @@ func CGDisplayGammaTableCapacity(display uint32) uint32 {
 	return result
 }
 
-var _cGDisplayGetDrawingContext func(display uint32) CGContextRef
+var _cGDisplayGetDrawingContext func(display CGDirectDisplayID) CGContextRef
 var _cGDisplayGetDrawingContextErr error
 
-func tryCGDisplayGetDrawingContext(display uint32) (CGContextRef, error) {
+func tryCGDisplayGetDrawingContext(display CGDirectDisplayID) (CGContextRef, error) {
 	if _cGDisplayGetDrawingContext == nil {
 		return *new(CGContextRef), symbolCallError("CGDisplayGetDrawingContext", "10.3", _cGDisplayGetDrawingContextErr)
 	}
@@ -5352,7 +5375,7 @@ func tryCGDisplayGetDrawingContext(display uint32) (CGContextRef, error) {
 // CGDisplayGetDrawingContext returns a graphics context suitable for drawing to a captured display.
 //
 // See: https://developer.apple.com/documentation/CoreGraphics/CGDisplayGetDrawingContext(_:)
-func CGDisplayGetDrawingContext(display uint32) CGContextRef {
+func CGDisplayGetDrawingContext(display CGDirectDisplayID) CGContextRef {
 	result, callErr := tryCGDisplayGetDrawingContext(display)
 	if callErr != nil {
 		panic(callErr)
@@ -5360,10 +5383,10 @@ func CGDisplayGetDrawingContext(display uint32) CGContextRef {
 	return result
 }
 
-var _cGDisplayHideCursor func(display uint32) CGError
+var _cGDisplayHideCursor func(display CGDirectDisplayID) CGError
 var _cGDisplayHideCursorErr error
 
-func tryCGDisplayHideCursor(display uint32) (CGError, error) {
+func tryCGDisplayHideCursor(display CGDirectDisplayID) (CGError, error) {
 	if _cGDisplayHideCursor == nil {
 		return *new(CGError), symbolCallError("CGDisplayHideCursor", "10.0", _cGDisplayHideCursorErr)
 	}
@@ -5373,7 +5396,7 @@ func tryCGDisplayHideCursor(display uint32) (CGError, error) {
 // CGDisplayHideCursor hides the mouse cursor, and increments the hide cursor count.
 //
 // See: https://developer.apple.com/documentation/CoreGraphics/CGDisplayHideCursor(_:)
-func CGDisplayHideCursor(display uint32) CGError {
+func CGDisplayHideCursor(display CGDirectDisplayID) CGError {
 	result, callErr := tryCGDisplayHideCursor(display)
 	if callErr != nil {
 		panic(callErr)
@@ -5381,10 +5404,10 @@ func CGDisplayHideCursor(display uint32) CGError {
 	return result
 }
 
-var _cGDisplayIDToOpenGLDisplayMask func(display uint32) CGOpenGLDisplayMask
+var _cGDisplayIDToOpenGLDisplayMask func(display CGDirectDisplayID) CGOpenGLDisplayMask
 var _cGDisplayIDToOpenGLDisplayMaskErr error
 
-func tryCGDisplayIDToOpenGLDisplayMask(display uint32) (CGOpenGLDisplayMask, error) {
+func tryCGDisplayIDToOpenGLDisplayMask(display CGDirectDisplayID) (CGOpenGLDisplayMask, error) {
 	if _cGDisplayIDToOpenGLDisplayMask == nil {
 		return *new(CGOpenGLDisplayMask), symbolCallError("CGDisplayIDToOpenGLDisplayMask", "10.0", _cGDisplayIDToOpenGLDisplayMaskErr)
 	}
@@ -5394,7 +5417,7 @@ func tryCGDisplayIDToOpenGLDisplayMask(display uint32) (CGOpenGLDisplayMask, err
 // CGDisplayIDToOpenGLDisplayMask maps a display ID to an OpenGL display mask.
 //
 // See: https://developer.apple.com/documentation/CoreGraphics/CGDisplayIDToOpenGLDisplayMask(_:)
-func CGDisplayIDToOpenGLDisplayMask(display uint32) CGOpenGLDisplayMask {
+func CGDisplayIDToOpenGLDisplayMask(display CGDirectDisplayID) CGOpenGLDisplayMask {
 	result, callErr := tryCGDisplayIDToOpenGLDisplayMask(display)
 	if callErr != nil {
 		panic(callErr)
@@ -5402,12 +5425,12 @@ func CGDisplayIDToOpenGLDisplayMask(display uint32) CGOpenGLDisplayMask {
 	return result
 }
 
-var _cGDisplayIsActive func(display uint32) bool
+var _cGDisplayIsActive func(display CGDirectDisplayID) int32
 var _cGDisplayIsActiveErr error
 
-func tryCGDisplayIsActive(display uint32) (bool, error) {
+func tryCGDisplayIsActive(display CGDirectDisplayID) (int32, error) {
 	if _cGDisplayIsActive == nil {
-		return false, symbolCallError("CGDisplayIsActive", "10.2", _cGDisplayIsActiveErr)
+		return 0, symbolCallError("CGDisplayIsActive", "10.2", _cGDisplayIsActiveErr)
 	}
 	return _cGDisplayIsActive(display), nil
 }
@@ -5415,7 +5438,7 @@ func tryCGDisplayIsActive(display uint32) (bool, error) {
 // CGDisplayIsActive returns a Boolean value indicating whether a display is active.
 //
 // See: https://developer.apple.com/documentation/CoreGraphics/CGDisplayIsActive(_:)
-func CGDisplayIsActive(display uint32) bool {
+func CGDisplayIsActive(display CGDirectDisplayID) int32 {
 	result, callErr := tryCGDisplayIsActive(display)
 	if callErr != nil {
 		panic(callErr)
@@ -5423,12 +5446,12 @@ func CGDisplayIsActive(display uint32) bool {
 	return result
 }
 
-var _cGDisplayIsAlwaysInMirrorSet func(display uint32) bool
+var _cGDisplayIsAlwaysInMirrorSet func(display CGDirectDisplayID) int32
 var _cGDisplayIsAlwaysInMirrorSetErr error
 
-func tryCGDisplayIsAlwaysInMirrorSet(display uint32) (bool, error) {
+func tryCGDisplayIsAlwaysInMirrorSet(display CGDirectDisplayID) (int32, error) {
 	if _cGDisplayIsAlwaysInMirrorSet == nil {
-		return false, symbolCallError("CGDisplayIsAlwaysInMirrorSet", "10.2", _cGDisplayIsAlwaysInMirrorSetErr)
+		return 0, symbolCallError("CGDisplayIsAlwaysInMirrorSet", "10.2", _cGDisplayIsAlwaysInMirrorSetErr)
 	}
 	return _cGDisplayIsAlwaysInMirrorSet(display), nil
 }
@@ -5436,7 +5459,7 @@ func tryCGDisplayIsAlwaysInMirrorSet(display uint32) (bool, error) {
 // CGDisplayIsAlwaysInMirrorSet returns a Boolean value indicating whether a display is always in a mirroring set.
 //
 // See: https://developer.apple.com/documentation/CoreGraphics/CGDisplayIsAlwaysInMirrorSet(_:)
-func CGDisplayIsAlwaysInMirrorSet(display uint32) bool {
+func CGDisplayIsAlwaysInMirrorSet(display CGDirectDisplayID) int32 {
 	result, callErr := tryCGDisplayIsAlwaysInMirrorSet(display)
 	if callErr != nil {
 		panic(callErr)
@@ -5444,12 +5467,12 @@ func CGDisplayIsAlwaysInMirrorSet(display uint32) bool {
 	return result
 }
 
-var _cGDisplayIsAsleep func(display uint32) bool
+var _cGDisplayIsAsleep func(display CGDirectDisplayID) int32
 var _cGDisplayIsAsleepErr error
 
-func tryCGDisplayIsAsleep(display uint32) (bool, error) {
+func tryCGDisplayIsAsleep(display CGDirectDisplayID) (int32, error) {
 	if _cGDisplayIsAsleep == nil {
-		return false, symbolCallError("CGDisplayIsAsleep", "10.2", _cGDisplayIsAsleepErr)
+		return 0, symbolCallError("CGDisplayIsAsleep", "10.2", _cGDisplayIsAsleepErr)
 	}
 	return _cGDisplayIsAsleep(display), nil
 }
@@ -5457,7 +5480,7 @@ func tryCGDisplayIsAsleep(display uint32) (bool, error) {
 // CGDisplayIsAsleep returns a Boolean value indicating whether a display is sleeping (and is therefore not drawable).
 //
 // See: https://developer.apple.com/documentation/CoreGraphics/CGDisplayIsAsleep(_:)
-func CGDisplayIsAsleep(display uint32) bool {
+func CGDisplayIsAsleep(display CGDirectDisplayID) int32 {
 	result, callErr := tryCGDisplayIsAsleep(display)
 	if callErr != nil {
 		panic(callErr)
@@ -5465,12 +5488,12 @@ func CGDisplayIsAsleep(display uint32) bool {
 	return result
 }
 
-var _cGDisplayIsBuiltin func(display uint32) bool
+var _cGDisplayIsBuiltin func(display CGDirectDisplayID) int32
 var _cGDisplayIsBuiltinErr error
 
-func tryCGDisplayIsBuiltin(display uint32) (bool, error) {
+func tryCGDisplayIsBuiltin(display CGDirectDisplayID) (int32, error) {
 	if _cGDisplayIsBuiltin == nil {
-		return false, symbolCallError("CGDisplayIsBuiltin", "10.2", _cGDisplayIsBuiltinErr)
+		return 0, symbolCallError("CGDisplayIsBuiltin", "10.2", _cGDisplayIsBuiltinErr)
 	}
 	return _cGDisplayIsBuiltin(display), nil
 }
@@ -5478,7 +5501,7 @@ func tryCGDisplayIsBuiltin(display uint32) (bool, error) {
 // CGDisplayIsBuiltin returns a Boolean value indicating whether a display is built-in, such as the internal display in portable systems.
 //
 // See: https://developer.apple.com/documentation/CoreGraphics/CGDisplayIsBuiltin(_:)
-func CGDisplayIsBuiltin(display uint32) bool {
+func CGDisplayIsBuiltin(display CGDirectDisplayID) int32 {
 	result, callErr := tryCGDisplayIsBuiltin(display)
 	if callErr != nil {
 		panic(callErr)
@@ -5486,12 +5509,12 @@ func CGDisplayIsBuiltin(display uint32) bool {
 	return result
 }
 
-var _cGDisplayIsInHWMirrorSet func(display uint32) bool
+var _cGDisplayIsInHWMirrorSet func(display CGDirectDisplayID) int32
 var _cGDisplayIsInHWMirrorSetErr error
 
-func tryCGDisplayIsInHWMirrorSet(display uint32) (bool, error) {
+func tryCGDisplayIsInHWMirrorSet(display CGDirectDisplayID) (int32, error) {
 	if _cGDisplayIsInHWMirrorSet == nil {
-		return false, symbolCallError("CGDisplayIsInHWMirrorSet", "10.2", _cGDisplayIsInHWMirrorSetErr)
+		return 0, symbolCallError("CGDisplayIsInHWMirrorSet", "10.2", _cGDisplayIsInHWMirrorSetErr)
 	}
 	return _cGDisplayIsInHWMirrorSet(display), nil
 }
@@ -5499,7 +5522,7 @@ func tryCGDisplayIsInHWMirrorSet(display uint32) (bool, error) {
 // CGDisplayIsInHWMirrorSet returns a Boolean value indicating whether a display is in a hardware mirroring set.
 //
 // See: https://developer.apple.com/documentation/CoreGraphics/CGDisplayIsInHWMirrorSet(_:)
-func CGDisplayIsInHWMirrorSet(display uint32) bool {
+func CGDisplayIsInHWMirrorSet(display CGDirectDisplayID) int32 {
 	result, callErr := tryCGDisplayIsInHWMirrorSet(display)
 	if callErr != nil {
 		panic(callErr)
@@ -5507,12 +5530,12 @@ func CGDisplayIsInHWMirrorSet(display uint32) bool {
 	return result
 }
 
-var _cGDisplayIsInMirrorSet func(display uint32) bool
+var _cGDisplayIsInMirrorSet func(display CGDirectDisplayID) int32
 var _cGDisplayIsInMirrorSetErr error
 
-func tryCGDisplayIsInMirrorSet(display uint32) (bool, error) {
+func tryCGDisplayIsInMirrorSet(display CGDirectDisplayID) (int32, error) {
 	if _cGDisplayIsInMirrorSet == nil {
-		return false, symbolCallError("CGDisplayIsInMirrorSet", "10.2", _cGDisplayIsInMirrorSetErr)
+		return 0, symbolCallError("CGDisplayIsInMirrorSet", "10.2", _cGDisplayIsInMirrorSetErr)
 	}
 	return _cGDisplayIsInMirrorSet(display), nil
 }
@@ -5520,7 +5543,7 @@ func tryCGDisplayIsInMirrorSet(display uint32) (bool, error) {
 // CGDisplayIsInMirrorSet returns a Boolean value indicating whether a display is in a mirroring set.
 //
 // See: https://developer.apple.com/documentation/CoreGraphics/CGDisplayIsInMirrorSet(_:)
-func CGDisplayIsInMirrorSet(display uint32) bool {
+func CGDisplayIsInMirrorSet(display CGDirectDisplayID) int32 {
 	result, callErr := tryCGDisplayIsInMirrorSet(display)
 	if callErr != nil {
 		panic(callErr)
@@ -5528,12 +5551,12 @@ func CGDisplayIsInMirrorSet(display uint32) bool {
 	return result
 }
 
-var _cGDisplayIsMain func(display uint32) bool
+var _cGDisplayIsMain func(display CGDirectDisplayID) int32
 var _cGDisplayIsMainErr error
 
-func tryCGDisplayIsMain(display uint32) (bool, error) {
+func tryCGDisplayIsMain(display CGDirectDisplayID) (int32, error) {
 	if _cGDisplayIsMain == nil {
-		return false, symbolCallError("CGDisplayIsMain", "10.2", _cGDisplayIsMainErr)
+		return 0, symbolCallError("CGDisplayIsMain", "10.2", _cGDisplayIsMainErr)
 	}
 	return _cGDisplayIsMain(display), nil
 }
@@ -5541,7 +5564,7 @@ func tryCGDisplayIsMain(display uint32) (bool, error) {
 // CGDisplayIsMain returns a Boolean value indicating whether a display is the main display.
 //
 // See: https://developer.apple.com/documentation/CoreGraphics/CGDisplayIsMain(_:)
-func CGDisplayIsMain(display uint32) bool {
+func CGDisplayIsMain(display CGDirectDisplayID) int32 {
 	result, callErr := tryCGDisplayIsMain(display)
 	if callErr != nil {
 		panic(callErr)
@@ -5549,12 +5572,12 @@ func CGDisplayIsMain(display uint32) bool {
 	return result
 }
 
-var _cGDisplayIsOnline func(display uint32) bool
+var _cGDisplayIsOnline func(display CGDirectDisplayID) int32
 var _cGDisplayIsOnlineErr error
 
-func tryCGDisplayIsOnline(display uint32) (bool, error) {
+func tryCGDisplayIsOnline(display CGDirectDisplayID) (int32, error) {
 	if _cGDisplayIsOnline == nil {
-		return false, symbolCallError("CGDisplayIsOnline", "10.2", _cGDisplayIsOnlineErr)
+		return 0, symbolCallError("CGDisplayIsOnline", "10.2", _cGDisplayIsOnlineErr)
 	}
 	return _cGDisplayIsOnline(display), nil
 }
@@ -5562,7 +5585,7 @@ func tryCGDisplayIsOnline(display uint32) (bool, error) {
 // CGDisplayIsOnline returns a Boolean value indicating whether a display is connected or online.
 //
 // See: https://developer.apple.com/documentation/CoreGraphics/CGDisplayIsOnline(_:)
-func CGDisplayIsOnline(display uint32) bool {
+func CGDisplayIsOnline(display CGDirectDisplayID) int32 {
 	result, callErr := tryCGDisplayIsOnline(display)
 	if callErr != nil {
 		panic(callErr)
@@ -5570,12 +5593,12 @@ func CGDisplayIsOnline(display uint32) bool {
 	return result
 }
 
-var _cGDisplayIsStereo func(display uint32) bool
+var _cGDisplayIsStereo func(display CGDirectDisplayID) int32
 var _cGDisplayIsStereoErr error
 
-func tryCGDisplayIsStereo(display uint32) (bool, error) {
+func tryCGDisplayIsStereo(display CGDirectDisplayID) (int32, error) {
 	if _cGDisplayIsStereo == nil {
-		return false, symbolCallError("CGDisplayIsStereo", "10.4", _cGDisplayIsStereoErr)
+		return 0, symbolCallError("CGDisplayIsStereo", "10.4", _cGDisplayIsStereoErr)
 	}
 	return _cGDisplayIsStereo(display), nil
 }
@@ -5583,7 +5606,7 @@ func tryCGDisplayIsStereo(display uint32) (bool, error) {
 // CGDisplayIsStereo returns a Boolean value indicating whether a display is running in a stereo graphics mode.
 //
 // See: https://developer.apple.com/documentation/CoreGraphics/CGDisplayIsStereo(_:)
-func CGDisplayIsStereo(display uint32) bool {
+func CGDisplayIsStereo(display CGDirectDisplayID) int32 {
 	result, callErr := tryCGDisplayIsStereo(display)
 	if callErr != nil {
 		panic(callErr)
@@ -5591,12 +5614,12 @@ func CGDisplayIsStereo(display uint32) bool {
 	return result
 }
 
-var _cGDisplayMirrorsDisplay func(display uint32) uint32
+var _cGDisplayMirrorsDisplay func(display CGDirectDisplayID) CGDirectDisplayID
 var _cGDisplayMirrorsDisplayErr error
 
-func tryCGDisplayMirrorsDisplay(display uint32) (uint32, error) {
+func tryCGDisplayMirrorsDisplay(display CGDirectDisplayID) (CGDirectDisplayID, error) {
 	if _cGDisplayMirrorsDisplay == nil {
-		return 0, symbolCallError("CGDisplayMirrorsDisplay", "10.2", _cGDisplayMirrorsDisplayErr)
+		return *new(CGDirectDisplayID), symbolCallError("CGDisplayMirrorsDisplay", "10.2", _cGDisplayMirrorsDisplayErr)
 	}
 	return _cGDisplayMirrorsDisplay(display), nil
 }
@@ -5604,7 +5627,7 @@ func tryCGDisplayMirrorsDisplay(display uint32) (uint32, error) {
 // CGDisplayMirrorsDisplay for a secondary display in a mirroring set, returns the primary display.
 //
 // See: https://developer.apple.com/documentation/CoreGraphics/CGDisplayMirrorsDisplay(_:)
-func CGDisplayMirrorsDisplay(display uint32) uint32 {
+func CGDisplayMirrorsDisplay(display CGDirectDisplayID) CGDirectDisplayID {
 	result, callErr := tryCGDisplayMirrorsDisplay(display)
 	if callErr != nil {
 		panic(callErr)
@@ -5842,10 +5865,10 @@ func CGDisplayModeRetain(mode CGDisplayModeRef) CGDisplayModeRef {
 	return result
 }
 
-var _cGDisplayModelNumber func(display uint32) uint32
+var _cGDisplayModelNumber func(display CGDirectDisplayID) uint32
 var _cGDisplayModelNumberErr error
 
-func tryCGDisplayModelNumber(display uint32) (uint32, error) {
+func tryCGDisplayModelNumber(display CGDirectDisplayID) (uint32, error) {
 	if _cGDisplayModelNumber == nil {
 		return 0, symbolCallError("CGDisplayModelNumber", "10.2", _cGDisplayModelNumberErr)
 	}
@@ -5855,7 +5878,7 @@ func tryCGDisplayModelNumber(display uint32) (uint32, error) {
 // CGDisplayModelNumber returns the model number of a display monitor.
 //
 // See: https://developer.apple.com/documentation/CoreGraphics/CGDisplayModelNumber(_:)
-func CGDisplayModelNumber(display uint32) uint32 {
+func CGDisplayModelNumber(display CGDirectDisplayID) uint32 {
 	result, callErr := tryCGDisplayModelNumber(display)
 	if callErr != nil {
 		panic(callErr)
@@ -5863,10 +5886,10 @@ func CGDisplayModelNumber(display uint32) uint32 {
 	return result
 }
 
-var _cGDisplayMoveCursorToPoint func(display uint32, point corefoundation.CGPoint) CGError
+var _cGDisplayMoveCursorToPoint func(display CGDirectDisplayID, point corefoundation.CGPoint) CGError
 var _cGDisplayMoveCursorToPointErr error
 
-func tryCGDisplayMoveCursorToPoint(display uint32, point corefoundation.CGPoint) (CGError, error) {
+func tryCGDisplayMoveCursorToPoint(display CGDirectDisplayID, point corefoundation.CGPoint) (CGError, error) {
 	if _cGDisplayMoveCursorToPoint == nil {
 		return *new(CGError), symbolCallError("CGDisplayMoveCursorToPoint", "10.0", _cGDisplayMoveCursorToPointErr)
 	}
@@ -5876,7 +5899,7 @@ func tryCGDisplayMoveCursorToPoint(display uint32, point corefoundation.CGPoint)
 // CGDisplayMoveCursorToPoint moves the mouse cursor to a specified point relative to the upper-left corner of the display.
 //
 // See: https://developer.apple.com/documentation/CoreGraphics/CGDisplayMoveCursorToPoint(_:_:)
-func CGDisplayMoveCursorToPoint(display uint32, point corefoundation.CGPoint) CGError {
+func CGDisplayMoveCursorToPoint(display CGDirectDisplayID, point corefoundation.CGPoint) CGError {
 	result, callErr := tryCGDisplayMoveCursorToPoint(display, point)
 	if callErr != nil {
 		panic(callErr)
@@ -5884,10 +5907,10 @@ func CGDisplayMoveCursorToPoint(display uint32, point corefoundation.CGPoint) CG
 	return result
 }
 
-var _cGDisplayPixelsHigh func(display uint32) uintptr
+var _cGDisplayPixelsHigh func(display CGDirectDisplayID) uintptr
 var _cGDisplayPixelsHighErr error
 
-func tryCGDisplayPixelsHigh(display uint32) (uintptr, error) {
+func tryCGDisplayPixelsHigh(display CGDirectDisplayID) (uintptr, error) {
 	if _cGDisplayPixelsHigh == nil {
 		return 0, symbolCallError("CGDisplayPixelsHigh", "10.0", _cGDisplayPixelsHighErr)
 	}
@@ -5897,7 +5920,7 @@ func tryCGDisplayPixelsHigh(display uint32) (uintptr, error) {
 // CGDisplayPixelsHigh returns the display height in pixel units.
 //
 // See: https://developer.apple.com/documentation/CoreGraphics/CGDisplayPixelsHigh(_:)
-func CGDisplayPixelsHigh(display uint32) uintptr {
+func CGDisplayPixelsHigh(display CGDirectDisplayID) uintptr {
 	result, callErr := tryCGDisplayPixelsHigh(display)
 	if callErr != nil {
 		panic(callErr)
@@ -5905,10 +5928,10 @@ func CGDisplayPixelsHigh(display uint32) uintptr {
 	return result
 }
 
-var _cGDisplayPixelsWide func(display uint32) uintptr
+var _cGDisplayPixelsWide func(display CGDirectDisplayID) uintptr
 var _cGDisplayPixelsWideErr error
 
-func tryCGDisplayPixelsWide(display uint32) (uintptr, error) {
+func tryCGDisplayPixelsWide(display CGDirectDisplayID) (uintptr, error) {
 	if _cGDisplayPixelsWide == nil {
 		return 0, symbolCallError("CGDisplayPixelsWide", "10.0", _cGDisplayPixelsWideErr)
 	}
@@ -5918,7 +5941,7 @@ func tryCGDisplayPixelsWide(display uint32) (uintptr, error) {
 // CGDisplayPixelsWide returns the display width in pixel units.
 //
 // See: https://developer.apple.com/documentation/CoreGraphics/CGDisplayPixelsWide(_:)
-func CGDisplayPixelsWide(display uint32) uintptr {
+func CGDisplayPixelsWide(display CGDirectDisplayID) uintptr {
 	result, callErr := tryCGDisplayPixelsWide(display)
 	if callErr != nil {
 		panic(callErr)
@@ -5926,12 +5949,12 @@ func CGDisplayPixelsWide(display uint32) uintptr {
 	return result
 }
 
-var _cGDisplayPrimaryDisplay func(display uint32) uint32
+var _cGDisplayPrimaryDisplay func(display CGDirectDisplayID) CGDirectDisplayID
 var _cGDisplayPrimaryDisplayErr error
 
-func tryCGDisplayPrimaryDisplay(display uint32) (uint32, error) {
+func tryCGDisplayPrimaryDisplay(display CGDirectDisplayID) (CGDirectDisplayID, error) {
 	if _cGDisplayPrimaryDisplay == nil {
-		return 0, symbolCallError("CGDisplayPrimaryDisplay", "10.2", _cGDisplayPrimaryDisplayErr)
+		return *new(CGDirectDisplayID), symbolCallError("CGDisplayPrimaryDisplay", "10.2", _cGDisplayPrimaryDisplayErr)
 	}
 	return _cGDisplayPrimaryDisplay(display), nil
 }
@@ -5939,7 +5962,7 @@ func tryCGDisplayPrimaryDisplay(display uint32) (uint32, error) {
 // CGDisplayPrimaryDisplay returns the primary display in a hardware mirroring set.
 //
 // See: https://developer.apple.com/documentation/CoreGraphics/CGDisplayPrimaryDisplay(_:)
-func CGDisplayPrimaryDisplay(display uint32) uint32 {
+func CGDisplayPrimaryDisplay(display CGDirectDisplayID) CGDirectDisplayID {
 	result, callErr := tryCGDisplayPrimaryDisplay(display)
 	if callErr != nil {
 		panic(callErr)
@@ -5968,10 +5991,10 @@ func CGDisplayRegisterReconfigurationCallback(callback CGDisplayReconfigurationC
 	return result
 }
 
-var _cGDisplayRelease func(display uint32) CGError
+var _cGDisplayRelease func(display CGDirectDisplayID) CGError
 var _cGDisplayReleaseErr error
 
-func tryCGDisplayRelease(display uint32) (CGError, error) {
+func tryCGDisplayRelease(display CGDirectDisplayID) (CGError, error) {
 	if _cGDisplayRelease == nil {
 		return *new(CGError), symbolCallError("CGDisplayRelease", "10.0", _cGDisplayReleaseErr)
 	}
@@ -5981,7 +6004,7 @@ func tryCGDisplayRelease(display uint32) (CGError, error) {
 // CGDisplayRelease releases a captured display.
 //
 // See: https://developer.apple.com/documentation/CoreGraphics/CGDisplayRelease(_:)
-func CGDisplayRelease(display uint32) CGError {
+func CGDisplayRelease(display CGDirectDisplayID) CGError {
 	result, callErr := tryCGDisplayRelease(display)
 	if callErr != nil {
 		panic(callErr)
@@ -6030,10 +6053,10 @@ func CGDisplayRestoreColorSyncSettings() {
 	}
 }
 
-var _cGDisplayRotation func(display uint32) float64
+var _cGDisplayRotation func(display CGDirectDisplayID) float64
 var _cGDisplayRotationErr error
 
-func tryCGDisplayRotation(display uint32) (float64, error) {
+func tryCGDisplayRotation(display CGDirectDisplayID) (float64, error) {
 	if _cGDisplayRotation == nil {
 		return 0.0, symbolCallError("CGDisplayRotation", "10.5", _cGDisplayRotationErr)
 	}
@@ -6043,7 +6066,7 @@ func tryCGDisplayRotation(display uint32) (float64, error) {
 // CGDisplayRotation returns the rotation angle of a display in degrees.
 //
 // See: https://developer.apple.com/documentation/CoreGraphics/CGDisplayRotation(_:)
-func CGDisplayRotation(display uint32) float64 {
+func CGDisplayRotation(display CGDirectDisplayID) float64 {
 	result, callErr := tryCGDisplayRotation(display)
 	if callErr != nil {
 		panic(callErr)
@@ -6051,10 +6074,10 @@ func CGDisplayRotation(display uint32) float64 {
 	return result
 }
 
-var _cGDisplayScreenSize func(display uint32) corefoundation.CGSize
+var _cGDisplayScreenSize func(display CGDirectDisplayID) corefoundation.CGSize
 var _cGDisplayScreenSizeErr error
 
-func tryCGDisplayScreenSize(display uint32) (corefoundation.CGSize, error) {
+func tryCGDisplayScreenSize(display CGDirectDisplayID) (corefoundation.CGSize, error) {
 	if _cGDisplayScreenSize == nil {
 		return corefoundation.CGSize{}, symbolCallError("CGDisplayScreenSize", "10.3", _cGDisplayScreenSizeErr)
 	}
@@ -6064,7 +6087,7 @@ func tryCGDisplayScreenSize(display uint32) (corefoundation.CGSize, error) {
 // CGDisplayScreenSize returns the width and height of a display in millimeters.
 //
 // See: https://developer.apple.com/documentation/CoreGraphics/CGDisplayScreenSize(_:)
-func CGDisplayScreenSize(display uint32) corefoundation.CGSize {
+func CGDisplayScreenSize(display CGDirectDisplayID) corefoundation.CGSize {
 	result, callErr := tryCGDisplayScreenSize(display)
 	if callErr != nil {
 		panic(callErr)
@@ -6072,10 +6095,10 @@ func CGDisplayScreenSize(display uint32) corefoundation.CGSize {
 	return result
 }
 
-var _cGDisplaySerialNumber func(display uint32) uint32
+var _cGDisplaySerialNumber func(display CGDirectDisplayID) uint32
 var _cGDisplaySerialNumberErr error
 
-func tryCGDisplaySerialNumber(display uint32) (uint32, error) {
+func tryCGDisplaySerialNumber(display CGDirectDisplayID) (uint32, error) {
 	if _cGDisplaySerialNumber == nil {
 		return 0, symbolCallError("CGDisplaySerialNumber", "10.2", _cGDisplaySerialNumberErr)
 	}
@@ -6085,7 +6108,7 @@ func tryCGDisplaySerialNumber(display uint32) (uint32, error) {
 // CGDisplaySerialNumber returns the serial number of a display monitor.
 //
 // See: https://developer.apple.com/documentation/CoreGraphics/CGDisplaySerialNumber(_:)
-func CGDisplaySerialNumber(display uint32) uint32 {
+func CGDisplaySerialNumber(display CGDirectDisplayID) uint32 {
 	result, callErr := tryCGDisplaySerialNumber(display)
 	if callErr != nil {
 		panic(callErr)
@@ -6093,10 +6116,10 @@ func CGDisplaySerialNumber(display uint32) uint32 {
 	return result
 }
 
-var _cGDisplaySetDisplayMode func(display uint32, mode CGDisplayModeRef, options corefoundation.CFDictionaryRef) CGError
+var _cGDisplaySetDisplayMode func(display CGDirectDisplayID, mode CGDisplayModeRef, options corefoundation.CFDictionaryRef) CGError
 var _cGDisplaySetDisplayModeErr error
 
-func tryCGDisplaySetDisplayMode(display uint32, mode CGDisplayModeRef, options corefoundation.CFDictionaryRef) (CGError, error) {
+func tryCGDisplaySetDisplayMode(display CGDirectDisplayID, mode CGDisplayModeRef, options corefoundation.CFDictionaryRef) (CGError, error) {
 	if _cGDisplaySetDisplayMode == nil {
 		return *new(CGError), symbolCallError("CGDisplaySetDisplayMode", "10.6", _cGDisplaySetDisplayModeErr)
 	}
@@ -6106,7 +6129,7 @@ func tryCGDisplaySetDisplayMode(display uint32, mode CGDisplayModeRef, options c
 // CGDisplaySetDisplayMode switches a display to a different mode.
 //
 // See: https://developer.apple.com/documentation/CoreGraphics/CGDisplaySetDisplayMode(_:_:_:)
-func CGDisplaySetDisplayMode(display uint32, mode CGDisplayModeRef, options corefoundation.CFDictionaryRef) CGError {
+func CGDisplaySetDisplayMode(display CGDirectDisplayID, mode CGDisplayModeRef, options corefoundation.CFDictionaryRef) CGError {
 	result, callErr := tryCGDisplaySetDisplayMode(display, mode, options)
 	if callErr != nil {
 		panic(callErr)
@@ -6114,10 +6137,10 @@ func CGDisplaySetDisplayMode(display uint32, mode CGDisplayModeRef, options core
 	return result
 }
 
-var _cGDisplaySetStereoOperation func(display uint32, stereo bool, forceBlueLine bool, option CGConfigureOption) CGError
+var _cGDisplaySetStereoOperation func(display CGDirectDisplayID, stereo int32, forceBlueLine int32, option CGConfigureOption) CGError
 var _cGDisplaySetStereoOperationErr error
 
-func tryCGDisplaySetStereoOperation(display uint32, stereo bool, forceBlueLine bool, option CGConfigureOption) (CGError, error) {
+func tryCGDisplaySetStereoOperation(display CGDirectDisplayID, stereo int32, forceBlueLine int32, option CGConfigureOption) (CGError, error) {
 	if _cGDisplaySetStereoOperation == nil {
 		return *new(CGError), symbolCallError("CGDisplaySetStereoOperation", "10.4", _cGDisplaySetStereoOperationErr)
 	}
@@ -6127,7 +6150,7 @@ func tryCGDisplaySetStereoOperation(display uint32, stereo bool, forceBlueLine b
 // CGDisplaySetStereoOperation immediately enables or disables stereo operation for a display.
 //
 // See: https://developer.apple.com/documentation/CoreGraphics/CGDisplaySetStereoOperation(_:_:_:_:)
-func CGDisplaySetStereoOperation(display uint32, stereo bool, forceBlueLine bool, option CGConfigureOption) CGError {
+func CGDisplaySetStereoOperation(display CGDirectDisplayID, stereo int32, forceBlueLine int32, option CGConfigureOption) CGError {
 	result, callErr := tryCGDisplaySetStereoOperation(display, stereo, forceBlueLine, option)
 	if callErr != nil {
 		panic(callErr)
@@ -6135,10 +6158,10 @@ func CGDisplaySetStereoOperation(display uint32, stereo bool, forceBlueLine bool
 	return result
 }
 
-var _cGDisplayShowCursor func(display uint32) CGError
+var _cGDisplayShowCursor func(display CGDirectDisplayID) CGError
 var _cGDisplayShowCursorErr error
 
-func tryCGDisplayShowCursor(display uint32) (CGError, error) {
+func tryCGDisplayShowCursor(display CGDirectDisplayID) (CGError, error) {
 	if _cGDisplayShowCursor == nil {
 		return *new(CGError), symbolCallError("CGDisplayShowCursor", "10.0", _cGDisplayShowCursorErr)
 	}
@@ -6148,7 +6171,7 @@ func tryCGDisplayShowCursor(display uint32) (CGError, error) {
 // CGDisplayShowCursor decrements the hide cursor count, and shows the mouse cursor if the count is `0`.
 //
 // See: https://developer.apple.com/documentation/CoreGraphics/CGDisplayShowCursor(_:)
-func CGDisplayShowCursor(display uint32) CGError {
+func CGDisplayShowCursor(display CGDirectDisplayID) CGError {
 	result, callErr := tryCGDisplayShowCursor(display)
 	if callErr != nil {
 		panic(callErr)
@@ -6156,15 +6179,15 @@ func CGDisplayShowCursor(display uint32) CGError {
 	return result
 }
 
-var _cGDisplayStreamCreate func(display uint32, outputWidth uintptr, outputHeight uintptr, pixelFormat int32, properties corefoundation.CFDictionaryRef, handler unsafe.Pointer) CGDisplayStreamRef
+var _cGDisplayStreamCreate func(display CGDirectDisplayID, outputWidth uintptr, outputHeight uintptr, pixelFormat int32, properties corefoundation.CFDictionaryRef, handler unsafe.Pointer) CGDisplayStreamRef
 var _cGDisplayStreamCreateErr error
 
-func tryCGDisplayStreamCreate(display uint32, outputWidth uintptr, outputHeight uintptr, pixelFormat int32, properties corefoundation.CFDictionaryRef, handler CGDisplayStreamFrameAvailableHandler) (CGDisplayStreamRef, error) {
+func tryCGDisplayStreamCreate(display CGDirectDisplayID, outputWidth uintptr, outputHeight uintptr, pixelFormat int32, properties corefoundation.CFDictionaryRef, handler CGDisplayStreamFrameAvailableHandler) (CGDisplayStreamRef, error) {
 	if _cGDisplayStreamCreate == nil {
 		return *new(CGDisplayStreamRef), symbolCallError("CGDisplayStreamCreate", "", _cGDisplayStreamCreateErr)
 	}
-	_block0Value := objc.NewBlock(func(_ objc.Block, blockArg0 CGDisplayStreamFrameStatus, blockArg1 uint64, blockArg2 IOSurfaceRef, blockArg3 *CGDisplayStreamUpdateRef) {
-		handler(blockArg0, blockArg1, blockArg2, blockArg3)
+	_block0Value := objc.NewBlock(func(_ objc.Block, blockArg0 CGDisplayStreamFrameStatus, blockArg1 uint64, blockArg2 objc.ID, blockArg3 *CGDisplayStreamUpdateRef) {
+		handler(blockArg0, blockArg1, objectivec.ObjectFromID(blockArg2), blockArg3)
 	})
 	defer _block0Value.Release()
 	_block0 := unsafe.Pointer(_block0Value)
@@ -6176,7 +6199,7 @@ func tryCGDisplayStreamCreate(display uint32, outputWidth uintptr, outputHeight 
 // Deprecated: Please use ScreenCaptureKit instead.
 //
 // See: https://developer.apple.com/documentation/CoreGraphics/CGDisplayStream/init(display:outputWidth:outputHeight:pixelFormat:properties:handler:)
-func CGDisplayStreamCreate(display uint32, outputWidth uintptr, outputHeight uintptr, pixelFormat int32, properties corefoundation.CFDictionaryRef, handler CGDisplayStreamFrameAvailableHandler) CGDisplayStreamRef {
+func CGDisplayStreamCreate(display CGDirectDisplayID, outputWidth uintptr, outputHeight uintptr, pixelFormat int32, properties corefoundation.CFDictionaryRef, handler CGDisplayStreamFrameAvailableHandler) CGDisplayStreamRef {
 	result, callErr := tryCGDisplayStreamCreate(display, outputWidth, outputHeight, pixelFormat, properties, handler)
 	if callErr != nil {
 		panic(callErr)
@@ -6184,15 +6207,15 @@ func CGDisplayStreamCreate(display uint32, outputWidth uintptr, outputHeight uin
 	return result
 }
 
-var _cGDisplayStreamCreateWithDispatchQueue func(display uint32, outputWidth uintptr, outputHeight uintptr, pixelFormat int32, properties corefoundation.CFDictionaryRef, queue uintptr, handler unsafe.Pointer) CGDisplayStreamRef
+var _cGDisplayStreamCreateWithDispatchQueue func(display CGDirectDisplayID, outputWidth uintptr, outputHeight uintptr, pixelFormat int32, properties corefoundation.CFDictionaryRef, queue uintptr, handler unsafe.Pointer) CGDisplayStreamRef
 var _cGDisplayStreamCreateWithDispatchQueueErr error
 
-func tryCGDisplayStreamCreateWithDispatchQueue(display uint32, outputWidth uintptr, outputHeight uintptr, pixelFormat int32, properties corefoundation.CFDictionaryRef, queue dispatch.Queue, handler CGDisplayStreamFrameAvailableHandler) (CGDisplayStreamRef, error) {
+func tryCGDisplayStreamCreateWithDispatchQueue(display CGDirectDisplayID, outputWidth uintptr, outputHeight uintptr, pixelFormat int32, properties corefoundation.CFDictionaryRef, queue dispatch.Queue, handler CGDisplayStreamFrameAvailableHandler) (CGDisplayStreamRef, error) {
 	if _cGDisplayStreamCreateWithDispatchQueue == nil {
 		return *new(CGDisplayStreamRef), symbolCallError("CGDisplayStreamCreateWithDispatchQueue", "", _cGDisplayStreamCreateWithDispatchQueueErr)
 	}
-	_block0Value := objc.NewBlock(func(_ objc.Block, blockArg0 CGDisplayStreamFrameStatus, blockArg1 uint64, blockArg2 IOSurfaceRef, blockArg3 *CGDisplayStreamUpdateRef) {
-		handler(blockArg0, blockArg1, blockArg2, blockArg3)
+	_block0Value := objc.NewBlock(func(_ objc.Block, blockArg0 CGDisplayStreamFrameStatus, blockArg1 uint64, blockArg2 objc.ID, blockArg3 *CGDisplayStreamUpdateRef) {
+		handler(blockArg0, blockArg1, objectivec.ObjectFromID(blockArg2), blockArg3)
 	})
 	defer _block0Value.Release()
 	_block0 := unsafe.Pointer(_block0Value)
@@ -6204,7 +6227,7 @@ func tryCGDisplayStreamCreateWithDispatchQueue(display uint32, outputWidth uintp
 // Deprecated: Please use ScreenCaptureKit instead.
 //
 // See: https://developer.apple.com/documentation/CoreGraphics/CGDisplayStream/init(dispatchQueueDisplay:outputWidth:outputHeight:pixelFormat:properties:queue:handler:)
-func CGDisplayStreamCreateWithDispatchQueue(display uint32, outputWidth uintptr, outputHeight uintptr, pixelFormat int32, properties corefoundation.CFDictionaryRef, queue dispatch.Queue, handler CGDisplayStreamFrameAvailableHandler) CGDisplayStreamRef {
+func CGDisplayStreamCreateWithDispatchQueue(display CGDirectDisplayID, outputWidth uintptr, outputHeight uintptr, pixelFormat int32, properties corefoundation.CFDictionaryRef, queue dispatch.Queue, handler CGDisplayStreamFrameAvailableHandler) CGDisplayStreamRef {
 	result, callErr := tryCGDisplayStreamCreateWithDispatchQueue(display, outputWidth, outputHeight, pixelFormat, properties, queue, handler)
 	if callErr != nil {
 		panic(callErr)
@@ -6418,10 +6441,10 @@ func CGDisplayStreamUpdateGetTypeID() uint {
 	return result
 }
 
-var _cGDisplayUnitNumber func(display uint32) uint32
+var _cGDisplayUnitNumber func(display CGDirectDisplayID) uint32
 var _cGDisplayUnitNumberErr error
 
-func tryCGDisplayUnitNumber(display uint32) (uint32, error) {
+func tryCGDisplayUnitNumber(display CGDirectDisplayID) (uint32, error) {
 	if _cGDisplayUnitNumber == nil {
 		return 0, symbolCallError("CGDisplayUnitNumber", "10.2", _cGDisplayUnitNumberErr)
 	}
@@ -6431,7 +6454,7 @@ func tryCGDisplayUnitNumber(display uint32) (uint32, error) {
 // CGDisplayUnitNumber returns the logical unit number of a display.
 //
 // See: https://developer.apple.com/documentation/CoreGraphics/CGDisplayUnitNumber(_:)
-func CGDisplayUnitNumber(display uint32) uint32 {
+func CGDisplayUnitNumber(display CGDirectDisplayID) uint32 {
 	result, callErr := tryCGDisplayUnitNumber(display)
 	if callErr != nil {
 		panic(callErr)
@@ -6439,12 +6462,12 @@ func CGDisplayUnitNumber(display uint32) uint32 {
 	return result
 }
 
-var _cGDisplayUsesOpenGLAcceleration func(display uint32) bool
+var _cGDisplayUsesOpenGLAcceleration func(display CGDirectDisplayID) int32
 var _cGDisplayUsesOpenGLAccelerationErr error
 
-func tryCGDisplayUsesOpenGLAcceleration(display uint32) (bool, error) {
+func tryCGDisplayUsesOpenGLAcceleration(display CGDirectDisplayID) (int32, error) {
 	if _cGDisplayUsesOpenGLAcceleration == nil {
-		return false, symbolCallError("CGDisplayUsesOpenGLAcceleration", "10.2", _cGDisplayUsesOpenGLAccelerationErr)
+		return 0, symbolCallError("CGDisplayUsesOpenGLAcceleration", "10.2", _cGDisplayUsesOpenGLAccelerationErr)
 	}
 	return _cGDisplayUsesOpenGLAcceleration(display), nil
 }
@@ -6452,7 +6475,7 @@ func tryCGDisplayUsesOpenGLAcceleration(display uint32) (bool, error) {
 // CGDisplayUsesOpenGLAcceleration returns a Boolean value indicating whether Quartz is using OpenGL-based window acceleration (Quartz Extreme) to render in a display.
 //
 // See: https://developer.apple.com/documentation/CoreGraphics/CGDisplayUsesOpenGLAcceleration(_:)
-func CGDisplayUsesOpenGLAcceleration(display uint32) bool {
+func CGDisplayUsesOpenGLAcceleration(display CGDirectDisplayID) int32 {
 	result, callErr := tryCGDisplayUsesOpenGLAcceleration(display)
 	if callErr != nil {
 		panic(callErr)
@@ -6460,10 +6483,10 @@ func CGDisplayUsesOpenGLAcceleration(display uint32) bool {
 	return result
 }
 
-var _cGDisplayVendorNumber func(display uint32) uint32
+var _cGDisplayVendorNumber func(display CGDirectDisplayID) uint32
 var _cGDisplayVendorNumberErr error
 
-func tryCGDisplayVendorNumber(display uint32) (uint32, error) {
+func tryCGDisplayVendorNumber(display CGDirectDisplayID) (uint32, error) {
 	if _cGDisplayVendorNumber == nil {
 		return 0, symbolCallError("CGDisplayVendorNumber", "10.2", _cGDisplayVendorNumberErr)
 	}
@@ -6473,7 +6496,7 @@ func tryCGDisplayVendorNumber(display uint32) (uint32, error) {
 // CGDisplayVendorNumber returns the vendor number of the specified display’s monitor.
 //
 // See: https://developer.apple.com/documentation/CoreGraphics/CGDisplayVendorNumber(_:)
-func CGDisplayVendorNumber(display uint32) uint32 {
+func CGDisplayVendorNumber(display CGDirectDisplayID) uint32 {
 	result, callErr := tryCGDisplayVendorNumber(display)
 	if callErr != nil {
 		panic(callErr)
@@ -6606,10 +6629,10 @@ func CGEventCreateFromData(allocator corefoundation.CFAllocatorRef, data corefou
 	return result
 }
 
-var _cGEventCreateKeyboardEvent func(source CGEventSourceRef, virtualKey uint16, keyDown bool) CGEventRef
+var _cGEventCreateKeyboardEvent func(source CGEventSourceRef, virtualKey CGKeyCode, keyDown bool) CGEventRef
 var _cGEventCreateKeyboardEventErr error
 
-func tryCGEventCreateKeyboardEvent(source CGEventSourceRef, virtualKey uint16, keyDown bool) (CGEventRef, error) {
+func tryCGEventCreateKeyboardEvent(source CGEventSourceRef, virtualKey CGKeyCode, keyDown bool) (CGEventRef, error) {
 	if _cGEventCreateKeyboardEvent == nil {
 		return *new(CGEventRef), symbolCallError("CGEventCreateKeyboardEvent", "10.4", _cGEventCreateKeyboardEventErr)
 	}
@@ -6619,7 +6642,7 @@ func tryCGEventCreateKeyboardEvent(source CGEventSourceRef, virtualKey uint16, k
 // CGEventCreateKeyboardEvent returns a new Quartz keyboard event.
 //
 // See: https://developer.apple.com/documentation/CoreGraphics/CGEvent/init(keyboardEventSource:virtualKey:keyDown:)
-func CGEventCreateKeyboardEvent(source CGEventSourceRef, virtualKey uint16, keyDown bool) CGEventRef {
+func CGEventCreateKeyboardEvent(source CGEventSourceRef, virtualKey CGKeyCode, keyDown bool) CGEventRef {
 	result, callErr := tryCGEventCreateKeyboardEvent(source, virtualKey, keyDown)
 	if callErr != nil {
 		panic(callErr)
@@ -7245,12 +7268,12 @@ func CGEventSourceGetLocalEventsFilterDuringSuppressionState(source CGEventSourc
 	return result
 }
 
-var _cGEventSourceGetLocalEventsSuppressionInterval func(source CGEventSourceRef) float64
+var _cGEventSourceGetLocalEventsSuppressionInterval func(source CGEventSourceRef) corefoundation.CFTimeInterval
 var _cGEventSourceGetLocalEventsSuppressionIntervalErr error
 
-func tryCGEventSourceGetLocalEventsSuppressionInterval(source CGEventSourceRef) (float64, error) {
+func tryCGEventSourceGetLocalEventsSuppressionInterval(source CGEventSourceRef) (corefoundation.CFTimeInterval, error) {
 	if _cGEventSourceGetLocalEventsSuppressionInterval == nil {
-		return 0.0, symbolCallError("CGEventSourceGetLocalEventsSuppressionInterval", "10.4", _cGEventSourceGetLocalEventsSuppressionIntervalErr)
+		return *new(corefoundation.CFTimeInterval), symbolCallError("CGEventSourceGetLocalEventsSuppressionInterval", "10.4", _cGEventSourceGetLocalEventsSuppressionIntervalErr)
 	}
 	return _cGEventSourceGetLocalEventsSuppressionInterval(source), nil
 }
@@ -7258,7 +7281,7 @@ func tryCGEventSourceGetLocalEventsSuppressionInterval(source CGEventSourceRef) 
 // CGEventSourceGetLocalEventsSuppressionInterval returns the interval that local hardware events may be suppressed following the posting of a Quartz event.
 //
 // See: https://developer.apple.com/documentation/CoreGraphics/CGEventSource/localEventsSuppressionInterval
-func CGEventSourceGetLocalEventsSuppressionInterval(source CGEventSourceRef) float64 {
+func CGEventSourceGetLocalEventsSuppressionInterval(source CGEventSourceRef) corefoundation.CFTimeInterval {
 	result, callErr := tryCGEventSourceGetLocalEventsSuppressionInterval(source)
 	if callErr != nil {
 		panic(callErr)
@@ -7350,10 +7373,10 @@ func CGEventSourceGetUserData(source CGEventSourceRef) int64 {
 	return result
 }
 
-var _cGEventSourceKeyState func(stateID CGEventSourceStateID, key uint16) bool
+var _cGEventSourceKeyState func(stateID CGEventSourceStateID, key CGKeyCode) bool
 var _cGEventSourceKeyStateErr error
 
-func tryCGEventSourceKeyState(stateID CGEventSourceStateID, key uint16) (bool, error) {
+func tryCGEventSourceKeyState(stateID CGEventSourceStateID, key CGKeyCode) (bool, error) {
 	if _cGEventSourceKeyState == nil {
 		return false, symbolCallError("CGEventSourceKeyState", "10.4", _cGEventSourceKeyStateErr)
 	}
@@ -7363,7 +7386,7 @@ func tryCGEventSourceKeyState(stateID CGEventSourceStateID, key uint16) (bool, e
 // CGEventSourceKeyState returns a Boolean value indicating the current keyboard state of a Quartz event source.
 //
 // See: https://developer.apple.com/documentation/CoreGraphics/CGEventSource/keyState(_:key:)
-func CGEventSourceKeyState(stateID CGEventSourceStateID, key uint16) bool {
+func CGEventSourceKeyState(stateID CGEventSourceStateID, key CGKeyCode) bool {
 	result, callErr := tryCGEventSourceKeyState(stateID, key)
 	if callErr != nil {
 		panic(callErr)
@@ -7371,12 +7394,12 @@ func CGEventSourceKeyState(stateID CGEventSourceStateID, key uint16) bool {
 	return result
 }
 
-var _cGEventSourceSecondsSinceLastEventType func(stateID CGEventSourceStateID, eventType CGEventType) float64
+var _cGEventSourceSecondsSinceLastEventType func(stateID CGEventSourceStateID, eventType CGEventType) corefoundation.CFTimeInterval
 var _cGEventSourceSecondsSinceLastEventTypeErr error
 
-func tryCGEventSourceSecondsSinceLastEventType(stateID CGEventSourceStateID, eventType CGEventType) (float64, error) {
+func tryCGEventSourceSecondsSinceLastEventType(stateID CGEventSourceStateID, eventType CGEventType) (corefoundation.CFTimeInterval, error) {
 	if _cGEventSourceSecondsSinceLastEventType == nil {
-		return 0.0, symbolCallError("CGEventSourceSecondsSinceLastEventType", "10.4", _cGEventSourceSecondsSinceLastEventTypeErr)
+		return *new(corefoundation.CFTimeInterval), symbolCallError("CGEventSourceSecondsSinceLastEventType", "10.4", _cGEventSourceSecondsSinceLastEventTypeErr)
 	}
 	return _cGEventSourceSecondsSinceLastEventType(stateID, eventType), nil
 }
@@ -7384,7 +7407,7 @@ func tryCGEventSourceSecondsSinceLastEventType(stateID CGEventSourceStateID, eve
 // CGEventSourceSecondsSinceLastEventType returns the elapsed time since the last event for a Quartz event source.
 //
 // See: https://developer.apple.com/documentation/CoreGraphics/CGEventSource/secondsSinceLastEventType(_:eventType:)
-func CGEventSourceSecondsSinceLastEventType(stateID CGEventSourceStateID, eventType CGEventType) float64 {
+func CGEventSourceSecondsSinceLastEventType(stateID CGEventSourceStateID, eventType CGEventType) corefoundation.CFTimeInterval {
 	result, callErr := tryCGEventSourceSecondsSinceLastEventType(stateID, eventType)
 	if callErr != nil {
 		panic(callErr)
@@ -7432,10 +7455,10 @@ func CGEventSourceSetLocalEventsFilterDuringSuppressionState(source CGEventSourc
 	}
 }
 
-var _cGEventSourceSetLocalEventsSuppressionInterval func(source CGEventSourceRef, seconds float64)
+var _cGEventSourceSetLocalEventsSuppressionInterval func(source CGEventSourceRef, seconds corefoundation.CFTimeInterval)
 var _cGEventSourceSetLocalEventsSuppressionIntervalErr error
 
-func tryCGEventSourceSetLocalEventsSuppressionInterval(source CGEventSourceRef, seconds float64) error {
+func tryCGEventSourceSetLocalEventsSuppressionInterval(source CGEventSourceRef, seconds corefoundation.CFTimeInterval) error {
 	if _cGEventSourceSetLocalEventsSuppressionInterval == nil {
 		return symbolCallError("CGEventSourceSetLocalEventsSuppressionInterval", "10.4", _cGEventSourceSetLocalEventsSuppressionIntervalErr)
 	}
@@ -7446,7 +7469,7 @@ func tryCGEventSourceSetLocalEventsSuppressionInterval(source CGEventSourceRef, 
 // CGEventSourceSetLocalEventsSuppressionInterval sets the interval that local hardware events may be suppressed following the posting of a Quartz event.
 //
 // See: https://developer.apple.com/documentation/CoreGraphics/CGEventSourceSetLocalEventsSuppressionInterval
-func CGEventSourceSetLocalEventsSuppressionInterval(source CGEventSourceRef, seconds float64) {
+func CGEventSourceSetLocalEventsSuppressionInterval(source CGEventSourceRef, seconds corefoundation.CFTimeInterval) {
 	if callErr := tryCGEventSourceSetLocalEventsSuppressionInterval(source, seconds); callErr != nil {
 		panic(callErr)
 	}
@@ -7889,10 +7912,10 @@ func CGFontCreateWithFontName(name corefoundation.CFStringRef) CGFontRef {
 	return result
 }
 
-var _cGFontGetAscent func(font CGFontRef) int
+var _cGFontGetAscent func(font CGFontRef) int32
 var _cGFontGetAscentErr error
 
-func tryCGFontGetAscent(font CGFontRef) (int, error) {
+func tryCGFontGetAscent(font CGFontRef) (int32, error) {
 	if _cGFontGetAscent == nil {
 		return 0, symbolCallError("CGFontGetAscent", "10.5", _cGFontGetAscentErr)
 	}
@@ -7902,7 +7925,7 @@ func tryCGFontGetAscent(font CGFontRef) (int, error) {
 // CGFontGetAscent returns the ascent of a font.
 //
 // See: https://developer.apple.com/documentation/CoreGraphics/CGFont/ascent
-func CGFontGetAscent(font CGFontRef) int {
+func CGFontGetAscent(font CGFontRef) int32 {
 	result, callErr := tryCGFontGetAscent(font)
 	if callErr != nil {
 		panic(callErr)
@@ -7910,10 +7933,10 @@ func CGFontGetAscent(font CGFontRef) int {
 	return result
 }
 
-var _cGFontGetCapHeight func(font CGFontRef) int
+var _cGFontGetCapHeight func(font CGFontRef) int32
 var _cGFontGetCapHeightErr error
 
-func tryCGFontGetCapHeight(font CGFontRef) (int, error) {
+func tryCGFontGetCapHeight(font CGFontRef) (int32, error) {
 	if _cGFontGetCapHeight == nil {
 		return 0, symbolCallError("CGFontGetCapHeight", "10.5", _cGFontGetCapHeightErr)
 	}
@@ -7923,7 +7946,7 @@ func tryCGFontGetCapHeight(font CGFontRef) (int, error) {
 // CGFontGetCapHeight returns the cap height of a font.
 //
 // See: https://developer.apple.com/documentation/CoreGraphics/CGFont/capHeight
-func CGFontGetCapHeight(font CGFontRef) int {
+func CGFontGetCapHeight(font CGFontRef) int32 {
 	result, callErr := tryCGFontGetCapHeight(font)
 	if callErr != nil {
 		panic(callErr)
@@ -7931,10 +7954,10 @@ func CGFontGetCapHeight(font CGFontRef) int {
 	return result
 }
 
-var _cGFontGetDescent func(font CGFontRef) int
+var _cGFontGetDescent func(font CGFontRef) int32
 var _cGFontGetDescentErr error
 
-func tryCGFontGetDescent(font CGFontRef) (int, error) {
+func tryCGFontGetDescent(font CGFontRef) (int32, error) {
 	if _cGFontGetDescent == nil {
 		return 0, symbolCallError("CGFontGetDescent", "10.5", _cGFontGetDescentErr)
 	}
@@ -7944,7 +7967,7 @@ func tryCGFontGetDescent(font CGFontRef) (int, error) {
 // CGFontGetDescent returns the descent of a font.
 //
 // See: https://developer.apple.com/documentation/CoreGraphics/CGFont/descent
-func CGFontGetDescent(font CGFontRef) int {
+func CGFontGetDescent(font CGFontRef) int32 {
 	result, callErr := tryCGFontGetDescent(font)
 	if callErr != nil {
 		panic(callErr)
@@ -7973,20 +7996,20 @@ func CGFontGetFontBBox(font CGFontRef) corefoundation.CGRect {
 	return result
 }
 
-var _cGFontGetGlyphAdvances func(font CGFontRef, glyphs *CGGlyph, count uintptr, advances *int) bool
+var _cGFontGetGlyphAdvances func(font CGFontRef, glyphs *CGGlyph, count uintptr, advances *int32) bool
 var _cGFontGetGlyphAdvancesErr error
 
-func tryCGFontGetGlyphAdvances(font CGFontRef, glyphs *CGGlyph, count uintptr, advances []int) (bool, error) {
+func tryCGFontGetGlyphAdvances(font CGFontRef, glyphs *CGGlyph, count uintptr, advances *int32) (bool, error) {
 	if _cGFontGetGlyphAdvances == nil {
 		return false, symbolCallError("CGFontGetGlyphAdvances", "10.0", _cGFontGetGlyphAdvancesErr)
 	}
-	return _cGFontGetGlyphAdvances(font, glyphs, count, unsafe.SliceData(advances)), nil
+	return _cGFontGetGlyphAdvances(font, glyphs, count, advances), nil
 }
 
 // CGFontGetGlyphAdvances gets the advance width of each glyph in the provided array.
 //
 // See: https://developer.apple.com/documentation/CoreGraphics/CGFont/getGlyphAdvances(glyphs:count:advances:)
-func CGFontGetGlyphAdvances(font CGFontRef, glyphs *CGGlyph, count uintptr, advances []int) bool {
+func CGFontGetGlyphAdvances(font CGFontRef, glyphs *CGGlyph, count uintptr, advances *int32) bool {
 	result, callErr := tryCGFontGetGlyphAdvances(font, glyphs, count, advances)
 	if callErr != nil {
 		panic(callErr)
@@ -8057,10 +8080,10 @@ func CGFontGetItalicAngle(font CGFontRef) float64 {
 	return result
 }
 
-var _cGFontGetLeading func(font CGFontRef) int
+var _cGFontGetLeading func(font CGFontRef) int32
 var _cGFontGetLeadingErr error
 
-func tryCGFontGetLeading(font CGFontRef) (int, error) {
+func tryCGFontGetLeading(font CGFontRef) (int32, error) {
 	if _cGFontGetLeading == nil {
 		return 0, symbolCallError("CGFontGetLeading", "10.5", _cGFontGetLeadingErr)
 	}
@@ -8070,7 +8093,7 @@ func tryCGFontGetLeading(font CGFontRef) (int, error) {
 // CGFontGetLeading returns the leading of a font.
 //
 // See: https://developer.apple.com/documentation/CoreGraphics/CGFont/leading
-func CGFontGetLeading(font CGFontRef) int {
+func CGFontGetLeading(font CGFontRef) int32 {
 	result, callErr := tryCGFontGetLeading(font)
 	if callErr != nil {
 		panic(callErr)
@@ -8141,10 +8164,10 @@ func CGFontGetTypeID() uint {
 	return result
 }
 
-var _cGFontGetUnitsPerEm func(font CGFontRef) int
+var _cGFontGetUnitsPerEm func(font CGFontRef) int32
 var _cGFontGetUnitsPerEmErr error
 
-func tryCGFontGetUnitsPerEm(font CGFontRef) (int, error) {
+func tryCGFontGetUnitsPerEm(font CGFontRef) (int32, error) {
 	if _cGFontGetUnitsPerEm == nil {
 		return 0, symbolCallError("CGFontGetUnitsPerEm", "10.0", _cGFontGetUnitsPerEmErr)
 	}
@@ -8154,7 +8177,7 @@ func tryCGFontGetUnitsPerEm(font CGFontRef) (int, error) {
 // CGFontGetUnitsPerEm returns the number of glyph space units per em for the provided font.
 //
 // See: https://developer.apple.com/documentation/CoreGraphics/CGFont/unitsPerEm
-func CGFontGetUnitsPerEm(font CGFontRef) int {
+func CGFontGetUnitsPerEm(font CGFontRef) int32 {
 	result, callErr := tryCGFontGetUnitsPerEm(font)
 	if callErr != nil {
 		panic(callErr)
@@ -8162,10 +8185,10 @@ func CGFontGetUnitsPerEm(font CGFontRef) int {
 	return result
 }
 
-var _cGFontGetXHeight func(font CGFontRef) int
+var _cGFontGetXHeight func(font CGFontRef) int32
 var _cGFontGetXHeightErr error
 
-func tryCGFontGetXHeight(font CGFontRef) (int, error) {
+func tryCGFontGetXHeight(font CGFontRef) (int32, error) {
 	if _cGFontGetXHeight == nil {
 		return 0, symbolCallError("CGFontGetXHeight", "10.5", _cGFontGetXHeightErr)
 	}
@@ -8175,7 +8198,7 @@ func tryCGFontGetXHeight(font CGFontRef) (int, error) {
 // CGFontGetXHeight returns the x-height of a font.
 //
 // See: https://developer.apple.com/documentation/CoreGraphics/CGFont/xHeight
-func CGFontGetXHeight(font CGFontRef) int {
+func CGFontGetXHeight(font CGFontRef) int32 {
 	result, callErr := tryCGFontGetXHeight(font)
 	if callErr != nil {
 		panic(callErr)
@@ -8307,10 +8330,10 @@ func CGFunctionRetain(function CGFunctionRef) CGFunctionRef {
 	return result
 }
 
-var _cGGetActiveDisplayList func(maxDisplays uint32, activeDisplays *uint32, displayCount *uint32) CGError
+var _cGGetActiveDisplayList func(maxDisplays uint32, activeDisplays *CGDirectDisplayID, displayCount *uint32) CGError
 var _cGGetActiveDisplayListErr error
 
-func tryCGGetActiveDisplayList(maxDisplays uint32, activeDisplays *uint32, displayCount *uint32) (CGError, error) {
+func tryCGGetActiveDisplayList(maxDisplays uint32, activeDisplays *CGDirectDisplayID, displayCount *uint32) (CGError, error) {
 	if _cGGetActiveDisplayList == nil {
 		return *new(CGError), symbolCallError("CGGetActiveDisplayList", "10.0", _cGGetActiveDisplayListErr)
 	}
@@ -8320,7 +8343,7 @@ func tryCGGetActiveDisplayList(maxDisplays uint32, activeDisplays *uint32, displ
 // CGGetActiveDisplayList provides a list of displays that are active for drawing.
 //
 // See: https://developer.apple.com/documentation/CoreGraphics/CGGetActiveDisplayList(_:_:_:)
-func CGGetActiveDisplayList(maxDisplays uint32, activeDisplays *uint32, displayCount *uint32) CGError {
+func CGGetActiveDisplayList(maxDisplays uint32, activeDisplays *CGDirectDisplayID, displayCount *uint32) CGError {
 	result, callErr := tryCGGetActiveDisplayList(maxDisplays, activeDisplays, displayCount)
 	if callErr != nil {
 		panic(callErr)
@@ -8328,10 +8351,10 @@ func CGGetActiveDisplayList(maxDisplays uint32, activeDisplays *uint32, displayC
 	return result
 }
 
-var _cGGetDisplayTransferByFormula func(display uint32, redMin *CGGammaValue, redMax *CGGammaValue, redGamma *CGGammaValue, greenMin *CGGammaValue, greenMax *CGGammaValue, greenGamma *CGGammaValue, blueMin *CGGammaValue, blueMax *CGGammaValue, blueGamma *CGGammaValue) CGError
+var _cGGetDisplayTransferByFormula func(display CGDirectDisplayID, redMin *CGGammaValue, redMax *CGGammaValue, redGamma *CGGammaValue, greenMin *CGGammaValue, greenMax *CGGammaValue, greenGamma *CGGammaValue, blueMin *CGGammaValue, blueMax *CGGammaValue, blueGamma *CGGammaValue) CGError
 var _cGGetDisplayTransferByFormulaErr error
 
-func tryCGGetDisplayTransferByFormula(display uint32, redMin *CGGammaValue, redMax *CGGammaValue, redGamma *CGGammaValue, greenMin *CGGammaValue, greenMax *CGGammaValue, greenGamma *CGGammaValue, blueMin *CGGammaValue, blueMax *CGGammaValue, blueGamma *CGGammaValue) (CGError, error) {
+func tryCGGetDisplayTransferByFormula(display CGDirectDisplayID, redMin *CGGammaValue, redMax *CGGammaValue, redGamma *CGGammaValue, greenMin *CGGammaValue, greenMax *CGGammaValue, greenGamma *CGGammaValue, blueMin *CGGammaValue, blueMax *CGGammaValue, blueGamma *CGGammaValue) (CGError, error) {
 	if _cGGetDisplayTransferByFormula == nil {
 		return *new(CGError), symbolCallError("CGGetDisplayTransferByFormula", "10.0", _cGGetDisplayTransferByFormulaErr)
 	}
@@ -8341,7 +8364,7 @@ func tryCGGetDisplayTransferByFormula(display uint32, redMin *CGGammaValue, redM
 // CGGetDisplayTransferByFormula gets the coefficients of the gamma transfer formula for a display.
 //
 // See: https://developer.apple.com/documentation/CoreGraphics/CGGetDisplayTransferByFormula(_:_:_:_:_:_:_:_:_:_:)
-func CGGetDisplayTransferByFormula(display uint32, redMin *CGGammaValue, redMax *CGGammaValue, redGamma *CGGammaValue, greenMin *CGGammaValue, greenMax *CGGammaValue, greenGamma *CGGammaValue, blueMin *CGGammaValue, blueMax *CGGammaValue, blueGamma *CGGammaValue) CGError {
+func CGGetDisplayTransferByFormula(display CGDirectDisplayID, redMin *CGGammaValue, redMax *CGGammaValue, redGamma *CGGammaValue, greenMin *CGGammaValue, greenMax *CGGammaValue, greenGamma *CGGammaValue, blueMin *CGGammaValue, blueMax *CGGammaValue, blueGamma *CGGammaValue) CGError {
 	result, callErr := tryCGGetDisplayTransferByFormula(display, redMin, redMax, redGamma, greenMin, greenMax, greenGamma, blueMin, blueMax, blueGamma)
 	if callErr != nil {
 		panic(callErr)
@@ -8349,10 +8372,10 @@ func CGGetDisplayTransferByFormula(display uint32, redMin *CGGammaValue, redMax 
 	return result
 }
 
-var _cGGetDisplayTransferByTable func(display uint32, capacity uint32, redTable *CGGammaValue, greenTable *CGGammaValue, blueTable *CGGammaValue, sampleCount *uint32) CGError
+var _cGGetDisplayTransferByTable func(display CGDirectDisplayID, capacity uint32, redTable *CGGammaValue, greenTable *CGGammaValue, blueTable *CGGammaValue, sampleCount *uint32) CGError
 var _cGGetDisplayTransferByTableErr error
 
-func tryCGGetDisplayTransferByTable(display uint32, capacity uint32, redTable *CGGammaValue, greenTable *CGGammaValue, blueTable *CGGammaValue, sampleCount *uint32) (CGError, error) {
+func tryCGGetDisplayTransferByTable(display CGDirectDisplayID, capacity uint32, redTable *CGGammaValue, greenTable *CGGammaValue, blueTable *CGGammaValue, sampleCount *uint32) (CGError, error) {
 	if _cGGetDisplayTransferByTable == nil {
 		return *new(CGError), symbolCallError("CGGetDisplayTransferByTable", "10.0", _cGGetDisplayTransferByTableErr)
 	}
@@ -8362,7 +8385,7 @@ func tryCGGetDisplayTransferByTable(display uint32, capacity uint32, redTable *C
 // CGGetDisplayTransferByTable gets the values in the RGB gamma tables for a display.
 //
 // See: https://developer.apple.com/documentation/CoreGraphics/CGGetDisplayTransferByTable(_:_:_:_:_:_:)
-func CGGetDisplayTransferByTable(display uint32, capacity uint32, redTable *CGGammaValue, greenTable *CGGammaValue, blueTable *CGGammaValue, sampleCount *uint32) CGError {
+func CGGetDisplayTransferByTable(display CGDirectDisplayID, capacity uint32, redTable *CGGammaValue, greenTable *CGGammaValue, blueTable *CGGammaValue, sampleCount *uint32) CGError {
 	result, callErr := tryCGGetDisplayTransferByTable(display, capacity, redTable, greenTable, blueTable, sampleCount)
 	if callErr != nil {
 		panic(callErr)
@@ -8370,10 +8393,10 @@ func CGGetDisplayTransferByTable(display uint32, capacity uint32, redTable *CGGa
 	return result
 }
 
-var _cGGetDisplaysWithOpenGLDisplayMask func(mask CGOpenGLDisplayMask, maxDisplays uint32, displays *uint32, matchingDisplayCount *uint32) CGError
+var _cGGetDisplaysWithOpenGLDisplayMask func(mask CGOpenGLDisplayMask, maxDisplays uint32, displays *CGDirectDisplayID, matchingDisplayCount *uint32) CGError
 var _cGGetDisplaysWithOpenGLDisplayMaskErr error
 
-func tryCGGetDisplaysWithOpenGLDisplayMask(mask CGOpenGLDisplayMask, maxDisplays uint32, displays *uint32, matchingDisplayCount *uint32) (CGError, error) {
+func tryCGGetDisplaysWithOpenGLDisplayMask(mask CGOpenGLDisplayMask, maxDisplays uint32, displays *CGDirectDisplayID, matchingDisplayCount *uint32) (CGError, error) {
 	if _cGGetDisplaysWithOpenGLDisplayMask == nil {
 		return *new(CGError), symbolCallError("CGGetDisplaysWithOpenGLDisplayMask", "10.0", _cGGetDisplaysWithOpenGLDisplayMaskErr)
 	}
@@ -8383,7 +8406,7 @@ func tryCGGetDisplaysWithOpenGLDisplayMask(mask CGOpenGLDisplayMask, maxDisplays
 // CGGetDisplaysWithOpenGLDisplayMask provides a list of displays that corresponds to the bits set in an OpenGL display mask.
 //
 // See: https://developer.apple.com/documentation/CoreGraphics/CGGetDisplaysWithOpenGLDisplayMask(_:_:_:_:)
-func CGGetDisplaysWithOpenGLDisplayMask(mask CGOpenGLDisplayMask, maxDisplays uint32, displays *uint32, matchingDisplayCount *uint32) CGError {
+func CGGetDisplaysWithOpenGLDisplayMask(mask CGOpenGLDisplayMask, maxDisplays uint32, displays *CGDirectDisplayID, matchingDisplayCount *uint32) CGError {
 	result, callErr := tryCGGetDisplaysWithOpenGLDisplayMask(mask, maxDisplays, displays, matchingDisplayCount)
 	if callErr != nil {
 		panic(callErr)
@@ -8391,10 +8414,10 @@ func CGGetDisplaysWithOpenGLDisplayMask(mask CGOpenGLDisplayMask, maxDisplays ui
 	return result
 }
 
-var _cGGetDisplaysWithPoint func(point corefoundation.CGPoint, maxDisplays uint32, displays *uint32, matchingDisplayCount *uint32) CGError
+var _cGGetDisplaysWithPoint func(point corefoundation.CGPoint, maxDisplays uint32, displays *CGDirectDisplayID, matchingDisplayCount *uint32) CGError
 var _cGGetDisplaysWithPointErr error
 
-func tryCGGetDisplaysWithPoint(point corefoundation.CGPoint, maxDisplays uint32, displays *uint32, matchingDisplayCount *uint32) (CGError, error) {
+func tryCGGetDisplaysWithPoint(point corefoundation.CGPoint, maxDisplays uint32, displays *CGDirectDisplayID, matchingDisplayCount *uint32) (CGError, error) {
 	if _cGGetDisplaysWithPoint == nil {
 		return *new(CGError), symbolCallError("CGGetDisplaysWithPoint", "10.0", _cGGetDisplaysWithPointErr)
 	}
@@ -8404,7 +8427,7 @@ func tryCGGetDisplaysWithPoint(point corefoundation.CGPoint, maxDisplays uint32,
 // CGGetDisplaysWithPoint provides a list of online displays with bounds that include the specified point.
 //
 // See: https://developer.apple.com/documentation/CoreGraphics/CGGetDisplaysWithPoint(_:_:_:_:)
-func CGGetDisplaysWithPoint(point corefoundation.CGPoint, maxDisplays uint32, displays *uint32, matchingDisplayCount *uint32) CGError {
+func CGGetDisplaysWithPoint(point corefoundation.CGPoint, maxDisplays uint32, displays *CGDirectDisplayID, matchingDisplayCount *uint32) CGError {
 	result, callErr := tryCGGetDisplaysWithPoint(point, maxDisplays, displays, matchingDisplayCount)
 	if callErr != nil {
 		panic(callErr)
@@ -8412,10 +8435,10 @@ func CGGetDisplaysWithPoint(point corefoundation.CGPoint, maxDisplays uint32, di
 	return result
 }
 
-var _cGGetDisplaysWithRect func(rect corefoundation.CGRect, maxDisplays uint32, displays *uint32, matchingDisplayCount *uint32) CGError
+var _cGGetDisplaysWithRect func(rect corefoundation.CGRect, maxDisplays uint32, displays *CGDirectDisplayID, matchingDisplayCount *uint32) CGError
 var _cGGetDisplaysWithRectErr error
 
-func tryCGGetDisplaysWithRect(rect corefoundation.CGRect, maxDisplays uint32, displays *uint32, matchingDisplayCount *uint32) (CGError, error) {
+func tryCGGetDisplaysWithRect(rect corefoundation.CGRect, maxDisplays uint32, displays *CGDirectDisplayID, matchingDisplayCount *uint32) (CGError, error) {
 	if _cGGetDisplaysWithRect == nil {
 		return *new(CGError), symbolCallError("CGGetDisplaysWithRect", "10.0", _cGGetDisplaysWithRectErr)
 	}
@@ -8425,7 +8448,7 @@ func tryCGGetDisplaysWithRect(rect corefoundation.CGRect, maxDisplays uint32, di
 // CGGetDisplaysWithRect gets a list of online displays with bounds that intersect the specified rectangle.
 //
 // See: https://developer.apple.com/documentation/CoreGraphics/CGGetDisplaysWithRect(_:_:_:_:)
-func CGGetDisplaysWithRect(rect corefoundation.CGRect, maxDisplays uint32, displays *uint32, matchingDisplayCount *uint32) CGError {
+func CGGetDisplaysWithRect(rect corefoundation.CGRect, maxDisplays uint32, displays *CGDirectDisplayID, matchingDisplayCount *uint32) CGError {
 	result, callErr := tryCGGetDisplaysWithRect(rect, maxDisplays, displays, matchingDisplayCount)
 	if callErr != nil {
 		panic(callErr)
@@ -8474,10 +8497,10 @@ func CGGetLastMouseDelta(deltaX *int32, deltaY *int32) {
 	}
 }
 
-var _cGGetOnlineDisplayList func(maxDisplays uint32, onlineDisplays *uint32, displayCount *uint32) CGError
+var _cGGetOnlineDisplayList func(maxDisplays uint32, onlineDisplays *CGDirectDisplayID, displayCount *uint32) CGError
 var _cGGetOnlineDisplayListErr error
 
-func tryCGGetOnlineDisplayList(maxDisplays uint32, onlineDisplays *uint32, displayCount *uint32) (CGError, error) {
+func tryCGGetOnlineDisplayList(maxDisplays uint32, onlineDisplays *CGDirectDisplayID, displayCount *uint32) (CGError, error) {
 	if _cGGetOnlineDisplayList == nil {
 		return *new(CGError), symbolCallError("CGGetOnlineDisplayList", "10.2", _cGGetOnlineDisplayListErr)
 	}
@@ -8487,7 +8510,7 @@ func tryCGGetOnlineDisplayList(maxDisplays uint32, onlineDisplays *uint32, displ
 // CGGetOnlineDisplayList provides a list of displays that are online (active, mirrored, or sleeping).
 //
 // See: https://developer.apple.com/documentation/CoreGraphics/CGGetOnlineDisplayList(_:_:_:)
-func CGGetOnlineDisplayList(maxDisplays uint32, onlineDisplays *uint32, displayCount *uint32) CGError {
+func CGGetOnlineDisplayList(maxDisplays uint32, onlineDisplays *CGDirectDisplayID, displayCount *uint32) CGError {
 	result, callErr := tryCGGetOnlineDisplayList(maxDisplays, onlineDisplays, displayCount)
 	if callErr != nil {
 		panic(callErr)
@@ -9563,12 +9586,12 @@ func CGLayerRetain(layer CGLayerRef) CGLayerRef {
 	return result
 }
 
-var _cGMainDisplayID func() uint32
+var _cGMainDisplayID func() CGDirectDisplayID
 var _cGMainDisplayIDErr error
 
-func tryCGMainDisplayID() (uint32, error) {
+func tryCGMainDisplayID() (CGDirectDisplayID, error) {
 	if _cGMainDisplayID == nil {
-		return 0, symbolCallError("CGMainDisplayID", "10.2", _cGMainDisplayIDErr)
+		return *new(CGDirectDisplayID), symbolCallError("CGMainDisplayID", "10.2", _cGMainDisplayIDErr)
 	}
 	return _cGMainDisplayID(), nil
 }
@@ -9576,7 +9599,7 @@ func tryCGMainDisplayID() (uint32, error) {
 // CGMainDisplayID returns the display ID of the main display.
 //
 // See: https://developer.apple.com/documentation/CoreGraphics/CGMainDisplayID()
-func CGMainDisplayID() uint32 {
+func CGMainDisplayID() CGDirectDisplayID {
 	result, callErr := tryCGMainDisplayID()
 	if callErr != nil {
 		panic(callErr)
@@ -9584,12 +9607,12 @@ func CGMainDisplayID() uint32 {
 	return result
 }
 
-var _cGOpenGLDisplayMaskToDisplayID func(mask CGOpenGLDisplayMask) uint32
+var _cGOpenGLDisplayMaskToDisplayID func(mask CGOpenGLDisplayMask) CGDirectDisplayID
 var _cGOpenGLDisplayMaskToDisplayIDErr error
 
-func tryCGOpenGLDisplayMaskToDisplayID(mask CGOpenGLDisplayMask) (uint32, error) {
+func tryCGOpenGLDisplayMaskToDisplayID(mask CGOpenGLDisplayMask) (CGDirectDisplayID, error) {
 	if _cGOpenGLDisplayMaskToDisplayID == nil {
-		return 0, symbolCallError("CGOpenGLDisplayMaskToDisplayID", "10.2", _cGOpenGLDisplayMaskToDisplayIDErr)
+		return *new(CGDirectDisplayID), symbolCallError("CGOpenGLDisplayMaskToDisplayID", "10.2", _cGOpenGLDisplayMaskToDisplayIDErr)
 	}
 	return _cGOpenGLDisplayMaskToDisplayID(mask), nil
 }
@@ -9597,7 +9620,7 @@ func tryCGOpenGLDisplayMaskToDisplayID(mask CGOpenGLDisplayMask) (uint32, error)
 // CGOpenGLDisplayMaskToDisplayID maps an OpenGL display mask to a display ID.
 //
 // See: https://developer.apple.com/documentation/CoreGraphics/CGOpenGLDisplayMaskToDisplayID(_:)
-func CGOpenGLDisplayMaskToDisplayID(mask CGOpenGLDisplayMask) uint32 {
+func CGOpenGLDisplayMaskToDisplayID(mask CGOpenGLDisplayMask) CGDirectDisplayID {
 	result, callErr := tryCGOpenGLDisplayMaskToDisplayID(mask)
 	if callErr != nil {
 		panic(callErr)
@@ -9612,7 +9635,7 @@ func tryCGPDFArrayApplyBlock(array CGPDFArrayRef, block CGPDFArrayApplierBlock, 
 	if _cGPDFArrayApplyBlock == nil {
 		return symbolCallError("CGPDFArrayApplyBlock", "10.14", _cGPDFArrayApplyBlockErr)
 	}
-	_block0Value := objc.NewBlock(func(_ objc.Block, blockArg0 uint32, blockArg1 *CGPDFObjectRef, blockArg2 kernel.Pointer) bool {
+	_block0Value := objc.NewBlock(func(_ objc.Block, blockArg0 uint32, blockArg1 *CGPDFObjectRef, blockArg2 unsafe.Pointer) bool {
 		return block(blockArg0, blockArg1, blockArg2)
 	})
 	defer _block0Value.Release()
@@ -10295,7 +10318,7 @@ func tryCGPDFDictionaryApplyBlock(dict CGPDFDictionaryRef, block CGPDFDictionary
 	if _cGPDFDictionaryApplyBlock == nil {
 		return symbolCallError("CGPDFDictionaryApplyBlock", "10.14", _cGPDFDictionaryApplyBlockErr)
 	}
-	_block0Value := objc.NewBlock(func(_ objc.Block, blockArg0 *byte, blockArg1 *CGPDFObjectRef, blockArg2 kernel.Pointer) bool {
+	_block0Value := objc.NewBlock(func(_ objc.Block, blockArg0 *byte, blockArg1 *CGPDFObjectRef, blockArg2 unsafe.Pointer) bool {
 		return block(objc.GoString(blockArg0), blockArg1, blockArg2)
 	})
 	defer _block0Value.Release()
@@ -10648,10 +10671,10 @@ func CGPDFDocumentGetAccessPermissions(document CGPDFDocumentRef) CGPDFAccessPer
 	return result
 }
 
-var _cGPDFDocumentGetArtBox func(document CGPDFDocumentRef, page int) corefoundation.CGRect
+var _cGPDFDocumentGetArtBox func(document CGPDFDocumentRef, page int32) corefoundation.CGRect
 var _cGPDFDocumentGetArtBoxErr error
 
-func tryCGPDFDocumentGetArtBox(document CGPDFDocumentRef, page int) (corefoundation.CGRect, error) {
+func tryCGPDFDocumentGetArtBox(document CGPDFDocumentRef, page int32) (corefoundation.CGRect, error) {
 	if _cGPDFDocumentGetArtBox == nil {
 		return corefoundation.CGRect{}, symbolCallError("CGPDFDocumentGetArtBox", "10.0", _cGPDFDocumentGetArtBoxErr)
 	}
@@ -10663,7 +10686,7 @@ func tryCGPDFDocumentGetArtBox(document CGPDFDocumentRef, page int) (corefoundat
 // Deprecated: Deprecated since macOS 10.5.
 //
 // See: https://developer.apple.com/documentation/CoreGraphics/CGPDFDocumentGetArtBox
-func CGPDFDocumentGetArtBox(document CGPDFDocumentRef, page int) corefoundation.CGRect {
+func CGPDFDocumentGetArtBox(document CGPDFDocumentRef, page int32) corefoundation.CGRect {
 	result, callErr := tryCGPDFDocumentGetArtBox(document, page)
 	if callErr != nil {
 		panic(callErr)
@@ -10671,10 +10694,10 @@ func CGPDFDocumentGetArtBox(document CGPDFDocumentRef, page int) corefoundation.
 	return result
 }
 
-var _cGPDFDocumentGetBleedBox func(document CGPDFDocumentRef, page int) corefoundation.CGRect
+var _cGPDFDocumentGetBleedBox func(document CGPDFDocumentRef, page int32) corefoundation.CGRect
 var _cGPDFDocumentGetBleedBoxErr error
 
-func tryCGPDFDocumentGetBleedBox(document CGPDFDocumentRef, page int) (corefoundation.CGRect, error) {
+func tryCGPDFDocumentGetBleedBox(document CGPDFDocumentRef, page int32) (corefoundation.CGRect, error) {
 	if _cGPDFDocumentGetBleedBox == nil {
 		return corefoundation.CGRect{}, symbolCallError("CGPDFDocumentGetBleedBox", "10.0", _cGPDFDocumentGetBleedBoxErr)
 	}
@@ -10686,7 +10709,7 @@ func tryCGPDFDocumentGetBleedBox(document CGPDFDocumentRef, page int) (corefound
 // Deprecated: Deprecated since macOS 10.5.
 //
 // See: https://developer.apple.com/documentation/CoreGraphics/CGPDFDocumentGetBleedBox
-func CGPDFDocumentGetBleedBox(document CGPDFDocumentRef, page int) corefoundation.CGRect {
+func CGPDFDocumentGetBleedBox(document CGPDFDocumentRef, page int32) corefoundation.CGRect {
 	result, callErr := tryCGPDFDocumentGetBleedBox(document, page)
 	if callErr != nil {
 		panic(callErr)
@@ -10715,10 +10738,10 @@ func CGPDFDocumentGetCatalog(document CGPDFDocumentRef) CGPDFDictionaryRef {
 	return result
 }
 
-var _cGPDFDocumentGetCropBox func(document CGPDFDocumentRef, page int) corefoundation.CGRect
+var _cGPDFDocumentGetCropBox func(document CGPDFDocumentRef, page int32) corefoundation.CGRect
 var _cGPDFDocumentGetCropBoxErr error
 
-func tryCGPDFDocumentGetCropBox(document CGPDFDocumentRef, page int) (corefoundation.CGRect, error) {
+func tryCGPDFDocumentGetCropBox(document CGPDFDocumentRef, page int32) (corefoundation.CGRect, error) {
 	if _cGPDFDocumentGetCropBox == nil {
 		return corefoundation.CGRect{}, symbolCallError("CGPDFDocumentGetCropBox", "10.0", _cGPDFDocumentGetCropBoxErr)
 	}
@@ -10730,7 +10753,7 @@ func tryCGPDFDocumentGetCropBox(document CGPDFDocumentRef, page int) (corefounda
 // Deprecated: Deprecated since macOS 10.5.
 //
 // See: https://developer.apple.com/documentation/CoreGraphics/CGPDFDocumentGetCropBox
-func CGPDFDocumentGetCropBox(document CGPDFDocumentRef, page int) corefoundation.CGRect {
+func CGPDFDocumentGetCropBox(document CGPDFDocumentRef, page int32) corefoundation.CGRect {
 	result, callErr := tryCGPDFDocumentGetCropBox(document, page)
 	if callErr != nil {
 		panic(callErr)
@@ -10780,10 +10803,10 @@ func CGPDFDocumentGetInfo(document CGPDFDocumentRef) CGPDFDictionaryRef {
 	return result
 }
 
-var _cGPDFDocumentGetMediaBox func(document CGPDFDocumentRef, page int) corefoundation.CGRect
+var _cGPDFDocumentGetMediaBox func(document CGPDFDocumentRef, page int32) corefoundation.CGRect
 var _cGPDFDocumentGetMediaBoxErr error
 
-func tryCGPDFDocumentGetMediaBox(document CGPDFDocumentRef, page int) (corefoundation.CGRect, error) {
+func tryCGPDFDocumentGetMediaBox(document CGPDFDocumentRef, page int32) (corefoundation.CGRect, error) {
 	if _cGPDFDocumentGetMediaBox == nil {
 		return corefoundation.CGRect{}, symbolCallError("CGPDFDocumentGetMediaBox", "10.0", _cGPDFDocumentGetMediaBoxErr)
 	}
@@ -10795,7 +10818,7 @@ func tryCGPDFDocumentGetMediaBox(document CGPDFDocumentRef, page int) (corefound
 // Deprecated: Deprecated since macOS 10.5.
 //
 // See: https://developer.apple.com/documentation/CoreGraphics/CGPDFDocumentGetMediaBox
-func CGPDFDocumentGetMediaBox(document CGPDFDocumentRef, page int) corefoundation.CGRect {
+func CGPDFDocumentGetMediaBox(document CGPDFDocumentRef, page int32) corefoundation.CGRect {
 	result, callErr := tryCGPDFDocumentGetMediaBox(document, page)
 	if callErr != nil {
 		panic(callErr)
@@ -10866,10 +10889,10 @@ func CGPDFDocumentGetPage(document CGPDFDocumentRef, pageNumber uintptr) CGPDFPa
 	return result
 }
 
-var _cGPDFDocumentGetRotationAngle func(document CGPDFDocumentRef, page int) int
+var _cGPDFDocumentGetRotationAngle func(document CGPDFDocumentRef, page int32) int32
 var _cGPDFDocumentGetRotationAngleErr error
 
-func tryCGPDFDocumentGetRotationAngle(document CGPDFDocumentRef, page int) (int, error) {
+func tryCGPDFDocumentGetRotationAngle(document CGPDFDocumentRef, page int32) (int32, error) {
 	if _cGPDFDocumentGetRotationAngle == nil {
 		return 0, symbolCallError("CGPDFDocumentGetRotationAngle", "10.0", _cGPDFDocumentGetRotationAngleErr)
 	}
@@ -10881,7 +10904,7 @@ func tryCGPDFDocumentGetRotationAngle(document CGPDFDocumentRef, page int) (int,
 // Deprecated: Deprecated since macOS 10.5.
 //
 // See: https://developer.apple.com/documentation/CoreGraphics/CGPDFDocumentGetRotationAngle
-func CGPDFDocumentGetRotationAngle(document CGPDFDocumentRef, page int) int {
+func CGPDFDocumentGetRotationAngle(document CGPDFDocumentRef, page int32) int32 {
 	result, callErr := tryCGPDFDocumentGetRotationAngle(document, page)
 	if callErr != nil {
 		panic(callErr)
@@ -10889,10 +10912,10 @@ func CGPDFDocumentGetRotationAngle(document CGPDFDocumentRef, page int) int {
 	return result
 }
 
-var _cGPDFDocumentGetTrimBox func(document CGPDFDocumentRef, page int) corefoundation.CGRect
+var _cGPDFDocumentGetTrimBox func(document CGPDFDocumentRef, page int32) corefoundation.CGRect
 var _cGPDFDocumentGetTrimBoxErr error
 
-func tryCGPDFDocumentGetTrimBox(document CGPDFDocumentRef, page int) (corefoundation.CGRect, error) {
+func tryCGPDFDocumentGetTrimBox(document CGPDFDocumentRef, page int32) (corefoundation.CGRect, error) {
 	if _cGPDFDocumentGetTrimBox == nil {
 		return corefoundation.CGRect{}, symbolCallError("CGPDFDocumentGetTrimBox", "10.0", _cGPDFDocumentGetTrimBoxErr)
 	}
@@ -10904,7 +10927,7 @@ func tryCGPDFDocumentGetTrimBox(document CGPDFDocumentRef, page int) (corefounda
 // Deprecated: Deprecated since macOS 10.5.
 //
 // See: https://developer.apple.com/documentation/CoreGraphics/CGPDFDocumentGetTrimBox
-func CGPDFDocumentGetTrimBox(document CGPDFDocumentRef, page int) corefoundation.CGRect {
+func CGPDFDocumentGetTrimBox(document CGPDFDocumentRef, page int32) corefoundation.CGRect {
 	result, callErr := tryCGPDFDocumentGetTrimBox(document, page)
 	if callErr != nil {
 		panic(callErr)
@@ -10933,21 +10956,21 @@ func CGPDFDocumentGetTypeID() uint {
 	return result
 }
 
-var _cGPDFDocumentGetVersion func(document CGPDFDocumentRef, majorVersion *int, minorVersion *int)
+var _cGPDFDocumentGetVersion func(document CGPDFDocumentRef, majorVersion *int32, minorVersion *int32)
 var _cGPDFDocumentGetVersionErr error
 
-func tryCGPDFDocumentGetVersion(document CGPDFDocumentRef, majorVersion []int, minorVersion []int) error {
+func tryCGPDFDocumentGetVersion(document CGPDFDocumentRef, majorVersion *int32, minorVersion *int32) error {
 	if _cGPDFDocumentGetVersion == nil {
 		return symbolCallError("CGPDFDocumentGetVersion", "10.3", _cGPDFDocumentGetVersionErr)
 	}
-	_cGPDFDocumentGetVersion(document, unsafe.SliceData(majorVersion), unsafe.SliceData(minorVersion))
+	_cGPDFDocumentGetVersion(document, majorVersion, minorVersion)
 	return nil
 }
 
 // CGPDFDocumentGetVersion returns the major and minor version numbers of a Core Graphics PDF document.
 //
 // See: https://developer.apple.com/documentation/CoreGraphics/CGPDFDocument/getVersion(majorVersion:minorVersion:)
-func CGPDFDocumentGetVersion(document CGPDFDocumentRef, majorVersion []int, minorVersion []int) {
+func CGPDFDocumentGetVersion(document CGPDFDocumentRef, majorVersion *int32, minorVersion *int32) {
 	if callErr := tryCGPDFDocumentGetVersion(document, majorVersion, minorVersion); callErr != nil {
 		panic(callErr)
 	}
@@ -11244,10 +11267,10 @@ func CGPDFPageGetDocument(page CGPDFPageRef) CGPDFDocumentRef {
 	return result
 }
 
-var _cGPDFPageGetDrawingTransform func(page CGPDFPageRef, box CGPDFBox, rect corefoundation.CGRect, rotate int, preserveAspectRatio bool) corefoundation.CGAffineTransform
+var _cGPDFPageGetDrawingTransform func(page CGPDFPageRef, box CGPDFBox, rect corefoundation.CGRect, rotate int32, preserveAspectRatio bool) corefoundation.CGAffineTransform
 var _cGPDFPageGetDrawingTransformErr error
 
-func tryCGPDFPageGetDrawingTransform(page CGPDFPageRef, box CGPDFBox, rect corefoundation.CGRect, rotate int, preserveAspectRatio bool) (corefoundation.CGAffineTransform, error) {
+func tryCGPDFPageGetDrawingTransform(page CGPDFPageRef, box CGPDFBox, rect corefoundation.CGRect, rotate int32, preserveAspectRatio bool) (corefoundation.CGAffineTransform, error) {
 	if _cGPDFPageGetDrawingTransform == nil {
 		return corefoundation.CGAffineTransform{}, symbolCallError("CGPDFPageGetDrawingTransform", "10.3", _cGPDFPageGetDrawingTransformErr)
 	}
@@ -11257,7 +11280,7 @@ func tryCGPDFPageGetDrawingTransform(page CGPDFPageRef, box CGPDFBox, rect coref
 // CGPDFPageGetDrawingTransform returns the affine transform that maps a box to a given rectangle on a PDF page.
 //
 // See: https://developer.apple.com/documentation/CoreGraphics/CGPDFPage/getDrawingTransform(_:rect:rotate:preserveAspectRatio:)
-func CGPDFPageGetDrawingTransform(page CGPDFPageRef, box CGPDFBox, rect corefoundation.CGRect, rotate int, preserveAspectRatio bool) corefoundation.CGAffineTransform {
+func CGPDFPageGetDrawingTransform(page CGPDFPageRef, box CGPDFBox, rect corefoundation.CGRect, rotate int32, preserveAspectRatio bool) corefoundation.CGAffineTransform {
 	result, callErr := tryCGPDFPageGetDrawingTransform(page, box, rect, rotate, preserveAspectRatio)
 	if callErr != nil {
 		panic(callErr)
@@ -11286,10 +11309,10 @@ func CGPDFPageGetPageNumber(page CGPDFPageRef) uintptr {
 	return result
 }
 
-var _cGPDFPageGetRotationAngle func(page CGPDFPageRef) int
+var _cGPDFPageGetRotationAngle func(page CGPDFPageRef) int32
 var _cGPDFPageGetRotationAngleErr error
 
-func tryCGPDFPageGetRotationAngle(page CGPDFPageRef) (int, error) {
+func tryCGPDFPageGetRotationAngle(page CGPDFPageRef) (int32, error) {
 	if _cGPDFPageGetRotationAngle == nil {
 		return 0, symbolCallError("CGPDFPageGetRotationAngle", "10.3", _cGPDFPageGetRotationAngleErr)
 	}
@@ -11299,7 +11322,7 @@ func tryCGPDFPageGetRotationAngle(page CGPDFPageRef) (int, error) {
 // CGPDFPageGetRotationAngle returns the rotation angle of a PDF page, in degrees.
 //
 // See: https://developer.apple.com/documentation/CoreGraphics/CGPDFPage/rotationAngle
-func CGPDFPageGetRotationAngle(page CGPDFPageRef) int {
+func CGPDFPageGetRotationAngle(page CGPDFPageRef) int32 {
 	result, callErr := tryCGPDFPageGetRotationAngle(page)
 	if callErr != nil {
 		panic(callErr)
@@ -13023,7 +13046,7 @@ func tryCGPointEqualToPoint(point1 corefoundation.CGPoint, point2 corefoundation
 
 // CGPointEqualToPoint returns whether two points are equal.
 //
-// Deprecated: The [CGPoint](<doc://com.apple.documentation/documentation/CoreFoundation/CGPoint>) type adopts the [Equatable] protocol; use the `==` operator instead.
+// Deprecated: The [CGPoint](<https://developer.apple.com/documentation/CoreFoundation/CGPoint>) type adopts the [Equatable] protocol; use the `==` operator instead.
 //
 // See: https://developer.apple.com/documentation/CoreGraphics/CGPointEqualToPoint(_:_:)
 func CGPointEqualToPoint(point1 corefoundation.CGPoint, point2 corefoundation.CGPoint) bool {
@@ -13055,10 +13078,10 @@ func CGPointMakeWithDictionaryRepresentation(dict corefoundation.CFDictionaryRef
 	return result
 }
 
-var _cGPostMouseEvent func(mouseCursorPosition corefoundation.CGPoint, updateMouseCursorPosition bool, buttonCount CGButtonCount, mouseButtonDown bool) CGError
+var _cGPostMouseEvent func(mouseCursorPosition corefoundation.CGPoint, updateMouseCursorPosition int32, buttonCount CGButtonCount, mouseButtonDown int32) CGError
 var _cGPostMouseEventErr error
 
-func tryCGPostMouseEvent(mouseCursorPosition corefoundation.CGPoint, updateMouseCursorPosition bool, buttonCount CGButtonCount, mouseButtonDown bool) (CGError, error) {
+func tryCGPostMouseEvent(mouseCursorPosition corefoundation.CGPoint, updateMouseCursorPosition int32, buttonCount CGButtonCount, mouseButtonDown int32) (CGError, error) {
 	if _cGPostMouseEvent == nil {
 		return *new(CGError), symbolCallError("CGPostMouseEvent", "10.0", _cGPostMouseEventErr)
 	}
@@ -13070,7 +13093,7 @@ func tryCGPostMouseEvent(mouseCursorPosition corefoundation.CGPoint, updateMouse
 // Deprecated: Deprecated since macOS 10.6.
 //
 // See: https://developer.apple.com/documentation/CoreGraphics/CGPostMouseEvent
-func CGPostMouseEvent(mouseCursorPosition corefoundation.CGPoint, updateMouseCursorPosition bool, buttonCount CGButtonCount, mouseButtonDown bool) CGError {
+func CGPostMouseEvent(mouseCursorPosition corefoundation.CGPoint, updateMouseCursorPosition int32, buttonCount CGButtonCount, mouseButtonDown int32) CGError {
 	result, callErr := tryCGPostMouseEvent(mouseCursorPosition, updateMouseCursorPosition, buttonCount, mouseButtonDown)
 	if callErr != nil {
 		panic(callErr)
@@ -13280,7 +13303,7 @@ func tryCGRectEqualToRect(rect1 corefoundation.CGRect, rect2 corefoundation.CGRe
 
 // CGRectEqualToRect returns whether two rectangles are equal in size and position.
 //
-// Deprecated: The [CGRect](<doc://com.apple.documentation/documentation/CoreFoundation/CGRect>) type adopts the [Equatable] protocol; use the `==` operator instead.
+// Deprecated: The [CGRect](<https://developer.apple.com/documentation/CoreFoundation/CGRect>) type adopts the [Equatable] protocol; use the `==` operator instead.
 //
 // See: https://developer.apple.com/documentation/CoreGraphics/CGRectEqualToRect(_:_:)
 func CGRectEqualToRect(rect1 corefoundation.CGRect, rect2 corefoundation.CGRect) bool {
@@ -13753,21 +13776,21 @@ func CGRenderingBufferLockBytePtr(provider CGRenderingBufferProviderRef) unsafe.
 	return result
 }
 
-var _cGRenderingBufferProviderCreate func(info unsafe.Pointer, size uintptr) CGRenderingBufferProviderRef
+var _cGRenderingBufferProviderCreate func(info unsafe.Pointer, size uintptr, lockPointer unsafe.Pointer) CGRenderingBufferProviderRef
 var _cGRenderingBufferProviderCreateErr error
 
-func tryCGRenderingBufferProviderCreate(info unsafe.Pointer, size uintptr) (CGRenderingBufferProviderRef, error) {
+func tryCGRenderingBufferProviderCreate(info unsafe.Pointer, size uintptr, lockPointer unsafe.Pointer) (CGRenderingBufferProviderRef, error) {
 	if _cGRenderingBufferProviderCreate == nil {
 		return *new(CGRenderingBufferProviderRef), symbolCallError("CGRenderingBufferProviderCreate", "26.0", _cGRenderingBufferProviderCreateErr)
 	}
-	return _cGRenderingBufferProviderCreate(info, size), nil
+	return _cGRenderingBufferProviderCreate(info, size, lockPointer), nil
 }
 
 // CGRenderingBufferProviderCreate.
 //
 // See: https://developer.apple.com/documentation/CoreGraphics/CGRenderingBufferProviderCreate
-func CGRenderingBufferProviderCreate(info unsafe.Pointer, size uintptr) CGRenderingBufferProviderRef {
-	result, callErr := tryCGRenderingBufferProviderCreate(info, size)
+func CGRenderingBufferProviderCreate(info unsafe.Pointer, size uintptr, lockPointer unsafe.Pointer) CGRenderingBufferProviderRef {
+	result, callErr := tryCGRenderingBufferProviderCreate(info, size, lockPointer)
 	if callErr != nil {
 		panic(callErr)
 	}
@@ -13961,10 +13984,10 @@ func CGSessionCopyCurrentDictionary() corefoundation.CFDictionaryRef {
 	return result
 }
 
-var _cGSetDisplayTransferByByteTable func(display uint32, tableSize uint32, redTable *byte, greenTable *byte, blueTable *byte) CGError
+var _cGSetDisplayTransferByByteTable func(display CGDirectDisplayID, tableSize uint32, redTable *byte, greenTable *byte, blueTable *byte) CGError
 var _cGSetDisplayTransferByByteTableErr error
 
-func tryCGSetDisplayTransferByByteTable(display uint32, tableSize uint32, redTable []byte, greenTable []byte, blueTable []byte) (CGError, error) {
+func tryCGSetDisplayTransferByByteTable(display CGDirectDisplayID, tableSize uint32, redTable []byte, greenTable []byte, blueTable []byte) (CGError, error) {
 	if _cGSetDisplayTransferByByteTable == nil {
 		return *new(CGError), symbolCallError("CGSetDisplayTransferByByteTable", "10.0", _cGSetDisplayTransferByByteTableErr)
 	}
@@ -13974,7 +13997,7 @@ func tryCGSetDisplayTransferByByteTable(display uint32, tableSize uint32, redTab
 // CGSetDisplayTransferByByteTable sets the byte values in the 8-bit RGB gamma tables for a display.
 //
 // See: https://developer.apple.com/documentation/CoreGraphics/CGSetDisplayTransferByByteTable(_:_:_:_:_:)
-func CGSetDisplayTransferByByteTable(display uint32, tableSize uint32, redTable []byte, greenTable []byte, blueTable []byte) CGError {
+func CGSetDisplayTransferByByteTable(display CGDirectDisplayID, tableSize uint32, redTable []byte, greenTable []byte, blueTable []byte) CGError {
 	result, callErr := tryCGSetDisplayTransferByByteTable(display, tableSize, redTable, greenTable, blueTable)
 	if callErr != nil {
 		panic(callErr)
@@ -13982,10 +14005,10 @@ func CGSetDisplayTransferByByteTable(display uint32, tableSize uint32, redTable 
 	return result
 }
 
-var _cGSetDisplayTransferByFormula func(display uint32, redMin CGGammaValue, redMax CGGammaValue, redGamma CGGammaValue, greenMin CGGammaValue, greenMax CGGammaValue, greenGamma CGGammaValue, blueMin CGGammaValue, blueMax CGGammaValue, blueGamma CGGammaValue) CGError
+var _cGSetDisplayTransferByFormula func(display CGDirectDisplayID, redMin CGGammaValue, redMax CGGammaValue, redGamma CGGammaValue, greenMin CGGammaValue, greenMax CGGammaValue, greenGamma CGGammaValue, blueMin CGGammaValue, blueMax CGGammaValue, blueGamma CGGammaValue) CGError
 var _cGSetDisplayTransferByFormulaErr error
 
-func tryCGSetDisplayTransferByFormula(display uint32, redMin CGGammaValue, redMax CGGammaValue, redGamma CGGammaValue, greenMin CGGammaValue, greenMax CGGammaValue, greenGamma CGGammaValue, blueMin CGGammaValue, blueMax CGGammaValue, blueGamma CGGammaValue) (CGError, error) {
+func tryCGSetDisplayTransferByFormula(display CGDirectDisplayID, redMin CGGammaValue, redMax CGGammaValue, redGamma CGGammaValue, greenMin CGGammaValue, greenMax CGGammaValue, greenGamma CGGammaValue, blueMin CGGammaValue, blueMax CGGammaValue, blueGamma CGGammaValue) (CGError, error) {
 	if _cGSetDisplayTransferByFormula == nil {
 		return *new(CGError), symbolCallError("CGSetDisplayTransferByFormula", "10.0", _cGSetDisplayTransferByFormulaErr)
 	}
@@ -13995,7 +14018,7 @@ func tryCGSetDisplayTransferByFormula(display uint32, redMin CGGammaValue, redMa
 // CGSetDisplayTransferByFormula sets the gamma function for a display by specifying the coefficients of the gamma transfer formula.
 //
 // See: https://developer.apple.com/documentation/CoreGraphics/CGSetDisplayTransferByFormula(_:_:_:_:_:_:_:_:_:_:)
-func CGSetDisplayTransferByFormula(display uint32, redMin CGGammaValue, redMax CGGammaValue, redGamma CGGammaValue, greenMin CGGammaValue, greenMax CGGammaValue, greenGamma CGGammaValue, blueMin CGGammaValue, blueMax CGGammaValue, blueGamma CGGammaValue) CGError {
+func CGSetDisplayTransferByFormula(display CGDirectDisplayID, redMin CGGammaValue, redMax CGGammaValue, redGamma CGGammaValue, greenMin CGGammaValue, greenMax CGGammaValue, greenGamma CGGammaValue, blueMin CGGammaValue, blueMax CGGammaValue, blueGamma CGGammaValue) CGError {
 	result, callErr := tryCGSetDisplayTransferByFormula(display, redMin, redMax, redGamma, greenMin, greenMax, greenGamma, blueMin, blueMax, blueGamma)
 	if callErr != nil {
 		panic(callErr)
@@ -14003,10 +14026,10 @@ func CGSetDisplayTransferByFormula(display uint32, redMin CGGammaValue, redMax C
 	return result
 }
 
-var _cGSetDisplayTransferByTable func(display uint32, tableSize uint32, redTable *CGGammaValue, greenTable *CGGammaValue, blueTable *CGGammaValue) CGError
+var _cGSetDisplayTransferByTable func(display CGDirectDisplayID, tableSize uint32, redTable *CGGammaValue, greenTable *CGGammaValue, blueTable *CGGammaValue) CGError
 var _cGSetDisplayTransferByTableErr error
 
-func tryCGSetDisplayTransferByTable(display uint32, tableSize uint32, redTable *CGGammaValue, greenTable *CGGammaValue, blueTable *CGGammaValue) (CGError, error) {
+func tryCGSetDisplayTransferByTable(display CGDirectDisplayID, tableSize uint32, redTable *CGGammaValue, greenTable *CGGammaValue, blueTable *CGGammaValue) (CGError, error) {
 	if _cGSetDisplayTransferByTable == nil {
 		return *new(CGError), symbolCallError("CGSetDisplayTransferByTable", "10.0", _cGSetDisplayTransferByTableErr)
 	}
@@ -14016,7 +14039,7 @@ func tryCGSetDisplayTransferByTable(display uint32, tableSize uint32, redTable *
 // CGSetDisplayTransferByTable sets the color gamma function for a display by specifying the values in the RGB gamma tables.
 //
 // See: https://developer.apple.com/documentation/CoreGraphics/CGSetDisplayTransferByTable(_:_:_:_:_:)
-func CGSetDisplayTransferByTable(display uint32, tableSize uint32, redTable *CGGammaValue, greenTable *CGGammaValue, blueTable *CGGammaValue) CGError {
+func CGSetDisplayTransferByTable(display CGDirectDisplayID, tableSize uint32, redTable *CGGammaValue, greenTable *CGGammaValue, blueTable *CGGammaValue) CGError {
 	result, callErr := tryCGSetDisplayTransferByTable(display, tableSize, redTable, greenTable, blueTable)
 	if callErr != nil {
 		panic(callErr)
@@ -14191,10 +14214,10 @@ func CGShadingRetain(shading CGShadingRef) CGShadingRef {
 	return result
 }
 
-var _cGShieldingWindowID func(display uint32) CGWindowID
+var _cGShieldingWindowID func(display CGDirectDisplayID) CGWindowID
 var _cGShieldingWindowIDErr error
 
-func tryCGShieldingWindowID(display uint32) (CGWindowID, error) {
+func tryCGShieldingWindowID(display CGDirectDisplayID) (CGWindowID, error) {
 	if _cGShieldingWindowID == nil {
 		return *new(CGWindowID), symbolCallError("CGShieldingWindowID", "10.0", _cGShieldingWindowIDErr)
 	}
@@ -14204,7 +14227,7 @@ func tryCGShieldingWindowID(display uint32) (CGWindowID, error) {
 // CGShieldingWindowID returns the window ID of the shield window for a captured display.
 //
 // See: https://developer.apple.com/documentation/CoreGraphics/CGShieldingWindowID(_:)
-func CGShieldingWindowID(display uint32) CGWindowID {
+func CGShieldingWindowID(display CGDirectDisplayID) CGWindowID {
 	result, callErr := tryCGShieldingWindowID(display)
 	if callErr != nil {
 		panic(callErr)
@@ -14287,7 +14310,7 @@ func tryCGSizeEqualToSize(size1 corefoundation.CGSize, size2 corefoundation.CGSi
 
 // CGSizeEqualToSize returns whether two sizes are equal.
 //
-// Deprecated: The [CGSize](<doc://com.apple.documentation/documentation/CoreFoundation/CGSize>) type adopts the [Equatable] protocol; use the `==` operator instead.
+// Deprecated: The [CGSize](<https://developer.apple.com/documentation/CoreFoundation/CGSize>) type adopts the [Equatable] protocol; use the `==` operator instead.
 //
 // See: https://developer.apple.com/documentation/CoreGraphics/CGSizeEqualToSize(_:_:)
 func CGSizeEqualToSize(size1 corefoundation.CGSize, size2 corefoundation.CGSize) bool {
@@ -14740,6 +14763,7 @@ func init() {
 	registerFunc(&_cGDataProviderGetTypeID, &_cGDataProviderGetTypeIDErr, frameworkHandle, "CGDataProviderGetTypeID", "10.2")
 	registerFunc(&_cGDataProviderRelease, &_cGDataProviderReleaseErr, frameworkHandle, "CGDataProviderRelease", "10.0")
 	registerFunc(&_cGDataProviderRetain, &_cGDataProviderRetainErr, frameworkHandle, "CGDataProviderRetain", "10.0")
+	registerFunc(&_cGDirectDisplayCopyCurrentMetalDevice, &_cGDirectDisplayCopyCurrentMetalDeviceErr, frameworkHandle, "CGDirectDisplayCopyCurrentMetalDevice", "10.11")
 	registerFunc(&_cGDisplayBounds, &_cGDisplayBoundsErr, frameworkHandle, "CGDisplayBounds", "10.0")
 	registerFunc(&_cGDisplayCapture, &_cGDisplayCaptureErr, frameworkHandle, "CGDisplayCapture", "10.0")
 	registerFunc(&_cGDisplayCaptureWithOptions, &_cGDisplayCaptureWithOptionsErr, frameworkHandle, "CGDisplayCaptureWithOptions", "10.3")

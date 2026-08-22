@@ -4,6 +4,7 @@ package avfoundation
 
 import (
 	"sync"
+	"unsafe"
 
 	"github.com/tmc/apple/coremedia"
 	"github.com/tmc/apple/objc"
@@ -127,6 +128,6 @@ func (p AVPlayerVideoOutput) InitWithSpecification(specification IAVVideoOutputS
 
 // See: https://developer.apple.com/documentation/AVFoundation/AVPlayerVideoOutput/copyTaggedBufferGroupForHostTime:presentationTimeStamp:activeConfiguration:
 func (p AVPlayerVideoOutput) CopyTaggedBufferGroupForHostTimePresentationTimeStampActiveConfiguration(hostTime coremedia.CMTime, presentationTimeStampOut *coremedia.CMTime, activeConfigurationOut *AVPlayerVideoOutputConfiguration) coremedia.CMTaggedBufferGroupRef {
-	rv := objc.Send[coremedia.CMTaggedBufferGroupRef](p.ID, objc.Sel("copyTaggedBufferGroupForHostTime:presentationTimeStamp:activeConfiguration:"), hostTime, presentationTimeStampOut, activeConfigurationOut)
+	rv := objc.Send[coremedia.CMTaggedBufferGroupRef](p.ID, objc.Sel("copyTaggedBufferGroupForHostTime:presentationTimeStamp:activeConfiguration:"), hostTime, unsafe.Pointer(presentationTimeStampOut), unsafe.Pointer(activeConfigurationOut))
 	return coremedia.CMTaggedBufferGroupRef(rv)
 }

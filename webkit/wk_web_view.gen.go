@@ -501,7 +501,7 @@ type IWKWebView interface {
 	CustomUserAgent() string
 	SetCustomUserAgent(value string)
 	// The trust management object you use to evaluate trust for the current webpage.
-	ServerTrust() security.SecTrust
+	ServerTrust() security.SecTrustRef
 	// A Boolean value that indicates whether the web view loaded all resources on the page through securely encrypted connections.
 	HasOnlySecureContent() bool
 	// The theme color that the system gets from the first valid meta tag in the webpage.
@@ -1488,9 +1488,9 @@ func (w WKWebView) SetCustomUserAgent(value string) {
 // for this property.
 //
 // See: https://developer.apple.com/documentation/WebKit/WKWebView/serverTrust
-func (w WKWebView) ServerTrust() security.SecTrust {
-	rv := objc.Send[security.SecTrust](w.ID, objc.Sel("serverTrust"))
-	return security.SecTrust(rv)
+func (w WKWebView) ServerTrust() security.SecTrustRef {
+	rv := objc.Send[security.SecTrustRef](w.ID, objc.Sel("serverTrust"))
+	return security.SecTrustRef(rv)
 }
 
 // A Boolean value that indicates whether the web view loaded all resources on
@@ -1655,10 +1655,10 @@ func (w WKWebView) CanGoForward() bool {
 //
 // If you set this property’s value to true, an iOS user can press links to
 // preview link destinations and detected data such as addresses and phone
-// numbers. Such previews are known to users as . If a user presses deeper on
-// a link preview, the preview navigates (or , in user terminology) to the
-// destination. Because pop navigation switches the user from your app to
-// Safari, it is opt-in for iOS apps.
+// numbers. Such previews are known to users as peeks. If a user presses
+// deeper on a link preview, the preview navigates (or pops, in user
+// terminology) to the destination. Because pop navigation switches the user
+// from your app to Safari, it is opt-in for iOS apps.
 //
 // If you want to support link preview in iOS but also want to keep users
 // within your app, you can switch from using the [WKWebView] class to the

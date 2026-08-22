@@ -96,8 +96,8 @@ type IGCControllerAxisInput interface {
 	// Topic: Getting change information
 
 	// The block that the element calls when the user changes the axis value.
-	ValueChangedHandler() GCControllerAxisValueChangedHandler
-	SetValueChangedHandler(value GCControllerAxisValueChangedHandler)
+	ValueChangedHandler() GCControllerAxisInputFloat32Handler
+	SetValueChangedHandler(value GCControllerAxisInputFloat32Handler)
 }
 
 // Init initializes the instance.
@@ -141,10 +141,13 @@ func (g GCControllerAxisInput) Value() float32 {
 // The block that the element calls when the user changes the axis value.
 //
 // See: https://developer.apple.com/documentation/GameController/GCControllerAxisInput/valueChangedHandler
-func (g GCControllerAxisInput) ValueChangedHandler() GCControllerAxisValueChangedHandler {
-	rv := objc.Send[GCControllerAxisValueChangedHandler](g.ID, objc.Sel("valueChangedHandler"))
-	return GCControllerAxisValueChangedHandler(rv)
+func (g GCControllerAxisInput) ValueChangedHandler() GCControllerAxisInputFloat32Handler {
+	rv := objc.Send[objc.ID](g.ID, objc.Sel("valueChangedHandler"))
+	_ = rv
+	return nil
 }
-func (g GCControllerAxisInput) SetValueChangedHandler(value GCControllerAxisValueChangedHandler) {
-	objc.Send[struct{}](g.ID, objc.Sel("setValueChangedHandler:"), value)
+func (g GCControllerAxisInput) SetValueChangedHandler(value GCControllerAxisInputFloat32Handler) {
+	block, cleanup := NewGCControllerAxisInputFloat32Block(value)
+	defer cleanup()
+	objc.Send[struct{}](g.ID, objc.Sel("setValueChangedHandler:"), block)
 }

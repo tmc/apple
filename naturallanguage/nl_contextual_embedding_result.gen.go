@@ -136,7 +136,8 @@ func NewNLContextualEmbeddingResult() NLContextualEmbeddingResult {
 //
 // See: https://developer.apple.com/documentation/NaturalLanguage/NLContextualEmbeddingResult/enumerateTokenVectorsInRange:usingBlock:
 func (c NLContextualEmbeddingResult) EnumerateTokenVectorsInRangeUsingBlock(range_ foundation.NSRange, block NSNumberArrayNSRangeBoolHandler) {
-	_block1, _ := NewNSNumberArrayNSRangeBoolBlock(block)
+	_block1, _cleanup1 := NewNSNumberArrayNSRangeBoolBlock(block)
+	defer _cleanup1()
 	objc.Send[objc.ID](c.ID, objc.Sel("enumerateTokenVectorsInRange:usingBlock:"), range_, _block1)
 }
 

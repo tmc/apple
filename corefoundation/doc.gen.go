@@ -94,24 +94,11 @@
 //   - [KCFVikramCalendar]
 //   - [KCFURLUbiquitousItemIsSyncPausedKey]
 //   - [KCFURLUbiquitousItemSupportedSyncControlsKey]
-//   - kCFUserNotificationAlertAccessibilityIdentifierKey
-//   - kCFUserNotificationAlternateButtonAccessibilityIdentifierKey
-//   - kCFUserNotificationDefaultButtonAccessibilityIdentifierKey
-//   - kCFUserNotificationOtherButtonAccessibilityIdentifierKey
 //
 // # Functions
 //
 //   - [CFAllocatorCreateWithZone]
-//   - [CFAttributedStringGetStatisticalWritingDirections]
-//
-// # Macros
-//
-//   - CF_HEADER_AUDIT_BEGIN
-//   - CF_HEADER_AUDIT_END
-//   - CF_SWIFT_MAIN_ACTOR
-//   - CF_SWIFT_NONISOLATED
-//   - CF_SWIFT_NONSENDABLE
-//   - CF_SWIFT_SENDABLE//
+//   - [CFAttributedStringGetStatisticalWritingDirections]//
 //
 // [Base Utilities]: https://developer.apple.com/documentation/corefoundation/base-utilities
 // [Byte-Order Utilities]: https://developer.apple.com/documentation/corefoundation/byte-order-utilities
@@ -128,9 +115,11 @@ import (
 	"github.com/ebitengine/purego"
 )
 
-// frameworkPaths lists paths to try when loading the CoreFoundation library.
-// The framework bundle path is tried first; a /usr/lib dylib fallback covers
-// C-API frameworks that are not in the dyld shared cache as bundles.
+// frameworkPaths lists paths to try when loading the CoreFoundation library,
+// in order. Frameworks whose symbols live in a known dylib resolve to that
+// dylib alone; the rest try the framework bundle first and then a /usr/lib
+// dylib fallback, which covers C-API frameworks that are not in the dyld
+// shared cache as bundles.
 var frameworkPaths = []string{
 	"/System/Library/Frameworks/CoreFoundation.framework/CoreFoundation",
 	"/usr/lib/libCoreFoundation.dylib",

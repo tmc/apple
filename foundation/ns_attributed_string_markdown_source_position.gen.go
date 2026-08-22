@@ -96,7 +96,6 @@ func NSAttributedStringMarkdownSourcePositionFromID(id objc.ID) NSAttributedStri
 // See: https://developer.apple.com/documentation/Foundation/NSAttributedStringMarkdownSourcePosition
 type INSAttributedStringMarkdownSourcePosition interface {
 	objectivec.IObject
-	NSSecureCoding
 
 	// Topic: Creating an Attributed String Markdown Source Position Instance
 

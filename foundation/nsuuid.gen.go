@@ -63,10 +63,11 @@ func (nc NSUUIDClass) Alloc() NSUUID {
 // `0x00`, `0x67`. Because a UUID is expressed simply as an array of bytes,
 // there are no endianness considerations for different platforms.
 //
-// The [NSUUID] class is toll-free bridged with CoreFoundation’s [CFUUID].
-// Use UUID strings to convert between [CFUUIDRef] and [NSUUID], if needed.
-// Two [NSUUID] objects are not guaranteed to be comparable by pointer value
-// (as [CFUUID] is); use [isEqual(_:)] to compare two [NSUUID] instances.
+// The [NSUUID] class is not toll-free bridged with CoreFoundation’s
+// [CFUUID]. Use UUID strings to convert between [CFUUIDRef] and [NSUUID], if
+// needed. Two [NSUUID] objects are not guaranteed to be comparable by pointer
+// value (as [CFUUID] is); use [isEqual(_:)] to compare two [NSUUID]
+// instances.
 //
 // # Creating UUIDs
 //
@@ -120,7 +121,6 @@ func NSUUIDFromID(id objc.ID) NSUUID {
 // See: https://developer.apple.com/documentation/Foundation/NSUUID
 type INSUUID interface {
 	objectivec.IObject
-	NSSecureCoding
 
 	// Topic: Creating UUIDs
 
@@ -139,6 +139,10 @@ type INSUUID interface {
 	// Topic: Instance Methods
 
 	Compare(otherUUID INSUUID) NSComparisonResult
+
+	// Encodes the receiver using a given archiver.
+	EncodeWithCoder(coder INSCoder)
+	InitWithCoder(coder INSCoder) NSUUID
 }
 
 // Init initializes the instance.
@@ -175,7 +179,7 @@ func NewUUIDWithCoder(coder INSCoder) NSUUID {
 //
 // A new UUID object.
 //
-// See: https://developer.apple.com/documentation/Foundation/NSUUID/init(uuidBytes:)-2p4d5
+// See: https://developer.apple.com/documentation/Foundation/NSUUID/init(uuidBytes:)
 func NewUUIDWithUUIDBytes(bytes [16]byte) NSUUID {
 	instance := getNSUUIDClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithUUIDBytes:"), bytes)
@@ -192,7 +196,7 @@ func NewUUIDWithUUIDBytes(bytes [16]byte) NSUUID {
 //
 // A new UUID object. Returns `nil` for invalid strings.
 //
-// See: https://developer.apple.com/documentation/Foundation/NSUUID/init(uuidString:)-8t9n3
+// See: https://developer.apple.com/documentation/Foundation/NSUUID/init(uuidString:)
 func NewUUIDWithUUIDString(string_ string) NSUUID {
 	instance := getNSUUIDClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithUUIDString:"), objc.String(string_))
@@ -209,7 +213,7 @@ func NewUUIDWithUUIDString(string_ string) NSUUID {
 //
 // A new UUID object. Returns `nil` for invalid strings.
 //
-// See: https://developer.apple.com/documentation/Foundation/NSUUID/init(uuidString:)-8t9n3
+// See: https://developer.apple.com/documentation/Foundation/NSUUID/init(uuidString:)
 func (u NSUUID) InitWithUUIDString(string_ string) NSUUID {
 	rv := objc.Send[NSUUID](u.ID, objc.Sel("initWithUUIDString:"), objc.String(string_))
 	return rv
@@ -223,7 +227,7 @@ func (u NSUUID) InitWithUUIDString(string_ string) NSUUID {
 //
 // A new UUID object.
 //
-// See: https://developer.apple.com/documentation/Foundation/NSUUID/init(uuidBytes:)-2p4d5
+// See: https://developer.apple.com/documentation/Foundation/NSUUID/init(uuidBytes:)
 func (u NSUUID) InitWithUUIDBytes(bytes [16]byte) NSUUID {
 	rv := objc.Send[NSUUID](u.ID, objc.Sel("initWithUUIDBytes:"), bytes)
 	return rv

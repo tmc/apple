@@ -50,9 +50,9 @@ func (nc NSTouchBarClass) Alloc() NSTouchBar {
 //
 // On supported MacBook Pro models, the Touch Bar, above the keyboard, shows
 // instances of the [NSTouchBar] class from the front-most app. Such an
-// instance is called a . You define a bar to provide controls relevant to the
-// user’s context. Each such control is an instance of the [NSTouchBarItem]
-// class, called an .
+// instance is called a bar. You define a bar to provide controls relevant to
+// the user’s context. Each such control is an instance of the
+// [NSTouchBarItem] class, called an item.
 //
 // [media-2851859]
 //
@@ -85,7 +85,7 @@ func (nc NSTouchBarClass) Alloc() NSTouchBar {
 // Instances of the [NSTouchBar] class employ gesture recognizers and take
 // advantage of macOS 10.12.1 event enhancements. Because of the physical
 // geometry of the Touch Bar, touch events passed to gesture recognizers have
-// only a meaningful , or horizontal, component.
+// only a meaningful x, or horizontal, component.
 //
 // There’s no need, and no API, for your app to know whether or not
 // there’s a Touch Bar available. Whether your app is running on a machine
@@ -97,11 +97,11 @@ func (nc NSTouchBarClass) Alloc() NSTouchBar {
 // best practices that you would on the screen.
 //
 // On the right side of the Touch Bar, the system supplies the
-// always-available . The Control Strip gives the user access to standard
-// controls for display brightness, sound volume, Siri, and so on. Your
-// app’s bars appear to the left of the Control Strip. The user can choose
-// to hide the Control Strip, which gives the frontmost app the entire Touch
-// Bar width.
+// always-available Control Strip. The Control Strip gives the user access to
+// standard controls for display brightness, sound volume, Siri, and so on.
+// Your app’s bars appear to the left of the Control Strip. The user can
+// choose to hide the Control Strip, which gives the frontmost app the entire
+// Touch Bar width.
 //
 // To the right of the Control Strip is a Touch ID sensor. To use Touch ID on
 // supported MacBook Pro models, use methods from the [Local Authentication]
@@ -115,9 +115,9 @@ func (nc NSTouchBarClass) Alloc() NSTouchBar {
 //
 // # Bar objects
 //
-// You can think of an [NSTouchBar] object (or ), with its array of
-// [NSTouchBarItem] objects (or ), as analogous to a window toolbar with its
-// toolbar items, or a menu with its menu items.
+// You can think of an [NSTouchBar] object (or bar), with its array of
+// [NSTouchBarItem] objects (or items), as analogous to a window toolbar with
+// its toolbar items, or a menu with its menu items.
 //
 // To provide a bar in your app, define it in an object that meets three
 // requirements. The object that defines the bar must:
@@ -130,7 +130,7 @@ func (nc NSTouchBarClass) Alloc() NSTouchBar {
 // The built-in responder classes conform to the [NSTouchBarProvider] protocol
 // and support key-value observing (KVO), both of which are used and required
 // by the [NSTouchBar] infrastructure. In the context of Touch Bar support, a
-// responder instance can also be called a .
+// responder instance can also be called a bar provider.
 //
 // The following code shows an example implementation of the
 // [NSResponder.TouchBar] delegate method. In this code snippet, you can see
@@ -145,8 +145,9 @@ func (nc NSTouchBarClass) Alloc() NSTouchBar {
 // associated key-value observing notifications from within your
 // implementations of [NSTouchBar] methods; this lets the system respond
 // appropriately to changes in the bar. To avoid the need to manually support
-// KVO, use the as a bar provider, instead of the app delegate, or use a or as
-// a bar provider, instead of the associated window delegate.
+// KVO, use the app object as a bar provider, instead of the app delegate, or
+// use a window controller or window as a bar provider, instead of the
+// associated window delegate.
 //
 // To programmatically invalidate a bar associated with a bar provider, such
 // as because you’re changing the bar’s state, set its [TouchBar] property
@@ -213,9 +214,10 @@ func (nc NSTouchBarClass) Alloc() NSTouchBar {
 // whose elements is the identifier (of type [NSTouchBarItemIdentifier]) for
 // an item (an [NSTouchBarItem] object). A bar’s item identifier lists are:
 //
-// , specified in a bar’s [NSTouchBar.DefaultItemIdentifiers] property.
-// Always specify this property for an [NSTouchBar] object, even if you elect
-// to make the bar noncustomizable. The system:
+// Default item identifiers, specified in a bar’s
+// [NSTouchBar.DefaultItemIdentifiers] property. Always specify this property
+// for an [NSTouchBar] object, even if you elect to make the bar
+// noncustomizable. The system:
 //
 // - Shows this list’s items by default when the system displays the bar. -
 // Includes a preconfigured bar representation, containing these items, in the
@@ -224,19 +226,19 @@ func (nc NSTouchBarClass) Alloc() NSTouchBar {
 // property value); the user can drag the default bar into the Touch Bar,
 // should they want to return to the default configuration.
 //
-// , specified in a bar’s [NSTouchBar.CustomizationAllowedItemIdentifiers]
-// property. Always configure this property for a customizable bar. The system
-// uses this list by showing representations of its items individually in the
-// customization UI, arranged in the same order as you specify in the property
-// array. When there’s available geometric space, a user can drag in to the
-// active bar any of the items in this list. If there isn’t enough space, a
-// dragged item replaces the item or items under the spot the new item is
-// dropped.
+// Additional item identifiers, specified in a bar’s
+// [NSTouchBar.CustomizationAllowedItemIdentifiers] property. Always configure
+// this property for a customizable bar. The system uses this list by showing
+// representations of its items individually in the customization UI, arranged
+// in the same order as you specify in the property array. When there’s
+// available geometric space, a user can drag in to the active bar any of the
+// items in this list. If there isn’t enough space, a dragged item replaces
+// the item or items under the spot the new item is dropped.
 //
-// , specified in a bar’s [NSTouchBar.CustomizationRequiredItemIdentifiers]
-// property. Configure this property at your discretion, depending on the
-// design of your app. The user can’t remove from the bar any of the items
-// you specify in this list.
+// Required item identifiers, specified in a bar’s
+// [NSTouchBar.CustomizationRequiredItemIdentifiers] property. Configure this
+// property at your discretion, depending on the design of your app. The user
+// can’t remove from the bar any of the items you specify in this list.
 //
 // To provide textual labels in the customization UI, use the
 // [NSTouchBarItem.CustomizationLabel] property on each [NSTouchBarItem]
@@ -263,16 +265,16 @@ func (nc NSTouchBarClass) Alloc() NSTouchBar {
 // so on. The rest of this section explains how customization works for the
 // bars containing, and bars within, group items and popover items.
 //
-// (an instance of the [NSGroupTouchBarItem] class) has one bar, held in the
-// object’s [NSGroupTouchBarItem.GroupTouchBar] property. AppKit supports
-// nesting of group items, in that you can configure a
+// A group item (an instance of the [NSGroupTouchBarItem] class) has one bar,
+// held in the object’s [NSGroupTouchBarItem.GroupTouchBar] property. AppKit
+// supports nesting of group items, in that you can configure a
 // [NSGroupTouchBarItem.GroupTouchBar] bar to itself contain one or more group
 // items (or, for that matter, items of any other type, guided by what works
 // well in your app).Here are some examples of how customization for group
 // items works in practice:
 //
 // - If you configure a bar as customizable, and give it a group item whose
-// bar you configure as customizable, then the array of items in the
+// bar you configure as not customizable, then the array of items in the
 // [NSGroupTouchBarItem.GroupTouchBar] bar appears in the customization UI as
 // an atomic unit. During customization, a user can manipulate the array of
 // items, but strictly as a unit: If the (noncustomizable)
@@ -282,8 +284,8 @@ func (nc NSTouchBarClass) Alloc() NSTouchBar {
 // [NSGroupTouchBarItem.GroupTouchBar] bar is instead visible in the
 // customization UI, the user can add it back to the Touch Bar, as a unit,
 // placing it within the bar that owns the group item. - If you configure a
-// bar as customizable, and give it a group item whose bar you configure as
-// customizable, then the [NSGroupTouchBarItem.GroupTouchBar] bar’s items
+// bar as not customizable, and give it a group item whose bar you configure
+// as customizable, then the [NSGroupTouchBarItem.GroupTouchBar] bar’s items
 // appear in the customization UI as individual items. During customization, a
 // user can manipulate each item separately: If an item from the
 // [NSGroupTouchBarItem.GroupTouchBar] bar is visible in the Touch Bar, the
@@ -294,16 +296,16 @@ func (nc NSTouchBarClass) Alloc() NSTouchBar {
 // placing it anywhere within the [NSGroupTouchBarItem.GroupTouchBar] bar that
 // owns it.
 //
-// (an instance of the [NSPopoverTouchBarItem] class) has two bars: one bar
-// you specify in its [NSPopoverTouchBarItem.PopoverTouchBar] property and a
-// second, optional bar you can specify in its
+// A popover item (an instance of the [NSPopoverTouchBarItem] class) has two
+// bars: one bar you specify in its [NSPopoverTouchBarItem.PopoverTouchBar]
+// property and a second, optional bar you can specify in its
 // [NSPopoverTouchBarItem.PressAndHoldTouchBar] property. Here are some
 // examples of how customization for popover items works in practice:
 //
 // - If you configure a bar as customizable, and give it a popover item whose
-// [NSPopoverTouchBarItem.PopoverTouchBar] bar you configure as customizable,
-// the [NSPopoverTouchBarItem.PopoverTouchBar] bar never appears in the
-// customization UI. If the user invokes the customization UI when the
+// [NSPopoverTouchBarItem.PopoverTouchBar] bar you configure as not
+// customizable, the [NSPopoverTouchBarItem.PopoverTouchBar] bar never appears
+// in the customization UI. If the user invokes the customization UI when the
 // (noncustomizable) popover item itself (not the button’s associated
 // [NSPopoverTouchBarItem.PopoverTouchBar] bar) is visible in the Touch Bar,
 // the customization UI lets the user rearrange the position of the popover
@@ -362,11 +364,12 @@ func (nc NSTouchBarClass) Alloc() NSTouchBar {
 // In geometric-space-constrained scenarios, the system hides [NSTouchBarItem]
 // instances according to their visibility priority.
 //
-// If you need to center an item in the Touch Bar, designate it as a by
-// assigning it to its bar’s [NSTouchBar.PrincipalItemIdentifier] property.
-// Don’t hard-code spacing in an attempt to ensure an item is centered. If
-// you want a group of items to appear centered in the Touch Bar, designate
-// the group item (of type [NSGroupTouchBarItem]) as the principal item.
+// If you need to center an item in the Touch Bar, designate it as a principal
+// item by assigning it to its bar’s [NSTouchBar.PrincipalItemIdentifier]
+// property. Don’t hard-code spacing in an attempt to ensure an item is
+// centered. If you want a group of items to appear centered in the Touch Bar,
+// designate the group item (of type [NSGroupTouchBarItem]) as the principal
+// item.
 //
 // # Composition and nesting
 //
@@ -441,9 +444,9 @@ func (nc NSTouchBarClass) Alloc() NSTouchBar {
 //
 // At runtime, the system traverses up the responder chain, starting at the
 // object with focus, to discover objects that conform to the
-// [NSTouchBarProvider] protocol. Such objects are called . The system then
-// populates the Touch Bar, potentially with multiple, nested bars, according
-// to system policy and available geometric space.
+// [NSTouchBarProvider] protocol. Such objects are called bar providers. The
+// system then populates the Touch Bar, potentially with multiple, nested
+// bars, according to system policy and available geometric space.
 //
 // Specifically, bar discovery by the system proceeds in the following order:
 //
@@ -484,11 +487,11 @@ func (nc NSTouchBarClass) Alloc() NSTouchBar {
 // To support the Touch Bar feature, AppKit provides several enhancements,
 // first available in macOS 10.12.1:
 //
-// - The [NSScrubber] class, along with related APIs, provide a way for you to
-// add a flexible, horizontally-oriented picker to a custom item (an instance
-// of the [NSCustomTouchBarItem] class). - You can use the
-// [NSMagnificationGestureRecognizer] class in bar items. To enable two-finger
-// pinch gestures, set the recognizer’s
+// - Scrubbers. The [NSScrubber] class, along with related APIs, provide a way
+// for you to add a flexible, horizontally-oriented picker to a custom item
+// (an instance of the [NSCustomTouchBarItem] class). - Gesture recognizer
+// support. - You can use the [NSMagnificationGestureRecognizer] class in bar
+// items. To enable two-finger pinch gestures, set the recognizer’s
 // [NSGestureRecognizer.AllowedTouchTypes] mask property, on the gesture
 // recognizer, to the [NSTouchTypeDirect] constant from the
 // [NSTouch.TouchTypeMask] enumeration. - The [NSGestureRecognizer] abstract
@@ -500,52 +503,54 @@ func (nc NSTouchBarClass) Alloc() NSTouchBar {
 // [NSClickGestureRecognizer], [NSPanGestureRecognizer], and
 // [NSPressGestureRecognizer] concrete classes are each enhanced with a
 // `numberOfTouchesRequired` property to let you specify the number of touches
-// required for a gesture match. - To enable touch events in a custom view,
-// you must set the value of a view’s
+// required for a gesture match. - Touch type changes. To enable touch events
+// in a custom view, you must set the value of a view’s
 // [NSGestureRecognizer.AllowedTouchTypes] property to a value of
 // [NSTouchTypeMaskDirect]. (In macOS 10.12.1, the [acceptsTouchEvents]
 // property is deprecated in favor of the new
-// [NSGestureRecognizer.AllowedTouchTypes] property.) - The [NSTouch] class
-// has a new property and two new methods for supporting the Touch Bar:
-// [NSTouch.TouchType], [NSGestureRecognizer.LocationInView], and
-// [NSTouch.PreviousLocationInView]. - The [NSButton], [NSSegmentedControl],
-// and [NSSlider] classes are each enhanced with appearance support
-// properties: [NSButton.BezelColor] for buttons,
+// [NSGestureRecognizer.AllowedTouchTypes] property.) - Touch changes. The
+// [NSTouch] class has a new property and two new methods for supporting the
+// Touch Bar: [NSTouch.TouchType], [NSGestureRecognizer.LocationInView], and
+// [NSTouch.PreviousLocationInView]. - Control appearance support. The
+// [NSButton], [NSSegmentedControl], and [NSSlider] classes are each enhanced
+// with appearance support properties: [NSButton.BezelColor] for buttons,
 // [NSSegmentedControl.SelectedSegmentBezelColor] for segmented controls, and
 // [NSSlider.TrackFillColor] for sliders. (With the Touch Bar, you employ
-// sliders indirectly, as used by slider items.) - Starting in macOS 10.12,
-// you can use a rich set of convenience initializers for controls. These
-// initializers simplify the definition of bar items and take care of
-// appearance and sizing for the Touch Bar. In particular, the [NSButton],
-// [NSSegmentedControl], and [NSSlider] classes now offer a variety of
-// convenience initializers such as
-// [NSStatusBarButtonClass.ButtonWithTitleImageTargetAction]. - Methods and
-// properties in the [NSSpellChecker], [NSTextField], and [NSTextView]
-// classes, and in the [NSTextFieldDelegate] and [NSTextViewDelegate]
-// protocols, support using the Touch Bar for spell checking, predictive text
-// suggestion, text completion, and automatic handling of trailing space. For
-// example: - When you use an [NSTextView] object, you gain automatic Touch
-// Bar support for text styling and predictive text suggestions. - When you
-// use an [NSCandidateListTouchBarItem] object, you can use the
+// sliders indirectly, as used by slider items.) - Convenience initializers.
+// Starting in macOS 10.12, you can use a rich set of convenience initializers
+// for controls. These initializers simplify the definition of bar items and
+// take care of appearance and sizing for the Touch Bar. In particular, the
+// [NSButton], [NSSegmentedControl], and [NSSlider] classes now offer a
+// variety of convenience initializers such as
+// [NSStatusBarButtonClass.ButtonWithTitleImageTargetAction]. - Text support.
+// Methods and properties in the [NSSpellChecker], [NSTextField], and
+// [NSTextView] classes, and in the [NSTextFieldDelegate] and
+// [NSTextViewDelegate] protocols, support using the Touch Bar for spell
+// checking, predictive text suggestion, text completion, and automatic
+// handling of trailing space. For example: - When you use an [NSTextView]
+// object, you gain automatic Touch Bar support for text styling and
+// predictive text suggestions. - When you use an
+// [NSCandidateListTouchBarItem] object, you can use the
 // [NSSpellChecker.RequestCandidatesForSelectedRangeInStringTypesOptionsInSpellDocumentWithTagCompletionHandler]
 // method. This method provides a completion handler that you can use to
-// filter or otherwise manage the candidate text. - AppKit adds many new
-// template images for you to use in your [NSTouchBarItem] objects. A few
-// examples of these images are: [touchBarAddTemplateName],
-// [touchBarComposeTemplateName], [touchBarGoBackTemplateName],
-// [touchBarGoForwardTemplateName], and [NSImageNameTouchBarHomeTemplate].
-// Always use templates for images in your items: they respond automatically
-// to system white-point changes. Note that these images are exclusively for
-// use in the Touch Bar and in onscreen windows. For a complete list of these
-// template images, see [NSTouchBarItem]. - If your UI for a popover item
-// needs more horizontal space, you can use a scroll view (an instance of the
-// [NSScrollView] class). , in this case, enable the popover item’s
-// press-and-hold option, because doing so interferes with scrolling. - You
-// can group bar items by using an instance of the [NSStackView] class.
-// However, doing so loses system support for spacing. When you instead place
-// items into a group item (an instance of the [NSGroupTouchBarItem] class),
-// the system: - Manages inter-item spacing - Supports user customization for
-// the individual items
+// filter or otherwise manage the candidate text. - New template images.
+// AppKit adds many new template images for you to use in your
+// [NSTouchBarItem] objects. A few examples of these images are:
+// [touchBarAddTemplateName], [touchBarComposeTemplateName],
+// [touchBarGoBackTemplateName], [touchBarGoForwardTemplateName], and
+// [NSImageNameTouchBarHomeTemplate]. Always use templates for images in your
+// items: they respond automatically to system white-point changes. Note that
+// these images are exclusively for use in the Touch Bar and not in onscreen
+// windows. For a complete list of these template images, see
+// [NSTouchBarItem]. - Scroll views. If your UI for a popover item needs more
+// horizontal space, you can use a scroll view (an instance of the
+// [NSScrollView] class). Don’t, in this case, enable the popover item’s
+// press-and-hold option, because doing so interferes with scrolling. - Stack
+// views. You can group bar items by using an instance of the [NSStackView]
+// class. However, doing so loses system support for spacing. When you instead
+// place items into a group item (an instance of the [NSGroupTouchBarItem]
+// class), the system: - Manages inter-item spacing - Supports user
+// customization for the individual items
 //
 // # Development considerations for the Touch Bar
 //
@@ -575,7 +580,7 @@ func (nc NSTouchBarClass) Alloc() NSTouchBar {
 // on updates to the main display relative to updates to the Touch Bar. The
 // optimum ratio can vary according to what the user is doing. For example:
 //
-// - When a user is interacting with the Touch Bar watching the Touch Bar,
+// - When a user is interacting with the Touch Bar and watching the Touch Bar,
 // such as to control audio, ensure that your app gives priority to updating
 // the Touch Bar. - When a user is instead interacting with the Touch Bar but
 // watching the main display, such as when using a scrubber to browse pages of
@@ -944,8 +949,9 @@ func (t NSTouchBar) SetEscapeKeyReplacementItemIdentifier(value NSTouchBarItemId
 //
 // A value of true indicates that the bar is attached to an eligible bar
 // provider and that its items are displayable, assuming adequate geometric
-// space. A is an object that conforms to the [NSTouchBarProvider] protocol.
-// For more on bar providers, read [NSTouchBar].
+// space. A bar provider is an object that conforms to the
+// [NSTouchBarProvider] protocol. For more on bar providers, read
+// [NSTouchBar].
 //
 // This property is key–value observable.
 //
@@ -962,7 +968,7 @@ func (t NSTouchBar) IsVisible() bool {
 // If the user has not customized the bar, this property’s value is the same
 // as that of the [NSTouchBar.DefaultItemIdentifiers] property.
 //
-// The system archive this property.
+// The system does not archive this property.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTouchBar/itemIdentifiers
 func (t NSTouchBar) ItemIdentifiers() []string {

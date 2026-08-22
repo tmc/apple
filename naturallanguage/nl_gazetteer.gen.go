@@ -180,6 +180,9 @@ func NewGazetteerWithContentsOfURLError(url foundation.NSURL) (NLGazetteer, erro
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
 		return NLGazetteer{}, foundation.NSErrorFrom(errorPtr)
 	}
+	if rv == 0 {
+		return NLGazetteer{}, objc.ErrInitFailed
+	}
 	return NLGazetteerFromID(rv), nil
 }
 
@@ -195,6 +198,9 @@ func NewGazetteerWithDataError(data foundation.NSData) (NLGazetteer, error) {
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
 		return NLGazetteer{}, foundation.NSErrorFrom(errorPtr)
+	}
+	if rv == 0 {
+		return NLGazetteer{}, objc.ErrInitFailed
 	}
 	return NLGazetteerFromID(rv), nil
 }
@@ -214,6 +220,9 @@ func NewGazetteerWithDictionaryLanguageError(dictionary foundation.INSDictionary
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
 		return NLGazetteer{}, foundation.NSErrorFrom(errorPtr)
+	}
+	if rv == 0 {
+		return NLGazetteer{}, objc.ErrInitFailed
 	}
 	return NLGazetteerFromID(rv), nil
 }

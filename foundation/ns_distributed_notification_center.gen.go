@@ -86,12 +86,12 @@ func (dc DistributedNotificationCenterClass) Alloc() DistributedNotificationCent
 // between tasks on a single computer. For communication between tasks on
 // different computers, use [Distributed Objects Programming Topics].
 //
-// Posting a is an expensive operation. The notification gets sent to a
-// system-wide server that distributes it to all the tasks that have objects
-// registered for distributed notifications. The latency between posting the
-// notification and the notification’s arrival in another task is unbounded.
-// In fact, when too many notifications are posted and the server’s queue
-// fills up, notifications may be dropped.
+// Posting a distributed notification is an expensive operation. The
+// notification gets sent to a system-wide server that distributes it to all
+// the tasks that have objects registered for distributed notifications. The
+// latency between posting the notification and the notification’s arrival
+// in another task is unbounded. In fact, when too many notifications are
+// posted and the server’s queue fills up, notifications may be dropped.
 //
 // Distributed notifications are delivered via a task’s run loop. A task
 // must be running a run loop in one of the “common” modes, such as
@@ -163,7 +163,7 @@ type IDistributedNotificationCenter interface {
 	// Topic: Managing Observers
 
 	// Adds an entry to the receiver’s dispatch table with a specific observer and suspended-notifications behavior, and optional notification name and sender.
-	AddObserverSelectorNameObjectSuspensionBehavior(observer objectivec.IObject, selector objectivec.SEL, name NSNotificationName, object string, suspensionBehavior NSNotificationSuspensionBehavior)
+	AddObserverSelectorNameObjectSuspensionBehavior(observer objectivec.IObject, selector objc.SEL, name NSNotificationName, object string, suspensionBehavior NSNotificationSuspensionBehavior)
 
 	// Topic: Posting Notifications
 
@@ -228,7 +228,7 @@ func NewDistributedNotificationCenter() DistributedNotificationCenter {
 // before releasing `notificationObserver`.
 //
 // See: https://developer.apple.com/documentation/Foundation/DistributedNotificationCenter/addObserver(_:selector:name:object:suspensionBehavior:)
-func (d DistributedNotificationCenter) AddObserverSelectorNameObjectSuspensionBehavior(observer objectivec.IObject, selector objectivec.SEL, name NSNotificationName, object string, suspensionBehavior NSNotificationSuspensionBehavior) {
+func (d DistributedNotificationCenter) AddObserverSelectorNameObjectSuspensionBehavior(observer objectivec.IObject, selector objc.SEL, name NSNotificationName, object string, suspensionBehavior NSNotificationSuspensionBehavior) {
 	objc.Send[objc.ID](d.ID, objc.Sel("addObserver:selector:name:object:suspensionBehavior:"), observer, selector, objc.String(string(name)), objc.String(object), suspensionBehavior)
 }
 

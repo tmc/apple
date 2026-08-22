@@ -405,10 +405,10 @@ type INSText interface {
 	// This action method changes the font of the selection for a rich text object, or of all text for a plain text object.
 	ChangeFont(sender objectivec.IObject)
 	// The font of all the receiver’s text.
-	Font() NSFont
-	SetFont(value NSFont)
+	Font() INSFont
+	SetFont(value INSFont)
 	// Sets the font of characters within `aRange` to `aFont`.
-	SetFontRange(font NSFont, range_ foundation.NSRange)
+	SetFontRange(font INSFont, range_ foundation.NSRange)
 
 	// Topic: Setting text alignment
 
@@ -495,6 +495,10 @@ type INSText interface {
 	// The receiver’s delegate.
 	Delegate() NSTextDelegate
 	SetDelegate(value NSTextDelegate)
+
+	// Replaces the selected word in the receiver with a corrected version from the Spelling panel.
+	ChangeSpelling(sender objectivec.IObject)
+	IgnoreSpelling(sender objectivec.IObject)
 }
 
 // Init initializes the instance.
@@ -733,7 +737,7 @@ func (t NSText) ChangeFont(sender objectivec.IObject) {
 // method in an undoable action.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSText/setFont(_:range:)
-func (t NSText) SetFontRange(font NSFont, range_ foundation.NSRange) {
+func (t NSText) SetFontRange(font INSFont, range_ foundation.NSRange) {
 	objc.Send[objc.ID](t.ID, objc.Sel("setFont:range:"), font, range_)
 }
 
@@ -1147,11 +1151,11 @@ func (t NSText) SetSelectedRange(value foundation.NSRange) {
 // have compatible metrics.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSText/font
-func (t NSText) Font() NSFont {
+func (t NSText) Font() INSFont {
 	rv := objc.Send[objc.ID](t.ID, objc.Sel("font"))
 	return NSFontFromID(objc.ID(rv))
 }
-func (t NSText) SetFont(value NSFont) {
+func (t NSText) SetFont(value INSFont) {
 	objc.Send[struct{}](t.ID, objc.Sel("setFont:"), value)
 }
 

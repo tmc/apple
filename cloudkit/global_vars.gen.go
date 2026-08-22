@@ -3,8 +3,6 @@
 package cloudkit
 
 import (
-	"unsafe"
-
 	"github.com/ebitengine/purego"
 	"github.com/tmc/apple/objc"
 )
@@ -174,7 +172,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "CKQueryOperationMaximumResults"); err == nil && ptr != 0 {
-		CKQueryOperationMaximumResults = *(*uint)(unsafe.Pointer(ptr))
+		CKQueryOperationMaximumResults = objc.ValueAt[uint](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "CKRecordChangedErrorAncestorRecordKey"); err == nil && ptr != 0 {

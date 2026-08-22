@@ -102,9 +102,9 @@ func NewNSSimpleCString() NSSimpleCString {
 // specified length a `nil` value is returned.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSString/init(bytes:length:encoding:)
-func NewSimpleCStringWithBytesLengthEncoding(bytes []byte, encoding uint) NSSimpleCString {
+func NewSimpleCStringWithBytesLengthEncoding(bytes []byte, encoding NSStringEncoding) NSSimpleCString {
 	instance := getNSSimpleCStringClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithBytes:length:encoding:"), unsafe.Pointer(unsafe.SliceData(bytes)), uint(len(bytes)), encoding)
+	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithBytes:length:encoding:"), objc.BytesPointer(bytes), uint(len(bytes)), encoding)
 	return NSSimpleCStringFromID(rv)
 }
 
@@ -136,7 +136,7 @@ func NewSimpleCStringWithBytesLengthEncoding(bytes []byte, encoding uint) NSSimp
 // string with the buffer, without having the buffer deallocated.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSString/init(bytesNoCopy:length:encoding:freeWhenDone:)
-func NewSimpleCStringWithBytesNoCopyLengthEncodingFreeWhenDone(bytes unsafe.Pointer, len_ uint, encoding uint, freeBuffer bool) NSSimpleCString {
+func NewSimpleCStringWithBytesNoCopyLengthEncodingFreeWhenDone(bytes unsafe.Pointer, len_ uint, encoding NSStringEncoding, freeBuffer bool) NSSimpleCString {
 	instance := getNSSimpleCStringClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithBytesNoCopy:length:encoding:freeWhenDone:"), bytes, len_, encoding, freeBuffer)
 	return NSSimpleCStringFromID(rv)
@@ -164,7 +164,7 @@ func NewSimpleCStringWithCString(bytes string) NSSimpleCString {
 }
 
 // See: https://developer.apple.com/documentation/Foundation/NSString/init(cString:encoding:)-20f9h
-func NewSimpleCStringWithCStringEncoding(nullTerminatedCString string, encoding uint) NSSimpleCString {
+func NewSimpleCStringWithCStringEncoding(nullTerminatedCString string, encoding NSStringEncoding) NSSimpleCString {
 	instance := getNSSimpleCStringClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCString:encoding:"), unsafe.Pointer(unsafe.StringData(nullTerminatedCString+"\x00")), encoding)
 	return NSSimpleCStringFromID(rv)
@@ -182,7 +182,7 @@ func NewSimpleCStringWithCStringEncoding(nullTerminatedCString string, encoding 
 // object, which might be different from the original receiver.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSString/init(CString:length:)-5ure3
-func NewSimpleCStringWithCStringLength(bytes unsafe.Pointer, length int) NSSimpleCString {
+func NewSimpleCStringWithCStringLength(bytes *int8, length int) NSSimpleCString {
 	instance := getNSSimpleCStringClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCString:length:"), bytes, length)
 	return NSSimpleCStringFromID(rv)
@@ -211,7 +211,7 @@ func NewSimpleCStringWithCStringLength(bytes unsafe.Pointer, length int) NSSimpl
 // immutable (`const char *`) C-string buffer.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSString/init(CStringNoCopy:length:freeWhenDone:)-86dm2
-func NewSimpleCStringWithCStringNoCopyLengthFreeWhenDone(bytes unsafe.Pointer, length int, freeBuffer bool) NSSimpleCString {
+func NewSimpleCStringWithCStringNoCopyLengthFreeWhenDone(bytes *int8, length int, freeBuffer bool) NSSimpleCString {
 	instance := getNSSimpleCStringClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCStringNoCopy:length:freeWhenDone:"), bytes, length, freeBuffer)
 	return NSSimpleCStringFromID(rv)
@@ -311,13 +311,16 @@ func NewSimpleCStringWithContentsOfFile(path string) NSSimpleCString {
 // # Discussion
 //
 // See: https://developer.apple.com/documentation/Foundation/NSString/init(contentsOfFile:encoding:)
-func NewSimpleCStringWithContentsOfFileEncodingError(path string, enc uint) (NSSimpleCString, error) {
+func NewSimpleCStringWithContentsOfFileEncodingError(path string, enc NSStringEncoding) (NSSimpleCString, error) {
 	var errorPtr objc.ID
 	instance := getNSSimpleCStringClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithContentsOfFile:encoding:error:"), objc.String(path), enc, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
 		return NSSimpleCString{}, NSErrorFrom(errorPtr)
+	}
+	if rv == 0 {
+		return NSSimpleCString{}, objc.ErrInitFailed
 	}
 	return NSSimpleCStringFromID(rv), nil
 }
@@ -341,13 +344,16 @@ func NewSimpleCStringWithContentsOfFileEncodingError(path string, enc uint) (NSS
 // # Discussion
 //
 // See: https://developer.apple.com/documentation/Foundation/NSString/init(contentsOfFile:usedEncoding:)
-func NewSimpleCStringWithContentsOfFileUsedEncodingError(path string, enc uint) (NSSimpleCString, error) {
+func NewSimpleCStringWithContentsOfFileUsedEncodingError(path string, enc *uint) (NSSimpleCString, error) {
 	var errorPtr objc.ID
 	instance := getNSSimpleCStringClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithContentsOfFile:usedEncoding:error:"), objc.String(path), enc, unsafe.Pointer(&errorPtr))
+	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithContentsOfFile:usedEncoding:error:"), objc.String(path), unsafe.Pointer(enc), unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
 		return NSSimpleCString{}, NSErrorFrom(errorPtr)
+	}
+	if rv == 0 {
+		return NSSimpleCString{}, objc.ErrInitFailed
 	}
 	return NSSimpleCStringFromID(rv), nil
 }
@@ -372,7 +378,7 @@ func NewSimpleCStringWithContentsOfURL(url INSURL) NSSimpleCString {
 }
 
 // See: https://developer.apple.com/documentation/Foundation/NSString/init(contentsOf:encoding:)
-func NewSimpleCStringWithContentsOfURLEncodingError(url INSURL, enc uint) (NSSimpleCString, error) {
+func NewSimpleCStringWithContentsOfURLEncodingError(url INSURL, enc NSStringEncoding) (NSSimpleCString, error) {
 	var errorPtr objc.ID
 	instance := getNSSimpleCStringClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithContentsOfURL:encoding:error:"), url, enc, unsafe.Pointer(&errorPtr))
@@ -380,17 +386,23 @@ func NewSimpleCStringWithContentsOfURLEncodingError(url INSURL, enc uint) (NSSim
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
 		return NSSimpleCString{}, NSErrorFrom(errorPtr)
 	}
+	if rv == 0 {
+		return NSSimpleCString{}, objc.ErrInitFailed
+	}
 	return NSSimpleCStringFromID(rv), nil
 }
 
 // See: https://developer.apple.com/documentation/Foundation/NSString/init(contentsOf:usedEncoding:)
-func NewSimpleCStringWithContentsOfURLUsedEncodingError(url INSURL, enc uint) (NSSimpleCString, error) {
+func NewSimpleCStringWithContentsOfURLUsedEncodingError(url INSURL, enc *uint) (NSSimpleCString, error) {
 	var errorPtr objc.ID
 	instance := getNSSimpleCStringClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithContentsOfURL:usedEncoding:error:"), url, enc, unsafe.Pointer(&errorPtr))
+	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithContentsOfURL:usedEncoding:error:"), url, unsafe.Pointer(enc), unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
 		return NSSimpleCString{}, NSErrorFrom(errorPtr)
+	}
+	if rv == 0 {
+		return NSSimpleCString{}, objc.ErrInitFailed
 	}
 	return NSSimpleCStringFromID(rv), nil
 }
@@ -413,7 +425,7 @@ func NewSimpleCStringWithContentsOfURLUsedEncodingError(url INSURL, enc uint) (N
 // `encoding`).
 //
 // See: https://developer.apple.com/documentation/Foundation/NSString/init(data:encoding:)
-func NewSimpleCStringWithDataEncoding(data INSData, encoding uint) NSSimpleCString {
+func NewSimpleCStringWithDataEncoding(data INSData, encoding NSStringEncoding) NSSimpleCString {
 	instance := getNSSimpleCStringClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithData:encoding:"), data, encoding)
 	return NSSimpleCStringFromID(rv)
@@ -599,6 +611,9 @@ func NewSimpleCStringWithValidatedFormatValidFormatSpecifiersArgumentsError(form
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
 		return NSSimpleCString{}, NSErrorFrom(errorPtr)
 	}
+	if rv == 0 {
+		return NSSimpleCString{}, objc.ErrInitFailed
+	}
 	return NSSimpleCStringFromID(rv), nil
 }
 
@@ -610,6 +625,9 @@ func NewSimpleCStringWithValidatedFormatValidFormatSpecifiersError(format string
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
 		return NSSimpleCString{}, NSErrorFrom(errorPtr)
+	}
+	if rv == 0 {
+		return NSSimpleCString{}, objc.ErrInitFailed
 	}
 	return NSSimpleCStringFromID(rv), nil
 }
@@ -623,6 +641,9 @@ func NewSimpleCStringWithValidatedFormatValidFormatSpecifiersLocaleArgumentsErro
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
 		return NSSimpleCString{}, NSErrorFrom(errorPtr)
 	}
+	if rv == 0 {
+		return NSSimpleCString{}, objc.ErrInitFailed
+	}
 	return NSSimpleCStringFromID(rv), nil
 }
 
@@ -634,6 +655,9 @@ func NewSimpleCStringWithValidatedFormatValidFormatSpecifiersLocaleError(format 
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
 		return NSSimpleCString{}, NSErrorFrom(errorPtr)
+	}
+	if rv == 0 {
+		return NSSimpleCString{}, objc.ErrInitFailed
 	}
 	return NSSimpleCStringFromID(rv), nil
 }

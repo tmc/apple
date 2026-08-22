@@ -145,7 +145,7 @@ func NewMutableURLRequestWithCoder(coder INSCoder) NSMutableURLRequest {
 // ([NSURLRequestUseProtocolCachePolicy]), and the default timeout interval
 // (60 seconds).
 //
-// See: https://developer.apple.com/documentation/Foundation/NSURLRequest/init(url:)-7dmpd
+// See: https://developer.apple.com/documentation/Foundation/NSURLRequest/init(url:)
 func NewMutableURLRequestWithURL(URL INSURL) NSMutableURLRequest {
 	instance := getNSMutableURLRequestClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithURL:"), URL)
@@ -169,7 +169,7 @@ func NewMutableURLRequestWithURL(URL INSURL) NSMutableURLRequest {
 //
 // This is the designated initializer for [NSURLRequest].
 //
-// See: https://developer.apple.com/documentation/Foundation/NSURLRequest/init(url:cachePolicy:timeoutInterval:)-2giyj
+// See: https://developer.apple.com/documentation/Foundation/NSURLRequest/init(url:cachePolicy:timeoutInterval:)
 func NewMutableURLRequestWithURLCachePolicyTimeoutInterval(URL INSURL, cachePolicy NSURLRequestCachePolicy, timeoutInterval float64) NSMutableURLRequest {
 	instance := getNSMutableURLRequestClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithURL:cachePolicy:timeoutInterval:"), URL, cachePolicy, timeoutInterval)

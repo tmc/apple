@@ -129,6 +129,10 @@ type IMTLTensorDescriptor interface {
 	// A set of contexts in which you can use tensors you create with this descriptor.
 	Usage() MTLTensorUsage
 	SetUsage(value MTLTensorUsage)
+
+	// The auxiliary plane configurations for this tensor.
+	AuxiliaryPlanes() IMTLTensorAuxiliaryPlaneDescriptorMap
+	SetAuxiliaryPlanes(value IMTLTensorAuxiliaryPlaneDescriptorMap)
 }
 
 // Init initializes the instance.
@@ -283,4 +287,31 @@ func (t MTLTensorDescriptor) Usage() MTLTensorUsage {
 }
 func (t MTLTensorDescriptor) SetUsage(value MTLTensorUsage) {
 	objc.Send[struct{}](t.ID, objc.Sel("setUsage:"), value)
+}
+
+// The auxiliary plane configurations for this tensor.
+//
+// # Discussion
+//
+// Set this property with a populated [MTLTensorAuxiliaryPlaneDescriptorMap]
+// to create a multi-plane tensor. When `nil`, the tensor has only a data
+// plane.
+//
+// Multi-plane tensors do not support [MTLTensorUsageMachineLearning]. Use
+// [MTLTensorUsageCompute] or [MTLTensorUsageRender].
+//
+// Multi-plane tensors do not support data types larger than one byte as the
+// data plane type.
+//
+// Multi-plane tensors do not support rank zero.
+//
+// The default value is `nil`.
+//
+// See: https://developer.apple.com/documentation/Metal/MTLTensorDescriptor/auxiliaryPlanes
+func (t MTLTensorDescriptor) AuxiliaryPlanes() IMTLTensorAuxiliaryPlaneDescriptorMap {
+	rv := objc.Send[objc.ID](t.ID, objc.Sel("auxiliaryPlanes"))
+	return MTLTensorAuxiliaryPlaneDescriptorMapFromID(objc.ID(rv))
+}
+func (t MTLTensorDescriptor) SetAuxiliaryPlanes(value IMTLTensorAuxiliaryPlaneDescriptorMap) {
+	objc.Send[struct{}](t.ID, objc.Sel("setAuxiliaryPlanes:"), value)
 }

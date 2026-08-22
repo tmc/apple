@@ -10,7 +10,6 @@ import (
 	"github.com/tmc/apple/corefoundation"
 	"github.com/tmc/apple/coremedia"
 	"github.com/tmc/apple/foundation"
-	"github.com/tmc/apple/kernel"
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -99,7 +98,6 @@ func (ac AVMutableMovieClass) Alloc() AVMutableMovie {
 // # Accessing track groups
 //
 //   - [AVMutableMovie.TrackGroups]: The track groups an asset contains.
-//   - [AVMutableMovie.SetTrackGroups]
 //
 // # Managing tracks
 //
@@ -118,38 +116,26 @@ func (ac AVMutableMovieClass) Alloc() AVMutableMovie {
 // # Accessing duration and timing
 //
 //   - [AVMutableMovie.Duration]: A time value that indicates the asset’s duration.
-//   - [AVMutableMovie.SetDuration]
 //   - [AVMutableMovie.ProvidesPreciseDurationAndTiming]: A Boolean value that indicates whether the asset provides precise duration and timing.
-//   - [AVMutableMovie.SetProvidesPreciseDurationAndTiming]
 //   - [AVMutableMovie.MinimumTimeOffsetFromLive]: A time value that indicates how closely playback follows the latest live stream content.
-//   - [AVMutableMovie.SetMinimumTimeOffsetFromLive]
 //
 // # Accessing metadata
 //
 //   - [AVMutableMovie.Metadata]: An array of metadata items for all metadata identifiers for which a value is available.
 //   - [AVMutableMovie.SetMetadata]
 //   - [AVMutableMovie.CommonMetadata]: The metadata items an asset contains for common metadata identifiers that provide a value.
-//   - [AVMutableMovie.SetCommonMetadata]
 //   - [AVMutableMovie.AvailableMetadataFormats]: The metadata formats this asset contains.
-//   - [AVMutableMovie.SetAvailableMetadataFormats]
 //   - [AVMutableMovie.MetadataForFormat]: Returns an array of metadata items from the container with the specified format.
 //   - [AVMutableMovie.CreationDate]: A metadata item that indicates the asset’s creation date.
-//   - [AVMutableMovie.SetCreationDate]
 //   - [AVMutableMovie.Lyrics]: The lyrics of the asset in a language suitable for the current locale.
-//   - [AVMutableMovie.SetLyrics]
 //
 // # Determining suitability
 //
 //   - [AVMutableMovie.IsPlayable]: A Boolean value that indicates whether the asset has playable content.
-//   - [AVMutableMovie.SetPlayable]
 //   - [AVMutableMovie.IsReadable]: A Boolean value that indicates whether you can extract the asset’s media data using an asset reader.
-//   - [AVMutableMovie.SetReadable]
 //   - [AVMutableMovie.IsExportable]: A Boolean value that indicates whether you can export this asset using an export session.
-//   - [AVMutableMovie.SetExportable]
 //   - [AVMutableMovie.IsComposable]: A Boolean value that indicates whether you can use the asset as a segment of a composition track.
-//   - [AVMutableMovie.SetComposable]
 //   - [AVMutableMovie.IsCompatibleWithAirPlayVideo]: A Boolean value that indicates whether the asset is compatible with AirPlay Video.
-//   - [AVMutableMovie.SetCompatibleWithAirPlayVideo]
 //
 // # Inspecting preferences
 //
@@ -160,36 +146,28 @@ func (ac AVMutableMovieClass) Alloc() AVMutableMovie {
 //   - [AVMutableMovie.PreferredTransform]: The asset’s transform preference to apply to its visual content during presentation or processing.
 //   - [AVMutableMovie.SetPreferredTransform]
 //   - [AVMutableMovie.PreferredMediaSelection]: The default media selections for this asset’s media selection groups.
-//   - [AVMutableMovie.SetPreferredMediaSelection]
 //
 // # Accessing media selections
 //
 //   - [AVMutableMovie.AllMediaSelections]: The array of available media selections for this asset.
-//   - [AVMutableMovie.SetAllMediaSelections]
 //   - [AVMutableMovie.AvailableMediaCharacteristicsWithMediaSelectionOptions]: An array of media characteristics for which a media selection option is available.
-//   - [AVMutableMovie.SetAvailableMediaCharacteristicsWithMediaSelectionOptions]
 //   - [AVMutableMovie.MediaSelectionGroupForMediaCharacteristic]: Returns a media selection group that contains one or more options with the specified media characteristic.
 //
 // # Accessing chapter metadata
 //
 //   - [AVMutableMovie.AvailableChapterLocales]: The locales of the asset’s chapter metadata.
-//   - [AVMutableMovie.SetAvailableChapterLocales]
 //   - [AVMutableMovie.ChapterMetadataGroupsBestMatchingPreferredLanguages]: Returns an array of chapters with a locale that best matches the list of preferred languages.
 //   - [AVMutableMovie.ChapterMetadataGroupsWithTitleLocaleContainingItemsWithCommonKeys]: Returns an array of chapters that contain the specified title locale and common keys.
 //
 // # Determining content protections
 //
 //   - [AVMutableMovie.HasProtectedContent]: A Boolean value that indicates whether the asset contains protected content.
-//   - [AVMutableMovie.SetHasProtectedContent]
 //
 // # Determining fragment support
 //
 //   - [AVMutableMovie.CanContainFragments]: A Boolean value that indicates whether you can extend the asset by fragments.
-//   - [AVMutableMovie.SetCanContainFragments]
 //   - [AVMutableMovie.ContainsFragments]: A Boolean value that indicates whether at least one movie fragment extends the asset.
-//   - [AVMutableMovie.SetContainsFragments]
 //   - [AVMutableMovie.OverallDurationHint]: The total duration of fragments that currently exist, or may exist in the future.
-//   - [AVMutableMovie.SetOverallDurationHint]
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVMutableMovie
 //
@@ -236,7 +214,6 @@ func AVMutableMovieFromID(id objc.ID) AVMutableMovie {
 // # Accessing track groups
 //
 //   - [IAVMutableMovie.TrackGroups]: The track groups an asset contains.
-//   - [IAVMutableMovie.SetTrackGroups]
 //
 // # Managing tracks
 //
@@ -255,38 +232,26 @@ func AVMutableMovieFromID(id objc.ID) AVMutableMovie {
 // # Accessing duration and timing
 //
 //   - [IAVMutableMovie.Duration]: A time value that indicates the asset’s duration.
-//   - [IAVMutableMovie.SetDuration]
 //   - [IAVMutableMovie.ProvidesPreciseDurationAndTiming]: A Boolean value that indicates whether the asset provides precise duration and timing.
-//   - [IAVMutableMovie.SetProvidesPreciseDurationAndTiming]
 //   - [IAVMutableMovie.MinimumTimeOffsetFromLive]: A time value that indicates how closely playback follows the latest live stream content.
-//   - [IAVMutableMovie.SetMinimumTimeOffsetFromLive]
 //
 // # Accessing metadata
 //
 //   - [IAVMutableMovie.Metadata]: An array of metadata items for all metadata identifiers for which a value is available.
 //   - [IAVMutableMovie.SetMetadata]
 //   - [IAVMutableMovie.CommonMetadata]: The metadata items an asset contains for common metadata identifiers that provide a value.
-//   - [IAVMutableMovie.SetCommonMetadata]
 //   - [IAVMutableMovie.AvailableMetadataFormats]: The metadata formats this asset contains.
-//   - [IAVMutableMovie.SetAvailableMetadataFormats]
 //   - [IAVMutableMovie.MetadataForFormat]: Returns an array of metadata items from the container with the specified format.
 //   - [IAVMutableMovie.CreationDate]: A metadata item that indicates the asset’s creation date.
-//   - [IAVMutableMovie.SetCreationDate]
 //   - [IAVMutableMovie.Lyrics]: The lyrics of the asset in a language suitable for the current locale.
-//   - [IAVMutableMovie.SetLyrics]
 //
 // # Determining suitability
 //
 //   - [IAVMutableMovie.IsPlayable]: A Boolean value that indicates whether the asset has playable content.
-//   - [IAVMutableMovie.SetPlayable]
 //   - [IAVMutableMovie.IsReadable]: A Boolean value that indicates whether you can extract the asset’s media data using an asset reader.
-//   - [IAVMutableMovie.SetReadable]
 //   - [IAVMutableMovie.IsExportable]: A Boolean value that indicates whether you can export this asset using an export session.
-//   - [IAVMutableMovie.SetExportable]
 //   - [IAVMutableMovie.IsComposable]: A Boolean value that indicates whether you can use the asset as a segment of a composition track.
-//   - [IAVMutableMovie.SetComposable]
 //   - [IAVMutableMovie.IsCompatibleWithAirPlayVideo]: A Boolean value that indicates whether the asset is compatible with AirPlay Video.
-//   - [IAVMutableMovie.SetCompatibleWithAirPlayVideo]
 //
 // # Inspecting preferences
 //
@@ -297,36 +262,28 @@ func AVMutableMovieFromID(id objc.ID) AVMutableMovie {
 //   - [IAVMutableMovie.PreferredTransform]: The asset’s transform preference to apply to its visual content during presentation or processing.
 //   - [IAVMutableMovie.SetPreferredTransform]
 //   - [IAVMutableMovie.PreferredMediaSelection]: The default media selections for this asset’s media selection groups.
-//   - [IAVMutableMovie.SetPreferredMediaSelection]
 //
 // # Accessing media selections
 //
 //   - [IAVMutableMovie.AllMediaSelections]: The array of available media selections for this asset.
-//   - [IAVMutableMovie.SetAllMediaSelections]
 //   - [IAVMutableMovie.AvailableMediaCharacteristicsWithMediaSelectionOptions]: An array of media characteristics for which a media selection option is available.
-//   - [IAVMutableMovie.SetAvailableMediaCharacteristicsWithMediaSelectionOptions]
 //   - [IAVMutableMovie.MediaSelectionGroupForMediaCharacteristic]: Returns a media selection group that contains one or more options with the specified media characteristic.
 //
 // # Accessing chapter metadata
 //
 //   - [IAVMutableMovie.AvailableChapterLocales]: The locales of the asset’s chapter metadata.
-//   - [IAVMutableMovie.SetAvailableChapterLocales]
 //   - [IAVMutableMovie.ChapterMetadataGroupsBestMatchingPreferredLanguages]: Returns an array of chapters with a locale that best matches the list of preferred languages.
 //   - [IAVMutableMovie.ChapterMetadataGroupsWithTitleLocaleContainingItemsWithCommonKeys]: Returns an array of chapters that contain the specified title locale and common keys.
 //
 // # Determining content protections
 //
 //   - [IAVMutableMovie.HasProtectedContent]: A Boolean value that indicates whether the asset contains protected content.
-//   - [IAVMutableMovie.SetHasProtectedContent]
 //
 // # Determining fragment support
 //
 //   - [IAVMutableMovie.CanContainFragments]: A Boolean value that indicates whether you can extend the asset by fragments.
-//   - [IAVMutableMovie.SetCanContainFragments]
 //   - [IAVMutableMovie.ContainsFragments]: A Boolean value that indicates whether at least one movie fragment extends the asset.
-//   - [IAVMutableMovie.SetContainsFragments]
 //   - [IAVMutableMovie.OverallDurationHint]: The total duration of fragments that currently exist, or may exist in the future.
-//   - [IAVMutableMovie.SetOverallDurationHint]
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVMutableMovie
 type IAVMutableMovie interface {
@@ -367,8 +324,7 @@ type IAVMutableMovie interface {
 	// Topic: Accessing track groups
 
 	// The track groups an asset contains.
-	TrackGroups() IAVAssetTrackGroup
-	SetTrackGroups(value IAVAssetTrackGroup)
+	TrackGroups() []AVAssetTrackGroup
 
 	// Topic: Managing tracks
 
@@ -396,13 +352,10 @@ type IAVMutableMovie interface {
 
 	// A time value that indicates the asset’s duration.
 	Duration() coremedia.CMTime
-	SetDuration(value coremedia.CMTime)
 	// A Boolean value that indicates whether the asset provides precise duration and timing.
 	ProvidesPreciseDurationAndTiming() bool
-	SetProvidesPreciseDurationAndTiming(value bool)
 	// A time value that indicates how closely playback follows the latest live stream content.
 	MinimumTimeOffsetFromLive() coremedia.CMTime
-	SetMinimumTimeOffsetFromLive(value coremedia.CMTime)
 
 	// Topic: Accessing metadata
 
@@ -410,37 +363,28 @@ type IAVMutableMovie interface {
 	Metadata() []AVMetadataItem
 	SetMetadata(value []AVMetadataItem)
 	// The metadata items an asset contains for common metadata identifiers that provide a value.
-	CommonMetadata() IAVMetadataItem
-	SetCommonMetadata(value IAVMetadataItem)
+	CommonMetadata() []AVMetadataItem
 	// The metadata formats this asset contains.
-	AvailableMetadataFormats() AVMetadataFormat
-	SetAvailableMetadataFormats(value AVMetadataFormat)
+	AvailableMetadataFormats() []AVMetadataFormat
 	// Returns an array of metadata items from the container with the specified format.
 	MetadataForFormat(format AVMetadataFormat) []AVMetadataItem
 	// A metadata item that indicates the asset’s creation date.
 	CreationDate() IAVMetadataItem
-	SetCreationDate(value IAVMetadataItem)
 	// The lyrics of the asset in a language suitable for the current locale.
 	Lyrics() string
-	SetLyrics(value string)
 
 	// Topic: Determining suitability
 
 	// A Boolean value that indicates whether the asset has playable content.
 	IsPlayable() bool
-	SetPlayable(value bool)
 	// A Boolean value that indicates whether you can extract the asset’s media data using an asset reader.
 	IsReadable() bool
-	SetReadable(value bool)
 	// A Boolean value that indicates whether you can export this asset using an export session.
 	IsExportable() bool
-	SetExportable(value bool)
 	// A Boolean value that indicates whether you can use the asset as a segment of a composition track.
 	IsComposable() bool
-	SetComposable(value bool)
 	// A Boolean value that indicates whether the asset is compatible with AirPlay Video.
 	IsCompatibleWithAirPlayVideo() bool
-	SetCompatibleWithAirPlayVideo(value bool)
 
 	// Topic: Inspecting preferences
 
@@ -455,24 +399,20 @@ type IAVMutableMovie interface {
 	SetPreferredTransform(value corefoundation.CGAffineTransform)
 	// The default media selections for this asset’s media selection groups.
 	PreferredMediaSelection() IAVMediaSelection
-	SetPreferredMediaSelection(value IAVMediaSelection)
 
 	// Topic: Accessing media selections
 
 	// The array of available media selections for this asset.
-	AllMediaSelections() IAVMediaSelection
-	SetAllMediaSelections(value IAVMediaSelection)
+	AllMediaSelections() []AVMediaSelection
 	// An array of media characteristics for which a media selection option is available.
-	AvailableMediaCharacteristicsWithMediaSelectionOptions() AVMediaCharacteristic
-	SetAvailableMediaCharacteristicsWithMediaSelectionOptions(value AVMediaCharacteristic)
+	AvailableMediaCharacteristicsWithMediaSelectionOptions() []AVMediaCharacteristic
 	// Returns a media selection group that contains one or more options with the specified media characteristic.
 	MediaSelectionGroupForMediaCharacteristic(mediaCharacteristic AVMediaCharacteristic) IAVMediaSelectionGroup
 
 	// Topic: Accessing chapter metadata
 
 	// The locales of the asset’s chapter metadata.
-	AvailableChapterLocales() unsafe.Pointer
-	SetAvailableChapterLocales(value kernel.Pointer)
+	AvailableChapterLocales() []foundation.NSLocale
 	// Returns an array of chapters with a locale that best matches the list of preferred languages.
 	ChapterMetadataGroupsBestMatchingPreferredLanguages(preferredLanguages []string) []AVTimedMetadataGroup
 	// Returns an array of chapters that contain the specified title locale and common keys.
@@ -482,19 +422,15 @@ type IAVMutableMovie interface {
 
 	// A Boolean value that indicates whether the asset contains protected content.
 	HasProtectedContent() bool
-	SetHasProtectedContent(value bool)
 
 	// Topic: Determining fragment support
 
 	// A Boolean value that indicates whether you can extend the asset by fragments.
 	CanContainFragments() bool
-	SetCanContainFragments(value bool)
 	// A Boolean value that indicates whether at least one movie fragment extends the asset.
 	ContainsFragments() bool
-	SetContainsFragments(value bool)
 	// The total duration of fragments that currently exist, or may exist in the future.
 	OverallDurationHint() coremedia.CMTime
-	SetOverallDurationHint(value coremedia.CMTime)
 }
 
 // Init initializes the instance.
@@ -520,7 +456,7 @@ func NewAVMutableMovie() AVMutableMovie {
 //
 // URL: A URL to a local, remote, or HTTP Live Streaming media resource.
 //
-// See: https://developer.apple.com/documentation/AVFoundation/AVAsset/init(url:)-42gl8
+// See: https://developer.apple.com/documentation/AVFoundation/AVAsset/init(url:)
 func NewMutableMovieAssetWithURL(URL foundation.NSURL) AVMutableMovie {
 	rv := objc.Send[objc.ID](objc.ID(getAVMutableMovieClass().class), objc.Sel("assetWithURL:"), URL)
 	return AVMutableMovieFromID(rv)
@@ -575,6 +511,9 @@ func NewMutableMovieWithDataOptionsError(data foundation.NSData, options foundat
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
 		return AVMutableMovie{}, foundation.NSErrorFrom(errorPtr)
 	}
+	if rv == 0 {
+		return AVMutableMovie{}, objc.ErrInitFailed
+	}
 	return AVMutableMovieFromID(rv), nil
 }
 
@@ -606,6 +545,9 @@ func NewMutableMovieWithSettingsFromMovieOptionsError(movie IAVMovie, options fo
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
 		return AVMutableMovie{}, foundation.NSErrorFrom(errorPtr)
 	}
+	if rv == 0 {
+		return AVMutableMovie{}, objc.ErrInitFailed
+	}
 	return AVMutableMovieFromID(rv), nil
 }
 
@@ -621,7 +563,7 @@ func NewMutableMovieWithSettingsFromMovieOptionsError(movie IAVMovie, options fo
 // Upon creation, the values of the [AVMovie.DefaultMediaDataStorage] property
 // and any associated [AVMovieTrack.MediaDataStorage] properties are `nil`.
 //
-// See: https://developer.apple.com/documentation/AVFoundation/AVMovie/init(url:options:)-1wjrq
+// See: https://developer.apple.com/documentation/AVFoundation/AVMovie/init(url:options:)
 func NewMutableMovieWithURLOptions(URL foundation.NSURL, options foundation.INSDictionary) AVMutableMovie {
 	instance := getAVMutableMovieClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithURL:options:"), URL, options)
@@ -648,7 +590,7 @@ func NewMutableMovieWithURLOptions(URL foundation.NSURL, options foundation.INSD
 // sample buffers to any of its tracks, you must first set one of these
 // properties to indicate where the sample data should be written.
 //
-// See: https://developer.apple.com/documentation/AVFoundation/AVMutableMovie/init(url:options:error:)-8rnnj
+// See: https://developer.apple.com/documentation/AVFoundation/AVMutableMovie/init(url:options:error:)
 func NewMutableMovieWithURLOptionsError(URL foundation.NSURL, options foundation.INSDictionary) (AVMutableMovie, error) {
 	var errorPtr objc.ID
 	instance := getAVMutableMovieClass().Alloc()
@@ -656,6 +598,9 @@ func NewMutableMovieWithURLOptionsError(URL foundation.NSURL, options foundation
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
 		return AVMutableMovie{}, foundation.NSErrorFrom(errorPtr)
+	}
+	if rv == 0 {
+		return AVMutableMovie{}, objc.ErrInitFailed
 	}
 	return AVMutableMovieFromID(rv), nil
 }
@@ -680,7 +625,7 @@ func NewMutableMovieWithURLOptionsError(URL foundation.NSURL, options foundation
 // sample buffers to any of its tracks, you must first set one of these
 // properties to indicate where the sample data should be written.
 //
-// See: https://developer.apple.com/documentation/AVFoundation/AVMutableMovie/init(url:options:error:)-8rnnj
+// See: https://developer.apple.com/documentation/AVFoundation/AVMutableMovie/init(url:options:error:)
 func (m AVMutableMovie) InitWithURLOptionsError(URL foundation.NSURL, options foundation.INSDictionary) (AVMutableMovie, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("initWithURL:options:error:"), URL, options, unsafe.Pointer(&errorPtr))
@@ -1303,12 +1248,11 @@ func (m AVMutableMovie) SetInterleavingPeriod(value coremedia.CMTime) {
 // This value is an empty array if the composition has no track groups.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVMutableMovie/trackGroups
-func (m AVMutableMovie) TrackGroups() IAVAssetTrackGroup {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("trackGroups"))
-	return AVAssetTrackGroupFromID(objc.ID(rv))
-}
-func (m AVMutableMovie) SetTrackGroups(value IAVAssetTrackGroup) {
-	objc.Send[struct{}](m.ID, objc.Sel("setTrackGroups:"), value)
+func (m AVMutableMovie) TrackGroups() []AVAssetTrackGroup {
+	rv := objc.Send[[]objc.ID](m.ID, objc.Sel("trackGroups"))
+	return objc.ConvertSlice(rv, func(id objc.ID) AVAssetTrackGroup {
+		return AVAssetTrackGroupFromID(id)
+	})
 }
 
 // A time value that indicates the asset’s duration.
@@ -1329,9 +1273,6 @@ func (m AVMutableMovie) Duration() coremedia.CMTime {
 	rv := objc.Send[coremedia.CMTime](m.ID, objc.Sel("duration"))
 	return coremedia.CMTime(rv)
 }
-func (m AVMutableMovie) SetDuration(value coremedia.CMTime) {
-	objc.Send[struct{}](m.ID, objc.Sel("setDuration:"), value)
-}
 
 // A Boolean value that indicates whether the asset provides precise duration
 // and timing.
@@ -1349,9 +1290,6 @@ func (m AVMutableMovie) ProvidesPreciseDurationAndTiming() bool {
 	rv := objc.Send[bool](m.ID, objc.Sel("providesPreciseDurationAndTiming"))
 	return rv
 }
-func (m AVMutableMovie) SetProvidesPreciseDurationAndTiming(value bool) {
-	objc.Send[struct{}](m.ID, objc.Sel("setProvidesPreciseDurationAndTiming:"), value)
-}
 
 // A time value that indicates how closely playback follows the latest live
 // stream content.
@@ -1367,9 +1305,6 @@ func (m AVMutableMovie) SetProvidesPreciseDurationAndTiming(value bool) {
 func (m AVMutableMovie) MinimumTimeOffsetFromLive() coremedia.CMTime {
 	rv := objc.Send[coremedia.CMTime](m.ID, objc.Sel("minimumTimeOffsetFromLive"))
 	return coremedia.CMTime(rv)
-}
-func (m AVMutableMovie) SetMinimumTimeOffsetFromLive(value coremedia.CMTime) {
-	objc.Send[struct{}](m.ID, objc.Sel("setMinimumTimeOffsetFromLive:"), value)
 }
 
 // An array of metadata items for all metadata identifiers for which a value
@@ -1406,12 +1341,11 @@ func (m AVMutableMovie) SetMetadata(value []AVMetadataItem) {
 // to the specific items of interest.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVMutableMovie/commonMetadata
-func (m AVMutableMovie) CommonMetadata() IAVMetadataItem {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("commonMetadata"))
-	return AVMetadataItemFromID(objc.ID(rv))
-}
-func (m AVMutableMovie) SetCommonMetadata(value IAVMetadataItem) {
-	objc.Send[struct{}](m.ID, objc.Sel("setCommonMetadata:"), value)
+func (m AVMutableMovie) CommonMetadata() []AVMetadataItem {
+	rv := objc.Send[[]objc.ID](m.ID, objc.Sel("commonMetadata"))
+	return objc.ConvertSlice(rv, func(id objc.ID) AVMetadataItem {
+		return AVMetadataItemFromID(id)
+	})
 }
 
 // The metadata formats this asset contains.
@@ -1421,12 +1355,11 @@ func (m AVMutableMovie) SetCommonMetadata(value IAVMetadataItem) {
 // Metadata formats may include ID3, iTunes metadata, and so on.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVMutableMovie/availableMetadataFormats
-func (m AVMutableMovie) AvailableMetadataFormats() AVMetadataFormat {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("availableMetadataFormats"))
-	return AVMetadataFormat(foundation.NSStringFromID(rv).String())
-}
-func (m AVMutableMovie) SetAvailableMetadataFormats(value AVMetadataFormat) {
-	objc.Send[struct{}](m.ID, objc.Sel("setAvailableMetadataFormats:"), objc.String(string(value)))
+func (m AVMutableMovie) AvailableMetadataFormats() []AVMetadataFormat {
+	rv := objc.Send[[]objc.ID](m.ID, objc.Sel("availableMetadataFormats"))
+	return objc.ConvertSlice(rv, func(id objc.ID) AVMetadataFormat {
+		return AVMetadataFormat(foundation.NSStringFromID(id).String())
+	})
 }
 
 // A metadata item that indicates the asset’s creation date.
@@ -1449,9 +1382,6 @@ func (m AVMutableMovie) CreationDate() IAVMetadataItem {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("creationDate"))
 	return AVMetadataItemFromID(objc.ID(rv))
 }
-func (m AVMutableMovie) SetCreationDate(value IAVMetadataItem) {
-	objc.Send[struct{}](m.ID, objc.Sel("setCreationDate:"), value)
-}
 
 // The lyrics of the asset in a language suitable for the current locale.
 //
@@ -1459,9 +1389,6 @@ func (m AVMutableMovie) SetCreationDate(value IAVMetadataItem) {
 func (m AVMutableMovie) Lyrics() string {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("lyrics"))
 	return foundation.NSStringFromID(rv).String()
-}
-func (m AVMutableMovie) SetLyrics(value string) {
-	objc.Send[struct{}](m.ID, objc.Sel("setLyrics:"), objc.String(value))
 }
 
 // A Boolean value that indicates whether the asset has playable content.
@@ -1475,9 +1402,6 @@ func (m AVMutableMovie) SetLyrics(value string) {
 func (m AVMutableMovie) IsPlayable() bool {
 	rv := objc.Send[bool](m.ID, objc.Sel("isPlayable"))
 	return rv
-}
-func (m AVMutableMovie) SetPlayable(value bool) {
-	objc.Send[struct{}](m.ID, objc.Sel("setPlayable:"), value)
 }
 
 // A Boolean value that indicates whether you can extract the asset’s media
@@ -1493,9 +1417,6 @@ func (m AVMutableMovie) IsReadable() bool {
 	rv := objc.Send[bool](m.ID, objc.Sel("isReadable"))
 	return rv
 }
-func (m AVMutableMovie) SetReadable(value bool) {
-	objc.Send[struct{}](m.ID, objc.Sel("setReadable:"), value)
-}
 
 // A Boolean value that indicates whether you can export this asset using an
 // export session.
@@ -1509,9 +1430,6 @@ func (m AVMutableMovie) SetReadable(value bool) {
 func (m AVMutableMovie) IsExportable() bool {
 	rv := objc.Send[bool](m.ID, objc.Sel("isExportable"))
 	return rv
-}
-func (m AVMutableMovie) SetExportable(value bool) {
-	objc.Send[struct{}](m.ID, objc.Sel("setExportable:"), value)
 }
 
 // A Boolean value that indicates whether you can use the asset as a segment
@@ -1527,9 +1445,6 @@ func (m AVMutableMovie) IsComposable() bool {
 	rv := objc.Send[bool](m.ID, objc.Sel("isComposable"))
 	return rv
 }
-func (m AVMutableMovie) SetComposable(value bool) {
-	objc.Send[struct{}](m.ID, objc.Sel("setComposable:"), value)
-}
 
 // A Boolean value that indicates whether the asset is compatible with AirPlay
 // Video.
@@ -1543,9 +1458,6 @@ func (m AVMutableMovie) SetComposable(value bool) {
 func (m AVMutableMovie) IsCompatibleWithAirPlayVideo() bool {
 	rv := objc.Send[bool](m.ID, objc.Sel("isCompatibleWithAirPlayVideo"))
 	return rv
-}
-func (m AVMutableMovie) SetCompatibleWithAirPlayVideo(value bool) {
-	objc.Send[struct{}](m.ID, objc.Sel("setCompatibleWithAirPlayVideo:"), value)
 }
 
 // The asset’s rate preference for playing its media.
@@ -1606,42 +1518,36 @@ func (m AVMutableMovie) PreferredMediaSelection() IAVMediaSelection {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("preferredMediaSelection"))
 	return AVMediaSelectionFromID(objc.ID(rv))
 }
-func (m AVMutableMovie) SetPreferredMediaSelection(value IAVMediaSelection) {
-	objc.Send[struct{}](m.ID, objc.Sel("setPreferredMediaSelection:"), value)
-}
 
 // The array of available media selections for this asset.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVMutableMovie/allMediaSelections
-func (m AVMutableMovie) AllMediaSelections() IAVMediaSelection {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("allMediaSelections"))
-	return AVMediaSelectionFromID(objc.ID(rv))
-}
-func (m AVMutableMovie) SetAllMediaSelections(value IAVMediaSelection) {
-	objc.Send[struct{}](m.ID, objc.Sel("setAllMediaSelections:"), value)
+func (m AVMutableMovie) AllMediaSelections() []AVMediaSelection {
+	rv := objc.Send[[]objc.ID](m.ID, objc.Sel("allMediaSelections"))
+	return objc.ConvertSlice(rv, func(id objc.ID) AVMediaSelection {
+		return AVMediaSelectionFromID(id)
+	})
 }
 
 // An array of media characteristics for which a media selection option is
 // available.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVMutableMovie/availableMediaCharacteristicsWithMediaSelectionOptions
-func (m AVMutableMovie) AvailableMediaCharacteristicsWithMediaSelectionOptions() AVMediaCharacteristic {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("availableMediaCharacteristicsWithMediaSelectionOptions"))
-	return AVMediaCharacteristic(foundation.NSStringFromID(rv).String())
-}
-func (m AVMutableMovie) SetAvailableMediaCharacteristicsWithMediaSelectionOptions(value AVMediaCharacteristic) {
-	objc.Send[struct{}](m.ID, objc.Sel("setAvailableMediaCharacteristicsWithMediaSelectionOptions:"), objc.String(string(value)))
+func (m AVMutableMovie) AvailableMediaCharacteristicsWithMediaSelectionOptions() []AVMediaCharacteristic {
+	rv := objc.Send[[]objc.ID](m.ID, objc.Sel("availableMediaCharacteristicsWithMediaSelectionOptions"))
+	return objc.ConvertSlice(rv, func(id objc.ID) AVMediaCharacteristic {
+		return AVMediaCharacteristic(foundation.NSStringFromID(id).String())
+	})
 }
 
 // The locales of the asset’s chapter metadata.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVMutableMovie/availableChapterLocales
-func (m AVMutableMovie) AvailableChapterLocales() unsafe.Pointer {
-	rv := objc.Send[unsafe.Pointer](m.ID, objc.Sel("availableChapterLocales"))
-	return rv
-}
-func (m AVMutableMovie) SetAvailableChapterLocales(value kernel.Pointer) {
-	objc.Send[struct{}](m.ID, objc.Sel("setAvailableChapterLocales:"), value)
+func (m AVMutableMovie) AvailableChapterLocales() []foundation.NSLocale {
+	rv := objc.Send[[]objc.ID](m.ID, objc.Sel("availableChapterLocales"))
+	return objc.ConvertSlice(rv, func(id objc.ID) foundation.NSLocale {
+		return foundation.NSLocaleFromID(id)
+	})
 }
 
 // A Boolean value that indicates whether the asset contains protected
@@ -1660,9 +1566,6 @@ func (m AVMutableMovie) HasProtectedContent() bool {
 	rv := objc.Send[bool](m.ID, objc.Sel("hasProtectedContent"))
 	return rv
 }
-func (m AVMutableMovie) SetHasProtectedContent(value bool) {
-	objc.Send[struct{}](m.ID, objc.Sel("setHasProtectedContent:"), value)
-}
 
 // A Boolean value that indicates whether you can extend the asset by
 // fragments.
@@ -1677,9 +1580,6 @@ func (m AVMutableMovie) SetHasProtectedContent(value bool) {
 func (m AVMutableMovie) CanContainFragments() bool {
 	rv := objc.Send[bool](m.ID, objc.Sel("canContainFragments"))
 	return rv
-}
-func (m AVMutableMovie) SetCanContainFragments(value bool) {
-	objc.Send[struct{}](m.ID, objc.Sel("setCanContainFragments:"), value)
 }
 
 // A Boolean value that indicates whether at least one movie fragment extends
@@ -1698,9 +1598,6 @@ func (m AVMutableMovie) ContainsFragments() bool {
 	rv := objc.Send[bool](m.ID, objc.Sel("containsFragments"))
 	return rv
 }
-func (m AVMutableMovie) SetContainsFragments(value bool) {
-	objc.Send[struct{}](m.ID, objc.Sel("setContainsFragments:"), value)
-}
 
 // The total duration of fragments that currently exist, or may exist in the
 // future.
@@ -1717,7 +1614,4 @@ func (m AVMutableMovie) SetContainsFragments(value bool) {
 func (m AVMutableMovie) OverallDurationHint() coremedia.CMTime {
 	rv := objc.Send[coremedia.CMTime](m.ID, objc.Sel("overallDurationHint"))
 	return coremedia.CMTime(rv)
-}
-func (m AVMutableMovie) SetOverallDurationHint(value coremedia.CMTime) {
-	objc.Send[struct{}](m.ID, objc.Sel("setOverallDurationHint:"), value)
 }

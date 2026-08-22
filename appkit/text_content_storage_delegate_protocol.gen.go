@@ -144,8 +144,21 @@ func NewNSTextContentStorageDelegate(config NSTextContentStorageDelegateConfig) 
 		methods = append(methods, objc.MethodDef{
 			Cmd: objc.RegisterName("textContentStorage:textParagraphWithRange:"),
 			Fn: func(self objc.ID, _cmd objc.SEL, textContentStorageID objc.ID, range_ foundation.NSRange) objc.ID {
+				// Names which delegate was running if a panic unwinds out of
+				// it. The frames between here and the Objective-C caller are
+				// runtime and purego dispatch, so without this the traceback
+				// never says which selector dispatched. Deliberately no
+				// recover: see [objc.NoteDelegatePanic].
+				_delegateDone := false
+				defer func() {
+					if !_delegateDone {
+						objc.NoteDelegatePanic("NSTextContentStorageDelegate", "textContentStorage:textParagraphWithRange:")
+					}
+				}()
 				textContentStorage := NSTextContentStorageFromID(textContentStorageID)
-				return fn(textContentStorage, range_).GetID()
+				_delegateResult := fn(textContentStorage, range_).GetID()
+				_delegateDone = true
+				return _delegateResult
 			},
 		})
 	}

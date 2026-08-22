@@ -54,7 +54,7 @@ func (nc NSTableHeaderViewClass) Alloc() NSTableHeaderView {
 //
 // # Setting the table view
 //
-//   - [NSTableHeaderView.TableView]: The [NSTableView](<doc://com.apple.appkit/documentation/AppKit/NSTableView>) instance that this table header view belongs to.
+//   - [NSTableHeaderView.TableView]: The [NSTableView](<https://developer.apple.com/documentation/AppKit/NSTableView>) instance that this table header view belongs to.
 //   - [NSTableHeaderView.SetTableView]
 //
 // # Checking altered columns
@@ -88,7 +88,7 @@ func NSTableHeaderViewFromID(id objc.ID) NSTableHeaderView {
 //
 // # Setting the table view
 //
-//   - [INSTableHeaderView.TableView]: The [NSTableView](<doc://com.apple.appkit/documentation/AppKit/NSTableView>) instance that this table header view belongs to.
+//   - [INSTableHeaderView.TableView]: The [NSTableView](<https://developer.apple.com/documentation/AppKit/NSTableView>) instance that this table header view belongs to.
 //   - [INSTableHeaderView.SetTableView]
 //
 // # Checking altered columns
@@ -108,7 +108,7 @@ type INSTableHeaderView interface {
 
 	// Topic: Setting the table view
 
-	// The [NSTableView](<doc://com.apple.appkit/documentation/AppKit/NSTableView>) instance that this table header view belongs to.
+	// The [NSTableView](<https://developer.apple.com/documentation/AppKit/NSTableView>) instance that this table header view belongs to.
 	TableView() INSTableView
 	SetTableView(value INSTableView)
 
@@ -127,6 +127,9 @@ type INSTableHeaderView interface {
 	ColumnAtPoint(point corefoundation.CGPoint) int
 	// Returns the rectangle containing the header tile for the column at `columnIndex`.
 	HeaderRectOfColumn(column int) corefoundation.CGRect
+
+	// Returns the tool tip string to be displayed due to the cursor pausing at location `point` within the tool tip rectangle identified by `tag` in the view `view`.
+	ViewStringForToolTipPointUserData(view INSView, tag NSToolTipTag, point corefoundation.CGPoint, data unsafe.Pointer) string
 }
 
 // Init initializes the instance.

@@ -247,7 +247,7 @@ func (c NSColorPicker) InsertNewButtonImageIn(newButtonImage INSImage, buttonCel
 // Overriden to set the color picker’s mode.
 //
 // mode: A constant specifying the color picking mode. These constants are defined
-// in `AppKit/NSColorPanel.H()`.
+// in `AppKit/NSColorPanel.h`.
 //
 // # Discussion
 //
@@ -368,3 +368,5 @@ func (c NSColorPicker) MinContentSize() corefoundation.CGSize {
 	rv := objc.Send[corefoundation.CGSize](c.ID, objc.Sel("minContentSize"))
 	return corefoundation.CGSize(rv)
 }
+
+// Protocol methods for NSColorPickingDefault

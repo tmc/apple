@@ -50,8 +50,9 @@ func (jc JSManagedValueClass) Alloc() JSManagedValue {
 // The primary use case for a managed value is to store a JavaScript value in
 // an Objective-C or Swift object that exports to JavaScript.
 //
-// A managed value’s behavior ensures retention of its underlying JavaScript
-// value as long as either of the following conditions is true:
+// A managed value’s conditional retain behavior ensures retention of its
+// underlying JavaScript value as long as either of the following conditions
+// is true:
 //
 // - The JavaScript value is reachable through the JavaScript object graph
 // (that is, not subject to JavaScript garbage collection). - The

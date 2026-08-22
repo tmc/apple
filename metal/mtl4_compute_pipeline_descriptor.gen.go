@@ -200,7 +200,7 @@ func (m MTL4ComputePipelineDescriptor) SetMaxTotalThreadsPerThreadgroup(value ui
 // `threadsPerThreadgroup` argument of any compute dispatch matches it.
 //
 // Setting this property is optional, except in cases where the pipeline uses
-// .
+// CooperativeTensors.
 //
 // This property’s default value is `0`, which disables its effect.
 //

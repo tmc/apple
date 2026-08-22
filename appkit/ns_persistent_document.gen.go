@@ -7,8 +7,8 @@ import (
 	"sync"
 	"unsafe"
 
+	"github.com/tmc/apple/coredata"
 	"github.com/tmc/apple/foundation"
-	"github.com/tmc/apple/kernel"
 	"github.com/tmc/apple/objc"
 )
 
@@ -132,10 +132,10 @@ type INSPersistentDocument interface {
 	// Topic: Managing the Persistence Objects
 
 	// The managed object context for the document.
-	ManagedObjectContext() unsafe.Pointer
-	SetManagedObjectContext(value kernel.Pointer)
+	ManagedObjectContext() coredata.NSManagedObjectContext
+	SetManagedObjectContext(value coredata.NSManagedObjectContext)
 	// The managed object model of the document.
-	ManagedObjectModel() unsafe.Pointer
+	ManagedObjectModel() coredata.NSManagedObjectModel
 	// Configures the receiver’s persistent store coordinator with the appropriate stores for a given URL.
 	ConfigurePersistentStoreCoordinatorForURLOfTypeModelConfigurationStoreOptionsError(url foundation.NSURL, fileType string, configuration string, storeOptions foundation.INSDictionary) (bool, error)
 	// Returns the type of persistent store associated with the specified file type.
@@ -198,6 +198,9 @@ func NewPersistentDocumentForURLWithContentsOfURLOfTypeError(urlOrNil foundation
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
 		return NSPersistentDocument{}, foundation.NSErrorFrom(errorPtr)
 	}
+	if rv == 0 {
+		return NSPersistentDocument{}, objc.ErrInitFailed
+	}
 	return NSPersistentDocumentFromID(rv), nil
 }
 
@@ -241,6 +244,9 @@ func NewPersistentDocumentWithContentsOfURLOfTypeError(url foundation.NSURL, typ
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
 		return NSPersistentDocument{}, foundation.NSErrorFrom(errorPtr)
 	}
+	if rv == 0 {
+		return NSPersistentDocument{}, objc.ErrInitFailed
+	}
 	return NSPersistentDocumentFromID(rv), nil
 }
 
@@ -272,6 +278,9 @@ func NewPersistentDocumentWithTypeError(typeName string) (NSPersistentDocument, 
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
 		return NSPersistentDocument{}, foundation.NSErrorFrom(errorPtr)
+	}
+	if rv == 0 {
+		return NSPersistentDocument{}, objc.ErrInitFailed
 	}
 	return NSPersistentDocumentFromID(rv), nil
 }
@@ -351,11 +360,11 @@ func (p NSPersistentDocument) PersistentStoreTypeForFileType(fileType string) st
 // implementation to create the appropriate objects.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSPersistentDocument/managedObjectContext
-func (p NSPersistentDocument) ManagedObjectContext() unsafe.Pointer {
-	rv := objc.Send[unsafe.Pointer](p.ID, objc.Sel("managedObjectContext"))
-	return rv
+func (p NSPersistentDocument) ManagedObjectContext() coredata.NSManagedObjectContext {
+	rv := objc.Send[objc.ID](p.ID, objc.Sel("managedObjectContext"))
+	return coredata.NSManagedObjectContextFromID(objc.ID(rv))
 }
-func (p NSPersistentDocument) SetManagedObjectContext(value kernel.Pointer) {
+func (p NSPersistentDocument) SetManagedObjectContext(value coredata.NSManagedObjectContext) {
 	objc.Send[struct{}](p.ID, objc.Sel("setManagedObjectContext:"), value)
 }
 
@@ -373,10 +382,10 @@ func (p NSPersistentDocument) SetManagedObjectContext(value kernel.Pointer) {
 //
 // In applications built in OS X v10.4, by default the Core Data framework
 // creates a merged model from all the models found in the application bundle
-// .
+// and the frameworks against which the application is linked.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSPersistentDocument/managedObjectModel
-func (p NSPersistentDocument) ManagedObjectModel() unsafe.Pointer {
-	rv := objc.Send[unsafe.Pointer](p.ID, objc.Sel("managedObjectModel"))
-	return rv
+func (p NSPersistentDocument) ManagedObjectModel() coredata.NSManagedObjectModel {
+	rv := objc.Send[objc.ID](p.ID, objc.Sel("managedObjectModel"))
+	return coredata.NSManagedObjectModelFromID(objc.ID(rv))
 }

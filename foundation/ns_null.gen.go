@@ -75,7 +75,10 @@ func NSNullFromID(id objc.ID) NSNull {
 // See: https://developer.apple.com/documentation/Foundation/NSNull
 type INSNull interface {
 	objectivec.IObject
-	NSSecureCoding
+
+	// Encodes the receiver using a given archiver.
+	EncodeWithCoder(coder INSCoder)
+	InitWithCoder(coder INSCoder) NSNull
 }
 
 // Init initializes the instance.

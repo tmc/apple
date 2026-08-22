@@ -89,7 +89,7 @@ func (nc NSPopUpButtonCellClass) Alloc() NSPopUpButtonCell {
 //
 // # Accessing the items
 //
-//   - [NSPopUpButtonCell.ItemArray]: An array of [NSMenuItem](<doc://com.apple.appkit/documentation/AppKit/NSMenuItem>) objects that represent the items in the menu.
+//   - [NSPopUpButtonCell.ItemArray]: An array of [NSMenuItem](<https://developer.apple.com/documentation/AppKit/NSMenuItem>) objects that represent the items in the menu.
 //   - [NSPopUpButtonCell.NumberOfItems]: The number of items in the menu.
 //   - [NSPopUpButtonCell.IndexOfItem]: Returns the index of the specified menu item.
 //   - [NSPopUpButtonCell.IndexOfItemWithTitle]: Returns the index of the item with the specified title.
@@ -174,7 +174,7 @@ func NSPopUpButtonCellFromID(id objc.ID) NSPopUpButtonCell {
 //
 // # Accessing the items
 //
-//   - [INSPopUpButtonCell.ItemArray]: An array of [NSMenuItem](<doc://com.apple.appkit/documentation/AppKit/NSMenuItem>) objects that represent the items in the menu.
+//   - [INSPopUpButtonCell.ItemArray]: An array of [NSMenuItem](<https://developer.apple.com/documentation/AppKit/NSMenuItem>) objects that represent the items in the menu.
 //   - [INSPopUpButtonCell.NumberOfItems]: The number of items in the menu.
 //   - [INSPopUpButtonCell.IndexOfItem]: Returns the index of the specified menu item.
 //   - [INSPopUpButtonCell.IndexOfItemWithTitle]: Returns the index of the item with the specified title.
@@ -254,7 +254,7 @@ type INSPopUpButtonCell interface {
 
 	// Topic: Accessing the items
 
-	// An array of [NSMenuItem](<doc://com.apple.appkit/documentation/AppKit/NSMenuItem>) objects that represent the items in the menu.
+	// An array of [NSMenuItem](<https://developer.apple.com/documentation/AppKit/NSMenuItem>) objects that represent the items in the menu.
 	ItemArray() []NSMenuItem
 	// The number of items in the menu.
 	NumberOfItems() int
@@ -309,6 +309,9 @@ type INSPopUpButtonCell interface {
 	DismissPopUp()
 	// Displays the receiver’s menu and track mouse events in it.
 	PerformClickWithFrameInView(frame corefoundation.CGRect, controlView INSView)
+
+	// Implemented to override the default action of enabling or disabling a specific menu item.
+	ValidateMenuItem(menuItem INSMenuItem) bool
 }
 
 // Init initializes the instance.

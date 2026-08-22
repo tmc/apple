@@ -58,13 +58,9 @@ func (ac AVMutableMetadataItemClass) Alloc() AVMutableMetadataItem {
 //   - [AVMutableMetadataItem.ExtraAttributes]: A dictionary of additional attributes for a metadata item.
 //   - [AVMutableMetadataItem.SetExtraAttributes]
 //   - [AVMutableMetadataItem.StringValue]: The value of the metadata item as a string.
-//   - [AVMutableMetadataItem.SetStringValue]
 //   - [AVMutableMetadataItem.NumberValue]: The value of the metadata item as a number.
-//   - [AVMutableMetadataItem.SetNumberValue]
 //   - [AVMutableMetadataItem.DateValue]: The value of the metadata item as a date.
-//   - [AVMutableMetadataItem.SetDateValue]
 //   - [AVMutableMetadataItem.DataValue]: The value of the metadata item as a data value.
-//   - [AVMutableMetadataItem.SetDataValue]
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVMutableMetadataItem
 type AVMutableMetadataItem struct {
@@ -90,13 +86,9 @@ func AVMutableMetadataItemFromID(id objc.ID) AVMutableMetadataItem {
 //   - [IAVMutableMetadataItem.ExtraAttributes]: A dictionary of additional attributes for a metadata item.
 //   - [IAVMutableMetadataItem.SetExtraAttributes]
 //   - [IAVMutableMetadataItem.StringValue]: The value of the metadata item as a string.
-//   - [IAVMutableMetadataItem.SetStringValue]
 //   - [IAVMutableMetadataItem.NumberValue]: The value of the metadata item as a number.
-//   - [IAVMutableMetadataItem.SetNumberValue]
 //   - [IAVMutableMetadataItem.DateValue]: The value of the metadata item as a date.
-//   - [IAVMutableMetadataItem.SetDateValue]
 //   - [IAVMutableMetadataItem.DataValue]: The value of the metadata item as a data value.
-//   - [IAVMutableMetadataItem.SetDataValue]
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVMutableMetadataItem
 type IAVMutableMetadataItem interface {
@@ -112,16 +104,12 @@ type IAVMutableMetadataItem interface {
 	SetExtraAttributes(value foundation.INSDictionary)
 	// The value of the metadata item as a string.
 	StringValue() string
-	SetStringValue(value string)
 	// The value of the metadata item as a number.
 	NumberValue() foundation.NSNumber
-	SetNumberValue(value foundation.NSNumber)
 	// The value of the metadata item as a date.
 	DateValue() foundation.NSDate
-	SetDateValue(value foundation.NSDate)
 	// The value of the metadata item as a data value.
 	DataValue() foundation.NSData
-	SetDataValue(value foundation.NSData)
 }
 
 // Init initializes the instance.
@@ -188,9 +176,6 @@ func (m AVMutableMetadataItem) StringValue() string {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("stringValue"))
 	return foundation.NSStringFromID(rv).String()
 }
-func (m AVMutableMetadataItem) SetStringValue(value string) {
-	objc.Send[struct{}](m.ID, objc.Sel("setStringValue:"), objc.String(value))
-}
 
 // The value of the metadata item as a number.
 //
@@ -202,9 +187,6 @@ func (m AVMutableMetadataItem) SetStringValue(value string) {
 func (m AVMutableMetadataItem) NumberValue() foundation.NSNumber {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("numberValue"))
 	return foundation.NSNumberFromID(objc.ID(rv))
-}
-func (m AVMutableMetadataItem) SetNumberValue(value foundation.NSNumber) {
-	objc.Send[struct{}](m.ID, objc.Sel("setNumberValue:"), value)
 }
 
 // The value of the metadata item as a date.
@@ -218,9 +200,6 @@ func (m AVMutableMetadataItem) DateValue() foundation.NSDate {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("dateValue"))
 	return foundation.NSDateFromID(objc.ID(rv))
 }
-func (m AVMutableMetadataItem) SetDateValue(value foundation.NSDate) {
-	objc.Send[struct{}](m.ID, objc.Sel("setDateValue:"), value)
-}
 
 // The value of the metadata item as a data value.
 //
@@ -228,7 +207,4 @@ func (m AVMutableMetadataItem) SetDateValue(value foundation.NSDate) {
 func (m AVMutableMetadataItem) DataValue() foundation.NSData {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("dataValue"))
 	return foundation.NSDataFromID(objc.ID(rv))
-}
-func (m AVMutableMetadataItem) SetDataValue(value foundation.NSData) {
-	objc.Send[struct{}](m.ID, objc.Sel("setDataValue:"), value)
 }

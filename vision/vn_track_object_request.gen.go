@@ -3,6 +3,7 @@
 package vision
 
 import (
+	"context"
 	"sync"
 
 	"github.com/tmc/apple/objc"
@@ -87,7 +88,7 @@ type IVNTrackObjectRequest interface {
 	// Creates a new object tracking request with a detected object observation.
 	InitWithDetectedObjectObservation(observation IVNDetectedObjectObservation) VNTrackObjectRequest
 	// Creates a new object tracking request with a detected object observation.
-	InitWithDetectedObjectObservationCompletionHandler(observation IVNDetectedObjectObservation, completionHandler ErrorHandler) VNTrackObjectRequest
+	InitWithDetectedObjectObservationCompletionHandler(observation IVNDetectedObjectObservation, completionHandler VNRequestErrorHandler) VNTrackObjectRequest
 }
 
 // Init initializes the instance.
@@ -120,9 +121,10 @@ func NewVNTrackObjectRequest() VNTrackObjectRequest {
 // [VNImageRequestHandler.PerformRequestsError].
 //
 // See: https://developer.apple.com/documentation/Vision/VNRequest/init(completionHandler:)
-func NewTrackObjectRequestWithCompletionHandler(completionHandler VNRequestCompletionHandler) VNTrackObjectRequest {
+func NewTrackObjectRequestWithCompletionHandler(completionHandler VNRequestErrorHandler) VNTrackObjectRequest {
+	_block0, _ := NewVNRequestErrorBlock(completionHandler)
 	instance := getVNTrackObjectRequestClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCompletionHandler:"), completionHandler)
+	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCompletionHandler:"), _block0)
 	return VNTrackObjectRequestFromID(rv)
 }
 
@@ -144,9 +146,10 @@ func NewTrackObjectRequestWithDetectedObjectObservation(observation IVNDetectedO
 // completionHandler: The callback to invoke after performing the request.
 //
 // See: https://developer.apple.com/documentation/Vision/VNTrackObjectRequest/init(detectedObjectObservation:completionHandler:)
-func NewTrackObjectRequestWithDetectedObjectObservationCompletionHandler(observation IVNDetectedObjectObservation, completionHandler VNRequestCompletionHandler) VNTrackObjectRequest {
+func NewTrackObjectRequestWithDetectedObjectObservationCompletionHandler(observation IVNDetectedObjectObservation, completionHandler VNRequestErrorHandler) VNTrackObjectRequest {
+	_block1, _ := NewVNRequestErrorBlock(completionHandler)
 	instance := getVNTrackObjectRequestClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithDetectedObjectObservation:completionHandler:"), observation, completionHandler)
+	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithDetectedObjectObservation:completionHandler:"), observation, _block1)
 	return VNTrackObjectRequestFromID(rv)
 }
 
@@ -167,8 +170,27 @@ func (t VNTrackObjectRequest) InitWithDetectedObjectObservation(observation IVND
 // completionHandler: The callback to invoke after performing the request.
 //
 // See: https://developer.apple.com/documentation/Vision/VNTrackObjectRequest/init(detectedObjectObservation:completionHandler:)
-func (t VNTrackObjectRequest) InitWithDetectedObjectObservationCompletionHandler(observation IVNDetectedObjectObservation, completionHandler ErrorHandler) VNTrackObjectRequest {
-	_block1, _ := NewErrorBlock(completionHandler)
+func (t VNTrackObjectRequest) InitWithDetectedObjectObservationCompletionHandler(observation IVNDetectedObjectObservation, completionHandler VNRequestErrorHandler) VNTrackObjectRequest {
+	_block1, _ := NewVNRequestErrorBlock(completionHandler)
 	rv := objc.Send[VNTrackObjectRequest](t.ID, objc.Sel("initWithDetectedObjectObservation:completionHandler:"), observation, _block1)
 	return rv
+}
+
+// InitWithDetectedObjectObservationSync is a synchronous wrapper around [VNTrackObjectRequest.InitWithDetectedObjectObservationCompletionHandler].
+// It blocks until the completion handler fires or the context is cancelled.
+func (t VNTrackObjectRequest) InitWithDetectedObjectObservationSync(ctx context.Context, observation IVNDetectedObjectObservation) (*VNRequest, error) {
+	type result struct {
+		val *VNRequest
+		err error
+	}
+	done := make(chan result, 1)
+	t.InitWithDetectedObjectObservationCompletionHandler(observation, func(val *VNRequest, err error) {
+		done <- result{val, err}
+	})
+	select {
+	case r := <-done:
+		return r.val, r.err
+	case <-ctx.Done():
+		return nil, ctx.Err()
+	}
 }

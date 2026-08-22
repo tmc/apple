@@ -186,7 +186,7 @@ type IPDFDocument interface {
 	BeginFindStringWithOptions(string_ string, options foundation.NSStringCompareOptions)
 	// Asynchronously finds all instances of the specified array of strings in the document.
 	BeginFindStringsWithOptions(strings []string, options foundation.NSStringCompareOptions)
-	// Cancels a search initiated with [beginFindString(_:withOptions:)](<doc://com.apple.pdfkit/documentation/PDFKit/PDFDocument/beginFindString(_:withOptions:)>).
+	// Cancels a search initiated with [beginFindString(_:withOptions:)](<https://developer.apple.com/documentation/PDFKit/PDFDocument/beginFindString(_:withOptions:)>).
 	CancelFindString()
 	// Returns a representation of the document as an [NSData] object.
 	DataRepresentation() foundation.NSData
@@ -272,7 +272,7 @@ func NewPDFDocumentWithData(data foundation.NSData) PDFDocument {
 // A [PDFDocument] instance initialized with the data at the passed-in URL or
 // [NULL] if the object could not be initialized or if the URL is invalid.
 //
-// See: https://developer.apple.com/documentation/PDFKit/PDFDocument/init(url:)-98jte
+// See: https://developer.apple.com/documentation/PDFKit/PDFDocument/init(url:)
 func NewPDFDocumentWithURL(url foundation.NSURL) PDFDocument {
 	instance := getPDFDocumentClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithURL:"), url)
@@ -287,7 +287,7 @@ func NewPDFDocumentWithURL(url foundation.NSURL) PDFDocument {
 // A [PDFDocument] instance initialized with the data at the passed-in URL or
 // [NULL] if the object could not be initialized or if the URL is invalid.
 //
-// See: https://developer.apple.com/documentation/PDFKit/PDFDocument/init(url:)-98jte
+// See: https://developer.apple.com/documentation/PDFKit/PDFDocument/init(url:)
 func (p PDFDocument) InitWithURL(url foundation.NSURL) PDFDocument {
 	rv := objc.Send[PDFDocument](p.ID, objc.Sel("initWithURL:"), url)
 	return rv

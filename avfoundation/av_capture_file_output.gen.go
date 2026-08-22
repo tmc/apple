@@ -67,7 +67,7 @@ func (ac AVCaptureFileOutputClass) Alloc() AVCaptureFileOutput {
 //   - [AVCaptureFileOutput.StartRecordingToOutputFileURLRecordingDelegate]: Starts recording media to the specified output URL.
 //   - [AVCaptureFileOutput.StopRecording]: Tells the receiver to stop recording to the current file.
 //   - [AVCaptureFileOutput.PauseRecording]: Pauses recording to the current output file.
-//   - [AVCaptureFileOutput.ResumeRecording]: Resumes recording to the current output file after it was previously paused using [pauseRecording()](<doc://com.apple.avfoundation/documentation/AVFoundation/AVCaptureFileOutput/pauseRecording()>).
+//   - [AVCaptureFileOutput.ResumeRecording]: Resumes recording to the current output file after it was previously paused using [pauseRecording()](<https://developer.apple.com/documentation/AVFoundation/AVCaptureFileOutput/pauseRecording()>).
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCaptureFileOutput
 type AVCaptureFileOutput struct {
@@ -108,7 +108,7 @@ func AVCaptureFileOutputFromID(id objc.ID) AVCaptureFileOutput {
 //   - [IAVCaptureFileOutput.StartRecordingToOutputFileURLRecordingDelegate]: Starts recording media to the specified output URL.
 //   - [IAVCaptureFileOutput.StopRecording]: Tells the receiver to stop recording to the current file.
 //   - [IAVCaptureFileOutput.PauseRecording]: Pauses recording to the current output file.
-//   - [IAVCaptureFileOutput.ResumeRecording]: Resumes recording to the current output file after it was previously paused using [pauseRecording()](<doc://com.apple.avfoundation/documentation/AVFoundation/AVCaptureFileOutput/pauseRecording()>).
+//   - [IAVCaptureFileOutput.ResumeRecording]: Resumes recording to the current output file after it was previously paused using [pauseRecording()](<https://developer.apple.com/documentation/AVFoundation/AVCaptureFileOutput/pauseRecording()>).
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCaptureFileOutput
 type IAVCaptureFileOutput interface {
@@ -147,7 +147,7 @@ type IAVCaptureFileOutput interface {
 	StopRecording()
 	// Pauses recording to the current output file.
 	PauseRecording()
-	// Resumes recording to the current output file after it was previously paused using [pauseRecording()](<doc://com.apple.avfoundation/documentation/AVFoundation/AVCaptureFileOutput/pauseRecording()>).
+	// Resumes recording to the current output file after it was previously paused using [pauseRecording()](<https://developer.apple.com/documentation/AVFoundation/AVCaptureFileOutput/pauseRecording()>).
 	ResumeRecording()
 }
 

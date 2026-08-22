@@ -167,9 +167,21 @@ func NewAVCaptureVideoDataOutputSampleBufferDelegate(config AVCaptureVideoDataOu
 		methods = append(methods, objc.MethodDef{
 			Cmd: objc.RegisterName("captureOutput:didOutputSampleBuffer:fromConnection:"),
 			Fn: func(self objc.ID, _cmd objc.SEL, outputID objc.ID, sampleBuffer coremedia.CMSampleBufferRef, connectionID objc.ID) {
+				// Names which delegate was running if a panic unwinds out of
+				// it. The frames between here and the Objective-C caller are
+				// runtime and purego dispatch, so without this the traceback
+				// never says which selector dispatched. Deliberately no
+				// recover: see [objc.NoteDelegatePanic].
+				_delegateDone := false
+				defer func() {
+					if !_delegateDone {
+						objc.NoteDelegatePanic("AVCaptureVideoDataOutputSampleBufferDelegate", "captureOutput:didOutputSampleBuffer:fromConnection:")
+					}
+				}()
 				output := AVCaptureOutputFromID(outputID)
 				connection := AVCaptureConnectionFromID(connectionID)
 				fn(output, sampleBuffer, connection)
+				_delegateDone = true
 			},
 		})
 	}
@@ -179,9 +191,21 @@ func NewAVCaptureVideoDataOutputSampleBufferDelegate(config AVCaptureVideoDataOu
 		methods = append(methods, objc.MethodDef{
 			Cmd: objc.RegisterName("captureOutput:didDropSampleBuffer:fromConnection:"),
 			Fn: func(self objc.ID, _cmd objc.SEL, outputID objc.ID, sampleBuffer coremedia.CMSampleBufferRef, connectionID objc.ID) {
+				// Names which delegate was running if a panic unwinds out of
+				// it. The frames between here and the Objective-C caller are
+				// runtime and purego dispatch, so without this the traceback
+				// never says which selector dispatched. Deliberately no
+				// recover: see [objc.NoteDelegatePanic].
+				_delegateDone := false
+				defer func() {
+					if !_delegateDone {
+						objc.NoteDelegatePanic("AVCaptureVideoDataOutputSampleBufferDelegate", "captureOutput:didDropSampleBuffer:fromConnection:")
+					}
+				}()
 				output := AVCaptureOutputFromID(outputID)
 				connection := AVCaptureConnectionFromID(connectionID)
 				fn(output, sampleBuffer, connection)
+				_delegateDone = true
 			},
 		})
 	}

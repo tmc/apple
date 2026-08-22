@@ -379,9 +379,22 @@ func NewNSTextFieldDelegate(config NSTextFieldDelegateConfig) NSTextFieldDelegat
 		methods = append(methods, objc.MethodDef{
 			Cmd: objc.RegisterName("textField:textView:candidatesForSelectedRange:"),
 			Fn: func(self objc.ID, _cmd objc.SEL, textFieldID objc.ID, textViewID objc.ID, selectedRange foundation.NSRange) objc.ID {
+				// Names which delegate was running if a panic unwinds out of
+				// it. The frames between here and the Objective-C caller are
+				// runtime and purego dispatch, so without this the traceback
+				// never says which selector dispatched. Deliberately no
+				// recover: see [objc.NoteDelegatePanic].
+				_delegateDone := false
+				defer func() {
+					if !_delegateDone {
+						objc.NoteDelegatePanic("NSTextFieldDelegate", "textField:textView:candidatesForSelectedRange:")
+					}
+				}()
 				textField := NSTextFieldFromID(textFieldID)
 				textView := NSTextViewFromID(textViewID)
-				return fn(textField, textView, selectedRange).GetID()
+				_delegateResult := fn(textField, textView, selectedRange).GetID()
+				_delegateDone = true
+				return _delegateResult
 			},
 		})
 	}
@@ -391,9 +404,22 @@ func NewNSTextFieldDelegate(config NSTextFieldDelegateConfig) NSTextFieldDelegat
 		methods = append(methods, objc.MethodDef{
 			Cmd: objc.RegisterName("textField:textView:shouldSelectCandidateAtIndex:"),
 			Fn: func(self objc.ID, _cmd objc.SEL, textFieldID objc.ID, textViewID objc.ID, index uint) bool {
+				// Names which delegate was running if a panic unwinds out of
+				// it. The frames between here and the Objective-C caller are
+				// runtime and purego dispatch, so without this the traceback
+				// never says which selector dispatched. Deliberately no
+				// recover: see [objc.NoteDelegatePanic].
+				_delegateDone := false
+				defer func() {
+					if !_delegateDone {
+						objc.NoteDelegatePanic("NSTextFieldDelegate", "textField:textView:shouldSelectCandidateAtIndex:")
+					}
+				}()
 				textField := NSTextFieldFromID(textFieldID)
 				textView := NSTextViewFromID(textViewID)
-				return fn(textField, textView, index)
+				_delegateResult := fn(textField, textView, index)
+				_delegateDone = true
+				return _delegateResult
 			},
 		})
 	}

@@ -4,6 +4,7 @@ package appkit
 
 import (
 	"sync"
+	"unsafe"
 
 	"github.com/tmc/apple/corefoundation"
 	"github.com/tmc/apple/coregraphics"
@@ -414,7 +415,7 @@ func (i NSImageRep) InitWithCoder(coder foundation.INSCoder) NSImageRep {
 // [CGImage]: https://developer.apple.com/documentation/CoreGraphics/CGImage
 // [CGImage]: https://developer.apple.com/documentation/CoreGraphics/CGImage
 func (i NSImageRep) CGImageForProposedRectContextHints(proposedDestRect *corefoundation.CGRect, context INSGraphicsContext, hints foundation.INSDictionary) coregraphics.CGImageRef {
-	rv := objc.Send[coregraphics.CGImageRef](i.ID, objc.Sel("CGImageForProposedRect:context:hints:"), proposedDestRect, context, hints)
+	rv := objc.Send[coregraphics.CGImageRef](i.ID, objc.Sel("CGImageForProposedRect:context:hints:"), unsafe.Pointer(proposedDestRect), context, hints)
 	return coregraphics.CGImageRef(rv)
 }
 

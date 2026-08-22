@@ -3,8 +3,6 @@
 package quartzcore
 
 import (
-	"unsafe"
-
 	"github.com/ebitengine/purego"
 	"github.com/tmc/apple/objc"
 )
@@ -128,7 +126,7 @@ var (
 	//
 	// See: https://developer.apple.com/documentation/QuartzCore/CAEmitterLayerEmitterShape/cuboid
 	KCAEmitterLayerCuboid CAEmitterLayerEmitterShape
-	// KCAEmitterLayerLine is particles are emitted along a line from (`emitterPosition.X() - emitterSize.Width()/2`, `emitterPosition.Y()`, `emitterZPosition`) to (`emitterPosition.X() + emitterSize.Width()/2`, `emitterPosition.Y()`, `emitterZPosition`).
+	// KCAEmitterLayerLine is particles are emitted along a line from (`emitterPosition.x - emitterSize.width/2`, `emitterPosition.Y()`, `emitterZPosition`) to (`emitterPosition.x + emitterSize.width/2`, `emitterPosition.Y()`, `emitterZPosition`).
 	//
 	// See: https://developer.apple.com/documentation/QuartzCore/CAEmitterLayerEmitterShape/line
 	KCAEmitterLayerLine CAEmitterLayerEmitterShape
@@ -525,7 +523,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "CAFrameRateRangeDefault"); err == nil && ptr != 0 {
-		CAFrameRateRangeDefault = *(*CAFrameRateRange)(unsafe.Pointer(ptr))
+		CAFrameRateRangeDefault = objc.ValueAt[CAFrameRateRange](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "CAToneMapModeAutomatic"); err == nil && ptr != 0 {
@@ -559,7 +557,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "CATransform3DIdentity"); err == nil && ptr != 0 {
-		CATransform3DIdentity = *(*CATransform3D)(unsafe.Pointer(ptr))
+		CATransform3DIdentity = objc.ValueAt[CATransform3D](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCAAlignmentCenter"); err == nil && ptr != 0 {

@@ -89,10 +89,10 @@ func (gc GCExtendedGamepadClass) Alloc() GCExtendedGamepad {
 //   - [GCExtendedGamepad.ButtonMenu]: The primary menu button element that players use to enter the main menu and pause the game.
 //   - [GCExtendedGamepad.ButtonOptions]: The controller’s secondary menu button element.
 //   - [GCExtendedGamepad.ButtonHome]: The main menu button element that players use to enter the secondary menu and pause the game.
-//   - [GCExtendedGamepad.ButtonA]: The bottom face button that uses  or another indicator as its label.
-//   - [GCExtendedGamepad.ButtonB]: The right face button that uses  or another indicator as its label.
-//   - [GCExtendedGamepad.ButtonX]: The left face button that uses  or another indicator as its label.
-//   - [GCExtendedGamepad.ButtonY]: The top face button that uses  or another indicator as its label.
+//   - [GCExtendedGamepad.ButtonA]: The bottom face button that uses A or another indicator as its label.
+//   - [GCExtendedGamepad.ButtonB]: The right face button that uses B or another indicator as its label.
+//   - [GCExtendedGamepad.ButtonX]: The left face button that uses X or another indicator as its label.
+//   - [GCExtendedGamepad.ButtonY]: The top face button that uses Y or another indicator as its label.
 //
 // # Getting directional pad inputs
 //
@@ -152,10 +152,10 @@ func GCExtendedGamepadFromID(id objc.ID) GCExtendedGamepad {
 //   - [IGCExtendedGamepad.ButtonMenu]: The primary menu button element that players use to enter the main menu and pause the game.
 //   - [IGCExtendedGamepad.ButtonOptions]: The controller’s secondary menu button element.
 //   - [IGCExtendedGamepad.ButtonHome]: The main menu button element that players use to enter the secondary menu and pause the game.
-//   - [IGCExtendedGamepad.ButtonA]: The bottom face button that uses  or another indicator as its label.
-//   - [IGCExtendedGamepad.ButtonB]: The right face button that uses  or another indicator as its label.
-//   - [IGCExtendedGamepad.ButtonX]: The left face button that uses  or another indicator as its label.
-//   - [IGCExtendedGamepad.ButtonY]: The top face button that uses  or another indicator as its label.
+//   - [IGCExtendedGamepad.ButtonA]: The bottom face button that uses A or another indicator as its label.
+//   - [IGCExtendedGamepad.ButtonB]: The right face button that uses B or another indicator as its label.
+//   - [IGCExtendedGamepad.ButtonX]: The left face button that uses X or another indicator as its label.
+//   - [IGCExtendedGamepad.ButtonY]: The top face button that uses Y or another indicator as its label.
 //
 // # Getting directional pad inputs
 //
@@ -184,8 +184,8 @@ type IGCExtendedGamepad interface {
 	// Topic: Getting change information
 
 	// The block that the profile calls when an element’s value changes.
-	ValueChangedHandler() GCExtendedGamepadValueChangedHandler
-	SetValueChangedHandler(value GCExtendedGamepadValueChangedHandler)
+	ValueChangedHandler() GCExtendedGamepadGCControllerElementHandler
+	SetValueChangedHandler(value GCExtendedGamepadGCControllerElementHandler)
 
 	// Topic: Getting shoulder button inputs
 
@@ -209,13 +209,13 @@ type IGCExtendedGamepad interface {
 	ButtonOptions() IGCControllerButtonInput
 	// The main menu button element that players use to enter the secondary menu and pause the game.
 	ButtonHome() IGCControllerButtonInput
-	// The bottom face button that uses  or another indicator as its label.
+	// The bottom face button that uses A or another indicator as its label.
 	ButtonA() IGCControllerButtonInput
-	// The right face button that uses  or another indicator as its label.
+	// The right face button that uses B or another indicator as its label.
 	ButtonB() IGCControllerButtonInput
-	// The left face button that uses  or another indicator as its label.
+	// The left face button that uses X or another indicator as its label.
 	ButtonX() IGCControllerButtonInput
-	// The top face button that uses  or another indicator as its label.
+	// The top face button that uses Y or another indicator as its label.
 	ButtonY() IGCControllerButtonInput
 
 	// Topic: Getting directional pad inputs
@@ -292,12 +292,15 @@ func (g GCExtendedGamepad) Controller() IGCController {
 // changes, the profile only calls the block for the containing element.
 //
 // See: https://developer.apple.com/documentation/GameController/GCExtendedGamepad/valueChangedHandler
-func (g GCExtendedGamepad) ValueChangedHandler() GCExtendedGamepadValueChangedHandler {
-	rv := objc.Send[GCExtendedGamepadValueChangedHandler](g.ID, objc.Sel("valueChangedHandler"))
-	return GCExtendedGamepadValueChangedHandler(rv)
+func (g GCExtendedGamepad) ValueChangedHandler() GCExtendedGamepadGCControllerElementHandler {
+	rv := objc.Send[objc.ID](g.ID, objc.Sel("valueChangedHandler"))
+	_ = rv
+	return nil
 }
-func (g GCExtendedGamepad) SetValueChangedHandler(value GCExtendedGamepadValueChangedHandler) {
-	objc.Send[struct{}](g.ID, objc.Sel("setValueChangedHandler:"), value)
+func (g GCExtendedGamepad) SetValueChangedHandler(value GCExtendedGamepadGCControllerElementHandler) {
+	block, cleanup := NewGCExtendedGamepadGCControllerElementBlock(value)
+	defer cleanup()
+	objc.Send[struct{}](g.ID, objc.Sel("setValueChangedHandler:"), block)
 }
 
 // The controller’s left shoulder button element.
@@ -384,7 +387,7 @@ func (g GCExtendedGamepad) ButtonHome() IGCControllerButtonInput {
 	return GCControllerButtonInputFromID(objc.ID(rv))
 }
 
-// The bottom face button that uses or another indicator as its label.
+// The bottom face button that uses A or another indicator as its label.
 //
 // # Discussion
 //
@@ -397,7 +400,7 @@ func (g GCExtendedGamepad) ButtonA() IGCControllerButtonInput {
 	return GCControllerButtonInputFromID(objc.ID(rv))
 }
 
-// The right face button that uses or another indicator as its label.
+// The right face button that uses B or another indicator as its label.
 //
 // # Discussion
 //
@@ -410,7 +413,7 @@ func (g GCExtendedGamepad) ButtonB() IGCControllerButtonInput {
 	return GCControllerButtonInputFromID(objc.ID(rv))
 }
 
-// The left face button that uses or another indicator as its label.
+// The left face button that uses X or another indicator as its label.
 //
 // # Discussion
 //
@@ -423,7 +426,7 @@ func (g GCExtendedGamepad) ButtonX() IGCControllerButtonInput {
 	return GCControllerButtonInputFromID(objc.ID(rv))
 }
 
-// The top face button that uses or another indicator as its label.
+// The top face button that uses Y or another indicator as its label.
 //
 // # Discussion
 //

@@ -3,12 +3,9 @@
 package foundation
 
 import (
-	"errors"
 	"sync"
-	"unsafe"
 
 	"github.com/tmc/apple/objc"
-	"github.com/tmc/apple/objectivec"
 )
 
 // The class instance for the [NumberFormatter] class.
@@ -94,13 +91,12 @@ func (nc NumberFormatterClass) Alloc() NumberFormatter {
 //   - [NumberFormatter.SetFormatterBehavior]
 //   - [NumberFormatter.NumberStyle]: The number style used by the receiver.
 //   - [NumberFormatter.SetNumberStyle]
-//   - [NumberFormatter.GeneratesDecimalNumbers]: Determines whether the receiver creates instances of [NSDecimalNumber](<doc://com.apple.foundation/documentation/Foundation/NSDecimalNumber>) when it converts strings to number objects.
+//   - [NumberFormatter.GeneratesDecimalNumbers]: Determines whether the receiver creates instances of [NSDecimalNumber](<https://developer.apple.com/documentation/Foundation/NSDecimalNumber>) when it converts strings to number objects.
 //   - [NumberFormatter.SetGeneratesDecimalNumbers]
 //
 // # Converting Between Numbers and Strings
 //
-//   - [NumberFormatter.GetObjectValueForStringRangeError]: Returns by reference a cell-content object after creating it from a range of characters in a given string.
-//   - [NumberFormatter.NumberFromString]: Returns an [NSNumber](<doc://com.apple.foundation/documentation/Foundation/NSNumber>) object created by parsing a given string.
+//   - [NumberFormatter.NumberFromString]: Returns an [NSNumber](<https://developer.apple.com/documentation/Foundation/NSNumber>) object created by parsing a given string.
 //   - [NumberFormatter.StringFromNumber]: Returns a string containing the formatted value of the provided number object.
 //
 // # Managing Localization of Numbers
@@ -301,13 +297,12 @@ func NSNumberFormatterFromID(id objc.ID) NumberFormatter { return NumberFormatte
 //   - [INumberFormatter.SetFormatterBehavior]
 //   - [INumberFormatter.NumberStyle]: The number style used by the receiver.
 //   - [INumberFormatter.SetNumberStyle]
-//   - [INumberFormatter.GeneratesDecimalNumbers]: Determines whether the receiver creates instances of [NSDecimalNumber](<doc://com.apple.foundation/documentation/Foundation/NSDecimalNumber>) when it converts strings to number objects.
+//   - [INumberFormatter.GeneratesDecimalNumbers]: Determines whether the receiver creates instances of [NSDecimalNumber](<https://developer.apple.com/documentation/Foundation/NSDecimalNumber>) when it converts strings to number objects.
 //   - [INumberFormatter.SetGeneratesDecimalNumbers]
 //
 // # Converting Between Numbers and Strings
 //
-//   - [INumberFormatter.GetObjectValueForStringRangeError]: Returns by reference a cell-content object after creating it from a range of characters in a given string.
-//   - [INumberFormatter.NumberFromString]: Returns an [NSNumber](<doc://com.apple.foundation/documentation/Foundation/NSNumber>) object created by parsing a given string.
+//   - [INumberFormatter.NumberFromString]: Returns an [NSNumber](<https://developer.apple.com/documentation/Foundation/NSNumber>) object created by parsing a given string.
 //   - [INumberFormatter.StringFromNumber]: Returns a string containing the formatted value of the provided number object.
 //
 // # Managing Localization of Numbers
@@ -493,15 +488,13 @@ type INumberFormatter interface {
 	// The number style used by the receiver.
 	NumberStyle() NSNumberFormatterStyle
 	SetNumberStyle(value NSNumberFormatterStyle)
-	// Determines whether the receiver creates instances of [NSDecimalNumber](<doc://com.apple.foundation/documentation/Foundation/NSDecimalNumber>) when it converts strings to number objects.
+	// Determines whether the receiver creates instances of [NSDecimalNumber](<https://developer.apple.com/documentation/Foundation/NSDecimalNumber>) when it converts strings to number objects.
 	GeneratesDecimalNumbers() bool
 	SetGeneratesDecimalNumbers(value bool)
 
 	// Topic: Converting Between Numbers and Strings
 
-	// Returns by reference a cell-content object after creating it from a range of characters in a given string.
-	GetObjectValueForStringRangeError(obj []objectivec.IObject, string_ string, rangep NSRange) (bool, error)
-	// Returns an [NSNumber](<doc://com.apple.foundation/documentation/Foundation/NSNumber>) object created by parsing a given string.
+	// Returns an [NSNumber](<https://developer.apple.com/documentation/Foundation/NSNumber>) object created by parsing a given string.
 	NumberFromString(string_ string) INSNumber
 	// Returns a string containing the formatted value of the provided number object.
 	StringFromNumber(number INSNumber) string
@@ -764,45 +757,6 @@ func NewNumberFormatterWithCoder(coder INSCoder) NumberFormatter {
 	instance := getNumberFormatterClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
 	return NumberFormatterFromID(rv)
-}
-
-// Returns by reference a cell-content object after creating it from a range
-// of characters in a given string.
-//
-// obj: On return, contains an instance of [NSDecimalNumber] or [NSNumber] based on
-// the current value of the [NSNumberFormatter.GeneratesDecimalNumbers]
-// property. Returns `nil` by reference if conversion failed.
-//
-// string: A string object with the range of characters specified in `rangep` that is
-// used to create `anObject`.
-//
-// rangep: A range of characters in `aString`. On return, contains the actual range of
-// characters used to create the object.
-//
-// # Discussion
-//
-// If a string contains any characters other than numerical digits or
-// locale-appropriate group or decimal separators, parsing will fail.
-//
-// Any leading or trailing space separator characters in a string are ignored.
-// For example, the strings “ 5”, “5 “, and “5” all produce the
-// number `5`.
-//
-// If there is an error, this method calls `control(_:)` on the delegate.
-//
-// See: https://developer.apple.com/documentation/Foundation/NumberFormatter/getObjectValue(_:for:range:)
-func (n NumberFormatter) GetObjectValueForStringRangeError(obj []objectivec.IObject, string_ string, rangep NSRange) (bool, error) {
-	var errorPtr objc.ID
-	rv := objc.Send[bool](n.ID, objc.Sel("getObjectValue:forString:range:error:"), objectivec.IObjectSliceToNSArray(obj), objc.String(string_), rangep, unsafe.Pointer(&errorPtr))
-	if errorPtr != 0 {
-		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
-		return false, NSErrorFrom(errorPtr)
-	}
-	if !rv {
-		return false, errors.New("getObjectValue:forString:range:error: returned NO with nil NSError")
-	}
-	return rv, nil
-
 }
 
 // Returns an [NSNumber] object created by parsing a given string.

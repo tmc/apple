@@ -115,9 +115,9 @@ type INSCollectionViewCompositionalLayout interface {
 	// Creates a compositional layout object with a single section and an additional configuration.
 	InitWithSectionConfiguration(section INSCollectionLayoutSection, configuration INSCollectionViewCompositionalLayoutConfiguration) NSCollectionViewCompositionalLayout
 	// Creates a compositional layout object with a section provider to supply the layout’s sections.
-	InitWithSectionProvider(sectionProvider NSCollectionViewCompositionalLayoutSectionProvider) NSCollectionViewCompositionalLayout
+	InitWithSectionProvider(sectionProvider NSCollectionLayoutSectionInt64Handler) NSCollectionViewCompositionalLayout
 	// Creates a compositional layout object with a section provider and an additional configuration.
-	InitWithSectionProviderConfiguration(sectionProvider NSCollectionViewCompositionalLayoutSectionProvider, configuration INSCollectionViewCompositionalLayoutConfiguration) NSCollectionViewCompositionalLayout
+	InitWithSectionProviderConfiguration(sectionProvider NSCollectionLayoutSectionInt64Handler, configuration INSCollectionViewCompositionalLayoutConfiguration) NSCollectionViewCompositionalLayout
 
 	// Topic: Configuring the Layout
 
@@ -175,9 +175,10 @@ func NewCollectionViewCompositionalLayoutWithSectionConfiguration(section INSCol
 // layout’s sections.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSCollectionViewCompositionalLayout/init(sectionProvider:)
-func NewCollectionViewCompositionalLayoutWithSectionProvider(sectionProvider NSCollectionViewCompositionalLayoutSectionProvider) NSCollectionViewCompositionalLayout {
+func NewCollectionViewCompositionalLayoutWithSectionProvider(sectionProvider NSCollectionLayoutSectionInt64Handler) NSCollectionViewCompositionalLayout {
+	_block0, _ := NewNSCollectionLayoutSectionInt64Block(sectionProvider)
 	instance := getNSCollectionViewCompositionalLayoutClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithSectionProvider:"), sectionProvider)
+	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithSectionProvider:"), _block0)
 	return NSCollectionViewCompositionalLayoutFromID(rv)
 }
 
@@ -185,9 +186,10 @@ func NewCollectionViewCompositionalLayoutWithSectionProvider(sectionProvider NSC
 // additional configuration.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSCollectionViewCompositionalLayout/init(sectionProvider:configuration:)
-func NewCollectionViewCompositionalLayoutWithSectionProviderConfiguration(sectionProvider NSCollectionViewCompositionalLayoutSectionProvider, configuration INSCollectionViewCompositionalLayoutConfiguration) NSCollectionViewCompositionalLayout {
+func NewCollectionViewCompositionalLayoutWithSectionProviderConfiguration(sectionProvider NSCollectionLayoutSectionInt64Handler, configuration INSCollectionViewCompositionalLayoutConfiguration) NSCollectionViewCompositionalLayout {
+	_block0, _ := NewNSCollectionLayoutSectionInt64Block(sectionProvider)
 	instance := getNSCollectionViewCompositionalLayoutClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithSectionProvider:configuration:"), sectionProvider, configuration)
+	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithSectionProvider:configuration:"), _block0, configuration)
 	return NSCollectionViewCompositionalLayoutFromID(rv)
 }
 
@@ -214,12 +216,9 @@ var _nscollectionviewcompositionallayout_initwithsectionprovider_p0_key byte
 // layout’s sections.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSCollectionViewCompositionalLayout/init(sectionProvider:)
-func (c NSCollectionViewCompositionalLayout) InitWithSectionProvider(sectionProvider NSCollectionViewCompositionalLayoutSectionProvider) NSCollectionViewCompositionalLayout {
-	_block0 := objc.NewBlock(func(_ objc.Block, arg0 int, arg1 objc.ID) objc.ID {
-		return sectionProvider(arg0, NSCollectionLayoutEnvironmentObjectFromID(arg1)).ID
-	})
-	rv := objc.Send[NSCollectionViewCompositionalLayout](c.ID, objc.Sel("initWithSectionProvider:"), objc.ID(_block0))
-	objc.AssociateBlockWithReceiver(rv.ID, &_nscollectionviewcompositionallayout_initwithsectionprovider_p0_key, _block0)
+func (c NSCollectionViewCompositionalLayout) InitWithSectionProvider(sectionProvider NSCollectionLayoutSectionInt64Handler) NSCollectionViewCompositionalLayout {
+	_block0, _ := NewNSCollectionLayoutSectionInt64Block(sectionProvider)
+	rv := objc.Send[NSCollectionViewCompositionalLayout](c.ID, objc.Sel("initWithSectionProvider:"), _block0)
 	return rv
 }
 
@@ -229,12 +228,9 @@ var _nscollectionviewcompositionallayout_initwithsectionprovider_configuration_p
 // additional configuration.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSCollectionViewCompositionalLayout/init(sectionProvider:configuration:)
-func (c NSCollectionViewCompositionalLayout) InitWithSectionProviderConfiguration(sectionProvider NSCollectionViewCompositionalLayoutSectionProvider, configuration INSCollectionViewCompositionalLayoutConfiguration) NSCollectionViewCompositionalLayout {
-	_block0 := objc.NewBlock(func(_ objc.Block, arg0 int, arg1 objc.ID) objc.ID {
-		return sectionProvider(arg0, NSCollectionLayoutEnvironmentObjectFromID(arg1)).ID
-	})
-	rv := objc.Send[NSCollectionViewCompositionalLayout](c.ID, objc.Sel("initWithSectionProvider:configuration:"), objc.ID(_block0), configuration)
-	objc.AssociateBlockWithReceiver(rv.ID, &_nscollectionviewcompositionallayout_initwithsectionprovider_configuration_p0_key, _block0)
+func (c NSCollectionViewCompositionalLayout) InitWithSectionProviderConfiguration(sectionProvider NSCollectionLayoutSectionInt64Handler, configuration INSCollectionViewCompositionalLayoutConfiguration) NSCollectionViewCompositionalLayout {
+	_block0, _ := NewNSCollectionLayoutSectionInt64Block(sectionProvider)
+	rv := objc.Send[NSCollectionViewCompositionalLayout](c.ID, objc.Sel("initWithSectionProvider:configuration:"), _block0, configuration)
 	return rv
 }
 

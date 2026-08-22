@@ -68,8 +68,12 @@ func (nc NSViewControllerClass) Alloc() NSViewController {
 // a par with iOS view controller management. These methods, presented in
 // order here to reflect a typical cycle, are:
 //
+// View life cycle:
+//
 // - [NSViewController.ViewDidLoad] - [NSViewController.ViewWillAppear] -
 // [NSViewController.ViewDidAppear]
+//
+// User interaction cycle:
 //
 // - [NSViewController.UpdateViewConstraints] -
 // [NSViewController.ViewWillLayout] - [NSViewController.ViewDidLayout] -
@@ -112,7 +116,7 @@ func (nc NSViewControllerClass) Alloc() NSViewController {
 // # Creating A View Controller
 //
 //   - [NSViewController.InitWithNibNameBundle]: Returns a view controller object initialized to the nib file in the specified bundle.
-//   - [NSViewController.LoadView]: Instantiates a view from a nib file and sets the value of the [view](<doc://com.apple.appkit/documentation/AppKit/NSViewController/view>) property.
+//   - [NSViewController.LoadView]: Instantiates a view from a nib file and sets the value of the [view](<https://developer.apple.com/documentation/AppKit/NSViewController/view>) property.
 //
 // # Represented Object
 //
@@ -158,19 +162,19 @@ func (nc NSViewControllerClass) Alloc() NSViewController {
 //   - [NSViewController.PreferredContentSize]: The desired size of the view controller’s view, in screen units.
 //   - [NSViewController.SetPreferredContentSize]
 //   - [NSViewController.UpdateViewConstraints]: Called during Auto Layout constraint updating to enable the view controller to mediate the process.
-//   - [NSViewController.ViewWillLayout]: Called just before the [layout()](<doc://com.apple.appkit/documentation/AppKit/NSView/layout()>) method of the view controller’s view is called.
-//   - [NSViewController.ViewDidLayout]: Called immediately after the [layout()](<doc://com.apple.appkit/documentation/AppKit/NSView/layout()>) method of the view controller’s view is called.
+//   - [NSViewController.ViewWillLayout]: Called just before the [layout()](<https://developer.apple.com/documentation/AppKit/NSView/layout()>) method of the view controller’s view is called.
+//   - [NSViewController.ViewDidLayout]: Called immediately after the [layout()](<https://developer.apple.com/documentation/AppKit/NSView/layout()>) method of the view controller’s view is called.
 //
 // # Managing Child View Controllers in a Custom Container
 //
-//   - [NSViewController.AddChildViewController]: A convenience method for adding a child view controller at the end of the [children](<doc://com.apple.appkit/documentation/AppKit/NSViewController/children>) array.
+//   - [NSViewController.AddChildViewController]: A convenience method for adding a child view controller at the end of the [children](<https://developer.apple.com/documentation/AppKit/NSViewController/children>) array.
 //   - [NSViewController.ChildViewControllers]: An array of view controllers that are hierarchical children of the view controller.
 //   - [NSViewController.SetChildViewControllers]
 //   - [NSViewController.TransitionFromViewControllerToViewControllerOptionsCompletionHandler]: Performs a transition between two sibling child view controllers of the view controller.
-//   - [NSViewController.InsertChildViewControllerAtIndex]: Inserts a specified child view controller into the [children](<doc://com.apple.appkit/documentation/AppKit/NSViewController/children>) array at a specified position.
+//   - [NSViewController.InsertChildViewControllerAtIndex]: Inserts a specified child view controller into the [children](<https://developer.apple.com/documentation/AppKit/NSViewController/children>) array at a specified position.
 //   - [NSViewController.RemoveChildViewControllerAtIndex]: Removes a specified child controller from the view controller.
 //   - [NSViewController.RemoveFromParentViewController]: Removes the called view controller from its parent view controller.
-//   - [NSViewController.PreferredContentSizeDidChangeForViewController]: Called when there is a change in value of the [preferredContentSize](<doc://com.apple.appkit/documentation/AppKit/NSViewController/preferredContentSize>) property of a child view controller or a presented view controller.
+//   - [NSViewController.PreferredContentSizeDidChangeForViewController]: Called when there is a change in value of the [preferredContentSize](<https://developer.apple.com/documentation/AppKit/NSViewController/preferredContentSize>) property of a child view controller or a presented view controller.
 //
 // # Presenting Another View Controller’s Content
 //
@@ -217,7 +221,7 @@ func NSViewControllerFromID(id objc.ID) NSViewController {
 // # Creating A View Controller
 //
 //   - [INSViewController.InitWithNibNameBundle]: Returns a view controller object initialized to the nib file in the specified bundle.
-//   - [INSViewController.LoadView]: Instantiates a view from a nib file and sets the value of the [view](<doc://com.apple.appkit/documentation/AppKit/NSViewController/view>) property.
+//   - [INSViewController.LoadView]: Instantiates a view from a nib file and sets the value of the [view](<https://developer.apple.com/documentation/AppKit/NSViewController/view>) property.
 //
 // # Represented Object
 //
@@ -263,19 +267,19 @@ func NSViewControllerFromID(id objc.ID) NSViewController {
 //   - [INSViewController.PreferredContentSize]: The desired size of the view controller’s view, in screen units.
 //   - [INSViewController.SetPreferredContentSize]
 //   - [INSViewController.UpdateViewConstraints]: Called during Auto Layout constraint updating to enable the view controller to mediate the process.
-//   - [INSViewController.ViewWillLayout]: Called just before the [layout()](<doc://com.apple.appkit/documentation/AppKit/NSView/layout()>) method of the view controller’s view is called.
-//   - [INSViewController.ViewDidLayout]: Called immediately after the [layout()](<doc://com.apple.appkit/documentation/AppKit/NSView/layout()>) method of the view controller’s view is called.
+//   - [INSViewController.ViewWillLayout]: Called just before the [layout()](<https://developer.apple.com/documentation/AppKit/NSView/layout()>) method of the view controller’s view is called.
+//   - [INSViewController.ViewDidLayout]: Called immediately after the [layout()](<https://developer.apple.com/documentation/AppKit/NSView/layout()>) method of the view controller’s view is called.
 //
 // # Managing Child View Controllers in a Custom Container
 //
-//   - [INSViewController.AddChildViewController]: A convenience method for adding a child view controller at the end of the [children](<doc://com.apple.appkit/documentation/AppKit/NSViewController/children>) array.
+//   - [INSViewController.AddChildViewController]: A convenience method for adding a child view controller at the end of the [children](<https://developer.apple.com/documentation/AppKit/NSViewController/children>) array.
 //   - [INSViewController.ChildViewControllers]: An array of view controllers that are hierarchical children of the view controller.
 //   - [INSViewController.SetChildViewControllers]
 //   - [INSViewController.TransitionFromViewControllerToViewControllerOptionsCompletionHandler]: Performs a transition between two sibling child view controllers of the view controller.
-//   - [INSViewController.InsertChildViewControllerAtIndex]: Inserts a specified child view controller into the [children](<doc://com.apple.appkit/documentation/AppKit/NSViewController/children>) array at a specified position.
+//   - [INSViewController.InsertChildViewControllerAtIndex]: Inserts a specified child view controller into the [children](<https://developer.apple.com/documentation/AppKit/NSViewController/children>) array at a specified position.
 //   - [INSViewController.RemoveChildViewControllerAtIndex]: Removes a specified child controller from the view controller.
 //   - [INSViewController.RemoveFromParentViewController]: Removes the called view controller from its parent view controller.
-//   - [INSViewController.PreferredContentSizeDidChangeForViewController]: Called when there is a change in value of the [preferredContentSize](<doc://com.apple.appkit/documentation/AppKit/NSViewController/preferredContentSize>) property of a child view controller or a presented view controller.
+//   - [INSViewController.PreferredContentSizeDidChangeForViewController]: Called when there is a change in value of the [preferredContentSize](<https://developer.apple.com/documentation/AppKit/NSViewController/preferredContentSize>) property of a child view controller or a presented view controller.
 //
 // # Presenting Another View Controller’s Content
 //
@@ -311,7 +315,7 @@ type INSViewController interface {
 
 	// Returns a view controller object initialized to the nib file in the specified bundle.
 	InitWithNibNameBundle(nibNameOrNil NSNibName, nibBundleOrNil foundation.NSBundle) NSViewController
-	// Instantiates a view from a nib file and sets the value of the [view](<doc://com.apple.appkit/documentation/AppKit/NSViewController/view>) property.
+	// Instantiates a view from a nib file and sets the value of the [view](<https://developer.apple.com/documentation/AppKit/NSViewController/view>) property.
 	LoadView()
 
 	// Topic: Represented Object
@@ -339,7 +343,7 @@ type INSViewController interface {
 	// Topic: NSEditor Conformance
 
 	// Attempt to commit any currently edited results of the receiver.
-	CommitEditingWithDelegateDidCommitSelectorContextInfo(delegate objectivec.IObject, didCommitSelector objc.SEL, contextInfo unsafe.Pointer)
+	CommitEditingWithDelegateDidCommitSelectorContextInfo(delegate objectivec.IObject, didCommitSelector objc.SEL, contextInfo uintptr)
 	// Returns whether the receiver was able to commit any pending edits.
 	CommitEditing() bool
 	// Causes the receiver to discard any changes, restoring the previous values.
@@ -375,27 +379,27 @@ type INSViewController interface {
 	SetPreferredContentSize(value corefoundation.CGSize)
 	// Called during Auto Layout constraint updating to enable the view controller to mediate the process.
 	UpdateViewConstraints()
-	// Called just before the [layout()](<doc://com.apple.appkit/documentation/AppKit/NSView/layout()>) method of the view controller’s view is called.
+	// Called just before the [layout()](<https://developer.apple.com/documentation/AppKit/NSView/layout()>) method of the view controller’s view is called.
 	ViewWillLayout()
-	// Called immediately after the [layout()](<doc://com.apple.appkit/documentation/AppKit/NSView/layout()>) method of the view controller’s view is called.
+	// Called immediately after the [layout()](<https://developer.apple.com/documentation/AppKit/NSView/layout()>) method of the view controller’s view is called.
 	ViewDidLayout()
 
 	// Topic: Managing Child View Controllers in a Custom Container
 
-	// A convenience method for adding a child view controller at the end of the [children](<doc://com.apple.appkit/documentation/AppKit/NSViewController/children>) array.
+	// A convenience method for adding a child view controller at the end of the [children](<https://developer.apple.com/documentation/AppKit/NSViewController/children>) array.
 	AddChildViewController(childViewController INSViewController)
 	// An array of view controllers that are hierarchical children of the view controller.
 	ChildViewControllers() []NSViewController
 	SetChildViewControllers(value []NSViewController)
 	// Performs a transition between two sibling child view controllers of the view controller.
 	TransitionFromViewControllerToViewControllerOptionsCompletionHandler(fromViewController INSViewController, toViewController INSViewController, options NSViewControllerTransitionOptions, completion VoidHandler)
-	// Inserts a specified child view controller into the [children](<doc://com.apple.appkit/documentation/AppKit/NSViewController/children>) array at a specified position.
+	// Inserts a specified child view controller into the [children](<https://developer.apple.com/documentation/AppKit/NSViewController/children>) array at a specified position.
 	InsertChildViewControllerAtIndex(childViewController INSViewController, index int)
 	// Removes a specified child controller from the view controller.
 	RemoveChildViewControllerAtIndex(index int)
 	// Removes the called view controller from its parent view controller.
 	RemoveFromParentViewController()
-	// Called when there is a change in value of the [preferredContentSize](<doc://com.apple.appkit/documentation/AppKit/NSViewController/preferredContentSize>) property of a child view controller or a presented view controller.
+	// Called when there is a change in value of the [preferredContentSize](<https://developer.apple.com/documentation/AppKit/NSViewController/preferredContentSize>) property of a child view controller or a presented view controller.
 	PreferredContentSizeDidChangeForViewController(viewController INSViewController)
 
 	// Topic: Presenting Another View Controller’s Content
@@ -436,6 +440,8 @@ type INSViewController interface {
 	SetSourceItemView(value INSView)
 
 	CommitEditingAndReturnError() (bool, error)
+	// A string that identifies the user interface item.
+	Identifier() NSUserInterfaceItemIdentifier
 }
 
 // Init initializes the instance.
@@ -615,7 +621,7 @@ func (v NSViewController) LoadView() {
 //
 // [objectDidBeginEditing:]: https://developer.apple.com/documentation/ObjectiveC/NSObject-swift.class/objectDidBeginEditing:
 // [objectDidEndEditing:]: https://developer.apple.com/documentation/ObjectiveC/NSObject-swift.class/objectDidEndEditing:
-func (v NSViewController) CommitEditingWithDelegateDidCommitSelectorContextInfo(delegate objectivec.IObject, didCommitSelector objc.SEL, contextInfo unsafe.Pointer) {
+func (v NSViewController) CommitEditingWithDelegateDidCommitSelectorContextInfo(delegate objectivec.IObject, didCommitSelector objc.SEL, contextInfo uintptr) {
 	objc.Send[objc.ID](v.ID, objc.Sel("commitEditingWithDelegate:didCommitSelector:contextInfo:"), delegate, didCommitSelector, contextInfo)
 }
 
@@ -1212,9 +1218,9 @@ func (v NSViewController) ShouldPerformSegueWithIdentifierSender(identifier NSSt
 //
 // # Discussion
 //
-// This property the object you provide to it; it does not it. In another
-// words, a view controller has a relationship with its represented object and
-// does not own it as an attribute.
+// This property retains the object you provide to it; it does not copy it. In
+// another words, a view controller has a to-one relationship with its
+// represented object and does not own it as an attribute.
 //
 // The [NSViewController.RepresentedObject] property is key-value coding and
 // key-value observing compliant. When you use the represented object as the
@@ -1401,9 +1407,9 @@ func (v NSViewController) PresentedViewControllers() []NSViewController {
 //
 // # Discussion
 //
-// The is the one that is ultimately responsible for presenting the view
-// controller whose [NSViewController.PresentingViewController] property you
-// are accessing.
+// The presenting view controller is the one that is ultimately responsible
+// for presenting the view controller whose
+// [NSViewController.PresentingViewController] property you are accessing.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSViewController/presentingViewController
 func (v NSViewController) PresentingViewController() INSViewController {
@@ -1468,6 +1474,8 @@ func (v NSViewController) SourceItemView() INSView {
 func (v NSViewController) SetSourceItemView(value INSView) {
 	objc.Send[struct{}](v.ID, objc.Sel("setSourceItemView:"), value)
 }
+
+// Protocol methods for NSEditor
 
 // Protocol methods for NSSeguePerforming
 

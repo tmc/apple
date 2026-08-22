@@ -171,7 +171,6 @@ func NSHashTableFromID(id objc.ID) NSHashTable {
 // See: https://developer.apple.com/documentation/Foundation/NSHashTable
 type INSHashTable interface {
 	objectivec.IObject
-	NSSecureCoding
 
 	// Topic: Initialization
 
@@ -228,6 +227,10 @@ type INSHashTable interface {
 
 	// The pointer functions for the hash table.
 	PointerFunctions() INSPointerFunctions
+
+	// Encodes the receiver using a given archiver.
+	EncodeWithCoder(coder INSCoder)
+	InitWithCoder(coder INSCoder) NSHashTable
 }
 
 // Init initializes the instance.
@@ -570,33 +573,6 @@ func (h NSHashTable) MinusHashTable(other INSHashTable) {
 // [NSPointerFunctions.Options]: https://developer.apple.com/documentation/Foundation/NSPointerFunctions/Options
 func (h NSHashTable) UnionHashTable(other INSHashTable) {
 	objc.Send[objc.ID](h.ID, objc.Sel("unionHashTable:"), other)
-}
-
-// Returns by reference a C array of objects over which the sender should
-// iterate, and as the return value the number of objects in the array.
-//
-// state: Context information that is used in the enumeration to, in addition to
-// other possibilities, ensure that the collection has not been mutated.
-//
-// buffer: A C array of objects over which the sender is to iterate.
-//
-// len: The maximum number of objects to return in `stackbuf`.
-//
-// # Return Value
-//
-// The number of objects returned in `stackbuf`. Returns `0` when the
-// iteration is finished.
-//
-// # Discussion
-//
-// The state structure is assumed to be of stack local memory, so you can
-// recast the passed in state structure to one more suitable for your
-// iteration.
-//
-// See: https://developer.apple.com/documentation/Foundation/NSFastEnumeration/countByEnumerating(with:objects:count:)
-func (h NSHashTable) CountByEnumeratingWithStateObjectsCount(state NSFastEnumerationState, buffer []objectivec.IObject, len_ uint) uint {
-	rv := objc.Send[uint](h.ID, objc.Sel("countByEnumeratingWithState:objects:count:"), state, objc.CArray(buffer), len_)
-	return rv
 }
 
 // Encodes the receiver using a given archiver.

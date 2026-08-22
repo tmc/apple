@@ -4,6 +4,7 @@ package foundation
 
 import (
 	"sync"
+	"unsafe"
 
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
@@ -69,11 +70,7 @@ func (fc FormatterClass) Alloc() Formatter {
 //
 //   - [Formatter.StringForObjectValue]: The default implementation of this method raises an exception.
 //   - [Formatter.AttributedStringForObjectValueWithDefaultAttributes]: The default implementation returns `nil` to indicate that the formatter object does not provide an attributed string.
-//   - [Formatter.EditingStringForObjectValue]: The default implementation of this method invokes [string(for:)](<doc://com.apple.foundation/documentation/Foundation/Formatter/string(for:)>).
-//
-// # Getting Object Values for Textual Representations
-//
-//   - [Formatter.GetObjectValueForStringErrorDescription]: The default implementation of this method raises an exception.
+//   - [Formatter.EditingStringForObjectValue]: The default implementation of this method invokes [string(for:)](<https://developer.apple.com/documentation/Foundation/Formatter/string(for:)>).
 //
 // # Validating Partial Strings
 //
@@ -107,11 +104,7 @@ func NSFormatterFromID(id objc.ID) Formatter { return FormatterFromID(id) }
 //
 //   - [IFormatter.StringForObjectValue]: The default implementation of this method raises an exception.
 //   - [IFormatter.AttributedStringForObjectValueWithDefaultAttributes]: The default implementation returns `nil` to indicate that the formatter object does not provide an attributed string.
-//   - [IFormatter.EditingStringForObjectValue]: The default implementation of this method invokes [string(for:)](<doc://com.apple.foundation/documentation/Foundation/Formatter/string(for:)>).
-//
-// # Getting Object Values for Textual Representations
-//
-//   - [IFormatter.GetObjectValueForStringErrorDescription]: The default implementation of this method raises an exception.
+//   - [IFormatter.EditingStringForObjectValue]: The default implementation of this method invokes [string(for:)](<https://developer.apple.com/documentation/Foundation/Formatter/string(for:)>).
 //
 // # Validating Partial Strings
 //
@@ -128,20 +121,19 @@ type IFormatter interface {
 	StringForObjectValue(obj objectivec.IObject) string
 	// The default implementation returns `nil` to indicate that the formatter object does not provide an attributed string.
 	AttributedStringForObjectValueWithDefaultAttributes(obj objectivec.IObject, attrs INSDictionary) INSAttributedString
-	// The default implementation of this method invokes [string(for:)](<doc://com.apple.foundation/documentation/Foundation/Formatter/string(for:)>).
+	// The default implementation of this method invokes [string(for:)](<https://developer.apple.com/documentation/Foundation/Formatter/string(for:)>).
 	EditingStringForObjectValue(obj objectivec.IObject) string
-
-	// Topic: Getting Object Values for Textual Representations
-
-	// The default implementation of this method raises an exception.
-	GetObjectValueForStringErrorDescription(obj []objectivec.IObject, string_ string, error_ string) bool
 
 	// Topic: Validating Partial Strings
 
 	// Returns a Boolean value that indicates whether a partial string is valid.
-	IsPartialStringValidNewEditingStringErrorDescription(partialString string, newString string, error_ string) bool
+	IsPartialStringValidNewEditingStringErrorDescription(partialString string, newString *NSString, error_ *NSString) bool
 	// This method should be implemented in subclasses that want to validate user changes to a string in a field, where the user changes are not necessarily at the end of the string, and preserve the selection (or set a different one, such as selecting the erroneous part of the string the user has typed).
-	IsPartialStringValidProposedSelectedRangeOriginalStringOriginalSelectedRangeErrorDescription(partialStringPtr string, proposedSelRangePtr NSRangePointer, origString string, origSelRange NSRange, error_ string) bool
+	IsPartialStringValidProposedSelectedRangeOriginalStringOriginalSelectedRangeErrorDescription(partialStringPtr *NSString, proposedSelRangePtr NSRangePointer, origString string, origSelRange NSRange, error_ *NSString) bool
+
+	// Encodes the receiver using a given archiver.
+	EncodeWithCoder(coder INSCoder)
+	InitWithCoder(coder INSCoder) Formatter
 }
 
 // Init initializes the instance.
@@ -258,59 +250,6 @@ func (f Formatter) EditingStringForObjectValue(obj objectivec.IObject) string {
 	return NSStringFromID(rv).String()
 }
 
-// The default implementation of this method raises an exception.
-//
-// obj: If conversion is successful, upon return contains the object created from
-// `string`.
-//
-// string: The string to parse.
-//
-// error: If non-`nil`, if there is a error during the conversion, upon return
-// contains an [NSString] object that describes the problem.
-//
-// # Return Value
-//
-// true if the conversion from string to cell content object was successful,
-// otherwise false.
-//
-// # Discussion
-//
-// When implementing this method in a subclass, return by reference the object
-// `anObject` created from `string`. If `string` is equal to the value of the
-// converted object, such as for formatters whose converted value type is
-// [NSString], it can be returned by reference without creating a new object.
-//
-// Return true if the conversion is successful. If you return false, also
-// return by indirection (in `error`) a localized user-presentable [NSString]
-// object that explains the reason why the conversion failed; the delegate (if
-// any) of the [NSControl] object managing the cell can then respond to the
-// failure in control:didFailToFormatString:errorDescription:. However, if
-// `error` is `nil`, the sender is not interested in the error description,
-// and you should not attempt to assign one.
-//
-// The following example (which is paired with the example given in
-// [NSFormatter.StringForObjectValue]) converts a string representation of a
-// dollar amount that includes the dollar sign; it uses an [NSScanner]
-// instance to convert this amount to a float after stripping out the initial
-// dollar sign.
-//
-// # Special Considerations
-//
-// Prior to OS X v10.6, the implementation of this method in both
-// [NSNumberFormatter] and [NSDateFormatter] would return true and an object
-// value even if only part of the string could be parsed. This is problematic
-// because you cannot be sure what portion of the string was parsed. For
-// applications linked on or after OS X v10.6, this method instead returns an
-// error if part of the string cannot be parsed. You can use “ to get the old
-// behavior—it returns the range of the substring that was successfully
-// parsed.
-//
-// See: https://developer.apple.com/documentation/Foundation/Formatter/getObjectValue(_:for:errorDescription:)
-func (f Formatter) GetObjectValueForStringErrorDescription(obj []objectivec.IObject, string_ string, error_ string) bool {
-	rv := objc.Send[bool](f.ID, objc.Sel("getObjectValue:forString:errorDescription:"), objectivec.IObjectSliceToNSArray(obj), objc.String(string_), objc.String(error_))
-	return rv
-}
-
 // Returns a Boolean value that indicates whether a partial string is valid.
 //
 // partialString: The text currently in a cell.
@@ -351,8 +290,8 @@ func (f Formatter) GetObjectValueForStringErrorDescription(obj []objectivec.IObj
 // just calls this one by default).
 //
 // See: https://developer.apple.com/documentation/Foundation/Formatter/isPartialStringValid(_:newEditingString:errorDescription:)
-func (f Formatter) IsPartialStringValidNewEditingStringErrorDescription(partialString string, newString string, error_ string) bool {
-	rv := objc.Send[bool](f.ID, objc.Sel("isPartialStringValid:newEditingString:errorDescription:"), objc.String(partialString), objc.String(newString), objc.String(error_))
+func (f Formatter) IsPartialStringValidNewEditingStringErrorDescription(partialString string, newString *NSString, error_ *NSString) bool {
+	rv := objc.Send[bool](f.ID, objc.Sel("isPartialStringValid:newEditingString:errorDescription:"), objc.String(partialString), unsafe.Pointer(newString), unsafe.Pointer(error_))
 	return rv
 }
 
@@ -396,8 +335,8 @@ func (f Formatter) IsPartialStringValidNewEditingStringErrorDescription(partialS
 // control:didFailToValidatePartialString:errorDescription:.
 //
 // See: https://developer.apple.com/documentation/Foundation/Formatter/isPartialStringValid(_:proposedSelectedRange:originalString:originalSelectedRange:errorDescription:)
-func (f Formatter) IsPartialStringValidProposedSelectedRangeOriginalStringOriginalSelectedRangeErrorDescription(partialStringPtr string, proposedSelRangePtr NSRangePointer, origString string, origSelRange NSRange, error_ string) bool {
-	rv := objc.Send[bool](f.ID, objc.Sel("isPartialStringValid:proposedSelectedRange:originalString:originalSelectedRange:errorDescription:"), objc.String(partialStringPtr), proposedSelRangePtr, objc.String(origString), origSelRange, objc.String(error_))
+func (f Formatter) IsPartialStringValidProposedSelectedRangeOriginalStringOriginalSelectedRangeErrorDescription(partialStringPtr *NSString, proposedSelRangePtr NSRangePointer, origString string, origSelRange NSRange, error_ *NSString) bool {
+	rv := objc.Send[bool](f.ID, objc.Sel("isPartialStringValid:proposedSelectedRange:originalString:originalSelectedRange:errorDescription:"), unsafe.Pointer(partialStringPtr), proposedSelRangePtr, objc.String(origString), origSelRange, unsafe.Pointer(error_))
 	return rv
 }
 

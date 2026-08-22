@@ -324,6 +324,9 @@ type INSToolbarItem interface {
 
 	// A Boolean value that indicates whether the toolbar item can appear more than once in a toolbar.
 	AllowsDuplicatesInToolbar() bool
+
+	// Implemented to override the default action of enabling or disabling a specific menu item.
+	ValidateMenuItem(menuItem INSMenuItem) bool
 }
 
 // Init initializes the instance.

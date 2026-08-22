@@ -76,7 +76,10 @@ func NSXPCListenerEndpointFromID(id objc.ID) NSXPCListenerEndpoint {
 // See: https://developer.apple.com/documentation/Foundation/NSXPCListenerEndpoint
 type INSXPCListenerEndpoint interface {
 	objectivec.IObject
-	NSSecureCoding
+
+	// Encodes the receiver using a given archiver.
+	EncodeWithCoder(coder INSCoder)
+	InitWithCoder(coder INSCoder) NSXPCListenerEndpoint
 }
 
 // Init initializes the instance.

@@ -4,8 +4,8 @@ package avfaudio
 
 import (
 	"sync"
-	"unsafe"
 
+	"github.com/tmc/apple/audiotoolbox"
 	"github.com/tmc/apple/foundation"
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
@@ -136,12 +136,12 @@ type IAVAudioUnitComponent interface {
 	// Topic: Getting the audio unit component’s audio unit
 
 	// The underlying audio component.
-	AudioComponent() unsafe.Pointer
+	AudioComponent() audiotoolbox.AudioComponent
 
 	// Topic: Getting audio unit component information
 
 	// The audio component description.
-	AudioComponentDescription() unsafe.Pointer
+	AudioComponentDescription() audiotoolbox.AudioComponentDescription
 	// An array of architectures that the audio unit supports.
 	AvailableArchitectures() []foundation.NSNumber
 	// The audio unit component’s configuration dictionary.
@@ -224,17 +224,17 @@ func (a AVAudioUnitComponent) SupportsNumberInputChannelsOutputChannels(numInput
 // The underlying audio component.
 //
 // See: https://developer.apple.com/documentation/AVFAudio/AVAudioUnitComponent/audioComponent
-func (a AVAudioUnitComponent) AudioComponent() unsafe.Pointer {
-	rv := objc.Send[unsafe.Pointer](a.ID, objc.Sel("audioComponent"))
-	return rv
+func (a AVAudioUnitComponent) AudioComponent() audiotoolbox.AudioComponent {
+	rv := objc.Send[audiotoolbox.AudioComponent](a.ID, objc.Sel("audioComponent"))
+	return audiotoolbox.AudioComponent(rv)
 }
 
 // The audio component description.
 //
 // See: https://developer.apple.com/documentation/AVFAudio/AVAudioUnitComponent/audioComponentDescription
-func (a AVAudioUnitComponent) AudioComponentDescription() unsafe.Pointer {
-	rv := objc.Send[unsafe.Pointer](a.ID, objc.Sel("audioComponentDescription"))
-	return rv
+func (a AVAudioUnitComponent) AudioComponentDescription() audiotoolbox.AudioComponentDescription {
+	rv := objc.Send[audiotoolbox.AudioComponentDescription](a.ID, objc.Sel("audioComponentDescription"))
+	return audiotoolbox.AudioComponentDescription(rv)
 }
 
 // An array of architectures that the audio unit supports.

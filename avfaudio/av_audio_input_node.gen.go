@@ -6,7 +6,6 @@ import (
 	"context"
 	"sync"
 
-	"github.com/tmc/apple/coreaudiotypes"
 	"github.com/tmc/apple/objc"
 )
 
@@ -129,7 +128,7 @@ type IAVAudioInputNode interface {
 	// Topic: Manually Giving Data to an Audio Engine
 
 	// Supplies the data through the input node to the engine while operating in the manual rendering mode.
-	SetManualRenderingInputPCMFormatInputBlock(format IAVAudioFormat, block AVAudioIONodeInputBlock) bool
+	SetManualRenderingInputPCMFormatInputBlock(format IAVAudioFormat, block AudioBufferListUint32Handler) bool
 
 	// Topic: Getting and Setting Voice Processing Properties
 
@@ -149,6 +148,29 @@ type IAVAudioInputNode interface {
 	// Topic: Handling Muted Speech Events
 
 	SetMutedSpeechActivityEventListener(listenerBlock AVAudioVoiceProcessingSpeechActivityEventHandler) bool
+
+	// Gets the audio mixing destination object that corresponds to the specified mixer node and input bus.
+	DestinationForMixerBus(mixer IAVAudioNode, bus AVAudioNodeBus) IAVAudioMixingDestination
+	// A value that simulates filtering of the direct path of sound due to an obstacle.
+	Obstruction() float32
+	// A value that simulates filtering of the direct and reverb paths of sound due to an obstacle.
+	Occlusion() float32
+	// The bus’s stereo pan.
+	Pan() float32
+	// The in-head mode for a point source.
+	PointSourceInHeadMode() AVAudio3DMixingPointSourceInHeadMode
+	// The location of the source in the 3D environment.
+	Position() AVAudio3DPoint
+	// A value that changes the playback rate of the input signal.
+	Rate() float32
+	// The type of rendering algorithm the mixer uses.
+	RenderingAlgorithm() AVAudio3DMixingRenderingAlgorithm
+	// A value that controls the blend of dry and reverb processed audio.
+	ReverbBlend() float32
+	// The source mode for the input bus of the audio environment node.
+	SourceMode() AVAudio3DMixingSourceMode
+	// The bus’s input volume.
+	Volume() float32
 }
 
 // Init initializes the instance.
@@ -186,10 +208,9 @@ func NewAVAudioInputNode() AVAudioInputNode {
 // and from an audio device, it invalidates any previous block.
 //
 // See: https://developer.apple.com/documentation/AVFAudio/AVAudioInputNode/setManualRenderingInputPCMFormat(_:inputBlock:)
-func (a AVAudioInputNode) SetManualRenderingInputPCMFormatInputBlock(format IAVAudioFormat, block AVAudioIONodeInputBlock) bool {
-	_block1 := objc.NewBlock(func(_ objc.Block, arg0 uint32) *coreaudiotypes.AudioBufferList { return block(arg0) })
-	// _block1 intentionally not released: "setManualRenderingInputPCMFormat:inputBlock:" retains the block past return.
-	rv := objc.Send[bool](a.ID, objc.Sel("setManualRenderingInputPCMFormat:inputBlock:"), format, objc.ID(_block1))
+func (a AVAudioInputNode) SetManualRenderingInputPCMFormatInputBlock(format IAVAudioFormat, block AudioBufferListUint32Handler) bool {
+	_block1, _ := NewAudioBufferListUint32Block(block)
+	rv := objc.Send[bool](a.ID, objc.Sel("setManualRenderingInputPCMFormat:inputBlock:"), format, _block1)
 	return rv
 }
 

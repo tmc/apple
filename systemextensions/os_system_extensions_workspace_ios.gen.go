@@ -5,6 +5,8 @@
 package systemextensions
 
 import (
+	"unsafe"
+
 	"github.com/tmc/apple/foundation"
 	"github.com/tmc/apple/objc"
 )

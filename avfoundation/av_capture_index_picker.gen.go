@@ -64,6 +64,11 @@ func (ac AVCaptureIndexPickerClass) Alloc() AVCaptureIndexPicker {
 //   - [AVCaptureIndexPicker.SetSelectedIndex]
 //   - [AVCaptureIndexPicker.NumberOfIndexes]: The number of index values the control provides.
 //
+// # Setting an accessibility identifier
+//
+//   - [AVCaptureIndexPicker.AccessibilityIdentifier]: A string identifier for this control.
+//   - [AVCaptureIndexPicker.SetAccessibilityIdentifier]
+//
 // # Inspecting presentation attributes
 //
 //   - [AVCaptureIndexPicker.SymbolName]: The name of the SF Symbol that represents this control.
@@ -99,6 +104,11 @@ func AVCaptureIndexPickerFromID(id objc.ID) AVCaptureIndexPicker {
 //   - [IAVCaptureIndexPicker.SetSelectedIndex]
 //   - [IAVCaptureIndexPicker.NumberOfIndexes]: The number of index values the control provides.
 //
+// # Setting an accessibility identifier
+//
+//   - [IAVCaptureIndexPicker.AccessibilityIdentifier]: A string identifier for this control.
+//   - [IAVCaptureIndexPicker.SetAccessibilityIdentifier]
+//
 // # Inspecting presentation attributes
 //
 //   - [IAVCaptureIndexPicker.SymbolName]: The name of the SF Symbol that represents this control.
@@ -125,6 +135,12 @@ type IAVCaptureIndexPicker interface {
 	SetSelectedIndex(value int)
 	// The number of index values the control provides.
 	NumberOfIndexes() int
+
+	// Topic: Setting an accessibility identifier
+
+	// A string identifier for this control.
+	AccessibilityIdentifier() string
+	SetAccessibilityIdentifier(value string)
 
 	// Topic: Inspecting presentation attributes
 
@@ -237,7 +253,8 @@ func (c AVCaptureIndexPicker) InitWithLocalizedTitleSymbolNameNumberOfIndexes(lo
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCaptureIndexPicker/init(_:symbolName:numberOfIndexes:localizedTitleTransform:)
 func (c AVCaptureIndexPicker) InitWithLocalizedTitleSymbolNameNumberOfIndexesLocalizedTitleTransform(localizedTitle string, symbolName string, numberOfIndexes int, localizedTitleTransform StringIntHandler) AVCaptureIndexPicker {
-	_block3, _ := NewStringIntBlock(localizedTitleTransform)
+	_block3, _cleanup3 := NewStringIntBlock(localizedTitleTransform)
+	defer _cleanup3()
 	rv := objc.Send[AVCaptureIndexPicker](c.ID, objc.Sel("initWithLocalizedTitle:symbolName:numberOfIndexes:localizedTitleTransform:"), objc.String(localizedTitle), objc.String(symbolName), numberOfIndexes, _block3)
 	return rv
 }
@@ -304,6 +321,17 @@ func (c AVCaptureIndexPicker) SetSelectedIndex(value int) {
 func (c AVCaptureIndexPicker) NumberOfIndexes() int {
 	rv := objc.Send[int](c.ID, objc.Sel("numberOfIndexes"))
 	return rv
+}
+
+// A string identifier for this control.
+//
+// See: https://developer.apple.com/documentation/AVFoundation/AVCaptureIndexPicker/accessibilityIdentifier
+func (c AVCaptureIndexPicker) AccessibilityIdentifier() string {
+	rv := objc.Send[objc.ID](c.ID, objc.Sel("accessibilityIdentifier"))
+	return foundation.NSStringFromID(rv).String()
+}
+func (c AVCaptureIndexPicker) SetAccessibilityIdentifier(value string) {
+	objc.Send[struct{}](c.ID, objc.Sel("setAccessibilityIdentifier:"), objc.String(value))
 }
 
 // The name of the SF Symbol that represents this control.

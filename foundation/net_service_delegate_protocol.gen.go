@@ -193,7 +193,7 @@ type NSNetServiceDelegateConfig struct {
 	NetServiceWillResolve func(sender NSNetService)
 	// NetServiceDidResolveAddress — Informs the delegate that the address for a given service was resolved.
 	NetServiceDidResolveAddress func(sender NSNetService)
-	// NetServiceDidStop — Informs the delegate that a [publish()](<doc://com.apple.foundation/documentation/Foundation/NetService/publish()>) or [resolve(withTimeout:)](<doc://com.apple.foundation/documentation/Foundation/NetService/resolve(withTimeout:)>) request was stopped.
+	// NetServiceDidStop — Informs the delegate that a [publish()](<https://developer.apple.com/documentation/Foundation/NetService/publish()>) or [resolve(withTimeout:)](<https://developer.apple.com/documentation/Foundation/NetService/resolve(withTimeout:)>) request was stopped.
 	NetServiceDidStop func(sender NSNetService)
 
 	// Other Methods
@@ -226,8 +226,20 @@ func NewNSNetServiceDelegate(config NSNetServiceDelegateConfig) NSNetServiceDele
 		methods = append(methods, objc.MethodDef{
 			Cmd: objc.RegisterName("netServiceWillPublish:"),
 			Fn: func(self objc.ID, _cmd objc.SEL, senderID objc.ID) {
+				// Names which delegate was running if a panic unwinds out of
+				// it. The frames between here and the Objective-C caller are
+				// runtime and purego dispatch, so without this the traceback
+				// never says which selector dispatched. Deliberately no
+				// recover: see [objc.NoteDelegatePanic].
+				_delegateDone := false
+				defer func() {
+					if !_delegateDone {
+						objc.NoteDelegatePanic("NSNetServiceDelegate", "netServiceWillPublish:")
+					}
+				}()
 				sender := NSNetServiceFromID(senderID)
 				fn(sender)
+				_delegateDone = true
 			},
 		})
 	}
@@ -237,8 +249,20 @@ func NewNSNetServiceDelegate(config NSNetServiceDelegateConfig) NSNetServiceDele
 		methods = append(methods, objc.MethodDef{
 			Cmd: objc.RegisterName("netServiceDidPublish:"),
 			Fn: func(self objc.ID, _cmd objc.SEL, senderID objc.ID) {
+				// Names which delegate was running if a panic unwinds out of
+				// it. The frames between here and the Objective-C caller are
+				// runtime and purego dispatch, so without this the traceback
+				// never says which selector dispatched. Deliberately no
+				// recover: see [objc.NoteDelegatePanic].
+				_delegateDone := false
+				defer func() {
+					if !_delegateDone {
+						objc.NoteDelegatePanic("NSNetServiceDelegate", "netServiceDidPublish:")
+					}
+				}()
 				sender := NSNetServiceFromID(senderID)
 				fn(sender)
+				_delegateDone = true
 			},
 		})
 	}
@@ -248,8 +272,20 @@ func NewNSNetServiceDelegate(config NSNetServiceDelegateConfig) NSNetServiceDele
 		methods = append(methods, objc.MethodDef{
 			Cmd: objc.RegisterName("netServiceWillResolve:"),
 			Fn: func(self objc.ID, _cmd objc.SEL, senderID objc.ID) {
+				// Names which delegate was running if a panic unwinds out of
+				// it. The frames between here and the Objective-C caller are
+				// runtime and purego dispatch, so without this the traceback
+				// never says which selector dispatched. Deliberately no
+				// recover: see [objc.NoteDelegatePanic].
+				_delegateDone := false
+				defer func() {
+					if !_delegateDone {
+						objc.NoteDelegatePanic("NSNetServiceDelegate", "netServiceWillResolve:")
+					}
+				}()
 				sender := NSNetServiceFromID(senderID)
 				fn(sender)
+				_delegateDone = true
 			},
 		})
 	}
@@ -259,8 +295,20 @@ func NewNSNetServiceDelegate(config NSNetServiceDelegateConfig) NSNetServiceDele
 		methods = append(methods, objc.MethodDef{
 			Cmd: objc.RegisterName("netServiceDidResolveAddress:"),
 			Fn: func(self objc.ID, _cmd objc.SEL, senderID objc.ID) {
+				// Names which delegate was running if a panic unwinds out of
+				// it. The frames between here and the Objective-C caller are
+				// runtime and purego dispatch, so without this the traceback
+				// never says which selector dispatched. Deliberately no
+				// recover: see [objc.NoteDelegatePanic].
+				_delegateDone := false
+				defer func() {
+					if !_delegateDone {
+						objc.NoteDelegatePanic("NSNetServiceDelegate", "netServiceDidResolveAddress:")
+					}
+				}()
 				sender := NSNetServiceFromID(senderID)
 				fn(sender)
+				_delegateDone = true
 			},
 		})
 	}
@@ -270,9 +318,21 @@ func NewNSNetServiceDelegate(config NSNetServiceDelegateConfig) NSNetServiceDele
 		methods = append(methods, objc.MethodDef{
 			Cmd: objc.RegisterName("netService:didUpdateTXTRecordData:"),
 			Fn: func(self objc.ID, _cmd objc.SEL, senderID objc.ID, dataID objc.ID) {
+				// Names which delegate was running if a panic unwinds out of
+				// it. The frames between here and the Objective-C caller are
+				// runtime and purego dispatch, so without this the traceback
+				// never says which selector dispatched. Deliberately no
+				// recover: see [objc.NoteDelegatePanic].
+				_delegateDone := false
+				defer func() {
+					if !_delegateDone {
+						objc.NoteDelegatePanic("NSNetServiceDelegate", "netService:didUpdateTXTRecordData:")
+					}
+				}()
 				sender := NSNetServiceFromID(senderID)
 				data := objectivec.ObjectFromID(dataID)
 				fn(sender, data)
+				_delegateDone = true
 			},
 		})
 	}
@@ -282,8 +342,20 @@ func NewNSNetServiceDelegate(config NSNetServiceDelegateConfig) NSNetServiceDele
 		methods = append(methods, objc.MethodDef{
 			Cmd: objc.RegisterName("netServiceDidStop:"),
 			Fn: func(self objc.ID, _cmd objc.SEL, senderID objc.ID) {
+				// Names which delegate was running if a panic unwinds out of
+				// it. The frames between here and the Objective-C caller are
+				// runtime and purego dispatch, so without this the traceback
+				// never says which selector dispatched. Deliberately no
+				// recover: see [objc.NoteDelegatePanic].
+				_delegateDone := false
+				defer func() {
+					if !_delegateDone {
+						objc.NoteDelegatePanic("NSNetServiceDelegate", "netServiceDidStop:")
+					}
+				}()
 				sender := NSNetServiceFromID(senderID)
 				fn(sender)
+				_delegateDone = true
 			},
 		})
 	}
@@ -293,10 +365,22 @@ func NewNSNetServiceDelegate(config NSNetServiceDelegateConfig) NSNetServiceDele
 		methods = append(methods, objc.MethodDef{
 			Cmd: objc.RegisterName("netService:didAcceptConnectionWithInputStream:outputStream:"),
 			Fn: func(self objc.ID, _cmd objc.SEL, senderID objc.ID, inputStreamID objc.ID, outputStreamID objc.ID) {
+				// Names which delegate was running if a panic unwinds out of
+				// it. The frames between here and the Objective-C caller are
+				// runtime and purego dispatch, so without this the traceback
+				// never says which selector dispatched. Deliberately no
+				// recover: see [objc.NoteDelegatePanic].
+				_delegateDone := false
+				defer func() {
+					if !_delegateDone {
+						objc.NoteDelegatePanic("NSNetServiceDelegate", "netService:didAcceptConnectionWithInputStream:outputStream:")
+					}
+				}()
 				sender := NSNetServiceFromID(senderID)
 				inputStream := NSInputStreamFromID(inputStreamID)
 				outputStream := NSOutputStreamFromID(outputStreamID)
 				fn(sender, inputStream, outputStream)
+				_delegateDone = true
 			},
 		})
 	}

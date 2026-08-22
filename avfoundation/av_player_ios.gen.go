@@ -5,8 +5,9 @@
 package avfoundation
 
 import (
+	"unsafe"
+
 	"github.com/tmc/apple/foundation"
-	"github.com/tmc/apple/kernel"
 	"github.com/tmc/apple/objc"
 )
 
@@ -49,7 +50,7 @@ func (p AVPlayer) IntendedSpatialAudioExperience() unsafe.Pointer {
 	rv := objc.Send[unsafe.Pointer](p.ID, objc.Sel("intendedSpatialAudioExperience"))
 	return rv
 }
-func (p AVPlayer) SetIntendedSpatialAudioExperience(value kernel.Pointer) {
+func (p AVPlayer) SetIntendedSpatialAudioExperience(value unsafe.Pointer) {
 	objc.Send[struct{}](p.ID, objc.Sel("setIntendedSpatialAudioExperience:"), value)
 }
 

@@ -261,7 +261,7 @@ func NewSpeechUtteranceWithCoder(coder foundation.INSCoder) AVSpeechUtterance {
 // [AVSpeechUtterance.Voice] property. If you don’t specify a voice, the
 // system uses its default voice.
 //
-// See: https://developer.apple.com/documentation/AVFAudio/AVSpeechUtterance/init(ssmlRepresentation:)-8zam9
+// See: https://developer.apple.com/documentation/AVFAudio/AVSpeechUtterance/init(ssmlRepresentation:)
 func NewSpeechUtteranceWithSSMLRepresentation(string_ string) AVSpeechUtterance {
 	instance := getAVSpeechUtteranceClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithSSMLRepresentation:"), objc.String(string_))
@@ -341,7 +341,7 @@ func (s AVSpeechUtterance) InitWithAttributedString(string_ foundation.NSAttribu
 // [AVSpeechUtterance.Voice] property. If you don’t specify a voice, the
 // system uses its default voice.
 //
-// See: https://developer.apple.com/documentation/AVFAudio/AVSpeechUtterance/init(ssmlRepresentation:)-8zam9
+// See: https://developer.apple.com/documentation/AVFAudio/AVSpeechUtterance/init(ssmlRepresentation:)
 func (s AVSpeechUtterance) InitWithSSMLRepresentation(string_ string) AVSpeechUtterance {
 	rv := objc.Send[AVSpeechUtterance](s.ID, objc.Sel("initWithSSMLRepresentation:"), objc.String(string_))
 	return rv

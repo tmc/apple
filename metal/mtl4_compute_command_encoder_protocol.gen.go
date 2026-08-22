@@ -65,7 +65,7 @@ type MTL4ComputeCommandEncoder interface {
 	// See: https://developer.apple.com/documentation/Metal/MTL4ComputeCommandEncoder/copy(sourceBuffer:sourceOffset:destinationBuffer:destinationOffset:size:)
 	CopyFromBufferSourceOffsetToBufferDestinationOffsetSize(sourceBuffer MTLBuffer, sourceOffset uint, destinationBuffer MTLBuffer, destinationOffset uint, size uint)
 
-	// Encodes a command to copy data from a tensor instance into another.
+	// Encodes a command to copy data from a slice of the data plane of a tensor into a slice of the data plane of another tensor.
 	//
 	// See: https://developer.apple.com/documentation/Metal/MTL4ComputeCommandEncoder/copy(sourceTensor:sourceOrigin:sourceDimensions:destinationTensor:destinationOrigin:destinationDimensions:)
 	CopyFromTensorSourceOriginSourceDimensionsToTensorDestinationOriginDestinationDimensions(sourceTensor MTLTensor, sourceOrigin IMTLTensorExtents, sourceDimensions IMTLTensorExtents, destinationTensor MTLTensor, destinationOrigin IMTLTensorExtents, destinationDimensions IMTLTensorExtents)
@@ -155,7 +155,12 @@ type MTL4ComputeCommandEncoder interface {
 	// See: https://developer.apple.com/documentation/Metal/MTL4ComputeCommandEncoder/copyFromBuffer:sourceOffset:sourceBytesPerRow:sourceBytesPerImage:sourceSize:toTexture:destinationSlice:destinationLevel:destinationOrigin:options:
 	CopyFromBufferSourceOffsetSourceBytesPerRowSourceBytesPerImageSourceSizeToTextureDestinationSliceDestinationLevelDestinationOriginOptions(sourceBuffer MTLBuffer, sourceOffset uint, sourceBytesPerRow uint, sourceBytesPerImage uint, sourceSize MTLSize, destinationTexture MTLTexture, destinationSlice uint, destinationLevel uint, destinationOrigin MTLOrigin, options MTLBlitOption)
 
-	// Encodes a command that copies image data from a slice of an [MTLTexture](<doc://com.apple.metal/documentation/Metal/MTLTexture>) instance to an [MTLBuffer](<doc://com.apple.metal/documentation/Metal/MTLBuffer>) instance.
+	// Encodes a command to copy data from a slice of a plane of a tensor into a slice of a plane of another tensor.
+	//
+	// See: https://developer.apple.com/documentation/Metal/MTL4ComputeCommandEncoder/copy(sourceTensor:sourceOrigin:sourceDimensions:sourcePlane:destinationTensor:destinationOrigin:destinationDimensions:destinationPlane:)
+	CopyFromTensorSourceOriginSourceDimensionsSourcePlaneToTensorDestinationOriginDestinationDimensionsDestinationPlane(sourceTensor MTLTensor, sourceOrigin IMTLTensorExtents, sourceDimensions IMTLTensorExtents, sourcePlane MTLTensorPlaneType, destinationTensor MTLTensor, destinationOrigin IMTLTensorExtents, destinationDimensions IMTLTensorExtents, destinationPlane MTLTensorPlaneType)
+
+	// Encodes a command that copies image data from a slice of an [MTLTexture](<https://developer.apple.com/documentation/Metal/MTLTexture>) instance to an [MTLBuffer](<https://developer.apple.com/documentation/Metal/MTLBuffer>) instance.
 	//
 	// See: https://developer.apple.com/documentation/Metal/MTL4ComputeCommandEncoder/copyFromTexture:sourceSlice:sourceLevel:sourceOrigin:sourceSize:toBuffer:destinationOffset:destinationBytesPerRow:destinationBytesPerImage:
 	CopyFromTextureSourceSliceSourceLevelSourceOriginSourceSizeToBufferDestinationOffsetDestinationBytesPerRowDestinationBytesPerImage(sourceTexture MTLTexture, sourceSlice uint, sourceLevel uint, sourceOrigin MTLOrigin, sourceSize MTLSize, destinationBuffer MTLBuffer, destinationOffset uint, destinationBytesPerRow uint, destinationBytesPerImage uint)
@@ -391,16 +396,42 @@ func (o MTL4ComputeCommandEncoderObject) CopyFromBufferSourceOffsetToBufferDesti
 	objc.Send[struct{}](o.ID, objc.Sel("copyFromBuffer:sourceOffset:toBuffer:destinationOffset:size:"), sourceBuffer, sourceOffset, destinationBuffer, destinationOffset, size)
 }
 
-// Encodes a command to copy data from a tensor instance into another.
+// Encodes a command to copy data from a slice of the data plane of a tensor
+// into a slice of the data plane of another tensor.
 //
-// sourceTensor: An [MTLTensor] instance the command copies data from.
+// sourceTensor: A tensor instance the method copies data from.
 //
-// destinationTensor: An [MTLTensor] instance the command copies data to.
+// sourceOrigin: An array of per-dimension offsets that together locate the first element to
+// copy in `sourceTensor`. Each element in this array corresponds to the
+// dimension at the same index in `sourceDimensions`. Each offset value
+// represents the number of elements from the start of that dimension.
+//
+// sourceDimensions: An array of per-dimension sizes that together define the extent of the
+// slice to copy from `sourceTensor`. Each element in this array corresponds
+// to the dimension at the same index in `sourceOrigin`. Each size value
+// represents the number of elements to include along that dimension, starting
+// from the corresponding offset in `sourceOrigin`.
+//
+// destinationTensor: A tensor instance the method copies data to.
+//
+// destinationOrigin: An array of per-dimension offsets that together locate the first element to
+// write in `destinationTensor`. Each element in this array corresponds to the
+// dimension at the same index in `destinationDimensions`. Each offset value
+// represents the number of elements from the start of that dimension.
+//
+// destinationDimensions: An array of per-dimension sizes that together define the extent of the
+// slice to write in `destinationTensor`. Each element in this array
+// corresponds to the dimension at the same index in `destinationOrigin`. Each
+// size value represents the number of elements to include along that
+// dimension, starting from the corresponding offset in `destinationOrigin`.
 //
 // # Discussion
 //
-// If the `sourceTensor` and `destinationTensor` instances are not aliasable,
-// this command applies the correct reshapes to enable this operation.
+// If `sourceTensor` and `destinationTensor` are not aliasable, this command
+// applies a reshape operation.
+//
+// Ensure the first dimension of `sourceOrigin`, `sourceDimensions`,
+// `destinationOrigin`, and `destinationDimensions` is byte aligned.
 //
 // See: https://developer.apple.com/documentation/Metal/MTL4ComputeCommandEncoder/copy(sourceTensor:sourceOrigin:sourceDimensions:destinationTensor:destinationOrigin:destinationDimensions:)
 func (o MTL4ComputeCommandEncoderObject) CopyFromTensorSourceOriginSourceDimensionsToTensorDestinationOriginDestinationDimensions(sourceTensor MTLTensor, sourceOrigin IMTLTensorExtents, sourceDimensions IMTLTensorExtents, destinationTensor MTLTensor, destinationOrigin IMTLTensorExtents, destinationDimensions IMTLTensorExtents) {
@@ -801,10 +832,22 @@ func (o MTL4ComputeCommandEncoderObject) RefitAccelerationStructureDescriptorDes
 //
 // # Discussion
 //
+// Use this method to indicate to Metal the span of indices in the command
+// buffer to execute indirectly via an [MTLBuffer] instance you provide in the
+// `indirectRangeBuffer` parameter. This allows you to calculate the span of
+// commands Metal executes in the GPU timeline, enabling GPU-driven workflows.
+//
+// Metal requires that the contents of this buffer match the layout of struct
+// [MTLIndirectCommandBufferExecutionRange], which specifies a location and a
+// length within the indirect command buffer. You are responsible for ensuring
+// the address of this buffer has 4-byte alignment.
+//
 // Use an instance of [MTLResidencySet] to mark residency of the indirect
 // buffer that the `indirectRangeBuffer` parameter references.
 //
 // See: https://developer.apple.com/documentation/Metal/MTL4ComputeCommandEncoder/executeCommands(buffer:indirectBuffer:)
+//
+// [MTLIndirectCommandBufferExecutionRange]: https://developer.apple.com/documentation/Metal/MTLIndirectCommandBufferExecutionRange
 //
 // [MTLIndirectCommandBufferExecutionRange]: https://developer.apple.com/documentation/Metal/MTLIndirectCommandBufferExecutionRange
 func (o MTL4ComputeCommandEncoderObject) ExecuteCommandsInBufferIndirectBuffer(indirectCommandbuffer MTLIndirectCommandBuffer, indirectRangeBuffer MTLGPUAddress) {
@@ -950,6 +993,54 @@ func (o MTL4ComputeCommandEncoderObject) CopyFromBufferSourceOffsetSourceBytesPe
 // [MTLBlitOption]: https://developer.apple.com/documentation/Metal/MTLBlitOption
 func (o MTL4ComputeCommandEncoderObject) CopyFromBufferSourceOffsetSourceBytesPerRowSourceBytesPerImageSourceSizeToTextureDestinationSliceDestinationLevelDestinationOriginOptions(sourceBuffer MTLBuffer, sourceOffset uint, sourceBytesPerRow uint, sourceBytesPerImage uint, sourceSize MTLSize, destinationTexture MTLTexture, destinationSlice uint, destinationLevel uint, destinationOrigin MTLOrigin, options MTLBlitOption) {
 	objc.Send[struct{}](o.ID, objc.Sel("copyFromBuffer:sourceOffset:sourceBytesPerRow:sourceBytesPerImage:sourceSize:toTexture:destinationSlice:destinationLevel:destinationOrigin:options:"), sourceBuffer, sourceOffset, sourceBytesPerRow, sourceBytesPerImage, sourceSize, destinationTexture, destinationSlice, destinationLevel, destinationOrigin, options)
+}
+
+// Encodes a command to copy data from a slice of a plane of a tensor into a
+// slice of a plane of another tensor.
+//
+// sourceTensor: A tensor instance the method copies data from.
+//
+// sourceOrigin: An array of per-dimension offsets that together locate the first element to
+// copy in `sourceTensor`. Each element in this array corresponds to the
+// dimension at the same index in `sourceDimensions`. Each offset value
+// represents the number of elements from the start of that dimension.
+//
+// sourceDimensions: An array of per-dimension sizes that together define the extent of the
+// slice to copy from `sourceTensor`. Each element in this array corresponds
+// to the dimension at the same index in `sourceOrigin`. Each size value
+// represents the number of elements to include along that dimension, starting
+// from the corresponding offset in `sourceOrigin`.
+//
+// sourcePlane: The plane the method copies data from.
+//
+// destinationTensor: A tensor instance the method copies data to.
+//
+// destinationOrigin: An array of per-dimension offsets that together locate the first element to
+// write in `destinationTensor`. Each element in this array corresponds to the
+// dimension at the same index in `destinationDimensions`. Each offset value
+// represents the number of elements from the start of that dimension.
+//
+// destinationDimensions: An array of per-dimension sizes that together define the extent of the
+// slice to write in `destinationTensor`. Each element in this array
+// corresponds to the dimension at the same index in `destinationOrigin`. Each
+// size value represents the number of elements to include along that
+// dimension, starting from the corresponding offset in `destinationOrigin`.
+//
+// destinationPlane: The plane the method copies data to.
+//
+// # Discussion
+//
+// If `sourceTensor` and `destinationTensor` are not aliasable, this command
+// applies a reshape operation. For auxiliary planes, specify origin and
+// dimensions in plane coordinates by applying the corresponding auxiliary
+// plane’s block factors.
+//
+// Ensure the first dimension of `sourceOrigin`, `sourceDimensions`,
+// `destinationOrigin`, and `destinationDimensions` is byte aligned.
+//
+// See: https://developer.apple.com/documentation/Metal/MTL4ComputeCommandEncoder/copy(sourceTensor:sourceOrigin:sourceDimensions:sourcePlane:destinationTensor:destinationOrigin:destinationDimensions:destinationPlane:)
+func (o MTL4ComputeCommandEncoderObject) CopyFromTensorSourceOriginSourceDimensionsSourcePlaneToTensorDestinationOriginDestinationDimensionsDestinationPlane(sourceTensor MTLTensor, sourceOrigin IMTLTensorExtents, sourceDimensions IMTLTensorExtents, sourcePlane MTLTensorPlaneType, destinationTensor MTLTensor, destinationOrigin IMTLTensorExtents, destinationDimensions IMTLTensorExtents, destinationPlane MTLTensorPlaneType) {
+	objc.Send[struct{}](o.ID, objc.Sel("copyFromTensor:sourceOrigin:sourceDimensions:sourcePlane:toTensor:destinationOrigin:destinationDimensions:destinationPlane:"), sourceTensor, sourceOrigin, sourceDimensions, sourcePlane, destinationTensor, destinationOrigin, destinationDimensions, destinationPlane)
 }
 
 // Encodes a command that copies image data from a slice of an [MTLTexture]
@@ -1280,9 +1371,10 @@ func (o MTL4ComputeCommandEncoderObject) PushDebugGroup(string_ string) {
 // that depend on those fences when your app commits the enclosing
 // [MTLCommandBuffer].
 //
-// To synchronize different stages within a single pass, create an because a
-// fence can only synchronize memory operations between different passes. For
-// more information, see [Synchronizing stages within a pass].
+// To synchronize different stages within a single pass, create an intrapass
+// barrier because a fence can only synchronize memory operations between
+// different passes. For more information, see [Synchronizing stages within a
+// pass].
 //
 // See: https://developer.apple.com/documentation/Metal/MTL4CommandEncoder/updateFence(_:afterEncoderStages:)
 //
@@ -1330,9 +1422,10 @@ func (o MTL4ComputeCommandEncoderObject) UpdateFenceAfterEncoderStages(fence MTL
 // that depend on those fences when your app commits the enclosing
 // [MTLCommandBuffer].
 //
-// To synchronize different stages within a single pass, create an because a
-// fence can only synchronize memory operations between different passes. For
-// more information, see [Synchronizing stages within a pass].
+// To synchronize different stages within a single pass, create an intrapass
+// barrier because a fence can only synchronize memory operations between
+// different passes. For more information, see [Synchronizing stages within a
+// pass].
 //
 // See: https://developer.apple.com/documentation/Metal/MTL4CommandEncoder/waitForFence(_:beforeEncoderStages:)
 //
@@ -1358,9 +1451,9 @@ func (o MTL4ComputeCommandEncoderObject) WaitForFenceBeforeEncoderStages(fence M
 // # Discussion
 //
 // Encode a barrier that guarantees that any subsequent work you encode in the
-// , corresponding to `beforeEncoderStages`, doesn’t begin until all prior
-// commands in this command encoder, corresponding to `afterEncoderStages`,
-// completes.
+// current command encoder, corresponding to `beforeEncoderStages`, doesn’t
+// begin until all prior commands in this command encoder, corresponding to
+// `afterEncoderStages`, completes.
 //
 // When calling this method, it’s your responsibility to ensure parameters
 // `afterEncoderStages` and `beforeEncoderStages` contain a combination of
@@ -1435,9 +1528,9 @@ func (o MTL4ComputeCommandEncoderObject) BarrierAfterQueueStagesBeforeStagesVisi
 // # Discussion
 //
 // This method encodes a barrier that guarantees that any work you encode
-// using , corresponding to `beforeQueueStages`, don’t begin until all
-// commands you previously encode in the current encoder (and prior encoders),
-// corresponding to `afterStages`, complete.
+// using subsequent command encoders, corresponding to `beforeQueueStages`,
+// don’t begin until all commands you previously encode in the current
+// encoder (and prior encoders), corresponding to `afterStages`, complete.
 //
 // When calling this method, you can pass any [MTLStages] to parameters
 // `afterStages` and `beforeQueueStages`, even stages that don’t relate to

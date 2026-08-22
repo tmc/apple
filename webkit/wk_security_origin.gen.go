@@ -50,10 +50,10 @@ func (wc WKSecurityOriginClass) Alloc() WKSecurityOrigin {
 // A [WKSecurityOrigin] object is a transient, data-only object that
 // identifies the host name, protocol, and port number associated with a
 // particular resource. You don’t create [WKSecurityOrigin] objects
-// directly. Instead, WebKit creates them for the resources it loads. A load
-// is any load URL has the same security origin as the requesting web site.
-// First-party webpages can access each other’s resources, such as scripts
-// and databases.
+// directly. Instead, WebKit creates them for the resources it loads. A
+// first-party load is any load URL has the same security origin as the
+// requesting web site. First-party webpages can access each other’s
+// resources, such as scripts and databases.
 //
 // Because a [WKSecurityOrigin] object is transient, it doesn’t uniquely
 // identify a security origin across multiple delegate method calls.

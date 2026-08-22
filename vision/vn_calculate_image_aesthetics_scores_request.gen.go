@@ -95,8 +95,9 @@ func NewVNCalculateImageAestheticsScoresRequest() VNCalculateImageAestheticsScor
 // [VNImageRequestHandler.PerformRequestsError].
 //
 // See: https://developer.apple.com/documentation/Vision/VNRequest/init(completionHandler:)
-func NewCalculateImageAestheticsScoresRequestWithCompletionHandler(completionHandler VNRequestCompletionHandler) VNCalculateImageAestheticsScoresRequest {
+func NewCalculateImageAestheticsScoresRequestWithCompletionHandler(completionHandler VNRequestErrorHandler) VNCalculateImageAestheticsScoresRequest {
+	_block0, _ := NewVNRequestErrorBlock(completionHandler)
 	instance := getVNCalculateImageAestheticsScoresRequestClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCompletionHandler:"), completionHandler)
+	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCompletionHandler:"), _block0)
 	return VNCalculateImageAestheticsScoresRequestFromID(rv)
 }

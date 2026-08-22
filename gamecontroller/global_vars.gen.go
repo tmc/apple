@@ -3,8 +3,6 @@
 package gamecontroller
 
 import (
-	"unsafe"
-
 	"github.com/ebitengine/purego"
 	"github.com/tmc/apple/objc"
 )
@@ -918,7 +916,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "GCHapticDurationInfinite"); err == nil && ptr != 0 {
-		GCHapticDurationInfinite = *(*float32)(unsafe.Pointer(ptr))
+		GCHapticDurationInfinite = objc.ValueAt[float32](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "GCHapticsLocalityAll"); err == nil && ptr != 0 {
@@ -1002,39 +1000,39 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "GCInputButtonA"); err == nil && ptr != 0 {
-		GCInputButtonA = *(*GCInputButtonName)(unsafe.Pointer(ptr))
+		GCInputButtonA = objc.ValueAt[GCInputButtonName](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "GCInputButtonB"); err == nil && ptr != 0 {
-		GCInputButtonB = *(*GCInputButtonName)(unsafe.Pointer(ptr))
+		GCInputButtonB = objc.ValueAt[GCInputButtonName](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "GCInputButtonHome"); err == nil && ptr != 0 {
-		GCInputButtonHome = *(*GCInputButtonName)(unsafe.Pointer(ptr))
+		GCInputButtonHome = objc.ValueAt[GCInputButtonName](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "GCInputButtonMenu"); err == nil && ptr != 0 {
-		GCInputButtonMenu = *(*GCInputButtonName)(unsafe.Pointer(ptr))
+		GCInputButtonMenu = objc.ValueAt[GCInputButtonName](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "GCInputButtonOptions"); err == nil && ptr != 0 {
-		GCInputButtonOptions = *(*GCInputButtonName)(unsafe.Pointer(ptr))
+		GCInputButtonOptions = objc.ValueAt[GCInputButtonName](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "GCInputButtonShare"); err == nil && ptr != 0 {
-		GCInputButtonShare = *(*GCInputButtonName)(unsafe.Pointer(ptr))
+		GCInputButtonShare = objc.ValueAt[GCInputButtonName](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "GCInputButtonX"); err == nil && ptr != 0 {
-		GCInputButtonX = *(*GCInputButtonName)(unsafe.Pointer(ptr))
+		GCInputButtonX = objc.ValueAt[GCInputButtonName](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "GCInputButtonY"); err == nil && ptr != 0 {
-		GCInputButtonY = *(*GCInputButtonName)(unsafe.Pointer(ptr))
+		GCInputButtonY = objc.ValueAt[GCInputButtonName](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "GCInputDirectionPad"); err == nil && ptr != 0 {
-		GCInputDirectionPad = *(*GCInputDirectionPadName)(unsafe.Pointer(ptr))
+		GCInputDirectionPad = objc.ValueAt[GCInputDirectionPadName](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "GCInputDirectionalCardinalDpad"); err == nil && ptr != 0 {
@@ -1078,47 +1076,47 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "GCInputDualShockTouchpadButton"); err == nil && ptr != 0 {
-		GCInputDualShockTouchpadButton = *(*GCInputButtonName)(unsafe.Pointer(ptr))
+		GCInputDualShockTouchpadButton = objc.ValueAt[GCInputButtonName](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "GCInputDualShockTouchpadOne"); err == nil && ptr != 0 {
-		GCInputDualShockTouchpadOne = *(*GCInputDirectionPadName)(unsafe.Pointer(ptr))
+		GCInputDualShockTouchpadOne = objc.ValueAt[GCInputDirectionPadName](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "GCInputDualShockTouchpadTwo"); err == nil && ptr != 0 {
-		GCInputDualShockTouchpadTwo = *(*GCInputDirectionPadName)(unsafe.Pointer(ptr))
+		GCInputDualShockTouchpadTwo = objc.ValueAt[GCInputDirectionPadName](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "GCInputGripButton"); err == nil && ptr != 0 {
-		GCInputGripButton = *(*GCInputButtonName)(unsafe.Pointer(ptr))
+		GCInputGripButton = objc.ValueAt[GCInputButtonName](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "GCInputLeftBumper"); err == nil && ptr != 0 {
-		GCInputLeftBumper = *(*GCInputButtonName)(unsafe.Pointer(ptr))
+		GCInputLeftBumper = objc.ValueAt[GCInputButtonName](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "GCInputLeftPaddle"); err == nil && ptr != 0 {
-		GCInputLeftPaddle = *(*GCInputButtonName)(unsafe.Pointer(ptr))
+		GCInputLeftPaddle = objc.ValueAt[GCInputButtonName](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "GCInputLeftShoulder"); err == nil && ptr != 0 {
-		GCInputLeftShoulder = *(*GCInputButtonName)(unsafe.Pointer(ptr))
+		GCInputLeftShoulder = objc.ValueAt[GCInputButtonName](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "GCInputLeftSideButton"); err == nil && ptr != 0 {
-		GCInputLeftSideButton = *(*GCInputButtonName)(unsafe.Pointer(ptr))
+		GCInputLeftSideButton = objc.ValueAt[GCInputButtonName](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "GCInputLeftThumbstick"); err == nil && ptr != 0 {
-		GCInputLeftThumbstick = *(*GCInputDirectionPadName)(unsafe.Pointer(ptr))
+		GCInputLeftThumbstick = objc.ValueAt[GCInputDirectionPadName](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "GCInputLeftThumbstickButton"); err == nil && ptr != 0 {
-		GCInputLeftThumbstickButton = *(*GCInputButtonName)(unsafe.Pointer(ptr))
+		GCInputLeftThumbstickButton = objc.ValueAt[GCInputButtonName](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "GCInputLeftTrigger"); err == nil && ptr != 0 {
-		GCInputLeftTrigger = *(*GCInputButtonName)(unsafe.Pointer(ptr))
+		GCInputLeftTrigger = objc.ValueAt[GCInputButtonName](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "GCInputMicroGamepadButtonA"); err == nil && ptr != 0 {
@@ -1162,79 +1160,79 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "GCInputPedalAccelerator"); err == nil && ptr != 0 {
-		GCInputPedalAccelerator = *(*GCInputButtonName)(unsafe.Pointer(ptr))
+		GCInputPedalAccelerator = objc.ValueAt[GCInputButtonName](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "GCInputPedalBrake"); err == nil && ptr != 0 {
-		GCInputPedalBrake = *(*GCInputButtonName)(unsafe.Pointer(ptr))
+		GCInputPedalBrake = objc.ValueAt[GCInputButtonName](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "GCInputPedalClutch"); err == nil && ptr != 0 {
-		GCInputPedalClutch = *(*GCInputButtonName)(unsafe.Pointer(ptr))
+		GCInputPedalClutch = objc.ValueAt[GCInputButtonName](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "GCInputRightBumper"); err == nil && ptr != 0 {
-		GCInputRightBumper = *(*GCInputButtonName)(unsafe.Pointer(ptr))
+		GCInputRightBumper = objc.ValueAt[GCInputButtonName](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "GCInputRightPaddle"); err == nil && ptr != 0 {
-		GCInputRightPaddle = *(*GCInputButtonName)(unsafe.Pointer(ptr))
+		GCInputRightPaddle = objc.ValueAt[GCInputButtonName](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "GCInputRightShoulder"); err == nil && ptr != 0 {
-		GCInputRightShoulder = *(*GCInputButtonName)(unsafe.Pointer(ptr))
+		GCInputRightShoulder = objc.ValueAt[GCInputButtonName](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "GCInputRightSideButton"); err == nil && ptr != 0 {
-		GCInputRightSideButton = *(*GCInputButtonName)(unsafe.Pointer(ptr))
+		GCInputRightSideButton = objc.ValueAt[GCInputButtonName](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "GCInputRightThumbstick"); err == nil && ptr != 0 {
-		GCInputRightThumbstick = *(*GCInputDirectionPadName)(unsafe.Pointer(ptr))
+		GCInputRightThumbstick = objc.ValueAt[GCInputDirectionPadName](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "GCInputRightThumbstickButton"); err == nil && ptr != 0 {
-		GCInputRightThumbstickButton = *(*GCInputButtonName)(unsafe.Pointer(ptr))
+		GCInputRightThumbstickButton = objc.ValueAt[GCInputButtonName](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "GCInputRightTrigger"); err == nil && ptr != 0 {
-		GCInputRightTrigger = *(*GCInputButtonName)(unsafe.Pointer(ptr))
+		GCInputRightTrigger = objc.ValueAt[GCInputButtonName](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "GCInputShifter"); err == nil && ptr != 0 {
-		GCInputShifter = *(*GCInputElementName)(unsafe.Pointer(ptr))
+		GCInputShifter = objc.ValueAt[GCInputElementName](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "GCInputSteeringWheel"); err == nil && ptr != 0 {
-		GCInputSteeringWheel = *(*GCInputAxisName)(unsafe.Pointer(ptr))
+		GCInputSteeringWheel = objc.ValueAt[GCInputAxisName](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "GCInputThumbstick"); err == nil && ptr != 0 {
-		GCInputThumbstick = *(*GCInputDirectionPadName)(unsafe.Pointer(ptr))
+		GCInputThumbstick = objc.ValueAt[GCInputDirectionPadName](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "GCInputThumbstickButton"); err == nil && ptr != 0 {
-		GCInputThumbstickButton = *(*GCInputButtonName)(unsafe.Pointer(ptr))
+		GCInputThumbstickButton = objc.ValueAt[GCInputButtonName](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "GCInputTrigger"); err == nil && ptr != 0 {
-		GCInputTrigger = *(*GCInputButtonName)(unsafe.Pointer(ptr))
+		GCInputTrigger = objc.ValueAt[GCInputButtonName](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "GCInputXboxPaddleFour"); err == nil && ptr != 0 {
-		GCInputXboxPaddleFour = *(*GCInputButtonName)(unsafe.Pointer(ptr))
+		GCInputXboxPaddleFour = objc.ValueAt[GCInputButtonName](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "GCInputXboxPaddleOne"); err == nil && ptr != 0 {
-		GCInputXboxPaddleOne = *(*GCInputButtonName)(unsafe.Pointer(ptr))
+		GCInputXboxPaddleOne = objc.ValueAt[GCInputButtonName](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "GCInputXboxPaddleThree"); err == nil && ptr != 0 {
-		GCInputXboxPaddleThree = *(*GCInputButtonName)(unsafe.Pointer(ptr))
+		GCInputXboxPaddleThree = objc.ValueAt[GCInputButtonName](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "GCInputXboxPaddleTwo"); err == nil && ptr != 0 {
-		GCInputXboxPaddleTwo = *(*GCInputButtonName)(unsafe.Pointer(ptr))
+		GCInputXboxPaddleTwo = objc.ValueAt[GCInputButtonName](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "GCKeyA"); err == nil && ptr != 0 {
@@ -1308,539 +1306,539 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "GCKeyCodeApplication"); err == nil && ptr != 0 {
-		GCKeyCodes.Application = *(*GCKeyCode)(unsafe.Pointer(ptr))
+		GCKeyCodes.Application = objc.ValueAt[GCKeyCode](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "GCKeyCodeBackslash"); err == nil && ptr != 0 {
-		GCKeyCodes.Backslash = *(*GCKeyCode)(unsafe.Pointer(ptr))
+		GCKeyCodes.Backslash = objc.ValueAt[GCKeyCode](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "GCKeyCodeCapsLock"); err == nil && ptr != 0 {
-		GCKeyCodes.CapsLock = *(*GCKeyCode)(unsafe.Pointer(ptr))
+		GCKeyCodes.CapsLock = objc.ValueAt[GCKeyCode](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "GCKeyCodeCloseBracket"); err == nil && ptr != 0 {
-		GCKeyCodes.CloseBracket = *(*GCKeyCode)(unsafe.Pointer(ptr))
+		GCKeyCodes.CloseBracket = objc.ValueAt[GCKeyCode](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "GCKeyCodeComma"); err == nil && ptr != 0 {
-		GCKeyCodes.Comma = *(*GCKeyCode)(unsafe.Pointer(ptr))
+		GCKeyCodes.Comma = objc.ValueAt[GCKeyCode](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "GCKeyCodeDeleteForward"); err == nil && ptr != 0 {
-		GCKeyCodes.DeleteForward = *(*GCKeyCode)(unsafe.Pointer(ptr))
+		GCKeyCodes.DeleteForward = objc.ValueAt[GCKeyCode](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "GCKeyCodeDeleteOrBackspace"); err == nil && ptr != 0 {
-		GCKeyCodes.DeleteOrBackspace = *(*GCKeyCode)(unsafe.Pointer(ptr))
+		GCKeyCodes.DeleteOrBackspace = objc.ValueAt[GCKeyCode](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "GCKeyCodeDownArrow"); err == nil && ptr != 0 {
-		GCKeyCodes.DownArrow = *(*GCKeyCode)(unsafe.Pointer(ptr))
+		GCKeyCodes.DownArrow = objc.ValueAt[GCKeyCode](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "GCKeyCodeEight"); err == nil && ptr != 0 {
-		GCKeyCodes.Eight = *(*GCKeyCode)(unsafe.Pointer(ptr))
+		GCKeyCodes.Eight = objc.ValueAt[GCKeyCode](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "GCKeyCodeEnd"); err == nil && ptr != 0 {
-		GCKeyCodes.End = *(*GCKeyCode)(unsafe.Pointer(ptr))
+		GCKeyCodes.End = objc.ValueAt[GCKeyCode](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "GCKeyCodeEqualSign"); err == nil && ptr != 0 {
-		GCKeyCodes.EqualSign = *(*GCKeyCode)(unsafe.Pointer(ptr))
+		GCKeyCodes.EqualSign = objc.ValueAt[GCKeyCode](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "GCKeyCodeEscape"); err == nil && ptr != 0 {
-		GCKeyCodes.Escape = *(*GCKeyCode)(unsafe.Pointer(ptr))
+		GCKeyCodes.Escape = objc.ValueAt[GCKeyCode](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "GCKeyCodeF1"); err == nil && ptr != 0 {
-		GCKeyCodes.F1 = *(*GCKeyCode)(unsafe.Pointer(ptr))
+		GCKeyCodes.F1 = objc.ValueAt[GCKeyCode](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "GCKeyCodeF10"); err == nil && ptr != 0 {
-		GCKeyCodes.F10 = *(*GCKeyCode)(unsafe.Pointer(ptr))
+		GCKeyCodes.F10 = objc.ValueAt[GCKeyCode](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "GCKeyCodeF11"); err == nil && ptr != 0 {
-		GCKeyCodes.F11 = *(*GCKeyCode)(unsafe.Pointer(ptr))
+		GCKeyCodes.F11 = objc.ValueAt[GCKeyCode](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "GCKeyCodeF12"); err == nil && ptr != 0 {
-		GCKeyCodes.F12 = *(*GCKeyCode)(unsafe.Pointer(ptr))
+		GCKeyCodes.F12 = objc.ValueAt[GCKeyCode](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "GCKeyCodeF13"); err == nil && ptr != 0 {
-		GCKeyCodes.F13 = *(*GCKeyCode)(unsafe.Pointer(ptr))
+		GCKeyCodes.F13 = objc.ValueAt[GCKeyCode](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "GCKeyCodeF14"); err == nil && ptr != 0 {
-		GCKeyCodes.F14 = *(*GCKeyCode)(unsafe.Pointer(ptr))
+		GCKeyCodes.F14 = objc.ValueAt[GCKeyCode](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "GCKeyCodeF15"); err == nil && ptr != 0 {
-		GCKeyCodes.F15 = *(*GCKeyCode)(unsafe.Pointer(ptr))
+		GCKeyCodes.F15 = objc.ValueAt[GCKeyCode](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "GCKeyCodeF16"); err == nil && ptr != 0 {
-		GCKeyCodes.F16 = *(*GCKeyCode)(unsafe.Pointer(ptr))
+		GCKeyCodes.F16 = objc.ValueAt[GCKeyCode](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "GCKeyCodeF17"); err == nil && ptr != 0 {
-		GCKeyCodes.F17 = *(*GCKeyCode)(unsafe.Pointer(ptr))
+		GCKeyCodes.F17 = objc.ValueAt[GCKeyCode](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "GCKeyCodeF18"); err == nil && ptr != 0 {
-		GCKeyCodes.F18 = *(*GCKeyCode)(unsafe.Pointer(ptr))
+		GCKeyCodes.F18 = objc.ValueAt[GCKeyCode](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "GCKeyCodeF19"); err == nil && ptr != 0 {
-		GCKeyCodes.F19 = *(*GCKeyCode)(unsafe.Pointer(ptr))
+		GCKeyCodes.F19 = objc.ValueAt[GCKeyCode](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "GCKeyCodeF2"); err == nil && ptr != 0 {
-		GCKeyCodes.F2 = *(*GCKeyCode)(unsafe.Pointer(ptr))
+		GCKeyCodes.F2 = objc.ValueAt[GCKeyCode](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "GCKeyCodeF20"); err == nil && ptr != 0 {
-		GCKeyCodes.F20 = *(*GCKeyCode)(unsafe.Pointer(ptr))
+		GCKeyCodes.F20 = objc.ValueAt[GCKeyCode](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "GCKeyCodeF3"); err == nil && ptr != 0 {
-		GCKeyCodes.F3 = *(*GCKeyCode)(unsafe.Pointer(ptr))
+		GCKeyCodes.F3 = objc.ValueAt[GCKeyCode](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "GCKeyCodeF4"); err == nil && ptr != 0 {
-		GCKeyCodes.F4 = *(*GCKeyCode)(unsafe.Pointer(ptr))
+		GCKeyCodes.F4 = objc.ValueAt[GCKeyCode](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "GCKeyCodeF5"); err == nil && ptr != 0 {
-		GCKeyCodes.F5 = *(*GCKeyCode)(unsafe.Pointer(ptr))
+		GCKeyCodes.F5 = objc.ValueAt[GCKeyCode](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "GCKeyCodeF6"); err == nil && ptr != 0 {
-		GCKeyCodes.F6 = *(*GCKeyCode)(unsafe.Pointer(ptr))
+		GCKeyCodes.F6 = objc.ValueAt[GCKeyCode](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "GCKeyCodeF7"); err == nil && ptr != 0 {
-		GCKeyCodes.F7 = *(*GCKeyCode)(unsafe.Pointer(ptr))
+		GCKeyCodes.F7 = objc.ValueAt[GCKeyCode](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "GCKeyCodeF8"); err == nil && ptr != 0 {
-		GCKeyCodes.F8 = *(*GCKeyCode)(unsafe.Pointer(ptr))
+		GCKeyCodes.F8 = objc.ValueAt[GCKeyCode](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "GCKeyCodeF9"); err == nil && ptr != 0 {
-		GCKeyCodes.F9 = *(*GCKeyCode)(unsafe.Pointer(ptr))
+		GCKeyCodes.F9 = objc.ValueAt[GCKeyCode](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "GCKeyCodeFive"); err == nil && ptr != 0 {
-		GCKeyCodes.Five = *(*GCKeyCode)(unsafe.Pointer(ptr))
+		GCKeyCodes.Five = objc.ValueAt[GCKeyCode](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "GCKeyCodeFour"); err == nil && ptr != 0 {
-		GCKeyCodes.Four = *(*GCKeyCode)(unsafe.Pointer(ptr))
+		GCKeyCodes.Four = objc.ValueAt[GCKeyCode](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "GCKeyCodeGraveAccentAndTilde"); err == nil && ptr != 0 {
-		GCKeyCodes.GraveAccentAndTilde = *(*GCKeyCode)(unsafe.Pointer(ptr))
+		GCKeyCodes.GraveAccentAndTilde = objc.ValueAt[GCKeyCode](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "GCKeyCodeHome"); err == nil && ptr != 0 {
-		GCKeyCodes.Home = *(*GCKeyCode)(unsafe.Pointer(ptr))
+		GCKeyCodes.Home = objc.ValueAt[GCKeyCode](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "GCKeyCodeHyphen"); err == nil && ptr != 0 {
-		GCKeyCodes.Hyphen = *(*GCKeyCode)(unsafe.Pointer(ptr))
+		GCKeyCodes.Hyphen = objc.ValueAt[GCKeyCode](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "GCKeyCodeInsert"); err == nil && ptr != 0 {
-		GCKeyCodes.Insert = *(*GCKeyCode)(unsafe.Pointer(ptr))
+		GCKeyCodes.Insert = objc.ValueAt[GCKeyCode](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "GCKeyCodeInternational1"); err == nil && ptr != 0 {
-		GCKeyCodes.International1 = *(*GCKeyCode)(unsafe.Pointer(ptr))
+		GCKeyCodes.International1 = objc.ValueAt[GCKeyCode](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "GCKeyCodeInternational2"); err == nil && ptr != 0 {
-		GCKeyCodes.International2 = *(*GCKeyCode)(unsafe.Pointer(ptr))
+		GCKeyCodes.International2 = objc.ValueAt[GCKeyCode](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "GCKeyCodeInternational3"); err == nil && ptr != 0 {
-		GCKeyCodes.International3 = *(*GCKeyCode)(unsafe.Pointer(ptr))
+		GCKeyCodes.International3 = objc.ValueAt[GCKeyCode](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "GCKeyCodeInternational4"); err == nil && ptr != 0 {
-		GCKeyCodes.International4 = *(*GCKeyCode)(unsafe.Pointer(ptr))
+		GCKeyCodes.International4 = objc.ValueAt[GCKeyCode](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "GCKeyCodeInternational5"); err == nil && ptr != 0 {
-		GCKeyCodes.International5 = *(*GCKeyCode)(unsafe.Pointer(ptr))
+		GCKeyCodes.International5 = objc.ValueAt[GCKeyCode](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "GCKeyCodeInternational6"); err == nil && ptr != 0 {
-		GCKeyCodes.International6 = *(*GCKeyCode)(unsafe.Pointer(ptr))
+		GCKeyCodes.International6 = objc.ValueAt[GCKeyCode](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "GCKeyCodeInternational7"); err == nil && ptr != 0 {
-		GCKeyCodes.International7 = *(*GCKeyCode)(unsafe.Pointer(ptr))
+		GCKeyCodes.International7 = objc.ValueAt[GCKeyCode](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "GCKeyCodeInternational8"); err == nil && ptr != 0 {
-		GCKeyCodes.International8 = *(*GCKeyCode)(unsafe.Pointer(ptr))
+		GCKeyCodes.International8 = objc.ValueAt[GCKeyCode](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "GCKeyCodeInternational9"); err == nil && ptr != 0 {
-		GCKeyCodes.International9 = *(*GCKeyCode)(unsafe.Pointer(ptr))
+		GCKeyCodes.International9 = objc.ValueAt[GCKeyCode](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "GCKeyCodeKeyA"); err == nil && ptr != 0 {
-		GCKeyCodes.KeyA = *(*GCKeyCode)(unsafe.Pointer(ptr))
+		GCKeyCodes.KeyA = objc.ValueAt[GCKeyCode](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "GCKeyCodeKeyB"); err == nil && ptr != 0 {
-		GCKeyCodes.KeyB = *(*GCKeyCode)(unsafe.Pointer(ptr))
+		GCKeyCodes.KeyB = objc.ValueAt[GCKeyCode](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "GCKeyCodeKeyC"); err == nil && ptr != 0 {
-		GCKeyCodes.KeyC = *(*GCKeyCode)(unsafe.Pointer(ptr))
+		GCKeyCodes.KeyC = objc.ValueAt[GCKeyCode](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "GCKeyCodeKeyD"); err == nil && ptr != 0 {
-		GCKeyCodes.KeyD = *(*GCKeyCode)(unsafe.Pointer(ptr))
+		GCKeyCodes.KeyD = objc.ValueAt[GCKeyCode](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "GCKeyCodeKeyE"); err == nil && ptr != 0 {
-		GCKeyCodes.KeyE = *(*GCKeyCode)(unsafe.Pointer(ptr))
+		GCKeyCodes.KeyE = objc.ValueAt[GCKeyCode](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "GCKeyCodeKeyF"); err == nil && ptr != 0 {
-		GCKeyCodes.KeyF = *(*GCKeyCode)(unsafe.Pointer(ptr))
+		GCKeyCodes.KeyF = objc.ValueAt[GCKeyCode](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "GCKeyCodeKeyG"); err == nil && ptr != 0 {
-		GCKeyCodes.KeyG = *(*GCKeyCode)(unsafe.Pointer(ptr))
+		GCKeyCodes.KeyG = objc.ValueAt[GCKeyCode](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "GCKeyCodeKeyH"); err == nil && ptr != 0 {
-		GCKeyCodes.KeyH = *(*GCKeyCode)(unsafe.Pointer(ptr))
+		GCKeyCodes.KeyH = objc.ValueAt[GCKeyCode](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "GCKeyCodeKeyI"); err == nil && ptr != 0 {
-		GCKeyCodes.KeyI = *(*GCKeyCode)(unsafe.Pointer(ptr))
+		GCKeyCodes.KeyI = objc.ValueAt[GCKeyCode](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "GCKeyCodeKeyJ"); err == nil && ptr != 0 {
-		GCKeyCodes.KeyJ = *(*GCKeyCode)(unsafe.Pointer(ptr))
+		GCKeyCodes.KeyJ = objc.ValueAt[GCKeyCode](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "GCKeyCodeKeyK"); err == nil && ptr != 0 {
-		GCKeyCodes.KeyK = *(*GCKeyCode)(unsafe.Pointer(ptr))
+		GCKeyCodes.KeyK = objc.ValueAt[GCKeyCode](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "GCKeyCodeKeyL"); err == nil && ptr != 0 {
-		GCKeyCodes.KeyL = *(*GCKeyCode)(unsafe.Pointer(ptr))
+		GCKeyCodes.KeyL = objc.ValueAt[GCKeyCode](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "GCKeyCodeKeyM"); err == nil && ptr != 0 {
-		GCKeyCodes.KeyM = *(*GCKeyCode)(unsafe.Pointer(ptr))
+		GCKeyCodes.KeyM = objc.ValueAt[GCKeyCode](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "GCKeyCodeKeyN"); err == nil && ptr != 0 {
-		GCKeyCodes.KeyN = *(*GCKeyCode)(unsafe.Pointer(ptr))
+		GCKeyCodes.KeyN = objc.ValueAt[GCKeyCode](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "GCKeyCodeKeyO"); err == nil && ptr != 0 {
-		GCKeyCodes.KeyO = *(*GCKeyCode)(unsafe.Pointer(ptr))
+		GCKeyCodes.KeyO = objc.ValueAt[GCKeyCode](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "GCKeyCodeKeyP"); err == nil && ptr != 0 {
-		GCKeyCodes.KeyP = *(*GCKeyCode)(unsafe.Pointer(ptr))
+		GCKeyCodes.KeyP = objc.ValueAt[GCKeyCode](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "GCKeyCodeKeyQ"); err == nil && ptr != 0 {
-		GCKeyCodes.KeyQ = *(*GCKeyCode)(unsafe.Pointer(ptr))
+		GCKeyCodes.KeyQ = objc.ValueAt[GCKeyCode](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "GCKeyCodeKeyR"); err == nil && ptr != 0 {
-		GCKeyCodes.KeyR = *(*GCKeyCode)(unsafe.Pointer(ptr))
+		GCKeyCodes.KeyR = objc.ValueAt[GCKeyCode](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "GCKeyCodeKeyS"); err == nil && ptr != 0 {
-		GCKeyCodes.KeyS = *(*GCKeyCode)(unsafe.Pointer(ptr))
+		GCKeyCodes.KeyS = objc.ValueAt[GCKeyCode](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "GCKeyCodeKeyT"); err == nil && ptr != 0 {
-		GCKeyCodes.KeyT = *(*GCKeyCode)(unsafe.Pointer(ptr))
+		GCKeyCodes.KeyT = objc.ValueAt[GCKeyCode](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "GCKeyCodeKeyU"); err == nil && ptr != 0 {
-		GCKeyCodes.KeyU = *(*GCKeyCode)(unsafe.Pointer(ptr))
+		GCKeyCodes.KeyU = objc.ValueAt[GCKeyCode](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "GCKeyCodeKeyV"); err == nil && ptr != 0 {
-		GCKeyCodes.KeyV = *(*GCKeyCode)(unsafe.Pointer(ptr))
+		GCKeyCodes.KeyV = objc.ValueAt[GCKeyCode](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "GCKeyCodeKeyW"); err == nil && ptr != 0 {
-		GCKeyCodes.KeyW = *(*GCKeyCode)(unsafe.Pointer(ptr))
+		GCKeyCodes.KeyW = objc.ValueAt[GCKeyCode](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "GCKeyCodeKeyX"); err == nil && ptr != 0 {
-		GCKeyCodes.KeyX = *(*GCKeyCode)(unsafe.Pointer(ptr))
+		GCKeyCodes.KeyX = objc.ValueAt[GCKeyCode](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "GCKeyCodeKeyY"); err == nil && ptr != 0 {
-		GCKeyCodes.KeyY = *(*GCKeyCode)(unsafe.Pointer(ptr))
+		GCKeyCodes.KeyY = objc.ValueAt[GCKeyCode](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "GCKeyCodeKeyZ"); err == nil && ptr != 0 {
-		GCKeyCodes.KeyZ = *(*GCKeyCode)(unsafe.Pointer(ptr))
+		GCKeyCodes.KeyZ = objc.ValueAt[GCKeyCode](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "GCKeyCodeKeypad0"); err == nil && ptr != 0 {
-		GCKeyCodes.Keypad0 = *(*GCKeyCode)(unsafe.Pointer(ptr))
+		GCKeyCodes.Keypad0 = objc.ValueAt[GCKeyCode](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "GCKeyCodeKeypad1"); err == nil && ptr != 0 {
-		GCKeyCodes.Keypad1 = *(*GCKeyCode)(unsafe.Pointer(ptr))
+		GCKeyCodes.Keypad1 = objc.ValueAt[GCKeyCode](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "GCKeyCodeKeypad2"); err == nil && ptr != 0 {
-		GCKeyCodes.Keypad2 = *(*GCKeyCode)(unsafe.Pointer(ptr))
+		GCKeyCodes.Keypad2 = objc.ValueAt[GCKeyCode](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "GCKeyCodeKeypad3"); err == nil && ptr != 0 {
-		GCKeyCodes.Keypad3 = *(*GCKeyCode)(unsafe.Pointer(ptr))
+		GCKeyCodes.Keypad3 = objc.ValueAt[GCKeyCode](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "GCKeyCodeKeypad4"); err == nil && ptr != 0 {
-		GCKeyCodes.Keypad4 = *(*GCKeyCode)(unsafe.Pointer(ptr))
+		GCKeyCodes.Keypad4 = objc.ValueAt[GCKeyCode](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "GCKeyCodeKeypad5"); err == nil && ptr != 0 {
-		GCKeyCodes.Keypad5 = *(*GCKeyCode)(unsafe.Pointer(ptr))
+		GCKeyCodes.Keypad5 = objc.ValueAt[GCKeyCode](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "GCKeyCodeKeypad6"); err == nil && ptr != 0 {
-		GCKeyCodes.Keypad6 = *(*GCKeyCode)(unsafe.Pointer(ptr))
+		GCKeyCodes.Keypad6 = objc.ValueAt[GCKeyCode](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "GCKeyCodeKeypad7"); err == nil && ptr != 0 {
-		GCKeyCodes.Keypad7 = *(*GCKeyCode)(unsafe.Pointer(ptr))
+		GCKeyCodes.Keypad7 = objc.ValueAt[GCKeyCode](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "GCKeyCodeKeypad8"); err == nil && ptr != 0 {
-		GCKeyCodes.Keypad8 = *(*GCKeyCode)(unsafe.Pointer(ptr))
+		GCKeyCodes.Keypad8 = objc.ValueAt[GCKeyCode](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "GCKeyCodeKeypad9"); err == nil && ptr != 0 {
-		GCKeyCodes.Keypad9 = *(*GCKeyCode)(unsafe.Pointer(ptr))
+		GCKeyCodes.Keypad9 = objc.ValueAt[GCKeyCode](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "GCKeyCodeKeypadAsterisk"); err == nil && ptr != 0 {
-		GCKeyCodes.KeypadAsterisk = *(*GCKeyCode)(unsafe.Pointer(ptr))
+		GCKeyCodes.KeypadAsterisk = objc.ValueAt[GCKeyCode](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "GCKeyCodeKeypadEnter"); err == nil && ptr != 0 {
-		GCKeyCodes.KeypadEnter = *(*GCKeyCode)(unsafe.Pointer(ptr))
+		GCKeyCodes.KeypadEnter = objc.ValueAt[GCKeyCode](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "GCKeyCodeKeypadEqualSign"); err == nil && ptr != 0 {
-		GCKeyCodes.KeypadEqualSign = *(*GCKeyCode)(unsafe.Pointer(ptr))
+		GCKeyCodes.KeypadEqualSign = objc.ValueAt[GCKeyCode](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "GCKeyCodeKeypadHyphen"); err == nil && ptr != 0 {
-		GCKeyCodes.KeypadHyphen = *(*GCKeyCode)(unsafe.Pointer(ptr))
+		GCKeyCodes.KeypadHyphen = objc.ValueAt[GCKeyCode](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "GCKeyCodeKeypadNumLock"); err == nil && ptr != 0 {
-		GCKeyCodes.KeypadNumLock = *(*GCKeyCode)(unsafe.Pointer(ptr))
+		GCKeyCodes.KeypadNumLock = objc.ValueAt[GCKeyCode](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "GCKeyCodeKeypadPeriod"); err == nil && ptr != 0 {
-		GCKeyCodes.KeypadPeriod = *(*GCKeyCode)(unsafe.Pointer(ptr))
+		GCKeyCodes.KeypadPeriod = objc.ValueAt[GCKeyCode](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "GCKeyCodeKeypadPlus"); err == nil && ptr != 0 {
-		GCKeyCodes.KeypadPlus = *(*GCKeyCode)(unsafe.Pointer(ptr))
+		GCKeyCodes.KeypadPlus = objc.ValueAt[GCKeyCode](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "GCKeyCodeKeypadSlash"); err == nil && ptr != 0 {
-		GCKeyCodes.KeypadSlash = *(*GCKeyCode)(unsafe.Pointer(ptr))
+		GCKeyCodes.KeypadSlash = objc.ValueAt[GCKeyCode](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "GCKeyCodeLANG1"); err == nil && ptr != 0 {
-		GCKeyCodes.LANG1 = *(*GCKeyCode)(unsafe.Pointer(ptr))
+		GCKeyCodes.LANG1 = objc.ValueAt[GCKeyCode](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "GCKeyCodeLANG2"); err == nil && ptr != 0 {
-		GCKeyCodes.LANG2 = *(*GCKeyCode)(unsafe.Pointer(ptr))
+		GCKeyCodes.LANG2 = objc.ValueAt[GCKeyCode](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "GCKeyCodeLANG3"); err == nil && ptr != 0 {
-		GCKeyCodes.LANG3 = *(*GCKeyCode)(unsafe.Pointer(ptr))
+		GCKeyCodes.LANG3 = objc.ValueAt[GCKeyCode](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "GCKeyCodeLANG4"); err == nil && ptr != 0 {
-		GCKeyCodes.LANG4 = *(*GCKeyCode)(unsafe.Pointer(ptr))
+		GCKeyCodes.LANG4 = objc.ValueAt[GCKeyCode](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "GCKeyCodeLANG5"); err == nil && ptr != 0 {
-		GCKeyCodes.LANG5 = *(*GCKeyCode)(unsafe.Pointer(ptr))
+		GCKeyCodes.LANG5 = objc.ValueAt[GCKeyCode](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "GCKeyCodeLANG6"); err == nil && ptr != 0 {
-		GCKeyCodes.LANG6 = *(*GCKeyCode)(unsafe.Pointer(ptr))
+		GCKeyCodes.LANG6 = objc.ValueAt[GCKeyCode](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "GCKeyCodeLANG7"); err == nil && ptr != 0 {
-		GCKeyCodes.LANG7 = *(*GCKeyCode)(unsafe.Pointer(ptr))
+		GCKeyCodes.LANG7 = objc.ValueAt[GCKeyCode](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "GCKeyCodeLANG8"); err == nil && ptr != 0 {
-		GCKeyCodes.LANG8 = *(*GCKeyCode)(unsafe.Pointer(ptr))
+		GCKeyCodes.LANG8 = objc.ValueAt[GCKeyCode](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "GCKeyCodeLANG9"); err == nil && ptr != 0 {
-		GCKeyCodes.LANG9 = *(*GCKeyCode)(unsafe.Pointer(ptr))
+		GCKeyCodes.LANG9 = objc.ValueAt[GCKeyCode](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "GCKeyCodeLeftAlt"); err == nil && ptr != 0 {
-		GCKeyCodes.LeftAlt = *(*GCKeyCode)(unsafe.Pointer(ptr))
+		GCKeyCodes.LeftAlt = objc.ValueAt[GCKeyCode](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "GCKeyCodeLeftArrow"); err == nil && ptr != 0 {
-		GCKeyCodes.LeftArrow = *(*GCKeyCode)(unsafe.Pointer(ptr))
+		GCKeyCodes.LeftArrow = objc.ValueAt[GCKeyCode](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "GCKeyCodeLeftControl"); err == nil && ptr != 0 {
-		GCKeyCodes.LeftControl = *(*GCKeyCode)(unsafe.Pointer(ptr))
+		GCKeyCodes.LeftControl = objc.ValueAt[GCKeyCode](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "GCKeyCodeLeftGUI"); err == nil && ptr != 0 {
-		GCKeyCodes.LeftGUI = *(*GCKeyCode)(unsafe.Pointer(ptr))
+		GCKeyCodes.LeftGUI = objc.ValueAt[GCKeyCode](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "GCKeyCodeLeftShift"); err == nil && ptr != 0 {
-		GCKeyCodes.LeftShift = *(*GCKeyCode)(unsafe.Pointer(ptr))
+		GCKeyCodes.LeftShift = objc.ValueAt[GCKeyCode](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "GCKeyCodeNine"); err == nil && ptr != 0 {
-		GCKeyCodes.Nine = *(*GCKeyCode)(unsafe.Pointer(ptr))
+		GCKeyCodes.Nine = objc.ValueAt[GCKeyCode](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "GCKeyCodeNonUSBackslash"); err == nil && ptr != 0 {
-		GCKeyCodes.NonUSBackslash = *(*GCKeyCode)(unsafe.Pointer(ptr))
+		GCKeyCodes.NonUSBackslash = objc.ValueAt[GCKeyCode](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "GCKeyCodeNonUSPound"); err == nil && ptr != 0 {
-		GCKeyCodes.NonUSPound = *(*GCKeyCode)(unsafe.Pointer(ptr))
+		GCKeyCodes.NonUSPound = objc.ValueAt[GCKeyCode](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "GCKeyCodeOne"); err == nil && ptr != 0 {
-		GCKeyCodes.One = *(*GCKeyCode)(unsafe.Pointer(ptr))
+		GCKeyCodes.One = objc.ValueAt[GCKeyCode](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "GCKeyCodeOpenBracket"); err == nil && ptr != 0 {
-		GCKeyCodes.OpenBracket = *(*GCKeyCode)(unsafe.Pointer(ptr))
+		GCKeyCodes.OpenBracket = objc.ValueAt[GCKeyCode](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "GCKeyCodePageDown"); err == nil && ptr != 0 {
-		GCKeyCodes.PageDown = *(*GCKeyCode)(unsafe.Pointer(ptr))
+		GCKeyCodes.PageDown = objc.ValueAt[GCKeyCode](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "GCKeyCodePageUp"); err == nil && ptr != 0 {
-		GCKeyCodes.PageUp = *(*GCKeyCode)(unsafe.Pointer(ptr))
+		GCKeyCodes.PageUp = objc.ValueAt[GCKeyCode](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "GCKeyCodePause"); err == nil && ptr != 0 {
-		GCKeyCodes.Pause = *(*GCKeyCode)(unsafe.Pointer(ptr))
+		GCKeyCodes.Pause = objc.ValueAt[GCKeyCode](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "GCKeyCodePeriod"); err == nil && ptr != 0 {
-		GCKeyCodes.Period = *(*GCKeyCode)(unsafe.Pointer(ptr))
+		GCKeyCodes.Period = objc.ValueAt[GCKeyCode](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "GCKeyCodePower"); err == nil && ptr != 0 {
-		GCKeyCodes.Power = *(*GCKeyCode)(unsafe.Pointer(ptr))
+		GCKeyCodes.Power = objc.ValueAt[GCKeyCode](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "GCKeyCodePrintScreen"); err == nil && ptr != 0 {
-		GCKeyCodes.PrintScreen = *(*GCKeyCode)(unsafe.Pointer(ptr))
+		GCKeyCodes.PrintScreen = objc.ValueAt[GCKeyCode](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "GCKeyCodeQuote"); err == nil && ptr != 0 {
-		GCKeyCodes.Quote = *(*GCKeyCode)(unsafe.Pointer(ptr))
+		GCKeyCodes.Quote = objc.ValueAt[GCKeyCode](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "GCKeyCodeReturnOrEnter"); err == nil && ptr != 0 {
-		GCKeyCodes.ReturnOrEnter = *(*GCKeyCode)(unsafe.Pointer(ptr))
+		GCKeyCodes.ReturnOrEnter = objc.ValueAt[GCKeyCode](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "GCKeyCodeRightAlt"); err == nil && ptr != 0 {
-		GCKeyCodes.RightAlt = *(*GCKeyCode)(unsafe.Pointer(ptr))
+		GCKeyCodes.RightAlt = objc.ValueAt[GCKeyCode](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "GCKeyCodeRightArrow"); err == nil && ptr != 0 {
-		GCKeyCodes.RightArrow = *(*GCKeyCode)(unsafe.Pointer(ptr))
+		GCKeyCodes.RightArrow = objc.ValueAt[GCKeyCode](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "GCKeyCodeRightControl"); err == nil && ptr != 0 {
-		GCKeyCodes.RightControl = *(*GCKeyCode)(unsafe.Pointer(ptr))
+		GCKeyCodes.RightControl = objc.ValueAt[GCKeyCode](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "GCKeyCodeRightGUI"); err == nil && ptr != 0 {
-		GCKeyCodes.RightGUI = *(*GCKeyCode)(unsafe.Pointer(ptr))
+		GCKeyCodes.RightGUI = objc.ValueAt[GCKeyCode](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "GCKeyCodeRightShift"); err == nil && ptr != 0 {
-		GCKeyCodes.RightShift = *(*GCKeyCode)(unsafe.Pointer(ptr))
+		GCKeyCodes.RightShift = objc.ValueAt[GCKeyCode](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "GCKeyCodeScrollLock"); err == nil && ptr != 0 {
-		GCKeyCodes.ScrollLock = *(*GCKeyCode)(unsafe.Pointer(ptr))
+		GCKeyCodes.ScrollLock = objc.ValueAt[GCKeyCode](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "GCKeyCodeSemicolon"); err == nil && ptr != 0 {
-		GCKeyCodes.Semicolon = *(*GCKeyCode)(unsafe.Pointer(ptr))
+		GCKeyCodes.Semicolon = objc.ValueAt[GCKeyCode](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "GCKeyCodeSeven"); err == nil && ptr != 0 {
-		GCKeyCodes.Seven = *(*GCKeyCode)(unsafe.Pointer(ptr))
+		GCKeyCodes.Seven = objc.ValueAt[GCKeyCode](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "GCKeyCodeSix"); err == nil && ptr != 0 {
-		GCKeyCodes.Six = *(*GCKeyCode)(unsafe.Pointer(ptr))
+		GCKeyCodes.Six = objc.ValueAt[GCKeyCode](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "GCKeyCodeSlash"); err == nil && ptr != 0 {
-		GCKeyCodes.Slash = *(*GCKeyCode)(unsafe.Pointer(ptr))
+		GCKeyCodes.Slash = objc.ValueAt[GCKeyCode](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "GCKeyCodeSpacebar"); err == nil && ptr != 0 {
-		GCKeyCodes.Spacebar = *(*GCKeyCode)(unsafe.Pointer(ptr))
+		GCKeyCodes.Spacebar = objc.ValueAt[GCKeyCode](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "GCKeyCodeTab"); err == nil && ptr != 0 {
-		GCKeyCodes.Tab = *(*GCKeyCode)(unsafe.Pointer(ptr))
+		GCKeyCodes.Tab = objc.ValueAt[GCKeyCode](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "GCKeyCodeThree"); err == nil && ptr != 0 {
-		GCKeyCodes.Three = *(*GCKeyCode)(unsafe.Pointer(ptr))
+		GCKeyCodes.Three = objc.ValueAt[GCKeyCode](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "GCKeyCodeTwo"); err == nil && ptr != 0 {
-		GCKeyCodes.Two = *(*GCKeyCode)(unsafe.Pointer(ptr))
+		GCKeyCodes.Two = objc.ValueAt[GCKeyCode](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "GCKeyCodeUpArrow"); err == nil && ptr != 0 {
-		GCKeyCodes.UpArrow = *(*GCKeyCode)(unsafe.Pointer(ptr))
+		GCKeyCodes.UpArrow = objc.ValueAt[GCKeyCode](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "GCKeyCodeZero"); err == nil && ptr != 0 {
-		GCKeyCodes.Zero = *(*GCKeyCode)(unsafe.Pointer(ptr))
+		GCKeyCodes.Zero = objc.ValueAt[GCKeyCode](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "GCKeyComma"); err == nil && ptr != 0 {
@@ -3174,7 +3172,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "GCPoint2Zero"); err == nil && ptr != 0 {
-		GCPoint2Zero = *(*GCPoint2)(unsafe.Pointer(ptr))
+		GCPoint2Zero = objc.ValueAt[GCPoint2](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "GCProductCategoryArcadeStick"); err == nil && ptr != 0 {

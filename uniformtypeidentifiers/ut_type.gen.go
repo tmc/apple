@@ -279,7 +279,7 @@ func NewTypeWithIdentifier(identifier string) UTType {
 //
 // This initializer returns `nil` if the system doesn’t know the MIME type.
 //
-// See: https://developer.apple.com/documentation/UniformTypeIdentifiers/UTTypeReference/init(mimeType:)-1txq0
+// See: https://developer.apple.com/documentation/UniformTypeIdentifiers/UTTypeReference/init(mimeType:)
 func NewTypeWithMIMEType(mimeType string) UTType {
 	rv := objc.Send[objc.ID](objc.ID(getUTTypeClass().class), objc.Sel("typeWithMIMEType:"), objc.String(mimeType))
 	return UTTypeFromID(rv)

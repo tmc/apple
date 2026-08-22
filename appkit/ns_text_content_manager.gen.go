@@ -187,6 +187,20 @@ type INSTextContentManager interface {
 	// Returns an array of text elements that intersect with the range you specify.
 	TextElementsForRange(range_ INSTextRange) []NSTextElement
 
+	// A method you implement if the location backing store requires manual adjustment after editing.
+	AdjustedRangeFromRangeForEditingTextSelection(textRange INSTextRange, forEditingTextSelection bool) INSTextRange
+	// Describes the starting and ending locations for the document.
+	DocumentRange() INSTextRange
+	// Enumerates text elements starting at the text location you provide.
+	EnumerateTextElementsFromLocationOptionsUsingBlock(textLocation NSTextLocation, options NSTextContentManagerEnumerationOptions, block BoolTextElementHandler) NSTextLocation
+	// Returns a new location from location with offset you provide.
+	LocationFromLocationWithOffset(location NSTextLocation, offset int) NSTextLocation
+	// Returns the offset between the two specified locations.
+	OffsetFromLocationToLocation(from NSTextLocation, to NSTextLocation) int
+	// Replaces the characters specified by range with the text elements you provide.
+	ReplaceContentsInRangeWithTextElements(range_ INSTextRange, textElements []NSTextElement)
+	// Synchronizes changes to the backing store.
+	SynchronizeToBackingStore(completionHandler ErrorHandler)
 	EncodeWithCoder(coder foundation.INSCoder)
 }
 
@@ -247,7 +261,8 @@ func (t NSTextContentManager) InitWithCoder(coder foundation.INSCoder) NSTextCon
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTextContentManager/performEditingTransaction(_:)
 func (t NSTextContentManager) PerformEditingTransactionUsingBlock(transaction VoidHandler) {
-	_block0, _ := NewVoidBlock(transaction)
+	_block0, _cleanup0 := NewVoidBlock(transaction)
+	defer _cleanup0()
 	objc.Send[objc.ID](t.ID, objc.Sel("performEditingTransactionUsingBlock:"), _block0)
 }
 
@@ -381,8 +396,9 @@ func (t NSTextContentManager) DocumentRange() INSTextRange {
 // Returning [NO] or `false` from block breaks out of the enumeration.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTextElementProvider/enumerateTextElements(from:options:using:)
-func (t NSTextContentManager) EnumerateTextElementsFromLocationOptionsUsingBlock(textLocation NSTextLocation, options NSTextContentManagerEnumerationOptions, block TextElementHandler) NSTextLocation {
-	_block2, _ := NewTextElementBlock(block)
+func (t NSTextContentManager) EnumerateTextElementsFromLocationOptionsUsingBlock(textLocation NSTextLocation, options NSTextContentManagerEnumerationOptions, block BoolTextElementHandler) NSTextLocation {
+	_block2, _cleanup2 := NewBoolTextElementBlock(block)
+	defer _cleanup2()
 	rv := objc.Send[objc.ID](t.ID, objc.Sel("enumerateTextElementsFromLocation:options:usingBlock:"), textLocation, options, _block2)
 	return NSTextLocationObjectFromID(rv)
 }

@@ -26,7 +26,7 @@ type NSDecimalNumberBehaviors interface {
 	// Specifies what an [NSDecimalNumber] object will do when it encounters an error.
 	//
 	// See: https://developer.apple.com/documentation/Foundation/NSDecimalNumberBehaviors/exceptionDuringOperation(_:error:leftOperand:rightOperand:)
-	ExceptionDuringOperationErrorLeftOperandRightOperand(operation objectivec.SEL, error_ NSCalculationError, leftOperand INSDecimalNumber, rightOperand INSDecimalNumber) INSDecimalNumber
+	ExceptionDuringOperationErrorLeftOperandRightOperand(operation objc.SEL, error_ NSCalculationError, leftOperand INSDecimalNumber, rightOperand INSDecimalNumber) INSDecimalNumber
 }
 
 // NSDecimalNumberBehaviorsObject wraps an existing Objective-C object that conforms to the NSDecimalNumberBehaviors protocol.
@@ -125,7 +125,7 @@ func (o NSDecimalNumberBehaviorsObject) Scale() int16 {
 //
 // [Exception Programming Topics]: https://developer.apple.com/library/archive/documentation/Cocoa/Conceptual/Exceptions/Exceptions.html#//apple_ref/doc/uid/10000012i
 // [NSDecimalNumber.CalculationError]: https://developer.apple.com/documentation/Foundation/NSDecimalNumber/CalculationError
-func (o NSDecimalNumberBehaviorsObject) ExceptionDuringOperationErrorLeftOperandRightOperand(operation objectivec.SEL, error_ NSCalculationError, leftOperand INSDecimalNumber, rightOperand INSDecimalNumber) INSDecimalNumber {
+func (o NSDecimalNumberBehaviorsObject) ExceptionDuringOperationErrorLeftOperandRightOperand(operation objc.SEL, error_ NSCalculationError, leftOperand INSDecimalNumber, rightOperand INSDecimalNumber) INSDecimalNumber {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("exceptionDuringOperation:error:leftOperand:rightOperand:"), operation, error_, leftOperand, rightOperand)
 	return NSDecimalNumberFromID(rv)
 }

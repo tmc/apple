@@ -23,7 +23,7 @@ type MLCustomLayer interface {
 	// Calculates the shapes of the output of this layer for the given input shapes.
 	//
 	// See: https://developer.apple.com/documentation/CoreML/MLCustomLayer/outputShapes(forInputShapes:)
-	OutputShapesForInputShapesError(inputShapes []foundation.INSArray) ([]foundation.INSArray, error)
+	OutputShapesForInputShapesError(inputShapes []foundation.NSArray) ([]foundation.NSArray, error)
 
 	// Evaluates the custom layer with the given inputs.
 	//
@@ -99,12 +99,12 @@ func (o MLCustomLayerObject) SetWeightDataError(weights []foundation.NSData) (bo
 // See: https://developer.apple.com/documentation/CoreML/MLCustomLayer/outputShapes(forInputShapes:)
 //
 // [Core ML Neural Network specification]: https://mlmodel.readme.io/reference/neuralnetwork
-func (o MLCustomLayerObject) OutputShapesForInputShapesError(inputShapes []foundation.INSArray) ([]foundation.INSArray, error) {
-	rv, err := objc.SendWithError[[]objc.ID](o.ID, objc.Sel("outputShapesForInputShapes:error:"), inputShapes)
+func (o MLCustomLayerObject) OutputShapesForInputShapesError(inputShapes []foundation.NSArray) ([]foundation.NSArray, error) {
+	rv, err := objc.SendWithError[[]objc.ID](o.ID, objc.Sel("outputShapesForInputShapes:error:"), objectivec.IObjectSliceToNSArray(inputShapes))
 	if err != nil {
 		return nil, err
 	}
-	return objc.ConvertSlice(rv, func(id objc.ID) foundation.INSArray {
+	return objc.ConvertSlice(rv, func(id objc.ID) foundation.NSArray {
 		return foundation.NSArrayFromID(id)
 	}), nil
 }

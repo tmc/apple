@@ -54,17 +54,19 @@ func (nc NSCollectionLayoutDimensionClass) Alloc() NSCollectionLayoutDimension {
 // You can express an item’s dimensions using an absolute, estimated, or
 // fractional value.
 //
-// Use an to specify exact dimensions, like a 44 x 44 point square:
+// Use an absolute value to specify exact dimensions, like a 44 x 44 point
+// square:
 //
-// Use an if the size of your content might change at runtime, such as when
-// data is loaded or in response to a change in system font size. You provide
-// an initial estimated size and the system computes the actual value later.
+// Use an estimated value if the size of your content might change at runtime,
+// such as when data is loaded or in response to a change in system font size.
+// You provide an initial estimated size and the system computes the actual
+// value later.
 //
-// Use a to define a value that’s relative to a dimension of the item’s
-// container. This option simplifies specifying aspect ratios. For example,
-// the following item has a width and a height that are both equal to 20% of
-// its container’s width, creating a square that grows and shrinks as the
-// size of its container changes.
+// Use a fractional value to define a value that’s relative to a dimension
+// of the item’s container. This option simplifies specifying aspect ratios.
+// For example, the following item has a width and a height that are both
+// equal to 20% of its container’s width, creating a square that grows and
+// shrinks as the size of its container changes.
 //
 // # Getting the dimension value
 //

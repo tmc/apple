@@ -81,12 +81,12 @@ func registerSymbol(dst *uintptr, errDst *error, handle uintptr, name, introduce
 	*errDst = nil
 }
 
-var _nSAccessibilityActionDescription func(action NSAccessibilityActionName) foundation.NSString
+var _nSAccessibilityActionDescription func(action NSAccessibilityActionName) *foundation.NSString
 var _nSAccessibilityActionDescriptionErr error
 
-func tryNSAccessibilityActionDescription(action NSAccessibilityActionName) (foundation.NSString, error) {
+func tryNSAccessibilityActionDescription(action NSAccessibilityActionName) (*foundation.NSString, error) {
 	if _nSAccessibilityActionDescription == nil {
-		return foundation.NSString{}, symbolCallError("NSAccessibilityActionDescription", "", _nSAccessibilityActionDescriptionErr)
+		return nil, symbolCallError("NSAccessibilityActionDescription", "", _nSAccessibilityActionDescriptionErr)
 	}
 	return _nSAccessibilityActionDescription(action), nil
 }
@@ -94,7 +94,7 @@ func tryNSAccessibilityActionDescription(action NSAccessibilityActionName) (foun
 // NSAccessibilityActionDescription returns a standard description for an action.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSAccessibility-swift.struct/Action/description
-func NSAccessibilityActionDescription(action NSAccessibilityActionName) foundation.NSString {
+func NSAccessibilityActionDescription(action NSAccessibilityActionName) *foundation.NSString {
 	result, callErr := tryNSAccessibilityActionDescription(action)
 	if callErr != nil {
 		panic(callErr)
@@ -164,12 +164,32 @@ func NSAccessibilityPostNotification(element objectivec.Object, notification NSA
 	}
 }
 
-var _nSAccessibilityRoleDescription func(role NSAccessibilityRole, subrole NSAccessibilitySubrole) foundation.NSString
+var _nSAccessibilityPostNotificationWithUserInfo func(element objectivec.Object, notification NSAccessibilityNotificationName, userInfo uintptr)
+var _nSAccessibilityPostNotificationWithUserInfoErr error
+
+func tryNSAccessibilityPostNotificationWithUserInfo(element objectivec.Object, notification NSAccessibilityNotificationName, userInfo uintptr) error {
+	if _nSAccessibilityPostNotificationWithUserInfo == nil {
+		return symbolCallError("NSAccessibilityPostNotificationWithUserInfo", "10.7", _nSAccessibilityPostNotificationWithUserInfoErr)
+	}
+	_nSAccessibilityPostNotificationWithUserInfo(element, notification, userInfo)
+	return nil
+}
+
+// NSAccessibilityPostNotificationWithUserInfo sends a notification and an optional user info dictionary to any observing assistive apps.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-swift.struct/post(element:notification:userInfo:)
+func NSAccessibilityPostNotificationWithUserInfo(element objectivec.Object, notification NSAccessibilityNotificationName, userInfo uintptr) {
+	if callErr := tryNSAccessibilityPostNotificationWithUserInfo(element, notification, userInfo); callErr != nil {
+		panic(callErr)
+	}
+}
+
+var _nSAccessibilityRoleDescription func(role NSAccessibilityRole, subrole NSAccessibilitySubrole) *foundation.NSString
 var _nSAccessibilityRoleDescriptionErr error
 
-func tryNSAccessibilityRoleDescription(role NSAccessibilityRole, subrole NSAccessibilitySubrole) (foundation.NSString, error) {
+func tryNSAccessibilityRoleDescription(role NSAccessibilityRole, subrole NSAccessibilitySubrole) (*foundation.NSString, error) {
 	if _nSAccessibilityRoleDescription == nil {
-		return foundation.NSString{}, symbolCallError("NSAccessibilityRoleDescription", "", _nSAccessibilityRoleDescriptionErr)
+		return nil, symbolCallError("NSAccessibilityRoleDescription", "", _nSAccessibilityRoleDescriptionErr)
 	}
 	return _nSAccessibilityRoleDescription(role, subrole), nil
 }
@@ -177,7 +197,7 @@ func tryNSAccessibilityRoleDescription(role NSAccessibilityRole, subrole NSAcces
 // NSAccessibilityRoleDescription returns a standard description for a role and subrole.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSAccessibility-swift.struct/Role/description(with:)
-func NSAccessibilityRoleDescription(role NSAccessibilityRole, subrole NSAccessibilitySubrole) foundation.NSString {
+func NSAccessibilityRoleDescription(role NSAccessibilityRole, subrole NSAccessibilitySubrole) *foundation.NSString {
 	result, callErr := tryNSAccessibilityRoleDescription(role, subrole)
 	if callErr != nil {
 		panic(callErr)
@@ -185,12 +205,12 @@ func NSAccessibilityRoleDescription(role NSAccessibilityRole, subrole NSAccessib
 	return result
 }
 
-var _nSAccessibilityRoleDescriptionForUIElement func(element objectivec.Object) foundation.NSString
+var _nSAccessibilityRoleDescriptionForUIElement func(element objectivec.Object) *foundation.NSString
 var _nSAccessibilityRoleDescriptionForUIElementErr error
 
-func tryNSAccessibilityRoleDescriptionForUIElement(element objectivec.Object) (foundation.NSString, error) {
+func tryNSAccessibilityRoleDescriptionForUIElement(element objectivec.Object) (*foundation.NSString, error) {
 	if _nSAccessibilityRoleDescriptionForUIElement == nil {
-		return foundation.NSString{}, symbolCallError("NSAccessibilityRoleDescriptionForUIElement", "", _nSAccessibilityRoleDescriptionForUIElementErr)
+		return nil, symbolCallError("NSAccessibilityRoleDescriptionForUIElement", "", _nSAccessibilityRoleDescriptionForUIElementErr)
 	}
 	return _nSAccessibilityRoleDescriptionForUIElement(element), nil
 }
@@ -198,7 +218,7 @@ func tryNSAccessibilityRoleDescriptionForUIElement(element objectivec.Object) (f
 // NSAccessibilityRoleDescriptionForUIElement returns a standard role description for a user interface element.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSAccessibility-swift.struct/Role/description(for:)
-func NSAccessibilityRoleDescriptionForUIElement(element objectivec.Object) foundation.NSString {
+func NSAccessibilityRoleDescriptionForUIElement(element objectivec.Object) *foundation.NSString {
 	result, callErr := tryNSAccessibilityRoleDescriptionForUIElement(element)
 	if callErr != nil {
 		panic(callErr)
@@ -248,12 +268,12 @@ func NSAccessibilityUnignoredAncestor(element objectivec.Object) objectivec.Obje
 	return result
 }
 
-var _nSAccessibilityUnignoredChildren func(originalChildren foundation.NSArray) foundation.NSArray
+var _nSAccessibilityUnignoredChildren func(originalChildren *foundation.NSArray) *foundation.NSArray
 var _nSAccessibilityUnignoredChildrenErr error
 
-func tryNSAccessibilityUnignoredChildren(originalChildren foundation.NSArray) (foundation.NSArray, error) {
+func tryNSAccessibilityUnignoredChildren(originalChildren *foundation.NSArray) (*foundation.NSArray, error) {
 	if _nSAccessibilityUnignoredChildren == nil {
-		return foundation.NSArray{}, symbolCallError("NSAccessibilityUnignoredChildren", "", _nSAccessibilityUnignoredChildrenErr)
+		return nil, symbolCallError("NSAccessibilityUnignoredChildren", "", _nSAccessibilityUnignoredChildrenErr)
 	}
 	return _nSAccessibilityUnignoredChildren(originalChildren), nil
 }
@@ -261,7 +281,7 @@ func tryNSAccessibilityUnignoredChildren(originalChildren foundation.NSArray) (f
 // NSAccessibilityUnignoredChildren returns a list of unignored accessibility objects, descending the hierarchy, if necessary.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSAccessibility-swift.struct/unignoredChildren(from:)
-func NSAccessibilityUnignoredChildren(originalChildren foundation.NSArray) foundation.NSArray {
+func NSAccessibilityUnignoredChildren(originalChildren *foundation.NSArray) *foundation.NSArray {
 	result, callErr := tryNSAccessibilityUnignoredChildren(originalChildren)
 	if callErr != nil {
 		panic(callErr)
@@ -269,12 +289,12 @@ func NSAccessibilityUnignoredChildren(originalChildren foundation.NSArray) found
 	return result
 }
 
-var _nSAccessibilityUnignoredChildrenForOnlyChild func(originalChild objectivec.Object) foundation.NSArray
+var _nSAccessibilityUnignoredChildrenForOnlyChild func(originalChild objectivec.Object) *foundation.NSArray
 var _nSAccessibilityUnignoredChildrenForOnlyChildErr error
 
-func tryNSAccessibilityUnignoredChildrenForOnlyChild(originalChild objectivec.Object) (foundation.NSArray, error) {
+func tryNSAccessibilityUnignoredChildrenForOnlyChild(originalChild objectivec.Object) (*foundation.NSArray, error) {
 	if _nSAccessibilityUnignoredChildrenForOnlyChild == nil {
-		return foundation.NSArray{}, symbolCallError("NSAccessibilityUnignoredChildrenForOnlyChild", "", _nSAccessibilityUnignoredChildrenForOnlyChildErr)
+		return nil, symbolCallError("NSAccessibilityUnignoredChildrenForOnlyChild", "", _nSAccessibilityUnignoredChildrenForOnlyChildErr)
 	}
 	return _nSAccessibilityUnignoredChildrenForOnlyChild(originalChild), nil
 }
@@ -282,7 +302,7 @@ func tryNSAccessibilityUnignoredChildrenForOnlyChild(originalChild objectivec.Ob
 // NSAccessibilityUnignoredChildrenForOnlyChild returns a list of unignored accessibility objects, descending the hierarchy, if necessary.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSAccessibility-swift.struct/unignoredChildrenForOnlyChild(from:)
-func NSAccessibilityUnignoredChildrenForOnlyChild(originalChild objectivec.Object) foundation.NSArray {
+func NSAccessibilityUnignoredChildrenForOnlyChild(originalChild objectivec.Object) *foundation.NSArray {
 	result, callErr := tryNSAccessibilityUnignoredChildrenForOnlyChild(originalChild)
 	if callErr != nil {
 		panic(callErr)
@@ -332,10 +352,10 @@ func NSApplicationLoad() bool {
 	return result
 }
 
-var _nSApplicationMain func(argc int, argv string) int
+var _nSApplicationMain func(argc int32, argv string) int32
 var _nSApplicationMainErr error
 
-func tryNSApplicationMain(argc int, argv string) (int, error) {
+func tryNSApplicationMain(argc int32, argv string) (int32, error) {
 	if _nSApplicationMain == nil {
 		return 0, symbolCallError("NSApplicationMain", "", _nSApplicationMainErr)
 	}
@@ -345,7 +365,7 @@ func tryNSApplicationMain(argc int, argv string) (int, error) {
 // NSApplicationMain called by the main function to create and run the application.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSApplicationMain
-func NSApplicationMain(argc int, argv string) int {
+func NSApplicationMain(argc int32, argv string) int32 {
 	result, callErr := tryNSApplicationMain(argc, argv)
 	if callErr != nil {
 		panic(callErr)
@@ -478,10 +498,10 @@ func NSColorSpaceFromDepth(depth NSWindowDepth) NSColorSpaceName {
 	return result
 }
 
-var _nSConvertGlyphsToPackedGlyphs func(glBuf *uint32, count int, packing NSMultibyteGlyphPacking, packedGlyphs string) int
+var _nSConvertGlyphsToPackedGlyphs func(glBuf *NSGlyph, count int, packing NSMultibyteGlyphPacking, packedGlyphs string) int
 var _nSConvertGlyphsToPackedGlyphsErr error
 
-func tryNSConvertGlyphsToPackedGlyphs(glBuf *uint32, count int, packing NSMultibyteGlyphPacking, packedGlyphs string) (int, error) {
+func tryNSConvertGlyphsToPackedGlyphs(glBuf *NSGlyph, count int, packing NSMultibyteGlyphPacking, packedGlyphs string) (int, error) {
 	if _nSConvertGlyphsToPackedGlyphs == nil {
 		return 0, symbolCallError("NSConvertGlyphsToPackedGlyphs", "10.0", _nSConvertGlyphsToPackedGlyphsErr)
 	}
@@ -493,7 +513,7 @@ func tryNSConvertGlyphsToPackedGlyphs(glBuf *uint32, count int, packing NSMultib
 // Deprecated: Deprecated since macOS 10.13.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSConvertGlyphsToPackedGlyphs(_:_:_:_:)
-func NSConvertGlyphsToPackedGlyphs(glBuf *uint32, count int, packing NSMultibyteGlyphPacking, packedGlyphs string) int {
+func NSConvertGlyphsToPackedGlyphs(glBuf *NSGlyph, count int, packing NSMultibyteGlyphPacking, packedGlyphs string) int {
 	result, callErr := tryNSConvertGlyphsToPackedGlyphs(glBuf, count, packing, packedGlyphs)
 	if callErr != nil {
 		panic(callErr)
@@ -567,10 +587,10 @@ func NSCountWindowsForContext(context int, count *int) {
 	}
 }
 
-var _nSCreateFileContentsPboardType func(fileType foundation.NSString) NSPasteboardType
+var _nSCreateFileContentsPboardType func(fileType *foundation.NSString) NSPasteboardType
 var _nSCreateFileContentsPboardTypeErr error
 
-func tryNSCreateFileContentsPboardType(fileType foundation.NSString) (NSPasteboardType, error) {
+func tryNSCreateFileContentsPboardType(fileType *foundation.NSString) (NSPasteboardType, error) {
 	if _nSCreateFileContentsPboardType == nil {
 		return *new(NSPasteboardType), symbolCallError("NSCreateFileContentsPboardType", "", _nSCreateFileContentsPboardTypeErr)
 	}
@@ -582,7 +602,7 @@ func tryNSCreateFileContentsPboardType(fileType foundation.NSString) (NSPasteboa
 // Deprecated: The file contents pboard type allowed you to synthesize a pboard type for a file’s contents based on the file’s extension. Using the UTI of a file to represent its contents now replaces this functionality.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSPasteboard/PasteboardType/fileContentsType(forPathExtension:)
-func NSCreateFileContentsPboardType(fileType foundation.NSString) NSPasteboardType {
+func NSCreateFileContentsPboardType(fileType *foundation.NSString) NSPasteboardType {
 	result, callErr := tryNSCreateFileContentsPboardType(fileType)
 	if callErr != nil {
 		panic(callErr)
@@ -590,10 +610,10 @@ func NSCreateFileContentsPboardType(fileType foundation.NSString) NSPasteboardTy
 	return result
 }
 
-var _nSCreateFilenamePboardType func(fileType foundation.NSString) NSPasteboardType
+var _nSCreateFilenamePboardType func(fileType *foundation.NSString) NSPasteboardType
 var _nSCreateFilenamePboardTypeErr error
 
-func tryNSCreateFilenamePboardType(fileType foundation.NSString) (NSPasteboardType, error) {
+func tryNSCreateFilenamePboardType(fileType *foundation.NSString) (NSPasteboardType, error) {
 	if _nSCreateFilenamePboardType == nil {
 		return *new(NSPasteboardType), symbolCallError("NSCreateFilenamePboardType", "", _nSCreateFilenamePboardTypeErr)
 	}
@@ -605,7 +625,7 @@ func tryNSCreateFilenamePboardType(fileType foundation.NSString) (NSPasteboardTy
 // Deprecated: The file contents pboard type allowed you to synthesize a pboard type for a file’s contents based on the file’s extension. Using the UTI of a file to represent its contents now replaces this functionality.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSPasteboard/PasteboardType/fileNameType(forPathExtension:)
-func NSCreateFilenamePboardType(fileType foundation.NSString) NSPasteboardType {
+func NSCreateFilenamePboardType(fileType *foundation.NSString) NSPasteboardType {
 	result, callErr := tryNSCreateFilenamePboardType(fileType)
 	if callErr != nil {
 		panic(callErr)
@@ -955,12 +975,12 @@ func NSFrameRectWithWidthUsingOperation(rect corefoundation.CGRect, frameWidth f
 	}
 }
 
-var _nSGetFileType func(pboardType NSPasteboardType) foundation.NSString
+var _nSGetFileType func(pboardType NSPasteboardType) *foundation.NSString
 var _nSGetFileTypeErr error
 
-func tryNSGetFileType(pboardType NSPasteboardType) (foundation.NSString, error) {
+func tryNSGetFileType(pboardType NSPasteboardType) (*foundation.NSString, error) {
 	if _nSGetFileType == nil {
-		return foundation.NSString{}, symbolCallError("NSGetFileType", "", _nSGetFileTypeErr)
+		return nil, symbolCallError("NSGetFileType", "", _nSGetFileTypeErr)
 	}
 	return _nSGetFileType(pboardType), nil
 }
@@ -970,7 +990,7 @@ func tryNSGetFileType(pboardType NSPasteboardType) (foundation.NSString, error) 
 // Deprecated: The file contents pboard type allowed you to synthesize a pboard type for a file’s contents based on the file’s extension. Using the UTI of a file to represent its contents now replaces this functionality.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSPasteboard/PasteboardType/representedPathExtension
-func NSGetFileType(pboardType NSPasteboardType) foundation.NSString {
+func NSGetFileType(pboardType NSPasteboardType) *foundation.NSString {
 	result, callErr := tryNSGetFileType(pboardType)
 	if callErr != nil {
 		panic(callErr)
@@ -978,10 +998,10 @@ func NSGetFileType(pboardType NSPasteboardType) foundation.NSString {
 	return result
 }
 
-var _nSGetFileTypes func(pboardTypes *foundation.NSString) []foundation.NSString
+var _nSGetFileTypes func(pboardTypes **foundation.NSString) []*foundation.NSString
 var _nSGetFileTypesErr error
 
-func tryNSGetFileTypes(pboardTypes []foundation.NSString) ([]foundation.NSString, error) {
+func tryNSGetFileTypes(pboardTypes []*foundation.NSString) ([]*foundation.NSString, error) {
 	if _nSGetFileTypes == nil {
 		return nil, symbolCallError("NSGetFileTypes", "", _nSGetFileTypesErr)
 	}
@@ -993,7 +1013,7 @@ func tryNSGetFileTypes(pboardTypes []foundation.NSString) ([]foundation.NSString
 // Deprecated: The file contents pboard type allowed you to synthesize a pboard type for a file’s contents based on the file’s extension. Using the UTI of a file to represent its contents now replaces this functionality.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSPasteboard/PasteboardType/representedPathExtensions(from:)
-func NSGetFileTypes(pboardTypes []foundation.NSString) []foundation.NSString {
+func NSGetFileTypes(pboardTypes []*foundation.NSString) []*foundation.NSString {
 	result, callErr := tryNSGetFileTypes(pboardTypes)
 	if callErr != nil {
 		panic(callErr)
@@ -1023,10 +1043,10 @@ func NSHighlightRect(rect corefoundation.CGRect) {
 	}
 }
 
-var _nSInterfaceStyleForKey func(key foundation.NSString, responder *NSResponder) uint
+var _nSInterfaceStyleForKey func(key *foundation.NSString, responder *NSResponder) uint
 var _nSInterfaceStyleForKeyErr error
 
-func tryNSInterfaceStyleForKey(key foundation.NSString, responder *NSResponder) (uint, error) {
+func tryNSInterfaceStyleForKey(key *foundation.NSString, responder *NSResponder) (uint, error) {
 	if _nSInterfaceStyleForKey == nil {
 		return 0, symbolCallError("NSInterfaceStyleForKey", "10.0", _nSInterfaceStyleForKeyErr)
 	}
@@ -1038,7 +1058,7 @@ func tryNSInterfaceStyleForKey(key foundation.NSString, responder *NSResponder) 
 // Deprecated: Deprecated since macOS 10.8.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSInterfaceStyleForKey
-func NSInterfaceStyleForKey(key foundation.NSString, responder *NSResponder) uint {
+func NSInterfaceStyleForKey(key *foundation.NSString, responder *NSResponder) uint {
 	result, callErr := tryNSInterfaceStyleForKey(key, responder)
 	if callErr != nil {
 		panic(callErr)
@@ -1088,10 +1108,10 @@ func NSNumberOfColorComponents(colorSpaceName NSColorSpaceName) int {
 	return result
 }
 
-var _nSPerformService func(itemName foundation.NSString, pboard *NSPasteboard) bool
+var _nSPerformService func(itemName *foundation.NSString, pboard *NSPasteboard) bool
 var _nSPerformServiceErr error
 
-func tryNSPerformService(itemName foundation.NSString, pboard *NSPasteboard) (bool, error) {
+func tryNSPerformService(itemName *foundation.NSString, pboard *NSPasteboard) (bool, error) {
 	if _nSPerformService == nil {
 		return false, symbolCallError("NSPerformService", "", _nSPerformServiceErr)
 	}
@@ -1101,7 +1121,7 @@ func tryNSPerformService(itemName foundation.NSString, pboard *NSPasteboard) (bo
 // NSPerformService programmatically invokes a Services menu service.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSPerformService(_:_:)
-func NSPerformService(itemName foundation.NSString, pboard *NSPasteboard) bool {
+func NSPerformService(itemName *foundation.NSString, pboard *NSPasteboard) bool {
 	result, callErr := tryNSPerformService(itemName, pboard)
 	if callErr != nil {
 		panic(callErr)
@@ -1330,10 +1350,10 @@ func NSRegisterServicesProvider(provider objectivec.Object, name NSServiceProvid
 	}
 }
 
-var _nSRunAlertPanelRelativeToWindow func(title foundation.NSString, msgFormat foundation.NSString, defaultButton foundation.NSString, alternateButton foundation.NSString, otherButton foundation.NSString, docWindow *NSWindow) int
+var _nSRunAlertPanelRelativeToWindow func(title *foundation.NSString, msgFormat *foundation.NSString, defaultButton *foundation.NSString, alternateButton *foundation.NSString, otherButton *foundation.NSString, docWindow *NSWindow) int
 var _nSRunAlertPanelRelativeToWindowErr error
 
-func tryNSRunAlertPanelRelativeToWindow(title foundation.NSString, msgFormat foundation.NSString, defaultButton foundation.NSString, alternateButton foundation.NSString, otherButton foundation.NSString, docWindow *NSWindow) (int, error) {
+func tryNSRunAlertPanelRelativeToWindow(title *foundation.NSString, msgFormat *foundation.NSString, defaultButton *foundation.NSString, alternateButton *foundation.NSString, otherButton *foundation.NSString, docWindow *NSWindow) (int, error) {
 	if _nSRunAlertPanelRelativeToWindow == nil {
 		return 0, symbolCallError("NSRunAlertPanelRelativeToWindow", "10.0", _nSRunAlertPanelRelativeToWindowErr)
 	}
@@ -1345,7 +1365,7 @@ func tryNSRunAlertPanelRelativeToWindow(title foundation.NSString, msgFormat fou
 // Deprecated: Deprecated since macOS 10.0.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSRunAlertPanelRelativeToWindow
-func NSRunAlertPanelRelativeToWindow(title foundation.NSString, msgFormat foundation.NSString, defaultButton foundation.NSString, alternateButton foundation.NSString, otherButton foundation.NSString, docWindow *NSWindow) int {
+func NSRunAlertPanelRelativeToWindow(title *foundation.NSString, msgFormat *foundation.NSString, defaultButton *foundation.NSString, alternateButton *foundation.NSString, otherButton *foundation.NSString, docWindow *NSWindow) int {
 	result, callErr := tryNSRunAlertPanelRelativeToWindow(title, msgFormat, defaultButton, alternateButton, otherButton, docWindow)
 	if callErr != nil {
 		panic(callErr)
@@ -1353,10 +1373,10 @@ func NSRunAlertPanelRelativeToWindow(title foundation.NSString, msgFormat founda
 	return result
 }
 
-var _nSRunCriticalAlertPanelRelativeToWindow func(title foundation.NSString, msgFormat foundation.NSString, defaultButton foundation.NSString, alternateButton foundation.NSString, otherButton foundation.NSString, docWindow *NSWindow) int
+var _nSRunCriticalAlertPanelRelativeToWindow func(title *foundation.NSString, msgFormat *foundation.NSString, defaultButton *foundation.NSString, alternateButton *foundation.NSString, otherButton *foundation.NSString, docWindow *NSWindow) int
 var _nSRunCriticalAlertPanelRelativeToWindowErr error
 
-func tryNSRunCriticalAlertPanelRelativeToWindow(title foundation.NSString, msgFormat foundation.NSString, defaultButton foundation.NSString, alternateButton foundation.NSString, otherButton foundation.NSString, docWindow *NSWindow) (int, error) {
+func tryNSRunCriticalAlertPanelRelativeToWindow(title *foundation.NSString, msgFormat *foundation.NSString, defaultButton *foundation.NSString, alternateButton *foundation.NSString, otherButton *foundation.NSString, docWindow *NSWindow) (int, error) {
 	if _nSRunCriticalAlertPanelRelativeToWindow == nil {
 		return 0, symbolCallError("NSRunCriticalAlertPanelRelativeToWindow", "10.0", _nSRunCriticalAlertPanelRelativeToWindowErr)
 	}
@@ -1368,7 +1388,7 @@ func tryNSRunCriticalAlertPanelRelativeToWindow(title foundation.NSString, msgFo
 // Deprecated: Deprecated since macOS 10.0.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSRunCriticalAlertPanelRelativeToWindow
-func NSRunCriticalAlertPanelRelativeToWindow(title foundation.NSString, msgFormat foundation.NSString, defaultButton foundation.NSString, alternateButton foundation.NSString, otherButton foundation.NSString, docWindow *NSWindow) int {
+func NSRunCriticalAlertPanelRelativeToWindow(title *foundation.NSString, msgFormat *foundation.NSString, defaultButton *foundation.NSString, alternateButton *foundation.NSString, otherButton *foundation.NSString, docWindow *NSWindow) int {
 	result, callErr := tryNSRunCriticalAlertPanelRelativeToWindow(title, msgFormat, defaultButton, alternateButton, otherButton, docWindow)
 	if callErr != nil {
 		panic(callErr)
@@ -1376,10 +1396,10 @@ func NSRunCriticalAlertPanelRelativeToWindow(title foundation.NSString, msgForma
 	return result
 }
 
-var _nSRunInformationalAlertPanelRelativeToWindow func(title foundation.NSString, msgFormat foundation.NSString, defaultButton foundation.NSString, alternateButton foundation.NSString, otherButton foundation.NSString, docWindow *NSWindow) int
+var _nSRunInformationalAlertPanelRelativeToWindow func(title *foundation.NSString, msgFormat *foundation.NSString, defaultButton *foundation.NSString, alternateButton *foundation.NSString, otherButton *foundation.NSString, docWindow *NSWindow) int
 var _nSRunInformationalAlertPanelRelativeToWindowErr error
 
-func tryNSRunInformationalAlertPanelRelativeToWindow(title foundation.NSString, msgFormat foundation.NSString, defaultButton foundation.NSString, alternateButton foundation.NSString, otherButton foundation.NSString, docWindow *NSWindow) (int, error) {
+func tryNSRunInformationalAlertPanelRelativeToWindow(title *foundation.NSString, msgFormat *foundation.NSString, defaultButton *foundation.NSString, alternateButton *foundation.NSString, otherButton *foundation.NSString, docWindow *NSWindow) (int, error) {
 	if _nSRunInformationalAlertPanelRelativeToWindow == nil {
 		return 0, symbolCallError("NSRunInformationalAlertPanelRelativeToWindow", "10.0", _nSRunInformationalAlertPanelRelativeToWindowErr)
 	}
@@ -1391,7 +1411,7 @@ func tryNSRunInformationalAlertPanelRelativeToWindow(title foundation.NSString, 
 // Deprecated: Deprecated since macOS 10.0.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSRunInformationalAlertPanelRelativeToWindow
-func NSRunInformationalAlertPanelRelativeToWindow(title foundation.NSString, msgFormat foundation.NSString, defaultButton foundation.NSString, alternateButton foundation.NSString, otherButton foundation.NSString, docWindow *NSWindow) int {
+func NSRunInformationalAlertPanelRelativeToWindow(title *foundation.NSString, msgFormat *foundation.NSString, defaultButton *foundation.NSString, alternateButton *foundation.NSString, otherButton *foundation.NSString, docWindow *NSWindow) int {
 	result, callErr := tryNSRunInformationalAlertPanelRelativeToWindow(title, msgFormat, defaultButton, alternateButton, otherButton, docWindow)
 	if callErr != nil {
 		panic(callErr)
@@ -1419,10 +1439,10 @@ func NSSetFocusRingStyle(placement NSFocusRingPlacement) {
 	}
 }
 
-var _nSSetShowsServicesMenuItem func(itemName foundation.NSString, enabled bool) int
+var _nSSetShowsServicesMenuItem func(itemName *foundation.NSString, enabled bool) int
 var _nSSetShowsServicesMenuItemErr error
 
-func tryNSSetShowsServicesMenuItem(itemName foundation.NSString, enabled bool) (int, error) {
+func tryNSSetShowsServicesMenuItem(itemName *foundation.NSString, enabled bool) (int, error) {
 	if _nSSetShowsServicesMenuItem == nil {
 		return 0, symbolCallError("NSSetShowsServicesMenuItem", "", _nSSetShowsServicesMenuItemErr)
 	}
@@ -1432,7 +1452,7 @@ func tryNSSetShowsServicesMenuItem(itemName foundation.NSString, enabled bool) (
 // NSSetShowsServicesMenuItem specifies whether an item should be included in Services menus.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSSetShowsServicesMenuItem(_:_:)
-func NSSetShowsServicesMenuItem(itemName foundation.NSString, enabled bool) int {
+func NSSetShowsServicesMenuItem(itemName *foundation.NSString, enabled bool) int {
 	result, callErr := tryNSSetShowsServicesMenuItem(itemName, enabled)
 	if callErr != nil {
 		panic(callErr)
@@ -1453,7 +1473,7 @@ func tryNSShowAnimationEffect(animationEffect NSAnimationEffect, centerLocation 
 
 // NSShowAnimationEffect runs a system animation effect.
 //
-// Deprecated: Deprecated since macOS 14.0. Use [disappearingItem](<doc://com.apple.appkit/documentation/AppKit/NSCursor/disappearingItem>) instead.
+// Deprecated: Deprecated since macOS 14.0. Use [disappearingItem](<https://developer.apple.com/documentation/AppKit/NSCursor/disappearingItem>) instead.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSShowAnimationEffect
 func NSShowAnimationEffect(animationEffect NSAnimationEffect, centerLocation corefoundation.CGPoint, size corefoundation.CGSize, animationDelegate objectivec.Object, didEndSelector objc.SEL, contextInfo uintptr) {
@@ -1462,10 +1482,10 @@ func NSShowAnimationEffect(animationEffect NSAnimationEffect, centerLocation cor
 	}
 }
 
-var _nSShowsServicesMenuItem func(itemName foundation.NSString) bool
+var _nSShowsServicesMenuItem func(itemName *foundation.NSString) bool
 var _nSShowsServicesMenuItemErr error
 
-func tryNSShowsServicesMenuItem(itemName foundation.NSString) (bool, error) {
+func tryNSShowsServicesMenuItem(itemName *foundation.NSString) (bool, error) {
 	if _nSShowsServicesMenuItem == nil {
 		return false, symbolCallError("NSShowsServicesMenuItem", "", _nSShowsServicesMenuItemErr)
 	}
@@ -1475,7 +1495,7 @@ func tryNSShowsServicesMenuItem(itemName foundation.NSString) (bool, error) {
 // NSShowsServicesMenuItem specifies whether a Services menu item is currently enabled.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSShowsServicesMenuItem(_:)
-func NSShowsServicesMenuItem(itemName foundation.NSString) bool {
+func NSShowsServicesMenuItem(itemName *foundation.NSString) bool {
 	result, callErr := tryNSShowsServicesMenuItem(itemName)
 	if callErr != nil {
 		panic(callErr)
@@ -1523,10 +1543,10 @@ func NSUpdateDynamicServices() {
 	}
 }
 
-var _nSWindowList func(size int, list int)
+var _nSWindowList func(size int, list *int)
 var _nSWindowListErr error
 
-func tryNSWindowList(size int, list int) error {
+func tryNSWindowList(size int, list *int) error {
 	if _nSWindowList == nil {
 		return symbolCallError("NSWindowList", "10.0", _nSWindowListErr)
 	}
@@ -1539,16 +1559,16 @@ func tryNSWindowList(size int, list int) error {
 // Deprecated: Deprecated since macOS 10.6.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSWindowList
-func NSWindowList(size int, list int) {
+func NSWindowList(size int, list *int) {
 	if callErr := tryNSWindowList(size, list); callErr != nil {
 		panic(callErr)
 	}
 }
 
-var _nSWindowListForContext func(context int, size int, list int)
+var _nSWindowListForContext func(context int, size int, list *int)
 var _nSWindowListForContextErr error
 
-func tryNSWindowListForContext(context int, size int, list int) error {
+func tryNSWindowListForContext(context int, size int, list *int) error {
 	if _nSWindowListForContext == nil {
 		return symbolCallError("NSWindowListForContext", "10.0", _nSWindowListForContextErr)
 	}
@@ -1561,7 +1581,7 @@ func tryNSWindowListForContext(context int, size int, list int) error {
 // Deprecated: Deprecated since macOS 10.6.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSWindowListForContext
-func NSWindowListForContext(context int, size int, list int) {
+func NSWindowListForContext(context int, size int, list *int) {
 	if callErr := tryNSWindowListForContext(context, size, list); callErr != nil {
 		panic(callErr)
 	}
@@ -1575,6 +1595,7 @@ func init() {
 	registerFunc(&_nSAccessibilityFrameInView, &_nSAccessibilityFrameInViewErr, frameworkHandle, "NSAccessibilityFrameInView", "10.10")
 	registerFunc(&_nSAccessibilityPointInView, &_nSAccessibilityPointInViewErr, frameworkHandle, "NSAccessibilityPointInView", "10.10")
 	registerFunc(&_nSAccessibilityPostNotification, &_nSAccessibilityPostNotificationErr, frameworkHandle, "NSAccessibilityPostNotification", "")
+	registerFunc(&_nSAccessibilityPostNotificationWithUserInfo, &_nSAccessibilityPostNotificationWithUserInfoErr, frameworkHandle, "NSAccessibilityPostNotificationWithUserInfo", "10.7")
 	registerFunc(&_nSAccessibilityRoleDescription, &_nSAccessibilityRoleDescriptionErr, frameworkHandle, "NSAccessibilityRoleDescription", "")
 	registerFunc(&_nSAccessibilityRoleDescriptionForUIElement, &_nSAccessibilityRoleDescriptionForUIElementErr, frameworkHandle, "NSAccessibilityRoleDescriptionForUIElement", "")
 	registerFunc(&_nSAccessibilitySetMayContainProtectedContent, &_nSAccessibilitySetMayContainProtectedContentErr, frameworkHandle, "NSAccessibilitySetMayContainProtectedContent", "")

@@ -1118,7 +1118,7 @@ type NSWindowDelegateConfig struct {
 	DidChangeBackingProperties func(notification foundation.NSNotification)
 
 	// Closing Windows
-	// ShouldClose — Tells the delegate that the user has attempted to close a window or the window has received a [performClose(_:)](<doc://com.apple.appkit/documentation/AppKit/NSWindow/performClose(_:)>) message.
+	// ShouldClose — Tells the delegate that the user has attempted to close a window or the window has received a [performClose(_:)](<https://developer.apple.com/documentation/AppKit/NSWindow/performClose(_:)>) message.
 	ShouldClose func(sender NSWindow) bool
 	// WillClose — Tells the delegate that the window is about to close.
 	WillClose func(notification foundation.NSNotification)
@@ -1136,7 +1136,7 @@ type NSWindowDelegateConfig struct {
 	DidResignMain func(notification foundation.NSNotification)
 
 	// Updating Windows
-	// DidUpdate — Tells the delegate that the window received an [update()](<doc://com.apple.appkit/documentation/AppKit/NSWindow/update()>) message.
+	// DidUpdate — Tells the delegate that the window received an [update()](<https://developer.apple.com/documentation/AppKit/NSWindow/update()>) message.
 	DidUpdate func(notification foundation.NSNotification)
 
 	// Exposing Windows
@@ -1201,8 +1201,20 @@ func NewNSWindowDelegate(config NSWindowDelegateConfig) NSWindowDelegateObject {
 		methods = append(methods, objc.MethodDef{
 			Cmd: objc.RegisterName("windowWillBeginSheet:"),
 			Fn: func(self objc.ID, _cmd objc.SEL, notificationID objc.ID) {
+				// Names which delegate was running if a panic unwinds out of
+				// it. The frames between here and the Objective-C caller are
+				// runtime and purego dispatch, so without this the traceback
+				// never says which selector dispatched. Deliberately no
+				// recover: see [objc.NoteDelegatePanic].
+				_delegateDone := false
+				defer func() {
+					if !_delegateDone {
+						objc.NoteDelegatePanic("NSWindowDelegate", "windowWillBeginSheet:")
+					}
+				}()
 				notification := foundation.NSNotificationFromID(notificationID)
 				fn(notification)
+				_delegateDone = true
 			},
 		})
 	}
@@ -1212,8 +1224,20 @@ func NewNSWindowDelegate(config NSWindowDelegateConfig) NSWindowDelegateObject {
 		methods = append(methods, objc.MethodDef{
 			Cmd: objc.RegisterName("windowDidEndSheet:"),
 			Fn: func(self objc.ID, _cmd objc.SEL, notificationID objc.ID) {
+				// Names which delegate was running if a panic unwinds out of
+				// it. The frames between here and the Objective-C caller are
+				// runtime and purego dispatch, so without this the traceback
+				// never says which selector dispatched. Deliberately no
+				// recover: see [objc.NoteDelegatePanic].
+				_delegateDone := false
+				defer func() {
+					if !_delegateDone {
+						objc.NoteDelegatePanic("NSWindowDelegate", "windowDidEndSheet:")
+					}
+				}()
 				notification := foundation.NSNotificationFromID(notificationID)
 				fn(notification)
+				_delegateDone = true
 			},
 		})
 	}
@@ -1223,8 +1247,20 @@ func NewNSWindowDelegate(config NSWindowDelegateConfig) NSWindowDelegateObject {
 		methods = append(methods, objc.MethodDef{
 			Cmd: objc.RegisterName("windowDidResize:"),
 			Fn: func(self objc.ID, _cmd objc.SEL, notificationID objc.ID) {
+				// Names which delegate was running if a panic unwinds out of
+				// it. The frames between here and the Objective-C caller are
+				// runtime and purego dispatch, so without this the traceback
+				// never says which selector dispatched. Deliberately no
+				// recover: see [objc.NoteDelegatePanic].
+				_delegateDone := false
+				defer func() {
+					if !_delegateDone {
+						objc.NoteDelegatePanic("NSWindowDelegate", "windowDidResize:")
+					}
+				}()
 				notification := foundation.NSNotificationFromID(notificationID)
 				fn(notification)
+				_delegateDone = true
 			},
 		})
 	}
@@ -1234,8 +1270,20 @@ func NewNSWindowDelegate(config NSWindowDelegateConfig) NSWindowDelegateObject {
 		methods = append(methods, objc.MethodDef{
 			Cmd: objc.RegisterName("windowWillStartLiveResize:"),
 			Fn: func(self objc.ID, _cmd objc.SEL, notificationID objc.ID) {
+				// Names which delegate was running if a panic unwinds out of
+				// it. The frames between here and the Objective-C caller are
+				// runtime and purego dispatch, so without this the traceback
+				// never says which selector dispatched. Deliberately no
+				// recover: see [objc.NoteDelegatePanic].
+				_delegateDone := false
+				defer func() {
+					if !_delegateDone {
+						objc.NoteDelegatePanic("NSWindowDelegate", "windowWillStartLiveResize:")
+					}
+				}()
 				notification := foundation.NSNotificationFromID(notificationID)
 				fn(notification)
+				_delegateDone = true
 			},
 		})
 	}
@@ -1245,8 +1293,20 @@ func NewNSWindowDelegate(config NSWindowDelegateConfig) NSWindowDelegateObject {
 		methods = append(methods, objc.MethodDef{
 			Cmd: objc.RegisterName("windowDidEndLiveResize:"),
 			Fn: func(self objc.ID, _cmd objc.SEL, notificationID objc.ID) {
+				// Names which delegate was running if a panic unwinds out of
+				// it. The frames between here and the Objective-C caller are
+				// runtime and purego dispatch, so without this the traceback
+				// never says which selector dispatched. Deliberately no
+				// recover: see [objc.NoteDelegatePanic].
+				_delegateDone := false
+				defer func() {
+					if !_delegateDone {
+						objc.NoteDelegatePanic("NSWindowDelegate", "windowDidEndLiveResize:")
+					}
+				}()
 				notification := foundation.NSNotificationFromID(notificationID)
 				fn(notification)
+				_delegateDone = true
 			},
 		})
 	}
@@ -1256,8 +1316,20 @@ func NewNSWindowDelegate(config NSWindowDelegateConfig) NSWindowDelegateObject {
 		methods = append(methods, objc.MethodDef{
 			Cmd: objc.RegisterName("windowWillMiniaturize:"),
 			Fn: func(self objc.ID, _cmd objc.SEL, notificationID objc.ID) {
+				// Names which delegate was running if a panic unwinds out of
+				// it. The frames between here and the Objective-C caller are
+				// runtime and purego dispatch, so without this the traceback
+				// never says which selector dispatched. Deliberately no
+				// recover: see [objc.NoteDelegatePanic].
+				_delegateDone := false
+				defer func() {
+					if !_delegateDone {
+						objc.NoteDelegatePanic("NSWindowDelegate", "windowWillMiniaturize:")
+					}
+				}()
 				notification := foundation.NSNotificationFromID(notificationID)
 				fn(notification)
+				_delegateDone = true
 			},
 		})
 	}
@@ -1267,8 +1339,20 @@ func NewNSWindowDelegate(config NSWindowDelegateConfig) NSWindowDelegateObject {
 		methods = append(methods, objc.MethodDef{
 			Cmd: objc.RegisterName("windowDidMiniaturize:"),
 			Fn: func(self objc.ID, _cmd objc.SEL, notificationID objc.ID) {
+				// Names which delegate was running if a panic unwinds out of
+				// it. The frames between here and the Objective-C caller are
+				// runtime and purego dispatch, so without this the traceback
+				// never says which selector dispatched. Deliberately no
+				// recover: see [objc.NoteDelegatePanic].
+				_delegateDone := false
+				defer func() {
+					if !_delegateDone {
+						objc.NoteDelegatePanic("NSWindowDelegate", "windowDidMiniaturize:")
+					}
+				}()
 				notification := foundation.NSNotificationFromID(notificationID)
 				fn(notification)
+				_delegateDone = true
 			},
 		})
 	}
@@ -1278,8 +1362,20 @@ func NewNSWindowDelegate(config NSWindowDelegateConfig) NSWindowDelegateObject {
 		methods = append(methods, objc.MethodDef{
 			Cmd: objc.RegisterName("windowDidDeminiaturize:"),
 			Fn: func(self objc.ID, _cmd objc.SEL, notificationID objc.ID) {
+				// Names which delegate was running if a panic unwinds out of
+				// it. The frames between here and the Objective-C caller are
+				// runtime and purego dispatch, so without this the traceback
+				// never says which selector dispatched. Deliberately no
+				// recover: see [objc.NoteDelegatePanic].
+				_delegateDone := false
+				defer func() {
+					if !_delegateDone {
+						objc.NoteDelegatePanic("NSWindowDelegate", "windowDidDeminiaturize:")
+					}
+				}()
 				notification := foundation.NSNotificationFromID(notificationID)
 				fn(notification)
+				_delegateDone = true
 			},
 		})
 	}
@@ -1289,8 +1385,21 @@ func NewNSWindowDelegate(config NSWindowDelegateConfig) NSWindowDelegateObject {
 		methods = append(methods, objc.MethodDef{
 			Cmd: objc.RegisterName("window:willUseFullScreenPresentationOptions:"),
 			Fn: func(self objc.ID, _cmd objc.SEL, windowID objc.ID, proposedOptions NSApplicationPresentationOptions) NSApplicationPresentationOptions {
+				// Names which delegate was running if a panic unwinds out of
+				// it. The frames between here and the Objective-C caller are
+				// runtime and purego dispatch, so without this the traceback
+				// never says which selector dispatched. Deliberately no
+				// recover: see [objc.NoteDelegatePanic].
+				_delegateDone := false
+				defer func() {
+					if !_delegateDone {
+						objc.NoteDelegatePanic("NSWindowDelegate", "window:willUseFullScreenPresentationOptions:")
+					}
+				}()
 				window := NSWindowFromID(windowID)
-				return fn(window, proposedOptions)
+				_delegateResult := fn(window, proposedOptions)
+				_delegateDone = true
+				return _delegateResult
 			},
 		})
 	}
@@ -1300,8 +1409,20 @@ func NewNSWindowDelegate(config NSWindowDelegateConfig) NSWindowDelegateObject {
 		methods = append(methods, objc.MethodDef{
 			Cmd: objc.RegisterName("windowWillEnterFullScreen:"),
 			Fn: func(self objc.ID, _cmd objc.SEL, notificationID objc.ID) {
+				// Names which delegate was running if a panic unwinds out of
+				// it. The frames between here and the Objective-C caller are
+				// runtime and purego dispatch, so without this the traceback
+				// never says which selector dispatched. Deliberately no
+				// recover: see [objc.NoteDelegatePanic].
+				_delegateDone := false
+				defer func() {
+					if !_delegateDone {
+						objc.NoteDelegatePanic("NSWindowDelegate", "windowWillEnterFullScreen:")
+					}
+				}()
 				notification := foundation.NSNotificationFromID(notificationID)
 				fn(notification)
+				_delegateDone = true
 			},
 		})
 	}
@@ -1311,8 +1432,20 @@ func NewNSWindowDelegate(config NSWindowDelegateConfig) NSWindowDelegateObject {
 		methods = append(methods, objc.MethodDef{
 			Cmd: objc.RegisterName("windowDidEnterFullScreen:"),
 			Fn: func(self objc.ID, _cmd objc.SEL, notificationID objc.ID) {
+				// Names which delegate was running if a panic unwinds out of
+				// it. The frames between here and the Objective-C caller are
+				// runtime and purego dispatch, so without this the traceback
+				// never says which selector dispatched. Deliberately no
+				// recover: see [objc.NoteDelegatePanic].
+				_delegateDone := false
+				defer func() {
+					if !_delegateDone {
+						objc.NoteDelegatePanic("NSWindowDelegate", "windowDidEnterFullScreen:")
+					}
+				}()
 				notification := foundation.NSNotificationFromID(notificationID)
 				fn(notification)
+				_delegateDone = true
 			},
 		})
 	}
@@ -1322,8 +1455,20 @@ func NewNSWindowDelegate(config NSWindowDelegateConfig) NSWindowDelegateObject {
 		methods = append(methods, objc.MethodDef{
 			Cmd: objc.RegisterName("windowWillExitFullScreen:"),
 			Fn: func(self objc.ID, _cmd objc.SEL, notificationID objc.ID) {
+				// Names which delegate was running if a panic unwinds out of
+				// it. The frames between here and the Objective-C caller are
+				// runtime and purego dispatch, so without this the traceback
+				// never says which selector dispatched. Deliberately no
+				// recover: see [objc.NoteDelegatePanic].
+				_delegateDone := false
+				defer func() {
+					if !_delegateDone {
+						objc.NoteDelegatePanic("NSWindowDelegate", "windowWillExitFullScreen:")
+					}
+				}()
 				notification := foundation.NSNotificationFromID(notificationID)
 				fn(notification)
+				_delegateDone = true
 			},
 		})
 	}
@@ -1333,8 +1478,20 @@ func NewNSWindowDelegate(config NSWindowDelegateConfig) NSWindowDelegateObject {
 		methods = append(methods, objc.MethodDef{
 			Cmd: objc.RegisterName("windowDidExitFullScreen:"),
 			Fn: func(self objc.ID, _cmd objc.SEL, notificationID objc.ID) {
+				// Names which delegate was running if a panic unwinds out of
+				// it. The frames between here and the Objective-C caller are
+				// runtime and purego dispatch, so without this the traceback
+				// never says which selector dispatched. Deliberately no
+				// recover: see [objc.NoteDelegatePanic].
+				_delegateDone := false
+				defer func() {
+					if !_delegateDone {
+						objc.NoteDelegatePanic("NSWindowDelegate", "windowDidExitFullScreen:")
+					}
+				}()
 				notification := foundation.NSNotificationFromID(notificationID)
 				fn(notification)
+				_delegateDone = true
 			},
 		})
 	}
@@ -1344,8 +1501,20 @@ func NewNSWindowDelegate(config NSWindowDelegateConfig) NSWindowDelegateObject {
 		methods = append(methods, objc.MethodDef{
 			Cmd: objc.RegisterName("window:startCustomAnimationToEnterFullScreenWithDuration:"),
 			Fn: func(self objc.ID, _cmd objc.SEL, windowID objc.ID, duration foundation.NSTimeInterval) {
+				// Names which delegate was running if a panic unwinds out of
+				// it. The frames between here and the Objective-C caller are
+				// runtime and purego dispatch, so without this the traceback
+				// never says which selector dispatched. Deliberately no
+				// recover: see [objc.NoteDelegatePanic].
+				_delegateDone := false
+				defer func() {
+					if !_delegateDone {
+						objc.NoteDelegatePanic("NSWindowDelegate", "window:startCustomAnimationToEnterFullScreenWithDuration:")
+					}
+				}()
 				window := NSWindowFromID(windowID)
 				fn(window, duration)
+				_delegateDone = true
 			},
 		})
 	}
@@ -1355,9 +1524,21 @@ func NewNSWindowDelegate(config NSWindowDelegateConfig) NSWindowDelegateObject {
 		methods = append(methods, objc.MethodDef{
 			Cmd: objc.RegisterName("window:startCustomAnimationToEnterFullScreenOnScreen:withDuration:"),
 			Fn: func(self objc.ID, _cmd objc.SEL, windowID objc.ID, screenID objc.ID, duration foundation.NSTimeInterval) {
+				// Names which delegate was running if a panic unwinds out of
+				// it. The frames between here and the Objective-C caller are
+				// runtime and purego dispatch, so without this the traceback
+				// never says which selector dispatched. Deliberately no
+				// recover: see [objc.NoteDelegatePanic].
+				_delegateDone := false
+				defer func() {
+					if !_delegateDone {
+						objc.NoteDelegatePanic("NSWindowDelegate", "window:startCustomAnimationToEnterFullScreenOnScreen:withDuration:")
+					}
+				}()
 				window := NSWindowFromID(windowID)
 				screen := NSScreenFromID(screenID)
 				fn(window, screen, duration)
+				_delegateDone = true
 			},
 		})
 	}
@@ -1367,8 +1548,20 @@ func NewNSWindowDelegate(config NSWindowDelegateConfig) NSWindowDelegateObject {
 		methods = append(methods, objc.MethodDef{
 			Cmd: objc.RegisterName("windowDidFailToEnterFullScreen:"),
 			Fn: func(self objc.ID, _cmd objc.SEL, windowID objc.ID) {
+				// Names which delegate was running if a panic unwinds out of
+				// it. The frames between here and the Objective-C caller are
+				// runtime and purego dispatch, so without this the traceback
+				// never says which selector dispatched. Deliberately no
+				// recover: see [objc.NoteDelegatePanic].
+				_delegateDone := false
+				defer func() {
+					if !_delegateDone {
+						objc.NoteDelegatePanic("NSWindowDelegate", "windowDidFailToEnterFullScreen:")
+					}
+				}()
 				window := NSWindowFromID(windowID)
 				fn(window)
+				_delegateDone = true
 			},
 		})
 	}
@@ -1378,8 +1571,20 @@ func NewNSWindowDelegate(config NSWindowDelegateConfig) NSWindowDelegateObject {
 		methods = append(methods, objc.MethodDef{
 			Cmd: objc.RegisterName("window:startCustomAnimationToExitFullScreenWithDuration:"),
 			Fn: func(self objc.ID, _cmd objc.SEL, windowID objc.ID, duration foundation.NSTimeInterval) {
+				// Names which delegate was running if a panic unwinds out of
+				// it. The frames between here and the Objective-C caller are
+				// runtime and purego dispatch, so without this the traceback
+				// never says which selector dispatched. Deliberately no
+				// recover: see [objc.NoteDelegatePanic].
+				_delegateDone := false
+				defer func() {
+					if !_delegateDone {
+						objc.NoteDelegatePanic("NSWindowDelegate", "window:startCustomAnimationToExitFullScreenWithDuration:")
+					}
+				}()
 				window := NSWindowFromID(windowID)
 				fn(window, duration)
+				_delegateDone = true
 			},
 		})
 	}
@@ -1389,8 +1594,20 @@ func NewNSWindowDelegate(config NSWindowDelegateConfig) NSWindowDelegateObject {
 		methods = append(methods, objc.MethodDef{
 			Cmd: objc.RegisterName("windowDidFailToExitFullScreen:"),
 			Fn: func(self objc.ID, _cmd objc.SEL, windowID objc.ID) {
+				// Names which delegate was running if a panic unwinds out of
+				// it. The frames between here and the Objective-C caller are
+				// runtime and purego dispatch, so without this the traceback
+				// never says which selector dispatched. Deliberately no
+				// recover: see [objc.NoteDelegatePanic].
+				_delegateDone := false
+				defer func() {
+					if !_delegateDone {
+						objc.NoteDelegatePanic("NSWindowDelegate", "windowDidFailToExitFullScreen:")
+					}
+				}()
 				window := NSWindowFromID(windowID)
 				fn(window)
+				_delegateDone = true
 			},
 		})
 	}
@@ -1400,8 +1617,20 @@ func NewNSWindowDelegate(config NSWindowDelegateConfig) NSWindowDelegateObject {
 		methods = append(methods, objc.MethodDef{
 			Cmd: objc.RegisterName("windowWillMove:"),
 			Fn: func(self objc.ID, _cmd objc.SEL, notificationID objc.ID) {
+				// Names which delegate was running if a panic unwinds out of
+				// it. The frames between here and the Objective-C caller are
+				// runtime and purego dispatch, so without this the traceback
+				// never says which selector dispatched. Deliberately no
+				// recover: see [objc.NoteDelegatePanic].
+				_delegateDone := false
+				defer func() {
+					if !_delegateDone {
+						objc.NoteDelegatePanic("NSWindowDelegate", "windowWillMove:")
+					}
+				}()
 				notification := foundation.NSNotificationFromID(notificationID)
 				fn(notification)
+				_delegateDone = true
 			},
 		})
 	}
@@ -1411,8 +1640,20 @@ func NewNSWindowDelegate(config NSWindowDelegateConfig) NSWindowDelegateObject {
 		methods = append(methods, objc.MethodDef{
 			Cmd: objc.RegisterName("windowDidMove:"),
 			Fn: func(self objc.ID, _cmd objc.SEL, notificationID objc.ID) {
+				// Names which delegate was running if a panic unwinds out of
+				// it. The frames between here and the Objective-C caller are
+				// runtime and purego dispatch, so without this the traceback
+				// never says which selector dispatched. Deliberately no
+				// recover: see [objc.NoteDelegatePanic].
+				_delegateDone := false
+				defer func() {
+					if !_delegateDone {
+						objc.NoteDelegatePanic("NSWindowDelegate", "windowDidMove:")
+					}
+				}()
 				notification := foundation.NSNotificationFromID(notificationID)
 				fn(notification)
+				_delegateDone = true
 			},
 		})
 	}
@@ -1422,8 +1663,20 @@ func NewNSWindowDelegate(config NSWindowDelegateConfig) NSWindowDelegateObject {
 		methods = append(methods, objc.MethodDef{
 			Cmd: objc.RegisterName("windowDidChangeScreen:"),
 			Fn: func(self objc.ID, _cmd objc.SEL, notificationID objc.ID) {
+				// Names which delegate was running if a panic unwinds out of
+				// it. The frames between here and the Objective-C caller are
+				// runtime and purego dispatch, so without this the traceback
+				// never says which selector dispatched. Deliberately no
+				// recover: see [objc.NoteDelegatePanic].
+				_delegateDone := false
+				defer func() {
+					if !_delegateDone {
+						objc.NoteDelegatePanic("NSWindowDelegate", "windowDidChangeScreen:")
+					}
+				}()
 				notification := foundation.NSNotificationFromID(notificationID)
 				fn(notification)
+				_delegateDone = true
 			},
 		})
 	}
@@ -1433,8 +1686,20 @@ func NewNSWindowDelegate(config NSWindowDelegateConfig) NSWindowDelegateObject {
 		methods = append(methods, objc.MethodDef{
 			Cmd: objc.RegisterName("windowDidChangeScreenProfile:"),
 			Fn: func(self objc.ID, _cmd objc.SEL, notificationID objc.ID) {
+				// Names which delegate was running if a panic unwinds out of
+				// it. The frames between here and the Objective-C caller are
+				// runtime and purego dispatch, so without this the traceback
+				// never says which selector dispatched. Deliberately no
+				// recover: see [objc.NoteDelegatePanic].
+				_delegateDone := false
+				defer func() {
+					if !_delegateDone {
+						objc.NoteDelegatePanic("NSWindowDelegate", "windowDidChangeScreenProfile:")
+					}
+				}()
 				notification := foundation.NSNotificationFromID(notificationID)
 				fn(notification)
+				_delegateDone = true
 			},
 		})
 	}
@@ -1444,8 +1709,20 @@ func NewNSWindowDelegate(config NSWindowDelegateConfig) NSWindowDelegateObject {
 		methods = append(methods, objc.MethodDef{
 			Cmd: objc.RegisterName("windowDidChangeBackingProperties:"),
 			Fn: func(self objc.ID, _cmd objc.SEL, notificationID objc.ID) {
+				// Names which delegate was running if a panic unwinds out of
+				// it. The frames between here and the Objective-C caller are
+				// runtime and purego dispatch, so without this the traceback
+				// never says which selector dispatched. Deliberately no
+				// recover: see [objc.NoteDelegatePanic].
+				_delegateDone := false
+				defer func() {
+					if !_delegateDone {
+						objc.NoteDelegatePanic("NSWindowDelegate", "windowDidChangeBackingProperties:")
+					}
+				}()
 				notification := foundation.NSNotificationFromID(notificationID)
 				fn(notification)
+				_delegateDone = true
 			},
 		})
 	}
@@ -1455,8 +1732,21 @@ func NewNSWindowDelegate(config NSWindowDelegateConfig) NSWindowDelegateObject {
 		methods = append(methods, objc.MethodDef{
 			Cmd: objc.RegisterName("windowShouldClose:"),
 			Fn: func(self objc.ID, _cmd objc.SEL, senderID objc.ID) bool {
+				// Names which delegate was running if a panic unwinds out of
+				// it. The frames between here and the Objective-C caller are
+				// runtime and purego dispatch, so without this the traceback
+				// never says which selector dispatched. Deliberately no
+				// recover: see [objc.NoteDelegatePanic].
+				_delegateDone := false
+				defer func() {
+					if !_delegateDone {
+						objc.NoteDelegatePanic("NSWindowDelegate", "windowShouldClose:")
+					}
+				}()
 				sender := NSWindowFromID(senderID)
-				return fn(sender)
+				_delegateResult := fn(sender)
+				_delegateDone = true
+				return _delegateResult
 			},
 		})
 	}
@@ -1466,8 +1756,20 @@ func NewNSWindowDelegate(config NSWindowDelegateConfig) NSWindowDelegateObject {
 		methods = append(methods, objc.MethodDef{
 			Cmd: objc.RegisterName("windowWillClose:"),
 			Fn: func(self objc.ID, _cmd objc.SEL, notificationID objc.ID) {
+				// Names which delegate was running if a panic unwinds out of
+				// it. The frames between here and the Objective-C caller are
+				// runtime and purego dispatch, so without this the traceback
+				// never says which selector dispatched. Deliberately no
+				// recover: see [objc.NoteDelegatePanic].
+				_delegateDone := false
+				defer func() {
+					if !_delegateDone {
+						objc.NoteDelegatePanic("NSWindowDelegate", "windowWillClose:")
+					}
+				}()
 				notification := foundation.NSNotificationFromID(notificationID)
 				fn(notification)
+				_delegateDone = true
 			},
 		})
 	}
@@ -1477,8 +1779,20 @@ func NewNSWindowDelegate(config NSWindowDelegateConfig) NSWindowDelegateObject {
 		methods = append(methods, objc.MethodDef{
 			Cmd: objc.RegisterName("windowDidBecomeKey:"),
 			Fn: func(self objc.ID, _cmd objc.SEL, notificationID objc.ID) {
+				// Names which delegate was running if a panic unwinds out of
+				// it. The frames between here and the Objective-C caller are
+				// runtime and purego dispatch, so without this the traceback
+				// never says which selector dispatched. Deliberately no
+				// recover: see [objc.NoteDelegatePanic].
+				_delegateDone := false
+				defer func() {
+					if !_delegateDone {
+						objc.NoteDelegatePanic("NSWindowDelegate", "windowDidBecomeKey:")
+					}
+				}()
 				notification := foundation.NSNotificationFromID(notificationID)
 				fn(notification)
+				_delegateDone = true
 			},
 		})
 	}
@@ -1488,8 +1802,20 @@ func NewNSWindowDelegate(config NSWindowDelegateConfig) NSWindowDelegateObject {
 		methods = append(methods, objc.MethodDef{
 			Cmd: objc.RegisterName("windowDidResignKey:"),
 			Fn: func(self objc.ID, _cmd objc.SEL, notificationID objc.ID) {
+				// Names which delegate was running if a panic unwinds out of
+				// it. The frames between here and the Objective-C caller are
+				// runtime and purego dispatch, so without this the traceback
+				// never says which selector dispatched. Deliberately no
+				// recover: see [objc.NoteDelegatePanic].
+				_delegateDone := false
+				defer func() {
+					if !_delegateDone {
+						objc.NoteDelegatePanic("NSWindowDelegate", "windowDidResignKey:")
+					}
+				}()
 				notification := foundation.NSNotificationFromID(notificationID)
 				fn(notification)
+				_delegateDone = true
 			},
 		})
 	}
@@ -1499,8 +1825,20 @@ func NewNSWindowDelegate(config NSWindowDelegateConfig) NSWindowDelegateObject {
 		methods = append(methods, objc.MethodDef{
 			Cmd: objc.RegisterName("windowDidBecomeMain:"),
 			Fn: func(self objc.ID, _cmd objc.SEL, notificationID objc.ID) {
+				// Names which delegate was running if a panic unwinds out of
+				// it. The frames between here and the Objective-C caller are
+				// runtime and purego dispatch, so without this the traceback
+				// never says which selector dispatched. Deliberately no
+				// recover: see [objc.NoteDelegatePanic].
+				_delegateDone := false
+				defer func() {
+					if !_delegateDone {
+						objc.NoteDelegatePanic("NSWindowDelegate", "windowDidBecomeMain:")
+					}
+				}()
 				notification := foundation.NSNotificationFromID(notificationID)
 				fn(notification)
+				_delegateDone = true
 			},
 		})
 	}
@@ -1510,8 +1848,20 @@ func NewNSWindowDelegate(config NSWindowDelegateConfig) NSWindowDelegateObject {
 		methods = append(methods, objc.MethodDef{
 			Cmd: objc.RegisterName("windowDidResignMain:"),
 			Fn: func(self objc.ID, _cmd objc.SEL, notificationID objc.ID) {
+				// Names which delegate was running if a panic unwinds out of
+				// it. The frames between here and the Objective-C caller are
+				// runtime and purego dispatch, so without this the traceback
+				// never says which selector dispatched. Deliberately no
+				// recover: see [objc.NoteDelegatePanic].
+				_delegateDone := false
+				defer func() {
+					if !_delegateDone {
+						objc.NoteDelegatePanic("NSWindowDelegate", "windowDidResignMain:")
+					}
+				}()
 				notification := foundation.NSNotificationFromID(notificationID)
 				fn(notification)
+				_delegateDone = true
 			},
 		})
 	}
@@ -1521,8 +1871,20 @@ func NewNSWindowDelegate(config NSWindowDelegateConfig) NSWindowDelegateObject {
 		methods = append(methods, objc.MethodDef{
 			Cmd: objc.RegisterName("windowDidUpdate:"),
 			Fn: func(self objc.ID, _cmd objc.SEL, notificationID objc.ID) {
+				// Names which delegate was running if a panic unwinds out of
+				// it. The frames between here and the Objective-C caller are
+				// runtime and purego dispatch, so without this the traceback
+				// never says which selector dispatched. Deliberately no
+				// recover: see [objc.NoteDelegatePanic].
+				_delegateDone := false
+				defer func() {
+					if !_delegateDone {
+						objc.NoteDelegatePanic("NSWindowDelegate", "windowDidUpdate:")
+					}
+				}()
 				notification := foundation.NSNotificationFromID(notificationID)
 				fn(notification)
+				_delegateDone = true
 			},
 		})
 	}
@@ -1532,8 +1894,20 @@ func NewNSWindowDelegate(config NSWindowDelegateConfig) NSWindowDelegateObject {
 		methods = append(methods, objc.MethodDef{
 			Cmd: objc.RegisterName("windowDidExpose:"),
 			Fn: func(self objc.ID, _cmd objc.SEL, notificationID objc.ID) {
+				// Names which delegate was running if a panic unwinds out of
+				// it. The frames between here and the Objective-C caller are
+				// runtime and purego dispatch, so without this the traceback
+				// never says which selector dispatched. Deliberately no
+				// recover: see [objc.NoteDelegatePanic].
+				_delegateDone := false
+				defer func() {
+					if !_delegateDone {
+						objc.NoteDelegatePanic("NSWindowDelegate", "windowDidExpose:")
+					}
+				}()
 				notification := foundation.NSNotificationFromID(notificationID)
 				fn(notification)
+				_delegateDone = true
 			},
 		})
 	}
@@ -1543,8 +1917,20 @@ func NewNSWindowDelegate(config NSWindowDelegateConfig) NSWindowDelegateObject {
 		methods = append(methods, objc.MethodDef{
 			Cmd: objc.RegisterName("windowDidChangeOcclusionState:"),
 			Fn: func(self objc.ID, _cmd objc.SEL, notificationID objc.ID) {
+				// Names which delegate was running if a panic unwinds out of
+				// it. The frames between here and the Objective-C caller are
+				// runtime and purego dispatch, so without this the traceback
+				// never says which selector dispatched. Deliberately no
+				// recover: see [objc.NoteDelegatePanic].
+				_delegateDone := false
+				defer func() {
+					if !_delegateDone {
+						objc.NoteDelegatePanic("NSWindowDelegate", "windowDidChangeOcclusionState:")
+					}
+				}()
 				notification := foundation.NSNotificationFromID(notificationID)
 				fn(notification)
+				_delegateDone = true
 			},
 		})
 	}
@@ -1554,8 +1940,21 @@ func NewNSWindowDelegate(config NSWindowDelegateConfig) NSWindowDelegateObject {
 		methods = append(methods, objc.MethodDef{
 			Cmd: objc.RegisterName("windowWillReturnUndoManager:"),
 			Fn: func(self objc.ID, _cmd objc.SEL, windowID objc.ID) objc.ID {
+				// Names which delegate was running if a panic unwinds out of
+				// it. The frames between here and the Objective-C caller are
+				// runtime and purego dispatch, so without this the traceback
+				// never says which selector dispatched. Deliberately no
+				// recover: see [objc.NoteDelegatePanic].
+				_delegateDone := false
+				defer func() {
+					if !_delegateDone {
+						objc.NoteDelegatePanic("NSWindowDelegate", "windowWillReturnUndoManager:")
+					}
+				}()
 				window := NSWindowFromID(windowID)
-				return fn(window).GetID()
+				_delegateResult := fn(window).GetID()
+				_delegateDone = true
+				return _delegateResult
 			},
 		})
 	}
@@ -1565,9 +1964,22 @@ func NewNSWindowDelegate(config NSWindowDelegateConfig) NSWindowDelegateObject {
 		methods = append(methods, objc.MethodDef{
 			Cmd: objc.RegisterName("window:shouldPopUpDocumentPathMenu:"),
 			Fn: func(self objc.ID, _cmd objc.SEL, windowID objc.ID, menuID objc.ID) bool {
+				// Names which delegate was running if a panic unwinds out of
+				// it. The frames between here and the Objective-C caller are
+				// runtime and purego dispatch, so without this the traceback
+				// never says which selector dispatched. Deliberately no
+				// recover: see [objc.NoteDelegatePanic].
+				_delegateDone := false
+				defer func() {
+					if !_delegateDone {
+						objc.NoteDelegatePanic("NSWindowDelegate", "window:shouldPopUpDocumentPathMenu:")
+					}
+				}()
 				window := NSWindowFromID(windowID)
 				menu := NSMenuFromID(menuID)
-				return fn(window, menu)
+				_delegateResult := fn(window, menu)
+				_delegateDone = true
+				return _delegateResult
 			},
 		})
 	}
@@ -1577,9 +1989,21 @@ func NewNSWindowDelegate(config NSWindowDelegateConfig) NSWindowDelegateObject {
 		methods = append(methods, objc.MethodDef{
 			Cmd: objc.RegisterName("window:willEncodeRestorableState:"),
 			Fn: func(self objc.ID, _cmd objc.SEL, windowID objc.ID, stateID objc.ID) {
+				// Names which delegate was running if a panic unwinds out of
+				// it. The frames between here and the Objective-C caller are
+				// runtime and purego dispatch, so without this the traceback
+				// never says which selector dispatched. Deliberately no
+				// recover: see [objc.NoteDelegatePanic].
+				_delegateDone := false
+				defer func() {
+					if !_delegateDone {
+						objc.NoteDelegatePanic("NSWindowDelegate", "window:willEncodeRestorableState:")
+					}
+				}()
 				window := NSWindowFromID(windowID)
 				state := foundation.NSCoderFromID(stateID)
 				fn(window, state)
+				_delegateDone = true
 			},
 		})
 	}
@@ -1589,9 +2013,21 @@ func NewNSWindowDelegate(config NSWindowDelegateConfig) NSWindowDelegateObject {
 		methods = append(methods, objc.MethodDef{
 			Cmd: objc.RegisterName("window:didDecodeRestorableState:"),
 			Fn: func(self objc.ID, _cmd objc.SEL, windowID objc.ID, stateID objc.ID) {
+				// Names which delegate was running if a panic unwinds out of
+				// it. The frames between here and the Objective-C caller are
+				// runtime and purego dispatch, so without this the traceback
+				// never says which selector dispatched. Deliberately no
+				// recover: see [objc.NoteDelegatePanic].
+				_delegateDone := false
+				defer func() {
+					if !_delegateDone {
+						objc.NoteDelegatePanic("NSWindowDelegate", "window:didDecodeRestorableState:")
+					}
+				}()
 				window := NSWindowFromID(windowID)
 				state := foundation.NSCoderFromID(stateID)
 				fn(window, state)
+				_delegateDone = true
 			},
 		})
 	}
@@ -1601,8 +2037,20 @@ func NewNSWindowDelegate(config NSWindowDelegateConfig) NSWindowDelegateObject {
 		methods = append(methods, objc.MethodDef{
 			Cmd: objc.RegisterName("windowWillEnterVersionBrowser:"),
 			Fn: func(self objc.ID, _cmd objc.SEL, notificationID objc.ID) {
+				// Names which delegate was running if a panic unwinds out of
+				// it. The frames between here and the Objective-C caller are
+				// runtime and purego dispatch, so without this the traceback
+				// never says which selector dispatched. Deliberately no
+				// recover: see [objc.NoteDelegatePanic].
+				_delegateDone := false
+				defer func() {
+					if !_delegateDone {
+						objc.NoteDelegatePanic("NSWindowDelegate", "windowWillEnterVersionBrowser:")
+					}
+				}()
 				notification := foundation.NSNotificationFromID(notificationID)
 				fn(notification)
+				_delegateDone = true
 			},
 		})
 	}
@@ -1612,8 +2060,20 @@ func NewNSWindowDelegate(config NSWindowDelegateConfig) NSWindowDelegateObject {
 		methods = append(methods, objc.MethodDef{
 			Cmd: objc.RegisterName("windowDidEnterVersionBrowser:"),
 			Fn: func(self objc.ID, _cmd objc.SEL, notificationID objc.ID) {
+				// Names which delegate was running if a panic unwinds out of
+				// it. The frames between here and the Objective-C caller are
+				// runtime and purego dispatch, so without this the traceback
+				// never says which selector dispatched. Deliberately no
+				// recover: see [objc.NoteDelegatePanic].
+				_delegateDone := false
+				defer func() {
+					if !_delegateDone {
+						objc.NoteDelegatePanic("NSWindowDelegate", "windowDidEnterVersionBrowser:")
+					}
+				}()
 				notification := foundation.NSNotificationFromID(notificationID)
 				fn(notification)
+				_delegateDone = true
 			},
 		})
 	}
@@ -1623,8 +2083,20 @@ func NewNSWindowDelegate(config NSWindowDelegateConfig) NSWindowDelegateObject {
 		methods = append(methods, objc.MethodDef{
 			Cmd: objc.RegisterName("windowWillExitVersionBrowser:"),
 			Fn: func(self objc.ID, _cmd objc.SEL, notificationID objc.ID) {
+				// Names which delegate was running if a panic unwinds out of
+				// it. The frames between here and the Objective-C caller are
+				// runtime and purego dispatch, so without this the traceback
+				// never says which selector dispatched. Deliberately no
+				// recover: see [objc.NoteDelegatePanic].
+				_delegateDone := false
+				defer func() {
+					if !_delegateDone {
+						objc.NoteDelegatePanic("NSWindowDelegate", "windowWillExitVersionBrowser:")
+					}
+				}()
 				notification := foundation.NSNotificationFromID(notificationID)
 				fn(notification)
+				_delegateDone = true
 			},
 		})
 	}
@@ -1634,8 +2106,20 @@ func NewNSWindowDelegate(config NSWindowDelegateConfig) NSWindowDelegateObject {
 		methods = append(methods, objc.MethodDef{
 			Cmd: objc.RegisterName("windowDidExitVersionBrowser:"),
 			Fn: func(self objc.ID, _cmd objc.SEL, notificationID objc.ID) {
+				// Names which delegate was running if a panic unwinds out of
+				// it. The frames between here and the Objective-C caller are
+				// runtime and purego dispatch, so without this the traceback
+				// never says which selector dispatched. Deliberately no
+				// recover: see [objc.NoteDelegatePanic].
+				_delegateDone := false
+				defer func() {
+					if !_delegateDone {
+						objc.NoteDelegatePanic("NSWindowDelegate", "windowDidExitVersionBrowser:")
+					}
+				}()
 				notification := foundation.NSNotificationFromID(notificationID)
 				fn(notification)
+				_delegateDone = true
 			},
 		})
 	}
@@ -1645,8 +2129,21 @@ func NewNSWindowDelegate(config NSWindowDelegateConfig) NSWindowDelegateObject {
 		methods = append(methods, objc.MethodDef{
 			Cmd: objc.RegisterName("windowForSharingRequestFromWindow:"),
 			Fn: func(self objc.ID, _cmd objc.SEL, windowID objc.ID) objc.ID {
+				// Names which delegate was running if a panic unwinds out of
+				// it. The frames between here and the Objective-C caller are
+				// runtime and purego dispatch, so without this the traceback
+				// never says which selector dispatched. Deliberately no
+				// recover: see [objc.NoteDelegatePanic].
+				_delegateDone := false
+				defer func() {
+					if !_delegateDone {
+						objc.NoteDelegatePanic("NSWindowDelegate", "windowForSharingRequestFromWindow:")
+					}
+				}()
 				window := NSWindowFromID(windowID)
-				return fn(window).GetID()
+				_delegateResult := fn(window).GetID()
+				_delegateDone = true
+				return _delegateResult
 			},
 		})
 	}

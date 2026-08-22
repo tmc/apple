@@ -387,8 +387,8 @@ func (r MTLRenderPassDescriptor) SetStencilAttachment(value IMTLRenderPassStenci
 // fragments that pass depth and stencil tests. Typically, you use visibility
 // testing to track whether a particular piece of geometry is visible in the
 // current frame, so you can omit drawing calls for hidden objects when
-// encoding future frames. This technique is sometimes called . You can record
-// separate tests for different pieces of geometry.
+// encoding future frames. This technique is sometimes called occlusion
+// culling. You can record separate tests for different pieces of geometry.
 //
 // Set this property to provide the buffer for the GPU to store visibility
 // results when it executes the render pass. The GPU stores visibility results

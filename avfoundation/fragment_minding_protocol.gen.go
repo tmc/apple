@@ -17,11 +17,6 @@ type AVFragmentMinding interface {
 	//
 	// See: https://developer.apple.com/documentation/AVFoundation/AVFragmentMinding/isAssociatedWithFragmentMinder
 	IsAssociatedWithFragmentMinder() bool
-
-	// A Boolean value that indicates whether an asset that supports fragment minding is currently associated with a fragment minder.
-	//
-	// See: https://developer.apple.com/documentation/AVFoundation/AVFragmentMinding/isAssociatedWithFragmentMinder
-	AssociatedWithFragmentMinder() bool
 }
 
 // AVFragmentMindingObject wraps an existing Objective-C object that conforms to the AVFragmentMinding protocol.
@@ -44,22 +39,13 @@ func AVFragmentMindingObjectFromID(id objc.ID) AVFragmentMindingObject {
 // A Boolean value that indicates whether an asset that supports fragment
 // minding is currently associated with a fragment minder.
 //
-// See: https://developer.apple.com/documentation/AVFoundation/AVFragmentMinding/isAssociatedWithFragmentMinder
-func (o AVFragmentMindingObject) IsAssociatedWithFragmentMinder() bool {
-	rv := objc.Send[bool](o.ID, objc.Sel("isAssociatedWithFragmentMinder"))
-	return rv
-}
-
-// A Boolean value that indicates whether an asset that supports fragment
-// minding is currently associated with a fragment minder.
-//
 // # Discussion
 //
 // Only asset objects associated with a fragment minder post change
 // notifications.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVFragmentMinding/isAssociatedWithFragmentMinder
-func (o AVFragmentMindingObject) AssociatedWithFragmentMinder() bool {
+func (o AVFragmentMindingObject) IsAssociatedWithFragmentMinder() bool {
 	rv := objc.Send[bool](o.ID, objc.Sel("isAssociatedWithFragmentMinder"))
 	return bool(rv)
 }

@@ -6,7 +6,6 @@ import (
 	"unsafe"
 
 	"github.com/tmc/apple/corefoundation"
-	"github.com/tmc/apple/kernel"
 	"github.com/tmc/apple/security"
 )
 
@@ -18,12 +17,16 @@ type AEAddressDesc = AEDesc
 // AEArrayData is stores array information to be put into a descriptor listwith the [AEPutArray] functionor extracted from a descriptor list with the [AEGetArray] function.
 //
 // See: https://developer.apple.com/documentation/coreservices/1443170-aearraydata
-type AEArrayData = kernel.Pointer
+// AEArrayData is opaque storage with the size and alignment C gives AEArrayData:
+// 16 bytes. C declares a record here, not a handle, so a
+// pointer-width rendering would hand the framework eight bytes to write
+// 16 into.
+type AEArrayData [8]uint16
 
 // AEArrayDataPointer is a pointer to a union of type [AEArrayData].
 //
 // See: https://developer.apple.com/documentation/coreservices/aearraydatapointer
-type AEArrayDataPointer = *AEArrayData
+type AEArrayDataPointer = unsafe.Pointer
 
 // AEArrayType is stores a value that specifies an array type.
 //
@@ -38,7 +41,7 @@ type AEBuildErrorCode = uint32
 // AECoerceDescProcPtr is defines a pointer to a function that coerces data stored in a descriptor. Your descriptor coercion callback function coerces the data from the passed descriptor to the specified type, returning the coerced data in a second descriptor.
 //
 // See: https://developer.apple.com/documentation/coreservices/aecoercedescprocptr
-type AECoerceDescProcPtr = func(unsafe.Pointer, uint32, uintptr, unsafe.Pointer) int16
+type AECoerceDescProcPtr = func(fromDesc unsafe.Pointer, toType uint32, handlerRefcon uintptr, toDesc unsafe.Pointer) int16
 
 // AECoerceDescUPP is defines a data type for the universal procedure pointer for the [AECoerceDescProcPtr] callback function pointer.
 //
@@ -48,7 +51,7 @@ type AECoerceDescUPP = unsafe.Pointer
 // AECoercePtrProcPtr is defines a pointer to a function that coerces data stored in a buffer. Your pointer coercion callback routine coerces the data from the passed buffer to the specified type, returning the coerced data in a descriptor.
 //
 // See: https://developer.apple.com/documentation/coreservices/aecoerceptrprocptr
-type AECoercePtrProcPtr = func(uint32, unsafe.Pointer, corefoundation.CGSize, uint32, uintptr, unsafe.Pointer) int16
+type AECoercePtrProcPtr = func(typeCode uint32, dataPtr unsafe.Pointer, dataSize int, toType uint32, handlerRefcon uintptr, result unsafe.Pointer) int16
 
 // AECoercePtrUPP is defines a data type for the universal procedure pointer for the [AECoercePtrProcPtr] callback function pointer.
 //
@@ -81,7 +84,7 @@ type AEDescPtr = *AEDesc
 // AEDisposeExternalProcPtr is defines a pointer to a function the Apple Event Manager calls to dispose of a descriptor created by the [AECreateDescFromExternalPtr] function. Your callback function disposes of the buffer you originally passed to that function.
 //
 // See: https://developer.apple.com/documentation/coreservices/aedisposeexternalprocptr
-type AEDisposeExternalProcPtr = func(unsafe.Pointer, corefoundation.CGSize, uintptr)
+type AEDisposeExternalProcPtr = func(dataPtr unsafe.Pointer, dataLength int, refcon uintptr)
 
 // AEDisposeExternalUPP is defines a universal procedure pointer to a function the Apple Event Manager calls to dispose of a descriptor created by the [AECreateDescFromExternalPtr] function.
 //
@@ -96,7 +99,7 @@ type AEEventClass = uint32
 // AEEventHandlerProcPtr is defines a pointer to a function that handles one or more Apple events. Your Apple event handler function performs any action requested by the Apple event, adds parameters to the reply Apple event if appropriate (possibly including error information), and returns a result code.
 //
 // See: https://developer.apple.com/documentation/coreservices/aeeventhandlerprocptr
-type AEEventHandlerProcPtr = func(unsafe.Pointer, unsafe.Pointer, uintptr) int16
+type AEEventHandlerProcPtr = func(theAppleEvent unsafe.Pointer, reply unsafe.Pointer, handlerRefcon uintptr) int16
 
 // AEEventHandlerUPP is defines a data type for the universal procedure pointer for the [AEEventHandlerUPP] callback function pointer.
 //
@@ -121,17 +124,21 @@ type AEKeyword = uint32
 // AERecord is a descriptor whose data is a list of keyword-specified descriptors.
 //
 // See: https://developer.apple.com/documentation/coreservices/aerecord
-type AERecord = unsafe.Pointer
+// AERecord is opaque storage with the size and alignment C gives AERecord:
+// 12 bytes. C declares a record here, not a handle, so a
+// pointer-width rendering would hand the framework eight bytes to write
+// 12 into.
+type AERecord [6]uint16
 
 // AERemoteProcessResolverCallback is defines a pointer to a function the Apple Event Manager calls when the asynchronous execution of a remote process resolver completes, either due to success or failure, after a call to the [AERemoteProcessResolverScheduleWithRunLoop] function. Your callback function can use the reference passed to it to get the remote process information.
 //
 // See: https://developer.apple.com/documentation/coreservices/aeremoteprocessresolvercallback
-type AERemoteProcessResolverCallback = func(AERemoteProcessResolverRef, unsafe.Pointer)
+type AERemoteProcessResolverCallback = func(ref AERemoteProcessResolverRef, info unsafe.Pointer)
 
 // AERemoteProcessResolverRef is an opaque reference to an object that encapsulates the mechanism for obtaining a list of processes running on a remote machine.
 //
 // See: https://developer.apple.com/documentation/coreservices/aeremoteprocessresolverref
-type AERemoteProcessResolverRef = kernel.Pointer
+type AERemoteProcessResolverRef uintptr
 
 // AEReturnID is specifies a return ID for a created Apple event.
 //
@@ -151,7 +158,7 @@ type AESendPriority = int16
 // AEStreamRef is an opaque data structure for storing stream-based descriptor data.
 //
 // See: https://developer.apple.com/documentation/coreservices/aestreamref
-type AEStreamRef = kernel.Pointer
+type AEStreamRef uintptr
 
 // AETransactionID is specifies a transaction ID.
 //
@@ -159,33 +166,53 @@ type AEStreamRef = kernel.Pointer
 type AETransactionID = int32
 
 // See: https://developer.apple.com/documentation/coreservices/afpalternateaddress
-type AFPAlternateAddress = kernel.Pointer
+// AFPAlternateAddress is opaque storage with the size and alignment C gives AFPAlternateAddress:
+// 3 bytes. C declares a record here, not a handle, so a
+// pointer-width rendering would hand the framework eight bytes to write
+// 3 into.
+type AFPAlternateAddress [3]byte
 
 // See: https://developer.apple.com/documentation/coreservices/afpserversignature
 type AFPServerSignature = uint8
 
 // See: https://developer.apple.com/documentation/coreservices/afptagdata
-type AFPTagData = kernel.Pointer
+// AFPTagData is opaque storage with the size and alignment C gives AFPTagData:
+// 3 bytes. C declares a record here, not a handle, so a
+// pointer-width rendering would hand the framework eight bytes to write
+// 3 into.
+type AFPTagData [3]byte
 
 // See: https://developer.apple.com/documentation/coreservices/afpvolmountinfo
-type AFPVolMountInfo = kernel.Pointer
+// AFPVolMountInfo is opaque storage with the size and alignment C gives AFPVolMountInfo:
+// 168 bytes. C declares a record here, not a handle, so a
+// pointer-width rendering would hand the framework eight bytes to write
+// 168 into.
+type AFPVolMountInfo [84]uint16
 
 // See: https://developer.apple.com/documentation/coreservices/afpvolmountinfoptr
 type AFPVolMountInfoPtr = unsafe.Pointer
 
 // See: https://developer.apple.com/documentation/coreservices/afpxvolmountinfo
-type AFPXVolMountInfo = kernel.Pointer
+// AFPXVolMountInfo is opaque storage with the size and alignment C gives AFPXVolMountInfo:
+// 206 bytes. C declares a record here, not a handle, so a
+// pointer-width rendering would hand the framework eight bytes to write
+// 206 into.
+type AFPXVolMountInfo [103]uint16
 
 // See: https://developer.apple.com/documentation/coreservices/afpxvolmountinfoptr
 type AFPXVolMountInfoPtr = unsafe.Pointer
 
 // See: https://developer.apple.com/documentation/coreservices/aiffloop
-type AIFFLoop = kernel.Pointer
+// AIFFLoop is opaque storage with the size and alignment C gives AIFFLoop:
+// 6 bytes. C declares a record here, not a handle, so a
+// pointer-width rendering would hand the framework eight bytes to write
+// 6 into.
+type AIFFLoop [3]uint16
 
 // AliasHandle is abst_AliasHandle.
 //
 // See: https://developer.apple.com/documentation/coreservices/aliashandle
-type AliasHandle = unsafe.Pointer
+type AliasHandle = *AliasPtr
 
 // AliasInfoType is defines the alias record information type used in the index parameter of [GetAliasInfo].
 //
@@ -200,7 +227,11 @@ type AliasPtr = unsafe.Pointer
 // AliasRecord is defines an alias record.
 //
 // See: https://developer.apple.com/documentation/coreservices/aliasrecord
-type AliasRecord = kernel.Pointer
+// AliasRecord is opaque storage with the size and alignment C gives AliasRecord:
+// 6 bytes. C declares a record here, not a handle, so a
+// pointer-width rendering would hand the framework eight bytes to write
+// 6 into.
+type AliasRecord [6]byte
 
 // AppleEvent is a descriptor whose data is a list of descriptors containing both attributes and parameters that make up an Apple event.
 //
@@ -211,7 +242,11 @@ type AppleEvent = AEDesc
 type AppleEventPtr = *AEDesc
 
 // See: https://developer.apple.com/documentation/coreservices/applicationspecificchunk
-type ApplicationSpecificChunk = kernel.Pointer
+// ApplicationSpecificChunk is opaque storage with the size and alignment C gives ApplicationSpecificChunk:
+// 14 bytes. C declares a record here, not a handle, so a
+// pointer-width rendering would hand the framework eight bytes to write
+// 14 into.
+type ApplicationSpecificChunk [7]uint16
 
 // See: https://developer.apple.com/documentation/coreservices/applicationspecificchunkptr
 type ApplicationSpecificChunkPtr = unsafe.Pointer
@@ -220,7 +255,11 @@ type ApplicationSpecificChunkPtr = unsafe.Pointer
 type AreaID = uintptr
 
 // See: https://developer.apple.com/documentation/coreservices/audiorecordingchunk
-type AudioRecordingChunk = kernel.Pointer
+// AudioRecordingChunk is opaque storage with the size and alignment C gives AudioRecordingChunk:
+// 32 bytes. C declares a record here, not a handle, so a
+// pointer-width rendering would hand the framework eight bytes to write
+// 32 into.
+type AudioRecordingChunk [16]uint16
 
 // See: https://developer.apple.com/documentation/coreservices/audiorecordingchunkptr
 type AudioRecordingChunkPtr = unsafe.Pointer
@@ -228,38 +267,70 @@ type AudioRecordingChunkPtr = unsafe.Pointer
 // BigEndianFixed is protects a big-endian Fixed value from being changed bylittle-endian code.
 //
 // See: https://developer.apple.com/documentation/coreservices/bigendianfixed
-type BigEndianFixed = kernel.Pointer
+// BigEndianFixed is opaque storage with the size and alignment C gives BigEndianFixed:
+// 4 bytes. C declares a record here, not a handle, so a
+// pointer-width rendering would hand the framework eight bytes to write
+// 4 into.
+type BigEndianFixed [2]uint16
 
 // BigEndianLong is protects a big-endian long value from being changed bylittle-endian code.
 //
 // See: https://developer.apple.com/documentation/coreservices/bigendianlong
-type BigEndianLong = kernel.Pointer
+// BigEndianLong is opaque storage with the size and alignment C gives BigEndianLong:
+// 8 bytes. C declares a record here, not a handle, so a
+// pointer-width rendering would hand the framework eight bytes to write
+// 8 into.
+type BigEndianLong [4]uint16
 
 // See: https://developer.apple.com/documentation/coreservices/bigendianostype
-type BigEndianOSType = kernel.Pointer
+// BigEndianOSType is opaque storage with the size and alignment C gives BigEndianOSType:
+// 4 bytes. C declares a record here, not a handle, so a
+// pointer-width rendering would hand the framework eight bytes to write
+// 4 into.
+type BigEndianOSType [2]uint16
 
 // BigEndianShort is protects a big-endian short value from being changed bylittle-endian code.
 //
 // See: https://developer.apple.com/documentation/coreservices/bigendianshort
-type BigEndianShort = kernel.Pointer
+// BigEndianShort is opaque storage with the size and alignment C gives BigEndianShort:
+// 2 bytes. C declares a record here, not a handle, so a
+// pointer-width rendering would hand the framework eight bytes to write
+// 2 into.
+type BigEndianShort [1]uint16
 
 // See: https://developer.apple.com/documentation/coreservices/bigendianuint32
-type BigEndianUInt32 = kernel.Pointer
+// BigEndianUInt32 is opaque storage with the size and alignment C gives BigEndianUInt32:
+// 4 bytes. C declares a record here, not a handle, so a
+// pointer-width rendering would hand the framework eight bytes to write
+// 4 into.
+type BigEndianUInt32 [2]uint16
 
 // BigEndianUnsignedFixed is protects a big-endian unsigned Fixed value from beingchanged by little-endian code.
 //
 // See: https://developer.apple.com/documentation/coreservices/bigendianunsignedfixed
-type BigEndianUnsignedFixed = kernel.Pointer
+// BigEndianUnsignedFixed is opaque storage with the size and alignment C gives BigEndianUnsignedFixed:
+// 4 bytes. C declares a record here, not a handle, so a
+// pointer-width rendering would hand the framework eight bytes to write
+// 4 into.
+type BigEndianUnsignedFixed [2]uint16
 
 // BigEndianUnsignedLong is protects a big-endian unsigned long value from being changedby little-endian code.
 //
 // See: https://developer.apple.com/documentation/coreservices/bigendianunsignedlong
-type BigEndianUnsignedLong = kernel.Pointer
+// BigEndianUnsignedLong is opaque storage with the size and alignment C gives BigEndianUnsignedLong:
+// 8 bytes. C declares a record here, not a handle, so a
+// pointer-width rendering would hand the framework eight bytes to write
+// 8 into.
+type BigEndianUnsignedLong [4]uint16
 
 // BigEndianUnsignedShort is protects a big-endian unsigned short value from beingchanged by little-endian code.
 //
 // See: https://developer.apple.com/documentation/coreservices/bigendianunsignedshort
-type BigEndianUnsignedShort = kernel.Pointer
+// BigEndianUnsignedShort is opaque storage with the size and alignment C gives BigEndianUnsignedShort:
+// 2 bytes. C declares a record here, not a handle, so a
+// pointer-width rendering would hand the framework eight bytes to write
+// 2 into.
+type BigEndianUnsignedShort [1]uint16
 
 // See: https://developer.apple.com/documentation/coreservices/cscomponentsthreadmode
 type CSComponentsThreadMode = uint32
@@ -304,48 +375,76 @@ type CSIdentityStatusUpdatedCallback = func(CSIdentityRef, corefoundation.CFInde
 type CallingConventionType = uint16
 
 // See: https://developer.apple.com/documentation/coreservices/catpositionrec
-type CatPositionRec = kernel.Pointer
+// CatPositionRec is opaque storage with the size and alignment C gives CatPositionRec:
+// 16 bytes. C declares a record here, not a handle, so a
+// pointer-width rendering would hand the framework eight bytes to write
+// 16 into.
+type CatPositionRec [8]uint16
 
 // See: https://developer.apple.com/documentation/coreservices/chunkheader
-type ChunkHeader = kernel.Pointer
+// ChunkHeader is opaque storage with the size and alignment C gives ChunkHeader:
+// 8 bytes. C declares a record here, not a handle, so a
+// pointer-width rendering would hand the framework eight bytes to write
+// 8 into.
+type ChunkHeader [4]uint16
 
 // CollatorRef is refers to an opaque object that encapsulates locale and collation information for the purpose of performing Unicode string comparison.
 //
 // See: https://developer.apple.com/documentation/coreservices/collatorref
-type CollatorRef = kernel.Pointer
+type CollatorRef uintptr
 
 // See: https://developer.apple.com/documentation/coreservices/collectionexceptionupp
-type CollectionExceptionUPP = kernel.Pointer
+type CollectionExceptionUPP = unsafe.Pointer
 
 // See: https://developer.apple.com/documentation/coreservices/collectionflattenupp
-type CollectionFlattenUPP = kernel.Pointer
+type CollectionFlattenUPP = unsafe.Pointer
 
 // See: https://developer.apple.com/documentation/coreservices/collectiontag
 type CollectionTag = uint32
 
 // See: https://developer.apple.com/documentation/coreservices/comment
-type Comment = kernel.Pointer
+// Comment is opaque storage with the size and alignment C gives Comment:
+// 10 bytes. C declares a record here, not a handle, so a
+// pointer-width rendering would hand the framework eight bytes to write
+// 10 into.
+type Comment [5]uint16
 
 // See: https://developer.apple.com/documentation/coreservices/commentschunk
-type CommentsChunk = kernel.Pointer
+// CommentsChunk is opaque storage with the size and alignment C gives CommentsChunk:
+// 20 bytes. C declares a record here, not a handle, so a
+// pointer-width rendering would hand the framework eight bytes to write
+// 20 into.
+type CommentsChunk [10]uint16
 
 // See: https://developer.apple.com/documentation/coreservices/commentschunkptr
 type CommentsChunkPtr = unsafe.Pointer
 
 // See: https://developer.apple.com/documentation/coreservices/commonchunk
-type CommonChunk = kernel.Pointer
+// CommonChunk is opaque storage with the size and alignment C gives CommonChunk:
+// 26 bytes. C declares a record here, not a handle, so a
+// pointer-width rendering would hand the framework eight bytes to write
+// 26 into.
+type CommonChunk [13]uint16
 
 // See: https://developer.apple.com/documentation/coreservices/commonchunkptr
 type CommonChunkPtr = unsafe.Pointer
 
 // See: https://developer.apple.com/documentation/coreservices/componentaliasresource
-type ComponentAliasResource = kernel.Pointer
+// ComponentAliasResource is opaque storage with the size and alignment C gives ComponentAliasResource:
+// 64 bytes. C declares a record here, not a handle, so a
+// pointer-width rendering would hand the framework eight bytes to write
+// 64 into.
+type ComponentAliasResource [32]uint16
 
 // See: https://developer.apple.com/documentation/coreservices/componentdescription
-type ComponentDescription = kernel.Pointer
+// ComponentDescription is opaque storage with the size and alignment C gives ComponentDescription:
+// 20 bytes. C declares a record here, not a handle, so a
+// pointer-width rendering would hand the framework eight bytes to write
+// 20 into.
+type ComponentDescription [10]uint16
 
 // See: https://developer.apple.com/documentation/coreservices/componentfunctionupp
-type ComponentFunctionUPP = kernel.Pointer
+type ComponentFunctionUPP = unsafe.Pointer
 
 // ComponentInstance is abst_ComponentInstance.
 //
@@ -353,10 +452,18 @@ type ComponentFunctionUPP = kernel.Pointer
 type ComponentInstance = unsafe.Pointer
 
 // See: https://developer.apple.com/documentation/coreservices/componentinstancerecord
-type ComponentInstanceRecord = kernel.Pointer
+// ComponentInstanceRecord is opaque storage with the size and alignment C gives ComponentInstanceRecord:
+// 8 bytes. C declares a record here, not a handle, so a
+// pointer-width rendering would hand the framework eight bytes to write
+// 8 into.
+type ComponentInstanceRecord [4]uint16
 
 // See: https://developer.apple.com/documentation/coreservices/componentmpworkfunctionheaderrecord
-type ComponentMPWorkFunctionHeaderRecord = kernel.Pointer
+// ComponentMPWorkFunctionHeaderRecord is opaque storage with the size and alignment C gives ComponentMPWorkFunctionHeaderRecord:
+// 16 bytes. C declares a record here, not a handle, so a
+// pointer-width rendering would hand the framework eight bytes to write
+// 16 into.
+type ComponentMPWorkFunctionHeaderRecord [8]uint16
 
 // See: https://developer.apple.com/documentation/coreservices/componentmpworkfunctionheaderrecordptr
 type ComponentMPWorkFunctionHeaderRecordPtr = unsafe.Pointer
@@ -364,28 +471,52 @@ type ComponentMPWorkFunctionHeaderRecordPtr = unsafe.Pointer
 // ComponentMPWorkFunctionUPP is represents a type used by the Image Codec API.
 //
 // See: https://developer.apple.com/documentation/coreservices/componentmpworkfunctionupp
-type ComponentMPWorkFunctionUPP = kernel.Pointer
+type ComponentMPWorkFunctionUPP = unsafe.Pointer
 
 // See: https://developer.apple.com/documentation/coreservices/componentparameters
-type ComponentParameters = kernel.Pointer
+// ComponentParameters is opaque storage with the size and alignment C gives ComponentParameters:
+// 16 bytes. C declares a record here, not a handle, so a
+// pointer-width rendering would hand the framework eight bytes to write
+// 16 into.
+type ComponentParameters [8]uint16
 
 // See: https://developer.apple.com/documentation/coreservices/componentplatforminfo
-type ComponentPlatformInfo = kernel.Pointer
+// ComponentPlatformInfo is opaque storage with the size and alignment C gives ComponentPlatformInfo:
+// 12 bytes. C declares a record here, not a handle, so a
+// pointer-width rendering would hand the framework eight bytes to write
+// 12 into.
+type ComponentPlatformInfo [6]uint16
 
 // See: https://developer.apple.com/documentation/coreservices/componentplatforminfoarray
-type ComponentPlatformInfoArray = kernel.Pointer
+// ComponentPlatformInfoArray is opaque storage with the size and alignment C gives ComponentPlatformInfoArray:
+// 16 bytes. C declares a record here, not a handle, so a
+// pointer-width rendering would hand the framework eight bytes to write
+// 16 into.
+type ComponentPlatformInfoArray [8]uint16
 
 // See: https://developer.apple.com/documentation/coreservices/componentrecord
-type ComponentRecord = kernel.Pointer
+// ComponentRecord is opaque storage with the size and alignment C gives ComponentRecord:
+// 8 bytes. C declares a record here, not a handle, so a
+// pointer-width rendering would hand the framework eight bytes to write
+// 8 into.
+type ComponentRecord [4]uint16
 
 // See: https://developer.apple.com/documentation/coreservices/componentresource
-type ComponentResource = kernel.Pointer
+// ComponentResource is opaque storage with the size and alignment C gives ComponentResource:
+// 44 bytes. C declares a record here, not a handle, so a
+// pointer-width rendering would hand the framework eight bytes to write
+// 44 into.
+type ComponentResource [22]uint16
 
 // See: https://developer.apple.com/documentation/coreservices/componentresourceextension
-type ComponentResourceExtension = kernel.Pointer
+// ComponentResourceExtension is opaque storage with the size and alignment C gives ComponentResourceExtension:
+// 10 bytes. C declares a record here, not a handle, so a
+// pointer-width rendering would hand the framework eight bytes to write
+// 10 into.
+type ComponentResourceExtension [5]uint16
 
 // See: https://developer.apple.com/documentation/coreservices/componentresourcehandle
-type ComponentResourceHandle = unsafe.Pointer
+type ComponentResourceHandle = *ComponentResourcePtr
 
 // See: https://developer.apple.com/documentation/coreservices/componentresourceptr
 type ComponentResourcePtr = unsafe.Pointer
@@ -396,28 +527,28 @@ type ComponentResourcePtr = unsafe.Pointer
 type ComponentResult = int32
 
 // See: https://developer.apple.com/documentation/coreservices/componentroutineupp
-type ComponentRoutineUPP = kernel.Pointer
+type ComponentRoutineUPP = unsafe.Pointer
 
 // See: https://developer.apple.com/documentation/coreservices/constfseventstreamref
 type ConstFSEventStreamRef uintptr
 
 // See: https://developer.apple.com/documentation/coreservices/constfsspecptr
-type ConstFSSpecPtr = FSSpec
+type ConstFSSpecPtr = unsafe.Pointer
 
 // ConstScriptCodeRunPtr is defines a constant script code run pointer.
 //
 // See: https://developer.apple.com/documentation/coreservices/constscriptcoderunptr
-type ConstScriptCodeRunPtr = ScriptCodeRun
+type ConstScriptCodeRunPtr = unsafe.Pointer
 
 // ConstTextEncodingRunPtr is defines a constant text encoding run pointer.
 //
 // See: https://developer.apple.com/documentation/coreservices/consttextencodingrunptr
-type ConstTextEncodingRunPtr = TextEncodingRun
+type ConstTextEncodingRunPtr = unsafe.Pointer
 
 // ConstTextPtr is defines a constant text pointer.
 //
 // See: https://developer.apple.com/documentation/coreservices/consttextptr
-type ConstTextPtr = uint8
+type ConstTextPtr = *uint8
 
 // ConstTextToUnicodeInfo is defines a constant text to Unicode converter object.
 //
@@ -427,12 +558,12 @@ type ConstTextToUnicodeInfo = TextToUnicodeInfo
 // ConstUniCharArrayPtr is defines a constant Unicode character array pointer.
 //
 // See: https://developer.apple.com/documentation/coreservices/constunichararrayptr
-type ConstUniCharArrayPtr = uint16
+type ConstUniCharArrayPtr = *uint16
 
 // ConstUnicodeMappingPtr is defines a constant Unicode mapping pointer.
 //
 // See: https://developer.apple.com/documentation/coreservices/constunicodemappingptr
-type ConstUnicodeMappingPtr = UnicodeMapping
+type ConstUnicodeMappingPtr = unsafe.Pointer
 
 // ConstUnicodeToTextInfo is defines a constant Unicode to text converter object.
 //
@@ -440,13 +571,21 @@ type ConstUnicodeMappingPtr = UnicodeMapping
 type ConstUnicodeToTextInfo = UnicodeToTextInfo
 
 // See: https://developer.apple.com/documentation/coreservices/containerchunk
-type ContainerChunk = kernel.Pointer
+// ContainerChunk is opaque storage with the size and alignment C gives ContainerChunk:
+// 12 bytes. C declares a record here, not a handle, so a
+// pointer-width rendering would hand the framework eight bytes to write
+// 12 into.
+type ContainerChunk [6]uint16
 
 // See: https://developer.apple.com/documentation/coreservices/custombadgeresource
-type CustomBadgeResource = kernel.Pointer
+// CustomBadgeResource is opaque storage with the size and alignment C gives CustomBadgeResource:
+// 28 bytes. C declares a record here, not a handle, so a
+// pointer-width rendering would hand the framework eight bytes to write
+// 28 into.
+type CustomBadgeResource [14]uint16
 
 // See: https://developer.apple.com/documentation/coreservices/custombadgeresourcehandle
-type CustomBadgeResourceHandle = unsafe.Pointer
+type CustomBadgeResourceHandle = *CustomBadgeResourcePtr
 
 // See: https://developer.apple.com/documentation/coreservices/custombadgeresourceptr
 type CustomBadgeResourcePtr = unsafe.Pointer
@@ -454,19 +593,31 @@ type CustomBadgeResourcePtr = unsafe.Pointer
 // DCSDictionaryRef is an opaque object that represents a dictionary file.
 //
 // See: https://developer.apple.com/documentation/coreservices/dcsdictionaryref
-type DCSDictionaryRef = kernel.Pointer
+type DCSDictionaryRef uintptr
 
 // See: https://developer.apple.com/documentation/coreservices/dinfo
-type DInfo = kernel.Pointer
+// DInfo is opaque storage with the size and alignment C gives DInfo:
+// 16 bytes. C declares a record here, not a handle, so a
+// pointer-width rendering would hand the framework eight bytes to write
+// 16 into.
+type DInfo [8]uint16
 
 // See: https://developer.apple.com/documentation/coreservices/dxinfo
-type DXInfo = kernel.Pointer
+// DXInfo is opaque storage with the size and alignment C gives DXInfo:
+// 16 bytes. C declares a record here, not a handle, so a
+// pointer-width rendering would hand the framework eight bytes to write
+// 16 into.
+type DXInfo [8]uint16
 
 // See: https://developer.apple.com/documentation/coreservices/datecacheptr
 type DateCachePtr = unsafe.Pointer
 
 // See: https://developer.apple.com/documentation/coreservices/datecacherecord
-type DateCacheRecord = kernel.Pointer
+// DateCacheRecord is opaque storage with the size and alignment C gives DateCacheRecord:
+// 512 bytes. C declares a record here, not a handle, so a
+// pointer-width rendering would hand the framework eight bytes to write
+// 512 into.
+type DateCacheRecord [256]uint16
 
 // See: https://developer.apple.com/documentation/coreservices/datedelta
 type DateDelta = int8
@@ -478,40 +629,48 @@ type DateForm = int8
 type DateOrders = int8
 
 // See: https://developer.apple.com/documentation/coreservices/datetimerec
-type DateTimeRec = kernel.Pointer
+// DateTimeRec is opaque storage with the size and alignment C gives DateTimeRec:
+// 14 bytes. C declares a record here, not a handle, so a
+// pointer-width rendering would hand the framework eight bytes to write
+// 14 into.
+type DateTimeRec [7]uint16
 
 // See: https://developer.apple.com/documentation/coreservices/debugassertoutputhandlerupp
-type DebugAssertOutputHandlerUPP = kernel.Pointer
+type DebugAssertOutputHandlerUPP = unsafe.Pointer
 
 // See: https://developer.apple.com/documentation/coreservices/debugcomponentcallbackupp
-type DebugComponentCallbackUPP = kernel.Pointer
+type DebugComponentCallbackUPP = unsafe.Pointer
 
 // See: https://developer.apple.com/documentation/coreservices/debuggerdisposethreadtpp
 type DebuggerDisposeThreadTPP = unsafe.Pointer
 
 // See: https://developer.apple.com/documentation/coreservices/debuggerdisposethreadupp
-type DebuggerDisposeThreadUPP = kernel.Pointer
+type DebuggerDisposeThreadUPP = unsafe.Pointer
 
 // See: https://developer.apple.com/documentation/coreservices/debuggernewthreadtpp
 type DebuggerNewThreadTPP = unsafe.Pointer
 
 // See: https://developer.apple.com/documentation/coreservices/debuggernewthreadupp
-type DebuggerNewThreadUPP = kernel.Pointer
+type DebuggerNewThreadUPP = unsafe.Pointer
 
 // See: https://developer.apple.com/documentation/coreservices/debuggerthreadschedulertpp
 type DebuggerThreadSchedulerTPP = unsafe.Pointer
 
 // See: https://developer.apple.com/documentation/coreservices/debuggerthreadschedulerupp
-type DebuggerThreadSchedulerUPP = kernel.Pointer
+type DebuggerThreadSchedulerUPP = unsafe.Pointer
 
 // See: https://developer.apple.com/documentation/coreservices/deferredtask
-type DeferredTask = kernel.Pointer
+// DeferredTask is opaque storage with the size and alignment C gives DeferredTask:
+// 36 bytes. C declares a record here, not a handle, so a
+// pointer-width rendering would hand the framework eight bytes to write
+// 36 into.
+type DeferredTask [18]uint16
 
 // See: https://developer.apple.com/documentation/coreservices/deferredtaskptr
 type DeferredTaskPtr = unsafe.Pointer
 
 // See: https://developer.apple.com/documentation/coreservices/deferredtaskupp
-type DeferredTaskUPP = kernel.Pointer
+type DeferredTaskUPP = unsafe.Pointer
 
 // DescType is specifies the type of the data stored in an [AEDesc] descriptor.
 //
@@ -525,40 +684,68 @@ type ExceptionHandler = uintptr
 type ExceptionHandlerTPP = unsafe.Pointer
 
 // See: https://developer.apple.com/documentation/coreservices/exceptionhandlerupp
-type ExceptionHandlerUPP = kernel.Pointer
+type ExceptionHandlerUPP = unsafe.Pointer
 
 // See: https://developer.apple.com/documentation/coreservices/exceptioninformation
-type ExceptionInformation = kernel.Pointer
+// ExceptionInformation is opaque storage with the size and alignment C gives ExceptionInformation:
+// 48 bytes. C declares a record here, not a handle, so a
+// pointer-width rendering would hand the framework eight bytes to write
+// 48 into.
+type ExceptionInformation [6]uint64
 
 // See: https://developer.apple.com/documentation/coreservices/exceptioninformationpowerpc
-type ExceptionInformationPowerPC = kernel.Pointer
+// ExceptionInformationPowerPC is opaque storage with the size and alignment C gives ExceptionInformationPowerPC:
+// 48 bytes. C declares a record here, not a handle, so a
+// pointer-width rendering would hand the framework eight bytes to write
+// 48 into.
+type ExceptionInformationPowerPC [6]uint64
 
 // See: https://developer.apple.com/documentation/coreservices/exceptionkind
 type ExceptionKind = uint
 
 // See: https://developer.apple.com/documentation/coreservices/extcommonchunk
-type ExtCommonChunk = kernel.Pointer
+// ExtCommonChunk is opaque storage with the size and alignment C gives ExtCommonChunk:
+// 32 bytes. C declares a record here, not a handle, so a
+// pointer-width rendering would hand the framework eight bytes to write
+// 32 into.
+type ExtCommonChunk [16]uint16
 
 // See: https://developer.apple.com/documentation/coreservices/extcommonchunkptr
 type ExtCommonChunkPtr = unsafe.Pointer
 
 // See: https://developer.apple.com/documentation/coreservices/extcomponentresource
-type ExtComponentResource = kernel.Pointer
+// ExtComponentResource is opaque storage with the size and alignment C gives ExtComponentResource:
+// 70 bytes. C declares a record here, not a handle, so a
+// pointer-width rendering would hand the framework eight bytes to write
+// 70 into.
+type ExtComponentResource [35]uint16
 
 // See: https://developer.apple.com/documentation/coreservices/extcomponentresourcehandle
-type ExtComponentResourceHandle = unsafe.Pointer
+type ExtComponentResourceHandle = *ExtComponentResourcePtr
 
 // See: https://developer.apple.com/documentation/coreservices/extcomponentresourceptr
 type ExtComponentResourcePtr = unsafe.Pointer
 
 // See: https://developer.apple.com/documentation/coreservices/extendedfileinfo
-type ExtendedFileInfo = kernel.Pointer
+// ExtendedFileInfo is opaque storage with the size and alignment C gives ExtendedFileInfo:
+// 16 bytes. C declares a record here, not a handle, so a
+// pointer-width rendering would hand the framework eight bytes to write
+// 16 into.
+type ExtendedFileInfo [8]uint16
 
 // See: https://developer.apple.com/documentation/coreservices/extendedfolderinfo
-type ExtendedFolderInfo = kernel.Pointer
+// ExtendedFolderInfo is opaque storage with the size and alignment C gives ExtendedFolderInfo:
+// 16 bytes. C declares a record here, not a handle, so a
+// pointer-width rendering would hand the framework eight bytes to write
+// 16 into.
+type ExtendedFolderInfo [8]uint16
 
 // See: https://developer.apple.com/documentation/coreservices/finfo
-type FInfo = kernel.Pointer
+// FInfo is opaque storage with the size and alignment C gives FInfo:
+// 16 bytes. C declares a record here, not a handle, so a
+// pointer-width rendering would hand the framework eight bytes to write
+// 16 into.
+type FInfo [8]uint16
 
 // See: https://developer.apple.com/documentation/coreservices/fnmessage
 type FNMessage = uint32
@@ -567,24 +754,37 @@ type FNMessage = uint32
 type FNSubscriptionRef uintptr
 
 // See: https://developer.apple.com/documentation/coreservices/fnsubscriptionupp
-type FNSubscriptionUPP = kernel.Pointer
+type FNSubscriptionUPP = unsafe.Pointer
 
 // See: https://developer.apple.com/documentation/coreservices/fpregintel
-type FPRegIntel = uint8
+type FPRegIntel = byte
 
 // See: https://developer.apple.com/documentation/coreservices/fpuinformation
-type FPUInformation = unsafe.Pointer
+// FPUInformation is opaque storage with the size and alignment C gives FPUInformation:
+// 8 bytes. C declares a record here, not a handle, so a
+// pointer-width rendering would hand the framework eight bytes to write
+// 8 into.
+type FPUInformation [1]uint64
 
 // See: https://developer.apple.com/documentation/coreservices/fpuinformationintel64
-type FPUInformationIntel64 = kernel.Pointer
+// FPUInformationIntel64 is an unresolved C aggregate typedef.
+type FPUInformationIntel64 unsafe.Pointer
 
 // See: https://developer.apple.com/documentation/coreservices/fpuinformationpowerpc
-type FPUInformationPowerPC = kernel.Pointer
+// FPUInformationPowerPC is opaque storage with the size and alignment C gives FPUInformationPowerPC:
+// 272 bytes. C declares a record here, not a handle, so a
+// pointer-width rendering would hand the framework eight bytes to write
+// 272 into.
+type FPUInformationPowerPC [34]uint64
 
 // FSAliasInfo is defines an information block passed to the [FSCopyAliasInfo] function.
 //
 // See: https://developer.apple.com/documentation/coreservices/fsaliasinfo
-type FSAliasInfo = kernel.Pointer
+// FSAliasInfo is opaque storage with the size and alignment C gives FSAliasInfo:
+// 42 bytes. C declares a record here, not a handle, so a
+// pointer-width rendering would hand the framework eight bytes to write
+// 42 into.
+type FSAliasInfo [21]uint16
 
 // FSAliasInfoBitmap is returned by the [FSCopyAliasInfo] function to indicate which fields of the alias information structure contain valid data.
 //
@@ -598,13 +798,21 @@ type FSAliasInfoPtr = unsafe.Pointer
 type FSAllocationFlags = uint16
 
 // See: https://developer.apple.com/documentation/coreservices/fscatalogbulkparam
-type FSCatalogBulkParam = kernel.Pointer
+// FSCatalogBulkParam is opaque storage with the size and alignment C gives FSCatalogBulkParam:
+// 112 bytes. C declares a record here, not a handle, so a
+// pointer-width rendering would hand the framework eight bytes to write
+// 112 into.
+type FSCatalogBulkParam [56]uint16
 
 // See: https://developer.apple.com/documentation/coreservices/fscatalogbulkparamptr
 type FSCatalogBulkParamPtr = unsafe.Pointer
 
 // See: https://developer.apple.com/documentation/coreservices/fscataloginfo
-type FSCatalogInfo = kernel.Pointer
+// FSCatalogInfo is opaque storage with the size and alignment C gives FSCatalogInfo:
+// 148 bytes. C declares a record here, not a handle, so a
+// pointer-width rendering would hand the framework eight bytes to write
+// 148 into.
+type FSCatalogInfo [74]uint16
 
 // See: https://developer.apple.com/documentation/coreservices/fscataloginfobitmap
 type FSCatalogInfoBitmap = uint32
@@ -616,7 +824,7 @@ type FSCatalogInfoPtr = unsafe.Pointer
 type FSEjectStatus = uint32
 
 // See: https://developer.apple.com/documentation/coreservices/fseventstreamcallback
-type FSEventStreamCallback = func(ConstFSEventStreamRef, unsafe.Pointer, int, unsafe.Pointer, unsafe.Pointer, unsafe.Pointer)
+type FSEventStreamCallback = func(streamRef ConstFSEventStreamRef, clientCallBackInfo unsafe.Pointer, numEvents int32, eventPaths unsafe.Pointer, eventFlags unsafe.Pointer, eventIds unsafe.Pointer)
 
 // See: https://developer.apple.com/documentation/coreservices/fseventstreamcreateflags
 type FSEventStreamCreateFlags = uint32
@@ -631,7 +839,11 @@ type FSEventStreamEventId = uint64
 type FSEventStreamRef uintptr
 
 // See: https://developer.apple.com/documentation/coreservices/fsfileoperationclientcontext
-type FSFileOperationClientContext = kernel.Pointer
+// FSFileOperationClientContext is opaque storage with the size and alignment C gives FSFileOperationClientContext:
+// 40 bytes. C declares a record here, not a handle, so a
+// pointer-width rendering would hand the framework eight bytes to write
+// 40 into.
+type FSFileOperationClientContext [20]uint16
 
 // See: https://developer.apple.com/documentation/coreservices/fsfileoperationref
 type FSFileOperationRef uintptr
@@ -643,19 +855,31 @@ type FSFileOperationStage = uint32
 type FSFileSecurityRef uintptr
 
 // See: https://developer.apple.com/documentation/coreservices/fsforkcbinfoparam
-type FSForkCBInfoParam = kernel.Pointer
+// FSForkCBInfoParam is opaque storage with the size and alignment C gives FSForkCBInfoParam:
+// 66 bytes. C declares a record here, not a handle, so a
+// pointer-width rendering would hand the framework eight bytes to write
+// 66 into.
+type FSForkCBInfoParam [33]uint16
 
 // See: https://developer.apple.com/documentation/coreservices/fsforkcbinfoparamptr
 type FSForkCBInfoParamPtr = unsafe.Pointer
 
 // See: https://developer.apple.com/documentation/coreservices/fsforkioparam
-type FSForkIOParam = kernel.Pointer
+// FSForkIOParam is opaque storage with the size and alignment C gives FSForkIOParam:
+// 130 bytes. C declares a record here, not a handle, so a
+// pointer-width rendering would hand the framework eight bytes to write
+// 130 into.
+type FSForkIOParam [65]uint16
 
 // See: https://developer.apple.com/documentation/coreservices/fsforkioparamptr
 type FSForkIOParamPtr = unsafe.Pointer
 
 // See: https://developer.apple.com/documentation/coreservices/fsforkinfo
-type FSForkInfo = kernel.Pointer
+// FSForkInfo is opaque storage with the size and alignment C gives FSForkInfo:
+// 48 bytes. C declares a record here, not a handle, so a
+// pointer-width rendering would hand the framework eight bytes to write
+// 48 into.
+type FSForkInfo [24]uint16
 
 // See: https://developer.apple.com/documentation/coreservices/fsforkinfoflags
 type FSForkInfoFlags = uint8
@@ -664,7 +888,7 @@ type FSForkInfoFlags = uint8
 type FSForkInfoPtr = unsafe.Pointer
 
 // See: https://developer.apple.com/documentation/coreservices/fsiorefnum
-type FSIORefNum = int
+type FSIORefNum = int32
 
 // See: https://developer.apple.com/documentation/coreservices/fsiterator
 type FSIterator = uintptr
@@ -676,10 +900,18 @@ type FSIteratorFlags = uint32
 type FSMountStatus = uint32
 
 // See: https://developer.apple.com/documentation/coreservices/fspermissioninfo
-type FSPermissionInfo = kernel.Pointer
+// FSPermissionInfo is opaque storage with the size and alignment C gives FSPermissionInfo:
+// 20 bytes. C declares a record here, not a handle, so a
+// pointer-width rendering would hand the framework eight bytes to write
+// 20 into.
+type FSPermissionInfo [10]uint16
 
 // See: https://developer.apple.com/documentation/coreservices/fsrangelockparam
-type FSRangeLockParam = kernel.Pointer
+// FSRangeLockParam is opaque storage with the size and alignment C gives FSRangeLockParam:
+// 60 bytes. C declares a record here, not a handle, so a
+// pointer-width rendering would hand the framework eight bytes to write
+// 60 into.
+type FSRangeLockParam [30]uint16
 
 // See: https://developer.apple.com/documentation/coreservices/fsrangelockparamptr
 type FSRangeLockParamPtr = unsafe.Pointer
@@ -687,16 +919,28 @@ type FSRangeLockParamPtr = unsafe.Pointer
 // FSRef is identifies a directory or file, including a volume’s root directory.
 //
 // See: https://developer.apple.com/documentation/coreservices/fsref
-type FSRef = kernel.Pointer
+// FSRef is opaque storage with the size and alignment C gives FSRef:
+// 80 bytes. C declares a record here, not a handle, so a
+// pointer-width rendering would hand the framework eight bytes to write
+// 80 into.
+type FSRef [80]byte
 
 // See: https://developer.apple.com/documentation/coreservices/fsrefforkioparam
-type FSRefForkIOParam = kernel.Pointer
+// FSRefForkIOParam is opaque storage with the size and alignment C gives FSRefForkIOParam:
+// 96 bytes. C declares a record here, not a handle, so a
+// pointer-width rendering would hand the framework eight bytes to write
+// 96 into.
+type FSRefForkIOParam [48]uint16
 
 // See: https://developer.apple.com/documentation/coreservices/fsrefforkioparamptr
 type FSRefForkIOParamPtr = unsafe.Pointer
 
 // See: https://developer.apple.com/documentation/coreservices/fsrefparam
-type FSRefParam = kernel.Pointer
+// FSRefParam is opaque storage with the size and alignment C gives FSRefParam:
+// 120 bytes. C declares a record here, not a handle, so a
+// pointer-width rendering would hand the framework eight bytes to write
+// 120 into.
+type FSRefParam [60]uint16
 
 // See: https://developer.apple.com/documentation/coreservices/fsrefparamptr
 type FSRefParamPtr = unsafe.Pointer
@@ -705,19 +949,27 @@ type FSRefParamPtr = unsafe.Pointer
 type FSRefPtr = unsafe.Pointer
 
 // See: https://developer.apple.com/documentation/coreservices/fssearchparams
-type FSSearchParams = kernel.Pointer
+// FSSearchParams is opaque storage with the size and alignment C gives FSSearchParams:
+// 40 bytes. C declares a record here, not a handle, so a
+// pointer-width rendering would hand the framework eight bytes to write
+// 40 into.
+type FSSearchParams [20]uint16
 
 // See: https://developer.apple.com/documentation/coreservices/fssearchparamsptr
 type FSSearchParamsPtr = unsafe.Pointer
 
 // See: https://developer.apple.com/documentation/coreservices/fsspec
-type FSSpec = kernel.Pointer
+// FSSpec is opaque storage with the size and alignment C gives FSSpec:
+// 70 bytes. C declares a record here, not a handle, so a
+// pointer-width rendering would hand the framework eight bytes to write
+// 70 into.
+type FSSpec [70]byte
 
 // See: https://developer.apple.com/documentation/coreservices/fsspecarrayptr
 type FSSpecArrayPtr = unsafe.Pointer
 
 // See: https://developer.apple.com/documentation/coreservices/fsspechandle
-type FSSpecHandle = unsafe.Pointer
+type FSSpecHandle = *FSSpecPtr
 
 // See: https://developer.apple.com/documentation/coreservices/fsspecptr
 type FSSpecPtr = unsafe.Pointer
@@ -726,16 +978,24 @@ type FSSpecPtr = unsafe.Pointer
 type FSUnmountStatus = uint32
 
 // See: https://developer.apple.com/documentation/coreservices/fsvolumeejectupp
-type FSVolumeEjectUPP = kernel.Pointer
+type FSVolumeEjectUPP = unsafe.Pointer
 
 // See: https://developer.apple.com/documentation/coreservices/fsvolumeinfo
-type FSVolumeInfo = kernel.Pointer
+// FSVolumeInfo is opaque storage with the size and alignment C gives FSVolumeInfo:
+// 128 bytes. C declares a record here, not a handle, so a
+// pointer-width rendering would hand the framework eight bytes to write
+// 128 into.
+type FSVolumeInfo [64]uint16
 
 // See: https://developer.apple.com/documentation/coreservices/fsvolumeinfobitmap
 type FSVolumeInfoBitmap = uint32
 
 // See: https://developer.apple.com/documentation/coreservices/fsvolumeinfoparam
-type FSVolumeInfoParam = kernel.Pointer
+// FSVolumeInfoParam is opaque storage with the size and alignment C gives FSVolumeInfoParam:
+// 72 bytes. C declares a record here, not a handle, so a
+// pointer-width rendering would hand the framework eight bytes to write
+// 72 into.
+type FSVolumeInfoParam [36]uint16
 
 // See: https://developer.apple.com/documentation/coreservices/fsvolumeinfoparamptr
 type FSVolumeInfoParamPtr = unsafe.Pointer
@@ -744,7 +1004,7 @@ type FSVolumeInfoParamPtr = unsafe.Pointer
 type FSVolumeInfoPtr = unsafe.Pointer
 
 // See: https://developer.apple.com/documentation/coreservices/fsvolumemountupp
-type FSVolumeMountUPP = kernel.Pointer
+type FSVolumeMountUPP = unsafe.Pointer
 
 // See: https://developer.apple.com/documentation/coreservices/fsvolumeoperation
 type FSVolumeOperation = uintptr
@@ -753,22 +1013,38 @@ type FSVolumeOperation = uintptr
 type FSVolumeRefNum = int16
 
 // See: https://developer.apple.com/documentation/coreservices/fsvolumeunmountupp
-type FSVolumeUnmountUPP = kernel.Pointer
+type FSVolumeUnmountUPP = unsafe.Pointer
 
 // See: https://developer.apple.com/documentation/coreservices/fvector
-type FVector = kernel.Pointer
+// FVector is opaque storage with the size and alignment C gives FVector:
+// 4 bytes. C declares a record here, not a handle, so a
+// pointer-width rendering would hand the framework eight bytes to write
+// 4 into.
+type FVector [2]uint16
 
 // See: https://developer.apple.com/documentation/coreservices/fxinfo
-type FXInfo = kernel.Pointer
+// FXInfo is opaque storage with the size and alignment C gives FXInfo:
+// 16 bytes. C declares a record here, not a handle, so a
+// pointer-width rendering would hand the framework eight bytes to write
+// 16 into.
+type FXInfo [8]uint16
 
 // See: https://developer.apple.com/documentation/coreservices/fileinfo
-type FileInfo = kernel.Pointer
+// FileInfo is opaque storage with the size and alignment C gives FileInfo:
+// 16 bytes. C declares a record here, not a handle, so a
+// pointer-width rendering would hand the framework eight bytes to write
+// 16 into.
+type FileInfo [8]uint16
 
 // See: https://developer.apple.com/documentation/coreservices/folderclass
 type FolderClass = uint32
 
 // See: https://developer.apple.com/documentation/coreservices/folderdesc
-type FolderDesc = kernel.Pointer
+// FolderDesc is opaque storage with the size and alignment C gives FolderDesc:
+// 100 bytes. C declares a record here, not a handle, so a
+// pointer-width rendering would hand the framework eight bytes to write
+// 100 into.
+type FolderDesc [50]uint16
 
 // See: https://developer.apple.com/documentation/coreservices/folderdescflags
 type FolderDescFlags = uint32
@@ -777,16 +1053,24 @@ type FolderDescFlags = uint32
 type FolderDescPtr = unsafe.Pointer
 
 // See: https://developer.apple.com/documentation/coreservices/folderinfo
-type FolderInfo = kernel.Pointer
+// FolderInfo is opaque storage with the size and alignment C gives FolderInfo:
+// 16 bytes. C declares a record here, not a handle, so a
+// pointer-width rendering would hand the framework eight bytes to write
+// 16 into.
+type FolderInfo [8]uint16
 
 // See: https://developer.apple.com/documentation/coreservices/folderlocation
 type FolderLocation = uint32
 
 // See: https://developer.apple.com/documentation/coreservices/foldermanagernotificationupp
-type FolderManagerNotificationUPP = kernel.Pointer
+type FolderManagerNotificationUPP = unsafe.Pointer
 
 // See: https://developer.apple.com/documentation/coreservices/folderrouting
-type FolderRouting = kernel.Pointer
+// FolderRouting is opaque storage with the size and alignment C gives FolderRouting:
+// 24 bytes. C declares a record here, not a handle, so a
+// pointer-width rendering would hand the framework eight bytes to write
+// 24 into.
+type FolderRouting [12]uint16
 
 // See: https://developer.apple.com/documentation/coreservices/folderroutingptr
 type FolderRoutingPtr = unsafe.Pointer
@@ -804,100 +1088,152 @@ type FormatResultType = int8
 type FormatStatus = int16
 
 // See: https://developer.apple.com/documentation/coreservices/formatversionchunk
-type FormatVersionChunk = kernel.Pointer
+// FormatVersionChunk is opaque storage with the size and alignment C gives FormatVersionChunk:
+// 12 bytes. C declares a record here, not a handle, so a
+// pointer-width rendering would hand the framework eight bytes to write
+// 12 into.
+type FormatVersionChunk [6]uint16
 
 // See: https://developer.apple.com/documentation/coreservices/formatversionchunkptr
 type FormatVersionChunkPtr = unsafe.Pointer
 
 // See: https://developer.apple.com/documentation/coreservices/getmissingcomponentresourceupp
-type GetMissingComponentResourceUPP = kernel.Pointer
+type GetMissingComponentResourceUPP = unsafe.Pointer
 
 // See: https://developer.apple.com/documentation/coreservices/getvolparmsinfobuffer
-type GetVolParmsInfoBuffer = kernel.Pointer
+// GetVolParmsInfoBuffer is opaque storage with the size and alignment C gives GetVolParmsInfoBuffer:
+// 44 bytes. C declares a record here, not a handle, so a
+// pointer-width rendering would hand the framework eight bytes to write
+// 44 into.
+type GetVolParmsInfoBuffer [22]uint16
 
 // See: https://developer.apple.com/documentation/coreservices/hfscatalognodeid
 type HFSCatalogNodeID = uint32
 
 // See: https://developer.apple.com/documentation/coreservices/iocompletionupp
-type IOCompletionUPP = kernel.Pointer
+type IOCompletionUPP = unsafe.Pointer
 
 // See: https://developer.apple.com/documentation/coreservices/isatype
 type ISAType = int8
 
 // See: https://developer.apple.com/documentation/coreservices/iconfamilyelement
-type IconFamilyElement = kernel.Pointer
+// IconFamilyElement is opaque storage with the size and alignment C gives IconFamilyElement:
+// 10 bytes. C declares a record here, not a handle, so a
+// pointer-width rendering would hand the framework eight bytes to write
+// 10 into.
+type IconFamilyElement [5]uint16
 
 // See: https://developer.apple.com/documentation/coreservices/iconfamilyhandle
-type IconFamilyHandle = unsafe.Pointer
+type IconFamilyHandle = *IconFamilyPtr
 
 // See: https://developer.apple.com/documentation/coreservices/iconfamilyptr
 type IconFamilyPtr = unsafe.Pointer
 
 // See: https://developer.apple.com/documentation/coreservices/iconfamilyresource
-type IconFamilyResource = kernel.Pointer
+// IconFamilyResource is opaque storage with the size and alignment C gives IconFamilyResource:
+// 18 bytes. C declares a record here, not a handle, so a
+// pointer-width rendering would hand the framework eight bytes to write
+// 18 into.
+type IconFamilyResource [9]uint16
 
 // See: https://developer.apple.com/documentation/coreservices/iconref
-type IconRef = kernel.Pointer
+type IconRef uintptr
 
 // See: https://developer.apple.com/documentation/coreservices/iconservicesusageflags
 type IconServicesUsageFlags = uint32
 
 // See: https://developer.apple.com/documentation/coreservices/indextoucstringprocptr
-type IndexToUCStringProcPtr = func(uint32, unsafe.Pointer, unsafe.Pointer, unsafe.Pointer, unsafe.Pointer) kernel.Pointer
+type IndexToUCStringProcPtr = func(uint32, unsafe.Pointer, unsafe.Pointer, unsafe.Pointer, unsafe.Pointer) bool
 
 // See: https://developer.apple.com/documentation/coreservices/indextoucstringupp
 type IndexToUCStringUPP = unsafe.Pointer
 
 // See: https://developer.apple.com/documentation/coreservices/instrumentchunk
-type InstrumentChunk = kernel.Pointer
+// InstrumentChunk is opaque storage with the size and alignment C gives InstrumentChunk:
+// 28 bytes. C declares a record here, not a handle, so a
+// pointer-width rendering would hand the framework eight bytes to write
+// 28 into.
+type InstrumentChunk [14]uint16
 
 // See: https://developer.apple.com/documentation/coreservices/instrumentchunkptr
 type InstrumentChunkPtr = unsafe.Pointer
 
 // See: https://developer.apple.com/documentation/coreservices/intl0hndl
-type Intl0Hndl = unsafe.Pointer
+type Intl0Hndl = *Intl0Ptr
 
 // See: https://developer.apple.com/documentation/coreservices/intl0ptr
 type Intl0Ptr = unsafe.Pointer
 
 // See: https://developer.apple.com/documentation/coreservices/intl0rec
-type Intl0Rec = kernel.Pointer
+// Intl0Rec is opaque storage with the size and alignment C gives Intl0Rec:
+// 32 bytes. C declares a record here, not a handle, so a
+// pointer-width rendering would hand the framework eight bytes to write
+// 32 into.
+type Intl0Rec [16]uint16
 
 // See: https://developer.apple.com/documentation/coreservices/intl1hndl
-type Intl1Hndl = unsafe.Pointer
+type Intl1Hndl = *Intl1Ptr
 
 // See: https://developer.apple.com/documentation/coreservices/intl1ptr
 type Intl1Ptr = unsafe.Pointer
 
 // See: https://developer.apple.com/documentation/coreservices/intl1rec
-type Intl1Rec = kernel.Pointer
+// Intl1Rec is opaque storage with the size and alignment C gives Intl1Rec:
+// 332 bytes. C declares a record here, not a handle, so a
+// pointer-width rendering would hand the framework eight bytes to write
+// 332 into.
+type Intl1Rec [166]uint16
 
 // See: https://developer.apple.com/documentation/coreservices/itl1extrec
-type Itl1ExtRec = kernel.Pointer
+// Itl1ExtRec is opaque storage with the size and alignment C gives Itl1ExtRec:
+// 380 bytes. C declares a record here, not a handle, so a
+// pointer-width rendering would hand the framework eight bytes to write
+// 380 into.
+type Itl1ExtRec [190]uint16
 
 // See: https://developer.apple.com/documentation/coreservices/itl4handle
-type Itl4Handle = unsafe.Pointer
+type Itl4Handle = *Itl4Ptr
 
 // See: https://developer.apple.com/documentation/coreservices/itl4ptr
 type Itl4Ptr = unsafe.Pointer
 
 // See: https://developer.apple.com/documentation/coreservices/itl4rec
-type Itl4Rec = kernel.Pointer
+// Itl4Rec is opaque storage with the size and alignment C gives Itl4Rec:
+// 52 bytes. C declares a record here, not a handle, so a
+// pointer-width rendering would hand the framework eight bytes to write
+// 52 into.
+type Itl4Rec [26]uint16
 
 // See: https://developer.apple.com/documentation/coreservices/itl5record
-type Itl5Record = kernel.Pointer
+// Itl5Record is opaque storage with the size and alignment C gives Itl5Record:
+// 28 bytes. C declares a record here, not a handle, so a
+// pointer-width rendering would hand the framework eight bytes to write
+// 28 into.
+type Itl5Record [14]uint16
 
 // See: https://developer.apple.com/documentation/coreservices/itlbextrecord
-type ItlbExtRecord = kernel.Pointer
+// ItlbExtRecord is opaque storage with the size and alignment C gives ItlbExtRecord:
+// 50 bytes. C declares a record here, not a handle, so a
+// pointer-width rendering would hand the framework eight bytes to write
+// 50 into.
+type ItlbExtRecord [25]uint16
 
 // See: https://developer.apple.com/documentation/coreservices/itlbrecord
-type ItlbRecord = kernel.Pointer
+// ItlbRecord is opaque storage with the size and alignment C gives ItlbRecord:
+// 20 bytes. C declares a record here, not a handle, so a
+// pointer-width rendering would hand the framework eight bytes to write
+// 20 into.
+type ItlbRecord [10]uint16
 
 // See: https://developer.apple.com/documentation/coreservices/itlcrecord
-type ItlcRecord = kernel.Pointer
+// ItlcRecord is opaque storage with the size and alignment C gives ItlcRecord:
+// 48 bytes. C declares a record here, not a handle, so a
+// pointer-width rendering would hand the framework eight bytes to write
+// 48 into.
+type ItlcRecord [24]uint16
 
 // See: https://developer.apple.com/documentation/coreservices/kcattrtype
-type KCAttrType = kernel.Pointer
+type KCAttrType = uint32
 
 // See: https://developer.apple.com/documentation/coreservices/kcattribute
 type KCAttribute = security.SecKeychainAttribute
@@ -909,10 +1245,14 @@ type KCAttributeList = security.SecKeychainAttributeList
 type KCAuthType = uint32
 
 // See: https://developer.apple.com/documentation/coreservices/kccallbackinfo
-type KCCallbackInfo = kernel.Pointer
+// KCCallbackInfo is opaque storage with the size and alignment C gives KCCallbackInfo:
+// 44 bytes. C declares a record here, not a handle, so a
+// pointer-width rendering would hand the framework eight bytes to write
+// 44 into.
+type KCCallbackInfo [22]uint16
 
 // See: https://developer.apple.com/documentation/coreservices/kccallbackupp
-type KCCallbackUPP = kernel.Pointer
+type KCCallbackUPP = unsafe.Pointer
 
 // See: https://developer.apple.com/documentation/coreservices/kccertaddoptions
 type KCCertAddOptions = uint32
@@ -948,7 +1288,7 @@ type KCRef = security.SecKeychainRef
 type KCSearchRef = security.SecKeychainSearchRef
 
 // See: https://developer.apple.com/documentation/coreservices/kcstatus
-type KCStatus = kernel.Pointer
+type KCStatus = uint32
 
 // See: https://developer.apple.com/documentation/coreservices/kcverifystopon
 type KCVerifyStopOn = uint16
@@ -970,16 +1310,24 @@ type LSSharedFileListRef uintptr
 type LSSharedFileListResolutionFlags = uint32
 
 // See: https://developer.apple.com/documentation/coreservices/localdatetime
-type LocalDateTime = kernel.Pointer
+// LocalDateTime is opaque storage with the size and alignment C gives LocalDateTime:
+// 8 bytes. C declares a record here, not a handle, so a
+// pointer-width rendering would hand the framework eight bytes to write
+// 8 into.
+type LocalDateTime [4]uint16
 
 // See: https://developer.apple.com/documentation/coreservices/localdatetimehandle
-type LocalDateTimeHandle = unsafe.Pointer
+type LocalDateTimeHandle = *LocalDateTimePtr
 
 // See: https://developer.apple.com/documentation/coreservices/localdatetimeptr
 type LocalDateTimePtr = unsafe.Pointer
 
 // See: https://developer.apple.com/documentation/coreservices/localeandvariant
-type LocaleAndVariant = kernel.Pointer
+// LocaleAndVariant is opaque storage with the size and alignment C gives LocaleAndVariant:
+// 12 bytes. C declares a record here, not a handle, so a
+// pointer-width rendering would hand the framework eight bytes to write
+// 12 into.
+type LocaleAndVariant [6]uint16
 
 // See: https://developer.apple.com/documentation/coreservices/localenamemask
 type LocaleNameMask = uint32
@@ -1005,7 +1353,7 @@ type LongDateTime = int64
 // MDItemRef is a reference to a MDItem object.
 //
 // See: https://developer.apple.com/documentation/coreservices/mditemref
-type MDItemRef = kernel.Pointer
+type MDItemRef uintptr
 
 // See: https://developer.apple.com/documentation/coreservices/mdlabelref
 type MDLabelRef uintptr
@@ -1013,17 +1361,17 @@ type MDLabelRef uintptr
 // MDQueryCreateResultFunction is callback function used to create the result objects stored and returned by a query.
 //
 // See: https://developer.apple.com/documentation/coreservices/mdquerycreateresultfunction
-type MDQueryCreateResultFunction = func(MDQueryRef, MDItemRef, unsafe.Pointer) unsafe.Pointer
+type MDQueryCreateResultFunction = func(query MDQueryRef, item MDItemRef, context unsafe.Pointer) unsafe.Pointer
 
 // MDQueryCreateValueFunction is callback function usedto create the value objects stored and returned by a query.
 //
 // See: https://developer.apple.com/documentation/coreservices/mdquerycreatevaluefunction
-type MDQueryCreateValueFunction = func(MDQueryRef, corefoundation.CFString, corefoundation.CFTypeRef, unsafe.Pointer) unsafe.Pointer
+type MDQueryCreateValueFunction = func(query MDQueryRef, attrName corefoundation.CFStringRef, attrValue corefoundation.CFTypeRef, context unsafe.Pointer) unsafe.Pointer
 
 // MDQueryRef is a reference to a MDQuery object.
 //
 // See: https://developer.apple.com/documentation/coreservices/mdqueryref
-type MDQueryRef = kernel.Pointer
+type MDQueryRef uintptr
 
 // MDQuerySortComparatorFunction is callback function used to sort the results of a query.
 //
@@ -1031,7 +1379,11 @@ type MDQueryRef = kernel.Pointer
 type MDQuerySortComparatorFunction = func(unsafe.Pointer, unsafe.Pointer, unsafe.Pointer) corefoundation.CFComparisonResult
 
 // See: https://developer.apple.com/documentation/coreservices/mididatachunk
-type MIDIDataChunk = kernel.Pointer
+// MIDIDataChunk is opaque storage with the size and alignment C gives MIDIDataChunk:
+// 10 bytes. C declares a record here, not a handle, so a
+// pointer-width rendering would hand the framework eight bytes to write
+// 10 into.
+type MIDIDataChunk [5]uint16
 
 // See: https://developer.apple.com/documentation/coreservices/mididatachunkptr
 type MIDIDataChunkPtr = unsafe.Pointer
@@ -1040,7 +1392,14 @@ type MIDIDataChunkPtr = unsafe.Pointer
 type MPAddressSpaceID = uintptr
 
 // See: https://developer.apple.com/documentation/coreservices/mpaddressspaceinfo
-type MPAddressSpaceInfo = kernel.Pointer
+// MPAddressSpaceInfo is opaque storage with the size and alignment C gives MPAddressSpaceInfo:
+// 96 bytes. C declares a record here, not a handle, so a
+// pointer-width rendering would hand the framework eight bytes to write
+// 96 into.
+type MPAddressSpaceInfo [12]uint64
+
+// See: https://developer.apple.com/documentation/coreservices/mpareaid
+type MPAreaID = uintptr
 
 // MPCoherenceID is represents a memory coherence group.
 //
@@ -1061,7 +1420,11 @@ type MPCpuID = uintptr
 type MPCriticalRegionID = uintptr
 
 // See: https://developer.apple.com/documentation/coreservices/mpcriticalregioninfo
-type MPCriticalRegionInfo = kernel.Pointer
+// MPCriticalRegionInfo is opaque storage with the size and alignment C gives MPCriticalRegionInfo:
+// 56 bytes. C declares a record here, not a handle, so a
+// pointer-width rendering would hand the framework eight bytes to write
+// 56 into.
+type MPCriticalRegionInfo [7]uint64
 
 // MPDebuggerLevel is indicates the debugger level.
 //
@@ -1079,7 +1442,16 @@ type MPEventFlags = uint32
 type MPEventID = uintptr
 
 // See: https://developer.apple.com/documentation/coreservices/mpeventinfo
-type MPEventInfo = kernel.Pointer
+// MPEventInfo is opaque storage with the size and alignment C gives MPEventInfo:
+// 48 bytes. C declares a record here, not a handle, so a
+// pointer-width rendering would hand the framework eight bytes to write
+// 48 into.
+type MPEventInfo [6]uint64
+
+// MPExceptionKind is represents the kind of exception thrown.
+//
+// See: https://developer.apple.com/documentation/coreservices/mpexceptionkind
+type MPExceptionKind = uint32
 
 // See: https://developer.apple.com/documentation/coreservices/mpisfullyinitializedproc
 type MPIsFullyInitializedProc = bool
@@ -1090,7 +1462,11 @@ type MPIsFullyInitializedProc = bool
 type MPNotificationID = uintptr
 
 // See: https://developer.apple.com/documentation/coreservices/mpnotificationinfo
-type MPNotificationInfo = kernel.Pointer
+// MPNotificationInfo is opaque storage with the size and alignment C gives MPNotificationInfo:
+// 80 bytes. C declares a record here, not a handle, so a
+// pointer-width rendering would hand the framework eight bytes to write
+// 80 into.
+type MPNotificationInfo [10]uint64
 
 // MPOpaqueID is represents a generic notification ID (that is, an ID that could be a queue ID, event ID, kernel notification ID, or semaphore ID).
 //
@@ -1114,7 +1490,11 @@ type MPProcessID = uintptr
 type MPQueueID = uintptr
 
 // See: https://developer.apple.com/documentation/coreservices/mpqueueinfo
-type MPQueueInfo = kernel.Pointer
+// MPQueueInfo is opaque storage with the size and alignment C gives MPQueueInfo:
+// 80 bytes. C declares a record here, not a handle, so a
+// pointer-width rendering would hand the framework eight bytes to write
+// 80 into.
+type MPQueueInfo [10]uint64
 
 // MPRemoteContext is specify which contexts are allowed to execute the callback function when using [MPRemoteCall].
 //
@@ -1124,7 +1504,7 @@ type MPRemoteContext = uint8
 // MPSemaphoreCount is represents a semaphore count.
 //
 // See: https://developer.apple.com/documentation/coreservices/mpsemaphorecount
-type MPSemaphoreCount = kernel.Pointer
+type MPSemaphoreCount = uint
 
 // MPSemaphoreID is represents a semaphore ID, which Multiprocessing Services uses to manipulate semaphores.
 //
@@ -1132,7 +1512,11 @@ type MPSemaphoreCount = kernel.Pointer
 type MPSemaphoreID = uintptr
 
 // See: https://developer.apple.com/documentation/coreservices/mpsemaphoreinfo
-type MPSemaphoreInfo = kernel.Pointer
+// MPSemaphoreInfo is opaque storage with the size and alignment C gives MPSemaphoreInfo:
+// 56 bytes. C declares a record here, not a handle, so a
+// pointer-width rendering would hand the framework eight bytes to write
+// 56 into.
+type MPSemaphoreInfo [7]uint64
 
 // MPTaskID is represents a task ID.
 //
@@ -1142,10 +1526,18 @@ type MPTaskID = uintptr
 // MPTaskInfo is contains information about a task.
 //
 // See: https://developer.apple.com/documentation/coreservices/mptaskinfo
-type MPTaskInfo = kernel.Pointer
+// MPTaskInfo is opaque storage with the size and alignment C gives MPTaskInfo:
+// 128 bytes. C declares a record here, not a handle, so a
+// pointer-width rendering would hand the framework eight bytes to write
+// 128 into.
+type MPTaskInfo [16]uint64
 
 // See: https://developer.apple.com/documentation/coreservices/mptaskinfoversion2
-type MPTaskInfoVersion2 = kernel.Pointer
+// MPTaskInfoVersion2 is opaque storage with the size and alignment C gives MPTaskInfoVersion2:
+// 88 bytes. C declares a record here, not a handle, so a
+// pointer-width rendering would hand the framework eight bytes to write
+// 88 into.
+type MPTaskInfoVersion2 [11]uint64
 
 // MPTaskOptions is specify optional actions when calling the [MPCreateTask] function.
 //
@@ -1166,22 +1558,43 @@ type MPTaskWeight = uint32
 type MPTimerID = uintptr
 
 // See: https://developer.apple.com/documentation/coreservices/machineinformation
-type MachineInformation = unsafe.Pointer
+// MachineInformation is opaque storage with the size and alignment C gives MachineInformation:
+// 8 bytes. C declares a record here, not a handle, so a
+// pointer-width rendering would hand the framework eight bytes to write
+// 8 into.
+type MachineInformation [1]uint64
 
 // See: https://developer.apple.com/documentation/coreservices/machineinformationintel64
-type MachineInformationIntel64 = kernel.Pointer
+// MachineInformationIntel64 is an unresolved C aggregate typedef.
+type MachineInformationIntel64 unsafe.Pointer
 
 // See: https://developer.apple.com/documentation/coreservices/machineinformationpowerpc
-type MachineInformationPowerPC = kernel.Pointer
+// MachineInformationPowerPC is opaque storage with the size and alignment C gives MachineInformationPowerPC:
+// 88 bytes. C declares a record here, not a handle, so a
+// pointer-width rendering would hand the framework eight bytes to write
+// 88 into.
+type MachineInformationPowerPC [11]uint64
 
 // See: https://developer.apple.com/documentation/coreservices/machinelocation
-type MachineLocation = kernel.Pointer
+// MachineLocation is opaque storage with the size and alignment C gives MachineLocation:
+// 16 bytes. C declares a record here, not a handle, so a
+// pointer-width rendering would hand the framework eight bytes to write
+// 16 into.
+type MachineLocation [8]uint16
 
 // See: https://developer.apple.com/documentation/coreservices/marker
-type Marker = kernel.Pointer
+// Marker is opaque storage with the size and alignment C gives Marker:
+// 262 bytes. C declares a record here, not a handle, so a
+// pointer-width rendering would hand the framework eight bytes to write
+// 262 into.
+type Marker [131]uint16
 
 // See: https://developer.apple.com/documentation/coreservices/markerchunk
-type MarkerChunk = kernel.Pointer
+// MarkerChunk is opaque storage with the size and alignment C gives MarkerChunk:
+// 272 bytes. C declares a record here, not a handle, so a
+// pointer-width rendering would hand the framework eight bytes to write
+// 272 into.
+type MarkerChunk [136]uint16
 
 // See: https://developer.apple.com/documentation/coreservices/markerchunkptr
 type MarkerChunkPtr = unsafe.Pointer
@@ -1190,34 +1603,58 @@ type MarkerChunkPtr = unsafe.Pointer
 type MarkerIdType = int16
 
 // See: https://developer.apple.com/documentation/coreservices/memoryexceptioninformation
-type MemoryExceptionInformation = kernel.Pointer
+// MemoryExceptionInformation is opaque storage with the size and alignment C gives MemoryExceptionInformation:
+// 32 bytes. C declares a record here, not a handle, so a
+// pointer-width rendering would hand the framework eight bytes to write
+// 32 into.
+type MemoryExceptionInformation [4]uint64
 
 // See: https://developer.apple.com/documentation/coreservices/memoryreferencekind
 type MemoryReferenceKind = uint
 
 // See: https://developer.apple.com/documentation/coreservices/mixedmodestaterecord
-type MixedModeStateRecord = kernel.Pointer
+// MixedModeStateRecord is opaque storage with the size and alignment C gives MixedModeStateRecord:
+// 16 bytes. C declares a record here, not a handle, so a
+// pointer-width rendering would hand the framework eight bytes to write
+// 16 into.
+type MixedModeStateRecord [8]uint16
 
 // See: https://developer.apple.com/documentation/coreservices/nitl4handle
-type NItl4Handle = unsafe.Pointer
+type NItl4Handle = *NItl4Ptr
 
 // See: https://developer.apple.com/documentation/coreservices/nitl4ptr
 type NItl4Ptr = unsafe.Pointer
 
 // See: https://developer.apple.com/documentation/coreservices/nitl4rec
-type NItl4Rec = kernel.Pointer
+// NItl4Rec is opaque storage with the size and alignment C gives NItl4Rec:
+// 68 bytes. C declares a record here, not a handle, so a
+// pointer-width rendering would hand the framework eight bytes to write
+// 68 into.
+type NItl4Rec [34]uint16
 
 // See: https://developer.apple.com/documentation/coreservices/nanoseconds
 type Nanoseconds = uint64
 
 // See: https://developer.apple.com/documentation/coreservices/numformatstring
-type NumFormatString = kernel.Pointer
+// NumFormatString is opaque storage with the size and alignment C gives NumFormatString:
+// 256 bytes. C declares a record here, not a handle, so a
+// pointer-width rendering would hand the framework eight bytes to write
+// 256 into.
+type NumFormatString [256]byte
 
 // See: https://developer.apple.com/documentation/coreservices/numformatstringrec
-type NumFormatStringRec = unsafe.Pointer
+// NumFormatStringRec is opaque storage with the size and alignment C gives NumFormatStringRec:
+// 256 bytes. C declares a record here, not a handle, so a
+// pointer-width rendering would hand the framework eight bytes to write
+// 256 into.
+type NumFormatStringRec [256]byte
 
 // See: https://developer.apple.com/documentation/coreservices/numberparts
-type NumberParts = kernel.Pointer
+// NumberParts is opaque storage with the size and alignment C gives NumberParts:
+// 172 bytes. C declares a record here, not a handle, so a
+// pointer-width rendering would hand the framework eight bytes to write
+// 172 into.
+type NumberParts [86]uint16
 
 // See: https://developer.apple.com/documentation/coreservices/numberpartsptr
 type NumberPartsPtr = unsafe.Pointer
@@ -1225,7 +1662,7 @@ type NumberPartsPtr = unsafe.Pointer
 // OSLAccessorProcPtr is your object accessor function either finds elements or properties of an Apple event object.
 //
 // See: https://developer.apple.com/documentation/coreservices/oslaccessorprocptr
-type OSLAccessorProcPtr = func(uint32, unsafe.Pointer, uint32, uint32, unsafe.Pointer, unsafe.Pointer, uintptr) int16
+type OSLAccessorProcPtr = func(desiredClass uint32, container unsafe.Pointer, containerClass uint32, form uint32, selectionData unsafe.Pointer, value unsafe.Pointer, accessorRefcon uintptr) int16
 
 // OSLAccessorUPP is defines a data type for the universal procedure pointer for the [OSLAccessorProcPtr] callback function pointer.
 //
@@ -1235,7 +1672,7 @@ type OSLAccessorUPP = unsafe.Pointer
 // OSLAdjustMarksProcPtr is defines a pointer to an adjust marks callback function. Your adjust marks function unmarks objects previously marked by a call to your marking function.
 //
 // See: https://developer.apple.com/documentation/coreservices/osladjustmarksprocptr
-type OSLAdjustMarksProcPtr = func(int, int, unsafe.Pointer) int16
+type OSLAdjustMarksProcPtr = func(newStart int32, newStop int32, markToken unsafe.Pointer) int16
 
 // OSLAdjustMarksUPP is defines a data type for the universal procedure pointer for the [OSLAdjustMarksProcPtr] callback function pointer.
 //
@@ -1245,7 +1682,7 @@ type OSLAdjustMarksUPP = unsafe.Pointer
 // OSLCompareProcPtr is defines a pointer to an object comparison callback function. Your object comparison function compares one Apple event object to another or to the data for a descriptor.
 //
 // See: https://developer.apple.com/documentation/coreservices/oslcompareprocptr
-type OSLCompareProcPtr = func(uint32, unsafe.Pointer, unsafe.Pointer, unsafe.Pointer) int16
+type OSLCompareProcPtr = func(oper uint32, obj1 unsafe.Pointer, obj2 unsafe.Pointer, result unsafe.Pointer) int16
 
 // OSLCompareUPP is defines a data type for the universal procedure pointer for the [OSLCompareProcPtr] callback function pointer.
 //
@@ -1255,7 +1692,7 @@ type OSLCompareUPP = unsafe.Pointer
 // OSLCountProcPtr is defines a pointer to an object counting callback function. Your object counting function counts the number of Apple event objects of a specified class in a specified container object.
 //
 // See: https://developer.apple.com/documentation/coreservices/oslcountprocptr
-type OSLCountProcPtr = func(uint32, uint32, unsafe.Pointer, unsafe.Pointer) int16
+type OSLCountProcPtr = func(desiredType uint32, containerClass uint32, container unsafe.Pointer, result unsafe.Pointer) int16
 
 // OSLCountUPP is defines a data type for the universal procedure pointer for the [OSLCountProcPtr] callback function pointer.
 //
@@ -1265,7 +1702,7 @@ type OSLCountUPP = unsafe.Pointer
 // OSLDisposeTokenProcPtr is defines a pointer to a dispose token callback function. Your dispose token function, required only if you use a complex token format, disposes of the specified token.
 //
 // See: https://developer.apple.com/documentation/coreservices/osldisposetokenprocptr
-type OSLDisposeTokenProcPtr = func(unsafe.Pointer) int16
+type OSLDisposeTokenProcPtr = func(unneededToken unsafe.Pointer) int16
 
 // OSLDisposeTokenUPP is defines a data type for the universal procedure pointer for the [OSLDisposeTokenProcPtr] callback function pointer.
 //
@@ -1275,7 +1712,7 @@ type OSLDisposeTokenUPP = unsafe.Pointer
 // OSLGetErrDescProcPtr is defines a pointer to an error descriptor callback function. Your error descriptor callback function supplies a pointer to an address where the Apple Event Manager can store the current descriptor if an error occurs during a call to the [AEResolve] function.
 //
 // See: https://developer.apple.com/documentation/coreservices/oslgeterrdescprocptr
-type OSLGetErrDescProcPtr = func(unsafe.Pointer) int16
+type OSLGetErrDescProcPtr = func(appDescPtr unsafe.Pointer) int16
 
 // OSLGetErrDescUPP is defines a data type for the universal procedure pointer for the [OSLGetErrDescProcPtr] callback function pointer.
 //
@@ -1285,7 +1722,7 @@ type OSLGetErrDescUPP = unsafe.Pointer
 // OSLGetMarkTokenProcPtr is defines a pointer to a mark token callback function. Your mark token function returns a mark token.
 //
 // See: https://developer.apple.com/documentation/coreservices/oslgetmarktokenprocptr
-type OSLGetMarkTokenProcPtr = func(unsafe.Pointer, uint32, unsafe.Pointer) int16
+type OSLGetMarkTokenProcPtr = func(dContainerToken unsafe.Pointer, containerClass uint32, result unsafe.Pointer) int16
 
 // OSLGetMarkTokenUPP is defines a data type for the universal procedure pointer for the [OSLGetMarkTokenProcPtr] callback function pointer.
 //
@@ -1295,7 +1732,7 @@ type OSLGetMarkTokenUPP = unsafe.Pointer
 // OSLMarkProcPtr is defines a pointer to an object marking callback function. Your object-marking function marks a specific Apple event object.
 //
 // See: https://developer.apple.com/documentation/coreservices/oslmarkprocptr
-type OSLMarkProcPtr = func(unsafe.Pointer, unsafe.Pointer, int) int16
+type OSLMarkProcPtr = func(dToken unsafe.Pointer, markToken unsafe.Pointer, index int32) int16
 
 // OSLMarkUPP is defines a data type for the universal procedure pointer for the [OSLMarkProcPtr] callback function pointer.
 //
@@ -1303,7 +1740,11 @@ type OSLMarkProcPtr = func(unsafe.Pointer, unsafe.Pointer, int) int16
 type OSLMarkUPP = unsafe.Pointer
 
 // See: https://developer.apple.com/documentation/coreservices/offpair
-type OffPair = kernel.Pointer
+// OffPair is opaque storage with the size and alignment C gives OffPair:
+// 4 bytes. C declares a record here, not a handle, so a
+// pointer-width rendering would hand the framework eight bytes to write
+// 4 into.
+type OffPair [2]uint16
 
 // OffsetArrayHandle is defines a data type that points to an [OffsetArray]. Not typically used by developers.
 //
@@ -1317,40 +1758,81 @@ type OffsetArrayPtr = *OffsetArray
 type OffsetTable = unsafe.Pointer
 
 // See: https://developer.apple.com/documentation/coreservices/pefcontainerheader
-type PEFContainerHeader = kernel.Pointer
+// PEFContainerHeader is opaque storage with the size and alignment C gives PEFContainerHeader:
+// 40 bytes. C declares a record here, not a handle, so a
+// pointer-width rendering would hand the framework eight bytes to write
+// 40 into.
+type PEFContainerHeader [20]uint16
 
 // See: https://developer.apple.com/documentation/coreservices/pefexportedsymbol
-type PEFExportedSymbol = kernel.Pointer
+// PEFExportedSymbol is opaque storage with the size and alignment C gives PEFExportedSymbol:
+// 10 bytes. C declares a record here, not a handle, so a
+// pointer-width rendering would hand the framework eight bytes to write
+// 10 into.
+type PEFExportedSymbol [5]uint16
 
 // See: https://developer.apple.com/documentation/coreservices/pefexportedsymbolhashslot
-type PEFExportedSymbolHashSlot = kernel.Pointer
+// PEFExportedSymbolHashSlot is opaque storage with the size and alignment C gives PEFExportedSymbolHashSlot:
+// 4 bytes. C declares a record here, not a handle, so a
+// pointer-width rendering would hand the framework eight bytes to write
+// 4 into.
+type PEFExportedSymbolHashSlot [2]uint16
 
 // See: https://developer.apple.com/documentation/coreservices/pefexportedsymbolkey
-type PEFExportedSymbolKey = kernel.Pointer
+// PEFExportedSymbolKey is opaque storage with the size and alignment C gives PEFExportedSymbolKey:
+// 4 bytes. C declares a record here, not a handle, so a
+// pointer-width rendering would hand the framework eight bytes to write
+// 4 into.
+type PEFExportedSymbolKey [2]uint16
 
 // See: https://developer.apple.com/documentation/coreservices/pefimportedlibrary
-type PEFImportedLibrary = kernel.Pointer
+// PEFImportedLibrary is opaque storage with the size and alignment C gives PEFImportedLibrary:
+// 24 bytes. C declares a record here, not a handle, so a
+// pointer-width rendering would hand the framework eight bytes to write
+// 24 into.
+type PEFImportedLibrary [12]uint16
 
 // See: https://developer.apple.com/documentation/coreservices/pefimportedsymbol
-type PEFImportedSymbol = kernel.Pointer
+// PEFImportedSymbol is opaque storage with the size and alignment C gives PEFImportedSymbol:
+// 4 bytes. C declares a record here, not a handle, so a
+// pointer-width rendering would hand the framework eight bytes to write
+// 4 into.
+type PEFImportedSymbol [2]uint16
 
 // See: https://developer.apple.com/documentation/coreservices/pefloaderinfoheader
-type PEFLoaderInfoHeader = kernel.Pointer
+// PEFLoaderInfoHeader is opaque storage with the size and alignment C gives PEFLoaderInfoHeader:
+// 56 bytes. C declares a record here, not a handle, so a
+// pointer-width rendering would hand the framework eight bytes to write
+// 56 into.
+type PEFLoaderInfoHeader [28]uint16
 
 // See: https://developer.apple.com/documentation/coreservices/pefloaderrelocationheader
-type PEFLoaderRelocationHeader = kernel.Pointer
+// PEFLoaderRelocationHeader is opaque storage with the size and alignment C gives PEFLoaderRelocationHeader:
+// 12 bytes. C declares a record here, not a handle, so a
+// pointer-width rendering would hand the framework eight bytes to write
+// 12 into.
+type PEFLoaderRelocationHeader [6]uint16
 
 // See: https://developer.apple.com/documentation/coreservices/pefrelocchunk
 type PEFRelocChunk = uint16
 
 // See: https://developer.apple.com/documentation/coreservices/pefsectionheader
-type PEFSectionHeader = kernel.Pointer
+// PEFSectionHeader is opaque storage with the size and alignment C gives PEFSectionHeader:
+// 28 bytes. C declares a record here, not a handle, so a
+// pointer-width rendering would hand the framework eight bytes to write
+// 28 into.
+type PEFSectionHeader [14]uint16
 
 // See: https://developer.apple.com/documentation/coreservices/pefsplithashword
-type PEFSplitHashWord = kernel.Pointer
+// PEFSplitHashWord is opaque storage with the size and alignment C gives PEFSplitHashWord:
+// 4 bytes. C declares a record here, not a handle, so a
+// pointer-width rendering would hand the framework eight bytes to write
+// 4 into.
+type PEFSplitHashWord [2]uint16
 
 // See: https://developer.apple.com/documentation/coreservices/paramblockrec
-type ParamBlockRec = kernel.Pointer
+// ParamBlockRec is an unresolved C aggregate typedef.
+type ParamBlockRec unsafe.Pointer
 
 // See: https://developer.apple.com/documentation/coreservices/parmblkptr
 type ParmBlkPtr = unsafe.Pointer
@@ -1359,13 +1841,21 @@ type ParmBlkPtr = unsafe.Pointer
 type ProcInfoType = uint
 
 // See: https://developer.apple.com/documentation/coreservices/qelem
-type QElem = kernel.Pointer
+// QElem is opaque storage with the size and alignment C gives QElem:
+// 12 bytes. C declares a record here, not a handle, so a
+// pointer-width rendering would hand the framework eight bytes to write
+// 12 into.
+type QElem [6]uint16
 
 // See: https://developer.apple.com/documentation/coreservices/qelemptr
 type QElemPtr = unsafe.Pointer
 
 // See: https://developer.apple.com/documentation/coreservices/qhdr
-type QHdr = kernel.Pointer
+// QHdr is opaque storage with the size and alignment C gives QHdr:
+// 18 bytes. C declares a record here, not a handle, so a
+// pointer-width rendering would hand the framework eight bytes to write
+// 18 into.
+type QHdr [9]uint16
 
 // QHdrPtr is represents a type used by the Compression and Decompression API.
 //
@@ -1373,7 +1863,7 @@ type QHdr = kernel.Pointer
 type QHdrPtr = unsafe.Pointer
 
 // See: https://developer.apple.com/documentation/coreservices/qtypes
-type QTypes = kernel.Pointer
+type QTypes = int8
 
 // See: https://developer.apple.com/documentation/coreservices/rdflagstype
 type RDFlagsType = uint8
@@ -1382,22 +1872,39 @@ type RDFlagsType = uint8
 type RTAType = int8
 
 // See: https://developer.apple.com/documentation/coreservices/registerinformation
-type RegisterInformation = unsafe.Pointer
+// RegisterInformation is opaque storage with the size and alignment C gives RegisterInformation:
+// 8 bytes. C declares a record here, not a handle, so a
+// pointer-width rendering would hand the framework eight bytes to write
+// 8 into.
+type RegisterInformation [1]uint64
 
 // See: https://developer.apple.com/documentation/coreservices/registerinformationintel64
-type RegisterInformationIntel64 = kernel.Pointer
+// RegisterInformationIntel64 is an unresolved C aggregate typedef.
+type RegisterInformationIntel64 unsafe.Pointer
 
 // See: https://developer.apple.com/documentation/coreservices/registerinformationpowerpc
-type RegisterInformationPowerPC = kernel.Pointer
+// RegisterInformationPowerPC is opaque storage with the size and alignment C gives RegisterInformationPowerPC:
+// 256 bytes. C declares a record here, not a handle, so a
+// pointer-width rendering would hand the framework eight bytes to write
+// 256 into.
+type RegisterInformationPowerPC [128]uint16
 
 // See: https://developer.apple.com/documentation/coreservices/registeredcomponentinstancerecord
-type RegisteredComponentInstanceRecord = kernel.Pointer
+// RegisteredComponentInstanceRecord is opaque storage with the size and alignment C gives RegisteredComponentInstanceRecord:
+// 8 bytes. C declares a record here, not a handle, so a
+// pointer-width rendering would hand the framework eight bytes to write
+// 8 into.
+type RegisteredComponentInstanceRecord [4]uint16
 
 // See: https://developer.apple.com/documentation/coreservices/registeredcomponentinstancerecordptr
 type RegisteredComponentInstanceRecordPtr = unsafe.Pointer
 
 // See: https://developer.apple.com/documentation/coreservices/registeredcomponentrecord
-type RegisteredComponentRecord = kernel.Pointer
+// RegisteredComponentRecord is opaque storage with the size and alignment C gives RegisteredComponentRecord:
+// 8 bytes. C declares a record here, not a handle, so a
+// pointer-width rendering would hand the framework eight bytes to write
+// 8 into.
+type RegisteredComponentRecord [4]uint16
 
 // See: https://developer.apple.com/documentation/coreservices/registeredcomponentrecordptr
 type RegisteredComponentRecordPtr = unsafe.Pointer
@@ -1406,13 +1913,13 @@ type RegisteredComponentRecordPtr = unsafe.Pointer
 type ResAttributes = int16
 
 // See: https://developer.apple.com/documentation/coreservices/reserrupp
-type ResErrUPP = kernel.Pointer
+type ResErrUPP = unsafe.Pointer
 
 // See: https://developer.apple.com/documentation/coreservices/resfileattributes
 type ResFileAttributes = int16
 
 // See: https://developer.apple.com/documentation/coreservices/resfilerefnum
-type ResFileRefNum = unsafe.Pointer
+type ResFileRefNum = int32
 
 // See: https://developer.apple.com/documentation/coreservices/resid
 type ResID = int16
@@ -1424,13 +1931,21 @@ type ResourceCount = int16
 type ResourceIndex = int16
 
 // See: https://developer.apple.com/documentation/coreservices/resourcespec
-type ResourceSpec = kernel.Pointer
+// ResourceSpec is opaque storage with the size and alignment C gives ResourceSpec:
+// 6 bytes. C declares a record here, not a handle, so a
+// pointer-width rendering would hand the framework eight bytes to write
+// 6 into.
+type ResourceSpec [3]uint16
 
 // See: https://developer.apple.com/documentation/coreservices/routinedescriptor
-type RoutineDescriptor = kernel.Pointer
+// RoutineDescriptor is opaque storage with the size and alignment C gives RoutineDescriptor:
+// 40 bytes. C declares a record here, not a handle, so a
+// pointer-width rendering would hand the framework eight bytes to write
+// 40 into.
+type RoutineDescriptor [20]uint16
 
 // See: https://developer.apple.com/documentation/coreservices/routinedescriptorhandle
-type RoutineDescriptorHandle = unsafe.Pointer
+type RoutineDescriptorHandle = *RoutineDescriptorPtr
 
 // See: https://developer.apple.com/documentation/coreservices/routinedescriptorptr
 type RoutineDescriptorPtr = unsafe.Pointer
@@ -1439,10 +1954,14 @@ type RoutineDescriptorPtr = unsafe.Pointer
 type RoutineFlagsType = uint16
 
 // See: https://developer.apple.com/documentation/coreservices/routinerecord
-type RoutineRecord = kernel.Pointer
+// RoutineRecord is opaque storage with the size and alignment C gives RoutineRecord:
+// 28 bytes. C declares a record here, not a handle, so a
+// pointer-width rendering would hand the framework eight bytes to write
+// 28 into.
+type RoutineRecord [14]uint16
 
 // See: https://developer.apple.com/documentation/coreservices/routinerecordhandle
-type RoutineRecordHandle = unsafe.Pointer
+type RoutineRecordHandle = *RoutineRecordPtr
 
 // See: https://developer.apple.com/documentation/coreservices/routinerecordptr
 type RoutineRecordPtr = unsafe.Pointer
@@ -1451,10 +1970,14 @@ type RoutineRecordPtr = unsafe.Pointer
 type RoutingFlags = uint32
 
 // See: https://developer.apple.com/documentation/coreservices/routingresourceentry
-type RoutingResourceEntry = kernel.Pointer
+// RoutingResourceEntry is opaque storage with the size and alignment C gives RoutingResourceEntry:
+// 20 bytes. C declares a record here, not a handle, so a
+// pointer-width rendering would hand the framework eight bytes to write
+// 20 into.
+type RoutingResourceEntry [10]uint16
 
 // See: https://developer.apple.com/documentation/coreservices/routingresourcehandle
-type RoutingResourceHandle = unsafe.Pointer
+type RoutingResourceHandle = *RoutingResourcePtr
 
 // See: https://developer.apple.com/documentation/coreservices/routingresourceptr
 type RoutingResourcePtr = unsafe.Pointer
@@ -1463,7 +1986,11 @@ type RoutingResourcePtr = unsafe.Pointer
 type RsrcChainLocation = int16
 
 // See: https://developer.apple.com/documentation/coreservices/rulebasedtrslrecord
-type RuleBasedTrslRecord = kernel.Pointer
+// RuleBasedTrslRecord is opaque storage with the size and alignment C gives RuleBasedTrslRecord:
+// 10 bytes. C declares a record here, not a handle, so a
+// pointer-width rendering would hand the framework eight bytes to write
+// 10 into.
+type RuleBasedTrslRecord [5]uint16
 
 // SKDocument is defines an opaque data type representing a document’s URL.
 //
@@ -1508,7 +2035,7 @@ type SKSearchRef uintptr
 // SKSearchResultsFilterCallBack is deprecated. Use [SKSearchCreate] and [SKSearchFindMatches] instead, which do not use a callback.
 //
 // See: https://developer.apple.com/documentation/coreservices/sksearchresultsfiltercallback
-type SKSearchResultsFilterCallBack = func(SKIndexRef, SKDocumentRef, unsafe.Pointer) kernel.Pointer
+type SKSearchResultsFilterCallBack = func(inIndex SKIndexRef, inDocument SKDocumentRef, inContext unsafe.Pointer) bool
 
 // SKSearchResultsRef is deprecated. Use asynchronous searching with SKSearchCreate instead, which does not employ search groups.
 //
@@ -1521,7 +2048,11 @@ type SKSearchResultsRef uintptr
 type SKSummaryRef uintptr
 
 // See: https://developer.apple.com/documentation/coreservices/schedulerinforec
-type SchedulerInfoRec = kernel.Pointer
+// SchedulerInfoRec is opaque storage with the size and alignment C gives SchedulerInfoRec:
+// 28 bytes. C declares a record here, not a handle, so a
+// pointer-width rendering would hand the framework eight bytes to write
+// 28 into.
+type SchedulerInfoRec [14]uint16
 
 // See: https://developer.apple.com/documentation/coreservices/schedulerinforecptr
 type SchedulerInfoRecPtr = unsafe.Pointer
@@ -1529,7 +2060,11 @@ type SchedulerInfoRecPtr = unsafe.Pointer
 // ScriptCodeRun is contains script code information for a text run.
 //
 // See: https://developer.apple.com/documentation/coreservices/scriptcoderun
-type ScriptCodeRun = kernel.Pointer
+// ScriptCodeRun is opaque storage with the size and alignment C gives ScriptCodeRun:
+// 10 bytes. C declares a record here, not a handle, so a
+// pointer-width rendering would hand the framework eight bytes to write
+// 10 into.
+type ScriptCodeRun [5]uint16
 
 // See: https://developer.apple.com/documentation/coreservices/scriptcoderunptr
 type ScriptCodeRunPtr = unsafe.Pointer
@@ -1537,25 +2072,33 @@ type ScriptCodeRunPtr = unsafe.Pointer
 // SelectorFunctionUPP is defines a universal procedure pointer to a selector function callback.
 //
 // See: https://developer.apple.com/documentation/coreservices/selectorfunctionupp
-type SelectorFunctionUPP = kernel.Pointer
+type SelectorFunctionUPP = unsafe.Pointer
 
 // See: https://developer.apple.com/documentation/coreservices/sleepqrec
-type SleepQRec = kernel.Pointer
+// SleepQRec is opaque storage with the size and alignment C gives SleepQRec:
+// 20 bytes. C declares a record here, not a handle, so a
+// pointer-width rendering would hand the framework eight bytes to write
+// 20 into.
+type SleepQRec [10]uint16
 
 // See: https://developer.apple.com/documentation/coreservices/sleepqrecptr
 type SleepQRecPtr = unsafe.Pointer
 
 // See: https://developer.apple.com/documentation/coreservices/sleepqupp
-type SleepQUPP = kernel.Pointer
+type SleepQUPP = unsafe.Pointer
 
 // See: https://developer.apple.com/documentation/coreservices/sounddatachunk
-type SoundDataChunk = kernel.Pointer
+// SoundDataChunk is opaque storage with the size and alignment C gives SoundDataChunk:
+// 16 bytes. C declares a record here, not a handle, so a
+// pointer-width rendering would hand the framework eight bytes to write
+// 16 into.
+type SoundDataChunk [8]uint16
 
 // See: https://developer.apple.com/documentation/coreservices/sounddatachunkptr
 type SoundDataChunkPtr = unsafe.Pointer
 
 // See: https://developer.apple.com/documentation/coreservices/string2datestatus
-type String2DateStatus = unsafe.Pointer
+type String2DateStatus = int16
 
 // See: https://developer.apple.com/documentation/coreservices/stringtodatestatus
 type StringToDateStatus = int16
@@ -1566,82 +2109,130 @@ type SysPPtr = unsafe.Pointer
 // TECBufferContextRec is contains buffers for text and text encoding runs.
 //
 // See: https://developer.apple.com/documentation/coreservices/tecbuffercontextrec
-type TECBufferContextRec = kernel.Pointer
+// TECBufferContextRec is opaque storage with the size and alignment C gives TECBufferContextRec:
+// 64 bytes. C declares a record here, not a handle, so a
+// pointer-width rendering would hand the framework eight bytes to write
+// 64 into.
+type TECBufferContextRec [8]uint64
 
 // TECConversionInfo is contains text encoding conversion information.
 //
 // See: https://developer.apple.com/documentation/coreservices/tecconversioninfo
-type TECConversionInfo = kernel.Pointer
+// TECConversionInfo is opaque storage with the size and alignment C gives TECConversionInfo:
+// 12 bytes. C declares a record here, not a handle, so a
+// pointer-width rendering would hand the framework eight bytes to write
+// 12 into.
+type TECConversionInfo [6]uint16
 
 // TECConverterContextRec is contains converter information used by a Text Encoding Converter plug-in.
 //
 // See: https://developer.apple.com/documentation/coreservices/tecconvertercontextrec
-type TECConverterContextRec = kernel.Pointer
+// TECConverterContextRec is opaque storage with the size and alignment C gives TECConverterContextRec:
+// 152 bytes. C declares a record here, not a handle, so a
+// pointer-width rendering would hand the framework eight bytes to write
+// 152 into.
+type TECConverterContextRec [19]uint64
 
 // See: https://developer.apple.com/documentation/coreservices/tecencodingpairrec
-type TECEncodingPairRec = kernel.Pointer
+// TECEncodingPairRec is opaque storage with the size and alignment C gives TECEncodingPairRec:
+// 24 bytes. C declares a record here, not a handle, so a
+// pointer-width rendering would hand the framework eight bytes to write
+// 24 into.
+type TECEncodingPairRec [6]uint32
 
 // See: https://developer.apple.com/documentation/coreservices/tecencodingpairs
-type TECEncodingPairs = kernel.Pointer
+// TECEncodingPairs is opaque storage with the size and alignment C gives TECEncodingPairs:
+// 32 bytes. C declares a record here, not a handle, so a
+// pointer-width rendering would hand the framework eight bytes to write
+// 32 into.
+type TECEncodingPairs [8]uint32
 
 // See: https://developer.apple.com/documentation/coreservices/tecencodingpairshandle
-type TECEncodingPairsHandle = unsafe.Pointer
+type TECEncodingPairsHandle = *TECEncodingPairsPtr
 
 // See: https://developer.apple.com/documentation/coreservices/tecencodingpairsptr
 type TECEncodingPairsPtr = unsafe.Pointer
 
 // See: https://developer.apple.com/documentation/coreservices/tecencodingpairsrec
-type TECEncodingPairsRec = kernel.Pointer
+// TECEncodingPairsRec is opaque storage with the size and alignment C gives TECEncodingPairsRec:
+// 36 bytes. C declares a record here, not a handle, so a
+// pointer-width rendering would hand the framework eight bytes to write
+// 36 into.
+type TECEncodingPairsRec [9]uint32
 
 // See: https://developer.apple.com/documentation/coreservices/tecencodingslisthandle
-type TECEncodingsListHandle = unsafe.Pointer
+type TECEncodingsListHandle = *TECEncodingsListPtr
 
 // See: https://developer.apple.com/documentation/coreservices/tecencodingslistptr
 type TECEncodingsListPtr = unsafe.Pointer
 
 // See: https://developer.apple.com/documentation/coreservices/tecencodingslistrec
-type TECEncodingsListRec = kernel.Pointer
+// TECEncodingsListRec is opaque storage with the size and alignment C gives TECEncodingsListRec:
+// 16 bytes. C declares a record here, not a handle, so a
+// pointer-width rendering would hand the framework eight bytes to write
+// 16 into.
+type TECEncodingsListRec [4]uint32
 
 // TECInfo is contains information about the Unicode Converter, the Text Encoding Converter, and Basic Text Types.
 //
 // See: https://developer.apple.com/documentation/coreservices/tecinfo
-type TECInfo = kernel.Pointer
+// TECInfo is opaque storage with the size and alignment C gives TECInfo:
+// 84 bytes. C declares a record here, not a handle, so a
+// pointer-width rendering would hand the framework eight bytes to write
+// 84 into.
+type TECInfo [42]uint16
 
 // See: https://developer.apple.com/documentation/coreservices/tecinfohandle
-type TECInfoHandle = unsafe.Pointer
+type TECInfoHandle = *TECInfoPtr
 
 // See: https://developer.apple.com/documentation/coreservices/tecinfoptr
 type TECInfoPtr = unsafe.Pointer
 
 // See: https://developer.apple.com/documentation/coreservices/tecinternetnamerec
-type TECInternetNameRec = kernel.Pointer
+// TECInternetNameRec is opaque storage with the size and alignment C gives TECInternetNameRec:
+// 20 bytes. C declares a record here, not a handle, so a
+// pointer-width rendering would hand the framework eight bytes to write
+// 20 into.
+type TECInternetNameRec [5]uint32
 
 // See: https://developer.apple.com/documentation/coreservices/tecinternetnameusagemask
 type TECInternetNameUsageMask = uint32
 
 // See: https://developer.apple.com/documentation/coreservices/tecinternetnameshandle
-type TECInternetNamesHandle = unsafe.Pointer
+type TECInternetNamesHandle = *TECInternetNamesPtr
 
 // See: https://developer.apple.com/documentation/coreservices/tecinternetnamesptr
 type TECInternetNamesPtr = unsafe.Pointer
 
 // See: https://developer.apple.com/documentation/coreservices/tecinternetnamesrec
-type TECInternetNamesRec = kernel.Pointer
+// TECInternetNamesRec is opaque storage with the size and alignment C gives TECInternetNamesRec:
+// 24 bytes. C declares a record here, not a handle, so a
+// pointer-width rendering would hand the framework eight bytes to write
+// 24 into.
+type TECInternetNamesRec [6]uint32
 
 // See: https://developer.apple.com/documentation/coreservices/teclocalelisttoencodinglistptr
 type TECLocaleListToEncodingListPtr = unsafe.Pointer
 
 // See: https://developer.apple.com/documentation/coreservices/teclocalelisttoencodinglistrec
-type TECLocaleListToEncodingListRec = kernel.Pointer
+// TECLocaleListToEncodingListRec is opaque storage with the size and alignment C gives TECLocaleListToEncodingListRec:
+// 12 bytes. C declares a record here, not a handle, so a
+// pointer-width rendering would hand the framework eight bytes to write
+// 12 into.
+type TECLocaleListToEncodingListRec [3]uint32
 
 // See: https://developer.apple.com/documentation/coreservices/teclocaletoencodingslisthandle
-type TECLocaleToEncodingsListHandle = unsafe.Pointer
+type TECLocaleToEncodingsListHandle = *TECLocaleToEncodingsListPtr
 
 // See: https://developer.apple.com/documentation/coreservices/teclocaletoencodingslistptr
 type TECLocaleToEncodingsListPtr = unsafe.Pointer
 
 // See: https://developer.apple.com/documentation/coreservices/teclocaletoencodingslistrec
-type TECLocaleToEncodingsListRec = kernel.Pointer
+// TECLocaleToEncodingsListRec is opaque storage with the size and alignment C gives TECLocaleToEncodingsListRec:
+// 16 bytes. C declares a record here, not a handle, so a
+// pointer-width rendering would hand the framework eight bytes to write
+// 16 into.
+type TECLocaleToEncodingsListRec [4]uint32
 
 // TECObjectRef is defines an opaque reference to a converter object.
 //
@@ -1651,7 +2242,11 @@ type TECObjectRef uintptr
 // TECPluginDispatchTable is contains version and signature information and pointers to the callback functions used by a text encoding converter plug-in.
 //
 // See: https://developer.apple.com/documentation/coreservices/tecplugindispatchtable
-type TECPluginDispatchTable = kernel.Pointer
+// TECPluginDispatchTable is opaque storage with the size and alignment C gives TECPluginDispatchTable:
+// 160 bytes. C declares a record here, not a handle, so a
+// pointer-width rendering would hand the framework eight bytes to write
+// 160 into.
+type TECPluginDispatchTable [20]uint64
 
 // TECPluginGetPluginDispatchTablePtr is defines a pointer to a function that returnsa pointer to a plug-in dispatch table.
 //
@@ -1671,7 +2266,11 @@ type TECPluginSignature = uint32
 // TECPluginStateRec is contains state information for a Text Encoding Converter plug-in.
 //
 // See: https://developer.apple.com/documentation/coreservices/tecpluginstaterec
-type TECPluginStateRec = kernel.Pointer
+// TECPluginStateRec is opaque storage with the size and alignment C gives TECPluginStateRec:
+// 20 bytes. C declares a record here, not a handle, so a
+// pointer-width rendering would hand the framework eight bytes to write
+// 20 into.
+type TECPluginStateRec [5]uint32
 
 // TECPluginVersion is defines a data type for Text Encoding Converter plug-in version.
 //
@@ -1681,7 +2280,11 @@ type TECPluginVersion = uint32
 // TECSnifferContextRec is contains infomation used by a sniffer object.
 //
 // See: https://developer.apple.com/documentation/coreservices/tecsniffercontextrec
-type TECSnifferContextRec = kernel.Pointer
+// TECSnifferContextRec is opaque storage with the size and alignment C gives TECSnifferContextRec:
+// 112 bytes. C declares a record here, not a handle, so a
+// pointer-width rendering would hand the framework eight bytes to write
+// 112 into.
+type TECSnifferContextRec [14]uint64
 
 // TECSnifferObjectRef is defines a reference to an opaque sniffer object.
 //
@@ -1689,35 +2292,51 @@ type TECSnifferContextRec = kernel.Pointer
 type TECSnifferObjectRef uintptr
 
 // See: https://developer.apple.com/documentation/coreservices/tecsubtextencodingrec
-type TECSubTextEncodingRec = kernel.Pointer
+// TECSubTextEncodingRec is opaque storage with the size and alignment C gives TECSubTextEncodingRec:
+// 32 bytes. C declares a record here, not a handle, so a
+// pointer-width rendering would hand the framework eight bytes to write
+// 32 into.
+type TECSubTextEncodingRec [8]uint32
 
 // See: https://developer.apple.com/documentation/coreservices/tecsubtextencodingshandle
-type TECSubTextEncodingsHandle = unsafe.Pointer
+type TECSubTextEncodingsHandle = *TECSubTextEncodingsPtr
 
 // See: https://developer.apple.com/documentation/coreservices/tecsubtextencodingsptr
 type TECSubTextEncodingsPtr = unsafe.Pointer
 
 // See: https://developer.apple.com/documentation/coreservices/tecsubtextencodingsrec
-type TECSubTextEncodingsRec = kernel.Pointer
+// TECSubTextEncodingsRec is opaque storage with the size and alignment C gives TECSubTextEncodingsRec:
+// 36 bytes. C declares a record here, not a handle, so a
+// pointer-width rendering would hand the framework eight bytes to write
+// 36 into.
+type TECSubTextEncodingsRec [9]uint32
 
 // See: https://developer.apple.com/documentation/coreservices/tmtask
-type TMTask = kernel.Pointer
+// TMTask is opaque storage with the size and alignment C gives TMTask:
+// 42 bytes. C declares a record here, not a handle, so a
+// pointer-width rendering would hand the framework eight bytes to write
+// 42 into.
+type TMTask [21]uint16
 
 // See: https://developer.apple.com/documentation/coreservices/tmtaskptr
 type TMTaskPtr = unsafe.Pointer
 
 // See: https://developer.apple.com/documentation/coreservices/tabledirectoryrecord
-type TableDirectoryRecord = kernel.Pointer
+// TableDirectoryRecord is opaque storage with the size and alignment C gives TableDirectoryRecord:
+// 16 bytes. C declares a record here, not a handle, so a
+// pointer-width rendering would hand the framework eight bytes to write
+// 16 into.
+type TableDirectoryRecord [8]uint16
 
 // TaskStorageIndex is represents a task storage index value used by functions described in “Accessing Per-Task Storage Variables.”.
 //
 // See: https://developer.apple.com/documentation/coreservices/taskstorageindex
-type TaskStorageIndex = kernel.Pointer
+type TaskStorageIndex = uint
 
 // TaskStorageValue is represents a task storage value used by functions described in “Accessing Per-Task Storage Variables.”.
 //
 // See: https://developer.apple.com/documentation/coreservices/taskstoragevalue
-type TaskStorageValue = kernel.Pointer
+type TaskStorageValue = unsafe.Pointer
 
 // TextBreakLocatorRef is refers to an opaque object that encapsulates locale and text-break information for the purpose of finding boundaries in Unicode text.
 //
@@ -1725,7 +2344,11 @@ type TaskStorageValue = kernel.Pointer
 type TextBreakLocatorRef uintptr
 
 // See: https://developer.apple.com/documentation/coreservices/textchunk
-type TextChunk = kernel.Pointer
+// TextChunk is opaque storage with the size and alignment C gives TextChunk:
+// 10 bytes. C declares a record here, not a handle, so a
+// pointer-width rendering would hand the framework eight bytes to write
+// 10 into.
+type TextChunk [5]uint16
 
 // See: https://developer.apple.com/documentation/coreservices/textchunkptr
 type TextChunkPtr = unsafe.Pointer
@@ -1751,12 +2374,20 @@ type TextEncodingFormat = uint32
 type TextEncodingNameSelector = uint32
 
 // See: https://developer.apple.com/documentation/coreservices/textencodingrec
-type TextEncodingRec = kernel.Pointer
+// TextEncodingRec is opaque storage with the size and alignment C gives TextEncodingRec:
+// 12 bytes. C declares a record here, not a handle, so a
+// pointer-width rendering would hand the framework eight bytes to write
+// 12 into.
+type TextEncodingRec [3]uint32
 
 // TextEncodingRun is contains text encoding information for a text run.
 //
 // See: https://developer.apple.com/documentation/coreservices/textencodingrun
-type TextEncodingRun = kernel.Pointer
+// TextEncodingRun is opaque storage with the size and alignment C gives TextEncodingRun:
+// 12 bytes. C declares a record here, not a handle, so a
+// pointer-width rendering would hand the framework eight bytes to write
+// 12 into.
+type TextEncodingRun [6]uint16
 
 // See: https://developer.apple.com/documentation/coreservices/textencodingrunptr
 type TextEncodingRunPtr = unsafe.Pointer
@@ -1767,7 +2398,7 @@ type TextEncodingRunPtr = unsafe.Pointer
 type TextEncodingVariant = uint32
 
 // See: https://developer.apple.com/documentation/coreservices/textptr
-type TextPtr = uint8
+type TextPtr = *uint8
 
 // See: https://developer.apple.com/documentation/coreservices/textrangearrayhandle
 type TextRangeArrayHandle = *TextRangeArrayPtr
@@ -1790,7 +2421,7 @@ type TextToUnicodeInfo = uintptr
 type ThreadEntryTPP = unsafe.Pointer
 
 // See: https://developer.apple.com/documentation/coreservices/threadentryupp
-type ThreadEntryUPP = kernel.Pointer
+type ThreadEntryUPP = unsafe.Pointer
 
 // See: https://developer.apple.com/documentation/coreservices/threadid
 type ThreadID = uint
@@ -1802,7 +2433,7 @@ type ThreadOptions = uint32
 type ThreadSchedulerTPP = unsafe.Pointer
 
 // See: https://developer.apple.com/documentation/coreservices/threadschedulerupp
-type ThreadSchedulerUPP = kernel.Pointer
+type ThreadSchedulerUPP = unsafe.Pointer
 
 // See: https://developer.apple.com/documentation/coreservices/threadstate
 type ThreadState = uint16
@@ -1814,22 +2445,26 @@ type ThreadStyle = uint32
 type ThreadSwitchTPP = unsafe.Pointer
 
 // See: https://developer.apple.com/documentation/coreservices/threadswitchupp
-type ThreadSwitchUPP = kernel.Pointer
+type ThreadSwitchUPP = unsafe.Pointer
 
 // See: https://developer.apple.com/documentation/coreservices/threadtaskref
-type ThreadTaskRef uintptr
+type ThreadTaskRef = unsafe.Pointer
 
 // See: https://developer.apple.com/documentation/coreservices/threadterminationtpp
 type ThreadTerminationTPP = unsafe.Pointer
 
 // See: https://developer.apple.com/documentation/coreservices/threadterminationupp
-type ThreadTerminationUPP = kernel.Pointer
+type ThreadTerminationUPP = unsafe.Pointer
 
 // See: https://developer.apple.com/documentation/coreservices/timerupp
-type TimerUPP = kernel.Pointer
+type TimerUPP = unsafe.Pointer
 
 // See: https://developer.apple.com/documentation/coreservices/togglepb
-type TogglePB = kernel.Pointer
+// TogglePB is opaque storage with the size and alignment C gives TogglePB:
+// 48 bytes. C declares a record here, not a handle, so a
+// pointer-width rendering would hand the framework eight bytes to write
+// 48 into.
+type TogglePB [24]uint16
 
 // See: https://developer.apple.com/documentation/coreservices/toggleresults
 type ToggleResults = int16
@@ -1887,19 +2522,23 @@ type UCTypeSelectCompareResult = int32
 type UCTypeSelectOptions = uint16
 
 // See: https://developer.apple.com/documentation/coreservices/uctypeselectref
-type UCTypeSelectRef = kernel.Pointer
+type UCTypeSelectRef uintptr
 
 // See: https://developer.apple.com/documentation/coreservices/utcdatetime
-type UTCDateTime = kernel.Pointer
+// UTCDateTime is opaque storage with the size and alignment C gives UTCDateTime:
+// 8 bytes. C declares a record here, not a handle, so a
+// pointer-width rendering would hand the framework eight bytes to write
+// 8 into.
+type UTCDateTime [4]uint16
 
 // See: https://developer.apple.com/documentation/coreservices/utcdatetimehandle
-type UTCDateTimeHandle = unsafe.Pointer
+type UTCDateTimeHandle = *UTCDateTimePtr
 
 // See: https://developer.apple.com/documentation/coreservices/utcdatetimeptr
 type UTCDateTimePtr = unsafe.Pointer
 
 // See: https://developer.apple.com/documentation/coreservices/unichararrayhandle
-type UniCharArrayHandle = unsafe.Pointer
+type UniCharArrayHandle = *UniCharArrayPtr
 
 // UniCharArrayOffset is represents the boundary between two characters.
 //
@@ -1907,7 +2546,7 @@ type UniCharArrayHandle = unsafe.Pointer
 type UniCharArrayOffset = uint
 
 // See: https://developer.apple.com/documentation/coreservices/unichararrayptr
-type UniCharArrayPtr = uint16
+type UniCharArrayPtr = *uint16
 
 // UnicodeMapVersion is specify a Unicode mapping version.
 //
@@ -1917,7 +2556,11 @@ type UnicodeMapVersion = int32
 // UnicodeMapping is contains information for mapping to or from Unicode encoding.
 //
 // See: https://developer.apple.com/documentation/coreservices/unicodemapping
-type UnicodeMapping = kernel.Pointer
+// UnicodeMapping is opaque storage with the size and alignment C gives UnicodeMapping:
+// 12 bytes. C declares a record here, not a handle, so a
+// pointer-width rendering would hand the framework eight bytes to write
+// 12 into.
+type UnicodeMapping [6]uint16
 
 // See: https://developer.apple.com/documentation/coreservices/unicodemappingptr
 type UnicodeMappingPtr = unsafe.Pointer
@@ -1925,7 +2568,7 @@ type UnicodeMappingPtr = unsafe.Pointer
 // UnicodeToTextFallbackUPP is defines a universal procedure pointer to a Unicode-to-text-fallback callback function.
 //
 // See: https://developer.apple.com/documentation/coreservices/unicodetotextfallbackupp
-type UnicodeToTextFallbackUPP = kernel.Pointer
+type UnicodeToTextFallbackUPP = unsafe.Pointer
 
 // UnicodeToTextInfo is defines a reference to an opaque Unicode to text converter object.
 //
@@ -1938,31 +2581,52 @@ type UnicodeToTextInfo = uintptr
 type UnicodeToTextRunInfo = uintptr
 
 // See: https://developer.apple.com/documentation/coreservices/untokentable
-type UntokenTable = kernel.Pointer
+// UntokenTable is opaque storage with the size and alignment C gives UntokenTable:
+// 516 bytes. C declares a record here, not a handle, so a
+// pointer-width rendering would hand the framework eight bytes to write
+// 516 into.
+type UntokenTable [258]uint16
 
 // See: https://developer.apple.com/documentation/coreservices/untokentablehandle
-type UntokenTableHandle = unsafe.Pointer
+type UntokenTableHandle = *UntokenTablePtr
 
 // See: https://developer.apple.com/documentation/coreservices/untokentableptr
 type UntokenTablePtr = unsafe.Pointer
 
 // See: https://developer.apple.com/documentation/coreservices/vectorinformation
-type VectorInformation = unsafe.Pointer
+// VectorInformation is opaque storage with the size and alignment C gives VectorInformation:
+// 8 bytes. C declares a record here, not a handle, so a
+// pointer-width rendering would hand the framework eight bytes to write
+// 8 into.
+type VectorInformation [1]uint64
 
 // See: https://developer.apple.com/documentation/coreservices/vectorinformationintel64
-type VectorInformationIntel64 = kernel.Pointer
+// VectorInformationIntel64 is an unresolved C aggregate typedef.
+type VectorInformationIntel64 unsafe.Pointer
 
 // See: https://developer.apple.com/documentation/coreservices/vectorinformationpowerpc
-type VectorInformationPowerPC = kernel.Pointer
+// VectorInformationPowerPC is opaque storage with the size and alignment C gives VectorInformationPowerPC:
+// 1064 bytes. C declares a record here, not a handle, so a
+// pointer-width rendering would hand the framework eight bytes to write
+// 1064 into.
+type VectorInformationPowerPC [133]uint64
 
 // See: https://developer.apple.com/documentation/coreservices/volmountinfoheader
-type VolMountInfoHeader = kernel.Pointer
+// VolMountInfoHeader is opaque storage with the size and alignment C gives VolMountInfoHeader:
+// 6 bytes. C declares a record here, not a handle, so a
+// pointer-width rendering would hand the framework eight bytes to write
+// 6 into.
+type VolMountInfoHeader [3]uint16
 
 // See: https://developer.apple.com/documentation/coreservices/volmountinfoptr
 type VolMountInfoPtr = unsafe.Pointer
 
 // See: https://developer.apple.com/documentation/coreservices/volumemountinfoheader
-type VolumeMountInfoHeader = kernel.Pointer
+// VolumeMountInfoHeader is opaque storage with the size and alignment C gives VolumeMountInfoHeader:
+// 8 bytes. C declares a record here, not a handle, so a
+// pointer-width rendering would hand the framework eight bytes to write
+// 8 into.
+type VolumeMountInfoHeader [4]uint16
 
 // See: https://developer.apple.com/documentation/coreservices/volumemountinfoheaderptr
 type VolumeMountInfoHeaderPtr = unsafe.Pointer
@@ -1973,7 +2637,11 @@ type VolumeType = uint32
 // WSClientContext is an optional context that can contain data you want passed to your callback.
 //
 // See: https://developer.apple.com/documentation/coreservices/wsclientcontext
-type WSClientContext = kernel.Pointer
+// WSClientContext is opaque storage with the size and alignment C gives WSClientContext:
+// 40 bytes. C declares a record here, not a handle, so a
+// pointer-width rendering would hand the framework eight bytes to write
+// 40 into.
+type WSClientContext [20]uint16
 
 // WSMethodInvocationRef is an opaque reference to a web services method invocation.
 //
@@ -1988,22 +2656,42 @@ type WSProtocolHandlerRef uintptr
 // WSTypeID is web Services Core uses the following enumeration when serializing between Core Foundation and XML types. Because CFTypes are defined at runtime, it isn't always possible to produce a static mapping to a particular CFTypeRef. This enum and associated API allows for static determination of the expected serialization.
 //
 // See: https://developer.apple.com/documentation/coreservices/wstypeid
-type WSTypeID = kernel.Pointer
+type WSTypeID = int32
 
 // See: https://developer.apple.com/documentation/coreservices/widechararr
-type WideCharArr = kernel.Pointer
+// WideCharArr is opaque storage with the size and alignment C gives WideCharArr:
+// 22 bytes. C declares a record here, not a handle, so a
+// pointer-width rendering would hand the framework eight bytes to write
+// 22 into.
+type WideCharArr [11]uint16
 
 // See: https://developer.apple.com/documentation/coreservices/xlibcontainerheader
-type XLibContainerHeader = kernel.Pointer
+// XLibContainerHeader is opaque storage with the size and alignment C gives XLibContainerHeader:
+// 80 bytes. C declares a record here, not a handle, so a
+// pointer-width rendering would hand the framework eight bytes to write
+// 80 into.
+type XLibContainerHeader [40]uint16
 
 // See: https://developer.apple.com/documentation/coreservices/xlibexportedsymbol
-type XLibExportedSymbol = kernel.Pointer
+// XLibExportedSymbol is opaque storage with the size and alignment C gives XLibExportedSymbol:
+// 8 bytes. C declares a record here, not a handle, so a
+// pointer-width rendering would hand the framework eight bytes to write
+// 8 into.
+type XLibExportedSymbol [4]uint16
 
 // See: https://developer.apple.com/documentation/coreservices/xlibexportedsymbolhashslot
-type XLibExportedSymbolHashSlot = unsafe.Pointer
+// XLibExportedSymbolHashSlot is opaque storage with the size and alignment C gives XLibExportedSymbolHashSlot:
+// 4 bytes. C declares a record here, not a handle, so a
+// pointer-width rendering would hand the framework eight bytes to write
+// 4 into.
+type XLibExportedSymbolHashSlot [2]uint16
 
 // See: https://developer.apple.com/documentation/coreservices/xlibexportedsymbolkey
-type XLibExportedSymbolKey = string
+// XLibExportedSymbolKey is opaque storage with the size and alignment C gives XLibExportedSymbolKey:
+// 4 bytes. C declares a record here, not a handle, so a
+// pointer-width rendering would hand the framework eight bytes to write
+// 4 into.
+type XLibExportedSymbolKey [2]uint16
 
 // See: https://developer.apple.com/documentation/coreservices/ccnttokenrechandle
 type CcntTokenRecHandle = *CcntTokenRecPtr
@@ -2012,10 +2700,18 @@ type CcntTokenRecHandle = *CcntTokenRecPtr
 type CcntTokenRecPtr = *CcntTokenRecord
 
 // See: https://developer.apple.com/documentation/coreservices/decform
-type Decform = kernel.Pointer
+// Decform is opaque storage with the size and alignment C gives decform:
+// 4 bytes. C declares a record here, not a handle, so a
+// pointer-width rendering would hand the framework eight bytes to write
+// 4 into.
+type Decform [2]uint16
 
 // See: https://developer.apple.com/documentation/coreservices/decimal
-type Decimal = kernel.Pointer
+// Decimal is opaque storage with the size and alignment C gives decimal:
+// 42 bytes. C declares a record here, not a handle, so a
+// pointer-width rendering would hand the framework eight bytes to write
+// 42 into.
+type Decimal [21]uint16
 
 // See: https://developer.apple.com/documentation/coreservices/registerselectortype
 type RegisterSelectorType = uint16

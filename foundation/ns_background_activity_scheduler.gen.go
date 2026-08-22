@@ -159,7 +159,7 @@ func (nc NSBackgroundActivitySchedulerClass) Alloc() NSBackgroundActivitySchedul
 //   - [NSBackgroundActivityScheduler.QualityOfService]: A value of type [NSQualityOfService], which controls how aggressively the system schedules the activity.
 //   - [NSBackgroundActivityScheduler.SetQualityOfService]
 //   - [NSBackgroundActivityScheduler.ShouldDefer]: A Boolean value indicating whether your app should stop performing background activity and resume at a more optimal time.
-//   - [NSBackgroundActivityScheduler.Tolerance]: A value of type [TimeInterval](<doc://com.apple.foundation/documentation/Foundation/TimeInterval>), which specifies a range of time during which the background activity may occur.
+//   - [NSBackgroundActivityScheduler.Tolerance]: A value of type [TimeInterval](<https://developer.apple.com/documentation/Foundation/TimeInterval>), which specifies a range of time during which the background activity may occur.
 //   - [NSBackgroundActivityScheduler.SetTolerance]
 //
 // # Initializing Schedulers
@@ -203,7 +203,7 @@ func NSBackgroundActivitySchedulerFromID(id objc.ID) NSBackgroundActivitySchedul
 //   - [INSBackgroundActivityScheduler.QualityOfService]: A value of type [NSQualityOfService], which controls how aggressively the system schedules the activity.
 //   - [INSBackgroundActivityScheduler.SetQualityOfService]
 //   - [INSBackgroundActivityScheduler.ShouldDefer]: A Boolean value indicating whether your app should stop performing background activity and resume at a more optimal time.
-//   - [INSBackgroundActivityScheduler.Tolerance]: A value of type [TimeInterval](<doc://com.apple.foundation/documentation/Foundation/TimeInterval>), which specifies a range of time during which the background activity may occur.
+//   - [INSBackgroundActivityScheduler.Tolerance]: A value of type [TimeInterval](<https://developer.apple.com/documentation/Foundation/TimeInterval>), which specifies a range of time during which the background activity may occur.
 //   - [INSBackgroundActivityScheduler.SetTolerance]
 //
 // # Initializing Schedulers
@@ -233,7 +233,7 @@ type INSBackgroundActivityScheduler interface {
 	SetQualityOfService(value NSQualityOfService)
 	// A Boolean value indicating whether your app should stop performing background activity and resume at a more optimal time.
 	ShouldDefer() bool
-	// A value of type [TimeInterval](<doc://com.apple.foundation/documentation/Foundation/TimeInterval>), which specifies a range of time during which the background activity may occur.
+	// A value of type [TimeInterval](<https://developer.apple.com/documentation/Foundation/TimeInterval>), which specifies a range of time during which the background activity may occur.
 	Tolerance() float64
 	SetTolerance(value float64)
 

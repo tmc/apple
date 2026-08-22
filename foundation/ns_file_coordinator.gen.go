@@ -584,7 +584,8 @@ func (f NSFileCoordinator) CoordinateAccessWithIntentsQueueByAccessor(intents []
 // [Block object]: https://developer.apple.com/library/archive/documentation/General/Conceptual/DevPedia-CocoaCore/Block.html#//apple_ref/doc/uid/TP40008195-CH3
 // [NSMetadataUbiquitousItemDownloadingStatusKey]: https://developer.apple.com/documentation/Foundation/NSMetadataUbiquitousItemDownloadingStatusKey
 func (f NSFileCoordinator) CoordinateReadingItemAtURLOptionsErrorByAccessor(url INSURL, options NSFileCoordinatorReadingOptions, outError INSError, reader URLHandler) {
-	_block3, _ := NewURLBlock(reader)
+	_block3, _cleanup3 := NewURLBlock(reader)
+	defer _cleanup3()
 	objc.Send[objc.ID](f.ID, objc.Sel("coordinateReadingItemAtURL:options:error:byAccessor:"), url, options, outError, _block3)
 }
 
@@ -669,7 +670,8 @@ func (f NSFileCoordinator) CoordinateReadingItemAtURLOptionsErrorByAccessor(url 
 // [NSFileCoordinator.WritingOptions]: https://developer.apple.com/documentation/Foundation/NSFileCoordinator/WritingOptions
 // [Block object]: https://developer.apple.com/library/archive/documentation/General/Conceptual/DevPedia-CocoaCore/Block.html#//apple_ref/doc/uid/TP40008195-CH3
 func (f NSFileCoordinator) CoordinateWritingItemAtURLOptionsErrorByAccessor(url INSURL, options NSFileCoordinatorWritingOptions, outError INSError, writer URLHandler) {
-	_block3, _ := NewURLBlock(writer)
+	_block3, _cleanup3 := NewURLBlock(writer)
+	defer _cleanup3()
 	objc.Send[objc.ID](f.ID, objc.Sel("coordinateWritingItemAtURL:options:error:byAccessor:"), url, options, outError, _block3)
 }
 
@@ -735,7 +737,8 @@ func (f NSFileCoordinator) CoordinateWritingItemAtURLOptionsErrorByAccessor(url 
 // [NSFileCoordinator.WritingOptions]: https://developer.apple.com/documentation/Foundation/NSFileCoordinator/WritingOptions
 // [Block object]: https://developer.apple.com/library/archive/documentation/General/Conceptual/DevPedia-CocoaCore/Block.html#//apple_ref/doc/uid/TP40008195-CH3
 func (f NSFileCoordinator) CoordinateReadingItemAtURLOptionsWritingItemAtURLOptionsErrorByAccessor(readingURL INSURL, readingOptions NSFileCoordinatorReadingOptions, writingURL INSURL, writingOptions NSFileCoordinatorWritingOptions, outError INSError, readerWriter URLURLHandler) {
-	_block5, _ := NewURLURLBlock(readerWriter)
+	_block5, _cleanup5 := NewURLURLBlock(readerWriter)
+	defer _cleanup5()
 	objc.Send[objc.ID](f.ID, objc.Sel("coordinateReadingItemAtURL:options:writingItemAtURL:options:error:byAccessor:"), readingURL, readingOptions, writingURL, writingOptions, outError, _block5)
 }
 
@@ -797,7 +800,8 @@ func (f NSFileCoordinator) CoordinateReadingItemAtURLOptionsWritingItemAtURLOpti
 //
 // [NSFileCoordinator.WritingOptions]: https://developer.apple.com/documentation/Foundation/NSFileCoordinator/WritingOptions
 func (f NSFileCoordinator) CoordinateWritingItemAtURLOptionsWritingItemAtURLOptionsErrorByAccessor(url1 INSURL, options1 NSFileCoordinatorWritingOptions, url2 INSURL, options2 NSFileCoordinatorWritingOptions, outError INSError, writer URLURLHandler) {
-	_block5, _ := NewURLURLBlock(writer)
+	_block5, _cleanup5 := NewURLURLBlock(writer)
+	defer _cleanup5()
 	objc.Send[objc.ID](f.ID, objc.Sel("coordinateWritingItemAtURL:options:writingItemAtURL:options:error:byAccessor:"), url1, options1, url2, options2, outError, _block5)
 }
 
@@ -870,7 +874,8 @@ func (f NSFileCoordinator) CoordinateWritingItemAtURLOptionsWritingItemAtURLOpti
 // [NSFileCoordinator.WritingOptions]: https://developer.apple.com/documentation/Foundation/NSFileCoordinator/WritingOptions
 // [Block object]: https://developer.apple.com/library/archive/documentation/General/Conceptual/DevPedia-CocoaCore/Block.html#//apple_ref/doc/uid/TP40008195-CH3
 func (f NSFileCoordinator) PrepareForReadingItemsAtURLsOptionsWritingItemsAtURLsOptionsErrorByAccessor(readingURLs []NSURL, readingOptions NSFileCoordinatorReadingOptions, writingURLs []NSURL, writingOptions NSFileCoordinatorWritingOptions, outError INSError, batchAccessor ErrorHandler) {
-	_block5, _ := NewErrorBlock(batchAccessor)
+	_block5, _cleanup5 := NewErrorBlock(batchAccessor)
+	defer _cleanup5()
 	objc.Send[objc.ID](f.ID, objc.Sel("prepareForReadingItemsAtURLs:options:writingItemsAtURLs:options:error:byAccessor:"), readingURLs, readingOptions, writingURLs, writingOptions, outError, _block5)
 }
 

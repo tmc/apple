@@ -34,7 +34,7 @@ type CVPlanarComponentInfo struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/CoreVideo/CVPlanarPixelBufferInfo
 type CVPlanarPixelBufferInfo struct {
-	ComponentInfo CVPlanarComponentInfo // An array containing a [CVPlanarComponentInfo](<doc://com.apple.corevideo/documentation/CoreVideo/CVPlanarComponentInfo>) structure for each plane of the buffer.
+	ComponentInfo [1]CVPlanarComponentInfo // An array containing a [CVPlanarComponentInfo](<https://developer.apple.com/documentation/CoreVideo/CVPlanarComponentInfo>) structure for each plane of the buffer.
 
 }
 
@@ -43,8 +43,8 @@ type CVPlanarPixelBufferInfo struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/CoreVideo/CVPlanarPixelBufferInfo_YCbCrBiPlanar
 type CVPlanarPixelBufferInfo_YCbCrBiPlanar struct {
-	ComponentInfoY    CVPlanarComponentInfo // A [CVPlanarComponentInfo](<doc://com.apple.corevideo/documentation/CoreVideo/CVPlanarComponentInfo>) structure containing information on the Y component of the buffer.
-	ComponentInfoCbCr CVPlanarComponentInfo // A [CVPlanarComponentInfo](<doc://com.apple.corevideo/documentation/CoreVideo/CVPlanarComponentInfo>) structure containing information on the Cb/Cr component of the buffer.
+	ComponentInfoY    CVPlanarComponentInfo // A [CVPlanarComponentInfo](<https://developer.apple.com/documentation/CoreVideo/CVPlanarComponentInfo>) structure containing information on the Y component of the buffer.
+	ComponentInfoCbCr CVPlanarComponentInfo // A [CVPlanarComponentInfo](<https://developer.apple.com/documentation/CoreVideo/CVPlanarComponentInfo>) structure containing information on the Cb/Cr component of the buffer.
 
 }
 
@@ -53,9 +53,9 @@ type CVPlanarPixelBufferInfo_YCbCrBiPlanar struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/CoreVideo/CVPlanarPixelBufferInfo_YCbCrPlanar
 type CVPlanarPixelBufferInfo_YCbCrPlanar struct {
-	ComponentInfoY  CVPlanarComponentInfo // A [CVPlanarComponentInfo](<doc://com.apple.corevideo/documentation/CoreVideo/CVPlanarComponentInfo>) structure containing information on the Y component of the buffer.
-	ComponentInfoCb CVPlanarComponentInfo // A [CVPlanarComponentInfo](<doc://com.apple.corevideo/documentation/CoreVideo/CVPlanarComponentInfo>) structure containing information on the Cb component of the buffer.
-	ComponentInfoCr CVPlanarComponentInfo // A [CVPlanarComponentInfo](<doc://com.apple.corevideo/documentation/CoreVideo/CVPlanarComponentInfo>) structure containing information on the Cr component of the buffer.
+	ComponentInfoY  CVPlanarComponentInfo // A [CVPlanarComponentInfo](<https://developer.apple.com/documentation/CoreVideo/CVPlanarComponentInfo>) structure containing information on the Y component of the buffer.
+	ComponentInfoCb CVPlanarComponentInfo // A [CVPlanarComponentInfo](<https://developer.apple.com/documentation/CoreVideo/CVPlanarComponentInfo>) structure containing information on the Cb component of the buffer.
+	ComponentInfoCr CVPlanarComponentInfo // A [CVPlanarComponentInfo](<https://developer.apple.com/documentation/CoreVideo/CVPlanarComponentInfo>) structure containing information on the Cr component of the buffer.
 
 }
 
@@ -83,7 +83,7 @@ type CVSMPTETime struct {
 type CVTime struct {
 	TimeValue int64 // The time value.
 	TimeScale int32 // The time scale for this value.
-	Flags     int32 // The flags associated with the [CVTime] value. See [CVTime Values](<doc://com.apple.corevideo/documentation/CoreVideo/cvtime-values>) for possible values. If `kCVTimeIsIndefinite` is set, you should not use any of the other fields in this structure.
+	Flags     int32 // The flags associated with the [CVTime] value. See [CVTime Values](<https://developer.apple.com/documentation/CoreVideo/cvtime-values>) for possible values. If `kCVTimeIsIndefinite` is set, you should not use any of the other fields in this structure.
 
 }
 

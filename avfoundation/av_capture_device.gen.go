@@ -1421,9 +1421,10 @@ func (c AVCaptureDevice) IsFollowingExternalSyncDevice() bool {
 // # Discussion
 //
 // Use this property as the minimum allowable frame duration to pass to
-// `AVCaptureDeviceInput/` when you want to follow an external sync device.
-// This property returns `kCMTimeInvalid` when the device’s’ current
-// configuration does not support external sync device following.
+// `AVCaptureDeviceInput/follow:externalSyncDevice:videoFrameDuration:delegate:`
+// when you want to follow an external sync device. This property returns
+// `kCMTimeInvalid` when the device’s’ current configuration does not
+// support external sync device following.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCaptureDevice/minSupportedExternalSyncFrameDuration
 func (c AVCaptureDevice) MinSupportedExternalSyncFrameDuration() coremedia.CMTime {

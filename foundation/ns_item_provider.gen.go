@@ -271,7 +271,7 @@ type INSItemProvider interface {
 	// Topic: Loading the provider’s contents
 
 	// Loads the item’s data and coerces it to the specified type.
-	LoadItemForTypeIdentifierOptionsCompletionHandler(typeIdentifier string, options INSDictionary, completionHandler ErrorHandler)
+	LoadItemForTypeIdentifierOptionsCompletionHandler(typeIdentifier string, options INSDictionary, completionHandler SecureCoding__kindofidErrorHandler)
 	// Asynchronously copies the provided, typed data into a generic data object, returning a progress object.
 	LoadDataRepresentationForTypeIdentifierCompletionHandler(typeIdentifier string, completionHandler DataErrorHandler) INSProgress
 	// Asynchronously writes a copy of the provided, typed data to a temporary file, returning a progress object.
@@ -284,10 +284,10 @@ type INSItemProvider interface {
 	// Topic: Loading a preview image
 
 	// Loads the preview image for the item that the item provider represents.
-	LoadPreviewImageWithOptionsCompletionHandler(options INSDictionary, completionHandler ErrorHandler)
+	LoadPreviewImageWithOptionsCompletionHandler(options INSDictionary, completionHandler SecureCoding__kindofidErrorHandler)
 	// The custom preview image handler block for the item provider.
-	PreviewImageHandler() NSItemProviderLoadHandler
-	SetPreviewImageHandler(value NSItemProviderLoadHandler)
+	PreviewImageHandler() ClassErrorHandler
+	SetPreviewImageHandler(value ClassErrorHandler)
 
 	// Topic: Registering CloudKit shares
 
@@ -310,7 +310,7 @@ type INSItemProvider interface {
 	// Registers a data-backed representation for an item, specifiying item visibility and a load handler.
 	RegisterDataRepresentationForTypeIdentifierVisibilityLoadHandler(typeIdentifier string, visibility NSItemProviderRepresentationVisibility, loadHandler ErrorHandler)
 	// Lazily registers an item, according to the item provider type coercion policy.
-	RegisterItemForTypeIdentifierLoadHandler(typeIdentifier string, loadHandler ErrorHandler)
+	RegisterItemForTypeIdentifierLoadHandler(typeIdentifier string, loadHandler ClassErrorHandler)
 
 	// Topic: Registering files
 
@@ -340,7 +340,7 @@ type INSItemProvider interface {
 	// Registers an existing collaboration object on a server.
 	RegisterCKShareContainerAllowedSharingOptions(share objectivec.IObject, container objectivec.IObject, allowedOptions objectivec.IObject)
 	// Creates and registers a new collaboration object using a collection of records to share.
-	RegisterCKShareWithContainerAllowedSharingOptionsPreparationHandler(container objectivec.IObject, allowedOptions objectivec.IObject, preparationHandler uintptr)
+	RegisterCKShareWithContainerAllowedSharingOptionsPreparationHandler(container objectivec.IObject, allowedOptions objectivec.IObject, preparationHandler ErrorHandler)
 	// Lazily registers an item, according to the item provider type coercion policy.
 	RegisterDataRepresentationForContentTypeVisibilityLoadHandler(contentType objectivec.IObject, visibility NSItemProviderRepresentationVisibility, loadHandler ErrorHandler)
 	// Registers a file-backed representation for an item with item visibility, an open-in-place option, and a load handler.
@@ -618,8 +618,8 @@ func (i NSItemProvider) RegisteredTypeIdentifiersWithFileOptions(fileOptions NSI
 // [NSItemProviderPreferredImageSizeKey]: https://developer.apple.com/documentation/Foundation/NSItemProviderPreferredImageSizeKey
 // [NSImage]: https://developer.apple.com/documentation/AppKit/NSImage
 // [UIImage]: https://developer.apple.com/documentation/UIKit/UIImage
-func (i NSItemProvider) LoadItemForTypeIdentifierOptionsCompletionHandler(typeIdentifier string, options INSDictionary, completionHandler ErrorHandler) {
-	_block2, _ := NewErrorBlock(completionHandler)
+func (i NSItemProvider) LoadItemForTypeIdentifierOptionsCompletionHandler(typeIdentifier string, options INSDictionary, completionHandler SecureCoding__kindofidErrorHandler) {
+	_block2, _ := NewSecureCoding__kindofidErrorBlock(completionHandler)
 	objc.Send[objc.ID](i.ID, objc.Sel("loadItemForTypeIdentifier:options:completionHandler:"), objc.String(typeIdentifier), options, _block2)
 }
 
@@ -717,8 +717,8 @@ func (i NSItemProvider) LoadObjectOfClassCompletionHandler(aClass objectivec.Cla
 //
 // [NSImage]: https://developer.apple.com/documentation/AppKit/NSImage
 // [UIImage]: https://developer.apple.com/documentation/UIKit/UIImage
-func (i NSItemProvider) LoadPreviewImageWithOptionsCompletionHandler(options INSDictionary, completionHandler ErrorHandler) {
-	_block1, _ := NewErrorBlock(completionHandler)
+func (i NSItemProvider) LoadPreviewImageWithOptionsCompletionHandler(options INSDictionary, completionHandler SecureCoding__kindofidErrorHandler) {
+	_block1, _ := NewSecureCoding__kindofidErrorBlock(completionHandler)
 	objc.Send[objc.ID](i.ID, objc.Sel("loadPreviewImageWithOptions:completionHandler:"), options, _block1)
 }
 
@@ -843,8 +843,8 @@ func (i NSItemProvider) RegisterDataRepresentationForTypeIdentifierVisibilityLoa
 // types.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSItemProvider/registerItem(forTypeIdentifier:loadHandler:)
-func (i NSItemProvider) RegisterItemForTypeIdentifierLoadHandler(typeIdentifier string, loadHandler ErrorHandler) {
-	_block1, _ := NewErrorBlock(loadHandler)
+func (i NSItemProvider) RegisterItemForTypeIdentifierLoadHandler(typeIdentifier string, loadHandler ClassErrorHandler) {
+	_block1, _ := NewClassErrorBlock(loadHandler)
 	objc.Send[objc.ID](i.ID, objc.Sel("registerItemForTypeIdentifier:loadHandler:"), objc.String(typeIdentifier), _block1)
 }
 
@@ -1019,8 +1019,9 @@ func (i NSItemProvider) RegisterCKShareContainerAllowedSharingOptions(share obje
 // [CKSharePreparationCompletionHandler]: https://developer.apple.com/documentation/CloudKit/CKSharePreparationCompletionHandler
 //
 // [CKShare]: https://developer.apple.com/documentation/CloudKit/CKShare
-func (i NSItemProvider) RegisterCKShareWithContainerAllowedSharingOptionsPreparationHandler(container objectivec.IObject, allowedOptions objectivec.IObject, preparationHandler uintptr) {
-	objc.Send[objc.ID](i.ID, objc.Sel("registerCKShareWithContainer:allowedSharingOptions:preparationHandler:"), container, allowedOptions, preparationHandler)
+func (i NSItemProvider) RegisterCKShareWithContainerAllowedSharingOptionsPreparationHandler(container objectivec.IObject, allowedOptions objectivec.IObject, preparationHandler ErrorHandler) {
+	_block2, _ := NewErrorBlock(preparationHandler)
+	objc.Send[objc.ID](i.ID, objc.Sel("registerCKShareWithContainer:allowedSharingOptions:preparationHandler:"), container, allowedOptions, _block2)
 }
 
 // Lazily registers an item, according to the item provider type coercion
@@ -1105,12 +1106,15 @@ func (i NSItemProvider) RegisteredTypeIdentifiers() []string {
 // file, or return an [NSData] object.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSItemProvider/previewImageHandler
-func (i NSItemProvider) PreviewImageHandler() NSItemProviderLoadHandler {
-	rv := objc.Send[NSItemProviderLoadHandler](i.ID, objc.Sel("previewImageHandler"))
-	return NSItemProviderLoadHandler(rv)
+func (i NSItemProvider) PreviewImageHandler() ClassErrorHandler {
+	rv := objc.Send[objc.ID](i.ID, objc.Sel("previewImageHandler"))
+	_ = rv
+	return nil
 }
-func (i NSItemProvider) SetPreviewImageHandler(value NSItemProviderLoadHandler) {
-	objc.Send[struct{}](i.ID, objc.Sel("setPreviewImageHandler:"), value)
+func (i NSItemProvider) SetPreviewImageHandler(value ClassErrorHandler) {
+	block, cleanup := NewClassErrorBlock(value)
+	defer cleanup()
+	objc.Send[struct{}](i.ID, objc.Sel("setPreviewImageHandler:"), block)
 }
 
 // Registered content types in the order the app registers each type.
@@ -1176,6 +1180,25 @@ func (i NSItemProvider) ContainerFrame() NSRect {
 
 // Protocol methods for NSCopying
 
+// LoadItemForTypeIdentifierOptions is a synchronous wrapper around [NSItemProvider.LoadItemForTypeIdentifierOptionsCompletionHandler].
+// It blocks until the completion handler fires or the context is cancelled.
+func (i NSItemProvider) LoadItemForTypeIdentifierOptions(ctx context.Context, typeIdentifier string, options INSDictionary) (NSSecureCoding, error) {
+	type result struct {
+		val NSSecureCoding
+		err error
+	}
+	done := make(chan result, 1)
+	i.LoadItemForTypeIdentifierOptionsCompletionHandler(typeIdentifier, options, func(val NSSecureCoding, err error) {
+		done <- result{val, err}
+	})
+	select {
+	case r := <-done:
+		return r.val, r.err
+	case <-ctx.Done():
+		return nil, ctx.Err()
+	}
+}
+
 // LoadDataRepresentationForTypeIdentifier is a synchronous wrapper around [NSItemProvider.LoadDataRepresentationForTypeIdentifierCompletionHandler].
 // It blocks until the completion handler fires or the context is cancelled.
 func (i NSItemProvider) LoadDataRepresentationForTypeIdentifier(ctx context.Context, typeIdentifier string) (*NSData, error) {
@@ -1230,6 +1253,44 @@ func (i NSItemProvider) LoadObjectOfClass(ctx context.Context, aClass objectivec
 		return r.val, r.err
 	case <-ctx.Done():
 		return nil, ctx.Err()
+	}
+}
+
+// LoadPreviewImageWithOptions is a synchronous wrapper around [NSItemProvider.LoadPreviewImageWithOptionsCompletionHandler].
+// It blocks until the completion handler fires or the context is cancelled.
+func (i NSItemProvider) LoadPreviewImageWithOptions(ctx context.Context, options INSDictionary) (NSSecureCoding, error) {
+	type result struct {
+		val NSSecureCoding
+		err error
+	}
+	done := make(chan result, 1)
+	i.LoadPreviewImageWithOptionsCompletionHandler(options, func(val NSSecureCoding, err error) {
+		done <- result{val, err}
+	})
+	select {
+	case r := <-done:
+		return r.val, r.err
+	case <-ctx.Done():
+		return nil, ctx.Err()
+	}
+}
+
+// RegisterItemForTypeIdentifierLoadHandlerSync is a synchronous wrapper around [NSItemProvider.RegisterItemForTypeIdentifierLoadHandler].
+// It blocks until the completion handler fires or the context is cancelled.
+func (i NSItemProvider) RegisterItemForTypeIdentifierLoadHandlerSync(ctx context.Context, typeIdentifier string) (objectivec.Class, error) {
+	type result struct {
+		val objectivec.Class
+		err error
+	}
+	done := make(chan result, 1)
+	i.RegisterItemForTypeIdentifierLoadHandler(typeIdentifier, func(val objectivec.Class, err error) {
+		done <- result{val, err}
+	})
+	select {
+	case r := <-done:
+		return r.val, r.err
+	case <-ctx.Done():
+		return *new(objectivec.Class), ctx.Err()
 	}
 }
 

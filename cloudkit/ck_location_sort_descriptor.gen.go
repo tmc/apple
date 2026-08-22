@@ -4,8 +4,8 @@ package cloudkit
 
 import (
 	"sync"
-	"unsafe"
 
+	"github.com/tmc/apple/corelocation"
 	"github.com/tmc/apple/foundation"
 	"github.com/tmc/apple/objc"
 )
@@ -98,12 +98,12 @@ type ICKLocationSortDescriptor interface {
 	// Topic: Creating a Location Sort Descriptor
 
 	// Creates a location sort descriptor using the specified key and relative location.
-	InitWithKeyRelativeLocation(key string, relativeLocation unsafe.Pointer) CKLocationSortDescriptor
+	InitWithKeyRelativeLocation(key string, relativeLocation corelocation.CLLocation) CKLocationSortDescriptor
 
 	// Topic: Accessing the Location Value
 
 	// The reference location for sorting records.
-	RelativeLocation() unsafe.Pointer
+	RelativeLocation() corelocation.CLLocation
 }
 
 // Init initializes the instance.
@@ -156,7 +156,7 @@ func NewCKLocationSortDescriptorWithCoder(aDecoder foundation.INSCoder) CKLocati
 // See: https://developer.apple.com/documentation/CloudKit/CKLocationSortDescriptor/init(key:relativeLocation:)
 //
 // [CLLocation]: https://developer.apple.com/documentation/CoreLocation/CLLocation
-func NewCKLocationSortDescriptorWithKeyRelativeLocation(key string, relativeLocation unsafe.Pointer) CKLocationSortDescriptor {
+func NewCKLocationSortDescriptorWithKeyRelativeLocation(key string, relativeLocation corelocation.CLLocation) CKLocationSortDescriptor {
 	instance := getCKLocationSortDescriptorClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithKey:relativeLocation:"), objc.String(key), relativeLocation)
 	return CKLocationSortDescriptorFromID(rv)
@@ -182,7 +182,7 @@ func NewCKLocationSortDescriptorWithKeyRelativeLocation(key string, relativeLoca
 // See: https://developer.apple.com/documentation/CloudKit/CKLocationSortDescriptor/init(key:relativeLocation:)
 //
 // [CLLocation]: https://developer.apple.com/documentation/CoreLocation/CLLocation
-func (c CKLocationSortDescriptor) InitWithKeyRelativeLocation(key string, relativeLocation unsafe.Pointer) CKLocationSortDescriptor {
+func (c CKLocationSortDescriptor) InitWithKeyRelativeLocation(key string, relativeLocation corelocation.CLLocation) CKLocationSortDescriptor {
 	rv := objc.Send[CKLocationSortDescriptor](c.ID, objc.Sel("initWithKey:relativeLocation:"), objc.String(key), relativeLocation)
 	return rv
 }
@@ -190,7 +190,7 @@ func (c CKLocationSortDescriptor) InitWithKeyRelativeLocation(key string, relati
 // The reference location for sorting records.
 //
 // See: https://developer.apple.com/documentation/CloudKit/CKLocationSortDescriptor/relativeLocation
-func (c CKLocationSortDescriptor) RelativeLocation() unsafe.Pointer {
-	rv := objc.Send[unsafe.Pointer](c.ID, objc.Sel("relativeLocation"))
-	return rv
+func (c CKLocationSortDescriptor) RelativeLocation() corelocation.CLLocation {
+	rv := objc.Send[objc.ID](c.ID, objc.Sel("relativeLocation"))
+	return corelocation.CLLocationFromID(objc.ID(rv))
 }

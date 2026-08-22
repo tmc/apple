@@ -178,7 +178,8 @@ func NewCKSyncEngineRecordZoneChangeBatchWithRecordsToSaveRecordIDsToDeleteAtomi
 //
 // See: https://developer.apple.com/documentation/CloudKit/CKSyncEngineRecordZoneChangeBatch/initWithPendingChanges:recordProvider:
 func (c CKSyncEngineRecordZoneChangeBatch) InitWithPendingChangesRecordProvider(pendingChanges []CKSyncEnginePendingRecordZoneChange, recordProvider CKRecordIDHandler) CKSyncEngineRecordZoneChangeBatch {
-	_block1, _ := NewCKRecordIDBlock(recordProvider)
+	_block1, _cleanup1 := NewCKRecordIDBlock(recordProvider)
+	defer _cleanup1()
 	rv := objc.Send[CKSyncEngineRecordZoneChangeBatch](c.ID, objc.Sel("initWithPendingChanges:recordProvider:"), pendingChanges, _block1)
 	return rv
 }

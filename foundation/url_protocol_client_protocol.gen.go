@@ -7,7 +7,7 @@ import (
 	"github.com/tmc/apple/objectivec"
 )
 
-// The interface used by [URLProtocol](<doc://com.apple.foundation/documentation/Foundation/URLProtocol>) subclasses to communicate with the URL Loading System.
+// The interface used by [URLProtocol](<https://developer.apple.com/documentation/Foundation/URLProtocol>) subclasses to communicate with the URL Loading System.
 //
 // See: https://developer.apple.com/documentation/Foundation/URLProtocolClient
 type NSURLProtocolClient interface {

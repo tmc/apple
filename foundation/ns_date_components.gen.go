@@ -226,7 +226,6 @@ func NSDateComponentsFromID(id objc.ID) NSDateComponents {
 // See: https://developer.apple.com/documentation/Foundation/NSDateComponents
 type INSDateComponents interface {
 	objectivec.IObject
-	NSSecureCoding
 
 	// Topic: Setting a Calendar and Time Zone
 
@@ -313,6 +312,10 @@ type INSDateComponents interface {
 	SetDayOfYear(value int)
 	IsRepeatedDay() bool
 	SetRepeatedDay(value bool)
+
+	// Encodes the receiver using a given archiver.
+	EncodeWithCoder(coder INSCoder)
+	InitWithCoder(coder INSCoder) NSDateComponents
 }
 
 // Init initializes the instance.
@@ -621,8 +624,8 @@ func (d NSDateComponents) SetLeapMonth(value bool) {
 //
 // # Discussion
 //
-// Weekday units are the numbers 1 through , where is the number of days in
-// the week. For example, in the Gregorian calendar, is 7 and Sunday is
+// Weekday units are the numbers 1 through n, where n is the number of days in
+// the week. For example, in the Gregorian calendar, n is 7 and Sunday is
 // represented by 1.
 //
 // This value is interpreted in the context of the calendar with which it is
@@ -646,8 +649,8 @@ func (d NSDateComponents) SetWeekday(value int) {
 // # Discussion
 //
 // Weekday ordinal units represent the position of the weekday within the next
-// larger calendar unit, such as the month. For example, is the weekday
-// ordinal unit for the Friday of the month.
+// larger calendar unit, such as the month. For example, 2 is the weekday
+// ordinal unit for the second Friday of the month.
 //
 // This value is interpreted in the context of the calendar with which it is
 // used—see [Calendars, Date Components, and Calendar Units] in [Date and

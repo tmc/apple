@@ -3,6 +3,7 @@
 package vision
 
 import (
+	"context"
 	"sync"
 	"unsafe"
 
@@ -115,12 +116,12 @@ type IVNRequest interface {
 	// Topic: Initializing a Request
 
 	// Creates a new Vision request with an optional completion handler.
-	InitWithCompletionHandler(completionHandler ErrorHandler) VNRequest
+	InitWithCompletionHandler(completionHandler VNRequestErrorHandler) VNRequest
 
 	// Topic: Configuring a Request
 
 	// The completion handler the system invokes after the request finishes processing.
-	CompletionHandler() VNRequestCompletionHandler
+	CompletionHandler() VNRequestErrorHandler
 	// A hint to minimize the resource burden of the request.
 	PreferBackgroundProcessing() bool
 	SetPreferBackgroundProcessing(value bool)
@@ -176,9 +177,10 @@ func NewVNRequest() VNRequest {
 // [VNImageRequestHandler.PerformRequestsError].
 //
 // See: https://developer.apple.com/documentation/Vision/VNRequest/init(completionHandler:)
-func NewRequestWithCompletionHandler(completionHandler VNRequestCompletionHandler) VNRequest {
+func NewRequestWithCompletionHandler(completionHandler VNRequestErrorHandler) VNRequest {
+	_block0, _ := NewVNRequestErrorBlock(completionHandler)
 	instance := getVNRequestClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCompletionHandler:"), completionHandler)
+	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCompletionHandler:"), _block0)
 	return VNRequestFromID(rv)
 }
 
@@ -193,8 +195,8 @@ func NewRequestWithCompletionHandler(completionHandler VNRequestCompletionHandle
 // [VNImageRequestHandler.PerformRequestsError].
 //
 // See: https://developer.apple.com/documentation/Vision/VNRequest/init(completionHandler:)
-func (r VNRequest) InitWithCompletionHandler(completionHandler ErrorHandler) VNRequest {
-	_block0, _ := NewErrorBlock(completionHandler)
+func (r VNRequest) InitWithCompletionHandler(completionHandler VNRequestErrorHandler) VNRequest {
+	_block0, _ := NewVNRequestErrorBlock(completionHandler)
 	rv := objc.Send[VNRequest](r.ID, objc.Sel("initWithCompletionHandler:"), _block0)
 	return rv
 }
@@ -271,9 +273,10 @@ func (r VNRequest) SupportedComputeStageDevicesAndReturnError() (foundation.INSD
 // [VNImageRequestHandler.PerformRequestsError].
 //
 // See: https://developer.apple.com/documentation/Vision/VNRequest/completionHandler
-func (r VNRequest) CompletionHandler() VNRequestCompletionHandler {
-	rv := objc.Send[VNRequestCompletionHandler](r.ID, objc.Sel("completionHandler"))
-	return VNRequestCompletionHandler(rv)
+func (r VNRequest) CompletionHandler() VNRequestErrorHandler {
+	rv := objc.Send[objc.ID](r.ID, objc.Sel("completionHandler"))
+	_ = rv
+	return nil
 }
 
 // A hint to minimize the resource burden of the request.
@@ -371,4 +374,23 @@ func (_VNRequestClass VNRequestClass) DefaultRevision() uint {
 func (_VNRequestClass VNRequestClass) SupportedRevisions() foundation.NSIndexSet {
 	rv := objc.Send[objc.ID](objc.ID(_VNRequestClass.class), objc.Sel("supportedRevisions"))
 	return foundation.NSIndexSetFromID(objc.ID(rv))
+}
+
+// InitSync is a synchronous wrapper around [VNRequest.InitWithCompletionHandler].
+// It blocks until the completion handler fires or the context is cancelled.
+func (r VNRequest) InitSync(ctx context.Context) (*VNRequest, error) {
+	type result struct {
+		val *VNRequest
+		err error
+	}
+	done := make(chan result, 1)
+	r.InitWithCompletionHandler(func(val *VNRequest, err error) {
+		done <- result{val, err}
+	})
+	select {
+	case r := <-done:
+		return r.val, r.err
+	case <-ctx.Done():
+		return nil, ctx.Err()
+	}
 }

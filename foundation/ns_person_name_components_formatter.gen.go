@@ -51,7 +51,7 @@ func (pc PersonNameComponentsFormatterClass) Alloc() PersonNameComponentsFormatt
 // locales in a several ways, including the sort and display order of given
 // and family names, the use of salutations and honorifics, and other concerns
 // related to the grammar, spelling, punctuation, and formatting. About the
-// only thing that consistent across all locales is that personal names are
+// only thing that is consistent across all locales is that personal names are
 // significant and meaningful. For this reason, names deserve careful and
 // respectful treatment—perhaps more than any other kind of information your
 // app interacts with.
@@ -67,13 +67,15 @@ func (pc PersonNameComponentsFormatterClass) Alloc() PersonNameComponentsFormatt
 // When determining how to represent a name in a particular style, a formatter
 // takes a number of factors into consideration, in order of priority:
 //
-// - Scripts may specify a strict sort or display order of given and family
-// names, and the availability of styles. - Users can enable and configure the
-// display of short names, as well as whether or not to display nicknames when
-// available. Users can also override the default sort and display order of
-// given and family names for their current locale. - Locales specify a
-// default sort and display order for given and family names. - The style
-// property value set for the [NSPersonNameComponentsFormatter] object.
+// - Script derived behaviors Scripts may specify a strict sort or display
+// order of given and family names, and the availability of styles. - User
+// specified preferences Users can enable and configure the display of short
+// names, as well as whether or not to display nicknames when available. Users
+// can also override the default sort and display order of given and family
+// names for their current locale. - Locale derived defaults Locales specify a
+// default sort and display order for given and family names. - Developer
+// specified configuration The style property value set for the
+// [NSPersonNameComponentsFormatter] object.
 //
 // When the behavior specified in one factor conflicts with any other factors,
 // the behavior specified by the factor with the most precedence is used. For

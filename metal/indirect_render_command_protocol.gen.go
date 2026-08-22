@@ -91,7 +91,7 @@ type MTLIndirectRenderCommand interface {
 	// SetFrontFacingWinding protocol.
 	//
 	// See: https://developer.apple.com/documentation/Metal/MTLIndirectRenderCommand/setFrontFacing(_:)
-	SetFrontFacingWinding(frontFacingWindning MTLWinding)
+	SetFrontFacingWinding(frontFacingWinding MTLWinding)
 
 	// SetMeshBufferOffsetAtIndex protocol.
 	//
@@ -354,8 +354,8 @@ func (o MTLIndirectRenderCommandObject) SetDepthStencilState(depthStencilState M
 }
 
 // See: https://developer.apple.com/documentation/Metal/MTLIndirectRenderCommand/setFrontFacing(_:)
-func (o MTLIndirectRenderCommandObject) SetFrontFacingWinding(frontFacingWindning MTLWinding) {
-	objc.Send[struct{}](o.ID, objc.Sel("setFrontFacingWinding:"), frontFacingWindning)
+func (o MTLIndirectRenderCommandObject) SetFrontFacingWinding(frontFacingWinding MTLWinding) {
+	objc.Send[struct{}](o.ID, objc.Sel("setFrontFacingWinding:"), frontFacingWinding)
 }
 
 // See: https://developer.apple.com/documentation/Metal/MTLIndirectRenderCommand/setMeshBuffer(_:offset:at:)

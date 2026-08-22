@@ -92,6 +92,15 @@ func NSPurgeableDataFromID(id objc.ID) NSPurgeableData {
 // See: https://developer.apple.com/documentation/Foundation/NSPurgeableData
 type INSPurgeableData interface {
 	INSMutableData
+
+	// Returns a Boolean value indicating whether the discardable contents are still available and have been successfully accessed.
+	BeginContentAccess() bool
+	// Called to discard the contents of the receiver if the value of the accessed counter is 0.
+	DiscardContentIfPossible()
+	// Called if the discardable contents are no longer being accessed.
+	EndContentAccess()
+	// Returns a Boolean value indicating whether the content has been discarded.
+	IsContentDiscarded() bool
 }
 
 // Init initializes the instance.
@@ -205,7 +214,7 @@ func NewPurgeableDataWithBase64Encoding(base64String string) NSPurgeableData {
 // See: https://developer.apple.com/documentation/Foundation/NSData/init(bytes:length:)
 func NewPurgeableDataWithBytesLength(bytes []byte) NSPurgeableData {
 	instance := getNSPurgeableDataClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithBytes:length:"), unsafe.Pointer(unsafe.SliceData(bytes)), uint(len(bytes)))
+	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithBytes:length:"), objc.BytesPointer(bytes), uint(len(bytes)))
 	return NSPurgeableDataFromID(rv)
 }
 
@@ -339,6 +348,9 @@ func NewPurgeableDataWithContentsOfFileOptionsError(path string, readOptionsMask
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
 		return NSPurgeableData{}, NSErrorFrom(errorPtr)
 	}
+	if rv == 0 {
+		return NSPurgeableData{}, objc.ErrInitFailed
+	}
 	return NSPurgeableDataFromID(rv), nil
 }
 
@@ -357,6 +369,9 @@ func NewPurgeableDataWithContentsOfURLOptionsError(url INSURL, readOptionsMask N
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
 		return NSPurgeableData{}, NSErrorFrom(errorPtr)
+	}
+	if rv == 0 {
+		return NSPurgeableData{}, objc.ErrInitFailed
 	}
 	return NSPurgeableDataFromID(rv), nil
 }

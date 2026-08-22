@@ -192,7 +192,7 @@ func (_PropertyListSerializationClass PropertyListSerializationClass) WritePrope
 // See: https://developer.apple.com/documentation/Foundation/PropertyListSerialization/propertyList(from:options:format:)
 //
 // [PropertyListSerialization.MutabilityOptions]: https://developer.apple.com/documentation/Foundation/PropertyListSerialization/MutabilityOptions
-func (_PropertyListSerializationClass PropertyListSerializationClass) PropertyListWithDataOptionsFormatError(data INSData, opt NSPropertyListMutabilityOptions, format NSPropertyListFormat) (objectivec.IObject, error) {
+func (_PropertyListSerializationClass PropertyListSerializationClass) PropertyListWithDataOptionsFormatError(data INSData, opt NSPropertyListReadOptions, format NSPropertyListFormat) (objectivec.IObject, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](objc.ID(_PropertyListSerializationClass.class), objc.Sel("propertyListWithData:options:format:error:"), data, opt, format, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
@@ -223,7 +223,7 @@ func (_PropertyListSerializationClass PropertyListSerializationClass) PropertyLi
 // See: https://developer.apple.com/documentation/Foundation/PropertyListSerialization/propertyList(with:options:format:)
 //
 // [PropertyListSerialization.MutabilityOptions]: https://developer.apple.com/documentation/Foundation/PropertyListSerialization/MutabilityOptions
-func (_PropertyListSerializationClass PropertyListSerializationClass) PropertyListWithStreamOptionsFormatError(stream INSInputStream, opt NSPropertyListMutabilityOptions, format NSPropertyListFormat) (objectivec.IObject, error) {
+func (_PropertyListSerializationClass PropertyListSerializationClass) PropertyListWithStreamOptionsFormatError(stream INSInputStream, opt NSPropertyListReadOptions, format NSPropertyListFormat) (objectivec.IObject, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](objc.ID(_PropertyListSerializationClass.class), objc.Sel("propertyListWithStream:options:format:error:"), stream, opt, format, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {

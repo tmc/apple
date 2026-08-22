@@ -95,6 +95,9 @@ type IVNDetectFaceLandmarksRequest interface {
 	// A variable that describes how a face landmarks request orders or enumerates the resulting features.
 	Constellation() VNRequestFaceLandmarksConstellation
 	SetConstellation(value VNRequestFaceLandmarksConstellation)
+
+	// An array of [VNFaceObservation](<https://developer.apple.com/documentation/Vision/VNFaceObservation>) objects to process as part of the request.
+	InputFaceObservations() []VNFaceObservation
 }
 
 // Init initializes the instance.
@@ -127,9 +130,10 @@ func NewVNDetectFaceLandmarksRequest() VNDetectFaceLandmarksRequest {
 // [VNImageRequestHandler.PerformRequestsError].
 //
 // See: https://developer.apple.com/documentation/Vision/VNRequest/init(completionHandler:)
-func NewDetectFaceLandmarksRequestWithCompletionHandler(completionHandler VNRequestCompletionHandler) VNDetectFaceLandmarksRequest {
+func NewDetectFaceLandmarksRequestWithCompletionHandler(completionHandler VNRequestErrorHandler) VNDetectFaceLandmarksRequest {
+	_block0, _ := NewVNRequestErrorBlock(completionHandler)
 	instance := getVNDetectFaceLandmarksRequestClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCompletionHandler:"), completionHandler)
+	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCompletionHandler:"), _block0)
 	return VNDetectFaceLandmarksRequestFromID(rv)
 }
 

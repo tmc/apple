@@ -71,7 +71,7 @@ func (pc PDFSelectionClass) Alloc() PDFSelection {
 //
 // # Managing Selection Drawing
 //
-//   - [PDFSelection.DrawForPageActive]: Calls [draw(for:with:active:)](<doc://com.apple.pdfkit/documentation/PDFKit/PDFSelection/draw(for:with:active:)>) with a default value for box parameter.
+//   - [PDFSelection.DrawForPageActive]: Calls [draw(for:with:active:)](<https://developer.apple.com/documentation/PDFKit/PDFSelection/draw(for:with:active:)>) with a default value for box parameter.
 //   - [PDFSelection.DrawForPageWithBoxActive]: Draws the selection relative to the origin of the specified box in page space.
 //
 // # Instance Methods
@@ -121,7 +121,7 @@ func PDFSelectionFromID(id objc.ID) PDFSelection {
 //
 // # Managing Selection Drawing
 //
-//   - [IPDFSelection.DrawForPageActive]: Calls [draw(for:with:active:)](<doc://com.apple.pdfkit/documentation/PDFKit/PDFSelection/draw(for:with:active:)>) with a default value for box parameter.
+//   - [IPDFSelection.DrawForPageActive]: Calls [draw(for:with:active:)](<https://developer.apple.com/documentation/PDFKit/PDFSelection/draw(for:with:active:)>) with a default value for box parameter.
 //   - [IPDFSelection.DrawForPageWithBoxActive]: Draws the selection relative to the origin of the specified box in page space.
 //
 // # Instance Methods
@@ -168,7 +168,7 @@ type IPDFSelection interface {
 
 	// Topic: Managing Selection Drawing
 
-	// Calls [draw(for:with:active:)](<doc://com.apple.pdfkit/documentation/PDFKit/PDFSelection/draw(for:with:active:)>) with a default value for box parameter.
+	// Calls [draw(for:with:active:)](<https://developer.apple.com/documentation/PDFKit/PDFSelection/draw(for:with:active:)>) with a default value for box parameter.
 	DrawForPageActive(page IPDFPage, active bool)
 	// Draws the selection relative to the origin of the specified box in page space.
 	DrawForPageWithBoxActive(page IPDFPage, box PDFDisplayBox, active bool)

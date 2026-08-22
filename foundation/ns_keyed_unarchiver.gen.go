@@ -187,6 +187,9 @@ func NewKeyedUnarchiverForReadingFromDataError(data INSData) (NSKeyedUnarchiver,
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
 		return NSKeyedUnarchiver{}, NSErrorFrom(errorPtr)
 	}
+	if rv == 0 {
+		return NSKeyedUnarchiver{}, objc.ErrInitFailed
+	}
 	return NSKeyedUnarchiverFromID(rv), nil
 }
 

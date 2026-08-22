@@ -6,6 +6,7 @@ import (
 	"sync"
 
 	"github.com/tmc/apple/corefoundation"
+	"github.com/tmc/apple/foundation"
 	"github.com/tmc/apple/objc"
 )
 
@@ -172,6 +173,13 @@ func NewCASpringAnimation() CASpringAnimation {
 	class := getCASpringAnimationClass()
 	rv := objc.Send[CASpringAnimation](objc.ID(class.class), objc.Sel("new"))
 	return rv
+}
+
+// See: https://developer.apple.com/documentation/QuartzCore/CAAnimation/init(coder:)
+func NewSpringAnimationWithCoder(coder foundation.INSCoder) CASpringAnimation {
+	instance := getCASpringAnimationClass().Alloc()
+	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
+	return CASpringAnimationFromID(rv)
 }
 
 // Creates and returns an [CAPropertyAnimation] instance for the specified key

@@ -93,7 +93,7 @@ func (e GCDevicePhysicalInputElementChange) String() string {
 	}
 }
 
-type GCDualSenseAdaptiveTriggerDiscretePosition uint
+type GCDualSenseAdaptiveTriggerDiscretePosition uint32
 
 const (
 	// GCDualSenseAdaptiveTriggerDiscretePositionCount: The number of discrete control positions that the DualSense adaptive triggers support.
@@ -323,18 +323,4 @@ func (e GCTouchState) String() string {
 // See: https://developer.apple.com/documentation/GameController/GCUIEventTypes
 type GCUIEventTypes uint
 
-const (
-	GCUIEventTypeGamepad GCUIEventTypes = 0
-	GCUIEventTypeNone    GCUIEventTypes = 0
-	// GCUIEventTypeStylus: A constant that represents events from a stylus.
-	GCUIEventTypeStylus GCUIEventTypes = 0
-)
-
-func (e GCUIEventTypes) String() string {
-	switch e {
-	case GCUIEventTypeGamepad:
-		return "GCUIEventTypeGamepad"
-	default:
-		return fmt.Sprintf("GCUIEventTypes(%d)", e)
-	}
-}
+const ()

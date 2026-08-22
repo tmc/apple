@@ -3,9 +3,8 @@
 package localauthentication
 
 import (
-	"unsafe"
-
 	"github.com/ebitengine/purego"
+	"github.com/tmc/apple/foundation"
 	"github.com/tmc/apple/objc"
 )
 
@@ -20,7 +19,7 @@ var (
 	// LATouchIDAuthenticationMaximumAllowableReuseDuration is the maximum allowable reuse duration.
 	//
 	// See: https://developer.apple.com/documentation/LocalAuthentication/LATouchIDAuthenticationMaximumAllowableReuseDuration
-	LATouchIDAuthenticationMaximumAllowableReuseDuration float64
+	LATouchIDAuthenticationMaximumAllowableReuseDuration foundation.NSTimeInterval
 )
 
 func init() {
@@ -39,7 +38,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "LATouchIDAuthenticationMaximumAllowableReuseDuration"); err == nil && ptr != 0 {
-		LATouchIDAuthenticationMaximumAllowableReuseDuration = *(*float64)(unsafe.Pointer(ptr))
+		LATouchIDAuthenticationMaximumAllowableReuseDuration = objc.ValueAt[foundation.NSTimeInterval](ptr)
 	}
 
 }

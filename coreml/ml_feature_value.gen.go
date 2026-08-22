@@ -9,6 +9,7 @@ import (
 	"github.com/tmc/apple/coregraphics"
 	"github.com/tmc/apple/corevideo"
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/imageio"
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -50,9 +51,9 @@ func (mc MLFeatureValueClass) Alloc() MLFeatureValue {
 //
 // # Overview
 //
-// A Core ML wraps an underlying value and bundles it with that value’s
-// type, which is one of the types that [MLFeatureType] defines. Apps
-// typically access feature values indirectly by using the methods in the
+// A Core ML feature value wraps an underlying value and bundles it with that
+// value’s type, which is one of the types that [MLFeatureType] defines.
+// Apps typically access feature values indirectly by using the methods in the
 // wrapper class Xcode automatically generates for Core ML model files.
 //
 // If your app accesses an [MLModel] directly, it must create and consume
@@ -208,6 +209,9 @@ func NewFeatureValueWithCGImageConstraintOptionsError(cgImage coregraphics.CGIma
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
 		return MLFeatureValue{}, foundation.NSErrorFrom(errorPtr)
 	}
+	if rv == 0 {
+		return MLFeatureValue{}, objc.ErrInitFailed
+	}
 	return MLFeatureValueFromID(rv), nil
 }
 
@@ -228,12 +232,15 @@ func NewFeatureValueWithCGImageConstraintOptionsError(cgImage coregraphics.CGIma
 // [CGImage]: https://developer.apple.com/documentation/CoreGraphics/CGImage
 // [CGImagePropertyOrientation]: https://developer.apple.com/documentation/ImageIO/CGImagePropertyOrientation
 // [VNImageCropAndScaleOption]: https://developer.apple.com/documentation/Vision/VNImageCropAndScaleOption
-func NewFeatureValueWithCGImageOrientationConstraintOptionsError(cgImage coregraphics.CGImageRef, orientation uint, constraint IMLImageConstraint, options foundation.INSDictionary) (MLFeatureValue, error) {
+func NewFeatureValueWithCGImageOrientationConstraintOptionsError(cgImage coregraphics.CGImageRef, orientation imageio.CGImagePropertyOrientation, constraint IMLImageConstraint, options foundation.INSDictionary) (MLFeatureValue, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](objc.ID(getMLFeatureValueClass().class), objc.Sel("featureValueWithCGImage:orientation:constraint:options:error:"), cgImage, orientation, constraint, options, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
 		return MLFeatureValue{}, foundation.NSErrorFrom(errorPtr)
+	}
+	if rv == 0 {
+		return MLFeatureValue{}, objc.ErrInitFailed
 	}
 	return MLFeatureValueFromID(rv), nil
 }
@@ -260,12 +267,15 @@ func NewFeatureValueWithCGImageOrientationConstraintOptionsError(cgImage coregra
 // [CGImagePropertyOrientation]: https://developer.apple.com/documentation/ImageIO/CGImagePropertyOrientation
 // [Pixel Format Identifiers]: https://developer.apple.com/documentation/CoreVideo/pixel-format-identifiers
 // [VNImageCropAndScaleOption]: https://developer.apple.com/documentation/Vision/VNImageCropAndScaleOption
-func NewFeatureValueWithCGImageOrientationPixelsWidePixelsHighPixelFormatTypeOptionsError(cgImage coregraphics.CGImageRef, orientation uint, pixelsWide int, pixelsHigh int, pixelFormatType uint32, options foundation.INSDictionary) (MLFeatureValue, error) {
+func NewFeatureValueWithCGImageOrientationPixelsWidePixelsHighPixelFormatTypeOptionsError(cgImage coregraphics.CGImageRef, orientation imageio.CGImagePropertyOrientation, pixelsWide int, pixelsHigh int, pixelFormatType uint32, options foundation.INSDictionary) (MLFeatureValue, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](objc.ID(getMLFeatureValueClass().class), objc.Sel("featureValueWithCGImage:orientation:pixelsWide:pixelsHigh:pixelFormatType:options:error:"), cgImage, orientation, pixelsWide, pixelsHigh, pixelFormatType, options, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
 		return MLFeatureValue{}, foundation.NSErrorFrom(errorPtr)
+	}
+	if rv == 0 {
+		return MLFeatureValue{}, objc.ErrInitFailed
 	}
 	return MLFeatureValueFromID(rv), nil
 }
@@ -296,6 +306,9 @@ func NewFeatureValueWithCGImagePixelsWidePixelsHighPixelFormatTypeOptionsError(c
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
 		return MLFeatureValue{}, foundation.NSErrorFrom(errorPtr)
 	}
+	if rv == 0 {
+		return MLFeatureValue{}, objc.ErrInitFailed
+	}
 	return MLFeatureValueFromID(rv), nil
 }
 
@@ -317,6 +330,9 @@ func NewFeatureValueWithDictionaryError(value foundation.INSDictionary) (MLFeatu
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
 		return MLFeatureValue{}, foundation.NSErrorFrom(errorPtr)
+	}
+	if rv == 0 {
+		return MLFeatureValue{}, objc.ErrInitFailed
 	}
 	return MLFeatureValueFromID(rv), nil
 }
@@ -353,6 +369,9 @@ func NewFeatureValueWithImageAtURLConstraintOptionsError(url foundation.NSURL, c
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
 		return MLFeatureValue{}, foundation.NSErrorFrom(errorPtr)
 	}
+	if rv == 0 {
+		return MLFeatureValue{}, objc.ErrInitFailed
+	}
 	return MLFeatureValueFromID(rv), nil
 }
 
@@ -374,12 +393,15 @@ func NewFeatureValueWithImageAtURLConstraintOptionsError(url foundation.NSURL, c
 // [URL]: https://developer.apple.com/documentation/Foundation/URL
 // [CGImagePropertyOrientation]: https://developer.apple.com/documentation/ImageIO/CGImagePropertyOrientation
 // [VNImageCropAndScaleOption]: https://developer.apple.com/documentation/Vision/VNImageCropAndScaleOption
-func NewFeatureValueWithImageAtURLOrientationConstraintOptionsError(url foundation.NSURL, orientation uint, constraint IMLImageConstraint, options foundation.INSDictionary) (MLFeatureValue, error) {
+func NewFeatureValueWithImageAtURLOrientationConstraintOptionsError(url foundation.NSURL, orientation imageio.CGImagePropertyOrientation, constraint IMLImageConstraint, options foundation.INSDictionary) (MLFeatureValue, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](objc.ID(getMLFeatureValueClass().class), objc.Sel("featureValueWithImageAtURL:orientation:constraint:options:error:"), url, orientation, constraint, options, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
 		return MLFeatureValue{}, foundation.NSErrorFrom(errorPtr)
+	}
+	if rv == 0 {
+		return MLFeatureValue{}, objc.ErrInitFailed
 	}
 	return MLFeatureValueFromID(rv), nil
 }
@@ -407,12 +429,15 @@ func NewFeatureValueWithImageAtURLOrientationConstraintOptionsError(url foundati
 // [CGImagePropertyOrientation]: https://developer.apple.com/documentation/ImageIO/CGImagePropertyOrientation
 // [Pixel Format Identifiers]: https://developer.apple.com/documentation/CoreVideo/pixel-format-identifiers
 // [VNImageCropAndScaleOption]: https://developer.apple.com/documentation/Vision/VNImageCropAndScaleOption
-func NewFeatureValueWithImageAtURLOrientationPixelsWidePixelsHighPixelFormatTypeOptionsError(url foundation.NSURL, orientation uint, pixelsWide int, pixelsHigh int, pixelFormatType uint32, options foundation.INSDictionary) (MLFeatureValue, error) {
+func NewFeatureValueWithImageAtURLOrientationPixelsWidePixelsHighPixelFormatTypeOptionsError(url foundation.NSURL, orientation imageio.CGImagePropertyOrientation, pixelsWide int, pixelsHigh int, pixelFormatType uint32, options foundation.INSDictionary) (MLFeatureValue, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](objc.ID(getMLFeatureValueClass().class), objc.Sel("featureValueWithImageAtURL:orientation:pixelsWide:pixelsHigh:pixelFormatType:options:error:"), url, orientation, pixelsWide, pixelsHigh, pixelFormatType, options, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
 		return MLFeatureValue{}, foundation.NSErrorFrom(errorPtr)
+	}
+	if rv == 0 {
+		return MLFeatureValue{}, objc.ErrInitFailed
 	}
 	return MLFeatureValueFromID(rv), nil
 }
@@ -443,6 +468,9 @@ func NewFeatureValueWithImageAtURLPixelsWidePixelsHighPixelFormatTypeOptionsErro
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
 		return MLFeatureValue{}, foundation.NSErrorFrom(errorPtr)
+	}
+	if rv == 0 {
+		return MLFeatureValue{}, objc.ErrInitFailed
 	}
 	return MLFeatureValueFromID(rv), nil
 }

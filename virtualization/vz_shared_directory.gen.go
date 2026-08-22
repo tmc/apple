@@ -129,7 +129,7 @@ func NewVZSharedDirectory() VZSharedDirectory {
 //
 // # Discussion
 //
-// See: https://developer.apple.com/documentation/Virtualization/VZSharedDirectory/init(url:readOnly:)-8j5z
+// See: https://developer.apple.com/documentation/Virtualization/VZSharedDirectory/init(url:readOnly:)
 func NewSharedDirectoryWithURLReadOnly(url foundation.NSURL, readOnly bool) VZSharedDirectory {
 	instance := getVZSharedDirectoryClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithURL:readOnly:"), url, readOnly)
@@ -145,7 +145,7 @@ func NewSharedDirectoryWithURLReadOnly(url foundation.NSURL, readOnly bool) VZSh
 //
 // # Discussion
 //
-// See: https://developer.apple.com/documentation/Virtualization/VZSharedDirectory/init(url:readOnly:)-8j5z
+// See: https://developer.apple.com/documentation/Virtualization/VZSharedDirectory/init(url:readOnly:)
 func (s VZSharedDirectory) InitWithURLReadOnly(url foundation.NSURL, readOnly bool) VZSharedDirectory {
 	rv := objc.Send[VZSharedDirectory](s.ID, objc.Sel("initWithURL:readOnly:"), url, readOnly)
 	return rv

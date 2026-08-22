@@ -171,7 +171,6 @@ func NSTableRowViewFromID(id objc.ID) NSTableRowView {
 // See: https://developer.apple.com/documentation/AppKit/NSTableRowView
 type INSTableRowView interface {
 	INSView
-	NSAccessibilityGroup
 
 	// Topic: Display Style
 
@@ -388,44 +387,6 @@ func (t NSTableRowView) ViewAtColumn(column int) objectivec.IObject {
 	return objectivec.Object{ID: rv}
 }
 
-// Returns the indention level for the row.
-//
-// # Return Value
-//
-// The disclosure level for the row.
-//
-// # Discussion
-//
-// This method is the getter for the [NSAccessibilityProtocol] protocol’s
-// [accessibilityDisclosureLevel] property.
-//
-// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityRow/accessibilityDisclosureLevel()
-//
-// [accessibilityDisclosureLevel]: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityDisclosureLevel
-func (t NSTableRowView) AccessibilityDisclosureLevel() int {
-	rv := objc.Send[int](t.ID, objc.Sel("accessibilityDisclosureLevel"))
-	return rv
-}
-
-// Returns the index for the row.
-//
-// # Return Value
-//
-// The index for the row.
-//
-// # Discussion
-//
-// This method is the getter for the [NSAccessibilityProtocol] protocol’s
-// [accessibilityIndex] property.
-//
-// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityRow/accessibilityIndex()
-//
-// [accessibilityIndex]: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityIndex
-func (t NSTableRowView) AccessibilityIndex() int {
-	rv := objc.Send[int](t.ID, objc.Sel("accessibilityIndex"))
-	return rv
-}
-
 // Determines whether the row will draw with the alternate or secondary color
 // (unless overridden).
 //
@@ -638,85 +599,3 @@ func (t NSTableRowView) SetPreviousRowSelected(value bool) {
 }
 
 // Protocol methods for NSAccessibilityRow
-
-// Returns the accessibility element’s frame in screen coordinates.
-//
-// # Return Value
-//
-// The element’s frame in screen coordinates.
-//
-// # Discussion
-//
-// This method is the getter for the [NSAccessibilityProtocol] protocol’s
-// [accessibilityFrame] property. This method is called whenever accessibility
-// clients request the [size] or [position] attributes.
-//
-// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityElementProtocol/accessibilityFrame()
-//
-// [accessibilityFrame]: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityFrame
-// [position]: https://developer.apple.com/documentation/AppKit/NSAccessibility-swift.struct/Attribute/position
-// [size]: https://developer.apple.com/documentation/AppKit/NSAccessibility-swift.struct/Attribute/size
-func (o NSTableRowView) AccessibilityFrame() corefoundation.CGRect {
-	rv := objc.Send[corefoundation.CGRect](o.ID, objc.Sel("accessibilityFrame"))
-	return rv
-}
-
-// Returns the accessibility element’s parent in the accessibility
-// hierarchy.
-//
-// # Return Value
-//
-// The element’s parent in the accessibility hierarchy.
-//
-// # Discussion
-//
-// This method is the getter for the [NSAccessibilityProtocol] protocol’s
-// [accessibilityParent] property.
-//
-// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityElementProtocol/accessibilityParent()
-//
-// [accessibilityParent]: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityParent
-func (o NSTableRowView) AccessibilityParent() objectivec.IObject {
-	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilityParent"))
-	return objectivec.Object{ID: rv}
-}
-
-// Returns the accessibility element’s identity.
-//
-// # Return Value
-//
-// Returns the unique ID for the accessibility element. It is often used in
-// automated testing.
-//
-// # Discussion
-//
-// This method is the getter for the [NSAccessibilityProtocol] protocol’s
-// [accessibilityIdentifier] property.
-//
-// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityElementProtocol/accessibilityIdentifier()
-//
-// [accessibilityIdentifier]: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityIdentifier
-func (o NSTableRowView) AccessibilityIdentifier() string {
-	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilityIdentifier"))
-	return foundation.NSStringFromID(rv).String()
-}
-
-// Returns a Boolean value that indicates whether the accessibility element
-// has the keyboard focus.
-//
-// # Return Value
-//
-// true if this element has the keyboard focus; otherwise, false.
-//
-// # Discussion
-//
-// This method is the getter for the [NSAccessibilityProtocol] protocol’s
-// [accessibilityFocused] property.
-//
-// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityElementProtocol/isAccessibilityFocused()
-//
-// [accessibilityFocused]: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityFocused
-func (o NSTableRowView) IsAccessibilityFocused() bool {
-	rv := objc.Send[bool](o.ID, objc.Sel("isAccessibilityFocused"))
-	return rv
-}

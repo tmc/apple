@@ -52,10 +52,11 @@ func (gc GCControllerClass) Alloc() GCController {
 // # Overview
 //
 // This class represents a real or virtual controller that a user interacts
-// with during a game. A is a physical controller that connects directly or
-// wirelessly to the device. A real controller can be formfitting or can
-// attach closely to a device so players can use controls on both
-// simultaneously. A is a software emulation of a real controller.
+// with during a game. A real controller is a physical controller that
+// connects directly or wirelessly to the device. A real controller can be
+// formfitting or can attach closely to a device so players can use controls
+// on both simultaneously. A virtual controller is a software emulation of a
+// real controller.
 //
 // You discover controllers, and then you process the input from those
 // controllers during gameplay. Use the [GCControllerClass.Controllers] method
@@ -83,11 +84,11 @@ func (gc GCControllerClass) Alloc() GCController {
 // implement to process any input values that change in the profile.
 //
 // Alternatively, you can create a snapshot of a real or virtual controller
-// using the [GCController.Capture] method. A is a copy of a controller at a
-// moment in time with its current element values. Creating a snapshot may
-// impact performance, and over time a snapshot doesn’t stay current. Unlike
-// other types of controllers, you can set the values of elements in a
-// snapshot.
+// using the [GCController.Capture] method. A snapshot is a copy of a
+// controller at a moment in time with its current element values. Creating a
+// snapshot may impact performance, and over time a snapshot doesn’t stay
+// current. Unlike other types of controllers, you can set the values of
+// elements in a snapshot.
 //
 // # Inspecting a controller
 //
@@ -211,6 +212,13 @@ type IGCController interface {
 	Capture() IGCController
 	// A Boolean value that indicates whether the controller is a snapshot of a controller.
 	IsSnapshot() bool
+
+	// The dispatch queue that the framework uses to call element value change handlers.
+	HandlerQueue() dispatch.Queue
+	// The product category that identifies the type of controller.
+	ProductCategory() string
+	// The manufacturer-provided name for the device, or the user’s name for the device.
+	VendorName() string
 }
 
 // Init initializes the instance.

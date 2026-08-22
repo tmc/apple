@@ -4,6 +4,7 @@ package foundation
 
 import (
 	"sync"
+	"unsafe"
 
 	"github.com/tmc/apple/objc"
 )
@@ -192,7 +193,7 @@ func NewOutputStream() OutputStream {
 // See: https://developer.apple.com/documentation/Foundation/OutputStream/init(toBuffer:capacity:)
 func NewOutputStreamToBufferCapacity(buffer *uint8, capacity uint) OutputStream {
 	instance := getOutputStreamClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initToBuffer:capacity:"), buffer, capacity)
+	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initToBuffer:capacity:"), unsafe.Pointer(buffer), capacity)
 	return OutputStreamFromID(rv)
 }
 
@@ -253,7 +254,7 @@ func NewOutputStreamToMemory() OutputStream {
 //
 // The stream must be opened before it can be used.
 //
-// See: https://developer.apple.com/documentation/Foundation/OutputStream/init(url:append:)-5soau
+// See: https://developer.apple.com/documentation/Foundation/OutputStream/init(url:append:)
 func NewOutputStreamWithURLAppend(url INSURL, shouldAppend bool) OutputStream {
 	instance := getOutputStreamClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithURL:append:"), url, shouldAppend)
@@ -298,7 +299,7 @@ func (o OutputStream) InitToMemory() OutputStream {
 //
 // See: https://developer.apple.com/documentation/Foundation/OutputStream/init(toBuffer:capacity:)
 func (o OutputStream) InitToBufferCapacity(buffer *uint8, capacity uint) OutputStream {
-	rv := objc.Send[OutputStream](o.ID, objc.Sel("initToBuffer:capacity:"), buffer, capacity)
+	rv := objc.Send[OutputStream](o.ID, objc.Sel("initToBuffer:capacity:"), unsafe.Pointer(buffer), capacity)
 	return rv
 }
 
@@ -338,7 +339,7 @@ func (o OutputStream) InitToFileAtPathAppend(path string, shouldAppend bool) Out
 //
 // The stream must be opened before it can be used.
 //
-// See: https://developer.apple.com/documentation/Foundation/OutputStream/init(url:append:)-5soau
+// See: https://developer.apple.com/documentation/Foundation/OutputStream/init(url:append:)
 func (o OutputStream) InitWithURLAppend(url INSURL, shouldAppend bool) OutputStream {
 	rv := objc.Send[OutputStream](o.ID, objc.Sel("initWithURL:append:"), url, shouldAppend)
 	return rv
@@ -361,7 +362,7 @@ func (o OutputStream) InitWithURLAppend(url INSURL, shouldAppend bool) OutputStr
 //
 // See: https://developer.apple.com/documentation/Foundation/OutputStream/write(_:maxLength:)
 func (o OutputStream) WriteMaxLength(buffer *uint8, len_ uint) int {
-	rv := objc.Send[int](o.ID, objc.Sel("write:maxLength:"), buffer, len_)
+	rv := objc.Send[int](o.ID, objc.Sel("write:maxLength:"), unsafe.Pointer(buffer), len_)
 	return rv
 }
 
@@ -412,7 +413,7 @@ func (_OutputStreamClass OutputStreamClass) OutputStreamWithURLAppend(url INSURL
 //
 // See: https://developer.apple.com/documentation/Foundation/NSOutputStream/outputStreamToBuffer:capacity:
 func (_OutputStreamClass OutputStreamClass) OutputStreamToBufferCapacity(buffer *uint8, capacity uint) OutputStream {
-	rv := objc.Send[objc.ID](objc.ID(_OutputStreamClass.class), objc.Sel("outputStreamToBuffer:capacity:"), buffer, capacity)
+	rv := objc.Send[objc.ID](objc.ID(_OutputStreamClass.class), objc.Sel("outputStreamToBuffer:capacity:"), unsafe.Pointer(buffer), capacity)
 	return NSOutputStreamFromID(rv)
 }
 

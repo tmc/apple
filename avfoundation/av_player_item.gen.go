@@ -803,7 +803,7 @@ func NewPlayerItemWithAssetAutomaticallyLoadedAssetKeys(asset IAVAsset, automati
 // [AVPlayerItemStatusFailed]. You can determine the nature of the failure by
 // querying the player item’s [AVPlayerItem.Error] property.
 //
-// See: https://developer.apple.com/documentation/AVFoundation/AVPlayerItem/init(url:)-1xrtk
+// See: https://developer.apple.com/documentation/AVFoundation/AVPlayerItem/init(url:)
 func NewPlayerItemWithURL(URL foundation.NSURL) AVPlayerItem {
 	instance := getAVPlayerItemClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithURL:"), URL)
@@ -831,7 +831,7 @@ func NewPlayerItemWithURL(URL foundation.NSURL) AVPlayerItem {
 // [AVPlayerItemStatusFailed]. You can determine the nature of the failure by
 // querying the player item’s [AVPlayerItem.Error] property.
 //
-// See: https://developer.apple.com/documentation/AVFoundation/AVPlayerItem/init(url:)-1xrtk
+// See: https://developer.apple.com/documentation/AVFoundation/AVPlayerItem/init(url:)
 func (p AVPlayerItem) InitWithURL(URL foundation.NSURL) AVPlayerItem {
 	rv := objc.Send[AVPlayerItem](p.ID, objc.Sel("initWithURL:"), URL)
 	return rv

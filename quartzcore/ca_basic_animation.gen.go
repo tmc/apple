@@ -5,6 +5,7 @@ package quartzcore
 import (
 	"sync"
 
+	"github.com/tmc/apple/foundation"
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -169,6 +170,13 @@ func NewCABasicAnimation() CABasicAnimation {
 	class := getCABasicAnimationClass()
 	rv := objc.Send[CABasicAnimation](objc.ID(class.class), objc.Sel("new"))
 	return rv
+}
+
+// See: https://developer.apple.com/documentation/QuartzCore/CAAnimation/init(coder:)
+func NewBasicAnimationWithCoder(coder foundation.INSCoder) CABasicAnimation {
+	instance := getCABasicAnimationClass().Alloc()
+	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
+	return CABasicAnimationFromID(rv)
 }
 
 // Creates and returns an [CAPropertyAnimation] instance for the specified key

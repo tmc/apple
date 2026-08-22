@@ -8,7 +8,7 @@ import (
 	"github.com/tmc/apple/corefoundation"
 	"github.com/tmc/apple/foundation"
 	"github.com/tmc/apple/objc"
-	"github.com/tmc/apple/objectivec"
+	"github.com/tmc/apple/symbols"
 )
 
 // The class instance for the [NSImageView] class.
@@ -184,27 +184,29 @@ type INSImageView interface {
 	SetAllowsCutCopyPaste(value bool)
 
 	// Adds a symbol effect to the image view with default options and animation.
-	AddSymbolEffect(symbolEffect objectivec.IObject)
+	AddSymbolEffect(symbolEffect symbols.NSSymbolEffect)
 	// Adds a symbol effect to the image view with the specified options and default animation.
-	AddSymbolEffectOptions(symbolEffect objectivec.IObject, options objectivec.IObject)
+	AddSymbolEffectOptions(symbolEffect symbols.NSSymbolEffect, options symbols.NSSymbolEffectOptions)
 	// Adds a symbol effect to the image view with the specified options and animation.
-	AddSymbolEffectOptionsAnimated(symbolEffect objectivec.IObject, options objectivec.IObject, animated bool)
+	AddSymbolEffectOptionsAnimated(symbolEffect symbols.NSSymbolEffect, options symbols.NSSymbolEffectOptions, animated bool)
 	// Removes all symbol effects from the image view.
 	RemoveAllSymbolEffects()
 	// Removes all symbol effects from the image view, using the specified options.
-	RemoveAllSymbolEffectsWithOptions(options objectivec.IObject)
+	RemoveAllSymbolEffectsWithOptions(options symbols.NSSymbolEffectOptions)
 	// Removes all symbol effects from the image view, using the specified options and animation setting.
-	RemoveAllSymbolEffectsWithOptionsAnimated(options objectivec.IObject, animated bool)
+	RemoveAllSymbolEffectsWithOptionsAnimated(options symbols.NSSymbolEffectOptions, animated bool)
 	// Removes the symbol effect that matches the specified effect type.
-	RemoveSymbolEffectOfType(symbolEffect objectivec.IObject)
+	RemoveSymbolEffectOfType(symbolEffect symbols.NSSymbolEffect)
 	// Removes the symbol effect that matches the specified effect type, using the specified options.
-	RemoveSymbolEffectOfTypeOptions(symbolEffect objectivec.IObject, options objectivec.IObject)
+	RemoveSymbolEffectOfTypeOptions(symbolEffect symbols.NSSymbolEffect, options symbols.NSSymbolEffectOptions)
 	// Removes the symbol effect that matches the specified effect type, using the specified options and animation setting.
-	RemoveSymbolEffectOfTypeOptionsAnimated(symbolEffect objectivec.IObject, options objectivec.IObject, animated bool)
+	RemoveSymbolEffectOfTypeOptionsAnimated(symbolEffect symbols.NSSymbolEffect, options symbols.NSSymbolEffectOptions, animated bool)
 	// Sets a symbol image using the specified content-transition effect.
-	SetSymbolImageWithContentTransition(symbolImage INSImage, transition objectivec.IObject)
+	SetSymbolImageWithContentTransition(symbolImage INSImage, transition symbols.NSSymbolContentTransition)
 	// Sets a symbol image using the specified content-transition effect and options.
-	SetSymbolImageWithContentTransitionOptions(symbolImage INSImage, transition objectivec.IObject, options objectivec.IObject)
+	SetSymbolImageWithContentTransitionOptions(symbolImage INSImage, transition symbols.NSSymbolContentTransition, options symbols.NSSymbolEffectOptions)
+	// Implemented to override the default action of enabling or disabling a specific menu item.
+	ValidateMenuItem(menuItem INSMenuItem) bool
 }
 
 // Init initializes the instance.
@@ -281,10 +283,8 @@ func NewImageViewWithImage(image INSImage) NSImageView {
 //
 // symbolEffect: The symbol effect to add.
 //
-// symbolEffect is a [*symbols.NSSymbolEffect].
-//
 // See: https://developer.apple.com/documentation/AppKit/NSImageView/addSymbolEffect:
-func (i NSImageView) AddSymbolEffect(symbolEffect objectivec.IObject) {
+func (i NSImageView) AddSymbolEffect(symbolEffect symbols.NSSymbolEffect) {
 	objc.Send[objc.ID](i.ID, objc.Sel("addSymbolEffect:"), symbolEffect)
 }
 
@@ -295,12 +295,8 @@ func (i NSImageView) AddSymbolEffect(symbolEffect objectivec.IObject) {
 //
 // options: The options for the symbol effect.
 //
-// symbolEffect is a [*symbols.NSSymbolEffect].
-//
-// options is a [*symbols.NSSymbolEffectOptions].
-//
 // See: https://developer.apple.com/documentation/AppKit/NSImageView/addSymbolEffect:options:
-func (i NSImageView) AddSymbolEffectOptions(symbolEffect objectivec.IObject, options objectivec.IObject) {
+func (i NSImageView) AddSymbolEffectOptions(symbolEffect symbols.NSSymbolEffect, options symbols.NSSymbolEffectOptions) {
 	objc.Send[objc.ID](i.ID, objc.Sel("addSymbolEffect:options:"), symbolEffect, options)
 }
 
@@ -314,12 +310,8 @@ func (i NSImageView) AddSymbolEffectOptions(symbolEffect objectivec.IObject, opt
 // animated: A Boolean value that indicates whether to animate the addition of a scale,
 // appear, or disappear effect.
 //
-// symbolEffect is a [*symbols.NSSymbolEffect].
-//
-// options is a [*symbols.NSSymbolEffectOptions].
-//
 // See: https://developer.apple.com/documentation/AppKit/NSImageView/addSymbolEffect:options:animated:
-func (i NSImageView) AddSymbolEffectOptionsAnimated(symbolEffect objectivec.IObject, options objectivec.IObject, animated bool) {
+func (i NSImageView) AddSymbolEffectOptionsAnimated(symbolEffect symbols.NSSymbolEffect, options symbols.NSSymbolEffectOptions, animated bool) {
 	objc.Send[objc.ID](i.ID, objc.Sel("addSymbolEffect:options:animated:"), symbolEffect, options, animated)
 }
 
@@ -335,10 +327,8 @@ func (i NSImageView) RemoveAllSymbolEffects() {
 //
 // options: The options to use when removing the symbol effects.
 //
-// options is a [*symbols.NSSymbolEffectOptions].
-//
 // See: https://developer.apple.com/documentation/AppKit/NSImageView/removeAllSymbolEffectsWithOptions:
-func (i NSImageView) RemoveAllSymbolEffectsWithOptions(options objectivec.IObject) {
+func (i NSImageView) RemoveAllSymbolEffectsWithOptions(options symbols.NSSymbolEffectOptions) {
 	objc.Send[objc.ID](i.ID, objc.Sel("removeAllSymbolEffectsWithOptions:"), options)
 }
 
@@ -350,10 +340,8 @@ func (i NSImageView) RemoveAllSymbolEffectsWithOptions(options objectivec.IObjec
 // animated: A Boolean value that indicates whether to animate the removal of a scale,
 // appear, or disappear effects.
 //
-// options is a [*symbols.NSSymbolEffectOptions].
-//
 // See: https://developer.apple.com/documentation/AppKit/NSImageView/removeAllSymbolEffectsWithOptions:animated:
-func (i NSImageView) RemoveAllSymbolEffectsWithOptionsAnimated(options objectivec.IObject, animated bool) {
+func (i NSImageView) RemoveAllSymbolEffectsWithOptionsAnimated(options symbols.NSSymbolEffectOptions, animated bool) {
 	objc.Send[objc.ID](i.ID, objc.Sel("removeAllSymbolEffectsWithOptions:animated:"), options, animated)
 }
 
@@ -361,10 +349,8 @@ func (i NSImageView) RemoveAllSymbolEffectsWithOptionsAnimated(options objective
 //
 // symbolEffect: The symbol effect to match for removal.
 //
-// symbolEffect is a [*symbols.NSSymbolEffect].
-//
 // See: https://developer.apple.com/documentation/AppKit/NSImageView/removeSymbolEffectOfType:
-func (i NSImageView) RemoveSymbolEffectOfType(symbolEffect objectivec.IObject) {
+func (i NSImageView) RemoveSymbolEffectOfType(symbolEffect symbols.NSSymbolEffect) {
 	objc.Send[objc.ID](i.ID, objc.Sel("removeSymbolEffectOfType:"), symbolEffect)
 }
 
@@ -375,12 +361,8 @@ func (i NSImageView) RemoveSymbolEffectOfType(symbolEffect objectivec.IObject) {
 //
 // options: The options to use when removing the symbol effect.
 //
-// symbolEffect is a [*symbols.NSSymbolEffect].
-//
-// options is a [*symbols.NSSymbolEffectOptions].
-//
 // See: https://developer.apple.com/documentation/AppKit/NSImageView/removeSymbolEffectOfType:options:
-func (i NSImageView) RemoveSymbolEffectOfTypeOptions(symbolEffect objectivec.IObject, options objectivec.IObject) {
+func (i NSImageView) RemoveSymbolEffectOfTypeOptions(symbolEffect symbols.NSSymbolEffect, options symbols.NSSymbolEffectOptions) {
 	objc.Send[objc.ID](i.ID, objc.Sel("removeSymbolEffectOfType:options:"), symbolEffect, options)
 }
 
@@ -394,12 +376,8 @@ func (i NSImageView) RemoveSymbolEffectOfTypeOptions(symbolEffect objectivec.IOb
 // animated: A Boolean value that indicates whether to animate the removal of a scale,
 // appear, or disappear effect.
 //
-// symbolEffect is a [*symbols.NSSymbolEffect].
-//
-// options is a [*symbols.NSSymbolEffectOptions].
-//
 // See: https://developer.apple.com/documentation/AppKit/NSImageView/removeSymbolEffectOfType:options:animated:
-func (i NSImageView) RemoveSymbolEffectOfTypeOptionsAnimated(symbolEffect objectivec.IObject, options objectivec.IObject, animated bool) {
+func (i NSImageView) RemoveSymbolEffectOfTypeOptionsAnimated(symbolEffect symbols.NSSymbolEffect, options symbols.NSSymbolEffectOptions, animated bool) {
 	objc.Send[objc.ID](i.ID, objc.Sel("removeSymbolEffectOfType:options:animated:"), symbolEffect, options, animated)
 }
 
@@ -409,10 +387,8 @@ func (i NSImageView) RemoveSymbolEffectOfTypeOptionsAnimated(symbolEffect object
 //
 // transition: The content transition to use when setting the symbol image.
 //
-// transition is a [*symbols.NSSymbolContentTransition].
-//
 // See: https://developer.apple.com/documentation/AppKit/NSImageView/setSymbolImage:withContentTransition:
-func (i NSImageView) SetSymbolImageWithContentTransition(symbolImage INSImage, transition objectivec.IObject) {
+func (i NSImageView) SetSymbolImageWithContentTransition(symbolImage INSImage, transition symbols.NSSymbolContentTransition) {
 	objc.Send[objc.ID](i.ID, objc.Sel("setSymbolImage:withContentTransition:"), symbolImage, transition)
 }
 
@@ -425,12 +401,8 @@ func (i NSImageView) SetSymbolImageWithContentTransition(symbolImage INSImage, t
 //
 // options: The options to use when setting the symbol image.
 //
-// transition is a [*symbols.NSSymbolContentTransition].
-//
-// options is a [*symbols.NSSymbolEffectOptions].
-//
 // See: https://developer.apple.com/documentation/AppKit/NSImageView/setSymbolImage:withContentTransition:options:
-func (i NSImageView) SetSymbolImageWithContentTransitionOptions(symbolImage INSImage, transition objectivec.IObject, options objectivec.IObject) {
+func (i NSImageView) SetSymbolImageWithContentTransitionOptions(symbolImage INSImage, transition symbols.NSSymbolContentTransition, options symbols.NSSymbolEffectOptions) {
 	objc.Send[objc.ID](i.ID, objc.Sel("setSymbolImage:withContentTransition:options:"), symbolImage, transition, options)
 }
 
@@ -666,87 +638,5 @@ func (_NSImageViewClass NSImageViewClass) SetDefaultPreferredImageDynamicRange(v
 }
 
 // Protocol methods for NSAccessibilityImage
-
-// Returns the accessibility element’s frame in screen coordinates.
-//
-// # Return Value
-//
-// The element’s frame in screen coordinates.
-//
-// # Discussion
-//
-// This method is the getter for the [NSAccessibilityProtocol] protocol’s
-// [accessibilityFrame] property. This method is called whenever accessibility
-// clients request the [size] or [position] attributes.
-//
-// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityElementProtocol/accessibilityFrame()
-//
-// [accessibilityFrame]: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityFrame
-// [position]: https://developer.apple.com/documentation/AppKit/NSAccessibility-swift.struct/Attribute/position
-// [size]: https://developer.apple.com/documentation/AppKit/NSAccessibility-swift.struct/Attribute/size
-func (o NSImageView) AccessibilityFrame() corefoundation.CGRect {
-	rv := objc.Send[corefoundation.CGRect](o.ID, objc.Sel("accessibilityFrame"))
-	return rv
-}
-
-// Returns the accessibility element’s parent in the accessibility
-// hierarchy.
-//
-// # Return Value
-//
-// The element’s parent in the accessibility hierarchy.
-//
-// # Discussion
-//
-// This method is the getter for the [NSAccessibilityProtocol] protocol’s
-// [accessibilityParent] property.
-//
-// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityElementProtocol/accessibilityParent()
-//
-// [accessibilityParent]: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityParent
-func (o NSImageView) AccessibilityParent() objectivec.IObject {
-	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilityParent"))
-	return objectivec.Object{ID: rv}
-}
-
-// Returns the accessibility element’s identity.
-//
-// # Return Value
-//
-// Returns the unique ID for the accessibility element. It is often used in
-// automated testing.
-//
-// # Discussion
-//
-// This method is the getter for the [NSAccessibilityProtocol] protocol’s
-// [accessibilityIdentifier] property.
-//
-// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityElementProtocol/accessibilityIdentifier()
-//
-// [accessibilityIdentifier]: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityIdentifier
-func (o NSImageView) AccessibilityIdentifier() string {
-	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilityIdentifier"))
-	return foundation.NSStringFromID(rv).String()
-}
-
-// Returns a Boolean value that indicates whether the accessibility element
-// has the keyboard focus.
-//
-// # Return Value
-//
-// true if this element has the keyboard focus; otherwise, false.
-//
-// # Discussion
-//
-// This method is the getter for the [NSAccessibilityProtocol] protocol’s
-// [accessibilityFocused] property.
-//
-// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityElementProtocol/isAccessibilityFocused()
-//
-// [accessibilityFocused]: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityFocused
-func (o NSImageView) IsAccessibilityFocused() bool {
-	rv := objc.Send[bool](o.ID, objc.Sel("isAccessibilityFocused"))
-	return rv
-}
 
 // Protocol methods for NSMenuItemValidation

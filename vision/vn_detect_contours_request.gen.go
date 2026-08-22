@@ -133,9 +133,10 @@ func NewVNDetectContoursRequest() VNDetectContoursRequest {
 // [VNImageRequestHandler.PerformRequestsError].
 //
 // See: https://developer.apple.com/documentation/Vision/VNRequest/init(completionHandler:)
-func NewDetectContoursRequestWithCompletionHandler(completionHandler VNRequestCompletionHandler) VNDetectContoursRequest {
+func NewDetectContoursRequestWithCompletionHandler(completionHandler VNRequestErrorHandler) VNDetectContoursRequest {
+	_block0, _ := NewVNRequestErrorBlock(completionHandler)
 	instance := getVNDetectContoursRequestClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCompletionHandler:"), completionHandler)
+	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCompletionHandler:"), _block0)
 	return VNDetectContoursRequestFromID(rv)
 }
 

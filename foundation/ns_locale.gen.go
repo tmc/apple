@@ -81,12 +81,14 @@ func (nc NSLocaleClass) Alloc() NSLocale {
 // set it to another locale instance to obtain a different output. See [Data
 // Formatting Guide] for more information about working with formatters.
 //
-// [NSLocale] is with its Core Foundation counterpart, [CFLocale]. See
-// [Toll-Free Bridging] for more information on toll-free bridging.
+// [NSLocale] is toll-free bridged with its Core Foundation counterpart,
+// [CFLocale]. See [Toll-Free Bridging] for more information on toll-free
+// bridging.
 //
 // # Initializing a Locale
 //
 //   - [NSLocale.InitWithLocaleIdentifier]: Initializes a locale using a given locale identifier.
+//   - [NSLocale.InitWithCoder]: Returns a locale initialized from data in the given unarchiver.
 //
 // # Getting Information About a Locale
 //
@@ -158,6 +160,7 @@ func NSLocaleFromID(id objc.ID) NSLocale {
 // # Initializing a Locale
 //
 //   - [INSLocale.InitWithLocaleIdentifier]: Initializes a locale using a given locale identifier.
+//   - [INSLocale.InitWithCoder]: Returns a locale initialized from data in the given unarchiver.
 //
 // # Getting Information About a Locale
 //
@@ -205,12 +208,13 @@ func NSLocaleFromID(id objc.ID) NSLocale {
 // See: https://developer.apple.com/documentation/Foundation/NSLocale
 type INSLocale interface {
 	objectivec.IObject
-	NSSecureCoding
 
 	// Topic: Initializing a Locale
 
 	// Initializes a locale using a given locale identifier.
 	InitWithLocaleIdentifier(string_ string) NSLocale
+	// Returns a locale initialized from data in the given unarchiver.
+	InitWithCoder(coder INSCoder) NSLocale
 
 	// Topic: Getting Information About a Locale
 
@@ -285,6 +289,9 @@ type INSLocale interface {
 	LanguageIdentifier() string
 	// Returns the region code of the locale. If the `rg` subtag is present, the value of the subtag will be used. For example,  returns “GB” for “en_US@rg=gbzzzz” locale. If the `localeIdentifier` doesn’t contain a region, returns `nil`.
 	RegionCode() string
+
+	// Encodes the receiver using a given archiver.
+	EncodeWithCoder(coder INSCoder)
 }
 
 // Init initializes the instance.

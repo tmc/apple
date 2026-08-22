@@ -131,9 +131,10 @@ func NewVNTrackOpticalFlowRequest() VNTrackOpticalFlowRequest {
 // completionHandler: The callback the system invokes when it completes the request.
 //
 // See: https://developer.apple.com/documentation/Vision/VNTrackOpticalFlowRequest/init(completionHandler:)
-func NewTrackOpticalFlowRequestWithCompletionHandler(completionHandler VNRequestCompletionHandler) VNTrackOpticalFlowRequest {
+func NewTrackOpticalFlowRequestWithCompletionHandler(completionHandler VNRequestErrorHandler) VNTrackOpticalFlowRequest {
+	_block0, _ := NewVNRequestErrorBlock(completionHandler)
 	instance := getVNTrackOpticalFlowRequestClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCompletionHandler:"), completionHandler)
+	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCompletionHandler:"), _block0)
 	return VNTrackOpticalFlowRequestFromID(rv)
 }
 
@@ -151,9 +152,10 @@ func NewTrackOpticalFlowRequestWithCompletionHandler(completionHandler VNRequest
 //
 // [CMTime]: https://developer.apple.com/documentation/CoreMedia/CMTime
 // [zero]: https://developer.apple.com/documentation/CoreMedia/CMTime/zero
-func NewTrackOpticalFlowRequestWithFrameAnalysisSpacingCompletionHandler(frameAnalysisSpacing coremedia.CMTime, completionHandler VNRequestCompletionHandler) VNTrackOpticalFlowRequest {
+func NewTrackOpticalFlowRequestWithFrameAnalysisSpacingCompletionHandler(frameAnalysisSpacing coremedia.CMTime, completionHandler VNRequestErrorHandler) VNTrackOpticalFlowRequest {
+	_block1, _ := NewVNRequestErrorBlock(completionHandler)
 	instance := getVNTrackOpticalFlowRequestClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithFrameAnalysisSpacing:completionHandler:"), frameAnalysisSpacing, completionHandler)
+	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithFrameAnalysisSpacing:completionHandler:"), frameAnalysisSpacing, _block1)
 	return VNTrackOpticalFlowRequestFromID(rv)
 }
 

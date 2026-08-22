@@ -47,7 +47,7 @@ func (nc NEIPv4RouteClass) Alloc() NEIPv4Route {
 //
 // # Creating an IPv4 Route
 //
-//   - [NEIPv4Route.InitWithDestinationAddressSubnetMask]: Initialize the [NEIPv4Route](<doc://com.apple.networkextension/documentation/NetworkExtension/NEIPv4Route>) object.
+//   - [NEIPv4Route.InitWithDestinationAddressSubnetMask]: Initialize the [NEIPv4Route](<https://developer.apple.com/documentation/NetworkExtension/NEIPv4Route>) object.
 //
 // # Accessing IPv4 Route Properties
 //
@@ -75,7 +75,7 @@ func NEIPv4RouteFromID(id objc.ID) NEIPv4Route {
 //
 // # Creating an IPv4 Route
 //
-//   - [INEIPv4Route.InitWithDestinationAddressSubnetMask]: Initialize the [NEIPv4Route](<doc://com.apple.networkextension/documentation/NetworkExtension/NEIPv4Route>) object.
+//   - [INEIPv4Route.InitWithDestinationAddressSubnetMask]: Initialize the [NEIPv4Route](<https://developer.apple.com/documentation/NetworkExtension/NEIPv4Route>) object.
 //
 // # Accessing IPv4 Route Properties
 //
@@ -90,7 +90,7 @@ type INEIPv4Route interface {
 
 	// Topic: Creating an IPv4 Route
 
-	// Initialize the [NEIPv4Route](<doc://com.apple.networkextension/documentation/NetworkExtension/NEIPv4Route>) object.
+	// Initialize the [NEIPv4Route](<https://developer.apple.com/documentation/NetworkExtension/NEIPv4Route>) object.
 	InitWithDestinationAddressSubnetMask(address string, subnetMask string) NEIPv4Route
 
 	// Topic: Accessing IPv4 Route Properties

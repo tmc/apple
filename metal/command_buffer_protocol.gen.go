@@ -403,8 +403,8 @@ func (o MTLCommandBufferObject) PresentDrawableAfterMinimumDuration(drawable MTL
 // [kernelEndTime]: https://developer.apple.com/documentation/Metal/MTLCommandBuffer/kernelEndTime
 // [kernelStartTime]: https://developer.apple.com/documentation/Metal/MTLCommandBuffer/kernelStartTime
 func (o MTLCommandBufferObject) AddScheduledHandler(block MTLCommandBufferHandler) {
-	_block0 := objc.NewBlock(func(_ objc.Block, arg0 objc.ID) { block(MTLCommandBufferObjectFromID(arg0)) })
-	// _block0 intentionally not released: "addScheduledHandler:" retains the block past return.
+	_block0, _cleanup0 := NewMTLCommandBufferBlock(block)
+	defer _cleanup0()
 	objc.Send[struct{}](o.ID, objc.Sel("addScheduledHandler:"), objc.ID(_block0))
 }
 
@@ -438,8 +438,8 @@ func (o MTLCommandBufferObject) AddScheduledHandler(block MTLCommandBufferHandle
 // [gpuEndTime]: https://developer.apple.com/documentation/Metal/MTLCommandBuffer/gpuEndTime
 // [gpuStartTime]: https://developer.apple.com/documentation/Metal/MTLCommandBuffer/gpuStartTime
 func (o MTLCommandBufferObject) AddCompletedHandler(block MTLCommandBufferHandler) {
-	_block0 := objc.NewBlock(func(_ objc.Block, arg0 objc.ID) { block(MTLCommandBufferObjectFromID(arg0)) })
-	// _block0 intentionally not released: "addCompletedHandler:" retains the block past return.
+	_block0, _cleanup0 := NewMTLCommandBufferBlock(block)
+	defer _cleanup0()
 	objc.Send[struct{}](o.ID, objc.Sel("addCompletedHandler:"), objc.ID(_block0))
 }
 
@@ -499,9 +499,10 @@ func (o MTLCommandBufferObject) Commit() {
 //
 // This method returns after the following events:
 //
-// - The command queue (see [Status] and [MTLCommandBufferStatusScheduled])
-// the command buffer to run on the GPU. - The command buffer invokes all the
-// completion handlers your app submits with [AddScheduledHandler].
+// - The command queue schedules (see [Status] and
+// [MTLCommandBufferStatusScheduled]) the command buffer to run on the GPU. -
+// The command buffer invokes all the completion handlers your app submits
+// with [AddScheduledHandler].
 //
 // Use the [WaitUntilCompleted] method to check for completion of the
 // scheduled work.

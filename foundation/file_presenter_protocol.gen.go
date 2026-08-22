@@ -83,7 +83,8 @@ func NSFilePresenterObjectFromID(id objc.ID) NSFilePresenterObject {
 //
 // [Block object]: https://developer.apple.com/library/archive/documentation/General/Conceptual/DevPedia-CocoaCore/Block.html#//apple_ref/doc/uid/TP40008195-CH3
 func (o NSFilePresenterObject) RelinquishPresentedItemToReader(reader ErrorHandler) {
-	objc.Send[struct{}](o.ID, objc.Sel("relinquishPresentedItemToReader:"), reader)
+	_block0, _ := NewErrorBlock(reader)
+	objc.Send[struct{}](o.ID, objc.Sel("relinquishPresentedItemToReader:"), _block0)
 }
 
 // Notifies your object that another object or process wants to write to the
@@ -123,7 +124,8 @@ func (o NSFilePresenterObject) RelinquishPresentedItemToReader(reader ErrorHandl
 //
 // [Block object]: https://developer.apple.com/library/archive/documentation/General/Conceptual/DevPedia-CocoaCore/Block.html#//apple_ref/doc/uid/TP40008195-CH3
 func (o NSFilePresenterObject) RelinquishPresentedItemToWriter(writer ErrorHandler) {
-	objc.Send[struct{}](o.ID, objc.Sel("relinquishPresentedItemToWriter:"), writer)
+	_block0, _ := NewErrorBlock(writer)
+	objc.Send[struct{}](o.ID, objc.Sel("relinquishPresentedItemToWriter:"), _block0)
 }
 
 // Tells your object to save any unsaved changes for the presented item.
@@ -145,7 +147,8 @@ func (o NSFilePresenterObject) RelinquishPresentedItemToWriter(writer ErrorHandl
 //
 // [Block object]: https://developer.apple.com/library/archive/documentation/General/Conceptual/DevPedia-CocoaCore/Block.html#//apple_ref/doc/uid/TP40008195-CH3
 func (o NSFilePresenterObject) SavePresentedItemChangesWithCompletionHandler(completionHandler ErrorHandler) {
-	objc.Send[struct{}](o.ID, objc.Sel("savePresentedItemChangesWithCompletionHandler:"), completionHandler)
+	_block0, _ := NewErrorBlock(completionHandler)
+	objc.Send[struct{}](o.ID, objc.Sel("savePresentedItemChangesWithCompletionHandler:"), _block0)
 }
 
 // Tells your object that its presented item is about to be deleted.
@@ -166,7 +169,8 @@ func (o NSFilePresenterObject) SavePresentedItemChangesWithCompletionHandler(com
 //
 // [Block object]: https://developer.apple.com/library/archive/documentation/General/Conceptual/DevPedia-CocoaCore/Block.html#//apple_ref/doc/uid/TP40008195-CH3
 func (o NSFilePresenterObject) AccommodatePresentedItemDeletionWithCompletionHandler(completionHandler ErrorHandler) {
-	objc.Send[struct{}](o.ID, objc.Sel("accommodatePresentedItemDeletionWithCompletionHandler:"), completionHandler)
+	_block0, _ := NewErrorBlock(completionHandler)
+	objc.Send[struct{}](o.ID, objc.Sel("accommodatePresentedItemDeletionWithCompletionHandler:"), _block0)
 }
 
 // Tells your object that the presented item moved or was renamed.
@@ -350,7 +354,8 @@ func (o NSFilePresenterObject) PresentedSubitemAtURLDidResolveConflictVersion(ur
 //
 // [Block object]: https://developer.apple.com/library/archive/documentation/General/Conceptual/DevPedia-CocoaCore/Block.html#//apple_ref/doc/uid/TP40008195-CH3
 func (o NSFilePresenterObject) AccommodatePresentedSubitemDeletionAtURLCompletionHandler(url INSURL, completionHandler ErrorHandler) {
-	objc.Send[struct{}](o.ID, objc.Sel("accommodatePresentedSubitemDeletionAtURL:completionHandler:"), url, completionHandler)
+	_block1, _ := NewErrorBlock(completionHandler)
+	objc.Send[struct{}](o.ID, objc.Sel("accommodatePresentedSubitemDeletionAtURL:completionHandler:"), url, _block1)
 }
 
 // Tells the delegate that an item was added to the presented directory.
@@ -452,7 +457,8 @@ func (o NSFilePresenterObject) PresentedItemDidChangeUbiquityAttributes(attribut
 
 // See: https://developer.apple.com/documentation/Foundation/NSFilePresenter/accommodatePresentedItemEviction(completionHandler:)
 func (o NSFilePresenterObject) AccommodatePresentedItemEvictionWithCompletionHandler(completionHandler ErrorHandler) {
-	objc.Send[struct{}](o.ID, objc.Sel("accommodatePresentedItemEvictionWithCompletionHandler:"), completionHandler)
+	_block0, _ := NewErrorBlock(completionHandler)
+	objc.Send[struct{}](o.ID, objc.Sel("accommodatePresentedItemEvictionWithCompletionHandler:"), _block0)
 }
 
 // The URL of the presented file or directory.

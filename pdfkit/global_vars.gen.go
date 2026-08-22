@@ -3,8 +3,6 @@
 package pdfkit
 
 import (
-	"unsafe"
-
 	"github.com/ebitengine/purego"
 	"github.com/tmc/apple/foundation"
 	"github.com/tmc/apple/objc"
@@ -190,343 +188,343 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "PDFAnnotationHighlightingModeInvert"); err == nil && ptr != 0 {
-		PDFAnnotationHighlightingModes.Invert = *(*PDFAnnotationHighlightingMode)(unsafe.Pointer(ptr))
+		PDFAnnotationHighlightingModes.Invert = objc.ValueAt[PDFAnnotationHighlightingMode](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "PDFAnnotationHighlightingModeNone"); err == nil && ptr != 0 {
-		PDFAnnotationHighlightingModes.None = *(*PDFAnnotationHighlightingMode)(unsafe.Pointer(ptr))
+		PDFAnnotationHighlightingModes.None = objc.ValueAt[PDFAnnotationHighlightingMode](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "PDFAnnotationHighlightingModeOutline"); err == nil && ptr != 0 {
-		PDFAnnotationHighlightingModes.Outline = *(*PDFAnnotationHighlightingMode)(unsafe.Pointer(ptr))
+		PDFAnnotationHighlightingModes.Outline = objc.ValueAt[PDFAnnotationHighlightingMode](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "PDFAnnotationHighlightingModePush"); err == nil && ptr != 0 {
-		PDFAnnotationHighlightingModes.Push = *(*PDFAnnotationHighlightingMode)(unsafe.Pointer(ptr))
+		PDFAnnotationHighlightingModes.Push = objc.ValueAt[PDFAnnotationHighlightingMode](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "PDFAnnotationKeyAction"); err == nil && ptr != 0 {
-		PDFAnnotationKeys.Action = *(*PDFAnnotationKey)(unsafe.Pointer(ptr))
+		PDFAnnotationKeys.Action = objc.ValueAt[PDFAnnotationKey](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "PDFAnnotationKeyAdditionalActions"); err == nil && ptr != 0 {
-		PDFAnnotationKeys.AdditionalActions = *(*PDFAnnotationKey)(unsafe.Pointer(ptr))
+		PDFAnnotationKeys.AdditionalActions = objc.ValueAt[PDFAnnotationKey](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "PDFAnnotationKeyAppearanceDictionary"); err == nil && ptr != 0 {
-		PDFAnnotationKeys.AppearanceDictionary = *(*PDFAnnotationKey)(unsafe.Pointer(ptr))
+		PDFAnnotationKeys.AppearanceDictionary = objc.ValueAt[PDFAnnotationKey](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "PDFAnnotationKeyAppearanceState"); err == nil && ptr != 0 {
-		PDFAnnotationKeys.AppearanceState = *(*PDFAnnotationKey)(unsafe.Pointer(ptr))
+		PDFAnnotationKeys.AppearanceState = objc.ValueAt[PDFAnnotationKey](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "PDFAnnotationKeyBorder"); err == nil && ptr != 0 {
-		PDFAnnotationKeys.Border = *(*PDFAnnotationKey)(unsafe.Pointer(ptr))
+		PDFAnnotationKeys.Border = objc.ValueAt[PDFAnnotationKey](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "PDFAnnotationKeyBorderStyle"); err == nil && ptr != 0 {
-		PDFAnnotationKeys.BorderStyle = *(*PDFAnnotationKey)(unsafe.Pointer(ptr))
+		PDFAnnotationKeys.BorderStyle = objc.ValueAt[PDFAnnotationKey](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "PDFAnnotationKeyColor"); err == nil && ptr != 0 {
-		PDFAnnotationKeys.Color = *(*PDFAnnotationKey)(unsafe.Pointer(ptr))
+		PDFAnnotationKeys.Color = objc.ValueAt[PDFAnnotationKey](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "PDFAnnotationKeyContents"); err == nil && ptr != 0 {
-		PDFAnnotationKeys.Contents = *(*PDFAnnotationKey)(unsafe.Pointer(ptr))
+		PDFAnnotationKeys.Contents = objc.ValueAt[PDFAnnotationKey](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "PDFAnnotationKeyDate"); err == nil && ptr != 0 {
-		PDFAnnotationKeys.Date = *(*PDFAnnotationKey)(unsafe.Pointer(ptr))
+		PDFAnnotationKeys.Date = objc.ValueAt[PDFAnnotationKey](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "PDFAnnotationKeyDefaultAppearance"); err == nil && ptr != 0 {
-		PDFAnnotationKeys.DefaultAppearance = *(*PDFAnnotationKey)(unsafe.Pointer(ptr))
+		PDFAnnotationKeys.DefaultAppearance = objc.ValueAt[PDFAnnotationKey](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "PDFAnnotationKeyDestination"); err == nil && ptr != 0 {
-		PDFAnnotationKeys.Destination = *(*PDFAnnotationKey)(unsafe.Pointer(ptr))
+		PDFAnnotationKeys.Destination = objc.ValueAt[PDFAnnotationKey](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "PDFAnnotationKeyFlags"); err == nil && ptr != 0 {
-		PDFAnnotationKeys.Flags = *(*PDFAnnotationKey)(unsafe.Pointer(ptr))
+		PDFAnnotationKeys.Flags = objc.ValueAt[PDFAnnotationKey](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "PDFAnnotationKeyHighlightingMode"); err == nil && ptr != 0 {
-		PDFAnnotationKeys.HighlightingMode = *(*PDFAnnotationKey)(unsafe.Pointer(ptr))
+		PDFAnnotationKeys.HighlightingMode = objc.ValueAt[PDFAnnotationKey](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "PDFAnnotationKeyIconName"); err == nil && ptr != 0 {
-		PDFAnnotationKeys.IconName = *(*PDFAnnotationKey)(unsafe.Pointer(ptr))
+		PDFAnnotationKeys.IconName = objc.ValueAt[PDFAnnotationKey](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "PDFAnnotationKeyInklist"); err == nil && ptr != 0 {
-		PDFAnnotationKeys.Inklist = *(*PDFAnnotationKey)(unsafe.Pointer(ptr))
+		PDFAnnotationKeys.Inklist = objc.ValueAt[PDFAnnotationKey](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "PDFAnnotationKeyInteriorColor"); err == nil && ptr != 0 {
-		PDFAnnotationKeys.InteriorColor = *(*PDFAnnotationKey)(unsafe.Pointer(ptr))
+		PDFAnnotationKeys.InteriorColor = objc.ValueAt[PDFAnnotationKey](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "PDFAnnotationKeyLineEndingStyles"); err == nil && ptr != 0 {
-		PDFAnnotationKeys.LineEndingStyles = *(*PDFAnnotationKey)(unsafe.Pointer(ptr))
+		PDFAnnotationKeys.LineEndingStyles = objc.ValueAt[PDFAnnotationKey](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "PDFAnnotationKeyLinePoints"); err == nil && ptr != 0 {
-		PDFAnnotationKeys.LinePoints = *(*PDFAnnotationKey)(unsafe.Pointer(ptr))
+		PDFAnnotationKeys.LinePoints = objc.ValueAt[PDFAnnotationKey](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "PDFAnnotationKeyName"); err == nil && ptr != 0 {
-		PDFAnnotationKeys.Name = *(*PDFAnnotationKey)(unsafe.Pointer(ptr))
+		PDFAnnotationKeys.Name = objc.ValueAt[PDFAnnotationKey](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "PDFAnnotationKeyOpen"); err == nil && ptr != 0 {
-		PDFAnnotationKeys.Open = *(*PDFAnnotationKey)(unsafe.Pointer(ptr))
+		PDFAnnotationKeys.Open = objc.ValueAt[PDFAnnotationKey](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "PDFAnnotationKeyPage"); err == nil && ptr != 0 {
-		PDFAnnotationKeys.Page = *(*PDFAnnotationKey)(unsafe.Pointer(ptr))
+		PDFAnnotationKeys.Page = objc.ValueAt[PDFAnnotationKey](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "PDFAnnotationKeyParent"); err == nil && ptr != 0 {
-		PDFAnnotationKeys.Parent = *(*PDFAnnotationKey)(unsafe.Pointer(ptr))
+		PDFAnnotationKeys.Parent = objc.ValueAt[PDFAnnotationKey](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "PDFAnnotationKeyPopup"); err == nil && ptr != 0 {
-		PDFAnnotationKeys.Popup = *(*PDFAnnotationKey)(unsafe.Pointer(ptr))
+		PDFAnnotationKeys.Popup = objc.ValueAt[PDFAnnotationKey](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "PDFAnnotationKeyQuadPoints"); err == nil && ptr != 0 {
-		PDFAnnotationKeys.QuadPoints = *(*PDFAnnotationKey)(unsafe.Pointer(ptr))
+		PDFAnnotationKeys.QuadPoints = objc.ValueAt[PDFAnnotationKey](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "PDFAnnotationKeyQuadding"); err == nil && ptr != 0 {
-		PDFAnnotationKeys.Quadding = *(*PDFAnnotationKey)(unsafe.Pointer(ptr))
+		PDFAnnotationKeys.Quadding = objc.ValueAt[PDFAnnotationKey](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "PDFAnnotationKeyRect"); err == nil && ptr != 0 {
-		PDFAnnotationKeys.Rect = *(*PDFAnnotationKey)(unsafe.Pointer(ptr))
+		PDFAnnotationKeys.Rect = objc.ValueAt[PDFAnnotationKey](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "PDFAnnotationKeySubtype"); err == nil && ptr != 0 {
-		PDFAnnotationKeys.Subtype = *(*PDFAnnotationKey)(unsafe.Pointer(ptr))
+		PDFAnnotationKeys.Subtype = objc.ValueAt[PDFAnnotationKey](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "PDFAnnotationKeyTextLabel"); err == nil && ptr != 0 {
-		PDFAnnotationKeys.TextLabel = *(*PDFAnnotationKey)(unsafe.Pointer(ptr))
+		PDFAnnotationKeys.TextLabel = objc.ValueAt[PDFAnnotationKey](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "PDFAnnotationKeyWidgetAppearanceDictionary"); err == nil && ptr != 0 {
-		PDFAnnotationKeys.WidgetAppearanceDictionary = *(*PDFAnnotationKey)(unsafe.Pointer(ptr))
+		PDFAnnotationKeys.WidgetAppearanceDictionary = objc.ValueAt[PDFAnnotationKey](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "PDFAnnotationKeyWidgetBackgroundColor"); err == nil && ptr != 0 {
-		PDFAnnotationKeys.WidgetBackgroundColor = *(*PDFAnnotationKey)(unsafe.Pointer(ptr))
+		PDFAnnotationKeys.WidgetBackgroundColor = objc.ValueAt[PDFAnnotationKey](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "PDFAnnotationKeyWidgetBorderColor"); err == nil && ptr != 0 {
-		PDFAnnotationKeys.WidgetBorderColor = *(*PDFAnnotationKey)(unsafe.Pointer(ptr))
+		PDFAnnotationKeys.WidgetBorderColor = objc.ValueAt[PDFAnnotationKey](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "PDFAnnotationKeyWidgetCaption"); err == nil && ptr != 0 {
-		PDFAnnotationKeys.WidgetCaption = *(*PDFAnnotationKey)(unsafe.Pointer(ptr))
+		PDFAnnotationKeys.WidgetCaption = objc.ValueAt[PDFAnnotationKey](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "PDFAnnotationKeyWidgetDefaultValue"); err == nil && ptr != 0 {
-		PDFAnnotationKeys.WidgetDefaultValue = *(*PDFAnnotationKey)(unsafe.Pointer(ptr))
+		PDFAnnotationKeys.WidgetDefaultValue = objc.ValueAt[PDFAnnotationKey](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "PDFAnnotationKeyWidgetDownCaption"); err == nil && ptr != 0 {
-		PDFAnnotationKeys.WidgetDownCaption = *(*PDFAnnotationKey)(unsafe.Pointer(ptr))
+		PDFAnnotationKeys.WidgetDownCaption = objc.ValueAt[PDFAnnotationKey](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "PDFAnnotationKeyWidgetFieldFlags"); err == nil && ptr != 0 {
-		PDFAnnotationKeys.WidgetFieldFlags = *(*PDFAnnotationKey)(unsafe.Pointer(ptr))
+		PDFAnnotationKeys.WidgetFieldFlags = objc.ValueAt[PDFAnnotationKey](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "PDFAnnotationKeyWidgetFieldType"); err == nil && ptr != 0 {
-		PDFAnnotationKeys.WidgetFieldType = *(*PDFAnnotationKey)(unsafe.Pointer(ptr))
+		PDFAnnotationKeys.WidgetFieldType = objc.ValueAt[PDFAnnotationKey](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "PDFAnnotationKeyWidgetMaxLen"); err == nil && ptr != 0 {
-		PDFAnnotationKeys.WidgetMaxLen = *(*PDFAnnotationKey)(unsafe.Pointer(ptr))
+		PDFAnnotationKeys.WidgetMaxLen = objc.ValueAt[PDFAnnotationKey](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "PDFAnnotationKeyWidgetOptions"); err == nil && ptr != 0 {
-		PDFAnnotationKeys.WidgetOptions = *(*PDFAnnotationKey)(unsafe.Pointer(ptr))
+		PDFAnnotationKeys.WidgetOptions = objc.ValueAt[PDFAnnotationKey](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "PDFAnnotationKeyWidgetRolloverCaption"); err == nil && ptr != 0 {
-		PDFAnnotationKeys.WidgetRolloverCaption = *(*PDFAnnotationKey)(unsafe.Pointer(ptr))
+		PDFAnnotationKeys.WidgetRolloverCaption = objc.ValueAt[PDFAnnotationKey](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "PDFAnnotationKeyWidgetRotation"); err == nil && ptr != 0 {
-		PDFAnnotationKeys.WidgetRotation = *(*PDFAnnotationKey)(unsafe.Pointer(ptr))
+		PDFAnnotationKeys.WidgetRotation = objc.ValueAt[PDFAnnotationKey](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "PDFAnnotationKeyWidgetTextLabelUI"); err == nil && ptr != 0 {
-		PDFAnnotationKeys.WidgetTextLabelUI = *(*PDFAnnotationKey)(unsafe.Pointer(ptr))
+		PDFAnnotationKeys.WidgetTextLabelUI = objc.ValueAt[PDFAnnotationKey](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "PDFAnnotationKeyWidgetValue"); err == nil && ptr != 0 {
-		PDFAnnotationKeys.WidgetValue = *(*PDFAnnotationKey)(unsafe.Pointer(ptr))
+		PDFAnnotationKeys.WidgetValue = objc.ValueAt[PDFAnnotationKey](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "PDFAnnotationLineEndingStyleCircle"); err == nil && ptr != 0 {
-		PDFAnnotationLineEndingStyles.Circle = *(*PDFAnnotationLineEndingStyle)(unsafe.Pointer(ptr))
+		PDFAnnotationLineEndingStyles.Circle = objc.ValueAt[PDFAnnotationLineEndingStyle](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "PDFAnnotationLineEndingStyleClosedArrow"); err == nil && ptr != 0 {
-		PDFAnnotationLineEndingStyles.ClosedArrow = *(*PDFAnnotationLineEndingStyle)(unsafe.Pointer(ptr))
+		PDFAnnotationLineEndingStyles.ClosedArrow = objc.ValueAt[PDFAnnotationLineEndingStyle](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "PDFAnnotationLineEndingStyleDiamond"); err == nil && ptr != 0 {
-		PDFAnnotationLineEndingStyles.Diamond = *(*PDFAnnotationLineEndingStyle)(unsafe.Pointer(ptr))
+		PDFAnnotationLineEndingStyles.Diamond = objc.ValueAt[PDFAnnotationLineEndingStyle](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "PDFAnnotationLineEndingStyleNone"); err == nil && ptr != 0 {
-		PDFAnnotationLineEndingStyles.None = *(*PDFAnnotationLineEndingStyle)(unsafe.Pointer(ptr))
+		PDFAnnotationLineEndingStyles.None = objc.ValueAt[PDFAnnotationLineEndingStyle](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "PDFAnnotationLineEndingStyleOpenArrow"); err == nil && ptr != 0 {
-		PDFAnnotationLineEndingStyles.OpenArrow = *(*PDFAnnotationLineEndingStyle)(unsafe.Pointer(ptr))
+		PDFAnnotationLineEndingStyles.OpenArrow = objc.ValueAt[PDFAnnotationLineEndingStyle](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "PDFAnnotationLineEndingStyleSquare"); err == nil && ptr != 0 {
-		PDFAnnotationLineEndingStyles.Square = *(*PDFAnnotationLineEndingStyle)(unsafe.Pointer(ptr))
+		PDFAnnotationLineEndingStyles.Square = objc.ValueAt[PDFAnnotationLineEndingStyle](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "PDFAnnotationSubtypeCircle"); err == nil && ptr != 0 {
-		PDFAnnotationSubtypes.Circle = *(*PDFAnnotationSubtype)(unsafe.Pointer(ptr))
+		PDFAnnotationSubtypes.Circle = objc.ValueAt[PDFAnnotationSubtype](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "PDFAnnotationSubtypeFreeText"); err == nil && ptr != 0 {
-		PDFAnnotationSubtypes.FreeText = *(*PDFAnnotationSubtype)(unsafe.Pointer(ptr))
+		PDFAnnotationSubtypes.FreeText = objc.ValueAt[PDFAnnotationSubtype](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "PDFAnnotationSubtypeHighlight"); err == nil && ptr != 0 {
-		PDFAnnotationSubtypes.Highlight = *(*PDFAnnotationSubtype)(unsafe.Pointer(ptr))
+		PDFAnnotationSubtypes.Highlight = objc.ValueAt[PDFAnnotationSubtype](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "PDFAnnotationSubtypeInk"); err == nil && ptr != 0 {
-		PDFAnnotationSubtypes.Ink = *(*PDFAnnotationSubtype)(unsafe.Pointer(ptr))
+		PDFAnnotationSubtypes.Ink = objc.ValueAt[PDFAnnotationSubtype](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "PDFAnnotationSubtypeLine"); err == nil && ptr != 0 {
-		PDFAnnotationSubtypes.Line = *(*PDFAnnotationSubtype)(unsafe.Pointer(ptr))
+		PDFAnnotationSubtypes.Line = objc.ValueAt[PDFAnnotationSubtype](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "PDFAnnotationSubtypeLink"); err == nil && ptr != 0 {
-		PDFAnnotationSubtypes.Link = *(*PDFAnnotationSubtype)(unsafe.Pointer(ptr))
+		PDFAnnotationSubtypes.Link = objc.ValueAt[PDFAnnotationSubtype](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "PDFAnnotationSubtypePopup"); err == nil && ptr != 0 {
-		PDFAnnotationSubtypes.Popup = *(*PDFAnnotationSubtype)(unsafe.Pointer(ptr))
+		PDFAnnotationSubtypes.Popup = objc.ValueAt[PDFAnnotationSubtype](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "PDFAnnotationSubtypeSquare"); err == nil && ptr != 0 {
-		PDFAnnotationSubtypes.Square = *(*PDFAnnotationSubtype)(unsafe.Pointer(ptr))
+		PDFAnnotationSubtypes.Square = objc.ValueAt[PDFAnnotationSubtype](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "PDFAnnotationSubtypeStamp"); err == nil && ptr != 0 {
-		PDFAnnotationSubtypes.Stamp = *(*PDFAnnotationSubtype)(unsafe.Pointer(ptr))
+		PDFAnnotationSubtypes.Stamp = objc.ValueAt[PDFAnnotationSubtype](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "PDFAnnotationSubtypeStrikeOut"); err == nil && ptr != 0 {
-		PDFAnnotationSubtypes.StrikeOut = *(*PDFAnnotationSubtype)(unsafe.Pointer(ptr))
+		PDFAnnotationSubtypes.StrikeOut = objc.ValueAt[PDFAnnotationSubtype](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "PDFAnnotationSubtypeText"); err == nil && ptr != 0 {
-		PDFAnnotationSubtypes.Text = *(*PDFAnnotationSubtype)(unsafe.Pointer(ptr))
+		PDFAnnotationSubtypes.Text = objc.ValueAt[PDFAnnotationSubtype](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "PDFAnnotationSubtypeUnderline"); err == nil && ptr != 0 {
-		PDFAnnotationSubtypes.Underline = *(*PDFAnnotationSubtype)(unsafe.Pointer(ptr))
+		PDFAnnotationSubtypes.Underline = objc.ValueAt[PDFAnnotationSubtype](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "PDFAnnotationSubtypeWidget"); err == nil && ptr != 0 {
-		PDFAnnotationSubtypes.Widget = *(*PDFAnnotationSubtype)(unsafe.Pointer(ptr))
+		PDFAnnotationSubtypes.Widget = objc.ValueAt[PDFAnnotationSubtype](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "PDFAnnotationTextIconTypeComment"); err == nil && ptr != 0 {
-		PDFAnnotationTextIconTypes.Comment = *(*PDFAnnotationTextIconType)(unsafe.Pointer(ptr))
+		PDFAnnotationTextIconTypes.Comment = objc.ValueAt[PDFAnnotationTextIconType](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "PDFAnnotationTextIconTypeHelp"); err == nil && ptr != 0 {
-		PDFAnnotationTextIconTypes.Help = *(*PDFAnnotationTextIconType)(unsafe.Pointer(ptr))
+		PDFAnnotationTextIconTypes.Help = objc.ValueAt[PDFAnnotationTextIconType](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "PDFAnnotationTextIconTypeInsert"); err == nil && ptr != 0 {
-		PDFAnnotationTextIconTypes.Insert = *(*PDFAnnotationTextIconType)(unsafe.Pointer(ptr))
+		PDFAnnotationTextIconTypes.Insert = objc.ValueAt[PDFAnnotationTextIconType](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "PDFAnnotationTextIconTypeKey"); err == nil && ptr != 0 {
-		PDFAnnotationTextIconTypes.Key = *(*PDFAnnotationTextIconType)(unsafe.Pointer(ptr))
+		PDFAnnotationTextIconTypes.Key = objc.ValueAt[PDFAnnotationTextIconType](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "PDFAnnotationTextIconTypeNewParagraph"); err == nil && ptr != 0 {
-		PDFAnnotationTextIconTypes.NewParagraph = *(*PDFAnnotationTextIconType)(unsafe.Pointer(ptr))
+		PDFAnnotationTextIconTypes.NewParagraph = objc.ValueAt[PDFAnnotationTextIconType](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "PDFAnnotationTextIconTypeNote"); err == nil && ptr != 0 {
-		PDFAnnotationTextIconTypes.Note = *(*PDFAnnotationTextIconType)(unsafe.Pointer(ptr))
+		PDFAnnotationTextIconTypes.Note = objc.ValueAt[PDFAnnotationTextIconType](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "PDFAnnotationTextIconTypeParagraph"); err == nil && ptr != 0 {
-		PDFAnnotationTextIconTypes.Paragraph = *(*PDFAnnotationTextIconType)(unsafe.Pointer(ptr))
+		PDFAnnotationTextIconTypes.Paragraph = objc.ValueAt[PDFAnnotationTextIconType](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "PDFAnnotationWidgetSubtypeButton"); err == nil && ptr != 0 {
-		PDFAnnotationWidgetSubtypes.Button = *(*PDFAnnotationWidgetSubtype)(unsafe.Pointer(ptr))
+		PDFAnnotationWidgetSubtypes.Button = objc.ValueAt[PDFAnnotationWidgetSubtype](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "PDFAnnotationWidgetSubtypeChoice"); err == nil && ptr != 0 {
-		PDFAnnotationWidgetSubtypes.Choice = *(*PDFAnnotationWidgetSubtype)(unsafe.Pointer(ptr))
+		PDFAnnotationWidgetSubtypes.Choice = objc.ValueAt[PDFAnnotationWidgetSubtype](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "PDFAnnotationWidgetSubtypeSignature"); err == nil && ptr != 0 {
-		PDFAnnotationWidgetSubtypes.Signature = *(*PDFAnnotationWidgetSubtype)(unsafe.Pointer(ptr))
+		PDFAnnotationWidgetSubtypes.Signature = objc.ValueAt[PDFAnnotationWidgetSubtype](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "PDFAnnotationWidgetSubtypeText"); err == nil && ptr != 0 {
-		PDFAnnotationWidgetSubtypes.Text = *(*PDFAnnotationWidgetSubtype)(unsafe.Pointer(ptr))
+		PDFAnnotationWidgetSubtypes.Text = objc.ValueAt[PDFAnnotationWidgetSubtype](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "PDFAppearanceCharacteristicsKeyBackgroundColor"); err == nil && ptr != 0 {
-		PDFAppearanceCharacteristicsKeys.BackgroundColor = *(*PDFAppearanceCharacteristicsKey)(unsafe.Pointer(ptr))
+		PDFAppearanceCharacteristicsKeys.BackgroundColor = objc.ValueAt[PDFAppearanceCharacteristicsKey](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "PDFAppearanceCharacteristicsKeyBorderColor"); err == nil && ptr != 0 {
-		PDFAppearanceCharacteristicsKeys.BorderColor = *(*PDFAppearanceCharacteristicsKey)(unsafe.Pointer(ptr))
+		PDFAppearanceCharacteristicsKeys.BorderColor = objc.ValueAt[PDFAppearanceCharacteristicsKey](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "PDFAppearanceCharacteristicsKeyCaption"); err == nil && ptr != 0 {
-		PDFAppearanceCharacteristicsKeys.Caption = *(*PDFAppearanceCharacteristicsKey)(unsafe.Pointer(ptr))
+		PDFAppearanceCharacteristicsKeys.Caption = objc.ValueAt[PDFAppearanceCharacteristicsKey](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "PDFAppearanceCharacteristicsKeyDownCaption"); err == nil && ptr != 0 {
-		PDFAppearanceCharacteristicsKeys.DownCaption = *(*PDFAppearanceCharacteristicsKey)(unsafe.Pointer(ptr))
+		PDFAppearanceCharacteristicsKeys.DownCaption = objc.ValueAt[PDFAppearanceCharacteristicsKey](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "PDFAppearanceCharacteristicsKeyRolloverCaption"); err == nil && ptr != 0 {
-		PDFAppearanceCharacteristicsKeys.RolloverCaption = *(*PDFAppearanceCharacteristicsKey)(unsafe.Pointer(ptr))
+		PDFAppearanceCharacteristicsKeys.RolloverCaption = objc.ValueAt[PDFAppearanceCharacteristicsKey](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "PDFAppearanceCharacteristicsKeyRotation"); err == nil && ptr != 0 {
-		PDFAppearanceCharacteristicsKeys.Rotation = *(*PDFAppearanceCharacteristicsKey)(unsafe.Pointer(ptr))
+		PDFAppearanceCharacteristicsKeys.Rotation = objc.ValueAt[PDFAppearanceCharacteristicsKey](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "PDFBorderKeyDashPattern"); err == nil && ptr != 0 {
-		PDFBorderKeys.DashPattern = *(*PDFBorderKey)(unsafe.Pointer(ptr))
+		PDFBorderKeys.DashPattern = objc.ValueAt[PDFBorderKey](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "PDFBorderKeyLineWidth"); err == nil && ptr != 0 {
-		PDFBorderKeys.LineWidth = *(*PDFBorderKey)(unsafe.Pointer(ptr))
+		PDFBorderKeys.LineWidth = objc.ValueAt[PDFBorderKey](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "PDFBorderKeyStyle"); err == nil && ptr != 0 {
-		PDFBorderKeys.Style = *(*PDFBorderKey)(unsafe.Pointer(ptr))
+		PDFBorderKeys.Style = objc.ValueAt[PDFBorderKey](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "PDFDocumentAccessPermissionsOption"); err == nil && ptr != 0 {

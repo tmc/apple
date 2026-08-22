@@ -3,8 +3,6 @@
 package coremedia
 
 import (
-	"unsafe"
-
 	"github.com/ebitengine/purego"
 	"github.com/tmc/apple/objc"
 )
@@ -2609,19 +2607,19 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCMImageDescriptionFlavor_3GPFamily"); err == nil && ptr != 0 {
-		KCMImageDescriptionFlavor_3GPFamily = *(*CMImageDescriptionFlavor)(unsafe.Pointer(ptr))
+		KCMImageDescriptionFlavor_3GPFamily = objc.ValueAt[CMImageDescriptionFlavor](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCMImageDescriptionFlavor_ISOFamily"); err == nil && ptr != 0 {
-		KCMImageDescriptionFlavor_ISOFamily = *(*CMImageDescriptionFlavor)(unsafe.Pointer(ptr))
+		KCMImageDescriptionFlavor_ISOFamily = objc.ValueAt[CMImageDescriptionFlavor](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCMImageDescriptionFlavor_ISOFamilyWithAppleExtensions"); err == nil && ptr != 0 {
-		KCMImageDescriptionFlavor_ISOFamilyWithAppleExtensions = *(*CMImageDescriptionFlavor)(unsafe.Pointer(ptr))
+		KCMImageDescriptionFlavor_ISOFamilyWithAppleExtensions = objc.ValueAt[CMImageDescriptionFlavor](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCMImageDescriptionFlavor_QuickTimeMovie"); err == nil && ptr != 0 {
-		KCMImageDescriptionFlavor_QuickTimeMovie = *(*CMImageDescriptionFlavor)(unsafe.Pointer(ptr))
+		KCMImageDescriptionFlavor_QuickTimeMovie = objc.ValueAt[CMImageDescriptionFlavor](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCMMemoryPoolOption_AgeOutPeriod"); err == nil && ptr != 0 {
@@ -3865,19 +3863,19 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCMSoundDescriptionFlavor_3GPFamily"); err == nil && ptr != 0 {
-		KCMSoundDescriptionFlavor_3GPFamily = *(*CMSoundDescriptionFlavor)(unsafe.Pointer(ptr))
+		KCMSoundDescriptionFlavor_3GPFamily = objc.ValueAt[CMSoundDescriptionFlavor](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCMSoundDescriptionFlavor_ISOFamily"); err == nil && ptr != 0 {
-		KCMSoundDescriptionFlavor_ISOFamily = *(*CMSoundDescriptionFlavor)(unsafe.Pointer(ptr))
+		KCMSoundDescriptionFlavor_ISOFamily = objc.ValueAt[CMSoundDescriptionFlavor](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCMSoundDescriptionFlavor_QuickTimeMovie"); err == nil && ptr != 0 {
-		KCMSoundDescriptionFlavor_QuickTimeMovie = *(*CMSoundDescriptionFlavor)(unsafe.Pointer(ptr))
+		KCMSoundDescriptionFlavor_QuickTimeMovie = objc.ValueAt[CMSoundDescriptionFlavor](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCMSoundDescriptionFlavor_QuickTimeMovieV2"); err == nil && ptr != 0 {
-		KCMSoundDescriptionFlavor_QuickTimeMovieV2 = *(*CMSoundDescriptionFlavor)(unsafe.Pointer(ptr))
+		KCMSoundDescriptionFlavor_QuickTimeMovieV2 = objc.ValueAt[CMSoundDescriptionFlavor](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCMTagCategoryKey"); err == nil && ptr != 0 {
@@ -3911,75 +3909,75 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCMTagInvalid"); err == nil && ptr != 0 {
-		KCMTagInvalid = *(*CMTag)(unsafe.Pointer(ptr))
+		KCMTagInvalid = objc.ValueAt[CMTag](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCMTagMediaSubTypeMebx"); err == nil && ptr != 0 {
-		KCMTagMediaSubTypeMebx = *(*CMTag)(unsafe.Pointer(ptr))
+		KCMTagMediaSubTypeMebx = objc.ValueAt[CMTag](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCMTagMediaTypeAudio"); err == nil && ptr != 0 {
-		KCMTagMediaTypeAudio = *(*CMTag)(unsafe.Pointer(ptr))
+		KCMTagMediaTypeAudio = objc.ValueAt[CMTag](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCMTagMediaTypeMetadata"); err == nil && ptr != 0 {
-		KCMTagMediaTypeMetadata = *(*CMTag)(unsafe.Pointer(ptr))
+		KCMTagMediaTypeMetadata = objc.ValueAt[CMTag](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCMTagMediaTypeVideo"); err == nil && ptr != 0 {
-		KCMTagMediaTypeVideo = *(*CMTag)(unsafe.Pointer(ptr))
+		KCMTagMediaTypeVideo = objc.ValueAt[CMTag](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCMTagPackingTypeNone"); err == nil && ptr != 0 {
-		KCMTagPackingTypeNone = *(*CMTag)(unsafe.Pointer(ptr))
+		KCMTagPackingTypeNone = objc.ValueAt[CMTag](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCMTagPackingTypeOverUnder"); err == nil && ptr != 0 {
-		KCMTagPackingTypeOverUnder = *(*CMTag)(unsafe.Pointer(ptr))
+		KCMTagPackingTypeOverUnder = objc.ValueAt[CMTag](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCMTagPackingTypeSideBySide"); err == nil && ptr != 0 {
-		KCMTagPackingTypeSideBySide = *(*CMTag)(unsafe.Pointer(ptr))
+		KCMTagPackingTypeSideBySide = objc.ValueAt[CMTag](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCMTagProjectionTypeEquirectangular"); err == nil && ptr != 0 {
-		KCMTagProjectionTypeEquirectangular = *(*CMTag)(unsafe.Pointer(ptr))
+		KCMTagProjectionTypeEquirectangular = objc.ValueAt[CMTag](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCMTagProjectionTypeFisheye"); err == nil && ptr != 0 {
-		KCMTagProjectionTypeFisheye = *(*CMTag)(unsafe.Pointer(ptr))
+		KCMTagProjectionTypeFisheye = objc.ValueAt[CMTag](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCMTagProjectionTypeHalfEquirectangular"); err == nil && ptr != 0 {
-		KCMTagProjectionTypeHalfEquirectangular = *(*CMTag)(unsafe.Pointer(ptr))
+		KCMTagProjectionTypeHalfEquirectangular = objc.ValueAt[CMTag](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCMTagProjectionTypeParametricImmersive"); err == nil && ptr != 0 {
-		KCMTagProjectionTypeParametricImmersive = *(*CMTag)(unsafe.Pointer(ptr))
+		KCMTagProjectionTypeParametricImmersive = objc.ValueAt[CMTag](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCMTagProjectionTypeRectangular"); err == nil && ptr != 0 {
-		KCMTagProjectionTypeRectangular = *(*CMTag)(unsafe.Pointer(ptr))
+		KCMTagProjectionTypeRectangular = objc.ValueAt[CMTag](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCMTagStereoInterpretationOrderReversed"); err == nil && ptr != 0 {
-		KCMTagStereoInterpretationOrderReversed = *(*CMTag)(unsafe.Pointer(ptr))
+		KCMTagStereoInterpretationOrderReversed = objc.ValueAt[CMTag](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCMTagStereoLeftAndRightEye"); err == nil && ptr != 0 {
-		KCMTagStereoLeftAndRightEye = *(*CMTag)(unsafe.Pointer(ptr))
+		KCMTagStereoLeftAndRightEye = objc.ValueAt[CMTag](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCMTagStereoLeftEye"); err == nil && ptr != 0 {
-		KCMTagStereoLeftEye = *(*CMTag)(unsafe.Pointer(ptr))
+		KCMTagStereoLeftEye = objc.ValueAt[CMTag](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCMTagStereoNone"); err == nil && ptr != 0 {
-		KCMTagStereoNone = *(*CMTag)(unsafe.Pointer(ptr))
+		KCMTagStereoNone = objc.ValueAt[CMTag](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCMTagStereoRightEye"); err == nil && ptr != 0 {
-		KCMTagStereoRightEye = *(*CMTag)(unsafe.Pointer(ptr))
+		KCMTagStereoRightEye = objc.ValueAt[CMTag](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCMTagValueKey"); err == nil && ptr != 0 {
@@ -4703,15 +4701,15 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCMTimeIndefinite"); err == nil && ptr != 0 {
-		KCMTimeIndefinite = *(*CMTime)(unsafe.Pointer(ptr))
+		KCMTimeIndefinite = objc.ValueAt[CMTime](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCMTimeInvalid"); err == nil && ptr != 0 {
-		KCMTimeInvalid = *(*CMTime)(unsafe.Pointer(ptr))
+		KCMTimeInvalid = objc.ValueAt[CMTime](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCMTimeMappingInvalid"); err == nil && ptr != 0 {
-		KCMTimeMappingInvalid = *(*CMTimeMapping)(unsafe.Pointer(ptr))
+		KCMTimeMappingInvalid = objc.ValueAt[CMTimeMapping](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCMTimeMappingSourceKey"); err == nil && ptr != 0 {
@@ -4735,11 +4733,11 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCMTimeNegativeInfinity"); err == nil && ptr != 0 {
-		KCMTimeNegativeInfinity = *(*CMTime)(unsafe.Pointer(ptr))
+		KCMTimeNegativeInfinity = objc.ValueAt[CMTime](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCMTimePositiveInfinity"); err == nil && ptr != 0 {
-		KCMTimePositiveInfinity = *(*CMTime)(unsafe.Pointer(ptr))
+		KCMTimePositiveInfinity = objc.ValueAt[CMTime](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCMTimeRangeDurationKey"); err == nil && ptr != 0 {
@@ -4753,7 +4751,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCMTimeRangeInvalid"); err == nil && ptr != 0 {
-		KCMTimeRangeInvalid = *(*CMTimeRange)(unsafe.Pointer(ptr))
+		KCMTimeRangeInvalid = objc.ValueAt[CMTimeRange](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCMTimeRangeStartKey"); err == nil && ptr != 0 {
@@ -4767,7 +4765,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCMTimeRangeZero"); err == nil && ptr != 0 {
-		KCMTimeRangeZero = *(*CMTimeRange)(unsafe.Pointer(ptr))
+		KCMTimeRangeZero = objc.ValueAt[CMTimeRange](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCMTimeScaleKey"); err == nil && ptr != 0 {
@@ -4791,7 +4789,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCMTimeZero"); err == nil && ptr != 0 {
-		KCMTimeZero = *(*CMTime)(unsafe.Pointer(ptr))
+		KCMTimeZero = objc.ValueAt[CMTime](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCMTimebaseNotificationKey_EventTime"); err == nil && ptr != 0 {
@@ -4825,7 +4823,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCMTimingInfoInvalid"); err == nil && ptr != 0 {
-		KCMTimingInfoInvalid = *(*CMSampleTimingInfo)(unsafe.Pointer(ptr))
+		KCMTimingInfoInvalid = objc.ValueAt[CMSampleTimingInfo](ptr)
 	}
 
 }

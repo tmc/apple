@@ -142,7 +142,7 @@ func NewAVMutableComposition() AVMutableComposition {
 //
 // URL: A URL to a local, remote, or HTTP Live Streaming media resource.
 //
-// See: https://developer.apple.com/documentation/AVFoundation/AVAsset/init(url:)-42gl8
+// See: https://developer.apple.com/documentation/AVFoundation/AVAsset/init(url:)
 func NewMutableCompositionAssetWithURL(URL foundation.NSURL) AVMutableComposition {
 	rv := objc.Send[objc.ID](objc.ID(getAVMutableCompositionClass().class), objc.Sel("assetWithURL:"), URL)
 	return AVMutableCompositionFromID(rv)
@@ -153,7 +153,7 @@ func NewMutableCompositionAssetWithURL(URL foundation.NSURL) AVMutableCompositio
 //
 // URLAssetInitializationOptions: The initialization options to use to create the composition.
 //
-// See: https://developer.apple.com/documentation/AVFoundation/AVMutableComposition/init(urlAssetInitializationOptions:)-rh4y
+// See: https://developer.apple.com/documentation/AVFoundation/AVMutableComposition/init(urlAssetInitializationOptions:)
 func NewMutableCompositionWithURLAssetInitializationOptions(URLAssetInitializationOptions foundation.INSDictionary) AVMutableComposition {
 	rv := objc.Send[objc.ID](objc.ID(getAVMutableCompositionClass().class), objc.Sel("compositionWithURLAssetInitializationOptions:"), URLAssetInitializationOptions)
 	return AVMutableCompositionFromID(rv)
@@ -252,7 +252,7 @@ func (m AVMutableComposition) RemoveTimeRange(timeRange coremedia.CMTimeRange) {
 // # Discussion
 //
 // A composition presents each track segment affected by the scaling operation
-// at a rate equal to `source.Duration() / target.Duration()` of its resulting
+// at a rate equal to `source.duration / target.duration` of its resulting
 // time mapping.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVMutableComposition/scaleTimeRange(_:toDuration:)
@@ -277,6 +277,8 @@ func (m AVMutableComposition) InsertEmptyTimeRange(timeRange coremedia.CMTimeRan
 
 // Adds a group of empty tracks associated with a cinematic asset to a mutable
 // composition.
+//
+// assetInfo is a [*cinematic.CNAssetInfo].
 //
 // # Return Value
 //

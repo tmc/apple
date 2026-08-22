@@ -4,7 +4,6 @@ package vision
 
 import (
 	"sync"
-	"unsafe"
 
 	"github.com/tmc/apple/foundation"
 	"github.com/tmc/apple/objc"
@@ -49,7 +48,6 @@ func (vc VNTrajectoryObservationClass) Alloc() VNTrajectoryObservation {
 //
 //   - [VNTrajectoryObservation.DetectedPoints]: The centroid points of the detected contour along the trajectory.
 //   - [VNTrajectoryObservation.ProjectedPoints]: The centroids of the calculated trajectory from the detected points.
-//   - [VNTrajectoryObservation.EquationCoefficients]: The coefficients of the parabolic equation.
 //   - [VNTrajectoryObservation.MovingAverageRadius]: The moving average radius of the object the request is tracking.
 //
 // See: https://developer.apple.com/documentation/Vision/VNTrajectoryObservation
@@ -73,7 +71,6 @@ func VNTrajectoryObservationFromID(id objc.ID) VNTrajectoryObservation {
 //
 //   - [IVNTrajectoryObservation.DetectedPoints]: The centroid points of the detected contour along the trajectory.
 //   - [IVNTrajectoryObservation.ProjectedPoints]: The centroids of the calculated trajectory from the detected points.
-//   - [IVNTrajectoryObservation.EquationCoefficients]: The coefficients of the parabolic equation.
 //   - [IVNTrajectoryObservation.MovingAverageRadius]: The moving average radius of the object the request is tracking.
 //
 // See: https://developer.apple.com/documentation/Vision/VNTrajectoryObservation
@@ -86,8 +83,6 @@ type IVNTrajectoryObservation interface {
 	DetectedPoints() []VNPoint
 	// The centroids of the calculated trajectory from the detected points.
 	ProjectedPoints() []VNPoint
-	// The coefficients of the parabolic equation.
-	EquationCoefficients() unsafe.Pointer
 	// The moving average radius of the object the request is tracking.
 	MovingAverageRadius() float64
 }
@@ -150,19 +145,6 @@ func (t VNTrajectoryObservation) ProjectedPoints() []VNPoint {
 	return objc.ConvertSlice(rv, func(id objc.ID) VNPoint {
 		return VNPointFromID(id)
 	})
-}
-
-// The coefficients of the parabolic equation.
-//
-// # Discussion
-//
-// This equation describes the parabola on which the detected contour is
-// traveling. The equation and the projected points get refined over time.
-//
-// See: https://developer.apple.com/documentation/Vision/VNTrajectoryObservation/equationCoefficients
-func (t VNTrajectoryObservation) EquationCoefficients() unsafe.Pointer {
-	rv := objc.Send[unsafe.Pointer](t.ID, objc.Sel("equationCoefficients"))
-	return rv
 }
 
 // The moving average radius of the object the request is tracking.

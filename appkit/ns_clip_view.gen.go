@@ -122,8 +122,8 @@ func (nc NSClipViewClass) Alloc() NSClipView {
 //
 // # Overriding NSView Methods
 //
-//   - [NSClipView.ViewBoundsChanged]: Handles an [boundsDidChangeNotification](<doc://com.apple.appkit/documentation/AppKit/NSView/boundsDidChangeNotification>), passed in the `aNotification` argument, by updating a containing [NSScrollView](<doc://com.apple.appkit/documentation/AppKit/NSScrollView>) based on the new bounds.
-//   - [NSClipView.ViewFrameChanged]: Handles an [frameDidChangeNotification](<doc://com.apple.appkit/documentation/AppKit/NSView/frameDidChangeNotification>), passed in the `aNotification` argument, by updating a containing [NSScrollView](<doc://com.apple.appkit/documentation/AppKit/NSScrollView>) based on the new frame.
+//   - [NSClipView.ViewBoundsChanged]: Handles an [boundsDidChangeNotification](<https://developer.apple.com/documentation/AppKit/NSView/boundsDidChangeNotification>), passed in the `aNotification` argument, by updating a containing [NSScrollView](<https://developer.apple.com/documentation/AppKit/NSScrollView>) based on the new bounds.
+//   - [NSClipView.ViewFrameChanged]: Handles an [frameDidChangeNotification](<https://developer.apple.com/documentation/AppKit/NSView/frameDidChangeNotification>), passed in the `aNotification` argument, by updating a containing [NSScrollView](<https://developer.apple.com/documentation/AppKit/NSScrollView>) based on the new frame.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSClipView
 //
@@ -180,8 +180,8 @@ func NSClipViewFromID(id objc.ID) NSClipView {
 //
 // # Overriding NSView Methods
 //
-//   - [INSClipView.ViewBoundsChanged]: Handles an [boundsDidChangeNotification](<doc://com.apple.appkit/documentation/AppKit/NSView/boundsDidChangeNotification>), passed in the `aNotification` argument, by updating a containing [NSScrollView](<doc://com.apple.appkit/documentation/AppKit/NSScrollView>) based on the new bounds.
-//   - [INSClipView.ViewFrameChanged]: Handles an [frameDidChangeNotification](<doc://com.apple.appkit/documentation/AppKit/NSView/frameDidChangeNotification>), passed in the `aNotification` argument, by updating a containing [NSScrollView](<doc://com.apple.appkit/documentation/AppKit/NSScrollView>) based on the new frame.
+//   - [INSClipView.ViewBoundsChanged]: Handles an [boundsDidChangeNotification](<https://developer.apple.com/documentation/AppKit/NSView/boundsDidChangeNotification>), passed in the `aNotification` argument, by updating a containing [NSScrollView](<https://developer.apple.com/documentation/AppKit/NSScrollView>) based on the new bounds.
+//   - [INSClipView.ViewFrameChanged]: Handles an [frameDidChangeNotification](<https://developer.apple.com/documentation/AppKit/NSView/frameDidChangeNotification>), passed in the `aNotification` argument, by updating a containing [NSScrollView](<https://developer.apple.com/documentation/AppKit/NSScrollView>) based on the new frame.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSClipView
 type INSClipView interface {
@@ -233,9 +233,9 @@ type INSClipView interface {
 
 	// Topic: Overriding NSView Methods
 
-	// Handles an [boundsDidChangeNotification](<doc://com.apple.appkit/documentation/AppKit/NSView/boundsDidChangeNotification>), passed in the `aNotification` argument, by updating a containing [NSScrollView](<doc://com.apple.appkit/documentation/AppKit/NSScrollView>) based on the new bounds.
+	// Handles an [boundsDidChangeNotification](<https://developer.apple.com/documentation/AppKit/NSView/boundsDidChangeNotification>), passed in the `aNotification` argument, by updating a containing [NSScrollView](<https://developer.apple.com/documentation/AppKit/NSScrollView>) based on the new bounds.
 	ViewBoundsChanged(notification foundation.NSNotification)
-	// Handles an [frameDidChangeNotification](<doc://com.apple.appkit/documentation/AppKit/NSView/frameDidChangeNotification>), passed in the `aNotification` argument, by updating a containing [NSScrollView](<doc://com.apple.appkit/documentation/AppKit/NSScrollView>) based on the new frame.
+	// Handles an [frameDidChangeNotification](<https://developer.apple.com/documentation/AppKit/NSView/frameDidChangeNotification>), passed in the `aNotification` argument, by updating a containing [NSScrollView](<https://developer.apple.com/documentation/AppKit/NSScrollView>) based on the new frame.
 	ViewFrameChanged(notification foundation.NSNotification)
 }
 

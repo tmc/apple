@@ -50,8 +50,8 @@ func (nc NEVPNProtocolIKEv2Class) Alloc() NEVPNProtocolIKEv2 {
 //
 // # Accessing IKEv2 Security Association parameters
 //
-//   - [NEVPNProtocolIKEv2.IKESecurityAssociationParameters]: An [NEVPNIKEv2SecurityAssociationParameters](<doc://com.apple.networkextension/documentation/NetworkExtension/NEVPNIKEv2SecurityAssociationParameters>) object containing the parameters for the initial IKE security association to be negotiated with the IKEv2 server.
-//   - [NEVPNProtocolIKEv2.ChildSecurityAssociationParameters]: An [NEVPNIKEv2SecurityAssociationParameters](<doc://com.apple.networkextension/documentation/NetworkExtension/NEVPNIKEv2SecurityAssociationParameters>) object containing the parameters for the child IPSec security associations to be negotiated for each IKEv2 policy.
+//   - [NEVPNProtocolIKEv2.IKESecurityAssociationParameters]: An [NEVPNIKEv2SecurityAssociationParameters](<https://developer.apple.com/documentation/NetworkExtension/NEVPNIKEv2SecurityAssociationParameters>) object containing the parameters for the initial IKE security association to be negotiated with the IKEv2 server.
+//   - [NEVPNProtocolIKEv2.ChildSecurityAssociationParameters]: An [NEVPNIKEv2SecurityAssociationParameters](<https://developer.apple.com/documentation/NetworkExtension/NEVPNIKEv2SecurityAssociationParameters>) object containing the parameters for the child IPSec security associations to be negotiated for each IKEv2 policy.
 //
 // # Accessing certificate properties
 //
@@ -114,8 +114,8 @@ func NEVPNProtocolIKEv2FromID(id objc.ID) NEVPNProtocolIKEv2 {
 //
 // # Accessing IKEv2 Security Association parameters
 //
-//   - [INEVPNProtocolIKEv2.IKESecurityAssociationParameters]: An [NEVPNIKEv2SecurityAssociationParameters](<doc://com.apple.networkextension/documentation/NetworkExtension/NEVPNIKEv2SecurityAssociationParameters>) object containing the parameters for the initial IKE security association to be negotiated with the IKEv2 server.
-//   - [INEVPNProtocolIKEv2.ChildSecurityAssociationParameters]: An [NEVPNIKEv2SecurityAssociationParameters](<doc://com.apple.networkextension/documentation/NetworkExtension/NEVPNIKEv2SecurityAssociationParameters>) object containing the parameters for the child IPSec security associations to be negotiated for each IKEv2 policy.
+//   - [INEVPNProtocolIKEv2.IKESecurityAssociationParameters]: An [NEVPNIKEv2SecurityAssociationParameters](<https://developer.apple.com/documentation/NetworkExtension/NEVPNIKEv2SecurityAssociationParameters>) object containing the parameters for the initial IKE security association to be negotiated with the IKEv2 server.
+//   - [INEVPNProtocolIKEv2.ChildSecurityAssociationParameters]: An [NEVPNIKEv2SecurityAssociationParameters](<https://developer.apple.com/documentation/NetworkExtension/NEVPNIKEv2SecurityAssociationParameters>) object containing the parameters for the child IPSec security associations to be negotiated for each IKEv2 policy.
 //
 // # Accessing certificate properties
 //
@@ -165,9 +165,9 @@ type INEVPNProtocolIKEv2 interface {
 
 	// Topic: Accessing IKEv2 Security Association parameters
 
-	// An [NEVPNIKEv2SecurityAssociationParameters](<doc://com.apple.networkextension/documentation/NetworkExtension/NEVPNIKEv2SecurityAssociationParameters>) object containing the parameters for the initial IKE security association to be negotiated with the IKEv2 server.
+	// An [NEVPNIKEv2SecurityAssociationParameters](<https://developer.apple.com/documentation/NetworkExtension/NEVPNIKEv2SecurityAssociationParameters>) object containing the parameters for the initial IKE security association to be negotiated with the IKEv2 server.
 	IKESecurityAssociationParameters() INEVPNIKEv2SecurityAssociationParameters
-	// An [NEVPNIKEv2SecurityAssociationParameters](<doc://com.apple.networkextension/documentation/NetworkExtension/NEVPNIKEv2SecurityAssociationParameters>) object containing the parameters for the child IPSec security associations to be negotiated for each IKEv2 policy.
+	// An [NEVPNIKEv2SecurityAssociationParameters](<https://developer.apple.com/documentation/NetworkExtension/NEVPNIKEv2SecurityAssociationParameters>) object containing the parameters for the child IPSec security associations to be negotiated for each IKEv2 policy.
 	ChildSecurityAssociationParameters() INEVPNIKEv2SecurityAssociationParameters
 
 	// Topic: Accessing certificate properties

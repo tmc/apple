@@ -8,7 +8,6 @@ import (
 	"github.com/tmc/apple/corefoundation"
 	"github.com/tmc/apple/foundation"
 	"github.com/tmc/apple/objc"
-	"github.com/tmc/apple/objectivec"
 )
 
 // The class instance for the [NSSwitch] class.
@@ -156,81 +155,6 @@ func NewSwitchWithFrame(frameRect corefoundation.CGRect) NSSwitch {
 	return NSSwitchFromID(rv)
 }
 
-// Decrements the switch’s value.
-//
-// # Return Value
-//
-// true if the action was successfully triggered; otherwise, false. This
-// method does not indicate the success or failure of the action, just the
-// fact that the action was successfully triggered.
-//
-// # Discussion
-//
-// This method must post an [valueChanged] notification after changing the
-// switch’s value.
-//
-// See: https://developer.apple.com/documentation/AppKit/NSAccessibilitySwitch/accessibilityPerformDecrement()
-//
-// [valueChanged]: https://developer.apple.com/documentation/AppKit/NSAccessibility-swift.struct/Notification/valueChanged
-func (s NSSwitch) AccessibilityPerformDecrement() bool {
-	rv := objc.Send[bool](s.ID, objc.Sel("accessibilityPerformDecrement"))
-	return rv
-}
-
-// Increments the switch’s value.
-//
-// # Return Value
-//
-// true if the action was successfully triggered; otherwise, false. This
-// method does not indicate the success or failure of the action, just the
-// fact that the action was successfully triggered.
-//
-// # Discussion
-//
-// This method must post an [valueChanged] notification after changing the
-// switch’s value.
-//
-// See: https://developer.apple.com/documentation/AppKit/NSAccessibilitySwitch/accessibilityPerformIncrement()
-//
-// [valueChanged]: https://developer.apple.com/documentation/AppKit/NSAccessibility-swift.struct/Notification/valueChanged
-func (s NSSwitch) AccessibilityPerformIncrement() bool {
-	rv := objc.Send[bool](s.ID, objc.Sel("accessibilityPerformIncrement"))
-	return rv
-}
-
-// Simulates clicking the button.
-//
-// # Return Value
-//
-// true if the action was successfully triggered; otherwise, false. This
-// method does not indicate the success or failure of the action, just the
-// fact that the action was successfully triggered.
-//
-// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityButton/accessibilityPerformPress()
-func (s NSSwitch) AccessibilityPerformPress() bool {
-	rv := objc.Send[bool](s.ID, objc.Sel("accessibilityPerformPress"))
-	return rv
-}
-
-// Returns the switch’s value.
-//
-// # Return Value
-//
-// The value for the switch.
-//
-// # Discussion
-//
-// This method is the getter for the [NSAccessibilityProtocol] protocol’s
-// [accessibilityValue] property.
-//
-// See: https://developer.apple.com/documentation/AppKit/NSAccessibilitySwitch/accessibilityValue()
-//
-// [accessibilityValue]: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityValue
-func (s NSSwitch) AccessibilityValue() string {
-	rv := objc.Send[objc.ID](s.ID, objc.Sel("accessibilityValue"))
-	return foundation.NSStringFromID(rv).String()
-}
-
 // The current position of the switch.
 //
 // # Discussion
@@ -254,85 +178,3 @@ func (s NSSwitch) SetState(value NSControlStateValue) {
 }
 
 // Protocol methods for NSAccessibilitySwitch
-
-// Returns the accessibility element’s frame in screen coordinates.
-//
-// # Return Value
-//
-// The element’s frame in screen coordinates.
-//
-// # Discussion
-//
-// This method is the getter for the [NSAccessibilityProtocol] protocol’s
-// [accessibilityFrame] property. This method is called whenever accessibility
-// clients request the [size] or [position] attributes.
-//
-// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityElementProtocol/accessibilityFrame()
-//
-// [accessibilityFrame]: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityFrame
-// [position]: https://developer.apple.com/documentation/AppKit/NSAccessibility-swift.struct/Attribute/position
-// [size]: https://developer.apple.com/documentation/AppKit/NSAccessibility-swift.struct/Attribute/size
-func (o NSSwitch) AccessibilityFrame() corefoundation.CGRect {
-	rv := objc.Send[corefoundation.CGRect](o.ID, objc.Sel("accessibilityFrame"))
-	return rv
-}
-
-// Returns the accessibility element’s parent in the accessibility
-// hierarchy.
-//
-// # Return Value
-//
-// The element’s parent in the accessibility hierarchy.
-//
-// # Discussion
-//
-// This method is the getter for the [NSAccessibilityProtocol] protocol’s
-// [accessibilityParent] property.
-//
-// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityElementProtocol/accessibilityParent()
-//
-// [accessibilityParent]: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityParent
-func (o NSSwitch) AccessibilityParent() objectivec.IObject {
-	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilityParent"))
-	return objectivec.Object{ID: rv}
-}
-
-// Returns the accessibility element’s identity.
-//
-// # Return Value
-//
-// Returns the unique ID for the accessibility element. It is often used in
-// automated testing.
-//
-// # Discussion
-//
-// This method is the getter for the [NSAccessibilityProtocol] protocol’s
-// [accessibilityIdentifier] property.
-//
-// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityElementProtocol/accessibilityIdentifier()
-//
-// [accessibilityIdentifier]: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityIdentifier
-func (o NSSwitch) AccessibilityIdentifier() string {
-	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilityIdentifier"))
-	return foundation.NSStringFromID(rv).String()
-}
-
-// Returns a Boolean value that indicates whether the accessibility element
-// has the keyboard focus.
-//
-// # Return Value
-//
-// true if this element has the keyboard focus; otherwise, false.
-//
-// # Discussion
-//
-// This method is the getter for the [NSAccessibilityProtocol] protocol’s
-// [accessibilityFocused] property.
-//
-// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityElementProtocol/isAccessibilityFocused()
-//
-// [accessibilityFocused]: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityFocused
-func (o NSSwitch) IsAccessibilityFocused() bool {
-	rv := objc.Send[bool](o.ID, objc.Sel("isAccessibilityFocused"))
-	return rv
-}

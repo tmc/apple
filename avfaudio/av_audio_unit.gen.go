@@ -8,6 +8,7 @@ import (
 	"sync"
 	"unsafe"
 
+	"github.com/tmc/apple/audiotoolbox"
 	"github.com/tmc/apple/foundation"
 	"github.com/tmc/apple/objc"
 )
@@ -103,7 +104,7 @@ type IAVAudioUnit interface {
 	// Topic: Getting the Core Audio audio unit
 
 	// The underlying Core Audio audio unit.
-	AudioUnit() IAVAudioUnit
+	AudioUnit() audiotoolbox.AudioUnit
 
 	// Topic: Loading an audio preset file
 
@@ -113,7 +114,7 @@ type IAVAudioUnit interface {
 	// Topic: Getting audio unit values
 
 	// The audio component description that represents the underlying Core Audio audio unit.
-	AudioComponentDescription() unsafe.Pointer
+	AudioComponentDescription() audiotoolbox.AudioComponentDescription
 	// The name of the manufacturer of the audio unit.
 	ManufacturerName() string
 	// The name of the audio unit.
@@ -170,8 +171,6 @@ func (a AVAudioUnit) LoadAudioUnitPresetAtURLError(url foundation.NSURL) (bool, 
 // completionHandler: A handler the framework calls in an arbitrary thread context when creation
 // completes. Retain the [AVAudioUnit] this handler provides.
 //
-// audioComponentDescription is a [audiotoolbox.AudioComponentDescription].
-//
 // # Discussion
 //
 // You must create components with flags that include
@@ -186,7 +185,7 @@ func (a AVAudioUnit) LoadAudioUnitPresetAtURLError(url foundation.NSURL) (bool, 
 // See: https://developer.apple.com/documentation/AVFAudio/AVAudioUnit/instantiate(with:options:completionHandler:)
 //
 // [requiresAsyncInstantiation]: https://developer.apple.com/documentation/AudioToolbox/AudioComponentFlags/requiresAsyncInstantiation
-func (_AVAudioUnitClass AVAudioUnitClass) InstantiateWithComponentDescriptionOptionsCompletionHandler(audioComponentDescription unsafe.Pointer, options uint, completionHandler AVAudioUnitErrorHandler) {
+func (_AVAudioUnitClass AVAudioUnitClass) InstantiateWithComponentDescriptionOptionsCompletionHandler(audioComponentDescription audiotoolbox.AudioComponentDescription, options uint32, completionHandler AVAudioUnitErrorHandler) {
 	_block2, _ := NewAVAudioUnitErrorBlock(completionHandler)
 	objc.Send[objc.ID](objc.ID(_AVAudioUnitClass.class), objc.Sel("instantiateWithComponentDescription:options:completionHandler:"), audioComponentDescription, options, _block2)
 }
@@ -202,18 +201,18 @@ func (_AVAudioUnitClass AVAudioUnitClass) InstantiateWithComponentDescriptionOpt
 // layouts, or connections to other audio units.
 //
 // See: https://developer.apple.com/documentation/AVFAudio/AVAudioUnit/audioUnit
-func (a AVAudioUnit) AudioUnit() IAVAudioUnit {
-	rv := objc.Send[objc.ID](a.ID, objc.Sel("audioUnit"))
-	return AVAudioUnitFromID(objc.ID(rv))
+func (a AVAudioUnit) AudioUnit() audiotoolbox.AudioUnit {
+	rv := objc.Send[audiotoolbox.AudioUnit](a.ID, objc.Sel("audioUnit"))
+	return audiotoolbox.AudioUnit(rv)
 }
 
 // The audio component description that represents the underlying Core Audio
 // audio unit.
 //
 // See: https://developer.apple.com/documentation/AVFAudio/AVAudioUnit/audioComponentDescription
-func (a AVAudioUnit) AudioComponentDescription() unsafe.Pointer {
-	rv := objc.Send[unsafe.Pointer](a.ID, objc.Sel("audioComponentDescription"))
-	return rv
+func (a AVAudioUnit) AudioComponentDescription() audiotoolbox.AudioComponentDescription {
+	rv := objc.Send[audiotoolbox.AudioComponentDescription](a.ID, objc.Sel("audioComponentDescription"))
+	return audiotoolbox.AudioComponentDescription(rv)
 }
 
 // The name of the manufacturer of the audio unit.
@@ -242,7 +241,7 @@ func (a AVAudioUnit) Version() uint {
 
 // InstantiateWithComponentDescriptionOptions is a synchronous wrapper around [AVAudioUnit.InstantiateWithComponentDescriptionOptionsCompletionHandler].
 // It blocks until the completion handler fires or the context is cancelled.
-func (ac AVAudioUnitClass) InstantiateWithComponentDescriptionOptions(ctx context.Context, audioComponentDescription unsafe.Pointer, options uint) (*AVAudioUnit, error) {
+func (ac AVAudioUnitClass) InstantiateWithComponentDescriptionOptions(ctx context.Context, audioComponentDescription audiotoolbox.AudioComponentDescription, options uint32) (*AVAudioUnit, error) {
 	type result struct {
 		val *AVAudioUnit
 		err error

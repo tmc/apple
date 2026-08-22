@@ -254,9 +254,9 @@ type MTL4RenderEncoderOptions uint
 const (
 	// MTL4RenderEncoderOptionNone: Declares that this render pass doesn’t suspend nor resume.
 	MTL4RenderEncoderOptionNone MTL4RenderEncoderOptions = 0
-	// MTL4RenderEncoderOptionResuming: Configures the render pass to as .
+	// MTL4RenderEncoderOptionResuming: Configures the render pass to as resuming.
 	MTL4RenderEncoderOptionResuming MTL4RenderEncoderOptions = 2
-	// MTL4RenderEncoderOptionSuspending: Configures the render pass as .
+	// MTL4RenderEncoderOptionSuspending: Configures the render pass as suspending.
 	MTL4RenderEncoderOptionSuspending MTL4RenderEncoderOptions = 1
 )
 
@@ -795,7 +795,7 @@ func (e MTLBarrierScope) String() string {
 }
 
 // See: https://developer.apple.com/documentation/Metal/MTLBinaryArchiveError-swift.struct/Code
-type MTLBinaryArchiveError int
+type MTLBinaryArchiveError uint
 
 const (
 	// MTLBinaryArchiveErrorCompilationFailure: An error code that indicates the archive’s inability to compile its contents, typically when serializing it to a URL.
@@ -1160,13 +1160,13 @@ const (
 	// MTLColorWriteMaskAlpha: The alpha color channel is enabled.
 	MTLColorWriteMaskAlpha MTLColorWriteMask = 0x1
 	// MTLColorWriteMaskBlue: The blue color channel is enabled.
-	MTLColorWriteMaskBlue MTLColorWriteMask = 0x1
+	MTLColorWriteMaskBlue MTLColorWriteMask = 2
 	// MTLColorWriteMaskGreen: The green color channel is enabled.
-	MTLColorWriteMaskGreen MTLColorWriteMask = 0x1
+	MTLColorWriteMaskGreen MTLColorWriteMask = 4
 	// MTLColorWriteMaskNone: All color channels are disabled.
 	MTLColorWriteMaskNone MTLColorWriteMask = 0
 	// MTLColorWriteMaskRed: The red color channel is enabled.
-	MTLColorWriteMaskRed MTLColorWriteMask = 0x1
+	MTLColorWriteMaskRed MTLColorWriteMask = 8
 	// MTLColorWriteMaskUnspecialized: Defers assigning the color write mask.
 	MTLColorWriteMaskUnspecialized MTLColorWriteMask = 0x10
 )
@@ -1177,8 +1177,14 @@ func (e MTLColorWriteMask) String() string {
 		return "MTLColorWriteMaskAll"
 	case MTLColorWriteMaskAlpha:
 		return "MTLColorWriteMaskAlpha"
+	case MTLColorWriteMaskBlue:
+		return "MTLColorWriteMaskBlue"
+	case MTLColorWriteMaskGreen:
+		return "MTLColorWriteMaskGreen"
 	case MTLColorWriteMaskNone:
 		return "MTLColorWriteMaskNone"
+	case MTLColorWriteMaskRed:
+		return "MTLColorWriteMaskRed"
 	case MTLColorWriteMaskUnspecialized:
 		return "MTLColorWriteMaskUnspecialized"
 	default:
@@ -1187,7 +1193,7 @@ func (e MTLColorWriteMask) String() string {
 }
 
 // See: https://developer.apple.com/documentation/Metal/MTLCommandBufferError-swift.struct/Code
-type MTLCommandBufferError int
+type MTLCommandBufferError uint
 
 const (
 	// MTLCommandBufferErrorAccessRevoked: An error code that indicates the system has revoked the Metal device’s access because it’s responsible for too many timeouts or hangs.
@@ -1246,7 +1252,7 @@ func (e MTLCommandBufferError) String() string {
 }
 
 // See: https://developer.apple.com/documentation/Metal/MTLCommandBufferErrorOption
-type MTLCommandBufferErrorOption int
+type MTLCommandBufferErrorOption uint
 
 const (
 	// MTLCommandBufferErrorOptionEncoderExecutionStatus: An option that instructs a command buffer to save additional details about a GPU runtime error.
@@ -1267,7 +1273,7 @@ func (e MTLCommandBufferErrorOption) String() string {
 }
 
 // See: https://developer.apple.com/documentation/Metal/MTLCommandBufferStatus
-type MTLCommandBufferStatus int
+type MTLCommandBufferStatus uint
 
 const (
 	// MTLCommandBufferStatusCommitted: A command buffer’s third state, which indicates the command queue is preparing to schedule the command buffer by resolving its dependencies.
@@ -1993,7 +1999,7 @@ func (e MTLDeviceError) String() string {
 }
 
 // See: https://developer.apple.com/documentation/Metal/MTLDeviceLocation
-type MTLDeviceLocation int
+type MTLDeviceLocation uint
 
 const (
 	// MTLDeviceLocationBuiltIn: A location that indicates the GPU is permanently connected to the system internally.
@@ -2003,7 +2009,7 @@ const (
 	// MTLDeviceLocationSlot: A GPU location that indicates a person connected the GPU to a system’s internal slot.
 	MTLDeviceLocationSlot MTLDeviceLocation = 1
 	// MTLDeviceLocationUnspecified: A value that indicates the system can’t determine how the GPU connects to it.
-	MTLDeviceLocationUnspecified MTLDeviceLocation = -1
+	MTLDeviceLocationUnspecified MTLDeviceLocation = 18446744073709551615
 )
 
 func (e MTLDeviceLocation) String() string {
@@ -2043,7 +2049,7 @@ func (e MTLDispatchType) String() string {
 }
 
 // See: https://developer.apple.com/documentation/Metal/MTLDynamicLibraryError-swift.struct/Code
-type MTLDynamicLibraryError int
+type MTLDynamicLibraryError uint
 
 const (
 	// MTLDynamicLibraryErrorCompilationFailure: An error code that indicates Metal couldn’t compile a dynamic library.
@@ -2213,6 +2219,23 @@ func (e MTLFeatureSet) String() string {
 		return "MTLFeatureSet_tvOS_GPUFamily2_v2"
 	default:
 		return fmt.Sprintf("MTLFeatureSet(%d)", e)
+	}
+}
+
+// See: https://developer.apple.com/documentation/Metal/MTLFloatingPointConversionRoundingMode
+type MTLFloatingPointConversionRoundingMode int
+
+const (
+	MTLFloatingPointConversionRoundingModeToNearestEven MTLFloatingPointConversionRoundingMode = 0
+	MTLFloatingPointConversionRoundingModeTowardZero    MTLFloatingPointConversionRoundingMode = 0
+)
+
+func (e MTLFloatingPointConversionRoundingMode) String() string {
+	switch e {
+	case MTLFloatingPointConversionRoundingModeToNearestEven:
+		return "MTLFloatingPointConversionRoundingModeToNearestEven"
+	default:
+		return fmt.Sprintf("MTLFloatingPointConversionRoundingMode(%d)", e)
 	}
 }
 
@@ -2715,26 +2738,26 @@ type MTLLanguageVersion uint
 
 const (
 	// MTLLanguageVersion1_1: Version 1.1 of the Metal shading language.
-	MTLLanguageVersion1_1 MTLLanguageVersion = 65536
+	MTLLanguageVersion1_1 MTLLanguageVersion = 65537
 	// MTLLanguageVersion1_2: Version 1.2 of the Metal shading language.
-	MTLLanguageVersion1_2 MTLLanguageVersion = 65536
+	MTLLanguageVersion1_2 MTLLanguageVersion = 65538
 	// MTLLanguageVersion2_0: Version 2.0 of the Metal shading language.
 	MTLLanguageVersion2_0 MTLLanguageVersion = 131072
 	// MTLLanguageVersion2_1: Version 2.1 of the Metal shading language.
-	MTLLanguageVersion2_1 MTLLanguageVersion = 131072
+	MTLLanguageVersion2_1 MTLLanguageVersion = 131073
 	// MTLLanguageVersion2_2: Version 2.2 of the Metal shading language.
-	MTLLanguageVersion2_2 MTLLanguageVersion = 131072
+	MTLLanguageVersion2_2 MTLLanguageVersion = 131074
 	// MTLLanguageVersion2_3: Version 2.3 of the Metal shading language.
-	MTLLanguageVersion2_3 MTLLanguageVersion = 131072
+	MTLLanguageVersion2_3 MTLLanguageVersion = 131075
 	// MTLLanguageVersion2_4: Version 2.4 of the Metal shading language.
-	MTLLanguageVersion2_4 MTLLanguageVersion = 131072
+	MTLLanguageVersion2_4 MTLLanguageVersion = 131076
 	// MTLLanguageVersion3_0: Version 3.0 of the Metal shading language.
-	MTLLanguageVersion3_0 MTLLanguageVersion = 131073
+	MTLLanguageVersion3_0 MTLLanguageVersion = 196608
 	// MTLLanguageVersion3_1: Version 3.1 of the Metal shading language.
-	MTLLanguageVersion3_1 MTLLanguageVersion = 131074
+	MTLLanguageVersion3_1 MTLLanguageVersion = 196609
 	// MTLLanguageVersion3_2: Version 3.2 of the Metal shading language.
-	MTLLanguageVersion3_2 MTLLanguageVersion = 131075
-	MTLLanguageVersion4_0 MTLLanguageVersion = 131076
+	MTLLanguageVersion3_2 MTLLanguageVersion = 196610
+	MTLLanguageVersion4_0 MTLLanguageVersion = 262144
 	// Deprecated.
 	MTLLanguageVersion1_0 MTLLanguageVersion = 65536
 )
@@ -2743,8 +2766,18 @@ func (e MTLLanguageVersion) String() string {
 	switch e {
 	case MTLLanguageVersion1_1:
 		return "MTLLanguageVersion1_1"
+	case MTLLanguageVersion1_2:
+		return "MTLLanguageVersion1_2"
 	case MTLLanguageVersion2_0:
 		return "MTLLanguageVersion2_0"
+	case MTLLanguageVersion2_1:
+		return "MTLLanguageVersion2_1"
+	case MTLLanguageVersion2_2:
+		return "MTLLanguageVersion2_2"
+	case MTLLanguageVersion2_3:
+		return "MTLLanguageVersion2_3"
+	case MTLLanguageVersion2_4:
+		return "MTLLanguageVersion2_4"
 	case MTLLanguageVersion3_0:
 		return "MTLLanguageVersion3_0"
 	case MTLLanguageVersion3_1:
@@ -2753,13 +2786,15 @@ func (e MTLLanguageVersion) String() string {
 		return "MTLLanguageVersion3_2"
 	case MTLLanguageVersion4_0:
 		return "MTLLanguageVersion4_0"
+	case MTLLanguageVersion1_0:
+		return "MTLLanguageVersion1_0"
 	default:
 		return fmt.Sprintf("MTLLanguageVersion(%d)", e)
 	}
 }
 
 // See: https://developer.apple.com/documentation/Metal/MTLLibraryError-swift.struct/Code
-type MTLLibraryError int
+type MTLLibraryError uint
 
 const (
 	// MTLLibraryErrorCompileFailure: The library or function failed to compile.
@@ -2900,7 +2935,7 @@ func (e MTLLogLevel) String() string {
 }
 
 // See: https://developer.apple.com/documentation/Metal/MTLLogStateError
-type MTLLogStateError int
+type MTLLogStateError uint
 
 const (
 	MTLLogStateErrorInvalid     MTLLogStateError = 2
@@ -3864,15 +3899,15 @@ const (
 	// MTLResourceHazardTrackingModeDefault: An option specifying that the default tracking mode should be used.
 	MTLResourceHazardTrackingModeDefault MTLResourceOptions = 0
 	// MTLResourceHazardTrackingModeTracked: An option that instructs Metal to apply safeguards for a resource at runtime to avoid memory hazards for the applicable commands.
-	MTLResourceHazardTrackingModeTracked MTLResourceOptions = 2
+	MTLResourceHazardTrackingModeTracked MTLResourceOptions = 512
 	// MTLResourceHazardTrackingModeUntracked: A resource option that instructs Metal to ignore memory hazards for a resource at runtime.
-	MTLResourceHazardTrackingModeUntracked MTLResourceOptions = 1
+	MTLResourceHazardTrackingModeUntracked MTLResourceOptions = 256
 	// MTLResourceStorageModeManaged: The CPU and GPU may maintain separate copies of the resource, and any changes need to be explicitly synchronized.
-	MTLResourceStorageModeManaged MTLResourceOptions = 1
+	MTLResourceStorageModeManaged MTLResourceOptions = 16
 	// MTLResourceStorageModeMemoryless: The resource’s contents are only available to the GPU, and only exist temporarily during a render pass.
-	MTLResourceStorageModeMemoryless MTLResourceOptions = 3
+	MTLResourceStorageModeMemoryless MTLResourceOptions = 48
 	// MTLResourceStorageModePrivate: The resource is only available to the GPU.
-	MTLResourceStorageModePrivate MTLResourceOptions = 2
+	MTLResourceStorageModePrivate MTLResourceOptions = 32
 	// MTLResourceStorageModeShared: The CPU and GPU share access to the resource, allocated in system memory.
 	MTLResourceStorageModeShared MTLResourceOptions = 0
 	// Deprecated.
@@ -3889,8 +3924,14 @@ func (e MTLResourceOptions) String() string {
 		return "MTLResourceCPUCacheModeWriteCombined"
 	case MTLResourceHazardTrackingModeTracked:
 		return "MTLResourceHazardTrackingModeTracked"
+	case MTLResourceHazardTrackingModeUntracked:
+		return "MTLResourceHazardTrackingModeUntracked"
+	case MTLResourceStorageModeManaged:
+		return "MTLResourceStorageModeManaged"
 	case MTLResourceStorageModeMemoryless:
 		return "MTLResourceStorageModeMemoryless"
+	case MTLResourceStorageModePrivate:
+		return "MTLResourceStorageModePrivate"
 	default:
 		return fmt.Sprintf("MTLResourceOptions(%d)", e)
 	}
@@ -4477,6 +4518,11 @@ func (e MTLTensorError) String() string {
 		return fmt.Sprintf("MTLTensorError(%d)", e)
 	}
 }
+
+// See: https://developer.apple.com/documentation/Metal/MTLTensorPlaneType
+type MTLTensorPlaneType int
+
+const ()
 
 // See: https://developer.apple.com/documentation/Metal/MTLTensorUsage
 type MTLTensorUsage uint
@@ -5077,7 +5123,7 @@ func (e MTLVertexStepFunction) String() string {
 }
 
 // See: https://developer.apple.com/documentation/Metal/MTLVisibilityResultMode
-type MTLVisibilityResultMode int
+type MTLVisibilityResultMode uint
 
 const (
 	// MTLVisibilityResultModeBoolean: The result records whether any samples passed depth and stencil tests.

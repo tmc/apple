@@ -66,7 +66,8 @@ func WKWebExtensionControllerDelegateObjectFromID(id objc.ID) WKWebExtensionCont
 //
 // See: https://developer.apple.com/documentation/WebKit/WKWebExtensionControllerDelegate/webExtensionController(_:connectUsing:for:completionHandler:)
 func (o WKWebExtensionControllerDelegateObject) WebExtensionControllerConnectUsingMessagePortForExtensionContextCompletionHandler(controller IWKWebExtensionController, port IWKWebExtensionMessagePort, extensionContext IWKWebExtensionContext, completionHandler ErrorHandler) {
-	objc.Send[struct{}](o.ID, objc.Sel("webExtensionController:connectUsingMessagePort:forExtensionContext:completionHandler:"), controller, port, extensionContext, completionHandler)
+	_block3, _ := NewErrorBlock(completionHandler)
+	objc.Send[struct{}](o.ID, objc.Sel("webExtensionController:connectUsingMessagePort:forExtensionContext:completionHandler:"), controller, port, extensionContext, _block3)
 }
 
 // Called when an action’s properties are updated.
@@ -132,7 +133,8 @@ func (o WKWebExtensionControllerDelegateObject) WebExtensionControllerFocusedWin
 //
 // See: https://developer.apple.com/documentation/WebKit/WKWebExtensionControllerDelegate/webExtensionController(_:openNewTabUsing:for:completionHandler:)
 func (o WKWebExtensionControllerDelegateObject) WebExtensionControllerOpenNewTabUsingConfigurationForExtensionContextCompletionHandler(controller IWKWebExtensionController, configuration IWKWebExtensionTabConfiguration, extensionContext IWKWebExtensionContext, completionHandler WKWebExtensionTabErrorHandler) {
-	objc.Send[struct{}](o.ID, objc.Sel("webExtensionController:openNewTabUsingConfiguration:forExtensionContext:completionHandler:"), controller, configuration, extensionContext, completionHandler)
+	_block3, _ := NewWKWebExtensionTabErrorBlock(completionHandler)
+	objc.Send[struct{}](o.ID, objc.Sel("webExtensionController:openNewTabUsingConfiguration:forExtensionContext:completionHandler:"), controller, configuration, extensionContext, _block3)
 }
 
 // Called when an extension context requests a new window to be opened.
@@ -157,7 +159,8 @@ func (o WKWebExtensionControllerDelegateObject) WebExtensionControllerOpenNewTab
 //
 // See: https://developer.apple.com/documentation/WebKit/WKWebExtensionControllerDelegate/webExtensionController(_:openNewWindowUsing:for:completionHandler:)
 func (o WKWebExtensionControllerDelegateObject) WebExtensionControllerOpenNewWindowUsingConfigurationForExtensionContextCompletionHandler(controller IWKWebExtensionController, configuration IWKWebExtensionWindowConfiguration, extensionContext IWKWebExtensionContext, completionHandler WKWebExtensionWindowErrorHandler) {
-	objc.Send[struct{}](o.ID, objc.Sel("webExtensionController:openNewWindowUsingConfiguration:forExtensionContext:completionHandler:"), controller, configuration, extensionContext, completionHandler)
+	_block3, _ := NewWKWebExtensionWindowErrorBlock(completionHandler)
+	objc.Send[struct{}](o.ID, objc.Sel("webExtensionController:openNewWindowUsingConfiguration:forExtensionContext:completionHandler:"), controller, configuration, extensionContext, _block3)
 }
 
 // Called when an extension context requests its options page to be opened.
@@ -182,7 +185,8 @@ func (o WKWebExtensionControllerDelegateObject) WebExtensionControllerOpenNewWin
 //
 // See: https://developer.apple.com/documentation/WebKit/WKWebExtensionControllerDelegate/webExtensionController(_:openOptionsPageFor:completionHandler:)
 func (o WKWebExtensionControllerDelegateObject) WebExtensionControllerOpenOptionsPageForExtensionContextCompletionHandler(controller IWKWebExtensionController, extensionContext IWKWebExtensionContext, completionHandler ErrorHandler) {
-	objc.Send[struct{}](o.ID, objc.Sel("webExtensionController:openOptionsPageForExtensionContext:completionHandler:"), controller, extensionContext, completionHandler)
+	_block2, _ := NewErrorBlock(completionHandler)
+	objc.Send[struct{}](o.ID, objc.Sel("webExtensionController:openOptionsPageForExtensionContext:completionHandler:"), controller, extensionContext, _block2)
 }
 
 // Called when an extension context requests the list of ordered open windows.
@@ -241,7 +245,8 @@ func (o WKWebExtensionControllerDelegateObject) WebExtensionControllerOpenWindow
 //
 // See: https://developer.apple.com/documentation/WebKit/WKWebExtensionControllerDelegate/webExtensionController(_:presentActionPopup:for:completionHandler:)
 func (o WKWebExtensionControllerDelegateObject) WebExtensionControllerPresentPopupForActionForExtensionContextCompletionHandler(controller IWKWebExtensionController, action IWKWebExtensionAction, context IWKWebExtensionContext, completionHandler ErrorHandler) {
-	objc.Send[struct{}](o.ID, objc.Sel("webExtensionController:presentPopupForAction:forExtensionContext:completionHandler:"), controller, action, context, completionHandler)
+	_block3, _ := NewErrorBlock(completionHandler)
+	objc.Send[struct{}](o.ID, objc.Sel("webExtensionController:presentPopupForAction:forExtensionContext:completionHandler:"), controller, action, context, _block3)
 }
 
 // Called when an extension context wants to send a one-time message to an
@@ -269,7 +274,8 @@ func (o WKWebExtensionControllerDelegateObject) WebExtensionControllerPresentPop
 //
 // See: https://developer.apple.com/documentation/WebKit/WKWebExtensionControllerDelegate/webExtensionController(_:sendMessage:toApplicationWithIdentifier:for:replyHandler:)
 func (o WKWebExtensionControllerDelegateObject) WebExtensionControllerSendMessageToApplicationWithIdentifierForExtensionContextReplyHandler(controller IWKWebExtensionController, message objectivec.IObject, applicationIdentifier string, extensionContext IWKWebExtensionContext, replyHandler ObjectErrorHandler) {
-	objc.Send[struct{}](o.ID, objc.Sel("webExtensionController:sendMessage:toApplicationWithIdentifier:forExtensionContext:replyHandler:"), controller, message, objc.String(applicationIdentifier), extensionContext, replyHandler)
+	_block4, _ := NewObjectErrorBlock(replyHandler)
+	objc.Send[struct{}](o.ID, objc.Sel("webExtensionController:sendMessage:toApplicationWithIdentifier:forExtensionContext:replyHandler:"), controller, message, objc.String(applicationIdentifier), extensionContext, _block4)
 }
 
 // WKWebExtensionControllerDelegateConfig holds optional typed callbacks for [WKWebExtensionControllerDelegate] methods.
@@ -310,10 +316,22 @@ func NewWKWebExtensionControllerDelegate(config WKWebExtensionControllerDelegate
 		methods = append(methods, objc.MethodDef{
 			Cmd: objc.RegisterName("webExtensionController:didUpdateAction:forExtensionContext:"),
 			Fn: func(self objc.ID, _cmd objc.SEL, controllerID objc.ID, actionID objc.ID, contextID objc.ID) {
+				// Names which delegate was running if a panic unwinds out of
+				// it. The frames between here and the Objective-C caller are
+				// runtime and purego dispatch, so without this the traceback
+				// never says which selector dispatched. Deliberately no
+				// recover: see [objc.NoteDelegatePanic].
+				_delegateDone := false
+				defer func() {
+					if !_delegateDone {
+						objc.NoteDelegatePanic("WKWebExtensionControllerDelegate", "webExtensionController:didUpdateAction:forExtensionContext:")
+					}
+				}()
 				controller := WKWebExtensionControllerFromID(controllerID)
 				action := WKWebExtensionActionFromID(actionID)
 				context := WKWebExtensionContextFromID(contextID)
 				fn(controller, action, context)
+				_delegateDone = true
 			},
 		})
 	}

@@ -3,6 +3,7 @@
 package foundation
 
 import (
+	"context"
 	"sync"
 	"unsafe"
 
@@ -144,7 +145,7 @@ func NewNSUserScriptTask() NSUserScriptTask {
 //
 // If invoked from a subclass, the result will be that class or `nil`.
 //
-// See: https://developer.apple.com/documentation/Foundation/NSUserScriptTask/init(url:)-2qgls
+// See: https://developer.apple.com/documentation/Foundation/NSUserScriptTask/init(url:)
 func NewUserScriptTaskWithURLError(url INSURL) (NSUserScriptTask, error) {
 	var errorPtr objc.ID
 	instance := getNSUserScriptTaskClass().Alloc()
@@ -152,6 +153,9 @@ func NewUserScriptTaskWithURLError(url INSURL) (NSUserScriptTask, error) {
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
 		return NSUserScriptTask{}, NSErrorFrom(errorPtr)
+	}
+	if rv == 0 {
+		return NSUserScriptTask{}, objc.ErrInitFailed
 	}
 	return NSUserScriptTaskFromID(rv), nil
 }
@@ -173,7 +177,7 @@ func NewUserScriptTaskWithURLError(url INSURL) (NSUserScriptTask, error) {
 //
 // If invoked from a subclass, the result will be that class or `nil`.
 //
-// See: https://developer.apple.com/documentation/Foundation/NSUserScriptTask/init(url:)-2qgls
+// See: https://developer.apple.com/documentation/Foundation/NSUserScriptTask/init(url:)
 func (u NSUserScriptTask) InitWithURLError(url INSURL) (NSUserScriptTask, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](u.ID, objc.Sel("initWithURL:error:"), url, unsafe.Pointer(&errorPtr))
@@ -214,4 +218,19 @@ func (u NSUserScriptTask) ExecuteWithCompletionHandler(handler ErrorHandler) {
 func (u NSUserScriptTask) ScriptURL() INSURL {
 	rv := objc.Send[objc.ID](u.ID, objc.Sel("scriptURL"))
 	return NSURLFromID(objc.ID(rv))
+}
+
+// Execute is a synchronous wrapper around [NSUserScriptTask.ExecuteWithCompletionHandler].
+// It blocks until the completion handler fires or the context is cancelled.
+func (u NSUserScriptTask) Execute(ctx context.Context) error {
+	done := make(chan error, 1)
+	u.ExecuteWithCompletionHandler(func(err error) {
+		done <- err
+	})
+	select {
+	case err := <-done:
+		return err
+	case <-ctx.Done():
+		return ctx.Err()
+	}
 }

@@ -201,14 +201,14 @@ func NewPlayerLooperWithPlayerTemplateItem(player IAVQueuePlayer, itemToLoop IAV
 //
 // # Discussion
 //
-// The player item you specify will be used as a to generate at least 3 player
-// item replicas that will be inserted into the specified player’s queue to
-// accomplish the looping playback. As the player item will only be used as a
-// template, and not for actual playback, any changes you make to the player
-// item after initialization will not be reflected in the replicas. If you
-// need to explicitly configure the replica player items, such as adding
-// instances of [AVPlayerItemOutput] to them, you can access them through the
-// [AVPlayerLooper.LoopingPlayerItems] property.
+// The player item you specify will be used as a template to generate at least
+// 3 player item replicas that will be inserted into the specified player’s
+// queue to accomplish the looping playback. As the player item will only be
+// used as a template, and not for actual playback, any changes you make to
+// the player item after initialization will not be reflected in the replicas.
+// If you need to explicitly configure the replica player items, such as
+// adding instances of [AVPlayerItemOutput] to them, you can access them
+// through the [AVPlayerLooper.LoopingPlayerItems] property.
 //
 // You should not modify the player’s queue while [AVPlayerLooper] is
 // performing looping playback. If you need to perform any additional
@@ -313,14 +313,14 @@ func (p AVPlayerLooper) InitWithPlayerTemplateItemTimeRangeExistingItemsOrdering
 //
 // # Discussion
 //
-// The player item you specify will be used as a to generate at least 3 player
-// item replicas that will be inserted into the specified player’s queue to
-// accomplish the looping playback. As the player item will only be used as a
-// template, and not for actual playback, any changes you make to the player
-// item after initialization will not be reflected in the replicas. If you
-// need to explicitly configure the replica player items, such as adding
-// instances of [AVPlayerItemOutput] to them, you can access them through the
-// [AVPlayerLooper.LoopingPlayerItems] property.
+// The player item you specify will be used as a template to generate at least
+// 3 player item replicas that will be inserted into the specified player’s
+// queue to accomplish the looping playback. As the player item will only be
+// used as a template, and not for actual playback, any changes you make to
+// the player item after initialization will not be reflected in the replicas.
+// If you need to explicitly configure the replica player items, such as
+// adding instances of [AVPlayerItemOutput] to them, you can access them
+// through the [AVPlayerLooper.LoopingPlayerItems] property.
 //
 // You should not modify the player’s queue while [AVPlayerLooper] is
 // performing looping playback. If you need to perform any additional
@@ -376,14 +376,14 @@ func (p AVPlayerLooper) DisableLooping() {
 //
 // # Discussion
 //
-// The player item you specify will be used as a to generate at least 3 player
-// item replicas that will be inserted into the specified player’s queue to
-// accomplish the looping playback. As the player item will only be used as a
-// template, and not for actual playback, any changes you make to the player
-// item after initialization will not be reflected in the replicas. If you
-// need to explicitly configure the replica player items, such as adding
-// instances of [AVPlayerItemOutput] to them, you can access them through the
-// [AVPlayerLooper.LoopingPlayerItems] property.
+// The player item you specify will be used as a template to generate at least
+// 3 player item replicas that will be inserted into the specified player’s
+// queue to accomplish the looping playback. As the player item will only be
+// used as a template, and not for actual playback, any changes you make to
+// the player item after initialization will not be reflected in the replicas.
+// If you need to explicitly configure the replica player items, such as
+// adding instances of [AVPlayerItemOutput] to them, you can access them
+// through the [AVPlayerLooper.LoopingPlayerItems] property.
 //
 // You should not modify the player’s queue while [AVPlayerLooper] is
 // performing looping playback. If you need to perform any additional

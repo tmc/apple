@@ -103,6 +103,8 @@ type IVNObservation interface {
 	Confidence() VNConfidence
 
 	InitWithCoder(coder foundation.INSCoder) VNObservation
+	// The revision of the [VNRequest](<https://developer.apple.com/documentation/Vision/VNRequest>) subclass used to generate the implementing object.
+	RequestRevision() uint
 	EncodeWithCoder(coder foundation.INSCoder)
 }
 

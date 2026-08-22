@@ -116,7 +116,8 @@ func (o NSURLSessionDelegateObject) URLSessionDidFinishEventsForBackgroundURLSes
 //
 // See: https://developer.apple.com/documentation/Foundation/URLSessionDelegate/urlSession(_:didReceive:completionHandler:)
 func (o NSURLSessionDelegateObject) URLSessionDidReceiveChallengeCompletionHandler(session INSURLSession, challenge INSURLAuthenticationChallenge, completionHandler NSURLSessionAuthChallengeDispositionURLCredentialHandler) {
-	objc.Send[struct{}](o.ID, objc.Sel("URLSession:didReceiveChallenge:completionHandler:"), session, challenge, completionHandler)
+	_block2, _ := NewNSURLSessionAuthChallengeDispositionURLCredentialBlock(completionHandler)
+	objc.Send[struct{}](o.ID, objc.Sel("URLSession:didReceiveChallenge:completionHandler:"), session, challenge, _block2)
 }
 
 // NSURLSessionDelegateConfig holds optional typed callbacks for [NSURLSessionDelegate] methods.
@@ -159,9 +160,21 @@ func NewNSURLSessionDelegate(config NSURLSessionDelegateConfig) NSURLSessionDele
 		methods = append(methods, objc.MethodDef{
 			Cmd: objc.RegisterName("URLSession:didBecomeInvalidWithError:"),
 			Fn: func(self objc.ID, _cmd objc.SEL, sessionID objc.ID, error_ID objc.ID) {
+				// Names which delegate was running if a panic unwinds out of
+				// it. The frames between here and the Objective-C caller are
+				// runtime and purego dispatch, so without this the traceback
+				// never says which selector dispatched. Deliberately no
+				// recover: see [objc.NoteDelegatePanic].
+				_delegateDone := false
+				defer func() {
+					if !_delegateDone {
+						objc.NoteDelegatePanic("NSURLSessionDelegate", "URLSession:didBecomeInvalidWithError:")
+					}
+				}()
 				session := NSURLSessionFromID(sessionID)
 				error_ := objectivec.ObjectFromID(error_ID)
 				fn(session, error_)
+				_delegateDone = true
 			},
 		})
 	}
@@ -171,8 +184,20 @@ func NewNSURLSessionDelegate(config NSURLSessionDelegateConfig) NSURLSessionDele
 		methods = append(methods, objc.MethodDef{
 			Cmd: objc.RegisterName("URLSessionDidFinishEventsForBackgroundURLSession:"),
 			Fn: func(self objc.ID, _cmd objc.SEL, sessionID objc.ID) {
+				// Names which delegate was running if a panic unwinds out of
+				// it. The frames between here and the Objective-C caller are
+				// runtime and purego dispatch, so without this the traceback
+				// never says which selector dispatched. Deliberately no
+				// recover: see [objc.NoteDelegatePanic].
+				_delegateDone := false
+				defer func() {
+					if !_delegateDone {
+						objc.NoteDelegatePanic("NSURLSessionDelegate", "URLSessionDidFinishEventsForBackgroundURLSession:")
+					}
+				}()
 				session := NSURLSessionFromID(sessionID)
 				fn(session)
+				_delegateDone = true
 			},
 		})
 	}

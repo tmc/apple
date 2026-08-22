@@ -97,8 +97,9 @@ func NewVNGenerateAttentionBasedSaliencyImageRequest() VNGenerateAttentionBasedS
 // [VNImageRequestHandler.PerformRequestsError].
 //
 // See: https://developer.apple.com/documentation/Vision/VNRequest/init(completionHandler:)
-func NewGenerateAttentionBasedSaliencyImageRequestWithCompletionHandler(completionHandler VNRequestCompletionHandler) VNGenerateAttentionBasedSaliencyImageRequest {
+func NewGenerateAttentionBasedSaliencyImageRequestWithCompletionHandler(completionHandler VNRequestErrorHandler) VNGenerateAttentionBasedSaliencyImageRequest {
+	_block0, _ := NewVNRequestErrorBlock(completionHandler)
 	instance := getVNGenerateAttentionBasedSaliencyImageRequestClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCompletionHandler:"), completionHandler)
+	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCompletionHandler:"), _block0)
 	return VNGenerateAttentionBasedSaliencyImageRequestFromID(rv)
 }

@@ -3,6 +3,8 @@
 package metal
 
 import (
+	"unsafe"
+
 	"github.com/tmc/apple/foundation"
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
@@ -208,7 +210,7 @@ type MTLRenderCommandEncoder interface {
 	// Creates a buffer from bytes and assigns it to an entry in the fragment shader argument table.
 	//
 	// See: https://developer.apple.com/documentation/Metal/MTLRenderCommandEncoder/setFragmentBytes(_:length:index:)
-	SetFragmentBytesLengthAtIndex(bytes []byte, length uint, index uint)
+	SetFragmentBytesLengthAtIndex(bytes []byte, index uint)
 
 	// Assigns an intersection function table to an entry in the fragment shader argument table.
 	//
@@ -283,7 +285,7 @@ type MTLRenderCommandEncoder interface {
 	// Creates a buffer from bytes and assigns it to an entry in the mesh shader argument table.
 	//
 	// See: https://developer.apple.com/documentation/Metal/MTLRenderCommandEncoder/setMeshBytes(_:length:index:)
-	SetMeshBytesLengthAtIndex(bytes []byte, length uint, index uint)
+	SetMeshBytesLengthAtIndex(bytes []byte, index uint)
 
 	// Assigns a sampler state to an entry in the mesh shader argument table.
 	//
@@ -333,7 +335,7 @@ type MTLRenderCommandEncoder interface {
 	// Creates a buffer from bytes and assigns it to an entry in the object shader argument table.
 	//
 	// See: https://developer.apple.com/documentation/Metal/MTLRenderCommandEncoder/setObjectBytes(_:length:index:)
-	SetObjectBytesLengthAtIndex(bytes []byte, length uint, index uint)
+	SetObjectBytesLengthAtIndex(bytes []byte, index uint)
 
 	// Assigns a sampler state to an entry in the object shader argument table.
 	//
@@ -443,7 +445,7 @@ type MTLRenderCommandEncoder interface {
 	// Creates a buffer from bytes and assigns it to an entry in the tile shader argument table.
 	//
 	// See: https://developer.apple.com/documentation/Metal/MTLRenderCommandEncoder/setTileBytes(_:length:index:)
-	SetTileBytesLengthAtIndex(bytes []byte, length uint, index uint)
+	SetTileBytesLengthAtIndex(bytes []byte, index uint)
 
 	// Assigns an intersection function table to an entry in the tile shader argument table.
 	//
@@ -543,12 +545,12 @@ type MTLRenderCommandEncoder interface {
 	// Creates a buffer from bytes and assigns it to an entry in the vertex shader argument table.
 	//
 	// See: https://developer.apple.com/documentation/Metal/MTLRenderCommandEncoder/setVertexBytes(_:length:index:)
-	SetVertexBytesLengthAtIndex(bytes []byte, length uint, index uint)
+	SetVertexBytesLengthAtIndex(bytes []byte, index uint)
 
 	// SetVertexBytesLengthAttributeStrideAtIndex protocol.
 	//
 	// See: https://developer.apple.com/documentation/Metal/MTLRenderCommandEncoder/setVertexBytes(_:length:attributeStride:index:)
-	SetVertexBytesLengthAttributeStrideAtIndex(bytes []byte, length uint, stride uint, index uint)
+	SetVertexBytesLengthAttributeStrideAtIndex(bytes []byte, stride uint, index uint)
 
 	// Assigns an intersection function table to an entry in the vertex shader argument table.
 	//
@@ -1401,9 +1403,10 @@ func (o MTLRenderCommandEncoderObject) DispatchThreadsPerTile(threadsPerTile MTL
 // that depend on those fences when your app commits the enclosing
 // [MTLCommandBuffer].
 //
-// To synchronize different stages within a single pass, create an because a
-// fence can only synchronize memory operations between different passes. For
-// more information, see [Synchronizing stages within a pass].
+// To synchronize different stages within a single pass, create an intrapass
+// barrier because a fence can only synchronize memory operations between
+// different passes. For more information, see [Synchronizing stages within a
+// pass].
 //
 // See: https://developer.apple.com/documentation/Metal/MTLRenderCommandEncoder/waitForFence(_:before:)
 //
@@ -1448,9 +1451,10 @@ func (o MTLRenderCommandEncoderObject) WaitForFenceBeforeStages(fence MTLFence, 
 // that depend on those fences when your app commits the enclosing
 // [MTLCommandBuffer].
 //
-// To synchronize different stages within a single pass, create an because a
-// fence can only synchronize memory operations between different passes. For
-// more information, see [Synchronizing stages within a pass].
+// To synchronize different stages within a single pass, create an intrapass
+// barrier because a fence can only synchronize memory operations between
+// different passes. For more information, see [Synchronizing stages within a
+// pass].
 //
 // See: https://developer.apple.com/documentation/Metal/MTLRenderCommandEncoder/updateFence(_:after:)
 //
@@ -1679,10 +1683,10 @@ func (o MTLRenderCommandEncoderObject) SetColorStoreActionOptionsAtIndex(storeAc
 // any, based on the direction of each primitive’s face relative to the
 // scene’s camera. For example, you can correctly cull hidden surfaces on
 // some geometric models, such as a sphere made of filled triangles, if it
-// uses orientable surfaces. A surface is if its primitives consistently use
-// the same ordering for its vertices. Metal defines vertex ordering with the
-// [MTLWinding] type, which includes [MTLWindingClockwise] and
-// [MTLWindingCounterClockwise]. You can tell the render pipeline which
+// uses orientable surfaces. A surface is orientable if its primitives
+// consistently use the same ordering for its vertices. Metal defines vertex
+// ordering with the [MTLWinding] type, which includes [MTLWindingClockwise]
+// and [MTLWindingCounterClockwise]. You can tell the render pipeline which
 // direction your primitives face by calling the [SetFrontFacingWinding]
 // method, which affects the primitives the culling mode removes.
 //
@@ -1953,8 +1957,8 @@ func (o MTLRenderCommandEncoderObject) SetFragmentBuffersOffsetsWithRange(buffer
 // By default, the buffer at each index is `nil`.
 //
 // See: https://developer.apple.com/documentation/Metal/MTLRenderCommandEncoder/setFragmentBytes(_:length:index:)
-func (o MTLRenderCommandEncoderObject) SetFragmentBytesLengthAtIndex(bytes []byte, length uint, index uint) {
-	objc.Send[struct{}](o.ID, objc.Sel("setFragmentBytes:length:atIndex:"), bytes, length, index)
+func (o MTLRenderCommandEncoderObject) SetFragmentBytesLengthAtIndex(bytes []byte, index uint) {
+	objc.Send[struct{}](o.ID, objc.Sel("setFragmentBytes:length:atIndex:"), objc.BytesPointer(bytes), uint(len(bytes)), index)
 }
 
 // Assigns an intersection function table to an entry in the fragment shader
@@ -2297,8 +2301,8 @@ func (o MTLRenderCommandEncoderObject) SetMeshBuffersOffsetsWithRange(buffers []
 // it to [SetMeshBufferOffsetAtIndex].
 //
 // See: https://developer.apple.com/documentation/Metal/MTLRenderCommandEncoder/setMeshBytes(_:length:index:)
-func (o MTLRenderCommandEncoderObject) SetMeshBytesLengthAtIndex(bytes []byte, length uint, index uint) {
-	objc.Send[struct{}](o.ID, objc.Sel("setMeshBytes:length:atIndex:"), bytes, length, index)
+func (o MTLRenderCommandEncoderObject) SetMeshBytesLengthAtIndex(bytes []byte, index uint) {
+	objc.Send[struct{}](o.ID, objc.Sel("setMeshBytes:length:atIndex:"), objc.BytesPointer(bytes), uint(len(bytes)), index)
 }
 
 // Assigns a sampler state to an entry in the mesh shader argument table.
@@ -2545,8 +2549,8 @@ func (o MTLRenderCommandEncoderObject) SetObjectBuffersOffsetsWithRange(buffers 
 // it to [SetObjectBufferOffsetAtIndex].
 //
 // See: https://developer.apple.com/documentation/Metal/MTLRenderCommandEncoder/setObjectBytes(_:length:index:)
-func (o MTLRenderCommandEncoderObject) SetObjectBytesLengthAtIndex(bytes []byte, length uint, index uint) {
-	objc.Send[struct{}](o.ID, objc.Sel("setObjectBytes:length:atIndex:"), bytes, length, index)
+func (o MTLRenderCommandEncoderObject) SetObjectBytesLengthAtIndex(bytes []byte, index uint) {
+	objc.Send[struct{}](o.ID, objc.Sel("setObjectBytes:length:atIndex:"), objc.BytesPointer(bytes), uint(len(bytes)), index)
 }
 
 // Assigns a sampler state to an entry in the object shader argument table.
@@ -3057,8 +3061,8 @@ func (o MTLRenderCommandEncoderObject) SetTileBuffersOffsetsWithRange(buffers []
 // By default, the buffer at each index is `nil`.
 //
 // See: https://developer.apple.com/documentation/Metal/MTLRenderCommandEncoder/setTileBytes(_:length:index:)
-func (o MTLRenderCommandEncoderObject) SetTileBytesLengthAtIndex(bytes []byte, length uint, index uint) {
-	objc.Send[struct{}](o.ID, objc.Sel("setTileBytes:length:atIndex:"), bytes, length, index)
+func (o MTLRenderCommandEncoderObject) SetTileBytesLengthAtIndex(bytes []byte, index uint) {
+	objc.Send[struct{}](o.ID, objc.Sel("setTileBytes:length:atIndex:"), objc.BytesPointer(bytes), uint(len(bytes)), index)
 }
 
 // Assigns an intersection function table to an entry in the tile shader
@@ -3318,10 +3322,10 @@ func (o MTLRenderCommandEncoderObject) SetVertexAccelerationStructureAtBufferInd
 //
 // # Discussion
 //
-// With , you can encode drawing commands that process the same vertex
-// multiple times, one per render target. You can configure the render
-// pipeline’s vertex amplification multiplier by calling this method with a
-// `count` argument that’s greater than `1`.
+// With vertex amplification, you can encode drawing commands that process the
+// same vertex multiple times, one per render target. You can configure the
+// render pipeline’s vertex amplification multiplier by calling this method
+// with a `count` argument that’s greater than `1`.
 //
 // For more information about vertex amplification and how to use the
 // `viewMappings` parameter, see [Improving rendering performance with vertex
@@ -3332,7 +3336,7 @@ func (o MTLRenderCommandEncoderObject) SetVertexAccelerationStructureAtBufferInd
 // [MTLVertexAmplificationViewMapping]: https://developer.apple.com/documentation/Metal/MTLVertexAmplificationViewMapping
 // [Improving rendering performance with vertex amplification]: https://developer.apple.com/documentation/Metal/improving-rendering-performance-with-vertex-amplification
 func (o MTLRenderCommandEncoderObject) SetVertexAmplificationCountViewMappings(count uint, viewMappings *MTLVertexAmplificationViewMapping) {
-	objc.Send[struct{}](o.ID, objc.Sel("setVertexAmplificationCount:viewMappings:"), count, viewMappings)
+	objc.Send[struct{}](o.ID, objc.Sel("setVertexAmplificationCount:viewMappings:"), count, unsafe.Pointer(viewMappings))
 }
 
 // Assigns a buffer to an entry in the vertex shader argument table.
@@ -3463,13 +3467,13 @@ func (o MTLRenderCommandEncoderObject) SetVertexBuffersOffsetsWithRange(buffers 
 // By default, the buffer at each index is `nil`.
 //
 // See: https://developer.apple.com/documentation/Metal/MTLRenderCommandEncoder/setVertexBytes(_:length:index:)
-func (o MTLRenderCommandEncoderObject) SetVertexBytesLengthAtIndex(bytes []byte, length uint, index uint) {
-	objc.Send[struct{}](o.ID, objc.Sel("setVertexBytes:length:atIndex:"), bytes, length, index)
+func (o MTLRenderCommandEncoderObject) SetVertexBytesLengthAtIndex(bytes []byte, index uint) {
+	objc.Send[struct{}](o.ID, objc.Sel("setVertexBytes:length:atIndex:"), objc.BytesPointer(bytes), uint(len(bytes)), index)
 }
 
 // See: https://developer.apple.com/documentation/Metal/MTLRenderCommandEncoder/setVertexBytes(_:length:attributeStride:index:)
-func (o MTLRenderCommandEncoderObject) SetVertexBytesLengthAttributeStrideAtIndex(bytes []byte, length uint, stride uint, index uint) {
-	objc.Send[struct{}](o.ID, objc.Sel("setVertexBytes:length:attributeStride:atIndex:"), bytes, length, stride, index)
+func (o MTLRenderCommandEncoderObject) SetVertexBytesLengthAttributeStrideAtIndex(bytes []byte, stride uint, index uint) {
+	objc.Send[struct{}](o.ID, objc.Sel("setVertexBytes:length:attributeStride:atIndex:"), objc.BytesPointer(bytes), uint(len(bytes)), stride, index)
 }
 
 // Assigns an intersection function table to an entry in the vertex shader
@@ -3823,8 +3827,8 @@ func (o MTLRenderCommandEncoderObject) SetVisibilityResultModeOffset(mode MTLVis
 //
 // # Discussion
 //
-// You can make the resources in `heap` (available in GPU memory) for the
-// remaining duration of the render pass by calling this method. Call the
+// You can make the resources in `heap` resident (available in GPU memory) for
+// the remaining duration of the render pass by calling this method. Call the
 // method before encoding draw calls that may access resources within `heap`
 // through an argument buffer. The method ensures each resource is in a format
 // that’s compatible with the shaders that depend on it.
@@ -3854,9 +3858,9 @@ func (o MTLRenderCommandEncoderObject) SetVisibilityResultModeOffset(mode MTLVis
 // applying [MTLFence] or [MTLEvent] instances.
 //
 // Apps typically call the method for heaps that have resources in argument
-// buffers for a implementation. For more information about argument buffers
-// and bindless implementations, see [Improving CPU performance by using
-// argument buffers] and [Go bindless with Metal 3], respectively.
+// buffers for a bindless implementation. For more information about argument
+// buffers and bindless implementations, see [Improving CPU performance by
+// using argument buffers] and [Go bindless with Metal 3], respectively.
 //
 // See: https://developer.apple.com/documentation/Metal/MTLRenderCommandEncoder/useHeap(_:stages:)
 //
@@ -3881,11 +3885,11 @@ func (o MTLRenderCommandEncoderObject) UseHeapStages(heap MTLHeap, stages MTLRen
 //
 // # Discussion
 //
-// You can make the resources in `heaps` (available in GPU memory) for the
-// remaining duration of the render pass by calling this method. Call the
-// method before encoding draw calls that may access resources within `heaps`
-// through an argument buffer. The method ensures each resource is in a format
-// that’s compatible with the shaders that depend on it.
+// You can make the resources in `heaps` resident (available in GPU memory)
+// for the remaining duration of the render pass by calling this method. Call
+// the method before encoding draw calls that may access resources within
+// `heaps` through an argument buffer. The method ensures each resource is in
+// a format that’s compatible with the shaders that depend on it.
 //
 // The method’s applies the [MTLResourceUsageRead] resource usage option to
 // all of the resources within `heaps`, except for textures. The method
@@ -3912,9 +3916,9 @@ func (o MTLRenderCommandEncoderObject) UseHeapStages(heap MTLHeap, stages MTLRen
 // applying [MTLFence] or [MTLEvent] instances.
 //
 // Apps typically call the method for heaps that have resources in argument
-// buffers for a implementation. For more information about argument buffers
-// and bindless implementations, see [Improving CPU performance by using
-// argument buffers] and [Go bindless with Metal 3], respectively.
+// buffers for a bindless implementation. For more information about argument
+// buffers and bindless implementations, see [Improving CPU performance by
+// using argument buffers] and [Go bindless with Metal 3], respectively.
 //
 // See: https://developer.apple.com/documentation/Metal/MTLRenderCommandEncoder/useHeaps:count:stages:
 //
@@ -3943,11 +3947,11 @@ func (o MTLRenderCommandEncoderObject) UseHeapsCountStages(heaps []MTLHeap, coun
 //
 // # Discussion
 //
-// You can make a resource (available in GPU memory) for the remaining
-// duration of the render pass by calling this method. Call the method before
-// encoding draw calls that may access `resource` through an argument buffer.
-// The method ensures the resource is in a format that’s compatible with the
-// shaders that depend on it.
+// You can make a resource resident (available in GPU memory) for the
+// remaining duration of the render pass by calling this method. Call the
+// method before encoding draw calls that may access `resource` through an
+// argument buffer. The method ensures the resource is in a format that’s
+// compatible with the shaders that depend on it.
 //
 // For example, you can explicitly bind resources for the vertex stage with
 // the methods in the [Vertex shader resource preparation commands]
@@ -3962,9 +3966,9 @@ func (o MTLRenderCommandEncoderObject) UseHeapsCountStages(heaps []MTLHeap, coun
 // subsequent draw calls in the same render pass by calling this method again.
 //
 // Apps typically call the method for a resource in an argument buffer as a
-// part of their implementation. For more information about argument buffers
-// and bindless implementations, see [Improving CPU performance by using
-// argument buffers] and [Go bindless with Metal 3], respectively.
+// part of their bindless implementation. For more information about argument
+// buffers and bindless implementations, see [Improving CPU performance by
+// using argument buffers] and [Go bindless with Metal 3], respectively.
 //
 // See: https://developer.apple.com/documentation/Metal/MTLRenderCommandEncoder/useResource(_:usage:stages:)
 //
@@ -3996,11 +4000,11 @@ func (o MTLRenderCommandEncoderObject) UseResourceUsageStages(resource MTLResour
 //
 // # Discussion
 //
-// You can make multiple resources (available in GPU memory) for the remaining
-// duration of the render pass by calling this method. Call the method before
-// encoding draw calls that may access the elements of `resources` through an
-// argument buffer. The method ensures each resource is in a format that’s
-// compatible with the shaders that depend on it.
+// You can make multiple resources resident (available in GPU memory) for the
+// remaining duration of the render pass by calling this method. Call the
+// method before encoding draw calls that may access the elements of
+// `resources` through an argument buffer. The method ensures each resource is
+// in a format that’s compatible with the shaders that depend on it.
 //
 // For example, you can explicitly bind resources for the vertex stage with
 // the methods in the [Vertex shader resource preparation commands]
@@ -4016,9 +4020,9 @@ func (o MTLRenderCommandEncoderObject) UseResourceUsageStages(resource MTLResour
 // subsequent draw calls in the same render pass by calling this method again.
 //
 // Apps typically call the method for resources in an argument buffer as a
-// part of their implementation. For more information about argument buffers
-// and bindless implementations, see [Improving CPU performance by using
-// argument buffers] and [Go bindless with Metal 3], respectively.
+// part of their bindless implementation. For more information about argument
+// buffers and bindless implementations, see [Improving CPU performance by
+// using argument buffers] and [Go bindless with Metal 3], respectively.
 //
 // See: https://developer.apple.com/documentation/Metal/MTLRenderCommandEncoder/useResources:count:usage:stages:
 //

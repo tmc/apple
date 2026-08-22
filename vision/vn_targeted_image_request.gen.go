@@ -3,14 +3,16 @@
 package vision
 
 import (
+	"context"
 	"sync"
 
 	"github.com/tmc/apple/coregraphics"
+	"github.com/tmc/apple/coreimage"
 	"github.com/tmc/apple/coremedia"
 	"github.com/tmc/apple/corevideo"
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/imageio"
 	"github.com/tmc/apple/objc"
-	"github.com/tmc/apple/objectivec"
 )
 
 // The class instance for the [VNTargetedImageRequest] class.
@@ -111,54 +113,54 @@ type IVNTargetedImageRequest interface {
 	// Topic: Creating a Request
 
 	// Creates a new request targeting a Core Graphics image, executing the completion handler when done.
-	InitWithTargetedCGImageOptionsCompletionHandler(cgImage coregraphics.CGImageRef, options foundation.INSDictionary, completionHandler ErrorHandler) VNTargetedImageRequest
+	InitWithTargetedCGImageOptionsCompletionHandler(cgImage coregraphics.CGImageRef, options foundation.INSDictionary, completionHandler VNRequestErrorHandler) VNTargetedImageRequest
 	// Creates a new request targeting a Core Graphics image of known orientation, executing the completion handler when done.
-	InitWithTargetedCGImageOrientationOptionsCompletionHandler(cgImage coregraphics.CGImageRef, orientation uint, options foundation.INSDictionary, completionHandler ErrorHandler) VNTargetedImageRequest
+	InitWithTargetedCGImageOrientationOptionsCompletionHandler(cgImage coregraphics.CGImageRef, orientation imageio.CGImagePropertyOrientation, options foundation.INSDictionary, completionHandler VNRequestErrorHandler) VNTargetedImageRequest
 	// Creates a new request targeting a Core Image image.
-	InitWithTargetedCIImageOptionsCompletionHandler(ciImage objectivec.IObject, options foundation.INSDictionary, completionHandler ErrorHandler) VNTargetedImageRequest
+	InitWithTargetedCIImageOptionsCompletionHandler(ciImage *coreimage.CIImage, options foundation.INSDictionary, completionHandler VNRequestErrorHandler) VNTargetedImageRequest
 	// Creates a new request targeting a Core Image image of known orientation, executing the completion handler when done.
-	InitWithTargetedCIImageOrientationOptionsCompletionHandler(ciImage objectivec.IObject, orientation uint, options foundation.INSDictionary, completionHandler ErrorHandler) VNTargetedImageRequest
+	InitWithTargetedCIImageOrientationOptionsCompletionHandler(ciImage *coreimage.CIImage, orientation imageio.CGImagePropertyOrientation, options foundation.INSDictionary, completionHandler VNRequestErrorHandler) VNTargetedImageRequest
 	// Creates a new request targeting an image in a pixel buffer.
-	InitWithTargetedCVPixelBufferOptionsCompletionHandler(pixelBuffer corevideo.CVImageBufferRef, options foundation.INSDictionary, completionHandler ErrorHandler) VNTargetedImageRequest
+	InitWithTargetedCVPixelBufferOptionsCompletionHandler(pixelBuffer corevideo.CVImageBufferRef, options foundation.INSDictionary, completionHandler VNRequestErrorHandler) VNTargetedImageRequest
 	// Creates a new request targeting an image in a pixel buffer of known orientation.
-	InitWithTargetedCVPixelBufferOrientationOptionsCompletionHandler(pixelBuffer corevideo.CVImageBufferRef, orientation uint, options foundation.INSDictionary, completionHandler ErrorHandler) VNTargetedImageRequest
+	InitWithTargetedCVPixelBufferOrientationOptionsCompletionHandler(pixelBuffer corevideo.CVImageBufferRef, orientation imageio.CGImagePropertyOrientation, options foundation.INSDictionary, completionHandler VNRequestErrorHandler) VNTargetedImageRequest
 	// Creates a new request with a completion handler that targets an image in a sample buffer.
-	InitWithTargetedCMSampleBufferOptionsCompletionHandler(sampleBuffer coremedia.CMSampleBufferRef, options foundation.INSDictionary, completionHandler ErrorHandler) VNTargetedImageRequest
+	InitWithTargetedCMSampleBufferOptionsCompletionHandler(sampleBuffer coremedia.CMSampleBufferRef, options foundation.INSDictionary, completionHandler VNRequestErrorHandler) VNTargetedImageRequest
 	// Creates a new request with a completion handler that targets an image of a known orientation in a sample buffer.
-	InitWithTargetedCMSampleBufferOrientationOptionsCompletionHandler(sampleBuffer coremedia.CMSampleBufferRef, orientation uint, options foundation.INSDictionary, completionHandler ErrorHandler) VNTargetedImageRequest
+	InitWithTargetedCMSampleBufferOrientationOptionsCompletionHandler(sampleBuffer coremedia.CMSampleBufferRef, orientation imageio.CGImagePropertyOrientation, options foundation.INSDictionary, completionHandler VNRequestErrorHandler) VNTargetedImageRequest
 	// Creates a new request targeting an image as raw data, executing the completion handler when done.
-	InitWithTargetedImageDataOptionsCompletionHandler(imageData foundation.NSData, options foundation.INSDictionary, completionHandler ErrorHandler) VNTargetedImageRequest
+	InitWithTargetedImageDataOptionsCompletionHandler(imageData foundation.NSData, options foundation.INSDictionary, completionHandler VNRequestErrorHandler) VNTargetedImageRequest
 	// Creates a new request targeting a raw data image of known orientation, executing the completion handler when done.
-	InitWithTargetedImageDataOrientationOptionsCompletionHandler(imageData foundation.NSData, orientation uint, options foundation.INSDictionary, completionHandler ErrorHandler) VNTargetedImageRequest
+	InitWithTargetedImageDataOrientationOptionsCompletionHandler(imageData foundation.NSData, orientation imageio.CGImagePropertyOrientation, options foundation.INSDictionary, completionHandler VNRequestErrorHandler) VNTargetedImageRequest
 	// Creates a new request targeting an image at the specified URL, executing the completion handler when done.
-	InitWithTargetedImageURLOptionsCompletionHandler(imageURL foundation.NSURL, options foundation.INSDictionary, completionHandler ErrorHandler) VNTargetedImageRequest
+	InitWithTargetedImageURLOptionsCompletionHandler(imageURL foundation.NSURL, options foundation.INSDictionary, completionHandler VNRequestErrorHandler) VNTargetedImageRequest
 	// Creates a new request targeting an image of known orientation, at the specified URL, executing the completion handler when done.
-	InitWithTargetedImageURLOrientationOptionsCompletionHandler(imageURL foundation.NSURL, orientation uint, options foundation.INSDictionary, completionHandler ErrorHandler) VNTargetedImageRequest
+	InitWithTargetedImageURLOrientationOptionsCompletionHandler(imageURL foundation.NSURL, orientation imageio.CGImagePropertyOrientation, options foundation.INSDictionary, completionHandler VNRequestErrorHandler) VNTargetedImageRequest
 
 	// Creates a new request targeting a Core Graphics image.
 	InitWithTargetedCGImageOptions(cgImage coregraphics.CGImageRef, options foundation.INSDictionary) VNTargetedImageRequest
 	// Creates a new request targeting a Core Graphics image of known orientation.
-	InitWithTargetedCGImageOrientationOptions(cgImage coregraphics.CGImageRef, orientation uint, options foundation.INSDictionary) VNTargetedImageRequest
+	InitWithTargetedCGImageOrientationOptions(cgImage coregraphics.CGImageRef, orientation imageio.CGImagePropertyOrientation, options foundation.INSDictionary) VNTargetedImageRequest
 	// Creates a new request targeting a Core Image image.
-	InitWithTargetedCIImageOptions(ciImage objectivec.IObject, options foundation.INSDictionary) VNTargetedImageRequest
+	InitWithTargetedCIImageOptions(ciImage *coreimage.CIImage, options foundation.INSDictionary) VNTargetedImageRequest
 	// Creates a new request targeting a Core Image image of known orientation.
-	InitWithTargetedCIImageOrientationOptions(ciImage objectivec.IObject, orientation uint, options foundation.INSDictionary) VNTargetedImageRequest
+	InitWithTargetedCIImageOrientationOptions(ciImage *coreimage.CIImage, orientation imageio.CGImagePropertyOrientation, options foundation.INSDictionary) VNTargetedImageRequest
 	// Creates a new request that targets an image in a sample buffer.
 	InitWithTargetedCMSampleBufferOptions(sampleBuffer coremedia.CMSampleBufferRef, options foundation.INSDictionary) VNTargetedImageRequest
 	// Creates a new request that targets an image of a known orientation in a sample buffer.
-	InitWithTargetedCMSampleBufferOrientationOptions(sampleBuffer coremedia.CMSampleBufferRef, orientation uint, options foundation.INSDictionary) VNTargetedImageRequest
+	InitWithTargetedCMSampleBufferOrientationOptions(sampleBuffer coremedia.CMSampleBufferRef, orientation imageio.CGImagePropertyOrientation, options foundation.INSDictionary) VNTargetedImageRequest
 	// Creates a new request targeting an image in a pixel buffer.
 	InitWithTargetedCVPixelBufferOptions(pixelBuffer corevideo.CVImageBufferRef, options foundation.INSDictionary) VNTargetedImageRequest
 	// Creates a new request targeting an image in a pixel buffer of known orientation.
-	InitWithTargetedCVPixelBufferOrientationOptions(pixelBuffer corevideo.CVImageBufferRef, orientation uint, options foundation.INSDictionary) VNTargetedImageRequest
+	InitWithTargetedCVPixelBufferOrientationOptions(pixelBuffer corevideo.CVImageBufferRef, orientation imageio.CGImagePropertyOrientation, options foundation.INSDictionary) VNTargetedImageRequest
 	// Creates a new request targeting an image as raw data.
 	InitWithTargetedImageDataOptions(imageData foundation.NSData, options foundation.INSDictionary) VNTargetedImageRequest
 	// Creates a new request targeting a raw data image of known orientation.
-	InitWithTargetedImageDataOrientationOptions(imageData foundation.NSData, orientation uint, options foundation.INSDictionary) VNTargetedImageRequest
+	InitWithTargetedImageDataOrientationOptions(imageData foundation.NSData, orientation imageio.CGImagePropertyOrientation, options foundation.INSDictionary) VNTargetedImageRequest
 	// Creates a new request targeting an image at the specified URL.
 	InitWithTargetedImageURLOptions(imageURL foundation.NSURL, options foundation.INSDictionary) VNTargetedImageRequest
 	// Creates a new request targeting an image of known orientation, at the specified URL.
-	InitWithTargetedImageURLOrientationOptions(imageURL foundation.NSURL, orientation uint, options foundation.INSDictionary) VNTargetedImageRequest
+	InitWithTargetedImageURLOrientationOptions(imageURL foundation.NSURL, orientation imageio.CGImagePropertyOrientation, options foundation.INSDictionary) VNTargetedImageRequest
 }
 
 // Init initializes the instance.
@@ -191,9 +193,10 @@ func NewVNTargetedImageRequest() VNTargetedImageRequest {
 // [VNImageRequestHandler.PerformRequestsError].
 //
 // See: https://developer.apple.com/documentation/Vision/VNRequest/init(completionHandler:)
-func NewTargetedImageRequestWithCompletionHandler(completionHandler VNRequestCompletionHandler) VNTargetedImageRequest {
+func NewTargetedImageRequestWithCompletionHandler(completionHandler VNRequestErrorHandler) VNTargetedImageRequest {
+	_block0, _ := NewVNRequestErrorBlock(completionHandler)
 	instance := getVNTargetedImageRequestClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCompletionHandler:"), completionHandler)
+	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCompletionHandler:"), _block0)
 	return VNTargetedImageRequestFromID(rv)
 }
 
@@ -220,9 +223,10 @@ func NewTargetedImageRequestWithTargetedCGImageOptions(cgImage coregraphics.CGIm
 // completionHandler: The block to invoke when the request has finished executing.
 //
 // See: https://developer.apple.com/documentation/Vision/VNTargetedImageRequest/init(targetedCGImage:options:completionHandler:)
-func NewTargetedImageRequestWithTargetedCGImageOptionsCompletionHandler(cgImage coregraphics.CGImageRef, options foundation.INSDictionary, completionHandler VNRequestCompletionHandler) VNTargetedImageRequest {
+func NewTargetedImageRequestWithTargetedCGImageOptionsCompletionHandler(cgImage coregraphics.CGImageRef, options foundation.INSDictionary, completionHandler VNRequestErrorHandler) VNTargetedImageRequest {
+	_block2, _ := NewVNRequestErrorBlock(completionHandler)
 	instance := getVNTargetedImageRequestClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithTargetedCGImage:options:completionHandler:"), cgImage, options, completionHandler)
+	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithTargetedCGImage:options:completionHandler:"), cgImage, options, _block2)
 	return VNTargetedImageRequestFromID(rv)
 }
 
@@ -239,7 +243,7 @@ func NewTargetedImageRequestWithTargetedCGImageOptionsCompletionHandler(cgImage 
 // See: https://developer.apple.com/documentation/Vision/VNTargetedImageRequest/initWithTargetedCGImage:orientation:options:
 //
 // [kCGImagePropertyOrientation]: https://developer.apple.com/documentation/ImageIO/kCGImagePropertyOrientation
-func NewTargetedImageRequestWithTargetedCGImageOrientationOptions(cgImage coregraphics.CGImageRef, orientation uint, options foundation.INSDictionary) VNTargetedImageRequest {
+func NewTargetedImageRequestWithTargetedCGImageOrientationOptions(cgImage coregraphics.CGImageRef, orientation imageio.CGImagePropertyOrientation, options foundation.INSDictionary) VNTargetedImageRequest {
 	instance := getVNTargetedImageRequestClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithTargetedCGImage:orientation:options:"), cgImage, orientation, options)
 	return VNTargetedImageRequestFromID(rv)
@@ -261,9 +265,10 @@ func NewTargetedImageRequestWithTargetedCGImageOrientationOptions(cgImage coregr
 // See: https://developer.apple.com/documentation/Vision/VNTargetedImageRequest/init(targetedCGImage:orientation:options:completionHandler:)
 //
 // [kCGImagePropertyOrientation]: https://developer.apple.com/documentation/ImageIO/kCGImagePropertyOrientation
-func NewTargetedImageRequestWithTargetedCGImageOrientationOptionsCompletionHandler(cgImage coregraphics.CGImageRef, orientation uint, options foundation.INSDictionary, completionHandler VNRequestCompletionHandler) VNTargetedImageRequest {
+func NewTargetedImageRequestWithTargetedCGImageOrientationOptionsCompletionHandler(cgImage coregraphics.CGImageRef, orientation imageio.CGImagePropertyOrientation, options foundation.INSDictionary, completionHandler VNRequestErrorHandler) VNTargetedImageRequest {
+	_block3, _ := NewVNRequestErrorBlock(completionHandler)
 	instance := getVNTargetedImageRequestClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithTargetedCGImage:orientation:options:completionHandler:"), cgImage, orientation, options, completionHandler)
+	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithTargetedCGImage:orientation:options:completionHandler:"), cgImage, orientation, options, _block3)
 	return VNTargetedImageRequestFromID(rv)
 }
 
@@ -276,9 +281,9 @@ func NewTargetedImageRequestWithTargetedCGImageOrientationOptionsCompletionHandl
 // See: https://developer.apple.com/documentation/Vision/VNTargetedImageRequest/initWithTargetedCIImage:options:
 //
 // [CIImage]: https://developer.apple.com/documentation/CoreImage/CIImage
-func NewTargetedImageRequestWithTargetedCIImageOptions(ciImage objectivec.IObject, options foundation.INSDictionary) VNTargetedImageRequest {
+func NewTargetedImageRequestWithTargetedCIImageOptions(ciImage *coreimage.CIImage, options foundation.INSDictionary) VNTargetedImageRequest {
 	instance := getVNTargetedImageRequestClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithTargetedCIImage:options:"), ciImage, options)
+	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithTargetedCIImage:options:"), ciImage.ID, options)
 	return VNTargetedImageRequestFromID(rv)
 }
 
@@ -293,9 +298,10 @@ func NewTargetedImageRequestWithTargetedCIImageOptions(ciImage objectivec.IObjec
 // See: https://developer.apple.com/documentation/Vision/VNTargetedImageRequest/init(targetedCIImage:options:completionHandler:)
 //
 // [CIImage]: https://developer.apple.com/documentation/CoreImage/CIImage
-func NewTargetedImageRequestWithTargetedCIImageOptionsCompletionHandler(ciImage objectivec.IObject, options foundation.INSDictionary, completionHandler VNRequestCompletionHandler) VNTargetedImageRequest {
+func NewTargetedImageRequestWithTargetedCIImageOptionsCompletionHandler(ciImage *coreimage.CIImage, options foundation.INSDictionary, completionHandler VNRequestErrorHandler) VNTargetedImageRequest {
+	_block2, _ := NewVNRequestErrorBlock(completionHandler)
 	instance := getVNTargetedImageRequestClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithTargetedCIImage:options:completionHandler:"), ciImage, options, completionHandler)
+	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithTargetedCIImage:options:completionHandler:"), ciImage, options, _block2)
 	return VNTargetedImageRequestFromID(rv)
 }
 
@@ -313,9 +319,9 @@ func NewTargetedImageRequestWithTargetedCIImageOptionsCompletionHandler(ciImage 
 //
 // [CIImage]: https://developer.apple.com/documentation/CoreImage/CIImage
 // [kCGImagePropertyOrientation]: https://developer.apple.com/documentation/ImageIO/kCGImagePropertyOrientation
-func NewTargetedImageRequestWithTargetedCIImageOrientationOptions(ciImage objectivec.IObject, orientation uint, options foundation.INSDictionary) VNTargetedImageRequest {
+func NewTargetedImageRequestWithTargetedCIImageOrientationOptions(ciImage *coreimage.CIImage, orientation imageio.CGImagePropertyOrientation, options foundation.INSDictionary) VNTargetedImageRequest {
 	instance := getVNTargetedImageRequestClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithTargetedCIImage:orientation:options:"), ciImage, orientation, options)
+	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithTargetedCIImage:orientation:options:"), ciImage.ID, orientation, options)
 	return VNTargetedImageRequestFromID(rv)
 }
 
@@ -336,9 +342,10 @@ func NewTargetedImageRequestWithTargetedCIImageOrientationOptions(ciImage object
 //
 // [CIImage]: https://developer.apple.com/documentation/CoreImage/CIImage
 // [kCGImagePropertyOrientation]: https://developer.apple.com/documentation/ImageIO/kCGImagePropertyOrientation
-func NewTargetedImageRequestWithTargetedCIImageOrientationOptionsCompletionHandler(ciImage objectivec.IObject, orientation uint, options foundation.INSDictionary, completionHandler VNRequestCompletionHandler) VNTargetedImageRequest {
+func NewTargetedImageRequestWithTargetedCIImageOrientationOptionsCompletionHandler(ciImage *coreimage.CIImage, orientation imageio.CGImagePropertyOrientation, options foundation.INSDictionary, completionHandler VNRequestErrorHandler) VNTargetedImageRequest {
+	_block3, _ := NewVNRequestErrorBlock(completionHandler)
 	instance := getVNTargetedImageRequestClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithTargetedCIImage:orientation:options:completionHandler:"), ciImage, orientation, options, completionHandler)
+	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithTargetedCIImage:orientation:options:completionHandler:"), ciImage, orientation, options, _block3)
 	return VNTargetedImageRequestFromID(rv)
 }
 
@@ -369,9 +376,10 @@ func NewTargetedImageRequestWithTargetedCMSampleBufferOptions(sampleBuffer corem
 // See: https://developer.apple.com/documentation/Vision/VNTargetedImageRequest/init(targetedCMSampleBuffer:options:completionHandler:)
 //
 // [imageBuffer]: https://developer.apple.com/documentation/CoreMedia/CMSampleBuffer/imageBuffer
-func NewTargetedImageRequestWithTargetedCMSampleBufferOptionsCompletionHandler(sampleBuffer coremedia.CMSampleBufferRef, options foundation.INSDictionary, completionHandler VNRequestCompletionHandler) VNTargetedImageRequest {
+func NewTargetedImageRequestWithTargetedCMSampleBufferOptionsCompletionHandler(sampleBuffer coremedia.CMSampleBufferRef, options foundation.INSDictionary, completionHandler VNRequestErrorHandler) VNTargetedImageRequest {
+	_block2, _ := NewVNRequestErrorBlock(completionHandler)
 	instance := getVNTargetedImageRequestClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithTargetedCMSampleBuffer:options:completionHandler:"), sampleBuffer, options, completionHandler)
+	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithTargetedCMSampleBuffer:options:completionHandler:"), sampleBuffer, options, _block2)
 	return VNTargetedImageRequestFromID(rv)
 }
 
@@ -389,7 +397,7 @@ func NewTargetedImageRequestWithTargetedCMSampleBufferOptionsCompletionHandler(s
 //
 // [imageBuffer]: https://developer.apple.com/documentation/CoreMedia/CMSampleBuffer/imageBuffer
 // [CGImagePropertyOrientation]: https://developer.apple.com/documentation/ImageIO/CGImagePropertyOrientation
-func NewTargetedImageRequestWithTargetedCMSampleBufferOrientationOptions(sampleBuffer coremedia.CMSampleBufferRef, orientation uint, options foundation.INSDictionary) VNTargetedImageRequest {
+func NewTargetedImageRequestWithTargetedCMSampleBufferOrientationOptions(sampleBuffer coremedia.CMSampleBufferRef, orientation imageio.CGImagePropertyOrientation, options foundation.INSDictionary) VNTargetedImageRequest {
 	instance := getVNTargetedImageRequestClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithTargetedCMSampleBuffer:orientation:options:"), sampleBuffer, orientation, options)
 	return VNTargetedImageRequestFromID(rv)
@@ -411,9 +419,10 @@ func NewTargetedImageRequestWithTargetedCMSampleBufferOrientationOptions(sampleB
 //
 // [imageBuffer]: https://developer.apple.com/documentation/CoreMedia/CMSampleBuffer/imageBuffer
 // [CGImagePropertyOrientation]: https://developer.apple.com/documentation/ImageIO/CGImagePropertyOrientation
-func NewTargetedImageRequestWithTargetedCMSampleBufferOrientationOptionsCompletionHandler(sampleBuffer coremedia.CMSampleBufferRef, orientation uint, options foundation.INSDictionary, completionHandler VNRequestCompletionHandler) VNTargetedImageRequest {
+func NewTargetedImageRequestWithTargetedCMSampleBufferOrientationOptionsCompletionHandler(sampleBuffer coremedia.CMSampleBufferRef, orientation imageio.CGImagePropertyOrientation, options foundation.INSDictionary, completionHandler VNRequestErrorHandler) VNTargetedImageRequest {
+	_block3, _ := NewVNRequestErrorBlock(completionHandler)
 	instance := getVNTargetedImageRequestClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithTargetedCMSampleBuffer:orientation:options:completionHandler:"), sampleBuffer, orientation, options, completionHandler)
+	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithTargetedCMSampleBuffer:orientation:options:completionHandler:"), sampleBuffer, orientation, options, _block3)
 	return VNTargetedImageRequestFromID(rv)
 }
 
@@ -439,9 +448,10 @@ func NewTargetedImageRequestWithTargetedCVPixelBufferOptions(pixelBuffer corevid
 // completionHandler: The block to invoke when the request has finished executing.
 //
 // See: https://developer.apple.com/documentation/Vision/VNTargetedImageRequest/init(targetedCVPixelBuffer:options:completionHandler:)
-func NewTargetedImageRequestWithTargetedCVPixelBufferOptionsCompletionHandler(pixelBuffer corevideo.CVImageBufferRef, options foundation.INSDictionary, completionHandler VNRequestCompletionHandler) VNTargetedImageRequest {
+func NewTargetedImageRequestWithTargetedCVPixelBufferOptionsCompletionHandler(pixelBuffer corevideo.CVImageBufferRef, options foundation.INSDictionary, completionHandler VNRequestErrorHandler) VNTargetedImageRequest {
+	_block2, _ := NewVNRequestErrorBlock(completionHandler)
 	instance := getVNTargetedImageRequestClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithTargetedCVPixelBuffer:options:completionHandler:"), pixelBuffer, options, completionHandler)
+	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithTargetedCVPixelBuffer:options:completionHandler:"), pixelBuffer, options, _block2)
 	return VNTargetedImageRequestFromID(rv)
 }
 
@@ -459,7 +469,7 @@ func NewTargetedImageRequestWithTargetedCVPixelBufferOptionsCompletionHandler(pi
 // See: https://developer.apple.com/documentation/Vision/VNTargetedImageRequest/initWithTargetedCVPixelBuffer:orientation:options:
 //
 // [kCGImagePropertyOrientation]: https://developer.apple.com/documentation/ImageIO/kCGImagePropertyOrientation
-func NewTargetedImageRequestWithTargetedCVPixelBufferOrientationOptions(pixelBuffer corevideo.CVImageBufferRef, orientation uint, options foundation.INSDictionary) VNTargetedImageRequest {
+func NewTargetedImageRequestWithTargetedCVPixelBufferOrientationOptions(pixelBuffer corevideo.CVImageBufferRef, orientation imageio.CGImagePropertyOrientation, options foundation.INSDictionary) VNTargetedImageRequest {
 	instance := getVNTargetedImageRequestClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithTargetedCVPixelBuffer:orientation:options:"), pixelBuffer, orientation, options)
 	return VNTargetedImageRequestFromID(rv)
@@ -481,9 +491,10 @@ func NewTargetedImageRequestWithTargetedCVPixelBufferOrientationOptions(pixelBuf
 // See: https://developer.apple.com/documentation/Vision/VNTargetedImageRequest/init(targetedCVPixelBuffer:orientation:options:completionHandler:)
 //
 // [kCGImagePropertyOrientation]: https://developer.apple.com/documentation/ImageIO/kCGImagePropertyOrientation
-func NewTargetedImageRequestWithTargetedCVPixelBufferOrientationOptionsCompletionHandler(pixelBuffer corevideo.CVImageBufferRef, orientation uint, options foundation.INSDictionary, completionHandler VNRequestCompletionHandler) VNTargetedImageRequest {
+func NewTargetedImageRequestWithTargetedCVPixelBufferOrientationOptionsCompletionHandler(pixelBuffer corevideo.CVImageBufferRef, orientation imageio.CGImagePropertyOrientation, options foundation.INSDictionary, completionHandler VNRequestErrorHandler) VNTargetedImageRequest {
+	_block3, _ := NewVNRequestErrorBlock(completionHandler)
 	instance := getVNTargetedImageRequestClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithTargetedCVPixelBuffer:orientation:options:completionHandler:"), pixelBuffer, orientation, options, completionHandler)
+	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithTargetedCVPixelBuffer:orientation:options:completionHandler:"), pixelBuffer, orientation, options, _block3)
 	return VNTargetedImageRequestFromID(rv)
 }
 
@@ -510,9 +521,10 @@ func NewTargetedImageRequestWithTargetedImageDataOptions(imageData foundation.NS
 // completionHandler: The block to invoke when the request has finished executing.
 //
 // See: https://developer.apple.com/documentation/Vision/VNTargetedImageRequest/init(targetedImageData:options:completionHandler:)
-func NewTargetedImageRequestWithTargetedImageDataOptionsCompletionHandler(imageData foundation.NSData, options foundation.INSDictionary, completionHandler VNRequestCompletionHandler) VNTargetedImageRequest {
+func NewTargetedImageRequestWithTargetedImageDataOptionsCompletionHandler(imageData foundation.NSData, options foundation.INSDictionary, completionHandler VNRequestErrorHandler) VNTargetedImageRequest {
+	_block2, _ := NewVNRequestErrorBlock(completionHandler)
 	instance := getVNTargetedImageRequestClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithTargetedImageData:options:completionHandler:"), imageData, options, completionHandler)
+	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithTargetedImageData:options:completionHandler:"), imageData, options, _block2)
 	return VNTargetedImageRequestFromID(rv)
 }
 
@@ -529,7 +541,7 @@ func NewTargetedImageRequestWithTargetedImageDataOptionsCompletionHandler(imageD
 // See: https://developer.apple.com/documentation/Vision/VNTargetedImageRequest/initWithTargetedImageData:orientation:options:
 //
 // [kCGImagePropertyOrientation]: https://developer.apple.com/documentation/ImageIO/kCGImagePropertyOrientation
-func NewTargetedImageRequestWithTargetedImageDataOrientationOptions(imageData foundation.NSData, orientation uint, options foundation.INSDictionary) VNTargetedImageRequest {
+func NewTargetedImageRequestWithTargetedImageDataOrientationOptions(imageData foundation.NSData, orientation imageio.CGImagePropertyOrientation, options foundation.INSDictionary) VNTargetedImageRequest {
 	instance := getVNTargetedImageRequestClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithTargetedImageData:orientation:options:"), imageData, orientation, options)
 	return VNTargetedImageRequestFromID(rv)
@@ -551,9 +563,10 @@ func NewTargetedImageRequestWithTargetedImageDataOrientationOptions(imageData fo
 // See: https://developer.apple.com/documentation/Vision/VNTargetedImageRequest/init(targetedImageData:orientation:options:completionHandler:)
 //
 // [kCGImagePropertyOrientation]: https://developer.apple.com/documentation/ImageIO/kCGImagePropertyOrientation
-func NewTargetedImageRequestWithTargetedImageDataOrientationOptionsCompletionHandler(imageData foundation.NSData, orientation uint, options foundation.INSDictionary, completionHandler VNRequestCompletionHandler) VNTargetedImageRequest {
+func NewTargetedImageRequestWithTargetedImageDataOrientationOptionsCompletionHandler(imageData foundation.NSData, orientation imageio.CGImagePropertyOrientation, options foundation.INSDictionary, completionHandler VNRequestErrorHandler) VNTargetedImageRequest {
+	_block3, _ := NewVNRequestErrorBlock(completionHandler)
 	instance := getVNTargetedImageRequestClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithTargetedImageData:orientation:options:completionHandler:"), imageData, orientation, options, completionHandler)
+	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithTargetedImageData:orientation:options:completionHandler:"), imageData, orientation, options, _block3)
 	return VNTargetedImageRequestFromID(rv)
 }
 
@@ -580,9 +593,10 @@ func NewTargetedImageRequestWithTargetedImageURLOptions(imageURL foundation.NSUR
 // completionHandler: The block to invoke when the request has finished executing.
 //
 // See: https://developer.apple.com/documentation/Vision/VNTargetedImageRequest/init(targetedImageURL:options:completionHandler:)
-func NewTargetedImageRequestWithTargetedImageURLOptionsCompletionHandler(imageURL foundation.NSURL, options foundation.INSDictionary, completionHandler VNRequestCompletionHandler) VNTargetedImageRequest {
+func NewTargetedImageRequestWithTargetedImageURLOptionsCompletionHandler(imageURL foundation.NSURL, options foundation.INSDictionary, completionHandler VNRequestErrorHandler) VNTargetedImageRequest {
+	_block2, _ := NewVNRequestErrorBlock(completionHandler)
 	instance := getVNTargetedImageRequestClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithTargetedImageURL:options:completionHandler:"), imageURL, options, completionHandler)
+	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithTargetedImageURL:options:completionHandler:"), imageURL, options, _block2)
 	return VNTargetedImageRequestFromID(rv)
 }
 
@@ -600,7 +614,7 @@ func NewTargetedImageRequestWithTargetedImageURLOptionsCompletionHandler(imageUR
 // See: https://developer.apple.com/documentation/Vision/VNTargetedImageRequest/initWithTargetedImageURL:orientation:options:
 //
 // [kCGImagePropertyOrientation]: https://developer.apple.com/documentation/ImageIO/kCGImagePropertyOrientation
-func NewTargetedImageRequestWithTargetedImageURLOrientationOptions(imageURL foundation.NSURL, orientation uint, options foundation.INSDictionary) VNTargetedImageRequest {
+func NewTargetedImageRequestWithTargetedImageURLOrientationOptions(imageURL foundation.NSURL, orientation imageio.CGImagePropertyOrientation, options foundation.INSDictionary) VNTargetedImageRequest {
 	instance := getVNTargetedImageRequestClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithTargetedImageURL:orientation:options:"), imageURL, orientation, options)
 	return VNTargetedImageRequestFromID(rv)
@@ -622,9 +636,10 @@ func NewTargetedImageRequestWithTargetedImageURLOrientationOptions(imageURL foun
 // See: https://developer.apple.com/documentation/Vision/VNTargetedImageRequest/init(targetedImageURL:orientation:options:completionHandler:)
 //
 // [kCGImagePropertyOrientation]: https://developer.apple.com/documentation/ImageIO/kCGImagePropertyOrientation
-func NewTargetedImageRequestWithTargetedImageURLOrientationOptionsCompletionHandler(imageURL foundation.NSURL, orientation uint, options foundation.INSDictionary, completionHandler VNRequestCompletionHandler) VNTargetedImageRequest {
+func NewTargetedImageRequestWithTargetedImageURLOrientationOptionsCompletionHandler(imageURL foundation.NSURL, orientation imageio.CGImagePropertyOrientation, options foundation.INSDictionary, completionHandler VNRequestErrorHandler) VNTargetedImageRequest {
+	_block3, _ := NewVNRequestErrorBlock(completionHandler)
 	instance := getVNTargetedImageRequestClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithTargetedImageURL:orientation:options:completionHandler:"), imageURL, orientation, options, completionHandler)
+	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithTargetedImageURL:orientation:options:completionHandler:"), imageURL, orientation, options, _block3)
 	return VNTargetedImageRequestFromID(rv)
 }
 
@@ -638,8 +653,8 @@ func NewTargetedImageRequestWithTargetedImageURLOrientationOptionsCompletionHand
 // completionHandler: The block to invoke when the request has finished executing.
 //
 // See: https://developer.apple.com/documentation/Vision/VNTargetedImageRequest/init(targetedCGImage:options:completionHandler:)
-func (t VNTargetedImageRequest) InitWithTargetedCGImageOptionsCompletionHandler(cgImage coregraphics.CGImageRef, options foundation.INSDictionary, completionHandler ErrorHandler) VNTargetedImageRequest {
-	_block2, _ := NewErrorBlock(completionHandler)
+func (t VNTargetedImageRequest) InitWithTargetedCGImageOptionsCompletionHandler(cgImage coregraphics.CGImageRef, options foundation.INSDictionary, completionHandler VNRequestErrorHandler) VNTargetedImageRequest {
+	_block2, _ := NewVNRequestErrorBlock(completionHandler)
 	rv := objc.Send[VNTargetedImageRequest](t.ID, objc.Sel("initWithTargetedCGImage:options:completionHandler:"), cgImage, options, _block2)
 	return rv
 }
@@ -660,8 +675,8 @@ func (t VNTargetedImageRequest) InitWithTargetedCGImageOptionsCompletionHandler(
 // See: https://developer.apple.com/documentation/Vision/VNTargetedImageRequest/init(targetedCGImage:orientation:options:completionHandler:)
 //
 // [kCGImagePropertyOrientation]: https://developer.apple.com/documentation/ImageIO/kCGImagePropertyOrientation
-func (t VNTargetedImageRequest) InitWithTargetedCGImageOrientationOptionsCompletionHandler(cgImage coregraphics.CGImageRef, orientation uint, options foundation.INSDictionary, completionHandler ErrorHandler) VNTargetedImageRequest {
-	_block3, _ := NewErrorBlock(completionHandler)
+func (t VNTargetedImageRequest) InitWithTargetedCGImageOrientationOptionsCompletionHandler(cgImage coregraphics.CGImageRef, orientation imageio.CGImagePropertyOrientation, options foundation.INSDictionary, completionHandler VNRequestErrorHandler) VNTargetedImageRequest {
+	_block3, _ := NewVNRequestErrorBlock(completionHandler)
 	rv := objc.Send[VNTargetedImageRequest](t.ID, objc.Sel("initWithTargetedCGImage:orientation:options:completionHandler:"), cgImage, orientation, options, _block3)
 	return rv
 }
@@ -677,8 +692,8 @@ func (t VNTargetedImageRequest) InitWithTargetedCGImageOrientationOptionsComplet
 // See: https://developer.apple.com/documentation/Vision/VNTargetedImageRequest/init(targetedCIImage:options:completionHandler:)
 //
 // [CIImage]: https://developer.apple.com/documentation/CoreImage/CIImage
-func (t VNTargetedImageRequest) InitWithTargetedCIImageOptionsCompletionHandler(ciImage objectivec.IObject, options foundation.INSDictionary, completionHandler ErrorHandler) VNTargetedImageRequest {
-	_block2, _ := NewErrorBlock(completionHandler)
+func (t VNTargetedImageRequest) InitWithTargetedCIImageOptionsCompletionHandler(ciImage *coreimage.CIImage, options foundation.INSDictionary, completionHandler VNRequestErrorHandler) VNTargetedImageRequest {
+	_block2, _ := NewVNRequestErrorBlock(completionHandler)
 	rv := objc.Send[VNTargetedImageRequest](t.ID, objc.Sel("initWithTargetedCIImage:options:completionHandler:"), ciImage, options, _block2)
 	return rv
 }
@@ -700,8 +715,8 @@ func (t VNTargetedImageRequest) InitWithTargetedCIImageOptionsCompletionHandler(
 //
 // [CIImage]: https://developer.apple.com/documentation/CoreImage/CIImage
 // [kCGImagePropertyOrientation]: https://developer.apple.com/documentation/ImageIO/kCGImagePropertyOrientation
-func (t VNTargetedImageRequest) InitWithTargetedCIImageOrientationOptionsCompletionHandler(ciImage objectivec.IObject, orientation uint, options foundation.INSDictionary, completionHandler ErrorHandler) VNTargetedImageRequest {
-	_block3, _ := NewErrorBlock(completionHandler)
+func (t VNTargetedImageRequest) InitWithTargetedCIImageOrientationOptionsCompletionHandler(ciImage *coreimage.CIImage, orientation imageio.CGImagePropertyOrientation, options foundation.INSDictionary, completionHandler VNRequestErrorHandler) VNTargetedImageRequest {
+	_block3, _ := NewVNRequestErrorBlock(completionHandler)
 	rv := objc.Send[VNTargetedImageRequest](t.ID, objc.Sel("initWithTargetedCIImage:orientation:options:completionHandler:"), ciImage, orientation, options, _block3)
 	return rv
 }
@@ -715,8 +730,8 @@ func (t VNTargetedImageRequest) InitWithTargetedCIImageOrientationOptionsComplet
 // completionHandler: The block to invoke when the request has finished executing.
 //
 // See: https://developer.apple.com/documentation/Vision/VNTargetedImageRequest/init(targetedCVPixelBuffer:options:completionHandler:)
-func (t VNTargetedImageRequest) InitWithTargetedCVPixelBufferOptionsCompletionHandler(pixelBuffer corevideo.CVImageBufferRef, options foundation.INSDictionary, completionHandler ErrorHandler) VNTargetedImageRequest {
-	_block2, _ := NewErrorBlock(completionHandler)
+func (t VNTargetedImageRequest) InitWithTargetedCVPixelBufferOptionsCompletionHandler(pixelBuffer corevideo.CVImageBufferRef, options foundation.INSDictionary, completionHandler VNRequestErrorHandler) VNTargetedImageRequest {
+	_block2, _ := NewVNRequestErrorBlock(completionHandler)
 	rv := objc.Send[VNTargetedImageRequest](t.ID, objc.Sel("initWithTargetedCVPixelBuffer:options:completionHandler:"), pixelBuffer, options, _block2)
 	return rv
 }
@@ -737,8 +752,8 @@ func (t VNTargetedImageRequest) InitWithTargetedCVPixelBufferOptionsCompletionHa
 // See: https://developer.apple.com/documentation/Vision/VNTargetedImageRequest/init(targetedCVPixelBuffer:orientation:options:completionHandler:)
 //
 // [kCGImagePropertyOrientation]: https://developer.apple.com/documentation/ImageIO/kCGImagePropertyOrientation
-func (t VNTargetedImageRequest) InitWithTargetedCVPixelBufferOrientationOptionsCompletionHandler(pixelBuffer corevideo.CVImageBufferRef, orientation uint, options foundation.INSDictionary, completionHandler ErrorHandler) VNTargetedImageRequest {
-	_block3, _ := NewErrorBlock(completionHandler)
+func (t VNTargetedImageRequest) InitWithTargetedCVPixelBufferOrientationOptionsCompletionHandler(pixelBuffer corevideo.CVImageBufferRef, orientation imageio.CGImagePropertyOrientation, options foundation.INSDictionary, completionHandler VNRequestErrorHandler) VNTargetedImageRequest {
+	_block3, _ := NewVNRequestErrorBlock(completionHandler)
 	rv := objc.Send[VNTargetedImageRequest](t.ID, objc.Sel("initWithTargetedCVPixelBuffer:orientation:options:completionHandler:"), pixelBuffer, orientation, options, _block3)
 	return rv
 }
@@ -755,8 +770,8 @@ func (t VNTargetedImageRequest) InitWithTargetedCVPixelBufferOrientationOptionsC
 // See: https://developer.apple.com/documentation/Vision/VNTargetedImageRequest/init(targetedCMSampleBuffer:options:completionHandler:)
 //
 // [imageBuffer]: https://developer.apple.com/documentation/CoreMedia/CMSampleBuffer/imageBuffer
-func (t VNTargetedImageRequest) InitWithTargetedCMSampleBufferOptionsCompletionHandler(sampleBuffer coremedia.CMSampleBufferRef, options foundation.INSDictionary, completionHandler ErrorHandler) VNTargetedImageRequest {
-	_block2, _ := NewErrorBlock(completionHandler)
+func (t VNTargetedImageRequest) InitWithTargetedCMSampleBufferOptionsCompletionHandler(sampleBuffer coremedia.CMSampleBufferRef, options foundation.INSDictionary, completionHandler VNRequestErrorHandler) VNTargetedImageRequest {
+	_block2, _ := NewVNRequestErrorBlock(completionHandler)
 	rv := objc.Send[VNTargetedImageRequest](t.ID, objc.Sel("initWithTargetedCMSampleBuffer:options:completionHandler:"), sampleBuffer, options, _block2)
 	return rv
 }
@@ -777,8 +792,8 @@ func (t VNTargetedImageRequest) InitWithTargetedCMSampleBufferOptionsCompletionH
 //
 // [imageBuffer]: https://developer.apple.com/documentation/CoreMedia/CMSampleBuffer/imageBuffer
 // [CGImagePropertyOrientation]: https://developer.apple.com/documentation/ImageIO/CGImagePropertyOrientation
-func (t VNTargetedImageRequest) InitWithTargetedCMSampleBufferOrientationOptionsCompletionHandler(sampleBuffer coremedia.CMSampleBufferRef, orientation uint, options foundation.INSDictionary, completionHandler ErrorHandler) VNTargetedImageRequest {
-	_block3, _ := NewErrorBlock(completionHandler)
+func (t VNTargetedImageRequest) InitWithTargetedCMSampleBufferOrientationOptionsCompletionHandler(sampleBuffer coremedia.CMSampleBufferRef, orientation imageio.CGImagePropertyOrientation, options foundation.INSDictionary, completionHandler VNRequestErrorHandler) VNTargetedImageRequest {
+	_block3, _ := NewVNRequestErrorBlock(completionHandler)
 	rv := objc.Send[VNTargetedImageRequest](t.ID, objc.Sel("initWithTargetedCMSampleBuffer:orientation:options:completionHandler:"), sampleBuffer, orientation, options, _block3)
 	return rv
 }
@@ -793,8 +808,8 @@ func (t VNTargetedImageRequest) InitWithTargetedCMSampleBufferOrientationOptions
 // completionHandler: The block to invoke when the request has finished executing.
 //
 // See: https://developer.apple.com/documentation/Vision/VNTargetedImageRequest/init(targetedImageData:options:completionHandler:)
-func (t VNTargetedImageRequest) InitWithTargetedImageDataOptionsCompletionHandler(imageData foundation.NSData, options foundation.INSDictionary, completionHandler ErrorHandler) VNTargetedImageRequest {
-	_block2, _ := NewErrorBlock(completionHandler)
+func (t VNTargetedImageRequest) InitWithTargetedImageDataOptionsCompletionHandler(imageData foundation.NSData, options foundation.INSDictionary, completionHandler VNRequestErrorHandler) VNTargetedImageRequest {
+	_block2, _ := NewVNRequestErrorBlock(completionHandler)
 	rv := objc.Send[VNTargetedImageRequest](t.ID, objc.Sel("initWithTargetedImageData:options:completionHandler:"), imageData, options, _block2)
 	return rv
 }
@@ -815,8 +830,8 @@ func (t VNTargetedImageRequest) InitWithTargetedImageDataOptionsCompletionHandle
 // See: https://developer.apple.com/documentation/Vision/VNTargetedImageRequest/init(targetedImageData:orientation:options:completionHandler:)
 //
 // [kCGImagePropertyOrientation]: https://developer.apple.com/documentation/ImageIO/kCGImagePropertyOrientation
-func (t VNTargetedImageRequest) InitWithTargetedImageDataOrientationOptionsCompletionHandler(imageData foundation.NSData, orientation uint, options foundation.INSDictionary, completionHandler ErrorHandler) VNTargetedImageRequest {
-	_block3, _ := NewErrorBlock(completionHandler)
+func (t VNTargetedImageRequest) InitWithTargetedImageDataOrientationOptionsCompletionHandler(imageData foundation.NSData, orientation imageio.CGImagePropertyOrientation, options foundation.INSDictionary, completionHandler VNRequestErrorHandler) VNTargetedImageRequest {
+	_block3, _ := NewVNRequestErrorBlock(completionHandler)
 	rv := objc.Send[VNTargetedImageRequest](t.ID, objc.Sel("initWithTargetedImageData:orientation:options:completionHandler:"), imageData, orientation, options, _block3)
 	return rv
 }
@@ -831,8 +846,8 @@ func (t VNTargetedImageRequest) InitWithTargetedImageDataOrientationOptionsCompl
 // completionHandler: The block to invoke when the request has finished executing.
 //
 // See: https://developer.apple.com/documentation/Vision/VNTargetedImageRequest/init(targetedImageURL:options:completionHandler:)
-func (t VNTargetedImageRequest) InitWithTargetedImageURLOptionsCompletionHandler(imageURL foundation.NSURL, options foundation.INSDictionary, completionHandler ErrorHandler) VNTargetedImageRequest {
-	_block2, _ := NewErrorBlock(completionHandler)
+func (t VNTargetedImageRequest) InitWithTargetedImageURLOptionsCompletionHandler(imageURL foundation.NSURL, options foundation.INSDictionary, completionHandler VNRequestErrorHandler) VNTargetedImageRequest {
+	_block2, _ := NewVNRequestErrorBlock(completionHandler)
 	rv := objc.Send[VNTargetedImageRequest](t.ID, objc.Sel("initWithTargetedImageURL:options:completionHandler:"), imageURL, options, _block2)
 	return rv
 }
@@ -853,8 +868,8 @@ func (t VNTargetedImageRequest) InitWithTargetedImageURLOptionsCompletionHandler
 // See: https://developer.apple.com/documentation/Vision/VNTargetedImageRequest/init(targetedImageURL:orientation:options:completionHandler:)
 //
 // [kCGImagePropertyOrientation]: https://developer.apple.com/documentation/ImageIO/kCGImagePropertyOrientation
-func (t VNTargetedImageRequest) InitWithTargetedImageURLOrientationOptionsCompletionHandler(imageURL foundation.NSURL, orientation uint, options foundation.INSDictionary, completionHandler ErrorHandler) VNTargetedImageRequest {
-	_block3, _ := NewErrorBlock(completionHandler)
+func (t VNTargetedImageRequest) InitWithTargetedImageURLOrientationOptionsCompletionHandler(imageURL foundation.NSURL, orientation imageio.CGImagePropertyOrientation, options foundation.INSDictionary, completionHandler VNRequestErrorHandler) VNTargetedImageRequest {
+	_block3, _ := NewVNRequestErrorBlock(completionHandler)
 	rv := objc.Send[VNTargetedImageRequest](t.ID, objc.Sel("initWithTargetedImageURL:orientation:options:completionHandler:"), imageURL, orientation, options, _block3)
 	return rv
 }
@@ -884,7 +899,7 @@ func (t VNTargetedImageRequest) InitWithTargetedCGImageOptions(cgImage coregraph
 // See: https://developer.apple.com/documentation/Vision/VNTargetedImageRequest/initWithTargetedCGImage:orientation:options:
 //
 // [kCGImagePropertyOrientation]: https://developer.apple.com/documentation/ImageIO/kCGImagePropertyOrientation
-func (t VNTargetedImageRequest) InitWithTargetedCGImageOrientationOptions(cgImage coregraphics.CGImageRef, orientation uint, options foundation.INSDictionary) VNTargetedImageRequest {
+func (t VNTargetedImageRequest) InitWithTargetedCGImageOrientationOptions(cgImage coregraphics.CGImageRef, orientation imageio.CGImagePropertyOrientation, options foundation.INSDictionary) VNTargetedImageRequest {
 	rv := objc.Send[VNTargetedImageRequest](t.ID, objc.Sel("initWithTargetedCGImage:orientation:options:"), cgImage, orientation, options)
 	return rv
 }
@@ -898,8 +913,8 @@ func (t VNTargetedImageRequest) InitWithTargetedCGImageOrientationOptions(cgImag
 // See: https://developer.apple.com/documentation/Vision/VNTargetedImageRequest/initWithTargetedCIImage:options:
 //
 // [CIImage]: https://developer.apple.com/documentation/CoreImage/CIImage
-func (t VNTargetedImageRequest) InitWithTargetedCIImageOptions(ciImage objectivec.IObject, options foundation.INSDictionary) VNTargetedImageRequest {
-	rv := objc.Send[VNTargetedImageRequest](t.ID, objc.Sel("initWithTargetedCIImage:options:"), ciImage, options)
+func (t VNTargetedImageRequest) InitWithTargetedCIImageOptions(ciImage *coreimage.CIImage, options foundation.INSDictionary) VNTargetedImageRequest {
+	rv := objc.Send[VNTargetedImageRequest](t.ID, objc.Sel("initWithTargetedCIImage:options:"), ciImage.ID, options)
 	return rv
 }
 
@@ -917,8 +932,8 @@ func (t VNTargetedImageRequest) InitWithTargetedCIImageOptions(ciImage objective
 //
 // [CIImage]: https://developer.apple.com/documentation/CoreImage/CIImage
 // [kCGImagePropertyOrientation]: https://developer.apple.com/documentation/ImageIO/kCGImagePropertyOrientation
-func (t VNTargetedImageRequest) InitWithTargetedCIImageOrientationOptions(ciImage objectivec.IObject, orientation uint, options foundation.INSDictionary) VNTargetedImageRequest {
-	rv := objc.Send[VNTargetedImageRequest](t.ID, objc.Sel("initWithTargetedCIImage:orientation:options:"), ciImage, orientation, options)
+func (t VNTargetedImageRequest) InitWithTargetedCIImageOrientationOptions(ciImage *coreimage.CIImage, orientation imageio.CGImagePropertyOrientation, options foundation.INSDictionary) VNTargetedImageRequest {
+	rv := objc.Send[VNTargetedImageRequest](t.ID, objc.Sel("initWithTargetedCIImage:orientation:options:"), ciImage.ID, orientation, options)
 	return rv
 }
 
@@ -950,7 +965,7 @@ func (t VNTargetedImageRequest) InitWithTargetedCMSampleBufferOptions(sampleBuff
 //
 // [imageBuffer]: https://developer.apple.com/documentation/CoreMedia/CMSampleBuffer/imageBuffer
 // [CGImagePropertyOrientation]: https://developer.apple.com/documentation/ImageIO/CGImagePropertyOrientation
-func (t VNTargetedImageRequest) InitWithTargetedCMSampleBufferOrientationOptions(sampleBuffer coremedia.CMSampleBufferRef, orientation uint, options foundation.INSDictionary) VNTargetedImageRequest {
+func (t VNTargetedImageRequest) InitWithTargetedCMSampleBufferOrientationOptions(sampleBuffer coremedia.CMSampleBufferRef, orientation imageio.CGImagePropertyOrientation, options foundation.INSDictionary) VNTargetedImageRequest {
 	rv := objc.Send[VNTargetedImageRequest](t.ID, objc.Sel("initWithTargetedCMSampleBuffer:orientation:options:"), sampleBuffer, orientation, options)
 	return rv
 }
@@ -981,7 +996,7 @@ func (t VNTargetedImageRequest) InitWithTargetedCVPixelBufferOptions(pixelBuffer
 // See: https://developer.apple.com/documentation/Vision/VNTargetedImageRequest/initWithTargetedCVPixelBuffer:orientation:options:
 //
 // [kCGImagePropertyOrientation]: https://developer.apple.com/documentation/ImageIO/kCGImagePropertyOrientation
-func (t VNTargetedImageRequest) InitWithTargetedCVPixelBufferOrientationOptions(pixelBuffer corevideo.CVImageBufferRef, orientation uint, options foundation.INSDictionary) VNTargetedImageRequest {
+func (t VNTargetedImageRequest) InitWithTargetedCVPixelBufferOrientationOptions(pixelBuffer corevideo.CVImageBufferRef, orientation imageio.CGImagePropertyOrientation, options foundation.INSDictionary) VNTargetedImageRequest {
 	rv := objc.Send[VNTargetedImageRequest](t.ID, objc.Sel("initWithTargetedCVPixelBuffer:orientation:options:"), pixelBuffer, orientation, options)
 	return rv
 }
@@ -1011,7 +1026,7 @@ func (t VNTargetedImageRequest) InitWithTargetedImageDataOptions(imageData found
 // See: https://developer.apple.com/documentation/Vision/VNTargetedImageRequest/initWithTargetedImageData:orientation:options:
 //
 // [kCGImagePropertyOrientation]: https://developer.apple.com/documentation/ImageIO/kCGImagePropertyOrientation
-func (t VNTargetedImageRequest) InitWithTargetedImageDataOrientationOptions(imageData foundation.NSData, orientation uint, options foundation.INSDictionary) VNTargetedImageRequest {
+func (t VNTargetedImageRequest) InitWithTargetedImageDataOrientationOptions(imageData foundation.NSData, orientation imageio.CGImagePropertyOrientation, options foundation.INSDictionary) VNTargetedImageRequest {
 	rv := objc.Send[VNTargetedImageRequest](t.ID, objc.Sel("initWithTargetedImageData:orientation:options:"), imageData, orientation, options)
 	return rv
 }
@@ -1042,7 +1057,235 @@ func (t VNTargetedImageRequest) InitWithTargetedImageURLOptions(imageURL foundat
 // See: https://developer.apple.com/documentation/Vision/VNTargetedImageRequest/initWithTargetedImageURL:orientation:options:
 //
 // [kCGImagePropertyOrientation]: https://developer.apple.com/documentation/ImageIO/kCGImagePropertyOrientation
-func (t VNTargetedImageRequest) InitWithTargetedImageURLOrientationOptions(imageURL foundation.NSURL, orientation uint, options foundation.INSDictionary) VNTargetedImageRequest {
+func (t VNTargetedImageRequest) InitWithTargetedImageURLOrientationOptions(imageURL foundation.NSURL, orientation imageio.CGImagePropertyOrientation, options foundation.INSDictionary) VNTargetedImageRequest {
 	rv := objc.Send[VNTargetedImageRequest](t.ID, objc.Sel("initWithTargetedImageURL:orientation:options:"), imageURL, orientation, options)
 	return rv
+}
+
+// InitWithTargetedCGImageOptionsSync is a synchronous wrapper around [VNTargetedImageRequest.InitWithTargetedCGImageOptionsCompletionHandler].
+// It blocks until the completion handler fires or the context is cancelled.
+func (t VNTargetedImageRequest) InitWithTargetedCGImageOptionsSync(ctx context.Context, cgImage coregraphics.CGImageRef, options foundation.INSDictionary) (*VNRequest, error) {
+	type result struct {
+		val *VNRequest
+		err error
+	}
+	done := make(chan result, 1)
+	t.InitWithTargetedCGImageOptionsCompletionHandler(cgImage, options, func(val *VNRequest, err error) {
+		done <- result{val, err}
+	})
+	select {
+	case r := <-done:
+		return r.val, r.err
+	case <-ctx.Done():
+		return nil, ctx.Err()
+	}
+}
+
+// InitWithTargetedCGImageOrientationOptionsSync is a synchronous wrapper around [VNTargetedImageRequest.InitWithTargetedCGImageOrientationOptionsCompletionHandler].
+// It blocks until the completion handler fires or the context is cancelled.
+func (t VNTargetedImageRequest) InitWithTargetedCGImageOrientationOptionsSync(ctx context.Context, cgImage coregraphics.CGImageRef, orientation imageio.CGImagePropertyOrientation, options foundation.INSDictionary) (*VNRequest, error) {
+	type result struct {
+		val *VNRequest
+		err error
+	}
+	done := make(chan result, 1)
+	t.InitWithTargetedCGImageOrientationOptionsCompletionHandler(cgImage, orientation, options, func(val *VNRequest, err error) {
+		done <- result{val, err}
+	})
+	select {
+	case r := <-done:
+		return r.val, r.err
+	case <-ctx.Done():
+		return nil, ctx.Err()
+	}
+}
+
+// InitWithTargetedCIImageOptionsSync is a synchronous wrapper around [VNTargetedImageRequest.InitWithTargetedCIImageOptionsCompletionHandler].
+// It blocks until the completion handler fires or the context is cancelled.
+func (t VNTargetedImageRequest) InitWithTargetedCIImageOptionsSync(ctx context.Context, ciImage *coreimage.CIImage, options foundation.INSDictionary) (*VNRequest, error) {
+	type result struct {
+		val *VNRequest
+		err error
+	}
+	done := make(chan result, 1)
+	t.InitWithTargetedCIImageOptionsCompletionHandler(ciImage, options, func(val *VNRequest, err error) {
+		done <- result{val, err}
+	})
+	select {
+	case r := <-done:
+		return r.val, r.err
+	case <-ctx.Done():
+		return nil, ctx.Err()
+	}
+}
+
+// InitWithTargetedCIImageOrientationOptionsSync is a synchronous wrapper around [VNTargetedImageRequest.InitWithTargetedCIImageOrientationOptionsCompletionHandler].
+// It blocks until the completion handler fires or the context is cancelled.
+func (t VNTargetedImageRequest) InitWithTargetedCIImageOrientationOptionsSync(ctx context.Context, ciImage *coreimage.CIImage, orientation imageio.CGImagePropertyOrientation, options foundation.INSDictionary) (*VNRequest, error) {
+	type result struct {
+		val *VNRequest
+		err error
+	}
+	done := make(chan result, 1)
+	t.InitWithTargetedCIImageOrientationOptionsCompletionHandler(ciImage, orientation, options, func(val *VNRequest, err error) {
+		done <- result{val, err}
+	})
+	select {
+	case r := <-done:
+		return r.val, r.err
+	case <-ctx.Done():
+		return nil, ctx.Err()
+	}
+}
+
+// InitWithTargetedCVPixelBufferOptionsSync is a synchronous wrapper around [VNTargetedImageRequest.InitWithTargetedCVPixelBufferOptionsCompletionHandler].
+// It blocks until the completion handler fires or the context is cancelled.
+func (t VNTargetedImageRequest) InitWithTargetedCVPixelBufferOptionsSync(ctx context.Context, pixelBuffer corevideo.CVImageBufferRef, options foundation.INSDictionary) (*VNRequest, error) {
+	type result struct {
+		val *VNRequest
+		err error
+	}
+	done := make(chan result, 1)
+	t.InitWithTargetedCVPixelBufferOptionsCompletionHandler(pixelBuffer, options, func(val *VNRequest, err error) {
+		done <- result{val, err}
+	})
+	select {
+	case r := <-done:
+		return r.val, r.err
+	case <-ctx.Done():
+		return nil, ctx.Err()
+	}
+}
+
+// InitWithTargetedCVPixelBufferOrientationOptionsSync is a synchronous wrapper around [VNTargetedImageRequest.InitWithTargetedCVPixelBufferOrientationOptionsCompletionHandler].
+// It blocks until the completion handler fires or the context is cancelled.
+func (t VNTargetedImageRequest) InitWithTargetedCVPixelBufferOrientationOptionsSync(ctx context.Context, pixelBuffer corevideo.CVImageBufferRef, orientation imageio.CGImagePropertyOrientation, options foundation.INSDictionary) (*VNRequest, error) {
+	type result struct {
+		val *VNRequest
+		err error
+	}
+	done := make(chan result, 1)
+	t.InitWithTargetedCVPixelBufferOrientationOptionsCompletionHandler(pixelBuffer, orientation, options, func(val *VNRequest, err error) {
+		done <- result{val, err}
+	})
+	select {
+	case r := <-done:
+		return r.val, r.err
+	case <-ctx.Done():
+		return nil, ctx.Err()
+	}
+}
+
+// InitWithTargetedCMSampleBufferOptionsSync is a synchronous wrapper around [VNTargetedImageRequest.InitWithTargetedCMSampleBufferOptionsCompletionHandler].
+// It blocks until the completion handler fires or the context is cancelled.
+func (t VNTargetedImageRequest) InitWithTargetedCMSampleBufferOptionsSync(ctx context.Context, sampleBuffer coremedia.CMSampleBufferRef, options foundation.INSDictionary) (*VNRequest, error) {
+	type result struct {
+		val *VNRequest
+		err error
+	}
+	done := make(chan result, 1)
+	t.InitWithTargetedCMSampleBufferOptionsCompletionHandler(sampleBuffer, options, func(val *VNRequest, err error) {
+		done <- result{val, err}
+	})
+	select {
+	case r := <-done:
+		return r.val, r.err
+	case <-ctx.Done():
+		return nil, ctx.Err()
+	}
+}
+
+// InitWithTargetedCMSampleBufferOrientationOptionsSync is a synchronous wrapper around [VNTargetedImageRequest.InitWithTargetedCMSampleBufferOrientationOptionsCompletionHandler].
+// It blocks until the completion handler fires or the context is cancelled.
+func (t VNTargetedImageRequest) InitWithTargetedCMSampleBufferOrientationOptionsSync(ctx context.Context, sampleBuffer coremedia.CMSampleBufferRef, orientation imageio.CGImagePropertyOrientation, options foundation.INSDictionary) (*VNRequest, error) {
+	type result struct {
+		val *VNRequest
+		err error
+	}
+	done := make(chan result, 1)
+	t.InitWithTargetedCMSampleBufferOrientationOptionsCompletionHandler(sampleBuffer, orientation, options, func(val *VNRequest, err error) {
+		done <- result{val, err}
+	})
+	select {
+	case r := <-done:
+		return r.val, r.err
+	case <-ctx.Done():
+		return nil, ctx.Err()
+	}
+}
+
+// InitWithTargetedImageDataOptionsSync is a synchronous wrapper around [VNTargetedImageRequest.InitWithTargetedImageDataOptionsCompletionHandler].
+// It blocks until the completion handler fires or the context is cancelled.
+func (t VNTargetedImageRequest) InitWithTargetedImageDataOptionsSync(ctx context.Context, imageData foundation.NSData, options foundation.INSDictionary) (*VNRequest, error) {
+	type result struct {
+		val *VNRequest
+		err error
+	}
+	done := make(chan result, 1)
+	t.InitWithTargetedImageDataOptionsCompletionHandler(imageData, options, func(val *VNRequest, err error) {
+		done <- result{val, err}
+	})
+	select {
+	case r := <-done:
+		return r.val, r.err
+	case <-ctx.Done():
+		return nil, ctx.Err()
+	}
+}
+
+// InitWithTargetedImageDataOrientationOptionsSync is a synchronous wrapper around [VNTargetedImageRequest.InitWithTargetedImageDataOrientationOptionsCompletionHandler].
+// It blocks until the completion handler fires or the context is cancelled.
+func (t VNTargetedImageRequest) InitWithTargetedImageDataOrientationOptionsSync(ctx context.Context, imageData foundation.NSData, orientation imageio.CGImagePropertyOrientation, options foundation.INSDictionary) (*VNRequest, error) {
+	type result struct {
+		val *VNRequest
+		err error
+	}
+	done := make(chan result, 1)
+	t.InitWithTargetedImageDataOrientationOptionsCompletionHandler(imageData, orientation, options, func(val *VNRequest, err error) {
+		done <- result{val, err}
+	})
+	select {
+	case r := <-done:
+		return r.val, r.err
+	case <-ctx.Done():
+		return nil, ctx.Err()
+	}
+}
+
+// InitWithTargetedImageURLOptionsSync is a synchronous wrapper around [VNTargetedImageRequest.InitWithTargetedImageURLOptionsCompletionHandler].
+// It blocks until the completion handler fires or the context is cancelled.
+func (t VNTargetedImageRequest) InitWithTargetedImageURLOptionsSync(ctx context.Context, imageURL foundation.NSURL, options foundation.INSDictionary) (*VNRequest, error) {
+	type result struct {
+		val *VNRequest
+		err error
+	}
+	done := make(chan result, 1)
+	t.InitWithTargetedImageURLOptionsCompletionHandler(imageURL, options, func(val *VNRequest, err error) {
+		done <- result{val, err}
+	})
+	select {
+	case r := <-done:
+		return r.val, r.err
+	case <-ctx.Done():
+		return nil, ctx.Err()
+	}
+}
+
+// InitWithTargetedImageURLOrientationOptionsSync is a synchronous wrapper around [VNTargetedImageRequest.InitWithTargetedImageURLOrientationOptionsCompletionHandler].
+// It blocks until the completion handler fires or the context is cancelled.
+func (t VNTargetedImageRequest) InitWithTargetedImageURLOrientationOptionsSync(ctx context.Context, imageURL foundation.NSURL, orientation imageio.CGImagePropertyOrientation, options foundation.INSDictionary) (*VNRequest, error) {
+	type result struct {
+		val *VNRequest
+		err error
+	}
+	done := make(chan result, 1)
+	t.InitWithTargetedImageURLOrientationOptionsCompletionHandler(imageURL, orientation, options, func(val *VNRequest, err error) {
+		done <- result{val, err}
+	})
+	select {
+	case r := <-done:
+		return r.val, r.err
+	case <-ctx.Done():
+		return nil, ctx.Err()
+	}
 }

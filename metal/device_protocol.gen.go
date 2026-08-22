@@ -8,7 +8,6 @@ import (
 	"github.com/tmc/apple/dispatch"
 	"github.com/tmc/apple/foundation"
 	"github.com/tmc/apple/iosurface"
-	"github.com/tmc/apple/kernel"
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -94,7 +93,7 @@ type MTLDevice interface {
 	// See: https://developer.apple.com/documentation/Metal/MTLDevice/makePipelineDataSetSerializer(descriptor:)
 	NewPipelineDataSetSerializerWithDescriptor(descriptor IMTL4PipelineDataSetSerializerDescriptor) MTL4PipelineDataSetSerializer
 
-	// Creates a tensor by allocating new memory.
+	// Creates a tensor with the specified descriptor.
 	//
 	// See: https://developer.apple.com/documentation/Metal/MTLDevice/makeTensor(descriptor:)
 	NewTensorWithDescriptorError(descriptor IMTLTensorDescriptor) (MTLTensor, error)
@@ -114,7 +113,7 @@ type MTLDevice interface {
 	// See: https://developer.apple.com/documentation/Metal/MTLDevice/size(ofCounterHeapEntry:)
 	SizeOfCounterHeapEntry(type_ MTL4CounterHeapType) uint
 
-	// Determines the size and alignment required to hold the data of a tensor you create with a descriptor in a buffer.
+	// Determines the size and alignment required to hold the data plane of a tensor you create with a descriptor in a buffer.
 	//
 	// See: https://developer.apple.com/documentation/Metal/MTLDevice/tensorSizeAndAlign(descriptor:)
 	TensorSizeAndAlignWithDescriptor(descriptor IMTLTensorDescriptor) MTLSizeAndAlign
@@ -192,7 +191,7 @@ type MTLDevice interface {
 	// Creates a buffer that wraps an existing contiguous memory allocation.
 	//
 	// See: https://developer.apple.com/documentation/Metal/MTLDevice/makeBuffer(bytesNoCopy:length:options:deallocator:)
-	NewBufferWithBytesNoCopyLengthOptionsDeallocator(pointer unsafe.Pointer, length uint, options MTLResourceOptions, deallocator func(kernel.Pointer, uint64)) MTLBuffer
+	NewBufferWithBytesNoCopyLengthOptionsDeallocator(pointer unsafe.Pointer, length uint, options MTLResourceOptions, deallocator UnsafePointerUintHandler) MTLBuffer
 
 	// Creates a buffer the method clears with zero values.
 	//
@@ -212,7 +211,7 @@ type MTLDevice interface {
 	// Asynchronously creates a compute pipeline state and reflection information.
 	//
 	// See: https://developer.apple.com/documentation/Metal/MTLDevice/makeComputePipelineState(descriptor:options:completionHandler:)
-	NewComputePipelineStateWithDescriptorOptionsCompletionHandler(descriptor IMTLComputePipelineDescriptor, options MTLPipelineOption, completionHandler ErrorHandler)
+	NewComputePipelineStateWithDescriptorOptionsCompletionHandler(descriptor IMTLComputePipelineDescriptor, options MTLPipelineOption, completionHandler MTLComputePipelineStateMTLComputePipelineReflectionErrorHandler)
 
 	// Synchronously creates a compute pipeline state and reflection information.
 	//
@@ -222,7 +221,7 @@ type MTLDevice interface {
 	// Asynchronously creates a compute pipeline state with a function instance.
 	//
 	// See: https://developer.apple.com/documentation/Metal/MTLDevice/makeComputePipelineState(function:completionHandler:)
-	NewComputePipelineStateWithFunctionCompletionHandler(computeFunction MTLFunction, completionHandler ErrorHandler)
+	NewComputePipelineStateWithFunctionCompletionHandler(computeFunction MTLFunction, completionHandler MTLComputePipelineStateErrorHandler)
 
 	// Synchronously creates a compute pipeline state with a function instance.
 	//
@@ -232,7 +231,7 @@ type MTLDevice interface {
 	// Asynchronously creates a compute pipeline state and reflection with a function instance.
 	//
 	// See: https://developer.apple.com/documentation/Metal/MTLDevice/makeComputePipelineState(function:options:completionHandler:)
-	NewComputePipelineStateWithFunctionOptionsCompletionHandler(computeFunction MTLFunction, options MTLPipelineOption, completionHandler ErrorHandler)
+	NewComputePipelineStateWithFunctionOptionsCompletionHandler(computeFunction MTLFunction, options MTLPipelineOption, completionHandler MTLComputePipelineStateMTLComputePipelineReflectionErrorHandler)
 
 	// Synchronously creates a compute pipeline state and reflection with a function instance.
 	//
@@ -252,7 +251,7 @@ type MTLDevice interface {
 	// Creates a Metal library instance that contains the functions in a bundle’s default Metal library.
 	//
 	// See: https://developer.apple.com/documentation/Metal/MTLDevice/makeDefaultLibrary(bundle:)
-	NewDefaultLibraryWithBundleError(bundle foundation.Bundle) (MTLLibrary, error)
+	NewDefaultLibraryWithBundleError(bundle foundation.NSBundle) (MTLLibrary, error)
 
 	// Creates a depth-stencil state instance.
 	//
@@ -299,6 +298,16 @@ type MTLDevice interface {
 	// See: https://developer.apple.com/documentation/Metal/MTLDevice/makeIOFileHandle(url:)
 	NewIOFileHandleWithURLError(url foundation.NSURL) (MTLIOFileHandle, error)
 
+	// Creates an input/output file handle instance that represents a compressed file at a URL.
+	//
+	// See: https://developer.apple.com/documentation/Metal/MTLDevice/makeIOHandle(url:compressionMethod:)
+	NewIOHandleWithURLCompressionMethodError(url foundation.NSURL, compressionMethod MTLIOCompressionMethod) (MTLIOFileHandle, error)
+
+	// Creates an input/output file handle instance that represents a file at a URL.
+	//
+	// See: https://developer.apple.com/documentation/Metal/MTLDevice/makeIOHandle(url:)
+	NewIOHandleWithURLError(url foundation.NSURL) (MTLIOFileHandle, error)
+
 	// Creates an indirect command buffer instance.
 	//
 	// See: https://developer.apple.com/documentation/Metal/MTLDevice/makeIndirectCommandBuffer(descriptor:maxCommandCount:options:)
@@ -312,7 +321,7 @@ type MTLDevice interface {
 	// Asynchronously creates a Metal library instance by compiling the functions in a source string.
 	//
 	// See: https://developer.apple.com/documentation/Metal/MTLDevice/makeLibrary(source:options:completionHandler:)
-	NewLibraryWithSourceOptionsCompletionHandler(source string, options IMTLCompileOptions, completionHandler ErrorHandler)
+	NewLibraryWithSourceOptionsCompletionHandler(source string, options IMTLCompileOptions, completionHandler MTLLibraryErrorHandler)
 
 	// Synchronously creates a Metal library instance by compiling the functions in a source string.
 	//
@@ -322,7 +331,7 @@ type MTLDevice interface {
 	// Asynchronously creates a Metal library from the function stitching graphs in a descriptor.
 	//
 	// See: https://developer.apple.com/documentation/Metal/MTLDevice/makeLibrary(stitchedDescriptor:completionHandler:)
-	NewLibraryWithStitchedDescriptorCompletionHandler(descriptor IMTLStitchedLibraryDescriptor, completionHandler ErrorHandler)
+	NewLibraryWithStitchedDescriptorCompletionHandler(descriptor IMTLStitchedLibraryDescriptor, completionHandler MTLLibraryErrorHandler)
 
 	// Synchronously creates a Metal library from the function stitching graphs in a descriptor.
 	//
@@ -342,7 +351,7 @@ type MTLDevice interface {
 	// Asynchronously creates a render pipeline state.
 	//
 	// See: https://developer.apple.com/documentation/Metal/MTLDevice/makeRenderPipelineState(descriptor:completionHandler:)
-	NewRenderPipelineStateWithDescriptorCompletionHandler(descriptor IMTLRenderPipelineDescriptor, completionHandler ErrorHandler)
+	NewRenderPipelineStateWithDescriptorCompletionHandler(descriptor IMTLRenderPipelineDescriptor, completionHandler MTLRenderPipelineStateErrorHandler)
 
 	// Synchronously creates a render pipeline state.
 	//
@@ -352,7 +361,7 @@ type MTLDevice interface {
 	// Asynchronously creates a render pipeline state and reflection information.
 	//
 	// See: https://developer.apple.com/documentation/Metal/MTLDevice/makeRenderPipelineState(descriptor:options:completionHandler:)-5gdww
-	NewRenderPipelineStateWithDescriptorOptionsCompletionHandler(descriptor IMTLRenderPipelineDescriptor, options MTLPipelineOption, completionHandler ErrorHandler)
+	NewRenderPipelineStateWithDescriptorOptionsCompletionHandler(descriptor IMTLRenderPipelineDescriptor, options MTLPipelineOption, completionHandler MTLRenderPipelineStateMTLRenderPipelineReflectionErrorHandler)
 
 	// Synchronously creates a render pipeline state and reflection information.
 	//
@@ -362,7 +371,7 @@ type MTLDevice interface {
 	// Asynchronously creates a mesh render pipeline state and reflection information.
 	//
 	// See: https://developer.apple.com/documentation/Metal/MTLDevice/makeRenderPipelineState(descriptor:options:completionHandler:)-1wvya
-	NewRenderPipelineStateWithMeshDescriptorOptionsCompletionHandler(descriptor IMTLMeshRenderPipelineDescriptor, options MTLPipelineOption, completionHandler ErrorHandler)
+	NewRenderPipelineStateWithMeshDescriptorOptionsCompletionHandler(descriptor IMTLMeshRenderPipelineDescriptor, options MTLPipelineOption, completionHandler MTLRenderPipelineStateMTLRenderPipelineReflectionErrorHandler)
 
 	// Synchronously creates a mesh render pipeline state and reflection information.
 	//
@@ -372,7 +381,7 @@ type MTLDevice interface {
 	// Asynchronously creates a tile shader’s render pipeline state and reflection information.
 	//
 	// See: https://developer.apple.com/documentation/Metal/MTLDevice/makeRenderPipelineState(tileDescriptor:options:completionHandler:)
-	NewRenderPipelineStateWithTileDescriptorOptionsCompletionHandler(descriptor IMTLTileRenderPipelineDescriptor, options MTLPipelineOption, completionHandler ErrorHandler)
+	NewRenderPipelineStateWithTileDescriptorOptionsCompletionHandler(descriptor IMTLTileRenderPipelineDescriptor, options MTLPipelineOption, completionHandler MTLRenderPipelineStateMTLRenderPipelineReflectionErrorHandler)
 
 	// Synchronously creates a tile shader’s render pipeline state and reflection information.
 	//
@@ -408,6 +417,11 @@ type MTLDevice interface {
 	//
 	// See: https://developer.apple.com/documentation/Metal/MTLDevice/makeSharedTexture(handle:)
 	NewSharedTextureWithHandle(sharedHandle IMTLSharedTextureHandle) MTLTexture
+
+	// Creates a tensor with the specified descriptor and per-plane buffer backing storage.
+	//
+	// See: https://developer.apple.com/documentation/Metal/MTLDevice/makeTensor(descriptor:attachments:)
+	NewTensorWithDescriptorAttachmentsError(descriptor IMTLTensorDescriptor, attachments IMTLTensorBufferAttachments) (MTLTensor, error)
 
 	// Creates a new texture instance.
 	//
@@ -498,7 +512,7 @@ type MTLDevice interface {
 	// A Boolean value that indicates whether a device supports a packed depth-and-stencil pixel format.
 	//
 	// See: https://developer.apple.com/documentation/Metal/MTLDevice/isDepth24Stencil8PixelFormatSupported
-	Depth24Stencil8PixelFormatSupported() bool
+	IsDepth24Stencil8PixelFormatSupported() bool
 
 	// A Boolean value that indicates whether the GPU shares all of its memory with the CPU.
 	//
@@ -508,7 +522,7 @@ type MTLDevice interface {
 	// A Boolean value that indicates whether a GPU device doesn’t have a connection to a display.
 	//
 	// See: https://developer.apple.com/documentation/Metal/MTLDevice/isHeadless
-	Headless() bool
+	IsHeadless() bool
 
 	// The physical location of the GPU relative to the system.
 	//
@@ -523,7 +537,7 @@ type MTLDevice interface {
 	// A Boolean value that indicates whether the GPU lowers its performance to conserve energy.
 	//
 	// See: https://developer.apple.com/documentation/Metal/MTLDevice/isLowPower
-	LowPower() bool
+	IsLowPower() bool
 
 	// The maximum number of unique argument buffer samplers per app.
 	//
@@ -598,7 +612,7 @@ type MTLDevice interface {
 	// A Boolean value that indicates whether the GPU is removable.
 	//
 	// See: https://developer.apple.com/documentation/Metal/MTLDevice/isRemovable
-	Removable() bool
+	IsRemovable() bool
 
 	// Returns the size, in bytes, of a sparse tile the GPU device creates using a default page size.
 	//
@@ -936,14 +950,17 @@ func (o MTLDeviceObject) NewPipelineDataSetSerializerWithDescriptor(descriptor I
 	return MTL4PipelineDataSetSerializerObjectFromID(rv)
 }
 
-// Creates a tensor by allocating new memory.
+// Creates a tensor with the specified descriptor.
 //
-// descriptor: A description of the properties for the new tensor.
+// descriptor: The tensor descriptor configuring the data plane and auxiliary planes.
 //
 // # Return Value
 //
-// A new tensor instance that Metal configures using `descriptor` or `nil` if
-// an error occurred.
+// A tensor, or `nil` if validation fails.
+//
+// # Discussion
+//
+// This method validates the constraints documented on [MTLTensorDescriptor].
 //
 // See: https://developer.apple.com/documentation/Metal/MTLDevice/makeTensor(descriptor:)
 func (o MTLDeviceObject) NewTensorWithDescriptorError(descriptor IMTLTensorDescriptor) (MTLTensor, error) {
@@ -1018,15 +1035,20 @@ func (o MTLDeviceObject) SizeOfCounterHeapEntry(type_ MTL4CounterHeapType) uint 
 	return rv
 }
 
-// Determines the size and alignment required to hold the data of a tensor you
-// create with a descriptor in a buffer.
+// Determines the size and alignment required to hold the data plane of a
+// tensor you create with a descriptor in a buffer.
 //
-// descriptor: A description of the properties for the new tensor.
+// descriptor: The tensor descriptor configuring the data plane.
 //
 // # Return Value
 //
-// The size and alignment required to hold the data of a tensor you create
-// with `descriptor` in a buffer.
+// The size and alignment required to hold the data plane of a tensor you
+// create with `descriptor` in a buffer.
+//
+// # Discussion
+//
+// This method requires that `descriptor` does not configure any auxiliary
+// planes.
 //
 // See: https://developer.apple.com/documentation/Metal/MTLDevice/tensorSizeAndAlign(descriptor:)
 func (o MTLDeviceObject) TensorSizeAndAlignWithDescriptor(descriptor IMTLTensorDescriptor) MTLSizeAndAlign {
@@ -1357,10 +1379,11 @@ var _mtldeviceobject_newbufferwithbytesnocopy_length_options_deallocator_p3_key 
 // [MTLResourceOptions]: https://developer.apple.com/documentation/Metal/MTLResourceOptions
 // [Resource fundamentals]: https://developer.apple.com/documentation/Metal/resource-fundamentals
 // [Setting resource storage modes]: https://developer.apple.com/documentation/Metal/setting-resource-storage-modes
-func (o MTLDeviceObject) NewBufferWithBytesNoCopyLengthOptionsDeallocator(pointer unsafe.Pointer, length uint, options MTLResourceOptions, deallocator func(kernel.Pointer, uint64)) MTLBuffer {
-	_block3 := objc.NewBlock(func(_ objc.Block, arg0 kernel.Pointer, arg1 uint64) { deallocator(arg0, arg1) })
+func (o MTLDeviceObject) NewBufferWithBytesNoCopyLengthOptionsDeallocator(pointer unsafe.Pointer, length uint, options MTLResourceOptions, deallocator UnsafePointerUintHandler) MTLBuffer {
+	_block3, _cleanup3 := NewUnsafePointerUintBlock(deallocator)
+	defer _cleanup3()
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("newBufferWithBytesNoCopy:length:options:deallocator:"), pointer, length, options, objc.ID(_block3))
-	objc.AssociateBlockWithReceiver(rv, &_mtldeviceobject_newbufferwithbytesnocopy_length_options_deallocator_p3_key, _block3)
+	objc.AssociateBlockWithReceiver(rv, &_mtldeviceobject_newbufferwithbytesnocopy_length_options_deallocator_p3_key, objc.Block(_block3))
 	return MTLBufferObjectFromID(rv)
 }
 
@@ -1449,8 +1472,9 @@ func (o MTLDeviceObject) NewCommandQueueWithMaxCommandBufferCount(maxCommandBuff
 // See: https://developer.apple.com/documentation/Metal/MTLDevice/makeComputePipelineState(descriptor:options:completionHandler:)
 //
 // [MTLPipelineOption]: https://developer.apple.com/documentation/Metal/MTLPipelineOption
-func (o MTLDeviceObject) NewComputePipelineStateWithDescriptorOptionsCompletionHandler(descriptor IMTLComputePipelineDescriptor, options MTLPipelineOption, completionHandler ErrorHandler) {
-	objc.Send[struct{}](o.ID, objc.Sel("newComputePipelineStateWithDescriptor:options:completionHandler:"), descriptor, options, completionHandler)
+func (o MTLDeviceObject) NewComputePipelineStateWithDescriptorOptionsCompletionHandler(descriptor IMTLComputePipelineDescriptor, options MTLPipelineOption, completionHandler MTLComputePipelineStateMTLComputePipelineReflectionErrorHandler) {
+	_block2, _ := NewMTLComputePipelineStateMTLComputePipelineReflectionErrorBlock(completionHandler)
+	objc.Send[struct{}](o.ID, objc.Sel("newComputePipelineStateWithDescriptor:options:completionHandler:"), descriptor, options, _block2)
 }
 
 // Synchronously creates a compute pipeline state and reflection information.
@@ -1478,7 +1502,7 @@ func (o MTLDeviceObject) NewComputePipelineStateWithDescriptorOptionsCompletionH
 //
 // [MTLPipelineOption]: https://developer.apple.com/documentation/Metal/MTLPipelineOption
 func (o MTLDeviceObject) NewComputePipelineStateWithDescriptorOptionsReflectionError(descriptor IMTLComputePipelineDescriptor, options MTLPipelineOption, reflection *MTLAutoreleasedComputePipelineReflection) (MTLComputePipelineState, error) {
-	rv, err := objc.SendWithError[objc.ID](o.ID, objc.Sel("newComputePipelineStateWithDescriptor:options:reflection:error:"), descriptor, options, reflection)
+	rv, err := objc.SendWithError[objc.ID](o.ID, objc.Sel("newComputePipelineStateWithDescriptor:options:reflection:error:"), descriptor, options, unsafe.Pointer(reflection))
 	if err != nil {
 		return nil, err
 	}
@@ -1498,8 +1522,9 @@ func (o MTLDeviceObject) NewComputePipelineStateWithDescriptorOptionsReflectionE
 // [SetComputePipelineState] method of an [MTLComputeCommandEncoder] instance.
 //
 // See: https://developer.apple.com/documentation/Metal/MTLDevice/makeComputePipelineState(function:completionHandler:)
-func (o MTLDeviceObject) NewComputePipelineStateWithFunctionCompletionHandler(computeFunction MTLFunction, completionHandler ErrorHandler) {
-	objc.Send[struct{}](o.ID, objc.Sel("newComputePipelineStateWithFunction:completionHandler:"), computeFunction, completionHandler)
+func (o MTLDeviceObject) NewComputePipelineStateWithFunctionCompletionHandler(computeFunction MTLFunction, completionHandler MTLComputePipelineStateErrorHandler) {
+	_block1, _ := NewMTLComputePipelineStateErrorBlock(completionHandler)
+	objc.Send[struct{}](o.ID, objc.Sel("newComputePipelineStateWithFunction:completionHandler:"), computeFunction, _block1)
 }
 
 // Synchronously creates a compute pipeline state with a function instance.
@@ -1539,8 +1564,9 @@ func (o MTLDeviceObject) NewComputePipelineStateWithFunctionError(computeFunctio
 // See: https://developer.apple.com/documentation/Metal/MTLDevice/makeComputePipelineState(function:options:completionHandler:)
 //
 // [MTLPipelineOption]: https://developer.apple.com/documentation/Metal/MTLPipelineOption
-func (o MTLDeviceObject) NewComputePipelineStateWithFunctionOptionsCompletionHandler(computeFunction MTLFunction, options MTLPipelineOption, completionHandler ErrorHandler) {
-	objc.Send[struct{}](o.ID, objc.Sel("newComputePipelineStateWithFunction:options:completionHandler:"), computeFunction, options, completionHandler)
+func (o MTLDeviceObject) NewComputePipelineStateWithFunctionOptionsCompletionHandler(computeFunction MTLFunction, options MTLPipelineOption, completionHandler MTLComputePipelineStateMTLComputePipelineReflectionErrorHandler) {
+	_block2, _ := NewMTLComputePipelineStateMTLComputePipelineReflectionErrorBlock(completionHandler)
+	objc.Send[struct{}](o.ID, objc.Sel("newComputePipelineStateWithFunction:options:completionHandler:"), computeFunction, options, _block2)
 }
 
 // Synchronously creates a compute pipeline state and reflection with a
@@ -1564,7 +1590,7 @@ func (o MTLDeviceObject) NewComputePipelineStateWithFunctionOptionsCompletionHan
 //
 // [MTLPipelineOption]: https://developer.apple.com/documentation/Metal/MTLPipelineOption
 func (o MTLDeviceObject) NewComputePipelineStateWithFunctionOptionsReflectionError(computeFunction MTLFunction, options MTLPipelineOption, reflection *MTLAutoreleasedComputePipelineReflection) (MTLComputePipelineState, error) {
-	rv, err := objc.SendWithError[objc.ID](o.ID, objc.Sel("newComputePipelineStateWithFunction:options:reflection:error:"), computeFunction, options, reflection)
+	rv, err := objc.SendWithError[objc.ID](o.ID, objc.Sel("newComputePipelineStateWithFunction:options:reflection:error:"), computeFunction, options, unsafe.Pointer(reflection))
 	if err != nil {
 		return nil, err
 	}
@@ -1625,7 +1651,7 @@ func (o MTLDeviceObject) NewDefaultLibrary() MTLLibrary {
 // Swift throws an error and Objective-C returns `nil`.
 //
 // See: https://developer.apple.com/documentation/Metal/MTLDevice/makeDefaultLibrary(bundle:)
-func (o MTLDeviceObject) NewDefaultLibraryWithBundleError(bundle foundation.Bundle) (MTLLibrary, error) {
+func (o MTLDeviceObject) NewDefaultLibraryWithBundleError(bundle foundation.NSBundle) (MTLLibrary, error) {
 	rv, err := objc.SendWithError[objc.ID](o.ID, objc.Sel("newDefaultLibraryWithBundle:error:"), bundle)
 	if err != nil {
 		return nil, err
@@ -1803,6 +1829,60 @@ func (o MTLDeviceObject) NewIOFileHandleWithURLError(url foundation.NSURL) (MTLI
 	return MTLIOFileHandleObjectFromID(rv), nil
 }
 
+// Creates an input/output file handle instance that represents a compressed
+// file at a URL.
+//
+// url: A location URL to a compressed file in the file system.
+//
+// compressionMethod: The file’s compression format.
+//
+// # Return Value
+//
+// A new [MTLIOFileHandle] instance if the method completes successfully;
+// otherwise Swift throws an error and Objective-C returns `nil`.
+//
+// # Discussion
+//
+// For information about using input/output command queues and file handles,
+// see [Resource loading].
+//
+// See: https://developer.apple.com/documentation/Metal/MTLDevice/makeIOHandle(url:compressionMethod:)
+//
+// [Resource loading]: https://developer.apple.com/documentation/Metal/resource-loading
+func (o MTLDeviceObject) NewIOHandleWithURLCompressionMethodError(url foundation.NSURL, compressionMethod MTLIOCompressionMethod) (MTLIOFileHandle, error) {
+	rv, err := objc.SendWithError[objc.ID](o.ID, objc.Sel("newIOHandleWithURL:compressionMethod:error:"), url, compressionMethod)
+	if err != nil {
+		return nil, err
+	}
+	return MTLIOFileHandleObjectFromID(rv), nil
+}
+
+// Creates an input/output file handle instance that represents a file at a
+// URL.
+//
+// url: The URL to a resource file in the file system.
+//
+// # Return Value
+//
+// A new [MTLIOFileHandle] instance if the method completes successfully;
+// otherwise Swift throws an error and Objective-C returns `nil`.
+//
+// # Discussion
+//
+// For information about using input/output command queues and file handles,
+// see [Resource loading].
+//
+// See: https://developer.apple.com/documentation/Metal/MTLDevice/makeIOHandle(url:)
+//
+// [Resource loading]: https://developer.apple.com/documentation/Metal/resource-loading
+func (o MTLDeviceObject) NewIOHandleWithURLError(url foundation.NSURL) (MTLIOFileHandle, error) {
+	rv, err := objc.SendWithError[objc.ID](o.ID, objc.Sel("newIOHandleWithURL:error:"), url)
+	if err != nil {
+		return nil, err
+	}
+	return MTLIOFileHandleObjectFromID(rv), nil
+}
+
 // Creates an indirect command buffer instance.
 //
 // descriptor: An [MTLIndirectCommandBufferDescriptor] instance.
@@ -1877,8 +1957,9 @@ func (o MTLDeviceObject) NewLibraryWithDataError(data dispatch.Data) (MTLLibrary
 // See: https://developer.apple.com/documentation/Metal/MTLDevice/makeLibrary(source:options:completionHandler:)
 //
 // [Metal Shading Language Specification]: https://developer.apple.com/metal/Metal-Shading-Language-Specification.pdf
-func (o MTLDeviceObject) NewLibraryWithSourceOptionsCompletionHandler(source string, options IMTLCompileOptions, completionHandler ErrorHandler) {
-	objc.Send[struct{}](o.ID, objc.Sel("newLibraryWithSource:options:completionHandler:"), objc.String(source), options, completionHandler)
+func (o MTLDeviceObject) NewLibraryWithSourceOptionsCompletionHandler(source string, options IMTLCompileOptions, completionHandler MTLLibraryErrorHandler) {
+	_block2, _ := NewMTLLibraryErrorBlock(completionHandler)
+	objc.Send[struct{}](o.ID, objc.Sel("newLibraryWithSource:options:completionHandler:"), objc.String(source), options, _block2)
 }
 
 // Synchronously creates a Metal library instance by compiling the functions
@@ -1921,8 +2002,9 @@ func (o MTLDeviceObject) NewLibraryWithSourceOptionsError(source string, options
 // finishes loading.
 //
 // See: https://developer.apple.com/documentation/Metal/MTLDevice/makeLibrary(stitchedDescriptor:completionHandler:)
-func (o MTLDeviceObject) NewLibraryWithStitchedDescriptorCompletionHandler(descriptor IMTLStitchedLibraryDescriptor, completionHandler ErrorHandler) {
-	objc.Send[struct{}](o.ID, objc.Sel("newLibraryWithStitchedDescriptor:completionHandler:"), descriptor, completionHandler)
+func (o MTLDeviceObject) NewLibraryWithStitchedDescriptorCompletionHandler(descriptor IMTLStitchedLibraryDescriptor, completionHandler MTLLibraryErrorHandler) {
+	_block1, _ := NewMTLLibraryErrorBlock(completionHandler)
+	objc.Send[struct{}](o.ID, objc.Sel("newLibraryWithStitchedDescriptor:completionHandler:"), descriptor, _block1)
 }
 
 // Synchronously creates a Metal library from the function stitching graphs in
@@ -1992,8 +2074,9 @@ func (o MTLDeviceObject) NewRasterizationRateMapWithDescriptor(descriptor IMTLRa
 // instance.
 //
 // See: https://developer.apple.com/documentation/Metal/MTLDevice/makeRenderPipelineState(descriptor:completionHandler:)
-func (o MTLDeviceObject) NewRenderPipelineStateWithDescriptorCompletionHandler(descriptor IMTLRenderPipelineDescriptor, completionHandler ErrorHandler) {
-	objc.Send[struct{}](o.ID, objc.Sel("newRenderPipelineStateWithDescriptor:completionHandler:"), descriptor, completionHandler)
+func (o MTLDeviceObject) NewRenderPipelineStateWithDescriptorCompletionHandler(descriptor IMTLRenderPipelineDescriptor, completionHandler MTLRenderPipelineStateErrorHandler) {
+	_block1, _ := NewMTLRenderPipelineStateErrorBlock(completionHandler)
+	objc.Send[struct{}](o.ID, objc.Sel("newRenderPipelineStateWithDescriptor:completionHandler:"), descriptor, _block1)
 }
 
 // Synchronously creates a render pipeline state.
@@ -2040,8 +2123,9 @@ func (o MTLDeviceObject) NewRenderPipelineStateWithDescriptorError(descriptor IM
 // See: https://developer.apple.com/documentation/Metal/MTLDevice/makeRenderPipelineState(descriptor:options:completionHandler:)-5gdww
 //
 // [MTLPipelineOption]: https://developer.apple.com/documentation/Metal/MTLPipelineOption
-func (o MTLDeviceObject) NewRenderPipelineStateWithDescriptorOptionsCompletionHandler(descriptor IMTLRenderPipelineDescriptor, options MTLPipelineOption, completionHandler ErrorHandler) {
-	objc.Send[struct{}](o.ID, objc.Sel("newRenderPipelineStateWithDescriptor:options:completionHandler:"), descriptor, options, completionHandler)
+func (o MTLDeviceObject) NewRenderPipelineStateWithDescriptorOptionsCompletionHandler(descriptor IMTLRenderPipelineDescriptor, options MTLPipelineOption, completionHandler MTLRenderPipelineStateMTLRenderPipelineReflectionErrorHandler) {
+	_block2, _ := NewMTLRenderPipelineStateMTLRenderPipelineReflectionErrorBlock(completionHandler)
+	objc.Send[struct{}](o.ID, objc.Sel("newRenderPipelineStateWithDescriptor:options:completionHandler:"), descriptor, options, _block2)
 }
 
 // Synchronously creates a render pipeline state and reflection information.
@@ -2076,7 +2160,7 @@ func (o MTLDeviceObject) NewRenderPipelineStateWithDescriptorOptionsCompletionHa
 //
 // [MTLPipelineOption]: https://developer.apple.com/documentation/Metal/MTLPipelineOption
 func (o MTLDeviceObject) NewRenderPipelineStateWithDescriptorOptionsReflectionError(descriptor IMTLRenderPipelineDescriptor, options MTLPipelineOption, reflection *MTLAutoreleasedRenderPipelineReflection) (MTLRenderPipelineState, error) {
-	rv, err := objc.SendWithError[objc.ID](o.ID, objc.Sel("newRenderPipelineStateWithDescriptor:options:reflection:error:"), descriptor, options, reflection)
+	rv, err := objc.SendWithError[objc.ID](o.ID, objc.Sel("newRenderPipelineStateWithDescriptor:options:reflection:error:"), descriptor, options, unsafe.Pointer(reflection))
 	if err != nil {
 		return nil, err
 	}
@@ -2103,8 +2187,9 @@ func (o MTLDeviceObject) NewRenderPipelineStateWithDescriptorOptionsReflectionEr
 // See: https://developer.apple.com/documentation/Metal/MTLDevice/makeRenderPipelineState(descriptor:options:completionHandler:)-1wvya
 //
 // [MTLPipelineOption]: https://developer.apple.com/documentation/Metal/MTLPipelineOption
-func (o MTLDeviceObject) NewRenderPipelineStateWithMeshDescriptorOptionsCompletionHandler(descriptor IMTLMeshRenderPipelineDescriptor, options MTLPipelineOption, completionHandler ErrorHandler) {
-	objc.Send[struct{}](o.ID, objc.Sel("newRenderPipelineStateWithMeshDescriptor:options:completionHandler:"), descriptor, options, completionHandler)
+func (o MTLDeviceObject) NewRenderPipelineStateWithMeshDescriptorOptionsCompletionHandler(descriptor IMTLMeshRenderPipelineDescriptor, options MTLPipelineOption, completionHandler MTLRenderPipelineStateMTLRenderPipelineReflectionErrorHandler) {
+	_block2, _ := NewMTLRenderPipelineStateMTLRenderPipelineReflectionErrorBlock(completionHandler)
+	objc.Send[struct{}](o.ID, objc.Sel("newRenderPipelineStateWithMeshDescriptor:options:completionHandler:"), descriptor, options, _block2)
 }
 
 // Synchronously creates a mesh render pipeline state and reflection
@@ -2142,7 +2227,7 @@ func (o MTLDeviceObject) NewRenderPipelineStateWithMeshDescriptorOptionsCompleti
 //
 // [MTLPipelineOption]: https://developer.apple.com/documentation/Metal/MTLPipelineOption
 func (o MTLDeviceObject) NewRenderPipelineStateWithMeshDescriptorOptionsReflectionError(descriptor IMTLMeshRenderPipelineDescriptor, options MTLPipelineOption, reflection *MTLAutoreleasedRenderPipelineReflection) (MTLRenderPipelineState, error) {
-	rv, err := objc.SendWithError[objc.ID](o.ID, objc.Sel("newRenderPipelineStateWithMeshDescriptor:options:reflection:error:"), descriptor, options, reflection)
+	rv, err := objc.SendWithError[objc.ID](o.ID, objc.Sel("newRenderPipelineStateWithMeshDescriptor:options:reflection:error:"), descriptor, options, unsafe.Pointer(reflection))
 	if err != nil {
 		return nil, err
 	}
@@ -2163,8 +2248,9 @@ func (o MTLDeviceObject) NewRenderPipelineStateWithMeshDescriptorOptionsReflecti
 // See: https://developer.apple.com/documentation/Metal/MTLDevice/makeRenderPipelineState(tileDescriptor:options:completionHandler:)
 //
 // [MTLPipelineOption]: https://developer.apple.com/documentation/Metal/MTLPipelineOption
-func (o MTLDeviceObject) NewRenderPipelineStateWithTileDescriptorOptionsCompletionHandler(descriptor IMTLTileRenderPipelineDescriptor, options MTLPipelineOption, completionHandler ErrorHandler) {
-	objc.Send[struct{}](o.ID, objc.Sel("newRenderPipelineStateWithTileDescriptor:options:completionHandler:"), descriptor, options, completionHandler)
+func (o MTLDeviceObject) NewRenderPipelineStateWithTileDescriptorOptionsCompletionHandler(descriptor IMTLTileRenderPipelineDescriptor, options MTLPipelineOption, completionHandler MTLRenderPipelineStateMTLRenderPipelineReflectionErrorHandler) {
+	_block2, _ := NewMTLRenderPipelineStateMTLRenderPipelineReflectionErrorBlock(completionHandler)
+	objc.Send[struct{}](o.ID, objc.Sel("newRenderPipelineStateWithTileDescriptor:options:completionHandler:"), descriptor, options, _block2)
 }
 
 // Synchronously creates a tile shader’s render pipeline state and
@@ -2194,7 +2280,7 @@ func (o MTLDeviceObject) NewRenderPipelineStateWithTileDescriptorOptionsCompleti
 //
 // [MTLPipelineOption]: https://developer.apple.com/documentation/Metal/MTLPipelineOption
 func (o MTLDeviceObject) NewRenderPipelineStateWithTileDescriptorOptionsReflectionError(descriptor IMTLTileRenderPipelineDescriptor, options MTLPipelineOption, reflection *MTLAutoreleasedRenderPipelineReflection) (MTLRenderPipelineState, error) {
-	rv, err := objc.SendWithError[objc.ID](o.ID, objc.Sel("newRenderPipelineStateWithTileDescriptor:options:reflection:error:"), descriptor, options, reflection)
+	rv, err := objc.SendWithError[objc.ID](o.ID, objc.Sel("newRenderPipelineStateWithTileDescriptor:options:reflection:error:"), descriptor, options, unsafe.Pointer(reflection))
 	if err != nil {
 		return nil, err
 	}
@@ -2315,6 +2401,33 @@ func (o MTLDeviceObject) NewSharedTextureWithHandle(sharedHandle IMTLSharedTextu
 	return MTLTextureObjectFromID(rv)
 }
 
+// Creates a tensor with the specified descriptor and per-plane buffer backing
+// storage.
+//
+// descriptor: The tensor descriptor configuring the data plane and auxiliary planes.
+//
+// attachments: The per-plane buffer backing storage. Must not be `nil`.
+//
+// # Return Value
+//
+// A tensor, or `nil` if validation fails.
+//
+// # Discussion
+//
+// This method validates the constraints documented on [MTLTensorDescriptor]
+// and [MTLTensorBufferAttachments], and additionally requires that every
+// plane configured in `descriptor` (data plane and all auxiliary planes) has
+// a corresponding entry in `attachments`.
+//
+// See: https://developer.apple.com/documentation/Metal/MTLDevice/makeTensor(descriptor:attachments:)
+func (o MTLDeviceObject) NewTensorWithDescriptorAttachmentsError(descriptor IMTLTensorDescriptor, attachments IMTLTensorBufferAttachments) (MTLTensor, error) {
+	rv, err := objc.SendWithError[objc.ID](o.ID, objc.Sel("newTensorWithDescriptor:attachments:error:"), descriptor, attachments)
+	if err != nil {
+		return nil, err
+	}
+	return MTLTensorObjectFromID(rv), nil
+}
+
 // Creates a new texture instance.
 //
 // descriptor: An [MTLTextureDescriptor] instance.
@@ -2368,7 +2481,7 @@ func (o MTLDeviceObject) NewTextureWithDescriptorIosurfacePlane(descriptor IMTLT
 //
 // [Converting GPU timestamps into CPU time]: https://developer.apple.com/documentation/Metal/converting-gpu-timestamps-into-cpu-time
 func (o MTLDeviceObject) SampleTimestampsGpuTimestamp(cpuTimestamp *MTLTimestamp, gpuTimestamp *MTLTimestamp) {
-	objc.Send[struct{}](o.ID, objc.Sel("sampleTimestamps:gpuTimestamp:"), cpuTimestamp, gpuTimestamp)
+	objc.Send[struct{}](o.ID, objc.Sel("sampleTimestamps:gpuTimestamp:"), unsafe.Pointer(cpuTimestamp), unsafe.Pointer(gpuTimestamp))
 }
 
 // Returns the size, in bytes, of a sparse tile the GPU device creates with a
@@ -2650,7 +2763,7 @@ func (o MTLDeviceObject) CurrentAllocatedSize() uint {
 // [MTLPixelFormatDepth24Unorm_Stencil8] pixel format.
 //
 // See: https://developer.apple.com/documentation/Metal/MTLDevice/isDepth24Stencil8PixelFormatSupported
-func (o MTLDeviceObject) Depth24Stencil8PixelFormatSupported() bool {
+func (o MTLDeviceObject) IsDepth24Stencil8PixelFormatSupported() bool {
 	rv := objc.Send[bool](o.ID, objc.Sel("isDepth24Stencil8PixelFormatSupported"))
 	return bool(rv)
 }
@@ -2675,11 +2788,11 @@ func (o MTLDeviceObject) HasUnifiedMemory() bool {
 //
 // # Discussion
 //
-// The value is true when the GPU is , which means it isn’t connected to any
-// displays.
+// The value is true when the GPU is headless, which means it isn’t
+// connected to any displays.
 //
 // See: https://developer.apple.com/documentation/Metal/MTLDevice/isHeadless
-func (o MTLDeviceObject) Headless() bool {
+func (o MTLDeviceObject) IsHeadless() bool {
 	rv := objc.Send[bool](o.ID, objc.Sel("isHeadless"))
 	return bool(rv)
 }
@@ -2739,7 +2852,7 @@ func (o MTLDeviceObject) LocationNumber() uint {
 // See: https://developer.apple.com/documentation/Metal/MTLDevice/isLowPower
 //
 // [Multi-GPU systems]: https://developer.apple.com/documentation/Metal/multi-gpu-systems
-func (o MTLDeviceObject) LowPower() bool {
+func (o MTLDeviceObject) IsLowPower() bool {
 	rv := objc.Send[bool](o.ID, objc.Sel("isLowPower"))
 	return bool(rv)
 }
@@ -2947,7 +3060,7 @@ func (o MTLDeviceObject) RegistryID() uint64 {
 // [MTLCopyAllDevicesWithObserver(handler:)]: https://developer.apple.com/documentation/Metal/MTLCopyAllDevicesWithObserver(handler:)
 // [removalRequested]: https://developer.apple.com/documentation/Metal/MTLDeviceNotificationName/removalRequested
 // [wasRemoved]: https://developer.apple.com/documentation/Metal/MTLDeviceNotificationName/wasRemoved
-func (o MTLDeviceObject) Removable() bool {
+func (o MTLDeviceObject) IsRemovable() bool {
 	rv := objc.Send[bool](o.ID, objc.Sel("isRemovable"))
 	return bool(rv)
 }

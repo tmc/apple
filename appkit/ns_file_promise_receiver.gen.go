@@ -275,9 +275,11 @@ func (_NSFilePromiseReceiverClass NSFilePromiseReceiverClass) ReadableDraggedTyp
 	return objc.ConvertSliceToStrings(rv)
 }
 
+// Protocol methods for NSPasteboardReading
+
 // ReceivePromisedFilesAtDestinationOptionsOperationQueueReaderSync is a synchronous wrapper around [NSFilePromiseReceiver.ReceivePromisedFilesAtDestinationOptionsOperationQueueReader].
 // It blocks until the completion handler fires or the context is cancelled.
-func (f NSFilePromiseReceiver) ReceivePromisedFilesAtDestinationOptionsOperationQueueReaderSync(ctx context.Context, destinationDir foundation.NSURL, options foundation.INSDictionary, operationQueue foundation.OperationQueue) (*foundation.NSURL, error) {
+func (f NSFilePromiseReceiver) ReceivePromisedFilesAtDestinationOptionsOperationQueueReaderSync(ctx context.Context, destinationDir foundation.NSURL, options foundation.INSDictionary, operationQueue foundation.NSOperationQueue) (*foundation.NSURL, error) {
 	type result struct {
 		val *foundation.NSURL
 		err error

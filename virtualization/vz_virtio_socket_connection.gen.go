@@ -108,7 +108,7 @@ type IVZVirtioSocketConnection interface {
 	// The destination port number of the connection.
 	DestinationPort() uint32
 	// The file descriptor to use when sending data.
-	FileDescriptor() int
+	FileDescriptor() int32
 
 	// Topic: Closing the connection
 
@@ -174,7 +174,7 @@ func (v VZVirtioSocketConnection) DestinationPort() uint32 {
 // the socket connection is closed, the value of this property is `-1`.
 //
 // See: https://developer.apple.com/documentation/Virtualization/VZVirtioSocketConnection/fileDescriptor
-func (v VZVirtioSocketConnection) FileDescriptor() int {
-	rv := objc.Send[int](v.ID, objc.Sel("fileDescriptor"))
+func (v VZVirtioSocketConnection) FileDescriptor() int32 {
+	rv := objc.Send[int32](v.ID, objc.Sel("fileDescriptor"))
 	return rv
 }

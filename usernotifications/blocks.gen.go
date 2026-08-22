@@ -8,7 +8,7 @@ import (
 )
 
 // BoolErrorHandler handles The block to execute asynchronously with the results.
-//   - granted: A Boolean value indicating whether the person grants authorization. The value of this parameter is [true](<doc://com.apple.documentation/documentation/Swift/true>) when the person grants authorization for one or more options. The value is [false](<doc://com.apple.documentation/documentation/Swift/false>) when the person denies authorization or authorization is  undetermined. Use [getNotificationSettings(completionHandler:)](<doc://com.apple.usernotifications/documentation/UserNotifications/UNUserNotificationCenter/getNotificationSettings(completionHandler:)>) to check the authorization status.
+//   - granted: A Boolean value indicating whether the person grants authorization. The value of this parameter is [true](<https://developer.apple.com/documentation/Swift/true>) when the person grants authorization for one or more options. The value is [false](<https://developer.apple.com/documentation/Swift/false>) when the person denies authorization or authorization is  undetermined. Use [getNotificationSettings(completionHandler:)](<https://developer.apple.com/documentation/UserNotifications/UNUserNotificationCenter/getNotificationSettings(completionHandler:)>) to check the authorization status.
 //   - error: An object containing error information or `nil` if no error occurs.
 //
 // The error can be type-asserted to *foundation.NSError for Domain, Code, and UserInfo.
@@ -60,7 +60,7 @@ func NewErrorBlock(handler ErrorHandler) (objc.ID, func()) {
 }
 
 // UNNotificationArrayHandler handles The block to execute with the results.
-//   - notifications: An array of [UNNotification](<doc://com.apple.usernotifications/documentation/UserNotifications/UNNotification>) objects representing the local and remote notifications of your app that have been delivered and are still visible in Notification Center. If none of your app’s notifications are visible in Notification Center, the array is empty.
+//   - notifications: An array of [UNNotification](<https://developer.apple.com/documentation/UserNotifications/UNNotification>) objects representing the local and remote notifications of your app that have been delivered and are still visible in Notification Center. If none of your app’s notifications are visible in Notification Center, the array is empty.
 //
 // Used by:
 //   - [UNUserNotificationCenter.GetDeliveredNotificationsWithCompletionHandler]
@@ -94,14 +94,14 @@ func NewUNNotificationArrayBlock(handler UNNotificationArrayHandler) (objc.ID, f
 }
 
 // UNNotificationCategorySetHandler handles The block to execute asynchronously with the results.
-//   - categories: The set of [UNNotificationCategory](<doc://com.apple.usernotifications/documentation/UserNotifications/UNNotificationCategory>) objects containing your registered notification types. If your app has not yet registered any categories, this parameter is an empty set.
+//   - categories: The set of [UNNotificationCategory](<https://developer.apple.com/documentation/UserNotifications/UNNotificationCategory>) objects containing your registered notification types. If your app has not yet registered any categories, this parameter is an empty set.
 //
 // Used by:
 //   - [UNUserNotificationCenter.GetNotificationCategoriesWithCompletionHandler]
 type UNNotificationCategorySetHandler = func(*foundation.INSSet)
 
 // UNNotificationContentHandler handles The block to execute with the modified content.
-//   - contentToDeliver: A [UNNotificationContent](<doc://com.apple.usernotifications/documentation/UserNotifications/UNNotificationContent>) object with the content the system displays to the user.
+//   - contentToDeliver: A [UNNotificationContent](<https://developer.apple.com/documentation/UserNotifications/UNNotificationContent>) object with the content the system displays to the user.
 //
 // Used by:
 //   - [UNNotificationServiceExtension.DidReceiveNotificationRequestWithContentHandler]
@@ -129,7 +129,7 @@ func NewUNNotificationContentBlock(handler UNNotificationContentHandler) (objc.I
 }
 
 // UNNotificationPresentationOptionsHandler handles The block to execute with the presentation option for the notification.
-//   - options: The option for notifying the user. Specify [UNNotificationPresentationOptionNone](<doc://com.apple.usernotifications/documentation/UserNotifications/UNNotificationPresentationOptionNone>) to silence the notification completely. Specify other values to interact with the user. For a list of possible options, see [UNNotificationPresentationOptions](<doc://com.apple.usernotifications/documentation/UserNotifications/UNNotificationPresentationOptions>).
+//   - options: The option for notifying the user. Specify [UNNotificationPresentationOptionNone](<https://developer.apple.com/documentation/UserNotifications/UNNotificationPresentationOptionNone>) to silence the notification completely. Specify other values to interact with the user. For a list of possible options, see [UNNotificationPresentationOptions](<https://developer.apple.com/documentation/UserNotifications/UNNotificationPresentationOptions>).
 //
 // Used by:
 //   - [UNUserNotificationCenterDelegate.UserNotificationCenterWillPresentNotificationWithCompletionHandler]
@@ -151,7 +151,7 @@ func NewUNNotificationPresentationOptionsBlock(handler UNNotificationPresentatio
 }
 
 // UNNotificationRequestArrayHandler handles A block for processing notification requests.
-//   - requests: An array of [UNNotificationRequest](<doc://com.apple.usernotifications/documentation/UserNotifications/UNNotificationRequest>) objects representing the scheduled notification requests. If there are no scheduled requests, this array is empty.
+//   - requests: An array of [UNNotificationRequest](<https://developer.apple.com/documentation/UserNotifications/UNNotificationRequest>) objects representing the scheduled notification requests. If there are no scheduled requests, this array is empty.
 //
 // Used by:
 //   - [UNUserNotificationCenter.GetPendingNotificationRequestsWithCompletionHandler]
@@ -185,7 +185,7 @@ func NewUNNotificationRequestArrayBlock(handler UNNotificationRequestArrayHandle
 }
 
 // UNNotificationSettingsHandler handles The block to execute asynchronously with the results.
-//   - settings: The [UNNotificationSettings](<doc://com.apple.usernotifications/documentation/UserNotifications/UNNotificationSettings>) object containing the current authorization settings for your app.
+//   - settings: The [UNNotificationSettings](<https://developer.apple.com/documentation/UserNotifications/UNNotificationSettings>) object containing the current authorization settings for your app.
 //
 // Used by:
 //   - [UNUserNotificationCenter.GetNotificationSettingsWithCompletionHandler]

@@ -108,7 +108,7 @@ func (nc NSScriptSuiteRegistryClass) Alloc() NSScriptSuiteRegistry {
 // # Loading Suites
 //
 //   - [NSScriptSuiteRegistry.LoadSuiteWithDictionaryFromBundle]: Loads the suite definition encapsulated in `dictionary`; previously, this suite definition was parsed from a `XCUIElementTypeScriptSuite` property list contained in a framework or in `bundle`.
-//   - [NSScriptSuiteRegistry.LoadSuitesFromBundle]: Loads the suite definitions in bundle `aBundle`, invoking [loadSuite(with:from:)](<doc://com.apple.foundation/documentation/Foundation/NSScriptSuiteRegistry/loadSuite(with:from:)>) for each suite found.
+//   - [NSScriptSuiteRegistry.LoadSuitesFromBundle]: Loads the suite definitions in bundle `aBundle`, invoking [loadSuite(with:from:)](<https://developer.apple.com/documentation/Foundation/NSScriptSuiteRegistry/loadSuite(with:from:)>) for each suite found.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSScriptSuiteRegistry
 //
@@ -157,7 +157,7 @@ func NSScriptSuiteRegistryFromID(id objc.ID) NSScriptSuiteRegistry {
 // # Loading Suites
 //
 //   - [INSScriptSuiteRegistry.LoadSuiteWithDictionaryFromBundle]: Loads the suite definition encapsulated in `dictionary`; previously, this suite definition was parsed from a `XCUIElementTypeScriptSuite` property list contained in a framework or in `bundle`.
-//   - [INSScriptSuiteRegistry.LoadSuitesFromBundle]: Loads the suite definitions in bundle `aBundle`, invoking [loadSuite(with:from:)](<doc://com.apple.foundation/documentation/Foundation/NSScriptSuiteRegistry/loadSuite(with:from:)>) for each suite found.
+//   - [INSScriptSuiteRegistry.LoadSuitesFromBundle]: Loads the suite definitions in bundle `aBundle`, invoking [loadSuite(with:from:)](<https://developer.apple.com/documentation/Foundation/NSScriptSuiteRegistry/loadSuite(with:from:)>) for each suite found.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSScriptSuiteRegistry
 type INSScriptSuiteRegistry interface {
@@ -201,7 +201,7 @@ type INSScriptSuiteRegistry interface {
 
 	// Loads the suite definition encapsulated in `dictionary`; previously, this suite definition was parsed from a `XCUIElementTypeScriptSuite` property list contained in a framework or in `bundle`.
 	LoadSuiteWithDictionaryFromBundle(suiteDeclaration INSDictionary, bundle INSBundle)
-	// Loads the suite definitions in bundle `aBundle`, invoking [loadSuite(with:from:)](<doc://com.apple.foundation/documentation/Foundation/NSScriptSuiteRegistry/loadSuite(with:from:)>) for each suite found.
+	// Loads the suite definitions in bundle `aBundle`, invoking [loadSuite(with:from:)](<https://developer.apple.com/documentation/Foundation/NSScriptSuiteRegistry/loadSuite(with:from:)>) for each suite found.
 	LoadSuitesFromBundle(bundle INSBundle)
 }
 

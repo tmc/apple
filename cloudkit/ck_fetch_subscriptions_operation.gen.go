@@ -4,9 +4,8 @@ package cloudkit
 
 import (
 	"sync"
-	"unsafe"
 
-	"github.com/tmc/apple/kernel"
+	"github.com/tmc/apple/foundation"
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -108,14 +107,14 @@ type ICKFetchSubscriptionsOperation interface {
 	// Topic: Configuring the Fetch Subscriptions Operation
 
 	// The IDs of the subscriptions to fetch.
-	SubscriptionIDs() unsafe.Pointer
-	SetSubscriptionIDs(value kernel.Pointer)
+	SubscriptionIDs() []CKSubscriptionID
+	SetSubscriptionIDs(value []CKSubscriptionID)
 
 	// Topic: Processing the Fetch Subscription Results
 
 	// The block to execute with the fetch results.
-	FetchSubscriptionCompletionBlock() func(kernel.Pointer, kernel.Pointer)
-	SetFetchSubscriptionCompletionBlock(value func(kernel.Pointer, kernel.Pointer))
+	FetchSubscriptionCompletionBlock() objectivec.IObject
+	SetFetchSubscriptionCompletionBlock(value objectivec.IObject)
 }
 
 // Init initializes the instance.
@@ -155,12 +154,14 @@ func (_CKFetchSubscriptionsOperationClass CKFetchSubscriptionsOperationClass) Fe
 // The IDs of the subscriptions to fetch.
 //
 // See: https://developer.apple.com/documentation/cloudkit/ckfetchsubscriptionsoperation/subscriptionids-17f4q
-func (c CKFetchSubscriptionsOperation) SubscriptionIDs() unsafe.Pointer {
-	rv := objc.Send[unsafe.Pointer](c.ID, objc.Sel("subscriptionIDs"))
-	return rv
+func (c CKFetchSubscriptionsOperation) SubscriptionIDs() []CKSubscriptionID {
+	rv := objc.Send[[]objc.ID](c.ID, objc.Sel("subscriptionIDs"))
+	return objc.ConvertSlice(rv, func(id objc.ID) CKSubscriptionID {
+		return CKSubscriptionID(foundation.NSStringFromID(id).String())
+	})
 }
-func (c CKFetchSubscriptionsOperation) SetSubscriptionIDs(value kernel.Pointer) {
-	objc.Send[struct{}](c.ID, objc.Sel("setSubscriptionIDs:"), value)
+func (c CKFetchSubscriptionsOperation) SetSubscriptionIDs(value []CKSubscriptionID) {
+	objc.Send[struct{}](c.ID, objc.Sel("setSubscriptionIDs:"), objectivec.StringSliceToNSArray(value))
 }
 
 // The block to execute with the fetch results.

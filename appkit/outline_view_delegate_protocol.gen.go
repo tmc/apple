@@ -13,7 +13,7 @@ import (
 
 var _ = fmt.Sprintf
 
-// A set of optional methods implemented by delegates of [NSOutlineView](<doc://com.apple.appkit/documentation/AppKit/NSOutlineView>) objects.
+// A set of optional methods implemented by delegates of [NSOutlineView](<https://developer.apple.com/documentation/AppKit/NSOutlineView>) objects.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSOutlineViewDelegate
 type NSOutlineViewDelegate interface {
@@ -1266,9 +1266,22 @@ func NewNSOutlineViewDelegate(config NSOutlineViewDelegateConfig) NSOutlineViewD
 		methods = append(methods, objc.MethodDef{
 			Cmd: objc.RegisterName("outlineView:shouldSelectTableColumn:"),
 			Fn: func(self objc.ID, _cmd objc.SEL, outlineViewID objc.ID, tableColumnID objc.ID) bool {
+				// Names which delegate was running if a panic unwinds out of
+				// it. The frames between here and the Objective-C caller are
+				// runtime and purego dispatch, so without this the traceback
+				// never says which selector dispatched. Deliberately no
+				// recover: see [objc.NoteDelegatePanic].
+				_delegateDone := false
+				defer func() {
+					if !_delegateDone {
+						objc.NoteDelegatePanic("NSOutlineViewDelegate", "outlineView:shouldSelectTableColumn:")
+					}
+				}()
 				outlineView := NSOutlineViewFromID(outlineViewID)
 				tableColumn := NSTableColumnFromID(tableColumnID)
-				return fn(outlineView, tableColumn)
+				_delegateResult := fn(outlineView, tableColumn)
+				_delegateDone = true
+				return _delegateResult
 			},
 		})
 	}
@@ -1278,9 +1291,22 @@ func NewNSOutlineViewDelegate(config NSOutlineViewDelegateConfig) NSOutlineViewD
 		methods = append(methods, objc.MethodDef{
 			Cmd: objc.RegisterName("outlineView:selectionIndexesForProposedSelection:"),
 			Fn: func(self objc.ID, _cmd objc.SEL, outlineViewID objc.ID, proposedSelectionIndexesID objc.ID) objc.ID {
+				// Names which delegate was running if a panic unwinds out of
+				// it. The frames between here and the Objective-C caller are
+				// runtime and purego dispatch, so without this the traceback
+				// never says which selector dispatched. Deliberately no
+				// recover: see [objc.NoteDelegatePanic].
+				_delegateDone := false
+				defer func() {
+					if !_delegateDone {
+						objc.NoteDelegatePanic("NSOutlineViewDelegate", "outlineView:selectionIndexesForProposedSelection:")
+					}
+				}()
 				outlineView := NSOutlineViewFromID(outlineViewID)
 				proposedSelectionIndexes := foundation.NSIndexSetFromID(proposedSelectionIndexesID)
-				return fn(outlineView, proposedSelectionIndexes).GetID()
+				_delegateResult := fn(outlineView, proposedSelectionIndexes).GetID()
+				_delegateDone = true
+				return _delegateResult
 			},
 		})
 	}
@@ -1290,8 +1316,21 @@ func NewNSOutlineViewDelegate(config NSOutlineViewDelegateConfig) NSOutlineViewD
 		methods = append(methods, objc.MethodDef{
 			Cmd: objc.RegisterName("selectionShouldChangeInOutlineView:"),
 			Fn: func(self objc.ID, _cmd objc.SEL, outlineViewID objc.ID) bool {
+				// Names which delegate was running if a panic unwinds out of
+				// it. The frames between here and the Objective-C caller are
+				// runtime and purego dispatch, so without this the traceback
+				// never says which selector dispatched. Deliberately no
+				// recover: see [objc.NoteDelegatePanic].
+				_delegateDone := false
+				defer func() {
+					if !_delegateDone {
+						objc.NoteDelegatePanic("NSOutlineViewDelegate", "selectionShouldChangeInOutlineView:")
+					}
+				}()
 				outlineView := NSOutlineViewFromID(outlineViewID)
-				return fn(outlineView)
+				_delegateResult := fn(outlineView)
+				_delegateDone = true
+				return _delegateResult
 			},
 		})
 	}
@@ -1301,8 +1340,20 @@ func NewNSOutlineViewDelegate(config NSOutlineViewDelegateConfig) NSOutlineViewD
 		methods = append(methods, objc.MethodDef{
 			Cmd: objc.RegisterName("outlineViewSelectionIsChanging:"),
 			Fn: func(self objc.ID, _cmd objc.SEL, notificationID objc.ID) {
+				// Names which delegate was running if a panic unwinds out of
+				// it. The frames between here and the Objective-C caller are
+				// runtime and purego dispatch, so without this the traceback
+				// never says which selector dispatched. Deliberately no
+				// recover: see [objc.NoteDelegatePanic].
+				_delegateDone := false
+				defer func() {
+					if !_delegateDone {
+						objc.NoteDelegatePanic("NSOutlineViewDelegate", "outlineViewSelectionIsChanging:")
+					}
+				}()
 				notification := foundation.NSNotificationFromID(notificationID)
 				fn(notification)
+				_delegateDone = true
 			},
 		})
 	}
@@ -1312,8 +1363,20 @@ func NewNSOutlineViewDelegate(config NSOutlineViewDelegateConfig) NSOutlineViewD
 		methods = append(methods, objc.MethodDef{
 			Cmd: objc.RegisterName("outlineViewSelectionDidChange:"),
 			Fn: func(self objc.ID, _cmd objc.SEL, notificationID objc.ID) {
+				// Names which delegate was running if a panic unwinds out of
+				// it. The frames between here and the Objective-C caller are
+				// runtime and purego dispatch, so without this the traceback
+				// never says which selector dispatched. Deliberately no
+				// recover: see [objc.NoteDelegatePanic].
+				_delegateDone := false
+				defer func() {
+					if !_delegateDone {
+						objc.NoteDelegatePanic("NSOutlineViewDelegate", "outlineViewSelectionDidChange:")
+					}
+				}()
 				notification := foundation.NSNotificationFromID(notificationID)
 				fn(notification)
+				_delegateDone = true
 			},
 		})
 	}
@@ -1323,8 +1386,21 @@ func NewNSOutlineViewDelegate(config NSOutlineViewDelegateConfig) NSOutlineViewD
 		methods = append(methods, objc.MethodDef{
 			Cmd: objc.RegisterName("outlineView:shouldReorderColumn:toColumn:"),
 			Fn: func(self objc.ID, _cmd objc.SEL, outlineViewID objc.ID, columnIndex int, newColumnIndex int) bool {
+				// Names which delegate was running if a panic unwinds out of
+				// it. The frames between here and the Objective-C caller are
+				// runtime and purego dispatch, so without this the traceback
+				// never says which selector dispatched. Deliberately no
+				// recover: see [objc.NoteDelegatePanic].
+				_delegateDone := false
+				defer func() {
+					if !_delegateDone {
+						objc.NoteDelegatePanic("NSOutlineViewDelegate", "outlineView:shouldReorderColumn:toColumn:")
+					}
+				}()
 				outlineView := NSOutlineViewFromID(outlineViewID)
-				return fn(outlineView, columnIndex, newColumnIndex)
+				_delegateResult := fn(outlineView, columnIndex, newColumnIndex)
+				_delegateDone = true
+				return _delegateResult
 			},
 		})
 	}
@@ -1334,8 +1410,20 @@ func NewNSOutlineViewDelegate(config NSOutlineViewDelegateConfig) NSOutlineViewD
 		methods = append(methods, objc.MethodDef{
 			Cmd: objc.RegisterName("outlineViewColumnDidMove:"),
 			Fn: func(self objc.ID, _cmd objc.SEL, notificationID objc.ID) {
+				// Names which delegate was running if a panic unwinds out of
+				// it. The frames between here and the Objective-C caller are
+				// runtime and purego dispatch, so without this the traceback
+				// never says which selector dispatched. Deliberately no
+				// recover: see [objc.NoteDelegatePanic].
+				_delegateDone := false
+				defer func() {
+					if !_delegateDone {
+						objc.NoteDelegatePanic("NSOutlineViewDelegate", "outlineViewColumnDidMove:")
+					}
+				}()
 				notification := foundation.NSNotificationFromID(notificationID)
 				fn(notification)
+				_delegateDone = true
 			},
 		})
 	}
@@ -1345,8 +1433,20 @@ func NewNSOutlineViewDelegate(config NSOutlineViewDelegateConfig) NSOutlineViewD
 		methods = append(methods, objc.MethodDef{
 			Cmd: objc.RegisterName("outlineViewColumnDidResize:"),
 			Fn: func(self objc.ID, _cmd objc.SEL, notificationID objc.ID) {
+				// Names which delegate was running if a panic unwinds out of
+				// it. The frames between here and the Objective-C caller are
+				// runtime and purego dispatch, so without this the traceback
+				// never says which selector dispatched. Deliberately no
+				// recover: see [objc.NoteDelegatePanic].
+				_delegateDone := false
+				defer func() {
+					if !_delegateDone {
+						objc.NoteDelegatePanic("NSOutlineViewDelegate", "outlineViewColumnDidResize:")
+					}
+				}()
 				notification := foundation.NSNotificationFromID(notificationID)
 				fn(notification)
+				_delegateDone = true
 			},
 		})
 	}
@@ -1356,8 +1456,20 @@ func NewNSOutlineViewDelegate(config NSOutlineViewDelegateConfig) NSOutlineViewD
 		methods = append(methods, objc.MethodDef{
 			Cmd: objc.RegisterName("outlineViewItemWillExpand:"),
 			Fn: func(self objc.ID, _cmd objc.SEL, notificationID objc.ID) {
+				// Names which delegate was running if a panic unwinds out of
+				// it. The frames between here and the Objective-C caller are
+				// runtime and purego dispatch, so without this the traceback
+				// never says which selector dispatched. Deliberately no
+				// recover: see [objc.NoteDelegatePanic].
+				_delegateDone := false
+				defer func() {
+					if !_delegateDone {
+						objc.NoteDelegatePanic("NSOutlineViewDelegate", "outlineViewItemWillExpand:")
+					}
+				}()
 				notification := foundation.NSNotificationFromID(notificationID)
 				fn(notification)
+				_delegateDone = true
 			},
 		})
 	}
@@ -1367,8 +1479,20 @@ func NewNSOutlineViewDelegate(config NSOutlineViewDelegateConfig) NSOutlineViewD
 		methods = append(methods, objc.MethodDef{
 			Cmd: objc.RegisterName("outlineViewItemDidExpand:"),
 			Fn: func(self objc.ID, _cmd objc.SEL, notificationID objc.ID) {
+				// Names which delegate was running if a panic unwinds out of
+				// it. The frames between here and the Objective-C caller are
+				// runtime and purego dispatch, so without this the traceback
+				// never says which selector dispatched. Deliberately no
+				// recover: see [objc.NoteDelegatePanic].
+				_delegateDone := false
+				defer func() {
+					if !_delegateDone {
+						objc.NoteDelegatePanic("NSOutlineViewDelegate", "outlineViewItemDidExpand:")
+					}
+				}()
 				notification := foundation.NSNotificationFromID(notificationID)
 				fn(notification)
+				_delegateDone = true
 			},
 		})
 	}
@@ -1378,8 +1502,20 @@ func NewNSOutlineViewDelegate(config NSOutlineViewDelegateConfig) NSOutlineViewD
 		methods = append(methods, objc.MethodDef{
 			Cmd: objc.RegisterName("outlineViewItemWillCollapse:"),
 			Fn: func(self objc.ID, _cmd objc.SEL, notificationID objc.ID) {
+				// Names which delegate was running if a panic unwinds out of
+				// it. The frames between here and the Objective-C caller are
+				// runtime and purego dispatch, so without this the traceback
+				// never says which selector dispatched. Deliberately no
+				// recover: see [objc.NoteDelegatePanic].
+				_delegateDone := false
+				defer func() {
+					if !_delegateDone {
+						objc.NoteDelegatePanic("NSOutlineViewDelegate", "outlineViewItemWillCollapse:")
+					}
+				}()
 				notification := foundation.NSNotificationFromID(notificationID)
 				fn(notification)
+				_delegateDone = true
 			},
 		})
 	}
@@ -1389,8 +1525,20 @@ func NewNSOutlineViewDelegate(config NSOutlineViewDelegateConfig) NSOutlineViewD
 		methods = append(methods, objc.MethodDef{
 			Cmd: objc.RegisterName("outlineViewItemDidCollapse:"),
 			Fn: func(self objc.ID, _cmd objc.SEL, notificationID objc.ID) {
+				// Names which delegate was running if a panic unwinds out of
+				// it. The frames between here and the Objective-C caller are
+				// runtime and purego dispatch, so without this the traceback
+				// never says which selector dispatched. Deliberately no
+				// recover: see [objc.NoteDelegatePanic].
+				_delegateDone := false
+				defer func() {
+					if !_delegateDone {
+						objc.NoteDelegatePanic("NSOutlineViewDelegate", "outlineViewItemDidCollapse:")
+					}
+				}()
 				notification := foundation.NSNotificationFromID(notificationID)
 				fn(notification)
+				_delegateDone = true
 			},
 		})
 	}
@@ -1400,9 +1548,21 @@ func NewNSOutlineViewDelegate(config NSOutlineViewDelegateConfig) NSOutlineViewD
 		methods = append(methods, objc.MethodDef{
 			Cmd: objc.RegisterName("outlineView:mouseDownInHeaderOfTableColumn:"),
 			Fn: func(self objc.ID, _cmd objc.SEL, outlineViewID objc.ID, tableColumnID objc.ID) {
+				// Names which delegate was running if a panic unwinds out of
+				// it. The frames between here and the Objective-C caller are
+				// runtime and purego dispatch, so without this the traceback
+				// never says which selector dispatched. Deliberately no
+				// recover: see [objc.NoteDelegatePanic].
+				_delegateDone := false
+				defer func() {
+					if !_delegateDone {
+						objc.NoteDelegatePanic("NSOutlineViewDelegate", "outlineView:mouseDownInHeaderOfTableColumn:")
+					}
+				}()
 				outlineView := NSOutlineViewFromID(outlineViewID)
 				tableColumn := NSTableColumnFromID(tableColumnID)
 				fn(outlineView, tableColumn)
+				_delegateDone = true
 			},
 		})
 	}
@@ -1412,9 +1572,21 @@ func NewNSOutlineViewDelegate(config NSOutlineViewDelegateConfig) NSOutlineViewD
 		methods = append(methods, objc.MethodDef{
 			Cmd: objc.RegisterName("outlineView:didClickTableColumn:"),
 			Fn: func(self objc.ID, _cmd objc.SEL, outlineViewID objc.ID, tableColumnID objc.ID) {
+				// Names which delegate was running if a panic unwinds out of
+				// it. The frames between here and the Objective-C caller are
+				// runtime and purego dispatch, so without this the traceback
+				// never says which selector dispatched. Deliberately no
+				// recover: see [objc.NoteDelegatePanic].
+				_delegateDone := false
+				defer func() {
+					if !_delegateDone {
+						objc.NoteDelegatePanic("NSOutlineViewDelegate", "outlineView:didClickTableColumn:")
+					}
+				}()
 				outlineView := NSOutlineViewFromID(outlineViewID)
 				tableColumn := NSTableColumnFromID(tableColumnID)
 				fn(outlineView, tableColumn)
+				_delegateDone = true
 			},
 		})
 	}
@@ -1424,9 +1596,21 @@ func NewNSOutlineViewDelegate(config NSOutlineViewDelegateConfig) NSOutlineViewD
 		methods = append(methods, objc.MethodDef{
 			Cmd: objc.RegisterName("outlineView:didDragTableColumn:"),
 			Fn: func(self objc.ID, _cmd objc.SEL, outlineViewID objc.ID, tableColumnID objc.ID) {
+				// Names which delegate was running if a panic unwinds out of
+				// it. The frames between here and the Objective-C caller are
+				// runtime and purego dispatch, so without this the traceback
+				// never says which selector dispatched. Deliberately no
+				// recover: see [objc.NoteDelegatePanic].
+				_delegateDone := false
+				defer func() {
+					if !_delegateDone {
+						objc.NoteDelegatePanic("NSOutlineViewDelegate", "outlineView:didDragTableColumn:")
+					}
+				}()
 				outlineView := NSOutlineViewFromID(outlineViewID)
 				tableColumn := NSTableColumnFromID(tableColumnID)
 				fn(outlineView, tableColumn)
+				_delegateDone = true
 			},
 		})
 	}
@@ -1436,8 +1620,21 @@ func NewNSOutlineViewDelegate(config NSOutlineViewDelegateConfig) NSOutlineViewD
 		methods = append(methods, objc.MethodDef{
 			Cmd: objc.RegisterName("outlineView:sizeToFitWidthOfColumn:"),
 			Fn: func(self objc.ID, _cmd objc.SEL, outlineViewID objc.ID, column int) float64 {
+				// Names which delegate was running if a panic unwinds out of
+				// it. The frames between here and the Objective-C caller are
+				// runtime and purego dispatch, so without this the traceback
+				// never says which selector dispatched. Deliberately no
+				// recover: see [objc.NoteDelegatePanic].
+				_delegateDone := false
+				defer func() {
+					if !_delegateDone {
+						objc.NoteDelegatePanic("NSOutlineViewDelegate", "outlineView:sizeToFitWidthOfColumn:")
+					}
+				}()
 				outlineView := NSOutlineViewFromID(outlineViewID)
-				return fn(outlineView, column)
+				_delegateResult := fn(outlineView, column)
+				_delegateDone = true
+				return _delegateResult
 			},
 		})
 	}
@@ -1447,9 +1644,21 @@ func NewNSOutlineViewDelegate(config NSOutlineViewDelegateConfig) NSOutlineViewD
 		methods = append(methods, objc.MethodDef{
 			Cmd: objc.RegisterName("outlineView:didAddRowView:forRow:"),
 			Fn: func(self objc.ID, _cmd objc.SEL, outlineViewID objc.ID, rowViewID objc.ID, row int) {
+				// Names which delegate was running if a panic unwinds out of
+				// it. The frames between here and the Objective-C caller are
+				// runtime and purego dispatch, so without this the traceback
+				// never says which selector dispatched. Deliberately no
+				// recover: see [objc.NoteDelegatePanic].
+				_delegateDone := false
+				defer func() {
+					if !_delegateDone {
+						objc.NoteDelegatePanic("NSOutlineViewDelegate", "outlineView:didAddRowView:forRow:")
+					}
+				}()
 				outlineView := NSOutlineViewFromID(outlineViewID)
 				rowView := NSTableRowViewFromID(rowViewID)
 				fn(outlineView, rowView, row)
+				_delegateDone = true
 			},
 		})
 	}
@@ -1459,9 +1668,21 @@ func NewNSOutlineViewDelegate(config NSOutlineViewDelegateConfig) NSOutlineViewD
 		methods = append(methods, objc.MethodDef{
 			Cmd: objc.RegisterName("outlineView:didRemoveRowView:forRow:"),
 			Fn: func(self objc.ID, _cmd objc.SEL, outlineViewID objc.ID, rowViewID objc.ID, row int) {
+				// Names which delegate was running if a panic unwinds out of
+				// it. The frames between here and the Objective-C caller are
+				// runtime and purego dispatch, so without this the traceback
+				// never says which selector dispatched. Deliberately no
+				// recover: see [objc.NoteDelegatePanic].
+				_delegateDone := false
+				defer func() {
+					if !_delegateDone {
+						objc.NoteDelegatePanic("NSOutlineViewDelegate", "outlineView:didRemoveRowView:forRow:")
+					}
+				}()
 				outlineView := NSOutlineViewFromID(outlineViewID)
 				rowView := NSTableRowViewFromID(rowViewID)
 				fn(outlineView, rowView, row)
+				_delegateDone = true
 			},
 		})
 	}
@@ -1471,9 +1692,22 @@ func NewNSOutlineViewDelegate(config NSOutlineViewDelegateConfig) NSOutlineViewD
 		methods = append(methods, objc.MethodDef{
 			Cmd: objc.RegisterName("outlineView:userCanChangeVisibilityOfTableColumn:"),
 			Fn: func(self objc.ID, _cmd objc.SEL, outlineViewID objc.ID, columnID objc.ID) bool {
+				// Names which delegate was running if a panic unwinds out of
+				// it. The frames between here and the Objective-C caller are
+				// runtime and purego dispatch, so without this the traceback
+				// never says which selector dispatched. Deliberately no
+				// recover: see [objc.NoteDelegatePanic].
+				_delegateDone := false
+				defer func() {
+					if !_delegateDone {
+						objc.NoteDelegatePanic("NSOutlineViewDelegate", "outlineView:userCanChangeVisibilityOfTableColumn:")
+					}
+				}()
 				outlineView := NSOutlineViewFromID(outlineViewID)
 				column := NSTableColumnFromID(columnID)
-				return fn(outlineView, column)
+				_delegateResult := fn(outlineView, column)
+				_delegateDone = true
+				return _delegateResult
 			},
 		})
 	}

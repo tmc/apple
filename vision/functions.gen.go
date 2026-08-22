@@ -4,7 +4,6 @@ package vision
 
 import (
 	"fmt"
-	"unsafe"
 
 	"github.com/ebitengine/purego"
 	"github.com/tmc/apple/corefoundation"
@@ -99,20 +98,20 @@ func VNElementTypeSize(elementType VNElementType) uint {
 	return result
 }
 
-var _vNImagePointForFaceLandmarkPoint func(faceLandmarkPoint unsafe.Pointer, faceBoundingBox corefoundation.CGRect, imageWidth uintptr, imageHeight uintptr) corefoundation.CGPoint
+var _vNImagePointForFaceLandmarkPoint func(faceLandmarkPoint *[2]float32, faceBoundingBox corefoundation.CGRect, imageWidth uintptr, imageHeight uintptr) corefoundation.CGPoint
 var _vNImagePointForFaceLandmarkPointErr error
 
-func tryVNImagePointForFaceLandmarkPoint(faceLandmarkPoint unsafe.Pointer, faceBoundingBox corefoundation.CGRect, imageWidth uintptr, imageHeight uintptr) (corefoundation.CGPoint, error) {
+func tryVNImagePointForFaceLandmarkPoint(faceLandmarkPoint [2]float32, faceBoundingBox corefoundation.CGRect, imageWidth uintptr, imageHeight uintptr) (corefoundation.CGPoint, error) {
 	if _vNImagePointForFaceLandmarkPoint == nil {
 		return corefoundation.CGPoint{}, symbolCallError("VNImagePointForFaceLandmarkPoint", "10.13", _vNImagePointForFaceLandmarkPointErr)
 	}
-	return _vNImagePointForFaceLandmarkPoint(faceLandmarkPoint, faceBoundingBox, imageWidth, imageHeight), nil
+	return _vNImagePointForFaceLandmarkPoint(&faceLandmarkPoint, faceBoundingBox, imageWidth, imageHeight), nil
 }
 
 // VNImagePointForFaceLandmarkPoint returns the image coordinates of a specified face landmark point.
 //
 // See: https://developer.apple.com/documentation/Vision/VNImagePointForFaceLandmarkPoint(_:_:_:_:)
-func VNImagePointForFaceLandmarkPoint(faceLandmarkPoint unsafe.Pointer, faceBoundingBox corefoundation.CGRect, imageWidth uintptr, imageHeight uintptr) corefoundation.CGPoint {
+func VNImagePointForFaceLandmarkPoint(faceLandmarkPoint [2]float32, faceBoundingBox corefoundation.CGRect, imageWidth uintptr, imageHeight uintptr) corefoundation.CGPoint {
 	result, callErr := tryVNImagePointForFaceLandmarkPoint(faceLandmarkPoint, faceBoundingBox, imageWidth, imageHeight)
 	if callErr != nil {
 		panic(callErr)
@@ -204,20 +203,20 @@ func VNImageRectForNormalizedRectUsingRegionOfInterest(normalizedRect corefounda
 	return result
 }
 
-var _vNNormalizedFaceBoundingBoxPointForLandmarkPoint func(faceLandmarkPoint unsafe.Pointer, faceBoundingBox corefoundation.CGRect, imageWidth uintptr, imageHeight uintptr) corefoundation.CGPoint
+var _vNNormalizedFaceBoundingBoxPointForLandmarkPoint func(faceLandmarkPoint *[2]float32, faceBoundingBox corefoundation.CGRect, imageWidth uintptr, imageHeight uintptr) corefoundation.CGPoint
 var _vNNormalizedFaceBoundingBoxPointForLandmarkPointErr error
 
-func tryVNNormalizedFaceBoundingBoxPointForLandmarkPoint(faceLandmarkPoint unsafe.Pointer, faceBoundingBox corefoundation.CGRect, imageWidth uintptr, imageHeight uintptr) (corefoundation.CGPoint, error) {
+func tryVNNormalizedFaceBoundingBoxPointForLandmarkPoint(faceLandmarkPoint [2]float32, faceBoundingBox corefoundation.CGRect, imageWidth uintptr, imageHeight uintptr) (corefoundation.CGPoint, error) {
 	if _vNNormalizedFaceBoundingBoxPointForLandmarkPoint == nil {
 		return corefoundation.CGPoint{}, symbolCallError("VNNormalizedFaceBoundingBoxPointForLandmarkPoint", "10.13", _vNNormalizedFaceBoundingBoxPointForLandmarkPointErr)
 	}
-	return _vNNormalizedFaceBoundingBoxPointForLandmarkPoint(faceLandmarkPoint, faceBoundingBox, imageWidth, imageHeight), nil
+	return _vNNormalizedFaceBoundingBoxPointForLandmarkPoint(&faceLandmarkPoint, faceBoundingBox, imageWidth, imageHeight), nil
 }
 
 // VNNormalizedFaceBoundingBoxPointForLandmarkPoint returns the coordinates of a specified face landmark point, in bounding box coordinates.
 //
 // See: https://developer.apple.com/documentation/Vision/VNNormalizedFaceBoundingBoxPointForLandmarkPoint(_:_:_:_:)
-func VNNormalizedFaceBoundingBoxPointForLandmarkPoint(faceLandmarkPoint unsafe.Pointer, faceBoundingBox corefoundation.CGRect, imageWidth uintptr, imageHeight uintptr) corefoundation.CGPoint {
+func VNNormalizedFaceBoundingBoxPointForLandmarkPoint(faceLandmarkPoint [2]float32, faceBoundingBox corefoundation.CGRect, imageWidth uintptr, imageHeight uintptr) corefoundation.CGPoint {
 	result, callErr := tryVNNormalizedFaceBoundingBoxPointForLandmarkPoint(faceLandmarkPoint, faceBoundingBox, imageWidth, imageHeight)
 	if callErr != nil {
 		panic(callErr)

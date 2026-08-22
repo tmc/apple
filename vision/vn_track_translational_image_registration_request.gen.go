@@ -101,9 +101,10 @@ func NewVNTrackTranslationalImageRegistrationRequest() VNTrackTranslationalImage
 // completionHandler: The callback the system invokes when it completes the request.
 //
 // See: https://developer.apple.com/documentation/Vision/VNTrackTranslationalImageRegistrationRequest/init(completionHandler:)
-func NewTrackTranslationalImageRegistrationRequestWithCompletionHandler(completionHandler VNRequestCompletionHandler) VNTrackTranslationalImageRegistrationRequest {
+func NewTrackTranslationalImageRegistrationRequestWithCompletionHandler(completionHandler VNRequestErrorHandler) VNTrackTranslationalImageRegistrationRequest {
+	_block0, _ := NewVNRequestErrorBlock(completionHandler)
 	instance := getVNTrackTranslationalImageRegistrationRequestClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCompletionHandler:"), completionHandler)
+	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCompletionHandler:"), _block0)
 	return VNTrackTranslationalImageRegistrationRequestFromID(rv)
 }
 
@@ -121,8 +122,9 @@ func NewTrackTranslationalImageRegistrationRequestWithCompletionHandler(completi
 //
 // [CMTime]: https://developer.apple.com/documentation/CoreMedia/CMTime
 // [zero]: https://developer.apple.com/documentation/CoreMedia/CMTime/zero
-func NewTrackTranslationalImageRegistrationRequestWithFrameAnalysisSpacingCompletionHandler(frameAnalysisSpacing coremedia.CMTime, completionHandler VNRequestCompletionHandler) VNTrackTranslationalImageRegistrationRequest {
+func NewTrackTranslationalImageRegistrationRequestWithFrameAnalysisSpacingCompletionHandler(frameAnalysisSpacing coremedia.CMTime, completionHandler VNRequestErrorHandler) VNTrackTranslationalImageRegistrationRequest {
+	_block1, _ := NewVNRequestErrorBlock(completionHandler)
 	instance := getVNTrackTranslationalImageRegistrationRequestClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithFrameAnalysisSpacing:completionHandler:"), frameAnalysisSpacing, completionHandler)
+	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithFrameAnalysisSpacing:completionHandler:"), frameAnalysisSpacing, _block1)
 	return VNTrackTranslationalImageRegistrationRequestFromID(rv)
 }

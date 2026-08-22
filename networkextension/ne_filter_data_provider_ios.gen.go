@@ -5,6 +5,8 @@
 package networkextension
 
 import (
+	"unsafe"
+
 	"github.com/tmc/apple/objc"
 )
 
@@ -30,7 +32,7 @@ import (
 // [NEFilterRemediationVerdict]: https://developer.apple.com/documentation/NetworkExtension/NEFilterRemediationVerdict
 func (f NEFilterDataProvider) HandleRemediationForFlow(flow INEFilterFlow) unsafe.Pointer {
 	rv := objc.Send[unsafe.Pointer](f.ID, objc.Sel("handleRemediationForFlow:"), flow)
-	return *uintptr(rv)
+	return rv
 }
 
 // Handle a rules changed event.

@@ -1,4 +1,4 @@
-// Code generated from Apple documentation by applegen. DO NOT EDIT.
+// Code generated from internal/generator/templates/runtime/objc.txtar by applegen. DO NOT EDIT.
 
 // Package objc provides cached Objective-C runtime helpers.
 //
@@ -14,19 +14,20 @@ import (
 	"sync"
 	"unsafe"
 
-	basepurego "github.com/ebitengine/purego"
-	purego "github.com/ebitengine/purego/objc"
+	purego "github.com/ebitengine/purego"
+	pobjc "github.com/ebitengine/purego/objc"
 )
 
 // Type aliases for convenience
 type (
-	ID        = purego.ID
-	SEL       = purego.SEL
-	Class     = purego.Class
-	Block     = purego.Block
-	Protocol  = purego.Protocol
-	MethodDef = purego.MethodDef
-	FieldDef  = purego.FieldDef
+	ID        = pobjc.ID
+	SEL       = pobjc.SEL
+	Class     = pobjc.Class
+	Block     = pobjc.Block
+	Protocol  = pobjc.Protocol
+	MethodDef = pobjc.MethodDef
+	FieldDef  = pobjc.FieldDef
+	IMP       = pobjc.IMP
 )
 
 // IDGetter is implemented by types that wrap an Objective-C object ID.
@@ -66,11 +67,34 @@ func IDValueAt(addr uintptr) ID {
 	return *(*ID)(unsafe.Pointer(addr))
 }
 
+// ValueAt loads a value of type T from a symbol address.
+//
+// Dlsym returns the address of a global in a loaded Mach-O image, so reading an
+// exported constant means dereferencing that address at the constant's type.
+// The memory is not Go-managed and does not move, which is what makes the
+// uintptr round trip safe here — go vet cannot prove that, so it flags the
+// conversion. Doing it once, here, keeps the generated packages from repeating
+// an unsafe conversion several hundred times.
+//
+// The zero value is returned for a nil address.
+func ValueAt[T any](addr uintptr) T {
+	if addr == 0 {
+		var zero T
+		return zero
+	}
+	return *(*T)(unsafe.Pointer(addr))
+}
+
 // NewBlock creates an Objective-C block from a Go function.
 // The Go function must take a Block as its first argument.
 // Use Block.Release() to free the block when it is no longer in use.
+//
+// Method type encodings from method_getTypeEncoding render block arguments
+// as bare "@?", with no inner signature. Extended signatures ("@?<...>")
+// carrying parameter types come from protocol extended method types
+// (_protocol_getMethodTypeEncoding) or block descriptors.
 func NewBlock(fn any) Block {
-	return purego.NewBlock(fn)
+	return pobjc.NewBlock(fn)
 }
 
 var nsErrorBlockSignature = []byte(`v@?@"NSError"` + "\x00")
@@ -93,6 +117,9 @@ type blockLayoutWithSignature struct {
 
 // SetBlockSignature sets the Objective-C runtime signature for block.
 // The signature storage must outlive block.
+//
+// See NewBlock for details on standard ("@?") vs extended ("@?<...>")
+// block type encodings.
 func SetBlockSignature(block Block, signature []byte) bool {
 	if block == 0 || len(signature) == 0 {
 		return false
@@ -126,6 +153,28 @@ func GoString(cstr *byte) string {
 	return string(unsafe.Slice(cstr, length))
 }
 
+// BytesPointer returns a C pointer to b's backing array, or nil when b is
+// empty.
+//
+// unsafe.SliceData returns a non-nil pointer for an empty but non-nil slice,
+// and for a nil slice it returns nil only by accident of the current
+// implementation. Callees that take a byte buffer treat NULL as "no bytes";
+// handing them a pointer to zero-sized storage instead makes them read past
+// the end of it. Every generated call site that passes a []byte to
+// Objective-C goes through here so the empty case is spelled NULL exactly
+// once.
+func BytesPointer(b []byte) unsafe.Pointer {
+	if len(b) == 0 {
+		return nil
+	}
+	return unsafe.Pointer(unsafe.SliceData(b))
+}
+
+// ErrInitFailed reports that an Objective-C initializer returned nil without
+// filling in its NSError out-parameter. Wrapping that nil would hand the
+// caller an object that only fails once it is used, far from the cause.
+var ErrInitFailed = errors.New("objc: initializer returned nil")
+
 // GoStringPtr converts a nullable C string to a heap-backed *string.
 func GoStringPtr(cstr *byte) *string {
 	if cstr == nil {
@@ -136,16 +185,16 @@ func GoStringPtr(cstr *byte) *string {
 }
 
 var (
-	selCache sync.Map // map[string]purego.SEL
+	selCache sync.Map // map[string]pobjc.SEL
 )
 
 // Sel returns a cached selector for the given name.
-// This avoids the global lock in purego.RegisterName on repeated calls.
+// This avoids the global lock in pobjc.RegisterName on repeated calls.
 func Sel(name string) SEL {
 	if sel, ok := selCache.Load(name); ok {
 		return sel.(SEL)
 	}
-	sel := purego.RegisterName(name)
+	sel := pobjc.RegisterName(name)
 	selCache.Store(name, sel)
 	return sel
 }
@@ -155,14 +204,14 @@ func NSArrayToSlice(array ID) []ID {
 	if array == 0 {
 		return nil
 	}
-	count := purego.Send[uint](array, RegisterName("count"))
+	count := pobjc.Send[uint](array, RegisterName("count"))
 	if count == 0 {
 		return nil
 	}
 	sel := RegisterName("objectAtIndex:")
 	result := make([]ID, count)
 	for i := uint(0); i < count; i++ {
-		result[i] = purego.Send[ID](array, sel, i)
+		result[i] = pobjc.Send[ID](array, sel, i)
 	}
 	return result
 }
@@ -188,10 +237,27 @@ func ConvertSliceToStrings(ids []ID) []string {
 //
 // When all arguments are uintptr-sized primitives (ID, SEL, Class, uintptr, bool,
 // or integer types) and T is ID or struct{}, Send uses a pre-registered typed
-// function that avoids reflect.MakeFunc — zero allocations, ~10x faster.
+// function instead of the general argument-processing path: 300ns and 4
+// allocations against 520ns and 8 allocations under -tags objc_slowpath, so
+// roughly 1.7x. The pre-registered functions still allocate; purego's
+// RegisterFunc calls reflect.New on every invocation.
 //
-// Otherwise Send falls back to purego.Send[T] with full argument processing:
+// Otherwise Send falls back to purego/objc with full argument processing:
 // IDGetter extraction, nil→ID(0), CArrayArg conversion, and NSArray→[]ID.
+//
+// Send keeps values in args alive until the Objective-C call returns, and
+// that reaches through unsafe.Pointer arguments: an unsafe.Pointer is a
+// reference the garbage collector can see, so keeping one alive also keeps
+// alive the storage it points into, including when it points into the
+// interior of a larger object. A caller passing
+// unsafe.Pointer(unsafe.SliceData(b)) — which is what BytesPointer returns —
+// therefore does not need its own runtime.KeepAlive(b); the backing array
+// survives the call. TestSendKeepsSliceAliveThroughDerivedPointer holds this
+// property down, and fails if the KeepAlive below is removed.
+//
+// What Send cannot protect is storage behind a uintptr. A uintptr is a plain
+// integer that the collector does not trace, so a caller must never convert a
+// pointer to uintptr before handing it to Send; pass the unsafe.Pointer.
 func Send[T any](id ID, sel SEL, args ...any) T {
 	// Fast path: when T is ID or struct{} and all args are uintptr-castable,
 	// use the pre-registered typed msgSendN functions directly.
@@ -254,12 +320,12 @@ func Send[T any](id ID, sel SEL, args ...any) T {
 	}
 	var zero T
 	if reflect.TypeOf(&zero).Elem().Kind() == reflect.Slice {
-		arrayID := purego.Send[ID](id, sel, args...)
+		arrayID := pobjc.Send[ID](id, sel, args...)
 		runtime.KeepAlive(keepAlive)
 		var result any = NSArrayToSlice(arrayID)
 		return result.(T)
 	}
-	ret := purego.Send[T](id, sel, args...)
+	ret := pobjc.Send[T](id, sel, args...)
 	runtime.KeepAlive(keepAlive)
 	return ret
 }
@@ -337,14 +403,18 @@ func fastSend(id ID, sel SEL, args []uintptr) uintptr {
 		all := make([]uintptr, 0, 2+len(args))
 		all = append(all, uintptr(id), uintptr(sel))
 		all = append(all, args...)
-		r, _, _ := basepurego.SyscallN(objcMsgSendAddr, all...)
+		r, _, _ := purego.SyscallN(objcMsgSendAddr, all...)
 		return r
 	}
 }
 
-// Pre-registered typed msgSend functions for the zero-allocation fast path.
-// On arm64/amd64, purego's RegisterFunc produces direct assembly stubs when
-// all parameters are uintptr, avoiding reflect.MakeFunc entirely.
+// Pre-registered typed msgSend functions for the fast path. These are not
+// allocation-free: purego's RegisterFunc closure calls reflect.New on every
+// invocation, which profiles at roughly 60% of the fast path's allocated
+// bytes. purego.SyscallN measures about 4x cheaper (96ns and 1 allocation
+// against 386ns and 4 allocations at zero arguments) and is a candidate
+// replacement, but it is untested under -race and with a Go callback on the
+// stack.
 var (
 	msgSend0        func(id, sel uintptr) uintptr
 	msgSend1        func(id, sel, a1 uintptr) uintptr
@@ -361,27 +431,23 @@ var (
 func initFastSend() {
 	var libobjcHandle uintptr
 	var err error
-	libobjcHandle, err = basepurego.Dlopen("/usr/lib/libobjc.A.dylib", basepurego.RTLD_LAZY|basepurego.RTLD_GLOBAL)
+	libobjcHandle, err = purego.Dlopen("/usr/lib/libobjc.A.dylib", purego.RTLD_LAZY|purego.RTLD_GLOBAL)
 	if err != nil {
 		return // non-darwin or libobjc unavailable
 	}
-	objcMsgSendAddr, err = basepurego.Dlsym(libobjcHandle, "objc_msgSend")
+	objcMsgSendAddr, err = purego.Dlsym(libobjcHandle, "objc_msgSend")
 	if err != nil {
 		return
 	}
-	basepurego.RegisterFunc(&msgSend0, objcMsgSendAddr)
-	basepurego.RegisterFunc(&msgSend1, objcMsgSendAddr)
-	basepurego.RegisterFunc(&msgSend2, objcMsgSendAddr)
-	basepurego.RegisterFunc(&msgSend3, objcMsgSendAddr)
-	basepurego.RegisterFunc(&msgSend4, objcMsgSendAddr)
-	basepurego.RegisterFunc(&msgSend5, objcMsgSendAddr)
-	basepurego.RegisterFunc(&msgSend6, objcMsgSendAddr)
-	basepurego.RegisterFunc(&msgSend7, objcMsgSendAddr)
-	basepurego.RegisterFunc(&msgSend8, objcMsgSendAddr)
-}
-
-func init() {
-	initFastSend()
+	purego.RegisterFunc(&msgSend0, objcMsgSendAddr)
+	purego.RegisterFunc(&msgSend1, objcMsgSendAddr)
+	purego.RegisterFunc(&msgSend2, objcMsgSendAddr)
+	purego.RegisterFunc(&msgSend3, objcMsgSendAddr)
+	purego.RegisterFunc(&msgSend4, objcMsgSendAddr)
+	purego.RegisterFunc(&msgSend5, objcMsgSendAddr)
+	purego.RegisterFunc(&msgSend6, objcMsgSendAddr)
+	purego.RegisterFunc(&msgSend7, objcMsgSendAddr)
+	purego.RegisterFunc(&msgSend8, objcMsgSendAddr)
 }
 
 func cArrayArgIndexes(selector string, argc int) map[int]struct{} {
@@ -467,38 +533,36 @@ func toCArrayArg(arg any) (converted any, holder any, ok bool) {
 	return ptr, arg, true
 }
 
-// GetClass returns the class with the given name.
+// GetClass returns the class with the exact given name.
 func GetClass(name string) Class {
-	if name == "" {
-		return 0
-	}
-	if cls := purego.GetClass(name); cls != 0 {
-		return cls
-	}
-	// Runtime class names in private frameworks sometimes differ only by
-	// a leading underscore. Try both forms as a compatibility fallback.
-	if name[0] == '_' {
-		return purego.GetClass(name[1:])
-	}
-	return purego.GetClass("_" + name)
+	return pobjc.GetClass(name)
 }
 
 // GetProtocol returns the protocol with the given name, or nil if not found.
 func GetProtocol(name string) *Protocol {
-	return purego.GetProtocol(name)
+	return pobjc.GetProtocol(name)
 }
 
 // RegisterName registers a selector with the Objective-C runtime.
 // This is the same as Sel but without caching - use Sel for repeated calls.
 func RegisterName(name string) SEL {
-	return purego.RegisterName(name)
+	return pobjc.RegisterName(name)
 }
 
 // RegisterClass registers a new Objective-C class with the runtime.
 // The class inherits from superClass and implements the given protocols.
 // ivars defines instance variables, methods defines the class methods.
 func RegisterClass(name string, superClass Class, protocols []*Protocol, ivars []FieldDef, methods []MethodDef) (Class, error) {
-	return purego.RegisterClass(name, superClass, protocols, ivars, methods)
+	return pobjc.RegisterClass(name, superClass, protocols, ivars, methods)
+}
+
+// SendSuper sends sel to the superclass of id's class.
+//
+// SendSuper derives the starting class from id's dynamic class, so it is only
+// correct for methods on leaf classes. A method inherited by a further
+// subclass would recurse into itself.
+func SendSuper[T any](id ID, sel SEL, args ...any) T {
+	return pobjc.SendSuper[T](id, sel, args...)
 }
 
 var (
@@ -512,9 +576,11 @@ func initStringHelpers() {
 	selStringWithUTF8 = Sel("stringWithUTF8String:")
 }
 
-// String converts a Go string to an NSString object.
-// This must be called before passing Go strings to Objective-C methods that expect NSString*.
-// The returned ID is autoreleased.
+// String converts a Go string to an autoreleased NSString object.
+//
+// Callers on a thread without a run loop should enclose work that creates
+// strings in AutoreleasePool. Otherwise autoreleased strings can accumulate
+// for the lifetime of the thread.
 func String(s string) ID {
 	initOnce.Do(initStringHelpers)
 	return Send[ID](ID(nsStringClass), selStringWithUTF8, s)
@@ -567,6 +633,34 @@ func RespondsToSelector(id ID, sel SEL) bool {
 	return Send[bool](id, Sel("respondsToSelector:"), sel)
 }
 
+// SendIfResponds calls a selector if the receiver responds to it and returns
+// the zero value if it does not.
+//
+// It exists for bindings to private frameworks, where a selector may simply be
+// absent: Apple ships no compatibility guarantee for them, and a selector that
+// exists on one macOS build can be gone on the next. Sending to a receiver that
+// does not respond raises NSInvalidArgumentException, which for a Go process is
+// not an exception but an abort -- there is no recover, and the process dies
+// inside the Objective-C runtime with a stack that does not name the caller.
+//
+// Returning the zero value is deliberately quiet, and that is a real tradeoff:
+// a caller cannot tell "the selector is missing" from "the call returned zero".
+// Use [SafeSend] where the caller can act on the difference. This variant is
+// for generated bindings, whose signatures are fixed by the Objective-C method
+// and have nowhere to put an error, and where the alternative is not a better
+// error but a dead process.
+//
+// The receiver may be an instance or a class: NSObject implements
+// respondsToSelector: on both, so a class object correctly reports its class
+// methods.
+func SendIfResponds[T any](id ID, sel SEL, args ...any) T {
+	var zero T
+	if !RespondsToSelector(id, sel) {
+		return zero
+	}
+	return Send[T](id, sel, args...)
+}
+
 // SafeSend calls a selector only if the object responds to it.
 // Returns the zero value and an error matching ErrUnrecognizedSelector if the
 // selector is not recognized.
@@ -589,8 +683,8 @@ func MustSend[T any](id ID, sel SEL, args ...any) T {
 	return Send[T](id, sel, args...)
 }
 
-// selName attempts to get the name of a selector for error messages.
-// Returns empty string if it can't be determined.
+// selName returns the cached name of sel for error messages.
+// Selectors not previously passed to Sel have no cached name.
 func selName(sel SEL) string {
 	// Iterate through cache to find the name
 	var name string
@@ -617,20 +711,27 @@ func ensureLibObjC() {
 		return
 	}
 	var err error
-	libobjc, err = basepurego.Dlopen("libobjc.A.dylib", basepurego.RTLD_GLOBAL)
+	libobjc, err = purego.Dlopen("libobjc.A.dylib", purego.RTLD_GLOBAL)
 	if err != nil {
 		panic(err)
 	}
-	basepurego.RegisterLibFunc(&class_addMethod, libobjc, "class_addMethod")
-	basepurego.RegisterLibFunc(&objc_registerClassPair, libobjc, "objc_registerClassPair")
-	basepurego.RegisterLibFunc(&objc_autoreleasePoolPush, libobjc, "objc_autoreleasePoolPush")
-	basepurego.RegisterLibFunc(&objc_autoreleasePoolPop, libobjc, "objc_autoreleasePoolPop")
+	purego.RegisterLibFunc(&class_addMethod, libobjc, "class_addMethod")
+	purego.RegisterLibFunc(&objc_registerClassPair, libobjc, "objc_registerClassPair")
+	purego.RegisterLibFunc(&objc_autoreleasePoolPush, libobjc, "objc_autoreleasePoolPush")
+	purego.RegisterLibFunc(&objc_autoreleasePoolPop, libobjc, "objc_autoreleasePoolPop")
 }
 
 // AutoreleasePool executes fn within an Objective-C autorelease pool.
 // Any autoreleased objects created during fn are released when fn returns.
+//
+// AutoreleasePool pins the calling goroutine to its OS thread (via
+// runtime.LockOSThread) for the duration of fn because Objective-C
+// autorelease pools are thread-affine and must be popped on the thread
+// that pushed them.
 func AutoreleasePool(fn func()) {
 	ensureLibObjC()
+	runtime.LockOSThread()
+	defer runtime.UnlockOSThread()
 	pool := objc_autoreleasePoolPush()
 	defer objc_autoreleasePoolPop(pool)
 	fn()
@@ -642,23 +743,54 @@ func RegisterClassPair(cls Class) {
 	objc_registerClassPair(cls)
 }
 
-// AddMethod adds a new method to a class.
-func AddMethod(cls Class, sel SEL, impl any, types string) bool {
-	ensureLibObjC()
-	var imp uintptr
-	switch v := impl.(type) {
-	case uintptr:
-		imp = v
-	case func():
-		// Should use NewCallback, but here we expect already created callback IMP
-		panic("AddMethod expects uintptr IMP (use purego.NewCallback)")
-	default:
-		panic(fmt.Sprintf("AddMethod expects uintptr IMP, got %T", impl))
-	}
-	return class_addMethod(cls, sel, imp, types)
+// NewIMP returns an Objective-C method implementation for fn.
+//
+// fn must take (ID, SEL) as its first two arguments, because that is how the
+// runtime calls every method: the receiver and the selector arrive in the
+// first two registers whether or not the Go function declares them. A function
+// missing that prefix reads the receiver as its first declared argument and
+// every later argument shifts, which corrupts the call silently rather than
+// failing. NewIMP panics instead.
+//
+// The returned implementation is never deallocated.
+func NewIMP(fn any) IMP {
+	return pobjc.NewIMP(fn)
 }
 
-// SendWithError calls a selector handles the NSError** pattern.
+// AddMethod adds a new method to a class.
+// impl is an Objective-C method implementation, such as the result of NewIMP.
+func AddMethod(cls Class, sel SEL, impl IMP, types string) bool {
+	ensureLibObjC()
+	return class_addMethod(cls, sel, uintptr(impl), types)
+}
+
+// ObjCError is an Objective-C error returned through an NSError** parameter.
+// ID is the underlying NSError object.
+type ObjCError struct {
+	ID ID
+}
+
+// Error returns the localized error description with its domain and code.
+func (e ObjCError) Error() string {
+	if e.ID == 0 {
+		return "Objective-C error"
+	}
+	description := IDToString(Send[ID](e.ID, Sel("localizedDescription")))
+	domain := IDToString(Send[ID](e.ID, Sel("domain")))
+	code := Send[int](e.ID, Sel("code"))
+	if domain == "" {
+		if description != "" {
+			return description
+		}
+		return "Objective-C error"
+	}
+	if description == "" {
+		return fmt.Sprintf("%s error %d", domain, code)
+	}
+	return fmt.Sprintf("%s (%s error %d)", description, domain, code)
+}
+
+// SendWithError calls a selector that uses the NSError** pattern.
 // It assumes the method accepts an NSError** as its last argument.
 // It automatically appends the error pointer to the arguments.
 func SendWithError[T any](id ID, sel SEL, args ...any) (T, error) {
@@ -666,7 +798,7 @@ func SendWithError[T any](id ID, sel SEL, args ...any) (T, error) {
 	args = append(args, &err)
 	ret := Send[T](id, sel, args...)
 	if err != 0 {
-		return ret, fmt.Errorf("Objective-C error: %v", err)
+		return ret, ObjCError{ID: err}
 	}
 	return ret, nil
 }

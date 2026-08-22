@@ -13,7 +13,7 @@ import (
 type VNRequestRevisionProviding interface {
 	objectivec.IObject
 
-	// The revision of the [VNRequest](<doc://Vision/documentation/Vision/VNRequest>) subclass used to generate the implementing object.
+	// The revision of the [VNRequest](<https://developer.apple.com/documentation/Vision/VNRequest>) subclass used to generate the implementing object.
 	//
 	// See: https://developer.apple.com/documentation/Vision/VNRequestRevisionProviding/requestRevision
 	RequestRevision() uint

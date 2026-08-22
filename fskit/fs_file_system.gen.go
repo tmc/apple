@@ -76,6 +76,11 @@ func FSFileSystemFromID(id objc.ID) FSFileSystem {
 // See: https://developer.apple.com/documentation/FSKit/FSFileSystem
 type IFSFileSystem interface {
 	objectivec.IObject
+
+	// The status of the file system container, indicating its readiness and activity.
+	ContainerStatus() IFSContainerStatus
+	// Wipes existing file systems on the specified resource.
+	WipeResourceCompletionHandler(resource IFSBlockDeviceResource, completion ErrorHandler)
 }
 
 // Init initializes the instance.

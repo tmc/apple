@@ -53,7 +53,7 @@ func (vc VNRecognizedTextObservationClass) Alloc() VNRecognizedTextObservation {
 //
 // # Obtaining Recognized Text
 //
-//   - [VNRecognizedTextObservation.TopCandidates]: Requests the  top candidates for a recognized text string.
+//   - [VNRecognizedTextObservation.TopCandidates]: Requests the n top candidates for a recognized text string.
 //
 // See: https://developer.apple.com/documentation/Vision/VNRecognizedTextObservation
 type VNRecognizedTextObservation struct {
@@ -74,7 +74,7 @@ func VNRecognizedTextObservationFromID(id objc.ID) VNRecognizedTextObservation {
 //
 // # Obtaining Recognized Text
 //
-//   - [IVNRecognizedTextObservation.TopCandidates]: Requests the  top candidates for a recognized text string.
+//   - [IVNRecognizedTextObservation.TopCandidates]: Requests the n top candidates for a recognized text string.
 //
 // See: https://developer.apple.com/documentation/Vision/VNRecognizedTextObservation
 type IVNRecognizedTextObservation interface {
@@ -82,7 +82,7 @@ type IVNRecognizedTextObservation interface {
 
 	// Topic: Obtaining Recognized Text
 
-	// Requests the  top candidates for a recognized text string.
+	// Requests the n top candidates for a recognized text string.
 	TopCandidates(maxCandidateCount uint) []VNRecognizedText
 }
 
@@ -176,18 +176,18 @@ func NewRecognizedTextObservationWithRequestRevisionBoundingBox(requestRevision 
 	return VNRecognizedTextObservationFromID(rv)
 }
 
-// Requests the top candidates for a recognized text string.
+// Requests the n top candidates for a recognized text string.
 //
 // maxCandidateCount: The maximum number of candidates to return. This can’t exceed 10.
 //
 // # Return Value
 //
-// An array of the top candidates, sorted by decreasing confidence score.
+// An array of the n top candidates, sorted by decreasing confidence score.
 //
 // # Discussion
 //
-// This function returns no more than candidates, but it may return fewer than
-// candidates.
+// This function returns no more than n candidates, but it may return fewer
+// than n candidates.
 //
 // See: https://developer.apple.com/documentation/Vision/VNRecognizedTextObservation/topCandidates(_:)
 func (r VNRecognizedTextObservation) TopCandidates(maxCandidateCount uint) []VNRecognizedText {

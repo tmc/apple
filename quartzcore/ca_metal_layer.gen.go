@@ -544,9 +544,9 @@ func (m CAMetalLayer) SetPresentsWithTransaction(value bool) {
 // # Discussion
 //
 // Set this value to true to synchronize the presentation of the layer’s
-// contents with the display’s refresh, also known as or . If false, the
-// layer presents new content more quickly, but possibly with brief visual
-// artifacts ().
+// contents with the display’s refresh, also known as vsync or vertical
+// sync. If false, the layer presents new content more quickly, but possibly
+// with brief visual artifacts (screen tearing).
 //
 // The default value is true.
 //

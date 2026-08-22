@@ -3,6 +3,7 @@
 package vision
 
 import (
+	"context"
 	"sync"
 
 	"github.com/tmc/apple/objc"
@@ -111,7 +112,7 @@ type IVNCoreMLRequest interface {
 	// Creates a model container to use with an image analysis request based on the model you provide.
 	InitWithModel(model IVNCoreMLModel) VNCoreMLRequest
 	// Creates a model container to use with an image analysis request based on the model you provide, with an optional completion handler.
-	InitWithModelCompletionHandler(model IVNCoreMLModel, completionHandler ErrorHandler) VNCoreMLRequest
+	InitWithModelCompletionHandler(model IVNCoreMLModel, completionHandler VNRequestErrorHandler) VNCoreMLRequest
 	// The model to base the image analysis request on.
 	Model() IVNCoreMLModel
 
@@ -152,9 +153,10 @@ func NewVNCoreMLRequest() VNCoreMLRequest {
 // [VNImageRequestHandler.PerformRequestsError].
 //
 // See: https://developer.apple.com/documentation/Vision/VNRequest/init(completionHandler:)
-func NewCoreMLRequestWithCompletionHandler(completionHandler VNRequestCompletionHandler) VNCoreMLRequest {
+func NewCoreMLRequestWithCompletionHandler(completionHandler VNRequestErrorHandler) VNCoreMLRequest {
+	_block0, _ := NewVNRequestErrorBlock(completionHandler)
 	instance := getVNCoreMLRequestClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCompletionHandler:"), completionHandler)
+	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCompletionHandler:"), _block0)
 	return VNCoreMLRequestFromID(rv)
 }
 
@@ -198,9 +200,10 @@ func NewCoreMLRequestWithModel(model IVNCoreMLModel) VNCoreMLRequest {
 // [Core ML]: https://developer.apple.com/documentation/CoreML
 //
 // [Core ML]: https://developer.apple.com/documentation/CoreML
-func NewCoreMLRequestWithModelCompletionHandler(model IVNCoreMLModel, completionHandler VNRequestCompletionHandler) VNCoreMLRequest {
+func NewCoreMLRequestWithModelCompletionHandler(model IVNCoreMLModel, completionHandler VNRequestErrorHandler) VNCoreMLRequest {
+	_block1, _ := NewVNRequestErrorBlock(completionHandler)
 	instance := getVNCoreMLRequestClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithModel:completionHandler:"), model, completionHandler)
+	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithModel:completionHandler:"), model, _block1)
 	return VNCoreMLRequestFromID(rv)
 }
 
@@ -243,8 +246,8 @@ func (c VNCoreMLRequest) InitWithModel(model IVNCoreMLModel) VNCoreMLRequest {
 // [Core ML]: https://developer.apple.com/documentation/CoreML
 //
 // [Core ML]: https://developer.apple.com/documentation/CoreML
-func (c VNCoreMLRequest) InitWithModelCompletionHandler(model IVNCoreMLModel, completionHandler ErrorHandler) VNCoreMLRequest {
-	_block1, _ := NewErrorBlock(completionHandler)
+func (c VNCoreMLRequest) InitWithModelCompletionHandler(model IVNCoreMLModel, completionHandler VNRequestErrorHandler) VNCoreMLRequest {
+	_block1, _ := NewVNRequestErrorBlock(completionHandler)
 	rv := objc.Send[VNCoreMLRequest](c.ID, objc.Sel("initWithModel:completionHandler:"), model, _block1)
 	return rv
 }
@@ -281,4 +284,23 @@ func (c VNCoreMLRequest) ImageCropAndScaleOption() VNImageCropAndScaleOption {
 }
 func (c VNCoreMLRequest) SetImageCropAndScaleOption(value VNImageCropAndScaleOption) {
 	objc.Send[struct{}](c.ID, objc.Sel("setImageCropAndScaleOption:"), value)
+}
+
+// InitWithModelSync is a synchronous wrapper around [VNCoreMLRequest.InitWithModelCompletionHandler].
+// It blocks until the completion handler fires or the context is cancelled.
+func (c VNCoreMLRequest) InitWithModelSync(ctx context.Context, model IVNCoreMLModel) (*VNRequest, error) {
+	type result struct {
+		val *VNRequest
+		err error
+	}
+	done := make(chan result, 1)
+	c.InitWithModelCompletionHandler(model, func(val *VNRequest, err error) {
+		done <- result{val, err}
+	})
+	select {
+	case r := <-done:
+		return r.val, r.err
+	case <-ctx.Done():
+		return nil, ctx.Err()
+	}
 }

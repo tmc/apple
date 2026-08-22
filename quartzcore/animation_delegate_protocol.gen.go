@@ -103,8 +103,20 @@ func NewCAAnimationDelegate(config CAAnimationDelegateConfig) CAAnimationDelegat
 		methods = append(methods, objc.MethodDef{
 			Cmd: objc.RegisterName("animationDidStart:"),
 			Fn: func(self objc.ID, _cmd objc.SEL, animID objc.ID) {
+				// Names which delegate was running if a panic unwinds out of
+				// it. The frames between here and the Objective-C caller are
+				// runtime and purego dispatch, so without this the traceback
+				// never says which selector dispatched. Deliberately no
+				// recover: see [objc.NoteDelegatePanic].
+				_delegateDone := false
+				defer func() {
+					if !_delegateDone {
+						objc.NoteDelegatePanic("CAAnimationDelegate", "animationDidStart:")
+					}
+				}()
 				anim := CAAnimationFromID(animID)
 				fn(anim)
+				_delegateDone = true
 			},
 		})
 	}
@@ -114,8 +126,20 @@ func NewCAAnimationDelegate(config CAAnimationDelegateConfig) CAAnimationDelegat
 		methods = append(methods, objc.MethodDef{
 			Cmd: objc.RegisterName("animationDidStop:finished:"),
 			Fn: func(self objc.ID, _cmd objc.SEL, animID objc.ID, flag bool) {
+				// Names which delegate was running if a panic unwinds out of
+				// it. The frames between here and the Objective-C caller are
+				// runtime and purego dispatch, so without this the traceback
+				// never says which selector dispatched. Deliberately no
+				// recover: see [objc.NoteDelegatePanic].
+				_delegateDone := false
+				defer func() {
+					if !_delegateDone {
+						objc.NoteDelegatePanic("CAAnimationDelegate", "animationDidStop:finished:")
+					}
+				}()
 				anim := CAAnimationFromID(animID)
 				fn(anim, flag)
+				_delegateDone = true
 			},
 		})
 	}

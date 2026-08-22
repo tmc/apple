@@ -127,7 +127,7 @@ type IPDFDestination interface {
 	// Topic: Getting a Relative Location
 
 	// Returns a comparison result that indicates the location of the destination in the document, relative to the current position.
-	Compare(destination IPDFDestination) foundation.NSComparisonResult
+	Compare(destination IPDFDestination) foundation.ComparisonResult
 
 	// Topic: Instance Properties
 
@@ -239,9 +239,9 @@ func (p PDFDestination) InitWithPageAtPoint(page IPDFPage, point corefoundation.
 // receiver’s document.
 //
 // See: https://developer.apple.com/documentation/PDFKit/PDFDestination/compare(_:)
-func (p PDFDestination) Compare(destination IPDFDestination) foundation.NSComparisonResult {
+func (p PDFDestination) Compare(destination IPDFDestination) foundation.ComparisonResult {
 	rv := objc.Send[foundation.NSComparisonResult](p.ID, objc.Sel("compare:"), destination)
-	return foundation.NSComparisonResult(rv)
+	return foundation.ComparisonResult(rv)
 }
 
 // Returns the page that the destination refers to.

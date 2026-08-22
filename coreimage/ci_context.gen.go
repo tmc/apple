@@ -11,6 +11,7 @@ import (
 	"github.com/tmc/apple/coregraphics"
 	"github.com/tmc/apple/corevideo"
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/imageio"
 	"github.com/tmc/apple/iosurface"
 	"github.com/tmc/apple/metal"
 	"github.com/tmc/apple/objc"
@@ -120,16 +121,16 @@ func (cc CIContextClass) Alloc() CIContext {
 //
 // # Creating Depth Blur Filters
 //
-//   - [CIContext.DepthBlurEffectFilterForImageDisparityImagePortraitEffectsMatteHairSemanticSegmentationGlassesMatteGainMapOrientationOptions]: Create a [CIFilter](<doc://com.apple.coreimage/documentation/CoreImage/CIFilter-swift.class>) instance for the supplied image data that can be used to apply a depth blur effect created with the supplied auxiliary images.
-//   - [CIContext.DepthBlurEffectFilterForImageDisparityImagePortraitEffectsMatteHairSemanticSegmentationOrientationOptions]: Create a [CIFilter](<doc://com.apple.coreimage/documentation/CoreImage/CIFilter-swift.class>) instance for the supplied image data that can be used to apply a depth blur effect created with the supplied auxiliary images.
-//   - [CIContext.DepthBlurEffectFilterForImageDisparityImagePortraitEffectsMatteOrientationOptions]: Create a [CIFilter](<doc://com.apple.coreimage/documentation/CoreImage/CIFilter-swift.class>) instance for the supplied image data that can be used to apply a depth blur effect created with the supplied auxiliary images.
-//   - [CIContext.DepthBlurEffectFilterForImageDataOptions]: Create a [CIFilter](<doc://com.apple.coreimage/documentation/CoreImage/CIFilter-swift.class>) instance for the supplied image data that can be used to apply a depth blur effect.
-//   - [CIContext.DepthBlurEffectFilterForImageURLOptions]: Create a [CIFilter](<doc://com.apple.coreimage/documentation/CoreImage/CIFilter-swift.class>) instance for the supplied image URL that can be used to apply a depth blur effect.
+//   - [CIContext.DepthBlurEffectFilterForImageDisparityImagePortraitEffectsMatteHairSemanticSegmentationGlassesMatteGainMapOrientationOptions]: Create a [CIFilter](<https://developer.apple.com/documentation/CoreImage/CIFilter-swift.class>) instance for the supplied image data that can be used to apply a depth blur effect created with the supplied auxiliary images.
+//   - [CIContext.DepthBlurEffectFilterForImageDisparityImagePortraitEffectsMatteHairSemanticSegmentationOrientationOptions]: Create a [CIFilter](<https://developer.apple.com/documentation/CoreImage/CIFilter-swift.class>) instance for the supplied image data that can be used to apply a depth blur effect created with the supplied auxiliary images.
+//   - [CIContext.DepthBlurEffectFilterForImageDisparityImagePortraitEffectsMatteOrientationOptions]: Create a [CIFilter](<https://developer.apple.com/documentation/CoreImage/CIFilter-swift.class>) instance for the supplied image data that can be used to apply a depth blur effect created with the supplied auxiliary images.
+//   - [CIContext.DepthBlurEffectFilterForImageDataOptions]: Create a [CIFilter](<https://developer.apple.com/documentation/CoreImage/CIFilter-swift.class>) instance for the supplied image data that can be used to apply a depth blur effect.
+//   - [CIContext.DepthBlurEffectFilterForImageURLOptions]: Create a [CIFilter](<https://developer.apple.com/documentation/CoreImage/CIFilter-swift.class>) instance for the supplied image URL that can be used to apply a depth blur effect.
 //
 // # Customizing Render Destination
 //
-//   - [CIContext.PrepareRenderFromRectToDestinationAtPointError]: An optional call to warm up a [CIContext](<doc://com.apple.coreimage/documentation/CoreImage/CIContext>) so that subsequent calls to render with the same arguments run more efficiently.
-//   - [CIContext.StartTaskToClearError]: Fills the entire destination with black or clear depending on its [alphaMode](<doc://com.apple.coreimage/documentation/CoreImage/CIRenderDestination/alphaMode>).
+//   - [CIContext.PrepareRenderFromRectToDestinationAtPointError]: An optional call to warm up a [CIContext](<https://developer.apple.com/documentation/CoreImage/CIContext>) so that subsequent calls to render with the same arguments run more efficiently.
+//   - [CIContext.StartTaskToClearError]: Fills the entire destination with black or clear depending on its [alphaMode](<https://developer.apple.com/documentation/CoreImage/CIRenderDestination/alphaMode>).
 //   - [CIContext.StartTaskToRenderFromRectToDestinationAtPointError]: Renders a portion of an image to a point in the destination.
 //   - [CIContext.StartTaskToRenderToDestinationError]: Renders an image to a destination so that point (0, 0) of the image maps to point (0, 0) of the destination.
 //
@@ -204,16 +205,16 @@ func CIContextFromID(id objc.ID) CIContext {
 //
 // # Creating Depth Blur Filters
 //
-//   - [ICIContext.DepthBlurEffectFilterForImageDisparityImagePortraitEffectsMatteHairSemanticSegmentationGlassesMatteGainMapOrientationOptions]: Create a [CIFilter](<doc://com.apple.coreimage/documentation/CoreImage/CIFilter-swift.class>) instance for the supplied image data that can be used to apply a depth blur effect created with the supplied auxiliary images.
-//   - [ICIContext.DepthBlurEffectFilterForImageDisparityImagePortraitEffectsMatteHairSemanticSegmentationOrientationOptions]: Create a [CIFilter](<doc://com.apple.coreimage/documentation/CoreImage/CIFilter-swift.class>) instance for the supplied image data that can be used to apply a depth blur effect created with the supplied auxiliary images.
-//   - [ICIContext.DepthBlurEffectFilterForImageDisparityImagePortraitEffectsMatteOrientationOptions]: Create a [CIFilter](<doc://com.apple.coreimage/documentation/CoreImage/CIFilter-swift.class>) instance for the supplied image data that can be used to apply a depth blur effect created with the supplied auxiliary images.
-//   - [ICIContext.DepthBlurEffectFilterForImageDataOptions]: Create a [CIFilter](<doc://com.apple.coreimage/documentation/CoreImage/CIFilter-swift.class>) instance for the supplied image data that can be used to apply a depth blur effect.
-//   - [ICIContext.DepthBlurEffectFilterForImageURLOptions]: Create a [CIFilter](<doc://com.apple.coreimage/documentation/CoreImage/CIFilter-swift.class>) instance for the supplied image URL that can be used to apply a depth blur effect.
+//   - [ICIContext.DepthBlurEffectFilterForImageDisparityImagePortraitEffectsMatteHairSemanticSegmentationGlassesMatteGainMapOrientationOptions]: Create a [CIFilter](<https://developer.apple.com/documentation/CoreImage/CIFilter-swift.class>) instance for the supplied image data that can be used to apply a depth blur effect created with the supplied auxiliary images.
+//   - [ICIContext.DepthBlurEffectFilterForImageDisparityImagePortraitEffectsMatteHairSemanticSegmentationOrientationOptions]: Create a [CIFilter](<https://developer.apple.com/documentation/CoreImage/CIFilter-swift.class>) instance for the supplied image data that can be used to apply a depth blur effect created with the supplied auxiliary images.
+//   - [ICIContext.DepthBlurEffectFilterForImageDisparityImagePortraitEffectsMatteOrientationOptions]: Create a [CIFilter](<https://developer.apple.com/documentation/CoreImage/CIFilter-swift.class>) instance for the supplied image data that can be used to apply a depth blur effect created with the supplied auxiliary images.
+//   - [ICIContext.DepthBlurEffectFilterForImageDataOptions]: Create a [CIFilter](<https://developer.apple.com/documentation/CoreImage/CIFilter-swift.class>) instance for the supplied image data that can be used to apply a depth blur effect.
+//   - [ICIContext.DepthBlurEffectFilterForImageURLOptions]: Create a [CIFilter](<https://developer.apple.com/documentation/CoreImage/CIFilter-swift.class>) instance for the supplied image URL that can be used to apply a depth blur effect.
 //
 // # Customizing Render Destination
 //
-//   - [ICIContext.PrepareRenderFromRectToDestinationAtPointError]: An optional call to warm up a [CIContext](<doc://com.apple.coreimage/documentation/CoreImage/CIContext>) so that subsequent calls to render with the same arguments run more efficiently.
-//   - [ICIContext.StartTaskToClearError]: Fills the entire destination with black or clear depending on its [alphaMode](<doc://com.apple.coreimage/documentation/CoreImage/CIRenderDestination/alphaMode>).
+//   - [ICIContext.PrepareRenderFromRectToDestinationAtPointError]: An optional call to warm up a [CIContext](<https://developer.apple.com/documentation/CoreImage/CIContext>) so that subsequent calls to render with the same arguments run more efficiently.
+//   - [ICIContext.StartTaskToClearError]: Fills the entire destination with black or clear depending on its [alphaMode](<https://developer.apple.com/documentation/CoreImage/CIRenderDestination/alphaMode>).
 //   - [ICIContext.StartTaskToRenderFromRectToDestinationAtPointError]: Renders a portion of an image to a point in the destination.
 //   - [ICIContext.StartTaskToRenderToDestinationError]: Renders an image to a destination so that point (0, 0) of the image maps to point (0, 0) of the destination.
 //
@@ -238,11 +239,11 @@ type ICIContext interface {
 	// Creates a Core Graphics image from a region of a Core Image image instance.
 	CreateCGImageFromRect(image ICIImage, fromRect corefoundation.CGRect) coregraphics.CGImageRef
 	// Creates a Core Graphics image from a region of a Core Image image instance with an option for controlling the pixel format and color space of the [CGImage].
-	CreateCGImageFromRectFormatColorSpace(image ICIImage, fromRect corefoundation.CGRect, format int, colorSpace coregraphics.CGColorSpaceRef) coregraphics.CGImageRef
+	CreateCGImageFromRectFormatColorSpace(image ICIImage, fromRect corefoundation.CGRect, format CIFormat, colorSpace coregraphics.CGColorSpaceRef) coregraphics.CGImageRef
 	// Creates a Core Graphics image from a region of a Core Image image instance with an option for controlling when the image is rendered.
-	CreateCGImageFromRectFormatColorSpaceDeferred(image ICIImage, fromRect corefoundation.CGRect, format int, colorSpace coregraphics.CGColorSpaceRef, deferred bool) coregraphics.CGImageRef
+	CreateCGImageFromRectFormatColorSpaceDeferred(image ICIImage, fromRect corefoundation.CGRect, format CIFormat, colorSpace coregraphics.CGColorSpaceRef, deferred bool) coregraphics.CGImageRef
 	// Renders to the given bitmap.
-	RenderToBitmapRowBytesBoundsFormatColorSpace(image ICIImage, data unsafe.Pointer, rowBytes int, bounds corefoundation.CGRect, format int, colorSpace coregraphics.CGColorSpaceRef)
+	RenderToBitmapRowBytesBoundsFormatColorSpace(image ICIImage, data unsafe.Pointer, rowBytes int, bounds corefoundation.CGRect, format CIFormat, colorSpace coregraphics.CGColorSpaceRef)
 	// Renders an image into a pixel buffer.
 	RenderToCVPixelBuffer(image ICIImage, buffer corevideo.CVImageBufferRef)
 	// Renders a region of an image into a pixel buffer.
@@ -271,25 +272,25 @@ type ICIContext interface {
 	// Topic: Rendering Images for Data or File Export
 
 	// Renders the image and exports the resulting image data in TIFF format.
-	TIFFRepresentationOfImageFormatColorSpaceOptions(image ICIImage, format int, colorSpace coregraphics.CGColorSpaceRef, options foundation.INSDictionary) foundation.NSData
+	TIFFRepresentationOfImageFormatColorSpaceOptions(image ICIImage, format CIFormat, colorSpace coregraphics.CGColorSpaceRef, options foundation.INSDictionary) foundation.NSData
 	// Renders the image and exports the resulting image data in JPEG format.
 	JPEGRepresentationOfImageColorSpaceOptions(image ICIImage, colorSpace coregraphics.CGColorSpaceRef, options foundation.INSDictionary) foundation.NSData
 	// Renders the image and exports the resulting image data in PNG format.
-	PNGRepresentationOfImageFormatColorSpaceOptions(image ICIImage, format int, colorSpace coregraphics.CGColorSpaceRef, options foundation.INSDictionary) foundation.NSData
+	PNGRepresentationOfImageFormatColorSpaceOptions(image ICIImage, format CIFormat, colorSpace coregraphics.CGColorSpaceRef, options foundation.INSDictionary) foundation.NSData
 	// Renders the image and exports the resulting image data in HEIF format.
-	HEIFRepresentationOfImageFormatColorSpaceOptions(image ICIImage, format int, colorSpace coregraphics.CGColorSpaceRef, options foundation.INSDictionary) foundation.NSData
+	HEIFRepresentationOfImageFormatColorSpaceOptions(image ICIImage, format CIFormat, colorSpace coregraphics.CGColorSpaceRef, options foundation.INSDictionary) foundation.NSData
 	// Renders the image and exports the resulting image data in HEIF10 format.
 	HEIF10RepresentationOfImageColorSpaceOptionsError(image ICIImage, colorSpace coregraphics.CGColorSpaceRef, options foundation.INSDictionary) (foundation.NSData, error)
 	// Renders the image and exports the resulting image data in open EXR format.
 	OpenEXRRepresentationOfImageOptionsError(image ICIImage, options foundation.INSDictionary) (foundation.NSData, error)
 	// Renders the image and exports the resulting image data as a file in TIFF format.
-	WriteTIFFRepresentationOfImageToURLFormatColorSpaceOptionsError(image ICIImage, url foundation.NSURL, format int, colorSpace coregraphics.CGColorSpaceRef, options foundation.INSDictionary) (bool, error)
+	WriteTIFFRepresentationOfImageToURLFormatColorSpaceOptionsError(image ICIImage, url foundation.NSURL, format CIFormat, colorSpace coregraphics.CGColorSpaceRef, options foundation.INSDictionary) (bool, error)
 	// Renders the image and exports the resulting image data as a file in JPEG format.
 	WriteJPEGRepresentationOfImageToURLColorSpaceOptionsError(image ICIImage, url foundation.NSURL, colorSpace coregraphics.CGColorSpaceRef, options foundation.INSDictionary) (bool, error)
 	// Renders the image and exports the resulting image data as a file in PNG format.
-	WritePNGRepresentationOfImageToURLFormatColorSpaceOptionsError(image ICIImage, url foundation.NSURL, format int, colorSpace coregraphics.CGColorSpaceRef, options foundation.INSDictionary) (bool, error)
+	WritePNGRepresentationOfImageToURLFormatColorSpaceOptionsError(image ICIImage, url foundation.NSURL, format CIFormat, colorSpace coregraphics.CGColorSpaceRef, options foundation.INSDictionary) (bool, error)
 	// Renders the image and exports the resulting image data as a file in HEIF format.
-	WriteHEIFRepresentationOfImageToURLFormatColorSpaceOptionsError(image ICIImage, url foundation.NSURL, format int, colorSpace coregraphics.CGColorSpaceRef, options foundation.INSDictionary) (bool, error)
+	WriteHEIFRepresentationOfImageToURLFormatColorSpaceOptionsError(image ICIImage, url foundation.NSURL, format CIFormat, colorSpace coregraphics.CGColorSpaceRef, options foundation.INSDictionary) (bool, error)
 	// Renders the image and exports the resulting image data as a file in HEIF10 format.
 	WriteHEIF10RepresentationOfImageToURLColorSpaceOptionsError(image ICIImage, url foundation.NSURL, colorSpace coregraphics.CGColorSpaceRef, options foundation.INSDictionary) (bool, error)
 	// Renders the image and exports the resulting image data as a file in open EXR format.
@@ -297,22 +298,22 @@ type ICIContext interface {
 
 	// Topic: Creating Depth Blur Filters
 
-	// Create a [CIFilter](<doc://com.apple.coreimage/documentation/CoreImage/CIFilter-swift.class>) instance for the supplied image data that can be used to apply a depth blur effect created with the supplied auxiliary images.
-	DepthBlurEffectFilterForImageDisparityImagePortraitEffectsMatteHairSemanticSegmentationGlassesMatteGainMapOrientationOptions(image ICIImage, disparityImage ICIImage, portraitEffectsMatte ICIImage, hairSemanticSegmentation ICIImage, glassesMatte ICIImage, gainMap ICIImage, orientation uint, options foundation.INSDictionary) CIFilter
-	// Create a [CIFilter](<doc://com.apple.coreimage/documentation/CoreImage/CIFilter-swift.class>) instance for the supplied image data that can be used to apply a depth blur effect created with the supplied auxiliary images.
-	DepthBlurEffectFilterForImageDisparityImagePortraitEffectsMatteHairSemanticSegmentationOrientationOptions(image ICIImage, disparityImage ICIImage, portraitEffectsMatte ICIImage, hairSemanticSegmentation ICIImage, orientation uint, options foundation.INSDictionary) CIFilter
-	// Create a [CIFilter](<doc://com.apple.coreimage/documentation/CoreImage/CIFilter-swift.class>) instance for the supplied image data that can be used to apply a depth blur effect created with the supplied auxiliary images.
-	DepthBlurEffectFilterForImageDisparityImagePortraitEffectsMatteOrientationOptions(image ICIImage, disparityImage ICIImage, portraitEffectsMatte ICIImage, orientation uint, options foundation.INSDictionary) CIFilter
-	// Create a [CIFilter](<doc://com.apple.coreimage/documentation/CoreImage/CIFilter-swift.class>) instance for the supplied image data that can be used to apply a depth blur effect.
-	DepthBlurEffectFilterForImageDataOptions(data foundation.NSData, options foundation.INSDictionary) CIFilter
-	// Create a [CIFilter](<doc://com.apple.coreimage/documentation/CoreImage/CIFilter-swift.class>) instance for the supplied image URL that can be used to apply a depth blur effect.
-	DepthBlurEffectFilterForImageURLOptions(url foundation.NSURL, options foundation.INSDictionary) CIFilter
+	// Create a [CIFilter](<https://developer.apple.com/documentation/CoreImage/CIFilter-swift.class>) instance for the supplied image data that can be used to apply a depth blur effect created with the supplied auxiliary images.
+	DepthBlurEffectFilterForImageDisparityImagePortraitEffectsMatteHairSemanticSegmentationGlassesMatteGainMapOrientationOptions(image ICIImage, disparityImage ICIImage, portraitEffectsMatte ICIImage, hairSemanticSegmentation ICIImage, glassesMatte ICIImage, gainMap ICIImage, orientation imageio.CGImagePropertyOrientation, options foundation.INSDictionary) ICIFilter
+	// Create a [CIFilter](<https://developer.apple.com/documentation/CoreImage/CIFilter-swift.class>) instance for the supplied image data that can be used to apply a depth blur effect created with the supplied auxiliary images.
+	DepthBlurEffectFilterForImageDisparityImagePortraitEffectsMatteHairSemanticSegmentationOrientationOptions(image ICIImage, disparityImage ICIImage, portraitEffectsMatte ICIImage, hairSemanticSegmentation ICIImage, orientation imageio.CGImagePropertyOrientation, options foundation.INSDictionary) ICIFilter
+	// Create a [CIFilter](<https://developer.apple.com/documentation/CoreImage/CIFilter-swift.class>) instance for the supplied image data that can be used to apply a depth blur effect created with the supplied auxiliary images.
+	DepthBlurEffectFilterForImageDisparityImagePortraitEffectsMatteOrientationOptions(image ICIImage, disparityImage ICIImage, portraitEffectsMatte ICIImage, orientation imageio.CGImagePropertyOrientation, options foundation.INSDictionary) ICIFilter
+	// Create a [CIFilter](<https://developer.apple.com/documentation/CoreImage/CIFilter-swift.class>) instance for the supplied image data that can be used to apply a depth blur effect.
+	DepthBlurEffectFilterForImageDataOptions(data foundation.NSData, options foundation.INSDictionary) ICIFilter
+	// Create a [CIFilter](<https://developer.apple.com/documentation/CoreImage/CIFilter-swift.class>) instance for the supplied image URL that can be used to apply a depth blur effect.
+	DepthBlurEffectFilterForImageURLOptions(url foundation.NSURL, options foundation.INSDictionary) ICIFilter
 
 	// Topic: Customizing Render Destination
 
-	// An optional call to warm up a [CIContext](<doc://com.apple.coreimage/documentation/CoreImage/CIContext>) so that subsequent calls to render with the same arguments run more efficiently.
+	// An optional call to warm up a [CIContext](<https://developer.apple.com/documentation/CoreImage/CIContext>) so that subsequent calls to render with the same arguments run more efficiently.
 	PrepareRenderFromRectToDestinationAtPointError(image ICIImage, fromRect corefoundation.CGRect, destination ICIRenderDestination, atPoint corefoundation.CGPoint) (bool, error)
-	// Fills the entire destination with black or clear depending on its [alphaMode](<doc://com.apple.coreimage/documentation/CoreImage/CIRenderDestination/alphaMode>).
+	// Fills the entire destination with black or clear depending on its [alphaMode](<https://developer.apple.com/documentation/CoreImage/CIRenderDestination/alphaMode>).
 	StartTaskToClearError(destination ICIRenderDestination) (ICIRenderTask, error)
 	// Renders a portion of an image to a point in the destination.
 	StartTaskToRenderFromRectToDestinationAtPointError(image ICIImage, fromRect corefoundation.CGRect, destination ICIRenderDestination, atPoint corefoundation.CGPoint) (ICIRenderTask, error)
@@ -335,7 +336,7 @@ type ICIContext interface {
 	// Given a Core Image image, use the receiving Core Image context to calculate its HDR statistics (content headroom and content average light level) and then return a new Core Image image that has the calculated values.
 	CalculateHDRStatsForImage(image ICIImage) ICIImage
 	// Creates a Core Graphics image from a region of a Core Image image instance with an option for calculating HDR statistics.
-	CreateCGImageFromRectFormatColorSpaceDeferredCalculateHDRStats(image ICIImage, fromRect corefoundation.CGRect, format int, colorSpace coregraphics.CGColorSpaceRef, deferred bool, calculateHDRStats bool) coregraphics.CGImageRef
+	CreateCGImageFromRectFormatColorSpaceDeferredCalculateHDRStats(image ICIImage, fromRect corefoundation.CGRect, format CIFormat, colorSpace coregraphics.CGColorSpaceRef, deferred bool, calculateHDRStats bool) coregraphics.CGImageRef
 }
 
 // Init initializes the instance.
@@ -394,7 +395,7 @@ func NewContextWithCGContextOptions(cgctx coregraphics.CGContextRef, options fou
 // using the methods listed in Drawing Images is rendered directly into the
 // context.
 //
-// See: https://developer.apple.com/documentation/CoreImage/CIContext/init(eaglContext:)-8ajef
+// See: https://developer.apple.com/documentation/CoreImage/CIContext/init(eaglContext:)
 func NewContextWithEAGLContext(eaglContext objectivec.IObject) CIContext {
 	rv := objc.Send[objc.ID](objc.ID(getCIContextClass().class), objc.Sel("contextWithEAGLContext:"), eaglContext)
 	return CIContextFromID(rv)
@@ -452,7 +453,7 @@ func NewContextWithMTLCommandQueueOptions(commandQueue unsafe.Pointer, options f
 // using the system’s default Metal device, use the
 // [CIContextClass.ContextWithOptions] method.
 //
-// See: https://developer.apple.com/documentation/CoreImage/CIContext/init(mtlDevice:)-swey
+// See: https://developer.apple.com/documentation/CoreImage/CIContext/init(mtlDevice:)
 func NewContextWithMTLDevice(device metal.MTLDevice) CIContext {
 	rv := objc.Send[objc.ID](objc.ID(getCIContextClass().class), objc.Sel("contextWithMTLDevice:"), device)
 	return CIContextFromID(rv)
@@ -569,7 +570,7 @@ func (c CIContext) CreateCGImageFromRect(image ICIImage, fromRect corefoundation
 // `null` if the extent is empty or too big.
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIContext/createCGImage(_:from:format:colorSpace:)
-func (c CIContext) CreateCGImageFromRectFormatColorSpace(image ICIImage, fromRect corefoundation.CGRect, format int, colorSpace coregraphics.CGColorSpaceRef) coregraphics.CGImageRef {
+func (c CIContext) CreateCGImageFromRectFormatColorSpace(image ICIImage, fromRect corefoundation.CGRect, format CIFormat, colorSpace coregraphics.CGColorSpaceRef) coregraphics.CGImageRef {
 	rv := objc.Send[coregraphics.CGImageRef](c.ID, objc.Sel("createCGImage:fromRect:format:colorSpace:"), image, fromRect, format, colorSpace)
 	return coregraphics.CGImageRef(rv)
 }
@@ -603,7 +604,7 @@ func (c CIContext) CreateCGImageFromRectFormatColorSpace(image ICIImage, fromRec
 // `null` if the extent is empty or too big.
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIContext/createCGImage(_:from:format:colorSpace:deferred:)
-func (c CIContext) CreateCGImageFromRectFormatColorSpaceDeferred(image ICIImage, fromRect corefoundation.CGRect, format int, colorSpace coregraphics.CGColorSpaceRef, deferred bool) coregraphics.CGImageRef {
+func (c CIContext) CreateCGImageFromRectFormatColorSpaceDeferred(image ICIImage, fromRect corefoundation.CGRect, format CIFormat, colorSpace coregraphics.CGColorSpaceRef, deferred bool) coregraphics.CGImageRef {
 	rv := objc.Send[coregraphics.CGImageRef](c.ID, objc.Sel("createCGImage:fromRect:format:colorSpace:deferred:"), image, fromRect, format, colorSpace, deferred)
 	return coregraphics.CGImageRef(rv)
 }
@@ -624,7 +625,7 @@ func (c CIContext) CreateCGImageFromRectFormatColorSpaceDeferred(image ICIImage,
 // color space of the context.
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIContext/render(_:toBitmap:rowBytes:bounds:format:colorSpace:)
-func (c CIContext) RenderToBitmapRowBytesBoundsFormatColorSpace(image ICIImage, data unsafe.Pointer, rowBytes int, bounds corefoundation.CGRect, format int, colorSpace coregraphics.CGColorSpaceRef) {
+func (c CIContext) RenderToBitmapRowBytesBoundsFormatColorSpace(image ICIImage, data unsafe.Pointer, rowBytes int, bounds corefoundation.CGRect, format CIFormat, colorSpace coregraphics.CGColorSpaceRef) {
 	objc.Send[objc.ID](c.ID, objc.Sel("render:toBitmap:rowBytes:bounds:format:colorSpace:"), image, data, rowBytes, bounds, format, colorSpace)
 }
 
@@ -791,7 +792,7 @@ func (c CIContext) ReclaimResources() {
 //
 // [CGColorSpaceModel.monochrome]: https://developer.apple.com/documentation/CoreGraphics/CGColorSpaceModel/monochrome
 // [CGColorSpaceModel.rgb]: https://developer.apple.com/documentation/CoreGraphics/CGColorSpaceModel/rgb
-func (c CIContext) TIFFRepresentationOfImageFormatColorSpaceOptions(image ICIImage, format int, colorSpace coregraphics.CGColorSpaceRef, options foundation.INSDictionary) foundation.NSData {
+func (c CIContext) TIFFRepresentationOfImageFormatColorSpaceOptions(image ICIImage, format CIFormat, colorSpace coregraphics.CGColorSpaceRef, options foundation.INSDictionary) foundation.NSData {
 	rv := objc.Send[objc.ID](c.ID, objc.Sel("TIFFRepresentationOfImage:format:colorSpace:options:"), image, format, colorSpace, options)
 	return foundation.NSDataFromID(rv)
 }
@@ -864,7 +865,7 @@ func (c CIContext) JPEGRepresentationOfImageColorSpaceOptions(image ICIImage, co
 //
 // [CGColorSpaceModel.monochrome]: https://developer.apple.com/documentation/CoreGraphics/CGColorSpaceModel/monochrome
 // [CGColorSpaceModel.rgb]: https://developer.apple.com/documentation/CoreGraphics/CGColorSpaceModel/rgb
-func (c CIContext) PNGRepresentationOfImageFormatColorSpaceOptions(image ICIImage, format int, colorSpace coregraphics.CGColorSpaceRef, options foundation.INSDictionary) foundation.NSData {
+func (c CIContext) PNGRepresentationOfImageFormatColorSpaceOptions(image ICIImage, format CIFormat, colorSpace coregraphics.CGColorSpaceRef, options foundation.INSDictionary) foundation.NSData {
 	rv := objc.Send[objc.ID](c.ID, objc.Sel("PNGRepresentationOfImage:format:colorSpace:options:"), image, format, colorSpace, options)
 	return foundation.NSDataFromID(rv)
 }
@@ -904,7 +905,7 @@ func (c CIContext) PNGRepresentationOfImageFormatColorSpaceOptions(image ICIImag
 // [depthImage]: https://developer.apple.com/documentation/CoreImage/CIImageRepresentationOption/depthImage
 // [disparityImage]: https://developer.apple.com/documentation/CoreImage/CIImageRepresentationOption/disparityImage
 // [kCGImageDestinationLossyCompressionQuality]: https://developer.apple.com/documentation/ImageIO/kCGImageDestinationLossyCompressionQuality
-func (c CIContext) HEIFRepresentationOfImageFormatColorSpaceOptions(image ICIImage, format int, colorSpace coregraphics.CGColorSpaceRef, options foundation.INSDictionary) foundation.NSData {
+func (c CIContext) HEIFRepresentationOfImageFormatColorSpaceOptions(image ICIImage, format CIFormat, colorSpace coregraphics.CGColorSpaceRef, options foundation.INSDictionary) foundation.NSData {
 	rv := objc.Send[objc.ID](c.ID, objc.Sel("HEIFRepresentationOfImage:format:colorSpace:options:"), image, format, colorSpace, options)
 	return foundation.NSDataFromID(rv)
 }
@@ -977,7 +978,7 @@ func (c CIContext) OpenEXRRepresentationOfImageOptionsError(image ICIImage, opti
 //
 // [CGColorSpaceModel.monochrome]: https://developer.apple.com/documentation/CoreGraphics/CGColorSpaceModel/monochrome
 // [CGColorSpaceModel.rgb]: https://developer.apple.com/documentation/CoreGraphics/CGColorSpaceModel/rgb
-func (c CIContext) WriteTIFFRepresentationOfImageToURLFormatColorSpaceOptionsError(image ICIImage, url foundation.NSURL, format int, colorSpace coregraphics.CGColorSpaceRef, options foundation.INSDictionary) (bool, error) {
+func (c CIContext) WriteTIFFRepresentationOfImageToURLFormatColorSpaceOptionsError(image ICIImage, url foundation.NSURL, format CIFormat, colorSpace coregraphics.CGColorSpaceRef, options foundation.INSDictionary) (bool, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[bool](c.ID, objc.Sel("writeTIFFRepresentationOfImage:toURL:format:colorSpace:options:error:"), image, url, format, colorSpace, options, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
@@ -1060,7 +1061,7 @@ func (c CIContext) WriteJPEGRepresentationOfImageToURLColorSpaceOptionsError(ima
 //
 // [CGColorSpaceModel.monochrome]: https://developer.apple.com/documentation/CoreGraphics/CGColorSpaceModel/monochrome
 // [CGColorSpaceModel.rgb]: https://developer.apple.com/documentation/CoreGraphics/CGColorSpaceModel/rgb
-func (c CIContext) WritePNGRepresentationOfImageToURLFormatColorSpaceOptionsError(image ICIImage, url foundation.NSURL, format int, colorSpace coregraphics.CGColorSpaceRef, options foundation.INSDictionary) (bool, error) {
+func (c CIContext) WritePNGRepresentationOfImageToURLFormatColorSpaceOptionsError(image ICIImage, url foundation.NSURL, format CIFormat, colorSpace coregraphics.CGColorSpaceRef, options foundation.INSDictionary) (bool, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[bool](c.ID, objc.Sel("writePNGRepresentationOfImage:toURL:format:colorSpace:options:error:"), image, url, format, colorSpace, options, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
@@ -1105,7 +1106,7 @@ func (c CIContext) WritePNGRepresentationOfImageToURLFormatColorSpaceOptionsErro
 //
 // [CGColorSpaceModel.monochrome]: https://developer.apple.com/documentation/CoreGraphics/CGColorSpaceModel/monochrome
 // [CGColorSpaceModel.rgb]: https://developer.apple.com/documentation/CoreGraphics/CGColorSpaceModel/rgb
-func (c CIContext) WriteHEIFRepresentationOfImageToURLFormatColorSpaceOptionsError(image ICIImage, url foundation.NSURL, format int, colorSpace coregraphics.CGColorSpaceRef, options foundation.INSDictionary) (bool, error) {
+func (c CIContext) WriteHEIFRepresentationOfImageToURLFormatColorSpaceOptionsError(image ICIImage, url foundation.NSURL, format CIFormat, colorSpace coregraphics.CGColorSpaceRef, options foundation.INSDictionary) (bool, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[bool](c.ID, objc.Sel("writeHEIFRepresentationOfImage:toURL:format:colorSpace:options:error:"), image, url, format, colorSpace, options, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
@@ -1207,7 +1208,7 @@ func (c CIContext) WriteOpenEXRRepresentationOfImageToURLOptionsError(image ICII
 // [auxiliarySemanticSegmentationHairMatte]: https://developer.apple.com/documentation/CoreImage/CIImageOption/auxiliarySemanticSegmentationHairMatte
 // [auxiliarySemanticSegmentationGlassesMatte]: https://developer.apple.com/documentation/CoreImage/CIImageOption/auxiliarySemanticSegmentationGlassesMatte
 // [auxiliaryHDRGainMap]: https://developer.apple.com/documentation/CoreImage/CIImageOption/auxiliaryHDRGainMap
-func (c CIContext) DepthBlurEffectFilterForImageDisparityImagePortraitEffectsMatteHairSemanticSegmentationGlassesMatteGainMapOrientationOptions(image ICIImage, disparityImage ICIImage, portraitEffectsMatte ICIImage, hairSemanticSegmentation ICIImage, glassesMatte ICIImage, gainMap ICIImage, orientation uint, options foundation.INSDictionary) CIFilter {
+func (c CIContext) DepthBlurEffectFilterForImageDisparityImagePortraitEffectsMatteHairSemanticSegmentationGlassesMatteGainMapOrientationOptions(image ICIImage, disparityImage ICIImage, portraitEffectsMatte ICIImage, hairSemanticSegmentation ICIImage, glassesMatte ICIImage, gainMap ICIImage, orientation imageio.CGImagePropertyOrientation, options foundation.INSDictionary) ICIFilter {
 	rv := objc.Send[objc.ID](c.ID, objc.Sel("depthBlurEffectFilterForImage:disparityImage:portraitEffectsMatte:hairSemanticSegmentation:glassesMatte:gainMap:orientation:options:"), image, disparityImage, portraitEffectsMatte, hairSemanticSegmentation, glassesMatte, gainMap, orientation, options)
 	return CIFilterFromID(rv)
 }
@@ -1242,7 +1243,7 @@ func (c CIContext) DepthBlurEffectFilterForImageDisparityImagePortraitEffectsMat
 // [auxiliaryDisparity]: https://developer.apple.com/documentation/CoreImage/CIImageOption/auxiliaryDisparity
 // [auxiliaryPortraitEffectsMatte]: https://developer.apple.com/documentation/CoreImage/CIImageOption/auxiliaryPortraitEffectsMatte
 // [auxiliarySemanticSegmentationHairMatte]: https://developer.apple.com/documentation/CoreImage/CIImageOption/auxiliarySemanticSegmentationHairMatte
-func (c CIContext) DepthBlurEffectFilterForImageDisparityImagePortraitEffectsMatteHairSemanticSegmentationOrientationOptions(image ICIImage, disparityImage ICIImage, portraitEffectsMatte ICIImage, hairSemanticSegmentation ICIImage, orientation uint, options foundation.INSDictionary) CIFilter {
+func (c CIContext) DepthBlurEffectFilterForImageDisparityImagePortraitEffectsMatteHairSemanticSegmentationOrientationOptions(image ICIImage, disparityImage ICIImage, portraitEffectsMatte ICIImage, hairSemanticSegmentation ICIImage, orientation imageio.CGImagePropertyOrientation, options foundation.INSDictionary) ICIFilter {
 	rv := objc.Send[objc.ID](c.ID, objc.Sel("depthBlurEffectFilterForImage:disparityImage:portraitEffectsMatte:hairSemanticSegmentation:orientation:options:"), image, disparityImage, portraitEffectsMatte, hairSemanticSegmentation, orientation, options)
 	return CIFilterFromID(rv)
 }
@@ -1273,7 +1274,7 @@ func (c CIContext) DepthBlurEffectFilterForImageDisparityImagePortraitEffectsMat
 //
 // [auxiliaryDisparity]: https://developer.apple.com/documentation/CoreImage/CIImageOption/auxiliaryDisparity
 // [auxiliaryPortraitEffectsMatte]: https://developer.apple.com/documentation/CoreImage/CIImageOption/auxiliaryPortraitEffectsMatte
-func (c CIContext) DepthBlurEffectFilterForImageDisparityImagePortraitEffectsMatteOrientationOptions(image ICIImage, disparityImage ICIImage, portraitEffectsMatte ICIImage, orientation uint, options foundation.INSDictionary) CIFilter {
+func (c CIContext) DepthBlurEffectFilterForImageDisparityImagePortraitEffectsMatteOrientationOptions(image ICIImage, disparityImage ICIImage, portraitEffectsMatte ICIImage, orientation imageio.CGImagePropertyOrientation, options foundation.INSDictionary) ICIFilter {
 	rv := objc.Send[objc.ID](c.ID, objc.Sel("depthBlurEffectFilterForImage:disparityImage:portraitEffectsMatte:orientation:options:"), image, disparityImage, portraitEffectsMatte, orientation, options)
 	return CIFilterFromID(rv)
 }
@@ -1291,7 +1292,7 @@ func (c CIContext) DepthBlurEffectFilterForImageDisparityImagePortraitEffectsMat
 // landmarks used to create the effect.
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIContext/depthBlurEffectFilter(forImageData:options:)
-func (c CIContext) DepthBlurEffectFilterForImageDataOptions(data foundation.NSData, options foundation.INSDictionary) CIFilter {
+func (c CIContext) DepthBlurEffectFilterForImageDataOptions(data foundation.NSData, options foundation.INSDictionary) ICIFilter {
 	rv := objc.Send[objc.ID](c.ID, objc.Sel("depthBlurEffectFilterForImageData:options:"), data, options)
 	return CIFilterFromID(rv)
 }
@@ -1309,7 +1310,7 @@ func (c CIContext) DepthBlurEffectFilterForImageDataOptions(data foundation.NSDa
 // landmarks used to create the effect.
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIContext/depthBlurEffectFilter(forImageURL:options:)
-func (c CIContext) DepthBlurEffectFilterForImageURLOptions(url foundation.NSURL, options foundation.INSDictionary) CIFilter {
+func (c CIContext) DepthBlurEffectFilterForImageURLOptions(url foundation.NSURL, options foundation.INSDictionary) ICIFilter {
 	rv := objc.Send[objc.ID](c.ID, objc.Sel("depthBlurEffectFilterForImageURL:options:"), url, options)
 	return CIFilterFromID(rv)
 }
@@ -1588,7 +1589,7 @@ func (c CIContext) CalculateHDRStatsForImage(image ICIImage) ICIImage {
 // `null` if the extent is empty or too big.
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIContext/createCGImage(_:from:format:colorSpace:deferred:calculateHDRStats:)
-func (c CIContext) CreateCGImageFromRectFormatColorSpaceDeferredCalculateHDRStats(image ICIImage, fromRect corefoundation.CGRect, format int, colorSpace coregraphics.CGColorSpaceRef, deferred bool, calculateHDRStats bool) coregraphics.CGImageRef {
+func (c CIContext) CreateCGImageFromRectFormatColorSpaceDeferredCalculateHDRStats(image ICIImage, fromRect corefoundation.CGRect, format CIFormat, colorSpace coregraphics.CGColorSpaceRef, deferred bool, calculateHDRStats bool) coregraphics.CGImageRef {
 	rv := objc.Send[coregraphics.CGImageRef](c.ID, objc.Sel("createCGImage:fromRect:format:colorSpace:deferred:calculateHDRStats:"), image, fromRect, format, colorSpace, deferred, calculateHDRStats)
 	return coregraphics.CGImageRef(rv)
 }

@@ -125,7 +125,7 @@ var _esExecArgErr error
 
 func tryEsExecArg(event *EsEventExec, index uint32) (EsStringToken, error) {
 	if _esExecArg == nil {
-		return EsStringToken{}, symbolCallError("es_exec_arg", "10.15", _esExecArgErr)
+		return *new(EsStringToken), symbolCallError("es_exec_arg", "10.15", _esExecArgErr)
 	}
 	return _esExecArg(event, index), nil
 }
@@ -167,7 +167,7 @@ var _esExecEnvErr error
 
 func tryEsExecEnv(event *EsEventExec, index uint32) (EsStringToken, error) {
 	if _esExecEnv == nil {
-		return EsStringToken{}, symbolCallError("es_exec_env", "10.15", _esExecEnvErr)
+		return *new(EsStringToken), symbolCallError("es_exec_env", "10.15", _esExecEnvErr)
 	}
 	return _esExecEnv(event, index), nil
 }

@@ -71,7 +71,7 @@ func (nc NSSliderCellClass) Alloc() NSSliderCell {
 //   - [NSSliderCell.DrawTickMarks]: Draws the slider’s tick marks.
 //   - [NSSliderCell.KnobRectFlipped]: Returns the rectangle in which the slider knob is drawn.
 //   - [NSSliderCell.DrawBarInsideFlipped]: Draws the slider’s bar—but not its bezel or knob—inside the specified rectangle.
-//   - [NSSliderCell.DrawKnob]: Calculates the rectangle in which the knob should be drawn, then calls [drawKnob(_:)](<doc://com.apple.appkit/documentation/AppKit/NSSliderCell/drawKnob(_:)>) to actually draw the knob.
+//   - [NSSliderCell.DrawKnob]: Calculates the rectangle in which the knob should be drawn, then calls [drawKnob(_:)](<https://developer.apple.com/documentation/AppKit/NSSliderCell/drawKnob(_:)>) to actually draw the knob.
 //   - [NSSliderCell.DrawKnobWithKnobRect]: Draws the slider knob in the given rectangle.
 //
 // # Managing Cell Appearance
@@ -134,7 +134,7 @@ func NSSliderCellFromID(id objc.ID) NSSliderCell {
 //   - [INSSliderCell.DrawTickMarks]: Draws the slider’s tick marks.
 //   - [INSSliderCell.KnobRectFlipped]: Returns the rectangle in which the slider knob is drawn.
 //   - [INSSliderCell.DrawBarInsideFlipped]: Draws the slider’s bar—but not its bezel or knob—inside the specified rectangle.
-//   - [INSSliderCell.DrawKnob]: Calculates the rectangle in which the knob should be drawn, then calls [drawKnob(_:)](<doc://com.apple.appkit/documentation/AppKit/NSSliderCell/drawKnob(_:)>) to actually draw the knob.
+//   - [INSSliderCell.DrawKnob]: Calculates the rectangle in which the knob should be drawn, then calls [drawKnob(_:)](<https://developer.apple.com/documentation/AppKit/NSSliderCell/drawKnob(_:)>) to actually draw the knob.
 //   - [INSSliderCell.DrawKnobWithKnobRect]: Draws the slider knob in the given rectangle.
 //
 // # Managing Cell Appearance
@@ -191,7 +191,7 @@ type INSSliderCell interface {
 	KnobRectFlipped(flipped bool) corefoundation.CGRect
 	// Draws the slider’s bar—but not its bezel or knob—inside the specified rectangle.
 	DrawBarInsideFlipped(rect corefoundation.CGRect, flipped bool)
-	// Calculates the rectangle in which the knob should be drawn, then calls [drawKnob(_:)](<doc://com.apple.appkit/documentation/AppKit/NSSliderCell/drawKnob(_:)>) to actually draw the knob.
+	// Calculates the rectangle in which the knob should be drawn, then calls [drawKnob(_:)](<https://developer.apple.com/documentation/AppKit/NSSliderCell/drawKnob(_:)>) to actually draw the knob.
 	DrawKnob()
 	// Draws the slider knob in the given rectangle.
 	DrawKnobWithKnobRect(knobRect corefoundation.CGRect)

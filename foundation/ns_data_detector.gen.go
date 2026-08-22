@@ -194,6 +194,9 @@ func NewDataDetectorWithPatternOptionsError(pattern string, options NSRegularExp
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
 		return NSDataDetector{}, NSErrorFrom(errorPtr)
 	}
+	if rv == 0 {
+		return NSDataDetector{}, objc.ErrInitFailed
+	}
 	return NSDataDetectorFromID(rv), nil
 }
 
@@ -225,6 +228,9 @@ func NewDataDetectorWithTypesError(checkingTypes NSTextCheckingTypes) (NSDataDet
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
 		return NSDataDetector{}, NSErrorFrom(errorPtr)
+	}
+	if rv == 0 {
+		return NSDataDetector{}, objc.ErrInitFailed
 	}
 	return NSDataDetectorFromID(rv), nil
 }

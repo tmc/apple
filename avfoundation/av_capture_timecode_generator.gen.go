@@ -64,7 +64,7 @@ func (ac AVCaptureTimecodeGeneratorClass) Alloc() AVCaptureTimecodeGenerator {
 //
 // # Managing sources
 //
-//   - [AVCaptureTimecodeGenerator.CurrentSource]: The active timecode source used by [AVCaptureTimecodeGenerator](<doc://com.apple.avfoundation/documentation/AVFoundation/AVCaptureTimecodeGenerator>) to maintain clock synchronization for accurate timecode generation.
+//   - [AVCaptureTimecodeGenerator.CurrentSource]: The active timecode source used by [AVCaptureTimecodeGenerator](<https://developer.apple.com/documentation/AVFoundation/AVCaptureTimecodeGenerator>) to maintain clock synchronization for accurate timecode generation.
 //   - [AVCaptureTimecodeGenerator.AvailableSources]: An array of available timecode synchronization sources that can be used by the timecode generator.
 //   - [AVCaptureTimecodeGenerator.StartSynchronizationWithTimecodeSource]: Synchronizes the generator with the specified timecode source.
 //
@@ -107,7 +107,7 @@ func AVCaptureTimecodeGeneratorFromID(id objc.ID) AVCaptureTimecodeGenerator {
 //
 // # Managing sources
 //
-//   - [IAVCaptureTimecodeGenerator.CurrentSource]: The active timecode source used by [AVCaptureTimecodeGenerator](<doc://com.apple.avfoundation/documentation/AVFoundation/AVCaptureTimecodeGenerator>) to maintain clock synchronization for accurate timecode generation.
+//   - [IAVCaptureTimecodeGenerator.CurrentSource]: The active timecode source used by [AVCaptureTimecodeGenerator](<https://developer.apple.com/documentation/AVFoundation/AVCaptureTimecodeGenerator>) to maintain clock synchronization for accurate timecode generation.
 //   - [IAVCaptureTimecodeGenerator.AvailableSources]: An array of available timecode synchronization sources that can be used by the timecode generator.
 //   - [IAVCaptureTimecodeGenerator.StartSynchronizationWithTimecodeSource]: Synchronizes the generator with the specified timecode source.
 //
@@ -137,7 +137,7 @@ type IAVCaptureTimecodeGenerator interface {
 
 	// Topic: Managing sources
 
-	// The active timecode source used by [AVCaptureTimecodeGenerator](<doc://com.apple.avfoundation/documentation/AVFoundation/AVCaptureTimecodeGenerator>) to maintain clock synchronization for accurate timecode generation.
+	// The active timecode source used by [AVCaptureTimecodeGenerator](<https://developer.apple.com/documentation/AVFoundation/AVCaptureTimecodeGenerator>) to maintain clock synchronization for accurate timecode generation.
 	CurrentSource() IAVCaptureTimecodeSource
 	// An array of available timecode synchronization sources that can be used by the timecode generator.
 	AvailableSources() []AVCaptureTimecodeSource

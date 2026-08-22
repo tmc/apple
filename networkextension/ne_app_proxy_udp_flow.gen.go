@@ -53,7 +53,7 @@ func (nc NEAppProxyUDPFlowClass) Alloc() NEAppProxyUDPFlow {
 //
 // # Getting flow information
 //
-//   - [NEAppProxyUDPFlow.LocalEndpoint]: An [NWEndpoint](<doc://com.apple.networkextension/documentation/NetworkExtension/NWEndpoint>) object containing information about the local endpoint of the flow.
+//   - [NEAppProxyUDPFlow.LocalEndpoint]: An [NWEndpoint](<https://developer.apple.com/documentation/NetworkExtension/NWEndpoint>) object containing information about the local endpoint of the flow.
 //
 // # Instance Properties
 //
@@ -79,7 +79,7 @@ func NEAppProxyUDPFlowFromID(id objc.ID) NEAppProxyUDPFlow {
 //
 // # Getting flow information
 //
-//   - [INEAppProxyUDPFlow.LocalEndpoint]: An [NWEndpoint](<doc://com.apple.networkextension/documentation/NetworkExtension/NWEndpoint>) object containing information about the local endpoint of the flow.
+//   - [INEAppProxyUDPFlow.LocalEndpoint]: An [NWEndpoint](<https://developer.apple.com/documentation/NetworkExtension/NWEndpoint>) object containing information about the local endpoint of the flow.
 //
 // # Instance Properties
 //
@@ -91,7 +91,7 @@ type INEAppProxyUDPFlow interface {
 
 	// Topic: Getting flow information
 
-	// An [NWEndpoint](<doc://com.apple.networkextension/documentation/NetworkExtension/NWEndpoint>) object containing information about the local endpoint of the flow.
+	// An [NWEndpoint](<https://developer.apple.com/documentation/NetworkExtension/NWEndpoint>) object containing information about the local endpoint of the flow.
 	LocalEndpoint() INWEndpoint
 
 	// Topic: Instance Properties
@@ -99,7 +99,7 @@ type INEAppProxyUDPFlow interface {
 	LocalFlowEndpoint() network.NWEndpoint
 
 	ReadDatagramsAndFlowEndpointsWithCompletionHandler(completionHandler NSDataArrayObjectArrayErrorHandler)
-	WriteDatagramsSentByFlowEndpointsCompletionHandler(datagrams []foundation.NSData, remoteEndpoints *NWEndpointArray, completionHandler ErrorHandler)
+	WriteDatagramsSentByFlowEndpointsCompletionHandler(datagrams []foundation.NSData, remoteEndpoints NWEndpointArray, completionHandler ErrorHandler)
 }
 
 // Init initializes the instance.
@@ -128,7 +128,7 @@ func (a NEAppProxyUDPFlow) ReadDatagramsAndFlowEndpointsWithCompletionHandler(co
 }
 
 // See: https://developer.apple.com/documentation/NetworkExtension/NEAppProxyUDPFlow/writeDatagrams:sentByFlowEndpoints:completionHandler:
-func (a NEAppProxyUDPFlow) WriteDatagramsSentByFlowEndpointsCompletionHandler(datagrams []foundation.NSData, remoteEndpoints *NWEndpointArray, completionHandler ErrorHandler) {
+func (a NEAppProxyUDPFlow) WriteDatagramsSentByFlowEndpointsCompletionHandler(datagrams []foundation.NSData, remoteEndpoints NWEndpointArray, completionHandler ErrorHandler) {
 	_block2, _ := NewErrorBlock(completionHandler)
 	objc.Send[objc.ID](a.ID, objc.Sel("writeDatagrams:sentByFlowEndpoints:completionHandler:"), datagrams, remoteEndpoints, _block2)
 }

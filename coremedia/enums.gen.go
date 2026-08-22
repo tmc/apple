@@ -114,7 +114,7 @@ func (e CMStereoViewInterpretationOptions) String() string {
 }
 
 // See: https://developer.apple.com/documentation/CoreMedia/CMTagCategory
-type CMTagCategory int
+type CMTagCategory uint32
 
 const (
 	// KCMTagCategory_ChannelID: A category used for tagging a channel ID.
@@ -171,7 +171,7 @@ func (e CMTagCategory) String() string {
 }
 
 // See: https://developer.apple.com/documentation/CoreMedia/CMTagCollectionError
-type CMTagCollectionError int
+type CMTagCollectionError int32
 
 const (
 	// KCMTagCollectionError_AllocationFailed: Indicates an internal allocation failed.
@@ -257,7 +257,7 @@ func (e CMTagDataType) String() string {
 }
 
 // See: https://developer.apple.com/documentation/CoreMedia/CMTagError
-type CMTagError int
+type CMTagError int32
 
 const (
 	// KCMTagError_AllocationFailed: An error where the system can’t allocate enough memory for the tag.
@@ -278,7 +278,7 @@ func (e CMTagError) String() string {
 }
 
 // See: https://developer.apple.com/documentation/CoreMedia/CMTaggedBufferGroupError
-type CMTaggedBufferGroupError int
+type CMTaggedBufferGroupError int32
 
 const (
 	// KCMTaggedBufferGroupError_AllocationFailed: Indicates an internal allocation failed.
@@ -309,7 +309,7 @@ const (
 	// KCMTimeFlags_HasBeenRounded: A flag that indicates a previous time calculation rounded the result.
 	KCMTimeFlags_HasBeenRounded CMTimeFlags = 2
 	// KCMTimeFlags_ImpliedValueFlagsMask: A flag that indicates the time is positive or negative infinity, or indefinite.
-	KCMTimeFlags_ImpliedValueFlagsMask CMTimeFlags = 4
+	KCMTimeFlags_ImpliedValueFlagsMask CMTimeFlags = 28
 	// KCMTimeFlags_Indefinite: A flag that indicates the time is indefinite.
 	KCMTimeFlags_Indefinite CMTimeFlags = 16
 	// KCMTimeFlags_NegativeInfinity: A flag that indicates the time is negative infinity.
@@ -330,6 +330,8 @@ func (e CMTimeFlags) String() string {
 		return "KCMTimeFlags_Indefinite"
 	case KCMTimeFlags_NegativeInfinity:
 		return "KCMTimeFlags_NegativeInfinity"
+	case KCMTimeFlags_PositiveInfinity:
+		return "KCMTimeFlags_PositiveInfinity"
 	case KCMTimeFlags_Valid:
 		return "KCMTimeFlags_Valid"
 	default:
@@ -376,73 +378,67 @@ func (e CMTimeRoundingMethod) String() string {
 	}
 }
 
-type KCMAudioFormatDescriptionMask uint
+type KCMAudioFormatDescriptionMask uint32
 
 const (
 	// KCMAudioFormatDescriptionMask_All: A mask that represents all parts of an audio format description.
-	KCMAudioFormatDescriptionMask_All KCMAudioFormatDescriptionMask = 0
+	KCMAudioFormatDescriptionMask_All KCMAudioFormatDescriptionMask = 15
 	// KCMAudioFormatDescriptionMask_ChannelLayout: A mask that represents the audio channel layout.
-	KCMAudioFormatDescriptionMask_ChannelLayout KCMAudioFormatDescriptionMask = 0
+	KCMAudioFormatDescriptionMask_ChannelLayout KCMAudioFormatDescriptionMask = 4
 	// KCMAudioFormatDescriptionMask_Extensions: A mask that represents the format description extensions.
-	KCMAudioFormatDescriptionMask_Extensions KCMAudioFormatDescriptionMask = 0
+	KCMAudioFormatDescriptionMask_Extensions KCMAudioFormatDescriptionMask = 8
 	// KCMAudioFormatDescriptionMask_MagicCookie: A mask that represents the magic cookie.
-	KCMAudioFormatDescriptionMask_MagicCookie KCMAudioFormatDescriptionMask = 0
+	KCMAudioFormatDescriptionMask_MagicCookie KCMAudioFormatDescriptionMask = 2
 	// KCMAudioFormatDescriptionMask_StreamBasicDescription: A mask that represents the audio stream description.
-	KCMAudioFormatDescriptionMask_StreamBasicDescription KCMAudioFormatDescriptionMask = 0
+	KCMAudioFormatDescriptionMask_StreamBasicDescription KCMAudioFormatDescriptionMask = 1
 )
 
 func (e KCMAudioFormatDescriptionMask) String() string {
 	switch e {
 	case KCMAudioFormatDescriptionMask_All:
 		return "KCMAudioFormatDescriptionMask_All"
+	case KCMAudioFormatDescriptionMask_ChannelLayout:
+		return "KCMAudioFormatDescriptionMask_ChannelLayout"
+	case KCMAudioFormatDescriptionMask_Extensions:
+		return "KCMAudioFormatDescriptionMask_Extensions"
+	case KCMAudioFormatDescriptionMask_MagicCookie:
+		return "KCMAudioFormatDescriptionMask_MagicCookie"
+	case KCMAudioFormatDescriptionMask_StreamBasicDescription:
+		return "KCMAudioFormatDescriptionMask_StreamBasicDescription"
 	default:
 		return fmt.Sprintf("KCMAudioFormatDescriptionMask(%d)", e)
 	}
 }
 
-type KCMBlockBuffer uint
+type KCMBlockBufferAssureMemoryNowFlag uint32
 
 const (
 	// KCMBlockBufferAlwaysCopyDataFlag: Used with CMBlockBuffer to cause it to always produce an allocated copy of the desired data.
-	KCMBlockBufferAlwaysCopyDataFlag KCMBlockBuffer = 0
-	// KCMBlockBufferAssureMemoryNowFlag: When passed to routines that accept block allocators, causes the memory block to be allocated immediately.
-	KCMBlockBufferAssureMemoryNowFlag KCMBlockBuffer = 0
-	// KCMBlockBufferBadCustomBlockSourceErr: An error code that indicates the custom block source is invalid.
-	KCMBlockBufferBadCustomBlockSourceErr KCMBlockBuffer = 0
-	// KCMBlockBufferBadLengthParameterErr: An error code that indicates the block length is zero or doesn’t equal the size of the memory block.
-	KCMBlockBufferBadLengthParameterErr KCMBlockBuffer = 0
-	// KCMBlockBufferBadOffsetParameterErr: An error code that indicates the offset doesn’t point to the location of data in the memory block.
-	KCMBlockBufferBadOffsetParameterErr KCMBlockBuffer = 0
-	// KCMBlockBufferBadPointerParameterErr: An error code that indicates the block buffer reference is invalid.
-	KCMBlockBufferBadPointerParameterErr KCMBlockBuffer = 0
-	// KCMBlockBufferBlockAllocationFailedErr: An error code that indicates the block allocator failed to allocate a memory block.
-	KCMBlockBufferBlockAllocationFailedErr KCMBlockBuffer = 0
+	KCMBlockBufferAlwaysCopyDataFlag KCMBlockBufferAssureMemoryNowFlag = 2
+	// KCMBlockBufferAssureMemoryNowFlagValue: When passed to routines that accept block allocators, causes the memory block to be allocated immediately.
+	KCMBlockBufferAssureMemoryNowFlagValue KCMBlockBufferAssureMemoryNowFlag = 1
 	// KCMBlockBufferDontOptimizeDepthFlag: Passed to block buffers to suppress reference depth optimization.
-	KCMBlockBufferDontOptimizeDepthFlag KCMBlockBuffer = 0
-	// KCMBlockBufferEmptyBBufErr: An error code that indicates the block buffer is empty.
-	KCMBlockBufferEmptyBBufErr KCMBlockBuffer = 0
-	// KCMBlockBufferInsufficientSpaceErr: An error code that indicates the system failed to create a new buffer because of insufficient space at the buffer out location.
-	KCMBlockBufferInsufficientSpaceErr KCMBlockBuffer = 0
-	// KCMBlockBufferNoErr: A code that indicates the system successfully created a block buffer with no errors.
-	KCMBlockBufferNoErr KCMBlockBuffer = 0
+	KCMBlockBufferDontOptimizeDepthFlag KCMBlockBufferAssureMemoryNowFlag = 4
 	// KCMBlockBufferPermitEmptyReferenceFlag: Passed to CMBlockBuffer and CMBlockBuffer to allow references into a [CMBlockBuffer] that may not yet be populated.
-	KCMBlockBufferPermitEmptyReferenceFlag KCMBlockBuffer = 0
-	// KCMBlockBufferStructureAllocationFailedErr: An error code that indicates the structure allocator failed to allocate a block buffer.
-	KCMBlockBufferStructureAllocationFailedErr KCMBlockBuffer = 0
-	// KCMBlockBufferUnallocatedBlockErr: An error code that indicates the system encountered an unallocated memory block.
-	KCMBlockBufferUnallocatedBlockErr KCMBlockBuffer = 0
+	KCMBlockBufferPermitEmptyReferenceFlag KCMBlockBufferAssureMemoryNowFlag = 8
 )
 
-func (e KCMBlockBuffer) String() string {
+func (e KCMBlockBufferAssureMemoryNowFlag) String() string {
 	switch e {
 	case KCMBlockBufferAlwaysCopyDataFlag:
 		return "KCMBlockBufferAlwaysCopyDataFlag"
+	case KCMBlockBufferAssureMemoryNowFlagValue:
+		return "KCMBlockBufferAssureMemoryNowFlagValue"
+	case KCMBlockBufferDontOptimizeDepthFlag:
+		return "KCMBlockBufferDontOptimizeDepthFlag"
+	case KCMBlockBufferPermitEmptyReferenceFlag:
+		return "KCMBlockBufferPermitEmptyReferenceFlag"
 	default:
-		return fmt.Sprintf("KCMBlockBuffer(%d)", e)
+		return fmt.Sprintf("KCMBlockBufferAssureMemoryNowFlag(%d)", e)
 	}
 }
 
-type KCMBlockBufferCustomBlockSource uint
+type KCMBlockBufferCustomBlockSource uint32
 
 const (
 	// KCMBlockBufferCustomBlockSourceVersion: The value is the block source version.
@@ -458,374 +454,553 @@ func (e KCMBlockBufferCustomBlockSource) String() string {
 	}
 }
 
-type KCMBufferQueueError int
+type KCMBlockBufferNoErr int32
+
+const (
+	// KCMBlockBufferBadCustomBlockSourceErr: An error code that indicates the custom block source is invalid.
+	KCMBlockBufferBadCustomBlockSourceErr KCMBlockBufferNoErr = -12702
+	// KCMBlockBufferBadLengthParameterErr: An error code that indicates the block length is zero or doesn’t equal the size of the memory block.
+	KCMBlockBufferBadLengthParameterErr KCMBlockBufferNoErr = -12704
+	// KCMBlockBufferBadOffsetParameterErr: An error code that indicates the offset doesn’t point to the location of data in the memory block.
+	KCMBlockBufferBadOffsetParameterErr KCMBlockBufferNoErr = -12703
+	// KCMBlockBufferBadPointerParameterErr: An error code that indicates the block buffer reference is invalid.
+	KCMBlockBufferBadPointerParameterErr KCMBlockBufferNoErr = -12705
+	// KCMBlockBufferBlockAllocationFailedErr: An error code that indicates the block allocator failed to allocate a memory block.
+	KCMBlockBufferBlockAllocationFailedErr KCMBlockBufferNoErr = -12701
+	// KCMBlockBufferEmptyBBufErr: An error code that indicates the block buffer is empty.
+	KCMBlockBufferEmptyBBufErr KCMBlockBufferNoErr = -12706
+	// KCMBlockBufferInsufficientSpaceErr: An error code that indicates the system failed to create a new buffer because of insufficient space at the buffer out location.
+	KCMBlockBufferInsufficientSpaceErr KCMBlockBufferNoErr = -12708
+	// KCMBlockBufferNoErrValue: A code that indicates the system successfully created a block buffer with no errors.
+	KCMBlockBufferNoErrValue KCMBlockBufferNoErr = 0
+	// KCMBlockBufferStructureAllocationFailedErr: An error code that indicates the structure allocator failed to allocate a block buffer.
+	KCMBlockBufferStructureAllocationFailedErr KCMBlockBufferNoErr = -12700
+	// KCMBlockBufferUnallocatedBlockErr: An error code that indicates the system encountered an unallocated memory block.
+	KCMBlockBufferUnallocatedBlockErr KCMBlockBufferNoErr = -12707
+)
+
+func (e KCMBlockBufferNoErr) String() string {
+	switch e {
+	case KCMBlockBufferBadCustomBlockSourceErr:
+		return "KCMBlockBufferBadCustomBlockSourceErr"
+	case KCMBlockBufferBadLengthParameterErr:
+		return "KCMBlockBufferBadLengthParameterErr"
+	case KCMBlockBufferBadOffsetParameterErr:
+		return "KCMBlockBufferBadOffsetParameterErr"
+	case KCMBlockBufferBadPointerParameterErr:
+		return "KCMBlockBufferBadPointerParameterErr"
+	case KCMBlockBufferBlockAllocationFailedErr:
+		return "KCMBlockBufferBlockAllocationFailedErr"
+	case KCMBlockBufferEmptyBBufErr:
+		return "KCMBlockBufferEmptyBBufErr"
+	case KCMBlockBufferInsufficientSpaceErr:
+		return "KCMBlockBufferInsufficientSpaceErr"
+	case KCMBlockBufferNoErrValue:
+		return "KCMBlockBufferNoErrValue"
+	case KCMBlockBufferStructureAllocationFailedErr:
+		return "KCMBlockBufferStructureAllocationFailedErr"
+	case KCMBlockBufferUnallocatedBlockErr:
+		return "KCMBlockBufferUnallocatedBlockErr"
+	default:
+		return fmt.Sprintf("KCMBlockBufferNoErr(%d)", e)
+	}
+}
+
+type KCMBufferQueueError int32
 
 const (
 	// KCMBufferQueueError_AllocationFailed: The system failed to allocate memory.
-	KCMBufferQueueError_AllocationFailed KCMBufferQueueError = 0
+	KCMBufferQueueError_AllocationFailed KCMBufferQueueError = -12760
 	// KCMBufferQueueError_BadTriggerDuration: You specified an invalid trigger duration.
-	KCMBufferQueueError_BadTriggerDuration KCMBufferQueueError = 0
+	KCMBufferQueueError_BadTriggerDuration KCMBufferQueueError = -12765
 	// KCMBufferQueueError_CannotModifyQueueFromTriggerCallback: A trigger callback attempted to modify a queue.
-	KCMBufferQueueError_CannotModifyQueueFromTriggerCallback KCMBufferQueueError = 0
+	KCMBufferQueueError_CannotModifyQueueFromTriggerCallback KCMBufferQueueError = -12766
 	// KCMBufferQueueError_EnqueueAfterEndOfData: You attempted to enqueue a buffer on a queue that disallows it.
-	KCMBufferQueueError_EnqueueAfterEndOfData KCMBufferQueueError = 0
+	KCMBufferQueueError_EnqueueAfterEndOfData KCMBufferQueueError = -12763
 	// KCMBufferQueueError_InvalidBuffer: A buffer validation callback rejected the buffer.
-	KCMBufferQueueError_InvalidBuffer KCMBufferQueueError = 0
+	KCMBufferQueueError_InvalidBuffer KCMBufferQueueError = -12769
 	// KCMBufferQueueError_InvalidCMBufferCallbacksStruct: The format of a callbacks structure isn’t correct.
-	KCMBufferQueueError_InvalidCMBufferCallbacksStruct KCMBufferQueueError = 0
+	KCMBufferQueueError_InvalidCMBufferCallbacksStruct KCMBufferQueueError = -12762
 	// KCMBufferQueueError_InvalidTriggerCondition: You specified an invalid trigger condition.
-	KCMBufferQueueError_InvalidTriggerCondition KCMBufferQueueError = 0
+	KCMBufferQueueError_InvalidTriggerCondition KCMBufferQueueError = -12767
 	// KCMBufferQueueError_InvalidTriggerToken: You specified a trigger token that isn’t a trigger currently associated with this queue.
-	KCMBufferQueueError_InvalidTriggerToken KCMBufferQueueError = 0
+	KCMBufferQueueError_InvalidTriggerToken KCMBufferQueueError = -12768
 	// KCMBufferQueueError_QueueIsFull: You attempted to enqueue a buffer on a queue that’s full.
-	KCMBufferQueueError_QueueIsFull KCMBufferQueueError = 0
+	KCMBufferQueueError_QueueIsFull KCMBufferQueueError = -12764
 	// KCMBufferQueueError_RequiredParameterMissing: You failed to provide a valid value for a required parameter.
-	KCMBufferQueueError_RequiredParameterMissing KCMBufferQueueError = 0
+	KCMBufferQueueError_RequiredParameterMissing KCMBufferQueueError = -12761
 )
 
 func (e KCMBufferQueueError) String() string {
 	switch e {
 	case KCMBufferQueueError_AllocationFailed:
 		return "KCMBufferQueueError_AllocationFailed"
+	case KCMBufferQueueError_BadTriggerDuration:
+		return "KCMBufferQueueError_BadTriggerDuration"
+	case KCMBufferQueueError_CannotModifyQueueFromTriggerCallback:
+		return "KCMBufferQueueError_CannotModifyQueueFromTriggerCallback"
+	case KCMBufferQueueError_EnqueueAfterEndOfData:
+		return "KCMBufferQueueError_EnqueueAfterEndOfData"
+	case KCMBufferQueueError_InvalidBuffer:
+		return "KCMBufferQueueError_InvalidBuffer"
+	case KCMBufferQueueError_InvalidCMBufferCallbacksStruct:
+		return "KCMBufferQueueError_InvalidCMBufferCallbacksStruct"
+	case KCMBufferQueueError_InvalidTriggerCondition:
+		return "KCMBufferQueueError_InvalidTriggerCondition"
+	case KCMBufferQueueError_InvalidTriggerToken:
+		return "KCMBufferQueueError_InvalidTriggerToken"
+	case KCMBufferQueueError_QueueIsFull:
+		return "KCMBufferQueueError_QueueIsFull"
+	case KCMBufferQueueError_RequiredParameterMissing:
+		return "KCMBufferQueueError_RequiredParameterMissing"
 	default:
 		return fmt.Sprintf("KCMBufferQueueError(%d)", e)
 	}
 }
 
-type KCMClockError int
+type KCMClockError int32
 
 const (
 	// KCMClockError_AllocationFailed: A clock error that indicates the memory allocation fails.
-	KCMClockError_AllocationFailed KCMClockError = 0
+	KCMClockError_AllocationFailed KCMClockError = -12747
 	// KCMClockError_InvalidParameter: A clock error that indicates a parameter isn’t valid.
-	KCMClockError_InvalidParameter KCMClockError = 0
+	KCMClockError_InvalidParameter KCMClockError = -12746
 	// KCMClockError_MissingRequiredParameter: A clock error that indicates a parameter is missing.
-	KCMClockError_MissingRequiredParameter KCMClockError = 0
+	KCMClockError_MissingRequiredParameter KCMClockError = -12745
 	// KCMClockError_UnsupportedOperation: A clock error that indicates the operation isn’t supported.
-	KCMClockError_UnsupportedOperation KCMClockError = 0
+	KCMClockError_UnsupportedOperation KCMClockError = -12756
 )
 
 func (e KCMClockError) String() string {
 	switch e {
 	case KCMClockError_AllocationFailed:
 		return "KCMClockError_AllocationFailed"
+	case KCMClockError_InvalidParameter:
+		return "KCMClockError_InvalidParameter"
+	case KCMClockError_MissingRequiredParameter:
+		return "KCMClockError_MissingRequiredParameter"
+	case KCMClockError_UnsupportedOperation:
+		return "KCMClockError_UnsupportedOperation"
 	default:
 		return fmt.Sprintf("KCMClockError(%d)", e)
 	}
 }
 
-type KCMClosedCaptionFormatType uint
+type KCMClosedCaptionFormatType uint32
 
 const (
 	// KCMClosedCaptionFormatType_ATSC: A type that describes ATSC-compliant samples.
-	KCMClosedCaptionFormatType_ATSC KCMClosedCaptionFormatType = 0
+	KCMClosedCaptionFormatType_ATSC KCMClosedCaptionFormatType = 'a'<<24 | 't'<<16 | 'c'<<8 | 'c' // 'atcc'
 	// KCMClosedCaptionFormatType_CEA608: A type that describes CEA 608-compliant samples.
-	KCMClosedCaptionFormatType_CEA608 KCMClosedCaptionFormatType = 0
+	KCMClosedCaptionFormatType_CEA608 KCMClosedCaptionFormatType = 'c'<<24 | '6'<<16 | '0'<<8 | '8' // 'c608'
 	// KCMClosedCaptionFormatType_CEA708: A type that describes CEA 708-compliant samples.
-	KCMClosedCaptionFormatType_CEA708 KCMClosedCaptionFormatType = 0
+	KCMClosedCaptionFormatType_CEA708 KCMClosedCaptionFormatType = 'c'<<24 | '7'<<16 | '0'<<8 | '8' // 'c708'
 )
 
 func (e KCMClosedCaptionFormatType) String() string {
 	switch e {
 	case KCMClosedCaptionFormatType_ATSC:
 		return "KCMClosedCaptionFormatType_ATSC"
+	case KCMClosedCaptionFormatType_CEA608:
+		return "KCMClosedCaptionFormatType_CEA608"
+	case KCMClosedCaptionFormatType_CEA708:
+		return "KCMClosedCaptionFormatType_CEA708"
 	default:
 		return fmt.Sprintf("KCMClosedCaptionFormatType(%d)", e)
 	}
 }
 
-type KCMFormatDescriptionBridgeError int
+type KCMFormatDescriptionBridgeError int32
 
 const (
 	// KCMFormatDescriptionBridgeError_AllocationFailed: A bridge error that indicates when an allocation fails.
-	KCMFormatDescriptionBridgeError_AllocationFailed KCMFormatDescriptionBridgeError = 0
+	KCMFormatDescriptionBridgeError_AllocationFailed KCMFormatDescriptionBridgeError = -12713
 	// KCMFormatDescriptionBridgeError_IncompatibleFormatDescription: A bridge error that indicates the format description has an unknown format.
-	KCMFormatDescriptionBridgeError_IncompatibleFormatDescription KCMFormatDescriptionBridgeError = 0
+	KCMFormatDescriptionBridgeError_IncompatibleFormatDescription KCMFormatDescriptionBridgeError = -12716
 	// KCMFormatDescriptionBridgeError_InvalidFormatDescription: A bridge error that indicates the format description isn’t valid.
-	KCMFormatDescriptionBridgeError_InvalidFormatDescription KCMFormatDescriptionBridgeError = 0
+	KCMFormatDescriptionBridgeError_InvalidFormatDescription KCMFormatDescriptionBridgeError = -12715
 	// KCMFormatDescriptionBridgeError_InvalidParameter: A bridge error that indicates that the function recieves an empty value for a parameter it requires.
-	KCMFormatDescriptionBridgeError_InvalidParameter KCMFormatDescriptionBridgeError = 0
+	KCMFormatDescriptionBridgeError_InvalidParameter KCMFormatDescriptionBridgeError = -12712
 	// KCMFormatDescriptionBridgeError_InvalidSerializedSampleDescription: A bridge error that indicates that the sample isn’t valid.
-	KCMFormatDescriptionBridgeError_InvalidSerializedSampleDescription KCMFormatDescriptionBridgeError = 0
+	KCMFormatDescriptionBridgeError_InvalidSerializedSampleDescription KCMFormatDescriptionBridgeError = -12714
 	// KCMFormatDescriptionBridgeError_InvalidSlice: A bridge error that indicates the slice isn’t valid.
-	KCMFormatDescriptionBridgeError_InvalidSlice KCMFormatDescriptionBridgeError = 0
+	KCMFormatDescriptionBridgeError_InvalidSlice KCMFormatDescriptionBridgeError = -12719
 	// KCMFormatDescriptionBridgeError_UnsupportedSampleDescriptionFlavor: A bridge error that indicates the sample isn’t supported for the format flavor you specify.
-	KCMFormatDescriptionBridgeError_UnsupportedSampleDescriptionFlavor KCMFormatDescriptionBridgeError = 0
+	KCMFormatDescriptionBridgeError_UnsupportedSampleDescriptionFlavor KCMFormatDescriptionBridgeError = -12717
 )
 
 func (e KCMFormatDescriptionBridgeError) String() string {
 	switch e {
 	case KCMFormatDescriptionBridgeError_AllocationFailed:
 		return "KCMFormatDescriptionBridgeError_AllocationFailed"
+	case KCMFormatDescriptionBridgeError_IncompatibleFormatDescription:
+		return "KCMFormatDescriptionBridgeError_IncompatibleFormatDescription"
+	case KCMFormatDescriptionBridgeError_InvalidFormatDescription:
+		return "KCMFormatDescriptionBridgeError_InvalidFormatDescription"
+	case KCMFormatDescriptionBridgeError_InvalidParameter:
+		return "KCMFormatDescriptionBridgeError_InvalidParameter"
+	case KCMFormatDescriptionBridgeError_InvalidSerializedSampleDescription:
+		return "KCMFormatDescriptionBridgeError_InvalidSerializedSampleDescription"
+	case KCMFormatDescriptionBridgeError_InvalidSlice:
+		return "KCMFormatDescriptionBridgeError_InvalidSlice"
+	case KCMFormatDescriptionBridgeError_UnsupportedSampleDescriptionFlavor:
+		return "KCMFormatDescriptionBridgeError_UnsupportedSampleDescriptionFlavor"
 	default:
 		return fmt.Sprintf("KCMFormatDescriptionBridgeError(%d)", e)
 	}
 }
 
-type KCMFormatDescriptionError int
+type KCMFormatDescriptionError int32
 
 const (
 	// KCMFormatDescriptionError_AllocationFailed: An error that indicates when an allocation fails.
-	KCMFormatDescriptionError_AllocationFailed KCMFormatDescriptionError = 0
+	KCMFormatDescriptionError_AllocationFailed KCMFormatDescriptionError = -12711
 	// KCMFormatDescriptionError_InvalidParameter: An error that indicates that the function recieves an empty value for a parameter it requires.
-	KCMFormatDescriptionError_InvalidParameter KCMFormatDescriptionError = 0
+	KCMFormatDescriptionError_InvalidParameter KCMFormatDescriptionError = -12710
 	// KCMFormatDescriptionError_ValueNotAvailable: An error that indicates the format description doesn’t contain the value you request.
-	KCMFormatDescriptionError_ValueNotAvailable KCMFormatDescriptionError = 0
+	KCMFormatDescriptionError_ValueNotAvailable KCMFormatDescriptionError = -12718
 )
 
 func (e KCMFormatDescriptionError) String() string {
 	switch e {
 	case KCMFormatDescriptionError_AllocationFailed:
 		return "KCMFormatDescriptionError_AllocationFailed"
+	case KCMFormatDescriptionError_InvalidParameter:
+		return "KCMFormatDescriptionError_InvalidParameter"
+	case KCMFormatDescriptionError_ValueNotAvailable:
+		return "KCMFormatDescriptionError_ValueNotAvailable"
 	default:
 		return fmt.Sprintf("KCMFormatDescriptionError(%d)", e)
 	}
 }
 
-type KCMMPEG2VideoProfile uint
+type KCMMPEG2VideoProfile int32
 
 const (
 	// KCMMPEG2VideoProfile_HDV_1080i50: A profile that represents the Apple Intermediate Codec HDV 1080i50 format.
-	KCMMPEG2VideoProfile_HDV_1080i50 KCMMPEG2VideoProfile = 0
+	KCMMPEG2VideoProfile_HDV_1080i50 KCMMPEG2VideoProfile = 'h'<<24 | 'd'<<16 | 'v'<<8 | '3' // 'hdv3'
 	// KCMMPEG2VideoProfile_HDV_1080i60: A profile that represents the Apple Intermediate Codec HDV 1080i60 format.
-	KCMMPEG2VideoProfile_HDV_1080i60 KCMMPEG2VideoProfile = 0
+	KCMMPEG2VideoProfile_HDV_1080i60 KCMMPEG2VideoProfile = 'h'<<24 | 'd'<<16 | 'v'<<8 | '2' // 'hdv2'
 	// KCMMPEG2VideoProfile_HDV_1080p24: A profile that represents the Apple ProRes 422 codec HDV 1080p24 format.
-	KCMMPEG2VideoProfile_HDV_1080p24 KCMMPEG2VideoProfile = 0
+	KCMMPEG2VideoProfile_HDV_1080p24 KCMMPEG2VideoProfile = 'h'<<24 | 'd'<<16 | 'v'<<8 | '6' // 'hdv6'
 	// KCMMPEG2VideoProfile_HDV_1080p25: A profile that represents the HDV 1080p25 format.
-	KCMMPEG2VideoProfile_HDV_1080p25 KCMMPEG2VideoProfile = 0
+	KCMMPEG2VideoProfile_HDV_1080p25 KCMMPEG2VideoProfile = 'h'<<24 | 'd'<<16 | 'v'<<8 | '7' // 'hdv7'
 	// KCMMPEG2VideoProfile_HDV_1080p30: A profile that represents the HDV 1080p30 format.
-	KCMMPEG2VideoProfile_HDV_1080p30 KCMMPEG2VideoProfile = 0
+	KCMMPEG2VideoProfile_HDV_1080p30 KCMMPEG2VideoProfile = 'h'<<24 | 'd'<<16 | 'v'<<8 | '8' // 'hdv8'
 	// KCMMPEG2VideoProfile_HDV_720p24: A profile that represents the HDV 720p24 format.
-	KCMMPEG2VideoProfile_HDV_720p24 KCMMPEG2VideoProfile = 0
+	KCMMPEG2VideoProfile_HDV_720p24 KCMMPEG2VideoProfile = 'h'<<24 | 'd'<<16 | 'v'<<8 | '4' // 'hdv4'
 	// KCMMPEG2VideoProfile_HDV_720p25: A profile that represents the HDV_720p25 format.
-	KCMMPEG2VideoProfile_HDV_720p25 KCMMPEG2VideoProfile = 0
+	KCMMPEG2VideoProfile_HDV_720p25 KCMMPEG2VideoProfile = 'h'<<24 | 'd'<<16 | 'v'<<8 | '5' // 'hdv5'
 	// KCMMPEG2VideoProfile_HDV_720p30: A profile that represents the Apple Intermediate Codec HDV 720p30 format.
-	KCMMPEG2VideoProfile_HDV_720p30 KCMMPEG2VideoProfile = 0
+	KCMMPEG2VideoProfile_HDV_720p30 KCMMPEG2VideoProfile = 'h'<<24 | 'd'<<16 | 'v'<<8 | '1' // 'hdv1'
 	// KCMMPEG2VideoProfile_HDV_720p50: A profile that represents the HDV 720p50 format.
-	KCMMPEG2VideoProfile_HDV_720p50 KCMMPEG2VideoProfile = 0
+	KCMMPEG2VideoProfile_HDV_720p50 KCMMPEG2VideoProfile = 'h'<<24 | 'd'<<16 | 'v'<<8 | 'a' // 'hdva'
 	// KCMMPEG2VideoProfile_HDV_720p60: A profile that represents the HDV 720p60 format.
-	KCMMPEG2VideoProfile_HDV_720p60 KCMMPEG2VideoProfile = 0
+	KCMMPEG2VideoProfile_HDV_720p60 KCMMPEG2VideoProfile = 'h'<<24 | 'd'<<16 | 'v'<<8 | '9' // 'hdv9'
 	// KCMMPEG2VideoProfile_XDCAM_EX_1080i50_VBR35: A profile that represents the XDCAM EX 1080i50 HQ video format with HQ 35 Mbps bit rate.
-	KCMMPEG2VideoProfile_XDCAM_EX_1080i50_VBR35 KCMMPEG2VideoProfile = 0
+	KCMMPEG2VideoProfile_XDCAM_EX_1080i50_VBR35 KCMMPEG2VideoProfile = 'x'<<24 | 'd'<<16 | 'v'<<8 | 'c' // 'xdvc'
 	// KCMMPEG2VideoProfile_XDCAM_EX_1080i60_VBR35: A profile that represents the XDCAM EX 1080i60 HQ video format with 35 Mbps bit rate.
-	KCMMPEG2VideoProfile_XDCAM_EX_1080i60_VBR35 KCMMPEG2VideoProfile = 0
+	KCMMPEG2VideoProfile_XDCAM_EX_1080i60_VBR35 KCMMPEG2VideoProfile = 'x'<<24 | 'd'<<16 | 'v'<<8 | 'b' // 'xdvb'
 	// KCMMPEG2VideoProfile_XDCAM_EX_1080p24_VBR35: A profile that represents the XDCAM EX 1080p24 HQ video format with HQ 35 Mbps bit rate.
-	KCMMPEG2VideoProfile_XDCAM_EX_1080p24_VBR35 KCMMPEG2VideoProfile = 0
+	KCMMPEG2VideoProfile_XDCAM_EX_1080p24_VBR35 KCMMPEG2VideoProfile = 'x'<<24 | 'd'<<16 | 'v'<<8 | 'd' // 'xdvd'
 	// KCMMPEG2VideoProfile_XDCAM_EX_1080p25_VBR35: A profile that represents the XDCAM EX 1080p25 HQ video format with 35 Mbps bit rate.
-	KCMMPEG2VideoProfile_XDCAM_EX_1080p25_VBR35 KCMMPEG2VideoProfile = 0
+	KCMMPEG2VideoProfile_XDCAM_EX_1080p25_VBR35 KCMMPEG2VideoProfile = 'x'<<24 | 'd'<<16 | 'v'<<8 | 'e' // 'xdve'
 	// KCMMPEG2VideoProfile_XDCAM_EX_1080p30_VBR35: A profile that represents the XDCAM EX 1080p30 HQ video format with 35 Mbps bit rate.
-	KCMMPEG2VideoProfile_XDCAM_EX_1080p30_VBR35 KCMMPEG2VideoProfile = 0
+	KCMMPEG2VideoProfile_XDCAM_EX_1080p30_VBR35 KCMMPEG2VideoProfile = 'x'<<24 | 'd'<<16 | 'v'<<8 | 'f' // 'xdvf'
 	// KCMMPEG2VideoProfile_XDCAM_EX_720p24_VBR35: A profile that represents the XDCAM EX 720p24 video HQ format with 35 Mbps bit rate.
-	KCMMPEG2VideoProfile_XDCAM_EX_720p24_VBR35 KCMMPEG2VideoProfile = 0
+	KCMMPEG2VideoProfile_XDCAM_EX_720p24_VBR35 KCMMPEG2VideoProfile = 'x'<<24 | 'd'<<16 | 'v'<<8 | '4' // 'xdv4'
 	// KCMMPEG2VideoProfile_XDCAM_EX_720p25_VBR35: A profile that represents the XDCAM EX 720p25 video HQ format with 35 Mbps bit rate.
-	KCMMPEG2VideoProfile_XDCAM_EX_720p25_VBR35 KCMMPEG2VideoProfile = 0
+	KCMMPEG2VideoProfile_XDCAM_EX_720p25_VBR35 KCMMPEG2VideoProfile = 'x'<<24 | 'd'<<16 | 'v'<<8 | '5' // 'xdv5'
 	// KCMMPEG2VideoProfile_XDCAM_EX_720p30_VBR35: A profile that represents the XDCAM EX 720p30 video HQ format with 35 Mbps bit rate .
-	KCMMPEG2VideoProfile_XDCAM_EX_720p30_VBR35 KCMMPEG2VideoProfile = 0
+	KCMMPEG2VideoProfile_XDCAM_EX_720p30_VBR35 KCMMPEG2VideoProfile = 'x'<<24 | 'd'<<16 | 'v'<<8 | '1' // 'xdv1'
 	// KCMMPEG2VideoProfile_XDCAM_EX_720p50_VBR35: A profile that represents the XDCAM EX 720p50 HQ video format with 35 Mbps bit rate.
-	KCMMPEG2VideoProfile_XDCAM_EX_720p50_VBR35 KCMMPEG2VideoProfile = 0
+	KCMMPEG2VideoProfile_XDCAM_EX_720p50_VBR35 KCMMPEG2VideoProfile = 'x'<<24 | 'd'<<16 | 'v'<<8 | 'a' // 'xdva'
 	// KCMMPEG2VideoProfile_XDCAM_EX_720p60_VBR35: A profile that represents the XDCAM EX 720p60 HQ video format with 35 Mbps bit rate.
-	KCMMPEG2VideoProfile_XDCAM_EX_720p60_VBR35 KCMMPEG2VideoProfile = 0
+	KCMMPEG2VideoProfile_XDCAM_EX_720p60_VBR35 KCMMPEG2VideoProfile = 'x'<<24 | 'd'<<16 | 'v'<<8 | '9' // 'xdv9'
 	// KCMMPEG2VideoProfile_XDCAM_HD422_1080i50_CBR50: A profile that represents the XDCAM HD422 1080i50 video format with 50 Mbps bit rate.
-	KCMMPEG2VideoProfile_XDCAM_HD422_1080i50_CBR50 KCMMPEG2VideoProfile = 0
+	KCMMPEG2VideoProfile_XDCAM_HD422_1080i50_CBR50 KCMMPEG2VideoProfile = 'x'<<24 | 'd'<<16 | '5'<<8 | 'c' // 'xd5c'
 	// KCMMPEG2VideoProfile_XDCAM_HD422_1080i60_CBR50: A profile that represents the XDCAM HD422 1080i60 video format with 50 Mbps bit rate.
-	KCMMPEG2VideoProfile_XDCAM_HD422_1080i60_CBR50 KCMMPEG2VideoProfile = 0
+	KCMMPEG2VideoProfile_XDCAM_HD422_1080i60_CBR50 KCMMPEG2VideoProfile = 'x'<<24 | 'd'<<16 | '5'<<8 | 'b' // 'xd5b'
 	// KCMMPEG2VideoProfile_XDCAM_HD422_1080p24_CBR50: A profile that represents the XDCAM HD422 1080p24 video format with 50 Mbps bit rate.
-	KCMMPEG2VideoProfile_XDCAM_HD422_1080p24_CBR50 KCMMPEG2VideoProfile = 0
+	KCMMPEG2VideoProfile_XDCAM_HD422_1080p24_CBR50 KCMMPEG2VideoProfile = 'x'<<24 | 'd'<<16 | '5'<<8 | 'd' // 'xd5d'
 	// KCMMPEG2VideoProfile_XDCAM_HD422_1080p25_CBR50: A profile that represents the XDCAM HD422 1080p25 video format with 50 Mbps bit rate.
-	KCMMPEG2VideoProfile_XDCAM_HD422_1080p25_CBR50 KCMMPEG2VideoProfile = 0
+	KCMMPEG2VideoProfile_XDCAM_HD422_1080p25_CBR50 KCMMPEG2VideoProfile = 'x'<<24 | 'd'<<16 | '5'<<8 | 'e' // 'xd5e'
 	// KCMMPEG2VideoProfile_XDCAM_HD422_1080p30_CBR50: A profile that represents the XDCAM HD422 1080p30 video format with 50 Mbps bit rate.
-	KCMMPEG2VideoProfile_XDCAM_HD422_1080p30_CBR50 KCMMPEG2VideoProfile = 0
+	KCMMPEG2VideoProfile_XDCAM_HD422_1080p30_CBR50 KCMMPEG2VideoProfile = 'x'<<24 | 'd'<<16 | '5'<<8 | 'f' // 'xd5f'
 	// KCMMPEG2VideoProfile_XDCAM_HD422_540p: A profile that represents the XDCAM HD422 540 video format.
-	KCMMPEG2VideoProfile_XDCAM_HD422_540p KCMMPEG2VideoProfile = 0
+	KCMMPEG2VideoProfile_XDCAM_HD422_540p KCMMPEG2VideoProfile = 'x'<<24 | 'd'<<16 | 'h'<<8 | '2' // 'xdh2'
 	// KCMMPEG2VideoProfile_XDCAM_HD422_720p24_CBR50: A profile that represents the XDCAM HD 422 720p24 video format.
-	KCMMPEG2VideoProfile_XDCAM_HD422_720p24_CBR50 KCMMPEG2VideoProfile = 0
+	KCMMPEG2VideoProfile_XDCAM_HD422_720p24_CBR50 KCMMPEG2VideoProfile = 'x'<<24 | 'd'<<16 | '5'<<8 | '4' // 'xd54'
 	// KCMMPEG2VideoProfile_XDCAM_HD422_720p25_CBR50: A profile that represents the XDCAM HD 422 720p25 video format.
-	KCMMPEG2VideoProfile_XDCAM_HD422_720p25_CBR50 KCMMPEG2VideoProfile = 0
+	KCMMPEG2VideoProfile_XDCAM_HD422_720p25_CBR50 KCMMPEG2VideoProfile = 'x'<<24 | 'd'<<16 | '5'<<8 | '5' // 'xd55'
 	// KCMMPEG2VideoProfile_XDCAM_HD422_720p30_CBR50: A profile that represents the XDCAM HD 422 720p30 video format.
-	KCMMPEG2VideoProfile_XDCAM_HD422_720p30_CBR50 KCMMPEG2VideoProfile = 0
+	KCMMPEG2VideoProfile_XDCAM_HD422_720p30_CBR50 KCMMPEG2VideoProfile = 'x'<<24 | 'd'<<16 | '5'<<8 | '1' // 'xd51'
 	// KCMMPEG2VideoProfile_XDCAM_HD422_720p50_CBR50: A profile that represents the XDCAM HD422 720p50 video format with 50 Mbps bit rate.
-	KCMMPEG2VideoProfile_XDCAM_HD422_720p50_CBR50 KCMMPEG2VideoProfile = 0
+	KCMMPEG2VideoProfile_XDCAM_HD422_720p50_CBR50 KCMMPEG2VideoProfile = 'x'<<24 | 'd'<<16 | '5'<<8 | 'a' // 'xd5a'
 	// KCMMPEG2VideoProfile_XDCAM_HD422_720p60_CBR50: A profile that represents the XDCAM HD422 720p60 video format with 50 Mbps bit rate.
-	KCMMPEG2VideoProfile_XDCAM_HD422_720p60_CBR50 KCMMPEG2VideoProfile = 0
+	KCMMPEG2VideoProfile_XDCAM_HD422_720p60_CBR50 KCMMPEG2VideoProfile = 'x'<<24 | 'd'<<16 | '5'<<8 | '9' // 'xd59'
 	// KCMMPEG2VideoProfile_XDCAM_HD_1080i50_VBR35: A profile that represents the XDCAM HD 1080i50 video HQ format with 35 Mbps bit rate.
-	KCMMPEG2VideoProfile_XDCAM_HD_1080i50_VBR35 KCMMPEG2VideoProfile = 0
+	KCMMPEG2VideoProfile_XDCAM_HD_1080i50_VBR35 KCMMPEG2VideoProfile = 'x'<<24 | 'd'<<16 | 'v'<<8 | '3' // 'xdv3'
 	// KCMMPEG2VideoProfile_XDCAM_HD_1080i60_VBR35: A profile that represents the XDCAM HD 1080i60 video HQ format with 35 Mbps bit rate.
-	KCMMPEG2VideoProfile_XDCAM_HD_1080i60_VBR35 KCMMPEG2VideoProfile = 0
+	KCMMPEG2VideoProfile_XDCAM_HD_1080i60_VBR35 KCMMPEG2VideoProfile = 'x'<<24 | 'd'<<16 | 'v'<<8 | '2' // 'xdv2'
 	// KCMMPEG2VideoProfile_XDCAM_HD_1080p24_VBR35: A profile that represents the XDCAM HD 1080p24 video HQ format with 35 Mbps bit rate.
-	KCMMPEG2VideoProfile_XDCAM_HD_1080p24_VBR35 KCMMPEG2VideoProfile = 0
+	KCMMPEG2VideoProfile_XDCAM_HD_1080p24_VBR35 KCMMPEG2VideoProfile = 'x'<<24 | 'd'<<16 | 'v'<<8 | '6' // 'xdv6'
 	// KCMMPEG2VideoProfile_XDCAM_HD_1080p25_VBR35: A profile that represents the XDCAM HD 1080p25 video HQ format with 35 Mbps bit rate.
-	KCMMPEG2VideoProfile_XDCAM_HD_1080p25_VBR35 KCMMPEG2VideoProfile = 0
+	KCMMPEG2VideoProfile_XDCAM_HD_1080p25_VBR35 KCMMPEG2VideoProfile = 'x'<<24 | 'd'<<16 | 'v'<<8 | '7' // 'xdv7'
 	// KCMMPEG2VideoProfile_XDCAM_HD_1080p30_VBR35: A profile that represents the DCAM HD 1080p30 video HQ format with 35 Mbps bit rate.
-	KCMMPEG2VideoProfile_XDCAM_HD_1080p30_VBR35 KCMMPEG2VideoProfile = 0
+	KCMMPEG2VideoProfile_XDCAM_HD_1080p30_VBR35 KCMMPEG2VideoProfile = 'x'<<24 | 'd'<<16 | 'v'<<8 | '8' // 'xdv8'
 	// KCMMPEG2VideoProfile_XDCAM_HD_540p: A profile that represents the XDCAM HD 540p video format.
-	KCMMPEG2VideoProfile_XDCAM_HD_540p KCMMPEG2VideoProfile = 0
+	KCMMPEG2VideoProfile_XDCAM_HD_540p KCMMPEG2VideoProfile = 'x'<<24 | 'd'<<16 | 'h'<<8 | 'd' // 'xdhd'
 	// KCMMPEG2VideoProfile_XF: A profile that represents the XF video format.
-	KCMMPEG2VideoProfile_XF KCMMPEG2VideoProfile = 0
+	KCMMPEG2VideoProfile_XF KCMMPEG2VideoProfile = 'x'<<24 | 'f'<<16 | 'z'<<8 | '1' // 'xfz1'
 )
 
 func (e KCMMPEG2VideoProfile) String() string {
 	switch e {
 	case KCMMPEG2VideoProfile_HDV_1080i50:
 		return "KCMMPEG2VideoProfile_HDV_1080i50"
+	case KCMMPEG2VideoProfile_HDV_1080i60:
+		return "KCMMPEG2VideoProfile_HDV_1080i60"
+	case KCMMPEG2VideoProfile_HDV_1080p24:
+		return "KCMMPEG2VideoProfile_HDV_1080p24"
+	case KCMMPEG2VideoProfile_HDV_1080p25:
+		return "KCMMPEG2VideoProfile_HDV_1080p25"
+	case KCMMPEG2VideoProfile_HDV_1080p30:
+		return "KCMMPEG2VideoProfile_HDV_1080p30"
+	case KCMMPEG2VideoProfile_HDV_720p24:
+		return "KCMMPEG2VideoProfile_HDV_720p24"
+	case KCMMPEG2VideoProfile_HDV_720p25:
+		return "KCMMPEG2VideoProfile_HDV_720p25"
+	case KCMMPEG2VideoProfile_HDV_720p30:
+		return "KCMMPEG2VideoProfile_HDV_720p30"
+	case KCMMPEG2VideoProfile_HDV_720p50:
+		return "KCMMPEG2VideoProfile_HDV_720p50"
+	case KCMMPEG2VideoProfile_HDV_720p60:
+		return "KCMMPEG2VideoProfile_HDV_720p60"
+	case KCMMPEG2VideoProfile_XDCAM_EX_1080i50_VBR35:
+		return "KCMMPEG2VideoProfile_XDCAM_EX_1080i50_VBR35"
+	case KCMMPEG2VideoProfile_XDCAM_EX_1080i60_VBR35:
+		return "KCMMPEG2VideoProfile_XDCAM_EX_1080i60_VBR35"
+	case KCMMPEG2VideoProfile_XDCAM_EX_1080p24_VBR35:
+		return "KCMMPEG2VideoProfile_XDCAM_EX_1080p24_VBR35"
+	case KCMMPEG2VideoProfile_XDCAM_EX_1080p25_VBR35:
+		return "KCMMPEG2VideoProfile_XDCAM_EX_1080p25_VBR35"
+	case KCMMPEG2VideoProfile_XDCAM_EX_1080p30_VBR35:
+		return "KCMMPEG2VideoProfile_XDCAM_EX_1080p30_VBR35"
+	case KCMMPEG2VideoProfile_XDCAM_EX_720p24_VBR35:
+		return "KCMMPEG2VideoProfile_XDCAM_EX_720p24_VBR35"
+	case KCMMPEG2VideoProfile_XDCAM_EX_720p25_VBR35:
+		return "KCMMPEG2VideoProfile_XDCAM_EX_720p25_VBR35"
+	case KCMMPEG2VideoProfile_XDCAM_EX_720p30_VBR35:
+		return "KCMMPEG2VideoProfile_XDCAM_EX_720p30_VBR35"
+	case KCMMPEG2VideoProfile_XDCAM_EX_720p50_VBR35:
+		return "KCMMPEG2VideoProfile_XDCAM_EX_720p50_VBR35"
+	case KCMMPEG2VideoProfile_XDCAM_EX_720p60_VBR35:
+		return "KCMMPEG2VideoProfile_XDCAM_EX_720p60_VBR35"
+	case KCMMPEG2VideoProfile_XDCAM_HD422_1080i50_CBR50:
+		return "KCMMPEG2VideoProfile_XDCAM_HD422_1080i50_CBR50"
+	case KCMMPEG2VideoProfile_XDCAM_HD422_1080i60_CBR50:
+		return "KCMMPEG2VideoProfile_XDCAM_HD422_1080i60_CBR50"
+	case KCMMPEG2VideoProfile_XDCAM_HD422_1080p24_CBR50:
+		return "KCMMPEG2VideoProfile_XDCAM_HD422_1080p24_CBR50"
+	case KCMMPEG2VideoProfile_XDCAM_HD422_1080p25_CBR50:
+		return "KCMMPEG2VideoProfile_XDCAM_HD422_1080p25_CBR50"
+	case KCMMPEG2VideoProfile_XDCAM_HD422_1080p30_CBR50:
+		return "KCMMPEG2VideoProfile_XDCAM_HD422_1080p30_CBR50"
+	case KCMMPEG2VideoProfile_XDCAM_HD422_540p:
+		return "KCMMPEG2VideoProfile_XDCAM_HD422_540p"
+	case KCMMPEG2VideoProfile_XDCAM_HD422_720p24_CBR50:
+		return "KCMMPEG2VideoProfile_XDCAM_HD422_720p24_CBR50"
+	case KCMMPEG2VideoProfile_XDCAM_HD422_720p25_CBR50:
+		return "KCMMPEG2VideoProfile_XDCAM_HD422_720p25_CBR50"
+	case KCMMPEG2VideoProfile_XDCAM_HD422_720p30_CBR50:
+		return "KCMMPEG2VideoProfile_XDCAM_HD422_720p30_CBR50"
+	case KCMMPEG2VideoProfile_XDCAM_HD422_720p50_CBR50:
+		return "KCMMPEG2VideoProfile_XDCAM_HD422_720p50_CBR50"
+	case KCMMPEG2VideoProfile_XDCAM_HD422_720p60_CBR50:
+		return "KCMMPEG2VideoProfile_XDCAM_HD422_720p60_CBR50"
+	case KCMMPEG2VideoProfile_XDCAM_HD_1080i50_VBR35:
+		return "KCMMPEG2VideoProfile_XDCAM_HD_1080i50_VBR35"
+	case KCMMPEG2VideoProfile_XDCAM_HD_1080i60_VBR35:
+		return "KCMMPEG2VideoProfile_XDCAM_HD_1080i60_VBR35"
+	case KCMMPEG2VideoProfile_XDCAM_HD_1080p24_VBR35:
+		return "KCMMPEG2VideoProfile_XDCAM_HD_1080p24_VBR35"
+	case KCMMPEG2VideoProfile_XDCAM_HD_1080p25_VBR35:
+		return "KCMMPEG2VideoProfile_XDCAM_HD_1080p25_VBR35"
+	case KCMMPEG2VideoProfile_XDCAM_HD_1080p30_VBR35:
+		return "KCMMPEG2VideoProfile_XDCAM_HD_1080p30_VBR35"
+	case KCMMPEG2VideoProfile_XDCAM_HD_540p:
+		return "KCMMPEG2VideoProfile_XDCAM_HD_540p"
+	case KCMMPEG2VideoProfile_XF:
+		return "KCMMPEG2VideoProfile_XF"
 	default:
 		return fmt.Sprintf("KCMMPEG2VideoProfile(%d)", e)
 	}
 }
 
-type KCMMediaType uint
-
-const (
-	// KCMMediaType_Audio: Audio media.
-	KCMMediaType_Audio            KCMMediaType = 0
-	KCMMediaType_AuxiliaryPicture KCMMediaType = 0
-	// KCMMediaType_ClosedCaption: Closed-caption media.
-	KCMMediaType_ClosedCaption KCMMediaType = 0
-	// KCMMediaType_Metadata: Meta data.
-	KCMMediaType_Metadata KCMMediaType = 0
-	// KCMMediaType_Muxed: Muxed media.
-	KCMMediaType_Muxed KCMMediaType = 0
-	// KCMMediaType_Subtitle: Subtitle media.
-	KCMMediaType_Subtitle KCMMediaType = 0
-	// KCMMediaType_TaggedBufferGroup: Media containing a tagged buffer group.
-	KCMMediaType_TaggedBufferGroup KCMMediaType = 0
-	// KCMMediaType_Text: Text media.
-	KCMMediaType_Text KCMMediaType = 0
-	// KCMMediaType_TimeCode: Time code media.
-	KCMMediaType_TimeCode KCMMediaType = 0
-	// KCMMediaType_Video: Video media.
-	KCMMediaType_Video KCMMediaType = 0
-)
-
-func (e KCMMediaType) String() string {
-	switch e {
-	case KCMMediaType_Audio:
-		return "KCMMediaType_Audio"
-	default:
-		return fmt.Sprintf("KCMMediaType(%d)", e)
-	}
-}
-
-type KCMMemoryPoolError int
+type KCMMemoryPoolError int32
 
 const (
 	// KCMMemoryPoolError_AllocationFailed: An error that indicates the system failed to allocate an internal data structure.
-	KCMMemoryPoolError_AllocationFailed KCMMemoryPoolError = 0
+	KCMMemoryPoolError_AllocationFailed KCMMemoryPoolError = -15490
 	// KCMMemoryPoolError_InvalidParameter: An error that indicates you called an API with an invalid parameter.
-	KCMMemoryPoolError_InvalidParameter KCMMemoryPoolError = 0
+	KCMMemoryPoolError_InvalidParameter KCMMemoryPoolError = -15491
 )
 
 func (e KCMMemoryPoolError) String() string {
 	switch e {
 	case KCMMemoryPoolError_AllocationFailed:
 		return "KCMMemoryPoolError_AllocationFailed"
+	case KCMMemoryPoolError_InvalidParameter:
+		return "KCMMemoryPoolError_InvalidParameter"
 	default:
 		return fmt.Sprintf("KCMMemoryPoolError(%d)", e)
 	}
 }
 
-type KCMMetadataDataTypeRegistryError int
+type KCMMetadataDataTypeRegistryError int32
 
 const (
 	// KCMMetadataDataTypeRegistryError_AllocationFailed: An error that indicates the allocation fails.
-	KCMMetadataDataTypeRegistryError_AllocationFailed KCMMetadataDataTypeRegistryError = 0
+	KCMMetadataDataTypeRegistryError_AllocationFailed KCMMetadataDataTypeRegistryError = -16310
 	// KCMMetadataDataTypeRegistryError_BadDataTypeIdentifier: An error that indicates a bad datatype identifier.
-	KCMMetadataDataTypeRegistryError_BadDataTypeIdentifier KCMMetadataDataTypeRegistryError = 0
+	KCMMetadataDataTypeRegistryError_BadDataTypeIdentifier KCMMetadataDataTypeRegistryError = -16312
 	// KCMMetadataDataTypeRegistryError_DataTypeAlreadyRegistered: An error that indicates the datatype is in a registered state.
-	KCMMetadataDataTypeRegistryError_DataTypeAlreadyRegistered KCMMetadataDataTypeRegistryError = 0
+	KCMMetadataDataTypeRegistryError_DataTypeAlreadyRegistered KCMMetadataDataTypeRegistryError = -16313
 	// KCMMetadataDataTypeRegistryError_MultipleConformingBaseTypes: An error that indicates that type you provide has more than one base data type.
-	KCMMetadataDataTypeRegistryError_MultipleConformingBaseTypes KCMMetadataDataTypeRegistryError = 0
+	KCMMetadataDataTypeRegistryError_MultipleConformingBaseTypes KCMMetadataDataTypeRegistryError = -16315
 	// KCMMetadataDataTypeRegistryError_RequiredParameterMissing: An error that indicates a parameter the function requires is empty.
-	KCMMetadataDataTypeRegistryError_RequiredParameterMissing KCMMetadataDataTypeRegistryError = 0
+	KCMMetadataDataTypeRegistryError_RequiredParameterMissing KCMMetadataDataTypeRegistryError = -16311
 	// KCMMetadataDataTypeRegistryError_RequiresConformingBaseType: An error that indicates the data type you specify requires a conforming data type that resolves to a base data type.
-	KCMMetadataDataTypeRegistryError_RequiresConformingBaseType KCMMetadataDataTypeRegistryError = 0
+	KCMMetadataDataTypeRegistryError_RequiresConformingBaseType KCMMetadataDataTypeRegistryError = -16314
 )
 
 func (e KCMMetadataDataTypeRegistryError) String() string {
 	switch e {
 	case KCMMetadataDataTypeRegistryError_AllocationFailed:
 		return "KCMMetadataDataTypeRegistryError_AllocationFailed"
+	case KCMMetadataDataTypeRegistryError_BadDataTypeIdentifier:
+		return "KCMMetadataDataTypeRegistryError_BadDataTypeIdentifier"
+	case KCMMetadataDataTypeRegistryError_DataTypeAlreadyRegistered:
+		return "KCMMetadataDataTypeRegistryError_DataTypeAlreadyRegistered"
+	case KCMMetadataDataTypeRegistryError_MultipleConformingBaseTypes:
+		return "KCMMetadataDataTypeRegistryError_MultipleConformingBaseTypes"
+	case KCMMetadataDataTypeRegistryError_RequiredParameterMissing:
+		return "KCMMetadataDataTypeRegistryError_RequiredParameterMissing"
+	case KCMMetadataDataTypeRegistryError_RequiresConformingBaseType:
+		return "KCMMetadataDataTypeRegistryError_RequiresConformingBaseType"
 	default:
 		return fmt.Sprintf("KCMMetadataDataTypeRegistryError(%d)", e)
 	}
 }
 
-type KCMMetadataFormatType uint
+type KCMMetadataFormatType uint32
 
 const (
 	// KCMMetadataFormatType_Boxed: CoreMedia boxed format.
-	KCMMetadataFormatType_Boxed KCMMetadataFormatType = 0
-	KCMMetadataFormatType_EMSG  KCMMetadataFormatType = 0
+	KCMMetadataFormatType_Boxed KCMMetadataFormatType = 'm'<<24 | 'e'<<16 | 'b'<<8 | 'x' // 'mebx'
+	KCMMetadataFormatType_EMSG  KCMMetadataFormatType = 'e'<<24 | 'm'<<16 | 's'<<8 | 'g' // 'emsg'
 	// KCMMetadataFormatType_ICY: SHOUTCast format.
-	KCMMetadataFormatType_ICY KCMMetadataFormatType = 0
+	KCMMetadataFormatType_ICY KCMMetadataFormatType = 'i'<<24 | 'c'<<16 | 'y'<<8 | ' ' // 'icy '
 	// KCMMetadataFormatType_ID3: ID3 format.
-	KCMMetadataFormatType_ID3 KCMMetadataFormatType = 0
+	KCMMetadataFormatType_ID3 KCMMetadataFormatType = 'i'<<24 | 'd'<<16 | '3'<<8 | ' ' // 'id3 '
 )
 
 func (e KCMMetadataFormatType) String() string {
 	switch e {
 	case KCMMetadataFormatType_Boxed:
 		return "KCMMetadataFormatType_Boxed"
+	case KCMMetadataFormatType_EMSG:
+		return "KCMMetadataFormatType_EMSG"
+	case KCMMetadataFormatType_ICY:
+		return "KCMMetadataFormatType_ICY"
+	case KCMMetadataFormatType_ID3:
+		return "KCMMetadataFormatType_ID3"
 	default:
 		return fmt.Sprintf("KCMMetadataFormatType(%d)", e)
 	}
 }
 
-type KCMMetadataIdentifierError int
+type KCMMetadataIdentifierError int32
 
 const (
 	// KCMMetadataIdentifierError_AllocationFailed: An error that indicates an allocation fails.
-	KCMMetadataIdentifierError_AllocationFailed KCMMetadataIdentifierError = 0
+	KCMMetadataIdentifierError_AllocationFailed KCMMetadataIdentifierError = -16300
 	// KCMMetadataIdentifierError_BadIdentifier: An error that indicates the identifier isn’t valid.
-	KCMMetadataIdentifierError_BadIdentifier KCMMetadataIdentifierError = 0
+	KCMMetadataIdentifierError_BadIdentifier KCMMetadataIdentifierError = -16307
 	// KCMMetadataIdentifierError_BadKey: An error that indicates a key isn’t valid.
-	KCMMetadataIdentifierError_BadKey KCMMetadataIdentifierError = 0
+	KCMMetadataIdentifierError_BadKey KCMMetadataIdentifierError = -16302
 	// KCMMetadataIdentifierError_BadKeyLength: An error that indicates that a key doesn’t have the correct length.
-	KCMMetadataIdentifierError_BadKeyLength KCMMetadataIdentifierError = 0
+	KCMMetadataIdentifierError_BadKeyLength KCMMetadataIdentifierError = -16303
 	// KCMMetadataIdentifierError_BadKeySpace: An error that indicates the keyspace isn’t valid.
-	KCMMetadataIdentifierError_BadKeySpace KCMMetadataIdentifierError = 0
+	KCMMetadataIdentifierError_BadKeySpace KCMMetadataIdentifierError = -16306
 	// KCMMetadataIdentifierError_BadKeyType: An error that indicates a key has a bad type.
-	KCMMetadataIdentifierError_BadKeyType KCMMetadataIdentifierError = 0
+	KCMMetadataIdentifierError_BadKeyType KCMMetadataIdentifierError = -16304
 	// KCMMetadataIdentifierError_BadNumberKey: An error that indicates the number for a key isn’t valid.
-	KCMMetadataIdentifierError_BadNumberKey KCMMetadataIdentifierError = 0
+	KCMMetadataIdentifierError_BadNumberKey KCMMetadataIdentifierError = -16305
 	// KCMMetadataIdentifierError_NoKeyValueAvailable: An error that indicates a request for a key value in the anonymous keyspace.
-	KCMMetadataIdentifierError_NoKeyValueAvailable KCMMetadataIdentifierError = 0
+	KCMMetadataIdentifierError_NoKeyValueAvailable KCMMetadataIdentifierError = -16308
 	// KCMMetadataIdentifierError_RequiredParameterMissing: An error that indicates a parameter the function requires is empty.
-	KCMMetadataIdentifierError_RequiredParameterMissing KCMMetadataIdentifierError = 0
+	KCMMetadataIdentifierError_RequiredParameterMissing KCMMetadataIdentifierError = -16301
 )
 
 func (e KCMMetadataIdentifierError) String() string {
 	switch e {
 	case KCMMetadataIdentifierError_AllocationFailed:
 		return "KCMMetadataIdentifierError_AllocationFailed"
+	case KCMMetadataIdentifierError_BadIdentifier:
+		return "KCMMetadataIdentifierError_BadIdentifier"
+	case KCMMetadataIdentifierError_BadKey:
+		return "KCMMetadataIdentifierError_BadKey"
+	case KCMMetadataIdentifierError_BadKeyLength:
+		return "KCMMetadataIdentifierError_BadKeyLength"
+	case KCMMetadataIdentifierError_BadKeySpace:
+		return "KCMMetadataIdentifierError_BadKeySpace"
+	case KCMMetadataIdentifierError_BadKeyType:
+		return "KCMMetadataIdentifierError_BadKeyType"
+	case KCMMetadataIdentifierError_BadNumberKey:
+		return "KCMMetadataIdentifierError_BadNumberKey"
+	case KCMMetadataIdentifierError_NoKeyValueAvailable:
+		return "KCMMetadataIdentifierError_NoKeyValueAvailable"
+	case KCMMetadataIdentifierError_RequiredParameterMissing:
+		return "KCMMetadataIdentifierError_RequiredParameterMissing"
 	default:
 		return fmt.Sprintf("KCMMetadataIdentifierError(%d)", e)
 	}
 }
 
-type KCMMuxedStreamType uint
+type KCMMuxedStreamType uint32
 
 const (
 	// KCMMuxedStreamType_DV: DV stream.
-	KCMMuxedStreamType_DV                            KCMMuxedStreamType = 0
-	KCMMuxedStreamType_EmbeddedDeviceScreenRecording KCMMuxedStreamType = 0
+	KCMMuxedStreamType_DV                            KCMMuxedStreamType = 'd'<<24 | 'v'<<16 | ' '<<8 | ' ' // 'dv  '
+	KCMMuxedStreamType_EmbeddedDeviceScreenRecording KCMMuxedStreamType = 'i'<<24 | 's'<<16 | 'r'<<8 | ' ' // 'isr '
 	// KCMMuxedStreamType_MPEG1System: MPEG-1 System stream.
-	KCMMuxedStreamType_MPEG1System KCMMuxedStreamType = 0
+	KCMMuxedStreamType_MPEG1System KCMMuxedStreamType = 'm'<<24 | 'p'<<16 | '1'<<8 | 's' // 'mp1s'
 	// KCMMuxedStreamType_MPEG2Program: MPEG-2 Program stream.
-	KCMMuxedStreamType_MPEG2Program KCMMuxedStreamType = 0
+	KCMMuxedStreamType_MPEG2Program KCMMuxedStreamType = 'm'<<24 | 'p'<<16 | '2'<<8 | 'p' // 'mp2p'
 	// KCMMuxedStreamType_MPEG2Transport: MPEG-2 Transport stream.
-	KCMMuxedStreamType_MPEG2Transport KCMMuxedStreamType = 0
+	KCMMuxedStreamType_MPEG2Transport KCMMuxedStreamType = 'm'<<24 | 'p'<<16 | '2'<<8 | 't' // 'mp2t'
 )
 
 func (e KCMMuxedStreamType) String() string {
 	switch e {
 	case KCMMuxedStreamType_DV:
 		return "KCMMuxedStreamType_DV"
+	case KCMMuxedStreamType_EmbeddedDeviceScreenRecording:
+		return "KCMMuxedStreamType_EmbeddedDeviceScreenRecording"
+	case KCMMuxedStreamType_MPEG1System:
+		return "KCMMuxedStreamType_MPEG1System"
+	case KCMMuxedStreamType_MPEG2Program:
+		return "KCMMuxedStreamType_MPEG2Program"
+	case KCMMuxedStreamType_MPEG2Transport:
+		return "KCMMuxedStreamType_MPEG2Transport"
 	default:
 		return fmt.Sprintf("KCMMuxedStreamType(%d)", e)
 	}
 }
 
-type KCMPersistentTrackID uint
+type KCMPersistentTrackID int32
 
 const (
 	// KCMPersistentTrackID_Invalid: Indicates an invalid track ID.
@@ -841,164 +1016,240 @@ func (e KCMPersistentTrackID) String() string {
 	}
 }
 
-type KCMPixelFormat uint
+type KCMPixelFormat uint32
 
 const (
 	// KCMPixelFormat_16BE555: A type that describes 16-bit big-endian 5-5-5.
-	KCMPixelFormat_16BE555 KCMPixelFormat = 0
+	KCMPixelFormat_16BE555 KCMPixelFormat = 16
 	// KCMPixelFormat_16BE565: A type that describes 16-bit big-endian 5-6-5.
-	KCMPixelFormat_16BE565 KCMPixelFormat = 0
+	KCMPixelFormat_16BE565 KCMPixelFormat = 'B'<<24 | '5'<<16 | '6'<<8 | '5' // 'B565'
 	// KCMPixelFormat_16LE555: A type that describes 16-bit little-endian 5-5-5.
-	KCMPixelFormat_16LE555 KCMPixelFormat = 0
+	KCMPixelFormat_16LE555 KCMPixelFormat = 'L'<<24 | '5'<<16 | '5'<<8 | '5' // 'L555'
 	// KCMPixelFormat_16LE5551: A type that describes 16-bit little-endian 5-5-5-1.
-	KCMPixelFormat_16LE5551 KCMPixelFormat = 0
+	KCMPixelFormat_16LE5551 KCMPixelFormat = '5'<<24 | '5'<<16 | '5'<<8 | '1' // '5551'
 	// KCMPixelFormat_16LE565: A type that describes 16-bit little-endian 5-6-5.
-	KCMPixelFormat_16LE565 KCMPixelFormat = 0
+	KCMPixelFormat_16LE565 KCMPixelFormat = 'L'<<24 | '5'<<16 | '6'<<8 | '5' // 'L565'
 	// KCMPixelFormat_24RGB: A type that describes 24-bit RGB.
-	KCMPixelFormat_24RGB KCMPixelFormat = 0
+	KCMPixelFormat_24RGB KCMPixelFormat = 24
 	// KCMPixelFormat_32ARGB: A type that describes 32-bit ARGB.
-	KCMPixelFormat_32ARGB KCMPixelFormat = 0
+	KCMPixelFormat_32ARGB KCMPixelFormat = 32
 	// KCMPixelFormat_32BGRA: A type that describes 32-bit BGRA.
-	KCMPixelFormat_32BGRA KCMPixelFormat = 0
+	KCMPixelFormat_32BGRA KCMPixelFormat = 'B'<<24 | 'G'<<16 | 'R'<<8 | 'A' // 'BGRA'
 	// KCMPixelFormat_422YpCbCr10: A type that describes component Y’CbCr 10-bit 4:2:2.
-	KCMPixelFormat_422YpCbCr10 KCMPixelFormat = 0
+	KCMPixelFormat_422YpCbCr10 KCMPixelFormat = 'v'<<24 | '2'<<16 | '1'<<8 | '0' // 'v210'
 	// KCMPixelFormat_422YpCbCr16: A type that describes component Y’CbCr 10,12,14,16-bit 4:2:2.
-	KCMPixelFormat_422YpCbCr16 KCMPixelFormat = 0
+	KCMPixelFormat_422YpCbCr16 KCMPixelFormat = 'v'<<24 | '2'<<16 | '1'<<8 | '6' // 'v216'
 	// KCMPixelFormat_422YpCbCr8: A type that describes component Y’CbCr 8-bit 4:2:2 ordered Cb Y’0 Cr Y’1.
-	KCMPixelFormat_422YpCbCr8 KCMPixelFormat = 0
+	KCMPixelFormat_422YpCbCr8 KCMPixelFormat = '2'<<24 | 'v'<<16 | 'u'<<8 | 'y' // '2vuy'
 	// KCMPixelFormat_422YpCbCr8_yuvs: A type that describes component Y’CbCr 8-bit 4:2:2 ordered Y’0 Cb Y’1 Cr.
-	KCMPixelFormat_422YpCbCr8_yuvs KCMPixelFormat = 0
+	KCMPixelFormat_422YpCbCr8_yuvs KCMPixelFormat = 'y'<<24 | 'u'<<16 | 'v'<<8 | 's' // 'yuvs'
 	// KCMPixelFormat_4444YpCbCrA8: A type that describes component Y’CbCrA 8-bit 4:4:4:4.
-	KCMPixelFormat_4444YpCbCrA8 KCMPixelFormat = 0
+	KCMPixelFormat_4444YpCbCrA8 KCMPixelFormat = 'v'<<24 | '4'<<16 | '0'<<8 | '8' // 'v408'
 	// KCMPixelFormat_444YpCbCr10: A type that describes component Y’CbCr 10-bit 4:4:4
-	KCMPixelFormat_444YpCbCr10 KCMPixelFormat = 0
+	KCMPixelFormat_444YpCbCr10 KCMPixelFormat = 'v'<<24 | '4'<<16 | '1'<<8 | '0' // 'v410'
 	// KCMPixelFormat_444YpCbCr8: A type that describes component Y’CbCr 8-bit 4:4:4.
-	KCMPixelFormat_444YpCbCr8 KCMPixelFormat = 0
+	KCMPixelFormat_444YpCbCr8 KCMPixelFormat = 'v'<<24 | '3'<<16 | '0'<<8 | '8' // 'v308'
 	// KCMPixelFormat_8IndexedGray_WhiteIsZero: A type that describes 8-bit indexed gray, white is zero.
-	KCMPixelFormat_8IndexedGray_WhiteIsZero KCMPixelFormat = 0
+	KCMPixelFormat_8IndexedGray_WhiteIsZero KCMPixelFormat = 0x28
 )
 
 func (e KCMPixelFormat) String() string {
 	switch e {
 	case KCMPixelFormat_16BE555:
 		return "KCMPixelFormat_16BE555"
+	case KCMPixelFormat_16BE565:
+		return "KCMPixelFormat_16BE565"
+	case KCMPixelFormat_16LE555:
+		return "KCMPixelFormat_16LE555"
+	case KCMPixelFormat_16LE5551:
+		return "KCMPixelFormat_16LE5551"
+	case KCMPixelFormat_16LE565:
+		return "KCMPixelFormat_16LE565"
+	case KCMPixelFormat_24RGB:
+		return "KCMPixelFormat_24RGB"
+	case KCMPixelFormat_32ARGB:
+		return "KCMPixelFormat_32ARGB"
+	case KCMPixelFormat_32BGRA:
+		return "KCMPixelFormat_32BGRA"
+	case KCMPixelFormat_422YpCbCr10:
+		return "KCMPixelFormat_422YpCbCr10"
+	case KCMPixelFormat_422YpCbCr16:
+		return "KCMPixelFormat_422YpCbCr16"
+	case KCMPixelFormat_422YpCbCr8:
+		return "KCMPixelFormat_422YpCbCr8"
+	case KCMPixelFormat_422YpCbCr8_yuvs:
+		return "KCMPixelFormat_422YpCbCr8_yuvs"
+	case KCMPixelFormat_4444YpCbCrA8:
+		return "KCMPixelFormat_4444YpCbCrA8"
+	case KCMPixelFormat_444YpCbCr10:
+		return "KCMPixelFormat_444YpCbCr10"
+	case KCMPixelFormat_444YpCbCr8:
+		return "KCMPixelFormat_444YpCbCr8"
+	case KCMPixelFormat_8IndexedGray_WhiteIsZero:
+		return "KCMPixelFormat_8IndexedGray_WhiteIsZero"
 	default:
 		return fmt.Sprintf("KCMPixelFormat(%d)", e)
 	}
 }
 
-type KCMSampleBufferError int
+type KCMSampleBufferError int32
 
 const (
 	// KCMSampleBufferError_AllocationFailed: An error code that indicates the system failed to allocate memory.
-	KCMSampleBufferError_AllocationFailed KCMSampleBufferError = 0
+	KCMSampleBufferError_AllocationFailed KCMSampleBufferError = -12730
 	// KCMSampleBufferError_AlreadyHasDataBuffer: An error code that indicates an attempt to set data on a sample buffer failed because that buffer already contains media data.
-	KCMSampleBufferError_AlreadyHasDataBuffer KCMSampleBufferError = 0
+	KCMSampleBufferError_AlreadyHasDataBuffer KCMSampleBufferError = -12732
 	// KCMSampleBufferError_ArrayTooSmall: An error code that indicates the output array isn’t large enough to hold the requested array.
-	KCMSampleBufferError_ArrayTooSmall KCMSampleBufferError = 0
+	KCMSampleBufferError_ArrayTooSmall KCMSampleBufferError = -12737
 	// KCMSampleBufferError_BufferHasNoSampleSizes: An error code that indicates a request for sample sizes on a buffer failed because the buffer doesn’t provide that information.
-	KCMSampleBufferError_BufferHasNoSampleSizes KCMSampleBufferError = 0
+	KCMSampleBufferError_BufferHasNoSampleSizes KCMSampleBufferError = -12735
 	// KCMSampleBufferError_BufferHasNoSampleTimingInfo: An error code that indicates a request for sample timing on a buffer failed because the buffer doesn’t contain that information.
-	KCMSampleBufferError_BufferHasNoSampleTimingInfo KCMSampleBufferError = 0
+	KCMSampleBufferError_BufferHasNoSampleTimingInfo KCMSampleBufferError = -12736
 	// KCMSampleBufferError_BufferNotReady: An error code that indicates the system can’t make the buffer’s data ready for use.
-	KCMSampleBufferError_BufferNotReady KCMSampleBufferError = 0
+	KCMSampleBufferError_BufferNotReady KCMSampleBufferError = -12733
 	// KCMSampleBufferError_CannotSubdivide: An error code that indicates a sample buffer doesn’t contain sample sizes.
-	KCMSampleBufferError_CannotSubdivide KCMSampleBufferError = 0
+	KCMSampleBufferError_CannotSubdivide KCMSampleBufferError = -12739
 	// KCMSampleBufferError_DataCanceled: An error code that indicates a sample buffer canceled its data-loading operation.
-	KCMSampleBufferError_DataCanceled KCMSampleBufferError = 0
+	KCMSampleBufferError_DataCanceled KCMSampleBufferError = -16751
 	// KCMSampleBufferError_DataFailed: An error code that indicates a sample buffer failed to load its data.
-	KCMSampleBufferError_DataFailed KCMSampleBufferError = 0
+	KCMSampleBufferError_DataFailed KCMSampleBufferError = -16750
 	// KCMSampleBufferError_InvalidEntryCount: An error code that indicates a timing or size value isn’t within the allowed range.
-	KCMSampleBufferError_InvalidEntryCount KCMSampleBufferError = 0
+	KCMSampleBufferError_InvalidEntryCount KCMSampleBufferError = -12738
 	// KCMSampleBufferError_InvalidMediaFormat: An error code that indicates the media format doesn’t match the sample buffer’s format description.
-	KCMSampleBufferError_InvalidMediaFormat KCMSampleBufferError = 0
+	KCMSampleBufferError_InvalidMediaFormat KCMSampleBufferError = -12743
 	// KCMSampleBufferError_InvalidMediaTypeForOperation: An error code that indicates the media type that the format description defines isn’t a value for the requested operation.
-	KCMSampleBufferError_InvalidMediaTypeForOperation KCMSampleBufferError = 0
+	KCMSampleBufferError_InvalidMediaTypeForOperation KCMSampleBufferError = -12741
 	// KCMSampleBufferError_InvalidSampleData: An error code that indicates the sample buffer contains bad data.
-	KCMSampleBufferError_InvalidSampleData KCMSampleBufferError = 0
+	KCMSampleBufferError_InvalidSampleData KCMSampleBufferError = -12742
 	// KCMSampleBufferError_Invalidated: An error code that indicates a sample buffer invalidated its data.
-	KCMSampleBufferError_Invalidated KCMSampleBufferError = 0
+	KCMSampleBufferError_Invalidated KCMSampleBufferError = -12744
 	// KCMSampleBufferError_RequiredParameterMissing: An error code that indicates a required parameter’s value is invalid.
-	KCMSampleBufferError_RequiredParameterMissing KCMSampleBufferError = 0
+	KCMSampleBufferError_RequiredParameterMissing KCMSampleBufferError = -12731
 	// KCMSampleBufferError_SampleIndexOutOfRange: An error code that indicates the sample index is outside the range of samples that the buffer contains.
-	KCMSampleBufferError_SampleIndexOutOfRange KCMSampleBufferError = 0
+	KCMSampleBufferError_SampleIndexOutOfRange KCMSampleBufferError = -12734
 	// KCMSampleBufferError_SampleTimingInfoInvalid: An error code that indicates the sample buffer unexpectedly contains nonnumeric sample-timing information.
-	KCMSampleBufferError_SampleTimingInfoInvalid KCMSampleBufferError = 0
+	KCMSampleBufferError_SampleTimingInfoInvalid KCMSampleBufferError = -12740
 )
 
 func (e KCMSampleBufferError) String() string {
 	switch e {
 	case KCMSampleBufferError_AllocationFailed:
 		return "KCMSampleBufferError_AllocationFailed"
+	case KCMSampleBufferError_AlreadyHasDataBuffer:
+		return "KCMSampleBufferError_AlreadyHasDataBuffer"
+	case KCMSampleBufferError_ArrayTooSmall:
+		return "KCMSampleBufferError_ArrayTooSmall"
+	case KCMSampleBufferError_BufferHasNoSampleSizes:
+		return "KCMSampleBufferError_BufferHasNoSampleSizes"
+	case KCMSampleBufferError_BufferHasNoSampleTimingInfo:
+		return "KCMSampleBufferError_BufferHasNoSampleTimingInfo"
+	case KCMSampleBufferError_BufferNotReady:
+		return "KCMSampleBufferError_BufferNotReady"
+	case KCMSampleBufferError_CannotSubdivide:
+		return "KCMSampleBufferError_CannotSubdivide"
+	case KCMSampleBufferError_DataCanceled:
+		return "KCMSampleBufferError_DataCanceled"
+	case KCMSampleBufferError_DataFailed:
+		return "KCMSampleBufferError_DataFailed"
+	case KCMSampleBufferError_InvalidEntryCount:
+		return "KCMSampleBufferError_InvalidEntryCount"
+	case KCMSampleBufferError_InvalidMediaFormat:
+		return "KCMSampleBufferError_InvalidMediaFormat"
+	case KCMSampleBufferError_InvalidMediaTypeForOperation:
+		return "KCMSampleBufferError_InvalidMediaTypeForOperation"
+	case KCMSampleBufferError_InvalidSampleData:
+		return "KCMSampleBufferError_InvalidSampleData"
+	case KCMSampleBufferError_Invalidated:
+		return "KCMSampleBufferError_Invalidated"
+	case KCMSampleBufferError_RequiredParameterMissing:
+		return "KCMSampleBufferError_RequiredParameterMissing"
+	case KCMSampleBufferError_SampleIndexOutOfRange:
+		return "KCMSampleBufferError_SampleIndexOutOfRange"
+	case KCMSampleBufferError_SampleTimingInfoInvalid:
+		return "KCMSampleBufferError_SampleTimingInfoInvalid"
 	default:
 		return fmt.Sprintf("KCMSampleBufferError(%d)", e)
 	}
 }
 
-type KCMSimpleQueueError int
+type KCMSimpleQueueError int32
 
 const (
 	// KCMSimpleQueueError_AllocationFailed: The system failed to allocate memory.
-	KCMSimpleQueueError_AllocationFailed KCMSimpleQueueError = 0
+	KCMSimpleQueueError_AllocationFailed KCMSimpleQueueError = -12770
 	// KCMSimpleQueueError_ParameterOutOfRange: You passed a parameter to a function that’s outside the range of allowed values.
-	KCMSimpleQueueError_ParameterOutOfRange KCMSimpleQueueError = 0
+	KCMSimpleQueueError_ParameterOutOfRange KCMSimpleQueueError = -12772
 	// KCMSimpleQueueError_QueueIsFull: An operation failed because the queue is full.
-	KCMSimpleQueueError_QueueIsFull KCMSimpleQueueError = 0
+	KCMSimpleQueueError_QueueIsFull KCMSimpleQueueError = -12773
 	// KCMSimpleQueueError_RequiredParameterMissing: You failed to pass a required parameter to a function.
-	KCMSimpleQueueError_RequiredParameterMissing KCMSimpleQueueError = 0
+	KCMSimpleQueueError_RequiredParameterMissing KCMSimpleQueueError = -12771
 )
 
 func (e KCMSimpleQueueError) String() string {
 	switch e {
 	case KCMSimpleQueueError_AllocationFailed:
 		return "KCMSimpleQueueError_AllocationFailed"
+	case KCMSimpleQueueError_ParameterOutOfRange:
+		return "KCMSimpleQueueError_ParameterOutOfRange"
+	case KCMSimpleQueueError_QueueIsFull:
+		return "KCMSimpleQueueError_QueueIsFull"
+	case KCMSimpleQueueError_RequiredParameterMissing:
+		return "KCMSimpleQueueError_RequiredParameterMissing"
 	default:
 		return fmt.Sprintf("KCMSimpleQueueError(%d)", e)
 	}
 }
 
-type KCMSubtitleFormatType uint
+type KCMSubtitleFormatType uint32
 
 const (
-	KCMSubtitleFormatType_3GText KCMSubtitleFormatType = 0
-	KCMSubtitleFormatType_WebVTT KCMSubtitleFormatType = 0
+	KCMSubtitleFormatType_3GText KCMSubtitleFormatType = 't'<<24 | 'x'<<16 | '3'<<8 | 'g' // 'tx3g'
+	KCMSubtitleFormatType_WebVTT KCMSubtitleFormatType = 'w'<<24 | 'v'<<16 | 't'<<8 | 't' // 'wvtt'
 )
 
 func (e KCMSubtitleFormatType) String() string {
 	switch e {
 	case KCMSubtitleFormatType_3GText:
 		return "KCMSubtitleFormatType_3GText"
+	case KCMSubtitleFormatType_WebVTT:
+		return "KCMSubtitleFormatType_WebVTT"
 	default:
 		return fmt.Sprintf("KCMSubtitleFormatType(%d)", e)
 	}
 }
 
-type KCMSyncError int
+type KCMSyncError int32
 
 const (
 	// KCMSyncError_AllocationFailed: A sync error that indicates the memory allocation fails.
-	KCMSyncError_AllocationFailed KCMSyncError = 0
+	KCMSyncError_AllocationFailed KCMSyncError = -12754
 	// KCMSyncError_InvalidParameter: A sync error that indicates a parameter isn’t valid.
-	KCMSyncError_InvalidParameter KCMSyncError = 0
+	KCMSyncError_InvalidParameter KCMSyncError = -12753
 	// KCMSyncError_MissingRequiredParameter: A sync error that indicates a parameter is missing.
-	KCMSyncError_MissingRequiredParameter KCMSyncError = 0
+	KCMSyncError_MissingRequiredParameter KCMSyncError = -12752
 	// KCMSyncError_RateMustBeNonZero: A sync error that indicates the rate is nonzero.
-	KCMSyncError_RateMustBeNonZero KCMSyncError = 0
+	KCMSyncError_RateMustBeNonZero KCMSyncError = -12755
 )
 
 func (e KCMSyncError) String() string {
 	switch e {
 	case KCMSyncError_AllocationFailed:
 		return "KCMSyncError_AllocationFailed"
+	case KCMSyncError_InvalidParameter:
+		return "KCMSyncError_InvalidParameter"
+	case KCMSyncError_MissingRequiredParameter:
+		return "KCMSyncError_MissingRequiredParameter"
+	case KCMSyncError_RateMustBeNonZero:
+		return "KCMSyncError_RateMustBeNonZero"
 	default:
 		return fmt.Sprintf("KCMSyncError(%d)", e)
 	}
 }
 
-type KCMTaggedBufferGroupFormatType uint
+type KCMTaggedBufferGroupFormatType uint32
 
 const (
-	KCMTaggedBufferGroupFormatType_TaggedBufferGroup KCMTaggedBufferGroupFormatType = 0
+	KCMTaggedBufferGroupFormatType_TaggedBufferGroup KCMTaggedBufferGroupFormatType = 't'<<24 | 'b'<<16 | 'g'<<8 | 'r' // 'tbgr'
 )
 
 func (e KCMTaggedBufferGroupFormatType) String() string {
@@ -1010,71 +1261,95 @@ func (e KCMTaggedBufferGroupFormatType) String() string {
 	}
 }
 
-type KCMTextDisplayFlag uint
+type KCMTextDisplayFlag uint32
 
 const (
 	// KCMTextDisplayFlag_allSubtitlesForced: A flag that describes treating all subtitle samples as if they contain forced subtitles.
-	KCMTextDisplayFlag_allSubtitlesForced KCMTextDisplayFlag = 0
+	KCMTextDisplayFlag_allSubtitlesForced KCMTextDisplayFlag = 0x80000000
 	// KCMTextDisplayFlag_continuousKaraoke: A flag that describes enabling the continuous karaoke mode where the range of karaoke highlighting extends to include additional ranges rather than the highlighting moves onto the next range.
-	KCMTextDisplayFlag_continuousKaraoke KCMTextDisplayFlag = 0
+	KCMTextDisplayFlag_continuousKaraoke KCMTextDisplayFlag = 0x800
 	// KCMTextDisplayFlag_fillTextRegion: A flag that describes the subtitle display bounds are to be filled with the color specified by `kCMTextFormatDescriptionExtension_BackgroundColor`.
-	KCMTextDisplayFlag_fillTextRegion KCMTextDisplayFlag = 0
+	KCMTextDisplayFlag_fillTextRegion KCMTextDisplayFlag = 0x40000
 	// KCMTextDisplayFlag_forcedSubtitlesPresent: A flag that describes forcing subtitles are present, for example, a subtitle which only displays during foreign language sections of the video.
-	KCMTextDisplayFlag_forcedSubtitlesPresent KCMTextDisplayFlag = 0
+	KCMTextDisplayFlag_forcedSubtitlesPresent KCMTextDisplayFlag = 0x40000000
 	// KCMTextDisplayFlag_obeySubtitleFormatting: A flag that describes using the subtitle display bounds to determine if the system places the subtitltes near the top or bottom of the video.
-	KCMTextDisplayFlag_obeySubtitleFormatting KCMTextDisplayFlag = 0
+	KCMTextDisplayFlag_obeySubtitleFormatting KCMTextDisplayFlag = 0x20000000
 	// KCMTextDisplayFlag_scrollDirectionMask: A flag that describes the scrolling direction is set by a two-bit field, obtained from displayFlags using kCMTextDisplayFlag_scrollDirectionMask.
-	KCMTextDisplayFlag_scrollDirectionMask KCMTextDisplayFlag = 0
+	KCMTextDisplayFlag_scrollDirectionMask KCMTextDisplayFlag = 0x180
 	// KCMTextDisplayFlag_scrollDirection_bottomToTop: A flag that describes the text is vertically scrolled up (“credits style”), entering from the bottom and leaving towards the top.
 	KCMTextDisplayFlag_scrollDirection_bottomToTop KCMTextDisplayFlag = 0
 	// KCMTextDisplayFlag_scrollDirection_leftToRight: A flag that describes the text is horizontally scrolled, entering from the left and leaving towards the right.
-	KCMTextDisplayFlag_scrollDirection_leftToRight KCMTextDisplayFlag = 0
+	KCMTextDisplayFlag_scrollDirection_leftToRight KCMTextDisplayFlag = 0x180
 	// KCMTextDisplayFlag_scrollDirection_rightToLeft: A flag that describes the text is horizontally scrolled (“marquee style”), entering from the right and leaving towards the left.
-	KCMTextDisplayFlag_scrollDirection_rightToLeft KCMTextDisplayFlag = 0
+	KCMTextDisplayFlag_scrollDirection_rightToLeft KCMTextDisplayFlag = 0x80
 	// KCMTextDisplayFlag_scrollDirection_topToBottom: A flag that describes the text is vertically scrolled down, entering from the top and leaving towards the bottom.
-	KCMTextDisplayFlag_scrollDirection_topToBottom KCMTextDisplayFlag = 0
+	KCMTextDisplayFlag_scrollDirection_topToBottom KCMTextDisplayFlag = 0x100
 	// KCMTextDisplayFlag_scrollIn: A flag that describes the text scrolls into the display region.
-	KCMTextDisplayFlag_scrollIn KCMTextDisplayFlag = 0
+	KCMTextDisplayFlag_scrollIn KCMTextDisplayFlag = 0x20
 	// KCMTextDisplayFlag_scrollOut: A flag that describes the text scrolls out of the display region.
-	KCMTextDisplayFlag_scrollOut KCMTextDisplayFlag = 0
+	KCMTextDisplayFlag_scrollOut KCMTextDisplayFlag = 0x40
 	// KCMTextDisplayFlag_writeTextVertically: A flag that describes the text renders vertically.
-	KCMTextDisplayFlag_writeTextVertically KCMTextDisplayFlag = 0
+	KCMTextDisplayFlag_writeTextVertically KCMTextDisplayFlag = 0x20000
 )
 
 func (e KCMTextDisplayFlag) String() string {
 	switch e {
 	case KCMTextDisplayFlag_allSubtitlesForced:
 		return "KCMTextDisplayFlag_allSubtitlesForced"
+	case KCMTextDisplayFlag_continuousKaraoke:
+		return "KCMTextDisplayFlag_continuousKaraoke"
+	case KCMTextDisplayFlag_fillTextRegion:
+		return "KCMTextDisplayFlag_fillTextRegion"
+	case KCMTextDisplayFlag_forcedSubtitlesPresent:
+		return "KCMTextDisplayFlag_forcedSubtitlesPresent"
+	case KCMTextDisplayFlag_obeySubtitleFormatting:
+		return "KCMTextDisplayFlag_obeySubtitleFormatting"
+	case KCMTextDisplayFlag_scrollDirectionMask:
+		return "KCMTextDisplayFlag_scrollDirectionMask"
+	case KCMTextDisplayFlag_scrollDirection_bottomToTop:
+		return "KCMTextDisplayFlag_scrollDirection_bottomToTop"
+	case KCMTextDisplayFlag_scrollDirection_rightToLeft:
+		return "KCMTextDisplayFlag_scrollDirection_rightToLeft"
+	case KCMTextDisplayFlag_scrollDirection_topToBottom:
+		return "KCMTextDisplayFlag_scrollDirection_topToBottom"
+	case KCMTextDisplayFlag_scrollIn:
+		return "KCMTextDisplayFlag_scrollIn"
+	case KCMTextDisplayFlag_scrollOut:
+		return "KCMTextDisplayFlag_scrollOut"
+	case KCMTextDisplayFlag_writeTextVertically:
+		return "KCMTextDisplayFlag_writeTextVertically"
 	default:
 		return fmt.Sprintf("KCMTextDisplayFlag(%d)", e)
 	}
 }
 
-type KCMTextFormatType uint
+type KCMTextFormatType uint32
 
 const (
 	// KCMTextFormatType_3GText: A type that describes 3GPP text media.
-	KCMTextFormatType_3GText KCMTextFormatType = 0
+	KCMTextFormatType_3GText KCMTextFormatType = 't'<<24 | 'x'<<16 | '3'<<8 | 'g' // 'tx3g'
 	// KCMTextFormatType_QTText: A type that describes QuickTime text media.
-	KCMTextFormatType_QTText KCMTextFormatType = 0
+	KCMTextFormatType_QTText KCMTextFormatType = 't'<<24 | 'e'<<16 | 'x'<<8 | 't' // 'text'
 )
 
 func (e KCMTextFormatType) String() string {
 	switch e {
 	case KCMTextFormatType_3GText:
 		return "KCMTextFormatType_3GText"
+	case KCMTextFormatType_QTText:
+		return "KCMTextFormatType_QTText"
 	default:
 		return fmt.Sprintf("KCMTextFormatType(%d)", e)
 	}
 }
 
-type KCMTextJustification uint
+type KCMTextJustification int8
 
 const (
 	// KCMTextJustification_bottom_right: A type that describes bottom justification when specified for vertical justification, right justification for horizontal justification.
-	KCMTextJustification_bottom_right KCMTextJustification = 0
+	KCMTextJustification_bottom_right KCMTextJustification = -1
 	// KCMTextJustification_centered: A type that describes center justification (both horizontal and vertical justification).
-	KCMTextJustification_centered KCMTextJustification = 0
+	KCMTextJustification_centered KCMTextJustification = 1
 	// KCMTextJustification_left_top: A type that describes left justification when specified for horizontal justification, top justification for vertical justification.
 	KCMTextJustification_left_top KCMTextJustification = 0
 )
@@ -1083,245 +1358,432 @@ func (e KCMTextJustification) String() string {
 	switch e {
 	case KCMTextJustification_bottom_right:
 		return "KCMTextJustification_bottom_right"
+	case KCMTextJustification_centered:
+		return "KCMTextJustification_centered"
+	case KCMTextJustification_left_top:
+		return "KCMTextJustification_left_top"
 	default:
 		return fmt.Sprintf("KCMTextJustification(%d)", e)
 	}
 }
 
-type KCMTimeCodeFlag uint
+type KCMTimeCodeFlag uint32
 
 const (
 	// KCMTimeCodeFlag_24HourMax: A type that describes timecode rolls over every 24 hours.
-	KCMTimeCodeFlag_24HourMax KCMTimeCodeFlag = 0
+	KCMTimeCodeFlag_24HourMax KCMTimeCodeFlag = 2
 	// KCMTimeCodeFlag_DropFrame: A type that describes timecodes are to be rendered in drop-frame format.
-	KCMTimeCodeFlag_DropFrame KCMTimeCodeFlag = 0
+	KCMTimeCodeFlag_DropFrame KCMTimeCodeFlag = 1
 	// KCMTimeCodeFlag_NegTimesOK: A type that describes that the track may contain negative timecodes.
-	KCMTimeCodeFlag_NegTimesOK KCMTimeCodeFlag = 0
+	KCMTimeCodeFlag_NegTimesOK KCMTimeCodeFlag = 4
 )
 
 func (e KCMTimeCodeFlag) String() string {
 	switch e {
 	case KCMTimeCodeFlag_24HourMax:
 		return "KCMTimeCodeFlag_24HourMax"
+	case KCMTimeCodeFlag_DropFrame:
+		return "KCMTimeCodeFlag_DropFrame"
+	case KCMTimeCodeFlag_NegTimesOK:
+		return "KCMTimeCodeFlag_NegTimesOK"
 	default:
 		return fmt.Sprintf("KCMTimeCodeFlag(%d)", e)
 	}
 }
 
-type KCMTimeCodeFormatType uint
+type KCMTimeCodeFormatType uint32
 
 const (
 	// KCMTimeCodeFormatType_Counter32: 32-bit counter-mode sample.
-	KCMTimeCodeFormatType_Counter32 KCMTimeCodeFormatType = 0
+	KCMTimeCodeFormatType_Counter32 KCMTimeCodeFormatType = 'c'<<24 | 'n'<<16 | '3'<<8 | '2' // 'cn32'
 	// KCMTimeCodeFormatType_Counter64: 64-bit counter-mode sample.
-	KCMTimeCodeFormatType_Counter64 KCMTimeCodeFormatType = 0
+	KCMTimeCodeFormatType_Counter64 KCMTimeCodeFormatType = 'c'<<24 | 'n'<<16 | '6'<<8 | '4' // 'cn64'
 	// KCMTimeCodeFormatType_TimeCode32: 32-bit time code sample.
-	KCMTimeCodeFormatType_TimeCode32 KCMTimeCodeFormatType = 0
+	KCMTimeCodeFormatType_TimeCode32 KCMTimeCodeFormatType = 't'<<24 | 'm'<<16 | 'c'<<8 | 'd' // 'tmcd'
 	// KCMTimeCodeFormatType_TimeCode64: 64-bit time code sample.
-	KCMTimeCodeFormatType_TimeCode64 KCMTimeCodeFormatType = 0
+	KCMTimeCodeFormatType_TimeCode64 KCMTimeCodeFormatType = 't'<<24 | 'c'<<16 | '6'<<8 | '4' // 'tc64'
 )
 
 func (e KCMTimeCodeFormatType) String() string {
 	switch e {
 	case KCMTimeCodeFormatType_Counter32:
 		return "KCMTimeCodeFormatType_Counter32"
+	case KCMTimeCodeFormatType_Counter64:
+		return "KCMTimeCodeFormatType_Counter64"
+	case KCMTimeCodeFormatType_TimeCode32:
+		return "KCMTimeCodeFormatType_TimeCode32"
+	case KCMTimeCodeFormatType_TimeCode64:
+		return "KCMTimeCodeFormatType_TimeCode64"
 	default:
 		return fmt.Sprintf("KCMTimeCodeFormatType(%d)", e)
 	}
 }
 
-type KCMTimebaseError int
+type KCMTimebaseError int32
 
 const (
 	// KCMTimebaseError_AllocationFailed: A timebase error that indicates the memory allocation fails.
-	KCMTimebaseError_AllocationFailed KCMTimebaseError = 0
+	KCMTimebaseError_AllocationFailed KCMTimebaseError = -12750
 	// KCMTimebaseError_InvalidParameter: A timebase error that indicates a parameter isn’t valid.
-	KCMTimebaseError_InvalidParameter KCMTimebaseError = 0
+	KCMTimebaseError_InvalidParameter KCMTimebaseError = -12749
 	// KCMTimebaseError_MissingRequiredParameter: A timebase error that indicates a parameter is missing.
-	KCMTimebaseError_MissingRequiredParameter KCMTimebaseError = 0
+	KCMTimebaseError_MissingRequiredParameter KCMTimebaseError = -12748
 	// KCMTimebaseError_ReadOnly: A timebase error that indicates the system attempts to modify a read-only timebase.
-	KCMTimebaseError_ReadOnly KCMTimebaseError = 0
+	KCMTimebaseError_ReadOnly KCMTimebaseError = -12757
 	// KCMTimebaseError_TimerIntervalTooShort: A timebase error that indicates the time interval is too short.
-	KCMTimebaseError_TimerIntervalTooShort KCMTimebaseError = 0
+	KCMTimebaseError_TimerIntervalTooShort KCMTimebaseError = -12751
 )
 
 func (e KCMTimebaseError) String() string {
 	switch e {
 	case KCMTimebaseError_AllocationFailed:
 		return "KCMTimebaseError_AllocationFailed"
+	case KCMTimebaseError_InvalidParameter:
+		return "KCMTimebaseError_InvalidParameter"
+	case KCMTimebaseError_MissingRequiredParameter:
+		return "KCMTimebaseError_MissingRequiredParameter"
+	case KCMTimebaseError_ReadOnly:
+		return "KCMTimebaseError_ReadOnly"
+	case KCMTimebaseError_TimerIntervalTooShort:
+		return "KCMTimebaseError_TimerIntervalTooShort"
 	default:
 		return fmt.Sprintf("KCMTimebaseError(%d)", e)
 	}
 }
 
-type KCMVideoCodecType uint
+type KCMVideoCodecType uint32
 
 const (
 	// KCMVideoCodecType_422YpCbCr8: A type that identifies a component with the format of Y’CbCr 8-bit 4:2:2 ordered Cb Y’0 Cr Y’1.
-	KCMVideoCodecType_422YpCbCr8 KCMVideoCodecType = 0
-	KCMVideoCodecType_AV1        KCMVideoCodecType = 0
+	KCMVideoCodecType_422YpCbCr8 KCMVideoCodecType = '2'<<24 | 'v'<<16 | 'u'<<8 | 'y' // '2vuy'
+	KCMVideoCodecType_AV1        KCMVideoCodecType = 'a'<<24 | 'v'<<16 | '0'<<8 | '1' // 'av01'
 	// KCMVideoCodecType_Animation: A type that identifies the apple animation format.
-	KCMVideoCodecType_Animation KCMVideoCodecType = 0
+	KCMVideoCodecType_Animation KCMVideoCodecType = 'r'<<24 | 'l'<<16 | 'e'<<8 | ' ' // 'rle '
 	// KCMVideoCodecType_AppleProRes422: A type that identifies the Apple ProRes 422 format.
-	KCMVideoCodecType_AppleProRes422 KCMVideoCodecType = 0
+	KCMVideoCodecType_AppleProRes422 KCMVideoCodecType = 'a'<<24 | 'p'<<16 | 'c'<<8 | 'n' // 'apcn'
 	// KCMVideoCodecType_AppleProRes422HQ: A type that identifies the Apple ProRes 422 HQ format.
-	KCMVideoCodecType_AppleProRes422HQ KCMVideoCodecType = 0
+	KCMVideoCodecType_AppleProRes422HQ KCMVideoCodecType = 'a'<<24 | 'p'<<16 | 'c'<<8 | 'h' // 'apch'
 	// KCMVideoCodecType_AppleProRes422LT: A type that identifies the Apple ProRes 422 LT format.
-	KCMVideoCodecType_AppleProRes422LT KCMVideoCodecType = 0
+	KCMVideoCodecType_AppleProRes422LT KCMVideoCodecType = 'a'<<24 | 'p'<<16 | 'c'<<8 | 's' // 'apcs'
 	// KCMVideoCodecType_AppleProRes422Proxy: A type that identifies the Apple ProRes 422 proxy format.
-	KCMVideoCodecType_AppleProRes422Proxy KCMVideoCodecType = 0
+	KCMVideoCodecType_AppleProRes422Proxy KCMVideoCodecType = 'a'<<24 | 'p'<<16 | 'c'<<8 | 'o' // 'apco'
 	// KCMVideoCodecType_AppleProRes4444: A type that identifies the Apple ProRes 4444 format.
-	KCMVideoCodecType_AppleProRes4444 KCMVideoCodecType = 0
+	KCMVideoCodecType_AppleProRes4444 KCMVideoCodecType = 'a'<<24 | 'p'<<16 | '4'<<8 | 'h' // 'ap4h'
 	// KCMVideoCodecType_AppleProRes4444XQ: A type that identifies the Apple ProRes 4444 XQ format.
-	KCMVideoCodecType_AppleProRes4444XQ KCMVideoCodecType = 0
+	KCMVideoCodecType_AppleProRes4444XQ KCMVideoCodecType = 'a'<<24 | 'p'<<16 | '4'<<8 | 'x' // 'ap4x'
 	// KCMVideoCodecType_AppleProResRAW: A type that identifies the Apple ProRes RAW format.
-	KCMVideoCodecType_AppleProResRAW KCMVideoCodecType = 0
+	KCMVideoCodecType_AppleProResRAW KCMVideoCodecType = 'a'<<24 | 'p'<<16 | 'r'<<8 | 'n' // 'aprn'
 	// KCMVideoCodecType_AppleProResRAWHQ: A type that identifies the Apple ProRes RAW HQ format.
-	KCMVideoCodecType_AppleProResRAWHQ KCMVideoCodecType = 0
+	KCMVideoCodecType_AppleProResRAWHQ KCMVideoCodecType = 'a'<<24 | 'p'<<16 | 'r'<<8 | 'h' // 'aprh'
 	// KCMVideoCodecType_Cinepak: A type that identifies the cinepak format.
-	KCMVideoCodecType_Cinepak KCMVideoCodecType = 0
+	KCMVideoCodecType_Cinepak KCMVideoCodecType = 'c'<<24 | 'v'<<16 | 'i'<<8 | 'd' // 'cvid'
 	// KCMVideoCodecType_DVCNTSC: A type that identifies the DV NTSC format.
-	KCMVideoCodecType_DVCNTSC KCMVideoCodecType = 0
+	KCMVideoCodecType_DVCNTSC KCMVideoCodecType = 'd'<<24 | 'v'<<16 | 'c'<<8 | ' ' // 'dvc '
 	// KCMVideoCodecType_DVCPAL: A type that identifies the DV PAL format.
-	KCMVideoCodecType_DVCPAL KCMVideoCodecType = 0
+	KCMVideoCodecType_DVCPAL KCMVideoCodecType = 'd'<<24 | 'v'<<16 | 'c'<<8 | 'p' // 'dvcp'
 	// KCMVideoCodecType_DVCPROHD1080i50: A type that identifies the Panasonic DVCPro-HD 1080i50 format.
-	KCMVideoCodecType_DVCPROHD1080i50 KCMVideoCodecType = 0
+	KCMVideoCodecType_DVCPROHD1080i50 KCMVideoCodecType = 'd'<<24 | 'v'<<16 | 'h'<<8 | '5' // 'dvh5'
 	// KCMVideoCodecType_DVCPROHD1080i60: A type that identifies the Panasonic DVCPro-HD 1080i60 format.
-	KCMVideoCodecType_DVCPROHD1080i60 KCMVideoCodecType = 0
+	KCMVideoCodecType_DVCPROHD1080i60 KCMVideoCodecType = 'd'<<24 | 'v'<<16 | 'h'<<8 | '6' // 'dvh6'
 	// KCMVideoCodecType_DVCPROHD1080p25: A type that identifies the Panasonic DVCPro-HD 1080p25 format.
-	KCMVideoCodecType_DVCPROHD1080p25 KCMVideoCodecType = 0
+	KCMVideoCodecType_DVCPROHD1080p25 KCMVideoCodecType = 'd'<<24 | 'v'<<16 | 'h'<<8 | '2' // 'dvh2'
 	// KCMVideoCodecType_DVCPROHD1080p30: A type that identifies the Panasonic DVCPro-HD 1080p30 format.
-	KCMVideoCodecType_DVCPROHD1080p30 KCMVideoCodecType = 0
+	KCMVideoCodecType_DVCPROHD1080p30 KCMVideoCodecType = 'd'<<24 | 'v'<<16 | 'h'<<8 | '3' // 'dvh3'
 	// KCMVideoCodecType_DVCPROHD720p50: A type that identifies the Panasonic DVCPro-HD 720p50 format.
-	KCMVideoCodecType_DVCPROHD720p50 KCMVideoCodecType = 0
+	KCMVideoCodecType_DVCPROHD720p50 KCMVideoCodecType = 'd'<<24 | 'v'<<16 | 'h'<<8 | 'q' // 'dvhq'
 	// KCMVideoCodecType_DVCPROHD720p60: A type that identifies the Panasonic DVCPro-HD 720p60 format.
-	KCMVideoCodecType_DVCPROHD720p60 KCMVideoCodecType = 0
+	KCMVideoCodecType_DVCPROHD720p60 KCMVideoCodecType = 'd'<<24 | 'v'<<16 | 'h'<<8 | 'p' // 'dvhp'
 	// KCMVideoCodecType_DVCPro50NTSC: A type that identifies the Panasonic DVCPro-50 NTSC format.
-	KCMVideoCodecType_DVCPro50NTSC KCMVideoCodecType = 0
+	KCMVideoCodecType_DVCPro50NTSC KCMVideoCodecType = 'd'<<24 | 'v'<<16 | '5'<<8 | 'n' // 'dv5n'
 	// KCMVideoCodecType_DVCPro50PAL: A type that identifies the Panasonic DVCPro-50 PAL format.
-	KCMVideoCodecType_DVCPro50PAL KCMVideoCodecType = 0
+	KCMVideoCodecType_DVCPro50PAL KCMVideoCodecType = 'd'<<24 | 'v'<<16 | '5'<<8 | 'p' // 'dv5p'
 	// KCMVideoCodecType_DVCProPAL: A type that identifies the Panasonic DVCPro PAL format.
-	KCMVideoCodecType_DVCProPAL KCMVideoCodecType = 0
+	KCMVideoCodecType_DVCProPAL KCMVideoCodecType = 'd'<<24 | 'v'<<16 | 'p'<<8 | 'p' // 'dvpp'
 	// KCMVideoCodecType_DepthHEVC: A type that identifies the depth HEVC format.
-	KCMVideoCodecType_DepthHEVC KCMVideoCodecType = 0
+	KCMVideoCodecType_DepthHEVC KCMVideoCodecType = 'd'<<24 | 'e'<<16 | 'p'<<8 | 'h' // 'deph'
 	// KCMVideoCodecType_DisparityHEVC: A type that identifies the disparity HEVC format.
-	KCMVideoCodecType_DisparityHEVC KCMVideoCodecType = 0
+	KCMVideoCodecType_DisparityHEVC KCMVideoCodecType = 'd'<<24 | 'i'<<16 | 's'<<8 | 'h' // 'dish'
 	// KCMVideoCodecType_DolbyVisionHEVC: A type that identifies the Dolby Vision HEVC format.
-	KCMVideoCodecType_DolbyVisionHEVC KCMVideoCodecType = 0
+	KCMVideoCodecType_DolbyVisionHEVC KCMVideoCodecType = 'd'<<24 | 'v'<<16 | 'h'<<8 | '1' // 'dvh1'
 	// KCMVideoCodecType_H263: A type that identifies the ITU-T H.263 format.
-	KCMVideoCodecType_H263 KCMVideoCodecType = 0
+	KCMVideoCodecType_H263 KCMVideoCodecType = 'h'<<24 | '2'<<16 | '6'<<8 | '3' // 'h263'
 	// KCMVideoCodecType_H264: A type that identifies the ITU-T H.264 format.
-	KCMVideoCodecType_H264 KCMVideoCodecType = 0
+	KCMVideoCodecType_H264 KCMVideoCodecType = 'a'<<24 | 'v'<<16 | 'c'<<8 | '1' // 'avc1'
 	// KCMVideoCodecType_HEVC: A type that identifies the ITU-T HEVC format.
-	KCMVideoCodecType_HEVC KCMVideoCodecType = 0
+	KCMVideoCodecType_HEVC KCMVideoCodecType = 'h'<<24 | 'v'<<16 | 'c'<<8 | '1' // 'hvc1'
 	// KCMVideoCodecType_HEVCWithAlpha: A type that identifies the HEVC format with alpha support.
-	KCMVideoCodecType_HEVCWithAlpha KCMVideoCodecType = 0
+	KCMVideoCodecType_HEVCWithAlpha KCMVideoCodecType = 'm'<<24 | 'u'<<16 | 'x'<<8 | 'a' // 'muxa'
 	// KCMVideoCodecType_JPEG: A type that identifies the Joint Photographic Experts Group (JPEG) format.
-	KCMVideoCodecType_JPEG KCMVideoCodecType = 0
+	KCMVideoCodecType_JPEG KCMVideoCodecType = 'j'<<24 | 'p'<<16 | 'e'<<8 | 'g' // 'jpeg'
 	// KCMVideoCodecType_JPEG_OpenDML: A type that identifies the JPEG format with Open-DML extensions.
-	KCMVideoCodecType_JPEG_OpenDML KCMVideoCodecType = 0
-	KCMVideoCodecType_JPEG_XL      KCMVideoCodecType = 0
+	KCMVideoCodecType_JPEG_OpenDML KCMVideoCodecType = 'd'<<24 | 'm'<<16 | 'b'<<8 | '1' // 'dmb1'
+	KCMVideoCodecType_JPEG_XL      KCMVideoCodecType = 'j'<<24 | 'x'<<16 | 'l'<<8 | 'c' // 'jxlc'
 	// KCMVideoCodecType_MPEG1Video: A type that identifies the MPEG-1 video format.
-	KCMVideoCodecType_MPEG1Video KCMVideoCodecType = 0
+	KCMVideoCodecType_MPEG1Video KCMVideoCodecType = 'm'<<24 | 'p'<<16 | '1'<<8 | 'v' // 'mp1v'
 	// KCMVideoCodecType_MPEG2Video: A type that identifies the MPEG-2 video format.
-	KCMVideoCodecType_MPEG2Video KCMVideoCodecType = 0
+	KCMVideoCodecType_MPEG2Video KCMVideoCodecType = 'm'<<24 | 'p'<<16 | '2'<<8 | 'v' // 'mp2v'
 	// KCMVideoCodecType_MPEG4Video: A type that identifies the Moving Picture Experts Group (MPEG) MPEG-4 Part 2 video format.
-	KCMVideoCodecType_MPEG4Video KCMVideoCodecType = 0
+	KCMVideoCodecType_MPEG4Video KCMVideoCodecType = 'm'<<24 | 'p'<<16 | '4'<<8 | 'v' // 'mp4v'
 	// KCMVideoCodecType_SorensonVideo: A type that identifies the sorenson video format.
-	KCMVideoCodecType_SorensonVideo KCMVideoCodecType = 0
+	KCMVideoCodecType_SorensonVideo KCMVideoCodecType = 'S'<<24 | 'V'<<16 | 'Q'<<8 | '1' // 'SVQ1'
 	// KCMVideoCodecType_SorensonVideo3: A type that identifies the sorenson 3 video format.
-	KCMVideoCodecType_SorensonVideo3 KCMVideoCodecType = 0
+	KCMVideoCodecType_SorensonVideo3 KCMVideoCodecType = 'S'<<24 | 'V'<<16 | 'Q'<<8 | '3' // 'SVQ3'
 	// KCMVideoCodecType_VP9: A type that identifies the VP9 format.
-	KCMVideoCodecType_VP9 KCMVideoCodecType = 0
+	KCMVideoCodecType_VP9 KCMVideoCodecType = 'v'<<24 | 'p'<<16 | '0'<<8 | '9' // 'vp09'
 )
 
 func (e KCMVideoCodecType) String() string {
 	switch e {
 	case KCMVideoCodecType_422YpCbCr8:
 		return "KCMVideoCodecType_422YpCbCr8"
+	case KCMVideoCodecType_AV1:
+		return "KCMVideoCodecType_AV1"
+	case KCMVideoCodecType_Animation:
+		return "KCMVideoCodecType_Animation"
+	case KCMVideoCodecType_AppleProRes422:
+		return "KCMVideoCodecType_AppleProRes422"
+	case KCMVideoCodecType_AppleProRes422HQ:
+		return "KCMVideoCodecType_AppleProRes422HQ"
+	case KCMVideoCodecType_AppleProRes422LT:
+		return "KCMVideoCodecType_AppleProRes422LT"
+	case KCMVideoCodecType_AppleProRes422Proxy:
+		return "KCMVideoCodecType_AppleProRes422Proxy"
+	case KCMVideoCodecType_AppleProRes4444:
+		return "KCMVideoCodecType_AppleProRes4444"
+	case KCMVideoCodecType_AppleProRes4444XQ:
+		return "KCMVideoCodecType_AppleProRes4444XQ"
+	case KCMVideoCodecType_AppleProResRAW:
+		return "KCMVideoCodecType_AppleProResRAW"
+	case KCMVideoCodecType_AppleProResRAWHQ:
+		return "KCMVideoCodecType_AppleProResRAWHQ"
+	case KCMVideoCodecType_Cinepak:
+		return "KCMVideoCodecType_Cinepak"
+	case KCMVideoCodecType_DVCNTSC:
+		return "KCMVideoCodecType_DVCNTSC"
+	case KCMVideoCodecType_DVCPAL:
+		return "KCMVideoCodecType_DVCPAL"
+	case KCMVideoCodecType_DVCPROHD1080i50:
+		return "KCMVideoCodecType_DVCPROHD1080i50"
+	case KCMVideoCodecType_DVCPROHD1080i60:
+		return "KCMVideoCodecType_DVCPROHD1080i60"
+	case KCMVideoCodecType_DVCPROHD1080p25:
+		return "KCMVideoCodecType_DVCPROHD1080p25"
+	case KCMVideoCodecType_DVCPROHD1080p30:
+		return "KCMVideoCodecType_DVCPROHD1080p30"
+	case KCMVideoCodecType_DVCPROHD720p50:
+		return "KCMVideoCodecType_DVCPROHD720p50"
+	case KCMVideoCodecType_DVCPROHD720p60:
+		return "KCMVideoCodecType_DVCPROHD720p60"
+	case KCMVideoCodecType_DVCPro50NTSC:
+		return "KCMVideoCodecType_DVCPro50NTSC"
+	case KCMVideoCodecType_DVCPro50PAL:
+		return "KCMVideoCodecType_DVCPro50PAL"
+	case KCMVideoCodecType_DVCProPAL:
+		return "KCMVideoCodecType_DVCProPAL"
+	case KCMVideoCodecType_DepthHEVC:
+		return "KCMVideoCodecType_DepthHEVC"
+	case KCMVideoCodecType_DisparityHEVC:
+		return "KCMVideoCodecType_DisparityHEVC"
+	case KCMVideoCodecType_DolbyVisionHEVC:
+		return "KCMVideoCodecType_DolbyVisionHEVC"
+	case KCMVideoCodecType_H263:
+		return "KCMVideoCodecType_H263"
+	case KCMVideoCodecType_H264:
+		return "KCMVideoCodecType_H264"
+	case KCMVideoCodecType_HEVC:
+		return "KCMVideoCodecType_HEVC"
+	case KCMVideoCodecType_HEVCWithAlpha:
+		return "KCMVideoCodecType_HEVCWithAlpha"
+	case KCMVideoCodecType_JPEG:
+		return "KCMVideoCodecType_JPEG"
+	case KCMVideoCodecType_JPEG_OpenDML:
+		return "KCMVideoCodecType_JPEG_OpenDML"
+	case KCMVideoCodecType_JPEG_XL:
+		return "KCMVideoCodecType_JPEG_XL"
+	case KCMVideoCodecType_MPEG1Video:
+		return "KCMVideoCodecType_MPEG1Video"
+	case KCMVideoCodecType_MPEG2Video:
+		return "KCMVideoCodecType_MPEG2Video"
+	case KCMVideoCodecType_MPEG4Video:
+		return "KCMVideoCodecType_MPEG4Video"
+	case KCMVideoCodecType_SorensonVideo:
+		return "KCMVideoCodecType_SorensonVideo"
+	case KCMVideoCodecType_SorensonVideo3:
+		return "KCMVideoCodecType_SorensonVideo3"
+	case KCMVideoCodecType_VP9:
+		return "KCMVideoCodecType_VP9"
 	default:
 		return fmt.Sprintf("KCMVideoCodecType(%d)", e)
 	}
 }
 
-type KcmattachmentmodeShould uint
+type KcmattachmentmodeShould uint32
 
 const (
 	// KCMAttachmentMode_ShouldNotPropagate: A mode that doesn’t propagate attachments to another object.
 	KCMAttachmentMode_ShouldNotPropagate KcmattachmentmodeShould = 0
 	// KCMAttachmentMode_ShouldPropagate: A mode that propagates attachments to another object.
-	KCMAttachmentMode_ShouldPropagate KcmattachmentmodeShould = 0
+	KCMAttachmentMode_ShouldPropagate KcmattachmentmodeShould = 1
 )
 
 func (e KcmattachmentmodeShould) String() string {
 	switch e {
 	case KCMAttachmentMode_ShouldNotPropagate:
 		return "KCMAttachmentMode_ShouldNotPropagate"
+	case KCMAttachmentMode_ShouldPropagate:
+		return "KCMAttachmentMode_ShouldPropagate"
 	default:
 		return fmt.Sprintf("KcmattachmentmodeShould(%d)", e)
 	}
 }
 
-type KcmaudiocodectypeAac uint
+type KcmaudiocodectypeAac uint32
 
 const (
 	// KCMAudioCodecType_AAC_AudibleProtected: Audible’s protected AAC.
-	KCMAudioCodecType_AAC_AudibleProtected KcmaudiocodectypeAac = 0
+	KCMAudioCodecType_AAC_AudibleProtected KcmaudiocodectypeAac = 'a'<<24 | 'a'<<16 | 'a'<<8 | 'c' // 'aaac'
 	// KCMAudioCodecType_AAC_LCProtected: iTMS protected low-complexity AAC.
-	KCMAudioCodecType_AAC_LCProtected KcmaudiocodectypeAac = 0
+	KCMAudioCodecType_AAC_LCProtected KcmaudiocodectypeAac = 'p'<<24 | 'a'<<16 | 'a'<<8 | 'c' // 'paac'
 )
 
 func (e KcmaudiocodectypeAac) String() string {
 	switch e {
 	case KCMAudioCodecType_AAC_AudibleProtected:
 		return "KCMAudioCodecType_AAC_AudibleProtected"
+	case KCMAudioCodecType_AAC_LCProtected:
+		return "KCMAudioCodecType_AAC_LCProtected"
 	default:
 		return fmt.Sprintf("KcmaudiocodectypeAac(%d)", e)
 	}
 }
 
-type KcmbufferqueuetriggerWhen uint
+type KcmbufferqueuetriggerWhen int32
 
 const (
 	// KCMBufferQueueTrigger_WhenBufferCountBecomesGreaterThan: Trigger fires when buffer count becomes > the specified threshold number.
-	KCMBufferQueueTrigger_WhenBufferCountBecomesGreaterThan KcmbufferqueuetriggerWhen = 0
+	KCMBufferQueueTrigger_WhenBufferCountBecomesGreaterThan KcmbufferqueuetriggerWhen = 11
 	// KCMBufferQueueTrigger_WhenBufferCountBecomesLessThan: Trigger fires when buffer count becomes less than the specified threshold number.
-	KCMBufferQueueTrigger_WhenBufferCountBecomesLessThan KcmbufferqueuetriggerWhen = 0
+	KCMBufferQueueTrigger_WhenBufferCountBecomesLessThan KcmbufferqueuetriggerWhen = 10
 	// KCMBufferQueueTrigger_WhenDataBecomesReady: Trigger fires when next dequeueable buffer becomes ready (that is, CMBufferQueueDequeueIfDataReady(_:) will now succeed).
-	KCMBufferQueueTrigger_WhenDataBecomesReady KcmbufferqueuetriggerWhen = 0
+	KCMBufferQueueTrigger_WhenDataBecomesReady KcmbufferqueuetriggerWhen = 7
 	// KCMBufferQueueTrigger_WhenDurationBecomesGreaterThan: Trigger fires when queue duration becomes greater than the specified duration.
-	KCMBufferQueueTrigger_WhenDurationBecomesGreaterThan KcmbufferqueuetriggerWhen = 0
+	KCMBufferQueueTrigger_WhenDurationBecomesGreaterThan KcmbufferqueuetriggerWhen = 3
 	// KCMBufferQueueTrigger_WhenDurationBecomesGreaterThanOrEqualTo: Trigger fires when queue duration becomes greater than or equal to the specified duration.
-	KCMBufferQueueTrigger_WhenDurationBecomesGreaterThanOrEqualTo                                 KcmbufferqueuetriggerWhen = 0
-	KCMBufferQueueTrigger_WhenDurationBecomesGreaterThanOrEqualToAndBufferCountBecomesGreaterThan KcmbufferqueuetriggerWhen = 0
+	KCMBufferQueueTrigger_WhenDurationBecomesGreaterThanOrEqualTo                                 KcmbufferqueuetriggerWhen = 4
+	KCMBufferQueueTrigger_WhenDurationBecomesGreaterThanOrEqualToAndBufferCountBecomesGreaterThan KcmbufferqueuetriggerWhen = 12
 	// KCMBufferQueueTrigger_WhenDurationBecomesLessThan: Trigger fires when queue duration becomes less than the specified duration.
-	KCMBufferQueueTrigger_WhenDurationBecomesLessThan KcmbufferqueuetriggerWhen = 0
+	KCMBufferQueueTrigger_WhenDurationBecomesLessThan KcmbufferqueuetriggerWhen = 1
 	// KCMBufferQueueTrigger_WhenDurationBecomesLessThanOrEqualTo: Trigger fires when queue duration becomes less than or equal to the specified duration.
-	KCMBufferQueueTrigger_WhenDurationBecomesLessThanOrEqualTo KcmbufferqueuetriggerWhen = 0
+	KCMBufferQueueTrigger_WhenDurationBecomesLessThanOrEqualTo KcmbufferqueuetriggerWhen = 2
 	// KCMBufferQueueTrigger_WhenEndOfDataReached: Trigger fires when CMBufferQueueIsAtEndOfData’s condition becomes true.
-	KCMBufferQueueTrigger_WhenEndOfDataReached KcmbufferqueuetriggerWhen = 0
+	KCMBufferQueueTrigger_WhenEndOfDataReached KcmbufferqueuetriggerWhen = 8
 	// KCMBufferQueueTrigger_WhenMaxPresentationTimeStampChanges: Trigger fires when the maximum presentation timestamp changes (triggerDuration is ignored).
-	KCMBufferQueueTrigger_WhenMaxPresentationTimeStampChanges KcmbufferqueuetriggerWhen = 0
+	KCMBufferQueueTrigger_WhenMaxPresentationTimeStampChanges KcmbufferqueuetriggerWhen = 6
 	// KCMBufferQueueTrigger_WhenMinPresentationTimeStampChanges: Trigger fires when the minimum presentation timestamp changes (triggerDuration is ignored).
-	KCMBufferQueueTrigger_WhenMinPresentationTimeStampChanges KcmbufferqueuetriggerWhen = 0
+	KCMBufferQueueTrigger_WhenMinPresentationTimeStampChanges KcmbufferqueuetriggerWhen = 5
 	// KCMBufferQueueTrigger_WhenReset: Trigger fires when CMBufferQueueReset called.
-	KCMBufferQueueTrigger_WhenReset KcmbufferqueuetriggerWhen = 0
+	KCMBufferQueueTrigger_WhenReset KcmbufferqueuetriggerWhen = 9
 )
 
 func (e KcmbufferqueuetriggerWhen) String() string {
 	switch e {
 	case KCMBufferQueueTrigger_WhenBufferCountBecomesGreaterThan:
 		return "KCMBufferQueueTrigger_WhenBufferCountBecomesGreaterThan"
+	case KCMBufferQueueTrigger_WhenBufferCountBecomesLessThan:
+		return "KCMBufferQueueTrigger_WhenBufferCountBecomesLessThan"
+	case KCMBufferQueueTrigger_WhenDataBecomesReady:
+		return "KCMBufferQueueTrigger_WhenDataBecomesReady"
+	case KCMBufferQueueTrigger_WhenDurationBecomesGreaterThan:
+		return "KCMBufferQueueTrigger_WhenDurationBecomesGreaterThan"
+	case KCMBufferQueueTrigger_WhenDurationBecomesGreaterThanOrEqualTo:
+		return "KCMBufferQueueTrigger_WhenDurationBecomesGreaterThanOrEqualTo"
+	case KCMBufferQueueTrigger_WhenDurationBecomesGreaterThanOrEqualToAndBufferCountBecomesGreaterThan:
+		return "KCMBufferQueueTrigger_WhenDurationBecomesGreaterThanOrEqualToAndBufferCountBecomesGreaterThan"
+	case KCMBufferQueueTrigger_WhenDurationBecomesLessThan:
+		return "KCMBufferQueueTrigger_WhenDurationBecomesLessThan"
+	case KCMBufferQueueTrigger_WhenDurationBecomesLessThanOrEqualTo:
+		return "KCMBufferQueueTrigger_WhenDurationBecomesLessThanOrEqualTo"
+	case KCMBufferQueueTrigger_WhenEndOfDataReached:
+		return "KCMBufferQueueTrigger_WhenEndOfDataReached"
+	case KCMBufferQueueTrigger_WhenMaxPresentationTimeStampChanges:
+		return "KCMBufferQueueTrigger_WhenMaxPresentationTimeStampChanges"
+	case KCMBufferQueueTrigger_WhenMinPresentationTimeStampChanges:
+		return "KCMBufferQueueTrigger_WhenMinPresentationTimeStampChanges"
+	case KCMBufferQueueTrigger_WhenReset:
+		return "KCMBufferQueueTrigger_WhenReset"
 	default:
 		return fmt.Sprintf("KcmbufferqueuetriggerWhen(%d)", e)
 	}
 }
 
-type KcmsamplebufferflagAudiobufferlist uint
+type KcmmediatypeAuxiliarypicture uint32
+
+const (
+	KCMMediaType_AuxiliaryPicture KcmmediatypeAuxiliarypicture = 'a'<<24 | 'u'<<16 | 'x'<<8 | 'v' // 'auxv'
+)
+
+func (e KcmmediatypeAuxiliarypicture) String() string {
+	switch e {
+	case KCMMediaType_AuxiliaryPicture:
+		return "KCMMediaType_AuxiliaryPicture"
+	default:
+		return fmt.Sprintf("KcmmediatypeAuxiliarypicture(%d)", e)
+	}
+}
+
+type KcmmediatypeVideo uint32
+
+const (
+	// KCMMediaType_Audio: Audio media.
+	KCMMediaType_Audio KcmmediatypeVideo = 's'<<24 | 'o'<<16 | 'u'<<8 | 'n' // 'soun'
+	// KCMMediaType_ClosedCaption: Closed-caption media.
+	KCMMediaType_ClosedCaption KcmmediatypeVideo = 'c'<<24 | 'l'<<16 | 'c'<<8 | 'p' // 'clcp'
+	// KCMMediaType_Metadata: Meta data.
+	KCMMediaType_Metadata KcmmediatypeVideo = 'm'<<24 | 'e'<<16 | 't'<<8 | 'a' // 'meta'
+	// KCMMediaType_Muxed: Muxed media.
+	KCMMediaType_Muxed KcmmediatypeVideo = 'm'<<24 | 'u'<<16 | 'x'<<8 | 'x' // 'muxx'
+	// KCMMediaType_Subtitle: Subtitle media.
+	KCMMediaType_Subtitle KcmmediatypeVideo = 's'<<24 | 'b'<<16 | 't'<<8 | 'l' // 'sbtl'
+	// KCMMediaType_TaggedBufferGroup: Media containing a tagged buffer group.
+	KCMMediaType_TaggedBufferGroup KcmmediatypeVideo = 't'<<24 | 'b'<<16 | 'g'<<8 | 'r' // 'tbgr'
+	// KCMMediaType_Text: Text media.
+	KCMMediaType_Text KcmmediatypeVideo = 't'<<24 | 'e'<<16 | 'x'<<8 | 't' // 'text'
+	// KCMMediaType_TimeCode: Time code media.
+	KCMMediaType_TimeCode KcmmediatypeVideo = 't'<<24 | 'm'<<16 | 'c'<<8 | 'd' // 'tmcd'
+	// KCMMediaType_Video: Video media.
+	KCMMediaType_Video KcmmediatypeVideo = 'v'<<24 | 'i'<<16 | 'd'<<8 | 'e' // 'vide'
+)
+
+func (e KcmmediatypeVideo) String() string {
+	switch e {
+	case KCMMediaType_Audio:
+		return "KCMMediaType_Audio"
+	case KCMMediaType_ClosedCaption:
+		return "KCMMediaType_ClosedCaption"
+	case KCMMediaType_Metadata:
+		return "KCMMediaType_Metadata"
+	case KCMMediaType_Muxed:
+		return "KCMMediaType_Muxed"
+	case KCMMediaType_Subtitle:
+		return "KCMMediaType_Subtitle"
+	case KCMMediaType_TaggedBufferGroup:
+		return "KCMMediaType_TaggedBufferGroup"
+	case KCMMediaType_Text:
+		return "KCMMediaType_Text"
+	case KCMMediaType_TimeCode:
+		return "KCMMediaType_TimeCode"
+	case KCMMediaType_Video:
+		return "KCMMediaType_Video"
+	default:
+		return fmt.Sprintf("KcmmediatypeVideo(%d)", e)
+	}
+}
+
+type KcmsamplebufferflagAudiobufferlist uint32
 
 const (
 	// KCMSampleBufferFlag_AudioBufferList_Assure16ByteAlignment: Indicates that memory involved in audio buffer lists is 16-byte aligned.
-	KCMSampleBufferFlag_AudioBufferList_Assure16ByteAlignment KcmsamplebufferflagAudiobufferlist = 0
+	KCMSampleBufferFlag_AudioBufferList_Assure16ByteAlignment KcmsamplebufferflagAudiobufferlist = 1
 )
 
 func (e KcmsamplebufferflagAudiobufferlist) String() string {

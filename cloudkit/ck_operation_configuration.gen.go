@@ -118,8 +118,8 @@ type ICKOperationConfiguration interface {
 	IsLongLived() bool
 	SetLongLived(value bool)
 	// The priority that the system uses when it allocates resources to the operations that use this configuration.
-	QualityOfService() foundation.NSQualityOfService
-	SetQualityOfService(value foundation.NSQualityOfService)
+	QualityOfService() foundation.QualityOfService
+	SetQualityOfService(value foundation.QualityOfService)
 	// The maximum amount of time that a request can take.
 	TimeoutIntervalForRequest() foundation.NSTimeInterval
 	SetTimeoutIntervalForRequest(value foundation.NSTimeInterval)
@@ -191,11 +191,11 @@ func (c CKOperationConfiguration) SetLongLived(value bool) {
 // operations that use this configuration.
 //
 // See: https://developer.apple.com/documentation/CloudKit/CKOperation/Configuration-swift.class/qualityOfService
-func (c CKOperationConfiguration) QualityOfService() foundation.NSQualityOfService {
+func (c CKOperationConfiguration) QualityOfService() foundation.QualityOfService {
 	rv := objc.Send[foundation.NSQualityOfService](c.ID, objc.Sel("qualityOfService"))
-	return foundation.NSQualityOfService(rv)
+	return foundation.QualityOfService(rv)
 }
-func (c CKOperationConfiguration) SetQualityOfService(value foundation.NSQualityOfService) {
+func (c CKOperationConfiguration) SetQualityOfService(value foundation.QualityOfService) {
 	objc.Send[struct{}](c.ID, objc.Sel("setQualityOfService:"), value)
 }
 

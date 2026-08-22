@@ -105,7 +105,7 @@ func NewVolumeIdentifierWithCoder(coder foundation.INSCoder) FSVolumeIdentifier 
 //
 // uuid: The UUID to use for this identifier.
 //
-// See: https://developer.apple.com/documentation/FSKit/FSEntityIdentifier/init(uuid:)-9e20k
+// See: https://developer.apple.com/documentation/FSKit/FSEntityIdentifier/init(uuid:)
 func NewVolumeIdentifierWithUUID(uuid foundation.NSUUID) FSVolumeIdentifier {
 	instance := getFSVolumeIdentifierClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithUUID:"), uuid)
@@ -118,7 +118,7 @@ func NewVolumeIdentifierWithUUID(uuid foundation.NSUUID) FSVolumeIdentifier {
 //
 // qualifierData: The data to distinguish entities that otherwise share the same UUID.
 //
-// See: https://developer.apple.com/documentation/FSKit/FSEntityIdentifier/init(uuid:data:)-8dixs
+// See: https://developer.apple.com/documentation/FSKit/FSEntityIdentifier/init(uuid:data:)
 func NewVolumeIdentifierWithUUIDData(uuid foundation.NSUUID, qualifierData foundation.NSData) FSVolumeIdentifier {
 	instance := getFSVolumeIdentifierClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithUUID:data:"), uuid, qualifierData)
@@ -132,7 +132,7 @@ func NewVolumeIdentifierWithUUIDData(uuid foundation.NSUUID, qualifierData found
 //
 // qualifier: The data to distinguish entities that otherwise share the same UUID.
 //
-// See: https://developer.apple.com/documentation/FSKit/FSEntityIdentifier/init(uuid:qualifier:)-9ty70
+// See: https://developer.apple.com/documentation/FSKit/FSEntityIdentifier/init(uuid:qualifier:)
 func NewVolumeIdentifierWithUUIDQualifier(uuid foundation.NSUUID, qualifier uint64) FSVolumeIdentifier {
 	instance := getFSVolumeIdentifierClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithUUID:qualifier:"), uuid, qualifier)

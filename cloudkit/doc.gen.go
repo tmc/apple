@@ -71,22 +71,6 @@
 //   - [CKSyncEngineFetchChangesScope]: A scope in which the sync engine will fetch changes from the server.
 //   - [CKSyncEngineSendChangesScope]: A scope in which the sync engine will send changes to the server.
 //
-// # Macros
-//
-//   - CKSHARE_REQUEST_ACCESS_INTERFACES_AVAILABILITY
-//   - CK_EXTERN
-//   - CK_EXTERN_HIDDEN
-//   - CK_HIDDEN
-//   - CK_NEWLY_UNAVAILABLE
-//   - CK_SHARE_ACCESS_REQUESTER_AVAILABILITY
-//   - CK_SHARE_BLOCKED_IDENTITY_AVAILABILITY
-//   - CK_SUBCLASSING_DEPRECATED
-//   - CK_SUBCLASSING_EXTERNALLY_RESTRICTED
-//   - CK_SUBCLASSING_RESTRICTED
-//   - CK_SWIFT_AVAILABILITY
-//   - CK_SWIFT_DEPRECATED
-//   - CK_UNAVAILABLE
-//
 // # Enumerations
 //
 //   - [CKRecordZoneEncryptionScope]//
@@ -127,9 +111,11 @@ import (
 	"github.com/ebitengine/purego"
 )
 
-// frameworkPaths lists paths to try when loading the CloudKit library.
-// The framework bundle path is tried first; a /usr/lib dylib fallback covers
-// C-API frameworks that are not in the dyld shared cache as bundles.
+// frameworkPaths lists paths to try when loading the CloudKit library,
+// in order. Frameworks whose symbols live in a known dylib resolve to that
+// dylib alone; the rest try the framework bundle first and then a /usr/lib
+// dylib fallback, which covers C-API frameworks that are not in the dyld
+// shared cache as bundles.
 var frameworkPaths = []string{
 	"/System/Library/Frameworks/CloudKit.framework/CloudKit",
 	"/usr/lib/libCloudKit.dylib",

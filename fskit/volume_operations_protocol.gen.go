@@ -157,7 +157,9 @@ func FSVolumeOperationsObjectFromID(id objc.ID) FSVolumeOperationsObject {
 //
 // See: https://developer.apple.com/documentation/FSKit/FSVolume/Operations/activate(options:replyHandler:)
 func (o FSVolumeOperationsObject) ActivateWithOptionsReplyHandler(options IFSTaskOptions, reply FSItemErrorHandler) {
-	objc.Send[struct{}](o.ID, objc.Sel("activateWithOptions:replyHandler:"), options, reply)
+	_block1, _cleanup1 := NewFSItemErrorBlock(reply)
+	defer _cleanup1()
+	objc.Send[struct{}](o.ID, objc.Sel("activateWithOptions:replyHandler:"), options, objc.ID(_block1))
 }
 
 // Tears down a previously initialized volume instance.
@@ -184,7 +186,9 @@ func (o FSVolumeOperationsObject) ActivateWithOptionsReplyHandler(options IFSTas
 //
 // See: https://developer.apple.com/documentation/FSKit/FSVolume/Operations/deactivate(options:replyHandler:)
 func (o FSVolumeOperationsObject) DeactivateWithOptionsReplyHandler(options FSDeactivateOptions, reply ErrorHandler) {
-	objc.Send[struct{}](o.ID, objc.Sel("deactivateWithOptions:replyHandler:"), options, reply)
+	_block1, _cleanup1 := NewErrorBlock(reply)
+	defer _cleanup1()
+	objc.Send[struct{}](o.ID, objc.Sel("deactivateWithOptions:replyHandler:"), options, objc.ID(_block1))
 }
 
 // Mounts this volume, using the specified options.
@@ -205,7 +209,9 @@ func (o FSVolumeOperationsObject) DeactivateWithOptionsReplyHandler(options FSDe
 //
 // See: https://developer.apple.com/documentation/FSKit/FSVolume/Operations/mount(options:replyHandler:)
 func (o FSVolumeOperationsObject) MountWithOptionsReplyHandler(options IFSTaskOptions, reply ErrorHandler) {
-	objc.Send[struct{}](o.ID, objc.Sel("mountWithOptions:replyHandler:"), options, reply)
+	_block1, _cleanup1 := NewErrorBlock(reply)
+	defer _cleanup1()
+	objc.Send[struct{}](o.ID, objc.Sel("mountWithOptions:replyHandler:"), options, objc.ID(_block1))
 }
 
 // Unmounts this volume.
@@ -221,7 +227,9 @@ func (o FSVolumeOperationsObject) MountWithOptionsReplyHandler(options IFSTaskOp
 //
 // See: https://developer.apple.com/documentation/FSKit/FSVolume/Operations/unmount(replyHandler:)
 func (o FSVolumeOperationsObject) UnmountWithReplyHandler(reply VoidHandler) {
-	objc.Send[struct{}](o.ID, objc.Sel("unmountWithReplyHandler:"), reply)
+	_block0, _cleanup0 := NewVoidBlock(reply)
+	defer _cleanup0()
+	objc.Send[struct{}](o.ID, objc.Sel("unmountWithReplyHandler:"), objc.ID(_block0))
 }
 
 // Creates a new file or directory item.
@@ -252,7 +260,9 @@ func (o FSVolumeOperationsObject) UnmountWithReplyHandler(reply VoidHandler) {
 //
 // [NSPOSIXErrorDomain]: https://developer.apple.com/documentation/Foundation/NSPOSIXErrorDomain
 func (o FSVolumeOperationsObject) CreateItemNamedTypeInDirectoryAttributesReplyHandler(name IFSFileName, type_ FSItemType, directory IFSItem, newAttributes IFSItemSetAttributesRequest, reply FSItemFSFileNameErrorHandler) {
-	objc.Send[struct{}](o.ID, objc.Sel("createItemNamed:type:inDirectory:attributes:replyHandler:"), name, type_, directory, newAttributes, reply)
+	_block4, _cleanup4 := NewFSItemFSFileNameErrorBlock(reply)
+	defer _cleanup4()
+	objc.Send[struct{}](o.ID, objc.Sel("createItemNamed:type:inDirectory:attributes:replyHandler:"), name, type_, directory, newAttributes, objc.ID(_block4))
 }
 
 // Looks up an item within a directory.
@@ -278,7 +288,9 @@ func (o FSVolumeOperationsObject) CreateItemNamedTypeInDirectoryAttributesReplyH
 //
 // [NSPOSIXErrorDomain]: https://developer.apple.com/documentation/Foundation/NSPOSIXErrorDomain
 func (o FSVolumeOperationsObject) LookupItemNamedInDirectoryReplyHandler(name IFSFileName, directory IFSItem, reply FSItemFSFileNameErrorHandler) {
-	objc.Send[struct{}](o.ID, objc.Sel("lookupItemNamed:inDirectory:replyHandler:"), name, directory, reply)
+	_block2, _cleanup2 := NewFSItemFSFileNameErrorBlock(reply)
+	defer _cleanup2()
+	objc.Send[struct{}](o.ID, objc.Sel("lookupItemNamed:inDirectory:replyHandler:"), name, directory, objc.ID(_block2))
 }
 
 // Removes an existing item from a given directory.
@@ -302,7 +314,9 @@ func (o FSVolumeOperationsObject) LookupItemNamedInDirectoryReplyHandler(name IF
 //
 // See: https://developer.apple.com/documentation/FSKit/FSVolume/Operations/removeItem(_:named:fromDirectory:replyHandler:)
 func (o FSVolumeOperationsObject) RemoveItemNamedFromDirectoryReplyHandler(item IFSItem, name IFSFileName, directory IFSItem, reply ErrorHandler) {
-	objc.Send[struct{}](o.ID, objc.Sel("removeItem:named:fromDirectory:replyHandler:"), item, name, directory, reply)
+	_block3, _cleanup3 := NewErrorBlock(reply)
+	defer _cleanup3()
+	objc.Send[struct{}](o.ID, objc.Sel("removeItem:named:fromDirectory:replyHandler:"), item, name, directory, objc.ID(_block3))
 }
 
 // Renames an item from one path in the file system to another.
@@ -353,7 +367,9 @@ func (o FSVolumeOperationsObject) RemoveItemNamedFromDirectoryReplyHandler(item 
 //
 // [NSPOSIXErrorDomain]: https://developer.apple.com/documentation/Foundation/NSPOSIXErrorDomain
 func (o FSVolumeOperationsObject) RenameItemInDirectoryNamedToNewNameInDirectoryOverItemReplyHandler(item IFSItem, sourceDirectory IFSItem, sourceName IFSFileName, destinationName IFSFileName, destinationDirectory IFSItem, overItem IFSItem, reply FSFileNameErrorHandler) {
-	objc.Send[struct{}](o.ID, objc.Sel("renameItem:inDirectory:named:toNewName:inDirectory:overItem:replyHandler:"), item, sourceDirectory, sourceName, destinationName, destinationDirectory, overItem, reply)
+	_block6, _cleanup6 := NewFSFileNameErrorBlock(reply)
+	defer _cleanup6()
+	objc.Send[struct{}](o.ID, objc.Sel("renameItem:inDirectory:named:toNewName:inDirectory:overItem:replyHandler:"), item, sourceDirectory, sourceName, destinationName, destinationDirectory, overItem, objc.ID(_block6))
 }
 
 // Reclaims an item, releasing any resources allocated for the item.
@@ -373,7 +389,9 @@ func (o FSVolumeOperationsObject) RenameItemInDirectoryNamedToNewNameInDirectory
 //
 // See: https://developer.apple.com/documentation/FSKit/FSVolume/Operations/reclaimItem(_:replyHandler:)
 func (o FSVolumeOperationsObject) ReclaimItemReplyHandler(item IFSItem, reply ErrorHandler) {
-	objc.Send[struct{}](o.ID, objc.Sel("reclaimItem:replyHandler:"), item, reply)
+	_block1, _cleanup1 := NewErrorBlock(reply)
+	defer _cleanup1()
+	objc.Send[struct{}](o.ID, objc.Sel("reclaimItem:replyHandler:"), item, objc.ID(_block1))
 }
 
 // Creates a new hard link.
@@ -406,7 +424,9 @@ func (o FSVolumeOperationsObject) ReclaimItemReplyHandler(item IFSItem, reply Er
 //
 // [NSPOSIXErrorDomain]: https://developer.apple.com/documentation/Foundation/NSPOSIXErrorDomain
 func (o FSVolumeOperationsObject) CreateLinkToItemNamedInDirectoryReplyHandler(item IFSItem, name IFSFileName, directory IFSItem, reply FSFileNameErrorHandler) {
-	objc.Send[struct{}](o.ID, objc.Sel("createLinkToItem:named:inDirectory:replyHandler:"), item, name, directory, reply)
+	_block3, _cleanup3 := NewFSFileNameErrorBlock(reply)
+	defer _cleanup3()
+	objc.Send[struct{}](o.ID, objc.Sel("createLinkToItem:named:inDirectory:replyHandler:"), item, name, directory, objc.ID(_block3))
 }
 
 // Creates a new symbolic link.
@@ -435,7 +455,9 @@ func (o FSVolumeOperationsObject) CreateLinkToItemNamedInDirectoryReplyHandler(i
 //
 // [NSPOSIXErrorDomain]: https://developer.apple.com/documentation/Foundation/NSPOSIXErrorDomain
 func (o FSVolumeOperationsObject) CreateSymbolicLinkNamedInDirectoryAttributesLinkContentsReplyHandler(name IFSFileName, directory IFSItem, newAttributes IFSItemSetAttributesRequest, contents IFSFileName, reply FSItemFSFileNameErrorHandler) {
-	objc.Send[struct{}](o.ID, objc.Sel("createSymbolicLinkNamed:inDirectory:attributes:linkContents:replyHandler:"), name, directory, newAttributes, contents, reply)
+	_block4, _cleanup4 := NewFSItemFSFileNameErrorBlock(reply)
+	defer _cleanup4()
+	objc.Send[struct{}](o.ID, objc.Sel("createSymbolicLinkNamed:inDirectory:attributes:linkContents:replyHandler:"), name, directory, newAttributes, contents, objc.ID(_block4))
 }
 
 // Reads a symbolic link.
@@ -451,7 +473,9 @@ func (o FSVolumeOperationsObject) CreateSymbolicLinkNamedInDirectoryAttributesLi
 //
 // See: https://developer.apple.com/documentation/FSKit/FSVolume/Operations/readSymbolicLink(_:replyHandler:)
 func (o FSVolumeOperationsObject) ReadSymbolicLinkReplyHandler(item IFSItem, reply FSFileNameErrorHandler) {
-	objc.Send[struct{}](o.ID, objc.Sel("readSymbolicLink:replyHandler:"), item, reply)
+	_block1, _cleanup1 := NewFSFileNameErrorBlock(reply)
+	defer _cleanup1()
+	objc.Send[struct{}](o.ID, objc.Sel("readSymbolicLink:replyHandler:"), item, objc.ID(_block1))
 }
 
 // Fetches attributes for the given item.
@@ -479,7 +503,9 @@ func (o FSVolumeOperationsObject) ReadSymbolicLinkReplyHandler(item IFSItem, rep
 //
 // See: https://developer.apple.com/documentation/FSKit/FSVolume/Operations/getAttributes(_:of:replyHandler:)
 func (o FSVolumeOperationsObject) GetAttributesOfItemReplyHandler(desiredAttributes IFSItemGetAttributesRequest, item IFSItem, reply FSItemAttributesErrorHandler) {
-	objc.Send[struct{}](o.ID, objc.Sel("getAttributes:ofItem:replyHandler:"), desiredAttributes, item, reply)
+	_block2, _cleanup2 := NewFSItemAttributesErrorBlock(reply)
+	defer _cleanup2()
+	objc.Send[struct{}](o.ID, objc.Sel("getAttributes:ofItem:replyHandler:"), desiredAttributes, item, objc.ID(_block2))
 }
 
 // Sets the given attributes on an item.
@@ -517,7 +543,9 @@ func (o FSVolumeOperationsObject) GetAttributesOfItemReplyHandler(desiredAttribu
 //
 // See: https://developer.apple.com/documentation/FSKit/FSVolume/Operations/setAttributes(_:on:replyHandler:)
 func (o FSVolumeOperationsObject) SetAttributesOnItemReplyHandler(newAttributes IFSItemSetAttributesRequest, item IFSItem, reply FSItemAttributesErrorHandler) {
-	objc.Send[struct{}](o.ID, objc.Sel("setAttributes:onItem:replyHandler:"), newAttributes, item, reply)
+	_block2, _cleanup2 := NewFSItemAttributesErrorBlock(reply)
+	defer _cleanup2()
+	objc.Send[struct{}](o.ID, objc.Sel("setAttributes:onItem:replyHandler:"), newAttributes, item, objc.ID(_block2))
 }
 
 // Enumerates the contents of the given directory.
@@ -581,7 +609,9 @@ func (o FSVolumeOperationsObject) SetAttributesOnItemReplyHandler(newAttributes 
 // [initial]: https://developer.apple.com/documentation/FSKit/FSDirectoryVerifier/initial
 // [initial]: https://developer.apple.com/documentation/FSKit/FSDirectoryVerifier/initial
 func (o FSVolumeOperationsObject) EnumerateDirectoryStartingAtCookieVerifierProvidingAttributesUsingPackerReplyHandler(directory IFSItem, cookie FSDirectoryCookie, verifier FSDirectoryVerifier, attributes IFSItemGetAttributesRequest, packer IFSDirectoryEntryPacker, reply FSDirectoryVerifierErrorHandler) {
-	objc.Send[struct{}](o.ID, objc.Sel("enumerateDirectory:startingAtCookie:verifier:providingAttributes:usingPacker:replyHandler:"), directory, cookie, verifier, attributes, packer, reply)
+	_block5, _cleanup5 := NewFSDirectoryVerifierErrorBlock(reply)
+	defer _cleanup5()
+	objc.Send[struct{}](o.ID, objc.Sel("enumerateDirectory:startingAtCookie:verifier:providingAttributes:usingPacker:replyHandler:"), directory, cookie, verifier, attributes, packer, objc.ID(_block5))
 }
 
 // Synchronizes the volume with its underlying resource.
@@ -601,7 +631,9 @@ func (o FSVolumeOperationsObject) EnumerateDirectoryStartingAtCookieVerifierProv
 //
 // See: https://developer.apple.com/documentation/FSKit/FSVolume/Operations/synchronize(flags:replyHandler:)
 func (o FSVolumeOperationsObject) SynchronizeWithFlagsReplyHandler(flags FSSyncFlags, reply ErrorHandler) {
-	objc.Send[struct{}](o.ID, objc.Sel("synchronizeWithFlags:replyHandler:"), flags, reply)
+	_block1, _cleanup1 := NewErrorBlock(reply)
+	defer _cleanup1()
+	objc.Send[struct{}](o.ID, objc.Sel("synchronizeWithFlags:replyHandler:"), flags, objc.ID(_block1))
 }
 
 // A property that provides the supported capabilities of the volume.
@@ -643,10 +675,10 @@ func (o FSVolumeOperationsObject) SetRequestedMountOptions(value FSMountOptions)
 //
 // # Discussion
 //
-// functionality refers to a file system’s ability to support an open file
-// being fully unlinked from the file system namespace. If a file system
-// doesn’t support this functionality, FSKit can emulate it instead; this is
-// called “open-unlink emulation”.
+// Open-unlink functionality refers to a file system’s ability to support an
+// open file being fully unlinked from the file system namespace. If a file
+// system doesn’t support this functionality, FSKit can emulate it instead;
+// this is called “open-unlink emulation”.
 //
 // Implement this property to return `true` (Swift) or [YES] (Objective-C) to
 // allow FSKit to perform open-unlink emulation. If you don’t implement this

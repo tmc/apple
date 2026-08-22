@@ -7,10 +7,10 @@ import (
 	"unsafe"
 
 	"github.com/ebitengine/purego"
+	"github.com/tmc/apple/coreaudiotypes"
 	"github.com/tmc/apple/corefoundation"
 	"github.com/tmc/apple/dispatch"
 	"github.com/tmc/apple/objc"
-	"github.com/tmc/apple/objectivec"
 )
 
 type unavailableSymbolError struct {
@@ -123,10 +123,10 @@ func AudioConvertNanosToHostTime(inNanos uint64) uint64 {
 	return result
 }
 
-var _audioDeviceAddIOProc func(inDevice uint32, inProc AudioDeviceIOProc, inClientData unsafe.Pointer) int32
+var _audioDeviceAddIOProc func(inDevice AudioDeviceID, inProc AudioDeviceIOProc, inClientData unsafe.Pointer) int32
 var _audioDeviceAddIOProcErr error
 
-func tryAudioDeviceAddIOProc(inDevice uint32, inProc AudioDeviceIOProc, inClientData unsafe.Pointer) (int32, error) {
+func tryAudioDeviceAddIOProc(inDevice AudioDeviceID, inProc AudioDeviceIOProc, inClientData unsafe.Pointer) (int32, error) {
 	if _audioDeviceAddIOProc == nil {
 		return 0, symbolCallError("AudioDeviceAddIOProc", "10.0", _audioDeviceAddIOProcErr)
 	}
@@ -138,7 +138,7 @@ func tryAudioDeviceAddIOProc(inDevice uint32, inProc AudioDeviceIOProc, inClient
 // Deprecated: Deprecated since macOS 10.5.
 //
 // See: https://developer.apple.com/documentation/CoreAudio/AudioDeviceAddIOProc
-func AudioDeviceAddIOProc(inDevice uint32, inProc AudioDeviceIOProc, inClientData unsafe.Pointer) int32 {
+func AudioDeviceAddIOProc(inDevice AudioDeviceID, inProc AudioDeviceIOProc, inClientData unsafe.Pointer) int32 {
 	result, callErr := tryAudioDeviceAddIOProc(inDevice, inProc, inClientData)
 	if callErr != nil {
 		panic(callErr)
@@ -146,10 +146,10 @@ func AudioDeviceAddIOProc(inDevice uint32, inProc AudioDeviceIOProc, inClientDat
 	return result
 }
 
-var _audioDeviceAddPropertyListener func(inDevice uint32, inChannel uint32, isInput bool, inPropertyID uint32, inProc AudioDevicePropertyListenerProc, inClientData unsafe.Pointer) int32
+var _audioDeviceAddPropertyListener func(inDevice AudioDeviceID, inChannel uint32, isInput bool, inPropertyID AudioDevicePropertyID, inProc AudioDevicePropertyListenerProc, inClientData unsafe.Pointer) int32
 var _audioDeviceAddPropertyListenerErr error
 
-func tryAudioDeviceAddPropertyListener(inDevice uint32, inChannel uint32, isInput bool, inPropertyID uint32, inProc AudioDevicePropertyListenerProc, inClientData unsafe.Pointer) (int32, error) {
+func tryAudioDeviceAddPropertyListener(inDevice AudioDeviceID, inChannel uint32, isInput bool, inPropertyID AudioDevicePropertyID, inProc AudioDevicePropertyListenerProc, inClientData unsafe.Pointer) (int32, error) {
 	if _audioDeviceAddPropertyListener == nil {
 		return 0, symbolCallError("AudioDeviceAddPropertyListener", "10.0", _audioDeviceAddPropertyListenerErr)
 	}
@@ -161,7 +161,7 @@ func tryAudioDeviceAddPropertyListener(inDevice uint32, inChannel uint32, isInpu
 // Deprecated: Deprecated since macOS 10.6.
 //
 // See: https://developer.apple.com/documentation/CoreAudio/AudioDeviceAddPropertyListener
-func AudioDeviceAddPropertyListener(inDevice uint32, inChannel uint32, isInput bool, inPropertyID uint32, inProc AudioDevicePropertyListenerProc, inClientData unsafe.Pointer) int32 {
+func AudioDeviceAddPropertyListener(inDevice AudioDeviceID, inChannel uint32, isInput bool, inPropertyID AudioDevicePropertyID, inProc AudioDevicePropertyListenerProc, inClientData unsafe.Pointer) int32 {
 	result, callErr := tryAudioDeviceAddPropertyListener(inDevice, inChannel, isInput, inPropertyID, inProc, inClientData)
 	if callErr != nil {
 		panic(callErr)
@@ -169,10 +169,10 @@ func AudioDeviceAddPropertyListener(inDevice uint32, inChannel uint32, isInput b
 	return result
 }
 
-var _audioDeviceCreateIOProcID func(inDevice uint32, inProc AudioDeviceIOProc, inClientData unsafe.Pointer, outIOProcID *AudioDeviceIOProcID) int32
+var _audioDeviceCreateIOProcID func(inDevice AudioObjectID, inProc AudioDeviceIOProc, inClientData unsafe.Pointer, outIOProcID *AudioDeviceIOProcID) int32
 var _audioDeviceCreateIOProcIDErr error
 
-func tryAudioDeviceCreateIOProcID(inDevice uint32, inProc AudioDeviceIOProc, inClientData unsafe.Pointer, outIOProcID *AudioDeviceIOProcID) (int32, error) {
+func tryAudioDeviceCreateIOProcID(inDevice AudioObjectID, inProc AudioDeviceIOProc, inClientData unsafe.Pointer, outIOProcID *AudioDeviceIOProcID) (int32, error) {
 	if _audioDeviceCreateIOProcID == nil {
 		return 0, symbolCallError("AudioDeviceCreateIOProcID", "10.5", _audioDeviceCreateIOProcIDErr)
 	}
@@ -182,7 +182,7 @@ func tryAudioDeviceCreateIOProcID(inDevice uint32, inProc AudioDeviceIOProc, inC
 // AudioDeviceCreateIOProcID.
 //
 // See: https://developer.apple.com/documentation/CoreAudio/AudioDeviceCreateIOProcID(_:_:_:_:)
-func AudioDeviceCreateIOProcID(inDevice uint32, inProc AudioDeviceIOProc, inClientData unsafe.Pointer, outIOProcID *AudioDeviceIOProcID) int32 {
+func AudioDeviceCreateIOProcID(inDevice AudioObjectID, inProc AudioDeviceIOProc, inClientData unsafe.Pointer, outIOProcID *AudioDeviceIOProcID) int32 {
 	result, callErr := tryAudioDeviceCreateIOProcID(inDevice, inProc, inClientData, outIOProcID)
 	if callErr != nil {
 		panic(callErr)
@@ -190,15 +190,15 @@ func AudioDeviceCreateIOProcID(inDevice uint32, inProc AudioDeviceIOProc, inClie
 	return result
 }
 
-var _audioDeviceCreateIOProcIDWithBlock func(outIOProcID *AudioDeviceIOProcID, inDevice uint32, inDispatchQueue uintptr, inIOBlock unsafe.Pointer) int32
+var _audioDeviceCreateIOProcIDWithBlock func(outIOProcID *AudioDeviceIOProcID, inDevice AudioObjectID, inDispatchQueue uintptr, inIOBlock unsafe.Pointer) int32
 var _audioDeviceCreateIOProcIDWithBlockErr error
 
-func tryAudioDeviceCreateIOProcIDWithBlock(outIOProcID *AudioDeviceIOProcID, inDevice uint32, inDispatchQueue dispatch.Queue, inIOBlock AudioDeviceIOBlock) (int32, error) {
+func tryAudioDeviceCreateIOProcIDWithBlock(outIOProcID *AudioDeviceIOProcID, inDevice AudioObjectID, inDispatchQueue dispatch.Queue, inIOBlock AudioDeviceIOBlock) (int32, error) {
 	if _audioDeviceCreateIOProcIDWithBlock == nil {
 		return 0, symbolCallError("AudioDeviceCreateIOProcIDWithBlock", "10.7", _audioDeviceCreateIOProcIDWithBlockErr)
 	}
-	_block0Value := objc.NewBlock(func(_ objc.Block, blockArg0 objc.ID, blockArg1 objc.ID, blockArg2 objc.ID, blockArg3 objc.ID, blockArg4 objc.ID) {
-		inIOBlock(objectivec.ObjectFromID(blockArg0), objectivec.ObjectFromID(blockArg1), objectivec.ObjectFromID(blockArg2), objectivec.ObjectFromID(blockArg3), objectivec.ObjectFromID(blockArg4))
+	_block0Value := objc.NewBlock(func(_ objc.Block, blockArg0 unsafe.Pointer, blockArg1 unsafe.Pointer, blockArg2 unsafe.Pointer, blockArg3 unsafe.Pointer, blockArg4 unsafe.Pointer) {
+		inIOBlock((*coreaudiotypes.AudioTimeStamp)(blockArg0), (*coreaudiotypes.AudioBufferList)(blockArg1), (*coreaudiotypes.AudioTimeStamp)(blockArg2), (*coreaudiotypes.AudioBufferList)(blockArg3), (*coreaudiotypes.AudioTimeStamp)(blockArg4))
 	})
 	defer _block0Value.Release()
 	_block0 := unsafe.Pointer(_block0Value)
@@ -208,7 +208,7 @@ func tryAudioDeviceCreateIOProcIDWithBlock(outIOProcID *AudioDeviceIOProcID, inD
 // AudioDeviceCreateIOProcIDWithBlock.
 //
 // See: https://developer.apple.com/documentation/CoreAudio/AudioDeviceCreateIOProcIDWithBlock(_:_:_:_:)
-func AudioDeviceCreateIOProcIDWithBlock(outIOProcID *AudioDeviceIOProcID, inDevice uint32, inDispatchQueue dispatch.Queue, inIOBlock AudioDeviceIOBlock) int32 {
+func AudioDeviceCreateIOProcIDWithBlock(outIOProcID *AudioDeviceIOProcID, inDevice AudioObjectID, inDispatchQueue dispatch.Queue, inIOBlock AudioDeviceIOBlock) int32 {
 	result, callErr := tryAudioDeviceCreateIOProcIDWithBlock(outIOProcID, inDevice, inDispatchQueue, inIOBlock)
 	if callErr != nil {
 		panic(callErr)
@@ -216,10 +216,10 @@ func AudioDeviceCreateIOProcIDWithBlock(outIOProcID *AudioDeviceIOProcID, inDevi
 	return result
 }
 
-var _audioDeviceDestroyIOProcID func(inDevice uint32, inIOProcID AudioDeviceIOProcID) int32
+var _audioDeviceDestroyIOProcID func(inDevice AudioObjectID, inIOProcID AudioDeviceIOProcID) int32
 var _audioDeviceDestroyIOProcIDErr error
 
-func tryAudioDeviceDestroyIOProcID(inDevice uint32, inIOProcID AudioDeviceIOProcID) (int32, error) {
+func tryAudioDeviceDestroyIOProcID(inDevice AudioObjectID, inIOProcID AudioDeviceIOProcID) (int32, error) {
 	if _audioDeviceDestroyIOProcID == nil {
 		return 0, symbolCallError("AudioDeviceDestroyIOProcID", "10.5", _audioDeviceDestroyIOProcIDErr)
 	}
@@ -229,7 +229,7 @@ func tryAudioDeviceDestroyIOProcID(inDevice uint32, inIOProcID AudioDeviceIOProc
 // AudioDeviceDestroyIOProcID.
 //
 // See: https://developer.apple.com/documentation/CoreAudio/AudioDeviceDestroyIOProcID(_:_:)
-func AudioDeviceDestroyIOProcID(inDevice uint32, inIOProcID AudioDeviceIOProcID) int32 {
+func AudioDeviceDestroyIOProcID(inDevice AudioObjectID, inIOProcID AudioDeviceIOProcID) int32 {
 	result, callErr := tryAudioDeviceDestroyIOProcID(inDevice, inIOProcID)
 	if callErr != nil {
 		panic(callErr)
@@ -237,10 +237,52 @@ func AudioDeviceDestroyIOProcID(inDevice uint32, inIOProcID AudioDeviceIOProcID)
 	return result
 }
 
-var _audioDeviceGetProperty func(inDevice uint32, inChannel uint32, isInput bool, inPropertyID uint32, ioPropertyDataSize *uint32, outPropertyData unsafe.Pointer) int32
+var _audioDeviceGetCurrentTime func(inDevice AudioObjectID, outTime *coreaudiotypes.AudioTimeStamp) int32
+var _audioDeviceGetCurrentTimeErr error
+
+func tryAudioDeviceGetCurrentTime(inDevice AudioObjectID, outTime *coreaudiotypes.AudioTimeStamp) (int32, error) {
+	if _audioDeviceGetCurrentTime == nil {
+		return 0, symbolCallError("AudioDeviceGetCurrentTime", "10.0", _audioDeviceGetCurrentTimeErr)
+	}
+	return _audioDeviceGetCurrentTime(inDevice, outTime), nil
+}
+
+// AudioDeviceGetCurrentTime.
+//
+// See: https://developer.apple.com/documentation/CoreAudio/AudioDeviceGetCurrentTime(_:_:)
+func AudioDeviceGetCurrentTime(inDevice AudioObjectID, outTime *coreaudiotypes.AudioTimeStamp) int32 {
+	result, callErr := tryAudioDeviceGetCurrentTime(inDevice, outTime)
+	if callErr != nil {
+		panic(callErr)
+	}
+	return result
+}
+
+var _audioDeviceGetNearestStartTime func(inDevice AudioObjectID, ioRequestedStartTime *coreaudiotypes.AudioTimeStamp, inFlags uint32) int32
+var _audioDeviceGetNearestStartTimeErr error
+
+func tryAudioDeviceGetNearestStartTime(inDevice AudioObjectID, ioRequestedStartTime *coreaudiotypes.AudioTimeStamp, inFlags uint32) (int32, error) {
+	if _audioDeviceGetNearestStartTime == nil {
+		return 0, symbolCallError("AudioDeviceGetNearestStartTime", "10.3", _audioDeviceGetNearestStartTimeErr)
+	}
+	return _audioDeviceGetNearestStartTime(inDevice, ioRequestedStartTime, inFlags), nil
+}
+
+// AudioDeviceGetNearestStartTime.
+//
+// See: https://developer.apple.com/documentation/CoreAudio/AudioDeviceGetNearestStartTime(_:_:_:)
+func AudioDeviceGetNearestStartTime(inDevice AudioObjectID, ioRequestedStartTime *coreaudiotypes.AudioTimeStamp, inFlags uint32) int32 {
+	result, callErr := tryAudioDeviceGetNearestStartTime(inDevice, ioRequestedStartTime, inFlags)
+	if callErr != nil {
+		panic(callErr)
+	}
+	return result
+}
+
+var _audioDeviceGetProperty func(inDevice AudioDeviceID, inChannel uint32, isInput bool, inPropertyID AudioDevicePropertyID, ioPropertyDataSize *uint32, outPropertyData unsafe.Pointer) int32
 var _audioDeviceGetPropertyErr error
 
-func tryAudioDeviceGetProperty(inDevice uint32, inChannel uint32, isInput bool, inPropertyID uint32, ioPropertyDataSize *uint32, outPropertyData unsafe.Pointer) (int32, error) {
+func tryAudioDeviceGetProperty(inDevice AudioDeviceID, inChannel uint32, isInput bool, inPropertyID AudioDevicePropertyID, ioPropertyDataSize *uint32, outPropertyData unsafe.Pointer) (int32, error) {
 	if _audioDeviceGetProperty == nil {
 		return 0, symbolCallError("AudioDeviceGetProperty", "10.0", _audioDeviceGetPropertyErr)
 	}
@@ -252,7 +294,7 @@ func tryAudioDeviceGetProperty(inDevice uint32, inChannel uint32, isInput bool, 
 // Deprecated: Deprecated since macOS 10.6.
 //
 // See: https://developer.apple.com/documentation/CoreAudio/AudioDeviceGetProperty
-func AudioDeviceGetProperty(inDevice uint32, inChannel uint32, isInput bool, inPropertyID uint32, ioPropertyDataSize *uint32, outPropertyData unsafe.Pointer) int32 {
+func AudioDeviceGetProperty(inDevice AudioDeviceID, inChannel uint32, isInput bool, inPropertyID AudioDevicePropertyID, ioPropertyDataSize *uint32, outPropertyData unsafe.Pointer) int32 {
 	result, callErr := tryAudioDeviceGetProperty(inDevice, inChannel, isInput, inPropertyID, ioPropertyDataSize, outPropertyData)
 	if callErr != nil {
 		panic(callErr)
@@ -260,10 +302,10 @@ func AudioDeviceGetProperty(inDevice uint32, inChannel uint32, isInput bool, inP
 	return result
 }
 
-var _audioDeviceGetPropertyInfo func(inDevice uint32, inChannel uint32, isInput bool, inPropertyID uint32, outSize *uint32, outWritable *bool) int32
+var _audioDeviceGetPropertyInfo func(inDevice AudioDeviceID, inChannel uint32, isInput bool, inPropertyID AudioDevicePropertyID, outSize *uint32, outWritable *bool) int32
 var _audioDeviceGetPropertyInfoErr error
 
-func tryAudioDeviceGetPropertyInfo(inDevice uint32, inChannel uint32, isInput bool, inPropertyID uint32, outSize *uint32, outWritable *bool) (int32, error) {
+func tryAudioDeviceGetPropertyInfo(inDevice AudioDeviceID, inChannel uint32, isInput bool, inPropertyID AudioDevicePropertyID, outSize *uint32, outWritable *bool) (int32, error) {
 	if _audioDeviceGetPropertyInfo == nil {
 		return 0, symbolCallError("AudioDeviceGetPropertyInfo", "10.0", _audioDeviceGetPropertyInfoErr)
 	}
@@ -275,7 +317,7 @@ func tryAudioDeviceGetPropertyInfo(inDevice uint32, inChannel uint32, isInput bo
 // Deprecated: Deprecated since macOS 10.6.
 //
 // See: https://developer.apple.com/documentation/CoreAudio/AudioDeviceGetPropertyInfo
-func AudioDeviceGetPropertyInfo(inDevice uint32, inChannel uint32, isInput bool, inPropertyID uint32, outSize *uint32, outWritable *bool) int32 {
+func AudioDeviceGetPropertyInfo(inDevice AudioDeviceID, inChannel uint32, isInput bool, inPropertyID AudioDevicePropertyID, outSize *uint32, outWritable *bool) int32 {
 	result, callErr := tryAudioDeviceGetPropertyInfo(inDevice, inChannel, isInput, inPropertyID, outSize, outWritable)
 	if callErr != nil {
 		panic(callErr)
@@ -283,10 +325,33 @@ func AudioDeviceGetPropertyInfo(inDevice uint32, inChannel uint32, isInput bool,
 	return result
 }
 
-var _audioDeviceRemoveIOProc func(inDevice uint32, inProc AudioDeviceIOProc) int32
+var _audioDeviceRead func(inDevice AudioDeviceID, inStartTime *coreaudiotypes.AudioTimeStamp, outData *coreaudiotypes.AudioBufferList) int32
+var _audioDeviceReadErr error
+
+func tryAudioDeviceRead(inDevice AudioDeviceID, inStartTime *coreaudiotypes.AudioTimeStamp, outData *coreaudiotypes.AudioBufferList) (int32, error) {
+	if _audioDeviceRead == nil {
+		return 0, symbolCallError("AudioDeviceRead", "10.1", _audioDeviceReadErr)
+	}
+	return _audioDeviceRead(inDevice, inStartTime, outData), nil
+}
+
+// AudioDeviceRead.
+//
+// Deprecated: Deprecated since macOS 10.5.
+//
+// See: https://developer.apple.com/documentation/CoreAudio/AudioDeviceRead
+func AudioDeviceRead(inDevice AudioDeviceID, inStartTime *coreaudiotypes.AudioTimeStamp, outData *coreaudiotypes.AudioBufferList) int32 {
+	result, callErr := tryAudioDeviceRead(inDevice, inStartTime, outData)
+	if callErr != nil {
+		panic(callErr)
+	}
+	return result
+}
+
+var _audioDeviceRemoveIOProc func(inDevice AudioDeviceID, inProc AudioDeviceIOProc) int32
 var _audioDeviceRemoveIOProcErr error
 
-func tryAudioDeviceRemoveIOProc(inDevice uint32, inProc AudioDeviceIOProc) (int32, error) {
+func tryAudioDeviceRemoveIOProc(inDevice AudioDeviceID, inProc AudioDeviceIOProc) (int32, error) {
 	if _audioDeviceRemoveIOProc == nil {
 		return 0, symbolCallError("AudioDeviceRemoveIOProc", "10.0", _audioDeviceRemoveIOProcErr)
 	}
@@ -298,7 +363,7 @@ func tryAudioDeviceRemoveIOProc(inDevice uint32, inProc AudioDeviceIOProc) (int3
 // Deprecated: Deprecated since macOS 10.5.
 //
 // See: https://developer.apple.com/documentation/CoreAudio/AudioDeviceRemoveIOProc
-func AudioDeviceRemoveIOProc(inDevice uint32, inProc AudioDeviceIOProc) int32 {
+func AudioDeviceRemoveIOProc(inDevice AudioDeviceID, inProc AudioDeviceIOProc) int32 {
 	result, callErr := tryAudioDeviceRemoveIOProc(inDevice, inProc)
 	if callErr != nil {
 		panic(callErr)
@@ -306,10 +371,10 @@ func AudioDeviceRemoveIOProc(inDevice uint32, inProc AudioDeviceIOProc) int32 {
 	return result
 }
 
-var _audioDeviceRemovePropertyListener func(inDevice uint32, inChannel uint32, isInput bool, inPropertyID uint32, inProc AudioDevicePropertyListenerProc) int32
+var _audioDeviceRemovePropertyListener func(inDevice AudioDeviceID, inChannel uint32, isInput bool, inPropertyID AudioDevicePropertyID, inProc AudioDevicePropertyListenerProc) int32
 var _audioDeviceRemovePropertyListenerErr error
 
-func tryAudioDeviceRemovePropertyListener(inDevice uint32, inChannel uint32, isInput bool, inPropertyID uint32, inProc AudioDevicePropertyListenerProc) (int32, error) {
+func tryAudioDeviceRemovePropertyListener(inDevice AudioDeviceID, inChannel uint32, isInput bool, inPropertyID AudioDevicePropertyID, inProc AudioDevicePropertyListenerProc) (int32, error) {
 	if _audioDeviceRemovePropertyListener == nil {
 		return 0, symbolCallError("AudioDeviceRemovePropertyListener", "10.0", _audioDeviceRemovePropertyListenerErr)
 	}
@@ -321,7 +386,7 @@ func tryAudioDeviceRemovePropertyListener(inDevice uint32, inChannel uint32, isI
 // Deprecated: Deprecated since macOS 10.6.
 //
 // See: https://developer.apple.com/documentation/CoreAudio/AudioDeviceRemovePropertyListener
-func AudioDeviceRemovePropertyListener(inDevice uint32, inChannel uint32, isInput bool, inPropertyID uint32, inProc AudioDevicePropertyListenerProc) int32 {
+func AudioDeviceRemovePropertyListener(inDevice AudioDeviceID, inChannel uint32, isInput bool, inPropertyID AudioDevicePropertyID, inProc AudioDevicePropertyListenerProc) int32 {
 	result, callErr := tryAudioDeviceRemovePropertyListener(inDevice, inChannel, isInput, inPropertyID, inProc)
 	if callErr != nil {
 		panic(callErr)
@@ -329,10 +394,33 @@ func AudioDeviceRemovePropertyListener(inDevice uint32, inChannel uint32, isInpu
 	return result
 }
 
-var _audioDeviceStart func(inDevice uint32, inProcID AudioDeviceIOProcID) int32
+var _audioDeviceSetProperty func(inDevice AudioDeviceID, inWhen *coreaudiotypes.AudioTimeStamp, inChannel uint32, isInput bool, inPropertyID AudioDevicePropertyID, inPropertyDataSize uint32, inPropertyData unsafe.Pointer) int32
+var _audioDeviceSetPropertyErr error
+
+func tryAudioDeviceSetProperty(inDevice AudioDeviceID, inWhen *coreaudiotypes.AudioTimeStamp, inChannel uint32, isInput bool, inPropertyID AudioDevicePropertyID, inPropertyDataSize uint32, inPropertyData unsafe.Pointer) (int32, error) {
+	if _audioDeviceSetProperty == nil {
+		return 0, symbolCallError("AudioDeviceSetProperty", "10.0", _audioDeviceSetPropertyErr)
+	}
+	return _audioDeviceSetProperty(inDevice, inWhen, inChannel, isInput, inPropertyID, inPropertyDataSize, inPropertyData), nil
+}
+
+// AudioDeviceSetProperty.
+//
+// Deprecated: Deprecated since macOS 10.6.
+//
+// See: https://developer.apple.com/documentation/CoreAudio/AudioDeviceSetProperty
+func AudioDeviceSetProperty(inDevice AudioDeviceID, inWhen *coreaudiotypes.AudioTimeStamp, inChannel uint32, isInput bool, inPropertyID AudioDevicePropertyID, inPropertyDataSize uint32, inPropertyData unsafe.Pointer) int32 {
+	result, callErr := tryAudioDeviceSetProperty(inDevice, inWhen, inChannel, isInput, inPropertyID, inPropertyDataSize, inPropertyData)
+	if callErr != nil {
+		panic(callErr)
+	}
+	return result
+}
+
+var _audioDeviceStart func(inDevice AudioObjectID, inProcID AudioDeviceIOProcID) int32
 var _audioDeviceStartErr error
 
-func tryAudioDeviceStart(inDevice uint32, inProcID AudioDeviceIOProcID) (int32, error) {
+func tryAudioDeviceStart(inDevice AudioObjectID, inProcID AudioDeviceIOProcID) (int32, error) {
 	if _audioDeviceStart == nil {
 		return 0, symbolCallError("AudioDeviceStart", "10.0", _audioDeviceStartErr)
 	}
@@ -342,7 +430,7 @@ func tryAudioDeviceStart(inDevice uint32, inProcID AudioDeviceIOProcID) (int32, 
 // AudioDeviceStart.
 //
 // See: https://developer.apple.com/documentation/CoreAudio/AudioDeviceStart(_:_:)
-func AudioDeviceStart(inDevice uint32, inProcID AudioDeviceIOProcID) int32 {
+func AudioDeviceStart(inDevice AudioObjectID, inProcID AudioDeviceIOProcID) int32 {
 	result, callErr := tryAudioDeviceStart(inDevice, inProcID)
 	if callErr != nil {
 		panic(callErr)
@@ -350,10 +438,31 @@ func AudioDeviceStart(inDevice uint32, inProcID AudioDeviceIOProcID) int32 {
 	return result
 }
 
-var _audioDeviceStop func(inDevice uint32, inProcID AudioDeviceIOProcID) int32
+var _audioDeviceStartAtTime func(inDevice AudioObjectID, inProcID AudioDeviceIOProcID, ioRequestedStartTime *coreaudiotypes.AudioTimeStamp, inFlags uint32) int32
+var _audioDeviceStartAtTimeErr error
+
+func tryAudioDeviceStartAtTime(inDevice AudioObjectID, inProcID AudioDeviceIOProcID, ioRequestedStartTime *coreaudiotypes.AudioTimeStamp, inFlags uint32) (int32, error) {
+	if _audioDeviceStartAtTime == nil {
+		return 0, symbolCallError("AudioDeviceStartAtTime", "10.3", _audioDeviceStartAtTimeErr)
+	}
+	return _audioDeviceStartAtTime(inDevice, inProcID, ioRequestedStartTime, inFlags), nil
+}
+
+// AudioDeviceStartAtTime.
+//
+// See: https://developer.apple.com/documentation/CoreAudio/AudioDeviceStartAtTime(_:_:_:_:)
+func AudioDeviceStartAtTime(inDevice AudioObjectID, inProcID AudioDeviceIOProcID, ioRequestedStartTime *coreaudiotypes.AudioTimeStamp, inFlags uint32) int32 {
+	result, callErr := tryAudioDeviceStartAtTime(inDevice, inProcID, ioRequestedStartTime, inFlags)
+	if callErr != nil {
+		panic(callErr)
+	}
+	return result
+}
+
+var _audioDeviceStop func(inDevice AudioObjectID, inProcID AudioDeviceIOProcID) int32
 var _audioDeviceStopErr error
 
-func tryAudioDeviceStop(inDevice uint32, inProcID AudioDeviceIOProcID) (int32, error) {
+func tryAudioDeviceStop(inDevice AudioObjectID, inProcID AudioDeviceIOProcID) (int32, error) {
 	if _audioDeviceStop == nil {
 		return 0, symbolCallError("AudioDeviceStop", "10.0", _audioDeviceStopErr)
 	}
@@ -363,7 +472,7 @@ func tryAudioDeviceStop(inDevice uint32, inProcID AudioDeviceIOProcID) (int32, e
 // AudioDeviceStop.
 //
 // See: https://developer.apple.com/documentation/CoreAudio/AudioDeviceStop(_:_:)
-func AudioDeviceStop(inDevice uint32, inProcID AudioDeviceIOProcID) int32 {
+func AudioDeviceStop(inDevice AudioObjectID, inProcID AudioDeviceIOProcID) int32 {
 	result, callErr := tryAudioDeviceStop(inDevice, inProcID)
 	if callErr != nil {
 		panic(callErr)
@@ -371,10 +480,31 @@ func AudioDeviceStop(inDevice uint32, inProcID AudioDeviceIOProcID) int32 {
 	return result
 }
 
-var _audioDriverPlugInClose func(inDevice uint32) int32
+var _audioDeviceTranslateTime func(inDevice AudioObjectID, inTime *coreaudiotypes.AudioTimeStamp, outTime *coreaudiotypes.AudioTimeStamp) int32
+var _audioDeviceTranslateTimeErr error
+
+func tryAudioDeviceTranslateTime(inDevice AudioObjectID, inTime *coreaudiotypes.AudioTimeStamp, outTime *coreaudiotypes.AudioTimeStamp) (int32, error) {
+	if _audioDeviceTranslateTime == nil {
+		return 0, symbolCallError("AudioDeviceTranslateTime", "10.0", _audioDeviceTranslateTimeErr)
+	}
+	return _audioDeviceTranslateTime(inDevice, inTime, outTime), nil
+}
+
+// AudioDeviceTranslateTime.
+//
+// See: https://developer.apple.com/documentation/CoreAudio/AudioDeviceTranslateTime(_:_:_:)
+func AudioDeviceTranslateTime(inDevice AudioObjectID, inTime *coreaudiotypes.AudioTimeStamp, outTime *coreaudiotypes.AudioTimeStamp) int32 {
+	result, callErr := tryAudioDeviceTranslateTime(inDevice, inTime, outTime)
+	if callErr != nil {
+		panic(callErr)
+	}
+	return result
+}
+
+var _audioDriverPlugInClose func(inDevice AudioDeviceID) int32
 var _audioDriverPlugInCloseErr error
 
-func tryAudioDriverPlugInClose(inDevice uint32) (int32, error) {
+func tryAudioDriverPlugInClose(inDevice AudioDeviceID) (int32, error) {
 	if _audioDriverPlugInClose == nil {
 		return 0, symbolCallError("AudioDriverPlugInClose", "", _audioDriverPlugInCloseErr)
 	}
@@ -384,7 +514,7 @@ func tryAudioDriverPlugInClose(inDevice uint32) (int32, error) {
 // AudioDriverPlugInClose.
 //
 // See: https://developer.apple.com/documentation/CoreAudio/AudioDriverPlugInClose
-func AudioDriverPlugInClose(inDevice uint32) int32 {
+func AudioDriverPlugInClose(inDevice AudioDeviceID) int32 {
 	result, callErr := tryAudioDriverPlugInClose(inDevice)
 	if callErr != nil {
 		panic(callErr)
@@ -392,10 +522,10 @@ func AudioDriverPlugInClose(inDevice uint32) int32 {
 	return result
 }
 
-var _audioDriverPlugInDeviceGetProperty func(inDevice uint32, inChannel uint32, isInput bool, inPropertyID uint32, ioPropertyDataSize *uint32, outPropertyData unsafe.Pointer) int32
+var _audioDriverPlugInDeviceGetProperty func(inDevice AudioDeviceID, inChannel uint32, isInput bool, inPropertyID AudioDevicePropertyID, ioPropertyDataSize *uint32, outPropertyData unsafe.Pointer) int32
 var _audioDriverPlugInDeviceGetPropertyErr error
 
-func tryAudioDriverPlugInDeviceGetProperty(inDevice uint32, inChannel uint32, isInput bool, inPropertyID uint32, ioPropertyDataSize *uint32, outPropertyData unsafe.Pointer) (int32, error) {
+func tryAudioDriverPlugInDeviceGetProperty(inDevice AudioDeviceID, inChannel uint32, isInput bool, inPropertyID AudioDevicePropertyID, ioPropertyDataSize *uint32, outPropertyData unsafe.Pointer) (int32, error) {
 	if _audioDriverPlugInDeviceGetProperty == nil {
 		return 0, symbolCallError("AudioDriverPlugInDeviceGetProperty", "", _audioDriverPlugInDeviceGetPropertyErr)
 	}
@@ -405,7 +535,7 @@ func tryAudioDriverPlugInDeviceGetProperty(inDevice uint32, inChannel uint32, is
 // AudioDriverPlugInDeviceGetProperty.
 //
 // See: https://developer.apple.com/documentation/CoreAudio/AudioDriverPlugInDeviceGetProperty
-func AudioDriverPlugInDeviceGetProperty(inDevice uint32, inChannel uint32, isInput bool, inPropertyID uint32, ioPropertyDataSize *uint32, outPropertyData unsafe.Pointer) int32 {
+func AudioDriverPlugInDeviceGetProperty(inDevice AudioDeviceID, inChannel uint32, isInput bool, inPropertyID AudioDevicePropertyID, ioPropertyDataSize *uint32, outPropertyData unsafe.Pointer) int32 {
 	result, callErr := tryAudioDriverPlugInDeviceGetProperty(inDevice, inChannel, isInput, inPropertyID, ioPropertyDataSize, outPropertyData)
 	if callErr != nil {
 		panic(callErr)
@@ -413,10 +543,10 @@ func AudioDriverPlugInDeviceGetProperty(inDevice uint32, inChannel uint32, isInp
 	return result
 }
 
-var _audioDriverPlugInDeviceGetPropertyInfo func(inDevice uint32, inChannel uint32, isInput bool, inPropertyID uint32, outSize *uint32, outWritable *bool) int32
+var _audioDriverPlugInDeviceGetPropertyInfo func(inDevice AudioDeviceID, inChannel uint32, isInput bool, inPropertyID AudioDevicePropertyID, outSize *uint32, outWritable *bool) int32
 var _audioDriverPlugInDeviceGetPropertyInfoErr error
 
-func tryAudioDriverPlugInDeviceGetPropertyInfo(inDevice uint32, inChannel uint32, isInput bool, inPropertyID uint32, outSize *uint32, outWritable *bool) (int32, error) {
+func tryAudioDriverPlugInDeviceGetPropertyInfo(inDevice AudioDeviceID, inChannel uint32, isInput bool, inPropertyID AudioDevicePropertyID, outSize *uint32, outWritable *bool) (int32, error) {
 	if _audioDriverPlugInDeviceGetPropertyInfo == nil {
 		return 0, symbolCallError("AudioDriverPlugInDeviceGetPropertyInfo", "", _audioDriverPlugInDeviceGetPropertyInfoErr)
 	}
@@ -426,8 +556,29 @@ func tryAudioDriverPlugInDeviceGetPropertyInfo(inDevice uint32, inChannel uint32
 // AudioDriverPlugInDeviceGetPropertyInfo.
 //
 // See: https://developer.apple.com/documentation/CoreAudio/AudioDriverPlugInDeviceGetPropertyInfo
-func AudioDriverPlugInDeviceGetPropertyInfo(inDevice uint32, inChannel uint32, isInput bool, inPropertyID uint32, outSize *uint32, outWritable *bool) int32 {
+func AudioDriverPlugInDeviceGetPropertyInfo(inDevice AudioDeviceID, inChannel uint32, isInput bool, inPropertyID AudioDevicePropertyID, outSize *uint32, outWritable *bool) int32 {
 	result, callErr := tryAudioDriverPlugInDeviceGetPropertyInfo(inDevice, inChannel, isInput, inPropertyID, outSize, outWritable)
+	if callErr != nil {
+		panic(callErr)
+	}
+	return result
+}
+
+var _audioDriverPlugInDeviceSetProperty func(inDevice AudioDeviceID, inWhen *coreaudiotypes.AudioTimeStamp, inChannel uint32, isInput bool, inPropertyID AudioDevicePropertyID, inPropertyDataSize uint32, inPropertyData unsafe.Pointer) int32
+var _audioDriverPlugInDeviceSetPropertyErr error
+
+func tryAudioDriverPlugInDeviceSetProperty(inDevice AudioDeviceID, inWhen *coreaudiotypes.AudioTimeStamp, inChannel uint32, isInput bool, inPropertyID AudioDevicePropertyID, inPropertyDataSize uint32, inPropertyData unsafe.Pointer) (int32, error) {
+	if _audioDriverPlugInDeviceSetProperty == nil {
+		return 0, symbolCallError("AudioDriverPlugInDeviceSetProperty", "", _audioDriverPlugInDeviceSetPropertyErr)
+	}
+	return _audioDriverPlugInDeviceSetProperty(inDevice, inWhen, inChannel, isInput, inPropertyID, inPropertyDataSize, inPropertyData), nil
+}
+
+// AudioDriverPlugInDeviceSetProperty.
+//
+// See: https://developer.apple.com/documentation/CoreAudio/AudioDriverPlugInDeviceSetProperty
+func AudioDriverPlugInDeviceSetProperty(inDevice AudioDeviceID, inWhen *coreaudiotypes.AudioTimeStamp, inChannel uint32, isInput bool, inPropertyID AudioDevicePropertyID, inPropertyDataSize uint32, inPropertyData unsafe.Pointer) int32 {
+	result, callErr := tryAudioDriverPlugInDeviceSetProperty(inDevice, inWhen, inChannel, isInput, inPropertyID, inPropertyDataSize, inPropertyData)
 	if callErr != nil {
 		panic(callErr)
 	}
@@ -455,10 +606,10 @@ func AudioDriverPlugInOpen(inHostInfo *AudioDriverPlugInHostInfo) int32 {
 	return result
 }
 
-var _audioDriverPlugInStreamGetProperty func(inDevice uint32, inIOAudioStream uintptr, inChannel uint32, inPropertyID uint32, ioPropertyDataSize *uint32, outPropertyData unsafe.Pointer) int32
+var _audioDriverPlugInStreamGetProperty func(inDevice AudioDeviceID, inIOAudioStream uint32, inChannel uint32, inPropertyID AudioDevicePropertyID, ioPropertyDataSize *uint32, outPropertyData unsafe.Pointer) int32
 var _audioDriverPlugInStreamGetPropertyErr error
 
-func tryAudioDriverPlugInStreamGetProperty(inDevice uint32, inIOAudioStream uintptr, inChannel uint32, inPropertyID uint32, ioPropertyDataSize *uint32, outPropertyData unsafe.Pointer) (int32, error) {
+func tryAudioDriverPlugInStreamGetProperty(inDevice AudioDeviceID, inIOAudioStream uint32, inChannel uint32, inPropertyID AudioDevicePropertyID, ioPropertyDataSize *uint32, outPropertyData unsafe.Pointer) (int32, error) {
 	if _audioDriverPlugInStreamGetProperty == nil {
 		return 0, symbolCallError("AudioDriverPlugInStreamGetProperty", "", _audioDriverPlugInStreamGetPropertyErr)
 	}
@@ -468,7 +619,7 @@ func tryAudioDriverPlugInStreamGetProperty(inDevice uint32, inIOAudioStream uint
 // AudioDriverPlugInStreamGetProperty.
 //
 // See: https://developer.apple.com/documentation/CoreAudio/AudioDriverPlugInStreamGetProperty
-func AudioDriverPlugInStreamGetProperty(inDevice uint32, inIOAudioStream uintptr, inChannel uint32, inPropertyID uint32, ioPropertyDataSize *uint32, outPropertyData unsafe.Pointer) int32 {
+func AudioDriverPlugInStreamGetProperty(inDevice AudioDeviceID, inIOAudioStream uint32, inChannel uint32, inPropertyID AudioDevicePropertyID, ioPropertyDataSize *uint32, outPropertyData unsafe.Pointer) int32 {
 	result, callErr := tryAudioDriverPlugInStreamGetProperty(inDevice, inIOAudioStream, inChannel, inPropertyID, ioPropertyDataSize, outPropertyData)
 	if callErr != nil {
 		panic(callErr)
@@ -476,10 +627,10 @@ func AudioDriverPlugInStreamGetProperty(inDevice uint32, inIOAudioStream uintptr
 	return result
 }
 
-var _audioDriverPlugInStreamGetPropertyInfo func(inDevice uint32, inIOAudioStream uintptr, inChannel uint32, inPropertyID uint32, outSize *uint32, outWritable *bool) int32
+var _audioDriverPlugInStreamGetPropertyInfo func(inDevice AudioDeviceID, inIOAudioStream uint32, inChannel uint32, inPropertyID AudioDevicePropertyID, outSize *uint32, outWritable *bool) int32
 var _audioDriverPlugInStreamGetPropertyInfoErr error
 
-func tryAudioDriverPlugInStreamGetPropertyInfo(inDevice uint32, inIOAudioStream uintptr, inChannel uint32, inPropertyID uint32, outSize *uint32, outWritable *bool) (int32, error) {
+func tryAudioDriverPlugInStreamGetPropertyInfo(inDevice AudioDeviceID, inIOAudioStream uint32, inChannel uint32, inPropertyID AudioDevicePropertyID, outSize *uint32, outWritable *bool) (int32, error) {
 	if _audioDriverPlugInStreamGetPropertyInfo == nil {
 		return 0, symbolCallError("AudioDriverPlugInStreamGetPropertyInfo", "", _audioDriverPlugInStreamGetPropertyInfoErr)
 	}
@@ -489,8 +640,29 @@ func tryAudioDriverPlugInStreamGetPropertyInfo(inDevice uint32, inIOAudioStream 
 // AudioDriverPlugInStreamGetPropertyInfo.
 //
 // See: https://developer.apple.com/documentation/CoreAudio/AudioDriverPlugInStreamGetPropertyInfo
-func AudioDriverPlugInStreamGetPropertyInfo(inDevice uint32, inIOAudioStream uintptr, inChannel uint32, inPropertyID uint32, outSize *uint32, outWritable *bool) int32 {
+func AudioDriverPlugInStreamGetPropertyInfo(inDevice AudioDeviceID, inIOAudioStream uint32, inChannel uint32, inPropertyID AudioDevicePropertyID, outSize *uint32, outWritable *bool) int32 {
 	result, callErr := tryAudioDriverPlugInStreamGetPropertyInfo(inDevice, inIOAudioStream, inChannel, inPropertyID, outSize, outWritable)
+	if callErr != nil {
+		panic(callErr)
+	}
+	return result
+}
+
+var _audioDriverPlugInStreamSetProperty func(inDevice AudioDeviceID, inIOAudioStream uint32, inWhen *coreaudiotypes.AudioTimeStamp, inChannel uint32, inPropertyID AudioDevicePropertyID, inPropertyDataSize uint32, inPropertyData unsafe.Pointer) int32
+var _audioDriverPlugInStreamSetPropertyErr error
+
+func tryAudioDriverPlugInStreamSetProperty(inDevice AudioDeviceID, inIOAudioStream uint32, inWhen *coreaudiotypes.AudioTimeStamp, inChannel uint32, inPropertyID AudioDevicePropertyID, inPropertyDataSize uint32, inPropertyData unsafe.Pointer) (int32, error) {
+	if _audioDriverPlugInStreamSetProperty == nil {
+		return 0, symbolCallError("AudioDriverPlugInStreamSetProperty", "", _audioDriverPlugInStreamSetPropertyErr)
+	}
+	return _audioDriverPlugInStreamSetProperty(inDevice, inIOAudioStream, inWhen, inChannel, inPropertyID, inPropertyDataSize, inPropertyData), nil
+}
+
+// AudioDriverPlugInStreamSetProperty.
+//
+// See: https://developer.apple.com/documentation/CoreAudio/AudioDriverPlugInStreamSetProperty
+func AudioDriverPlugInStreamSetProperty(inDevice AudioDeviceID, inIOAudioStream uint32, inWhen *coreaudiotypes.AudioTimeStamp, inChannel uint32, inPropertyID AudioDevicePropertyID, inPropertyDataSize uint32, inPropertyData unsafe.Pointer) int32 {
+	result, callErr := tryAudioDriverPlugInStreamSetProperty(inDevice, inIOAudioStream, inWhen, inChannel, inPropertyID, inPropertyDataSize, inPropertyData)
 	if callErr != nil {
 		panic(callErr)
 	}
@@ -560,10 +732,10 @@ func AudioGetHostClockMinimumTimeDelta() uint32 {
 	return result
 }
 
-var _audioHardwareAddPropertyListener func(inPropertyID uint32, inProc AudioHardwarePropertyListenerProc, inClientData unsafe.Pointer) int32
+var _audioHardwareAddPropertyListener func(inPropertyID AudioHardwarePropertyID, inProc AudioHardwarePropertyListenerProc, inClientData unsafe.Pointer) int32
 var _audioHardwareAddPropertyListenerErr error
 
-func tryAudioHardwareAddPropertyListener(inPropertyID uint32, inProc AudioHardwarePropertyListenerProc, inClientData unsafe.Pointer) (int32, error) {
+func tryAudioHardwareAddPropertyListener(inPropertyID AudioHardwarePropertyID, inProc AudioHardwarePropertyListenerProc, inClientData unsafe.Pointer) (int32, error) {
 	if _audioHardwareAddPropertyListener == nil {
 		return 0, symbolCallError("AudioHardwareAddPropertyListener", "10.0", _audioHardwareAddPropertyListenerErr)
 	}
@@ -575,7 +747,7 @@ func tryAudioHardwareAddPropertyListener(inPropertyID uint32, inProc AudioHardwa
 // Deprecated: Deprecated since macOS 10.6.
 //
 // See: https://developer.apple.com/documentation/CoreAudio/AudioHardwareAddPropertyListener
-func AudioHardwareAddPropertyListener(inPropertyID uint32, inProc AudioHardwarePropertyListenerProc, inClientData unsafe.Pointer) int32 {
+func AudioHardwareAddPropertyListener(inPropertyID AudioHardwarePropertyID, inProc AudioHardwarePropertyListenerProc, inClientData unsafe.Pointer) int32 {
 	result, callErr := tryAudioHardwareAddPropertyListener(inPropertyID, inProc, inClientData)
 	if callErr != nil {
 		panic(callErr)
@@ -606,10 +778,10 @@ func AudioHardwareAddRunLoopSource(inRunLoopSource corefoundation.CFRunLoopSourc
 	return result
 }
 
-var _audioHardwareCreateAggregateDevice func(inDescription corefoundation.CFDictionaryRef, outDeviceID *uint32) int32
+var _audioHardwareCreateAggregateDevice func(inDescription corefoundation.CFDictionaryRef, outDeviceID *AudioObjectID) int32
 var _audioHardwareCreateAggregateDeviceErr error
 
-func tryAudioHardwareCreateAggregateDevice(inDescription corefoundation.CFDictionaryRef, outDeviceID *uint32) (int32, error) {
+func tryAudioHardwareCreateAggregateDevice(inDescription corefoundation.CFDictionaryRef, outDeviceID *AudioObjectID) (int32, error) {
 	if _audioHardwareCreateAggregateDevice == nil {
 		return 0, symbolCallError("AudioHardwareCreateAggregateDevice", "10.9", _audioHardwareCreateAggregateDeviceErr)
 	}
@@ -619,7 +791,7 @@ func tryAudioHardwareCreateAggregateDevice(inDescription corefoundation.CFDictio
 // AudioHardwareCreateAggregateDevice.
 //
 // See: https://developer.apple.com/documentation/CoreAudio/AudioHardwareCreateAggregateDevice(_:_:)
-func AudioHardwareCreateAggregateDevice(inDescription corefoundation.CFDictionaryRef, outDeviceID *uint32) int32 {
+func AudioHardwareCreateAggregateDevice(inDescription corefoundation.CFDictionaryRef, outDeviceID *AudioObjectID) int32 {
 	result, callErr := tryAudioHardwareCreateAggregateDevice(inDescription, outDeviceID)
 	if callErr != nil {
 		panic(callErr)
@@ -627,10 +799,10 @@ func AudioHardwareCreateAggregateDevice(inDescription corefoundation.CFDictionar
 	return result
 }
 
-var _audioHardwareCreateProcessTap func(inDescription *CATapDescription, outTapID *uint32) int32
+var _audioHardwareCreateProcessTap func(inDescription *CATapDescription, outTapID *AudioObjectID) int32
 var _audioHardwareCreateProcessTapErr error
 
-func tryAudioHardwareCreateProcessTap(inDescription *CATapDescription, outTapID *uint32) (int32, error) {
+func tryAudioHardwareCreateProcessTap(inDescription *CATapDescription, outTapID *AudioObjectID) (int32, error) {
 	if _audioHardwareCreateProcessTap == nil {
 		return 0, symbolCallError("AudioHardwareCreateProcessTap", "14.2", _audioHardwareCreateProcessTapErr)
 	}
@@ -640,7 +812,7 @@ func tryAudioHardwareCreateProcessTap(inDescription *CATapDescription, outTapID 
 // AudioHardwareCreateProcessTap.
 //
 // See: https://developer.apple.com/documentation/CoreAudio/AudioHardwareCreateProcessTap(_:_:)
-func AudioHardwareCreateProcessTap(inDescription *CATapDescription, outTapID *uint32) int32 {
+func AudioHardwareCreateProcessTap(inDescription *CATapDescription, outTapID *AudioObjectID) int32 {
 	result, callErr := tryAudioHardwareCreateProcessTap(inDescription, outTapID)
 	if callErr != nil {
 		panic(callErr)
@@ -648,10 +820,10 @@ func AudioHardwareCreateProcessTap(inDescription *CATapDescription, outTapID *ui
 	return result
 }
 
-var _audioHardwareDestroyAggregateDevice func(inDeviceID uint32) int32
+var _audioHardwareDestroyAggregateDevice func(inDeviceID AudioObjectID) int32
 var _audioHardwareDestroyAggregateDeviceErr error
 
-func tryAudioHardwareDestroyAggregateDevice(inDeviceID uint32) (int32, error) {
+func tryAudioHardwareDestroyAggregateDevice(inDeviceID AudioObjectID) (int32, error) {
 	if _audioHardwareDestroyAggregateDevice == nil {
 		return 0, symbolCallError("AudioHardwareDestroyAggregateDevice", "10.9", _audioHardwareDestroyAggregateDeviceErr)
 	}
@@ -661,7 +833,7 @@ func tryAudioHardwareDestroyAggregateDevice(inDeviceID uint32) (int32, error) {
 // AudioHardwareDestroyAggregateDevice.
 //
 // See: https://developer.apple.com/documentation/CoreAudio/AudioHardwareDestroyAggregateDevice(_:)
-func AudioHardwareDestroyAggregateDevice(inDeviceID uint32) int32 {
+func AudioHardwareDestroyAggregateDevice(inDeviceID AudioObjectID) int32 {
 	result, callErr := tryAudioHardwareDestroyAggregateDevice(inDeviceID)
 	if callErr != nil {
 		panic(callErr)
@@ -669,10 +841,10 @@ func AudioHardwareDestroyAggregateDevice(inDeviceID uint32) int32 {
 	return result
 }
 
-var _audioHardwareDestroyProcessTap func(inTapID uint32) int32
+var _audioHardwareDestroyProcessTap func(inTapID AudioObjectID) int32
 var _audioHardwareDestroyProcessTapErr error
 
-func tryAudioHardwareDestroyProcessTap(inTapID uint32) (int32, error) {
+func tryAudioHardwareDestroyProcessTap(inTapID AudioObjectID) (int32, error) {
 	if _audioHardwareDestroyProcessTap == nil {
 		return 0, symbolCallError("AudioHardwareDestroyProcessTap", "14.2", _audioHardwareDestroyProcessTapErr)
 	}
@@ -682,7 +854,7 @@ func tryAudioHardwareDestroyProcessTap(inTapID uint32) (int32, error) {
 // AudioHardwareDestroyProcessTap.
 //
 // See: https://developer.apple.com/documentation/CoreAudio/AudioHardwareDestroyProcessTap(_:)
-func AudioHardwareDestroyProcessTap(inTapID uint32) int32 {
+func AudioHardwareDestroyProcessTap(inTapID AudioObjectID) int32 {
 	result, callErr := tryAudioHardwareDestroyProcessTap(inTapID)
 	if callErr != nil {
 		panic(callErr)
@@ -690,10 +862,10 @@ func AudioHardwareDestroyProcessTap(inTapID uint32) int32 {
 	return result
 }
 
-var _audioHardwareGetProperty func(inPropertyID uint32, ioPropertyDataSize *uint32, outPropertyData unsafe.Pointer) int32
+var _audioHardwareGetProperty func(inPropertyID AudioHardwarePropertyID, ioPropertyDataSize *uint32, outPropertyData unsafe.Pointer) int32
 var _audioHardwareGetPropertyErr error
 
-func tryAudioHardwareGetProperty(inPropertyID uint32, ioPropertyDataSize *uint32, outPropertyData unsafe.Pointer) (int32, error) {
+func tryAudioHardwareGetProperty(inPropertyID AudioHardwarePropertyID, ioPropertyDataSize *uint32, outPropertyData unsafe.Pointer) (int32, error) {
 	if _audioHardwareGetProperty == nil {
 		return 0, symbolCallError("AudioHardwareGetProperty", "10.0", _audioHardwareGetPropertyErr)
 	}
@@ -705,7 +877,7 @@ func tryAudioHardwareGetProperty(inPropertyID uint32, ioPropertyDataSize *uint32
 // Deprecated: Deprecated since macOS 10.6.
 //
 // See: https://developer.apple.com/documentation/CoreAudio/AudioHardwareGetProperty
-func AudioHardwareGetProperty(inPropertyID uint32, ioPropertyDataSize *uint32, outPropertyData unsafe.Pointer) int32 {
+func AudioHardwareGetProperty(inPropertyID AudioHardwarePropertyID, ioPropertyDataSize *uint32, outPropertyData unsafe.Pointer) int32 {
 	result, callErr := tryAudioHardwareGetProperty(inPropertyID, ioPropertyDataSize, outPropertyData)
 	if callErr != nil {
 		panic(callErr)
@@ -713,10 +885,10 @@ func AudioHardwareGetProperty(inPropertyID uint32, ioPropertyDataSize *uint32, o
 	return result
 }
 
-var _audioHardwareGetPropertyInfo func(inPropertyID uint32, outSize *uint32, outWritable *bool) int32
+var _audioHardwareGetPropertyInfo func(inPropertyID AudioHardwarePropertyID, outSize *uint32, outWritable *bool) int32
 var _audioHardwareGetPropertyInfoErr error
 
-func tryAudioHardwareGetPropertyInfo(inPropertyID uint32, outSize *uint32, outWritable *bool) (int32, error) {
+func tryAudioHardwareGetPropertyInfo(inPropertyID AudioHardwarePropertyID, outSize *uint32, outWritable *bool) (int32, error) {
 	if _audioHardwareGetPropertyInfo == nil {
 		return 0, symbolCallError("AudioHardwareGetPropertyInfo", "10.0", _audioHardwareGetPropertyInfoErr)
 	}
@@ -728,7 +900,7 @@ func tryAudioHardwareGetPropertyInfo(inPropertyID uint32, outSize *uint32, outWr
 // Deprecated: Deprecated since macOS 10.6.
 //
 // See: https://developer.apple.com/documentation/CoreAudio/AudioHardwareGetPropertyInfo
-func AudioHardwareGetPropertyInfo(inPropertyID uint32, outSize *uint32, outWritable *bool) int32 {
+func AudioHardwareGetPropertyInfo(inPropertyID AudioHardwarePropertyID, outSize *uint32, outWritable *bool) int32 {
 	result, callErr := tryAudioHardwareGetPropertyInfo(inPropertyID, outSize, outWritable)
 	if callErr != nil {
 		panic(callErr)
@@ -736,10 +908,10 @@ func AudioHardwareGetPropertyInfo(inPropertyID uint32, outSize *uint32, outWrita
 	return result
 }
 
-var _audioHardwareRemovePropertyListener func(inPropertyID uint32, inProc AudioHardwarePropertyListenerProc) int32
+var _audioHardwareRemovePropertyListener func(inPropertyID AudioHardwarePropertyID, inProc AudioHardwarePropertyListenerProc) int32
 var _audioHardwareRemovePropertyListenerErr error
 
-func tryAudioHardwareRemovePropertyListener(inPropertyID uint32, inProc AudioHardwarePropertyListenerProc) (int32, error) {
+func tryAudioHardwareRemovePropertyListener(inPropertyID AudioHardwarePropertyID, inProc AudioHardwarePropertyListenerProc) (int32, error) {
 	if _audioHardwareRemovePropertyListener == nil {
 		return 0, symbolCallError("AudioHardwareRemovePropertyListener", "10.0", _audioHardwareRemovePropertyListenerErr)
 	}
@@ -751,7 +923,7 @@ func tryAudioHardwareRemovePropertyListener(inPropertyID uint32, inProc AudioHar
 // Deprecated: Deprecated since macOS 10.6.
 //
 // See: https://developer.apple.com/documentation/CoreAudio/AudioHardwareRemovePropertyListener
-func AudioHardwareRemovePropertyListener(inPropertyID uint32, inProc AudioHardwarePropertyListenerProc) int32 {
+func AudioHardwareRemovePropertyListener(inPropertyID AudioHardwarePropertyID, inProc AudioHardwarePropertyListenerProc) int32 {
 	result, callErr := tryAudioHardwareRemovePropertyListener(inPropertyID, inProc)
 	if callErr != nil {
 		panic(callErr)
@@ -782,10 +954,10 @@ func AudioHardwareRemoveRunLoopSource(inRunLoopSource corefoundation.CFRunLoopSo
 	return result
 }
 
-var _audioHardwareSetProperty func(inPropertyID uint32, inPropertyDataSize uint32, inPropertyData unsafe.Pointer) int32
+var _audioHardwareSetProperty func(inPropertyID AudioHardwarePropertyID, inPropertyDataSize uint32, inPropertyData unsafe.Pointer) int32
 var _audioHardwareSetPropertyErr error
 
-func tryAudioHardwareSetProperty(inPropertyID uint32, inPropertyDataSize uint32, inPropertyData unsafe.Pointer) (int32, error) {
+func tryAudioHardwareSetProperty(inPropertyID AudioHardwarePropertyID, inPropertyDataSize uint32, inPropertyData unsafe.Pointer) (int32, error) {
 	if _audioHardwareSetProperty == nil {
 		return 0, symbolCallError("AudioHardwareSetProperty", "10.0", _audioHardwareSetPropertyErr)
 	}
@@ -797,7 +969,7 @@ func tryAudioHardwareSetProperty(inPropertyID uint32, inPropertyDataSize uint32,
 // Deprecated: Deprecated since macOS 10.6.
 //
 // See: https://developer.apple.com/documentation/CoreAudio/AudioHardwareSetProperty
-func AudioHardwareSetProperty(inPropertyID uint32, inPropertyDataSize uint32, inPropertyData unsafe.Pointer) int32 {
+func AudioHardwareSetProperty(inPropertyID AudioHardwarePropertyID, inPropertyDataSize uint32, inPropertyData unsafe.Pointer) int32 {
 	result, callErr := tryAudioHardwareSetProperty(inPropertyID, inPropertyDataSize, inPropertyData)
 	if callErr != nil {
 		panic(callErr)
@@ -826,10 +998,10 @@ func AudioHardwareUnload() int32 {
 	return result
 }
 
-var _audioObjectAddPropertyListener func(inObjectID uint32, inAddress *AudioObjectPropertyAddress, inListener AudioObjectPropertyListenerProc, inClientData unsafe.Pointer) int32
+var _audioObjectAddPropertyListener func(inObjectID AudioObjectID, inAddress *AudioObjectPropertyAddress, inListener AudioObjectPropertyListenerProc, inClientData unsafe.Pointer) int32
 var _audioObjectAddPropertyListenerErr error
 
-func tryAudioObjectAddPropertyListener(inObjectID uint32, inAddress *AudioObjectPropertyAddress, inListener AudioObjectPropertyListenerProc, inClientData unsafe.Pointer) (int32, error) {
+func tryAudioObjectAddPropertyListener(inObjectID AudioObjectID, inAddress *AudioObjectPropertyAddress, inListener AudioObjectPropertyListenerProc, inClientData unsafe.Pointer) (int32, error) {
 	if _audioObjectAddPropertyListener == nil {
 		return 0, symbolCallError("AudioObjectAddPropertyListener", "10.4", _audioObjectAddPropertyListenerErr)
 	}
@@ -839,7 +1011,7 @@ func tryAudioObjectAddPropertyListener(inObjectID uint32, inAddress *AudioObject
 // AudioObjectAddPropertyListener.
 //
 // See: https://developer.apple.com/documentation/CoreAudio/AudioObjectAddPropertyListener(_:_:_:_:)
-func AudioObjectAddPropertyListener(inObjectID uint32, inAddress *AudioObjectPropertyAddress, inListener AudioObjectPropertyListenerProc, inClientData unsafe.Pointer) int32 {
+func AudioObjectAddPropertyListener(inObjectID AudioObjectID, inAddress *AudioObjectPropertyAddress, inListener AudioObjectPropertyListenerProc, inClientData unsafe.Pointer) int32 {
 	result, callErr := tryAudioObjectAddPropertyListener(inObjectID, inAddress, inListener, inClientData)
 	if callErr != nil {
 		panic(callErr)
@@ -847,10 +1019,10 @@ func AudioObjectAddPropertyListener(inObjectID uint32, inAddress *AudioObjectPro
 	return result
 }
 
-var _audioObjectAddPropertyListenerBlock func(inObjectID uint32, inAddress *AudioObjectPropertyAddress, inDispatchQueue uintptr, inListener unsafe.Pointer) int32
+var _audioObjectAddPropertyListenerBlock func(inObjectID AudioObjectID, inAddress *AudioObjectPropertyAddress, inDispatchQueue uintptr, inListener unsafe.Pointer) int32
 var _audioObjectAddPropertyListenerBlockErr error
 
-func tryAudioObjectAddPropertyListenerBlock(inObjectID uint32, inAddress *AudioObjectPropertyAddress, inDispatchQueue dispatch.Queue, inListener AudioObjectPropertyListenerBlock) (int32, error) {
+func tryAudioObjectAddPropertyListenerBlock(inObjectID AudioObjectID, inAddress *AudioObjectPropertyAddress, inDispatchQueue dispatch.Queue, inListener AudioObjectPropertyListenerBlock) (int32, error) {
 	if _audioObjectAddPropertyListenerBlock == nil {
 		return 0, symbolCallError("AudioObjectAddPropertyListenerBlock", "10.7", _audioObjectAddPropertyListenerBlockErr)
 	}
@@ -865,7 +1037,7 @@ func tryAudioObjectAddPropertyListenerBlock(inObjectID uint32, inAddress *AudioO
 // AudioObjectAddPropertyListenerBlock.
 //
 // See: https://developer.apple.com/documentation/CoreAudio/AudioObjectAddPropertyListenerBlock(_:_:_:_:)
-func AudioObjectAddPropertyListenerBlock(inObjectID uint32, inAddress *AudioObjectPropertyAddress, inDispatchQueue dispatch.Queue, inListener AudioObjectPropertyListenerBlock) int32 {
+func AudioObjectAddPropertyListenerBlock(inObjectID AudioObjectID, inAddress *AudioObjectPropertyAddress, inDispatchQueue dispatch.Queue, inListener AudioObjectPropertyListenerBlock) int32 {
 	result, callErr := tryAudioObjectAddPropertyListenerBlock(inObjectID, inAddress, inDispatchQueue, inListener)
 	if callErr != nil {
 		panic(callErr)
@@ -873,10 +1045,10 @@ func AudioObjectAddPropertyListenerBlock(inObjectID uint32, inAddress *AudioObje
 	return result
 }
 
-var _audioObjectGetPropertyData func(inObjectID uint32, inAddress *AudioObjectPropertyAddress, inQualifierDataSize uint32, inQualifierData unsafe.Pointer, ioDataSize *uint32, outData unsafe.Pointer) int32
+var _audioObjectGetPropertyData func(inObjectID AudioObjectID, inAddress *AudioObjectPropertyAddress, inQualifierDataSize uint32, inQualifierData unsafe.Pointer, ioDataSize *uint32, outData unsafe.Pointer) int32
 var _audioObjectGetPropertyDataErr error
 
-func tryAudioObjectGetPropertyData(inObjectID uint32, inAddress *AudioObjectPropertyAddress, inQualifierDataSize uint32, inQualifierData unsafe.Pointer, ioDataSize *uint32, outData unsafe.Pointer) (int32, error) {
+func tryAudioObjectGetPropertyData(inObjectID AudioObjectID, inAddress *AudioObjectPropertyAddress, inQualifierDataSize uint32, inQualifierData unsafe.Pointer, ioDataSize *uint32, outData unsafe.Pointer) (int32, error) {
 	if _audioObjectGetPropertyData == nil {
 		return 0, symbolCallError("AudioObjectGetPropertyData", "10.4", _audioObjectGetPropertyDataErr)
 	}
@@ -886,7 +1058,7 @@ func tryAudioObjectGetPropertyData(inObjectID uint32, inAddress *AudioObjectProp
 // AudioObjectGetPropertyData.
 //
 // See: https://developer.apple.com/documentation/CoreAudio/AudioObjectGetPropertyData(_:_:_:_:_:_:)
-func AudioObjectGetPropertyData(inObjectID uint32, inAddress *AudioObjectPropertyAddress, inQualifierDataSize uint32, inQualifierData unsafe.Pointer, ioDataSize *uint32, outData unsafe.Pointer) int32 {
+func AudioObjectGetPropertyData(inObjectID AudioObjectID, inAddress *AudioObjectPropertyAddress, inQualifierDataSize uint32, inQualifierData unsafe.Pointer, ioDataSize *uint32, outData unsafe.Pointer) int32 {
 	result, callErr := tryAudioObjectGetPropertyData(inObjectID, inAddress, inQualifierDataSize, inQualifierData, ioDataSize, outData)
 	if callErr != nil {
 		panic(callErr)
@@ -894,10 +1066,10 @@ func AudioObjectGetPropertyData(inObjectID uint32, inAddress *AudioObjectPropert
 	return result
 }
 
-var _audioObjectGetPropertyDataSize func(inObjectID uint32, inAddress *AudioObjectPropertyAddress, inQualifierDataSize uint32, inQualifierData unsafe.Pointer, outDataSize *uint32) int32
+var _audioObjectGetPropertyDataSize func(inObjectID AudioObjectID, inAddress *AudioObjectPropertyAddress, inQualifierDataSize uint32, inQualifierData unsafe.Pointer, outDataSize *uint32) int32
 var _audioObjectGetPropertyDataSizeErr error
 
-func tryAudioObjectGetPropertyDataSize(inObjectID uint32, inAddress *AudioObjectPropertyAddress, inQualifierDataSize uint32, inQualifierData unsafe.Pointer, outDataSize *uint32) (int32, error) {
+func tryAudioObjectGetPropertyDataSize(inObjectID AudioObjectID, inAddress *AudioObjectPropertyAddress, inQualifierDataSize uint32, inQualifierData unsafe.Pointer, outDataSize *uint32) (int32, error) {
 	if _audioObjectGetPropertyDataSize == nil {
 		return 0, symbolCallError("AudioObjectGetPropertyDataSize", "10.4", _audioObjectGetPropertyDataSizeErr)
 	}
@@ -907,7 +1079,7 @@ func tryAudioObjectGetPropertyDataSize(inObjectID uint32, inAddress *AudioObject
 // AudioObjectGetPropertyDataSize.
 //
 // See: https://developer.apple.com/documentation/CoreAudio/AudioObjectGetPropertyDataSize(_:_:_:_:_:)
-func AudioObjectGetPropertyDataSize(inObjectID uint32, inAddress *AudioObjectPropertyAddress, inQualifierDataSize uint32, inQualifierData unsafe.Pointer, outDataSize *uint32) int32 {
+func AudioObjectGetPropertyDataSize(inObjectID AudioObjectID, inAddress *AudioObjectPropertyAddress, inQualifierDataSize uint32, inQualifierData unsafe.Pointer, outDataSize *uint32) int32 {
 	result, callErr := tryAudioObjectGetPropertyDataSize(inObjectID, inAddress, inQualifierDataSize, inQualifierData, outDataSize)
 	if callErr != nil {
 		panic(callErr)
@@ -915,10 +1087,10 @@ func AudioObjectGetPropertyDataSize(inObjectID uint32, inAddress *AudioObjectPro
 	return result
 }
 
-var _audioObjectHasProperty func(inObjectID uint32, inAddress *AudioObjectPropertyAddress) bool
+var _audioObjectHasProperty func(inObjectID AudioObjectID, inAddress *AudioObjectPropertyAddress) bool
 var _audioObjectHasPropertyErr error
 
-func tryAudioObjectHasProperty(inObjectID uint32, inAddress *AudioObjectPropertyAddress) (bool, error) {
+func tryAudioObjectHasProperty(inObjectID AudioObjectID, inAddress *AudioObjectPropertyAddress) (bool, error) {
 	if _audioObjectHasProperty == nil {
 		return false, symbolCallError("AudioObjectHasProperty", "10.4", _audioObjectHasPropertyErr)
 	}
@@ -928,7 +1100,7 @@ func tryAudioObjectHasProperty(inObjectID uint32, inAddress *AudioObjectProperty
 // AudioObjectHasProperty.
 //
 // See: https://developer.apple.com/documentation/CoreAudio/AudioObjectHasProperty(_:_:)
-func AudioObjectHasProperty(inObjectID uint32, inAddress *AudioObjectPropertyAddress) bool {
+func AudioObjectHasProperty(inObjectID AudioObjectID, inAddress *AudioObjectPropertyAddress) bool {
 	result, callErr := tryAudioObjectHasProperty(inObjectID, inAddress)
 	if callErr != nil {
 		panic(callErr)
@@ -936,10 +1108,10 @@ func AudioObjectHasProperty(inObjectID uint32, inAddress *AudioObjectPropertyAdd
 	return result
 }
 
-var _audioObjectIsPropertySettable func(inObjectID uint32, inAddress *AudioObjectPropertyAddress, outIsSettable *bool) int32
+var _audioObjectIsPropertySettable func(inObjectID AudioObjectID, inAddress *AudioObjectPropertyAddress, outIsSettable *bool) int32
 var _audioObjectIsPropertySettableErr error
 
-func tryAudioObjectIsPropertySettable(inObjectID uint32, inAddress *AudioObjectPropertyAddress, outIsSettable *bool) (int32, error) {
+func tryAudioObjectIsPropertySettable(inObjectID AudioObjectID, inAddress *AudioObjectPropertyAddress, outIsSettable *bool) (int32, error) {
 	if _audioObjectIsPropertySettable == nil {
 		return 0, symbolCallError("AudioObjectIsPropertySettable", "10.4", _audioObjectIsPropertySettableErr)
 	}
@@ -949,7 +1121,7 @@ func tryAudioObjectIsPropertySettable(inObjectID uint32, inAddress *AudioObjectP
 // AudioObjectIsPropertySettable.
 //
 // See: https://developer.apple.com/documentation/CoreAudio/AudioObjectIsPropertySettable(_:_:_:)
-func AudioObjectIsPropertySettable(inObjectID uint32, inAddress *AudioObjectPropertyAddress, outIsSettable *bool) int32 {
+func AudioObjectIsPropertySettable(inObjectID AudioObjectID, inAddress *AudioObjectPropertyAddress, outIsSettable *bool) int32 {
 	result, callErr := tryAudioObjectIsPropertySettable(inObjectID, inAddress, outIsSettable)
 	if callErr != nil {
 		panic(callErr)
@@ -957,10 +1129,10 @@ func AudioObjectIsPropertySettable(inObjectID uint32, inAddress *AudioObjectProp
 	return result
 }
 
-var _audioObjectRemovePropertyListener func(inObjectID uint32, inAddress *AudioObjectPropertyAddress, inListener AudioObjectPropertyListenerProc, inClientData unsafe.Pointer) int32
+var _audioObjectRemovePropertyListener func(inObjectID AudioObjectID, inAddress *AudioObjectPropertyAddress, inListener AudioObjectPropertyListenerProc, inClientData unsafe.Pointer) int32
 var _audioObjectRemovePropertyListenerErr error
 
-func tryAudioObjectRemovePropertyListener(inObjectID uint32, inAddress *AudioObjectPropertyAddress, inListener AudioObjectPropertyListenerProc, inClientData unsafe.Pointer) (int32, error) {
+func tryAudioObjectRemovePropertyListener(inObjectID AudioObjectID, inAddress *AudioObjectPropertyAddress, inListener AudioObjectPropertyListenerProc, inClientData unsafe.Pointer) (int32, error) {
 	if _audioObjectRemovePropertyListener == nil {
 		return 0, symbolCallError("AudioObjectRemovePropertyListener", "10.4", _audioObjectRemovePropertyListenerErr)
 	}
@@ -970,7 +1142,7 @@ func tryAudioObjectRemovePropertyListener(inObjectID uint32, inAddress *AudioObj
 // AudioObjectRemovePropertyListener.
 //
 // See: https://developer.apple.com/documentation/CoreAudio/AudioObjectRemovePropertyListener(_:_:_:_:)
-func AudioObjectRemovePropertyListener(inObjectID uint32, inAddress *AudioObjectPropertyAddress, inListener AudioObjectPropertyListenerProc, inClientData unsafe.Pointer) int32 {
+func AudioObjectRemovePropertyListener(inObjectID AudioObjectID, inAddress *AudioObjectPropertyAddress, inListener AudioObjectPropertyListenerProc, inClientData unsafe.Pointer) int32 {
 	result, callErr := tryAudioObjectRemovePropertyListener(inObjectID, inAddress, inListener, inClientData)
 	if callErr != nil {
 		panic(callErr)
@@ -978,10 +1150,10 @@ func AudioObjectRemovePropertyListener(inObjectID uint32, inAddress *AudioObject
 	return result
 }
 
-var _audioObjectRemovePropertyListenerBlock func(inObjectID uint32, inAddress *AudioObjectPropertyAddress, inDispatchQueue uintptr, inListener unsafe.Pointer) int32
+var _audioObjectRemovePropertyListenerBlock func(inObjectID AudioObjectID, inAddress *AudioObjectPropertyAddress, inDispatchQueue uintptr, inListener unsafe.Pointer) int32
 var _audioObjectRemovePropertyListenerBlockErr error
 
-func tryAudioObjectRemovePropertyListenerBlock(inObjectID uint32, inAddress *AudioObjectPropertyAddress, inDispatchQueue dispatch.Queue, inListener AudioObjectPropertyListenerBlock) (int32, error) {
+func tryAudioObjectRemovePropertyListenerBlock(inObjectID AudioObjectID, inAddress *AudioObjectPropertyAddress, inDispatchQueue dispatch.Queue, inListener AudioObjectPropertyListenerBlock) (int32, error) {
 	if _audioObjectRemovePropertyListenerBlock == nil {
 		return 0, symbolCallError("AudioObjectRemovePropertyListenerBlock", "10.7", _audioObjectRemovePropertyListenerBlockErr)
 	}
@@ -996,7 +1168,7 @@ func tryAudioObjectRemovePropertyListenerBlock(inObjectID uint32, inAddress *Aud
 // AudioObjectRemovePropertyListenerBlock.
 //
 // See: https://developer.apple.com/documentation/CoreAudio/AudioObjectRemovePropertyListenerBlock(_:_:_:_:)
-func AudioObjectRemovePropertyListenerBlock(inObjectID uint32, inAddress *AudioObjectPropertyAddress, inDispatchQueue dispatch.Queue, inListener AudioObjectPropertyListenerBlock) int32 {
+func AudioObjectRemovePropertyListenerBlock(inObjectID AudioObjectID, inAddress *AudioObjectPropertyAddress, inDispatchQueue dispatch.Queue, inListener AudioObjectPropertyListenerBlock) int32 {
 	result, callErr := tryAudioObjectRemovePropertyListenerBlock(inObjectID, inAddress, inDispatchQueue, inListener)
 	if callErr != nil {
 		panic(callErr)
@@ -1004,10 +1176,10 @@ func AudioObjectRemovePropertyListenerBlock(inObjectID uint32, inAddress *AudioO
 	return result
 }
 
-var _audioObjectSetPropertyData func(inObjectID uint32, inAddress *AudioObjectPropertyAddress, inQualifierDataSize uint32, inQualifierData unsafe.Pointer, inDataSize uint32, inData unsafe.Pointer) int32
+var _audioObjectSetPropertyData func(inObjectID AudioObjectID, inAddress *AudioObjectPropertyAddress, inQualifierDataSize uint32, inQualifierData unsafe.Pointer, inDataSize uint32, inData unsafe.Pointer) int32
 var _audioObjectSetPropertyDataErr error
 
-func tryAudioObjectSetPropertyData(inObjectID uint32, inAddress *AudioObjectPropertyAddress, inQualifierDataSize uint32, inQualifierData unsafe.Pointer, inDataSize uint32, inData unsafe.Pointer) (int32, error) {
+func tryAudioObjectSetPropertyData(inObjectID AudioObjectID, inAddress *AudioObjectPropertyAddress, inQualifierDataSize uint32, inQualifierData unsafe.Pointer, inDataSize uint32, inData unsafe.Pointer) (int32, error) {
 	if _audioObjectSetPropertyData == nil {
 		return 0, symbolCallError("AudioObjectSetPropertyData", "10.4", _audioObjectSetPropertyDataErr)
 	}
@@ -1017,7 +1189,7 @@ func tryAudioObjectSetPropertyData(inObjectID uint32, inAddress *AudioObjectProp
 // AudioObjectSetPropertyData.
 //
 // See: https://developer.apple.com/documentation/CoreAudio/AudioObjectSetPropertyData(_:_:_:_:_:_:)
-func AudioObjectSetPropertyData(inObjectID uint32, inAddress *AudioObjectPropertyAddress, inQualifierDataSize uint32, inQualifierData unsafe.Pointer, inDataSize uint32, inData unsafe.Pointer) int32 {
+func AudioObjectSetPropertyData(inObjectID AudioObjectID, inAddress *AudioObjectPropertyAddress, inQualifierDataSize uint32, inQualifierData unsafe.Pointer, inDataSize uint32, inData unsafe.Pointer) int32 {
 	result, callErr := tryAudioObjectSetPropertyData(inObjectID, inAddress, inQualifierDataSize, inQualifierData, inDataSize, inData)
 	if callErr != nil {
 		panic(callErr)
@@ -1025,10 +1197,10 @@ func AudioObjectSetPropertyData(inObjectID uint32, inAddress *AudioObjectPropert
 	return result
 }
 
-var _audioObjectShow func(inObjectID uint32)
+var _audioObjectShow func(inObjectID AudioObjectID)
 var _audioObjectShowErr error
 
-func tryAudioObjectShow(inObjectID uint32) error {
+func tryAudioObjectShow(inObjectID AudioObjectID) error {
 	if _audioObjectShow == nil {
 		return symbolCallError("AudioObjectShow", "10.4", _audioObjectShowErr)
 	}
@@ -1039,16 +1211,16 @@ func tryAudioObjectShow(inObjectID uint32) error {
 // AudioObjectShow.
 //
 // See: https://developer.apple.com/documentation/CoreAudio/AudioObjectShow(_:)
-func AudioObjectShow(inObjectID uint32) {
+func AudioObjectShow(inObjectID AudioObjectID) {
 	if callErr := tryAudioObjectShow(inObjectID); callErr != nil {
 		panic(callErr)
 	}
 }
 
-var _audioStreamAddPropertyListener func(inStream uint32, inChannel uint32, inPropertyID uint32, inProc AudioStreamPropertyListenerProc, inClientData unsafe.Pointer) int32
+var _audioStreamAddPropertyListener func(inStream AudioStreamID, inChannel uint32, inPropertyID AudioDevicePropertyID, inProc AudioStreamPropertyListenerProc, inClientData unsafe.Pointer) int32
 var _audioStreamAddPropertyListenerErr error
 
-func tryAudioStreamAddPropertyListener(inStream uint32, inChannel uint32, inPropertyID uint32, inProc AudioStreamPropertyListenerProc, inClientData unsafe.Pointer) (int32, error) {
+func tryAudioStreamAddPropertyListener(inStream AudioStreamID, inChannel uint32, inPropertyID AudioDevicePropertyID, inProc AudioStreamPropertyListenerProc, inClientData unsafe.Pointer) (int32, error) {
 	if _audioStreamAddPropertyListener == nil {
 		return 0, symbolCallError("AudioStreamAddPropertyListener", "10.1", _audioStreamAddPropertyListenerErr)
 	}
@@ -1060,7 +1232,7 @@ func tryAudioStreamAddPropertyListener(inStream uint32, inChannel uint32, inProp
 // Deprecated: Deprecated since macOS 10.6.
 //
 // See: https://developer.apple.com/documentation/CoreAudio/AudioStreamAddPropertyListener
-func AudioStreamAddPropertyListener(inStream uint32, inChannel uint32, inPropertyID uint32, inProc AudioStreamPropertyListenerProc, inClientData unsafe.Pointer) int32 {
+func AudioStreamAddPropertyListener(inStream AudioStreamID, inChannel uint32, inPropertyID AudioDevicePropertyID, inProc AudioStreamPropertyListenerProc, inClientData unsafe.Pointer) int32 {
 	result, callErr := tryAudioStreamAddPropertyListener(inStream, inChannel, inPropertyID, inProc, inClientData)
 	if callErr != nil {
 		panic(callErr)
@@ -1068,10 +1240,10 @@ func AudioStreamAddPropertyListener(inStream uint32, inChannel uint32, inPropert
 	return result
 }
 
-var _audioStreamGetProperty func(inStream uint32, inChannel uint32, inPropertyID uint32, ioPropertyDataSize *uint32, outPropertyData unsafe.Pointer) int32
+var _audioStreamGetProperty func(inStream AudioStreamID, inChannel uint32, inPropertyID AudioDevicePropertyID, ioPropertyDataSize *uint32, outPropertyData unsafe.Pointer) int32
 var _audioStreamGetPropertyErr error
 
-func tryAudioStreamGetProperty(inStream uint32, inChannel uint32, inPropertyID uint32, ioPropertyDataSize *uint32, outPropertyData unsafe.Pointer) (int32, error) {
+func tryAudioStreamGetProperty(inStream AudioStreamID, inChannel uint32, inPropertyID AudioDevicePropertyID, ioPropertyDataSize *uint32, outPropertyData unsafe.Pointer) (int32, error) {
 	if _audioStreamGetProperty == nil {
 		return 0, symbolCallError("AudioStreamGetProperty", "10.1", _audioStreamGetPropertyErr)
 	}
@@ -1083,7 +1255,7 @@ func tryAudioStreamGetProperty(inStream uint32, inChannel uint32, inPropertyID u
 // Deprecated: Deprecated since macOS 10.6.
 //
 // See: https://developer.apple.com/documentation/CoreAudio/AudioStreamGetProperty
-func AudioStreamGetProperty(inStream uint32, inChannel uint32, inPropertyID uint32, ioPropertyDataSize *uint32, outPropertyData unsafe.Pointer) int32 {
+func AudioStreamGetProperty(inStream AudioStreamID, inChannel uint32, inPropertyID AudioDevicePropertyID, ioPropertyDataSize *uint32, outPropertyData unsafe.Pointer) int32 {
 	result, callErr := tryAudioStreamGetProperty(inStream, inChannel, inPropertyID, ioPropertyDataSize, outPropertyData)
 	if callErr != nil {
 		panic(callErr)
@@ -1091,10 +1263,10 @@ func AudioStreamGetProperty(inStream uint32, inChannel uint32, inPropertyID uint
 	return result
 }
 
-var _audioStreamGetPropertyInfo func(inStream uint32, inChannel uint32, inPropertyID uint32, outSize *uint32, outWritable *bool) int32
+var _audioStreamGetPropertyInfo func(inStream AudioStreamID, inChannel uint32, inPropertyID AudioDevicePropertyID, outSize *uint32, outWritable *bool) int32
 var _audioStreamGetPropertyInfoErr error
 
-func tryAudioStreamGetPropertyInfo(inStream uint32, inChannel uint32, inPropertyID uint32, outSize *uint32, outWritable *bool) (int32, error) {
+func tryAudioStreamGetPropertyInfo(inStream AudioStreamID, inChannel uint32, inPropertyID AudioDevicePropertyID, outSize *uint32, outWritable *bool) (int32, error) {
 	if _audioStreamGetPropertyInfo == nil {
 		return 0, symbolCallError("AudioStreamGetPropertyInfo", "10.1", _audioStreamGetPropertyInfoErr)
 	}
@@ -1106,7 +1278,7 @@ func tryAudioStreamGetPropertyInfo(inStream uint32, inChannel uint32, inProperty
 // Deprecated: Deprecated since macOS 10.6.
 //
 // See: https://developer.apple.com/documentation/CoreAudio/AudioStreamGetPropertyInfo
-func AudioStreamGetPropertyInfo(inStream uint32, inChannel uint32, inPropertyID uint32, outSize *uint32, outWritable *bool) int32 {
+func AudioStreamGetPropertyInfo(inStream AudioStreamID, inChannel uint32, inPropertyID AudioDevicePropertyID, outSize *uint32, outWritable *bool) int32 {
 	result, callErr := tryAudioStreamGetPropertyInfo(inStream, inChannel, inPropertyID, outSize, outWritable)
 	if callErr != nil {
 		panic(callErr)
@@ -1114,10 +1286,10 @@ func AudioStreamGetPropertyInfo(inStream uint32, inChannel uint32, inPropertyID 
 	return result
 }
 
-var _audioStreamRemovePropertyListener func(inStream uint32, inChannel uint32, inPropertyID uint32, inProc AudioStreamPropertyListenerProc) int32
+var _audioStreamRemovePropertyListener func(inStream AudioStreamID, inChannel uint32, inPropertyID AudioDevicePropertyID, inProc AudioStreamPropertyListenerProc) int32
 var _audioStreamRemovePropertyListenerErr error
 
-func tryAudioStreamRemovePropertyListener(inStream uint32, inChannel uint32, inPropertyID uint32, inProc AudioStreamPropertyListenerProc) (int32, error) {
+func tryAudioStreamRemovePropertyListener(inStream AudioStreamID, inChannel uint32, inPropertyID AudioDevicePropertyID, inProc AudioStreamPropertyListenerProc) (int32, error) {
 	if _audioStreamRemovePropertyListener == nil {
 		return 0, symbolCallError("AudioStreamRemovePropertyListener", "10.1", _audioStreamRemovePropertyListenerErr)
 	}
@@ -1129,8 +1301,31 @@ func tryAudioStreamRemovePropertyListener(inStream uint32, inChannel uint32, inP
 // Deprecated: Deprecated since macOS 10.6.
 //
 // See: https://developer.apple.com/documentation/CoreAudio/AudioStreamRemovePropertyListener
-func AudioStreamRemovePropertyListener(inStream uint32, inChannel uint32, inPropertyID uint32, inProc AudioStreamPropertyListenerProc) int32 {
+func AudioStreamRemovePropertyListener(inStream AudioStreamID, inChannel uint32, inPropertyID AudioDevicePropertyID, inProc AudioStreamPropertyListenerProc) int32 {
 	result, callErr := tryAudioStreamRemovePropertyListener(inStream, inChannel, inPropertyID, inProc)
+	if callErr != nil {
+		panic(callErr)
+	}
+	return result
+}
+
+var _audioStreamSetProperty func(inStream AudioStreamID, inWhen *coreaudiotypes.AudioTimeStamp, inChannel uint32, inPropertyID AudioDevicePropertyID, inPropertyDataSize uint32, inPropertyData unsafe.Pointer) int32
+var _audioStreamSetPropertyErr error
+
+func tryAudioStreamSetProperty(inStream AudioStreamID, inWhen *coreaudiotypes.AudioTimeStamp, inChannel uint32, inPropertyID AudioDevicePropertyID, inPropertyDataSize uint32, inPropertyData unsafe.Pointer) (int32, error) {
+	if _audioStreamSetProperty == nil {
+		return 0, symbolCallError("AudioStreamSetProperty", "10.1", _audioStreamSetPropertyErr)
+	}
+	return _audioStreamSetProperty(inStream, inWhen, inChannel, inPropertyID, inPropertyDataSize, inPropertyData), nil
+}
+
+// AudioStreamSetProperty.
+//
+// Deprecated: Deprecated since macOS 10.6.
+//
+// See: https://developer.apple.com/documentation/CoreAudio/AudioStreamSetProperty
+func AudioStreamSetProperty(inStream AudioStreamID, inWhen *coreaudiotypes.AudioTimeStamp, inChannel uint32, inPropertyID AudioDevicePropertyID, inPropertyDataSize uint32, inPropertyData unsafe.Pointer) int32 {
+	result, callErr := tryAudioStreamSetProperty(inStream, inWhen, inChannel, inPropertyID, inPropertyDataSize, inPropertyData)
 	if callErr != nil {
 		panic(callErr)
 	}
@@ -1148,18 +1343,26 @@ func init() {
 	registerFunc(&_audioDeviceCreateIOProcID, &_audioDeviceCreateIOProcIDErr, frameworkHandle, "AudioDeviceCreateIOProcID", "10.5")
 	registerFunc(&_audioDeviceCreateIOProcIDWithBlock, &_audioDeviceCreateIOProcIDWithBlockErr, frameworkHandle, "AudioDeviceCreateIOProcIDWithBlock", "10.7")
 	registerFunc(&_audioDeviceDestroyIOProcID, &_audioDeviceDestroyIOProcIDErr, frameworkHandle, "AudioDeviceDestroyIOProcID", "10.5")
+	registerFunc(&_audioDeviceGetCurrentTime, &_audioDeviceGetCurrentTimeErr, frameworkHandle, "AudioDeviceGetCurrentTime", "10.0")
+	registerFunc(&_audioDeviceGetNearestStartTime, &_audioDeviceGetNearestStartTimeErr, frameworkHandle, "AudioDeviceGetNearestStartTime", "10.3")
 	registerFunc(&_audioDeviceGetProperty, &_audioDeviceGetPropertyErr, frameworkHandle, "AudioDeviceGetProperty", "10.0")
 	registerFunc(&_audioDeviceGetPropertyInfo, &_audioDeviceGetPropertyInfoErr, frameworkHandle, "AudioDeviceGetPropertyInfo", "10.0")
+	registerFunc(&_audioDeviceRead, &_audioDeviceReadErr, frameworkHandle, "AudioDeviceRead", "10.1")
 	registerFunc(&_audioDeviceRemoveIOProc, &_audioDeviceRemoveIOProcErr, frameworkHandle, "AudioDeviceRemoveIOProc", "10.0")
 	registerFunc(&_audioDeviceRemovePropertyListener, &_audioDeviceRemovePropertyListenerErr, frameworkHandle, "AudioDeviceRemovePropertyListener", "10.0")
+	registerFunc(&_audioDeviceSetProperty, &_audioDeviceSetPropertyErr, frameworkHandle, "AudioDeviceSetProperty", "10.0")
 	registerFunc(&_audioDeviceStart, &_audioDeviceStartErr, frameworkHandle, "AudioDeviceStart", "10.0")
+	registerFunc(&_audioDeviceStartAtTime, &_audioDeviceStartAtTimeErr, frameworkHandle, "AudioDeviceStartAtTime", "10.3")
 	registerFunc(&_audioDeviceStop, &_audioDeviceStopErr, frameworkHandle, "AudioDeviceStop", "10.0")
+	registerFunc(&_audioDeviceTranslateTime, &_audioDeviceTranslateTimeErr, frameworkHandle, "AudioDeviceTranslateTime", "10.0")
 	registerFunc(&_audioDriverPlugInClose, &_audioDriverPlugInCloseErr, frameworkHandle, "AudioDriverPlugInClose", "")
 	registerFunc(&_audioDriverPlugInDeviceGetProperty, &_audioDriverPlugInDeviceGetPropertyErr, frameworkHandle, "AudioDriverPlugInDeviceGetProperty", "")
 	registerFunc(&_audioDriverPlugInDeviceGetPropertyInfo, &_audioDriverPlugInDeviceGetPropertyInfoErr, frameworkHandle, "AudioDriverPlugInDeviceGetPropertyInfo", "")
+	registerFunc(&_audioDriverPlugInDeviceSetProperty, &_audioDriverPlugInDeviceSetPropertyErr, frameworkHandle, "AudioDriverPlugInDeviceSetProperty", "")
 	registerFunc(&_audioDriverPlugInOpen, &_audioDriverPlugInOpenErr, frameworkHandle, "AudioDriverPlugInOpen", "")
 	registerFunc(&_audioDriverPlugInStreamGetProperty, &_audioDriverPlugInStreamGetPropertyErr, frameworkHandle, "AudioDriverPlugInStreamGetProperty", "")
 	registerFunc(&_audioDriverPlugInStreamGetPropertyInfo, &_audioDriverPlugInStreamGetPropertyInfoErr, frameworkHandle, "AudioDriverPlugInStreamGetPropertyInfo", "")
+	registerFunc(&_audioDriverPlugInStreamSetProperty, &_audioDriverPlugInStreamSetPropertyErr, frameworkHandle, "AudioDriverPlugInStreamSetProperty", "")
 	registerFunc(&_audioGetCurrentHostTime, &_audioGetCurrentHostTimeErr, frameworkHandle, "AudioGetCurrentHostTime", "10.0")
 	registerFunc(&_audioGetHostClockFrequency, &_audioGetHostClockFrequencyErr, frameworkHandle, "AudioGetHostClockFrequency", "10.0")
 	registerFunc(&_audioGetHostClockMinimumTimeDelta, &_audioGetHostClockMinimumTimeDeltaErr, frameworkHandle, "AudioGetHostClockMinimumTimeDelta", "10.0")
@@ -1189,4 +1392,5 @@ func init() {
 	registerFunc(&_audioStreamGetProperty, &_audioStreamGetPropertyErr, frameworkHandle, "AudioStreamGetProperty", "10.1")
 	registerFunc(&_audioStreamGetPropertyInfo, &_audioStreamGetPropertyInfoErr, frameworkHandle, "AudioStreamGetPropertyInfo", "10.1")
 	registerFunc(&_audioStreamRemovePropertyListener, &_audioStreamRemovePropertyListenerErr, frameworkHandle, "AudioStreamRemovePropertyListener", "10.1")
+	registerFunc(&_audioStreamSetProperty, &_audioStreamSetPropertyErr, frameworkHandle, "AudioStreamSetProperty", "10.1")
 }

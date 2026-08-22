@@ -77,7 +77,7 @@ func (uc URLSessionStreamTaskClass) Alloc() URLSessionStreamTask {
 //
 // # Capturing streams
 //
-//   - [URLSessionStreamTask.CaptureStreams]: Completes any already enqueued reads and writes, and then invokes the [urlSession(_:streamTask:didBecome:outputStream:)](<doc://com.apple.foundation/documentation/Foundation/URLSessionStreamDelegate/urlSession(_:streamTask:didBecome:outputStream:)>) delegate message.
+//   - [URLSessionStreamTask.CaptureStreams]: Completes any already enqueued reads and writes, and then invokes the [urlSession(_:streamTask:didBecome:outputStream:)](<https://developer.apple.com/documentation/Foundation/URLSessionStreamDelegate/urlSession(_:streamTask:didBecome:outputStream:)>) delegate message.
 //
 // # Closing read and write sockets
 //
@@ -117,7 +117,7 @@ func NSURLSessionStreamTaskFromID(id objc.ID) URLSessionStreamTask {
 //
 // # Capturing streams
 //
-//   - [IURLSessionStreamTask.CaptureStreams]: Completes any already enqueued reads and writes, and then invokes the [urlSession(_:streamTask:didBecome:outputStream:)](<doc://com.apple.foundation/documentation/Foundation/URLSessionStreamDelegate/urlSession(_:streamTask:didBecome:outputStream:)>) delegate message.
+//   - [IURLSessionStreamTask.CaptureStreams]: Completes any already enqueued reads and writes, and then invokes the [urlSession(_:streamTask:didBecome:outputStream:)](<https://developer.apple.com/documentation/Foundation/URLSessionStreamDelegate/urlSession(_:streamTask:didBecome:outputStream:)>) delegate message.
 //
 // # Closing read and write sockets
 //
@@ -141,7 +141,7 @@ type IURLSessionStreamTask interface {
 
 	// Topic: Capturing streams
 
-	// Completes any already enqueued reads and writes, and then invokes the [urlSession(_:streamTask:didBecome:outputStream:)](<doc://com.apple.foundation/documentation/Foundation/URLSessionStreamDelegate/urlSession(_:streamTask:didBecome:outputStream:)>) delegate message.
+	// Completes any already enqueued reads and writes, and then invokes the [urlSession(_:streamTask:didBecome:outputStream:)](<https://developer.apple.com/documentation/Foundation/URLSessionStreamDelegate/urlSession(_:streamTask:didBecome:outputStream:)>) delegate message.
 	CaptureStreams()
 
 	// Topic: Closing read and write sockets

@@ -11,7 +11,7 @@ import (
 
 var _ = fmt.Sprintf
 
-// A set of methods that enable the delegate of a path cell object to customize the Open panel or pop-up menu of a path whose style is set to [NSPathControl.Style.popUp](<doc://com.apple.appkit/documentation/AppKit/NSPathControl/Style/popUp>).
+// A set of methods that enable the delegate of a path cell object to customize the Open panel or pop-up menu of a path whose style is set to [NSPathControl.Style.popUp](<https://developer.apple.com/documentation/AppKit/NSPathControl/Style/popUp>).
 //
 // See: https://developer.apple.com/documentation/AppKit/NSPathCellDelegate
 type NSPathCellDelegate interface {
@@ -115,9 +115,21 @@ func NewNSPathCellDelegate(config NSPathCellDelegateConfig) NSPathCellDelegateOb
 		methods = append(methods, objc.MethodDef{
 			Cmd: objc.RegisterName("pathCell:willDisplayOpenPanel:"),
 			Fn: func(self objc.ID, _cmd objc.SEL, pathCellID objc.ID, openPanelID objc.ID) {
+				// Names which delegate was running if a panic unwinds out of
+				// it. The frames between here and the Objective-C caller are
+				// runtime and purego dispatch, so without this the traceback
+				// never says which selector dispatched. Deliberately no
+				// recover: see [objc.NoteDelegatePanic].
+				_delegateDone := false
+				defer func() {
+					if !_delegateDone {
+						objc.NoteDelegatePanic("NSPathCellDelegate", "pathCell:willDisplayOpenPanel:")
+					}
+				}()
 				pathCell := NSPathCellFromID(pathCellID)
 				openPanel := NSOpenPanelFromID(openPanelID)
 				fn(pathCell, openPanel)
+				_delegateDone = true
 			},
 		})
 	}
@@ -127,9 +139,21 @@ func NewNSPathCellDelegate(config NSPathCellDelegateConfig) NSPathCellDelegateOb
 		methods = append(methods, objc.MethodDef{
 			Cmd: objc.RegisterName("pathCell:willPopUpMenu:"),
 			Fn: func(self objc.ID, _cmd objc.SEL, pathCellID objc.ID, menuID objc.ID) {
+				// Names which delegate was running if a panic unwinds out of
+				// it. The frames between here and the Objective-C caller are
+				// runtime and purego dispatch, so without this the traceback
+				// never says which selector dispatched. Deliberately no
+				// recover: see [objc.NoteDelegatePanic].
+				_delegateDone := false
+				defer func() {
+					if !_delegateDone {
+						objc.NoteDelegatePanic("NSPathCellDelegate", "pathCell:willPopUpMenu:")
+					}
+				}()
 				pathCell := NSPathCellFromID(pathCellID)
 				menu := NSMenuFromID(menuID)
 				fn(pathCell, menu)
+				_delegateDone = true
 			},
 		})
 	}

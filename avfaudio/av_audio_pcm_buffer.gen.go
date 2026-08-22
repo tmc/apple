@@ -3,12 +3,12 @@
 package avfaudio
 
 import (
+	"context"
 	"sync"
 	"unsafe"
 
 	"github.com/tmc/apple/coreaudiotypes"
 	"github.com/tmc/apple/objc"
-	"github.com/tmc/apple/objectivec"
 )
 
 // The class instance for the [AVAudioPCMBuffer] class.
@@ -113,7 +113,7 @@ type IAVAudioPCMBuffer interface {
 	// Creates a PCM audio buffer instance for PCM audio data.
 	InitWithPCMFormatFrameCapacity(format IAVAudioFormat, frameCapacity AVAudioFrameCount) AVAudioPCMBuffer
 	// Creates a PCM audio buffer instance without copying samples, for PCM audio data, with a specified buffer list and a deallocator closure.
-	InitWithPCMFormatBufferListNoCopyDeallocator(format IAVAudioFormat, bufferList objectivec.IObject, deallocator func(*coreaudiotypes.AudioBufferList)) AVAudioPCMBuffer
+	InitWithPCMFormatBufferListNoCopyDeallocator(format IAVAudioFormat, bufferList *coreaudiotypes.AudioBufferList, deallocator constAudioBufferListHandler) AVAudioPCMBuffer
 
 	// Topic: Getting and Setting the Frame Length
 
@@ -171,7 +171,7 @@ func NewAVAudioPCMBuffer() AVAudioPCMBuffer {
 // - The format has zero bytes per frame. - The system can’t represent the
 // buffer byte capacity as an unsigned bit-32 integer.
 //
-// See: https://developer.apple.com/documentation/AVFAudio/AVAudioPCMBuffer/init(pcmFormat:frameCapacity:)-5jhd5
+// See: https://developer.apple.com/documentation/AVFAudio/AVAudioPCMBuffer/init(pcmFormat:frameCapacity:)
 func NewAudioPCMBufferWithPCMFormatFrameCapacity(format IAVAudioFormat, frameCapacity AVAudioFrameCount) AVAudioPCMBuffer {
 	instance := getAVAudioPCMBufferClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithPCMFormat:frameCapacity:"), format, frameCapacity)
@@ -195,7 +195,7 @@ func NewAudioPCMBufferWithPCMFormatFrameCapacity(format IAVAudioFormat, frameCap
 // - The format has zero bytes per frame. - The system can’t represent the
 // buffer byte capacity as an unsigned bit-32 integer.
 //
-// See: https://developer.apple.com/documentation/AVFAudio/AVAudioPCMBuffer/init(pcmFormat:frameCapacity:)-5jhd5
+// See: https://developer.apple.com/documentation/AVFAudio/AVAudioPCMBuffer/init(pcmFormat:frameCapacity:)
 func (a AVAudioPCMBuffer) InitWithPCMFormatFrameCapacity(format IAVAudioFormat, frameCapacity AVAudioFrameCount) AVAudioPCMBuffer {
 	rv := objc.Send[AVAudioPCMBuffer](a.ID, objc.Sel("initWithPCMFormat:frameCapacity:"), format, frameCapacity)
 	return rv
@@ -233,15 +233,14 @@ var _avaudiopcmbuffer_initwithpcmformat_bufferlistnocopy_deallocator_p2_key byte
 // mismatch between the format’s number of buffers and the buffer list’s
 // size (1 if interleaved, [mChannelsPerFrame] if deinterleaved).
 //
-// See: https://developer.apple.com/documentation/AVFAudio/AVAudioPCMBuffer/init(pcmFormat:bufferListNoCopy:deallocator:)-9iwe7
+// See: https://developer.apple.com/documentation/AVFAudio/AVAudioPCMBuffer/init(pcmFormat:bufferListNoCopy:deallocator:)
 //
 // [mChannelsPerFrame]: https://developer.apple.com/documentation/CoreAudioTypes/AudioStreamBasicDescription/mChannelsPerFrame
 // [mDataByteSize]: https://developer.apple.com/documentation/CoreAudioTypes/AudioBuffer/mDataByteSize
 // [mData]: https://developer.apple.com/documentation/CoreAudioTypes/AudioBuffer/mData
-func (a AVAudioPCMBuffer) InitWithPCMFormatBufferListNoCopyDeallocator(format IAVAudioFormat, bufferList objectivec.IObject, deallocator func(*coreaudiotypes.AudioBufferList)) AVAudioPCMBuffer {
-	_block2 := objc.NewBlock(func(_ objc.Block, arg0 unsafe.Pointer) { deallocator((*coreaudiotypes.AudioBufferList)(arg0)) })
-	rv := objc.Send[AVAudioPCMBuffer](a.ID, objc.Sel("initWithPCMFormat:bufferListNoCopy:deallocator:"), format, bufferList, objc.ID(_block2))
-	objc.AssociateBlockWithReceiver(rv.ID, &_avaudiopcmbuffer_initwithpcmformat_bufferlistnocopy_deallocator_p2_key, _block2)
+func (a AVAudioPCMBuffer) InitWithPCMFormatBufferListNoCopyDeallocator(format IAVAudioFormat, bufferList *coreaudiotypes.AudioBufferList, deallocator constAudioBufferListHandler) AVAudioPCMBuffer {
+	_block2, _ := NewconstAudioBufferListBlock(deallocator)
+	rv := objc.Send[AVAudioPCMBuffer](a.ID, objc.Sel("initWithPCMFormat:bufferListNoCopy:deallocator:"), format, bufferList, _block2)
 	return rv
 }
 
@@ -340,4 +339,19 @@ func (a AVAudioPCMBuffer) Int32ChannelData() unsafe.Pointer {
 func (a AVAudioPCMBuffer) Stride() uint {
 	rv := objc.Send[uint](a.ID, objc.Sel("stride"))
 	return rv
+}
+
+// InitWithPCMFormatBufferListNoCopyDeallocatorSync is a synchronous wrapper around [AVAudioPCMBuffer.InitWithPCMFormatBufferListNoCopyDeallocator].
+// It blocks until the completion handler fires or the context is cancelled.
+func (a AVAudioPCMBuffer) InitWithPCMFormatBufferListNoCopyDeallocatorSync(ctx context.Context, format IAVAudioFormat, bufferList *coreaudiotypes.AudioBufferList) (*coreaudiotypes.AudioBufferList, error) {
+	done := make(chan *coreaudiotypes.AudioBufferList, 1)
+	a.InitWithPCMFormatBufferListNoCopyDeallocator(format, bufferList, func(val *coreaudiotypes.AudioBufferList) {
+		done <- val
+	})
+	select {
+	case r := <-done:
+		return r, nil
+	case <-ctx.Done():
+		return nil, ctx.Err()
+	}
 }

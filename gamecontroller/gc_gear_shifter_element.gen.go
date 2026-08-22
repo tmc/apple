@@ -82,6 +82,13 @@ type IGCGearShifterElement interface {
 	PatternInput() GCSwitchPositionInput
 	// The input object for a sequential gear shift.
 	SequentialInput() GCRelativeInput
+
+	// The element’s aliases to use when accessing it with the subscript notation.
+	Aliases() foundation.INSSet
+	// The localized name for the element.
+	LocalizedName() string
+	// A system symbol for the element.
+	SfSymbolsName() string
 }
 
 // Init initializes the instance.

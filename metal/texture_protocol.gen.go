@@ -45,16 +45,6 @@ type MTLTexture interface {
 	// See: https://developer.apple.com/documentation/Metal/MTLTexture/makeTextureView(pixelFormat:)
 	NewTextureViewWithPixelFormat(pixelFormat MTLPixelFormat) MTLTexture
 
-	// A Boolean value that indicates whether the texture can only be used as a render target.
-	//
-	// See: https://developer.apple.com/documentation/Metal/MTLTexture/isFramebufferOnly
-	IsFramebufferOnly() bool
-
-	// A Boolean indicating whether this texture can be shared with other processes.
-	//
-	// See: https://developer.apple.com/documentation/Metal/MTLTexture/isShareable
-	IsShareable() bool
-
 	// The resource that owns the storage for this texture.
 	//
 	// See: https://developer.apple.com/documentation/Metal/MTLTexture/rootResource
@@ -128,7 +118,7 @@ type MTLTexture interface {
 	// A Boolean value that indicates whether the texture can only be used as a render target.
 	//
 	// See: https://developer.apple.com/documentation/Metal/MTLTexture/isFramebufferOnly
-	FramebufferOnly() bool
+	IsFramebufferOnly() bool
 
 	// Options that determine how you can use the texture.
 	//
@@ -143,7 +133,7 @@ type MTLTexture interface {
 	// A Boolean indicating whether this texture can be shared with other processes.
 	//
 	// See: https://developer.apple.com/documentation/Metal/MTLTexture/isShareable
-	Shareable() bool
+	IsShareable() bool
 
 	// The pattern that the GPU applies to pixels when you read or sample pixels from the texture.
 	//
@@ -378,7 +368,7 @@ func (o MTLTextureObject) ReplaceRegionMipmapLevelWithBytesBytesPerRow(region MT
 //
 // pixelBytes: A pointer to a destination buffer in system memory.
 //
-// bytesPerRow: The number of bytes () between two adjacent rows of pixel data in the
+// bytesPerRow: The number of bytes (stride) between two adjacent rows of pixel data in the
 // destination buffer. For [MTLTextureType1D] and [MTLTextureType1DArray], use
 // `0`. For raw and packed pixel types, the stride is the number of pixels in
 // one row. For compressed pixel formats, the stride is the number of bytes
@@ -440,7 +430,7 @@ func (o MTLTextureObject) GetBytesBytesPerRowBytesPerImageFromRegionMipmapLevelS
 //
 // pixelBytes: A pointer to a destination buffer in system memory.
 //
-// bytesPerRow: The number of bytes () between two adjacent rows of pixel data in the
+// bytesPerRow: The number of bytes (stride) between two adjacent rows of pixel data in the
 // destination buffer. For [MTLTextureType1D] and [MTLTextureType1DArray], use
 // `0`. For raw and packed pixel types, the stride is the number of pixels in
 // one row. For compressed pixel formats, the stride is the number of bytes
@@ -501,8 +491,8 @@ func (o MTLTextureObject) GetBytesBytesPerRowFromRegionMipmapLevel(pixelBytes un
 //
 // When you create a texture normally, Metal allocates memory for the
 // textureʼs pixel data. These storage allocations can be quite large. You
-// can reduce memory use and avoid copying texture data by using a —a
-// texture object that shares another textureʼs storage allocation,
+// can reduce memory use and avoid copying texture data by using a texture
+// view—a texture object that shares another textureʼs storage allocation,
 // reinterpreting the pixel data in some other format.
 //
 // Not all pixel formats are compatible with one another. Reinterpretation of
@@ -536,24 +526,6 @@ func (o MTLTextureObject) GetBytesBytesPerRowFromRegionMipmapLevel(pixelBytes un
 func (o MTLTextureObject) NewTextureViewWithPixelFormat(pixelFormat MTLPixelFormat) MTLTexture {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("newTextureViewWithPixelFormat:"), pixelFormat)
 	return MTLTextureObjectFromID(rv)
-}
-
-// A Boolean value that indicates whether the texture can only be used as a
-// render target.
-//
-// See: https://developer.apple.com/documentation/Metal/MTLTexture/isFramebufferOnly
-func (o MTLTextureObject) IsFramebufferOnly() bool {
-	rv := objc.Send[bool](o.ID, objc.Sel("isFramebufferOnly"))
-	return rv
-}
-
-// A Boolean indicating whether this texture can be shared with other
-// processes.
-//
-// See: https://developer.apple.com/documentation/Metal/MTLTexture/isShareable
-func (o MTLTextureObject) IsShareable() bool {
-	rv := objc.Send[bool](o.ID, objc.Sel("isShareable"))
-	return rv
 }
 
 // The resource that owns the storage for this texture.
@@ -973,7 +945,7 @@ func (o MTLTextureObject) SampleCount() uint {
 // [CAMetalDrawable]: https://developer.apple.com/documentation/QuartzCore/CAMetalDrawable
 // [CAMetalLayer]: https://developer.apple.com/documentation/QuartzCore/CAMetalLayer
 // [framebufferOnly]: https://developer.apple.com/documentation/QuartzCore/CAMetalLayer/framebufferOnly
-func (o MTLTextureObject) FramebufferOnly() bool {
+func (o MTLTextureObject) IsFramebufferOnly() bool {
 	rv := objc.Send[bool](o.ID, objc.Sel("isFramebufferOnly"))
 	return bool(rv)
 }
@@ -1019,7 +991,7 @@ func (o MTLTextureObject) AllowGPUOptimizedContents() bool {
 // The value is set when the texture is created and never changes.
 //
 // See: https://developer.apple.com/documentation/Metal/MTLTexture/isShareable
-func (o MTLTextureObject) Shareable() bool {
+func (o MTLTextureObject) IsShareable() bool {
 	rv := objc.Send[bool](o.ID, objc.Sel("isShareable"))
 	return bool(rv)
 }
@@ -1172,10 +1144,10 @@ func (o MTLTextureObject) IsSparse() bool {
 //
 // # Discussion
 //
-// In a sparse texture, the is a collection of mipmaps at higher index values
-// that are mapped as a single block of memory. When you map this mipmap into
-// your sparse texture, Metal also maps mipmap levels with larger index
-// values.
+// In a sparse texture, the tail is a collection of mipmaps at higher index
+// values that are mapped as a single block of memory. When you map this
+// mipmap into your sparse texture, Metal also maps mipmap levels with larger
+// index values.
 //
 // See: https://developer.apple.com/documentation/Metal/MTLTexture/firstMipmapInTail
 func (o MTLTextureObject) FirstMipmapInTail() uint {

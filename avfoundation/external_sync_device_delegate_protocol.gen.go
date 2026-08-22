@@ -12,7 +12,7 @@ import (
 
 var _ = fmt.Sprintf
 
-// Defines an interface for delegates of [AVCaptureDeviceInput](<doc://com.apple.avfoundation/documentation/AVFoundation/AVCaptureDeviceInput>) to respond to events that occur when connecting, calibrating, and disconnecting external sync devices.
+// Defines an interface for delegates of [AVCaptureDeviceInput](<https://developer.apple.com/documentation/AVFoundation/AVCaptureDeviceInput>) to respond to events that occur when connecting, calibrating, and disconnecting external sync devices.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVExternalSyncDeviceDelegate
 type AVExternalSyncDeviceDelegate interface {
@@ -87,9 +87,21 @@ func NewAVExternalSyncDeviceDelegate(config AVExternalSyncDeviceDelegateConfig) 
 		methods = append(methods, objc.MethodDef{
 			Cmd: objc.RegisterName("externalSyncDevice:failedWithError:"),
 			Fn: func(self objc.ID, _cmd objc.SEL, deviceID objc.ID, error_ID objc.ID) {
+				// Names which delegate was running if a panic unwinds out of
+				// it. The frames between here and the Objective-C caller are
+				// runtime and purego dispatch, so without this the traceback
+				// never says which selector dispatched. Deliberately no
+				// recover: see [objc.NoteDelegatePanic].
+				_delegateDone := false
+				defer func() {
+					if !_delegateDone {
+						objc.NoteDelegatePanic("AVExternalSyncDeviceDelegate", "externalSyncDevice:failedWithError:")
+					}
+				}()
 				device := AVExternalSyncDeviceFromID(deviceID)
 				error_ := foundation.NSErrorFromID(error_ID)
 				fn(device, error_)
+				_delegateDone = true
 			},
 		})
 	}
@@ -99,8 +111,20 @@ func NewAVExternalSyncDeviceDelegate(config AVExternalSyncDeviceDelegateConfig) 
 		methods = append(methods, objc.MethodDef{
 			Cmd: objc.RegisterName("externalSyncDeviceStatusDidChange:"),
 			Fn: func(self objc.ID, _cmd objc.SEL, deviceID objc.ID) {
+				// Names which delegate was running if a panic unwinds out of
+				// it. The frames between here and the Objective-C caller are
+				// runtime and purego dispatch, so without this the traceback
+				// never says which selector dispatched. Deliberately no
+				// recover: see [objc.NoteDelegatePanic].
+				_delegateDone := false
+				defer func() {
+					if !_delegateDone {
+						objc.NoteDelegatePanic("AVExternalSyncDeviceDelegate", "externalSyncDeviceStatusDidChange:")
+					}
+				}()
 				device := AVExternalSyncDeviceFromID(deviceID)
 				fn(device)
+				_delegateDone = true
 			},
 		})
 	}

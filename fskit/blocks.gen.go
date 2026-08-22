@@ -388,6 +388,21 @@ func NewFSVolumeErrorBlock(handler FSVolumeErrorHandler) (objc.ID, func()) {
 	return objc.ID(block), func() { block.Release() }
 }
 
+// NSErrorVoidHandler is the signature for a completion handler block.
+type NSErrorVoidHandler = func() foundation.NSError
+
+// NewNSErrorVoidBlock wraps a Go [NSErrorVoidHandler] as an Objective-C block.
+// The caller must defer the returned cleanup function.
+func NewNSErrorVoidBlock(handler NSErrorVoidHandler) (objc.ID, func()) {
+	if handler == nil {
+		return 0, func() {}
+	}
+	block := objc.NewBlock(func(b objc.Block) objc.ID {
+		return handler().ID
+	})
+	return objc.ID(block), func() { block.Release() }
+}
+
 // VoidHandler handles A block or closure to indicate success or failure.
 //
 // Used by:

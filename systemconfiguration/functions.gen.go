@@ -1241,10 +1241,10 @@ func SCDynamicStoreSetValue(store SCDynamicStoreRef, key corefoundation.CFString
 	return result
 }
 
-var _sCError func() int
+var _sCError func() int32
 var _sCErrorErr error
 
-func trySCError() (int, error) {
+func trySCError() (int32, error) {
 	if _sCError == nil {
 		return 0, symbolCallError("SCError", "10.1", _sCErrorErr)
 	}
@@ -1254,7 +1254,7 @@ func trySCError() (int, error) {
 // SCError returns an error or status code associated with the most recent function call.
 //
 // See: https://developer.apple.com/documentation/SystemConfiguration/SCError()
-func SCError() int {
+func SCError() int32 {
 	result, callErr := trySCError()
 	if callErr != nil {
 		panic(callErr)
@@ -1262,10 +1262,10 @@ func SCError() int {
 	return result
 }
 
-var _sCErrorString func(status int) *byte
+var _sCErrorString func(status int32) *byte
 var _sCErrorStringErr error
 
-func trySCErrorString(status int) (*byte, error) {
+func trySCErrorString(status int32) (*byte, error) {
 	if _sCErrorString == nil {
 		return nil, symbolCallError("SCErrorString", "10.1", _sCErrorStringErr)
 	}
@@ -1275,7 +1275,7 @@ func trySCErrorString(status int) (*byte, error) {
 // SCErrorString returns a string describing the specified status code or error code.
 //
 // See: https://developer.apple.com/documentation/SystemConfiguration/SCErrorString(_:)
-func SCErrorString(status int) *byte {
+func SCErrorString(status int32) *byte {
 	result, callErr := trySCErrorString(status)
 	if callErr != nil {
 		panic(callErr)
@@ -1577,20 +1577,20 @@ func SCNetworkInterfaceCopyAll() corefoundation.CFArrayRef {
 	return result
 }
 
-var _sCNetworkInterfaceCopyMTU func(interface_ SCNetworkInterfaceRef, mtu_cur *int, mtu_min *int, mtu_max *int) bool
+var _sCNetworkInterfaceCopyMTU func(interface_ SCNetworkInterfaceRef, mtu_cur *int32, mtu_min *int32, mtu_max *int32) bool
 var _sCNetworkInterfaceCopyMTUErr error
 
-func trySCNetworkInterfaceCopyMTU(interface_ SCNetworkInterfaceRef, mtu_cur []int, mtu_min []int, mtu_max []int) (bool, error) {
+func trySCNetworkInterfaceCopyMTU(interface_ SCNetworkInterfaceRef, mtu_cur *int32, mtu_min *int32, mtu_max *int32) (bool, error) {
 	if _sCNetworkInterfaceCopyMTU == nil {
 		return false, symbolCallError("SCNetworkInterfaceCopyMTU", "10.5", _sCNetworkInterfaceCopyMTUErr)
 	}
-	return _sCNetworkInterfaceCopyMTU(interface_, unsafe.SliceData(mtu_cur), unsafe.SliceData(mtu_min), unsafe.SliceData(mtu_max)), nil
+	return _sCNetworkInterfaceCopyMTU(interface_, mtu_cur, mtu_min, mtu_max), nil
 }
 
 // SCNetworkInterfaceCopyMTU returns the current MTU setting and the range of allowable values for the specified network interface.
 //
 // See: https://developer.apple.com/documentation/SystemConfiguration/SCNetworkInterfaceCopyMTU(_:_:_:_:)
-func SCNetworkInterfaceCopyMTU(interface_ SCNetworkInterfaceRef, mtu_cur []int, mtu_min []int, mtu_max []int) bool {
+func SCNetworkInterfaceCopyMTU(interface_ SCNetworkInterfaceRef, mtu_cur *int32, mtu_min *int32, mtu_max *int32) bool {
 	result, callErr := trySCNetworkInterfaceCopyMTU(interface_, mtu_cur, mtu_min, mtu_max)
 	if callErr != nil {
 		panic(callErr)
@@ -1955,10 +1955,10 @@ func SCNetworkInterfaceSetExtendedConfiguration(interface_ SCNetworkInterfaceRef
 	return result
 }
 
-var _sCNetworkInterfaceSetMTU func(interface_ SCNetworkInterfaceRef, mtu int) bool
+var _sCNetworkInterfaceSetMTU func(interface_ SCNetworkInterfaceRef, mtu int32) bool
 var _sCNetworkInterfaceSetMTUErr error
 
-func trySCNetworkInterfaceSetMTU(interface_ SCNetworkInterfaceRef, mtu int) (bool, error) {
+func trySCNetworkInterfaceSetMTU(interface_ SCNetworkInterfaceRef, mtu int32) (bool, error) {
 	if _sCNetworkInterfaceSetMTU == nil {
 		return false, symbolCallError("SCNetworkInterfaceSetMTU", "10.5", _sCNetworkInterfaceSetMTUErr)
 	}
@@ -1968,7 +1968,7 @@ func trySCNetworkInterfaceSetMTU(interface_ SCNetworkInterfaceRef, mtu int) (boo
 // SCNetworkInterfaceSetMTU sets the requested MTU setting for the specified network interface.
 //
 // See: https://developer.apple.com/documentation/SystemConfiguration/SCNetworkInterfaceSetMTU(_:_:)
-func SCNetworkInterfaceSetMTU(interface_ SCNetworkInterfaceRef, mtu int) bool {
+func SCNetworkInterfaceSetMTU(interface_ SCNetworkInterfaceRef, mtu int32) bool {
 	result, callErr := trySCNetworkInterfaceSetMTU(interface_, mtu)
 	if callErr != nil {
 		panic(callErr)

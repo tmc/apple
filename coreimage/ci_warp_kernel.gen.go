@@ -109,7 +109,7 @@ type ICIWarpKernel interface {
 	// Topic: Applying a Kernel to Filter an Image
 
 	// Creates a new image using the kernel and the specified input image and arguments.
-	ApplyWithExtentRoiCallbackInputImageArguments(extent corefoundation.CGRect, callback CIKernelROICallback, image ICIImage, args []objectivec.IObject) ICIImage
+	ApplyWithExtentRoiCallbackInputImageArguments(extent corefoundation.CGRect, callback CGRectInt32Handler, image ICIImage, args []objectivec.IObject) ICIImage
 }
 
 // Init initializes the instance.
@@ -154,10 +154,10 @@ func NewCIWarpKernel() CIWarpKernel {
 // # Specifying Compiler and Linker Options
 //
 // To use MSL as the shader language for a [CIKernel], you must specify some
-// options in Xcode under the tab of your project’s target. The first option
-// you need to specify is an `-fcikernel` flag in the Other Metal Compiler
-// Flags option. The second is to add a user-defined setting with a key called
-// `MTLLINKER_FLAGS` with a value of `-`
+// options in Xcode under the Build Settings tab of your project’s target.
+// The first option you need to specify is an `-fcikernel` flag in the Other
+// Metal Compiler Flags option. The second is to add a user-defined setting
+// with a key called `MTLLINKER_FLAGS` with a value of `-`
 //
 // [media-2929842]
 //
@@ -204,6 +204,9 @@ func NewWarpKernelWithFunctionNameFromMetalLibraryDataError(name string, data fo
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
 		return CIWarpKernel{}, foundation.NSErrorFrom(errorPtr)
 	}
+	if rv == 0 {
+		return CIWarpKernel{}, objc.ErrInitFailed
+	}
 	return CIWarpKernelFromID(rv), nil
 }
 
@@ -229,12 +232,15 @@ func NewWarpKernelWithFunctionNameFromMetalLibraryDataError(name string, data fo
 // the same filter graph as traditional CIKL kernels.
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIKernel/init(functionName:fromMetalLibraryData:outputPixelFormat:)
-func NewWarpKernelWithFunctionNameFromMetalLibraryDataOutputPixelFormatError(name string, data foundation.NSData, format int) (CIWarpKernel, error) {
+func NewWarpKernelWithFunctionNameFromMetalLibraryDataOutputPixelFormatError(name string, data foundation.NSData, format CIFormat) (CIWarpKernel, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](objc.ID(getCIWarpKernelClass().class), objc.Sel("kernelWithFunctionName:fromMetalLibraryData:outputPixelFormat:error:"), objc.String(name), data, format, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
 		return CIWarpKernel{}, foundation.NSErrorFrom(errorPtr)
+	}
+	if rv == 0 {
+		return CIWarpKernel{}, objc.ErrInitFailed
 	}
 	return CIWarpKernelFromID(rv), nil
 }
@@ -280,11 +286,8 @@ func NewWarpKernelWithFunctionNameFromMetalLibraryDataOutputPixelFormatError(nam
 //
 // [Core Image Kernel Language Reference]: https://developer.apple.com/library/archive/documentation/GraphicsImaging/Reference/CIKernelLangRef/Introduction/Introduction.html#//apple_ref/doc/uid/TP40004397
 // [The Region of Interest]: https://developer.apple.com/library/archive/documentation/GraphicsImaging/Conceptual/CoreImaging/ci_advanced_concepts/ci.advanced_concepts.html#//apple_ref/doc/uid/TP30001185-CH9-SW12
-func (w CIWarpKernel) ApplyWithExtentRoiCallbackInputImageArguments(extent corefoundation.CGRect, callback CIKernelROICallback, image ICIImage, args []objectivec.IObject) ICIImage {
-	_block1 := objc.NewBlock(func(_ objc.Block, arg0 int, arg1 corefoundation.CGRect) corefoundation.CGRect {
-		return callback(arg0, arg1)
-	})
-	// _block1 intentionally not released: "applyWithExtent:roiCallback:inputImage:arguments:" retains the block past return.
-	rv := objc.Send[objc.ID](w.ID, objc.Sel("applyWithExtent:roiCallback:inputImage:arguments:"), extent, objc.ID(_block1), image, objectivec.IObjectSliceToNSArray(args))
+func (w CIWarpKernel) ApplyWithExtentRoiCallbackInputImageArguments(extent corefoundation.CGRect, callback CGRectInt32Handler, image ICIImage, args []objectivec.IObject) ICIImage {
+	_block1, _ := NewCGRectInt32Block(callback)
+	rv := objc.Send[objc.ID](w.ID, objc.Sel("applyWithExtent:roiCallback:inputImage:arguments:"), extent, _block1, image, args)
 	return CIImageFromID(rv)
 }

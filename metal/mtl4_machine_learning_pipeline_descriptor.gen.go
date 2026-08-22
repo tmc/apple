@@ -148,6 +148,13 @@ func (m MTL4MachineLearningPipelineDescriptor) Reset() {
 //
 // bufferIndex: Index of the tensor to modify.
 //
+// # Discussion
+//
+// When the compiled model declares the input as unranked (unknown rank), any
+// concrete `dimensions` are accepted. Otherwise `dimensions.Rank()` must
+// equal the model’s input rank, and each static (non `-1`) dimension must
+// match.
+//
 // See: https://developer.apple.com/documentation/Metal/MTL4MachineLearningPipelineDescriptor/setInputDimensions(_:bufferIndex:)-34gir
 func (m MTL4MachineLearningPipelineDescriptor) SetInputDimensionsAtBufferIndex(dimensions IMTLTensorExtents, bufferIndex int) {
 	objc.Send[objc.ID](m.ID, objc.Sel("setInputDimensions:atBufferIndex:"), dimensions, bufferIndex)

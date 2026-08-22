@@ -248,9 +248,22 @@ func NewNSGestureRecognizerDelegate(config NSGestureRecognizerDelegateConfig) NS
 		methods = append(methods, objc.MethodDef{
 			Cmd: objc.RegisterName("gestureRecognizer:shouldAttemptToRecognizeWithEvent:"),
 			Fn: func(self objc.ID, _cmd objc.SEL, gestureRecognizerID objc.ID, eventID objc.ID) bool {
+				// Names which delegate was running if a panic unwinds out of
+				// it. The frames between here and the Objective-C caller are
+				// runtime and purego dispatch, so without this the traceback
+				// never says which selector dispatched. Deliberately no
+				// recover: see [objc.NoteDelegatePanic].
+				_delegateDone := false
+				defer func() {
+					if !_delegateDone {
+						objc.NoteDelegatePanic("NSGestureRecognizerDelegate", "gestureRecognizer:shouldAttemptToRecognizeWithEvent:")
+					}
+				}()
 				gestureRecognizer := NSGestureRecognizerFromID(gestureRecognizerID)
 				event := NSEventFromID(eventID)
-				return fn(gestureRecognizer, event)
+				_delegateResult := fn(gestureRecognizer, event)
+				_delegateDone = true
+				return _delegateResult
 			},
 		})
 	}
@@ -260,8 +273,21 @@ func NewNSGestureRecognizerDelegate(config NSGestureRecognizerDelegateConfig) NS
 		methods = append(methods, objc.MethodDef{
 			Cmd: objc.RegisterName("gestureRecognizerShouldBegin:"),
 			Fn: func(self objc.ID, _cmd objc.SEL, gestureRecognizerID objc.ID) bool {
+				// Names which delegate was running if a panic unwinds out of
+				// it. The frames between here and the Objective-C caller are
+				// runtime and purego dispatch, so without this the traceback
+				// never says which selector dispatched. Deliberately no
+				// recover: see [objc.NoteDelegatePanic].
+				_delegateDone := false
+				defer func() {
+					if !_delegateDone {
+						objc.NoteDelegatePanic("NSGestureRecognizerDelegate", "gestureRecognizerShouldBegin:")
+					}
+				}()
 				gestureRecognizer := NSGestureRecognizerFromID(gestureRecognizerID)
-				return fn(gestureRecognizer)
+				_delegateResult := fn(gestureRecognizer)
+				_delegateDone = true
+				return _delegateResult
 			},
 		})
 	}
@@ -271,9 +297,22 @@ func NewNSGestureRecognizerDelegate(config NSGestureRecognizerDelegateConfig) NS
 		methods = append(methods, objc.MethodDef{
 			Cmd: objc.RegisterName("gestureRecognizer:shouldRecognizeSimultaneouslyWithGestureRecognizer:"),
 			Fn: func(self objc.ID, _cmd objc.SEL, gestureRecognizerID objc.ID, otherGestureRecognizerID objc.ID) bool {
+				// Names which delegate was running if a panic unwinds out of
+				// it. The frames between here and the Objective-C caller are
+				// runtime and purego dispatch, so without this the traceback
+				// never says which selector dispatched. Deliberately no
+				// recover: see [objc.NoteDelegatePanic].
+				_delegateDone := false
+				defer func() {
+					if !_delegateDone {
+						objc.NoteDelegatePanic("NSGestureRecognizerDelegate", "gestureRecognizer:shouldRecognizeSimultaneouslyWithGestureRecognizer:")
+					}
+				}()
 				gestureRecognizer := NSGestureRecognizerFromID(gestureRecognizerID)
 				otherGestureRecognizer := NSGestureRecognizerFromID(otherGestureRecognizerID)
-				return fn(gestureRecognizer, otherGestureRecognizer)
+				_delegateResult := fn(gestureRecognizer, otherGestureRecognizer)
+				_delegateDone = true
+				return _delegateResult
 			},
 		})
 	}
@@ -283,9 +322,22 @@ func NewNSGestureRecognizerDelegate(config NSGestureRecognizerDelegateConfig) NS
 		methods = append(methods, objc.MethodDef{
 			Cmd: objc.RegisterName("gestureRecognizer:shouldRequireFailureOfGestureRecognizer:"),
 			Fn: func(self objc.ID, _cmd objc.SEL, gestureRecognizerID objc.ID, otherGestureRecognizerID objc.ID) bool {
+				// Names which delegate was running if a panic unwinds out of
+				// it. The frames between here and the Objective-C caller are
+				// runtime and purego dispatch, so without this the traceback
+				// never says which selector dispatched. Deliberately no
+				// recover: see [objc.NoteDelegatePanic].
+				_delegateDone := false
+				defer func() {
+					if !_delegateDone {
+						objc.NoteDelegatePanic("NSGestureRecognizerDelegate", "gestureRecognizer:shouldRequireFailureOfGestureRecognizer:")
+					}
+				}()
 				gestureRecognizer := NSGestureRecognizerFromID(gestureRecognizerID)
 				otherGestureRecognizer := NSGestureRecognizerFromID(otherGestureRecognizerID)
-				return fn(gestureRecognizer, otherGestureRecognizer)
+				_delegateResult := fn(gestureRecognizer, otherGestureRecognizer)
+				_delegateDone = true
+				return _delegateResult
 			},
 		})
 	}
@@ -295,9 +347,22 @@ func NewNSGestureRecognizerDelegate(config NSGestureRecognizerDelegateConfig) NS
 		methods = append(methods, objc.MethodDef{
 			Cmd: objc.RegisterName("gestureRecognizer:shouldBeRequiredToFailByGestureRecognizer:"),
 			Fn: func(self objc.ID, _cmd objc.SEL, gestureRecognizerID objc.ID, otherGestureRecognizerID objc.ID) bool {
+				// Names which delegate was running if a panic unwinds out of
+				// it. The frames between here and the Objective-C caller are
+				// runtime and purego dispatch, so without this the traceback
+				// never says which selector dispatched. Deliberately no
+				// recover: see [objc.NoteDelegatePanic].
+				_delegateDone := false
+				defer func() {
+					if !_delegateDone {
+						objc.NoteDelegatePanic("NSGestureRecognizerDelegate", "gestureRecognizer:shouldBeRequiredToFailByGestureRecognizer:")
+					}
+				}()
 				gestureRecognizer := NSGestureRecognizerFromID(gestureRecognizerID)
 				otherGestureRecognizer := NSGestureRecognizerFromID(otherGestureRecognizerID)
-				return fn(gestureRecognizer, otherGestureRecognizer)
+				_delegateResult := fn(gestureRecognizer, otherGestureRecognizer)
+				_delegateDone = true
+				return _delegateResult
 			},
 		})
 	}
@@ -307,9 +372,22 @@ func NewNSGestureRecognizerDelegate(config NSGestureRecognizerDelegateConfig) NS
 		methods = append(methods, objc.MethodDef{
 			Cmd: objc.RegisterName("gestureRecognizer:shouldReceiveTouch:"),
 			Fn: func(self objc.ID, _cmd objc.SEL, gestureRecognizerID objc.ID, touchID objc.ID) bool {
+				// Names which delegate was running if a panic unwinds out of
+				// it. The frames between here and the Objective-C caller are
+				// runtime and purego dispatch, so without this the traceback
+				// never says which selector dispatched. Deliberately no
+				// recover: see [objc.NoteDelegatePanic].
+				_delegateDone := false
+				defer func() {
+					if !_delegateDone {
+						objc.NoteDelegatePanic("NSGestureRecognizerDelegate", "gestureRecognizer:shouldReceiveTouch:")
+					}
+				}()
 				gestureRecognizer := NSGestureRecognizerFromID(gestureRecognizerID)
 				touch := NSTouchFromID(touchID)
-				return fn(gestureRecognizer, touch)
+				_delegateResult := fn(gestureRecognizer, touch)
+				_delegateDone = true
+				return _delegateResult
 			},
 		})
 	}

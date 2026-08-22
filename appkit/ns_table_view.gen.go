@@ -4,6 +4,7 @@ package appkit
 
 import (
 	"sync"
+	"unsafe"
 
 	"github.com/tmc/apple/corefoundation"
 	"github.com/tmc/apple/foundation"
@@ -540,7 +541,6 @@ func NSTableViewFromID(id objc.ID) NSTableView {
 // See: https://developer.apple.com/documentation/AppKit/NSTableView
 type INSTableView interface {
 	INSControl
-	NSAccessibilityGroup
 	NSTextDelegate
 	NSTextViewDelegate
 
@@ -859,6 +859,19 @@ type INSTableView interface {
 	UnhideRowsAtIndexesWithAnimation(indexes foundation.NSIndexSet, rowAnimation NSTableViewAnimationOptions)
 	// The indexes of all hidden table rows.
 	HiddenRowIndexes() foundation.NSIndexSet
+
+	// Invoked when the dragging session has completed.
+	DraggingSessionEndedAtPointOperation(session INSDraggingSession, screenPoint corefoundation.CGPoint, operation NSDragOperation)
+	// Invoked when the drag moves on the screen.
+	DraggingSessionMovedToPoint(session INSDraggingSession, screenPoint corefoundation.CGPoint)
+	// Declares the types of operations the source allows to be performed.
+	DraggingSessionSourceOperationMaskForDraggingContext(session INSDraggingSession, context NSDraggingContext) NSDragOperation
+	// Invoked when the drag will begin.
+	DraggingSessionWillBeginAtPoint(session INSDraggingSession, screenPoint corefoundation.CGPoint)
+	// Returns whether the modifier keys will be ignored for this dragging session.
+	IgnoreModifierKeysForDraggingSession(session INSDraggingSession) bool
+	// Returns a Boolean value that indicates whether the sender should be enabled.
+	ValidateUserInterfaceItem(item NSValidatedUserInterfaceItem) bool
 }
 
 // Init initializes the instance.
@@ -1192,7 +1205,7 @@ func (t NSTableView) RemoveRowsAtIndexesWithAnimation(indexes foundation.NSIndex
 // [NSControl]) to find out what row (and column) the action should be
 // performed on.
 //
-// The implementation is `O(n)` where is the number of visible rows, so this
+// The implementation is `O(n)` where n is the number of visible rows, so this
 // method should generally not be called within a loop.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTableView/row(for:)
@@ -1218,7 +1231,7 @@ func (t NSTableView) RowForView(view INSView) int {
 // [NSControl]) to find out what row (and column) the action should be
 // performed on.
 //
-// The implementation is `O(n)` where is the number of visible rows, so this
+// The implementation is `O(n)` where n is the number of visible rows, so this
 // method should generally not be called within a loop.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTableView/column(for:)
@@ -1520,7 +1533,8 @@ func (t NSTableView) DeselectAll(sender objectivec.IObject) {
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTableView/enumerateAvailableRowViews(_:)
 func (t NSTableView) EnumerateAvailableRowViewsUsingBlock(handler TableRowViewIntHandler) {
-	_block0, _ := NewTableRowViewIntBlock(handler)
+	_block0, _cleanup0 := NewTableRowViewIntBlock(handler)
+	defer _cleanup0()
 	objc.Send[objc.ID](t.ID, objc.Sel("enumerateAvailableRowViewsUsingBlock:"), _block0)
 }
 
@@ -2014,211 +2028,6 @@ func (t NSTableView) UnhideRowsAtIndexesWithAnimation(indexes foundation.NSIndex
 	objc.Send[objc.ID](t.ID, objc.Sel("unhideRowsAtIndexes:withAnimation:"), indexes, rowAnimation)
 }
 
-// Returns the column header accessibility elements for the table.
-//
-// # Return Value
-//
-// The column header element.
-//
-// # Discussion
-//
-// This method is the getter for the [NSAccessibilityProtocol] protocol’s
-// [accessibilityColumnHeaderUIElements] property.
-//
-// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityTable/accessibilityColumnHeaderUIElements()
-//
-// [accessibilityColumnHeaderUIElements]: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityColumnHeaderUIElements
-func (t NSTableView) AccessibilityColumnHeaderUIElements() foundation.INSArray {
-	rv := objc.Send[objc.ID](t.ID, objc.Sel("accessibilityColumnHeaderUIElements"))
-	return foundation.NSArrayFromID(rv)
-}
-
-// Returns the column accessibility elements for the table.
-//
-// # Return Value
-//
-// An array containing the table’s column elements.
-//
-// # Discussion
-//
-// This method is the getter for the [NSAccessibilityProtocol] protocol’s
-// [accessibilityColumns] property.
-//
-// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityTable/accessibilityColumns()
-//
-// [accessibilityColumns]: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityColumns
-func (t NSTableView) AccessibilityColumns() foundation.INSArray {
-	rv := objc.Send[objc.ID](t.ID, objc.Sel("accessibilityColumns"))
-	return foundation.NSArrayFromID(rv)
-}
-
-// Returns the row header accessibility elements for the table.
-//
-// # Return Value
-//
-// The row header elements for the table.
-//
-// # Discussion
-//
-// This method is the getter for the [NSAccessibilityProtocol] protocol’s
-// [accessibilityRowHeaderUIElements] property.
-//
-// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityTable/accessibilityRowHeaderUIElements()
-//
-// [accessibilityRowHeaderUIElements]: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityRowHeaderUIElements
-func (t NSTableView) AccessibilityRowHeaderUIElements() foundation.INSArray {
-	rv := objc.Send[objc.ID](t.ID, objc.Sel("accessibilityRowHeaderUIElements"))
-	return foundation.NSArrayFromID(rv)
-}
-
-// Returns the row accessibility elements for the table.
-//
-// # Return Value
-//
-// An array containing the table’s row elements.
-//
-// # Discussion
-//
-// This method is the getter for the [NSAccessibilityProtocol] protocol’s
-// [accessibilityRows] property.
-//
-// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityTable/accessibilityRows()
-//
-// [accessibilityRows]: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityRows
-func (t NSTableView) AccessibilityRows() []objectivec.IObject {
-	rv := objc.Send[[]objc.ID](t.ID, objc.Sel("accessibilityRows"))
-	return objc.ConvertSlice(rv, func(id objc.ID) objectivec.IObject {
-		return objectivec.Object{ID: id}
-	})
-}
-
-// The currently selected cells for the table.
-//
-// # Return Value
-//
-// An array containing the currently selected cells for the table.
-//
-// # Discussion
-//
-// This method is the getter for the [NSAccessibilityProtocol] protocol’s
-// [accessibilitySelectedCells] property. Additionally, your class needs to
-// send a [selectedCellsChanged] notification whenever the table’s selected
-// cells change.
-//
-// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityTable/accessibilitySelectedCells()
-//
-// [accessibilitySelectedCells]: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilitySelectedCells
-// [selectedCellsChanged]: https://developer.apple.com/documentation/AppKit/NSAccessibility-swift.struct/Notification/selectedCellsChanged
-func (t NSTableView) AccessibilitySelectedCells() foundation.INSArray {
-	rv := objc.Send[objc.ID](t.ID, objc.Sel("accessibilitySelectedCells"))
-	return foundation.NSArrayFromID(rv)
-}
-
-// Returns the currently selected columns for the table.
-//
-// # Return Value
-//
-// An array containing the currently selected columns for the table.
-//
-// # Discussion
-//
-// This method is the getter for the [NSAccessibilityProtocol] protocol’s
-// [accessibilitySelectedColumns] property. Additionally, your class needs to
-// send a [selectedColumnsChanged] notification whenever the table’s
-// selected columns change.
-//
-// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityTable/accessibilitySelectedColumns()
-//
-// [accessibilitySelectedColumns]: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilitySelectedColumns
-// [selectedColumnsChanged]: https://developer.apple.com/documentation/AppKit/NSAccessibility-swift.struct/Notification/selectedColumnsChanged
-func (t NSTableView) AccessibilitySelectedColumns() foundation.INSArray {
-	rv := objc.Send[objc.ID](t.ID, objc.Sel("accessibilitySelectedColumns"))
-	return foundation.NSArrayFromID(rv)
-}
-
-// Returns the currently selected rows for the table.
-//
-// # Return Value
-//
-// An array containing the currently selected rows for the table.
-//
-// # Discussion
-//
-// This method is the getter for the [NSAccessibilityProtocol] protocol’s
-// [accessibilitySelectedRows] property. Additionally, your class needs to
-// send a [selectedRowsChanged] notification whenever the table’s selected
-// rows change.
-//
-// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityTable/accessibilitySelectedRows()
-//
-// [accessibilitySelectedRows]: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilitySelectedRows
-// [selectedRowsChanged]: https://developer.apple.com/documentation/AppKit/NSAccessibility-swift.struct/Notification/selectedRowsChanged
-func (t NSTableView) AccessibilitySelectedRows() []objectivec.IObject {
-	rv := objc.Send[[]objc.ID](t.ID, objc.Sel("accessibilitySelectedRows"))
-	return objc.ConvertSlice(rv, func(id objc.ID) objectivec.IObject {
-		return objectivec.Object{ID: id}
-	})
-}
-
-// Returns the visible cells for the table.
-//
-// # Return Value
-//
-// An array containing the currently visible cells.
-//
-// # Discussion
-//
-// This method is the getter for the [NSAccessibilityProtocol] protocol’s
-// [accessibilityVisibleCells] property.
-//
-// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityTable/accessibilityVisibleCells()
-//
-// [accessibilityVisibleCells]: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityVisibleCells
-func (t NSTableView) AccessibilityVisibleCells() foundation.INSArray {
-	rv := objc.Send[objc.ID](t.ID, objc.Sel("accessibilityVisibleCells"))
-	return foundation.NSArrayFromID(rv)
-}
-
-// Returns the visible columns for the table.
-//
-// # Return Value
-//
-// An array containing the currently visible columns.
-//
-// # Discussion
-//
-// This method is the getter for the [NSAccessibilityProtocol] protocol’s
-// [accessibilityVisibleColumns] property.
-//
-// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityTable/accessibilityVisibleColumns()
-//
-// [accessibilityVisibleColumns]: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityVisibleColumns
-func (t NSTableView) AccessibilityVisibleColumns() foundation.INSArray {
-	rv := objc.Send[objc.ID](t.ID, objc.Sel("accessibilityVisibleColumns"))
-	return foundation.NSArrayFromID(rv)
-}
-
-// Returns the visible rows for the table.
-//
-// # Return Value
-//
-// An array containing the currently visible rows.
-//
-// # Discussion
-//
-// This method is the getter for the [NSAccessibilityProtocol] protocol’s
-// [accessibilityVisibleRows] property.
-//
-// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityTable/accessibilityVisibleRows()
-//
-// [accessibilityVisibleRows]: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityVisibleRows
-func (t NSTableView) AccessibilityVisibleRows() []objectivec.IObject {
-	rv := objc.Send[[]objc.ID](t.ID, objc.Sel("accessibilityVisibleRows"))
-	return objc.ConvertSlice(rv, func(id objc.ID) objectivec.IObject {
-		return objectivec.Object{ID: id}
-	})
-}
-
 // Invoked when the dragging session has completed.
 //
 // session: The dragging session.
@@ -2293,26 +2102,6 @@ func (t NSTableView) DraggingSessionWillBeginAtPoint(session INSDraggingSession,
 func (t NSTableView) IgnoreModifierKeysForDraggingSession(session INSDraggingSession) bool {
 	rv := objc.Send[bool](t.ID, objc.Sel("ignoreModifierKeysForDraggingSession:"), session)
 	return rv
-}
-
-// Sets the table’s currently selected rows.
-//
-// selectedRows: An array containing the row elements to be selected.
-//
-// # Discussion
-//
-// This method is the setter for the [NSAccessibilityProtocol] protocol’s
-// [accessibilitySelectedRows] property. Implementing this method allows the
-// user to change the selected row using an accessibility client.
-// Additionally, your class needs to send a [selectedRowsChanged] notification
-// whenever the table’s selected rows change.
-//
-// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityTable/setAccessibilitySelectedRows(_:)
-//
-// [accessibilitySelectedRows]: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilitySelectedRows
-// [selectedRowsChanged]: https://developer.apple.com/documentation/AppKit/NSAccessibility-swift.struct/Notification/selectedRowsChanged
-func (t NSTableView) SetAccessibilitySelectedRows(selectedRows []objectivec.IObject) {
-	objc.Send[objc.ID](t.ID, objc.Sel("setAccessibilitySelectedRows:"), objectivec.IObjectSliceToNSArray(selectedRows))
 }
 
 // Returns an array of text objects to include in a text selection.
@@ -2869,7 +2658,7 @@ func (t NSTableView) TextViewWillChangeSelectionFromCharacterRangesToCharacterRa
 //
 // [NSTextCheckingTypes]: https://developer.apple.com/documentation/Foundation/NSTextCheckingTypes
 func (t NSTableView) TextViewWillCheckTextInRangeOptionsTypes(view INSTextView, range_ foundation.NSRange, options foundation.INSDictionary, checkingTypes *foundation.NSTextCheckingTypes) foundation.INSDictionary {
-	rv := objc.Send[objc.ID](t.ID, objc.Sel("textView:willCheckTextInRange:options:types:"), view, range_, options, checkingTypes)
+	rv := objc.Send[objc.ID](t.ID, objc.Sel("textView:willCheckTextInRange:options:types:"), view, range_, options, unsafe.Pointer(checkingTypes))
 	return foundation.NSDictionaryFromID(rv)
 }
 
@@ -4019,88 +3808,6 @@ func (t NSTableView) HiddenRowIndexes() foundation.NSIndexSet {
 }
 
 // Protocol methods for NSAccessibilityTable
-
-// Returns the accessibility element’s frame in screen coordinates.
-//
-// # Return Value
-//
-// The element’s frame in screen coordinates.
-//
-// # Discussion
-//
-// This method is the getter for the [NSAccessibilityProtocol] protocol’s
-// [accessibilityFrame] property. This method is called whenever accessibility
-// clients request the [size] or [position] attributes.
-//
-// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityElementProtocol/accessibilityFrame()
-//
-// [accessibilityFrame]: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityFrame
-// [position]: https://developer.apple.com/documentation/AppKit/NSAccessibility-swift.struct/Attribute/position
-// [size]: https://developer.apple.com/documentation/AppKit/NSAccessibility-swift.struct/Attribute/size
-func (o NSTableView) AccessibilityFrame() corefoundation.CGRect {
-	rv := objc.Send[corefoundation.CGRect](o.ID, objc.Sel("accessibilityFrame"))
-	return rv
-}
-
-// Returns the accessibility element’s parent in the accessibility
-// hierarchy.
-//
-// # Return Value
-//
-// The element’s parent in the accessibility hierarchy.
-//
-// # Discussion
-//
-// This method is the getter for the [NSAccessibilityProtocol] protocol’s
-// [accessibilityParent] property.
-//
-// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityElementProtocol/accessibilityParent()
-//
-// [accessibilityParent]: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityParent
-func (o NSTableView) AccessibilityParent() objectivec.IObject {
-	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilityParent"))
-	return objectivec.Object{ID: rv}
-}
-
-// Returns the accessibility element’s identity.
-//
-// # Return Value
-//
-// Returns the unique ID for the accessibility element. It is often used in
-// automated testing.
-//
-// # Discussion
-//
-// This method is the getter for the [NSAccessibilityProtocol] protocol’s
-// [accessibilityIdentifier] property.
-//
-// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityElementProtocol/accessibilityIdentifier()
-//
-// [accessibilityIdentifier]: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityIdentifier
-func (o NSTableView) AccessibilityIdentifier() string {
-	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilityIdentifier"))
-	return foundation.NSStringFromID(rv).String()
-}
-
-// Returns a Boolean value that indicates whether the accessibility element
-// has the keyboard focus.
-//
-// # Return Value
-//
-// true if this element has the keyboard focus; otherwise, false.
-//
-// # Discussion
-//
-// This method is the getter for the [NSAccessibilityProtocol] protocol’s
-// [accessibilityFocused] property.
-//
-// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityElementProtocol/isAccessibilityFocused()
-//
-// [accessibilityFocused]: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityFocused
-func (o NSTableView) IsAccessibilityFocused() bool {
-	rv := objc.Send[bool](o.ID, objc.Sel("isAccessibilityFocused"))
-	return rv
-}
 
 // Protocol methods for NSDraggingSource
 

@@ -299,7 +299,7 @@ func (s IOSurface) IncrementUseCount() {
 
 // See: https://developer.apple.com/documentation/IOSurface/IOSurface/lock(options:seed:)
 func (s IOSurface) LockWithOptionsSeed(options IOSurfaceLockOptions, seed *uint32) int32 {
-	rv := objc.Send[int32](s.ID, objc.Sel("lockWithOptions:seed:"), options, seed)
+	rv := objc.Send[int32](s.ID, objc.Sel("lockWithOptions:seed:"), options, unsafe.Pointer(seed))
 	return rv
 }
 
@@ -325,13 +325,13 @@ func (s IOSurface) SetAttachmentForKey(anObject objectivec.IObject, key string) 
 
 // See: https://developer.apple.com/documentation/IOSurface/IOSurface/setPurgeable(_:oldState:)
 func (s IOSurface) SetPurgeableOldState(newState IOSurfacePurgeabilityState, oldState *IOSurfacePurgeabilityState) int32 {
-	rv := objc.Send[int32](s.ID, objc.Sel("setPurgeable:oldState:"), newState, oldState)
+	rv := objc.Send[int32](s.ID, objc.Sel("setPurgeable:oldState:"), newState, unsafe.Pointer(oldState))
 	return rv
 }
 
 // See: https://developer.apple.com/documentation/IOSurface/IOSurface/unlock(options:seed:)
 func (s IOSurface) UnlockWithOptionsSeed(options IOSurfaceLockOptions, seed *uint32) int32 {
-	rv := objc.Send[int32](s.ID, objc.Sel("unlockWithOptions:seed:"), options, seed)
+	rv := objc.Send[int32](s.ID, objc.Sel("unlockWithOptions:seed:"), options, unsafe.Pointer(seed))
 	return rv
 }
 

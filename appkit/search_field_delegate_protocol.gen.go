@@ -394,8 +394,20 @@ func NewNSSearchFieldDelegate(config NSSearchFieldDelegateConfig) NSSearchFieldD
 		methods = append(methods, objc.MethodDef{
 			Cmd: objc.RegisterName("searchFieldDidStartSearching:"),
 			Fn: func(self objc.ID, _cmd objc.SEL, senderID objc.ID) {
+				// Names which delegate was running if a panic unwinds out of
+				// it. The frames between here and the Objective-C caller are
+				// runtime and purego dispatch, so without this the traceback
+				// never says which selector dispatched. Deliberately no
+				// recover: see [objc.NoteDelegatePanic].
+				_delegateDone := false
+				defer func() {
+					if !_delegateDone {
+						objc.NoteDelegatePanic("NSSearchFieldDelegate", "searchFieldDidStartSearching:")
+					}
+				}()
 				sender := NSSearchFieldFromID(senderID)
 				fn(sender)
+				_delegateDone = true
 			},
 		})
 	}
@@ -405,8 +417,20 @@ func NewNSSearchFieldDelegate(config NSSearchFieldDelegateConfig) NSSearchFieldD
 		methods = append(methods, objc.MethodDef{
 			Cmd: objc.RegisterName("searchFieldDidEndSearching:"),
 			Fn: func(self objc.ID, _cmd objc.SEL, senderID objc.ID) {
+				// Names which delegate was running if a panic unwinds out of
+				// it. The frames between here and the Objective-C caller are
+				// runtime and purego dispatch, so without this the traceback
+				// never says which selector dispatched. Deliberately no
+				// recover: see [objc.NoteDelegatePanic].
+				_delegateDone := false
+				defer func() {
+					if !_delegateDone {
+						objc.NoteDelegatePanic("NSSearchFieldDelegate", "searchFieldDidEndSearching:")
+					}
+				}()
 				sender := NSSearchFieldFromID(senderID)
 				fn(sender)
+				_delegateDone = true
 			},
 		})
 	}

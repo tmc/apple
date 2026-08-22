@@ -14,11 +14,6 @@ import (
 type GCAxisInput interface {
 	objectivec.IObject
 
-	// A Boolean value that indicates whether the input provides analog values.
-	//
-	// See: https://developer.apple.com/documentation/GameController/GCAxisInput/isAnalog
-	IsAnalog() bool
-
 	// A Boolean value that indicates whether the value wraps when it reaches the range’s minimum or maximum value.
 	//
 	// See: https://developer.apple.com/documentation/GameController/GCAxisInput/canWrap
@@ -27,7 +22,7 @@ type GCAxisInput interface {
 	// A Boolean value that indicates whether the input provides analog values.
 	//
 	// See: https://developer.apple.com/documentation/GameController/GCAxisInput/isAnalog
-	Analog() bool
+	IsAnalog() bool
 
 	// The value along the axis, in unit coordinates.
 	//
@@ -67,14 +62,6 @@ func GCAxisInputObjectFromID(id objc.ID) GCAxisInputObject {
 	}
 }
 
-// A Boolean value that indicates whether the input provides analog values.
-//
-// See: https://developer.apple.com/documentation/GameController/GCAxisInput/isAnalog
-func (o GCAxisInputObject) IsAnalog() bool {
-	rv := objc.Send[bool](o.ID, objc.Sel("isAnalog"))
-	return rv
-}
-
 // A Boolean value that indicates whether the value wraps when it reaches the
 // range’s minimum or maximum value.
 //
@@ -87,7 +74,7 @@ func (o GCAxisInputObject) CanWrap() bool {
 // A Boolean value that indicates whether the input provides analog values.
 //
 // See: https://developer.apple.com/documentation/GameController/GCAxisInput/isAnalog
-func (o GCAxisInputObject) Analog() bool {
+func (o GCAxisInputObject) IsAnalog() bool {
 	rv := objc.Send[bool](o.ID, objc.Sel("isAnalog"))
 	return bool(rv)
 }

@@ -198,7 +198,7 @@ type INSTask interface {
 	// Topic: Returning Information
 
 	// The receiver’s process identifier.
-	ProcessIdentifier() int
+	ProcessIdentifier() int32
 
 	// Topic: Running and Stopping
 
@@ -220,7 +220,7 @@ type INSTask interface {
 	// A status that indicates whether the receiver is still running.
 	IsRunning() bool
 	// The exit status the receiver’s executable returns.
-	TerminationStatus() int
+	TerminationStatus() int32
 	// The reason the system terminated the task.
 	TerminationReason() NSTaskTerminationReason
 
@@ -430,8 +430,8 @@ func (_NSTaskClass NSTaskClass) LaunchedTaskWithExecutableURLArgumentsErrorTermi
 // The receiver’s process identifier.
 //
 // See: https://developer.apple.com/documentation/Foundation/Process/processIdentifier
-func (t NSTask) ProcessIdentifier() int {
-	rv := objc.Send[int](t.ID, objc.Sel("processIdentifier"))
+func (t NSTask) ProcessIdentifier() int32 {
+	rv := objc.Send[int32](t.ID, objc.Sel("processIdentifier"))
 	return rv
 }
 
@@ -465,8 +465,8 @@ func (t NSTask) IsRunning() bool {
 // running. Verify that the receiver isn’t running before you use it.
 //
 // See: https://developer.apple.com/documentation/Foundation/Process/terminationStatus
-func (t NSTask) TerminationStatus() int {
-	rv := objc.Send[int](t.ID, objc.Sel("terminationStatus"))
+func (t NSTask) TerminationStatus() int32 {
+	rv := objc.Send[int32](t.ID, objc.Sel("terminationStatus"))
 	return rv
 }
 

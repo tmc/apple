@@ -74,7 +74,6 @@ func (ac AVMutableMovieTrackClass) Alloc() AVMutableMovieTrack {
 // # Changing format descriptions
 //
 //   - [AVMutableMovieTrack.FormatDescriptions]: The format descriptions of the media samples that a track references.
-//   - [AVMutableMovieTrack.SetFormatDescriptions]
 //   - [AVMutableMovieTrack.ReplaceFormatDescriptionWithFormatDescription]: Replaces the track’s format description with a new format description.
 //
 // # Configuring track information
@@ -87,28 +86,21 @@ func (ac AVMutableMovieTrackClass) Alloc() AVMutableMovieTrack {
 // # Accessing track information
 //
 //   - [AVMutableMovieTrack.IsPlayable]: A Boolean value that indicates whether the track is playable in the current environment.
-//   - [AVMutableMovieTrack.SetPlayable]
 //   - [AVMutableMovieTrack.IsDecodable]: A Boolean value that indicates whether the track is decodable in the current environment.
-//   - [AVMutableMovieTrack.SetDecodable]
 //   - [AVMutableMovieTrack.IsEnabled]: A Boolean value that indicates whether the track’s container enables it.
 //   - [AVMutableMovieTrack.SetEnabled]
 //   - [AVMutableMovieTrack.IsSelfContained]: A Boolean value that indicates whether this track references sample data only within its container file.
-//   - [AVMutableMovieTrack.SetSelfContained]
 //   - [AVMutableMovieTrack.HasProtectedContent]: A Boolean value that indicates whether a track contains protected content.
 //   - [AVMutableMovieTrack.TotalSampleDataLength]: The total number of bytes of sample data the track requires.
-//   - [AVMutableMovieTrack.SetTotalSampleDataLength]
 //   - [AVMutableMovieTrack.HasMediaCharacteristic]: Returns a Boolean value that indicates whether the track references media with the specified media characteristic.
 //
 // # Accessing temporal information
 //
 //   - [AVMutableMovieTrack.TimeRange]: The time range of the track within the overall timeline of the asset.
-//   - [AVMutableMovieTrack.SetTimeRange]
 //   - [AVMutableMovieTrack.Timescale]: The time scale for tracks that contain the `moov` atom.
 //   - [AVMutableMovieTrack.SetTimescale]
 //   - [AVMutableMovieTrack.NaturalTimeScale]: The natural time scale of the media that a track references.
-//   - [AVMutableMovieTrack.SetNaturalTimeScale]
 //   - [AVMutableMovieTrack.EstimatedDataRate]: The estimated data rate, in bits per second, of the media that the track references.
-//   - [AVMutableMovieTrack.SetEstimatedDataRate]
 //   - [AVMutableMovieTrack.SamplePresentationTimeForTrackTime]: Maps the specified track time through the appropriate time mapping and returns the resulting sample presentation time.
 //
 // # Accessing language support
@@ -138,37 +130,29 @@ func (ac AVMutableMovieTrackClass) Alloc() AVMutableMovieTrack {
 //   - [AVMutableMovieTrack.PreferredVolume]: The preferred volume for the audible medata data of the track.
 //   - [AVMutableMovieTrack.SetPreferredVolume]
 //   - [AVMutableMovieTrack.HasAudioSampleDependencies]: A Boolean value that indicates whether the track has sample dependencies.
-//   - [AVMutableMovieTrack.SetHasAudioSampleDependencies]
 //
 // # Accessing frame-based characteristics
 //
 //   - [AVMutableMovieTrack.NominalFrameRate]: The frame rate of the track, in frames per second.
-//   - [AVMutableMovieTrack.SetNominalFrameRate]
 //   - [AVMutableMovieTrack.MinFrameDuration]: The minimum duration of the track’s frames.
-//   - [AVMutableMovieTrack.SetMinFrameDuration]
 //   - [AVMutableMovieTrack.RequiresFrameReordering]: A Boolean value that indicates whether samples in the track may have different presentation and decode timestamps.
-//   - [AVMutableMovieTrack.SetRequiresFrameReordering]
 //
 // # Accessing metadata
 //
 //   - [AVMutableMovieTrack.Metadata]: An array of metadata stored by the track.
 //   - [AVMutableMovieTrack.SetMetadata]
 //   - [AVMutableMovieTrack.CommonMetadata]: An array of metadata items for all common metadata keys that have a value.
-//   - [AVMutableMovieTrack.SetCommonMetadata]
 //   - [AVMutableMovieTrack.AvailableMetadataFormats]: An array of metadata formats available for the track.
-//   - [AVMutableMovieTrack.SetAvailableMetadataFormats]
 //   - [AVMutableMovieTrack.MetadataForFormat]: Returns metadata items that a track contains for the specified format.
 //
 // # Accessing track segments
 //
 //   - [AVMutableMovieTrack.Segments]: The time mappings from the track’s media samples to its timeline.
-//   - [AVMutableMovieTrack.SetSegments]
 //   - [AVMutableMovieTrack.SegmentForTrackTime]: Returns a segment whose target time range contains, or is closest to, the specified track time.
 //
 // # Managing track associations
 //
 //   - [AVMutableMovieTrack.AvailableTrackAssociationTypes]: An array of association types that the track uses to associate with other tracks.
-//   - [AVMutableMovieTrack.SetAvailableTrackAssociationTypes]
 //   - [AVMutableMovieTrack.AssociatedTracksOfType]: Returns an array of associated tracks that have the specified association type.
 //   - [AVMutableMovieTrack.AddTrackAssociationToTrackType]: Creates a specific type of track association between two tracks.
 //   - [AVMutableMovieTrack.RemoveTrackAssociationToTrackType]: Removes a specific type of track association between two tracks.
@@ -176,7 +160,6 @@ func (ac AVMutableMovieTrackClass) Alloc() AVMutableMovieTrack {
 // # Determining sample cursor support
 //
 //   - [AVMutableMovieTrack.CanProvideSampleCursors]: A Boolean value that indicates whether the track can provide instances of sample cursors to traverse its media samples and discover information.
-//   - [AVMutableMovieTrack.SetCanProvideSampleCursors]
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVMutableMovieTrack
 type AVMutableMovieTrack struct {
@@ -219,7 +202,6 @@ func AVMutableMovieTrackFromID(id objc.ID) AVMutableMovieTrack {
 // # Changing format descriptions
 //
 //   - [IAVMutableMovieTrack.FormatDescriptions]: The format descriptions of the media samples that a track references.
-//   - [IAVMutableMovieTrack.SetFormatDescriptions]
 //   - [IAVMutableMovieTrack.ReplaceFormatDescriptionWithFormatDescription]: Replaces the track’s format description with a new format description.
 //
 // # Configuring track information
@@ -232,28 +214,21 @@ func AVMutableMovieTrackFromID(id objc.ID) AVMutableMovieTrack {
 // # Accessing track information
 //
 //   - [IAVMutableMovieTrack.IsPlayable]: A Boolean value that indicates whether the track is playable in the current environment.
-//   - [IAVMutableMovieTrack.SetPlayable]
 //   - [IAVMutableMovieTrack.IsDecodable]: A Boolean value that indicates whether the track is decodable in the current environment.
-//   - [IAVMutableMovieTrack.SetDecodable]
 //   - [IAVMutableMovieTrack.IsEnabled]: A Boolean value that indicates whether the track’s container enables it.
 //   - [IAVMutableMovieTrack.SetEnabled]
 //   - [IAVMutableMovieTrack.IsSelfContained]: A Boolean value that indicates whether this track references sample data only within its container file.
-//   - [IAVMutableMovieTrack.SetSelfContained]
 //   - [IAVMutableMovieTrack.HasProtectedContent]: A Boolean value that indicates whether a track contains protected content.
 //   - [IAVMutableMovieTrack.TotalSampleDataLength]: The total number of bytes of sample data the track requires.
-//   - [IAVMutableMovieTrack.SetTotalSampleDataLength]
 //   - [IAVMutableMovieTrack.HasMediaCharacteristic]: Returns a Boolean value that indicates whether the track references media with the specified media characteristic.
 //
 // # Accessing temporal information
 //
 //   - [IAVMutableMovieTrack.TimeRange]: The time range of the track within the overall timeline of the asset.
-//   - [IAVMutableMovieTrack.SetTimeRange]
 //   - [IAVMutableMovieTrack.Timescale]: The time scale for tracks that contain the `moov` atom.
 //   - [IAVMutableMovieTrack.SetTimescale]
 //   - [IAVMutableMovieTrack.NaturalTimeScale]: The natural time scale of the media that a track references.
-//   - [IAVMutableMovieTrack.SetNaturalTimeScale]
 //   - [IAVMutableMovieTrack.EstimatedDataRate]: The estimated data rate, in bits per second, of the media that the track references.
-//   - [IAVMutableMovieTrack.SetEstimatedDataRate]
 //   - [IAVMutableMovieTrack.SamplePresentationTimeForTrackTime]: Maps the specified track time through the appropriate time mapping and returns the resulting sample presentation time.
 //
 // # Accessing language support
@@ -283,37 +258,29 @@ func AVMutableMovieTrackFromID(id objc.ID) AVMutableMovieTrack {
 //   - [IAVMutableMovieTrack.PreferredVolume]: The preferred volume for the audible medata data of the track.
 //   - [IAVMutableMovieTrack.SetPreferredVolume]
 //   - [IAVMutableMovieTrack.HasAudioSampleDependencies]: A Boolean value that indicates whether the track has sample dependencies.
-//   - [IAVMutableMovieTrack.SetHasAudioSampleDependencies]
 //
 // # Accessing frame-based characteristics
 //
 //   - [IAVMutableMovieTrack.NominalFrameRate]: The frame rate of the track, in frames per second.
-//   - [IAVMutableMovieTrack.SetNominalFrameRate]
 //   - [IAVMutableMovieTrack.MinFrameDuration]: The minimum duration of the track’s frames.
-//   - [IAVMutableMovieTrack.SetMinFrameDuration]
 //   - [IAVMutableMovieTrack.RequiresFrameReordering]: A Boolean value that indicates whether samples in the track may have different presentation and decode timestamps.
-//   - [IAVMutableMovieTrack.SetRequiresFrameReordering]
 //
 // # Accessing metadata
 //
 //   - [IAVMutableMovieTrack.Metadata]: An array of metadata stored by the track.
 //   - [IAVMutableMovieTrack.SetMetadata]
 //   - [IAVMutableMovieTrack.CommonMetadata]: An array of metadata items for all common metadata keys that have a value.
-//   - [IAVMutableMovieTrack.SetCommonMetadata]
 //   - [IAVMutableMovieTrack.AvailableMetadataFormats]: An array of metadata formats available for the track.
-//   - [IAVMutableMovieTrack.SetAvailableMetadataFormats]
 //   - [IAVMutableMovieTrack.MetadataForFormat]: Returns metadata items that a track contains for the specified format.
 //
 // # Accessing track segments
 //
 //   - [IAVMutableMovieTrack.Segments]: The time mappings from the track’s media samples to its timeline.
-//   - [IAVMutableMovieTrack.SetSegments]
 //   - [IAVMutableMovieTrack.SegmentForTrackTime]: Returns a segment whose target time range contains, or is closest to, the specified track time.
 //
 // # Managing track associations
 //
 //   - [IAVMutableMovieTrack.AvailableTrackAssociationTypes]: An array of association types that the track uses to associate with other tracks.
-//   - [IAVMutableMovieTrack.SetAvailableTrackAssociationTypes]
 //   - [IAVMutableMovieTrack.AssociatedTracksOfType]: Returns an array of associated tracks that have the specified association type.
 //   - [IAVMutableMovieTrack.AddTrackAssociationToTrackType]: Creates a specific type of track association between two tracks.
 //   - [IAVMutableMovieTrack.RemoveTrackAssociationToTrackType]: Removes a specific type of track association between two tracks.
@@ -321,7 +288,6 @@ func AVMutableMovieTrackFromID(id objc.ID) AVMutableMovieTrack {
 // # Determining sample cursor support
 //
 //   - [IAVMutableMovieTrack.CanProvideSampleCursors]: A Boolean value that indicates whether the track can provide instances of sample cursors to traverse its media samples and discover information.
-//   - [IAVMutableMovieTrack.SetCanProvideSampleCursors]
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVMutableMovieTrack
 type IAVMutableMovieTrack interface {
@@ -358,8 +324,7 @@ type IAVMutableMovieTrack interface {
 	// Topic: Changing format descriptions
 
 	// The format descriptions of the media samples that a track references.
-	FormatDescriptions() objectivec.IObject
-	SetFormatDescriptions(value objectivec.IObject)
+	FormatDescriptions() []objectivec.IObject
 	// Replaces the track’s format description with a new format description.
 	ReplaceFormatDescriptionWithFormatDescription(formatDescription coremedia.CMFormatDescriptionRef, newFormatDescription coremedia.CMFormatDescriptionRef)
 
@@ -376,21 +341,17 @@ type IAVMutableMovieTrack interface {
 
 	// A Boolean value that indicates whether the track is playable in the current environment.
 	IsPlayable() bool
-	SetPlayable(value bool)
 	// A Boolean value that indicates whether the track is decodable in the current environment.
 	IsDecodable() bool
-	SetDecodable(value bool)
 	// A Boolean value that indicates whether the track’s container enables it.
 	IsEnabled() bool
 	SetEnabled(value bool)
 	// A Boolean value that indicates whether this track references sample data only within its container file.
 	IsSelfContained() bool
-	SetSelfContained(value bool)
 	// A Boolean value that indicates whether a track contains protected content.
 	HasProtectedContent() bool
 	// The total number of bytes of sample data the track requires.
-	TotalSampleDataLength() unsafe.Pointer
-	SetTotalSampleDataLength(value kernel.Pointer)
+	TotalSampleDataLength() int64
 	// Returns a Boolean value that indicates whether the track references media with the specified media characteristic.
 	HasMediaCharacteristic(mediaCharacteristic AVMediaCharacteristic) bool
 
@@ -398,16 +359,13 @@ type IAVMutableMovieTrack interface {
 
 	// The time range of the track within the overall timeline of the asset.
 	TimeRange() coremedia.CMTimeRange
-	SetTimeRange(value coremedia.CMTimeRange)
 	// The time scale for tracks that contain the `moov` atom.
 	Timescale() coremedia.CMTimeScale
 	SetTimescale(value coremedia.CMTimeScale)
 	// The natural time scale of the media that a track references.
 	NaturalTimeScale() coremedia.CMTimeScale
-	SetNaturalTimeScale(value coremedia.CMTimeScale)
 	// The estimated data rate, in bits per second, of the media that the track references.
 	EstimatedDataRate() kernel.Float
-	SetEstimatedDataRate(value kernel.Float)
 	// Maps the specified track time through the appropriate time mapping and returns the resulting sample presentation time.
 	SamplePresentationTimeForTrackTime(trackTime coremedia.CMTime) coremedia.CMTime
 
@@ -448,19 +406,15 @@ type IAVMutableMovieTrack interface {
 	SetPreferredVolume(value float32)
 	// A Boolean value that indicates whether the track has sample dependencies.
 	HasAudioSampleDependencies() bool
-	SetHasAudioSampleDependencies(value bool)
 
 	// Topic: Accessing frame-based characteristics
 
 	// The frame rate of the track, in frames per second.
 	NominalFrameRate() kernel.Float
-	SetNominalFrameRate(value kernel.Float)
 	// The minimum duration of the track’s frames.
 	MinFrameDuration() coremedia.CMTime
-	SetMinFrameDuration(value coremedia.CMTime)
 	// A Boolean value that indicates whether samples in the track may have different presentation and decode timestamps.
 	RequiresFrameReordering() bool
-	SetRequiresFrameReordering(value bool)
 
 	// Topic: Accessing metadata
 
@@ -468,27 +422,23 @@ type IAVMutableMovieTrack interface {
 	Metadata() []AVMetadataItem
 	SetMetadata(value []AVMetadataItem)
 	// An array of metadata items for all common metadata keys that have a value.
-	CommonMetadata() IAVMetadataItem
-	SetCommonMetadata(value IAVMetadataItem)
+	CommonMetadata() []AVMetadataItem
 	// An array of metadata formats available for the track.
-	AvailableMetadataFormats() AVMetadataFormat
-	SetAvailableMetadataFormats(value AVMetadataFormat)
+	AvailableMetadataFormats() []AVMetadataFormat
 	// Returns metadata items that a track contains for the specified format.
 	MetadataForFormat(format AVMetadataFormat) []AVMetadataItem
 
 	// Topic: Accessing track segments
 
 	// The time mappings from the track’s media samples to its timeline.
-	Segments() IAVAssetTrackSegment
-	SetSegments(value IAVAssetTrackSegment)
+	Segments() []AVAssetTrackSegment
 	// Returns a segment whose target time range contains, or is closest to, the specified track time.
 	SegmentForTrackTime(trackTime coremedia.CMTime) IAVAssetTrackSegment
 
 	// Topic: Managing track associations
 
 	// An array of association types that the track uses to associate with other tracks.
-	AvailableTrackAssociationTypes() objectivec.IObject
-	SetAvailableTrackAssociationTypes(value objectivec.IObject)
+	AvailableTrackAssociationTypes() []objectivec.IObject
 	// Returns an array of associated tracks that have the specified association type.
 	AssociatedTracksOfType(trackAssociationType AVTrackAssociationType) []AVAssetTrack
 	// Creates a specific type of track association between two tracks.
@@ -500,7 +450,6 @@ type IAVMutableMovieTrack interface {
 
 	// A Boolean value that indicates whether the track can provide instances of sample cursors to traverse its media samples and discover information.
 	CanProvideSampleCursors() bool
-	SetCanProvideSampleCursors(value bool)
 }
 
 // Init initializes the instance.
@@ -844,12 +793,11 @@ func (m AVMutableMovieTrack) SetPreferredMediaChunkSize(value int) {
 // See: https://developer.apple.com/documentation/AVFoundation/AVMutableMovieTrack/formatDescriptions
 //
 // [CMFormatDescription]: https://developer.apple.com/documentation/CoreMedia/CMFormatDescription
-func (m AVMutableMovieTrack) FormatDescriptions() objectivec.IObject {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("formatDescriptions"))
-	return objectivec.Object{ID: rv}
-}
-func (m AVMutableMovieTrack) SetFormatDescriptions(value objectivec.IObject) {
-	objc.Send[struct{}](m.ID, objc.Sel("setFormatDescriptions:"), value)
+func (m AVMutableMovieTrack) FormatDescriptions() []objectivec.IObject {
+	rv := objc.Send[[]objc.ID](m.ID, objc.Sel("formatDescriptions"))
+	return objc.ConvertSlice(rv, func(id objc.ID) objectivec.IObject {
+		return objectivec.Object{ID: id}
+	})
 }
 
 // A Boolean value that indicates whether a track is in a modified state.
@@ -877,10 +825,10 @@ func (m AVMutableMovieTrack) SetModified(value bool) {
 // file when appending sample references to this track are relative to this
 // URL. The URL must point to a location contained by any common parent
 // directory of the locations that will be referenced. For example, setting
-// the this property to `///Users/johnappleseed/Movies/` and appending sample
-// buffers that refer to `///Users/johnappleseed/Movies/data/movie1.Mov()`
-// will cause the sample reference `data/movie1.Mov()` to be written to the
-// movie file.
+// the this property to `file:///Users/johnappleseed/Movies/` and appending
+// sample buffers that refer to
+// `file:///Users/johnappleseed/Movies/data/movie1.mov` will cause the sample
+// reference `data/movie1.mov` to be written to the movie file.
 //
 // If this property can’t be resolved as an absolute URL or if it points to
 // a location that isn’t contained by any common parent directory of the
@@ -904,9 +852,6 @@ func (m AVMutableMovieTrack) IsPlayable() bool {
 	rv := objc.Send[bool](m.ID, objc.Sel("isPlayable"))
 	return rv
 }
-func (m AVMutableMovieTrack) SetPlayable(value bool) {
-	objc.Send[struct{}](m.ID, objc.Sel("setPlayable:"), value)
-}
 
 // A Boolean value that indicates whether the track is decodable in the
 // current environment.
@@ -920,9 +865,6 @@ func (m AVMutableMovieTrack) SetPlayable(value bool) {
 func (m AVMutableMovieTrack) IsDecodable() bool {
 	rv := objc.Send[bool](m.ID, objc.Sel("isDecodable"))
 	return rv
-}
-func (m AVMutableMovieTrack) SetDecodable(value bool) {
-	objc.Send[struct{}](m.ID, objc.Sel("setDecodable:"), value)
 }
 
 // A Boolean value that indicates whether the track’s container enables it.
@@ -949,9 +891,6 @@ func (m AVMutableMovieTrack) IsSelfContained() bool {
 	rv := objc.Send[bool](m.ID, objc.Sel("isSelfContained"))
 	return rv
 }
-func (m AVMutableMovieTrack) SetSelfContained(value bool) {
-	objc.Send[struct{}](m.ID, objc.Sel("setSelfContained:"), value)
-}
 
 // A Boolean value that indicates whether a track contains protected content.
 //
@@ -969,12 +908,9 @@ func (m AVMutableMovieTrack) HasProtectedContent() bool {
 // data length.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVMutableMovieTrack/totalSampleDataLength
-func (m AVMutableMovieTrack) TotalSampleDataLength() unsafe.Pointer {
-	rv := objc.Send[unsafe.Pointer](m.ID, objc.Sel("totalSampleDataLength"))
+func (m AVMutableMovieTrack) TotalSampleDataLength() int64 {
+	rv := objc.Send[int64](m.ID, objc.Sel("totalSampleDataLength"))
 	return rv
-}
-func (m AVMutableMovieTrack) SetTotalSampleDataLength(value kernel.Pointer) {
-	objc.Send[struct{}](m.ID, objc.Sel("setTotalSampleDataLength:"), value)
 }
 
 // The time range of the track within the overall timeline of the asset.
@@ -992,9 +928,6 @@ func (m AVMutableMovieTrack) SetTotalSampleDataLength(value kernel.Pointer) {
 func (m AVMutableMovieTrack) TimeRange() coremedia.CMTimeRange {
 	rv := objc.Send[coremedia.CMTimeRange](m.ID, objc.Sel("timeRange"))
 	return coremedia.CMTimeRange(rv)
-}
-func (m AVMutableMovieTrack) SetTimeRange(value coremedia.CMTimeRange) {
-	objc.Send[struct{}](m.ID, objc.Sel("setTimeRange:"), value)
 }
 
 // The time scale for tracks that contain the `moov` atom.
@@ -1020,9 +953,6 @@ func (m AVMutableMovieTrack) NaturalTimeScale() coremedia.CMTimeScale {
 	rv := objc.Send[coremedia.CMTimeScale](m.ID, objc.Sel("naturalTimeScale"))
 	return coremedia.CMTimeScale(rv)
 }
-func (m AVMutableMovieTrack) SetNaturalTimeScale(value coremedia.CMTimeScale) {
-	objc.Send[struct{}](m.ID, objc.Sel("setNaturalTimeScale:"), value)
-}
 
 // The estimated data rate, in bits per second, of the media that the track
 // references.
@@ -1031,9 +961,6 @@ func (m AVMutableMovieTrack) SetNaturalTimeScale(value coremedia.CMTimeScale) {
 func (m AVMutableMovieTrack) EstimatedDataRate() kernel.Float {
 	rv := objc.Send[kernel.Float](m.ID, objc.Sel("estimatedDataRate"))
 	return kernel.Float(rv)
-}
-func (m AVMutableMovieTrack) SetEstimatedDataRate(value kernel.Float) {
-	objc.Send[struct{}](m.ID, objc.Sel("setEstimatedDataRate:"), value)
 }
 
 // The language code of the track.
@@ -1159,9 +1086,6 @@ func (m AVMutableMovieTrack) HasAudioSampleDependencies() bool {
 	rv := objc.Send[bool](m.ID, objc.Sel("hasAudioSampleDependencies"))
 	return rv
 }
-func (m AVMutableMovieTrack) SetHasAudioSampleDependencies(value bool) {
-	objc.Send[struct{}](m.ID, objc.Sel("setHasAudioSampleDependencies:"), value)
-}
 
 // The frame rate of the track, in frames per second.
 //
@@ -1176,9 +1100,6 @@ func (m AVMutableMovieTrack) SetHasAudioSampleDependencies(value bool) {
 func (m AVMutableMovieTrack) NominalFrameRate() kernel.Float {
 	rv := objc.Send[kernel.Float](m.ID, objc.Sel("nominalFrameRate"))
 	return kernel.Float(rv)
-}
-func (m AVMutableMovieTrack) SetNominalFrameRate(value kernel.Float) {
-	objc.Send[struct{}](m.ID, objc.Sel("setNominalFrameRate:"), value)
 }
 
 // The minimum duration of the track’s frames.
@@ -1199,9 +1120,6 @@ func (m AVMutableMovieTrack) MinFrameDuration() coremedia.CMTime {
 	rv := objc.Send[coremedia.CMTime](m.ID, objc.Sel("minFrameDuration"))
 	return coremedia.CMTime(rv)
 }
-func (m AVMutableMovieTrack) SetMinFrameDuration(value coremedia.CMTime) {
-	objc.Send[struct{}](m.ID, objc.Sel("setMinFrameDuration:"), value)
-}
 
 // A Boolean value that indicates whether samples in the track may have
 // different presentation and decode timestamps.
@@ -1210,9 +1128,6 @@ func (m AVMutableMovieTrack) SetMinFrameDuration(value coremedia.CMTime) {
 func (m AVMutableMovieTrack) RequiresFrameReordering() bool {
 	rv := objc.Send[bool](m.ID, objc.Sel("requiresFrameReordering"))
 	return rv
-}
-func (m AVMutableMovieTrack) SetRequiresFrameReordering(value bool) {
-	objc.Send[struct{}](m.ID, objc.Sel("setRequiresFrameReordering:"), value)
 }
 
 // An array of metadata stored by the track.
@@ -1231,46 +1146,42 @@ func (m AVMutableMovieTrack) SetMetadata(value []AVMetadataItem) {
 // An array of metadata items for all common metadata keys that have a value.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVMutableMovieTrack/commonMetadata
-func (m AVMutableMovieTrack) CommonMetadata() IAVMetadataItem {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("commonMetadata"))
-	return AVMetadataItemFromID(objc.ID(rv))
-}
-func (m AVMutableMovieTrack) SetCommonMetadata(value IAVMetadataItem) {
-	objc.Send[struct{}](m.ID, objc.Sel("setCommonMetadata:"), value)
+func (m AVMutableMovieTrack) CommonMetadata() []AVMetadataItem {
+	rv := objc.Send[[]objc.ID](m.ID, objc.Sel("commonMetadata"))
+	return objc.ConvertSlice(rv, func(id objc.ID) AVMetadataItem {
+		return AVMetadataItemFromID(id)
+	})
 }
 
 // An array of metadata formats available for the track.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVMutableMovieTrack/availableMetadataFormats
-func (m AVMutableMovieTrack) AvailableMetadataFormats() AVMetadataFormat {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("availableMetadataFormats"))
-	return AVMetadataFormat(foundation.NSStringFromID(rv).String())
-}
-func (m AVMutableMovieTrack) SetAvailableMetadataFormats(value AVMetadataFormat) {
-	objc.Send[struct{}](m.ID, objc.Sel("setAvailableMetadataFormats:"), objc.String(string(value)))
+func (m AVMutableMovieTrack) AvailableMetadataFormats() []AVMetadataFormat {
+	rv := objc.Send[[]objc.ID](m.ID, objc.Sel("availableMetadataFormats"))
+	return objc.ConvertSlice(rv, func(id objc.ID) AVMetadataFormat {
+		return AVMetadataFormat(foundation.NSStringFromID(id).String())
+	})
 }
 
 // The time mappings from the track’s media samples to its timeline.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVMutableMovieTrack/segments
-func (m AVMutableMovieTrack) Segments() IAVAssetTrackSegment {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("segments"))
-	return AVAssetTrackSegmentFromID(objc.ID(rv))
-}
-func (m AVMutableMovieTrack) SetSegments(value IAVAssetTrackSegment) {
-	objc.Send[struct{}](m.ID, objc.Sel("setSegments:"), value)
+func (m AVMutableMovieTrack) Segments() []AVAssetTrackSegment {
+	rv := objc.Send[[]objc.ID](m.ID, objc.Sel("segments"))
+	return objc.ConvertSlice(rv, func(id objc.ID) AVAssetTrackSegment {
+		return AVAssetTrackSegmentFromID(id)
+	})
 }
 
 // An array of association types that the track uses to associate with other
 // tracks.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVMutableMovieTrack/availableTrackAssociationTypes
-func (m AVMutableMovieTrack) AvailableTrackAssociationTypes() objectivec.IObject {
-	rv := objc.Send[objc.ID](m.ID, objc.Sel("availableTrackAssociationTypes"))
-	return objectivec.Object{ID: rv}
-}
-func (m AVMutableMovieTrack) SetAvailableTrackAssociationTypes(value objectivec.IObject) {
-	objc.Send[struct{}](m.ID, objc.Sel("setAvailableTrackAssociationTypes:"), value)
+func (m AVMutableMovieTrack) AvailableTrackAssociationTypes() []objectivec.IObject {
+	rv := objc.Send[[]objc.ID](m.ID, objc.Sel("availableTrackAssociationTypes"))
+	return objc.ConvertSlice(rv, func(id objc.ID) objectivec.IObject {
+		return objectivec.Object{ID: id}
+	})
 }
 
 // A Boolean value that indicates whether the track can provide instances of
@@ -1280,7 +1191,4 @@ func (m AVMutableMovieTrack) SetAvailableTrackAssociationTypes(value objectivec.
 func (m AVMutableMovieTrack) CanProvideSampleCursors() bool {
 	rv := objc.Send[bool](m.ID, objc.Sel("canProvideSampleCursors"))
 	return rv
-}
-func (m AVMutableMovieTrack) SetCanProvideSampleCursors(value bool) {
-	objc.Send[struct{}](m.ID, objc.Sel("setCanProvideSampleCursors:"), value)
 }

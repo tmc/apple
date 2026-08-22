@@ -136,7 +136,7 @@ func NewPathURLResourceWithCoder(coder foundation.INSCoder) FSPathURLResource {
 // writable: A Boolean value that indicates whether the file system supports writing to
 // the contents of the URL.
 //
-// See: https://developer.apple.com/documentation/FSKit/FSPathURLResource/init(url:writable:)-2l10q
+// See: https://developer.apple.com/documentation/FSKit/FSPathURLResource/init(url:writable:)
 func NewPathURLResourceWithURLWritable(URL foundation.NSURL, writable bool) FSPathURLResource {
 	instance := getFSPathURLResourceClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithURL:writable:"), URL, writable)
@@ -151,7 +151,7 @@ func NewPathURLResourceWithURLWritable(URL foundation.NSURL, writable bool) FSPa
 // writable: A Boolean value that indicates whether the file system supports writing to
 // the contents of the URL.
 //
-// See: https://developer.apple.com/documentation/FSKit/FSPathURLResource/init(url:writable:)-2l10q
+// See: https://developer.apple.com/documentation/FSKit/FSPathURLResource/init(url:writable:)
 func (p FSPathURLResource) InitWithURLWritable(URL foundation.NSURL, writable bool) FSPathURLResource {
 	rv := objc.Send[FSPathURLResource](p.ID, objc.Sel("initWithURL:writable:"), URL, writable)
 	return rv

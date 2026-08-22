@@ -56,7 +56,7 @@ func (uc URLResponseClass) Alloc() URLResponse {
 //
 // # Creating a response
 //
-//   - [URLResponse.InitWithURLMIMETypeExpectedContentLengthTextEncodingName]: Creates an initialized [URLResponse](<doc://com.apple.foundation/documentation/Foundation/URLResponse>) object with the URL, MIME type, length, and text encoding set to given values.
+//   - [URLResponse.InitWithURLMIMETypeExpectedContentLengthTextEncodingName]: Creates an initialized [URLResponse](<https://developer.apple.com/documentation/Foundation/URLResponse>) object with the URL, MIME type, length, and text encoding set to given values.
 //
 // # Getting the response properties
 //
@@ -89,7 +89,7 @@ func NSURLResponseFromID(id objc.ID) URLResponse { return URLResponseFromID(id) 
 //
 // # Creating a response
 //
-//   - [IURLResponse.InitWithURLMIMETypeExpectedContentLengthTextEncodingName]: Creates an initialized [URLResponse](<doc://com.apple.foundation/documentation/Foundation/URLResponse>) object with the URL, MIME type, length, and text encoding set to given values.
+//   - [IURLResponse.InitWithURLMIMETypeExpectedContentLengthTextEncodingName]: Creates an initialized [URLResponse](<https://developer.apple.com/documentation/Foundation/URLResponse>) object with the URL, MIME type, length, and text encoding set to given values.
 //
 // # Getting the response properties
 //
@@ -102,11 +102,10 @@ func NSURLResponseFromID(id objc.ID) URLResponse { return URLResponseFromID(id) 
 // See: https://developer.apple.com/documentation/Foundation/URLResponse
 type IURLResponse interface {
 	objectivec.IObject
-	NSSecureCoding
 
 	// Topic: Creating a response
 
-	// Creates an initialized [URLResponse](<doc://com.apple.foundation/documentation/Foundation/URLResponse>) object with the URL, MIME type, length, and text encoding set to given values.
+	// Creates an initialized [URLResponse](<https://developer.apple.com/documentation/Foundation/URLResponse>) object with the URL, MIME type, length, and text encoding set to given values.
 	InitWithURLMIMETypeExpectedContentLengthTextEncodingName(URL INSURL, MIMEType string, length int, name string) URLResponse
 
 	// Topic: Getting the response properties
@@ -121,6 +120,10 @@ type IURLResponse interface {
 	TextEncodingName() string
 	// The URL for the response.
 	URL() INSURL
+
+	// Encodes the receiver using a given archiver.
+	EncodeWithCoder(coder INSCoder)
+	InitWithCoder(coder INSCoder) URLResponse
 }
 
 // Init initializes the instance.
@@ -169,7 +172,7 @@ func NewURLResponseWithCoder(coder INSCoder) URLResponse {
 //
 // This is the designated initializer for [NSURLResponse].
 //
-// See: https://developer.apple.com/documentation/Foundation/URLResponse/init(url:mimeType:expectedContentLength:textEncodingName:)-4s2s1
+// See: https://developer.apple.com/documentation/Foundation/URLResponse/init(url:mimeType:expectedContentLength:textEncodingName:)
 func NewURLResponseWithURLMIMETypeExpectedContentLengthTextEncodingName(URL INSURL, MIMEType string, length int, name string) URLResponse {
 	instance := getURLResponseClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithURL:MIMEType:expectedContentLength:textEncodingName:"), URL, objc.String(MIMEType), length, objc.String(name))
@@ -196,7 +199,7 @@ func NewURLResponseWithURLMIMETypeExpectedContentLengthTextEncodingName(URL INSU
 //
 // This is the designated initializer for [NSURLResponse].
 //
-// See: https://developer.apple.com/documentation/Foundation/URLResponse/init(url:mimeType:expectedContentLength:textEncodingName:)-4s2s1
+// See: https://developer.apple.com/documentation/Foundation/URLResponse/init(url:mimeType:expectedContentLength:textEncodingName:)
 func (u URLResponse) InitWithURLMIMETypeExpectedContentLengthTextEncodingName(URL INSURL, MIMEType string, length int, name string) URLResponse {
 	rv := objc.Send[URLResponse](u.ID, objc.Sel("initWithURL:MIMEType:expectedContentLength:textEncodingName:"), URL, objc.String(MIMEType), length, objc.String(name))
 	return rv

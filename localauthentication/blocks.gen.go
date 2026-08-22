@@ -8,8 +8,8 @@ import (
 )
 
 // BoolErrorHandler handles A closure that is executed when policy evaluation finishes.
-//   - success: [true](<doc://com.apple.documentation/documentation/Swift/true>) if policy evaluation succeeded, otherwise [false](<doc://com.apple.documentation/documentation/Swift/false>).
-//   - error: `nil` if policy evaluation succeeded, an error object that should be presented to the user otherwise. See [LAError.Code](<doc://com.apple.localauthentication/documentation/LocalAuthentication/LAError-swift.struct/Code>) for possible error codes
+//   - success: [true](<https://developer.apple.com/documentation/Swift/true>) if policy evaluation succeeded, otherwise [false](<https://developer.apple.com/documentation/Swift/false>).
+//   - error: `nil` if policy evaluation succeeded, an error object that should be presented to the user otherwise. See [LAError.Code](<https://developer.apple.com/documentation/LocalAuthentication/LAError-swift.struct/Code>) for possible error codes
 //
 // The error can be type-asserted to *foundation.NSError for Domain, Code, and UserInfo.
 //

@@ -72,6 +72,15 @@ func GCControllerInputStateFromID(id objc.ID) GCControllerInputState {
 // See: https://developer.apple.com/documentation/GameController/GCControllerInputState
 type IGCControllerInputState interface {
 	objectivec.IObject
+
+	// The physical device that this profile represents.
+	Device() GCDevice
+	// The time in seconds between the last event and the current time.
+	LastEventLatency() foundation.NSTimeInterval
+	// The time of the most recent event.
+	LastEventTimestamp() foundation.NSTimeInterval
+	// Returns the element that the key specifies.
+	ObjectForKeyedSubscript(key string) GCPhysicalInputElement
 }
 
 // Init initializes the instance.

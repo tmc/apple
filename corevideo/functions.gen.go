@@ -9,7 +9,6 @@ import (
 	"github.com/ebitengine/purego"
 	"github.com/tmc/apple/corefoundation"
 	"github.com/tmc/apple/coregraphics"
-	"github.com/tmc/apple/kernel"
 	"github.com/tmc/apple/metal"
 	"github.com/tmc/apple/objc"
 )
@@ -286,10 +285,10 @@ func CVBufferSetAttachments(buffer CVBufferRef, theAttachments corefoundation.CF
 	}
 }
 
-var _cVColorPrimariesGetIntegerCodePointForString func(colorPrimariesString corefoundation.CFStringRef) int
+var _cVColorPrimariesGetIntegerCodePointForString func(colorPrimariesString corefoundation.CFStringRef) int32
 var _cVColorPrimariesGetIntegerCodePointForStringErr error
 
-func tryCVColorPrimariesGetIntegerCodePointForString(colorPrimariesString corefoundation.CFStringRef) (int, error) {
+func tryCVColorPrimariesGetIntegerCodePointForString(colorPrimariesString corefoundation.CFStringRef) (int32, error) {
 	if _cVColorPrimariesGetIntegerCodePointForString == nil {
 		return 0, symbolCallError("CVColorPrimariesGetIntegerCodePointForString", "10.13", _cVColorPrimariesGetIntegerCodePointForStringErr)
 	}
@@ -299,7 +298,7 @@ func tryCVColorPrimariesGetIntegerCodePointForString(colorPrimariesString corefo
 // CVColorPrimariesGetIntegerCodePointForString returns the standard integer code point corresponding to the Core Video color primaries constant string that you specify.
 //
 // See: https://developer.apple.com/documentation/CoreVideo/CVColorPrimariesGetIntegerCodePointForString(_:)
-func CVColorPrimariesGetIntegerCodePointForString(colorPrimariesString corefoundation.CFStringRef) int {
+func CVColorPrimariesGetIntegerCodePointForString(colorPrimariesString corefoundation.CFStringRef) int32 {
 	result, callErr := tryCVColorPrimariesGetIntegerCodePointForString(colorPrimariesString)
 	if callErr != nil {
 		panic(callErr)
@@ -307,10 +306,10 @@ func CVColorPrimariesGetIntegerCodePointForString(colorPrimariesString corefound
 	return result
 }
 
-var _cVColorPrimariesGetStringForIntegerCodePoint func(colorPrimariesCodePoint int) corefoundation.CFStringRef
+var _cVColorPrimariesGetStringForIntegerCodePoint func(colorPrimariesCodePoint int32) corefoundation.CFStringRef
 var _cVColorPrimariesGetStringForIntegerCodePointErr error
 
-func tryCVColorPrimariesGetStringForIntegerCodePoint(colorPrimariesCodePoint int) (corefoundation.CFStringRef, error) {
+func tryCVColorPrimariesGetStringForIntegerCodePoint(colorPrimariesCodePoint int32) (corefoundation.CFStringRef, error) {
 	if _cVColorPrimariesGetStringForIntegerCodePoint == nil {
 		return *new(corefoundation.CFStringRef), symbolCallError("CVColorPrimariesGetStringForIntegerCodePoint", "10.13", _cVColorPrimariesGetStringForIntegerCodePointErr)
 	}
@@ -320,7 +319,7 @@ func tryCVColorPrimariesGetStringForIntegerCodePoint(colorPrimariesCodePoint int
 // CVColorPrimariesGetStringForIntegerCodePoint returns the Core Video color primaries string corresponding to the standard integer code point that you specify.
 //
 // See: https://developer.apple.com/documentation/CoreVideo/CVColorPrimariesGetStringForIntegerCodePoint(_:)
-func CVColorPrimariesGetStringForIntegerCodePoint(colorPrimariesCodePoint int) corefoundation.CFStringRef {
+func CVColorPrimariesGetStringForIntegerCodePoint(colorPrimariesCodePoint int32) corefoundation.CFStringRef {
 	result, callErr := tryCVColorPrimariesGetStringForIntegerCodePoint(colorPrimariesCodePoint)
 	if callErr != nil {
 		panic(callErr)
@@ -397,10 +396,10 @@ func CVDisplayLinkCreateWithCGDisplays(displayArray *uint32, count int, displayL
 	return result
 }
 
-var _cVDisplayLinkCreateWithOpenGLDisplayMask func(mask coregraphics.CGOpenGLDisplayMask, displayLinkOut *CVDisplayLinkRef) CVReturn
+var _cVDisplayLinkCreateWithOpenGLDisplayMask func(mask uint32, displayLinkOut *CVDisplayLinkRef) CVReturn
 var _cVDisplayLinkCreateWithOpenGLDisplayMaskErr error
 
-func tryCVDisplayLinkCreateWithOpenGLDisplayMask(mask coregraphics.CGOpenGLDisplayMask, displayLinkOut *CVDisplayLinkRef) (CVReturn, error) {
+func tryCVDisplayLinkCreateWithOpenGLDisplayMask(mask uint32, displayLinkOut *CVDisplayLinkRef) (CVReturn, error) {
 	if _cVDisplayLinkCreateWithOpenGLDisplayMask == nil {
 		return *new(CVReturn), symbolCallError("CVDisplayLinkCreateWithOpenGLDisplayMask", "10.4", _cVDisplayLinkCreateWithOpenGLDisplayMaskErr)
 	}
@@ -412,7 +411,7 @@ func tryCVDisplayLinkCreateWithOpenGLDisplayMask(mask coregraphics.CGOpenGLDispl
 // Deprecated: Deprecated since macOS 15.0. use NSView.displayLink(target:selector:), NSWindow.displayLink(target:selector:), or NSScreen.displayLink(target:selector:)
 //
 // See: https://developer.apple.com/documentation/CoreVideo/CVDisplayLinkCreateWithOpenGLDisplayMask(_:_:)
-func CVDisplayLinkCreateWithOpenGLDisplayMask(mask coregraphics.CGOpenGLDisplayMask, displayLinkOut *CVDisplayLinkRef) CVReturn {
+func CVDisplayLinkCreateWithOpenGLDisplayMask(mask uint32, displayLinkOut *CVDisplayLinkRef) CVReturn {
 	result, callErr := tryCVDisplayLinkCreateWithOpenGLDisplayMask(mask, displayLinkOut)
 	if callErr != nil {
 		panic(callErr)
@@ -702,7 +701,7 @@ func tryCVDisplayLinkSetOutputHandler(displayLink CVDisplayLinkRef, handler CVDi
 	if _cVDisplayLinkSetOutputHandler == nil {
 		return *new(CVReturn), symbolCallError("CVDisplayLinkSetOutputHandler", "10.4", _cVDisplayLinkSetOutputHandlerErr)
 	}
-	_block0Value := objc.NewBlock(func(_ objc.Block, blockArg0 kernel.Pointer, blockArg1 *CVTimeStamp, blockArg2 *CVTimeStamp, blockArg3 uint64, blockArg4 *uint64) int {
+	_block0Value := objc.NewBlock(func(_ objc.Block, blockArg0 *CVDisplayLinkRef, blockArg1 *CVTimeStamp, blockArg2 *CVTimeStamp, blockArg3 uint64, blockArg4 *uint64) int32 {
 		return handler(blockArg0, blockArg1, blockArg2, blockArg3, blockArg4)
 	})
 	defer _block0Value.Release()
@@ -1580,10 +1579,10 @@ func CVPixelBufferCreateWithIOSurface(allocator corefoundation.CFAllocatorRef, s
 	return result
 }
 
-var _cVPixelBufferCreateWithPlanarBytes func(allocator corefoundation.CFAllocatorRef, width uintptr, height uintptr, pixelFormatType uint32, dataPtr unsafe.Pointer, dataSize uintptr, numberOfPlanes uintptr, planeBaseAddress unsafe.Pointer, planeWidth uintptr, planeHeight uintptr, planeBytesPerRow uintptr, releaseCallback CVPixelBufferReleasePlanarBytesCallback, releaseRefCon unsafe.Pointer, pixelBufferAttributes corefoundation.CFDictionaryRef, pixelBufferOut *CVPixelBufferRef) CVReturn
+var _cVPixelBufferCreateWithPlanarBytes func(allocator corefoundation.CFAllocatorRef, width uintptr, height uintptr, pixelFormatType uint32, dataPtr unsafe.Pointer, dataSize uintptr, numberOfPlanes uintptr, planeBaseAddress unsafe.Pointer, planeWidth *uintptr, planeHeight *uintptr, planeBytesPerRow *uintptr, releaseCallback CVPixelBufferReleasePlanarBytesCallback, releaseRefCon unsafe.Pointer, pixelBufferAttributes corefoundation.CFDictionaryRef, pixelBufferOut *CVPixelBufferRef) CVReturn
 var _cVPixelBufferCreateWithPlanarBytesErr error
 
-func tryCVPixelBufferCreateWithPlanarBytes(allocator corefoundation.CFAllocatorRef, width uintptr, height uintptr, pixelFormatType uint32, dataPtr unsafe.Pointer, dataSize uintptr, numberOfPlanes uintptr, planeBaseAddress unsafe.Pointer, planeWidth uintptr, planeHeight uintptr, planeBytesPerRow uintptr, releaseCallback CVPixelBufferReleasePlanarBytesCallback, releaseRefCon unsafe.Pointer, pixelBufferAttributes corefoundation.CFDictionaryRef, pixelBufferOut *CVPixelBufferRef) (CVReturn, error) {
+func tryCVPixelBufferCreateWithPlanarBytes(allocator corefoundation.CFAllocatorRef, width uintptr, height uintptr, pixelFormatType uint32, dataPtr unsafe.Pointer, dataSize uintptr, numberOfPlanes uintptr, planeBaseAddress unsafe.Pointer, planeWidth *uintptr, planeHeight *uintptr, planeBytesPerRow *uintptr, releaseCallback CVPixelBufferReleasePlanarBytesCallback, releaseRefCon unsafe.Pointer, pixelBufferAttributes corefoundation.CFDictionaryRef, pixelBufferOut *CVPixelBufferRef) (CVReturn, error) {
 	if _cVPixelBufferCreateWithPlanarBytes == nil {
 		return *new(CVReturn), symbolCallError("CVPixelBufferCreateWithPlanarBytes", "10.4", _cVPixelBufferCreateWithPlanarBytesErr)
 	}
@@ -1593,7 +1592,7 @@ func tryCVPixelBufferCreateWithPlanarBytes(allocator corefoundation.CFAllocatorR
 // CVPixelBufferCreateWithPlanarBytes creates a single pixel buffer in planar format for a given size and pixel format containing data specified by a memory location.
 //
 // See: https://developer.apple.com/documentation/CoreVideo/CVPixelBufferCreateWithPlanarBytes(_:_:_:_:_:_:_:_:_:_:_:_:_:_:_:)
-func CVPixelBufferCreateWithPlanarBytes(allocator corefoundation.CFAllocatorRef, width uintptr, height uintptr, pixelFormatType uint32, dataPtr unsafe.Pointer, dataSize uintptr, numberOfPlanes uintptr, planeBaseAddress unsafe.Pointer, planeWidth uintptr, planeHeight uintptr, planeBytesPerRow uintptr, releaseCallback CVPixelBufferReleasePlanarBytesCallback, releaseRefCon unsafe.Pointer, pixelBufferAttributes corefoundation.CFDictionaryRef, pixelBufferOut *CVPixelBufferRef) CVReturn {
+func CVPixelBufferCreateWithPlanarBytes(allocator corefoundation.CFAllocatorRef, width uintptr, height uintptr, pixelFormatType uint32, dataPtr unsafe.Pointer, dataSize uintptr, numberOfPlanes uintptr, planeBaseAddress unsafe.Pointer, planeWidth *uintptr, planeHeight *uintptr, planeBytesPerRow *uintptr, releaseCallback CVPixelBufferReleasePlanarBytesCallback, releaseRefCon unsafe.Pointer, pixelBufferAttributes corefoundation.CFDictionaryRef, pixelBufferOut *CVPixelBufferRef) CVReturn {
 	result, callErr := tryCVPixelBufferCreateWithPlanarBytes(allocator, width, height, pixelFormatType, dataPtr, dataSize, numberOfPlanes, planeBaseAddress, planeWidth, planeHeight, planeBytesPerRow, releaseCallback, releaseRefCon, pixelBufferAttributes, pixelBufferOut)
 	if callErr != nil {
 		panic(callErr)
@@ -2310,10 +2309,10 @@ func CVPixelFormatTypeCopyFourCharCodeString(pixelFormat uint32) corefoundation.
 	return result
 }
 
-var _cVTransferFunctionGetIntegerCodePointForString func(transferFunctionString corefoundation.CFStringRef) int
+var _cVTransferFunctionGetIntegerCodePointForString func(transferFunctionString corefoundation.CFStringRef) int32
 var _cVTransferFunctionGetIntegerCodePointForStringErr error
 
-func tryCVTransferFunctionGetIntegerCodePointForString(transferFunctionString corefoundation.CFStringRef) (int, error) {
+func tryCVTransferFunctionGetIntegerCodePointForString(transferFunctionString corefoundation.CFStringRef) (int32, error) {
 	if _cVTransferFunctionGetIntegerCodePointForString == nil {
 		return 0, symbolCallError("CVTransferFunctionGetIntegerCodePointForString", "10.13", _cVTransferFunctionGetIntegerCodePointForStringErr)
 	}
@@ -2323,7 +2322,7 @@ func tryCVTransferFunctionGetIntegerCodePointForString(transferFunctionString co
 // CVTransferFunctionGetIntegerCodePointForString returns the standard integer code point corresponding to the Core Video transfer function string that you specify.
 //
 // See: https://developer.apple.com/documentation/CoreVideo/CVTransferFunctionGetIntegerCodePointForString(_:)
-func CVTransferFunctionGetIntegerCodePointForString(transferFunctionString corefoundation.CFStringRef) int {
+func CVTransferFunctionGetIntegerCodePointForString(transferFunctionString corefoundation.CFStringRef) int32 {
 	result, callErr := tryCVTransferFunctionGetIntegerCodePointForString(transferFunctionString)
 	if callErr != nil {
 		panic(callErr)
@@ -2331,10 +2330,10 @@ func CVTransferFunctionGetIntegerCodePointForString(transferFunctionString coref
 	return result
 }
 
-var _cVTransferFunctionGetStringForIntegerCodePoint func(transferFunctionCodePoint int) corefoundation.CFStringRef
+var _cVTransferFunctionGetStringForIntegerCodePoint func(transferFunctionCodePoint int32) corefoundation.CFStringRef
 var _cVTransferFunctionGetStringForIntegerCodePointErr error
 
-func tryCVTransferFunctionGetStringForIntegerCodePoint(transferFunctionCodePoint int) (corefoundation.CFStringRef, error) {
+func tryCVTransferFunctionGetStringForIntegerCodePoint(transferFunctionCodePoint int32) (corefoundation.CFStringRef, error) {
 	if _cVTransferFunctionGetStringForIntegerCodePoint == nil {
 		return *new(corefoundation.CFStringRef), symbolCallError("CVTransferFunctionGetStringForIntegerCodePoint", "10.13", _cVTransferFunctionGetStringForIntegerCodePointErr)
 	}
@@ -2344,7 +2343,7 @@ func tryCVTransferFunctionGetStringForIntegerCodePoint(transferFunctionCodePoint
 // CVTransferFunctionGetStringForIntegerCodePoint returns the Core Video transfer function string corresponding to the standard integer code point that you specify.
 //
 // See: https://developer.apple.com/documentation/CoreVideo/CVTransferFunctionGetStringForIntegerCodePoint(_:)
-func CVTransferFunctionGetStringForIntegerCodePoint(transferFunctionCodePoint int) corefoundation.CFStringRef {
+func CVTransferFunctionGetStringForIntegerCodePoint(transferFunctionCodePoint int32) corefoundation.CFStringRef {
 	result, callErr := tryCVTransferFunctionGetStringForIntegerCodePoint(transferFunctionCodePoint)
 	if callErr != nil {
 		panic(callErr)
@@ -2352,10 +2351,10 @@ func CVTransferFunctionGetStringForIntegerCodePoint(transferFunctionCodePoint in
 	return result
 }
 
-var _cVYCbCrMatrixGetIntegerCodePointForString func(yCbCrMatrixString corefoundation.CFStringRef) int
+var _cVYCbCrMatrixGetIntegerCodePointForString func(yCbCrMatrixString corefoundation.CFStringRef) int32
 var _cVYCbCrMatrixGetIntegerCodePointForStringErr error
 
-func tryCVYCbCrMatrixGetIntegerCodePointForString(yCbCrMatrixString corefoundation.CFStringRef) (int, error) {
+func tryCVYCbCrMatrixGetIntegerCodePointForString(yCbCrMatrixString corefoundation.CFStringRef) (int32, error) {
 	if _cVYCbCrMatrixGetIntegerCodePointForString == nil {
 		return 0, symbolCallError("CVYCbCrMatrixGetIntegerCodePointForString", "10.13", _cVYCbCrMatrixGetIntegerCodePointForStringErr)
 	}
@@ -2365,7 +2364,7 @@ func tryCVYCbCrMatrixGetIntegerCodePointForString(yCbCrMatrixString corefoundati
 // CVYCbCrMatrixGetIntegerCodePointForString returns the standard integer code point corresponding to the Core Video YCbCr matrix string that you specify.
 //
 // See: https://developer.apple.com/documentation/CoreVideo/CVYCbCrMatrixGetIntegerCodePointForString(_:)
-func CVYCbCrMatrixGetIntegerCodePointForString(yCbCrMatrixString corefoundation.CFStringRef) int {
+func CVYCbCrMatrixGetIntegerCodePointForString(yCbCrMatrixString corefoundation.CFStringRef) int32 {
 	result, callErr := tryCVYCbCrMatrixGetIntegerCodePointForString(yCbCrMatrixString)
 	if callErr != nil {
 		panic(callErr)
@@ -2373,10 +2372,10 @@ func CVYCbCrMatrixGetIntegerCodePointForString(yCbCrMatrixString corefoundation.
 	return result
 }
 
-var _cVYCbCrMatrixGetStringForIntegerCodePoint func(yCbCrMatrixCodePoint int) corefoundation.CFStringRef
+var _cVYCbCrMatrixGetStringForIntegerCodePoint func(yCbCrMatrixCodePoint int32) corefoundation.CFStringRef
 var _cVYCbCrMatrixGetStringForIntegerCodePointErr error
 
-func tryCVYCbCrMatrixGetStringForIntegerCodePoint(yCbCrMatrixCodePoint int) (corefoundation.CFStringRef, error) {
+func tryCVYCbCrMatrixGetStringForIntegerCodePoint(yCbCrMatrixCodePoint int32) (corefoundation.CFStringRef, error) {
 	if _cVYCbCrMatrixGetStringForIntegerCodePoint == nil {
 		return *new(corefoundation.CFStringRef), symbolCallError("CVYCbCrMatrixGetStringForIntegerCodePoint", "10.13", _cVYCbCrMatrixGetStringForIntegerCodePointErr)
 	}
@@ -2386,7 +2385,7 @@ func tryCVYCbCrMatrixGetStringForIntegerCodePoint(yCbCrMatrixCodePoint int) (cor
 // CVYCbCrMatrixGetStringForIntegerCodePoint returns the Core Video YCbCr matrix string corresponding to the standard integer code point that you specify.
 //
 // See: https://developer.apple.com/documentation/CoreVideo/CVYCbCrMatrixGetStringForIntegerCodePoint(_:)
-func CVYCbCrMatrixGetStringForIntegerCodePoint(yCbCrMatrixCodePoint int) corefoundation.CFStringRef {
+func CVYCbCrMatrixGetStringForIntegerCodePoint(yCbCrMatrixCodePoint int32) corefoundation.CFStringRef {
 	result, callErr := tryCVYCbCrMatrixGetStringForIntegerCodePoint(yCbCrMatrixCodePoint)
 	if callErr != nil {
 		panic(callErr)

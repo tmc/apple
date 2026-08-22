@@ -3,9 +3,8 @@
 package avfoundation
 
 import (
-	"unsafe"
-
 	"github.com/ebitengine/purego"
+	"github.com/tmc/apple/corefoundation"
 	"github.com/tmc/apple/foundation"
 	"github.com/tmc/apple/objc"
 )
@@ -948,7 +947,7 @@ var (
 	// AVCoreAnimationBeginTimeAtZero is a value that sets an animation begin time to `0`.
 	//
 	// See: https://developer.apple.com/documentation/AVFoundation/AVCoreAnimationBeginTimeAtZero
-	AVCoreAnimationBeginTimeAtZero float64
+	AVCoreAnimationBeginTimeAtZero corefoundation.CFTimeInterval
 )
 
 var (
@@ -3211,27 +3210,27 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "AVCaptureAspectRatio16x9"); err == nil && ptr != 0 {
-		AVCaptureAspectRatio16x9 = *(*objc.ID)(unsafe.Pointer(ptr))
+		AVCaptureAspectRatio16x9 = objc.ValueAt[objc.ID](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "AVCaptureAspectRatio1x1"); err == nil && ptr != 0 {
-		AVCaptureAspectRatio1x1 = *(*objc.ID)(unsafe.Pointer(ptr))
+		AVCaptureAspectRatio1x1 = objc.ValueAt[objc.ID](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "AVCaptureAspectRatio3x4"); err == nil && ptr != 0 {
-		AVCaptureAspectRatio3x4 = *(*objc.ID)(unsafe.Pointer(ptr))
+		AVCaptureAspectRatio3x4 = objc.ValueAt[objc.ID](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "AVCaptureAspectRatio4x3"); err == nil && ptr != 0 {
-		AVCaptureAspectRatio4x3 = *(*objc.ID)(unsafe.Pointer(ptr))
+		AVCaptureAspectRatio4x3 = objc.ValueAt[objc.ID](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "AVCaptureAspectRatio9x16"); err == nil && ptr != 0 {
-		AVCaptureAspectRatio9x16 = *(*objc.ID)(unsafe.Pointer(ptr))
+		AVCaptureAspectRatio9x16 = objc.ValueAt[objc.ID](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "AVCaptureDeviceSubjectAreaDidChangeNotification"); err == nil && ptr != 0 {
-		AVCaptureDeviceSubjectAreaDidChangeNotification = *(*foundation.NSNotification)(unsafe.Pointer(ptr))
+		AVCaptureDeviceSubjectAreaDidChangeNotification = objc.ValueAt[foundation.NSNotification](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "AVCaptureDeviceTypeBuiltInDualCamera"); err == nil && ptr != 0 {
@@ -3415,7 +3414,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "AVCaptureMaxAvailableTorchLevel"); err == nil && ptr != 0 {
-		AVCaptureMaxAvailableTorchLevel = *(*float32)(unsafe.Pointer(ptr))
+		AVCaptureMaxAvailableTorchLevel = objc.ValueAt[float32](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "AVCaptureReactionTypeBalloons"); err == nil && ptr != 0 {
@@ -3709,23 +3708,23 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "AVCaptureSystemPressureLevelCritical"); err == nil && ptr != 0 {
-		AVCaptureSystemPressureLevelCritical = *(*objc.ID)(unsafe.Pointer(ptr))
+		AVCaptureSystemPressureLevelCritical = objc.ValueAt[objc.ID](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "AVCaptureSystemPressureLevelFair"); err == nil && ptr != 0 {
-		AVCaptureSystemPressureLevelFair = *(*objc.ID)(unsafe.Pointer(ptr))
+		AVCaptureSystemPressureLevelFair = objc.ValueAt[objc.ID](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "AVCaptureSystemPressureLevelNominal"); err == nil && ptr != 0 {
-		AVCaptureSystemPressureLevelNominal = *(*objc.ID)(unsafe.Pointer(ptr))
+		AVCaptureSystemPressureLevelNominal = objc.ValueAt[objc.ID](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "AVCaptureSystemPressureLevelSerious"); err == nil && ptr != 0 {
-		AVCaptureSystemPressureLevelSerious = *(*objc.ID)(unsafe.Pointer(ptr))
+		AVCaptureSystemPressureLevelSerious = objc.ValueAt[objc.ID](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "AVCaptureSystemPressureLevelShutdown"); err == nil && ptr != 0 {
-		AVCaptureSystemPressureLevelShutdown = *(*objc.ID)(unsafe.Pointer(ptr))
+		AVCaptureSystemPressureLevelShutdown = objc.ValueAt[objc.ID](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "AVContentKeyRequestProtocolVersionsKey"); err == nil && ptr != 0 {
@@ -3909,7 +3908,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "AVCoreAnimationBeginTimeAtZero"); err == nil && ptr != 0 {
-		AVCoreAnimationBeginTimeAtZero = *(*float64)(unsafe.Pointer(ptr))
+		AVCoreAnimationBeginTimeAtZero = objc.ValueAt[corefoundation.CFTimeInterval](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "AVErrorDeviceKey"); err == nil && ptr != 0 {

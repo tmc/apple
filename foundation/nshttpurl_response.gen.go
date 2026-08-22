@@ -167,7 +167,7 @@ func NewHTTPURLResponseWithCoder(coder INSCoder) HTTPURLResponse {
 //
 // This is the designated initializer for [NSURLResponse].
 //
-// See: https://developer.apple.com/documentation/Foundation/URLResponse/init(url:mimeType:expectedContentLength:textEncodingName:)-4s2s1
+// See: https://developer.apple.com/documentation/Foundation/URLResponse/init(url:mimeType:expectedContentLength:textEncodingName:)
 func NewHTTPURLResponseWithURLMIMETypeExpectedContentLengthTextEncodingName(URL INSURL, MIMEType string, length int, name string) HTTPURLResponse {
 	instance := getHTTPURLResponseClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithURL:MIMEType:expectedContentLength:textEncodingName:"), URL, objc.String(MIMEType), length, objc.String(name))
@@ -193,7 +193,7 @@ func NewHTTPURLResponseWithURLMIMETypeExpectedContentLengthTextEncodingName(URL 
 // An initialized [NSHTTPURLResponse] object or `nil` if an error occurred
 // during initialization.
 //
-// See: https://developer.apple.com/documentation/Foundation/HTTPURLResponse/init(url:statusCode:httpVersion:headerFields:)-21j4x
+// See: https://developer.apple.com/documentation/Foundation/HTTPURLResponse/init(url:statusCode:httpVersion:headerFields:)
 //
 // [RFC 2616]: http://www.ietf.org/rfc/rfc2616.txt
 func NewHTTPURLResponseWithURLStatusCodeHTTPVersionHeaderFields(url INSURL, statusCode int, HTTPVersion string, headerFields INSDictionary) HTTPURLResponse {
@@ -221,7 +221,7 @@ func NewHTTPURLResponseWithURLStatusCodeHTTPVersionHeaderFields(url INSURL, stat
 // An initialized [NSHTTPURLResponse] object or `nil` if an error occurred
 // during initialization.
 //
-// See: https://developer.apple.com/documentation/Foundation/HTTPURLResponse/init(url:statusCode:httpVersion:headerFields:)-21j4x
+// See: https://developer.apple.com/documentation/Foundation/HTTPURLResponse/init(url:statusCode:httpVersion:headerFields:)
 //
 // [RFC 2616]: http://www.ietf.org/rfc/rfc2616.txt
 func (h HTTPURLResponse) InitWithURLStatusCodeHTTPVersionHeaderFields(url INSURL, statusCode int, HTTPVersion string, headerFields INSDictionary) HTTPURLResponse {

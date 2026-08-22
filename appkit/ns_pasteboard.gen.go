@@ -283,26 +283,26 @@ type INSPasteboard interface {
 	ReadFileWrapper() foundation.FileWrapper
 
 	// An array of calendar events that the data detection system identifies.
-	CalendarEvents() objectivec.IObject
-	SetCalendarEvents(value objectivec.IObject)
+	CalendarEvents() []objectivec.IObject
+	SetCalendarEvents(value []objectivec.IObject)
 	// The content type of a file that the data detection system identifies when the pasteboard contains a file URL.
 	ContentType() uniformtypeidentifiers.UTType
 	SetContentType(value uniformtypeidentifiers.UTType)
 	// An array of email addresses that the data detection system identifies.
-	EmailAddresses() objectivec.IObject
-	SetEmailAddresses(value objectivec.IObject)
+	EmailAddresses() []objectivec.IObject
+	SetEmailAddresses(value []objectivec.IObject)
 	// An array of flight numbers that the data detection system identifies.
-	FlightNumbers() objectivec.IObject
-	SetFlightNumbers(value objectivec.IObject)
+	FlightNumbers() []objectivec.IObject
+	SetFlightNumbers(value []objectivec.IObject)
 	// An array of web links that the data detection system identifies.
-	Links() objectivec.IObject
-	SetLinks(value objectivec.IObject)
+	Links() []objectivec.IObject
+	SetLinks(value []objectivec.IObject)
 	// A set of key paths that represent metadata types that the data detection system identifies.
 	MetadataTypes() foundation.NSSet
 	SetMetadataTypes(value foundation.NSSet)
 	// An array of money amounts and currencies that the data detection system identifies.
-	MoneyAmounts() objectivec.IObject
-	SetMoneyAmounts(value objectivec.IObject)
+	MoneyAmounts() []objectivec.IObject
+	SetMoneyAmounts(value []objectivec.IObject)
 	// A number that the data detection system identifies.
 	Number() float64
 	SetNumber(value float64)
@@ -310,11 +310,11 @@ type INSPasteboard interface {
 	Patterns() foundation.NSSet
 	SetPatterns(value foundation.NSSet)
 	// An array of phone numbers that the data detection system identifies.
-	PhoneNumbers() objectivec.IObject
-	SetPhoneNumbers(value objectivec.IObject)
+	PhoneNumbers() []objectivec.IObject
+	SetPhoneNumbers(value []objectivec.IObject)
 	// An array of postal addresses that the data detection system identifies.
-	PostalAddresses() objectivec.IObject
-	SetPostalAddresses(value objectivec.IObject)
+	PostalAddresses() []objectivec.IObject
+	SetPostalAddresses(value []objectivec.IObject)
 	// A string that the data detection system identifies as a probable web search item, suitable for implementing “Paste and Search”.
 	ProbableWebSearch() string
 	SetProbableWebSearch(value string)
@@ -322,8 +322,8 @@ type INSPasteboard interface {
 	ProbableWebURL() string
 	SetProbableWebURL(value string)
 	// An array of parcel tracking numbers and carriers that the data detection system identifies.
-	ShipmentTrackingNumbers() objectivec.IObject
-	SetShipmentTrackingNumbers(value objectivec.IObject)
+	ShipmentTrackingNumbers() []objectivec.IObject
+	SetShipmentTrackingNumbers(value []objectivec.IObject)
 }
 
 // Init initializes the instance.
@@ -833,7 +833,7 @@ func (p NSPasteboard) PrepareForNewContentsWithOptions(options NSPasteboardConte
 // newOwner: The object responsible for writing data to the pasteboard, or `nil` if you
 // provide data for all types immediately. If you specify a `newOwner` object,
 // it must support all of the types declared in the `newTypes` parameter and
-// must remain alive for as long as the data is on the pasteboard.
+// must remain alive for as long as the data is promised on the pasteboard.
 //
 // # Return Value
 //
@@ -1122,12 +1122,14 @@ func (p NSPasteboard) ChangeCount() int {
 // An array of calendar events that the data detection system identifies.
 //
 // See: https://developer.apple.com/documentation/appkit/nspasteboard/detectedvalues/calendarevents
-func (p NSPasteboard) CalendarEvents() objectivec.IObject {
-	rv := objc.Send[objc.ID](p.ID, objc.Sel("calendarEvents"))
-	return objectivec.Object{ID: rv}
+func (p NSPasteboard) CalendarEvents() []objectivec.IObject {
+	rv := objc.Send[[]objc.ID](p.ID, objc.Sel("calendarEvents"))
+	return objc.ConvertSlice(rv, func(id objc.ID) objectivec.IObject {
+		return objectivec.Object{ID: id}
+	})
 }
-func (p NSPasteboard) SetCalendarEvents(value objectivec.IObject) {
-	objc.Send[struct{}](p.ID, objc.Sel("setCalendarEvents:"), value)
+func (p NSPasteboard) SetCalendarEvents(value []objectivec.IObject) {
+	objc.Send[struct{}](p.ID, objc.Sel("setCalendarEvents:"), objectivec.IObjectSliceToNSArray(value))
 }
 
 // The content type of a file that the data detection system identifies when
@@ -1145,34 +1147,40 @@ func (p NSPasteboard) SetContentType(value uniformtypeidentifiers.UTType) {
 // An array of email addresses that the data detection system identifies.
 //
 // See: https://developer.apple.com/documentation/appkit/nspasteboard/detectedvalues/emailaddresses
-func (p NSPasteboard) EmailAddresses() objectivec.IObject {
-	rv := objc.Send[objc.ID](p.ID, objc.Sel("emailAddresses"))
-	return objectivec.Object{ID: rv}
+func (p NSPasteboard) EmailAddresses() []objectivec.IObject {
+	rv := objc.Send[[]objc.ID](p.ID, objc.Sel("emailAddresses"))
+	return objc.ConvertSlice(rv, func(id objc.ID) objectivec.IObject {
+		return objectivec.Object{ID: id}
+	})
 }
-func (p NSPasteboard) SetEmailAddresses(value objectivec.IObject) {
-	objc.Send[struct{}](p.ID, objc.Sel("setEmailAddresses:"), value)
+func (p NSPasteboard) SetEmailAddresses(value []objectivec.IObject) {
+	objc.Send[struct{}](p.ID, objc.Sel("setEmailAddresses:"), objectivec.IObjectSliceToNSArray(value))
 }
 
 // An array of flight numbers that the data detection system identifies.
 //
 // See: https://developer.apple.com/documentation/appkit/nspasteboard/detectedvalues/flightnumbers
-func (p NSPasteboard) FlightNumbers() objectivec.IObject {
-	rv := objc.Send[objc.ID](p.ID, objc.Sel("flightNumbers"))
-	return objectivec.Object{ID: rv}
+func (p NSPasteboard) FlightNumbers() []objectivec.IObject {
+	rv := objc.Send[[]objc.ID](p.ID, objc.Sel("flightNumbers"))
+	return objc.ConvertSlice(rv, func(id objc.ID) objectivec.IObject {
+		return objectivec.Object{ID: id}
+	})
 }
-func (p NSPasteboard) SetFlightNumbers(value objectivec.IObject) {
-	objc.Send[struct{}](p.ID, objc.Sel("setFlightNumbers:"), value)
+func (p NSPasteboard) SetFlightNumbers(value []objectivec.IObject) {
+	objc.Send[struct{}](p.ID, objc.Sel("setFlightNumbers:"), objectivec.IObjectSliceToNSArray(value))
 }
 
 // An array of web links that the data detection system identifies.
 //
 // See: https://developer.apple.com/documentation/appkit/nspasteboard/detectedvalues/links
-func (p NSPasteboard) Links() objectivec.IObject {
-	rv := objc.Send[objc.ID](p.ID, objc.Sel("links"))
-	return objectivec.Object{ID: rv}
+func (p NSPasteboard) Links() []objectivec.IObject {
+	rv := objc.Send[[]objc.ID](p.ID, objc.Sel("links"))
+	return objc.ConvertSlice(rv, func(id objc.ID) objectivec.IObject {
+		return objectivec.Object{ID: id}
+	})
 }
-func (p NSPasteboard) SetLinks(value objectivec.IObject) {
-	objc.Send[struct{}](p.ID, objc.Sel("setLinks:"), value)
+func (p NSPasteboard) SetLinks(value []objectivec.IObject) {
+	objc.Send[struct{}](p.ID, objc.Sel("setLinks:"), objectivec.IObjectSliceToNSArray(value))
 }
 
 // A set of key paths that represent metadata types that the data detection
@@ -1191,12 +1199,14 @@ func (p NSPasteboard) SetMetadataTypes(value foundation.NSSet) {
 // identifies.
 //
 // See: https://developer.apple.com/documentation/appkit/nspasteboard/detectedvalues/moneyamounts
-func (p NSPasteboard) MoneyAmounts() objectivec.IObject {
-	rv := objc.Send[objc.ID](p.ID, objc.Sel("moneyAmounts"))
-	return objectivec.Object{ID: rv}
+func (p NSPasteboard) MoneyAmounts() []objectivec.IObject {
+	rv := objc.Send[[]objc.ID](p.ID, objc.Sel("moneyAmounts"))
+	return objc.ConvertSlice(rv, func(id objc.ID) objectivec.IObject {
+		return objectivec.Object{ID: id}
+	})
 }
-func (p NSPasteboard) SetMoneyAmounts(value objectivec.IObject) {
-	objc.Send[struct{}](p.ID, objc.Sel("setMoneyAmounts:"), value)
+func (p NSPasteboard) SetMoneyAmounts(value []objectivec.IObject) {
+	objc.Send[struct{}](p.ID, objc.Sel("setMoneyAmounts:"), objectivec.IObjectSliceToNSArray(value))
 }
 
 // A number that the data detection system identifies.
@@ -1225,23 +1235,27 @@ func (p NSPasteboard) SetPatterns(value foundation.NSSet) {
 // An array of phone numbers that the data detection system identifies.
 //
 // See: https://developer.apple.com/documentation/appkit/nspasteboard/detectedvalues/phonenumbers
-func (p NSPasteboard) PhoneNumbers() objectivec.IObject {
-	rv := objc.Send[objc.ID](p.ID, objc.Sel("phoneNumbers"))
-	return objectivec.Object{ID: rv}
+func (p NSPasteboard) PhoneNumbers() []objectivec.IObject {
+	rv := objc.Send[[]objc.ID](p.ID, objc.Sel("phoneNumbers"))
+	return objc.ConvertSlice(rv, func(id objc.ID) objectivec.IObject {
+		return objectivec.Object{ID: id}
+	})
 }
-func (p NSPasteboard) SetPhoneNumbers(value objectivec.IObject) {
-	objc.Send[struct{}](p.ID, objc.Sel("setPhoneNumbers:"), value)
+func (p NSPasteboard) SetPhoneNumbers(value []objectivec.IObject) {
+	objc.Send[struct{}](p.ID, objc.Sel("setPhoneNumbers:"), objectivec.IObjectSliceToNSArray(value))
 }
 
 // An array of postal addresses that the data detection system identifies.
 //
 // See: https://developer.apple.com/documentation/appkit/nspasteboard/detectedvalues/postaladdresses
-func (p NSPasteboard) PostalAddresses() objectivec.IObject {
-	rv := objc.Send[objc.ID](p.ID, objc.Sel("postalAddresses"))
-	return objectivec.Object{ID: rv}
+func (p NSPasteboard) PostalAddresses() []objectivec.IObject {
+	rv := objc.Send[[]objc.ID](p.ID, objc.Sel("postalAddresses"))
+	return objc.ConvertSlice(rv, func(id objc.ID) objectivec.IObject {
+		return objectivec.Object{ID: id}
+	})
 }
-func (p NSPasteboard) SetPostalAddresses(value objectivec.IObject) {
-	objc.Send[struct{}](p.ID, objc.Sel("setPostalAddresses:"), value)
+func (p NSPasteboard) SetPostalAddresses(value []objectivec.IObject) {
+	objc.Send[struct{}](p.ID, objc.Sel("setPostalAddresses:"), objectivec.IObjectSliceToNSArray(value))
 }
 
 // A string that the data detection system identifies as a probable web search
@@ -1272,12 +1286,14 @@ func (p NSPasteboard) SetProbableWebURL(value string) {
 // system identifies.
 //
 // See: https://developer.apple.com/documentation/appkit/nspasteboard/detectedvalues/shipmenttrackingnumbers
-func (p NSPasteboard) ShipmentTrackingNumbers() objectivec.IObject {
-	rv := objc.Send[objc.ID](p.ID, objc.Sel("shipmentTrackingNumbers"))
-	return objectivec.Object{ID: rv}
+func (p NSPasteboard) ShipmentTrackingNumbers() []objectivec.IObject {
+	rv := objc.Send[[]objc.ID](p.ID, objc.Sel("shipmentTrackingNumbers"))
+	return objc.ConvertSlice(rv, func(id objc.ID) objectivec.IObject {
+		return objectivec.Object{ID: id}
+	})
 }
-func (p NSPasteboard) SetShipmentTrackingNumbers(value objectivec.IObject) {
-	objc.Send[struct{}](p.ID, objc.Sel("setShipmentTrackingNumbers:"), value)
+func (p NSPasteboard) SetShipmentTrackingNumbers(value []objectivec.IObject) {
+	objc.Send[struct{}](p.ID, objc.Sel("setShipmentTrackingNumbers:"), objectivec.IObjectSliceToNSArray(value))
 }
 
 // The shared pasteboard object to use for general content.

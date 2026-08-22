@@ -675,7 +675,7 @@ type INSDocument interface {
 	// Sets the contents of this document by reading from a file or file package, of a specified type, located by a URL.
 	ReadFromURLOfTypeError(url foundation.NSURL, typeName string) (bool, error)
 	// Sets the contents of this document by reading from a file wrapper of a specified type.
-	ReadFromFileWrapperOfTypeError(fileWrapper foundation.FileWrapper, typeName string) (bool, error)
+	ReadFromFileWrapperOfTypeError(fileWrapper foundation.NSFileWrapper, typeName string) (bool, error)
 	// Sets the contents of this document by reading from data of a specified type.
 	ReadFromDataOfTypeError(data foundation.NSData, typeName string) (bool, error)
 
@@ -696,7 +696,7 @@ type INSDocument interface {
 	// Writes the contents of the document to a file or file package located by a URL.
 	WriteToURLOfTypeForSaveOperationOriginalContentsURLError(url foundation.NSURL, typeName string, saveOperation NSSaveOperationType, absoluteOriginalContentsURL foundation.NSURL) (bool, error)
 	// Saves the contents of the document to a file or file package located by a URL, that is formatted to a specified type, for a particular kind of save operation.
-	SaveToURLOfTypeForSaveOperationDelegateDidSaveSelectorContextInfo(url foundation.NSURL, typeName string, saveOperation NSSaveOperationType, delegate objectivec.IObject, didSaveSelector objc.SEL, contextInfo unsafe.Pointer)
+	SaveToURLOfTypeForSaveOperationDelegateDidSaveSelectorContextInfo(url foundation.NSURL, typeName string, saveOperation NSSaveOperationType, delegate objectivec.IObject, didSaveSelector objc.SEL, contextInfo uintptr)
 	// Saves the contents of the document to a file or file package located by a URL, that is formatted to a specified type, for a particular kind of save operation, and invokes the passed-in completion handler.
 	SaveToURLOfTypeForSaveOperationCompletionHandler(url foundation.NSURL, typeName string, saveOperation NSSaveOperationType, completionHandler ErrorHandler)
 	// Returns the attributes to write to the file or file package at the specified URL, and targeting the specified type of save operation.
@@ -749,7 +749,7 @@ type INSDocument interface {
 	// Called before one of the document’s window controllers loads its nib file.
 	WindowControllerWillLoadNib(windowController INSWindowController)
 	// Determines whether the system should close the document and its associated window.
-	ShouldCloseWindowControllerDelegateShouldCloseSelectorContextInfo(windowController INSWindowController, delegate objectivec.IObject, shouldCloseSelector objc.SEL, contextInfo unsafe.Pointer)
+	ShouldCloseWindowControllerDelegateShouldCloseSelectorContextInfo(windowController INSWindowController, delegate objectivec.IObject, shouldCloseSelector objc.SEL, contextInfo uintptr)
 
 	// Topic: Managing Document Windows
 
@@ -786,7 +786,7 @@ type INSDocument interface {
 	// Schedules periodic autosaving for the purpose of crash protection.
 	ScheduleAutosaving()
 	// Autosaves the document’s contents to an appropriate location in the file system.
-	AutosaveDocumentWithDelegateDidAutosaveSelectorContextInfo(delegate objectivec.IObject, didAutosaveSelector objc.SEL, contextInfo unsafe.Pointer)
+	AutosaveDocumentWithDelegateDidAutosaveSelectorContextInfo(delegate objectivec.IObject, didAutosaveSelector objc.SEL, contextInfo uintptr)
 	// Autosaves the document’s contents to an appropriate file-system location, as needed.
 	AutosaveWithImplicitCancellabilityCompletionHandler(autosavingIsImplicitlyCancellable bool, completionHandler ErrorHandler)
 	// The URL for the document’s backup file that was created during an autosave operation.
@@ -838,7 +838,7 @@ type INSDocument interface {
 	// Topic: Presenting a Save Panel
 
 	// Presents a modal Save panel to the user, then tries to save the document if the user approves the operation.
-	RunModalSavePanelForSaveOperationDelegateDidSaveSelectorContextInfo(saveOperation NSSaveOperationType, delegate objectivec.IObject, didSaveSelector objc.SEL, contextInfo unsafe.Pointer)
+	RunModalSavePanelForSaveOperationDelegateDidSaveSelectorContextInfo(saveOperation NSSaveOperationType, delegate objectivec.IObject, didSaveSelector objc.SEL, contextInfo uintptr)
 	// Tells the document to customize the specified Save panel.
 	PrepareSavePanel(savePanel INSSavePanel) bool
 	// A Boolean value that indicates whether the document’s Save panel displays a list of supported writable document types.
@@ -884,12 +884,12 @@ type INSDocument interface {
 	// The action method invoked in the receiver as first responder when the user chooses the Save To menu command.
 	SaveDocumentTo(sender objectivec.IObject)
 	// Saves the document and delivers the results to the provided delegate object.
-	SaveDocumentWithDelegateDidSaveSelectorContextInfo(delegate objectivec.IObject, didSaveSelector objc.SEL, contextInfo unsafe.Pointer)
+	SaveDocumentWithDelegateDidSaveSelectorContextInfo(delegate objectivec.IObject, didSaveSelector objc.SEL, contextInfo uintptr)
 
 	// Topic: Closing the Document
 
 	// Determines whether to close the document, prompting the user as needed to choose a course of action.
-	CanCloseDocumentWithDelegateShouldCloseSelectorContextInfo(delegate objectivec.IObject, shouldCloseSelector objc.SEL, contextInfo unsafe.Pointer)
+	CanCloseDocumentWithDelegateShouldCloseSelectorContextInfo(delegate objectivec.IObject, shouldCloseSelector objc.SEL, contextInfo uintptr)
 	// Closes all of the document’s windows and removes the document from its document controller.
 	Close()
 
@@ -905,7 +905,7 @@ type INSDocument interface {
 	// Creates a copy of the receiving document in response to the user choosing Duplicate from the File menu.
 	DuplicateDocument(sender objectivec.IObject)
 	// Creates a new document whose contents are the same as the current document.
-	DuplicateDocumentWithDelegateDidDuplicateSelectorContextInfo(delegate objectivec.IObject, didDuplicateSelector objc.SEL, contextInfo unsafe.Pointer)
+	DuplicateDocumentWithDelegateDidDuplicateSelectorContextInfo(delegate objectivec.IObject, didDuplicateSelector objc.SEL, contextInfo uintptr)
 
 	// Topic: Renaming the Document
 
@@ -946,13 +946,13 @@ type INSDocument interface {
 	// Adds document-specific content to the Page Layout panel.
 	PreparePageLayout(pageLayout INSPageLayout) bool
 	// Runs the modal page layout panel with the receiver’s printing information object.
-	RunModalPageLayoutWithPrintInfoDelegateDidRunSelectorContextInfo(printInfo INSPrintInfo, delegate objectivec.IObject, didRunSelector objc.SEL, contextInfo unsafe.Pointer)
+	RunModalPageLayoutWithPrintInfoDelegateDidRunSelectorContextInfo(printInfo INSPrintInfo, delegate objectivec.IObject, didRunSelector objc.SEL, contextInfo uintptr)
 	// Runs the specified print operation modally.
-	RunModalPrintOperationDelegateDidRunSelectorContextInfo(printOperation INSPrintOperation, delegate objectivec.IObject, didRunSelector objc.SEL, contextInfo unsafe.Pointer)
+	RunModalPrintOperationDelegateDidRunSelectorContextInfo(printOperation INSPrintOperation, delegate objectivec.IObject, didRunSelector objc.SEL, contextInfo uintptr)
 	// Returns a Boolean value that indicates whether the document allows changes to the default printing information.
 	ShouldChangePrintInfo(newPrintInfo INSPrintInfo) bool
 	// Prints the document’s contents, optionally displaying a print panel to the user.
-	PrintDocumentWithSettingsShowPrintPanelDelegateDidPrintSelectorContextInfo(printSettings foundation.INSDictionary, showPrintPanel bool, delegate objectivec.IObject, didPrintSelector objc.SEL, contextInfo unsafe.Pointer)
+	PrintDocumentWithSettingsShowPrintPanelDelegateDidPrintSelectorContextInfo(printSettings foundation.INSDictionary, showPrintPanel bool, delegate objectivec.IObject, didPrintSelector objc.SEL, contextInfo uintptr)
 	// Creates and returns a print operation for the document’s contents.
 	PrintOperationWithSettingsError(printSettings foundation.INSDictionary) (INSPrintOperation, error)
 	// A print operation you can use to create a PDF representation of the document’s current contents.
@@ -986,7 +986,7 @@ type INSDocument interface {
 	// Topic: Displaying Errors to the User
 
 	// Presents an error alert to the user as a modal panel.
-	PresentErrorModalForWindowDelegateDidPresentSelectorContextInfo(error_ foundation.NSError, window INSWindow, delegate objectivec.IObject, didPresentSelector objc.SEL, contextInfo unsafe.Pointer)
+	PresentErrorModalForWindowDelegateDidPresentSelectorContextInfo(error_ foundation.NSError, window INSWindow, delegate objectivec.IObject, didPresentSelector objc.SEL, contextInfo uintptr)
 	// Presents an error alert to the user as a modal panel.
 	PresentError(error_ foundation.NSError) bool
 	// Called when the receiver is about to present an error.
@@ -1014,6 +1014,11 @@ type INSDocument interface {
 	RelinquishPresentedItemToReader(reader ErrorHandler)
 	RelinquishPresentedItemToWriter(writer ErrorHandler)
 	SavePresentedItemChangesWithCompletionHandler(completionHandler ErrorHandler)
+
+	// Restores the state necessary to continue the specified user activity.
+	RestoreUserActivityState(userActivity foundation.NSUserActivity)
+	// Implemented to override the default action of enabling or disabling a specific menu item.
+	ValidateMenuItem(menuItem INSMenuItem) bool
 }
 
 // Init initializes the instance.
@@ -1072,6 +1077,9 @@ func NewDocumentForURLWithContentsOfURLOfTypeError(urlOrNil foundation.NSURL, co
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
 		return NSDocument{}, foundation.NSErrorFrom(errorPtr)
 	}
+	if rv == 0 {
+		return NSDocument{}, objc.ErrInitFailed
+	}
 	return NSDocumentFromID(rv), nil
 }
 
@@ -1115,6 +1123,9 @@ func NewDocumentWithContentsOfURLOfTypeError(url foundation.NSURL, typeName stri
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
 		return NSDocument{}, foundation.NSErrorFrom(errorPtr)
 	}
+	if rv == 0 {
+		return NSDocument{}, objc.ErrInitFailed
+	}
 	return NSDocumentFromID(rv), nil
 }
 
@@ -1146,6 +1157,9 @@ func NewDocumentWithTypeError(typeName string) (NSDocument, error) {
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
 		return NSDocument{}, foundation.NSErrorFrom(errorPtr)
+	}
+	if rv == 0 {
+		return NSDocument{}, objc.ErrInitFailed
 	}
 	return NSDocumentFromID(rv), nil
 }
@@ -1318,7 +1332,7 @@ func (d NSDocument) ReadFromURLOfTypeError(url foundation.NSURL, typeName string
 // See: https://developer.apple.com/documentation/AppKit/NSDocument/read(from:ofType:)-3rzsi
 //
 // [loadFileWrapperRepresentation:ofType:]: https://developer.apple.com/documentation/AppKit/NSDocument/loadFileWrapperRepresentation:ofType:
-func (d NSDocument) ReadFromFileWrapperOfTypeError(fileWrapper foundation.FileWrapper, typeName string) (bool, error) {
+func (d NSDocument) ReadFromFileWrapperOfTypeError(fileWrapper foundation.NSFileWrapper, typeName string) (bool, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[bool](d.ID, objc.Sel("readFromFileWrapper:ofType:error:"), fileWrapper, objc.String(typeName), unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
@@ -1653,7 +1667,7 @@ func (d NSDocument) WriteToURLOfTypeForSaveOperationOriginalContentsURLError(url
 // error to the user in a document-modal panel before messaging the delegate.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSDocument/save(to:ofType:for:delegate:didSave:contextInfo:)
-func (d NSDocument) SaveToURLOfTypeForSaveOperationDelegateDidSaveSelectorContextInfo(url foundation.NSURL, typeName string, saveOperation NSSaveOperationType, delegate objectivec.IObject, didSaveSelector objc.SEL, contextInfo unsafe.Pointer) {
+func (d NSDocument) SaveToURLOfTypeForSaveOperationDelegateDidSaveSelectorContextInfo(url foundation.NSURL, typeName string, saveOperation NSSaveOperationType, delegate objectivec.IObject, didSaveSelector objc.SEL, contextInfo uintptr) {
 	objc.Send[objc.ID](d.ID, objc.Sel("saveToURL:ofType:forSaveOperation:delegate:didSaveSelector:contextInfo:"), url, objc.String(typeName), saveOperation, delegate, didSaveSelector, contextInfo)
 }
 
@@ -2002,7 +2016,7 @@ func (d NSDocument) WindowControllerWillLoadNib(windowController INSWindowContro
 // signature:
 //
 // See: https://developer.apple.com/documentation/AppKit/NSDocument/shouldCloseWindowController(_:delegate:shouldClose:contextInfo:)
-func (d NSDocument) ShouldCloseWindowControllerDelegateShouldCloseSelectorContextInfo(windowController INSWindowController, delegate objectivec.IObject, shouldCloseSelector objc.SEL, contextInfo unsafe.Pointer) {
+func (d NSDocument) ShouldCloseWindowControllerDelegateShouldCloseSelectorContextInfo(windowController INSWindowController, delegate objectivec.IObject, shouldCloseSelector objc.SEL, contextInfo uintptr) {
 	objc.Send[objc.ID](d.ID, objc.Sel("shouldCloseWindowController:delegate:shouldCloseSelector:contextInfo:"), windowController, delegate, shouldCloseSelector, contextInfo)
 }
 
@@ -2197,7 +2211,7 @@ func (d NSDocument) ScheduleAutosaving() {
 // before sending the delegate a `NO` message.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSDocument/autosave(withDelegate:didAutosave:contextInfo:)
-func (d NSDocument) AutosaveDocumentWithDelegateDidAutosaveSelectorContextInfo(delegate objectivec.IObject, didAutosaveSelector objc.SEL, contextInfo unsafe.Pointer) {
+func (d NSDocument) AutosaveDocumentWithDelegateDidAutosaveSelectorContextInfo(delegate objectivec.IObject, didAutosaveSelector objc.SEL, contextInfo uintptr) {
 	objc.Send[objc.ID](d.ID, objc.Sel("autosaveDocumentWithDelegate:didAutosaveSelector:contextInfo:"), delegate, didAutosaveSelector, contextInfo)
 }
 
@@ -2537,7 +2551,7 @@ func (d NSDocument) RestoreDocumentWindowWithIdentifierStateCompletionHandler(id
 // See: https://developer.apple.com/documentation/AppKit/NSDocument/runModalSavePanel(for:delegate:didSave:contextInfo:)
 //
 // [saveToFile:saveOperation:delegate:didSaveSelector:contextInfo:]: https://developer.apple.com/documentation/AppKit/NSDocument/saveToFile:saveOperation:delegate:didSaveSelector:contextInfo:
-func (d NSDocument) RunModalSavePanelForSaveOperationDelegateDidSaveSelectorContextInfo(saveOperation NSSaveOperationType, delegate objectivec.IObject, didSaveSelector objc.SEL, contextInfo unsafe.Pointer) {
+func (d NSDocument) RunModalSavePanelForSaveOperationDelegateDidSaveSelectorContextInfo(saveOperation NSSaveOperationType, delegate objectivec.IObject, didSaveSelector objc.SEL, contextInfo uintptr) {
 	objc.Send[objc.ID](d.ID, objc.Sel("runModalSavePanelForSaveOperation:delegate:didSaveSelector:contextInfo:"), saveOperation, delegate, didSaveSelector, contextInfo)
 }
 
@@ -2642,7 +2656,8 @@ func (d NSDocument) ValidateUserInterfaceItem(item NSValidatedUserInterfaceItem)
 //
 // See: https://developer.apple.com/documentation/AppKit/NSDocument/performSynchronousFileAccess(_:)
 func (d NSDocument) PerformSynchronousFileAccessUsingBlock(block VoidHandler) {
-	_block0, _ := NewVoidBlock(block)
+	_block0, _cleanup0 := NewVoidBlock(block)
+	defer _cleanup0()
 	objc.Send[objc.ID](d.ID, objc.Sel("performSynchronousFileAccessUsingBlock:"), _block0)
 }
 
@@ -2810,7 +2825,8 @@ func (d NSDocument) PerformActivityWithSynchronousWaitingUsingBlock(waitSynchron
 //
 // See: https://developer.apple.com/documentation/AppKit/NSDocument/continueActivity(_:)
 func (d NSDocument) ContinueActivityUsingBlock(block VoidHandler) {
-	_block0, _ := NewVoidBlock(block)
+	_block0, _cleanup0 := NewVoidBlock(block)
+	defer _cleanup0()
 	objc.Send[objc.ID](d.ID, objc.Sel("continueActivityUsingBlock:"), _block0)
 }
 
@@ -2986,7 +3002,7 @@ func (d NSDocument) SaveDocumentTo(sender objectivec.IObject) {
 // The `didSaveSelector` callback method should have the following signature:
 //
 // See: https://developer.apple.com/documentation/AppKit/NSDocument/save(withDelegate:didSave:contextInfo:)
-func (d NSDocument) SaveDocumentWithDelegateDidSaveSelectorContextInfo(delegate objectivec.IObject, didSaveSelector objc.SEL, contextInfo unsafe.Pointer) {
+func (d NSDocument) SaveDocumentWithDelegateDidSaveSelectorContextInfo(delegate objectivec.IObject, didSaveSelector objc.SEL, contextInfo uintptr) {
 	objc.Send[objc.ID](d.ID, objc.Sel("saveDocumentWithDelegate:didSaveSelector:contextInfo:"), delegate, didSaveSelector, contextInfo)
 }
 
@@ -3021,7 +3037,7 @@ func (d NSDocument) SaveDocumentWithDelegateDidSaveSelectorContextInfo(delegate 
 // signature:
 //
 // See: https://developer.apple.com/documentation/AppKit/NSDocument/canClose(withDelegate:shouldClose:contextInfo:)
-func (d NSDocument) CanCloseDocumentWithDelegateShouldCloseSelectorContextInfo(delegate objectivec.IObject, shouldCloseSelector objc.SEL, contextInfo unsafe.Pointer) {
+func (d NSDocument) CanCloseDocumentWithDelegateShouldCloseSelectorContextInfo(delegate objectivec.IObject, shouldCloseSelector objc.SEL, contextInfo uintptr) {
 	objc.Send[objc.ID](d.ID, objc.Sel("canCloseDocumentWithDelegate:shouldCloseSelector:contextInfo:"), delegate, shouldCloseSelector, contextInfo)
 }
 
@@ -3143,7 +3159,7 @@ func (d NSDocument) DuplicateDocument(sender objectivec.IObject) {
 // changes after duplicating.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSDocument/duplicate(withDelegate:didDuplicate:contextInfo:)
-func (d NSDocument) DuplicateDocumentWithDelegateDidDuplicateSelectorContextInfo(delegate objectivec.IObject, didDuplicateSelector objc.SEL, contextInfo unsafe.Pointer) {
+func (d NSDocument) DuplicateDocumentWithDelegateDidDuplicateSelectorContextInfo(delegate objectivec.IObject, didDuplicateSelector objc.SEL, contextInfo uintptr) {
 	objc.Send[objc.ID](d.ID, objc.Sel("duplicateDocumentWithDelegate:didDuplicateSelector:contextInfo:"), delegate, didDuplicateSelector, contextInfo)
 }
 
@@ -3379,7 +3395,7 @@ func (d NSDocument) PreparePageLayout(pageLayout INSPageLayout) bool {
 // The `didRunSelector` callback method should have the following signature:
 //
 // See: https://developer.apple.com/documentation/AppKit/NSDocument/runModalPageLayout(with:delegate:didRun:contextInfo:)
-func (d NSDocument) RunModalPageLayoutWithPrintInfoDelegateDidRunSelectorContextInfo(printInfo INSPrintInfo, delegate objectivec.IObject, didRunSelector objc.SEL, contextInfo unsafe.Pointer) {
+func (d NSDocument) RunModalPageLayoutWithPrintInfoDelegateDidRunSelectorContextInfo(printInfo INSPrintInfo, delegate objectivec.IObject, didRunSelector objc.SEL, contextInfo uintptr) {
 	objc.Send[objc.ID](d.ID, objc.Sel("runModalPageLayoutWithPrintInfo:delegate:didRunSelector:contextInfo:"), printInfo, delegate, didRunSelector, contextInfo)
 }
 
@@ -3405,7 +3421,7 @@ func (d NSDocument) RunModalPageLayoutWithPrintInfoDelegateDidRunSelectorContext
 // See: https://developer.apple.com/documentation/AppKit/NSDocument/runModalPrintOperation(_:delegate:didRun:contextInfo:)
 //
 // [printShowingPrintPanel:]: https://developer.apple.com/documentation/AppKit/NSDocument/printShowingPrintPanel:
-func (d NSDocument) RunModalPrintOperationDelegateDidRunSelectorContextInfo(printOperation INSPrintOperation, delegate objectivec.IObject, didRunSelector objc.SEL, contextInfo unsafe.Pointer) {
+func (d NSDocument) RunModalPrintOperationDelegateDidRunSelectorContextInfo(printOperation INSPrintOperation, delegate objectivec.IObject, didRunSelector objc.SEL, contextInfo uintptr) {
 	objc.Send[objc.ID](d.ID, objc.Sel("runModalPrintOperation:delegate:didRunSelector:contextInfo:"), printOperation, delegate, didRunSelector, contextInfo)
 }
 
@@ -3474,7 +3490,7 @@ func (d NSDocument) ShouldChangePrintInfo(newPrintInfo INSPrintInfo) bool {
 // See: https://developer.apple.com/documentation/AppKit/NSDocument/print(withSettings:showPrintPanel:delegate:didPrint:contextInfo:)
 //
 // [printShowingPrintPanel:]: https://developer.apple.com/documentation/AppKit/NSDocument/printShowingPrintPanel:
-func (d NSDocument) PrintDocumentWithSettingsShowPrintPanelDelegateDidPrintSelectorContextInfo(printSettings foundation.INSDictionary, showPrintPanel bool, delegate objectivec.IObject, didPrintSelector objc.SEL, contextInfo unsafe.Pointer) {
+func (d NSDocument) PrintDocumentWithSettingsShowPrintPanelDelegateDidPrintSelectorContextInfo(printSettings foundation.INSDictionary, showPrintPanel bool, delegate objectivec.IObject, didPrintSelector objc.SEL, contextInfo uintptr) {
 	objc.Send[objc.ID](d.ID, objc.Sel("printDocumentWithSettings:showPrintPanel:delegate:didPrintSelector:contextInfo:"), printSettings, showPrintPanel, delegate, didPrintSelector, contextInfo)
 }
 
@@ -3678,7 +3694,7 @@ func (d NSDocument) HandleSaveScriptCommand(command foundation.NSScriptCommand) 
 // as:
 //
 // See: https://developer.apple.com/documentation/AppKit/NSDocument/presentError(_:modalFor:delegate:didPresent:contextInfo:)
-func (d NSDocument) PresentErrorModalForWindowDelegateDidPresentSelectorContextInfo(error_ foundation.NSError, window INSWindow, delegate objectivec.IObject, didPresentSelector objc.SEL, contextInfo unsafe.Pointer) {
+func (d NSDocument) PresentErrorModalForWindowDelegateDidPresentSelectorContextInfo(error_ foundation.NSError, window INSWindow, delegate objectivec.IObject, didPresentSelector objc.SEL, contextInfo uintptr) {
 	objc.Send[objc.ID](d.ID, objc.Sel("presentError:modalForWindow:delegate:didPresentSelector:contextInfo:"), error_, window, delegate, didPresentSelector, contextInfo)
 }
 
@@ -4172,7 +4188,7 @@ func (d NSDocument) WindowForSheet() INSWindow {
 //
 // If the document has been saved, the display name is the last component of
 // the directory location of the saved file (for example, “[MyDocument]”
-// if the path is “`/tmp/MyDocument.Rtf()`”). If the document is new,
+// if the path is “`/tmp/MyDocument.rtf`”). If the document is new,
 // [NSDocument] makes the display name “Untitled n,” where n is a number
 // in a sequence of new and unsaved documents. The displayable name also takes
 // into account whether the document’s filename extension should be hidden.

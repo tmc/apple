@@ -67,7 +67,8 @@ func WKDownloadDelegateObjectFromID(id objc.ID) WKDownloadDelegateObject {
 //
 // See: https://developer.apple.com/documentation/WebKit/WKDownloadDelegate/download(_:decideDestinationUsing:suggestedFilename:completionHandler:)
 func (o WKDownloadDelegateObject) DownloadDecideDestinationUsingResponseSuggestedFilenameCompletionHandler(download IWKDownload, response foundation.NSURLResponse, suggestedFilename string, completionHandler URLHandler) {
-	objc.Send[struct{}](o.ID, objc.Sel("download:decideDestinationUsingResponse:suggestedFilename:completionHandler:"), download, response, objc.String(suggestedFilename), completionHandler)
+	_block3, _ := NewURLBlock(completionHandler)
+	objc.Send[struct{}](o.ID, objc.Sel("download:decideDestinationUsingResponse:suggestedFilename:completionHandler:"), download, response, objc.String(suggestedFilename), _block3)
 }
 
 // Tells the delegate that the download finished.
@@ -122,7 +123,8 @@ func (o WKDownloadDelegateObject) DownloadDidFailWithErrorResumeData(download IW
 //
 // [URLSession.AuthChallengeDisposition.rejectProtectionSpace]: https://developer.apple.com/documentation/Foundation/URLSession/AuthChallengeDisposition/rejectProtectionSpace
 func (o WKDownloadDelegateObject) DownloadDidReceiveAuthenticationChallengeCompletionHandler(download IWKDownload, challenge foundation.NSURLAuthenticationChallenge, completionHandler IntURLCredentialHandler) {
-	objc.Send[struct{}](o.ID, objc.Sel("download:didReceiveAuthenticationChallenge:completionHandler:"), download, challenge, completionHandler)
+	_block2, _ := NewIntURLCredentialBlock(completionHandler)
+	objc.Send[struct{}](o.ID, objc.Sel("download:didReceiveAuthenticationChallenge:completionHandler:"), download, challenge, _block2)
 }
 
 // Asks the delegate to respond to the download’s redirect response.
@@ -147,12 +149,14 @@ func (o WKDownloadDelegateObject) DownloadDidReceiveAuthenticationChallengeCompl
 //
 // See: https://developer.apple.com/documentation/WebKit/WKDownloadDelegate/download(_:willPerformHTTPRedirection:newRequest:decisionHandler:)
 func (o WKDownloadDelegateObject) DownloadWillPerformHTTPRedirectionNewRequestDecisionHandler(download IWKDownload, response foundation.NSHTTPURLResponse, request foundation.NSURLRequest, decisionHandler WKDownloadRedirectPolicyHandler) {
-	objc.Send[struct{}](o.ID, objc.Sel("download:willPerformHTTPRedirection:newRequest:decisionHandler:"), download, response, request, decisionHandler)
+	_block3, _ := NewWKDownloadRedirectPolicyBlock(decisionHandler)
+	objc.Send[struct{}](o.ID, objc.Sel("download:willPerformHTTPRedirection:newRequest:decisionHandler:"), download, response, request, _block3)
 }
 
 // See: https://developer.apple.com/documentation/WebKit/WKDownloadDelegate/download(_:decidePlaceholderPolicy:)
 func (o WKDownloadDelegateObject) DownloadDecidePlaceholderPolicy(download IWKDownload, completionHandler IntURLHandler) {
-	objc.Send[struct{}](o.ID, objc.Sel("download:decidePlaceholderPolicy:"), download, completionHandler)
+	_block1, _ := NewIntURLBlock(completionHandler)
+	objc.Send[struct{}](o.ID, objc.Sel("download:decidePlaceholderPolicy:"), download, _block1)
 }
 
 // See: https://developer.apple.com/documentation/WebKit/WKDownloadDelegate/download(_:didReceiveFinalURL:)
@@ -162,7 +166,8 @@ func (o WKDownloadDelegateObject) DownloadDidReceiveFinalURL(download IWKDownloa
 
 // See: https://developer.apple.com/documentation/WebKit/WKDownloadDelegate/download(_:didReceivePlaceholderURL:completionHandler:)
 func (o WKDownloadDelegateObject) DownloadDidReceivePlaceholderURLCompletionHandler(download IWKDownload, url foundation.NSURL, completionHandler VoidHandler) {
-	objc.Send[struct{}](o.ID, objc.Sel("download:didReceivePlaceholderURL:completionHandler:"), download, url, completionHandler)
+	_block2, _ := NewVoidBlock(completionHandler)
+	objc.Send[struct{}](o.ID, objc.Sel("download:didReceivePlaceholderURL:completionHandler:"), download, url, _block2)
 }
 
 // WKDownloadDelegateConfig holds optional typed callbacks for [WKDownloadDelegate] methods.
@@ -208,8 +213,20 @@ func NewWKDownloadDelegate(config WKDownloadDelegateConfig) WKDownloadDelegateOb
 		methods = append(methods, objc.MethodDef{
 			Cmd: objc.RegisterName("downloadDidFinish:"),
 			Fn: func(self objc.ID, _cmd objc.SEL, downloadID objc.ID) {
+				// Names which delegate was running if a panic unwinds out of
+				// it. The frames between here and the Objective-C caller are
+				// runtime and purego dispatch, so without this the traceback
+				// never says which selector dispatched. Deliberately no
+				// recover: see [objc.NoteDelegatePanic].
+				_delegateDone := false
+				defer func() {
+					if !_delegateDone {
+						objc.NoteDelegatePanic("WKDownloadDelegate", "downloadDidFinish:")
+					}
+				}()
 				download := WKDownloadFromID(downloadID)
 				fn(download)
+				_delegateDone = true
 			},
 		})
 	}
@@ -219,10 +236,22 @@ func NewWKDownloadDelegate(config WKDownloadDelegateConfig) WKDownloadDelegateOb
 		methods = append(methods, objc.MethodDef{
 			Cmd: objc.RegisterName("download:didFailWithError:resumeData:"),
 			Fn: func(self objc.ID, _cmd objc.SEL, downloadID objc.ID, error_ID objc.ID, resumeDataID objc.ID) {
+				// Names which delegate was running if a panic unwinds out of
+				// it. The frames between here and the Objective-C caller are
+				// runtime and purego dispatch, so without this the traceback
+				// never says which selector dispatched. Deliberately no
+				// recover: see [objc.NoteDelegatePanic].
+				_delegateDone := false
+				defer func() {
+					if !_delegateDone {
+						objc.NoteDelegatePanic("WKDownloadDelegate", "download:didFailWithError:resumeData:")
+					}
+				}()
 				download := WKDownloadFromID(downloadID)
 				error_ := foundation.NSErrorFromID(error_ID)
 				resumeData := foundation.NSDataFromID(resumeDataID)
 				fn(download, error_, resumeData)
+				_delegateDone = true
 			},
 		})
 	}
@@ -232,9 +261,21 @@ func NewWKDownloadDelegate(config WKDownloadDelegateConfig) WKDownloadDelegateOb
 		methods = append(methods, objc.MethodDef{
 			Cmd: objc.RegisterName("download:didReceiveFinalURL:"),
 			Fn: func(self objc.ID, _cmd objc.SEL, downloadID objc.ID, urlID objc.ID) {
+				// Names which delegate was running if a panic unwinds out of
+				// it. The frames between here and the Objective-C caller are
+				// runtime and purego dispatch, so without this the traceback
+				// never says which selector dispatched. Deliberately no
+				// recover: see [objc.NoteDelegatePanic].
+				_delegateDone := false
+				defer func() {
+					if !_delegateDone {
+						objc.NoteDelegatePanic("WKDownloadDelegate", "download:didReceiveFinalURL:")
+					}
+				}()
 				download := WKDownloadFromID(downloadID)
 				url := foundation.NSURLFromID(urlID)
 				fn(download, url)
+				_delegateDone = true
 			},
 		})
 	}

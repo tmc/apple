@@ -15,11 +15,6 @@ import (
 type AVQueuedSampleBufferRendering interface {
 	objectivec.IObject
 
-	// A Boolean value that indicates whether the receiver is able to accept more sample buffers.
-	//
-	// See: https://developer.apple.com/documentation/AVFoundation/AVQueuedSampleBufferRendering/isReadyForMoreMediaData
-	IsReadyForMoreMediaData() bool
-
 	// Sends a sample buffer to the queue for rendering.
 	//
 	// See: https://developer.apple.com/documentation/AVFoundation/AVQueuedSampleBufferRendering/enqueue(_:)
@@ -30,7 +25,7 @@ type AVQueuedSampleBufferRendering interface {
 	// See: https://developer.apple.com/documentation/AVFoundation/AVQueuedSampleBufferRendering/requestMediaDataWhenReady(on:using:)
 	RequestMediaDataWhenReadyOnQueueUsingBlock(queue dispatch.Queue, block VoidHandler)
 
-	// Cancels any current [requestMediaDataWhenReady(on:using:)](<doc://com.apple.avfoundation/documentation/AVFoundation/AVQueuedSampleBufferRendering/requestMediaDataWhenReady(on:using:)>) call.
+	// Cancels any current [requestMediaDataWhenReady(on:using:)](<https://developer.apple.com/documentation/AVFoundation/AVQueuedSampleBufferRendering/requestMediaDataWhenReady(on:using:)>) call.
 	//
 	// See: https://developer.apple.com/documentation/AVFoundation/AVQueuedSampleBufferRendering/stopRequestingMediaData()
 	StopRequestingMediaData()
@@ -43,7 +38,7 @@ type AVQueuedSampleBufferRendering interface {
 	// A Boolean value that indicates whether the receiver is able to accept more sample buffers.
 	//
 	// See: https://developer.apple.com/documentation/AVFoundation/AVQueuedSampleBufferRendering/isReadyForMoreMediaData
-	ReadyForMoreMediaData() bool
+	IsReadyForMoreMediaData() bool
 
 	// A Boolean value that indicates whether the enqued media meets the required preroll level for reliable playback.
 	//
@@ -71,15 +66,6 @@ func AVQueuedSampleBufferRenderingObjectFromID(id objc.ID) AVQueuedSampleBufferR
 	return AVQueuedSampleBufferRenderingObject{
 		Object: objectivec.ObjectFromID(id),
 	}
-}
-
-// A Boolean value that indicates whether the receiver is able to accept more
-// sample buffers.
-//
-// See: https://developer.apple.com/documentation/AVFoundation/AVQueuedSampleBufferRendering/isReadyForMoreMediaData
-func (o AVQueuedSampleBufferRenderingObject) IsReadyForMoreMediaData() bool {
-	rv := objc.Send[bool](o.ID, objc.Sel("isReadyForMoreMediaData"))
-	return rv
 }
 
 // Sends a sample buffer to the queue for rendering.
@@ -130,7 +116,9 @@ func (o AVQueuedSampleBufferRenderingObject) EnqueueSampleBuffer(sampleBuffer co
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVQueuedSampleBufferRendering/requestMediaDataWhenReady(on:using:)
 func (o AVQueuedSampleBufferRenderingObject) RequestMediaDataWhenReadyOnQueueUsingBlock(queue dispatch.Queue, block VoidHandler) {
-	objc.Send[struct{}](o.ID, objc.Sel("requestMediaDataWhenReadyOnQueue:usingBlock:"), uintptr(queue.Handle()), block)
+	_block1, _cleanup1 := NewVoidBlock(block)
+	defer _cleanup1()
+	objc.Send[struct{}](o.ID, objc.Sel("requestMediaDataWhenReadyOnQueue:usingBlock:"), uintptr(queue.Handle()), objc.ID(_block1))
 }
 
 // Cancels any current [RequestMediaDataWhenReadyOnQueueUsingBlock] call.
@@ -186,7 +174,7 @@ func (o AVQueuedSampleBufferRenderingObject) Flush() {
 // This property is not key-value observable.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVQueuedSampleBufferRendering/isReadyForMoreMediaData
-func (o AVQueuedSampleBufferRenderingObject) ReadyForMoreMediaData() bool {
+func (o AVQueuedSampleBufferRenderingObject) IsReadyForMoreMediaData() bool {
 	rv := objc.Send[bool](o.ID, objc.Sel("isReadyForMoreMediaData"))
 	return bool(rv)
 }

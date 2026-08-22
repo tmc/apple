@@ -152,11 +152,11 @@ type ICIFaceFeature interface {
 	// A Boolean value that indicates whether the face object has a tracking ID.
 	HasTrackingID() bool
 	// The tracking identifier of the face object.
-	TrackingID() int
+	TrackingID() int32
 	// A Boolean value that indicates the face object has a tracking frame count.
 	HasTrackingFrameCount() bool
 	// The tracking frame count of the face.
-	TrackingFrameCount() int
+	TrackingFrameCount() int32
 }
 
 // Init initializes the instance.
@@ -260,8 +260,8 @@ func (f CIFaceFeature) MouthPosition() corefoundation.CGPoint {
 //
 // # Discussion
 //
-// To detect smiles, `/CIDetector/` needs to be called with the
-// [CIDetectorSmile] option set to true.
+// To detect smiles, `/CIDetector/featuresInImage:options:` needs to be called
+// with the [CIDetectorSmile] option set to true.
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIFaceFeature/hasSmile-swift.property
 //
@@ -276,8 +276,8 @@ func (f CIFaceFeature) HasSmile() bool {
 //
 // # Discussion
 //
-// To detect closed eyes, `/CIDetector/` needs to be called with the
-// [CIDetectorEyeBlink] option set to true.
+// To detect closed eyes, `/CIDetector/featuresInImage:options:` needs to be
+// called with the [CIDetectorEyeBlink] option set to true.
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIFaceFeature/leftEyeClosed-swift.property
 //
@@ -292,8 +292,8 @@ func (f CIFaceFeature) LeftEyeClosed() bool {
 //
 // # Discussion
 //
-// To detect closed eyes, `/CIDetector/` needs to be called with the
-// [CIDetectorEyeBlink] option set to true.
+// To detect closed eyes, `/CIDetector/featuresInImage:options:` needs to be
+// called with the [CIDetectorEyeBlink] option set to true.
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIFaceFeature/rightEyeClosed-swift.property
 //
@@ -325,8 +325,8 @@ func (f CIFaceFeature) HasTrackingID() bool {
 // (Core Image detects faces, but does not recognize specific faces.)
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIFaceFeature/trackingID-swift.property
-func (f CIFaceFeature) TrackingID() int {
-	rv := objc.Send[int](f.ID, objc.Sel("trackingID"))
+func (f CIFaceFeature) TrackingID() int32 {
+	rv := objc.Send[int32](f.ID, objc.Sel("trackingID"))
 	return rv
 }
 
@@ -341,7 +341,7 @@ func (f CIFaceFeature) HasTrackingFrameCount() bool {
 // The tracking frame count of the face.
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIFaceFeature/trackingFrameCount-swift.property
-func (f CIFaceFeature) TrackingFrameCount() int {
-	rv := objc.Send[int](f.ID, objc.Sel("trackingFrameCount"))
+func (f CIFaceFeature) TrackingFrameCount() int32 {
+	rv := objc.Send[int32](f.ID, objc.Sel("trackingFrameCount"))
 	return rv
 }

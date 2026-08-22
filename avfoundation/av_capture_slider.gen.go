@@ -60,6 +60,11 @@ func (ac AVCaptureSliderClass) Alloc() AVCaptureSlider {
 //   - [AVCaptureSlider.LocalizedValueFormat]: A localized string that defines the presentation of the slider’s value.
 //   - [AVCaptureSlider.SetLocalizedValueFormat]
 //
+// # Setting an accessibility identifier
+//
+//   - [AVCaptureSlider.AccessibilityIdentifier]: A string identifier for the slider.
+//   - [AVCaptureSlider.SetAccessibilityIdentifier]
+//
 // # Inspecting presentation attributes
 //
 //   - [AVCaptureSlider.SymbolName]: The name of the SF Symbol that represents this control.
@@ -91,6 +96,11 @@ func AVCaptureSliderFromID(id objc.ID) AVCaptureSlider {
 //   - [IAVCaptureSlider.LocalizedValueFormat]: A localized string that defines the presentation of the slider’s value.
 //   - [IAVCaptureSlider.SetLocalizedValueFormat]
 //
+// # Setting an accessibility identifier
+//
+//   - [IAVCaptureSlider.AccessibilityIdentifier]: A string identifier for the slider.
+//   - [IAVCaptureSlider.SetAccessibilityIdentifier]
+//
 // # Inspecting presentation attributes
 //
 //   - [IAVCaptureSlider.SymbolName]: The name of the SF Symbol that represents this control.
@@ -111,6 +121,12 @@ type IAVCaptureSlider interface {
 	// A localized string that defines the presentation of the slider’s value.
 	LocalizedValueFormat() string
 	SetLocalizedValueFormat(value string)
+
+	// Topic: Setting an accessibility identifier
+
+	// A string identifier for the slider.
+	AccessibilityIdentifier() string
+	SetAccessibilityIdentifier(value string)
 
 	// Topic: Inspecting presentation attributes
 
@@ -360,6 +376,17 @@ func (c AVCaptureSlider) LocalizedValueFormat() string {
 }
 func (c AVCaptureSlider) SetLocalizedValueFormat(value string) {
 	objc.Send[struct{}](c.ID, objc.Sel("setLocalizedValueFormat:"), objc.String(value))
+}
+
+// A string identifier for the slider.
+//
+// See: https://developer.apple.com/documentation/AVFoundation/AVCaptureSlider/accessibilityIdentifier
+func (c AVCaptureSlider) AccessibilityIdentifier() string {
+	rv := objc.Send[objc.ID](c.ID, objc.Sel("accessibilityIdentifier"))
+	return foundation.NSStringFromID(rv).String()
+}
+func (c AVCaptureSlider) SetAccessibilityIdentifier(value string) {
+	objc.Send[struct{}](c.ID, objc.Sel("setAccessibilityIdentifier:"), objc.String(value))
 }
 
 // The name of the SF Symbol that represents this control.

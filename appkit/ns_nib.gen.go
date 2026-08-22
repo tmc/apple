@@ -4,6 +4,7 @@ package appkit
 
 import (
 	"sync"
+	"unsafe"
 
 	"github.com/tmc/apple/foundation"
 	"github.com/tmc/apple/objc"
@@ -147,7 +148,7 @@ type INSNib interface {
 	// Topic: Instantiating a Nib
 
 	// Instantiates objects in the nib file with the specified owner.
-	InstantiateWithOwnerTopLevelObjects(owner objectivec.IObject, topLevelObjects foundation.INSArray) bool
+	InstantiateWithOwnerTopLevelObjects(owner objectivec.IObject, topLevelObjects *foundation.NSArray) bool
 
 	InitWithCoder(coder foundation.INSCoder) NSNib
 	EncodeWithCoder(coder foundation.INSCoder)
@@ -305,8 +306,8 @@ func (n NSNib) InitWithNibDataBundle(nibData foundation.NSData, bundle foundatio
 // ownership and prevent deallocation.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSNib/instantiate(withOwner:topLevelObjects:)
-func (n NSNib) InstantiateWithOwnerTopLevelObjects(owner objectivec.IObject, topLevelObjects foundation.INSArray) bool {
-	rv := objc.Send[bool](n.ID, objc.Sel("instantiateWithOwner:topLevelObjects:"), owner, topLevelObjects)
+func (n NSNib) InstantiateWithOwnerTopLevelObjects(owner objectivec.IObject, topLevelObjects *foundation.NSArray) bool {
+	rv := objc.Send[bool](n.ID, objc.Sel("instantiateWithOwner:topLevelObjects:"), owner, unsafe.Pointer(topLevelObjects))
 	return rv
 }
 

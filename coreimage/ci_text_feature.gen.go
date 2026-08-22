@@ -148,8 +148,8 @@ func NewCITextFeature() CITextFeature {
 // individual text features. Such features might be single characters, groups
 // of closely-packed characters, or entire words.
 //
-// To detect sub-features, `/CIDetector/` needs to be called with the
-// [CIDetectorReturnSubFeatures] option set to true.
+// To detect sub-features, `/CIDetector/featuresInImage:options:` needs to be
+// called with the [CIDetectorReturnSubFeatures] option set to true.
 //
 // See: https://developer.apple.com/documentation/CoreImage/CITextFeature/subFeatures
 //

@@ -20,7 +20,11 @@ type NSAccessibilityProgressIndicator interface {
 	// Returns the progress indicator’s value.
 	//
 	// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProgressIndicator/accessibilityValue()
-	AccessibilityValue() foundation.NSNumber
+	//
+	// SDK narrowing: NSAccessibilityProgressIndicator declares this as - (nullable NSNumber *)accessibilityValue.
+	// Go has no covariance, so the base declaration on NSAccessibility (rendered on INSView) is used.
+	// Convert with foundation.NSNumberFromID(v.GetID()) to recover the narrowed type.
+	AccessibilityValue() objectivec.IObject
 }
 
 // NSAccessibilityProgressIndicatorObject wraps an existing Objective-C object that conforms to the NSAccessibilityProgressIndicator protocol.
@@ -49,14 +53,16 @@ func NSAccessibilityProgressIndicatorObjectFromID(id objc.ID) NSAccessibilityPro
 // # Discussion
 //
 // This method is the getter for the [NSAccessibilityProtocol] protocol’s
-// [accessibilityValue] property.
+// [NSWindow.AccessibilityValue] property.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProgressIndicator/accessibilityValue()
 //
-// [accessibilityValue]: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityValue
-func (o NSAccessibilityProgressIndicatorObject) AccessibilityValue() foundation.NSNumber {
+// SDK narrowing: NSAccessibilityProgressIndicator declares this as - (nullable NSNumber *)accessibilityValue.
+// Go has no covariance, so the base declaration on NSAccessibility (rendered on INSView) is used.
+// Convert with foundation.NSNumberFromID(v.GetID()) to recover the narrowed type.
+func (o NSAccessibilityProgressIndicatorObject) AccessibilityValue() objectivec.IObject {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilityValue"))
-	return foundation.NSNumberFromID(rv)
+	return objectivec.Object{ID: rv}
 }
 
 // Returns the accessibility element’s frame in screen coordinates.
@@ -68,12 +74,11 @@ func (o NSAccessibilityProgressIndicatorObject) AccessibilityValue() foundation.
 // # Discussion
 //
 // This method is the getter for the [NSAccessibilityProtocol] protocol’s
-// [accessibilityFrame] property. This method is called whenever accessibility
-// clients request the [size] or [position] attributes.
+// [NSWindow.AccessibilityFrame] property. This method is called whenever
+// accessibility clients request the [size] or [position] attributes.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSAccessibilityElementProtocol/accessibilityFrame()
 //
-// [accessibilityFrame]: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityFrame
 // [position]: https://developer.apple.com/documentation/AppKit/NSAccessibility-swift.struct/Attribute/position
 // [size]: https://developer.apple.com/documentation/AppKit/NSAccessibility-swift.struct/Attribute/size
 func (o NSAccessibilityProgressIndicatorObject) AccessibilityFrame() corefoundation.CGRect {
@@ -91,11 +96,9 @@ func (o NSAccessibilityProgressIndicatorObject) AccessibilityFrame() corefoundat
 // # Discussion
 //
 // This method is the getter for the [NSAccessibilityProtocol] protocol’s
-// [accessibilityParent] property.
+// [NSWindow.AccessibilityParent] property.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSAccessibilityElementProtocol/accessibilityParent()
-//
-// [accessibilityParent]: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityParent
 func (o NSAccessibilityProgressIndicatorObject) AccessibilityParent() objectivec.IObject {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilityParent"))
 	return objectivec.Object{ID: rv}
@@ -111,11 +114,9 @@ func (o NSAccessibilityProgressIndicatorObject) AccessibilityParent() objectivec
 // # Discussion
 //
 // This method is the getter for the [NSAccessibilityProtocol] protocol’s
-// [accessibilityIdentifier] property.
+// [NSWindow.AccessibilityIdentifier] property.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSAccessibilityElementProtocol/accessibilityIdentifier()
-//
-// [accessibilityIdentifier]: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityIdentifier
 func (o NSAccessibilityProgressIndicatorObject) AccessibilityIdentifier() string {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilityIdentifier"))
 	return foundation.NSStringFromID(rv).String()
@@ -131,11 +132,9 @@ func (o NSAccessibilityProgressIndicatorObject) AccessibilityIdentifier() string
 // # Discussion
 //
 // This method is the getter for the [NSAccessibilityProtocol] protocol’s
-// [accessibilityFocused] property.
+// [NSWindow.AccessibilityFocused] property.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSAccessibilityElementProtocol/isAccessibilityFocused()
-//
-// [accessibilityFocused]: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityFocused
 func (o NSAccessibilityProgressIndicatorObject) IsAccessibilityFocused() bool {
 	rv := objc.Send[bool](o.ID, objc.Sel("isAccessibilityFocused"))
 	return rv

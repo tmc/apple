@@ -5,7 +5,6 @@ package foundation
 import (
 	"context"
 	"sync"
-	"unsafe"
 
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
@@ -94,10 +93,10 @@ func (pc ProgressClass) Alloc() Progress {
 //
 // # Reporting Progress for Multiple Operations
 //
-// Sometimes, your code may need to report the progress of an operation that
-// consists of several suboperations. To accomplish this, your code can report
-// the progress of each suboperation by building up a tree of progress
-// objects.
+// Sometimes, your code may need to report the overall progress of an
+// operation that consists of several suboperations. To accomplish this, your
+// code can report the progress of each suboperation by building up a tree of
+// progress objects.
 //
 // The [NSProgress] reporting mechanism supports a loosely coupled
 // relationship between progress objects. Suboperations don’t need to know
@@ -747,7 +746,8 @@ func (p Progress) Unpublish() {
 //
 // See: https://developer.apple.com/documentation/Foundation/NSProgress/performAsCurrentWithPendingUnitCount:usingBlock:
 func (p Progress) PerformAsCurrentWithPendingUnitCountUsingBlock(unitCount int64, work VoidHandler) {
-	_block1, _ := NewVoidBlock(work)
+	_block1, _cleanup1 := NewVoidBlock(work)
+	defer _cleanup1()
 	objc.Send[objc.ID](p.ID, objc.Sel("performAsCurrentWithPendingUnitCount:usingBlock:"), unitCount, _block1)
 }
 
@@ -837,8 +837,9 @@ func (_ProgressClass ProgressClass) CurrentProgress() NSProgress {
 // See: https://developer.apple.com/documentation/Foundation/Progress/addSubscriber(forFileURL:withPublishingHandler:)
 //
 // [fileURLKey]: https://developer.apple.com/documentation/Foundation/ProgressUserInfoKey/fileURLKey
-func (_ProgressClass ProgressClass) AddSubscriberForFileURLWithPublishingHandler(url INSURL, publishingHandler unsafe.Pointer) objectivec.IObject {
-	rv := objc.Send[objc.ID](objc.ID(_ProgressClass.class), objc.Sel("addSubscriberForFileURL:withPublishingHandler:"), url, publishingHandler)
+func (_ProgressClass ProgressClass) AddSubscriberForFileURLWithPublishingHandler(url INSURL, publishingHandler ErrorHandler) objectivec.IObject {
+	_block1, _ := NewErrorBlock(publishingHandler)
+	rv := objc.Send[objc.ID](objc.ID(_ProgressClass.class), objc.Sel("addSubscriberForFileURL:withPublishingHandler:"), url, _block1)
 	return objectivec.Object{ID: rv}
 }
 
@@ -1306,19 +1307,20 @@ func (p Progress) SetFileURL(value INSURL) {
 //
 // # Discussion
 //
-// The publish and subscribe mechanism is generally , in that when you invoke
+// The publish and subscribe mechanism is generally level-triggered, in that
+// when you invoke
 // [NSProgressClass.AddSubscriberForFileURLWithPublishingHandler], the system
 // invokes your block for every relevant published and unpublished progress
-// object. Sometimes you need to implement behavior, in which you do something
-// either exactly when new progress begins or not at all.
+// object. Sometimes you need to implement edge-triggered behavior, in which
+// you do something either exactly when new progress begins or not at all.
 //
 // In the example above, the Dock doesn’t animate file icons when this
 // method returns true.
 //
-// There’s no reliable definition of in this case, which involves multiple
-// processes in a preemptively scheduled system. Don’t use this method for
-// anything more important than best efforts at animating. It can be
-// inaccurate due to processes coming and going from unpredictable user
+// There’s no reliable definition of before in this case, which involves
+// multiple processes in a preemptively scheduled system. Don’t use this
+// method for anything more important than best efforts at animating. It can
+// be inaccurate due to processes coming and going from unpredictable user
 // actions.
 //
 // See: https://developer.apple.com/documentation/Foundation/Progress/isOld

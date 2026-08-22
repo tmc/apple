@@ -214,7 +214,7 @@ type IAVAudioConverter interface {
 	// Topic: Converting Audio Formats
 
 	// Performs a conversion between audio formats, if the system supports it.
-	ConvertToBufferErrorWithInputFromBlock(outputBuffer IAVAudioBuffer, outError foundation.NSError, inputBlock AVAudioConverterInputBlock) AVAudioConverterOutputStatus
+	ConvertToBufferErrorWithInputFromBlock(outputBuffer IAVAudioBuffer, outError foundation.NSError, inputBlock AVAudioBufferUint32Handler) AVAudioConverterOutputStatus
 	// Performs a basic conversion between audio formats that doesn’t involve converting codecs or sample rates.
 	ConvertToBufferFromBufferError(outputBuffer IAVAudioPCMBuffer, inputBuffer IAVAudioPCMBuffer) (bool, error)
 
@@ -369,12 +369,9 @@ func (a AVAudioConverter) InitFromFormatToFormat(fromFormat IAVAudioFormat, toFo
 // See: https://developer.apple.com/documentation/AVFAudio/AVAudioConverter/convert(to:error:withInputFrom:)
 //
 // [AVAudioConverterOutputStatus]: https://developer.apple.com/documentation/AVFAudio/AVAudioConverterOutputStatus
-func (a AVAudioConverter) ConvertToBufferErrorWithInputFromBlock(outputBuffer IAVAudioBuffer, outError foundation.NSError, inputBlock AVAudioConverterInputBlock) AVAudioConverterOutputStatus {
-	_block2 := objc.NewBlock(func(_ objc.Block, arg0 uint32, arg1 *AVAudioConverterInputStatus) objc.ID {
-		return inputBlock(arg0, arg1).ID
-	})
-	defer _block2.Release()
-	rv := objc.Send[AVAudioConverterOutputStatus](a.ID, objc.Sel("convertToBuffer:error:withInputFromBlock:"), outputBuffer, outError, objc.ID(_block2))
+func (a AVAudioConverter) ConvertToBufferErrorWithInputFromBlock(outputBuffer IAVAudioBuffer, outError foundation.NSError, inputBlock AVAudioBufferUint32Handler) AVAudioConverterOutputStatus {
+	_block2, _ := NewAVAudioBufferUint32Block(inputBlock)
+	rv := objc.Send[AVAudioConverterOutputStatus](a.ID, objc.Sel("convertToBuffer:error:withInputFromBlock:"), outputBuffer, outError, _block2)
 	return AVAudioConverterOutputStatus(rv)
 }
 

@@ -114,6 +114,11 @@ type INSLock interface {
 	// The name associated with the receiver.
 	Name() string
 	SetName(value string)
+
+	// Attempts to acquire a lock, blocking a thread’s execution until the lock can be acquired.
+	Lock()
+	// Relinquishes a previously acquired lock.
+	Unlock()
 }
 
 // Init initializes the instance.

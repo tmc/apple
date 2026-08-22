@@ -65,6 +65,46 @@ func (o AVAudioRecorderDelegateObject) AudioRecorderEncodeErrorDidOccurError(rec
 	objc.Send[struct{}](o.ID, objc.Sel("audioRecorderEncodeErrorDidOccur:error:"), recorder, error_)
 }
 
+// Tells the delegate that the system interrupted the audio recording.
+//
+// recorder: The interrupted audio recorder.
+//
+// See: https://developer.apple.com/documentation/AVFAudio/AVAudioRecorderDelegate/audioRecorderBeginInterruption(_:)
+func (o AVAudioRecorderDelegateObject) AudioRecorderBeginInterruption(recorder IAVAudioRecorder) {
+	objc.Send[struct{}](o.ID, objc.Sel("audioRecorderBeginInterruption:"), recorder)
+}
+
+// Tells the delegate that the audio session interruption ended.
+//
+// recorder: The interrupted audio recorder.
+//
+// See: https://developer.apple.com/documentation/AVFAudio/AVAudioRecorderDelegate/audioRecorderEndInterruption(_:)
+func (o AVAudioRecorderDelegateObject) AudioRecorderEndInterruption(recorder IAVAudioRecorder) {
+	objc.Send[struct{}](o.ID, objc.Sel("audioRecorderEndInterruption:"), recorder)
+}
+
+// Tells the delegate that the audio session interruption ended with options.
+//
+// recorder: The interrupted audio recorder.
+//
+// flags: The options that indicate the state of the audio session.
+//
+// See: https://developer.apple.com/documentation/AVFAudio/AVAudioRecorderDelegate/audioRecorderEndInterruption(_:withOptions:)
+func (o AVAudioRecorderDelegateObject) AudioRecorderEndInterruptionWithOptions(recorder IAVAudioRecorder, flags uint) {
+	objc.Send[struct{}](o.ID, objc.Sel("audioRecorderEndInterruption:withOptions:"), recorder, flags)
+}
+
+// Tells the delegate that the audio session interruption ended with flags.
+//
+// recorder: The interrupted audio recorder.
+//
+// flags: The flags that indicate the state of the audio session.
+//
+// See: https://developer.apple.com/documentation/AVFAudio/AVAudioRecorderDelegate/audioRecorderEndInterruption(_:withFlags:)
+func (o AVAudioRecorderDelegateObject) AudioRecorderEndInterruptionWithFlags(recorder IAVAudioRecorder, flags uint) {
+	objc.Send[struct{}](o.ID, objc.Sel("audioRecorderEndInterruption:withFlags:"), recorder, flags)
+}
+
 // AVAudioRecorderDelegateConfig holds optional typed callbacks for [AVAudioRecorderDelegate] methods.
 // Set non-nil fields to register the corresponding Objective-C delegate method.
 // Methods with nil callbacks are not registered, so [NSObject.RespondsToSelector]
@@ -107,8 +147,20 @@ func NewAVAudioRecorderDelegate(config AVAudioRecorderDelegateConfig) AVAudioRec
 		methods = append(methods, objc.MethodDef{
 			Cmd: objc.RegisterName("audioRecorderDidFinishRecording:successfully:"),
 			Fn: func(self objc.ID, _cmd objc.SEL, recorderID objc.ID, flag bool) {
+				// Names which delegate was running if a panic unwinds out of
+				// it. The frames between here and the Objective-C caller are
+				// runtime and purego dispatch, so without this the traceback
+				// never says which selector dispatched. Deliberately no
+				// recover: see [objc.NoteDelegatePanic].
+				_delegateDone := false
+				defer func() {
+					if !_delegateDone {
+						objc.NoteDelegatePanic("AVAudioRecorderDelegate", "audioRecorderDidFinishRecording:successfully:")
+					}
+				}()
 				recorder := AVAudioRecorderFromID(recorderID)
 				fn(recorder, flag)
+				_delegateDone = true
 			},
 		})
 	}
@@ -118,9 +170,21 @@ func NewAVAudioRecorderDelegate(config AVAudioRecorderDelegateConfig) AVAudioRec
 		methods = append(methods, objc.MethodDef{
 			Cmd: objc.RegisterName("audioRecorderEncodeErrorDidOccur:error:"),
 			Fn: func(self objc.ID, _cmd objc.SEL, recorderID objc.ID, error_ID objc.ID) {
+				// Names which delegate was running if a panic unwinds out of
+				// it. The frames between here and the Objective-C caller are
+				// runtime and purego dispatch, so without this the traceback
+				// never says which selector dispatched. Deliberately no
+				// recover: see [objc.NoteDelegatePanic].
+				_delegateDone := false
+				defer func() {
+					if !_delegateDone {
+						objc.NoteDelegatePanic("AVAudioRecorderDelegate", "audioRecorderEncodeErrorDidOccur:error:")
+					}
+				}()
 				recorder := AVAudioRecorderFromID(recorderID)
 				error_ := foundation.NSErrorFromID(error_ID)
 				fn(recorder, error_)
+				_delegateDone = true
 			},
 		})
 	}

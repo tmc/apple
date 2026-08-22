@@ -13,6 +13,11 @@ import (
 // See: https://developer.apple.com/documentation/QuartzCore/CAAction
 type CAAction interface {
 	objectivec.IObject
+
+	// Called to trigger the action specified by the identifier.
+	//
+	// See: https://developer.apple.com/documentation/QuartzCore/CAAction/run(forKey:object:arguments:)
+	RunActionForKeyObjectArguments(event string, anObject objectivec.IObject, dict foundation.INSDictionary)
 }
 
 // CAActionObject wraps an existing Objective-C object that conforms to the CAAction protocol.

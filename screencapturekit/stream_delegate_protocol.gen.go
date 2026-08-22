@@ -145,8 +145,20 @@ func NewSCStreamDelegate(config SCStreamDelegateConfig) SCStreamDelegateObject {
 		methods = append(methods, objc.MethodDef{
 			Cmd: objc.RegisterName("outputVideoEffectDidStartForStream:"),
 			Fn: func(self objc.ID, _cmd objc.SEL, streamID objc.ID) {
+				// Names which delegate was running if a panic unwinds out of
+				// it. The frames between here and the Objective-C caller are
+				// runtime and purego dispatch, so without this the traceback
+				// never says which selector dispatched. Deliberately no
+				// recover: see [objc.NoteDelegatePanic].
+				_delegateDone := false
+				defer func() {
+					if !_delegateDone {
+						objc.NoteDelegatePanic("SCStreamDelegate", "outputVideoEffectDidStartForStream:")
+					}
+				}()
 				stream := SCStreamFromID(streamID)
 				fn(stream)
+				_delegateDone = true
 			},
 		})
 	}
@@ -156,8 +168,20 @@ func NewSCStreamDelegate(config SCStreamDelegateConfig) SCStreamDelegateObject {
 		methods = append(methods, objc.MethodDef{
 			Cmd: objc.RegisterName("outputVideoEffectDidStopForStream:"),
 			Fn: func(self objc.ID, _cmd objc.SEL, streamID objc.ID) {
+				// Names which delegate was running if a panic unwinds out of
+				// it. The frames between here and the Objective-C caller are
+				// runtime and purego dispatch, so without this the traceback
+				// never says which selector dispatched. Deliberately no
+				// recover: see [objc.NoteDelegatePanic].
+				_delegateDone := false
+				defer func() {
+					if !_delegateDone {
+						objc.NoteDelegatePanic("SCStreamDelegate", "outputVideoEffectDidStopForStream:")
+					}
+				}()
 				stream := SCStreamFromID(streamID)
 				fn(stream)
+				_delegateDone = true
 			},
 		})
 	}
@@ -167,9 +191,21 @@ func NewSCStreamDelegate(config SCStreamDelegateConfig) SCStreamDelegateObject {
 		methods = append(methods, objc.MethodDef{
 			Cmd: objc.RegisterName("stream:didStopWithError:"),
 			Fn: func(self objc.ID, _cmd objc.SEL, streamID objc.ID, error_ID objc.ID) {
+				// Names which delegate was running if a panic unwinds out of
+				// it. The frames between here and the Objective-C caller are
+				// runtime and purego dispatch, so without this the traceback
+				// never says which selector dispatched. Deliberately no
+				// recover: see [objc.NoteDelegatePanic].
+				_delegateDone := false
+				defer func() {
+					if !_delegateDone {
+						objc.NoteDelegatePanic("SCStreamDelegate", "stream:didStopWithError:")
+					}
+				}()
 				stream := SCStreamFromID(streamID)
 				error_ := foundation.NSErrorFromID(error_ID)
 				fn(stream, error_)
+				_delegateDone = true
 			},
 		})
 	}
@@ -179,8 +215,20 @@ func NewSCStreamDelegate(config SCStreamDelegateConfig) SCStreamDelegateObject {
 		methods = append(methods, objc.MethodDef{
 			Cmd: objc.RegisterName("streamDidBecomeActive:"),
 			Fn: func(self objc.ID, _cmd objc.SEL, streamID objc.ID) {
+				// Names which delegate was running if a panic unwinds out of
+				// it. The frames between here and the Objective-C caller are
+				// runtime and purego dispatch, so without this the traceback
+				// never says which selector dispatched. Deliberately no
+				// recover: see [objc.NoteDelegatePanic].
+				_delegateDone := false
+				defer func() {
+					if !_delegateDone {
+						objc.NoteDelegatePanic("SCStreamDelegate", "streamDidBecomeActive:")
+					}
+				}()
 				stream := SCStreamFromID(streamID)
 				fn(stream)
+				_delegateDone = true
 			},
 		})
 	}
@@ -190,8 +238,20 @@ func NewSCStreamDelegate(config SCStreamDelegateConfig) SCStreamDelegateObject {
 		methods = append(methods, objc.MethodDef{
 			Cmd: objc.RegisterName("streamDidBecomeInactive:"),
 			Fn: func(self objc.ID, _cmd objc.SEL, streamID objc.ID) {
+				// Names which delegate was running if a panic unwinds out of
+				// it. The frames between here and the Objective-C caller are
+				// runtime and purego dispatch, so without this the traceback
+				// never says which selector dispatched. Deliberately no
+				// recover: see [objc.NoteDelegatePanic].
+				_delegateDone := false
+				defer func() {
+					if !_delegateDone {
+						objc.NoteDelegatePanic("SCStreamDelegate", "streamDidBecomeInactive:")
+					}
+				}()
 				stream := SCStreamFromID(streamID)
 				fn(stream)
+				_delegateDone = true
 			},
 		})
 	}

@@ -4,9 +4,7 @@ package avfaudio
 
 import (
 	"sync"
-	"unsafe"
 
-	"github.com/tmc/apple/coreaudiotypes"
 	"github.com/tmc/apple/objc"
 )
 
@@ -86,9 +84,32 @@ type IAVAudioSourceNode interface {
 	// Topic: Creating an Audio Source Node
 
 	// Creates an audio source node with a block that supplies audio data.
-	InitWithRenderBlock(block AVAudioSourceNodeRenderBlock) AVAudioSourceNode
+	InitWithRenderBlock(block IntInt8Handler) AVAudioSourceNode
 	// Creates an audio source node with the audio format and a block that supplies audio data.
-	InitWithFormatRenderBlock(format IAVAudioFormat, block AVAudioSourceNodeRenderBlock) AVAudioSourceNode
+	InitWithFormatRenderBlock(format IAVAudioFormat, block IntInt8Handler) AVAudioSourceNode
+
+	// Gets the audio mixing destination object that corresponds to the specified mixer node and input bus.
+	DestinationForMixerBus(mixer IAVAudioNode, bus AVAudioNodeBus) IAVAudioMixingDestination
+	// A value that simulates filtering of the direct path of sound due to an obstacle.
+	Obstruction() float32
+	// A value that simulates filtering of the direct and reverb paths of sound due to an obstacle.
+	Occlusion() float32
+	// The bus’s stereo pan.
+	Pan() float32
+	// The in-head mode for a point source.
+	PointSourceInHeadMode() AVAudio3DMixingPointSourceInHeadMode
+	// The location of the source in the 3D environment.
+	Position() AVAudio3DPoint
+	// A value that changes the playback rate of the input signal.
+	Rate() float32
+	// The type of rendering algorithm the mixer uses.
+	RenderingAlgorithm() AVAudio3DMixingRenderingAlgorithm
+	// A value that controls the blend of dry and reverb processed audio.
+	ReverbBlend() float32
+	// The source mode for the input bus of the audio environment node.
+	SourceMode() AVAudio3DMixingSourceMode
+	// The bus’s input volume.
+	Volume() float32
 }
 
 // Init initializes the instance.
@@ -131,9 +152,10 @@ func NewAVAudioSourceNode() AVAudioSourceNode {
 // rate, bit depth, and interleaving.
 //
 // See: https://developer.apple.com/documentation/AVFAudio/AVAudioSourceNode/init(format:renderBlock:)
-func NewAudioSourceNodeWithFormatRenderBlock(format IAVAudioFormat, block AVAudioSourceNodeRenderBlock) AVAudioSourceNode {
+func NewAudioSourceNodeWithFormatRenderBlock(format IAVAudioFormat, block IntInt8Handler) AVAudioSourceNode {
+	_block1, _ := NewIntInt8Block(block)
 	instance := getAVAudioSourceNodeClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithFormat:renderBlock:"), format, block)
+	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithFormat:renderBlock:"), format, _block1)
 	return AVAudioSourceNodeFromID(rv)
 }
 
@@ -155,9 +177,10 @@ func NewAudioSourceNodeWithFormatRenderBlock(format IAVAudioFormat, block AVAudi
 // the audio format for the block changes.
 //
 // See: https://developer.apple.com/documentation/AVFAudio/AVAudioSourceNode/init(renderBlock:)
-func NewAudioSourceNodeWithRenderBlock(block AVAudioSourceNodeRenderBlock) AVAudioSourceNode {
+func NewAudioSourceNodeWithRenderBlock(block IntInt8Handler) AVAudioSourceNode {
+	_block0, _ := NewIntInt8Block(block)
 	instance := getAVAudioSourceNodeClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithRenderBlock:"), block)
+	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithRenderBlock:"), _block0)
 	return AVAudioSourceNodeFromID(rv)
 }
 
@@ -181,12 +204,9 @@ var _avaudiosourcenode_initwithrenderblock_p0_key byte
 // the audio format for the block changes.
 //
 // See: https://developer.apple.com/documentation/AVFAudio/AVAudioSourceNode/init(renderBlock:)
-func (a AVAudioSourceNode) InitWithRenderBlock(block AVAudioSourceNodeRenderBlock) AVAudioSourceNode {
-	_block0 := objc.NewBlock(func(_ objc.Block, arg0 *int8, arg1 unsafe.Pointer, arg2 uint32, arg3 unsafe.Pointer) int {
-		return block(arg0, (*coreaudiotypes.AudioTimeStamp)(arg1), arg2, (*coreaudiotypes.AudioBufferList)(arg3))
-	})
-	rv := objc.Send[AVAudioSourceNode](a.ID, objc.Sel("initWithRenderBlock:"), objc.ID(_block0))
-	objc.AssociateBlockWithReceiver(rv.ID, &_avaudiosourcenode_initwithrenderblock_p0_key, _block0)
+func (a AVAudioSourceNode) InitWithRenderBlock(block IntInt8Handler) AVAudioSourceNode {
+	_block0, _ := NewIntInt8Block(block)
+	rv := objc.Send[AVAudioSourceNode](a.ID, objc.Sel("initWithRenderBlock:"), _block0)
 	return rv
 }
 
@@ -213,12 +233,9 @@ var _avaudiosourcenode_initwithformat_renderblock_p1_key byte
 // rate, bit depth, and interleaving.
 //
 // See: https://developer.apple.com/documentation/AVFAudio/AVAudioSourceNode/init(format:renderBlock:)
-func (a AVAudioSourceNode) InitWithFormatRenderBlock(format IAVAudioFormat, block AVAudioSourceNodeRenderBlock) AVAudioSourceNode {
-	_block1 := objc.NewBlock(func(_ objc.Block, arg0 *int8, arg1 unsafe.Pointer, arg2 uint32, arg3 unsafe.Pointer) int {
-		return block(arg0, (*coreaudiotypes.AudioTimeStamp)(arg1), arg2, (*coreaudiotypes.AudioBufferList)(arg3))
-	})
-	rv := objc.Send[AVAudioSourceNode](a.ID, objc.Sel("initWithFormat:renderBlock:"), format, objc.ID(_block1))
-	objc.AssociateBlockWithReceiver(rv.ID, &_avaudiosourcenode_initwithformat_renderblock_p1_key, _block1)
+func (a AVAudioSourceNode) InitWithFormatRenderBlock(format IAVAudioFormat, block IntInt8Handler) AVAudioSourceNode {
+	_block1, _ := NewIntInt8Block(block)
+	rv := objc.Send[AVAudioSourceNode](a.ID, objc.Sel("initWithFormat:renderBlock:"), format, _block1)
 	return rv
 }
 

@@ -9,6 +9,7 @@ import (
 	"github.com/tmc/apple/coregraphics"
 	"github.com/tmc/apple/corevideo"
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/iosurface"
 	"github.com/tmc/apple/metal"
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
@@ -161,15 +162,15 @@ type ICIRenderDestination interface {
 	// Creates a render destination based on a Core Video pixel buffer.
 	InitWithPixelBuffer(pixelBuffer corevideo.CVImageBufferRef) CIRenderDestination
 	// Creates a render destination based on an [IOSurface] object.
-	InitWithIOSurface(surface objectivec.IObject) CIRenderDestination
+	InitWithIOSurface(surface *iosurface.IOSurface) CIRenderDestination
 	// Creates a render destination based on a Metal texture.
 	InitWithMTLTextureCommandBuffer(texture metal.MTLTexture, commandBuffer metal.MTLCommandBuffer) CIRenderDestination
 	// Creates a render destination based on a Metal texture with specified pixel format.
-	InitWithWidthHeightPixelFormatCommandBufferMtlTextureProvider(width uint, height uint, pixelFormat metal.MTLPixelFormat, commandBuffer metal.MTLCommandBuffer, block VoidHandler) CIRenderDestination
+	InitWithWidthHeightPixelFormatCommandBufferMtlTextureProvider(width uint, height uint, pixelFormat metal.MTLPixelFormat, commandBuffer metal.MTLCommandBuffer, block MTLTextureVoidHandler) CIRenderDestination
 	// Creates a render destination based on an OpenGL texture.
 	InitWithGLTextureTargetWidthHeight(texture uint32, target uint32, width uint, height uint) CIRenderDestination
 	// Creates a render destination based on a client-managed buffer.
-	InitWithBitmapDataWidthHeightBytesPerRowFormat(data unsafe.Pointer, width uint, height uint, bytesPerRow uint, format int) CIRenderDestination
+	InitWithBitmapDataWidthHeightBytesPerRowFormat(data unsafe.Pointer, width uint, height uint, bytesPerRow uint, format CIFormat) CIRenderDestination
 
 	// Topic: Customizing Rendering
 
@@ -256,7 +257,7 @@ func NewCIRenderDestination() CIRenderDestination {
 // [extendedSRGB]: https://developer.apple.com/documentation/CoreGraphics/CGColorSpace/extendedSRGB
 // [genericGrayGamma2_2]: https://developer.apple.com/documentation/CoreGraphics/CGColorSpace/genericGrayGamma2_2
 // [sRGB]: https://developer.apple.com/documentation/CoreGraphics/CGColorSpace/sRGB
-func NewRenderDestinationWithBitmapDataWidthHeightBytesPerRowFormat(data unsafe.Pointer, width uint, height uint, bytesPerRow uint, format int) CIRenderDestination {
+func NewRenderDestinationWithBitmapDataWidthHeightBytesPerRowFormat(data unsafe.Pointer, width uint, height uint, bytesPerRow uint, format CIFormat) CIRenderDestination {
 	instance := getCIRenderDestinationClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithBitmapData:width:height:bytesPerRow:format:"), data, width, height, bytesPerRow, format)
 	return CIRenderDestinationFromID(rv)
@@ -288,7 +289,7 @@ func NewRenderDestinationWithBitmapDataWidthHeightBytesPerRowFormat(data unsafe.
 // to a [CGColorSpace] created with [sRGB], [extendedSRGB], or
 // [genericGrayGamma2_2].
 //
-// See: https://developer.apple.com/documentation/CoreImage/CIRenderDestination/init(glTexture:target:width:height:)-9ci8e
+// See: https://developer.apple.com/documentation/CoreImage/CIRenderDestination/init(glTexture:target:width:height:)
 //
 // [CGColorSpace]: https://developer.apple.com/documentation/CoreGraphics/CGColorSpace
 // [extendedSRGB]: https://developer.apple.com/documentation/CoreGraphics/CGColorSpace/extendedSRGB
@@ -314,12 +315,12 @@ func NewRenderDestinationWithGLTextureTargetWidthHeight(texture uint32, target u
 // to a [CGColorSpace] created by querying the [IOSurface] object’s
 // attributes.
 //
-// See: https://developer.apple.com/documentation/CoreImage/CIRenderDestination/init(ioSurface:)-1hfcq
+// See: https://developer.apple.com/documentation/CoreImage/CIRenderDestination/init(ioSurface:)
 //
 // [CGColorSpace]: https://developer.apple.com/documentation/CoreGraphics/CGColorSpace
-func NewRenderDestinationWithIOSurface(surface objectivec.IObject) CIRenderDestination {
+func NewRenderDestinationWithIOSurface(surface *iosurface.IOSurface) CIRenderDestination {
 	instance := getCIRenderDestinationClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithIOSurface:"), surface)
+	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithIOSurface:"), surface.ID)
 	return CIRenderDestinationFromID(rv)
 }
 
@@ -345,7 +346,7 @@ func NewRenderDestinationWithIOSurface(surface objectivec.IObject) CIRenderDesti
 // to a [CGColorSpace] created with [sRGB], [extendedSRGB], or
 // [genericGrayGamma2_2].
 //
-// See: https://developer.apple.com/documentation/CoreImage/CIRenderDestination/init(mtlTexture:commandBuffer:)-2iu5i
+// See: https://developer.apple.com/documentation/CoreImage/CIRenderDestination/init(mtlTexture:commandBuffer:)
 //
 // [MTLTextureType.type2D]: https://developer.apple.com/documentation/Metal/MTLTextureType/type2D
 // [MTLTextureType]: https://developer.apple.com/documentation/Metal/MTLTextureType
@@ -433,11 +434,11 @@ func (r CIRenderDestination) InitWithPixelBuffer(pixelBuffer corevideo.CVImageBu
 // to a [CGColorSpace] created by querying the [IOSurface] object’s
 // attributes.
 //
-// See: https://developer.apple.com/documentation/CoreImage/CIRenderDestination/init(ioSurface:)-1hfcq
+// See: https://developer.apple.com/documentation/CoreImage/CIRenderDestination/init(ioSurface:)
 //
 // [CGColorSpace]: https://developer.apple.com/documentation/CoreGraphics/CGColorSpace
-func (r CIRenderDestination) InitWithIOSurface(surface objectivec.IObject) CIRenderDestination {
-	rv := objc.Send[CIRenderDestination](r.ID, objc.Sel("initWithIOSurface:"), surface)
+func (r CIRenderDestination) InitWithIOSurface(surface *iosurface.IOSurface) CIRenderDestination {
+	rv := objc.Send[CIRenderDestination](r.ID, objc.Sel("initWithIOSurface:"), surface.ID)
 	return rv
 }
 
@@ -463,7 +464,7 @@ func (r CIRenderDestination) InitWithIOSurface(surface objectivec.IObject) CIRen
 // to a [CGColorSpace] created with [sRGB], [extendedSRGB], or
 // [genericGrayGamma2_2].
 //
-// See: https://developer.apple.com/documentation/CoreImage/CIRenderDestination/init(mtlTexture:commandBuffer:)-2iu5i
+// See: https://developer.apple.com/documentation/CoreImage/CIRenderDestination/init(mtlTexture:commandBuffer:)
 //
 // [MTLTextureType.type2D]: https://developer.apple.com/documentation/Metal/MTLTextureType/type2D
 // [MTLTextureType]: https://developer.apple.com/documentation/Metal/MTLTextureType
@@ -523,8 +524,8 @@ func (r CIRenderDestination) InitWithMTLTextureCommandBuffer(texture metal.MTLTe
 // [MTLTexture]: https://developer.apple.com/documentation/Metal/MTLTexture
 // [MTLTexture]: https://developer.apple.com/documentation/Metal/MTLTexture
 // [MTLTexture]: https://developer.apple.com/documentation/Metal/MTLTexture
-func (r CIRenderDestination) InitWithWidthHeightPixelFormatCommandBufferMtlTextureProvider(width uint, height uint, pixelFormat metal.MTLPixelFormat, commandBuffer metal.MTLCommandBuffer, block VoidHandler) CIRenderDestination {
-	_block4, _ := NewVoidBlock(block)
+func (r CIRenderDestination) InitWithWidthHeightPixelFormatCommandBufferMtlTextureProvider(width uint, height uint, pixelFormat metal.MTLPixelFormat, commandBuffer metal.MTLCommandBuffer, block MTLTextureVoidHandler) CIRenderDestination {
+	_block4, _ := NewMTLTextureVoidBlock(block)
 	rv := objc.Send[CIRenderDestination](r.ID, objc.Sel("initWithWidth:height:pixelFormat:commandBuffer:mtlTextureProvider:"), width, height, pixelFormat, commandBuffer, _block4)
 	return rv
 }
@@ -555,7 +556,7 @@ func (r CIRenderDestination) InitWithWidthHeightPixelFormatCommandBufferMtlTextu
 // to a [CGColorSpace] created with [sRGB], [extendedSRGB], or
 // [genericGrayGamma2_2].
 //
-// See: https://developer.apple.com/documentation/CoreImage/CIRenderDestination/init(glTexture:target:width:height:)-9ci8e
+// See: https://developer.apple.com/documentation/CoreImage/CIRenderDestination/init(glTexture:target:width:height:)
 //
 // [CGColorSpace]: https://developer.apple.com/documentation/CoreGraphics/CGColorSpace
 // [extendedSRGB]: https://developer.apple.com/documentation/CoreGraphics/CGColorSpace/extendedSRGB
@@ -597,7 +598,7 @@ func (r CIRenderDestination) InitWithGLTextureTargetWidthHeight(texture uint32, 
 // [extendedSRGB]: https://developer.apple.com/documentation/CoreGraphics/CGColorSpace/extendedSRGB
 // [genericGrayGamma2_2]: https://developer.apple.com/documentation/CoreGraphics/CGColorSpace/genericGrayGamma2_2
 // [sRGB]: https://developer.apple.com/documentation/CoreGraphics/CGColorSpace/sRGB
-func (r CIRenderDestination) InitWithBitmapDataWidthHeightBytesPerRowFormat(data unsafe.Pointer, width uint, height uint, bytesPerRow uint, format int) CIRenderDestination {
+func (r CIRenderDestination) InitWithBitmapDataWidthHeightBytesPerRowFormat(data unsafe.Pointer, width uint, height uint, bytesPerRow uint, format CIFormat) CIRenderDestination {
 	rv := objc.Send[CIRenderDestination](r.ID, objc.Sel("initWithBitmapData:width:height:bytesPerRow:format:"), data, width, height, bytesPerRow, format)
 	return rv
 }

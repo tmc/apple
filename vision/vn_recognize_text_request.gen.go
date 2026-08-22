@@ -140,6 +140,11 @@ type IVNRecognizeTextRequest interface {
 	SetCustomWords(value []string)
 	// Returns the identifiers of the languages that the request supports.
 	SupportedRecognitionLanguagesAndReturnError() ([]string, error)
+
+	// A Boolean set to true when a request can’t determine its progress in fractions completed.
+	Indeterminate() bool
+	// A block of code executed periodically during a Vision request to report progress on long-running tasks.
+	ProgressHandler() VNRequestProgressHandler
 }
 
 // Init initializes the instance.
@@ -172,9 +177,10 @@ func NewVNRecognizeTextRequest() VNRecognizeTextRequest {
 // [VNImageRequestHandler.PerformRequestsError].
 //
 // See: https://developer.apple.com/documentation/Vision/VNRequest/init(completionHandler:)
-func NewRecognizeTextRequestWithCompletionHandler(completionHandler VNRequestCompletionHandler) VNRecognizeTextRequest {
+func NewRecognizeTextRequestWithCompletionHandler(completionHandler VNRequestErrorHandler) VNRecognizeTextRequest {
+	_block0, _ := NewVNRequestErrorBlock(completionHandler)
 	instance := getVNRecognizeTextRequestClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCompletionHandler:"), completionHandler)
+	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCompletionHandler:"), _block0)
 	return VNRecognizeTextRequestFromID(rv)
 }
 
@@ -333,6 +339,6 @@ func (r VNRecognizeTextRequest) SetCustomWords(value []string) {
 // in a thread-safe manner.
 //
 // See: https://developer.apple.com/documentation/Vision/VNRequestProgressProviding/progressHandler
-func (o VNRecognizeTextRequest) SetProgressHandler(value VNRequestProgressHandler) {
+func (o VNRecognizeTextRequest) SetProgressHandler(value objc.ID) {
 	objc.Send[struct{}](o.ID, objc.Sel("setProgressHandler:"), value)
 }

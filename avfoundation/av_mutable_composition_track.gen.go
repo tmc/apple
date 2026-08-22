@@ -56,11 +56,6 @@ func (ac AVMutableCompositionTrackClass) Alloc() AVMutableCompositionTrack {
 // whether they meet the constraints by calling the
 // [AVMutableCompositionTrack.ValidateTrackSegmentsError] method.
 //
-// # Configuring track properties
-//
-//   - [AVMutableCompositionTrack.IsEnabled]: A Boolean value that indicates whether the tracks is in an enabled state.
-//   - [AVMutableCompositionTrack.SetEnabled]
-//
 // # Managing time ranges
 //
 //   - [AVMutableCompositionTrack.InsertEmptyTimeRange]: Adds or extends an empty time range within the track.
@@ -100,11 +95,6 @@ func AVMutableCompositionTrackFromID(id objc.ID) AVMutableCompositionTrack {
 
 // An interface definition for the [AVMutableCompositionTrack] class.
 //
-// # Configuring track properties
-//
-//   - [IAVMutableCompositionTrack.IsEnabled]: A Boolean value that indicates whether the tracks is in an enabled state.
-//   - [IAVMutableCompositionTrack.SetEnabled]
-//
 // # Managing time ranges
 //
 //   - [IAVMutableCompositionTrack.InsertEmptyTimeRange]: Adds or extends an empty time range within the track.
@@ -129,12 +119,6 @@ func AVMutableCompositionTrackFromID(id objc.ID) AVMutableCompositionTrack {
 // See: https://developer.apple.com/documentation/AVFoundation/AVMutableCompositionTrack
 type IAVMutableCompositionTrack interface {
 	IAVCompositionTrack
-
-	// Topic: Configuring track properties
-
-	// A Boolean value that indicates whether the tracks is in an enabled state.
-	IsEnabled() bool
-	SetEnabled(value bool)
 
 	// Topic: Managing time ranges
 

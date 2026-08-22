@@ -3,6 +3,9 @@
 package avfoundation
 
 import (
+	"encoding/binary"
+	"unsafe"
+
 	"github.com/tmc/apple/coremedia"
 )
 
@@ -43,14 +46,89 @@ type AVCaptionSize struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/AVFoundation/AVCaptureTimecode
 type AVCaptureTimecode struct {
-	FrameDuration coremedia.CMTime            // Frame duration of the timecode. If unknown, the value is `kCMTimeInvalid`.
-	Frames        uint8                       // Frame component of the timecode, indicating the frame count within the second.
-	Hours         uint8                       // Time component representing the current timecode in hours.
-	Minutes       uint8                       // Time component representing the current timecode in minutes.
-	Seconds       uint8                       // Time component representing the current timecode in seconds.
-	UserBits      uint32                      // A 32-bit field carrying SMPTE user bits, which are not strictly standardized. User bits are often used for additional metadata such as scene-take information, reel numbers, or dates, but their exact usage is application-dependent.
-	SourceType    AVCaptureTimecodeSourceType // Source type of the timecode, indicating the emitter, carriage, or transport mechanism.
+	// storage holds the record exactly as the C compiler lays it out. Its
+	// members are reached through the accessors below, which slice it at
+	// their measured offsets.
+	//
+	// The members cannot be ordinary Go fields: Go would place at least one
+	// of them somewhere other than where C measured it, and every member
+	// after that one would move with it.
 
+	// A storage array alone has alignment 1. This zero-length array carries
+	// the alignment C measured without contributing any size, so an
+	// embedding record places this one where C does.
+	_       [0]uint64
+	storage [40]byte
+}
+
+// Hours returns the Hours field from the record's packed storage.
+func (s *AVCaptureTimecode) Hours() uint8 {
+	return uint8(s.storage[0])
+}
+
+// SetHours updates the Hours field in the record's packed storage.
+func (s *AVCaptureTimecode) SetHours(v uint8) {
+	s.storage[0] = uint8(v)
+}
+
+// Minutes returns the Minutes field from the record's packed storage.
+func (s *AVCaptureTimecode) Minutes() uint8 {
+	return uint8(s.storage[1])
+}
+
+// SetMinutes updates the Minutes field in the record's packed storage.
+func (s *AVCaptureTimecode) SetMinutes(v uint8) {
+	s.storage[1] = uint8(v)
+}
+
+// Seconds returns the Seconds field from the record's packed storage.
+func (s *AVCaptureTimecode) Seconds() uint8 {
+	return uint8(s.storage[2])
+}
+
+// SetSeconds updates the Seconds field in the record's packed storage.
+func (s *AVCaptureTimecode) SetSeconds(v uint8) {
+	s.storage[2] = uint8(v)
+}
+
+// Frames returns the Frames field from the record's packed storage.
+func (s *AVCaptureTimecode) Frames() uint8 {
+	return uint8(s.storage[3])
+}
+
+// SetFrames updates the Frames field in the record's packed storage.
+func (s *AVCaptureTimecode) SetFrames(v uint8) {
+	s.storage[3] = uint8(v)
+}
+
+// UserBits returns the UserBits field from the record's packed storage.
+func (s *AVCaptureTimecode) UserBits() uint32 {
+	return uint32(binary.NativeEndian.Uint32(s.storage[4:8]))
+}
+
+// SetUserBits updates the UserBits field in the record's packed storage.
+func (s *AVCaptureTimecode) SetUserBits(v uint32) {
+	binary.NativeEndian.PutUint32(s.storage[4:8], uint32(v))
+}
+
+// FrameDuration returns the FrameDuration field from the record's packed storage.
+func (s *AVCaptureTimecode) FrameDuration() coremedia.CMTime {
+	return *(*coremedia.CMTime)(unsafe.Pointer(&s.storage[8]))
+}
+
+// SetFrameDuration updates the FrameDuration field in the record's packed storage.
+func (s *AVCaptureTimecode) SetFrameDuration(v coremedia.CMTime) {
+	*(*coremedia.CMTime)(unsafe.Pointer(&s.storage[8])) = v
+}
+
+// SourceType returns the SourceType field from the record's packed storage.
+func (s *AVCaptureTimecode) SourceType() AVCaptureTimecodeSourceType {
+	return *(*AVCaptureTimecodeSourceType)(unsafe.Pointer(&s.storage[32]))
+}
+
+// SetSourceType updates the SourceType field in the record's packed storage.
+func (s *AVCaptureTimecode) SetSourceType(v AVCaptureTimecodeSourceType) {
+	*(*AVCaptureTimecodeSourceType)(unsafe.Pointer(&s.storage[32])) = v
 }
 
 // AVCaptureWhiteBalanceChromaticityValues - A structure that defines CIE 1931 xy chromaticity values.
@@ -68,9 +146,9 @@ type AVCaptureWhiteBalanceChromaticityValues struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/AVFoundation/AVCaptureDevice/WhiteBalanceGains
 type AVCaptureWhiteBalanceGains struct {
-	BlueGain  float32 // The blue gain component of the white balance value.
-	GreenGain float32 // The green gain component of the white balance value.
 	RedGain   float32 // The red gain component of the white balance value.
+	GreenGain float32 // The green gain component of the white balance value.
+	BlueGain  float32 // The blue gain component of the white balance value.
 
 }
 

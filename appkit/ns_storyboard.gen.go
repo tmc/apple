@@ -55,10 +55,10 @@ func (nc NSStoryboardClass) Alloc() NSStoryboard {
 // item. However, you can use a storyboard object to directly instantiate the
 // initial view controller from a storyboard file or to instantiate other view
 // or window controllers that you want to present programmatically. In the
-// context of a storyboard file, each contained controller is called a .
+// context of a storyboard file, each contained controller is called a scene.
 //
-// A transition from one scene to another in a storyboard is called a . This
-// same term, and the same Cocoa APIs, express a containment relationship
+// A transition from one scene to another in a storyboard is called a segue.
+// This same term, and the same Cocoa APIs, express a containment relationship
 // between two scenes. In macOS, containment (rather than transition) is the
 // more common notion for storyboards. For descriptions of the related APIs,
 // refer to [NSStoryboardSegue] and [NSSeguePerforming].
@@ -110,9 +110,6 @@ type INSStoryboard interface {
 
 	// Instantiates a specified view controller or window controller from a storyboard.
 	InstantiateControllerWithIdentifier(identifier NSStoryboardSceneIdentifier) objectivec.IObject
-
-	InstantiateControllerWithIdentifierCreator(identifier NSStoryboardSceneIdentifier, block NSStoryboardControllerCreator) objectivec.IObject
-	InstantiateInitialControllerWithCreator(block NSStoryboardControllerCreator) objectivec.IObject
 }
 
 // Init initializes the instance.
@@ -210,22 +207,6 @@ func (s NSStoryboard) InstantiateInitialController() objectivec.IObject {
 // See: https://developer.apple.com/documentation/AppKit/NSStoryboard/instantiateController(withIdentifier:)
 func (s NSStoryboard) InstantiateControllerWithIdentifier(identifier NSStoryboardSceneIdentifier) objectivec.IObject {
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("instantiateControllerWithIdentifier:"), objc.String(string(identifier)))
-	return objectivec.Object{ID: rv}
-}
-
-// See: https://developer.apple.com/documentation/AppKit/NSStoryboard/instantiateControllerWithIdentifier:creator:
-func (s NSStoryboard) InstantiateControllerWithIdentifierCreator(identifier NSStoryboardSceneIdentifier, block NSStoryboardControllerCreator) objectivec.IObject {
-	_block1 := objc.NewBlock(func(_ objc.Block, arg0 objc.ID) objc.ID { return block(foundation.NSCoderFromID(arg0)).GetID() })
-	defer _block1.Release()
-	rv := objc.Send[objc.ID](s.ID, objc.Sel("instantiateControllerWithIdentifier:creator:"), identifier, objc.ID(_block1))
-	return objectivec.Object{ID: rv}
-}
-
-// See: https://developer.apple.com/documentation/AppKit/NSStoryboard/instantiateInitialControllerWithCreator:
-func (s NSStoryboard) InstantiateInitialControllerWithCreator(block NSStoryboardControllerCreator) objectivec.IObject {
-	_block0 := objc.NewBlock(func(_ objc.Block, arg0 objc.ID) objc.ID { return block(foundation.NSCoderFromID(arg0)).GetID() })
-	defer _block0.Release()
-	rv := objc.Send[objc.ID](s.ID, objc.Sel("instantiateInitialControllerWithCreator:"), objc.ID(_block0))
 	return objectivec.Object{ID: rv}
 }
 

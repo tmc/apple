@@ -258,6 +258,9 @@ func NewCaptureDeviceInputWithDeviceError(device IAVCaptureDevice) (AVCaptureDev
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
 		return AVCaptureDeviceInput{}, foundation.NSErrorFrom(errorPtr)
 	}
+	if rv == 0 {
+		return AVCaptureDeviceInput{}, objc.ErrInitFailed
+	}
 	return AVCaptureDeviceInputFromID(rv), nil
 }
 

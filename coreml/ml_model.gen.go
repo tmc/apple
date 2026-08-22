@@ -183,9 +183,9 @@ func NewMLModel() MLModel {
 // Creates a Core ML model instance from a compiled model file and a custom
 // configuration.
 //
-// url: The path to a compiled model file (`XCUIElementTypeMlmodelc`), typically
-// with the [URL] that [MLModelClass.CompileModelAtURLCompletionHandler]
-// returns.
+// url: The path to a compiled model file (ModelName`XCUIElementTypeMlmodelc`),
+// typically with the [URL] that
+// [MLModelClass.CompileModelAtURLCompletionHandler] returns.
 //
 // configuration: The runtime settings for the new model instance.
 //
@@ -214,14 +214,17 @@ func NewModelWithContentsOfURLConfigurationError(url foundation.NSURL, configura
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
 		return MLModel{}, foundation.NSErrorFrom(errorPtr)
 	}
+	if rv == 0 {
+		return MLModel{}, objc.ErrInitFailed
+	}
 	return MLModelFromID(rv), nil
 }
 
 // Creates a Core ML model instance from a compiled model file.
 //
-// url: The path to a compiled model file (`XCUIElementTypeMlmodelc`), typically
-// with the [URL] that [MLModelClass.CompileModelAtURLCompletionHandler]
-// returns.
+// url: The path to a compiled model file (ModelName`XCUIElementTypeMlmodelc`),
+// typically with the [URL] that
+// [MLModelClass.CompileModelAtURLCompletionHandler] returns.
 //
 // # Discussion
 //
@@ -247,6 +250,9 @@ func NewModelWithContentsOfURLError(url foundation.NSURL) (MLModel, error) {
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
 		return MLModel{}, foundation.NSErrorFrom(errorPtr)
+	}
+	if rv == 0 {
+		return MLModel{}, objc.ErrInitFailed
 	}
 	return MLModelFromID(rv), nil
 }
@@ -531,9 +537,9 @@ func (_MLModelClass MLModelClass) CompileModelAtURLCompletionHandler(modelURL fo
 // Creates a Core ML model instance asynchronously from a compiled model file,
 // a custom configuration, and a completion handler.
 //
-// url: The path to a compiled model file (`XCUIElementTypeMlmodelc`), typically
-// with the [URL] that [MLModelClass.CompileModelAtURLCompletionHandler]
-// returns.
+// url: The path to a compiled model file (ModelName`XCUIElementTypeMlmodelc`),
+// typically with the [URL] that
+// [MLModelClass.CompileModelAtURLCompletionHandler] returns.
 //
 // configuration: The runtime settings for the new model instance.
 //

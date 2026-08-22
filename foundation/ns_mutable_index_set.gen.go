@@ -50,10 +50,10 @@ func (nc NSMutableIndexSetClass) Alloc() NSMutableIndexSet {
 // need reference semantics or other Foundation-specific behavior.
 //
 // The [NSMutableIndexSet] class represents a mutable collection of unique
-// unsigned integers, known as because of the way they are used. This
-// collection is referred to as a . The inclusive range of valid indexes is
-// `0...(NSNotFound - 1)`; trying to use indexes outside this range is
-// invalid.
+// unsigned integers, known as indexes because of the way they are used. This
+// collection is referred to as a mutable index set. The inclusive range of
+// valid indexes is `0...(NSNotFound - 1)`; trying to use indexes outside this
+// range is invalid.
 //
 // The values in a mutable index set are always sorted, so the order in which
 // values are added is irrelevant.

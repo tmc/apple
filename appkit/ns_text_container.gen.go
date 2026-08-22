@@ -4,6 +4,7 @@ package appkit
 
 import (
 	"sync"
+	"unsafe"
 
 	"github.com/tmc/apple/corefoundation"
 	"github.com/tmc/apple/foundation"
@@ -227,6 +228,8 @@ type INSTextContainer interface {
 	ContainerSize() corefoundation.CGSize
 	SetContainerSize(value corefoundation.CGSize)
 
+	// The default layout orientation.
+	LayoutOrientation() NSTextLayoutOrientation
 	EncodeWithCoder(coder foundation.INSCoder)
 }
 
@@ -379,7 +382,7 @@ func (t NSTextContainer) ReplaceLayoutManager(newLayoutManager INSLayoutManager)
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTextContainer/lineFragmentRect(forProposedRect:at:writingDirection:remaining:)
 func (t NSTextContainer) LineFragmentRectForProposedRectAtIndexWritingDirectionRemainingRect(proposedRect corefoundation.CGRect, characterIndex uint, baseWritingDirection NSWritingDirection, remainingRect *corefoundation.CGRect) corefoundation.CGRect {
-	rv := objc.Send[corefoundation.CGRect](t.ID, objc.Sel("lineFragmentRectForProposedRect:atIndex:writingDirection:remainingRect:"), proposedRect, characterIndex, baseWritingDirection, remainingRect)
+	rv := objc.Send[corefoundation.CGRect](t.ID, objc.Sel("lineFragmentRectForProposedRect:atIndex:writingDirection:remainingRect:"), proposedRect, characterIndex, baseWritingDirection, unsafe.Pointer(remainingRect))
 	return corefoundation.CGRect(rv)
 }
 

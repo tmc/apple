@@ -18,6 +18,11 @@ type NSEditor interface {
 	// See: https://developer.apple.com/documentation/AppKit/NSEditor/commitEditing()
 	CommitEditing() bool
 
+	// CommitEditingWithDelegateDidCommitSelectorContextInfo protocol.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSEditor/commitEditing(withDelegate:didCommit:contextInfo:)
+	CommitEditingWithDelegateDidCommitSelectorContextInfo(delegate objectivec.IObject, didCommitSelector objc.SEL, contextInfo uintptr)
+
 	// CommitEditingAndReturnError protocol.
 	//
 	// See: https://developer.apple.com/documentation/AppKit/NSEditor/commitEditingWithoutPresentingError()

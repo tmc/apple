@@ -4,10 +4,8 @@ package cloudkit
 
 import (
 	"sync"
-	"unsafe"
 
 	"github.com/tmc/apple/foundation"
-	"github.com/tmc/apple/kernel"
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -165,8 +163,8 @@ type ICKSubscription interface {
 	InitWithCoder(coder foundation.INSCoder) CKSubscription
 
 	// The names of fields to include in the push notification’s payload.
-	DesiredKeys() unsafe.Pointer
-	SetDesiredKeys(value kernel.Pointer)
+	DesiredKeys() []CKRecordFieldKey
+	SetDesiredKeys(value []CKRecordFieldKey)
 	EncodeWithCoder(coder foundation.INSCoder)
 }
 
@@ -251,10 +249,12 @@ func (c CKSubscription) SubscriptionType() CKSubscriptionType {
 // The names of fields to include in the push notification’s payload.
 //
 // See: https://developer.apple.com/documentation/cloudkit/cksubscription/notificationinfo-swift.class/desiredkeys
-func (c CKSubscription) DesiredKeys() unsafe.Pointer {
-	rv := objc.Send[unsafe.Pointer](c.ID, objc.Sel("desiredKeys"))
-	return rv
+func (c CKSubscription) DesiredKeys() []CKRecordFieldKey {
+	rv := objc.Send[[]objc.ID](c.ID, objc.Sel("desiredKeys"))
+	return objc.ConvertSlice(rv, func(id objc.ID) CKRecordFieldKey {
+		return CKRecordFieldKey(foundation.NSStringFromID(id).String())
+	})
 }
-func (c CKSubscription) SetDesiredKeys(value kernel.Pointer) {
-	objc.Send[struct{}](c.ID, objc.Sel("setDesiredKeys:"), value)
+func (c CKSubscription) SetDesiredKeys(value []CKRecordFieldKey) {
+	objc.Send[struct{}](c.ID, objc.Sel("setDesiredKeys:"), objectivec.StringSliceToNSArray(value))
 }

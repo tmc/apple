@@ -109,9 +109,21 @@ func NewVZVirtioConsoleDeviceDelegate(config VZVirtioConsoleDeviceDelegateConfig
 		methods = append(methods, objc.MethodDef{
 			Cmd: objc.RegisterName("consoleDevice:didOpenPort:"),
 			Fn: func(self objc.ID, _cmd objc.SEL, consoleDeviceID objc.ID, consolePortID objc.ID) {
+				// Names which delegate was running if a panic unwinds out of
+				// it. The frames between here and the Objective-C caller are
+				// runtime and purego dispatch, so without this the traceback
+				// never says which selector dispatched. Deliberately no
+				// recover: see [objc.NoteDelegatePanic].
+				_delegateDone := false
+				defer func() {
+					if !_delegateDone {
+						objc.NoteDelegatePanic("VZVirtioConsoleDeviceDelegate", "consoleDevice:didOpenPort:")
+					}
+				}()
 				consoleDevice := VZVirtioConsoleDeviceFromID(consoleDeviceID)
 				consolePort := VZVirtioConsolePortFromID(consolePortID)
 				fn(consoleDevice, consolePort)
+				_delegateDone = true
 			},
 		})
 	}
@@ -121,9 +133,21 @@ func NewVZVirtioConsoleDeviceDelegate(config VZVirtioConsoleDeviceDelegateConfig
 		methods = append(methods, objc.MethodDef{
 			Cmd: objc.RegisterName("consoleDevice:didClosePort:"),
 			Fn: func(self objc.ID, _cmd objc.SEL, consoleDeviceID objc.ID, consolePortID objc.ID) {
+				// Names which delegate was running if a panic unwinds out of
+				// it. The frames between here and the Objective-C caller are
+				// runtime and purego dispatch, so without this the traceback
+				// never says which selector dispatched. Deliberately no
+				// recover: see [objc.NoteDelegatePanic].
+				_delegateDone := false
+				defer func() {
+					if !_delegateDone {
+						objc.NoteDelegatePanic("VZVirtioConsoleDeviceDelegate", "consoleDevice:didClosePort:")
+					}
+				}()
 				consoleDevice := VZVirtioConsoleDeviceFromID(consoleDeviceID)
 				consolePort := VZVirtioConsolePortFromID(consolePortID)
 				fn(consoleDevice, consolePort)
+				_delegateDone = true
 			},
 		})
 	}

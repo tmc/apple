@@ -64,22 +64,22 @@ func (ac AVPlayerClass) Alloc() AVPlayer {
 // playback of a queue of media assets.
 //
 // You use an [AVPlayer] to play media assets, which AVFoundation represents
-// using the [AVAsset] class. [AVAsset] only models the aspects of the media,
-// such as its duration or creation date, and on its own, isn’t suitable for
-// playback with an [AVPlayer]. To play an asset, you create an instance of
-// its counterpart found in [AVPlayerItem]. This object models the timing and
-// presentation state of an asset played by an instance of [AVPlayer]. See the
-// [AVPlayerItem] reference for more details.
+// using the [AVAsset] class. [AVAsset] only models the static aspects of the
+// media, such as its duration or creation date, and on its own, isn’t
+// suitable for playback with an [AVPlayer]. To play an asset, you create an
+// instance of its dynamic counterpart found in [AVPlayerItem]. This object
+// models the timing and presentation state of an asset played by an instance
+// of [AVPlayer]. See the [AVPlayerItem] reference for more details.
 //
 // [AVPlayer] is a dynamic object whose state continuously changes. There are
 // two approaches you can use to observe a player’s state:
 //
-// - You can use key-value observing (KVO) to observe state changes to many of
-// the player’s dynamic properties, such as its [AVPlayer.CurrentItem] or
-// its playback [AVPlayer.Rate]. - KVO works well for general state
-// observations, but isn’t intended for observing continuously changing
-// state like the player’s time. [AVPlayer] provides two methods to observe
-// time changes: -
+// - General State Observations: You can use key-value observing (KVO) to
+// observe state changes to many of the player’s dynamic properties, such as
+// its [AVPlayer.CurrentItem] or its playback [AVPlayer.Rate]. - Timed State
+// Observations: KVO works well for general state observations, but isn’t
+// intended for observing continuously changing state like the player’s
+// time. [AVPlayer] provides two methods to observe time changes: -
 // [AVPlayer.AddPeriodicTimeObserverForIntervalQueueUsingBlock] -
 // [AVPlayer.AddBoundaryTimeObserverForTimesQueueUsingBlock]
 //
@@ -92,17 +92,17 @@ func (ac AVPlayerClass) Alloc() AVPlayer {
 // own they’re unable to present an asset’s video onscreen. There are two
 // primary approaches you use to present your video content onscreen:
 //
-// - The best way to present your video content is with the AVKit
+// - AVKit: The best way to present your video content is with the AVKit
 // framework’s [AVPlayerViewController] class in iOS and tvOS, or the
 // [AVPlayerView] class in macOS. These classes present the video content,
 // along with playback controls and other media features giving you a
-// full-featured playback experience. - When building a custom interface for
-// your player, use [AVPlayerLayer]. You can set this layer a view’s backing
-// layer or add it directly to the layer hierarchy. Unlike [AVPlayerView] and
-// [AVPlayerViewController], a player layer doesn’t present any playback
-// controls—it only presents the visual content onscreen. It’s up to you
-// to build the playback transport controls to play, pause, and seek through
-// the media.
+// full-featured playback experience. - AVPlayerLayer: When building a custom
+// interface for your player, use [AVPlayerLayer]. You can set this layer a
+// view’s backing layer or add it directly to the layer hierarchy. Unlike
+// [AVPlayerView] and [AVPlayerViewController], a player layer doesn’t
+// present any playback controls—it only presents the visual content
+// onscreen. It’s up to you to build the playback transport controls to
+// play, pause, and seek through the media.
 //
 // Alongside the visual content presented with AVKit or [AVPlayerLayer], you
 // can also present animated content synchronized with the player’s timing
@@ -139,7 +139,6 @@ func (ac AVPlayerClass) Alloc() AVPlayer {
 // # Observing playback time
 //
 //   - [AVPlayer.CurrentTime]: Returns the current time of the current player item.
-//   - [AVPlayer.AddPeriodicTimeObserverForIntervalQueueUsingBlock]: Requests the periodic invocation of a given block during playback to report changing time.
 //   - [AVPlayer.AddBoundaryTimeObserverForTimesQueueUsingBlock]: Requests the invocation of a block when specified times are traversed during normal playback.
 //   - [AVPlayer.RemoveTimeObserver]: Cancels a previously registered periodic or boundary time observer.
 //
@@ -283,7 +282,6 @@ func AVPlayerFromID(id objc.ID) AVPlayer {
 // # Observing playback time
 //
 //   - [IAVPlayer.CurrentTime]: Returns the current time of the current player item.
-//   - [IAVPlayer.AddPeriodicTimeObserverForIntervalQueueUsingBlock]: Requests the periodic invocation of a given block during playback to report changing time.
 //   - [IAVPlayer.AddBoundaryTimeObserverForTimesQueueUsingBlock]: Requests the invocation of a block when specified times are traversed during normal playback.
 //   - [IAVPlayer.RemoveTimeObserver]: Cancels a previously registered periodic or boundary time observer.
 //
@@ -421,8 +419,6 @@ type IAVPlayer interface {
 
 	// Returns the current time of the current player item.
 	CurrentTime() coremedia.CMTime
-	// Requests the periodic invocation of a given block during playback to report changing time.
-	AddPeriodicTimeObserverForIntervalQueueUsingBlock(interval coremedia.CMTime, queue dispatch.Queue, block CMTimeHandler) objectivec.IObject
 	// Requests the invocation of a block when specified times are traversed during normal playback.
 	AddBoundaryTimeObserverForTimesQueueUsingBlock(times []foundation.NSValue, queue dispatch.Queue, block VoidHandler) objectivec.IObject
 	// Cancels a previously registered periodic or boundary time observer.
@@ -602,7 +598,7 @@ func NewPlayerWithPlayerItem(item IAVPlayerItem) AVPlayer {
 // This method implicitly creates an [AVPlayerItem] object. You can get the
 // player item using [AVPlayer.CurrentItem].
 //
-// See: https://developer.apple.com/documentation/AVFoundation/AVPlayer/init(url:)-87cxx
+// See: https://developer.apple.com/documentation/AVFoundation/AVPlayer/init(url:)
 func NewPlayerWithURL(URL foundation.NSURL) AVPlayer {
 	instance := getAVPlayerClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithURL:"), URL)
@@ -624,7 +620,7 @@ func NewPlayerWithURL(URL foundation.NSURL) AVPlayer {
 // This method implicitly creates an [AVPlayerItem] object. You can get the
 // player item using [AVPlayer.CurrentItem].
 //
-// See: https://developer.apple.com/documentation/AVFoundation/AVPlayer/init(url:)-87cxx
+// See: https://developer.apple.com/documentation/AVFoundation/AVPlayer/init(url:)
 func (p AVPlayer) InitWithURL(URL foundation.NSURL) AVPlayer {
 	rv := objc.Send[AVPlayer](p.ID, objc.Sel("initWithURL:"), URL)
 	return rv
@@ -699,54 +695,6 @@ func (p AVPlayer) CurrentTime() coremedia.CMTime {
 	return coremedia.CMTime(rv)
 }
 
-// Requests the periodic invocation of a given block during playback to report
-// changing time.
-//
-// interval: The time interval at which the system invokes the block during normal
-// playback, according to progress of the player’s current time.
-//
-// queue: The dispatch queue on which the system calls the block. Passing a
-// concurrent queue isn’t supported and results in undefined behavior.
-//
-// If you pass [NULL], the system uses the main queue.
-//
-// block: The block that the system periodically invokes.
-//
-// The block takes a single parameter:
-//
-// time: The time at which the system invokes the block.
-//
-// # Return Value
-//
-// An opaque object that you pass as the argument to
-// [AVPlayer.RemoveTimeObserver] to cancel observation.
-//
-// # Discussion
-//
-// You must maintain a strong reference to the returned value as long as you
-// want the time observer to be invoked by the player. You must pair each
-// invocation of this method with a corresponding call to
-// [AVPlayer.RemoveTimeObserver]. Releasing the observer object without
-// invoking [AVPlayer.RemoveTimeObserver] results in undefined behavior.
-//
-// The system invokes the block periodically at the interval specified,
-// interpreted according to the timeline of the current item. It also invokes
-// the block whenever time jumps or playback starts or stops. If the interval
-// corresponds to a very short interval in real time, the player may invoke
-// the block less frequently than your app requested. Even so, the player will
-// invoke the block sufficiently often for the client to update indications of
-// the current time appropriately in its end-user interface.
-//
-// The following example illustrates how you set up a callback the system
-// invokes every half second during normal playback.
-//
-// See: https://developer.apple.com/documentation/AVFoundation/AVPlayer/addPeriodicTimeObserver(forInterval:queue:using:)
-func (p AVPlayer) AddPeriodicTimeObserverForIntervalQueueUsingBlock(interval coremedia.CMTime, queue dispatch.Queue, block CMTimeHandler) objectivec.IObject {
-	_block2, _ := NewCMTimeBlock(block)
-	rv := objc.Send[objc.ID](p.ID, objc.Sel("addPeriodicTimeObserverForInterval:queue:usingBlock:"), interval, uintptr(queue.Handle()), _block2)
-	return objectivec.Object{ID: rv}
-}
-
 // Requests the invocation of a block when specified times are traversed
 // during normal playback.
 //
@@ -754,8 +702,8 @@ func (p AVPlayer) AddPeriodicTimeObserverForIntervalQueueUsingBlock(interval cor
 // times at which to invoke the callback. The system raises an exception if
 // you pass an empty array.
 //
-// queue: A queue onto which `block` should be enqueued. Passing a concurrent queue
-// is not supported and will result in undefined behavior.
+// queue: A serial queue onto which `block` should be enqueued. Passing a concurrent
+// queue is not supported and will result in undefined behavior.
 //
 // If you pass `nil`, the main queue is used.
 //
@@ -1673,21 +1621,6 @@ func (_AVPlayerClass AVPlayerClass) IsObservationEnabled() bool {
 }
 func (_AVPlayerClass AVPlayerClass) SetObservationEnabled(value bool) {
 	objc.Send[struct{}](objc.ID(_AVPlayerClass.class), objc.Sel("setObservationEnabled:"), value)
-}
-
-// AddPeriodicTimeObserverForIntervalQueueUsingBlockSync is a synchronous wrapper around [AVPlayer.AddPeriodicTimeObserverForIntervalQueueUsingBlock].
-// It blocks until the completion handler fires or the context is cancelled.
-func (p AVPlayer) AddPeriodicTimeObserverForIntervalQueueUsingBlockSync(ctx context.Context, interval coremedia.CMTime, queue dispatch.Queue) (coremedia.CMTime, error) {
-	done := make(chan coremedia.CMTime, 1)
-	p.AddPeriodicTimeObserverForIntervalQueueUsingBlock(interval, queue, func(val coremedia.CMTime) {
-		done <- val
-	})
-	select {
-	case r := <-done:
-		return r, nil
-	case <-ctx.Done():
-		return coremedia.CMTime{}, ctx.Err()
-	}
 }
 
 // SeekToTimeSync is a synchronous wrapper around [AVPlayer.SeekToTimeCompletionHandler].

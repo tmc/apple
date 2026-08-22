@@ -4,6 +4,7 @@ package foundation
 
 import (
 	"sync"
+	"unsafe"
 
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
@@ -132,7 +133,7 @@ type INSAppleScript interface {
 	// Topic: Initializing a Script
 
 	// Initializes a newly allocated script instance from the source identified by the passed URL.
-	InitWithContentsOfURLError(url INSURL, errorInfo INSDictionary) NSAppleScript
+	InitWithContentsOfURLError(url INSURL, errorInfo *NSDictionary) NSAppleScript
 	// Initializes a newly allocated script instance from the passed source.
 	InitWithSource(source string) NSAppleScript
 
@@ -146,11 +147,11 @@ type INSAppleScript interface {
 	// Topic: Compiling and Executing a Script
 
 	// Compiles the receiver, if it is not already compiled.
-	CompileAndReturnError(errorInfo INSDictionary) bool
+	CompileAndReturnError(errorInfo *NSDictionary) bool
 	// Executes the receiver, compiling it first if it is not already compiled.
-	ExecuteAndReturnError(errorInfo INSDictionary) INSAppleEventDescriptor
+	ExecuteAndReturnError(errorInfo *NSDictionary) INSAppleEventDescriptor
 	// Executes an Apple event in the context of the receiver, as a means of allowing the application to invoke a handler in the script.
-	ExecuteAppleEventError(event INSAppleEventDescriptor, errorInfo INSDictionary) INSAppleEventDescriptor
+	ExecuteAppleEventError(event INSAppleEventDescriptor, errorInfo *NSDictionary) INSAppleEventDescriptor
 
 	// Topic: Instance Properties
 
@@ -194,9 +195,9 @@ func NewNSAppleScript() NSAppleScript {
 // This method is a designated initializer for [NSAppleScript].
 //
 // See: https://developer.apple.com/documentation/Foundation/NSAppleScript/init(contentsOf:error:)
-func NewAppleScriptWithContentsOfURLError(url INSURL, errorInfo INSDictionary) NSAppleScript {
+func NewAppleScriptWithContentsOfURLError(url INSURL, errorInfo *NSDictionary) NSAppleScript {
 	instance := getNSAppleScriptClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithContentsOfURL:error:"), url, errorInfo)
+	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithContentsOfURL:error:"), url, unsafe.Pointer(errorInfo))
 	return NSAppleScriptFromID(rv)
 }
 
@@ -236,8 +237,8 @@ func NewAppleScriptWithSource(source string) NSAppleScript {
 // This method is a designated initializer for [NSAppleScript].
 //
 // See: https://developer.apple.com/documentation/Foundation/NSAppleScript/init(contentsOf:error:)
-func (a NSAppleScript) InitWithContentsOfURLError(url INSURL, errorInfo INSDictionary) NSAppleScript {
-	rv := objc.Send[NSAppleScript](a.ID, objc.Sel("initWithContentsOfURL:error:"), url, errorInfo)
+func (a NSAppleScript) InitWithContentsOfURLError(url INSURL, errorInfo *NSDictionary) NSAppleScript {
+	rv := objc.Send[NSAppleScript](a.ID, objc.Sel("initWithContentsOfURL:error:"), url, unsafe.Pointer(errorInfo))
 	return rv
 }
 
@@ -269,8 +270,8 @@ func (a NSAppleScript) InitWithSource(source string) NSAppleScript {
 // true for success or if the script was already compiled, false otherwise.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSAppleScript/compileAndReturnError(_:)
-func (a NSAppleScript) CompileAndReturnError(errorInfo INSDictionary) bool {
-	rv := objc.Send[bool](a.ID, objc.Sel("compileAndReturnError:"), errorInfo)
+func (a NSAppleScript) CompileAndReturnError(errorInfo *NSDictionary) bool {
+	rv := objc.Send[bool](a.ID, objc.Sel("compileAndReturnError:"), unsafe.Pointer(errorInfo))
 	return rv
 }
 
@@ -289,8 +290,8 @@ func (a NSAppleScript) CompileAndReturnError(errorInfo INSDictionary) bool {
 // persist.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSAppleScript/executeAndReturnError(_:)
-func (a NSAppleScript) ExecuteAndReturnError(errorInfo INSDictionary) INSAppleEventDescriptor {
-	rv := objc.Send[objc.ID](a.ID, objc.Sel("executeAndReturnError:"), errorInfo)
+func (a NSAppleScript) ExecuteAndReturnError(errorInfo *NSDictionary) INSAppleEventDescriptor {
+	rv := objc.Send[objc.ID](a.ID, objc.Sel("executeAndReturnError:"), unsafe.Pointer(errorInfo))
 	return NSAppleEventDescriptorFromID(rv)
 }
 
@@ -311,8 +312,8 @@ func (a NSAppleScript) ExecuteAndReturnError(errorInfo INSDictionary) INSAppleEv
 // Compiles the receiver before executing it if it is not already compiled.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSAppleScript/executeAppleEvent(_:error:)
-func (a NSAppleScript) ExecuteAppleEventError(event INSAppleEventDescriptor, errorInfo INSDictionary) INSAppleEventDescriptor {
-	rv := objc.Send[objc.ID](a.ID, objc.Sel("executeAppleEvent:error:"), event, errorInfo)
+func (a NSAppleScript) ExecuteAppleEventError(event INSAppleEventDescriptor, errorInfo *NSDictionary) INSAppleEventDescriptor {
+	rv := objc.Send[objc.ID](a.ID, objc.Sel("executeAppleEvent:error:"), event, unsafe.Pointer(errorInfo))
 	return NSAppleEventDescriptorFromID(rv)
 }
 

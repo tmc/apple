@@ -107,9 +107,21 @@ func NewCAMetalDisplayLinkDelegate(config CAMetalDisplayLinkDelegateConfig) CAMe
 		methods = append(methods, objc.MethodDef{
 			Cmd: objc.RegisterName("metalDisplayLink:needsUpdate:"),
 			Fn: func(self objc.ID, _cmd objc.SEL, linkID objc.ID, updateID objc.ID) {
+				// Names which delegate was running if a panic unwinds out of
+				// it. The frames between here and the Objective-C caller are
+				// runtime and purego dispatch, so without this the traceback
+				// never says which selector dispatched. Deliberately no
+				// recover: see [objc.NoteDelegatePanic].
+				_delegateDone := false
+				defer func() {
+					if !_delegateDone {
+						objc.NoteDelegatePanic("CAMetalDisplayLinkDelegate", "metalDisplayLink:needsUpdate:")
+					}
+				}()
 				link := CAMetalDisplayLinkFromID(linkID)
 				update := CAMetalDisplayLinkUpdateFromID(updateID)
 				fn(link, update)
+				_delegateDone = true
 			},
 		})
 	}

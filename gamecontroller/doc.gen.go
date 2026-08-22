@@ -15,12 +15,6 @@
 //   - [Discovering game controllers]: Implement connection and input handling to provide seamless physical controller support for players.
 //   - [Handling input events]: Receive controller input using either polling or callbacks.
 //
-// # Configuration
-//
-//   - GCSupportsControllerUserInteraction: A Boolean value indicating whether the app supports a game controller.
-//   - GCSupportedGameControllers: The types of game controller profiles that the app supports or requires.
-//   - GCSupportsMultipleMicroGamepads: A Boolean value indicating whether the physical Apple TV Remote and the Apple TV Remote app operate as separate game controllers.
-//
 // # View controller
 //
 //   - [GCEventViewController]: A view controller that delivers input either from the responder chain to views, or from game controllers to profiles.
@@ -34,7 +28,6 @@
 //   - [GCRacingWheel]: An object that represents a physical racing wheel controller connected to a device.
 //   - [GCKeyboard]: An object that represents a physical keyboard connected to a device.
 //   - [GCMouse]: An object that represents a physical mouse connected to a device.
-//   - GCStylus: An object that represents a physical stylus connected to the device.
 //
 // # Game controller profiles
 //
@@ -47,7 +40,6 @@
 // # Virtual controller
 //
 //   - [Adding virtual controls to games that support game controllers in iOS]: Use touch input and virtual controllers to make your game available to players without controllers.
-//   - GCVirtualController: A software emulation of a real controller that you configure specifically for your game.
 //
 // # Button elements and names
 //
@@ -62,7 +54,6 @@
 // # Game Controller framework migration from IOKit
 //
 //   - [Understanding game controller backward compatibility]: Learn how macOS brings support for the latest game controllers to software that predates the introduction of the Game Controller framework.
-//   - kIOHIDGCSyntheticDeviceKey: A key that specifies whether the device is a game controller synthetic HID device.
 //
 // # Protocols
 //
@@ -73,17 +64,9 @@
 //   - [GCInputGripButton]
 //   - [GCInputLeftSideButton]
 //   - [GCInputRightSideButton]
-//   - GCInputStylusPrimaryButton: The stylus side button nearest the tip.
-//   - GCInputStylusSecondaryButton: The stylus side button above the primary button.
-//   - GCInputStylusTip: The stylus tip button used to detect contact with a surface.
 //   - [GCInputThumbstick]
 //   - [GCInputThumbstickButton]
-//   - [GCInputTrigger]
-//
-// # Macros
-//
-//   - GAMECONTROLLER_EXPORT
-//   - GAMECONTROLLER_EXTERN//
+//   - [GCInputTrigger]//
 //
 // # Key Types
 //
@@ -115,9 +98,11 @@ import (
 	"github.com/ebitengine/purego"
 )
 
-// frameworkPaths lists paths to try when loading the GameController library.
-// The framework bundle path is tried first; a /usr/lib dylib fallback covers
-// C-API frameworks that are not in the dyld shared cache as bundles.
+// frameworkPaths lists paths to try when loading the GameController library,
+// in order. Frameworks whose symbols live in a known dylib resolve to that
+// dylib alone; the rest try the framework bundle first and then a /usr/lib
+// dylib fallback, which covers C-API frameworks that are not in the dyld
+// shared cache as bundles.
 var frameworkPaths = []string{
 	"/System/Library/Frameworks/GameController.framework/GameController",
 	"/usr/lib/libGameController.dylib",

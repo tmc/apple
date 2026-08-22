@@ -63,9 +63,10 @@ func (nc NSPageControllerClass) Alloc() NSPageController {
 //
 // There are two modes that an [NSPageController] instance may operate in,
 // history mode and book mode. The main difference between the two modes is
-// that expects `pageController.View()` to be the content and expects
-// `pageController.View()` to be be a container for the content that you will
-// supply by returning `viewControllers` in your delegate methods.
+// that History mode expects `pageController.View()` to be the content and
+// Book mode expects `pageController.View()` to be be a container for the
+// content that you will supply by returning `viewControllers` in your
+// delegate methods.
 //
 // # History Mode
 //
@@ -686,4 +687,14 @@ func (p NSPageController) SetTransitionStyle(value NSPageControllerTransitionSty
 func (p NSPageController) SelectedViewController() INSViewController {
 	rv := objc.Send[objc.ID](p.ID, objc.Sel("selectedViewController"))
 	return NSViewControllerFromID(objc.ID(rv))
+}
+
+// Protocol methods for NSAnimatablePropertyContainer
+
+// Sets the option dictionary that maps event trigger keys to animation
+// objects.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSAnimatablePropertyContainer/animations
+func (o NSPageController) SetAnimations(value foundation.INSDictionary) {
+	objc.Send[struct{}](o.ID, objc.Sel("setAnimations:"), value)
 }

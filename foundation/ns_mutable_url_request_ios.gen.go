@@ -6,15 +6,12 @@ package foundation
 
 import (
 	"github.com/tmc/apple/objc"
-	"github.com/tmc/apple/objectivec"
 )
 
 // Binds a URL request to the network interface associated with the hotspot
 // helper command instance.
 //
 // command: The hotspot helper command to bind the request to.
-//
-// command is a [*networkextension.NEHotspotHelperCommand].
 //
 // # Discussion
 //
@@ -27,6 +24,6 @@ import (
 // See: https://developer.apple.com/documentation/Foundation/NSMutableURLRequest/bind(to:)
 //
 // [Network Extension]: https://developer.apple.com/documentation/NetworkExtension
-func (m NSMutableURLRequest) BindToHotspotHelperCommand(command objectivec.IObject) {
+func (m NSMutableURLRequest) BindToHotspotHelperCommand(command *uintptr) {
 	objc.Send[objc.ID](m.ID, objc.Sel("bindToHotspotHelperCommand:"), command)
 }

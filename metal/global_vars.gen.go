@@ -3,8 +3,6 @@
 package metal
 
 import (
-	"unsafe"
-
 	"github.com/ebitengine/purego"
 	"github.com/tmc/apple/foundation"
 	"github.com/tmc/apple/objc"
@@ -159,75 +157,75 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "MTLCommonCounterClipperInvocations"); err == nil && ptr != 0 {
-		MTLCommonCounters.ClipperInvocations = *(*MTLCommonCounter)(unsafe.Pointer(ptr))
+		MTLCommonCounters.ClipperInvocations = objc.ValueAt[MTLCommonCounter](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "MTLCommonCounterClipperPrimitivesOut"); err == nil && ptr != 0 {
-		MTLCommonCounters.ClipperPrimitivesOut = *(*MTLCommonCounter)(unsafe.Pointer(ptr))
+		MTLCommonCounters.ClipperPrimitivesOut = objc.ValueAt[MTLCommonCounter](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "MTLCommonCounterComputeKernelInvocations"); err == nil && ptr != 0 {
-		MTLCommonCounters.ComputeKernelInvocations = *(*MTLCommonCounter)(unsafe.Pointer(ptr))
+		MTLCommonCounters.ComputeKernelInvocations = objc.ValueAt[MTLCommonCounter](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "MTLCommonCounterFragmentCycles"); err == nil && ptr != 0 {
-		MTLCommonCounters.FragmentCycles = *(*MTLCommonCounter)(unsafe.Pointer(ptr))
+		MTLCommonCounters.FragmentCycles = objc.ValueAt[MTLCommonCounter](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "MTLCommonCounterFragmentInvocations"); err == nil && ptr != 0 {
-		MTLCommonCounters.FragmentInvocations = *(*MTLCommonCounter)(unsafe.Pointer(ptr))
+		MTLCommonCounters.FragmentInvocations = objc.ValueAt[MTLCommonCounter](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "MTLCommonCounterFragmentsPassed"); err == nil && ptr != 0 {
-		MTLCommonCounters.FragmentsPassed = *(*MTLCommonCounter)(unsafe.Pointer(ptr))
+		MTLCommonCounters.FragmentsPassed = objc.ValueAt[MTLCommonCounter](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "MTLCommonCounterPostTessellationVertexCycles"); err == nil && ptr != 0 {
-		MTLCommonCounters.PostTessellationVertexCycles = *(*MTLCommonCounter)(unsafe.Pointer(ptr))
+		MTLCommonCounters.PostTessellationVertexCycles = objc.ValueAt[MTLCommonCounter](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "MTLCommonCounterPostTessellationVertexInvocations"); err == nil && ptr != 0 {
-		MTLCommonCounters.PostTessellationVertexInvocations = *(*MTLCommonCounter)(unsafe.Pointer(ptr))
+		MTLCommonCounters.PostTessellationVertexInvocations = objc.ValueAt[MTLCommonCounter](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "MTLCommonCounterRenderTargetWriteCycles"); err == nil && ptr != 0 {
-		MTLCommonCounters.RenderTargetWriteCycles = *(*MTLCommonCounter)(unsafe.Pointer(ptr))
+		MTLCommonCounters.RenderTargetWriteCycles = objc.ValueAt[MTLCommonCounter](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "MTLCommonCounterSetStageUtilization"); err == nil && ptr != 0 {
-		MTLCommonCounterSets.StageUtilization = *(*MTLCommonCounterSet)(unsafe.Pointer(ptr))
+		MTLCommonCounterSets.StageUtilization = objc.ValueAt[MTLCommonCounterSet](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "MTLCommonCounterSetStatistic"); err == nil && ptr != 0 {
-		MTLCommonCounterSets.Statistic = *(*MTLCommonCounterSet)(unsafe.Pointer(ptr))
+		MTLCommonCounterSets.Statistic = objc.ValueAt[MTLCommonCounterSet](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "MTLCommonCounterSetTimestamp"); err == nil && ptr != 0 {
-		MTLCommonCounterSets.Timestamp = *(*MTLCommonCounterSet)(unsafe.Pointer(ptr))
+		MTLCommonCounterSets.Timestamp = objc.ValueAt[MTLCommonCounterSet](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "MTLCommonCounterTessellationCycles"); err == nil && ptr != 0 {
-		MTLCommonCounters.TessellationCycles = *(*MTLCommonCounter)(unsafe.Pointer(ptr))
+		MTLCommonCounters.TessellationCycles = objc.ValueAt[MTLCommonCounter](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "MTLCommonCounterTessellationInputPatches"); err == nil && ptr != 0 {
-		MTLCommonCounters.TessellationInputPatches = *(*MTLCommonCounter)(unsafe.Pointer(ptr))
+		MTLCommonCounters.TessellationInputPatches = objc.ValueAt[MTLCommonCounter](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "MTLCommonCounterTimestamp"); err == nil && ptr != 0 {
-		MTLCommonCounters.Timestamp = *(*MTLCommonCounter)(unsafe.Pointer(ptr))
+		MTLCommonCounters.Timestamp = objc.ValueAt[MTLCommonCounter](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "MTLCommonCounterTotalCycles"); err == nil && ptr != 0 {
-		MTLCommonCounters.TotalCycles = *(*MTLCommonCounter)(unsafe.Pointer(ptr))
+		MTLCommonCounters.TotalCycles = objc.ValueAt[MTLCommonCounter](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "MTLCommonCounterVertexCycles"); err == nil && ptr != 0 {
-		MTLCommonCounters.VertexCycles = *(*MTLCommonCounter)(unsafe.Pointer(ptr))
+		MTLCommonCounters.VertexCycles = objc.ValueAt[MTLCommonCounter](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "MTLCommonCounterVertexInvocations"); err == nil && ptr != 0 {
-		MTLCommonCounters.VertexInvocations = *(*MTLCommonCounter)(unsafe.Pointer(ptr))
+		MTLCommonCounters.VertexInvocations = objc.ValueAt[MTLCommonCounter](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "MTLCounterErrorDomain"); err == nil && ptr != 0 {
@@ -331,7 +329,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSDeviceCertificationiPhonePerformanceGaming"); err == nil && ptr != 0 {
-		DeviceCertificationiPhonePerformanceGaming = *(*NSDeviceCertification)(unsafe.Pointer(ptr))
+		DeviceCertificationiPhonePerformanceGaming = objc.ValueAt[NSDeviceCertification](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSProcessInfoPerformanceProfileDidChangeNotification"); err == nil && ptr != 0 {
@@ -345,11 +343,11 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSProcessPerformanceProfileDefault"); err == nil && ptr != 0 {
-		NSProcessPerformanceProfiles.Default = *(*NSProcessPerformanceProfile)(unsafe.Pointer(ptr))
+		NSProcessPerformanceProfiles.Default = objc.ValueAt[NSProcessPerformanceProfile](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSProcessPerformanceProfileSustained"); err == nil && ptr != 0 {
-		NSProcessPerformanceProfiles.Sustained = *(*NSProcessPerformanceProfile)(unsafe.Pointer(ptr))
+		NSProcessPerformanceProfiles.Sustained = objc.ValueAt[NSProcessPerformanceProfile](ptr)
 	}
 
 }

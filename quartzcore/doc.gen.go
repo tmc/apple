@@ -98,8 +98,8 @@
 //   - [CAShapeLayer] - A layer that draws a cubic Bezier spline in its coordinate space.
 //   - [CAAnimation] - The abstract superclass for animations in Core Animation.
 //   - [CAKeyframeAnimation] - An object that provides keyframe animation capabilities for a layer object.
-//   - [CAReplicatorLayer] - A layer that creates a specified number of sublayer copies with varying geometric, temporal, and color transformations.
 //   - [CASpringAnimation] - An animation that applies a spring-like force to a layer’s properties.
+//   - [CAReplicatorLayer] - A layer that creates a specified number of sublayer copies with varying geometric, temporal, and color transformations.
 //   - [CATextLayer] - A layer that provides simple text layout and rendering of plain or attributed strings.
 //
 // [Optimizing iPhone and iPad apps to support ProMotion displays]: https://developer.apple.com/documentation/quartzcore/optimizing-iphone-and-ipad-apps-to-support-promotion-displays
@@ -112,9 +112,11 @@ import (
 	"github.com/ebitengine/purego"
 )
 
-// frameworkPaths lists paths to try when loading the QuartzCore library.
-// The framework bundle path is tried first; a /usr/lib dylib fallback covers
-// C-API frameworks that are not in the dyld shared cache as bundles.
+// frameworkPaths lists paths to try when loading the QuartzCore library,
+// in order. Frameworks whose symbols live in a known dylib resolve to that
+// dylib alone; the rest try the framework bundle first and then a /usr/lib
+// dylib fallback, which covers C-API frameworks that are not in the dyld
+// shared cache as bundles.
 var frameworkPaths = []string{
 	"/System/Library/Frameworks/QuartzCore.framework/QuartzCore",
 	"/usr/lib/libQuartzCore.dylib",

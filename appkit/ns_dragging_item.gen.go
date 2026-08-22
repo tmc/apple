@@ -134,8 +134,8 @@ type INSDraggingItem interface {
 	// An array of dragging image components to use to create the drag image.
 	ImageComponents() []NSDraggingImageComponent
 	// An array of blocks that provide the dragging image components.
-	ImageComponentsProvider() VoidHandler
-	SetImageComponentsProvider(value VoidHandler)
+	ImageComponentsProvider() []*NSDraggingImageComponent
+	SetImageComponentsProvider(value objc.ID)
 	// The pasteboard reader or writer object dependent on the context where you use the dragging item.
 	Item() objectivec.IObject
 }
@@ -305,15 +305,18 @@ func (d NSDraggingItem) ImageComponents() []NSDraggingImageComponent {
 // array.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSDraggingItem/imageComponentsProvider
-func (d NSDraggingItem) ImageComponentsProvider() VoidHandler {
-	rv := objc.Send[objc.ID](d.ID, objc.Sel("imageComponentsProvider"))
-	_ = rv
-	return nil
+func (d NSDraggingItem) ImageComponentsProvider() []*NSDraggingImageComponent {
+	rv := objc.Send[[]objc.ID](d.ID, objc.Sel("imageComponentsProvider"))
+	return objc.ConvertSlice(rv, func(id objc.ID) *NSDraggingImageComponent {
+		if id == 0 {
+			return nil
+		}
+		val := NSDraggingImageComponentFromID(id)
+		return &val
+	})
 }
-func (d NSDraggingItem) SetImageComponentsProvider(value VoidHandler) {
-	block, cleanup := NewVoidBlock(value)
-	defer cleanup()
-	objc.Send[struct{}](d.ID, objc.Sel("setImageComponentsProvider:"), block)
+func (d NSDraggingItem) SetImageComponentsProvider(value objc.ID) {
+	objc.Send[struct{}](d.ID, objc.Sel("setImageComponentsProvider:"), value)
 }
 
 // The pasteboard reader or writer object dependent on the context where you

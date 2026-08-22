@@ -5,7 +5,6 @@ package foundation
 import (
 	"sync"
 
-	"github.com/tmc/apple/kernel"
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -101,7 +100,6 @@ func (nc NSSetClass) Alloc() NSSet {
 //
 // # Creating a Set
 //
-//   - [NSSet.InitWithObjectsCount]: Initializes a newly allocated set with a specified number of objects from a given C array of objects.
 //   - [NSSet.SetByAddingObject]: Returns a new set formed by adding a given object to the receiving set.
 //   - [NSSet.SetByAddingObjectsFromSet]: Returns a new set formed by adding the objects in a given set to the receiving set.
 //   - [NSSet.SetByAddingObjectsFromArray]: Returns a new set formed by adding the objects in a given array to the receiving set.
@@ -144,6 +142,10 @@ func (nc NSSetClass) Alloc() NSSet {
 //   - [NSSet.Description]: A string that represents the contents of the set, formatted as a property list.
 //   - [NSSet.DescriptionWithLocale]: Returns a string that represents the contents of the set, formatted as a property list.
 //
+// # Initializers
+//
+//   - [NSSet.InitWithCoder]
+//
 // # Instance Methods
 //
 //   - [NSSet.EnumerateIndexPathsWithOptionsUsingBlock]
@@ -171,7 +173,6 @@ func NSSetFromID(id objc.ID) NSSet {
 //
 // # Creating a Set
 //
-//   - [INSSet.InitWithObjectsCount]: Initializes a newly allocated set with a specified number of objects from a given C array of objects.
 //   - [INSSet.SetByAddingObject]: Returns a new set formed by adding a given object to the receiving set.
 //   - [INSSet.SetByAddingObjectsFromSet]: Returns a new set formed by adding the objects in a given set to the receiving set.
 //   - [INSSet.SetByAddingObjectsFromArray]: Returns a new set formed by adding the objects in a given array to the receiving set.
@@ -214,6 +215,10 @@ func NSSetFromID(id objc.ID) NSSet {
 //   - [INSSet.Description]: A string that represents the contents of the set, formatted as a property list.
 //   - [INSSet.DescriptionWithLocale]: Returns a string that represents the contents of the set, formatted as a property list.
 //
+// # Initializers
+//
+//   - [INSSet.InitWithCoder]
+//
 // # Instance Methods
 //
 //   - [INSSet.EnumerateIndexPathsWithOptionsUsingBlock]
@@ -221,12 +226,9 @@ func NSSetFromID(id objc.ID) NSSet {
 // See: https://developer.apple.com/documentation/Foundation/NSSet
 type INSSet interface {
 	objectivec.IObject
-	NSSecureCoding
 
 	// Topic: Creating a Set
 
-	// Initializes a newly allocated set with a specified number of objects from a given C array of objects.
-	InitWithObjectsCount(objects []objectivec.IObject, cnt uint) NSSet
 	// Returns a new set formed by adding a given object to the receiving set.
 	SetByAddingObject(anObject objectivec.IObject) INSSet
 	// Returns a new set formed by adding the objects in a given set to the receiving set.
@@ -292,16 +294,22 @@ type INSSet interface {
 	// Returns a string that represents the contents of the set, formatted as a property list.
 	DescriptionWithLocale(locale objectivec.IObject) string
 
+	// Topic: Initializers
+
+	InitWithCoder(coder INSCoder) NSSet
+
 	// Topic: Instance Methods
 
 	EnumerateIndexPathsWithOptionsUsingBlock(opts NSEnumerationOptions, block IndexPathBoolHandler)
 
+	// Encodes the receiver using a given archiver.
+	EncodeWithCoder(coder INSCoder)
 	// Initializes a newly allocated set with members taken from the specified list of objects.
 	InitWithObjects(firstObj objectivec.IObject) NSSet
 	// Sends a message specified by a given selector to each object in the set.
-	MakeObjectsPerformSelector(aSelector objectivec.SEL)
+	MakeObjectsPerformSelector(aSelector objc.SEL)
 	// Sends a message specified by a given selector to each object in the set.
-	MakeObjectsPerformSelectorWithObject(aSelector objectivec.SEL, argument objectivec.IObject)
+	MakeObjectsPerformSelectorWithObject(aSelector objc.SEL, argument objectivec.IObject)
 }
 
 // Init initializes the instance.
@@ -358,8 +366,8 @@ func NewSetWithCollectionViewIndexPath(indexPath objectivec.IObject) NSSet {
 }
 
 // See: https://developer.apple.com/documentation/Foundation/NSSet/init(collectionViewIndexPaths:)
-func NewSetWithCollectionViewIndexPaths(indexPaths []kernel.ID) NSSet {
-	rv := objc.Send[objc.ID](objc.ID(getNSSetClass().class), objc.Sel("setWithCollectionViewIndexPaths:"), indexPaths)
+func NewSetWithCollectionViewIndexPaths(indexPaths []objectivec.IObject) NSSet {
+	rv := objc.Send[objc.ID](objc.ID(getNSSetClass().class), objc.Sel("setWithCollectionViewIndexPaths:"), objectivec.IObjectSliceToNSArray(indexPaths))
 	return NSSetFromID(rv)
 }
 
@@ -525,33 +533,6 @@ func (s NSSet) SetByAddingObjectsFromArray(other []objectivec.IObject) INSSet {
 // [retain]: https://developer.apple.com/documentation/ObjectiveC/NSObject-c.protocol/retain
 func (s NSSet) InitWithArray(array []objectivec.IObject) NSSet {
 	rv := objc.Send[NSSet](s.ID, objc.Sel("initWithArray:"), objectivec.IObjectSliceToNSArray(array))
-	return rv
-}
-
-// Initializes a newly allocated set with a specified number of objects from a
-// given C array of objects.
-//
-// objects: A C array of objects to add to the new set. If the same object appears more
-// than once in `objects`, it is added only once to the returned set. Each
-// object receives a [retain] message as it is added to the set.
-//
-// cnt: The number of objects from `objects` to add to the new set.
-//
-// # Return Value
-//
-// An initialized set containing `cnt` objects from the list of objects
-// specified by `objects`. The returned set might be different than the
-// original receiver.
-//
-// # Discussion
-//
-// This method is a designated initializer for [NSSet].
-//
-// See: https://developer.apple.com/documentation/Foundation/NSSet/init(objects:count:)-7kift
-//
-// [retain]: https://developer.apple.com/documentation/ObjectiveC/NSObject-c.protocol/retain
-func (s NSSet) InitWithObjectsCount(objects []objectivec.IObject, cnt uint) NSSet {
-	rv := objc.Send[NSSet](s.ID, objc.Sel("initWithObjects:count:"), objc.CArray(objects), cnt)
 	return rv
 }
 
@@ -734,7 +715,8 @@ func (s NSSet) ObjectEnumerator() INSEnumerator {
 //
 // See: https://developer.apple.com/documentation/Foundation/NSSet/enumerateObjects(_:)
 func (s NSSet) EnumerateObjectsUsingBlock(block IObjectBoolHandler) {
-	_block0, _ := NewIObjectBoolBlock(block)
+	_block0, _cleanup0 := NewIObjectBoolBlock(block)
+	defer _cleanup0()
 	objc.Send[objc.ID](s.ID, objc.Sel("enumerateObjectsUsingBlock:"), _block0)
 }
 
@@ -754,7 +736,8 @@ func (s NSSet) EnumerateObjectsUsingBlock(block IObjectBoolHandler) {
 //
 // See: https://developer.apple.com/documentation/Foundation/NSSet/enumerateObjects(options:using:)
 func (s NSSet) EnumerateObjectsWithOptionsUsingBlock(opts NSEnumerationOptions, block IObjectBoolHandler) {
-	_block1, _ := NewIObjectBoolBlock(block)
+	_block1, _cleanup1 := NewIObjectBoolBlock(block)
+	defer _cleanup1()
 	objc.Send[objc.ID](s.ID, objc.Sel("enumerateObjectsWithOptions:usingBlock:"), opts, _block1)
 }
 
@@ -778,7 +761,8 @@ func (s NSSet) EnumerateObjectsWithOptionsUsingBlock(opts NSEnumerationOptions, 
 //
 // See: https://developer.apple.com/documentation/Foundation/NSSet/objects(passingTest:)
 func (s NSSet) ObjectsPassingTest(predicate BoolIObjectHandler) INSSet {
-	_block0, _ := NewBoolIObjectBlock(predicate)
+	_block0, _cleanup0 := NewBoolIObjectBlock(predicate)
+	defer _cleanup0()
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("objectsPassingTest:"), _block0)
 	return NSSetFromID(rv)
 }
@@ -806,7 +790,8 @@ func (s NSSet) ObjectsPassingTest(predicate BoolIObjectHandler) INSSet {
 //
 // See: https://developer.apple.com/documentation/Foundation/NSSet/objects(options:passingTest:)
 func (s NSSet) ObjectsWithOptionsPassingTest(opts NSEnumerationOptions, predicate BoolIObjectHandler) INSSet {
-	_block1, _ := NewBoolIObjectBlock(predicate)
+	_block1, _cleanup1 := NewBoolIObjectBlock(predicate)
+	defer _cleanup1()
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("objectsWithOptions:passingTest:"), opts, _block1)
 	return NSSetFromID(rv)
 }
@@ -931,35 +916,9 @@ func (s NSSet) InitWithCoder(coder INSCoder) NSSet {
 
 // See: https://developer.apple.com/documentation/Foundation/NSSet/enumerateIndexPaths(options:using:)
 func (s NSSet) EnumerateIndexPathsWithOptionsUsingBlock(opts NSEnumerationOptions, block IndexPathBoolHandler) {
-	_block1, _ := NewIndexPathBoolBlock(block)
+	_block1, _cleanup1 := NewIndexPathBoolBlock(block)
+	defer _cleanup1()
 	objc.Send[objc.ID](s.ID, objc.Sel("enumerateIndexPathsWithOptions:usingBlock:"), opts, _block1)
-}
-
-// Returns by reference a C array of objects over which the sender should
-// iterate, and as the return value the number of objects in the array.
-//
-// state: Context information that is used in the enumeration to, in addition to
-// other possibilities, ensure that the collection has not been mutated.
-//
-// buffer: A C array of objects over which the sender is to iterate.
-//
-// len: The maximum number of objects to return in `stackbuf`.
-//
-// # Return Value
-//
-// The number of objects returned in `stackbuf`. Returns `0` when the
-// iteration is finished.
-//
-// # Discussion
-//
-// The state structure is assumed to be of stack local memory, so you can
-// recast the passed in state structure to one more suitable for your
-// iteration.
-//
-// See: https://developer.apple.com/documentation/Foundation/NSFastEnumeration/countByEnumerating(with:objects:count:)
-func (s NSSet) CountByEnumeratingWithStateObjectsCount(state NSFastEnumerationState, buffer []objectivec.IObject, len_ uint) uint {
-	rv := objc.Send[uint](s.ID, objc.Sel("countByEnumeratingWithState:objects:count:"), state, objc.CArray(buffer), len_)
-	return rv
 }
 
 // Encodes the receiver using a given archiver.
@@ -1010,7 +969,7 @@ func (s NSSet) InitWithObjects(firstObj objectivec.IObject) NSSet {
 // [NULL].
 //
 // See: https://developer.apple.com/documentation/Foundation/NSSet/makeObjectsPerformSelector:
-func (s NSSet) MakeObjectsPerformSelector(aSelector objectivec.SEL) {
+func (s NSSet) MakeObjectsPerformSelector(aSelector objc.SEL) {
 	objc.Send[objc.ID](s.ID, objc.Sel("makeObjectsPerformSelector:"), aSelector)
 }
 
@@ -1029,30 +988,8 @@ func (s NSSet) MakeObjectsPerformSelector(aSelector objectivec.SEL) {
 // [NSInvalidArgumentException] if `aSelector` is [NULL].
 //
 // See: https://developer.apple.com/documentation/Foundation/NSSet/makeObjectsPerformSelector:withObject:
-func (s NSSet) MakeObjectsPerformSelectorWithObject(aSelector objectivec.SEL, argument objectivec.IObject) {
+func (s NSSet) MakeObjectsPerformSelectorWithObject(aSelector objc.SEL, argument objectivec.IObject) {
 	objc.Send[objc.ID](s.ID, objc.Sel("makeObjectsPerformSelector:withObject:"), aSelector, argument)
-}
-
-// Creates and returns a set containing a specified number of objects from a
-// given C array of objects.
-//
-// objects: A C array of objects to add to the new set. If the same object appears more
-// than once in `objects`, it is added only once to the returned set. Each
-// object receives a [retain] message as it is added to the set.
-//
-// cnt: The number of objects from `objects` to add to the new set.
-//
-// # Return Value
-//
-// A new set containing `cnt` objects from the list of objects specified by
-// `objects`.
-//
-// See: https://developer.apple.com/documentation/Foundation/NSSet/init(objects:count:)-65ni4
-//
-// [retain]: https://developer.apple.com/documentation/ObjectiveC/NSObject-c.protocol/retain
-func (_NSSetClass NSSetClass) SetWithObjectsCount(objects []objectivec.IObject, cnt uint) NSSet {
-	rv := objc.Send[objc.ID](objc.ID(_NSSetClass.class), objc.Sel("setWithObjects:count:"), objc.CArray(objects), cnt)
-	return NSSetFromID(rv)
 }
 
 // Creates and returns an empty set.

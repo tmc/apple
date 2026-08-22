@@ -216,9 +216,21 @@ func NewNSNetServiceBrowserDelegate(config NSNetServiceBrowserDelegateConfig) NS
 		methods = append(methods, objc.MethodDef{
 			Cmd: objc.RegisterName("netServiceBrowser:didFindService:moreComing:"),
 			Fn: func(self objc.ID, _cmd objc.SEL, browserID objc.ID, serviceID objc.ID, moreComing bool) {
+				// Names which delegate was running if a panic unwinds out of
+				// it. The frames between here and the Objective-C caller are
+				// runtime and purego dispatch, so without this the traceback
+				// never says which selector dispatched. Deliberately no
+				// recover: see [objc.NoteDelegatePanic].
+				_delegateDone := false
+				defer func() {
+					if !_delegateDone {
+						objc.NoteDelegatePanic("NSNetServiceBrowserDelegate", "netServiceBrowser:didFindService:moreComing:")
+					}
+				}()
 				browser := NSNetServiceBrowserFromID(browserID)
 				service := NSNetServiceFromID(serviceID)
 				fn(browser, service, moreComing)
+				_delegateDone = true
 			},
 		})
 	}
@@ -228,9 +240,21 @@ func NewNSNetServiceBrowserDelegate(config NSNetServiceBrowserDelegateConfig) NS
 		methods = append(methods, objc.MethodDef{
 			Cmd: objc.RegisterName("netServiceBrowser:didRemoveService:moreComing:"),
 			Fn: func(self objc.ID, _cmd objc.SEL, browserID objc.ID, serviceID objc.ID, moreComing bool) {
+				// Names which delegate was running if a panic unwinds out of
+				// it. The frames between here and the Objective-C caller are
+				// runtime and purego dispatch, so without this the traceback
+				// never says which selector dispatched. Deliberately no
+				// recover: see [objc.NoteDelegatePanic].
+				_delegateDone := false
+				defer func() {
+					if !_delegateDone {
+						objc.NoteDelegatePanic("NSNetServiceBrowserDelegate", "netServiceBrowser:didRemoveService:moreComing:")
+					}
+				}()
 				browser := NSNetServiceBrowserFromID(browserID)
 				service := NSNetServiceFromID(serviceID)
 				fn(browser, service, moreComing)
+				_delegateDone = true
 			},
 		})
 	}
@@ -240,8 +264,20 @@ func NewNSNetServiceBrowserDelegate(config NSNetServiceBrowserDelegateConfig) NS
 		methods = append(methods, objc.MethodDef{
 			Cmd: objc.RegisterName("netServiceBrowserWillSearch:"),
 			Fn: func(self objc.ID, _cmd objc.SEL, browserID objc.ID) {
+				// Names which delegate was running if a panic unwinds out of
+				// it. The frames between here and the Objective-C caller are
+				// runtime and purego dispatch, so without this the traceback
+				// never says which selector dispatched. Deliberately no
+				// recover: see [objc.NoteDelegatePanic].
+				_delegateDone := false
+				defer func() {
+					if !_delegateDone {
+						objc.NoteDelegatePanic("NSNetServiceBrowserDelegate", "netServiceBrowserWillSearch:")
+					}
+				}()
 				browser := NSNetServiceBrowserFromID(browserID)
 				fn(browser)
+				_delegateDone = true
 			},
 		})
 	}
@@ -251,8 +287,20 @@ func NewNSNetServiceBrowserDelegate(config NSNetServiceBrowserDelegateConfig) NS
 		methods = append(methods, objc.MethodDef{
 			Cmd: objc.RegisterName("netServiceBrowserDidStopSearch:"),
 			Fn: func(self objc.ID, _cmd objc.SEL, browserID objc.ID) {
+				// Names which delegate was running if a panic unwinds out of
+				// it. The frames between here and the Objective-C caller are
+				// runtime and purego dispatch, so without this the traceback
+				// never says which selector dispatched. Deliberately no
+				// recover: see [objc.NoteDelegatePanic].
+				_delegateDone := false
+				defer func() {
+					if !_delegateDone {
+						objc.NoteDelegatePanic("NSNetServiceBrowserDelegate", "netServiceBrowserDidStopSearch:")
+					}
+				}()
 				browser := NSNetServiceBrowserFromID(browserID)
 				fn(browser)
+				_delegateDone = true
 			},
 		})
 	}

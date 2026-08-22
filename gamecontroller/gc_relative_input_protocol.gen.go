@@ -19,11 +19,6 @@ type GCRelativeInput interface {
 	// See: https://developer.apple.com/documentation/GameController/GCRelativeInput/isAnalog
 	IsAnalog() bool
 
-	// A Boolean value that indicates whether the input provides analog values.
-	//
-	// See: https://developer.apple.com/documentation/GameController/GCRelativeInput/isAnalog
-	Analog() bool
-
 	// The most recent amount of change in values that the profile records.
 	//
 	// See: https://developer.apple.com/documentation/GameController/GCRelativeInput/delta
@@ -66,14 +61,6 @@ func GCRelativeInputObjectFromID(id objc.ID) GCRelativeInputObject {
 //
 // See: https://developer.apple.com/documentation/GameController/GCRelativeInput/isAnalog
 func (o GCRelativeInputObject) IsAnalog() bool {
-	rv := objc.Send[bool](o.ID, objc.Sel("isAnalog"))
-	return rv
-}
-
-// A Boolean value that indicates whether the input provides analog values.
-//
-// See: https://developer.apple.com/documentation/GameController/GCRelativeInput/isAnalog
-func (o GCRelativeInputObject) Analog() bool {
 	rv := objc.Send[bool](o.ID, objc.Sel("isAnalog"))
 	return bool(rv)
 }

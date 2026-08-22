@@ -14,11 +14,6 @@ import (
 type GCAxis2DInput interface {
 	objectivec.IObject
 
-	// A Boolean value that indicates whether the input provides analog values.
-	//
-	// See: https://developer.apple.com/documentation/GameController/GCAxis2DInput/isAnalog
-	IsAnalog() bool
-
 	// A Boolean value that indicates whether the value wraps when it reaches the range’s minimum or maximum value.
 	//
 	// See: https://developer.apple.com/documentation/GameController/GCAxis2DInput/canWrap
@@ -27,7 +22,7 @@ type GCAxis2DInput interface {
 	// A Boolean value that indicates whether the input provides analog values.
 	//
 	// See: https://developer.apple.com/documentation/GameController/GCAxis2DInput/isAnalog
-	Analog() bool
+	IsAnalog() bool
 
 	// The axis input represented as a normalized point in a two-dimensional coordinate system.
 	//
@@ -67,14 +62,6 @@ func GCAxis2DInputObjectFromID(id objc.ID) GCAxis2DInputObject {
 	}
 }
 
-// A Boolean value that indicates whether the input provides analog values.
-//
-// See: https://developer.apple.com/documentation/GameController/GCAxis2DInput/isAnalog
-func (o GCAxis2DInputObject) IsAnalog() bool {
-	rv := objc.Send[bool](o.ID, objc.Sel("isAnalog"))
-	return rv
-}
-
 // A Boolean value that indicates whether the value wraps when it reaches the
 // range’s minimum or maximum value.
 //
@@ -95,7 +82,7 @@ func (o GCAxis2DInputObject) CanWrap() bool {
 // This property is true for most axis inputs.
 //
 // See: https://developer.apple.com/documentation/GameController/GCAxis2DInput/isAnalog
-func (o GCAxis2DInputObject) Analog() bool {
+func (o GCAxis2DInputObject) IsAnalog() bool {
 	rv := objc.Send[bool](o.ID, objc.Sel("isAnalog"))
 	return bool(rv)
 }

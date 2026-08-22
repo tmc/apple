@@ -3,8 +3,6 @@
 package coreimage
 
 import (
-	"unsafe"
-
 	"github.com/ebitengine/purego"
 	"github.com/tmc/apple/objc"
 )
@@ -226,7 +224,7 @@ var (
 	//
 	// See: https://developer.apple.com/documentation/CoreImage/kCIAttributeTypePosition3
 	KCIAttributeTypePosition3 string
-	// KCIAttributeTypeRectangle is a Core Image vector that specifies the and values of the rectangle origin, and the width () and height () of the rectangle. The vector takes the form [, , , ]. (A 4-element vector type.).
+	// KCIAttributeTypeRectangle is a Core Image vector that specifies the x and y values of the rectangle origin, and the width (w) and height (h) of the rectangle. The vector takes the form [x, y, w, h]. (A 4-element vector type.).
 	//
 	// See: https://developer.apple.com/documentation/CoreImage/kCIAttributeTypeRectangle
 	KCIAttributeTypeRectangle string
@@ -388,7 +386,7 @@ var (
 	//
 	// See: https://developer.apple.com/documentation/CoreImage/kCIInputBrightnessKey
 	KCIInputBrightnessKey string
-	// KCIInputCenterKey is a key for a [CIVector] object that specifies the center of the area, as and - coordinates, to be filtered.
+	// KCIInputCenterKey is a key for a [CIVector] object that specifies the center of the area, as x and y- coordinates, to be filtered.
 	//
 	// See: https://developer.apple.com/documentation/CoreImage/kCIInputCenterKey
 	KCIInputCenterKey string
@@ -534,7 +532,7 @@ var (
 	//
 	// See: https://developer.apple.com/documentation/CoreImage/kCIOutputImageKey
 	KCIOutputImageKey string
-	// KCISamplerAffineMatrix is the key for an affine matrix. The associated value is an [NSArray] object ([]) that defines the transformation to apply to the sampler.
+	// KCISamplerAffineMatrix is the key for an affine matrix. The associated value is an [NSArray] object ([a b c d tx ty]) that defines the transformation to apply to the sampler.
 	//
 	// See: https://developer.apple.com/documentation/CoreImage/kCISamplerAffineMatrix
 	KCISamplerAffineMatrix string
@@ -1972,131 +1970,131 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCIFormatA16"); err == nil && ptr != 0 {
-		KCIFormatA16 = *(*int)(unsafe.Pointer(ptr))
+		KCIFormatA16 = objc.ValueAt[int](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCIFormatA8"); err == nil && ptr != 0 {
-		KCIFormatA8 = *(*int)(unsafe.Pointer(ptr))
+		KCIFormatA8 = objc.ValueAt[int](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCIFormatABGR8"); err == nil && ptr != 0 {
-		KCIFormatABGR8 = *(*int)(unsafe.Pointer(ptr))
+		KCIFormatABGR8 = objc.ValueAt[int](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCIFormatARGB8"); err == nil && ptr != 0 {
-		KCIFormatARGB8 = *(*int)(unsafe.Pointer(ptr))
+		KCIFormatARGB8 = objc.ValueAt[int](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCIFormatAf"); err == nil && ptr != 0 {
-		KCIFormatAf = *(*int)(unsafe.Pointer(ptr))
+		KCIFormatAf = objc.ValueAt[int](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCIFormatAh"); err == nil && ptr != 0 {
-		KCIFormatAh = *(*int)(unsafe.Pointer(ptr))
+		KCIFormatAh = objc.ValueAt[int](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCIFormatBGRA8"); err == nil && ptr != 0 {
-		KCIFormatBGRA8 = *(*int)(unsafe.Pointer(ptr))
+		KCIFormatBGRA8 = objc.ValueAt[int](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCIFormatL16"); err == nil && ptr != 0 {
-		KCIFormatL16 = *(*int)(unsafe.Pointer(ptr))
+		KCIFormatL16 = objc.ValueAt[int](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCIFormatL8"); err == nil && ptr != 0 {
-		KCIFormatL8 = *(*int)(unsafe.Pointer(ptr))
+		KCIFormatL8 = objc.ValueAt[int](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCIFormatLA16"); err == nil && ptr != 0 {
-		KCIFormatLA16 = *(*int)(unsafe.Pointer(ptr))
+		KCIFormatLA16 = objc.ValueAt[int](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCIFormatLA8"); err == nil && ptr != 0 {
-		KCIFormatLA8 = *(*int)(unsafe.Pointer(ptr))
+		KCIFormatLA8 = objc.ValueAt[int](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCIFormatLAf"); err == nil && ptr != 0 {
-		KCIFormatLAf = *(*int)(unsafe.Pointer(ptr))
+		KCIFormatLAf = objc.ValueAt[int](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCIFormatLAh"); err == nil && ptr != 0 {
-		KCIFormatLAh = *(*int)(unsafe.Pointer(ptr))
+		KCIFormatLAh = objc.ValueAt[int](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCIFormatLf"); err == nil && ptr != 0 {
-		KCIFormatLf = *(*int)(unsafe.Pointer(ptr))
+		KCIFormatLf = objc.ValueAt[int](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCIFormatLh"); err == nil && ptr != 0 {
-		KCIFormatLh = *(*int)(unsafe.Pointer(ptr))
+		KCIFormatLh = objc.ValueAt[int](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCIFormatR16"); err == nil && ptr != 0 {
-		KCIFormatR16 = *(*int)(unsafe.Pointer(ptr))
+		KCIFormatR16 = objc.ValueAt[int](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCIFormatR8"); err == nil && ptr != 0 {
-		KCIFormatR8 = *(*int)(unsafe.Pointer(ptr))
+		KCIFormatR8 = objc.ValueAt[int](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCIFormatRG16"); err == nil && ptr != 0 {
-		KCIFormatRG16 = *(*int)(unsafe.Pointer(ptr))
+		KCIFormatRG16 = objc.ValueAt[int](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCIFormatRG8"); err == nil && ptr != 0 {
-		KCIFormatRG8 = *(*int)(unsafe.Pointer(ptr))
+		KCIFormatRG8 = objc.ValueAt[int](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCIFormatRGB10"); err == nil && ptr != 0 {
-		KCIFormatRGB10 = *(*int)(unsafe.Pointer(ptr))
+		KCIFormatRGB10 = objc.ValueAt[int](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCIFormatRGBA16"); err == nil && ptr != 0 {
-		KCIFormatRGBA16 = *(*int)(unsafe.Pointer(ptr))
+		KCIFormatRGBA16 = objc.ValueAt[int](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCIFormatRGBA8"); err == nil && ptr != 0 {
-		KCIFormatRGBA8 = *(*int)(unsafe.Pointer(ptr))
+		KCIFormatRGBA8 = objc.ValueAt[int](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCIFormatRGBAf"); err == nil && ptr != 0 {
-		KCIFormatRGBAf = *(*int)(unsafe.Pointer(ptr))
+		KCIFormatRGBAf = objc.ValueAt[int](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCIFormatRGBAh"); err == nil && ptr != 0 {
-		KCIFormatRGBAh = *(*int)(unsafe.Pointer(ptr))
+		KCIFormatRGBAh = objc.ValueAt[int](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCIFormatRGBX16"); err == nil && ptr != 0 {
-		KCIFormatRGBX16 = *(*int)(unsafe.Pointer(ptr))
+		KCIFormatRGBX16 = objc.ValueAt[int](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCIFormatRGBX8"); err == nil && ptr != 0 {
-		KCIFormatRGBX8 = *(*int)(unsafe.Pointer(ptr))
+		KCIFormatRGBX8 = objc.ValueAt[int](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCIFormatRGBXf"); err == nil && ptr != 0 {
-		KCIFormatRGBXf = *(*int)(unsafe.Pointer(ptr))
+		KCIFormatRGBXf = objc.ValueAt[int](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCIFormatRGBXh"); err == nil && ptr != 0 {
-		KCIFormatRGBXh = *(*int)(unsafe.Pointer(ptr))
+		KCIFormatRGBXh = objc.ValueAt[int](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCIFormatRGf"); err == nil && ptr != 0 {
-		KCIFormatRGf = *(*int)(unsafe.Pointer(ptr))
+		KCIFormatRGf = objc.ValueAt[int](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCIFormatRGh"); err == nil && ptr != 0 {
-		KCIFormatRGh = *(*int)(unsafe.Pointer(ptr))
+		KCIFormatRGh = objc.ValueAt[int](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCIFormatRf"); err == nil && ptr != 0 {
-		KCIFormatRf = *(*int)(unsafe.Pointer(ptr))
+		KCIFormatRf = objc.ValueAt[int](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCIFormatRh"); err == nil && ptr != 0 {
-		KCIFormatRh = *(*int)(unsafe.Pointer(ptr))
+		KCIFormatRh = objc.ValueAt[int](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCIImageApplyCleanAperture"); err == nil && ptr != 0 {

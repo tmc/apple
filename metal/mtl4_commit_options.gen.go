@@ -3,6 +3,7 @@
 package metal
 
 import (
+	"context"
 	"sync"
 
 	"github.com/tmc/apple/objc"
@@ -113,7 +114,21 @@ func NewMTL4CommitOptions() MTL4CommitOptions {
 //
 // See: https://developer.apple.com/documentation/Metal/MTL4CommitOptions/addFeedbackHandler(_:)
 func (m MTL4CommitOptions) AddFeedbackHandler(block MTL4CommitFeedbackHandler) {
-	_block0 := objc.NewBlock(func(_ objc.Block, arg0 objc.ID) { block(MTL4CommitFeedbackObjectFromID(arg0)) })
-	// _block0 intentionally not released: "addFeedbackHandler:" retains the block past return.
-	objc.Send[objc.ID](m.ID, objc.Sel("addFeedbackHandler:"), objc.ID(_block0))
+	_block0, _ := NewMTL4CommitFeedbackBlock(block)
+	objc.Send[objc.ID](m.ID, objc.Sel("addFeedbackHandler:"), _block0)
+}
+
+// AddFeedbackHandlerSync is a synchronous wrapper around [MTL4CommitOptions.AddFeedbackHandler].
+// It blocks until the completion handler fires or the context is cancelled.
+func (m MTL4CommitOptions) AddFeedbackHandlerSync(ctx context.Context) (MTL4CommitFeedback, error) {
+	done := make(chan MTL4CommitFeedback, 1)
+	m.AddFeedbackHandler(func(val MTL4CommitFeedback) {
+		done <- val
+	})
+	select {
+	case r := <-done:
+		return r, nil
+	case <-ctx.Done():
+		return nil, ctx.Err()
+	}
 }

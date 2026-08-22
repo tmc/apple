@@ -40,7 +40,7 @@ type MTLBlitCommandEncoder interface {
 	// See: https://developer.apple.com/documentation/Metal/MTLBlitCommandEncoder/copy(from:sourceSlice:sourceLevel:sourceOrigin:sourceSize:to:destinationSlice:destinationLevel:destinationOrigin:)
 	CopyFromTextureSourceSliceSourceLevelSourceOriginSourceSizeToTextureDestinationSliceDestinationLevelDestinationOrigin(sourceTexture MTLTexture, sourceSlice uint, sourceLevel uint, sourceOrigin MTLOrigin, sourceSize MTLSize, destinationTexture MTLTexture, destinationSlice uint, destinationLevel uint, destinationOrigin MTLOrigin)
 
-	// Encodes a command to copy data from a slice of one tensor into a slice of another tensor.
+	// Encodes a command to copy data from a slice of the data plane of a tensor into a slice of the data plane of another tensor.
 	//
 	// See: https://developer.apple.com/documentation/Metal/MTLBlitCommandEncoder/copy(from:sourceOrigin:sourceDimensions:to:destinationOrigin:destinationDimensions:)
 	CopyFromTensorSourceOriginSourceDimensionsToTensorDestinationOriginDestinationDimensions(sourceTensor MTLTensor, sourceOrigin IMTLTensorExtents, sourceDimensions IMTLTensorExtents, destinationTensor MTLTensor, destinationOrigin IMTLTensorExtents, destinationDimensions IMTLTensorExtents)
@@ -109,6 +109,21 @@ type MTLBlitCommandEncoder interface {
 	//
 	// See: https://developer.apple.com/documentation/Metal/MTLBlitCommandEncoder/sampleCounters(sampleBuffer:sampleIndex:barrier:)
 	SampleCountersInBufferAtSampleIndexWithBarrier(sampleBuffer MTLCounterSampleBuffer, sampleIndex uint, barrier bool)
+
+	// Encodes a command that retrieves a sparse texture’s access data for a specific region, mipmap level, and slice.
+	//
+	// See: https://developer.apple.com/documentation/Metal/MTLBlitCommandEncoder/getTextureAccessCounters(_:region:mipLevel:slice:resetCounters:countersBuffer:countersBufferOffset:)
+	GetTextureAccessCountersRegionMipLevelSliceResetCountersCountersBufferCountersBufferOffset(texture MTLTexture, region MTLRegion, mipLevel uint, slice uint, resetCounters bool, countersBuffer MTLBuffer, countersBufferOffset uint)
+
+	// Encodes a command that resets a sparse texture’s access data for a specific region, mipmap level, and slice.
+	//
+	// See: https://developer.apple.com/documentation/Metal/MTLBlitCommandEncoder/resetTextureAccessCounters(_:region:mipLevel:slice:)
+	ResetTextureAccessCountersRegionMipLevelSlice(texture MTLTexture, region MTLRegion, mipLevel uint, slice uint)
+
+	// Encodes a command to copy data from a slice of a plane of a tensor into a slice of a plane of another tensor.
+	//
+	// See: https://developer.apple.com/documentation/Metal/MTLBlitCommandEncoder/copy(from:sourceOrigin:sourceDimensions:sourcePlane:to:destinationOrigin:destinationDimensions:destinationPlane:)
+	CopyFromTensorSourceOriginSourceDimensionsSourcePlaneToTensorDestinationOriginDestinationDimensionsDestinationPlane(sourceTensor MTLTensor, sourceOrigin IMTLTensorExtents, sourceDimensions IMTLTensorExtents, sourcePlane MTLTensorPlaneType, destinationTensor MTLTensor, destinationOrigin IMTLTensorExtents, destinationDimensions IMTLTensorExtents, destinationPlane MTLTensorPlaneType)
 
 	// Encodes a command that copies commands from one indirect command buffer into another.
 	//
@@ -347,29 +362,42 @@ func (o MTLBlitCommandEncoderObject) CopyFromTextureSourceSliceSourceLevelSource
 	objc.Send[struct{}](o.ID, objc.Sel("copyFromTexture:sourceSlice:sourceLevel:sourceOrigin:sourceSize:toTexture:destinationSlice:destinationLevel:destinationOrigin:"), sourceTexture, sourceSlice, sourceLevel, sourceOrigin, sourceSize, destinationTexture, destinationSlice, destinationLevel, destinationOrigin)
 }
 
-// Encodes a command to copy data from a slice of one tensor into a slice of
-// another tensor.
+// Encodes a command to copy data from a slice of the data plane of a tensor
+// into a slice of the data plane of another tensor.
 //
-// sourceTensor: A tensor instance that this command copies data from.
+// sourceTensor: A tensor instance the method copies data from.
 //
-// sourceOrigin: An array of offsets, in elements, to the first element of the slice of
-// `sourceTensor` that this command copies data from.
+// sourceOrigin: An array of per-dimension offsets that together locate the first element to
+// copy in `sourceTensor`. Each element in this array corresponds to the
+// dimension at the same index in `sourceDimensions`. Each offset value
+// represents the number of elements from the start of that dimension.
 //
-// sourceDimensions: An array of sizes, in elements, of the slice `sourceTensor` that this
-// command copies data from.
+// sourceDimensions: An array of per-dimension sizes that together define the extent of the
+// slice to copy from `sourceTensor`. Each element in this array corresponds
+// to the dimension at the same index in `sourceOrigin`. Each size value
+// represents the number of elements to include along that dimension, starting
+// from the corresponding offset in `sourceOrigin`.
 //
-// destinationTensor: A tensor instance that this command copies data to.
+// destinationTensor: A tensor instance the method copies data to.
 //
-// destinationOrigin: An array of offsets, in elements, to the first element of the slice of
-// `destinationTensor` that this command copies data to.
+// destinationOrigin: An array of per-dimension offsets that together locate the first element to
+// write in `destinationTensor`. Each element in this array corresponds to the
+// dimension at the same index in `destinationDimensions`. Each offset value
+// represents the number of elements from the start of that dimension.
 //
-// destinationDimensions: An array of sizes, in elements, of the slice of `destinationTensor` that
-// this command copies data to.
+// destinationDimensions: An array of per-dimension sizes that together define the extent of the
+// slice to write in `destinationTensor`. Each element in this array
+// corresponds to the dimension at the same index in `destinationOrigin`. Each
+// size value represents the number of elements to include along that
+// dimension, starting from the corresponding offset in `destinationOrigin`.
 //
 // # Discussion
 //
-// This command applies reshapes if `sourceTensor` and `destinationTensor` are
-// not aliasable.
+// If `sourceTensor` and `destinationTensor` are not aliasable, this command
+// applies a reshape operation.
+//
+// Ensure the first dimension of `sourceOrigin`, `sourceDimensions`,
+// `destinationOrigin`, and `destinationDimensions` is byte aligned.
 //
 // See: https://developer.apple.com/documentation/Metal/MTLBlitCommandEncoder/copy(from:sourceOrigin:sourceDimensions:to:destinationOrigin:destinationDimensions:)
 func (o MTLBlitCommandEncoderObject) CopyFromTensorSourceOriginSourceDimensionsToTensorDestinationOriginDestinationDimensions(sourceTensor MTLTensor, sourceOrigin IMTLTensorExtents, sourceDimensions IMTLTensorExtents, destinationTensor MTLTensor, destinationOrigin IMTLTensorExtents, destinationDimensions IMTLTensorExtents) {
@@ -972,6 +1000,115 @@ func (o MTLBlitCommandEncoderObject) UpdateFence(fence MTLFence) {
 // See: https://developer.apple.com/documentation/Metal/MTLBlitCommandEncoder/sampleCounters(sampleBuffer:sampleIndex:barrier:)
 func (o MTLBlitCommandEncoderObject) SampleCountersInBufferAtSampleIndexWithBarrier(sampleBuffer MTLCounterSampleBuffer, sampleIndex uint, barrier bool) {
 	objc.Send[struct{}](o.ID, objc.Sel("sampleCountersInBuffer:atSampleIndex:withBarrier:"), sampleBuffer, sampleIndex, barrier)
+}
+
+// Encodes a command that retrieves a sparse texture’s access data for a
+// specific region, mipmap level, and slice.
+//
+// texture: A sparse texture instance.
+//
+// region: A region within the sparse texture’s `mipLevel`, in sparse tile
+// coordinates.
+//
+// mipLevel: A mipmap level within the sparse texture.
+//
+// slice: A slice within the sparse texture.
+//
+// resetCounters: A Boolean value that indicates whether the command resets the counters
+// after it completes.
+//
+// countersBuffer: A destination buffer where the command stores the sparse texture’s access
+// counter data.
+//
+// countersBufferOffset: A starting offset, in bytes, within `countersBuffer` where the command
+// writes the first byte of the sparse texture’s access counter data.
+//
+// # Discussion
+//
+// The GPU returns a counter for each sparse tile in the region you specify.
+// Each counter is a [uint32_t] in row-major order. Provide space in the
+// buffer for each counter you request.
+//
+// When the GPU samples a texture and fails to find data in its internal
+// caches, the GPU increments the access counter for the sparse tile. The GPU
+// then attempts to fetch a new cache line from device memory that contains
+// those pixels.
+//
+// The counter doesn’t track memory operations to data that’s already in
+// the GPU’s caches. You can ignore differences in cache line sizes or pixel
+// formats because the GPU driver normalizes the access counts. Each count
+// represents the number of pixels the GPU fetches into memory.
+//
+// See: https://developer.apple.com/documentation/Metal/MTLBlitCommandEncoder/getTextureAccessCounters(_:region:mipLevel:slice:resetCounters:countersBuffer:countersBufferOffset:)
+//
+// [uint32_t]: https://developer.apple.com/documentation/kernel/uint32_t
+func (o MTLBlitCommandEncoderObject) GetTextureAccessCountersRegionMipLevelSliceResetCountersCountersBufferCountersBufferOffset(texture MTLTexture, region MTLRegion, mipLevel uint, slice uint, resetCounters bool, countersBuffer MTLBuffer, countersBufferOffset uint) {
+	objc.Send[struct{}](o.ID, objc.Sel("getTextureAccessCounters:region:mipLevel:slice:resetCounters:countersBuffer:countersBufferOffset:"), texture, region, mipLevel, slice, resetCounters, countersBuffer, countersBufferOffset)
+}
+
+// Encodes a command that resets a sparse texture’s access data for a
+// specific region, mipmap level, and slice.
+//
+// texture: A sparse texture instance.
+//
+// region: A region within the sparse texture’s `mipLevel`, in sparse tile
+// coordinates.
+//
+// mipLevel: A mipmap level within the sparse texture.
+//
+// slice: A slice within the sparse texture.
+//
+// See: https://developer.apple.com/documentation/Metal/MTLBlitCommandEncoder/resetTextureAccessCounters(_:region:mipLevel:slice:)
+func (o MTLBlitCommandEncoderObject) ResetTextureAccessCountersRegionMipLevelSlice(texture MTLTexture, region MTLRegion, mipLevel uint, slice uint) {
+	objc.Send[struct{}](o.ID, objc.Sel("resetTextureAccessCounters:region:mipLevel:slice:"), texture, region, mipLevel, slice)
+}
+
+// Encodes a command to copy data from a slice of a plane of a tensor into a
+// slice of a plane of another tensor.
+//
+// sourceTensor: A tensor instance the method copies data from.
+//
+// sourceOrigin: An array of per-dimension offsets that together locate the first element to
+// copy in `sourceTensor`. Each element in this array corresponds to the
+// dimension at the same index in `sourceDimensions`. Each offset value
+// represents the number of elements from the start of that dimension.
+//
+// sourceDimensions: An array of per-dimension sizes that together define the extent of the
+// slice to copy from `sourceTensor`. Each element in this array corresponds
+// to the dimension at the same index in `sourceOrigin`. Each size value
+// represents the number of elements to include along that dimension, starting
+// from the corresponding offset in `sourceOrigin`.
+//
+// sourcePlane: The plane the method copies data from.
+//
+// destinationTensor: A tensor instance the method copies data to.
+//
+// destinationOrigin: An array of per-dimension offsets that together locate the first element to
+// write in `destinationTensor`. Each element in this array corresponds to the
+// dimension at the same index in `destinationDimensions`. Each offset value
+// represents the number of elements from the start of that dimension.
+//
+// destinationDimensions: An array of per-dimension sizes that together define the extent of the
+// slice to write in `destinationTensor`. Each element in this array
+// corresponds to the dimension at the same index in `destinationOrigin`. Each
+// size value represents the number of elements to include along that
+// dimension, starting from the corresponding offset in `destinationOrigin`.
+//
+// destinationPlane: The plane the method copies data to.
+//
+// # Discussion
+//
+// If `sourceTensor` and `destinationTensor` are not aliasable, this command
+// applies a reshape operation. For auxiliary planes, specify origin and
+// dimensions in plane coordinates by applying the corresponding auxiliary
+// plane’s block factors.
+//
+// Ensure the first dimension of `sourceOrigin`, `sourceDimensions`,
+// `destinationOrigin`, and `destinationDimensions` is byte aligned.
+//
+// See: https://developer.apple.com/documentation/Metal/MTLBlitCommandEncoder/copy(from:sourceOrigin:sourceDimensions:sourcePlane:to:destinationOrigin:destinationDimensions:destinationPlane:)
+func (o MTLBlitCommandEncoderObject) CopyFromTensorSourceOriginSourceDimensionsSourcePlaneToTensorDestinationOriginDestinationDimensionsDestinationPlane(sourceTensor MTLTensor, sourceOrigin IMTLTensorExtents, sourceDimensions IMTLTensorExtents, sourcePlane MTLTensorPlaneType, destinationTensor MTLTensor, destinationOrigin IMTLTensorExtents, destinationDimensions IMTLTensorExtents, destinationPlane MTLTensorPlaneType) {
+	objc.Send[struct{}](o.ID, objc.Sel("copyFromTensor:sourceOrigin:sourceDimensions:sourcePlane:toTensor:destinationOrigin:destinationDimensions:destinationPlane:"), sourceTensor, sourceOrigin, sourceDimensions, sourcePlane, destinationTensor, destinationOrigin, destinationDimensions, destinationPlane)
 }
 
 // Encodes a command that copies commands from one indirect command buffer

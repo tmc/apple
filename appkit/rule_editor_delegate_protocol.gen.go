@@ -12,11 +12,26 @@ import (
 
 var _ = fmt.Sprintf
 
-// The [NSRuleEditorDelegate] protocol defines the optional methods implemented by delegates of [NSRuleEditor](<doc://com.apple.appkit/documentation/AppKit/NSRuleEditor>) objects.
+// The [NSRuleEditorDelegate] protocol defines the optional methods implemented by delegates of [NSRuleEditor](<https://developer.apple.com/documentation/AppKit/NSRuleEditor>) objects.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSRuleEditorDelegate
 type NSRuleEditorDelegate interface {
 	objectivec.IObject
+
+	// Returns the child of a given item at a given index.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSRuleEditorDelegate/ruleEditor(_:child:forCriterion:with:)
+	RuleEditorChildForCriterionWithRowType(editor INSRuleEditor, index int, criterion objectivec.IObject, rowType NSRuleEditorRowType) objectivec.IObject
+
+	// Returns the value for a given criterion.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSRuleEditorDelegate/ruleEditor(_:displayValueForCriterion:inRow:)
+	RuleEditorDisplayValueForCriterionInRow(editor INSRuleEditor, criterion objectivec.IObject, row int) objectivec.IObject
+
+	// Returns the number of child items of a given criterion or row type.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSRuleEditorDelegate/ruleEditor(_:numberOfChildrenForCriterion:with:)
+	RuleEditorNumberOfChildrenForCriterionWithRowType(editor INSRuleEditor, criterion objectivec.IObject, rowType NSRuleEditorRowType) int
 }
 
 // NSRuleEditorDelegateObject wraps an existing Objective-C object that conforms to the NSRuleEditorDelegate protocol.
@@ -198,8 +213,20 @@ func NewNSRuleEditorDelegate(config NSRuleEditorDelegateConfig) NSRuleEditorDele
 		methods = append(methods, objc.MethodDef{
 			Cmd: objc.RegisterName("ruleEditorRowsDidChange:"),
 			Fn: func(self objc.ID, _cmd objc.SEL, notificationID objc.ID) {
+				// Names which delegate was running if a panic unwinds out of
+				// it. The frames between here and the Objective-C caller are
+				// runtime and purego dispatch, so without this the traceback
+				// never says which selector dispatched. Deliberately no
+				// recover: see [objc.NoteDelegatePanic].
+				_delegateDone := false
+				defer func() {
+					if !_delegateDone {
+						objc.NoteDelegatePanic("NSRuleEditorDelegate", "ruleEditorRowsDidChange:")
+					}
+				}()
 				notification := foundation.NSNotificationFromID(notificationID)
 				fn(notification)
+				_delegateDone = true
 			},
 		})
 	}

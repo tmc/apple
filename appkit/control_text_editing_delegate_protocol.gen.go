@@ -12,7 +12,7 @@ import (
 
 var _ = fmt.Sprintf
 
-// A set of optional methods implemented by delegates of [NSControl](<doc://com.apple.appkit/documentation/AppKit/NSControl>) subclasses to respond to editing actions.
+// A set of optional methods implemented by delegates of [NSControl](<https://developer.apple.com/documentation/AppKit/NSControl>) subclasses to respond to editing actions.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSControlTextEditingDelegate
 type NSControlTextEditingDelegate interface {
@@ -338,9 +338,22 @@ func NewNSControlTextEditingDelegate(config NSControlTextEditingDelegateConfig) 
 		methods = append(methods, objc.MethodDef{
 			Cmd: objc.RegisterName("control:textShouldBeginEditing:"),
 			Fn: func(self objc.ID, _cmd objc.SEL, controlID objc.ID, fieldEditorID objc.ID) bool {
+				// Names which delegate was running if a panic unwinds out of
+				// it. The frames between here and the Objective-C caller are
+				// runtime and purego dispatch, so without this the traceback
+				// never says which selector dispatched. Deliberately no
+				// recover: see [objc.NoteDelegatePanic].
+				_delegateDone := false
+				defer func() {
+					if !_delegateDone {
+						objc.NoteDelegatePanic("NSControlTextEditingDelegate", "control:textShouldBeginEditing:")
+					}
+				}()
 				control := NSControlFromID(controlID)
 				fieldEditor := NSTextFromID(fieldEditorID)
-				return fn(control, fieldEditor)
+				_delegateResult := fn(control, fieldEditor)
+				_delegateDone = true
+				return _delegateResult
 			},
 		})
 	}
@@ -350,9 +363,22 @@ func NewNSControlTextEditingDelegate(config NSControlTextEditingDelegateConfig) 
 		methods = append(methods, objc.MethodDef{
 			Cmd: objc.RegisterName("control:textShouldEndEditing:"),
 			Fn: func(self objc.ID, _cmd objc.SEL, controlID objc.ID, fieldEditorID objc.ID) bool {
+				// Names which delegate was running if a panic unwinds out of
+				// it. The frames between here and the Objective-C caller are
+				// runtime and purego dispatch, so without this the traceback
+				// never says which selector dispatched. Deliberately no
+				// recover: see [objc.NoteDelegatePanic].
+				_delegateDone := false
+				defer func() {
+					if !_delegateDone {
+						objc.NoteDelegatePanic("NSControlTextEditingDelegate", "control:textShouldEndEditing:")
+					}
+				}()
 				control := NSControlFromID(controlID)
 				fieldEditor := NSTextFromID(fieldEditorID)
-				return fn(control, fieldEditor)
+				_delegateResult := fn(control, fieldEditor)
+				_delegateDone = true
+				return _delegateResult
 			},
 		})
 	}
@@ -362,8 +388,20 @@ func NewNSControlTextEditingDelegate(config NSControlTextEditingDelegateConfig) 
 		methods = append(methods, objc.MethodDef{
 			Cmd: objc.RegisterName("controlTextDidBeginEditing:"),
 			Fn: func(self objc.ID, _cmd objc.SEL, objID objc.ID) {
+				// Names which delegate was running if a panic unwinds out of
+				// it. The frames between here and the Objective-C caller are
+				// runtime and purego dispatch, so without this the traceback
+				// never says which selector dispatched. Deliberately no
+				// recover: see [objc.NoteDelegatePanic].
+				_delegateDone := false
+				defer func() {
+					if !_delegateDone {
+						objc.NoteDelegatePanic("NSControlTextEditingDelegate", "controlTextDidBeginEditing:")
+					}
+				}()
 				obj := foundation.NSNotificationFromID(objID)
 				fn(obj)
+				_delegateDone = true
 			},
 		})
 	}
@@ -373,8 +411,20 @@ func NewNSControlTextEditingDelegate(config NSControlTextEditingDelegateConfig) 
 		methods = append(methods, objc.MethodDef{
 			Cmd: objc.RegisterName("controlTextDidChange:"),
 			Fn: func(self objc.ID, _cmd objc.SEL, objID objc.ID) {
+				// Names which delegate was running if a panic unwinds out of
+				// it. The frames between here and the Objective-C caller are
+				// runtime and purego dispatch, so without this the traceback
+				// never says which selector dispatched. Deliberately no
+				// recover: see [objc.NoteDelegatePanic].
+				_delegateDone := false
+				defer func() {
+					if !_delegateDone {
+						objc.NoteDelegatePanic("NSControlTextEditingDelegate", "controlTextDidChange:")
+					}
+				}()
 				obj := foundation.NSNotificationFromID(objID)
 				fn(obj)
+				_delegateDone = true
 			},
 		})
 	}
@@ -384,8 +434,20 @@ func NewNSControlTextEditingDelegate(config NSControlTextEditingDelegateConfig) 
 		methods = append(methods, objc.MethodDef{
 			Cmd: objc.RegisterName("controlTextDidEndEditing:"),
 			Fn: func(self objc.ID, _cmd objc.SEL, objID objc.ID) {
+				// Names which delegate was running if a panic unwinds out of
+				// it. The frames between here and the Objective-C caller are
+				// runtime and purego dispatch, so without this the traceback
+				// never says which selector dispatched. Deliberately no
+				// recover: see [objc.NoteDelegatePanic].
+				_delegateDone := false
+				defer func() {
+					if !_delegateDone {
+						objc.NoteDelegatePanic("NSControlTextEditingDelegate", "controlTextDidEndEditing:")
+					}
+				}()
 				obj := foundation.NSNotificationFromID(objID)
 				fn(obj)
+				_delegateDone = true
 			},
 		})
 	}

@@ -7,7 +7,7 @@ import (
 	"github.com/tmc/apple/objectivec"
 )
 
-// # Overview  When the user selects a color in an [NSColorPanel](<doc://com.apple.appkit/documentation/AppKit/NSColorPanel>) object, the panel tries to call this method on the first responder. You can override this method in any responder that needs to respond to a color change.
+// # Overview  When the user selects a color in an [NSColorPanel](<https://developer.apple.com/documentation/AppKit/NSColorPanel>) object, the panel tries to call this method on the first responder. You can override this method in any responder that needs to respond to a color change.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSColorChanging
 type NSColorChanging interface {

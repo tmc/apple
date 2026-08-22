@@ -371,7 +371,7 @@ func (c AVCapturePhotoOutput) MaxBracketedCapturePhotoCount() uint {
 //
 // When taking RAW + processed (JPEG or HEIC) still-photo capture with auto
 // red-eye reduction enabled, AVFoundation applies correction to only the
-// processed photo, the RAW photo.
+// processed photo, not the RAW photo.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCapturePhotoOutput/isAutoRedEyeReductionSupported
 func (c AVCapturePhotoOutput) IsAutoRedEyeReductionSupported() bool {

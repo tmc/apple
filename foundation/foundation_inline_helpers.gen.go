@@ -323,34 +323,34 @@ func nsHostByteOrder() int {
 // Integer byte swapping
 
 func nsSwapShort(inv uint16) uint16    { return bits.ReverseBytes16(inv) }
-func nsSwapInt(inv uint) uint          { return uint(bits.ReverseBytes32(uint32(inv))) }
+func nsSwapInt(inv uint32) uint32      { return bits.ReverseBytes32(inv) }
 func nsSwapLong(inv uint) uint         { return uint(bits.ReverseBytes64(uint64(inv))) }
 func nsSwapLongLong(inv uint64) uint64 { return bits.ReverseBytes64(inv) }
 
 func nsSwapBigShortToHost(x uint16) uint16    { return nsSwapShort(x) }
-func nsSwapBigIntToHost(x uint) uint          { return nsSwapInt(x) }
+func nsSwapBigIntToHost(x uint32) uint32      { return nsSwapInt(x) }
 func nsSwapBigLongToHost(x uint) uint         { return nsSwapLong(x) }
 func nsSwapBigLongLongToHost(x uint64) uint64 { return nsSwapLongLong(x) }
 
 func nsSwapHostShortToBig(x uint16) uint16    { return nsSwapShort(x) }
-func nsSwapHostIntToBig(x uint) uint          { return nsSwapInt(x) }
+func nsSwapHostIntToBig(x uint32) uint32      { return nsSwapInt(x) }
 func nsSwapHostLongToBig(x uint) uint         { return nsSwapLong(x) }
 func nsSwapHostLongLongToBig(x uint64) uint64 { return nsSwapLongLong(x) }
 
 func nsSwapLittleShortToHost(x uint16) uint16    { return x }
-func nsSwapLittleIntToHost(x uint) uint          { return x }
+func nsSwapLittleIntToHost(x uint32) uint32      { return x }
 func nsSwapLittleLongToHost(x uint) uint         { return x }
 func nsSwapLittleLongLongToHost(x uint64) uint64 { return x }
 
 func nsSwapHostShortToLittle(x uint16) uint16    { return x }
-func nsSwapHostIntToLittle(x uint) uint          { return x }
+func nsSwapHostIntToLittle(x uint32) uint32      { return x }
 func nsSwapHostLongToLittle(x uint) uint         { return x }
 func nsSwapHostLongLongToLittle(x uint64) uint64 { return x }
 
 // Float byte swapping
 
 func nsSwapFloat(x NSSwappedFloat) NSSwappedFloat {
-	return NSSwappedFloat{V: uint(nsSwapInt(uint(x.V)))}
+	return NSSwappedFloat{V: nsSwapInt(x.V)}
 }
 
 func nsSwapDouble(x NSSwappedDouble) NSSwappedDouble {
@@ -360,11 +360,11 @@ func nsSwapDouble(x NSSwappedDouble) NSSwappedDouble {
 // Float conversions
 
 func nsConvertHostFloatToSwapped(x float32) NSSwappedFloat {
-	return NSSwappedFloat{V: uint(nsSwapHostIntToBig(uint(math.Float32bits(x))))}
+	return NSSwappedFloat{V: nsSwapHostIntToBig(math.Float32bits(x))}
 }
 
 func nsConvertSwappedFloatToHost(x NSSwappedFloat) float32 {
-	return math.Float32frombits(uint32(nsSwapBigIntToHost(uint(x.V))))
+	return math.Float32frombits(nsSwapBigIntToHost(x.V))
 }
 
 func nsConvertHostDoubleToSwapped(x float64) NSSwappedDouble {
@@ -392,7 +392,7 @@ func nsSwapHostDoubleToBig(x float64) NSSwappedDouble {
 }
 
 func nsSwapLittleFloatToHost(x NSSwappedFloat) float32 {
-	return math.Float32frombits(uint32(x.V))
+	return math.Float32frombits(x.V)
 }
 
 func nsSwapLittleDoubleToHost(x NSSwappedDouble) float64 {
@@ -400,7 +400,7 @@ func nsSwapLittleDoubleToHost(x NSSwappedDouble) float64 {
 }
 
 func nsSwapHostFloatToLittle(x float32) NSSwappedFloat {
-	return NSSwappedFloat{V: uint(math.Float32bits(x))}
+	return NSSwappedFloat{V: math.Float32bits(x)}
 }
 
 func nsSwapHostDoubleToLittle(x float64) NSSwappedDouble {

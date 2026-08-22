@@ -90,15 +90,3 @@ func (o MTLObjectPayloadBindingObject) ObjectPayloadDataSize() uint {
 	rv := objc.Send[uint](o.ID, objc.Sel("objectPayloadDataSize"))
 	return uint(rv)
 }
-
-// See: https://developer.apple.com/documentation/Metal/MTLBinding/isArgument
-func (o MTLObjectPayloadBindingObject) Argument() bool {
-	rv := objc.Send[bool](o.ID, objc.Sel("isArgument"))
-	return bool(rv)
-}
-
-// See: https://developer.apple.com/documentation/Metal/MTLBinding/isUsed
-func (o MTLObjectPayloadBindingObject) Used() bool {
-	rv := objc.Send[bool](o.ID, objc.Sel("isUsed"))
-	return bool(rv)
-}

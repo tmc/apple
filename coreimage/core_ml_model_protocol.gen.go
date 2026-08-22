@@ -3,6 +3,7 @@
 package coreimage
 
 import (
+	"github.com/tmc/apple/coreml"
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -29,8 +30,8 @@ type CICoreMLModel interface {
 	// The Core ML model used to apply the effect on the image.
 	//
 	// See: https://developer.apple.com/documentation/CoreImage/CICoreMLModel/model
-	Model() objectivec.IObject
-	SetModel(value objectivec.IObject)
+	Model() *coreml.MLModel
+	SetModel(value *coreml.MLModel)
 
 	// A Boolean value that specifies whether to apply Softmax normalization to the output of the model.
 	//
@@ -93,12 +94,13 @@ func (o CICoreMLModelObject) SetInputImage(value ICIImage) {
 // The Core ML model used to apply the effect on the image.
 //
 // See: https://developer.apple.com/documentation/CoreImage/CICoreMLModel/model
-func (o CICoreMLModelObject) Model() objectivec.IObject {
+func (o CICoreMLModelObject) Model() *coreml.MLModel {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("model"))
-	return objectivec.Object{ID: rv}
+	val := coreml.MLModelFromID(rv)
+	return &val
 }
 
-func (o CICoreMLModelObject) SetModel(value objectivec.IObject) {
+func (o CICoreMLModelObject) SetModel(value *coreml.MLModel) {
 	objc.Send[struct{}](o.ID, objc.Sel("setModel:"), value)
 }
 

@@ -59,7 +59,8 @@ func (o WKWebExtensionWindowObject) ActiveTabForWebExtensionContext(context IWKW
 //
 // See: https://developer.apple.com/documentation/WebKit/WKWebExtensionWindow/close(for:completionHandler:)
 func (o WKWebExtensionWindowObject) CloseForWebExtensionContextCompletionHandler(context IWKWebExtensionContext, completionHandler ErrorHandler) {
-	objc.Send[struct{}](o.ID, objc.Sel("closeForWebExtensionContext:completionHandler:"), context, completionHandler)
+	_block1, _ := NewErrorBlock(completionHandler)
+	objc.Send[struct{}](o.ID, objc.Sel("closeForWebExtensionContext:completionHandler:"), context, _block1)
 }
 
 // Called to focus the window.
@@ -75,7 +76,8 @@ func (o WKWebExtensionWindowObject) CloseForWebExtensionContextCompletionHandler
 //
 // See: https://developer.apple.com/documentation/WebKit/WKWebExtensionWindow/focus(for:completionHandler:)
 func (o WKWebExtensionWindowObject) FocusForWebExtensionContextCompletionHandler(context IWKWebExtensionContext, completionHandler ErrorHandler) {
-	objc.Send[struct{}](o.ID, objc.Sel("focusForWebExtensionContext:completionHandler:"), context, completionHandler)
+	_block1, _ := NewErrorBlock(completionHandler)
+	objc.Send[struct{}](o.ID, objc.Sel("focusForWebExtensionContext:completionHandler:"), context, _block1)
 }
 
 // Called when the frame of the window is needed.
@@ -143,7 +145,8 @@ func (o WKWebExtensionWindowObject) ScreenFrameForWebExtensionContext(context IW
 //
 // See: https://developer.apple.com/documentation/WebKit/WKWebExtensionWindow/setFrame(_:for:completionHandler:)
 func (o WKWebExtensionWindowObject) SetFrameForWebExtensionContextCompletionHandler(frame corefoundation.CGRect, context IWKWebExtensionContext, completionHandler ErrorHandler) {
-	objc.Send[struct{}](o.ID, objc.Sel("setFrame:forWebExtensionContext:completionHandler:"), frame, context, completionHandler)
+	_block2, _ := NewErrorBlock(completionHandler)
+	objc.Send[struct{}](o.ID, objc.Sel("setFrame:forWebExtensionContext:completionHandler:"), frame, context, _block2)
 }
 
 // Called to set the state of the window.
@@ -164,7 +167,8 @@ func (o WKWebExtensionWindowObject) SetFrameForWebExtensionContextCompletionHand
 //
 // See: https://developer.apple.com/documentation/WebKit/WKWebExtensionWindow/setWindowState(_:for:completionHandler:)
 func (o WKWebExtensionWindowObject) SetWindowStateForWebExtensionContextCompletionHandler(state WKWebExtensionWindowState, context IWKWebExtensionContext, completionHandler ErrorHandler) {
-	objc.Send[struct{}](o.ID, objc.Sel("setWindowState:forWebExtensionContext:completionHandler:"), state, context, completionHandler)
+	_block2, _ := NewErrorBlock(completionHandler)
+	objc.Send[struct{}](o.ID, objc.Sel("setWindowState:forWebExtensionContext:completionHandler:"), state, context, _block2)
 }
 
 // Called when the tabs are needed for the window.

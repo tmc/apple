@@ -199,7 +199,7 @@ func NewAVMovie() AVMovie {
 //
 // URL: A URL to a local, remote, or HTTP Live Streaming media resource.
 //
-// See: https://developer.apple.com/documentation/AVFoundation/AVAsset/init(url:)-42gl8
+// See: https://developer.apple.com/documentation/AVFoundation/AVAsset/init(url:)
 func NewMovieAssetWithURL(URL foundation.NSURL) AVMovie {
 	rv := objc.Send[objc.ID](objc.ID(getAVMovieClass().class), objc.Sel("assetWithURL:"), URL)
 	return AVMovieFromID(rv)
@@ -235,7 +235,7 @@ func NewMovieWithDataOptions(data foundation.NSData, options foundation.INSDicti
 // Upon creation, the values of the [AVMovie.DefaultMediaDataStorage] property
 // and any associated [AVMovieTrack.MediaDataStorage] properties are `nil`.
 //
-// See: https://developer.apple.com/documentation/AVFoundation/AVMovie/init(url:options:)-1wjrq
+// See: https://developer.apple.com/documentation/AVFoundation/AVMovie/init(url:options:)
 func NewMovieWithURLOptions(URL foundation.NSURL, options foundation.INSDictionary) AVMovie {
 	instance := getAVMovieClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithURL:options:"), URL, options)
@@ -254,7 +254,7 @@ func NewMovieWithURLOptions(URL foundation.NSURL, options foundation.INSDictiona
 // Upon creation, the values of the [AVMovie.DefaultMediaDataStorage] property
 // and any associated [AVMovieTrack.MediaDataStorage] properties are `nil`.
 //
-// See: https://developer.apple.com/documentation/AVFoundation/AVMovie/init(url:options:)-1wjrq
+// See: https://developer.apple.com/documentation/AVFoundation/AVMovie/init(url:options:)
 func (m AVMovie) InitWithURLOptions(URL foundation.NSURL, options foundation.INSDictionary) AVMovie {
 	rv := objc.Send[AVMovie](m.ID, objc.Sel("initWithURL:options:"), URL, options)
 	return rv

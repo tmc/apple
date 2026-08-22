@@ -406,7 +406,7 @@ func (a NSAlert) BeginSheetModalForWindowCompletionHandler(sheetWindow INSWindow
 // By default, the first button has a key equivalent of Return, any button
 // with a title of “Cancel” has a key equivalent of Escape, and any button
 // with the title “Don’t Save” has a key equivalent of Command-D (but
-// only if it’s the first button). You can also assign different key
+// only if it’s not the first button). You can also assign different key
 // equivalents for the buttons using the [NSButton.KeyEquivalent] method of
 // the [NSButton] class. In addition, you can use the [NSControl.Tag] method
 // of the [NSButton] class to set the return value.

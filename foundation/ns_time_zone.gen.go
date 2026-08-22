@@ -73,8 +73,9 @@ func (nc NSTimeZoneClass) Alloc() NSTimeZone {
 // You can also set the [NSTimeZoneClass.DefaultTimeZone] class property to
 // make your app run as if it were in a different time zone than the system.
 //
-// [NSTimeZone] is with its Core Foundation counterpart, [CFTimeZone]. See
-// [Toll-Free Bridging] for more information on toll-free bridging.
+// [NSTimeZone] is toll-free bridged with its Core Foundation counterpart,
+// [CFTimeZone]. See [Toll-Free Bridging] for more information on toll-free
+// bridging.
 //
 // # Creating Time Zones
 //
@@ -165,7 +166,6 @@ func NSTimeZoneFromID(id objc.ID) NSTimeZone {
 // See: https://developer.apple.com/documentation/Foundation/NSTimeZone
 type INSTimeZone interface {
 	objectivec.IObject
-	NSSecureCoding
 
 	// Topic: Creating Time Zones
 
@@ -215,6 +215,10 @@ type INSTimeZone interface {
 	LocalizedNameLocale(style NSTimeZoneNameStyle, locale INSLocale) string
 	// A textual description of the time zone including the name, abbreviation, offset from GMT, and whether or not daylight saving time is currently in effect.
 	Description() string
+
+	// Encodes the receiver using a given archiver.
+	EncodeWithCoder(coder INSCoder)
+	InitWithCoder(coder INSCoder) NSTimeZone
 }
 
 // Init initializes the instance.

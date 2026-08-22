@@ -1,12 +1,13 @@
-// Code generated from Apple documentation by applegen. DO NOT EDIT.
+// Code generated from internal/generator/templates/runtime/objc.txtar by applegen. DO NOT EDIT.
 
 package objc
 
 import (
+	"strconv"
 	"sync"
 	"unsafe"
 
-	"github.com/ebitengine/purego"
+	pobjc "github.com/ebitengine/purego/objc"
 )
 
 // actionKey is the associated object key used to tie the trampoline's
@@ -16,25 +17,38 @@ var actionKey byte
 var (
 	actionTargetOnce  sync.Once
 	actionTargetClass Class
+	actionInvokeSel   SEL
+	actionDeallocSel  SEL
 	actionHandlers    sync.Map // ID → func(ID)
-
-	objcAllocateClassPair func(superclass Class, name string, extraBytes uint) Class
 )
 
 func ensureActionTarget() {
 	actionTargetOnce.Do(func() {
-		ensureLibObjC()
 		ensureAssociation()
-
-		purego.RegisterLibFunc(&objcAllocateClassPair, libobjc, "objc_allocateClassPair")
-
-		actionTargetClass = objcAllocateClassPair(GetClass("NSObject"), "GoActionTarget", 0)
-		AddMethod(actionTargetClass, RegisterName("invoke:"),
-			purego.NewCallback(actionTargetInvoke), "v@:@")
-		AddMethod(actionTargetClass, RegisterName("dealloc"),
-			purego.NewCallback(actionTargetDealloc), "v@:")
-		RegisterClassPair(actionTargetClass)
+		actionInvokeSel = Sel("invoke:")
+		actionDeallocSel = Sel("dealloc")
+		actionTargetClass = registerActionTargetClass("GoActionTarget")
 	})
+}
+
+func registerActionTargetClass(baseName string) Class {
+	methods := []pobjc.MethodDef{
+		{Cmd: actionInvokeSel, Fn: actionTargetInvoke},
+		{Cmd: actionDeallocSel, Fn: actionTargetDealloc},
+	}
+	for suffix := 1; ; suffix++ {
+		name := baseName
+		if suffix > 1 {
+			name += strconv.Itoa(suffix)
+		}
+		class, err := pobjc.RegisterClass(name, pobjc.GetClass("NSObject"), nil, nil, methods)
+		if err == nil {
+			return class
+		}
+		if pobjc.GetClass(name) == 0 {
+			panic(err)
+		}
+	}
 }
 
 func actionTargetInvoke(self ID, _cmd SEL, sender ID) {
@@ -45,6 +59,7 @@ func actionTargetInvoke(self ID, _cmd SEL, sender ID) {
 
 func actionTargetDealloc(self ID, _cmd SEL) {
 	actionHandlers.Delete(self)
+	SendSuper[struct{}](self, actionDeallocSel)
 }
 
 // NewActionTarget creates an Objective-C trampoline object that calls fn
@@ -68,5 +83,12 @@ func NewActionTarget(owner ID, fn func(sender ID)) (target ID, sel SEL) {
 	// Balance the alloc — the associated object already retained it.
 	Send[struct{}](target, Sel("release"))
 
-	return target, RegisterName("invoke:")
+	return target, actionInvokeSel
+}
+
+// ClearActionTarget removes the action trampoline associated with owner,
+// releasing it immediately. It is safe to call when no trampoline is set.
+func ClearActionTarget(owner ID) {
+	ensureAssociation()
+	objcSetAssociatedObjectFn(uintptr(owner), unsafe.Pointer(&actionKey), 0, associationRetainNonatomic)
 }

@@ -123,7 +123,7 @@ func NewAVMediaDataStorage() AVMediaDataStorage {
 //
 // An [AVMediaDataStorage] object.
 //
-// See: https://developer.apple.com/documentation/AVFoundation/AVMediaDataStorage/init(url:options:)-5cv8s
+// See: https://developer.apple.com/documentation/AVFoundation/AVMediaDataStorage/init(url:options:)
 func NewMediaDataStorageWithURLOptions(URL foundation.NSURL, options foundation.INSDictionary) AVMediaDataStorage {
 	instance := getAVMediaDataStorageClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithURL:options:"), URL, options)
@@ -141,7 +141,7 @@ func NewMediaDataStorageWithURLOptions(URL foundation.NSURL, options foundation.
 //
 // An [AVMediaDataStorage] object.
 //
-// See: https://developer.apple.com/documentation/AVFoundation/AVMediaDataStorage/init(url:options:)-5cv8s
+// See: https://developer.apple.com/documentation/AVFoundation/AVMediaDataStorage/init(url:options:)
 func (m AVMediaDataStorage) InitWithURLOptions(URL foundation.NSURL, options foundation.INSDictionary) AVMediaDataStorage {
 	rv := objc.Send[AVMediaDataStorage](m.ID, objc.Sel("initWithURL:options:"), URL, options)
 	return rv

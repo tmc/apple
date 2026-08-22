@@ -5,6 +5,7 @@ package avfaudio
 import (
 	"sync"
 
+	"github.com/tmc/apple/coremidi"
 	"github.com/tmc/apple/foundation"
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
@@ -70,6 +71,8 @@ func (ac AVMusicTrackClass) Alloc() AVMusicTrack {
 //
 //   - [AVMusicTrack.DestinationAudioUnit]: The audio unit that receives the track’s events.
 //   - [AVMusicTrack.SetDestinationAudioUnit]
+//   - [AVMusicTrack.DestinationMIDIEndpoint]: The MIDI endpoint you specify as the track’s target.
+//   - [AVMusicTrack.SetDestinationMIDIEndpoint]
 //
 // # Configuring the Looping State
 //
@@ -91,10 +94,6 @@ func (ac AVMusicTrackClass) Alloc() AVMusicTrack {
 //   - [AVMusicTrack.CutEventsInRange]: Splices all events in the beat range from the music track.
 //   - [AVMusicTrack.CopyEventsInRangeFromTrackInsertAtBeat]: Copies the events from the source track and splices them into the current music track.
 //   - [AVMusicTrack.CopyAndMergeEventsInRangeFromTrackMergeAtBeat]: Copies the events from the source track and merges them into the current music track.
-//
-// # Iterating Over Events
-//
-//   - [AVMusicTrack.EnumerateEventsInRangeUsingBlock]: Iterates through the music events within the track.
 //
 // See: https://developer.apple.com/documentation/AVFAudio/AVMusicTrack
 type AVMusicTrack struct {
@@ -138,6 +137,8 @@ func AVMusicTrackFromID(id objc.ID) AVMusicTrack {
 //
 //   - [IAVMusicTrack.DestinationAudioUnit]: The audio unit that receives the track’s events.
 //   - [IAVMusicTrack.SetDestinationAudioUnit]
+//   - [IAVMusicTrack.DestinationMIDIEndpoint]: The MIDI endpoint you specify as the track’s target.
+//   - [IAVMusicTrack.SetDestinationMIDIEndpoint]
 //
 // # Configuring the Looping State
 //
@@ -159,10 +160,6 @@ func AVMusicTrackFromID(id objc.ID) AVMusicTrack {
 //   - [IAVMusicTrack.CutEventsInRange]: Splices all events in the beat range from the music track.
 //   - [IAVMusicTrack.CopyEventsInRangeFromTrackInsertAtBeat]: Copies the events from the source track and splices them into the current music track.
 //   - [IAVMusicTrack.CopyAndMergeEventsInRangeFromTrackMergeAtBeat]: Copies the events from the source track and merges them into the current music track.
-//
-// # Iterating Over Events
-//
-//   - [IAVMusicTrack.EnumerateEventsInRangeUsingBlock]: Iterates through the music events within the track.
 //
 // See: https://developer.apple.com/documentation/AVFAudio/AVMusicTrack
 type IAVMusicTrack interface {
@@ -199,6 +196,9 @@ type IAVMusicTrack interface {
 	// The audio unit that receives the track’s events.
 	DestinationAudioUnit() IAVAudioUnit
 	SetDestinationAudioUnit(value IAVAudioUnit)
+	// The MIDI endpoint you specify as the track’s target.
+	DestinationMIDIEndpoint() coremidi.MIDIEndpointRef
+	SetDestinationMIDIEndpoint(value coremidi.MIDIEndpointRef)
 
 	// Topic: Configuring the Looping State
 
@@ -229,11 +229,6 @@ type IAVMusicTrack interface {
 	CopyEventsInRangeFromTrackInsertAtBeat(range_ AVBeatRange, sourceTrack IAVMusicTrack, insertStartBeat AVMusicTimeStamp)
 	// Copies the events from the source track and merges them into the current music track.
 	CopyAndMergeEventsInRangeFromTrackMergeAtBeat(range_ AVBeatRange, sourceTrack IAVMusicTrack, mergeStartBeat AVMusicTimeStamp)
-
-	// Topic: Iterating Over Events
-
-	// Iterates through the music events within the track.
-	EnumerateEventsInRangeUsingBlock(range_ AVBeatRange, block AVMusicEventEnumerationBlock)
 }
 
 // Init initializes the instance.
@@ -355,33 +350,6 @@ func (m AVMusicTrack) CopyEventsInRangeFromTrackInsertAtBeat(range_ AVBeatRange,
 // See: https://developer.apple.com/documentation/AVFAudio/AVMusicTrack/copyAndMergeEvents(in:from:mergeAt:)
 func (m AVMusicTrack) CopyAndMergeEventsInRangeFromTrackMergeAtBeat(range_ AVBeatRange, sourceTrack IAVMusicTrack, mergeStartBeat AVMusicTimeStamp) {
 	objc.Send[objc.ID](m.ID, objc.Sel("copyAndMergeEventsInRange:fromTrack:mergeAtBeat:"), range_, sourceTrack, mergeStartBeat)
-}
-
-// Iterates through the music events within the track.
-//
-// range: The range to iterate through.
-//
-// block: The block to call for each event.
-//
-// # Discussion
-//
-// Examine each event the block returns by using [isKind(of:)] to determine
-// the subclass, and then cast and access it accordingly.
-//
-// The iteration may continue after removing an event.
-//
-// The event object returned through the block won’t be the same instances
-// you add to the [AVMusicTrack], though the content is identical.
-//
-// See: https://developer.apple.com/documentation/AVFAudio/AVMusicTrack/enumerateEvents(in:using:)
-//
-// [isKind(of:)]: https://developer.apple.com/documentation/ObjectiveC/NSObjectProtocol/isKind(of:)
-func (m AVMusicTrack) EnumerateEventsInRangeUsingBlock(range_ AVBeatRange, block AVMusicEventEnumerationBlock) {
-	_block1 := objc.NewBlock(func(_ objc.Block, arg0 objc.ID, arg1 []float64, arg2 *int8) {
-		block(AVMusicEventFromID(arg0), arg1, arg2)
-	})
-	defer _block1.Release()
-	objc.Send[objc.ID](m.ID, objc.Sel("enumerateEventsInRange:usingBlock:"), range_, objc.ID(_block1))
 }
 
 // A Boolean value that indicates whether the track is in a muted state.
@@ -521,6 +489,28 @@ func (m AVMusicTrack) DestinationAudioUnit() IAVAudioUnit {
 }
 func (m AVMusicTrack) SetDestinationAudioUnit(value IAVAudioUnit) {
 	objc.Send[struct{}](m.ID, objc.Sel("setDestinationAudioUnit:"), value)
+}
+
+// The MIDI endpoint you specify as the track’s target.
+//
+// # Discussion
+//
+// This property and a [AVMusicTrack.DestinationAudioUnit] are mutually
+// exclusive. Setting this property removes the track’s reference to an
+// [AVAudioUnit] destination. When playing, the track sends events to the MIDI
+// endpoint. For more information, see [MIDIDestinationCreate(_:_:_:_:_:)].
+// You can’t change the endpoint while the track’s sequence is in a
+// playing state.
+//
+// See: https://developer.apple.com/documentation/AVFAudio/AVMusicTrack/destinationMIDIEndpoint
+//
+// [MIDIDestinationCreate(_:_:_:_:_:)]: https://developer.apple.com/documentation/CoreMIDI/MIDIDestinationCreate(_:_:_:_:_:)
+func (m AVMusicTrack) DestinationMIDIEndpoint() coremidi.MIDIEndpointRef {
+	rv := objc.Send[coremidi.MIDIEndpointRef](m.ID, objc.Sel("destinationMIDIEndpoint"))
+	return coremidi.MIDIEndpointRef(rv)
+}
+func (m AVMusicTrack) SetDestinationMIDIEndpoint(value coremidi.MIDIEndpointRef) {
+	objc.Send[struct{}](m.ID, objc.Sel("setDestinationMIDIEndpoint:"), value)
 }
 
 // A Boolean value that indicates whether the track is in a looping state.

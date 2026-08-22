@@ -68,7 +68,7 @@ func (nc NSPopoverTouchBarItemClass) Alloc() NSPopoverTouchBarItem {
 //
 //   - [NSPopoverTouchBarItem.ShowPopover]: Replaces the main bar with this item’s popover bar.
 //   - [NSPopoverTouchBarItem.DismissPopover]: Restores the previously visible main bar.
-//   - [NSPopoverTouchBarItem.MakeStandardActivatePopoverGestureRecognizer]: Returns a gesture recognizer, configured to invoke the [showPopover(_:)](<doc://com.apple.appkit/documentation/AppKit/NSPopoverTouchBarItem/showPopover(_:)>) method.
+//   - [NSPopoverTouchBarItem.MakeStandardActivatePopoverGestureRecognizer]: Returns a gesture recognizer, configured to invoke the [showPopover(_:)](<https://developer.apple.com/documentation/AppKit/NSPopoverTouchBarItem/showPopover(_:)>) method.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSPopoverTouchBarItem
 type NSPopoverTouchBarItem struct {
@@ -110,7 +110,7 @@ func NSPopoverTouchBarItemFromID(id objc.ID) NSPopoverTouchBarItem {
 //
 //   - [INSPopoverTouchBarItem.ShowPopover]: Replaces the main bar with this item’s popover bar.
 //   - [INSPopoverTouchBarItem.DismissPopover]: Restores the previously visible main bar.
-//   - [INSPopoverTouchBarItem.MakeStandardActivatePopoverGestureRecognizer]: Returns a gesture recognizer, configured to invoke the [showPopover(_:)](<doc://com.apple.appkit/documentation/AppKit/NSPopoverTouchBarItem/showPopover(_:)>) method.
+//   - [INSPopoverTouchBarItem.MakeStandardActivatePopoverGestureRecognizer]: Returns a gesture recognizer, configured to invoke the [showPopover(_:)](<https://developer.apple.com/documentation/AppKit/NSPopoverTouchBarItem/showPopover(_:)>) method.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSPopoverTouchBarItem
 type INSPopoverTouchBarItem interface {
@@ -146,7 +146,7 @@ type INSPopoverTouchBarItem interface {
 	ShowPopover(sender objectivec.IObject)
 	// Restores the previously visible main bar.
 	DismissPopover(sender objectivec.IObject)
-	// Returns a gesture recognizer, configured to invoke the [showPopover(_:)](<doc://com.apple.appkit/documentation/AppKit/NSPopoverTouchBarItem/showPopover(_:)>) method.
+	// Returns a gesture recognizer, configured to invoke the [showPopover(_:)](<https://developer.apple.com/documentation/AppKit/NSPopoverTouchBarItem/showPopover(_:)>) method.
 	MakeStandardActivatePopoverGestureRecognizer() INSGestureRecognizer
 }
 

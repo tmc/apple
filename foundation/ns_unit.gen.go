@@ -103,7 +103,6 @@ func NSUnitFromID(id objc.ID) Unit { return UnitFromID(id) }
 // See: https://developer.apple.com/documentation/Foundation/Unit
 type IUnit interface {
 	objectivec.IObject
-	NSSecureCoding
 
 	// Topic: Accessing Properties
 
@@ -114,6 +113,10 @@ type IUnit interface {
 
 	// Initializes a new unit with the specified symbol.
 	InitWithSymbol(symbol string) Unit
+
+	// Encodes the receiver using a given archiver.
+	EncodeWithCoder(coder INSCoder)
+	InitWithCoder(coder INSCoder) Unit
 }
 
 // Init initializes the instance.

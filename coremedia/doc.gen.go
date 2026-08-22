@@ -23,21 +23,9 @@
 //   - [CMTimeRange]: A structure that represents a range of time. ([CMTimeRange])
 //   - [CMTimeMapping]: A structure that maps a segment of a source time range to a target time range. ([CMTimeMapping])
 //
-// # Media Synchronization
-//
-//   - CMClock: A reference clock you use to synchronize applications and devices.
-//   - CMAudioClock: A specialized reference clock that synchronizes with audio sources.
-//   - CMTimebase: A model of a timeline under application control.
-//
-// # Text Markup
-//
-//   - CMTextMarkup: Attributes that specify text markup in legible media.
-//
 // # Metadata
 //
-//   - CMMetadata: The APIs for working with the framework’s Metadata Identifier Services and Metadata Data Type Registry.
 //   - [CMTag]: Types and interfaces for working with Core Media tags. ([CMTag])
-//   - CMTagCollection: Objective-C types and interfaces for working with Core Media tag collections.
 //   - [CMProjectionType]: Constants describing the projection surface information in a 3D video buffer or channel.
 //   - [CMStereoViewComponents]: Constants describing the stereo views contained within a buffer or channel.
 //   - [CMStereoViewInterpretationOptions]: Create a set of stereo view interpretation options from a constant.
@@ -45,9 +33,7 @@
 //
 // # Queues
 //
-//   - CMSimpleQueue: A simple, lockless FIFO queue of elements.
 //   - CMBufferQueue: A queue of timed buffers. ([CMBufferCallbacks], [CMBufferQueueTriggerHandler], [CMBufferQueueTriggerToken], [CMBufferQueueTriggerCallback], [CMBufferQueueTriggerCondition])
-//   - CMMemoryPool: An object that optimizes memory allocation when working with large blocks of memory.
 //
 // # Variables
 //
@@ -56,10 +42,6 @@
 // # Functions
 //
 //   - [CMTaggedBufferGroupFormatDescriptionCreateForTaggedBufferGroupWithExtensions]
-//
-// # Macros
-//
-//   - CM_BRIDGED_MUTABLE_TYPE
 package coremedia
 
 import (
@@ -69,9 +51,11 @@ import (
 	"github.com/ebitengine/purego"
 )
 
-// frameworkPaths lists paths to try when loading the CoreMedia library.
-// The framework bundle path is tried first; a /usr/lib dylib fallback covers
-// C-API frameworks that are not in the dyld shared cache as bundles.
+// frameworkPaths lists paths to try when loading the CoreMedia library,
+// in order. Frameworks whose symbols live in a known dylib resolve to that
+// dylib alone; the rest try the framework bundle first and then a /usr/lib
+// dylib fallback, which covers C-API frameworks that are not in the dyld
+// shared cache as bundles.
 var frameworkPaths = []string{
 	"/System/Library/Frameworks/CoreMedia.framework/CoreMedia",
 	"/usr/lib/libCoreMedia.dylib",

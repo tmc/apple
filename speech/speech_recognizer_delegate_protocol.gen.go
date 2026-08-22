@@ -86,8 +86,20 @@ func NewSFSpeechRecognizerDelegate(config SFSpeechRecognizerDelegateConfig) SFSp
 		methods = append(methods, objc.MethodDef{
 			Cmd: objc.RegisterName("speechRecognizer:availabilityDidChange:"),
 			Fn: func(self objc.ID, _cmd objc.SEL, speechRecognizerID objc.ID, available bool) {
+				// Names which delegate was running if a panic unwinds out of
+				// it. The frames between here and the Objective-C caller are
+				// runtime and purego dispatch, so without this the traceback
+				// never says which selector dispatched. Deliberately no
+				// recover: see [objc.NoteDelegatePanic].
+				_delegateDone := false
+				defer func() {
+					if !_delegateDone {
+						objc.NoteDelegatePanic("SFSpeechRecognizerDelegate", "speechRecognizer:availabilityDidChange:")
+					}
+				}()
 				speechRecognizer := SFSpeechRecognizerFromID(speechRecognizerID)
 				fn(speechRecognizer, available)
+				_delegateDone = true
 			},
 		})
 	}

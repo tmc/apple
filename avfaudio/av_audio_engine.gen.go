@@ -7,6 +7,7 @@ import (
 	"sync"
 	"unsafe"
 
+	"github.com/tmc/apple/audiotoolbox"
 	"github.com/tmc/apple/foundation"
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
@@ -267,9 +268,9 @@ type IAVAudioEngine interface {
 	// Topic: Managing MIDI Nodes
 
 	// Establishes a MIDI connection between two nodes.
-	ConnectMIDIToFormatEventListBlock(sourceNode IAVAudioNode, destinationNode IAVAudioNode, format IAVAudioFormat, tapBlock unsafe.Pointer)
+	ConnectMIDIToFormatEventListBlock(sourceNode IAVAudioNode, destinationNode IAVAudioNode, format IAVAudioFormat, tapBlock ErrorHandler)
 	// Establishes a MIDI connection between a source node and multiple destination nodes.
-	ConnectMIDIToNodesFormatEventListBlock(sourceNode IAVAudioNode, destinationNodes []AVAudioNode, format IAVAudioFormat, tapBlock unsafe.Pointer)
+	ConnectMIDIToNodesFormatEventListBlock(sourceNode IAVAudioNode, destinationNodes []AVAudioNode, format IAVAudioFormat, tapBlock ErrorHandler)
 	// Removes a MIDI connection between two nodes.
 	DisconnectMIDIFrom(sourceNode IAVAudioNode, destinationNode IAVAudioNode)
 	// Removes a MIDI connection between one source node and multiple destination nodes.
@@ -294,8 +295,8 @@ type IAVAudioEngine interface {
 	// Resets all audio nodes in the audio engine.
 	Reset()
 	// The music sequence instance that you attach to the audio engine, if any.
-	MusicSequence() unsafe.Pointer
-	SetMusicSequence(value unsafe.Pointer)
+	MusicSequence() audiotoolbox.MusicSequence
+	SetMusicSequence(value audiotoolbox.MusicSequence)
 
 	// Topic: Manually Rendering an Audio Engine
 
@@ -309,7 +310,7 @@ type IAVAudioEngine interface {
 	// Topic: Getting Manual Rendering Properties
 
 	// The block that renders the engine when operating in manual rendering mode.
-	ManualRenderingBlock() AVAudioEngineManualRenderingBlock
+	ManualRenderingBlock() AVAudioEngineManualRenderingStatusUint32Handler
 	// The render format of the engine in manual rendering mode.
 	ManualRenderingFormat() IAVAudioFormat
 	// The maximum number of PCM sample frames the engine produces in any single render call in manual rendering mode.
@@ -489,8 +490,6 @@ func (a AVAudioEngine) DisconnectNodeOutputBus(node IAVAudioNode, bus AVAudioNod
 // real-time thread. The host can tap the MIDI data of the source node through
 // this block.
 //
-// tapBlock is a [audiotoolbox.AUMIDIEventListBlock].
-//
 // # Discussion
 //
 // Use this to establish a MIDI connection between a source node and a
@@ -509,8 +508,9 @@ func (a AVAudioEngine) DisconnectNodeOutputBus(node IAVAudioNode, bus AVAudioNod
 // [kAudioUnitType_MIDIProcessor]: https://developer.apple.com/documentation/AudioToolbox/kAudioUnitType_MIDIProcessor
 // [kAudioUnitType_MusicDevice]: https://developer.apple.com/documentation/AudioToolbox/kAudioUnitType_MusicDevice
 // [kAudioUnitType_MusicEffect]: https://developer.apple.com/documentation/AudioToolbox/kAudioUnitType_MusicEffect
-func (a AVAudioEngine) ConnectMIDIToFormatEventListBlock(sourceNode IAVAudioNode, destinationNode IAVAudioNode, format IAVAudioFormat, tapBlock unsafe.Pointer) {
-	objc.Send[objc.ID](a.ID, objc.Sel("connectMIDI:to:format:eventListBlock:"), sourceNode, destinationNode, format, tapBlock)
+func (a AVAudioEngine) ConnectMIDIToFormatEventListBlock(sourceNode IAVAudioNode, destinationNode IAVAudioNode, format IAVAudioFormat, tapBlock ErrorHandler) {
+	_block3, _ := NewErrorBlock(tapBlock)
+	objc.Send[objc.ID](a.ID, objc.Sel("connectMIDI:to:format:eventListBlock:"), sourceNode, destinationNode, format, _block3)
 }
 
 // Establishes a MIDI connection between a source node and multiple
@@ -527,8 +527,6 @@ func (a AVAudioEngine) ConnectMIDIToFormatEventListBlock(sourceNode IAVAudioNode
 // tapBlock: If not [NULL], the source node’s event list block calls this on the
 // real-time thread. The host can tap the MIDI data of the source node through
 // this block.
-//
-// tapBlock is a [audiotoolbox.AUMIDIEventListBlock].
 //
 // # Discussion
 //
@@ -552,8 +550,9 @@ func (a AVAudioEngine) ConnectMIDIToFormatEventListBlock(sourceNode IAVAudioNode
 // [kAudioUnitType_MIDIProcessor]: https://developer.apple.com/documentation/AudioToolbox/kAudioUnitType_MIDIProcessor
 // [kAudioUnitType_MusicDevice]: https://developer.apple.com/documentation/AudioToolbox/kAudioUnitType_MusicDevice
 // [kAudioUnitType_MusicEffect]: https://developer.apple.com/documentation/AudioToolbox/kAudioUnitType_MusicEffect
-func (a AVAudioEngine) ConnectMIDIToNodesFormatEventListBlock(sourceNode IAVAudioNode, destinationNodes []AVAudioNode, format IAVAudioFormat, tapBlock unsafe.Pointer) {
-	objc.Send[objc.ID](a.ID, objc.Sel("connectMIDI:toNodes:format:eventListBlock:"), sourceNode, objectivec.IObjectSliceToNSArray(destinationNodes), format, tapBlock)
+func (a AVAudioEngine) ConnectMIDIToNodesFormatEventListBlock(sourceNode IAVAudioNode, destinationNodes []AVAudioNode, format IAVAudioFormat, tapBlock ErrorHandler) {
+	_block3, _ := NewErrorBlock(tapBlock)
+	objc.Send[objc.ID](a.ID, objc.Sel("connectMIDI:toNodes:format:eventListBlock:"), sourceNode, destinationNodes, format, _block3)
 }
 
 // Removes a MIDI connection between two nodes.
@@ -936,20 +935,21 @@ func (a AVAudioEngine) IsRunning() bool {
 // The music sequence instance that you attach to the audio engine, if any.
 //
 // See: https://developer.apple.com/documentation/AVFAudio/AVAudioEngine/musicSequence
-func (a AVAudioEngine) MusicSequence() unsafe.Pointer {
-	rv := objc.Send[unsafe.Pointer](a.ID, objc.Sel("musicSequence"))
-	return rv
+func (a AVAudioEngine) MusicSequence() audiotoolbox.MusicSequence {
+	rv := objc.Send[audiotoolbox.MusicSequence](a.ID, objc.Sel("musicSequence"))
+	return audiotoolbox.MusicSequence(rv)
 }
-func (a AVAudioEngine) SetMusicSequence(value unsafe.Pointer) {
+func (a AVAudioEngine) SetMusicSequence(value audiotoolbox.MusicSequence) {
 	objc.Send[struct{}](a.ID, objc.Sel("setMusicSequence:"), value)
 }
 
 // The block that renders the engine when operating in manual rendering mode.
 //
 // See: https://developer.apple.com/documentation/AVFAudio/AVAudioEngine/manualRenderingBlock
-func (a AVAudioEngine) ManualRenderingBlock() AVAudioEngineManualRenderingBlock {
-	rv := objc.Send[AVAudioEngineManualRenderingBlock](a.ID, objc.Sel("manualRenderingBlock"))
-	return AVAudioEngineManualRenderingBlock(rv)
+func (a AVAudioEngine) ManualRenderingBlock() AVAudioEngineManualRenderingStatusUint32Handler {
+	rv := objc.Send[objc.ID](a.ID, objc.Sel("manualRenderingBlock"))
+	_ = rv
+	return nil
 }
 
 // The render format of the engine in manual rendering mode.

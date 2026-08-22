@@ -7,7 +7,7 @@ import (
 	"github.com/tmc/apple/objectivec"
 )
 
-// The delegate of an [NSCache](<doc://com.apple.foundation/documentation/Foundation/NSCache>) object implements this protocol to perform specialized actions when an object is about to be evicted or removed from the cache.
+// The delegate of an [NSCache](<https://developer.apple.com/documentation/Foundation/NSCache>) object implements this protocol to perform specialized actions when an object is about to be evicted or removed from the cache.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSCacheDelegate
 type NSCacheDelegate interface {

@@ -20,7 +20,7 @@ type MTLParallelRenderCommandEncoder interface {
 	// See: https://developer.apple.com/documentation/Metal/MTLParallelRenderCommandEncoder/makeRenderCommandEncoder()
 	RenderCommandEncoder() MTLRenderCommandEncoder
 
-	// Specifies a known store action to replace the initial [MTLStoreAction.unknown](<doc://com.apple.metal/documentation/Metal/MTLStoreAction/unknown>) value specified for a given color attachment.
+	// Specifies a known store action to replace the initial [MTLStoreAction.unknown](<https://developer.apple.com/documentation/Metal/MTLStoreAction/unknown>) value specified for a given color attachment.
 	//
 	// See: https://developer.apple.com/documentation/Metal/MTLParallelRenderCommandEncoder/setColorStoreAction(_:index:)
 	SetColorStoreActionAtIndex(storeAction MTLStoreAction, colorAttachmentIndex uint)
@@ -30,7 +30,7 @@ type MTLParallelRenderCommandEncoder interface {
 	// See: https://developer.apple.com/documentation/Metal/MTLParallelRenderCommandEncoder/setColorStoreActionOptions(_:index:)
 	SetColorStoreActionOptionsAtIndex(storeActionOptions MTLStoreActionOptions, colorAttachmentIndex uint)
 
-	// Specifies a known store action to replace the initial [MTLStoreAction.unknown](<doc://com.apple.metal/documentation/Metal/MTLStoreAction/unknown>) value specified for a given depth attachment.
+	// Specifies a known store action to replace the initial [MTLStoreAction.unknown](<https://developer.apple.com/documentation/Metal/MTLStoreAction/unknown>) value specified for a given depth attachment.
 	//
 	// See: https://developer.apple.com/documentation/Metal/MTLParallelRenderCommandEncoder/setDepthStoreAction(_:)
 	SetDepthStoreAction(storeAction MTLStoreAction)
@@ -40,7 +40,7 @@ type MTLParallelRenderCommandEncoder interface {
 	// See: https://developer.apple.com/documentation/Metal/MTLParallelRenderCommandEncoder/setDepthStoreActionOptions(_:)
 	SetDepthStoreActionOptions(storeActionOptions MTLStoreActionOptions)
 
-	// Specifies a known store action to replace the initial [MTLStoreAction.unknown](<doc://com.apple.metal/documentation/Metal/MTLStoreAction/unknown>) value specified for a given stencil attachment.
+	// Specifies a known store action to replace the initial [MTLStoreAction.unknown](<https://developer.apple.com/documentation/Metal/MTLStoreAction/unknown>) value specified for a given stencil attachment.
 	//
 	// See: https://developer.apple.com/documentation/Metal/MTLParallelRenderCommandEncoder/setStencilStoreAction(_:)
 	SetStencilStoreAction(storeAction MTLStoreAction)

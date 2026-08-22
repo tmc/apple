@@ -530,7 +530,7 @@ func (s NSScriptClassDescription) TypeForKey(key string) string {
 //
 // See: https://developer.apple.com/documentation/Foundation/NSScriptClassDescription/selector(forCommand:)
 func (s NSScriptClassDescription) SelectorForCommand(commandDescription INSScriptCommandDescription) objectivec.SEL {
-	rv := objc.Send[objectivec.SEL](s.ID, objc.Sel("selectorForCommand:"), commandDescription)
+	rv := objc.Send[objc.SEL](s.ID, objc.Sel("selectorForCommand:"), commandDescription)
 	return objectivec.SEL(rv)
 }
 

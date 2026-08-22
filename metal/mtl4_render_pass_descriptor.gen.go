@@ -54,7 +54,7 @@ func (mc MTL4RenderPassDescriptorClass) Alloc() MTL4RenderPassDescriptor {
 // [RenderCommandEncoderWithDescriptor]. The
 // [RenderCommandEncoderWithDescriptorOptions] variant of this method allows
 // you to specify additional options to encode a render pass in parallel from
-// multiple CPU cores by creating and render passes.
+// multiple CPU cores by creating suspending and resuming render passes.
 //
 // # Instance Properties
 //
@@ -410,8 +410,8 @@ func (m MTL4RenderPassDescriptor) SetThreadgroupMemoryLength(value uint) {
 // # Discussion
 //
 // For tile-based rendering, Metal divides each render attachment into smaller
-// regions, or . The property’s default is `0`, which tells Metal to select
-// a size that fits in tile memory.
+// regions, or tiles. The property’s default is `0`, which tells Metal to
+// select a size that fits in tile memory.
 //
 // See [Tailor your apps for Apple GPUs and tile-based deferred rendering] for
 // more information about tiles, tile memory, and deferred rendering.
@@ -433,8 +433,8 @@ func (m MTL4RenderPassDescriptor) SetTileHeight(value uint) {
 // # Discussion
 //
 // For tile-based rendering, Metal divides each render attachment into smaller
-// regions, or . The property’s default is `0`, which tells Metal to select
-// a size that fits in tile memory.
+// regions, or tiles. The property’s default is `0`, which tells Metal to
+// select a size that fits in tile memory.
 //
 // See [Tailor your apps for Apple GPUs and tile-based deferred rendering] for
 // more information about tiles, tile memory, and deferred rendering.

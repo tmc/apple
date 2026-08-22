@@ -1,4 +1,4 @@
-// Code generated from Apple documentation by applegen. DO NOT EDIT.
+// Code generated from internal/generator/templates/runtime/objc.txtar by applegen. DO NOT EDIT.
 
 //go:build darwin
 

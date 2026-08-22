@@ -66,7 +66,7 @@ func (nc NSClickGestureRecognizerClass) Alloc() NSClickGestureRecognizer {
 //   - [NSClickGestureRecognizer.SetButtonMask]
 //   - [NSClickGestureRecognizer.NumberOfClicksRequired]: The number of clicks required to match.
 //   - [NSClickGestureRecognizer.SetNumberOfClicksRequired]
-//   - [NSClickGestureRecognizer.NumberOfTouchesRequired]: The number of touches required in an [NSTouchBar](<doc://com.apple.appkit/documentation/AppKit/NSTouchBar>) object for the gesture recognizer to match.
+//   - [NSClickGestureRecognizer.NumberOfTouchesRequired]: The number of touches required in an [NSTouchBar](<https://developer.apple.com/documentation/AppKit/NSTouchBar>) object for the gesture recognizer to match.
 //   - [NSClickGestureRecognizer.SetNumberOfTouchesRequired]
 //
 // See: https://developer.apple.com/documentation/AppKit/NSClickGestureRecognizer
@@ -93,7 +93,7 @@ func NSClickGestureRecognizerFromID(id objc.ID) NSClickGestureRecognizer {
 //   - [INSClickGestureRecognizer.SetButtonMask]
 //   - [INSClickGestureRecognizer.NumberOfClicksRequired]: The number of clicks required to match.
 //   - [INSClickGestureRecognizer.SetNumberOfClicksRequired]
-//   - [INSClickGestureRecognizer.NumberOfTouchesRequired]: The number of touches required in an [NSTouchBar](<doc://com.apple.appkit/documentation/AppKit/NSTouchBar>) object for the gesture recognizer to match.
+//   - [INSClickGestureRecognizer.NumberOfTouchesRequired]: The number of touches required in an [NSTouchBar](<https://developer.apple.com/documentation/AppKit/NSTouchBar>) object for the gesture recognizer to match.
 //   - [INSClickGestureRecognizer.SetNumberOfTouchesRequired]
 //
 // See: https://developer.apple.com/documentation/AppKit/NSClickGestureRecognizer
@@ -108,7 +108,7 @@ type INSClickGestureRecognizer interface {
 	// The number of clicks required to match.
 	NumberOfClicksRequired() int
 	SetNumberOfClicksRequired(value int)
-	// The number of touches required in an [NSTouchBar](<doc://com.apple.appkit/documentation/AppKit/NSTouchBar>) object for the gesture recognizer to match.
+	// The number of touches required in an [NSTouchBar](<https://developer.apple.com/documentation/AppKit/NSTouchBar>) object for the gesture recognizer to match.
 	NumberOfTouchesRequired() int
 	SetNumberOfTouchesRequired(value int)
 }

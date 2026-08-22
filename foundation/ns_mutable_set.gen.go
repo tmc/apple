@@ -5,7 +5,6 @@ package foundation
 import (
 	"sync"
 
-	"github.com/tmc/apple/kernel"
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -245,8 +244,8 @@ func NewMutableSetWithCollectionViewIndexPath(indexPath objectivec.IObject) NSMu
 }
 
 // See: https://developer.apple.com/documentation/Foundation/NSSet/init(collectionViewIndexPaths:)
-func NewMutableSetWithCollectionViewIndexPaths(indexPaths []kernel.ID) NSMutableSet {
-	rv := objc.Send[objc.ID](objc.ID(getNSMutableSetClass().class), objc.Sel("setWithCollectionViewIndexPaths:"), indexPaths)
+func NewMutableSetWithCollectionViewIndexPaths(indexPaths []objectivec.IObject) NSMutableSet {
+	rv := objc.Send[objc.ID](objc.ID(getNSMutableSetClass().class), objc.Sel("setWithCollectionViewIndexPaths:"), objectivec.IObjectSliceToNSArray(indexPaths))
 	return NSMutableSetFromID(rv)
 }
 

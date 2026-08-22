@@ -86,6 +86,7 @@ func (nc NSNotificationClass) Alloc() NSNotification {
 //
 // # Creating Notifications
 //
+//   - [NSNotification.InitWithCoder]: Initializes a notification with the data from an unarchiver.
 //   - [NSNotification.InitWithNameObjectUserInfo]: Initializes a notification with a specified name, object, and user information.
 //
 // # Getting Notification Information
@@ -117,6 +118,7 @@ func NSNotificationFromID(id objc.ID) NSNotification {
 //
 // # Creating Notifications
 //
+//   - [INSNotification.InitWithCoder]: Initializes a notification with the data from an unarchiver.
 //   - [INSNotification.InitWithNameObjectUserInfo]: Initializes a notification with a specified name, object, and user information.
 //
 // # Getting Notification Information
@@ -131,6 +133,8 @@ type INSNotification interface {
 
 	// Topic: Creating Notifications
 
+	// Initializes a notification with the data from an unarchiver.
+	InitWithCoder(coder INSCoder) NSNotification
 	// Initializes a notification with a specified name, object, and user information.
 	InitWithNameObjectUserInfo(name NSNotificationName, object objectivec.IObject, userInfo INSDictionary) NSNotification
 
@@ -142,6 +146,9 @@ type INSNotification interface {
 	GetObject() objectivec.IObject
 	// The user information dictionary associated with the notification.
 	UserInfo() INSDictionary
+
+	// Encodes the receiver using a given archiver.
+	EncodeWithCoder(coder INSCoder)
 }
 
 // Init initializes the instance.

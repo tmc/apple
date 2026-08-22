@@ -4,6 +4,7 @@ package appkit
 
 import (
 	"fmt"
+	"unsafe"
 
 	"github.com/tmc/apple/corefoundation"
 	"github.com/tmc/apple/coregraphics"
@@ -87,8 +88,8 @@ func (o NSLayoutManagerDelegateObject) LayoutManagerDidInvalidateLayout(sender I
 // modified glyph information.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSLayoutManagerDelegate/layoutManager(_:shouldGenerateGlyphs:properties:characterIndexes:font:forGlyphRange:)
-func (o NSLayoutManagerDelegateObject) LayoutManagerShouldGenerateGlyphsPropertiesCharacterIndexesFontForGlyphRange(layoutManager INSLayoutManager, glyphs *coregraphics.CGGlyph, props NSGlyphProperty, charIndexes *uint, aFont NSFont, glyphRange foundation.NSRange) uint {
-	rv := objc.Send[uint](o.ID, objc.Sel("layoutManager:shouldGenerateGlyphs:properties:characterIndexes:font:forGlyphRange:"), layoutManager, glyphs, props, charIndexes, aFont, glyphRange)
+func (o NSLayoutManagerDelegateObject) LayoutManagerShouldGenerateGlyphsPropertiesCharacterIndexesFontForGlyphRange(layoutManager INSLayoutManager, glyphs *coregraphics.CGGlyph, props NSGlyphProperty, charIndexes *uint, aFont INSFont, glyphRange foundation.NSRange) uint {
+	rv := objc.Send[uint](o.ID, objc.Sel("layoutManager:shouldGenerateGlyphs:properties:characterIndexes:font:forGlyphRange:"), layoutManager, unsafe.Pointer(glyphs), props, unsafe.Pointer(charIndexes), aFont, glyphRange)
 	return rv
 }
 
@@ -327,7 +328,7 @@ func (o NSLayoutManagerDelegateObject) LayoutManagerBoundingBoxForControlGlyphAt
 //
 // See: https://developer.apple.com/documentation/AppKit/NSLayoutManagerDelegate/layoutManager(_:shouldSetLineFragmentRect:lineFragmentUsedRect:baselineOffset:in:forGlyphRange:)
 func (o NSLayoutManagerDelegateObject) LayoutManagerShouldSetLineFragmentRectLineFragmentUsedRectBaselineOffsetInTextContainerForGlyphRange(layoutManager INSLayoutManager, lineFragmentRect *corefoundation.CGRect, lineFragmentUsedRect *corefoundation.CGRect, baselineOffset *float64, textContainer INSTextContainer, glyphRange foundation.NSRange) bool {
-	rv := objc.Send[bool](o.ID, objc.Sel("layoutManager:shouldSetLineFragmentRect:lineFragmentUsedRect:baselineOffset:inTextContainer:forGlyphRange:"), layoutManager, lineFragmentRect, lineFragmentUsedRect, baselineOffset, textContainer, glyphRange)
+	rv := objc.Send[bool](o.ID, objc.Sel("layoutManager:shouldSetLineFragmentRect:lineFragmentUsedRect:baselineOffset:inTextContainer:forGlyphRange:"), layoutManager, unsafe.Pointer(lineFragmentRect), unsafe.Pointer(lineFragmentUsedRect), baselineOffset, textContainer, glyphRange)
 	return rv
 }
 
@@ -419,8 +420,20 @@ func NewNSLayoutManagerDelegate(config NSLayoutManagerDelegateConfig) NSLayoutMa
 		methods = append(methods, objc.MethodDef{
 			Cmd: objc.RegisterName("layoutManagerDidInvalidateLayout:"),
 			Fn: func(self objc.ID, _cmd objc.SEL, senderID objc.ID) {
+				// Names which delegate was running if a panic unwinds out of
+				// it. The frames between here and the Objective-C caller are
+				// runtime and purego dispatch, so without this the traceback
+				// never says which selector dispatched. Deliberately no
+				// recover: see [objc.NoteDelegatePanic].
+				_delegateDone := false
+				defer func() {
+					if !_delegateDone {
+						objc.NoteDelegatePanic("NSLayoutManagerDelegate", "layoutManagerDidInvalidateLayout:")
+					}
+				}()
 				sender := NSLayoutManagerFromID(senderID)
 				fn(sender)
+				_delegateDone = true
 			},
 		})
 	}
@@ -430,9 +443,22 @@ func NewNSLayoutManagerDelegate(config NSLayoutManagerDelegateConfig) NSLayoutMa
 		methods = append(methods, objc.MethodDef{
 			Cmd: objc.RegisterName("layoutManager:shouldGenerateGlyphs:properties:characterIndexes:font:forGlyphRange:"),
 			Fn: func(self objc.ID, _cmd objc.SEL, layoutManagerID objc.ID, glyphs *coregraphics.CGGlyph, props NSGlyphProperty, charIndexes *uint, aFontID objc.ID, glyphRange foundation.NSRange) uint {
+				// Names which delegate was running if a panic unwinds out of
+				// it. The frames between here and the Objective-C caller are
+				// runtime and purego dispatch, so without this the traceback
+				// never says which selector dispatched. Deliberately no
+				// recover: see [objc.NoteDelegatePanic].
+				_delegateDone := false
+				defer func() {
+					if !_delegateDone {
+						objc.NoteDelegatePanic("NSLayoutManagerDelegate", "layoutManager:shouldGenerateGlyphs:properties:characterIndexes:font:forGlyphRange:")
+					}
+				}()
 				layoutManager := NSLayoutManagerFromID(layoutManagerID)
 				aFont := NSFontFromID(aFontID)
-				return fn(layoutManager, glyphs, props, charIndexes, aFont, glyphRange)
+				_delegateResult := fn(layoutManager, glyphs, props, charIndexes, aFont, glyphRange)
+				_delegateDone = true
+				return _delegateResult
 			},
 		})
 	}
@@ -442,8 +468,21 @@ func NewNSLayoutManagerDelegate(config NSLayoutManagerDelegateConfig) NSLayoutMa
 		methods = append(methods, objc.MethodDef{
 			Cmd: objc.RegisterName("layoutManager:shouldUseAction:forControlCharacterAtIndex:"),
 			Fn: func(self objc.ID, _cmd objc.SEL, layoutManagerID objc.ID, action NSControlCharacterAction, charIndex uint) NSControlCharacterAction {
+				// Names which delegate was running if a panic unwinds out of
+				// it. The frames between here and the Objective-C caller are
+				// runtime and purego dispatch, so without this the traceback
+				// never says which selector dispatched. Deliberately no
+				// recover: see [objc.NoteDelegatePanic].
+				_delegateDone := false
+				defer func() {
+					if !_delegateDone {
+						objc.NoteDelegatePanic("NSLayoutManagerDelegate", "layoutManager:shouldUseAction:forControlCharacterAtIndex:")
+					}
+				}()
 				layoutManager := NSLayoutManagerFromID(layoutManagerID)
-				return fn(layoutManager, action, charIndex)
+				_delegateResult := fn(layoutManager, action, charIndex)
+				_delegateDone = true
+				return _delegateResult
 			},
 		})
 	}
@@ -453,9 +492,21 @@ func NewNSLayoutManagerDelegate(config NSLayoutManagerDelegateConfig) NSLayoutMa
 		methods = append(methods, objc.MethodDef{
 			Cmd: objc.RegisterName("layoutManager:didCompleteLayoutForTextContainer:atEnd:"),
 			Fn: func(self objc.ID, _cmd objc.SEL, layoutManagerID objc.ID, textContainerID objc.ID, layoutFinishedFlag bool) {
+				// Names which delegate was running if a panic unwinds out of
+				// it. The frames between here and the Objective-C caller are
+				// runtime and purego dispatch, so without this the traceback
+				// never says which selector dispatched. Deliberately no
+				// recover: see [objc.NoteDelegatePanic].
+				_delegateDone := false
+				defer func() {
+					if !_delegateDone {
+						objc.NoteDelegatePanic("NSLayoutManagerDelegate", "layoutManager:didCompleteLayoutForTextContainer:atEnd:")
+					}
+				}()
 				layoutManager := NSLayoutManagerFromID(layoutManagerID)
 				textContainer := NSTextContainerFromID(textContainerID)
 				fn(layoutManager, textContainer, layoutFinishedFlag)
+				_delegateDone = true
 			},
 		})
 	}
@@ -465,8 +516,21 @@ func NewNSLayoutManagerDelegate(config NSLayoutManagerDelegateConfig) NSLayoutMa
 		methods = append(methods, objc.MethodDef{
 			Cmd: objc.RegisterName("layoutManager:shouldBreakLineByHyphenatingBeforeCharacterAtIndex:"),
 			Fn: func(self objc.ID, _cmd objc.SEL, layoutManagerID objc.ID, charIndex uint) bool {
+				// Names which delegate was running if a panic unwinds out of
+				// it. The frames between here and the Objective-C caller are
+				// runtime and purego dispatch, so without this the traceback
+				// never says which selector dispatched. Deliberately no
+				// recover: see [objc.NoteDelegatePanic].
+				_delegateDone := false
+				defer func() {
+					if !_delegateDone {
+						objc.NoteDelegatePanic("NSLayoutManagerDelegate", "layoutManager:shouldBreakLineByHyphenatingBeforeCharacterAtIndex:")
+					}
+				}()
 				layoutManager := NSLayoutManagerFromID(layoutManagerID)
-				return fn(layoutManager, charIndex)
+				_delegateResult := fn(layoutManager, charIndex)
+				_delegateDone = true
+				return _delegateResult
 			},
 		})
 	}
@@ -476,8 +540,21 @@ func NewNSLayoutManagerDelegate(config NSLayoutManagerDelegateConfig) NSLayoutMa
 		methods = append(methods, objc.MethodDef{
 			Cmd: objc.RegisterName("layoutManager:shouldBreakLineByWordBeforeCharacterAtIndex:"),
 			Fn: func(self objc.ID, _cmd objc.SEL, layoutManagerID objc.ID, charIndex uint) bool {
+				// Names which delegate was running if a panic unwinds out of
+				// it. The frames between here and the Objective-C caller are
+				// runtime and purego dispatch, so without this the traceback
+				// never says which selector dispatched. Deliberately no
+				// recover: see [objc.NoteDelegatePanic].
+				_delegateDone := false
+				defer func() {
+					if !_delegateDone {
+						objc.NoteDelegatePanic("NSLayoutManagerDelegate", "layoutManager:shouldBreakLineByWordBeforeCharacterAtIndex:")
+					}
+				}()
 				layoutManager := NSLayoutManagerFromID(layoutManagerID)
-				return fn(layoutManager, charIndex)
+				_delegateResult := fn(layoutManager, charIndex)
+				_delegateDone = true
+				return _delegateResult
 			},
 		})
 	}
@@ -487,9 +564,22 @@ func NewNSLayoutManagerDelegate(config NSLayoutManagerDelegateConfig) NSLayoutMa
 		methods = append(methods, objc.MethodDef{
 			Cmd: objc.RegisterName("layoutManager:shouldSetLineFragmentRect:lineFragmentUsedRect:baselineOffset:inTextContainer:forGlyphRange:"),
 			Fn: func(self objc.ID, _cmd objc.SEL, layoutManagerID objc.ID, lineFragmentRect *corefoundation.CGRect, lineFragmentUsedRect *corefoundation.CGRect, baselineOffset *float64, textContainerID objc.ID, glyphRange foundation.NSRange) bool {
+				// Names which delegate was running if a panic unwinds out of
+				// it. The frames between here and the Objective-C caller are
+				// runtime and purego dispatch, so without this the traceback
+				// never says which selector dispatched. Deliberately no
+				// recover: see [objc.NoteDelegatePanic].
+				_delegateDone := false
+				defer func() {
+					if !_delegateDone {
+						objc.NoteDelegatePanic("NSLayoutManagerDelegate", "layoutManager:shouldSetLineFragmentRect:lineFragmentUsedRect:baselineOffset:inTextContainer:forGlyphRange:")
+					}
+				}()
 				layoutManager := NSLayoutManagerFromID(layoutManagerID)
 				textContainer := NSTextContainerFromID(textContainerID)
-				return fn(layoutManager, lineFragmentRect, lineFragmentUsedRect, baselineOffset, textContainer, glyphRange)
+				_delegateResult := fn(layoutManager, lineFragmentRect, lineFragmentUsedRect, baselineOffset, textContainer, glyphRange)
+				_delegateDone = true
+				return _delegateResult
 			},
 		})
 	}
@@ -499,9 +589,22 @@ func NewNSLayoutManagerDelegate(config NSLayoutManagerDelegateConfig) NSLayoutMa
 		methods = append(methods, objc.MethodDef{
 			Cmd: objc.RegisterName("layoutManager:shouldUseTemporaryAttributes:forDrawingToScreen:atCharacterIndex:effectiveRange:"),
 			Fn: func(self objc.ID, _cmd objc.SEL, layoutManagerID objc.ID, attrsID objc.ID, toScreen bool, charIndex uint, effectiveCharRange foundation.NSRangePointer) objc.ID {
+				// Names which delegate was running if a panic unwinds out of
+				// it. The frames between here and the Objective-C caller are
+				// runtime and purego dispatch, so without this the traceback
+				// never says which selector dispatched. Deliberately no
+				// recover: see [objc.NoteDelegatePanic].
+				_delegateDone := false
+				defer func() {
+					if !_delegateDone {
+						objc.NoteDelegatePanic("NSLayoutManagerDelegate", "layoutManager:shouldUseTemporaryAttributes:forDrawingToScreen:atCharacterIndex:effectiveRange:")
+					}
+				}()
 				layoutManager := NSLayoutManagerFromID(layoutManagerID)
 				attrs := foundation.NSDictionaryFromID(attrsID)
-				return fn(layoutManager, attrs, toScreen, charIndex, effectiveCharRange).GetID()
+				_delegateResult := fn(layoutManager, attrs, toScreen, charIndex, effectiveCharRange).GetID()
+				_delegateDone = true
+				return _delegateResult
 			},
 		})
 	}

@@ -17,6 +17,11 @@ type NSPasteboardWriting interface {
 	//
 	// See: https://developer.apple.com/documentation/AppKit/NSPasteboardWriting/writableTypes(for:)
 	WritableTypesForPasteboard(pasteboard INSPasteboard) []string
+
+	// Returns a property list object to represent the receiver on a pasteboard as an object of a specified type.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSPasteboardWriting/pasteboardPropertyList(forType:)
+	PasteboardPropertyListForType(type_ NSPasteboardType) objectivec.IObject
 }
 
 // NSPasteboardWritingObject wraps an existing Objective-C object that conforms to the NSPasteboardWriting protocol.

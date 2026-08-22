@@ -240,6 +240,11 @@ func (oc OperationClass) Alloc() Operation {
 // operations in your code. The key paths associated with an operation’s
 // states are:
 //
+// `isReady`: The `isReady` key path lets clients know when an operation is
+// ready to execute. The [NSOperation.Ready] property contains the value
+// `true` when the operation is ready to execute now or `false` if there are
+// still unfinished operations on which it is dependent.
+//
 // In most cases, you do not have to manage the state of this key path
 // yourself. If the readiness of your operations is determined by factors
 // other than dependent operations, however—such as by some external
@@ -254,13 +259,32 @@ func (oc OperationClass) Alloc() Operation {
 // that it is now ready to run. This behavior gives an operation queue the
 // chance to flush cancelled operations out of its queue more quickly.
 //
+// `isExecuting`: The `isExecuting` key path lets clients know whether the
+// operation is actively working on its assigned task. The
+// [NSOperation.Executing] property must report the value `true` if the
+// operation is working on its task or `false` if it is not.
+//
 // If you replace the [NSOperation.Start] method of your operation object, you
 // must also replace the [NSOperation.Executing] property and generate KVO
 // notifications when the execution state of your operation changes.
 //
+// `isFinished`: The `isFinished` key path lets clients know that an operation
+// finished its task successfully or was cancelled and is exiting. An
+// operation object does not clear a dependency until the value at the
+// `isFinished` key path changes to `true`. Similarly, an operation queue does
+// not dequeue an operation until the [NSOperation.Finished] property contains
+// the value `true`. Thus, marking operations as finished is critical to
+// keeping queues from backing up with in-progress or cancelled operations.
+//
 // If you replace the [NSOperation.Start] method or your operation object, you
 // must also replace the [NSOperation.Finished] property and generate KVO
 // notifications when the operation finishes executing or is cancelled.
+//
+// `isCancelled`: The `isCancelled` key path lets clients know that the
+// cancellation of an operation was requested. Support for cancellation is
+// voluntary but encouraged and your own code should not have to send KVO
+// notifications for this key path. The handling of cancellation notices in an
+// operation is described in more detail in [NSOperation].
 //
 // # Responding to the Cancel Command
 //

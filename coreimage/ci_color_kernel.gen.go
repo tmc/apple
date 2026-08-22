@@ -153,10 +153,10 @@ func NewCIColorKernel() CIColorKernel {
 // # Specifying Compiler and Linker Options
 //
 // To use MSL as the shader language for a [CIKernel], you must specify some
-// options in Xcode under the tab of your project’s target. The first option
-// you need to specify is an `-fcikernel` flag in the Other Metal Compiler
-// Flags option. The second is to add a user-defined setting with a key called
-// `MTLLINKER_FLAGS` with a value of `-`
+// options in Xcode under the Build Settings tab of your project’s target.
+// The first option you need to specify is an `-fcikernel` flag in the Other
+// Metal Compiler Flags option. The second is to add a user-defined setting
+// with a key called `MTLLINKER_FLAGS` with a value of `-`
 //
 // [media-2929842]
 //
@@ -203,6 +203,9 @@ func NewColorKernelWithFunctionNameFromMetalLibraryDataError(name string, data f
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
 		return CIColorKernel{}, foundation.NSErrorFrom(errorPtr)
 	}
+	if rv == 0 {
+		return CIColorKernel{}, objc.ErrInitFailed
+	}
 	return CIColorKernelFromID(rv), nil
 }
 
@@ -228,12 +231,15 @@ func NewColorKernelWithFunctionNameFromMetalLibraryDataError(name string, data f
 // the same filter graph as traditional CIKL kernels.
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIKernel/init(functionName:fromMetalLibraryData:outputPixelFormat:)
-func NewColorKernelWithFunctionNameFromMetalLibraryDataOutputPixelFormatError(name string, data foundation.NSData, format int) (CIColorKernel, error) {
+func NewColorKernelWithFunctionNameFromMetalLibraryDataOutputPixelFormatError(name string, data foundation.NSData, format CIFormat) (CIColorKernel, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](objc.ID(getCIColorKernelClass().class), objc.Sel("kernelWithFunctionName:fromMetalLibraryData:outputPixelFormat:error:"), objc.String(name), data, format, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
 		return CIColorKernel{}, foundation.NSErrorFrom(errorPtr)
+	}
+	if rv == 0 {
+		return CIColorKernel{}, objc.ErrInitFailed
 	}
 	return CIColorKernelFromID(rv), nil
 }

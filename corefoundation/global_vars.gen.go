@@ -3,8 +3,6 @@
 package corefoundation
 
 import (
-	"unsafe"
-
 	"github.com/ebitengine/purego"
 	"github.com/tmc/apple/objc"
 )
@@ -1360,43 +1358,43 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCFAllocatorDefault"); err == nil && ptr != 0 {
-		KCFAllocatorDefault = *(*CFAllocatorRef)(unsafe.Pointer(ptr))
+		KCFAllocatorDefault = objc.ValueAt[CFAllocatorRef](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCFAllocatorMalloc"); err == nil && ptr != 0 {
-		KCFAllocatorMalloc = *(*CFAllocatorRef)(unsafe.Pointer(ptr))
+		KCFAllocatorMalloc = objc.ValueAt[CFAllocatorRef](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCFAllocatorMallocZone"); err == nil && ptr != 0 {
-		KCFAllocatorMallocZone = *(*CFAllocatorRef)(unsafe.Pointer(ptr))
+		KCFAllocatorMallocZone = objc.ValueAt[CFAllocatorRef](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCFAllocatorNull"); err == nil && ptr != 0 {
-		KCFAllocatorNull = *(*CFAllocatorRef)(unsafe.Pointer(ptr))
+		KCFAllocatorNull = objc.ValueAt[CFAllocatorRef](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCFAllocatorSystemDefault"); err == nil && ptr != 0 {
-		KCFAllocatorSystemDefault = *(*CFAllocatorRef)(unsafe.Pointer(ptr))
+		KCFAllocatorSystemDefault = objc.ValueAt[CFAllocatorRef](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCFAllocatorUseContext"); err == nil && ptr != 0 {
-		KCFAllocatorUseContext = *(*CFAllocatorRef)(unsafe.Pointer(ptr))
+		KCFAllocatorUseContext = objc.ValueAt[CFAllocatorRef](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCFBanglaCalendar"); err == nil && ptr != 0 {
-		KCFBanglaCalendar = *(*CFCalendarIdentifier)(unsafe.Pointer(ptr))
+		KCFBanglaCalendar = objc.ValueAt[CFCalendarIdentifier](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCFBooleanFalse"); err == nil && ptr != 0 {
-		KCFBooleanFalse = *(*CFBooleanRef)(unsafe.Pointer(ptr))
+		KCFBooleanFalse = objc.ValueAt[CFBooleanRef](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCFBooleanTrue"); err == nil && ptr != 0 {
-		KCFBooleanTrue = *(*CFBooleanRef)(unsafe.Pointer(ptr))
+		KCFBooleanTrue = objc.ValueAt[CFBooleanRef](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCFBuddhistCalendar"); err == nil && ptr != 0 {
-		KCFBuddhistCalendar = *(*CFCalendarIdentifier)(unsafe.Pointer(ptr))
+		KCFBuddhistCalendar = objc.ValueAt[CFCalendarIdentifier](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCFBundleDevelopmentRegionKey"); err == nil && ptr != 0 {
@@ -1470,139 +1468,139 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCFChineseCalendar"); err == nil && ptr != 0 {
-		KCFChineseCalendar = *(*CFCalendarIdentifier)(unsafe.Pointer(ptr))
+		KCFChineseCalendar = objc.ValueAt[CFCalendarIdentifier](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCFCopyStringBagCallBacks"); err == nil && ptr != 0 {
-		KCFCopyStringBagCallBacks = *(*CFBagCallBacks)(unsafe.Pointer(ptr))
+		KCFCopyStringBagCallBacks = objc.ValueAt[CFBagCallBacks](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCFCopyStringDictionaryKeyCallBacks"); err == nil && ptr != 0 {
-		KCFCopyStringDictionaryKeyCallBacks = *(*CFDictionaryKeyCallBacks)(unsafe.Pointer(ptr))
+		KCFCopyStringDictionaryKeyCallBacks = objc.ValueAt[CFDictionaryKeyCallBacks](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCFCopyStringSetCallBacks"); err == nil && ptr != 0 {
-		KCFCopyStringSetCallBacks = *(*CFSetCallBacks)(unsafe.Pointer(ptr))
+		KCFCopyStringSetCallBacks = objc.ValueAt[CFSetCallBacks](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCFDangiCalendar"); err == nil && ptr != 0 {
-		KCFDangiCalendar = *(*CFCalendarIdentifier)(unsafe.Pointer(ptr))
+		KCFDangiCalendar = objc.ValueAt[CFCalendarIdentifier](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCFDateFormatterAMSymbol"); err == nil && ptr != 0 {
-		KCFDateFormatterAMSymbol = *(*CFDateFormatterKey)(unsafe.Pointer(ptr))
+		KCFDateFormatterAMSymbol = objc.ValueAt[CFDateFormatterKey](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCFDateFormatterCalendar"); err == nil && ptr != 0 {
-		KCFDateFormatterCalendar = *(*CFDateFormatterKey)(unsafe.Pointer(ptr))
+		KCFDateFormatterCalendar = objc.ValueAt[CFDateFormatterKey](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCFDateFormatterCalendarName"); err == nil && ptr != 0 {
-		KCFDateFormatterCalendarName = *(*CFDateFormatterKey)(unsafe.Pointer(ptr))
+		KCFDateFormatterCalendarName = objc.ValueAt[CFDateFormatterKey](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCFDateFormatterDefaultDate"); err == nil && ptr != 0 {
-		KCFDateFormatterDefaultDate = *(*CFDateFormatterKey)(unsafe.Pointer(ptr))
+		KCFDateFormatterDefaultDate = objc.ValueAt[CFDateFormatterKey](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCFDateFormatterDefaultFormat"); err == nil && ptr != 0 {
-		KCFDateFormatterDefaultFormat = *(*CFDateFormatterKey)(unsafe.Pointer(ptr))
+		KCFDateFormatterDefaultFormat = objc.ValueAt[CFDateFormatterKey](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCFDateFormatterDoesRelativeDateFormattingKey"); err == nil && ptr != 0 {
-		KCFDateFormatterDoesRelativeDateFormattingKey = *(*CFDateFormatterKey)(unsafe.Pointer(ptr))
+		KCFDateFormatterDoesRelativeDateFormattingKey = objc.ValueAt[CFDateFormatterKey](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCFDateFormatterEraSymbols"); err == nil && ptr != 0 {
-		KCFDateFormatterEraSymbols = *(*CFDateFormatterKey)(unsafe.Pointer(ptr))
+		KCFDateFormatterEraSymbols = objc.ValueAt[CFDateFormatterKey](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCFDateFormatterGregorianStartDate"); err == nil && ptr != 0 {
-		KCFDateFormatterGregorianStartDate = *(*CFDateFormatterKey)(unsafe.Pointer(ptr))
+		KCFDateFormatterGregorianStartDate = objc.ValueAt[CFDateFormatterKey](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCFDateFormatterIsLenient"); err == nil && ptr != 0 {
-		KCFDateFormatterIsLenient = *(*CFDateFormatterKey)(unsafe.Pointer(ptr))
+		KCFDateFormatterIsLenient = objc.ValueAt[CFDateFormatterKey](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCFDateFormatterLongEraSymbols"); err == nil && ptr != 0 {
-		KCFDateFormatterLongEraSymbols = *(*CFDateFormatterKey)(unsafe.Pointer(ptr))
+		KCFDateFormatterLongEraSymbols = objc.ValueAt[CFDateFormatterKey](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCFDateFormatterMonthSymbols"); err == nil && ptr != 0 {
-		KCFDateFormatterMonthSymbols = *(*CFDateFormatterKey)(unsafe.Pointer(ptr))
+		KCFDateFormatterMonthSymbols = objc.ValueAt[CFDateFormatterKey](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCFDateFormatterPMSymbol"); err == nil && ptr != 0 {
-		KCFDateFormatterPMSymbol = *(*CFDateFormatterKey)(unsafe.Pointer(ptr))
+		KCFDateFormatterPMSymbol = objc.ValueAt[CFDateFormatterKey](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCFDateFormatterQuarterSymbols"); err == nil && ptr != 0 {
-		KCFDateFormatterQuarterSymbols = *(*CFDateFormatterKey)(unsafe.Pointer(ptr))
+		KCFDateFormatterQuarterSymbols = objc.ValueAt[CFDateFormatterKey](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCFDateFormatterShortMonthSymbols"); err == nil && ptr != 0 {
-		KCFDateFormatterShortMonthSymbols = *(*CFDateFormatterKey)(unsafe.Pointer(ptr))
+		KCFDateFormatterShortMonthSymbols = objc.ValueAt[CFDateFormatterKey](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCFDateFormatterShortQuarterSymbols"); err == nil && ptr != 0 {
-		KCFDateFormatterShortQuarterSymbols = *(*CFDateFormatterKey)(unsafe.Pointer(ptr))
+		KCFDateFormatterShortQuarterSymbols = objc.ValueAt[CFDateFormatterKey](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCFDateFormatterShortStandaloneMonthSymbols"); err == nil && ptr != 0 {
-		KCFDateFormatterShortStandaloneMonthSymbols = *(*CFDateFormatterKey)(unsafe.Pointer(ptr))
+		KCFDateFormatterShortStandaloneMonthSymbols = objc.ValueAt[CFDateFormatterKey](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCFDateFormatterShortStandaloneQuarterSymbols"); err == nil && ptr != 0 {
-		KCFDateFormatterShortStandaloneQuarterSymbols = *(*CFDateFormatterKey)(unsafe.Pointer(ptr))
+		KCFDateFormatterShortStandaloneQuarterSymbols = objc.ValueAt[CFDateFormatterKey](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCFDateFormatterShortStandaloneWeekdaySymbols"); err == nil && ptr != 0 {
-		KCFDateFormatterShortStandaloneWeekdaySymbols = *(*CFDateFormatterKey)(unsafe.Pointer(ptr))
+		KCFDateFormatterShortStandaloneWeekdaySymbols = objc.ValueAt[CFDateFormatterKey](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCFDateFormatterShortWeekdaySymbols"); err == nil && ptr != 0 {
-		KCFDateFormatterShortWeekdaySymbols = *(*CFDateFormatterKey)(unsafe.Pointer(ptr))
+		KCFDateFormatterShortWeekdaySymbols = objc.ValueAt[CFDateFormatterKey](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCFDateFormatterStandaloneMonthSymbols"); err == nil && ptr != 0 {
-		KCFDateFormatterStandaloneMonthSymbols = *(*CFDateFormatterKey)(unsafe.Pointer(ptr))
+		KCFDateFormatterStandaloneMonthSymbols = objc.ValueAt[CFDateFormatterKey](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCFDateFormatterStandaloneQuarterSymbols"); err == nil && ptr != 0 {
-		KCFDateFormatterStandaloneQuarterSymbols = *(*CFDateFormatterKey)(unsafe.Pointer(ptr))
+		KCFDateFormatterStandaloneQuarterSymbols = objc.ValueAt[CFDateFormatterKey](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCFDateFormatterStandaloneWeekdaySymbols"); err == nil && ptr != 0 {
-		KCFDateFormatterStandaloneWeekdaySymbols = *(*CFDateFormatterKey)(unsafe.Pointer(ptr))
+		KCFDateFormatterStandaloneWeekdaySymbols = objc.ValueAt[CFDateFormatterKey](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCFDateFormatterTimeZone"); err == nil && ptr != 0 {
-		KCFDateFormatterTimeZone = *(*CFDateFormatterKey)(unsafe.Pointer(ptr))
+		KCFDateFormatterTimeZone = objc.ValueAt[CFDateFormatterKey](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCFDateFormatterTwoDigitStartDate"); err == nil && ptr != 0 {
-		KCFDateFormatterTwoDigitStartDate = *(*CFDateFormatterKey)(unsafe.Pointer(ptr))
+		KCFDateFormatterTwoDigitStartDate = objc.ValueAt[CFDateFormatterKey](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCFDateFormatterVeryShortMonthSymbols"); err == nil && ptr != 0 {
-		KCFDateFormatterVeryShortMonthSymbols = *(*CFDateFormatterKey)(unsafe.Pointer(ptr))
+		KCFDateFormatterVeryShortMonthSymbols = objc.ValueAt[CFDateFormatterKey](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCFDateFormatterVeryShortStandaloneMonthSymbols"); err == nil && ptr != 0 {
-		KCFDateFormatterVeryShortStandaloneMonthSymbols = *(*CFDateFormatterKey)(unsafe.Pointer(ptr))
+		KCFDateFormatterVeryShortStandaloneMonthSymbols = objc.ValueAt[CFDateFormatterKey](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCFDateFormatterVeryShortStandaloneWeekdaySymbols"); err == nil && ptr != 0 {
-		KCFDateFormatterVeryShortStandaloneWeekdaySymbols = *(*CFDateFormatterKey)(unsafe.Pointer(ptr))
+		KCFDateFormatterVeryShortStandaloneWeekdaySymbols = objc.ValueAt[CFDateFormatterKey](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCFDateFormatterVeryShortWeekdaySymbols"); err == nil && ptr != 0 {
-		KCFDateFormatterVeryShortWeekdaySymbols = *(*CFDateFormatterKey)(unsafe.Pointer(ptr))
+		KCFDateFormatterVeryShortWeekdaySymbols = objc.ValueAt[CFDateFormatterKey](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCFDateFormatterWeekdaySymbols"); err == nil && ptr != 0 {
-		KCFDateFormatterWeekdaySymbols = *(*CFDateFormatterKey)(unsafe.Pointer(ptr))
+		KCFDateFormatterWeekdaySymbols = objc.ValueAt[CFDateFormatterKey](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCFErrorDescriptionKey"); err == nil && ptr != 0 {
@@ -1616,19 +1614,19 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCFErrorDomainCocoa"); err == nil && ptr != 0 {
-		KCFErrorDomainCocoa = *(*CFErrorDomain)(unsafe.Pointer(ptr))
+		KCFErrorDomainCocoa = objc.ValueAt[CFErrorDomain](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCFErrorDomainMach"); err == nil && ptr != 0 {
-		KCFErrorDomainMach = *(*CFErrorDomain)(unsafe.Pointer(ptr))
+		KCFErrorDomainMach = objc.ValueAt[CFErrorDomain](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCFErrorDomainOSStatus"); err == nil && ptr != 0 {
-		KCFErrorDomainOSStatus = *(*CFErrorDomain)(unsafe.Pointer(ptr))
+		KCFErrorDomainOSStatus = objc.ValueAt[CFErrorDomain](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCFErrorDomainPOSIX"); err == nil && ptr != 0 {
-		KCFErrorDomainPOSIX = *(*CFErrorDomain)(unsafe.Pointer(ptr))
+		KCFErrorDomainPOSIX = objc.ValueAt[CFErrorDomain](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCFErrorFilePathKey"); err == nil && ptr != 0 {
@@ -1702,319 +1700,319 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCFGregorianCalendar"); err == nil && ptr != 0 {
-		KCFGregorianCalendar = *(*CFCalendarIdentifier)(unsafe.Pointer(ptr))
+		KCFGregorianCalendar = objc.ValueAt[CFCalendarIdentifier](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCFGujaratiCalendar"); err == nil && ptr != 0 {
-		KCFGujaratiCalendar = *(*CFCalendarIdentifier)(unsafe.Pointer(ptr))
+		KCFGujaratiCalendar = objc.ValueAt[CFCalendarIdentifier](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCFHebrewCalendar"); err == nil && ptr != 0 {
-		KCFHebrewCalendar = *(*CFCalendarIdentifier)(unsafe.Pointer(ptr))
+		KCFHebrewCalendar = objc.ValueAt[CFCalendarIdentifier](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCFISO8601Calendar"); err == nil && ptr != 0 {
-		KCFISO8601Calendar = *(*CFCalendarIdentifier)(unsafe.Pointer(ptr))
+		KCFISO8601Calendar = objc.ValueAt[CFCalendarIdentifier](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCFIndianCalendar"); err == nil && ptr != 0 {
-		KCFIndianCalendar = *(*CFCalendarIdentifier)(unsafe.Pointer(ptr))
+		KCFIndianCalendar = objc.ValueAt[CFCalendarIdentifier](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCFIslamicCalendar"); err == nil && ptr != 0 {
-		KCFIslamicCalendar = *(*CFCalendarIdentifier)(unsafe.Pointer(ptr))
+		KCFIslamicCalendar = objc.ValueAt[CFCalendarIdentifier](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCFIslamicCivilCalendar"); err == nil && ptr != 0 {
-		KCFIslamicCivilCalendar = *(*CFCalendarIdentifier)(unsafe.Pointer(ptr))
+		KCFIslamicCivilCalendar = objc.ValueAt[CFCalendarIdentifier](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCFIslamicTabularCalendar"); err == nil && ptr != 0 {
-		KCFIslamicTabularCalendar = *(*CFCalendarIdentifier)(unsafe.Pointer(ptr))
+		KCFIslamicTabularCalendar = objc.ValueAt[CFCalendarIdentifier](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCFIslamicUmmAlQuraCalendar"); err == nil && ptr != 0 {
-		KCFIslamicUmmAlQuraCalendar = *(*CFCalendarIdentifier)(unsafe.Pointer(ptr))
+		KCFIslamicUmmAlQuraCalendar = objc.ValueAt[CFCalendarIdentifier](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCFJapaneseCalendar"); err == nil && ptr != 0 {
-		KCFJapaneseCalendar = *(*CFCalendarIdentifier)(unsafe.Pointer(ptr))
+		KCFJapaneseCalendar = objc.ValueAt[CFCalendarIdentifier](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCFKannadaCalendar"); err == nil && ptr != 0 {
-		KCFKannadaCalendar = *(*CFCalendarIdentifier)(unsafe.Pointer(ptr))
+		KCFKannadaCalendar = objc.ValueAt[CFCalendarIdentifier](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCFLocaleAlternateQuotationBeginDelimiterKey"); err == nil && ptr != 0 {
-		KCFLocaleAlternateQuotationBeginDelimiterKey = *(*CFLocaleKey)(unsafe.Pointer(ptr))
+		KCFLocaleAlternateQuotationBeginDelimiterKey = objc.ValueAt[CFLocaleKey](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCFLocaleAlternateQuotationEndDelimiterKey"); err == nil && ptr != 0 {
-		KCFLocaleAlternateQuotationEndDelimiterKey = *(*CFLocaleKey)(unsafe.Pointer(ptr))
+		KCFLocaleAlternateQuotationEndDelimiterKey = objc.ValueAt[CFLocaleKey](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCFLocaleCalendar"); err == nil && ptr != 0 {
-		KCFLocaleCalendar = *(*CFLocaleKey)(unsafe.Pointer(ptr))
+		KCFLocaleCalendar = objc.ValueAt[CFLocaleKey](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCFLocaleCalendarIdentifier"); err == nil && ptr != 0 {
-		KCFLocaleCalendarIdentifier = *(*CFLocaleKey)(unsafe.Pointer(ptr))
+		KCFLocaleCalendarIdentifier = objc.ValueAt[CFLocaleKey](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCFLocaleCollationIdentifier"); err == nil && ptr != 0 {
-		KCFLocaleCollationIdentifier = *(*CFLocaleKey)(unsafe.Pointer(ptr))
+		KCFLocaleCollationIdentifier = objc.ValueAt[CFLocaleKey](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCFLocaleCollatorIdentifier"); err == nil && ptr != 0 {
-		KCFLocaleCollatorIdentifier = *(*CFLocaleKey)(unsafe.Pointer(ptr))
+		KCFLocaleCollatorIdentifier = objc.ValueAt[CFLocaleKey](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCFLocaleCountryCode"); err == nil && ptr != 0 {
-		KCFLocaleCountryCode = *(*CFLocaleKey)(unsafe.Pointer(ptr))
+		KCFLocaleCountryCode = objc.ValueAt[CFLocaleKey](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCFLocaleCurrencyCode"); err == nil && ptr != 0 {
-		KCFLocaleCurrencyCode = *(*CFLocaleKey)(unsafe.Pointer(ptr))
+		KCFLocaleCurrencyCode = objc.ValueAt[CFLocaleKey](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCFLocaleCurrencySymbol"); err == nil && ptr != 0 {
-		KCFLocaleCurrencySymbol = *(*CFLocaleKey)(unsafe.Pointer(ptr))
+		KCFLocaleCurrencySymbol = objc.ValueAt[CFLocaleKey](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCFLocaleCurrentLocaleDidChangeNotification"); err == nil && ptr != 0 {
-		KCFLocaleCurrentLocaleDidChangeNotification = *(*CFNotificationName)(unsafe.Pointer(ptr))
+		KCFLocaleCurrentLocaleDidChangeNotification = objc.ValueAt[CFNotificationName](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCFLocaleDecimalSeparator"); err == nil && ptr != 0 {
-		KCFLocaleDecimalSeparator = *(*CFLocaleKey)(unsafe.Pointer(ptr))
+		KCFLocaleDecimalSeparator = objc.ValueAt[CFLocaleKey](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCFLocaleExemplarCharacterSet"); err == nil && ptr != 0 {
-		KCFLocaleExemplarCharacterSet = *(*CFLocaleKey)(unsafe.Pointer(ptr))
+		KCFLocaleExemplarCharacterSet = objc.ValueAt[CFLocaleKey](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCFLocaleGroupingSeparator"); err == nil && ptr != 0 {
-		KCFLocaleGroupingSeparator = *(*CFLocaleKey)(unsafe.Pointer(ptr))
+		KCFLocaleGroupingSeparator = objc.ValueAt[CFLocaleKey](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCFLocaleIdentifier"); err == nil && ptr != 0 {
-		KCFLocaleIdentifier = *(*CFLocaleKey)(unsafe.Pointer(ptr))
+		KCFLocaleIdentifier = objc.ValueAt[CFLocaleKey](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCFLocaleLanguageCode"); err == nil && ptr != 0 {
-		KCFLocaleLanguageCode = *(*CFLocaleKey)(unsafe.Pointer(ptr))
+		KCFLocaleLanguageCode = objc.ValueAt[CFLocaleKey](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCFLocaleMeasurementSystem"); err == nil && ptr != 0 {
-		KCFLocaleMeasurementSystem = *(*CFLocaleKey)(unsafe.Pointer(ptr))
+		KCFLocaleMeasurementSystem = objc.ValueAt[CFLocaleKey](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCFLocaleQuotationBeginDelimiterKey"); err == nil && ptr != 0 {
-		KCFLocaleQuotationBeginDelimiterKey = *(*CFLocaleKey)(unsafe.Pointer(ptr))
+		KCFLocaleQuotationBeginDelimiterKey = objc.ValueAt[CFLocaleKey](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCFLocaleQuotationEndDelimiterKey"); err == nil && ptr != 0 {
-		KCFLocaleQuotationEndDelimiterKey = *(*CFLocaleKey)(unsafe.Pointer(ptr))
+		KCFLocaleQuotationEndDelimiterKey = objc.ValueAt[CFLocaleKey](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCFLocaleScriptCode"); err == nil && ptr != 0 {
-		KCFLocaleScriptCode = *(*CFLocaleKey)(unsafe.Pointer(ptr))
+		KCFLocaleScriptCode = objc.ValueAt[CFLocaleKey](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCFLocaleUsesMetricSystem"); err == nil && ptr != 0 {
-		KCFLocaleUsesMetricSystem = *(*CFLocaleKey)(unsafe.Pointer(ptr))
+		KCFLocaleUsesMetricSystem = objc.ValueAt[CFLocaleKey](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCFLocaleVariantCode"); err == nil && ptr != 0 {
-		KCFLocaleVariantCode = *(*CFLocaleKey)(unsafe.Pointer(ptr))
+		KCFLocaleVariantCode = objc.ValueAt[CFLocaleKey](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCFMalayalamCalendar"); err == nil && ptr != 0 {
-		KCFMalayalamCalendar = *(*CFCalendarIdentifier)(unsafe.Pointer(ptr))
+		KCFMalayalamCalendar = objc.ValueAt[CFCalendarIdentifier](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCFMarathiCalendar"); err == nil && ptr != 0 {
-		KCFMarathiCalendar = *(*CFCalendarIdentifier)(unsafe.Pointer(ptr))
+		KCFMarathiCalendar = objc.ValueAt[CFCalendarIdentifier](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCFNull"); err == nil && ptr != 0 {
-		KCFNull = *(*CFNullRef)(unsafe.Pointer(ptr))
+		KCFNull = objc.ValueAt[CFNullRef](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCFNumberFormatterAlwaysShowDecimalSeparator"); err == nil && ptr != 0 {
-		KCFNumberFormatterAlwaysShowDecimalSeparator = *(*CFNumberFormatterKey)(unsafe.Pointer(ptr))
+		KCFNumberFormatterAlwaysShowDecimalSeparator = objc.ValueAt[CFNumberFormatterKey](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCFNumberFormatterCurrencyCode"); err == nil && ptr != 0 {
-		KCFNumberFormatterCurrencyCode = *(*CFNumberFormatterKey)(unsafe.Pointer(ptr))
+		KCFNumberFormatterCurrencyCode = objc.ValueAt[CFNumberFormatterKey](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCFNumberFormatterCurrencyDecimalSeparator"); err == nil && ptr != 0 {
-		KCFNumberFormatterCurrencyDecimalSeparator = *(*CFNumberFormatterKey)(unsafe.Pointer(ptr))
+		KCFNumberFormatterCurrencyDecimalSeparator = objc.ValueAt[CFNumberFormatterKey](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCFNumberFormatterCurrencyGroupingSeparator"); err == nil && ptr != 0 {
-		KCFNumberFormatterCurrencyGroupingSeparator = *(*CFNumberFormatterKey)(unsafe.Pointer(ptr))
+		KCFNumberFormatterCurrencyGroupingSeparator = objc.ValueAt[CFNumberFormatterKey](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCFNumberFormatterCurrencySymbol"); err == nil && ptr != 0 {
-		KCFNumberFormatterCurrencySymbol = *(*CFNumberFormatterKey)(unsafe.Pointer(ptr))
+		KCFNumberFormatterCurrencySymbol = objc.ValueAt[CFNumberFormatterKey](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCFNumberFormatterDecimalSeparator"); err == nil && ptr != 0 {
-		KCFNumberFormatterDecimalSeparator = *(*CFNumberFormatterKey)(unsafe.Pointer(ptr))
+		KCFNumberFormatterDecimalSeparator = objc.ValueAt[CFNumberFormatterKey](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCFNumberFormatterDefaultFormat"); err == nil && ptr != 0 {
-		KCFNumberFormatterDefaultFormat = *(*CFNumberFormatterKey)(unsafe.Pointer(ptr))
+		KCFNumberFormatterDefaultFormat = objc.ValueAt[CFNumberFormatterKey](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCFNumberFormatterExponentSymbol"); err == nil && ptr != 0 {
-		KCFNumberFormatterExponentSymbol = *(*CFNumberFormatterKey)(unsafe.Pointer(ptr))
+		KCFNumberFormatterExponentSymbol = objc.ValueAt[CFNumberFormatterKey](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCFNumberFormatterFormatWidth"); err == nil && ptr != 0 {
-		KCFNumberFormatterFormatWidth = *(*CFNumberFormatterKey)(unsafe.Pointer(ptr))
+		KCFNumberFormatterFormatWidth = objc.ValueAt[CFNumberFormatterKey](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCFNumberFormatterGroupingSeparator"); err == nil && ptr != 0 {
-		KCFNumberFormatterGroupingSeparator = *(*CFNumberFormatterKey)(unsafe.Pointer(ptr))
+		KCFNumberFormatterGroupingSeparator = objc.ValueAt[CFNumberFormatterKey](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCFNumberFormatterGroupingSize"); err == nil && ptr != 0 {
-		KCFNumberFormatterGroupingSize = *(*CFNumberFormatterKey)(unsafe.Pointer(ptr))
+		KCFNumberFormatterGroupingSize = objc.ValueAt[CFNumberFormatterKey](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCFNumberFormatterInfinitySymbol"); err == nil && ptr != 0 {
-		KCFNumberFormatterInfinitySymbol = *(*CFNumberFormatterKey)(unsafe.Pointer(ptr))
+		KCFNumberFormatterInfinitySymbol = objc.ValueAt[CFNumberFormatterKey](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCFNumberFormatterInternationalCurrencySymbol"); err == nil && ptr != 0 {
-		KCFNumberFormatterInternationalCurrencySymbol = *(*CFNumberFormatterKey)(unsafe.Pointer(ptr))
+		KCFNumberFormatterInternationalCurrencySymbol = objc.ValueAt[CFNumberFormatterKey](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCFNumberFormatterIsLenient"); err == nil && ptr != 0 {
-		KCFNumberFormatterIsLenient = *(*CFNumberFormatterKey)(unsafe.Pointer(ptr))
+		KCFNumberFormatterIsLenient = objc.ValueAt[CFNumberFormatterKey](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCFNumberFormatterMaxFractionDigits"); err == nil && ptr != 0 {
-		KCFNumberFormatterMaxFractionDigits = *(*CFNumberFormatterKey)(unsafe.Pointer(ptr))
+		KCFNumberFormatterMaxFractionDigits = objc.ValueAt[CFNumberFormatterKey](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCFNumberFormatterMaxIntegerDigits"); err == nil && ptr != 0 {
-		KCFNumberFormatterMaxIntegerDigits = *(*CFNumberFormatterKey)(unsafe.Pointer(ptr))
+		KCFNumberFormatterMaxIntegerDigits = objc.ValueAt[CFNumberFormatterKey](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCFNumberFormatterMaxSignificantDigits"); err == nil && ptr != 0 {
-		KCFNumberFormatterMaxSignificantDigits = *(*CFNumberFormatterKey)(unsafe.Pointer(ptr))
+		KCFNumberFormatterMaxSignificantDigits = objc.ValueAt[CFNumberFormatterKey](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCFNumberFormatterMinFractionDigits"); err == nil && ptr != 0 {
-		KCFNumberFormatterMinFractionDigits = *(*CFNumberFormatterKey)(unsafe.Pointer(ptr))
+		KCFNumberFormatterMinFractionDigits = objc.ValueAt[CFNumberFormatterKey](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCFNumberFormatterMinGroupingDigits"); err == nil && ptr != 0 {
-		KCFNumberFormatterMinGroupingDigits = *(*CFNumberFormatterKey)(unsafe.Pointer(ptr))
+		KCFNumberFormatterMinGroupingDigits = objc.ValueAt[CFNumberFormatterKey](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCFNumberFormatterMinIntegerDigits"); err == nil && ptr != 0 {
-		KCFNumberFormatterMinIntegerDigits = *(*CFNumberFormatterKey)(unsafe.Pointer(ptr))
+		KCFNumberFormatterMinIntegerDigits = objc.ValueAt[CFNumberFormatterKey](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCFNumberFormatterMinSignificantDigits"); err == nil && ptr != 0 {
-		KCFNumberFormatterMinSignificantDigits = *(*CFNumberFormatterKey)(unsafe.Pointer(ptr))
+		KCFNumberFormatterMinSignificantDigits = objc.ValueAt[CFNumberFormatterKey](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCFNumberFormatterMinusSign"); err == nil && ptr != 0 {
-		KCFNumberFormatterMinusSign = *(*CFNumberFormatterKey)(unsafe.Pointer(ptr))
+		KCFNumberFormatterMinusSign = objc.ValueAt[CFNumberFormatterKey](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCFNumberFormatterMultiplier"); err == nil && ptr != 0 {
-		KCFNumberFormatterMultiplier = *(*CFNumberFormatterKey)(unsafe.Pointer(ptr))
+		KCFNumberFormatterMultiplier = objc.ValueAt[CFNumberFormatterKey](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCFNumberFormatterNaNSymbol"); err == nil && ptr != 0 {
-		KCFNumberFormatterNaNSymbol = *(*CFNumberFormatterKey)(unsafe.Pointer(ptr))
+		KCFNumberFormatterNaNSymbol = objc.ValueAt[CFNumberFormatterKey](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCFNumberFormatterNegativePrefix"); err == nil && ptr != 0 {
-		KCFNumberFormatterNegativePrefix = *(*CFNumberFormatterKey)(unsafe.Pointer(ptr))
+		KCFNumberFormatterNegativePrefix = objc.ValueAt[CFNumberFormatterKey](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCFNumberFormatterNegativeSuffix"); err == nil && ptr != 0 {
-		KCFNumberFormatterNegativeSuffix = *(*CFNumberFormatterKey)(unsafe.Pointer(ptr))
+		KCFNumberFormatterNegativeSuffix = objc.ValueAt[CFNumberFormatterKey](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCFNumberFormatterPaddingCharacter"); err == nil && ptr != 0 {
-		KCFNumberFormatterPaddingCharacter = *(*CFNumberFormatterKey)(unsafe.Pointer(ptr))
+		KCFNumberFormatterPaddingCharacter = objc.ValueAt[CFNumberFormatterKey](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCFNumberFormatterPaddingPosition"); err == nil && ptr != 0 {
-		KCFNumberFormatterPaddingPosition = *(*CFNumberFormatterKey)(unsafe.Pointer(ptr))
+		KCFNumberFormatterPaddingPosition = objc.ValueAt[CFNumberFormatterKey](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCFNumberFormatterPerMillSymbol"); err == nil && ptr != 0 {
-		KCFNumberFormatterPerMillSymbol = *(*CFNumberFormatterKey)(unsafe.Pointer(ptr))
+		KCFNumberFormatterPerMillSymbol = objc.ValueAt[CFNumberFormatterKey](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCFNumberFormatterPercentSymbol"); err == nil && ptr != 0 {
-		KCFNumberFormatterPercentSymbol = *(*CFNumberFormatterKey)(unsafe.Pointer(ptr))
+		KCFNumberFormatterPercentSymbol = objc.ValueAt[CFNumberFormatterKey](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCFNumberFormatterPlusSign"); err == nil && ptr != 0 {
-		KCFNumberFormatterPlusSign = *(*CFNumberFormatterKey)(unsafe.Pointer(ptr))
+		KCFNumberFormatterPlusSign = objc.ValueAt[CFNumberFormatterKey](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCFNumberFormatterPositivePrefix"); err == nil && ptr != 0 {
-		KCFNumberFormatterPositivePrefix = *(*CFNumberFormatterKey)(unsafe.Pointer(ptr))
+		KCFNumberFormatterPositivePrefix = objc.ValueAt[CFNumberFormatterKey](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCFNumberFormatterPositiveSuffix"); err == nil && ptr != 0 {
-		KCFNumberFormatterPositiveSuffix = *(*CFNumberFormatterKey)(unsafe.Pointer(ptr))
+		KCFNumberFormatterPositiveSuffix = objc.ValueAt[CFNumberFormatterKey](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCFNumberFormatterRoundingIncrement"); err == nil && ptr != 0 {
-		KCFNumberFormatterRoundingIncrement = *(*CFNumberFormatterKey)(unsafe.Pointer(ptr))
+		KCFNumberFormatterRoundingIncrement = objc.ValueAt[CFNumberFormatterKey](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCFNumberFormatterRoundingMode"); err == nil && ptr != 0 {
-		KCFNumberFormatterRoundingMode = *(*CFNumberFormatterKey)(unsafe.Pointer(ptr))
+		KCFNumberFormatterRoundingMode = objc.ValueAt[CFNumberFormatterKey](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCFNumberFormatterSecondaryGroupingSize"); err == nil && ptr != 0 {
-		KCFNumberFormatterSecondaryGroupingSize = *(*CFNumberFormatterKey)(unsafe.Pointer(ptr))
+		KCFNumberFormatterSecondaryGroupingSize = objc.ValueAt[CFNumberFormatterKey](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCFNumberFormatterUseGroupingSeparator"); err == nil && ptr != 0 {
-		KCFNumberFormatterUseGroupingSeparator = *(*CFNumberFormatterKey)(unsafe.Pointer(ptr))
+		KCFNumberFormatterUseGroupingSeparator = objc.ValueAt[CFNumberFormatterKey](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCFNumberFormatterUseSignificantDigits"); err == nil && ptr != 0 {
-		KCFNumberFormatterUseSignificantDigits = *(*CFNumberFormatterKey)(unsafe.Pointer(ptr))
+		KCFNumberFormatterUseSignificantDigits = objc.ValueAt[CFNumberFormatterKey](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCFNumberFormatterZeroSymbol"); err == nil && ptr != 0 {
-		KCFNumberFormatterZeroSymbol = *(*CFNumberFormatterKey)(unsafe.Pointer(ptr))
+		KCFNumberFormatterZeroSymbol = objc.ValueAt[CFNumberFormatterKey](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCFNumberNaN"); err == nil && ptr != 0 {
-		KCFNumberNaN = *(*CFNumberRef)(unsafe.Pointer(ptr))
+		KCFNumberNaN = objc.ValueAt[CFNumberRef](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCFNumberNegativeInfinity"); err == nil && ptr != 0 {
-		KCFNumberNegativeInfinity = *(*CFNumberRef)(unsafe.Pointer(ptr))
+		KCFNumberNegativeInfinity = objc.ValueAt[CFNumberRef](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCFNumberPositiveInfinity"); err == nil && ptr != 0 {
-		KCFNumberPositiveInfinity = *(*CFNumberRef)(unsafe.Pointer(ptr))
+		KCFNumberPositiveInfinity = objc.ValueAt[CFNumberRef](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCFOdiaCalendar"); err == nil && ptr != 0 {
-		KCFOdiaCalendar = *(*CFCalendarIdentifier)(unsafe.Pointer(ptr))
+		KCFOdiaCalendar = objc.ValueAt[CFCalendarIdentifier](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCFPersianCalendar"); err == nil && ptr != 0 {
-		KCFPersianCalendar = *(*CFCalendarIdentifier)(unsafe.Pointer(ptr))
+		KCFPersianCalendar = objc.ValueAt[CFCalendarIdentifier](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCFPlugInDynamicRegisterFunctionKey"); err == nil && ptr != 0 {
@@ -2128,15 +2126,15 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCFRepublicOfChinaCalendar"); err == nil && ptr != 0 {
-		KCFRepublicOfChinaCalendar = *(*CFCalendarIdentifier)(unsafe.Pointer(ptr))
+		KCFRepublicOfChinaCalendar = objc.ValueAt[CFCalendarIdentifier](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCFRunLoopCommonModes"); err == nil && ptr != 0 {
-		KCFRunLoopCommonModes = *(*CFRunLoopMode)(unsafe.Pointer(ptr))
+		KCFRunLoopCommonModes = objc.ValueAt[CFRunLoopMode](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCFRunLoopDefaultMode"); err == nil && ptr != 0 {
-		KCFRunLoopDefaultMode = *(*CFRunLoopMode)(unsafe.Pointer(ptr))
+		KCFRunLoopDefaultMode = objc.ValueAt[CFRunLoopMode](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCFSocketCommandKey"); err == nil && ptr != 0 {
@@ -2210,15 +2208,15 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCFStreamPropertyAppendToFile"); err == nil && ptr != 0 {
-		KCFStreamPropertyAppendToFile = *(*CFStreamPropertyKey)(unsafe.Pointer(ptr))
+		KCFStreamPropertyAppendToFile = objc.ValueAt[CFStreamPropertyKey](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCFStreamPropertyDataWritten"); err == nil && ptr != 0 {
-		KCFStreamPropertyDataWritten = *(*CFStreamPropertyKey)(unsafe.Pointer(ptr))
+		KCFStreamPropertyDataWritten = objc.ValueAt[CFStreamPropertyKey](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCFStreamPropertyFileCurrentOffset"); err == nil && ptr != 0 {
-		KCFStreamPropertyFileCurrentOffset = *(*CFStreamPropertyKey)(unsafe.Pointer(ptr))
+		KCFStreamPropertyFileCurrentOffset = objc.ValueAt[CFStreamPropertyKey](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCFStreamPropertySOCKSPassword"); err == nil && ptr != 0 {
@@ -2292,15 +2290,15 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCFStreamPropertySocketNativeHandle"); err == nil && ptr != 0 {
-		KCFStreamPropertySocketNativeHandle = *(*CFStreamPropertyKey)(unsafe.Pointer(ptr))
+		KCFStreamPropertySocketNativeHandle = objc.ValueAt[CFStreamPropertyKey](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCFStreamPropertySocketRemoteHostName"); err == nil && ptr != 0 {
-		KCFStreamPropertySocketRemoteHostName = *(*CFStreamPropertyKey)(unsafe.Pointer(ptr))
+		KCFStreamPropertySocketRemoteHostName = objc.ValueAt[CFStreamPropertyKey](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCFStreamPropertySocketRemotePortNumber"); err == nil && ptr != 0 {
-		KCFStreamPropertySocketRemotePortNumber = *(*CFStreamPropertyKey)(unsafe.Pointer(ptr))
+		KCFStreamPropertySocketRemotePortNumber = objc.ValueAt[CFStreamPropertyKey](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCFStreamPropertySocketSecurityLevel"); err == nil && ptr != 0 {
@@ -2364,7 +2362,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCFStringBinaryHeapCallBacks"); err == nil && ptr != 0 {
-		KCFStringBinaryHeapCallBacks = *(*CFBinaryHeapCallBacks)(unsafe.Pointer(ptr))
+		KCFStringBinaryHeapCallBacks = objc.ValueAt[CFBinaryHeapCallBacks](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCFStringTransformFullwidthHalfwidth"); err == nil && ptr != 0 {
@@ -2528,35 +2526,35 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCFTamilCalendar"); err == nil && ptr != 0 {
-		KCFTamilCalendar = *(*CFCalendarIdentifier)(unsafe.Pointer(ptr))
+		KCFTamilCalendar = objc.ValueAt[CFCalendarIdentifier](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCFTeluguCalendar"); err == nil && ptr != 0 {
-		KCFTeluguCalendar = *(*CFCalendarIdentifier)(unsafe.Pointer(ptr))
+		KCFTeluguCalendar = objc.ValueAt[CFCalendarIdentifier](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCFTimeZoneSystemTimeZoneDidChangeNotification"); err == nil && ptr != 0 {
-		KCFTimeZoneSystemTimeZoneDidChangeNotification = *(*CFNotificationName)(unsafe.Pointer(ptr))
+		KCFTimeZoneSystemTimeZoneDidChangeNotification = objc.ValueAt[CFNotificationName](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCFTypeArrayCallBacks"); err == nil && ptr != 0 {
-		KCFTypeArrayCallBacks = *(*CFArrayCallBacks)(unsafe.Pointer(ptr))
+		KCFTypeArrayCallBacks = objc.ValueAt[CFArrayCallBacks](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCFTypeBagCallBacks"); err == nil && ptr != 0 {
-		KCFTypeBagCallBacks = *(*CFBagCallBacks)(unsafe.Pointer(ptr))
+		KCFTypeBagCallBacks = objc.ValueAt[CFBagCallBacks](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCFTypeDictionaryKeyCallBacks"); err == nil && ptr != 0 {
-		KCFTypeDictionaryKeyCallBacks = *(*CFDictionaryKeyCallBacks)(unsafe.Pointer(ptr))
+		KCFTypeDictionaryKeyCallBacks = objc.ValueAt[CFDictionaryKeyCallBacks](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCFTypeDictionaryValueCallBacks"); err == nil && ptr != 0 {
-		KCFTypeDictionaryValueCallBacks = *(*CFDictionaryValueCallBacks)(unsafe.Pointer(ptr))
+		KCFTypeDictionaryValueCallBacks = objc.ValueAt[CFDictionaryValueCallBacks](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCFTypeSetCallBacks"); err == nil && ptr != 0 {
-		KCFTypeSetCallBacks = *(*CFSetCallBacks)(unsafe.Pointer(ptr))
+		KCFTypeSetCallBacks = objc.ValueAt[CFSetCallBacks](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCFURLAddedToDirectoryDateKey"); err == nil && ptr != 0 {
@@ -3930,11 +3928,11 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCFVietnameseCalendar"); err == nil && ptr != 0 {
-		KCFVietnameseCalendar = *(*CFCalendarIdentifier)(unsafe.Pointer(ptr))
+		KCFVietnameseCalendar = objc.ValueAt[CFCalendarIdentifier](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCFVikramCalendar"); err == nil && ptr != 0 {
-		KCFVikramCalendar = *(*CFCalendarIdentifier)(unsafe.Pointer(ptr))
+		KCFVikramCalendar = objc.ValueAt[CFCalendarIdentifier](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCFXMLTreeErrorDescription"); err == nil && ptr != 0 {

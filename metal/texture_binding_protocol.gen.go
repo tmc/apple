@@ -15,11 +15,6 @@ type MTLTextureBinding interface {
 	objectivec.IObject
 	MTLBinding
 
-	// DepthTexture protocol.
-	//
-	// See: https://developer.apple.com/documentation/Metal/MTLTextureBinding/isDepthTexture
-	IsDepthTexture() bool
-
 	// arrayLength protocol.
 	//
 	// See: https://developer.apple.com/documentation/Metal/MTLTextureBinding/arrayLength
@@ -28,7 +23,7 @@ type MTLTextureBinding interface {
 	// depthTexture protocol.
 	//
 	// See: https://developer.apple.com/documentation/Metal/MTLTextureBinding/isDepthTexture
-	DepthTexture() bool
+	IsDepthTexture() bool
 
 	// textureDataType protocol.
 	//
@@ -56,12 +51,6 @@ func MTLTextureBindingObjectFromID(id objc.ID) MTLTextureBindingObject {
 	return MTLTextureBindingObject{
 		Object: objectivec.ObjectFromID(id),
 	}
-}
-
-// See: https://developer.apple.com/documentation/Metal/MTLTextureBinding/isDepthTexture
-func (o MTLTextureBindingObject) IsDepthTexture() bool {
-	rv := objc.Send[bool](o.ID, objc.Sel("isDepthTexture"))
-	return rv
 }
 
 // See: https://developer.apple.com/documentation/Metal/MTLBinding/access
@@ -107,7 +96,7 @@ func (o MTLTextureBindingObject) ArrayLength() uint {
 }
 
 // See: https://developer.apple.com/documentation/Metal/MTLTextureBinding/isDepthTexture
-func (o MTLTextureBindingObject) DepthTexture() bool {
+func (o MTLTextureBindingObject) IsDepthTexture() bool {
 	rv := objc.Send[bool](o.ID, objc.Sel("isDepthTexture"))
 	return bool(rv)
 }
@@ -122,16 +111,4 @@ func (o MTLTextureBindingObject) TextureDataType() MTLDataType {
 func (o MTLTextureBindingObject) TextureType() MTLTextureType {
 	rv := objc.Send[MTLTextureType](o.ID, objc.Sel("textureType"))
 	return MTLTextureType(rv)
-}
-
-// See: https://developer.apple.com/documentation/Metal/MTLBinding/isArgument
-func (o MTLTextureBindingObject) Argument() bool {
-	rv := objc.Send[bool](o.ID, objc.Sel("isArgument"))
-	return bool(rv)
-}
-
-// See: https://developer.apple.com/documentation/Metal/MTLBinding/isUsed
-func (o MTLTextureBindingObject) Used() bool {
-	rv := objc.Send[bool](o.ID, objc.Sel("isUsed"))
-	return bool(rv)
 }

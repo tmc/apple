@@ -6,7 +6,7 @@ import (
 	"fmt"
 )
 
-type ObjC uint
+type ObjC uint32
 
 const (
 	OBJC_COLLECT_IF_NEEDED       ObjC = 8
@@ -36,7 +36,7 @@ func (e ObjC) String() string {
 	}
 }
 
-type ObjCClearResident uint
+type ObjCClearResident uint32
 
 const (
 	OBJC_CLEAR_RESIDENT_STACK ObjCClearResident = 1
@@ -68,7 +68,7 @@ func (e ObjCSync) String() string {
 }
 
 // See: https://developer.apple.com/documentation/ObjectiveC/objc_AssociationPolicy
-type Objc_AssociationPolicy int
+type Objc_AssociationPolicy uint
 
 const (
 	// OBJC_ASSOCIATION_ASSIGN: Specifies an unsafe unretained reference to the associated object.

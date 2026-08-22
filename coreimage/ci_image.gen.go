@@ -9,6 +9,7 @@ import (
 	"github.com/tmc/apple/coregraphics"
 	"github.com/tmc/apple/corevideo"
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/imageio"
 	"github.com/tmc/apple/iosurface"
 	"github.com/tmc/apple/metal"
 	"github.com/tmc/apple/objc"
@@ -92,6 +93,7 @@ func (cc CIImageClass) Alloc() CIImage {
 //   - [CIImage.InitWithContentsOfURLOptions]: Initializes an image object by reading an image from a URL, using the specified options.
 //   - [CIImage.InitWithCGImage]: Initializes an image object with a Quartz 2D image.
 //   - [CIImage.InitWithCGImageOptions]: Initializes an image object with a Quartz 2D image, using the specified options.
+//   - [CIImage.InitWithCGImageSourceIndexOptions]
 //   - [CIImage.InitWithData]: Initializes an image object with the supplied image data.
 //   - [CIImage.InitWithDataOptions]: Initializes an image object with the supplied image data, using the specified options.
 //   - [CIImage.InitWithBitmapDataBytesPerRowSizeFormatColorSpace]: Initializes an image object with bitmap data.
@@ -223,6 +225,7 @@ func CIImageFromID(id objc.ID) CIImage {
 //   - [ICIImage.InitWithContentsOfURLOptions]: Initializes an image object by reading an image from a URL, using the specified options.
 //   - [ICIImage.InitWithCGImage]: Initializes an image object with a Quartz 2D image.
 //   - [ICIImage.InitWithCGImageOptions]: Initializes an image object with a Quartz 2D image, using the specified options.
+//   - [ICIImage.InitWithCGImageSourceIndexOptions]
 //   - [ICIImage.InitWithData]: Initializes an image object with the supplied image data.
 //   - [ICIImage.InitWithDataOptions]: Initializes an image object with the supplied image data, using the specified options.
 //   - [ICIImage.InitWithBitmapDataBytesPerRowSizeFormatColorSpace]: Initializes an image object with bitmap data.
@@ -339,16 +342,17 @@ type ICIImage interface {
 	InitWithCGImage(image coregraphics.CGImageRef) CIImage
 	// Initializes an image object with a Quartz 2D image, using the specified options.
 	InitWithCGImageOptions(image coregraphics.CGImageRef, options foundation.INSDictionary) CIImage
+	InitWithCGImageSourceIndexOptions(source imageio.CGImageSourceRef, index int, dict foundation.INSDictionary) CIImage
 	// Initializes an image object with the supplied image data.
 	InitWithData(data foundation.NSData) CIImage
 	// Initializes an image object with the supplied image data, using the specified options.
 	InitWithDataOptions(data foundation.NSData, options foundation.INSDictionary) CIImage
 	// Initializes an image object with bitmap data.
-	InitWithBitmapDataBytesPerRowSizeFormatColorSpace(data foundation.NSData, bytesPerRow uintptr, size corefoundation.CGSize, format int, colorSpace coregraphics.CGColorSpaceRef) CIImage
+	InitWithBitmapDataBytesPerRowSizeFormatColorSpace(data foundation.NSData, bytesPerRow uintptr, size corefoundation.CGSize, format CIFormat, colorSpace coregraphics.CGColorSpaceRef) CIImage
 	// Initializes an image object with the specified bitmap image representation.
 	InitWithBitmapImageRep(bitmapImageRep objectivec.IObject) CIImage
 	// Initializes an image object based on pixels from an image provider object.
-	InitWithImageProviderSizeFormatColorSpaceOptions(provider objectivec.IObject, width uintptr, height uintptr, format int, colorSpace coregraphics.CGColorSpaceRef, options foundation.INSDictionary) CIImage
+	InitWithImageProviderSizeFormatColorSpaceOptions(provider objectivec.IObject, width uintptr, height uintptr, format CIFormat, colorSpace coregraphics.CGColorSpaceRef, options foundation.INSDictionary) CIImage
 	InitWithDepthData(data objectivec.IObject) CIImage
 	InitWithDepthDataOptions(data objectivec.IObject, options foundation.INSDictionary) CIImage
 	InitWithPortaitEffectsMatte(matte objectivec.IObject) CIImage
@@ -382,7 +386,7 @@ type ICIImage interface {
 	// Returns a new image with a cropped portion of the original image.
 	ImageByCroppingToRect(rect corefoundation.CGRect) ICIImage
 	// Returns a new image created by transforming the original image to the specified EXIF orientation.
-	ImageByApplyingOrientation(orientation int) ICIImage
+	ImageByApplyingOrientation(orientation int32) ICIImage
 	// Returns a new image created by making the pixel colors along its edges extend infinitely in all directions.
 	ImageByClampingToExtent() ICIImage
 	// Returns a new image created by cropping to a specified area, then making the pixel colors along the edges of the cropped image extend infinitely in all directions.
@@ -428,7 +432,7 @@ type ICIImage interface {
 	// The color space of the image.
 	ColorSpace() coregraphics.CGColorSpaceRef
 	// Returns the transformation needed to reorient the image to the specified orientation.
-	ImageTransformForOrientation(orientation int) corefoundation.CGAffineTransform
+	ImageTransformForOrientation(orientation int32) corefoundation.CGAffineTransform
 
 	// Topic: Drawing Images
 
@@ -452,9 +456,9 @@ type ICIImage interface {
 	// Topic: Working with Orientation
 
 	// Transforms the original image by a given orientation.
-	ImageByApplyingCGOrientation(orientation uint) ICIImage
+	ImageByApplyingCGOrientation(orientation imageio.CGImagePropertyOrientation) ICIImage
 	// The affine transform for changing the image to the given orientation.
-	ImageTransformForCGOrientation(orientation uint) corefoundation.CGAffineTransform
+	ImageTransformForCGOrientation(orientation imageio.CGImagePropertyOrientation) corefoundation.CGAffineTransform
 
 	// Topic: Sampling the Image
 
@@ -544,7 +548,7 @@ func NewCIImage() CIImage {
 // See: https://developer.apple.com/documentation/CoreImage/CIImage/init(bitmapData:bytesPerRow:size:format:colorSpace:)
 //
 // [CGColorSpace]: https://developer.apple.com/documentation/CoreGraphics/CGColorSpace
-func NewImageWithBitmapDataBytesPerRowSizeFormatColorSpace(data foundation.NSData, bytesPerRow uintptr, size corefoundation.CGSize, format int, colorSpace coregraphics.CGColorSpaceRef) CIImage {
+func NewImageWithBitmapDataBytesPerRowSizeFormatColorSpace(data foundation.NSData, bytesPerRow uintptr, size corefoundation.CGSize, format CIFormat, colorSpace coregraphics.CGColorSpaceRef) CIImage {
 	instance := getCIImageClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithBitmapData:bytesPerRow:size:format:colorSpace:"), data, bytesPerRow, size, format, colorSpace)
 	return CIImageFromID(rv)
@@ -575,7 +579,7 @@ func NewImageWithBitmapImageRep(bitmapImageRep objectivec.IObject) CIImage {
 //
 // The initialized image object.
 //
-// See: https://developer.apple.com/documentation/CoreImage/CIImage/init(cgImage:)-2kvvb
+// See: https://developer.apple.com/documentation/CoreImage/CIImage/init(cgImage:)
 //
 // [CGImage]: https://developer.apple.com/documentation/CoreGraphics/CGImage
 // [Quartz 2D Programming Guide]: https://developer.apple.com/library/archive/documentation/GraphicsImaging/Conceptual/drawingwithquartz2d/Introduction/Introduction.html#//apple_ref/doc/uid/TP30001066
@@ -597,13 +601,20 @@ func NewImageWithCGImage(image coregraphics.CGImageRef) CIImage {
 //
 // The initialized image object.
 //
-// See: https://developer.apple.com/documentation/CoreImage/CIImage/init(cgImage:options:)-8663h
+// See: https://developer.apple.com/documentation/CoreImage/CIImage/init(cgImage:options:)
 //
 // [CGImage]: https://developer.apple.com/documentation/CoreGraphics/CGImage
 // [Quartz 2D Programming Guide]: https://developer.apple.com/library/archive/documentation/GraphicsImaging/Conceptual/drawingwithquartz2d/Introduction/Introduction.html#//apple_ref/doc/uid/TP30001066
 func NewImageWithCGImageOptions(image coregraphics.CGImageRef, options foundation.INSDictionary) CIImage {
 	instance := getCIImageClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCGImage:options:"), image, options)
+	return CIImageFromID(rv)
+}
+
+// See: https://developer.apple.com/documentation/CoreImage/CIImage/init(CGImageSource:index:options:)-2dium
+func NewImageWithCGImageSourceIndexOptions(source imageio.CGImageSourceRef, index int, dict foundation.INSDictionary) CIImage {
+	instance := getCIImageClass().Alloc()
+	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCGImageSource:index:options:"), source, index, dict)
 	return CIImageFromID(rv)
 }
 
@@ -623,7 +634,7 @@ func NewImageWithCGImageOptions(image coregraphics.CGImageRef, options foundatio
 // - [kCVPixelFormatType_32ARGB] - [kCVPixelFormatType_422YpCbCr8] -
 // [kCVPixelFormatType_32BGRA]
 //
-// See: https://developer.apple.com/documentation/CoreImage/CIImage/init(cvImageBuffer:)-7wmzq
+// See: https://developer.apple.com/documentation/CoreImage/CIImage/init(cvImageBuffer:)
 //
 // [Core Video]: https://developer.apple.com/documentation/CoreVideo
 // [kCVPixelFormatType_32ARGB]: https://developer.apple.com/documentation/CoreVideo/kCVPixelFormatType_32ARGB
@@ -656,7 +667,7 @@ func NewImageWithCVImageBuffer(imageBuffer corevideo.CVImageBufferRef) CIImage {
 // - [kCVPixelFormatType_32ARGB] - [kCVPixelFormatType_422YpCbCr8] -
 // [kCVPixelFormatType_32BGRA]
 //
-// See: https://developer.apple.com/documentation/CoreImage/CIImage/init(cvImageBuffer:options:)-8upim
+// See: https://developer.apple.com/documentation/CoreImage/CIImage/init(cvImageBuffer:options:)
 //
 // [Core Video]: https://developer.apple.com/documentation/CoreVideo
 // [kCVPixelFormatType_32ARGB]: https://developer.apple.com/documentation/CoreVideo/kCVPixelFormatType_32ARGB
@@ -676,7 +687,7 @@ func NewImageWithCVImageBufferOptions(imageBuffer corevideo.CVImageBufferRef, op
 //
 // The initialized image object.
 //
-// See: https://developer.apple.com/documentation/CoreImage/CIImage/init(cvPixelBuffer:)-3wng7
+// See: https://developer.apple.com/documentation/CoreImage/CIImage/init(cvPixelBuffer:)
 func NewImageWithCVPixelBuffer(pixelBuffer corevideo.CVImageBufferRef) CIImage {
 	instance := getCIImageClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCVPixelBuffer:"), pixelBuffer)
@@ -696,7 +707,7 @@ func NewImageWithCVPixelBuffer(pixelBuffer corevideo.CVImageBufferRef) CIImage {
 //
 // The initialized image object.
 //
-// See: https://developer.apple.com/documentation/CoreImage/CIImage/init(cvPixelBuffer:options:)-9x2pz
+// See: https://developer.apple.com/documentation/CoreImage/CIImage/init(cvPixelBuffer:options:)
 func NewImageWithCVPixelBufferOptions(pixelBuffer corevideo.CVImageBufferRef, options foundation.INSDictionary) CIImage {
 	instance := getCIImageClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCVPixelBuffer:options:"), pixelBuffer, options)
@@ -825,7 +836,7 @@ func NewImageWithDepthDataOptions(data objectivec.IObject, options foundation.IN
 // image decompression and drawing logic into a separate process for the
 // purpose of increasing security.
 //
-// See: https://developer.apple.com/documentation/CoreImage/CIImage/init(ioSurface:)-5e9yc
+// See: https://developer.apple.com/documentation/CoreImage/CIImage/init(ioSurface:)
 func NewImageWithIOSurface(surface iosurface.IOSurfaceRef) CIImage {
 	instance := getCIImageClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithIOSurface:"), surface)
@@ -843,7 +854,7 @@ func NewImageWithIOSurface(surface iosurface.IOSurfaceRef) CIImage {
 //
 // An image object initialized with the data from the IOSurface.
 //
-// See: https://developer.apple.com/documentation/CoreImage/CIImage/init(ioSurface:options:)-48cta
+// See: https://developer.apple.com/documentation/CoreImage/CIImage/init(ioSurface:options:)
 func NewImageWithIOSurfaceOptions(surface iosurface.IOSurfaceRef, options foundation.INSDictionary) CIImage {
 	instance := getCIImageClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithIOSurface:options:"), surface, options)
@@ -908,7 +919,7 @@ func NewImageWithImageOptions(image objectivec.IObject, options foundation.INSDi
 //
 // [providerTileSize]: https://developer.apple.com/documentation/CoreImage/CIImageOption/providerTileSize
 // [providerUserInfo]: https://developer.apple.com/documentation/CoreImage/CIImageOption/providerUserInfo
-func NewImageWithImageProviderSizeFormatColorSpaceOptions(provider objectivec.IObject, width uintptr, height uintptr, format int, colorSpace coregraphics.CGColorSpaceRef, options foundation.INSDictionary) CIImage {
+func NewImageWithImageProviderSizeFormatColorSpaceOptions(provider objectivec.IObject, width uintptr, height uintptr, format CIFormat, colorSpace coregraphics.CGColorSpaceRef, options foundation.INSDictionary) CIImage {
 	instance := getCIImageClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithImageProvider:size::format:colorSpace:options:"), provider, width, height, format, colorSpace, options)
 	return CIImageFromID(rv)
@@ -1010,7 +1021,7 @@ func (i CIImage) InitWithContentsOfURLOptions(url foundation.NSURL, options foun
 //
 // The initialized image object.
 //
-// See: https://developer.apple.com/documentation/CoreImage/CIImage/init(cgImage:)-2kvvb
+// See: https://developer.apple.com/documentation/CoreImage/CIImage/init(cgImage:)
 //
 // [CGImage]: https://developer.apple.com/documentation/CoreGraphics/CGImage
 // [Quartz 2D Programming Guide]: https://developer.apple.com/library/archive/documentation/GraphicsImaging/Conceptual/drawingwithquartz2d/Introduction/Introduction.html#//apple_ref/doc/uid/TP30001066
@@ -1031,12 +1042,18 @@ func (i CIImage) InitWithCGImage(image coregraphics.CGImageRef) CIImage {
 //
 // The initialized image object.
 //
-// See: https://developer.apple.com/documentation/CoreImage/CIImage/init(cgImage:options:)-8663h
+// See: https://developer.apple.com/documentation/CoreImage/CIImage/init(cgImage:options:)
 //
 // [CGImage]: https://developer.apple.com/documentation/CoreGraphics/CGImage
 // [Quartz 2D Programming Guide]: https://developer.apple.com/library/archive/documentation/GraphicsImaging/Conceptual/drawingwithquartz2d/Introduction/Introduction.html#//apple_ref/doc/uid/TP30001066
 func (i CIImage) InitWithCGImageOptions(image coregraphics.CGImageRef, options foundation.INSDictionary) CIImage {
 	rv := objc.Send[CIImage](i.ID, objc.Sel("initWithCGImage:options:"), image, options)
+	return rv
+}
+
+// See: https://developer.apple.com/documentation/CoreImage/CIImage/init(CGImageSource:index:options:)-2dium
+func (i CIImage) InitWithCGImageSourceIndexOptions(source imageio.CGImageSourceRef, index int, dict foundation.INSDictionary) CIImage {
+	rv := objc.Send[CIImage](i.ID, objc.Sel("initWithCGImageSource:index:options:"), source, index, dict)
 	return rv
 }
 
@@ -1096,7 +1113,7 @@ func (i CIImage) InitWithDataOptions(data foundation.NSData, options foundation.
 // See: https://developer.apple.com/documentation/CoreImage/CIImage/init(bitmapData:bytesPerRow:size:format:colorSpace:)
 //
 // [CGColorSpace]: https://developer.apple.com/documentation/CoreGraphics/CGColorSpace
-func (i CIImage) InitWithBitmapDataBytesPerRowSizeFormatColorSpace(data foundation.NSData, bytesPerRow uintptr, size corefoundation.CGSize, format int, colorSpace coregraphics.CGColorSpaceRef) CIImage {
+func (i CIImage) InitWithBitmapDataBytesPerRowSizeFormatColorSpace(data foundation.NSData, bytesPerRow uintptr, size corefoundation.CGSize, format CIFormat, colorSpace coregraphics.CGColorSpaceRef) CIImage {
 	rv := objc.Send[CIImage](i.ID, objc.Sel("initWithBitmapData:bytesPerRow:size:format:colorSpace:"), data, bytesPerRow, size, format, colorSpace)
 	return rv
 }
@@ -1149,7 +1166,7 @@ func (i CIImage) InitWithBitmapImageRep(bitmapImageRep objectivec.IObject) CIIma
 //
 // [providerTileSize]: https://developer.apple.com/documentation/CoreImage/CIImageOption/providerTileSize
 // [providerUserInfo]: https://developer.apple.com/documentation/CoreImage/CIImageOption/providerUserInfo
-func (i CIImage) InitWithImageProviderSizeFormatColorSpaceOptions(provider objectivec.IObject, width uintptr, height uintptr, format int, colorSpace coregraphics.CGColorSpaceRef, options foundation.INSDictionary) CIImage {
+func (i CIImage) InitWithImageProviderSizeFormatColorSpaceOptions(provider objectivec.IObject, width uintptr, height uintptr, format CIFormat, colorSpace coregraphics.CGColorSpaceRef, options foundation.INSDictionary) CIImage {
 	rv := objc.Send[CIImage](i.ID, objc.Sel("initWithImageProvider:size::format:colorSpace:options:"), provider, width, height, format, colorSpace, options)
 	return rv
 }
@@ -1218,7 +1235,7 @@ func (i CIImage) InitWithSemanticSegmentationMatteOptions(matte objectivec.IObje
 // - [kCVPixelFormatType_32ARGB] - [kCVPixelFormatType_422YpCbCr8] -
 // [kCVPixelFormatType_32BGRA]
 //
-// See: https://developer.apple.com/documentation/CoreImage/CIImage/init(cvImageBuffer:)-7wmzq
+// See: https://developer.apple.com/documentation/CoreImage/CIImage/init(cvImageBuffer:)
 //
 // [Core Video]: https://developer.apple.com/documentation/CoreVideo
 // [kCVPixelFormatType_32ARGB]: https://developer.apple.com/documentation/CoreVideo/kCVPixelFormatType_32ARGB
@@ -1250,7 +1267,7 @@ func (i CIImage) InitWithCVImageBuffer(imageBuffer corevideo.CVImageBufferRef) C
 // - [kCVPixelFormatType_32ARGB] - [kCVPixelFormatType_422YpCbCr8] -
 // [kCVPixelFormatType_32BGRA]
 //
-// See: https://developer.apple.com/documentation/CoreImage/CIImage/init(cvImageBuffer:options:)-8upim
+// See: https://developer.apple.com/documentation/CoreImage/CIImage/init(cvImageBuffer:options:)
 //
 // [Core Video]: https://developer.apple.com/documentation/CoreVideo
 // [kCVPixelFormatType_32ARGB]: https://developer.apple.com/documentation/CoreVideo/kCVPixelFormatType_32ARGB
@@ -1269,7 +1286,7 @@ func (i CIImage) InitWithCVImageBufferOptions(imageBuffer corevideo.CVImageBuffe
 //
 // The initialized image object.
 //
-// See: https://developer.apple.com/documentation/CoreImage/CIImage/init(cvPixelBuffer:)-3wng7
+// See: https://developer.apple.com/documentation/CoreImage/CIImage/init(cvPixelBuffer:)
 func (i CIImage) InitWithCVPixelBuffer(pixelBuffer corevideo.CVImageBufferRef) CIImage {
 	rv := objc.Send[CIImage](i.ID, objc.Sel("initWithCVPixelBuffer:"), pixelBuffer)
 	return rv
@@ -1288,7 +1305,7 @@ func (i CIImage) InitWithCVPixelBuffer(pixelBuffer corevideo.CVImageBufferRef) C
 //
 // The initialized image object.
 //
-// See: https://developer.apple.com/documentation/CoreImage/CIImage/init(cvPixelBuffer:options:)-9x2pz
+// See: https://developer.apple.com/documentation/CoreImage/CIImage/init(cvPixelBuffer:options:)
 func (i CIImage) InitWithCVPixelBufferOptions(pixelBuffer corevideo.CVImageBufferRef, options foundation.INSDictionary) CIImage {
 	rv := objc.Send[CIImage](i.ID, objc.Sel("initWithCVPixelBuffer:options:"), pixelBuffer, options)
 	return rv
@@ -1334,7 +1351,7 @@ func (i CIImage) InitWithMTLTextureOptions(texture metal.MTLTexture, options fou
 // image decompression and drawing logic into a separate process for the
 // purpose of increasing security.
 //
-// See: https://developer.apple.com/documentation/CoreImage/CIImage/init(ioSurface:)-5e9yc
+// See: https://developer.apple.com/documentation/CoreImage/CIImage/init(ioSurface:)
 func (i CIImage) InitWithIOSurface(surface iosurface.IOSurfaceRef) CIImage {
 	rv := objc.Send[CIImage](i.ID, objc.Sel("initWithIOSurface:"), surface)
 	return rv
@@ -1351,7 +1368,7 @@ func (i CIImage) InitWithIOSurface(surface iosurface.IOSurfaceRef) CIImage {
 //
 // An image object initialized with the data from the IOSurface.
 //
-// See: https://developer.apple.com/documentation/CoreImage/CIImage/init(ioSurface:options:)-48cta
+// See: https://developer.apple.com/documentation/CoreImage/CIImage/init(ioSurface:options:)
 func (i CIImage) InitWithIOSurfaceOptions(surface iosurface.IOSurfaceRef, options foundation.INSDictionary) CIImage {
 	rv := objc.Send[CIImage](i.ID, objc.Sel("initWithIOSurface:options:"), surface, options)
 	return rv
@@ -1485,7 +1502,7 @@ func (i CIImage) ImageByCroppingToRect(rect corefoundation.CGRect) ICIImage {
 // See: https://developer.apple.com/documentation/CoreImage/CIImage/oriented(forExifOrientation:)
 //
 // [kCGImagePropertyOrientation]: https://developer.apple.com/documentation/ImageIO/kCGImagePropertyOrientation
-func (i CIImage) ImageByApplyingOrientation(orientation int) ICIImage {
+func (i CIImage) ImageByApplyingOrientation(orientation int32) ICIImage {
 	rv := objc.Send[objc.ID](i.ID, objc.Sel("imageByApplyingOrientation:"), orientation)
 	return CIImageFromID(rv)
 }
@@ -1796,7 +1813,7 @@ func (i CIImage) InitWithColor(color ICIColor) CIImage {
 // See: https://developer.apple.com/documentation/CoreImage/CIImage/orientationTransform(forExifOrientation:)
 //
 // [kCGImagePropertyOrientation]: https://developer.apple.com/documentation/ImageIO/kCGImagePropertyOrientation
-func (i CIImage) ImageTransformForOrientation(orientation int) corefoundation.CGAffineTransform {
+func (i CIImage) ImageTransformForOrientation(orientation int32) corefoundation.CGAffineTransform {
 	rv := objc.Send[corefoundation.CGAffineTransform](i.ID, objc.Sel("imageTransformForOrientation:"), orientation)
 	return corefoundation.CGAffineTransform(rv)
 }
@@ -1954,7 +1971,7 @@ func (i CIImage) RegionOfInterestForImageInRect(image ICIImage, rect corefoundat
 // See: https://developer.apple.com/documentation/CoreImage/CIImage/oriented(_:)
 //
 // [CGImagePropertyOrientation]: https://developer.apple.com/documentation/ImageIO/CGImagePropertyOrientation
-func (i CIImage) ImageByApplyingCGOrientation(orientation uint) ICIImage {
+func (i CIImage) ImageByApplyingCGOrientation(orientation imageio.CGImagePropertyOrientation) ICIImage {
 	rv := objc.Send[objc.ID](i.ID, objc.Sel("imageByApplyingCGOrientation:"), orientation)
 	return CIImageFromID(rv)
 }
@@ -1970,7 +1987,7 @@ func (i CIImage) ImageByApplyingCGOrientation(orientation uint) ICIImage {
 //
 // [CGAffineTransform]: https://developer.apple.com/documentation/CoreFoundation/CGAffineTransform
 // [CGImagePropertyOrientation]: https://developer.apple.com/documentation/ImageIO/CGImagePropertyOrientation
-func (i CIImage) ImageTransformForCGOrientation(orientation uint) corefoundation.CGAffineTransform {
+func (i CIImage) ImageTransformForCGOrientation(orientation imageio.CGImagePropertyOrientation) corefoundation.CGAffineTransform {
 	rv := objc.Send[corefoundation.CGAffineTransform](i.ID, objc.Sel("imageTransformForCGOrientation:"), orientation)
 	return corefoundation.CGAffineTransform(rv)
 }
@@ -2147,7 +2164,7 @@ func (_CIImageClass CIImageClass) EmptyImage() CIImage {
 // An image object.
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIImage/imageWithBitmapData:bytesPerRow:size:format:colorSpace:
-func (_CIImageClass CIImageClass) ImageWithBitmapDataBytesPerRowSizeFormatColorSpace(data foundation.NSData, bytesPerRow uintptr, size corefoundation.CGSize, format int, colorSpace coregraphics.CGColorSpaceRef) CIImage {
+func (_CIImageClass CIImageClass) ImageWithBitmapDataBytesPerRowSizeFormatColorSpace(data foundation.NSData, bytesPerRow uintptr, size corefoundation.CGSize, format CIFormat, colorSpace coregraphics.CGColorSpaceRef) CIImage {
 	rv := objc.Send[objc.ID](objc.ID(_CIImageClass.class), objc.Sel("imageWithBitmapData:bytesPerRow:size:format:colorSpace:"), data, bytesPerRow, size, format, colorSpace)
 	return CIImageFromID(rv)
 }
@@ -2189,6 +2206,12 @@ func (_CIImageClass CIImageClass) ImageWithCGImage(image coregraphics.CGImageRef
 // [Quartz 2D Programming Guide]: https://developer.apple.com/library/archive/documentation/GraphicsImaging/Conceptual/drawingwithquartz2d/Introduction/Introduction.html#//apple_ref/doc/uid/TP30001066
 func (_CIImageClass CIImageClass) ImageWithCGImageOptions(image coregraphics.CGImageRef, options foundation.INSDictionary) CIImage {
 	rv := objc.Send[objc.ID](objc.ID(_CIImageClass.class), objc.Sel("imageWithCGImage:options:"), image, options)
+	return CIImageFromID(rv)
+}
+
+// See: https://developer.apple.com/documentation/CoreImage/CIImage/imageWithCGImageSource:index:options:
+func (_CIImageClass CIImageClass) ImageWithCGImageSourceIndexOptions(source imageio.CGImageSourceRef, index uintptr, dict foundation.INSDictionary) CIImage {
+	rv := objc.Send[objc.ID](objc.ID(_CIImageClass.class), objc.Sel("imageWithCGImageSource:index:options:"), source, index, dict)
 	return CIImageFromID(rv)
 }
 
@@ -2432,7 +2455,7 @@ func (_CIImageClass CIImageClass) ImageWithIOSurfaceOptions(surface iosurface.IO
 //
 // [providerTileSize]: https://developer.apple.com/documentation/CoreImage/CIImageOption/providerTileSize
 // [providerUserInfo]: https://developer.apple.com/documentation/CoreImage/CIImageOption/providerUserInfo
-func (_CIImageClass CIImageClass) ImageWithImageProviderSizeFormatColorSpaceOptions(provider objectivec.IObject, width uintptr, height uintptr, format int, colorSpace coregraphics.CGColorSpaceRef, options foundation.INSDictionary) CIImage {
+func (_CIImageClass CIImageClass) ImageWithImageProviderSizeFormatColorSpaceOptions(provider objectivec.IObject, width uintptr, height uintptr, format CIFormat, colorSpace coregraphics.CGColorSpaceRef, options foundation.INSDictionary) CIImage {
 	rv := objc.Send[objc.ID](objc.ID(_CIImageClass.class), objc.Sel("imageWithImageProvider:size::format:colorSpace:options:"), provider, width, height, format, colorSpace, options)
 	return CIImageFromID(rv)
 }

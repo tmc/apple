@@ -6,7 +6,6 @@ import (
 	"unsafe"
 
 	"github.com/tmc/apple/corefoundation"
-	"github.com/tmc/apple/kernel"
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -14,7 +13,7 @@ import (
 // AuthorizationAsyncCallback is a block used as a callback for the asynchronous version of copying authorization rights.
 //
 // See: https://developer.apple.com/documentation/Security/AuthorizationAsyncCallback
-type AuthorizationAsyncCallback = func(int, *AuthorizationItemSet)
+type AuthorizationAsyncCallback = func(err int32, blockAuthorizedRights *AuthorizationItemSet)
 
 // AuthorizationEngineRef is handle passed from the authorization engine to an instance of a mechanism in a plug-in.
 //
@@ -29,22 +28,22 @@ type AuthorizationEnvironment = AuthorizationItemSet
 // AuthorizationMechanismId is the mechanism ID specified in the authorization policy database is passed to the plug-in to create the appropriate mechanism.
 //
 // See: https://developer.apple.com/documentation/Security/AuthorizationMechanismId
-type AuthorizationMechanismId = kernel.Pointer
+type AuthorizationMechanismId = unsafe.Pointer
 
 // AuthorizationMechanismRef is a handle passed by the plug-in to the authorization engine when creating an instance of a mechanism.
 //
 // See: https://developer.apple.com/documentation/Security/AuthorizationMechanismRef
-type AuthorizationMechanismRef = kernel.Pointer
+type AuthorizationMechanismRef = unsafe.Pointer
 
 // AuthorizationPluginId is an unused identifier for a plug-in.
 //
 // See: https://developer.apple.com/documentation/Security/AuthorizationPluginId
-type AuthorizationPluginId = kernel.Pointer
+type AuthorizationPluginId = unsafe.Pointer
 
 // AuthorizationPluginRef is a handle passed by the plug-in to the authorization engine when the plug-in is initiated.
 //
 // See: https://developer.apple.com/documentation/Security/AuthorizationPluginRef
-type AuthorizationPluginRef = kernel.Pointer
+type AuthorizationPluginRef = unsafe.Pointer
 
 // AuthorizationRef is a pointer to an opaque authorization reference structure.
 //
@@ -59,7 +58,7 @@ type AuthorizationRights = AuthorizationItemSet
 // AuthorizationSessionId is a unique value for an authorization session, provided by the authorization engine.
 //
 // See: https://developer.apple.com/documentation/Security/AuthorizationSessionId
-type AuthorizationSessionId = kernel.Pointer
+type AuthorizationSessionId = unsafe.Pointer
 
 // AuthorizationString is a zero-terminated string in UTF-8 encoding.
 //
@@ -95,7 +94,7 @@ type CE_NetscapeCertType = uint16
 // Deprecated: Deprecated since macOS 10.7.
 //
 // See: https://developer.apple.com/documentation/Security/CE_SubjectKeyID
-type CE_SubjectKeyID = string
+type CE_SubjectKeyID = Cssm_data
 
 // CMSDecoderRef is an opaque reference to a CMS decoder object.
 //
@@ -114,7 +113,7 @@ type CSSM_ACL_AUTHORIZATION_TAG = int32
 type CSSM_ACL_EDIT_MODE = uint32
 
 // See: https://developer.apple.com/documentation/Security/CSSM_ACL_HANDLE
-type CSSM_ACL_HANDLE = unsafe.Pointer
+type CSSM_ACL_HANDLE = int
 
 // See: https://developer.apple.com/documentation/Security/CSSM_ACL_KEYCHAIN_PROMPT_SELECTOR-swift.typealias
 type CSSM_ACL_KEYCHAIN_PROMPT_SELECTOR = Cssm_acl_keychain_prompt_selector
@@ -129,7 +128,7 @@ type CSSM_ACL_PROCESS_SUBJECT_SELECTOR = Cssm_acl_process_subject_selector
 type CSSM_ACL_SUBJECT_TYPE = int32
 
 // See: https://developer.apple.com/documentation/Security/CSSM_AC_HANDLE
-type CSSM_AC_HANDLE = unsafe.Pointer
+type CSSM_AC_HANDLE = int
 
 // See: https://developer.apple.com/documentation/Security/CSSM_ALGORITHMS
 type CSSM_ALGORITHMS = uint32
@@ -180,10 +179,10 @@ type CSSM_BITMASK = uint32
 type CSSM_BOOL = int32
 
 // See: https://developer.apple.com/documentation/Security/CSSM_CALLOC
-type CSSM_CALLOC = func(uint, uint, kernel.Pointer) kernel.Pointer
+type CSSM_CALLOC = func(uint32, uint, unsafe.Pointer) AuthorizationMechanismRef
 
 // See: https://developer.apple.com/documentation/Security/CSSM_CC_HANDLE
-type CSSM_CC_HANDLE = unsafe.Pointer
+type CSSM_CC_HANDLE = uint64
 
 // See: https://developer.apple.com/documentation/Security/CSSM_CERTGROUP_TYPE
 type CSSM_CERTGROUP_TYPE = uint32
@@ -216,7 +215,7 @@ type CSSM_CERT_TYPE = uint32
 type CSSM_CERT_TYPE_PTR = *uint32
 
 // See: https://developer.apple.com/documentation/Security/CSSM_CL_HANDLE
-type CSSM_CL_HANDLE = unsafe.Pointer
+type CSSM_CL_HANDLE = int
 
 // See: https://developer.apple.com/documentation/Security/CSSM_CL_TEMPLATE_TYPE
 type CSSM_CL_TEMPLATE_TYPE = uint32
@@ -258,7 +257,7 @@ type CSSM_CSPTYPE = uint32
 type CSSM_CSP_FLAGS = uint32
 
 // See: https://developer.apple.com/documentation/Security/CSSM_CSP_HANDLE
-type CSSM_CSP_HANDLE = unsafe.Pointer
+type CSSM_CSP_HANDLE = int
 
 // See: https://developer.apple.com/documentation/Security/CSSM_CSP_READER_FLAGS
 type CSSM_CSP_READER_FLAGS = uint32
@@ -288,7 +287,7 @@ type CSSM_DB_CONJUNCTIVE = uint32
 type CSSM_DB_CONJUNCTIVE_PTR = *uint32
 
 // See: https://developer.apple.com/documentation/Security/CSSM_DB_HANDLE
-type CSSM_DB_HANDLE = unsafe.Pointer
+type CSSM_DB_HANDLE = int
 
 // See: https://developer.apple.com/documentation/Security/CSSM_DB_INDEXED_DATA_LOCATION
 type CSSM_DB_INDEXED_DATA_LOCATION = uint32
@@ -318,19 +317,19 @@ type CSSM_DLTYPE = uint32
 type CSSM_DLTYPE_PTR = *uint32
 
 // See: https://developer.apple.com/documentation/Security/CSSM_DL_CUSTOM_ATTRIBUTES
-type CSSM_DL_CUSTOM_ATTRIBUTES = kernel.Pointer
+type CSSM_DL_CUSTOM_ATTRIBUTES = unsafe.Pointer
 
 // See: https://developer.apple.com/documentation/Security/CSSM_DL_FFS_ATTRIBUTES
-type CSSM_DL_FFS_ATTRIBUTES = kernel.Pointer
+type CSSM_DL_FFS_ATTRIBUTES = unsafe.Pointer
 
 // See: https://developer.apple.com/documentation/Security/CSSM_DL_HANDLE
-type CSSM_DL_HANDLE = unsafe.Pointer
+type CSSM_DL_HANDLE = int
 
 // See: https://developer.apple.com/documentation/Security/CSSM_DL_LDAP_ATTRIBUTES
-type CSSM_DL_LDAP_ATTRIBUTES = kernel.Pointer
+type CSSM_DL_LDAP_ATTRIBUTES = unsafe.Pointer
 
 // See: https://developer.apple.com/documentation/Security/CSSM_DL_ODBC_ATTRIBUTES
-type CSSM_DL_ODBC_ATTRIBUTES = kernel.Pointer
+type CSSM_DL_ODBC_ATTRIBUTES = unsafe.Pointer
 
 // See: https://developer.apple.com/documentation/Security/CSSM_DL_PKCS11_ATTRIBUTE
 type CSSM_DL_PKCS11_ATTRIBUTE = uintptr
@@ -345,13 +344,13 @@ type CSSM_ENCRYPT_MODE = uint32
 type CSSM_EVIDENCE_FORM = uint32
 
 // See: https://developer.apple.com/documentation/Security/CSSM_FREE
-type CSSM_FREE = func(kernel.Pointer, kernel.Pointer)
+type CSSM_FREE = func(unsafe.Pointer, unsafe.Pointer)
 
 // See: https://developer.apple.com/documentation/Security/CSSM_HANDLE
-type CSSM_HANDLE = unsafe.Pointer
+type CSSM_HANDLE = int
 
 // See: https://developer.apple.com/documentation/Security/CSSM_HANDLE_PTR
-type CSSM_HANDLE_PTR = kernel.Pointer
+type CSSM_HANDLE_PTR = unsafe.Pointer
 
 // See: https://developer.apple.com/documentation/Security/CSSM_HEADERVERSION
 type CSSM_HEADERVERSION = uint32
@@ -375,10 +374,10 @@ type CSSM_KEYCLASS = uint32
 type CSSM_KEYUSE = uint32
 
 // See: https://developer.apple.com/documentation/Security/CSSM_KEY_HIERARCHY
-type CSSM_KEY_HIERARCHY = unsafe.Pointer
+type CSSM_KEY_HIERARCHY = uint32
 
 // See: https://developer.apple.com/documentation/Security/CSSM_KEY_TYPE
-type CSSM_KEY_TYPE = unsafe.Pointer
+type CSSM_KEY_TYPE = uint32
 
 // See: https://developer.apple.com/documentation/Security/CSSM_KRSP_HANDLE
 type CSSM_KRSP_HANDLE = uint32
@@ -411,7 +410,7 @@ type CSSM_LONG_HANDLE = uint64
 type CSSM_LONG_HANDLE_PTR = *uint64
 
 // See: https://developer.apple.com/documentation/Security/CSSM_MALLOC
-type CSSM_MALLOC = func(uint, kernel.Pointer) kernel.Pointer
+type CSSM_MALLOC = func(uint, unsafe.Pointer) AuthorizationMechanismRef
 
 // See: https://developer.apple.com/documentation/Security/CSSM_MANAGER_EVENT_TYPES
 type CSSM_MANAGER_EVENT_TYPES = uint32
@@ -423,10 +422,10 @@ type CSSM_MODULE_EVENT = uint32
 type CSSM_MODULE_EVENT_PTR = *uint32
 
 // See: https://developer.apple.com/documentation/Security/CSSM_MODULE_HANDLE
-type CSSM_MODULE_HANDLE = unsafe.Pointer
+type CSSM_MODULE_HANDLE = int
 
 // See: https://developer.apple.com/documentation/Security/CSSM_MODULE_HANDLE_PTR
-type CSSM_MODULE_HANDLE_PTR = kernel.Pointer
+type CSSM_MODULE_HANDLE_PTR = unsafe.Pointer
 
 // See: https://developer.apple.com/documentation/Security/CSSM_NET_ADDRESS_TYPE
 type CSSM_NET_ADDRESS_TYPE = uint32
@@ -456,22 +455,22 @@ type CSSM_PRIVILEGE_SCOPE = uint32
 type CSSM_PROC_ADDR = func()
 
 // See: https://developer.apple.com/documentation/Security/CSSM_PROC_ADDR_PTR
-type CSSM_PROC_ADDR_PTR = kernel.Pointer
+type CSSM_PROC_ADDR_PTR = unsafe.Pointer
 
 // See: https://developer.apple.com/documentation/Security/CSSM_PVC_MODE
-type CSSM_PVC_MODE = unsafe.Pointer
+type CSSM_PVC_MODE = uint32
 
 // See: https://developer.apple.com/documentation/Security/CSSM_QUERY_FLAGS
 type CSSM_QUERY_FLAGS = uint32
 
 // See: https://developer.apple.com/documentation/Security/CSSM_REALLOC
-type CSSM_REALLOC = func(kernel.Pointer, uint, kernel.Pointer) kernel.Pointer
+type CSSM_REALLOC = func(unsafe.Pointer, uint, unsafe.Pointer) AuthorizationMechanismRef
 
 // See: https://developer.apple.com/documentation/Security/CSSM_RETURN
 type CSSM_RETURN = int32
 
 // See: https://developer.apple.com/documentation/Security/CSSM_SAMPLE_TYPE
-type CSSM_SAMPLE_TYPE = unsafe.Pointer
+type CSSM_SAMPLE_TYPE = int32
 
 // See: https://developer.apple.com/documentation/Security/CSSM_SC_FLAGS
 type CSSM_SC_FLAGS = uint32
@@ -480,13 +479,13 @@ type CSSM_SC_FLAGS = uint32
 type CSSM_SERVICE_MASK = uint32
 
 // See: https://developer.apple.com/documentation/Security/CSSM_SERVICE_TYPE
-type CSSM_SERVICE_TYPE = unsafe.Pointer
+type CSSM_SERVICE_TYPE = uint32
 
 // See: https://developer.apple.com/documentation/Security/CSSM_SIZE
 type CSSM_SIZE = uintptr
 
 // See: https://developer.apple.com/documentation/Security/CSSM_STRING
-type CSSM_STRING = kernel.Pointer
+type CSSM_STRING = [68]int8
 
 // See: https://developer.apple.com/documentation/Security/CSSM_TIMESTRING
 type CSSM_TIMESTRING = *byte
@@ -537,7 +536,7 @@ type CSSM_TP_CRLISSUE_STATUS = uint32
 type CSSM_TP_FORM_TYPE = uint32
 
 // See: https://developer.apple.com/documentation/Security/CSSM_TP_HANDLE
-type CSSM_TP_HANDLE = unsafe.Pointer
+type CSSM_TP_HANDLE = int
 
 // See: https://developer.apple.com/documentation/Security/CSSM_TP_SERVICES
 type CSSM_TP_SERVICES = uint32
@@ -546,7 +545,7 @@ type CSSM_TP_SERVICES = uint32
 type CSSM_TP_STOP_ON = uint32
 
 // See: https://developer.apple.com/documentation/Security/CSSM_USEE_TAG
-type CSSM_USEE_TAG = unsafe.Pointer
+type CSSM_USEE_TAG = uint64
 
 // See: https://developer.apple.com/documentation/Security/CSSM_WORDID_TYPE
 type CSSM_WORDID_TYPE = int32
@@ -555,19 +554,19 @@ type CSSM_WORDID_TYPE = int32
 type CSSM_X509EXT_DATA_FORMAT = Extension_data_format
 
 // See: https://developer.apple.com/documentation/Security/CSSM_X509_OPTION
-type CSSM_X509_OPTION = unsafe.Pointer
+type CSSM_X509_OPTION = int32
 
 // See: https://developer.apple.com/documentation/Security/MDS_HANDLE
-type MDS_HANDLE = unsafe.Pointer
+type MDS_HANDLE = int
 
 // See: https://developer.apple.com/documentation/Security/OpaqueSecAccessRef
-type OpaqueSecAccessRef = kernel.Pointer
+type OpaqueSecAccessRef uintptr
 
 // See: https://developer.apple.com/documentation/Security/OpaqueSecCertificateRef
-type OpaqueSecCertificateRef = kernel.Pointer
+type OpaqueSecCertificateRef uintptr
 
 // See: https://developer.apple.com/documentation/Security/OpaqueSecIdentityRef
-type OpaqueSecIdentityRef = kernel.Pointer
+type OpaqueSecIdentityRef uintptr
 
 // See: https://developer.apple.com/documentation/Security/OpaqueSecKeyRef
 type OpaqueSecKeyRef = string
@@ -580,7 +579,7 @@ type SSLCipherSuite = uint16
 // SSLConnectionRef is a pointer to an opaque I/O connection object.
 //
 // See: https://developer.apple.com/documentation/Security/SSLConnectionRef
-type SSLConnectionRef = kernel.Pointer
+type SSLConnectionRef = unsafe.Pointer
 
 // SSLContextRef is an opaque type that represents an SSL session context object.
 //
@@ -590,12 +589,12 @@ type SSLContextRef uintptr
 // SSLReadFunc is a pointer to a customized read function that secure transport calls to read data from the connection.
 //
 // See: https://developer.apple.com/documentation/Security/SSLReadFunc
-type SSLReadFunc = func(kernel.Pointer, kernel.Pointer, uint) int
+type SSLReadFunc = func(connection unsafe.Pointer, data unsafe.Pointer, dataLength *uint) int32
 
 // SSLWriteFunc is a pointer to a customized write function that secure transport calls to write data to the connection.
 //
 // See: https://developer.apple.com/documentation/Security/SSLWriteFunc
-type SSLWriteFunc = func(kernel.Pointer, kernel.Pointer, uint) int
+type SSLWriteFunc = func(connection unsafe.Pointer, data unsafe.Pointer, dataLength *uint) int32
 
 // SecACLRef is an opaque type that represents information about an ACL entry.
 //
@@ -637,7 +636,7 @@ type SecCodeRef uintptr
 // SecGuestRef is a reference to a guest object, which identifies a particular block of guest code in the context of its code signing host.
 //
 // See: https://developer.apple.com/documentation/Security/SecGuestRef
-type SecGuestRef = kernel.U_int32_t
+type SecGuestRef = uint32
 
 // SecIdentityRef is an abstract Core Foundation-type object representing an identity.
 //
@@ -657,7 +656,7 @@ type SecKeyAlgorithm = corefoundation.CFStringRef
 // SecKeyGeneratePairBlock is a block called with the results of a call to [SecKeyGeneratePairAsync(_:_:_:)].
 //
 // See: https://developer.apple.com/documentation/Security/SecKeyGeneratePairBlock
-type SecKeyGeneratePairBlock = func(string, string, kernel.Pointer)
+type SecKeyGeneratePairBlock = func(string, string, corefoundation.CFErrorRef)
 
 // SecKeyKeyExchangeParameter is the dictionary keys used to specify Diffie-Hellman key exchange parameters.
 //
@@ -702,7 +701,7 @@ type SecKeychainStatus = uint32
 // SecMessageBlock is a block that delivers messages during asynchronous operations.
 //
 // See: https://developer.apple.com/documentation/Security/SecMessageBlock
-type SecMessageBlock = func(kernel.Pointer, kernel.Pointer, uint32)
+type SecMessageBlock = func(message unsafe.Pointer, error_ corefoundation.CFErrorRef, isFinal uint32)
 
 // SecPasswordRef is contains information about a password.
 //
@@ -722,7 +721,7 @@ type SecPolicySearchRef uintptr
 // SecPublicKeyHash is a container for a 20-byte public key hash.
 //
 // See: https://developer.apple.com/documentation/Security/SecPublicKeyHash
-type SecPublicKeyHash = uint8
+type SecPublicKeyHash = [20]uint8
 
 // SecRandomRef is an abstract Core Foundation-type object containing information about a random number generator.
 //
@@ -747,7 +746,7 @@ type SecTaskRef uintptr
 // SecTransformDataBlock is a block used to override the default data handling for a transform.
 //
 // See: https://developer.apple.com/documentation/Security/SecTransformDataBlock
-type SecTransformDataBlock = func(kernel.Pointer) kernel.Pointer
+type SecTransformDataBlock = func(data unsafe.Pointer) unsafe.Pointer
 
 // SecTransformImplementationRef is an opaque pointer to a block that implements an instance of a transform.
 //
@@ -757,12 +756,12 @@ type SecTransformImplementationRef uintptr
 // SecTransformInstanceBlock is a block that you return from a transform creation function.
 //
 // See: https://developer.apple.com/documentation/Security/SecTransformInstanceBlock
-type SecTransformInstanceBlock = func() kernel.Pointer
+type SecTransformInstanceBlock = func() corefoundation.CFErrorRef
 
 // SecTrustCallback is a block called with the results of an asynchronous trust evaluation.
 //
 // See: https://developer.apple.com/documentation/Security/SecTrustCallback
-type SecTrustCallback = func(kernel.Pointer, SecTrustResultType)
+type SecTrustCallback = func(trustRef *SecTrustRef, trustResult SecTrustResultType)
 
 // SecTrustRef is an object used to evaluate trust.
 //
@@ -772,7 +771,7 @@ type SecTrustRef uintptr
 // SecTrustWithErrorCallback is a block called with the results of an asynchronous trust evaluation.
 //
 // See: https://developer.apple.com/documentation/Security/SecTrustWithErrorCallback
-type SecTrustWithErrorCallback = func(kernel.Pointer, bool, kernel.Pointer)
+type SecTrustWithErrorCallback = func(trustRef *SecTrustRef, result bool, error_ corefoundation.CFErrorRef)
 
 // SecTrustedApplicationRef is an opaque type that contains information about a trusted app.
 //
@@ -816,16 +815,16 @@ func Sec_object_tFromID(id objc.ID) Sec_object_t {
 }
 
 // See: https://developer.apple.com/documentation/Security/sec_protocol_challenge_complete_t
-type Sec_protocol_challenge_complete_t = func(objectivec.Object)
+type Sec_protocol_challenge_complete_t = func(identity objectivec.Object)
 
 // See: https://developer.apple.com/documentation/Security/sec_protocol_challenge_t
-type Sec_protocol_challenge_t = func(objectivec.Object, func(*objectivec.Object))
+type Sec_protocol_challenge_t = func(metadata objectivec.Object, complete func(*objectivec.Object))
 
 // See: https://developer.apple.com/documentation/Security/sec_protocol_key_update_complete_t
 type Sec_protocol_key_update_complete_t = func()
 
 // See: https://developer.apple.com/documentation/Security/sec_protocol_key_update_t
-type Sec_protocol_key_update_t = func(objectivec.Object, func())
+type Sec_protocol_key_update_t = func(metadata objectivec.Object, complete func())
 
 // Sec_protocol_metadata_t is a `sec_protocol_metadata` instance conatins read-only properties of a connected and configured security protocol. Clients use this object to read information about a protocol instance. Properties include, for example, the negotiated TLS version, ciphersuite, and peer certificates.
 //
@@ -848,16 +847,16 @@ func Sec_protocol_options_tFromID(id objc.ID) Sec_protocol_options_t {
 }
 
 // See: https://developer.apple.com/documentation/Security/sec_protocol_pre_shared_key_selection_complete_t
-type Sec_protocol_pre_shared_key_selection_complete_t = func(objectivec.Object)
+type Sec_protocol_pre_shared_key_selection_complete_t = func(psk_identity objectivec.Object)
 
 // See: https://developer.apple.com/documentation/Security/sec_protocol_pre_shared_key_selection_t
-type Sec_protocol_pre_shared_key_selection_t = func(objectivec.Object, objectivec.Object, func(*objectivec.Object))
+type Sec_protocol_pre_shared_key_selection_t = func(metadata objectivec.Object, psk_identity_hint objectivec.Object, complete func(*objectivec.Object))
 
 // See: https://developer.apple.com/documentation/Security/sec_protocol_verify_complete_t
-type Sec_protocol_verify_complete_t = func(bool)
+type Sec_protocol_verify_complete_t = func(result bool)
 
 // See: https://developer.apple.com/documentation/Security/sec_protocol_verify_t
-type Sec_protocol_verify_t = func(objectivec.Object, objectivec.Object, func(bool))
+type Sec_protocol_verify_t = func(metadata objectivec.Object, trust_ref objectivec.Object, complete func(bool))
 
 // Sec_trust_t is these are os_object compatible and ARC-able wrappers around existing CoreFoundation Security types, including: SecTrustRef, SecIdentityRef, and SecCertificateRef. They allow clients to use these types in os_object-type APIs and data structures. The underlying CoreFoundation types may be extracted and used by clients as needed.
 //
@@ -880,6 +879,9 @@ type Sint64 = int64
 
 // See: https://developer.apple.com/documentation/Security/sint8
 type Sint8 = int8
+
+// See: https://developer.apple.com/documentation/Security/uint32
+type Uint32 = uint32
 
 // CeCrlNumber is a Go-name alias for CE_CrlNumber.
 type CeCrlNumber = CE_CrlNumber
@@ -916,6 +918,9 @@ type CssmAclPreauthTrackingState = CSSM_ACL_PREAUTH_TRACKING_STATE
 
 // CssmAclProcessSubjectSelector is a Go-name alias for CSSM_ACL_PROCESS_SUBJECT_SELECTOR.
 type CssmAclProcessSubjectSelector = CSSM_ACL_PROCESS_SUBJECT_SELECTOR
+
+// CssmAclSubjectType is a Go-name alias for CSSM_ACL_SUBJECT_TYPE.
+type CssmAclSubjectType = CSSM_ACL_SUBJECT_TYPE
 
 // CssmAcHandle is a Go-name alias for CSSM_AC_HANDLE.
 type CssmAcHandle = CSSM_AC_HANDLE
@@ -1217,6 +1222,9 @@ type CssmRealloc = CSSM_REALLOC
 // CssmReturn is a Go-name alias for CSSM_RETURN.
 type CssmReturn = CSSM_RETURN
 
+// CssmSampleType is a Go-name alias for CSSM_SAMPLE_TYPE.
+type CssmSampleType = CSSM_SAMPLE_TYPE
+
 // CssmScFlags is a Go-name alias for CSSM_SC_FLAGS.
 type CssmScFlags = CSSM_SC_FLAGS
 
@@ -1234,6 +1242,9 @@ type CssmString = CSSM_STRING
 
 // CssmTimestring is a Go-name alias for CSSM_TIMESTRING.
 type CssmTimestring = CSSM_TIMESTRING
+
+// CssmTpAction is a Go-name alias for CSSM_TP_ACTION.
+type CssmTpAction = CSSM_TP_ACTION
 
 // CssmTpAppleCertStatus is a Go-name alias for CSSM_TP_APPLE_CERT_STATUS.
 type CssmTpAppleCertStatus = CSSM_TP_APPLE_CERT_STATUS
@@ -1292,12 +1303,6 @@ type CssmX509Option = CSSM_X509_OPTION
 // MdsHandle is a Go-name alias for MDS_HANDLE.
 type MdsHandle = MDS_HANDLE
 
-// SecCertificate is a Go-name alias for Sec_certificate_t.
-type SecCertificate = Sec_certificate_t
-
-// SecIdentity is a Go-name alias for Sec_identity_t.
-type SecIdentity = Sec_identity_t
-
 // SecObject is a Go-name alias for Sec_object_t.
 type SecObject = Sec_object_t
 
@@ -1330,6 +1335,3 @@ type SecProtocolVerifyComplete = Sec_protocol_verify_complete_t
 
 // SecProtocolVerify is a Go-name alias for Sec_protocol_verify_t.
 type SecProtocolVerify = Sec_protocol_verify_t
-
-// SecTrust is a Go-name alias for Sec_trust_t.
-type SecTrust = Sec_trust_t

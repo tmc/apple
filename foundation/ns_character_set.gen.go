@@ -83,6 +83,10 @@ func (nc NSCharacterSetClass) Alloc() NSCharacterSet {
 // counterpart, [CFCharacterSet]. See [Toll-Free Bridging] for more
 // information on toll-free bridging.
 //
+// # Creating a Custom Character Set
+//
+//   - [NSCharacterSet.InitWithCoder]
+//
 // # Creating and Managing Character Sets as Bitmap Representations
 //
 //   - [NSCharacterSet.BitmapRepresentation]: An [NSData] object encoding the receiver in binary format.
@@ -120,6 +124,10 @@ func NSCharacterSetFromID(id objc.ID) NSCharacterSet {
 
 // An interface definition for the [NSCharacterSet] class.
 //
+// # Creating a Custom Character Set
+//
+//   - [INSCharacterSet.InitWithCoder]
+//
 // # Creating and Managing Character Sets as Bitmap Representations
 //
 //   - [INSCharacterSet.BitmapRepresentation]: An [NSData] object encoding the receiver in binary format.
@@ -138,7 +146,10 @@ func NSCharacterSetFromID(id objc.ID) NSCharacterSet {
 // See: https://developer.apple.com/documentation/Foundation/NSCharacterSet
 type INSCharacterSet interface {
 	objectivec.IObject
-	NSSecureCoding
+
+	// Topic: Creating a Custom Character Set
+
+	InitWithCoder(coder INSCoder) NSCharacterSet
 
 	// Topic: Creating and Managing Character Sets as Bitmap Representations
 
@@ -160,6 +171,9 @@ type INSCharacterSet interface {
 	IsSupersetOfSet(theOtherSet INSCharacterSet) bool
 	// Returns a Boolean value that indicates whether a given long character is a member of the receiver.
 	LongCharacterIsMember(theLongChar uint32) bool
+
+	// Encodes the receiver using a given archiver.
+	EncodeWithCoder(coder INSCoder)
 }
 
 // Init initializes the instance.
@@ -678,9 +692,8 @@ func (_NSCharacterSetClass NSCharacterSetClass) WhitespaceCharacterSet() NSChara
 // # Discussion
 //
 // The fragment component of a URL is the component after a `#` symbol. For
-// example, in the URL
-// `//www.ExampleXCUIElementTypeCom()/index.Html()#jumpLocation`, the fragment
-// is `jumpLocation`.
+// example, in the URL `http://www.example.com/index.html#jumpLocation`, the
+// fragment is `jumpLocation`.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSCharacterSet/urlFragmentAllowed
 func (_NSCharacterSetClass NSCharacterSetClass) URLFragmentAllowedCharacterSet() NSCharacterSet {
@@ -696,8 +709,8 @@ func (_NSCharacterSetClass NSCharacterSetClass) URLFragmentAllowedCharacterSet()
 // The host component of a URL is usually the component immediately after the
 // first two leading slashes. If the URL contains a username and password, the
 // host component is the component after the `@` sign. For example, in the URL
-// `//password@www.ExampleXCUIElementTypeCom()/index.Html()`, the host
-// component is `www.ExampleXCUIElementTypeCom()`.
+// `http://username:password@www.example.com/index.html`, the host component
+// is `www.ExampleXCUIElementTypeCom()`.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSCharacterSet/urlHostAllowed
 func (_NSCharacterSetClass NSCharacterSetClass) URLHostAllowedCharacterSet() NSCharacterSet {
@@ -713,8 +726,8 @@ func (_NSCharacterSetClass NSCharacterSetClass) URLHostAllowedCharacterSet() NSC
 // The password component of a URL is the component immediately following the
 // colon after the username component of the URL, and ends at the `@` sign.
 // For example, in the URL
-// `//password@www.ExampleXCUIElementTypeCom()/index.Html()`, the pass
-// component is `password`.
+// `http://username:password@www.example.com/index.html`, the pass component
+// is `password`.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSCharacterSet/urlPasswordAllowed
 func (_NSCharacterSetClass NSCharacterSetClass) URLPasswordAllowedCharacterSet() NSCharacterSet {
@@ -729,8 +742,8 @@ func (_NSCharacterSetClass NSCharacterSetClass) URLPasswordAllowedCharacterSet()
 // The path component of a URL is the component immediately following the host
 // component (if present). It ends wherever the query or fragment component
 // begins. For example, in the URL
-// `//www.ExampleXCUIElementTypeCom()/index.Php()?key1=value1`, the path
-// component is `/index.Php()`.
+// `http://www.example.com/index.php?key1=value1`, the path component is
+// `/index.php`.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSCharacterSet/urlPathAllowed
 func (_NSCharacterSetClass NSCharacterSetClass) URLPathAllowedCharacterSet() NSCharacterSet {
@@ -744,8 +757,8 @@ func (_NSCharacterSetClass NSCharacterSetClass) URLPathAllowedCharacterSet() NSC
 //
 // The query component of a URL is the component immediately following a
 // question mark (`?`). For example, in the URL
-// `//www.ExampleXCUIElementTypeCom()/index.Php()?key1=value1#jumpLink`, the
-// query component is `key1=value1`.
+// `http://www.example.com/index.php?key1=value1#jumpLink`, the query
+// component is `key1=value1`.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSCharacterSet/urlQueryAllowed
 func (_NSCharacterSetClass NSCharacterSetClass) URLQueryAllowedCharacterSet() NSCharacterSet {
@@ -761,8 +774,8 @@ func (_NSCharacterSetClass NSCharacterSetClass) URLQueryAllowedCharacterSet() NS
 // The user component of a URL is an optional component that precedes the host
 // component, and ends at either a colon (if a password is specified) or an
 // `@` sign (if no password is specified). For example, in the URL
-// `//password@www.ExampleXCUIElementTypeCom()/index.Html()`, the user
-// component is `username`.
+// `http://username:password@www.example.com/index.html`, the user component
+// is `username`.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSCharacterSet/urlUserAllowed
 func (_NSCharacterSetClass NSCharacterSetClass) URLUserAllowedCharacterSet() NSCharacterSet {

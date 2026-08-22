@@ -117,7 +117,7 @@ type IWKContentRuleListStore interface {
 	// Topic: Accessing the Current Rule Lists
 
 	// Fetches the identifiers for all rule lists in the store asynchronously.
-	GetAvailableContentRuleListIdentifiers(completionHandler VoidHandler)
+	GetAvailableContentRuleListIdentifiers(completionHandler stringArrayHandler)
 	// Searches asynchronously for a specific rule list in the data store.
 	LookUpContentRuleListForIdentifierCompletionHandler(identifier string, completionHandler WKContentRuleListErrorHandler)
 }
@@ -158,7 +158,7 @@ func NewWKContentRuleListStore() WKContentRuleListStore {
 // change any rules after creating this object, the store saves those changes
 // to the same directory.
 //
-// See: https://developer.apple.com/documentation/WebKit/WKContentRuleListStore/init(url:)-dile
+// See: https://developer.apple.com/documentation/WebKit/WKContentRuleListStore/init(url:)
 func NewContentRuleListStoreWithURL(url foundation.NSURL) WKContentRuleListStore {
 	rv := objc.Send[objc.ID](objc.ID(getWKContentRuleListStoreClass().class), objc.Sel("storeWithURL:"), url)
 	return WKContentRuleListStoreFromID(rv)
@@ -221,8 +221,8 @@ func (c WKContentRuleListStore) RemoveContentRuleListForIdentifierCompletionHand
 // lists, the array is empty.
 //
 // See: https://developer.apple.com/documentation/WebKit/WKContentRuleListStore/getAvailableContentRuleListIdentifiers(_:)
-func (c WKContentRuleListStore) GetAvailableContentRuleListIdentifiers(completionHandler VoidHandler) {
-	_block0, _ := NewVoidBlock(completionHandler)
+func (c WKContentRuleListStore) GetAvailableContentRuleListIdentifiers(completionHandler stringArrayHandler) {
+	_block0, _ := NewstringArrayBlock(completionHandler)
 	objc.Send[objc.ID](c.ID, objc.Sel("getAvailableContentRuleListIdentifiers:"), _block0)
 }
 
@@ -296,16 +296,20 @@ func (c WKContentRuleListStore) RemoveContentRuleListForIdentifier(ctx context.C
 
 // GetAvailableContentRuleListIdentifiersSync is a synchronous wrapper around [WKContentRuleListStore.GetAvailableContentRuleListIdentifiers].
 // It blocks until the completion handler fires or the context is cancelled.
-func (c WKContentRuleListStore) GetAvailableContentRuleListIdentifiersSync(ctx context.Context) error {
-	done := make(chan struct{}, 1)
-	c.GetAvailableContentRuleListIdentifiers(func() {
-		done <- struct{}{}
+func (c WKContentRuleListStore) GetAvailableContentRuleListIdentifiersSync(ctx context.Context) ([]string, error) {
+	done := make(chan []string, 1)
+	c.GetAvailableContentRuleListIdentifiers(func(val *[]string) {
+		var out []string
+		if val != nil {
+			out = append(out, (*val)...)
+		}
+		done <- out
 	})
 	select {
-	case <-done:
-		return nil
+	case r := <-done:
+		return r, nil
 	case <-ctx.Done():
-		return ctx.Err()
+		return nil, ctx.Err()
 	}
 }
 

@@ -5,9 +5,9 @@ package vision
 import (
 	"sync"
 
+	"github.com/tmc/apple/coreml"
 	"github.com/tmc/apple/foundation"
 	"github.com/tmc/apple/objc"
-	"github.com/tmc/apple/objectivec"
 )
 
 // The class instance for the [VNCoreMLFeatureValueObservation] class.
@@ -60,7 +60,7 @@ func (vc VNCoreMLFeatureValueObservationClass) Alloc() VNCoreMLFeatureValueObser
 //
 // # Obtaining Feature Values
 //
-//   - [VNCoreMLFeatureValueObservation.FeatureValue]: The feature result of a [VNCoreMLRequest](<doc://Vision/documentation/Vision/VNCoreMLRequest>) that outputs neither a classification nor an image.
+//   - [VNCoreMLFeatureValueObservation.FeatureValue]: The feature result of a [VNCoreMLRequest](<https://developer.apple.com/documentation/Vision/VNCoreMLRequest>) that outputs neither a classification nor an image.
 //   - [VNCoreMLFeatureValueObservation.FeatureName]: The name used in the model description of the CoreML model that produced this observation.
 //
 // See: https://developer.apple.com/documentation/Vision/VNCoreMLFeatureValueObservation
@@ -88,7 +88,7 @@ func VNCoreMLFeatureValueObservationFromID(id objc.ID) VNCoreMLFeatureValueObser
 //
 // # Obtaining Feature Values
 //
-//   - [IVNCoreMLFeatureValueObservation.FeatureValue]: The feature result of a [VNCoreMLRequest](<doc://Vision/documentation/Vision/VNCoreMLRequest>) that outputs neither a classification nor an image.
+//   - [IVNCoreMLFeatureValueObservation.FeatureValue]: The feature result of a [VNCoreMLRequest](<https://developer.apple.com/documentation/Vision/VNCoreMLRequest>) that outputs neither a classification nor an image.
 //   - [IVNCoreMLFeatureValueObservation.FeatureName]: The name used in the model description of the CoreML model that produced this observation.
 //
 // See: https://developer.apple.com/documentation/Vision/VNCoreMLFeatureValueObservation
@@ -97,8 +97,8 @@ type IVNCoreMLFeatureValueObservation interface {
 
 	// Topic: Obtaining Feature Values
 
-	// The feature result of a [VNCoreMLRequest](<doc://Vision/documentation/Vision/VNCoreMLRequest>) that outputs neither a classification nor an image.
-	FeatureValue() objectivec.IObject
+	// The feature result of a [VNCoreMLRequest](<https://developer.apple.com/documentation/Vision/VNCoreMLRequest>) that outputs neither a classification nor an image.
+	FeatureValue() coreml.MLFeatureValue
 	// The name used in the model description of the CoreML model that produced this observation.
 	FeatureName() string
 }
@@ -140,9 +140,9 @@ func NewCoreMLFeatureValueObservationWithCoder(coder foundation.INSCoder) VNCore
 // See: https://developer.apple.com/documentation/Vision/VNCoreMLFeatureValueObservation/featureValue
 //
 // [Core ML]: https://developer.apple.com/documentation/CoreML
-func (c VNCoreMLFeatureValueObservation) FeatureValue() objectivec.IObject {
+func (c VNCoreMLFeatureValueObservation) FeatureValue() coreml.MLFeatureValue {
 	rv := objc.Send[objc.ID](c.ID, objc.Sel("featureValue"))
-	return objectivec.Object{ID: rv}
+	return coreml.MLFeatureValueFromID(objc.ID(rv))
 }
 
 // The name used in the model description of the CoreML model that produced

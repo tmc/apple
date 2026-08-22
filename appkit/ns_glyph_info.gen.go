@@ -168,7 +168,7 @@ func NewNSGlyphInfo() NSGlyphInfo {
 // See: https://developer.apple.com/documentation/AppKit/NSGlyphInfo/init(cgGlyph:for:baseString:)
 //
 // [CGGlyph]: https://developer.apple.com/documentation/CoreGraphics/CGGlyph
-func NewGlyphInfoWithCGGlyphForFontBaseString(glyph coregraphics.CGGlyph, font NSFont, string_ string) NSGlyphInfo {
+func NewGlyphInfoWithCGGlyphForFontBaseString(glyph coregraphics.CGGlyph, font INSFont, string_ string) NSGlyphInfo {
 	rv := objc.Send[objc.ID](objc.ID(getNSGlyphInfoClass().class), objc.Sel("glyphInfoWithCGGlyph:forFont:baseString:"), glyph, font, objc.String(string_))
 	return NSGlyphInfoFromID(rv)
 }
@@ -220,7 +220,7 @@ func NewGlyphInfoWithCoder(coder foundation.INSCoder) NSGlyphInfo {
 // created.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSGlyphInfo/init(glyph:forFont:baseString:)
-func NewGlyphInfoWithGlyphForFontBaseString(glyph uint32, font NSFont, string_ string) NSGlyphInfo {
+func NewGlyphInfoWithGlyphForFontBaseString(glyph NSGlyph, font INSFont, string_ string) NSGlyphInfo {
 	rv := objc.Send[objc.ID](objc.ID(getNSGlyphInfoClass().class), objc.Sel("glyphInfoWithGlyph:forFont:baseString:"), glyph, font, objc.String(string_))
 	return NSGlyphInfoFromID(rv)
 }
@@ -241,7 +241,7 @@ func NewGlyphInfoWithGlyphForFontBaseString(glyph uint32, font NSFont, string_ s
 // created.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSGlyphInfo/init(glyphName:forFont:baseString:)
-func NewGlyphInfoWithGlyphNameForFontBaseString(glyphName string, font NSFont, string_ string) NSGlyphInfo {
+func NewGlyphInfoWithGlyphNameForFontBaseString(glyphName string, font INSFont, string_ string) NSGlyphInfo {
 	rv := objc.Send[objc.ID](objc.ID(getNSGlyphInfoClass().class), objc.Sel("glyphInfoWithGlyphName:forFont:baseString:"), objc.String(glyphName), font, objc.String(string_))
 	return NSGlyphInfoFromID(rv)
 }

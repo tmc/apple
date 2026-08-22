@@ -7,8 +7,8 @@ import (
 	"sync"
 	"unsafe"
 
+	"github.com/tmc/apple/coredata"
 	"github.com/tmc/apple/foundation"
-	"github.com/tmc/apple/kernel"
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -113,7 +113,7 @@ func (nc NSObjectControllerClass) Alloc() NSObjectController {
 //   - [NSObjectController.AddObject]: Sets the receiver’s content object.
 //   - [NSObjectController.RemoveObject]: Removes a given object from the receiver’s content.
 //   - [NSObjectController.Add]: Creates a new object and sets it as the receiver’s content object.
-//   - [NSObjectController.CanAdd]: A Boolean value that indicates whether an object can be added to the receiver using [add(_:)](<doc://com.apple.appkit/documentation/AppKit/NSObjectController/add(_:)>).
+//   - [NSObjectController.CanAdd]: A Boolean value that indicates whether an object can be added to the receiver using [add(_:)](<https://developer.apple.com/documentation/AppKit/NSObjectController/add(_:)>).
 //   - [NSObjectController.Remove]: Removes the receiver’s content object.
 //   - [NSObjectController.CanRemove]: A Boolean value that indicates whether an object can be removed from the receiver.
 //
@@ -188,7 +188,7 @@ func NSObjectControllerFromID(id objc.ID) NSObjectController {
 //   - [INSObjectController.AddObject]: Sets the receiver’s content object.
 //   - [INSObjectController.RemoveObject]: Removes a given object from the receiver’s content.
 //   - [INSObjectController.Add]: Creates a new object and sets it as the receiver’s content object.
-//   - [INSObjectController.CanAdd]: A Boolean value that indicates whether an object can be added to the receiver using [add(_:)](<doc://com.apple.appkit/documentation/AppKit/NSObjectController/add(_:)>).
+//   - [INSObjectController.CanAdd]: A Boolean value that indicates whether an object can be added to the receiver using [add(_:)](<https://developer.apple.com/documentation/AppKit/NSObjectController/add(_:)>).
 //   - [INSObjectController.Remove]: Removes the receiver’s content object.
 //   - [INSObjectController.CanRemove]: A Boolean value that indicates whether an object can be removed from the receiver.
 //
@@ -256,7 +256,7 @@ type INSObjectController interface {
 	RemoveObject(object objectivec.IObject)
 	// Creates a new object and sets it as the receiver’s content object.
 	Add(sender objectivec.IObject)
-	// A Boolean value that indicates whether an object can be added to the receiver using [add(_:)](<doc://com.apple.appkit/documentation/AppKit/NSObjectController/add(_:)>).
+	// A Boolean value that indicates whether an object can be added to the receiver using [add(_:)](<https://developer.apple.com/documentation/AppKit/NSObjectController/add(_:)>).
 	CanAdd() bool
 	// Removes the receiver’s content object.
 	Remove(sender objectivec.IObject)
@@ -280,15 +280,15 @@ type INSObjectController interface {
 	UsesLazyFetching() bool
 	SetUsesLazyFetching(value bool)
 	// Returns the default fetch request used by the receiver.
-	DefaultFetchRequest() unsafe.Pointer
+	DefaultFetchRequest() coredata.NSFetchRequest
 	// The receiver’s fetch predicate.
 	FetchPredicate() foundation.NSPredicate
 	SetFetchPredicate(value foundation.NSPredicate)
 	// The receiver’s managed object context.
-	ManagedObjectContext() unsafe.Pointer
-	SetManagedObjectContext(value kernel.Pointer)
+	ManagedObjectContext() coredata.NSManagedObjectContext
+	SetManagedObjectContext(value coredata.NSManagedObjectContext)
 	// Subclasses should override this method to customize a fetch request, for example to specify fetch limits.
-	FetchWithRequestMergeError(fetchRequest kernel.Pointer, merge bool) (bool, error)
+	FetchWithRequestMergeError(fetchRequest coredata.NSFetchRequest, merge bool) (bool, error)
 
 	// Topic: Obtaining selections
 
@@ -510,9 +510,9 @@ func (o NSObjectController) Fetch(sender objectivec.IObject) {
 // The default NSFetchResult used by the receiver.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSObjectController/defaultFetchRequest()
-func (o NSObjectController) DefaultFetchRequest() unsafe.Pointer {
-	rv := objc.Send[unsafe.Pointer](o.ID, objc.Sel("defaultFetchRequest"))
-	return rv
+func (o NSObjectController) DefaultFetchRequest() coredata.NSFetchRequest {
+	rv := objc.Send[objc.ID](o.ID, objc.Sel("defaultFetchRequest"))
+	return coredata.NSFetchRequestFromID(rv)
 }
 
 // Subclasses should override this method to customize a fetch request, for
@@ -531,7 +531,7 @@ func (o NSObjectController) DefaultFetchRequest() unsafe.Pointer {
 // and then invoke `super`’s implementation with the new fetch request.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSObjectController/fetch(with:merge:)
-func (o NSObjectController) FetchWithRequestMergeError(fetchRequest kernel.Pointer, merge bool) (bool, error) {
+func (o NSObjectController) FetchWithRequestMergeError(fetchRequest coredata.NSFetchRequest, merge bool) (bool, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[bool](o.ID, objc.Sel("fetchWithRequest:merge:error:"), fetchRequest, merge, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
@@ -706,11 +706,11 @@ func (o NSObjectController) SetFetchPredicate(value foundation.NSPredicate) {
 // The receiver’s managed object context.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSObjectController/managedObjectContext
-func (o NSObjectController) ManagedObjectContext() unsafe.Pointer {
-	rv := objc.Send[unsafe.Pointer](o.ID, objc.Sel("managedObjectContext"))
-	return rv
+func (o NSObjectController) ManagedObjectContext() coredata.NSManagedObjectContext {
+	rv := objc.Send[objc.ID](o.ID, objc.Sel("managedObjectContext"))
+	return coredata.NSManagedObjectContextFromID(objc.ID(rv))
 }
-func (o NSObjectController) SetManagedObjectContext(value kernel.Pointer) {
+func (o NSObjectController) SetManagedObjectContext(value coredata.NSManagedObjectContext) {
 	objc.Send[struct{}](o.ID, objc.Sel("setManagedObjectContext:"), value)
 }
 

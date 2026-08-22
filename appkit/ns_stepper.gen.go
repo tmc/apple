@@ -8,7 +8,6 @@ import (
 	"github.com/tmc/apple/corefoundation"
 	"github.com/tmc/apple/foundation"
 	"github.com/tmc/apple/objc"
-	"github.com/tmc/apple/objectivec"
 )
 
 // The class instance for the [NSStepper] class.
@@ -189,67 +188,6 @@ func NewStepperWithFrame(frameRect corefoundation.CGRect) NSStepper {
 	return NSStepperFromID(rv)
 }
 
-// Decrements the stepper’s value.
-//
-// # Return Value
-//
-// true if the action was successfully triggered; otherwise, false. This
-// method does not indicate the success or failure of the action, just the
-// fact that the action was successfully triggered.
-//
-// # Discussion
-//
-// This method must post an [valueChanged] notification after changing the
-// stepper’s value.
-//
-// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityStepper/accessibilityPerformDecrement()
-//
-// [valueChanged]: https://developer.apple.com/documentation/AppKit/NSAccessibility-swift.struct/Notification/valueChanged
-func (s NSStepper) AccessibilityPerformDecrement() bool {
-	rv := objc.Send[bool](s.ID, objc.Sel("accessibilityPerformDecrement"))
-	return rv
-}
-
-// Increments the stepper’s value.
-//
-// # Return Value
-//
-// true if the action was successfully triggered; otherwise, false. This
-// method does not indicate the success or failure of the action, just the
-// fact that the action was successfully triggered.
-//
-// # Discussion
-//
-// This method must post an [valueChanged] notification after changing the
-// stepper’s value.
-//
-// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityStepper/accessibilityPerformIncrement()
-//
-// [valueChanged]: https://developer.apple.com/documentation/AppKit/NSAccessibility-swift.struct/Notification/valueChanged
-func (s NSStepper) AccessibilityPerformIncrement() bool {
-	rv := objc.Send[bool](s.ID, objc.Sel("accessibilityPerformIncrement"))
-	return rv
-}
-
-// Returns the stepper’s value.
-//
-// # Return Value
-//
-// The value for the stepper.
-//
-// # Discussion
-//
-// This method is the getter for the [NSAccessibilityProtocol] protocol’s
-// [accessibilityValue] property.
-//
-// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityStepper/accessibilityValue()
-//
-// [accessibilityValue]: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityValue
-func (s NSStepper) AccessibilityValue() objectivec.IObject {
-	rv := objc.Send[objc.ID](s.ID, objc.Sel("accessibilityValue"))
-	return objectivec.Object{ID: rv}
-}
-
 // The stepper’s maximum value.
 //
 // # Discussion
@@ -332,85 +270,3 @@ func (s NSStepper) SetValueWraps(value bool) {
 }
 
 // Protocol methods for NSAccessibilityStepper
-
-// Returns the accessibility element’s frame in screen coordinates.
-//
-// # Return Value
-//
-// The element’s frame in screen coordinates.
-//
-// # Discussion
-//
-// This method is the getter for the [NSAccessibilityProtocol] protocol’s
-// [accessibilityFrame] property. This method is called whenever accessibility
-// clients request the [size] or [position] attributes.
-//
-// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityElementProtocol/accessibilityFrame()
-//
-// [accessibilityFrame]: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityFrame
-// [position]: https://developer.apple.com/documentation/AppKit/NSAccessibility-swift.struct/Attribute/position
-// [size]: https://developer.apple.com/documentation/AppKit/NSAccessibility-swift.struct/Attribute/size
-func (o NSStepper) AccessibilityFrame() corefoundation.CGRect {
-	rv := objc.Send[corefoundation.CGRect](o.ID, objc.Sel("accessibilityFrame"))
-	return rv
-}
-
-// Returns the accessibility element’s parent in the accessibility
-// hierarchy.
-//
-// # Return Value
-//
-// The element’s parent in the accessibility hierarchy.
-//
-// # Discussion
-//
-// This method is the getter for the [NSAccessibilityProtocol] protocol’s
-// [accessibilityParent] property.
-//
-// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityElementProtocol/accessibilityParent()
-//
-// [accessibilityParent]: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityParent
-func (o NSStepper) AccessibilityParent() objectivec.IObject {
-	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilityParent"))
-	return objectivec.Object{ID: rv}
-}
-
-// Returns the accessibility element’s identity.
-//
-// # Return Value
-//
-// Returns the unique ID for the accessibility element. It is often used in
-// automated testing.
-//
-// # Discussion
-//
-// This method is the getter for the [NSAccessibilityProtocol] protocol’s
-// [accessibilityIdentifier] property.
-//
-// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityElementProtocol/accessibilityIdentifier()
-//
-// [accessibilityIdentifier]: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityIdentifier
-func (o NSStepper) AccessibilityIdentifier() string {
-	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilityIdentifier"))
-	return foundation.NSStringFromID(rv).String()
-}
-
-// Returns a Boolean value that indicates whether the accessibility element
-// has the keyboard focus.
-//
-// # Return Value
-//
-// true if this element has the keyboard focus; otherwise, false.
-//
-// # Discussion
-//
-// This method is the getter for the [NSAccessibilityProtocol] protocol’s
-// [accessibilityFocused] property.
-//
-// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityElementProtocol/isAccessibilityFocused()
-//
-// [accessibilityFocused]: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityFocused
-func (o NSStepper) IsAccessibilityFocused() bool {
-	rv := objc.Send[bool](o.ID, objc.Sel("isAccessibilityFocused"))
-	return rv
-}

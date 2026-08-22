@@ -45,12 +45,11 @@ func NSAccessibilityListObjectFromID(id objc.ID) NSAccessibilityListObject {
 // # Discussion
 //
 // This method is the getter for the [NSAccessibilityProtocol] protocol’s
-// [accessibilityFrame] property. This method is called whenever accessibility
-// clients request the [size] or [position] attributes.
+// [NSWindow.AccessibilityFrame] property. This method is called whenever
+// accessibility clients request the [size] or [position] attributes.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSAccessibilityElementProtocol/accessibilityFrame()
 //
-// [accessibilityFrame]: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityFrame
 // [position]: https://developer.apple.com/documentation/AppKit/NSAccessibility-swift.struct/Attribute/position
 // [size]: https://developer.apple.com/documentation/AppKit/NSAccessibility-swift.struct/Attribute/size
 func (o NSAccessibilityListObject) AccessibilityFrame() corefoundation.CGRect {
@@ -68,11 +67,9 @@ func (o NSAccessibilityListObject) AccessibilityFrame() corefoundation.CGRect {
 // # Discussion
 //
 // This method is the getter for the [NSAccessibilityProtocol] protocol’s
-// [accessibilityParent] property.
+// [NSWindow.AccessibilityParent] property.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSAccessibilityElementProtocol/accessibilityParent()
-//
-// [accessibilityParent]: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityParent
 func (o NSAccessibilityListObject) AccessibilityParent() objectivec.IObject {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilityParent"))
 	return objectivec.Object{ID: rv}
@@ -88,11 +85,9 @@ func (o NSAccessibilityListObject) AccessibilityParent() objectivec.IObject {
 // # Discussion
 //
 // This method is the getter for the [NSAccessibilityProtocol] protocol’s
-// [accessibilityIdentifier] property.
+// [NSWindow.AccessibilityIdentifier] property.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSAccessibilityElementProtocol/accessibilityIdentifier()
-//
-// [accessibilityIdentifier]: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityIdentifier
 func (o NSAccessibilityListObject) AccessibilityIdentifier() string {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilityIdentifier"))
 	return foundation.NSStringFromID(rv).String()
@@ -108,11 +103,9 @@ func (o NSAccessibilityListObject) AccessibilityIdentifier() string {
 // # Discussion
 //
 // This method is the getter for the [NSAccessibilityProtocol] protocol’s
-// [accessibilityFocused] property.
+// [NSWindow.AccessibilityFocused] property.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSAccessibilityElementProtocol/isAccessibilityFocused()
-//
-// [accessibilityFocused]: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityFocused
 func (o NSAccessibilityListObject) IsAccessibilityFocused() bool {
 	rv := objc.Send[bool](o.ID, objc.Sel("isAccessibilityFocused"))
 	return rv
@@ -127,7 +120,7 @@ func (o NSAccessibilityListObject) IsAccessibilityFocused() bool {
 // # Discussion
 //
 // This method is the getter for the [NSAccessibilityProtocol] protocol’s
-// [accessibilityLabel] property.
+// [NSWindow.AccessibilityLabel] property.
 //
 // Do not include the control’s type in the label (for example, use
 // [Employees], not `Employees Table`). If possible use a single word. To help
@@ -136,8 +129,6 @@ func (o NSAccessibilityListObject) IsAccessibilityFocused() bool {
 // period at the end. Always localize the label.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSAccessibilityTable/accessibilityLabel()
-//
-// [accessibilityLabel]: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityLabel
 func (o NSAccessibilityListObject) AccessibilityLabel() string {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilityLabel"))
 	return foundation.NSStringFromID(rv).String()
@@ -152,11 +143,9 @@ func (o NSAccessibilityListObject) AccessibilityLabel() string {
 // # Discussion
 //
 // This method is the getter for the [NSAccessibilityProtocol] protocol’s
-// [accessibilityRows] property.
+// [NSWindow.AccessibilityRows] property.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSAccessibilityTable/accessibilityRows()
-//
-// [accessibilityRows]: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityRows
 func (o NSAccessibilityListObject) AccessibilityRows() []objectivec.IObject {
 	rv := objc.Send[[]objc.ID](o.ID, objc.Sel("accessibilityRows"))
 	return objc.ConvertSlice(rv, func(id objc.ID) objectivec.IObject {
@@ -173,11 +162,9 @@ func (o NSAccessibilityListObject) AccessibilityRows() []objectivec.IObject {
 // # Discussion
 //
 // This method is the getter for the [NSAccessibilityProtocol] protocol’s
-// [accessibilityColumnHeaderUIElements] property.
+// [NSWindow.AccessibilityColumnHeaderUIElements] property.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSAccessibilityTable/accessibilityColumnHeaderUIElements()
-//
-// [accessibilityColumnHeaderUIElements]: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityColumnHeaderUIElements
 func (o NSAccessibilityListObject) AccessibilityColumnHeaderUIElements() foundation.INSArray {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilityColumnHeaderUIElements"))
 	return foundation.NSArrayFromID(rv)
@@ -192,11 +179,9 @@ func (o NSAccessibilityListObject) AccessibilityColumnHeaderUIElements() foundat
 // # Discussion
 //
 // This method is the getter for the [NSAccessibilityProtocol] protocol’s
-// [accessibilityColumns] property.
+// [NSWindow.AccessibilityColumns] property.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSAccessibilityTable/accessibilityColumns()
-//
-// [accessibilityColumns]: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityColumns
 func (o NSAccessibilityListObject) AccessibilityColumns() foundation.INSArray {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilityColumns"))
 	return foundation.NSArrayFromID(rv)
@@ -211,11 +196,9 @@ func (o NSAccessibilityListObject) AccessibilityColumns() foundation.INSArray {
 // # Discussion
 //
 // This method is the getter for the [NSAccessibilityProtocol] protocol’s
-// [accessibilityRowHeaderUIElements] property.
+// [NSWindow.AccessibilityRowHeaderUIElements] property.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSAccessibilityTable/accessibilityRowHeaderUIElements()
-//
-// [accessibilityRowHeaderUIElements]: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityRowHeaderUIElements
 func (o NSAccessibilityListObject) AccessibilityRowHeaderUIElements() foundation.INSArray {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilityRowHeaderUIElements"))
 	return foundation.NSArrayFromID(rv)
@@ -230,13 +213,12 @@ func (o NSAccessibilityListObject) AccessibilityRowHeaderUIElements() foundation
 // # Discussion
 //
 // This method is the getter for the [NSAccessibilityProtocol] protocol’s
-// [accessibilitySelectedCells] property. Additionally, your class needs to
-// send a [selectedCellsChanged] notification whenever the table’s selected
-// cells change.
+// [NSWindow.AccessibilitySelectedCells] property. Additionally, your class
+// needs to send a [selectedCellsChanged] notification whenever the table’s
+// selected cells change.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSAccessibilityTable/accessibilitySelectedCells()
 //
-// [accessibilitySelectedCells]: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilitySelectedCells
 // [selectedCellsChanged]: https://developer.apple.com/documentation/AppKit/NSAccessibility-swift.struct/Notification/selectedCellsChanged
 func (o NSAccessibilityListObject) AccessibilitySelectedCells() foundation.INSArray {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilitySelectedCells"))
@@ -252,13 +234,12 @@ func (o NSAccessibilityListObject) AccessibilitySelectedCells() foundation.INSAr
 // # Discussion
 //
 // This method is the getter for the [NSAccessibilityProtocol] protocol’s
-// [accessibilitySelectedColumns] property. Additionally, your class needs to
-// send a [selectedColumnsChanged] notification whenever the table’s
-// selected columns change.
+// [NSWindow.AccessibilitySelectedColumns] property. Additionally, your class
+// needs to send a [selectedColumnsChanged] notification whenever the
+// table’s selected columns change.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSAccessibilityTable/accessibilitySelectedColumns()
 //
-// [accessibilitySelectedColumns]: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilitySelectedColumns
 // [selectedColumnsChanged]: https://developer.apple.com/documentation/AppKit/NSAccessibility-swift.struct/Notification/selectedColumnsChanged
 func (o NSAccessibilityListObject) AccessibilitySelectedColumns() foundation.INSArray {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilitySelectedColumns"))
@@ -274,13 +255,12 @@ func (o NSAccessibilityListObject) AccessibilitySelectedColumns() foundation.INS
 // # Discussion
 //
 // This method is the getter for the [NSAccessibilityProtocol] protocol’s
-// [accessibilitySelectedRows] property. Additionally, your class needs to
-// send a [selectedRowsChanged] notification whenever the table’s selected
-// rows change.
+// [NSWindow.AccessibilitySelectedRows] property. Additionally, your class
+// needs to send a [selectedRowsChanged] notification whenever the table’s
+// selected rows change.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSAccessibilityTable/accessibilitySelectedRows()
 //
-// [accessibilitySelectedRows]: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilitySelectedRows
 // [selectedRowsChanged]: https://developer.apple.com/documentation/AppKit/NSAccessibility-swift.struct/Notification/selectedRowsChanged
 func (o NSAccessibilityListObject) AccessibilitySelectedRows() []objectivec.IObject {
 	rv := objc.Send[[]objc.ID](o.ID, objc.Sel("accessibilitySelectedRows"))
@@ -298,11 +278,9 @@ func (o NSAccessibilityListObject) AccessibilitySelectedRows() []objectivec.IObj
 // # Discussion
 //
 // This method is the getter for the [NSAccessibilityProtocol] protocol’s
-// [accessibilityVisibleCells] property.
+// [NSWindow.AccessibilityVisibleCells] property.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSAccessibilityTable/accessibilityVisibleCells()
-//
-// [accessibilityVisibleCells]: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityVisibleCells
 func (o NSAccessibilityListObject) AccessibilityVisibleCells() foundation.INSArray {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilityVisibleCells"))
 	return foundation.NSArrayFromID(rv)
@@ -317,11 +295,9 @@ func (o NSAccessibilityListObject) AccessibilityVisibleCells() foundation.INSArr
 // # Discussion
 //
 // This method is the getter for the [NSAccessibilityProtocol] protocol’s
-// [accessibilityVisibleColumns] property.
+// [NSWindow.AccessibilityVisibleColumns] property.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSAccessibilityTable/accessibilityVisibleColumns()
-//
-// [accessibilityVisibleColumns]: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityVisibleColumns
 func (o NSAccessibilityListObject) AccessibilityVisibleColumns() foundation.INSArray {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilityVisibleColumns"))
 	return foundation.NSArrayFromID(rv)
@@ -336,11 +312,9 @@ func (o NSAccessibilityListObject) AccessibilityVisibleColumns() foundation.INSA
 // # Discussion
 //
 // This method is the getter for the [NSAccessibilityProtocol] protocol’s
-// [accessibilityVisibleRows] property.
+// [NSWindow.AccessibilityVisibleRows] property.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSAccessibilityTable/accessibilityVisibleRows()
-//
-// [accessibilityVisibleRows]: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityVisibleRows
 func (o NSAccessibilityListObject) AccessibilityVisibleRows() []objectivec.IObject {
 	rv := objc.Send[[]objc.ID](o.ID, objc.Sel("accessibilityVisibleRows"))
 	return objc.ConvertSlice(rv, func(id objc.ID) objectivec.IObject {
@@ -355,14 +329,13 @@ func (o NSAccessibilityListObject) AccessibilityVisibleRows() []objectivec.IObje
 // # Discussion
 //
 // This method is the setter for the [NSAccessibilityProtocol] protocol’s
-// [accessibilitySelectedRows] property. Implementing this method allows the
-// user to change the selected row using an accessibility client.
+// [NSWindow.AccessibilitySelectedRows] property. Implementing this method
+// allows the user to change the selected row using an accessibility client.
 // Additionally, your class needs to send a [selectedRowsChanged] notification
 // whenever the table’s selected rows change.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSAccessibilityTable/setAccessibilitySelectedRows(_:)
 //
-// [accessibilitySelectedRows]: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilitySelectedRows
 // [selectedRowsChanged]: https://developer.apple.com/documentation/AppKit/NSAccessibility-swift.struct/Notification/selectedRowsChanged
 func (o NSAccessibilityListObject) SetAccessibilitySelectedRows(selectedRows []objectivec.IObject) {
 	objc.Send[struct{}](o.ID, objc.Sel("setAccessibilitySelectedRows:"), objectivec.IObjectSliceToNSArray(selectedRows))

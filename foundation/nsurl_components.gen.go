@@ -380,7 +380,7 @@ func NewURLComponentsWithStringEncodingInvalidCharacters(URLString string, encod
 // Returns the initialized URL components object, or `nil` if the URL could
 // not be parsed.
 //
-// See: https://developer.apple.com/documentation/Foundation/NSURLComponents/init(url:resolvingAgainstBaseURL:)-3bbte
+// See: https://developer.apple.com/documentation/Foundation/NSURLComponents/init(url:resolvingAgainstBaseURL:)
 func NewURLComponentsWithURLResolvingAgainstBaseURL(url INSURL, resolve bool) NSURLComponents {
 	instance := getNSURLComponentsClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithURL:resolvingAgainstBaseURL:"), url, resolve)
@@ -437,7 +437,7 @@ func (u NSURLComponents) InitWithStringEncodingInvalidCharacters(URLString strin
 // Returns the initialized URL components object, or `nil` if the URL could
 // not be parsed.
 //
-// See: https://developer.apple.com/documentation/Foundation/NSURLComponents/init(url:resolvingAgainstBaseURL:)-3bbte
+// See: https://developer.apple.com/documentation/Foundation/NSURLComponents/init(url:resolvingAgainstBaseURL:)
 func (u NSURLComponents) InitWithURLResolvingAgainstBaseURL(url INSURL, resolve bool) NSURLComponents {
 	rv := objc.Send[NSURLComponents](u.ID, objc.Sel("initWithURL:resolvingAgainstBaseURL:"), url, resolve)
 	return rv
@@ -454,9 +454,9 @@ func (u NSURLComponents) InitWithURLResolvingAgainstBaseURL(url INSURL, resolve 
 // or port) and a path component, then the path must either begin with `"/"`
 // or be an empty string. Otherwise, this property contains `nil`.
 //
-// If the [NSURLComponents] have an authority component (user, password, host,
-// or port) and has a path component, the path component must not start with
-// `"//"`. If it does, this property contains `nil`.
+// If the [NSURLComponents]does not have an authority component (user,
+// password, host, or port) and has a path component, the path component must
+// not start with `"//"`. If it does, this property contains `nil`.
 //
 // To configure a components object based on an existing URL, call either the
 // [NSURLComponentsClass.ComponentsWithURLResolvingAgainstBaseURL] or
@@ -537,9 +537,9 @@ func (_NSURLComponentsClass NSURLComponentsClass) ComponentsWithURLResolvingAgai
 // and a path component, then the path must either begin with `"/"` or be an
 // empty string. Otherwise, this property contains `nil`.
 //
-// If the receiver have an authority component (user, password, host, or port)
-// and has a path component, the path component must not start with `"//"`. If
-// it does, this property contains `nil`.
+// If the receiver does not have an authority component (user, password, host,
+// or port) and has a path component, the path component must not start with
+// `"//"`. If it does, this property contains `nil`.
 //
 // This property can be used only to obtain a URL string based on the values
 // of the other properties. To configure a components object based on an
@@ -561,9 +561,9 @@ func (u NSURLComponents) String() string {
 // and a path component, then the path must either begin with `"/"` or be an
 // empty string. Otherwise, this property contains `nil`.
 //
-// If the receiver have an authority component (user, password, host, or port)
-// and has a path component, the path component must not start with `"//"`. If
-// it does, this property contains `nil`.
+// If the receiver does not have an authority component (user, password, host,
+// or port) and has a path component, the path component must not start with
+// `"//"`. If it does, this property contains `nil`.
 //
 // If the receiver has `nil` values for all component properties, such as when
 // initializing with [NSURLComponents.Init], this property returns an [NSURL]
@@ -587,9 +587,8 @@ func (u NSURLComponents) URL() INSURL {
 //
 // # Discussion
 //
-// For example, in the URL
-// `//www.ExampleXCUIElementTypeCom()/index.Html()#jumpLocation`, the fragment
-// is `jumpLocation`.
+// For example, in the URL `http://www.example.com/index.html#jumpLocation`,
+// the fragment is `jumpLocation`.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSURLComponents/fragment
 func (u NSURLComponents) Fragment() string {
@@ -604,8 +603,8 @@ func (u NSURLComponents) SetFragment(value string) {
 //
 // # Discussion
 //
-// For example, in the URL `//www.ExampleXCUIElementTypeCom()/index.Html()`,
-// the host is `www.ExampleXCUIElementTypeCom()`.
+// For example, in the URL `http://www.example.com/index.html`, the host is
+// `www.ExampleXCUIElementTypeCom()`.
 //
 // The getter for this property removes any percent encoding this component
 // may have (if the component allows percent encoding). Setting this property
@@ -646,7 +645,7 @@ func (u NSURLComponents) SetEncodedHost(value string) {
 // # Discussion
 //
 // For example, in the URL
-// `//password@www.ExampleXCUIElementTypeCom()/index.Html()`, the password is
+// `http://username:password@www.example.com/index.html`, the password is
 // `password`.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSURLComponents/password
@@ -662,8 +661,8 @@ func (u NSURLComponents) SetPassword(value string) {
 //
 // # Discussion
 //
-// For example, in the URL `//www.ExampleXCUIElementTypeCom()/index.Html()`,
-// the path is `/index.Html()`.
+// For example, in the URL `http://www.example.com/index.html`, the path is
+// `/index.html`.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSURLComponents/path
 func (u NSURLComponents) Path() string {
@@ -678,8 +677,8 @@ func (u NSURLComponents) SetPath(value string) {
 //
 // # Discussion
 //
-// For example, in the URL `//www.Example().8080/index.Php()`, the port number
-// is `8080`.
+// For example, in the URL `http://www.example.com:8080/index.php`, the port
+// number is `8080`.
 //
 // If you attempt to set the port to a negative port number, this class throws
 // an exception.
@@ -698,8 +697,8 @@ func (u NSURLComponents) SetPort(value INSNumber) {
 // # Discussion
 //
 // For example, in the URL
-// `//www.ExampleXCUIElementTypeCom()/index.Php()?key1=value1&key2=value2`,
-// the query string is `key1=value1&key2=value2`.
+// `http://www.example.com/index.php?key1=value1&key2=value2`, the query
+// string is `key1=value1&key2=value2`.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSURLComponents/query
 func (u NSURLComponents) Query() string {
@@ -747,10 +746,10 @@ func (u NSURLComponents) SetQuery(value string) {
 // query item has a zero-length `name` and `nil` `value`.
 //
 // For example, in the URL
-// `//www.ExampleXCUIElementTypeCom()/index.Php()?key1=value1&key2=value2`,
-// this property’s value is an array of two [NSURLQueryItem] objects: one
-// whose name property is `key1` and whose value property is `value1`, and one
-// whose name property is `key2` and whose value property is `value2`.
+// `http://www.example.com/index.php?key1=value1&key2=value2`, this
+// property’s value is an array of two [NSURLQueryItem] objects: one whose
+// name property is `key1` and whose value property is `value1`, and one whose
+// name property is `key2` and whose value property is `value2`.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSURLComponents/queryItems
 func (u NSURLComponents) QueryItems() []NSURLQueryItem {
@@ -767,8 +766,8 @@ func (u NSURLComponents) SetQueryItems(value []NSURLQueryItem) {
 //
 // # Discussion
 //
-// For example, in the URL `//www.ExampleXCUIElementTypeCom()/index.Html()`,
-// the scheme is `http`.
+// For example, in the URL `http://www.example.com/index.html`, the scheme is
+// `http`.
 //
 // If you attempt to set the scheme to an invalid scheme string, this class
 // throws an exception.
@@ -787,7 +786,7 @@ func (u NSURLComponents) SetScheme(value string) {
 // # Discussion
 //
 // For example, in the URL
-// `//password@www.ExampleXCUIElementTypeCom()/index.Html()`, the user is
+// `http://username:password@www.example.com/index.html`, the user is
 // `username`.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSURLComponents/user
@@ -804,9 +803,8 @@ func (u NSURLComponents) SetUser(value string) {
 //
 // # Discussion
 //
-// For example, in the URL
-// `//www.ExampleXCUIElementTypeCom()/index.Html()#jumpLocation`, the fragment
-// is `jumpLocation`.
+// For example, in the URL `http://www.example.com/index.html#jumpLocation`,
+// the fragment is `jumpLocation`.
 //
 // If you set this value to something that is not a valid, percent-encoded
 // string, this class throws an exception.
@@ -825,8 +823,8 @@ func (u NSURLComponents) SetPercentEncodedFragment(value string) {
 //
 // # Discussion
 //
-// For example, in the URL `//www.ExampleXCUIElementTypeCom()/index.Html()`,
-// the host is `www.ExampleXCUIElementTypeCom()`.
+// For example, in the URL `http://www.example.com/index.html`, the host is
+// `www.ExampleXCUIElementTypeCom()`.
 //
 // If you set this value to something that is not a valid, percent-encoded
 // string, this class throws an exception.
@@ -846,7 +844,7 @@ func (u NSURLComponents) SetPercentEncodedHost(value string) {
 // # Discussion
 //
 // For example, in the URL
-// `//password@www.ExampleXCUIElementTypeCom()/index.Html()`, the password is
+// `http://username:password@www.example.com/index.html`, the password is
 // `password`.
 //
 // If you set this value to something that is not a valid, percent-encoded
@@ -866,8 +864,8 @@ func (u NSURLComponents) SetPercentEncodedPassword(value string) {
 //
 // # Discussion
 //
-// For example, in the URL `//www.ExampleXCUIElementTypeCom()/index.Html()`,
-// the path is `/index.Html()`.
+// For example, in the URL `http://www.example.com/index.html`, the path is
+// `/index.html`.
 //
 // If you set this value to something that is not a valid, percent-encoded
 // string, this class throws an exception.
@@ -887,8 +885,8 @@ func (u NSURLComponents) SetPercentEncodedPath(value string) {
 // # Discussion
 //
 // For example, in the URL
-// `//www.ExampleXCUIElementTypeCom()/index.Php()?key1=value1&key2=value2`,
-// the query string is `key1=value1&key2=value2`.
+// `http://www.example.com/index.php?key1=value1&key2=value2`, the query
+// string is `key1=value1&key2=value2`.
 //
 // If you set this value to something that is not a valid, percent-encoded
 // string, this class throws an exception.
@@ -908,7 +906,7 @@ func (u NSURLComponents) SetPercentEncodedQuery(value string) {
 // # Discussion
 //
 // For example, in the URL
-// `//password@www.ExampleXCUIElementTypeCom()/index.Html()`, the user is
+// `http://username:password@www.example.com/index.html`, the user is
 // `username`.
 //
 // If you set this value to something that is not a valid, percent-encoded

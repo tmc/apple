@@ -100,7 +100,7 @@ type IBlockOperation interface {
 	// Adds the specified block to the receiver’s list of blocks to perform.
 	AddExecutionBlock(block VoidHandler)
 	// The blocks associated with the receiver.
-	ExecutionBlocks() VoidHandler
+	ExecutionBlocks() UnsafePointerVoidHandler
 }
 
 // Init initializes the instance.
@@ -166,7 +166,7 @@ func (_BlockOperationClass BlockOperationClass) BlockOperationWithBlock(block Vo
 // [NSBlockOperation.AddExecutionBlock] method.
 //
 // See: https://developer.apple.com/documentation/Foundation/BlockOperation/executionBlocks
-func (b BlockOperation) ExecutionBlocks() VoidHandler {
+func (b BlockOperation) ExecutionBlocks() UnsafePointerVoidHandler {
 	rv := objc.Send[objc.ID](b.ID, objc.Sel("executionBlocks"))
 	_ = rv
 	return nil

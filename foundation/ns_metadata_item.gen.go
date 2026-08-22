@@ -132,7 +132,7 @@ func NewNSMetadataItem() NSMetadataItem {
 //
 // A metadata item for the file identified by `url`.
 //
-// See: https://developer.apple.com/documentation/Foundation/NSMetadataItem/init(url:)-9xxs3
+// See: https://developer.apple.com/documentation/Foundation/NSMetadataItem/init(url:)
 func NewMetadataItemWithURL(url INSURL) NSMetadataItem {
 	instance := getNSMetadataItemClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithURL:"), url)
@@ -147,7 +147,7 @@ func NewMetadataItemWithURL(url INSURL) NSMetadataItem {
 //
 // A metadata item for the file identified by `url`.
 //
-// See: https://developer.apple.com/documentation/Foundation/NSMetadataItem/init(url:)-9xxs3
+// See: https://developer.apple.com/documentation/Foundation/NSMetadataItem/init(url:)
 func (m NSMetadataItem) InitWithURL(url INSURL) NSMetadataItem {
 	rv := objc.Send[NSMetadataItem](m.ID, objc.Sel("initWithURL:"), url)
 	return rv

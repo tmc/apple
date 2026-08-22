@@ -75,7 +75,7 @@ func (nc NWUDPSessionClass) Alloc() NWUDPSession {
 // # Getting session properties
 //
 //   - [NWUDPSession.Endpoint]: The destination endpoint with which this session was created.
-//   - [NWUDPSession.CurrentPath]: The current evaluated path for the session’s [resolvedEndpoint](<doc://com.apple.networkextension/documentation/NetworkExtension/NWUDPSession/resolvedEndpoint>) property.
+//   - [NWUDPSession.CurrentPath]: The current evaluated path for the session’s [resolvedEndpoint](<https://developer.apple.com/documentation/NetworkExtension/NWUDPSession/resolvedEndpoint>) property.
 //
 // See: https://developer.apple.com/documentation/NetworkExtension/NWUDPSession
 type NWUDPSession struct {
@@ -114,7 +114,7 @@ func NWUDPSessionFromID(id objc.ID) NWUDPSession {
 // # Getting session properties
 //
 //   - [INWUDPSession.Endpoint]: The destination endpoint with which this session was created.
-//   - [INWUDPSession.CurrentPath]: The current evaluated path for the session’s [resolvedEndpoint](<doc://com.apple.networkextension/documentation/NetworkExtension/NWUDPSession/resolvedEndpoint>) property.
+//   - [INWUDPSession.CurrentPath]: The current evaluated path for the session’s [resolvedEndpoint](<https://developer.apple.com/documentation/NetworkExtension/NWUDPSession/resolvedEndpoint>) property.
 //
 // See: https://developer.apple.com/documentation/NetworkExtension/NWUDPSession
 type INWUDPSession interface {
@@ -146,7 +146,7 @@ type INWUDPSession interface {
 
 	// The destination endpoint with which this session was created.
 	Endpoint() INWEndpoint
-	// The current evaluated path for the session’s [resolvedEndpoint](<doc://com.apple.networkextension/documentation/NetworkExtension/NWUDPSession/resolvedEndpoint>) property.
+	// The current evaluated path for the session’s [resolvedEndpoint](<https://developer.apple.com/documentation/NetworkExtension/NWUDPSession/resolvedEndpoint>) property.
 	CurrentPath() INWPath
 }
 

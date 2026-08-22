@@ -141,7 +141,7 @@ var _mTLCreateSystemDefaultDeviceErr error
 
 func tryMTLCreateSystemDefaultDevice() (MTLDeviceObject, error) {
 	if _mTLCreateSystemDefaultDevice == nil {
-		return MTLDeviceObject{}, symbolCallError("MTLCreateSystemDefaultDevice", "10.11", _mTLCreateSystemDefaultDeviceErr)
+		return *new(MTLDeviceObject), symbolCallError("MTLCreateSystemDefaultDevice", "10.11", _mTLCreateSystemDefaultDeviceErr)
 	}
 	rv := _mTLCreateSystemDefaultDevice()
 	return MTLDeviceObjectFromID(objc.IDFrom(rv)), nil

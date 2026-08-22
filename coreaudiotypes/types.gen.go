@@ -24,8 +24,8 @@ type AudioBuffer struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/CoreAudioTypes/AudioBufferList
 type AudioBufferList struct {
-	MNumberBuffers uint32      // The number of audio buffers in the list.
-	MBuffers       AudioBuffer // A variable-length array of audio buffers.
+	MNumberBuffers uint32         // The number of audio buffers in the list.
+	MBuffers       [1]AudioBuffer // A variable-length array of audio buffers.
 
 }
 
@@ -36,7 +36,7 @@ type AudioBufferList struct {
 type AudioChannelDescription struct {
 	MChannelLabel AudioChannelLabel // A label that describes the audio channel.
 	MChannelFlags AudioChannelFlags // The audio channel flags that indicate how to interpret the channel coordinates.
-	MCoordinates  float32           // The coordinates that specify a precise speaker location.
+	MCoordinates  [3]float32        // The coordinates that specify a precise speaker location.
 
 }
 
@@ -45,10 +45,10 @@ type AudioChannelDescription struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/CoreAudioTypes/AudioChannelLayout
 type AudioChannelLayout struct {
-	MChannelLayoutTag          AudioChannelLayoutTag   // The [AudioChannelLayoutTag] value that indicates the layout. See [Audio Channel Layout Tags](<doc://com.apple.coreaudiotypes/documentation/CoreAudioTypes/audio-channel-layout-tags>) for possible values.
-	MChannelBitmap             AudioChannelBitmap      // If `mChannelLayoutTag` is set to `kAudioChannelLayoutTag_UseChannelBitmap`, this field is the channel-use bitmap.
-	MNumberChannelDescriptions uint32                  // The number of items in the `mChannelDescriptions` array.
-	MChannelDescriptions       AudioChannelDescription // A variable length array of `mNumberChannelDescription` elements that describes a layout. If the `mChannelLayoutTag` field is set to `kAudioChannelLayoutTag_UseChannelDescriptions`, use this field to describe the layout.
+	MChannelLayoutTag          AudioChannelLayoutTag      // The [AudioChannelLayoutTag] value that indicates the layout. See [Audio Channel Layout Tags](<https://developer.apple.com/documentation/CoreAudioTypes/audio-channel-layout-tags>) for possible values.
+	MChannelBitmap             AudioChannelBitmap         // If `mChannelLayoutTag` is set to `kAudioChannelLayoutTag_UseChannelBitmap`, this field is the channel-use bitmap.
+	MNumberChannelDescriptions uint32                     // The number of items in the `mChannelDescriptions` array.
+	MChannelDescriptions       [1]AudioChannelDescription // A variable length array of `mNumberChannelDescription` elements that describes a layout. If the `mChannelLayoutTag` field is set to `kAudioChannelLayoutTag_UseChannelDescriptions`, use this field to describe the layout.
 
 }
 
@@ -61,15 +61,6 @@ type AudioClassDescription struct {
 	MSubType      uint32 // A four character code that a manufacturer defines for a codec subtype.
 	MManufacturer uint32 // A four character code that identifies a codec manufacturer.
 
-}
-
-// AudioFormatListItem
-//
-// [Full Topic]
-// [Full Topic]: https://developer.apple.com/documentation/CoreAudioTypes/AudioFormatListItem
-type AudioFormatListItem struct {
-	MASBD             AudioStreamBasicDescription
-	MChannelLayoutTag AudioChannelLayoutTag
 }
 
 // AudioStreamBasicDescription - A format specification for an audio stream.
@@ -117,10 +108,10 @@ type AudioStreamPacketDescription struct {
 // [Full Topic]: https://developer.apple.com/documentation/CoreAudioTypes/AudioTimeStamp
 type AudioTimeStamp struct {
 	MSampleTime    float64             // The absolute sample frame time.
-	MHostTime      uint64              // The host machine’s time base (see `CoreAudio/HostTime.H()`).
+	MHostTime      uint64              // The host machine’s time base (see `CoreAudio/HostTime.h`).
 	MRateScalar    float64             // The ratio of actual host ticks per sample frame to the nominal host ticks per sample frame.
 	MWordClockTime uint64              // The word clock time.
-	MSMPTETime     SMPTETime           // The SMPTE time (see [SMPTETime](<doc://com.apple.coreaudiotypes/documentation/CoreAudioTypes/SMPTETime>)).
+	MSMPTETime     SMPTETime           // The SMPTE time (see [SMPTETime](<https://developer.apple.com/documentation/CoreAudioTypes/SMPTETime>)).
 	MFlags         AudioTimeStampFlags // A set of flags indicating which representations of the time are valid; see `Audio Time Stamp Flags` and `Audio Time Stamp Flag Combination Constant`.
 	MReserved      uint32              // Pads the structure out to force an even 8-byte alignment.
 

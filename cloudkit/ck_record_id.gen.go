@@ -163,6 +163,7 @@ type ICKRecordID interface {
 	ZoneID() ICKRecordZoneID
 
 	EncodeWithCoder(coder foundation.INSCoder)
+	InitWithRecordNameZoneID(recordName string, zoneID ICKRecordZoneID) CKRecordID
 }
 
 // Init initializes the instance.
@@ -230,6 +231,10 @@ func (c CKRecordID) InitWithRecordName(recordName string) CKRecordID {
 }
 func (c CKRecordID) EncodeWithCoder(coder foundation.INSCoder) {
 	objc.Send[objc.ID](c.ID, objc.Sel("encodeWithCoder:"), coder)
+}
+func (c CKRecordID) InitWithRecordNameZoneID(recordName string, zoneID ICKRecordZoneID) CKRecordID {
+	rv := objc.Send[CKRecordID](c.ID, objc.Sel("initWithRecordName:zoneID:"), objc.String(recordName), zoneID)
+	return rv
 }
 
 // The unique name of the record.

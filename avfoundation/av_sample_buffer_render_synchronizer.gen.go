@@ -73,7 +73,6 @@ func (ac AVSampleBufferRenderSynchronizerClass) Alloc() AVSampleBufferRenderSync
 //
 // # Observing time
 //
-//   - [AVSampleBufferRenderSynchronizer.AddPeriodicTimeObserverForIntervalQueueUsingBlock]: Requests invocation of a block during rendering at specified time intervals.
 //   - [AVSampleBufferRenderSynchronizer.AddBoundaryTimeObserverForTimesQueueUsingBlock]: Requests invocation of a block when specified times are traversed during normal rendering.
 //   - [AVSampleBufferRenderSynchronizer.RemoveTimeObserver]: Cancels the specified time observer.
 //
@@ -114,7 +113,6 @@ func AVSampleBufferRenderSynchronizerFromID(id objc.ID) AVSampleBufferRenderSync
 //
 // # Observing time
 //
-//   - [IAVSampleBufferRenderSynchronizer.AddPeriodicTimeObserverForIntervalQueueUsingBlock]: Requests invocation of a block during rendering at specified time intervals.
 //   - [IAVSampleBufferRenderSynchronizer.AddBoundaryTimeObserverForTimesQueueUsingBlock]: Requests invocation of a block when specified times are traversed during normal rendering.
 //   - [IAVSampleBufferRenderSynchronizer.RemoveTimeObserver]: Cancels the specified time observer.
 //
@@ -150,8 +148,6 @@ type IAVSampleBufferRenderSynchronizer interface {
 
 	// Topic: Observing time
 
-	// Requests invocation of a block during rendering at specified time intervals.
-	AddPeriodicTimeObserverForIntervalQueueUsingBlock(interval coremedia.CMTime, queue dispatch.Queue, block CMTimeHandler) objectivec.IObject
 	// Requests invocation of a block when specified times are traversed during normal rendering.
 	AddBoundaryTimeObserverForTimesQueueUsingBlock(times []foundation.NSValue, queue dispatch.Queue, block VoidHandler) objectivec.IObject
 	// Cancels the specified time observer.
@@ -283,49 +279,6 @@ func (s AVSampleBufferRenderSynchronizer) SetRateTime(rate float32, time coremed
 // [zero]: https://developer.apple.com/documentation/CoreMedia/CMTime/zero
 func (s AVSampleBufferRenderSynchronizer) SetRateTimeAtHostTime(rate float32, time coremedia.CMTime, hostTime coremedia.CMTime) {
 	objc.Send[objc.ID](s.ID, objc.Sel("setRate:time:atHostTime:"), rate, time, hostTime)
-}
-
-// Requests invocation of a block during rendering at specified time
-// intervals.
-//
-// interval: The specified time interval requesting block invocation during rendering.
-//
-// queue: The serial queue the block should be unqueued on. If you pass [NULL], the
-// main queue is used. Passing a concurrent queue results in undefined
-// behavior.
-//
-// block: The block to be invoked periodically.
-//
-// # Return Value
-//
-// An object that conforms to [NSObject]. You must retain this value as long
-// as you want the time observer to be invoked by the synchronizer. Pass this
-// object to [AVSampleBufferRenderSynchronizer.RemoveTimeObserver] to cancel
-// time observation.
-//
-// # Discussion
-//
-// The block associated with this method is invoked at the specified time
-// intervals, interpreted according to the timeline of the timebase. The block
-// is also invoked whenever there is a time jump or rendering starts or stops.
-//
-// If a very short time interval is used, the synchronizer may invoke the
-// block less frequently than requested. However, the synchronizer will invoke
-// the block often enough for the client to update indications of the current
-// time appropriately in its end-user interface.
-//
-// Always pair a call to this method with a call to
-// [AVSampleBufferRenderSynchronizer.RemoveTimeObserver]. Releasing the
-// observer without calling `removeTimeObserver(_:)` results in undefined
-// behavior.
-//
-// See: https://developer.apple.com/documentation/AVFoundation/AVSampleBufferRenderSynchronizer/addPeriodicTimeObserver(forInterval:queue:using:)
-//
-// [NSObject]: https://developer.apple.com/documentation/ObjectiveC/NSObject-swift.class
-func (s AVSampleBufferRenderSynchronizer) AddPeriodicTimeObserverForIntervalQueueUsingBlock(interval coremedia.CMTime, queue dispatch.Queue, block CMTimeHandler) objectivec.IObject {
-	_block2, _ := NewCMTimeBlock(block)
-	rv := objc.Send[objc.ID](s.ID, objc.Sel("addPeriodicTimeObserverForInterval:queue:usingBlock:"), interval, uintptr(queue.Handle()), _block2)
-	return objectivec.Object{ID: rv}
 }
 
 // Requests invocation of a block when specified times are traversed during
@@ -462,20 +415,5 @@ func (s AVSampleBufferRenderSynchronizer) RemoveRendererAtTime(ctx context.Conte
 		return r, nil
 	case <-ctx.Done():
 		return false, ctx.Err()
-	}
-}
-
-// AddPeriodicTimeObserverForIntervalQueueUsingBlockSync is a synchronous wrapper around [AVSampleBufferRenderSynchronizer.AddPeriodicTimeObserverForIntervalQueueUsingBlock].
-// It blocks until the completion handler fires or the context is cancelled.
-func (s AVSampleBufferRenderSynchronizer) AddPeriodicTimeObserverForIntervalQueueUsingBlockSync(ctx context.Context, interval coremedia.CMTime, queue dispatch.Queue) (coremedia.CMTime, error) {
-	done := make(chan coremedia.CMTime, 1)
-	s.AddPeriodicTimeObserverForIntervalQueueUsingBlock(interval, queue, func(val coremedia.CMTime) {
-		done <- val
-	})
-	select {
-	case r := <-done:
-		return r, nil
-	case <-ctx.Done():
-		return coremedia.CMTime{}, ctx.Err()
 	}
 }

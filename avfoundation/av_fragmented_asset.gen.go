@@ -87,6 +87,9 @@ func AVFragmentedAssetFromID(id objc.ID) AVFragmentedAsset {
 // See: https://developer.apple.com/documentation/AVFoundation/AVFragmentedAsset
 type IAVFragmentedAsset interface {
 	IAVURLAsset
+
+	// A Boolean value that indicates whether an asset that supports fragment minding is currently associated with a fragment minder.
+	IsAssociatedWithFragmentMinder() bool
 }
 
 // Init initializes the instance.
@@ -112,7 +115,7 @@ func NewAVFragmentedAsset() AVFragmentedAsset {
 //
 // URL: A URL to a local, remote, or HTTP Live Streaming media resource.
 //
-// See: https://developer.apple.com/documentation/AVFoundation/AVAsset/init(url:)-42gl8
+// See: https://developer.apple.com/documentation/AVFoundation/AVAsset/init(url:)
 func NewFragmentedAssetWithURL(URL foundation.NSURL) AVFragmentedAsset {
 	rv := objc.Send[objc.ID](objc.ID(getAVFragmentedAssetClass().class), objc.Sel("assetWithURL:"), URL)
 	return AVFragmentedAssetFromID(rv)
@@ -131,7 +134,7 @@ func NewFragmentedAssetWithURL(URL foundation.NSURL) AVFragmentedAsset {
 //
 // An asset that models the media resource found at [URL].
 //
-// See: https://developer.apple.com/documentation/AVFoundation/AVURLAsset/init(url:options:)-2x8uu
+// See: https://developer.apple.com/documentation/AVFoundation/AVURLAsset/init(url:options:)
 //
 // [Initialization options]: https://developer.apple.com/documentation/AVFoundation/initialization-options
 func NewFragmentedAssetWithURLOptions(URL foundation.NSURL, options foundation.INSDictionary) AVFragmentedAsset {
@@ -171,17 +174,3 @@ func (_AVFragmentedAssetClass AVFragmentedAssetClass) FragmentedAssetWithURLOpti
 }
 
 // Protocol methods for AVFragmentMinding
-
-// A Boolean value that indicates whether an asset that supports fragment
-// minding is currently associated with a fragment minder.
-//
-// # Discussion
-//
-// Only asset objects associated with a fragment minder post change
-// notifications.
-//
-// See: https://developer.apple.com/documentation/AVFoundation/AVFragmentMinding/isAssociatedWithFragmentMinder
-func (o AVFragmentedAsset) AssociatedWithFragmentMinder() bool {
-	rv := objc.Send[bool](o.ID, objc.Sel("isAssociatedWithFragmentMinder"))
-	return bool(rv)
-}

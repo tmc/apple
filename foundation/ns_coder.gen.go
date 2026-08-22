@@ -6,7 +6,6 @@ import (
 	"sync"
 	"unsafe"
 
-	"github.com/tmc/apple/corefoundation"
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -130,25 +129,25 @@ func (nc NSCoderClass) Alloc() NSCoder {
 // # Decoding General Data
 //
 //   - [NSCoder.DecodeArrayOfObjCTypeCountAt]: Decodes an array of `count` items, whose Objective-C type is given by `itemType`.
-//   - [NSCoder.DecodeBoolForKey]: Decodes and returns a boolean value that was previously encoded with [encode(_:forKey:)](<doc://com.apple.foundation/documentation/Foundation/NSCoder/encode(_:forKey:)-7o6mu>) and associated with the string `key`.
-//   - [NSCoder.DecodeBytesForKeyReturnedLength]: Decodes a buffer of data that was previously encoded with [encodeBytes(_:length:forKey:)](<doc://com.apple.foundation/documentation/Foundation/NSCoder/encodeBytes(_:length:forKey:)>) and associated with the string `key`.
+//   - [NSCoder.DecodeBoolForKey]: Decodes and returns a boolean value that was previously encoded with [encode(_:forKey:)](<https://developer.apple.com/documentation/Foundation/NSCoder/encode(_:forKey:)-7o6mu>) and associated with the string `key`.
+//   - [NSCoder.DecodeBytesForKeyReturnedLength]: Decodes a buffer of data that was previously encoded with [encodeBytes(_:length:forKey:)](<https://developer.apple.com/documentation/Foundation/NSCoder/encodeBytes(_:length:forKey:)>) and associated with the string `key`.
 //   - [NSCoder.DecodeBytesWithReturnedLength]: Decodes a buffer of data whose types are unspecified.
-//   - [NSCoder.DecodeDataObject]: Decodes and returns an [NSData] object that was previously encoded with [encode(_:)](<doc://com.apple.foundation/documentation/Foundation/NSCoder/encode(_:)-1qd1e>). Subclasses must override this method.
-//   - [NSCoder.DecodeDoubleForKey]: Decodes and returns a double value that was previously encoded with either [encode(_:forKey:)](<doc://com.apple.foundation/documentation/Foundation/NSCoder/encode(_:forKey:)-84cez>) or [encode(_:forKey:)](<doc://com.apple.foundation/documentation/Foundation/NSCoder/encode(_:forKey:)-9xiiu>) and associated with the string `key`.
-//   - [NSCoder.DecodeFloatForKey]: Decodes and returns a float value that was previously encoded with [encode(_:forKey:)](<doc://com.apple.foundation/documentation/Foundation/NSCoder/encode(_:forKey:)-84cez>) or [encode(_:forKey:)](<doc://com.apple.foundation/documentation/Foundation/NSCoder/encode(_:forKey:)-9xiiu>) and associated with the string `key`.
-//   - [NSCoder.DecodeIntForKey]: Decodes and returns an int value that was previously encoded with [encodeCInt(_:forKey:)](<doc://com.apple.foundation/documentation/Foundation/NSCoder/encodeCInt(_:forKey:)>), [encode(_:forKey:)](<doc://com.apple.foundation/documentation/Foundation/NSCoder/encode(_:forKey:)-2dprz>), [encode(_:forKey:)](<doc://com.apple.foundation/documentation/Foundation/NSCoder/encode(_:forKey:)-5sk4z>), or [encode(_:forKey:)](<doc://com.apple.foundation/documentation/Foundation/NSCoder/encode(_:forKey:)-dixg>) and associated with the string `key`.
-//   - [NSCoder.DecodeIntegerForKey]: Decodes and returns an NSInteger value that was previously encoded with [encodeCInt(_:forKey:)](<doc://com.apple.foundation/documentation/Foundation/NSCoder/encodeCInt(_:forKey:)>), [encode(_:forKey:)](<doc://com.apple.foundation/documentation/Foundation/NSCoder/encode(_:forKey:)-2dprz>), [encode(_:forKey:)](<doc://com.apple.foundation/documentation/Foundation/NSCoder/encode(_:forKey:)-5sk4z>), or [encode(_:forKey:)](<doc://com.apple.foundation/documentation/Foundation/NSCoder/encode(_:forKey:)-dixg>) and associated with the string `key`.
-//   - [NSCoder.DecodeInt32ForKey]: Decodes and returns a 32-bit integer value that was previously encoded with [encodeCInt(_:forKey:)](<doc://com.apple.foundation/documentation/Foundation/NSCoder/encodeCInt(_:forKey:)>), [encode(_:forKey:)](<doc://com.apple.foundation/documentation/Foundation/NSCoder/encode(_:forKey:)-2dprz>), [encode(_:forKey:)](<doc://com.apple.foundation/documentation/Foundation/NSCoder/encode(_:forKey:)-5sk4z>), or [encode(_:forKey:)](<doc://com.apple.foundation/documentation/Foundation/NSCoder/encode(_:forKey:)-dixg>) and associated with the string `key`.
-//   - [NSCoder.DecodeInt64ForKey]: Decodes and returns a 64-bit integer value that was previously encoded with [encodeCInt(_:forKey:)](<doc://com.apple.foundation/documentation/Foundation/NSCoder/encodeCInt(_:forKey:)>), [encode(_:forKey:)](<doc://com.apple.foundation/documentation/Foundation/NSCoder/encode(_:forKey:)-2dprz>), [encode(_:forKey:)](<doc://com.apple.foundation/documentation/Foundation/NSCoder/encode(_:forKey:)-5sk4z>), or [encode(_:forKey:)](<doc://com.apple.foundation/documentation/Foundation/NSCoder/encode(_:forKey:)-dixg>) and associated with the string `key`.
+//   - [NSCoder.DecodeDataObject]: Decodes and returns an [NSData] object that was previously encoded with [encode(_:)](<https://developer.apple.com/documentation/Foundation/NSCoder/encode(_:)-1qd1e>). Subclasses must override this method.
+//   - [NSCoder.DecodeDoubleForKey]: Decodes and returns a double value that was previously encoded with either [encode(_:forKey:)](<https://developer.apple.com/documentation/Foundation/NSCoder/encode(_:forKey:)-84cez>) or [encode(_:forKey:)](<https://developer.apple.com/documentation/Foundation/NSCoder/encode(_:forKey:)-9xiiu>) and associated with the string `key`.
+//   - [NSCoder.DecodeFloatForKey]: Decodes and returns a float value that was previously encoded with [encode(_:forKey:)](<https://developer.apple.com/documentation/Foundation/NSCoder/encode(_:forKey:)-84cez>) or [encode(_:forKey:)](<https://developer.apple.com/documentation/Foundation/NSCoder/encode(_:forKey:)-9xiiu>) and associated with the string `key`.
+//   - [NSCoder.DecodeIntForKey]: Decodes and returns an int value that was previously encoded with [encodeCInt(_:forKey:)](<https://developer.apple.com/documentation/Foundation/NSCoder/encodeCInt(_:forKey:)>), [encode(_:forKey:)](<https://developer.apple.com/documentation/Foundation/NSCoder/encode(_:forKey:)-2dprz>), [encode(_:forKey:)](<https://developer.apple.com/documentation/Foundation/NSCoder/encode(_:forKey:)-5sk4z>), or [encode(_:forKey:)](<https://developer.apple.com/documentation/Foundation/NSCoder/encode(_:forKey:)-dixg>) and associated with the string `key`.
+//   - [NSCoder.DecodeIntegerForKey]: Decodes and returns an NSInteger value that was previously encoded with [encodeCInt(_:forKey:)](<https://developer.apple.com/documentation/Foundation/NSCoder/encodeCInt(_:forKey:)>), [encode(_:forKey:)](<https://developer.apple.com/documentation/Foundation/NSCoder/encode(_:forKey:)-2dprz>), [encode(_:forKey:)](<https://developer.apple.com/documentation/Foundation/NSCoder/encode(_:forKey:)-5sk4z>), or [encode(_:forKey:)](<https://developer.apple.com/documentation/Foundation/NSCoder/encode(_:forKey:)-dixg>) and associated with the string `key`.
+//   - [NSCoder.DecodeInt32ForKey]: Decodes and returns a 32-bit integer value that was previously encoded with [encodeCInt(_:forKey:)](<https://developer.apple.com/documentation/Foundation/NSCoder/encodeCInt(_:forKey:)>), [encode(_:forKey:)](<https://developer.apple.com/documentation/Foundation/NSCoder/encode(_:forKey:)-2dprz>), [encode(_:forKey:)](<https://developer.apple.com/documentation/Foundation/NSCoder/encode(_:forKey:)-5sk4z>), or [encode(_:forKey:)](<https://developer.apple.com/documentation/Foundation/NSCoder/encode(_:forKey:)-dixg>) and associated with the string `key`.
+//   - [NSCoder.DecodeInt64ForKey]: Decodes and returns a 64-bit integer value that was previously encoded with [encodeCInt(_:forKey:)](<https://developer.apple.com/documentation/Foundation/NSCoder/encodeCInt(_:forKey:)>), [encode(_:forKey:)](<https://developer.apple.com/documentation/Foundation/NSCoder/encode(_:forKey:)-2dprz>), [encode(_:forKey:)](<https://developer.apple.com/documentation/Foundation/NSCoder/encode(_:forKey:)-5sk4z>), or [encode(_:forKey:)](<https://developer.apple.com/documentation/Foundation/NSCoder/encode(_:forKey:)-dixg>) and associated with the string `key`.
 //   - [NSCoder.DecodeObject]: Decodes and returns an object that was previously encoded with any of the `encode…Object` methods.
-//   - [NSCoder.DecodeObjectForKey]: Decodes and returns a previously-encoded object that was previously encoded with [encode(_:forKey:)](<doc://com.apple.foundation/documentation/Foundation/NSCoder/encode(_:forKey:)-1mlmu>) or [encodeConditionalObject(_:forKey:)](<doc://com.apple.foundation/documentation/Foundation/NSCoder/encodeConditionalObject(_:forKey:)>) and associated with the string `key`.
-//   - [NSCoder.DecodePoint]: Decodes and returns an NSPoint structure that was previously encoded with [encode(_:)](<doc://com.apple.foundation/documentation/Foundation/NSCoder/encode(_:)-75jv4>).
-//   - [NSCoder.DecodePointForKey]: Decodes and returns an NSPoint structure that was previously encoded with [encode(_:forKey:)](<doc://com.apple.foundation/documentation/Foundation/NSCoder/encode(_:forKey:)-27lif>).
-//   - [NSCoder.DecodePropertyList]: Decodes a property list that was previously encoded with [encodePropertyList(_:)](<doc://com.apple.foundation/documentation/Foundation/NSCoder/encodePropertyList(_:)>).
-//   - [NSCoder.DecodeRect]: Decodes and returns an NSRect structure that was previously encoded with [encode(_:)](<doc://com.apple.foundation/documentation/Foundation/NSCoder/encode(_:)-3c1wz>).
-//   - [NSCoder.DecodeRectForKey]: Decodes and returns an NSRect structure that was previously encoded with [encode(_:forKey:)](<doc://com.apple.foundation/documentation/Foundation/NSCoder/encode(_:forKey:)-2knxx>).
-//   - [NSCoder.DecodeSize]: Decodes and returns an NSSize structure that was previously encoded with [encode(_:)](<doc://com.apple.foundation/documentation/Foundation/NSCoder/encode(_:)-82i7c>).
-//   - [NSCoder.DecodeSizeForKey]: Decodes and returns an NSSize structure that was previously encoded with [encode(_:forKey:)](<doc://com.apple.foundation/documentation/Foundation/NSCoder/encode(_:forKey:)-9imtu>).
+//   - [NSCoder.DecodeObjectForKey]: Decodes and returns a previously-encoded object that was previously encoded with [encode(_:forKey:)](<https://developer.apple.com/documentation/Foundation/NSCoder/encode(_:forKey:)-1mlmu>) or [encodeConditionalObject(_:forKey:)](<https://developer.apple.com/documentation/Foundation/NSCoder/encodeConditionalObject(_:forKey:)>) and associated with the string `key`.
+//   - [NSCoder.DecodePoint]: Decodes and returns an NSPoint structure that was previously encoded with [encode(_:)](<https://developer.apple.com/documentation/Foundation/NSCoder/encode(_:)-75jv4>).
+//   - [NSCoder.DecodePointForKey]: Decodes and returns an NSPoint structure that was previously encoded with [encode(_:forKey:)](<https://developer.apple.com/documentation/Foundation/NSCoder/encode(_:forKey:)-27lif>).
+//   - [NSCoder.DecodePropertyList]: Decodes a property list that was previously encoded with [encodePropertyList(_:)](<https://developer.apple.com/documentation/Foundation/NSCoder/encodePropertyList(_:)>).
+//   - [NSCoder.DecodeRect]: Decodes and returns an NSRect structure that was previously encoded with [encode(_:)](<https://developer.apple.com/documentation/Foundation/NSCoder/encode(_:)-3c1wz>).
+//   - [NSCoder.DecodeRectForKey]: Decodes and returns an NSRect structure that was previously encoded with [encode(_:forKey:)](<https://developer.apple.com/documentation/Foundation/NSCoder/encode(_:forKey:)-2knxx>).
+//   - [NSCoder.DecodeSize]: Decodes and returns an NSSize structure that was previously encoded with [encode(_:)](<https://developer.apple.com/documentation/Foundation/NSCoder/encode(_:)-82i7c>).
+//   - [NSCoder.DecodeSizeForKey]: Decodes and returns an NSSize structure that was previously encoded with [encode(_:forKey:)](<https://developer.apple.com/documentation/Foundation/NSCoder/encode(_:forKey:)-9imtu>).
 //   - [NSCoder.DecodeValueOfObjCTypeAtSize]: Decodes a single value of a known type from the specified data buffer.
 //   - [NSCoder.DecodePropertyListForKey]: Returns a decoded property list for the specified key.
 //
@@ -249,25 +248,25 @@ func NSCoderFromID(id objc.ID) NSCoder {
 // # Decoding General Data
 //
 //   - [INSCoder.DecodeArrayOfObjCTypeCountAt]: Decodes an array of `count` items, whose Objective-C type is given by `itemType`.
-//   - [INSCoder.DecodeBoolForKey]: Decodes and returns a boolean value that was previously encoded with [encode(_:forKey:)](<doc://com.apple.foundation/documentation/Foundation/NSCoder/encode(_:forKey:)-7o6mu>) and associated with the string `key`.
-//   - [INSCoder.DecodeBytesForKeyReturnedLength]: Decodes a buffer of data that was previously encoded with [encodeBytes(_:length:forKey:)](<doc://com.apple.foundation/documentation/Foundation/NSCoder/encodeBytes(_:length:forKey:)>) and associated with the string `key`.
+//   - [INSCoder.DecodeBoolForKey]: Decodes and returns a boolean value that was previously encoded with [encode(_:forKey:)](<https://developer.apple.com/documentation/Foundation/NSCoder/encode(_:forKey:)-7o6mu>) and associated with the string `key`.
+//   - [INSCoder.DecodeBytesForKeyReturnedLength]: Decodes a buffer of data that was previously encoded with [encodeBytes(_:length:forKey:)](<https://developer.apple.com/documentation/Foundation/NSCoder/encodeBytes(_:length:forKey:)>) and associated with the string `key`.
 //   - [INSCoder.DecodeBytesWithReturnedLength]: Decodes a buffer of data whose types are unspecified.
-//   - [INSCoder.DecodeDataObject]: Decodes and returns an [NSData] object that was previously encoded with [encode(_:)](<doc://com.apple.foundation/documentation/Foundation/NSCoder/encode(_:)-1qd1e>). Subclasses must override this method.
-//   - [INSCoder.DecodeDoubleForKey]: Decodes and returns a double value that was previously encoded with either [encode(_:forKey:)](<doc://com.apple.foundation/documentation/Foundation/NSCoder/encode(_:forKey:)-84cez>) or [encode(_:forKey:)](<doc://com.apple.foundation/documentation/Foundation/NSCoder/encode(_:forKey:)-9xiiu>) and associated with the string `key`.
-//   - [INSCoder.DecodeFloatForKey]: Decodes and returns a float value that was previously encoded with [encode(_:forKey:)](<doc://com.apple.foundation/documentation/Foundation/NSCoder/encode(_:forKey:)-84cez>) or [encode(_:forKey:)](<doc://com.apple.foundation/documentation/Foundation/NSCoder/encode(_:forKey:)-9xiiu>) and associated with the string `key`.
-//   - [INSCoder.DecodeIntForKey]: Decodes and returns an int value that was previously encoded with [encodeCInt(_:forKey:)](<doc://com.apple.foundation/documentation/Foundation/NSCoder/encodeCInt(_:forKey:)>), [encode(_:forKey:)](<doc://com.apple.foundation/documentation/Foundation/NSCoder/encode(_:forKey:)-2dprz>), [encode(_:forKey:)](<doc://com.apple.foundation/documentation/Foundation/NSCoder/encode(_:forKey:)-5sk4z>), or [encode(_:forKey:)](<doc://com.apple.foundation/documentation/Foundation/NSCoder/encode(_:forKey:)-dixg>) and associated with the string `key`.
-//   - [INSCoder.DecodeIntegerForKey]: Decodes and returns an NSInteger value that was previously encoded with [encodeCInt(_:forKey:)](<doc://com.apple.foundation/documentation/Foundation/NSCoder/encodeCInt(_:forKey:)>), [encode(_:forKey:)](<doc://com.apple.foundation/documentation/Foundation/NSCoder/encode(_:forKey:)-2dprz>), [encode(_:forKey:)](<doc://com.apple.foundation/documentation/Foundation/NSCoder/encode(_:forKey:)-5sk4z>), or [encode(_:forKey:)](<doc://com.apple.foundation/documentation/Foundation/NSCoder/encode(_:forKey:)-dixg>) and associated with the string `key`.
-//   - [INSCoder.DecodeInt32ForKey]: Decodes and returns a 32-bit integer value that was previously encoded with [encodeCInt(_:forKey:)](<doc://com.apple.foundation/documentation/Foundation/NSCoder/encodeCInt(_:forKey:)>), [encode(_:forKey:)](<doc://com.apple.foundation/documentation/Foundation/NSCoder/encode(_:forKey:)-2dprz>), [encode(_:forKey:)](<doc://com.apple.foundation/documentation/Foundation/NSCoder/encode(_:forKey:)-5sk4z>), or [encode(_:forKey:)](<doc://com.apple.foundation/documentation/Foundation/NSCoder/encode(_:forKey:)-dixg>) and associated with the string `key`.
-//   - [INSCoder.DecodeInt64ForKey]: Decodes and returns a 64-bit integer value that was previously encoded with [encodeCInt(_:forKey:)](<doc://com.apple.foundation/documentation/Foundation/NSCoder/encodeCInt(_:forKey:)>), [encode(_:forKey:)](<doc://com.apple.foundation/documentation/Foundation/NSCoder/encode(_:forKey:)-2dprz>), [encode(_:forKey:)](<doc://com.apple.foundation/documentation/Foundation/NSCoder/encode(_:forKey:)-5sk4z>), or [encode(_:forKey:)](<doc://com.apple.foundation/documentation/Foundation/NSCoder/encode(_:forKey:)-dixg>) and associated with the string `key`.
+//   - [INSCoder.DecodeDataObject]: Decodes and returns an [NSData] object that was previously encoded with [encode(_:)](<https://developer.apple.com/documentation/Foundation/NSCoder/encode(_:)-1qd1e>). Subclasses must override this method.
+//   - [INSCoder.DecodeDoubleForKey]: Decodes and returns a double value that was previously encoded with either [encode(_:forKey:)](<https://developer.apple.com/documentation/Foundation/NSCoder/encode(_:forKey:)-84cez>) or [encode(_:forKey:)](<https://developer.apple.com/documentation/Foundation/NSCoder/encode(_:forKey:)-9xiiu>) and associated with the string `key`.
+//   - [INSCoder.DecodeFloatForKey]: Decodes and returns a float value that was previously encoded with [encode(_:forKey:)](<https://developer.apple.com/documentation/Foundation/NSCoder/encode(_:forKey:)-84cez>) or [encode(_:forKey:)](<https://developer.apple.com/documentation/Foundation/NSCoder/encode(_:forKey:)-9xiiu>) and associated with the string `key`.
+//   - [INSCoder.DecodeIntForKey]: Decodes and returns an int value that was previously encoded with [encodeCInt(_:forKey:)](<https://developer.apple.com/documentation/Foundation/NSCoder/encodeCInt(_:forKey:)>), [encode(_:forKey:)](<https://developer.apple.com/documentation/Foundation/NSCoder/encode(_:forKey:)-2dprz>), [encode(_:forKey:)](<https://developer.apple.com/documentation/Foundation/NSCoder/encode(_:forKey:)-5sk4z>), or [encode(_:forKey:)](<https://developer.apple.com/documentation/Foundation/NSCoder/encode(_:forKey:)-dixg>) and associated with the string `key`.
+//   - [INSCoder.DecodeIntegerForKey]: Decodes and returns an NSInteger value that was previously encoded with [encodeCInt(_:forKey:)](<https://developer.apple.com/documentation/Foundation/NSCoder/encodeCInt(_:forKey:)>), [encode(_:forKey:)](<https://developer.apple.com/documentation/Foundation/NSCoder/encode(_:forKey:)-2dprz>), [encode(_:forKey:)](<https://developer.apple.com/documentation/Foundation/NSCoder/encode(_:forKey:)-5sk4z>), or [encode(_:forKey:)](<https://developer.apple.com/documentation/Foundation/NSCoder/encode(_:forKey:)-dixg>) and associated with the string `key`.
+//   - [INSCoder.DecodeInt32ForKey]: Decodes and returns a 32-bit integer value that was previously encoded with [encodeCInt(_:forKey:)](<https://developer.apple.com/documentation/Foundation/NSCoder/encodeCInt(_:forKey:)>), [encode(_:forKey:)](<https://developer.apple.com/documentation/Foundation/NSCoder/encode(_:forKey:)-2dprz>), [encode(_:forKey:)](<https://developer.apple.com/documentation/Foundation/NSCoder/encode(_:forKey:)-5sk4z>), or [encode(_:forKey:)](<https://developer.apple.com/documentation/Foundation/NSCoder/encode(_:forKey:)-dixg>) and associated with the string `key`.
+//   - [INSCoder.DecodeInt64ForKey]: Decodes and returns a 64-bit integer value that was previously encoded with [encodeCInt(_:forKey:)](<https://developer.apple.com/documentation/Foundation/NSCoder/encodeCInt(_:forKey:)>), [encode(_:forKey:)](<https://developer.apple.com/documentation/Foundation/NSCoder/encode(_:forKey:)-2dprz>), [encode(_:forKey:)](<https://developer.apple.com/documentation/Foundation/NSCoder/encode(_:forKey:)-5sk4z>), or [encode(_:forKey:)](<https://developer.apple.com/documentation/Foundation/NSCoder/encode(_:forKey:)-dixg>) and associated with the string `key`.
 //   - [INSCoder.DecodeObject]: Decodes and returns an object that was previously encoded with any of the `encode…Object` methods.
-//   - [INSCoder.DecodeObjectForKey]: Decodes and returns a previously-encoded object that was previously encoded with [encode(_:forKey:)](<doc://com.apple.foundation/documentation/Foundation/NSCoder/encode(_:forKey:)-1mlmu>) or [encodeConditionalObject(_:forKey:)](<doc://com.apple.foundation/documentation/Foundation/NSCoder/encodeConditionalObject(_:forKey:)>) and associated with the string `key`.
-//   - [INSCoder.DecodePoint]: Decodes and returns an NSPoint structure that was previously encoded with [encode(_:)](<doc://com.apple.foundation/documentation/Foundation/NSCoder/encode(_:)-75jv4>).
-//   - [INSCoder.DecodePointForKey]: Decodes and returns an NSPoint structure that was previously encoded with [encode(_:forKey:)](<doc://com.apple.foundation/documentation/Foundation/NSCoder/encode(_:forKey:)-27lif>).
-//   - [INSCoder.DecodePropertyList]: Decodes a property list that was previously encoded with [encodePropertyList(_:)](<doc://com.apple.foundation/documentation/Foundation/NSCoder/encodePropertyList(_:)>).
-//   - [INSCoder.DecodeRect]: Decodes and returns an NSRect structure that was previously encoded with [encode(_:)](<doc://com.apple.foundation/documentation/Foundation/NSCoder/encode(_:)-3c1wz>).
-//   - [INSCoder.DecodeRectForKey]: Decodes and returns an NSRect structure that was previously encoded with [encode(_:forKey:)](<doc://com.apple.foundation/documentation/Foundation/NSCoder/encode(_:forKey:)-2knxx>).
-//   - [INSCoder.DecodeSize]: Decodes and returns an NSSize structure that was previously encoded with [encode(_:)](<doc://com.apple.foundation/documentation/Foundation/NSCoder/encode(_:)-82i7c>).
-//   - [INSCoder.DecodeSizeForKey]: Decodes and returns an NSSize structure that was previously encoded with [encode(_:forKey:)](<doc://com.apple.foundation/documentation/Foundation/NSCoder/encode(_:forKey:)-9imtu>).
+//   - [INSCoder.DecodeObjectForKey]: Decodes and returns a previously-encoded object that was previously encoded with [encode(_:forKey:)](<https://developer.apple.com/documentation/Foundation/NSCoder/encode(_:forKey:)-1mlmu>) or [encodeConditionalObject(_:forKey:)](<https://developer.apple.com/documentation/Foundation/NSCoder/encodeConditionalObject(_:forKey:)>) and associated with the string `key`.
+//   - [INSCoder.DecodePoint]: Decodes and returns an NSPoint structure that was previously encoded with [encode(_:)](<https://developer.apple.com/documentation/Foundation/NSCoder/encode(_:)-75jv4>).
+//   - [INSCoder.DecodePointForKey]: Decodes and returns an NSPoint structure that was previously encoded with [encode(_:forKey:)](<https://developer.apple.com/documentation/Foundation/NSCoder/encode(_:forKey:)-27lif>).
+//   - [INSCoder.DecodePropertyList]: Decodes a property list that was previously encoded with [encodePropertyList(_:)](<https://developer.apple.com/documentation/Foundation/NSCoder/encodePropertyList(_:)>).
+//   - [INSCoder.DecodeRect]: Decodes and returns an NSRect structure that was previously encoded with [encode(_:)](<https://developer.apple.com/documentation/Foundation/NSCoder/encode(_:)-3c1wz>).
+//   - [INSCoder.DecodeRectForKey]: Decodes and returns an NSRect structure that was previously encoded with [encode(_:forKey:)](<https://developer.apple.com/documentation/Foundation/NSCoder/encode(_:forKey:)-2knxx>).
+//   - [INSCoder.DecodeSize]: Decodes and returns an NSSize structure that was previously encoded with [encode(_:)](<https://developer.apple.com/documentation/Foundation/NSCoder/encode(_:)-82i7c>).
+//   - [INSCoder.DecodeSizeForKey]: Decodes and returns an NSSize structure that was previously encoded with [encode(_:forKey:)](<https://developer.apple.com/documentation/Foundation/NSCoder/encode(_:forKey:)-9imtu>).
 //   - [INSCoder.DecodeValueOfObjCTypeAtSize]: Decodes a single value of a known type from the specified data buffer.
 //   - [INSCoder.DecodePropertyListForKey]: Returns a decoded property list for the specified key.
 //
@@ -318,7 +317,7 @@ type INSCoder interface {
 	// Encodes a buffer of data of an unspecified type.
 	EncodeBytesLength(byteaddr unsafe.Pointer, length uint)
 	// Encodes a buffer of data, given its length and a pointer, and associates it with a string key.
-	EncodeBytesLengthForKey(bytes []byte, length uint, key string)
+	EncodeBytesLengthForKey(bytes []byte, key string)
 	// An encoding method for subclasses to override to conditionally encode an object, preserving common references to it.
 	EncodeConditionalObject(object objectivec.IObject)
 	// An encoding method for subclasses to override to conditionally encode an object, preserving common references to it, only if it has been unconditionally encoded.
@@ -330,7 +329,7 @@ type INSCoder interface {
 	// Encodes a floating point value and associates it with the string key.
 	EncodeFloatForKey(value float32, key string)
 	// Encodes a C integer value and associates it with the string key.
-	EncodeIntForKey(value int, key string)
+	EncodeIntForKey(value int32, key string)
 	// Encodes an integer value and associates it with the string key.
 	EncodeIntegerForKey(value int, key string)
 	// Encodes a 32-bit integer value and associates it with the string key.
@@ -342,21 +341,21 @@ type INSCoder interface {
 	// Encodes an object and associates it with the string key.
 	EncodeObjectForKey(object objectivec.IObject, key string)
 	// Encodes a point.
-	EncodePoint(point corefoundation.CGPoint)
+	EncodePoint(point NSPoint)
 	// Encodes a point and associates it with the string key.
-	EncodePointForKey(point corefoundation.CGPoint, key string)
+	EncodePointForKey(point NSPoint, key string)
 	// Encodes a property list.
 	EncodePropertyList(aPropertyList objectivec.IObject)
 	// Encodes a rectangle structure.
-	EncodeRect(rect corefoundation.CGRect)
+	EncodeRect(rect NSRect)
 	// Encodes a rectangle structure and associates it with the string key.
-	EncodeRectForKey(rect corefoundation.CGRect, key string)
+	EncodeRectForKey(rect NSRect, key string)
 	// An encoding method for subclasses to override to encode an interconnected group of objects, starting with the provided root object.
 	EncodeRootObject(rootObject objectivec.IObject)
 	// Encodes a size structure.
-	EncodeSize(size corefoundation.CGSize)
+	EncodeSize(size NSSize)
 	// Encodes a size structure and associates it with the given string key.
-	EncodeSizeForKey(size corefoundation.CGSize, key string)
+	EncodeSizeForKey(size NSSize, key string)
 	// Encodes a value of the given type at the given address.
 	EncodeValueOfObjCTypeAt(type_ string, addr unsafe.Pointer)
 
@@ -383,43 +382,43 @@ type INSCoder interface {
 
 	// Decodes an array of `count` items, whose Objective-C type is given by `itemType`.
 	DecodeArrayOfObjCTypeCountAt(itemType []string, count uint, array unsafe.Pointer)
-	// Decodes and returns a boolean value that was previously encoded with [encode(_:forKey:)](<doc://com.apple.foundation/documentation/Foundation/NSCoder/encode(_:forKey:)-7o6mu>) and associated with the string `key`.
+	// Decodes and returns a boolean value that was previously encoded with [encode(_:forKey:)](<https://developer.apple.com/documentation/Foundation/NSCoder/encode(_:forKey:)-7o6mu>) and associated with the string `key`.
 	DecodeBoolForKey(key string) bool
-	// Decodes a buffer of data that was previously encoded with [encodeBytes(_:length:forKey:)](<doc://com.apple.foundation/documentation/Foundation/NSCoder/encodeBytes(_:length:forKey:)>) and associated with the string `key`.
+	// Decodes a buffer of data that was previously encoded with [encodeBytes(_:length:forKey:)](<https://developer.apple.com/documentation/Foundation/NSCoder/encodeBytes(_:length:forKey:)>) and associated with the string `key`.
 	DecodeBytesForKeyReturnedLength(key string, lengthp *uint) unsafe.Pointer
 	// Decodes a buffer of data whose types are unspecified.
 	DecodeBytesWithReturnedLength(lengthp *uint) unsafe.Pointer
-	// Decodes and returns an [NSData] object that was previously encoded with [encode(_:)](<doc://com.apple.foundation/documentation/Foundation/NSCoder/encode(_:)-1qd1e>). Subclasses must override this method.
+	// Decodes and returns an [NSData] object that was previously encoded with [encode(_:)](<https://developer.apple.com/documentation/Foundation/NSCoder/encode(_:)-1qd1e>). Subclasses must override this method.
 	DecodeDataObject() INSData
-	// Decodes and returns a double value that was previously encoded with either [encode(_:forKey:)](<doc://com.apple.foundation/documentation/Foundation/NSCoder/encode(_:forKey:)-84cez>) or [encode(_:forKey:)](<doc://com.apple.foundation/documentation/Foundation/NSCoder/encode(_:forKey:)-9xiiu>) and associated with the string `key`.
+	// Decodes and returns a double value that was previously encoded with either [encode(_:forKey:)](<https://developer.apple.com/documentation/Foundation/NSCoder/encode(_:forKey:)-84cez>) or [encode(_:forKey:)](<https://developer.apple.com/documentation/Foundation/NSCoder/encode(_:forKey:)-9xiiu>) and associated with the string `key`.
 	DecodeDoubleForKey(key string) float64
-	// Decodes and returns a float value that was previously encoded with [encode(_:forKey:)](<doc://com.apple.foundation/documentation/Foundation/NSCoder/encode(_:forKey:)-84cez>) or [encode(_:forKey:)](<doc://com.apple.foundation/documentation/Foundation/NSCoder/encode(_:forKey:)-9xiiu>) and associated with the string `key`.
+	// Decodes and returns a float value that was previously encoded with [encode(_:forKey:)](<https://developer.apple.com/documentation/Foundation/NSCoder/encode(_:forKey:)-84cez>) or [encode(_:forKey:)](<https://developer.apple.com/documentation/Foundation/NSCoder/encode(_:forKey:)-9xiiu>) and associated with the string `key`.
 	DecodeFloatForKey(key string) float32
-	// Decodes and returns an int value that was previously encoded with [encodeCInt(_:forKey:)](<doc://com.apple.foundation/documentation/Foundation/NSCoder/encodeCInt(_:forKey:)>), [encode(_:forKey:)](<doc://com.apple.foundation/documentation/Foundation/NSCoder/encode(_:forKey:)-2dprz>), [encode(_:forKey:)](<doc://com.apple.foundation/documentation/Foundation/NSCoder/encode(_:forKey:)-5sk4z>), or [encode(_:forKey:)](<doc://com.apple.foundation/documentation/Foundation/NSCoder/encode(_:forKey:)-dixg>) and associated with the string `key`.
-	DecodeIntForKey(key string) int
-	// Decodes and returns an NSInteger value that was previously encoded with [encodeCInt(_:forKey:)](<doc://com.apple.foundation/documentation/Foundation/NSCoder/encodeCInt(_:forKey:)>), [encode(_:forKey:)](<doc://com.apple.foundation/documentation/Foundation/NSCoder/encode(_:forKey:)-2dprz>), [encode(_:forKey:)](<doc://com.apple.foundation/documentation/Foundation/NSCoder/encode(_:forKey:)-5sk4z>), or [encode(_:forKey:)](<doc://com.apple.foundation/documentation/Foundation/NSCoder/encode(_:forKey:)-dixg>) and associated with the string `key`.
+	// Decodes and returns an int value that was previously encoded with [encodeCInt(_:forKey:)](<https://developer.apple.com/documentation/Foundation/NSCoder/encodeCInt(_:forKey:)>), [encode(_:forKey:)](<https://developer.apple.com/documentation/Foundation/NSCoder/encode(_:forKey:)-2dprz>), [encode(_:forKey:)](<https://developer.apple.com/documentation/Foundation/NSCoder/encode(_:forKey:)-5sk4z>), or [encode(_:forKey:)](<https://developer.apple.com/documentation/Foundation/NSCoder/encode(_:forKey:)-dixg>) and associated with the string `key`.
+	DecodeIntForKey(key string) int32
+	// Decodes and returns an NSInteger value that was previously encoded with [encodeCInt(_:forKey:)](<https://developer.apple.com/documentation/Foundation/NSCoder/encodeCInt(_:forKey:)>), [encode(_:forKey:)](<https://developer.apple.com/documentation/Foundation/NSCoder/encode(_:forKey:)-2dprz>), [encode(_:forKey:)](<https://developer.apple.com/documentation/Foundation/NSCoder/encode(_:forKey:)-5sk4z>), or [encode(_:forKey:)](<https://developer.apple.com/documentation/Foundation/NSCoder/encode(_:forKey:)-dixg>) and associated with the string `key`.
 	DecodeIntegerForKey(key string) int
-	// Decodes and returns a 32-bit integer value that was previously encoded with [encodeCInt(_:forKey:)](<doc://com.apple.foundation/documentation/Foundation/NSCoder/encodeCInt(_:forKey:)>), [encode(_:forKey:)](<doc://com.apple.foundation/documentation/Foundation/NSCoder/encode(_:forKey:)-2dprz>), [encode(_:forKey:)](<doc://com.apple.foundation/documentation/Foundation/NSCoder/encode(_:forKey:)-5sk4z>), or [encode(_:forKey:)](<doc://com.apple.foundation/documentation/Foundation/NSCoder/encode(_:forKey:)-dixg>) and associated with the string `key`.
+	// Decodes and returns a 32-bit integer value that was previously encoded with [encodeCInt(_:forKey:)](<https://developer.apple.com/documentation/Foundation/NSCoder/encodeCInt(_:forKey:)>), [encode(_:forKey:)](<https://developer.apple.com/documentation/Foundation/NSCoder/encode(_:forKey:)-2dprz>), [encode(_:forKey:)](<https://developer.apple.com/documentation/Foundation/NSCoder/encode(_:forKey:)-5sk4z>), or [encode(_:forKey:)](<https://developer.apple.com/documentation/Foundation/NSCoder/encode(_:forKey:)-dixg>) and associated with the string `key`.
 	DecodeInt32ForKey(key string) int32
-	// Decodes and returns a 64-bit integer value that was previously encoded with [encodeCInt(_:forKey:)](<doc://com.apple.foundation/documentation/Foundation/NSCoder/encodeCInt(_:forKey:)>), [encode(_:forKey:)](<doc://com.apple.foundation/documentation/Foundation/NSCoder/encode(_:forKey:)-2dprz>), [encode(_:forKey:)](<doc://com.apple.foundation/documentation/Foundation/NSCoder/encode(_:forKey:)-5sk4z>), or [encode(_:forKey:)](<doc://com.apple.foundation/documentation/Foundation/NSCoder/encode(_:forKey:)-dixg>) and associated with the string `key`.
+	// Decodes and returns a 64-bit integer value that was previously encoded with [encodeCInt(_:forKey:)](<https://developer.apple.com/documentation/Foundation/NSCoder/encodeCInt(_:forKey:)>), [encode(_:forKey:)](<https://developer.apple.com/documentation/Foundation/NSCoder/encode(_:forKey:)-2dprz>), [encode(_:forKey:)](<https://developer.apple.com/documentation/Foundation/NSCoder/encode(_:forKey:)-5sk4z>), or [encode(_:forKey:)](<https://developer.apple.com/documentation/Foundation/NSCoder/encode(_:forKey:)-dixg>) and associated with the string `key`.
 	DecodeInt64ForKey(key string) int64
 	// Decodes and returns an object that was previously encoded with any of the `encode…Object` methods.
 	DecodeObject() objectivec.IObject
-	// Decodes and returns a previously-encoded object that was previously encoded with [encode(_:forKey:)](<doc://com.apple.foundation/documentation/Foundation/NSCoder/encode(_:forKey:)-1mlmu>) or [encodeConditionalObject(_:forKey:)](<doc://com.apple.foundation/documentation/Foundation/NSCoder/encodeConditionalObject(_:forKey:)>) and associated with the string `key`.
+	// Decodes and returns a previously-encoded object that was previously encoded with [encode(_:forKey:)](<https://developer.apple.com/documentation/Foundation/NSCoder/encode(_:forKey:)-1mlmu>) or [encodeConditionalObject(_:forKey:)](<https://developer.apple.com/documentation/Foundation/NSCoder/encodeConditionalObject(_:forKey:)>) and associated with the string `key`.
 	DecodeObjectForKey(key string) objectivec.IObject
-	// Decodes and returns an NSPoint structure that was previously encoded with [encode(_:)](<doc://com.apple.foundation/documentation/Foundation/NSCoder/encode(_:)-75jv4>).
+	// Decodes and returns an NSPoint structure that was previously encoded with [encode(_:)](<https://developer.apple.com/documentation/Foundation/NSCoder/encode(_:)-75jv4>).
 	DecodePoint() NSPoint
-	// Decodes and returns an NSPoint structure that was previously encoded with [encode(_:forKey:)](<doc://com.apple.foundation/documentation/Foundation/NSCoder/encode(_:forKey:)-27lif>).
+	// Decodes and returns an NSPoint structure that was previously encoded with [encode(_:forKey:)](<https://developer.apple.com/documentation/Foundation/NSCoder/encode(_:forKey:)-27lif>).
 	DecodePointForKey(key string) NSPoint
-	// Decodes a property list that was previously encoded with [encodePropertyList(_:)](<doc://com.apple.foundation/documentation/Foundation/NSCoder/encodePropertyList(_:)>).
+	// Decodes a property list that was previously encoded with [encodePropertyList(_:)](<https://developer.apple.com/documentation/Foundation/NSCoder/encodePropertyList(_:)>).
 	DecodePropertyList() objectivec.IObject
-	// Decodes and returns an NSRect structure that was previously encoded with [encode(_:)](<doc://com.apple.foundation/documentation/Foundation/NSCoder/encode(_:)-3c1wz>).
+	// Decodes and returns an NSRect structure that was previously encoded with [encode(_:)](<https://developer.apple.com/documentation/Foundation/NSCoder/encode(_:)-3c1wz>).
 	DecodeRect() NSRect
-	// Decodes and returns an NSRect structure that was previously encoded with [encode(_:forKey:)](<doc://com.apple.foundation/documentation/Foundation/NSCoder/encode(_:forKey:)-2knxx>).
+	// Decodes and returns an NSRect structure that was previously encoded with [encode(_:forKey:)](<https://developer.apple.com/documentation/Foundation/NSCoder/encode(_:forKey:)-2knxx>).
 	DecodeRectForKey(key string) NSRect
-	// Decodes and returns an NSSize structure that was previously encoded with [encode(_:)](<doc://com.apple.foundation/documentation/Foundation/NSCoder/encode(_:)-82i7c>).
+	// Decodes and returns an NSSize structure that was previously encoded with [encode(_:)](<https://developer.apple.com/documentation/Foundation/NSCoder/encode(_:)-82i7c>).
 	DecodeSize() NSSize
-	// Decodes and returns an NSSize structure that was previously encoded with [encode(_:forKey:)](<doc://com.apple.foundation/documentation/Foundation/NSCoder/encode(_:forKey:)-9imtu>).
+	// Decodes and returns an NSSize structure that was previously encoded with [encode(_:forKey:)](<https://developer.apple.com/documentation/Foundation/NSCoder/encode(_:forKey:)-9imtu>).
 	DecodeSizeForKey(key string) NSSize
 	// Decodes a single value of a known type from the specified data buffer.
 	DecodeValueOfObjCTypeAtSize(type_ string, data unsafe.Pointer, size uint)
@@ -481,9 +480,9 @@ type INSCoder interface {
 	// Encodes a series of values of potentially differing Objective-C types.
 	EncodeValuesOfObjCTypes(types string)
 	// This method is present for historical reasons and has no effect.
-	ObjectZone() NSZone
+	ObjectZone() unsafe.Pointer
 	// This method is present for historical reasons and has no effect.
-	SetObjectZone(zone NSZone)
+	SetObjectZone(zone unsafe.Pointer)
 }
 
 // Init initializes the instance.
@@ -613,8 +612,8 @@ func (c NSCoder) EncodeBytesLength(byteaddr unsafe.Pointer, length uint) {
 // Subclasses must override this method if they perform keyed coding.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSCoder/encodeBytes(_:length:forKey:)
-func (c NSCoder) EncodeBytesLengthForKey(bytes []byte, length uint, key string) {
-	objc.Send[objc.ID](c.ID, objc.Sel("encodeBytes:length:forKey:"), unsafe.Pointer(unsafe.SliceData(bytes)), length, objc.String(key))
+func (c NSCoder) EncodeBytesLengthForKey(bytes []byte, key string) {
+	objc.Send[objc.ID](c.ID, objc.Sel("encodeBytes:length:forKey:"), objc.BytesPointer(bytes), uint(len(bytes)), objc.String(key))
 }
 
 // An encoding method for subclasses to override to conditionally encode an
@@ -699,7 +698,7 @@ func (c NSCoder) EncodeFloatForKey(value float32, key string) {
 // Subclasses must override this method if they perform keyed coding.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSCoder/encodeCInt(_:forKey:)
-func (c NSCoder) EncodeIntForKey(value int, key string) {
+func (c NSCoder) EncodeIntForKey(value int32, key string) {
 	objc.Send[objc.ID](c.ID, objc.Sel("encodeInt:forKey:"), value, objc.String(key))
 }
 
@@ -777,14 +776,14 @@ func (c NSCoder) EncodeObjectForKey(object objectivec.IObject, key string) {
 // This method must be matched by a subsequent [NSCoder.DecodePoint] message.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSCoder/encode(_:)-75jv4
-func (c NSCoder) EncodePoint(point corefoundation.CGPoint) {
+func (c NSCoder) EncodePoint(point NSPoint) {
 	objc.Send[objc.ID](c.ID, objc.Sel("encodePoint:"), point)
 }
 
 // Encodes a point and associates it with the string key.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSCoder/encode(_:forKey:)-27lif
-func (c NSCoder) EncodePointForKey(point corefoundation.CGPoint, key string) {
+func (c NSCoder) EncodePointForKey(point NSPoint, key string) {
 	objc.Send[objc.ID](c.ID, objc.Sel("encodePoint:forKey:"), point, objc.String(key))
 }
 
@@ -813,14 +812,14 @@ func (c NSCoder) EncodePropertyList(aPropertyList objectivec.IObject) {
 // This method must be matched by a subsequent [NSCoder.DecodeRect] message.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSCoder/encode(_:)-3c1wz
-func (c NSCoder) EncodeRect(rect corefoundation.CGRect) {
+func (c NSCoder) EncodeRect(rect NSRect) {
 	objc.Send[objc.ID](c.ID, objc.Sel("encodeRect:"), rect)
 }
 
 // Encodes a rectangle structure and associates it with the string key.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSCoder/encode(_:forKey:)-2knxx
-func (c NSCoder) EncodeRectForKey(rect corefoundation.CGRect, key string) {
+func (c NSCoder) EncodeRectForKey(rect NSRect, key string) {
 	objc.Send[objc.ID](c.ID, objc.Sel("encodeRect:forKey:"), rect, objc.String(key))
 }
 
@@ -848,14 +847,14 @@ func (c NSCoder) EncodeRootObject(rootObject objectivec.IObject) {
 // This method must be matched by a subsequent [NSCoder.DecodeSize] message.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSCoder/encode(_:)-82i7c
-func (c NSCoder) EncodeSize(size corefoundation.CGSize) {
+func (c NSCoder) EncodeSize(size NSSize) {
 	objc.Send[objc.ID](c.ID, objc.Sel("encodeSize:"), size)
 }
 
 // Encodes a size structure and associates it with the given string key.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSCoder/encode(_:forKey:)-9imtu
-func (c NSCoder) EncodeSizeForKey(size corefoundation.CGSize, key string) {
+func (c NSCoder) EncodeSizeForKey(size NSSize, key string) {
 	objc.Send[objc.ID](c.ID, objc.Sel("encodeSize:forKey:"), size, objc.String(key))
 }
 
@@ -890,6 +889,8 @@ func (c NSCoder) EncodeValueOfObjCTypeAt(type_ string, addr unsafe.Pointer) {
 //
 // key: The key with which to associate `time` in the archive.
 //
+// time is a [coremedia.CMTime].
+//
 // See: https://developer.apple.com/documentation/Foundation/NSCoder/encode(_:forKey:)-6wbby
 func (c NSCoder) EncodeCMTimeForKey(time unsafe.Pointer, key string) {
 	objc.Send[objc.ID](c.ID, objc.Sel("encodeCMTime:forKey:"), time, objc.String(key))
@@ -902,6 +903,8 @@ func (c NSCoder) EncodeCMTimeForKey(time unsafe.Pointer, key string) {
 //
 // key: The key with which to associate `timeRange` in the archive.
 //
+// timeRange is a [coremedia.CMTimeRange].
+//
 // See: https://developer.apple.com/documentation/Foundation/NSCoder/encode(_:forKey:)-46lo8
 func (c NSCoder) EncodeCMTimeRangeForKey(timeRange unsafe.Pointer, key string) {
 	objc.Send[objc.ID](c.ID, objc.Sel("encodeCMTimeRange:forKey:"), timeRange, objc.String(key))
@@ -913,6 +916,8 @@ func (c NSCoder) EncodeCMTimeRangeForKey(timeRange unsafe.Pointer, key string) {
 // timeMapping: A [CMTimeMapping] structure.
 //
 // key: The key with which to associate `timeMapping` in the archive.
+//
+// timeMapping is a [coremedia.CMTimeMapping].
 //
 // See: https://developer.apple.com/documentation/Foundation/NSCoder/encode(_:forKey:)-8tefb
 func (c NSCoder) EncodeCMTimeMappingForKey(timeMapping unsafe.Pointer, key string) {
@@ -973,7 +978,7 @@ func (c NSCoder) DecodeBoolForKey(key string) bool {
 //
 // See: https://developer.apple.com/documentation/Foundation/NSCoder/decodeBytes(forKey:returnedLength:)
 func (c NSCoder) DecodeBytesForKeyReturnedLength(key string, lengthp *uint) unsafe.Pointer {
-	rv := objc.Send[unsafe.Pointer](c.ID, objc.Sel("decodeBytesForKey:returnedLength:"), objc.String(key), lengthp)
+	rv := objc.Send[unsafe.Pointer](c.ID, objc.Sel("decodeBytesForKey:returnedLength:"), objc.String(key), unsafe.Pointer(lengthp))
 	return rv
 }
 
@@ -992,7 +997,7 @@ func (c NSCoder) DecodeBytesForKeyReturnedLength(key string, lengthp *uint) unsa
 //
 // See: https://developer.apple.com/documentation/Foundation/NSCoder/decodeBytes(withReturnedLength:)
 func (c NSCoder) DecodeBytesWithReturnedLength(lengthp *uint) unsafe.Pointer {
-	rv := objc.Send[unsafe.Pointer](c.ID, objc.Sel("decodeBytesWithReturnedLength:"), lengthp)
+	rv := objc.Send[unsafe.Pointer](c.ID, objc.Sel("decodeBytesWithReturnedLength:"), unsafe.Pointer(lengthp))
 	return rv
 }
 
@@ -1057,8 +1062,8 @@ func (c NSCoder) DecodeFloatForKey(key string) float32 {
 // if they perform keyed coding.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSCoder/decodeCInt(forKey:)
-func (c NSCoder) DecodeIntForKey(key string) int {
-	rv := objc.Send[int](c.ID, objc.Sel("decodeIntForKey:"), objc.String(key))
+func (c NSCoder) DecodeIntForKey(key string) int32 {
+	rv := objc.Send[int32](c.ID, objc.Sel("decodeIntForKey:"), objc.String(key))
 	return rv
 }
 
@@ -1686,15 +1691,17 @@ func (c NSCoder) EncodeValuesOfObjCTypes(types string) {
 // `NSDefaultMallocZone()`.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSCoder/objectZone
-func (c NSCoder) ObjectZone() NSZone {
-	rv := objc.Send[NSZone](c.ID, objc.Sel("objectZone"))
-	return NSZone(rv)
+func (c NSCoder) ObjectZone() unsafe.Pointer {
+	rv := objc.Send[unsafe.Pointer](c.ID, objc.Sel("objectZone"))
+	return rv
 }
 
 // This method is present for historical reasons and has no effect.
 //
+// zone is a [*foundation.NSZone].
+//
 // See: https://developer.apple.com/documentation/Foundation/NSCoder/setObjectZone:
-func (c NSCoder) SetObjectZone(zone NSZone) {
+func (c NSCoder) SetObjectZone(zone unsafe.Pointer) {
 	objc.Send[objc.ID](c.ID, objc.Sel("setObjectZone:"), zone)
 }
 

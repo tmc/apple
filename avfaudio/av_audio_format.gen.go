@@ -4,7 +4,9 @@ package avfaudio
 
 import (
 	"sync"
+	"unsafe"
 
+	"github.com/tmc/apple/coreaudiotypes"
 	"github.com/tmc/apple/coremedia"
 	"github.com/tmc/apple/foundation"
 	"github.com/tmc/apple/objc"
@@ -153,16 +155,16 @@ type IAVAudioFormat interface {
 	// Creates an audio format instance using the specified settings dictionary.
 	InitWithSettings(settings foundation.INSDictionary) AVAudioFormat
 	// Creates an audio format instance from a stream description.
-	InitWithStreamDescription(asbd objectivec.IObject) AVAudioFormat
+	InitWithStreamDescription(asbd *coreaudiotypes.AudioStreamBasicDescription) AVAudioFormat
 	// Creates an audio format instance from a stream description and channel layout.
-	InitWithStreamDescriptionChannelLayout(asbd objectivec.IObject, layout IAVAudioChannelLayout) AVAudioFormat
+	InitWithStreamDescriptionChannelLayout(asbd *coreaudiotypes.AudioStreamBasicDescription, layout IAVAudioChannelLayout) AVAudioFormat
 	// Creates an audio format instance from a Core Media audio format description.
 	InitWithCMAudioFormatDescription(formatDescription coremedia.CMAudioFormatDescriptionRef) AVAudioFormat
 
 	// Topic: Getting the Audio Stream Description
 
 	// The audio format properties of a stream of audio data.
-	StreamDescription() objectivec.IObject
+	StreamDescription() *coreaudiotypes.AudioStreamBasicDescription
 
 	// Topic: Getting Audio Format Values
 
@@ -190,6 +192,7 @@ type IAVAudioFormat interface {
 	SetMagicCookie(value foundation.NSData)
 
 	InitWithCoder(coder foundation.INSCoder) AVAudioFormat
+	InitWithFormatDescription(formatDescription coremedia.CMAudioFormatDescriptionRef) AVAudioFormat
 	EncodeWithCoder(coder foundation.INSCoder)
 }
 
@@ -268,7 +271,7 @@ func NewAudioFormatStandardFormatWithSampleRateChannels(sampleRate float64, chan
 // A new [AVAudioFormat] instance, or `nil` if `formatDescription` isn’t
 // valid.
 //
-// See: https://developer.apple.com/documentation/AVFAudio/AVAudioFormat/init(cmAudioFormatDescription:)-8rdfj
+// See: https://developer.apple.com/documentation/AVFAudio/AVAudioFormat/init(cmAudioFormatDescription:)
 func NewAudioFormatWithCMAudioFormatDescription(formatDescription coremedia.CMAudioFormatDescriptionRef) AVAudioFormat {
 	instance := getAVAudioFormatClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCMAudioFormatDescription:"), formatDescription)
@@ -339,6 +342,21 @@ func NewAudioFormatWithCommonFormatSampleRateInterleavedChannelLayout(format AVA
 	return AVAudioFormatFromID(rv)
 }
 
+// formatDescription: The CMAudioFormatDescriptionRef.
+//
+// # Discussion
+//
+// Initialize from a CMAudioFormatDescriptionRef.
+//
+// If formatDescription is invalid, this method fails (returns nil).
+//
+// See: https://developer.apple.com/documentation/AVFAudio/AVAudioFormat/init(formatDescription:)
+func NewAudioFormatWithFormatDescription(formatDescription coremedia.CMAudioFormatDescriptionRef) AVAudioFormat {
+	instance := getAVAudioFormatClass().Alloc()
+	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithFormatDescription:"), formatDescription)
+	return AVAudioFormatFromID(rv)
+}
+
 // Creates an audio format instance using the specified settings dictionary.
 //
 // settings: The settings dictionary.
@@ -379,9 +397,9 @@ func NewAudioFormatWithSettings(settings foundation.INSDictionary) AVAudioFormat
 // See: https://developer.apple.com/documentation/AVFAudio/AVAudioFormat/init(streamDescription:)
 //
 // [AudioStreamBasicDescription]: https://developer.apple.com/documentation/CoreAudioTypes/AudioStreamBasicDescription
-func NewAudioFormatWithStreamDescription(asbd objectivec.IObject) AVAudioFormat {
+func NewAudioFormatWithStreamDescription(asbd *coreaudiotypes.AudioStreamBasicDescription) AVAudioFormat {
 	instance := getAVAudioFormatClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithStreamDescription:"), asbd)
+	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithStreamDescription:"), unsafe.Pointer(asbd))
 	return AVAudioFormatFromID(rv)
 }
 
@@ -407,9 +425,9 @@ func NewAudioFormatWithStreamDescription(asbd objectivec.IObject) AVAudioFormat 
 // See: https://developer.apple.com/documentation/AVFAudio/AVAudioFormat/init(streamDescription:channelLayout:)
 //
 // [AudioStreamBasicDescription]: https://developer.apple.com/documentation/CoreAudioTypes/AudioStreamBasicDescription
-func NewAudioFormatWithStreamDescriptionChannelLayout(asbd objectivec.IObject, layout IAVAudioChannelLayout) AVAudioFormat {
+func NewAudioFormatWithStreamDescriptionChannelLayout(asbd *coreaudiotypes.AudioStreamBasicDescription, layout IAVAudioChannelLayout) AVAudioFormat {
 	instance := getAVAudioFormatClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithStreamDescription:channelLayout:"), asbd, layout)
+	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithStreamDescription:channelLayout:"), unsafe.Pointer(asbd), layout)
 	return AVAudioFormatFromID(rv)
 }
 
@@ -551,8 +569,8 @@ func (a AVAudioFormat) InitWithSettings(settings foundation.INSDictionary) AVAud
 // See: https://developer.apple.com/documentation/AVFAudio/AVAudioFormat/init(streamDescription:)
 //
 // [AudioStreamBasicDescription]: https://developer.apple.com/documentation/CoreAudioTypes/AudioStreamBasicDescription
-func (a AVAudioFormat) InitWithStreamDescription(asbd objectivec.IObject) AVAudioFormat {
-	rv := objc.Send[AVAudioFormat](a.ID, objc.Sel("initWithStreamDescription:"), asbd)
+func (a AVAudioFormat) InitWithStreamDescription(asbd *coreaudiotypes.AudioStreamBasicDescription) AVAudioFormat {
+	rv := objc.Send[AVAudioFormat](a.ID, objc.Sel("initWithStreamDescription:"), unsafe.Pointer(asbd))
 	return rv
 }
 
@@ -578,8 +596,8 @@ func (a AVAudioFormat) InitWithStreamDescription(asbd objectivec.IObject) AVAudi
 // See: https://developer.apple.com/documentation/AVFAudio/AVAudioFormat/init(streamDescription:channelLayout:)
 //
 // [AudioStreamBasicDescription]: https://developer.apple.com/documentation/CoreAudioTypes/AudioStreamBasicDescription
-func (a AVAudioFormat) InitWithStreamDescriptionChannelLayout(asbd objectivec.IObject, layout IAVAudioChannelLayout) AVAudioFormat {
-	rv := objc.Send[AVAudioFormat](a.ID, objc.Sel("initWithStreamDescription:channelLayout:"), asbd, layout)
+func (a AVAudioFormat) InitWithStreamDescriptionChannelLayout(asbd *coreaudiotypes.AudioStreamBasicDescription, layout IAVAudioChannelLayout) AVAudioFormat {
+	rv := objc.Send[AVAudioFormat](a.ID, objc.Sel("initWithStreamDescription:channelLayout:"), unsafe.Pointer(asbd), layout)
 	return rv
 }
 
@@ -593,7 +611,7 @@ func (a AVAudioFormat) InitWithStreamDescriptionChannelLayout(asbd objectivec.IO
 // A new [AVAudioFormat] instance, or `nil` if `formatDescription` isn’t
 // valid.
 //
-// See: https://developer.apple.com/documentation/AVFAudio/AVAudioFormat/init(cmAudioFormatDescription:)-8rdfj
+// See: https://developer.apple.com/documentation/AVFAudio/AVAudioFormat/init(cmAudioFormatDescription:)
 func (a AVAudioFormat) InitWithCMAudioFormatDescription(formatDescription coremedia.CMAudioFormatDescriptionRef) AVAudioFormat {
 	rv := objc.Send[AVAudioFormat](a.ID, objc.Sel("initWithCMAudioFormatDescription:"), formatDescription)
 	return rv
@@ -602,6 +620,20 @@ func (a AVAudioFormat) InitWithCMAudioFormatDescription(formatDescription coreme
 // See: https://developer.apple.com/documentation/AVFAudio/AVAudioFormat/init(coder:)
 func (a AVAudioFormat) InitWithCoder(coder foundation.INSCoder) AVAudioFormat {
 	rv := objc.Send[AVAudioFormat](a.ID, objc.Sel("initWithCoder:"), coder)
+	return rv
+}
+
+// formatDescription: The CMAudioFormatDescriptionRef.
+//
+// # Discussion
+//
+// Initialize from a CMAudioFormatDescriptionRef.
+//
+// If formatDescription is invalid, this method fails (returns nil).
+//
+// See: https://developer.apple.com/documentation/AVFAudio/AVAudioFormat/init(formatDescription:)
+func (a AVAudioFormat) InitWithFormatDescription(formatDescription coremedia.CMAudioFormatDescriptionRef) AVAudioFormat {
+	rv := objc.Send[AVAudioFormat](a.ID, objc.Sel("initWithFormatDescription:"), formatDescription)
 	return rv
 }
 func (a AVAudioFormat) EncodeWithCoder(coder foundation.INSCoder) {
@@ -618,9 +650,9 @@ func (a AVAudioFormat) EncodeWithCoder(coder foundation.INSCoder) {
 // See: https://developer.apple.com/documentation/AVFAudio/AVAudioFormat/streamDescription
 //
 // [AudioStreamBasicDescription]: https://developer.apple.com/documentation/CoreAudioTypes/AudioStreamBasicDescription
-func (a AVAudioFormat) StreamDescription() objectivec.IObject {
-	rv := objc.Send[objc.ID](a.ID, objc.Sel("streamDescription"))
-	return objectivec.Object{ID: rv}
+func (a AVAudioFormat) StreamDescription() *coreaudiotypes.AudioStreamBasicDescription {
+	rv := objc.Send[unsafe.Pointer](a.ID, objc.Sel("streamDescription"))
+	return (*coreaudiotypes.AudioStreamBasicDescription)(rv)
 }
 
 // The audio format sampling rate, in hertz.

@@ -113,7 +113,6 @@ func NSMeasurementFormatterFromID(id objc.ID) MeasurementFormatter {
 // See: https://developer.apple.com/documentation/Foundation/MeasurementFormatter
 type IMeasurementFormatter interface {
 	INSFormatter
-	NSSecureCoding
 
 	// Topic: Specifying the Format
 

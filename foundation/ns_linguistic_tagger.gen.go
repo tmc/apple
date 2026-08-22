@@ -75,7 +75,7 @@ func (nc NSLinguisticTaggerClass) Alloc() NSLinguisticTagger {
 //
 // # Getting the Tag Schemes
 //
-//   - [NSLinguisticTagger.TagSchemes]: Returns the tag schemes configured for this linguistic tagger. For possible values, see [NSLinguisticTagScheme](<doc://com.apple.foundation/documentation/Foundation/NSLinguisticTagScheme>).
+//   - [NSLinguisticTagger.TagSchemes]: Returns the tag schemes configured for this linguistic tagger. For possible values, see [NSLinguisticTagScheme](<https://developer.apple.com/documentation/Foundation/NSLinguisticTagScheme>).
 //
 // # Determining the Dominant Language and Orthography
 //
@@ -107,7 +107,7 @@ func NSLinguisticTaggerFromID(id objc.ID) NSLinguisticTagger {
 //
 // # Getting the Tag Schemes
 //
-//   - [INSLinguisticTagger.TagSchemes]: Returns the tag schemes configured for this linguistic tagger. For possible values, see [NSLinguisticTagScheme](<doc://com.apple.foundation/documentation/Foundation/NSLinguisticTagScheme>).
+//   - [INSLinguisticTagger.TagSchemes]: Returns the tag schemes configured for this linguistic tagger. For possible values, see [NSLinguisticTagScheme](<https://developer.apple.com/documentation/Foundation/NSLinguisticTagScheme>).
 //
 // # Determining the Dominant Language and Orthography
 //
@@ -125,7 +125,7 @@ type INSLinguisticTagger interface {
 
 	// Topic: Getting the Tag Schemes
 
-	// Returns the tag schemes configured for this linguistic tagger. For possible values, see [NSLinguisticTagScheme](<doc://com.apple.foundation/documentation/Foundation/NSLinguisticTagScheme>).
+	// Returns the tag schemes configured for this linguistic tagger. For possible values, see [NSLinguisticTagScheme](<https://developer.apple.com/documentation/Foundation/NSLinguisticTagScheme>).
 	TagSchemes() []string
 
 	// Topic: Determining the Dominant Language and Orthography

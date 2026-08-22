@@ -29,6 +29,44 @@ func NewCKAccountStatusErrorBlock(handler CKAccountStatusErrorHandler) (objc.ID,
 	return objc.ID(block), func() { block.Release() }
 }
 
+// CKApplicationPermissionBlock handles A closure that processes the outcome of a permissions request.
+
+// NewCKApplicationPermissionBlock wraps a Go [CKApplicationPermissionBlock] as an Objective-C block.
+// The caller must defer the returned cleanup function.
+func NewCKApplicationPermissionBlock(handler CKApplicationPermissionBlock) (objc.ID, func()) {
+	if handler == nil {
+		return 0, func() {}
+	}
+	block := objc.NewBlock(func(b objc.Block, primitive CKApplicationPermissionStatus, extra0 foundation.NSError) {
+		handler(primitive, extra0)
+	})
+	return objc.ID(block), func() { block.Release() }
+}
+
+// CKApplicationPermissionStatusErrorHandler handles The handler to execute with the outcome.
+// The error can be type-asserted to *foundation.NSError for Domain, Code, and UserInfo.
+//
+// Used by:
+//   - [CKContainer.RequestApplicationPermissionCompletionHandler]
+//   - [CKContainer.StatusForApplicationPermissionCompletionHandler]
+type CKApplicationPermissionStatusErrorHandler = func(int, error)
+
+// NewCKApplicationPermissionStatusErrorBlock wraps a Go [CKApplicationPermissionStatusErrorHandler] as an Objective-C block.
+// The caller must defer the returned cleanup function.
+//
+// Used by:
+//   - [CKContainer.RequestApplicationPermissionCompletionHandler]
+//   - [CKContainer.StatusForApplicationPermissionCompletionHandler]
+func NewCKApplicationPermissionStatusErrorBlock(handler CKApplicationPermissionStatusErrorHandler) (objc.ID, func()) {
+	if handler == nil {
+		return 0, func() {}
+	}
+	block := objc.NewBlock(func(b objc.Block, primitiveVal int, errID objc.ID) {
+		handler(primitiveVal, foundation.SafeErrorFrom(errID))
+	})
+	return objc.ID(block), func() { block.Release() }
+}
+
 // CKRecordErrorHandler handles The closure to execute with the fetch results.
 // The error can be type-asserted to *foundation.NSError for Domain, Code, and UserInfo.
 //
@@ -135,7 +173,7 @@ func NewCKRecordIDFloat64Block(handler CKRecordIDFloat64Handler) (objc.ID, func(
 //
 // Used by:
 //   - [CKSyncEngineRecordZoneChangeBatch.InitWithPendingChangesRecordProvider]
-type CKRecordIDHandler = func(*CKRecordID)
+type CKRecordIDHandler = func(*CKRecordID) CKRecord
 
 // NewCKRecordIDBlock wraps a Go [CKRecordIDHandler] as an Objective-C block.
 // The caller must defer the returned cleanup function.
@@ -146,14 +184,14 @@ func NewCKRecordIDBlock(handler CKRecordIDHandler) (objc.ID, func()) {
 	if handler == nil {
 		return 0, func() {}
 	}
-	block := objc.NewBlock(func(b objc.Block, resultID objc.ID) {
+	block := objc.NewBlock(func(b objc.Block, resultID objc.ID) objc.ID {
 		var result *CKRecordID
 		if resultID != 0 {
 			objc.Send[objc.ID](resultID, objc.Sel("retain"))
 			v := CKRecordIDFromID(resultID)
 			result = &v
 		}
-		handler(result)
+		return handler(result).ID
 	})
 	return objc.ID(block), func() { block.Release() }
 }
@@ -413,6 +451,22 @@ func NewCKShareParticipantErrorBlock(handler CKShareParticipantErrorHandler) (ob
 	return objc.ID(block), func() { block.Release() }
 }
 
+// CKSharePreparationCompletionHandler handles completion with primitive and object results.
+
+// NewCKSharePreparationCompletionHandlerBlock wraps a Go [CKSharePreparationCompletionHandler] as an Objective-C block.
+// The caller must defer the returned cleanup function.
+func NewCKSharePreparationCompletionHandlerBlock(handler CKSharePreparationCompletionHandler) (objc.ID, func()) {
+	if handler == nil {
+		return 0, func() {}
+	}
+	block := objc.NewBlock(func(b objc.Block, primitive CKShare, extra0 foundation.NSError) {
+		handler(primitive, extra0)
+	})
+	return objc.ID(block), func() { block.Release() }
+}
+
+// CKSharePreparationHandler is the signature for a completion handler block.
+
 // CKSubscriptionArrayErrorHandler handles The closure to execute with the fetch results.
 // The error can be type-asserted to *foundation.NSError for Domain, Code, and UserInfo.
 //
@@ -593,8 +647,6 @@ func NewCKUserIdentityBlock(handler CKUserIdentityHandler) (objc.ID, func()) {
 // The error can be type-asserted to *foundation.NSError for Domain, Code, and UserInfo.
 //
 // Used by:
-//   - [CKContainer.RequestApplicationPermissionCompletionHandler]
-//   - [CKContainer.StatusForApplicationPermissionCompletionHandler]
 //   - [CKSyncEngine.FetchChangesWithCompletionHandler]
 //   - [CKSyncEngine.FetchChangesWithOptionsCompletionHandler]
 //   - [CKSyncEngine.SendChangesWithCompletionHandler]
@@ -605,8 +657,6 @@ type ErrorHandler = func(error)
 // The caller must defer the returned cleanup function.
 //
 // Used by:
-//   - [CKContainer.RequestApplicationPermissionCompletionHandler]
-//   - [CKContainer.StatusForApplicationPermissionCompletionHandler]
 //   - [CKSyncEngine.FetchChangesWithCompletionHandler]
 //   - [CKSyncEngine.FetchChangesWithOptionsCompletionHandler]
 //   - [CKSyncEngine.SendChangesWithCompletionHandler]

@@ -4,7 +4,6 @@ package vision
 
 import (
 	"sync"
-	"unsafe"
 
 	"github.com/tmc/apple/foundation"
 	"github.com/tmc/apple/objc"
@@ -84,7 +83,7 @@ type IVNImageHomographicAlignmentObservation interface {
 	// Topic: Accessing the Transform
 
 	// The warp transform matrix to morph the floating image into the reference image.
-	WarpTransform() unsafe.Pointer
+	WarpTransform() [3][4]float32
 }
 
 // Init initializes the instance.
@@ -117,7 +116,7 @@ func NewImageHomographicAlignmentObservationWithCoder(coder foundation.INSCoder)
 // image.
 //
 // See: https://developer.apple.com/documentation/Vision/VNImageHomographicAlignmentObservation/warpTransform
-func (i VNImageHomographicAlignmentObservation) WarpTransform() unsafe.Pointer {
-	rv := objc.Send[unsafe.Pointer](i.ID, objc.Sel("warpTransform"))
-	return rv
+func (i VNImageHomographicAlignmentObservation) WarpTransform() [3][4]float32 {
+	rv := objc.Send[[3][4]float32](i.ID, objc.Sel("warpTransform"))
+	return [3][4]float32(rv)
 }

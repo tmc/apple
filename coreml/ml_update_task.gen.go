@@ -108,7 +108,7 @@ func NewMLUpdateTask() MLUpdateTask {
 // configuration, and calls the progress handlers during and after the update.
 //
 // modelURL: The location in the file system of a model file
-// (`XCUIElementTypeMlmodelc`).
+// (ModelName`XCUIElementTypeMlmodelc`).
 //
 // trainingData: The update data for the model, contained in a batch provider.
 //
@@ -124,6 +124,9 @@ func NewUpdateTaskForModelAtURLTrainingDataConfigurationProgressHandlersError(mo
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
 		return MLUpdateTask{}, foundation.NSErrorFrom(errorPtr)
 	}
+	if rv == 0 {
+		return MLUpdateTask{}, objc.ErrInitFailed
+	}
 	return MLUpdateTaskFromID(rv), nil
 }
 
@@ -131,7 +134,7 @@ func NewUpdateTaskForModelAtURLTrainingDataConfigurationProgressHandlersError(mo
 // and calls the progress handlers during and after the update.
 //
 // modelURL: The location in the file system of a model file
-// (`XCUIElementTypeMlmodelc`).
+// (ModelName`XCUIElementTypeMlmodelc`).
 //
 // trainingData: The update data for the model, contained in a batch provider.
 //
@@ -144,6 +147,9 @@ func NewUpdateTaskForModelAtURLTrainingDataProgressHandlersError(modelURL founda
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
 		return MLUpdateTask{}, foundation.NSErrorFrom(errorPtr)
+	}
+	if rv == 0 {
+		return MLUpdateTask{}, objc.ErrInitFailed
 	}
 	return MLUpdateTaskFromID(rv), nil
 }
@@ -168,7 +174,7 @@ func (u MLUpdateTask) ResumeWithParameters(updateParameters foundation.INSDictio
 // and calls the completion handler when the update completes.
 //
 // modelURL: The location in the file system of a model file
-// (`XCUIElementTypeMlmodelc`).
+// (ModelName`XCUIElementTypeMlmodelc`).
 //
 // trainingData: The update data for the model, contained in a batch provider.
 //
@@ -191,7 +197,7 @@ func (_MLUpdateTaskClass MLUpdateTaskClass) UpdateTaskForModelAtURLTrainingDataC
 // configuration, and calls the completion handler when the update completes.
 //
 // modelURL: The location in the file system of a model file
-// (`XCUIElementTypeMlmodelc`).
+// (ModelName`XCUIElementTypeMlmodelc`).
 //
 // trainingData: The update data for the model, contained in a batch provider.
 //

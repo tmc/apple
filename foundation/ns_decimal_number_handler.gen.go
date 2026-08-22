@@ -90,6 +90,16 @@ type INSDecimalNumberHandler interface {
 
 	// Returns an [NSDecimalNumberHandler] object initialized so it behaves as specified by the method’s arguments.
 	InitWithRoundingModeScaleRaiseOnExactnessRaiseOnOverflowRaiseOnUnderflowRaiseOnDivideByZero(roundingMode NSRoundingMode, scale int16, exact bool, overflow bool, underflow bool, divideByZero bool) NSDecimalNumberHandler
+
+	// Encodes the receiver using a given archiver.
+	EncodeWithCoder(coder INSCoder)
+	// Specifies what an [NSDecimalNumber] object will do when it encounters an error.
+	ExceptionDuringOperationErrorLeftOperandRightOperand(operation objc.SEL, error_ NSCalculationError, leftOperand INSDecimalNumber, rightOperand INSDecimalNumber) INSDecimalNumber
+	InitWithCoder(coder INSCoder) NSDecimalNumberHandler
+	// Returns the way that [NSDecimalNumber]’s `decimalNumberBy...` methods round their return values.
+	RoundingMode() NSRoundingMode
+	// Returns the number of digits allowed after the decimal separator.
+	Scale() int16
 }
 
 // Init initializes the instance.
@@ -249,7 +259,7 @@ func (d NSDecimalNumberHandler) EncodeWithCoder(coder INSCoder) {
 //
 // [Exception Programming Topics]: https://developer.apple.com/library/archive/documentation/Cocoa/Conceptual/Exceptions/Exceptions.html#//apple_ref/doc/uid/10000012i
 // [NSDecimalNumber.CalculationError]: https://developer.apple.com/documentation/Foundation/NSDecimalNumber/CalculationError
-func (d NSDecimalNumberHandler) ExceptionDuringOperationErrorLeftOperandRightOperand(operation objectivec.SEL, error_ NSCalculationError, leftOperand INSDecimalNumber, rightOperand INSDecimalNumber) INSDecimalNumber {
+func (d NSDecimalNumberHandler) ExceptionDuringOperationErrorLeftOperandRightOperand(operation objc.SEL, error_ NSCalculationError, leftOperand INSDecimalNumber, rightOperand INSDecimalNumber) INSDecimalNumber {
 	rv := objc.Send[objc.ID](d.ID, objc.Sel("exceptionDuringOperation:error:leftOperand:rightOperand:"), operation, error_, leftOperand, rightOperand)
 	return NSDecimalNumberFromID(rv)
 }

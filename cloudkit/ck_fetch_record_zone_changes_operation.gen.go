@@ -7,7 +7,6 @@ import (
 	"unsafe"
 
 	"github.com/tmc/apple/foundation"
-	"github.com/tmc/apple/kernel"
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -168,7 +167,7 @@ type ICKFetchRecordZoneChangesOperation interface {
 
 	// The closure to execute when a record no longer exists.
 	RecordWithIDWasDeletedBlock() unsafe.Pointer
-	SetRecordWithIDWasDeletedBlock(value kernel.Pointer)
+	SetRecordWithIDWasDeletedBlock(value unsafe.Pointer)
 	// The closure to execute when the change token updates.
 	RecordZoneChangeTokensUpdatedBlock() CKRecordZoneIDCKServerChangeTokenDataHandler
 	SetRecordZoneChangeTokensUpdatedBlock(value CKRecordZoneIDCKServerChangeTokenDataHandler)
@@ -177,11 +176,11 @@ type ICKFetchRecordZoneChangesOperation interface {
 
 	// The closure to execute with the results of retrieving a record change.
 	RecordWasChangedBlock() unsafe.Pointer
-	SetRecordWasChangedBlock(value kernel.Pointer)
+	SetRecordWasChangedBlock(value unsafe.Pointer)
 
 	// Configuration options for each record zone that the operation retrieves.
-	OptionsByRecordZoneID() unsafe.Pointer
-	SetOptionsByRecordZoneID(value kernel.Pointer)
+	OptionsByRecordZoneID() foundation.INSDictionary
+	SetOptionsByRecordZoneID(value foundation.INSDictionary)
 }
 
 // Init initializes the instance.
@@ -264,7 +263,7 @@ func (c CKFetchRecordZoneChangesOperation) RecordWithIDWasDeletedBlock() unsafe.
 	rv := objc.Send[unsafe.Pointer](c.ID, objc.Sel("recordWithIDWasDeletedBlock"))
 	return rv
 }
-func (c CKFetchRecordZoneChangesOperation) SetRecordWithIDWasDeletedBlock(value kernel.Pointer) {
+func (c CKFetchRecordZoneChangesOperation) SetRecordWithIDWasDeletedBlock(value unsafe.Pointer) {
 	objc.Send[struct{}](c.ID, objc.Sel("setRecordWithIDWasDeletedBlock:"), value)
 }
 
@@ -306,17 +305,17 @@ func (c CKFetchRecordZoneChangesOperation) RecordWasChangedBlock() unsafe.Pointe
 	rv := objc.Send[unsafe.Pointer](c.ID, objc.Sel("recordWasChangedBlock"))
 	return rv
 }
-func (c CKFetchRecordZoneChangesOperation) SetRecordWasChangedBlock(value kernel.Pointer) {
+func (c CKFetchRecordZoneChangesOperation) SetRecordWasChangedBlock(value unsafe.Pointer) {
 	objc.Send[struct{}](c.ID, objc.Sel("setRecordWasChangedBlock:"), value)
 }
 
 // Configuration options for each record zone that the operation retrieves.
 //
 // See: https://developer.apple.com/documentation/cloudkit/ckfetchrecordzonechangesoperation/optionsbyrecordzoneid
-func (c CKFetchRecordZoneChangesOperation) OptionsByRecordZoneID() unsafe.Pointer {
-	rv := objc.Send[unsafe.Pointer](c.ID, objc.Sel("optionsByRecordZoneID"))
-	return rv
+func (c CKFetchRecordZoneChangesOperation) OptionsByRecordZoneID() foundation.INSDictionary {
+	rv := objc.Send[objc.ID](c.ID, objc.Sel("optionsByRecordZoneID"))
+	return foundation.NSDictionaryFromID(objc.ID(rv))
 }
-func (c CKFetchRecordZoneChangesOperation) SetOptionsByRecordZoneID(value kernel.Pointer) {
+func (c CKFetchRecordZoneChangesOperation) SetOptionsByRecordZoneID(value foundation.INSDictionary) {
 	objc.Send[struct{}](c.ID, objc.Sel("setOptionsByRecordZoneID:"), value)
 }

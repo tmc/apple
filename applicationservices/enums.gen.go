@@ -95,7 +95,7 @@ func (e ATSFontQueryMessageID) String() string {
 type AXCopyMultipleAttributeOptions uint32
 
 const (
-	StopOnError AXCopyMultipleAttributeOptions = 0
+	StopOnError AXCopyMultipleAttributeOptions = 0x1
 )
 
 func (e AXCopyMultipleAttributeOptions) String() string {
@@ -108,7 +108,7 @@ func (e AXCopyMultipleAttributeOptions) String() string {
 }
 
 // See: https://developer.apple.com/documentation/applicationservices/axerror
-type AXError int
+type AXError int32
 
 const ()
 
@@ -116,16 +116,22 @@ const ()
 type AXMenuItemModifiers uint32
 
 const (
-	Control   AXMenuItemModifiers = 0
-	NoCommand AXMenuItemModifiers = 0
-	Option    AXMenuItemModifiers = 0
-	Shift     AXMenuItemModifiers = 0
+	Control   AXMenuItemModifiers = 4
+	NoCommand AXMenuItemModifiers = 8
+	Option    AXMenuItemModifiers = 2
+	Shift     AXMenuItemModifiers = 1
 )
 
 func (e AXMenuItemModifiers) String() string {
 	switch e {
 	case Control:
 		return "Control"
+	case NoCommand:
+		return "NoCommand"
+	case Option:
+		return "Option"
+	case Shift:
+		return "Shift"
 	default:
 		return fmt.Sprintf("AXMenuItemModifiers(%d)", e)
 	}
@@ -146,7 +152,7 @@ type AXValueType uint32
 
 const ()
 
-type At uint
+type At uint32
 
 const (
 	AtAbsoluteCenter   At = 5
@@ -206,7 +212,7 @@ func (e At) String() string {
 	}
 }
 
-type BadPasteboardSyncErr int
+type BadPasteboardSyncErr int32
 
 const (
 	BadPasteboardFlavorErr       BadPasteboardSyncErr = -25133
@@ -239,7 +245,7 @@ func (e BadPasteboardSyncErr) String() string {
 	}
 }
 
-type BadTranslationRef int
+type BadTranslationRef int32
 
 const (
 	BadTranslationRefErr BadTranslationRef = -3031
@@ -279,7 +285,7 @@ func (e CMFloatBitmapFlags) String() string {
 	}
 }
 
-type Cdev int
+type Cdev int32
 
 const (
 	CdevGenErr Cdev = -1
@@ -303,635 +309,104 @@ func (e Cdev) String() string {
 	}
 }
 
-type Cm int
+type CmAToB0Tag uint32
 
 const (
-	Cm10CLRData        Cm = 'A'<<24 | 'C'<<16 | 'L'<<8 | 'R' // 'ACLR'
-	Cm11CLRData        Cm = 'B'<<24 | 'C'<<16 | 'L'<<8 | 'R' // 'BCLR'
-	Cm12CLRData        Cm = 'C'<<24 | 'C'<<16 | 'L'<<8 | 'R' // 'CCLR'
-	Cm13CLRData        Cm = 'D'<<24 | 'C'<<16 | 'L'<<8 | 'R' // 'DCLR'
-	Cm14CLRData        Cm = 'E'<<24 | 'C'<<16 | 'L'<<8 | 'R' // 'ECLR'
-	Cm15CLRData        Cm = 'F'<<24 | 'C'<<16 | 'L'<<8 | 'R' // 'FCLR'
-	Cm16_8ColorPacking Cm = 0x2000
-	// Cm24_8ColorPacking: The color values for three 8-bit color channels are stored in consecutive bytes, for a total of 24 bits.
-	Cm24_8ColorPacking Cm = 0x2100
-	// Cm32_16ColorPacking: The color values for two 16-bit color channels are stored in a 32-bit word.
-	Cm32_16ColorPacking Cm = 0x2600
-	// Cm32_32ColorPacking: The color value for a 32-bit color channel is stored in a 32-bit word.
-	Cm32_32ColorPacking Cm = 0x2700
-	// Cm32_8ColorPacking: The color values for four 8-bit color channels are stored in consecutive bytes, for a total of 32 bits.
-	Cm32_8ColorPacking Cm = 2048
-	Cm3CLRData         Cm = '3'<<24 | 'C'<<16 | 'L'<<8 | 'R' // '3CLR'
-	// Cm40_8ColorPacking: The color values for five 8-bit color channels are stored in consecutive bytes, for a total of 40 bits.
-	Cm40_8ColorPacking Cm = 0x2200
-	// Cm48_16ColorPacking: The color values for three 16-bit color channels are stored in 48 consecutive bits.
-	Cm48_16ColorPacking Cm = 0x2900
-	// Cm48_8ColorPacking: The color values for six 8-bit color channels are stored in consecutive bytes, for a total of 48 bits.
-	Cm48_8ColorPacking Cm = 0x2300
-	Cm4CLRData         Cm = '4'<<24 | 'C'<<16 | 'L'<<8 | 'R' // '4CLR'
-	// Cm56_8ColorPacking: The color values for seven 8-bit color channels are stored in consecutive bytes, for a total of 56 bits.
-	Cm56_8ColorPacking Cm = 0x2400
-	Cm5CLRData         Cm = '5'<<24 | 'C'<<16 | 'L'<<8 | 'R' // '5CLR'
-	// Cm64_16ColorPacking: The color values for four 16-bit color channels are stored in 64 consecutive bits.
-	Cm64_16ColorPacking Cm = 0x2a00
-	// Cm64_8ColorPacking: The color values for eight 8-bit color channels are stored in consecutive bytes, for a total of 64 bits.
-	Cm64_8ColorPacking Cm = 0x2500
-	Cm6CLRData         Cm = '6'<<24 | 'C'<<16 | 'L'<<8 | 'R' // '6CLR'
-	Cm7CLRData         Cm = '7'<<24 | 'C'<<16 | 'L'<<8 | 'R' // '7CLR'
-	Cm8CLRData         Cm = '8'<<24 | 'C'<<16 | 'L'<<8 | 'R' // '8CLR'
-	Cm8_8ColorPacking  Cm = 0x2800
-	Cm9CLRData         Cm = '9'<<24 | 'C'<<16 | 'L'<<8 | 'R' // '9CLR'
-	CmARGB32PmulSpace  Cm = 193
-	// CmARGB32Space: # Discussion
-	CmARGB32Space      Cm = 129
-	CmARGB64LPmulSpace Cm = 193
-	CmARGB64LSpace     Cm = 129
-	CmARGB64PmulSpace  Cm = 193
-	CmARGB64Space      Cm = 129
-	CmAToB0Tag         Cm = 'A'<<24 | '2'<<16 | 'B'<<8 | '0' // 'A2B0'
-	CmAToB1Tag         Cm = 'A'<<24 | '2'<<16 | 'B'<<8 | '1' // 'A2B1'
-	CmAToB2Tag         Cm = 'A'<<24 | '2'<<16 | 'B'<<8 | '2' // 'A2B2'
-	// CmAbortWriteAccess: Cancel the current write attempt.
-	CmAbortWriteAccess Cm = 7
-	// CmAbsoluteColorimetric: This approach is based on a device-independent color space in which the result is an idealized print viewed on an ideal type of paper having a large dynamic range and color gamut.
-	CmAbsoluteColorimetric Cm = 3
-	// CmAbstractClass: An abstract profile.
-	CmAbstractClass Cm = 'a'<<24 | 'b'<<16 | 's'<<8 | 't' // 'abst'
-	// CmAlphaFirstPacking: An alpha channel is added to the color value as its first component.
-	CmAlphaFirstPacking Cm = 0x1000
-	CmAlphaLastPacking  Cm = 0
-	// CmAlphaPmulSpace: A premultiplied alpha channel component is added to the color value.
-	CmAlphaPmulSpace Cm = 0x40
-	// CmAlphaSpace: An alpha channel component is added to the color value.
-	CmAlphaSpace Cm = 0x80
-	// CmAsciiData: ASCII data.
-	CmAsciiData Cm = 0
-	CmBToA0Tag  Cm = 'B'<<24 | '2'<<16 | 'A'<<8 | '0' // 'B2A0'
-	CmBToA1Tag  Cm = 'B'<<24 | '2'<<16 | 'A'<<8 | '1' // 'B2A1'
-	CmBToA2Tag  Cm = 'B'<<24 | '2'<<16 | 'A'<<8 | '2' // 'B2A2'
-	// CmBeginAccess: Begin the process of procedural access.
-	CmBeginAccess Cm = 8
-	// CmBestMode: Best mode indicates that the CMM should maximize resource usage to ensure the highest possible quality.
-	CmBestMode Cm = 2
-	// CmBinaryData: Binary data.
-	CmBinaryData                  Cm = 1
-	CmBlackPointCompensationMask  Cm = 0x4
-	CmBlueColorantTag             Cm = 'b'<<24 | 'X'<<16 | 'Y'<<8 | 'Z' // 'bXYZ'
-	CmBlueTRCTag                  Cm = 'b'<<24 | 'T'<<16 | 'R'<<8 | 'C' // 'bTRC'
-	CmBradfordChromaticAdaptation Cm = 3
-	CmBufferBasedProfile          Cm = 6
-	// CmCMSReservedFlagsMask: # Discussion
-	CmCMSReservedFlagsMask Cm = 0xffff0000
-	// CmCMYData: The CMY data color space.
-	CmCMYData Cm = 'C'<<24 | 'M'<<16 | 'Y'<<8 | ' ' // 'CMY '
-	// CmCMYK32Space: A CMYK color space composed of cyan, magenta, yellow, and black components whose values are packed with 8 bits of storage per component.
-	CmCMYK32Space  Cm = 2
-	CmCMYK64LSpace Cm = 2
-	// CmCMYK64Space: A CMYK color space composed of cyan, magenta, yellow, and black components whose values are packed with 16 bits of storage per component.
-	CmCMYK64Space Cm = 2
-	// CmCMYKData: The CMYK data color space.
-	CmCMYKData Cm = 'C'<<24 | 'M'<<16 | 'Y'<<8 | 'K' // 'CMYK'
-	// CmCMYKSpace: A CMYK color space composed of cyan, magenta, yellow, and black.
-	CmCMYKSpace              Cm = 0x2
-	CmCS1ProfileVersion      Cm = 0x100
-	CmCS2ProfileVersion      Cm = 33554432
-	CmCalibrationDateTimeTag Cm = 'c'<<24 | 'a'<<16 | 'l'<<8 | 't' // 'calt'
-	CmCameraDeviceClass      Cm = 'c'<<24 | 'm'<<16 | 'r'<<8 | 'a' // 'cmra'
-	CmCharTargetTag          Cm = 't'<<24 | 'a'<<16 | 'r'<<8 | 'g' // 'targ'
-	CmChromaticAdaptationTag Cm = 'c'<<24 | 'h'<<16 | 'a'<<8 | 'd' // 'chad'
-	// CmCloseAccess: Close the profile for reading or writing.
-	CmCloseAccess Cm = 5
-	// CmCloseSpool: Directs the function to complete the data transfer.
-	CmCloseSpool Cm = 5
-	// CmColorSpaceClass: A color space profile.
-	CmColorSpaceClass Cm = 's'<<24 | 'p'<<16 | 'a'<<8 | 'c' // 'spac'
-	CmCopyrightTag    Cm = 'c'<<24 | 'p'<<16 | 'r'<<8 | 't' // 'cprt'
-	// CmCreateNewAccess: Create a new data stream for the profile.
-	CmCreateNewAccess            Cm = 6
-	CmCurrentProfileLocationSize Cm = 0
-	CmCurrentProfileMajorVersion Cm = 0x2000000
-	// CmDeviceAlreadyRegistered: Device already registered; returned by a CM device integration routine.
-	CmDeviceAlreadyRegistered Cm = -4228
-	// CmDeviceDBNotFoundErr: Preferences not found or loaded; returned by a CM device integration routine.
-	CmDeviceDBNotFoundErr Cm = -4227
-	CmDeviceMfgDescTag    Cm = 'd'<<24 | 'm'<<16 | 'n'<<8 | 'd' // 'dmnd'
-	CmDeviceModelDescTag  Cm = 'd'<<24 | 'm'<<16 | 'd'<<8 | 'd' // 'dmdd'
-	// CmDeviceNotRegistered: Device not found; returned by a CM device integration routine.
-	CmDeviceNotRegistered Cm = -4229
-	// CmDeviceProfilesNotFound: Profiles not found; returned by a CM device integration routine.
-	CmDeviceProfilesNotFound Cm = -4230
-	// CmDisplayClass: A display device profile defined for a monitor.
-	CmDisplayClass       Cm = 'm'<<24 | 'n'<<16 | 't'<<8 | 'r' // 'mntr'
-	CmDisplayDeviceClass Cm = 'm'<<24 | 'n'<<16 | 't'<<8 | 'r' // 'mntr'
-	CmDisplayUse         Cm = 'd'<<24 | 'p'<<16 | 'l'<<8 | 'y' // 'dply'
-	// CmDraftMode: Draft mode indicates that the CMM should sacrifice quality, if necessary, to minimize resource requirements.
-	CmDraftMode Cm = 1
-	// CmEmbeddedMask: This mask provides access to bit 0 of the `flags` field, which specifies whether the profile is embedded.
-	CmEmbeddedMask Cm = 0x1
-	// CmEmbeddedUseMask: # Discussion
-	CmEmbeddedUseMask Cm = 0x2
-	// CmEndAccess: End the process of procedural access.
-	CmEndAccess Cm = 9
-	CmFlare0    Cm = 0
-	CmFlare100  Cm = 0x1
-	// CmGamutCheckingMask: # Discussion
-	CmGamutCheckingMask Cm = 0x80000
-	// CmGamutResult1Space: # Discussion
-	CmGamutResult1Space Cm = 2816
-	// CmGamutResultSpace: # Discussion
-	CmGamutResultSpace Cm = 0xc
-	CmGamutTag         Cm = 'g'<<24 | 'a'<<16 | 'm'<<8 | 't' // 'gamt'
-	CmGeometry045or450 Cm = 0x1
-	CmGeometry0dord0   Cm = 0x2
-	CmGeometryUnknown  Cm = 0
-	// CmGlossy: If the bit 1 of the associated mask is `0` then glossy; if `1` then matte.
-	CmGlossy Cm = 1
-	// CmGlossyMatteMask: # Discussion
-	CmGlossyMatteMask Cm = 0x2
-	CmGray16LSpace    Cm = 10
-	// CmGray16Space: A luminance color space with a single 16-bit component, gray.
-	CmGray16Space       Cm = 10
-	CmGray8Space        Cm = 10
-	CmGrayA16PmulSpace  Cm = 202
-	CmGrayA16Space      Cm = 138
-	CmGrayA32LPmulSpace Cm = 202
-	CmGrayA32LSpace     Cm = 138
-	CmGrayA32PmulSpace  Cm = 202
-	// CmGrayA32Space: A luminance color space with two components, a gray component followed by an alpha channel component.
-	CmGrayA32Space   Cm = 138
-	CmGrayAPmulSpace Cm = 138
-	// CmGrayASpace: A luminance color space with two components, a gray component followed by an alpha channel component.
-	CmGrayASpace Cm = 10
-	// CmGrayData: The Gray data color space.
-	CmGrayData Cm = 'G'<<24 | 'R'<<16 | 'A'<<8 | 'Y' // 'GRAY'
-	// CmGraySpace: A luminance color space with a single component, gray.
-	CmGraySpace        Cm = 0xa
-	CmGrayTRCTag       Cm = 'k'<<24 | 'T'<<16 | 'R'<<8 | 'C' // 'kTRC'
-	CmGreenColorantTag Cm = 'g'<<24 | 'X'<<16 | 'Y'<<8 | 'Z' // 'gXYZ'
-	CmGreenTRCTag      Cm = 'g'<<24 | 'T'<<16 | 'R'<<8 | 'C' // 'gTRC'
-	// CmHLS32Space: An HLS color space composed of hue, lightness, and saturation components whose values are packed with 10 bits of storage per component.
-	CmHLS32Space Cm = 4
-	// CmHLSData: The HLS data color space.
-	CmHLSData Cm = 'H'<<24 | 'L'<<16 | 'S'<<8 | ' ' // 'HLS '
-	// CmHLSSpace: An HLS color space composed of hue, lightness, and saturation components.
-	CmHLSSpace Cm = 0x4
-	// CmHSV32Space: An HSV color space composed of hue, saturation, and value components whose values are packed with 10 bits of storage per component.
-	CmHSV32Space Cm = 3
-	// CmHSVData: The HSV data color space.
-	CmHSVData Cm = 'H'<<24 | 'S'<<16 | 'V'<<8 | ' ' // 'HSV '
-	// CmHSVSpace: An HSV color space composed of hue, saturation, and value components.
-	CmHSVSpace            Cm = 0x3
-	CmICCProfileVersion2  Cm = 0x2000000
-	CmICCProfileVersion21 Cm = 0x2100000
-	CmICCProfileVersion4  Cm = 0x4000000
-	// CmICCReservedFlagsMask: # Discussion
-	CmICCReservedFlagsMask Cm = 0xffff
-	// CmInputClass: An input device profile defined for a scanner.
-	CmInputClass Cm = 's'<<24 | 'c'<<16 | 'n'<<8 | 'r' // 'scnr'
-	CmInputUse   Cm = 'i'<<24 | 'n'<<16 | 'p'<<8 | 't' // 'inpt'
-	// CmInternalCFErr: CoreFoundation failure; returned by a CM device integration routine.
-	CmInternalCFErr Cm = -4231
-	// CmInterpolationMask: # Discussion
-	CmInterpolationMask Cm = 0x40000
-	// CmLAB24Space: # Discussion
-	CmLAB24Space Cm = 8
-	// CmLAB32Space: # Discussion
-	CmLAB32Space  Cm = 8
-	CmLAB48LSpace Cm = 8
-	// CmLAB48Space: # Discussion
-	CmLAB48Space Cm = 8
-	// CmLABSpace: An L*a*b* color space composed of L*, a*, b* components.
-	CmLABSpace Cm = 0x8
-	// CmLUV32Space: An L*u*v* color space composed of L*, u*, and v* components whose values are packed with 10 bits per component.
-	CmLUV32Space Cm = 7
-	// CmLUVSpace: An L*u*v* color space composed of L*, u*, and v* components.
-	CmLUVSpace Cm = 0x7
-	// CmLabData: The L*a*b* data color space.
-	CmLabData                   Cm = 'L'<<24 | 'a'<<16 | 'b'<<8 | ' ' // 'Lab '
-	CmLinearChromaticAdaptation Cm = 1
-	// CmLinesPer: Lines per unit; can have an associated value of `0` for lines per centimeter or `1` for lines per inch.
-	CmLinesPer Cm = 1
-	// CmLinkClass: A device link profile.
-	CmLinkClass           Cm = 'l'<<24 | 'i'<<16 | 'n'<<8 | 'k' // 'link'
-	CmLittleEndianPacking Cm = 0x4000
-	// CmLong10ColorPacking: The color values for three 10-bit color channels are stored consecutively in a 32-bit long, with the two highest order bits unused.
-	CmLong10ColorPacking Cm = 0xa00
-	// CmLong8ColorPacking: # Discussion
-	CmLong8ColorPacking Cm = 0x800
-	CmLuminanceTag      Cm = 'l'<<24 | 'u'<<16 | 'm'<<8 | 'i' // 'lumi'
-	// CmLuvData: The L*u*v* data color space.
-	CmLuvData Cm = 'L'<<24 | 'u'<<16 | 'v'<<8 | ' ' // 'Luv '
-	// CmMCEight8Space: An eight-channel multichannel (HiFi) data color space, whose values are packed with 8 bits per component.
-	CmMCEight8Space Cm = 9472
-	// CmMCEightSpace: An eight-channel multichannel (HiFi) data color space.
-	CmMCEightSpace Cm = 0x14
-	// CmMCFive8Space: A five-channel multichannel (HiFi) data color space, whose values are packed with 8 bits per component.
-	CmMCFive8Space Cm = 8704
-	// CmMCFiveSpace: A five-channel multichannel (HiFi) data color space.
-	CmMCFiveSpace Cm = 0x11
-	// CmMCH5Data: The five-channel multichannel (HiFi) data color space.
-	CmMCH5Data Cm = 'M'<<24 | 'C'<<16 | 'H'<<8 | '5' // 'MCH5'
-	// CmMCH6Data: The six-channel multichannel (HiFi) data color space.
-	CmMCH6Data Cm = 'M'<<24 | 'C'<<16 | 'H'<<8 | '6' // 'MCH6'
-	// CmMCH7Data: The seven-channel multichannel (HiFi) data color space.
-	CmMCH7Data Cm = 'M'<<24 | 'C'<<16 | 'H'<<8 | '7' // 'MCH7'
-	// CmMCH8Data: The eight-channel multichannel (HiFi) data color space.
-	CmMCH8Data Cm = 'M'<<24 | 'C'<<16 | 'H'<<8 | '8' // 'MCH8'
-	// CmMCSeven8Space: A seven-channel multichannel (HiFi) data color space, whose values are packed with 8 bits per component.
-	CmMCSeven8Space Cm = 9216
-	// CmMCSevenSpace: A seven-channel multichannel (HiFi) data color space.
-	CmMCSevenSpace Cm = 0x13
-	// CmMCSix8Space: A six-channel multichannel (HiFi) data color space, whose values are packed with 8 bits per component.
-	CmMCSix8Space Cm = 8960
-	// CmMCSixSpace: A six-channel multichannel (HiFi) data color space.
-	CmMCSixSpace         Cm = 0x12
-	CmMacintosh          Cm = 'A'<<24 | 'P'<<16 | 'P'<<8 | 'L' // 'APPL'
-	CmMakeAndModelTag    Cm = 'm'<<24 | 'm'<<16 | 'o'<<8 | 'd' // 'mmod'
-	CmMeasurementTag     Cm = 'm'<<24 | 'e'<<16 | 'a'<<8 | 's' // 'meas'
-	CmMediaBlackPointTag Cm = 'b'<<24 | 'k'<<16 | 'p'<<8 | 't' // 'bkpt'
-	CmMediaWhitePointTag Cm = 'w'<<24 | 't'<<16 | 'p'<<8 | 't' // 'wtpt'
-	CmMicrosoft          Cm = 'M'<<24 | 'S'<<16 | 'F'<<8 | 'T' // 'MSFT'
-	CmNamedColor2Tag     Cm = 'n'<<24 | 'c'<<16 | 'l'<<8 | '2' // 'ncl2'
-	// CmNamedColorClass: A named color space profile.
-	CmNamedColorClass      Cm = 'n'<<24 | 'm'<<16 | 'c'<<8 | 'l' // 'nmcl'
-	CmNamedColorTag        Cm = 'n'<<24 | 'c'<<16 | 'o'<<8 | 'l' // 'ncol'
-	CmNamedData            Cm = 'N'<<24 | 'A'<<16 | 'M'<<8 | 'E' // 'NAME'
-	CmNamedIndexed32LSpace Cm = 9984
-	// CmNamedIndexed32Space: A color space where each color is stored as a single 32-bit value, specifying an index into a named color space.
-	CmNamedIndexed32Space Cm = 9984
-	// CmNamedIndexedSpace: A named indexed color space.
-	CmNamedIndexedSpace    Cm = 0x10
-	CmNativeDisplayInfoTag Cm = 'n'<<24 | 'd'<<16 | 'i'<<8 | 'n' // 'ndin'
-	// CmNoColorPacking: This constant is not used for ColorSync bitmaps.
-	CmNoColorPacking Cm = 0
-	// CmNoProfileBase: The profile is temporary.
-	CmNoProfileBase Cm = 0
-	// CmNoSpace: The ColorSync Manager does not use this constant.
-	CmNoSpace Cm = 0
-	// CmNormalMode: This is the default setting.
-	CmNormalMode Cm = 0
-	// CmOneBitDirectPacking: One bit is used as the pixel format.
-	CmOneBitDirectPacking Cm = 0xb00
-	CmOpenReadAccess      Cm = 1
-	// CmOpenReadSpool: Directs the function to begin the process of reading data.
-	CmOpenReadSpool Cm = 1
-	// CmOpenWriteAccess: Open the profile for writing.
-	CmOpenWriteAccess Cm = 2
-	// CmOpenWriteSpool: Directs the function to begin the process of writing data.
-	CmOpenWriteSpool              Cm = 2
-	CmOriginalProfileLocationSize Cm = 72
-	// CmOutputClass: An output device profile defined for a printer.
-	CmOutputClass           Cm = 'p'<<24 | 'r'<<16 | 't'<<8 | 'r' // 'prtr'
-	CmOutputUse             Cm = 'o'<<24 | 'u'<<16 | 't'<<8 | 'p' // 'outp'
-	CmPS2CRD0Tag            Cm = 'p'<<24 | 's'<<16 | 'd'<<8 | '0' // 'psd0'
-	CmPS2CRD1Tag            Cm = 'p'<<24 | 's'<<16 | 'd'<<8 | '1' // 'psd1'
-	CmPS2CRD2Tag            Cm = 'p'<<24 | 's'<<16 | 'd'<<8 | '2' // 'psd2'
-	CmPS2CRD3Tag            Cm = 'p'<<24 | 's'<<16 | 'd'<<8 | '3' // 'psd3'
-	CmPS2CRDVMSizeTag       Cm = 'p'<<24 | 's'<<16 | 'v'<<8 | 'm' // 'psvm'
-	CmPS2CSATag             Cm = 'p'<<24 | 's'<<16 | '2'<<8 | 's' // 'ps2s'
-	CmPS2RenderingIntentTag Cm = 'p'<<24 | 's'<<16 | '2'<<8 | 'i' // 'ps2i'
-	CmPathBasedProfile      Cm = 5
-	// CmPerceptual: All the colors of a given gamut can be scaled to fit within another gamut.
-	CmPerceptual              Cm = 0
-	CmPrefsSynchError         Cm = -4232
-	CmPreview0Tag             Cm = 'p'<<24 | 'r'<<16 | 'e'<<8 | '0' // 'pre0'
-	CmPreview1Tag             Cm = 'p'<<24 | 'r'<<16 | 'e'<<8 | '1' // 'pre1'
-	CmPreview2Tag             Cm = 'p'<<24 | 'r'<<16 | 'e'<<8 | '2' // 'pre2'
-	CmPrinterDeviceClass      Cm = 'p'<<24 | 'r'<<16 | 't'<<8 | 'r' // 'prtr'
-	CmProfileDescriptionMLTag Cm = 'd'<<24 | 's'<<16 | 'c'<<8 | 'm' // 'dscm'
-	CmProfileDescriptionTag   Cm = 'd'<<24 | 'e'<<16 | 's'<<8 | 'c' // 'desc'
-	CmProfileMajorVersionMask Cm = 0xff000000
-	CmProfileSequenceDescTag  Cm = 'p'<<24 | 's'<<16 | 'e'<<8 | 'q' // 'pseq'
-	CmProofDeviceClass        Cm = 'p'<<24 | 'r'<<16 | 'u'<<8 | 'f' // 'pruf'
-	CmProofUse                Cm = 'p'<<24 | 'r'<<16 | 'u'<<8 | 'f' // 'pruf'
-	// CmPrtrDefaultScreens: Use printer default screens; can have an associated value of `0` for `false` or `1` for `true`.
-	CmPrtrDefaultScreens Cm = 0
-	// CmQualityMask: # Discussion
-	CmQualityMask Cm = 0x30000
-	CmRGB16LSpace Cm = 1
-	// CmRGB16Space: An RGB color space composed of red, green, and blue components whose values are packed with 5 bits of storage per component.
-	CmRGB16Space Cm = 1
-	// CmRGB24Space: An RGB color space composed of red, green, and blue components whose values are packed with 8 bits of storage per component.
-	CmRGB24Space Cm = 1
-	// CmRGB32Space: An RGB color space composed of red, green, and blue components whose values are packed with 8 bits of storage per component.
-	CmRGB32Space  Cm = 1
-	CmRGB48LSpace Cm = 1
-	// CmRGB48Space: An RGB color space composed of red, green, and blue components whose values are packed with 16 bits of storage per component.
-	CmRGB48Space      Cm = 1
-	CmRGB565LSpace    Cm = 1
-	CmRGB565Space     Cm = 1
-	CmRGBA32PmulSpace Cm = 193
-	// CmRGBA32Space: An RGB color space composed of red, green, and blue color value components, followed by an alpha channel component.
-	CmRGBA32Space      Cm = 129
-	CmRGBA64LPmulSpace Cm = 193
-	CmRGBA64LSpace     Cm = 129
-	CmRGBA64PmulSpace  Cm = 193
-	CmRGBA64Space      Cm = 129
-	CmRGBAPmulSpace    Cm = 129
-	// CmRGBASpace: # Discussion
-	CmRGBASpace Cm = 1
-	// CmRGBData: The RGB data color space.
-	CmRGBData Cm = 'R'<<24 | 'G'<<16 | 'B'<<8 | ' ' // 'RGB '
-	// CmRGBSpace: An RGB color space composed of red, green, and blue components.
-	CmRGBSpace Cm = 0x1
-	// CmReadAccess: Read the number of bytes specified by the `size` parameter.
-	CmReadAccess Cm = 3
-	// CmReadSpool: Directs the function to read the number of bytes specified by the [CMFlattenProcPtr] function’s `size` parameter.
-	CmReadSpool      Cm = 3
-	CmRedColorantTag Cm = 'r'<<24 | 'X'<<16 | 'Y'<<8 | 'Z' // 'rXYZ'
-	CmRedTRCTag      Cm = 'r'<<24 | 'T'<<16 | 'R'<<8 | 'C' // 'rTRC'
-	// CmReflective: If the bit 0 of the associated mask is `0` then reflective media; if `1` then transparency media.
-	CmReflective Cm = 0
-	// CmReflectiveTransparentMask: # Discussion
-	CmReflectiveTransparentMask Cm = 0x1
-	// CmRelativeColorimetric: The colors that fall within the gamuts of both devices are left unchanged.
-	CmRelativeColorimetric Cm = 1
-	// CmReservedSpace1: This field is reserved for use by QuickDraw GX.
-	CmReservedSpace1 Cm = 0x9
-	// CmReservedSpace2: This field is reserved for use by QuickDraw GX.
-	CmReservedSpace2        Cm = 0xb
-	CmReverseChannelPacking Cm = 0x8000
-	CmSRGBData              Cm = 's'<<24 | 'R'<<16 | 'G'<<8 | 'B' // 'sRGB'
-	// CmSaturation: The relative saturation of colors is maintained from gamut to gamut.
-	CmSaturation                    Cm = 2
-	CmScannerDeviceClass            Cm = 's'<<24 | 'c'<<16 | 'n'<<8 | 'r' // 'scnr'
-	CmScreeningDescTag              Cm = 's'<<24 | 'c'<<16 | 'r'<<8 | 'd' // 'scrd'
-	CmScreeningTag                  Cm = 's'<<24 | 'c'<<16 | 'r'<<8 | 'n' // 'scrn'
-	CmSiliconGraphics               Cm = 'S'<<24 | 'G'<<16 | 'I'<<8 | ' ' // 'SGI '
-	CmSolaris                       Cm = 'S'<<24 | 'U'<<16 | 'N'<<8 | 'W' // 'SUNW'
-	CmStdobs1931TwoDegrees          Cm = 0x1
-	CmStdobs1964TenDegrees          Cm = 0x2
-	CmStdobsUnknown                 Cm = 0
-	CmTaligent                      Cm = 'T'<<24 | 'G'<<16 | 'N'<<8 | 'T' // 'TGNT'
-	CmTechnologyTag                 Cm = 't'<<24 | 'e'<<16 | 'c'<<8 | 'h' // 'tech'
-	CmUcrBgTag                      Cm = 'b'<<24 | 'f'<<16 | 'd'<<8 | ' ' // 'bfd '
-	CmUseDefaultChromaticAdaptation Cm = 0
-	// CmVideoCardGammaTag: # Discussion
-	CmVideoCardGammaTag           Cm = 'v'<<24 | 'c'<<16 | 'g'<<8 | 't' // 'vcgt'
-	CmViewingConditionsDescTag    Cm = 'v'<<24 | 'u'<<16 | 'e'<<8 | 'd' // 'vued'
-	CmViewingConditionsTag        Cm = 'v'<<24 | 'i'<<16 | 'e'<<8 | 'w' // 'view'
-	CmVonKriesChromaticAdaptation Cm = 2
-	CmWord565ColorPacking         Cm = 0x600
-	// CmWord5ColorPacking: The color values for three 5-bit color channels are stored consecutively in 16-bits, with the highest order bit unused.
-	CmWord5ColorPacking Cm = 0x500
-	// CmWriteAccess: Write the number of bytes specified by the `size` parameter.
-	CmWriteAccess Cm = 4
-	// CmWriteSpool: Directs the function to write the number of bytes specified by the [CMFlattenProcPtr] function’s `size` parameter.
-	CmWriteSpool Cm = 4
-	CmXYZ24Space Cm = 6
-	// CmXYZ32Space: An XYZ color space composed of X, Y, and Z components whose values are packed with 10 bits per component.
-	CmXYZ32Space  Cm = 6
-	CmXYZ48LSpace Cm = 6
-	CmXYZ48Space  Cm = 6
-	// CmXYZData: The XYZ data color space.
-	CmXYZData Cm = 'X'<<24 | 'Y'<<16 | 'Z'<<8 | ' ' // 'XYZ '
-	// CmXYZSpace: An XYZ color space composed of X, Y, and Z components.
-	CmXYZSpace  Cm = 0x6
-	CmYCbCrData Cm = 'Y'<<24 | 'C'<<16 | 'b'<<8 | 'r' // 'YCbr'
-	// CmYXY32Space: A Yxy color space composed of Y, x, and y components whose values are packed with 10 bits of storage per component.
-	CmYXY32Space Cm = 5
-	// CmYXYSpace: A Yxy color space composed of Y, x, and y components.
-	CmYXYSpace Cm = 0x5
-	// CmYxyData: The Yxy data color space.
-	CmYxyData Cm = 'Y'<<24 | 'x'<<16 | 'y'<<8 | ' ' // 'Yxy '
+	CmAToB0TagValue            CmAToB0Tag = 'A'<<24 | '2'<<16 | 'B'<<8 | '0' // 'A2B0'
+	CmAToB1Tag                 CmAToB0Tag = 'A'<<24 | '2'<<16 | 'B'<<8 | '1' // 'A2B1'
+	CmAToB2Tag                 CmAToB0Tag = 'A'<<24 | '2'<<16 | 'B'<<8 | '2' // 'A2B2'
+	CmBToA0Tag                 CmAToB0Tag = 'B'<<24 | '2'<<16 | 'A'<<8 | '0' // 'B2A0'
+	CmBToA1Tag                 CmAToB0Tag = 'B'<<24 | '2'<<16 | 'A'<<8 | '1' // 'B2A1'
+	CmBToA2Tag                 CmAToB0Tag = 'B'<<24 | '2'<<16 | 'A'<<8 | '2' // 'B2A2'
+	CmBlueColorantTag          CmAToB0Tag = 'b'<<24 | 'X'<<16 | 'Y'<<8 | 'Z' // 'bXYZ'
+	CmBlueTRCTag               CmAToB0Tag = 'b'<<24 | 'T'<<16 | 'R'<<8 | 'C' // 'bTRC'
+	CmCalibrationDateTimeTag   CmAToB0Tag = 'c'<<24 | 'a'<<16 | 'l'<<8 | 't' // 'calt'
+	CmCharTargetTag            CmAToB0Tag = 't'<<24 | 'a'<<16 | 'r'<<8 | 'g' // 'targ'
+	CmChromaticAdaptationTag   CmAToB0Tag = 'c'<<24 | 'h'<<16 | 'a'<<8 | 'd' // 'chad'
+	CmCopyrightTag             CmAToB0Tag = 'c'<<24 | 'p'<<16 | 'r'<<8 | 't' // 'cprt'
+	CmDeviceMfgDescTag         CmAToB0Tag = 'd'<<24 | 'm'<<16 | 'n'<<8 | 'd' // 'dmnd'
+	CmDeviceModelDescTag       CmAToB0Tag = 'd'<<24 | 'm'<<16 | 'd'<<8 | 'd' // 'dmdd'
+	CmGamutTag                 CmAToB0Tag = 'g'<<24 | 'a'<<16 | 'm'<<8 | 't' // 'gamt'
+	CmGrayTRCTag               CmAToB0Tag = 'k'<<24 | 'T'<<16 | 'R'<<8 | 'C' // 'kTRC'
+	CmGreenColorantTag         CmAToB0Tag = 'g'<<24 | 'X'<<16 | 'Y'<<8 | 'Z' // 'gXYZ'
+	CmGreenTRCTag              CmAToB0Tag = 'g'<<24 | 'T'<<16 | 'R'<<8 | 'C' // 'gTRC'
+	CmLuminanceTag             CmAToB0Tag = 'l'<<24 | 'u'<<16 | 'm'<<8 | 'i' // 'lumi'
+	CmMeasurementTag           CmAToB0Tag = 'm'<<24 | 'e'<<16 | 'a'<<8 | 's' // 'meas'
+	CmMediaBlackPointTag       CmAToB0Tag = 'b'<<24 | 'k'<<16 | 'p'<<8 | 't' // 'bkpt'
+	CmMediaWhitePointTag       CmAToB0Tag = 'w'<<24 | 't'<<16 | 'p'<<8 | 't' // 'wtpt'
+	CmNamedColor2Tag           CmAToB0Tag = 'n'<<24 | 'c'<<16 | 'l'<<8 | '2' // 'ncl2'
+	CmNamedColorTag            CmAToB0Tag = 'n'<<24 | 'c'<<16 | 'o'<<8 | 'l' // 'ncol'
+	CmPS2CRD0Tag               CmAToB0Tag = 'p'<<24 | 's'<<16 | 'd'<<8 | '0' // 'psd0'
+	CmPS2CRD1Tag               CmAToB0Tag = 'p'<<24 | 's'<<16 | 'd'<<8 | '1' // 'psd1'
+	CmPS2CRD2Tag               CmAToB0Tag = 'p'<<24 | 's'<<16 | 'd'<<8 | '2' // 'psd2'
+	CmPS2CRD3Tag               CmAToB0Tag = 'p'<<24 | 's'<<16 | 'd'<<8 | '3' // 'psd3'
+	CmPS2CSATag                CmAToB0Tag = 'p'<<24 | 's'<<16 | '2'<<8 | 's' // 'ps2s'
+	CmPS2RenderingIntentTag    CmAToB0Tag = 'p'<<24 | 's'<<16 | '2'<<8 | 'i' // 'ps2i'
+	CmPreview0Tag              CmAToB0Tag = 'p'<<24 | 'r'<<16 | 'e'<<8 | '0' // 'pre0'
+	CmPreview1Tag              CmAToB0Tag = 'p'<<24 | 'r'<<16 | 'e'<<8 | '1' // 'pre1'
+	CmPreview2Tag              CmAToB0Tag = 'p'<<24 | 'r'<<16 | 'e'<<8 | '2' // 'pre2'
+	CmProfileDescriptionTag    CmAToB0Tag = 'd'<<24 | 'e'<<16 | 's'<<8 | 'c' // 'desc'
+	CmProfileSequenceDescTag   CmAToB0Tag = 'p'<<24 | 's'<<16 | 'e'<<8 | 'q' // 'pseq'
+	CmRedColorantTag           CmAToB0Tag = 'r'<<24 | 'X'<<16 | 'Y'<<8 | 'Z' // 'rXYZ'
+	CmRedTRCTag                CmAToB0Tag = 'r'<<24 | 'T'<<16 | 'R'<<8 | 'C' // 'rTRC'
+	CmScreeningDescTag         CmAToB0Tag = 's'<<24 | 'c'<<16 | 'r'<<8 | 'd' // 'scrd'
+	CmScreeningTag             CmAToB0Tag = 's'<<24 | 'c'<<16 | 'r'<<8 | 'n' // 'scrn'
+	CmTechnologyTag            CmAToB0Tag = 't'<<24 | 'e'<<16 | 'c'<<8 | 'h' // 'tech'
+	CmUcrBgTag                 CmAToB0Tag = 'b'<<24 | 'f'<<16 | 'd'<<8 | ' ' // 'bfd '
+	CmViewingConditionsDescTag CmAToB0Tag = 'v'<<24 | 'u'<<16 | 'e'<<8 | 'd' // 'vued'
+	CmViewingConditionsTag     CmAToB0Tag = 'v'<<24 | 'i'<<16 | 'e'<<8 | 'w' // 'view'
 )
 
-func (e Cm) String() string {
+func (e CmAToB0Tag) String() string {
 	switch e {
-	case Cm10CLRData:
-		return "Cm10CLRData"
-	case Cm11CLRData:
-		return "Cm11CLRData"
-	case Cm12CLRData:
-		return "Cm12CLRData"
-	case Cm13CLRData:
-		return "Cm13CLRData"
-	case Cm14CLRData:
-		return "Cm14CLRData"
-	case Cm15CLRData:
-		return "Cm15CLRData"
-	case Cm16_8ColorPacking:
-		return "Cm16_8ColorPacking"
-	case Cm24_8ColorPacking:
-		return "Cm24_8ColorPacking"
-	case Cm32_16ColorPacking:
-		return "Cm32_16ColorPacking"
-	case Cm32_32ColorPacking:
-		return "Cm32_32ColorPacking"
-	case Cm32_8ColorPacking:
-		return "Cm32_8ColorPacking"
-	case Cm3CLRData:
-		return "Cm3CLRData"
-	case Cm40_8ColorPacking:
-		return "Cm40_8ColorPacking"
-	case Cm48_16ColorPacking:
-		return "Cm48_16ColorPacking"
-	case Cm48_8ColorPacking:
-		return "Cm48_8ColorPacking"
-	case Cm4CLRData:
-		return "Cm4CLRData"
-	case Cm56_8ColorPacking:
-		return "Cm56_8ColorPacking"
-	case Cm5CLRData:
-		return "Cm5CLRData"
-	case Cm64_16ColorPacking:
-		return "Cm64_16ColorPacking"
-	case Cm64_8ColorPacking:
-		return "Cm64_8ColorPacking"
-	case Cm6CLRData:
-		return "Cm6CLRData"
-	case Cm7CLRData:
-		return "Cm7CLRData"
-	case Cm8CLRData:
-		return "Cm8CLRData"
-	case Cm8_8ColorPacking:
-		return "Cm8_8ColorPacking"
-	case Cm9CLRData:
-		return "Cm9CLRData"
-	case CmARGB32PmulSpace:
-		return "CmARGB32PmulSpace"
-	case CmARGB32Space:
-		return "CmARGB32Space"
-	case CmAToB0Tag:
-		return "CmAToB0Tag"
+	case CmAToB0TagValue:
+		return "CmAToB0TagValue"
 	case CmAToB1Tag:
 		return "CmAToB1Tag"
 	case CmAToB2Tag:
 		return "CmAToB2Tag"
-	case CmAbortWriteAccess:
-		return "CmAbortWriteAccess"
-	case CmAbsoluteColorimetric:
-		return "CmAbsoluteColorimetric"
-	case CmAbstractClass:
-		return "CmAbstractClass"
-	case CmAlphaFirstPacking:
-		return "CmAlphaFirstPacking"
-	case CmAlphaLastPacking:
-		return "CmAlphaLastPacking"
-	case CmAlphaPmulSpace:
-		return "CmAlphaPmulSpace"
-	case CmAlphaSpace:
-		return "CmAlphaSpace"
 	case CmBToA0Tag:
 		return "CmBToA0Tag"
 	case CmBToA1Tag:
 		return "CmBToA1Tag"
 	case CmBToA2Tag:
 		return "CmBToA2Tag"
-	case CmBeginAccess:
-		return "CmBeginAccess"
-	case CmBestMode:
-		return "CmBestMode"
-	case CmBinaryData:
-		return "CmBinaryData"
-	case CmBlackPointCompensationMask:
-		return "CmBlackPointCompensationMask"
 	case CmBlueColorantTag:
 		return "CmBlueColorantTag"
 	case CmBlueTRCTag:
 		return "CmBlueTRCTag"
-	case CmBufferBasedProfile:
-		return "CmBufferBasedProfile"
-	case CmCMSReservedFlagsMask:
-		return "CmCMSReservedFlagsMask"
-	case CmCMYData:
-		return "CmCMYData"
-	case CmCMYKData:
-		return "CmCMYKData"
-	case CmCS1ProfileVersion:
-		return "CmCS1ProfileVersion"
-	case CmCS2ProfileVersion:
-		return "CmCS2ProfileVersion"
 	case CmCalibrationDateTimeTag:
 		return "CmCalibrationDateTimeTag"
-	case CmCameraDeviceClass:
-		return "CmCameraDeviceClass"
 	case CmCharTargetTag:
 		return "CmCharTargetTag"
 	case CmChromaticAdaptationTag:
 		return "CmChromaticAdaptationTag"
-	case CmCloseAccess:
-		return "CmCloseAccess"
-	case CmColorSpaceClass:
-		return "CmColorSpaceClass"
 	case CmCopyrightTag:
 		return "CmCopyrightTag"
-	case CmDeviceAlreadyRegistered:
-		return "CmDeviceAlreadyRegistered"
-	case CmDeviceDBNotFoundErr:
-		return "CmDeviceDBNotFoundErr"
 	case CmDeviceMfgDescTag:
 		return "CmDeviceMfgDescTag"
 	case CmDeviceModelDescTag:
 		return "CmDeviceModelDescTag"
-	case CmDeviceNotRegistered:
-		return "CmDeviceNotRegistered"
-	case CmDeviceProfilesNotFound:
-		return "CmDeviceProfilesNotFound"
-	case CmDisplayClass:
-		return "CmDisplayClass"
-	case CmDisplayUse:
-		return "CmDisplayUse"
-	case CmEndAccess:
-		return "CmEndAccess"
-	case CmGamutCheckingMask:
-		return "CmGamutCheckingMask"
-	case CmGamutResult1Space:
-		return "CmGamutResult1Space"
-	case CmGamutResultSpace:
-		return "CmGamutResultSpace"
 	case CmGamutTag:
 		return "CmGamutTag"
-	case CmGray16LSpace:
-		return "CmGray16LSpace"
-	case CmGrayA16PmulSpace:
-		return "CmGrayA16PmulSpace"
-	case CmGrayA16Space:
-		return "CmGrayA16Space"
-	case CmGrayData:
-		return "CmGrayData"
 	case CmGrayTRCTag:
 		return "CmGrayTRCTag"
 	case CmGreenColorantTag:
 		return "CmGreenColorantTag"
 	case CmGreenTRCTag:
 		return "CmGreenTRCTag"
-	case CmHLSData:
-		return "CmHLSData"
-	case CmHSVData:
-		return "CmHSVData"
-	case CmICCProfileVersion21:
-		return "CmICCProfileVersion21"
-	case CmICCProfileVersion4:
-		return "CmICCProfileVersion4"
-	case CmICCReservedFlagsMask:
-		return "CmICCReservedFlagsMask"
-	case CmInputClass:
-		return "CmInputClass"
-	case CmInputUse:
-		return "CmInputUse"
-	case CmInternalCFErr:
-		return "CmInternalCFErr"
-	case CmInterpolationMask:
-		return "CmInterpolationMask"
-	case CmLabData:
-		return "CmLabData"
-	case CmLinkClass:
-		return "CmLinkClass"
-	case CmLittleEndianPacking:
-		return "CmLittleEndianPacking"
-	case CmLong10ColorPacking:
-		return "CmLong10ColorPacking"
 	case CmLuminanceTag:
 		return "CmLuminanceTag"
-	case CmLuvData:
-		return "CmLuvData"
-	case CmMCEightSpace:
-		return "CmMCEightSpace"
-	case CmMCFiveSpace:
-		return "CmMCFiveSpace"
-	case CmMCH5Data:
-		return "CmMCH5Data"
-	case CmMCH6Data:
-		return "CmMCH6Data"
-	case CmMCH7Data:
-		return "CmMCH7Data"
-	case CmMCH8Data:
-		return "CmMCH8Data"
-	case CmMCSevenSpace:
-		return "CmMCSevenSpace"
-	case CmMCSixSpace:
-		return "CmMCSixSpace"
-	case CmMacintosh:
-		return "CmMacintosh"
-	case CmMakeAndModelTag:
-		return "CmMakeAndModelTag"
 	case CmMeasurementTag:
 		return "CmMeasurementTag"
 	case CmMediaBlackPointTag:
 		return "CmMediaBlackPointTag"
 	case CmMediaWhitePointTag:
 		return "CmMediaWhitePointTag"
-	case CmMicrosoft:
-		return "CmMicrosoft"
 	case CmNamedColor2Tag:
 		return "CmNamedColor2Tag"
-	case CmNamedColorClass:
-		return "CmNamedColorClass"
 	case CmNamedColorTag:
 		return "CmNamedColorTag"
-	case CmNamedData:
-		return "CmNamedData"
-	case CmNamedIndexedSpace:
-		return "CmNamedIndexedSpace"
-	case CmNativeDisplayInfoTag:
-		return "CmNativeDisplayInfoTag"
-	case CmOriginalProfileLocationSize:
-		return "CmOriginalProfileLocationSize"
-	case CmOutputClass:
-		return "CmOutputClass"
-	case CmOutputUse:
-		return "CmOutputUse"
 	case CmPS2CRD0Tag:
 		return "CmPS2CRD0Tag"
 	case CmPS2CRD1Tag:
@@ -940,80 +415,62 @@ func (e Cm) String() string {
 		return "CmPS2CRD2Tag"
 	case CmPS2CRD3Tag:
 		return "CmPS2CRD3Tag"
-	case CmPS2CRDVMSizeTag:
-		return "CmPS2CRDVMSizeTag"
 	case CmPS2CSATag:
 		return "CmPS2CSATag"
 	case CmPS2RenderingIntentTag:
 		return "CmPS2RenderingIntentTag"
-	case CmPrefsSynchError:
-		return "CmPrefsSynchError"
 	case CmPreview0Tag:
 		return "CmPreview0Tag"
 	case CmPreview1Tag:
 		return "CmPreview1Tag"
 	case CmPreview2Tag:
 		return "CmPreview2Tag"
-	case CmProfileDescriptionMLTag:
-		return "CmProfileDescriptionMLTag"
 	case CmProfileDescriptionTag:
 		return "CmProfileDescriptionTag"
-	case CmProfileMajorVersionMask:
-		return "CmProfileMajorVersionMask"
 	case CmProfileSequenceDescTag:
 		return "CmProfileSequenceDescTag"
-	case CmProofDeviceClass:
-		return "CmProofDeviceClass"
-	case CmQualityMask:
-		return "CmQualityMask"
-	case CmRGBData:
-		return "CmRGBData"
 	case CmRedColorantTag:
 		return "CmRedColorantTag"
 	case CmRedTRCTag:
 		return "CmRedTRCTag"
-	case CmReservedSpace2:
-		return "CmReservedSpace2"
-	case CmReverseChannelPacking:
-		return "CmReverseChannelPacking"
-	case CmSRGBData:
-		return "CmSRGBData"
 	case CmScreeningDescTag:
 		return "CmScreeningDescTag"
 	case CmScreeningTag:
 		return "CmScreeningTag"
-	case CmSiliconGraphics:
-		return "CmSiliconGraphics"
-	case CmSolaris:
-		return "CmSolaris"
-	case CmTaligent:
-		return "CmTaligent"
 	case CmTechnologyTag:
 		return "CmTechnologyTag"
 	case CmUcrBgTag:
 		return "CmUcrBgTag"
-	case CmVideoCardGammaTag:
-		return "CmVideoCardGammaTag"
 	case CmViewingConditionsDescTag:
 		return "CmViewingConditionsDescTag"
 	case CmViewingConditionsTag:
 		return "CmViewingConditionsTag"
-	case CmWord565ColorPacking:
-		return "CmWord565ColorPacking"
-	case CmWord5ColorPacking:
-		return "CmWord5ColorPacking"
-	case CmXYZData:
-		return "CmXYZData"
-	case CmYCbCrData:
-		return "CmYCbCrData"
-	case CmYxyData:
-		return "CmYxyData"
 	default:
-		return fmt.Sprintf("Cm(%d)", e)
+		return fmt.Sprintf("CmAToB0Tag(%d)", e)
 	}
 }
 
-type CmBlackPoint uint
+type CmAsciiData uint32
+
+const (
+	// CmAsciiDataValue: ASCII data.
+	CmAsciiDataValue CmAsciiData = 0
+	// CmBinaryData: Binary data.
+	CmBinaryData CmAsciiData = 1
+)
+
+func (e CmAsciiData) String() string {
+	switch e {
+	case CmAsciiDataValue:
+		return "CmAsciiDataValue"
+	case CmBinaryData:
+		return "CmBinaryData"
+	default:
+		return fmt.Sprintf("CmAsciiData(%d)", e)
+	}
+}
+
+type CmBlackPoint uint32
 
 const (
 	CmBlackPointCompensation CmBlackPoint = 1
@@ -1028,7 +485,7 @@ func (e CmBlackPoint) String() string {
 	}
 }
 
-type CmCS1 uint
+type CmCS1 uint32
 
 const (
 	// CmCS1ChromTag: The tag signature for the profile chromaticities tag whose element data specifies the XYZ chromaticities for the six primary and secondary colors (red, green, blue, cyan, magenta, and yellow).
@@ -1056,14 +513,14 @@ func (e CmCS1) String() string {
 	}
 }
 
-type CmColorSpace uint
+type CmColorSpace int32
 
 const (
 	CmColorSpaceAlphaMask         CmColorSpace = 0x80
 	CmColorSpaceEncodingMask      CmColorSpace = 0xf0000
 	CmColorSpacePackingMask       CmColorSpace = 0xff00
 	CmColorSpacePremulAlphaMask   CmColorSpace = 0x40
-	CmColorSpaceReservedMask      CmColorSpace = 0xfff00000
+	CmColorSpaceReservedMask      CmColorSpace = -1048576
 	CmColorSpaceSpaceAndAlphaMask CmColorSpace = 0xff
 	CmColorSpaceSpaceMask         CmColorSpace = 0x3f
 )
@@ -1089,7 +546,7 @@ func (e CmColorSpace) String() string {
 	}
 }
 
-type CmCurrent uint
+type CmCurrent uint32
 
 const (
 	CmCurrentDeviceInfoVersion  CmCurrent = 65536
@@ -1105,7 +562,7 @@ func (e CmCurrent) String() string {
 	}
 }
 
-type CmDefault uint
+type CmDefault uint32
 
 const (
 	CmDefaultDeviceID  CmDefault = 0
@@ -1121,7 +578,7 @@ func (e CmDefault) String() string {
 	}
 }
 
-type CmDevice uint
+type CmDevice uint32
 
 const (
 	CmDeviceInfoVersion1        CmDevice = 0x10000
@@ -1140,14 +597,49 @@ func (e CmDevice) String() string {
 	}
 }
 
-type CmDeviceState uint
+type CmDeviceDBNotFoundErr int32
 
 const (
-	CmDeviceStateAppleRsvdBits  CmDeviceState = 0xff00ffff
+	// CmDeviceAlreadyRegistered: Device already registered; returned by a CM device integration routine.
+	CmDeviceAlreadyRegistered CmDeviceDBNotFoundErr = -4228
+	// CmDeviceDBNotFoundErrValue: Preferences not found or loaded; returned by a CM device integration routine.
+	CmDeviceDBNotFoundErrValue CmDeviceDBNotFoundErr = -4227
+	// CmDeviceNotRegistered: Device not found; returned by a CM device integration routine.
+	CmDeviceNotRegistered CmDeviceDBNotFoundErr = -4229
+	// CmDeviceProfilesNotFound: Profiles not found; returned by a CM device integration routine.
+	CmDeviceProfilesNotFound CmDeviceDBNotFoundErr = -4230
+	// CmInternalCFErr: CoreFoundation failure; returned by a CM device integration routine.
+	CmInternalCFErr   CmDeviceDBNotFoundErr = -4231
+	CmPrefsSynchError CmDeviceDBNotFoundErr = -4232
+)
+
+func (e CmDeviceDBNotFoundErr) String() string {
+	switch e {
+	case CmDeviceAlreadyRegistered:
+		return "CmDeviceAlreadyRegistered"
+	case CmDeviceDBNotFoundErrValue:
+		return "CmDeviceDBNotFoundErrValue"
+	case CmDeviceNotRegistered:
+		return "CmDeviceNotRegistered"
+	case CmDeviceProfilesNotFound:
+		return "CmDeviceProfilesNotFound"
+	case CmInternalCFErr:
+		return "CmInternalCFErr"
+	case CmPrefsSynchError:
+		return "CmPrefsSynchError"
+	default:
+		return fmt.Sprintf("CmDeviceDBNotFoundErr(%d)", e)
+	}
+}
+
+type CmDeviceState int32
+
+const (
+	CmDeviceStateAppleRsvdBits  CmDeviceState = -16711681
 	CmDeviceStateBusy           CmDeviceState = 0x2
 	CmDeviceStateDefault        CmDeviceState = 0
 	CmDeviceStateDeviceRsvdBits CmDeviceState = 0xff0000
-	CmDeviceStateForceNotify    CmDeviceState = 0x80000000
+	CmDeviceStateForceNotify    CmDeviceState = -2147483648
 	CmDeviceStateOffline        CmDeviceState = 0x1
 )
 
@@ -1170,7 +662,7 @@ func (e CmDeviceState) String() string {
 	}
 }
 
-type CmEmbedded uint
+type CmEmbedded uint32
 
 const (
 	// CmEmbeddedProfile: 0 is not embedded profile, 1 is embedded profile
@@ -1190,7 +682,303 @@ func (e CmEmbedded) String() string {
 	}
 }
 
-type CmIlluminant uint
+type CmFlare0 uint32
+
+const (
+	CmFlare0Value CmFlare0 = 0
+	CmFlare100    CmFlare0 = 0x1
+)
+
+func (e CmFlare0) String() string {
+	switch e {
+	case CmFlare0Value:
+		return "CmFlare0Value"
+	case CmFlare100:
+		return "CmFlare100"
+	default:
+		return fmt.Sprintf("CmFlare0(%d)", e)
+	}
+}
+
+type CmGeometryUnknown uint32
+
+const (
+	CmGeometry045or450     CmGeometryUnknown = 0x1
+	CmGeometry0dord0       CmGeometryUnknown = 0x2
+	CmGeometryUnknownValue CmGeometryUnknown = 0
+)
+
+func (e CmGeometryUnknown) String() string {
+	switch e {
+	case CmGeometry045or450:
+		return "CmGeometry045or450"
+	case CmGeometry0dord0:
+		return "CmGeometry0dord0"
+	case CmGeometryUnknownValue:
+		return "CmGeometryUnknownValue"
+	default:
+		return fmt.Sprintf("CmGeometryUnknown(%d)", e)
+	}
+}
+
+type CmGray8Space uint32
+
+const (
+	CmARGB32PmulSpace CmGray8Space = 6337
+	// CmARGB32Space: # Discussion
+	CmARGB32Space      CmGray8Space = 6273
+	CmARGB64LPmulSpace CmGray8Space = 31425
+	CmARGB64LSpace     CmGray8Space = 31361
+	CmARGB64PmulSpace  CmGray8Space = 15041
+	CmARGB64Space      CmGray8Space = 14977
+	// CmCMYK32Space: A CMYK color space composed of cyan, magenta, yellow, and black components whose values are packed with 8 bits of storage per component.
+	CmCMYK32Space  CmGray8Space = 2050
+	CmCMYK64LSpace CmGray8Space = 27138
+	// CmCMYK64Space: A CMYK color space composed of cyan, magenta, yellow, and black components whose values are packed with 16 bits of storage per component.
+	CmCMYK64Space CmGray8Space = 10754
+	// CmGamutResult1Space: # Discussion
+	CmGamutResult1Space CmGray8Space = 2828
+	CmGray16LSpace      CmGray8Space = 16394
+	// CmGray16Space: A luminance color space with a single 16-bit component, gray.
+	CmGray16Space       CmGray8Space = 10
+	CmGray8SpaceValue   CmGray8Space = 10250
+	CmGrayA16PmulSpace  CmGray8Space = 8394
+	CmGrayA16Space      CmGray8Space = 8330
+	CmGrayA32LPmulSpace CmGray8Space = 16586
+	CmGrayA32LSpace     CmGray8Space = 16522
+	CmGrayA32PmulSpace  CmGray8Space = 202
+	// CmGrayA32Space: A luminance color space with two components, a gray component followed by an alpha channel component.
+	CmGrayA32Space CmGray8Space = 138
+	// CmHLS32Space: An HLS color space composed of hue, lightness, and saturation components whose values are packed with 10 bits of storage per component.
+	CmHLS32Space CmGray8Space = 2564
+	// CmHSV32Space: An HSV color space composed of hue, saturation, and value components whose values are packed with 10 bits of storage per component.
+	CmHSV32Space CmGray8Space = 2563
+	// CmLAB24Space: # Discussion
+	CmLAB24Space CmGray8Space = 8456
+	// CmLAB32Space: # Discussion
+	CmLAB32Space  CmGray8Space = 2568
+	CmLAB48LSpace CmGray8Space = 26888
+	// CmLAB48Space: # Discussion
+	CmLAB48Space CmGray8Space = 10504
+	// CmLUV32Space: An L*u*v* color space composed of L*, u*, and v* components whose values are packed with 10 bits per component.
+	CmLUV32Space CmGray8Space = 2567
+	// CmMCEight8Space: An eight-channel multichannel (HiFi) data color space, whose values are packed with 8 bits per component.
+	CmMCEight8Space CmGray8Space = 9492
+	// CmMCFive8Space: A five-channel multichannel (HiFi) data color space, whose values are packed with 8 bits per component.
+	CmMCFive8Space CmGray8Space = 8721
+	// CmMCSeven8Space: A seven-channel multichannel (HiFi) data color space, whose values are packed with 8 bits per component.
+	CmMCSeven8Space CmGray8Space = 9235
+	// CmMCSix8Space: A six-channel multichannel (HiFi) data color space, whose values are packed with 8 bits per component.
+	CmMCSix8Space          CmGray8Space = 8978
+	CmNamedIndexed32LSpace CmGray8Space = 26384
+	// CmNamedIndexed32Space: A color space where each color is stored as a single 32-bit value, specifying an index into a named color space.
+	CmNamedIndexed32Space CmGray8Space = 10000
+	CmRGB16LSpace         CmGray8Space = 17665
+	// CmRGB16Space: An RGB color space composed of red, green, and blue components whose values are packed with 5 bits of storage per component.
+	CmRGB16Space CmGray8Space = 1281
+	// CmRGB24Space: An RGB color space composed of red, green, and blue components whose values are packed with 8 bits of storage per component.
+	CmRGB24Space CmGray8Space = 8449
+	// CmRGB32Space: An RGB color space composed of red, green, and blue components whose values are packed with 8 bits of storage per component.
+	CmRGB32Space  CmGray8Space = 2049
+	CmRGB48LSpace CmGray8Space = 26881
+	// CmRGB48Space: An RGB color space composed of red, green, and blue components whose values are packed with 16 bits of storage per component.
+	CmRGB48Space      CmGray8Space = 10497
+	CmRGB565LSpace    CmGray8Space = 17921
+	CmRGB565Space     CmGray8Space = 1537
+	CmRGBA32PmulSpace CmGray8Space = 2241
+	// CmRGBA32Space: An RGB color space composed of red, green, and blue color value components, followed by an alpha channel component.
+	CmRGBA32Space      CmGray8Space = 2177
+	CmRGBA64LPmulSpace CmGray8Space = 27329
+	CmRGBA64LSpace     CmGray8Space = 27265
+	CmRGBA64PmulSpace  CmGray8Space = 10945
+	CmRGBA64Space      CmGray8Space = 10881
+	CmXYZ24Space       CmGray8Space = 8454
+	// CmXYZ32Space: An XYZ color space composed of X, Y, and Z components whose values are packed with 10 bits per component.
+	CmXYZ32Space  CmGray8Space = 2566
+	CmXYZ48LSpace CmGray8Space = 26886
+	CmXYZ48Space  CmGray8Space = 10502
+	// CmYXY32Space: A Yxy color space composed of Y, x, and y components whose values are packed with 10 bits of storage per component.
+	CmYXY32Space CmGray8Space = 2565
+)
+
+func (e CmGray8Space) String() string {
+	switch e {
+	case CmARGB32PmulSpace:
+		return "CmARGB32PmulSpace"
+	case CmARGB32Space:
+		return "CmARGB32Space"
+	case CmARGB64LPmulSpace:
+		return "CmARGB64LPmulSpace"
+	case CmARGB64LSpace:
+		return "CmARGB64LSpace"
+	case CmARGB64PmulSpace:
+		return "CmARGB64PmulSpace"
+	case CmARGB64Space:
+		return "CmARGB64Space"
+	case CmCMYK32Space:
+		return "CmCMYK32Space"
+	case CmCMYK64LSpace:
+		return "CmCMYK64LSpace"
+	case CmCMYK64Space:
+		return "CmCMYK64Space"
+	case CmGamutResult1Space:
+		return "CmGamutResult1Space"
+	case CmGray16LSpace:
+		return "CmGray16LSpace"
+	case CmGray16Space:
+		return "CmGray16Space"
+	case CmGray8SpaceValue:
+		return "CmGray8SpaceValue"
+	case CmGrayA16PmulSpace:
+		return "CmGrayA16PmulSpace"
+	case CmGrayA16Space:
+		return "CmGrayA16Space"
+	case CmGrayA32LPmulSpace:
+		return "CmGrayA32LPmulSpace"
+	case CmGrayA32LSpace:
+		return "CmGrayA32LSpace"
+	case CmGrayA32PmulSpace:
+		return "CmGrayA32PmulSpace"
+	case CmGrayA32Space:
+		return "CmGrayA32Space"
+	case CmHLS32Space:
+		return "CmHLS32Space"
+	case CmHSV32Space:
+		return "CmHSV32Space"
+	case CmLAB24Space:
+		return "CmLAB24Space"
+	case CmLAB32Space:
+		return "CmLAB32Space"
+	case CmLAB48LSpace:
+		return "CmLAB48LSpace"
+	case CmLAB48Space:
+		return "CmLAB48Space"
+	case CmLUV32Space:
+		return "CmLUV32Space"
+	case CmMCEight8Space:
+		return "CmMCEight8Space"
+	case CmMCFive8Space:
+		return "CmMCFive8Space"
+	case CmMCSeven8Space:
+		return "CmMCSeven8Space"
+	case CmMCSix8Space:
+		return "CmMCSix8Space"
+	case CmNamedIndexed32LSpace:
+		return "CmNamedIndexed32LSpace"
+	case CmNamedIndexed32Space:
+		return "CmNamedIndexed32Space"
+	case CmRGB16LSpace:
+		return "CmRGB16LSpace"
+	case CmRGB16Space:
+		return "CmRGB16Space"
+	case CmRGB24Space:
+		return "CmRGB24Space"
+	case CmRGB32Space:
+		return "CmRGB32Space"
+	case CmRGB48LSpace:
+		return "CmRGB48LSpace"
+	case CmRGB48Space:
+		return "CmRGB48Space"
+	case CmRGB565LSpace:
+		return "CmRGB565LSpace"
+	case CmRGB565Space:
+		return "CmRGB565Space"
+	case CmRGBA32PmulSpace:
+		return "CmRGBA32PmulSpace"
+	case CmRGBA32Space:
+		return "CmRGBA32Space"
+	case CmRGBA64LPmulSpace:
+		return "CmRGBA64LPmulSpace"
+	case CmRGBA64LSpace:
+		return "CmRGBA64LSpace"
+	case CmRGBA64PmulSpace:
+		return "CmRGBA64PmulSpace"
+	case CmRGBA64Space:
+		return "CmRGBA64Space"
+	case CmXYZ24Space:
+		return "CmXYZ24Space"
+	case CmXYZ32Space:
+		return "CmXYZ32Space"
+	case CmXYZ48LSpace:
+		return "CmXYZ48LSpace"
+	case CmXYZ48Space:
+		return "CmXYZ48Space"
+	case CmYXY32Space:
+		return "CmYXY32Space"
+	default:
+		return fmt.Sprintf("CmGray8Space(%d)", e)
+	}
+}
+
+type CmICCProfileVersion4 uint32
+
+const (
+	CmCS1ProfileVersion       CmICCProfileVersion4 = 0x100
+	CmCS2ProfileVersion       CmICCProfileVersion4 = 33554432
+	CmICCProfileVersion2      CmICCProfileVersion4 = 0x2000000
+	CmICCProfileVersion21     CmICCProfileVersion4 = 0x2100000
+	CmICCProfileVersion4Value CmICCProfileVersion4 = 0x4000000
+)
+
+func (e CmICCProfileVersion4) String() string {
+	switch e {
+	case CmCS1ProfileVersion:
+		return "CmCS1ProfileVersion"
+	case CmCS2ProfileVersion:
+		return "CmCS2ProfileVersion"
+	case CmICCProfileVersion21:
+		return "CmICCProfileVersion21"
+	case CmICCProfileVersion4Value:
+		return "CmICCProfileVersion4Value"
+	default:
+		return fmt.Sprintf("CmICCProfileVersion4(%d)", e)
+	}
+}
+
+type CmICCReservedFlagsMask int32
+
+const (
+	CmBlackPointCompensationMask CmICCReservedFlagsMask = 0x4
+	// CmCMSReservedFlagsMask: # Discussion
+	CmCMSReservedFlagsMask CmICCReservedFlagsMask = -65536
+	// CmEmbeddedMask: This mask provides access to bit 0 of the `flags` field, which specifies whether the profile is embedded.
+	CmEmbeddedMask CmICCReservedFlagsMask = 0x1
+	// CmEmbeddedUseMask: # Discussion
+	CmEmbeddedUseMask CmICCReservedFlagsMask = 0x2
+	// CmGamutCheckingMask: # Discussion
+	CmGamutCheckingMask CmICCReservedFlagsMask = 0x80000
+	// CmICCReservedFlagsMaskValue: # Discussion
+	CmICCReservedFlagsMaskValue CmICCReservedFlagsMask = 0xffff
+	// CmInterpolationMask: # Discussion
+	CmInterpolationMask CmICCReservedFlagsMask = 0x40000
+	// CmQualityMask: # Discussion
+	CmQualityMask CmICCReservedFlagsMask = 0x30000
+)
+
+func (e CmICCReservedFlagsMask) String() string {
+	switch e {
+	case CmBlackPointCompensationMask:
+		return "CmBlackPointCompensationMask"
+	case CmCMSReservedFlagsMask:
+		return "CmCMSReservedFlagsMask"
+	case CmEmbeddedMask:
+		return "CmEmbeddedMask"
+	case CmEmbeddedUseMask:
+		return "CmEmbeddedUseMask"
+	case CmGamutCheckingMask:
+		return "CmGamutCheckingMask"
+	case CmICCReservedFlagsMaskValue:
+		return "CmICCReservedFlagsMaskValue"
+	case CmInterpolationMask:
+		return "CmInterpolationMask"
+	case CmQualityMask:
+		return "CmQualityMask"
+	default:
+		return fmt.Sprintf("CmICCReservedFlagsMask(%d)", e)
+	}
+}
+
+type CmIlluminant uint32
 
 const (
 	CmIlluminantA         CmIlluminant = 0x6
@@ -1229,7 +1017,71 @@ func (e CmIlluminant) String() string {
 	}
 }
 
-type CmIterate uint
+type CmInputClass uint32
+
+const (
+	// CmAbstractClass: An abstract profile.
+	CmAbstractClass CmInputClass = 'a'<<24 | 'b'<<16 | 's'<<8 | 't' // 'abst'
+	// CmColorSpaceClass: A color space profile.
+	CmColorSpaceClass CmInputClass = 's'<<24 | 'p'<<16 | 'a'<<8 | 'c' // 'spac'
+	// CmDisplayClass: A display device profile defined for a monitor.
+	CmDisplayClass CmInputClass = 'm'<<24 | 'n'<<16 | 't'<<8 | 'r' // 'mntr'
+	// CmInputClassValue: An input device profile defined for a scanner.
+	CmInputClassValue CmInputClass = 's'<<24 | 'c'<<16 | 'n'<<8 | 'r' // 'scnr'
+	// CmLinkClass: A device link profile.
+	CmLinkClass CmInputClass = 'l'<<24 | 'i'<<16 | 'n'<<8 | 'k' // 'link'
+	// CmNamedColorClass: A named color space profile.
+	CmNamedColorClass CmInputClass = 'n'<<24 | 'm'<<16 | 'c'<<8 | 'l' // 'nmcl'
+	// CmOutputClass: An output device profile defined for a printer.
+	CmOutputClass CmInputClass = 'p'<<24 | 'r'<<16 | 't'<<8 | 'r' // 'prtr'
+)
+
+func (e CmInputClass) String() string {
+	switch e {
+	case CmAbstractClass:
+		return "CmAbstractClass"
+	case CmColorSpaceClass:
+		return "CmColorSpaceClass"
+	case CmDisplayClass:
+		return "CmDisplayClass"
+	case CmInputClassValue:
+		return "CmInputClassValue"
+	case CmLinkClass:
+		return "CmLinkClass"
+	case CmNamedColorClass:
+		return "CmNamedColorClass"
+	case CmOutputClass:
+		return "CmOutputClass"
+	default:
+		return fmt.Sprintf("CmInputClass(%d)", e)
+	}
+}
+
+type CmInputUse uint32
+
+const (
+	CmDisplayUse    CmInputUse = 'd'<<24 | 'p'<<16 | 'l'<<8 | 'y' // 'dply'
+	CmInputUseValue CmInputUse = 'i'<<24 | 'n'<<16 | 'p'<<8 | 't' // 'inpt'
+	CmOutputUse     CmInputUse = 'o'<<24 | 'u'<<16 | 't'<<8 | 'p' // 'outp'
+	CmProofUse      CmInputUse = 'p'<<24 | 'r'<<16 | 'u'<<8 | 'f' // 'pruf'
+)
+
+func (e CmInputUse) String() string {
+	switch e {
+	case CmDisplayUse:
+		return "CmDisplayUse"
+	case CmInputUseValue:
+		return "CmInputUseValue"
+	case CmOutputUse:
+		return "CmOutputUse"
+	case CmProofUse:
+		return "CmProofUse"
+	default:
+		return fmt.Sprintf("CmInputUse(%d)", e)
+	}
+}
+
+type CmIterate uint32
 
 const (
 	// CmIterateAllDeviceProfiles: Iterate all profiles, without replacement.
@@ -1260,7 +1112,34 @@ func (e CmIterate) String() string {
 	}
 }
 
-type CmMagic uint
+type CmMacintosh uint32
+
+const (
+	CmMacintoshValue  CmMacintosh = 'A'<<24 | 'P'<<16 | 'P'<<8 | 'L' // 'APPL'
+	CmMicrosoft       CmMacintosh = 'M'<<24 | 'S'<<16 | 'F'<<8 | 'T' // 'MSFT'
+	CmSiliconGraphics CmMacintosh = 'S'<<24 | 'G'<<16 | 'I'<<8 | ' ' // 'SGI '
+	CmSolaris         CmMacintosh = 'S'<<24 | 'U'<<16 | 'N'<<8 | 'W' // 'SUNW'
+	CmTaligent        CmMacintosh = 'T'<<24 | 'G'<<16 | 'N'<<8 | 'T' // 'TGNT'
+)
+
+func (e CmMacintosh) String() string {
+	switch e {
+	case CmMacintoshValue:
+		return "CmMacintoshValue"
+	case CmMicrosoft:
+		return "CmMicrosoft"
+	case CmSiliconGraphics:
+		return "CmSiliconGraphics"
+	case CmSolaris:
+		return "CmSolaris"
+	case CmTaligent:
+		return "CmTaligent"
+	default:
+		return fmt.Sprintf("CmMacintosh(%d)", e)
+	}
+}
+
+type CmMagic uint32
 
 const (
 	CmMagicNumber CmMagic = 'a'<<24 | 'c'<<16 | 's'<<8 | 'p' // 'acsp'
@@ -1275,7 +1154,249 @@ func (e CmMagic) String() string {
 	}
 }
 
-type CmNumHeader uint
+type CmNoColorPacking uint32
+
+const (
+	Cm16_8ColorPacking CmNoColorPacking = 0x2000
+	// Cm24_8ColorPacking: The color values for three 8-bit color channels are stored in consecutive bytes, for a total of 24 bits.
+	Cm24_8ColorPacking CmNoColorPacking = 0x2100
+	// Cm32_16ColorPacking: The color values for two 16-bit color channels are stored in a 32-bit word.
+	Cm32_16ColorPacking CmNoColorPacking = 0x2600
+	// Cm32_32ColorPacking: The color value for a 32-bit color channel is stored in a 32-bit word.
+	Cm32_32ColorPacking CmNoColorPacking = 0x2700
+	// Cm32_8ColorPacking: The color values for four 8-bit color channels are stored in consecutive bytes, for a total of 32 bits.
+	Cm32_8ColorPacking CmNoColorPacking = 2048
+	// Cm40_8ColorPacking: The color values for five 8-bit color channels are stored in consecutive bytes, for a total of 40 bits.
+	Cm40_8ColorPacking CmNoColorPacking = 0x2200
+	// Cm48_16ColorPacking: The color values for three 16-bit color channels are stored in 48 consecutive bits.
+	Cm48_16ColorPacking CmNoColorPacking = 0x2900
+	// Cm48_8ColorPacking: The color values for six 8-bit color channels are stored in consecutive bytes, for a total of 48 bits.
+	Cm48_8ColorPacking CmNoColorPacking = 0x2300
+	// Cm56_8ColorPacking: The color values for seven 8-bit color channels are stored in consecutive bytes, for a total of 56 bits.
+	Cm56_8ColorPacking CmNoColorPacking = 0x2400
+	// Cm64_16ColorPacking: The color values for four 16-bit color channels are stored in 64 consecutive bits.
+	Cm64_16ColorPacking CmNoColorPacking = 0x2a00
+	// Cm64_8ColorPacking: The color values for eight 8-bit color channels are stored in consecutive bytes, for a total of 64 bits.
+	Cm64_8ColorPacking CmNoColorPacking = 0x2500
+	Cm8_8ColorPacking  CmNoColorPacking = 0x2800
+	// CmAlphaFirstPacking: An alpha channel is added to the color value as its first component.
+	CmAlphaFirstPacking   CmNoColorPacking = 0x1000
+	CmAlphaLastPacking    CmNoColorPacking = 0
+	CmLittleEndianPacking CmNoColorPacking = 0x4000
+	// CmLong10ColorPacking: The color values for three 10-bit color channels are stored consecutively in a 32-bit long, with the two highest order bits unused.
+	CmLong10ColorPacking CmNoColorPacking = 0xa00
+	// CmLong8ColorPacking: # Discussion
+	CmLong8ColorPacking CmNoColorPacking = 0x800
+	// CmNoColorPackingValue: This constant is not used for ColorSync bitmaps.
+	CmNoColorPackingValue CmNoColorPacking = 0
+	// CmOneBitDirectPacking: One bit is used as the pixel format.
+	CmOneBitDirectPacking   CmNoColorPacking = 0xb00
+	CmReverseChannelPacking CmNoColorPacking = 0x8000
+	CmWord565ColorPacking   CmNoColorPacking = 0x600
+	// CmWord5ColorPacking: The color values for three 5-bit color channels are stored consecutively in 16-bits, with the highest order bit unused.
+	CmWord5ColorPacking CmNoColorPacking = 0x500
+)
+
+func (e CmNoColorPacking) String() string {
+	switch e {
+	case Cm16_8ColorPacking:
+		return "Cm16_8ColorPacking"
+	case Cm24_8ColorPacking:
+		return "Cm24_8ColorPacking"
+	case Cm32_16ColorPacking:
+		return "Cm32_16ColorPacking"
+	case Cm32_32ColorPacking:
+		return "Cm32_32ColorPacking"
+	case Cm32_8ColorPacking:
+		return "Cm32_8ColorPacking"
+	case Cm40_8ColorPacking:
+		return "Cm40_8ColorPacking"
+	case Cm48_16ColorPacking:
+		return "Cm48_16ColorPacking"
+	case Cm48_8ColorPacking:
+		return "Cm48_8ColorPacking"
+	case Cm56_8ColorPacking:
+		return "Cm56_8ColorPacking"
+	case Cm64_16ColorPacking:
+		return "Cm64_16ColorPacking"
+	case Cm64_8ColorPacking:
+		return "Cm64_8ColorPacking"
+	case Cm8_8ColorPacking:
+		return "Cm8_8ColorPacking"
+	case CmAlphaFirstPacking:
+		return "CmAlphaFirstPacking"
+	case CmAlphaLastPacking:
+		return "CmAlphaLastPacking"
+	case CmLittleEndianPacking:
+		return "CmLittleEndianPacking"
+	case CmLong10ColorPacking:
+		return "CmLong10ColorPacking"
+	case CmOneBitDirectPacking:
+		return "CmOneBitDirectPacking"
+	case CmReverseChannelPacking:
+		return "CmReverseChannelPacking"
+	case CmWord565ColorPacking:
+		return "CmWord565ColorPacking"
+	case CmWord5ColorPacking:
+		return "CmWord5ColorPacking"
+	default:
+		return fmt.Sprintf("CmNoColorPacking(%d)", e)
+	}
+}
+
+type CmNoProfileBase uint32
+
+const (
+	CmBufferBasedProfile CmNoProfileBase = 6
+	// CmNoProfileBaseValue: The profile is temporary.
+	CmNoProfileBaseValue CmNoProfileBase = 0
+	CmPathBasedProfile   CmNoProfileBase = 5
+)
+
+func (e CmNoProfileBase) String() string {
+	switch e {
+	case CmBufferBasedProfile:
+		return "CmBufferBasedProfile"
+	case CmNoProfileBaseValue:
+		return "CmNoProfileBaseValue"
+	case CmPathBasedProfile:
+		return "CmPathBasedProfile"
+	default:
+		return fmt.Sprintf("CmNoProfileBase(%d)", e)
+	}
+}
+
+type CmNoSpace uint32
+
+const (
+	// CmAlphaPmulSpace: A premultiplied alpha channel component is added to the color value.
+	CmAlphaPmulSpace CmNoSpace = 0x40
+	// CmAlphaSpace: An alpha channel component is added to the color value.
+	CmAlphaSpace CmNoSpace = 0x80
+	// CmCMYKSpace: A CMYK color space composed of cyan, magenta, yellow, and black.
+	CmCMYKSpace CmNoSpace = 0x2
+	// CmGamutResultSpace: # Discussion
+	CmGamutResultSpace CmNoSpace = 0xc
+	CmGrayAPmulSpace   CmNoSpace = 202
+	// CmGrayASpace: A luminance color space with two components, a gray component followed by an alpha channel component.
+	CmGrayASpace CmNoSpace = 138
+	// CmGraySpace: A luminance color space with a single component, gray.
+	CmGraySpace CmNoSpace = 0xa
+	// CmHLSSpace: An HLS color space composed of hue, lightness, and saturation components.
+	CmHLSSpace CmNoSpace = 0x4
+	// CmHSVSpace: An HSV color space composed of hue, saturation, and value components.
+	CmHSVSpace CmNoSpace = 0x3
+	// CmLABSpace: An L*a*b* color space composed of L*, a*, b* components.
+	CmLABSpace CmNoSpace = 0x8
+	// CmLUVSpace: An L*u*v* color space composed of L*, u*, and v* components.
+	CmLUVSpace CmNoSpace = 0x7
+	// CmMCEightSpace: An eight-channel multichannel (HiFi) data color space.
+	CmMCEightSpace CmNoSpace = 0x14
+	// CmMCFiveSpace: A five-channel multichannel (HiFi) data color space.
+	CmMCFiveSpace CmNoSpace = 0x11
+	// CmMCSevenSpace: A seven-channel multichannel (HiFi) data color space.
+	CmMCSevenSpace CmNoSpace = 0x13
+	// CmMCSixSpace: A six-channel multichannel (HiFi) data color space.
+	CmMCSixSpace CmNoSpace = 0x12
+	// CmNamedIndexedSpace: A named indexed color space.
+	CmNamedIndexedSpace CmNoSpace = 0x10
+	// CmNoSpaceValue: The ColorSync Manager does not use this constant.
+	CmNoSpaceValue  CmNoSpace = 0
+	CmRGBAPmulSpace CmNoSpace = 193
+	// CmRGBASpace: # Discussion
+	CmRGBASpace CmNoSpace = 129
+	// CmRGBSpace: An RGB color space composed of red, green, and blue components.
+	CmRGBSpace CmNoSpace = 0x1
+	// CmReservedSpace1: This field is reserved for use by QuickDraw GX.
+	CmReservedSpace1 CmNoSpace = 0x9
+	// CmReservedSpace2: This field is reserved for use by QuickDraw GX.
+	CmReservedSpace2 CmNoSpace = 0xb
+	// CmXYZSpace: An XYZ color space composed of X, Y, and Z components.
+	CmXYZSpace CmNoSpace = 0x6
+	// CmYXYSpace: A Yxy color space composed of Y, x, and y components.
+	CmYXYSpace CmNoSpace = 0x5
+)
+
+func (e CmNoSpace) String() string {
+	switch e {
+	case CmAlphaPmulSpace:
+		return "CmAlphaPmulSpace"
+	case CmAlphaSpace:
+		return "CmAlphaSpace"
+	case CmCMYKSpace:
+		return "CmCMYKSpace"
+	case CmGamutResultSpace:
+		return "CmGamutResultSpace"
+	case CmGrayAPmulSpace:
+		return "CmGrayAPmulSpace"
+	case CmGrayASpace:
+		return "CmGrayASpace"
+	case CmGraySpace:
+		return "CmGraySpace"
+	case CmHLSSpace:
+		return "CmHLSSpace"
+	case CmHSVSpace:
+		return "CmHSVSpace"
+	case CmLABSpace:
+		return "CmLABSpace"
+	case CmLUVSpace:
+		return "CmLUVSpace"
+	case CmMCEightSpace:
+		return "CmMCEightSpace"
+	case CmMCFiveSpace:
+		return "CmMCFiveSpace"
+	case CmMCSevenSpace:
+		return "CmMCSevenSpace"
+	case CmMCSixSpace:
+		return "CmMCSixSpace"
+	case CmNamedIndexedSpace:
+		return "CmNamedIndexedSpace"
+	case CmNoSpaceValue:
+		return "CmNoSpaceValue"
+	case CmRGBAPmulSpace:
+		return "CmRGBAPmulSpace"
+	case CmRGBASpace:
+		return "CmRGBASpace"
+	case CmRGBSpace:
+		return "CmRGBSpace"
+	case CmReservedSpace1:
+		return "CmReservedSpace1"
+	case CmReservedSpace2:
+		return "CmReservedSpace2"
+	case CmXYZSpace:
+		return "CmXYZSpace"
+	case CmYXYSpace:
+		return "CmYXYSpace"
+	default:
+		return fmt.Sprintf("CmNoSpace(%d)", e)
+	}
+}
+
+type CmNormalMode uint32
+
+const (
+	// CmBestMode: Best mode indicates that the CMM should maximize resource usage to ensure the highest possible quality.
+	CmBestMode CmNormalMode = 2
+	// CmDraftMode: Draft mode indicates that the CMM should sacrifice quality, if necessary, to minimize resource requirements.
+	CmDraftMode CmNormalMode = 1
+	// CmNormalModeValue: This is the default setting.
+	CmNormalModeValue CmNormalMode = 0
+)
+
+func (e CmNormalMode) String() string {
+	switch e {
+	case CmBestMode:
+		return "CmBestMode"
+	case CmDraftMode:
+		return "CmDraftMode"
+	case CmNormalModeValue:
+		return "CmNormalModeValue"
+	default:
+		return fmt.Sprintf("CmNormalMode(%d)", e)
+	}
+}
+
+type CmNumHeader uint32
 
 const (
 	CmNumHeaderElements CmNumHeader = 10
@@ -1290,7 +1411,104 @@ func (e CmNumHeader) String() string {
 	}
 }
 
-type CmP uint
+type CmOpenReadAccess uint32
+
+const (
+	// CmAbortWriteAccess: Cancel the current write attempt.
+	CmAbortWriteAccess CmOpenReadAccess = 7
+	// CmBeginAccess: Begin the process of procedural access.
+	CmBeginAccess CmOpenReadAccess = 8
+	// CmCloseAccess: Close the profile for reading or writing.
+	CmCloseAccess CmOpenReadAccess = 5
+	// CmCreateNewAccess: Create a new data stream for the profile.
+	CmCreateNewAccess CmOpenReadAccess = 6
+	// CmEndAccess: End the process of procedural access.
+	CmEndAccess           CmOpenReadAccess = 9
+	CmOpenReadAccessValue CmOpenReadAccess = 1
+	// CmOpenWriteAccess: Open the profile for writing.
+	CmOpenWriteAccess CmOpenReadAccess = 2
+	// CmReadAccess: Read the number of bytes specified by the `size` parameter.
+	CmReadAccess CmOpenReadAccess = 3
+	// CmWriteAccess: Write the number of bytes specified by the `size` parameter.
+	CmWriteAccess CmOpenReadAccess = 4
+)
+
+func (e CmOpenReadAccess) String() string {
+	switch e {
+	case CmAbortWriteAccess:
+		return "CmAbortWriteAccess"
+	case CmBeginAccess:
+		return "CmBeginAccess"
+	case CmCloseAccess:
+		return "CmCloseAccess"
+	case CmCreateNewAccess:
+		return "CmCreateNewAccess"
+	case CmEndAccess:
+		return "CmEndAccess"
+	case CmOpenReadAccessValue:
+		return "CmOpenReadAccessValue"
+	case CmOpenWriteAccess:
+		return "CmOpenWriteAccess"
+	case CmReadAccess:
+		return "CmReadAccess"
+	case CmWriteAccess:
+		return "CmWriteAccess"
+	default:
+		return fmt.Sprintf("CmOpenReadAccess(%d)", e)
+	}
+}
+
+type CmOpenReadSpool uint32
+
+const (
+	// CmCloseSpool: Directs the function to complete the data transfer.
+	CmCloseSpool CmOpenReadSpool = 5
+	// CmOpenReadSpoolValue: Directs the function to begin the process of reading data.
+	CmOpenReadSpoolValue CmOpenReadSpool = 1
+	// CmOpenWriteSpool: Directs the function to begin the process of writing data.
+	CmOpenWriteSpool CmOpenReadSpool = 2
+	// CmReadSpool: Directs the function to read the number of bytes specified by the [CMFlattenProcPtr] function’s `size` parameter.
+	CmReadSpool CmOpenReadSpool = 3
+	// CmWriteSpool: Directs the function to write the number of bytes specified by the [CMFlattenProcPtr] function’s `size` parameter.
+	CmWriteSpool CmOpenReadSpool = 4
+)
+
+func (e CmOpenReadSpool) String() string {
+	switch e {
+	case CmCloseSpool:
+		return "CmCloseSpool"
+	case CmOpenReadSpoolValue:
+		return "CmOpenReadSpoolValue"
+	case CmOpenWriteSpool:
+		return "CmOpenWriteSpool"
+	case CmReadSpool:
+		return "CmReadSpool"
+	case CmWriteSpool:
+		return "CmWriteSpool"
+	default:
+		return fmt.Sprintf("CmOpenReadSpool(%d)", e)
+	}
+}
+
+type CmOriginalProfileLocationSize uint32
+
+const (
+	CmCurrentProfileLocationSize       CmOriginalProfileLocationSize = 1032
+	CmOriginalProfileLocationSizeValue CmOriginalProfileLocationSize = 72
+)
+
+func (e CmOriginalProfileLocationSize) String() string {
+	switch e {
+	case CmCurrentProfileLocationSize:
+		return "CmCurrentProfileLocationSize"
+	case CmOriginalProfileLocationSizeValue:
+		return "CmOriginalProfileLocationSizeValue"
+	default:
+		return fmt.Sprintf("CmOriginalProfileLocationSize(%d)", e)
+	}
+}
+
+type CmP uint32
 
 const (
 	// CmPS7bit: The data is 7-bit safe—therefore the data could be in 7-bit ASCII encoding or in ASCII base-85 encoding.
@@ -1310,7 +1528,35 @@ func (e CmP) String() string {
 	}
 }
 
-type CmParametric uint
+type CmPS2CRDVMSizeTag uint32
+
+const (
+	CmMakeAndModelTag         CmPS2CRDVMSizeTag = 'm'<<24 | 'm'<<16 | 'o'<<8 | 'd' // 'mmod'
+	CmNativeDisplayInfoTag    CmPS2CRDVMSizeTag = 'n'<<24 | 'd'<<16 | 'i'<<8 | 'n' // 'ndin'
+	CmPS2CRDVMSizeTagValue    CmPS2CRDVMSizeTag = 'p'<<24 | 's'<<16 | 'v'<<8 | 'm' // 'psvm'
+	CmProfileDescriptionMLTag CmPS2CRDVMSizeTag = 'd'<<24 | 's'<<16 | 'c'<<8 | 'm' // 'dscm'
+	// CmVideoCardGammaTag: # Discussion
+	CmVideoCardGammaTag CmPS2CRDVMSizeTag = 'v'<<24 | 'c'<<16 | 'g'<<8 | 't' // 'vcgt'
+)
+
+func (e CmPS2CRDVMSizeTag) String() string {
+	switch e {
+	case CmMakeAndModelTag:
+		return "CmMakeAndModelTag"
+	case CmNativeDisplayInfoTag:
+		return "CmNativeDisplayInfoTag"
+	case CmPS2CRDVMSizeTagValue:
+		return "CmPS2CRDVMSizeTagValue"
+	case CmProfileDescriptionMLTag:
+		return "CmProfileDescriptionMLTag"
+	case CmVideoCardGammaTag:
+		return "CmVideoCardGammaTag"
+	default:
+		return fmt.Sprintf("CmPS2CRDVMSizeTag(%d)", e)
+	}
+}
+
+type CmParametric uint32
 
 const (
 	// CmParametricType0: Y = X^gamma
@@ -1342,7 +1588,35 @@ func (e CmParametric) String() string {
 	}
 }
 
-type CmProfileIterateData uint
+type CmPerceptual uint32
+
+const (
+	// CmAbsoluteColorimetric: This approach is based on a device-independent color space in which the result is an idealized print viewed on an ideal type of paper having a large dynamic range and color gamut.
+	CmAbsoluteColorimetric CmPerceptual = 3
+	// CmPerceptualValue: All the colors of a given gamut can be scaled to fit within another gamut.
+	CmPerceptualValue CmPerceptual = 0
+	// CmRelativeColorimetric: The colors that fall within the gamuts of both devices are left unchanged.
+	CmRelativeColorimetric CmPerceptual = 1
+	// CmSaturation: The relative saturation of colors is maintained from gamut to gamut.
+	CmSaturation CmPerceptual = 2
+)
+
+func (e CmPerceptual) String() string {
+	switch e {
+	case CmAbsoluteColorimetric:
+		return "CmAbsoluteColorimetric"
+	case CmPerceptualValue:
+		return "CmPerceptualValue"
+	case CmRelativeColorimetric:
+		return "CmRelativeColorimetric"
+	case CmSaturation:
+		return "CmSaturation"
+	default:
+		return fmt.Sprintf("CmPerceptual(%d)", e)
+	}
+}
+
+type CmProfileIterateData uint32
 
 const (
 	CmProfileIterateDataVersion1 CmProfileIterateData = 0x10000
@@ -1368,7 +1642,85 @@ func (e CmProfileIterateData) String() string {
 	}
 }
 
-type CmSRGB16Channel uint
+type CmProfileMajorVersionMask int32
+
+const (
+	CmCurrentProfileMajorVersion   CmProfileMajorVersionMask = 0x2000000
+	CmProfileMajorVersionMaskValue CmProfileMajorVersionMask = -16777216
+)
+
+func (e CmProfileMajorVersionMask) String() string {
+	switch e {
+	case CmCurrentProfileMajorVersion:
+		return "CmCurrentProfileMajorVersion"
+	case CmProfileMajorVersionMaskValue:
+		return "CmProfileMajorVersionMaskValue"
+	default:
+		return fmt.Sprintf("CmProfileMajorVersionMask(%d)", e)
+	}
+}
+
+type CmPrtrDefaultScreens uint32
+
+const (
+	// CmLinesPer: Lines per unit; can have an associated value of `0` for lines per centimeter or `1` for lines per inch.
+	CmLinesPer CmPrtrDefaultScreens = 1
+	// CmPrtrDefaultScreensValue: Use printer default screens; can have an associated value of `0` for `false` or `1` for `true`.
+	CmPrtrDefaultScreensValue CmPrtrDefaultScreens = 0
+)
+
+func (e CmPrtrDefaultScreens) String() string {
+	switch e {
+	case CmLinesPer:
+		return "CmLinesPer"
+	case CmPrtrDefaultScreensValue:
+		return "CmPrtrDefaultScreensValue"
+	default:
+		return fmt.Sprintf("CmPrtrDefaultScreens(%d)", e)
+	}
+}
+
+type CmReflective uint32
+
+const (
+	// CmGlossy: If the bit 1 of the associated mask is `0` then glossy; if `1` then matte.
+	CmGlossy CmReflective = 1
+	// CmReflectiveValue: If the bit 0 of the associated mask is `0` then reflective media; if `1` then transparency media.
+	CmReflectiveValue CmReflective = 0
+)
+
+func (e CmReflective) String() string {
+	switch e {
+	case CmGlossy:
+		return "CmGlossy"
+	case CmReflectiveValue:
+		return "CmReflectiveValue"
+	default:
+		return fmt.Sprintf("CmReflective(%d)", e)
+	}
+}
+
+type CmReflectiveTransparentMask uint32
+
+const (
+	// CmGlossyMatteMask: # Discussion
+	CmGlossyMatteMask CmReflectiveTransparentMask = 0x2
+	// CmReflectiveTransparentMaskValue: # Discussion
+	CmReflectiveTransparentMaskValue CmReflectiveTransparentMask = 0x1
+)
+
+func (e CmReflectiveTransparentMask) String() string {
+	switch e {
+	case CmGlossyMatteMask:
+		return "CmGlossyMatteMask"
+	case CmReflectiveTransparentMaskValue:
+		return "CmReflectiveTransparentMaskValue"
+	default:
+		return fmt.Sprintf("CmReflectiveTransparentMask(%d)", e)
+	}
+}
+
+type CmSRGB16Channel uint32
 
 const (
 	// CmSRGB16ChannelEncoding: Used for sRGB64 encoding ( ±3.12 format)
@@ -1384,49 +1736,70 @@ func (e CmSRGB16Channel) String() string {
 	}
 }
 
-type CmSig uint
+type CmScannerDeviceClass uint32
 
 const (
-	CmSigCrdInfoType               CmSig = 'c'<<24 | 'r'<<16 | 'd'<<8 | 'i' // 'crdi'
-	CmSigCurveType                 CmSig = 'c'<<24 | 'u'<<16 | 'r'<<8 | 'v' // 'curv'
-	CmSigDataType                  CmSig = 'd'<<24 | 'a'<<16 | 't'<<8 | 'a' // 'data'
-	CmSigDateTimeType              CmSig = 'd'<<24 | 't'<<16 | 'i'<<8 | 'm' // 'dtim'
-	CmSigLut16Type                 CmSig = 'm'<<24 | 'f'<<16 | 't'<<8 | '2' // 'mft2'
-	CmSigLut8Type                  CmSig = 'm'<<24 | 'f'<<16 | 't'<<8 | '1' // 'mft1'
-	CmSigMakeAndModelType          CmSig = 'm'<<24 | 'm'<<16 | 'o'<<8 | 'd' // 'mmod'
-	CmSigMeasurementType           CmSig = 'm'<<24 | 'e'<<16 | 'a'<<8 | 's' // 'meas'
-	CmSigMultiFunctA2BType         CmSig = 'm'<<24 | 'A'<<16 | 'B'<<8 | ' ' // 'mAB '
-	CmSigMultiFunctB2AType         CmSig = 'm'<<24 | 'B'<<16 | 'A'<<8 | ' ' // 'mBA '
-	CmSigMultiLocalizedUniCodeType CmSig = 'm'<<24 | 'l'<<16 | 'u'<<8 | 'c' // 'mluc'
-	CmSigNamedColor2Type           CmSig = 'n'<<24 | 'c'<<16 | 'l'<<8 | '2' // 'ncl2'
-	CmSigNamedColorType            CmSig = 'n'<<24 | 'c'<<16 | 'o'<<8 | 'l' // 'ncol'
-	CmSigNativeDisplayInfoType     CmSig = 'n'<<24 | 'd'<<16 | 'i'<<8 | 'n' // 'ndin'
-	CmSigPS2CRDVMSizeType          CmSig = 'p'<<24 | 's'<<16 | 'v'<<8 | 'm' // 'psvm'
-	CmSigParametricCurveType       CmSig = 'p'<<24 | 'a'<<16 | 'r'<<8 | 'a' // 'para'
-	CmSigProfileDescriptionType    CmSig = 'd'<<24 | 'e'<<16 | 's'<<8 | 'c' // 'desc'
-	CmSigProfileSequenceDescType   CmSig = 'p'<<24 | 's'<<16 | 'e'<<8 | 'q' // 'pseq'
-	CmSigS15Fixed16Type            CmSig = 's'<<24 | 'f'<<16 | '3'<<8 | '2' // 'sf32'
-	CmSigScreeningType             CmSig = 's'<<24 | 'c'<<16 | 'r'<<8 | 'n' // 'scrn'
-	CmSigSignatureType             CmSig = 's'<<24 | 'i'<<16 | 'g'<<8 | ' ' // 'sig '
-	CmSigTextType                  CmSig = 't'<<24 | 'e'<<16 | 'x'<<8 | 't' // 'text'
-	CmSigU16Fixed16Type            CmSig = 'u'<<24 | 'f'<<16 | '3'<<8 | '2' // 'uf32'
-	CmSigU1Fixed15Type             CmSig = 'u'<<24 | 'f'<<16 | '1'<<8 | '6' // 'uf16'
-	CmSigUInt16Type                CmSig = 'u'<<24 | 'i'<<16 | '1'<<8 | '6' // 'ui16'
-	CmSigUInt32Type                CmSig = 'u'<<24 | 'i'<<16 | '3'<<8 | '2' // 'ui32'
-	CmSigUInt64Type                CmSig = 'u'<<24 | 'i'<<16 | '6'<<8 | '4' // 'ui64'
-	CmSigUInt8Type                 CmSig = 'u'<<24 | 'i'<<16 | '0'<<8 | '8' // 'ui08'
-	CmSigUcrBgType                 CmSig = 'b'<<24 | 'f'<<16 | 'd'<<8 | ' ' // 'bfd '
-	CmSigUnicodeTextType           CmSig = 'u'<<24 | 't'<<16 | 'x'<<8 | 't' // 'utxt'
-	// CmSigVideoCardGammaType: # Discussion
-	CmSigVideoCardGammaType    CmSig = 'v'<<24 | 'c'<<16 | 'g'<<8 | 't' // 'vcgt'
-	CmSigViewingConditionsType CmSig = 'v'<<24 | 'i'<<16 | 'e'<<8 | 'w' // 'view'
-	CmSigXYZType               CmSig = 'X'<<24 | 'Y'<<16 | 'Z'<<8 | ' ' // 'XYZ '
+	CmCameraDeviceClass       CmScannerDeviceClass = 'c'<<24 | 'm'<<16 | 'r'<<8 | 'a' // 'cmra'
+	CmDisplayDeviceClass      CmScannerDeviceClass = 'm'<<24 | 'n'<<16 | 't'<<8 | 'r' // 'mntr'
+	CmPrinterDeviceClass      CmScannerDeviceClass = 'p'<<24 | 'r'<<16 | 't'<<8 | 'r' // 'prtr'
+	CmProofDeviceClass        CmScannerDeviceClass = 'p'<<24 | 'r'<<16 | 'u'<<8 | 'f' // 'pruf'
+	CmScannerDeviceClassValue CmScannerDeviceClass = 's'<<24 | 'c'<<16 | 'n'<<8 | 'r' // 'scnr'
 )
 
-func (e CmSig) String() string {
+func (e CmScannerDeviceClass) String() string {
 	switch e {
-	case CmSigCrdInfoType:
-		return "CmSigCrdInfoType"
+	case CmCameraDeviceClass:
+		return "CmCameraDeviceClass"
+	case CmDisplayDeviceClass:
+		return "CmDisplayDeviceClass"
+	case CmPrinterDeviceClass:
+		return "CmPrinterDeviceClass"
+	case CmProofDeviceClass:
+		return "CmProofDeviceClass"
+	case CmScannerDeviceClassValue:
+		return "CmScannerDeviceClassValue"
+	default:
+		return fmt.Sprintf("CmScannerDeviceClass(%d)", e)
+	}
+}
+
+type CmSigCrdInfoType uint32
+
+const (
+	CmSigCrdInfoTypeValue        CmSigCrdInfoType = 'c'<<24 | 'r'<<16 | 'd'<<8 | 'i' // 'crdi'
+	CmSigCurveType               CmSigCrdInfoType = 'c'<<24 | 'u'<<16 | 'r'<<8 | 'v' // 'curv'
+	CmSigDataType                CmSigCrdInfoType = 'd'<<24 | 'a'<<16 | 't'<<8 | 'a' // 'data'
+	CmSigDateTimeType            CmSigCrdInfoType = 'd'<<24 | 't'<<16 | 'i'<<8 | 'm' // 'dtim'
+	CmSigLut16Type               CmSigCrdInfoType = 'm'<<24 | 'f'<<16 | 't'<<8 | '2' // 'mft2'
+	CmSigLut8Type                CmSigCrdInfoType = 'm'<<24 | 'f'<<16 | 't'<<8 | '1' // 'mft1'
+	CmSigMeasurementType         CmSigCrdInfoType = 'm'<<24 | 'e'<<16 | 'a'<<8 | 's' // 'meas'
+	CmSigMultiFunctA2BType       CmSigCrdInfoType = 'm'<<24 | 'A'<<16 | 'B'<<8 | ' ' // 'mAB '
+	CmSigMultiFunctB2AType       CmSigCrdInfoType = 'm'<<24 | 'B'<<16 | 'A'<<8 | ' ' // 'mBA '
+	CmSigNamedColor2Type         CmSigCrdInfoType = 'n'<<24 | 'c'<<16 | 'l'<<8 | '2' // 'ncl2'
+	CmSigNamedColorType          CmSigCrdInfoType = 'n'<<24 | 'c'<<16 | 'o'<<8 | 'l' // 'ncol'
+	CmSigParametricCurveType     CmSigCrdInfoType = 'p'<<24 | 'a'<<16 | 'r'<<8 | 'a' // 'para'
+	CmSigProfileDescriptionType  CmSigCrdInfoType = 'd'<<24 | 'e'<<16 | 's'<<8 | 'c' // 'desc'
+	CmSigProfileSequenceDescType CmSigCrdInfoType = 'p'<<24 | 's'<<16 | 'e'<<8 | 'q' // 'pseq'
+	CmSigS15Fixed16Type          CmSigCrdInfoType = 's'<<24 | 'f'<<16 | '3'<<8 | '2' // 'sf32'
+	CmSigScreeningType           CmSigCrdInfoType = 's'<<24 | 'c'<<16 | 'r'<<8 | 'n' // 'scrn'
+	CmSigSignatureType           CmSigCrdInfoType = 's'<<24 | 'i'<<16 | 'g'<<8 | ' ' // 'sig '
+	CmSigTextType                CmSigCrdInfoType = 't'<<24 | 'e'<<16 | 'x'<<8 | 't' // 'text'
+	CmSigU16Fixed16Type          CmSigCrdInfoType = 'u'<<24 | 'f'<<16 | '3'<<8 | '2' // 'uf32'
+	CmSigU1Fixed15Type           CmSigCrdInfoType = 'u'<<24 | 'f'<<16 | '1'<<8 | '6' // 'uf16'
+	CmSigUInt16Type              CmSigCrdInfoType = 'u'<<24 | 'i'<<16 | '1'<<8 | '6' // 'ui16'
+	CmSigUInt32Type              CmSigCrdInfoType = 'u'<<24 | 'i'<<16 | '3'<<8 | '2' // 'ui32'
+	CmSigUInt64Type              CmSigCrdInfoType = 'u'<<24 | 'i'<<16 | '6'<<8 | '4' // 'ui64'
+	CmSigUInt8Type               CmSigCrdInfoType = 'u'<<24 | 'i'<<16 | '0'<<8 | '8' // 'ui08'
+	CmSigUcrBgType               CmSigCrdInfoType = 'b'<<24 | 'f'<<16 | 'd'<<8 | ' ' // 'bfd '
+	CmSigUnicodeTextType         CmSigCrdInfoType = 'u'<<24 | 't'<<16 | 'x'<<8 | 't' // 'utxt'
+	CmSigViewingConditionsType   CmSigCrdInfoType = 'v'<<24 | 'i'<<16 | 'e'<<8 | 'w' // 'view'
+	CmSigXYZType                 CmSigCrdInfoType = 'X'<<24 | 'Y'<<16 | 'Z'<<8 | ' ' // 'XYZ '
+)
+
+func (e CmSigCrdInfoType) String() string {
+	switch e {
+	case CmSigCrdInfoTypeValue:
+		return "CmSigCrdInfoTypeValue"
 	case CmSigCurveType:
 		return "CmSigCurveType"
 	case CmSigDataType:
@@ -1437,24 +1810,16 @@ func (e CmSig) String() string {
 		return "CmSigLut16Type"
 	case CmSigLut8Type:
 		return "CmSigLut8Type"
-	case CmSigMakeAndModelType:
-		return "CmSigMakeAndModelType"
 	case CmSigMeasurementType:
 		return "CmSigMeasurementType"
 	case CmSigMultiFunctA2BType:
 		return "CmSigMultiFunctA2BType"
 	case CmSigMultiFunctB2AType:
 		return "CmSigMultiFunctB2AType"
-	case CmSigMultiLocalizedUniCodeType:
-		return "CmSigMultiLocalizedUniCodeType"
 	case CmSigNamedColor2Type:
 		return "CmSigNamedColor2Type"
 	case CmSigNamedColorType:
 		return "CmSigNamedColorType"
-	case CmSigNativeDisplayInfoType:
-		return "CmSigNativeDisplayInfoType"
-	case CmSigPS2CRDVMSizeType:
-		return "CmSigPS2CRDVMSizeType"
 	case CmSigParametricCurveType:
 		return "CmSigParametricCurveType"
 	case CmSigProfileDescriptionType:
@@ -1485,18 +1850,44 @@ func (e CmSig) String() string {
 		return "CmSigUcrBgType"
 	case CmSigUnicodeTextType:
 		return "CmSigUnicodeTextType"
-	case CmSigVideoCardGammaType:
-		return "CmSigVideoCardGammaType"
 	case CmSigViewingConditionsType:
 		return "CmSigViewingConditionsType"
 	case CmSigXYZType:
 		return "CmSigXYZType"
 	default:
-		return fmt.Sprintf("CmSig(%d)", e)
+		return fmt.Sprintf("CmSigCrdInfoType(%d)", e)
 	}
 }
 
-type CmSpotFunction uint
+type CmSigPS2CRDVMSizeType uint32
+
+const (
+	CmSigMakeAndModelType          CmSigPS2CRDVMSizeType = 'm'<<24 | 'm'<<16 | 'o'<<8 | 'd' // 'mmod'
+	CmSigMultiLocalizedUniCodeType CmSigPS2CRDVMSizeType = 'm'<<24 | 'l'<<16 | 'u'<<8 | 'c' // 'mluc'
+	CmSigNativeDisplayInfoType     CmSigPS2CRDVMSizeType = 'n'<<24 | 'd'<<16 | 'i'<<8 | 'n' // 'ndin'
+	CmSigPS2CRDVMSizeTypeValue     CmSigPS2CRDVMSizeType = 'p'<<24 | 's'<<16 | 'v'<<8 | 'm' // 'psvm'
+	// CmSigVideoCardGammaType: # Discussion
+	CmSigVideoCardGammaType CmSigPS2CRDVMSizeType = 'v'<<24 | 'c'<<16 | 'g'<<8 | 't' // 'vcgt'
+)
+
+func (e CmSigPS2CRDVMSizeType) String() string {
+	switch e {
+	case CmSigMakeAndModelType:
+		return "CmSigMakeAndModelType"
+	case CmSigMultiLocalizedUniCodeType:
+		return "CmSigMultiLocalizedUniCodeType"
+	case CmSigNativeDisplayInfoType:
+		return "CmSigNativeDisplayInfoType"
+	case CmSigPS2CRDVMSizeTypeValue:
+		return "CmSigPS2CRDVMSizeTypeValue"
+	case CmSigVideoCardGammaType:
+		return "CmSigVideoCardGammaType"
+	default:
+		return fmt.Sprintf("CmSigPS2CRDVMSizeType(%d)", e)
+	}
+}
+
+type CmSpotFunction uint32
 
 const (
 	CmSpotFunctionCross   CmSpotFunction = 7
@@ -1532,7 +1923,28 @@ func (e CmSpotFunction) String() string {
 	}
 }
 
-type CmTechnology uint
+type CmStdobsUnknown uint32
+
+const (
+	CmStdobs1931TwoDegrees CmStdobsUnknown = 0x1
+	CmStdobs1964TenDegrees CmStdobsUnknown = 0x2
+	CmStdobsUnknownValue   CmStdobsUnknown = 0
+)
+
+func (e CmStdobsUnknown) String() string {
+	switch e {
+	case CmStdobs1931TwoDegrees:
+		return "CmStdobs1931TwoDegrees"
+	case CmStdobs1964TenDegrees:
+		return "CmStdobs1964TenDegrees"
+	case CmStdobsUnknownValue:
+		return "CmStdobsUnknownValue"
+	default:
+		return fmt.Sprintf("CmStdobsUnknown(%d)", e)
+	}
+}
+
+type CmTechnology uint32
 
 const (
 	CmTechnologyAMDisplay                  CmTechnology = 'A'<<24 | 'M'<<16 | 'D'<<8 | ' ' // 'AMD '
@@ -1610,7 +2022,31 @@ func (e CmTechnology) String() string {
 	}
 }
 
-type CmVideoCardGamma uint
+type CmUseDefaultChromaticAdaptation uint32
+
+const (
+	CmBradfordChromaticAdaptation        CmUseDefaultChromaticAdaptation = 3
+	CmLinearChromaticAdaptation          CmUseDefaultChromaticAdaptation = 1
+	CmUseDefaultChromaticAdaptationValue CmUseDefaultChromaticAdaptation = 0
+	CmVonKriesChromaticAdaptation        CmUseDefaultChromaticAdaptation = 2
+)
+
+func (e CmUseDefaultChromaticAdaptation) String() string {
+	switch e {
+	case CmBradfordChromaticAdaptation:
+		return "CmBradfordChromaticAdaptation"
+	case CmLinearChromaticAdaptation:
+		return "CmLinearChromaticAdaptation"
+	case CmUseDefaultChromaticAdaptationValue:
+		return "CmUseDefaultChromaticAdaptationValue"
+	case CmVonKriesChromaticAdaptation:
+		return "CmVonKriesChromaticAdaptation"
+	default:
+		return fmt.Sprintf("CmUseDefaultChromaticAdaptation(%d)", e)
+	}
+}
+
+type CmVideoCardGamma uint32
 
 const (
 	// CmVideoCardGammaFormulaType: The video card gamma tag data is stored as a formula.
@@ -1630,7 +2066,123 @@ func (e CmVideoCardGamma) String() string {
 	}
 }
 
-type CsMax uint
+type CmXYZData uint32
+
+const (
+	Cm10CLRData CmXYZData = 'A'<<24 | 'C'<<16 | 'L'<<8 | 'R' // 'ACLR'
+	Cm11CLRData CmXYZData = 'B'<<24 | 'C'<<16 | 'L'<<8 | 'R' // 'BCLR'
+	Cm12CLRData CmXYZData = 'C'<<24 | 'C'<<16 | 'L'<<8 | 'R' // 'CCLR'
+	Cm13CLRData CmXYZData = 'D'<<24 | 'C'<<16 | 'L'<<8 | 'R' // 'DCLR'
+	Cm14CLRData CmXYZData = 'E'<<24 | 'C'<<16 | 'L'<<8 | 'R' // 'ECLR'
+	Cm15CLRData CmXYZData = 'F'<<24 | 'C'<<16 | 'L'<<8 | 'R' // 'FCLR'
+	Cm3CLRData  CmXYZData = '3'<<24 | 'C'<<16 | 'L'<<8 | 'R' // '3CLR'
+	Cm4CLRData  CmXYZData = '4'<<24 | 'C'<<16 | 'L'<<8 | 'R' // '4CLR'
+	Cm5CLRData  CmXYZData = '5'<<24 | 'C'<<16 | 'L'<<8 | 'R' // '5CLR'
+	Cm6CLRData  CmXYZData = '6'<<24 | 'C'<<16 | 'L'<<8 | 'R' // '6CLR'
+	Cm7CLRData  CmXYZData = '7'<<24 | 'C'<<16 | 'L'<<8 | 'R' // '7CLR'
+	Cm8CLRData  CmXYZData = '8'<<24 | 'C'<<16 | 'L'<<8 | 'R' // '8CLR'
+	Cm9CLRData  CmXYZData = '9'<<24 | 'C'<<16 | 'L'<<8 | 'R' // '9CLR'
+	// CmCMYData: The CMY data color space.
+	CmCMYData CmXYZData = 'C'<<24 | 'M'<<16 | 'Y'<<8 | ' ' // 'CMY '
+	// CmCMYKData: The CMYK data color space.
+	CmCMYKData CmXYZData = 'C'<<24 | 'M'<<16 | 'Y'<<8 | 'K' // 'CMYK'
+	// CmGrayData: The Gray data color space.
+	CmGrayData CmXYZData = 'G'<<24 | 'R'<<16 | 'A'<<8 | 'Y' // 'GRAY'
+	// CmHLSData: The HLS data color space.
+	CmHLSData CmXYZData = 'H'<<24 | 'L'<<16 | 'S'<<8 | ' ' // 'HLS '
+	// CmHSVData: The HSV data color space.
+	CmHSVData CmXYZData = 'H'<<24 | 'S'<<16 | 'V'<<8 | ' ' // 'HSV '
+	// CmLabData: The L*a*b* data color space.
+	CmLabData CmXYZData = 'L'<<24 | 'a'<<16 | 'b'<<8 | ' ' // 'Lab '
+	// CmLuvData: The L*u*v* data color space.
+	CmLuvData CmXYZData = 'L'<<24 | 'u'<<16 | 'v'<<8 | ' ' // 'Luv '
+	// CmMCH5Data: The five-channel multichannel (HiFi) data color space.
+	CmMCH5Data CmXYZData = 'M'<<24 | 'C'<<16 | 'H'<<8 | '5' // 'MCH5'
+	// CmMCH6Data: The six-channel multichannel (HiFi) data color space.
+	CmMCH6Data CmXYZData = 'M'<<24 | 'C'<<16 | 'H'<<8 | '6' // 'MCH6'
+	// CmMCH7Data: The seven-channel multichannel (HiFi) data color space.
+	CmMCH7Data CmXYZData = 'M'<<24 | 'C'<<16 | 'H'<<8 | '7' // 'MCH7'
+	// CmMCH8Data: The eight-channel multichannel (HiFi) data color space.
+	CmMCH8Data  CmXYZData = 'M'<<24 | 'C'<<16 | 'H'<<8 | '8' // 'MCH8'
+	CmNamedData CmXYZData = 'N'<<24 | 'A'<<16 | 'M'<<8 | 'E' // 'NAME'
+	// CmRGBData: The RGB data color space.
+	CmRGBData  CmXYZData = 'R'<<24 | 'G'<<16 | 'B'<<8 | ' ' // 'RGB '
+	CmSRGBData CmXYZData = 's'<<24 | 'R'<<16 | 'G'<<8 | 'B' // 'sRGB'
+	// CmXYZDataValue: The XYZ data color space.
+	CmXYZDataValue CmXYZData = 'X'<<24 | 'Y'<<16 | 'Z'<<8 | ' ' // 'XYZ '
+	CmYCbCrData    CmXYZData = 'Y'<<24 | 'C'<<16 | 'b'<<8 | 'r' // 'YCbr'
+	// CmYxyData: The Yxy data color space.
+	CmYxyData CmXYZData = 'Y'<<24 | 'x'<<16 | 'y'<<8 | ' ' // 'Yxy '
+)
+
+func (e CmXYZData) String() string {
+	switch e {
+	case Cm10CLRData:
+		return "Cm10CLRData"
+	case Cm11CLRData:
+		return "Cm11CLRData"
+	case Cm12CLRData:
+		return "Cm12CLRData"
+	case Cm13CLRData:
+		return "Cm13CLRData"
+	case Cm14CLRData:
+		return "Cm14CLRData"
+	case Cm15CLRData:
+		return "Cm15CLRData"
+	case Cm3CLRData:
+		return "Cm3CLRData"
+	case Cm4CLRData:
+		return "Cm4CLRData"
+	case Cm5CLRData:
+		return "Cm5CLRData"
+	case Cm6CLRData:
+		return "Cm6CLRData"
+	case Cm7CLRData:
+		return "Cm7CLRData"
+	case Cm8CLRData:
+		return "Cm8CLRData"
+	case Cm9CLRData:
+		return "Cm9CLRData"
+	case CmCMYData:
+		return "CmCMYData"
+	case CmCMYKData:
+		return "CmCMYKData"
+	case CmGrayData:
+		return "CmGrayData"
+	case CmHLSData:
+		return "CmHLSData"
+	case CmHSVData:
+		return "CmHSVData"
+	case CmLabData:
+		return "CmLabData"
+	case CmLuvData:
+		return "CmLuvData"
+	case CmMCH5Data:
+		return "CmMCH5Data"
+	case CmMCH6Data:
+		return "CmMCH6Data"
+	case CmMCH7Data:
+		return "CmMCH7Data"
+	case CmMCH8Data:
+		return "CmMCH8Data"
+	case CmNamedData:
+		return "CmNamedData"
+	case CmRGBData:
+		return "CmRGBData"
+	case CmSRGBData:
+		return "CmSRGBData"
+	case CmXYZDataValue:
+		return "CmXYZDataValue"
+	case CmYCbCrData:
+		return "CmYCbCrData"
+	case CmYxyData:
+		return "CmYxyData"
+	default:
+		return fmt.Sprintf("CmXYZData(%d)", e)
+	}
+}
+
+type CsMax uint32
 
 const (
 	CS_MAX_PATH CsMax = 1024
@@ -1645,11 +2197,11 @@ func (e CsMax) String() string {
 	}
 }
 
-type Extended uint
+type Extended uint32
 
 const (
 	ExtendedBlock    Extended = 0x4c43
-	ExtendedBlockLen Extended = 0
+	ExtendedBlockLen Extended = 40
 )
 
 func (e Extended) String() string {
@@ -1663,27 +2215,45 @@ func (e Extended) String() string {
 	}
 }
 
-type Ic int
+type IcNoPerm uint32
 
 const (
-	IcConfigInappropriateErr Ic = -675
-	IcConfigNotFoundErr      Ic = -674
-	IcInternalErr            Ic = -669
-	IcNoMoreWritersErr       Ic = -671
-	IcNoPerm                 Ic = 0
-	IcNoURLErr               Ic = -673
-	IcNothingToOverrideErr   Ic = -672
-	IcPermErr                Ic = -667
-	IcPrefDataErr            Ic = -668
-	IcPrefNotFoundErr        Ic = -666
-	IcProfileNotFoundErr     Ic = -676
-	IcReadOnlyPerm           Ic = 1
-	IcReadWritePerm          Ic = 2
-	IcTooManyProfilesErr     Ic = -677
-	IcTruncatedErr           Ic = -670
+	IcNoPermValue   IcNoPerm = 0
+	IcReadOnlyPerm  IcNoPerm = 1
+	IcReadWritePerm IcNoPerm = 2
 )
 
-func (e Ic) String() string {
+func (e IcNoPerm) String() string {
+	switch e {
+	case IcNoPermValue:
+		return "IcNoPermValue"
+	case IcReadOnlyPerm:
+		return "IcReadOnlyPerm"
+	case IcReadWritePerm:
+		return "IcReadWritePerm"
+	default:
+		return fmt.Sprintf("IcNoPerm(%d)", e)
+	}
+}
+
+type IcPrefNotFoundErr int32
+
+const (
+	IcConfigInappropriateErr IcPrefNotFoundErr = -675
+	IcConfigNotFoundErr      IcPrefNotFoundErr = -674
+	IcInternalErr            IcPrefNotFoundErr = -669
+	IcNoMoreWritersErr       IcPrefNotFoundErr = -671
+	IcNoURLErr               IcPrefNotFoundErr = -673
+	IcNothingToOverrideErr   IcPrefNotFoundErr = -672
+	IcPermErr                IcPrefNotFoundErr = -667
+	IcPrefDataErr            IcPrefNotFoundErr = -668
+	IcPrefNotFoundErrValue   IcPrefNotFoundErr = -666
+	IcProfileNotFoundErr     IcPrefNotFoundErr = -676
+	IcTooManyProfilesErr     IcPrefNotFoundErr = -677
+	IcTruncatedErr           IcPrefNotFoundErr = -670
+)
+
+func (e IcPrefNotFoundErr) String() string {
 	switch e {
 	case IcConfigInappropriateErr:
 		return "IcConfigInappropriateErr"
@@ -1693,8 +2263,6 @@ func (e Ic) String() string {
 		return "IcInternalErr"
 	case IcNoMoreWritersErr:
 		return "IcNoMoreWritersErr"
-	case IcNoPerm:
-		return "IcNoPerm"
 	case IcNoURLErr:
 		return "IcNoURLErr"
 	case IcNothingToOverrideErr:
@@ -1703,24 +2271,20 @@ func (e Ic) String() string {
 		return "IcPermErr"
 	case IcPrefDataErr:
 		return "IcPrefDataErr"
-	case IcPrefNotFoundErr:
-		return "IcPrefNotFoundErr"
+	case IcPrefNotFoundErrValue:
+		return "IcPrefNotFoundErrValue"
 	case IcProfileNotFoundErr:
 		return "IcProfileNotFoundErr"
-	case IcReadOnlyPerm:
-		return "IcReadOnlyPerm"
-	case IcReadWritePerm:
-		return "IcReadWritePerm"
 	case IcTooManyProfilesErr:
 		return "IcTooManyProfilesErr"
 	case IcTruncatedErr:
 		return "IcTruncatedErr"
 	default:
-		return fmt.Sprintf("Ic(%d)", e)
+		return fmt.Sprintf("IcPrefNotFoundErr(%d)", e)
 	}
 }
 
-type InitDev uint
+type InitDev uint32
 
 const (
 	ActivDev     InitDev = 5
@@ -1777,7 +2341,7 @@ func (e InitDev) String() string {
 	}
 }
 
-type K1MonochromePixelFormat uint
+type K1MonochromePixelFormat uint32
 
 const (
 	K16BE555PixelFormat          K1MonochromePixelFormat = 0x10
@@ -1870,69 +2434,28 @@ func (e K1MonochromePixelFormat) String() string {
 	}
 }
 
-type KATS int
+type KATSCubicCurveType uint32
 
 const (
-	KATSBoldQDStretch               KATS = 65536
-	KATSCubicCurveType              KATS = 0x1
-	KATSFontContainerRefUnspecified KATS = 0
-	KATSFontFamilyRefUnspecified    KATS = 0
-	KATSFontRefUnspecified          KATS = 0
-	KATSGenerationUnspecified       KATS = 0
-	KATSInvalidFontAccess           KATS = -982
-	KATSInvalidFontContainerAccess  KATS = -985
-	KATSInvalidFontFamilyAccess     KATS = -981
-	KATSInvalidFontTableAccess      KATS = -984
-	KATSInvalidGlyphAccess          KATS = -986
-	KATSItalicQDSkew                KATS = 65536
-	KATSIterationCompleted          KATS = -980
-	KATSIterationScopeModified      KATS = -983
-	KATSNoTracking                  KATS = 0x80000000
-	KATSOtherCurveType              KATS = 0x3
-	KATSQuadCurveType               KATS = 0x2
-	KATSRadiansFactor               KATS = 1144
-	KATSUseGlyphAdvance             KATS = 0x7fffffff
-	KATSUseLineHeight               KATS = 0x7fffffff
+	KATSCubicCurveTypeValue KATSCubicCurveType = 0x1
+	KATSOtherCurveType      KATSCubicCurveType = 0x3
+	KATSQuadCurveType       KATSCubicCurveType = 0x2
 )
 
-func (e KATS) String() string {
+func (e KATSCubicCurveType) String() string {
 	switch e {
-	case KATSBoldQDStretch:
-		return "KATSBoldQDStretch"
-	case KATSCubicCurveType:
-		return "KATSCubicCurveType"
-	case KATSFontContainerRefUnspecified:
-		return "KATSFontContainerRefUnspecified"
-	case KATSInvalidFontAccess:
-		return "KATSInvalidFontAccess"
-	case KATSInvalidFontContainerAccess:
-		return "KATSInvalidFontContainerAccess"
-	case KATSInvalidFontFamilyAccess:
-		return "KATSInvalidFontFamilyAccess"
-	case KATSInvalidFontTableAccess:
-		return "KATSInvalidFontTableAccess"
-	case KATSInvalidGlyphAccess:
-		return "KATSInvalidGlyphAccess"
-	case KATSIterationCompleted:
-		return "KATSIterationCompleted"
-	case KATSIterationScopeModified:
-		return "KATSIterationScopeModified"
-	case KATSNoTracking:
-		return "KATSNoTracking"
+	case KATSCubicCurveTypeValue:
+		return "KATSCubicCurveTypeValue"
 	case KATSOtherCurveType:
 		return "KATSOtherCurveType"
 	case KATSQuadCurveType:
 		return "KATSQuadCurveType"
-	case KATSRadiansFactor:
-		return "KATSRadiansFactor"
-	case KATSUseGlyphAdvance:
-		return "KATSUseGlyphAdvance"
 	default:
-		return fmt.Sprintf("KATS(%d)", e)
+		return fmt.Sprintf("KATSCubicCurveType(%d)", e)
 	}
 }
 
-type KATSDeleted uint
+type KATSDeleted uint32
 
 const (
 	KATSDeletedGlyphcode KATSDeleted = 0xffff
@@ -1947,7 +2470,7 @@ func (e KATSDeleted) String() string {
 	}
 }
 
-type KATSFlatDataUstl uint
+type KATSFlatDataUstl uint32
 
 const (
 	KATSFlatDataUstlCurrentVersion KATSFlatDataUstl = 2
@@ -1969,7 +2492,7 @@ func (e KATSFlatDataUstl) String() string {
 	}
 }
 
-type KATSFlattenedFontSpecifierRawName uint
+type KATSFlattenedFontSpecifierRawName uint32
 
 const (
 	KATSFlattenedFontSpecifierRawNameData KATSFlattenedFontSpecifierRawName = 'n'<<24 | 'a'<<16 | 'm'<<8 | 'd' // 'namd'
@@ -1984,7 +2507,7 @@ func (e KATSFlattenedFontSpecifierRawName) String() string {
 	}
 }
 
-type KATSFontAutoActivation uint
+type KATSFontAutoActivation uint32
 
 const (
 	KATSFontAutoActivationAsk      KATSFontAutoActivation = 4
@@ -2008,7 +2531,7 @@ func (e KATSFontAutoActivation) String() string {
 	}
 }
 
-type KATSFontContext uint
+type KATSFontContext uint32
 
 const (
 	KATSFontContextGlobal      KATSFontContext = 1
@@ -2029,7 +2552,7 @@ func (e KATSFontContext) String() string {
 	}
 }
 
-type KATSFontFilterCurrent uint
+type KATSFontFilterCurrent uint32
 
 const (
 	KATSFontFilterCurrentVersion KATSFontFilterCurrent = 0
@@ -2044,7 +2567,7 @@ func (e KATSFontFilterCurrent) String() string {
 	}
 }
 
-type KATSFontFormat uint
+type KATSFontFormat uint32
 
 const (
 	KATSFontFormatUnspecified KATSFontFormat = 0
@@ -2059,7 +2582,25 @@ func (e KATSFontFormat) String() string {
 	}
 }
 
-type KATSGlyphInfo uint
+type KATSGenerationUnspecified uint32
+
+const (
+	KATSFontContainerRefUnspecified KATSGenerationUnspecified = 0
+	KATSFontFamilyRefUnspecified    KATSGenerationUnspecified = 0
+	KATSFontRefUnspecified          KATSGenerationUnspecified = 0
+	KATSGenerationUnspecifiedValue  KATSGenerationUnspecified = 0
+)
+
+func (e KATSGenerationUnspecified) String() string {
+	switch e {
+	case KATSFontContainerRefUnspecified:
+		return "KATSFontContainerRefUnspecified"
+	default:
+		return fmt.Sprintf("KATSGenerationUnspecified(%d)", e)
+	}
+}
+
+type KATSGlyphInfo uint32
 
 const (
 	KATSGlyphInfoAppleReserved   KATSGlyphInfo = 0x1ffbffe8
@@ -2095,7 +2636,61 @@ func (e KATSGlyphInfo) String() string {
 	}
 }
 
-type KATSLine uint
+type KATSItalicQDSkew uint32
+
+const (
+	KATSBoldQDStretch     KATSItalicQDSkew = 98304
+	KATSItalicQDSkewValue KATSItalicQDSkew = 16384
+	KATSRadiansFactor     KATSItalicQDSkew = 1144
+)
+
+func (e KATSItalicQDSkew) String() string {
+	switch e {
+	case KATSBoldQDStretch:
+		return "KATSBoldQDStretch"
+	case KATSItalicQDSkewValue:
+		return "KATSItalicQDSkewValue"
+	case KATSRadiansFactor:
+		return "KATSRadiansFactor"
+	default:
+		return fmt.Sprintf("KATSItalicQDSkew(%d)", e)
+	}
+}
+
+type KATSIterationCompleted int32
+
+const (
+	KATSInvalidFontAccess          KATSIterationCompleted = -982
+	KATSInvalidFontContainerAccess KATSIterationCompleted = -985
+	KATSInvalidFontFamilyAccess    KATSIterationCompleted = -981
+	KATSInvalidFontTableAccess     KATSIterationCompleted = -984
+	KATSInvalidGlyphAccess         KATSIterationCompleted = -986
+	KATSIterationCompletedValue    KATSIterationCompleted = -980
+	KATSIterationScopeModified     KATSIterationCompleted = -983
+)
+
+func (e KATSIterationCompleted) String() string {
+	switch e {
+	case KATSInvalidFontAccess:
+		return "KATSInvalidFontAccess"
+	case KATSInvalidFontContainerAccess:
+		return "KATSInvalidFontContainerAccess"
+	case KATSInvalidFontFamilyAccess:
+		return "KATSInvalidFontFamilyAccess"
+	case KATSInvalidFontTableAccess:
+		return "KATSInvalidFontTableAccess"
+	case KATSInvalidGlyphAccess:
+		return "KATSInvalidGlyphAccess"
+	case KATSIterationCompletedValue:
+		return "KATSIterationCompletedValue"
+	case KATSIterationScopeModified:
+		return "KATSIterationScopeModified"
+	default:
+		return fmt.Sprintf("KATSIterationCompleted(%d)", e)
+	}
+}
+
+type KATSLine uint32
 
 const (
 	KATSLineAppleReserved                 KATSLine = 0xfce00000
@@ -2105,7 +2700,7 @@ const (
 	KATSLineDisableAllGlyphMorphing       KATSLine = 0x20000
 	KATSLineDisableAllJustification       KATSLine = 0x10000
 	KATSLineDisableAllKerningAdjustments  KATSLine = 0x40000
-	KATSLineDisableAllLayoutOperations    KATSLine = 65536
+	KATSLineDisableAllLayoutOperations    KATSLine = 2031616
 	KATSLineDisableAllTrackingAdjustments KATSLine = 0x100000
 	KATSLineDisableAutoAdjustDisplayPos   KATSLine = 0x4000
 	KATSLineDisableNegativeJustification  KATSLine = 0x2000
@@ -2142,6 +2737,8 @@ func (e KATSLine) String() string {
 		return "KATSLineDisableAllJustification"
 	case KATSLineDisableAllKerningAdjustments:
 		return "KATSLineDisableAllKerningAdjustments"
+	case KATSLineDisableAllLayoutOperations:
+		return "KATSLineDisableAllLayoutOperations"
 	case KATSLineDisableAllTrackingAdjustments:
 		return "KATSLineDisableAllTrackingAdjustments"
 	case KATSLineDisableAutoAdjustDisplayPos:
@@ -2183,36 +2780,46 @@ func (e KATSLine) String() string {
 	}
 }
 
-type KATSOptionFlags uint
+type KATSOptionFlagsActivateDisabled uint32
 
 const (
-	KATSOptionFlagsActivateDisabled          KATSOptionFlags = 0x1
-	KATSOptionFlagsComposeFontPostScriptName KATSOptionFlags = 1
-	KATSOptionFlagsDefault                   KATSOptionFlags = 0
-	KATSOptionFlagsDefaultScope              KATSOptionFlags = 0
-	KATSOptionFlagsDoNotNotify               KATSOptionFlags = 0x1
-	KATSOptionFlagsIncludeDisabledMask       KATSOptionFlags = 0x1
-	KATSOptionFlagsIterateByPrecedenceMask   KATSOptionFlags = 0x1
-	KATSOptionFlagsIterationScopeMask        KATSOptionFlags = 0x7
-	KATSOptionFlagsProcessSubdirectories     KATSOptionFlags = 0x1
-	KATSOptionFlagsRecordPersistently        KATSOptionFlags = 0x1
-	KATSOptionFlagsRestrictedScope           KATSOptionFlags = 0x2
-	KATSOptionFlagsUnRestrictedScope         KATSOptionFlags = 0x1
-	KATSOptionFlagsUseDataFork               KATSOptionFlags = 768
-	KATSOptionFlagsUseDataForkAsResourceFork KATSOptionFlags = 256
-	KATSOptionFlagsUseResourceFork           KATSOptionFlags = 512
+	KATSOptionFlagsActivateDisabledValue KATSOptionFlagsActivateDisabled = 32
+	KATSOptionFlagsDoNotNotify           KATSOptionFlagsActivateDisabled = 128
+	KATSOptionFlagsProcessSubdirectories KATSOptionFlagsActivateDisabled = 64
+	KATSOptionFlagsRecordPersistently    KATSOptionFlagsActivateDisabled = 262144
 )
 
-func (e KATSOptionFlags) String() string {
+func (e KATSOptionFlagsActivateDisabled) String() string {
 	switch e {
-	case KATSOptionFlagsActivateDisabled:
-		return "KATSOptionFlagsActivateDisabled"
-	case KATSOptionFlagsDefault:
-		return "KATSOptionFlagsDefault"
-	case KATSOptionFlagsIterationScopeMask:
-		return "KATSOptionFlagsIterationScopeMask"
-	case KATSOptionFlagsRestrictedScope:
-		return "KATSOptionFlagsRestrictedScope"
+	case KATSOptionFlagsActivateDisabledValue:
+		return "KATSOptionFlagsActivateDisabledValue"
+	case KATSOptionFlagsDoNotNotify:
+		return "KATSOptionFlagsDoNotNotify"
+	case KATSOptionFlagsProcessSubdirectories:
+		return "KATSOptionFlagsProcessSubdirectories"
+	case KATSOptionFlagsRecordPersistently:
+		return "KATSOptionFlagsRecordPersistently"
+	default:
+		return fmt.Sprintf("KATSOptionFlagsActivateDisabled(%d)", e)
+	}
+}
+
+type KATSOptionFlagsDefault uint32
+
+const (
+	KATSOptionFlagsComposeFontPostScriptName KATSOptionFlagsDefault = 1
+	KATSOptionFlagsDefaultValue              KATSOptionFlagsDefault = 0
+	KATSOptionFlagsUseDataFork               KATSOptionFlagsDefault = 768
+	KATSOptionFlagsUseDataForkAsResourceFork KATSOptionFlagsDefault = 256
+	KATSOptionFlagsUseResourceFork           KATSOptionFlagsDefault = 512
+)
+
+func (e KATSOptionFlagsDefault) String() string {
+	switch e {
+	case KATSOptionFlagsComposeFontPostScriptName:
+		return "KATSOptionFlagsComposeFontPostScriptName"
+	case KATSOptionFlagsDefaultValue:
+		return "KATSOptionFlagsDefaultValue"
 	case KATSOptionFlagsUseDataFork:
 		return "KATSOptionFlagsUseDataFork"
 	case KATSOptionFlagsUseDataForkAsResourceFork:
@@ -2220,11 +2827,41 @@ func (e KATSOptionFlags) String() string {
 	case KATSOptionFlagsUseResourceFork:
 		return "KATSOptionFlagsUseResourceFork"
 	default:
-		return fmt.Sprintf("KATSOptionFlags(%d)", e)
+		return fmt.Sprintf("KATSOptionFlagsDefault(%d)", e)
 	}
 }
 
-type KATSStyle uint
+type KATSOptionFlagsIterateByPrecedenceMask uint32
+
+const (
+	KATSOptionFlagsDefaultScope                 KATSOptionFlagsIterateByPrecedenceMask = 0
+	KATSOptionFlagsIncludeDisabledMask          KATSOptionFlagsIterateByPrecedenceMask = 128
+	KATSOptionFlagsIterateByPrecedenceMaskValue KATSOptionFlagsIterateByPrecedenceMask = 32
+	KATSOptionFlagsIterationScopeMask           KATSOptionFlagsIterateByPrecedenceMask = 28672
+	KATSOptionFlagsRestrictedScope              KATSOptionFlagsIterateByPrecedenceMask = 8192
+	KATSOptionFlagsUnRestrictedScope            KATSOptionFlagsIterateByPrecedenceMask = 4096
+)
+
+func (e KATSOptionFlagsIterateByPrecedenceMask) String() string {
+	switch e {
+	case KATSOptionFlagsDefaultScope:
+		return "KATSOptionFlagsDefaultScope"
+	case KATSOptionFlagsIncludeDisabledMask:
+		return "KATSOptionFlagsIncludeDisabledMask"
+	case KATSOptionFlagsIterateByPrecedenceMaskValue:
+		return "KATSOptionFlagsIterateByPrecedenceMaskValue"
+	case KATSOptionFlagsIterationScopeMask:
+		return "KATSOptionFlagsIterationScopeMask"
+	case KATSOptionFlagsRestrictedScope:
+		return "KATSOptionFlagsRestrictedScope"
+	case KATSOptionFlagsUnRestrictedScope:
+		return "KATSOptionFlagsUnRestrictedScope"
+	default:
+		return fmt.Sprintf("KATSOptionFlagsIterateByPrecedenceMask(%d)", e)
+	}
+}
+
+type KATSStyle uint32
 
 const (
 	KATSStyleAppleReserved     KATSStyle = 0xfffffff8
@@ -2252,100 +2889,341 @@ func (e KATSStyle) String() string {
 	}
 }
 
-type KATSU uint
+type KATSUBackground uint32
 
 const (
-	KATSUAfterWithStreamShiftTag          KATSU = 268
-	KATSUAscentTag                        KATSU = 284
-	KATSUBaselineClassTag                 KATSU = 274
-	KATSUBeforeWithStreamShiftTag         KATSU = 267
-	KATSUCGContextTag                     KATSU = 32767
-	KATSUCenterTab                        KATSU = 1
-	KATSUClearAll                         KATSU = 0xffffffff
-	KATSUColorTag                         KATSU = 263
-	KATSUCrossStreamShiftTag              KATSU = 269
-	KATSUDecimalTab                       KATSU = 3
-	KATSUDecompositionFactorTag           KATSU = 273
-	KATSUDefaultFontFallbacks             KATSU = 0
-	KATSUDescentTag                       KATSU = 285
-	KATSUFontMatrixTag                    KATSU = 289
-	KATSUFontTag                          KATSU = 261
-	KATSUForceHangingTag                  KATSU = 280
-	KATSUFromFollowingLayout              KATSU = 0xfffffffd
-	KATSUFromPreviousLayout               KATSU = 0xfffffffe
-	KATSUFromTextBeginning                KATSU = 0xffffffff
-	KATSUGlyphSelectorTag                 KATSU = 287
-	KATSUHangingInhibitFactorTag          KATSU = 271
-	KATSUImposeWidthTag                   KATSU = 266
-	KATSUKerningInhibitFactorTag          KATSU = 272
-	KATSULangRegionTag                    KATSU = 264
-	KATSULanguageTag                      KATSU = 264
-	KATSULastResortOnlyFallback           KATSU = 1
-	KATSULayoutOperationOverrideTag       KATSU = 15
-	KATSULeadingTag                       KATSU = 286
-	KATSULeftTab                          KATSU = 0
-	KATSULeftToRightBaseDirection         KATSU = 0
-	KATSULineAscentTag                    KATSU = 8
-	KATSULineBaselineValuesTag            KATSU = 6
-	KATSULineDecimalTabCharacterTag       KATSU = 14
-	KATSULineDescentTag                   KATSU = 9
-	KATSULineDirectionTag                 KATSU = 3
-	KATSULineFlushFactorTag               KATSU = 5
-	KATSULineFontFallbacksTag             KATSU = 13
-	KATSULineHighlightCGColorTag          KATSU = 17
-	KATSULineJustificationFactorTag       KATSU = 4
-	KATSULineLangRegionTag                KATSU = 10
-	KATSULineLanguageTag                  KATSU = 10
-	KATSULineLayoutOptionsTag             KATSU = 7
-	KATSULineRotationTag                  KATSU = 2
-	KATSULineTextLocatorTag               KATSU = 11
-	KATSULineTruncationTag                KATSU = 12
-	KATSULineWidthTag                     KATSU = 1
-	KATSUMaxATSUITagValue                 KATSU = 65535
-	KATSUMaxLineTag                       KATSU = 18
-	KATSUMaxStyleTag                      KATSU = 299
-	KATSUNoCaretAngleTag                  KATSU = 277
-	KATSUNoLigatureSplitTag               KATSU = 276
-	KATSUNoOpticalAlignmentTag            KATSU = 279
-	KATSUNoSpecialJustificationTag        KATSU = 281
-	KATSUNumberTabTypes                   KATSU = 4
-	KATSUPriorityJustOverrideTag          KATSU = 275
-	KATSUQDBoldfaceTag                    KATSU = 256
-	KATSUQDCondensedTag                   KATSU = 259
-	KATSUQDExtendedTag                    KATSU = 260
-	KATSUQDItalicTag                      KATSU = 257
-	KATSUQDUnderlineTag                   KATSU = 258
-	KATSURGBAlphaColorTag                 KATSU = 288
-	KATSURightTab                         KATSU = 2
-	KATSURightToLeftBaseDirection         KATSU = 1
-	KATSUSequentialFallbacksExclusive     KATSU = 3
-	KATSUSequentialFallbacksPreferred     KATSU = 2
-	KATSUSizeTag                          KATSU = 262
-	KATSUStyleDropShadowBlurOptionTag     KATSU = 296
-	KATSUStyleDropShadowColorOptionTag    KATSU = 298
-	KATSUStyleDropShadowOffsetOptionTag   KATSU = 297
-	KATSUStyleDropShadowTag               KATSU = 295
-	KATSUStyleRenderingOptionsTag         KATSU = 283
-	KATSUStyleStrikeThroughColorOptionTag KATSU = 294
-	KATSUStyleStrikeThroughCountOptionTag KATSU = 293
-	KATSUStyleStrikeThroughTag            KATSU = 292
-	KATSUStyleTextLocatorTag              KATSU = 282
-	KATSUStyleUnderlineColorOptionTag     KATSU = 291
-	KATSUStyleUnderlineCountOptionTag     KATSU = 290
-	KATSUSuppressCrossKerningTag          KATSU = 278
-	KATSUToTextEnd                        KATSU = 0xffffffff
-	KATSUTrackingTag                      KATSU = 270
-	KATSUTruncFeatNoSquishing             KATSU = 0x8
-	KATSUTruncateEnd                      KATSU = 2
-	KATSUTruncateMiddle                   KATSU = 3
-	KATSUTruncateNone                     KATSU = 0
-	KATSUTruncateSpecificationMask        KATSU = 0x7
-	KATSUTruncateStart                    KATSU = 1
-	KATSUUseGrafPortPenLoc                KATSU = 0xffffffff
-	KATSUVerticalCharacterTag             KATSU = 265
+	KATSUBackgroundCallback KATSUBackground = 1
+	KATSUBackgroundColor    KATSUBackground = 0
 )
 
-func (e KATSU) String() string {
+func (e KATSUBackground) String() string {
+	switch e {
+	case KATSUBackgroundCallback:
+		return "KATSUBackgroundCallback"
+	case KATSUBackgroundColor:
+		return "KATSUBackgroundColor"
+	default:
+		return fmt.Sprintf("KATSUBackground(%d)", e)
+	}
+}
+
+type KATSUBy uint32
+
+const (
+	KATSUByCharacter          KATSUBy = 0
+	KATSUByCharacterCluster   KATSUBy = 3
+	KATSUByCluster            KATSUBy = 1
+	KATSUByTypographicCluster KATSUBy = 1
+	KATSUByWord               KATSUBy = 2
+)
+
+func (e KATSUBy) String() string {
+	switch e {
+	case KATSUByCharacter:
+		return "KATSUByCharacter"
+	case KATSUByCharacterCluster:
+		return "KATSUByCharacterCluster"
+	case KATSUByCluster:
+		return "KATSUByCluster"
+	case KATSUByWord:
+		return "KATSUByWord"
+	default:
+		return fmt.Sprintf("KATSUBy(%d)", e)
+	}
+}
+
+type KATSUDataStreamUnicodeStyled uint32
+
+const (
+	KATSUDataStreamUnicodeStyledText KATSUDataStreamUnicodeStyled = 'u'<<24 | 's'<<16 | 't'<<8 | 'l' // 'ustl'
+)
+
+func (e KATSUDataStreamUnicodeStyled) String() string {
+	switch e {
+	case KATSUDataStreamUnicodeStyledText:
+		return "KATSUDataStreamUnicodeStyledText"
+	default:
+		return fmt.Sprintf("KATSUDataStreamUnicodeStyled(%d)", e)
+	}
+}
+
+type KATSUDefaultFontFallbacks uint32
+
+const (
+	KATSUDefaultFontFallbacksValue    KATSUDefaultFontFallbacks = 0
+	KATSULastResortOnlyFallback       KATSUDefaultFontFallbacks = 1
+	KATSUSequentialFallbacksExclusive KATSUDefaultFontFallbacks = 3
+	KATSUSequentialFallbacksPreferred KATSUDefaultFontFallbacks = 2
+)
+
+func (e KATSUDefaultFontFallbacks) String() string {
+	switch e {
+	case KATSUDefaultFontFallbacksValue:
+		return "KATSUDefaultFontFallbacksValue"
+	case KATSULastResortOnlyFallback:
+		return "KATSULastResortOnlyFallback"
+	case KATSUSequentialFallbacksExclusive:
+		return "KATSUSequentialFallbacksExclusive"
+	case KATSUSequentialFallbacksPreferred:
+		return "KATSUSequentialFallbacksPreferred"
+	default:
+		return fmt.Sprintf("KATSUDefaultFontFallbacks(%d)", e)
+	}
+}
+
+type KATSUDirectData uint32
+
+const (
+	KATSUDirectDataAdvanceDeltaFixedArray               KATSUDirectData = 0
+	KATSUDirectDataBaselineDeltaFixedArray              KATSUDirectData = 1
+	KATSUDirectDataDeviceDeltaSInt16Array               KATSUDirectData = 2
+	KATSUDirectDataLayoutRecordATSLayoutRecordCurrent   KATSUDirectData = 100
+	KATSUDirectDataLayoutRecordATSLayoutRecordVersion1  KATSUDirectData = 100
+	KATSUDirectDataStyleIndexUInt16Array                KATSUDirectData = 3
+	KATSUDirectDataStyleSettingATSUStyleSettingRefArray KATSUDirectData = 4
+)
+
+func (e KATSUDirectData) String() string {
+	switch e {
+	case KATSUDirectDataAdvanceDeltaFixedArray:
+		return "KATSUDirectDataAdvanceDeltaFixedArray"
+	case KATSUDirectDataBaselineDeltaFixedArray:
+		return "KATSUDirectDataBaselineDeltaFixedArray"
+	case KATSUDirectDataDeviceDeltaSInt16Array:
+		return "KATSUDirectDataDeviceDeltaSInt16Array"
+	case KATSUDirectDataLayoutRecordATSLayoutRecordCurrent:
+		return "KATSUDirectDataLayoutRecordATSLayoutRecordCurrent"
+	case KATSUDirectDataStyleIndexUInt16Array:
+		return "KATSUDirectDataStyleIndexUInt16Array"
+	case KATSUDirectDataStyleSettingATSUStyleSettingRefArray:
+		return "KATSUDirectDataStyleSettingATSUStyleSettingRefArray"
+	default:
+		return fmt.Sprintf("KATSUDirectData(%d)", e)
+	}
+}
+
+type KATSUFlattenOptionNoOptions uint32
+
+const (
+	KATSUFlattenOptionNoOptionsMask KATSUFlattenOptionNoOptions = 0
+)
+
+func (e KATSUFlattenOptionNoOptions) String() string {
+	switch e {
+	case KATSUFlattenOptionNoOptionsMask:
+		return "KATSUFlattenOptionNoOptionsMask"
+	default:
+		return fmt.Sprintf("KATSUFlattenOptionNoOptions(%d)", e)
+	}
+}
+
+type KATSUFromTextBeginning uint32
+
+const (
+	KATSUFromFollowingLayout    KATSUFromTextBeginning = 0xfffffffd
+	KATSUFromPreviousLayout     KATSUFromTextBeginning = 0xfffffffe
+	KATSUFromTextBeginningValue KATSUFromTextBeginning = 0xffffffff
+	KATSUToTextEnd              KATSUFromTextBeginning = 0xffffffff
+)
+
+func (e KATSUFromTextBeginning) String() string {
+	switch e {
+	case KATSUFromFollowingLayout:
+		return "KATSUFromFollowingLayout"
+	case KATSUFromPreviousLayout:
+		return "KATSUFromPreviousLayout"
+	case KATSUFromTextBeginningValue:
+		return "KATSUFromTextBeginningValue"
+	default:
+		return fmt.Sprintf("KATSUFromTextBeginning(%d)", e)
+	}
+}
+
+type KATSUInvalidFontI uint32
+
+const (
+	KATSUInvalidFontID KATSUInvalidFontI = 0
+)
+
+func (e KATSUInvalidFontI) String() string {
+	switch e {
+	case KATSUInvalidFontID:
+		return "KATSUInvalidFontID"
+	default:
+		return fmt.Sprintf("KATSUInvalidFontI(%d)", e)
+	}
+}
+
+type KATSULayoutOperation uint32
+
+const (
+	KATSULayoutOperationAppleReserved        KATSULayoutOperation = 0xffffffc0
+	KATSULayoutOperationBaselineAdjustment   KATSULayoutOperation = 0x8
+	KATSULayoutOperationJustification        KATSULayoutOperation = 0x1
+	KATSULayoutOperationKerningAdjustment    KATSULayoutOperation = 0x4
+	KATSULayoutOperationMorph                KATSULayoutOperation = 0x2
+	KATSULayoutOperationNone                 KATSULayoutOperation = 0
+	KATSULayoutOperationPostLayoutAdjustment KATSULayoutOperation = 0x20
+	KATSULayoutOperationTrackingAdjustment   KATSULayoutOperation = 0x10
+)
+
+func (e KATSULayoutOperation) String() string {
+	switch e {
+	case KATSULayoutOperationAppleReserved:
+		return "KATSULayoutOperationAppleReserved"
+	case KATSULayoutOperationBaselineAdjustment:
+		return "KATSULayoutOperationBaselineAdjustment"
+	case KATSULayoutOperationJustification:
+		return "KATSULayoutOperationJustification"
+	case KATSULayoutOperationKerningAdjustment:
+		return "KATSULayoutOperationKerningAdjustment"
+	case KATSULayoutOperationMorph:
+		return "KATSULayoutOperationMorph"
+	case KATSULayoutOperationNone:
+		return "KATSULayoutOperationNone"
+	case KATSULayoutOperationPostLayoutAdjustment:
+		return "KATSULayoutOperationPostLayoutAdjustment"
+	case KATSULayoutOperationTrackingAdjustment:
+		return "KATSULayoutOperationTrackingAdjustment"
+	default:
+		return fmt.Sprintf("KATSULayoutOperation(%d)", e)
+	}
+}
+
+type KATSULayoutOperationCallbackStatus uint32
+
+const (
+	KATSULayoutOperationCallbackStatusContinue KATSULayoutOperationCallbackStatus = 0x1
+	KATSULayoutOperationCallbackStatusHandled  KATSULayoutOperationCallbackStatus = 0
+)
+
+func (e KATSULayoutOperationCallbackStatus) String() string {
+	switch e {
+	case KATSULayoutOperationCallbackStatusContinue:
+		return "KATSULayoutOperationCallbackStatusContinue"
+	case KATSULayoutOperationCallbackStatusHandled:
+		return "KATSULayoutOperationCallbackStatusHandled"
+	default:
+		return fmt.Sprintf("KATSULayoutOperationCallbackStatus(%d)", e)
+	}
+}
+
+type KATSULeftTab uint32
+
+const (
+	KATSUCenterTab      KATSULeftTab = 1
+	KATSUDecimalTab     KATSULeftTab = 3
+	KATSULeftTabValue   KATSULeftTab = 0
+	KATSUNumberTabTypes KATSULeftTab = 4
+	KATSURightTab       KATSULeftTab = 2
+)
+
+func (e KATSULeftTab) String() string {
+	switch e {
+	case KATSUCenterTab:
+		return "KATSUCenterTab"
+	case KATSUDecimalTab:
+		return "KATSUDecimalTab"
+	case KATSULeftTabValue:
+		return "KATSULeftTabValue"
+	case KATSUNumberTabTypes:
+		return "KATSUNumberTabTypes"
+	case KATSURightTab:
+		return "KATSURightTab"
+	default:
+		return fmt.Sprintf("KATSULeftTab(%d)", e)
+	}
+}
+
+type KATSULeftToRightBaseDirection uint32
+
+const (
+	KATSULeftToRightBaseDirectionValue KATSULeftToRightBaseDirection = 0
+	KATSURightToLeftBaseDirection      KATSULeftToRightBaseDirection = 1
+)
+
+func (e KATSULeftToRightBaseDirection) String() string {
+	switch e {
+	case KATSULeftToRightBaseDirectionValue:
+		return "KATSULeftToRightBaseDirectionValue"
+	case KATSURightToLeftBaseDirection:
+		return "KATSURightToLeftBaseDirection"
+	default:
+		return fmt.Sprintf("KATSULeftToRightBaseDirection(%d)", e)
+	}
+}
+
+type KATSULineWidthTag uint32
+
+const (
+	KATSUAfterWithStreamShiftTag          KATSULineWidthTag = 268
+	KATSUAscentTag                        KATSULineWidthTag = 284
+	KATSUBaselineClassTag                 KATSULineWidthTag = 274
+	KATSUBeforeWithStreamShiftTag         KATSULineWidthTag = 267
+	KATSUCGContextTag                     KATSULineWidthTag = 32767
+	KATSUColorTag                         KATSULineWidthTag = 263
+	KATSUCrossStreamShiftTag              KATSULineWidthTag = 269
+	KATSUDecompositionFactorTag           KATSULineWidthTag = 273
+	KATSUDescentTag                       KATSULineWidthTag = 285
+	KATSUFontMatrixTag                    KATSULineWidthTag = 289
+	KATSUFontTag                          KATSULineWidthTag = 261
+	KATSUForceHangingTag                  KATSULineWidthTag = 280
+	KATSUGlyphSelectorTag                 KATSULineWidthTag = 287
+	KATSUHangingInhibitFactorTag          KATSULineWidthTag = 271
+	KATSUImposeWidthTag                   KATSULineWidthTag = 266
+	KATSUKerningInhibitFactorTag          KATSULineWidthTag = 272
+	KATSULangRegionTag                    KATSULineWidthTag = 264
+	KATSULanguageTag                      KATSULineWidthTag = 264
+	KATSULayoutOperationOverrideTag       KATSULineWidthTag = 15
+	KATSULeadingTag                       KATSULineWidthTag = 286
+	KATSULineAscentTag                    KATSULineWidthTag = 8
+	KATSULineBaselineValuesTag            KATSULineWidthTag = 6
+	KATSULineDecimalTabCharacterTag       KATSULineWidthTag = 14
+	KATSULineDescentTag                   KATSULineWidthTag = 9
+	KATSULineDirectionTag                 KATSULineWidthTag = 3
+	KATSULineFlushFactorTag               KATSULineWidthTag = 5
+	KATSULineFontFallbacksTag             KATSULineWidthTag = 13
+	KATSULineHighlightCGColorTag          KATSULineWidthTag = 17
+	KATSULineJustificationFactorTag       KATSULineWidthTag = 4
+	KATSULineLangRegionTag                KATSULineWidthTag = 10
+	KATSULineLanguageTag                  KATSULineWidthTag = 10
+	KATSULineLayoutOptionsTag             KATSULineWidthTag = 7
+	KATSULineRotationTag                  KATSULineWidthTag = 2
+	KATSULineTextLocatorTag               KATSULineWidthTag = 11
+	KATSULineTruncationTag                KATSULineWidthTag = 12
+	KATSULineWidthTagValue                KATSULineWidthTag = 1
+	KATSUMaxATSUITagValue                 KATSULineWidthTag = 65535
+	KATSUMaxLineTag                       KATSULineWidthTag = 18
+	KATSUMaxStyleTag                      KATSULineWidthTag = 299
+	KATSUNoCaretAngleTag                  KATSULineWidthTag = 277
+	KATSUNoLigatureSplitTag               KATSULineWidthTag = 276
+	KATSUNoOpticalAlignmentTag            KATSULineWidthTag = 279
+	KATSUNoSpecialJustificationTag        KATSULineWidthTag = 281
+	KATSUPriorityJustOverrideTag          KATSULineWidthTag = 275
+	KATSUQDBoldfaceTag                    KATSULineWidthTag = 256
+	KATSUQDCondensedTag                   KATSULineWidthTag = 259
+	KATSUQDExtendedTag                    KATSULineWidthTag = 260
+	KATSUQDItalicTag                      KATSULineWidthTag = 257
+	KATSUQDUnderlineTag                   KATSULineWidthTag = 258
+	KATSURGBAlphaColorTag                 KATSULineWidthTag = 288
+	KATSUSizeTag                          KATSULineWidthTag = 262
+	KATSUStyleDropShadowBlurOptionTag     KATSULineWidthTag = 296
+	KATSUStyleDropShadowColorOptionTag    KATSULineWidthTag = 298
+	KATSUStyleDropShadowOffsetOptionTag   KATSULineWidthTag = 297
+	KATSUStyleDropShadowTag               KATSULineWidthTag = 295
+	KATSUStyleRenderingOptionsTag         KATSULineWidthTag = 283
+	KATSUStyleStrikeThroughColorOptionTag KATSULineWidthTag = 294
+	KATSUStyleStrikeThroughCountOptionTag KATSULineWidthTag = 293
+	KATSUStyleStrikeThroughTag            KATSULineWidthTag = 292
+	KATSUStyleTextLocatorTag              KATSULineWidthTag = 282
+	KATSUStyleUnderlineColorOptionTag     KATSULineWidthTag = 291
+	KATSUStyleUnderlineCountOptionTag     KATSULineWidthTag = 290
+	KATSUSuppressCrossKerningTag          KATSULineWidthTag = 278
+	KATSUTrackingTag                      KATSULineWidthTag = 270
+	KATSUVerticalCharacterTag             KATSULineWidthTag = 265
+)
+
+func (e KATSULineWidthTag) String() string {
 	switch e {
 	case KATSUAfterWithStreamShiftTag:
 		return "KATSUAfterWithStreamShiftTag"
@@ -2357,20 +3235,12 @@ func (e KATSU) String() string {
 		return "KATSUBeforeWithStreamShiftTag"
 	case KATSUCGContextTag:
 		return "KATSUCGContextTag"
-	case KATSUCenterTab:
-		return "KATSUCenterTab"
-	case KATSUClearAll:
-		return "KATSUClearAll"
 	case KATSUColorTag:
 		return "KATSUColorTag"
 	case KATSUCrossStreamShiftTag:
 		return "KATSUCrossStreamShiftTag"
-	case KATSUDecimalTab:
-		return "KATSUDecimalTab"
 	case KATSUDecompositionFactorTag:
 		return "KATSUDecompositionFactorTag"
-	case KATSUDefaultFontFallbacks:
-		return "KATSUDefaultFontFallbacks"
 	case KATSUDescentTag:
 		return "KATSUDescentTag"
 	case KATSUFontMatrixTag:
@@ -2379,10 +3249,6 @@ func (e KATSU) String() string {
 		return "KATSUFontTag"
 	case KATSUForceHangingTag:
 		return "KATSUForceHangingTag"
-	case KATSUFromFollowingLayout:
-		return "KATSUFromFollowingLayout"
-	case KATSUFromPreviousLayout:
-		return "KATSUFromPreviousLayout"
 	case KATSUGlyphSelectorTag:
 		return "KATSUGlyphSelectorTag"
 	case KATSUHangingInhibitFactorTag:
@@ -2405,6 +3271,8 @@ func (e KATSU) String() string {
 		return "KATSULineDecimalTabCharacterTag"
 	case KATSULineDescentTag:
 		return "KATSULineDescentTag"
+	case KATSULineDirectionTag:
+		return "KATSULineDirectionTag"
 	case KATSULineFlushFactorTag:
 		return "KATSULineFlushFactorTag"
 	case KATSULineFontFallbacksTag:
@@ -2423,6 +3291,8 @@ func (e KATSU) String() string {
 		return "KATSULineTextLocatorTag"
 	case KATSULineTruncationTag:
 		return "KATSULineTruncationTag"
+	case KATSULineWidthTagValue:
+		return "KATSULineWidthTagValue"
 	case KATSUMaxATSUITagValue:
 		return "KATSUMaxATSUITagValue"
 	case KATSUMaxLineTag:
@@ -2482,184 +3352,11 @@ func (e KATSU) String() string {
 	case KATSUVerticalCharacterTag:
 		return "KATSUVerticalCharacterTag"
 	default:
-		return fmt.Sprintf("KATSU(%d)", e)
+		return fmt.Sprintf("KATSULineWidthTag(%d)", e)
 	}
 }
 
-type KATSUBackground uint
-
-const (
-	KATSUBackgroundCallback KATSUBackground = 1
-	KATSUBackgroundColor    KATSUBackground = 0
-)
-
-func (e KATSUBackground) String() string {
-	switch e {
-	case KATSUBackgroundCallback:
-		return "KATSUBackgroundCallback"
-	case KATSUBackgroundColor:
-		return "KATSUBackgroundColor"
-	default:
-		return fmt.Sprintf("KATSUBackground(%d)", e)
-	}
-}
-
-type KATSUBy uint
-
-const (
-	KATSUByCharacter          KATSUBy = 0
-	KATSUByCharacterCluster   KATSUBy = 3
-	KATSUByCluster            KATSUBy = 1
-	KATSUByTypographicCluster KATSUBy = 1
-	KATSUByWord               KATSUBy = 2
-)
-
-func (e KATSUBy) String() string {
-	switch e {
-	case KATSUByCharacter:
-		return "KATSUByCharacter"
-	case KATSUByCharacterCluster:
-		return "KATSUByCharacterCluster"
-	case KATSUByCluster:
-		return "KATSUByCluster"
-	case KATSUByWord:
-		return "KATSUByWord"
-	default:
-		return fmt.Sprintf("KATSUBy(%d)", e)
-	}
-}
-
-type KATSUDataStreamUnicodeStyled uint
-
-const (
-	KATSUDataStreamUnicodeStyledText KATSUDataStreamUnicodeStyled = 'u'<<24 | 's'<<16 | 't'<<8 | 'l' // 'ustl'
-)
-
-func (e KATSUDataStreamUnicodeStyled) String() string {
-	switch e {
-	case KATSUDataStreamUnicodeStyledText:
-		return "KATSUDataStreamUnicodeStyledText"
-	default:
-		return fmt.Sprintf("KATSUDataStreamUnicodeStyled(%d)", e)
-	}
-}
-
-type KATSUDirectData uint
-
-const (
-	KATSUDirectDataAdvanceDeltaFixedArray               KATSUDirectData = 0
-	KATSUDirectDataBaselineDeltaFixedArray              KATSUDirectData = 1
-	KATSUDirectDataDeviceDeltaSInt16Array               KATSUDirectData = 2
-	KATSUDirectDataLayoutRecordATSLayoutRecordCurrent   KATSUDirectData = 100
-	KATSUDirectDataLayoutRecordATSLayoutRecordVersion1  KATSUDirectData = 100
-	KATSUDirectDataStyleIndexUInt16Array                KATSUDirectData = 3
-	KATSUDirectDataStyleSettingATSUStyleSettingRefArray KATSUDirectData = 4
-)
-
-func (e KATSUDirectData) String() string {
-	switch e {
-	case KATSUDirectDataAdvanceDeltaFixedArray:
-		return "KATSUDirectDataAdvanceDeltaFixedArray"
-	case KATSUDirectDataBaselineDeltaFixedArray:
-		return "KATSUDirectDataBaselineDeltaFixedArray"
-	case KATSUDirectDataDeviceDeltaSInt16Array:
-		return "KATSUDirectDataDeviceDeltaSInt16Array"
-	case KATSUDirectDataLayoutRecordATSLayoutRecordCurrent:
-		return "KATSUDirectDataLayoutRecordATSLayoutRecordCurrent"
-	case KATSUDirectDataStyleIndexUInt16Array:
-		return "KATSUDirectDataStyleIndexUInt16Array"
-	case KATSUDirectDataStyleSettingATSUStyleSettingRefArray:
-		return "KATSUDirectDataStyleSettingATSUStyleSettingRefArray"
-	default:
-		return fmt.Sprintf("KATSUDirectData(%d)", e)
-	}
-}
-
-type KATSUFlattenOptionNoOptions uint
-
-const (
-	KATSUFlattenOptionNoOptionsMask KATSUFlattenOptionNoOptions = 0
-)
-
-func (e KATSUFlattenOptionNoOptions) String() string {
-	switch e {
-	case KATSUFlattenOptionNoOptionsMask:
-		return "KATSUFlattenOptionNoOptionsMask"
-	default:
-		return fmt.Sprintf("KATSUFlattenOptionNoOptions(%d)", e)
-	}
-}
-
-type KATSUInvalidFontI uint
-
-const (
-	KATSUInvalidFontID KATSUInvalidFontI = 0
-)
-
-func (e KATSUInvalidFontI) String() string {
-	switch e {
-	case KATSUInvalidFontID:
-		return "KATSUInvalidFontID"
-	default:
-		return fmt.Sprintf("KATSUInvalidFontI(%d)", e)
-	}
-}
-
-type KATSULayoutOperation uint
-
-const (
-	KATSULayoutOperationAppleReserved        KATSULayoutOperation = 0xffffffc0
-	KATSULayoutOperationBaselineAdjustment   KATSULayoutOperation = 0x8
-	KATSULayoutOperationJustification        KATSULayoutOperation = 0x1
-	KATSULayoutOperationKerningAdjustment    KATSULayoutOperation = 0x4
-	KATSULayoutOperationMorph                KATSULayoutOperation = 0x2
-	KATSULayoutOperationNone                 KATSULayoutOperation = 0
-	KATSULayoutOperationPostLayoutAdjustment KATSULayoutOperation = 0x20
-	KATSULayoutOperationTrackingAdjustment   KATSULayoutOperation = 0x10
-)
-
-func (e KATSULayoutOperation) String() string {
-	switch e {
-	case KATSULayoutOperationAppleReserved:
-		return "KATSULayoutOperationAppleReserved"
-	case KATSULayoutOperationBaselineAdjustment:
-		return "KATSULayoutOperationBaselineAdjustment"
-	case KATSULayoutOperationJustification:
-		return "KATSULayoutOperationJustification"
-	case KATSULayoutOperationKerningAdjustment:
-		return "KATSULayoutOperationKerningAdjustment"
-	case KATSULayoutOperationMorph:
-		return "KATSULayoutOperationMorph"
-	case KATSULayoutOperationNone:
-		return "KATSULayoutOperationNone"
-	case KATSULayoutOperationPostLayoutAdjustment:
-		return "KATSULayoutOperationPostLayoutAdjustment"
-	case KATSULayoutOperationTrackingAdjustment:
-		return "KATSULayoutOperationTrackingAdjustment"
-	default:
-		return fmt.Sprintf("KATSULayoutOperation(%d)", e)
-	}
-}
-
-type KATSULayoutOperationCallbackStatus int
-
-const (
-	KATSULayoutOperationCallbackStatusContinue KATSULayoutOperationCallbackStatus = 0x1
-	KATSULayoutOperationCallbackStatusHandled  KATSULayoutOperationCallbackStatus = 0
-)
-
-func (e KATSULayoutOperationCallbackStatus) String() string {
-	switch e {
-	case KATSULayoutOperationCallbackStatusContinue:
-		return "KATSULayoutOperationCallbackStatusContinue"
-	case KATSULayoutOperationCallbackStatusHandled:
-		return "KATSULayoutOperationCallbackStatusHandled"
-	default:
-		return fmt.Sprintf("KATSULayoutOperationCallbackStatus(%d)", e)
-	}
-}
-
-type KATSUNo uint
+type KATSUNo uint32
 
 const (
 	KATSUNoSelector KATSUNo = 0xffff
@@ -2674,7 +3371,7 @@ func (e KATSUNo) String() string {
 	}
 }
 
-type KATSUStrongly uint
+type KATSUStrongly uint32
 
 const (
 	KATSUStronglyHorizontal KATSUStrongly = 0
@@ -2692,33 +3389,79 @@ func (e KATSUStrongly) String() string {
 	}
 }
 
-type KATSUStyle uint
+type KATSUStyleSingleLineCount uint32
 
 const (
-	KATSUStyleContainedBy     KATSUStyle = 3
-	KATSUStyleContains        KATSUStyle = 1
-	KATSUStyleDoubleLineCount KATSUStyle = 2
-	KATSUStyleEquals          KATSUStyle = 2
-	KATSUStyleSingleLineCount KATSUStyle = 1
-	KATSUStyleUnequal         KATSUStyle = 0
+	KATSUStyleDoubleLineCount      KATSUStyleSingleLineCount = 2
+	KATSUStyleSingleLineCountValue KATSUStyleSingleLineCount = 1
 )
 
-func (e KATSUStyle) String() string {
+func (e KATSUStyleSingleLineCount) String() string {
+	switch e {
+	case KATSUStyleDoubleLineCount:
+		return "KATSUStyleDoubleLineCount"
+	case KATSUStyleSingleLineCountValue:
+		return "KATSUStyleSingleLineCountValue"
+	default:
+		return fmt.Sprintf("KATSUStyleSingleLineCount(%d)", e)
+	}
+}
+
+type KATSUStyleUnequal uint32
+
+const (
+	KATSUStyleContainedBy  KATSUStyleUnequal = 3
+	KATSUStyleContains     KATSUStyleUnequal = 1
+	KATSUStyleEquals       KATSUStyleUnequal = 2
+	KATSUStyleUnequalValue KATSUStyleUnequal = 0
+)
+
+func (e KATSUStyleUnequal) String() string {
 	switch e {
 	case KATSUStyleContainedBy:
 		return "KATSUStyleContainedBy"
 	case KATSUStyleContains:
 		return "KATSUStyleContains"
-	case KATSUStyleDoubleLineCount:
-		return "KATSUStyleDoubleLineCount"
-	case KATSUStyleUnequal:
-		return "KATSUStyleUnequal"
+	case KATSUStyleEquals:
+		return "KATSUStyleEquals"
+	case KATSUStyleUnequalValue:
+		return "KATSUStyleUnequalValue"
 	default:
-		return fmt.Sprintf("KATSUStyle(%d)", e)
+		return fmt.Sprintf("KATSUStyleUnequal(%d)", e)
 	}
 }
 
-type KATSUUnFlattenOptionNoOptions uint
+type KATSUTruncateNone uint32
+
+const (
+	KATSUTruncFeatNoSquishing      KATSUTruncateNone = 0x8
+	KATSUTruncateEnd               KATSUTruncateNone = 2
+	KATSUTruncateMiddle            KATSUTruncateNone = 3
+	KATSUTruncateNoneValue         KATSUTruncateNone = 0
+	KATSUTruncateSpecificationMask KATSUTruncateNone = 0x7
+	KATSUTruncateStart             KATSUTruncateNone = 1
+)
+
+func (e KATSUTruncateNone) String() string {
+	switch e {
+	case KATSUTruncFeatNoSquishing:
+		return "KATSUTruncFeatNoSquishing"
+	case KATSUTruncateEnd:
+		return "KATSUTruncateEnd"
+	case KATSUTruncateMiddle:
+		return "KATSUTruncateMiddle"
+	case KATSUTruncateNoneValue:
+		return "KATSUTruncateNoneValue"
+	case KATSUTruncateSpecificationMask:
+		return "KATSUTruncateSpecificationMask"
+	case KATSUTruncateStart:
+		return "KATSUTruncateStart"
+	default:
+		return fmt.Sprintf("KATSUTruncateNone(%d)", e)
+	}
+}
+
+type KATSUUnFlattenOptionNoOptions uint32
 
 const (
 	KATSUUnFlattenOptionNoOptionsMask KATSUUnFlattenOptionNoOptions = 0
@@ -2733,7 +3476,23 @@ func (e KATSUUnFlattenOptionNoOptions) String() string {
 	}
 }
 
-type KATSUUseLineControl uint
+type KATSUUseGrafPortPenLoc uint32
+
+const (
+	KATSUClearAll               KATSUUseGrafPortPenLoc = 0xffffffff
+	KATSUUseGrafPortPenLocValue KATSUUseGrafPortPenLoc = 0xffffffff
+)
+
+func (e KATSUUseGrafPortPenLoc) String() string {
+	switch e {
+	case KATSUClearAll:
+		return "KATSUClearAll"
+	default:
+		return fmt.Sprintf("KATSUUseGrafPortPenLoc(%d)", e)
+	}
+}
+
+type KATSUUseLineControl uint32
 
 const (
 	KATSUUseLineControlWidth KATSUUseLineControl = 0x7fffffff
@@ -2748,7 +3507,7 @@ func (e KATSUUseLineControl) String() string {
 	}
 }
 
-type KATSUse uint
+type KATSUse uint32
 
 const (
 	KATSUseCaretOrigins      KATSUse = 0
@@ -2772,24 +3531,43 @@ func (e KATSUse) String() string {
 	}
 }
 
-type KAlign uint
+type KATSUseGlyphAdvance int32
 
 const (
-	KAlignAbsoluteCenter   KAlign = 1
+	KATSNoTracking           KATSUseGlyphAdvance = -2147483648
+	KATSUseGlyphAdvanceValue KATSUseGlyphAdvance = 0x7fffffff
+	KATSUseLineHeight        KATSUseGlyphAdvance = 0x7fffffff
+)
+
+func (e KATSUseGlyphAdvance) String() string {
+	switch e {
+	case KATSNoTracking:
+		return "KATSNoTracking"
+	case KATSUseGlyphAdvanceValue:
+		return "KATSUseGlyphAdvanceValue"
+	default:
+		return fmt.Sprintf("KATSUseGlyphAdvance(%d)", e)
+	}
+}
+
+type KAlign uint32
+
+const (
+	KAlignAbsoluteCenter   KAlign = 5
 	KAlignBottom           KAlign = 0x3
-	KAlignBottomLeft       KAlign = 3
-	KAlignBottomRight      KAlign = 3
-	KAlignCenterBottom     KAlign = 3
-	KAlignCenterLeft       KAlign = 1
-	KAlignCenterRight      KAlign = 1
-	KAlignCenterTop        KAlign = 2
+	KAlignBottomLeft       KAlign = 11
+	KAlignBottomRight      KAlign = 15
+	KAlignCenterBottom     KAlign = 7
+	KAlignCenterLeft       KAlign = 9
+	KAlignCenterRight      KAlign = 13
+	KAlignCenterTop        KAlign = 6
 	KAlignHorizontalCenter KAlign = 0x4
 	KAlignLeft             KAlign = 0x8
 	KAlignNone             KAlign = 0
 	KAlignRight            KAlign = 0xc
 	KAlignTop              KAlign = 0x2
-	KAlignTopLeft          KAlign = 2
-	KAlignTopRight         KAlign = 2
+	KAlignTopLeft          KAlign = 10
+	KAlignTopRight         KAlign = 14
 	KAlignVerticalCenter   KAlign = 0x1
 )
 
@@ -2799,6 +3577,16 @@ func (e KAlign) String() string {
 		return "KAlignAbsoluteCenter"
 	case KAlignBottom:
 		return "KAlignBottom"
+	case KAlignBottomLeft:
+		return "KAlignBottomLeft"
+	case KAlignBottomRight:
+		return "KAlignBottomRight"
+	case KAlignCenterBottom:
+		return "KAlignCenterBottom"
+	case KAlignCenterLeft:
+		return "KAlignCenterLeft"
+	case KAlignCenterRight:
+		return "KAlignCenterRight"
 	case KAlignCenterTop:
 		return "KAlignCenterTop"
 	case KAlignHorizontalCenter:
@@ -2809,12 +3597,20 @@ func (e KAlign) String() string {
 		return "KAlignNone"
 	case KAlignRight:
 		return "KAlignRight"
+	case KAlignTop:
+		return "KAlignTop"
+	case KAlignTopLeft:
+		return "KAlignTopLeft"
+	case KAlignTopRight:
+		return "KAlignTopRight"
+	case KAlignVerticalCenter:
+		return "KAlignVerticalCenter"
 	default:
 		return fmt.Sprintf("KAlign(%d)", e)
 	}
 }
 
-type KAllPPDDomains uint
+type KAllPPDDomains uint32
 
 const (
 	// KAllPPDDomainsValue: # Discussion
@@ -2850,7 +3646,7 @@ func (e KAllPPDDomains) String() string {
 	}
 }
 
-type KAudioUnit uint
+type KAudioUnit uint32
 
 const (
 	// KAudioUnitProperty_SpeechChannel: The speech channel property in the speech synthesis audio unit.
@@ -2874,7 +3670,7 @@ func (e KAudioUnit) String() string {
 	}
 }
 
-type KDefaultCMM uint
+type KDefaultCMM uint32
 
 const (
 	// KDefaultCMMSignature: Signature for the default CMM supplied with the ColorSync Manager.
@@ -2890,46 +3686,7 @@ func (e KDefaultCMM) String() string {
 	}
 }
 
-type KFM uint
-
-const (
-	KFMFontCallbackFilterSelector       KFM = 5
-	KFMFontContainerFilterSelector      KFM = 2
-	KFMFontDirectoryFilterSelector      KFM = 6
-	KFMFontFamilyCallbackFilterSelector KFM = 4
-	KFMFontFileRefFilterSelector        KFM = 10
-	KFMFontTechnologyFilterSelector     KFM = 1
-	KFMGenerationFilterSelector         KFM = 3
-	KFMPostScriptFontTechnology         KFM = 't'<<24 | 'y'<<16 | 'p'<<8 | '1' // 'typ1'
-	KFMTrueTypeFontTechnology           KFM = 't'<<24 | 'r'<<16 | 'u'<<8 | 'e' // 'true'
-)
-
-func (e KFM) String() string {
-	switch e {
-	case KFMFontCallbackFilterSelector:
-		return "KFMFontCallbackFilterSelector"
-	case KFMFontContainerFilterSelector:
-		return "KFMFontContainerFilterSelector"
-	case KFMFontDirectoryFilterSelector:
-		return "KFMFontDirectoryFilterSelector"
-	case KFMFontFamilyCallbackFilterSelector:
-		return "KFMFontFamilyCallbackFilterSelector"
-	case KFMFontFileRefFilterSelector:
-		return "KFMFontFileRefFilterSelector"
-	case KFMFontTechnologyFilterSelector:
-		return "KFMFontTechnologyFilterSelector"
-	case KFMGenerationFilterSelector:
-		return "KFMGenerationFilterSelector"
-	case KFMPostScriptFontTechnology:
-		return "KFMPostScriptFontTechnology"
-	case KFMTrueTypeFontTechnology:
-		return "KFMTrueTypeFontTechnology"
-	default:
-		return fmt.Sprintf("KFM(%d)", e)
-	}
-}
-
-type KFMCurrentFilter uint
+type KFMCurrentFilter uint32
 
 const (
 	KFMCurrentFilterFormat KFMCurrentFilter = 0
@@ -2944,7 +3701,58 @@ func (e KFMCurrentFilter) String() string {
 	}
 }
 
-type KGlyphCollection uint
+type KFMFontTechnologyFilterSelector uint32
+
+const (
+	KFMFontCallbackFilterSelector        KFMFontTechnologyFilterSelector = 5
+	KFMFontContainerFilterSelector       KFMFontTechnologyFilterSelector = 2
+	KFMFontDirectoryFilterSelector       KFMFontTechnologyFilterSelector = 6
+	KFMFontFamilyCallbackFilterSelector  KFMFontTechnologyFilterSelector = 4
+	KFMFontFileRefFilterSelector         KFMFontTechnologyFilterSelector = 10
+	KFMFontTechnologyFilterSelectorValue KFMFontTechnologyFilterSelector = 1
+	KFMGenerationFilterSelector          KFMFontTechnologyFilterSelector = 3
+)
+
+func (e KFMFontTechnologyFilterSelector) String() string {
+	switch e {
+	case KFMFontCallbackFilterSelector:
+		return "KFMFontCallbackFilterSelector"
+	case KFMFontContainerFilterSelector:
+		return "KFMFontContainerFilterSelector"
+	case KFMFontDirectoryFilterSelector:
+		return "KFMFontDirectoryFilterSelector"
+	case KFMFontFamilyCallbackFilterSelector:
+		return "KFMFontFamilyCallbackFilterSelector"
+	case KFMFontFileRefFilterSelector:
+		return "KFMFontFileRefFilterSelector"
+	case KFMFontTechnologyFilterSelectorValue:
+		return "KFMFontTechnologyFilterSelectorValue"
+	case KFMGenerationFilterSelector:
+		return "KFMGenerationFilterSelector"
+	default:
+		return fmt.Sprintf("KFMFontTechnologyFilterSelector(%d)", e)
+	}
+}
+
+type KFMTrueTypeFontTechnology uint32
+
+const (
+	KFMPostScriptFontTechnology    KFMTrueTypeFontTechnology = 't'<<24 | 'y'<<16 | 'p'<<8 | '1' // 'typ1'
+	KFMTrueTypeFontTechnologyValue KFMTrueTypeFontTechnology = 't'<<24 | 'r'<<16 | 'u'<<8 | 'e' // 'true'
+)
+
+func (e KFMTrueTypeFontTechnology) String() string {
+	switch e {
+	case KFMPostScriptFontTechnology:
+		return "KFMPostScriptFontTechnology"
+	case KFMTrueTypeFontTechnologyValue:
+		return "KFMTrueTypeFontTechnologyValue"
+	default:
+		return fmt.Sprintf("KFMTrueTypeFontTechnology(%d)", e)
+	}
+}
+
+type KGlyphCollection uint32
 
 const (
 	KGlyphCollectionAdobeCNS1   KGlyphCollection = 1
@@ -2977,7 +3785,7 @@ func (e KGlyphCollection) String() string {
 	}
 }
 
-type KHIShapeEnumerate uint
+type KHIShapeEnumerate uint32
 
 const (
 	KHIShapeEnumerateInit      KHIShapeEnumerate = 1
@@ -2998,11 +3806,11 @@ func (e KHIShapeEnumerate) String() string {
 	}
 }
 
-type KHIShapeParseFrom uint
+type KHIShapeParseFrom uint32
 
 const (
 	KHIShapeParseFromBottom      KHIShapeParseFrom = 1
-	KHIShapeParseFromBottomRight KHIShapeParseFrom = 1
+	KHIShapeParseFromBottomRight KHIShapeParseFrom = 3
 	KHIShapeParseFromLeft        KHIShapeParseFrom = 0
 	KHIShapeParseFromRight       KHIShapeParseFrom = 2
 	KHIShapeParseFromTop         KHIShapeParseFrom = 0
@@ -3013,6 +3821,8 @@ func (e KHIShapeParseFrom) String() string {
 	switch e {
 	case KHIShapeParseFromBottom:
 		return "KHIShapeParseFromBottom"
+	case KHIShapeParseFromBottomRight:
+		return "KHIShapeParseFromBottomRight"
 	case KHIShapeParseFromLeft:
 		return "KHIShapeParseFromLeft"
 	case KHIShapeParseFromRight:
@@ -3022,54 +3832,46 @@ func (e KHIShapeParseFrom) String() string {
 	}
 }
 
-type KIC uint
+type KICAttrLockedBit uint32
 
 const (
-	KICComponentVersion KIC = 0
-	KICCreator          KIC = 'I'<<24 | 'C'<<16 | 'A'<<8 | 'p' // 'ICAp'
-	KICFileType         KIC = 'I'<<24 | 'C'<<16 | 'A'<<8 | 'p' // 'ICAp'
-	KICNumVersion       KIC = 1
+	KICAttrLockedBitValue KICAttrLockedBit = 0
+	KICAttrVolatileBit    KICAttrLockedBit = 1
 )
 
-func (e KIC) String() string {
+func (e KICAttrLockedBit) String() string {
 	switch e {
-	case KICComponentVersion:
-		return "KICComponentVersion"
-	case KICCreator:
-		return "KICCreator"
-	case KICNumVersion:
-		return "KICNumVersion"
+	case KICAttrLockedBitValue:
+		return "KICAttrLockedBitValue"
+	case KICAttrVolatileBit:
+		return "KICAttrVolatileBit"
 	default:
-		return fmt.Sprintf("KIC(%d)", e)
+		return fmt.Sprintf("KICAttrLockedBit(%d)", e)
 	}
 }
 
-type KICAttr uint
+type KICAttrNoChange uint32
 
 const (
-	KICAttrLockedBit    KICAttr = 0
-	KICAttrLockedMask   KICAttr = 0x1
-	KICAttrNoChange     KICAttr = 0xffffffff
-	KICAttrVolatileBit  KICAttr = 1
-	KICAttrVolatileMask KICAttr = 0x2
+	KICAttrLockedMask    KICAttrNoChange = 0x1
+	KICAttrNoChangeValue KICAttrNoChange = 0xffffffff
+	KICAttrVolatileMask  KICAttrNoChange = 0x2
 )
 
-func (e KICAttr) String() string {
+func (e KICAttrNoChange) String() string {
 	switch e {
-	case KICAttrLockedBit:
-		return "KICAttrLockedBit"
 	case KICAttrLockedMask:
 		return "KICAttrLockedMask"
-	case KICAttrNoChange:
-		return "KICAttrNoChange"
+	case KICAttrNoChangeValue:
+		return "KICAttrNoChangeValue"
 	case KICAttrVolatileMask:
 		return "KICAttrVolatileMask"
 	default:
-		return fmt.Sprintf("KICAttr(%d)", e)
+		return fmt.Sprintf("KICAttrNoChange(%d)", e)
 	}
 }
 
-type KICComponentInterface uint
+type KICComponentInterface uint32
 
 const (
 	KICComponentInterfaceVersion  KICComponentInterface = 262144
@@ -3097,7 +3899,25 @@ func (e KICComponentInterface) String() string {
 	}
 }
 
-type KICEditPreferenceEventClass uint
+type KICComponentVersion uint32
+
+const (
+	KICComponentVersionValue KICComponentVersion = 0
+	KICNumVersion            KICComponentVersion = 1
+)
+
+func (e KICComponentVersion) String() string {
+	switch e {
+	case KICComponentVersionValue:
+		return "KICComponentVersionValue"
+	case KICNumVersion:
+		return "KICNumVersion"
+	default:
+		return fmt.Sprintf("KICComponentVersion(%d)", e)
+	}
+}
+
+type KICEditPreferenceEventClass uint32
 
 const (
 	KICEditPreferenceEvent           KICEditPreferenceEventClass = 'I'<<24 | 'C'<<16 | 'A'<<8 | 'p' // 'ICAp'
@@ -3116,10 +3936,10 @@ func (e KICEditPreferenceEventClass) String() string {
 	}
 }
 
-type KICFileSpecHeader uint
+type KICFileSpecHeader uint32
 
 const (
-	KICFileSpecHeaderSize KICFileSpecHeader = 0
+	KICFileSpecHeaderSize KICFileSpecHeader = 106
 )
 
 func (e KICFileSpecHeader) String() string {
@@ -3131,49 +3951,83 @@ func (e KICFileSpecHeader) String() string {
 	}
 }
 
-type KICMap uint
+type KICFileType uint32
 
 const (
-	KICMapBinaryBit        KICMap = 0
-	KICMapBinaryMask       KICMap = 0x1
-	KICMapDataForkBit      KICMap = 2
-	KICMapDataForkMask     KICMap = 0x4
-	KICMapNotIncomingBit   KICMap = 4
-	KICMapNotIncomingMask  KICMap = 0x10
-	KICMapNotOutgoingBit   KICMap = 5
-	KICMapNotOutgoingMask  KICMap = 0x20
-	KICMapPostBit          KICMap = 3
-	KICMapPostMask         KICMap = 0x8
-	KICMapResourceForkBit  KICMap = 1
-	KICMapResourceForkMask KICMap = 0x2
+	KICCreator       KICFileType = 'I'<<24 | 'C'<<16 | 'A'<<8 | 'p' // 'ICAp'
+	KICFileTypeValue KICFileType = 'I'<<24 | 'C'<<16 | 'A'<<8 | 'p' // 'ICAp'
 )
 
-func (e KICMap) String() string {
+func (e KICFileType) String() string {
 	switch e {
-	case KICMapBinaryBit:
-		return "KICMapBinaryBit"
-	case KICMapBinaryMask:
-		return "KICMapBinaryMask"
+	case KICCreator:
+		return "KICCreator"
+	default:
+		return fmt.Sprintf("KICFileType(%d)", e)
+	}
+}
+
+type KICMapBinaryBit uint32
+
+const (
+	KICMapBinaryBitValue  KICMapBinaryBit = 0
+	KICMapDataForkBit     KICMapBinaryBit = 2
+	KICMapNotIncomingBit  KICMapBinaryBit = 4
+	KICMapNotOutgoingBit  KICMapBinaryBit = 5
+	KICMapPostBit         KICMapBinaryBit = 3
+	KICMapResourceForkBit KICMapBinaryBit = 1
+)
+
+func (e KICMapBinaryBit) String() string {
+	switch e {
+	case KICMapBinaryBitValue:
+		return "KICMapBinaryBitValue"
 	case KICMapDataForkBit:
 		return "KICMapDataForkBit"
+	case KICMapNotIncomingBit:
+		return "KICMapNotIncomingBit"
+	case KICMapNotOutgoingBit:
+		return "KICMapNotOutgoingBit"
+	case KICMapPostBit:
+		return "KICMapPostBit"
+	case KICMapResourceForkBit:
+		return "KICMapResourceForkBit"
+	default:
+		return fmt.Sprintf("KICMapBinaryBit(%d)", e)
+	}
+}
+
+type KICMapBinaryMask uint32
+
+const (
+	KICMapBinaryMaskValue  KICMapBinaryMask = 0x1
+	KICMapDataForkMask     KICMapBinaryMask = 0x4
+	KICMapNotIncomingMask  KICMapBinaryMask = 0x10
+	KICMapNotOutgoingMask  KICMapBinaryMask = 0x20
+	KICMapPostMask         KICMapBinaryMask = 0x8
+	KICMapResourceForkMask KICMapBinaryMask = 0x2
+)
+
+func (e KICMapBinaryMask) String() string {
+	switch e {
+	case KICMapBinaryMaskValue:
+		return "KICMapBinaryMaskValue"
 	case KICMapDataForkMask:
 		return "KICMapDataForkMask"
 	case KICMapNotIncomingMask:
 		return "KICMapNotIncomingMask"
-	case KICMapNotOutgoingBit:
-		return "KICMapNotOutgoingBit"
 	case KICMapNotOutgoingMask:
 		return "KICMapNotOutgoingMask"
-	case KICMapPostBit:
-		return "KICMapPostBit"
 	case KICMapPostMask:
 		return "KICMapPostMask"
+	case KICMapResourceForkMask:
+		return "KICMapResourceForkMask"
 	default:
-		return fmt.Sprintf("KICMap(%d)", e)
+		return fmt.Sprintf("KICMapBinaryMask(%d)", e)
 	}
 }
 
-type KICMapFixed uint
+type KICMapFixed uint32
 
 const (
 	KICMapFixedLength KICMapFixed = 22
@@ -3188,7 +4042,7 @@ func (e KICMapFixed) String() string {
 	}
 }
 
-type KICNilProfileI uint
+type KICNilProfileI uint32
 
 const (
 	KICNilProfileID KICNilProfileI = 0
@@ -3203,47 +4057,47 @@ func (e KICNilProfileI) String() string {
 	}
 }
 
-type KICNoUserInteraction uint
+const KICNoUserInteractionBit uint32 = 0
+
+const KICNoUserInteractionMask uint32 = 0x1
+
+type KICServicesTCPBit uint32
 
 const (
-	KICNoUserInteractionBit  KICNoUserInteraction = 0
-	KICNoUserInteractionMask KICNoUserInteraction = 0x1
+	KICServicesTCPBitValue KICServicesTCPBit = 0
+	KICServicesUDPBit      KICServicesTCPBit = 1
 )
 
-func (e KICNoUserInteraction) String() string {
+func (e KICServicesTCPBit) String() string {
 	switch e {
-	case KICNoUserInteractionBit:
-		return "KICNoUserInteractionBit"
-	case KICNoUserInteractionMask:
-		return "KICNoUserInteractionMask"
+	case KICServicesTCPBitValue:
+		return "KICServicesTCPBitValue"
+	case KICServicesUDPBit:
+		return "KICServicesUDPBit"
 	default:
-		return fmt.Sprintf("KICNoUserInteraction(%d)", e)
+		return fmt.Sprintf("KICServicesTCPBit(%d)", e)
 	}
 }
 
-type KICServices uint
+type KICServicesTCPMask uint32
 
 const (
-	KICServicesTCPBit  KICServices = 0
-	KICServicesTCPMask KICServices = 0x1
-	KICServicesUDPBit  KICServices = 1
-	KICServicesUDPMask KICServices = 0x2
+	KICServicesTCPMaskValue KICServicesTCPMask = 0x1
+	KICServicesUDPMask      KICServicesTCPMask = 0x2
 )
 
-func (e KICServices) String() string {
+func (e KICServicesTCPMask) String() string {
 	switch e {
-	case KICServicesTCPBit:
-		return "KICServicesTCPBit"
-	case KICServicesTCPMask:
-		return "KICServicesTCPMask"
+	case KICServicesTCPMaskValue:
+		return "KICServicesTCPMaskValue"
 	case KICServicesUDPMask:
 		return "KICServicesUDPMask"
 	default:
-		return fmt.Sprintf("KICServices(%d)", e)
+		return fmt.Sprintf("KICServicesTCPMask(%d)", e)
 	}
 }
 
-type KImmediate uint
+type KImmediate int32
 
 const (
 	// KEndOfSentence: Speech should be paused or stopped at the end of the sentence.
@@ -3267,7 +4121,7 @@ func (e KImmediate) String() string {
 	}
 }
 
-type KInternetEventClass uint
+type KInternetEventClass uint32
 
 const (
 	KAEFetchURL              KInternetEventClass = 'F'<<24 | 'U'<<16 | 'R'<<8 | 'L' // 'FURL'
@@ -3289,7 +4143,7 @@ func (e KInternetEventClass) String() string {
 	}
 }
 
-type KInvalid int
+type KInvalid int32
 
 const (
 	KInvalidFont       KInvalid = 0
@@ -3308,7 +4162,7 @@ func (e KInvalid) String() string {
 	}
 }
 
-type KInvertHighlighting uint
+type KInvertHighlighting uint32
 
 const (
 	KInvertHighlightingValue KInvertHighlighting = 0
@@ -3326,7 +4180,7 @@ func (e KInvertHighlighting) String() string {
 	}
 }
 
-type KNeuter uint
+type KNeuter int16
 
 const (
 	// KFemale: Female voice.
@@ -3350,7 +4204,7 @@ func (e KNeuter) String() string {
 	}
 }
 
-type KNoConstraint uint
+type KNoConstraint uint32
 
 const (
 	KHorizontalConstraint KNoConstraint = 2
@@ -3371,7 +4225,7 @@ func (e KNoConstraint) String() string {
 	}
 }
 
-type KNoEndingProsody uint
+type KNoEndingProsody int32
 
 const (
 	// KNoEndingProsodyValue: # Discussion
@@ -3395,7 +4249,7 @@ func (e KNoEndingProsody) String() string {
 	}
 }
 
-type KNoProcess uint
+type KNoProcess uint32
 
 const (
 	KCurrentProcess KNoProcess = 2
@@ -3416,7 +4270,7 @@ func (e KNoProcess) String() string {
 	}
 }
 
-type KNoTransform uint
+type KNoTransform int32
 
 const (
 	// KDeviceToPCS: Device Dependent to Device Independent
@@ -3434,7 +4288,7 @@ const (
 	// KUseBtoB: Use 'pre*' tag from this profile or equivalent
 	KUseBtoB KNoTransform = 3
 	// KUseProfileIntent: For renderingIntent in NCMConcatProfileSpec
-	KUseProfileIntent KNoTransform = 0xffffffff
+	KUseProfileIntent KNoTransform = -1
 )
 
 func (e KNoTransform) String() string {
@@ -3454,206 +4308,137 @@ func (e KNoTransform) String() string {
 	}
 }
 
-type KPM int
+type KPMAllocationFailure int32
 
 const (
-	KPMAllocationFailure   KPM = -108
-	KPMCMYKColorSpaceModel KPM = 3
-	KPMCVMSymbolNotFound   KPM = -9662
-	// KPMCancel: Specifies that the user clicked the Cancel button in a Print or Page Setup dialog.
-	KPMCancel                KPM = 0x80
-	KPMCloseFailed           KPM = -9785
-	KPMCreateMessageFailed   KPM = -9620
-	KPMDeleteSubTicketFailed KPM = -9585
-	KPMDevNColorSpaceModel   KPM = 4
-	KPMDocumentNotFound      KPM = -9644
-	KPMDontSwitchPDEError    KPM = -9531
-	// KPMDuplexNoTumble: # Discussion
-	KPMDuplexNoTumble KPM = 0x2
-	// KPMDuplexNone: # Discussion
-	KPMDuplexNone KPM = 0x1
-	// KPMDuplexTumble: # Discussion
-	KPMDuplexTumble             KPM = 0x3
-	KPMEditRequestFailed        KPM = -9544
-	KPMFeatureNotInstalled      KPM = -9533
-	KPMFileOrDirOperationFailed KPM = -9634
-	KPMFontNameTooLong          KPM = -9704
-	KPMFontNotFound             KPM = -9703
-	KPMGeneralCGError           KPM = -9705
-	// KPMGeneralError: An unspecified error occurred.
-	KPMGeneralError        KPM = -30870
-	KPMGrayColorSpaceModel KPM = 1
-	KPMHideInlineItems     KPM = 0
-	KPMIOAttrNotAvailable  KPM = -9787
-	KPMIOMSymbolNotFound   KPM = -9661
-	KPMInternalError       KPM = -30870
+	KPMAllocationFailureValue   KPMAllocationFailure = -108
+	KPMCVMSymbolNotFound        KPMAllocationFailure = -9662
+	KPMCloseFailed              KPMAllocationFailure = -9785
+	KPMCreateMessageFailed      KPMAllocationFailure = -9620
+	KPMDeleteSubTicketFailed    KPMAllocationFailure = -9585
+	KPMDocumentNotFound         KPMAllocationFailure = -9644
+	KPMDontSwitchPDEError       KPMAllocationFailure = -9531
+	KPMEditRequestFailed        KPMAllocationFailure = -9544
+	KPMFeatureNotInstalled      KPMAllocationFailure = -9533
+	KPMFileOrDirOperationFailed KPMAllocationFailure = -9634
+	KPMFontNameTooLong          KPMAllocationFailure = -9704
+	KPMFontNotFound             KPMAllocationFailure = -9703
+	KPMGeneralCGError           KPMAllocationFailure = -9705
+	KPMIOAttrNotAvailable       KPMAllocationFailure = -9787
+	KPMIOMSymbolNotFound        KPMAllocationFailure = -9661
+	KPMInternalError            KPMAllocationFailure = -30870
 	// KPMInvalidAllocator: The specified memory allocator is invalid.
-	KPMInvalidAllocator  KPM = -30890
-	KPMInvalidCVMContext KPM = -9665
+	KPMInvalidAllocator  KPMAllocationFailure = -30890
+	KPMInvalidCVMContext KPMAllocationFailure = -9665
 	// KPMInvalidCalibrationTarget: The dictionary specifying a printer calibration target is invalid.
-	KPMInvalidCalibrationTarget KPM = -30898
+	KPMInvalidCalibrationTarget KPMAllocationFailure = -30898
 	// KPMInvalidConnection: The printer connection type is invalid.
-	KPMInvalidConnection KPM = -30887
+	KPMInvalidConnection KPMAllocationFailure = -30887
 	// KPMInvalidFileType: The file type is invalid.
-	KPMInvalidFileType   KPM = -30895
-	KPMInvalidIOMContext KPM = -9664
+	KPMInvalidFileType   KPMAllocationFailure = -30895
+	KPMInvalidIOMContext KPMAllocationFailure = -9664
 	// KPMInvalidIndex: An array index is invalid.
-	KPMInvalidIndex KPM = -30882
+	KPMInvalidIndex KPMAllocationFailure = -30882
 	// KPMInvalidItem: The item being added to a ticket is invalid.
-	KPMInvalidItem  KPM = -30892
-	KPMInvalidJobID KPM = -9666
+	KPMInvalidItem  KPMAllocationFailure = -30892
+	KPMInvalidJobID KPMAllocationFailure = -9666
 	// KPMInvalidJobTemplate: An internal error occurred while creating a job template.
-	KPMInvalidJobTemplate KPM = -30885
+	KPMInvalidJobTemplate KPMAllocationFailure = -30885
 	// KPMInvalidKey: The key in a ticket, job template, or dictionary is invalid.
-	KPMInvalidKey        KPM = -30888
-	KPMInvalidLookupSpec KPM = -9542
+	KPMInvalidKey        KPMAllocationFailure = -30888
+	KPMInvalidLookupSpec KPMAllocationFailure = -9542
 	// KPMInvalidObject: The object is invalid.
-	KPMInvalidObject     KPM = -30896
-	KPMInvalidPBMRef     KPM = -9540
-	KPMInvalidPDEContext KPM = -9530
-	KPMInvalidPMContext  KPM = -9663
-	// KPMInvalidPageFormat: Your application passed an invalid page format object.
-	KPMInvalidPageFormat KPM = -30876
+	KPMInvalidObject     KPMAllocationFailure = -30896
+	KPMInvalidPBMRef     KPMAllocationFailure = -9540
+	KPMInvalidPDEContext KPMAllocationFailure = -9530
+	KPMInvalidPMContext  KPMAllocationFailure = -9663
 	// KPMInvalidPaper: Your application passed an invalid paper object.
-	KPMInvalidPaper     KPM = -30897
-	KPMInvalidParameter KPM = -50
-	// KPMInvalidPreset: Your application passed an invalid preset object.
-	KPMInvalidPreset KPM = -30899
-	// KPMInvalidPrintSession: Your application passed an invalid printing session object.
-	KPMInvalidPrintSession KPM = -30879
-	// KPMInvalidPrintSettings: Your application passed an invalid print settings object.
-	KPMInvalidPrintSettings KPM = -30875
-	// KPMInvalidPrinter: Your application passed an invalid printer object.
-	KPMInvalidPrinter        KPM = -30880
-	KPMInvalidPrinterAddress KPM = -9780
+	KPMInvalidPaper          KPMAllocationFailure = -30897
+	KPMInvalidPrinterAddress KPMAllocationFailure = -9780
 	// KPMInvalidPrinterInfo: The printer information is invalid.
-	KPMInvalidPrinterInfo KPM = -30886
+	KPMInvalidPrinterInfo KPMAllocationFailure = -30886
 	// KPMInvalidReply: A remote server or client sent an invalid reply.
-	KPMInvalidReply     KPM = -30894
-	KPMInvalidState     KPM = -9706
-	KPMInvalidSubTicket KPM = -9584
+	KPMInvalidReply     KPMAllocationFailure = -30894
+	KPMInvalidState     KPMAllocationFailure = -9706
+	KPMInvalidSubTicket KPMAllocationFailure = -9584
 	// KPMInvalidTicket: The job ticket is invalid.
-	KPMInvalidTicket KPM = -30891
+	KPMInvalidTicket KPMAllocationFailure = -30891
 	// KPMInvalidType: The data type in a ticket, job template, or dictionary is not the expected type.
-	KPMInvalidType KPM = -30893
+	KPMInvalidType KPMAllocationFailure = -30893
 	// KPMInvalidValue: The value in a ticket, job template, or dictionary is missing.
-	KPMInvalidValue               KPM = -30889
-	KPMItemIsLocked               KPM = -9586
-	KPMJobBusy                    KPM = -9642
-	KPMJobCanceled                KPM = -9643
-	KPMJobGetTicketBadFormatError KPM = -9672
-	KPMJobGetTicketReadError      KPM = -9673
-	KPMJobManagerAborted          KPM = -9671
-	KPMJobNotFound                KPM = -9641
-	KPMJobStreamEndError          KPM = -9670
-	KPMJobStreamOpenFailed        KPM = -9668
-	KPMJobStreamReadFailed        KPM = -9669
-	KPMKeyNotFound                KPM = -9589
-	KPMKeyNotUnique               KPM = -9590
-	KPMKeyOrValueNotFound         KPM = -9623
-	// KPMLandscape: # Discussion
-	KPMLandscape                                      KPM = 2
-	KPMLastErrorCodeToMakeMaintenanceOfThisListEasier KPM = -9799
-	KPMMessagingError                                 KPM = -9624
-	KPMNoDefaultItem                                  KPM = -9500
-	// KPMNoDefaultPrinter: The user has not specified a default printer.
-	KPMNoDefaultPrinter   KPM = -30872
-	KPMNoDefaultSettings  KPM = -9501
-	KPMNoError            KPM = 0
-	KPMNoPrinterJobID     KPM = -9667
-	KPMNoSelectedPrinters KPM = -9541
-	// KPMNoSuchEntry: There is no entry to match your application’s request.
-	KPMNoSuchEntry KPM = -30874
-	// KPMNotImplemented: The function is not implemented.
-	KPMNotImplemented KPM = -30873
-	// KPMObjectInUse: The specified object is in use.
-	KPMObjectInUse KPM = -30881
-	KPMOpenFailed  KPM = -9781
-	// KPMOutOfScope: Your application called this function out of sequence with other printing functions.
-	KPMOutOfScope                KPM = -30871
-	KPMPMSymbolNotFound          KPM = -9660
-	KPMPermissionError           KPM = -9636
-	KPMPluginNotFound            KPM = -9701
-	KPMPluginRegisterationFailed KPM = -9702
-	// KPMPortrait: Specifies portrait (vertical) page orientation.
-	KPMPortrait           KPM = 1
-	KPMPrBrowserNoUI      KPM = -9545
-	KPMQueueAlreadyExists KPM = -9639
-	KPMQueueJobFailed     KPM = -9640
-	KPMQueueNotFound      KPM = -9638
-	KPMRGBColorSpaceModel KPM = 2
-	KPMReadFailed         KPM = -9782
-	KPMReadGotZeroData    KPM = -9788
-	// KPMReverseLandscape: # Discussion
-	KPMReverseLandscape KPM = 4
-	// KPMReversePortrait: # Discussion
-	KPMReversePortrait                  KPM = 3
-	KPMServerAlreadyRunning             KPM = -9631
-	KPMServerAttributeRestricted        KPM = -9633
-	KPMServerCommunicationFailed        KPM = -9621
-	KPMServerNotFound                   KPM = -9630
-	KPMServerSuspended                  KPM = -9632
-	KPMShowDefaultInlineItems           KPM = 32768
-	KPMShowInlineCopies                 KPM = 1
-	KPMShowInlineOrientation            KPM = 8
-	KPMShowInlinePageRange              KPM = 2
-	KPMShowInlinePageRangeWithSelection KPM = 64
-	KPMShowInlinePaperSize              KPM = 4
-	KPMShowInlineScale                  KPM = 128
-	KPMShowPageAttributesPDE            KPM = 256
-	// KPMSimplexTumble: # Discussion
-	KPMSimplexTumble KPM = 0x4
-	KPMStatusFailed  KPM = -9784
+	KPMInvalidValue                                   KPMAllocationFailure = -30889
+	KPMItemIsLocked                                   KPMAllocationFailure = -9586
+	KPMJobBusy                                        KPMAllocationFailure = -9642
+	KPMJobCanceled                                    KPMAllocationFailure = -9643
+	KPMJobGetTicketBadFormatError                     KPMAllocationFailure = -9672
+	KPMJobGetTicketReadError                          KPMAllocationFailure = -9673
+	KPMJobManagerAborted                              KPMAllocationFailure = -9671
+	KPMJobNotFound                                    KPMAllocationFailure = -9641
+	KPMJobStreamEndError                              KPMAllocationFailure = -9670
+	KPMJobStreamOpenFailed                            KPMAllocationFailure = -9668
+	KPMJobStreamReadFailed                            KPMAllocationFailure = -9669
+	KPMKeyNotFound                                    KPMAllocationFailure = -9589
+	KPMKeyNotUnique                                   KPMAllocationFailure = -9590
+	KPMKeyOrValueNotFound                             KPMAllocationFailure = -9623
+	KPMLastErrorCodeToMakeMaintenanceOfThisListEasier KPMAllocationFailure = -9799
+	KPMMessagingError                                 KPMAllocationFailure = -9624
+	KPMNoDefaultItem                                  KPMAllocationFailure = -9500
+	KPMNoDefaultSettings                              KPMAllocationFailure = -9501
+	KPMNoPrinterJobID                                 KPMAllocationFailure = -9667
+	KPMNoSelectedPrinters                             KPMAllocationFailure = -9541
+	KPMOpenFailed                                     KPMAllocationFailure = -9781
+	KPMPMSymbolNotFound                               KPMAllocationFailure = -9660
+	KPMPermissionError                                KPMAllocationFailure = -9636
+	KPMPluginNotFound                                 KPMAllocationFailure = -9701
+	KPMPluginRegisterationFailed                      KPMAllocationFailure = -9702
+	KPMPrBrowserNoUI                                  KPMAllocationFailure = -9545
+	KPMQueueAlreadyExists                             KPMAllocationFailure = -9639
+	KPMQueueJobFailed                                 KPMAllocationFailure = -9640
+	KPMQueueNotFound                                  KPMAllocationFailure = -9638
+	KPMReadFailed                                     KPMAllocationFailure = -9782
+	KPMReadGotZeroData                                KPMAllocationFailure = -9788
+	KPMServerAlreadyRunning                           KPMAllocationFailure = -9631
+	KPMServerAttributeRestricted                      KPMAllocationFailure = -9633
+	KPMServerCommunicationFailed                      KPMAllocationFailure = -9621
+	KPMServerNotFound                                 KPMAllocationFailure = -9630
+	KPMServerSuspended                                KPMAllocationFailure = -9632
+	KPMStatusFailed                                   KPMAllocationFailure = -9784
 	// KPMStringConversionFailure: An internal error occurred while converting a string.
-	KPMStringConversionFailure KPM = -30883
-	KPMSubTicketNotFound       KPM = -9583
-	KPMSyncRequestFailed       KPM = -9543
-	KPMTemplateIsLocked        KPM = -9588
-	KPMTicketIsLocked          KPM = -9587
-	KPMTicketTypeNotFound      KPM = -9580
-	KPMUnableToFindProcess     KPM = -9532
-	KPMUnexpectedImagingError  KPM = -9707
-	KPMUnknownColorSpaceModel  KPM = 0
-	KPMUnknownDataType         KPM = -9591
-	KPMUnknownMessage          KPM = -9637
-	KPMUnlocked                KPM = 0
-	KPMUnsupportedConnection   KPM = -9786
-	KPMUpdateTicketFailed      KPM = -9581
-	KPMUserOrGroupNotFound     KPM = -9635
-	KPMValidateTicketFailed    KPM = -9582
-	// KPMValueOutOfRange: Your application passed an out-of-range value.
-	KPMValueOutOfRange KPM = -30877
-	KPMWriteFailed     KPM = -9783
+	KPMStringConversionFailure KPMAllocationFailure = -30883
+	KPMSubTicketNotFound       KPMAllocationFailure = -9583
+	KPMSyncRequestFailed       KPMAllocationFailure = -9543
+	KPMTemplateIsLocked        KPMAllocationFailure = -9588
+	KPMTicketIsLocked          KPMAllocationFailure = -9587
+	KPMTicketTypeNotFound      KPMAllocationFailure = -9580
+	KPMUnableToFindProcess     KPMAllocationFailure = -9532
+	KPMUnexpectedImagingError  KPMAllocationFailure = -9707
+	KPMUnknownDataType         KPMAllocationFailure = -9591
+	KPMUnknownMessage          KPMAllocationFailure = -9637
+	KPMUnsupportedConnection   KPMAllocationFailure = -9786
+	KPMUpdateTicketFailed      KPMAllocationFailure = -9581
+	KPMUserOrGroupNotFound     KPMAllocationFailure = -9635
+	KPMValidateTicketFailed    KPMAllocationFailure = -9582
+	KPMWriteFailed             KPMAllocationFailure = -9783
 	// KPMXMLParseError: An error occurred while parsing XML data.
-	KPMXMLParseError KPM = -30884
+	KPMXMLParseError KPMAllocationFailure = -30884
 )
 
-func (e KPM) String() string {
+func (e KPMAllocationFailure) String() string {
 	switch e {
-	case KPMAllocationFailure:
-		return "KPMAllocationFailure"
-	case KPMCMYKColorSpaceModel:
-		return "KPMCMYKColorSpaceModel"
+	case KPMAllocationFailureValue:
+		return "KPMAllocationFailureValue"
 	case KPMCVMSymbolNotFound:
 		return "KPMCVMSymbolNotFound"
-	case KPMCancel:
-		return "KPMCancel"
 	case KPMCloseFailed:
 		return "KPMCloseFailed"
 	case KPMCreateMessageFailed:
 		return "KPMCreateMessageFailed"
 	case KPMDeleteSubTicketFailed:
 		return "KPMDeleteSubTicketFailed"
-	case KPMDevNColorSpaceModel:
-		return "KPMDevNColorSpaceModel"
 	case KPMDocumentNotFound:
 		return "KPMDocumentNotFound"
 	case KPMDontSwitchPDEError:
 		return "KPMDontSwitchPDEError"
-	case KPMDuplexNoTumble:
-		return "KPMDuplexNoTumble"
-	case KPMDuplexNone:
-		return "KPMDuplexNone"
 	case KPMEditRequestFailed:
 		return "KPMEditRequestFailed"
 	case KPMFeatureNotInstalled:
@@ -3666,14 +4451,12 @@ func (e KPM) String() string {
 		return "KPMFontNotFound"
 	case KPMGeneralCGError:
 		return "KPMGeneralCGError"
-	case KPMGeneralError:
-		return "KPMGeneralError"
-	case KPMHideInlineItems:
-		return "KPMHideInlineItems"
 	case KPMIOAttrNotAvailable:
 		return "KPMIOAttrNotAvailable"
 	case KPMIOMSymbolNotFound:
 		return "KPMIOMSymbolNotFound"
+	case KPMInternalError:
+		return "KPMInternalError"
 	case KPMInvalidAllocator:
 		return "KPMInvalidAllocator"
 	case KPMInvalidCVMContext:
@@ -3706,20 +4489,8 @@ func (e KPM) String() string {
 		return "KPMInvalidPDEContext"
 	case KPMInvalidPMContext:
 		return "KPMInvalidPMContext"
-	case KPMInvalidPageFormat:
-		return "KPMInvalidPageFormat"
 	case KPMInvalidPaper:
 		return "KPMInvalidPaper"
-	case KPMInvalidParameter:
-		return "KPMInvalidParameter"
-	case KPMInvalidPreset:
-		return "KPMInvalidPreset"
-	case KPMInvalidPrintSession:
-		return "KPMInvalidPrintSession"
-	case KPMInvalidPrintSettings:
-		return "KPMInvalidPrintSettings"
-	case KPMInvalidPrinter:
-		return "KPMInvalidPrinter"
 	case KPMInvalidPrinterAddress:
 		return "KPMInvalidPrinterAddress"
 	case KPMInvalidPrinterInfo:
@@ -3768,24 +4539,14 @@ func (e KPM) String() string {
 		return "KPMMessagingError"
 	case KPMNoDefaultItem:
 		return "KPMNoDefaultItem"
-	case KPMNoDefaultPrinter:
-		return "KPMNoDefaultPrinter"
 	case KPMNoDefaultSettings:
 		return "KPMNoDefaultSettings"
 	case KPMNoPrinterJobID:
 		return "KPMNoPrinterJobID"
 	case KPMNoSelectedPrinters:
 		return "KPMNoSelectedPrinters"
-	case KPMNoSuchEntry:
-		return "KPMNoSuchEntry"
-	case KPMNotImplemented:
-		return "KPMNotImplemented"
-	case KPMObjectInUse:
-		return "KPMObjectInUse"
 	case KPMOpenFailed:
 		return "KPMOpenFailed"
-	case KPMOutOfScope:
-		return "KPMOutOfScope"
 	case KPMPMSymbolNotFound:
 		return "KPMPMSymbolNotFound"
 	case KPMPermissionError:
@@ -3816,14 +4577,6 @@ func (e KPM) String() string {
 		return "KPMServerNotFound"
 	case KPMServerSuspended:
 		return "KPMServerSuspended"
-	case KPMShowDefaultInlineItems:
-		return "KPMShowDefaultInlineItems"
-	case KPMShowInlineOrientation:
-		return "KPMShowInlineOrientation"
-	case KPMShowInlinePageRangeWithSelection:
-		return "KPMShowInlinePageRangeWithSelection"
-	case KPMShowPageAttributesPDE:
-		return "KPMShowPageAttributesPDE"
 	case KPMStatusFailed:
 		return "KPMStatusFailed"
 	case KPMStringConversionFailure:
@@ -3854,18 +4607,16 @@ func (e KPM) String() string {
 		return "KPMUserOrGroupNotFound"
 	case KPMValidateTicketFailed:
 		return "KPMValidateTicketFailed"
-	case KPMValueOutOfRange:
-		return "KPMValueOutOfRange"
 	case KPMWriteFailed:
 		return "KPMWriteFailed"
 	case KPMXMLParseError:
 		return "KPMXMLParseError"
 	default:
-		return fmt.Sprintf("KPM(%d)", e)
+		return fmt.Sprintf("KPMAllocationFailure(%d)", e)
 	}
 }
 
-type KPMBorder uint
+type KPMBorder uint32
 
 const (
 	KPMBorderDoubleHairline  KPMBorder = 2
@@ -3889,7 +4640,9 @@ func (e KPMBorder) String() string {
 	}
 }
 
-type KPMCoverPage uint
+const KPMCancel uint32 = 0x80
+
+type KPMCoverPage uint32
 
 const (
 	KPMCoverPageAfter  KPMCoverPage = 3
@@ -3910,7 +4663,7 @@ func (e KPMCoverPage) String() string {
 	}
 }
 
-type KPMDestination uint
+type KPMDestination uint32
 
 const (
 	// KPMDestinationFax: Specifies output to a fax.
@@ -3946,7 +4699,102 @@ func (e KPMDestination) String() string {
 	}
 }
 
-type KPMLayout uint
+type KPMDuplexNone uint32
+
+const (
+	// KPMDuplexNoTumble: # Discussion
+	KPMDuplexNoTumble KPMDuplexNone = 0x2
+	// KPMDuplexNoneValue: # Discussion
+	KPMDuplexNoneValue KPMDuplexNone = 0x1
+	// KPMDuplexTumble: # Discussion
+	KPMDuplexTumble KPMDuplexNone = 0x3
+	// KPMSimplexTumble: # Discussion
+	KPMSimplexTumble KPMDuplexNone = 0x4
+)
+
+func (e KPMDuplexNone) String() string {
+	switch e {
+	case KPMDuplexNoTumble:
+		return "KPMDuplexNoTumble"
+	case KPMDuplexNoneValue:
+		return "KPMDuplexNoneValue"
+	case KPMDuplexTumble:
+		return "KPMDuplexTumble"
+	case KPMSimplexTumble:
+		return "KPMSimplexTumble"
+	default:
+		return fmt.Sprintf("KPMDuplexNone(%d)", e)
+	}
+}
+
+type KPMHideInlineItems uint32
+
+const (
+	KPMHideInlineItemsValue             KPMHideInlineItems = 0
+	KPMShowDefaultInlineItems           KPMHideInlineItems = 32768
+	KPMShowInlineCopies                 KPMHideInlineItems = 1
+	KPMShowInlineOrientation            KPMHideInlineItems = 8
+	KPMShowInlinePageRange              KPMHideInlineItems = 2
+	KPMShowInlinePageRangeWithSelection KPMHideInlineItems = 64
+	KPMShowInlinePaperSize              KPMHideInlineItems = 4
+	KPMShowInlineScale                  KPMHideInlineItems = 128
+	KPMShowPageAttributesPDE            KPMHideInlineItems = 256
+)
+
+func (e KPMHideInlineItems) String() string {
+	switch e {
+	case KPMHideInlineItemsValue:
+		return "KPMHideInlineItemsValue"
+	case KPMShowDefaultInlineItems:
+		return "KPMShowDefaultInlineItems"
+	case KPMShowInlineCopies:
+		return "KPMShowInlineCopies"
+	case KPMShowInlineOrientation:
+		return "KPMShowInlineOrientation"
+	case KPMShowInlinePageRange:
+		return "KPMShowInlinePageRange"
+	case KPMShowInlinePageRangeWithSelection:
+		return "KPMShowInlinePageRangeWithSelection"
+	case KPMShowInlinePaperSize:
+		return "KPMShowInlinePaperSize"
+	case KPMShowInlineScale:
+		return "KPMShowInlineScale"
+	case KPMShowPageAttributesPDE:
+		return "KPMShowPageAttributesPDE"
+	default:
+		return fmt.Sprintf("KPMHideInlineItems(%d)", e)
+	}
+}
+
+type KPMInvalidPrintSession int32
+
+const (
+	// KPMInvalidPreset: Your application passed an invalid preset object.
+	KPMInvalidPreset KPMInvalidPrintSession = -30899
+	// KPMInvalidPrintSessionValue: Your application passed an invalid printing session object.
+	KPMInvalidPrintSessionValue KPMInvalidPrintSession = -30879
+	// KPMInvalidPrinter: Your application passed an invalid printer object.
+	KPMInvalidPrinter KPMInvalidPrintSession = -30880
+	// KPMObjectInUse: The specified object is in use.
+	KPMObjectInUse KPMInvalidPrintSession = -30881
+)
+
+func (e KPMInvalidPrintSession) String() string {
+	switch e {
+	case KPMInvalidPreset:
+		return "KPMInvalidPreset"
+	case KPMInvalidPrintSessionValue:
+		return "KPMInvalidPrintSessionValue"
+	case KPMInvalidPrinter:
+		return "KPMInvalidPrinter"
+	case KPMObjectInUse:
+		return "KPMObjectInUse"
+	default:
+		return fmt.Sprintf("KPMInvalidPrintSession(%d)", e)
+	}
+}
+
+type KPMLayout uint32
 
 const (
 	KPMLayoutBottomTopLeftRight KPMLayout = 7
@@ -3982,7 +4830,57 @@ func (e KPMLayout) String() string {
 	}
 }
 
-type KPMPaperType uint
+type KPMNoError int32
+
+const (
+	// KPMGeneralError: An unspecified error occurred.
+	KPMGeneralError KPMNoError = -30870
+	// KPMInvalidPageFormat: Your application passed an invalid page format object.
+	KPMInvalidPageFormat KPMNoError = -30876
+	KPMInvalidParameter  KPMNoError = -50
+	// KPMInvalidPrintSettings: Your application passed an invalid print settings object.
+	KPMInvalidPrintSettings KPMNoError = -30875
+	// KPMNoDefaultPrinter: The user has not specified a default printer.
+	KPMNoDefaultPrinter KPMNoError = -30872
+	KPMNoErrorValue     KPMNoError = 0
+	// KPMNoSuchEntry: There is no entry to match your application’s request.
+	KPMNoSuchEntry KPMNoError = -30874
+	// KPMNotImplemented: The function is not implemented.
+	KPMNotImplemented KPMNoError = -30873
+	// KPMOutOfScope: Your application called this function out of sequence with other printing functions.
+	KPMOutOfScope KPMNoError = -30871
+	// KPMValueOutOfRange: Your application passed an out-of-range value.
+	KPMValueOutOfRange KPMNoError = -30877
+)
+
+func (e KPMNoError) String() string {
+	switch e {
+	case KPMGeneralError:
+		return "KPMGeneralError"
+	case KPMInvalidPageFormat:
+		return "KPMInvalidPageFormat"
+	case KPMInvalidParameter:
+		return "KPMInvalidParameter"
+	case KPMInvalidPrintSettings:
+		return "KPMInvalidPrintSettings"
+	case KPMNoDefaultPrinter:
+		return "KPMNoDefaultPrinter"
+	case KPMNoErrorValue:
+		return "KPMNoErrorValue"
+	case KPMNoSuchEntry:
+		return "KPMNoSuchEntry"
+	case KPMNotImplemented:
+		return "KPMNotImplemented"
+	case KPMOutOfScope:
+		return "KPMOutOfScope"
+	case KPMValueOutOfRange:
+		return "KPMValueOutOfRange"
+	default:
+		return fmt.Sprintf("KPMNoError(%d)", e)
+	}
+}
+
+type KPMPaperType uint32
 
 const (
 	KPMPaperTypeCoated       KPMPaperType = 0x2
@@ -4015,7 +4913,35 @@ func (e KPMPaperType) String() string {
 	}
 }
 
-type KPMPrintAll int
+type KPMPortrait uint32
+
+const (
+	// KPMLandscape: # Discussion
+	KPMLandscape KPMPortrait = 2
+	// KPMPortraitValue: Specifies portrait (vertical) page orientation.
+	KPMPortraitValue KPMPortrait = 1
+	// KPMReverseLandscape: # Discussion
+	KPMReverseLandscape KPMPortrait = 4
+	// KPMReversePortrait: # Discussion
+	KPMReversePortrait KPMPortrait = 3
+)
+
+func (e KPMPortrait) String() string {
+	switch e {
+	case KPMLandscape:
+		return "KPMLandscape"
+	case KPMPortraitValue:
+		return "KPMPortraitValue"
+	case KPMReverseLandscape:
+		return "KPMReverseLandscape"
+	case KPMReversePortrait:
+		return "KPMReversePortrait"
+	default:
+		return fmt.Sprintf("KPMPortrait(%d)", e)
+	}
+}
+
+type KPMPrintAll int32
 
 const (
 	// KPMPrintAllPages: # Discussion
@@ -4031,7 +4957,7 @@ func (e KPMPrintAll) String() string {
 	}
 }
 
-type KPMPrinter uint
+type KPMPrinter uint32
 
 const (
 	// KPMPrinterIdle: Specifies the idle state.
@@ -4055,7 +4981,7 @@ func (e KPMPrinter) String() string {
 	}
 }
 
-type KPMQuality uint
+type KPMQuality uint32
 
 const (
 	// KPMQualityBest: Specifies to get the best print quality for all objects and photos on a page.
@@ -4095,7 +5021,7 @@ func (e KPMQuality) String() string {
 	}
 }
 
-type KPMScaling uint
+type KPMScaling uint32
 
 const (
 	KPMScalingCenterOnImgArea KPMScaling = 6
@@ -4125,7 +5051,36 @@ func (e KPMScaling) String() string {
 	}
 }
 
-type KPlotIconRef uint
+type KPMUnknownColorSpaceModel uint32
+
+const (
+	KPMCMYKColorSpaceModel         KPMUnknownColorSpaceModel = 3
+	KPMDevNColorSpaceModel         KPMUnknownColorSpaceModel = 4
+	KPMGrayColorSpaceModel         KPMUnknownColorSpaceModel = 1
+	KPMRGBColorSpaceModel          KPMUnknownColorSpaceModel = 2
+	KPMUnknownColorSpaceModelValue KPMUnknownColorSpaceModel = 0
+)
+
+func (e KPMUnknownColorSpaceModel) String() string {
+	switch e {
+	case KPMCMYKColorSpaceModel:
+		return "KPMCMYKColorSpaceModel"
+	case KPMDevNColorSpaceModel:
+		return "KPMDevNColorSpaceModel"
+	case KPMGrayColorSpaceModel:
+		return "KPMGrayColorSpaceModel"
+	case KPMRGBColorSpaceModel:
+		return "KPMRGBColorSpaceModel"
+	case KPMUnknownColorSpaceModelValue:
+		return "KPMUnknownColorSpaceModelValue"
+	default:
+		return fmt.Sprintf("KPMUnknownColorSpaceModel(%d)", e)
+	}
+}
+
+const KPMUnlocked uint32 = 0
+
+type KPlotIconRef uint32
 
 const (
 	KPlotIconRefNoImage     KPlotIconRef = 2
@@ -4146,10 +5101,10 @@ func (e KPlotIconRef) String() string {
 	}
 }
 
-type KProcessDictionaryIncludeAllInformation uint
+type KProcessDictionaryIncludeAllInformation int32
 
 const (
-	KProcessDictionaryIncludeAllInformationMask KProcessDictionaryIncludeAllInformation = 0xffffffff
+	KProcessDictionaryIncludeAllInformationMask KProcessDictionaryIncludeAllInformation = -1
 )
 
 func (e KProcessDictionaryIncludeAllInformation) String() string {
@@ -4161,7 +5116,7 @@ func (e KProcessDictionaryIncludeAllInformation) String() string {
 	}
 }
 
-type KProcessTransformTo uint
+type KProcessTransformTo uint32
 
 const (
 	KProcessTransformToBackgroundApplication KProcessTransformTo = 2
@@ -4182,7 +5137,7 @@ func (e KProcessTransformTo) String() string {
 	}
 }
 
-type KQuit uint
+type KQuit uint32
 
 const (
 	KQuitAtNormalTimeMask             KQuit = 2
@@ -4221,13 +5176,13 @@ func (e KQuit) String() string {
 	}
 }
 
-type KSelector uint
+type KSelector uint32
 
 const (
-	KSelectorAll1BitData      KSelector = 1
-	KSelectorAll32BitData     KSelector = 8
-	KSelectorAll4BitData      KSelector = 2
-	KSelectorAll8BitData      KSelector = 4
+	KSelectorAll1BitData      KSelector = 16843009
+	KSelectorAll32BitData     KSelector = 134219784
+	KSelectorAll4BitData      KSelector = 33686018
+	KSelectorAll8BitData      KSelector = 67372036
 	KSelectorAllAvailableData KSelector = 0xffffffff
 	KSelectorAllHugeData      KSelector = 0xff000000
 	KSelectorAllLargeData     KSelector = 0xff
@@ -4283,6 +5238,14 @@ func (e KSelector) String() string {
 		return "KSelectorHuge8Bit"
 	case KSelectorHuge8BitMask:
 		return "KSelectorHuge8BitMask"
+	case KSelectorLarge1Bit:
+		return "KSelectorLarge1Bit"
+	case KSelectorLarge32Bit:
+		return "KSelectorLarge32Bit"
+	case KSelectorLarge4Bit:
+		return "KSelectorLarge4Bit"
+	case KSelectorLarge8Bit:
+		return "KSelectorLarge8Bit"
 	case KSelectorLarge8BitMask:
 		return "KSelectorLarge8BitMask"
 	case KSelectorMini1Bit:
@@ -4306,7 +5269,7 @@ func (e KSelector) String() string {
 	}
 }
 
-type KSetFrontProcess uint
+type KSetFrontProcess uint32
 
 const (
 	KSetFrontProcessCausedByUser    KSetFrontProcess = 2
@@ -4324,7 +5287,7 @@ func (e KSetFrontProcess) String() string {
 	}
 }
 
-type KSpeech uint
+type KSpeech int32
 
 const (
 	// KSpeechGenerateTune: # Discussion
@@ -4352,7 +5315,7 @@ func (e KSpeech) String() string {
 	}
 }
 
-type KTextToSpeech uint
+type KTextToSpeech uint32
 
 const (
 	// KTextToSpeechSynthType: The type of a synthesizer component.
@@ -4380,7 +5343,7 @@ func (e KTextToSpeech) String() string {
 	}
 }
 
-type KTransform uint
+type KTransform uint32
 
 const (
 	KTransformDisabled         KTransform = 0x1
@@ -4395,9 +5358,9 @@ const (
 	KTransformOffline          KTransform = 0x2
 	KTransformOpen             KTransform = 0x3
 	KTransformSelected         KTransform = 0x4000
-	KTransformSelectedDisabled KTransform = 16384
-	KTransformSelectedOffline  KTransform = 16384
-	KTransformSelectedOpen     KTransform = 16384
+	KTransformSelectedDisabled KTransform = 16385
+	KTransformSelectedOffline  KTransform = 16386
+	KTransformSelectedOpen     KTransform = 16387
 )
 
 func (e KTransform) String() string {
@@ -4426,12 +5389,18 @@ func (e KTransform) String() string {
 		return "KTransformOpen"
 	case KTransformSelected:
 		return "KTransformSelected"
+	case KTransformSelectedDisabled:
+		return "KTransformSelectedDisabled"
+	case KTransformSelectedOffline:
+		return "KTransformSelectedOffline"
+	case KTransformSelectedOpen:
+		return "KTransformSelectedOpen"
 	default:
 		return fmt.Sprintf("KTransform(%d)", e)
 	}
 }
 
-type KTranslation uint
+type KTranslation uint32
 
 const (
 	KTranslationDataTranslation KTranslation = 1
@@ -4449,7 +5418,7 @@ func (e KTranslation) String() string {
 	}
 }
 
-type KUAZoomFocusType uint
+type KUAZoomFocusType uint32
 
 const (
 	// KUAZoomFocusTypeInsertionPoint: # Discussion
@@ -4469,7 +5438,7 @@ func (e KUAZoomFocusType) String() string {
 	}
 }
 
-type Launch uint
+type Launch uint32
 
 const (
 	LaunchAllow24Bit    Launch = 0x100
@@ -4499,38 +5468,29 @@ func (e Launch) String() string {
 	}
 }
 
-type Mode uint
+type ModeReserved uint32
 
 const (
-	Mode32BitCompatible        Mode = 0x80
-	ModeCanBackground          Mode = 0x1000
-	ModeControlPanel           Mode = 0x80000
-	ModeDeskAccessory          Mode = 0x20000
-	ModeDisplayManagerAware    Mode = 0x4
-	ModeDoesActivateOnFGSwitch Mode = 0x800
-	ModeGetAppDiedMsg          Mode = 0x100
-	ModeGetFrontClicks         Mode = 0x200
-	ModeHighLevelEventAware    Mode = 0x40
-	ModeLaunchDontSwitch       Mode = 0x40000
-	// ModeLiteral: When the speech channel is in text-processing mode, indicates that characters and digits are spoken literally (for example, “cat” is spoken as “C-A-T” and “12” is spoken as "one, two").
-	ModeLiteral                Mode = 'L'<<24 | 'T'<<16 | 'R'<<8 | 'L' // 'LTRL'
-	ModeLocalAndRemoteHLEvents Mode = 0x20
-	ModeMultiLaunch            Mode = 0x10000
-	ModeNeedSuspendResume      Mode = 0x4000
-	// ModeNormal: When the speech channel is in text-processing mode, indicates that the synthesizer should process characters as expected and assemble digits into numbers.
-	ModeNormal         Mode = 'N'<<24 | 'O'<<16 | 'R'<<8 | 'M' // 'NORM'
-	ModeOnlyBackground Mode = 0x400
-	// ModePhonemes: Used with soInputMode to indicate that the speech channel is in phoneme-processing mode.
-	ModePhonemes        Mode = 'P'<<24 | 'H'<<16 | 'O'<<8 | 'N' // 'PHON'
-	ModeReserved        Mode = 0x1000000
-	ModeStationeryAware Mode = 0x10
-	// ModeText: Used with soInputMode to indicate that the speech channel is in text-processing mode.
-	ModeText                Mode = 'T'<<24 | 'E'<<16 | 'X'<<8 | 'T' // 'TEXT'
-	ModeTune                Mode = 'T'<<24 | 'U'<<16 | 'N'<<8 | 'E' // 'TUNE'
-	ModeUseTextEditServices Mode = 0x8
+	Mode32BitCompatible        ModeReserved = 0x80
+	ModeCanBackground          ModeReserved = 0x1000
+	ModeControlPanel           ModeReserved = 0x80000
+	ModeDeskAccessory          ModeReserved = 0x20000
+	ModeDisplayManagerAware    ModeReserved = 0x4
+	ModeDoesActivateOnFGSwitch ModeReserved = 0x800
+	ModeGetAppDiedMsg          ModeReserved = 0x100
+	ModeGetFrontClicks         ModeReserved = 0x200
+	ModeHighLevelEventAware    ModeReserved = 0x40
+	ModeLaunchDontSwitch       ModeReserved = 0x40000
+	ModeLocalAndRemoteHLEvents ModeReserved = 0x20
+	ModeMultiLaunch            ModeReserved = 0x10000
+	ModeNeedSuspendResume      ModeReserved = 0x4000
+	ModeOnlyBackground         ModeReserved = 0x400
+	ModeReservedValue          ModeReserved = 0x1000000
+	ModeStationeryAware        ModeReserved = 0x10
+	ModeUseTextEditServices    ModeReserved = 0x8
 )
 
-func (e Mode) String() string {
+func (e ModeReserved) String() string {
 	switch e {
 	case Mode32BitCompatible:
 		return "Mode32BitCompatible"
@@ -4552,32 +5512,53 @@ func (e Mode) String() string {
 		return "ModeHighLevelEventAware"
 	case ModeLaunchDontSwitch:
 		return "ModeLaunchDontSwitch"
-	case ModeLiteral:
-		return "ModeLiteral"
 	case ModeLocalAndRemoteHLEvents:
 		return "ModeLocalAndRemoteHLEvents"
 	case ModeMultiLaunch:
 		return "ModeMultiLaunch"
 	case ModeNeedSuspendResume:
 		return "ModeNeedSuspendResume"
-	case ModeNormal:
-		return "ModeNormal"
 	case ModeOnlyBackground:
 		return "ModeOnlyBackground"
-	case ModePhonemes:
-		return "ModePhonemes"
-	case ModeReserved:
-		return "ModeReserved"
+	case ModeReservedValue:
+		return "ModeReservedValue"
 	case ModeStationeryAware:
 		return "ModeStationeryAware"
-	case ModeText:
-		return "ModeText"
-	case ModeTune:
-		return "ModeTune"
 	case ModeUseTextEditServices:
 		return "ModeUseTextEditServices"
 	default:
-		return fmt.Sprintf("Mode(%d)", e)
+		return fmt.Sprintf("ModeReserved(%d)", e)
+	}
+}
+
+type ModeText uint32
+
+const (
+	// ModeLiteral: When the speech channel is in text-processing mode, indicates that characters and digits are spoken literally (for example, “cat” is spoken as “C-A-T” and “12” is spoken as "one, two").
+	ModeLiteral ModeText = 'L'<<24 | 'T'<<16 | 'R'<<8 | 'L' // 'LTRL'
+	// ModeNormal: When the speech channel is in text-processing mode, indicates that the synthesizer should process characters as expected and assemble digits into numbers.
+	ModeNormal ModeText = 'N'<<24 | 'O'<<16 | 'R'<<8 | 'M' // 'NORM'
+	// ModePhonemes: Used with soInputMode to indicate that the speech channel is in phoneme-processing mode.
+	ModePhonemes ModeText = 'P'<<24 | 'H'<<16 | 'O'<<8 | 'N' // 'PHON'
+	// ModeTextValue: Used with soInputMode to indicate that the speech channel is in text-processing mode.
+	ModeTextValue ModeText = 'T'<<24 | 'E'<<16 | 'X'<<8 | 'T' // 'TEXT'
+	ModeTune      ModeText = 'T'<<24 | 'U'<<16 | 'N'<<8 | 'E' // 'TUNE'
+)
+
+func (e ModeText) String() string {
+	switch e {
+	case ModeLiteral:
+		return "ModeLiteral"
+	case ModeNormal:
+		return "ModeNormal"
+	case ModePhonemes:
+		return "ModePhonemes"
+	case ModeTextValue:
+		return "ModeTextValue"
+	case ModeTune:
+		return "ModeTune"
+	default:
+		return fmt.Sprintf("ModeText(%d)", e)
 	}
 }
 
@@ -4629,25 +5610,35 @@ func (e PMPageToPaperMappingType) String() string {
 type PasteboardFlavorFlags uint32
 
 const (
-	NotSaved         PasteboardFlavorFlags = 0
-	Promised         PasteboardFlavorFlags = 0
-	RequestOnly      PasteboardFlavorFlags = 0
-	SenderOnly       PasteboardFlavorFlags = 0
-	SenderTranslated PasteboardFlavorFlags = 0
-	SystemTranslated PasteboardFlavorFlags = 0
+	NotSaved         PasteboardFlavorFlags = 4
+	Promised         PasteboardFlavorFlags = 512
+	RequestOnly      PasteboardFlavorFlags = 8
+	SenderOnly       PasteboardFlavorFlags = 1
+	SenderTranslated PasteboardFlavorFlags = 2
+	SystemTranslated PasteboardFlavorFlags = 256
 )
 
 func (e PasteboardFlavorFlags) String() string {
 	switch e {
 	case NotSaved:
 		return "NotSaved"
+	case Promised:
+		return "Promised"
+	case RequestOnly:
+		return "RequestOnly"
+	case SenderOnly:
+		return "SenderOnly"
+	case SenderTranslated:
+		return "SenderTranslated"
+	case SystemTranslated:
+		return "SystemTranslated"
 	default:
 		return fmt.Sprintf("PasteboardFlavorFlags(%d)", e)
 	}
 }
 
 // See: https://developer.apple.com/documentation/applicationservices/pasteboardstandardlocation
-type PasteboardStandardLocation int
+type PasteboardStandardLocation uint32
 
 const (
 	KPasteboardStandardLocationTrash   PasteboardStandardLocation = 't'<<24 | 'r'<<16 | 's'<<8 | 'h' // 'trsh'
@@ -4669,20 +5660,22 @@ func (e PasteboardStandardLocation) String() string {
 type PasteboardSyncFlags uint32
 
 const (
-	ClientIsOwner PasteboardSyncFlags = 0
-	Modified      PasteboardSyncFlags = 0
+	ClientIsOwner PasteboardSyncFlags = 2
+	Modified      PasteboardSyncFlags = 1
 )
 
 func (e PasteboardSyncFlags) String() string {
 	switch e {
 	case ClientIsOwner:
 		return "ClientIsOwner"
+	case Modified:
+		return "Modified"
 	default:
 		return fmt.Sprintf("PasteboardSyncFlags(%d)", e)
 	}
 }
 
-type So uint
+type So uint32
 
 const (
 	// SoCharacterMode: # Discussion
@@ -4810,7 +5803,7 @@ func (e So) String() string {
 	}
 }
 
-type SoVoice uint
+type SoVoice uint32
 
 const (
 	// SoVoiceDescription: Get basic voice information.
@@ -4830,7 +5823,7 @@ func (e SoVoice) String() string {
 	}
 }
 
-type Sv uint
+type Sv uint32
 
 const (
 	SvAll1BitData      Sv = 16843009
@@ -4890,7 +5883,7 @@ func (e Sv) String() string {
 	}
 }
 
-type Tt uint
+type Tt uint32
 
 const (
 	TtDisabled         Tt = 1
@@ -4946,3 +5939,6 @@ func (e Tt) String() string {
 		return fmt.Sprintf("Tt(%d)", e)
 	}
 }
+
+// IconRef is an alias for referenced enum type KPlotIconRef.
+type IconRef = KPlotIconRef

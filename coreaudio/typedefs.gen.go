@@ -3,8 +3,9 @@
 package coreaudio
 
 import (
-	"github.com/tmc/apple/kernel"
-	"github.com/tmc/apple/objectivec"
+	"unsafe"
+
+	"github.com/tmc/apple/coreaudiotypes"
 )
 
 // See: https://developer.apple.com/documentation/CoreAudio/AudioClassID
@@ -14,31 +15,31 @@ type AudioClassID = uint32
 type AudioDeviceID = uint32
 
 // See: https://developer.apple.com/documentation/CoreAudio/AudioDeviceIOBlock
-type AudioDeviceIOBlock = func(objectivec.IObject, objectivec.IObject, objectivec.IObject, objectivec.IObject, objectivec.IObject)
+type AudioDeviceIOBlock = func(inNow *coreaudiotypes.AudioTimeStamp, inInputData *coreaudiotypes.AudioBufferList, inInputTime *coreaudiotypes.AudioTimeStamp, outOutputData *coreaudiotypes.AudioBufferList, inOutputTime *coreaudiotypes.AudioTimeStamp)
 
 // See: https://developer.apple.com/documentation/CoreAudio/AudioDeviceIOProc
-type AudioDeviceIOProc = func(uint, uintptr, uintptr, uintptr, uintptr, uintptr, kernel.Pointer) int
+type AudioDeviceIOProc = func(inDevice uint32, inNow uintptr, inInputData uintptr, inInputTime uintptr, outOutputData uintptr, inOutputTime uintptr, inClientData unsafe.Pointer) int32
 
 // See: https://developer.apple.com/documentation/CoreAudio/AudioDeviceIOProcID
-type AudioDeviceIOProcID = string
+type AudioDeviceIOProcID = unsafe.Pointer
 
 // See: https://developer.apple.com/documentation/CoreAudio/AudioDevicePropertyID
 type AudioDevicePropertyID = uint32
 
 // See: https://developer.apple.com/documentation/CoreAudio/AudioDevicePropertyListenerProc
-type AudioDevicePropertyListenerProc = func(uint, uint, uint8, uint, kernel.Pointer) int
+type AudioDevicePropertyListenerProc = func(inDevice uint32, inChannel uint32, isInput uint8, inPropertyID uint32, inClientData unsafe.Pointer) int32
 
 // See: https://developer.apple.com/documentation/CoreAudio/AudioDriverPlugInDevicePropertyChangedProc
-type AudioDriverPlugInDevicePropertyChangedProc = func(uint, uint, uint8, uint) int
+type AudioDriverPlugInDevicePropertyChangedProc = func(inDevice uint32, inChannel uint32, isInput uint8, inPropertyID uint32) int32
 
 // See: https://developer.apple.com/documentation/CoreAudio/AudioDriverPlugInStreamPropertyChangedProc
-type AudioDriverPlugInStreamPropertyChangedProc = func(uint, uint, uint, uint) int
+type AudioDriverPlugInStreamPropertyChangedProc = func(inDevice uint32, inIOAudioStream uint32, inChannel uint32, inPropertyID uint32) int32
 
 // See: https://developer.apple.com/documentation/CoreAudio/AudioHardwarePropertyID
 type AudioHardwarePropertyID = uint32
 
 // See: https://developer.apple.com/documentation/CoreAudio/AudioHardwarePropertyListenerProc
-type AudioHardwarePropertyListenerProc = func(uint, kernel.Pointer) int
+type AudioHardwarePropertyListenerProc = func(inPropertyID uint32, inClientData unsafe.Pointer) int32
 
 // See: https://developer.apple.com/documentation/CoreAudio/AudioObjectID
 type AudioObjectID = uint32
@@ -47,10 +48,10 @@ type AudioObjectID = uint32
 type AudioObjectPropertyElement = uint32
 
 // See: https://developer.apple.com/documentation/CoreAudio/AudioObjectPropertyListenerBlock
-type AudioObjectPropertyListenerBlock = func(uint32, *AudioObjectPropertyAddress)
+type AudioObjectPropertyListenerBlock = func(inNumberAddresses uint32, inAddresses *AudioObjectPropertyAddress)
 
 // See: https://developer.apple.com/documentation/CoreAudio/AudioObjectPropertyListenerProc
-type AudioObjectPropertyListenerProc = func(uint, uint, uintptr, kernel.Pointer) int
+type AudioObjectPropertyListenerProc = func(inObjectID uint32, inNumberAddresses uint32, inAddresses uintptr, inClientData unsafe.Pointer) int32
 
 // See: https://developer.apple.com/documentation/CoreAudio/AudioObjectPropertyScope
 type AudioObjectPropertyScope = uint32
@@ -73,4 +74,4 @@ type AudioServerPlugInHostRef = *AudioServerPlugInHostInterface
 type AudioStreamID = uint32
 
 // See: https://developer.apple.com/documentation/CoreAudio/AudioStreamPropertyListenerProc
-type AudioStreamPropertyListenerProc = func(uint, uint, uint, kernel.Pointer) int
+type AudioStreamPropertyListenerProc = func(inStream uint32, inChannel uint32, inPropertyID uint32, inClientData unsafe.Pointer) int32

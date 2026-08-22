@@ -52,9 +52,10 @@ func (nc NSVisualEffectViewClass) Alloc() NSVisualEffectView {
 // content. A visual effect view makes your foreground content more prominent
 // by employing the following effects:
 //
-// - and the blurring of background content adds depth to your interface. - is
-// a subtle blending of foreground and background colors to increase the
-// contrast and make the foreground content stand out visually.
+// - Translucency and the blurring of background content adds depth to your
+// interface. - Vibrancy is a subtle blending of foreground and background
+// colors to increase the contrast and make the foreground content stand out
+// visually.
 //
 // The material and blending mode you assign determines the exact appearance
 // of the visual effect. Not all materials support transparency, and materials
@@ -75,14 +76,14 @@ func (nc NSVisualEffectViewClass) Alloc() NSVisualEffectView {
 // [NSVisualEffectView.BlendingMode] property to specify how and where you
 // want the translucency applied.
 //
-// - uses the content behind the window as the background for your visual
-// effect view. Behind-window blending makes your entire window stand out
-// above other windows and apps on the desktop. Sheets and popovers use
-// behind-window blending. - uses the window’s content as the background for
-// your visual effect view. Typically, you use in-window blending with
-// scrolling content, so that the scrolled content remains partially visible
-// under other parts of your window chrome. Toolbars always use in-window
-// blending.
+// - Behind-window blending uses the content behind the window as the
+// background for your visual effect view. Behind-window blending makes your
+// entire window stand out above other windows and apps on the desktop. Sheets
+// and popovers use behind-window blending. - In-window blending uses the
+// window’s content as the background for your visual effect view.
+// Typically, you use in-window blending with scrolling content, so that the
+// scrolled content remains partially visible under other parts of your window
+// chrome. Toolbars always use in-window blending.
 //
 // [media-3198506]
 //

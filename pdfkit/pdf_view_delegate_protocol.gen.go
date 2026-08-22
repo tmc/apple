@@ -141,8 +141,20 @@ func NewPDFViewDelegate(config PDFViewDelegateConfig) PDFViewDelegateObject {
 		methods = append(methods, objc.MethodDef{
 			Cmd: objc.RegisterName("PDFViewPerformFind:"),
 			Fn: func(self objc.ID, _cmd objc.SEL, senderID objc.ID) {
+				// Names which delegate was running if a panic unwinds out of
+				// it. The frames between here and the Objective-C caller are
+				// runtime and purego dispatch, so without this the traceback
+				// never says which selector dispatched. Deliberately no
+				// recover: see [objc.NoteDelegatePanic].
+				_delegateDone := false
+				defer func() {
+					if !_delegateDone {
+						objc.NoteDelegatePanic("PDFViewDelegate", "PDFViewPerformFind:")
+					}
+				}()
 				sender := PDFViewFromID(senderID)
 				fn(sender)
+				_delegateDone = true
 			},
 		})
 	}
@@ -152,8 +164,20 @@ func NewPDFViewDelegate(config PDFViewDelegateConfig) PDFViewDelegateObject {
 		methods = append(methods, objc.MethodDef{
 			Cmd: objc.RegisterName("PDFViewPerformGoToPage:"),
 			Fn: func(self objc.ID, _cmd objc.SEL, senderID objc.ID) {
+				// Names which delegate was running if a panic unwinds out of
+				// it. The frames between here and the Objective-C caller are
+				// runtime and purego dispatch, so without this the traceback
+				// never says which selector dispatched. Deliberately no
+				// recover: see [objc.NoteDelegatePanic].
+				_delegateDone := false
+				defer func() {
+					if !_delegateDone {
+						objc.NoteDelegatePanic("PDFViewDelegate", "PDFViewPerformGoToPage:")
+					}
+				}()
 				sender := PDFViewFromID(senderID)
 				fn(sender)
+				_delegateDone = true
 			},
 		})
 	}
@@ -163,8 +187,20 @@ func NewPDFViewDelegate(config PDFViewDelegateConfig) PDFViewDelegateObject {
 		methods = append(methods, objc.MethodDef{
 			Cmd: objc.RegisterName("PDFViewPerformPrint:"),
 			Fn: func(self objc.ID, _cmd objc.SEL, senderID objc.ID) {
+				// Names which delegate was running if a panic unwinds out of
+				// it. The frames between here and the Objective-C caller are
+				// runtime and purego dispatch, so without this the traceback
+				// never says which selector dispatched. Deliberately no
+				// recover: see [objc.NoteDelegatePanic].
+				_delegateDone := false
+				defer func() {
+					if !_delegateDone {
+						objc.NoteDelegatePanic("PDFViewDelegate", "PDFViewPerformPrint:")
+					}
+				}()
 				sender := PDFViewFromID(senderID)
 				fn(sender)
+				_delegateDone = true
 			},
 		})
 	}
@@ -174,9 +210,21 @@ func NewPDFViewDelegate(config PDFViewDelegateConfig) PDFViewDelegateObject {
 		methods = append(methods, objc.MethodDef{
 			Cmd: objc.RegisterName("PDFViewOpenPDF:forRemoteGoToAction:"),
 			Fn: func(self objc.ID, _cmd objc.SEL, senderID objc.ID, actionID objc.ID) {
+				// Names which delegate was running if a panic unwinds out of
+				// it. The frames between here and the Objective-C caller are
+				// runtime and purego dispatch, so without this the traceback
+				// never says which selector dispatched. Deliberately no
+				// recover: see [objc.NoteDelegatePanic].
+				_delegateDone := false
+				defer func() {
+					if !_delegateDone {
+						objc.NoteDelegatePanic("PDFViewDelegate", "PDFViewOpenPDF:forRemoteGoToAction:")
+					}
+				}()
 				sender := PDFViewFromID(senderID)
 				action := PDFActionRemoteGoToFromID(actionID)
 				fn(sender, action)
+				_delegateDone = true
 			},
 		})
 	}
@@ -186,8 +234,21 @@ func NewPDFViewDelegate(config PDFViewDelegateConfig) PDFViewDelegateObject {
 		methods = append(methods, objc.MethodDef{
 			Cmd: objc.RegisterName("PDFViewWillChangeScaleFactor:toScale:"),
 			Fn: func(self objc.ID, _cmd objc.SEL, senderID objc.ID, scaler float64) float64 {
+				// Names which delegate was running if a panic unwinds out of
+				// it. The frames between here and the Objective-C caller are
+				// runtime and purego dispatch, so without this the traceback
+				// never says which selector dispatched. Deliberately no
+				// recover: see [objc.NoteDelegatePanic].
+				_delegateDone := false
+				defer func() {
+					if !_delegateDone {
+						objc.NoteDelegatePanic("PDFViewDelegate", "PDFViewWillChangeScaleFactor:toScale:")
+					}
+				}()
 				sender := PDFViewFromID(senderID)
-				return fn(sender, scaler)
+				_delegateResult := fn(sender, scaler)
+				_delegateDone = true
+				return _delegateResult
 			},
 		})
 	}
@@ -197,9 +258,21 @@ func NewPDFViewDelegate(config PDFViewDelegateConfig) PDFViewDelegateObject {
 		methods = append(methods, objc.MethodDef{
 			Cmd: objc.RegisterName("PDFViewWillClickOnLink:withURL:"),
 			Fn: func(self objc.ID, _cmd objc.SEL, senderID objc.ID, urlID objc.ID) {
+				// Names which delegate was running if a panic unwinds out of
+				// it. The frames between here and the Objective-C caller are
+				// runtime and purego dispatch, so without this the traceback
+				// never says which selector dispatched. Deliberately no
+				// recover: see [objc.NoteDelegatePanic].
+				_delegateDone := false
+				defer func() {
+					if !_delegateDone {
+						objc.NoteDelegatePanic("PDFViewDelegate", "PDFViewWillClickOnLink:withURL:")
+					}
+				}()
 				sender := PDFViewFromID(senderID)
 				url := foundation.NSURLFromID(urlID)
 				fn(sender, url)
+				_delegateDone = true
 			},
 		})
 	}

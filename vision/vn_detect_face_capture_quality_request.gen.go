@@ -78,6 +78,9 @@ func VNDetectFaceCaptureQualityRequestFromID(id objc.ID) VNDetectFaceCaptureQual
 // See: https://developer.apple.com/documentation/Vision/VNDetectFaceCaptureQualityRequest
 type IVNDetectFaceCaptureQualityRequest interface {
 	IVNImageBasedRequest
+
+	// An array of [VNFaceObservation](<https://developer.apple.com/documentation/Vision/VNFaceObservation>) objects to process as part of the request.
+	InputFaceObservations() []VNFaceObservation
 }
 
 // Init initializes the instance.
@@ -110,9 +113,10 @@ func NewVNDetectFaceCaptureQualityRequest() VNDetectFaceCaptureQualityRequest {
 // [VNImageRequestHandler.PerformRequestsError].
 //
 // See: https://developer.apple.com/documentation/Vision/VNRequest/init(completionHandler:)
-func NewDetectFaceCaptureQualityRequestWithCompletionHandler(completionHandler VNRequestCompletionHandler) VNDetectFaceCaptureQualityRequest {
+func NewDetectFaceCaptureQualityRequestWithCompletionHandler(completionHandler VNRequestErrorHandler) VNDetectFaceCaptureQualityRequest {
+	_block0, _ := NewVNRequestErrorBlock(completionHandler)
 	instance := getVNDetectFaceCaptureQualityRequestClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCompletionHandler:"), completionHandler)
+	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCompletionHandler:"), _block0)
 	return VNDetectFaceCaptureQualityRequestFromID(rv)
 }
 

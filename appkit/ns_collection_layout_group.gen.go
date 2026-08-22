@@ -241,19 +241,6 @@ func (_NSCollectionLayoutGroupClass NSCollectionLayoutGroupClass) VerticalGroupW
 	return NSCollectionLayoutGroupFromID(rv)
 }
 
-// Creates a group of the specified size, with an item provider that creates a
-// custom arrangement for those items.
-//
-// See: https://developer.apple.com/documentation/AppKit/NSCollectionLayoutGroup/custom(layoutSize:itemProvider:)
-func (_NSCollectionLayoutGroupClass NSCollectionLayoutGroupClass) CustomGroupWithLayoutSizeItemProvider(layoutSize INSCollectionLayoutSize, itemProvider NSCollectionLayoutGroupCustomItemProvider) NSCollectionLayoutGroup {
-	_block1 := objc.NewBlock(func(_ objc.Block, arg0 objc.ID) []NSCollectionLayoutGroupCustomItem {
-		return itemProvider(NSCollectionLayoutEnvironmentObjectFromID(arg0))
-	})
-	defer _block1.Release()
-	rv := objc.Send[objc.ID](objc.ID(_NSCollectionLayoutGroupClass.class), objc.Sel("customGroupWithLayoutSize:itemProvider:"), layoutSize, objc.ID(_block1))
-	return NSCollectionLayoutGroupFromID(rv)
-}
-
 // An array of the items contained in the group.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSCollectionLayoutGroup/subitems

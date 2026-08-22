@@ -70,6 +70,7 @@ func (nc NSDateIntervalClass) Alloc() NSDateInterval {
 //
 //   - [NSDateInterval.InitWithStartDateDuration]: Initializes a date interval with a given start date and duration.
 //   - [NSDateInterval.InitWithStartDateEndDate]: Initializes a date interval from a given start date and end date.
+//   - [NSDateInterval.InitWithCoder]: Returns a date interval initialized from data in the given unarchiver.
 //
 // # Accessing Start Date, End Date, and Duration
 //
@@ -115,6 +116,7 @@ func NSDateIntervalFromID(id objc.ID) NSDateInterval {
 //
 //   - [INSDateInterval.InitWithStartDateDuration]: Initializes a date interval with a given start date and duration.
 //   - [INSDateInterval.InitWithStartDateEndDate]: Initializes a date interval from a given start date and end date.
+//   - [INSDateInterval.InitWithCoder]: Returns a date interval initialized from data in the given unarchiver.
 //
 // # Accessing Start Date, End Date, and Duration
 //
@@ -139,7 +141,6 @@ func NSDateIntervalFromID(id objc.ID) NSDateInterval {
 // See: https://developer.apple.com/documentation/Foundation/NSDateInterval
 type INSDateInterval interface {
 	objectivec.IObject
-	NSSecureCoding
 
 	// Topic: Creating Date Intervals
 
@@ -147,6 +148,8 @@ type INSDateInterval interface {
 	InitWithStartDateDuration(startDate INSDate, duration float64) NSDateInterval
 	// Initializes a date interval from a given start date and end date.
 	InitWithStartDateEndDate(startDate INSDate, endDate INSDate) NSDateInterval
+	// Returns a date interval initialized from data in the given unarchiver.
+	InitWithCoder(coder INSCoder) NSDateInterval
 
 	// Topic: Accessing Start Date, End Date, and Duration
 
@@ -175,6 +178,9 @@ type INSDateInterval interface {
 
 	// Indicates whether the receiver contains the specified date.
 	ContainsDate(date INSDate) bool
+
+	// Encodes the receiver using a given archiver.
+	EncodeWithCoder(coder INSCoder)
 }
 
 // Init initializes the instance.
@@ -301,14 +307,14 @@ func (d NSDateInterval) InitWithCoder(coder INSCoder) NSDateInterval {
 //
 // [media-2556955]
 //
-// The result of comparing the date interval labeled with the date interval
-// labeled is [NSOrderedAscending], because has a [NSDateInterval.StartDate]
-// that occurs earlier than that of .
+// The result of comparing the date interval labeled A with the date interval
+// labeled B is [NSOrderedAscending], because A has a
+// [NSDateInterval.StartDate] that occurs earlier than that of B.
 //
-// The result of comparing the date interval labeled with the date interval
-// labeled is [NSOrderedDescending], because because and have the same
-// [NSDateInterval.StartDate], and has a [NSDateInterval.Duration] greater
-// than that of .
+// The result of comparing the date interval labeled C with the date interval
+// labeled D is [NSOrderedDescending], because because C and D have the same
+// [NSDateInterval.StartDate], and C has a [NSDateInterval.Duration] greater
+// than that of D.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSDateInterval/compare(_:)
 //
@@ -371,12 +377,12 @@ func (d NSDateInterval) IntersectsDateInterval(dateInterval INSDateInterval) boo
 //
 // [media-2556958]
 //
-// The date intervals labeled and do not intersect, because the
-// [NSDateInterval.StartDate] of occurs later than the
-// [NSDateInterval.EndDate] of .
+// The date intervals labeled A and B do not intersect, because the
+// [NSDateInterval.StartDate] of B occurs later than the
+// [NSDateInterval.EndDate] of A.
 //
-// The date intervals labeled and do intersect. The date interval labeled
-// represents the result of calculating the intersection between and .
+// The date intervals labeled C and D do intersect. The date interval labeled
+// E represents the result of calculating the intersection between C and D.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSDateInterval/intersection(with:)
 func (d NSDateInterval) IntersectionWithDateInterval(dateInterval INSDateInterval) INSDateInterval {

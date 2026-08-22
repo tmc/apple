@@ -72,7 +72,7 @@ func (cc CKAllowedSharingOptionsClass) Alloc() CKAllowedSharingOptions {
 //
 //   - [CKAllowedSharingOptions.AllowsAccessRequests]: Default value is [NO]. If set, the system sharing UI will allow the user to configure whether access requests are enabled on the share.
 //   - [CKAllowedSharingOptions.SetAllowsAccessRequests]
-//   - [CKAllowedSharingOptions.AllowsParticipantsToInviteOthers]: Default value is [NO]. If set, the system sharing UI will allow the user to choose whether added participants can invite others to the share. Shares with [CKShare.ParticipantRole.administrator](<doc://com.apple.cloudkit/documentation/CloudKit/CKShare/ParticipantRole/administrator>) participants will be returned as read-only to devices running OS versions prior to this role being introduced. Administrator participants on these read-only shares will be returned as [CKShare.ParticipantRole.privateUser](<doc://com.apple.cloudkit/documentation/CloudKit/CKShare/ParticipantRole/privateUser>).
+//   - [CKAllowedSharingOptions.AllowsParticipantsToInviteOthers]: Default value is [NO]. If set, the system sharing UI will allow the user to choose whether added participants can invite others to the share. Shares with [CKShare.ParticipantRole.administrator](<https://developer.apple.com/documentation/CloudKit/CKShare/ParticipantRole/administrator>) participants will be returned as read-only to devices running OS versions prior to this role being introduced. Administrator participants on these read-only shares will be returned as [CKShare.ParticipantRole.privateUser](<https://developer.apple.com/documentation/CloudKit/CKShare/ParticipantRole/privateUser>).
 //   - [CKAllowedSharingOptions.SetAllowsParticipantsToInviteOthers]
 //
 // See: https://developer.apple.com/documentation/CloudKit/CKAllowedSharingOptions
@@ -114,7 +114,7 @@ func CKAllowedSharingOptionsFromID(id objc.ID) CKAllowedSharingOptions {
 //
 //   - [ICKAllowedSharingOptions.AllowsAccessRequests]: Default value is [NO]. If set, the system sharing UI will allow the user to configure whether access requests are enabled on the share.
 //   - [ICKAllowedSharingOptions.SetAllowsAccessRequests]
-//   - [ICKAllowedSharingOptions.AllowsParticipantsToInviteOthers]: Default value is [NO]. If set, the system sharing UI will allow the user to choose whether added participants can invite others to the share. Shares with [CKShare.ParticipantRole.administrator](<doc://com.apple.cloudkit/documentation/CloudKit/CKShare/ParticipantRole/administrator>) participants will be returned as read-only to devices running OS versions prior to this role being introduced. Administrator participants on these read-only shares will be returned as [CKShare.ParticipantRole.privateUser](<doc://com.apple.cloudkit/documentation/CloudKit/CKShare/ParticipantRole/privateUser>).
+//   - [ICKAllowedSharingOptions.AllowsParticipantsToInviteOthers]: Default value is [NO]. If set, the system sharing UI will allow the user to choose whether added participants can invite others to the share. Shares with [CKShare.ParticipantRole.administrator](<https://developer.apple.com/documentation/CloudKit/CKShare/ParticipantRole/administrator>) participants will be returned as read-only to devices running OS versions prior to this role being introduced. Administrator participants on these read-only shares will be returned as [CKShare.ParticipantRole.privateUser](<https://developer.apple.com/documentation/CloudKit/CKShare/ParticipantRole/privateUser>).
 //   - [ICKAllowedSharingOptions.SetAllowsParticipantsToInviteOthers]
 //
 // See: https://developer.apple.com/documentation/CloudKit/CKAllowedSharingOptions
@@ -144,7 +144,7 @@ type ICKAllowedSharingOptions interface {
 	// Default value is [NO]. If set, the system sharing UI will allow the user to configure whether access requests are enabled on the share.
 	AllowsAccessRequests() bool
 	SetAllowsAccessRequests(value bool)
-	// Default value is [NO]. If set, the system sharing UI will allow the user to choose whether added participants can invite others to the share. Shares with [CKShare.ParticipantRole.administrator](<doc://com.apple.cloudkit/documentation/CloudKit/CKShare/ParticipantRole/administrator>) participants will be returned as read-only to devices running OS versions prior to this role being introduced. Administrator participants on these read-only shares will be returned as [CKShare.ParticipantRole.privateUser](<doc://com.apple.cloudkit/documentation/CloudKit/CKShare/ParticipantRole/privateUser>).
+	// Default value is [NO]. If set, the system sharing UI will allow the user to choose whether added participants can invite others to the share. Shares with [CKShare.ParticipantRole.administrator](<https://developer.apple.com/documentation/CloudKit/CKShare/ParticipantRole/administrator>) participants will be returned as read-only to devices running OS versions prior to this role being introduced. Administrator participants on these read-only shares will be returned as [CKShare.ParticipantRole.privateUser](<https://developer.apple.com/documentation/CloudKit/CKShare/ParticipantRole/privateUser>).
 	AllowsParticipantsToInviteOthers() bool
 	SetAllowsParticipantsToInviteOthers(value bool)
 

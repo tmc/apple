@@ -55,7 +55,8 @@ func (nc NSAccessibilityCustomActionClass) Alloc() NSAccessibilityCustomAction {
 // rotor.
 //
 // After creating an instance of this class, add it to the
-// [accessibilityCustomActions] property of an appropriate accessible object.
+// [NSWindow.AccessibilityCustomActions] property of an appropriate accessible
+// object.
 //
 // # Creating a Custom Action
 //
@@ -77,8 +78,6 @@ func (nc NSAccessibilityCustomActionClass) Alloc() NSAccessibilityCustomAction {
 //   - [NSAccessibilityCustomAction.SetSelector]
 //
 // See: https://developer.apple.com/documentation/AppKit/NSAccessibilityCustomAction
-//
-// [accessibilityCustomActions]: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityCustomActions
 type NSAccessibilityCustomAction struct {
 	objectivec.Object
 }
@@ -134,8 +133,8 @@ type INSAccessibilityCustomAction interface {
 	// Topic: Getting the Action
 
 	// The closure that handles the execution of the action.
-	Handler() VoidHandler
-	SetHandler(value VoidHandler)
+	Handler() BoolVoidHandler
+	SetHandler(value BoolVoidHandler)
 	// The object that performs the action through a selector.
 	Target() objectivec.Object
 	SetTarget(value objectivec.Object)
@@ -213,13 +212,13 @@ func (a NSAccessibilityCustomAction) SetName(value string) {
 // The closure that handles the execution of the action.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSAccessibilityCustomAction/handler
-func (a NSAccessibilityCustomAction) Handler() VoidHandler {
+func (a NSAccessibilityCustomAction) Handler() BoolVoidHandler {
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("handler"))
 	_ = rv
 	return nil
 }
-func (a NSAccessibilityCustomAction) SetHandler(value VoidHandler) {
-	block, cleanup := NewVoidBlock(value)
+func (a NSAccessibilityCustomAction) SetHandler(value BoolVoidHandler) {
+	block, cleanup := NewBoolVoidBlock(value)
 	defer cleanup()
 	objc.Send[struct{}](a.ID, objc.Sel("setHandler:"), block)
 }

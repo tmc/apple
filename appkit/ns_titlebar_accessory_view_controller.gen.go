@@ -526,4 +526,14 @@ func (t NSTitlebarAccessoryViewController) SetHidden(value bool) {
 	objc.Send[struct{}](t.ID, objc.Sel("setHidden:"), value)
 }
 
+// Protocol methods for NSAnimatablePropertyContainer
+
+// Sets the option dictionary that maps event trigger keys to animation
+// objects.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSAnimatablePropertyContainer/animations
+func (o NSTitlebarAccessoryViewController) SetAnimations(value foundation.INSDictionary) {
+	objc.Send[struct{}](o.ID, objc.Sel("setAnimations:"), value)
+}
+
 // Protocol methods for NSAnimationDelegate

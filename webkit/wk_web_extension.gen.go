@@ -593,7 +593,7 @@ func (w WKWebExtension) Version() string {
 
 // ExtensionWithAppExtensionBundle is a synchronous wrapper around [WKWebExtension.ExtensionWithAppExtensionBundleCompletionHandler].
 // It blocks until the completion handler fires or the context is cancelled.
-func (wc WKWebExtensionClass) ExtensionWithAppExtensionBundle(ctx context.Context, appExtensionBundle foundation.Bundle) (*WKWebExtension, error) {
+func (wc WKWebExtensionClass) ExtensionWithAppExtensionBundle(ctx context.Context, appExtensionBundle foundation.NSBundle) (*WKWebExtension, error) {
 	type result struct {
 		val *WKWebExtension
 		err error

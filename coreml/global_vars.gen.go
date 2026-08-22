@@ -3,8 +3,6 @@
 package coreml
 
 import (
-	"unsafe"
-
 	"github.com/ebitengine/purego"
 	"github.com/tmc/apple/foundation"
 	"github.com/tmc/apple/objc"
@@ -83,7 +81,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "MLModelCollectionDidChangeNotification"); err == nil && ptr != 0 {
-		MLModelCollectionDidChangeNotification = *(*foundation.NSNotification)(unsafe.Pointer(ptr))
+		MLModelCollectionDidChangeNotification = objc.ValueAt[foundation.NSNotification](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "MLModelCreatorDefinedKey"); err == nil && ptr != 0 {

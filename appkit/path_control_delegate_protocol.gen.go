@@ -198,10 +198,23 @@ func NewNSPathControlDelegate(config NSPathControlDelegateConfig) NSPathControlD
 		methods = append(methods, objc.MethodDef{
 			Cmd: objc.RegisterName("pathControl:shouldDragPathComponentCell:withPasteboard:"),
 			Fn: func(self objc.ID, _cmd objc.SEL, pathControlID objc.ID, pathComponentCellID objc.ID, pasteboardID objc.ID) bool {
+				// Names which delegate was running if a panic unwinds out of
+				// it. The frames between here and the Objective-C caller are
+				// runtime and purego dispatch, so without this the traceback
+				// never says which selector dispatched. Deliberately no
+				// recover: see [objc.NoteDelegatePanic].
+				_delegateDone := false
+				defer func() {
+					if !_delegateDone {
+						objc.NoteDelegatePanic("NSPathControlDelegate", "pathControl:shouldDragPathComponentCell:withPasteboard:")
+					}
+				}()
 				pathControl := NSPathControlFromID(pathControlID)
 				pathComponentCell := NSPathComponentCellFromID(pathComponentCellID)
 				pasteboard := NSPasteboardFromID(pasteboardID)
-				return fn(pathControl, pathComponentCell, pasteboard)
+				_delegateResult := fn(pathControl, pathComponentCell, pasteboard)
+				_delegateDone = true
+				return _delegateResult
 			},
 		})
 	}
@@ -211,9 +224,21 @@ func NewNSPathControlDelegate(config NSPathControlDelegateConfig) NSPathControlD
 		methods = append(methods, objc.MethodDef{
 			Cmd: objc.RegisterName("pathControl:willDisplayOpenPanel:"),
 			Fn: func(self objc.ID, _cmd objc.SEL, pathControlID objc.ID, openPanelID objc.ID) {
+				// Names which delegate was running if a panic unwinds out of
+				// it. The frames between here and the Objective-C caller are
+				// runtime and purego dispatch, so without this the traceback
+				// never says which selector dispatched. Deliberately no
+				// recover: see [objc.NoteDelegatePanic].
+				_delegateDone := false
+				defer func() {
+					if !_delegateDone {
+						objc.NoteDelegatePanic("NSPathControlDelegate", "pathControl:willDisplayOpenPanel:")
+					}
+				}()
 				pathControl := NSPathControlFromID(pathControlID)
 				openPanel := NSOpenPanelFromID(openPanelID)
 				fn(pathControl, openPanel)
+				_delegateDone = true
 			},
 		})
 	}
@@ -223,9 +248,21 @@ func NewNSPathControlDelegate(config NSPathControlDelegateConfig) NSPathControlD
 		methods = append(methods, objc.MethodDef{
 			Cmd: objc.RegisterName("pathControl:willPopUpMenu:"),
 			Fn: func(self objc.ID, _cmd objc.SEL, pathControlID objc.ID, menuID objc.ID) {
+				// Names which delegate was running if a panic unwinds out of
+				// it. The frames between here and the Objective-C caller are
+				// runtime and purego dispatch, so without this the traceback
+				// never says which selector dispatched. Deliberately no
+				// recover: see [objc.NoteDelegatePanic].
+				_delegateDone := false
+				defer func() {
+					if !_delegateDone {
+						objc.NoteDelegatePanic("NSPathControlDelegate", "pathControl:willPopUpMenu:")
+					}
+				}()
 				pathControl := NSPathControlFromID(pathControlID)
 				menu := NSMenuFromID(menuID)
 				fn(pathControl, menu)
+				_delegateDone = true
 			},
 		})
 	}
@@ -235,10 +272,23 @@ func NewNSPathControlDelegate(config NSPathControlDelegateConfig) NSPathControlD
 		methods = append(methods, objc.MethodDef{
 			Cmd: objc.RegisterName("pathControl:shouldDragItem:withPasteboard:"),
 			Fn: func(self objc.ID, _cmd objc.SEL, pathControlID objc.ID, pathItemID objc.ID, pasteboardID objc.ID) bool {
+				// Names which delegate was running if a panic unwinds out of
+				// it. The frames between here and the Objective-C caller are
+				// runtime and purego dispatch, so without this the traceback
+				// never says which selector dispatched. Deliberately no
+				// recover: see [objc.NoteDelegatePanic].
+				_delegateDone := false
+				defer func() {
+					if !_delegateDone {
+						objc.NoteDelegatePanic("NSPathControlDelegate", "pathControl:shouldDragItem:withPasteboard:")
+					}
+				}()
 				pathControl := NSPathControlFromID(pathControlID)
 				pathItem := NSPathControlItemFromID(pathItemID)
 				pasteboard := NSPasteboardFromID(pasteboardID)
-				return fn(pathControl, pathItem, pasteboard)
+				_delegateResult := fn(pathControl, pathItem, pasteboard)
+				_delegateDone = true
+				return _delegateResult
 			},
 		})
 	}

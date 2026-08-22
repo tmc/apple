@@ -90,6 +90,8 @@ type IAVVideoCompositionInstruction interface {
 	// Instructions that specify how to layer and compose video frames from source tracks.
 	LayerInstructions() []AVVideoCompositionLayerInstruction
 
+	// A Boolean value that indicates whether the composition contains tweening.
+	ContainsTweening() bool
 	InitWithCoder(coder foundation.INSCoder) AVVideoCompositionInstruction
 	EncodeWithCoder(coder foundation.INSCoder)
 }
@@ -120,6 +122,14 @@ func NewVideoCompositionInstructionWithCoder(coder foundation.INSCoder) AVVideoC
 	return AVVideoCompositionInstructionFromID(rv)
 }
 
+// A Boolean value that indicates whether the composition contains tweening.
+//
+// See: https://developer.apple.com/documentation/AVFoundation/AVVideoCompositionInstructionProtocol/containsTweening
+func (v AVVideoCompositionInstruction) ContainsTweening() bool {
+	rv := objc.Send[bool](v.ID, objc.Sel("containsTweening"))
+	return rv
+}
+
 // See: https://developer.apple.com/documentation/AVFoundation/AVVideoCompositionInstruction-swift.class/init(coder:)
 func (v AVVideoCompositionInstruction) InitWithCoder(coder foundation.INSCoder) AVVideoCompositionInstruction {
 	rv := objc.Send[AVVideoCompositionInstruction](v.ID, objc.Sel("initWithCoder:"), coder)
@@ -132,7 +142,7 @@ func (v AVVideoCompositionInstruction) EncodeWithCoder(coder foundation.INSCoder
 // Pass-through initializer, for internal use in AVFoundation only
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVVideoCompositionInstruction-swift.class/videoCompositionInstructionWithInstruction:
-func (_AVVideoCompositionInstructionClass AVVideoCompositionInstructionClass) VideoCompositionInstructionWithInstruction(instruction AVVideoCompositionInstruction) AVVideoCompositionInstruction {
+func (_AVVideoCompositionInstructionClass AVVideoCompositionInstructionClass) VideoCompositionInstructionWithInstruction(instruction IAVVideoCompositionInstruction) AVVideoCompositionInstruction {
 	rv := objc.Send[objc.ID](objc.ID(_AVVideoCompositionInstructionClass.class), objc.Sel("videoCompositionInstructionWithInstruction:"), instruction)
 	return AVVideoCompositionInstructionFromID(rv)
 }
@@ -247,19 +257,3 @@ func (v AVVideoCompositionInstruction) PassthroughTrackID() coremedia.CMPersiste
 }
 
 // Protocol methods for AVVideoCompositionInstructionProtocol
-
-// A Boolean value that indicates whether the composition contains tweening.
-//
-// # Discussion
-//
-// A value of true indicates that rendering a frame from the same source
-// buffers and the same composition instruction at two different
-// [AVAsynchronousVideoCompositionRequest.CompositionTime] values may yield
-// different output frames. A value of false indicates that two compositions
-// yield the same frame.
-//
-// See: https://developer.apple.com/documentation/AVFoundation/AVVideoCompositionInstructionProtocol/containsTweening
-func (o AVVideoCompositionInstruction) ContainsTweening() bool {
-	rv := objc.Send[bool](o.ID, objc.Sel("containsTweening"))
-	return bool(rv)
-}

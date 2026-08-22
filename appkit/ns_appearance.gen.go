@@ -295,7 +295,8 @@ func (a NSAppearance) BestMatchFromAppearancesWithNames(appearances []string) NS
 //
 // See: https://developer.apple.com/documentation/AppKit/NSAppearance/performAsCurrentDrawingAppearance(_:)
 func (a NSAppearance) PerformAsCurrentDrawingAppearance(block VoidHandler) {
-	_block0, _ := NewVoidBlock(block)
+	_block0, _cleanup0 := NewVoidBlock(block)
+	defer _cleanup0()
 	objc.Send[objc.ID](a.ID, objc.Sel("performAsCurrentDrawingAppearance:"), _block0)
 }
 func (a NSAppearance) EncodeWithCoder(coder foundation.INSCoder) {

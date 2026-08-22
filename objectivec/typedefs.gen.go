@@ -5,7 +5,6 @@ package objectivec
 import (
 	"unsafe"
 
-	"github.com/tmc/apple/kernel"
 	"github.com/tmc/apple/objc"
 )
 
@@ -81,12 +80,13 @@ type Objc_hook_getImageName = string
 type Objc_hook_lazyClassNamer = unsafe.Pointer
 
 // See: https://developer.apple.com/documentation/ObjectiveC/objc_objectptr_t
-type Objc_objectptr_t = kernel.Pointer
+type Objc_objectptr_t = unsafe.Pointer
 
 // Objc_property_t is an opaque type that represents an Objective-C declared property.
 //
 // See: https://developer.apple.com/documentation/ObjectiveC/objc_property_t
-type Objc_property_t = unsafe.Pointer
+// Objc_property_t is an unresolved C aggregate typedef.
+type Objc_property_t unsafe.Pointer
 
 // See: https://developer.apple.com/documentation/ObjectiveC/objc_uncaught_exception_handler
 type Objc_uncaught_exception_handler = unsafe.Pointer

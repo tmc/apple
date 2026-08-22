@@ -3,9 +3,8 @@
 package accelerate
 
 import (
-	"unsafe"
-
 	"github.com/ebitengine/purego"
+	"github.com/tmc/apple/objc"
 )
 
 var (
@@ -36,19 +35,19 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kvImage_ARGBToYpCbCrMatrix_ITU_R_601_4"); err == nil && ptr != 0 {
-		KvImage_ARGBToYpCbCrMatrix_ITU_R_601_4 = *(*VImage_ARGBToYpCbCrMatrix)(unsafe.Pointer(ptr))
+		KvImage_ARGBToYpCbCrMatrix_ITU_R_601_4 = objc.ValueAt[VImage_ARGBToYpCbCrMatrix](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kvImage_ARGBToYpCbCrMatrix_ITU_R_709_2"); err == nil && ptr != 0 {
-		KvImage_ARGBToYpCbCrMatrix_ITU_R_709_2 = *(*VImage_ARGBToYpCbCrMatrix)(unsafe.Pointer(ptr))
+		KvImage_ARGBToYpCbCrMatrix_ITU_R_709_2 = objc.ValueAt[VImage_ARGBToYpCbCrMatrix](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kvImage_YpCbCrToARGBMatrix_ITU_R_601_4"); err == nil && ptr != 0 {
-		KvImage_YpCbCrToARGBMatrix_ITU_R_601_4 = *(*VImage_YpCbCrToARGBMatrix)(unsafe.Pointer(ptr))
+		KvImage_YpCbCrToARGBMatrix_ITU_R_601_4 = objc.ValueAt[VImage_YpCbCrToARGBMatrix](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kvImage_YpCbCrToARGBMatrix_ITU_R_709_2"); err == nil && ptr != 0 {
-		KvImage_YpCbCrToARGBMatrix_ITU_R_709_2 = *(*VImage_YpCbCrToARGBMatrix)(unsafe.Pointer(ptr))
+		KvImage_YpCbCrToARGBMatrix_ITU_R_709_2 = objc.ValueAt[VImage_YpCbCrToARGBMatrix](ptr)
 	}
 
 }

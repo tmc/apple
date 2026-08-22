@@ -219,7 +219,7 @@ func NewJSContext() JSContext {
 //
 // See [JSContextRef] for the C JavaScriptCore API.
 //
-// See: https://developer.apple.com/documentation/JavaScriptCore/JSContext/init(JSGlobalContextRef:)-9m51
+// See: https://developer.apple.com/documentation/JavaScriptCore/JSContext/init(JSGlobalContextRef:)
 func NewJSContextWithJSGlobalContextRef(jsGlobalContextRef JSGlobalContextRef) JSContext {
 	rv := objc.Send[objc.ID](objc.ID(getJSContextClass().class), objc.Sel("contextWithJSGlobalContextRef:"), jsGlobalContextRef)
 	return JSContextFromID(rv)

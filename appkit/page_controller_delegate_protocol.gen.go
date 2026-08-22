@@ -235,8 +235,20 @@ func NewNSPageControllerDelegate(config NSPageControllerDelegateConfig) NSPageCo
 		methods = append(methods, objc.MethodDef{
 			Cmd: objc.RegisterName("pageControllerWillStartLiveTransition:"),
 			Fn: func(self objc.ID, _cmd objc.SEL, pageControllerID objc.ID) {
+				// Names which delegate was running if a panic unwinds out of
+				// it. The frames between here and the Objective-C caller are
+				// runtime and purego dispatch, so without this the traceback
+				// never says which selector dispatched. Deliberately no
+				// recover: see [objc.NoteDelegatePanic].
+				_delegateDone := false
+				defer func() {
+					if !_delegateDone {
+						objc.NoteDelegatePanic("NSPageControllerDelegate", "pageControllerWillStartLiveTransition:")
+					}
+				}()
 				pageController := NSPageControllerFromID(pageControllerID)
 				fn(pageController)
+				_delegateDone = true
 			},
 		})
 	}
@@ -246,8 +258,20 @@ func NewNSPageControllerDelegate(config NSPageControllerDelegateConfig) NSPageCo
 		methods = append(methods, objc.MethodDef{
 			Cmd: objc.RegisterName("pageControllerDidEndLiveTransition:"),
 			Fn: func(self objc.ID, _cmd objc.SEL, pageControllerID objc.ID) {
+				// Names which delegate was running if a panic unwinds out of
+				// it. The frames between here and the Objective-C caller are
+				// runtime and purego dispatch, so without this the traceback
+				// never says which selector dispatched. Deliberately no
+				// recover: see [objc.NoteDelegatePanic].
+				_delegateDone := false
+				defer func() {
+					if !_delegateDone {
+						objc.NoteDelegatePanic("NSPageControllerDelegate", "pageControllerDidEndLiveTransition:")
+					}
+				}()
 				pageController := NSPageControllerFromID(pageControllerID)
 				fn(pageController)
+				_delegateDone = true
 			},
 		})
 	}
@@ -257,9 +281,22 @@ func NewNSPageControllerDelegate(config NSPageControllerDelegateConfig) NSPageCo
 		methods = append(methods, objc.MethodDef{
 			Cmd: objc.RegisterName("pageController:viewControllerForIdentifier:"),
 			Fn: func(self objc.ID, _cmd objc.SEL, pageControllerID objc.ID, identifierID objc.ID) objc.ID {
+				// Names which delegate was running if a panic unwinds out of
+				// it. The frames between here and the Objective-C caller are
+				// runtime and purego dispatch, so without this the traceback
+				// never says which selector dispatched. Deliberately no
+				// recover: see [objc.NoteDelegatePanic].
+				_delegateDone := false
+				defer func() {
+					if !_delegateDone {
+						objc.NoteDelegatePanic("NSPageControllerDelegate", "pageController:viewControllerForIdentifier:")
+					}
+				}()
 				pageController := NSPageControllerFromID(pageControllerID)
 				identifier := NSPageControllerObjectIdentifier(objc.GoString(objc.Send[*byte](identifierID, objc.Sel("UTF8String"))))
-				return fn(pageController, identifier).GetID()
+				_delegateResult := fn(pageController, identifier).GetID()
+				_delegateDone = true
+				return _delegateResult
 			},
 		})
 	}

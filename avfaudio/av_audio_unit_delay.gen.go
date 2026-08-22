@@ -4,8 +4,8 @@ package avfaudio
 
 import (
 	"sync"
-	"unsafe"
 
+	"github.com/tmc/apple/audiotoolbox"
 	"github.com/tmc/apple/foundation"
 	"github.com/tmc/apple/objc"
 )
@@ -143,7 +143,7 @@ func NewAVAudioUnitDelay() AVAudioUnitDelay {
 // A new [AVAudioUnitEffect] instance.
 //
 // See: https://developer.apple.com/documentation/AVFAudio/AVAudioUnitEffect/init(audioComponentDescription:)
-func NewAudioUnitDelayWithAudioComponentDescription(audioComponentDescription unsafe.Pointer) AVAudioUnitDelay {
+func NewAudioUnitDelayWithAudioComponentDescription(audioComponentDescription audiotoolbox.AudioComponentDescription) AVAudioUnitDelay {
 	instance := getAVAudioUnitDelayClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithAudioComponentDescription:"), audioComponentDescription)
 	return AVAudioUnitDelayFromID(rv)

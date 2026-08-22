@@ -50,7 +50,7 @@ func (nc NSRelativeSpecifierClass) Alloc() NSRelativeSpecifier {
 //
 // # Initializing a relative specifier
 //
-//   - [NSRelativeSpecifier.InitWithContainerClassDescriptionContainerSpecifierKeyRelativePositionBaseSpecifier]: Invokes the super class’s [init(containerClassDescription:containerSpecifier:key:)](<doc://com.apple.foundation/documentation/Foundation/NSScriptObjectSpecifier/init(containerClassDescription:containerSpecifier:key:)>) method and initializes the relative position and base specifier to `relPos` and `baseSpecifier`.
+//   - [NSRelativeSpecifier.InitWithContainerClassDescriptionContainerSpecifierKeyRelativePositionBaseSpecifier]: Invokes the super class’s [init(containerClassDescription:containerSpecifier:key:)](<https://developer.apple.com/documentation/Foundation/NSScriptObjectSpecifier/init(containerClassDescription:containerSpecifier:key:)>) method and initializes the relative position and base specifier to `relPos` and `baseSpecifier`.
 //
 // # Accessing a relative specifier
 //
@@ -79,7 +79,7 @@ func NSRelativeSpecifierFromID(id objc.ID) NSRelativeSpecifier {
 //
 // # Initializing a relative specifier
 //
-//   - [INSRelativeSpecifier.InitWithContainerClassDescriptionContainerSpecifierKeyRelativePositionBaseSpecifier]: Invokes the super class’s [init(containerClassDescription:containerSpecifier:key:)](<doc://com.apple.foundation/documentation/Foundation/NSScriptObjectSpecifier/init(containerClassDescription:containerSpecifier:key:)>) method and initializes the relative position and base specifier to `relPos` and `baseSpecifier`.
+//   - [INSRelativeSpecifier.InitWithContainerClassDescriptionContainerSpecifierKeyRelativePositionBaseSpecifier]: Invokes the super class’s [init(containerClassDescription:containerSpecifier:key:)](<https://developer.apple.com/documentation/Foundation/NSScriptObjectSpecifier/init(containerClassDescription:containerSpecifier:key:)>) method and initializes the relative position and base specifier to `relPos` and `baseSpecifier`.
 //
 // # Accessing a relative specifier
 //
@@ -94,7 +94,7 @@ type INSRelativeSpecifier interface {
 
 	// Topic: Initializing a relative specifier
 
-	// Invokes the super class’s [init(containerClassDescription:containerSpecifier:key:)](<doc://com.apple.foundation/documentation/Foundation/NSScriptObjectSpecifier/init(containerClassDescription:containerSpecifier:key:)>) method and initializes the relative position and base specifier to `relPos` and `baseSpecifier`.
+	// Invokes the super class’s [init(containerClassDescription:containerSpecifier:key:)](<https://developer.apple.com/documentation/Foundation/NSScriptObjectSpecifier/init(containerClassDescription:containerSpecifier:key:)>) method and initializes the relative position and base specifier to `relPos` and `baseSpecifier`.
 	InitWithContainerClassDescriptionContainerSpecifierKeyRelativePositionBaseSpecifier(classDesc INSScriptClassDescription, container INSScriptObjectSpecifier, property string, relPos NSRelativePosition, baseSpecifier INSScriptObjectSpecifier) NSRelativeSpecifier
 
 	// Topic: Accessing a relative specifier

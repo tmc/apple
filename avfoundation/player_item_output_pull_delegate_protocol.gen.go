@@ -106,8 +106,20 @@ func NewAVPlayerItemOutputPullDelegate(config AVPlayerItemOutputPullDelegateConf
 		methods = append(methods, objc.MethodDef{
 			Cmd: objc.RegisterName("outputMediaDataWillChange:"),
 			Fn: func(self objc.ID, _cmd objc.SEL, senderID objc.ID) {
+				// Names which delegate was running if a panic unwinds out of
+				// it. The frames between here and the Objective-C caller are
+				// runtime and purego dispatch, so without this the traceback
+				// never says which selector dispatched. Deliberately no
+				// recover: see [objc.NoteDelegatePanic].
+				_delegateDone := false
+				defer func() {
+					if !_delegateDone {
+						objc.NoteDelegatePanic("AVPlayerItemOutputPullDelegate", "outputMediaDataWillChange:")
+					}
+				}()
 				sender := AVPlayerItemOutputFromID(senderID)
 				fn(sender)
+				_delegateDone = true
 			},
 		})
 	}
@@ -117,8 +129,20 @@ func NewAVPlayerItemOutputPullDelegate(config AVPlayerItemOutputPullDelegateConf
 		methods = append(methods, objc.MethodDef{
 			Cmd: objc.RegisterName("outputSequenceWasFlushed:"),
 			Fn: func(self objc.ID, _cmd objc.SEL, outputID objc.ID) {
+				// Names which delegate was running if a panic unwinds out of
+				// it. The frames between here and the Objective-C caller are
+				// runtime and purego dispatch, so without this the traceback
+				// never says which selector dispatched. Deliberately no
+				// recover: see [objc.NoteDelegatePanic].
+				_delegateDone := false
+				defer func() {
+					if !_delegateDone {
+						objc.NoteDelegatePanic("AVPlayerItemOutputPullDelegate", "outputSequenceWasFlushed:")
+					}
+				}()
 				output := AVPlayerItemOutputFromID(outputID)
 				fn(output)
+				_delegateDone = true
 			},
 		})
 	}

@@ -14,11 +14,6 @@ import (
 type GCLinearInput interface {
 	objectivec.IObject
 
-	// A Boolean value that indicates whether the input provides analog values.
-	//
-	// See: https://developer.apple.com/documentation/GameController/GCLinearInput/isAnalog
-	IsAnalog() bool
-
 	// A Boolean value that indicates whether the input value wraps when it reaches the range’s minimum or maximum value.
 	//
 	// See: https://developer.apple.com/documentation/GameController/GCLinearInput/canWrap
@@ -27,7 +22,7 @@ type GCLinearInput interface {
 	// A Boolean value that indicates whether the input provides analog values.
 	//
 	// See: https://developer.apple.com/documentation/GameController/GCLinearInput/isAnalog
-	Analog() bool
+	IsAnalog() bool
 
 	// The value in unit coordinates.
 	//
@@ -72,14 +67,6 @@ func GCLinearInputObjectFromID(id objc.ID) GCLinearInputObject {
 	}
 }
 
-// A Boolean value that indicates whether the input provides analog values.
-//
-// See: https://developer.apple.com/documentation/GameController/GCLinearInput/isAnalog
-func (o GCLinearInputObject) IsAnalog() bool {
-	rv := objc.Send[bool](o.ID, objc.Sel("isAnalog"))
-	return rv
-}
-
 // A Boolean value that indicates whether the input value wraps when it
 // reaches the range’s minimum or maximum value.
 //
@@ -92,7 +79,7 @@ func (o GCLinearInputObject) CanWrap() bool {
 // A Boolean value that indicates whether the input provides analog values.
 //
 // See: https://developer.apple.com/documentation/GameController/GCLinearInput/isAnalog
-func (o GCLinearInputObject) Analog() bool {
+func (o GCLinearInputObject) IsAnalog() bool {
 	rv := objc.Send[bool](o.ID, objc.Sel("isAnalog"))
 	return bool(rv)
 }

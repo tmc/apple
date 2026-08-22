@@ -43,12 +43,12 @@ type MTLComputeCommandEncoder interface {
 	// Copies data directly to the GPU to populate an entry in the buffer argument table.
 	//
 	// See: https://developer.apple.com/documentation/Metal/MTLComputeCommandEncoder/setBytes(_:length:index:)
-	SetBytesLengthAtIndex(bytes []byte, length uint, index uint)
+	SetBytesLengthAtIndex(bytes []byte, index uint)
 
 	// Copies data with a given stride directly to the GPU to populate an entry in the buffer argument table.
 	//
 	// See: https://developer.apple.com/documentation/Metal/MTLComputeCommandEncoder/setBytes(_:length:attributeStride:index:)
-	SetBytesLengthAttributeStrideAtIndex(bytes []byte, length uint, stride uint, index uint)
+	SetBytesLengthAttributeStrideAtIndex(bytes []byte, stride uint, index uint)
 
 	// Binds a texture to the texture argument table, allowing compute kernels to access its data on the GPU.
 	//
@@ -380,8 +380,8 @@ func (o MTLComputeCommandEncoderObject) SetBufferOffsetAttributeStrideAtIndex(of
 // especially when making many small allocations.
 //
 // See: https://developer.apple.com/documentation/Metal/MTLComputeCommandEncoder/setBytes(_:length:index:)
-func (o MTLComputeCommandEncoderObject) SetBytesLengthAtIndex(bytes []byte, length uint, index uint) {
-	objc.Send[struct{}](o.ID, objc.Sel("setBytes:length:atIndex:"), bytes, length, index)
+func (o MTLComputeCommandEncoderObject) SetBytesLengthAtIndex(bytes []byte, index uint) {
+	objc.Send[struct{}](o.ID, objc.Sel("setBytes:length:atIndex:"), objc.BytesPointer(bytes), uint(len(bytes)), index)
 }
 
 // Copies data with a given stride directly to the GPU to populate an entry in
@@ -403,8 +403,8 @@ func (o MTLComputeCommandEncoderObject) SetBytesLengthAtIndex(bytes []byte, leng
 // can improve performance, especially when making many small allocations.
 //
 // See: https://developer.apple.com/documentation/Metal/MTLComputeCommandEncoder/setBytes(_:length:attributeStride:index:)
-func (o MTLComputeCommandEncoderObject) SetBytesLengthAttributeStrideAtIndex(bytes []byte, length uint, stride uint, index uint) {
-	objc.Send[struct{}](o.ID, objc.Sel("setBytes:length:attributeStride:atIndex:"), bytes, length, stride, index)
+func (o MTLComputeCommandEncoderObject) SetBytesLengthAttributeStrideAtIndex(bytes []byte, stride uint, index uint) {
+	objc.Send[struct{}](o.ID, objc.Sel("setBytes:length:attributeStride:atIndex:"), objc.BytesPointer(bytes), uint(len(bytes)), stride, index)
 }
 
 // Binds a texture to the texture argument table, allowing compute kernels to
@@ -504,11 +504,11 @@ func (o MTLComputeCommandEncoderObject) SetIntersectionFunctionTableAtBufferInde
 //
 // # Discussion
 //
-// You can make a resource (available in GPU memory) for the remaining
-// duration of the compute pass by calling this method. Call the method before
-// encoding function calls that may access the `resource` through an argument
-// buffer. The method ensures the resource is in a format that’s compatible
-// with the kernels that depend on it.
+// You can make a resource resident (available in GPU memory) for the
+// remaining duration of the compute pass by calling this method. Call the
+// method before encoding function calls that may access the `resource`
+// through an argument buffer. The method ensures the resource is in a format
+// that’s compatible with the kernels that depend on it.
 //
 // The method also informs Metal when to apply hazard tracking for a resource
 // you create with [MTLHazardTrackingModeTracked]. For a resource you create
@@ -519,9 +519,9 @@ func (o MTLComputeCommandEncoderObject) SetIntersectionFunctionTableAtBufferInde
 // subsequent draw calls in the same render pass by calling this method again.
 //
 // Apps typically call this method for a resource in an argument buffer as a
-// part of their implementation. For more information about argument buffers
-// and bindless implementations, see [Improving CPU performance by using
-// argument buffers] and [Go bindless with Metal 3], respectively.
+// part of their bindless implementation. For more information about argument
+// buffers and bindless implementations, see [Improving CPU performance by
+// using argument buffers] and [Go bindless with Metal 3], respectively.
 //
 // See: https://developer.apple.com/documentation/Metal/MTLComputeCommandEncoder/useResource(_:usage:)
 //
@@ -538,8 +538,8 @@ func (o MTLComputeCommandEncoderObject) UseResourceUsage(resource MTLResource, u
 //
 // # Discussion
 //
-// You can make the resources in `heap` (available in GPU memory) for the
-// remaining duration of the render pass by calling this method. Call the
+// You can make the resources in `heap` resident (available in GPU memory) for
+// the remaining duration of the render pass by calling this method. Call the
 // method before encoding draw calls that may access resources within `heap`
 // through an argument buffer. The method ensures each resource is in a format
 // that’s compatible with the shaders that depend on it.
@@ -568,9 +568,9 @@ func (o MTLComputeCommandEncoderObject) UseResourceUsage(resource MTLResource, u
 // applying [MTLFence] or [MTLEvent] instances.
 //
 // Apps typically call the method for heaps that have resources in argument
-// buffers for a implementation. For more information about argument buffers
-// and bindless implementations, see [Improving CPU performance by using
-// argument buffers] and [Go bindless with Metal 3], respectively.
+// buffers for a bindless implementation. For more information about argument
+// buffers and bindless implementations, see [Improving CPU performance by
+// using argument buffers] and [Go bindless with Metal 3], respectively.
 //
 // See: https://developer.apple.com/documentation/Metal/MTLComputeCommandEncoder/useHeap(_:)
 //
@@ -1108,11 +1108,12 @@ func (o MTLComputeCommandEncoderObject) SetVisibleFunctionTablesWithBufferRange(
 //
 // # Discussion
 //
-// You can make the resources in each of the `heaps` (available in GPU memory)
-// for the remaining duration of the render pass by calling this method. Call
-// the method before encoding draw calls that may access resources within the
-// `heaps` through an argument buffer. The method ensures each resource is in
-// a format that’s compatible with the kernels that depend on it.
+// You can make the resources in each of the `heaps` resident (available in
+// GPU memory) for the remaining duration of the render pass by calling this
+// method. Call the method before encoding draw calls that may access
+// resources within the `heaps` through an argument buffer. The method ensures
+// each resource is in a format that’s compatible with the kernels that
+// depend on it.
 //
 // This method applies the [MTLResourceUsageRead] resource usage option to all
 // of the resources within `heap`, except for textures. The method ignores any
@@ -1138,9 +1139,9 @@ func (o MTLComputeCommandEncoderObject) SetVisibleFunctionTablesWithBufferRange(
 // applying [MTLFence] or [MTLEvent] instances.
 //
 // Apps typically call the method for heaps that have resources in argument
-// buffers for a implementation. For more information about argument buffers
-// and bindless implementations, see [Improving CPU performance by using
-// argument buffers] and [Go bindless with Metal 3], respectively.
+// buffers for a bindless implementation. For more information about argument
+// buffers and bindless implementations, see [Improving CPU performance by
+// using argument buffers] and [Go bindless with Metal 3], respectively.
 //
 // See: https://developer.apple.com/documentation/Metal/MTLComputeCommandEncoder/useHeaps:count:
 //
@@ -1168,11 +1169,11 @@ func (o MTLComputeCommandEncoderObject) UseHeapsCount(heaps []MTLHeap, count uin
 //
 // # Discussion
 //
-// You can make many resources (available in GPU memory) for the remaining
-// duration of the compute pass by calling this method. Call the method before
-// encoding function calls that may access these `resources` through an
-// argument buffer. The method ensures the resource is in a format that’s
-// compatible with the kernels that depend on it.
+// You can make many resources resident (available in GPU memory) for the
+// remaining duration of the compute pass by calling this method. Call the
+// method before encoding function calls that may access these `resources`
+// through an argument buffer. The method ensures the resource is in a format
+// that’s compatible with the kernels that depend on it.
 //
 // The method also informs Metal when to apply hazard tracking for a resource
 // you create with [MTLHazardTrackingModeTracked]. For a resource you create
@@ -1183,9 +1184,9 @@ func (o MTLComputeCommandEncoderObject) UseHeapsCount(heaps []MTLHeap, count uin
 // subsequent draw calls with the [UseResourceUsage] method.
 //
 // Apps typically call this method for a resource in an argument buffer as a
-// part of their implementation. For more information about argument buffers
-// and bindless implementations, see [Improving CPU performance by using
-// argument buffers] and [Go bindless with Metal 3], respectively.
+// part of their bindless implementation. For more information about argument
+// buffers and bindless implementations, see [Improving CPU performance by
+// using argument buffers] and [Go bindless with Metal 3], respectively.
 //
 // See: https://developer.apple.com/documentation/Metal/MTLComputeCommandEncoder/useResources:count:usage:
 //

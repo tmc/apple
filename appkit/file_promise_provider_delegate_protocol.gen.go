@@ -85,7 +85,8 @@ func (o NSFilePromiseProviderDelegateObject) FilePromiseProviderFileNameForType(
 // [NSFileCoordinator]: https://developer.apple.com/documentation/Foundation/NSFileCoordinator
 // [OperationQueue]: https://developer.apple.com/documentation/Foundation/OperationQueue
 func (o NSFilePromiseProviderDelegateObject) FilePromiseProviderWritePromiseToURLCompletionHandler(filePromiseProvider INSFilePromiseProvider, url foundation.NSURL, completionHandler ErrorHandler) {
-	objc.Send[struct{}](o.ID, objc.Sel("filePromiseProvider:writePromiseToURL:completionHandler:"), filePromiseProvider, url, completionHandler)
+	_block2, _ := NewErrorBlock(completionHandler)
+	objc.Send[struct{}](o.ID, objc.Sel("filePromiseProvider:writePromiseToURL:completionHandler:"), filePromiseProvider, url, _block2)
 }
 
 // Returns the operation queue from which to issue the write request.
@@ -142,8 +143,21 @@ func NewNSFilePromiseProviderDelegate(config NSFilePromiseProviderDelegateConfig
 		methods = append(methods, objc.MethodDef{
 			Cmd: objc.RegisterName("operationQueueForFilePromiseProvider:"),
 			Fn: func(self objc.ID, _cmd objc.SEL, filePromiseProviderID objc.ID) objc.ID {
+				// Names which delegate was running if a panic unwinds out of
+				// it. The frames between here and the Objective-C caller are
+				// runtime and purego dispatch, so without this the traceback
+				// never says which selector dispatched. Deliberately no
+				// recover: see [objc.NoteDelegatePanic].
+				_delegateDone := false
+				defer func() {
+					if !_delegateDone {
+						objc.NoteDelegatePanic("NSFilePromiseProviderDelegate", "operationQueueForFilePromiseProvider:")
+					}
+				}()
 				filePromiseProvider := NSFilePromiseProviderFromID(filePromiseProviderID)
-				return fn(filePromiseProvider).GetID()
+				_delegateResult := fn(filePromiseProvider).GetID()
+				_delegateDone = true
+				return _delegateResult
 			},
 		})
 	}

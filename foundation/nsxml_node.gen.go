@@ -104,7 +104,7 @@ func (xc XMLNodeClass) Alloc() XMLNode {
 //
 // # Managing XML Node Objects
 //
-//   - [XMLNode.Kind]: Returns the kind of node the receiver is as a constant of type [XMLNode.Kind](<doc://com.apple.foundation/documentation/Foundation/XMLNode/Kind-swift.enum>).
+//   - [XMLNode.Kind]: Returns the kind of node the receiver is as a constant of type [XMLNode.Kind](<https://developer.apple.com/documentation/Foundation/XMLNode/Kind-swift.enum>).
 //   - [XMLNode.Level]: Returns the nesting level of the receiver within the tree hierarchy.
 //   - [XMLNode.Name]: Returns the name of the receiver.
 //   - [XMLNode.SetName]
@@ -118,7 +118,7 @@ func (xc XMLNodeClass) Alloc() XMLNode {
 //
 // # Navigating the Tree of Nodes
 //
-//   - [XMLNode.RootDocument]: Returns the [XMLDocument](<doc://com.apple.foundation/documentation/Foundation/XMLDocument>) object containing the root element and representing the XML document as a whole.
+//   - [XMLNode.RootDocument]: Returns the [XMLDocument](<https://developer.apple.com/documentation/Foundation/XMLDocument>) object containing the root element and representing the XML document as a whole.
 //   - [XMLNode.Parent]: Returns the parent node of the receiver.
 //   - [XMLNode.ChildAtIndex]: Returns the child node of the receiver at the specified location.
 //   - [XMLNode.ChildCount]: Returns the number of child nodes the receiver has.
@@ -178,7 +178,7 @@ func NSXMLNodeFromID(id objc.ID) XMLNode { return XMLNodeFromID(id) }
 //
 // # Managing XML Node Objects
 //
-//   - [IXMLNode.Kind]: Returns the kind of node the receiver is as a constant of type [XMLNode.Kind](<doc://com.apple.foundation/documentation/Foundation/XMLNode/Kind-swift.enum>).
+//   - [IXMLNode.Kind]: Returns the kind of node the receiver is as a constant of type [XMLNode.Kind](<https://developer.apple.com/documentation/Foundation/XMLNode/Kind-swift.enum>).
 //   - [IXMLNode.Level]: Returns the nesting level of the receiver within the tree hierarchy.
 //   - [IXMLNode.Name]: Returns the name of the receiver.
 //   - [IXMLNode.SetName]
@@ -192,7 +192,7 @@ func NSXMLNodeFromID(id objc.ID) XMLNode { return XMLNodeFromID(id) }
 //
 // # Navigating the Tree of Nodes
 //
-//   - [IXMLNode.RootDocument]: Returns the [XMLDocument](<doc://com.apple.foundation/documentation/Foundation/XMLDocument>) object containing the root element and representing the XML document as a whole.
+//   - [IXMLNode.RootDocument]: Returns the [XMLDocument](<https://developer.apple.com/documentation/Foundation/XMLDocument>) object containing the root element and representing the XML document as a whole.
 //   - [IXMLNode.Parent]: Returns the parent node of the receiver.
 //   - [IXMLNode.ChildAtIndex]: Returns the child node of the receiver at the specified location.
 //   - [IXMLNode.ChildCount]: Returns the number of child nodes the receiver has.
@@ -235,7 +235,7 @@ type IXMLNode interface {
 
 	// Topic: Managing XML Node Objects
 
-	// Returns the kind of node the receiver is as a constant of type [XMLNode.Kind](<doc://com.apple.foundation/documentation/Foundation/XMLNode/Kind-swift.enum>).
+	// Returns the kind of node the receiver is as a constant of type [XMLNode.Kind](<https://developer.apple.com/documentation/Foundation/XMLNode/Kind-swift.enum>).
 	Kind() NSXMLNodeKind
 	// Returns the nesting level of the receiver within the tree hierarchy.
 	Level() uint
@@ -256,7 +256,7 @@ type IXMLNode interface {
 
 	// Topic: Navigating the Tree of Nodes
 
-	// Returns the [XMLDocument](<doc://com.apple.foundation/documentation/Foundation/XMLDocument>) object containing the root element and representing the XML document as a whole.
+	// Returns the [XMLDocument](<https://developer.apple.com/documentation/Foundation/XMLDocument>) object containing the root element and representing the XML document as a whole.
 	RootDocument() INSXMLDocument
 	// Returns the parent node of the receiver.
 	Parent() INSXMLNode
@@ -542,8 +542,8 @@ func (x XMLNode) XMLStringWithOptions(options NSXMLNodeOptions) string {
 //
 // Be sure to set the input option [nodePreserveWhitespace] for true canonical
 // form. The canonical form of an XML document is defined by the World Wide
-// Web Consortium at `//www.W3XCUIElementTypeOrg()/TR/xml-c14n`. Generally, if
-// two documents with varying physical representations have the same canonical
+// Web Consortium at `http://www.w3.org/TR/xml-c14n`. Generally, if two
+// documents with varying physical representations have the same canonical
 // form, then they are considered logically equivalent within the given
 // application context. The following list summarizes most key aspects of
 // canonical form as defined by the W3C recommendation:

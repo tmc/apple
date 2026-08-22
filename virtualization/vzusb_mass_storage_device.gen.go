@@ -87,6 +87,11 @@ type IVZUSBMassStorageDevice interface {
 
 	// Creates a USB mass storage device with the provided configuration.
 	InitWithConfiguration(configuration IVZUSBMassStorageDeviceConfiguration) VZUSBMassStorageDevice
+
+	// The USB controller that has an attachment to the device.
+	UsbController() IVZUSBController
+	// The device’s unique identifier.
+	Uuid() foundation.NSUUID
 }
 
 // Init initializes the instance.

@@ -3,8 +3,6 @@
 package fskit
 
 import (
-	"unsafe"
-
 	"github.com/ebitengine/purego"
 	"github.com/tmc/apple/foundation"
 	"github.com/tmc/apple/objc"
@@ -56,11 +54,11 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "FSDirectoryCookieInitial"); err == nil && ptr != 0 {
-		FSDirectoryCookieInitial = *(*FSDirectoryCookie)(unsafe.Pointer(ptr))
+		FSDirectoryCookieInitial = objc.ValueAt[FSDirectoryCookie](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "FSDirectoryVerifierInitial"); err == nil && ptr != 0 {
-		FSDirectoryVerifierInitial = *(*FSDirectoryVerifier)(unsafe.Pointer(ptr))
+		FSDirectoryVerifierInitial = objc.ValueAt[FSDirectoryVerifier](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "FSKitErrorDomain"); err == nil && ptr != 0 {
@@ -74,15 +72,15 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "FSKitVersionNumber"); err == nil && ptr != 0 {
-		FSKitVersionNumber = *(*float64)(unsafe.Pointer(ptr))
+		FSKitVersionNumber = objc.ValueAt[float64](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "FSKitVersionString"); err == nil && ptr != 0 {
-		FSKitVersionString = *(*uint8)(unsafe.Pointer(ptr))
+		FSKitVersionString = objc.ValueAt[uint8](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "FSOperationIDUnspecified"); err == nil && ptr != 0 {
-		FSOperationIDUnspecified = *(*FSOperationID)(unsafe.Pointer(ptr))
+		FSOperationIDUnspecified = objc.ValueAt[FSOperationID](ptr)
 	}
 
 }

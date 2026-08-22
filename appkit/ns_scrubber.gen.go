@@ -77,26 +77,26 @@ func (nc NSScrubberClass) Alloc() NSScrubber {
 //
 // A scrubber employs:
 //
-// - The itself (an instance of the [NSScrubber] class), which serves as a
-// container view that shows a subview for each scrubber item, and which
-// employs a reuse-queue pattern for efficiency and performance. - A
-// (conforming to the [NSScrubberDataSource] protocol), which provides
-// scrubber items to the scrubber, on demand, from an associated data
+// - The scrubber object itself (an instance of the [NSScrubber] class), which
+// serves as a container view that shows a subview for each scrubber item, and
+// which employs a reuse-queue pattern for efficiency and performance. - A
+// data source (conforming to the [NSScrubberDataSource] protocol), which
+// provides scrubber items to the scrubber, on demand, from an associated data
 // collection in your app. Specify the data source in the scrubber’s
-// [NSScrubber.DataSource] property - A (conforming to the
+// [NSScrubber.DataSource] property - A delegate (conforming to the
 // [NSScrubberDelegate] protocol), which responds to user interaction — such
 // as with its [DidBeginInteractingWithScrubber] and
 // [DidCancelInteractingWithScrubber] methods. Specify the delegate in the
 // scrubber’s [NSScrubber.Delegate] property. You can also use the delegate
 // to respond to the highlighting and selection of scrubber items, and to
-// respond to changes in which items are visible in the scrubber. - A (an
-// instance of a subclass of the [NSScrubberLayout] abstract class, typically
-// the [NSScrubberFlowLayout] concrete subclass). You implement a layout to
-// respond to calls, from the system, to return view specifications for the
-// items to be displayed in the scrubber. The layout, in this way, assists in
-// arranging and decorating the scrubber’s contained items, and in providing
-// appearance changes in response to user interaction. Specify the layout in
-// the scrubber’s [NSScrubber.ScrubberLayout] property.
+// respond to changes in which items are visible in the scrubber. - A layout
+// (an instance of a subclass of the [NSScrubberLayout] abstract class,
+// typically the [NSScrubberFlowLayout] concrete subclass). You implement a
+// layout to respond to calls, from the system, to return view specifications
+// for the items to be displayed in the scrubber. The layout, in this way,
+// assists in arranging and decorating the scrubber’s contained items, and
+// in providing appearance changes in response to user interaction. Specify
+// the layout in the scrubber’s [NSScrubber.ScrubberLayout] property.
 //
 // Before learning how to use a scrubber in the Touch Bar, be sure you read
 // the overview for the [NSTouchBar] class.
@@ -106,11 +106,12 @@ func (nc NSScrubberClass) Alloc() NSScrubber {
 // A scrubber employs a data source and a delegate, using a pattern similar to
 // that used for collection views, as follows:
 //
-// To supply items for a scrubber, implement an object that conforms to the
-// [NSScrubberDataSource] protocol and specify that object in the scrubber’s
-// [NSScrubber.DataSource] property. There are two built-in item types,
-// provided by the [NSScrubberTextItemView] and [NSScrubberImageItemView]
-// concrete classes. For more on scrubber items, see [NSScrubber].
+// Data source. To supply items for a scrubber, implement an object that
+// conforms to the [NSScrubberDataSource] protocol and specify that object in
+// the scrubber’s [NSScrubber.DataSource] property. There are two built-in
+// item types, provided by the [NSScrubberTextItemView] and
+// [NSScrubberImageItemView] concrete classes. For more on scrubber items, see
+// [NSScrubber].
 //
 // The following code shows an example implementation of the
 // [NSScrubber.NumberOfItems] datasource method, returning the count of items
@@ -123,8 +124,8 @@ func (nc NSScrubberClass) Alloc() NSScrubber {
 // To optimize resource usage and performance, a scrubber employs a reuse
 // queue that’s similar to the reuse queue for an [NSCollectionView] object.
 //
-// To respond to user interactions and to visibility, highlighting, and
-// selection changes, implement a delegate object that conforms to the
+// Delegate. To respond to user interactions and to visibility, highlighting,
+// and selection changes, implement a delegate object that conforms to the
 // [NSScrubberDelegate] protocol and specify that object in the scrubber’s
 // [NSScrubber.Delegate] property.
 //
@@ -141,8 +142,9 @@ func (nc NSScrubberClass) Alloc() NSScrubber {
 // [NSScrubber.Continuous], and [NSScrubber.ItemAlignment]. Here’s how to
 // choose the right permutation of values for these properties:
 //
-// Decide whether you want the scrubber to to track horizontal finger movement
-// across the scrubber, or to remain in place as the finger moves.
+// Scrolling or fixed. Decide whether you want the scrubber to scroll to track
+// horizontal finger movement across the scrubber, or to remain fixed in place
+// as the finger moves.
 //
 // - For scrolling, specify the [NSScrubberModeFree] value for the
 // scrubber’s [NSScrubber.Mode] property. - For a fixed scrubber, specify
@@ -151,14 +153,14 @@ func (nc NSScrubberClass) Alloc() NSScrubber {
 // or right edge of the scrubber view and there are items beyond the edge, the
 // scrubber automatically scrolls to bring those items into view.
 //
-// Decide whether you want item selection to take place only upon a deliberate
-// selection gesture, or continuously during horizontal finger movement on the
-// scrubber.
+// Selection style. Decide whether you want item selection to take place only
+// upon a deliberate selection gesture, or continuously during horizontal
+// finger movement on the scrubber.
 //
 // - For deliberate selection, specify a value of false for the scrubber’s
-// [NSScrubber.Continuous] property (this is the default value). In
+// [NSScrubber.Continuous] property (this is the default value). In free
 // (scrolling) mode, the user must then tap an item to highlight and select
-// it. In (non-scrolling) mode, ending interaction with the scrubber, by
+// it. In fixed (non-scrolling) mode, ending interaction with the scrubber, by
 // lifting the finger, selects the most-recently highlighted item. However, if
 // there is already a highlighted item before interaction starts, and the user
 // resumes interacting with the (fixed mode) scrubber on that item, selection
@@ -168,10 +170,10 @@ func (nc NSScrubberClass) Alloc() NSScrubber {
 // property. Item selection behavior then depends on the [NSScrubber.Mode] and
 // [NSScrubber.ItemAlignment] property values, as described in [NSScrubber].
 //
-// The setting in the scrubber’s [NSScrubber.ItemAlignment] property affects
-// two things: 1) item highlighting and selection, and 2) the resting position
-// of scrubber items after manual or automatic scrolling. Available values for
-// this property are [NSScrubberAlignmentLeading],
+// Item alignment. The setting in the scrubber’s [NSScrubber.ItemAlignment]
+// property affects two things: 1) item highlighting and selection, and 2) the
+// resting position of scrubber items after manual or automatic scrolling.
+// Available values for this property are [NSScrubberAlignmentLeading],
 // [NSScrubberAlignmentCenter], [NSScrubberAlignmentTrailing], and
 // [NSScrubberAlignmentNone]. See the [NSScrubber.Alignment] enumeration for
 // details on how these constants work.
@@ -187,11 +189,11 @@ func (nc NSScrubberClass) Alloc() NSScrubber {
 // In free mode with continuous selection style (the [NSScrubber.Mode]
 // property value is [NSScrubberModeFree] and the [NSScrubber.Continuous]
 // property value is [YES] for this configuration), the scrubber item on the
-// alignment axis is automatically highlighted and selected. The is the left
-// edge, right edge, or center of the scrubber, as you specify by setting the
-// value of the [NSScrubber.ItemAlignment] property using constants from the
-// [NSScrubber.Alignment] enumeration. Specifying an alignment axis of
-// [NSScrubberAlignmentNone] is equivalent to a value of
+// alignment axis is automatically highlighted and selected. The alignment
+// axis is the left edge, right edge, or center of the scrubber, as you
+// specify by setting the value of the [NSScrubber.ItemAlignment] property
+// using constants from the [NSScrubber.Alignment] enumeration. Specifying an
+// alignment axis of [NSScrubberAlignmentNone] is equivalent to a value of
 // [NSScrubberAlignmentCenter] for position-based item selection.
 //
 // In free mode with deliberate selection style (the [NSScrubber.Mode]
@@ -235,8 +237,8 @@ func (nc NSScrubberClass) Alloc() NSScrubber {
 //
 // # Layout implementation
 //
-// A is a concrete implementation of the [NSScrubberLayout] abstract class.
-// AppKit provides two concrete, preconfigured layout subclasses:
+// A layout is a concrete implementation of the [NSScrubberLayout] abstract
+// class. AppKit provides two concrete, preconfigured layout subclasses:
 // [NSScrubberFlowLayout] and [NSScrubberProportionalLayout]. If you use one
 // of these built-in layout types, there’s no additional layout code to
 // write, apart from adding your choice of built-in layout to the scrubber’s
@@ -245,8 +247,8 @@ func (nc NSScrubberClass) Alloc() NSScrubber {
 //
 // To create a custom layout, subclass the [NSScrubberLayout] class and
 // implement its callback methods. Unlike a view delegate (such as used for a
-// table view), which provides on demand, scrubber layout callbacks provide on
-// demand. Using these callbacks, you specify:
+// table view), which provides views on demand, scrubber layout callbacks
+// provide view specifications on demand. Using these callbacks, you specify:
 //
 // - Scrubber item geometry - Scrubber item appearance - Layout life cycle for
 // state management
@@ -288,10 +290,10 @@ func (nc NSScrubberClass) Alloc() NSScrubber {
 // For example, if you design a scrubber’s layout characteristics to depend
 // on which of its items is selected by the user, return a value of true from
 // the scrubber’s
-// [NSScrubberLayout.ShouldInvalidateLayoutForSelectionChange] method.A object
-// is an instance of the [NSScrubberLayoutAttributes] class, which you
-// configure to describe the view for a single item. The class offers the
-// following built-in attributes for you to work with:
+// [NSScrubberLayout.ShouldInvalidateLayoutForSelectionChange] method.A layout
+// attributes object is an instance of the [NSScrubberLayoutAttributes] class,
+// which you configure to describe the view for a single item. The class
+// offers the following built-in attributes for you to work with:
 //
 // - [NSScrubberLayoutAttributes.ItemIndex] — The item’s index position
 // within the scrubber - [NSScrubberLayoutAttributes.Frame] — The item’s
@@ -381,7 +383,7 @@ func (nc NSScrubberClass) Alloc() NSScrubber {
 //   - [NSScrubber.SetMode]
 //   - [NSScrubber.ItemAlignment]: A setting that specifies the snapping behavior of items in the scrubber.
 //   - [NSScrubber.SetItemAlignment]
-//   - [NSScrubber.IsContinuous]: A Boolean value that, together with the [mode](<doc://com.apple.appkit/documentation/AppKit/NSScrubber/mode-swift.property>) property, determines scrubber interaction style.
+//   - [NSScrubber.IsContinuous]: A Boolean value that, together with the [mode](<https://developer.apple.com/documentation/AppKit/NSScrubber/mode-swift.property>) property, determines scrubber interaction style.
 //   - [NSScrubber.SetContinuous]
 //
 // # Configuring the scrubber’s appearance
@@ -476,7 +478,7 @@ func NSScrubberFromID(id objc.ID) NSScrubber {
 //   - [INSScrubber.SetMode]
 //   - [INSScrubber.ItemAlignment]: A setting that specifies the snapping behavior of items in the scrubber.
 //   - [INSScrubber.SetItemAlignment]
-//   - [INSScrubber.IsContinuous]: A Boolean value that, together with the [mode](<doc://com.apple.appkit/documentation/AppKit/NSScrubber/mode-swift.property>) property, determines scrubber interaction style.
+//   - [INSScrubber.IsContinuous]: A Boolean value that, together with the [mode](<https://developer.apple.com/documentation/AppKit/NSScrubber/mode-swift.property>) property, determines scrubber interaction style.
 //   - [INSScrubber.SetContinuous]
 //
 // # Configuring the scrubber’s appearance
@@ -562,7 +564,7 @@ type INSScrubber interface {
 	// A setting that specifies the snapping behavior of items in the scrubber.
 	ItemAlignment() NSScrubberAlignment
 	SetItemAlignment(value NSScrubberAlignment)
-	// A Boolean value that, together with the [mode](<doc://com.apple.appkit/documentation/AppKit/NSScrubber/mode-swift.property>) property, determines scrubber interaction style.
+	// A Boolean value that, together with the [mode](<https://developer.apple.com/documentation/AppKit/NSScrubber/mode-swift.property>) property, determines scrubber interaction style.
 	IsContinuous() bool
 	SetContinuous(value bool)
 
@@ -796,7 +798,8 @@ func (s NSScrubber) RemoveItemsAtIndexes(indexes foundation.NSIndexSet) {
 //
 // See: https://developer.apple.com/documentation/AppKit/NSScrubber/performSequentialBatchUpdates(_:)
 func (s NSScrubber) PerformSequentialBatchUpdates(updateBlock VoidHandler) {
-	_block0, _ := NewVoidBlock(updateBlock)
+	_block0, _cleanup0 := NewVoidBlock(updateBlock)
+	defer _cleanup0()
 	objc.Send[objc.ID](s.ID, objc.Sel("performSequentialBatchUpdates:"), _block0)
 }
 

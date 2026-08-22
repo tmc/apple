@@ -16,7 +16,7 @@ type NSTextElementProvider interface {
 	// Enumerates text elements starting at the text location you provide.
 	//
 	// See: https://developer.apple.com/documentation/AppKit/NSTextElementProvider/enumerateTextElements(from:options:using:)
-	EnumerateTextElementsFromLocationOptionsUsingBlock(textLocation NSTextLocation, options NSTextContentManagerEnumerationOptions, block TextElementHandler) NSTextLocation
+	EnumerateTextElementsFromLocationOptionsUsingBlock(textLocation NSTextLocation, options NSTextContentManagerEnumerationOptions, block BoolTextElementHandler) NSTextLocation
 
 	// Replaces the characters specified by range with the text elements you provide.
 	//
@@ -80,8 +80,10 @@ func NSTextElementProviderObjectFromID(id objc.ID) NSTextElementProviderObject {
 // Returning [NO] or `false` from block breaks out of the enumeration.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTextElementProvider/enumerateTextElements(from:options:using:)
-func (o NSTextElementProviderObject) EnumerateTextElementsFromLocationOptionsUsingBlock(textLocation NSTextLocation, options NSTextContentManagerEnumerationOptions, block TextElementHandler) NSTextLocation {
-	rv := objc.Send[objc.ID](o.ID, objc.Sel("enumerateTextElementsFromLocation:options:usingBlock:"), textLocation, options, block)
+func (o NSTextElementProviderObject) EnumerateTextElementsFromLocationOptionsUsingBlock(textLocation NSTextLocation, options NSTextContentManagerEnumerationOptions, block BoolTextElementHandler) NSTextLocation {
+	_block2, _cleanup2 := NewBoolTextElementBlock(block)
+	defer _cleanup2()
+	rv := objc.Send[objc.ID](o.ID, objc.Sel("enumerateTextElementsFromLocation:options:usingBlock:"), textLocation, options, objc.ID(_block2))
 	return NSTextLocationObjectFromID(rv)
 }
 
@@ -117,7 +119,8 @@ func (o NSTextElementProviderObject) ReplaceContentsInRangeWithTextElements(rang
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTextElementProvider/synchronizeToBackingStore(_:)
 func (o NSTextElementProviderObject) SynchronizeToBackingStore(completionHandler ErrorHandler) {
-	objc.Send[struct{}](o.ID, objc.Sel("synchronizeToBackingStore:"), completionHandler)
+	_block0, _ := NewErrorBlock(completionHandler)
+	objc.Send[struct{}](o.ID, objc.Sel("synchronizeToBackingStore:"), _block0)
 }
 
 // Returns a new location from location with offset you provide.

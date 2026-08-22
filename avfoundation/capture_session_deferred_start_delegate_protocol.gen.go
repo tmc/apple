@@ -112,8 +112,20 @@ func NewAVCaptureSessionDeferredStartDelegate(config AVCaptureSessionDeferredSta
 		methods = append(methods, objc.MethodDef{
 			Cmd: objc.RegisterName("sessionDidRunDeferredStart:"),
 			Fn: func(self objc.ID, _cmd objc.SEL, sessionID objc.ID) {
+				// Names which delegate was running if a panic unwinds out of
+				// it. The frames between here and the Objective-C caller are
+				// runtime and purego dispatch, so without this the traceback
+				// never says which selector dispatched. Deliberately no
+				// recover: see [objc.NoteDelegatePanic].
+				_delegateDone := false
+				defer func() {
+					if !_delegateDone {
+						objc.NoteDelegatePanic("AVCaptureSessionDeferredStartDelegate", "sessionDidRunDeferredStart:")
+					}
+				}()
 				session := AVCaptureSessionFromID(sessionID)
 				fn(session)
+				_delegateDone = true
 			},
 		})
 	}
@@ -123,8 +135,20 @@ func NewAVCaptureSessionDeferredStartDelegate(config AVCaptureSessionDeferredSta
 		methods = append(methods, objc.MethodDef{
 			Cmd: objc.RegisterName("sessionWillRunDeferredStart:"),
 			Fn: func(self objc.ID, _cmd objc.SEL, sessionID objc.ID) {
+				// Names which delegate was running if a panic unwinds out of
+				// it. The frames between here and the Objective-C caller are
+				// runtime and purego dispatch, so without this the traceback
+				// never says which selector dispatched. Deliberately no
+				// recover: see [objc.NoteDelegatePanic].
+				_delegateDone := false
+				defer func() {
+					if !_delegateDone {
+						objc.NoteDelegatePanic("AVCaptureSessionDeferredStartDelegate", "sessionWillRunDeferredStart:")
+					}
+				}()
 				session := AVCaptureSessionFromID(sessionID)
 				fn(session)
+				_delegateDone = true
 			},
 		})
 	}

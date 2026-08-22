@@ -159,7 +159,7 @@ func NewCKFetchWebAuthTokenOperation() CKFetchWebAuthTokenOperation {
 //
 // APIToken: The API token that allows access to an app’s container.
 //
-// See: https://developer.apple.com/documentation/CloudKit/CKFetchWebAuthTokenOperation/init(apiToken:)-14712
+// See: https://developer.apple.com/documentation/CloudKit/CKFetchWebAuthTokenOperation/init(apiToken:)
 func NewCKFetchWebAuthTokenOperationWithAPIToken(APIToken string) CKFetchWebAuthTokenOperation {
 	instance := getCKFetchWebAuthTokenOperationClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithAPIToken:"), objc.String(APIToken))
@@ -170,7 +170,7 @@ func NewCKFetchWebAuthTokenOperationWithAPIToken(APIToken string) CKFetchWebAuth
 //
 // APIToken: The API token that allows access to an app’s container.
 //
-// See: https://developer.apple.com/documentation/CloudKit/CKFetchWebAuthTokenOperation/init(apiToken:)-14712
+// See: https://developer.apple.com/documentation/CloudKit/CKFetchWebAuthTokenOperation/init(apiToken:)
 func (c CKFetchWebAuthTokenOperation) InitWithAPIToken(APIToken string) CKFetchWebAuthTokenOperation {
 	rv := objc.Send[CKFetchWebAuthTokenOperation](c.ID, objc.Sel("initWithAPIToken:"), objc.String(APIToken))
 	return rv

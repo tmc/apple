@@ -94,7 +94,6 @@ func NSExtensionItemFromID(id objc.ID) NSExtensionItem {
 // See: https://developer.apple.com/documentation/Foundation/NSExtensionItem
 type INSExtensionItem interface {
 	objectivec.IObject
-	NSSecureCoding
 
 	// Topic: Identifying the Item
 
@@ -113,6 +112,10 @@ type INSExtensionItem interface {
 	// An optional string describing the extension item content.
 	AttributedContentText() INSAttributedString
 	SetAttributedContentText(value INSAttributedString)
+
+	// Encodes the receiver using a given archiver.
+	EncodeWithCoder(coder INSCoder)
+	InitWithCoder(coder INSCoder) NSExtensionItem
 }
 
 // Init initializes the instance.

@@ -85,6 +85,8 @@ type IVNFaceLandmarks interface {
 	Confidence() VNConfidence
 
 	InitWithCoder(coder foundation.INSCoder) VNFaceLandmarks
+	// The revision of the [VNRequest](<https://developer.apple.com/documentation/Vision/VNRequest>) subclass used to generate the implementing object.
+	RequestRevision() uint
 	EncodeWithCoder(coder foundation.INSCoder)
 }
 

@@ -15,40 +15,10 @@ import (
 type NSAccessibilityProtocol interface {
 	objectivec.IObject
 
-	// Returns a Boolean value that determines whether the accessibility element participates in the accessibility hierarchy.
-	//
-	// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/isAccessibilityElement()
-	IsAccessibilityElement() bool
-
-	// Returns a Boolean value that determines whether the accessibility element responds to user events.
-	//
-	// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/isAccessibilityEnabled()
-	IsAccessibilityEnabled() bool
-
 	// Returns a Boolean value that indicates whether assistive apps can invoke the specified selector on the accessibility element.
 	//
 	// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/isAccessibilitySelectorAllowed(_:)
 	IsAccessibilitySelectorAllowed(selector objc.SEL) bool
-
-	// Returns a Boolean value that determines whether the accessibility element contains protected content.
-	//
-	// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/isAccessibilityProtectedContent()
-	IsAccessibilityProtectedContent() bool
-
-	// Returns a Boolean value that determines whether the accessibility element is currently in a selected state.
-	//
-	// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/isAccessibilitySelected()
-	IsAccessibilitySelected() bool
-
-	// Returns a Boolean value that determines whether the accessibility element has the keyboard focus.
-	//
-	// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/isAccessibilityFocused()
-	IsAccessibilityFocused() bool
-
-	// Returns a Boolean value that determines whether the accessibility element must have content for successful submission of a form.
-	//
-	// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/isAccessibilityRequired()
-	IsAccessibilityRequired() bool
 
 	// Returns the substring for the specified range.
 	//
@@ -95,50 +65,10 @@ type NSAccessibilityProtocol interface {
 	// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/accessibilityRange(for:)-1iudm
 	AccessibilityRangeForPosition(point corefoundation.CGPoint) foundation.NSRange
 
-	// Returns the Boolean value that determines whether the accessibility element’s alternative UI is currently visible.
+	// Returns the cell at the specified column and row.
 	//
-	// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/isAccessibilityAlternateUIVisible()
-	IsAccessibilityAlternateUIVisible() bool
-
-	// Returns a Boolean value that determines whether the window is the app’s main window.
-	//
-	// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/isAccessibilityMain()
-	IsAccessibilityMain() bool
-
-	// Returns the Boolean value that determines whether the window is in a minimized state.
-	//
-	// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/isAccessibilityMinimized()
-	IsAccessibilityMinimized() bool
-
-	// Returns a Boolean value that determines whether the window is modal.
-	//
-	// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/isAccessibilityModal()
-	IsAccessibilityModal() bool
-
-	// Returns a Boolean value that determines whether the app is the frontmost app.
-	//
-	// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/isAccessibilityFrontmost()
-	IsAccessibilityFrontmost() bool
-
-	// Returns a Boolean value that determines whether the app is in a hidden state.
-	//
-	// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/isAccessibilityHidden()
-	IsAccessibilityHidden() bool
-
-	// Returns a Boolean value that determines whether the accessibility element’s grid is in row major order or in column major order.
-	//
-	// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/isAccessibilityOrderedByRow()
-	IsAccessibilityOrderedByRow() bool
-
-	// Returns a Boolean value that determines whether the accessibility element is in an expanded state.
-	//
-	// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/isAccessibilityExpanded()
-	IsAccessibilityExpanded() bool
-
-	// Returns a Boolean value that determines whether the row is disclosing other rows.
-	//
-	// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/isAccessibilityDisclosed()
-	IsAccessibilityDisclosed() bool
+	// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/accessibilityCell(forColumn:row:)
+	AccessibilityCellForColumnRow(column int, row int) objectivec.IObject
 
 	// Converts the provided point in screen coordinates to a point in the layout area’s coordinate system.
 	//
@@ -159,11 +89,6 @@ type NSAccessibilityProtocol interface {
 	//
 	// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/accessibilityScreenSize(forLayoutSize:)
 	AccessibilityScreenSizeForLayoutSize(size corefoundation.CGSize) corefoundation.CGSize
-
-	// Returns a Boolean value that indicates whether the accessibility element is in an edited state.
-	//
-	// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/isAccessibilityEdited()
-	IsAccessibilityEdited() bool
 
 	// Cancels the current operation.
 	//
@@ -235,7 +160,7 @@ type NSAccessibilityProtocol interface {
 	// A Boolean value that determines whether the accessibility element’s alternative UI is currently visible.
 	//
 	// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityAlternateUIVisible
-	AccessibilityAlternateUIVisible() bool
+	IsAccessibilityAlternateUIVisible() bool
 	SetAccessibilityAlternateUIVisible(value bool)
 
 	// The child accessibility element with the current focus.
@@ -349,7 +274,7 @@ type NSAccessibilityProtocol interface {
 	// A Boolean value that determines whether the row is disclosing other rows.
 	//
 	// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityDisclosed
-	AccessibilityDisclosed() bool
+	IsAccessibilityDisclosed() bool
 	SetAccessibilityDisclosed(value bool)
 
 	// The row disclosing the current row.
@@ -379,25 +304,25 @@ type NSAccessibilityProtocol interface {
 	// A Boolean value that indicates whether the accessibility element is in an edited state.
 	//
 	// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityEdited
-	AccessibilityEdited() bool
+	IsAccessibilityEdited() bool
 	SetAccessibilityEdited(value bool)
 
 	// A Boolean value that determines whether the accessibility element participates in the accessibility hierarchy.
 	//
 	// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityElement
-	AccessibilityElement() bool
+	IsAccessibilityElement() bool
 	SetAccessibilityElement(value bool)
 
 	// A Boolean value that determines whether the accessibility element responds to user events.
 	//
 	// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityEnabled
-	AccessibilityEnabled() bool
+	IsAccessibilityEnabled() bool
 	SetAccessibilityEnabled(value bool)
 
 	// A Boolean value that determines whether the accessibility element is in an expanded state.
 	//
 	// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityExpanded
-	AccessibilityExpanded() bool
+	IsAccessibilityExpanded() bool
 	SetAccessibilityExpanded(value bool)
 
 	// The icon for the app’s menu bar extra.
@@ -415,7 +340,7 @@ type NSAccessibilityProtocol interface {
 	// A Boolean value that determines whether the accessibility element has the keyboard focus.
 	//
 	// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityFocused
-	AccessibilityFocused() bool
+	IsAccessibilityFocused() bool
 	SetAccessibilityFocused(value bool)
 
 	// The child window with the current focus.
@@ -433,7 +358,7 @@ type NSAccessibilityProtocol interface {
 	// A Boolean value that determines whether the app is the frontmost app.
 	//
 	// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityFrontmost
-	AccessibilityFrontmost() bool
+	IsAccessibilityFrontmost() bool
 	SetAccessibilityFrontmost(value bool)
 
 	// The child accessibility element that represents the window’s full-screen button.
@@ -469,7 +394,7 @@ type NSAccessibilityProtocol interface {
 	// A Boolean value that determines whether the app is in a hidden state.
 	//
 	// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityHidden
-	AccessibilityHidden() bool
+	IsAccessibilityHidden() bool
 	SetAccessibilityHidden(value bool)
 
 	// The horizontal scroll bar for the scroll view.
@@ -541,7 +466,7 @@ type NSAccessibilityProtocol interface {
 	// A Boolean value that determines whether the window is the app’s main window.
 	//
 	// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityMain
-	AccessibilityMain() bool
+	IsAccessibilityMain() bool
 	SetAccessibilityMain(value bool)
 
 	// The app’s main window.
@@ -601,13 +526,13 @@ type NSAccessibilityProtocol interface {
 	// A Boolean value that determines whether this window is in a minimized state.
 	//
 	// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityMinimized
-	AccessibilityMinimized() bool
+	IsAccessibilityMinimized() bool
 	SetAccessibilityMinimized(value bool)
 
 	// A Boolean value that determines whether the window is modal.
 	//
 	// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityModal
-	AccessibilityModal() bool
+	IsAccessibilityModal() bool
 	SetAccessibilityModal(value bool)
 
 	// The contents that follow the divider accessibility element.
@@ -625,7 +550,7 @@ type NSAccessibilityProtocol interface {
 	// A Boolean value that determines whether the accessibility element’s grid is in row major order or in column major order.
 	//
 	// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityOrderedByRow
-	AccessibilityOrderedByRow() bool
+	IsAccessibilityOrderedByRow() bool
 	SetAccessibilityOrderedByRow(value bool)
 
 	// The orientation of the accessibility element.
@@ -661,7 +586,7 @@ type NSAccessibilityProtocol interface {
 	// A Boolean value that determines whether the accessibility element contains protected content.
 	//
 	// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityProtectedContent
-	AccessibilityProtectedContent() bool
+	IsAccessibilityProtectedContent() bool
 	SetAccessibilityProtectedContent(value bool)
 
 	// The child accessibility element that represents the window’s proxy icon.
@@ -673,7 +598,7 @@ type NSAccessibilityProtocol interface {
 	// A Boolean value that determines whether the accessibility element must have content for successful submission of a form.
 	//
 	// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityRequired
-	AccessibilityRequired() bool
+	IsAccessibilityRequired() bool
 	SetAccessibilityRequired(value bool)
 
 	// The type of interface element that the accessibility element represents.
@@ -682,7 +607,7 @@ type NSAccessibilityProtocol interface {
 	AccessibilityRole() NSAccessibilityRole
 	SetAccessibilityRole(value NSAccessibilityRole)
 
-	// A localized, human-intelligible description of the accessibility element’s role, such as .
+	// A localized, human-intelligible description of the accessibility element’s role, such as radio button.
 	//
 	// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityRoleDescription
 	AccessibilityRoleDescription() string
@@ -733,7 +658,7 @@ type NSAccessibilityProtocol interface {
 	// A Boolean value that determines whether the accessibility element is currently in a selected state.
 	//
 	// See: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilitySelected
-	AccessibilitySelected() bool
+	IsAccessibilitySelected() bool
 	SetAccessibilitySelected(value bool)
 
 	// The currently selected cells for the table.
@@ -982,24 +907,6 @@ func NSAccessibilityProtocolObjectFromID(id objc.ID) NSAccessibilityProtocolObje
 	}
 }
 
-// Returns a Boolean value that determines whether the accessibility element
-// participates in the accessibility hierarchy.
-//
-// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/isAccessibilityElement()
-func (o NSAccessibilityProtocolObject) IsAccessibilityElement() bool {
-	rv := objc.Send[bool](o.ID, objc.Sel("isAccessibilityElement"))
-	return rv
-}
-
-// Returns a Boolean value that determines whether the accessibility element
-// responds to user events.
-//
-// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/isAccessibilityEnabled()
-func (o NSAccessibilityProtocolObject) IsAccessibilityEnabled() bool {
-	rv := objc.Send[bool](o.ID, objc.Sel("isAccessibilityEnabled"))
-	return rv
-}
-
 // Returns a Boolean value that indicates whether assistive apps can invoke
 // the specified selector on the accessibility element.
 //
@@ -1012,42 +919,6 @@ func (o NSAccessibilityProtocolObject) IsAccessibilityEnabled() bool {
 // See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/isAccessibilitySelectorAllowed(_:)
 func (o NSAccessibilityProtocolObject) IsAccessibilitySelectorAllowed(selector objc.SEL) bool {
 	rv := objc.Send[bool](o.ID, objc.Sel("isAccessibilitySelectorAllowed:"), selector)
-	return rv
-}
-
-// Returns a Boolean value that determines whether the accessibility element
-// contains protected content.
-//
-// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/isAccessibilityProtectedContent()
-func (o NSAccessibilityProtocolObject) IsAccessibilityProtectedContent() bool {
-	rv := objc.Send[bool](o.ID, objc.Sel("isAccessibilityProtectedContent"))
-	return rv
-}
-
-// Returns a Boolean value that determines whether the accessibility element
-// is currently in a selected state.
-//
-// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/isAccessibilitySelected()
-func (o NSAccessibilityProtocolObject) IsAccessibilitySelected() bool {
-	rv := objc.Send[bool](o.ID, objc.Sel("isAccessibilitySelected"))
-	return rv
-}
-
-// Returns a Boolean value that determines whether the accessibility element
-// has the keyboard focus.
-//
-// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/isAccessibilityFocused()
-func (o NSAccessibilityProtocolObject) IsAccessibilityFocused() bool {
-	rv := objc.Send[bool](o.ID, objc.Sel("isAccessibilityFocused"))
-	return rv
-}
-
-// Returns a Boolean value that determines whether the accessibility element
-// must have content for successful submission of a form.
-//
-// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/isAccessibilityRequired()
-func (o NSAccessibilityProtocolObject) IsAccessibilityRequired() bool {
-	rv := objc.Send[bool](o.ID, objc.Sel("isAccessibilityRequired"))
 	return rv
 }
 
@@ -1200,86 +1071,6 @@ func (o NSAccessibilityProtocolObject) AccessibilityRangeForPosition(point coref
 	return rv
 }
 
-// Returns the Boolean value that determines whether the accessibility
-// element’s alternative UI is currently visible.
-//
-// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/isAccessibilityAlternateUIVisible()
-func (o NSAccessibilityProtocolObject) IsAccessibilityAlternateUIVisible() bool {
-	rv := objc.Send[bool](o.ID, objc.Sel("isAccessibilityAlternateUIVisible"))
-	return rv
-}
-
-// Returns a Boolean value that determines whether the window is the app’s
-// main window.
-//
-// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/isAccessibilityMain()
-func (o NSAccessibilityProtocolObject) IsAccessibilityMain() bool {
-	rv := objc.Send[bool](o.ID, objc.Sel("isAccessibilityMain"))
-	return rv
-}
-
-// Returns the Boolean value that determines whether the window is in a
-// minimized state.
-//
-// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/isAccessibilityMinimized()
-func (o NSAccessibilityProtocolObject) IsAccessibilityMinimized() bool {
-	rv := objc.Send[bool](o.ID, objc.Sel("isAccessibilityMinimized"))
-	return rv
-}
-
-// Returns a Boolean value that determines whether the window is modal.
-//
-// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/isAccessibilityModal()
-func (o NSAccessibilityProtocolObject) IsAccessibilityModal() bool {
-	rv := objc.Send[bool](o.ID, objc.Sel("isAccessibilityModal"))
-	return rv
-}
-
-// Returns a Boolean value that determines whether the app is the frontmost
-// app.
-//
-// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/isAccessibilityFrontmost()
-func (o NSAccessibilityProtocolObject) IsAccessibilityFrontmost() bool {
-	rv := objc.Send[bool](o.ID, objc.Sel("isAccessibilityFrontmost"))
-	return rv
-}
-
-// Returns a Boolean value that determines whether the app is in a hidden
-// state.
-//
-// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/isAccessibilityHidden()
-func (o NSAccessibilityProtocolObject) IsAccessibilityHidden() bool {
-	rv := objc.Send[bool](o.ID, objc.Sel("isAccessibilityHidden"))
-	return rv
-}
-
-// Returns a Boolean value that determines whether the accessibility
-// element’s grid is in row major order or in column major order.
-//
-// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/isAccessibilityOrderedByRow()
-func (o NSAccessibilityProtocolObject) IsAccessibilityOrderedByRow() bool {
-	rv := objc.Send[bool](o.ID, objc.Sel("isAccessibilityOrderedByRow"))
-	return rv
-}
-
-// Returns a Boolean value that determines whether the accessibility element
-// is in an expanded state.
-//
-// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/isAccessibilityExpanded()
-func (o NSAccessibilityProtocolObject) IsAccessibilityExpanded() bool {
-	rv := objc.Send[bool](o.ID, objc.Sel("isAccessibilityExpanded"))
-	return rv
-}
-
-// Returns a Boolean value that determines whether the row is disclosing other
-// rows.
-//
-// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/isAccessibilityDisclosed()
-func (o NSAccessibilityProtocolObject) IsAccessibilityDisclosed() bool {
-	rv := objc.Send[bool](o.ID, objc.Sel("isAccessibilityDisclosed"))
-	return rv
-}
-
 // Returns the cell at the specified column and row.
 //
 // column: The column index.
@@ -1358,15 +1149,6 @@ func (o NSAccessibilityProtocolObject) AccessibilityScreenPointForLayoutPoint(po
 // See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/accessibilityScreenSize(forLayoutSize:)
 func (o NSAccessibilityProtocolObject) AccessibilityScreenSizeForLayoutSize(size corefoundation.CGSize) corefoundation.CGSize {
 	rv := objc.Send[corefoundation.CGSize](o.ID, objc.Sel("accessibilityScreenSizeForLayoutSize:"), size)
-	return rv
-}
-
-// Returns a Boolean value that indicates whether the accessibility element is
-// in an edited state.
-//
-// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/isAccessibilityEdited()
-func (o NSAccessibilityProtocolObject) IsAccessibilityEdited() bool {
-	rv := objc.Send[bool](o.ID, objc.Sel("isAccessibilityEdited"))
 	return rv
 }
 
@@ -1522,12 +1304,10 @@ func (o NSAccessibilityProtocolObject) AccessibilityPerformRaise() bool {
 //
 // # Discussion
 //
-// Use this method on elements that have an adjustable [accessibilityValue]
-// property.
+// Use this method on elements that have an adjustable
+// [NSWindow.AccessibilityValue] property.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/accessibilityPerformIncrement()
-//
-// [accessibilityValue]: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityValue
 func (o NSAccessibilityProtocolObject) AccessibilityPerformIncrement() bool {
 	rv := objc.Send[bool](o.ID, objc.Sel("accessibilityPerformIncrement"))
 	return rv
@@ -1543,12 +1323,10 @@ func (o NSAccessibilityProtocolObject) AccessibilityPerformIncrement() bool {
 //
 // # Discussion
 //
-// Use this method on elements that have an adjustable [accessibilityValue]
-// property.
+// Use this method on elements that have an adjustable
+// [NSWindow.AccessibilityValue] property.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSAccessibilityProtocol/accessibilityPerformDecrement()
-//
-// [accessibilityValue]: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityValue
 func (o NSAccessibilityProtocolObject) AccessibilityPerformDecrement() bool {
 	rv := objc.Send[bool](o.ID, objc.Sel("accessibilityPerformDecrement"))
 	return rv
@@ -1620,7 +1398,7 @@ func (o NSAccessibilityProtocolObject) SetAccessibilityAllowedValues(value []fou
 // seconds.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityAlternateUIVisible
-func (o NSAccessibilityProtocolObject) AccessibilityAlternateUIVisible() bool {
+func (o NSAccessibilityProtocolObject) IsAccessibilityAlternateUIVisible() bool {
 	rv := objc.Send[bool](o.ID, objc.Sel("isAccessibilityAlternateUIVisible"))
 	return bool(rv)
 }
@@ -1696,12 +1474,10 @@ func (o NSAccessibilityProtocolObject) SetAccessibilityChildren(value foundation
 //
 // # Discussion
 //
-// The array should match all elements found in [accessibilityChildren],
-// rearranged in an easily navigable order.
+// The array should match all elements found in
+// [NSWindow.AccessibilityChildren], rearranged in an easily navigable order.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityChildrenInNavigationOrder
-//
-// [accessibilityChildren]: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityChildren
 func (o NSAccessibilityProtocolObject) AccessibilityChildrenInNavigationOrder() []objectivec.IObject {
 	rvIDs := objc.Send[[]objc.ID](o.ID, objc.Sel("accessibilityChildrenInNavigationOrder"))
 	result := make([]objectivec.IObject, len(rvIDs))
@@ -1921,7 +1697,7 @@ func (o NSAccessibilityProtocolObject) SetAccessibilityDefaultButton(value objec
 // Use this property in the elements representing an outline’s row.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityDisclosed
-func (o NSAccessibilityProtocolObject) AccessibilityDisclosed() bool {
+func (o NSAccessibilityProtocolObject) IsAccessibilityDisclosed() bool {
 	rv := objc.Send[bool](o.ID, objc.Sel("isAccessibilityDisclosed"))
 	return bool(rv)
 }
@@ -1994,7 +1770,7 @@ func (o NSAccessibilityProtocolObject) SetAccessibilityDocument(value string) {
 // edited state.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityEdited
-func (o NSAccessibilityProtocolObject) AccessibilityEdited() bool {
+func (o NSAccessibilityProtocolObject) IsAccessibilityEdited() bool {
 	rv := objc.Send[bool](o.ID, objc.Sel("isAccessibilityEdited"))
 	return bool(rv)
 }
@@ -2021,7 +1797,7 @@ func (o NSAccessibilityProtocolObject) SetAccessibilityEdited(value bool) {
 // protocols, the system changes the default value to true.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityElement
-func (o NSAccessibilityProtocolObject) AccessibilityElement() bool {
+func (o NSAccessibilityProtocolObject) IsAccessibilityElement() bool {
 	rv := objc.Send[bool](o.ID, objc.Sel("isAccessibilityElement"))
 	return bool(rv)
 }
@@ -2039,7 +1815,7 @@ func (o NSAccessibilityProtocolObject) SetAccessibilityElement(value bool) {
 // respond to user events.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityEnabled
-func (o NSAccessibilityProtocolObject) AccessibilityEnabled() bool {
+func (o NSAccessibilityProtocolObject) IsAccessibilityEnabled() bool {
 	rv := objc.Send[bool](o.ID, objc.Sel("isAccessibilityEnabled"))
 	return bool(rv)
 }
@@ -2057,7 +1833,7 @@ func (o NSAccessibilityProtocolObject) SetAccessibilityEnabled(value bool) {
 // information, such as outline rows and combo boxes.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityExpanded
-func (o NSAccessibilityProtocolObject) AccessibilityExpanded() bool {
+func (o NSAccessibilityProtocolObject) IsAccessibilityExpanded() bool {
 	rv := objc.Send[bool](o.ID, objc.Sel("isAccessibilityExpanded"))
 	return bool(rv)
 }
@@ -2094,7 +1870,7 @@ func (o NSAccessibilityProtocolObject) SetAccessibilityFilename(value string) {
 // keyboard focus.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityFocused
-func (o NSAccessibilityProtocolObject) AccessibilityFocused() bool {
+func (o NSAccessibilityProtocolObject) IsAccessibilityFocused() bool {
 	rv := objc.Send[bool](o.ID, objc.Sel("isAccessibilityFocused"))
 	return bool(rv)
 }
@@ -2135,7 +1911,7 @@ func (o NSAccessibilityProtocolObject) SetAccessibilityFrame(value corefoundatio
 // A Boolean value that determines whether the app is the frontmost app.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityFrontmost
-func (o NSAccessibilityProtocolObject) AccessibilityFrontmost() bool {
+func (o NSAccessibilityProtocolObject) IsAccessibilityFrontmost() bool {
 	rv := objc.Send[bool](o.ID, objc.Sel("isAccessibilityFrontmost"))
 	return bool(rv)
 }
@@ -2222,7 +1998,7 @@ func (o NSAccessibilityProtocolObject) SetAccessibilityHelp(value string) {
 // A Boolean value that determines whether the app is in a hidden state.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityHidden
-func (o NSAccessibilityProtocolObject) AccessibilityHidden() bool {
+func (o NSAccessibilityProtocolObject) IsAccessibilityHidden() bool {
 	rv := objc.Send[bool](o.ID, objc.Sel("isAccessibilityHidden"))
 	return bool(rv)
 }
@@ -2409,7 +2185,7 @@ func (o NSAccessibilityProtocolObject) SetAccessibilityLinkedUIElements(value fo
 // window.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityMain
-func (o NSAccessibilityProtocolObject) AccessibilityMain() bool {
+func (o NSAccessibilityProtocolObject) IsAccessibilityMain() bool {
 	rv := objc.Send[bool](o.ID, objc.Sel("isAccessibilityMain"))
 	return bool(rv)
 }
@@ -2497,12 +2273,10 @@ func (o NSAccessibilityProtocolObject) SetAccessibilityMarkerValues(value object
 //
 // This property is set to `nil` by default. Only a few AppKit controls (for
 // example, [NSSliderCell]) support this value. Set this property only when
-// the element has an [accessibilityValue] property and you want to define the
-// maximum possible value.
+// the element has an [NSWindow.AccessibilityValue] property and you want to
+// define the maximum possible value.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityMaxValue
-//
-// [accessibilityValue]: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityValue
 func (o NSAccessibilityProtocolObject) AccessibilityMaxValue() objectivec.IObject {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilityMaxValue"))
 	return objectivec.Object{ID: rv}
@@ -2530,12 +2304,10 @@ func (o NSAccessibilityProtocolObject) SetAccessibilityMenuBar(value objectivec.
 //
 // This property is set to `nil` by default. Only a few AppKit controls (for
 // example, [NSSliderCell]) support this value. Set this property only when
-// the element has an [accessibilityValue] property and you want to define the
-// minimum possible value.
+// the element has an [NSWindow.AccessibilityValue] property and you want to
+// define the minimum possible value.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityMinValue
-//
-// [accessibilityValue]: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityValue
 func (o NSAccessibilityProtocolObject) AccessibilityMinValue() objectivec.IObject {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilityMinValue"))
 	return objectivec.Object{ID: rv}
@@ -2562,7 +2334,7 @@ func (o NSAccessibilityProtocolObject) SetAccessibilityMinimizeButton(value obje
 // state.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityMinimized
-func (o NSAccessibilityProtocolObject) AccessibilityMinimized() bool {
+func (o NSAccessibilityProtocolObject) IsAccessibilityMinimized() bool {
 	rv := objc.Send[bool](o.ID, objc.Sel("isAccessibilityMinimized"))
 	return bool(rv)
 }
@@ -2574,7 +2346,7 @@ func (o NSAccessibilityProtocolObject) SetAccessibilityMinimized(value bool) {
 // A Boolean value that determines whether the window is modal.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityModal
-func (o NSAccessibilityProtocolObject) AccessibilityModal() bool {
+func (o NSAccessibilityProtocolObject) IsAccessibilityModal() bool {
 	rv := objc.Send[bool](o.ID, objc.Sel("isAccessibilityModal"))
 	return bool(rv)
 }
@@ -2622,7 +2394,7 @@ func (o NSAccessibilityProtocolObject) SetAccessibilityNumberOfCharacters(value 
 // to false.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityOrderedByRow
-func (o NSAccessibilityProtocolObject) AccessibilityOrderedByRow() bool {
+func (o NSAccessibilityProtocolObject) IsAccessibilityOrderedByRow() bool {
 	rv := objc.Send[bool](o.ID, objc.Sel("isAccessibilityOrderedByRow"))
 	return bool(rv)
 }
@@ -2726,7 +2498,7 @@ func (o NSAccessibilityProtocolObject) SetAccessibilityPreviousContents(value fo
 // protected content.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityProtectedContent
-func (o NSAccessibilityProtocolObject) AccessibilityProtectedContent() bool {
+func (o NSAccessibilityProtocolObject) IsAccessibilityProtectedContent() bool {
 	rv := objc.Send[bool](o.ID, objc.Sel("isAccessibilityProtectedContent"))
 	return bool(rv)
 }
@@ -2755,7 +2527,7 @@ func (o NSAccessibilityProtocolObject) SetAccessibilityProxy(value objectivec.IO
 // Returns YES if the element is required to have content; otherwise, NO.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityRequired
-func (o NSAccessibilityProtocolObject) AccessibilityRequired() bool {
+func (o NSAccessibilityProtocolObject) IsAccessibilityRequired() bool {
 	rv := objc.Send[bool](o.ID, objc.Sel("isAccessibilityRequired"))
 	return bool(rv)
 }
@@ -2783,19 +2555,17 @@ func (o NSAccessibilityProtocolObject) SetAccessibilityRole(value NSAccessibilit
 }
 
 // A localized, human-intelligible description of the accessibility
-// element’s role, such as .
+// element’s role, such as radio button.
 //
 // # Discussion
 //
 // This property is set automatically based on the value of the
-// [accessibilityRole] property; however, you can customize the value of this
-// property to better describe your element’s role. Keep role descriptions
-// short. If possible, use a single word. These descriptions should be noun
-// phrases, all lowercase, with no period at the end.
+// [NSWindow.AccessibilityRole] property; however, you can customize the value
+// of this property to better describe your element’s role. Keep role
+// descriptions short. If possible, use a single word. These descriptions
+// should be noun phrases, all lowercase, with no period at the end.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityRoleDescription
-//
-// [accessibilityRole]: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityRole
 func (o NSAccessibilityProtocolObject) AccessibilityRoleDescription() string {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilityRoleDescription"))
 	return foundation.NSStringFromID(rv).String()
@@ -2917,7 +2687,7 @@ func (o NSAccessibilityProtocolObject) SetAccessibilitySearchMenu(value objectiv
 // currently in a selected state.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilitySelected
-func (o NSAccessibilityProtocolObject) AccessibilitySelected() bool {
+func (o NSAccessibilityProtocolObject) IsAccessibilitySelected() bool {
 	rv := objc.Send[bool](o.ID, objc.Sel("isAccessibilitySelected"))
 	return bool(rv)
 }

@@ -177,7 +177,7 @@ func NewQueuePlayerWithPlayerItem(item IAVPlayerItem) AVQueuePlayer {
 // This method implicitly creates an [AVPlayerItem] object. You can get the
 // player item using [AVPlayer.CurrentItem].
 //
-// See: https://developer.apple.com/documentation/AVFoundation/AVPlayer/init(url:)-87cxx
+// See: https://developer.apple.com/documentation/AVFoundation/AVPlayer/init(url:)
 func NewQueuePlayerWithURL(URL foundation.NSURL) AVQueuePlayer {
 	instance := getAVQueuePlayerClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithURL:"), URL)

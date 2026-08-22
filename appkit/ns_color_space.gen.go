@@ -4,7 +4,6 @@ package appkit
 
 import (
 	"sync"
-	"unsafe"
 
 	"github.com/tmc/apple/coregraphics"
 	"github.com/tmc/apple/foundation"
@@ -115,7 +114,7 @@ type INSColorSpace interface {
 	// Initializes and returns a color space object initialized from a Core Graphics color-space object.
 	InitWithCGColorSpace(cgColorSpace coregraphics.CGColorSpaceRef) NSColorSpace
 	// Initializes and returns a color space object from the specified ColorSync profile.
-	InitWithColorSyncProfile(prof unsafe.Pointer) NSColorSpace
+	InitWithColorSyncProfile(prof coregraphics.ColorSyncProfileRef) NSColorSpace
 	// Initializes and returns a color space object from the specified ICC profile.
 	InitWithICCProfileData(iccData foundation.NSData) NSColorSpace
 
@@ -126,7 +125,7 @@ type INSColorSpace interface {
 	// The model on which the color space is based.
 	ColorSpaceModel() NSColorSpaceModel
 	// The ColorSync profile from which the color space was created.
-	ColorSyncProfile() unsafe.Pointer
+	ColorSyncProfile() coregraphics.ColorSyncProfileRef
 	// The ICC profile data from which the color space was created.
 	ICCProfileData() foundation.NSData
 	// The localized name of the color space.
@@ -176,7 +175,7 @@ func NewNSColorSpace() NSColorSpace {
 // if the pointer equality is preserved during runtime, it may not be after
 // the [NSColorSpace] object is archived and unarchived.
 //
-// See: https://developer.apple.com/documentation/AppKit/NSColorSpace/init(cgColorSpace:)-889nv
+// See: https://developer.apple.com/documentation/AppKit/NSColorSpace/init(cgColorSpace:)
 //
 // [CGColorSpace]: https://developer.apple.com/documentation/CoreGraphics/CGColorSpace
 func NewColorSpaceWithCGColorSpace(cgColorSpace coregraphics.CGColorSpaceRef) NSColorSpace {
@@ -207,7 +206,7 @@ func NewColorSpaceWithCoder(coder foundation.INSCoder) NSColorSpace {
 // See: https://developer.apple.com/documentation/AppKit/NSColorSpace/init(colorSyncProfile:)
 //
 // [ColorSync Manager]: https://developer.apple.com/documentation/applicationservices/colorsync_manager
-func NewColorSpaceWithColorSyncProfile(prof unsafe.Pointer) NSColorSpace {
+func NewColorSpaceWithColorSyncProfile(prof coregraphics.ColorSyncProfileRef) NSColorSpace {
 	instance := getNSColorSpaceClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithColorSyncProfile:"), prof)
 	return NSColorSpaceFromID(rv)
@@ -225,7 +224,7 @@ func NewColorSpaceWithColorSyncProfile(prof unsafe.Pointer) NSColorSpace {
 // The initialized [NSColorSpace] object or `nil` if initialization was not
 // successful.
 //
-// See: https://developer.apple.com/documentation/AppKit/NSColorSpace/init(iccProfileData:)-8rl9d
+// See: https://developer.apple.com/documentation/AppKit/NSColorSpace/init(iccProfileData:)
 //
 // [International Color Consortium website]: http://www.color.org/icc_specs2.html
 func NewColorSpaceWithICCProfileData(iccData foundation.NSData) NSColorSpace {
@@ -253,7 +252,7 @@ func NewColorSpaceWithICCProfileData(iccData foundation.NSData) NSColorSpace {
 // if the pointer equality is preserved during runtime, it may not be after
 // the [NSColorSpace] object is archived and unarchived.
 //
-// See: https://developer.apple.com/documentation/AppKit/NSColorSpace/init(cgColorSpace:)-889nv
+// See: https://developer.apple.com/documentation/AppKit/NSColorSpace/init(cgColorSpace:)
 //
 // [CGColorSpace]: https://developer.apple.com/documentation/CoreGraphics/CGColorSpace
 func (c NSColorSpace) InitWithCGColorSpace(cgColorSpace coregraphics.CGColorSpaceRef) NSColorSpace {
@@ -276,7 +275,7 @@ func (c NSColorSpace) InitWithCGColorSpace(cgColorSpace coregraphics.CGColorSpac
 // See: https://developer.apple.com/documentation/AppKit/NSColorSpace/init(colorSyncProfile:)
 //
 // [ColorSync Manager]: https://developer.apple.com/documentation/applicationservices/colorsync_manager
-func (c NSColorSpace) InitWithColorSyncProfile(prof unsafe.Pointer) NSColorSpace {
+func (c NSColorSpace) InitWithColorSyncProfile(prof coregraphics.ColorSyncProfileRef) NSColorSpace {
 	rv := objc.Send[NSColorSpace](c.ID, objc.Sel("initWithColorSyncProfile:"), prof)
 	return rv
 }
@@ -293,7 +292,7 @@ func (c NSColorSpace) InitWithColorSyncProfile(prof unsafe.Pointer) NSColorSpace
 // The initialized [NSColorSpace] object or `nil` if initialization was not
 // successful.
 //
-// See: https://developer.apple.com/documentation/AppKit/NSColorSpace/init(iccProfileData:)-8rl9d
+// See: https://developer.apple.com/documentation/AppKit/NSColorSpace/init(iccProfileData:)
 //
 // [International Color Consortium website]: http://www.color.org/icc_specs2.html
 func (c NSColorSpace) InitWithICCProfileData(iccData foundation.NSData) NSColorSpace {
@@ -377,9 +376,9 @@ func (c NSColorSpace) ColorSpaceModel() NSColorSpaceModel {
 // See: https://developer.apple.com/documentation/AppKit/NSColorSpace/colorSyncProfile
 //
 // [ColorSync Manager]: https://developer.apple.com/documentation/applicationservices/colorsync_manager
-func (c NSColorSpace) ColorSyncProfile() unsafe.Pointer {
-	rv := objc.Send[unsafe.Pointer](c.ID, objc.Sel("colorSyncProfile"))
-	return rv
+func (c NSColorSpace) ColorSyncProfile() coregraphics.ColorSyncProfileRef {
+	rv := objc.Send[coregraphics.ColorSyncProfileRef](c.ID, objc.Sel("colorSyncProfile"))
+	return coregraphics.ColorSyncProfileRef(rv)
 }
 
 // The ICC profile data from which the color space was created.

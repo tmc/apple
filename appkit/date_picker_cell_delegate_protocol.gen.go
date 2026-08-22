@@ -4,6 +4,7 @@ package appkit
 
 import (
 	"fmt"
+	"unsafe"
 
 	"github.com/tmc/apple/foundation"
 	"github.com/tmc/apple/objc"
@@ -12,7 +13,7 @@ import (
 
 var _ = fmt.Sprintf
 
-// A set of optional methods implemented by delegates of [NSDatePickerCell](<doc://com.apple.appkit/documentation/AppKit/NSDatePickerCell>) objects.
+// A set of optional methods implemented by delegates of [NSDatePickerCell](<https://developer.apple.com/documentation/AppKit/NSDatePickerCell>) objects.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSDatePickerCellDelegate
 type NSDatePickerCellDelegate interface {
@@ -61,7 +62,7 @@ func NSDatePickerCellDelegateObjectFromID(id objc.ID) NSDatePickerCellDelegateOb
 //
 // See: https://developer.apple.com/documentation/AppKit/NSDatePickerCellDelegate/datePickerCell(_:validateProposedDateValue:timeInterval:)
 func (o NSDatePickerCellDelegateObject) DatePickerCellValidateProposedDateValueTimeInterval(datePickerCell INSDatePickerCell, proposedDateValue foundation.NSDate, proposedTimeInterval *foundation.NSTimeInterval) {
-	objc.Send[struct{}](o.ID, objc.Sel("datePickerCell:validateProposedDateValue:timeInterval:"), datePickerCell, proposedDateValue, proposedTimeInterval)
+	objc.Send[struct{}](o.ID, objc.Sel("datePickerCell:validateProposedDateValue:timeInterval:"), datePickerCell, proposedDateValue, unsafe.Pointer(proposedTimeInterval))
 }
 
 // NSDatePickerCellDelegateConfig holds optional typed callbacks for [NSDatePickerCellDelegate] methods.
@@ -102,9 +103,21 @@ func NewNSDatePickerCellDelegate(config NSDatePickerCellDelegateConfig) NSDatePi
 		methods = append(methods, objc.MethodDef{
 			Cmd: objc.RegisterName("datePickerCell:validateProposedDateValue:timeInterval:"),
 			Fn: func(self objc.ID, _cmd objc.SEL, datePickerCellID objc.ID, proposedDateValueID objc.ID, proposedTimeInterval *foundation.NSTimeInterval) {
+				// Names which delegate was running if a panic unwinds out of
+				// it. The frames between here and the Objective-C caller are
+				// runtime and purego dispatch, so without this the traceback
+				// never says which selector dispatched. Deliberately no
+				// recover: see [objc.NoteDelegatePanic].
+				_delegateDone := false
+				defer func() {
+					if !_delegateDone {
+						objc.NoteDelegatePanic("NSDatePickerCellDelegate", "datePickerCell:validateProposedDateValue:timeInterval:")
+					}
+				}()
 				datePickerCell := NSDatePickerCellFromID(datePickerCellID)
 				proposedDateValue := foundation.NSDateFromID(proposedDateValueID)
 				fn(datePickerCell, proposedDateValue, proposedTimeInterval)
+				_delegateDone = true
 			},
 		})
 	}

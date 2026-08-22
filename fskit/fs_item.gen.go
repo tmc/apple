@@ -4,9 +4,7 @@ package fskit
 
 import (
 	"sync"
-	"unsafe"
 
-	"github.com/tmc/apple/kernel"
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -98,11 +96,11 @@ type IFSItem interface {
 	objectivec.IObject
 
 	// The attributes successfully used by the file system.
-	ConsumedAttributes() unsafe.Pointer
-	SetConsumedAttributes(value kernel.Pointer)
+	ConsumedAttributes() FSItemAttribute
+	SetConsumedAttributes(value FSItemAttribute)
 	// The attributes requested by the request.
-	WantedAttributes() unsafe.Pointer
-	SetWantedAttributes(value kernel.Pointer)
+	WantedAttributes() FSItemAttribute
+	SetWantedAttributes(value FSItemAttribute)
 }
 
 // Init initializes the instance.
@@ -127,21 +125,21 @@ func NewFSItem() FSItem {
 // The attributes successfully used by the file system.
 //
 // See: https://developer.apple.com/documentation/fskit/fsitem/setattributesrequest/consumedattributes
-func (i FSItem) ConsumedAttributes() unsafe.Pointer {
-	rv := objc.Send[unsafe.Pointer](i.ID, objc.Sel("consumedAttributes"))
-	return rv
+func (i FSItem) ConsumedAttributes() FSItemAttribute {
+	rv := objc.Send[FSItemAttribute](i.ID, objc.Sel("consumedAttributes"))
+	return FSItemAttribute(rv)
 }
-func (i FSItem) SetConsumedAttributes(value kernel.Pointer) {
+func (i FSItem) SetConsumedAttributes(value FSItemAttribute) {
 	objc.Send[struct{}](i.ID, objc.Sel("setConsumedAttributes:"), value)
 }
 
 // The attributes requested by the request.
 //
 // See: https://developer.apple.com/documentation/fskit/fsitem/getattributesrequest/wantedattributes
-func (i FSItem) WantedAttributes() unsafe.Pointer {
-	rv := objc.Send[unsafe.Pointer](i.ID, objc.Sel("wantedAttributes"))
-	return rv
+func (i FSItem) WantedAttributes() FSItemAttribute {
+	rv := objc.Send[FSItemAttribute](i.ID, objc.Sel("wantedAttributes"))
+	return FSItemAttribute(rv)
 }
-func (i FSItem) SetWantedAttributes(value kernel.Pointer) {
+func (i FSItem) SetWantedAttributes(value FSItemAttribute) {
 	objc.Send[struct{}](i.ID, objc.Sel("setWantedAttributes:"), value)
 }

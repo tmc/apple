@@ -7,7 +7,6 @@ package avfoundation
 import (
 	"github.com/tmc/apple/avfaudio"
 	"github.com/tmc/apple/foundation"
-	"github.com/tmc/apple/kernel"
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -163,11 +162,11 @@ func (p AVPlayerItem) SetNavigationMarkerGroups(value []avfaudio.AVNavigationMar
 // current content.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVPlayerItem/nextContentProposal
-func (p AVPlayerItem) NextContentProposal() unsafe.Pointer {
-	rv := objc.Send[unsafe.Pointer](p.ID, objc.Sel("nextContentProposal"))
-	return rv
+func (p AVPlayerItem) NextContentProposal() objectivec.IObject {
+	rv := objc.Send[objc.ID](p.ID, objc.Sel("nextContentProposal"))
+	return objectivec.Object{ID: rv}
 }
-func (p AVPlayerItem) SetNextContentProposal(value kernel.Pointer) {
+func (p AVPlayerItem) SetNextContentProposal(value objectivec.IObject) {
 	objc.Send[struct{}](p.ID, objc.Sel("setNextContentProposal:"), value)
 }
 

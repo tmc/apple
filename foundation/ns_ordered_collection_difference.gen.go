@@ -140,7 +140,7 @@ type INSOrderedCollectionDifference interface {
 	// Topic: Updating Changes from a Difference Object
 
 	// Create a new ordered collection difference by mapping over this difference’s members, processing the change objects with the block provided.
-	DifferenceByTransformingChangesWithBlock(block idOrderedCollectionChangeHandler) INSOrderedCollectionDifference
+	DifferenceByTransformingChangesWithBlock(block NSOrderedCollectionChangeidOrderedCollectionChangeHandler) INSOrderedCollectionDifference
 }
 
 // Init initializes the instance.
@@ -300,37 +300,11 @@ func (o NSOrderedCollectionDifference) InitWithInsertIndexesInsertedObjectsRemov
 // A new ordered collection difference.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSOrderedCollectionDifference/transformingChanges(_:)
-func (o NSOrderedCollectionDifference) DifferenceByTransformingChangesWithBlock(block idOrderedCollectionChangeHandler) INSOrderedCollectionDifference {
-	_block0, _ := NewidOrderedCollectionChangeBlock(block)
+func (o NSOrderedCollectionDifference) DifferenceByTransformingChangesWithBlock(block NSOrderedCollectionChangeidOrderedCollectionChangeHandler) INSOrderedCollectionDifference {
+	_block0, _cleanup0 := NewNSOrderedCollectionChangeidOrderedCollectionChangeBlock(block)
+	defer _cleanup0()
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("differenceByTransformingChangesWithBlock:"), _block0)
 	return NSOrderedCollectionDifferenceFromID(rv)
-}
-
-// Returns by reference a C array of objects over which the sender should
-// iterate, and as the return value the number of objects in the array.
-//
-// state: Context information that is used in the enumeration to, in addition to
-// other possibilities, ensure that the collection has not been mutated.
-//
-// buffer: A C array of objects over which the sender is to iterate.
-//
-// len: The maximum number of objects to return in `stackbuf`.
-//
-// # Return Value
-//
-// The number of objects returned in `stackbuf`. Returns `0` when the
-// iteration is finished.
-//
-// # Discussion
-//
-// The state structure is assumed to be of stack local memory, so you can
-// recast the passed in state structure to one more suitable for your
-// iteration.
-//
-// See: https://developer.apple.com/documentation/Foundation/NSFastEnumeration/countByEnumerating(with:objects:count:)
-func (o NSOrderedCollectionDifference) CountByEnumeratingWithStateObjectsCount(state NSFastEnumerationState, buffer []objectivec.IObject, len_ uint) uint {
-	rv := objc.Send[uint](o.ID, objc.Sel("countByEnumeratingWithState:objects:count:"), state, objc.CArray(buffer), len_)
-	return rv
 }
 
 // A Boolean value that indicates if the difference has changes.

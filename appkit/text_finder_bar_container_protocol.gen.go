@@ -13,11 +13,6 @@ import (
 type NSTextFinderBarContainer interface {
 	objectivec.IObject
 
-	// Returns whether the container should display its find bar.
-	//
-	// See: https://developer.apple.com/documentation/AppKit/NSTextFinderBarContainer/isFindBarVisible
-	IsFindBarVisible() bool
-
 	// Notifies the find bar container that the find bar has changed its height.
 	//
 	// See: https://developer.apple.com/documentation/AppKit/NSTextFinderBarContainer/findBarViewDidChangeHeight()
@@ -32,7 +27,7 @@ type NSTextFinderBarContainer interface {
 	// Returns whether the container should display its find bar.
 	//
 	// See: https://developer.apple.com/documentation/AppKit/NSTextFinderBarContainer/isFindBarVisible
-	FindBarVisible() bool
+	IsFindBarVisible() bool
 	SetFindBarVisible(value bool)
 }
 
@@ -51,14 +46,6 @@ func NSTextFinderBarContainerObjectFromID(id objc.ID) NSTextFinderBarContainerOb
 	return NSTextFinderBarContainerObject{
 		Object: objectivec.ObjectFromID(id),
 	}
-}
-
-// Returns whether the container should display its find bar.
-//
-// See: https://developer.apple.com/documentation/AppKit/NSTextFinderBarContainer/isFindBarVisible
-func (o NSTextFinderBarContainerObject) IsFindBarVisible() bool {
-	rv := objc.Send[bool](o.ID, objc.Sel("isFindBarVisible"))
-	return rv
 }
 
 // Notifies the find bar container that the find bar has changed its height.
@@ -126,7 +113,7 @@ func (o NSTextFinderBarContainerObject) SetFindBarView(value INSView) {
 // The default value should be false.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTextFinderBarContainer/isFindBarVisible
-func (o NSTextFinderBarContainerObject) FindBarVisible() bool {
+func (o NSTextFinderBarContainerObject) IsFindBarVisible() bool {
 	rv := objc.Send[bool](o.ID, objc.Sel("isFindBarVisible"))
 	return bool(rv)
 }

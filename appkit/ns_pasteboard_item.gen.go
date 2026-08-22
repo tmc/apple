@@ -189,6 +189,12 @@ type INSPasteboardItem interface {
 	SetCollaborationMetadata(value objectivec.IObject)
 
 	InitWithPasteboardPropertyListOfType(propertyList objectivec.IObject, type_ NSPasteboardType) NSPasteboardItem
+	// Returns a property list object to represent the receiver on a pasteboard as an object of a specified type.
+	PasteboardPropertyListForType(type_ NSPasteboardType) objectivec.IObject
+	// Returns an array of UTI strings of data types the receiver can write to a given pasteboard.
+	WritableTypesForPasteboard(pasteboard INSPasteboard) []string
+	// Returns options for writing data of a specified type to a given pasteboard.
+	WritingOptionsForTypePasteboard(type_ NSPasteboardType, pasteboard INSPasteboard) NSPasteboardWritingOptions
 }
 
 // Init initializes the instance.
@@ -518,5 +524,7 @@ func (p NSPasteboardItem) CollaborationMetadata() objectivec.IObject {
 func (p NSPasteboardItem) SetCollaborationMetadata(value objectivec.IObject) {
 	objc.Send[struct{}](p.ID, objc.Sel("setCollaborationMetadata:"), value)
 }
+
+// Protocol methods for NSPasteboardReading
 
 // Protocol methods for NSPasteboardWriting

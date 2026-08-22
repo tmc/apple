@@ -1,3 +1,3 @@
 package objc
 
-//go:generate applegen generate --generate-objc-runtime --output ..
+//go:generate go run github.com/tmc/appledocs/cmd/applegen generate --generate-objc-runtime --output ..

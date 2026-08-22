@@ -128,6 +128,13 @@ type INSFilePromiseProvider interface {
 	// Optional user information to pass to the file promise provider.
 	UserInfo() objectivec.IObject
 	SetUserInfo(value objectivec.IObject)
+
+	// Returns a property list object to represent the receiver on a pasteboard as an object of a specified type.
+	PasteboardPropertyListForType(type_ NSPasteboardType) objectivec.IObject
+	// Returns an array of UTI strings of data types the receiver can write to a given pasteboard.
+	WritableTypesForPasteboard(pasteboard INSPasteboard) []string
+	// Returns options for writing data of a specified type to a given pasteboard.
+	WritingOptionsForTypePasteboard(type_ NSPasteboardType, pasteboard INSPasteboard) NSPasteboardWritingOptions
 }
 
 // Init initializes the instance.

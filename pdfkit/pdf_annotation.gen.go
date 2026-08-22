@@ -448,8 +448,8 @@ type IPDFAnnotation interface {
 	// Topic: Managing Annotation Display Characteristics
 
 	// The alignment of the free text and text widget annotation’s text content.
-	Alignment() uint
-	SetAlignment(value uint)
+	Alignment() appkit.NSTextAlignment
+	SetAlignment(value appkit.NSTextAlignment)
 	// Returns the bounding box for the annotation in page space.
 	Bounds() corefoundation.CGRect
 	SetBounds(value corefoundation.CGRect)
@@ -963,11 +963,11 @@ func (p PDFAnnotation) AnnotationKeyValues() foundation.INSDictionary {
 // The alignment of the free text and text widget annotation’s text content.
 //
 // See: https://developer.apple.com/documentation/PDFKit/PDFAnnotation/alignment
-func (p PDFAnnotation) Alignment() uint {
-	rv := objc.Send[uint](p.ID, objc.Sel("alignment"))
-	return rv
+func (p PDFAnnotation) Alignment() appkit.NSTextAlignment {
+	rv := objc.Send[appkit.NSTextAlignment](p.ID, objc.Sel("alignment"))
+	return appkit.NSTextAlignment(rv)
 }
-func (p PDFAnnotation) SetAlignment(value uint) {
+func (p PDFAnnotation) SetAlignment(value appkit.NSTextAlignment) {
 	objc.Send[struct{}](p.ID, objc.Sel("setAlignment:"), value)
 }
 

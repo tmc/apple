@@ -74,10 +74,10 @@ func (nc NSStackViewClass) Alloc() NSStackView {
 //
 // # Layout Direction and Gravity Areas
 //
-// A stack view has three so-called that each identify a section of the stack
-// view’s layout. A horizontal stack view, which is the default type, has a
-// leading, a center, and a trailing gravity area. The ordering of these areas
-// depends on the value of the stack view’s
+// A stack view has three so-called gravity areas that each identify a section
+// of the stack view’s layout. A horizontal stack view, which is the default
+// type, has a leading, a center, and a trailing gravity area. The ordering of
+// these areas depends on the value of the stack view’s
 // [NSView.UserInterfaceLayoutDirection] property (inherited from the [NSView]
 // class). In a left to right language, the leading gravity area in a
 // horizontal stack view is on the left. To enforce a left to right layout
@@ -100,14 +100,14 @@ func (nc NSStackViewClass) Alloc() NSStackView {
 // remains part of the view hierarchy and continues to participate in Auto
 // Layout, but it is not visible and doesn’t receive input events.
 //
-// To allow views to detach, set the so-called for a stack view to a value
-// lower than its default of [required]. See the
+// To allow views to detach, set the so-called clipping resistance for a stack
+// view to a value lower than its default of [required]. See the
 // [NSStackView.SetClippingResistancePriorityForOrientation] method.
 //
 // You can influence which views detach first (and reattach last). Do this by
-// setting the so-called for each view whose detachment order you want to
-// specify. A view with a lower visibility priority detaches before one with a
-// higher priority, and reattaches after it. See the
+// setting the so-called visibility priority for each view whose detachment
+// order you want to specify. A view with a lower visibility priority detaches
+// before one with a higher priority, and reattaches after it. See the
 // [NSStackViewVisibilityPriority] enumeration and the
 // [NSStackView.SetVisibilityPriorityForView] method.
 //
@@ -430,12 +430,12 @@ func NewStackViewWithViews(views []NSView) NSStackView {
 // The location of a newly added view depends on the stack view layout
 // direction and, for a horizontal stack view, on user interface language:
 //
-// - : A newly added view appears at the trailing edge of the specified
-// gravity area, as determined by the value of the inherited
+// - Horizontal: A newly added view appears at the trailing edge of the
+// specified gravity area, as determined by the value of the inherited
 // [NSView.UserInterfaceLayoutDirection] property of the stack view. For a
 // left to right language, a new view appears at the right side of the gravity
-// area. - : A newly added view appears at the bottom of the specified gravity
-// area.
+// area. - Vertical: A newly added view appears at the bottom of the specified
+// gravity area.
 //
 // Calling this method updates the stack view’s layout, which can change the
 // stack view size. As a result, views could detach or clip according to the
@@ -462,11 +462,11 @@ func (s NSStackView) AddViewInGravity(view INSView, gravity NSStackViewGravity) 
 // of index `0` depends on the stack view layout direction and, for a
 // horizontal stack view, on the user interface layout direction:
 //
-// - : The `0` index for a gravity area is at the leading side, as determined
-// by the value of the inherited [NSView.UserInterfaceLayoutDirection]
-// property of the stack view. For a left to right language, index `0` is at
-// the left of the gravity area. - : The `0` index for a gravity area is at
-// the top.
+// - Horizontal: The `0` index for a gravity area is at the leading side, as
+// determined by the value of the inherited
+// [NSView.UserInterfaceLayoutDirection] property of the stack view. For a
+// left to right language, index `0` is at the left of the gravity area. -
+// Vertical: The `0` index for a gravity area is at the top.
 //
 // See the [NSApplication.UserInterfaceLayoutDirection] property and the
 // [NSView.UserInterfaceLayoutDirection] method.
@@ -773,10 +773,11 @@ func (s NSStackView) VisibilityPriorityForView(view INSView) NSStackViewVisibili
 // When Auto Layout reduces the stack view’s size (such as when a user
 // reduces the size of the window containing the stack view), causing one or
 // more views to no longer fit, the stack view detaches views in order of
-// increasing . A view with lower visibility priority detaches before a view
-// with higher visibility priority. A set of views with identical, detachable
-// visibility priority are all detached or reattached together. A view with
-// the highest possible visibility priority never detaches.
+// increasing visibility priority. A view with lower visibility priority
+// detaches before a view with higher visibility priority. A set of views with
+// identical, detachable visibility priority are all detached or reattached
+// together. A view with the highest possible visibility priority never
+// detaches.
 //
 // A view in a detached state is not present in the stack view’s view
 // hierarchy, but it still consumes memory.
@@ -986,8 +987,8 @@ func (s NSStackView) SetOrientation(value NSUserInterfaceLayoutOrientation) {
 // The default value for this property depends on whether the stack view is
 // horizontal or vertical:
 //
-// - : The default value is [NSLayoutConstraint.Attribute.centerY]. - : The
-// default value is [NSLayoutConstraint.Attribute.centerX].
+// - Horizontal: The default value is [NSLayoutConstraint.Attribute.centerY].
+// - Vertical: The default value is [NSLayoutConstraint.Attribute.centerX].
 //
 // These constants are described as part of the [NSLayoutConstraint.Attribute]
 // enumeration in [NSLayoutConstraint]; see that enumeration for the other

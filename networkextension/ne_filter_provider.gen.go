@@ -48,9 +48,9 @@ func (nc NEFilterProviderClass) Alloc() NEFilterProvider {
 //
 // A Network Content Filter is made up of two Filter Provider extensions:
 //
-// The examines network content as it passes through the network stack on the
-// device and decides if the network content should be blocked or allowed to
-// pass on to its final destination.
+// The Filter Data Provider extension examines network content as it passes
+// through the network stack on the device and decides if the network content
+// should be blocked or allowed to pass on to its final destination.
 //
 // Because the Filter Data Provider extension has access to all of the network
 // content flowing through the device, it runs in a very restrictive sandbox.
@@ -61,8 +61,9 @@ func (nc NEFilterProviderClass) Alloc() NEFilterProvider {
 // The Filter Data Provider extension is implemented by creating a custom
 // subclass of the [NEFilterDataProvider] class.
 //
-// The is responsible for feeding information to the Filter Data Provider
-// extension so that the Filter Data Provider extension can do its job.
+// The Filter Control Provider extension is responsible for feeding
+// information to the Filter Data Provider extension so that the Filter Data
+// Provider extension can do its job.
 //
 // For example, the Filter Control Provider extension can be notified by the
 // Filter Data Provider extension that it does not have enough information to
@@ -92,7 +93,7 @@ func (nc NEFilterProviderClass) Alloc() NEFilterProvider {
 //
 // # Getting the filter configuration
 //
-//   - [NEFilterProvider.FilterConfiguration]: An [NEFilterProviderConfiguration](<doc://com.apple.networkextension/documentation/NetworkExtension/NEFilterProviderConfiguration>) object containing the current filter configuration.
+//   - [NEFilterProvider.FilterConfiguration]: An [NEFilterProviderConfiguration](<https://developer.apple.com/documentation/NetworkExtension/NEFilterProviderConfiguration>) object containing the current filter configuration.
 //
 // # Receiving reports
 //
@@ -124,7 +125,7 @@ func NEFilterProviderFromID(id objc.ID) NEFilterProvider {
 //
 // # Getting the filter configuration
 //
-//   - [INEFilterProvider.FilterConfiguration]: An [NEFilterProviderConfiguration](<doc://com.apple.networkextension/documentation/NetworkExtension/NEFilterProviderConfiguration>) object containing the current filter configuration.
+//   - [INEFilterProvider.FilterConfiguration]: An [NEFilterProviderConfiguration](<https://developer.apple.com/documentation/NetworkExtension/NEFilterProviderConfiguration>) object containing the current filter configuration.
 //
 // # Receiving reports
 //
@@ -143,7 +144,7 @@ type INEFilterProvider interface {
 
 	// Topic: Getting the filter configuration
 
-	// An [NEFilterProviderConfiguration](<doc://com.apple.networkextension/documentation/NetworkExtension/NEFilterProviderConfiguration>) object containing the current filter configuration.
+	// An [NEFilterProviderConfiguration](<https://developer.apple.com/documentation/NetworkExtension/NEFilterProviderConfiguration>) object containing the current filter configuration.
 	FilterConfiguration() INEFilterProviderConfiguration
 
 	// Topic: Receiving reports

@@ -60,7 +60,7 @@ func (nc NSArrayControllerClass) Alloc() NSArrayController {
 // # Arranging Objects
 //
 //   - [NSArrayController.ArrangeObjects]: Returns a given array, appropriately sorted and filtered.
-//   - [NSArrayController.ArrangedObjects]: An array containing the receiver’s content objects arranged using [arrange(_:)](<doc://com.apple.appkit/documentation/AppKit/NSArrayController/arrange(_:)>).
+//   - [NSArrayController.ArrangedObjects]: An array containing the receiver’s content objects arranged using [arrange(_:)](<https://developer.apple.com/documentation/AppKit/NSArrayController/arrange(_:)>).
 //   - [NSArrayController.RearrangeObjects]: Triggers filtering of the receiver’s content.
 //
 // # Selection Attributes
@@ -142,7 +142,7 @@ func NSArrayControllerFromID(id objc.ID) NSArrayController {
 // # Arranging Objects
 //
 //   - [INSArrayController.ArrangeObjects]: Returns a given array, appropriately sorted and filtered.
-//   - [INSArrayController.ArrangedObjects]: An array containing the receiver’s content objects arranged using [arrange(_:)](<doc://com.apple.appkit/documentation/AppKit/NSArrayController/arrange(_:)>).
+//   - [INSArrayController.ArrangedObjects]: An array containing the receiver’s content objects arranged using [arrange(_:)](<https://developer.apple.com/documentation/AppKit/NSArrayController/arrange(_:)>).
 //   - [INSArrayController.RearrangeObjects]: Triggers filtering of the receiver’s content.
 //
 // # Selection Attributes
@@ -211,7 +211,7 @@ type INSArrayController interface {
 
 	// Returns a given array, appropriately sorted and filtered.
 	ArrangeObjects(objects foundation.INSArray) foundation.INSArray
-	// An array containing the receiver’s content objects arranged using [arrange(_:)](<doc://com.apple.appkit/documentation/AppKit/NSArrayController/arrange(_:)>).
+	// An array containing the receiver’s content objects arranged using [arrange(_:)](<https://developer.apple.com/documentation/AppKit/NSArrayController/arrange(_:)>).
 	ArrangedObjects() objectivec.IObject
 	// Triggers filtering of the receiver’s content.
 	RearrangeObjects()

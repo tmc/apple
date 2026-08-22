@@ -132,6 +132,7 @@ type IUNNotificationAction interface {
 	// The behaviors associated with the action.
 	Options() UNNotificationActionOptions
 
+	InitWithCoder(coder foundation.INSCoder) UNNotificationAction
 	EncodeWithCoder(coder foundation.INSCoder)
 }
 
@@ -152,6 +153,13 @@ func NewUNNotificationAction() UNNotificationAction {
 	class := getUNNotificationActionClass()
 	rv := objc.Send[UNNotificationAction](objc.ID(class.class), objc.Sel("new"))
 	return rv
+}
+
+// See: https://developer.apple.com/documentation/UserNotifications/UNNotificationAction/init(coder:)
+func NewUNNotificationActionWithCoder(coder foundation.INSCoder) UNNotificationAction {
+	instance := getUNNotificationActionClass().Alloc()
+	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
+	return UNNotificationActionFromID(rv)
 }
 
 // Creates an action object by using the specified title and options.
@@ -212,6 +220,11 @@ func NewUNNotificationActionWithIdentifierTitleOptionsIcon(identifier string, ti
 	return UNNotificationActionFromID(rv)
 }
 
+// See: https://developer.apple.com/documentation/UserNotifications/UNNotificationAction/init(coder:)
+func (u UNNotificationAction) InitWithCoder(coder foundation.INSCoder) UNNotificationAction {
+	rv := objc.Send[UNNotificationAction](u.ID, objc.Sel("initWithCoder:"), coder)
+	return rv
+}
 func (u UNNotificationAction) EncodeWithCoder(coder foundation.INSCoder) {
 	objc.Send[objc.ID](u.ID, objc.Sel("encodeWithCoder:"), coder)
 }

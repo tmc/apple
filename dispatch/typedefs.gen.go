@@ -5,7 +5,6 @@ package dispatch
 import (
 	"unsafe"
 
-	"github.com/tmc/apple/kernel"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -21,7 +20,7 @@ type Dispatch_block_t = func()
 // Dispatch_data_applier_t is a block to invoke for every contiguous memory region in a data object.
 //
 // See: https://developer.apple.com/documentation/Dispatch/dispatch_data_applier_t
-type Dispatch_data_applier_t = func(objectivec.Object, uint32, kernel.Pointer, uint32) bool
+type Dispatch_data_applier_t = func(objectivec.Object, uint32, unsafe.Pointer, uint32) bool
 
 // Dispatch_data_t is an immutable object representing a contiguous or sparse region of memory.
 //
@@ -31,12 +30,12 @@ type dispatch_data_t uintptr
 // Dispatch_fd_t is a file descriptor used for I/O operations.
 //
 // See: https://developer.apple.com/documentation/Dispatch/dispatch_fd_t
-type Dispatch_fd_t = int
+type Dispatch_fd_t = int32
 
 // Dispatch_function_t is the prototype of functions submitted to dispatch queues.
 //
 // See: https://developer.apple.com/documentation/Dispatch/dispatch_function_t
-type Dispatch_function_t = unsafe.Pointer
+type Dispatch_function_t = func(unsafe.Pointer)
 
 // Dispatch_group_t is a group of block objects submitted to a queue for asynchronous invocation.
 //
@@ -51,7 +50,7 @@ type Dispatch_io_close_flags_t = uint
 // Dispatch_io_handler_t is a handler block used to process operations on a dispatch I/O channel.
 //
 // See: https://developer.apple.com/documentation/Dispatch/dispatch_io_handler_t
-type Dispatch_io_handler_t = func(bool, objectivec.Object, int)
+type Dispatch_io_handler_t = func(bool, objectivec.Object, int32)
 
 // Dispatch_io_interval_flags_t is the desired delivery behavior for interval events.
 //
@@ -66,7 +65,7 @@ type dispatch_io_t uintptr
 // Dispatch_io_type_t is the type of a dispatch I/O channel.
 //
 // See: https://developer.apple.com/documentation/Dispatch/dispatch_io_type_t
-type dispatch_io_type_t uintptr
+type Dispatch_io_type_t = uint
 
 // Dispatch_object_t is a dispatch object.
 //
@@ -166,11 +165,6 @@ type dispatch_source_type_t uintptr
 // See: https://developer.apple.com/documentation/Dispatch/dispatch_source_vnode_flags_t
 type Dispatch_source_vnode_flags_t = uint
 
-// Dispatch_time_t is an abstract representation of time.
-//
-// See: https://developer.apple.com/documentation/Dispatch/dispatch_time_t
-type Dispatch_time_t = uint64
-
 // Dispatch_workloop_t is a dispatch queue that prioritizes the execution of tasks based on their quality-of-service level.
 //
 // See: https://developer.apple.com/documentation/Dispatch/dispatch_workloop_t
@@ -182,7 +176,7 @@ type DispatchBlockFlags = Dispatch_block_flags_t
 // DispatchDataApplier is a Go-name alias for Dispatch_data_applier_t.
 type DispatchDataApplier = Dispatch_data_applier_t
 
-// DispatchData is a Go-name alias for dispatch_data_t.
+// DispatchData is a Go-name alias for Dispatch_data_t.
 type DispatchData = dispatch_data_t
 
 // DispatchFd is a Go-name alias for Dispatch_fd_t.
@@ -191,7 +185,7 @@ type DispatchFd = Dispatch_fd_t
 // DispatchFunction is a Go-name alias for Dispatch_function_t.
 type DispatchFunction = Dispatch_function_t
 
-// DispatchGroup is a Go-name alias for dispatch_group_t.
+// DispatchGroup is a Go-name alias for Dispatch_group_t.
 type DispatchGroup = dispatch_group_t
 
 // DispatchIOCloseFlags is a Go-name alias for Dispatch_io_close_flags_t.
@@ -203,13 +197,13 @@ type DispatchIOHandler = Dispatch_io_handler_t
 // DispatchIOIntervalFlags is a Go-name alias for Dispatch_io_interval_flags_t.
 type DispatchIOIntervalFlags = Dispatch_io_interval_flags_t
 
-// DispatchIO is a Go-name alias for dispatch_io_t.
+// DispatchIO is a Go-name alias for Dispatch_io_t.
 type DispatchIO = dispatch_io_t
 
-// DispatchIOType is a Go-name alias for dispatch_io_type_t.
-type DispatchIOType = dispatch_io_type_t
+// DispatchIOType is a Go-name alias for Dispatch_io_type_t.
+type DispatchIOType = Dispatch_io_type_t
 
-// DispatchObject is a Go-name alias for dispatch_object_t.
+// DispatchObject is a Go-name alias for Dispatch_object_t.
 type DispatchObject = dispatch_object_t
 
 // DispatchOnce is a Go-name alias for Dispatch_once_t.
@@ -218,7 +212,7 @@ type DispatchOnce = Dispatch_once_t
 // DispatchQosClass is a Go-name alias for Dispatch_qos_class_t.
 type DispatchQosClass = Dispatch_qos_class_t
 
-// DispatchQueueAttr is a Go-name alias for dispatch_queue_attr_t.
+// DispatchQueueAttr is a Go-name alias for Dispatch_queue_attr_t.
 type DispatchQueueAttr = dispatch_queue_attr_t
 
 // DispatchQueueConcurrent is a Go-name alias for Dispatch_queue_concurrent_t.
@@ -239,10 +233,10 @@ type DispatchQueueSerialExecutor = Dispatch_queue_serial_executor_t
 // DispatchQueueSerial is a Go-name alias for Dispatch_queue_serial_t.
 type DispatchQueueSerial = Dispatch_queue_serial_t
 
-// DispatchQueue is a Go-name alias for dispatch_queue_t.
+// DispatchQueue is a Go-name alias for Dispatch_queue_t.
 type DispatchQueue = dispatch_queue_t
 
-// DispatchSemaphore is a Go-name alias for dispatch_semaphore_t.
+// DispatchSemaphore is a Go-name alias for Dispatch_semaphore_t.
 type DispatchSemaphore = dispatch_semaphore_t
 
 // DispatchSourceMachRecvFlags is a Go-name alias for Dispatch_source_mach_recv_flags_t.
@@ -257,20 +251,17 @@ type DispatchSourceMemorypressureFlags = Dispatch_source_memorypressure_flags_t
 // DispatchSourceProcFlags is a Go-name alias for Dispatch_source_proc_flags_t.
 type DispatchSourceProcFlags = Dispatch_source_proc_flags_t
 
-// DispatchSource is a Go-name alias for dispatch_source_t.
+// DispatchSource is a Go-name alias for Dispatch_source_t.
 type DispatchSource = dispatch_source_t
 
 // DispatchSourceTimerFlags is a Go-name alias for Dispatch_source_timer_flags_t.
 type DispatchSourceTimerFlags = Dispatch_source_timer_flags_t
 
-// DispatchSourceType is a Go-name alias for dispatch_source_type_t.
+// DispatchSourceType is a Go-name alias for Dispatch_source_type_t.
 type DispatchSourceType = dispatch_source_type_t
 
 // DispatchSourceVnodeFlags is a Go-name alias for Dispatch_source_vnode_flags_t.
 type DispatchSourceVnodeFlags = Dispatch_source_vnode_flags_t
-
-// DispatchTime is a Go-name alias for Dispatch_time_t.
-type DispatchTime = Dispatch_time_t
 
 // DispatchWorkloop is a Go-name alias for Dispatch_workloop_t.
 type DispatchWorkloop = Dispatch_workloop_t

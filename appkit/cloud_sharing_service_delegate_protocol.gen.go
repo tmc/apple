@@ -4,6 +4,7 @@ package appkit
 
 import (
 	"fmt"
+	"unsafe"
 
 	"github.com/tmc/apple/corefoundation"
 	"github.com/tmc/apple/foundation"
@@ -196,7 +197,7 @@ func (o NSCloudSharingServiceDelegateObject) SharingServiceSourceFrameOnScreenFo
 //
 // See: https://developer.apple.com/documentation/AppKit/NSSharingServiceDelegate/sharingService(_:transitionImageForShareItem:contentRect:)
 func (o NSCloudSharingServiceDelegateObject) SharingServiceTransitionImageForShareItemContentRect(sharingService INSSharingService, item objectivec.IObject, contentRect *corefoundation.CGRect) INSImage {
-	rv := objc.Send[objc.ID](o.ID, objc.Sel("sharingService:transitionImageForShareItem:contentRect:"), sharingService, item, contentRect)
+	rv := objc.Send[objc.ID](o.ID, objc.Sel("sharingService:transitionImageForShareItem:contentRect:"), sharingService, item, unsafe.Pointer(contentRect))
 	return NSImageFromID(rv)
 }
 
@@ -247,7 +248,7 @@ func (o NSCloudSharingServiceDelegateObject) SharingServiceSourceWindowForShareI
 //
 // See: https://developer.apple.com/documentation/AppKit/NSSharingServiceDelegate/anchoringView(for:showRelativeTo:preferredEdge:)
 func (o NSCloudSharingServiceDelegateObject) AnchoringViewForSharingServiceShowRelativeToRectPreferredEdge(sharingService INSSharingService, positioningRect *corefoundation.CGRect, preferredEdge foundation.NSRectEdge) INSView {
-	rv := objc.Send[objc.ID](o.ID, objc.Sel("anchoringViewForSharingService:showRelativeToRect:preferredEdge:"), sharingService, positioningRect, preferredEdge)
+	rv := objc.Send[objc.ID](o.ID, objc.Sel("anchoringViewForSharingService:showRelativeToRect:preferredEdge:"), sharingService, unsafe.Pointer(positioningRect), preferredEdge)
 	return NSViewFromID(rv)
 }
 
@@ -293,10 +294,22 @@ func NewNSCloudSharingServiceDelegate(config NSCloudSharingServiceDelegateConfig
 		methods = append(methods, objc.MethodDef{
 			Cmd: objc.RegisterName("sharingService:didCompleteForItems:error:"),
 			Fn: func(self objc.ID, _cmd objc.SEL, sharingServiceID objc.ID, itemsID objc.ID, error_ID objc.ID) {
+				// Names which delegate was running if a panic unwinds out of
+				// it. The frames between here and the Objective-C caller are
+				// runtime and purego dispatch, so without this the traceback
+				// never says which selector dispatched. Deliberately no
+				// recover: see [objc.NoteDelegatePanic].
+				_delegateDone := false
+				defer func() {
+					if !_delegateDone {
+						objc.NoteDelegatePanic("NSCloudSharingServiceDelegate", "sharingService:didCompleteForItems:error:")
+					}
+				}()
 				sharingService := NSSharingServiceFromID(sharingServiceID)
 				items := foundation.NSArrayFromID(itemsID)
 				error_ := foundation.NSErrorFromID(error_ID)
 				fn(sharingService, items, error_)
+				_delegateDone = true
 			},
 		})
 	}
@@ -306,9 +319,22 @@ func NewNSCloudSharingServiceDelegate(config NSCloudSharingServiceDelegateConfig
 		methods = append(methods, objc.MethodDef{
 			Cmd: objc.RegisterName("optionsForSharingService:shareProvider:"),
 			Fn: func(self objc.ID, _cmd objc.SEL, cloudKitSharingServiceID objc.ID, providerID objc.ID) NSCloudKitSharingServiceOptions {
+				// Names which delegate was running if a panic unwinds out of
+				// it. The frames between here and the Objective-C caller are
+				// runtime and purego dispatch, so without this the traceback
+				// never says which selector dispatched. Deliberately no
+				// recover: see [objc.NoteDelegatePanic].
+				_delegateDone := false
+				defer func() {
+					if !_delegateDone {
+						objc.NoteDelegatePanic("NSCloudSharingServiceDelegate", "optionsForSharingService:shareProvider:")
+					}
+				}()
 				cloudKitSharingService := NSSharingServiceFromID(cloudKitSharingServiceID)
 				provider := foundation.NSItemProviderFromID(providerID)
-				return fn(cloudKitSharingService, provider)
+				_delegateResult := fn(cloudKitSharingService, provider)
+				_delegateDone = true
+				return _delegateResult
 			},
 		})
 	}

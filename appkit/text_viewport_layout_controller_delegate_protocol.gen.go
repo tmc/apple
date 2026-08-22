@@ -152,9 +152,21 @@ func NewNSTextViewportLayoutControllerDelegate(config NSTextViewportLayoutContro
 		methods = append(methods, objc.MethodDef{
 			Cmd: objc.RegisterName("textViewportLayoutController:configureRenderingSurfaceForTextLayoutFragment:"),
 			Fn: func(self objc.ID, _cmd objc.SEL, textViewportLayoutControllerID objc.ID, textLayoutFragmentID objc.ID) {
+				// Names which delegate was running if a panic unwinds out of
+				// it. The frames between here and the Objective-C caller are
+				// runtime and purego dispatch, so without this the traceback
+				// never says which selector dispatched. Deliberately no
+				// recover: see [objc.NoteDelegatePanic].
+				_delegateDone := false
+				defer func() {
+					if !_delegateDone {
+						objc.NoteDelegatePanic("NSTextViewportLayoutControllerDelegate", "textViewportLayoutController:configureRenderingSurfaceForTextLayoutFragment:")
+					}
+				}()
 				textViewportLayoutController := NSTextViewportLayoutControllerFromID(textViewportLayoutControllerID)
 				textLayoutFragment := NSTextLayoutFragmentFromID(textLayoutFragmentID)
 				fn(textViewportLayoutController, textLayoutFragment)
+				_delegateDone = true
 			},
 		})
 	}
@@ -164,8 +176,20 @@ func NewNSTextViewportLayoutControllerDelegate(config NSTextViewportLayoutContro
 		methods = append(methods, objc.MethodDef{
 			Cmd: objc.RegisterName("textViewportLayoutControllerDidLayout:"),
 			Fn: func(self objc.ID, _cmd objc.SEL, textViewportLayoutControllerID objc.ID) {
+				// Names which delegate was running if a panic unwinds out of
+				// it. The frames between here and the Objective-C caller are
+				// runtime and purego dispatch, so without this the traceback
+				// never says which selector dispatched. Deliberately no
+				// recover: see [objc.NoteDelegatePanic].
+				_delegateDone := false
+				defer func() {
+					if !_delegateDone {
+						objc.NoteDelegatePanic("NSTextViewportLayoutControllerDelegate", "textViewportLayoutControllerDidLayout:")
+					}
+				}()
 				textViewportLayoutController := NSTextViewportLayoutControllerFromID(textViewportLayoutControllerID)
 				fn(textViewportLayoutController)
+				_delegateDone = true
 			},
 		})
 	}
@@ -175,8 +199,20 @@ func NewNSTextViewportLayoutControllerDelegate(config NSTextViewportLayoutContro
 		methods = append(methods, objc.MethodDef{
 			Cmd: objc.RegisterName("textViewportLayoutControllerWillLayout:"),
 			Fn: func(self objc.ID, _cmd objc.SEL, textViewportLayoutControllerID objc.ID) {
+				// Names which delegate was running if a panic unwinds out of
+				// it. The frames between here and the Objective-C caller are
+				// runtime and purego dispatch, so without this the traceback
+				// never says which selector dispatched. Deliberately no
+				// recover: see [objc.NoteDelegatePanic].
+				_delegateDone := false
+				defer func() {
+					if !_delegateDone {
+						objc.NoteDelegatePanic("NSTextViewportLayoutControllerDelegate", "textViewportLayoutControllerWillLayout:")
+					}
+				}()
 				textViewportLayoutController := NSTextViewportLayoutControllerFromID(textViewportLayoutControllerID)
 				fn(textViewportLayoutController)
+				_delegateDone = true
 			},
 		})
 	}

@@ -127,6 +127,7 @@ type ICAConstraint interface {
 	// Name of the layer that the constraint is calculated relative to.
 	SourceName() string
 
+	InitWithCoder(coder foundation.INSCoder) CAConstraint
 	EncodeWithCoder(coder foundation.INSCoder)
 }
 
@@ -226,6 +227,13 @@ func NewConstraintWithAttributeRelativeToAttributeScaleOffset(attr CAConstraintA
 	return CAConstraintFromID(rv)
 }
 
+// See: https://developer.apple.com/documentation/QuartzCore/CAConstraint/init(coder:)
+func NewConstraintWithCoder(coder foundation.INSCoder) CAConstraint {
+	instance := getCAConstraintClass().Alloc()
+	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
+	return CAConstraintFromID(rv)
+}
+
 // Returns an [CAConstraint] object with the specified parameters. Designated
 // initializer.
 //
@@ -251,6 +259,12 @@ func NewConstraintWithAttributeRelativeToAttributeScaleOffset(attr CAConstraintA
 // See: https://developer.apple.com/documentation/QuartzCore/CAConstraint/init(attribute:relativeTo:attribute:scale:offset:)
 func (c_ CAConstraint) InitWithAttributeRelativeToAttributeScaleOffset(attr CAConstraintAttribute, srcId string, srcAttr CAConstraintAttribute, m float64, c float64) CAConstraint {
 	rv := objc.Send[CAConstraint](c_.ID, objc.Sel("initWithAttribute:relativeTo:attribute:scale:offset:"), attr, objc.String(srcId), srcAttr, m, c)
+	return rv
+}
+
+// See: https://developer.apple.com/documentation/QuartzCore/CAConstraint/init(coder:)
+func (c CAConstraint) InitWithCoder(coder foundation.INSCoder) CAConstraint {
+	rv := objc.Send[CAConstraint](c.ID, objc.Sel("initWithCoder:"), coder)
 	return rv
 }
 func (c CAConstraint) EncodeWithCoder(coder foundation.INSCoder) {

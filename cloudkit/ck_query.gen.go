@@ -4,10 +4,8 @@ package cloudkit
 
 import (
 	"sync"
-	"unsafe"
 
 	"github.com/tmc/apple/foundation"
-	"github.com/tmc/apple/kernel"
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -95,20 +93,20 @@ func (cc CKQueryClass) Alloc() CKQuery {
 // searches in conjunction with the `self` key path. The `self` key path
 // causes the server to look in searchable string-based fields for the
 // specified token string. For example, a predicate string of `@"self contains
-// 'blue'"` searches for the word in all fields that you mark for inclusion in
-// full-text searches. You can’t use the `self` key path to search in fields
-// with a type that isn’t a string. - You can combine the [ANY] and [SOME]
-// aggregate operators with the [IN] and [CONTAINS] operators to perform list
-// membership tests. - The “ operator function performs a radius-based
-// location comparison and that comparison must determine whether the location
-// value is inside the circular area you provide. You can’t use it to search
-// for locations outside the specified circular area. Location indexes have a
-// resolution of no less than 10 km. - CloudKit doesn’t support the [ALL]
-// aggregate operator. - CloudKit doesn’t support the [NOT] compound
-// operator in the following cases: - - You can’t use it to negate an [AND]
-// compound predicate. - You can’t use it in tokenized queries, such as
-// `self CONTAINS 'value'`. - You can’t use it with the “ function. - You
-// can’t use it in [BETWEEN] queries.
+// 'blue'"` searches for the word blue in all fields that you mark for
+// inclusion in full-text searches. You can’t use the `self` key path to
+// search in fields with a type that isn’t a string. - You can combine the
+// [ANY] and [SOME] aggregate operators with the [IN] and [CONTAINS] operators
+// to perform list membership tests. - The “ operator function performs a
+// radius-based location comparison and that comparison must determine whether
+// the location value is inside the circular area you provide. You can’t use
+// it to search for locations outside the specified circular area. Location
+// indexes have a resolution of no less than 10 km. - CloudKit doesn’t
+// support the [ALL] aggregate operator. - CloudKit doesn’t support the
+// [NOT] compound operator in the following cases: - - You can’t use it to
+// negate an [AND] compound predicate. - You can’t use it in tokenized
+// queries, such as `self CONTAINS 'value'`. - You can’t use it with the “
+// function. - You can’t use it in [BETWEEN] queries.
 //
 // # Supported Predicate Operators
 //
@@ -136,8 +134,8 @@ func (cc CKQueryClass) Alloc() CKQuery {
 // To match the contents of a field to a specific value, use a predicate
 // similar to the ones in Listing 2. All of the listed predicates generate the
 // same set of results, which in the example means that the `favoriteColors`
-// field contains the value . The value in the field must match the value you
-// specify in the predicate exactly. String-based comparisons are
+// field contains the value red. The value in the field must match the value
+// you specify in the predicate exactly. String-based comparisons are
 // case-insensitive, but otherwise, all comparisons must be an exact match of
 // the specified value.
 //
@@ -156,7 +154,7 @@ func (cc CKQueryClass) Alloc() CKQuery {
 // [ENDSWITH]. When using this operator, the field must contain a string value
 // and must start with the string you specify. Matches are case-sensitive. In
 // the examples, the predicate matches records where the `favoriteColors`
-// field contains the strings , , or ` “ “ `.
+// field contains the strings red, reddish, or red` `green` `duct` `tape.
 //
 // Listing 4. Matching a field that starts with a string value
 //
@@ -297,8 +295,8 @@ type ICKQuery interface {
 	// Topic: Accessing the Query Parameters
 
 	// The record type to search.
-	RecordType() unsafe.Pointer
-	SetRecordType(value kernel.Pointer)
+	RecordType() CKRecordType
+	SetRecordType(value CKRecordType)
 	// The predicate to use for matching records.
 	Predicate() foundation.NSPredicate
 	// The sort descriptors for organizing the query’s results.
@@ -306,6 +304,7 @@ type ICKQuery interface {
 	SetSortDescriptors(value []foundation.NSSortDescriptor)
 
 	EncodeWithCoder(coder foundation.INSCoder)
+	InitWithRecordTypePredicate(recordType CKRecordType, predicate foundation.NSPredicate) CKQuery
 }
 
 // Init initializes the instance.
@@ -350,16 +349,20 @@ func (c CKQuery) InitWithCoder(aDecoder foundation.INSCoder) CKQuery {
 func (c CKQuery) EncodeWithCoder(coder foundation.INSCoder) {
 	objc.Send[objc.ID](c.ID, objc.Sel("encodeWithCoder:"), coder)
 }
+func (c CKQuery) InitWithRecordTypePredicate(recordType CKRecordType, predicate foundation.NSPredicate) CKQuery {
+	rv := objc.Send[CKQuery](c.ID, objc.Sel("initWithRecordType:predicate:"), objc.String(string(recordType)), predicate)
+	return rv
+}
 
 // The record type to search.
 //
 // See: https://developer.apple.com/documentation/cloudkit/ckquery/recordtype-6ajii
-func (c CKQuery) RecordType() unsafe.Pointer {
-	rv := objc.Send[unsafe.Pointer](c.ID, objc.Sel("recordType"))
-	return rv
+func (c CKQuery) RecordType() CKRecordType {
+	rv := objc.Send[objc.ID](c.ID, objc.Sel("recordType"))
+	return CKRecordType(foundation.NSStringFromID(rv).String())
 }
-func (c CKQuery) SetRecordType(value kernel.Pointer) {
-	objc.Send[struct{}](c.ID, objc.Sel("setRecordType:"), value)
+func (c CKQuery) SetRecordType(value CKRecordType) {
+	objc.Send[struct{}](c.ID, objc.Sel("setRecordType:"), objc.String(string(value)))
 }
 
 // The predicate to use for matching records.

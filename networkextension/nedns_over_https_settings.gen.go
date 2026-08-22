@@ -139,7 +139,7 @@ func NewDNSOverHTTPSSettingsWithServers(servers []string) NEDNSOverHTTPSSettings
 // # Discussion
 //
 // The URL should use the URI template format defined by [RFC 8484], for
-// example `//dnsserver.ExampleXCUIElementTypeNet()/dns-query`.
+// example `https://dnsserver.example.net/dns-query`.
 //
 // See: https://developer.apple.com/documentation/NetworkExtension/NEDNSOverHTTPSSettings/serverURL
 //

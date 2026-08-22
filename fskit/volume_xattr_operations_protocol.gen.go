@@ -68,7 +68,9 @@ func FSVolumeXattrOperationsObjectFromID(id objc.ID) FSVolumeXattrOperationsObje
 //
 // See: https://developer.apple.com/documentation/FSKit/FSVolume/XattrOperations/getXattr(named:of:replyHandler:)
 func (o FSVolumeXattrOperationsObject) GetXattrNamedOfItemReplyHandler(name IFSFileName, item IFSItem, reply DataErrorHandler) {
-	objc.Send[struct{}](o.ID, objc.Sel("getXattrNamed:ofItem:replyHandler:"), name, item, reply)
+	_block2, _cleanup2 := NewDataErrorBlock(reply)
+	defer _cleanup2()
+	objc.Send[struct{}](o.ID, objc.Sel("getXattrNamed:ofItem:replyHandler:"), name, item, objc.ID(_block2))
 }
 
 // Gets the list of extended attributes currently set on the given item.
@@ -83,7 +85,9 @@ func (o FSVolumeXattrOperationsObject) GetXattrNamedOfItemReplyHandler(name IFSF
 //
 // See: https://developer.apple.com/documentation/FSKit/FSVolume/XattrOperations/listXattrs(of:replyHandler:)
 func (o FSVolumeXattrOperationsObject) ListXattrsOfItemReplyHandler(item IFSItem, reply FSFileNameArrayErrorHandler) {
-	objc.Send[struct{}](o.ID, objc.Sel("listXattrsOfItem:replyHandler:"), item, reply)
+	_block1, _cleanup1 := NewFSFileNameArrayErrorBlock(reply)
+	defer _cleanup1()
+	objc.Send[struct{}](o.ID, objc.Sel("listXattrsOfItem:replyHandler:"), item, objc.ID(_block1))
 }
 
 // Sets the specified extended attribute data on the given item.
@@ -107,7 +111,9 @@ func (o FSVolumeXattrOperationsObject) ListXattrsOfItemReplyHandler(item IFSItem
 //
 // [FSVolume.SetXattrPolicy]: https://developer.apple.com/documentation/FSKit/FSVolume/SetXattrPolicy
 func (o FSVolumeXattrOperationsObject) SetXattrNamedToDataOnItemPolicyReplyHandler(name IFSFileName, value foundation.NSData, item IFSItem, policy FSSetXattrPolicy, reply ErrorHandler) {
-	objc.Send[struct{}](o.ID, objc.Sel("setXattrNamed:toData:onItem:policy:replyHandler:"), name, value, item, policy, reply)
+	_block4, _cleanup4 := NewErrorBlock(reply)
+	defer _cleanup4()
+	objc.Send[struct{}](o.ID, objc.Sel("setXattrNamed:toData:onItem:policy:replyHandler:"), name, value, item, policy, objc.ID(_block4))
 }
 
 // Returns an array that specifies the extended attribute names the given item

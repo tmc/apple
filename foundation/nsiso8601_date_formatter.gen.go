@@ -53,7 +53,7 @@ func (ic ISO8601DateFormatterClass) Alloc() ISO8601DateFormatter {
 //
 // # Configuring the Formatter
 //
-//   - [ISO8601DateFormatter.FormatOptions]: Options for generating and parsing ISO 8601 date representations. See [ISO8601DateFormatter.Options](<doc://com.apple.foundation/documentation/Foundation/ISO8601DateFormatter/Options>) for possible values.
+//   - [ISO8601DateFormatter.FormatOptions]: Options for generating and parsing ISO 8601 date representations. See [ISO8601DateFormatter.Options](<https://developer.apple.com/documentation/Foundation/ISO8601DateFormatter/Options>) for possible values.
 //   - [ISO8601DateFormatter.SetFormatOptions]
 //   - [ISO8601DateFormatter.TimeZone]: The time zone used to create and parse date representations. When unspecified, GMT is used.
 //   - [ISO8601DateFormatter.SetTimeZone]
@@ -90,7 +90,7 @@ func NSISO8601DateFormatterFromID(id objc.ID) ISO8601DateFormatter {
 //
 // # Configuring the Formatter
 //
-//   - [IISO8601DateFormatter.FormatOptions]: Options for generating and parsing ISO 8601 date representations. See [ISO8601DateFormatter.Options](<doc://com.apple.foundation/documentation/Foundation/ISO8601DateFormatter/Options>) for possible values.
+//   - [IISO8601DateFormatter.FormatOptions]: Options for generating and parsing ISO 8601 date representations. See [ISO8601DateFormatter.Options](<https://developer.apple.com/documentation/Foundation/ISO8601DateFormatter/Options>) for possible values.
 //   - [IISO8601DateFormatter.SetFormatOptions]
 //   - [IISO8601DateFormatter.TimeZone]: The time zone used to create and parse date representations. When unspecified, GMT is used.
 //   - [IISO8601DateFormatter.SetTimeZone]
@@ -103,11 +103,10 @@ func NSISO8601DateFormatterFromID(id objc.ID) ISO8601DateFormatter {
 // See: https://developer.apple.com/documentation/Foundation/ISO8601DateFormatter
 type IISO8601DateFormatter interface {
 	INSFormatter
-	NSSecureCoding
 
 	// Topic: Configuring the Formatter
 
-	// Options for generating and parsing ISO 8601 date representations. See [ISO8601DateFormatter.Options](<doc://com.apple.foundation/documentation/Foundation/ISO8601DateFormatter/Options>) for possible values.
+	// Options for generating and parsing ISO 8601 date representations. See [ISO8601DateFormatter.Options](<https://developer.apple.com/documentation/Foundation/ISO8601DateFormatter/Options>) for possible values.
 	FormatOptions() NSISO8601DateFormatOptions
 	SetFormatOptions(value NSISO8601DateFormatOptions)
 	// The time zone used to create and parse date representations. When unspecified, GMT is used.

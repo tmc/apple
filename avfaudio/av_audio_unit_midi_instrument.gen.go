@@ -6,9 +6,10 @@ import (
 	"sync"
 	"unsafe"
 
+	"github.com/tmc/apple/audiotoolbox"
+	"github.com/tmc/apple/coremidi"
 	"github.com/tmc/apple/foundation"
 	"github.com/tmc/apple/objc"
-	"github.com/tmc/apple/objectivec"
 )
 
 // The class instance for the [AVAudioUnitMIDIInstrument] class.
@@ -120,7 +121,7 @@ type IAVAudioUnitMIDIInstrument interface {
 	// Topic: Creating a MIDI instrument
 
 	// Creates a MIDI instrument audio unit with the component description you specify.
-	InitWithAudioComponentDescription(description unsafe.Pointer) AVAudioUnitMIDIInstrument
+	InitWithAudioComponentDescription(description audiotoolbox.AudioComponentDescription) AVAudioUnitMIDIInstrument
 
 	// Topic: Sending information to the MIDI instrument
 
@@ -143,7 +144,7 @@ type IAVAudioUnitMIDIInstrument interface {
 	// Sends MIDI Program Change and Bank Select events to the instrument.
 	SendProgramChangeBankMSBBankLSBOnChannel(program uint8, bankMSB uint8, bankLSB uint8, channel uint8)
 	// Sends a MIDI event list to the instrument.
-	SendMIDIEventList(eventList objectivec.IObject)
+	SendMIDIEventList(eventList *coremidi.MIDIEventList)
 
 	// Topic: Starting and stopping play
 
@@ -151,6 +152,29 @@ type IAVAudioUnitMIDIInstrument interface {
 	StartNoteWithVelocityOnChannel(note uint8, velocity uint8, channel uint8)
 	// Sends a MIDI Note Off event to the instrument.
 	StopNoteOnChannel(note uint8, channel uint8)
+
+	// Gets the audio mixing destination object that corresponds to the specified mixer node and input bus.
+	DestinationForMixerBus(mixer IAVAudioNode, bus AVAudioNodeBus) IAVAudioMixingDestination
+	// A value that simulates filtering of the direct path of sound due to an obstacle.
+	Obstruction() float32
+	// A value that simulates filtering of the direct and reverb paths of sound due to an obstacle.
+	Occlusion() float32
+	// The bus’s stereo pan.
+	Pan() float32
+	// The in-head mode for a point source.
+	PointSourceInHeadMode() AVAudio3DMixingPointSourceInHeadMode
+	// The location of the source in the 3D environment.
+	Position() AVAudio3DPoint
+	// A value that changes the playback rate of the input signal.
+	Rate() float32
+	// The type of rendering algorithm the mixer uses.
+	RenderingAlgorithm() AVAudio3DMixingRenderingAlgorithm
+	// A value that controls the blend of dry and reverb processed audio.
+	ReverbBlend() float32
+	// The source mode for the input bus of the audio environment node.
+	SourceMode() AVAudio3DMixingSourceMode
+	// The bus’s input volume.
+	Volume() float32
 }
 
 // Init initializes the instance.
@@ -187,7 +211,7 @@ func NewAVAudioUnitMIDIInstrument() AVAudioUnitMIDIInstrument {
 // `kAudioUnitType_RemoteInstrument`.
 //
 // See: https://developer.apple.com/documentation/AVFAudio/AVAudioUnitMIDIInstrument/init(audioComponentDescription:)
-func NewAudioUnitMIDIInstrumentWithAudioComponentDescription(description unsafe.Pointer) AVAudioUnitMIDIInstrument {
+func NewAudioUnitMIDIInstrumentWithAudioComponentDescription(description audiotoolbox.AudioComponentDescription) AVAudioUnitMIDIInstrument {
 	instance := getAVAudioUnitMIDIInstrumentClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithAudioComponentDescription:"), description)
 	return AVAudioUnitMIDIInstrumentFromID(rv)
@@ -197,8 +221,6 @@ func NewAudioUnitMIDIInstrumentWithAudioComponentDescription(description unsafe.
 // specify.
 //
 // description: The description of the audio component.
-//
-// description is a [audiotoolbox.AudioComponentDescription].
 //
 // # Return Value
 //
@@ -210,7 +232,7 @@ func NewAudioUnitMIDIInstrumentWithAudioComponentDescription(description unsafe.
 // `kAudioUnitType_RemoteInstrument`.
 //
 // See: https://developer.apple.com/documentation/AVFAudio/AVAudioUnitMIDIInstrument/init(audioComponentDescription:)
-func (a AVAudioUnitMIDIInstrument) InitWithAudioComponentDescription(description unsafe.Pointer) AVAudioUnitMIDIInstrument {
+func (a AVAudioUnitMIDIInstrument) InitWithAudioComponentDescription(description audiotoolbox.AudioComponentDescription) AVAudioUnitMIDIInstrument {
 	rv := objc.Send[AVAudioUnitMIDIInstrument](a.ID, objc.Sel("initWithAudioComponentDescription:"), description)
 	return rv
 }
@@ -350,8 +372,8 @@ func (a AVAudioUnitMIDIInstrument) SendProgramChangeBankMSBBankLSBOnChannel(prog
 // eventList: The MIDI event list.
 //
 // See: https://developer.apple.com/documentation/AVFAudio/AVAudioUnitMIDIInstrument/send(_:)
-func (a AVAudioUnitMIDIInstrument) SendMIDIEventList(eventList objectivec.IObject) {
-	objc.Send[objc.ID](a.ID, objc.Sel("sendMIDIEventList:"), eventList)
+func (a AVAudioUnitMIDIInstrument) SendMIDIEventList(eventList *coremidi.MIDIEventList) {
+	objc.Send[objc.ID](a.ID, objc.Sel("sendMIDIEventList:"), unsafe.Pointer(eventList))
 }
 
 // Sends a MIDI Note On event to the instrument.

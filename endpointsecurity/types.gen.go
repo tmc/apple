@@ -3,7 +3,6 @@
 package endpointsecurity
 
 import (
-	"syscall"
 	"unsafe"
 
 	"github.com/tmc/apple/kernel"
@@ -45,9 +44,9 @@ type Es_btm_launch_item_t = EsBtmLaunchItem
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/EndpointSecurity/es_event_access_t
 type EsEventAccess struct {
-	Mode     int32   // The file access permission to check.
-	Target   *EsFile // The file to check for access.
-	Reserved uint8   // An unused field reserved for future use.
+	Mode     int32     // The file access permission to check.
+	Target   *EsFile   // The file to check for access.
+	Reserved [64]uint8 // An unused field reserved for future use.
 
 }
 
@@ -89,7 +88,7 @@ type Es_event_authentication_od_t = EsEventAuthenticationOd
 type EsEventAuthentication struct {
 	Success bool
 	Type    EsAuthenticationType
-	Data    [8]byte
+	Data    [1]uint64
 }
 
 // Es_event_authentication_t is a type alias for EsEventAuthentication for use in objc.Send[T] calls.
@@ -118,8 +117,8 @@ type EsEventAuthenticationTouchid struct {
 	Instigator       *EsProcess
 	Touchid_mode     EsTouchidMode
 	Has_uid          bool
+	Uid              [1]uint32
 	Instigator_token [32]byte
-	Uid              [4]byte
 }
 
 // Es_event_authentication_touchid_t is a type alias for EsEventAuthenticationTouchid for use in objc.Send[T] calls.
@@ -132,7 +131,7 @@ type Es_event_authentication_touchid_t = EsEventAuthenticationTouchid
 type EsEventAuthorizationJudgement struct {
 	Instigator       *EsProcess
 	Petitioner       *EsProcess
-	Return_code      int
+	Return_code      int32
 	Result_count     uintptr
 	Results          *EsAuthorizationResult
 	Instigator_token [32]byte
@@ -195,8 +194,8 @@ type Es_event_btm_launch_item_remove_t = EsEventBtmLaunchItemRemove
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/EndpointSecurity/es_event_chdir_t
 type EsEventChdir struct {
-	Target   *EsFile // The new current working directory.
-	Reserved uint8   // An unused field reserved for future use.
+	Target   *EsFile   // The new current working directory.
+	Reserved [64]uint8 // An unused field reserved for future use.
 
 }
 
@@ -208,8 +207,8 @@ type Es_event_chdir_t = EsEventChdir
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/EndpointSecurity/es_event_chroot_t
 type EsEventChroot struct {
-	Target   *EsFile // The new root directory.
-	Reserved uint8   // An unused field reserved for future use.
+	Target   *EsFile   // The new root directory.
+	Reserved [64]uint8 // An unused field reserved for future use.
 
 }
 
@@ -224,7 +223,7 @@ type EsEventClone struct {
 	Source      *EsFile       // The file to clone.
 	Target_dir  *EsFile       // The directory that contains the cloned file.
 	Target_name EsStringToken // The name of the newly cloned file.
-	Reserved    uint8         // An unused field reserved for future use.
+	Reserved    [64]uint8     // An unused field reserved for future use.
 
 }
 
@@ -236,10 +235,9 @@ type Es_event_clone_t = EsEventClone
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/EndpointSecurity/es_event_close_t
 type EsEventClose struct {
-	Modified            bool    // A Boolean value that indicates whether the file has modifications.
-	Target              *EsFile // The file to close.
-	Reserved            uint8
-	Was_mapped_writable bool
+	Modified bool    // A Boolean value that indicates whether the file has modifications.
+	Target   *EsFile // The file to close.
+	Reserved [64]uint8
 }
 
 // Es_event_close_t is a type alias for EsEventClose for use in objc.Send[T] calls.
@@ -256,7 +254,7 @@ type EsEventCopyfile struct {
 	Target_name EsStringToken // The name of the newly copied file.
 	Mode        uint16        // The mode argument of the system call.
 	Flags       int32         // The flags argument of the system call.
-	Reserved    uint8         // An unused field reserved for future use.
+	Reserved    [56]uint8     // An unused field reserved for future use.
 
 }
 
@@ -269,11 +267,10 @@ type Es_event_copyfile_t = EsEventCopyfile
 // [Full Topic]: https://developer.apple.com/documentation/EndpointSecurity/es_event_create_t
 type EsEventCreate struct {
 	Destination_type EsDestinationType // The type of destination for the event, which can be either an existing file or information that describes a new file’s pending location.
-	Destination      [32]byte          // The file system destination of the created file.
-	Reserved2        uint8             // An unused field reserved for future use.
-	Acl              unsafe.Pointer
+	Destination      [4]uint64         // The file system destination of the created file.
+	Reserved2        [16]uint8         // An unused field reserved for future use.
+	Reserved         [48]uint8
 	New_path         unsafe.Pointer
-	Reserved         uint8
 }
 
 // Es_event_create_t is a type alias for EsEventCreate for use in objc.Send[T] calls.
@@ -284,7 +281,7 @@ type Es_event_create_t = EsEventCreate
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/EndpointSecurity/es_event_cs_invalidated_t
 type EsEventCsInvalidated struct {
-	Reserved uint8 // An unused field reserved for future use.
+	Reserved [64]uint8 // An unused field reserved for future use.
 
 }
 
@@ -298,7 +295,7 @@ type Es_event_cs_invalidated_t = EsEventCsInvalidated
 type EsEventDeleteextattr struct {
 	Target   *EsFile       // The file containing extended attributes to delete.
 	Extattr  EsStringToken // The extended attribute to delete.
-	Reserved uint8         // An unused field reserved for future use.
+	Reserved [64]uint8     // An unused field reserved for future use.
 
 }
 
@@ -310,8 +307,8 @@ type Es_event_deleteextattr_t = EsEventDeleteextattr
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/EndpointSecurity/es_event_dup_t
 type EsEventDup struct {
-	Target   *EsFile // The file that the duplicated file descriptor points to.
-	Reserved uint8   // An unused field reserved for future use.
+	Target   *EsFile   // The file that the duplicated file descriptor points to.
+	Reserved [64]uint8 // An unused field reserved for future use.
 
 }
 
@@ -323,9 +320,9 @@ type Es_event_dup_t = EsEventDup
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/EndpointSecurity/es_event_exchangedata_t
 type EsEventExchangedata struct {
-	File1    *EsFile // The first file involved in the data exchange.
-	File2    *EsFile // The second file involved in the data exchange.
-	Reserved uint8   // An unused field reserved for future use.
+	File1    *EsFile   // The first file involved in the data exchange.
+	File2    *EsFile   // The second file involved in the data exchange.
+	Reserved [64]uint8 // An unused field reserved for future use.
 
 }
 
@@ -337,14 +334,9 @@ type Es_event_exchangedata_t = EsEventExchangedata
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/EndpointSecurity/es_event_exec_t
 type EsEventExec struct {
-	Target           *EsProcess // The process to execute.
-	Dyld_exec_path   EsStringToken
-	Cwd              *EsFile
-	Image_cpusubtype int32
-	Image_cputype    int32
-	Last_fd          int
-	Reserved         uint8
-	Script           *EsFile
+	Target         *EsProcess // The process to execute.
+	Dyld_exec_path EsStringToken
+	Reserved       [64]uint8
 }
 
 // Es_event_exec_t is a type alias for EsEventExec for use in objc.Send[T] calls.
@@ -355,8 +347,8 @@ type Es_event_exec_t = EsEventExec
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/EndpointSecurity/es_event_exit_t
 type EsEventExit struct {
-	Stat     int   // The exit status of the process.
-	Reserved uint8 // An unused field reserved for future use.
+	Stat     int32     // The exit status of the process.
+	Reserved [64]uint8 // An unused field reserved for future use.
 
 }
 
@@ -368,9 +360,9 @@ type Es_event_exit_t = EsEventExit
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/EndpointSecurity/es_event_fcntl_t
 type EsEventFcntl struct {
-	Target   *EsFile // The target file to modify.
-	Cmd      int32   // The file descriptor modification command.
-	Reserved uint8   // An unused field reserved for future use.
+	Target   *EsFile   // The target file to modify.
+	Cmd      int32     // The file descriptor modification command.
+	Reserved [64]uint8 // An unused field reserved for future use.
 
 }
 
@@ -386,7 +378,7 @@ type EsEventFileProviderMaterialize struct {
 	Source           *EsFile    // The source file.
 	Target           *EsFile    // The target fle.
 	Instigator_token [32]byte
-	Reserved         uint8 // An unused field reserved for future use.
+	Reserved         [32]uint8 // An unused field reserved for future use.
 
 }
 
@@ -400,7 +392,7 @@ type Es_event_file_provider_materialize_t = EsEventFileProviderMaterialize
 type EsEventFileProviderUpdate struct {
 	Source      *EsFile       // The source file of the event.
 	Target_path EsStringToken // The target path to update.
-	Reserved    uint8         // An unused field reserved for future use.
+	Reserved    [64]uint8     // An unused field reserved for future use.
 
 }
 
@@ -413,7 +405,7 @@ type Es_event_file_provider_update_t = EsEventFileProviderUpdate
 // [Full Topic]: https://developer.apple.com/documentation/EndpointSecurity/es_event_fork_t
 type EsEventFork struct {
 	Child    *EsProcess // The forked child process.
-	Reserved uint8      // An unused field reserved for future use.
+	Reserved [64]uint8  // An unused field reserved for future use.
 
 }
 
@@ -425,8 +417,8 @@ type Es_event_fork_t = EsEventFork
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/EndpointSecurity/es_event_fsgetpath_t
 type EsEventFsgetpath struct {
-	Target   *EsFile // The file-system path of the targeted file.
-	Reserved uint8   // An unused field reserved for future use.
+	Target   *EsFile   // The file-system path of the targeted file.
+	Reserved [64]uint8 // An unused field reserved for future use.
 
 }
 
@@ -439,9 +431,9 @@ type Es_event_fsgetpath_t = EsEventFsgetpath
 // [Full Topic]: https://developer.apple.com/documentation/EndpointSecurity/es_event_gatekeeper_user_override_t
 type EsEventGatekeeperUserOverride struct {
 	File_type    EsGatekeeperUserOverrideFileType
+	File         [2]uint64
 	Sha256       *EsSha256
 	Signing_info *EsSignedFileInfo
-	File         [16]byte
 }
 
 // Es_event_gatekeeper_user_override_t is a type alias for EsEventGatekeeperUserOverride for use in objc.Send[T] calls.
@@ -454,7 +446,7 @@ type Es_event_gatekeeper_user_override_t = EsEventGatekeeperUserOverride
 type EsEventGetTaskInspect struct {
 	Target   *EsProcess // The process targeted by this event.
 	Type     EsGetTaskType
-	Reserved uint8 // An unused field reserved for future use.
+	Reserved [60]uint8 // An unused field reserved for future use.
 
 }
 
@@ -468,7 +460,7 @@ type Es_event_get_task_inspect_t = EsEventGetTaskInspect
 type EsEventGetTaskName struct {
 	Target   *EsProcess // The process targeted by this event.
 	Type     EsGetTaskType
-	Reserved uint8 // An unused field reserved for future use.
+	Reserved [60]uint8 // An unused field reserved for future use.
 
 }
 
@@ -482,7 +474,7 @@ type Es_event_get_task_name_t = EsEventGetTaskName
 type EsEventGetTaskRead struct {
 	Target   *EsProcess // The process targeted by this event.
 	Type     EsGetTaskType
-	Reserved uint8 // An unused field reserved for future use.
+	Reserved [60]uint8 // An unused field reserved for future use.
 
 }
 
@@ -496,7 +488,7 @@ type Es_event_get_task_read_t = EsEventGetTaskRead
 type EsEventGetTask struct {
 	Target   *EsProcess // The process targeted by this event.
 	Type     EsGetTaskType
-	Reserved uint8 // An unused field reserved for future use.
+	Reserved [60]uint8 // An unused field reserved for future use.
 
 }
 
@@ -510,7 +502,7 @@ type Es_event_get_task_t = EsEventGetTask
 type EsEventGetattrlist struct {
 	Attrlist kernel.Attrlist // The attributes to retrieve, such as volume, directory, file, and fork attributes.
 	Target   *EsFile         // The file for which to retrieve attributes.
-	Reserved uint8           // An unused field reserved for future use.
+	Reserved [64]uint8       // An unused field reserved for future use.
 
 }
 
@@ -524,7 +516,7 @@ type Es_event_getattrlist_t = EsEventGetattrlist
 type EsEventGetextattr struct {
 	Target   *EsFile       // The file containing extended attributes to retrieve.
 	Extattr  EsStringToken // The extended attribute to retrieve.
-	Reserved uint8         // An unused field reserved for future use.
+	Reserved [64]uint8     // An unused field reserved for future use.
 
 }
 
@@ -536,7 +528,7 @@ type Es_event_getextattr_t = EsEventGetextattr
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/EndpointSecurity/es_event_id_t
 type EsEventID struct {
-	Reserved uint8 // An opaque value.
+	Reserved [32]uint8 // An opaque value.
 
 }
 
@@ -552,7 +544,7 @@ type EsEventIokitOpen struct {
 	User_client_class  EsStringToken // The name of the IOKit service client.
 	Parent_registry_id uint64
 	Parent_path        EsStringToken
-	Reserved           uint8 // An unused field reserved for future use.
+	Reserved           [40]uint8 // An unused field reserved for future use.
 
 }
 
@@ -565,7 +557,7 @@ type Es_event_iokit_open_t = EsEventIokitOpen
 // [Full Topic]: https://developer.apple.com/documentation/EndpointSecurity/es_event_kextload_t
 type EsEventKextload struct {
 	Identifier EsStringToken // A string identifying the kernel extension.
-	Reserved   uint8         // An unused field reserved for future use.
+	Reserved   [64]uint8     // An unused field reserved for future use.
 
 }
 
@@ -578,7 +570,7 @@ type Es_event_kextload_t = EsEventKextload
 // [Full Topic]: https://developer.apple.com/documentation/EndpointSecurity/es_event_kextunload_t
 type EsEventKextunload struct {
 	Identifier EsStringToken // A string identifying the kernel extension.
-	Reserved   uint8         // An unused field reserved for future use.
+	Reserved   [64]uint8     // An unused field reserved for future use.
 
 }
 
@@ -593,7 +585,7 @@ type EsEventLink struct {
 	Source          *EsFile       // The source file for the link.
 	Target_dir      *EsFile       // The directory that contains the newly-created link.
 	Target_filename EsStringToken // The file name of the symbolic link.
-	Reserved        uint8         // An unused field reserved for future use.
+	Reserved        [64]uint8     // An unused field reserved for future use.
 
 }
 
@@ -605,8 +597,8 @@ type Es_event_link_t = EsEventLink
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/EndpointSecurity/es_event_listextattr_t
 type EsEventListextattr struct {
-	Target   *EsFile // The file containing extended attributes to list.
-	Reserved uint8   // An unused field reserved for future use.
+	Target   *EsFile   // The file containing extended attributes to list.
+	Reserved [64]uint8 // An unused field reserved for future use.
 
 }
 
@@ -622,7 +614,7 @@ type EsEventLoginLogin struct {
 	Failure_message EsStringToken
 	Username        EsStringToken
 	Has_uid         bool
-	Uid             [4]byte
+	Uid             [1]uint32
 }
 
 // Es_event_login_login_t is a type alias for EsEventLoginLogin for use in objc.Send[T] calls.
@@ -647,7 +639,7 @@ type Es_event_login_logout_t = EsEventLoginLogout
 type EsEventLookup struct {
 	Source_dir      *EsFile       // The source directory to look up.
 	Relative_target EsStringToken // The filename to look up.
-	Reserved        uint8         // An unused field reserved for future use.
+	Reserved        [64]uint8     // An unused field reserved for future use.
 
 }
 
@@ -707,12 +699,12 @@ type Es_event_lw_session_unlock_t = EsEventLwSessionUnlock
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/EndpointSecurity/es_event_mmap_t
 type EsEventMmap struct {
-	Protection     int32   // Options that affect the protection of mapped memory pages.
-	Max_protection int32   // The maximum value you can use for protection flags.
-	Flags          int32   // Flags that affect the behavior of the memory mapping operation.
-	File_pos       uint64  // The offset into the memory-map file.
-	Source         *EsFile // The file to map memory into.
-	Reserved       uint8   // An unused field reserved for future use.
+	Protection     int32     // Options that affect the protection of mapped memory pages.
+	Max_protection int32     // The maximum value you can use for protection flags.
+	Flags          int32     // Flags that affect the behavior of the memory mapping operation.
+	File_pos       uint64    // The offset into the memory-map file.
+	Source         *EsFile   // The file to map memory into.
+	Reserved       [64]uint8 // An unused field reserved for future use.
 
 }
 
@@ -724,9 +716,9 @@ type Es_event_mmap_t = EsEventMmap
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/EndpointSecurity/es_event_mount_t
 type EsEventMount struct {
-	Statfs      unsafe.Pointer // The statistics of the mounted file system.
+	Statfs      kernel.Pointer // The statistics of the mounted file system.
 	Disposition EsMountDisposition
-	Reserved    uint8 // An unused field reserved for future use.
+	Reserved    [60]uint8 // An unused field reserved for future use.
 
 }
 
@@ -738,10 +730,10 @@ type Es_event_mount_t = EsEventMount
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/EndpointSecurity/es_event_mprotect_t
 type EsEventMprotect struct {
-	Protection int32              // The protection to apply to the memory-mapped range.
-	Address    kernel.User_addr_t // The starting memory address to protect.
-	Size       kernel.User_size_t // The length of the address range to protect.
-	Reserved   uint8              // An unused field reserved for future use.
+	Protection int32     // The protection to apply to the memory-mapped range.
+	Address    uint64    // The starting memory address to protect.
+	Size       uint64    // The length of the address range to protect.
+	Reserved   [64]uint8 // An unused field reserved for future use.
 
 }
 
@@ -754,7 +746,7 @@ type Es_event_mprotect_t = EsEventMprotect
 // [Full Topic]: https://developer.apple.com/documentation/EndpointSecurity/es_event_od_attribute_set_t
 type EsEventOdAttributeSet struct {
 	Instigator            *EsProcess
-	Error_code            int
+	Error_code            int32
 	Record_type           EsOdRecordType
 	Record_name           EsStringToken
 	Attribute_name        EsStringToken
@@ -774,7 +766,7 @@ type Es_event_od_attribute_set_t = EsEventOdAttributeSet
 // [Full Topic]: https://developer.apple.com/documentation/EndpointSecurity/es_event_od_attribute_value_add_t
 type EsEventOdAttributeValueAdd struct {
 	Instigator       *EsProcess
-	Error_code       int
+	Error_code       int32
 	Record_type      EsOdRecordType
 	Record_name      EsStringToken
 	Attribute_name   EsStringToken
@@ -793,7 +785,7 @@ type Es_event_od_attribute_value_add_t = EsEventOdAttributeValueAdd
 // [Full Topic]: https://developer.apple.com/documentation/EndpointSecurity/es_event_od_attribute_value_remove_t
 type EsEventOdAttributeValueRemove struct {
 	Instigator       *EsProcess
-	Error_code       int
+	Error_code       int32
 	Record_type      EsOdRecordType
 	Record_name      EsStringToken
 	Attribute_name   EsStringToken
@@ -812,7 +804,7 @@ type Es_event_od_attribute_value_remove_t = EsEventOdAttributeValueRemove
 // [Full Topic]: https://developer.apple.com/documentation/EndpointSecurity/es_event_od_create_group_t
 type EsEventOdCreateGroup struct {
 	Instigator       *EsProcess
-	Error_code       int
+	Error_code       int32
 	Group_name       EsStringToken
 	Node_name        EsStringToken
 	Db_path          EsStringToken
@@ -828,7 +820,7 @@ type Es_event_od_create_group_t = EsEventOdCreateGroup
 // [Full Topic]: https://developer.apple.com/documentation/EndpointSecurity/es_event_od_create_user_t
 type EsEventOdCreateUser struct {
 	Instigator       *EsProcess
-	Error_code       int
+	Error_code       int32
 	User_name        EsStringToken
 	Node_name        EsStringToken
 	Db_path          EsStringToken
@@ -844,7 +836,7 @@ type Es_event_od_create_user_t = EsEventOdCreateUser
 // [Full Topic]: https://developer.apple.com/documentation/EndpointSecurity/es_event_od_delete_group_t
 type EsEventOdDeleteGroup struct {
 	Instigator       *EsProcess
-	Error_code       int
+	Error_code       int32
 	Group_name       EsStringToken
 	Node_name        EsStringToken
 	Db_path          EsStringToken
@@ -860,7 +852,7 @@ type Es_event_od_delete_group_t = EsEventOdDeleteGroup
 // [Full Topic]: https://developer.apple.com/documentation/EndpointSecurity/es_event_od_delete_user_t
 type EsEventOdDeleteUser struct {
 	Instigator       *EsProcess
-	Error_code       int
+	Error_code       int32
 	User_name        EsStringToken
 	Node_name        EsStringToken
 	Db_path          EsStringToken
@@ -876,7 +868,7 @@ type Es_event_od_delete_user_t = EsEventOdDeleteUser
 // [Full Topic]: https://developer.apple.com/documentation/EndpointSecurity/es_event_od_disable_user_t
 type EsEventOdDisableUser struct {
 	Instigator       *EsProcess
-	Error_code       int
+	Error_code       int32
 	User_name        EsStringToken
 	Node_name        EsStringToken
 	Db_path          EsStringToken
@@ -892,7 +884,7 @@ type Es_event_od_disable_user_t = EsEventOdDisableUser
 // [Full Topic]: https://developer.apple.com/documentation/EndpointSecurity/es_event_od_enable_user_t
 type EsEventOdEnableUser struct {
 	Instigator       *EsProcess
-	Error_code       int
+	Error_code       int32
 	User_name        EsStringToken
 	Node_name        EsStringToken
 	Db_path          EsStringToken
@@ -908,7 +900,7 @@ type Es_event_od_enable_user_t = EsEventOdEnableUser
 // [Full Topic]: https://developer.apple.com/documentation/EndpointSecurity/es_event_od_group_add_t
 type EsEventOdGroupAdd struct {
 	Instigator       *EsProcess
-	Error_code       int
+	Error_code       int32
 	Group_name       EsStringToken
 	Member           *EsOdMemberID
 	Node_name        EsStringToken
@@ -925,7 +917,7 @@ type Es_event_od_group_add_t = EsEventOdGroupAdd
 // [Full Topic]: https://developer.apple.com/documentation/EndpointSecurity/es_event_od_group_remove_t
 type EsEventOdGroupRemove struct {
 	Instigator       *EsProcess
-	Error_code       int
+	Error_code       int32
 	Group_name       EsStringToken
 	Member           *EsOdMemberID
 	Node_name        EsStringToken
@@ -942,7 +934,7 @@ type Es_event_od_group_remove_t = EsEventOdGroupRemove
 // [Full Topic]: https://developer.apple.com/documentation/EndpointSecurity/es_event_od_group_set_t
 type EsEventOdGroupSet struct {
 	Instigator       *EsProcess
-	Error_code       int
+	Error_code       int32
 	Group_name       EsStringToken
 	Members          *EsOdMemberIDArray
 	Node_name        EsStringToken
@@ -959,7 +951,7 @@ type Es_event_od_group_set_t = EsEventOdGroupSet
 // [Full Topic]: https://developer.apple.com/documentation/EndpointSecurity/es_event_od_modify_password_t
 type EsEventOdModifyPassword struct {
 	Instigator       *EsProcess
-	Error_code       int
+	Error_code       int32
 	Account_type     EsOdAccountType
 	Account_name     EsStringToken
 	Node_name        EsStringToken
@@ -975,9 +967,9 @@ type Es_event_od_modify_password_t = EsEventOdModifyPassword
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/EndpointSecurity/es_event_open_t
 type EsEventOpen struct {
-	Fflag    int32   // The file-opening mask as applied by the kernel.
-	File     *EsFile // The file to open.
-	Reserved uint8   // An unused field reserved for future use.
+	Fflag    int32     // The file-opening mask as applied by the kernel.
+	File     *EsFile   // The file to open.
+	Reserved [64]uint8 // An unused field reserved for future use.
 
 }
 
@@ -995,7 +987,7 @@ type EsEventOpensshLogin struct {
 	Source_address      EsStringToken
 	Username            EsStringToken
 	Has_uid             bool
-	Uid                 [4]byte
+	Uid                 [1]uint32
 }
 
 // Es_event_openssh_login_t is a type alias for EsEventOpensshLogin for use in objc.Send[T] calls.
@@ -1022,8 +1014,8 @@ type Es_event_openssh_logout_t = EsEventOpensshLogout
 type EsEventProcCheck struct {
 	Target   *EsProcess      // The process targeted by this event.
 	Type     EsProcCheckType // The type of call number used to check the access on the target process.
-	Flavor   int             // A representation of the information sought by a process based on the type member of [es_event_proc_check_t](<doc://com.apple.endpointsecurity/documentation/EndpointSecurity/es_event_proc_check_t>).
-	Reserved uint8           // An unused field reserved for future use.
+	Flavor   int32           // A representation of the information sought by a process based on the type member of [es_event_proc_check_t](<https://developer.apple.com/documentation/EndpointSecurity/es_event_proc_check_t>).
+	Reserved [64]uint8       // An unused field reserved for future use.
 
 }
 
@@ -1037,7 +1029,7 @@ type Es_event_proc_check_t = EsEventProcCheck
 type EsEventProcSuspendResume struct {
 	Target   *EsProcess              // The process targeted by this event.
 	Type     EsProcSuspendResumeType // The type of event: suspend, resume, or socket shutdown.
-	Reserved uint8                   // An unused field reserved for future use.
+	Reserved [64]uint8               // An unused field reserved for future use.
 
 }
 
@@ -1076,8 +1068,8 @@ type Es_event_profile_remove_t = EsEventProfileRemove
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/EndpointSecurity/es_event_pty_close_t
 type EsEventPtyClose struct {
-	Dev      int32 // The major and minor numbers of the device.
-	Reserved uint8 // An unused field reserved for future use.
+	Dev      int32     // The major and minor numbers of the device.
+	Reserved [64]uint8 // An unused field reserved for future use.
 
 }
 
@@ -1089,8 +1081,8 @@ type Es_event_pty_close_t = EsEventPtyClose
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/EndpointSecurity/es_event_pty_grant_t
 type EsEventPtyGrant struct {
-	Dev      int32 // The major and minor numbers of the device.
-	Reserved uint8 // An unused field reserved for future use.
+	Dev      int32     // The major and minor numbers of the device.
+	Reserved [64]uint8 // An unused field reserved for future use.
 
 }
 
@@ -1102,8 +1094,8 @@ type Es_event_pty_grant_t = EsEventPtyGrant
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/EndpointSecurity/es_event_readdir_t
 type EsEventReaddir struct {
-	Target   *EsFile // The directory from which to read contents.
-	Reserved uint8   // An unused field reserved for future use.
+	Target   *EsFile   // The directory from which to read contents.
+	Reserved [64]uint8 // An unused field reserved for future use.
 
 }
 
@@ -1115,8 +1107,8 @@ type Es_event_readdir_t = EsEventReaddir
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/EndpointSecurity/es_event_readlink_t
 type EsEventReadlink struct {
-	Source   *EsFile // The source file pointed to by the link.
-	Reserved uint8   // An unused field reserved for future use.
+	Source   *EsFile   // The source file pointed to by the link.
+	Reserved [64]uint8 // An unused field reserved for future use.
 
 }
 
@@ -1130,7 +1122,7 @@ type Es_event_readlink_t = EsEventReadlink
 type EsEventRemoteThreadCreate struct {
 	Target       *EsProcess     // The process targeted to spawn a new thread.
 	Thread_state *EsThreadState // The new thread’s state.
-	Reserved     uint8          // An unused field reserved for future use.
+	Reserved     [64]uint8      // An unused field reserved for future use.
 
 }
 
@@ -1142,10 +1134,10 @@ type Es_event_remote_thread_create_t = EsEventRemoteThreadCreate
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/EndpointSecurity/es_event_remount_t
 type EsEventRemount struct {
-	Statfs        unsafe.Pointer // The statistics of the remounted file system.
+	Statfs        kernel.Pointer // The statistics of the remounted file system.
 	Remount_flags uint64
 	Disposition   EsMountDisposition
-	Reserved      uint8 // An unused field reserved for future use.
+	Reserved      [52]uint8 // An unused field reserved for future use.
 
 }
 
@@ -1159,8 +1151,8 @@ type Es_event_remount_t = EsEventRemount
 type EsEventRename struct {
 	Source           *EsFile           // The source file to rename.
 	Destination_type EsDestinationType // A property that indicates whether the destination is a new path or an existing file.
-	Destination      [24]byte          // The destination of the rename operation.
-	Reserved         uint8             // An unused field reserved for future use.
+	Destination      [3]uint64         // The destination of the rename operation.
+	Reserved         [64]uint8         // An unused field reserved for future use.
 	New_path         unsafe.Pointer
 }
 
@@ -1207,7 +1199,7 @@ type Es_event_screensharing_detach_t = EsEventScreensharingDetach
 type EsEventSearchfs struct {
 	Attrlist kernel.Attrlist // The attributes used to perform the file system search.
 	Target   *EsFile         // The volume to search.
-	Reserved uint8           // An unused field reserved for future use.
+	Reserved [64]uint8       // An unused field reserved for future use.
 
 }
 
@@ -1221,8 +1213,8 @@ type Es_event_searchfs_t = EsEventSearchfs
 type EsEventSetacl struct {
 	Target       *EsFile      // The file containing the access control list to set or clear.
 	Set_or_clear EsSetOrClear // The access control list action represented by the event, either setting or clearing values.
-	Acl          [8]byte      // A union containing a settable access control list structure.
-	Reserved     uint8        // An unused field reserved for future use.
+	Acl          [1]uint64    // A union containing a settable access control list structure.
+	Reserved     [64]uint8    // An unused field reserved for future use.
 
 }
 
@@ -1236,7 +1228,7 @@ type Es_event_setacl_t = EsEventSetacl
 type EsEventSetattrlist struct {
 	Attrlist kernel.Attrlist // The attributes to set, such as volume, directory, file, and fork attributes.
 	Target   *EsFile         // The source file of this event.
-	Reserved uint8           // An unused field reserved for future use.
+	Reserved [64]uint8       // An unused field reserved for future use.
 
 }
 
@@ -1248,8 +1240,8 @@ type Es_event_setattrlist_t = EsEventSetattrlist
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/EndpointSecurity/es_event_setegid_t
 type EsEventSetegid struct {
-	Egid     uint32 // The effective group ID.
-	Reserved uint8  // An unused field reserved for future use.
+	Egid     uint32    // The effective group ID.
+	Reserved [64]uint8 // An unused field reserved for future use.
 
 }
 
@@ -1261,8 +1253,8 @@ type Es_event_setegid_t = EsEventSetegid
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/EndpointSecurity/es_event_seteuid_t
 type EsEventSeteuid struct {
-	Euid     uint32 // The effective user ID.
-	Reserved uint8  // An unused field reserved for future use.
+	Euid     uint32    // The effective user ID.
+	Reserved [64]uint8 // An unused field reserved for future use.
 
 }
 
@@ -1276,7 +1268,7 @@ type Es_event_seteuid_t = EsEventSeteuid
 type EsEventSetextattr struct {
 	Target   *EsFile       // The file containing extended attributes to set.
 	Extattr  EsStringToken // The extended attribute.
-	Reserved uint8         // An unused field reserved for future use.
+	Reserved [64]uint8     // An unused field reserved for future use.
 
 }
 
@@ -1288,9 +1280,9 @@ type Es_event_setextattr_t = EsEventSetextattr
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/EndpointSecurity/es_event_setflags_t
 type EsEventSetflags struct {
-	Flags    uint32  // The flags to set on the file.
-	Target   *EsFile // The source file of this event.
-	Reserved uint8   // An unused field reserved for future use.
+	Flags    uint32    // The flags to set on the file.
+	Target   *EsFile   // The source file of this event.
+	Reserved [64]uint8 // An unused field reserved for future use.
 
 }
 
@@ -1302,8 +1294,8 @@ type Es_event_setflags_t = EsEventSetflags
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/EndpointSecurity/es_event_setgid_t
 type EsEventSetgid struct {
-	Gid      uint32 // The group ID.
-	Reserved uint8  // An unused field reserved for future use.
+	Gid      uint32    // The group ID.
+	Reserved [64]uint8 // An unused field reserved for future use.
 
 }
 
@@ -1315,9 +1307,9 @@ type Es_event_setgid_t = EsEventSetgid
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/EndpointSecurity/es_event_setmode_t
 type EsEventSetmode struct {
-	Mode     uint16  // The mode to set on the file.
-	Target   *EsFile // The source file of the event.
-	Reserved uint8   // An unused field reserved for future use.
+	Mode     uint16    // The mode to set on the file.
+	Target   *EsFile   // The source file of the event.
+	Reserved [64]uint8 // An unused field reserved for future use.
 
 }
 
@@ -1329,10 +1321,10 @@ type Es_event_setmode_t = EsEventSetmode
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/EndpointSecurity/es_event_setowner_t
 type EsEventSetowner struct {
-	Uid      uint32  // The user identifier to set.
-	Gid      uint32  // The group identifier to set.
-	Target   *EsFile // The file with ownership metadata to set.
-	Reserved uint8   // An unused field reserved for future use.
+	Uid      uint32    // The user identifier to set.
+	Gid      uint32    // The group identifier to set.
+	Target   *EsFile   // The file with ownership metadata to set.
+	Reserved [64]uint8 // An unused field reserved for future use.
 
 }
 
@@ -1344,9 +1336,9 @@ type Es_event_setowner_t = EsEventSetowner
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/EndpointSecurity/es_event_setregid_t
 type EsEventSetregid struct {
-	Rgid     uint32 // The real group ID.
-	Egid     uint32 // The effective group ID.
-	Reserved uint8  // An unused field reserved for future use.
+	Rgid     uint32    // The real group ID.
+	Egid     uint32    // The effective group ID.
+	Reserved [64]uint8 // An unused field reserved for future use.
 
 }
 
@@ -1358,9 +1350,9 @@ type Es_event_setregid_t = EsEventSetregid
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/EndpointSecurity/es_event_setreuid_t
 type EsEventSetreuid struct {
-	Ruid     uint32 // The real user ID.
-	Euid     uint32 // The effective user ID.
-	Reserved uint8  // An unused field reserved for future use.
+	Ruid     uint32    // The real user ID.
+	Euid     uint32    // The effective user ID.
+	Reserved [64]uint8 // An unused field reserved for future use.
 
 }
 
@@ -1372,7 +1364,7 @@ type Es_event_setreuid_t = EsEventSetreuid
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/EndpointSecurity/es_event_settime_t
 type EsEventSettime struct {
-	Reserved uint8 // An unused field reserved for future use.
+	Reserved [64]uint8 // An unused field reserved for future use.
 
 }
 
@@ -1384,8 +1376,8 @@ type Es_event_settime_t = EsEventSettime
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/EndpointSecurity/es_event_setuid_t
 type EsEventSetuid struct {
-	Uid      uint32 // The user ID.
-	Reserved uint8  // An unused field reserved for future use.
+	Uid      uint32    // The user ID.
+	Reserved [64]uint8 // An unused field reserved for future use.
 
 }
 
@@ -1397,10 +1389,10 @@ type Es_event_setuid_t = EsEventSetuid
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/EndpointSecurity/es_event_signal_t
 type EsEventSignal struct {
-	Sig        int        // The signal number sent to the target process.
+	Sig        int32      // The signal number sent to the target process.
 	Target     *EsProcess // The process that the signal targets.
 	Instigator *EsProcess
-	Reserved   uint8 // An unused field reserved for future use.
+	Reserved   [56]uint8 // An unused field reserved for future use.
 
 }
 
@@ -1412,8 +1404,8 @@ type Es_event_signal_t = EsEventSignal
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/EndpointSecurity/es_event_stat_t
 type EsEventStat struct {
-	Target   *EsFile // The file with status to retrieve.
-	Reserved uint8   // An unused field reserved for future use.
+	Target   *EsFile   // The file with status to retrieve.
+	Reserved [64]uint8 // An unused field reserved for future use.
 
 }
 
@@ -1430,13 +1422,13 @@ type EsEventSu struct {
 	From_uid        uint32
 	From_username   EsStringToken
 	Has_to_uid      bool
+	To_uid          [1]uint32
 	To_username     EsStringToken
 	Shell           EsStringToken
 	Argc            uintptr
 	Argv            *EsStringToken
 	Env_count       uintptr
 	Env             *EsStringToken
-	To_uid          [4]byte
 }
 
 // Es_event_su_t is a type alias for EsEventSu for use in objc.Send[T] calls.
@@ -1450,12 +1442,12 @@ type EsEventSudo struct {
 	Success       bool
 	Reject_info   *EsSudoRejectInfo
 	Has_from_uid  bool
+	From_uid      [1]uint32
 	From_username EsStringToken
 	Has_to_uid    bool
+	To_uid        [1]uint32
 	To_username   EsStringToken
 	Command       EsStringToken
-	From_uid      [4]byte
-	To_uid        [4]byte
 }
 
 // Es_event_sudo_t is a type alias for EsEventSudo for use in objc.Send[T] calls.
@@ -1488,7 +1480,7 @@ type Es_event_tcc_modify_t = EsEventTccModify
 // [Full Topic]: https://developer.apple.com/documentation/EndpointSecurity/es_event_trace_t
 type EsEventTrace struct {
 	Target   *EsProcess // The process receiving the attach.
-	Reserved uint8      // An unused field reserved for future use.
+	Reserved [64]uint8  // An unused field reserved for future use.
 
 }
 
@@ -1500,8 +1492,8 @@ type Es_event_trace_t = EsEventTrace
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/EndpointSecurity/es_event_truncate_t
 type EsEventTruncate struct {
-	Target   *EsFile // The source file of this event.
-	Reserved uint8   // An unused field reserved for future use.
+	Target   *EsFile   // The source file of this event.
+	Reserved [64]uint8 // An unused field reserved for future use.
 
 }
 
@@ -1516,7 +1508,7 @@ type EsEventUipcBind struct {
 	Dir      *EsFile       // The directory containing the socket file.
 	Filename EsStringToken // The name of the socket file.
 	Mode     uint16        // The mode of the socket file.
-	Reserved uint8         // An unused field reserved for future use.
+	Reserved [64]uint8     // An unused field reserved for future use.
 
 }
 
@@ -1528,11 +1520,11 @@ type Es_event_uipc_bind_t = EsEventUipcBind
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/EndpointSecurity/es_event_uipc_connect_t
 type EsEventUipcConnect struct {
-	File     *EsFile // The socket file bound to the socket.
-	Domain   int     // The communications domain of the socket.
-	Type     int     // The type of the socket.
-	Protocol int     // The protocol of the socket.
-	Reserved uint8   // An unused field reserved for future use.
+	File     *EsFile   // The socket file bound to the socket.
+	Domain   int32     // The communications domain of the socket.
+	Type     int32     // The type of the socket.
+	Protocol int32     // The protocol of the socket.
+	Reserved [64]uint8 // An unused field reserved for future use.
 
 }
 
@@ -1544,9 +1536,9 @@ type Es_event_uipc_connect_t = EsEventUipcConnect
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/EndpointSecurity/es_event_unlink_t
 type EsEventUnlink struct {
-	Target     *EsFile // The file to unlink.
-	Parent_dir *EsFile // The directory that contains the file to unlink.
-	Reserved   uint8   // An unused field reserved for future use.
+	Target     *EsFile   // The file to unlink.
+	Parent_dir *EsFile   // The directory that contains the file to unlink.
+	Reserved   [64]uint8 // An unused field reserved for future use.
 
 }
 
@@ -1558,8 +1550,8 @@ type Es_event_unlink_t = EsEventUnlink
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/EndpointSecurity/es_event_unmount_t
 type EsEventUnmount struct {
-	Statfs   unsafe.Pointer // The statistics of the unmounted file system.
-	Reserved uint8          // An unused field reserved for future use.
+	Statfs   kernel.Pointer // The statistics of the unmounted file system.
+	Reserved [64]uint8      // An unused field reserved for future use.
 
 }
 
@@ -1571,10 +1563,10 @@ type Es_event_unmount_t = EsEventUnmount
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/EndpointSecurity/es_event_utimes_t
 type EsEventUtimes struct {
-	Target   *EsFile          // The file with time metadata to modify.
-	Atime    syscall.Timespec // The new last-accessed time.
-	Mtime    syscall.Timespec // The new last-modified time.
-	Reserved uint8            // An unused field reserved for future use.
+	Target   *EsFile         // The file with time metadata to modify.
+	Atime    kernel.Timespec // The new last-accessed time.
+	Mtime    kernel.Timespec // The new last-modified time.
+	Reserved [64]uint8       // An unused field reserved for future use.
 
 }
 
@@ -1586,8 +1578,8 @@ type Es_event_utimes_t = EsEventUtimes
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/EndpointSecurity/es_event_write_t
 type EsEventWrite struct {
-	Target   *EsFile // The source file of the event.
-	Reserved uint8   // An unused field reserved for future use.
+	Target   *EsFile   // The source file of the event.
+	Reserved [64]uint8 // An unused field reserved for future use.
 
 }
 
@@ -1643,12 +1635,24 @@ type Es_event_xpc_connect_t = EsEventXPCConnect
 //
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/EndpointSecurity/es_events_t
-type EsEvents [104]byte
+type EsEvents [13]uint64
 
 // Access returns the union interpreted as *EsEventAccess.
 // The returned pointer aliases the receiver's memory.
 func (u *EsEvents) Access() *EsEventAccess {
 	return (*EsEventAccess)(unsafe.Pointer(u))
+}
+
+// Chdir returns the union interpreted as *EsEventChdir.
+// The returned pointer aliases the receiver's memory.
+func (u *EsEvents) Chdir() *EsEventChdir {
+	return (*EsEventChdir)(unsafe.Pointer(u))
+}
+
+// Chroot returns the union interpreted as *EsEventChroot.
+// The returned pointer aliases the receiver's memory.
+func (u *EsEvents) Chroot() *EsEventChroot {
+	return (*EsEventChroot)(unsafe.Pointer(u))
 }
 
 // Clone returns the union interpreted as *EsEventClone.
@@ -1657,22 +1661,34 @@ func (u *EsEvents) Clone() *EsEventClone {
 	return (*EsEventClone)(unsafe.Pointer(u))
 }
 
-// Copyfile returns the union interpreted as *EsEventCopyfile.
-// The returned pointer aliases the receiver's memory.
-func (u *EsEvents) Copyfile() *EsEventCopyfile {
-	return (*EsEventCopyfile)(unsafe.Pointer(u))
-}
-
 // Close returns the union interpreted as *EsEventClose.
 // The returned pointer aliases the receiver's memory.
 func (u *EsEvents) Close() *EsEventClose {
 	return (*EsEventClose)(unsafe.Pointer(u))
 }
 
+// Copyfile returns the union interpreted as *EsEventCopyfile.
+// The returned pointer aliases the receiver's memory.
+func (u *EsEvents) Copyfile() *EsEventCopyfile {
+	return (*EsEventCopyfile)(unsafe.Pointer(u))
+}
+
 // Create returns the union interpreted as *EsEventCreate.
 // The returned pointer aliases the receiver's memory.
 func (u *EsEvents) Create() *EsEventCreate {
 	return (*EsEventCreate)(unsafe.Pointer(u))
+}
+
+// Cs_invalidated returns the union interpreted as *EsEventCsInvalidated.
+// The returned pointer aliases the receiver's memory.
+func (u *EsEvents) Cs_invalidated() *EsEventCsInvalidated {
+	return (*EsEventCsInvalidated)(unsafe.Pointer(u))
+}
+
+// Deleteextattr returns the union interpreted as *EsEventDeleteextattr.
+// The returned pointer aliases the receiver's memory.
+func (u *EsEvents) Deleteextattr() *EsEventDeleteextattr {
+	return (*EsEventDeleteextattr)(unsafe.Pointer(u))
 }
 
 // Dup returns the union interpreted as *EsEventDup.
@@ -1687,58 +1703,70 @@ func (u *EsEvents) Exchangedata() *EsEventExchangedata {
 	return (*EsEventExchangedata)(unsafe.Pointer(u))
 }
 
+// Exec returns the union interpreted as *EsEventExec.
+// The returned pointer aliases the receiver's memory.
+func (u *EsEvents) Exec() *EsEventExec {
+	return (*EsEventExec)(unsafe.Pointer(u))
+}
+
+// Exit returns the union interpreted as *EsEventExit.
+// The returned pointer aliases the receiver's memory.
+func (u *EsEvents) Exit() *EsEventExit {
+	return (*EsEventExit)(unsafe.Pointer(u))
+}
+
+// File_provider_materialize returns the union interpreted as *EsEventFileProviderMaterialize.
+// The returned pointer aliases the receiver's memory.
+func (u *EsEvents) File_provider_materialize() *EsEventFileProviderMaterialize {
+	return (*EsEventFileProviderMaterialize)(unsafe.Pointer(u))
+}
+
+// File_provider_update returns the union interpreted as *EsEventFileProviderUpdate.
+// The returned pointer aliases the receiver's memory.
+func (u *EsEvents) File_provider_update() *EsEventFileProviderUpdate {
+	return (*EsEventFileProviderUpdate)(unsafe.Pointer(u))
+}
+
 // Fcntl returns the union interpreted as *EsEventFcntl.
 // The returned pointer aliases the receiver's memory.
 func (u *EsEvents) Fcntl() *EsEventFcntl {
 	return (*EsEventFcntl)(unsafe.Pointer(u))
 }
 
-// Open returns the union interpreted as *EsEventOpen.
+// Fork returns the union interpreted as *EsEventFork.
 // The returned pointer aliases the receiver's memory.
-func (u *EsEvents) Open() *EsEventOpen {
-	return (*EsEventOpen)(unsafe.Pointer(u))
-}
-
-// Rename returns the union interpreted as *EsEventRename.
-// The returned pointer aliases the receiver's memory.
-func (u *EsEvents) Rename() *EsEventRename {
-	return (*EsEventRename)(unsafe.Pointer(u))
-}
-
-// Write returns the union interpreted as *EsEventWrite.
-// The returned pointer aliases the receiver's memory.
-func (u *EsEvents) Write() *EsEventWrite {
-	return (*EsEventWrite)(unsafe.Pointer(u))
-}
-
-// Truncate returns the union interpreted as *EsEventTruncate.
-// The returned pointer aliases the receiver's memory.
-func (u *EsEvents) Truncate() *EsEventTruncate {
-	return (*EsEventTruncate)(unsafe.Pointer(u))
-}
-
-// Lookup returns the union interpreted as *EsEventLookup.
-// The returned pointer aliases the receiver's memory.
-func (u *EsEvents) Lookup() *EsEventLookup {
-	return (*EsEventLookup)(unsafe.Pointer(u))
-}
-
-// Searchfs returns the union interpreted as *EsEventSearchfs.
-// The returned pointer aliases the receiver's memory.
-func (u *EsEvents) Searchfs() *EsEventSearchfs {
-	return (*EsEventSearchfs)(unsafe.Pointer(u))
-}
-
-// Deleteextattr returns the union interpreted as *EsEventDeleteextattr.
-// The returned pointer aliases the receiver's memory.
-func (u *EsEvents) Deleteextattr() *EsEventDeleteextattr {
-	return (*EsEventDeleteextattr)(unsafe.Pointer(u))
+func (u *EsEvents) Fork() *EsEventFork {
+	return (*EsEventFork)(unsafe.Pointer(u))
 }
 
 // Fsgetpath returns the union interpreted as *EsEventFsgetpath.
 // The returned pointer aliases the receiver's memory.
 func (u *EsEvents) Fsgetpath() *EsEventFsgetpath {
 	return (*EsEventFsgetpath)(unsafe.Pointer(u))
+}
+
+// Get_task returns the union interpreted as *EsEventGetTask.
+// The returned pointer aliases the receiver's memory.
+func (u *EsEvents) Get_task() *EsEventGetTask {
+	return (*EsEventGetTask)(unsafe.Pointer(u))
+}
+
+// Get_task_read returns the union interpreted as *EsEventGetTaskRead.
+// The returned pointer aliases the receiver's memory.
+func (u *EsEvents) Get_task_read() *EsEventGetTaskRead {
+	return (*EsEventGetTaskRead)(unsafe.Pointer(u))
+}
+
+// Get_task_inspect returns the union interpreted as *EsEventGetTaskInspect.
+// The returned pointer aliases the receiver's memory.
+func (u *EsEvents) Get_task_inspect() *EsEventGetTaskInspect {
+	return (*EsEventGetTaskInspect)(unsafe.Pointer(u))
+}
+
+// Get_task_name returns the union interpreted as *EsEventGetTaskName.
+// The returned pointer aliases the receiver's memory.
+func (u *EsEvents) Get_task_name() *EsEventGetTaskName {
+	return (*EsEventGetTaskName)(unsafe.Pointer(u))
 }
 
 // Getattrlist returns the union interpreted as *EsEventGetattrlist.
@@ -1753,16 +1781,124 @@ func (u *EsEvents) Getextattr() *EsEventGetextattr {
 	return (*EsEventGetextattr)(unsafe.Pointer(u))
 }
 
+// Iokit_open returns the union interpreted as *EsEventIokitOpen.
+// The returned pointer aliases the receiver's memory.
+func (u *EsEvents) Iokit_open() *EsEventIokitOpen {
+	return (*EsEventIokitOpen)(unsafe.Pointer(u))
+}
+
+// Kextload returns the union interpreted as *EsEventKextload.
+// The returned pointer aliases the receiver's memory.
+func (u *EsEvents) Kextload() *EsEventKextload {
+	return (*EsEventKextload)(unsafe.Pointer(u))
+}
+
+// Kextunload returns the union interpreted as *EsEventKextunload.
+// The returned pointer aliases the receiver's memory.
+func (u *EsEvents) Kextunload() *EsEventKextunload {
+	return (*EsEventKextunload)(unsafe.Pointer(u))
+}
+
+// Link returns the union interpreted as *EsEventLink.
+// The returned pointer aliases the receiver's memory.
+func (u *EsEvents) Link() *EsEventLink {
+	return (*EsEventLink)(unsafe.Pointer(u))
+}
+
 // Listextattr returns the union interpreted as *EsEventListextattr.
 // The returned pointer aliases the receiver's memory.
 func (u *EsEvents) Listextattr() *EsEventListextattr {
 	return (*EsEventListextattr)(unsafe.Pointer(u))
 }
 
+// Lookup returns the union interpreted as *EsEventLookup.
+// The returned pointer aliases the receiver's memory.
+func (u *EsEvents) Lookup() *EsEventLookup {
+	return (*EsEventLookup)(unsafe.Pointer(u))
+}
+
+// Mmap returns the union interpreted as *EsEventMmap.
+// The returned pointer aliases the receiver's memory.
+func (u *EsEvents) Mmap() *EsEventMmap {
+	return (*EsEventMmap)(unsafe.Pointer(u))
+}
+
+// Mount returns the union interpreted as *EsEventMount.
+// The returned pointer aliases the receiver's memory.
+func (u *EsEvents) Mount() *EsEventMount {
+	return (*EsEventMount)(unsafe.Pointer(u))
+}
+
+// Mprotect returns the union interpreted as *EsEventMprotect.
+// The returned pointer aliases the receiver's memory.
+func (u *EsEvents) Mprotect() *EsEventMprotect {
+	return (*EsEventMprotect)(unsafe.Pointer(u))
+}
+
+// Open returns the union interpreted as *EsEventOpen.
+// The returned pointer aliases the receiver's memory.
+func (u *EsEvents) Open() *EsEventOpen {
+	return (*EsEventOpen)(unsafe.Pointer(u))
+}
+
+// Proc_check returns the union interpreted as *EsEventProcCheck.
+// The returned pointer aliases the receiver's memory.
+func (u *EsEvents) Proc_check() *EsEventProcCheck {
+	return (*EsEventProcCheck)(unsafe.Pointer(u))
+}
+
+// Proc_suspend_resume returns the union interpreted as *EsEventProcSuspendResume.
+// The returned pointer aliases the receiver's memory.
+func (u *EsEvents) Proc_suspend_resume() *EsEventProcSuspendResume {
+	return (*EsEventProcSuspendResume)(unsafe.Pointer(u))
+}
+
+// Pty_close returns the union interpreted as *EsEventPtyClose.
+// The returned pointer aliases the receiver's memory.
+func (u *EsEvents) Pty_close() *EsEventPtyClose {
+	return (*EsEventPtyClose)(unsafe.Pointer(u))
+}
+
+// Pty_grant returns the union interpreted as *EsEventPtyGrant.
+// The returned pointer aliases the receiver's memory.
+func (u *EsEvents) Pty_grant() *EsEventPtyGrant {
+	return (*EsEventPtyGrant)(unsafe.Pointer(u))
+}
+
 // Readdir returns the union interpreted as *EsEventReaddir.
 // The returned pointer aliases the receiver's memory.
 func (u *EsEvents) Readdir() *EsEventReaddir {
 	return (*EsEventReaddir)(unsafe.Pointer(u))
+}
+
+// Readlink returns the union interpreted as *EsEventReadlink.
+// The returned pointer aliases the receiver's memory.
+func (u *EsEvents) Readlink() *EsEventReadlink {
+	return (*EsEventReadlink)(unsafe.Pointer(u))
+}
+
+// Remote_thread_create returns the union interpreted as *EsEventRemoteThreadCreate.
+// The returned pointer aliases the receiver's memory.
+func (u *EsEvents) Remote_thread_create() *EsEventRemoteThreadCreate {
+	return (*EsEventRemoteThreadCreate)(unsafe.Pointer(u))
+}
+
+// Remount returns the union interpreted as *EsEventRemount.
+// The returned pointer aliases the receiver's memory.
+func (u *EsEvents) Remount() *EsEventRemount {
+	return (*EsEventRemount)(unsafe.Pointer(u))
+}
+
+// Rename returns the union interpreted as *EsEventRename.
+// The returned pointer aliases the receiver's memory.
+func (u *EsEvents) Rename() *EsEventRename {
+	return (*EsEventRename)(unsafe.Pointer(u))
+}
+
+// Searchfs returns the union interpreted as *EsEventSearchfs.
+// The returned pointer aliases the receiver's memory.
+func (u *EsEvents) Searchfs() *EsEventSearchfs {
+	return (*EsEventSearchfs)(unsafe.Pointer(u))
 }
 
 // Setacl returns the union interpreted as *EsEventSetacl.
@@ -1801,160 +1937,10 @@ func (u *EsEvents) Setowner() *EsEventSetowner {
 	return (*EsEventSetowner)(unsafe.Pointer(u))
 }
 
-// Stat returns the union interpreted as *EsEventStat.
+// Settime returns the union interpreted as *EsEventSettime.
 // The returned pointer aliases the receiver's memory.
-func (u *EsEvents) Stat() *EsEventStat {
-	return (*EsEventStat)(unsafe.Pointer(u))
-}
-
-// Utimes returns the union interpreted as *EsEventUtimes.
-// The returned pointer aliases the receiver's memory.
-func (u *EsEvents) Utimes() *EsEventUtimes {
-	return (*EsEventUtimes)(unsafe.Pointer(u))
-}
-
-// File_provider_materialize returns the union interpreted as *EsEventFileProviderMaterialize.
-// The returned pointer aliases the receiver's memory.
-func (u *EsEvents) File_provider_materialize() *EsEventFileProviderMaterialize {
-	return (*EsEventFileProviderMaterialize)(unsafe.Pointer(u))
-}
-
-// File_provider_update returns the union interpreted as *EsEventFileProviderUpdate.
-// The returned pointer aliases the receiver's memory.
-func (u *EsEvents) File_provider_update() *EsEventFileProviderUpdate {
-	return (*EsEventFileProviderUpdate)(unsafe.Pointer(u))
-}
-
-// Link returns the union interpreted as *EsEventLink.
-// The returned pointer aliases the receiver's memory.
-func (u *EsEvents) Link() *EsEventLink {
-	return (*EsEventLink)(unsafe.Pointer(u))
-}
-
-// Readlink returns the union interpreted as *EsEventReadlink.
-// The returned pointer aliases the receiver's memory.
-func (u *EsEvents) Readlink() *EsEventReadlink {
-	return (*EsEventReadlink)(unsafe.Pointer(u))
-}
-
-// Unlink returns the union interpreted as *EsEventUnlink.
-// The returned pointer aliases the receiver's memory.
-func (u *EsEvents) Unlink() *EsEventUnlink {
-	return (*EsEventUnlink)(unsafe.Pointer(u))
-}
-
-// Mount returns the union interpreted as *EsEventMount.
-// The returned pointer aliases the receiver's memory.
-func (u *EsEvents) Mount() *EsEventMount {
-	return (*EsEventMount)(unsafe.Pointer(u))
-}
-
-// Unmount returns the union interpreted as *EsEventUnmount.
-// The returned pointer aliases the receiver's memory.
-func (u *EsEvents) Unmount() *EsEventUnmount {
-	return (*EsEventUnmount)(unsafe.Pointer(u))
-}
-
-// Remount returns the union interpreted as *EsEventRemount.
-// The returned pointer aliases the receiver's memory.
-func (u *EsEvents) Remount() *EsEventRemount {
-	return (*EsEventRemount)(unsafe.Pointer(u))
-}
-
-// Mmap returns the union interpreted as *EsEventMmap.
-// The returned pointer aliases the receiver's memory.
-func (u *EsEvents) Mmap() *EsEventMmap {
-	return (*EsEventMmap)(unsafe.Pointer(u))
-}
-
-// Mprotect returns the union interpreted as *EsEventMprotect.
-// The returned pointer aliases the receiver's memory.
-func (u *EsEvents) Mprotect() *EsEventMprotect {
-	return (*EsEventMprotect)(unsafe.Pointer(u))
-}
-
-// Chdir returns the union interpreted as *EsEventChdir.
-// The returned pointer aliases the receiver's memory.
-func (u *EsEvents) Chdir() *EsEventChdir {
-	return (*EsEventChdir)(unsafe.Pointer(u))
-}
-
-// Chroot returns the union interpreted as *EsEventChroot.
-// The returned pointer aliases the receiver's memory.
-func (u *EsEvents) Chroot() *EsEventChroot {
-	return (*EsEventChroot)(unsafe.Pointer(u))
-}
-
-// Exec returns the union interpreted as *EsEventExec.
-// The returned pointer aliases the receiver's memory.
-func (u *EsEvents) Exec() *EsEventExec {
-	return (*EsEventExec)(unsafe.Pointer(u))
-}
-
-// Fork returns the union interpreted as *EsEventFork.
-// The returned pointer aliases the receiver's memory.
-func (u *EsEvents) Fork() *EsEventFork {
-	return (*EsEventFork)(unsafe.Pointer(u))
-}
-
-// Proc_check returns the union interpreted as *EsEventProcCheck.
-// The returned pointer aliases the receiver's memory.
-func (u *EsEvents) Proc_check() *EsEventProcCheck {
-	return (*EsEventProcCheck)(unsafe.Pointer(u))
-}
-
-// Signal returns the union interpreted as *EsEventSignal.
-// The returned pointer aliases the receiver's memory.
-func (u *EsEvents) Signal() *EsEventSignal {
-	return (*EsEventSignal)(unsafe.Pointer(u))
-}
-
-// Exit returns the union interpreted as *EsEventExit.
-// The returned pointer aliases the receiver's memory.
-func (u *EsEvents) Exit() *EsEventExit {
-	return (*EsEventExit)(unsafe.Pointer(u))
-}
-
-// Proc_suspend_resume returns the union interpreted as *EsEventProcSuspendResume.
-// The returned pointer aliases the receiver's memory.
-func (u *EsEvents) Proc_suspend_resume() *EsEventProcSuspendResume {
-	return (*EsEventProcSuspendResume)(unsafe.Pointer(u))
-}
-
-// Trace returns the union interpreted as *EsEventTrace.
-// The returned pointer aliases the receiver's memory.
-func (u *EsEvents) Trace() *EsEventTrace {
-	return (*EsEventTrace)(unsafe.Pointer(u))
-}
-
-// Remote_thread_create returns the union interpreted as *EsEventRemoteThreadCreate.
-// The returned pointer aliases the receiver's memory.
-func (u *EsEvents) Remote_thread_create() *EsEventRemoteThreadCreate {
-	return (*EsEventRemoteThreadCreate)(unsafe.Pointer(u))
-}
-
-// Get_task returns the union interpreted as *EsEventGetTask.
-// The returned pointer aliases the receiver's memory.
-func (u *EsEvents) Get_task() *EsEventGetTask {
-	return (*EsEventGetTask)(unsafe.Pointer(u))
-}
-
-// Get_task_read returns the union interpreted as *EsEventGetTaskRead.
-// The returned pointer aliases the receiver's memory.
-func (u *EsEvents) Get_task_read() *EsEventGetTaskRead {
-	return (*EsEventGetTaskRead)(unsafe.Pointer(u))
-}
-
-// Get_task_inspect returns the union interpreted as *EsEventGetTaskInspect.
-// The returned pointer aliases the receiver's memory.
-func (u *EsEvents) Get_task_inspect() *EsEventGetTaskInspect {
-	return (*EsEventGetTaskInspect)(unsafe.Pointer(u))
-}
-
-// Get_task_name returns the union interpreted as *EsEventGetTaskName.
-// The returned pointer aliases the receiver's memory.
-func (u *EsEvents) Get_task_name() *EsEventGetTaskName {
-	return (*EsEventGetTaskName)(unsafe.Pointer(u))
+func (u *EsEvents) Settime() *EsEventSettime {
+	return (*EsEventSettime)(unsafe.Pointer(u))
 }
 
 // Setuid returns the union interpreted as *EsEventSetuid.
@@ -1993,10 +1979,28 @@ func (u *EsEvents) Setregid() *EsEventSetregid {
 	return (*EsEventSetregid)(unsafe.Pointer(u))
 }
 
-// Cs_invalidated returns the union interpreted as *EsEventCsInvalidated.
+// Signal returns the union interpreted as *EsEventSignal.
 // The returned pointer aliases the receiver's memory.
-func (u *EsEvents) Cs_invalidated() *EsEventCsInvalidated {
-	return (*EsEventCsInvalidated)(unsafe.Pointer(u))
+func (u *EsEvents) Signal() *EsEventSignal {
+	return (*EsEventSignal)(unsafe.Pointer(u))
+}
+
+// Stat returns the union interpreted as *EsEventStat.
+// The returned pointer aliases the receiver's memory.
+func (u *EsEvents) Stat() *EsEventStat {
+	return (*EsEventStat)(unsafe.Pointer(u))
+}
+
+// Trace returns the union interpreted as *EsEventTrace.
+// The returned pointer aliases the receiver's memory.
+func (u *EsEvents) Trace() *EsEventTrace {
+	return (*EsEventTrace)(unsafe.Pointer(u))
+}
+
+// Truncate returns the union interpreted as *EsEventTruncate.
+// The returned pointer aliases the receiver's memory.
+func (u *EsEvents) Truncate() *EsEventTruncate {
+	return (*EsEventTruncate)(unsafe.Pointer(u))
 }
 
 // Uipc_bind returns the union interpreted as *EsEventUipcBind.
@@ -2011,40 +2015,28 @@ func (u *EsEvents) Uipc_connect() *EsEventUipcConnect {
 	return (*EsEventUipcConnect)(unsafe.Pointer(u))
 }
 
-// Settime returns the union interpreted as *EsEventSettime.
+// Unlink returns the union interpreted as *EsEventUnlink.
 // The returned pointer aliases the receiver's memory.
-func (u *EsEvents) Settime() *EsEventSettime {
-	return (*EsEventSettime)(unsafe.Pointer(u))
+func (u *EsEvents) Unlink() *EsEventUnlink {
+	return (*EsEventUnlink)(unsafe.Pointer(u))
 }
 
-// Iokit_open returns the union interpreted as *EsEventIokitOpen.
+// Unmount returns the union interpreted as *EsEventUnmount.
 // The returned pointer aliases the receiver's memory.
-func (u *EsEvents) Iokit_open() *EsEventIokitOpen {
-	return (*EsEventIokitOpen)(unsafe.Pointer(u))
+func (u *EsEvents) Unmount() *EsEventUnmount {
+	return (*EsEventUnmount)(unsafe.Pointer(u))
 }
 
-// Kextload returns the union interpreted as *EsEventKextload.
+// Utimes returns the union interpreted as *EsEventUtimes.
 // The returned pointer aliases the receiver's memory.
-func (u *EsEvents) Kextload() *EsEventKextload {
-	return (*EsEventKextload)(unsafe.Pointer(u))
+func (u *EsEvents) Utimes() *EsEventUtimes {
+	return (*EsEventUtimes)(unsafe.Pointer(u))
 }
 
-// Kextunload returns the union interpreted as *EsEventKextunload.
+// Write returns the union interpreted as *EsEventWrite.
 // The returned pointer aliases the receiver's memory.
-func (u *EsEvents) Kextunload() *EsEventKextunload {
-	return (*EsEventKextunload)(unsafe.Pointer(u))
-}
-
-// Pty_close returns the union interpreted as *EsEventPtyClose.
-// The returned pointer aliases the receiver's memory.
-func (u *EsEvents) Pty_close() *EsEventPtyClose {
-	return (*EsEventPtyClose)(unsafe.Pointer(u))
-}
-
-// Pty_grant returns the union interpreted as *EsEventPtyGrant.
-// The returned pointer aliases the receiver's memory.
-func (u *EsEvents) Pty_grant() *EsEventPtyGrant {
-	return (*EsEventPtyGrant)(unsafe.Pointer(u))
+func (u *EsEvents) Write() *EsEventWrite {
+	return (*EsEventWrite)(unsafe.Pointer(u))
 }
 
 // Authentication returns the union interpreted as *EsEventAuthentication.
@@ -2053,52 +2045,16 @@ func (u *EsEvents) Authentication() *EsEventAuthentication {
 	return (*EsEventAuthentication)(unsafe.Pointer(u))
 }
 
-// Authorization_judgement returns the union interpreted as *EsEventAuthorizationJudgement.
+// Xp_malware_detected returns the union interpreted as *EsEventXpMalwareDetected.
 // The returned pointer aliases the receiver's memory.
-func (u *EsEvents) Authorization_judgement() *EsEventAuthorizationJudgement {
-	return (*EsEventAuthorizationJudgement)(unsafe.Pointer(u))
+func (u *EsEvents) Xp_malware_detected() *EsEventXpMalwareDetected {
+	return (*EsEventXpMalwareDetected)(unsafe.Pointer(u))
 }
 
-// Authorization_petition returns the union interpreted as *EsEventAuthorizationPetition.
+// Xp_malware_remediated returns the union interpreted as *EsEventXpMalwareRemediated.
 // The returned pointer aliases the receiver's memory.
-func (u *EsEvents) Authorization_petition() *EsEventAuthorizationPetition {
-	return (*EsEventAuthorizationPetition)(unsafe.Pointer(u))
-}
-
-// Btm_launch_item_add returns the union interpreted as *EsEventBtmLaunchItemAdd.
-// The returned pointer aliases the receiver's memory.
-func (u *EsEvents) Btm_launch_item_add() *EsEventBtmLaunchItemAdd {
-	return (*EsEventBtmLaunchItemAdd)(unsafe.Pointer(u))
-}
-
-// Btm_launch_item_remove returns the union interpreted as *EsEventBtmLaunchItemRemove.
-// The returned pointer aliases the receiver's memory.
-func (u *EsEvents) Btm_launch_item_remove() *EsEventBtmLaunchItemRemove {
-	return (*EsEventBtmLaunchItemRemove)(unsafe.Pointer(u))
-}
-
-// Gatekeeper_user_override returns the union interpreted as *EsEventGatekeeperUserOverride.
-// The returned pointer aliases the receiver's memory.
-func (u *EsEvents) Gatekeeper_user_override() *EsEventGatekeeperUserOverride {
-	return (*EsEventGatekeeperUserOverride)(unsafe.Pointer(u))
-}
-
-// Login_login returns the union interpreted as *EsEventLoginLogin.
-// The returned pointer aliases the receiver's memory.
-func (u *EsEvents) Login_login() *EsEventLoginLogin {
-	return (*EsEventLoginLogin)(unsafe.Pointer(u))
-}
-
-// Login_logout returns the union interpreted as *EsEventLoginLogout.
-// The returned pointer aliases the receiver's memory.
-func (u *EsEvents) Login_logout() *EsEventLoginLogout {
-	return (*EsEventLoginLogout)(unsafe.Pointer(u))
-}
-
-// Lw_session_lock returns the union interpreted as *EsEventLwSessionLock.
-// The returned pointer aliases the receiver's memory.
-func (u *EsEvents) Lw_session_lock() *EsEventLwSessionLock {
-	return (*EsEventLwSessionLock)(unsafe.Pointer(u))
+func (u *EsEvents) Xp_malware_remediated() *EsEventXpMalwareRemediated {
+	return (*EsEventXpMalwareRemediated)(unsafe.Pointer(u))
 }
 
 // Lw_session_login returns the union interpreted as *EsEventLwSessionLogin.
@@ -2113,64 +2069,100 @@ func (u *EsEvents) Lw_session_logout() *EsEventLwSessionLogout {
 	return (*EsEventLwSessionLogout)(unsafe.Pointer(u))
 }
 
+// Lw_session_lock returns the union interpreted as *EsEventLwSessionLock.
+// The returned pointer aliases the receiver's memory.
+func (u *EsEvents) Lw_session_lock() *EsEventLwSessionLock {
+	return (*EsEventLwSessionLock)(unsafe.Pointer(u))
+}
+
 // Lw_session_unlock returns the union interpreted as *EsEventLwSessionUnlock.
 // The returned pointer aliases the receiver's memory.
 func (u *EsEvents) Lw_session_unlock() *EsEventLwSessionUnlock {
 	return (*EsEventLwSessionUnlock)(unsafe.Pointer(u))
 }
 
-// Od_attribute_set returns the union interpreted as *EsEventOdAttributeSet.
+// Screensharing_attach returns the union interpreted as *EsEventScreensharingAttach.
 // The returned pointer aliases the receiver's memory.
-func (u *EsEvents) Od_attribute_set() *EsEventOdAttributeSet {
-	return (*EsEventOdAttributeSet)(unsafe.Pointer(u))
+func (u *EsEvents) Screensharing_attach() *EsEventScreensharingAttach {
+	return (*EsEventScreensharingAttach)(unsafe.Pointer(u))
 }
 
-// Od_attribute_value_add returns the union interpreted as *EsEventOdAttributeValueAdd.
+// Screensharing_detach returns the union interpreted as *EsEventScreensharingDetach.
 // The returned pointer aliases the receiver's memory.
-func (u *EsEvents) Od_attribute_value_add() *EsEventOdAttributeValueAdd {
-	return (*EsEventOdAttributeValueAdd)(unsafe.Pointer(u))
+func (u *EsEvents) Screensharing_detach() *EsEventScreensharingDetach {
+	return (*EsEventScreensharingDetach)(unsafe.Pointer(u))
 }
 
-// Od_attribute_value_remove returns the union interpreted as *EsEventOdAttributeValueRemove.
+// Openssh_login returns the union interpreted as *EsEventOpensshLogin.
 // The returned pointer aliases the receiver's memory.
-func (u *EsEvents) Od_attribute_value_remove() *EsEventOdAttributeValueRemove {
-	return (*EsEventOdAttributeValueRemove)(unsafe.Pointer(u))
+func (u *EsEvents) Openssh_login() *EsEventOpensshLogin {
+	return (*EsEventOpensshLogin)(unsafe.Pointer(u))
 }
 
-// Od_create_group returns the union interpreted as *EsEventOdCreateGroup.
+// Openssh_logout returns the union interpreted as *EsEventOpensshLogout.
 // The returned pointer aliases the receiver's memory.
-func (u *EsEvents) Od_create_group() *EsEventOdCreateGroup {
-	return (*EsEventOdCreateGroup)(unsafe.Pointer(u))
+func (u *EsEvents) Openssh_logout() *EsEventOpensshLogout {
+	return (*EsEventOpensshLogout)(unsafe.Pointer(u))
 }
 
-// Od_create_user returns the union interpreted as *EsEventOdCreateUser.
+// Login_login returns the union interpreted as *EsEventLoginLogin.
 // The returned pointer aliases the receiver's memory.
-func (u *EsEvents) Od_create_user() *EsEventOdCreateUser {
-	return (*EsEventOdCreateUser)(unsafe.Pointer(u))
+func (u *EsEvents) Login_login() *EsEventLoginLogin {
+	return (*EsEventLoginLogin)(unsafe.Pointer(u))
 }
 
-// Od_delete_group returns the union interpreted as *EsEventOdDeleteGroup.
+// Login_logout returns the union interpreted as *EsEventLoginLogout.
 // The returned pointer aliases the receiver's memory.
-func (u *EsEvents) Od_delete_group() *EsEventOdDeleteGroup {
-	return (*EsEventOdDeleteGroup)(unsafe.Pointer(u))
+func (u *EsEvents) Login_logout() *EsEventLoginLogout {
+	return (*EsEventLoginLogout)(unsafe.Pointer(u))
 }
 
-// Od_delete_user returns the union interpreted as *EsEventOdDeleteUser.
+// Btm_launch_item_add returns the union interpreted as *EsEventBtmLaunchItemAdd.
 // The returned pointer aliases the receiver's memory.
-func (u *EsEvents) Od_delete_user() *EsEventOdDeleteUser {
-	return (*EsEventOdDeleteUser)(unsafe.Pointer(u))
+func (u *EsEvents) Btm_launch_item_add() *EsEventBtmLaunchItemAdd {
+	return (*EsEventBtmLaunchItemAdd)(unsafe.Pointer(u))
 }
 
-// Od_disable_user returns the union interpreted as *EsEventOdDisableUser.
+// Btm_launch_item_remove returns the union interpreted as *EsEventBtmLaunchItemRemove.
 // The returned pointer aliases the receiver's memory.
-func (u *EsEvents) Od_disable_user() *EsEventOdDisableUser {
-	return (*EsEventOdDisableUser)(unsafe.Pointer(u))
+func (u *EsEvents) Btm_launch_item_remove() *EsEventBtmLaunchItemRemove {
+	return (*EsEventBtmLaunchItemRemove)(unsafe.Pointer(u))
 }
 
-// Od_enable_user returns the union interpreted as *EsEventOdEnableUser.
+// Profile_add returns the union interpreted as *EsEventProfileAdd.
 // The returned pointer aliases the receiver's memory.
-func (u *EsEvents) Od_enable_user() *EsEventOdEnableUser {
-	return (*EsEventOdEnableUser)(unsafe.Pointer(u))
+func (u *EsEvents) Profile_add() *EsEventProfileAdd {
+	return (*EsEventProfileAdd)(unsafe.Pointer(u))
+}
+
+// Profile_remove returns the union interpreted as *EsEventProfileRemove.
+// The returned pointer aliases the receiver's memory.
+func (u *EsEvents) Profile_remove() *EsEventProfileRemove {
+	return (*EsEventProfileRemove)(unsafe.Pointer(u))
+}
+
+// Su returns the union interpreted as *EsEventSu.
+// The returned pointer aliases the receiver's memory.
+func (u *EsEvents) Su() *EsEventSu {
+	return (*EsEventSu)(unsafe.Pointer(u))
+}
+
+// Authorization_petition returns the union interpreted as *EsEventAuthorizationPetition.
+// The returned pointer aliases the receiver's memory.
+func (u *EsEvents) Authorization_petition() *EsEventAuthorizationPetition {
+	return (*EsEventAuthorizationPetition)(unsafe.Pointer(u))
+}
+
+// Authorization_judgement returns the union interpreted as *EsEventAuthorizationJudgement.
+// The returned pointer aliases the receiver's memory.
+func (u *EsEvents) Authorization_judgement() *EsEventAuthorizationJudgement {
+	return (*EsEventAuthorizationJudgement)(unsafe.Pointer(u))
+}
+
+// Sudo returns the union interpreted as *EsEventSudo.
+// The returned pointer aliases the receiver's memory.
+func (u *EsEvents) Sudo() *EsEventSudo {
+	return (*EsEventSudo)(unsafe.Pointer(u))
 }
 
 // Od_group_add returns the union interpreted as *EsEventOdGroupAdd.
@@ -2197,76 +2189,76 @@ func (u *EsEvents) Od_modify_password() *EsEventOdModifyPassword {
 	return (*EsEventOdModifyPassword)(unsafe.Pointer(u))
 }
 
-// Openssh_login returns the union interpreted as *EsEventOpensshLogin.
+// Od_disable_user returns the union interpreted as *EsEventOdDisableUser.
 // The returned pointer aliases the receiver's memory.
-func (u *EsEvents) Openssh_login() *EsEventOpensshLogin {
-	return (*EsEventOpensshLogin)(unsafe.Pointer(u))
+func (u *EsEvents) Od_disable_user() *EsEventOdDisableUser {
+	return (*EsEventOdDisableUser)(unsafe.Pointer(u))
 }
 
-// Openssh_logout returns the union interpreted as *EsEventOpensshLogout.
+// Od_enable_user returns the union interpreted as *EsEventOdEnableUser.
 // The returned pointer aliases the receiver's memory.
-func (u *EsEvents) Openssh_logout() *EsEventOpensshLogout {
-	return (*EsEventOpensshLogout)(unsafe.Pointer(u))
+func (u *EsEvents) Od_enable_user() *EsEventOdEnableUser {
+	return (*EsEventOdEnableUser)(unsafe.Pointer(u))
 }
 
-// Profile_add returns the union interpreted as *EsEventProfileAdd.
+// Od_attribute_value_add returns the union interpreted as *EsEventOdAttributeValueAdd.
 // The returned pointer aliases the receiver's memory.
-func (u *EsEvents) Profile_add() *EsEventProfileAdd {
-	return (*EsEventProfileAdd)(unsafe.Pointer(u))
+func (u *EsEvents) Od_attribute_value_add() *EsEventOdAttributeValueAdd {
+	return (*EsEventOdAttributeValueAdd)(unsafe.Pointer(u))
 }
 
-// Profile_remove returns the union interpreted as *EsEventProfileRemove.
+// Od_attribute_value_remove returns the union interpreted as *EsEventOdAttributeValueRemove.
 // The returned pointer aliases the receiver's memory.
-func (u *EsEvents) Profile_remove() *EsEventProfileRemove {
-	return (*EsEventProfileRemove)(unsafe.Pointer(u))
+func (u *EsEvents) Od_attribute_value_remove() *EsEventOdAttributeValueRemove {
+	return (*EsEventOdAttributeValueRemove)(unsafe.Pointer(u))
 }
 
-// Screensharing_attach returns the union interpreted as *EsEventScreensharingAttach.
+// Od_attribute_set returns the union interpreted as *EsEventOdAttributeSet.
 // The returned pointer aliases the receiver's memory.
-func (u *EsEvents) Screensharing_attach() *EsEventScreensharingAttach {
-	return (*EsEventScreensharingAttach)(unsafe.Pointer(u))
+func (u *EsEvents) Od_attribute_set() *EsEventOdAttributeSet {
+	return (*EsEventOdAttributeSet)(unsafe.Pointer(u))
 }
 
-// Screensharing_detach returns the union interpreted as *EsEventScreensharingDetach.
+// Od_create_user returns the union interpreted as *EsEventOdCreateUser.
 // The returned pointer aliases the receiver's memory.
-func (u *EsEvents) Screensharing_detach() *EsEventScreensharingDetach {
-	return (*EsEventScreensharingDetach)(unsafe.Pointer(u))
+func (u *EsEvents) Od_create_user() *EsEventOdCreateUser {
+	return (*EsEventOdCreateUser)(unsafe.Pointer(u))
 }
 
-// Su returns the union interpreted as *EsEventSu.
+// Od_create_group returns the union interpreted as *EsEventOdCreateGroup.
 // The returned pointer aliases the receiver's memory.
-func (u *EsEvents) Su() *EsEventSu {
-	return (*EsEventSu)(unsafe.Pointer(u))
+func (u *EsEvents) Od_create_group() *EsEventOdCreateGroup {
+	return (*EsEventOdCreateGroup)(unsafe.Pointer(u))
 }
 
-// Sudo returns the union interpreted as *EsEventSudo.
+// Od_delete_user returns the union interpreted as *EsEventOdDeleteUser.
 // The returned pointer aliases the receiver's memory.
-func (u *EsEvents) Sudo() *EsEventSudo {
-	return (*EsEventSudo)(unsafe.Pointer(u))
+func (u *EsEvents) Od_delete_user() *EsEventOdDeleteUser {
+	return (*EsEventOdDeleteUser)(unsafe.Pointer(u))
 }
 
-// Tcc_modify returns the union interpreted as *EsEventTccModify.
+// Od_delete_group returns the union interpreted as *EsEventOdDeleteGroup.
 // The returned pointer aliases the receiver's memory.
-func (u *EsEvents) Tcc_modify() *EsEventTccModify {
-	return (*EsEventTccModify)(unsafe.Pointer(u))
-}
-
-// Xp_malware_detected returns the union interpreted as *EsEventXpMalwareDetected.
-// The returned pointer aliases the receiver's memory.
-func (u *EsEvents) Xp_malware_detected() *EsEventXpMalwareDetected {
-	return (*EsEventXpMalwareDetected)(unsafe.Pointer(u))
-}
-
-// Xp_malware_remediated returns the union interpreted as *EsEventXpMalwareRemediated.
-// The returned pointer aliases the receiver's memory.
-func (u *EsEvents) Xp_malware_remediated() *EsEventXpMalwareRemediated {
-	return (*EsEventXpMalwareRemediated)(unsafe.Pointer(u))
+func (u *EsEvents) Od_delete_group() *EsEventOdDeleteGroup {
+	return (*EsEventOdDeleteGroup)(unsafe.Pointer(u))
 }
 
 // Xpc_connect returns the union interpreted as *EsEventXPCConnect.
 // The returned pointer aliases the receiver's memory.
 func (u *EsEvents) Xpc_connect() *EsEventXPCConnect {
 	return (*EsEventXPCConnect)(unsafe.Pointer(u))
+}
+
+// Gatekeeper_user_override returns the union interpreted as *EsEventGatekeeperUserOverride.
+// The returned pointer aliases the receiver's memory.
+func (u *EsEvents) Gatekeeper_user_override() *EsEventGatekeeperUserOverride {
+	return (*EsEventGatekeeperUserOverride)(unsafe.Pointer(u))
+}
+
+// Tcc_modify returns the union interpreted as *EsEventTccModify.
+// The returned pointer aliases the receiver's memory.
+func (u *EsEvents) Tcc_modify() *EsEventTccModify {
+	return (*EsEventTccModify)(unsafe.Pointer(u))
 }
 
 // Es_events_t is a type alias for EsEvents for use in objc.Send[T] calls.
@@ -2279,8 +2271,8 @@ type Es_events_t = EsEvents
 type EsFd struct {
 	Fd      int32  // The file descriptor number.
 	Fdtype  uint32 // The file descriptor type, as a libproc type.
-	Pipe    unsafe.Pointer
 	Pipe_id uint64
+	Pipe    unsafe.Pointer
 }
 
 // Es_fd_t is a type alias for EsFd for use in objc.Send[T] calls.
@@ -2305,19 +2297,18 @@ type Es_file_t = EsFile
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/EndpointSecurity/es_message_t
 type EsMessage struct {
-	Version        uint32           // The version of the Endpoint Security message.
-	Time           syscall.Timespec // The time the event occurred, expressed as a Darwin time value.
-	Mach_time      uint64           // The time the event occurred, as a Mach time value.
-	Deadline       uint64           // The deadline by which your app must respond to the event.
-	Process        *EsProcess       // The process that performed the action defined in a message.
-	Seq_num        uint64           // The sequence number of the message.
-	Action_type    EsActionType     // The type of action: authentication or notification.
-	Event_type     EsEventType      // The type of the message’s event.
-	Event          EsEvents         // The event that triggered this message.
-	Thread         *EsThread        // The thread that took the action defined in a message.
-	Global_seq_num uint64           // The global sequence number of the message.
-	Action         [36]byte         // The action monitored by Endpoint Security.
-	Opaque         uint64           // An opaque storage field.
+	Version        uint32          // The version of the Endpoint Security message.
+	Time           kernel.Timespec // The time the event occurred, expressed as a Darwin time value.
+	Mach_time      uint64          // The time the event occurred, as a Mach time value.
+	Deadline       uint64          // The deadline by which your app must respond to the event.
+	Process        *EsProcess      // The process that performed the action defined in a message.
+	Seq_num        uint64          // The sequence number of the message.
+	Action_type    EsActionType    // The type of action: authentication or notification.
+	Action         [9]uint32       // The action monitored by Endpoint Security.
+	Event_type     EsEventType     // The type of the message’s event.
+	Event          EsEvents        // The event that triggered this message.
+	Thread         *EsThread       // The thread that took the action defined in a message.
+	Global_seq_num uint64          // The global sequence number of the message.
 
 }
 
@@ -2331,8 +2322,8 @@ type Es_message_t = EsMessage
 type EsMutedPath struct {
 	Type        EsMutePathType // The path type: prefix or literal.
 	Event_count uintptr        // The number of elements in the muted events array.
-	Path        EsStringToken  // The muted path.
 	Events      *EsEventType   // An array containing the muted event types.
+	Path        EsStringToken  // The muted path.
 
 }
 
@@ -2386,7 +2377,7 @@ type Es_muted_processes_t = EsMutedProcesses
 type EsOdMemberIDArray struct {
 	Member_type  EsOdMemberType
 	Member_count uintptr
-	Member_array [8]byte
+	Member_array [1]uint64
 }
 
 // Es_od_member_id_array_t is a type alias for EsOdMemberIDArray for use in objc.Send[T] calls.
@@ -2398,7 +2389,7 @@ type Es_od_member_id_array_t = EsOdMemberIDArray
 // [Full Topic]: https://developer.apple.com/documentation/EndpointSecurity/es_od_member_id_t
 type EsOdMemberID struct {
 	Member_type  EsOdMemberType
-	Member_value [16]byte
+	Member_value [2]uint64
 }
 
 // Es_od_member_id_t is a type alias for EsOdMemberID for use in objc.Send[T] calls.
@@ -2417,7 +2408,7 @@ type EsProcess struct {
 	Codesigning_flags       uint32                 // The flags used to sign the process.
 	Is_platform_binary      bool                   // A Boolean value that indicates whether the process is a platform binary.
 	Is_es_client            bool                   // A Boolean value that indicates whether the process connects to the Endpoint Security subsystem.
-	Cdhash                  EsCdhash               // The code directory hash value.
+	Cdhash                  [20]uint8              // The code directory hash value.
 	Signing_id              EsStringToken          // The identifier used to sign the process.
 	Team_id                 EsStringToken          // The team identifier used to sign the process.
 	Executable              *EsFile                // The file containing the executed process.
@@ -2454,7 +2445,7 @@ type Es_profile_t = EsProfile
 // [Full Topic]: https://developer.apple.com/documentation/EndpointSecurity/es_result_t
 type EsResult struct {
 	Result_type EsResultType // The type of the message’s result.
-	Result      [32]byte     // The message’s result, as either an authorization result or flags.
+	Result      [8]uint32    // The message’s result, as either an authorization result or flags.
 
 }
 
@@ -2466,7 +2457,7 @@ type Es_result_t = EsResult
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/EndpointSecurity/es_signed_file_info_t
 type EsSignedFileInfo struct {
-	Cdhash     EsCdhash
+	Cdhash     [20]uint8
 	Signing_id EsStringToken
 	Team_id    EsStringToken
 }
@@ -2505,7 +2496,7 @@ type Es_sudo_reject_info_t = EsSudoRejectInfo
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/EndpointSecurity/es_thread_state_t
 type EsThreadState struct {
-	Flavor int     // An indication of the representation of the machine-specific thread state.
+	Flavor int32   // An indication of the representation of the machine-specific thread state.
 	State  EsToken // The machine-specific thread state.
 
 }

@@ -64,6 +64,47 @@ func (o AVAudioPlayerDelegateObject) AudioPlayerDecodeErrorDidOccurError(player 
 	objc.Send[struct{}](o.ID, objc.Sel("audioPlayerDecodeErrorDidOccur:error:"), player, error_)
 }
 
+// Tells the delegate when the system interrupts the audio player’s
+// playback.
+//
+// player: The interrupted audio player.
+//
+// See: https://developer.apple.com/documentation/AVFAudio/AVAudioPlayerDelegate/audioPlayerBeginInterruption(_:)
+func (o AVAudioPlayerDelegateObject) AudioPlayerBeginInterruption(player IAVAudioPlayer) {
+	objc.Send[struct{}](o.ID, objc.Sel("audioPlayerBeginInterruption:"), player)
+}
+
+// Tells the delegate when the audio session interruption ends.
+//
+// player: The audio player with the interruption that ends.
+//
+// See: https://developer.apple.com/documentation/AVFAudio/AVAudioPlayerDelegate/audioPlayerEndInterruption(_:)
+func (o AVAudioPlayerDelegateObject) AudioPlayerEndInterruption(player IAVAudioPlayer) {
+	objc.Send[struct{}](o.ID, objc.Sel("audioPlayerEndInterruption:"), player)
+}
+
+// Tells the delegate when the audio session interruption ends with options.
+//
+// player: The audio player with the interruption that ends.
+//
+// flags: The options that indicate the state of the audio session.
+//
+// See: https://developer.apple.com/documentation/AVFAudio/AVAudioPlayerDelegate/audioPlayerEndInterruption(_:withOptions:)
+func (o AVAudioPlayerDelegateObject) AudioPlayerEndInterruptionWithOptions(player IAVAudioPlayer, flags uint) {
+	objc.Send[struct{}](o.ID, objc.Sel("audioPlayerEndInterruption:withOptions:"), player, flags)
+}
+
+// Tells the delegate when the audio session interruption ends with flags.
+//
+// player: The audio player with the interruption that ends.
+//
+// flags: The flags that indicate the state of the audio session.
+//
+// See: https://developer.apple.com/documentation/AVFAudio/AVAudioPlayerDelegate/audioPlayerEndInterruption(_:withFlags:)
+func (o AVAudioPlayerDelegateObject) AudioPlayerEndInterruptionWithFlags(player IAVAudioPlayer, flags uint) {
+	objc.Send[struct{}](o.ID, objc.Sel("audioPlayerEndInterruption:withFlags:"), player, flags)
+}
+
 // AVAudioPlayerDelegateConfig holds optional typed callbacks for [AVAudioPlayerDelegate] methods.
 // Set non-nil fields to register the corresponding Objective-C delegate method.
 // Methods with nil callbacks are not registered, so [NSObject.RespondsToSelector]
@@ -106,8 +147,20 @@ func NewAVAudioPlayerDelegate(config AVAudioPlayerDelegateConfig) AVAudioPlayerD
 		methods = append(methods, objc.MethodDef{
 			Cmd: objc.RegisterName("audioPlayerDidFinishPlaying:successfully:"),
 			Fn: func(self objc.ID, _cmd objc.SEL, playerID objc.ID, flag bool) {
+				// Names which delegate was running if a panic unwinds out of
+				// it. The frames between here and the Objective-C caller are
+				// runtime and purego dispatch, so without this the traceback
+				// never says which selector dispatched. Deliberately no
+				// recover: see [objc.NoteDelegatePanic].
+				_delegateDone := false
+				defer func() {
+					if !_delegateDone {
+						objc.NoteDelegatePanic("AVAudioPlayerDelegate", "audioPlayerDidFinishPlaying:successfully:")
+					}
+				}()
 				player := AVAudioPlayerFromID(playerID)
 				fn(player, flag)
+				_delegateDone = true
 			},
 		})
 	}
@@ -117,9 +170,21 @@ func NewAVAudioPlayerDelegate(config AVAudioPlayerDelegateConfig) AVAudioPlayerD
 		methods = append(methods, objc.MethodDef{
 			Cmd: objc.RegisterName("audioPlayerDecodeErrorDidOccur:error:"),
 			Fn: func(self objc.ID, _cmd objc.SEL, playerID objc.ID, error_ID objc.ID) {
+				// Names which delegate was running if a panic unwinds out of
+				// it. The frames between here and the Objective-C caller are
+				// runtime and purego dispatch, so without this the traceback
+				// never says which selector dispatched. Deliberately no
+				// recover: see [objc.NoteDelegatePanic].
+				_delegateDone := false
+				defer func() {
+					if !_delegateDone {
+						objc.NoteDelegatePanic("AVAudioPlayerDelegate", "audioPlayerDecodeErrorDidOccur:error:")
+					}
+				}()
 				player := AVAudioPlayerFromID(playerID)
 				error_ := foundation.NSErrorFromID(error_ID)
 				fn(player, error_)
+				_delegateDone = true
 			},
 		})
 	}

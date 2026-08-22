@@ -48,8 +48,9 @@ func (hc HostClass) Alloc() Host {
 //
 // The [NSHost] class provides methods to access the network name and address
 // information for a host. Instances of the [NSHost] class represent
-// individual on a network. Use [NSHost] objects to get the current host’s
-// names and addresses and to look up other hosts by name or by address.
+// individual hosts on a network. Use [NSHost] objects to get the current
+// host’s names and addresses and to look up other hosts by name or by
+// address.
 //
 // To create an [NSHost] object, use the [NSHostClass.CurrentHost],
 // [NSHostClass.HostWithAddress], or [NSHostClass.HostWithName] class methods

@@ -52,13 +52,14 @@ func (nc NSCollectionLayoutSpacingClass) Alloc() NSCollectionLayoutSpacing {
 //
 // You can express spacing using fixed or flexible spacing.
 //
-// Use to provide an exact amount of space. For example, the following code
-// creates exactly 200 points of space between the items in the group.
+// Use fixed spacing to provide an exact amount of space. For example, the
+// following code creates exactly 200 points of space between the items in the
+// group.
 //
-// Use to provide a minimum amount of space that can grow as more space
-// becomes available. For example, the following code creates at least 200
-// points of space between the items in the group. As more space becomes
-// available, items are respaced evenly in the additional space.
+// Use flexible spacing to provide a minimum amount of space that can grow as
+// more space becomes available. For example, the following code creates at
+// least 200 points of space between the items in the group. As more space
+// becomes available, items are respaced evenly in the additional space.
 //
 // # Getting the spacing value
 //

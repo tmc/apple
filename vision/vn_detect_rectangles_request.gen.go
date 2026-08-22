@@ -165,9 +165,10 @@ func NewVNDetectRectanglesRequest() VNDetectRectanglesRequest {
 // [VNImageRequestHandler.PerformRequestsError].
 //
 // See: https://developer.apple.com/documentation/Vision/VNRequest/init(completionHandler:)
-func NewDetectRectanglesRequestWithCompletionHandler(completionHandler VNRequestCompletionHandler) VNDetectRectanglesRequest {
+func NewDetectRectanglesRequestWithCompletionHandler(completionHandler VNRequestErrorHandler) VNDetectRectanglesRequest {
+	_block0, _ := NewVNRequestErrorBlock(completionHandler)
 	instance := getVNDetectRectanglesRequestClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCompletionHandler:"), completionHandler)
+	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCompletionHandler:"), _block0)
 	return VNDetectRectanglesRequestFromID(rv)
 }
 

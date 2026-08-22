@@ -17,7 +17,7 @@ type NSTextLocation interface {
 	// Compares and returns the logical ordering to location.
 	//
 	// See: https://developer.apple.com/documentation/AppKit/NSTextLocation/compare(_:)
-	Compare(location NSTextLocation) foundation.NSComparisonResult
+	Compare(location NSTextLocation) foundation.ComparisonResult
 }
 
 // NSTextLocationObject wraps an existing Objective-C object that conforms to the NSTextLocation protocol.
@@ -48,7 +48,7 @@ func NSTextLocationObjectFromID(id objc.ID) NSTextLocationObject {
 // See: https://developer.apple.com/documentation/AppKit/NSTextLocation/compare(_:)
 //
 // [ComparisonResult]: https://developer.apple.com/documentation/Foundation/ComparisonResult
-func (o NSTextLocationObject) Compare(location NSTextLocation) foundation.NSComparisonResult {
+func (o NSTextLocationObject) Compare(location NSTextLocation) foundation.ComparisonResult {
 	rv := objc.Send[foundation.NSComparisonResult](o.ID, objc.Sel("compare:"), location)
-	return rv
+	return foundation.ComparisonResult(rv)
 }

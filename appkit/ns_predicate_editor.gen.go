@@ -57,11 +57,11 @@ func (nc NSPredicateEditorClass) Alloc() NSPredicateEditor {
 // how to display them.
 //
 // Unlike [NSRuleEditor], [NSPredicateEditor] does not depend on its delegate
-// to populate its rows (and ). Instead, its rows are populated from its
-// `objectValue` property (an instance of [NSPredicate]). [NSPredicateEditor]
-// relies on instances [NSPredicateEditorRowTemplate], which are responsible
-// for mapping back and forth between the displayed view values and various
-// predicates.
+// to populate its rows (and does not call the populating delegate methods).
+// Instead, its rows are populated from its `objectValue` property (an
+// instance of [NSPredicate]). [NSPredicateEditor] relies on instances
+// [NSPredicateEditorRowTemplate], which are responsible for mapping back and
+// forth between the displayed view values and various predicates.
 //
 // [NSPredicateEditor] exposes one property, [NSPredicateEditor.RowTemplates],
 // which is an array of [NSPredicateEditorRowTemplate] objects.

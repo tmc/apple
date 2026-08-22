@@ -136,8 +136,8 @@ type IGCControllerDirectionPad interface {
 	// Topic: Getting change information
 
 	// The block that the directional pad calls when the user changes its values.
-	ValueChangedHandler() GCControllerDirectionPadValueChangedHandler
-	SetValueChangedHandler(value GCControllerDirectionPadValueChangedHandler)
+	ValueChangedHandler() GCControllerDirectionPadFloat32Float32Handler
+	SetValueChangedHandler(value GCControllerDirectionPadFloat32Float32Handler)
 
 	// Topic: Setting snapshot values
 
@@ -261,10 +261,13 @@ func (g GCControllerDirectionPad) Down() IGCControllerButtonInput {
 // value.
 //
 // See: https://developer.apple.com/documentation/GameController/GCControllerDirectionPad/valueChangedHandler
-func (g GCControllerDirectionPad) ValueChangedHandler() GCControllerDirectionPadValueChangedHandler {
-	rv := objc.Send[GCControllerDirectionPadValueChangedHandler](g.ID, objc.Sel("valueChangedHandler"))
-	return GCControllerDirectionPadValueChangedHandler(rv)
+func (g GCControllerDirectionPad) ValueChangedHandler() GCControllerDirectionPadFloat32Float32Handler {
+	rv := objc.Send[objc.ID](g.ID, objc.Sel("valueChangedHandler"))
+	_ = rv
+	return nil
 }
-func (g GCControllerDirectionPad) SetValueChangedHandler(value GCControllerDirectionPadValueChangedHandler) {
-	objc.Send[struct{}](g.ID, objc.Sel("setValueChangedHandler:"), value)
+func (g GCControllerDirectionPad) SetValueChangedHandler(value GCControllerDirectionPadFloat32Float32Handler) {
+	block, cleanup := NewGCControllerDirectionPadFloat32Float32Block(value)
+	defer cleanup()
+	objc.Send[struct{}](g.ID, objc.Sel("setValueChangedHandler:"), block)
 }

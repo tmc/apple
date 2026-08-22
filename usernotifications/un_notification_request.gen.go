@@ -115,6 +115,7 @@ type IUNNotificationRequest interface {
 	// The conditions that trigger the delivery of the notification.
 	Trigger() IUNNotificationTrigger
 
+	InitWithCoder(coder foundation.INSCoder) UNNotificationRequest
 	EncodeWithCoder(coder foundation.INSCoder)
 }
 
@@ -135,6 +136,13 @@ func NewUNNotificationRequest() UNNotificationRequest {
 	class := getUNNotificationRequestClass()
 	rv := objc.Send[UNNotificationRequest](objc.ID(class.class), objc.Sel("new"))
 	return rv
+}
+
+// See: https://developer.apple.com/documentation/UserNotifications/UNNotificationRequest/init(coder:)
+func NewUNNotificationRequestWithCoder(coder foundation.INSCoder) UNNotificationRequest {
+	instance := getUNNotificationRequestClass().Alloc()
+	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
+	return UNNotificationRequestFromID(rv)
 }
 
 // Creates a notification request object that you use to schedule a
@@ -165,10 +173,12 @@ func NewUNNotificationRequest() UNNotificationRequest {
 // The system uses the `identifier` parameter to determine how to handle the
 // request:
 //
-// - the system creates a new notification. - the system alerts the user
-// again, replaces the old notification with the new one, and places the new
-// notification at the top of the list. - the new request replaces the pending
-// request.
+// - If you provide a unique identifier, the system creates a new
+// notification. - If the identifier matches a previously delivered
+// notification, the system alerts the user again, replaces the old
+// notification with the new one, and places the new notification at the top
+// of the list. - If the identifier matches a pending request, the new request
+// replaces the pending request.
 //
 // See: https://developer.apple.com/documentation/UserNotifications/UNNotificationRequest/init(identifier:content:trigger:)
 func NewUNNotificationRequestWithIdentifierContentTrigger(identifier string, content IUNNotificationContent, trigger IUNNotificationTrigger) UNNotificationRequest {
@@ -176,6 +186,11 @@ func NewUNNotificationRequestWithIdentifierContentTrigger(identifier string, con
 	return UNNotificationRequestFromID(rv)
 }
 
+// See: https://developer.apple.com/documentation/UserNotifications/UNNotificationRequest/init(coder:)
+func (u UNNotificationRequest) InitWithCoder(coder foundation.INSCoder) UNNotificationRequest {
+	rv := objc.Send[UNNotificationRequest](u.ID, objc.Sel("initWithCoder:"), coder)
+	return rv
+}
 func (u UNNotificationRequest) EncodeWithCoder(coder foundation.INSCoder) {
 	objc.Send[objc.ID](u.ID, objc.Sel("encodeWithCoder:"), coder)
 }

@@ -66,8 +66,8 @@ func ObjectFromID(id objc.ID) Object {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/ObjectiveC/NXHashState
 type NXHashState struct {
-	I int
-	J int
+	I int32
+	J int32
 }
 
 // NXHashTable
@@ -75,11 +75,11 @@ type NXHashState struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/ObjectiveC/NXHashTable
 type NXHashTable struct {
-	Buckets   unsafe.Pointer
-	Count     uint
-	Info      unsafe.Pointer
-	NbBuckets uint
 	Prototype *NXHashTablePrototype
+	Count     uint32
+	NbBuckets uint32
+	Buckets   unsafe.Pointer
+	Info      unsafe.Pointer
 }
 
 // NXHashTablePrototype
@@ -87,10 +87,10 @@ type NXHashTable struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/ObjectiveC/NXHashTablePrototype
 type NXHashTablePrototype struct {
-	Free    func(unsafe.Pointer, unsafe.Pointer)
 	Hash    func(unsafe.Pointer, unsafe.Pointer) uint
-	IsEqual func(unsafe.Pointer, unsafe.Pointer, unsafe.Pointer) int
-	Style   int
+	IsEqual func(unsafe.Pointer, unsafe.Pointer, unsafe.Pointer) int32
+	Free    func(unsafe.Pointer, unsafe.Pointer)
+	Style   int32
 }
 
 // Objc_method_description - Defines an Objective-C method.
@@ -127,8 +127,8 @@ type Objc_property_attribute_t struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/ObjectiveC/objc_super-swift.struct
 type Objc_super struct {
-	Receiver    unsafe.Pointer // A pointer of type [objc_object](<doc://com.apple.objectivec/documentation/ObjectiveC/objc_object>). Specifies an instance of a class.
-	Super_class objc.Class     // A pointer to a [Class](<doc://com.apple.objectivec/documentation/ObjectiveC/Class>) data structure. Specifies the particular superclass of the instance to message.
+	Receiver    Object     // A pointer of type [objc_object](<https://developer.apple.com/documentation/ObjectiveC/objc_object>). Specifies an instance of a class.
+	Super_class objc.Class // A pointer to a [Class](<https://developer.apple.com/documentation/ObjectiveC/Class>) data structure. Specifies the particular superclass of the instance to message.
 
 }
 

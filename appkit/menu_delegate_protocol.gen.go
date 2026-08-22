@@ -12,7 +12,7 @@ import (
 
 var _ = fmt.Sprintf
 
-// The optional methods implemented by delegates of [NSMenu](<doc://com.apple.appkit/documentation/AppKit/NSMenu>) objects to manage menu display and handle some events.
+// The optional methods implemented by delegates of [NSMenu](<https://developer.apple.com/documentation/AppKit/NSMenu>) objects to manage menu display and handle some events.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSMenuDelegate
 type NSMenuDelegate interface {
@@ -34,36 +34,6 @@ func NSMenuDelegateObjectFromID(id objc.ID) NSMenuDelegateObject {
 	return NSMenuDelegateObject{
 		Object: objectivec.ObjectFromID(id),
 	}
-}
-
-// Invoked to allow the delegate to return the target and action for a
-// key-down event.
-//
-// menu: The menu object sending the delegation message.
-//
-// event: An [NSEvent] object representing a key-down event.
-//
-// target: Return by reference the target object for the menu item that corresponds to
-// the event. Specify `nil` to request the menu’s target.
-//
-// action: Return by reference the action selector for the menu item that corresponds
-// to the event.
-//
-// # Return Value
-//
-// If there is a valid and enabled menu item that corresponds to this key-down
-// even, return true after specifying the target and action. Return false if
-// there are no items with that key equivalent or if the item is disabled.
-//
-// # Discussion
-//
-// If the delegate doesn’t define this method, the menu is populated to find
-// out if any items have a matching key equivalent.
-//
-// See: https://developer.apple.com/documentation/AppKit/NSMenuDelegate/menuHasKeyEquivalent(_:for:target:action:)
-func (o NSMenuDelegateObject) MenuHasKeyEquivalentForEventTargetAction(menu INSMenu, event INSEvent, target []objectivec.IObject, action objc.SEL) bool {
-	rv := objc.Send[bool](o.ID, objc.Sel("menuHasKeyEquivalent:forEvent:target:action:"), menu, event, objectivec.IObjectSliceToNSArray(target), action)
-	return rv
 }
 
 // Invoked to let the delegate update a menu item before it is displayed.
@@ -268,9 +238,22 @@ func NewNSMenuDelegate(config NSMenuDelegateConfig) NSMenuDelegateObject {
 		methods = append(methods, objc.MethodDef{
 			Cmd: objc.RegisterName("menu:updateItem:atIndex:shouldCancel:"),
 			Fn: func(self objc.ID, _cmd objc.SEL, menuID objc.ID, itemID objc.ID, index int, shouldCancel bool) bool {
+				// Names which delegate was running if a panic unwinds out of
+				// it. The frames between here and the Objective-C caller are
+				// runtime and purego dispatch, so without this the traceback
+				// never says which selector dispatched. Deliberately no
+				// recover: see [objc.NoteDelegatePanic].
+				_delegateDone := false
+				defer func() {
+					if !_delegateDone {
+						objc.NoteDelegatePanic("NSMenuDelegate", "menu:updateItem:atIndex:shouldCancel:")
+					}
+				}()
 				menu := NSMenuFromID(menuID)
 				item := NSMenuItemFromID(itemID)
-				return fn(menu, item, index, shouldCancel)
+				_delegateResult := fn(menu, item, index, shouldCancel)
+				_delegateDone = true
+				return _delegateResult
 			},
 		})
 	}
@@ -280,9 +263,21 @@ func NewNSMenuDelegate(config NSMenuDelegateConfig) NSMenuDelegateObject {
 		methods = append(methods, objc.MethodDef{
 			Cmd: objc.RegisterName("menu:willHighlightItem:"),
 			Fn: func(self objc.ID, _cmd objc.SEL, menuID objc.ID, itemID objc.ID) {
+				// Names which delegate was running if a panic unwinds out of
+				// it. The frames between here and the Objective-C caller are
+				// runtime and purego dispatch, so without this the traceback
+				// never says which selector dispatched. Deliberately no
+				// recover: see [objc.NoteDelegatePanic].
+				_delegateDone := false
+				defer func() {
+					if !_delegateDone {
+						objc.NoteDelegatePanic("NSMenuDelegate", "menu:willHighlightItem:")
+					}
+				}()
 				menu := NSMenuFromID(menuID)
 				item := NSMenuItemFromID(itemID)
 				fn(menu, item)
+				_delegateDone = true
 			},
 		})
 	}
@@ -292,8 +287,20 @@ func NewNSMenuDelegate(config NSMenuDelegateConfig) NSMenuDelegateObject {
 		methods = append(methods, objc.MethodDef{
 			Cmd: objc.RegisterName("menuWillOpen:"),
 			Fn: func(self objc.ID, _cmd objc.SEL, menuID objc.ID) {
+				// Names which delegate was running if a panic unwinds out of
+				// it. The frames between here and the Objective-C caller are
+				// runtime and purego dispatch, so without this the traceback
+				// never says which selector dispatched. Deliberately no
+				// recover: see [objc.NoteDelegatePanic].
+				_delegateDone := false
+				defer func() {
+					if !_delegateDone {
+						objc.NoteDelegatePanic("NSMenuDelegate", "menuWillOpen:")
+					}
+				}()
 				menu := NSMenuFromID(menuID)
 				fn(menu)
+				_delegateDone = true
 			},
 		})
 	}
@@ -303,8 +310,20 @@ func NewNSMenuDelegate(config NSMenuDelegateConfig) NSMenuDelegateObject {
 		methods = append(methods, objc.MethodDef{
 			Cmd: objc.RegisterName("menuDidClose:"),
 			Fn: func(self objc.ID, _cmd objc.SEL, menuID objc.ID) {
+				// Names which delegate was running if a panic unwinds out of
+				// it. The frames between here and the Objective-C caller are
+				// runtime and purego dispatch, so without this the traceback
+				// never says which selector dispatched. Deliberately no
+				// recover: see [objc.NoteDelegatePanic].
+				_delegateDone := false
+				defer func() {
+					if !_delegateDone {
+						objc.NoteDelegatePanic("NSMenuDelegate", "menuDidClose:")
+					}
+				}()
 				menu := NSMenuFromID(menuID)
 				fn(menu)
+				_delegateDone = true
 			},
 		})
 	}
@@ -314,8 +333,21 @@ func NewNSMenuDelegate(config NSMenuDelegateConfig) NSMenuDelegateObject {
 		methods = append(methods, objc.MethodDef{
 			Cmd: objc.RegisterName("numberOfItemsInMenu:"),
 			Fn: func(self objc.ID, _cmd objc.SEL, menuID objc.ID) int {
+				// Names which delegate was running if a panic unwinds out of
+				// it. The frames between here and the Objective-C caller are
+				// runtime and purego dispatch, so without this the traceback
+				// never says which selector dispatched. Deliberately no
+				// recover: see [objc.NoteDelegatePanic].
+				_delegateDone := false
+				defer func() {
+					if !_delegateDone {
+						objc.NoteDelegatePanic("NSMenuDelegate", "numberOfItemsInMenu:")
+					}
+				}()
 				menu := NSMenuFromID(menuID)
-				return fn(menu)
+				_delegateResult := fn(menu)
+				_delegateDone = true
+				return _delegateResult
 			},
 		})
 	}
@@ -325,8 +357,20 @@ func NewNSMenuDelegate(config NSMenuDelegateConfig) NSMenuDelegateObject {
 		methods = append(methods, objc.MethodDef{
 			Cmd: objc.RegisterName("menuNeedsUpdate:"),
 			Fn: func(self objc.ID, _cmd objc.SEL, menuID objc.ID) {
+				// Names which delegate was running if a panic unwinds out of
+				// it. The frames between here and the Objective-C caller are
+				// runtime and purego dispatch, so without this the traceback
+				// never says which selector dispatched. Deliberately no
+				// recover: see [objc.NoteDelegatePanic].
+				_delegateDone := false
+				defer func() {
+					if !_delegateDone {
+						objc.NoteDelegatePanic("NSMenuDelegate", "menuNeedsUpdate:")
+					}
+				}()
 				menu := NSMenuFromID(menuID)
 				fn(menu)
+				_delegateDone = true
 			},
 		})
 	}

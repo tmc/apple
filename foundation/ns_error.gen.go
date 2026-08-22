@@ -89,7 +89,7 @@ func (nc NSErrorClass) Alloc() NSError {
 //
 // # Getting the Error Recovery Attempter
 //
-//   - [NSError.RecoveryAttempter]: The object in the user info dictionary corresponding to the [NSRecoveryAttempterErrorKey](<doc://com.apple.foundation/documentation/Foundation/NSRecoveryAttempterErrorKey>) key.
+//   - [NSError.RecoveryAttempter]: The object in the user info dictionary corresponding to the [NSRecoveryAttempterErrorKey](<https://developer.apple.com/documentation/Foundation/NSRecoveryAttempterErrorKey>) key.
 //
 // # Displaying a Help Anchor
 //
@@ -145,7 +145,7 @@ func NSErrorFromID(id objc.ID) NSError {
 //
 // # Getting the Error Recovery Attempter
 //
-//   - [INSError.RecoveryAttempter]: The object in the user info dictionary corresponding to the [NSRecoveryAttempterErrorKey](<doc://com.apple.foundation/documentation/Foundation/NSRecoveryAttempterErrorKey>) key.
+//   - [INSError.RecoveryAttempter]: The object in the user info dictionary corresponding to the [NSRecoveryAttempterErrorKey](<https://developer.apple.com/documentation/Foundation/NSRecoveryAttempterErrorKey>) key.
 //
 // # Displaying a Help Anchor
 //
@@ -158,7 +158,6 @@ func NSErrorFromID(id objc.ID) NSError {
 // See: https://developer.apple.com/documentation/Foundation/NSError
 type INSError interface {
 	objectivec.IObject
-	NSSecureCoding
 
 	// Topic: Creating Error Objects
 
@@ -187,7 +186,7 @@ type INSError interface {
 
 	// Topic: Getting the Error Recovery Attempter
 
-	// The object in the user info dictionary corresponding to the [NSRecoveryAttempterErrorKey](<doc://com.apple.foundation/documentation/Foundation/NSRecoveryAttempterErrorKey>) key.
+	// The object in the user info dictionary corresponding to the [NSRecoveryAttempterErrorKey](<https://developer.apple.com/documentation/Foundation/NSRecoveryAttempterErrorKey>) key.
 	RecoveryAttempter() objectivec.IObject
 
 	// Topic: Displaying a Help Anchor
@@ -198,6 +197,10 @@ type INSError interface {
 	// Topic: Instance Properties
 
 	UnderlyingErrors() []NSError
+
+	// Encodes the receiver using a given archiver.
+	EncodeWithCoder(coder INSCoder)
+	InitWithCoder(coder INSCoder) NSError
 	Error() string
 }
 
@@ -338,8 +341,8 @@ func (e NSError) InitWithCoder(coder INSCoder) NSError {
 // See: https://developer.apple.com/documentation/Foundation/NSError/setUserInfoValueProvider(forDomain:provider:)
 //
 // [NSLocalizedDescriptionKey]: https://developer.apple.com/documentation/Foundation/NSLocalizedDescriptionKey
-func (_NSErrorClass NSErrorClass) SetUserInfoValueProviderForDomainProvider(errorDomain NSErrorDomain, provider ErrorHandler) {
-	_block1, _ := NewErrorBlock(provider)
+func (_NSErrorClass NSErrorClass) SetUserInfoValueProviderForDomainProvider(errorDomain NSErrorDomain, provider IObjectErrorHandler) {
+	_block1, _ := NewIObjectErrorBlock(provider)
 	objc.Send[objc.ID](objc.ID(_NSErrorClass.class), objc.Sel("setUserInfoValueProviderForDomain:provider:"), objc.String(string(errorDomain)), _block1)
 }
 
@@ -360,20 +363,24 @@ func (_NSErrorClass NSErrorClass) UserInfoValueProviderForDomain(errorDomain NSE
 // Returns a properly formatted error object with a
 // [NSFileProviderItemCollisionError] error code.
 //
+// existingItem is a [fileprovider.NSFileProviderItem].
+//
 // See: https://developer.apple.com/documentation/Foundation/NSError/fileProviderErrorForCollision(with:)
-func (_NSErrorClass NSErrorClass) FileProviderErrorForCollisionWithItem(existingItem unsafe.Pointer) NSError {
+func (_NSErrorClass NSErrorClass) FileProviderErrorForCollisionWithItem(existingItem objectivec.IObject) NSError {
 	rv := objc.Send[objc.ID](objc.ID(_NSErrorClass.class), objc.Sel("fileProviderErrorForCollisionWithItem:"), existingItem)
 	return NSErrorFromID(rv)
 }
 
 // See: https://developer.apple.com/documentation/Foundation/NSError/fileProviderErrorForNonExistentItem(withIdentifier:)
-func (_NSErrorClass NSErrorClass) FileProviderErrorForNonExistentItemWithIdentifier(itemIdentifier string) NSError {
-	rv := objc.Send[objc.ID](objc.ID(_NSErrorClass.class), objc.Sel("fileProviderErrorForNonExistentItemWithIdentifier:"), objc.String(itemIdentifier))
+func (_NSErrorClass NSErrorClass) FileProviderErrorForNonExistentItemWithIdentifier(itemIdentifier INSString) NSError {
+	rv := objc.Send[objc.ID](objc.ID(_NSErrorClass.class), objc.Sel("fileProviderErrorForNonExistentItemWithIdentifier:"), itemIdentifier)
 	return NSErrorFromID(rv)
 }
 
+// updatedVersion is a [fileprovider.NSFileProviderItem].
+//
 // See: https://developer.apple.com/documentation/Foundation/NSError/fileProviderErrorForRejectedDeletion(of:)
-func (_NSErrorClass NSErrorClass) FileProviderErrorForRejectedDeletionOfItem(updatedVersion unsafe.Pointer) NSError {
+func (_NSErrorClass NSErrorClass) FileProviderErrorForRejectedDeletionOfItem(updatedVersion objectivec.IObject) NSError {
 	rv := objc.Send[objc.ID](objc.ID(_NSErrorClass.class), objc.Sel("fileProviderErrorForRejectedDeletionOfItem:"), updatedVersion)
 	return NSErrorFromID(rv)
 }

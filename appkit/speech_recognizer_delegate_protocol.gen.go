@@ -7,7 +7,7 @@ import (
 	"github.com/tmc/apple/objectivec"
 )
 
-// A set of optional methods implemented by delegates of [NSSpeechRecognizer](<doc://com.apple.appkit/documentation/AppKit/NSSpeechRecognizer>) objects.
+// A set of optional methods implemented by delegates of [NSSpeechRecognizer](<https://developer.apple.com/documentation/AppKit/NSSpeechRecognizer>) objects.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSSpeechRecognizerDelegate
 type NSSpeechRecognizerDelegate interface {

@@ -110,7 +110,6 @@ func NSExceptionFromID(id objc.ID) NSException {
 // See: https://developer.apple.com/documentation/Foundation/NSException
 type INSException interface {
 	objectivec.IObject
-	NSSecureCoding
 
 	// Topic: Creating and Raising an NSException Object
 
@@ -134,6 +133,10 @@ type INSException interface {
 	CallStackReturnAddresses() []NSNumber
 	// An array containing the current call stack symbols.
 	CallStackSymbols() []string
+
+	// Encodes the receiver using a given archiver.
+	EncodeWithCoder(coder INSCoder)
+	InitWithCoder(coder INSCoder) NSException
 }
 
 // Init initializes the instance.

@@ -116,9 +116,10 @@ func NewVNGenerateImageFeaturePrintRequest() VNGenerateImageFeaturePrintRequest 
 // [VNImageRequestHandler.PerformRequestsError].
 //
 // See: https://developer.apple.com/documentation/Vision/VNRequest/init(completionHandler:)
-func NewGenerateImageFeaturePrintRequestWithCompletionHandler(completionHandler VNRequestCompletionHandler) VNGenerateImageFeaturePrintRequest {
+func NewGenerateImageFeaturePrintRequestWithCompletionHandler(completionHandler VNRequestErrorHandler) VNGenerateImageFeaturePrintRequest {
+	_block0, _ := NewVNRequestErrorBlock(completionHandler)
 	instance := getVNGenerateImageFeaturePrintRequestClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCompletionHandler:"), completionHandler)
+	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCompletionHandler:"), _block0)
 	return VNGenerateImageFeaturePrintRequestFromID(rv)
 }
 

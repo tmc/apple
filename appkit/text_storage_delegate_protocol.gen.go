@@ -133,8 +133,20 @@ func NewNSTextStorageDelegate(config NSTextStorageDelegateConfig) NSTextStorageD
 		methods = append(methods, objc.MethodDef{
 			Cmd: objc.RegisterName("textStorage:willProcessEditing:range:changeInLength:"),
 			Fn: func(self objc.ID, _cmd objc.SEL, textStorageID objc.ID, editedMask NSTextStorageEditActions, editedRange foundation.NSRange, delta int) {
+				// Names which delegate was running if a panic unwinds out of
+				// it. The frames between here and the Objective-C caller are
+				// runtime and purego dispatch, so without this the traceback
+				// never says which selector dispatched. Deliberately no
+				// recover: see [objc.NoteDelegatePanic].
+				_delegateDone := false
+				defer func() {
+					if !_delegateDone {
+						objc.NoteDelegatePanic("NSTextStorageDelegate", "textStorage:willProcessEditing:range:changeInLength:")
+					}
+				}()
 				textStorage := NSTextStorageFromID(textStorageID)
 				fn(textStorage, editedMask, editedRange, delta)
+				_delegateDone = true
 			},
 		})
 	}
@@ -144,8 +156,20 @@ func NewNSTextStorageDelegate(config NSTextStorageDelegateConfig) NSTextStorageD
 		methods = append(methods, objc.MethodDef{
 			Cmd: objc.RegisterName("textStorage:didProcessEditing:range:changeInLength:"),
 			Fn: func(self objc.ID, _cmd objc.SEL, textStorageID objc.ID, editedMask NSTextStorageEditActions, editedRange foundation.NSRange, delta int) {
+				// Names which delegate was running if a panic unwinds out of
+				// it. The frames between here and the Objective-C caller are
+				// runtime and purego dispatch, so without this the traceback
+				// never says which selector dispatched. Deliberately no
+				// recover: see [objc.NoteDelegatePanic].
+				_delegateDone := false
+				defer func() {
+					if !_delegateDone {
+						objc.NoteDelegatePanic("NSTextStorageDelegate", "textStorage:didProcessEditing:range:changeInLength:")
+					}
+				}()
 				textStorage := NSTextStorageFromID(textStorageID)
 				fn(textStorage, editedMask, editedRange, delta)
+				_delegateDone = true
 			},
 		})
 	}

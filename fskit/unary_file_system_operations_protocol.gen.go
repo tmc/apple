@@ -71,7 +71,9 @@ func FSUnaryFileSystemOperationsObjectFromID(id objc.ID) FSUnaryFileSystemOperat
 //
 // See: https://developer.apple.com/documentation/FSKit/FSUnaryFileSystemOperations/loadResource(resource:options:replyHandler:)
 func (o FSUnaryFileSystemOperationsObject) LoadResourceOptionsReplyHandler(resource IFSResource, options IFSTaskOptions, reply FSVolumeErrorHandler) {
-	objc.Send[struct{}](o.ID, objc.Sel("loadResource:options:replyHandler:"), resource, options, reply)
+	_block2, _cleanup2 := NewFSVolumeErrorBlock(reply)
+	defer _cleanup2()
+	objc.Send[struct{}](o.ID, objc.Sel("loadResource:options:replyHandler:"), resource, options, objc.ID(_block2))
 }
 
 // Requests that the file system unload the specified resource.
@@ -87,7 +89,9 @@ func (o FSUnaryFileSystemOperationsObject) LoadResourceOptionsReplyHandler(resou
 //
 // See: https://developer.apple.com/documentation/FSKit/FSUnaryFileSystemOperations/unloadResource(resource:options:replyHandler:)
 func (o FSUnaryFileSystemOperationsObject) UnloadResourceOptionsReplyHandler(resource IFSResource, options IFSTaskOptions, reply ErrorHandler) {
-	objc.Send[struct{}](o.ID, objc.Sel("unloadResource:options:replyHandler:"), resource, options, reply)
+	_block2, _cleanup2 := NewErrorBlock(reply)
+	defer _cleanup2()
+	objc.Send[struct{}](o.ID, objc.Sel("unloadResource:options:replyHandler:"), resource, options, objc.ID(_block2))
 }
 
 // Requests that the file system probe the specified resource.
@@ -106,7 +110,9 @@ func (o FSUnaryFileSystemOperationsObject) UnloadResourceOptionsReplyHandler(res
 //
 // See: https://developer.apple.com/documentation/FSKit/FSUnaryFileSystemOperations/probeResource(resource:replyHandler:)
 func (o FSUnaryFileSystemOperationsObject) ProbeResourceReplyHandler(resource IFSResource, reply FSProbeResultErrorHandler) {
-	objc.Send[struct{}](o.ID, objc.Sel("probeResource:replyHandler:"), resource, reply)
+	_block1, _cleanup1 := NewFSProbeResultErrorBlock(reply)
+	defer _cleanup1()
+	objc.Send[struct{}](o.ID, objc.Sel("probeResource:replyHandler:"), resource, objc.ID(_block1))
 }
 
 // Notifies you that the system finished loading your file system extension.

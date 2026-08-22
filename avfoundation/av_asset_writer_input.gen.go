@@ -978,10 +978,10 @@ func (a AVAssetWriterInput) SetPreferredMediaChunkDuration(value coremedia.CMTim
 // directory that’s a parent of the sample reference location.
 //
 // For example, setting the value of this property to
-// `///User/johnappleseed/Movies/` and appending sample buffers with the
+// `file:///User/johnappleseed/Movies/` and appending sample buffers with the
 // [kCMSampleBufferAttachmentKey_SampleReferenceURL] attachment set to
-// `///User/johnappleseed/Movies/data/movie1.Mov()` writes a sample reference
-// of `data/movie1.Mov()` to the movie.
+// `file:///User/johnappleseed/Movies/data/movie1.mov` writes a sample
+// reference of `data/movie1.mov` to the movie.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVAssetWriterInput/sampleReferenceBaseURL
 //

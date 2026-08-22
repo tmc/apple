@@ -78,7 +78,7 @@ func (xc XMLParserClass) Alloc() XMLParser {
 //
 //   - [XMLParser.Parse]: Starts the event-driven parsing operation.
 //   - [XMLParser.AbortParsing]: Stops the parser object.
-//   - [XMLParser.ParserError]: An [NSError](<doc://com.apple.foundation/documentation/Foundation/NSError>) object from which you can obtain information about a parsing error.
+//   - [XMLParser.ParserError]: An [NSError](<https://developer.apple.com/documentation/Foundation/NSError>) object from which you can obtain information about a parsing error.
 //
 // # Obtaining Parser State
 //
@@ -138,7 +138,7 @@ func NSXMLParserFromID(id objc.ID) XMLParser { return XMLParserFromID(id) }
 //
 //   - [IXMLParser.Parse]: Starts the event-driven parsing operation.
 //   - [IXMLParser.AbortParsing]: Stops the parser object.
-//   - [IXMLParser.ParserError]: An [NSError](<doc://com.apple.foundation/documentation/Foundation/NSError>) object from which you can obtain information about a parsing error.
+//   - [IXMLParser.ParserError]: An [NSError](<https://developer.apple.com/documentation/Foundation/NSError>) object from which you can obtain information about a parsing error.
 //
 // # Obtaining Parser State
 //
@@ -191,7 +191,7 @@ type IXMLParser interface {
 	Parse() bool
 	// Stops the parser object.
 	AbortParsing()
-	// An [NSError](<doc://com.apple.foundation/documentation/Foundation/NSError>) object from which you can obtain information about a parsing error.
+	// An [NSError](<https://developer.apple.com/documentation/Foundation/NSError>) object from which you can obtain information about a parsing error.
 	ParserError() INSError
 
 	// Topic: Obtaining Parser State

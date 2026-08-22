@@ -115,6 +115,13 @@ func NewUNTimeIntervalNotificationTrigger() UNTimeIntervalNotificationTrigger {
 	return rv
 }
 
+// See: https://developer.apple.com/documentation/UserNotifications/UNNotificationTrigger/init(coder:)
+func NewUNTimeIntervalNotificationTriggerWithCoder(coder foundation.INSCoder) UNTimeIntervalNotificationTrigger {
+	instance := getUNTimeIntervalNotificationTriggerClass().Alloc()
+	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
+	return UNTimeIntervalNotificationTriggerFromID(rv)
+}
+
 // Creates a time interval trigger using the time value parameter.
 //
 // timeInterval: The time (in seconds) that must elapse from the current time before the

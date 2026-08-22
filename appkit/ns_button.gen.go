@@ -113,9 +113,9 @@ func (nc NSButtonClass) Alloc() NSButton {
 //   - [NSButton.SetSound]
 //   - [NSButton.IsSpringLoaded]: A Boolean value that indicates whether spring loading is enabled for the button.
 //   - [NSButton.SetSpringLoaded]
-//   - [NSButton.MaxAcceleratorLevel]: An integer value indicating the maximum pressure level for a button of type [NSMultiLevelAcceleratorButton](<doc://com.apple.appkit/documentation/AppKit/NSMultiLevelAcceleratorButton>).
+//   - [NSButton.MaxAcceleratorLevel]: An integer value indicating the maximum pressure level for a button of type [NSMultiLevelAcceleratorButton](<https://developer.apple.com/documentation/AppKit/NSMultiLevelAcceleratorButton>).
 //   - [NSButton.SetMaxAcceleratorLevel]
-//   - [NSButton.TintProminence]: The tint prominence of the button. Use tint prominence to gently suggest a hierarchy when multiple buttons perform similar actions. A button with primary tint prominence suggests the most preferred option, while secondary prominence indicates a reasonable alternative. See [NSTintProminence](<doc://com.apple.appkit/documentation/AppKit/NSTintProminence>) for a list of possible values.
+//   - [NSButton.TintProminence]: The tint prominence of the button. Use tint prominence to gently suggest a hierarchy when multiple buttons perform similar actions. A button with primary tint prominence suggests the most preferred option, while secondary prominence indicates a reasonable alternative. See [NSTintProminence](<https://developer.apple.com/documentation/AppKit/NSTintProminence>) for a list of possible values.
 //   - [NSButton.SetTintProminence]
 //   - [NSButton.BorderShape]
 //   - [NSButton.SetBorderShape]
@@ -203,9 +203,9 @@ func NSButtonFromID(id objc.ID) NSButton {
 //   - [INSButton.SetSound]
 //   - [INSButton.IsSpringLoaded]: A Boolean value that indicates whether spring loading is enabled for the button.
 //   - [INSButton.SetSpringLoaded]
-//   - [INSButton.MaxAcceleratorLevel]: An integer value indicating the maximum pressure level for a button of type [NSMultiLevelAcceleratorButton](<doc://com.apple.appkit/documentation/AppKit/NSMultiLevelAcceleratorButton>).
+//   - [INSButton.MaxAcceleratorLevel]: An integer value indicating the maximum pressure level for a button of type [NSMultiLevelAcceleratorButton](<https://developer.apple.com/documentation/AppKit/NSMultiLevelAcceleratorButton>).
 //   - [INSButton.SetMaxAcceleratorLevel]
-//   - [INSButton.TintProminence]: The tint prominence of the button. Use tint prominence to gently suggest a hierarchy when multiple buttons perform similar actions. A button with primary tint prominence suggests the most preferred option, while secondary prominence indicates a reasonable alternative. See [NSTintProminence](<doc://com.apple.appkit/documentation/AppKit/NSTintProminence>) for a list of possible values.
+//   - [INSButton.TintProminence]: The tint prominence of the button. Use tint prominence to gently suggest a hierarchy when multiple buttons perform similar actions. A button with primary tint prominence suggests the most preferred option, while secondary prominence indicates a reasonable alternative. See [NSTintProminence](<https://developer.apple.com/documentation/AppKit/NSTintProminence>) for a list of possible values.
 //   - [INSButton.SetTintProminence]
 //   - [INSButton.BorderShape]
 //   - [INSButton.SetBorderShape]
@@ -289,10 +289,10 @@ type INSButton interface {
 	// A Boolean value that indicates whether spring loading is enabled for the button.
 	IsSpringLoaded() bool
 	SetSpringLoaded(value bool)
-	// An integer value indicating the maximum pressure level for a button of type [NSMultiLevelAcceleratorButton](<doc://com.apple.appkit/documentation/AppKit/NSMultiLevelAcceleratorButton>).
+	// An integer value indicating the maximum pressure level for a button of type [NSMultiLevelAcceleratorButton](<https://developer.apple.com/documentation/AppKit/NSMultiLevelAcceleratorButton>).
 	MaxAcceleratorLevel() int
 	SetMaxAcceleratorLevel(value int)
-	// The tint prominence of the button. Use tint prominence to gently suggest a hierarchy when multiple buttons perform similar actions. A button with primary tint prominence suggests the most preferred option, while secondary prominence indicates a reasonable alternative. See [NSTintProminence](<doc://com.apple.appkit/documentation/AppKit/NSTintProminence>) for a list of possible values.
+	// The tint prominence of the button. Use tint prominence to gently suggest a hierarchy when multiple buttons perform similar actions. A button with primary tint prominence suggests the most preferred option, while secondary prominence indicates a reasonable alternative. See [NSTintProminence](<https://developer.apple.com/documentation/AppKit/NSTintProminence>) for a list of possible values.
 	TintProminence() NSTintProminence
 	SetTintProminence(value NSTintProminence)
 	BorderShape() NSControlBorderShape
@@ -352,6 +352,9 @@ type INSButton interface {
 	// The mask specifying the modifier keys for the button’s key equivalent.
 	KeyEquivalentModifierMask() NSEventModifierFlags
 	SetKeyEquivalentModifierMask(value NSEventModifierFlags)
+
+	// Returns a Boolean value that indicates whether the sender should be enabled.
+	ValidateUserInterfaceItem(item NSValidatedUserInterfaceItem) bool
 }
 
 // Init initializes the instance.
@@ -600,20 +603,6 @@ func (b NSButton) SetNextState() {
 // See: https://developer.apple.com/documentation/AppKit/NSButton/highlight(_:)
 func (b NSButton) Highlight(flag bool) {
 	objc.Send[objc.ID](b.ID, objc.Sel("highlight:"), flag)
-}
-
-// Simulates clicking the button.
-//
-// # Return Value
-//
-// true if the action was successfully triggered; otherwise, false. This
-// method does not indicate the success or failure of the action, just the
-// fact that the action was successfully triggered.
-//
-// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityButton/accessibilityPerformPress()
-func (b NSButton) AccessibilityPerformPress() bool {
-	rv := objc.Send[bool](b.ID, objc.Sel("accessibilityPerformPress"))
-	return rv
 }
 
 // Returns a Boolean value that indicates whether the sender should be
@@ -1193,88 +1182,6 @@ func (b NSButton) SetKeyEquivalentModifierMask(value NSEventModifierFlags) {
 }
 
 // Protocol methods for NSAccessibilityButton
-
-// Returns the accessibility element’s frame in screen coordinates.
-//
-// # Return Value
-//
-// The element’s frame in screen coordinates.
-//
-// # Discussion
-//
-// This method is the getter for the [NSAccessibilityProtocol] protocol’s
-// [accessibilityFrame] property. This method is called whenever accessibility
-// clients request the [size] or [position] attributes.
-//
-// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityElementProtocol/accessibilityFrame()
-//
-// [accessibilityFrame]: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityFrame
-// [position]: https://developer.apple.com/documentation/AppKit/NSAccessibility-swift.struct/Attribute/position
-// [size]: https://developer.apple.com/documentation/AppKit/NSAccessibility-swift.struct/Attribute/size
-func (o NSButton) AccessibilityFrame() corefoundation.CGRect {
-	rv := objc.Send[corefoundation.CGRect](o.ID, objc.Sel("accessibilityFrame"))
-	return rv
-}
-
-// Returns the accessibility element’s parent in the accessibility
-// hierarchy.
-//
-// # Return Value
-//
-// The element’s parent in the accessibility hierarchy.
-//
-// # Discussion
-//
-// This method is the getter for the [NSAccessibilityProtocol] protocol’s
-// [accessibilityParent] property.
-//
-// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityElementProtocol/accessibilityParent()
-//
-// [accessibilityParent]: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityParent
-func (o NSButton) AccessibilityParent() objectivec.IObject {
-	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilityParent"))
-	return objectivec.Object{ID: rv}
-}
-
-// Returns the accessibility element’s identity.
-//
-// # Return Value
-//
-// Returns the unique ID for the accessibility element. It is often used in
-// automated testing.
-//
-// # Discussion
-//
-// This method is the getter for the [NSAccessibilityProtocol] protocol’s
-// [accessibilityIdentifier] property.
-//
-// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityElementProtocol/accessibilityIdentifier()
-//
-// [accessibilityIdentifier]: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityIdentifier
-func (o NSButton) AccessibilityIdentifier() string {
-	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilityIdentifier"))
-	return foundation.NSStringFromID(rv).String()
-}
-
-// Returns a Boolean value that indicates whether the accessibility element
-// has the keyboard focus.
-//
-// # Return Value
-//
-// true if this element has the keyboard focus; otherwise, false.
-//
-// # Discussion
-//
-// This method is the getter for the [NSAccessibilityProtocol] protocol’s
-// [accessibilityFocused] property.
-//
-// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityElementProtocol/isAccessibilityFocused()
-//
-// [accessibilityFocused]: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityFocused
-func (o NSButton) IsAccessibilityFocused() bool {
-	rv := objc.Send[bool](o.ID, objc.Sel("isAccessibilityFocused"))
-	return rv
-}
 
 // Protocol methods for NSUserInterfaceCompression
 

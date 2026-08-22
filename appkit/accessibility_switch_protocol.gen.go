@@ -20,7 +20,11 @@ type NSAccessibilitySwitch interface {
 	// Returns the switch’s value.
 	//
 	// See: https://developer.apple.com/documentation/AppKit/NSAccessibilitySwitch/accessibilityValue()
-	AccessibilityValue() string
+	//
+	// SDK narrowing: NSAccessibilitySwitch declares this as - (nullable NSString *)accessibilityValue.
+	// Go has no covariance, so the base declaration on NSAccessibility (rendered on INSView) is used.
+	// Convert with foundation.NSStringFromID(v.GetID()) to recover the narrowed type.
+	AccessibilityValue() objectivec.IObject
 }
 
 // NSAccessibilitySwitchObject wraps an existing Objective-C object that conforms to the NSAccessibilitySwitch protocol.
@@ -49,14 +53,16 @@ func NSAccessibilitySwitchObjectFromID(id objc.ID) NSAccessibilitySwitchObject {
 // # Discussion
 //
 // This method is the getter for the [NSAccessibilityProtocol] protocol’s
-// [accessibilityValue] property.
+// [NSWindow.AccessibilityValue] property.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSAccessibilitySwitch/accessibilityValue()
 //
-// [accessibilityValue]: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityValue
-func (o NSAccessibilitySwitchObject) AccessibilityValue() string {
+// SDK narrowing: NSAccessibilitySwitch declares this as - (nullable NSString *)accessibilityValue.
+// Go has no covariance, so the base declaration on NSAccessibility (rendered on INSView) is used.
+// Convert with foundation.NSStringFromID(v.GetID()) to recover the narrowed type.
+func (o NSAccessibilitySwitchObject) AccessibilityValue() objectivec.IObject {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilityValue"))
-	return foundation.NSStringFromID(rv).String()
+	return objectivec.Object{ID: rv}
 }
 
 // Decrements the switch’s value.
@@ -110,7 +116,7 @@ func (o NSAccessibilitySwitchObject) AccessibilityPerformIncrement() bool {
 // # Discussion
 //
 // This method is the getter for the [NSAccessibilityProtocol] protocol’s
-// [accessibilityLabel] property.
+// [NSWindow.AccessibilityLabel] property.
 //
 // Do not include the accessibility element’s type in the label (for
 // example, write [Play] not `Play button`.). If possible, use a single word.
@@ -119,8 +125,6 @@ func (o NSAccessibilitySwitchObject) AccessibilityPerformIncrement() bool {
 // Do not put a period at the end. Always localize the label.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSAccessibilityButton/accessibilityLabel()
-//
-// [accessibilityLabel]: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityLabel
 func (o NSAccessibilitySwitchObject) AccessibilityLabel() string {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilityLabel"))
 	return foundation.NSStringFromID(rv).String()
@@ -149,12 +153,11 @@ func (o NSAccessibilitySwitchObject) AccessibilityPerformPress() bool {
 // # Discussion
 //
 // This method is the getter for the [NSAccessibilityProtocol] protocol’s
-// [accessibilityFrame] property. This method is called whenever accessibility
-// clients request the [size] or [position] attributes.
+// [NSWindow.AccessibilityFrame] property. This method is called whenever
+// accessibility clients request the [size] or [position] attributes.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSAccessibilityElementProtocol/accessibilityFrame()
 //
-// [accessibilityFrame]: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityFrame
 // [position]: https://developer.apple.com/documentation/AppKit/NSAccessibility-swift.struct/Attribute/position
 // [size]: https://developer.apple.com/documentation/AppKit/NSAccessibility-swift.struct/Attribute/size
 func (o NSAccessibilitySwitchObject) AccessibilityFrame() corefoundation.CGRect {
@@ -172,11 +175,9 @@ func (o NSAccessibilitySwitchObject) AccessibilityFrame() corefoundation.CGRect 
 // # Discussion
 //
 // This method is the getter for the [NSAccessibilityProtocol] protocol’s
-// [accessibilityParent] property.
+// [NSWindow.AccessibilityParent] property.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSAccessibilityElementProtocol/accessibilityParent()
-//
-// [accessibilityParent]: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityParent
 func (o NSAccessibilitySwitchObject) AccessibilityParent() objectivec.IObject {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilityParent"))
 	return objectivec.Object{ID: rv}
@@ -192,11 +193,9 @@ func (o NSAccessibilitySwitchObject) AccessibilityParent() objectivec.IObject {
 // # Discussion
 //
 // This method is the getter for the [NSAccessibilityProtocol] protocol’s
-// [accessibilityIdentifier] property.
+// [NSWindow.AccessibilityIdentifier] property.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSAccessibilityElementProtocol/accessibilityIdentifier()
-//
-// [accessibilityIdentifier]: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityIdentifier
 func (o NSAccessibilitySwitchObject) AccessibilityIdentifier() string {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilityIdentifier"))
 	return foundation.NSStringFromID(rv).String()
@@ -212,11 +211,9 @@ func (o NSAccessibilitySwitchObject) AccessibilityIdentifier() string {
 // # Discussion
 //
 // This method is the getter for the [NSAccessibilityProtocol] protocol’s
-// [accessibilityFocused] property.
+// [NSWindow.AccessibilityFocused] property.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSAccessibilityElementProtocol/isAccessibilityFocused()
-//
-// [accessibilityFocused]: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityFocused
 func (o NSAccessibilitySwitchObject) IsAccessibilityFocused() bool {
 	rv := objc.Send[bool](o.ID, objc.Sel("isAccessibilityFocused"))
 	return rv

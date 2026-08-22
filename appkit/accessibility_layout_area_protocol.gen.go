@@ -66,11 +66,9 @@ func NSAccessibilityLayoutAreaObjectFromID(id objc.ID) NSAccessibilityLayoutArea
 // # Discussion
 //
 // This method is the getter for the [NSAccessibilityProtocol] protocol’s
-// [accessibilityChildren] property.
+// [NSWindow.AccessibilityChildren] property.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSAccessibilityLayoutArea/accessibilityChildren()
-//
-// [accessibilityChildren]: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityChildren
 func (o NSAccessibilityLayoutAreaObject) AccessibilityChildren() foundation.INSArray {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilityChildren"))
 	return foundation.NSArrayFromID(rv)
@@ -85,7 +83,7 @@ func (o NSAccessibilityLayoutAreaObject) AccessibilityChildren() foundation.INSA
 // # Discussion
 //
 // This method is the getter for the [NSAccessibilityProtocol] protocol’s
-// [accessibilityLabel] property.
+// [NSWindow.AccessibilityLabel] property.
 //
 // Do not include the control’s type in the label (for example, use
 // [Canvas], not `Canvas Layout Area`). If possible use a single word. To help
@@ -94,8 +92,6 @@ func (o NSAccessibilityLayoutAreaObject) AccessibilityChildren() foundation.INSA
 // period at the end. Always localize the label.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSAccessibilityLayoutArea/accessibilityLabel()
-//
-// [accessibilityLabel]: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityLabel
 func (o NSAccessibilityLayoutAreaObject) AccessibilityLabel() string {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilityLabel"))
 	return foundation.NSStringFromID(rv).String()
@@ -111,11 +107,9 @@ func (o NSAccessibilityLayoutAreaObject) AccessibilityLabel() string {
 // # Discussion
 //
 // This method is the getter for the [NSAccessibilityProtocol] protocol’s
-// [accessibilitySelectedChildren] property.
+// [NSWindow.AccessibilitySelectedChildren] property.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSAccessibilityLayoutArea/accessibilitySelectedChildren()
-//
-// [accessibilitySelectedChildren]: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilitySelectedChildren
 func (o NSAccessibilityLayoutAreaObject) AccessibilitySelectedChildren() foundation.INSArray {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilitySelectedChildren"))
 	return foundation.NSArrayFromID(rv)
@@ -130,12 +124,11 @@ func (o NSAccessibilityLayoutAreaObject) AccessibilitySelectedChildren() foundat
 // # Discussion
 //
 // This method is the getter for the [NSAccessibilityProtocol] protocol’s
-// [accessibilityFrame] property. This method is called whenever accessibility
-// clients request the [size] or [position] attributes.
+// [NSWindow.AccessibilityFrame] property. This method is called whenever
+// accessibility clients request the [size] or [position] attributes.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSAccessibilityElementProtocol/accessibilityFrame()
 //
-// [accessibilityFrame]: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityFrame
 // [position]: https://developer.apple.com/documentation/AppKit/NSAccessibility-swift.struct/Attribute/position
 // [size]: https://developer.apple.com/documentation/AppKit/NSAccessibility-swift.struct/Attribute/size
 func (o NSAccessibilityLayoutAreaObject) AccessibilityFrame() corefoundation.CGRect {
@@ -153,11 +146,9 @@ func (o NSAccessibilityLayoutAreaObject) AccessibilityFrame() corefoundation.CGR
 // # Discussion
 //
 // This method is the getter for the [NSAccessibilityProtocol] protocol’s
-// [accessibilityParent] property.
+// [NSWindow.AccessibilityParent] property.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSAccessibilityElementProtocol/accessibilityParent()
-//
-// [accessibilityParent]: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityParent
 func (o NSAccessibilityLayoutAreaObject) AccessibilityParent() objectivec.IObject {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilityParent"))
 	return objectivec.Object{ID: rv}
@@ -173,11 +164,9 @@ func (o NSAccessibilityLayoutAreaObject) AccessibilityParent() objectivec.IObjec
 // # Discussion
 //
 // This method is the getter for the [NSAccessibilityProtocol] protocol’s
-// [accessibilityIdentifier] property.
+// [NSWindow.AccessibilityIdentifier] property.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSAccessibilityElementProtocol/accessibilityIdentifier()
-//
-// [accessibilityIdentifier]: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityIdentifier
 func (o NSAccessibilityLayoutAreaObject) AccessibilityIdentifier() string {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilityIdentifier"))
 	return foundation.NSStringFromID(rv).String()
@@ -193,11 +182,9 @@ func (o NSAccessibilityLayoutAreaObject) AccessibilityIdentifier() string {
 // # Discussion
 //
 // This method is the getter for the [NSAccessibilityProtocol] protocol’s
-// [accessibilityFocused] property.
+// [NSWindow.AccessibilityFocused] property.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSAccessibilityElementProtocol/isAccessibilityFocused()
-//
-// [accessibilityFocused]: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityFocused
 func (o NSAccessibilityLayoutAreaObject) IsAccessibilityFocused() bool {
 	rv := objc.Send[bool](o.ID, objc.Sel("isAccessibilityFocused"))
 	return rv

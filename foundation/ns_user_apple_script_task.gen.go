@@ -3,6 +3,7 @@
 package foundation
 
 import (
+	"context"
 	"sync"
 	"unsafe"
 
@@ -92,7 +93,7 @@ type INSUserAppleScriptTask interface {
 	// Topic: Executing an AppleScript Script
 
 	// Execute the AppleScript script by sending it the specified Apple event.
-	ExecuteWithAppleEventCompletionHandler(event INSAppleEventDescriptor, handler ErrorHandler)
+	ExecuteWithAppleEventCompletionHandler(event INSAppleEventDescriptor, handler AppleEventDescriptorErrorHandler)
 }
 
 // Init initializes the instance.
@@ -131,7 +132,7 @@ func NewNSUserAppleScriptTask() NSUserAppleScriptTask {
 //
 // If invoked from a subclass, the result will be that class or `nil`.
 //
-// See: https://developer.apple.com/documentation/Foundation/NSUserScriptTask/init(url:)-2qgls
+// See: https://developer.apple.com/documentation/Foundation/NSUserScriptTask/init(url:)
 func NewUserAppleScriptTaskWithURLError(url INSURL) (NSUserAppleScriptTask, error) {
 	var errorPtr objc.ID
 	instance := getNSUserAppleScriptTaskClass().Alloc()
@@ -139,6 +140,9 @@ func NewUserAppleScriptTaskWithURLError(url INSURL) (NSUserAppleScriptTask, erro
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
 		return NSUserAppleScriptTask{}, NSErrorFrom(errorPtr)
+	}
+	if rv == 0 {
+		return NSUserAppleScriptTask{}, objc.ErrInitFailed
 	}
 	return NSUserAppleScriptTaskFromID(rv), nil
 }
@@ -161,7 +165,26 @@ func NewUserAppleScriptTaskWithURLError(url INSURL) (NSUserAppleScriptTask, erro
 // parameter will be `nil`.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSUserAppleScriptTask/execute(withAppleEvent:completionHandler:)
-func (u NSUserAppleScriptTask) ExecuteWithAppleEventCompletionHandler(event INSAppleEventDescriptor, handler ErrorHandler) {
-	_block1, _ := NewErrorBlock(handler)
+func (u NSUserAppleScriptTask) ExecuteWithAppleEventCompletionHandler(event INSAppleEventDescriptor, handler AppleEventDescriptorErrorHandler) {
+	_block1, _ := NewAppleEventDescriptorErrorBlock(handler)
 	objc.Send[objc.ID](u.ID, objc.Sel("executeWithAppleEvent:completionHandler:"), event, _block1)
+}
+
+// ExecuteWithAppleEvent is a synchronous wrapper around [NSUserAppleScriptTask.ExecuteWithAppleEventCompletionHandler].
+// It blocks until the completion handler fires or the context is cancelled.
+func (u NSUserAppleScriptTask) ExecuteWithAppleEvent(ctx context.Context, event INSAppleEventDescriptor) (*NSAppleEventDescriptor, error) {
+	type result struct {
+		val *NSAppleEventDescriptor
+		err error
+	}
+	done := make(chan result, 1)
+	u.ExecuteWithAppleEventCompletionHandler(event, func(val *NSAppleEventDescriptor, err error) {
+		done <- result{val, err}
+	})
+	select {
+	case r := <-done:
+		return r.val, r.err
+	case <-ctx.Done():
+		return nil, ctx.Err()
+	}
 }

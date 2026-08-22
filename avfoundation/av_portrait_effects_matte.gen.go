@@ -8,6 +8,7 @@ import (
 
 	"github.com/tmc/apple/corevideo"
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/imageio"
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -51,10 +52,10 @@ func (ac AVPortraitEffectsMatteClass) Alloc() AVPortraitEffectsMatte {
 // # Overview
 //
 // Before iOS 11, the iPhone camera software used depth maps to render a
-// shallow depth of field (the effect) into still images taken in Portrait
-// Mode before discarding the maps. Because the effect was part of the photo,
-// you couldn’t access the maps separately, as metadata, for photos taken by
-// devices running iOS 10 or earlier.
+// shallow depth of field (the bokeh effect) into still images taken in
+// Portrait Mode before discarding the maps. Because the effect was part of
+// the photo, you couldn’t access the maps separately, as metadata, for
+// photos taken by devices running iOS 10 or earlier.
 //
 // Starting in iOS 11, apps accessing the photo library can use images
 // containing embedded auxiliary depth maps to render creative depth effects,
@@ -139,7 +140,7 @@ type IAVPortraitEffectsMatte interface {
 	// Topic: Creating a Portrait Effects matte
 
 	// Returns a derivative portrait effects matte after applying the specified EXIF orientation.
-	PortraitEffectsMatteByApplyingExifOrientation(exifOrientation uint) IAVPortraitEffectsMatte
+	PortraitEffectsMatteByApplyingExifOrientation(exifOrientation imageio.CGImagePropertyOrientation) IAVPortraitEffectsMatte
 	// Returns a portrait effects matte by wrapping the replacement pixel buffer.
 	PortraitEffectsMatteByReplacingPortraitEffectsMatteWithPixelBufferError(pixelBuffer corevideo.CVImageBufferRef) (IAVPortraitEffectsMatte, error)
 
@@ -150,7 +151,7 @@ type IAVPortraitEffectsMatte interface {
 	// The pixel format type of this portrait effects matte’s internal image.
 	PixelFormatType() uint32
 	// A dictionary of primitive map information used for writing an image file with a portrait effects matte.
-	DictionaryRepresentationForAuxiliaryDataType(outAuxDataType string) foundation.INSDictionary
+	DictionaryRepresentationForAuxiliaryDataType(outAuxDataType *foundation.NSString) foundation.INSDictionary
 }
 
 // Init initializes the instance.
@@ -199,6 +200,9 @@ func NewPortraitEffectsMatteFromDictionaryRepresentationError(imageSourceAuxData
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
 		return AVPortraitEffectsMatte{}, foundation.NSErrorFrom(errorPtr)
 	}
+	if rv == 0 {
+		return AVPortraitEffectsMatte{}, objc.ErrInitFailed
+	}
 	return AVPortraitEffectsMatteFromID(rv), nil
 }
 
@@ -209,7 +213,7 @@ func NewPortraitEffectsMatteFromDictionaryRepresentationError(imageSourceAuxData
 // effects matte should be rotated or mirrored.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVPortraitEffectsMatte/applyingExifOrientation(_:)
-func (p AVPortraitEffectsMatte) PortraitEffectsMatteByApplyingExifOrientation(exifOrientation uint) IAVPortraitEffectsMatte {
+func (p AVPortraitEffectsMatte) PortraitEffectsMatteByApplyingExifOrientation(exifOrientation imageio.CGImagePropertyOrientation) IAVPortraitEffectsMatte {
 	rv := objc.Send[objc.ID](p.ID, objc.Sel("portraitEffectsMatteByApplyingExifOrientation:"), exifOrientation)
 	return AVPortraitEffectsMatteFromID(rv)
 }
@@ -251,8 +255,8 @@ func (p AVPortraitEffectsMatte) PortraitEffectsMatteByReplacingPortraitEffectsMa
 //
 // [kCGImageAuxiliaryDataTypePortraitEffectsMatte]: https://developer.apple.com/documentation/ImageIO/kCGImageAuxiliaryDataTypePortraitEffectsMatte
 // [CGImageDestinationAddAuxiliaryDataInfo(_:_:_:)]: https://developer.apple.com/documentation/ImageIO/CGImageDestinationAddAuxiliaryDataInfo(_:_:_:)
-func (p AVPortraitEffectsMatte) DictionaryRepresentationForAuxiliaryDataType(outAuxDataType string) foundation.INSDictionary {
-	rv := objc.Send[objc.ID](p.ID, objc.Sel("dictionaryRepresentationForAuxiliaryDataType:"), objc.String(outAuxDataType))
+func (p AVPortraitEffectsMatte) DictionaryRepresentationForAuxiliaryDataType(outAuxDataType *foundation.NSString) foundation.INSDictionary {
+	rv := objc.Send[objc.ID](p.ID, objc.Sel("dictionaryRepresentationForAuxiliaryDataType:"), unsafe.Pointer(outAuxDataType))
 	return foundation.NSDictionaryFromID(rv)
 }
 

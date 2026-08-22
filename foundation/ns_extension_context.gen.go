@@ -63,7 +63,7 @@ func (nc NSExtensionContextClass) Alloc() NSExtensionContext {
 //
 // # Storing extension items
 //
-//   - [NSExtensionContext.InputItems]: The list of input [NSExtensionItem](<doc://com.apple.foundation/documentation/Foundation/NSExtensionItem>) objects associated with the context.
+//   - [NSExtensionContext.InputItems]: The list of input [NSExtensionItem](<https://developer.apple.com/documentation/Foundation/NSExtensionItem>) objects associated with the context.
 //
 // # Controlling media playback in notification content extensions
 //
@@ -110,7 +110,7 @@ func NSExtensionContextFromID(id objc.ID) NSExtensionContext {
 //
 // # Storing extension items
 //
-//   - [INSExtensionContext.InputItems]: The list of input [NSExtensionItem](<doc://com.apple.foundation/documentation/Foundation/NSExtensionItem>) objects associated with the context.
+//   - [INSExtensionContext.InputItems]: The list of input [NSExtensionItem](<https://developer.apple.com/documentation/Foundation/NSExtensionItem>) objects associated with the context.
 //
 // # Controlling media playback in notification content extensions
 //
@@ -147,7 +147,7 @@ type INSExtensionContext interface {
 
 	// Topic: Storing extension items
 
-	// The list of input [NSExtensionItem](<doc://com.apple.foundation/documentation/Foundation/NSExtensionItem>) objects associated with the context.
+	// The list of input [NSExtensionItem](<https://developer.apple.com/documentation/Foundation/NSExtensionItem>) objects associated with the context.
 	InputItems() INSArray
 
 	// Topic: Controlling media playback in notification content extensions
@@ -159,7 +159,7 @@ type INSExtensionContext interface {
 
 	// Topic: Supporting broadcasting
 
-	LoadBroadcastingApplicationInfoWithCompletion(handler VoidHandler)
+	LoadBroadcastingApplicationInfoWithCompletion(handler StringStringImageHandler)
 	CompleteRequestWithBroadcastURLSetupInfo(broadcastURL INSURL, setupInfo INSDictionary)
 
 	// Topic: Handling notification actions
@@ -298,8 +298,8 @@ func (e NSExtensionContext) MediaPlayingPaused() {
 // # Discussion
 //
 // See: https://developer.apple.com/documentation/Foundation/NSExtensionContext/loadBroadcastingApplicationInfo(completion:)
-func (e NSExtensionContext) LoadBroadcastingApplicationInfoWithCompletion(handler VoidHandler) {
-	_block0, _ := NewVoidBlock(handler)
+func (e NSExtensionContext) LoadBroadcastingApplicationInfoWithCompletion(handler StringStringImageHandler) {
+	_block0, _ := NewStringStringImageBlock(handler)
 	objc.Send[objc.ID](e.ID, objc.Sel("loadBroadcastingApplicationInfoWithCompletion:"), _block0)
 }
 
@@ -368,20 +368,5 @@ func (e NSExtensionContext) OpenURL(ctx context.Context, URL INSURL) (bool, erro
 		return r, nil
 	case <-ctx.Done():
 		return false, ctx.Err()
-	}
-}
-
-// LoadBroadcastingApplicationInfo is a synchronous wrapper around [NSExtensionContext.LoadBroadcastingApplicationInfoWithCompletion].
-// It blocks until the completion handler fires or the context is cancelled.
-func (e NSExtensionContext) LoadBroadcastingApplicationInfo(ctx context.Context) error {
-	done := make(chan struct{}, 1)
-	e.LoadBroadcastingApplicationInfoWithCompletion(func() {
-		done <- struct{}{}
-	})
-	select {
-	case <-done:
-		return nil
-	case <-ctx.Done():
-		return ctx.Err()
 	}
 }

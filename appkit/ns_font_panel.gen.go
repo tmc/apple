@@ -125,12 +125,12 @@ type INSFontPanel interface {
 	// Topic: Updating the Font Panel
 
 	// Sets the selected font in the receiver to the specified font.
-	SetPanelFontIsMultiple(fontObj NSFont, flag bool)
+	SetPanelFontIsMultiple(fontObj INSFont, flag bool)
 
 	// Topic: Converting Fonts
 
 	// Converts the specified font using the settings in the receiver, with the aid of the shared [NSFontManager] if necessary.
-	PanelConvertFont(fontObj NSFont) NSFont
+	PanelConvertFont(fontObj INSFont) INSFont
 
 	// Topic: Setting an Accessory View
 
@@ -325,7 +325,7 @@ func (f NSFontPanel) ReloadDefaultFontFamilies() {
 // which in turn invokes this method.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSFontPanel/setPanelFont(_:isMultiple:)
-func (f NSFontPanel) SetPanelFontIsMultiple(fontObj NSFont, flag bool) {
+func (f NSFontPanel) SetPanelFontIsMultiple(fontObj INSFont, flag bool) {
 	objc.Send[objc.ID](f.ID, objc.Sel("setPanelFont:isMultiple:"), fontObj, flag)
 }
 
@@ -345,7 +345,7 @@ func (f NSFontPanel) SetPanelFontIsMultiple(fontObj NSFont, flag bool) {
 // font returned is Times Italic 12.0 point.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSFontPanel/convert(_:)
-func (f NSFontPanel) PanelConvertFont(fontObj NSFont) NSFont {
+func (f NSFontPanel) PanelConvertFont(fontObj INSFont) INSFont {
 	rv := objc.Send[objc.ID](f.ID, objc.Sel("panelConvertFont:"), fontObj)
 	return NSFontFromID(rv)
 }

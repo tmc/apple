@@ -77,6 +77,9 @@ type IVZUSBMassStorageDeviceConfiguration interface {
 
 	// Creates a new storage device configuration with the specified attachment.
 	InitWithAttachment(attachment IVZStorageDeviceAttachment) VZUSBMassStorageDeviceConfiguration
+
+	// The device’s unique identifier.
+	Uuid() foundation.NSUUID
 }
 
 // Init initializes the instance.

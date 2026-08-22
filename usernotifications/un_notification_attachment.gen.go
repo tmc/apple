@@ -189,13 +189,16 @@ func NewUNNotificationAttachment() UNNotificationAttachment {
 // by the appropriate processes. After the move, the only way to access the
 // file is using the methods of the [UNUserNotificationCenter] object.
 //
-// See: https://developer.apple.com/documentation/UserNotifications/UNNotificationAttachment/init(identifier:url:options:)-83grx
+// See: https://developer.apple.com/documentation/UserNotifications/UNNotificationAttachment/init(identifier:url:options:)
 func NewUNNotificationAttachmentWithIdentifierURLOptionsError(identifier string, URL foundation.NSURL, options foundation.INSDictionary) (UNNotificationAttachment, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](objc.ID(getUNNotificationAttachmentClass().class), objc.Sel("attachmentWithIdentifier:URL:options:error:"), objc.String(identifier), URL, options, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
 		return UNNotificationAttachment{}, foundation.NSErrorFrom(errorPtr)
+	}
+	if rv == 0 {
+		return UNNotificationAttachment{}, objc.ErrInitFailed
 	}
 	return UNNotificationAttachmentFromID(rv), nil
 }

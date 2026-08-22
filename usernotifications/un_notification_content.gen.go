@@ -202,6 +202,7 @@ type IUNNotificationContent interface {
 	// Returns a copy of the notification that includes content from the specified provider.
 	ContentByUpdatingWithProviderError(provider UNNotificationContentProviding) (IUNNotificationContent, error)
 
+	InitWithCoder(coder foundation.INSCoder) UNNotificationContent
 	EncodeWithCoder(coder foundation.INSCoder)
 }
 
@@ -222,6 +223,13 @@ func NewUNNotificationContent() UNNotificationContent {
 	class := getUNNotificationContentClass()
 	rv := objc.Send[UNNotificationContent](objc.ID(class.class), objc.Sel("new"))
 	return rv
+}
+
+// See: https://developer.apple.com/documentation/UserNotifications/UNNotificationContent/init(coder:)
+func NewUNNotificationContentWithCoder(coder foundation.INSCoder) UNNotificationContent {
+	instance := getUNNotificationContentClass().Alloc()
+	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
+	return UNNotificationContentFromID(rv)
 }
 
 // Returns a copy of the notification that includes content from the specified
@@ -266,6 +274,12 @@ func (u UNNotificationContent) ContentByUpdatingWithProviderError(provider UNNot
 	}
 	return UNNotificationContentFromID(rv), nil
 
+}
+
+// See: https://developer.apple.com/documentation/UserNotifications/UNNotificationContent/init(coder:)
+func (u UNNotificationContent) InitWithCoder(coder foundation.INSCoder) UNNotificationContent {
+	rv := objc.Send[UNNotificationContent](u.ID, objc.Sel("initWithCoder:"), coder)
+	return rv
 }
 func (u UNNotificationContent) EncodeWithCoder(coder foundation.INSCoder) {
 	objc.Send[objc.ID](u.ID, objc.Sel("encodeWithCoder:"), coder)

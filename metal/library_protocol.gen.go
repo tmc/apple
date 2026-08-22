@@ -153,7 +153,8 @@ func (o MTLLibraryObject) NewFunctionWithName(functionName string) MTLFunction {
 //
 // See: https://developer.apple.com/documentation/Metal/MTLLibrary/makeFunction(name:constantValues:completionHandler:)
 func (o MTLLibraryObject) NewFunctionWithNameConstantValuesCompletionHandler(name string, constantValues IMTLFunctionConstantValues, completionHandler MTLFunctionErrorHandler) {
-	objc.Send[struct{}](o.ID, objc.Sel("newFunctionWithName:constantValues:completionHandler:"), objc.String(name), constantValues, completionHandler)
+	_block2, _ := NewMTLFunctionErrorBlock(completionHandler)
+	objc.Send[struct{}](o.ID, objc.Sel("newFunctionWithName:constantValues:completionHandler:"), objc.String(name), constantValues, _block2)
 }
 
 // Synchronously creates a specialized shader function.
@@ -194,7 +195,8 @@ func (o MTLLibraryObject) NewFunctionWithNameConstantValuesError(name string, co
 //
 // See: https://developer.apple.com/documentation/Metal/MTLLibrary/makeFunction(descriptor:completionHandler:)
 func (o MTLLibraryObject) NewFunctionWithDescriptorCompletionHandler(descriptor IMTLFunctionDescriptor, completionHandler MTLFunctionErrorHandler) {
-	objc.Send[struct{}](o.ID, objc.Sel("newFunctionWithDescriptor:completionHandler:"), descriptor, completionHandler)
+	_block1, _ := NewMTLFunctionErrorBlock(completionHandler)
+	objc.Send[struct{}](o.ID, objc.Sel("newFunctionWithDescriptor:completionHandler:"), descriptor, _block1)
 }
 
 // Synchronously creates an object representing a shader function, using the
@@ -221,7 +223,8 @@ func (o MTLLibraryObject) NewFunctionWithDescriptorError(descriptor IMTLFunction
 //
 // See: https://developer.apple.com/documentation/Metal/MTLLibrary/makeIntersectionFunction(descriptor:completionHandler:)
 func (o MTLLibraryObject) NewIntersectionFunctionWithDescriptorCompletionHandler(descriptor IMTLIntersectionFunctionDescriptor, completionHandler MTLFunctionErrorHandler) {
-	objc.Send[struct{}](o.ID, objc.Sel("newIntersectionFunctionWithDescriptor:completionHandler:"), descriptor, completionHandler)
+	_block1, _ := NewMTLFunctionErrorBlock(completionHandler)
+	objc.Send[struct{}](o.ID, objc.Sel("newIntersectionFunctionWithDescriptor:completionHandler:"), descriptor, _block1)
 }
 
 // Synchronously creates an object representing a ray-tracing intersection

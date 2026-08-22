@@ -13,7 +13,7 @@
 //
 // # Event Monitoring
 //
-//   - Client: An opaque type that maintains Endpoint Security client state, and functions related to this type. ([EsHandlerBlock], [EsNewClientResult], [EsEventType], [EsAuthResult], [EsRespondResult])
+//   - Client: An opaque type that maintains Endpoint Security client state, and functions related to this type. ([EsNewClientResult], [EsEventType], [EsAuthResult], [EsRespondResult])
 //   - Message: A type used by Endpoint Security to notify your client when a monitored action occurs. ([EsMessage], [EsResult], [EsStringToken], [EsToken])
 //   - [Event Types]: Types used by messages to deliver details specific to different kinds of Endpoint Security events. ([EsFile], [EsEventAccess], [EsEventClone], [EsEventCopyfile], [EsEventCreate])
 //   - [Monitoring System Events with Endpoint Security]: Receive notifications and authorization requests for sensitive operations by creating an Endpoint Security client for your app.
@@ -46,11 +46,12 @@ import (
 	"github.com/ebitengine/purego"
 )
 
-// frameworkPaths lists paths to try when loading the EndpointSecurity library.
-// The framework bundle path is tried first; a /usr/lib dylib fallback covers
-// C-API frameworks that are not in the dyld shared cache as bundles.
+// frameworkPaths lists paths to try when loading the EndpointSecurity library,
+// in order. Frameworks whose symbols live in a known dylib resolve to that
+// dylib alone; the rest try the framework bundle first and then a /usr/lib
+// dylib fallback, which covers C-API frameworks that are not in the dyld
+// shared cache as bundles.
 var frameworkPaths = []string{
-	"/System/Library/Frameworks/EndpointSecurity.framework/EndpointSecurity",
 	"/usr/lib/libEndpointSecurity.dylib",
 }
 

@@ -67,7 +67,7 @@ func (nc NSSoundClass) Alloc() NSSound {
 //   - [NSSound.InitWithContentsOfFileByReference]: Initializes the receiver with the audio data located at a given filepath.
 //   - [NSSound.InitWithContentsOfURLByReference]: Initializes the receiver with the audio data located at a given URL.
 //   - [NSSound.InitWithData]: Initializes the receiver with a given audio data.
-//   - [NSSound.InitWithPasteboard]: Initializes the receiver with data from a pasteboard. The pasteboard should contain a type returned by [NSSound](<doc://com.apple.appkit/documentation/AppKit/NSSound>). [NSSound] expects the data to have a proper magic number, sound header, and data for the formats it supports.
+//   - [NSSound.InitWithPasteboard]: Initializes the receiver with data from a pasteboard. The pasteboard should contain a type returned by [NSSound](<https://developer.apple.com/documentation/AppKit/NSSound>). [NSSound] expects the data to have a proper magic number, sound header, and data for the formats it supports.
 //
 // # Configuring Sounds
 //
@@ -126,7 +126,7 @@ func NSSoundFromID(id objc.ID) NSSound {
 //   - [INSSound.InitWithContentsOfFileByReference]: Initializes the receiver with the audio data located at a given filepath.
 //   - [INSSound.InitWithContentsOfURLByReference]: Initializes the receiver with the audio data located at a given URL.
 //   - [INSSound.InitWithData]: Initializes the receiver with a given audio data.
-//   - [INSSound.InitWithPasteboard]: Initializes the receiver with data from a pasteboard. The pasteboard should contain a type returned by [NSSound](<doc://com.apple.appkit/documentation/AppKit/NSSound>). [NSSound] expects the data to have a proper magic number, sound header, and data for the formats it supports.
+//   - [INSSound.InitWithPasteboard]: Initializes the receiver with data from a pasteboard. The pasteboard should contain a type returned by [NSSound](<https://developer.apple.com/documentation/AppKit/NSSound>). [NSSound] expects the data to have a proper magic number, sound header, and data for the formats it supports.
 //
 // # Configuring Sounds
 //
@@ -174,7 +174,7 @@ type INSSound interface {
 	InitWithContentsOfURLByReference(url foundation.NSURL, byRef bool) NSSound
 	// Initializes the receiver with a given audio data.
 	InitWithData(data foundation.NSData) NSSound
-	// Initializes the receiver with data from a pasteboard. The pasteboard should contain a type returned by [NSSound](<doc://com.apple.appkit/documentation/AppKit/NSSound>). [NSSound] expects the data to have a proper magic number, sound header, and data for the formats it supports.
+	// Initializes the receiver with data from a pasteboard. The pasteboard should contain a type returned by [NSSound](<https://developer.apple.com/documentation/AppKit/NSSound>). [NSSound] expects the data to have a proper magic number, sound header, and data for the formats it supports.
 	InitWithPasteboard(pasteboard INSPasteboard) NSSound
 
 	// Topic: Configuring Sounds
@@ -219,6 +219,12 @@ type INSSound interface {
 
 	InitWithCoder(coder foundation.INSCoder) NSSound
 	InitWithPasteboardPropertyListOfType(propertyList objectivec.IObject, type_ NSPasteboardType) NSSound
+	// Returns a property list object to represent the receiver on a pasteboard as an object of a specified type.
+	PasteboardPropertyListForType(type_ NSPasteboardType) objectivec.IObject
+	// Returns an array of UTI strings of data types the receiver can write to a given pasteboard.
+	WritableTypesForPasteboard(pasteboard INSPasteboard) []string
+	// Returns options for writing data of a specified type to a given pasteboard.
+	WritingOptionsForTypePasteboard(type_ NSPasteboardType, pasteboard INSPasteboard) NSPasteboardWritingOptions
 	EncodeWithCoder(coder foundation.INSCoder)
 }
 
@@ -815,5 +821,7 @@ func (_NSSoundClass NSSoundClass) SoundUnfilteredTypes() []string {
 	rv := objc.Send[[]objc.ID](objc.ID(_NSSoundClass.class), objc.Sel("soundUnfilteredTypes"))
 	return objc.ConvertSliceToStrings(rv)
 }
+
+// Protocol methods for NSPasteboardReading
 
 // Protocol methods for NSPasteboardWriting

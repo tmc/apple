@@ -6,7 +6,1647 @@ import (
 	"fmt"
 )
 
-type HVAPICCtrl uint
+type HVReturn int32
+
+const (
+	// HVBadArgument: The operation was unsuccessful because the function call had an invalid argument.
+	HVBadArgument HVReturn = -85377021
+	// HVBusy: The operation was unsuccessful because the owning resource was busy.
+	HVBusy HVReturn = -85377022
+	// HVDenied: The system didn’t allow the requested operation.
+	HVDenied HVReturn = -85377017
+	// HVError: The operation was unsuccessful.
+	HVError HVReturn = -85377023
+	HVFault HVReturn = -85377016
+	// HVNoDevice: The operation was unsuccessful because no VM or vCPU was available.
+	HVNoDevice HVReturn = -85377018
+	// HVNoResources: The operation was unsuccessful because the host had no resources available to complete the request.
+	HVNoResources HVReturn = -85377019
+	// HVSuccess: The operation completed successfully.
+	HVSuccess HVReturn = 0
+	// HVUnsupported: The operation requested isn’t supported by the hypervisor.
+	HVUnsupported HVReturn = -85377009
+)
+
+func (e HVReturn) String() string {
+	switch e {
+	case HVBadArgument:
+		return "HVBadArgument"
+	case HVBusy:
+		return "HVBusy"
+	case HVDenied:
+		return "HVDenied"
+	case HVError:
+		return "HVError"
+	case HVFault:
+		return "HVFault"
+	case HVNoDevice:
+		return "HVNoDevice"
+	case HVNoResources:
+		return "HVNoResources"
+	case HVSuccess:
+		return "HVSuccess"
+	case HVUnsupported:
+		return "HVUnsupported"
+	default:
+		return fmt.Sprintf("HVReturn(%d)", e)
+	}
+}
+
+type HVAllocate uint32
+
+const (
+	HVAllocateDefault HVAllocate = 0
+)
+
+func (e HVAllocate) String() string {
+	switch e {
+	case HVAllocateDefault:
+		return "HVAllocateDefault"
+	default:
+		return fmt.Sprintf("HVAllocate(%d)", e)
+	}
+}
+
+type HVCap uint
+
+const (
+	// HVCapAddrspacemax: A value that indicates the maximum number of available address spaces.
+	HVCapAddrspacemax HVCap = 1
+	// HVCapVcpumax: A value that indicates the maximum number of available vCPUs.
+	HVCapVcpumax HVCap = 0
+)
+
+func (e HVCap) String() string {
+	switch e {
+	case HVCapAddrspacemax:
+		return "HVCapAddrspacemax"
+	case HVCapVcpumax:
+		return "HVCapVcpumax"
+	default:
+		return fmt.Sprintf("HVCap(%d)", e)
+	}
+}
+
+type HVDeadline uint
+
+const (
+	// HVDeadlineForever: The value that indicates a vCPU deadline that never expires.
+	HVDeadlineForever HVDeadline = 0
+)
+
+func (e HVDeadline) String() string {
+	switch e {
+	case HVDeadlineForever:
+		return "HVDeadlineForever"
+	default:
+		return fmt.Sprintf("HVDeadline(%d)", e)
+	}
+}
+
+type HVIon uint
+
+const (
+	// HVIonAnySize: The value that represents a request for notifications of an I/O result of any size.
+	HVIonAnySize HVIon = 4
+	// HVIonAnyValue: The value that represents a request for notifications of an I/O result that contains any value.
+	HVIonAnyValue HVIon = 2
+	// HVIonExitFull: The value that represents a request for notifications if the I/O queue is full.
+	HVIonExitFull HVIon = 8
+	// HVIonNone: The value that represents a request for no notifications.
+	HVIonNone HVIon = 0
+)
+
+func (e HVIon) String() string {
+	switch e {
+	case HVIonAnySize:
+		return "HVIonAnySize"
+	case HVIonAnyValue:
+		return "HVIonAnyValue"
+	case HVIonExitFull:
+		return "HVIonExitFull"
+	case HVIonNone:
+		return "HVIonNone"
+	default:
+		return fmt.Sprintf("HVIon(%d)", e)
+	}
+}
+
+type HVMemory uint32
+
+const (
+	// HVMemoryExec: The value that represents the memory-execute permission.
+	HVMemoryExec         HVMemory = 4
+	HVMemoryMaxprot      HVMemory = 16
+	HVMemoryMaxprotExec  HVMemory = 128
+	HVMemoryMaxprotRead  HVMemory = 32
+	HVMemoryMaxprotUexec HVMemory = 256
+	HVMemoryMaxprotWrite HVMemory = 64
+	// HVMemoryRead: The value that represents the memory-read permission.
+	HVMemoryRead  HVMemory = 1
+	HVMemoryUexec HVMemory = 8
+	// HVMemoryWrite: The value that represents the memory-write permission.
+	HVMemoryWrite HVMemory = 2
+)
+
+func (e HVMemory) String() string {
+	switch e {
+	case HVMemoryExec:
+		return "HVMemoryExec"
+	case HVMemoryMaxprot:
+		return "HVMemoryMaxprot"
+	case HVMemoryMaxprotExec:
+		return "HVMemoryMaxprotExec"
+	case HVMemoryMaxprotRead:
+		return "HVMemoryMaxprotRead"
+	case HVMemoryMaxprotUexec:
+		return "HVMemoryMaxprotUexec"
+	case HVMemoryMaxprotWrite:
+		return "HVMemoryMaxprotWrite"
+	case HVMemoryRead:
+		return "HVMemoryRead"
+	case HVMemoryUexec:
+		return "HVMemoryUexec"
+	case HVMemoryWrite:
+		return "HVMemoryWrite"
+	default:
+		return fmt.Sprintf("HVMemory(%d)", e)
+	}
+}
+
+type HVMsrIa32Tsc uint
+
+const (
+	// HVMsrIa32APmc0: The value that represents support for address performance-counter register 0.
+	HVMsrIa32APmc0 HVMsrIa32Tsc = 0x4c1
+	// HVMsrIa32APmc7: The value that represents support for address performance-counter register 7.
+	HVMsrIa32APmc7 HVMsrIa32Tsc = 1217
+	// HVMsrIa32ArchCapabilities: The value that represents the Model-Specific Register (MSR) that you use to enumerate processor capabilities.
+	HVMsrIa32ArchCapabilities HVMsrIa32Tsc = 0x10a
+	// HVMsrIa32Cstar: The value that represents the address of IA-32e Mode System Call Target Address.
+	HVMsrIa32Cstar HVMsrIa32Tsc = 0xc0000083
+	// HVMsrIa32Debugctl: The value that represents the address of the Debug Control Register.
+	HVMsrIa32Debugctl HVMsrIa32Tsc = 0x1d9
+	// HVMsrIa32Efer: The value that represents the address of the Entended Feature Enable Register (EFER).
+	HVMsrIa32Efer HVMsrIa32Tsc = 0xc0000080
+	// HVMsrIa32FixedCtr0: The value that represents the address of Fixed-Function Performance Counter Register 0.
+	HVMsrIa32FixedCtr0 HVMsrIa32Tsc = 0x309
+	// HVMsrIa32FixedCtr1: The value that represents the address of Fixed-Function Performance Counter Register 1.
+	HVMsrIa32FixedCtr1 HVMsrIa32Tsc = 0x30a
+	// HVMsrIa32FixedCtr2: The value that represents the address of Fixed-Function Performance Counter Register 2.
+	HVMsrIa32FixedCtr2 HVMsrIa32Tsc = 0x30b
+	// HVMsrIa32FixedCtr3: The value that represents the address of Fixed-Function Performance Counter Register 3.
+	HVMsrIa32FixedCtr3 HVMsrIa32Tsc = 0x30c
+	// HVMsrIa32FixedCtrCtrl: The value that represents the address of the Fixed-Function Counter Control Register.
+	HVMsrIa32FixedCtrCtrl HVMsrIa32Tsc = 0x38d
+	// HVMsrIa32FlushCmd: The value that represents the address of the Flush Command Register.
+	HVMsrIa32FlushCmd HVMsrIa32Tsc = 0x10b
+	// HVMsrIa32Fmask: The value that represents the address of the System Call Flag Mask (FMASK) Register.
+	HVMsrIa32Fmask HVMsrIa32Tsc = 0xc0000084
+	// HVMsrIa32FsBase: The value that represents the address of the map for the base address of the FS segment register.
+	HVMsrIa32FsBase HVMsrIa32Tsc = 0xc0000100
+	// HVMsrIa32GsBase: The value that represents the address of the map for the base address of the GS segment register.
+	HVMsrIa32GsBase HVMsrIa32Tsc = 0xc0000101
+	// HVMsrIa32KernelGsBase: The value that represents the address swap target for the base address of the GS segment register.
+	HVMsrIa32KernelGsBase HVMsrIa32Tsc = 0xc0000102
+	// HVMsrIa32Lstar: The value that represents the address of the IA-32e Mode System Call Target Address.
+	HVMsrIa32Lstar HVMsrIa32Tsc = 0xc0000082
+	// HVMsrIa32PerfGlobalCtrl: The value that represents the address of the Global Performance Counter Control Register.
+	HVMsrIa32PerfGlobalCtrl HVMsrIa32Tsc = 0x38f
+	// HVMsrIa32PerfGlobalInuse: The value that represents the address of the register that indicates whether the core performance monitor interface is in use.
+	HVMsrIa32PerfGlobalInuse HVMsrIa32Tsc = 0x392
+	// HVMsrIa32PerfGlobalStatus: The value that represents the address of the Global Performance Status Register.
+	HVMsrIa32PerfGlobalStatus HVMsrIa32Tsc = 0x38e
+	// HVMsrIa32PerfGlobalStatusReset: The value that represents the address of the Global Performance Counter Overflow Reset Control Register.
+	HVMsrIa32PerfGlobalStatusReset HVMsrIa32Tsc = 0x390
+	// HVMsrIa32PerfGlobalStatusSet: The value that represents the address of the Global Performance Counter Overflow Set Control Register.
+	HVMsrIa32PerfGlobalStatusSet HVMsrIa32Tsc = 0x391
+	// HVMsrIa32Perfevntsel0: The value that represents the address of Performance Event Select Counter 0.
+	HVMsrIa32Perfevntsel0 HVMsrIa32Tsc = 0x186
+	// HVMsrIa32Perfevntsel7: The value that represents the address of Performance Event Select Counter 7.
+	HVMsrIa32Perfevntsel7 HVMsrIa32Tsc = 390
+	// HVMsrIa32Pmc0: The value that represents the address of Performance Counter Register 0.
+	HVMsrIa32Pmc0 HVMsrIa32Tsc = 0xc1
+	// HVMsrIa32Pmc7: The value that represents the address of Performance Counter Register 7.
+	HVMsrIa32Pmc7 HVMsrIa32Tsc = 193
+	// HVMsrIa32PredCmd: The value that represents the address of the Prediction Command Register.
+	HVMsrIa32PredCmd HVMsrIa32Tsc = 0x49
+	// HVMsrIa32SpecCtrl: The value that represents the address of Speculation Control Register.
+	HVMsrIa32SpecCtrl HVMsrIa32Tsc = 0x48
+	// HVMsrIa32Star: The value that represents the address of the System Call Target Address Register.
+	HVMsrIa32Star HVMsrIa32Tsc = 0xc0000081
+	// HVMsrIa32SysenterCs: The value that represents the address of the CS Register target for Current Privilege Level (CPL) 0 code.
+	HVMsrIa32SysenterCs HVMsrIa32Tsc = 0x174
+	// HVMsrIa32SysenterEip: The value that represents the address of the Extended Instruction Pointer (EIP) Register target for Current Privilege Level (CPL) 0 code.
+	HVMsrIa32SysenterEip HVMsrIa32Tsc = 0x176
+	// HVMsrIa32SysenterEsp: The value that represents the address of the Extended Stack Pointer (ESP) Register target for Current Privilege Level (CPL) 0 code.
+	HVMsrIa32SysenterEsp HVMsrIa32Tsc = 0x175
+	// HVMsrIa32TscValue: The value that represents the address of the Time-Stamp Counter Register.
+	HVMsrIa32TscValue HVMsrIa32Tsc = 0x10
+	// HVMsrIa32TscAux: The value that represents the address of the Auxiliary Time-Stamp Counter Register.
+	HVMsrIa32TscAux HVMsrIa32Tsc = 0xc0000103
+	// HVMsrIa32Xss: The value that represents the address of the Extended Supervisors State Mask (XSS) Register.
+	HVMsrIa32Xss HVMsrIa32Tsc = 0xda0
+	// HVMsrLastbranch0FromIP: The value that represents the address of the Last Branch Record 0 from Instruction Pointer (IP) register.
+	HVMsrLastbranch0FromIP HVMsrIa32Tsc = 0x680
+	// HVMsrLastbranch0ToIP: The value that represents the address of the Last Branch Record 0 to Instruction Pointer (IP) register.
+	HVMsrLastbranch0ToIP HVMsrIa32Tsc = 0x6c0
+	// HVMsrLastbranch31FromIP: The value that represents the address of the Last Branch Record 31 from Instruction Pointer (IP) register.
+	HVMsrLastbranch31FromIP HVMsrIa32Tsc = 1664
+	// HVMsrLastbranch31ToIP: The value that represents the address of the Last Branch Record 31 to Instruction Pointer (IP) register.
+	HVMsrLastbranch31ToIP HVMsrIa32Tsc = 1728
+	// HVMsrLastbranchInfo0: The value that represents the address of the Last Branch Record 0 additional information register.
+	HVMsrLastbranchInfo0 HVMsrIa32Tsc = 0xdc0
+	// HVMsrLastbranchInfo31: The value that represents the address of the Last Branch Record 31 additional information register.
+	HVMsrLastbranchInfo31 HVMsrIa32Tsc = 3520
+	// HVMsrLastbranchTos: The value that represents the address of the Last Branch Record Top of Stack (TOS) Register.
+	HVMsrLastbranchTos HVMsrIa32Tsc = 0x1c9
+	// HVMsrLastintFromIP: The value that represents the address of the Last Interrupt from Instruction Pointer (IP) Register.
+	HVMsrLastintFromIP HVMsrIa32Tsc = 0x1dd
+	// HVMsrLastintToIP: The value that represents the address of the Last Interrupt to Instruction Pointer (IP) Register.
+	HVMsrLastintToIP HVMsrIa32Tsc = 0x1de
+	// HVMsrLbrSelect: The value that represents the address of the Last Branch Record Filtering Select Register.
+	HVMsrLbrSelect HVMsrIa32Tsc = 0x1c8
+	// HVMsrPerfMetrics: The value that represents the address of the Performance Metrics Register.
+	HVMsrPerfMetrics HVMsrIa32Tsc = 0x329
+)
+
+func (e HVMsrIa32Tsc) String() string {
+	switch e {
+	case HVMsrIa32APmc0:
+		return "HVMsrIa32APmc0"
+	case HVMsrIa32ArchCapabilities:
+		return "HVMsrIa32ArchCapabilities"
+	case HVMsrIa32Cstar:
+		return "HVMsrIa32Cstar"
+	case HVMsrIa32Debugctl:
+		return "HVMsrIa32Debugctl"
+	case HVMsrIa32Efer:
+		return "HVMsrIa32Efer"
+	case HVMsrIa32FixedCtr0:
+		return "HVMsrIa32FixedCtr0"
+	case HVMsrIa32FixedCtr1:
+		return "HVMsrIa32FixedCtr1"
+	case HVMsrIa32FixedCtr2:
+		return "HVMsrIa32FixedCtr2"
+	case HVMsrIa32FixedCtr3:
+		return "HVMsrIa32FixedCtr3"
+	case HVMsrIa32FixedCtrCtrl:
+		return "HVMsrIa32FixedCtrCtrl"
+	case HVMsrIa32FlushCmd:
+		return "HVMsrIa32FlushCmd"
+	case HVMsrIa32Fmask:
+		return "HVMsrIa32Fmask"
+	case HVMsrIa32FsBase:
+		return "HVMsrIa32FsBase"
+	case HVMsrIa32GsBase:
+		return "HVMsrIa32GsBase"
+	case HVMsrIa32KernelGsBase:
+		return "HVMsrIa32KernelGsBase"
+	case HVMsrIa32Lstar:
+		return "HVMsrIa32Lstar"
+	case HVMsrIa32PerfGlobalCtrl:
+		return "HVMsrIa32PerfGlobalCtrl"
+	case HVMsrIa32PerfGlobalInuse:
+		return "HVMsrIa32PerfGlobalInuse"
+	case HVMsrIa32PerfGlobalStatus:
+		return "HVMsrIa32PerfGlobalStatus"
+	case HVMsrIa32PerfGlobalStatusReset:
+		return "HVMsrIa32PerfGlobalStatusReset"
+	case HVMsrIa32PerfGlobalStatusSet:
+		return "HVMsrIa32PerfGlobalStatusSet"
+	case HVMsrIa32Perfevntsel0:
+		return "HVMsrIa32Perfevntsel0"
+	case HVMsrIa32Pmc0:
+		return "HVMsrIa32Pmc0"
+	case HVMsrIa32PredCmd:
+		return "HVMsrIa32PredCmd"
+	case HVMsrIa32SpecCtrl:
+		return "HVMsrIa32SpecCtrl"
+	case HVMsrIa32Star:
+		return "HVMsrIa32Star"
+	case HVMsrIa32SysenterCs:
+		return "HVMsrIa32SysenterCs"
+	case HVMsrIa32SysenterEip:
+		return "HVMsrIa32SysenterEip"
+	case HVMsrIa32SysenterEsp:
+		return "HVMsrIa32SysenterEsp"
+	case HVMsrIa32TscValue:
+		return "HVMsrIa32TscValue"
+	case HVMsrIa32TscAux:
+		return "HVMsrIa32TscAux"
+	case HVMsrIa32Xss:
+		return "HVMsrIa32Xss"
+	case HVMsrLastbranch0FromIP:
+		return "HVMsrLastbranch0FromIP"
+	case HVMsrLastbranch0ToIP:
+		return "HVMsrLastbranch0ToIP"
+	case HVMsrLastbranchInfo0:
+		return "HVMsrLastbranchInfo0"
+	case HVMsrLastbranchTos:
+		return "HVMsrLastbranchTos"
+	case HVMsrLastintFromIP:
+		return "HVMsrLastintFromIP"
+	case HVMsrLastintToIP:
+		return "HVMsrLastintToIP"
+	case HVMsrLbrSelect:
+		return "HVMsrLbrSelect"
+	case HVMsrPerfMetrics:
+		return "HVMsrPerfMetrics"
+	default:
+		return fmt.Sprintf("HVMsrIa32Tsc(%d)", e)
+	}
+}
+
+type HVMsrNone uint
+
+const (
+	// HVMsrNoneValue: The Model-Specific Register (MSR) no-access permission.
+	HVMsrNoneValue HVMsrNone = 0
+	// HVMsrRead: The Model-Specific Register (MSR) read permission.
+	HVMsrRead HVMsrNone = 1
+	// HVMsrWrite: The Model-Specific Register (MSR) write permission.
+	HVMsrWrite HVMsrNone = 2
+)
+
+func (e HVMsrNone) String() string {
+	switch e {
+	case HVMsrNoneValue:
+		return "HVMsrNoneValue"
+	case HVMsrRead:
+		return "HVMsrRead"
+	case HVMsrWrite:
+		return "HVMsrWrite"
+	default:
+		return fmt.Sprintf("HVMsrNone(%d)", e)
+	}
+}
+
+type HVShadowVmcs uint
+
+const (
+	// HVShadowVmcsNone: The value that indicates no access to the shadow VMCS fields.
+	HVShadowVmcsNone HVShadowVmcs = 0
+	// HVShadowVmcsRead: The value that indicates read access to the shadow VMCS fields.
+	HVShadowVmcsRead HVShadowVmcs = 1
+	// HVShadowVmcsWrite: The value that indicates read access to the write access shadow VMCS fields.
+	HVShadowVmcsWrite HVShadowVmcs = 2
+)
+
+func (e HVShadowVmcs) String() string {
+	switch e {
+	case HVShadowVmcsNone:
+		return "HVShadowVmcsNone"
+	case HVShadowVmcsRead:
+		return "HVShadowVmcsRead"
+	case HVShadowVmcsWrite:
+		return "HVShadowVmcsWrite"
+	default:
+		return fmt.Sprintf("HVShadowVmcs(%d)", e)
+	}
+}
+
+type HVVCPU uint
+
+const (
+	// HVVCPUAccelRdpmc: Instructs the kernel, when set, to handle RDPMC VM exits directly rather than passing them to user space.
+	HVVCPUAccelRdpmc HVVCPU = 1
+	// HVVCPUDefault: The default vCPU creation behavior.
+	HVVCPUDefault HVVCPU = 0
+	// HVVCPUTscRelative: The value that represents the relative offset the system should add to the hypervisor TSC clock.
+	HVVCPUTscRelative HVVCPU = 2
+)
+
+func (e HVVCPU) String() string {
+	switch e {
+	case HVVCPUAccelRdpmc:
+		return "HVVCPUAccelRdpmc"
+	case HVVCPUDefault:
+		return "HVVCPUDefault"
+	case HVVCPUTscRelative:
+		return "HVVCPUTscRelative"
+	default:
+		return fmt.Sprintf("HVVCPU(%d)", e)
+	}
+}
+
+type HVVm uint
+
+const (
+	HVVmAccelAPIC HVVm = 1024
+	// HVVmDefault: The default VM creation behavior.
+	HVVmDefault            HVVm = 0
+	HVVmMitigationAEnable  HVVm = 2
+	HVVmMitigationBEnable  HVVm = 4
+	HVVmMitigationCEnable  HVVm = 8
+	HVVmMitigationDEnable  HVVm = 16
+	HVVmMitigationEEnable  HVVm = 64
+	HVVmSpecifyMitigations HVVm = 1
+)
+
+func (e HVVm) String() string {
+	switch e {
+	case HVVmAccelAPIC:
+		return "HVVmAccelAPIC"
+	case HVVmDefault:
+		return "HVVmDefault"
+	case HVVmMitigationAEnable:
+		return "HVVmMitigationAEnable"
+	case HVVmMitigationBEnable:
+		return "HVVmMitigationBEnable"
+	case HVVmMitigationCEnable:
+		return "HVVmMitigationCEnable"
+	case HVVmMitigationDEnable:
+		return "HVVmMitigationDEnable"
+	case HVVmMitigationEEnable:
+		return "HVVmMitigationEEnable"
+	case HVVmSpecifyMitigations:
+		return "HVVmSpecifyMitigations"
+	default:
+		return fmt.Sprintf("HVVm(%d)", e)
+	}
+}
+
+type HVVmSpace uint
+
+const (
+	// HVVmSpaceDefault: The value that represents the default VM address space.
+	HVVmSpaceDefault HVVmSpace = 0
+)
+
+func (e HVVmSpace) String() string {
+	switch e {
+	case HVVmSpaceDefault:
+		return "HVVmSpaceDefault"
+	default:
+		return fmt.Sprintf("HVVmSpace(%d)", e)
+	}
+}
+
+type HVVmx uint
+
+const (
+	// HVVmxInfoMsrIa32ArchCapabilities: The value of the IA32 architecture capabilities model specific register.
+	HVVmxInfoMsrIa32ArchCapabilities HVVmx = 0
+	// HVVmxInfoMsrIa32PerfCapabilities: The value of the IA32 performance capabilities model specific register.
+	HVVmxInfoMsrIa32PerfCapabilities HVVmx = 1
+	// HVVmxNeedMsrIa32SpecCtrl: The bitmask of the required fields of the IA32 Speculation Control model specific register.
+	HVVmxNeedMsrIa32SpecCtrl HVVmx = 8
+	// HVVmxValidMsrIa32Debugctl: The bitmask of the IA32 Debug-Control model specific register.
+	HVVmxValidMsrIa32Debugctl HVVmx = 6
+	// HVVmxValidMsrIa32FixedCtrCtrl: The bitmask fo the supported fields of the Fixed-Function-Counter Control Register.
+	HVVmxValidMsrIa32FixedCtrCtrl HVVmx = 3
+	// HVVmxValidMsrIa32PerfGlobalCtrl: The bitmask of the supported fields of the IA32 Global-Counter Control Facility Register.
+	HVVmxValidMsrIa32PerfGlobalCtrl HVVmx = 4
+	// HVVmxValidMsrIa32PerfGlobalStatus: The bitmast of the supported fields of the Global-Counter-Control Status model specific register.
+	HVVmxValidMsrIa32PerfGlobalStatus HVVmx = 5
+	// HVVmxValidMsrIa32Perfevntsel: The bitmask of the supported fields of the IA32 Performance-Event Selection Mode model specific register.
+	HVVmxValidMsrIa32Perfevntsel HVVmx = 2
+	// HVVmxValidMsrIa32SpecCtrl: The bitmask of the suppported fields of the Speculation Control model specific register.
+	HVVmxValidMsrIa32SpecCtrl HVVmx = 7
+)
+
+func (e HVVmx) String() string {
+	switch e {
+	case HVVmxInfoMsrIa32ArchCapabilities:
+		return "HVVmxInfoMsrIa32ArchCapabilities"
+	case HVVmxInfoMsrIa32PerfCapabilities:
+		return "HVVmxInfoMsrIa32PerfCapabilities"
+	case HVVmxNeedMsrIa32SpecCtrl:
+		return "HVVmxNeedMsrIa32SpecCtrl"
+	case HVVmxValidMsrIa32Debugctl:
+		return "HVVmxValidMsrIa32Debugctl"
+	case HVVmxValidMsrIa32FixedCtrCtrl:
+		return "HVVmxValidMsrIa32FixedCtrCtrl"
+	case HVVmxValidMsrIa32PerfGlobalCtrl:
+		return "HVVmxValidMsrIa32PerfGlobalCtrl"
+	case HVVmxValidMsrIa32PerfGlobalStatus:
+		return "HVVmxValidMsrIa32PerfGlobalStatus"
+	case HVVmxValidMsrIa32Perfevntsel:
+		return "HVVmxValidMsrIa32Perfevntsel"
+	case HVVmxValidMsrIa32SpecCtrl:
+		return "HVVmxValidMsrIa32SpecCtrl"
+	default:
+		return fmt.Sprintf("HVVmx(%d)", e)
+	}
+}
+
+type IrqInfo uint
+
+const (
+	// IrqInfoErrorValid: The value that indicates the error associated with the interrupt is valid and is readable from the VMCS.
+	IrqInfoErrorValid IrqInfo = 2048
+	// IrqInfoExtIrq: The value that represents an external interrupt.
+	IrqInfoExtIrq IrqInfo = 0
+	// IrqInfoHardExc: The value that represents a hardware exception.
+	IrqInfoHardExc IrqInfo = 768
+	// IrqInfoNmi: The value that represents a non-maskable-interrupt.
+	IrqInfoNmi IrqInfo = 512
+	// IrqInfoPrivSoftExc: The value that represents a privileged software exception.
+	IrqInfoPrivSoftExc IrqInfo = 1280
+	// IrqInfoSoftExc: The value that represents a software exception interrupt.
+	IrqInfoSoftExc IrqInfo = 1536
+	// IrqInfoSoftIrq: The value that represents a software interrupt.
+	IrqInfoSoftIrq IrqInfo = 1024
+	// IrqInfoTypeMask: The value that represents the interrupt mask.
+	IrqInfoTypeMask IrqInfo = 1792
+	// IrqInfoValid: The value that represents the interrupt is valid.
+	IrqInfoValid      IrqInfo = 2147483648
+	IrqInfoVectorMask IrqInfo = 255
+)
+
+func (e IrqInfo) String() string {
+	switch e {
+	case IrqInfoErrorValid:
+		return "IrqInfoErrorValid"
+	case IrqInfoExtIrq:
+		return "IrqInfoExtIrq"
+	case IrqInfoHardExc:
+		return "IrqInfoHardExc"
+	case IrqInfoNmi:
+		return "IrqInfoNmi"
+	case IrqInfoPrivSoftExc:
+		return "IrqInfoPrivSoftExc"
+	case IrqInfoSoftExc:
+		return "IrqInfoSoftExc"
+	case IrqInfoSoftIrq:
+		return "IrqInfoSoftIrq"
+	case IrqInfoTypeMask:
+		return "IrqInfoTypeMask"
+	case IrqInfoValid:
+		return "IrqInfoValid"
+	case IrqInfoVectorMask:
+		return "IrqInfoVectorMask"
+	default:
+		return fmt.Sprintf("IrqInfo(%d)", e)
+	}
+}
+
+type KhvIon uint
+
+const (
+	KHVIonAnySize  KhvIon = 4
+	KHVIonAnyValue KhvIon = 2
+	KHVIonExitFull KhvIon = 8
+	KHVIonNone     KhvIon = 0
+)
+
+func (e KhvIon) String() string {
+	switch e {
+	case KHVIonAnySize:
+		return "KHVIonAnySize"
+	case KHVIonAnyValue:
+		return "KHVIonAnyValue"
+	case KHVIonExitFull:
+		return "KHVIonExitFull"
+	case KHVIonNone:
+		return "KHVIonNone"
+	default:
+		return fmt.Sprintf("KhvIon(%d)", e)
+	}
+}
+
+type PinBasedIntr uint
+
+const (
+	// CPUBased2APICRegVirt: This value controls whether the logical processor virtualizes certain advanced programmable interrupt controller (APIC) accesses.
+	CPUBased2APICRegVirt PinBasedIntr = 256
+	// CPUBased2DescTable: The value that controls whether executions of descriptor table instructions cause VM exits.
+	CPUBased2DescTable PinBasedIntr = 4
+	// CPUBased2EnclsExitMap: The value that controls whether executions of Enclave Instruction Leaf Functions (ENCLS) cause examination of the ENCLS-exiting bitmap to determine whether the instruction causes a VM exit.
+	CPUBased2EnclsExitMap PinBasedIntr = 32768
+	// CPUBased2EnclvExitMap: The value that controls whether executions of an enclave VMM function instruction (ENCLV) checks the ENCLV-exiting bitmap to determine whether the instruction causes a VM exit.
+	CPUBased2EnclvExitMap PinBasedIntr = 268435456
+	// CPUBased2Ept: The value that controls enabling extended page tables (EPT).
+	CPUBased2Ept PinBasedIntr = 2
+	// CPUBased2EptModeBasedExec: The value that controls whether to base extended page table (EPT) execute permissions on whether access to a linear address is supervisor or user mode.
+	CPUBased2EptModeBasedExec PinBasedIntr = 4194304
+	// CPUBased2EptSubpageWrite: The value that controls whether extended page table (EPT) write permissions specify granularity of 128 bytes.
+	CPUBased2EptSubpageWrite PinBasedIntr = 8388608
+	// CPUBased2EptVe: The value that controls whether extended page table (EPT) violations cause virtualization exceptions instead of VM exits.
+	CPUBased2EptVe PinBasedIntr = 262144
+	// CPUBased2Invpcid: The value that controls whether any execution of the Invalidate Process-Context Identifier instruction (INVPCID) causes an invalid opcode exception.
+	CPUBased2Invpcid PinBasedIntr = 4096
+	// CPUBased2PauseLoop: The value that controls whether a series of executions of the PAUSE instruction can cause a VM exit.
+	CPUBased2PauseLoop PinBasedIntr = 1024
+	// CPUBased2Pml: The value that controls whether an access to a guest-physical address that sets an extended page table (EPT) dirty bit also adds an entry to the page-modification log.
+	CPUBased2Pml PinBasedIntr = 131072
+	// CPUBased2PtConcealVmx: The value that controls whether the processor trace facility suppresses information that the processor was in VMX non-root operation.
+	CPUBased2PtConcealVmx PinBasedIntr = 524288
+	// CPUBased2PtGuestPhysical: The value that controls whether to treat all output addresses used by Intel Processor Trace as guest-physical addresses and translated using the extended page table.
+	CPUBased2PtGuestPhysical PinBasedIntr = 16777216
+	// CPUBased2Rdrand: The value that controls whether executions of the hardware random number generator instruction (RDRAND) cause VM exits.
+	CPUBased2Rdrand PinBasedIntr = 2048
+	// CPUBased2Rdseed: The value that controls whether executions of random number generator instructions (RDSEED) cause VM exits.
+	CPUBased2Rdseed PinBasedIntr = 65536
+	// CPUBased2Rdtscp: The value that controls whether any execution of read timestamp-counter and processor ID instruction (RDTSCP) causes an invalid-opcode exception.
+	CPUBased2Rdtscp PinBasedIntr = 8
+	// CPUBased2TscScaling: The value that controls whether the execution of various read time stamp counters and read model-specific registers that read from the IA32 timestamp counter model specific register return a value modified by the TSC multiplier field.
+	CPUBased2TscScaling PinBasedIntr = 33554432
+	// CPUBased2Unrestricted: The value that controls whether guest software may run in unpaged protected mode or in real address mode.
+	CPUBased2Unrestricted PinBasedIntr = 128
+	// CPUBased2UserWaitPause: The value that controls whether any execution of TPAUSE, UMONITOR, or UMWAIT instrucitons generate an illegal opcode exception.
+	CPUBased2UserWaitPause PinBasedIntr = 67108864
+	// CPUBased2VirtIntrDelivery: The value that enables evaluation and delivery of pending virtual interrupts and emulation of writes to the APIC registers that control interrupt prioritization.
+	CPUBased2VirtIntrDelivery PinBasedIntr = 512
+	// CPUBased2VirtualAPIC: The value that controls whether the logical processor provides special treatment for access to the Advanced Programmable Interrupt Controller (APIC).
+	CPUBased2VirtualAPIC PinBasedIntr = 1
+	// CPUBased2VmcsShadow: The value that controls whether execution of VMREAD and VMWRITE in VMX non-root operation may access a shadow VMCS instead of causing a VM exit.
+	CPUBased2VmcsShadow PinBasedIntr = 16384
+	// CPUBased2Vmfunc: The value that enables use of the “Invoke VM function” (VMFUNC) instruction in VMX non-root operation.
+	CPUBased2Vmfunc PinBasedIntr = 8192
+	// CPUBased2Vpid: The value that controls the association of cached translations of linear addresses with a virtual processor identifier (VPID).
+	CPUBased2Vpid PinBasedIntr = 32
+	// CPUBased2Wbinvd: The value that controls whether executions of the Invalidate Cache with Writeback instruction (WBINVD) cause VM exits.
+	CPUBased2Wbinvd PinBasedIntr = 64
+	// CPUBased2X2apic: The value that controls the logical processor’s treatment of reading/writing of Model Specific Registers to APIC MSRs.
+	CPUBased2X2apic PinBasedIntr = 16
+	// CPUBased2XsavesXrstors: The value that controls whether any execution of save or restore state instructions (XSAVES or XRSTORS) causes an invalid opcode exception.
+	CPUBased2XsavesXrstors PinBasedIntr = 1048576
+	// CPUBasedCr3Load: The value that controls whether executions of MOV to Control Register 3 (CR3) cause VM exits.
+	CPUBasedCr3Load PinBasedIntr = 32768
+	// CPUBasedCr3Store: The value that controls whether executions of MOV from Control Register 3 (CR3) cause VM exits.
+	CPUBasedCr3Store PinBasedIntr = 65536
+	// CPUBasedCr8Load: The value that controls whether executions of MOV to Control Register 8 (CR8) cause VM exits.
+	CPUBasedCr8Load PinBasedIntr = 524288
+	// CPUBasedCr8Store: The value that controls whether executions of MOV from Control Register 8 (CR8) cause VM exits.
+	CPUBasedCr8Store PinBasedIntr = 1048576
+	// CPUBasedHlt: The value that controls whether the execution of HALT instructions cause VM exits.
+	CPUBasedHlt PinBasedIntr = 128
+	// CPUBasedIOBitmaps: The value that controls whether to use I/O bitmaps to restrict executions of I/O instructions.
+	CPUBasedIOBitmaps PinBasedIntr = 33554432
+	// CPUBasedInvlpg: The value that controls whether the execution of invalid page instructions (INVLPG) cause VM exits.
+	CPUBasedInvlpg PinBasedIntr = 512
+	// CPUBasedIrqWnd: The value that controls whether a VM exits at the beginning of any instruction where there’s no blocking of interrupts and the interrupt flag is 1.
+	CPUBasedIrqWnd PinBasedIntr = 4
+	// CPUBasedMonitor: The value that controls whether executions of the Set Up Monitor Address instruction (MONITOR) cause VM exits.
+	CPUBasedMonitor PinBasedIntr = 536870912
+	// CPUBasedMovDr: The value that controls whether executions of MOV to or from Debug Registers (DR) cause VM exits.
+	CPUBasedMovDr PinBasedIntr = 8388608
+	// CPUBasedMsrBitmaps: The value that controls use of whether Model Specific Register (MSR) bitmaps to control execution of the read-from and write-to MSR instructions.
+	CPUBasedMsrBitmaps PinBasedIntr = 268435456
+	// CPUBasedMtf: The value that controls enabling the monitor trap flag debugging feature.
+	CPUBasedMtf PinBasedIntr = 134217728
+	// CPUBasedMwait: The value that controls whether the execution of Monitor Wait instructions (MWAIT) cause VM exits.
+	CPUBasedMwait PinBasedIntr = 1024
+	// CPUBasedPause: The value that controls whether executions of spin-wait loop (PAUSE) instruction causes VM exits.
+	CPUBasedPause PinBasedIntr = 1073741824
+	// CPUBasedRdpmc: The value that controls whether the execution of Read Performance Monitoring Counters instructions (RDPMC) cause VM exits.
+	CPUBasedRdpmc PinBasedIntr = 2048
+	// CPUBasedRdtsc: The value that controls whether the execution of Read Timestamp-Counter instructions (RDTSC) cause VM exits.
+	CPUBasedRdtsc PinBasedIntr = 4096
+	// CPUBasedSecondaryCtls: The value that conntrols use of the secondary processor-based VM-execution controls.
+	CPUBasedSecondaryCtls PinBasedIntr = 2147483648
+	// CPUBasedTprShadow: The value that controls enabling Task Priority Register (TPR) virtualization and other APIC-virtualization features.
+	CPUBasedTprShadow PinBasedIntr = 2097152
+	// CPUBasedTscOffset: The value that controls whether reading the timestamp-counter MSRs changes depending on the value of the timestamp-counter offset field.
+	CPUBasedTscOffset PinBasedIntr = 8
+	// CPUBasedUncondIO: The value that controls whether executions of various I/O instructions cause VM exits.
+	CPUBasedUncondIO PinBasedIntr = 16777216
+	// CPUBasedVirtualNmiWnd: The value that controls if a VM exit occurs at the beginning of any instruction if there’s no virtual-NMI blocking.
+	CPUBasedVirtualNmiWnd PinBasedIntr = 4194304
+	// PinBasedIntrValue: The value that controls whether external interrupts cause VM exits.
+	PinBasedIntrValue PinBasedIntr = 1
+	// PinBasedNmi: The value that controls whether external non-maskable interrupts cause VM exits.
+	PinBasedNmi PinBasedIntr = 8
+	// PinBasedPostedIntr: The value that controls whether the processor gives special treatment to interrupts with posted-interrupt notification vectors.
+	PinBasedPostedIntr PinBasedIntr = 128
+	// PinBasedPreemptionTimer: The value that controls whether the VMX-preemption timer counts down in VMX non-root operation.
+	PinBasedPreemptionTimer PinBasedIntr = 64
+	// PinBasedVirtualNmi: The value that controls blocking of non-maskable interrupts.
+	PinBasedVirtualNmi PinBasedIntr = 32
+	// VmentryDeactivateDualMonitor: The value that controls whether the treatment of SMIs and system-management mode (SMM) is in effect after the VM entry.
+	VmentryDeactivateDualMonitor PinBasedIntr = 2048
+	// VmentryGuestIa32e: The value that controls whether the logical processor is in IA-32e mode after VM entry.
+	VmentryGuestIa32e PinBasedIntr = 512
+	// VmentryLoadCetState: The value that controls whether to load CET-related model specific registers and SPP on VM exit.
+	VmentryLoadCetState PinBasedIntr = 1048576
+	// VmentryLoadDbgControls: The value that controls whetherto load Debug Register 7 and the IA32_DEBUGCTL model specific register (MSR) on VM entry.
+	VmentryLoadDbgControls PinBasedIntr = 4
+	// VmentryLoadEfer: The value that determines whether to load the IA32_EFER model specific register on VM entry.
+	VmentryLoadEfer PinBasedIntr = 32768
+	// VmentryLoadIa32Bndcfgs: The value that controls whether to load the IA32_BNDCFGS model specific register on VM entry.
+	VmentryLoadIa32Bndcfgs PinBasedIntr = 65536
+	// VmentryLoadIa32Pat: The value that controls whether to load the IA32_PAT model specific register on VM entry.
+	VmentryLoadIa32Pat PinBasedIntr = 16384
+	// VmentryLoadIa32PerfGlobalCtrl: The value that controls whether to load the IA32_PERF_GLOBAL_CTRL model specific register on VM entry.
+	VmentryLoadIa32PerfGlobalCtrl PinBasedIntr = 8192
+	// VmentryLoadIa32RtitCtl: The value that controls whether to clear the IA32_RTIT_CTL model specific register (MSR) on VM exit.
+	VmentryLoadIa32RtitCtl PinBasedIntr = 262144
+	VmentryLoadPkrs        PinBasedIntr = 4194304
+	// VmentryPtConcealVmx: The value that controls whether the Intel Processor Trace produces a paging information packet (PIP) on a VM entry or a VMCS packet on a VM entry that returns from system-management mode.
+	VmentryPtConcealVmx PinBasedIntr = 131072
+	// VmentrySmm: The value that controls whether the logical processor is in system-management mode (SMM) after VM entry.
+	VmentrySmm PinBasedIntr = 1024
+	// VmexitAckIntr: The value that controls whether the logical processor sends an acknowledgement to the interrupt controller when the VM exits.
+	VmexitAckIntr PinBasedIntr = 32768
+	// VmexitClearIa32Bndcfgs: The value that controls whether to clear the IA32_BNDCFGS model specific register on VM exit.
+	VmexitClearIa32Bndcfgs PinBasedIntr = 8388608
+	// VmexitClearIa32RtitCtl: The value that controls whether to clear the IA32_RTIT_CTL model specific register (MSR) on VM exit.
+	VmexitClearIa32RtitCtl PinBasedIntr = 33554432
+	// VmexitHostIa32e: This value controls, on processors that support Intel 64 architecture, whether a logical processor is in 64-bit mode after the next VM exit.
+	VmexitHostIa32e PinBasedIntr = 512
+	// VmexitLoadCetState: The value that controls whether to load CET-related MSRs and SPP on VM exit.
+	VmexitLoadCetState PinBasedIntr = 268435456
+	// VmexitLoadEfer: The value that controls whether to load the IA32_EFER MSR on VM exit.
+	VmexitLoadEfer PinBasedIntr = 2097152
+	// VmexitLoadIa32Pat: The value that controls whether to load the IA32_EFER mode specific register on VM exit.
+	VmexitLoadIa32Pat PinBasedIntr = 524288
+	// VmexitLoadIa32PerfGlobalCtrl: The value that controls whether to load the IA32_PERF_GLOBAL_CTRL model specific register on VM exit.
+	VmexitLoadIa32PerfGlobalCtrl PinBasedIntr = 4096
+	VmexitLoadPkrs               PinBasedIntr = 536870912
+	// VmexitPtConcealVmx: The value that controls whether the Intel Processor Trace produces a paging information packet on VM exit or a VMCS packet on SMM VM exit.
+	VmexitPtConcealVmx PinBasedIntr = 16777216
+	// VmexitSaveDbgControls: Thievalue that controls whether to save debug register 7 DR7 and the IA32 debug control DEBUGCTL MSR on VM exit.
+	VmexitSaveDbgControls PinBasedIntr = 4
+	// VmexitSaveEfer: The value that controls whether to save the IA32_EFER MSR on VM exit.
+	VmexitSaveEfer PinBasedIntr = 1048576
+	// VmexitSaveIa32Pat: The value that controls whether to save the IA32_EFER model specific register on VM exit.
+	VmexitSaveIa32Pat PinBasedIntr = 262144
+	// VmexitSaveVmxTimer: The value that controls whether to save the value of the VMX-preemption timer on VM exit.
+	VmexitSaveVmxTimer      PinBasedIntr = 4194304
+	VmxEptVpidAdvVmexitInfo PinBasedIntr = 4194304
+	// VmxEptVpidSupportAd: The value that controls if extended page tables (EPT) support accessed and dirty flags.
+	VmxEptVpidSupportAd PinBasedIntr = 2097152
+	// VmxEptVpidSupportExonly: The value that controls whether extended page tables (EPT) support execute-only translations.
+	VmxEptVpidSupportExonly PinBasedIntr = 1
+)
+
+func (e PinBasedIntr) String() string {
+	switch e {
+	case CPUBased2APICRegVirt:
+		return "CPUBased2APICRegVirt"
+	case CPUBased2DescTable:
+		return "CPUBased2DescTable"
+	case CPUBased2EnclsExitMap:
+		return "CPUBased2EnclsExitMap"
+	case CPUBased2EnclvExitMap:
+		return "CPUBased2EnclvExitMap"
+	case CPUBased2Ept:
+		return "CPUBased2Ept"
+	case CPUBased2EptModeBasedExec:
+		return "CPUBased2EptModeBasedExec"
+	case CPUBased2EptSubpageWrite:
+		return "CPUBased2EptSubpageWrite"
+	case CPUBased2EptVe:
+		return "CPUBased2EptVe"
+	case CPUBased2Invpcid:
+		return "CPUBased2Invpcid"
+	case CPUBased2PauseLoop:
+		return "CPUBased2PauseLoop"
+	case CPUBased2Pml:
+		return "CPUBased2Pml"
+	case CPUBased2PtConcealVmx:
+		return "CPUBased2PtConcealVmx"
+	case CPUBased2PtGuestPhysical:
+		return "CPUBased2PtGuestPhysical"
+	case CPUBased2Rdrand:
+		return "CPUBased2Rdrand"
+	case CPUBased2Rdseed:
+		return "CPUBased2Rdseed"
+	case CPUBased2Rdtscp:
+		return "CPUBased2Rdtscp"
+	case CPUBased2TscScaling:
+		return "CPUBased2TscScaling"
+	case CPUBased2Unrestricted:
+		return "CPUBased2Unrestricted"
+	case CPUBased2UserWaitPause:
+		return "CPUBased2UserWaitPause"
+	case CPUBased2VirtIntrDelivery:
+		return "CPUBased2VirtIntrDelivery"
+	case CPUBased2VirtualAPIC:
+		return "CPUBased2VirtualAPIC"
+	case CPUBased2VmcsShadow:
+		return "CPUBased2VmcsShadow"
+	case CPUBased2Vmfunc:
+		return "CPUBased2Vmfunc"
+	case CPUBased2Vpid:
+		return "CPUBased2Vpid"
+	case CPUBased2Wbinvd:
+		return "CPUBased2Wbinvd"
+	case CPUBased2X2apic:
+		return "CPUBased2X2apic"
+	case CPUBased2XsavesXrstors:
+		return "CPUBased2XsavesXrstors"
+	case CPUBasedMonitor:
+		return "CPUBasedMonitor"
+	case CPUBasedMtf:
+		return "CPUBasedMtf"
+	case CPUBasedPause:
+		return "CPUBasedPause"
+	case CPUBasedSecondaryCtls:
+		return "CPUBasedSecondaryCtls"
+	case CPUBasedTprShadow:
+		return "CPUBasedTprShadow"
+	default:
+		return fmt.Sprintf("PinBasedIntr(%d)", e)
+	}
+}
+
+type Vmcs uint
+
+const (
+	VmcsCtrlAPICAccess            Vmcs = 0x2014
+	VmcsCtrlCPUBased              Vmcs = 0x4002
+	VmcsCtrlCPUBased2             Vmcs = 0x401e
+	VmcsCtrlCr0Mask               Vmcs = 0x6000
+	VmcsCtrlCr0Shadow             Vmcs = 0x6004
+	VmcsCtrlCr3Count              Vmcs = 0x400a
+	VmcsCtrlCr3Value0             Vmcs = 0x6008
+	VmcsCtrlCr3Value1             Vmcs = 0x600a
+	VmcsCtrlCr3Value2             Vmcs = 0x600c
+	VmcsCtrlCr3Value3             Vmcs = 0x600e
+	VmcsCtrlCr4Mask               Vmcs = 0x6002
+	VmcsCtrlCr4Shadow             Vmcs = 0x6006
+	VmcsCtrlEnclsExitingBitmap    Vmcs = 0x202e
+	VmcsCtrlEnclvExitingBitmap    Vmcs = 0x2036
+	VmcsCtrlEoiExitBitmap0        Vmcs = 0x201c
+	VmcsCtrlEoiExitBitmap1        Vmcs = 0x201e
+	VmcsCtrlEoiExitBitmap2        Vmcs = 0x2020
+	VmcsCtrlEoiExitBitmap3        Vmcs = 0x2022
+	VmcsCtrlEptp                  Vmcs = 0x201a
+	VmcsCtrlEptpIndex             Vmcs = 0x4
+	VmcsCtrlEptpListAddr          Vmcs = 0x2024
+	VmcsCtrlExcBitmap             Vmcs = 0x4004
+	VmcsCtrlExecutiveVmcsPtr      Vmcs = 0x200c
+	VmcsCtrlIOBitmapA             Vmcs = 0x2000
+	VmcsCtrlIOBitmapB             Vmcs = 0x2002
+	VmcsCtrlMsrBitmaps            Vmcs = 0x2004
+	VmcsCtrlPfErrorMask           Vmcs = 0x4006
+	VmcsCtrlPfErrorMatch          Vmcs = 0x4008
+	VmcsCtrlPinBased              Vmcs = 0x4000
+	VmcsCtrlPleGap                Vmcs = 0x4020
+	VmcsCtrlPleWindow             Vmcs = 0x4022
+	VmcsCtrlPmlAddr               Vmcs = 0x200e
+	VmcsCtrlPostedIntDescAddr     Vmcs = 0x2016
+	VmcsCtrlPostedIntNVector      Vmcs = 0x2
+	VmcsCtrlSppTable              Vmcs = 0x2030
+	VmcsCtrlTprThreshold          Vmcs = 0x401c
+	VmcsCtrlTscMultiplier         Vmcs = 0x2032
+	VmcsCtrlTscOffset             Vmcs = 0x2010
+	VmcsCtrlVirtExcInfoAddr       Vmcs = 0x202a
+	VmcsCtrlVirtualAPIC           Vmcs = 0x2012
+	VmcsCtrlVmentryControls       Vmcs = 0x4012
+	VmcsCtrlVmentryExcError       Vmcs = 0x4018
+	VmcsCtrlVmentryInstrLen       Vmcs = 0x401a
+	VmcsCtrlVmentryIrqInfo        Vmcs = 0x4016
+	VmcsCtrlVmentryMsrLoadAddr    Vmcs = 0x200a
+	VmcsCtrlVmentryMsrLoadCount   Vmcs = 0x4014
+	VmcsCtrlVmexitControls        Vmcs = 0x400c
+	VmcsCtrlVmexitMsrLoadAddr     Vmcs = 0x2008
+	VmcsCtrlVmexitMsrLoadCount    Vmcs = 0x4010
+	VmcsCtrlVmexitMsrStoreAddr    Vmcs = 0x2006
+	VmcsCtrlVmexitMsrStoreCount   Vmcs = 0x400e
+	VmcsCtrlVmfuncCtrl            Vmcs = 0x2018
+	VmcsCtrlVmreadBitmapAddr      Vmcs = 0x2026
+	VmcsCtrlVmwriteBitmapAddr     Vmcs = 0x2028
+	VmcsCtrlXssExitingBitmap      Vmcs = 0x202c
+	VmcsGuestActivityState        Vmcs = 0x4826
+	VmcsGuestCr0                  Vmcs = 0x6800
+	VmcsGuestCr3                  Vmcs = 0x6802
+	VmcsGuestCr4                  Vmcs = 0x6804
+	VmcsGuestCs                   Vmcs = 0x802
+	VmcsGuestCsAr                 Vmcs = 0x4816
+	VmcsGuestCsBase               Vmcs = 0x6808
+	VmcsGuestCsLimit              Vmcs = 0x4802
+	VmcsGuestDebugExc             Vmcs = 0x6822
+	VmcsGuestDr7                  Vmcs = 0x681a
+	VmcsGuestDs                   Vmcs = 0x806
+	VmcsGuestDsAr                 Vmcs = 0x481a
+	VmcsGuestDsBase               Vmcs = 0x680c
+	VmcsGuestDsLimit              Vmcs = 0x4806
+	VmcsGuestEs                   Vmcs = 0x800
+	VmcsGuestEsAr                 Vmcs = 0x4814
+	VmcsGuestEsBase               Vmcs = 0x6806
+	VmcsGuestEsLimit              Vmcs = 0x4800
+	VmcsGuestFs                   Vmcs = 0x808
+	VmcsGuestFsAr                 Vmcs = 0x481c
+	VmcsGuestFsBase               Vmcs = 0x680e
+	VmcsGuestFsLimit              Vmcs = 0x4808
+	VmcsGuestGdtrBase             Vmcs = 0x6816
+	VmcsGuestGdtrLimit            Vmcs = 0x4810
+	VmcsGuestGs                   Vmcs = 0x80a
+	VmcsGuestGsAr                 Vmcs = 0x481e
+	VmcsGuestGsBase               Vmcs = 0x6810
+	VmcsGuestGsLimit              Vmcs = 0x480a
+	VmcsGuestIa32Bndcfgs          Vmcs = 0x2812
+	VmcsGuestIa32Debugctl         Vmcs = 0x2802
+	VmcsGuestIa32Efer             Vmcs = 0x2806
+	VmcsGuestIa32IntrSspTableAddr Vmcs = 0x682c
+	VmcsGuestIa32Pat              Vmcs = 0x2804
+	VmcsGuestIa32PerfGlobalCtrl   Vmcs = 0x2808
+	VmcsGuestIa32Pkrs             Vmcs = 0x2818
+	VmcsGuestIa32RtitCtl          Vmcs = 0x2814
+	VmcsGuestIa32SCet             Vmcs = 0x6828
+	VmcsGuestIa32SysenterCs       Vmcs = 0x482a
+	VmcsGuestIdtrBase             Vmcs = 0x6818
+	VmcsGuestIdtrLimit            Vmcs = 0x4812
+	VmcsGuestIgnoreIrq            Vmcs = 18468
+	VmcsGuestIntStatus            Vmcs = 0x810
+	VmcsGuestInterruptibility     Vmcs = 0x4824
+	VmcsGuestLdtr                 Vmcs = 0x80c
+	VmcsGuestLdtrAr               Vmcs = 0x4820
+	VmcsGuestLdtrBase             Vmcs = 0x6812
+	VmcsGuestLdtrLimit            Vmcs = 0x480c
+	VmcsGuestLinkPointer          Vmcs = 0x2800
+	VmcsGuestPdpte0               Vmcs = 0x280a
+	VmcsGuestPdpte1               Vmcs = 0x280c
+	VmcsGuestPdpte2               Vmcs = 0x280e
+	VmcsGuestPdpte3               Vmcs = 0x2810
+	VmcsGuestPhysicalAddress      Vmcs = 0x2400
+	VmcsGuestRflags               Vmcs = 0x6820
+	VmcsGuestRip                  Vmcs = 0x681e
+	VmcsGuestRsp                  Vmcs = 0x681c
+	VmcsGuestSmbase               Vmcs = 0x4828
+	VmcsGuestSs                   Vmcs = 0x804
+	VmcsGuestSsAr                 Vmcs = 0x4818
+	VmcsGuestSsBase               Vmcs = 0x680a
+	VmcsGuestSsLimit              Vmcs = 0x4804
+	VmcsGuestSsp                  Vmcs = 0x682a
+	VmcsGuestSysenterEip          Vmcs = 0x6826
+	VmcsGuestSysenterEsp          Vmcs = 0x6824
+	VmcsGuestTr                   Vmcs = 0x80e
+	VmcsGuestTrAr                 Vmcs = 0x4822
+	VmcsGuestTrBase               Vmcs = 0x6814
+	VmcsGuestTrLimit              Vmcs = 0x480e
+	VmcsGuestVmxTimerValue        Vmcs = 0x482e
+	VmcsGuestpmlIndex             Vmcs = 0x812
+	VmcsHostCr0                   Vmcs = 0x6c00
+	VmcsHostCr3                   Vmcs = 0x6c02
+	VmcsHostCr4                   Vmcs = 0x6c04
+	VmcsHostCs                    Vmcs = 0xc02
+	VmcsHostDs                    Vmcs = 0xc06
+	VmcsHostEs                    Vmcs = 0xc00
+	VmcsHostFs                    Vmcs = 0xc08
+	VmcsHostFsBase                Vmcs = 0x6c06
+	VmcsHostGdtrBase              Vmcs = 0x6c0c
+	VmcsHostGs                    Vmcs = 0xc0a
+	VmcsHostGsBase                Vmcs = 0x6c08
+	VmcsHostIa32Efer              Vmcs = 0x2c02
+	VmcsHostIa32IntrSspTableAddr  Vmcs = 0x6c1c
+	VmcsHostIa32Pat               Vmcs = 0x2c00
+	VmcsHostIa32PerfGlobalCtrl    Vmcs = 0x2c04
+	VmcsHostIa32Pkrs              Vmcs = 0x2c06
+	VmcsHostIa32SCet              Vmcs = 0x6c18
+	VmcsHostIa32SysenterCs        Vmcs = 0x4c00
+	VmcsHostIa32SysenterEip       Vmcs = 0x6c12
+	VmcsHostIa32SysenterEsp       Vmcs = 0x6c10
+	VmcsHostIdtrBase              Vmcs = 0x6c0e
+	VmcsHostRip                   Vmcs = 0x6c16
+	VmcsHostRsp                   Vmcs = 0x6c14
+	VmcsHostSs                    Vmcs = 0xc04
+	VmcsHostSsp                   Vmcs = 0x6c1a
+	VmcsHostTr                    Vmcs = 0xc0c
+	VmcsHostTrBase                Vmcs = 0x6c0a
+	VmcsInvalid                   Vmcs = 27904
+	VmcsMax                       Vmcs = 0x6d00
+	VmcsRoExitQualific            Vmcs = 0x6400
+	VmcsRoExitReason              Vmcs = 0x4402
+	VmcsRoGuestLinAddr            Vmcs = 0x640a
+	VmcsRoIORcx                   Vmcs = 0x6402
+	VmcsRoIORdi                   Vmcs = 0x6406
+	VmcsRoIORip                   Vmcs = 0x6408
+	VmcsRoIORsi                   Vmcs = 0x6404
+	VmcsRoIdtVectorError          Vmcs = 0x440a
+	VmcsRoIdtVectorInfo           Vmcs = 0x4408
+	VmcsRoInstrError              Vmcs = 0x4400
+	VmcsRoVmexitInstrLen          Vmcs = 0x440c
+	VmcsRoVmexitIrqError          Vmcs = 0x4406
+	VmcsRoVmexitIrqInfo           Vmcs = 0x4404
+	VmcsRoVmxInstrInfo            Vmcs = 0x440e
+	VmcsVpid                      Vmcs = 0
+)
+
+func (e Vmcs) String() string {
+	switch e {
+	case VmcsCtrlAPICAccess:
+		return "VmcsCtrlAPICAccess"
+	case VmcsCtrlCPUBased:
+		return "VmcsCtrlCPUBased"
+	case VmcsCtrlCPUBased2:
+		return "VmcsCtrlCPUBased2"
+	case VmcsCtrlCr0Mask:
+		return "VmcsCtrlCr0Mask"
+	case VmcsCtrlCr0Shadow:
+		return "VmcsCtrlCr0Shadow"
+	case VmcsCtrlCr3Count:
+		return "VmcsCtrlCr3Count"
+	case VmcsCtrlCr3Value0:
+		return "VmcsCtrlCr3Value0"
+	case VmcsCtrlCr3Value1:
+		return "VmcsCtrlCr3Value1"
+	case VmcsCtrlCr3Value2:
+		return "VmcsCtrlCr3Value2"
+	case VmcsCtrlCr3Value3:
+		return "VmcsCtrlCr3Value3"
+	case VmcsCtrlCr4Mask:
+		return "VmcsCtrlCr4Mask"
+	case VmcsCtrlCr4Shadow:
+		return "VmcsCtrlCr4Shadow"
+	case VmcsCtrlEnclsExitingBitmap:
+		return "VmcsCtrlEnclsExitingBitmap"
+	case VmcsCtrlEnclvExitingBitmap:
+		return "VmcsCtrlEnclvExitingBitmap"
+	case VmcsCtrlEoiExitBitmap0:
+		return "VmcsCtrlEoiExitBitmap0"
+	case VmcsCtrlEoiExitBitmap1:
+		return "VmcsCtrlEoiExitBitmap1"
+	case VmcsCtrlEoiExitBitmap2:
+		return "VmcsCtrlEoiExitBitmap2"
+	case VmcsCtrlEoiExitBitmap3:
+		return "VmcsCtrlEoiExitBitmap3"
+	case VmcsCtrlEptp:
+		return "VmcsCtrlEptp"
+	case VmcsCtrlEptpIndex:
+		return "VmcsCtrlEptpIndex"
+	case VmcsCtrlEptpListAddr:
+		return "VmcsCtrlEptpListAddr"
+	case VmcsCtrlExcBitmap:
+		return "VmcsCtrlExcBitmap"
+	case VmcsCtrlExecutiveVmcsPtr:
+		return "VmcsCtrlExecutiveVmcsPtr"
+	case VmcsCtrlIOBitmapA:
+		return "VmcsCtrlIOBitmapA"
+	case VmcsCtrlIOBitmapB:
+		return "VmcsCtrlIOBitmapB"
+	case VmcsCtrlMsrBitmaps:
+		return "VmcsCtrlMsrBitmaps"
+	case VmcsCtrlPfErrorMask:
+		return "VmcsCtrlPfErrorMask"
+	case VmcsCtrlPfErrorMatch:
+		return "VmcsCtrlPfErrorMatch"
+	case VmcsCtrlPinBased:
+		return "VmcsCtrlPinBased"
+	case VmcsCtrlPleGap:
+		return "VmcsCtrlPleGap"
+	case VmcsCtrlPleWindow:
+		return "VmcsCtrlPleWindow"
+	case VmcsCtrlPmlAddr:
+		return "VmcsCtrlPmlAddr"
+	case VmcsCtrlPostedIntDescAddr:
+		return "VmcsCtrlPostedIntDescAddr"
+	case VmcsCtrlPostedIntNVector:
+		return "VmcsCtrlPostedIntNVector"
+	case VmcsCtrlSppTable:
+		return "VmcsCtrlSppTable"
+	case VmcsCtrlTprThreshold:
+		return "VmcsCtrlTprThreshold"
+	case VmcsCtrlTscMultiplier:
+		return "VmcsCtrlTscMultiplier"
+	case VmcsCtrlTscOffset:
+		return "VmcsCtrlTscOffset"
+	case VmcsCtrlVirtExcInfoAddr:
+		return "VmcsCtrlVirtExcInfoAddr"
+	case VmcsCtrlVirtualAPIC:
+		return "VmcsCtrlVirtualAPIC"
+	case VmcsCtrlVmentryControls:
+		return "VmcsCtrlVmentryControls"
+	case VmcsCtrlVmentryExcError:
+		return "VmcsCtrlVmentryExcError"
+	case VmcsCtrlVmentryInstrLen:
+		return "VmcsCtrlVmentryInstrLen"
+	case VmcsCtrlVmentryIrqInfo:
+		return "VmcsCtrlVmentryIrqInfo"
+	case VmcsCtrlVmentryMsrLoadAddr:
+		return "VmcsCtrlVmentryMsrLoadAddr"
+	case VmcsCtrlVmentryMsrLoadCount:
+		return "VmcsCtrlVmentryMsrLoadCount"
+	case VmcsCtrlVmexitControls:
+		return "VmcsCtrlVmexitControls"
+	case VmcsCtrlVmexitMsrLoadAddr:
+		return "VmcsCtrlVmexitMsrLoadAddr"
+	case VmcsCtrlVmexitMsrLoadCount:
+		return "VmcsCtrlVmexitMsrLoadCount"
+	case VmcsCtrlVmexitMsrStoreAddr:
+		return "VmcsCtrlVmexitMsrStoreAddr"
+	case VmcsCtrlVmexitMsrStoreCount:
+		return "VmcsCtrlVmexitMsrStoreCount"
+	case VmcsCtrlVmfuncCtrl:
+		return "VmcsCtrlVmfuncCtrl"
+	case VmcsCtrlVmreadBitmapAddr:
+		return "VmcsCtrlVmreadBitmapAddr"
+	case VmcsCtrlVmwriteBitmapAddr:
+		return "VmcsCtrlVmwriteBitmapAddr"
+	case VmcsCtrlXssExitingBitmap:
+		return "VmcsCtrlXssExitingBitmap"
+	case VmcsGuestActivityState:
+		return "VmcsGuestActivityState"
+	case VmcsGuestCr0:
+		return "VmcsGuestCr0"
+	case VmcsGuestCr3:
+		return "VmcsGuestCr3"
+	case VmcsGuestCr4:
+		return "VmcsGuestCr4"
+	case VmcsGuestCs:
+		return "VmcsGuestCs"
+	case VmcsGuestCsAr:
+		return "VmcsGuestCsAr"
+	case VmcsGuestCsBase:
+		return "VmcsGuestCsBase"
+	case VmcsGuestCsLimit:
+		return "VmcsGuestCsLimit"
+	case VmcsGuestDebugExc:
+		return "VmcsGuestDebugExc"
+	case VmcsGuestDr7:
+		return "VmcsGuestDr7"
+	case VmcsGuestDs:
+		return "VmcsGuestDs"
+	case VmcsGuestDsAr:
+		return "VmcsGuestDsAr"
+	case VmcsGuestDsBase:
+		return "VmcsGuestDsBase"
+	case VmcsGuestDsLimit:
+		return "VmcsGuestDsLimit"
+	case VmcsGuestEs:
+		return "VmcsGuestEs"
+	case VmcsGuestEsAr:
+		return "VmcsGuestEsAr"
+	case VmcsGuestEsBase:
+		return "VmcsGuestEsBase"
+	case VmcsGuestEsLimit:
+		return "VmcsGuestEsLimit"
+	case VmcsGuestFs:
+		return "VmcsGuestFs"
+	case VmcsGuestFsAr:
+		return "VmcsGuestFsAr"
+	case VmcsGuestFsBase:
+		return "VmcsGuestFsBase"
+	case VmcsGuestFsLimit:
+		return "VmcsGuestFsLimit"
+	case VmcsGuestGdtrBase:
+		return "VmcsGuestGdtrBase"
+	case VmcsGuestGdtrLimit:
+		return "VmcsGuestGdtrLimit"
+	case VmcsGuestGs:
+		return "VmcsGuestGs"
+	case VmcsGuestGsAr:
+		return "VmcsGuestGsAr"
+	case VmcsGuestGsBase:
+		return "VmcsGuestGsBase"
+	case VmcsGuestGsLimit:
+		return "VmcsGuestGsLimit"
+	case VmcsGuestIa32Bndcfgs:
+		return "VmcsGuestIa32Bndcfgs"
+	case VmcsGuestIa32Debugctl:
+		return "VmcsGuestIa32Debugctl"
+	case VmcsGuestIa32Efer:
+		return "VmcsGuestIa32Efer"
+	case VmcsGuestIa32IntrSspTableAddr:
+		return "VmcsGuestIa32IntrSspTableAddr"
+	case VmcsGuestIa32Pat:
+		return "VmcsGuestIa32Pat"
+	case VmcsGuestIa32PerfGlobalCtrl:
+		return "VmcsGuestIa32PerfGlobalCtrl"
+	case VmcsGuestIa32Pkrs:
+		return "VmcsGuestIa32Pkrs"
+	case VmcsGuestIa32RtitCtl:
+		return "VmcsGuestIa32RtitCtl"
+	case VmcsGuestIa32SCet:
+		return "VmcsGuestIa32SCet"
+	case VmcsGuestIa32SysenterCs:
+		return "VmcsGuestIa32SysenterCs"
+	case VmcsGuestIdtrBase:
+		return "VmcsGuestIdtrBase"
+	case VmcsGuestIdtrLimit:
+		return "VmcsGuestIdtrLimit"
+	case VmcsGuestIgnoreIrq:
+		return "VmcsGuestIgnoreIrq"
+	case VmcsGuestIntStatus:
+		return "VmcsGuestIntStatus"
+	case VmcsGuestLdtr:
+		return "VmcsGuestLdtr"
+	case VmcsGuestLdtrAr:
+		return "VmcsGuestLdtrAr"
+	case VmcsGuestLdtrBase:
+		return "VmcsGuestLdtrBase"
+	case VmcsGuestLdtrLimit:
+		return "VmcsGuestLdtrLimit"
+	case VmcsGuestLinkPointer:
+		return "VmcsGuestLinkPointer"
+	case VmcsGuestPdpte0:
+		return "VmcsGuestPdpte0"
+	case VmcsGuestPdpte1:
+		return "VmcsGuestPdpte1"
+	case VmcsGuestPdpte2:
+		return "VmcsGuestPdpte2"
+	case VmcsGuestPdpte3:
+		return "VmcsGuestPdpte3"
+	case VmcsGuestPhysicalAddress:
+		return "VmcsGuestPhysicalAddress"
+	case VmcsGuestRflags:
+		return "VmcsGuestRflags"
+	case VmcsGuestRip:
+		return "VmcsGuestRip"
+	case VmcsGuestRsp:
+		return "VmcsGuestRsp"
+	case VmcsGuestSmbase:
+		return "VmcsGuestSmbase"
+	case VmcsGuestSs:
+		return "VmcsGuestSs"
+	case VmcsGuestSsAr:
+		return "VmcsGuestSsAr"
+	case VmcsGuestSsBase:
+		return "VmcsGuestSsBase"
+	case VmcsGuestSsLimit:
+		return "VmcsGuestSsLimit"
+	case VmcsGuestSsp:
+		return "VmcsGuestSsp"
+	case VmcsGuestSysenterEip:
+		return "VmcsGuestSysenterEip"
+	case VmcsGuestSysenterEsp:
+		return "VmcsGuestSysenterEsp"
+	case VmcsGuestTr:
+		return "VmcsGuestTr"
+	case VmcsGuestTrAr:
+		return "VmcsGuestTrAr"
+	case VmcsGuestTrBase:
+		return "VmcsGuestTrBase"
+	case VmcsGuestTrLimit:
+		return "VmcsGuestTrLimit"
+	case VmcsGuestVmxTimerValue:
+		return "VmcsGuestVmxTimerValue"
+	case VmcsGuestpmlIndex:
+		return "VmcsGuestpmlIndex"
+	case VmcsHostCr0:
+		return "VmcsHostCr0"
+	case VmcsHostCr3:
+		return "VmcsHostCr3"
+	case VmcsHostCr4:
+		return "VmcsHostCr4"
+	case VmcsHostCs:
+		return "VmcsHostCs"
+	case VmcsHostDs:
+		return "VmcsHostDs"
+	case VmcsHostEs:
+		return "VmcsHostEs"
+	case VmcsHostFs:
+		return "VmcsHostFs"
+	case VmcsHostFsBase:
+		return "VmcsHostFsBase"
+	case VmcsHostGdtrBase:
+		return "VmcsHostGdtrBase"
+	case VmcsHostGs:
+		return "VmcsHostGs"
+	case VmcsHostGsBase:
+		return "VmcsHostGsBase"
+	case VmcsHostIa32Efer:
+		return "VmcsHostIa32Efer"
+	case VmcsHostIa32IntrSspTableAddr:
+		return "VmcsHostIa32IntrSspTableAddr"
+	case VmcsHostIa32Pat:
+		return "VmcsHostIa32Pat"
+	case VmcsHostIa32PerfGlobalCtrl:
+		return "VmcsHostIa32PerfGlobalCtrl"
+	case VmcsHostIa32Pkrs:
+		return "VmcsHostIa32Pkrs"
+	case VmcsHostIa32SCet:
+		return "VmcsHostIa32SCet"
+	case VmcsHostIa32SysenterCs:
+		return "VmcsHostIa32SysenterCs"
+	case VmcsHostIa32SysenterEip:
+		return "VmcsHostIa32SysenterEip"
+	case VmcsHostIa32SysenterEsp:
+		return "VmcsHostIa32SysenterEsp"
+	case VmcsHostIdtrBase:
+		return "VmcsHostIdtrBase"
+	case VmcsHostRip:
+		return "VmcsHostRip"
+	case VmcsHostRsp:
+		return "VmcsHostRsp"
+	case VmcsHostSs:
+		return "VmcsHostSs"
+	case VmcsHostSsp:
+		return "VmcsHostSsp"
+	case VmcsHostTr:
+		return "VmcsHostTr"
+	case VmcsHostTrBase:
+		return "VmcsHostTrBase"
+	case VmcsInvalid:
+		return "VmcsInvalid"
+	case VmcsRoExitQualific:
+		return "VmcsRoExitQualific"
+	case VmcsRoExitReason:
+		return "VmcsRoExitReason"
+	case VmcsRoGuestLinAddr:
+		return "VmcsRoGuestLinAddr"
+	case VmcsRoIORcx:
+		return "VmcsRoIORcx"
+	case VmcsRoIORdi:
+		return "VmcsRoIORdi"
+	case VmcsRoIORip:
+		return "VmcsRoIORip"
+	case VmcsRoIORsi:
+		return "VmcsRoIORsi"
+	case VmcsRoIdtVectorError:
+		return "VmcsRoIdtVectorError"
+	case VmcsRoIdtVectorInfo:
+		return "VmcsRoIdtVectorInfo"
+	case VmcsRoInstrError:
+		return "VmcsRoInstrError"
+	case VmcsRoVmexitInstrLen:
+		return "VmcsRoVmexitInstrLen"
+	case VmcsRoVmexitIrqError:
+		return "VmcsRoVmexitIrqError"
+	case VmcsRoVmexitIrqInfo:
+		return "VmcsRoVmexitIrqInfo"
+	case VmcsRoVmxInstrInfo:
+		return "VmcsRoVmxInstrInfo"
+	case VmcsVpid:
+		return "VmcsVpid"
+	default:
+		return fmt.Sprintf("Vmcs(%d)", e)
+	}
+}
+
+type VmxBasicTrue uint
+
+const (
+	// VmxBasicTrueCtls: This bit field, in the value returned by the IA32_VMX_BASIC model specific register, determines if it’s possible to disable any VMX controls.
+	VmxBasicTrueCtls VmxBasicTrue = 36028797018963968
+)
+
+func (e VmxBasicTrue) String() string {
+	switch e {
+	case VmxBasicTrueCtls:
+		return "VmxBasicTrueCtls"
+	default:
+		return fmt.Sprintf("VmxBasicTrue(%d)", e)
+	}
+}
+
+type VmxReason uint
+
+const (
+	// VmxReasonAPICAccess: The guest attempted to access memory at a physical address on the APIC-access page and the “virtualize APIC accesses” VM-execution control was 1.
+	VmxReasonAPICAccess VmxReason = 44
+	// VmxReasonAPICWrite: The guest completed a write to the virtual-APIC page that requires virtualization by VMM software.
+	VmxReasonAPICWrite VmxReason = 56
+	// VmxReasonCpuid: The guest software attempted to execute the CPUID instruction.
+	VmxReasonCpuid VmxReason = 10
+	// VmxReasonEncls: The guest attempted to execute an unsupported ENCLS instruction.
+	VmxReasonEncls VmxReason = 60
+	// VmxReasonEptInvept: The guest attempted to execute the Invalidate cached Extended Page Table (INVEPT) instruction.
+	VmxReasonEptInvept VmxReason = 50
+	// VmxReasonEptMisconfig: An attempt to access memory with a guest-physical address encountered a misconfigured Extended Page Table (EPT) paging-structure entry.
+	VmxReasonEptMisconfig VmxReason = 49
+	// VmxReasonEptViolation: The configuration of the Extended Page Table (EPT) paging structures disallowed an attempt to access memory with a guest-physical address.
+	VmxReasonEptViolation VmxReason = 48
+	// VmxReasonExcNmi: VMX exit due to an exception or non-maskable interrupt (NMI).
+	VmxReasonExcNmi VmxReason = 0
+	// VmxReasonGdtrIdtr: The guest attempted to execute LGDT, LIDT, SGDT, or SIDT instructions and the “descriptor-table exiting” VM-execution control was 1.
+	VmxReasonGdtrIdtr VmxReason = 46
+	// VmxReasonGetsec: The guest attempted to execute GETSEC instruction.
+	VmxReasonGetsec VmxReason = 11
+	// VmxReasonHlt: The guest attempted to execute HLT and the “HLT exiting” VM-execution control was 1.
+	VmxReasonHlt VmxReason = 12
+	// VmxReasonIO: Guest attempted to execute an I/O instruction.
+	VmxReasonIO VmxReason = 30
+	// VmxReasonIOSmi: VMX exited due to an I/O SMM Interrupt.
+	VmxReasonIOSmi VmxReason = 5
+	// VmxReasonInit: VMX exit due to an INIT signal.
+	VmxReasonInit VmxReason = 3
+	// VmxReasonInvd: The guest attempted to execute Invalidate Caches (INVD) instruction.
+	VmxReasonInvd VmxReason = 13
+	// VmxReasonInvlpg: The guest attempted to execute the Invalidate TLB Entry (INVLPG) instruction and the “INVLPG exiting” VM-execution control was 1.
+	VmxReasonInvlpg VmxReason = 14
+	// VmxReasonInvpcid: The guest attempted to execute an INVPCID instruction and the “enable INVPCID” and “INVLPG exiting” VM-execution controls were both 1.
+	VmxReasonInvpcid VmxReason = 58
+	// VmxReasonInvvpid: The guest attempted to execute the INVVPID instruction.
+	VmxReasonInvvpid VmxReason = 53
+	// VmxReasonIrq: An external interrupt arrived and the “external-interrupt exiting” VM-execution control was 1.
+	VmxReasonIrq VmxReason = 1
+	// VmxReasonIrqWnd: VMX exited due to an Interrupt Window.
+	VmxReasonIrqWnd VmxReason = 7
+	// VmxReasonLdtrTr: The guest attempted to execute LLDT, LTR, SLDT, or STR instructions and the “descriptor-table exiting” VM-execution control was 1.
+	VmxReasonLdtrTr VmxReason = 47
+	// VmxReasonMonitor: The guest attempted to execute MONITOR and the “MONITOR exiting” VM-execution control was 1.
+	VmxReasonMonitor VmxReason = 39
+	// VmxReasonMovCr: The guest attempted to access one of the CR0, CR3, CR4 or CR8 control registers.
+	VmxReasonMovCr VmxReason = 28
+	// VmxReasonMovDr: The guest attempted a MOV to or from a debug register and the “MOV-DR exiting” VM-execution control was 1.
+	VmxReasonMovDr VmxReason = 29
+	// VmxReasonMtf: VM exit occurred due to the setting of the monitor trap flag (MTF) or injection of a pending MTF VM exit.
+	VmxReasonMtf VmxReason = 37
+	// VmxReasonMwait: The guest attempted to execute an MWAIT instruction and the “MWAIT exiting” VM-execution control was 1.
+	VmxReasonMwait VmxReason = 36
+	// VmxReasonOtherSmi: An SMI arrived and caused an SMM VM exit.
+	VmxReasonOtherSmi VmxReason = 6
+	// VmxReasonPause: The guest attempted to execute PAUSE when the VM-execution control was 1 or exceeded the execition time window.
+	VmxReasonPause   VmxReason = 40
+	VmxReasonPmlFull VmxReason = 62
+	// VmxReasonRdmsr: The guest attempted to execute RDMSR.
+	VmxReasonRdmsr VmxReason = 31
+	// VmxReasonRdpmc: The guest attempted to execute read performance monitoring counters (RDPMC) instruction and the “RDPMC exiting” VM-execution control was 1.
+	VmxReasonRdpmc VmxReason = 15
+	// VmxReasonRdrand: The guest software attempted to execute RDRAND instruction and the “RDRAND exiting” VM-execution control was 1.
+	VmxReasonRdrand VmxReason = 57
+	// VmxReasonRdseed: The guest attempted to execute RDSEED and the “RDSEED exiting” VM-execution control was 1.
+	VmxReasonRdseed VmxReason = 61
+	// VmxReasonRdtsc: The guest attempted to execute read time stamp counter (RDTSC) instruction and the “RDTSC exiting” VM-execution control was 1.
+	VmxReasonRdtsc VmxReason = 16
+	// VmxReasonRdtscp: The guest attempted to execute an RDTSCP instruction and the “enable RDTSCP” and “RDTSC exiting” VM-execution controls were both 1.
+	VmxReasonRdtscp VmxReason = 51
+	// VmxReasonRsm: The guest software attempted to execute a return from system management mode (RSM) instuction in system-management mode.
+	VmxReasonRsm VmxReason = 17
+	// VmxReasonSipi: VMS exit due to startup (IPI).
+	VmxReasonSipi VmxReason = 4
+	// VmxReasonSppEvent: The processor attempted to determine an access’s sub-page write permission and encountered an SPP miss or an SPP misconfiguration.
+	VmxReasonSppEvent VmxReason = 66
+	// VmxReasonTask: The guest attempted a task switch.
+	VmxReasonTask VmxReason = 9
+	// VmxReasonTpause: The guest attempted to execute a TPAUSE instuction and both the “enable user wait and pause” and “RDTSC exiting” VM-execution controls were both 1.
+	VmxReasonTpause VmxReason = 68
+	// VmxReasonTprThreshold: The logical processor determined that the value of the byte at offset 080H on the virtual-APIC page was below the required TPR threshold.
+	VmxReasonTprThreshold VmxReason = 43
+	// VmxReasonTripleFault: VMX exit due to a triple fault.
+	VmxReasonTripleFault VmxReason = 2
+	// VmxReasonUmwait: The guest attempted to execute a UMWAIT instruction and both the “enable user wait and pause” and “RDTSC exiting” VM-execution controls were both 1.
+	VmxReasonUmwait VmxReason = 67
+	// VmxReasonVirtualNmiWnd: At the beginning of an instruction, there was no virtual-NMI blocking.
+	VmxReasonVirtualNmiWnd VmxReason = 8
+	// VmxReasonVirtualizedEoi: The system performed EOI virtualization for a virtual interrupt whose vector indexed a bit set in the EOIexit bitmap.
+	VmxReasonVirtualizedEoi VmxReason = 45
+	// VmxReasonVmcall: The execution of VMCALL by either by the guest or the executive monitor casued an ordinary VM exit or an SMM VM exit, respectively.
+	VmxReasonVmcall VmxReason = 18
+	// VmxReasonVmclear: The guest attempted to execute VMCLEAR.
+	VmxReasonVmclear VmxReason = 19
+	// VmxReasonVmentryGuest: VM entry failed one of the entry checks.
+	VmxReasonVmentryGuest VmxReason = 33
+	// VmxReasonVmentryMc: A machine-check event occurred during VM entry.
+	VmxReasonVmentryMc VmxReason = 41
+	// VmxReasonVmentryMsr: A VM entry failed in an attempt to load model specific registers.
+	VmxReasonVmentryMsr VmxReason = 34
+	// VmxReasonVmfunc: The guest called a VM function and the VM function either wasn’t enabled or generated a function-specific condition causing a VM exit.
+	VmxReasonVmfunc VmxReason = 59
+	// VmxReasonVmlaunch: The guest attempted to execute VMLAUNCH.
+	VmxReasonVmlaunch VmxReason = 20
+	// VmxReasonVmoff: The guest attempted to execute VMXOFF.
+	VmxReasonVmoff VmxReason = 26
+	// VmxReasonVmon: The guest attempted to execute VMXON.
+	VmxReasonVmon VmxReason = 27
+	// VmxReasonVmptrld: The guest attempted to execute VMPTRLD.
+	VmxReasonVmptrld VmxReason = 21
+	// VmxReasonVmptrst: The guest attempted to execute VMPTRST.
+	VmxReasonVmptrst VmxReason = 22
+	// VmxReasonVmread: The guest attempted to execute VMREAD.
+	VmxReasonVmread VmxReason = 23
+	// VmxReasonVmresume: The guest attempted to execute VMRESUME.
+	VmxReasonVmresume VmxReason = 24
+	// VmxReasonVmwrite: The guest attempted to execute VMWRITE.
+	VmxReasonVmwrite VmxReason = 25
+	// VmxReasonVmxTimerExpired: The preemption timer counted down to zero.
+	VmxReasonVmxTimerExpired VmxReason = 52
+	// VmxReasonWbinvd: The guest attempted to execute WBINVD and the “WBINVD exiting” VM-execution control was 1.
+	VmxReasonWbinvd VmxReason = 54
+	// VmxReasonWrmsr: The guest attempted to execute WRMSR.
+	VmxReasonWrmsr VmxReason = 32
+	// VmxReasonXrstors: The guest attempted to execute XRSTORS which wasn’t allowed in the current configuration.
+	VmxReasonXrstors VmxReason = 64
+	// VmxReasonXsaves: The guest attempted to execute XSAVES which wasn’t allowed in the current configuration.
+	VmxReasonXsaves VmxReason = 63
+	// VmxReasonXsetbv: The guest attempted to execute XSETBV.
+	VmxReasonXsetbv VmxReason = 55
+)
+
+func (e VmxReason) String() string {
+	switch e {
+	case VmxReasonAPICAccess:
+		return "VmxReasonAPICAccess"
+	case VmxReasonAPICWrite:
+		return "VmxReasonAPICWrite"
+	case VmxReasonCpuid:
+		return "VmxReasonCpuid"
+	case VmxReasonEncls:
+		return "VmxReasonEncls"
+	case VmxReasonEptInvept:
+		return "VmxReasonEptInvept"
+	case VmxReasonEptMisconfig:
+		return "VmxReasonEptMisconfig"
+	case VmxReasonEptViolation:
+		return "VmxReasonEptViolation"
+	case VmxReasonExcNmi:
+		return "VmxReasonExcNmi"
+	case VmxReasonGdtrIdtr:
+		return "VmxReasonGdtrIdtr"
+	case VmxReasonGetsec:
+		return "VmxReasonGetsec"
+	case VmxReasonHlt:
+		return "VmxReasonHlt"
+	case VmxReasonIO:
+		return "VmxReasonIO"
+	case VmxReasonIOSmi:
+		return "VmxReasonIOSmi"
+	case VmxReasonInit:
+		return "VmxReasonInit"
+	case VmxReasonInvd:
+		return "VmxReasonInvd"
+	case VmxReasonInvlpg:
+		return "VmxReasonInvlpg"
+	case VmxReasonInvpcid:
+		return "VmxReasonInvpcid"
+	case VmxReasonInvvpid:
+		return "VmxReasonInvvpid"
+	case VmxReasonIrq:
+		return "VmxReasonIrq"
+	case VmxReasonIrqWnd:
+		return "VmxReasonIrqWnd"
+	case VmxReasonLdtrTr:
+		return "VmxReasonLdtrTr"
+	case VmxReasonMonitor:
+		return "VmxReasonMonitor"
+	case VmxReasonMovCr:
+		return "VmxReasonMovCr"
+	case VmxReasonMovDr:
+		return "VmxReasonMovDr"
+	case VmxReasonMtf:
+		return "VmxReasonMtf"
+	case VmxReasonMwait:
+		return "VmxReasonMwait"
+	case VmxReasonOtherSmi:
+		return "VmxReasonOtherSmi"
+	case VmxReasonPause:
+		return "VmxReasonPause"
+	case VmxReasonPmlFull:
+		return "VmxReasonPmlFull"
+	case VmxReasonRdmsr:
+		return "VmxReasonRdmsr"
+	case VmxReasonRdpmc:
+		return "VmxReasonRdpmc"
+	case VmxReasonRdrand:
+		return "VmxReasonRdrand"
+	case VmxReasonRdseed:
+		return "VmxReasonRdseed"
+	case VmxReasonRdtsc:
+		return "VmxReasonRdtsc"
+	case VmxReasonRdtscp:
+		return "VmxReasonRdtscp"
+	case VmxReasonRsm:
+		return "VmxReasonRsm"
+	case VmxReasonSipi:
+		return "VmxReasonSipi"
+	case VmxReasonSppEvent:
+		return "VmxReasonSppEvent"
+	case VmxReasonTask:
+		return "VmxReasonTask"
+	case VmxReasonTpause:
+		return "VmxReasonTpause"
+	case VmxReasonTprThreshold:
+		return "VmxReasonTprThreshold"
+	case VmxReasonTripleFault:
+		return "VmxReasonTripleFault"
+	case VmxReasonUmwait:
+		return "VmxReasonUmwait"
+	case VmxReasonVirtualNmiWnd:
+		return "VmxReasonVirtualNmiWnd"
+	case VmxReasonVirtualizedEoi:
+		return "VmxReasonVirtualizedEoi"
+	case VmxReasonVmcall:
+		return "VmxReasonVmcall"
+	case VmxReasonVmclear:
+		return "VmxReasonVmclear"
+	case VmxReasonVmentryGuest:
+		return "VmxReasonVmentryGuest"
+	case VmxReasonVmentryMc:
+		return "VmxReasonVmentryMc"
+	case VmxReasonVmentryMsr:
+		return "VmxReasonVmentryMsr"
+	case VmxReasonVmfunc:
+		return "VmxReasonVmfunc"
+	case VmxReasonVmlaunch:
+		return "VmxReasonVmlaunch"
+	case VmxReasonVmoff:
+		return "VmxReasonVmoff"
+	case VmxReasonVmon:
+		return "VmxReasonVmon"
+	case VmxReasonVmptrld:
+		return "VmxReasonVmptrld"
+	case VmxReasonVmptrst:
+		return "VmxReasonVmptrst"
+	case VmxReasonVmread:
+		return "VmxReasonVmread"
+	case VmxReasonVmresume:
+		return "VmxReasonVmresume"
+	case VmxReasonVmwrite:
+		return "VmxReasonVmwrite"
+	case VmxReasonVmxTimerExpired:
+		return "VmxReasonVmxTimerExpired"
+	case VmxReasonWbinvd:
+		return "VmxReasonWbinvd"
+	case VmxReasonWrmsr:
+		return "VmxReasonWrmsr"
+	case VmxReasonXrstors:
+		return "VmxReasonXrstors"
+	case VmxReasonXsaves:
+		return "VmxReasonXsaves"
+	case VmxReasonXsetbv:
+		return "VmxReasonXsetbv"
+	default:
+		return fmt.Sprintf("VmxReason(%d)", e)
+	}
+}
+
+// See: https://developer.apple.com/documentation/Hypervisor/hv_apic_ctrl_t
+type HVAPICCtrl uint32
 
 const (
 	HVAPICCtrlDefault   HVAPICCtrl = 0
@@ -33,7 +1673,8 @@ func (e HVAPICCtrl) String() string {
 	}
 }
 
-type HVAPICIntrTrigger uint
+// See: https://developer.apple.com/documentation/Hypervisor/hv_apic_intr_trigger_t
+type HVAPICIntrTrigger uint32
 
 const (
 	HVAPICEdgeTrigger     HVAPICIntrTrigger = 0
@@ -54,7 +1695,8 @@ func (e HVAPICIntrTrigger) String() string {
 	}
 }
 
-type HVAPICLvtFlavor uint
+// See: https://developer.apple.com/documentation/Hypervisor/hv_apic_lvt_flavor_t
+type HVAPICLvtFlavor uint32
 
 const (
 	HVAPICLvtFlavorTimer HVAPICLvtFlavor = 1
@@ -69,7 +1711,30 @@ func (e HVAPICLvtFlavor) String() string {
 	}
 }
 
-type HVCacheType uint
+// See: https://developer.apple.com/documentation/Hypervisor/hv_boot_state
+type HVBootState uint32
+
+const (
+	HVBsInit    HVBootState = 0
+	HVBsRunning HVBootState = 2
+	HVBsSipi    HVBootState = 1
+)
+
+func (e HVBootState) String() string {
+	switch e {
+	case HVBsInit:
+		return "HVBsInit"
+	case HVBsRunning:
+		return "HVBsRunning"
+	case HVBsSipi:
+		return "HVBsSipi"
+	default:
+		return fmt.Sprintf("HVBootState(%d)", e)
+	}
+}
+
+// See: https://developer.apple.com/documentation/Hypervisor/hv_cache_type_t
+type HVCacheType uint32
 
 const (
 	// HVCacheTypeData: The value that describes a cached data value.
@@ -89,7 +1754,8 @@ func (e HVCacheType) String() string {
 	}
 }
 
-type HVExitReason uint
+// See: https://developer.apple.com/documentation/Hypervisor/hv_exit_reason_t
+type HVExitReason uint32
 
 const (
 	// HVExitReasonCanceled: The value that identifies exits requested by exit handler on the host.
@@ -117,7 +1783,8 @@ func (e HVExitReason) String() string {
 	}
 }
 
-type HVFeatureReg uint
+// See: https://developer.apple.com/documentation/Hypervisor/hv_feature_reg_t
+type HVFeatureReg uint32
 
 const (
 	// HVFeatureRegClidrEl1: The value that describes Cache Level ID Register, EL1.
@@ -185,7 +1852,8 @@ func (e HVFeatureReg) String() string {
 	}
 }
 
-type HVGICDistributorReg uint
+// See: https://developer.apple.com/documentation/Hypervisor/hv_gic_distributor_reg_t
+type HVGICDistributorReg uint16
 
 const (
 	HVGICDistributorRegGICDCtlr          HVGICDistributorReg = 0
@@ -4799,7 +6467,8 @@ func (e HVGICDistributorReg) String() string {
 	}
 }
 
-type HVGICIccReg uint
+// See: https://developer.apple.com/documentation/Hypervisor/hv_gic_icc_reg_t
+type HVGICIccReg uint16
 
 const (
 	HVGICIccRegAp0r0El1   HVGICIccReg = 0xc644
@@ -4844,7 +6513,8 @@ func (e HVGICIccReg) String() string {
 	}
 }
 
-type HVGICIchReg uint
+// See: https://developer.apple.com/documentation/Hypervisor/hv_gic_ich_reg_t
+type HVGICIchReg uint16
 
 const (
 	HVGICIchRegAp0r0El2 HVGICIchReg = 0xe640
@@ -4928,7 +6598,8 @@ func (e HVGICIchReg) String() string {
 	}
 }
 
-type HVGICIcvReg uint
+// See: https://developer.apple.com/documentation/Hypervisor/hv_gic_icv_reg_t
+type HVGICIcvReg uint16
 
 const (
 	HVGICIcvRegAp0r0El1   HVGICIcvReg = 0xc644
@@ -4970,7 +6641,8 @@ func (e HVGICIcvReg) String() string {
 	}
 }
 
-type HVGICIntid uint
+// See: https://developer.apple.com/documentation/Hypervisor/hv_gic_intid_t
+type HVGICIntid uint16
 
 const (
 	HVGICIntEl1PhysicalTimer HVGICIntid = 30
@@ -4999,7 +6671,8 @@ func (e HVGICIntid) String() string {
 	}
 }
 
-type HVGICMsiReg uint
+// See: https://developer.apple.com/documentation/Hypervisor/hv_gic_msi_reg_t
+type HVGICMsiReg uint16
 
 const (
 	HVGICRegGicmSetSpiNsr HVGICMsiReg = 0x40
@@ -5017,7 +6690,8 @@ func (e HVGICMsiReg) String() string {
 	}
 }
 
-type HVGICRedistributorReg uint
+// See: https://developer.apple.com/documentation/Hypervisor/hv_gic_redistributor_reg_t
+type HVGICRedistributorReg uint32
 
 const (
 	HVGICRedistributorRegGICRIcactiver0  HVGICRedistributorReg = 0x10380
@@ -5086,27 +6760,8 @@ func (e HVGICRedistributorReg) String() string {
 	}
 }
 
-type HVIPAGranule uint
-
-const (
-	// HVIPAGranule16kb: # Discussion
-	HVIPAGranule16kb HVIPAGranule = 1
-	// HVIPAGranule4kb: # Discussion
-	HVIPAGranule4kb HVIPAGranule = 0
-)
-
-func (e HVIPAGranule) String() string {
-	switch e {
-	case HVIPAGranule16kb:
-		return "HVIPAGranule16kb"
-	case HVIPAGranule4kb:
-		return "HVIPAGranule4kb"
-	default:
-		return fmt.Sprintf("HVIPAGranule(%d)", e)
-	}
-}
-
-type HVInterruptType uint
+// See: https://developer.apple.com/documentation/Hypervisor/hv_interrupt_type_t
+type HVInterruptType uint32
 
 const (
 	// HVInterruptTypeFiq: ARM Fast Interrupt Request.
@@ -5126,7 +6781,29 @@ func (e HVInterruptType) String() string {
 	}
 }
 
-type HVReg uint
+// See: https://developer.apple.com/documentation/Hypervisor/hv_ipa_granule_t
+type HVIPAGranule uint32
+
+const (
+	// HVIPAGranule16kb: # Discussion
+	HVIPAGranule16kb HVIPAGranule = 1
+	// HVIPAGranule4kb: # Discussion
+	HVIPAGranule4kb HVIPAGranule = 0
+)
+
+func (e HVIPAGranule) String() string {
+	switch e {
+	case HVIPAGranule16kb:
+		return "HVIPAGranule16kb"
+	case HVIPAGranule4kb:
+		return "HVIPAGranule4kb"
+	default:
+		return fmt.Sprintf("HVIPAGranule(%d)", e)
+	}
+}
+
+// See: https://developer.apple.com/documentation/Hypervisor/hv_reg_t
+type HVReg uint32
 
 const (
 	// HVRegCpsr: The value that identifies the current program status register (CPSR).
@@ -5282,54 +6959,8 @@ func (e HVReg) String() string {
 	}
 }
 
-type HVReturn uint
-
-const (
-	// HVBadArgument: The operation was unsuccessful because the function call had an invalid argument.
-	HVBadArgument HVReturn = 0xfae94003
-	// HVBusy: The operation was unsuccessful because the owning resource was busy.
-	HVBusy HVReturn = 0xfae94002
-	// HVDenied: The system didn’t allow the requested operation.
-	HVDenied HVReturn = 0xfae94007
-	// HVError: The operation was unsuccessful.
-	HVError HVReturn = 0xfae94001
-	HVFault HVReturn = 0xfae94008
-	// HVNoDevice: The operation was unsuccessful because no VM or vCPU was available.
-	HVNoDevice HVReturn = 0xfae94006
-	// HVNoResources: The operation was unsuccessful because the host had no resources available to complete the request.
-	HVNoResources HVReturn = 0xfae94005
-	// HVSuccess: The operation completed successfully.
-	HVSuccess HVReturn = 0
-	// HVUnsupported: The operation requested isn’t supported by the hypervisor.
-	HVUnsupported HVReturn = 0xfae9400f
-)
-
-func (e HVReturn) String() string {
-	switch e {
-	case HVBadArgument:
-		return "HVBadArgument"
-	case HVBusy:
-		return "HVBusy"
-	case HVDenied:
-		return "HVDenied"
-	case HVError:
-		return "HVError"
-	case HVFault:
-		return "HVFault"
-	case HVNoDevice:
-		return "HVNoDevice"
-	case HVNoResources:
-		return "HVNoResources"
-	case HVSuccess:
-		return "HVSuccess"
-	case HVUnsupported:
-		return "HVUnsupported"
-	default:
-		return fmt.Sprintf("HVReturn(%d)", e)
-	}
-}
-
-type HVSIMDFPReg uint
+// See: https://developer.apple.com/documentation/Hypervisor/hv_simd_fp_reg_t
+type HVSIMDFPReg uint32
 
 const (
 	// HVSIMDFPRegQ0: The value representing SIMD register Q0.
@@ -5469,7 +7100,8 @@ func (e HVSIMDFPReg) String() string {
 	}
 }
 
-type HVSMEPReg uint
+// See: https://developer.apple.com/documentation/Hypervisor/hv_sme_p_reg_t
+type HVSMEPReg uint32
 
 const (
 	HVSMEPReg0  HVSMEPReg = 0
@@ -5529,7 +7161,8 @@ func (e HVSMEPReg) String() string {
 	}
 }
 
-type HVSMEZReg uint
+// See: https://developer.apple.com/documentation/Hypervisor/hv_sme_z_reg_t
+type HVSMEZReg uint32
 
 const (
 	HVSMEZReg0  HVSMEZReg = 0
@@ -5637,7 +7270,8 @@ func (e HVSMEZReg) String() string {
 	}
 }
 
-type HVSysReg uint
+// See: https://developer.apple.com/documentation/Hypervisor/hv_sys_reg_t
+type HVSysReg uint16
 
 const (
 	HVSysRegActlrEl1 HVSysReg = 0xc081
@@ -6205,7 +7839,8 @@ func (e HVSysReg) String() string {
 	}
 }
 
-type HVVmExitinfo uint
+// See: https://developer.apple.com/documentation/Hypervisor/hv_vm_exitinfo_t
+type HVVmExitinfo uint32
 
 const (
 	HVVmExitinfoAPICAccessRead HVVmExitinfo = 7
@@ -6238,7 +7873,8 @@ func (e HVVmExitinfo) String() string {
 	}
 }
 
-type HVVmxCapability uint
+// See: https://developer.apple.com/documentation/Hypervisor/hv_vmx_capability_t
+type HVVmxCapability uint32
 
 const (
 	// HVVmxCapBasic: Field ID for basic VMX capabilities.
@@ -6322,7 +7958,8 @@ func (e HVVmxCapability) String() string {
 	}
 }
 
-type HVX86Reg uint
+// See: https://developer.apple.com/documentation/Hypervisor/hv_x86_reg_t
+type HVX86Reg uint32
 
 const (
 	// HVX86Cr0: The value that identifies the x86 control-register CR0.
@@ -6542,1604 +8179,74 @@ func (e HVX86Reg) String() string {
 	}
 }
 
-type HVAllocate uint
+// Hv_apic_ctrl_t is a C-name alias for HVAPICCtrl.
+type Hv_apic_ctrl_t = HVAPICCtrl
 
-const (
-	HVAllocateDefault HVAllocate = 0
-)
+// Hv_apic_intr_trigger_t is a C-name alias for HVAPICIntrTrigger.
+type Hv_apic_intr_trigger_t = HVAPICIntrTrigger
 
-func (e HVAllocate) String() string {
-	switch e {
-	case HVAllocateDefault:
-		return "HVAllocateDefault"
-	default:
-		return fmt.Sprintf("HVAllocate(%d)", e)
-	}
-}
+// Hv_apic_lvt_flavor_t is a C-name alias for HVAPICLvtFlavor.
+type Hv_apic_lvt_flavor_t = HVAPICLvtFlavor
 
-type HVCap uint
+// Hv_boot_state is a C-name alias for HVBootState.
+type Hv_boot_state = HVBootState
 
-const (
-	// HVCapAddrspacemax: A value that indicates the maximum number of available address spaces.
-	HVCapAddrspacemax HVCap = 1
-	// HVCapVcpumax: A value that indicates the maximum number of available vCPUs.
-	HVCapVcpumax HVCap = 0
-)
+// Hv_cache_type_t is a C-name alias for HVCacheType.
+type Hv_cache_type_t = HVCacheType
 
-func (e HVCap) String() string {
-	switch e {
-	case HVCapAddrspacemax:
-		return "HVCapAddrspacemax"
-	case HVCapVcpumax:
-		return "HVCapVcpumax"
-	default:
-		return fmt.Sprintf("HVCap(%d)", e)
-	}
-}
+// Hv_exit_reason_t is a C-name alias for HVExitReason.
+type Hv_exit_reason_t = HVExitReason
 
-type HVDeadline uint
+// Hv_feature_reg_t is a C-name alias for HVFeatureReg.
+type Hv_feature_reg_t = HVFeatureReg
 
-const (
-	// HVDeadlineForever: The value that indicates a vCPU deadline that never expires.
-	HVDeadlineForever HVDeadline = 0
-)
+// Hv_gic_distributor_reg_t is a C-name alias for HVGICDistributorReg.
+type Hv_gic_distributor_reg_t = HVGICDistributorReg
 
-func (e HVDeadline) String() string {
-	switch e {
-	case HVDeadlineForever:
-		return "HVDeadlineForever"
-	default:
-		return fmt.Sprintf("HVDeadline(%d)", e)
-	}
-}
+// Hv_gic_icc_reg_t is a C-name alias for HVGICIccReg.
+type Hv_gic_icc_reg_t = HVGICIccReg
 
-type HVIon uint
+// Hv_gic_ich_reg_t is a C-name alias for HVGICIchReg.
+type Hv_gic_ich_reg_t = HVGICIchReg
 
-const (
-	// HVIonAnySize: The value that represents a request for notifications of an I/O result of any size.
-	HVIonAnySize HVIon = 4
-	// HVIonAnyValue: The value that represents a request for notifications of an I/O result that contains any value.
-	HVIonAnyValue HVIon = 2
-	// HVIonExitFull: The value that represents a request for notifications if the I/O queue is full.
-	HVIonExitFull HVIon = 8
-	// HVIonNone: The value that represents a request for no notifications.
-	HVIonNone HVIon = 0
-)
+// Hv_gic_icv_reg_t is a C-name alias for HVGICIcvReg.
+type Hv_gic_icv_reg_t = HVGICIcvReg
 
-func (e HVIon) String() string {
-	switch e {
-	case HVIonAnySize:
-		return "HVIonAnySize"
-	case HVIonAnyValue:
-		return "HVIonAnyValue"
-	case HVIonExitFull:
-		return "HVIonExitFull"
-	case HVIonNone:
-		return "HVIonNone"
-	default:
-		return fmt.Sprintf("HVIon(%d)", e)
-	}
-}
+// Hv_gic_intid_t is a C-name alias for HVGICIntid.
+type Hv_gic_intid_t = HVGICIntid
 
-type HVMemory uint
+// Hv_gic_msi_reg_t is a C-name alias for HVGICMsiReg.
+type Hv_gic_msi_reg_t = HVGICMsiReg
 
-const (
-	// HVMemoryExec: The value that represents the memory-execute permission.
-	HVMemoryExec         HVMemory = 4
-	HVMemoryMaxprot      HVMemory = 16
-	HVMemoryMaxprotExec  HVMemory = 128
-	HVMemoryMaxprotRead  HVMemory = 32
-	HVMemoryMaxprotUexec HVMemory = 256
-	HVMemoryMaxprotWrite HVMemory = 64
-	// HVMemoryRead: The value that represents the memory-read permission.
-	HVMemoryRead  HVMemory = 1
-	HVMemoryUexec HVMemory = 8
-	// HVMemoryWrite: The value that represents the memory-write permission.
-	HVMemoryWrite HVMemory = 2
-)
+// Hv_gic_redistributor_reg_t is a C-name alias for HVGICRedistributorReg.
+type Hv_gic_redistributor_reg_t = HVGICRedistributorReg
 
-func (e HVMemory) String() string {
-	switch e {
-	case HVMemoryExec:
-		return "HVMemoryExec"
-	case HVMemoryMaxprot:
-		return "HVMemoryMaxprot"
-	case HVMemoryMaxprotExec:
-		return "HVMemoryMaxprotExec"
-	case HVMemoryMaxprotRead:
-		return "HVMemoryMaxprotRead"
-	case HVMemoryMaxprotUexec:
-		return "HVMemoryMaxprotUexec"
-	case HVMemoryMaxprotWrite:
-		return "HVMemoryMaxprotWrite"
-	case HVMemoryRead:
-		return "HVMemoryRead"
-	case HVMemoryUexec:
-		return "HVMemoryUexec"
-	case HVMemoryWrite:
-		return "HVMemoryWrite"
-	default:
-		return fmt.Sprintf("HVMemory(%d)", e)
-	}
-}
+// Hv_interrupt_type_t is a C-name alias for HVInterruptType.
+type Hv_interrupt_type_t = HVInterruptType
 
-type HVMsr uint
+// Hv_ipa_granule_t is a C-name alias for HVIPAGranule.
+type Hv_ipa_granule_t = HVIPAGranule
 
-const (
-	// HVMsrIa32APmc0: The value that represents support for address performance-counter register 0.
-	HVMsrIa32APmc0 HVMsr = 0x4c1
-	// HVMsrIa32APmc7: The value that represents support for address performance-counter register 7.
-	HVMsrIa32APmc7 HVMsr = 1217
-	// HVMsrIa32ArchCapabilities: The value that represents the Model-Specific Register (MSR) that you use to enumerate processor capabilities.
-	HVMsrIa32ArchCapabilities HVMsr = 0x10a
-	// HVMsrIa32Cstar: The value that represents the address of IA-32e Mode System Call Target Address.
-	HVMsrIa32Cstar HVMsr = 0xc0000083
-	// HVMsrIa32Debugctl: The value that represents the address of the Debug Control Register.
-	HVMsrIa32Debugctl HVMsr = 0x1d9
-	// HVMsrIa32Efer: The value that represents the address of the Entended Feature Enable Register (EFER).
-	HVMsrIa32Efer HVMsr = 0xc0000080
-	// HVMsrIa32FixedCtr0: The value that represents the address of Fixed-Function Performance Counter Register 0.
-	HVMsrIa32FixedCtr0 HVMsr = 0x309
-	// HVMsrIa32FixedCtr1: The value that represents the address of Fixed-Function Performance Counter Register 1.
-	HVMsrIa32FixedCtr1 HVMsr = 0x30a
-	// HVMsrIa32FixedCtr2: The value that represents the address of Fixed-Function Performance Counter Register 2.
-	HVMsrIa32FixedCtr2 HVMsr = 0x30b
-	// HVMsrIa32FixedCtr3: The value that represents the address of Fixed-Function Performance Counter Register 3.
-	HVMsrIa32FixedCtr3 HVMsr = 0x30c
-	// HVMsrIa32FixedCtrCtrl: The value that represents the address of the Fixed-Function Counter Control Register.
-	HVMsrIa32FixedCtrCtrl HVMsr = 0x38d
-	// HVMsrIa32FlushCmd: The value that represents the address of the Flush Command Register.
-	HVMsrIa32FlushCmd HVMsr = 0x10b
-	// HVMsrIa32Fmask: The value that represents the address of the System Call Flag Mask (FMASK) Register.
-	HVMsrIa32Fmask HVMsr = 0xc0000084
-	// HVMsrIa32FsBase: The value that represents the address of the map for the base address of the FS segment register.
-	HVMsrIa32FsBase HVMsr = 0xc0000100
-	// HVMsrIa32GsBase: The value that represents the address of the map for the base address of the GS segment register.
-	HVMsrIa32GsBase HVMsr = 0xc0000101
-	// HVMsrIa32KernelGsBase: The value that represents the address swap target for the base address of the GS segment register.
-	HVMsrIa32KernelGsBase HVMsr = 0xc0000102
-	// HVMsrIa32Lstar: The value that represents the address of the IA-32e Mode System Call Target Address.
-	HVMsrIa32Lstar HVMsr = 0xc0000082
-	// HVMsrIa32PerfGlobalCtrl: The value that represents the address of the Global Performance Counter Control Register.
-	HVMsrIa32PerfGlobalCtrl HVMsr = 0x38f
-	// HVMsrIa32PerfGlobalInuse: The value that represents the address of the register that indicates whether the core performance monitor interface is in use.
-	HVMsrIa32PerfGlobalInuse HVMsr = 0x392
-	// HVMsrIa32PerfGlobalStatus: The value that represents the address of the Global Performance Status Register.
-	HVMsrIa32PerfGlobalStatus HVMsr = 0x38e
-	// HVMsrIa32PerfGlobalStatusReset: The value that represents the address of the Global Performance Counter Overflow Reset Control Register.
-	HVMsrIa32PerfGlobalStatusReset HVMsr = 0x390
-	// HVMsrIa32PerfGlobalStatusSet: The value that represents the address of the Global Performance Counter Overflow Set Control Register.
-	HVMsrIa32PerfGlobalStatusSet HVMsr = 0x391
-	// HVMsrIa32Perfevntsel0: The value that represents the address of Performance Event Select Counter 0.
-	HVMsrIa32Perfevntsel0 HVMsr = 0x186
-	// HVMsrIa32Perfevntsel7: The value that represents the address of Performance Event Select Counter 7.
-	HVMsrIa32Perfevntsel7 HVMsr = 390
-	// HVMsrIa32Pmc0: The value that represents the address of Performance Counter Register 0.
-	HVMsrIa32Pmc0 HVMsr = 0xc1
-	// HVMsrIa32Pmc7: The value that represents the address of Performance Counter Register 7.
-	HVMsrIa32Pmc7 HVMsr = 193
-	// HVMsrIa32PredCmd: The value that represents the address of the Prediction Command Register.
-	HVMsrIa32PredCmd HVMsr = 0x49
-	// HVMsrIa32SpecCtrl: The value that represents the address of Speculation Control Register.
-	HVMsrIa32SpecCtrl HVMsr = 0x48
-	// HVMsrIa32Star: The value that represents the address of the System Call Target Address Register.
-	HVMsrIa32Star HVMsr = 0xc0000081
-	// HVMsrIa32SysenterCs: The value that represents the address of the CS Register target for Current Privilege Level (CPL) 0 code.
-	HVMsrIa32SysenterCs HVMsr = 0x174
-	// HVMsrIa32SysenterEip: The value that represents the address of the Extended Instruction Pointer (EIP) Register target for Current Privilege Level (CPL) 0 code.
-	HVMsrIa32SysenterEip HVMsr = 0x176
-	// HVMsrIa32SysenterEsp: The value that represents the address of the Extended Stack Pointer (ESP) Register target for Current Privilege Level (CPL) 0 code.
-	HVMsrIa32SysenterEsp HVMsr = 0x175
-	// HVMsrIa32Tsc: The value that represents the address of the Time-Stamp Counter Register.
-	HVMsrIa32Tsc HVMsr = 0x10
-	// HVMsrIa32TscAux: The value that represents the address of the Auxiliary Time-Stamp Counter Register.
-	HVMsrIa32TscAux HVMsr = 0xc0000103
-	// HVMsrIa32Xss: The value that represents the address of the Extended Supervisors State Mask (XSS) Register.
-	HVMsrIa32Xss HVMsr = 0xda0
-	// HVMsrLastbranch0FromIP: The value that represents the address of the Last Branch Record 0 from Instruction Pointer (IP) register.
-	HVMsrLastbranch0FromIP HVMsr = 0x680
-	// HVMsrLastbranch0ToIP: The value that represents the address of the Last Branch Record 0 to Instruction Pointer (IP) register.
-	HVMsrLastbranch0ToIP HVMsr = 0x6c0
-	// HVMsrLastbranch31FromIP: The value that represents the address of the Last Branch Record 31 from Instruction Pointer (IP) register.
-	HVMsrLastbranch31FromIP HVMsr = 1664
-	// HVMsrLastbranch31ToIP: The value that represents the address of the Last Branch Record 31 to Instruction Pointer (IP) register.
-	HVMsrLastbranch31ToIP HVMsr = 1728
-	// HVMsrLastbranchInfo0: The value that represents the address of the Last Branch Record 0 additional information register.
-	HVMsrLastbranchInfo0 HVMsr = 0xdc0
-	// HVMsrLastbranchInfo31: The value that represents the address of the Last Branch Record 31 additional information register.
-	HVMsrLastbranchInfo31 HVMsr = 3520
-	// HVMsrLastbranchTos: The value that represents the address of the Last Branch Record Top of Stack (TOS) Register.
-	HVMsrLastbranchTos HVMsr = 0x1c9
-	// HVMsrLastintFromIP: The value that represents the address of the Last Interrupt from Instruction Pointer (IP) Register.
-	HVMsrLastintFromIP HVMsr = 0x1dd
-	// HVMsrLastintToIP: The value that represents the address of the Last Interrupt to Instruction Pointer (IP) Register.
-	HVMsrLastintToIP HVMsr = 0x1de
-	// HVMsrLbrSelect: The value that represents the address of the Last Branch Record Filtering Select Register.
-	HVMsrLbrSelect HVMsr = 0x1c8
-	// HVMsrNone: The Model-Specific Register (MSR) no-access permission.
-	HVMsrNone HVMsr = 0
-	// HVMsrPerfMetrics: The value that represents the address of the Performance Metrics Register.
-	HVMsrPerfMetrics HVMsr = 0x329
-	// HVMsrRead: The Model-Specific Register (MSR) read permission.
-	HVMsrRead HVMsr = 1
-	// HVMsrWrite: The Model-Specific Register (MSR) write permission.
-	HVMsrWrite HVMsr = 2
-)
+// Hv_reg_t is a C-name alias for HVReg.
+type Hv_reg_t = HVReg
 
-func (e HVMsr) String() string {
-	switch e {
-	case HVMsrIa32APmc0:
-		return "HVMsrIa32APmc0"
-	case HVMsrIa32ArchCapabilities:
-		return "HVMsrIa32ArchCapabilities"
-	case HVMsrIa32Cstar:
-		return "HVMsrIa32Cstar"
-	case HVMsrIa32Debugctl:
-		return "HVMsrIa32Debugctl"
-	case HVMsrIa32Efer:
-		return "HVMsrIa32Efer"
-	case HVMsrIa32FixedCtr0:
-		return "HVMsrIa32FixedCtr0"
-	case HVMsrIa32FixedCtr1:
-		return "HVMsrIa32FixedCtr1"
-	case HVMsrIa32FixedCtr2:
-		return "HVMsrIa32FixedCtr2"
-	case HVMsrIa32FixedCtr3:
-		return "HVMsrIa32FixedCtr3"
-	case HVMsrIa32FixedCtrCtrl:
-		return "HVMsrIa32FixedCtrCtrl"
-	case HVMsrIa32FlushCmd:
-		return "HVMsrIa32FlushCmd"
-	case HVMsrIa32Fmask:
-		return "HVMsrIa32Fmask"
-	case HVMsrIa32FsBase:
-		return "HVMsrIa32FsBase"
-	case HVMsrIa32GsBase:
-		return "HVMsrIa32GsBase"
-	case HVMsrIa32KernelGsBase:
-		return "HVMsrIa32KernelGsBase"
-	case HVMsrIa32Lstar:
-		return "HVMsrIa32Lstar"
-	case HVMsrIa32PerfGlobalCtrl:
-		return "HVMsrIa32PerfGlobalCtrl"
-	case HVMsrIa32PerfGlobalInuse:
-		return "HVMsrIa32PerfGlobalInuse"
-	case HVMsrIa32PerfGlobalStatus:
-		return "HVMsrIa32PerfGlobalStatus"
-	case HVMsrIa32PerfGlobalStatusReset:
-		return "HVMsrIa32PerfGlobalStatusReset"
-	case HVMsrIa32PerfGlobalStatusSet:
-		return "HVMsrIa32PerfGlobalStatusSet"
-	case HVMsrIa32Perfevntsel0:
-		return "HVMsrIa32Perfevntsel0"
-	case HVMsrIa32Pmc0:
-		return "HVMsrIa32Pmc0"
-	case HVMsrIa32PredCmd:
-		return "HVMsrIa32PredCmd"
-	case HVMsrIa32SpecCtrl:
-		return "HVMsrIa32SpecCtrl"
-	case HVMsrIa32Star:
-		return "HVMsrIa32Star"
-	case HVMsrIa32SysenterCs:
-		return "HVMsrIa32SysenterCs"
-	case HVMsrIa32SysenterEip:
-		return "HVMsrIa32SysenterEip"
-	case HVMsrIa32SysenterEsp:
-		return "HVMsrIa32SysenterEsp"
-	case HVMsrIa32Tsc:
-		return "HVMsrIa32Tsc"
-	case HVMsrIa32TscAux:
-		return "HVMsrIa32TscAux"
-	case HVMsrIa32Xss:
-		return "HVMsrIa32Xss"
-	case HVMsrLastbranch0FromIP:
-		return "HVMsrLastbranch0FromIP"
-	case HVMsrLastbranch0ToIP:
-		return "HVMsrLastbranch0ToIP"
-	case HVMsrLastbranchInfo0:
-		return "HVMsrLastbranchInfo0"
-	case HVMsrLastbranchTos:
-		return "HVMsrLastbranchTos"
-	case HVMsrLastintFromIP:
-		return "HVMsrLastintFromIP"
-	case HVMsrLastintToIP:
-		return "HVMsrLastintToIP"
-	case HVMsrLbrSelect:
-		return "HVMsrLbrSelect"
-	case HVMsrNone:
-		return "HVMsrNone"
-	case HVMsrPerfMetrics:
-		return "HVMsrPerfMetrics"
-	case HVMsrRead:
-		return "HVMsrRead"
-	case HVMsrWrite:
-		return "HVMsrWrite"
-	default:
-		return fmt.Sprintf("HVMsr(%d)", e)
-	}
-}
+// Hv_simd_fp_reg_t is a C-name alias for HVSIMDFPReg.
+type Hv_simd_fp_reg_t = HVSIMDFPReg
 
-type HVShadowVmcs uint
+// Hv_sme_p_reg_t is a C-name alias for HVSMEPReg.
+type Hv_sme_p_reg_t = HVSMEPReg
 
-const (
-	// HVShadowVmcsNone: The value that indicates no access to the shadow VMCS fields.
-	HVShadowVmcsNone HVShadowVmcs = 0
-	// HVShadowVmcsRead: The value that indicates read access to the shadow VMCS fields.
-	HVShadowVmcsRead HVShadowVmcs = 1
-	// HVShadowVmcsWrite: The value that indicates read access to the write access shadow VMCS fields.
-	HVShadowVmcsWrite HVShadowVmcs = 2
-)
+// Hv_sme_z_reg_t is a C-name alias for HVSMEZReg.
+type Hv_sme_z_reg_t = HVSMEZReg
 
-func (e HVShadowVmcs) String() string {
-	switch e {
-	case HVShadowVmcsNone:
-		return "HVShadowVmcsNone"
-	case HVShadowVmcsRead:
-		return "HVShadowVmcsRead"
-	case HVShadowVmcsWrite:
-		return "HVShadowVmcsWrite"
-	default:
-		return fmt.Sprintf("HVShadowVmcs(%d)", e)
-	}
-}
+// Hv_sys_reg_t is a C-name alias for HVSysReg.
+type Hv_sys_reg_t = HVSysReg
 
-type HVVCPU uint
+// Hv_vm_exitinfo_t is a C-name alias for HVVmExitinfo.
+type Hv_vm_exitinfo_t = HVVmExitinfo
 
-const (
-	// HVVCPUAccelRdpmc: Instructs the kernel, when set, to handle RDPMC VM exits directly rather than passing them to user space.
-	HVVCPUAccelRdpmc HVVCPU = 1
-	// HVVCPUDefault: The default vCPU creation behavior.
-	HVVCPUDefault HVVCPU = 0
-	// HVVCPUTscRelative: The value that represents the relative offset the system should add to the hypervisor TSC clock.
-	HVVCPUTscRelative HVVCPU = 2
-)
+// Hv_vmx_capability_t is a C-name alias for HVVmxCapability.
+type Hv_vmx_capability_t = HVVmxCapability
 
-func (e HVVCPU) String() string {
-	switch e {
-	case HVVCPUAccelRdpmc:
-		return "HVVCPUAccelRdpmc"
-	case HVVCPUDefault:
-		return "HVVCPUDefault"
-	case HVVCPUTscRelative:
-		return "HVVCPUTscRelative"
-	default:
-		return fmt.Sprintf("HVVCPU(%d)", e)
-	}
-}
-
-type HVVm uint
-
-const (
-	HVVmAccelAPIC HVVm = 1024
-	// HVVmDefault: The default VM creation behavior.
-	HVVmDefault            HVVm = 0
-	HVVmMitigationAEnable  HVVm = 2
-	HVVmMitigationBEnable  HVVm = 4
-	HVVmMitigationCEnable  HVVm = 8
-	HVVmMitigationDEnable  HVVm = 16
-	HVVmMitigationEEnable  HVVm = 64
-	HVVmSpecifyMitigations HVVm = 1
-)
-
-func (e HVVm) String() string {
-	switch e {
-	case HVVmAccelAPIC:
-		return "HVVmAccelAPIC"
-	case HVVmDefault:
-		return "HVVmDefault"
-	case HVVmMitigationAEnable:
-		return "HVVmMitigationAEnable"
-	case HVVmMitigationBEnable:
-		return "HVVmMitigationBEnable"
-	case HVVmMitigationCEnable:
-		return "HVVmMitigationCEnable"
-	case HVVmMitigationDEnable:
-		return "HVVmMitigationDEnable"
-	case HVVmMitigationEEnable:
-		return "HVVmMitigationEEnable"
-	case HVVmSpecifyMitigations:
-		return "HVVmSpecifyMitigations"
-	default:
-		return fmt.Sprintf("HVVm(%d)", e)
-	}
-}
-
-type HVVmSpace uint
-
-const (
-	// HVVmSpaceDefault: The value that represents the default VM address space.
-	HVVmSpaceDefault HVVmSpace = 0
-)
-
-func (e HVVmSpace) String() string {
-	switch e {
-	case HVVmSpaceDefault:
-		return "HVVmSpaceDefault"
-	default:
-		return fmt.Sprintf("HVVmSpace(%d)", e)
-	}
-}
-
-type HVVmx uint
-
-const (
-	// HVVmxInfoMsrIa32ArchCapabilities: The value of the IA32 architecture capabilities model specific register.
-	HVVmxInfoMsrIa32ArchCapabilities HVVmx = 0
-	// HVVmxInfoMsrIa32PerfCapabilities: The value of the IA32 performance capabilities model specific register.
-	HVVmxInfoMsrIa32PerfCapabilities HVVmx = 1
-	// HVVmxNeedMsrIa32SpecCtrl: The bitmask of the required fields of the IA32 Speculation Control model specific register.
-	HVVmxNeedMsrIa32SpecCtrl HVVmx = 8
-	// HVVmxValidMsrIa32Debugctl: The bitmask of the IA32 Debug-Control model specific register.
-	HVVmxValidMsrIa32Debugctl HVVmx = 6
-	// HVVmxValidMsrIa32FixedCtrCtrl: The bitmask fo the supported fields of the Fixed-Function-Counter Control Register.
-	HVVmxValidMsrIa32FixedCtrCtrl HVVmx = 3
-	// HVVmxValidMsrIa32PerfGlobalCtrl: The bitmask of the supported fields of the IA32 Global-Counter Control Facility Register.
-	HVVmxValidMsrIa32PerfGlobalCtrl HVVmx = 4
-	// HVVmxValidMsrIa32PerfGlobalStatus: The bitmast of the supported fields of the Global-Counter-Control Status model specific register.
-	HVVmxValidMsrIa32PerfGlobalStatus HVVmx = 5
-	// HVVmxValidMsrIa32Perfevntsel: The bitmask of the supported fields of the IA32 Performance-Event Selection Mode model specific register.
-	HVVmxValidMsrIa32Perfevntsel HVVmx = 2
-	// HVVmxValidMsrIa32SpecCtrl: The bitmask of the suppported fields of the Speculation Control model specific register.
-	HVVmxValidMsrIa32SpecCtrl HVVmx = 7
-)
-
-func (e HVVmx) String() string {
-	switch e {
-	case HVVmxInfoMsrIa32ArchCapabilities:
-		return "HVVmxInfoMsrIa32ArchCapabilities"
-	case HVVmxInfoMsrIa32PerfCapabilities:
-		return "HVVmxInfoMsrIa32PerfCapabilities"
-	case HVVmxNeedMsrIa32SpecCtrl:
-		return "HVVmxNeedMsrIa32SpecCtrl"
-	case HVVmxValidMsrIa32Debugctl:
-		return "HVVmxValidMsrIa32Debugctl"
-	case HVVmxValidMsrIa32FixedCtrCtrl:
-		return "HVVmxValidMsrIa32FixedCtrCtrl"
-	case HVVmxValidMsrIa32PerfGlobalCtrl:
-		return "HVVmxValidMsrIa32PerfGlobalCtrl"
-	case HVVmxValidMsrIa32PerfGlobalStatus:
-		return "HVVmxValidMsrIa32PerfGlobalStatus"
-	case HVVmxValidMsrIa32Perfevntsel:
-		return "HVVmxValidMsrIa32Perfevntsel"
-	case HVVmxValidMsrIa32SpecCtrl:
-		return "HVVmxValidMsrIa32SpecCtrl"
-	default:
-		return fmt.Sprintf("HVVmx(%d)", e)
-	}
-}
-
-type IrqInfo uint
-
-const (
-	// IrqInfoErrorValid: The value that indicates the error associated with the interrupt is valid and is readable from the VMCS.
-	IrqInfoErrorValid IrqInfo = 2048
-	// IrqInfoExtIrq: The value that represents an external interrupt.
-	IrqInfoExtIrq IrqInfo = 0
-	// IrqInfoHardExc: The value that represents a hardware exception.
-	IrqInfoHardExc IrqInfo = 768
-	// IrqInfoNmi: The value that represents a non-maskable-interrupt.
-	IrqInfoNmi IrqInfo = 512
-	// IrqInfoPrivSoftExc: The value that represents a privileged software exception.
-	IrqInfoPrivSoftExc IrqInfo = 1280
-	// IrqInfoSoftExc: The value that represents a software exception interrupt.
-	IrqInfoSoftExc IrqInfo = 1536
-	// IrqInfoSoftIrq: The value that represents a software interrupt.
-	IrqInfoSoftIrq IrqInfo = 1024
-	// IrqInfoTypeMask: The value that represents the interrupt mask.
-	IrqInfoTypeMask IrqInfo = 1792
-	// IrqInfoValid: The value that represents the interrupt is valid.
-	IrqInfoValid      IrqInfo = 2147483648
-	IrqInfoVectorMask IrqInfo = 255
-)
-
-func (e IrqInfo) String() string {
-	switch e {
-	case IrqInfoErrorValid:
-		return "IrqInfoErrorValid"
-	case IrqInfoExtIrq:
-		return "IrqInfoExtIrq"
-	case IrqInfoHardExc:
-		return "IrqInfoHardExc"
-	case IrqInfoNmi:
-		return "IrqInfoNmi"
-	case IrqInfoPrivSoftExc:
-		return "IrqInfoPrivSoftExc"
-	case IrqInfoSoftExc:
-		return "IrqInfoSoftExc"
-	case IrqInfoSoftIrq:
-		return "IrqInfoSoftIrq"
-	case IrqInfoTypeMask:
-		return "IrqInfoTypeMask"
-	case IrqInfoValid:
-		return "IrqInfoValid"
-	case IrqInfoVectorMask:
-		return "IrqInfoVectorMask"
-	default:
-		return fmt.Sprintf("IrqInfo(%d)", e)
-	}
-}
-
-type KhvIon uint
-
-const (
-	KHVIonAnySize  KhvIon = 4
-	KHVIonAnyValue KhvIon = 2
-	KHVIonExitFull KhvIon = 8
-	KHVIonNone     KhvIon = 0
-)
-
-func (e KhvIon) String() string {
-	switch e {
-	case KHVIonAnySize:
-		return "KHVIonAnySize"
-	case KHVIonAnyValue:
-		return "KHVIonAnyValue"
-	case KHVIonExitFull:
-		return "KHVIonExitFull"
-	case KHVIonNone:
-		return "KHVIonNone"
-	default:
-		return fmt.Sprintf("KhvIon(%d)", e)
-	}
-}
-
-type PinBasedIntr uint
-
-const (
-	// CPUBased2APICRegVirt: This value controls whether the logical processor virtualizes certain advanced programmable interrupt controller (APIC) accesses.
-	CPUBased2APICRegVirt PinBasedIntr = 256
-	// CPUBased2DescTable: The value that controls whether executions of descriptor table instructions cause VM exits.
-	CPUBased2DescTable PinBasedIntr = 4
-	// CPUBased2EnclsExitMap: The value that controls whether executions of Enclave Instruction Leaf Functions (ENCLS) cause examination of the ENCLS-exiting bitmap to determine whether the instruction causes a VM exit.
-	CPUBased2EnclsExitMap PinBasedIntr = 32768
-	// CPUBased2EnclvExitMap: The value that controls whether executions of an enclave VMM function instruction (ENCLV) checks the ENCLV-exiting bitmap to determine whether the instruction causes a VM exit.
-	CPUBased2EnclvExitMap PinBasedIntr = 268435456
-	// CPUBased2Ept: The value that controls enabling extended page tables (EPT).
-	CPUBased2Ept PinBasedIntr = 2
-	// CPUBased2EptModeBasedExec: The value that controls whether to base extended page table (EPT) execute permissions on whether access to a linear address is supervisor or user mode.
-	CPUBased2EptModeBasedExec PinBasedIntr = 4194304
-	// CPUBased2EptSubpageWrite: The value that controls whether extended page table (EPT) write permissions specify granularity of 128 bytes.
-	CPUBased2EptSubpageWrite PinBasedIntr = 8388608
-	// CPUBased2EptVe: The value that controls whether extended page table (EPT) violations cause virtualization exceptions instead of VM exits.
-	CPUBased2EptVe PinBasedIntr = 262144
-	// CPUBased2Invpcid: The value that controls whether any execution of the Invalidate Process-Context Identifier instruction (INVPCID) causes an invalid opcode exception.
-	CPUBased2Invpcid PinBasedIntr = 4096
-	// CPUBased2PauseLoop: The value that controls whether a series of executions of the PAUSE instruction can cause a VM exit.
-	CPUBased2PauseLoop PinBasedIntr = 1024
-	// CPUBased2Pml: The value that controls whether an access to a guest-physical address that sets an extended page table (EPT) dirty bit also adds an entry to the page-modification log.
-	CPUBased2Pml PinBasedIntr = 131072
-	// CPUBased2PtConcealVmx: The value that controls whether the processor trace facility suppresses information that the processor was in VMX non-root operation.
-	CPUBased2PtConcealVmx PinBasedIntr = 524288
-	// CPUBased2PtGuestPhysical: The value that controls whether to treat all output addresses used by Intel Processor Trace as guest-physical addresses and translated using the extended page table.
-	CPUBased2PtGuestPhysical PinBasedIntr = 16777216
-	// CPUBased2Rdrand: The value that controls whether executions of the hardware random number generator instruction (RDRAND) cause VM exits.
-	CPUBased2Rdrand PinBasedIntr = 2048
-	// CPUBased2Rdseed: The value that controls whether executions of random number generator instructions (RDSEED) cause VM exits.
-	CPUBased2Rdseed PinBasedIntr = 65536
-	// CPUBased2Rdtscp: The value that controls whether any execution of read timestamp-counter and processor ID instruction (RDTSCP) causes an invalid-opcode exception.
-	CPUBased2Rdtscp PinBasedIntr = 8
-	// CPUBased2TscScaling: The value that controls whether the execution of various read time stamp counters and read model-specific registers that read from the IA32 timestamp counter model specific register return a value modified by the TSC multiplier field.
-	CPUBased2TscScaling PinBasedIntr = 33554432
-	// CPUBased2Unrestricted: The value that controls whether guest software may run in unpaged protected mode or in real address mode.
-	CPUBased2Unrestricted PinBasedIntr = 128
-	// CPUBased2UserWaitPause: The value that controls whether any execution of TPAUSE, UMONITOR, or UMWAIT instrucitons generate an illegal opcode exception.
-	CPUBased2UserWaitPause PinBasedIntr = 67108864
-	// CPUBased2VirtIntrDelivery: The value that enables evaluation and delivery of pending virtual interrupts and emulation of writes to the APIC registers that control interrupt prioritization.
-	CPUBased2VirtIntrDelivery PinBasedIntr = 512
-	// CPUBased2VirtualAPIC: The value that controls whether the logical processor provides special treatment for access to the Advanced Programmable Interrupt Controller (APIC).
-	CPUBased2VirtualAPIC PinBasedIntr = 1
-	// CPUBased2VmcsShadow: The value that controls whether execution of VMREAD and VMWRITE in VMX non-root operation may access a shadow VMCS instead of causing a VM exit.
-	CPUBased2VmcsShadow PinBasedIntr = 16384
-	// CPUBased2Vmfunc: The value that enables use of the “Invoke VM function” (VMFUNC) instruction in VMX non-root operation.
-	CPUBased2Vmfunc PinBasedIntr = 8192
-	// CPUBased2Vpid: The value that controls the association of cached translations of linear addresses with a virtual processor identifier (VPID).
-	CPUBased2Vpid PinBasedIntr = 32
-	// CPUBased2Wbinvd: The value that controls whether executions of the Invalidate Cache with Writeback instruction (WBINVD) cause VM exits.
-	CPUBased2Wbinvd PinBasedIntr = 64
-	// CPUBased2X2apic: The value that controls the logical processor’s treatment of reading/writing of Model Specific Registers to APIC MSRs.
-	CPUBased2X2apic PinBasedIntr = 16
-	// CPUBased2XsavesXrstors: The value that controls whether any execution of save or restore state instructions (XSAVES or XRSTORS) causes an invalid opcode exception.
-	CPUBased2XsavesXrstors PinBasedIntr = 1048576
-	// CPUBasedCr3Load: The value that controls whether executions of MOV to Control Register 3 (CR3) cause VM exits.
-	CPUBasedCr3Load PinBasedIntr = 32768
-	// CPUBasedCr3Store: The value that controls whether executions of MOV from Control Register 3 (CR3) cause VM exits.
-	CPUBasedCr3Store PinBasedIntr = 65536
-	// CPUBasedCr8Load: The value that controls whether executions of MOV to Control Register 8 (CR8) cause VM exits.
-	CPUBasedCr8Load PinBasedIntr = 524288
-	// CPUBasedCr8Store: The value that controls whether executions of MOV from Control Register 8 (CR8) cause VM exits.
-	CPUBasedCr8Store PinBasedIntr = 1048576
-	// CPUBasedHlt: The value that controls whether the execution of HALT instructions cause VM exits.
-	CPUBasedHlt PinBasedIntr = 128
-	// CPUBasedIOBitmaps: The value that controls whether to use I/O bitmaps to restrict executions of I/O instructions.
-	CPUBasedIOBitmaps PinBasedIntr = 33554432
-	// CPUBasedInvlpg: The value that controls whether the execution of invalid page instructions (INVLPG) cause VM exits.
-	CPUBasedInvlpg PinBasedIntr = 512
-	// CPUBasedIrqWnd: The value that controls whether a VM exits at the beginning of any instruction where there’s no blocking of interrupts and the interrupt flag is 1.
-	CPUBasedIrqWnd PinBasedIntr = 4
-	// CPUBasedMonitor: The value that controls whether executions of the Set Up Monitor Address instruction (MONITOR) cause VM exits.
-	CPUBasedMonitor PinBasedIntr = 536870912
-	// CPUBasedMovDr: The value that controls whether executions of MOV to or from Debug Registers (DR) cause VM exits.
-	CPUBasedMovDr PinBasedIntr = 8388608
-	// CPUBasedMsrBitmaps: The value that controls use of whether Model Specific Register (MSR) bitmaps to control execution of the read-from and write-to MSR instructions.
-	CPUBasedMsrBitmaps PinBasedIntr = 268435456
-	// CPUBasedMtf: The value that controls enabling the monitor trap flag debugging feature.
-	CPUBasedMtf PinBasedIntr = 134217728
-	// CPUBasedMwait: The value that controls whether the execution of Monitor Wait instructions (MWAIT) cause VM exits.
-	CPUBasedMwait PinBasedIntr = 1024
-	// CPUBasedPause: The value that controls whether executions of spin-wait loop (PAUSE) instruction causes VM exits.
-	CPUBasedPause PinBasedIntr = 1073741824
-	// CPUBasedRdpmc: The value that controls whether the execution of Read Performance Monitoring Counters instructions (RDPMC) cause VM exits.
-	CPUBasedRdpmc PinBasedIntr = 2048
-	// CPUBasedRdtsc: The value that controls whether the execution of Read Timestamp-Counter instructions (RDTSC) cause VM exits.
-	CPUBasedRdtsc PinBasedIntr = 4096
-	// CPUBasedSecondaryCtls: The value that conntrols use of the secondary processor-based VM-execution controls.
-	CPUBasedSecondaryCtls PinBasedIntr = 2147483648
-	// CPUBasedTprShadow: The value that controls enabling Task Priority Register (TPR) virtualization and other APIC-virtualization features.
-	CPUBasedTprShadow PinBasedIntr = 2097152
-	// CPUBasedTscOffset: The value that controls whether reading the timestamp-counter MSRs changes depending on the value of the timestamp-counter offset field.
-	CPUBasedTscOffset PinBasedIntr = 8
-	// CPUBasedUncondIO: The value that controls whether executions of various I/O instructions cause VM exits.
-	CPUBasedUncondIO PinBasedIntr = 16777216
-	// CPUBasedVirtualNmiWnd: The value that controls if a VM exit occurs at the beginning of any instruction if there’s no virtual-NMI blocking.
-	CPUBasedVirtualNmiWnd PinBasedIntr = 4194304
-	// PinBasedIntrValue: The value that controls whether external interrupts cause VM exits.
-	PinBasedIntrValue PinBasedIntr = 1
-	// PinBasedNmi: The value that controls whether external non-maskable interrupts cause VM exits.
-	PinBasedNmi PinBasedIntr = 8
-	// PinBasedPostedIntr: The value that controls whether the processor gives special treatment to interrupts with posted-interrupt notification vectors.
-	PinBasedPostedIntr PinBasedIntr = 128
-	// PinBasedPreemptionTimer: The value that controls whether the VMX-preemption timer counts down in VMX non-root operation.
-	PinBasedPreemptionTimer PinBasedIntr = 64
-	// PinBasedVirtualNmi: The value that controls blocking of non-maskable interrupts.
-	PinBasedVirtualNmi PinBasedIntr = 32
-	// VmentryDeactivateDualMonitor: The value that controls whether the treatment of SMIs and system-management mode (SMM) is in effect after the VM entry.
-	VmentryDeactivateDualMonitor PinBasedIntr = 2048
-	// VmentryGuestIa32e: The value that controls whether the logical processor is in IA-32e mode after VM entry.
-	VmentryGuestIa32e PinBasedIntr = 512
-	// VmentryLoadCetState: The value that controls whether to load CET-related model specific registers and SPP on VM exit.
-	VmentryLoadCetState PinBasedIntr = 1048576
-	// VmentryLoadDbgControls: The value that controls whetherto load Debug Register 7 and the IA32_DEBUGCTL model specific register (MSR) on VM entry.
-	VmentryLoadDbgControls PinBasedIntr = 4
-	// VmentryLoadEfer: The value that determines whether to load the IA32_EFER model specific register on VM entry.
-	VmentryLoadEfer PinBasedIntr = 32768
-	// VmentryLoadIa32Bndcfgs: The value that controls whether to load the IA32_BNDCFGS model specific register on VM entry.
-	VmentryLoadIa32Bndcfgs PinBasedIntr = 65536
-	// VmentryLoadIa32Pat: The value that controls whether to load the IA32_PAT model specific register on VM entry.
-	VmentryLoadIa32Pat PinBasedIntr = 16384
-	// VmentryLoadIa32PerfGlobalCtrl: The value that controls whether to load the IA32_PERF_GLOBAL_CTRL model specific register on VM entry.
-	VmentryLoadIa32PerfGlobalCtrl PinBasedIntr = 8192
-	// VmentryLoadIa32RtitCtl: The value that controls whether to clear the IA32_RTIT_CTL model specific register (MSR) on VM exit.
-	VmentryLoadIa32RtitCtl PinBasedIntr = 262144
-	VmentryLoadPkrs        PinBasedIntr = 4194304
-	// VmentryPtConcealVmx: The value that controls whether the Intel Processor Trace produces a paging information packet (PIP) on a VM entry or a VMCS packet on a VM entry that returns from system-management mode.
-	VmentryPtConcealVmx PinBasedIntr = 131072
-	// VmentrySmm: The value that controls whether the logical processor is in system-management mode (SMM) after VM entry.
-	VmentrySmm PinBasedIntr = 1024
-	// VmexitAckIntr: The value that controls whether the logical processor sends an acknowledgement to the interrupt controller when the VM exits.
-	VmexitAckIntr PinBasedIntr = 32768
-	// VmexitClearIa32Bndcfgs: The value that controls whether to clear the IA32_BNDCFGS model specific register on VM exit.
-	VmexitClearIa32Bndcfgs PinBasedIntr = 8388608
-	// VmexitClearIa32RtitCtl: The value that controls whether to clear the IA32_RTIT_CTL model specific register (MSR) on VM exit.
-	VmexitClearIa32RtitCtl PinBasedIntr = 33554432
-	// VmexitHostIa32e: This value controls, on processors that support Intel 64 architecture, whether a logical processor is in 64-bit mode after the next VM exit.
-	VmexitHostIa32e PinBasedIntr = 512
-	// VmexitLoadCetState: The value that controls whether to load CET-related MSRs and SPP on VM exit.
-	VmexitLoadCetState PinBasedIntr = 268435456
-	// VmexitLoadEfer: The value that controls whether to load the IA32_EFER MSR on VM exit.
-	VmexitLoadEfer PinBasedIntr = 2097152
-	// VmexitLoadIa32Pat: The value that controls whether to load the IA32_EFER mode specific register on VM exit.
-	VmexitLoadIa32Pat PinBasedIntr = 524288
-	// VmexitLoadIa32PerfGlobalCtrl: The value that controls whether to load the IA32_PERF_GLOBAL_CTRL model specific register on VM exit.
-	VmexitLoadIa32PerfGlobalCtrl PinBasedIntr = 4096
-	VmexitLoadPkrs               PinBasedIntr = 536870912
-	// VmexitPtConcealVmx: The value that controls whether the Intel Processor Trace produces a paging information packet on VM exit or a VMCS packet on SMM VM exit.
-	VmexitPtConcealVmx PinBasedIntr = 16777216
-	// VmexitSaveDbgControls: Thievalue that controls whether to save debug register 7 DR7 and the IA32 debug control DEBUGCTL MSR on VM exit.
-	VmexitSaveDbgControls PinBasedIntr = 4
-	// VmexitSaveEfer: The value that controls whether to save the IA32_EFER MSR on VM exit.
-	VmexitSaveEfer PinBasedIntr = 1048576
-	// VmexitSaveIa32Pat: The value that controls whether to save the IA32_EFER model specific register on VM exit.
-	VmexitSaveIa32Pat PinBasedIntr = 262144
-	// VmexitSaveVmxTimer: The value that controls whether to save the value of the VMX-preemption timer on VM exit.
-	VmexitSaveVmxTimer      PinBasedIntr = 4194304
-	VmxEptVpidAdvVmexitInfo PinBasedIntr = 4194304
-	// VmxEptVpidSupportAd: The value that controls if extended page tables (EPT) support accessed and dirty flags.
-	VmxEptVpidSupportAd PinBasedIntr = 2097152
-	// VmxEptVpidSupportExonly: The value that controls whether extended page tables (EPT) support execute-only translations.
-	VmxEptVpidSupportExonly PinBasedIntr = 1
-)
-
-func (e PinBasedIntr) String() string {
-	switch e {
-	case CPUBased2APICRegVirt:
-		return "CPUBased2APICRegVirt"
-	case CPUBased2DescTable:
-		return "CPUBased2DescTable"
-	case CPUBased2EnclsExitMap:
-		return "CPUBased2EnclsExitMap"
-	case CPUBased2EnclvExitMap:
-		return "CPUBased2EnclvExitMap"
-	case CPUBased2Ept:
-		return "CPUBased2Ept"
-	case CPUBased2EptModeBasedExec:
-		return "CPUBased2EptModeBasedExec"
-	case CPUBased2EptSubpageWrite:
-		return "CPUBased2EptSubpageWrite"
-	case CPUBased2EptVe:
-		return "CPUBased2EptVe"
-	case CPUBased2Invpcid:
-		return "CPUBased2Invpcid"
-	case CPUBased2PauseLoop:
-		return "CPUBased2PauseLoop"
-	case CPUBased2Pml:
-		return "CPUBased2Pml"
-	case CPUBased2PtConcealVmx:
-		return "CPUBased2PtConcealVmx"
-	case CPUBased2PtGuestPhysical:
-		return "CPUBased2PtGuestPhysical"
-	case CPUBased2Rdrand:
-		return "CPUBased2Rdrand"
-	case CPUBased2Rdseed:
-		return "CPUBased2Rdseed"
-	case CPUBased2Rdtscp:
-		return "CPUBased2Rdtscp"
-	case CPUBased2TscScaling:
-		return "CPUBased2TscScaling"
-	case CPUBased2Unrestricted:
-		return "CPUBased2Unrestricted"
-	case CPUBased2UserWaitPause:
-		return "CPUBased2UserWaitPause"
-	case CPUBased2VirtIntrDelivery:
-		return "CPUBased2VirtIntrDelivery"
-	case CPUBased2VirtualAPIC:
-		return "CPUBased2VirtualAPIC"
-	case CPUBased2VmcsShadow:
-		return "CPUBased2VmcsShadow"
-	case CPUBased2Vmfunc:
-		return "CPUBased2Vmfunc"
-	case CPUBased2Vpid:
-		return "CPUBased2Vpid"
-	case CPUBased2Wbinvd:
-		return "CPUBased2Wbinvd"
-	case CPUBased2X2apic:
-		return "CPUBased2X2apic"
-	case CPUBased2XsavesXrstors:
-		return "CPUBased2XsavesXrstors"
-	case CPUBasedMonitor:
-		return "CPUBasedMonitor"
-	case CPUBasedMtf:
-		return "CPUBasedMtf"
-	case CPUBasedPause:
-		return "CPUBasedPause"
-	case CPUBasedSecondaryCtls:
-		return "CPUBasedSecondaryCtls"
-	case CPUBasedTprShadow:
-		return "CPUBasedTprShadow"
-	default:
-		return fmt.Sprintf("PinBasedIntr(%d)", e)
-	}
-}
-
-type Vmcs uint
-
-const (
-	VmcsCtrlAPICAccess            Vmcs = 0x2014
-	VmcsCtrlCPUBased              Vmcs = 0x4002
-	VmcsCtrlCPUBased2             Vmcs = 0x401e
-	VmcsCtrlCr0Mask               Vmcs = 0x6000
-	VmcsCtrlCr0Shadow             Vmcs = 0x6004
-	VmcsCtrlCr3Count              Vmcs = 0x400a
-	VmcsCtrlCr3Value0             Vmcs = 0x6008
-	VmcsCtrlCr3Value1             Vmcs = 0x600a
-	VmcsCtrlCr3Value2             Vmcs = 0x600c
-	VmcsCtrlCr3Value3             Vmcs = 0x600e
-	VmcsCtrlCr4Mask               Vmcs = 0x6002
-	VmcsCtrlCr4Shadow             Vmcs = 0x6006
-	VmcsCtrlEnclsExitingBitmap    Vmcs = 0x202e
-	VmcsCtrlEnclvExitingBitmap    Vmcs = 0x2036
-	VmcsCtrlEoiExitBitmap0        Vmcs = 0x201c
-	VmcsCtrlEoiExitBitmap1        Vmcs = 0x201e
-	VmcsCtrlEoiExitBitmap2        Vmcs = 0x2020
-	VmcsCtrlEoiExitBitmap3        Vmcs = 0x2022
-	VmcsCtrlEptp                  Vmcs = 0x201a
-	VmcsCtrlEptpIndex             Vmcs = 0x4
-	VmcsCtrlEptpListAddr          Vmcs = 0x2024
-	VmcsCtrlExcBitmap             Vmcs = 0x4004
-	VmcsCtrlExecutiveVmcsPtr      Vmcs = 0x200c
-	VmcsCtrlIOBitmapA             Vmcs = 0x2000
-	VmcsCtrlIOBitmapB             Vmcs = 0x2002
-	VmcsCtrlMsrBitmaps            Vmcs = 0x2004
-	VmcsCtrlPfErrorMask           Vmcs = 0x4006
-	VmcsCtrlPfErrorMatch          Vmcs = 0x4008
-	VmcsCtrlPinBased              Vmcs = 0x4000
-	VmcsCtrlPleGap                Vmcs = 0x4020
-	VmcsCtrlPleWindow             Vmcs = 0x4022
-	VmcsCtrlPmlAddr               Vmcs = 0x200e
-	VmcsCtrlPostedIntDescAddr     Vmcs = 0x2016
-	VmcsCtrlPostedIntNVector      Vmcs = 0x2
-	VmcsCtrlSppTable              Vmcs = 0x2030
-	VmcsCtrlTprThreshold          Vmcs = 0x401c
-	VmcsCtrlTscMultiplier         Vmcs = 0x2032
-	VmcsCtrlTscOffset             Vmcs = 0x2010
-	VmcsCtrlVirtExcInfoAddr       Vmcs = 0x202a
-	VmcsCtrlVirtualAPIC           Vmcs = 0x2012
-	VmcsCtrlVmentryControls       Vmcs = 0x4012
-	VmcsCtrlVmentryExcError       Vmcs = 0x4018
-	VmcsCtrlVmentryInstrLen       Vmcs = 0x401a
-	VmcsCtrlVmentryIrqInfo        Vmcs = 0x4016
-	VmcsCtrlVmentryMsrLoadAddr    Vmcs = 0x200a
-	VmcsCtrlVmentryMsrLoadCount   Vmcs = 0x4014
-	VmcsCtrlVmexitControls        Vmcs = 0x400c
-	VmcsCtrlVmexitMsrLoadAddr     Vmcs = 0x2008
-	VmcsCtrlVmexitMsrLoadCount    Vmcs = 0x4010
-	VmcsCtrlVmexitMsrStoreAddr    Vmcs = 0x2006
-	VmcsCtrlVmexitMsrStoreCount   Vmcs = 0x400e
-	VmcsCtrlVmfuncCtrl            Vmcs = 0x2018
-	VmcsCtrlVmreadBitmapAddr      Vmcs = 0x2026
-	VmcsCtrlVmwriteBitmapAddr     Vmcs = 0x2028
-	VmcsCtrlXssExitingBitmap      Vmcs = 0x202c
-	VmcsGuestActivityState        Vmcs = 0x4826
-	VmcsGuestCr0                  Vmcs = 0x6800
-	VmcsGuestCr3                  Vmcs = 0x6802
-	VmcsGuestCr4                  Vmcs = 0x6804
-	VmcsGuestCs                   Vmcs = 0x802
-	VmcsGuestCsAr                 Vmcs = 0x4816
-	VmcsGuestCsBase               Vmcs = 0x6808
-	VmcsGuestCsLimit              Vmcs = 0x4802
-	VmcsGuestDebugExc             Vmcs = 0x6822
-	VmcsGuestDr7                  Vmcs = 0x681a
-	VmcsGuestDs                   Vmcs = 0x806
-	VmcsGuestDsAr                 Vmcs = 0x481a
-	VmcsGuestDsBase               Vmcs = 0x680c
-	VmcsGuestDsLimit              Vmcs = 0x4806
-	VmcsGuestEs                   Vmcs = 0x800
-	VmcsGuestEsAr                 Vmcs = 0x4814
-	VmcsGuestEsBase               Vmcs = 0x6806
-	VmcsGuestEsLimit              Vmcs = 0x4800
-	VmcsGuestFs                   Vmcs = 0x808
-	VmcsGuestFsAr                 Vmcs = 0x481c
-	VmcsGuestFsBase               Vmcs = 0x680e
-	VmcsGuestFsLimit              Vmcs = 0x4808
-	VmcsGuestGdtrBase             Vmcs = 0x6816
-	VmcsGuestGdtrLimit            Vmcs = 0x4810
-	VmcsGuestGs                   Vmcs = 0x80a
-	VmcsGuestGsAr                 Vmcs = 0x481e
-	VmcsGuestGsBase               Vmcs = 0x6810
-	VmcsGuestGsLimit              Vmcs = 0x480a
-	VmcsGuestIa32Bndcfgs          Vmcs = 0x2812
-	VmcsGuestIa32Debugctl         Vmcs = 0x2802
-	VmcsGuestIa32Efer             Vmcs = 0x2806
-	VmcsGuestIa32IntrSspTableAddr Vmcs = 0x682c
-	VmcsGuestIa32Pat              Vmcs = 0x2804
-	VmcsGuestIa32PerfGlobalCtrl   Vmcs = 0x2808
-	VmcsGuestIa32Pkrs             Vmcs = 0x2818
-	VmcsGuestIa32RtitCtl          Vmcs = 0x2814
-	VmcsGuestIa32SCet             Vmcs = 0x6828
-	VmcsGuestIa32SysenterCs       Vmcs = 0x482a
-	VmcsGuestIdtrBase             Vmcs = 0x6818
-	VmcsGuestIdtrLimit            Vmcs = 0x4812
-	VmcsGuestIgnoreIrq            Vmcs = 18468
-	VmcsGuestIntStatus            Vmcs = 0x810
-	VmcsGuestInterruptibility     Vmcs = 0x4824
-	VmcsGuestLdtr                 Vmcs = 0x80c
-	VmcsGuestLdtrAr               Vmcs = 0x4820
-	VmcsGuestLdtrBase             Vmcs = 0x6812
-	VmcsGuestLdtrLimit            Vmcs = 0x480c
-	VmcsGuestLinkPointer          Vmcs = 0x2800
-	VmcsGuestPdpte0               Vmcs = 0x280a
-	VmcsGuestPdpte1               Vmcs = 0x280c
-	VmcsGuestPdpte2               Vmcs = 0x280e
-	VmcsGuestPdpte3               Vmcs = 0x2810
-	VmcsGuestPhysicalAddress      Vmcs = 0x2400
-	VmcsGuestRflags               Vmcs = 0x6820
-	VmcsGuestRip                  Vmcs = 0x681e
-	VmcsGuestRsp                  Vmcs = 0x681c
-	VmcsGuestSmbase               Vmcs = 0x4828
-	VmcsGuestSs                   Vmcs = 0x804
-	VmcsGuestSsAr                 Vmcs = 0x4818
-	VmcsGuestSsBase               Vmcs = 0x680a
-	VmcsGuestSsLimit              Vmcs = 0x4804
-	VmcsGuestSsp                  Vmcs = 0x682a
-	VmcsGuestSysenterEip          Vmcs = 0x6826
-	VmcsGuestSysenterEsp          Vmcs = 0x6824
-	VmcsGuestTr                   Vmcs = 0x80e
-	VmcsGuestTrAr                 Vmcs = 0x4822
-	VmcsGuestTrBase               Vmcs = 0x6814
-	VmcsGuestTrLimit              Vmcs = 0x480e
-	VmcsGuestVmxTimerValue        Vmcs = 0x482e
-	VmcsGuestpmlIndex             Vmcs = 0x812
-	VmcsHostCr0                   Vmcs = 0x6c00
-	VmcsHostCr3                   Vmcs = 0x6c02
-	VmcsHostCr4                   Vmcs = 0x6c04
-	VmcsHostCs                    Vmcs = 0xc02
-	VmcsHostDs                    Vmcs = 0xc06
-	VmcsHostEs                    Vmcs = 0xc00
-	VmcsHostFs                    Vmcs = 0xc08
-	VmcsHostFsBase                Vmcs = 0x6c06
-	VmcsHostGdtrBase              Vmcs = 0x6c0c
-	VmcsHostGs                    Vmcs = 0xc0a
-	VmcsHostGsBase                Vmcs = 0x6c08
-	VmcsHostIa32Efer              Vmcs = 0x2c02
-	VmcsHostIa32IntrSspTableAddr  Vmcs = 0x6c1c
-	VmcsHostIa32Pat               Vmcs = 0x2c00
-	VmcsHostIa32PerfGlobalCtrl    Vmcs = 0x2c04
-	VmcsHostIa32Pkrs              Vmcs = 0x2c06
-	VmcsHostIa32SCet              Vmcs = 0x6c18
-	VmcsHostIa32SysenterCs        Vmcs = 0x4c00
-	VmcsHostIa32SysenterEip       Vmcs = 0x6c12
-	VmcsHostIa32SysenterEsp       Vmcs = 0x6c10
-	VmcsHostIdtrBase              Vmcs = 0x6c0e
-	VmcsHostRip                   Vmcs = 0x6c16
-	VmcsHostRsp                   Vmcs = 0x6c14
-	VmcsHostSs                    Vmcs = 0xc04
-	VmcsHostSsp                   Vmcs = 0x6c1a
-	VmcsHostTr                    Vmcs = 0xc0c
-	VmcsHostTrBase                Vmcs = 0x6c0a
-	VmcsInvalid                   Vmcs = 27904
-	VmcsMax                       Vmcs = 0x6d00
-	VmcsRoExitQualific            Vmcs = 0x6400
-	VmcsRoExitReason              Vmcs = 0x4402
-	VmcsRoGuestLinAddr            Vmcs = 0x640a
-	VmcsRoIORcx                   Vmcs = 0x6402
-	VmcsRoIORdi                   Vmcs = 0x6406
-	VmcsRoIORip                   Vmcs = 0x6408
-	VmcsRoIORsi                   Vmcs = 0x6404
-	VmcsRoIdtVectorError          Vmcs = 0x440a
-	VmcsRoIdtVectorInfo           Vmcs = 0x4408
-	VmcsRoInstrError              Vmcs = 0x4400
-	VmcsRoVmexitInstrLen          Vmcs = 0x440c
-	VmcsRoVmexitIrqError          Vmcs = 0x4406
-	VmcsRoVmexitIrqInfo           Vmcs = 0x4404
-	VmcsRoVmxInstrInfo            Vmcs = 0x440e
-	VmcsVpid                      Vmcs = 0
-)
-
-func (e Vmcs) String() string {
-	switch e {
-	case VmcsCtrlAPICAccess:
-		return "VmcsCtrlAPICAccess"
-	case VmcsCtrlCPUBased:
-		return "VmcsCtrlCPUBased"
-	case VmcsCtrlCPUBased2:
-		return "VmcsCtrlCPUBased2"
-	case VmcsCtrlCr0Mask:
-		return "VmcsCtrlCr0Mask"
-	case VmcsCtrlCr0Shadow:
-		return "VmcsCtrlCr0Shadow"
-	case VmcsCtrlCr3Count:
-		return "VmcsCtrlCr3Count"
-	case VmcsCtrlCr3Value0:
-		return "VmcsCtrlCr3Value0"
-	case VmcsCtrlCr3Value1:
-		return "VmcsCtrlCr3Value1"
-	case VmcsCtrlCr3Value2:
-		return "VmcsCtrlCr3Value2"
-	case VmcsCtrlCr3Value3:
-		return "VmcsCtrlCr3Value3"
-	case VmcsCtrlCr4Mask:
-		return "VmcsCtrlCr4Mask"
-	case VmcsCtrlCr4Shadow:
-		return "VmcsCtrlCr4Shadow"
-	case VmcsCtrlEnclsExitingBitmap:
-		return "VmcsCtrlEnclsExitingBitmap"
-	case VmcsCtrlEnclvExitingBitmap:
-		return "VmcsCtrlEnclvExitingBitmap"
-	case VmcsCtrlEoiExitBitmap0:
-		return "VmcsCtrlEoiExitBitmap0"
-	case VmcsCtrlEoiExitBitmap1:
-		return "VmcsCtrlEoiExitBitmap1"
-	case VmcsCtrlEoiExitBitmap2:
-		return "VmcsCtrlEoiExitBitmap2"
-	case VmcsCtrlEoiExitBitmap3:
-		return "VmcsCtrlEoiExitBitmap3"
-	case VmcsCtrlEptp:
-		return "VmcsCtrlEptp"
-	case VmcsCtrlEptpIndex:
-		return "VmcsCtrlEptpIndex"
-	case VmcsCtrlEptpListAddr:
-		return "VmcsCtrlEptpListAddr"
-	case VmcsCtrlExcBitmap:
-		return "VmcsCtrlExcBitmap"
-	case VmcsCtrlExecutiveVmcsPtr:
-		return "VmcsCtrlExecutiveVmcsPtr"
-	case VmcsCtrlIOBitmapA:
-		return "VmcsCtrlIOBitmapA"
-	case VmcsCtrlIOBitmapB:
-		return "VmcsCtrlIOBitmapB"
-	case VmcsCtrlMsrBitmaps:
-		return "VmcsCtrlMsrBitmaps"
-	case VmcsCtrlPfErrorMask:
-		return "VmcsCtrlPfErrorMask"
-	case VmcsCtrlPfErrorMatch:
-		return "VmcsCtrlPfErrorMatch"
-	case VmcsCtrlPinBased:
-		return "VmcsCtrlPinBased"
-	case VmcsCtrlPleGap:
-		return "VmcsCtrlPleGap"
-	case VmcsCtrlPleWindow:
-		return "VmcsCtrlPleWindow"
-	case VmcsCtrlPmlAddr:
-		return "VmcsCtrlPmlAddr"
-	case VmcsCtrlPostedIntDescAddr:
-		return "VmcsCtrlPostedIntDescAddr"
-	case VmcsCtrlPostedIntNVector:
-		return "VmcsCtrlPostedIntNVector"
-	case VmcsCtrlSppTable:
-		return "VmcsCtrlSppTable"
-	case VmcsCtrlTprThreshold:
-		return "VmcsCtrlTprThreshold"
-	case VmcsCtrlTscMultiplier:
-		return "VmcsCtrlTscMultiplier"
-	case VmcsCtrlTscOffset:
-		return "VmcsCtrlTscOffset"
-	case VmcsCtrlVirtExcInfoAddr:
-		return "VmcsCtrlVirtExcInfoAddr"
-	case VmcsCtrlVirtualAPIC:
-		return "VmcsCtrlVirtualAPIC"
-	case VmcsCtrlVmentryControls:
-		return "VmcsCtrlVmentryControls"
-	case VmcsCtrlVmentryExcError:
-		return "VmcsCtrlVmentryExcError"
-	case VmcsCtrlVmentryInstrLen:
-		return "VmcsCtrlVmentryInstrLen"
-	case VmcsCtrlVmentryIrqInfo:
-		return "VmcsCtrlVmentryIrqInfo"
-	case VmcsCtrlVmentryMsrLoadAddr:
-		return "VmcsCtrlVmentryMsrLoadAddr"
-	case VmcsCtrlVmentryMsrLoadCount:
-		return "VmcsCtrlVmentryMsrLoadCount"
-	case VmcsCtrlVmexitControls:
-		return "VmcsCtrlVmexitControls"
-	case VmcsCtrlVmexitMsrLoadAddr:
-		return "VmcsCtrlVmexitMsrLoadAddr"
-	case VmcsCtrlVmexitMsrLoadCount:
-		return "VmcsCtrlVmexitMsrLoadCount"
-	case VmcsCtrlVmexitMsrStoreAddr:
-		return "VmcsCtrlVmexitMsrStoreAddr"
-	case VmcsCtrlVmexitMsrStoreCount:
-		return "VmcsCtrlVmexitMsrStoreCount"
-	case VmcsCtrlVmfuncCtrl:
-		return "VmcsCtrlVmfuncCtrl"
-	case VmcsCtrlVmreadBitmapAddr:
-		return "VmcsCtrlVmreadBitmapAddr"
-	case VmcsCtrlVmwriteBitmapAddr:
-		return "VmcsCtrlVmwriteBitmapAddr"
-	case VmcsCtrlXssExitingBitmap:
-		return "VmcsCtrlXssExitingBitmap"
-	case VmcsGuestActivityState:
-		return "VmcsGuestActivityState"
-	case VmcsGuestCr0:
-		return "VmcsGuestCr0"
-	case VmcsGuestCr3:
-		return "VmcsGuestCr3"
-	case VmcsGuestCr4:
-		return "VmcsGuestCr4"
-	case VmcsGuestCs:
-		return "VmcsGuestCs"
-	case VmcsGuestCsAr:
-		return "VmcsGuestCsAr"
-	case VmcsGuestCsBase:
-		return "VmcsGuestCsBase"
-	case VmcsGuestCsLimit:
-		return "VmcsGuestCsLimit"
-	case VmcsGuestDebugExc:
-		return "VmcsGuestDebugExc"
-	case VmcsGuestDr7:
-		return "VmcsGuestDr7"
-	case VmcsGuestDs:
-		return "VmcsGuestDs"
-	case VmcsGuestDsAr:
-		return "VmcsGuestDsAr"
-	case VmcsGuestDsBase:
-		return "VmcsGuestDsBase"
-	case VmcsGuestDsLimit:
-		return "VmcsGuestDsLimit"
-	case VmcsGuestEs:
-		return "VmcsGuestEs"
-	case VmcsGuestEsAr:
-		return "VmcsGuestEsAr"
-	case VmcsGuestEsBase:
-		return "VmcsGuestEsBase"
-	case VmcsGuestEsLimit:
-		return "VmcsGuestEsLimit"
-	case VmcsGuestFs:
-		return "VmcsGuestFs"
-	case VmcsGuestFsAr:
-		return "VmcsGuestFsAr"
-	case VmcsGuestFsBase:
-		return "VmcsGuestFsBase"
-	case VmcsGuestFsLimit:
-		return "VmcsGuestFsLimit"
-	case VmcsGuestGdtrBase:
-		return "VmcsGuestGdtrBase"
-	case VmcsGuestGdtrLimit:
-		return "VmcsGuestGdtrLimit"
-	case VmcsGuestGs:
-		return "VmcsGuestGs"
-	case VmcsGuestGsAr:
-		return "VmcsGuestGsAr"
-	case VmcsGuestGsBase:
-		return "VmcsGuestGsBase"
-	case VmcsGuestGsLimit:
-		return "VmcsGuestGsLimit"
-	case VmcsGuestIa32Bndcfgs:
-		return "VmcsGuestIa32Bndcfgs"
-	case VmcsGuestIa32Debugctl:
-		return "VmcsGuestIa32Debugctl"
-	case VmcsGuestIa32Efer:
-		return "VmcsGuestIa32Efer"
-	case VmcsGuestIa32IntrSspTableAddr:
-		return "VmcsGuestIa32IntrSspTableAddr"
-	case VmcsGuestIa32Pat:
-		return "VmcsGuestIa32Pat"
-	case VmcsGuestIa32PerfGlobalCtrl:
-		return "VmcsGuestIa32PerfGlobalCtrl"
-	case VmcsGuestIa32Pkrs:
-		return "VmcsGuestIa32Pkrs"
-	case VmcsGuestIa32RtitCtl:
-		return "VmcsGuestIa32RtitCtl"
-	case VmcsGuestIa32SCet:
-		return "VmcsGuestIa32SCet"
-	case VmcsGuestIa32SysenterCs:
-		return "VmcsGuestIa32SysenterCs"
-	case VmcsGuestIdtrBase:
-		return "VmcsGuestIdtrBase"
-	case VmcsGuestIdtrLimit:
-		return "VmcsGuestIdtrLimit"
-	case VmcsGuestIgnoreIrq:
-		return "VmcsGuestIgnoreIrq"
-	case VmcsGuestIntStatus:
-		return "VmcsGuestIntStatus"
-	case VmcsGuestLdtr:
-		return "VmcsGuestLdtr"
-	case VmcsGuestLdtrAr:
-		return "VmcsGuestLdtrAr"
-	case VmcsGuestLdtrBase:
-		return "VmcsGuestLdtrBase"
-	case VmcsGuestLdtrLimit:
-		return "VmcsGuestLdtrLimit"
-	case VmcsGuestLinkPointer:
-		return "VmcsGuestLinkPointer"
-	case VmcsGuestPdpte0:
-		return "VmcsGuestPdpte0"
-	case VmcsGuestPdpte1:
-		return "VmcsGuestPdpte1"
-	case VmcsGuestPdpte2:
-		return "VmcsGuestPdpte2"
-	case VmcsGuestPdpte3:
-		return "VmcsGuestPdpte3"
-	case VmcsGuestPhysicalAddress:
-		return "VmcsGuestPhysicalAddress"
-	case VmcsGuestRflags:
-		return "VmcsGuestRflags"
-	case VmcsGuestRip:
-		return "VmcsGuestRip"
-	case VmcsGuestRsp:
-		return "VmcsGuestRsp"
-	case VmcsGuestSmbase:
-		return "VmcsGuestSmbase"
-	case VmcsGuestSs:
-		return "VmcsGuestSs"
-	case VmcsGuestSsAr:
-		return "VmcsGuestSsAr"
-	case VmcsGuestSsBase:
-		return "VmcsGuestSsBase"
-	case VmcsGuestSsLimit:
-		return "VmcsGuestSsLimit"
-	case VmcsGuestSsp:
-		return "VmcsGuestSsp"
-	case VmcsGuestSysenterEip:
-		return "VmcsGuestSysenterEip"
-	case VmcsGuestSysenterEsp:
-		return "VmcsGuestSysenterEsp"
-	case VmcsGuestTr:
-		return "VmcsGuestTr"
-	case VmcsGuestTrAr:
-		return "VmcsGuestTrAr"
-	case VmcsGuestTrBase:
-		return "VmcsGuestTrBase"
-	case VmcsGuestTrLimit:
-		return "VmcsGuestTrLimit"
-	case VmcsGuestVmxTimerValue:
-		return "VmcsGuestVmxTimerValue"
-	case VmcsGuestpmlIndex:
-		return "VmcsGuestpmlIndex"
-	case VmcsHostCr0:
-		return "VmcsHostCr0"
-	case VmcsHostCr3:
-		return "VmcsHostCr3"
-	case VmcsHostCr4:
-		return "VmcsHostCr4"
-	case VmcsHostCs:
-		return "VmcsHostCs"
-	case VmcsHostDs:
-		return "VmcsHostDs"
-	case VmcsHostEs:
-		return "VmcsHostEs"
-	case VmcsHostFs:
-		return "VmcsHostFs"
-	case VmcsHostFsBase:
-		return "VmcsHostFsBase"
-	case VmcsHostGdtrBase:
-		return "VmcsHostGdtrBase"
-	case VmcsHostGs:
-		return "VmcsHostGs"
-	case VmcsHostGsBase:
-		return "VmcsHostGsBase"
-	case VmcsHostIa32Efer:
-		return "VmcsHostIa32Efer"
-	case VmcsHostIa32IntrSspTableAddr:
-		return "VmcsHostIa32IntrSspTableAddr"
-	case VmcsHostIa32Pat:
-		return "VmcsHostIa32Pat"
-	case VmcsHostIa32PerfGlobalCtrl:
-		return "VmcsHostIa32PerfGlobalCtrl"
-	case VmcsHostIa32Pkrs:
-		return "VmcsHostIa32Pkrs"
-	case VmcsHostIa32SCet:
-		return "VmcsHostIa32SCet"
-	case VmcsHostIa32SysenterCs:
-		return "VmcsHostIa32SysenterCs"
-	case VmcsHostIa32SysenterEip:
-		return "VmcsHostIa32SysenterEip"
-	case VmcsHostIa32SysenterEsp:
-		return "VmcsHostIa32SysenterEsp"
-	case VmcsHostIdtrBase:
-		return "VmcsHostIdtrBase"
-	case VmcsHostRip:
-		return "VmcsHostRip"
-	case VmcsHostRsp:
-		return "VmcsHostRsp"
-	case VmcsHostSs:
-		return "VmcsHostSs"
-	case VmcsHostSsp:
-		return "VmcsHostSsp"
-	case VmcsHostTr:
-		return "VmcsHostTr"
-	case VmcsHostTrBase:
-		return "VmcsHostTrBase"
-	case VmcsInvalid:
-		return "VmcsInvalid"
-	case VmcsRoExitQualific:
-		return "VmcsRoExitQualific"
-	case VmcsRoExitReason:
-		return "VmcsRoExitReason"
-	case VmcsRoGuestLinAddr:
-		return "VmcsRoGuestLinAddr"
-	case VmcsRoIORcx:
-		return "VmcsRoIORcx"
-	case VmcsRoIORdi:
-		return "VmcsRoIORdi"
-	case VmcsRoIORip:
-		return "VmcsRoIORip"
-	case VmcsRoIORsi:
-		return "VmcsRoIORsi"
-	case VmcsRoIdtVectorError:
-		return "VmcsRoIdtVectorError"
-	case VmcsRoIdtVectorInfo:
-		return "VmcsRoIdtVectorInfo"
-	case VmcsRoInstrError:
-		return "VmcsRoInstrError"
-	case VmcsRoVmexitInstrLen:
-		return "VmcsRoVmexitInstrLen"
-	case VmcsRoVmexitIrqError:
-		return "VmcsRoVmexitIrqError"
-	case VmcsRoVmexitIrqInfo:
-		return "VmcsRoVmexitIrqInfo"
-	case VmcsRoVmxInstrInfo:
-		return "VmcsRoVmxInstrInfo"
-	case VmcsVpid:
-		return "VmcsVpid"
-	default:
-		return fmt.Sprintf("Vmcs(%d)", e)
-	}
-}
-
-type VmxBasicTrue uint
-
-const (
-	// VmxBasicTrueCtls: This bit field, in the value returned by the IA32_VMX_BASIC model specific register, determines if it’s possible to disable any VMX controls.
-	VmxBasicTrueCtls VmxBasicTrue = 36028797018963968
-)
-
-func (e VmxBasicTrue) String() string {
-	switch e {
-	case VmxBasicTrueCtls:
-		return "VmxBasicTrueCtls"
-	default:
-		return fmt.Sprintf("VmxBasicTrue(%d)", e)
-	}
-}
-
-type VmxReason uint
-
-const (
-	// VmxReasonAPICAccess: The guest attempted to access memory at a physical address on the APIC-access page and the “virtualize APIC accesses” VM-execution control was 1.
-	VmxReasonAPICAccess VmxReason = 44
-	// VmxReasonAPICWrite: The guest completed a write to the virtual-APIC page that requires virtualization by VMM software.
-	VmxReasonAPICWrite VmxReason = 56
-	// VmxReasonCpuid: The guest software attempted to execute the CPUID instruction.
-	VmxReasonCpuid VmxReason = 10
-	// VmxReasonEncls: The guest attempted to execute an unsupported ENCLS instruction.
-	VmxReasonEncls VmxReason = 60
-	// VmxReasonEptInvept: The guest attempted to execute the Invalidate cached Extended Page Table (INVEPT) instruction.
-	VmxReasonEptInvept VmxReason = 50
-	// VmxReasonEptMisconfig: An attempt to access memory with a guest-physical address encountered a misconfigured Extended Page Table (EPT) paging-structure entry.
-	VmxReasonEptMisconfig VmxReason = 49
-	// VmxReasonEptViolation: The configuration of the Extended Page Table (EPT) paging structures disallowed an attempt to access memory with a guest-physical address.
-	VmxReasonEptViolation VmxReason = 48
-	// VmxReasonExcNmi: VMX exit due to an exception or non-maskable interrupt (NMI).
-	VmxReasonExcNmi VmxReason = 0
-	// VmxReasonGdtrIdtr: The guest attempted to execute LGDT, LIDT, SGDT, or SIDT instructions and the “descriptor-table exiting” VM-execution control was 1.
-	VmxReasonGdtrIdtr VmxReason = 46
-	// VmxReasonGetsec: The guest attempted to execute GETSEC instruction.
-	VmxReasonGetsec VmxReason = 11
-	// VmxReasonHlt: The guest attempted to execute HLT and the “HLT exiting” VM-execution control was 1.
-	VmxReasonHlt VmxReason = 12
-	// VmxReasonIO: Guest attempted to execute an I/O instruction.
-	VmxReasonIO VmxReason = 30
-	// VmxReasonIOSmi: VMX exited due to an I/O SMM Interrupt.
-	VmxReasonIOSmi VmxReason = 5
-	// VmxReasonInit: VMX exit due to an INIT signal.
-	VmxReasonInit VmxReason = 3
-	// VmxReasonInvd: The guest attempted to execute Invalidate Caches (INVD) instruction.
-	VmxReasonInvd VmxReason = 13
-	// VmxReasonInvlpg: The guest attempted to execute the Invalidate TLB Entry (INVLPG) instruction and the “INVLPG exiting” VM-execution control was 1.
-	VmxReasonInvlpg VmxReason = 14
-	// VmxReasonInvpcid: The guest attempted to execute an INVPCID instruction and the “enable INVPCID” and “INVLPG exiting” VM-execution controls were both 1.
-	VmxReasonInvpcid VmxReason = 58
-	// VmxReasonInvvpid: The guest attempted to execute the INVVPID instruction.
-	VmxReasonInvvpid VmxReason = 53
-	// VmxReasonIrq: An external interrupt arrived and the “external-interrupt exiting” VM-execution control was 1.
-	VmxReasonIrq VmxReason = 1
-	// VmxReasonIrqWnd: VMX exited due to an Interrupt Window.
-	VmxReasonIrqWnd VmxReason = 7
-	// VmxReasonLdtrTr: The guest attempted to execute LLDT, LTR, SLDT, or STR instructions and the “descriptor-table exiting” VM-execution control was 1.
-	VmxReasonLdtrTr VmxReason = 47
-	// VmxReasonMonitor: The guest attempted to execute MONITOR and the “MONITOR exiting” VM-execution control was 1.
-	VmxReasonMonitor VmxReason = 39
-	// VmxReasonMovCr: The guest attempted to access one of the CR0, CR3, CR4 or CR8 control registers.
-	VmxReasonMovCr VmxReason = 28
-	// VmxReasonMovDr: The guest attempted a MOV to or from a debug register and the “MOV-DR exiting” VM-execution control was 1.
-	VmxReasonMovDr VmxReason = 29
-	// VmxReasonMtf: VM exit occurred due to the setting of the monitor trap flag (MTF) or injection of a pending MTF VM exit.
-	VmxReasonMtf VmxReason = 37
-	// VmxReasonMwait: The guest attempted to execute an MWAIT instruction and the “MWAIT exiting” VM-execution control was 1.
-	VmxReasonMwait VmxReason = 36
-	// VmxReasonOtherSmi: An SMI arrived and caused an SMM VM exit.
-	VmxReasonOtherSmi VmxReason = 6
-	// VmxReasonPause: The guest attempted to execute PAUSE when the VM-execution control was 1 or exceeded the execition time window.
-	VmxReasonPause   VmxReason = 40
-	VmxReasonPmlFull VmxReason = 62
-	// VmxReasonRdmsr: The guest attempted to execute RDMSR.
-	VmxReasonRdmsr VmxReason = 31
-	// VmxReasonRdpmc: The guest attempted to execute read performance monitoring counters (RDPMC) instruction and the “RDPMC exiting” VM-execution control was 1.
-	VmxReasonRdpmc VmxReason = 15
-	// VmxReasonRdrand: The guest software attempted to execute RDRAND instruction and the “RDRAND exiting” VM-execution control was 1.
-	VmxReasonRdrand VmxReason = 57
-	// VmxReasonRdseed: The guest attempted to execute RDSEED and the “RDSEED exiting” VM-execution control was 1.
-	VmxReasonRdseed VmxReason = 61
-	// VmxReasonRdtsc: The guest attempted to execute read time stamp counter (RDTSC) instruction and the “RDTSC exiting” VM-execution control was 1.
-	VmxReasonRdtsc VmxReason = 16
-	// VmxReasonRdtscp: The guest attempted to execute an RDTSCP instruction and the “enable RDTSCP” and “RDTSC exiting” VM-execution controls were both 1.
-	VmxReasonRdtscp VmxReason = 51
-	// VmxReasonRsm: The guest software attempted to execute a return from system management mode (RSM) instuction in system-management mode.
-	VmxReasonRsm VmxReason = 17
-	// VmxReasonSipi: VMS exit due to startup (IPI).
-	VmxReasonSipi VmxReason = 4
-	// VmxReasonSppEvent: The processor attempted to determine an access’s sub-page write permission and encountered an SPP miss or an SPP misconfiguration.
-	VmxReasonSppEvent VmxReason = 66
-	// VmxReasonTask: The guest attempted a task switch.
-	VmxReasonTask VmxReason = 9
-	// VmxReasonTpause: The guest attempted to execute a TPAUSE instuction and both the “enable user wait and pause” and “RDTSC exiting” VM-execution controls were both 1.
-	VmxReasonTpause VmxReason = 68
-	// VmxReasonTprThreshold: The logical processor determined that the value of the byte at offset 080H on the virtual-APIC page was below the required TPR threshold.
-	VmxReasonTprThreshold VmxReason = 43
-	// VmxReasonTripleFault: VMX exit due to a triple fault.
-	VmxReasonTripleFault VmxReason = 2
-	// VmxReasonUmwait: The guest attempted to execute a UMWAIT instruction and both the “enable user wait and pause” and “RDTSC exiting” VM-execution controls were both 1.
-	VmxReasonUmwait VmxReason = 67
-	// VmxReasonVirtualNmiWnd: At the beginning of an instruction, there was no virtual-NMI blocking.
-	VmxReasonVirtualNmiWnd VmxReason = 8
-	// VmxReasonVirtualizedEoi: The system performed EOI virtualization for a virtual interrupt whose vector indexed a bit set in the EOIexit bitmap.
-	VmxReasonVirtualizedEoi VmxReason = 45
-	// VmxReasonVmcall: The execution of VMCALL by either by the guest or the executive monitor casued an ordinary VM exit or an SMM VM exit, respectively.
-	VmxReasonVmcall VmxReason = 18
-	// VmxReasonVmclear: The guest attempted to execute VMCLEAR.
-	VmxReasonVmclear VmxReason = 19
-	// VmxReasonVmentryGuest: VM entry failed one of the entry checks.
-	VmxReasonVmentryGuest VmxReason = 33
-	// VmxReasonVmentryMc: A machine-check event occurred during VM entry.
-	VmxReasonVmentryMc VmxReason = 41
-	// VmxReasonVmentryMsr: A VM entry failed in an attempt to load model specific registers.
-	VmxReasonVmentryMsr VmxReason = 34
-	// VmxReasonVmfunc: The guest called a VM function and the VM function either wasn’t enabled or generated a function-specific condition causing a VM exit.
-	VmxReasonVmfunc VmxReason = 59
-	// VmxReasonVmlaunch: The guest attempted to execute VMLAUNCH.
-	VmxReasonVmlaunch VmxReason = 20
-	// VmxReasonVmoff: The guest attempted to execute VMXOFF.
-	VmxReasonVmoff VmxReason = 26
-	// VmxReasonVmon: The guest attempted to execute VMXON.
-	VmxReasonVmon VmxReason = 27
-	// VmxReasonVmptrld: The guest attempted to execute VMPTRLD.
-	VmxReasonVmptrld VmxReason = 21
-	// VmxReasonVmptrst: The guest attempted to execute VMPTRST.
-	VmxReasonVmptrst VmxReason = 22
-	// VmxReasonVmread: The guest attempted to execute VMREAD.
-	VmxReasonVmread VmxReason = 23
-	// VmxReasonVmresume: The guest attempted to execute VMRESUME.
-	VmxReasonVmresume VmxReason = 24
-	// VmxReasonVmwrite: The guest attempted to execute VMWRITE.
-	VmxReasonVmwrite VmxReason = 25
-	// VmxReasonVmxTimerExpired: The preemption timer counted down to zero.
-	VmxReasonVmxTimerExpired VmxReason = 52
-	// VmxReasonWbinvd: The guest attempted to execute WBINVD and the “WBINVD exiting” VM-execution control was 1.
-	VmxReasonWbinvd VmxReason = 54
-	// VmxReasonWrmsr: The guest attempted to execute WRMSR.
-	VmxReasonWrmsr VmxReason = 32
-	// VmxReasonXrstors: The guest attempted to execute XRSTORS which wasn’t allowed in the current configuration.
-	VmxReasonXrstors VmxReason = 64
-	// VmxReasonXsaves: The guest attempted to execute XSAVES which wasn’t allowed in the current configuration.
-	VmxReasonXsaves VmxReason = 63
-	// VmxReasonXsetbv: The guest attempted to execute XSETBV.
-	VmxReasonXsetbv VmxReason = 55
-)
-
-func (e VmxReason) String() string {
-	switch e {
-	case VmxReasonAPICAccess:
-		return "VmxReasonAPICAccess"
-	case VmxReasonAPICWrite:
-		return "VmxReasonAPICWrite"
-	case VmxReasonCpuid:
-		return "VmxReasonCpuid"
-	case VmxReasonEncls:
-		return "VmxReasonEncls"
-	case VmxReasonEptInvept:
-		return "VmxReasonEptInvept"
-	case VmxReasonEptMisconfig:
-		return "VmxReasonEptMisconfig"
-	case VmxReasonEptViolation:
-		return "VmxReasonEptViolation"
-	case VmxReasonExcNmi:
-		return "VmxReasonExcNmi"
-	case VmxReasonGdtrIdtr:
-		return "VmxReasonGdtrIdtr"
-	case VmxReasonGetsec:
-		return "VmxReasonGetsec"
-	case VmxReasonHlt:
-		return "VmxReasonHlt"
-	case VmxReasonIO:
-		return "VmxReasonIO"
-	case VmxReasonIOSmi:
-		return "VmxReasonIOSmi"
-	case VmxReasonInit:
-		return "VmxReasonInit"
-	case VmxReasonInvd:
-		return "VmxReasonInvd"
-	case VmxReasonInvlpg:
-		return "VmxReasonInvlpg"
-	case VmxReasonInvpcid:
-		return "VmxReasonInvpcid"
-	case VmxReasonInvvpid:
-		return "VmxReasonInvvpid"
-	case VmxReasonIrq:
-		return "VmxReasonIrq"
-	case VmxReasonIrqWnd:
-		return "VmxReasonIrqWnd"
-	case VmxReasonLdtrTr:
-		return "VmxReasonLdtrTr"
-	case VmxReasonMonitor:
-		return "VmxReasonMonitor"
-	case VmxReasonMovCr:
-		return "VmxReasonMovCr"
-	case VmxReasonMovDr:
-		return "VmxReasonMovDr"
-	case VmxReasonMtf:
-		return "VmxReasonMtf"
-	case VmxReasonMwait:
-		return "VmxReasonMwait"
-	case VmxReasonOtherSmi:
-		return "VmxReasonOtherSmi"
-	case VmxReasonPause:
-		return "VmxReasonPause"
-	case VmxReasonPmlFull:
-		return "VmxReasonPmlFull"
-	case VmxReasonRdmsr:
-		return "VmxReasonRdmsr"
-	case VmxReasonRdpmc:
-		return "VmxReasonRdpmc"
-	case VmxReasonRdrand:
-		return "VmxReasonRdrand"
-	case VmxReasonRdseed:
-		return "VmxReasonRdseed"
-	case VmxReasonRdtsc:
-		return "VmxReasonRdtsc"
-	case VmxReasonRdtscp:
-		return "VmxReasonRdtscp"
-	case VmxReasonRsm:
-		return "VmxReasonRsm"
-	case VmxReasonSipi:
-		return "VmxReasonSipi"
-	case VmxReasonSppEvent:
-		return "VmxReasonSppEvent"
-	case VmxReasonTask:
-		return "VmxReasonTask"
-	case VmxReasonTpause:
-		return "VmxReasonTpause"
-	case VmxReasonTprThreshold:
-		return "VmxReasonTprThreshold"
-	case VmxReasonTripleFault:
-		return "VmxReasonTripleFault"
-	case VmxReasonUmwait:
-		return "VmxReasonUmwait"
-	case VmxReasonVirtualNmiWnd:
-		return "VmxReasonVirtualNmiWnd"
-	case VmxReasonVirtualizedEoi:
-		return "VmxReasonVirtualizedEoi"
-	case VmxReasonVmcall:
-		return "VmxReasonVmcall"
-	case VmxReasonVmclear:
-		return "VmxReasonVmclear"
-	case VmxReasonVmentryGuest:
-		return "VmxReasonVmentryGuest"
-	case VmxReasonVmentryMc:
-		return "VmxReasonVmentryMc"
-	case VmxReasonVmentryMsr:
-		return "VmxReasonVmentryMsr"
-	case VmxReasonVmfunc:
-		return "VmxReasonVmfunc"
-	case VmxReasonVmlaunch:
-		return "VmxReasonVmlaunch"
-	case VmxReasonVmoff:
-		return "VmxReasonVmoff"
-	case VmxReasonVmon:
-		return "VmxReasonVmon"
-	case VmxReasonVmptrld:
-		return "VmxReasonVmptrld"
-	case VmxReasonVmptrst:
-		return "VmxReasonVmptrst"
-	case VmxReasonVmread:
-		return "VmxReasonVmread"
-	case VmxReasonVmresume:
-		return "VmxReasonVmresume"
-	case VmxReasonVmwrite:
-		return "VmxReasonVmwrite"
-	case VmxReasonVmxTimerExpired:
-		return "VmxReasonVmxTimerExpired"
-	case VmxReasonWbinvd:
-		return "VmxReasonWbinvd"
-	case VmxReasonWrmsr:
-		return "VmxReasonWrmsr"
-	case VmxReasonXrstors:
-		return "VmxReasonXrstors"
-	case VmxReasonXsaves:
-		return "VmxReasonXsaves"
-	case VmxReasonXsetbv:
-		return "VmxReasonXsetbv"
-	default:
-		return fmt.Sprintf("VmxReason(%d)", e)
-	}
-}
-
-// See: https://developer.apple.com/documentation/Hypervisor/hv_boot_state
-type HVBootState uint32
-
-const (
-	HVBsInit    HVBootState = 0
-	HVBsRunning HVBootState = 2
-	HVBsSipi    HVBootState = 1
-)
-
-func (e HVBootState) String() string {
-	switch e {
-	case HVBsInit:
-		return "HVBsInit"
-	case HVBsRunning:
-		return "HVBsRunning"
-	case HVBsSipi:
-		return "HVBsSipi"
-	default:
-		return fmt.Sprintf("HVBootState(%d)", e)
-	}
-}
+// Hv_x86_reg_t is a C-name alias for HVX86Reg.
+type Hv_x86_reg_t = HVX86Reg

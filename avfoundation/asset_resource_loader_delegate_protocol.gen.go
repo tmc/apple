@@ -228,9 +228,22 @@ func NewAVAssetResourceLoaderDelegate(config AVAssetResourceLoaderDelegateConfig
 		methods = append(methods, objc.MethodDef{
 			Cmd: objc.RegisterName("resourceLoader:shouldWaitForLoadingOfRequestedResource:"),
 			Fn: func(self objc.ID, _cmd objc.SEL, resourceLoaderID objc.ID, loadingRequestID objc.ID) bool {
+				// Names which delegate was running if a panic unwinds out of
+				// it. The frames between here and the Objective-C caller are
+				// runtime and purego dispatch, so without this the traceback
+				// never says which selector dispatched. Deliberately no
+				// recover: see [objc.NoteDelegatePanic].
+				_delegateDone := false
+				defer func() {
+					if !_delegateDone {
+						objc.NoteDelegatePanic("AVAssetResourceLoaderDelegate", "resourceLoader:shouldWaitForLoadingOfRequestedResource:")
+					}
+				}()
 				resourceLoader := AVAssetResourceLoaderFromID(resourceLoaderID)
 				loadingRequest := AVAssetResourceLoadingRequestFromID(loadingRequestID)
-				return fn(resourceLoader, loadingRequest)
+				_delegateResult := fn(resourceLoader, loadingRequest)
+				_delegateDone = true
+				return _delegateResult
 			},
 		})
 	}
@@ -240,9 +253,22 @@ func NewAVAssetResourceLoaderDelegate(config AVAssetResourceLoaderDelegateConfig
 		methods = append(methods, objc.MethodDef{
 			Cmd: objc.RegisterName("resourceLoader:shouldWaitForRenewalOfRequestedResource:"),
 			Fn: func(self objc.ID, _cmd objc.SEL, resourceLoaderID objc.ID, renewalRequestID objc.ID) bool {
+				// Names which delegate was running if a panic unwinds out of
+				// it. The frames between here and the Objective-C caller are
+				// runtime and purego dispatch, so without this the traceback
+				// never says which selector dispatched. Deliberately no
+				// recover: see [objc.NoteDelegatePanic].
+				_delegateDone := false
+				defer func() {
+					if !_delegateDone {
+						objc.NoteDelegatePanic("AVAssetResourceLoaderDelegate", "resourceLoader:shouldWaitForRenewalOfRequestedResource:")
+					}
+				}()
 				resourceLoader := AVAssetResourceLoaderFromID(resourceLoaderID)
 				renewalRequest := AVAssetResourceRenewalRequestFromID(renewalRequestID)
-				return fn(resourceLoader, renewalRequest)
+				_delegateResult := fn(resourceLoader, renewalRequest)
+				_delegateDone = true
+				return _delegateResult
 			},
 		})
 	}
@@ -252,9 +278,21 @@ func NewAVAssetResourceLoaderDelegate(config AVAssetResourceLoaderDelegateConfig
 		methods = append(methods, objc.MethodDef{
 			Cmd: objc.RegisterName("resourceLoader:didCancelLoadingRequest:"),
 			Fn: func(self objc.ID, _cmd objc.SEL, resourceLoaderID objc.ID, loadingRequestID objc.ID) {
+				// Names which delegate was running if a panic unwinds out of
+				// it. The frames between here and the Objective-C caller are
+				// runtime and purego dispatch, so without this the traceback
+				// never says which selector dispatched. Deliberately no
+				// recover: see [objc.NoteDelegatePanic].
+				_delegateDone := false
+				defer func() {
+					if !_delegateDone {
+						objc.NoteDelegatePanic("AVAssetResourceLoaderDelegate", "resourceLoader:didCancelLoadingRequest:")
+					}
+				}()
 				resourceLoader := AVAssetResourceLoaderFromID(resourceLoaderID)
 				loadingRequest := AVAssetResourceLoadingRequestFromID(loadingRequestID)
 				fn(resourceLoader, loadingRequest)
+				_delegateDone = true
 			},
 		})
 	}
@@ -264,9 +302,22 @@ func NewAVAssetResourceLoaderDelegate(config AVAssetResourceLoaderDelegateConfig
 		methods = append(methods, objc.MethodDef{
 			Cmd: objc.RegisterName("resourceLoader:shouldWaitForResponseToAuthenticationChallenge:"),
 			Fn: func(self objc.ID, _cmd objc.SEL, resourceLoaderID objc.ID, authenticationChallengeID objc.ID) bool {
+				// Names which delegate was running if a panic unwinds out of
+				// it. The frames between here and the Objective-C caller are
+				// runtime and purego dispatch, so without this the traceback
+				// never says which selector dispatched. Deliberately no
+				// recover: see [objc.NoteDelegatePanic].
+				_delegateDone := false
+				defer func() {
+					if !_delegateDone {
+						objc.NoteDelegatePanic("AVAssetResourceLoaderDelegate", "resourceLoader:shouldWaitForResponseToAuthenticationChallenge:")
+					}
+				}()
 				resourceLoader := AVAssetResourceLoaderFromID(resourceLoaderID)
 				authenticationChallenge := foundation.NSURLAuthenticationChallengeFromID(authenticationChallengeID)
-				return fn(resourceLoader, authenticationChallenge)
+				_delegateResult := fn(resourceLoader, authenticationChallenge)
+				_delegateDone = true
+				return _delegateResult
 			},
 		})
 	}
@@ -276,9 +327,21 @@ func NewAVAssetResourceLoaderDelegate(config AVAssetResourceLoaderDelegateConfig
 		methods = append(methods, objc.MethodDef{
 			Cmd: objc.RegisterName("resourceLoader:didCancelAuthenticationChallenge:"),
 			Fn: func(self objc.ID, _cmd objc.SEL, resourceLoaderID objc.ID, authenticationChallengeID objc.ID) {
+				// Names which delegate was running if a panic unwinds out of
+				// it. The frames between here and the Objective-C caller are
+				// runtime and purego dispatch, so without this the traceback
+				// never says which selector dispatched. Deliberately no
+				// recover: see [objc.NoteDelegatePanic].
+				_delegateDone := false
+				defer func() {
+					if !_delegateDone {
+						objc.NoteDelegatePanic("AVAssetResourceLoaderDelegate", "resourceLoader:didCancelAuthenticationChallenge:")
+					}
+				}()
 				resourceLoader := AVAssetResourceLoaderFromID(resourceLoaderID)
 				authenticationChallenge := foundation.NSURLAuthenticationChallengeFromID(authenticationChallengeID)
 				fn(resourceLoader, authenticationChallenge)
+				_delegateDone = true
 			},
 		})
 	}

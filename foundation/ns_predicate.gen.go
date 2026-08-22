@@ -131,7 +131,6 @@ func NSPredicateFromID(id objc.ID) NSPredicate {
 // See: https://developer.apple.com/documentation/Foundation/NSPredicate
 type INSPredicate interface {
 	objectivec.IObject
-	NSSecureCoding
 
 	// Topic: Creating a Predicate
 
@@ -155,6 +154,10 @@ type INSPredicate interface {
 	// Topic: Instance Methods
 
 	AllowEvaluationWithValidatorError(validator NSPredicateValidating) (bool, error)
+
+	// Encodes the receiver using a given archiver.
+	EncodeWithCoder(coder INSCoder)
+	InitWithCoder(coder INSCoder) NSPredicate
 }
 
 // Init initializes the instance.

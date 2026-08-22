@@ -127,7 +127,7 @@ func (cc CIFilterClass) Alloc() CIFilter {
 //   - [CIFilter.Attributes]: A dictionary of key-value pairs that describe the filter.
 //   - [CIFilter.InputKeys]: The names of all input parameters to the filter.
 //   - [CIFilter.OutputKeys]: The names of all output parameters from the filter.
-//   - [CIFilter.OutputImage]: Returns a [CIImage](<doc://com.apple.coreimage/documentation/CoreImage/CIImage>) object that encapsulates the operations configured in the filter.
+//   - [CIFilter.OutputImage]: Returns a [CIImage](<https://developer.apple.com/documentation/CoreImage/CIImage>) object that encapsulates the operations configured in the filter.
 //
 // # Setting default values
 //
@@ -135,7 +135,7 @@ func (cc CIFilterClass) Alloc() CIFilter {
 //
 // # Applying a filter
 //
-//   - [CIFilter.ApplyArgumentsOptions]: Produces a [CIImage](<doc://com.apple.coreimage/documentation/CoreImage/CIImage>) object by applying arguments to a kernel function and using options to control how the kernel function is evaluated.
+//   - [CIFilter.ApplyArgumentsOptions]: Produces a [CIImage](<https://developer.apple.com/documentation/CoreImage/CIImage>) object by applying arguments to a kernel function and using options to control how the kernel function is evaluated.
 //
 // # Creating a configuration view for a filter
 //
@@ -172,7 +172,7 @@ func CIFilterFromID(id objc.ID) CIFilter {
 //   - [ICIFilter.Attributes]: A dictionary of key-value pairs that describe the filter.
 //   - [ICIFilter.InputKeys]: The names of all input parameters to the filter.
 //   - [ICIFilter.OutputKeys]: The names of all output parameters from the filter.
-//   - [ICIFilter.OutputImage]: Returns a [CIImage](<doc://com.apple.coreimage/documentation/CoreImage/CIImage>) object that encapsulates the operations configured in the filter.
+//   - [ICIFilter.OutputImage]: Returns a [CIImage](<https://developer.apple.com/documentation/CoreImage/CIImage>) object that encapsulates the operations configured in the filter.
 //
 // # Setting default values
 //
@@ -180,7 +180,7 @@ func CIFilterFromID(id objc.ID) CIFilter {
 //
 // # Applying a filter
 //
-//   - [ICIFilter.ApplyArgumentsOptions]: Produces a [CIImage](<doc://com.apple.coreimage/documentation/CoreImage/CIImage>) object by applying arguments to a kernel function and using options to control how the kernel function is evaluated.
+//   - [ICIFilter.ApplyArgumentsOptions]: Produces a [CIImage](<https://developer.apple.com/documentation/CoreImage/CIImage>) object by applying arguments to a kernel function and using options to control how the kernel function is evaluated.
 //
 // # Creating a configuration view for a filter
 //
@@ -204,7 +204,7 @@ type ICIFilter interface {
 	InputKeys() []string
 	// The names of all output parameters from the filter.
 	OutputKeys() []string
-	// Returns a [CIImage](<doc://com.apple.coreimage/documentation/CoreImage/CIImage>) object that encapsulates the operations configured in the filter.
+	// Returns a [CIImage](<https://developer.apple.com/documentation/CoreImage/CIImage>) object that encapsulates the operations configured in the filter.
 	OutputImage() ICIImage
 
 	// Topic: Setting default values
@@ -214,7 +214,7 @@ type ICIFilter interface {
 
 	// Topic: Applying a filter
 
-	// Produces a [CIImage](<doc://com.apple.coreimage/documentation/CoreImage/CIImage>) object by applying arguments to a kernel function and using options to control how the kernel function is evaluated.
+	// Produces a [CIImage](<https://developer.apple.com/documentation/CoreImage/CIImage>) object by applying arguments to a kernel function and using options to control how the kernel function is evaluated.
 	ApplyArgumentsOptions(k ICIKernel, args foundation.INSArray, dict foundation.INSDictionary) ICIImage
 
 	// Topic: Creating a configuration view for a filter
@@ -222,7 +222,7 @@ type ICIFilter interface {
 	// Returns a filter view for the filter.
 	ViewForUIConfigurationExcludedKeys(inUIConfiguration foundation.INSDictionary, inKeys foundation.INSArray) objectivec.IObject
 
-	// Produces a [CIImage](<doc://com.apple.coreimage/documentation/CoreImage/CIImage>) object by applying a kernel function.
+	// Produces a [CIImage](<https://developer.apple.com/documentation/CoreImage/CIImage>) object by applying a kernel function.
 	Apply(k ICIKernel) ICIImage
 	InitWithCoder(coder foundation.INSCoder) CIFilter
 	EncodeWithCoder(coder foundation.INSCoder)
@@ -363,7 +363,7 @@ func (f CIFilter) ApplyArgumentsOptions(k ICIKernel, args foundation.INSArray, d
 // see [User Interface Options]. For allowed values for the
 // [kCIUIParameterSet] key, see [User Interface Control Options].
 //
-// inKeys: An array of the input keys for which you do want to provide a user
+// inKeys: An array of the input keys for which you do not want to provide a user
 // interface. Pass `nil` if you want all input keys to be represented in the
 // user interface.
 //
@@ -1171,7 +1171,7 @@ func (_CIFilterClass CIFilterClass) AztecCodeGeneratorFilter() CIFilter {
 // parameters supplied.
 //
 // The following code creates a filter that generates a QR code containing the
-// text
+// text Johnny Appleseed.
 //
 // [media-4327881]
 //
@@ -5856,9 +5856,10 @@ func (_CIFilterClass CIFilterClass) PageCurlWithShadowTransitionFilter() CIFilte
 // The palette centroid filter uses the following properties:
 //
 // `inputImage`: An image with the type [CIImage]. `paletteImage`: An image
-// that has the dimensions of x 1 where represents the amount of colors in the
-// image, with type [CIImage]. `perceptual`: A Boolean value that specifies if
-// the filter applies the color palette in a perceptual color space.
+// that has the dimensions of N x 1 where N represents the amount of colors in
+// the image, with type [CIImage]. `perceptual`: A Boolean value that
+// specifies if the filter applies the color palette in a perceptual color
+// space.
 //
 // The following code creates a filter that calculates the extent of the
 // palette color:
@@ -5878,15 +5879,15 @@ func (_CIFilterClass CIFilterClass) PaletteCentroidFilter() CIFilter {
 // # Discussion
 //
 // This method applies the palette filter to an image. The effect uses the
-// palette image that is x 1 pixels in size containing a set of colors,
+// palette image that is K x 1 pixels in size containing a set of colors,
 // replacing the image colors.
 //
 // The palettize filter uses the following properties:
 //
 // `inputImage`: An image with the type [CIImage]. `paletteImage`: An image
-// with the dimensions of x 1 where represents the colors to add to the image,
-// with type [CIImage]. `perceptual`: A Boolean value that specifies if the
-// filter applies the color palette in a perceptual color space.
+// with the dimensions of N x 1 where N represents the colors to add to the
+// image, with type [CIImage]. `perceptual`: A Boolean value that specifies if
+// the filter applies the color palette in a perceptual color space.
 //
 // The following code creates a filter that replaces the colors of the input
 // image with the specified colors found in the palette image:

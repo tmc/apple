@@ -55,7 +55,7 @@ func (nc NSIndexSpecifierClass) Alloc() NSIndexSpecifier {
 //
 // # Creating Index Specifiers
 //
-//   - [NSIndexSpecifier.InitWithContainerClassDescriptionContainerSpecifierKeyIndex]: Initializes an allocated [NSIndexSpecifier](<doc://com.apple.foundation/documentation/Foundation/NSIndexSpecifier>) object with a class description, container specifier, collection key, and object index.
+//   - [NSIndexSpecifier.InitWithContainerClassDescriptionContainerSpecifierKeyIndex]: Initializes an allocated [NSIndexSpecifier](<https://developer.apple.com/documentation/Foundation/NSIndexSpecifier>) object with a class description, container specifier, collection key, and object index.
 //
 // # Accessing the Index
 //
@@ -82,7 +82,7 @@ func NSIndexSpecifierFromID(id objc.ID) NSIndexSpecifier {
 //
 // # Creating Index Specifiers
 //
-//   - [INSIndexSpecifier.InitWithContainerClassDescriptionContainerSpecifierKeyIndex]: Initializes an allocated [NSIndexSpecifier](<doc://com.apple.foundation/documentation/Foundation/NSIndexSpecifier>) object with a class description, container specifier, collection key, and object index.
+//   - [INSIndexSpecifier.InitWithContainerClassDescriptionContainerSpecifierKeyIndex]: Initializes an allocated [NSIndexSpecifier](<https://developer.apple.com/documentation/Foundation/NSIndexSpecifier>) object with a class description, container specifier, collection key, and object index.
 //
 // # Accessing the Index
 //
@@ -95,7 +95,7 @@ type INSIndexSpecifier interface {
 
 	// Topic: Creating Index Specifiers
 
-	// Initializes an allocated [NSIndexSpecifier](<doc://com.apple.foundation/documentation/Foundation/NSIndexSpecifier>) object with a class description, container specifier, collection key, and object index.
+	// Initializes an allocated [NSIndexSpecifier](<https://developer.apple.com/documentation/Foundation/NSIndexSpecifier>) object with a class description, container specifier, collection key, and object index.
 	InitWithContainerClassDescriptionContainerSpecifierKeyIndex(classDesc INSScriptClassDescription, container INSScriptObjectSpecifier, property string, index int) NSIndexSpecifier
 
 	// Topic: Accessing the Index

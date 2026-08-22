@@ -7,7 +7,6 @@ import (
 
 	"github.com/tmc/apple/coremedia"
 	"github.com/tmc/apple/foundation"
-	"github.com/tmc/apple/kernel"
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -282,8 +281,116 @@ func (o AVCapturePhotoCaptureDelegateObject) CaptureOutputDidFinishProcessingLiv
 // [AVCaptureDeferredPhotoProxy]: https://developer.apple.com/documentation/AVFoundation/AVCaptureDeferredPhotoProxy
 // [CVPixelBuffer]: https://developer.apple.com/documentation/CoreVideo/cvpixelbuffer-q2e
 // [PHAssetCreationRequest]: https://developer.apple.com/documentation/Photos/PHAssetCreationRequest
-func (o AVCapturePhotoCaptureDelegateObject) CaptureOutputDidFinishCapturingDeferredPhotoProxyError(output IAVCapturePhotoOutput, deferredPhotoProxy kernel.ID, error_ foundation.NSError) {
+func (o AVCapturePhotoCaptureDelegateObject) CaptureOutputDidFinishCapturingDeferredPhotoProxyError(output IAVCapturePhotoOutput, deferredPhotoProxy objectivec.IObject, error_ foundation.NSError) {
 	objc.Send[struct{}](o.ID, objc.Sel("captureOutput:didFinishCapturingDeferredPhotoProxy:error:"), output, deferredPhotoProxy, error_)
+}
+
+// Provides the delegate a captured image in a processed format (such as
+// JPEG).
+//
+// output: The photo output performing the capture.
+//
+// photoSampleBuffer: A sample buffer containing the captured photo, either as uncompressed pixel
+// buffer or compressed image data (see the [AVCapturePhotoSettings.Format]
+// property of your photo settings object), along with timing information and
+// other metadata.
+//
+// If an error prevented successful capture, this parameter is `nil`—see the
+// `error` parameter for a description of the failure.
+//
+// previewPhotoSampleBuffer: If you requested a thumbnail-sized version of the photo (with the
+// [AVCapturePhotoSettings.PreviewPhotoFormat] property of your photo settings
+// object), a sample buffer containing the thumbnail photo in the requested
+// format. If you did not request preview delivery, or if an error prevented
+// capture, this parameter is `nil`.
+//
+// resolvedSettings: An object describing the settings used for this capture. Match this
+// object’s [AVCapturePhotoSettings.UniqueID] value to the
+// [AVCapturePhotoSettings.UniqueID] property of the photo settings object you
+// initiated capture with to determine which capture request this delegate
+// call corresponds to. You can also use this object to find out which values
+// the photo output has chosen for automatic settings.
+//
+// bracketSettings: If you requested a bracketed capture of multiple images with a
+// [AVCapturePhotoBracketSettings], a bracketed still image settings object
+// describing which image in the bracket this delegate call corresponds to. If
+// you did not request bracketed capture, this parameter is `nil`.
+//
+// error: If an the capture process could not proceed successfully, an error object
+// describing the failure; otherwise, `nil`.
+//
+// # Discussion
+//
+// Use this method to receive the results of photo capture in a processed
+// format such as JPEG. (If you request capture in both RAW and a processed
+// format, the photo output calls both this method and the
+// [CaptureOutputDidFinishProcessingRawPhotoSampleBufferPreviewPhotoSampleBufferResolvedSettingsBracketSettingsError]
+// method.)
+//
+// If you request capture in a processed format, the photo output calls this
+// method once for each exposure in the capture request. If you request a
+// single image capture, this method is called once. If you request a
+// bracketed capture with multiple exposures, this method is called once for
+// each exposure.
+//
+// See: https://developer.apple.com/documentation/AVFoundation/AVCapturePhotoCaptureDelegate/photoOutput(_:didFinishProcessingPhoto:previewPhoto:resolvedSettings:bracketSettings:error:)
+//
+// [AVCapturePhotoBracketSettings]: https://developer.apple.com/documentation/AVFoundation/AVCapturePhotoBracketSettings
+func (o AVCapturePhotoCaptureDelegateObject) CaptureOutputDidFinishProcessingPhotoSampleBufferPreviewPhotoSampleBufferResolvedSettingsBracketSettingsError(output IAVCapturePhotoOutput, photoSampleBuffer coremedia.CMSampleBufferRef, previewPhotoSampleBuffer coremedia.CMSampleBufferRef, resolvedSettings IAVCaptureResolvedPhotoSettings, bracketSettings objectivec.IObject, error_ foundation.NSError) {
+	objc.Send[struct{}](o.ID, objc.Sel("captureOutput:didFinishProcessingPhotoSampleBuffer:previewPhotoSampleBuffer:resolvedSettings:bracketSettings:error:"), output, photoSampleBuffer, previewPhotoSampleBuffer, resolvedSettings, bracketSettings, error_)
+}
+
+// Provides the delegate a captured image in RAW format.
+//
+// output: The photo output performing the capture.
+//
+// rawSampleBuffer: A sample buffer containing the captured RAW image. The format of this
+// buffer matches the format you requested for the RAW image (see the
+// [AVCapturePhotoSettings.RawPhotoPixelFormatType] property of your photo
+// settings).
+//
+// If an error prevented successful capture, this parameter is `nil`—see the
+// `error` parameter for a description of the failure.
+//
+// previewPhotoSampleBuffer: If you requested a thumbnail-sized version of the photo (with the
+// [AVCapturePhotoSettings.PreviewPhotoFormat] property of your photo settings
+// object), a sample buffer containing the thumbnail photo in the requested
+// format. If you did not request preview delivery, or if an error prevented
+// capture, this parameter is `nil`.
+//
+// resolvedSettings: An object describing the settings used for this capture. Match this
+// object’s [AVCapturePhotoSettings.UniqueID] value to the
+// [AVCapturePhotoSettings.UniqueID] property of the photo settings object you
+// initiated capture with to determine which capture request this delegate
+// call corresponds to. You can also use this object to find out which values
+// the photo output has chosen for automatic settings.
+//
+// bracketSettings: If you requested a bracketed capture of multiple images with a
+// [AVCapturePhotoBracketSettings], a bracketed still image settings object
+// describing which image in the bracket this delegate call corresponds to. If
+// you did not request bracketed capture, this parameter is `nil`.
+//
+// error: If an the capture process could not proceed successfully, an error object
+// describing the failure; otherwise, `nil`.
+//
+// # Discussion
+//
+// Use this method to receive the results of a RAW format capture. (If you
+// request capture in both RAW and a processed format, the photo output calls
+// both this method and the
+// [CaptureOutputDidFinishProcessingPhotoSampleBufferPreviewPhotoSampleBufferResolvedSettingsBracketSettingsError]
+// method.)
+//
+// If you request RAW format capture, the photo output calls this method once
+// for each exposure in the capture request. If you request a single image
+// capture, this method is called once. If you request a bracketed capture
+// with multiple exposures, this method is called once for each exposure.
+//
+// See: https://developer.apple.com/documentation/AVFoundation/AVCapturePhotoCaptureDelegate/photoOutput(_:didFinishProcessingRawPhoto:previewPhoto:resolvedSettings:bracketSettings:error:)
+//
+// [AVCapturePhotoBracketSettings]: https://developer.apple.com/documentation/AVFoundation/AVCapturePhotoBracketSettings
+func (o AVCapturePhotoCaptureDelegateObject) CaptureOutputDidFinishProcessingRawPhotoSampleBufferPreviewPhotoSampleBufferResolvedSettingsBracketSettingsError(output IAVCapturePhotoOutput, rawSampleBuffer coremedia.CMSampleBufferRef, previewPhotoSampleBuffer coremedia.CMSampleBufferRef, resolvedSettings IAVCaptureResolvedPhotoSettings, bracketSettings objectivec.IObject, error_ foundation.NSError) {
+	objc.Send[struct{}](o.ID, objc.Sel("captureOutput:didFinishProcessingRawPhotoSampleBuffer:previewPhotoSampleBuffer:resolvedSettings:bracketSettings:error:"), output, rawSampleBuffer, previewPhotoSampleBuffer, resolvedSettings, bracketSettings, error_)
 }
 
 // AVCapturePhotoCaptureDelegateConfig holds optional typed callbacks for [AVCapturePhotoCaptureDelegate] methods.
@@ -332,9 +439,21 @@ func NewAVCapturePhotoCaptureDelegate(config AVCapturePhotoCaptureDelegateConfig
 		methods = append(methods, objc.MethodDef{
 			Cmd: objc.RegisterName("captureOutput:willBeginCaptureForResolvedSettings:"),
 			Fn: func(self objc.ID, _cmd objc.SEL, outputID objc.ID, resolvedSettingsID objc.ID) {
+				// Names which delegate was running if a panic unwinds out of
+				// it. The frames between here and the Objective-C caller are
+				// runtime and purego dispatch, so without this the traceback
+				// never says which selector dispatched. Deliberately no
+				// recover: see [objc.NoteDelegatePanic].
+				_delegateDone := false
+				defer func() {
+					if !_delegateDone {
+						objc.NoteDelegatePanic("AVCapturePhotoCaptureDelegate", "captureOutput:willBeginCaptureForResolvedSettings:")
+					}
+				}()
 				output := AVCapturePhotoOutputFromID(outputID)
 				resolvedSettings := AVCaptureResolvedPhotoSettingsFromID(resolvedSettingsID)
 				fn(output, resolvedSettings)
+				_delegateDone = true
 			},
 		})
 	}
@@ -344,9 +463,21 @@ func NewAVCapturePhotoCaptureDelegate(config AVCapturePhotoCaptureDelegateConfig
 		methods = append(methods, objc.MethodDef{
 			Cmd: objc.RegisterName("captureOutput:willCapturePhotoForResolvedSettings:"),
 			Fn: func(self objc.ID, _cmd objc.SEL, outputID objc.ID, resolvedSettingsID objc.ID) {
+				// Names which delegate was running if a panic unwinds out of
+				// it. The frames between here and the Objective-C caller are
+				// runtime and purego dispatch, so without this the traceback
+				// never says which selector dispatched. Deliberately no
+				// recover: see [objc.NoteDelegatePanic].
+				_delegateDone := false
+				defer func() {
+					if !_delegateDone {
+						objc.NoteDelegatePanic("AVCapturePhotoCaptureDelegate", "captureOutput:willCapturePhotoForResolvedSettings:")
+					}
+				}()
 				output := AVCapturePhotoOutputFromID(outputID)
 				resolvedSettings := AVCaptureResolvedPhotoSettingsFromID(resolvedSettingsID)
 				fn(output, resolvedSettings)
+				_delegateDone = true
 			},
 		})
 	}
@@ -356,9 +487,21 @@ func NewAVCapturePhotoCaptureDelegate(config AVCapturePhotoCaptureDelegateConfig
 		methods = append(methods, objc.MethodDef{
 			Cmd: objc.RegisterName("captureOutput:didCapturePhotoForResolvedSettings:"),
 			Fn: func(self objc.ID, _cmd objc.SEL, outputID objc.ID, resolvedSettingsID objc.ID) {
+				// Names which delegate was running if a panic unwinds out of
+				// it. The frames between here and the Objective-C caller are
+				// runtime and purego dispatch, so without this the traceback
+				// never says which selector dispatched. Deliberately no
+				// recover: see [objc.NoteDelegatePanic].
+				_delegateDone := false
+				defer func() {
+					if !_delegateDone {
+						objc.NoteDelegatePanic("AVCapturePhotoCaptureDelegate", "captureOutput:didCapturePhotoForResolvedSettings:")
+					}
+				}()
 				output := AVCapturePhotoOutputFromID(outputID)
 				resolvedSettings := AVCaptureResolvedPhotoSettingsFromID(resolvedSettingsID)
 				fn(output, resolvedSettings)
+				_delegateDone = true
 			},
 		})
 	}
@@ -368,10 +511,22 @@ func NewAVCapturePhotoCaptureDelegate(config AVCapturePhotoCaptureDelegateConfig
 		methods = append(methods, objc.MethodDef{
 			Cmd: objc.RegisterName("captureOutput:didFinishCaptureForResolvedSettings:error:"),
 			Fn: func(self objc.ID, _cmd objc.SEL, outputID objc.ID, resolvedSettingsID objc.ID, error_ID objc.ID) {
+				// Names which delegate was running if a panic unwinds out of
+				// it. The frames between here and the Objective-C caller are
+				// runtime and purego dispatch, so without this the traceback
+				// never says which selector dispatched. Deliberately no
+				// recover: see [objc.NoteDelegatePanic].
+				_delegateDone := false
+				defer func() {
+					if !_delegateDone {
+						objc.NoteDelegatePanic("AVCapturePhotoCaptureDelegate", "captureOutput:didFinishCaptureForResolvedSettings:error:")
+					}
+				}()
 				output := AVCapturePhotoOutputFromID(outputID)
 				resolvedSettings := AVCaptureResolvedPhotoSettingsFromID(resolvedSettingsID)
 				error_ := foundation.NSErrorFromID(error_ID)
 				fn(output, resolvedSettings, error_)
+				_delegateDone = true
 			},
 		})
 	}
@@ -381,10 +536,22 @@ func NewAVCapturePhotoCaptureDelegate(config AVCapturePhotoCaptureDelegateConfig
 		methods = append(methods, objc.MethodDef{
 			Cmd: objc.RegisterName("captureOutput:didFinishProcessingPhoto:error:"),
 			Fn: func(self objc.ID, _cmd objc.SEL, outputID objc.ID, photoID objc.ID, error_ID objc.ID) {
+				// Names which delegate was running if a panic unwinds out of
+				// it. The frames between here and the Objective-C caller are
+				// runtime and purego dispatch, so without this the traceback
+				// never says which selector dispatched. Deliberately no
+				// recover: see [objc.NoteDelegatePanic].
+				_delegateDone := false
+				defer func() {
+					if !_delegateDone {
+						objc.NoteDelegatePanic("AVCapturePhotoCaptureDelegate", "captureOutput:didFinishProcessingPhoto:error:")
+					}
+				}()
 				output := AVCapturePhotoOutputFromID(outputID)
 				photo := AVCapturePhotoFromID(photoID)
 				error_ := foundation.NSErrorFromID(error_ID)
 				fn(output, photo, error_)
+				_delegateDone = true
 			},
 		})
 	}

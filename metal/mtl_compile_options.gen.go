@@ -215,6 +215,9 @@ type IMTLCompileOptions interface {
 	SetMaxTotalThreadsPerThreadgroup(value uint)
 	RequiredThreadsPerThreadgroup() MTLSize
 	SetRequiredThreadsPerThreadgroup(value MTLSize)
+
+	FloatingPointConversionRoundingMode() MTLFloatingPointConversionRoundingMode
+	SetFloatingPointConversionRoundingMode(value MTLFloatingPointConversionRoundingMode)
 }
 
 // Init initializes the instance.
@@ -462,4 +465,18 @@ func (c MTLCompileOptions) RequiredThreadsPerThreadgroup() MTLSize {
 }
 func (c MTLCompileOptions) SetRequiredThreadsPerThreadgroup(value MTLSize) {
 	objc.Send[struct{}](c.ID, objc.Sel("setRequiredThreadsPerThreadgroup:"), value)
+}
+
+// # Discussion
+//
+// Sets the rounding mode for narrowing floating-point conversions. Default is
+// MTLFloatingPointConversionRoundingModeToNearestEven.
+//
+// See: https://developer.apple.com/documentation/Metal/MTLCompileOptions/floatingPointConversionRoundingMode
+func (c MTLCompileOptions) FloatingPointConversionRoundingMode() MTLFloatingPointConversionRoundingMode {
+	rv := objc.Send[MTLFloatingPointConversionRoundingMode](c.ID, objc.Sel("floatingPointConversionRoundingMode"))
+	return MTLFloatingPointConversionRoundingMode(rv)
+}
+func (c MTLCompileOptions) SetFloatingPointConversionRoundingMode(value MTLFloatingPointConversionRoundingMode) {
+	objc.Send[struct{}](c.ID, objc.Sel("setFloatingPointConversionRoundingMode:"), value)
 }

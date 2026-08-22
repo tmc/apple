@@ -4,8 +4,8 @@ package avfaudio
 
 import (
 	"sync"
-	"unsafe"
 
+	"github.com/tmc/apple/audiotoolbox"
 	"github.com/tmc/apple/objc"
 )
 
@@ -94,13 +94,36 @@ type IAVAudioUnitGenerator interface {
 	// Topic: Creating an audio unit generator
 
 	// Creates a generator audio unit with the specified description.
-	InitWithAudioComponentDescription(audioComponentDescription unsafe.Pointer) AVAudioUnitGenerator
+	InitWithAudioComponentDescription(audioComponentDescription audiotoolbox.AudioComponentDescription) AVAudioUnitGenerator
 
 	// Topic: Getting and setting the bypass status
 
 	// The bypass state of the audio unit.
 	Bypass() bool
 	SetBypass(value bool)
+
+	// Gets the audio mixing destination object that corresponds to the specified mixer node and input bus.
+	DestinationForMixerBus(mixer IAVAudioNode, bus AVAudioNodeBus) IAVAudioMixingDestination
+	// A value that simulates filtering of the direct path of sound due to an obstacle.
+	Obstruction() float32
+	// A value that simulates filtering of the direct and reverb paths of sound due to an obstacle.
+	Occlusion() float32
+	// The bus’s stereo pan.
+	Pan() float32
+	// The in-head mode for a point source.
+	PointSourceInHeadMode() AVAudio3DMixingPointSourceInHeadMode
+	// The location of the source in the 3D environment.
+	Position() AVAudio3DPoint
+	// A value that changes the playback rate of the input signal.
+	Rate() float32
+	// The type of rendering algorithm the mixer uses.
+	RenderingAlgorithm() AVAudio3DMixingRenderingAlgorithm
+	// A value that controls the blend of dry and reverb processed audio.
+	ReverbBlend() float32
+	// The source mode for the input bus of the audio environment node.
+	SourceMode() AVAudio3DMixingSourceMode
+	// The bus’s input volume.
+	Volume() float32
 }
 
 // Init initializes the instance.
@@ -139,7 +162,7 @@ func NewAVAudioUnitGenerator() AVAudioUnitGenerator {
 //
 // [AudioComponentDescription]: https://developer.apple.com/documentation/AudioToolbox/AudioComponentDescription
 // [kAudioUnitType_RemoteGenerator]: https://developer.apple.com/documentation/AudioToolbox/kAudioUnitType_RemoteGenerator
-func NewAudioUnitGeneratorWithAudioComponentDescription(audioComponentDescription unsafe.Pointer) AVAudioUnitGenerator {
+func NewAudioUnitGeneratorWithAudioComponentDescription(audioComponentDescription audiotoolbox.AudioComponentDescription) AVAudioUnitGenerator {
 	instance := getAVAudioUnitGeneratorClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithAudioComponentDescription:"), audioComponentDescription)
 	return AVAudioUnitGeneratorFromID(rv)
@@ -148,8 +171,6 @@ func NewAudioUnitGeneratorWithAudioComponentDescription(audioComponentDescriptio
 // Creates a generator audio unit with the specified description.
 //
 // audioComponentDescription: The audio component description.
-//
-// audioComponentDescription is a [audiotoolbox.AudioComponentDescription].
 //
 // # Return Value
 //
@@ -164,7 +185,7 @@ func NewAudioUnitGeneratorWithAudioComponentDescription(audioComponentDescriptio
 //
 // [AudioComponentDescription]: https://developer.apple.com/documentation/AudioToolbox/AudioComponentDescription
 // [kAudioUnitType_RemoteGenerator]: https://developer.apple.com/documentation/AudioToolbox/kAudioUnitType_RemoteGenerator
-func (a AVAudioUnitGenerator) InitWithAudioComponentDescription(audioComponentDescription unsafe.Pointer) AVAudioUnitGenerator {
+func (a AVAudioUnitGenerator) InitWithAudioComponentDescription(audioComponentDescription audiotoolbox.AudioComponentDescription) AVAudioUnitGenerator {
 	rv := objc.Send[AVAudioUnitGenerator](a.ID, objc.Sel("initWithAudioComponentDescription:"), audioComponentDescription)
 	return rv
 }

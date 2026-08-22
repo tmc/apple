@@ -59,8 +59,8 @@ func (fc FSResourceClass) Alloc() FSResource {
 // block storage devices come into being when the system probes the media
 // underlying the volumes and container. Other kinds of resources, like those
 // based on URLs, might have different life cycles. For example, a resource
-// based on a `//` URL might initialize when a person uses the “Connect to
-// server” command in the macOS Finder.
+// based on a `file://` URL might initialize when a person uses the “Connect
+// to server” command in the macOS Finder.
 //
 // # Proxying resources
 //

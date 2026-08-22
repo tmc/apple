@@ -4,8 +4,8 @@ package avfaudio
 
 import (
 	"sync"
-	"unsafe"
 
+	"github.com/tmc/apple/audiotoolbox"
 	"github.com/tmc/apple/objc"
 )
 
@@ -135,7 +135,7 @@ func NewAVAudioUnitReverb() AVAudioUnitReverb {
 // A new [AVAudioUnitEffect] instance.
 //
 // See: https://developer.apple.com/documentation/AVFAudio/AVAudioUnitEffect/init(audioComponentDescription:)
-func NewAudioUnitReverbWithAudioComponentDescription(audioComponentDescription unsafe.Pointer) AVAudioUnitReverb {
+func NewAudioUnitReverbWithAudioComponentDescription(audioComponentDescription audiotoolbox.AudioComponentDescription) AVAudioUnitReverb {
 	instance := getAVAudioUnitReverbClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithAudioComponentDescription:"), audioComponentDescription)
 	return AVAudioUnitReverbFromID(rv)

@@ -188,6 +188,9 @@ func NewAssetReaderWithAssetError(asset IAVAsset) (AVAssetReader, error) {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
 		return AVAssetReader{}, foundation.NSErrorFrom(errorPtr)
 	}
+	if rv == 0 {
+		return AVAssetReader{}, objc.ErrInitFailed
+	}
 	return AVAssetReaderFromID(rv), nil
 }
 

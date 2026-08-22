@@ -18,7 +18,7 @@ var _ = fmt.Sprintf
 type AVCaptureFileOutputDelegate interface {
 	objectivec.IObject
 
-	// Allows a client to opt in to frame accurate recording in [fileOutput(_:didOutputSampleBuffer:from:)](<doc://com.apple.avfoundation/documentation/AVFoundation/AVCaptureFileOutputDelegate/fileOutput(_:didOutputSampleBuffer:from:)>).
+	// Allows a client to opt in to frame accurate recording in [fileOutput(_:didOutputSampleBuffer:from:)](<https://developer.apple.com/documentation/AVFoundation/AVCaptureFileOutputDelegate/fileOutput(_:didOutputSampleBuffer:from:)>).
 	//
 	// See: https://developer.apple.com/documentation/AVFoundation/AVCaptureFileOutputDelegate/fileOutputShouldProvideSampleAccurateRecordingStart(_:)
 	CaptureOutputShouldProvideSampleAccurateRecordingStart(output IAVCaptureOutput) bool
@@ -143,7 +143,7 @@ func (o AVCaptureFileOutputDelegateObject) CaptureOutputDidOutputSampleBufferFro
 type AVCaptureFileOutputDelegateConfig struct {
 
 	// Other Methods
-	// CaptureOutputShouldProvideSampleAccurateRecordingStart — Allows a client to opt in to frame accurate recording in [fileOutput(_:didOutputSampleBuffer:from:)](<doc://com.apple.avfoundation/documentation/AVFoundation/AVCaptureFileOutputDelegate/fileOutput(_:didOutputSampleBuffer:from:)>).
+	// CaptureOutputShouldProvideSampleAccurateRecordingStart — Allows a client to opt in to frame accurate recording in [fileOutput(_:didOutputSampleBuffer:from:)](<https://developer.apple.com/documentation/AVFoundation/AVCaptureFileOutputDelegate/fileOutput(_:didOutputSampleBuffer:from:)>).
 	CaptureOutputShouldProvideSampleAccurateRecordingStart func(output AVCaptureOutput) bool
 	// CaptureOutputDidOutputSampleBufferFromConnection — Gives the delegate the opportunity to inspect samples as they are received by the output and start and stop recording at exact times.
 	CaptureOutputDidOutputSampleBufferFromConnection func(output AVCaptureFileOutput, sampleBuffer coremedia.CMSampleBufferRef, connection AVCaptureConnection)
@@ -172,8 +172,21 @@ func NewAVCaptureFileOutputDelegate(config AVCaptureFileOutputDelegateConfig) AV
 		methods = append(methods, objc.MethodDef{
 			Cmd: objc.RegisterName("captureOutputShouldProvideSampleAccurateRecordingStart:"),
 			Fn: func(self objc.ID, _cmd objc.SEL, outputID objc.ID) bool {
+				// Names which delegate was running if a panic unwinds out of
+				// it. The frames between here and the Objective-C caller are
+				// runtime and purego dispatch, so without this the traceback
+				// never says which selector dispatched. Deliberately no
+				// recover: see [objc.NoteDelegatePanic].
+				_delegateDone := false
+				defer func() {
+					if !_delegateDone {
+						objc.NoteDelegatePanic("AVCaptureFileOutputDelegate", "captureOutputShouldProvideSampleAccurateRecordingStart:")
+					}
+				}()
 				output := AVCaptureOutputFromID(outputID)
-				return fn(output)
+				_delegateResult := fn(output)
+				_delegateDone = true
+				return _delegateResult
 			},
 		})
 	}
@@ -183,9 +196,21 @@ func NewAVCaptureFileOutputDelegate(config AVCaptureFileOutputDelegateConfig) AV
 		methods = append(methods, objc.MethodDef{
 			Cmd: objc.RegisterName("captureOutput:didOutputSampleBuffer:fromConnection:"),
 			Fn: func(self objc.ID, _cmd objc.SEL, outputID objc.ID, sampleBuffer coremedia.CMSampleBufferRef, connectionID objc.ID) {
+				// Names which delegate was running if a panic unwinds out of
+				// it. The frames between here and the Objective-C caller are
+				// runtime and purego dispatch, so without this the traceback
+				// never says which selector dispatched. Deliberately no
+				// recover: see [objc.NoteDelegatePanic].
+				_delegateDone := false
+				defer func() {
+					if !_delegateDone {
+						objc.NoteDelegatePanic("AVCaptureFileOutputDelegate", "captureOutput:didOutputSampleBuffer:fromConnection:")
+					}
+				}()
 				output := AVCaptureFileOutputFromID(outputID)
 				connection := AVCaptureConnectionFromID(connectionID)
 				fn(output, sampleBuffer, connection)
+				_delegateDone = true
 			},
 		})
 	}

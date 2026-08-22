@@ -7,6 +7,7 @@ import (
 	"sync"
 	"unsafe"
 
+	"github.com/tmc/apple/audiotoolbox"
 	"github.com/tmc/apple/foundation"
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
@@ -167,7 +168,7 @@ func NewAVAudioUnitSampler() AVAudioUnitSampler {
 // `kAudioUnitType_RemoteInstrument`.
 //
 // See: https://developer.apple.com/documentation/AVFAudio/AVAudioUnitMIDIInstrument/init(audioComponentDescription:)
-func NewAudioUnitSamplerWithAudioComponentDescription(description unsafe.Pointer) AVAudioUnitSampler {
+func NewAudioUnitSamplerWithAudioComponentDescription(description audiotoolbox.AudioComponentDescription) AVAudioUnitSampler {
 	instance := getAVAudioUnitSamplerClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithAudioComponentDescription:"), description)
 	return AVAudioUnitSamplerFromID(rv)

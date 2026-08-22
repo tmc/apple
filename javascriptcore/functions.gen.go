@@ -162,10 +162,10 @@ func JSBigIntCreateWithUInt64(ctx JSContextRef, integer uint64, exception *JSVal
 	return result
 }
 
-var _jSCheckScriptSyntax func(ctx JSContextRef, script JSStringRef, sourceURL JSStringRef, startingLineNumber int, exception *JSValueRef) bool
+var _jSCheckScriptSyntax func(ctx JSContextRef, script JSStringRef, sourceURL JSStringRef, startingLineNumber int32, exception *JSValueRef) bool
 var _jSCheckScriptSyntaxErr error
 
-func tryJSCheckScriptSyntax(ctx JSContextRef, script JSStringRef, sourceURL JSStringRef, startingLineNumber int, exception *JSValueRef) (bool, error) {
+func tryJSCheckScriptSyntax(ctx JSContextRef, script JSStringRef, sourceURL JSStringRef, startingLineNumber int32, exception *JSValueRef) (bool, error) {
 	if _jSCheckScriptSyntax == nil {
 		return false, symbolCallError("JSCheckScriptSyntax", "10.5", _jSCheckScriptSyntaxErr)
 	}
@@ -175,7 +175,7 @@ func tryJSCheckScriptSyntax(ctx JSContextRef, script JSStringRef, sourceURL JSSt
 // JSCheckScriptSyntax checks for syntax errors in a string of JavaScript.
 //
 // See: https://developer.apple.com/documentation/JavaScriptCore/JSCheckScriptSyntax(_:_:_:_:_:)
-func JSCheckScriptSyntax(ctx JSContextRef, script JSStringRef, sourceURL JSStringRef, startingLineNumber int, exception *JSValueRef) bool {
+func JSCheckScriptSyntax(ctx JSContextRef, script JSStringRef, sourceURL JSStringRef, startingLineNumber int32, exception *JSValueRef) bool {
 	result, callErr := tryJSCheckScriptSyntax(ctx, script, sourceURL, startingLineNumber, exception)
 	if callErr != nil {
 		panic(callErr)
@@ -370,10 +370,10 @@ func JSContextGroupRetain(group JSContextGroupRef) JSContextGroupRef {
 	return result
 }
 
-var _jSEvaluateScript func(ctx JSContextRef, script JSStringRef, thisObject JSObjectRef, sourceURL JSStringRef, startingLineNumber int, exception *JSValueRef) JSValueRef
+var _jSEvaluateScript func(ctx JSContextRef, script JSStringRef, thisObject JSObjectRef, sourceURL JSStringRef, startingLineNumber int32, exception *JSValueRef) JSValueRef
 var _jSEvaluateScriptErr error
 
-func tryJSEvaluateScript(ctx JSContextRef, script JSStringRef, thisObject JSObjectRef, sourceURL JSStringRef, startingLineNumber int, exception *JSValueRef) (JSValueRef, error) {
+func tryJSEvaluateScript(ctx JSContextRef, script JSStringRef, thisObject JSObjectRef, sourceURL JSStringRef, startingLineNumber int32, exception *JSValueRef) (JSValueRef, error) {
 	if _jSEvaluateScript == nil {
 		return *new(JSValueRef), symbolCallError("JSEvaluateScript", "10.5", _jSEvaluateScriptErr)
 	}
@@ -383,7 +383,7 @@ func tryJSEvaluateScript(ctx JSContextRef, script JSStringRef, thisObject JSObje
 // JSEvaluateScript evaluates a string of JavaScript.
 //
 // See: https://developer.apple.com/documentation/JavaScriptCore/JSEvaluateScript(_:_:_:_:_:_:)
-func JSEvaluateScript(ctx JSContextRef, script JSStringRef, thisObject JSObjectRef, sourceURL JSStringRef, startingLineNumber int, exception *JSValueRef) JSValueRef {
+func JSEvaluateScript(ctx JSContextRef, script JSStringRef, thisObject JSObjectRef, sourceURL JSStringRef, startingLineNumber int32, exception *JSValueRef) JSValueRef {
 	result, callErr := tryJSEvaluateScript(ctx, script, thisObject, sourceURL, startingLineNumber, exception)
 	if callErr != nil {
 		panic(callErr)
@@ -576,10 +576,10 @@ func JSGlobalContextSetName(ctx JSGlobalContextRef, name JSStringRef) {
 	}
 }
 
-var _jSObjectCallAsConstructor func(ctx JSContextRef, object JSObjectRef, argumentCount uintptr, arguments JSValueRef, exception *JSValueRef) JSObjectRef
+var _jSObjectCallAsConstructor func(ctx JSContextRef, object JSObjectRef, argumentCount uintptr, arguments *JSValueRef, exception *JSValueRef) JSObjectRef
 var _jSObjectCallAsConstructorErr error
 
-func tryJSObjectCallAsConstructor(ctx JSContextRef, object JSObjectRef, argumentCount uintptr, arguments JSValueRef, exception *JSValueRef) (JSObjectRef, error) {
+func tryJSObjectCallAsConstructor(ctx JSContextRef, object JSObjectRef, argumentCount uintptr, arguments *JSValueRef, exception *JSValueRef) (JSObjectRef, error) {
 	if _jSObjectCallAsConstructor == nil {
 		return *new(JSObjectRef), symbolCallError("JSObjectCallAsConstructor", "10.5", _jSObjectCallAsConstructorErr)
 	}
@@ -589,7 +589,7 @@ func tryJSObjectCallAsConstructor(ctx JSContextRef, object JSObjectRef, argument
 // JSObjectCallAsConstructor calls an object as a constructor.
 //
 // See: https://developer.apple.com/documentation/JavaScriptCore/JSObjectCallAsConstructor(_:_:_:_:_:)
-func JSObjectCallAsConstructor(ctx JSContextRef, object JSObjectRef, argumentCount uintptr, arguments JSValueRef, exception *JSValueRef) JSObjectRef {
+func JSObjectCallAsConstructor(ctx JSContextRef, object JSObjectRef, argumentCount uintptr, arguments *JSValueRef, exception *JSValueRef) JSObjectRef {
 	result, callErr := tryJSObjectCallAsConstructor(ctx, object, argumentCount, arguments, exception)
 	if callErr != nil {
 		panic(callErr)
@@ -597,10 +597,10 @@ func JSObjectCallAsConstructor(ctx JSContextRef, object JSObjectRef, argumentCou
 	return result
 }
 
-var _jSObjectCallAsFunction func(ctx JSContextRef, object JSObjectRef, thisObject JSObjectRef, argumentCount uintptr, arguments JSValueRef, exception *JSValueRef) JSValueRef
+var _jSObjectCallAsFunction func(ctx JSContextRef, object JSObjectRef, thisObject JSObjectRef, argumentCount uintptr, arguments *JSValueRef, exception *JSValueRef) JSValueRef
 var _jSObjectCallAsFunctionErr error
 
-func tryJSObjectCallAsFunction(ctx JSContextRef, object JSObjectRef, thisObject JSObjectRef, argumentCount uintptr, arguments JSValueRef, exception *JSValueRef) (JSValueRef, error) {
+func tryJSObjectCallAsFunction(ctx JSContextRef, object JSObjectRef, thisObject JSObjectRef, argumentCount uintptr, arguments *JSValueRef, exception *JSValueRef) (JSValueRef, error) {
 	if _jSObjectCallAsFunction == nil {
 		return *new(JSValueRef), symbolCallError("JSObjectCallAsFunction", "10.5", _jSObjectCallAsFunctionErr)
 	}
@@ -610,7 +610,7 @@ func tryJSObjectCallAsFunction(ctx JSContextRef, object JSObjectRef, thisObject 
 // JSObjectCallAsFunction calls an object as a function.
 //
 // See: https://developer.apple.com/documentation/JavaScriptCore/JSObjectCallAsFunction(_:_:_:_:_:_:)
-func JSObjectCallAsFunction(ctx JSContextRef, object JSObjectRef, thisObject JSObjectRef, argumentCount uintptr, arguments JSValueRef, exception *JSValueRef) JSValueRef {
+func JSObjectCallAsFunction(ctx JSContextRef, object JSObjectRef, thisObject JSObjectRef, argumentCount uintptr, arguments *JSValueRef, exception *JSValueRef) JSValueRef {
 	result, callErr := tryJSObjectCallAsFunction(ctx, object, thisObject, argumentCount, arguments, exception)
 	if callErr != nil {
 		panic(callErr)
@@ -765,10 +765,10 @@ func JSObjectGetProperty(ctx JSContextRef, object JSObjectRef, propertyName JSSt
 	return result
 }
 
-var _jSObjectGetPropertyAtIndex func(ctx JSContextRef, object JSObjectRef, propertyIndex uint, exception *JSValueRef) JSValueRef
+var _jSObjectGetPropertyAtIndex func(ctx JSContextRef, object JSObjectRef, propertyIndex uint32, exception *JSValueRef) JSValueRef
 var _jSObjectGetPropertyAtIndexErr error
 
-func tryJSObjectGetPropertyAtIndex(ctx JSContextRef, object JSObjectRef, propertyIndex uint, exception *JSValueRef) (JSValueRef, error) {
+func tryJSObjectGetPropertyAtIndex(ctx JSContextRef, object JSObjectRef, propertyIndex uint32, exception *JSValueRef) (JSValueRef, error) {
 	if _jSObjectGetPropertyAtIndex == nil {
 		return *new(JSValueRef), symbolCallError("JSObjectGetPropertyAtIndex", "10.5", _jSObjectGetPropertyAtIndexErr)
 	}
@@ -778,7 +778,7 @@ func tryJSObjectGetPropertyAtIndex(ctx JSContextRef, object JSObjectRef, propert
 // JSObjectGetPropertyAtIndex gets a property from an object by numeric index.
 //
 // See: https://developer.apple.com/documentation/JavaScriptCore/JSObjectGetPropertyAtIndex(_:_:_:_:)
-func JSObjectGetPropertyAtIndex(ctx JSContextRef, object JSObjectRef, propertyIndex uint, exception *JSValueRef) JSValueRef {
+func JSObjectGetPropertyAtIndex(ctx JSContextRef, object JSObjectRef, propertyIndex uint32, exception *JSValueRef) JSValueRef {
 	result, callErr := tryJSObjectGetPropertyAtIndex(ctx, object, propertyIndex, exception)
 	if callErr != nil {
 		panic(callErr)
@@ -1038,10 +1038,10 @@ func JSObjectMake(ctx JSContextRef, jsClass JSClassRef, data unsafe.Pointer) JSO
 	return result
 }
 
-var _jSObjectMakeArray func(ctx JSContextRef, argumentCount uintptr, arguments JSValueRef, exception *JSValueRef) JSObjectRef
+var _jSObjectMakeArray func(ctx JSContextRef, argumentCount uintptr, arguments *JSValueRef, exception *JSValueRef) JSObjectRef
 var _jSObjectMakeArrayErr error
 
-func tryJSObjectMakeArray(ctx JSContextRef, argumentCount uintptr, arguments JSValueRef, exception *JSValueRef) (JSObjectRef, error) {
+func tryJSObjectMakeArray(ctx JSContextRef, argumentCount uintptr, arguments *JSValueRef, exception *JSValueRef) (JSObjectRef, error) {
 	if _jSObjectMakeArray == nil {
 		return *new(JSObjectRef), symbolCallError("JSObjectMakeArray", "10.6", _jSObjectMakeArrayErr)
 	}
@@ -1051,7 +1051,7 @@ func tryJSObjectMakeArray(ctx JSContextRef, argumentCount uintptr, arguments JSV
 // JSObjectMakeArray creates a JavaScript array object.
 //
 // See: https://developer.apple.com/documentation/JavaScriptCore/JSObjectMakeArray(_:_:_:_:)
-func JSObjectMakeArray(ctx JSContextRef, argumentCount uintptr, arguments JSValueRef, exception *JSValueRef) JSObjectRef {
+func JSObjectMakeArray(ctx JSContextRef, argumentCount uintptr, arguments *JSValueRef, exception *JSValueRef) JSObjectRef {
 	result, callErr := tryJSObjectMakeArray(ctx, argumentCount, arguments, exception)
 	if callErr != nil {
 		panic(callErr)
@@ -1101,10 +1101,10 @@ func JSObjectMakeConstructor(ctx JSContextRef, jsClass JSClassRef, callAsConstru
 	return result
 }
 
-var _jSObjectMakeDate func(ctx JSContextRef, argumentCount uintptr, arguments JSValueRef, exception *JSValueRef) JSObjectRef
+var _jSObjectMakeDate func(ctx JSContextRef, argumentCount uintptr, arguments *JSValueRef, exception *JSValueRef) JSObjectRef
 var _jSObjectMakeDateErr error
 
-func tryJSObjectMakeDate(ctx JSContextRef, argumentCount uintptr, arguments JSValueRef, exception *JSValueRef) (JSObjectRef, error) {
+func tryJSObjectMakeDate(ctx JSContextRef, argumentCount uintptr, arguments *JSValueRef, exception *JSValueRef) (JSObjectRef, error) {
 	if _jSObjectMakeDate == nil {
 		return *new(JSObjectRef), symbolCallError("JSObjectMakeDate", "10.6", _jSObjectMakeDateErr)
 	}
@@ -1114,7 +1114,7 @@ func tryJSObjectMakeDate(ctx JSContextRef, argumentCount uintptr, arguments JSVa
 // JSObjectMakeDate creates a JavaScript date object as though invoking the built-in date constructor.
 //
 // See: https://developer.apple.com/documentation/JavaScriptCore/JSObjectMakeDate(_:_:_:_:)
-func JSObjectMakeDate(ctx JSContextRef, argumentCount uintptr, arguments JSValueRef, exception *JSValueRef) JSObjectRef {
+func JSObjectMakeDate(ctx JSContextRef, argumentCount uintptr, arguments *JSValueRef, exception *JSValueRef) JSObjectRef {
 	result, callErr := tryJSObjectMakeDate(ctx, argumentCount, arguments, exception)
 	if callErr != nil {
 		panic(callErr)
@@ -1143,10 +1143,10 @@ func JSObjectMakeDeferredPromise(ctx JSContextRef, resolve *JSObjectRef, reject 
 	return result
 }
 
-var _jSObjectMakeError func(ctx JSContextRef, argumentCount uintptr, arguments JSValueRef, exception *JSValueRef) JSObjectRef
+var _jSObjectMakeError func(ctx JSContextRef, argumentCount uintptr, arguments *JSValueRef, exception *JSValueRef) JSObjectRef
 var _jSObjectMakeErrorErr error
 
-func tryJSObjectMakeError(ctx JSContextRef, argumentCount uintptr, arguments JSValueRef, exception *JSValueRef) (JSObjectRef, error) {
+func tryJSObjectMakeError(ctx JSContextRef, argumentCount uintptr, arguments *JSValueRef, exception *JSValueRef) (JSObjectRef, error) {
 	if _jSObjectMakeError == nil {
 		return *new(JSObjectRef), symbolCallError("JSObjectMakeError", "10.6", _jSObjectMakeErrorErr)
 	}
@@ -1156,7 +1156,7 @@ func tryJSObjectMakeError(ctx JSContextRef, argumentCount uintptr, arguments JSV
 // JSObjectMakeError creates a JavaScript error object as though invoking the built-in error constructor.
 //
 // See: https://developer.apple.com/documentation/JavaScriptCore/JSObjectMakeError(_:_:_:_:)
-func JSObjectMakeError(ctx JSContextRef, argumentCount uintptr, arguments JSValueRef, exception *JSValueRef) JSObjectRef {
+func JSObjectMakeError(ctx JSContextRef, argumentCount uintptr, arguments *JSValueRef, exception *JSValueRef) JSObjectRef {
 	result, callErr := tryJSObjectMakeError(ctx, argumentCount, arguments, exception)
 	if callErr != nil {
 		panic(callErr)
@@ -1164,10 +1164,10 @@ func JSObjectMakeError(ctx JSContextRef, argumentCount uintptr, arguments JSValu
 	return result
 }
 
-var _jSObjectMakeFunction func(ctx JSContextRef, name JSStringRef, parameterCount uint, parameterNames JSStringRef, body JSStringRef, sourceURL JSStringRef, startingLineNumber int, exception *JSValueRef) JSObjectRef
+var _jSObjectMakeFunction func(ctx JSContextRef, name JSStringRef, parameterCount uint32, parameterNames *JSStringRef, body JSStringRef, sourceURL JSStringRef, startingLineNumber int32, exception *JSValueRef) JSObjectRef
 var _jSObjectMakeFunctionErr error
 
-func tryJSObjectMakeFunction(ctx JSContextRef, name JSStringRef, parameterCount uint, parameterNames JSStringRef, body JSStringRef, sourceURL JSStringRef, startingLineNumber int, exception *JSValueRef) (JSObjectRef, error) {
+func tryJSObjectMakeFunction(ctx JSContextRef, name JSStringRef, parameterCount uint32, parameterNames *JSStringRef, body JSStringRef, sourceURL JSStringRef, startingLineNumber int32, exception *JSValueRef) (JSObjectRef, error) {
 	if _jSObjectMakeFunction == nil {
 		return *new(JSObjectRef), symbolCallError("JSObjectMakeFunction", "10.5", _jSObjectMakeFunctionErr)
 	}
@@ -1177,7 +1177,7 @@ func tryJSObjectMakeFunction(ctx JSContextRef, name JSStringRef, parameterCount 
 // JSObjectMakeFunction creates a function with a specified script as its body.
 //
 // See: https://developer.apple.com/documentation/JavaScriptCore/JSObjectMakeFunction(_:_:_:_:_:_:_:_:)
-func JSObjectMakeFunction(ctx JSContextRef, name JSStringRef, parameterCount uint, parameterNames JSStringRef, body JSStringRef, sourceURL JSStringRef, startingLineNumber int, exception *JSValueRef) JSObjectRef {
+func JSObjectMakeFunction(ctx JSContextRef, name JSStringRef, parameterCount uint32, parameterNames *JSStringRef, body JSStringRef, sourceURL JSStringRef, startingLineNumber int32, exception *JSValueRef) JSObjectRef {
 	result, callErr := tryJSObjectMakeFunction(ctx, name, parameterCount, parameterNames, body, sourceURL, startingLineNumber, exception)
 	if callErr != nil {
 		panic(callErr)
@@ -1206,10 +1206,10 @@ func JSObjectMakeFunctionWithCallback(ctx JSContextRef, name JSStringRef, callAs
 	return result
 }
 
-var _jSObjectMakeRegExp func(ctx JSContextRef, argumentCount uintptr, arguments JSValueRef, exception *JSValueRef) JSObjectRef
+var _jSObjectMakeRegExp func(ctx JSContextRef, argumentCount uintptr, arguments *JSValueRef, exception *JSValueRef) JSObjectRef
 var _jSObjectMakeRegExpErr error
 
-func tryJSObjectMakeRegExp(ctx JSContextRef, argumentCount uintptr, arguments JSValueRef, exception *JSValueRef) (JSObjectRef, error) {
+func tryJSObjectMakeRegExp(ctx JSContextRef, argumentCount uintptr, arguments *JSValueRef, exception *JSValueRef) (JSObjectRef, error) {
 	if _jSObjectMakeRegExp == nil {
 		return *new(JSObjectRef), symbolCallError("JSObjectMakeRegExp", "10.6", _jSObjectMakeRegExpErr)
 	}
@@ -1219,7 +1219,7 @@ func tryJSObjectMakeRegExp(ctx JSContextRef, argumentCount uintptr, arguments JS
 // JSObjectMakeRegExp creates a JavaScript regular expression object as though invoking the built-in regular expression constructor.
 //
 // See: https://developer.apple.com/documentation/JavaScriptCore/JSObjectMakeRegExp(_:_:_:_:)
-func JSObjectMakeRegExp(ctx JSContextRef, argumentCount uintptr, arguments JSValueRef, exception *JSValueRef) JSObjectRef {
+func JSObjectMakeRegExp(ctx JSContextRef, argumentCount uintptr, arguments *JSValueRef, exception *JSValueRef) JSObjectRef {
 	result, callErr := tryJSObjectMakeRegExp(ctx, argumentCount, arguments, exception)
 	if callErr != nil {
 		panic(callErr)
@@ -1352,10 +1352,10 @@ func JSObjectSetProperty(ctx JSContextRef, object JSObjectRef, propertyName JSSt
 	}
 }
 
-var _jSObjectSetPropertyAtIndex func(ctx JSContextRef, object JSObjectRef, propertyIndex uint, value JSValueRef, exception *JSValueRef)
+var _jSObjectSetPropertyAtIndex func(ctx JSContextRef, object JSObjectRef, propertyIndex uint32, value JSValueRef, exception *JSValueRef)
 var _jSObjectSetPropertyAtIndexErr error
 
-func tryJSObjectSetPropertyAtIndex(ctx JSContextRef, object JSObjectRef, propertyIndex uint, value JSValueRef, exception *JSValueRef) error {
+func tryJSObjectSetPropertyAtIndex(ctx JSContextRef, object JSObjectRef, propertyIndex uint32, value JSValueRef, exception *JSValueRef) error {
 	if _jSObjectSetPropertyAtIndex == nil {
 		return symbolCallError("JSObjectSetPropertyAtIndex", "10.5", _jSObjectSetPropertyAtIndexErr)
 	}
@@ -1366,7 +1366,7 @@ func tryJSObjectSetPropertyAtIndex(ctx JSContextRef, object JSObjectRef, propert
 // JSObjectSetPropertyAtIndex sets a property on an object by numeric index.
 //
 // See: https://developer.apple.com/documentation/JavaScriptCore/JSObjectSetPropertyAtIndex(_:_:_:_:_:)
-func JSObjectSetPropertyAtIndex(ctx JSContextRef, object JSObjectRef, propertyIndex uint, value JSValueRef, exception *JSValueRef) {
+func JSObjectSetPropertyAtIndex(ctx JSContextRef, object JSObjectRef, propertyIndex uint32, value JSValueRef, exception *JSValueRef) {
 	if callErr := tryJSObjectSetPropertyAtIndex(ctx, object, propertyIndex, value, exception); callErr != nil {
 		panic(callErr)
 	}
@@ -1850,10 +1850,10 @@ func JSValueCompareUInt64(ctx JSContextRef, left JSValueRef, right uint64, excep
 	return result
 }
 
-var _jSValueCreateJSONString func(ctx JSContextRef, value JSValueRef, indent uint, exception *JSValueRef) JSStringRef
+var _jSValueCreateJSONString func(ctx JSContextRef, value JSValueRef, indent uint32, exception *JSValueRef) JSStringRef
 var _jSValueCreateJSONStringErr error
 
-func tryJSValueCreateJSONString(ctx JSContextRef, value JSValueRef, indent uint, exception *JSValueRef) (JSStringRef, error) {
+func tryJSValueCreateJSONString(ctx JSContextRef, value JSValueRef, indent uint32, exception *JSValueRef) (JSStringRef, error) {
 	if _jSValueCreateJSONString == nil {
 		return *new(JSStringRef), symbolCallError("JSValueCreateJSONString", "10.7", _jSValueCreateJSONStringErr)
 	}
@@ -1863,7 +1863,7 @@ func tryJSValueCreateJSONString(ctx JSContextRef, value JSValueRef, indent uint,
 // JSValueCreateJSONString creates a JavaScript string that contains the JSON-serialized representation of a JavaScript value.
 //
 // See: https://developer.apple.com/documentation/JavaScriptCore/JSValueCreateJSONString(_:_:_:_:)
-func JSValueCreateJSONString(ctx JSContextRef, value JSValueRef, indent uint, exception *JSValueRef) JSStringRef {
+func JSValueCreateJSONString(ctx JSContextRef, value JSValueRef, indent uint32, exception *JSValueRef) JSStringRef {
 	result, callErr := tryJSValueCreateJSONString(ctx, value, indent, exception)
 	if callErr != nil {
 		panic(callErr)

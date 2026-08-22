@@ -4,6 +4,7 @@ package appkit
 
 import (
 	"fmt"
+	"unsafe"
 
 	"github.com/tmc/apple/corefoundation"
 	"github.com/tmc/apple/foundation"
@@ -554,7 +555,7 @@ func (o NSTextViewDelegateObject) TextViewShouldSetSpellingStateRange(textView I
 //
 // [NSTextCheckingTypes]: https://developer.apple.com/documentation/Foundation/NSTextCheckingTypes
 func (o NSTextViewDelegateObject) TextViewWillCheckTextInRangeOptionsTypes(view INSTextView, range_ foundation.NSRange, options foundation.INSDictionary, checkingTypes *foundation.NSTextCheckingTypes) foundation.INSDictionary {
-	rv := objc.Send[objc.ID](o.ID, objc.Sel("textView:willCheckTextInRange:options:types:"), view, range_, options, checkingTypes)
+	rv := objc.Send[objc.ID](o.ID, objc.Sel("textView:willCheckTextInRange:options:types:"), view, range_, options, unsafe.Pointer(checkingTypes))
 	return foundation.NSDictionaryFromID(rv)
 }
 
@@ -887,8 +888,21 @@ func NewNSTextViewDelegate(config NSTextViewDelegateConfig) NSTextViewDelegateOb
 		methods = append(methods, objc.MethodDef{
 			Cmd: objc.RegisterName("undoManagerForTextView:"),
 			Fn: func(self objc.ID, _cmd objc.SEL, viewID objc.ID) objc.ID {
+				// Names which delegate was running if a panic unwinds out of
+				// it. The frames between here and the Objective-C caller are
+				// runtime and purego dispatch, so without this the traceback
+				// never says which selector dispatched. Deliberately no
+				// recover: see [objc.NoteDelegatePanic].
+				_delegateDone := false
+				defer func() {
+					if !_delegateDone {
+						objc.NoteDelegatePanic("NSTextViewDelegate", "undoManagerForTextView:")
+					}
+				}()
 				view := NSTextViewFromID(viewID)
-				return fn(view).GetID()
+				_delegateResult := fn(view).GetID()
+				_delegateDone = true
+				return _delegateResult
 			},
 		})
 	}
@@ -898,9 +912,22 @@ func NewNSTextViewDelegate(config NSTextViewDelegateConfig) NSTextViewDelegateOb
 		methods = append(methods, objc.MethodDef{
 			Cmd: objc.RegisterName("textView:URLForContentsOfTextAttachment:atIndex:"),
 			Fn: func(self objc.ID, _cmd objc.SEL, textViewID objc.ID, textAttachmentID objc.ID, charIndex uint) objc.ID {
+				// Names which delegate was running if a panic unwinds out of
+				// it. The frames between here and the Objective-C caller are
+				// runtime and purego dispatch, so without this the traceback
+				// never says which selector dispatched. Deliberately no
+				// recover: see [objc.NoteDelegatePanic].
+				_delegateDone := false
+				defer func() {
+					if !_delegateDone {
+						objc.NoteDelegatePanic("NSTextViewDelegate", "textView:URLForContentsOfTextAttachment:atIndex:")
+					}
+				}()
 				textView := NSTextViewFromID(textViewID)
 				textAttachment := NSTextAttachmentFromID(textAttachmentID)
-				return fn(textView, textAttachment, charIndex).GetID()
+				_delegateResult := fn(textView, textAttachment, charIndex).GetID()
+				_delegateDone = true
+				return _delegateResult
 			},
 		})
 	}
@@ -910,8 +937,21 @@ func NewNSTextViewDelegate(config NSTextViewDelegateConfig) NSTextViewDelegateOb
 		methods = append(methods, objc.MethodDef{
 			Cmd: objc.RegisterName("textView:willChangeSelectionFromCharacterRange:toCharacterRange:"),
 			Fn: func(self objc.ID, _cmd objc.SEL, textViewID objc.ID, oldSelectedCharRange foundation.NSRange, newSelectedCharRange foundation.NSRange) foundation.NSRange {
+				// Names which delegate was running if a panic unwinds out of
+				// it. The frames between here and the Objective-C caller are
+				// runtime and purego dispatch, so without this the traceback
+				// never says which selector dispatched. Deliberately no
+				// recover: see [objc.NoteDelegatePanic].
+				_delegateDone := false
+				defer func() {
+					if !_delegateDone {
+						objc.NoteDelegatePanic("NSTextViewDelegate", "textView:willChangeSelectionFromCharacterRange:toCharacterRange:")
+					}
+				}()
 				textView := NSTextViewFromID(textViewID)
-				return fn(textView, oldSelectedCharRange, newSelectedCharRange)
+				_delegateResult := fn(textView, oldSelectedCharRange, newSelectedCharRange)
+				_delegateDone = true
+				return _delegateResult
 			},
 		})
 	}
@@ -921,8 +961,20 @@ func NewNSTextViewDelegate(config NSTextViewDelegateConfig) NSTextViewDelegateOb
 		methods = append(methods, objc.MethodDef{
 			Cmd: objc.RegisterName("textViewDidChangeSelection:"),
 			Fn: func(self objc.ID, _cmd objc.SEL, notificationID objc.ID) {
+				// Names which delegate was running if a panic unwinds out of
+				// it. The frames between here and the Objective-C caller are
+				// runtime and purego dispatch, so without this the traceback
+				// never says which selector dispatched. Deliberately no
+				// recover: see [objc.NoteDelegatePanic].
+				_delegateDone := false
+				defer func() {
+					if !_delegateDone {
+						objc.NoteDelegatePanic("NSTextViewDelegate", "textViewDidChangeSelection:")
+					}
+				}()
 				notification := foundation.NSNotificationFromID(notificationID)
 				fn(notification)
+				_delegateDone = true
 			},
 		})
 	}
@@ -932,8 +984,21 @@ func NewNSTextViewDelegate(config NSTextViewDelegateConfig) NSTextViewDelegateOb
 		methods = append(methods, objc.MethodDef{
 			Cmd: objc.RegisterName("textView:candidatesForSelectedRange:"),
 			Fn: func(self objc.ID, _cmd objc.SEL, textViewID objc.ID, selectedRange foundation.NSRange) objc.ID {
+				// Names which delegate was running if a panic unwinds out of
+				// it. The frames between here and the Objective-C caller are
+				// runtime and purego dispatch, so without this the traceback
+				// never says which selector dispatched. Deliberately no
+				// recover: see [objc.NoteDelegatePanic].
+				_delegateDone := false
+				defer func() {
+					if !_delegateDone {
+						objc.NoteDelegatePanic("NSTextViewDelegate", "textView:candidatesForSelectedRange:")
+					}
+				}()
 				textView := NSTextViewFromID(textViewID)
-				return fn(textView, selectedRange).GetID()
+				_delegateResult := fn(textView, selectedRange).GetID()
+				_delegateDone = true
+				return _delegateResult
 			},
 		})
 	}
@@ -943,8 +1008,21 @@ func NewNSTextViewDelegate(config NSTextViewDelegateConfig) NSTextViewDelegateOb
 		methods = append(methods, objc.MethodDef{
 			Cmd: objc.RegisterName("textView:shouldSelectCandidateAtIndex:"),
 			Fn: func(self objc.ID, _cmd objc.SEL, textViewID objc.ID, index uint) bool {
+				// Names which delegate was running if a panic unwinds out of
+				// it. The frames between here and the Objective-C caller are
+				// runtime and purego dispatch, so without this the traceback
+				// never says which selector dispatched. Deliberately no
+				// recover: see [objc.NoteDelegatePanic].
+				_delegateDone := false
+				defer func() {
+					if !_delegateDone {
+						objc.NoteDelegatePanic("NSTextViewDelegate", "textView:shouldSelectCandidateAtIndex:")
+					}
+				}()
 				textView := NSTextViewFromID(textViewID)
-				return fn(textView, index)
+				_delegateResult := fn(textView, index)
+				_delegateDone = true
+				return _delegateResult
 			},
 		})
 	}
@@ -954,10 +1032,23 @@ func NewNSTextViewDelegate(config NSTextViewDelegateConfig) NSTextViewDelegateOb
 		methods = append(methods, objc.MethodDef{
 			Cmd: objc.RegisterName("textView:shouldChangeTypingAttributes:toAttributes:"),
 			Fn: func(self objc.ID, _cmd objc.SEL, textViewID objc.ID, oldTypingAttributesID objc.ID, newTypingAttributesID objc.ID) objc.ID {
+				// Names which delegate was running if a panic unwinds out of
+				// it. The frames between here and the Objective-C caller are
+				// runtime and purego dispatch, so without this the traceback
+				// never says which selector dispatched. Deliberately no
+				// recover: see [objc.NoteDelegatePanic].
+				_delegateDone := false
+				defer func() {
+					if !_delegateDone {
+						objc.NoteDelegatePanic("NSTextViewDelegate", "textView:shouldChangeTypingAttributes:toAttributes:")
+					}
+				}()
 				textView := NSTextViewFromID(textViewID)
 				oldTypingAttributes := foundation.NSDictionaryFromID(oldTypingAttributesID)
 				newTypingAttributes := foundation.NSDictionaryFromID(newTypingAttributesID)
-				return fn(textView, oldTypingAttributes, newTypingAttributes).GetID()
+				_delegateResult := fn(textView, oldTypingAttributes, newTypingAttributes).GetID()
+				_delegateDone = true
+				return _delegateResult
 			},
 		})
 	}
@@ -967,8 +1058,20 @@ func NewNSTextViewDelegate(config NSTextViewDelegateConfig) NSTextViewDelegateOb
 		methods = append(methods, objc.MethodDef{
 			Cmd: objc.RegisterName("textViewDidChangeTypingAttributes:"),
 			Fn: func(self objc.ID, _cmd objc.SEL, notificationID objc.ID) {
+				// Names which delegate was running if a panic unwinds out of
+				// it. The frames between here and the Objective-C caller are
+				// runtime and purego dispatch, so without this the traceback
+				// never says which selector dispatched. Deliberately no
+				// recover: see [objc.NoteDelegatePanic].
+				_delegateDone := false
+				defer func() {
+					if !_delegateDone {
+						objc.NoteDelegatePanic("NSTextViewDelegate", "textViewDidChangeTypingAttributes:")
+					}
+				}()
 				notification := foundation.NSNotificationFromID(notificationID)
 				fn(notification)
+				_delegateDone = true
 			},
 		})
 	}
@@ -978,8 +1081,21 @@ func NewNSTextViewDelegate(config NSTextViewDelegateConfig) NSTextViewDelegateOb
 		methods = append(methods, objc.MethodDef{
 			Cmd: objc.RegisterName("textView:shouldSetSpellingState:range:"),
 			Fn: func(self objc.ID, _cmd objc.SEL, textViewID objc.ID, value int, affectedCharRange foundation.NSRange) int {
+				// Names which delegate was running if a panic unwinds out of
+				// it. The frames between here and the Objective-C caller are
+				// runtime and purego dispatch, so without this the traceback
+				// never says which selector dispatched. Deliberately no
+				// recover: see [objc.NoteDelegatePanic].
+				_delegateDone := false
+				defer func() {
+					if !_delegateDone {
+						objc.NoteDelegatePanic("NSTextViewDelegate", "textView:shouldSetSpellingState:range:")
+					}
+				}()
 				textView := NSTextViewFromID(textViewID)
-				return fn(textView, value, affectedCharRange)
+				_delegateResult := fn(textView, value, affectedCharRange)
+				_delegateDone = true
+				return _delegateResult
 			},
 		})
 	}
@@ -989,9 +1105,22 @@ func NewNSTextViewDelegate(config NSTextViewDelegateConfig) NSTextViewDelegateOb
 		methods = append(methods, objc.MethodDef{
 			Cmd: objc.RegisterName("textView:willCheckTextInRange:options:types:"),
 			Fn: func(self objc.ID, _cmd objc.SEL, viewID objc.ID, range_ foundation.NSRange, optionsID objc.ID, checkingTypes *foundation.NSTextCheckingTypes) objc.ID {
+				// Names which delegate was running if a panic unwinds out of
+				// it. The frames between here and the Objective-C caller are
+				// runtime and purego dispatch, so without this the traceback
+				// never says which selector dispatched. Deliberately no
+				// recover: see [objc.NoteDelegatePanic].
+				_delegateDone := false
+				defer func() {
+					if !_delegateDone {
+						objc.NoteDelegatePanic("NSTextViewDelegate", "textView:willCheckTextInRange:options:types:")
+					}
+				}()
 				view := NSTextViewFromID(viewID)
 				options := foundation.NSDictionaryFromID(optionsID)
-				return fn(view, range_, options, checkingTypes).GetID()
+				_delegateResult := fn(view, range_, options, checkingTypes).GetID()
+				_delegateDone = true
+				return _delegateResult
 			},
 		})
 	}
@@ -1001,8 +1130,20 @@ func NewNSTextViewDelegate(config NSTextViewDelegateConfig) NSTextViewDelegateOb
 		methods = append(methods, objc.MethodDef{
 			Cmd: objc.RegisterName("textViewWritingToolsWillBegin:"),
 			Fn: func(self objc.ID, _cmd objc.SEL, textViewID objc.ID) {
+				// Names which delegate was running if a panic unwinds out of
+				// it. The frames between here and the Objective-C caller are
+				// runtime and purego dispatch, so without this the traceback
+				// never says which selector dispatched. Deliberately no
+				// recover: see [objc.NoteDelegatePanic].
+				_delegateDone := false
+				defer func() {
+					if !_delegateDone {
+						objc.NoteDelegatePanic("NSTextViewDelegate", "textViewWritingToolsWillBegin:")
+					}
+				}()
 				textView := NSTextViewFromID(textViewID)
 				fn(textView)
+				_delegateDone = true
 			},
 		})
 	}
@@ -1012,8 +1153,20 @@ func NewNSTextViewDelegate(config NSTextViewDelegateConfig) NSTextViewDelegateOb
 		methods = append(methods, objc.MethodDef{
 			Cmd: objc.RegisterName("textViewWritingToolsDidEnd:"),
 			Fn: func(self objc.ID, _cmd objc.SEL, textViewID objc.ID) {
+				// Names which delegate was running if a panic unwinds out of
+				// it. The frames between here and the Objective-C caller are
+				// runtime and purego dispatch, so without this the traceback
+				// never says which selector dispatched. Deliberately no
+				// recover: see [objc.NoteDelegatePanic].
+				_delegateDone := false
+				defer func() {
+					if !_delegateDone {
+						objc.NoteDelegatePanic("NSTextViewDelegate", "textViewWritingToolsDidEnd:")
+					}
+				}()
 				textView := NSTextViewFromID(textViewID)
 				fn(textView)
+				_delegateDone = true
 			},
 		})
 	}
@@ -1023,10 +1176,23 @@ func NewNSTextViewDelegate(config NSTextViewDelegateConfig) NSTextViewDelegateOb
 		methods = append(methods, objc.MethodDef{
 			Cmd: objc.RegisterName("textView:willShowSharingServicePicker:forItems:"),
 			Fn: func(self objc.ID, _cmd objc.SEL, textViewID objc.ID, servicePickerID objc.ID, itemsID objc.ID) objc.ID {
+				// Names which delegate was running if a panic unwinds out of
+				// it. The frames between here and the Objective-C caller are
+				// runtime and purego dispatch, so without this the traceback
+				// never says which selector dispatched. Deliberately no
+				// recover: see [objc.NoteDelegatePanic].
+				_delegateDone := false
+				defer func() {
+					if !_delegateDone {
+						objc.NoteDelegatePanic("NSTextViewDelegate", "textView:willShowSharingServicePicker:forItems:")
+					}
+				}()
 				textView := NSTextViewFromID(textViewID)
 				servicePicker := NSSharingServicePickerFromID(servicePickerID)
 				items := foundation.NSArrayFromID(itemsID)
-				return fn(textView, servicePicker, items).GetID()
+				_delegateResult := fn(textView, servicePicker, items).GetID()
+				_delegateDone = true
+				return _delegateResult
 			},
 		})
 	}
@@ -1036,10 +1202,23 @@ func NewNSTextViewDelegate(config NSTextViewDelegateConfig) NSTextViewDelegateOb
 		methods = append(methods, objc.MethodDef{
 			Cmd: objc.RegisterName("textView:menu:forEvent:atIndex:"),
 			Fn: func(self objc.ID, _cmd objc.SEL, viewID objc.ID, menuID objc.ID, eventID objc.ID, charIndex uint) objc.ID {
+				// Names which delegate was running if a panic unwinds out of
+				// it. The frames between here and the Objective-C caller are
+				// runtime and purego dispatch, so without this the traceback
+				// never says which selector dispatched. Deliberately no
+				// recover: see [objc.NoteDelegatePanic].
+				_delegateDone := false
+				defer func() {
+					if !_delegateDone {
+						objc.NoteDelegatePanic("NSTextViewDelegate", "textView:menu:forEvent:atIndex:")
+					}
+				}()
 				view := NSTextViewFromID(viewID)
 				menu := NSMenuFromID(menuID)
 				event := NSEventFromID(eventID)
-				return fn(view, menu, event, charIndex).GetID()
+				_delegateResult := fn(view, menu, event, charIndex).GetID()
+				_delegateDone = true
+				return _delegateResult
 			},
 		})
 	}

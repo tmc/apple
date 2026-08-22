@@ -12,6 +12,11 @@ import (
 // See: https://developer.apple.com/documentation/AppKit/NSChangeSpelling
 type NSChangeSpelling interface {
 	objectivec.IObject
+
+	// Replaces the selected word in the receiver with a corrected version from the Spelling panel.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSChangeSpelling/changeSpelling(_:)
+	ChangeSpelling(sender objectivec.IObject)
 }
 
 // NSChangeSpellingObject wraps an existing Objective-C object that conforms to the NSChangeSpelling protocol.

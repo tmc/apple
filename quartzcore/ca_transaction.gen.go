@@ -54,13 +54,13 @@ func (cc CATransactionClass) Alloc() CATransaction {
 // modification to a layer tree must be part of a transaction. Nested
 // transactions are supported.
 //
-// Core Animation supports two types of transactions: transactions and
-// transactions. Implicit transactions are created automatically when the
-// layer tree is modified by a thread without an active transaction and are
-// committed automatically when the thread’s runloop next iterates. Explicit
-// transactions occur when the the application sends the [CATransaction] class
-// a [CATransactionClass.Begin] message before modifying the layer tree, and a
-// [CATransactionClass.Commit] message afterwards.
+// Core Animation supports two types of transactions: implicit transactions
+// and explicit transactions. Implicit transactions are created automatically
+// when the layer tree is modified by a thread without an active transaction
+// and are committed automatically when the thread’s runloop next iterates.
+// Explicit transactions occur when the the application sends the
+// [CATransaction] class a [CATransactionClass.Begin] message before modifying
+// the layer tree, and a [CATransactionClass.Commit] message afterwards.
 //
 // [CATransaction] allows you to override default animation properties that
 // are set for animatable properties. You can customize duration, timing
@@ -292,6 +292,8 @@ func (_CATransactionClass CATransactionClass) SetDisableActions(flag bool) {
 func (_CATransactionClass CATransactionClass) CompletionBlock() {
 	objc.Send[objc.ID](objc.ID(_CATransactionClass.class), objc.Sel("completionBlock"))
 }
+
+var _catransaction_setcompletionblock_p0_key byte
 
 // Sets the completion block object.
 //

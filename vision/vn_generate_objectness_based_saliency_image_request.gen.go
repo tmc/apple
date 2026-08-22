@@ -102,8 +102,9 @@ func NewVNGenerateObjectnessBasedSaliencyImageRequest() VNGenerateObjectnessBase
 // [VNImageRequestHandler.PerformRequestsError].
 //
 // See: https://developer.apple.com/documentation/Vision/VNRequest/init(completionHandler:)
-func NewGenerateObjectnessBasedSaliencyImageRequestWithCompletionHandler(completionHandler VNRequestCompletionHandler) VNGenerateObjectnessBasedSaliencyImageRequest {
+func NewGenerateObjectnessBasedSaliencyImageRequestWithCompletionHandler(completionHandler VNRequestErrorHandler) VNGenerateObjectnessBasedSaliencyImageRequest {
+	_block0, _ := NewVNRequestErrorBlock(completionHandler)
 	instance := getVNGenerateObjectnessBasedSaliencyImageRequestClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCompletionHandler:"), completionHandler)
+	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCompletionHandler:"), _block0)
 	return VNGenerateObjectnessBasedSaliencyImageRequestFromID(rv)
 }

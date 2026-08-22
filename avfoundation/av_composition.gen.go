@@ -4,7 +4,6 @@ package avfoundation
 
 import (
 	"sync"
-	"unsafe"
 
 	"github.com/tmc/apple/corefoundation"
 	"github.com/tmc/apple/coremedia"
@@ -69,67 +68,46 @@ func (ac AVCompositionClass) Alloc() AVComposition {
 // # Accessing track groups
 //
 //   - [AVComposition.TrackGroups]: The track groups an asset contains.
-//   - [AVComposition.SetTrackGroups]
 //
 // # Accessing duration and timing
 //
 //   - [AVComposition.Duration]: A time value that indicates the asset’s duration.
-//   - [AVComposition.SetDuration]
 //   - [AVComposition.ProvidesPreciseDurationAndTiming]: A Boolean value that indicates whether the asset provides precise duration and timing.
-//   - [AVComposition.SetProvidesPreciseDurationAndTiming]
 //   - [AVComposition.MinimumTimeOffsetFromLive]: A time value that indicates how closely playback follows the latest live stream content.
-//   - [AVComposition.SetMinimumTimeOffsetFromLive]
 //
 // # Accessing metadata
 //
 //   - [AVComposition.Metadata]: An array of metadata items for all metadata identifiers for which a value is available.
-//   - [AVComposition.SetMetadata]
 //   - [AVComposition.CommonMetadata]: The metadata items an asset contains for common metadata identifiers that provide a value.
-//   - [AVComposition.SetCommonMetadata]
 //   - [AVComposition.AvailableMetadataFormats]: The metadata formats this asset contains.
-//   - [AVComposition.SetAvailableMetadataFormats]
 //   - [AVComposition.MetadataForFormat]: Returns an array of metadata items from the container with the specified format.
 //   - [AVComposition.CreationDate]: A metadata item that indicates the asset’s creation date.
-//   - [AVComposition.SetCreationDate]
 //   - [AVComposition.Lyrics]: The lyrics of the asset in a language suitable for the current locale.
-//   - [AVComposition.SetLyrics]
 //
 // # Determining suitability
 //
 //   - [AVComposition.IsPlayable]: A Boolean value that indicates whether the asset has playable content.
-//   - [AVComposition.SetPlayable]
 //   - [AVComposition.IsReadable]: A Boolean value that indicates whether you can extract the asset’s media data using an asset reader.
-//   - [AVComposition.SetReadable]
 //   - [AVComposition.IsExportable]: A Boolean value that indicates whether you can export this asset using an export session.
-//   - [AVComposition.SetExportable]
 //   - [AVComposition.IsComposable]: A Boolean value that indicates whether you can use the asset as a segment of a composition track.
-//   - [AVComposition.SetComposable]
 //   - [AVComposition.IsCompatibleWithAirPlayVideo]: A Boolean value that indicates whether the asset is compatible with AirPlay Video.
-//   - [AVComposition.SetCompatibleWithAirPlayVideo]
 //
 // # Inspecting preferences
 //
 //   - [AVComposition.PreferredRate]: The asset’s rate preference for playing its media.
-//   - [AVComposition.SetPreferredRate]
 //   - [AVComposition.PreferredVolume]: The asset’s volume preference for playing its audible media.
-//   - [AVComposition.SetPreferredVolume]
 //   - [AVComposition.PreferredTransform]: The asset’s transform preference to apply to its visual content during presentation or processing.
-//   - [AVComposition.SetPreferredTransform]
 //   - [AVComposition.PreferredMediaSelection]: The default media selections for this asset’s media selection groups.
-//   - [AVComposition.SetPreferredMediaSelection]
 //
 // # Accessing media selections
 //
 //   - [AVComposition.AllMediaSelections]: The array of available media selections for this asset.
-//   - [AVComposition.SetAllMediaSelections]
 //   - [AVComposition.AvailableMediaCharacteristicsWithMediaSelectionOptions]: An array of media characteristics for which a media selection option is available.
-//   - [AVComposition.SetAvailableMediaCharacteristicsWithMediaSelectionOptions]
 //   - [AVComposition.MediaSelectionGroupForMediaCharacteristic]: Returns a media selection group that contains one or more options with the specified media characteristic.
 //
 // # Accessing chapter metadata
 //
 //   - [AVComposition.AvailableChapterLocales]: The locales of the asset’s chapter metadata.
-//   - [AVComposition.SetAvailableChapterLocales]
 //   - [AVComposition.ChapterMetadataGroupsBestMatchingPreferredLanguages]: Returns an array of chapters with a locale that best matches the list of preferred languages.
 //   - [AVComposition.ChapterMetadataGroupsWithTitleLocaleContainingItemsWithCommonKeys]: Returns an array of chapters that contain the specified title locale and common keys.
 //
@@ -140,16 +118,12 @@ func (ac AVCompositionClass) Alloc() AVComposition {
 // # Determining content protections
 //
 //   - [AVComposition.HasProtectedContent]: A Boolean value that indicates whether the asset contains protected content.
-//   - [AVComposition.SetHasProtectedContent]
 //
 // # Determining fragment support
 //
 //   - [AVComposition.CanContainFragments]: A Boolean value that indicates whether you can extend the asset by fragments.
-//   - [AVComposition.SetCanContainFragments]
 //   - [AVComposition.ContainsFragments]: A Boolean value that indicates whether at least one movie fragment extends the asset.
-//   - [AVComposition.SetContainsFragments]
 //   - [AVComposition.OverallDurationHint]: The total duration of fragments that currently exist, or may exist in the future.
-//   - [AVComposition.SetOverallDurationHint]
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVComposition
 type AVComposition struct {
@@ -180,67 +154,46 @@ func AVCompositionFromID(id objc.ID) AVComposition {
 // # Accessing track groups
 //
 //   - [IAVComposition.TrackGroups]: The track groups an asset contains.
-//   - [IAVComposition.SetTrackGroups]
 //
 // # Accessing duration and timing
 //
 //   - [IAVComposition.Duration]: A time value that indicates the asset’s duration.
-//   - [IAVComposition.SetDuration]
 //   - [IAVComposition.ProvidesPreciseDurationAndTiming]: A Boolean value that indicates whether the asset provides precise duration and timing.
-//   - [IAVComposition.SetProvidesPreciseDurationAndTiming]
 //   - [IAVComposition.MinimumTimeOffsetFromLive]: A time value that indicates how closely playback follows the latest live stream content.
-//   - [IAVComposition.SetMinimumTimeOffsetFromLive]
 //
 // # Accessing metadata
 //
 //   - [IAVComposition.Metadata]: An array of metadata items for all metadata identifiers for which a value is available.
-//   - [IAVComposition.SetMetadata]
 //   - [IAVComposition.CommonMetadata]: The metadata items an asset contains for common metadata identifiers that provide a value.
-//   - [IAVComposition.SetCommonMetadata]
 //   - [IAVComposition.AvailableMetadataFormats]: The metadata formats this asset contains.
-//   - [IAVComposition.SetAvailableMetadataFormats]
 //   - [IAVComposition.MetadataForFormat]: Returns an array of metadata items from the container with the specified format.
 //   - [IAVComposition.CreationDate]: A metadata item that indicates the asset’s creation date.
-//   - [IAVComposition.SetCreationDate]
 //   - [IAVComposition.Lyrics]: The lyrics of the asset in a language suitable for the current locale.
-//   - [IAVComposition.SetLyrics]
 //
 // # Determining suitability
 //
 //   - [IAVComposition.IsPlayable]: A Boolean value that indicates whether the asset has playable content.
-//   - [IAVComposition.SetPlayable]
 //   - [IAVComposition.IsReadable]: A Boolean value that indicates whether you can extract the asset’s media data using an asset reader.
-//   - [IAVComposition.SetReadable]
 //   - [IAVComposition.IsExportable]: A Boolean value that indicates whether you can export this asset using an export session.
-//   - [IAVComposition.SetExportable]
 //   - [IAVComposition.IsComposable]: A Boolean value that indicates whether you can use the asset as a segment of a composition track.
-//   - [IAVComposition.SetComposable]
 //   - [IAVComposition.IsCompatibleWithAirPlayVideo]: A Boolean value that indicates whether the asset is compatible with AirPlay Video.
-//   - [IAVComposition.SetCompatibleWithAirPlayVideo]
 //
 // # Inspecting preferences
 //
 //   - [IAVComposition.PreferredRate]: The asset’s rate preference for playing its media.
-//   - [IAVComposition.SetPreferredRate]
 //   - [IAVComposition.PreferredVolume]: The asset’s volume preference for playing its audible media.
-//   - [IAVComposition.SetPreferredVolume]
 //   - [IAVComposition.PreferredTransform]: The asset’s transform preference to apply to its visual content during presentation or processing.
-//   - [IAVComposition.SetPreferredTransform]
 //   - [IAVComposition.PreferredMediaSelection]: The default media selections for this asset’s media selection groups.
-//   - [IAVComposition.SetPreferredMediaSelection]
 //
 // # Accessing media selections
 //
 //   - [IAVComposition.AllMediaSelections]: The array of available media selections for this asset.
-//   - [IAVComposition.SetAllMediaSelections]
 //   - [IAVComposition.AvailableMediaCharacteristicsWithMediaSelectionOptions]: An array of media characteristics for which a media selection option is available.
-//   - [IAVComposition.SetAvailableMediaCharacteristicsWithMediaSelectionOptions]
 //   - [IAVComposition.MediaSelectionGroupForMediaCharacteristic]: Returns a media selection group that contains one or more options with the specified media characteristic.
 //
 // # Accessing chapter metadata
 //
 //   - [IAVComposition.AvailableChapterLocales]: The locales of the asset’s chapter metadata.
-//   - [IAVComposition.SetAvailableChapterLocales]
 //   - [IAVComposition.ChapterMetadataGroupsBestMatchingPreferredLanguages]: Returns an array of chapters with a locale that best matches the list of preferred languages.
 //   - [IAVComposition.ChapterMetadataGroupsWithTitleLocaleContainingItemsWithCommonKeys]: Returns an array of chapters that contain the specified title locale and common keys.
 //
@@ -251,16 +204,12 @@ func AVCompositionFromID(id objc.ID) AVComposition {
 // # Determining content protections
 //
 //   - [IAVComposition.HasProtectedContent]: A Boolean value that indicates whether the asset contains protected content.
-//   - [IAVComposition.SetHasProtectedContent]
 //
 // # Determining fragment support
 //
 //   - [IAVComposition.CanContainFragments]: A Boolean value that indicates whether you can extend the asset by fragments.
-//   - [IAVComposition.SetCanContainFragments]
 //   - [IAVComposition.ContainsFragments]: A Boolean value that indicates whether at least one movie fragment extends the asset.
-//   - [IAVComposition.SetContainsFragments]
 //   - [IAVComposition.OverallDurationHint]: The total duration of fragments that currently exist, or may exist in the future.
-//   - [IAVComposition.SetOverallDurationHint]
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVComposition
 type IAVComposition interface {
@@ -282,90 +231,69 @@ type IAVComposition interface {
 	// Topic: Accessing track groups
 
 	// The track groups an asset contains.
-	TrackGroups() IAVAssetTrackGroup
-	SetTrackGroups(value IAVAssetTrackGroup)
+	TrackGroups() []AVAssetTrackGroup
 
 	// Topic: Accessing duration and timing
 
 	// A time value that indicates the asset’s duration.
 	Duration() coremedia.CMTime
-	SetDuration(value coremedia.CMTime)
 	// A Boolean value that indicates whether the asset provides precise duration and timing.
 	ProvidesPreciseDurationAndTiming() bool
-	SetProvidesPreciseDurationAndTiming(value bool)
 	// A time value that indicates how closely playback follows the latest live stream content.
 	MinimumTimeOffsetFromLive() coremedia.CMTime
-	SetMinimumTimeOffsetFromLive(value coremedia.CMTime)
 
 	// Topic: Accessing metadata
 
 	// An array of metadata items for all metadata identifiers for which a value is available.
-	Metadata() IAVMetadataItem
-	SetMetadata(value IAVMetadataItem)
+	Metadata() []AVMetadataItem
 	// The metadata items an asset contains for common metadata identifiers that provide a value.
-	CommonMetadata() IAVMetadataItem
-	SetCommonMetadata(value IAVMetadataItem)
+	CommonMetadata() []AVMetadataItem
 	// The metadata formats this asset contains.
-	AvailableMetadataFormats() AVMetadataFormat
-	SetAvailableMetadataFormats(value AVMetadataFormat)
+	AvailableMetadataFormats() []AVMetadataFormat
 	// Returns an array of metadata items from the container with the specified format.
 	MetadataForFormat(format AVMetadataFormat) []AVMetadataItem
 	// A metadata item that indicates the asset’s creation date.
 	CreationDate() IAVMetadataItem
-	SetCreationDate(value IAVMetadataItem)
 	// The lyrics of the asset in a language suitable for the current locale.
 	Lyrics() string
-	SetLyrics(value string)
 
 	// Topic: Determining suitability
 
 	// A Boolean value that indicates whether the asset has playable content.
 	IsPlayable() bool
-	SetPlayable(value bool)
 	// A Boolean value that indicates whether you can extract the asset’s media data using an asset reader.
 	IsReadable() bool
-	SetReadable(value bool)
 	// A Boolean value that indicates whether you can export this asset using an export session.
 	IsExportable() bool
-	SetExportable(value bool)
 	// A Boolean value that indicates whether you can use the asset as a segment of a composition track.
 	IsComposable() bool
-	SetComposable(value bool)
 	// A Boolean value that indicates whether the asset is compatible with AirPlay Video.
 	IsCompatibleWithAirPlayVideo() bool
-	SetCompatibleWithAirPlayVideo(value bool)
 
 	// Topic: Inspecting preferences
 
 	// The asset’s rate preference for playing its media.
 	PreferredRate() kernel.Float
-	SetPreferredRate(value kernel.Float)
 	// The asset’s volume preference for playing its audible media.
 	PreferredVolume() kernel.Float
-	SetPreferredVolume(value kernel.Float)
 	// The asset’s transform preference to apply to its visual content during presentation or processing.
 	PreferredTransform() corefoundation.CGAffineTransform
-	SetPreferredTransform(value corefoundation.CGAffineTransform)
 	// The default media selections for this asset’s media selection groups.
 	PreferredMediaSelection() IAVMediaSelection
-	SetPreferredMediaSelection(value IAVMediaSelection)
 
 	// Topic: Accessing media selections
 
 	// The array of available media selections for this asset.
-	AllMediaSelections() IAVMediaSelection
-	SetAllMediaSelections(value IAVMediaSelection)
+	AllMediaSelections() []AVMediaSelection
 	// An array of media characteristics for which a media selection option is available.
-	AvailableMediaCharacteristicsWithMediaSelectionOptions() AVMediaCharacteristic
-	SetAvailableMediaCharacteristicsWithMediaSelectionOptions(value AVMediaCharacteristic)
+	AvailableMediaCharacteristicsWithMediaSelectionOptions() []AVMediaCharacteristic
 	// Returns a media selection group that contains one or more options with the specified media characteristic.
 	MediaSelectionGroupForMediaCharacteristic(mediaCharacteristic AVMediaCharacteristic) IAVMediaSelectionGroup
 
 	// Topic: Accessing chapter metadata
 
 	// The locales of the asset’s chapter metadata.
-	AvailableChapterLocales() unsafe.Pointer
-	SetAvailableChapterLocales(value kernel.Pointer)
+	AvailableChapterLocales() []foundation.NSLocale
 	// Returns an array of chapters with a locale that best matches the list of preferred languages.
 	ChapterMetadataGroupsBestMatchingPreferredLanguages(preferredLanguages []string) []AVTimedMetadataGroup
 	// Returns an array of chapters that contain the specified title locale and common keys.
@@ -380,19 +308,15 @@ type IAVComposition interface {
 
 	// A Boolean value that indicates whether the asset contains protected content.
 	HasProtectedContent() bool
-	SetHasProtectedContent(value bool)
 
 	// Topic: Determining fragment support
 
 	// A Boolean value that indicates whether you can extend the asset by fragments.
 	CanContainFragments() bool
-	SetCanContainFragments(value bool)
 	// A Boolean value that indicates whether at least one movie fragment extends the asset.
 	ContainsFragments() bool
-	SetContainsFragments(value bool)
 	// The total duration of fragments that currently exist, or may exist in the future.
 	OverallDurationHint() coremedia.CMTime
-	SetOverallDurationHint(value coremedia.CMTime)
 }
 
 // Init initializes the instance.
@@ -418,7 +342,7 @@ func NewAVComposition() AVComposition {
 //
 // URL: A URL to a local, remote, or HTTP Live Streaming media resource.
 //
-// See: https://developer.apple.com/documentation/AVFoundation/AVAsset/init(url:)-42gl8
+// See: https://developer.apple.com/documentation/AVFoundation/AVAsset/init(url:)
 func NewCompositionAssetWithURL(URL foundation.NSURL) AVComposition {
 	rv := objc.Send[objc.ID](objc.ID(getAVCompositionClass().class), objc.Sel("assetWithURL:"), URL)
 	return AVCompositionFromID(rv)
@@ -677,12 +601,11 @@ func (c AVComposition) Tracks() []AVCompositionTrack {
 // This value is an empty array if the composition has no track groups.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVComposition/trackGroups
-func (c AVComposition) TrackGroups() IAVAssetTrackGroup {
-	rv := objc.Send[objc.ID](c.ID, objc.Sel("trackGroups"))
-	return AVAssetTrackGroupFromID(objc.ID(rv))
-}
-func (c AVComposition) SetTrackGroups(value IAVAssetTrackGroup) {
-	objc.Send[struct{}](c.ID, objc.Sel("setTrackGroups:"), value)
+func (c AVComposition) TrackGroups() []AVAssetTrackGroup {
+	rv := objc.Send[[]objc.ID](c.ID, objc.Sel("trackGroups"))
+	return objc.ConvertSlice(rv, func(id objc.ID) AVAssetTrackGroup {
+		return AVAssetTrackGroupFromID(id)
+	})
 }
 
 // A time value that indicates the asset’s duration.
@@ -703,9 +626,6 @@ func (c AVComposition) Duration() coremedia.CMTime {
 	rv := objc.Send[coremedia.CMTime](c.ID, objc.Sel("duration"))
 	return coremedia.CMTime(rv)
 }
-func (c AVComposition) SetDuration(value coremedia.CMTime) {
-	objc.Send[struct{}](c.ID, objc.Sel("setDuration:"), value)
-}
 
 // A Boolean value that indicates whether the asset provides precise duration
 // and timing.
@@ -723,9 +643,6 @@ func (c AVComposition) ProvidesPreciseDurationAndTiming() bool {
 	rv := objc.Send[bool](c.ID, objc.Sel("providesPreciseDurationAndTiming"))
 	return rv
 }
-func (c AVComposition) SetProvidesPreciseDurationAndTiming(value bool) {
-	objc.Send[struct{}](c.ID, objc.Sel("setProvidesPreciseDurationAndTiming:"), value)
-}
 
 // A time value that indicates how closely playback follows the latest live
 // stream content.
@@ -742,9 +659,6 @@ func (c AVComposition) MinimumTimeOffsetFromLive() coremedia.CMTime {
 	rv := objc.Send[coremedia.CMTime](c.ID, objc.Sel("minimumTimeOffsetFromLive"))
 	return coremedia.CMTime(rv)
 }
-func (c AVComposition) SetMinimumTimeOffsetFromLive(value coremedia.CMTime) {
-	objc.Send[struct{}](c.ID, objc.Sel("setMinimumTimeOffsetFromLive:"), value)
-}
 
 // An array of metadata items for all metadata identifiers for which a value
 // is available.
@@ -757,12 +671,11 @@ func (c AVComposition) SetMinimumTimeOffsetFromLive(value coremedia.CMTime) {
 // [AVMetadataItemClass.MetadataItemsFromArrayFilteredByIdentifier] method.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVComposition/metadata
-func (c AVComposition) Metadata() IAVMetadataItem {
-	rv := objc.Send[objc.ID](c.ID, objc.Sel("metadata"))
-	return AVMetadataItemFromID(objc.ID(rv))
-}
-func (c AVComposition) SetMetadata(value IAVMetadataItem) {
-	objc.Send[struct{}](c.ID, objc.Sel("setMetadata:"), value)
+func (c AVComposition) Metadata() []AVMetadataItem {
+	rv := objc.Send[[]objc.ID](c.ID, objc.Sel("metadata"))
+	return objc.ConvertSlice(rv, func(id objc.ID) AVMetadataItem {
+		return AVMetadataItemFromID(id)
+	})
 }
 
 // The metadata items an asset contains for common metadata identifiers that
@@ -778,12 +691,11 @@ func (c AVComposition) SetMetadata(value IAVMetadataItem) {
 // to the specific items of interest.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVComposition/commonMetadata
-func (c AVComposition) CommonMetadata() IAVMetadataItem {
-	rv := objc.Send[objc.ID](c.ID, objc.Sel("commonMetadata"))
-	return AVMetadataItemFromID(objc.ID(rv))
-}
-func (c AVComposition) SetCommonMetadata(value IAVMetadataItem) {
-	objc.Send[struct{}](c.ID, objc.Sel("setCommonMetadata:"), value)
+func (c AVComposition) CommonMetadata() []AVMetadataItem {
+	rv := objc.Send[[]objc.ID](c.ID, objc.Sel("commonMetadata"))
+	return objc.ConvertSlice(rv, func(id objc.ID) AVMetadataItem {
+		return AVMetadataItemFromID(id)
+	})
 }
 
 // The metadata formats this asset contains.
@@ -793,12 +705,11 @@ func (c AVComposition) SetCommonMetadata(value IAVMetadataItem) {
 // Metadata formats may include ID3, iTunes metadata, and so on.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVComposition/availableMetadataFormats
-func (c AVComposition) AvailableMetadataFormats() AVMetadataFormat {
-	rv := objc.Send[objc.ID](c.ID, objc.Sel("availableMetadataFormats"))
-	return AVMetadataFormat(foundation.NSStringFromID(rv).String())
-}
-func (c AVComposition) SetAvailableMetadataFormats(value AVMetadataFormat) {
-	objc.Send[struct{}](c.ID, objc.Sel("setAvailableMetadataFormats:"), objc.String(string(value)))
+func (c AVComposition) AvailableMetadataFormats() []AVMetadataFormat {
+	rv := objc.Send[[]objc.ID](c.ID, objc.Sel("availableMetadataFormats"))
+	return objc.ConvertSlice(rv, func(id objc.ID) AVMetadataFormat {
+		return AVMetadataFormat(foundation.NSStringFromID(id).String())
+	})
 }
 
 // A metadata item that indicates the asset’s creation date.
@@ -821,9 +732,6 @@ func (c AVComposition) CreationDate() IAVMetadataItem {
 	rv := objc.Send[objc.ID](c.ID, objc.Sel("creationDate"))
 	return AVMetadataItemFromID(objc.ID(rv))
 }
-func (c AVComposition) SetCreationDate(value IAVMetadataItem) {
-	objc.Send[struct{}](c.ID, objc.Sel("setCreationDate:"), value)
-}
 
 // The lyrics of the asset in a language suitable for the current locale.
 //
@@ -831,9 +739,6 @@ func (c AVComposition) SetCreationDate(value IAVMetadataItem) {
 func (c AVComposition) Lyrics() string {
 	rv := objc.Send[objc.ID](c.ID, objc.Sel("lyrics"))
 	return foundation.NSStringFromID(rv).String()
-}
-func (c AVComposition) SetLyrics(value string) {
-	objc.Send[struct{}](c.ID, objc.Sel("setLyrics:"), objc.String(value))
 }
 
 // A Boolean value that indicates whether the asset has playable content.
@@ -847,9 +752,6 @@ func (c AVComposition) SetLyrics(value string) {
 func (c AVComposition) IsPlayable() bool {
 	rv := objc.Send[bool](c.ID, objc.Sel("isPlayable"))
 	return rv
-}
-func (c AVComposition) SetPlayable(value bool) {
-	objc.Send[struct{}](c.ID, objc.Sel("setPlayable:"), value)
 }
 
 // A Boolean value that indicates whether you can extract the asset’s media
@@ -865,9 +767,6 @@ func (c AVComposition) IsReadable() bool {
 	rv := objc.Send[bool](c.ID, objc.Sel("isReadable"))
 	return rv
 }
-func (c AVComposition) SetReadable(value bool) {
-	objc.Send[struct{}](c.ID, objc.Sel("setReadable:"), value)
-}
 
 // A Boolean value that indicates whether you can export this asset using an
 // export session.
@@ -881,9 +780,6 @@ func (c AVComposition) SetReadable(value bool) {
 func (c AVComposition) IsExportable() bool {
 	rv := objc.Send[bool](c.ID, objc.Sel("isExportable"))
 	return rv
-}
-func (c AVComposition) SetExportable(value bool) {
-	objc.Send[struct{}](c.ID, objc.Sel("setExportable:"), value)
 }
 
 // A Boolean value that indicates whether you can use the asset as a segment
@@ -899,9 +795,6 @@ func (c AVComposition) IsComposable() bool {
 	rv := objc.Send[bool](c.ID, objc.Sel("isComposable"))
 	return rv
 }
-func (c AVComposition) SetComposable(value bool) {
-	objc.Send[struct{}](c.ID, objc.Sel("setComposable:"), value)
-}
 
 // A Boolean value that indicates whether the asset is compatible with AirPlay
 // Video.
@@ -916,9 +809,6 @@ func (c AVComposition) IsCompatibleWithAirPlayVideo() bool {
 	rv := objc.Send[bool](c.ID, objc.Sel("isCompatibleWithAirPlayVideo"))
 	return rv
 }
-func (c AVComposition) SetCompatibleWithAirPlayVideo(value bool) {
-	objc.Send[struct{}](c.ID, objc.Sel("setCompatibleWithAirPlayVideo:"), value)
-}
 
 // The asset’s rate preference for playing its media.
 //
@@ -931,9 +821,6 @@ func (c AVComposition) PreferredRate() kernel.Float {
 	rv := objc.Send[kernel.Float](c.ID, objc.Sel("preferredRate"))
 	return kernel.Float(rv)
 }
-func (c AVComposition) SetPreferredRate(value kernel.Float) {
-	objc.Send[struct{}](c.ID, objc.Sel("setPreferredRate:"), value)
-}
 
 // The asset’s volume preference for playing its audible media.
 //
@@ -945,9 +832,6 @@ func (c AVComposition) SetPreferredRate(value kernel.Float) {
 func (c AVComposition) PreferredVolume() kernel.Float {
 	rv := objc.Send[kernel.Float](c.ID, objc.Sel("preferredVolume"))
 	return kernel.Float(rv)
-}
-func (c AVComposition) SetPreferredVolume(value kernel.Float) {
-	objc.Send[struct{}](c.ID, objc.Sel("setPreferredVolume:"), value)
 }
 
 // The asset’s transform preference to apply to its visual content during
@@ -962,9 +846,6 @@ func (c AVComposition) PreferredTransform() corefoundation.CGAffineTransform {
 	rv := objc.Send[corefoundation.CGAffineTransform](c.ID, objc.Sel("preferredTransform"))
 	return corefoundation.CGAffineTransform(rv)
 }
-func (c AVComposition) SetPreferredTransform(value corefoundation.CGAffineTransform) {
-	objc.Send[struct{}](c.ID, objc.Sel("setPreferredTransform:"), value)
-}
 
 // The default media selections for this asset’s media selection groups.
 //
@@ -978,42 +859,36 @@ func (c AVComposition) PreferredMediaSelection() IAVMediaSelection {
 	rv := objc.Send[objc.ID](c.ID, objc.Sel("preferredMediaSelection"))
 	return AVMediaSelectionFromID(objc.ID(rv))
 }
-func (c AVComposition) SetPreferredMediaSelection(value IAVMediaSelection) {
-	objc.Send[struct{}](c.ID, objc.Sel("setPreferredMediaSelection:"), value)
-}
 
 // The array of available media selections for this asset.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVComposition/allMediaSelections
-func (c AVComposition) AllMediaSelections() IAVMediaSelection {
-	rv := objc.Send[objc.ID](c.ID, objc.Sel("allMediaSelections"))
-	return AVMediaSelectionFromID(objc.ID(rv))
-}
-func (c AVComposition) SetAllMediaSelections(value IAVMediaSelection) {
-	objc.Send[struct{}](c.ID, objc.Sel("setAllMediaSelections:"), value)
+func (c AVComposition) AllMediaSelections() []AVMediaSelection {
+	rv := objc.Send[[]objc.ID](c.ID, objc.Sel("allMediaSelections"))
+	return objc.ConvertSlice(rv, func(id objc.ID) AVMediaSelection {
+		return AVMediaSelectionFromID(id)
+	})
 }
 
 // An array of media characteristics for which a media selection option is
 // available.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVComposition/availableMediaCharacteristicsWithMediaSelectionOptions
-func (c AVComposition) AvailableMediaCharacteristicsWithMediaSelectionOptions() AVMediaCharacteristic {
-	rv := objc.Send[objc.ID](c.ID, objc.Sel("availableMediaCharacteristicsWithMediaSelectionOptions"))
-	return AVMediaCharacteristic(foundation.NSStringFromID(rv).String())
-}
-func (c AVComposition) SetAvailableMediaCharacteristicsWithMediaSelectionOptions(value AVMediaCharacteristic) {
-	objc.Send[struct{}](c.ID, objc.Sel("setAvailableMediaCharacteristicsWithMediaSelectionOptions:"), objc.String(string(value)))
+func (c AVComposition) AvailableMediaCharacteristicsWithMediaSelectionOptions() []AVMediaCharacteristic {
+	rv := objc.Send[[]objc.ID](c.ID, objc.Sel("availableMediaCharacteristicsWithMediaSelectionOptions"))
+	return objc.ConvertSlice(rv, func(id objc.ID) AVMediaCharacteristic {
+		return AVMediaCharacteristic(foundation.NSStringFromID(id).String())
+	})
 }
 
 // The locales of the asset’s chapter metadata.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVComposition/availableChapterLocales
-func (c AVComposition) AvailableChapterLocales() unsafe.Pointer {
-	rv := objc.Send[unsafe.Pointer](c.ID, objc.Sel("availableChapterLocales"))
-	return rv
-}
-func (c AVComposition) SetAvailableChapterLocales(value kernel.Pointer) {
-	objc.Send[struct{}](c.ID, objc.Sel("setAvailableChapterLocales:"), value)
+func (c AVComposition) AvailableChapterLocales() []foundation.NSLocale {
+	rv := objc.Send[[]objc.ID](c.ID, objc.Sel("availableChapterLocales"))
+	return objc.ConvertSlice(rv, func(id objc.ID) foundation.NSLocale {
+		return foundation.NSLocaleFromID(id)
+	})
 }
 
 // The options you used to create a composition.
@@ -1040,9 +915,6 @@ func (c AVComposition) HasProtectedContent() bool {
 	rv := objc.Send[bool](c.ID, objc.Sel("hasProtectedContent"))
 	return rv
 }
-func (c AVComposition) SetHasProtectedContent(value bool) {
-	objc.Send[struct{}](c.ID, objc.Sel("setHasProtectedContent:"), value)
-}
 
 // A Boolean value that indicates whether you can extend the asset by
 // fragments.
@@ -1057,9 +929,6 @@ func (c AVComposition) SetHasProtectedContent(value bool) {
 func (c AVComposition) CanContainFragments() bool {
 	rv := objc.Send[bool](c.ID, objc.Sel("canContainFragments"))
 	return rv
-}
-func (c AVComposition) SetCanContainFragments(value bool) {
-	objc.Send[struct{}](c.ID, objc.Sel("setCanContainFragments:"), value)
 }
 
 // A Boolean value that indicates whether at least one movie fragment extends
@@ -1078,9 +947,6 @@ func (c AVComposition) ContainsFragments() bool {
 	rv := objc.Send[bool](c.ID, objc.Sel("containsFragments"))
 	return rv
 }
-func (c AVComposition) SetContainsFragments(value bool) {
-	objc.Send[struct{}](c.ID, objc.Sel("setContainsFragments:"), value)
-}
 
 // The total duration of fragments that currently exist, or may exist in the
 // future.
@@ -1097,7 +963,4 @@ func (c AVComposition) SetContainsFragments(value bool) {
 func (c AVComposition) OverallDurationHint() coremedia.CMTime {
 	rv := objc.Send[coremedia.CMTime](c.ID, objc.Sel("overallDurationHint"))
 	return coremedia.CMTime(rv)
-}
-func (c AVComposition) SetOverallDurationHint(value coremedia.CMTime) {
-	objc.Send[struct{}](c.ID, objc.Sel("setOverallDurationHint:"), value)
 }

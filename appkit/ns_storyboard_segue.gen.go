@@ -49,12 +49,12 @@ func (nc NSStoryboardSegueClass) Alloc() NSStoryboardSegue {
 //
 // # Overview
 //
-// In this context, a is a view controller or a window controller and a is an
-// instance of the [NSStoryboard] class.
+// In this context, a scene is a view controller or a window controller and a
+// storyboard is an instance of the [NSStoryboard] class.
 //
 // A storyboard segue has a procedural notion of being invoked, known in the
-// API as being . You can take advantage of hooks into the segue performance
-// process by way of the [NSSeguePerforming] protocol.
+// API as being performed. You can take advantage of hooks into the segue
+// performance process by way of the [NSSeguePerforming] protocol.
 //
 // You do not create storyboard segue objects directly. Instead, the system
 // creates them as needed as segues are invoked. To run code during

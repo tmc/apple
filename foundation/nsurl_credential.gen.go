@@ -111,7 +111,6 @@ func NSURLCredentialFromID(id objc.ID) URLCredential { return URLCredentialFromI
 // See: https://developer.apple.com/documentation/Foundation/URLCredential
 type IURLCredential interface {
 	objectivec.IObject
-	NSSecureCoding
 
 	// Topic: Creating a credential
 
@@ -136,6 +135,10 @@ type IURLCredential interface {
 	Identity() objectivec.IObject
 	// The credential’s persistence setting.
 	Persistence() NSURLCredentialPersistence
+
+	// Encodes the receiver using a given archiver.
+	EncodeWithCoder(coder INSCoder)
+	InitWithCoder(coder INSCoder) URLCredential
 }
 
 // Init initializes the instance.

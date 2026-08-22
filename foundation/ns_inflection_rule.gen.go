@@ -86,7 +86,6 @@ func NSInflectionRuleFromID(id objc.ID) NSInflectionRule {
 // See: https://developer.apple.com/documentation/Foundation/NSInflectionRule
 type INSInflectionRule interface {
 	objectivec.IObject
-	NSSecureCoding
 
 	InitWithCoder(coder INSCoder) NSInflectionRule
 	// Encodes the receiver using a given archiver.

@@ -58,7 +58,8 @@ func FSFileSystemBaseObjectFromID(id objc.ID) FSFileSystemBaseObject {
 //
 // See: https://developer.apple.com/documentation/FSKit/FSFileSystemBase/wipe(_:completionHandler:)
 func (o FSFileSystemBaseObject) WipeResourceCompletionHandler(resource IFSBlockDeviceResource, completion ErrorHandler) {
-	objc.Send[struct{}](o.ID, objc.Sel("wipeResource:completionHandler:"), resource, completion)
+	_block1, _ := NewErrorBlock(completion)
+	objc.Send[struct{}](o.ID, objc.Sel("wipeResource:completionHandler:"), resource, _block1)
 }
 
 // The status of the file system container, indicating its readiness and

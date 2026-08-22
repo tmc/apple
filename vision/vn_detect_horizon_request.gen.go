@@ -95,8 +95,9 @@ func NewVNDetectHorizonRequest() VNDetectHorizonRequest {
 // [VNImageRequestHandler.PerformRequestsError].
 //
 // See: https://developer.apple.com/documentation/Vision/VNRequest/init(completionHandler:)
-func NewDetectHorizonRequestWithCompletionHandler(completionHandler VNRequestCompletionHandler) VNDetectHorizonRequest {
+func NewDetectHorizonRequestWithCompletionHandler(completionHandler VNRequestErrorHandler) VNDetectHorizonRequest {
+	_block0, _ := NewVNRequestErrorBlock(completionHandler)
 	instance := getVNDetectHorizonRequestClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCompletionHandler:"), completionHandler)
+	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCompletionHandler:"), _block0)
 	return VNDetectHorizonRequestFromID(rv)
 }

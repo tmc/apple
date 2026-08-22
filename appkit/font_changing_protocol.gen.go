@@ -37,7 +37,7 @@ func (o NSFontChangingObject) ChangeFont(sender INSFontManager) {
 }
 
 // See: https://developer.apple.com/documentation/AppKit/NSFontChanging/validModesForFontPanel(_:)
-func (o NSFontChangingObject) ValidModesForFontPanel(fontPanel NSFontPanel) NSFontPanelModeMask {
+func (o NSFontChangingObject) ValidModesForFontPanel(fontPanel INSFontPanel) NSFontPanelModeMask {
 	rv := objc.Send[NSFontPanelModeMask](o.ID, objc.Sel("validModesForFontPanel:"), fontPanel)
 	return rv
 }

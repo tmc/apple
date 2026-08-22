@@ -5,7 +5,6 @@
 package avfaudio
 
 import (
-	"github.com/tmc/apple/kernel"
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -50,12 +49,12 @@ func (s AVSpeechSynthesizer) SetMixToTelephonyUplink(value bool) {
 // The system replicates speech audio to each audio session channel.
 //
 // See: https://developer.apple.com/documentation/AVFAudio/AVSpeechSynthesizer/outputChannels
-func (s AVSpeechSynthesizer) OutputChannels() []kernel.ID {
+func (s AVSpeechSynthesizer) OutputChannels() []objectivec.IObject {
 	rv := objc.Send[[]objc.ID](s.ID, objc.Sel("outputChannels"))
-	return objc.ConvertSlice(rv, func(id objc.ID) kernel.ID {
-		return kernel.DFromID(id)
+	return objc.ConvertSlice(rv, func(id objc.ID) objectivec.IObject {
+		return objectivec.Object{ID: id}
 	})
 }
-func (s AVSpeechSynthesizer) SetOutputChannels(value []kernel.ID) {
+func (s AVSpeechSynthesizer) SetOutputChannels(value []objectivec.IObject) {
 	objc.Send[struct{}](s.ID, objc.Sel("setOutputChannels:"), objectivec.IObjectSliceToNSArray(value))
 }

@@ -7,6 +7,7 @@ import (
 
 	"github.com/tmc/apple/corefoundation"
 	"github.com/tmc/apple/coregraphics"
+	"github.com/tmc/apple/coreimage"
 	"github.com/tmc/apple/foundation"
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
@@ -210,7 +211,7 @@ type INSGraphicsContext interface {
 	// Topic: Getting the Context for Rendering Core Image Objects
 
 	// A context for Core Image objects that you can use to render into the graphics context.
-	CIContext() objectivec.IObject
+	CIContext() coreimage.CIContext
 
 	// Topic: Managing Color Rendering
 
@@ -302,7 +303,7 @@ func NewGraphicsContextWithBitmapImageRep(bitmapRep INSBitmapImageRep) NSGraphic
 // The created [NSGraphicsContext] object, or `nil` if the object could not be
 // created.
 //
-// See: https://developer.apple.com/documentation/AppKit/NSGraphicsContext/init(cgContext:flipped:)-9cbad
+// See: https://developer.apple.com/documentation/AppKit/NSGraphicsContext/init(cgContext:flipped:)
 //
 // [CGContext]: https://developer.apple.com/documentation/CoreGraphics/CGContext
 func NewGraphicsContextWithCGContextFlipped(graphicsPort coregraphics.CGContextRef, initialFlippedState bool) NSGraphicsContext {
@@ -523,9 +524,9 @@ func (g NSGraphicsContext) SetPatternPhase(value corefoundation.CGPoint) {
 // [CIImage]: https://developer.apple.com/documentation/CoreImage/CIImage
 // [CIVector]: https://developer.apple.com/documentation/CoreImage/CIVector
 // [Core Image Programming Guide]: https://developer.apple.com/library/archive/documentation/GraphicsImaging/Conceptual/CoreImaging/ci_intro/ci_intro.html#//apple_ref/doc/uid/TP30001185
-func (g NSGraphicsContext) CIContext() objectivec.IObject {
+func (g NSGraphicsContext) CIContext() coreimage.CIContext {
 	rv := objc.Send[objc.ID](g.ID, objc.Sel("CIContext"))
-	return objectivec.Object{ID: rv}
+	return coreimage.CIContextFromID(objc.ID(rv))
 }
 
 // The color rendering intent in the graphics context’s graphics state.

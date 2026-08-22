@@ -203,7 +203,7 @@ func init() {
 var MTKModelErrors struct {
 	// Domain: The error domain used by MetalKit when returning mesh initialization errors.
 	Domain MTKModelError
-	// Key: The key used to retrieve an error string from an error object’s [userInfo](<doc://com.apple.documentation/documentation/Foundation/NSError/userInfo>) dictionary.
+	// Key: The key used to retrieve an error string from an error object’s [userInfo](<https://developer.apple.com/documentation/Foundation/NSError/userInfo>) dictionary.
 	Key MTKModelError
 }
 
@@ -211,7 +211,7 @@ var MTKModelErrors struct {
 var MTKTextureLoaderErrors struct {
 	// Domain: The error domain used by [MetalKit] when returning texture loading errors.
 	Domain MTKTextureLoaderError
-	// Key: The key used to retrieve an error string from an error object’s [userInfo](<doc://com.apple.documentation/documentation/Foundation/NSError/userInfo>) dictionary.
+	// Key: The key used to retrieve an error string from an error object’s [userInfo](<https://developer.apple.com/documentation/Foundation/NSError/userInfo>) dictionary.
 	Key MTKTextureLoaderError
 }
 

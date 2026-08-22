@@ -74,6 +74,7 @@ func CAEDRMetadataFromID(id objc.ID) CAEDRMetadata {
 type ICAEDRMetadata interface {
 	objectivec.IObject
 
+	InitWithCoder(coder foundation.INSCoder) CAEDRMetadata
 	EncodeWithCoder(coder foundation.INSCoder)
 }
 
@@ -96,6 +97,18 @@ func NewCAEDRMetadata() CAEDRMetadata {
 	return rv
 }
 
+// See: https://developer.apple.com/documentation/QuartzCore/CAEDRMetadata/init(coder:)
+func NewEDRMetadataWithCoder(coder foundation.INSCoder) CAEDRMetadata {
+	instance := getCAEDRMetadataClass().Alloc()
+	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
+	return CAEDRMetadataFromID(rv)
+}
+
+// See: https://developer.apple.com/documentation/QuartzCore/CAEDRMetadata/init(coder:)
+func (e CAEDRMetadata) InitWithCoder(coder foundation.INSCoder) CAEDRMetadata {
+	rv := objc.Send[CAEDRMetadata](e.ID, objc.Sel("initWithCoder:"), coder)
+	return rv
+}
 func (e CAEDRMetadata) EncodeWithCoder(coder foundation.INSCoder) {
 	objc.Send[objc.ID](e.ID, objc.Sel("encodeWithCoder:"), coder)
 }

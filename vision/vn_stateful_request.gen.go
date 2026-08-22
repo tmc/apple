@@ -3,6 +3,7 @@
 package vision
 
 import (
+	"context"
 	"sync"
 
 	"github.com/tmc/apple/coremedia"
@@ -86,7 +87,7 @@ type IVNStatefulRequest interface {
 	// Topic: Initializing a Request
 
 	// Initializes a video-based request.
-	InitWithFrameAnalysisSpacingCompletionHandler(frameAnalysisSpacing coremedia.CMTime, completionHandler ErrorHandler) VNStatefulRequest
+	InitWithFrameAnalysisSpacingCompletionHandler(frameAnalysisSpacing coremedia.CMTime, completionHandler VNRequestErrorHandler) VNStatefulRequest
 
 	// Topic: Configuring the Request
 
@@ -126,9 +127,10 @@ func NewVNStatefulRequest() VNStatefulRequest {
 // [VNImageRequestHandler.PerformRequestsError].
 //
 // See: https://developer.apple.com/documentation/Vision/VNRequest/init(completionHandler:)
-func NewStatefulRequestWithCompletionHandler(completionHandler VNRequestCompletionHandler) VNStatefulRequest {
+func NewStatefulRequestWithCompletionHandler(completionHandler VNRequestErrorHandler) VNStatefulRequest {
+	_block0, _ := NewVNRequestErrorBlock(completionHandler)
 	instance := getVNStatefulRequestClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCompletionHandler:"), completionHandler)
+	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCompletionHandler:"), _block0)
 	return VNStatefulRequestFromID(rv)
 }
 
@@ -146,9 +148,10 @@ func NewStatefulRequestWithCompletionHandler(completionHandler VNRequestCompleti
 //
 // [CMTime]: https://developer.apple.com/documentation/CoreMedia/CMTime
 // [zero]: https://developer.apple.com/documentation/CoreMedia/CMTime/zero
-func NewStatefulRequestWithFrameAnalysisSpacingCompletionHandler(frameAnalysisSpacing coremedia.CMTime, completionHandler VNRequestCompletionHandler) VNStatefulRequest {
+func NewStatefulRequestWithFrameAnalysisSpacingCompletionHandler(frameAnalysisSpacing coremedia.CMTime, completionHandler VNRequestErrorHandler) VNStatefulRequest {
+	_block1, _ := NewVNRequestErrorBlock(completionHandler)
 	instance := getVNStatefulRequestClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithFrameAnalysisSpacing:completionHandler:"), frameAnalysisSpacing, completionHandler)
+	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithFrameAnalysisSpacing:completionHandler:"), frameAnalysisSpacing, _block1)
 	return VNStatefulRequestFromID(rv)
 }
 
@@ -166,8 +169,8 @@ func NewStatefulRequestWithFrameAnalysisSpacingCompletionHandler(frameAnalysisSp
 //
 // [CMTime]: https://developer.apple.com/documentation/CoreMedia/CMTime
 // [zero]: https://developer.apple.com/documentation/CoreMedia/CMTime/zero
-func (s VNStatefulRequest) InitWithFrameAnalysisSpacingCompletionHandler(frameAnalysisSpacing coremedia.CMTime, completionHandler ErrorHandler) VNStatefulRequest {
-	_block1, _ := NewErrorBlock(completionHandler)
+func (s VNStatefulRequest) InitWithFrameAnalysisSpacingCompletionHandler(frameAnalysisSpacing coremedia.CMTime, completionHandler VNRequestErrorHandler) VNStatefulRequest {
+	_block1, _ := NewVNRequestErrorBlock(completionHandler)
 	rv := objc.Send[VNStatefulRequest](s.ID, objc.Sel("initWithFrameAnalysisSpacing:completionHandler:"), frameAnalysisSpacing, _block1)
 	return rv
 }
@@ -194,4 +197,23 @@ func (s VNStatefulRequest) MinimumLatencyFrameCount() int {
 func (s VNStatefulRequest) FrameAnalysisSpacing() coremedia.CMTime {
 	rv := objc.Send[coremedia.CMTime](s.ID, objc.Sel("frameAnalysisSpacing"))
 	return coremedia.CMTime(rv)
+}
+
+// InitWithFrameAnalysisSpacing is a synchronous wrapper around [VNStatefulRequest.InitWithFrameAnalysisSpacingCompletionHandler].
+// It blocks until the completion handler fires or the context is cancelled.
+func (s VNStatefulRequest) InitWithFrameAnalysisSpacing(ctx context.Context, frameAnalysisSpacing coremedia.CMTime) (*VNRequest, error) {
+	type result struct {
+		val *VNRequest
+		err error
+	}
+	done := make(chan result, 1)
+	s.InitWithFrameAnalysisSpacingCompletionHandler(frameAnalysisSpacing, func(val *VNRequest, err error) {
+		done <- result{val, err}
+	})
+	select {
+	case r := <-done:
+		return r.val, r.err
+	case <-ctx.Done():
+		return nil, ctx.Err()
+	}
 }

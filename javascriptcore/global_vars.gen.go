@@ -3,8 +3,6 @@
 package javascriptcore
 
 import (
-	"unsafe"
-
 	"github.com/ebitengine/purego"
 	"github.com/tmc/apple/objc"
 )
@@ -109,7 +107,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kJSClassDefinitionEmpty"); err == nil && ptr != 0 {
-		KJSClassDefinitionEmpty = *(*JSClassDefinition)(unsafe.Pointer(ptr))
+		KJSClassDefinitionEmpty = objc.ValueAt[JSClassDefinition](ptr)
 	}
 
 }

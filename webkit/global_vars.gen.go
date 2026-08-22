@@ -3,8 +3,6 @@
 package webkit
 
 import (
-	"unsafe"
-
 	"github.com/ebitengine/purego"
 	"github.com/tmc/apple/appkit"
 	"github.com/tmc/apple/foundation"
@@ -143,7 +141,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSReadAccessURLDocumentOption"); err == nil && ptr != 0 {
-		ReadAccessURLDocumentOption = *(*appkit.NSAttributedStringDocumentReadingOptionKey)(unsafe.Pointer(ptr))
+		ReadAccessURLDocumentOption = objc.ValueAt[appkit.NSAttributedStringDocumentReadingOptionKey](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "WKErrorDomain"); err == nil && ptr != 0 {
@@ -660,9 +658,9 @@ func init() {
 
 // WKWebExtensionContextNotificationUserInfoKeys provides typed accessors for [WKWebExtensionContextNotificationUserInfoKey] constants.
 var WKWebExtensionContextNotificationUserInfoKeys struct {
-	// MatchPatterns: The corresponding value represents the affected permission match patterns in [WKWebExtensionContext](<doc://com.apple.webkit/documentation/WebKit/WKWebExtensionContext>) notifications.
+	// MatchPatterns: The corresponding value represents the affected permission match patterns in [WKWebExtensionContext](<https://developer.apple.com/documentation/WebKit/WKWebExtensionContext>) notifications.
 	MatchPatterns WKWebExtensionContextNotificationUserInfoKey
-	// Permissions: The corresponding value represents the affected permissions in [WKWebExtensionContext](<doc://com.apple.webkit/documentation/WebKit/WKWebExtensionContext>) notifications.
+	// Permissions: The corresponding value represents the affected permissions in [WKWebExtensionContext](<https://developer.apple.com/documentation/WebKit/WKWebExtensionContext>) notifications.
 	Permissions WKWebExtensionContextNotificationUserInfoKey
 }
 

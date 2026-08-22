@@ -105,6 +105,7 @@ type IUNNotificationResponse interface {
 	// The notification to which the user responded.
 	Notification() IUNNotification
 
+	InitWithCoder(coder foundation.INSCoder) UNNotificationResponse
 	EncodeWithCoder(coder foundation.INSCoder)
 }
 
@@ -127,6 +128,18 @@ func NewUNNotificationResponse() UNNotificationResponse {
 	return rv
 }
 
+// See: https://developer.apple.com/documentation/UserNotifications/UNNotificationResponse/init(coder:)
+func NewUNNotificationResponseWithCoder(coder foundation.INSCoder) UNNotificationResponse {
+	instance := getUNNotificationResponseClass().Alloc()
+	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
+	return UNNotificationResponseFromID(rv)
+}
+
+// See: https://developer.apple.com/documentation/UserNotifications/UNNotificationResponse/init(coder:)
+func (u UNNotificationResponse) InitWithCoder(coder foundation.INSCoder) UNNotificationResponse {
+	rv := objc.Send[UNNotificationResponse](u.ID, objc.Sel("initWithCoder:"), coder)
+	return rv
+}
 func (u UNNotificationResponse) EncodeWithCoder(coder foundation.INSCoder) {
 	objc.Send[objc.ID](u.ID, objc.Sel("encodeWithCoder:"), coder)
 }

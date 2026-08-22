@@ -140,12 +140,12 @@ func GCInputBackRightButton(position int) GCInputButtonName {
 	return result
 }
 
-var _nSStringFromGCPoint2 func(point GCPoint2) foundation.NSString
+var _nSStringFromGCPoint2 func(point GCPoint2) *foundation.NSString
 var _nSStringFromGCPoint2Err error
 
-func tryNSStringFromGCPoint2(point GCPoint2) (foundation.NSString, error) {
+func tryNSStringFromGCPoint2(point GCPoint2) (*foundation.NSString, error) {
 	if _nSStringFromGCPoint2 == nil {
-		return foundation.NSString{}, symbolCallError("NSStringFromGCPoint2", "14.3", _nSStringFromGCPoint2Err)
+		return nil, symbolCallError("NSStringFromGCPoint2", "14.3", _nSStringFromGCPoint2Err)
 	}
 	return _nSStringFromGCPoint2(point), nil
 }
@@ -153,7 +153,7 @@ func tryNSStringFromGCPoint2(point GCPoint2) (foundation.NSString, error) {
 // NSStringFromGCPoint2 returns a string representation of a point.
 //
 // See: https://developer.apple.com/documentation/GameController/NSStringFromGCPoint2(_:)
-func NSStringFromGCPoint2(point GCPoint2) foundation.NSString {
+func NSStringFromGCPoint2(point GCPoint2) *foundation.NSString {
 	result, callErr := tryNSStringFromGCPoint2(point)
 	if callErr != nil {
 		panic(callErr)

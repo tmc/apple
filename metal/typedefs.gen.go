@@ -3,14 +3,15 @@
 package metal
 
 import (
+	"unsafe"
+
 	"github.com/tmc/apple/foundation"
-	"github.com/tmc/apple/kernel"
 )
 
 // MTL4CommitFeedbackHandler is defines the block signature for a callback Metal invokes to provide your app feedback after completing a workload.
 //
 // See: https://developer.apple.com/documentation/Metal/MTL4CommitFeedbackHandler
-type MTL4CommitFeedbackHandler = func(MTL4CommitFeedback)
+type MTL4CommitFeedbackHandler = func(commitFeedback MTL4CommitFeedback)
 
 // MTL4NewBinaryFunctionCompletionHandler is provides a signature for a callback block that Metal calls when the compiler finishes a build task for a binary function.
 //
@@ -42,7 +43,7 @@ type MTLAutoreleasedRenderPipelineReflection = *MTLRenderPipelineReflection
 // MTLCommandBufferHandler is a completion handler signature a GPU device calls when it finishes scheduling a command buffer, or when the GPU finishes running it.
 //
 // See: https://developer.apple.com/documentation/Metal/MTLCommandBufferHandler
-type MTLCommandBufferHandler = func(MTLCommandBuffer)
+type MTLCommandBufferHandler = func(commandBuffer MTLCommandBuffer)
 
 // MTLCommonCounter is the name of a specific counter that can appear in a GPU device’s counter sets.
 //
@@ -62,7 +63,7 @@ type MTLCoordinate2D = MTLSamplePosition
 // MTLDeviceNotificationHandler is a Swift closure or an Objective-C block that Metal calls when the system adds or removes a GPU device.
 //
 // See: https://developer.apple.com/documentation/Metal/MTLDeviceNotificationHandler
-type MTLDeviceNotificationHandler = func(MTLDevice, string)
+type MTLDeviceNotificationHandler = func(device MTLDevice, notifyName string)
 
 // MTLDeviceNotificationName is a notification that represents a change to a GPU device in the system.
 //
@@ -82,22 +83,22 @@ type MTLGPUAddress = uint64
 // MTLIOCommandBufferHandler is a convenience type that defines the signature of an input/output command buffer’s completion handler.
 //
 // See: https://developer.apple.com/documentation/Metal/MTLIOCommandBufferHandler
-type MTLIOCommandBufferHandler = func(MTLIOCommandBuffer)
+type MTLIOCommandBufferHandler = func(inputOutputCommandBuffer MTLIOCommandBuffer)
 
 // MTLIOCompressionContext is a pointer that represents the state of a file compression session in progress.
 //
 // See: https://developer.apple.com/documentation/Metal/MTLIOCompressionContext
-type MTLIOCompressionContext = kernel.Pointer
+type MTLIOCompressionContext = unsafe.Pointer
 
 // MTLNewComputePipelineStateCompletionHandler is a completion handler signature a method calls when it finishes creating a compute pipeline.
 //
 // See: https://developer.apple.com/documentation/Metal/MTLNewComputePipelineStateCompletionHandler
-type MTLNewComputePipelineStateCompletionHandler = func(MTLComputePipelineState, foundation.NSError)
+type MTLNewComputePipelineStateCompletionHandler = func(computePipelineState MTLComputePipelineState, error_ foundation.NSError)
 
 // MTLNewComputePipelineStateWithReflectionCompletionHandler is a completion handler signature a method calls when it finishes creating a compute pipeline and reflection information.
 //
 // See: https://developer.apple.com/documentation/Metal/MTLNewComputePipelineStateWithReflectionCompletionHandler
-type MTLNewComputePipelineStateWithReflectionCompletionHandler = func(MTLComputePipelineState, MTLComputePipelineReflection, foundation.NSError)
+type MTLNewComputePipelineStateWithReflectionCompletionHandler = func(computePipelineState MTLComputePipelineState, reflection MTLComputePipelineReflection, error_ foundation.NSError)
 
 // See: https://developer.apple.com/documentation/Metal/MTLNewDynamicLibraryCompletionHandler
 type MTLNewDynamicLibraryCompletionHandler = func(MTLDynamicLibrary, foundation.NSError)
@@ -105,17 +106,17 @@ type MTLNewDynamicLibraryCompletionHandler = func(MTLDynamicLibrary, foundation.
 // MTLNewLibraryCompletionHandler is a completion handler signature a method calls when it finishes creating a Metal library.
 //
 // See: https://developer.apple.com/documentation/Metal/MTLNewLibraryCompletionHandler
-type MTLNewLibraryCompletionHandler = func(MTLLibrary, foundation.NSError)
+type MTLNewLibraryCompletionHandler = func(library MTLLibrary, error_ foundation.NSError)
 
 // MTLNewRenderPipelineStateCompletionHandler is a completion handler signature a method calls when it finishes creating a render pipeline.
 //
 // See: https://developer.apple.com/documentation/Metal/MTLNewRenderPipelineStateCompletionHandler
-type MTLNewRenderPipelineStateCompletionHandler = func(MTLRenderPipelineState, foundation.NSError)
+type MTLNewRenderPipelineStateCompletionHandler = func(renderPipelineState MTLRenderPipelineState, error_ foundation.NSError)
 
 // MTLNewRenderPipelineStateWithReflectionCompletionHandler is a completion handler signature a method calls when it finishes creating a render pipeline and reflection information.
 //
 // See: https://developer.apple.com/documentation/Metal/MTLNewRenderPipelineStateWithReflectionCompletionHandler
-type MTLNewRenderPipelineStateWithReflectionCompletionHandler = func(MTLRenderPipelineState, MTLRenderPipelineReflection, foundation.NSError)
+type MTLNewRenderPipelineStateWithReflectionCompletionHandler = func(renderPipelineState MTLRenderPipelineState, reflection MTLRenderPipelineReflection, error_ foundation.NSError)
 
 // MTLSharedEventNotificationBlock is a block of code invoked after a shareable event’s signal value equals or exceeds a given value.
 //
@@ -134,3 +135,6 @@ type NSDeviceCertification = int
 //
 // See: https://developer.apple.com/documentation/Metal/NSProcessPerformanceProfile
 type NSProcessPerformanceProfile = int
+
+// MTLLogHandler defines the signature for a callback invoked to process shader log messages.
+type MTLLogHandler = func(subSystem *string, category *string, logLevel MTLLogLevel, message string)

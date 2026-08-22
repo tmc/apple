@@ -136,9 +136,10 @@ func NewVNGeneratePersonSegmentationRequest() VNGeneratePersonSegmentationReques
 // completionHandler: A completion handler that processes the resuts of the request.
 //
 // See: https://developer.apple.com/documentation/Vision/VNGeneratePersonSegmentationRequest/init(completionHandler:)
-func NewGeneratePersonSegmentationRequestWithCompletionHandler(completionHandler VNRequestCompletionHandler) VNGeneratePersonSegmentationRequest {
+func NewGeneratePersonSegmentationRequestWithCompletionHandler(completionHandler VNRequestErrorHandler) VNGeneratePersonSegmentationRequest {
+	_block0, _ := NewVNRequestErrorBlock(completionHandler)
 	instance := getVNGeneratePersonSegmentationRequestClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCompletionHandler:"), completionHandler)
+	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCompletionHandler:"), _block0)
 	return VNGeneratePersonSegmentationRequestFromID(rv)
 }
 
@@ -156,9 +157,10 @@ func NewGeneratePersonSegmentationRequestWithCompletionHandler(completionHandler
 //
 // [CMTime]: https://developer.apple.com/documentation/CoreMedia/CMTime
 // [zero]: https://developer.apple.com/documentation/CoreMedia/CMTime/zero
-func NewGeneratePersonSegmentationRequestWithFrameAnalysisSpacingCompletionHandler(frameAnalysisSpacing coremedia.CMTime, completionHandler VNRequestCompletionHandler) VNGeneratePersonSegmentationRequest {
+func NewGeneratePersonSegmentationRequestWithFrameAnalysisSpacingCompletionHandler(frameAnalysisSpacing coremedia.CMTime, completionHandler VNRequestErrorHandler) VNGeneratePersonSegmentationRequest {
+	_block1, _ := NewVNRequestErrorBlock(completionHandler)
 	instance := getVNGeneratePersonSegmentationRequestClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithFrameAnalysisSpacing:completionHandler:"), frameAnalysisSpacing, completionHandler)
+	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithFrameAnalysisSpacing:completionHandler:"), frameAnalysisSpacing, _block1)
 	return VNGeneratePersonSegmentationRequestFromID(rv)
 }
 

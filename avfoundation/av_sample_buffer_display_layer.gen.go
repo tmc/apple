@@ -387,12 +387,3 @@ func (s AVSampleBufferDisplayLayer) Timebase() coremedia.CMTimebaseRef {
 }
 
 // Protocol methods for AVQueuedSampleBufferRendering
-
-// A Boolean value that indicates whether the receiver is able to accept more
-// sample buffers.
-//
-// See: https://developer.apple.com/documentation/AVFoundation/AVQueuedSampleBufferRendering/isReadyForMoreMediaData
-func (o AVSampleBufferDisplayLayer) IsReadyForMoreMediaData() bool {
-	rv := objc.Send[bool](o.ID, objc.Sel("isReadyForMoreMediaData"))
-	return rv
-}

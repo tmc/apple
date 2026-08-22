@@ -65,11 +65,11 @@ func (nc NEProxySettingsClass) Alloc() NEProxySettings {
 //
 //   - [NEProxySettings.HTTPEnabled]: A Boolean indicating if a static HTTP proxy will be used.
 //   - [NEProxySettings.SetHTTPEnabled]
-//   - [NEProxySettings.HTTPServer]: An [NEProxyServer](<doc://com.apple.networkextension/documentation/NetworkExtension/NEProxyServer>) object containing the static HTTP proxy server settings.
+//   - [NEProxySettings.HTTPServer]: An [NEProxyServer](<https://developer.apple.com/documentation/NetworkExtension/NEProxyServer>) object containing the static HTTP proxy server settings.
 //   - [NEProxySettings.SetHTTPServer]
 //   - [NEProxySettings.HTTPSEnabled]: A Boolean indicating if a static HTTPS proxy will be used.
 //   - [NEProxySettings.SetHTTPSEnabled]
-//   - [NEProxySettings.HTTPSServer]: An [NEProxyServer](<doc://com.apple.networkextension/documentation/NetworkExtension/NEProxyServer>) object containing the static HTTPS proxy server settings.
+//   - [NEProxySettings.HTTPSServer]: An [NEProxyServer](<https://developer.apple.com/documentation/NetworkExtension/NEProxyServer>) object containing the static HTTPS proxy server settings.
 //   - [NEProxySettings.SetHTTPSServer]
 //
 // # Accessing General Proxy Properties
@@ -111,11 +111,11 @@ func NEProxySettingsFromID(id objc.ID) NEProxySettings {
 //
 //   - [INEProxySettings.HTTPEnabled]: A Boolean indicating if a static HTTP proxy will be used.
 //   - [INEProxySettings.SetHTTPEnabled]
-//   - [INEProxySettings.HTTPServer]: An [NEProxyServer](<doc://com.apple.networkextension/documentation/NetworkExtension/NEProxyServer>) object containing the static HTTP proxy server settings.
+//   - [INEProxySettings.HTTPServer]: An [NEProxyServer](<https://developer.apple.com/documentation/NetworkExtension/NEProxyServer>) object containing the static HTTP proxy server settings.
 //   - [INEProxySettings.SetHTTPServer]
 //   - [INEProxySettings.HTTPSEnabled]: A Boolean indicating if a static HTTPS proxy will be used.
 //   - [INEProxySettings.SetHTTPSEnabled]
-//   - [INEProxySettings.HTTPSServer]: An [NEProxyServer](<doc://com.apple.networkextension/documentation/NetworkExtension/NEProxyServer>) object containing the static HTTPS proxy server settings.
+//   - [INEProxySettings.HTTPSServer]: An [NEProxyServer](<https://developer.apple.com/documentation/NetworkExtension/NEProxyServer>) object containing the static HTTPS proxy server settings.
 //   - [INEProxySettings.SetHTTPSServer]
 //
 // # Accessing General Proxy Properties
@@ -148,13 +148,13 @@ type INEProxySettings interface {
 	// A Boolean indicating if a static HTTP proxy will be used.
 	HTTPEnabled() bool
 	SetHTTPEnabled(value bool)
-	// An [NEProxyServer](<doc://com.apple.networkextension/documentation/NetworkExtension/NEProxyServer>) object containing the static HTTP proxy server settings.
+	// An [NEProxyServer](<https://developer.apple.com/documentation/NetworkExtension/NEProxyServer>) object containing the static HTTP proxy server settings.
 	HTTPServer() INEProxyServer
 	SetHTTPServer(value INEProxyServer)
 	// A Boolean indicating if a static HTTPS proxy will be used.
 	HTTPSEnabled() bool
 	SetHTTPSEnabled(value bool)
-	// An [NEProxyServer](<doc://com.apple.networkextension/documentation/NetworkExtension/NEProxyServer>) object containing the static HTTPS proxy server settings.
+	// An [NEProxyServer](<https://developer.apple.com/documentation/NetworkExtension/NEProxyServer>) object containing the static HTTPS proxy server settings.
 	HTTPSServer() INEProxyServer
 	SetHTTPSServer(value INEProxyServer)
 

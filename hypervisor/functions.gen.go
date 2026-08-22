@@ -98,12 +98,12 @@ func HVGICConfigCreate() unsafe.Pointer {
 	return result
 }
 
-var _hVGICConfigSetDistributorBase func(config unsafe.Pointer, distributor_base_address uint64) int32
+var _hVGICConfigSetDistributorBase func(config unsafe.Pointer, distributor_base_address HVIPA) HVReturn
 var _hVGICConfigSetDistributorBaseErr error
 
-func tryHVGICConfigSetDistributorBase(config unsafe.Pointer, distributor_base_address uint64) (int32, error) {
+func tryHVGICConfigSetDistributorBase(config unsafe.Pointer, distributor_base_address HVIPA) (HVReturn, error) {
 	if _hVGICConfigSetDistributorBase == nil {
-		return 0, symbolCallError("hv_gic_config_set_distributor_base", "15.0", _hVGICConfigSetDistributorBaseErr)
+		return *new(HVReturn), symbolCallError("hv_gic_config_set_distributor_base", "15.0", _hVGICConfigSetDistributorBaseErr)
 	}
 	return _hVGICConfigSetDistributorBase(config, distributor_base_address), nil
 }
@@ -111,7 +111,7 @@ func tryHVGICConfigSetDistributorBase(config unsafe.Pointer, distributor_base_ad
 // HVGICConfigSetDistributorBase sets the generic interrupt controller (GIC) distributor region’s base address.
 //
 // See: https://developer.apple.com/documentation/Hypervisor/hv_gic_config_set_distributor_base(_:_:)
-func HVGICConfigSetDistributorBase(config unsafe.Pointer, distributor_base_address uint64) int32 {
+func HVGICConfigSetDistributorBase(config unsafe.Pointer, distributor_base_address HVIPA) HVReturn {
 	result, callErr := tryHVGICConfigSetDistributorBase(config, distributor_base_address)
 	if callErr != nil {
 		panic(callErr)
@@ -119,12 +119,12 @@ func HVGICConfigSetDistributorBase(config unsafe.Pointer, distributor_base_addre
 	return result
 }
 
-var _hVGICConfigSetMsiInterruptRange func(config unsafe.Pointer, msi_intid_base uint32, msi_intid_count uint32) int32
+var _hVGICConfigSetMsiInterruptRange func(config unsafe.Pointer, msi_intid_base uint32, msi_intid_count uint32) HVReturn
 var _hVGICConfigSetMsiInterruptRangeErr error
 
-func tryHVGICConfigSetMsiInterruptRange(config unsafe.Pointer, msi_intid_base uint32, msi_intid_count uint32) (int32, error) {
+func tryHVGICConfigSetMsiInterruptRange(config unsafe.Pointer, msi_intid_base uint32, msi_intid_count uint32) (HVReturn, error) {
 	if _hVGICConfigSetMsiInterruptRange == nil {
-		return 0, symbolCallError("hv_gic_config_set_msi_interrupt_range", "15.0", _hVGICConfigSetMsiInterruptRangeErr)
+		return *new(HVReturn), symbolCallError("hv_gic_config_set_msi_interrupt_range", "15.0", _hVGICConfigSetMsiInterruptRangeErr)
 	}
 	return _hVGICConfigSetMsiInterruptRange(config, msi_intid_base, msi_intid_count), nil
 }
@@ -132,7 +132,7 @@ func tryHVGICConfigSetMsiInterruptRange(config unsafe.Pointer, msi_intid_base ui
 // HVGICConfigSetMsiInterruptRange sets the range of message signaled interrupts (MSIs) the generic interrupt controller supports.
 //
 // See: https://developer.apple.com/documentation/Hypervisor/hv_gic_config_set_msi_interrupt_range(_:_:_:)
-func HVGICConfigSetMsiInterruptRange(config unsafe.Pointer, msi_intid_base uint32, msi_intid_count uint32) int32 {
+func HVGICConfigSetMsiInterruptRange(config unsafe.Pointer, msi_intid_base uint32, msi_intid_count uint32) HVReturn {
 	result, callErr := tryHVGICConfigSetMsiInterruptRange(config, msi_intid_base, msi_intid_count)
 	if callErr != nil {
 		panic(callErr)
@@ -140,12 +140,12 @@ func HVGICConfigSetMsiInterruptRange(config unsafe.Pointer, msi_intid_base uint3
 	return result
 }
 
-var _hVGICConfigSetMsiRegionBase func(config unsafe.Pointer, msi_region_base_address uint64) int32
+var _hVGICConfigSetMsiRegionBase func(config unsafe.Pointer, msi_region_base_address HVIPA) HVReturn
 var _hVGICConfigSetMsiRegionBaseErr error
 
-func tryHVGICConfigSetMsiRegionBase(config unsafe.Pointer, msi_region_base_address uint64) (int32, error) {
+func tryHVGICConfigSetMsiRegionBase(config unsafe.Pointer, msi_region_base_address HVIPA) (HVReturn, error) {
 	if _hVGICConfigSetMsiRegionBase == nil {
-		return 0, symbolCallError("hv_gic_config_set_msi_region_base", "15.0", _hVGICConfigSetMsiRegionBaseErr)
+		return *new(HVReturn), symbolCallError("hv_gic_config_set_msi_region_base", "15.0", _hVGICConfigSetMsiRegionBaseErr)
 	}
 	return _hVGICConfigSetMsiRegionBase(config, msi_region_base_address), nil
 }
@@ -153,7 +153,7 @@ func tryHVGICConfigSetMsiRegionBase(config unsafe.Pointer, msi_region_base_addre
 // HVGICConfigSetMsiRegionBase sets the generic interrupt controllers message signaled interrupts (MSIs) region base address.
 //
 // See: https://developer.apple.com/documentation/Hypervisor/hv_gic_config_set_msi_region_base(_:_:)
-func HVGICConfigSetMsiRegionBase(config unsafe.Pointer, msi_region_base_address uint64) int32 {
+func HVGICConfigSetMsiRegionBase(config unsafe.Pointer, msi_region_base_address HVIPA) HVReturn {
 	result, callErr := tryHVGICConfigSetMsiRegionBase(config, msi_region_base_address)
 	if callErr != nil {
 		panic(callErr)
@@ -161,12 +161,12 @@ func HVGICConfigSetMsiRegionBase(config unsafe.Pointer, msi_region_base_address 
 	return result
 }
 
-var _hVGICConfigSetRedistributorBase func(config unsafe.Pointer, redistributor_base_address uint64) int32
+var _hVGICConfigSetRedistributorBase func(config unsafe.Pointer, redistributor_base_address HVIPA) HVReturn
 var _hVGICConfigSetRedistributorBaseErr error
 
-func tryHVGICConfigSetRedistributorBase(config unsafe.Pointer, redistributor_base_address uint64) (int32, error) {
+func tryHVGICConfigSetRedistributorBase(config unsafe.Pointer, redistributor_base_address HVIPA) (HVReturn, error) {
 	if _hVGICConfigSetRedistributorBase == nil {
-		return 0, symbolCallError("hv_gic_config_set_redistributor_base", "15.0", _hVGICConfigSetRedistributorBaseErr)
+		return *new(HVReturn), symbolCallError("hv_gic_config_set_redistributor_base", "15.0", _hVGICConfigSetRedistributorBaseErr)
 	}
 	return _hVGICConfigSetRedistributorBase(config, redistributor_base_address), nil
 }
@@ -174,7 +174,7 @@ func tryHVGICConfigSetRedistributorBase(config unsafe.Pointer, redistributor_bas
 // HVGICConfigSetRedistributorBase sets the generic interrupt controller (GIC) redistributor region base address.
 //
 // See: https://developer.apple.com/documentation/Hypervisor/hv_gic_config_set_redistributor_base(_:_:)
-func HVGICConfigSetRedistributorBase(config unsafe.Pointer, redistributor_base_address uint64) int32 {
+func HVGICConfigSetRedistributorBase(config unsafe.Pointer, redistributor_base_address HVIPA) HVReturn {
 	result, callErr := tryHVGICConfigSetRedistributorBase(config, redistributor_base_address)
 	if callErr != nil {
 		panic(callErr)
@@ -182,12 +182,12 @@ func HVGICConfigSetRedistributorBase(config unsafe.Pointer, redistributor_base_a
 	return result
 }
 
-var _hVGICCreate func(gic_config unsafe.Pointer) int32
+var _hVGICCreate func(gic_config unsafe.Pointer) HVReturn
 var _hVGICCreateErr error
 
-func tryHVGICCreate(gic_config unsafe.Pointer) (int32, error) {
+func tryHVGICCreate(gic_config unsafe.Pointer) (HVReturn, error) {
 	if _hVGICCreate == nil {
-		return 0, symbolCallError("hv_gic_create", "15.0", _hVGICCreateErr)
+		return *new(HVReturn), symbolCallError("hv_gic_create", "15.0", _hVGICCreateErr)
 	}
 	return _hVGICCreate(gic_config), nil
 }
@@ -195,7 +195,7 @@ func tryHVGICCreate(gic_config unsafe.Pointer) (int32, error) {
 // HVGICCreate creates a generic interrupt controller (GIC) v3 device for a VM configuration.
 //
 // See: https://developer.apple.com/documentation/Hypervisor/hv_gic_create(_:)
-func HVGICCreate(gic_config unsafe.Pointer) int32 {
+func HVGICCreate(gic_config unsafe.Pointer) HVReturn {
 	result, callErr := tryHVGICCreate(gic_config)
 	if callErr != nil {
 		panic(callErr)
@@ -203,12 +203,12 @@ func HVGICCreate(gic_config unsafe.Pointer) int32 {
 	return result
 }
 
-var _hVGICGetDistributorBaseAlignment func(distributor_base_alignment *uintptr) int32
+var _hVGICGetDistributorBaseAlignment func(distributor_base_alignment *uintptr) HVReturn
 var _hVGICGetDistributorBaseAlignmentErr error
 
-func tryHVGICGetDistributorBaseAlignment(distributor_base_alignment *uintptr) (int32, error) {
+func tryHVGICGetDistributorBaseAlignment(distributor_base_alignment *uintptr) (HVReturn, error) {
 	if _hVGICGetDistributorBaseAlignment == nil {
-		return 0, symbolCallError("hv_gic_get_distributor_base_alignment", "15.0", _hVGICGetDistributorBaseAlignmentErr)
+		return *new(HVReturn), symbolCallError("hv_gic_get_distributor_base_alignment", "15.0", _hVGICGetDistributorBaseAlignmentErr)
 	}
 	return _hVGICGetDistributorBaseAlignment(distributor_base_alignment), nil
 }
@@ -216,7 +216,7 @@ func tryHVGICGetDistributorBaseAlignment(distributor_base_alignment *uintptr) (i
 // HVGICGetDistributorBaseAlignment gets the alignment for the base address of the generic interrupt controller (GIC) distributor region, in bytes.
 //
 // See: https://developer.apple.com/documentation/Hypervisor/hv_gic_get_distributor_base_alignment(_:)
-func HVGICGetDistributorBaseAlignment(distributor_base_alignment *uintptr) int32 {
+func HVGICGetDistributorBaseAlignment(distributor_base_alignment *uintptr) HVReturn {
 	result, callErr := tryHVGICGetDistributorBaseAlignment(distributor_base_alignment)
 	if callErr != nil {
 		panic(callErr)
@@ -224,12 +224,12 @@ func HVGICGetDistributorBaseAlignment(distributor_base_alignment *uintptr) int32
 	return result
 }
 
-var _hVGICGetDistributorReg func(reg HVGICDistributorReg, value *uint64) int32
+var _hVGICGetDistributorReg func(reg HVGICDistributorReg, value *uint64) HVReturn
 var _hVGICGetDistributorRegErr error
 
-func tryHVGICGetDistributorReg(reg HVGICDistributorReg, value *uint64) (int32, error) {
+func tryHVGICGetDistributorReg(reg HVGICDistributorReg, value *uint64) (HVReturn, error) {
 	if _hVGICGetDistributorReg == nil {
-		return 0, symbolCallError("hv_gic_get_distributor_reg", "15.0", _hVGICGetDistributorRegErr)
+		return *new(HVReturn), symbolCallError("hv_gic_get_distributor_reg", "15.0", _hVGICGetDistributorRegErr)
 	}
 	return _hVGICGetDistributorReg(reg, value), nil
 }
@@ -237,7 +237,7 @@ func tryHVGICGetDistributorReg(reg HVGICDistributorReg, value *uint64) (int32, e
 // HVGICGetDistributorReg reads a generic interrupt controller (GIC) distributor register.
 //
 // See: https://developer.apple.com/documentation/Hypervisor/hv_gic_get_distributor_reg(_:_:)
-func HVGICGetDistributorReg(reg HVGICDistributorReg, value *uint64) int32 {
+func HVGICGetDistributorReg(reg HVGICDistributorReg, value *uint64) HVReturn {
 	result, callErr := tryHVGICGetDistributorReg(reg, value)
 	if callErr != nil {
 		panic(callErr)
@@ -245,12 +245,12 @@ func HVGICGetDistributorReg(reg HVGICDistributorReg, value *uint64) int32 {
 	return result
 }
 
-var _hVGICGetDistributorSize func(distributor_size *uintptr) int32
+var _hVGICGetDistributorSize func(distributor_size *uintptr) HVReturn
 var _hVGICGetDistributorSizeErr error
 
-func tryHVGICGetDistributorSize(distributor_size *uintptr) (int32, error) {
+func tryHVGICGetDistributorSize(distributor_size *uintptr) (HVReturn, error) {
 	if _hVGICGetDistributorSize == nil {
-		return 0, symbolCallError("hv_gic_get_distributor_size", "15.0", _hVGICGetDistributorSizeErr)
+		return *new(HVReturn), symbolCallError("hv_gic_get_distributor_size", "15.0", _hVGICGetDistributorSizeErr)
 	}
 	return _hVGICGetDistributorSize(distributor_size), nil
 }
@@ -258,7 +258,7 @@ func tryHVGICGetDistributorSize(distributor_size *uintptr) (int32, error) {
 // HVGICGetDistributorSize gets the size of the generic interrupt controller (GIC) distributor region, in bytes.
 //
 // See: https://developer.apple.com/documentation/Hypervisor/hv_gic_get_distributor_size(_:)
-func HVGICGetDistributorSize(distributor_size *uintptr) int32 {
+func HVGICGetDistributorSize(distributor_size *uintptr) HVReturn {
 	result, callErr := tryHVGICGetDistributorSize(distributor_size)
 	if callErr != nil {
 		panic(callErr)
@@ -266,12 +266,12 @@ func HVGICGetDistributorSize(distributor_size *uintptr) int32 {
 	return result
 }
 
-var _hVGICGetIccReg func(vcpu uint64, reg HVGICIccReg, value *uint64) int32
+var _hVGICGetIccReg func(vcpu HVVCPU, reg HVGICIccReg, value *uint64) HVReturn
 var _hVGICGetIccRegErr error
 
-func tryHVGICGetIccReg(vcpu uint64, reg HVGICIccReg, value *uint64) (int32, error) {
+func tryHVGICGetIccReg(vcpu HVVCPU, reg HVGICIccReg, value *uint64) (HVReturn, error) {
 	if _hVGICGetIccReg == nil {
-		return 0, symbolCallError("hv_gic_get_icc_reg", "15.0", _hVGICGetIccRegErr)
+		return *new(HVReturn), symbolCallError("hv_gic_get_icc_reg", "15.0", _hVGICGetIccRegErr)
 	}
 	return _hVGICGetIccReg(vcpu, reg, value), nil
 }
@@ -279,7 +279,7 @@ func tryHVGICGetIccReg(vcpu uint64, reg HVGICIccReg, value *uint64) (int32, erro
 // HVGICGetIccReg reads a generic interrupt controller’s ICC CPU system register.
 //
 // See: https://developer.apple.com/documentation/Hypervisor/hv_gic_get_icc_reg(_:_:_:)
-func HVGICGetIccReg(vcpu uint64, reg HVGICIccReg, value *uint64) int32 {
+func HVGICGetIccReg(vcpu HVVCPU, reg HVGICIccReg, value *uint64) HVReturn {
 	result, callErr := tryHVGICGetIccReg(vcpu, reg, value)
 	if callErr != nil {
 		panic(callErr)
@@ -287,12 +287,12 @@ func HVGICGetIccReg(vcpu uint64, reg HVGICIccReg, value *uint64) int32 {
 	return result
 }
 
-var _hVGICGetIchReg func(vcpu uint64, reg HVGICIchReg, value *uint64) int32
+var _hVGICGetIchReg func(vcpu HVVCPU, reg HVGICIchReg, value *uint64) HVReturn
 var _hVGICGetIchRegErr error
 
-func tryHVGICGetIchReg(vcpu uint64, reg HVGICIchReg, value *uint64) (int32, error) {
+func tryHVGICGetIchReg(vcpu HVVCPU, reg HVGICIchReg, value *uint64) (HVReturn, error) {
 	if _hVGICGetIchReg == nil {
-		return 0, symbolCallError("hv_gic_get_ich_reg", "15.0", _hVGICGetIchRegErr)
+		return *new(HVReturn), symbolCallError("hv_gic_get_ich_reg", "15.0", _hVGICGetIchRegErr)
 	}
 	return _hVGICGetIchReg(vcpu, reg, value), nil
 }
@@ -300,7 +300,7 @@ func tryHVGICGetIchReg(vcpu uint64, reg HVGICIchReg, value *uint64) (int32, erro
 // HVGICGetIchReg reads a generic interrupt controller’s (GIC) ICH virtualization control system register.
 //
 // See: https://developer.apple.com/documentation/Hypervisor/hv_gic_get_ich_reg(_:_:_:)
-func HVGICGetIchReg(vcpu uint64, reg HVGICIchReg, value *uint64) int32 {
+func HVGICGetIchReg(vcpu HVVCPU, reg HVGICIchReg, value *uint64) HVReturn {
 	result, callErr := tryHVGICGetIchReg(vcpu, reg, value)
 	if callErr != nil {
 		panic(callErr)
@@ -308,12 +308,12 @@ func HVGICGetIchReg(vcpu uint64, reg HVGICIchReg, value *uint64) int32 {
 	return result
 }
 
-var _hVGICGetIcvReg func(vcpu uint64, reg HVGICIcvReg, value *uint64) int32
+var _hVGICGetIcvReg func(vcpu HVVCPU, reg HVGICIcvReg, value *uint64) HVReturn
 var _hVGICGetIcvRegErr error
 
-func tryHVGICGetIcvReg(vcpu uint64, reg HVGICIcvReg, value *uint64) (int32, error) {
+func tryHVGICGetIcvReg(vcpu HVVCPU, reg HVGICIcvReg, value *uint64) (HVReturn, error) {
 	if _hVGICGetIcvReg == nil {
-		return 0, symbolCallError("hv_gic_get_icv_reg", "15.0", _hVGICGetIcvRegErr)
+		return *new(HVReturn), symbolCallError("hv_gic_get_icv_reg", "15.0", _hVGICGetIcvRegErr)
 	}
 	return _hVGICGetIcvReg(vcpu, reg, value), nil
 }
@@ -321,7 +321,7 @@ func tryHVGICGetIcvReg(vcpu uint64, reg HVGICIcvReg, value *uint64) (int32, erro
 // HVGICGetIcvReg writes a generic interrupt controller’s (GIC) ICV system register.
 //
 // See: https://developer.apple.com/documentation/Hypervisor/hv_gic_get_icv_reg(_:_:_:)
-func HVGICGetIcvReg(vcpu uint64, reg HVGICIcvReg, value *uint64) int32 {
+func HVGICGetIcvReg(vcpu HVVCPU, reg HVGICIcvReg, value *uint64) HVReturn {
 	result, callErr := tryHVGICGetIcvReg(vcpu, reg, value)
 	if callErr != nil {
 		panic(callErr)
@@ -329,12 +329,12 @@ func HVGICGetIcvReg(vcpu uint64, reg HVGICIcvReg, value *uint64) int32 {
 	return result
 }
 
-var _hVGICGetIntid func(interrupt HVGICIntid, intid *uint32) int32
+var _hVGICGetIntid func(interrupt HVGICIntid, intid *uint32) HVReturn
 var _hVGICGetIntidErr error
 
-func tryHVGICGetIntid(interrupt HVGICIntid, intid *uint32) (int32, error) {
+func tryHVGICGetIntid(interrupt HVGICIntid, intid *uint32) (HVReturn, error) {
 	if _hVGICGetIntid == nil {
-		return 0, symbolCallError("hv_gic_get_intid", "15.0", _hVGICGetIntidErr)
+		return *new(HVReturn), symbolCallError("hv_gic_get_intid", "15.0", _hVGICGetIntidErr)
 	}
 	return _hVGICGetIntid(interrupt, intid), nil
 }
@@ -342,7 +342,7 @@ func tryHVGICGetIntid(interrupt HVGICIntid, intid *uint32) (int32, error) {
 // HVGICGetIntid gets the interrupt ID for reserved interrupts.
 //
 // See: https://developer.apple.com/documentation/Hypervisor/hv_gic_get_intid(_:_:)
-func HVGICGetIntid(interrupt HVGICIntid, intid *uint32) int32 {
+func HVGICGetIntid(interrupt HVGICIntid, intid *uint32) HVReturn {
 	result, callErr := tryHVGICGetIntid(interrupt, intid)
 	if callErr != nil {
 		panic(callErr)
@@ -350,12 +350,12 @@ func HVGICGetIntid(interrupt HVGICIntid, intid *uint32) int32 {
 	return result
 }
 
-var _hVGICGetMsiReg func(reg HVGICMsiReg, value *uint64) int32
+var _hVGICGetMsiReg func(reg HVGICMsiReg, value *uint64) HVReturn
 var _hVGICGetMsiRegErr error
 
-func tryHVGICGetMsiReg(reg HVGICMsiReg, value *uint64) (int32, error) {
+func tryHVGICGetMsiReg(reg HVGICMsiReg, value *uint64) (HVReturn, error) {
 	if _hVGICGetMsiReg == nil {
-		return 0, symbolCallError("hv_gic_get_msi_reg", "15.0", _hVGICGetMsiRegErr)
+		return *new(HVReturn), symbolCallError("hv_gic_get_msi_reg", "15.0", _hVGICGetMsiRegErr)
 	}
 	return _hVGICGetMsiReg(reg, value), nil
 }
@@ -363,7 +363,7 @@ func tryHVGICGetMsiReg(reg HVGICMsiReg, value *uint64) (int32, error) {
 // HVGICGetMsiReg reads a generic interrupt controller (GIC) distributor message signaled interrupt (MSI) register.
 //
 // See: https://developer.apple.com/documentation/Hypervisor/hv_gic_get_msi_reg(_:_:)
-func HVGICGetMsiReg(reg HVGICMsiReg, value *uint64) int32 {
+func HVGICGetMsiReg(reg HVGICMsiReg, value *uint64) HVReturn {
 	result, callErr := tryHVGICGetMsiReg(reg, value)
 	if callErr != nil {
 		panic(callErr)
@@ -371,12 +371,12 @@ func HVGICGetMsiReg(reg HVGICMsiReg, value *uint64) int32 {
 	return result
 }
 
-var _hVGICGetMsiRegionBaseAlignment func(msi_region_base_alignment *uintptr) int32
+var _hVGICGetMsiRegionBaseAlignment func(msi_region_base_alignment *uintptr) HVReturn
 var _hVGICGetMsiRegionBaseAlignmentErr error
 
-func tryHVGICGetMsiRegionBaseAlignment(msi_region_base_alignment *uintptr) (int32, error) {
+func tryHVGICGetMsiRegionBaseAlignment(msi_region_base_alignment *uintptr) (HVReturn, error) {
 	if _hVGICGetMsiRegionBaseAlignment == nil {
-		return 0, symbolCallError("hv_gic_get_msi_region_base_alignment", "15.0", _hVGICGetMsiRegionBaseAlignmentErr)
+		return *new(HVReturn), symbolCallError("hv_gic_get_msi_region_base_alignment", "15.0", _hVGICGetMsiRegionBaseAlignmentErr)
 	}
 	return _hVGICGetMsiRegionBaseAlignment(msi_region_base_alignment), nil
 }
@@ -384,7 +384,7 @@ func tryHVGICGetMsiRegionBaseAlignment(msi_region_base_alignment *uintptr) (int3
 // HVGICGetMsiRegionBaseAlignment gets the alignment, in bytes, for the base address of the generic interrupt controller’s message signaled interrupts (MSI) region.
 //
 // See: https://developer.apple.com/documentation/Hypervisor/hv_gic_get_msi_region_base_alignment(_:)
-func HVGICGetMsiRegionBaseAlignment(msi_region_base_alignment *uintptr) int32 {
+func HVGICGetMsiRegionBaseAlignment(msi_region_base_alignment *uintptr) HVReturn {
 	result, callErr := tryHVGICGetMsiRegionBaseAlignment(msi_region_base_alignment)
 	if callErr != nil {
 		panic(callErr)
@@ -392,12 +392,12 @@ func HVGICGetMsiRegionBaseAlignment(msi_region_base_alignment *uintptr) int32 {
 	return result
 }
 
-var _hVGICGetMsiRegionSize func(msi_region_size *uintptr) int32
+var _hVGICGetMsiRegionSize func(msi_region_size *uintptr) HVReturn
 var _hVGICGetMsiRegionSizeErr error
 
-func tryHVGICGetMsiRegionSize(msi_region_size *uintptr) (int32, error) {
+func tryHVGICGetMsiRegionSize(msi_region_size *uintptr) (HVReturn, error) {
 	if _hVGICGetMsiRegionSize == nil {
-		return 0, symbolCallError("hv_gic_get_msi_region_size", "15.0", _hVGICGetMsiRegionSizeErr)
+		return *new(HVReturn), symbolCallError("hv_gic_get_msi_region_size", "15.0", _hVGICGetMsiRegionSizeErr)
 	}
 	return _hVGICGetMsiRegionSize(msi_region_size), nil
 }
@@ -405,7 +405,7 @@ func tryHVGICGetMsiRegionSize(msi_region_size *uintptr) (int32, error) {
 // HVGICGetMsiRegionSize gets the size in bytes of the generic interrupt controller’s (GIC) message signaled interrupts (MSI) region.
 //
 // See: https://developer.apple.com/documentation/Hypervisor/hv_gic_get_msi_region_size(_:)
-func HVGICGetMsiRegionSize(msi_region_size *uintptr) int32 {
+func HVGICGetMsiRegionSize(msi_region_size *uintptr) HVReturn {
 	result, callErr := tryHVGICGetMsiRegionSize(msi_region_size)
 	if callErr != nil {
 		panic(callErr)
@@ -413,12 +413,12 @@ func HVGICGetMsiRegionSize(msi_region_size *uintptr) int32 {
 	return result
 }
 
-var _hVGICGetRedistributorBase func(vcpu uint64, redistributor_base_address *uint64) int32
+var _hVGICGetRedistributorBase func(vcpu HVVCPU, redistributor_base_address *HVIPA) HVReturn
 var _hVGICGetRedistributorBaseErr error
 
-func tryHVGICGetRedistributorBase(vcpu uint64, redistributor_base_address *uint64) (int32, error) {
+func tryHVGICGetRedistributorBase(vcpu HVVCPU, redistributor_base_address *HVIPA) (HVReturn, error) {
 	if _hVGICGetRedistributorBase == nil {
-		return 0, symbolCallError("hv_gic_get_redistributor_base", "15.0", _hVGICGetRedistributorBaseErr)
+		return *new(HVReturn), symbolCallError("hv_gic_get_redistributor_base", "15.0", _hVGICGetRedistributorBaseErr)
 	}
 	return _hVGICGetRedistributorBase(vcpu, redistributor_base_address), nil
 }
@@ -426,7 +426,7 @@ func tryHVGICGetRedistributorBase(vcpu uint64, redistributor_base_address *uint6
 // HVGICGetRedistributorBase gets the redistributor base guest physical address for the given vCPU.
 //
 // See: https://developer.apple.com/documentation/Hypervisor/hv_gic_get_redistributor_base(_:_:)
-func HVGICGetRedistributorBase(vcpu uint64, redistributor_base_address *uint64) int32 {
+func HVGICGetRedistributorBase(vcpu HVVCPU, redistributor_base_address *HVIPA) HVReturn {
 	result, callErr := tryHVGICGetRedistributorBase(vcpu, redistributor_base_address)
 	if callErr != nil {
 		panic(callErr)
@@ -434,12 +434,12 @@ func HVGICGetRedistributorBase(vcpu uint64, redistributor_base_address *uint64) 
 	return result
 }
 
-var _hVGICGetRedistributorBaseAlignment func(redistributor_base_alignment *uintptr) int32
+var _hVGICGetRedistributorBaseAlignment func(redistributor_base_alignment *uintptr) HVReturn
 var _hVGICGetRedistributorBaseAlignmentErr error
 
-func tryHVGICGetRedistributorBaseAlignment(redistributor_base_alignment *uintptr) (int32, error) {
+func tryHVGICGetRedistributorBaseAlignment(redistributor_base_alignment *uintptr) (HVReturn, error) {
 	if _hVGICGetRedistributorBaseAlignment == nil {
-		return 0, symbolCallError("hv_gic_get_redistributor_base_alignment", "15.0", _hVGICGetRedistributorBaseAlignmentErr)
+		return *new(HVReturn), symbolCallError("hv_gic_get_redistributor_base_alignment", "15.0", _hVGICGetRedistributorBaseAlignmentErr)
 	}
 	return _hVGICGetRedistributorBaseAlignment(redistributor_base_alignment), nil
 }
@@ -447,7 +447,7 @@ func tryHVGICGetRedistributorBaseAlignment(redistributor_base_alignment *uintptr
 // HVGICGetRedistributorBaseAlignment gets the alignment for the base address of the generic interrupt controller (GIC) redistributor region, in bytes.
 //
 // See: https://developer.apple.com/documentation/Hypervisor/hv_gic_get_redistributor_base_alignment(_:)
-func HVGICGetRedistributorBaseAlignment(redistributor_base_alignment *uintptr) int32 {
+func HVGICGetRedistributorBaseAlignment(redistributor_base_alignment *uintptr) HVReturn {
 	result, callErr := tryHVGICGetRedistributorBaseAlignment(redistributor_base_alignment)
 	if callErr != nil {
 		panic(callErr)
@@ -455,12 +455,12 @@ func HVGICGetRedistributorBaseAlignment(redistributor_base_alignment *uintptr) i
 	return result
 }
 
-var _hVGICGetRedistributorReg func(vcpu uint64, reg HVGICRedistributorReg, value *uint64) int32
+var _hVGICGetRedistributorReg func(vcpu HVVCPU, reg HVGICRedistributorReg, value *uint64) HVReturn
 var _hVGICGetRedistributorRegErr error
 
-func tryHVGICGetRedistributorReg(vcpu uint64, reg HVGICRedistributorReg, value *uint64) (int32, error) {
+func tryHVGICGetRedistributorReg(vcpu HVVCPU, reg HVGICRedistributorReg, value *uint64) (HVReturn, error) {
 	if _hVGICGetRedistributorReg == nil {
-		return 0, symbolCallError("hv_gic_get_redistributor_reg", "15.0", _hVGICGetRedistributorRegErr)
+		return *new(HVReturn), symbolCallError("hv_gic_get_redistributor_reg", "15.0", _hVGICGetRedistributorRegErr)
 	}
 	return _hVGICGetRedistributorReg(vcpu, reg, value), nil
 }
@@ -468,7 +468,7 @@ func tryHVGICGetRedistributorReg(vcpu uint64, reg HVGICRedistributorReg, value *
 // HVGICGetRedistributorReg read a generic interrupt controller (GIC) redistributor register.
 //
 // See: https://developer.apple.com/documentation/Hypervisor/hv_gic_get_redistributor_reg(_:_:_:)
-func HVGICGetRedistributorReg(vcpu uint64, reg HVGICRedistributorReg, value *uint64) int32 {
+func HVGICGetRedistributorReg(vcpu HVVCPU, reg HVGICRedistributorReg, value *uint64) HVReturn {
 	result, callErr := tryHVGICGetRedistributorReg(vcpu, reg, value)
 	if callErr != nil {
 		panic(callErr)
@@ -476,12 +476,12 @@ func HVGICGetRedistributorReg(vcpu uint64, reg HVGICRedistributorReg, value *uin
 	return result
 }
 
-var _hVGICGetRedistributorRegionSize func(redistributor_region_size *uintptr) int32
+var _hVGICGetRedistributorRegionSize func(redistributor_region_size *uintptr) HVReturn
 var _hVGICGetRedistributorRegionSizeErr error
 
-func tryHVGICGetRedistributorRegionSize(redistributor_region_size *uintptr) (int32, error) {
+func tryHVGICGetRedistributorRegionSize(redistributor_region_size *uintptr) (HVReturn, error) {
 	if _hVGICGetRedistributorRegionSize == nil {
-		return 0, symbolCallError("hv_gic_get_redistributor_region_size", "15.0", _hVGICGetRedistributorRegionSizeErr)
+		return *new(HVReturn), symbolCallError("hv_gic_get_redistributor_region_size", "15.0", _hVGICGetRedistributorRegionSizeErr)
 	}
 	return _hVGICGetRedistributorRegionSize(redistributor_region_size), nil
 }
@@ -489,7 +489,7 @@ func tryHVGICGetRedistributorRegionSize(redistributor_region_size *uintptr) (int
 // HVGICGetRedistributorRegionSize gets the total size in bytes of the generic interrupt controller (GIC) redistributor region.
 //
 // See: https://developer.apple.com/documentation/Hypervisor/hv_gic_get_redistributor_region_size(_:)
-func HVGICGetRedistributorRegionSize(redistributor_region_size *uintptr) int32 {
+func HVGICGetRedistributorRegionSize(redistributor_region_size *uintptr) HVReturn {
 	result, callErr := tryHVGICGetRedistributorRegionSize(redistributor_region_size)
 	if callErr != nil {
 		panic(callErr)
@@ -497,12 +497,12 @@ func HVGICGetRedistributorRegionSize(redistributor_region_size *uintptr) int32 {
 	return result
 }
 
-var _hVGICGetRedistributorSize func(redistributor_size *uintptr) int32
+var _hVGICGetRedistributorSize func(redistributor_size *uintptr) HVReturn
 var _hVGICGetRedistributorSizeErr error
 
-func tryHVGICGetRedistributorSize(redistributor_size *uintptr) (int32, error) {
+func tryHVGICGetRedistributorSize(redistributor_size *uintptr) (HVReturn, error) {
 	if _hVGICGetRedistributorSize == nil {
-		return 0, symbolCallError("hv_gic_get_redistributor_size", "15.0", _hVGICGetRedistributorSizeErr)
+		return *new(HVReturn), symbolCallError("hv_gic_get_redistributor_size", "15.0", _hVGICGetRedistributorSizeErr)
 	}
 	return _hVGICGetRedistributorSize(redistributor_size), nil
 }
@@ -510,7 +510,7 @@ func tryHVGICGetRedistributorSize(redistributor_size *uintptr) (int32, error) {
 // HVGICGetRedistributorSize gets the size in bytes of a single generic interrupt controller (GIC) redistributor.
 //
 // See: https://developer.apple.com/documentation/Hypervisor/hv_gic_get_redistributor_size(_:)
-func HVGICGetRedistributorSize(redistributor_size *uintptr) int32 {
+func HVGICGetRedistributorSize(redistributor_size *uintptr) HVReturn {
 	result, callErr := tryHVGICGetRedistributorSize(redistributor_size)
 	if callErr != nil {
 		panic(callErr)
@@ -518,12 +518,12 @@ func HVGICGetRedistributorSize(redistributor_size *uintptr) int32 {
 	return result
 }
 
-var _hVGICGetSpiInterruptRange func(spi_intid_base *uint32, spi_intid_count *uint32) int32
+var _hVGICGetSpiInterruptRange func(spi_intid_base *uint32, spi_intid_count *uint32) HVReturn
 var _hVGICGetSpiInterruptRangeErr error
 
-func tryHVGICGetSpiInterruptRange(spi_intid_base *uint32, spi_intid_count *uint32) (int32, error) {
+func tryHVGICGetSpiInterruptRange(spi_intid_base *uint32, spi_intid_count *uint32) (HVReturn, error) {
 	if _hVGICGetSpiInterruptRange == nil {
-		return 0, symbolCallError("hv_gic_get_spi_interrupt_range", "15.0", _hVGICGetSpiInterruptRangeErr)
+		return *new(HVReturn), symbolCallError("hv_gic_get_spi_interrupt_range", "15.0", _hVGICGetSpiInterruptRangeErr)
 	}
 	return _hVGICGetSpiInterruptRange(spi_intid_base, spi_intid_count), nil
 }
@@ -531,7 +531,7 @@ func tryHVGICGetSpiInterruptRange(spi_intid_base *uint32, spi_intid_count *uint3
 // HVGICGetSpiInterruptRange gets the range of shared peripheral interrupts (SPIs) the generic interrupt controller supports.
 //
 // See: https://developer.apple.com/documentation/Hypervisor/hv_gic_get_spi_interrupt_range(_:_:)
-func HVGICGetSpiInterruptRange(spi_intid_base *uint32, spi_intid_count *uint32) int32 {
+func HVGICGetSpiInterruptRange(spi_intid_base *uint32, spi_intid_count *uint32) HVReturn {
 	result, callErr := tryHVGICGetSpiInterruptRange(spi_intid_base, spi_intid_count)
 	if callErr != nil {
 		panic(callErr)
@@ -539,12 +539,12 @@ func HVGICGetSpiInterruptRange(spi_intid_base *uint32, spi_intid_count *uint32) 
 	return result
 }
 
-var _hVGICReset func() int32
+var _hVGICReset func() HVReturn
 var _hVGICResetErr error
 
-func tryHVGICReset() (int32, error) {
+func tryHVGICReset() (HVReturn, error) {
 	if _hVGICReset == nil {
-		return 0, symbolCallError("hv_gic_reset", "15.0", _hVGICResetErr)
+		return *new(HVReturn), symbolCallError("hv_gic_reset", "15.0", _hVGICResetErr)
 	}
 	return _hVGICReset(), nil
 }
@@ -552,7 +552,7 @@ func tryHVGICReset() (int32, error) {
 // HVGICReset resets the generic interrupt controller (GIC) device.
 //
 // See: https://developer.apple.com/documentation/Hypervisor/hv_gic_reset()
-func HVGICReset() int32 {
+func HVGICReset() HVReturn {
 	result, callErr := tryHVGICReset()
 	if callErr != nil {
 		panic(callErr)
@@ -560,12 +560,12 @@ func HVGICReset() int32 {
 	return result
 }
 
-var _hVGICSendMsi func(address uint64, intid uint32) int32
+var _hVGICSendMsi func(address HVIPA, intid uint32) HVReturn
 var _hVGICSendMsiErr error
 
-func tryHVGICSendMsi(address uint64, intid uint32) (int32, error) {
+func tryHVGICSendMsi(address HVIPA, intid uint32) (HVReturn, error) {
 	if _hVGICSendMsi == nil {
-		return 0, symbolCallError("hv_gic_send_msi", "15.0", _hVGICSendMsiErr)
+		return *new(HVReturn), symbolCallError("hv_gic_send_msi", "15.0", _hVGICSendMsiErr)
 	}
 	return _hVGICSendMsi(address, intid), nil
 }
@@ -573,7 +573,7 @@ func tryHVGICSendMsi(address uint64, intid uint32) (int32, error) {
 // HVGICSendMsi sends a message signaled interrupt (MSI).
 //
 // See: https://developer.apple.com/documentation/Hypervisor/hv_gic_send_msi(_:_:)
-func HVGICSendMsi(address uint64, intid uint32) int32 {
+func HVGICSendMsi(address HVIPA, intid uint32) HVReturn {
 	result, callErr := tryHVGICSendMsi(address, intid)
 	if callErr != nil {
 		panic(callErr)
@@ -581,12 +581,12 @@ func HVGICSendMsi(address uint64, intid uint32) int32 {
 	return result
 }
 
-var _hVGICSetDistributorReg func(reg HVGICDistributorReg, value uint64) int32
+var _hVGICSetDistributorReg func(reg HVGICDistributorReg, value uint64) HVReturn
 var _hVGICSetDistributorRegErr error
 
-func tryHVGICSetDistributorReg(reg HVGICDistributorReg, value uint64) (int32, error) {
+func tryHVGICSetDistributorReg(reg HVGICDistributorReg, value uint64) (HVReturn, error) {
 	if _hVGICSetDistributorReg == nil {
-		return 0, symbolCallError("hv_gic_set_distributor_reg", "15.0", _hVGICSetDistributorRegErr)
+		return *new(HVReturn), symbolCallError("hv_gic_set_distributor_reg", "15.0", _hVGICSetDistributorRegErr)
 	}
 	return _hVGICSetDistributorReg(reg, value), nil
 }
@@ -594,7 +594,7 @@ func tryHVGICSetDistributorReg(reg HVGICDistributorReg, value uint64) (int32, er
 // HVGICSetDistributorReg writes the provided value to a generic interrupt controller (GIC) distributor register you specify.
 //
 // See: https://developer.apple.com/documentation/Hypervisor/hv_gic_set_distributor_reg(_:_:)
-func HVGICSetDistributorReg(reg HVGICDistributorReg, value uint64) int32 {
+func HVGICSetDistributorReg(reg HVGICDistributorReg, value uint64) HVReturn {
 	result, callErr := tryHVGICSetDistributorReg(reg, value)
 	if callErr != nil {
 		panic(callErr)
@@ -602,12 +602,12 @@ func HVGICSetDistributorReg(reg HVGICDistributorReg, value uint64) int32 {
 	return result
 }
 
-var _hVGICSetIccReg func(vcpu uint64, reg HVGICIccReg, value uint64) int32
+var _hVGICSetIccReg func(vcpu HVVCPU, reg HVGICIccReg, value uint64) HVReturn
 var _hVGICSetIccRegErr error
 
-func tryHVGICSetIccReg(vcpu uint64, reg HVGICIccReg, value uint64) (int32, error) {
+func tryHVGICSetIccReg(vcpu HVVCPU, reg HVGICIccReg, value uint64) (HVReturn, error) {
 	if _hVGICSetIccReg == nil {
-		return 0, symbolCallError("hv_gic_set_icc_reg", "15.0", _hVGICSetIccRegErr)
+		return *new(HVReturn), symbolCallError("hv_gic_set_icc_reg", "15.0", _hVGICSetIccRegErr)
 	}
 	return _hVGICSetIccReg(vcpu, reg, value), nil
 }
@@ -615,7 +615,7 @@ func tryHVGICSetIccReg(vcpu uint64, reg HVGICIccReg, value uint64) (int32, error
 // HVGICSetIccReg writes to a generic interrupt controller (GIC) ICC cpu system register.
 //
 // See: https://developer.apple.com/documentation/Hypervisor/hv_gic_set_icc_reg(_:_:_:)
-func HVGICSetIccReg(vcpu uint64, reg HVGICIccReg, value uint64) int32 {
+func HVGICSetIccReg(vcpu HVVCPU, reg HVGICIccReg, value uint64) HVReturn {
 	result, callErr := tryHVGICSetIccReg(vcpu, reg, value)
 	if callErr != nil {
 		panic(callErr)
@@ -623,12 +623,12 @@ func HVGICSetIccReg(vcpu uint64, reg HVGICIccReg, value uint64) int32 {
 	return result
 }
 
-var _hVGICSetIchReg func(vcpu uint64, reg HVGICIchReg, value uint64) int32
+var _hVGICSetIchReg func(vcpu HVVCPU, reg HVGICIchReg, value uint64) HVReturn
 var _hVGICSetIchRegErr error
 
-func tryHVGICSetIchReg(vcpu uint64, reg HVGICIchReg, value uint64) (int32, error) {
+func tryHVGICSetIchReg(vcpu HVVCPU, reg HVGICIchReg, value uint64) (HVReturn, error) {
 	if _hVGICSetIchReg == nil {
-		return 0, symbolCallError("hv_gic_set_ich_reg", "15.0", _hVGICSetIchRegErr)
+		return *new(HVReturn), symbolCallError("hv_gic_set_ich_reg", "15.0", _hVGICSetIchRegErr)
 	}
 	return _hVGICSetIchReg(vcpu, reg, value), nil
 }
@@ -636,7 +636,7 @@ func tryHVGICSetIchReg(vcpu uint64, reg HVGICIchReg, value uint64) (int32, error
 // HVGICSetIchReg writes to a generic interrupt controller (GIC) ICH virtualization control system register.
 //
 // See: https://developer.apple.com/documentation/Hypervisor/hv_gic_set_ich_reg(_:_:_:)
-func HVGICSetIchReg(vcpu uint64, reg HVGICIchReg, value uint64) int32 {
+func HVGICSetIchReg(vcpu HVVCPU, reg HVGICIchReg, value uint64) HVReturn {
 	result, callErr := tryHVGICSetIchReg(vcpu, reg, value)
 	if callErr != nil {
 		panic(callErr)
@@ -644,12 +644,12 @@ func HVGICSetIchReg(vcpu uint64, reg HVGICIchReg, value uint64) int32 {
 	return result
 }
 
-var _hVGICSetIcvReg func(vcpu uint64, reg HVGICIcvReg, value uint64) int32
+var _hVGICSetIcvReg func(vcpu HVVCPU, reg HVGICIcvReg, value uint64) HVReturn
 var _hVGICSetIcvRegErr error
 
-func tryHVGICSetIcvReg(vcpu uint64, reg HVGICIcvReg, value uint64) (int32, error) {
+func tryHVGICSetIcvReg(vcpu HVVCPU, reg HVGICIcvReg, value uint64) (HVReturn, error) {
 	if _hVGICSetIcvReg == nil {
-		return 0, symbolCallError("hv_gic_set_icv_reg", "15.0", _hVGICSetIcvRegErr)
+		return *new(HVReturn), symbolCallError("hv_gic_set_icv_reg", "15.0", _hVGICSetIcvRegErr)
 	}
 	return _hVGICSetIcvReg(vcpu, reg, value), nil
 }
@@ -657,7 +657,7 @@ func tryHVGICSetIcvReg(vcpu uint64, reg HVGICIcvReg, value uint64) (int32, error
 // HVGICSetIcvReg writes to a generic interrupt controller (GIC) ICV system register.
 //
 // See: https://developer.apple.com/documentation/Hypervisor/hv_gic_set_icv_reg(_:_:_:)
-func HVGICSetIcvReg(vcpu uint64, reg HVGICIcvReg, value uint64) int32 {
+func HVGICSetIcvReg(vcpu HVVCPU, reg HVGICIcvReg, value uint64) HVReturn {
 	result, callErr := tryHVGICSetIcvReg(vcpu, reg, value)
 	if callErr != nil {
 		panic(callErr)
@@ -665,12 +665,12 @@ func HVGICSetIcvReg(vcpu uint64, reg HVGICIcvReg, value uint64) int32 {
 	return result
 }
 
-var _hVGICSetMsiReg func(reg HVGICMsiReg, value uint64) int32
+var _hVGICSetMsiReg func(reg HVGICMsiReg, value uint64) HVReturn
 var _hVGICSetMsiRegErr error
 
-func tryHVGICSetMsiReg(reg HVGICMsiReg, value uint64) (int32, error) {
+func tryHVGICSetMsiReg(reg HVGICMsiReg, value uint64) (HVReturn, error) {
 	if _hVGICSetMsiReg == nil {
-		return 0, symbolCallError("hv_gic_set_msi_reg", "15.0", _hVGICSetMsiRegErr)
+		return *new(HVReturn), symbolCallError("hv_gic_set_msi_reg", "15.0", _hVGICSetMsiRegErr)
 	}
 	return _hVGICSetMsiReg(reg, value), nil
 }
@@ -678,7 +678,7 @@ func tryHVGICSetMsiReg(reg HVGICMsiReg, value uint64) (int32, error) {
 // HVGICSetMsiReg writes to a generic interrupt controller distributor message signaled interrupt (MSI) register.
 //
 // See: https://developer.apple.com/documentation/Hypervisor/hv_gic_set_msi_reg(_:_:)
-func HVGICSetMsiReg(reg HVGICMsiReg, value uint64) int32 {
+func HVGICSetMsiReg(reg HVGICMsiReg, value uint64) HVReturn {
 	result, callErr := tryHVGICSetMsiReg(reg, value)
 	if callErr != nil {
 		panic(callErr)
@@ -686,12 +686,12 @@ func HVGICSetMsiReg(reg HVGICMsiReg, value uint64) int32 {
 	return result
 }
 
-var _hVGICSetRedistributorReg func(vcpu uint64, reg HVGICRedistributorReg, value uint64) int32
+var _hVGICSetRedistributorReg func(vcpu HVVCPU, reg HVGICRedistributorReg, value uint64) HVReturn
 var _hVGICSetRedistributorRegErr error
 
-func tryHVGICSetRedistributorReg(vcpu uint64, reg HVGICRedistributorReg, value uint64) (int32, error) {
+func tryHVGICSetRedistributorReg(vcpu HVVCPU, reg HVGICRedistributorReg, value uint64) (HVReturn, error) {
 	if _hVGICSetRedistributorReg == nil {
-		return 0, symbolCallError("hv_gic_set_redistributor_reg", "15.0", _hVGICSetRedistributorRegErr)
+		return *new(HVReturn), symbolCallError("hv_gic_set_redistributor_reg", "15.0", _hVGICSetRedistributorRegErr)
 	}
 	return _hVGICSetRedistributorReg(vcpu, reg, value), nil
 }
@@ -699,7 +699,7 @@ func tryHVGICSetRedistributorReg(vcpu uint64, reg HVGICRedistributorReg, value u
 // HVGICSetRedistributorReg writes to a GIC redistributor register.
 //
 // See: https://developer.apple.com/documentation/Hypervisor/hv_gic_set_redistributor_reg(_:_:_:)
-func HVGICSetRedistributorReg(vcpu uint64, reg HVGICRedistributorReg, value uint64) int32 {
+func HVGICSetRedistributorReg(vcpu HVVCPU, reg HVGICRedistributorReg, value uint64) HVReturn {
 	result, callErr := tryHVGICSetRedistributorReg(vcpu, reg, value)
 	if callErr != nil {
 		panic(callErr)
@@ -707,12 +707,12 @@ func HVGICSetRedistributorReg(vcpu uint64, reg HVGICRedistributorReg, value uint
 	return result
 }
 
-var _hVGICSetSpi func(intid uint32, level bool) int32
+var _hVGICSetSpi func(intid uint32, level bool) HVReturn
 var _hVGICSetSpiErr error
 
-func tryHVGICSetSpi(intid uint32, level bool) (int32, error) {
+func tryHVGICSetSpi(intid uint32, level bool) (HVReturn, error) {
 	if _hVGICSetSpi == nil {
-		return 0, symbolCallError("hv_gic_set_spi", "15.0", _hVGICSetSpiErr)
+		return *new(HVReturn), symbolCallError("hv_gic_set_spi", "15.0", _hVGICSetSpiErr)
 	}
 	return _hVGICSetSpi(intid, level), nil
 }
@@ -720,7 +720,7 @@ func tryHVGICSetSpi(intid uint32, level bool) (int32, error) {
 // HVGICSetSpi triggers a shared peripheral interrupt (SPI).
 //
 // See: https://developer.apple.com/documentation/Hypervisor/hv_gic_set_spi(_:_:)
-func HVGICSetSpi(intid uint32, level bool) int32 {
+func HVGICSetSpi(intid uint32, level bool) HVReturn {
 	result, callErr := tryHVGICSetSpi(intid, level)
 	if callErr != nil {
 		panic(callErr)
@@ -728,12 +728,12 @@ func HVGICSetSpi(intid uint32, level bool) int32 {
 	return result
 }
 
-var _hVGICSetState func(gic_state_data unsafe.Pointer, gic_state_size uintptr) int32
+var _hVGICSetState func(gic_state_data unsafe.Pointer, gic_state_size uintptr) HVReturn
 var _hVGICSetStateErr error
 
-func tryHVGICSetState(gic_state_data unsafe.Pointer, gic_state_size uintptr) (int32, error) {
+func tryHVGICSetState(gic_state_data unsafe.Pointer, gic_state_size uintptr) (HVReturn, error) {
 	if _hVGICSetState == nil {
-		return 0, symbolCallError("hv_gic_set_state", "15.0", _hVGICSetStateErr)
+		return *new(HVReturn), symbolCallError("hv_gic_set_state", "15.0", _hVGICSetStateErr)
 	}
 	return _hVGICSetState(gic_state_data, gic_state_size), nil
 }
@@ -741,7 +741,7 @@ func tryHVGICSetState(gic_state_data unsafe.Pointer, gic_state_size uintptr) (in
 // HVGICSetState sets the state of a generic interrupt controller (GIC) device.
 //
 // See: https://developer.apple.com/documentation/Hypervisor/hv_gic_set_state(_:_:)
-func HVGICSetState(gic_state_data unsafe.Pointer, gic_state_size uintptr) int32 {
+func HVGICSetState(gic_state_data unsafe.Pointer, gic_state_size uintptr) HVReturn {
 	result, callErr := tryHVGICSetState(gic_state_data, gic_state_size)
 	if callErr != nil {
 		panic(callErr)
@@ -770,12 +770,12 @@ func HVGICStateCreate() unsafe.Pointer {
 	return result
 }
 
-var _hVGICStateGetData func(state unsafe.Pointer, gic_state_data unsafe.Pointer) int32
+var _hVGICStateGetData func(state unsafe.Pointer, gic_state_data unsafe.Pointer) HVReturn
 var _hVGICStateGetDataErr error
 
-func tryHVGICStateGetData(state unsafe.Pointer, gic_state_data unsafe.Pointer) (int32, error) {
+func tryHVGICStateGetData(state unsafe.Pointer, gic_state_data unsafe.Pointer) (HVReturn, error) {
 	if _hVGICStateGetData == nil {
-		return 0, symbolCallError("hv_gic_state_get_data", "15.0", _hVGICStateGetDataErr)
+		return *new(HVReturn), symbolCallError("hv_gic_state_get_data", "15.0", _hVGICStateGetDataErr)
 	}
 	return _hVGICStateGetData(state, gic_state_data), nil
 }
@@ -783,7 +783,7 @@ func tryHVGICStateGetData(state unsafe.Pointer, gic_state_data unsafe.Pointer) (
 // HVGICStateGetData gets the state data for generic interrupt controller (GIC).
 //
 // See: https://developer.apple.com/documentation/Hypervisor/hv_gic_state_get_data(_:_:)
-func HVGICStateGetData(state unsafe.Pointer, gic_state_data unsafe.Pointer) int32 {
+func HVGICStateGetData(state unsafe.Pointer, gic_state_data unsafe.Pointer) HVReturn {
 	result, callErr := tryHVGICStateGetData(state, gic_state_data)
 	if callErr != nil {
 		panic(callErr)
@@ -791,12 +791,12 @@ func HVGICStateGetData(state unsafe.Pointer, gic_state_data unsafe.Pointer) int3
 	return result
 }
 
-var _hVGICStateGetSize func(state unsafe.Pointer, gic_state_size *uintptr) int32
+var _hVGICStateGetSize func(state unsafe.Pointer, gic_state_size *uintptr) HVReturn
 var _hVGICStateGetSizeErr error
 
-func tryHVGICStateGetSize(state unsafe.Pointer, gic_state_size *uintptr) (int32, error) {
+func tryHVGICStateGetSize(state unsafe.Pointer, gic_state_size *uintptr) (HVReturn, error) {
 	if _hVGICStateGetSize == nil {
-		return 0, symbolCallError("hv_gic_state_get_size", "15.0", _hVGICStateGetSizeErr)
+		return *new(HVReturn), symbolCallError("hv_gic_state_get_size", "15.0", _hVGICStateGetSizeErr)
 	}
 	return _hVGICStateGetSize(state, gic_state_size), nil
 }
@@ -804,7 +804,7 @@ func tryHVGICStateGetSize(state unsafe.Pointer, gic_state_size *uintptr) (int32,
 // HVGICStateGetSize gets the size of the buffer required for generic interrupt controller (GIC) state.
 //
 // See: https://developer.apple.com/documentation/Hypervisor/hv_gic_state_get_size(_:_:)
-func HVGICStateGetSize(state unsafe.Pointer, gic_state_size *uintptr) int32 {
+func HVGICStateGetSize(state unsafe.Pointer, gic_state_size *uintptr) HVReturn {
 	result, callErr := tryHVGICStateGetSize(state, gic_state_size)
 	if callErr != nil {
 		panic(callErr)
@@ -812,12 +812,12 @@ func HVGICStateGetSize(state unsafe.Pointer, gic_state_size *uintptr) int32 {
 	return result
 }
 
-var _hVSMEConfigGetMaxSvlBytes func(value *uintptr) int32
+var _hVSMEConfigGetMaxSvlBytes func(value *uintptr) HVReturn
 var _hVSMEConfigGetMaxSvlBytesErr error
 
-func tryHVSMEConfigGetMaxSvlBytes(value *uintptr) (int32, error) {
+func tryHVSMEConfigGetMaxSvlBytes(value *uintptr) (HVReturn, error) {
 	if _hVSMEConfigGetMaxSvlBytes == nil {
-		return 0, symbolCallError("hv_sme_config_get_max_svl_bytes", "15.2", _hVSMEConfigGetMaxSvlBytesErr)
+		return *new(HVReturn), symbolCallError("hv_sme_config_get_max_svl_bytes", "15.2", _hVSMEConfigGetMaxSvlBytesErr)
 	}
 	return _hVSMEConfigGetMaxSvlBytes(value), nil
 }
@@ -825,7 +825,7 @@ func tryHVSMEConfigGetMaxSvlBytes(value *uintptr) (int32, error) {
 // HVSMEConfigGetMaxSvlBytes.
 //
 // See: https://developer.apple.com/documentation/Hypervisor/hv_sme_config_get_max_svl_bytes(_:)
-func HVSMEConfigGetMaxSvlBytes(value *uintptr) int32 {
+func HVSMEConfigGetMaxSvlBytes(value *uintptr) HVReturn {
 	result, callErr := tryHVSMEConfigGetMaxSvlBytes(value)
 	if callErr != nil {
 		panic(callErr)
@@ -854,12 +854,12 @@ func HVVCPUConfigCreate() unsafe.Pointer {
 	return result
 }
 
-var _hVVCPUConfigGetCcsidrEl1SysRegValues func(config unsafe.Pointer, cache_type HVCacheType, values uint64) int32
+var _hVVCPUConfigGetCcsidrEl1SysRegValues func(config unsafe.Pointer, cache_type HVCacheType, values uint64) HVReturn
 var _hVVCPUConfigGetCcsidrEl1SysRegValuesErr error
 
-func tryHVVCPUConfigGetCcsidrEl1SysRegValues(config unsafe.Pointer, cache_type HVCacheType, values uint64) (int32, error) {
+func tryHVVCPUConfigGetCcsidrEl1SysRegValues(config unsafe.Pointer, cache_type HVCacheType, values uint64) (HVReturn, error) {
 	if _hVVCPUConfigGetCcsidrEl1SysRegValues == nil {
-		return 0, symbolCallError("hv_vcpu_config_get_ccsidr_el1_sys_reg_values", "11.0", _hVVCPUConfigGetCcsidrEl1SysRegValuesErr)
+		return *new(HVReturn), symbolCallError("hv_vcpu_config_get_ccsidr_el1_sys_reg_values", "11.0", _hVVCPUConfigGetCcsidrEl1SysRegValuesErr)
 	}
 	return _hVVCPUConfigGetCcsidrEl1SysRegValues(config, cache_type, values), nil
 }
@@ -867,7 +867,7 @@ func tryHVVCPUConfigGetCcsidrEl1SysRegValues(config unsafe.Pointer, cache_type H
 // HVVCPUConfigGetCcsidrEl1SysRegValues returns the Cache Size ID Register (CCSIDR_EL1) values for the vCPU configuration and cache type you specify.
 //
 // See: https://developer.apple.com/documentation/Hypervisor/hv_vcpu_config_get_ccsidr_el1_sys_reg_values(_:_:_:)
-func HVVCPUConfigGetCcsidrEl1SysRegValues(config unsafe.Pointer, cache_type HVCacheType, values uint64) int32 {
+func HVVCPUConfigGetCcsidrEl1SysRegValues(config unsafe.Pointer, cache_type HVCacheType, values uint64) HVReturn {
 	result, callErr := tryHVVCPUConfigGetCcsidrEl1SysRegValues(config, cache_type, values)
 	if callErr != nil {
 		panic(callErr)
@@ -875,12 +875,12 @@ func HVVCPUConfigGetCcsidrEl1SysRegValues(config unsafe.Pointer, cache_type HVCa
 	return result
 }
 
-var _hVVCPUConfigGetFeatureReg func(config unsafe.Pointer, feature_reg HVFeatureReg, value *uint64) int32
+var _hVVCPUConfigGetFeatureReg func(config unsafe.Pointer, feature_reg HVFeatureReg, value *uint64) HVReturn
 var _hVVCPUConfigGetFeatureRegErr error
 
-func tryHVVCPUConfigGetFeatureReg(config unsafe.Pointer, feature_reg HVFeatureReg, value *uint64) (int32, error) {
+func tryHVVCPUConfigGetFeatureReg(config unsafe.Pointer, feature_reg HVFeatureReg, value *uint64) (HVReturn, error) {
 	if _hVVCPUConfigGetFeatureReg == nil {
-		return 0, symbolCallError("hv_vcpu_config_get_feature_reg", "11.0", _hVVCPUConfigGetFeatureRegErr)
+		return *new(HVReturn), symbolCallError("hv_vcpu_config_get_feature_reg", "11.0", _hVVCPUConfigGetFeatureRegErr)
 	}
 	return _hVVCPUConfigGetFeatureReg(config, feature_reg, value), nil
 }
@@ -888,7 +888,7 @@ func tryHVVCPUConfigGetFeatureReg(config unsafe.Pointer, feature_reg HVFeatureRe
 // HVVCPUConfigGetFeatureReg gets the value of a feature register.
 //
 // See: https://developer.apple.com/documentation/Hypervisor/hv_vcpu_config_get_feature_reg(_:_:_:)
-func HVVCPUConfigGetFeatureReg(config unsafe.Pointer, feature_reg HVFeatureReg, value *uint64) int32 {
+func HVVCPUConfigGetFeatureReg(config unsafe.Pointer, feature_reg HVFeatureReg, value *uint64) HVReturn {
 	result, callErr := tryHVVCPUConfigGetFeatureReg(config, feature_reg, value)
 	if callErr != nil {
 		panic(callErr)
@@ -896,12 +896,12 @@ func HVVCPUConfigGetFeatureReg(config unsafe.Pointer, feature_reg HVFeatureReg, 
 	return result
 }
 
-var _hVVCPUCreate func(vcpu *uint64, exit **HVVCPUExit, config unsafe.Pointer) int32
+var _hVVCPUCreate func(vcpu *HVVCPU, exit **HVVCPUExit, config unsafe.Pointer) HVReturn
 var _hVVCPUCreateErr error
 
-func tryHVVCPUCreate(vcpu *uint64, exit **HVVCPUExit, config unsafe.Pointer) (int32, error) {
+func tryHVVCPUCreate(vcpu *HVVCPU, exit **HVVCPUExit, config unsafe.Pointer) (HVReturn, error) {
 	if _hVVCPUCreate == nil {
-		return 0, symbolCallError("hv_vcpu_create", "11.0", _hVVCPUCreateErr)
+		return *new(HVReturn), symbolCallError("hv_vcpu_create", "11.0", _hVVCPUCreateErr)
 	}
 	return _hVVCPUCreate(vcpu, exit, config), nil
 }
@@ -909,7 +909,7 @@ func tryHVVCPUCreate(vcpu *uint64, exit **HVVCPUExit, config unsafe.Pointer) (in
 // HVVCPUCreate creates a vCPU instance for the current thread.
 //
 // See: https://developer.apple.com/documentation/Hypervisor/hv_vcpu_create(_:_:_:)
-func HVVCPUCreate(vcpu *uint64, exit **HVVCPUExit, config unsafe.Pointer) int32 {
+func HVVCPUCreate(vcpu *HVVCPU, exit **HVVCPUExit, config unsafe.Pointer) HVReturn {
 	result, callErr := tryHVVCPUCreate(vcpu, exit, config)
 	if callErr != nil {
 		panic(callErr)
@@ -917,12 +917,12 @@ func HVVCPUCreate(vcpu *uint64, exit **HVVCPUExit, config unsafe.Pointer) int32 
 	return result
 }
 
-var _hVVCPUDestroy func(vcpu uint64) int32
+var _hVVCPUDestroy func(vcpu HVVCPU) HVReturn
 var _hVVCPUDestroyErr error
 
-func tryHVVCPUDestroy(vcpu uint64) (int32, error) {
+func tryHVVCPUDestroy(vcpu HVVCPU) (HVReturn, error) {
 	if _hVVCPUDestroy == nil {
-		return 0, symbolCallError("hv_vcpu_destroy", "11.0", _hVVCPUDestroyErr)
+		return *new(HVReturn), symbolCallError("hv_vcpu_destroy", "11.0", _hVVCPUDestroyErr)
 	}
 	return _hVVCPUDestroy(vcpu), nil
 }
@@ -930,7 +930,7 @@ func tryHVVCPUDestroy(vcpu uint64) (int32, error) {
 // HVVCPUDestroy destroys the vCPU instance associated with the current thread.
 //
 // See: https://developer.apple.com/documentation/Hypervisor/hv_vcpu_destroy(_:)
-func HVVCPUDestroy(vcpu uint64) int32 {
+func HVVCPUDestroy(vcpu HVVCPU) HVReturn {
 	result, callErr := tryHVVCPUDestroy(vcpu)
 	if callErr != nil {
 		panic(callErr)
@@ -938,12 +938,12 @@ func HVVCPUDestroy(vcpu uint64) int32 {
 	return result
 }
 
-var _hVVCPUGetExecTime func(vcpu uint64, time *uint64) int32
+var _hVVCPUGetExecTime func(vcpu HVVCPU, time *uint64) HVReturn
 var _hVVCPUGetExecTimeErr error
 
-func tryHVVCPUGetExecTime(vcpu uint64, time *uint64) (int32, error) {
+func tryHVVCPUGetExecTime(vcpu HVVCPU, time *uint64) (HVReturn, error) {
 	if _hVVCPUGetExecTime == nil {
-		return 0, symbolCallError("hv_vcpu_get_exec_time", "11.0", _hVVCPUGetExecTimeErr)
+		return *new(HVReturn), symbolCallError("hv_vcpu_get_exec_time", "11.0", _hVVCPUGetExecTimeErr)
 	}
 	return _hVVCPUGetExecTime(vcpu, time), nil
 }
@@ -951,7 +951,7 @@ func tryHVVCPUGetExecTime(vcpu uint64, time *uint64) (int32, error) {
 // HVVCPUGetExecTime returns, by reference, the cumulative execution time of a vCPU, in nanoseconds.
 //
 // See: https://developer.apple.com/documentation/Hypervisor/hv_vcpu_get_exec_time(_:_:)
-func HVVCPUGetExecTime(vcpu uint64, time *uint64) int32 {
+func HVVCPUGetExecTime(vcpu HVVCPU, time *uint64) HVReturn {
 	result, callErr := tryHVVCPUGetExecTime(vcpu, time)
 	if callErr != nil {
 		panic(callErr)
@@ -959,12 +959,12 @@ func HVVCPUGetExecTime(vcpu uint64, time *uint64) int32 {
 	return result
 }
 
-var _hVVCPUGetPendingInterrupt func(vcpu uint64, type_ HVInterruptType, pending *bool) int32
+var _hVVCPUGetPendingInterrupt func(vcpu HVVCPU, type_ HVInterruptType, pending *bool) HVReturn
 var _hVVCPUGetPendingInterruptErr error
 
-func tryHVVCPUGetPendingInterrupt(vcpu uint64, type_ HVInterruptType, pending *bool) (int32, error) {
+func tryHVVCPUGetPendingInterrupt(vcpu HVVCPU, type_ HVInterruptType, pending *bool) (HVReturn, error) {
 	if _hVVCPUGetPendingInterrupt == nil {
-		return 0, symbolCallError("hv_vcpu_get_pending_interrupt", "11.0", _hVVCPUGetPendingInterruptErr)
+		return *new(HVReturn), symbolCallError("hv_vcpu_get_pending_interrupt", "11.0", _hVVCPUGetPendingInterruptErr)
 	}
 	return _hVVCPUGetPendingInterrupt(vcpu, type_, pending), nil
 }
@@ -972,7 +972,7 @@ func tryHVVCPUGetPendingInterrupt(vcpu uint64, type_ HVInterruptType, pending *b
 // HVVCPUGetPendingInterrupt gets pending interrupts for a vCPU.
 //
 // See: https://developer.apple.com/documentation/Hypervisor/hv_vcpu_get_pending_interrupt(_:_:_:)
-func HVVCPUGetPendingInterrupt(vcpu uint64, type_ HVInterruptType, pending *bool) int32 {
+func HVVCPUGetPendingInterrupt(vcpu HVVCPU, type_ HVInterruptType, pending *bool) HVReturn {
 	result, callErr := tryHVVCPUGetPendingInterrupt(vcpu, type_, pending)
 	if callErr != nil {
 		panic(callErr)
@@ -980,12 +980,12 @@ func HVVCPUGetPendingInterrupt(vcpu uint64, type_ HVInterruptType, pending *bool
 	return result
 }
 
-var _hVVCPUGetReg func(vcpu uint64, reg HVReg, value *uint64) int32
+var _hVVCPUGetReg func(vcpu HVVCPU, reg HVReg, value *uint64) HVReturn
 var _hVVCPUGetRegErr error
 
-func tryHVVCPUGetReg(vcpu uint64, reg HVReg, value *uint64) (int32, error) {
+func tryHVVCPUGetReg(vcpu HVVCPU, reg HVReg, value *uint64) (HVReturn, error) {
 	if _hVVCPUGetReg == nil {
-		return 0, symbolCallError("hv_vcpu_get_reg", "11.0", _hVVCPUGetRegErr)
+		return *new(HVReturn), symbolCallError("hv_vcpu_get_reg", "11.0", _hVVCPUGetRegErr)
 	}
 	return _hVVCPUGetReg(vcpu, reg, value), nil
 }
@@ -993,7 +993,7 @@ func tryHVVCPUGetReg(vcpu uint64, reg HVReg, value *uint64) (int32, error) {
 // HVVCPUGetReg gets the current value of a vCPU register.
 //
 // See: https://developer.apple.com/documentation/Hypervisor/hv_vcpu_get_reg(_:_:_:)
-func HVVCPUGetReg(vcpu uint64, reg HVReg, value *uint64) int32 {
+func HVVCPUGetReg(vcpu HVVCPU, reg HVReg, value *uint64) HVReturn {
 	result, callErr := tryHVVCPUGetReg(vcpu, reg, value)
 	if callErr != nil {
 		panic(callErr)
@@ -1001,12 +1001,12 @@ func HVVCPUGetReg(vcpu uint64, reg HVReg, value *uint64) int32 {
 	return result
 }
 
-var _hVVCPUGetSIMDFPReg func(vcpu uint64, reg HVSIMDFPReg, value *[16]byte) int32
+var _hVVCPUGetSIMDFPReg func(vcpu HVVCPU, reg HVSIMDFPReg, value *[16]byte) HVReturn
 var _hVVCPUGetSIMDFPRegErr error
 
-func tryHVVCPUGetSIMDFPReg(vcpu uint64, reg HVSIMDFPReg, value *[16]byte) (int32, error) {
+func tryHVVCPUGetSIMDFPReg(vcpu HVVCPU, reg HVSIMDFPReg, value *[16]byte) (HVReturn, error) {
 	if _hVVCPUGetSIMDFPReg == nil {
-		return 0, symbolCallError("hv_vcpu_get_simd_fp_reg", "11.0", _hVVCPUGetSIMDFPRegErr)
+		return *new(HVReturn), symbolCallError("hv_vcpu_get_simd_fp_reg", "11.0", _hVVCPUGetSIMDFPRegErr)
 	}
 	return _hVVCPUGetSIMDFPReg(vcpu, reg, value), nil
 }
@@ -1014,7 +1014,7 @@ func tryHVVCPUGetSIMDFPReg(vcpu uint64, reg HVSIMDFPReg, value *[16]byte) (int32
 // HVVCPUGetSIMDFPReg gets the current value of a vCPU SIMD and FP register.
 //
 // See: https://developer.apple.com/documentation/Hypervisor/hv_vcpu_get_simd_fp_reg(_:_:_:)
-func HVVCPUGetSIMDFPReg(vcpu uint64, reg HVSIMDFPReg, value *[16]byte) int32 {
+func HVVCPUGetSIMDFPReg(vcpu HVVCPU, reg HVSIMDFPReg, value *[16]byte) HVReturn {
 	result, callErr := tryHVVCPUGetSIMDFPReg(vcpu, reg, value)
 	if callErr != nil {
 		panic(callErr)
@@ -1022,12 +1022,12 @@ func HVVCPUGetSIMDFPReg(vcpu uint64, reg HVSIMDFPReg, value *[16]byte) int32 {
 	return result
 }
 
-var _hVVCPUGetSMEPReg func(vcpu uint64, reg HVSMEPReg, value *byte, length uintptr) int32
+var _hVVCPUGetSMEPReg func(vcpu HVVCPU, reg HVSMEPReg, value *byte, length uintptr) HVReturn
 var _hVVCPUGetSMEPRegErr error
 
-func tryHVVCPUGetSMEPReg(vcpu uint64, reg HVSMEPReg, value []byte, length uintptr) (int32, error) {
+func tryHVVCPUGetSMEPReg(vcpu HVVCPU, reg HVSMEPReg, value []byte, length uintptr) (HVReturn, error) {
 	if _hVVCPUGetSMEPReg == nil {
-		return 0, symbolCallError("hv_vcpu_get_sme_p_reg", "15.2", _hVVCPUGetSMEPRegErr)
+		return *new(HVReturn), symbolCallError("hv_vcpu_get_sme_p_reg", "15.2", _hVVCPUGetSMEPRegErr)
 	}
 	return _hVVCPUGetSMEPReg(vcpu, reg, unsafe.SliceData(value), length), nil
 }
@@ -1035,7 +1035,7 @@ func tryHVVCPUGetSMEPReg(vcpu uint64, reg HVSMEPReg, value []byte, length uintpt
 // HVVCPUGetSMEPReg returns the value of a vCPU P predicate register in streaming Scalable Vector Extension (SVE) mode.
 //
 // See: https://developer.apple.com/documentation/Hypervisor/hv_vcpu_get_sme_p_reg(_:_:_:_:)
-func HVVCPUGetSMEPReg(vcpu uint64, reg HVSMEPReg, value []byte, length uintptr) int32 {
+func HVVCPUGetSMEPReg(vcpu HVVCPU, reg HVSMEPReg, value []byte, length uintptr) HVReturn {
 	result, callErr := tryHVVCPUGetSMEPReg(vcpu, reg, value, length)
 	if callErr != nil {
 		panic(callErr)
@@ -1043,12 +1043,12 @@ func HVVCPUGetSMEPReg(vcpu uint64, reg HVSMEPReg, value []byte, length uintptr) 
 	return result
 }
 
-var _hVVCPUGetSMEState func(vcpu uint64, sme_state *HVVCPUSMEState) int32
+var _hVVCPUGetSMEState func(vcpu HVVCPU, sme_state *HVVCPUSMEState) HVReturn
 var _hVVCPUGetSMEStateErr error
 
-func tryHVVCPUGetSMEState(vcpu uint64, sme_state *HVVCPUSMEState) (int32, error) {
+func tryHVVCPUGetSMEState(vcpu HVVCPU, sme_state *HVVCPUSMEState) (HVReturn, error) {
 	if _hVVCPUGetSMEState == nil {
-		return 0, symbolCallError("hv_vcpu_get_sme_state", "15.2", _hVVCPUGetSMEStateErr)
+		return *new(HVReturn), symbolCallError("hv_vcpu_get_sme_state", "15.2", _hVVCPUGetSMEStateErr)
 	}
 	return _hVVCPUGetSMEState(vcpu, sme_state), nil
 }
@@ -1056,7 +1056,7 @@ func tryHVVCPUGetSMEState(vcpu uint64, sme_state *HVVCPUSMEState) (int32, error)
 // HVVCPUGetSMEState gets the current Scalable Matrix Extension (SME) state.
 //
 // See: https://developer.apple.com/documentation/Hypervisor/hv_vcpu_get_sme_state(_:_:)
-func HVVCPUGetSMEState(vcpu uint64, sme_state *HVVCPUSMEState) int32 {
+func HVVCPUGetSMEState(vcpu HVVCPU, sme_state *HVVCPUSMEState) HVReturn {
 	result, callErr := tryHVVCPUGetSMEState(vcpu, sme_state)
 	if callErr != nil {
 		panic(callErr)
@@ -1064,12 +1064,12 @@ func HVVCPUGetSMEState(vcpu uint64, sme_state *HVVCPUSMEState) int32 {
 	return result
 }
 
-var _hVVCPUGetSMEZReg func(vcpu uint64, reg HVSMEZReg, value *byte, length uintptr) int32
+var _hVVCPUGetSMEZReg func(vcpu HVVCPU, reg HVSMEZReg, value *byte, length uintptr) HVReturn
 var _hVVCPUGetSMEZRegErr error
 
-func tryHVVCPUGetSMEZReg(vcpu uint64, reg HVSMEZReg, value []byte, length uintptr) (int32, error) {
+func tryHVVCPUGetSMEZReg(vcpu HVVCPU, reg HVSMEZReg, value []byte, length uintptr) (HVReturn, error) {
 	if _hVVCPUGetSMEZReg == nil {
-		return 0, symbolCallError("hv_vcpu_get_sme_z_reg", "15.2", _hVVCPUGetSMEZRegErr)
+		return *new(HVReturn), symbolCallError("hv_vcpu_get_sme_z_reg", "15.2", _hVVCPUGetSMEZRegErr)
 	}
 	return _hVVCPUGetSMEZReg(vcpu, reg, unsafe.SliceData(value), length), nil
 }
@@ -1077,7 +1077,7 @@ func tryHVVCPUGetSMEZReg(vcpu uint64, reg HVSMEZReg, value []byte, length uintpt
 // HVVCPUGetSMEZReg returns the value of a vCPU Z vector register in streaming Scalable Vector Extension (SVE) mode.
 //
 // See: https://developer.apple.com/documentation/Hypervisor/hv_vcpu_get_sme_z_reg(_:_:_:_:)
-func HVVCPUGetSMEZReg(vcpu uint64, reg HVSMEZReg, value []byte, length uintptr) int32 {
+func HVVCPUGetSMEZReg(vcpu HVVCPU, reg HVSMEZReg, value []byte, length uintptr) HVReturn {
 	result, callErr := tryHVVCPUGetSMEZReg(vcpu, reg, value, length)
 	if callErr != nil {
 		panic(callErr)
@@ -1085,12 +1085,12 @@ func HVVCPUGetSMEZReg(vcpu uint64, reg HVSMEZReg, value []byte, length uintptr) 
 	return result
 }
 
-var _hVVCPUGetSMEZaReg func(vcpu uint64, value *byte, length uintptr) int32
+var _hVVCPUGetSMEZaReg func(vcpu HVVCPU, value *byte, length uintptr) HVReturn
 var _hVVCPUGetSMEZaRegErr error
 
-func tryHVVCPUGetSMEZaReg(vcpu uint64, value []byte, length uintptr) (int32, error) {
+func tryHVVCPUGetSMEZaReg(vcpu HVVCPU, value []byte, length uintptr) (HVReturn, error) {
 	if _hVVCPUGetSMEZaReg == nil {
-		return 0, symbolCallError("hv_vcpu_get_sme_za_reg", "15.2", _hVVCPUGetSMEZaRegErr)
+		return *new(HVReturn), symbolCallError("hv_vcpu_get_sme_za_reg", "15.2", _hVVCPUGetSMEZaRegErr)
 	}
 	return _hVVCPUGetSMEZaReg(vcpu, unsafe.SliceData(value), length), nil
 }
@@ -1098,7 +1098,7 @@ func tryHVVCPUGetSMEZaReg(vcpu uint64, value []byte, length uintptr) (int32, err
 // HVVCPUGetSMEZaReg returns the value of the vCPU ZA matrix register in streaming Scalable Vector Extension (SVE) mode.
 //
 // See: https://developer.apple.com/documentation/Hypervisor/hv_vcpu_get_sme_za_reg(_:_:_:)
-func HVVCPUGetSMEZaReg(vcpu uint64, value []byte, length uintptr) int32 {
+func HVVCPUGetSMEZaReg(vcpu HVVCPU, value []byte, length uintptr) HVReturn {
 	result, callErr := tryHVVCPUGetSMEZaReg(vcpu, value, length)
 	if callErr != nil {
 		panic(callErr)
@@ -1106,12 +1106,12 @@ func HVVCPUGetSMEZaReg(vcpu uint64, value []byte, length uintptr) int32 {
 	return result
 }
 
-var _hVVCPUGetSMEZt0Reg func(vcpu uint64, value *[64]byte) int32
+var _hVVCPUGetSMEZt0Reg func(vcpu HVVCPU, value *[64]byte) HVReturn
 var _hVVCPUGetSMEZt0RegErr error
 
-func tryHVVCPUGetSMEZt0Reg(vcpu uint64, value *[64]byte) (int32, error) {
+func tryHVVCPUGetSMEZt0Reg(vcpu HVVCPU, value *[64]byte) (HVReturn, error) {
 	if _hVVCPUGetSMEZt0Reg == nil {
-		return 0, symbolCallError("hv_vcpu_get_sme_zt0_reg", "15.2", _hVVCPUGetSMEZt0RegErr)
+		return *new(HVReturn), symbolCallError("hv_vcpu_get_sme_zt0_reg", "15.2", _hVVCPUGetSMEZt0RegErr)
 	}
 	return _hVVCPUGetSMEZt0Reg(vcpu, value), nil
 }
@@ -1119,7 +1119,7 @@ func tryHVVCPUGetSMEZt0Reg(vcpu uint64, value *[64]byte) (int32, error) {
 // HVVCPUGetSMEZt0Reg returns the current value of the vCPU ZT0 register in streaming Scalable Vector Extension (SVE) mode.
 //
 // See: https://developer.apple.com/documentation/Hypervisor/hv_vcpu_get_sme_zt0_reg(_:_:)
-func HVVCPUGetSMEZt0Reg(vcpu uint64, value *[64]byte) int32 {
+func HVVCPUGetSMEZt0Reg(vcpu HVVCPU, value *[64]byte) HVReturn {
 	result, callErr := tryHVVCPUGetSMEZt0Reg(vcpu, value)
 	if callErr != nil {
 		panic(callErr)
@@ -1127,12 +1127,12 @@ func HVVCPUGetSMEZt0Reg(vcpu uint64, value *[64]byte) int32 {
 	return result
 }
 
-var _hVVCPUGetSysReg func(vcpu uint64, reg HVSysReg, value *uint64) int32
+var _hVVCPUGetSysReg func(vcpu HVVCPU, reg HVSysReg, value *uint64) HVReturn
 var _hVVCPUGetSysRegErr error
 
-func tryHVVCPUGetSysReg(vcpu uint64, reg HVSysReg, value *uint64) (int32, error) {
+func tryHVVCPUGetSysReg(vcpu HVVCPU, reg HVSysReg, value *uint64) (HVReturn, error) {
 	if _hVVCPUGetSysReg == nil {
-		return 0, symbolCallError("hv_vcpu_get_sys_reg", "11.0", _hVVCPUGetSysRegErr)
+		return *new(HVReturn), symbolCallError("hv_vcpu_get_sys_reg", "11.0", _hVVCPUGetSysRegErr)
 	}
 	return _hVVCPUGetSysReg(vcpu, reg, value), nil
 }
@@ -1140,7 +1140,7 @@ func tryHVVCPUGetSysReg(vcpu uint64, reg HVSysReg, value *uint64) (int32, error)
 // HVVCPUGetSysReg gets the current value of a vCPU system register.
 //
 // See: https://developer.apple.com/documentation/Hypervisor/hv_vcpu_get_sys_reg(_:_:_:)
-func HVVCPUGetSysReg(vcpu uint64, reg HVSysReg, value *uint64) int32 {
+func HVVCPUGetSysReg(vcpu HVVCPU, reg HVSysReg, value *uint64) HVReturn {
 	result, callErr := tryHVVCPUGetSysReg(vcpu, reg, value)
 	if callErr != nil {
 		panic(callErr)
@@ -1148,12 +1148,12 @@ func HVVCPUGetSysReg(vcpu uint64, reg HVSysReg, value *uint64) int32 {
 	return result
 }
 
-var _hVVCPUGetTrapDebugExceptions func(vcpu uint64, value *bool) int32
+var _hVVCPUGetTrapDebugExceptions func(vcpu HVVCPU, value *bool) HVReturn
 var _hVVCPUGetTrapDebugExceptionsErr error
 
-func tryHVVCPUGetTrapDebugExceptions(vcpu uint64, value *bool) (int32, error) {
+func tryHVVCPUGetTrapDebugExceptions(vcpu HVVCPU, value *bool) (HVReturn, error) {
 	if _hVVCPUGetTrapDebugExceptions == nil {
-		return 0, symbolCallError("hv_vcpu_get_trap_debug_exceptions", "11.0", _hVVCPUGetTrapDebugExceptionsErr)
+		return *new(HVReturn), symbolCallError("hv_vcpu_get_trap_debug_exceptions", "11.0", _hVVCPUGetTrapDebugExceptionsErr)
 	}
 	return _hVVCPUGetTrapDebugExceptions(vcpu, value), nil
 }
@@ -1161,7 +1161,7 @@ func tryHVVCPUGetTrapDebugExceptions(vcpu uint64, value *bool) (int32, error) {
 // HVVCPUGetTrapDebugExceptions gets whether debug exceptions exit the guest.
 //
 // See: https://developer.apple.com/documentation/Hypervisor/hv_vcpu_get_trap_debug_exceptions(_:_:)
-func HVVCPUGetTrapDebugExceptions(vcpu uint64, value *bool) int32 {
+func HVVCPUGetTrapDebugExceptions(vcpu HVVCPU, value *bool) HVReturn {
 	result, callErr := tryHVVCPUGetTrapDebugExceptions(vcpu, value)
 	if callErr != nil {
 		panic(callErr)
@@ -1169,12 +1169,12 @@ func HVVCPUGetTrapDebugExceptions(vcpu uint64, value *bool) int32 {
 	return result
 }
 
-var _hVVCPUGetTrapDebugRegAccesses func(vcpu uint64, value *bool) int32
+var _hVVCPUGetTrapDebugRegAccesses func(vcpu HVVCPU, value *bool) HVReturn
 var _hVVCPUGetTrapDebugRegAccessesErr error
 
-func tryHVVCPUGetTrapDebugRegAccesses(vcpu uint64, value *bool) (int32, error) {
+func tryHVVCPUGetTrapDebugRegAccesses(vcpu HVVCPU, value *bool) (HVReturn, error) {
 	if _hVVCPUGetTrapDebugRegAccesses == nil {
-		return 0, symbolCallError("hv_vcpu_get_trap_debug_reg_accesses", "11.0", _hVVCPUGetTrapDebugRegAccessesErr)
+		return *new(HVReturn), symbolCallError("hv_vcpu_get_trap_debug_reg_accesses", "11.0", _hVVCPUGetTrapDebugRegAccessesErr)
 	}
 	return _hVVCPUGetTrapDebugRegAccesses(vcpu, value), nil
 }
@@ -1182,7 +1182,7 @@ func tryHVVCPUGetTrapDebugRegAccesses(vcpu uint64, value *bool) (int32, error) {
 // HVVCPUGetTrapDebugRegAccesses gets whether debug-register accesses exit the guest.
 //
 // See: https://developer.apple.com/documentation/Hypervisor/hv_vcpu_get_trap_debug_reg_accesses(_:_:)
-func HVVCPUGetTrapDebugRegAccesses(vcpu uint64, value *bool) int32 {
+func HVVCPUGetTrapDebugRegAccesses(vcpu HVVCPU, value *bool) HVReturn {
 	result, callErr := tryHVVCPUGetTrapDebugRegAccesses(vcpu, value)
 	if callErr != nil {
 		panic(callErr)
@@ -1190,12 +1190,12 @@ func HVVCPUGetTrapDebugRegAccesses(vcpu uint64, value *bool) int32 {
 	return result
 }
 
-var _hVVCPUGetVtimerMask func(vcpu uint64, vtimer_is_masked *bool) int32
+var _hVVCPUGetVtimerMask func(vcpu HVVCPU, vtimer_is_masked *bool) HVReturn
 var _hVVCPUGetVtimerMaskErr error
 
-func tryHVVCPUGetVtimerMask(vcpu uint64, vtimer_is_masked *bool) (int32, error) {
+func tryHVVCPUGetVtimerMask(vcpu HVVCPU, vtimer_is_masked *bool) (HVReturn, error) {
 	if _hVVCPUGetVtimerMask == nil {
-		return 0, symbolCallError("hv_vcpu_get_vtimer_mask", "11.0", _hVVCPUGetVtimerMaskErr)
+		return *new(HVReturn), symbolCallError("hv_vcpu_get_vtimer_mask", "11.0", _hVVCPUGetVtimerMaskErr)
 	}
 	return _hVVCPUGetVtimerMask(vcpu, vtimer_is_masked), nil
 }
@@ -1203,7 +1203,7 @@ func tryHVVCPUGetVtimerMask(vcpu uint64, vtimer_is_masked *bool) (int32, error) 
 // HVVCPUGetVtimerMask gets the virtual timer mask.
 //
 // See: https://developer.apple.com/documentation/Hypervisor/hv_vcpu_get_vtimer_mask(_:_:)
-func HVVCPUGetVtimerMask(vcpu uint64, vtimer_is_masked *bool) int32 {
+func HVVCPUGetVtimerMask(vcpu HVVCPU, vtimer_is_masked *bool) HVReturn {
 	result, callErr := tryHVVCPUGetVtimerMask(vcpu, vtimer_is_masked)
 	if callErr != nil {
 		panic(callErr)
@@ -1211,12 +1211,12 @@ func HVVCPUGetVtimerMask(vcpu uint64, vtimer_is_masked *bool) int32 {
 	return result
 }
 
-var _hVVCPUGetVtimerOffset func(vcpu uint64, vtimer_offset *uint64) int32
+var _hVVCPUGetVtimerOffset func(vcpu HVVCPU, vtimer_offset *uint64) HVReturn
 var _hVVCPUGetVtimerOffsetErr error
 
-func tryHVVCPUGetVtimerOffset(vcpu uint64, vtimer_offset *uint64) (int32, error) {
+func tryHVVCPUGetVtimerOffset(vcpu HVVCPU, vtimer_offset *uint64) (HVReturn, error) {
 	if _hVVCPUGetVtimerOffset == nil {
-		return 0, symbolCallError("hv_vcpu_get_vtimer_offset", "11.0", _hVVCPUGetVtimerOffsetErr)
+		return *new(HVReturn), symbolCallError("hv_vcpu_get_vtimer_offset", "11.0", _hVVCPUGetVtimerOffsetErr)
 	}
 	return _hVVCPUGetVtimerOffset(vcpu, vtimer_offset), nil
 }
@@ -1224,7 +1224,7 @@ func tryHVVCPUGetVtimerOffset(vcpu uint64, vtimer_offset *uint64) (int32, error)
 // HVVCPUGetVtimerOffset returns the vTimer offset for the vCPU ID you specify.
 //
 // See: https://developer.apple.com/documentation/Hypervisor/hv_vcpu_get_vtimer_offset(_:_:)
-func HVVCPUGetVtimerOffset(vcpu uint64, vtimer_offset *uint64) int32 {
+func HVVCPUGetVtimerOffset(vcpu HVVCPU, vtimer_offset *uint64) HVReturn {
 	result, callErr := tryHVVCPUGetVtimerOffset(vcpu, vtimer_offset)
 	if callErr != nil {
 		panic(callErr)
@@ -1232,12 +1232,12 @@ func HVVCPUGetVtimerOffset(vcpu uint64, vtimer_offset *uint64) int32 {
 	return result
 }
 
-var _hVVCPURun func(vcpu uint64) int32
+var _hVVCPURun func(vcpu HVVCPU) HVReturn
 var _hVVCPURunErr error
 
-func tryHVVCPURun(vcpu uint64) (int32, error) {
+func tryHVVCPURun(vcpu HVVCPU) (HVReturn, error) {
 	if _hVVCPURun == nil {
-		return 0, symbolCallError("hv_vcpu_run", "11.0", _hVVCPURunErr)
+		return *new(HVReturn), symbolCallError("hv_vcpu_run", "11.0", _hVVCPURunErr)
 	}
 	return _hVVCPURun(vcpu), nil
 }
@@ -1245,7 +1245,7 @@ func tryHVVCPURun(vcpu uint64) (int32, error) {
 // HVVCPURun starts the execution of a vCPU.
 //
 // See: https://developer.apple.com/documentation/Hypervisor/hv_vcpu_run(_:)
-func HVVCPURun(vcpu uint64) int32 {
+func HVVCPURun(vcpu HVVCPU) HVReturn {
 	result, callErr := tryHVVCPURun(vcpu)
 	if callErr != nil {
 		panic(callErr)
@@ -1253,12 +1253,12 @@ func HVVCPURun(vcpu uint64) int32 {
 	return result
 }
 
-var _hVVCPUSetPendingInterrupt func(vcpu uint64, type_ HVInterruptType, pending bool) int32
+var _hVVCPUSetPendingInterrupt func(vcpu HVVCPU, type_ HVInterruptType, pending bool) HVReturn
 var _hVVCPUSetPendingInterruptErr error
 
-func tryHVVCPUSetPendingInterrupt(vcpu uint64, type_ HVInterruptType, pending bool) (int32, error) {
+func tryHVVCPUSetPendingInterrupt(vcpu HVVCPU, type_ HVInterruptType, pending bool) (HVReturn, error) {
 	if _hVVCPUSetPendingInterrupt == nil {
-		return 0, symbolCallError("hv_vcpu_set_pending_interrupt", "11.0", _hVVCPUSetPendingInterruptErr)
+		return *new(HVReturn), symbolCallError("hv_vcpu_set_pending_interrupt", "11.0", _hVVCPUSetPendingInterruptErr)
 	}
 	return _hVVCPUSetPendingInterrupt(vcpu, type_, pending), nil
 }
@@ -1266,7 +1266,7 @@ func tryHVVCPUSetPendingInterrupt(vcpu uint64, type_ HVInterruptType, pending bo
 // HVVCPUSetPendingInterrupt sets pending interrupts for a vCPU.
 //
 // See: https://developer.apple.com/documentation/Hypervisor/hv_vcpu_set_pending_interrupt(_:_:_:)
-func HVVCPUSetPendingInterrupt(vcpu uint64, type_ HVInterruptType, pending bool) int32 {
+func HVVCPUSetPendingInterrupt(vcpu HVVCPU, type_ HVInterruptType, pending bool) HVReturn {
 	result, callErr := tryHVVCPUSetPendingInterrupt(vcpu, type_, pending)
 	if callErr != nil {
 		panic(callErr)
@@ -1274,12 +1274,12 @@ func HVVCPUSetPendingInterrupt(vcpu uint64, type_ HVInterruptType, pending bool)
 	return result
 }
 
-var _hVVCPUSetReg func(vcpu uint64, reg HVReg, value uint64) int32
+var _hVVCPUSetReg func(vcpu HVVCPU, reg HVReg, value uint64) HVReturn
 var _hVVCPUSetRegErr error
 
-func tryHVVCPUSetReg(vcpu uint64, reg HVReg, value uint64) (int32, error) {
+func tryHVVCPUSetReg(vcpu HVVCPU, reg HVReg, value uint64) (HVReturn, error) {
 	if _hVVCPUSetReg == nil {
-		return 0, symbolCallError("hv_vcpu_set_reg", "11.0", _hVVCPUSetRegErr)
+		return *new(HVReturn), symbolCallError("hv_vcpu_set_reg", "11.0", _hVVCPUSetRegErr)
 	}
 	return _hVVCPUSetReg(vcpu, reg, value), nil
 }
@@ -1287,7 +1287,7 @@ func tryHVVCPUSetReg(vcpu uint64, reg HVReg, value uint64) (int32, error) {
 // HVVCPUSetReg sets the value of a vCPU register.
 //
 // See: https://developer.apple.com/documentation/Hypervisor/hv_vcpu_set_reg(_:_:_:)
-func HVVCPUSetReg(vcpu uint64, reg HVReg, value uint64) int32 {
+func HVVCPUSetReg(vcpu HVVCPU, reg HVReg, value uint64) HVReturn {
 	result, callErr := tryHVVCPUSetReg(vcpu, reg, value)
 	if callErr != nil {
 		panic(callErr)
@@ -1295,12 +1295,12 @@ func HVVCPUSetReg(vcpu uint64, reg HVReg, value uint64) int32 {
 	return result
 }
 
-var _hVVCPUSetSIMDFPReg func(vcpu uint64, reg HVSIMDFPReg, value *[16]byte) int32
+var _hVVCPUSetSIMDFPReg func(vcpu HVVCPU, reg HVSIMDFPReg, value *[16]byte) HVReturn
 var _hVVCPUSetSIMDFPRegErr error
 
-func tryHVVCPUSetSIMDFPReg(vcpu uint64, reg HVSIMDFPReg, value [16]byte) (int32, error) {
+func tryHVVCPUSetSIMDFPReg(vcpu HVVCPU, reg HVSIMDFPReg, value [16]byte) (HVReturn, error) {
 	if _hVVCPUSetSIMDFPReg == nil {
-		return 0, symbolCallError("hv_vcpu_set_simd_fp_reg", "11.0", _hVVCPUSetSIMDFPRegErr)
+		return *new(HVReturn), symbolCallError("hv_vcpu_set_simd_fp_reg", "11.0", _hVVCPUSetSIMDFPRegErr)
 	}
 	return _hVVCPUSetSIMDFPReg(vcpu, reg, &value), nil
 }
@@ -1308,7 +1308,7 @@ func tryHVVCPUSetSIMDFPReg(vcpu uint64, reg HVSIMDFPReg, value [16]byte) (int32,
 // HVVCPUSetSIMDFPReg sets the value of a vCPU SIMD&FP register.
 //
 // See: https://developer.apple.com/documentation/Hypervisor/hv_vcpu_set_simd_fp_reg(_:_:_:)
-func HVVCPUSetSIMDFPReg(vcpu uint64, reg HVSIMDFPReg, value [16]byte) int32 {
+func HVVCPUSetSIMDFPReg(vcpu HVVCPU, reg HVSIMDFPReg, value [16]byte) HVReturn {
 	result, callErr := tryHVVCPUSetSIMDFPReg(vcpu, reg, value)
 	if callErr != nil {
 		panic(callErr)
@@ -1316,12 +1316,12 @@ func HVVCPUSetSIMDFPReg(vcpu uint64, reg HVSIMDFPReg, value [16]byte) int32 {
 	return result
 }
 
-var _hVVCPUSetSMEPReg func(vcpu uint64, reg HVSMEPReg, value *byte, length uintptr) int32
+var _hVVCPUSetSMEPReg func(vcpu HVVCPU, reg HVSMEPReg, value *byte, length uintptr) HVReturn
 var _hVVCPUSetSMEPRegErr error
 
-func tryHVVCPUSetSMEPReg(vcpu uint64, reg HVSMEPReg, value []byte, length uintptr) (int32, error) {
+func tryHVVCPUSetSMEPReg(vcpu HVVCPU, reg HVSMEPReg, value []byte, length uintptr) (HVReturn, error) {
 	if _hVVCPUSetSMEPReg == nil {
-		return 0, symbolCallError("hv_vcpu_set_sme_p_reg", "15.2", _hVVCPUSetSMEPRegErr)
+		return *new(HVReturn), symbolCallError("hv_vcpu_set_sme_p_reg", "15.2", _hVVCPUSetSMEPRegErr)
 	}
 	return _hVVCPUSetSMEPReg(vcpu, reg, unsafe.SliceData(value), length), nil
 }
@@ -1329,7 +1329,7 @@ func tryHVVCPUSetSMEPReg(vcpu uint64, reg HVSMEPReg, value []byte, length uintpt
 // HVVCPUSetSMEPReg sets the value of a vCPU P predicate register in streaming Scalable Vector Extension (SVE) mode.
 //
 // See: https://developer.apple.com/documentation/Hypervisor/hv_vcpu_set_sme_p_reg(_:_:_:_:)
-func HVVCPUSetSMEPReg(vcpu uint64, reg HVSMEPReg, value []byte, length uintptr) int32 {
+func HVVCPUSetSMEPReg(vcpu HVVCPU, reg HVSMEPReg, value []byte, length uintptr) HVReturn {
 	result, callErr := tryHVVCPUSetSMEPReg(vcpu, reg, value, length)
 	if callErr != nil {
 		panic(callErr)
@@ -1337,12 +1337,12 @@ func HVVCPUSetSMEPReg(vcpu uint64, reg HVSMEPReg, value []byte, length uintptr) 
 	return result
 }
 
-var _hVVCPUSetSMEState func(vcpu uint64, sme_state *HVVCPUSMEState) int32
+var _hVVCPUSetSMEState func(vcpu HVVCPU, sme_state *HVVCPUSMEState) HVReturn
 var _hVVCPUSetSMEStateErr error
 
-func tryHVVCPUSetSMEState(vcpu uint64, sme_state *HVVCPUSMEState) (int32, error) {
+func tryHVVCPUSetSMEState(vcpu HVVCPU, sme_state *HVVCPUSMEState) (HVReturn, error) {
 	if _hVVCPUSetSMEState == nil {
-		return 0, symbolCallError("hv_vcpu_set_sme_state", "15.2", _hVVCPUSetSMEStateErr)
+		return *new(HVReturn), symbolCallError("hv_vcpu_set_sme_state", "15.2", _hVVCPUSetSMEStateErr)
 	}
 	return _hVVCPUSetSMEState(vcpu, sme_state), nil
 }
@@ -1350,7 +1350,7 @@ func tryHVVCPUSetSMEState(vcpu uint64, sme_state *HVVCPUSMEState) (int32, error)
 // HVVCPUSetSMEState sets the SME state consisting of the streaming Scalable Vector Extension (SVE) mode and ZA storage enable.
 //
 // See: https://developer.apple.com/documentation/Hypervisor/hv_vcpu_set_sme_state(_:_:)
-func HVVCPUSetSMEState(vcpu uint64, sme_state *HVVCPUSMEState) int32 {
+func HVVCPUSetSMEState(vcpu HVVCPU, sme_state *HVVCPUSMEState) HVReturn {
 	result, callErr := tryHVVCPUSetSMEState(vcpu, sme_state)
 	if callErr != nil {
 		panic(callErr)
@@ -1358,12 +1358,12 @@ func HVVCPUSetSMEState(vcpu uint64, sme_state *HVVCPUSMEState) int32 {
 	return result
 }
 
-var _hVVCPUSetSMEZReg func(vcpu uint64, reg HVSMEZReg, value *byte, length uintptr) int32
+var _hVVCPUSetSMEZReg func(vcpu HVVCPU, reg HVSMEZReg, value *byte, length uintptr) HVReturn
 var _hVVCPUSetSMEZRegErr error
 
-func tryHVVCPUSetSMEZReg(vcpu uint64, reg HVSMEZReg, value []byte, length uintptr) (int32, error) {
+func tryHVVCPUSetSMEZReg(vcpu HVVCPU, reg HVSMEZReg, value []byte, length uintptr) (HVReturn, error) {
 	if _hVVCPUSetSMEZReg == nil {
-		return 0, symbolCallError("hv_vcpu_set_sme_z_reg", "15.2", _hVVCPUSetSMEZRegErr)
+		return *new(HVReturn), symbolCallError("hv_vcpu_set_sme_z_reg", "15.2", _hVVCPUSetSMEZRegErr)
 	}
 	return _hVVCPUSetSMEZReg(vcpu, reg, unsafe.SliceData(value), length), nil
 }
@@ -1371,7 +1371,7 @@ func tryHVVCPUSetSMEZReg(vcpu uint64, reg HVSMEZReg, value []byte, length uintpt
 // HVVCPUSetSMEZReg sets the value of a vCPU Z vector register in streaming Scalable Vector Extension (SVE) mode.
 //
 // See: https://developer.apple.com/documentation/Hypervisor/hv_vcpu_set_sme_z_reg(_:_:_:_:)
-func HVVCPUSetSMEZReg(vcpu uint64, reg HVSMEZReg, value []byte, length uintptr) int32 {
+func HVVCPUSetSMEZReg(vcpu HVVCPU, reg HVSMEZReg, value []byte, length uintptr) HVReturn {
 	result, callErr := tryHVVCPUSetSMEZReg(vcpu, reg, value, length)
 	if callErr != nil {
 		panic(callErr)
@@ -1379,12 +1379,12 @@ func HVVCPUSetSMEZReg(vcpu uint64, reg HVSMEZReg, value []byte, length uintptr) 
 	return result
 }
 
-var _hVVCPUSetSMEZaReg func(vcpu uint64, value *byte, length uintptr) int32
+var _hVVCPUSetSMEZaReg func(vcpu HVVCPU, value *byte, length uintptr) HVReturn
 var _hVVCPUSetSMEZaRegErr error
 
-func tryHVVCPUSetSMEZaReg(vcpu uint64, value []byte, length uintptr) (int32, error) {
+func tryHVVCPUSetSMEZaReg(vcpu HVVCPU, value []byte, length uintptr) (HVReturn, error) {
 	if _hVVCPUSetSMEZaReg == nil {
-		return 0, symbolCallError("hv_vcpu_set_sme_za_reg", "15.2", _hVVCPUSetSMEZaRegErr)
+		return *new(HVReturn), symbolCallError("hv_vcpu_set_sme_za_reg", "15.2", _hVVCPUSetSMEZaRegErr)
 	}
 	return _hVVCPUSetSMEZaReg(vcpu, unsafe.SliceData(value), length), nil
 }
@@ -1392,7 +1392,7 @@ func tryHVVCPUSetSMEZaReg(vcpu uint64, value []byte, length uintptr) (int32, err
 // HVVCPUSetSMEZaReg sets the value of the vCPU ZA matrix register in streaming Scalable Vector Extension (SVE) mode.
 //
 // See: https://developer.apple.com/documentation/Hypervisor/hv_vcpu_set_sme_za_reg(_:_:_:)
-func HVVCPUSetSMEZaReg(vcpu uint64, value []byte, length uintptr) int32 {
+func HVVCPUSetSMEZaReg(vcpu HVVCPU, value []byte, length uintptr) HVReturn {
 	result, callErr := tryHVVCPUSetSMEZaReg(vcpu, value, length)
 	if callErr != nil {
 		panic(callErr)
@@ -1400,12 +1400,12 @@ func HVVCPUSetSMEZaReg(vcpu uint64, value []byte, length uintptr) int32 {
 	return result
 }
 
-var _hVVCPUSetSMEZt0Reg func(vcpu uint64, value *[64]byte) int32
+var _hVVCPUSetSMEZt0Reg func(vcpu HVVCPU, value *[64]byte) HVReturn
 var _hVVCPUSetSMEZt0RegErr error
 
-func tryHVVCPUSetSMEZt0Reg(vcpu uint64, value *[64]byte) (int32, error) {
+func tryHVVCPUSetSMEZt0Reg(vcpu HVVCPU, value *[64]byte) (HVReturn, error) {
 	if _hVVCPUSetSMEZt0Reg == nil {
-		return 0, symbolCallError("hv_vcpu_set_sme_zt0_reg", "15.2", _hVVCPUSetSMEZt0RegErr)
+		return *new(HVReturn), symbolCallError("hv_vcpu_set_sme_zt0_reg", "15.2", _hVVCPUSetSMEZt0RegErr)
 	}
 	return _hVVCPUSetSMEZt0Reg(vcpu, value), nil
 }
@@ -1413,7 +1413,7 @@ func tryHVVCPUSetSMEZt0Reg(vcpu uint64, value *[64]byte) (int32, error) {
 // HVVCPUSetSMEZt0Reg sets the value of the vCPU ZT0 register in streaming Scalable Vector Extension (SVE) mode.
 //
 // See: https://developer.apple.com/documentation/Hypervisor/hv_vcpu_set_sme_zt0_reg(_:_:)
-func HVVCPUSetSMEZt0Reg(vcpu uint64, value *[64]byte) int32 {
+func HVVCPUSetSMEZt0Reg(vcpu HVVCPU, value *[64]byte) HVReturn {
 	result, callErr := tryHVVCPUSetSMEZt0Reg(vcpu, value)
 	if callErr != nil {
 		panic(callErr)
@@ -1421,12 +1421,12 @@ func HVVCPUSetSMEZt0Reg(vcpu uint64, value *[64]byte) int32 {
 	return result
 }
 
-var _hVVCPUSetSysReg func(vcpu uint64, reg HVSysReg, value uint64) int32
+var _hVVCPUSetSysReg func(vcpu HVVCPU, reg HVSysReg, value uint64) HVReturn
 var _hVVCPUSetSysRegErr error
 
-func tryHVVCPUSetSysReg(vcpu uint64, reg HVSysReg, value uint64) (int32, error) {
+func tryHVVCPUSetSysReg(vcpu HVVCPU, reg HVSysReg, value uint64) (HVReturn, error) {
 	if _hVVCPUSetSysReg == nil {
-		return 0, symbolCallError("hv_vcpu_set_sys_reg", "11.0", _hVVCPUSetSysRegErr)
+		return *new(HVReturn), symbolCallError("hv_vcpu_set_sys_reg", "11.0", _hVVCPUSetSysRegErr)
 	}
 	return _hVVCPUSetSysReg(vcpu, reg, value), nil
 }
@@ -1434,7 +1434,7 @@ func tryHVVCPUSetSysReg(vcpu uint64, reg HVSysReg, value uint64) (int32, error) 
 // HVVCPUSetSysReg sets the value of a vCPU system register.
 //
 // See: https://developer.apple.com/documentation/Hypervisor/hv_vcpu_set_sys_reg(_:_:_:)
-func HVVCPUSetSysReg(vcpu uint64, reg HVSysReg, value uint64) int32 {
+func HVVCPUSetSysReg(vcpu HVVCPU, reg HVSysReg, value uint64) HVReturn {
 	result, callErr := tryHVVCPUSetSysReg(vcpu, reg, value)
 	if callErr != nil {
 		panic(callErr)
@@ -1442,12 +1442,12 @@ func HVVCPUSetSysReg(vcpu uint64, reg HVSysReg, value uint64) int32 {
 	return result
 }
 
-var _hVVCPUSetTrapDebugExceptions func(vcpu uint64, value bool) int32
+var _hVVCPUSetTrapDebugExceptions func(vcpu HVVCPU, value bool) HVReturn
 var _hVVCPUSetTrapDebugExceptionsErr error
 
-func tryHVVCPUSetTrapDebugExceptions(vcpu uint64, value bool) (int32, error) {
+func tryHVVCPUSetTrapDebugExceptions(vcpu HVVCPU, value bool) (HVReturn, error) {
 	if _hVVCPUSetTrapDebugExceptions == nil {
-		return 0, symbolCallError("hv_vcpu_set_trap_debug_exceptions", "11.0", _hVVCPUSetTrapDebugExceptionsErr)
+		return *new(HVReturn), symbolCallError("hv_vcpu_set_trap_debug_exceptions", "11.0", _hVVCPUSetTrapDebugExceptionsErr)
 	}
 	return _hVVCPUSetTrapDebugExceptions(vcpu, value), nil
 }
@@ -1455,7 +1455,7 @@ func tryHVVCPUSetTrapDebugExceptions(vcpu uint64, value bool) (int32, error) {
 // HVVCPUSetTrapDebugExceptions sets whether debug exceptions exit the guest.
 //
 // See: https://developer.apple.com/documentation/Hypervisor/hv_vcpu_set_trap_debug_exceptions(_:_:)
-func HVVCPUSetTrapDebugExceptions(vcpu uint64, value bool) int32 {
+func HVVCPUSetTrapDebugExceptions(vcpu HVVCPU, value bool) HVReturn {
 	result, callErr := tryHVVCPUSetTrapDebugExceptions(vcpu, value)
 	if callErr != nil {
 		panic(callErr)
@@ -1463,12 +1463,12 @@ func HVVCPUSetTrapDebugExceptions(vcpu uint64, value bool) int32 {
 	return result
 }
 
-var _hVVCPUSetTrapDebugRegAccesses func(vcpu uint64, value bool) int32
+var _hVVCPUSetTrapDebugRegAccesses func(vcpu HVVCPU, value bool) HVReturn
 var _hVVCPUSetTrapDebugRegAccessesErr error
 
-func tryHVVCPUSetTrapDebugRegAccesses(vcpu uint64, value bool) (int32, error) {
+func tryHVVCPUSetTrapDebugRegAccesses(vcpu HVVCPU, value bool) (HVReturn, error) {
 	if _hVVCPUSetTrapDebugRegAccesses == nil {
-		return 0, symbolCallError("hv_vcpu_set_trap_debug_reg_accesses", "11.0", _hVVCPUSetTrapDebugRegAccessesErr)
+		return *new(HVReturn), symbolCallError("hv_vcpu_set_trap_debug_reg_accesses", "11.0", _hVVCPUSetTrapDebugRegAccessesErr)
 	}
 	return _hVVCPUSetTrapDebugRegAccesses(vcpu, value), nil
 }
@@ -1476,7 +1476,7 @@ func tryHVVCPUSetTrapDebugRegAccesses(vcpu uint64, value bool) (int32, error) {
 // HVVCPUSetTrapDebugRegAccesses sets whether debug-register accesses exit the guest.
 //
 // See: https://developer.apple.com/documentation/Hypervisor/hv_vcpu_set_trap_debug_reg_accesses(_:_:)
-func HVVCPUSetTrapDebugRegAccesses(vcpu uint64, value bool) int32 {
+func HVVCPUSetTrapDebugRegAccesses(vcpu HVVCPU, value bool) HVReturn {
 	result, callErr := tryHVVCPUSetTrapDebugRegAccesses(vcpu, value)
 	if callErr != nil {
 		panic(callErr)
@@ -1484,12 +1484,12 @@ func HVVCPUSetTrapDebugRegAccesses(vcpu uint64, value bool) int32 {
 	return result
 }
 
-var _hVVCPUSetVtimerMask func(vcpu uint64, vtimer_is_masked bool) int32
+var _hVVCPUSetVtimerMask func(vcpu HVVCPU, vtimer_is_masked bool) HVReturn
 var _hVVCPUSetVtimerMaskErr error
 
-func tryHVVCPUSetVtimerMask(vcpu uint64, vtimer_is_masked bool) (int32, error) {
+func tryHVVCPUSetVtimerMask(vcpu HVVCPU, vtimer_is_masked bool) (HVReturn, error) {
 	if _hVVCPUSetVtimerMask == nil {
-		return 0, symbolCallError("hv_vcpu_set_vtimer_mask", "11.0", _hVVCPUSetVtimerMaskErr)
+		return *new(HVReturn), symbolCallError("hv_vcpu_set_vtimer_mask", "11.0", _hVVCPUSetVtimerMaskErr)
 	}
 	return _hVVCPUSetVtimerMask(vcpu, vtimer_is_masked), nil
 }
@@ -1497,7 +1497,7 @@ func tryHVVCPUSetVtimerMask(vcpu uint64, vtimer_is_masked bool) (int32, error) {
 // HVVCPUSetVtimerMask sets or clears the virtual timer mask.
 //
 // See: https://developer.apple.com/documentation/Hypervisor/hv_vcpu_set_vtimer_mask(_:_:)
-func HVVCPUSetVtimerMask(vcpu uint64, vtimer_is_masked bool) int32 {
+func HVVCPUSetVtimerMask(vcpu HVVCPU, vtimer_is_masked bool) HVReturn {
 	result, callErr := tryHVVCPUSetVtimerMask(vcpu, vtimer_is_masked)
 	if callErr != nil {
 		panic(callErr)
@@ -1505,12 +1505,12 @@ func HVVCPUSetVtimerMask(vcpu uint64, vtimer_is_masked bool) int32 {
 	return result
 }
 
-var _hVVCPUSetVtimerOffset func(vcpu uint64, vtimer_offset uint64) int32
+var _hVVCPUSetVtimerOffset func(vcpu HVVCPU, vtimer_offset uint64) HVReturn
 var _hVVCPUSetVtimerOffsetErr error
 
-func tryHVVCPUSetVtimerOffset(vcpu uint64, vtimer_offset uint64) (int32, error) {
+func tryHVVCPUSetVtimerOffset(vcpu HVVCPU, vtimer_offset uint64) (HVReturn, error) {
 	if _hVVCPUSetVtimerOffset == nil {
-		return 0, symbolCallError("hv_vcpu_set_vtimer_offset", "11.0", _hVVCPUSetVtimerOffsetErr)
+		return *new(HVReturn), symbolCallError("hv_vcpu_set_vtimer_offset", "11.0", _hVVCPUSetVtimerOffsetErr)
 	}
 	return _hVVCPUSetVtimerOffset(vcpu, vtimer_offset), nil
 }
@@ -1518,7 +1518,7 @@ func tryHVVCPUSetVtimerOffset(vcpu uint64, vtimer_offset uint64) (int32, error) 
 // HVVCPUSetVtimerOffset sets the vTimer offset to a value that you provide.
 //
 // See: https://developer.apple.com/documentation/Hypervisor/hv_vcpu_set_vtimer_offset(_:_:)
-func HVVCPUSetVtimerOffset(vcpu uint64, vtimer_offset uint64) int32 {
+func HVVCPUSetVtimerOffset(vcpu HVVCPU, vtimer_offset uint64) HVReturn {
 	result, callErr := tryHVVCPUSetVtimerOffset(vcpu, vtimer_offset)
 	if callErr != nil {
 		panic(callErr)
@@ -1526,12 +1526,12 @@ func HVVCPUSetVtimerOffset(vcpu uint64, vtimer_offset uint64) int32 {
 	return result
 }
 
-var _hVVcpusExit func(vcpus *uint64, vcpu_count uint32) int32
+var _hVVcpusExit func(vcpus *HVVCPU, vcpu_count uint32) HVReturn
 var _hVVcpusExitErr error
 
-func tryHVVcpusExit(vcpus *uint64, vcpu_count uint32) (int32, error) {
+func tryHVVcpusExit(vcpus *HVVCPU, vcpu_count uint32) (HVReturn, error) {
 	if _hVVcpusExit == nil {
-		return 0, symbolCallError("hv_vcpus_exit", "11.0", _hVVcpusExitErr)
+		return *new(HVReturn), symbolCallError("hv_vcpus_exit", "11.0", _hVVcpusExitErr)
 	}
 	return _hVVcpusExit(vcpus, vcpu_count), nil
 }
@@ -1539,7 +1539,7 @@ func tryHVVcpusExit(vcpus *uint64, vcpu_count uint32) (int32, error) {
 // HVVcpusExit forces an immediate exit of a set of vCPUs of the VM.
 //
 // See: https://developer.apple.com/documentation/Hypervisor/hv_vcpus_exit(_:_:)
-func HVVcpusExit(vcpus *uint64, vcpu_count uint32) int32 {
+func HVVcpusExit(vcpus *HVVCPU, vcpu_count uint32) HVReturn {
 	result, callErr := tryHVVcpusExit(vcpus, vcpu_count)
 	if callErr != nil {
 		panic(callErr)
@@ -1547,12 +1547,12 @@ func HVVcpusExit(vcpus *uint64, vcpu_count uint32) int32 {
 	return result
 }
 
-var _hVVmAllocate func(uvap unsafe.Pointer, size uintptr, flags uint64) int32
+var _hVVmAllocate func(uvap unsafe.Pointer, size uintptr, flags HVAllocateFlags) HVReturn
 var _hVVmAllocateErr error
 
-func tryHVVmAllocate(uvap unsafe.Pointer, size uintptr, flags uint64) (int32, error) {
+func tryHVVmAllocate(uvap unsafe.Pointer, size uintptr, flags HVAllocateFlags) (HVReturn, error) {
 	if _hVVmAllocate == nil {
-		return 0, symbolCallError("hv_vm_allocate", "12.1", _hVVmAllocateErr)
+		return *new(HVReturn), symbolCallError("hv_vm_allocate", "12.1", _hVVmAllocateErr)
 	}
 	return _hVVmAllocate(uvap, size, flags), nil
 }
@@ -1560,7 +1560,7 @@ func tryHVVmAllocate(uvap unsafe.Pointer, size uintptr, flags uint64) (int32, er
 // HVVmAllocate.
 //
 // See: https://developer.apple.com/documentation/Hypervisor/hv_vm_allocate(_:_:_:)
-func HVVmAllocate(uvap unsafe.Pointer, size uintptr, flags uint64) int32 {
+func HVVmAllocate(uvap unsafe.Pointer, size uintptr, flags HVAllocateFlags) HVReturn {
 	result, callErr := tryHVVmAllocate(uvap, size, flags)
 	if callErr != nil {
 		panic(callErr)
@@ -1589,12 +1589,12 @@ func HVVmConfigCreate() unsafe.Pointer {
 	return result
 }
 
-var _hVVmConfigGetDefaultIPAGranule func(granule *HVIPAGranule) int32
+var _hVVmConfigGetDefaultIPAGranule func(granule *HVIPAGranule) HVReturn
 var _hVVmConfigGetDefaultIPAGranuleErr error
 
-func tryHVVmConfigGetDefaultIPAGranule(granule *HVIPAGranule) (int32, error) {
+func tryHVVmConfigGetDefaultIPAGranule(granule *HVIPAGranule) (HVReturn, error) {
 	if _hVVmConfigGetDefaultIPAGranule == nil {
-		return 0, symbolCallError("hv_vm_config_get_default_ipa_granule", "26.0", _hVVmConfigGetDefaultIPAGranuleErr)
+		return *new(HVReturn), symbolCallError("hv_vm_config_get_default_ipa_granule", "26.0", _hVVmConfigGetDefaultIPAGranuleErr)
 	}
 	return _hVVmConfigGetDefaultIPAGranule(granule), nil
 }
@@ -1602,7 +1602,7 @@ func tryHVVmConfigGetDefaultIPAGranule(granule *HVIPAGranule) (int32, error) {
 // HVVmConfigGetDefaultIPAGranule.
 //
 // See: https://developer.apple.com/documentation/Hypervisor/hv_vm_config_get_default_ipa_granule(_:)
-func HVVmConfigGetDefaultIPAGranule(granule *HVIPAGranule) int32 {
+func HVVmConfigGetDefaultIPAGranule(granule *HVIPAGranule) HVReturn {
 	result, callErr := tryHVVmConfigGetDefaultIPAGranule(granule)
 	if callErr != nil {
 		panic(callErr)
@@ -1610,12 +1610,12 @@ func HVVmConfigGetDefaultIPAGranule(granule *HVIPAGranule) int32 {
 	return result
 }
 
-var _hVVmConfigGetDefaultIPASize func(ipa_bit_length *uint32) int32
+var _hVVmConfigGetDefaultIPASize func(ipa_bit_length *uint32) HVReturn
 var _hVVmConfigGetDefaultIPASizeErr error
 
-func tryHVVmConfigGetDefaultIPASize(ipa_bit_length *uint32) (int32, error) {
+func tryHVVmConfigGetDefaultIPASize(ipa_bit_length *uint32) (HVReturn, error) {
 	if _hVVmConfigGetDefaultIPASize == nil {
-		return 0, symbolCallError("hv_vm_config_get_default_ipa_size", "13.0", _hVVmConfigGetDefaultIPASizeErr)
+		return *new(HVReturn), symbolCallError("hv_vm_config_get_default_ipa_size", "13.0", _hVVmConfigGetDefaultIPASizeErr)
 	}
 	return _hVVmConfigGetDefaultIPASize(ipa_bit_length), nil
 }
@@ -1623,7 +1623,7 @@ func tryHVVmConfigGetDefaultIPASize(ipa_bit_length *uint32) (int32, error) {
 // HVVmConfigGetDefaultIPASize.
 //
 // See: https://developer.apple.com/documentation/Hypervisor/hv_vm_config_get_default_ipa_size(_:)
-func HVVmConfigGetDefaultIPASize(ipa_bit_length *uint32) int32 {
+func HVVmConfigGetDefaultIPASize(ipa_bit_length *uint32) HVReturn {
 	result, callErr := tryHVVmConfigGetDefaultIPASize(ipa_bit_length)
 	if callErr != nil {
 		panic(callErr)
@@ -1631,12 +1631,12 @@ func HVVmConfigGetDefaultIPASize(ipa_bit_length *uint32) int32 {
 	return result
 }
 
-var _hVVmConfigGetEl2Enabled func(config unsafe.Pointer, el2_enabled *bool) int32
+var _hVVmConfigGetEl2Enabled func(config unsafe.Pointer, el2_enabled *bool) HVReturn
 var _hVVmConfigGetEl2EnabledErr error
 
-func tryHVVmConfigGetEl2Enabled(config unsafe.Pointer, el2_enabled *bool) (int32, error) {
+func tryHVVmConfigGetEl2Enabled(config unsafe.Pointer, el2_enabled *bool) (HVReturn, error) {
 	if _hVVmConfigGetEl2Enabled == nil {
-		return 0, symbolCallError("hv_vm_config_get_el2_enabled", "15.0", _hVVmConfigGetEl2EnabledErr)
+		return *new(HVReturn), symbolCallError("hv_vm_config_get_el2_enabled", "15.0", _hVVmConfigGetEl2EnabledErr)
 	}
 	return _hVVmConfigGetEl2Enabled(config, el2_enabled), nil
 }
@@ -1644,7 +1644,7 @@ func tryHVVmConfigGetEl2Enabled(config unsafe.Pointer, el2_enabled *bool) (int32
 // HVVmConfigGetEl2Enabled return a status value that indicates whether the VM configuration enables support for Exception Level 2 (EL2).
 //
 // See: https://developer.apple.com/documentation/Hypervisor/hv_vm_config_get_el2_enabled(_:_:)
-func HVVmConfigGetEl2Enabled(config unsafe.Pointer, el2_enabled *bool) int32 {
+func HVVmConfigGetEl2Enabled(config unsafe.Pointer, el2_enabled *bool) HVReturn {
 	result, callErr := tryHVVmConfigGetEl2Enabled(config, el2_enabled)
 	if callErr != nil {
 		panic(callErr)
@@ -1652,12 +1652,12 @@ func HVVmConfigGetEl2Enabled(config unsafe.Pointer, el2_enabled *bool) int32 {
 	return result
 }
 
-var _hVVmConfigGetEl2Supported func(el2_supported *bool) int32
+var _hVVmConfigGetEl2Supported func(el2_supported *bool) HVReturn
 var _hVVmConfigGetEl2SupportedErr error
 
-func tryHVVmConfigGetEl2Supported(el2_supported *bool) (int32, error) {
+func tryHVVmConfigGetEl2Supported(el2_supported *bool) (HVReturn, error) {
 	if _hVVmConfigGetEl2Supported == nil {
-		return 0, symbolCallError("hv_vm_config_get_el2_supported", "15.0", _hVVmConfigGetEl2SupportedErr)
+		return *new(HVReturn), symbolCallError("hv_vm_config_get_el2_supported", "15.0", _hVVmConfigGetEl2SupportedErr)
 	}
 	return _hVVmConfigGetEl2Supported(el2_supported), nil
 }
@@ -1665,7 +1665,7 @@ func tryHVVmConfigGetEl2Supported(el2_supported *bool) (int32, error) {
 // HVVmConfigGetEl2Supported returns a status value that indicates whether the current platform supports Exception Level 2 (EL2).
 //
 // See: https://developer.apple.com/documentation/Hypervisor/hv_vm_config_get_el2_supported(_:)
-func HVVmConfigGetEl2Supported(el2_supported *bool) int32 {
+func HVVmConfigGetEl2Supported(el2_supported *bool) HVReturn {
 	result, callErr := tryHVVmConfigGetEl2Supported(el2_supported)
 	if callErr != nil {
 		panic(callErr)
@@ -1673,12 +1673,12 @@ func HVVmConfigGetEl2Supported(el2_supported *bool) int32 {
 	return result
 }
 
-var _hVVmConfigGetIPAGranule func(config unsafe.Pointer, granule *HVIPAGranule) int32
+var _hVVmConfigGetIPAGranule func(config unsafe.Pointer, granule *HVIPAGranule) HVReturn
 var _hVVmConfigGetIPAGranuleErr error
 
-func tryHVVmConfigGetIPAGranule(config unsafe.Pointer, granule *HVIPAGranule) (int32, error) {
+func tryHVVmConfigGetIPAGranule(config unsafe.Pointer, granule *HVIPAGranule) (HVReturn, error) {
 	if _hVVmConfigGetIPAGranule == nil {
-		return 0, symbolCallError("hv_vm_config_get_ipa_granule", "26.0", _hVVmConfigGetIPAGranuleErr)
+		return *new(HVReturn), symbolCallError("hv_vm_config_get_ipa_granule", "26.0", _hVVmConfigGetIPAGranuleErr)
 	}
 	return _hVVmConfigGetIPAGranule(config, granule), nil
 }
@@ -1686,7 +1686,7 @@ func tryHVVmConfigGetIPAGranule(config unsafe.Pointer, granule *HVIPAGranule) (i
 // HVVmConfigGetIPAGranule.
 //
 // See: https://developer.apple.com/documentation/Hypervisor/hv_vm_config_get_ipa_granule(_:_:)
-func HVVmConfigGetIPAGranule(config unsafe.Pointer, granule *HVIPAGranule) int32 {
+func HVVmConfigGetIPAGranule(config unsafe.Pointer, granule *HVIPAGranule) HVReturn {
 	result, callErr := tryHVVmConfigGetIPAGranule(config, granule)
 	if callErr != nil {
 		panic(callErr)
@@ -1694,12 +1694,12 @@ func HVVmConfigGetIPAGranule(config unsafe.Pointer, granule *HVIPAGranule) int32
 	return result
 }
 
-var _hVVmConfigGetIPASize func(config unsafe.Pointer, ipa_bit_length *uint32) int32
+var _hVVmConfigGetIPASize func(config unsafe.Pointer, ipa_bit_length *uint32) HVReturn
 var _hVVmConfigGetIPASizeErr error
 
-func tryHVVmConfigGetIPASize(config unsafe.Pointer, ipa_bit_length *uint32) (int32, error) {
+func tryHVVmConfigGetIPASize(config unsafe.Pointer, ipa_bit_length *uint32) (HVReturn, error) {
 	if _hVVmConfigGetIPASize == nil {
-		return 0, symbolCallError("hv_vm_config_get_ipa_size", "13.0", _hVVmConfigGetIPASizeErr)
+		return *new(HVReturn), symbolCallError("hv_vm_config_get_ipa_size", "13.0", _hVVmConfigGetIPASizeErr)
 	}
 	return _hVVmConfigGetIPASize(config, ipa_bit_length), nil
 }
@@ -1707,7 +1707,7 @@ func tryHVVmConfigGetIPASize(config unsafe.Pointer, ipa_bit_length *uint32) (int
 // HVVmConfigGetIPASize.
 //
 // See: https://developer.apple.com/documentation/Hypervisor/hv_vm_config_get_ipa_size(_:_:)
-func HVVmConfigGetIPASize(config unsafe.Pointer, ipa_bit_length *uint32) int32 {
+func HVVmConfigGetIPASize(config unsafe.Pointer, ipa_bit_length *uint32) HVReturn {
 	result, callErr := tryHVVmConfigGetIPASize(config, ipa_bit_length)
 	if callErr != nil {
 		panic(callErr)
@@ -1715,12 +1715,12 @@ func HVVmConfigGetIPASize(config unsafe.Pointer, ipa_bit_length *uint32) int32 {
 	return result
 }
 
-var _hVVmConfigGetMaxIPASize func(ipa_bit_length *uint32) int32
+var _hVVmConfigGetMaxIPASize func(ipa_bit_length *uint32) HVReturn
 var _hVVmConfigGetMaxIPASizeErr error
 
-func tryHVVmConfigGetMaxIPASize(ipa_bit_length *uint32) (int32, error) {
+func tryHVVmConfigGetMaxIPASize(ipa_bit_length *uint32) (HVReturn, error) {
 	if _hVVmConfigGetMaxIPASize == nil {
-		return 0, symbolCallError("hv_vm_config_get_max_ipa_size", "13.0", _hVVmConfigGetMaxIPASizeErr)
+		return *new(HVReturn), symbolCallError("hv_vm_config_get_max_ipa_size", "13.0", _hVVmConfigGetMaxIPASizeErr)
 	}
 	return _hVVmConfigGetMaxIPASize(ipa_bit_length), nil
 }
@@ -1728,7 +1728,7 @@ func tryHVVmConfigGetMaxIPASize(ipa_bit_length *uint32) (int32, error) {
 // HVVmConfigGetMaxIPASize.
 //
 // See: https://developer.apple.com/documentation/Hypervisor/hv_vm_config_get_max_ipa_size(_:)
-func HVVmConfigGetMaxIPASize(ipa_bit_length *uint32) int32 {
+func HVVmConfigGetMaxIPASize(ipa_bit_length *uint32) HVReturn {
 	result, callErr := tryHVVmConfigGetMaxIPASize(ipa_bit_length)
 	if callErr != nil {
 		panic(callErr)
@@ -1736,12 +1736,12 @@ func HVVmConfigGetMaxIPASize(ipa_bit_length *uint32) int32 {
 	return result
 }
 
-var _hVVmConfigSetEl2Enabled func(config unsafe.Pointer, el2_enabled bool) int32
+var _hVVmConfigSetEl2Enabled func(config unsafe.Pointer, el2_enabled bool) HVReturn
 var _hVVmConfigSetEl2EnabledErr error
 
-func tryHVVmConfigSetEl2Enabled(config unsafe.Pointer, el2_enabled bool) (int32, error) {
+func tryHVVmConfigSetEl2Enabled(config unsafe.Pointer, el2_enabled bool) (HVReturn, error) {
 	if _hVVmConfigSetEl2Enabled == nil {
-		return 0, symbolCallError("hv_vm_config_set_el2_enabled", "15.0", _hVVmConfigSetEl2EnabledErr)
+		return *new(HVReturn), symbolCallError("hv_vm_config_set_el2_enabled", "15.0", _hVVmConfigSetEl2EnabledErr)
 	}
 	return _hVVmConfigSetEl2Enabled(config, el2_enabled), nil
 }
@@ -1749,7 +1749,7 @@ func tryHVVmConfigSetEl2Enabled(config unsafe.Pointer, el2_enabled bool) (int32,
 // HVVmConfigSetEl2Enabled sets whether the specified VM configuration enables support for Exception Level 2 (EL2).
 //
 // See: https://developer.apple.com/documentation/Hypervisor/hv_vm_config_set_el2_enabled(_:_:)
-func HVVmConfigSetEl2Enabled(config unsafe.Pointer, el2_enabled bool) int32 {
+func HVVmConfigSetEl2Enabled(config unsafe.Pointer, el2_enabled bool) HVReturn {
 	result, callErr := tryHVVmConfigSetEl2Enabled(config, el2_enabled)
 	if callErr != nil {
 		panic(callErr)
@@ -1757,12 +1757,12 @@ func HVVmConfigSetEl2Enabled(config unsafe.Pointer, el2_enabled bool) int32 {
 	return result
 }
 
-var _hVVmConfigSetIPAGranule func(config unsafe.Pointer, granule HVIPAGranule) int32
+var _hVVmConfigSetIPAGranule func(config unsafe.Pointer, granule HVIPAGranule) HVReturn
 var _hVVmConfigSetIPAGranuleErr error
 
-func tryHVVmConfigSetIPAGranule(config unsafe.Pointer, granule HVIPAGranule) (int32, error) {
+func tryHVVmConfigSetIPAGranule(config unsafe.Pointer, granule HVIPAGranule) (HVReturn, error) {
 	if _hVVmConfigSetIPAGranule == nil {
-		return 0, symbolCallError("hv_vm_config_set_ipa_granule", "26.0", _hVVmConfigSetIPAGranuleErr)
+		return *new(HVReturn), symbolCallError("hv_vm_config_set_ipa_granule", "26.0", _hVVmConfigSetIPAGranuleErr)
 	}
 	return _hVVmConfigSetIPAGranule(config, granule), nil
 }
@@ -1770,7 +1770,7 @@ func tryHVVmConfigSetIPAGranule(config unsafe.Pointer, granule HVIPAGranule) (in
 // HVVmConfigSetIPAGranule.
 //
 // See: https://developer.apple.com/documentation/Hypervisor/hv_vm_config_set_ipa_granule(_:_:)
-func HVVmConfigSetIPAGranule(config unsafe.Pointer, granule HVIPAGranule) int32 {
+func HVVmConfigSetIPAGranule(config unsafe.Pointer, granule HVIPAGranule) HVReturn {
 	result, callErr := tryHVVmConfigSetIPAGranule(config, granule)
 	if callErr != nil {
 		panic(callErr)
@@ -1778,12 +1778,12 @@ func HVVmConfigSetIPAGranule(config unsafe.Pointer, granule HVIPAGranule) int32 
 	return result
 }
 
-var _hVVmConfigSetIPASize func(config unsafe.Pointer, ipa_bit_length uint32) int32
+var _hVVmConfigSetIPASize func(config unsafe.Pointer, ipa_bit_length uint32) HVReturn
 var _hVVmConfigSetIPASizeErr error
 
-func tryHVVmConfigSetIPASize(config unsafe.Pointer, ipa_bit_length uint32) (int32, error) {
+func tryHVVmConfigSetIPASize(config unsafe.Pointer, ipa_bit_length uint32) (HVReturn, error) {
 	if _hVVmConfigSetIPASize == nil {
-		return 0, symbolCallError("hv_vm_config_set_ipa_size", "13.0", _hVVmConfigSetIPASizeErr)
+		return *new(HVReturn), symbolCallError("hv_vm_config_set_ipa_size", "13.0", _hVVmConfigSetIPASizeErr)
 	}
 	return _hVVmConfigSetIPASize(config, ipa_bit_length), nil
 }
@@ -1791,7 +1791,7 @@ func tryHVVmConfigSetIPASize(config unsafe.Pointer, ipa_bit_length uint32) (int3
 // HVVmConfigSetIPASize.
 //
 // See: https://developer.apple.com/documentation/Hypervisor/hv_vm_config_set_ipa_size(_:_:)
-func HVVmConfigSetIPASize(config unsafe.Pointer, ipa_bit_length uint32) int32 {
+func HVVmConfigSetIPASize(config unsafe.Pointer, ipa_bit_length uint32) HVReturn {
 	result, callErr := tryHVVmConfigSetIPASize(config, ipa_bit_length)
 	if callErr != nil {
 		panic(callErr)
@@ -1799,12 +1799,12 @@ func HVVmConfigSetIPASize(config unsafe.Pointer, ipa_bit_length uint32) int32 {
 	return result
 }
 
-var _hVVmCreate func(config unsafe.Pointer) int32
+var _hVVmCreate func(config unsafe.Pointer) HVReturn
 var _hVVmCreateErr error
 
-func tryHVVmCreate(config unsafe.Pointer) (int32, error) {
+func tryHVVmCreate(config unsafe.Pointer) (HVReturn, error) {
 	if _hVVmCreate == nil {
-		return 0, symbolCallError("hv_vm_create", "11.0", _hVVmCreateErr)
+		return *new(HVReturn), symbolCallError("hv_vm_create", "11.0", _hVVmCreateErr)
 	}
 	return _hVVmCreate(config), nil
 }
@@ -1812,7 +1812,7 @@ func tryHVVmCreate(config unsafe.Pointer) (int32, error) {
 // HVVmCreate creates a VM instance for the current process.
 //
 // See: https://developer.apple.com/documentation/Hypervisor/hv_vm_create(_:)
-func HVVmCreate(config unsafe.Pointer) int32 {
+func HVVmCreate(config unsafe.Pointer) HVReturn {
 	result, callErr := tryHVVmCreate(config)
 	if callErr != nil {
 		panic(callErr)
@@ -1820,12 +1820,12 @@ func HVVmCreate(config unsafe.Pointer) int32 {
 	return result
 }
 
-var _hVVmDeallocate func(uva unsafe.Pointer, size uintptr) int32
+var _hVVmDeallocate func(uva unsafe.Pointer, size uintptr) HVReturn
 var _hVVmDeallocateErr error
 
-func tryHVVmDeallocate(uva unsafe.Pointer, size uintptr) (int32, error) {
+func tryHVVmDeallocate(uva unsafe.Pointer, size uintptr) (HVReturn, error) {
 	if _hVVmDeallocate == nil {
-		return 0, symbolCallError("hv_vm_deallocate", "12.1", _hVVmDeallocateErr)
+		return *new(HVReturn), symbolCallError("hv_vm_deallocate", "12.1", _hVVmDeallocateErr)
 	}
 	return _hVVmDeallocate(uva, size), nil
 }
@@ -1833,7 +1833,7 @@ func tryHVVmDeallocate(uva unsafe.Pointer, size uintptr) (int32, error) {
 // HVVmDeallocate.
 //
 // See: https://developer.apple.com/documentation/Hypervisor/hv_vm_deallocate(_:_:)
-func HVVmDeallocate(uva unsafe.Pointer, size uintptr) int32 {
+func HVVmDeallocate(uva unsafe.Pointer, size uintptr) HVReturn {
 	result, callErr := tryHVVmDeallocate(uva, size)
 	if callErr != nil {
 		panic(callErr)
@@ -1841,12 +1841,12 @@ func HVVmDeallocate(uva unsafe.Pointer, size uintptr) int32 {
 	return result
 }
 
-var _hVVmDestroy func() int32
+var _hVVmDestroy func() HVReturn
 var _hVVmDestroyErr error
 
-func tryHVVmDestroy() (int32, error) {
+func tryHVVmDestroy() (HVReturn, error) {
 	if _hVVmDestroy == nil {
-		return 0, symbolCallError("hv_vm_destroy", "11.0", _hVVmDestroyErr)
+		return *new(HVReturn), symbolCallError("hv_vm_destroy", "11.0", _hVVmDestroyErr)
 	}
 	return _hVVmDestroy(), nil
 }
@@ -1854,7 +1854,7 @@ func tryHVVmDestroy() (int32, error) {
 // HVVmDestroy destroys the VM instance associated with the current process.
 //
 // See: https://developer.apple.com/documentation/Hypervisor/hv_vm_destroy()
-func HVVmDestroy() int32 {
+func HVVmDestroy() HVReturn {
 	result, callErr := tryHVVmDestroy()
 	if callErr != nil {
 		panic(callErr)
@@ -1862,12 +1862,12 @@ func HVVmDestroy() int32 {
 	return result
 }
 
-var _hVVmGetMaxVCPUCount func(max_vcpu_count *uint32) int32
+var _hVVmGetMaxVCPUCount func(max_vcpu_count *uint32) HVReturn
 var _hVVmGetMaxVCPUCountErr error
 
-func tryHVVmGetMaxVCPUCount(max_vcpu_count *uint32) (int32, error) {
+func tryHVVmGetMaxVCPUCount(max_vcpu_count *uint32) (HVReturn, error) {
 	if _hVVmGetMaxVCPUCount == nil {
-		return 0, symbolCallError("hv_vm_get_max_vcpu_count", "11.0", _hVVmGetMaxVCPUCountErr)
+		return *new(HVReturn), symbolCallError("hv_vm_get_max_vcpu_count", "11.0", _hVVmGetMaxVCPUCountErr)
 	}
 	return _hVVmGetMaxVCPUCount(max_vcpu_count), nil
 }
@@ -1875,7 +1875,7 @@ func tryHVVmGetMaxVCPUCount(max_vcpu_count *uint32) (int32, error) {
 // HVVmGetMaxVCPUCount returns the maximum number of vCPUs that the hypervisor supports.
 //
 // See: https://developer.apple.com/documentation/Hypervisor/hv_vm_get_max_vcpu_count(_:)
-func HVVmGetMaxVCPUCount(max_vcpu_count *uint32) int32 {
+func HVVmGetMaxVCPUCount(max_vcpu_count *uint32) HVReturn {
 	result, callErr := tryHVVmGetMaxVCPUCount(max_vcpu_count)
 	if callErr != nil {
 		panic(callErr)
@@ -1883,12 +1883,12 @@ func HVVmGetMaxVCPUCount(max_vcpu_count *uint32) int32 {
 	return result
 }
 
-var _hVVmMap func(addr unsafe.Pointer, ipa uint64, size uintptr, flags uint64) int32
+var _hVVmMap func(addr unsafe.Pointer, ipa HVIPA, size uintptr, flags HVMemoryFlags) HVReturn
 var _hVVmMapErr error
 
-func tryHVVmMap(addr unsafe.Pointer, ipa uint64, size uintptr, flags uint64) (int32, error) {
+func tryHVVmMap(addr unsafe.Pointer, ipa HVIPA, size uintptr, flags HVMemoryFlags) (HVReturn, error) {
 	if _hVVmMap == nil {
-		return 0, symbolCallError("hv_vm_map", "11.0", _hVVmMapErr)
+		return *new(HVReturn), symbolCallError("hv_vm_map", "11.0", _hVVmMapErr)
 	}
 	return _hVVmMap(addr, ipa, size, flags), nil
 }
@@ -1896,7 +1896,7 @@ func tryHVVmMap(addr unsafe.Pointer, ipa uint64, size uintptr, flags uint64) (in
 // HVVmMap maps a region in the virtual address space of the current process into the guest physical address space of the VM.
 //
 // See: https://developer.apple.com/documentation/Hypervisor/hv_vm_map(_:_:_:_:)
-func HVVmMap(addr unsafe.Pointer, ipa uint64, size uintptr, flags uint64) int32 {
+func HVVmMap(addr unsafe.Pointer, ipa HVIPA, size uintptr, flags HVMemoryFlags) HVReturn {
 	result, callErr := tryHVVmMap(addr, ipa, size, flags)
 	if callErr != nil {
 		panic(callErr)
@@ -1904,12 +1904,12 @@ func HVVmMap(addr unsafe.Pointer, ipa uint64, size uintptr, flags uint64) int32 
 	return result
 }
 
-var _hVVmProtect func(ipa uint64, size uintptr, flags uint64) int32
+var _hVVmProtect func(ipa HVIPA, size uintptr, flags HVMemoryFlags) HVReturn
 var _hVVmProtectErr error
 
-func tryHVVmProtect(ipa uint64, size uintptr, flags uint64) (int32, error) {
+func tryHVVmProtect(ipa HVIPA, size uintptr, flags HVMemoryFlags) (HVReturn, error) {
 	if _hVVmProtect == nil {
-		return 0, symbolCallError("hv_vm_protect", "11.0", _hVVmProtectErr)
+		return *new(HVReturn), symbolCallError("hv_vm_protect", "11.0", _hVVmProtectErr)
 	}
 	return _hVVmProtect(ipa, size, flags), nil
 }
@@ -1917,7 +1917,7 @@ func tryHVVmProtect(ipa uint64, size uintptr, flags uint64) (int32, error) {
 // HVVmProtect modifies the permissions of a region in the guest physical address space of the VM.
 //
 // See: https://developer.apple.com/documentation/Hypervisor/hv_vm_protect(_:_:_:)
-func HVVmProtect(ipa uint64, size uintptr, flags uint64) int32 {
+func HVVmProtect(ipa HVIPA, size uintptr, flags HVMemoryFlags) HVReturn {
 	result, callErr := tryHVVmProtect(ipa, size, flags)
 	if callErr != nil {
 		panic(callErr)
@@ -1925,12 +1925,12 @@ func HVVmProtect(ipa uint64, size uintptr, flags uint64) int32 {
 	return result
 }
 
-var _hVVmUnmap func(ipa uint64, size uintptr) int32
+var _hVVmUnmap func(ipa HVIPA, size uintptr) HVReturn
 var _hVVmUnmapErr error
 
-func tryHVVmUnmap(ipa uint64, size uintptr) (int32, error) {
+func tryHVVmUnmap(ipa HVIPA, size uintptr) (HVReturn, error) {
 	if _hVVmUnmap == nil {
-		return 0, symbolCallError("hv_vm_unmap", "11.0", _hVVmUnmapErr)
+		return *new(HVReturn), symbolCallError("hv_vm_unmap", "11.0", _hVVmUnmapErr)
 	}
 	return _hVVmUnmap(ipa, size), nil
 }
@@ -1938,7 +1938,7 @@ func tryHVVmUnmap(ipa uint64, size uintptr) (int32, error) {
 // HVVmUnmap unmaps a region in the guest physical address space of the VM.
 //
 // See: https://developer.apple.com/documentation/Hypervisor/hv_vm_unmap(_:_:)
-func HVVmUnmap(ipa uint64, size uintptr) int32 {
+func HVVmUnmap(ipa HVIPA, size uintptr) HVReturn {
 	result, callErr := tryHVVmUnmap(ipa, size)
 	if callErr != nil {
 		panic(callErr)

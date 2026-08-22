@@ -137,8 +137,20 @@ func NewNSCandidateListTouchBarItemDelegate(config NSCandidateListTouchBarItemDe
 		methods = append(methods, objc.MethodDef{
 			Cmd: objc.RegisterName("candidateListTouchBarItem:beginSelectingCandidateAtIndex:"),
 			Fn: func(self objc.ID, _cmd objc.SEL, anItemID objc.ID, index int) {
+				// Names which delegate was running if a panic unwinds out of
+				// it. The frames between here and the Objective-C caller are
+				// runtime and purego dispatch, so without this the traceback
+				// never says which selector dispatched. Deliberately no
+				// recover: see [objc.NoteDelegatePanic].
+				_delegateDone := false
+				defer func() {
+					if !_delegateDone {
+						objc.NoteDelegatePanic("NSCandidateListTouchBarItemDelegate", "candidateListTouchBarItem:beginSelectingCandidateAtIndex:")
+					}
+				}()
 				anItem := NSCandidateListTouchBarItemFromID(anItemID)
 				fn(anItem, index)
+				_delegateDone = true
 			},
 		})
 	}
@@ -148,8 +160,20 @@ func NewNSCandidateListTouchBarItemDelegate(config NSCandidateListTouchBarItemDe
 		methods = append(methods, objc.MethodDef{
 			Cmd: objc.RegisterName("candidateListTouchBarItem:changeSelectionFromCandidateAtIndex:toIndex:"),
 			Fn: func(self objc.ID, _cmd objc.SEL, anItemID objc.ID, previousIndex int, index int) {
+				// Names which delegate was running if a panic unwinds out of
+				// it. The frames between here and the Objective-C caller are
+				// runtime and purego dispatch, so without this the traceback
+				// never says which selector dispatched. Deliberately no
+				// recover: see [objc.NoteDelegatePanic].
+				_delegateDone := false
+				defer func() {
+					if !_delegateDone {
+						objc.NoteDelegatePanic("NSCandidateListTouchBarItemDelegate", "candidateListTouchBarItem:changeSelectionFromCandidateAtIndex:toIndex:")
+					}
+				}()
 				anItem := NSCandidateListTouchBarItemFromID(anItemID)
 				fn(anItem, previousIndex, index)
+				_delegateDone = true
 			},
 		})
 	}
@@ -159,8 +183,20 @@ func NewNSCandidateListTouchBarItemDelegate(config NSCandidateListTouchBarItemDe
 		methods = append(methods, objc.MethodDef{
 			Cmd: objc.RegisterName("candidateListTouchBarItem:endSelectingCandidateAtIndex:"),
 			Fn: func(self objc.ID, _cmd objc.SEL, anItemID objc.ID, index int) {
+				// Names which delegate was running if a panic unwinds out of
+				// it. The frames between here and the Objective-C caller are
+				// runtime and purego dispatch, so without this the traceback
+				// never says which selector dispatched. Deliberately no
+				// recover: see [objc.NoteDelegatePanic].
+				_delegateDone := false
+				defer func() {
+					if !_delegateDone {
+						objc.NoteDelegatePanic("NSCandidateListTouchBarItemDelegate", "candidateListTouchBarItem:endSelectingCandidateAtIndex:")
+					}
+				}()
 				anItem := NSCandidateListTouchBarItemFromID(anItemID)
 				fn(anItem, index)
+				_delegateDone = true
 			},
 		})
 	}
@@ -170,8 +206,20 @@ func NewNSCandidateListTouchBarItemDelegate(config NSCandidateListTouchBarItemDe
 		methods = append(methods, objc.MethodDef{
 			Cmd: objc.RegisterName("candidateListTouchBarItem:changedCandidateListVisibility:"),
 			Fn: func(self objc.ID, _cmd objc.SEL, anItemID objc.ID, isVisible bool) {
+				// Names which delegate was running if a panic unwinds out of
+				// it. The frames between here and the Objective-C caller are
+				// runtime and purego dispatch, so without this the traceback
+				// never says which selector dispatched. Deliberately no
+				// recover: see [objc.NoteDelegatePanic].
+				_delegateDone := false
+				defer func() {
+					if !_delegateDone {
+						objc.NoteDelegatePanic("NSCandidateListTouchBarItemDelegate", "candidateListTouchBarItem:changedCandidateListVisibility:")
+					}
+				}()
 				anItem := NSCandidateListTouchBarItemFromID(anItemID)
 				fn(anItem, isVisible)
+				_delegateDone = true
 			},
 		})
 	}

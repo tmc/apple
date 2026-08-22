@@ -6,7 +6,7 @@ import (
 	"fmt"
 )
 
-type AbortErr int
+type AbortErr int32
 
 const (
 	AbortErrValue  AbortErr = -27
@@ -76,7 +76,7 @@ func (e AbortErr) String() string {
 	}
 }
 
-type AeBuildSyntax uint
+type AeBuildSyntax uint32
 
 const (
 	// AeBuildSyntaxBadData: Bad data was found inside a variable argument list.
@@ -168,76 +168,68 @@ func (e AeBuildSyntax) String() string {
 	}
 }
 
-type Afp int
+type AfpAccessDenied int32
 
 const (
-	AfpAccessDenied       Afp = -5000
-	AfpAlreadyLoggedInErr Afp = -5047
-	AfpAlreadyMounted     Afp = -5062
-	AfpAuthContinue       Afp = -5001
-	AfpBadDirIDType       Afp = -5060
-	AfpBadIDErr           Afp = -5039
-	AfpBadUAM             Afp = -5002
-	AfpBadVersNum         Afp = -5003
-	AfpBitmapErr          Afp = -5004
-	AfpCallNotAllowed     Afp = -5048
-	AfpCallNotSupported   Afp = -5024
-	AfpCantMountMoreSrvre Afp = -5061
-	AfpCantMove           Afp = -5005
-	AfpCantRename         Afp = -5028
-	AfpCatalogChanged     Afp = -5037
-	AfpContainsSharedErr  Afp = -5033
-	AfpDenyConflict       Afp = -5006
-	AfpDiffVolErr         Afp = -5036
-	AfpDirNotEmpty        Afp = -5007
-	AfpDirNotFound        Afp = -5029
-	AfpDiskFull           Afp = -5008
-	AfpEofError           Afp = -5009
-	AfpFileBusy           Afp = -5010
-	AfpFlatVol            Afp = -5011
-	AfpIDExists           Afp = -5035
-	AfpIDNotFound         Afp = -5034
-	AfpIconTypeError      Afp = -5030
-	AfpInsideSharedErr    Afp = -5043
-	AfpInsideTrashErr     Afp = -5044
-	AfpItemNotFound       Afp = -5012
-	AfpLockErr            Afp = -5013
-	AfpMiscErr            Afp = -5014
-	AfpNoMoreLocks        Afp = -5015
-	AfpNoServer           Afp = -5016
-	AfpObjectExists       Afp = -5017
-	AfpObjectLocked       Afp = -5032
-	AfpObjectNotFound     Afp = -5018
-	AfpObjectTypeErr      Afp = -5025
-	AfpParmErr            Afp = -5019
-	AfpPwdExpiredErr      Afp = -5042
-	AfpPwdNeedsChangeErr  Afp = -5045
-	AfpPwdPolicyErr       Afp = -5046
-	AfpPwdSameErr         Afp = -5040
-	AfpPwdTooShortErr     Afp = -5041
-	AfpRangeNotLocked     Afp = -5020
-	AfpRangeOverlap       Afp = -5021
-	AfpSameNodeErr        Afp = -5063
-	AfpSameObjectErr      Afp = -5038
-	AfpServerGoingDown    Afp = -5027
-	AfpSessClosed         Afp = -5022
-	AfpTooManyFilesOpen   Afp = -5026
-	AfpUserNotAuth        Afp = -5023
-	AfpVolLocked          Afp = -5031
+	AfpAccessDeniedValue  AfpAccessDenied = -5000
+	AfpAlreadyLoggedInErr AfpAccessDenied = -5047
+	AfpAuthContinue       AfpAccessDenied = -5001
+	AfpBadIDErr           AfpAccessDenied = -5039
+	AfpBadUAM             AfpAccessDenied = -5002
+	AfpBadVersNum         AfpAccessDenied = -5003
+	AfpBitmapErr          AfpAccessDenied = -5004
+	AfpCallNotAllowed     AfpAccessDenied = -5048
+	AfpCallNotSupported   AfpAccessDenied = -5024
+	AfpCantMove           AfpAccessDenied = -5005
+	AfpCantRename         AfpAccessDenied = -5028
+	AfpCatalogChanged     AfpAccessDenied = -5037
+	AfpContainsSharedErr  AfpAccessDenied = -5033
+	AfpDenyConflict       AfpAccessDenied = -5006
+	AfpDiffVolErr         AfpAccessDenied = -5036
+	AfpDirNotEmpty        AfpAccessDenied = -5007
+	AfpDirNotFound        AfpAccessDenied = -5029
+	AfpDiskFull           AfpAccessDenied = -5008
+	AfpEofError           AfpAccessDenied = -5009
+	AfpFileBusy           AfpAccessDenied = -5010
+	AfpFlatVol            AfpAccessDenied = -5011
+	AfpIDExists           AfpAccessDenied = -5035
+	AfpIDNotFound         AfpAccessDenied = -5034
+	AfpIconTypeError      AfpAccessDenied = -5030
+	AfpInsideSharedErr    AfpAccessDenied = -5043
+	AfpInsideTrashErr     AfpAccessDenied = -5044
+	AfpItemNotFound       AfpAccessDenied = -5012
+	AfpLockErr            AfpAccessDenied = -5013
+	AfpMiscErr            AfpAccessDenied = -5014
+	AfpNoMoreLocks        AfpAccessDenied = -5015
+	AfpNoServer           AfpAccessDenied = -5016
+	AfpObjectExists       AfpAccessDenied = -5017
+	AfpObjectLocked       AfpAccessDenied = -5032
+	AfpObjectNotFound     AfpAccessDenied = -5018
+	AfpObjectTypeErr      AfpAccessDenied = -5025
+	AfpParmErr            AfpAccessDenied = -5019
+	AfpPwdExpiredErr      AfpAccessDenied = -5042
+	AfpPwdNeedsChangeErr  AfpAccessDenied = -5045
+	AfpPwdPolicyErr       AfpAccessDenied = -5046
+	AfpPwdSameErr         AfpAccessDenied = -5040
+	AfpPwdTooShortErr     AfpAccessDenied = -5041
+	AfpRangeNotLocked     AfpAccessDenied = -5020
+	AfpRangeOverlap       AfpAccessDenied = -5021
+	AfpSameObjectErr      AfpAccessDenied = -5038
+	AfpServerGoingDown    AfpAccessDenied = -5027
+	AfpSessClosed         AfpAccessDenied = -5022
+	AfpTooManyFilesOpen   AfpAccessDenied = -5026
+	AfpUserNotAuth        AfpAccessDenied = -5023
+	AfpVolLocked          AfpAccessDenied = -5031
 )
 
-func (e Afp) String() string {
+func (e AfpAccessDenied) String() string {
 	switch e {
-	case AfpAccessDenied:
-		return "AfpAccessDenied"
+	case AfpAccessDeniedValue:
+		return "AfpAccessDeniedValue"
 	case AfpAlreadyLoggedInErr:
 		return "AfpAlreadyLoggedInErr"
-	case AfpAlreadyMounted:
-		return "AfpAlreadyMounted"
 	case AfpAuthContinue:
 		return "AfpAuthContinue"
-	case AfpBadDirIDType:
-		return "AfpBadDirIDType"
 	case AfpBadIDErr:
 		return "AfpBadIDErr"
 	case AfpBadUAM:
@@ -250,8 +242,6 @@ func (e Afp) String() string {
 		return "AfpCallNotAllowed"
 	case AfpCallNotSupported:
 		return "AfpCallNotSupported"
-	case AfpCantMountMoreSrvre:
-		return "AfpCantMountMoreSrvre"
 	case AfpCantMove:
 		return "AfpCantMove"
 	case AfpCantRename:
@@ -320,8 +310,6 @@ func (e Afp) String() string {
 		return "AfpRangeNotLocked"
 	case AfpRangeOverlap:
 		return "AfpRangeOverlap"
-	case AfpSameNodeErr:
-		return "AfpSameNodeErr"
 	case AfpSameObjectErr:
 		return "AfpSameObjectErr"
 	case AfpServerGoingDown:
@@ -335,11 +323,35 @@ func (e Afp) String() string {
 	case AfpVolLocked:
 		return "AfpVolLocked"
 	default:
-		return fmt.Sprintf("Afp(%d)", e)
+		return fmt.Sprintf("AfpAccessDenied(%d)", e)
 	}
 }
 
-type Aifc uint
+type AfpBadDirIDType int32
+
+const (
+	AfpAlreadyMounted     AfpBadDirIDType = -5062
+	AfpBadDirIDTypeValue  AfpBadDirIDType = -5060
+	AfpCantMountMoreSrvre AfpBadDirIDType = -5061
+	AfpSameNodeErr        AfpBadDirIDType = -5063
+)
+
+func (e AfpBadDirIDType) String() string {
+	switch e {
+	case AfpAlreadyMounted:
+		return "AfpAlreadyMounted"
+	case AfpBadDirIDTypeValue:
+		return "AfpBadDirIDTypeValue"
+	case AfpCantMountMoreSrvre:
+		return "AfpCantMountMoreSrvre"
+	case AfpSameNodeErr:
+		return "AfpSameNodeErr"
+	default:
+		return fmt.Sprintf("AfpBadDirIDType(%d)", e)
+	}
+}
+
+type Aifc uint32
 
 const (
 	AIFCVersion1 Aifc = 0xa2805140
@@ -354,7 +366,7 @@ func (e Aifc) String() string {
 	}
 }
 
-type Aiffid uint
+type Aiffid uint32
 
 const (
 	AIFCID                Aiffid = 'A'<<24 | 'I'<<16 | 'F'<<8 | 'C' // 'AIFC'
@@ -414,7 +426,7 @@ func (e Aiffid) String() string {
 	}
 }
 
-type AppleShareMedia uint
+type AppleShareMedia uint32
 
 const (
 	AppleShareMediaType AppleShareMedia = 'a'<<24 | 'f'<<16 | 'p'<<8 | 'm' // 'afpm'
@@ -429,7 +441,7 @@ func (e AppleShareMedia) String() string {
 	}
 }
 
-type Asi int
+type Asi int32
 
 const (
 	// Deprecated.
@@ -461,7 +473,7 @@ func (e Asi) String() string {
 	}
 }
 
-type Asp int
+type Asp int32
 
 const (
 	AspBadVersNum  Asp = -1066
@@ -503,7 +515,7 @@ func (e Asp) String() string {
 	}
 }
 
-type BHasDirectI uint
+type BHasDirectI uint32
 
 const (
 	BHasDirectIO BHasDirectI = 1
@@ -518,7 +530,7 @@ func (e BHasDirectI) String() string {
 	}
 }
 
-type BIsEjectable uint
+type BIsEjectable uint32
 
 const (
 	BAllowCDiDataHandler          BIsEjectable = 17
@@ -608,7 +620,7 @@ func (e BIsEjectable) String() string {
 	}
 }
 
-type BLimitFCBs uint
+type BLimitFCBs uint32
 
 const (
 	BAccessCntl                  BLimitFCBs = 18
@@ -698,13 +710,13 @@ func (e BLimitFCBs) String() string {
 	}
 }
 
-type BadComponent uint
+type BadComponent int32
 
 const (
 	// BadComponentInstance: Invalid component  passed to Component Manager.
-	BadComponentInstance BadComponent = 0x80008001
+	BadComponentInstance BadComponent = -2147450879
 	// BadComponentSelector: Component does not support the specified request code.
-	BadComponentSelector BadComponent = 0x80008002
+	BadComponentSelector BadComponent = -2147450878
 )
 
 func (e BadComponent) String() string {
@@ -718,7 +730,7 @@ func (e BadComponent) String() string {
 	}
 }
 
-type BadDragRefErr int
+type BadDragRefErr int32
 
 const (
 	BadDragFlavorErr          BadDragRefErr = -1852
@@ -769,7 +781,7 @@ func (e BadDragRefErr) String() string {
 	}
 }
 
-type BadFolderDescErr int
+type BadFolderDescErr int32
 
 const (
 	BadFolderDescErrValue  BadFolderDescErr = -4270
@@ -802,7 +814,7 @@ func (e BadFolderDescErr) String() string {
 	}
 }
 
-type Buf2SmallErr int
+type Buf2SmallErr int32
 
 const (
 	AtpBadRsp         Buf2SmallErr = -3107
@@ -841,7 +853,7 @@ func (e Buf2SmallErr) String() string {
 	}
 }
 
-type CAEList uint
+type CAEList uint32
 
 const (
 	CAEListValue    CAEList = 'l'<<24 | 'i'<<16 | 's'<<8 | 't' // 'list'
@@ -913,7 +925,7 @@ func (e CAEList) String() string {
 	}
 }
 
-type CDEFNFndConstants int
+type CDEFNFndConstants int32
 
 const (
 	CDEFNFnd         CDEFNFndConstants = 88
@@ -956,7 +968,7 @@ func (e CDEFNFndConstants) String() string {
 	}
 }
 
-type CInsertionLoc uint
+type CInsertionLoc uint32
 
 const (
 	CInsertionLocValue  CInsertionLoc = 'i'<<24 | 'n'<<16 | 's'<<8 | 'l' // 'insl'
@@ -1028,7 +1040,7 @@ func (e CInsertionLoc) String() string {
 	}
 }
 
-type CKeystroke uint
+type CKeystroke uint32
 
 const (
 	CKeystrokeValue CKeystroke = 'k'<<24 | 'p'<<16 | 'r'<<8 | 's' // 'kprs'
@@ -1166,7 +1178,7 @@ func (e CKeystroke) String() string {
 	}
 }
 
-type CMatchErr int
+type CMatchErr int32
 
 const (
 	CDepthErr             CMatchErr = -157
@@ -1226,7 +1238,7 @@ func (e CMatchErr) String() string {
 	}
 }
 
-type CParagraph uint
+type CParagraph uint32
 
 const (
 	// CPICT: A PICT format figure.
@@ -1302,7 +1314,7 @@ func (e CParagraph) String() string {
 	}
 }
 
-type CURL uint
+type CURL uint32
 
 const (
 	// CFTPItem: Specifies FTP (File Transfer Protocol) protocol.
@@ -1330,7 +1342,7 @@ func (e CURL) String() string {
 	}
 }
 
-type CVersion uint
+type CVersion uint32
 
 const (
 	CVersionValue     CVersion = 'v'<<24 | 'e'<<16 | 'r'<<8 | 's' // 'vers'
@@ -1399,7 +1411,7 @@ func (e CVersion) String() string {
 	}
 }
 
-type Cal uint
+type Cal uint32
 
 const (
 	// Deprecated.
@@ -1439,7 +1451,7 @@ func (e Cal) String() string {
 	}
 }
 
-type CannotFindAtomErr int
+type CannotFindAtomErr int32
 
 const (
 	AAPNotCreatedErr                 CannotFindAtomErr = -2120
@@ -1604,55 +1616,51 @@ func (e CannotFindAtomErr) String() string {
 	}
 }
 
-type Cfrag int
+type CfragFirstErrCode int32
 
 const (
-	CfragAbortClosureErr    Cfrag = -2830
-	CfragArchitectureErr    Cfrag = -2823
-	CfragCFMInternalErr     Cfrag = -2819
-	CfragCFMStartupErr      Cfrag = -2818
-	CfragCFragRsrcErr       Cfrag = -2857
-	CfragClosureIDErr       Cfrag = -2829
-	CfragConnectionIDErr    Cfrag = -2801
-	CfragContainerIDErr     Cfrag = -2828
-	CfragContextIDErr       Cfrag = -2800
-	CfragDupRegistrationErr Cfrag = -2805
-	CfragExecFileRefErr     Cfrag = -2854
-	CfragFileSizeErr        Cfrag = -2825
-	CfragFirstErrCode       Cfrag = -2800
-	CfragFirstReservedCode  Cfrag = -2897
-	CfragFragmentCorruptErr Cfrag = -2820
-	CfragFragmentFormatErr  Cfrag = -2806
-	CfragFragmentUsageErr   Cfrag = -2824
-	CfragImportTooNewErr    Cfrag = -2814
-	CfragImportTooOldErr    Cfrag = -2813
-	CfragInitAtBootErr      Cfrag = -2816
-	CfragInitFunctionErr    Cfrag = -2821
-	CfragInitLoopErr        Cfrag = -2815
-	CfragInitOrderErr       Cfrag = -2812
-	CfragLastErrCode        Cfrag = -2899
-	CfragLibConnErr         Cfrag = -2817
-	CfragMapFileErr         Cfrag = -2851
-	CfragNoApplicationErr   Cfrag = -2822
-	CfragNoClientMemErr     Cfrag = -2810
-	CfragNoIDsErr           Cfrag = -2811
-	CfragNoLibraryErr       Cfrag = -2804
-	CfragNoPositionErr      Cfrag = -2808
-	CfragNoPrivateMemErr    Cfrag = -2809
-	CfragNoRegistrationErr  Cfrag = -2827
-	CfragNoSectionErr       Cfrag = -2803
-	CfragNoSymbolErr        Cfrag = -2802
-	CfragNotClosureErr      Cfrag = -2826
-	CfragOutputLengthErr    Cfrag = -2831
-	CfragReservedCode_1     Cfrag = -2899
-	CfragReservedCode_2     Cfrag = -2898
-	CfragReservedCode_3     Cfrag = -2897
-	CfragRsrcForkErr        Cfrag = -2856
-	CfragStdFolderErr       Cfrag = -2855
-	CfragUnresolvedErr      Cfrag = -2807
+	CfragAbortClosureErr    CfragFirstErrCode = -2830
+	CfragArchitectureErr    CfragFirstErrCode = -2823
+	CfragCFMInternalErr     CfragFirstErrCode = -2819
+	CfragCFMStartupErr      CfragFirstErrCode = -2818
+	CfragCFragRsrcErr       CfragFirstErrCode = -2857
+	CfragClosureIDErr       CfragFirstErrCode = -2829
+	CfragConnectionIDErr    CfragFirstErrCode = -2801
+	CfragContainerIDErr     CfragFirstErrCode = -2828
+	CfragContextIDErr       CfragFirstErrCode = -2800
+	CfragDupRegistrationErr CfragFirstErrCode = -2805
+	CfragExecFileRefErr     CfragFirstErrCode = -2854
+	CfragFileSizeErr        CfragFirstErrCode = -2825
+	CfragFirstErrCodeValue  CfragFirstErrCode = -2800
+	CfragFragmentCorruptErr CfragFirstErrCode = -2820
+	CfragFragmentFormatErr  CfragFirstErrCode = -2806
+	CfragFragmentUsageErr   CfragFirstErrCode = -2824
+	CfragImportTooNewErr    CfragFirstErrCode = -2814
+	CfragImportTooOldErr    CfragFirstErrCode = -2813
+	CfragInitAtBootErr      CfragFirstErrCode = -2816
+	CfragInitFunctionErr    CfragFirstErrCode = -2821
+	CfragInitLoopErr        CfragFirstErrCode = -2815
+	CfragInitOrderErr       CfragFirstErrCode = -2812
+	CfragLastErrCode        CfragFirstErrCode = -2899
+	CfragLibConnErr         CfragFirstErrCode = -2817
+	CfragMapFileErr         CfragFirstErrCode = -2851
+	CfragNoApplicationErr   CfragFirstErrCode = -2822
+	CfragNoClientMemErr     CfragFirstErrCode = -2810
+	CfragNoIDsErr           CfragFirstErrCode = -2811
+	CfragNoLibraryErr       CfragFirstErrCode = -2804
+	CfragNoPositionErr      CfragFirstErrCode = -2808
+	CfragNoPrivateMemErr    CfragFirstErrCode = -2809
+	CfragNoRegistrationErr  CfragFirstErrCode = -2827
+	CfragNoSectionErr       CfragFirstErrCode = -2803
+	CfragNoSymbolErr        CfragFirstErrCode = -2802
+	CfragNotClosureErr      CfragFirstErrCode = -2826
+	CfragOutputLengthErr    CfragFirstErrCode = -2831
+	CfragRsrcForkErr        CfragFirstErrCode = -2856
+	CfragStdFolderErr       CfragFirstErrCode = -2855
+	CfragUnresolvedErr      CfragFirstErrCode = -2807
 )
 
-func (e Cfrag) String() string {
+func (e CfragFirstErrCode) String() string {
 	switch e {
 	case CfragAbortClosureErr:
 		return "CfragAbortClosureErr"
@@ -1678,8 +1686,6 @@ func (e Cfrag) String() string {
 		return "CfragExecFileRefErr"
 	case CfragFileSizeErr:
 		return "CfragFileSizeErr"
-	case CfragFirstReservedCode:
-		return "CfragFirstReservedCode"
 	case CfragFragmentCorruptErr:
 		return "CfragFragmentCorruptErr"
 	case CfragFragmentFormatErr:
@@ -1726,8 +1732,6 @@ func (e Cfrag) String() string {
 		return "CfragNotClosureErr"
 	case CfragOutputLengthErr:
 		return "CfragOutputLengthErr"
-	case CfragReservedCode_2:
-		return "CfragReservedCode_2"
 	case CfragRsrcForkErr:
 		return "CfragRsrcForkErr"
 	case CfragStdFolderErr:
@@ -1735,87 +1739,83 @@ func (e Cfrag) String() string {
 	case CfragUnresolvedErr:
 		return "CfragUnresolvedErr"
 	default:
-		return fmt.Sprintf("Cfrag(%d)", e)
+		return fmt.Sprintf("CfragFirstErrCode(%d)", e)
 	}
 }
 
-type Cm int
+type CfragFirstReservedCode int32
 
 const (
-	// CmCantConcatenateError: Profiles cannot be concatenated
-	CmCantConcatenateError Cm = -178
-	// CmCantCopyModifiedV1Profile: It is illegal to copy version 1.0 profiles that have been modified
-	CmCantCopyModifiedV1Profile Cm = -4215
-	// CmCantDeleteElement: Cannot delete the specified profile element
-	CmCantDeleteElement Cm = -4202
-	// CmCantDeleteProfile: Responder error
-	CmCantDeleteProfile Cm = -180
-	// CmCantGamutCheckError: Gamut checking not supported by this color world—that is, the color world does not contain a gamut table because it was built with gamut checking turned off
-	CmCantGamutCheckError Cm = -4217
-	// CmCantXYZ: CMM does not handle XYZ color space
-	CmCantXYZ Cm = -179
-	// CmElementTagNotFound: The tag you specified is not in the specified profile
-	CmElementTagNotFound Cm = -4200
-	// CmErrIncompatibleProfile: Unspecified profile error
-	CmErrIncompatibleProfile Cm = -4208
-	// CmFatalProfileErr: Returned from File Manager while updating a profile file in response to [CMUpdateProfile]; profile content may be corrupted
-	CmFatalProfileErr Cm = -4203
-	// CmIndexRangeErr: Tag index out of range
-	CmIndexRangeErr Cm = -4201
-	// CmInvalidColorSpace: Profile color space does not match bitmap type
-	CmInvalidColorSpace Cm = -4209
-	// CmInvalidDstMap: Destination pix/bit map was invalid
-	CmInvalidDstMap Cm = -4211
-	// CmInvalidProfile: Profile reference is invalid or refers to an inappropriate profile
-	CmInvalidProfile Cm = -4204
-	// CmInvalidProfileComment: Bad profile comment during `drawpicture`
-	CmInvalidProfileComment Cm = -4213
-	// CmInvalidProfileLocation: Operation not supported for this profile location
-	CmInvalidProfileLocation Cm = -4205
-	// CmInvalidSearch: Bad search handle
-	CmInvalidSearch Cm = -4206
-	// CmInvalidSrcMap: Source pixel map or bitmap was invalid
-	CmInvalidSrcMap Cm = -4210
-	// CmMethodError: An error occurred during the CMM arbitration process that determines the CMM to use
-	CmMethodError Cm = -171
-	// CmMethodNotFound: CMM not present
-	CmMethodNotFound Cm = -175
-	// CmNamedColorNotFound: The specified named color was not found in the specified profile
-	CmNamedColorNotFound Cm = -4216
-	// CmNoCurrentProfile: Responder error
-	CmNoCurrentProfile Cm = -182
-	// CmNoGDevicesError: Begin matching or end matching—no graphics devices available
-	CmNoGDevicesError Cm = -4212
-	// CmProfileError: There is something wrong with the content of the profile
-	CmProfileError Cm = -170
-	// CmProfileNotFound: Responder error
-	CmProfileNotFound Cm = -176
-	// CmProfilesIdentical: Profiles are the same
-	CmProfilesIdentical Cm = -177
-	// CmRangeOverFlow: One or more output color value overflows in color conversion; all input color values will be converted and the overflow will be clipped
-	CmRangeOverFlow Cm = -4214
-	// CmSearchError: Internal error occurred during profile search
-	CmSearchError Cm = -4207
-	// CmUnsupportedDataType: Responder error
-	CmUnsupportedDataType Cm = -181
+	CfragFirstReservedCodeValue CfragFirstReservedCode = -2897
+	CfragReservedCode_1         CfragFirstReservedCode = -2899
+	CfragReservedCode_2         CfragFirstReservedCode = -2898
+	CfragReservedCode_3         CfragFirstReservedCode = -2897
 )
 
-func (e Cm) String() string {
+func (e CfragFirstReservedCode) String() string {
 	switch e {
-	case CmCantConcatenateError:
-		return "CmCantConcatenateError"
+	case CfragFirstReservedCodeValue:
+		return "CfragFirstReservedCodeValue"
+	case CfragReservedCode_1:
+		return "CfragReservedCode_1"
+	case CfragReservedCode_2:
+		return "CfragReservedCode_2"
+	default:
+		return fmt.Sprintf("CfragFirstReservedCode(%d)", e)
+	}
+}
+
+type CmElementTagNotFound int32
+
+const (
+	// CmCantCopyModifiedV1Profile: It is illegal to copy version 1.0 profiles that have been modified
+	CmCantCopyModifiedV1Profile CmElementTagNotFound = -4215
+	// CmCantDeleteElement: Cannot delete the specified profile element
+	CmCantDeleteElement CmElementTagNotFound = -4202
+	// CmCantGamutCheckError: Gamut checking not supported by this color world—that is, the color world does not contain a gamut table because it was built with gamut checking turned off
+	CmCantGamutCheckError CmElementTagNotFound = -4217
+	// CmElementTagNotFoundValue: The tag you specified is not in the specified profile
+	CmElementTagNotFoundValue CmElementTagNotFound = -4200
+	// CmErrIncompatibleProfile: Unspecified profile error
+	CmErrIncompatibleProfile CmElementTagNotFound = -4208
+	// CmFatalProfileErr: Returned from File Manager while updating a profile file in response to [CMUpdateProfile]; profile content may be corrupted
+	CmFatalProfileErr CmElementTagNotFound = -4203
+	// CmIndexRangeErr: Tag index out of range
+	CmIndexRangeErr CmElementTagNotFound = -4201
+	// CmInvalidColorSpace: Profile color space does not match bitmap type
+	CmInvalidColorSpace CmElementTagNotFound = -4209
+	// CmInvalidDstMap: Destination pix/bit map was invalid
+	CmInvalidDstMap CmElementTagNotFound = -4211
+	// CmInvalidProfile: Profile reference is invalid or refers to an inappropriate profile
+	CmInvalidProfile CmElementTagNotFound = -4204
+	// CmInvalidProfileComment: Bad profile comment during `drawpicture`
+	CmInvalidProfileComment CmElementTagNotFound = -4213
+	// CmInvalidProfileLocation: Operation not supported for this profile location
+	CmInvalidProfileLocation CmElementTagNotFound = -4205
+	// CmInvalidSearch: Bad search handle
+	CmInvalidSearch CmElementTagNotFound = -4206
+	// CmInvalidSrcMap: Source pixel map or bitmap was invalid
+	CmInvalidSrcMap CmElementTagNotFound = -4210
+	// CmNamedColorNotFound: The specified named color was not found in the specified profile
+	CmNamedColorNotFound CmElementTagNotFound = -4216
+	// CmNoGDevicesError: Begin matching or end matching—no graphics devices available
+	CmNoGDevicesError CmElementTagNotFound = -4212
+	// CmRangeOverFlow: One or more output color value overflows in color conversion; all input color values will be converted and the overflow will be clipped
+	CmRangeOverFlow CmElementTagNotFound = -4214
+	// CmSearchError: Internal error occurred during profile search
+	CmSearchError CmElementTagNotFound = -4207
+)
+
+func (e CmElementTagNotFound) String() string {
+	switch e {
 	case CmCantCopyModifiedV1Profile:
 		return "CmCantCopyModifiedV1Profile"
 	case CmCantDeleteElement:
 		return "CmCantDeleteElement"
-	case CmCantDeleteProfile:
-		return "CmCantDeleteProfile"
 	case CmCantGamutCheckError:
 		return "CmCantGamutCheckError"
-	case CmCantXYZ:
-		return "CmCantXYZ"
-	case CmElementTagNotFound:
-		return "CmElementTagNotFound"
+	case CmElementTagNotFoundValue:
+		return "CmElementTagNotFoundValue"
 	case CmErrIncompatibleProfile:
 		return "CmErrIncompatibleProfile"
 	case CmFatalProfileErr:
@@ -1836,34 +1836,72 @@ func (e Cm) String() string {
 		return "CmInvalidSearch"
 	case CmInvalidSrcMap:
 		return "CmInvalidSrcMap"
-	case CmMethodError:
-		return "CmMethodError"
-	case CmMethodNotFound:
-		return "CmMethodNotFound"
 	case CmNamedColorNotFound:
 		return "CmNamedColorNotFound"
-	case CmNoCurrentProfile:
-		return "CmNoCurrentProfile"
 	case CmNoGDevicesError:
 		return "CmNoGDevicesError"
-	case CmProfileError:
-		return "CmProfileError"
-	case CmProfileNotFound:
-		return "CmProfileNotFound"
-	case CmProfilesIdentical:
-		return "CmProfilesIdentical"
 	case CmRangeOverFlow:
 		return "CmRangeOverFlow"
 	case CmSearchError:
 		return "CmSearchError"
-	case CmUnsupportedDataType:
-		return "CmUnsupportedDataType"
 	default:
-		return fmt.Sprintf("Cm(%d)", e)
+		return fmt.Sprintf("CmElementTagNotFound(%d)", e)
 	}
 }
 
-type Cmp uint
+type CmProfileError int32
+
+const (
+	// CmCantConcatenateError: Profiles cannot be concatenated
+	CmCantConcatenateError CmProfileError = -178
+	// CmCantDeleteProfile: Responder error
+	CmCantDeleteProfile CmProfileError = -180
+	// CmCantXYZ: CMM does not handle XYZ color space
+	CmCantXYZ CmProfileError = -179
+	// CmMethodError: An error occurred during the CMM arbitration process that determines the CMM to use
+	CmMethodError CmProfileError = -171
+	// CmMethodNotFound: CMM not present
+	CmMethodNotFound CmProfileError = -175
+	// CmNoCurrentProfile: Responder error
+	CmNoCurrentProfile CmProfileError = -182
+	// CmProfileErrorValue: There is something wrong with the content of the profile
+	CmProfileErrorValue CmProfileError = -170
+	// CmProfileNotFound: Responder error
+	CmProfileNotFound CmProfileError = -176
+	// CmProfilesIdentical: Profiles are the same
+	CmProfilesIdentical CmProfileError = -177
+	// CmUnsupportedDataType: Responder error
+	CmUnsupportedDataType CmProfileError = -181
+)
+
+func (e CmProfileError) String() string {
+	switch e {
+	case CmCantConcatenateError:
+		return "CmCantConcatenateError"
+	case CmCantDeleteProfile:
+		return "CmCantDeleteProfile"
+	case CmCantXYZ:
+		return "CmCantXYZ"
+	case CmMethodError:
+		return "CmMethodError"
+	case CmMethodNotFound:
+		return "CmMethodNotFound"
+	case CmNoCurrentProfile:
+		return "CmNoCurrentProfile"
+	case CmProfileErrorValue:
+		return "CmProfileErrorValue"
+	case CmProfileNotFound:
+		return "CmProfileNotFound"
+	case CmProfilesIdentical:
+		return "CmProfilesIdentical"
+	case CmUnsupportedDataType:
+		return "CmUnsupportedDataType"
+	default:
+		return fmt.Sprintf("CmProfileError(%d)", e)
+	}
+}
+
+type Cmp uint32
 
 const (
 	// Deprecated.
@@ -1887,7 +1925,7 @@ func (e Cmp) String() string {
 	}
 }
 
-type CmpAlias uint
+type CmpAlias uint32
 
 const (
 	// Deprecated.
@@ -1907,7 +1945,7 @@ func (e CmpAlias) String() string {
 	}
 }
 
-type CodecErr int
+type CodecErr int32
 
 const (
 	BadCodecCharacterizationErr        CodecErr = -8993
@@ -2025,7 +2063,7 @@ func (e CodecErr) String() string {
 	}
 }
 
-type Collection int
+type Collection int32
 
 const (
 	CollectionIndexRangeErr   Collection = -5752
@@ -2049,7 +2087,7 @@ func (e Collection) String() string {
 	}
 }
 
-type Component uint
+type Component uint32
 
 const (
 	// Deprecated.
@@ -2081,7 +2119,7 @@ func (e Component) String() string {
 	}
 }
 
-type ComponentDllLoadErr int
+type ComponentDllLoadErr int32
 
 const (
 	// ComponentDllEntryNotFoundErr: Windows error returned when a component is loading.
@@ -2121,7 +2159,7 @@ func (e ComponentDllLoadErr) String() string {
 	}
 }
 
-type CoreFoundationUnknown int
+type CoreFoundationUnknown int32
 
 const (
 	CoreFoundationUnknownErr CoreFoundationUnknown = -4960
@@ -2136,7 +2174,7 @@ func (e CoreFoundationUnknown) String() string {
 	}
 }
 
-type CouldNotResolveDataRef int
+type CouldNotResolveDataRef int32
 
 const (
 	AuxiliaryExportDataUnavailable CouldNotResolveDataRef = -2058
@@ -2361,7 +2399,7 @@ func (e CouldNotResolveDataRef) String() string {
 	}
 }
 
-type Curr uint
+type Curr uint32
 
 const (
 	CurrLeadingZ  Curr = 128
@@ -2385,7 +2423,7 @@ func (e Curr) String() string {
 	}
 }
 
-type Dcm int
+type Dcm int32
 
 const (
 	DcmBadDataSizeErr       Dcm = -7117
@@ -2466,7 +2504,7 @@ func (e Dcm) String() string {
 	}
 }
 
-type DdpSktErr int
+type DdpSktErr int32
 
 const (
 	DdpLenErr      DdpSktErr = -92
@@ -2502,7 +2540,7 @@ func (e DdpSktErr) String() string {
 	}
 }
 
-type Debugging int
+type Debugging int32
 
 const (
 	DebuggingDuplicateOptionErr    Debugging = -13882
@@ -2538,7 +2576,7 @@ func (e Debugging) String() string {
 	}
 }
 
-type DefaultComponent uint
+type DefaultComponent uint32
 
 const (
 	// Deprecated.
@@ -2574,7 +2612,7 @@ func (e DefaultComponent) String() string {
 	}
 }
 
-type DefaultPhysicalEntry uint
+type DefaultPhysicalEntry uint32
 
 const (
 	// Deprecated.
@@ -2590,7 +2628,7 @@ func (e DefaultPhysicalEntry) String() string {
 	}
 }
 
-type DelimPad int
+type DelimPad int32
 
 const (
 	// Deprecated.
@@ -2614,7 +2652,7 @@ func (e DelimPad) String() string {
 	}
 }
 
-type DiaeresisUprY uint
+type DiaeresisUprY uint32
 
 const (
 	// Deprecated.
@@ -2782,7 +2820,7 @@ func (e DiaeresisUprY) String() string {
 	}
 }
 
-type DialogNoTimeout int
+type DialogNoTimeout int32
 
 const (
 	DialogNoTimeoutErr DialogNoTimeout = -5640
@@ -2797,7 +2835,7 @@ func (e DialogNoTimeout) String() string {
 	}
 }
 
-type DigiUnimpErr int
+type DigiUnimpErr int32
 
 const (
 	// BadCallOrderErr: A status call was made before being set up first.
@@ -2845,40 +2883,54 @@ func (e DigiUnimpErr) String() string {
 	}
 }
 
-type Ds uint
+type DsBadLibrary uint32
 
 const (
-	DsAddressErr       Ds = 2
-	DsBadLibrary       Ds = 1010
-	DsBusError         Ds = 1
-	DsChkErr           Ds = 5
-	DsCoreErr          Ds = 12
-	DsFPErr            Ds = 16
-	DsIOCoreErr        Ds = 14
-	DsIllInstErr       Ds = 3
-	DsIrqErr           Ds = 13
-	DsLineAErr         Ds = 9
-	DsLineFErr         Ds = 10
-	DsLoadErr          Ds = 15
-	DsMiscErr          Ds = 11
-	DsMixedModeFailure Ds = 1011
-	DsNoPackErr        Ds = 17
-	DsNoPk1            Ds = 18
-	DsNoPk2            Ds = 19
-	DsOvflowErr        Ds = 6
-	DsPrivErr          Ds = 7
-	DsTraceErr         Ds = 8
-	DsZeroDivErr       Ds = 4
+	DsBadLibraryValue  DsBadLibrary = 1010
+	DsMixedModeFailure DsBadLibrary = 1011
 )
 
-func (e Ds) String() string {
+func (e DsBadLibrary) String() string {
+	switch e {
+	case DsBadLibraryValue:
+		return "DsBadLibraryValue"
+	case DsMixedModeFailure:
+		return "DsMixedModeFailure"
+	default:
+		return fmt.Sprintf("DsBadLibrary(%d)", e)
+	}
+}
+
+type DsBusError uint32
+
+const (
+	DsAddressErr    DsBusError = 2
+	DsBusErrorValue DsBusError = 1
+	DsChkErr        DsBusError = 5
+	DsCoreErr       DsBusError = 12
+	DsFPErr         DsBusError = 16
+	DsIOCoreErr     DsBusError = 14
+	DsIllInstErr    DsBusError = 3
+	DsIrqErr        DsBusError = 13
+	DsLineAErr      DsBusError = 9
+	DsLineFErr      DsBusError = 10
+	DsLoadErr       DsBusError = 15
+	DsMiscErr       DsBusError = 11
+	DsNoPackErr     DsBusError = 17
+	DsNoPk1         DsBusError = 18
+	DsNoPk2         DsBusError = 19
+	DsOvflowErr     DsBusError = 6
+	DsPrivErr       DsBusError = 7
+	DsTraceErr      DsBusError = 8
+	DsZeroDivErr    DsBusError = 4
+)
+
+func (e DsBusError) String() string {
 	switch e {
 	case DsAddressErr:
 		return "DsAddressErr"
-	case DsBadLibrary:
-		return "DsBadLibrary"
-	case DsBusError:
-		return "DsBusError"
+	case DsBusErrorValue:
+		return "DsBusErrorValue"
 	case DsChkErr:
 		return "DsChkErr"
 	case DsCoreErr:
@@ -2899,8 +2951,6 @@ func (e Ds) String() string {
 		return "DsLoadErr"
 	case DsMiscErr:
 		return "DsMiscErr"
-	case DsMixedModeFailure:
-		return "DsMixedModeFailure"
 	case DsNoPackErr:
 		return "DsNoPackErr"
 	case DsNoPk1:
@@ -2916,11 +2966,11 @@ func (e Ds) String() string {
 	case DsZeroDivErr:
 		return "DsZeroDivErr"
 	default:
-		return fmt.Sprintf("Ds(%d)", e)
+		return fmt.Sprintf("DsBusError(%d)", e)
 	}
 }
 
-type DsNoExtsMacsBug int
+type DsNoExtsMacsBug int32
 
 const (
 	DsDisassemblerInstalled DsNoExtsMacsBug = -11
@@ -2956,7 +3006,7 @@ func (e DsNoExtsMacsBug) String() string {
 	}
 }
 
-type DsNoFPU uint
+type DsNoFPU uint32
 
 const (
 	Ds32BitMode                       DsNoFPU = 103
@@ -3073,7 +3123,7 @@ func (e DsNoFPU) String() string {
 	}
 }
 
-type DsNoPk3 uint
+type DsNoPk3 uint32
 
 const (
 	DsBadLaunch      DsNoPk3 = 26
@@ -3145,7 +3195,7 @@ func (e DsNoPk3) String() string {
 	}
 }
 
-type DummyType uint
+type DummyType uint32
 
 const (
 	// Deprecated.
@@ -3193,7 +3243,7 @@ func (e DummyType) String() string {
 	}
 }
 
-type Duration int
+type Duration int32
 
 const (
 	// Deprecated.
@@ -3237,7 +3287,7 @@ func (e Duration) String() string {
 	}
 }
 
-type ELenErr int
+type ELenErr int32
 
 const (
 	ELenErrValue ELenErr = -92
@@ -3255,7 +3305,7 @@ func (e ELenErr) String() string {
 	}
 }
 
-type EScheme uint
+type EScheme uint32
 
 const (
 	ESchemeValue EScheme = 'e'<<24 | 's'<<16 | 'c'<<8 | 'h' // 'esch'
@@ -3339,7 +3389,7 @@ func (e EScheme) String() string {
 	}
 }
 
-type EWS uint
+type EWS uint32
 
 const (
 	// EWSArrayType: Maps to [CFArrayRef].
@@ -3391,7 +3441,7 @@ func (e EWS) String() string {
 	}
 }
 
-type EditionMgrInitErr int
+type EditionMgrInitErr int32
 
 const (
 	BadEditionFileErr       EditionMgrInitErr = -453
@@ -3430,7 +3480,7 @@ func (e EditionMgrInitErr) String() string {
 	}
 }
 
-type EraField uint
+type EraField uint32
 
 const (
 	DayField        EraField = 3
@@ -3484,7 +3534,7 @@ func (e EraField) String() string {
 	}
 }
 
-type EraMask uint
+type EraMask uint32
 
 const (
 	DateStdMask    EraMask = 0x7f
@@ -3532,292 +3582,54 @@ func (e EraMask) String() string {
 	}
 }
 
-type Err int
+type ErrAEBadKeyForm int32
 
 const (
-	ErrAborted                   Err = -1279
-	ErrAlreadyInImagingMode      Err = -5243
-	ErrAttention                 Err = -1276
-	ErrCannotUndo                Err = -5253
-	ErrCppGeneral                Err = -32000
-	ErrCppLastSystemDefinedError Err = -32020
-	ErrCppLastUserDefinedError   Err = -32049
-	ErrCppbad_alloc              Err = -32001
-	ErrCppbad_cast               Err = -32002
-	ErrCppbad_exception          Err = -32003
-	ErrCppbad_typeid             Err = -32004
-	ErrCppdomain_error           Err = -32006
-	ErrCppinvalid_argument       Err = -32007
-	ErrCppios_base_failure       Err = -32014
-	ErrCpplength_error           Err = -32008
-	ErrCpplogic_error            Err = -32005
-	ErrCppout_of_range           Err = -32009
-	ErrCppoverflow_error         Err = -32011
-	ErrCpprange_error            Err = -32012
-	ErrCppruntime_error          Err = -32010
-	ErrCppunderflow_error        Err = -32013
-	ErrDSPQueueSize              Err = -1274
-	ErrEmptyScrap                Err = -5249
-	ErrEndOfBody                 Err = -1813
-	ErrEndOfDocument             Err = -1812
-	ErrEngineNotFound            Err = -5244
-	ErrFwdReset                  Err = -1275
-	ErrInvalidRange              Err = -5246
-	ErrIteratorReachedEnd        Err = -5245
-	ErrMarginWilllNotFit         Err = -5241
-	ErrNoHiliteText              Err = -5248
-	ErrNonContiuousAttribute     Err = -5252
-	ErrNotInImagingMode          Err = -5242
-	ErrOffsetInvalid             Err = -1800
-	ErrOffsetIsOutsideOfView     Err = -1801
-	ErrOffsetNotOnElementBounday Err = -5247
-	ErrOpenDenied                Err = -1273
-	ErrOpening                   Err = -1277
-	ErrReadOnlyText              Err = -5250
-	ErrRefNum                    Err = -1280
-	ErrState                     Err = -1278
-	ErrTopOfBody                 Err = -1811
-	ErrTopOfDocument             Err = -1810
-	ErrUnknownAttributeTag       Err = -5240
-	ErrUnknownElement            Err = -5251
-)
-
-func (e Err) String() string {
-	switch e {
-	case ErrAborted:
-		return "ErrAborted"
-	case ErrAlreadyInImagingMode:
-		return "ErrAlreadyInImagingMode"
-	case ErrAttention:
-		return "ErrAttention"
-	case ErrCannotUndo:
-		return "ErrCannotUndo"
-	case ErrCppGeneral:
-		return "ErrCppGeneral"
-	case ErrCppLastSystemDefinedError:
-		return "ErrCppLastSystemDefinedError"
-	case ErrCppLastUserDefinedError:
-		return "ErrCppLastUserDefinedError"
-	case ErrCppbad_alloc:
-		return "ErrCppbad_alloc"
-	case ErrCppbad_cast:
-		return "ErrCppbad_cast"
-	case ErrCppbad_exception:
-		return "ErrCppbad_exception"
-	case ErrCppbad_typeid:
-		return "ErrCppbad_typeid"
-	case ErrCppdomain_error:
-		return "ErrCppdomain_error"
-	case ErrCppinvalid_argument:
-		return "ErrCppinvalid_argument"
-	case ErrCppios_base_failure:
-		return "ErrCppios_base_failure"
-	case ErrCpplength_error:
-		return "ErrCpplength_error"
-	case ErrCpplogic_error:
-		return "ErrCpplogic_error"
-	case ErrCppout_of_range:
-		return "ErrCppout_of_range"
-	case ErrCppoverflow_error:
-		return "ErrCppoverflow_error"
-	case ErrCpprange_error:
-		return "ErrCpprange_error"
-	case ErrCppruntime_error:
-		return "ErrCppruntime_error"
-	case ErrCppunderflow_error:
-		return "ErrCppunderflow_error"
-	case ErrDSPQueueSize:
-		return "ErrDSPQueueSize"
-	case ErrEmptyScrap:
-		return "ErrEmptyScrap"
-	case ErrEndOfBody:
-		return "ErrEndOfBody"
-	case ErrEndOfDocument:
-		return "ErrEndOfDocument"
-	case ErrEngineNotFound:
-		return "ErrEngineNotFound"
-	case ErrFwdReset:
-		return "ErrFwdReset"
-	case ErrInvalidRange:
-		return "ErrInvalidRange"
-	case ErrIteratorReachedEnd:
-		return "ErrIteratorReachedEnd"
-	case ErrMarginWilllNotFit:
-		return "ErrMarginWilllNotFit"
-	case ErrNoHiliteText:
-		return "ErrNoHiliteText"
-	case ErrNonContiuousAttribute:
-		return "ErrNonContiuousAttribute"
-	case ErrNotInImagingMode:
-		return "ErrNotInImagingMode"
-	case ErrOffsetInvalid:
-		return "ErrOffsetInvalid"
-	case ErrOffsetIsOutsideOfView:
-		return "ErrOffsetIsOutsideOfView"
-	case ErrOffsetNotOnElementBounday:
-		return "ErrOffsetNotOnElementBounday"
-	case ErrOpenDenied:
-		return "ErrOpenDenied"
-	case ErrOpening:
-		return "ErrOpening"
-	case ErrReadOnlyText:
-		return "ErrReadOnlyText"
-	case ErrRefNum:
-		return "ErrRefNum"
-	case ErrState:
-		return "ErrState"
-	case ErrTopOfBody:
-		return "ErrTopOfBody"
-	case ErrTopOfDocument:
-		return "ErrTopOfDocument"
-	case ErrUnknownAttributeTag:
-		return "ErrUnknownAttributeTag"
-	case ErrUnknownElement:
-		return "ErrUnknownElement"
-	default:
-		return fmt.Sprintf("Err(%d)", e)
-	}
-}
-
-type ErrAE int
-
-const (
-	// ErrAEAccessorNotFound: There is no object accessor function forthe specified object class and container type
-	ErrAEAccessorNotFound ErrAE = -1723
-	// ErrAEBadKeyForm: Invalid key form.
-	ErrAEBadKeyForm ErrAE = -10002
-	// ErrAEBadListItem: Operation involving a list item failed
-	ErrAEBadListItem ErrAE = -1705
-	// ErrAEBadTestKey: The descriptor in a test key is neithera comparison descriptor nor a logical descriptor
-	ErrAEBadTestKey ErrAE = -1726
-	// ErrAEBufferTooSmall: Buffer for [AEFlattenDesc] toosmall
-	ErrAEBufferTooSmall ErrAE = -1741
-	// ErrAEBuildSyntaxError: [AEBuildDesc] andrelated functions detected a syntax error
-	ErrAEBuildSyntaxError ErrAE = -1740
+	// ErrAEBadKeyFormValue: Invalid key form.
+	ErrAEBadKeyFormValue ErrAEBadKeyForm = -10002
 	// ErrAECantHandleClass: The Apple event handler can’t handle objectsof this class.
-	ErrAECantHandleClass ErrAE = -10010
+	ErrAECantHandleClass ErrAEBadKeyForm = -10010
 	// ErrAECantPutThatThere: In make new, duplicate, etc.
-	ErrAECantPutThatThere ErrAE = -10024
+	ErrAECantPutThatThere ErrAEBadKeyForm = -10024
 	// ErrAECantSupplyType: Can’t supply the requested descriptortype for the data.
-	ErrAECantSupplyType ErrAE = -10009
+	ErrAECantSupplyType ErrAEBadKeyForm = -10009
 	// ErrAECantUndo: Can’t undo the previous Apple event oruser action.
-	ErrAECantUndo ErrAE = -10015
-	// ErrAECoercionFail: Data could not be coerced to the requesteddescriptor type
-	ErrAECoercionFail ErrAE = -1700
-	// ErrAECorruptData: Data in an Apple event could not be read
-	ErrAECorruptData ErrAE = -1702
-	// ErrAEDescIsNull: Attempt to perform an invalid operationon a null descriptor
-	ErrAEDescIsNull ErrAE = -1739
-	// ErrAEDescNotFound: Descriptor was not found
-	ErrAEDescNotFound ErrAE = -1701
-	// ErrAEDuplicateHandler: Attempt to install handler in table foridentical class and ID (1.1 or greater)
-	ErrAEDuplicateHandler ErrAE = -1736
-	// ErrAEEmptyListContainer: The container for an Apple event objectis specified by an empty list
-	ErrAEEmptyListContainer ErrAE = -1730
+	ErrAECantUndo ErrAEBadKeyForm = -10015
 	// ErrAEEventFailed: Apple event handler failed.
-	ErrAEEventFailed ErrAE = -10000
-	// ErrAEEventFiltered: Event has been filtered and should not bepropagated (1.1 or greater)
-	ErrAEEventFiltered ErrAE = -1735
-	// ErrAEEventNotHandled: Event wasn’t handled by an Apple eventhandler
-	ErrAEEventNotHandled   ErrAE = -1708
-	ErrAEEventNotPermitted ErrAE = -1743
-	// ErrAEHandlerNotFound: No handler found for an Apple event
-	ErrAEHandlerNotFound ErrAE = -1717
-	// ErrAEIllegalIndex: Not a valid list index
-	ErrAEIllegalIndex ErrAE = -1719
-	// ErrAEImpossibleRange: The range is not valid because it is impossiblefor a range to include the first and last objects that were specified;an example is a range in which the offset of the first object is greaterthan the offset of the last object
-	ErrAEImpossibleRange ErrAE = -1720
+	ErrAEEventFailed ErrAEBadKeyForm = -10000
 	// ErrAEInTransaction: Couldn’t handle this command because itwasn’t part of the current transaction.
-	ErrAEInTransaction ErrAE = -10011
+	ErrAEInTransaction ErrAEBadKeyForm = -10011
 	// ErrAEIndexTooLarge: The index of the event is too large to bevalid.
-	ErrAEIndexTooLarge ErrAE = -10007
-	ErrAELocalOnly     ErrAE = -10016
-	// ErrAENegativeCount: An object-counting function returned a negativeresult
-	ErrAENegativeCount ErrAE = -1729
-	// ErrAENewerVersion: Need a newer version of the Apple EventManager
-	ErrAENewerVersion ErrAE = -1706
-	// ErrAENoSuchLogical: The logical operator in a logical descriptoris not `kAEAND`, `kAEOR`,or `kAENOT`
-	ErrAENoSuchLogical ErrAE = -1725
-	// ErrAENoSuchObject: Runtime resolution of an object failed.
-	ErrAENoSuchObject ErrAE = -1728
+	ErrAEIndexTooLarge ErrAEBadKeyForm = -10007
+	ErrAELocalOnly     ErrAEBadKeyForm = -10016
 	// ErrAENoSuchTransaction: The transaction to which this command belongedisn’t a valid transaction.
-	ErrAENoSuchTransaction ErrAE = -10012
-	// ErrAENoUserInteraction: No user interaction allowed
-	ErrAENoUserInteraction ErrAE = -1713
+	ErrAENoSuchTransaction ErrAEBadKeyForm = -10012
 	// ErrAENoUserSelection: There is no user selection.
-	ErrAENoUserSelection ErrAE = -10013
-	// ErrAENotAEDesc: Not a valid descriptor
-	ErrAENotAEDesc ErrAE = -1704
+	ErrAENoUserSelection ErrAEBadKeyForm = -10013
 	// ErrAENotASingleObject: Handler only handles single objects.
-	ErrAENotASingleObject ErrAE = -10014
-	// ErrAENotASpecialFunction: Wrong keyword for a special function
-	ErrAENotASpecialFunction ErrAE = -1714
+	ErrAENotASingleObject ErrAEBadKeyForm = -10014
 	// ErrAENotAnElement: The specified object is a property, notan element.
-	ErrAENotAnElement ErrAE = -10008
+	ErrAENotAnElement ErrAEBadKeyForm = -10008
 	// ErrAENotAnEnumMember: Enumerated value in [SetData] is notallowed for this property
-	ErrAENotAnEnumMember ErrAE = -10023
-	ErrAENotAnObjSpec    ErrAE = -1727
-	// ErrAENotAppleEvent: The event is not in AppleEvent format.
-	ErrAENotAppleEvent ErrAE = -1707
+	ErrAENotAnEnumMember ErrAEBadKeyForm = -10023
 	// ErrAENotModifiable: Can't set <object or data> to <object or data>.
-	ErrAENotModifiable ErrAE = -10003
-	// ErrAEParamMissed: A required parameter was not accessed.
-	ErrAEParamMissed ErrAE = -1715
+	ErrAENotModifiable ErrAEBadKeyForm = -10003
 	// ErrAEPrivilegeError: A privilege violation occurred.
-	ErrAEPrivilegeError ErrAE = -10004
+	ErrAEPrivilegeError ErrAEBadKeyForm = -10004
 	// ErrAEPropertiesClash: Illegal combination of properties settingsfor SetData, make new, or duplicate
-	ErrAEPropertiesClash ErrAE = -10025
+	ErrAEPropertiesClash ErrAEBadKeyForm = -10025
 	// ErrAEReadDenied: The read operation was not allowed.
-	ErrAEReadDenied ErrAE = -10005
-	// ErrAEReceiveEscapeCurrent: Break out of lowest level only of [AEReceive] (1.1or greater)
-	ErrAEReceiveEscapeCurrent ErrAE = -1734
-	// ErrAEReceiveTerminate: Break out of all levels of [AEReceive] tothe topmost (1.1 or greater)
-	ErrAEReceiveTerminate ErrAE = -1733
-	// ErrAERecordingIsAlreadyOn: Recording is already on
-	ErrAERecordingIsAlreadyOn ErrAE = -1732
-	// ErrAEReplyNotArrived: Reply has not yet arrived
-	ErrAEReplyNotArrived ErrAE = -1718
-	// ErrAEReplyNotValid: [AEResetTimer] was passed an invalid reply
-	ErrAEReplyNotValid ErrAE = -1709
-	// ErrAEStreamAlreadyConverted: Attempt to convert a stream that has alreadybeen converted
-	ErrAEStreamAlreadyConverted ErrAE = -1738
-	// ErrAEStreamBadNesting: Nesting violation while streaming
-	ErrAEStreamBadNesting          ErrAE = -1737
-	ErrAETargetAddressNotPermitted ErrAE = -1742
-	// ErrAETimeout: Apple event timed out
-	ErrAETimeout ErrAE = -1712
+	ErrAEReadDenied ErrAEBadKeyForm = -10005
 	// ErrAETypeError: A descriptor type mismatch occurred.
-	ErrAETypeError ErrAE = -10001
-	// ErrAEUnknownAddressType: Unknown Apple event address type
-	ErrAEUnknownAddressType ErrAE = -1716
-	// ErrAEUnknownObjectType: The object type isn’t recognized
-	ErrAEUnknownObjectType ErrAE = -1731
-	// ErrAEUnknownSendMode: Invalid sending mode was passed
-	ErrAEUnknownSendMode ErrAE = -1710
-	// ErrAEWaitCanceled: User canceled out of wait loop for replyor receipt
-	ErrAEWaitCanceled ErrAE = -1711
+	ErrAETypeError ErrAEBadKeyForm = -10001
 	// ErrAEWriteDenied: Can't set <object or data> to <object or data>.
-	ErrAEWriteDenied ErrAE = -10006
-	// ErrAEWrongDataType: Wrong descriptor type
-	ErrAEWrongDataType ErrAE = -1703
-	// ErrAEWrongNumberArgs: The number of operands provided for the `kAENOT` logicaloperator is not 1
-	ErrAEWrongNumberArgs ErrAE = -1721
+	ErrAEWriteDenied ErrAEBadKeyForm = -10006
 )
 
-func (e ErrAE) String() string {
+func (e ErrAEBadKeyForm) String() string {
 	switch e {
-	case ErrAEAccessorNotFound:
-		return "ErrAEAccessorNotFound"
-	case ErrAEBadKeyForm:
-		return "ErrAEBadKeyForm"
-	case ErrAEBadListItem:
-		return "ErrAEBadListItem"
-	case ErrAEBadTestKey:
-		return "ErrAEBadTestKey"
-	case ErrAEBufferTooSmall:
-		return "ErrAEBufferTooSmall"
-	case ErrAEBuildSyntaxError:
-		return "ErrAEBuildSyntaxError"
+	case ErrAEBadKeyFormValue:
+		return "ErrAEBadKeyFormValue"
 	case ErrAECantHandleClass:
 		return "ErrAECantHandleClass"
 	case ErrAECantPutThatThere:
@@ -3826,8 +3638,139 @@ func (e ErrAE) String() string {
 		return "ErrAECantSupplyType"
 	case ErrAECantUndo:
 		return "ErrAECantUndo"
-	case ErrAECoercionFail:
-		return "ErrAECoercionFail"
+	case ErrAEEventFailed:
+		return "ErrAEEventFailed"
+	case ErrAEInTransaction:
+		return "ErrAEInTransaction"
+	case ErrAEIndexTooLarge:
+		return "ErrAEIndexTooLarge"
+	case ErrAELocalOnly:
+		return "ErrAELocalOnly"
+	case ErrAENoSuchTransaction:
+		return "ErrAENoSuchTransaction"
+	case ErrAENoUserSelection:
+		return "ErrAENoUserSelection"
+	case ErrAENotASingleObject:
+		return "ErrAENotASingleObject"
+	case ErrAENotAnElement:
+		return "ErrAENotAnElement"
+	case ErrAENotAnEnumMember:
+		return "ErrAENotAnEnumMember"
+	case ErrAENotModifiable:
+		return "ErrAENotModifiable"
+	case ErrAEPrivilegeError:
+		return "ErrAEPrivilegeError"
+	case ErrAEPropertiesClash:
+		return "ErrAEPropertiesClash"
+	case ErrAEReadDenied:
+		return "ErrAEReadDenied"
+	case ErrAETypeError:
+		return "ErrAETypeError"
+	case ErrAEWriteDenied:
+		return "ErrAEWriteDenied"
+	default:
+		return fmt.Sprintf("ErrAEBadKeyForm(%d)", e)
+	}
+}
+
+type ErrAECoercionFail int32
+
+const (
+	// ErrAEAccessorNotFound: There is no object accessor function forthe specified object class and container type
+	ErrAEAccessorNotFound ErrAECoercionFail = -1723
+	// ErrAEBadListItem: Operation involving a list item failed
+	ErrAEBadListItem ErrAECoercionFail = -1705
+	// ErrAEBadTestKey: The descriptor in a test key is neithera comparison descriptor nor a logical descriptor
+	ErrAEBadTestKey ErrAECoercionFail = -1726
+	// ErrAEBufferTooSmall: Buffer for [AEFlattenDesc] toosmall
+	ErrAEBufferTooSmall ErrAECoercionFail = -1741
+	// ErrAEBuildSyntaxError: [AEBuildDesc] andrelated functions detected a syntax error
+	ErrAEBuildSyntaxError ErrAECoercionFail = -1740
+	// ErrAECoercionFailValue: Data could not be coerced to the requesteddescriptor type
+	ErrAECoercionFailValue ErrAECoercionFail = -1700
+	// ErrAECorruptData: Data in an Apple event could not be read
+	ErrAECorruptData ErrAECoercionFail = -1702
+	// ErrAEDescIsNull: Attempt to perform an invalid operationon a null descriptor
+	ErrAEDescIsNull ErrAECoercionFail = -1739
+	// ErrAEDescNotFound: Descriptor was not found
+	ErrAEDescNotFound ErrAECoercionFail = -1701
+	// ErrAEDuplicateHandler: Attempt to install handler in table foridentical class and ID (1.1 or greater)
+	ErrAEDuplicateHandler ErrAECoercionFail = -1736
+	// ErrAEEmptyListContainer: The container for an Apple event objectis specified by an empty list
+	ErrAEEmptyListContainer ErrAECoercionFail = -1730
+	// ErrAEEventFiltered: Event has been filtered and should not bepropagated (1.1 or greater)
+	ErrAEEventFiltered ErrAECoercionFail = -1735
+	// ErrAEEventNotHandled: Event wasn’t handled by an Apple eventhandler
+	ErrAEEventNotHandled ErrAECoercionFail = -1708
+	// ErrAEHandlerNotFound: No handler found for an Apple event
+	ErrAEHandlerNotFound ErrAECoercionFail = -1717
+	// ErrAEIllegalIndex: Not a valid list index
+	ErrAEIllegalIndex ErrAECoercionFail = -1719
+	// ErrAEImpossibleRange: The range is not valid because it is impossiblefor a range to include the first and last objects that were specified;an example is a range in which the offset of the first object is greaterthan the offset of the last object
+	ErrAEImpossibleRange ErrAECoercionFail = -1720
+	// ErrAENegativeCount: An object-counting function returned a negativeresult
+	ErrAENegativeCount ErrAECoercionFail = -1729
+	// ErrAENewerVersion: Need a newer version of the Apple EventManager
+	ErrAENewerVersion ErrAECoercionFail = -1706
+	// ErrAENoSuchLogical: The logical operator in a logical descriptoris not `kAEAND`, `kAEOR`,or `kAENOT`
+	ErrAENoSuchLogical ErrAECoercionFail = -1725
+	// ErrAENoSuchObject: Runtime resolution of an object failed.
+	ErrAENoSuchObject ErrAECoercionFail = -1728
+	// ErrAENoUserInteraction: No user interaction allowed
+	ErrAENoUserInteraction ErrAECoercionFail = -1713
+	// ErrAENotAEDesc: Not a valid descriptor
+	ErrAENotAEDesc ErrAECoercionFail = -1704
+	// ErrAENotASpecialFunction: Wrong keyword for a special function
+	ErrAENotASpecialFunction ErrAECoercionFail = -1714
+	ErrAENotAnObjSpec        ErrAECoercionFail = -1727
+	// ErrAENotAppleEvent: The event is not in AppleEvent format.
+	ErrAENotAppleEvent ErrAECoercionFail = -1707
+	// ErrAEParamMissed: A required parameter was not accessed.
+	ErrAEParamMissed ErrAECoercionFail = -1715
+	// ErrAEReceiveEscapeCurrent: Break out of lowest level only of [AEReceive] (1.1or greater)
+	ErrAEReceiveEscapeCurrent ErrAECoercionFail = -1734
+	// ErrAEReceiveTerminate: Break out of all levels of [AEReceive] tothe topmost (1.1 or greater)
+	ErrAEReceiveTerminate ErrAECoercionFail = -1733
+	// ErrAERecordingIsAlreadyOn: Recording is already on
+	ErrAERecordingIsAlreadyOn ErrAECoercionFail = -1732
+	// ErrAEReplyNotArrived: Reply has not yet arrived
+	ErrAEReplyNotArrived ErrAECoercionFail = -1718
+	// ErrAEReplyNotValid: [AEResetTimer] was passed an invalid reply
+	ErrAEReplyNotValid ErrAECoercionFail = -1709
+	// ErrAEStreamAlreadyConverted: Attempt to convert a stream that has alreadybeen converted
+	ErrAEStreamAlreadyConverted ErrAECoercionFail = -1738
+	// ErrAEStreamBadNesting: Nesting violation while streaming
+	ErrAEStreamBadNesting ErrAECoercionFail = -1737
+	// ErrAETimeout: Apple event timed out
+	ErrAETimeout ErrAECoercionFail = -1712
+	// ErrAEUnknownAddressType: Unknown Apple event address type
+	ErrAEUnknownAddressType ErrAECoercionFail = -1716
+	// ErrAEUnknownObjectType: The object type isn’t recognized
+	ErrAEUnknownObjectType ErrAECoercionFail = -1731
+	// ErrAEUnknownSendMode: Invalid sending mode was passed
+	ErrAEUnknownSendMode ErrAECoercionFail = -1710
+	// ErrAEWaitCanceled: User canceled out of wait loop for replyor receipt
+	ErrAEWaitCanceled ErrAECoercionFail = -1711
+	// ErrAEWrongDataType: Wrong descriptor type
+	ErrAEWrongDataType ErrAECoercionFail = -1703
+	// ErrAEWrongNumberArgs: The number of operands provided for the `kAENOT` logicaloperator is not 1
+	ErrAEWrongNumberArgs ErrAECoercionFail = -1721
+)
+
+func (e ErrAECoercionFail) String() string {
+	switch e {
+	case ErrAEAccessorNotFound:
+		return "ErrAEAccessorNotFound"
+	case ErrAEBadListItem:
+		return "ErrAEBadListItem"
+	case ErrAEBadTestKey:
+		return "ErrAEBadTestKey"
+	case ErrAEBufferTooSmall:
+		return "ErrAEBufferTooSmall"
+	case ErrAEBuildSyntaxError:
+		return "ErrAEBuildSyntaxError"
+	case ErrAECoercionFailValue:
+		return "ErrAECoercionFailValue"
 	case ErrAECorruptData:
 		return "ErrAECorruptData"
 	case ErrAEDescIsNull:
@@ -3838,26 +3781,16 @@ func (e ErrAE) String() string {
 		return "ErrAEDuplicateHandler"
 	case ErrAEEmptyListContainer:
 		return "ErrAEEmptyListContainer"
-	case ErrAEEventFailed:
-		return "ErrAEEventFailed"
 	case ErrAEEventFiltered:
 		return "ErrAEEventFiltered"
 	case ErrAEEventNotHandled:
 		return "ErrAEEventNotHandled"
-	case ErrAEEventNotPermitted:
-		return "ErrAEEventNotPermitted"
 	case ErrAEHandlerNotFound:
 		return "ErrAEHandlerNotFound"
 	case ErrAEIllegalIndex:
 		return "ErrAEIllegalIndex"
 	case ErrAEImpossibleRange:
 		return "ErrAEImpossibleRange"
-	case ErrAEInTransaction:
-		return "ErrAEInTransaction"
-	case ErrAEIndexTooLarge:
-		return "ErrAEIndexTooLarge"
-	case ErrAELocalOnly:
-		return "ErrAELocalOnly"
 	case ErrAENegativeCount:
 		return "ErrAENegativeCount"
 	case ErrAENewerVersion:
@@ -3866,36 +3799,18 @@ func (e ErrAE) String() string {
 		return "ErrAENoSuchLogical"
 	case ErrAENoSuchObject:
 		return "ErrAENoSuchObject"
-	case ErrAENoSuchTransaction:
-		return "ErrAENoSuchTransaction"
 	case ErrAENoUserInteraction:
 		return "ErrAENoUserInteraction"
-	case ErrAENoUserSelection:
-		return "ErrAENoUserSelection"
 	case ErrAENotAEDesc:
 		return "ErrAENotAEDesc"
-	case ErrAENotASingleObject:
-		return "ErrAENotASingleObject"
 	case ErrAENotASpecialFunction:
 		return "ErrAENotASpecialFunction"
-	case ErrAENotAnElement:
-		return "ErrAENotAnElement"
-	case ErrAENotAnEnumMember:
-		return "ErrAENotAnEnumMember"
 	case ErrAENotAnObjSpec:
 		return "ErrAENotAnObjSpec"
 	case ErrAENotAppleEvent:
 		return "ErrAENotAppleEvent"
-	case ErrAENotModifiable:
-		return "ErrAENotModifiable"
 	case ErrAEParamMissed:
 		return "ErrAEParamMissed"
-	case ErrAEPrivilegeError:
-		return "ErrAEPrivilegeError"
-	case ErrAEPropertiesClash:
-		return "ErrAEPropertiesClash"
-	case ErrAEReadDenied:
-		return "ErrAEReadDenied"
 	case ErrAEReceiveEscapeCurrent:
 		return "ErrAEReceiveEscapeCurrent"
 	case ErrAEReceiveTerminate:
@@ -3910,12 +3825,8 @@ func (e ErrAE) String() string {
 		return "ErrAEStreamAlreadyConverted"
 	case ErrAEStreamBadNesting:
 		return "ErrAEStreamBadNesting"
-	case ErrAETargetAddressNotPermitted:
-		return "ErrAETargetAddressNotPermitted"
 	case ErrAETimeout:
 		return "ErrAETimeout"
-	case ErrAETypeError:
-		return "ErrAETypeError"
 	case ErrAEUnknownAddressType:
 		return "ErrAEUnknownAddressType"
 	case ErrAEUnknownObjectType:
@@ -3924,18 +3835,16 @@ func (e ErrAE) String() string {
 		return "ErrAEUnknownSendMode"
 	case ErrAEWaitCanceled:
 		return "ErrAEWaitCanceled"
-	case ErrAEWriteDenied:
-		return "ErrAEWriteDenied"
 	case ErrAEWrongDataType:
 		return "ErrAEWrongDataType"
 	case ErrAEWrongNumberArgs:
 		return "ErrAEWrongNumberArgs"
 	default:
-		return fmt.Sprintf("ErrAE(%d)", e)
+		return fmt.Sprintf("ErrAECoercionFail(%d)", e)
 	}
 }
 
-type ErrAEEventWouldRequireUser int
+type ErrAEEventWouldRequireUser int32
 
 const (
 	ErrAEEventWouldRequireUserConsent ErrAEEventWouldRequireUser = -1744
@@ -3950,7 +3859,25 @@ func (e ErrAEEventWouldRequireUser) String() string {
 	}
 }
 
-type ErrAS int
+type ErrAETargetAddressNotPermitted int32
+
+const (
+	ErrAEEventNotPermitted              ErrAETargetAddressNotPermitted = -1743
+	ErrAETargetAddressNotPermittedValue ErrAETargetAddressNotPermitted = -1742
+)
+
+func (e ErrAETargetAddressNotPermitted) String() string {
+	switch e {
+	case ErrAEEventNotPermitted:
+		return "ErrAEEventNotPermitted"
+	case ErrAETargetAddressNotPermittedValue:
+		return "ErrAETargetAddressNotPermittedValue"
+	default:
+		return fmt.Sprintf("ErrAETargetAddressNotPermitted(%d)", e)
+	}
+}
+
+type ErrAS int32
 
 const (
 	// ErrASCantCompareMoreThan32k: Can’t perform operation on text longerthan 32K bytes.
@@ -3989,7 +3916,7 @@ func (e ErrAS) String() string {
 	}
 }
 
-type ErrCoreEndianData int
+type ErrCoreEndianData int32
 
 const (
 	ErrCoreEndianDataDoesNotMatchFormat ErrCoreEndianData = -4942
@@ -4010,7 +3937,70 @@ func (e ErrCoreEndianData) String() string {
 	}
 }
 
-type ErrIA int
+type ErrCppGeneral int32
+
+const (
+	ErrCppGeneralValue           ErrCppGeneral = -32000
+	ErrCppLastSystemDefinedError ErrCppGeneral = -32020
+	ErrCppLastUserDefinedError   ErrCppGeneral = -32049
+	ErrCppbad_alloc              ErrCppGeneral = -32001
+	ErrCppbad_cast               ErrCppGeneral = -32002
+	ErrCppbad_exception          ErrCppGeneral = -32003
+	ErrCppbad_typeid             ErrCppGeneral = -32004
+	ErrCppdomain_error           ErrCppGeneral = -32006
+	ErrCppinvalid_argument       ErrCppGeneral = -32007
+	ErrCppios_base_failure       ErrCppGeneral = -32014
+	ErrCpplength_error           ErrCppGeneral = -32008
+	ErrCpplogic_error            ErrCppGeneral = -32005
+	ErrCppout_of_range           ErrCppGeneral = -32009
+	ErrCppoverflow_error         ErrCppGeneral = -32011
+	ErrCpprange_error            ErrCppGeneral = -32012
+	ErrCppruntime_error          ErrCppGeneral = -32010
+	ErrCppunderflow_error        ErrCppGeneral = -32013
+)
+
+func (e ErrCppGeneral) String() string {
+	switch e {
+	case ErrCppGeneralValue:
+		return "ErrCppGeneralValue"
+	case ErrCppLastSystemDefinedError:
+		return "ErrCppLastSystemDefinedError"
+	case ErrCppLastUserDefinedError:
+		return "ErrCppLastUserDefinedError"
+	case ErrCppbad_alloc:
+		return "ErrCppbad_alloc"
+	case ErrCppbad_cast:
+		return "ErrCppbad_cast"
+	case ErrCppbad_exception:
+		return "ErrCppbad_exception"
+	case ErrCppbad_typeid:
+		return "ErrCppbad_typeid"
+	case ErrCppdomain_error:
+		return "ErrCppdomain_error"
+	case ErrCppinvalid_argument:
+		return "ErrCppinvalid_argument"
+	case ErrCppios_base_failure:
+		return "ErrCppios_base_failure"
+	case ErrCpplength_error:
+		return "ErrCpplength_error"
+	case ErrCpplogic_error:
+		return "ErrCpplogic_error"
+	case ErrCppout_of_range:
+		return "ErrCppout_of_range"
+	case ErrCppoverflow_error:
+		return "ErrCppoverflow_error"
+	case ErrCpprange_error:
+		return "ErrCpprange_error"
+	case ErrCppruntime_error:
+		return "ErrCppruntime_error"
+	case ErrCppunderflow_error:
+		return "ErrCppunderflow_error"
+	default:
+		return fmt.Sprintf("ErrCppGeneral(%d)", e)
+	}
+}
+
+type ErrIA int32
 
 const (
 	ErrIAAllocationErr     ErrIA = -5381
@@ -4052,7 +4042,7 @@ func (e ErrIA) String() string {
 	}
 }
 
-type ErrInvalidWindowPtr int
+type ErrInvalidWindowPtr int32
 
 const (
 	ErrCorruptWindowDescription            ErrInvalidWindowPtr = -5606
@@ -4128,7 +4118,7 @@ func (e ErrInvalidWindowPtr) String() string {
 	}
 }
 
-type ErrKC int
+type ErrKC int32
 
 const (
 	ErrKCAuthFailed            ErrKC = -25293
@@ -4224,7 +4214,7 @@ func (e ErrKC) String() string {
 	}
 }
 
-type ErrMessageNotSupported int
+type ErrMessageNotSupported int32
 
 const (
 	ControlHandleInvalidErr      ErrMessageNotSupported = -30599
@@ -4293,59 +4283,85 @@ func (e ErrMessageNotSupported) String() string {
 	}
 }
 
-type ErrOSA int
+type ErrOSACantCoerce int32
 
 const (
-	ErrOSAAppNotHighLevelEventAware ErrOSA = -2704
-	ErrOSABadSelector               ErrOSA = -1754
-	ErrOSABadStorageType            ErrOSA = -1752
-	ErrOSACantAccess                ErrOSA = -1728
-	ErrOSACantAssign                ErrOSA = -10006
-	ErrOSACantCoerce                ErrOSA = -1700
-	ErrOSACantCreate                ErrOSA = -2710
-	ErrOSACantGetTerminology        ErrOSA = -2709
-	ErrOSACantLaunch                ErrOSA = -2703
-	ErrOSACantOpenComponent         ErrOSA = -1762
-	ErrOSACantStorePointers         ErrOSA = -1763
-	ErrOSAComponentMismatch         ErrOSA = -1761
-	ErrOSACorruptData               ErrOSA = -1702
-	ErrOSACorruptTerminology        ErrOSA = -2705
-	ErrOSADataBlockTooLarge         ErrOSA = -2708
-	ErrOSADataFormatObsolete        ErrOSA = -1758
-	ErrOSADataFormatTooNew          ErrOSA = -1759
-	ErrOSADivideByZero              ErrOSA = -2701
-	ErrOSAGeneralError              ErrOSA = -2700
-	ErrOSAInternalTableOverflow     ErrOSA = -2707
-	ErrOSAInvalidID                 ErrOSA = -1751
-	ErrOSANoSuchDialect             ErrOSA = -1757
-	ErrOSANumericOverflow           ErrOSA = -2702
-	ErrOSARecordingIsAlreadyOn      ErrOSA = -1732
-	ErrOSAScriptError               ErrOSA = -1753
-	ErrOSASourceNotAvailable        ErrOSA = -1756
-	ErrOSAStackOverflow             ErrOSA = -2706
-	ErrOSASystemError               ErrOSA = -1750
+	ErrOSAAppNotHighLevelEventAware ErrOSACantCoerce = -2704
+	ErrOSACantAccess                ErrOSACantCoerce = -1728
+	ErrOSACantAssign                ErrOSACantCoerce = -10006
+	ErrOSACantCoerceValue           ErrOSACantCoerce = -1700
+	ErrOSACantCreate                ErrOSACantCoerce = -2710
+	ErrOSACantGetTerminology        ErrOSACantCoerce = -2709
+	ErrOSACantLaunch                ErrOSACantCoerce = -2703
+	ErrOSACorruptTerminology        ErrOSACantCoerce = -2705
+	ErrOSADataBlockTooLarge         ErrOSACantCoerce = -2708
+	ErrOSADivideByZero              ErrOSACantCoerce = -2701
+	ErrOSAGeneralError              ErrOSACantCoerce = -2700
+	ErrOSAInternalTableOverflow     ErrOSACantCoerce = -2707
+	ErrOSANumericOverflow           ErrOSACantCoerce = -2702
+	ErrOSAStackOverflow             ErrOSACantCoerce = -2706
 )
 
-func (e ErrOSA) String() string {
+func (e ErrOSACantCoerce) String() string {
 	switch e {
 	case ErrOSAAppNotHighLevelEventAware:
 		return "ErrOSAAppNotHighLevelEventAware"
-	case ErrOSABadSelector:
-		return "ErrOSABadSelector"
-	case ErrOSABadStorageType:
-		return "ErrOSABadStorageType"
 	case ErrOSACantAccess:
 		return "ErrOSACantAccess"
 	case ErrOSACantAssign:
 		return "ErrOSACantAssign"
-	case ErrOSACantCoerce:
-		return "ErrOSACantCoerce"
+	case ErrOSACantCoerceValue:
+		return "ErrOSACantCoerceValue"
 	case ErrOSACantCreate:
 		return "ErrOSACantCreate"
 	case ErrOSACantGetTerminology:
 		return "ErrOSACantGetTerminology"
 	case ErrOSACantLaunch:
 		return "ErrOSACantLaunch"
+	case ErrOSACorruptTerminology:
+		return "ErrOSACorruptTerminology"
+	case ErrOSADataBlockTooLarge:
+		return "ErrOSADataBlockTooLarge"
+	case ErrOSADivideByZero:
+		return "ErrOSADivideByZero"
+	case ErrOSAGeneralError:
+		return "ErrOSAGeneralError"
+	case ErrOSAInternalTableOverflow:
+		return "ErrOSAInternalTableOverflow"
+	case ErrOSANumericOverflow:
+		return "ErrOSANumericOverflow"
+	case ErrOSAStackOverflow:
+		return "ErrOSAStackOverflow"
+	default:
+		return fmt.Sprintf("ErrOSACantCoerce(%d)", e)
+	}
+}
+
+type ErrOSASystemError int32
+
+const (
+	ErrOSABadSelector          ErrOSASystemError = -1754
+	ErrOSABadStorageType       ErrOSASystemError = -1752
+	ErrOSACantOpenComponent    ErrOSASystemError = -1762
+	ErrOSACantStorePointers    ErrOSASystemError = -1763
+	ErrOSAComponentMismatch    ErrOSASystemError = -1761
+	ErrOSACorruptData          ErrOSASystemError = -1702
+	ErrOSADataFormatObsolete   ErrOSASystemError = -1758
+	ErrOSADataFormatTooNew     ErrOSASystemError = -1759
+	ErrOSAInvalidID            ErrOSASystemError = -1751
+	ErrOSANoSuchDialect        ErrOSASystemError = -1757
+	ErrOSARecordingIsAlreadyOn ErrOSASystemError = -1732
+	ErrOSAScriptError          ErrOSASystemError = -1753
+	ErrOSASourceNotAvailable   ErrOSASystemError = -1756
+	ErrOSASystemErrorValue     ErrOSASystemError = -1750
+)
+
+func (e ErrOSASystemError) String() string {
+	switch e {
+	case ErrOSABadSelector:
+		return "ErrOSABadSelector"
+	case ErrOSABadStorageType:
+		return "ErrOSABadStorageType"
 	case ErrOSACantOpenComponent:
 		return "ErrOSACantOpenComponent"
 	case ErrOSACantStorePointers:
@@ -4354,42 +4370,28 @@ func (e ErrOSA) String() string {
 		return "ErrOSAComponentMismatch"
 	case ErrOSACorruptData:
 		return "ErrOSACorruptData"
-	case ErrOSACorruptTerminology:
-		return "ErrOSACorruptTerminology"
-	case ErrOSADataBlockTooLarge:
-		return "ErrOSADataBlockTooLarge"
 	case ErrOSADataFormatObsolete:
 		return "ErrOSADataFormatObsolete"
 	case ErrOSADataFormatTooNew:
 		return "ErrOSADataFormatTooNew"
-	case ErrOSADivideByZero:
-		return "ErrOSADivideByZero"
-	case ErrOSAGeneralError:
-		return "ErrOSAGeneralError"
-	case ErrOSAInternalTableOverflow:
-		return "ErrOSAInternalTableOverflow"
 	case ErrOSAInvalidID:
 		return "ErrOSAInvalidID"
 	case ErrOSANoSuchDialect:
 		return "ErrOSANoSuchDialect"
-	case ErrOSANumericOverflow:
-		return "ErrOSANumericOverflow"
 	case ErrOSARecordingIsAlreadyOn:
 		return "ErrOSARecordingIsAlreadyOn"
 	case ErrOSAScriptError:
 		return "ErrOSAScriptError"
 	case ErrOSASourceNotAvailable:
 		return "ErrOSASourceNotAvailable"
-	case ErrOSAStackOverflow:
-		return "ErrOSAStackOverflow"
-	case ErrOSASystemError:
-		return "ErrOSASystemError"
+	case ErrOSASystemErrorValue:
+		return "ErrOSASystemErrorValue"
 	default:
-		return fmt.Sprintf("ErrOSA(%d)", e)
+		return fmt.Sprintf("ErrOSASystemError(%d)", e)
 	}
 }
 
-type ErrOSATypeError int
+type ErrOSATypeError int32
 
 const (
 	ErrOSATypeErrorValue        ErrOSATypeError = -1703
@@ -4455,7 +4457,73 @@ func (e ErrOSATypeError) String() string {
 	}
 }
 
-type ErrTaskNot int
+type ErrOffsetInvalid int32
+
+const (
+	ErrEndOfBody             ErrOffsetInvalid = -1813
+	ErrEndOfDocument         ErrOffsetInvalid = -1812
+	ErrOffsetInvalidValue    ErrOffsetInvalid = -1800
+	ErrOffsetIsOutsideOfView ErrOffsetInvalid = -1801
+	ErrTopOfBody             ErrOffsetInvalid = -1811
+	ErrTopOfDocument         ErrOffsetInvalid = -1810
+)
+
+func (e ErrOffsetInvalid) String() string {
+	switch e {
+	case ErrEndOfBody:
+		return "ErrEndOfBody"
+	case ErrEndOfDocument:
+		return "ErrEndOfDocument"
+	case ErrOffsetInvalidValue:
+		return "ErrOffsetInvalidValue"
+	case ErrOffsetIsOutsideOfView:
+		return "ErrOffsetIsOutsideOfView"
+	case ErrTopOfBody:
+		return "ErrTopOfBody"
+	case ErrTopOfDocument:
+		return "ErrTopOfDocument"
+	default:
+		return fmt.Sprintf("ErrOffsetInvalid(%d)", e)
+	}
+}
+
+type ErrRefNum int32
+
+const (
+	ErrAborted      ErrRefNum = -1279
+	ErrAttention    ErrRefNum = -1276
+	ErrDSPQueueSize ErrRefNum = -1274
+	ErrFwdReset     ErrRefNum = -1275
+	ErrOpenDenied   ErrRefNum = -1273
+	ErrOpening      ErrRefNum = -1277
+	ErrRefNumValue  ErrRefNum = -1280
+	ErrState        ErrRefNum = -1278
+)
+
+func (e ErrRefNum) String() string {
+	switch e {
+	case ErrAborted:
+		return "ErrAborted"
+	case ErrAttention:
+		return "ErrAttention"
+	case ErrDSPQueueSize:
+		return "ErrDSPQueueSize"
+	case ErrFwdReset:
+		return "ErrFwdReset"
+	case ErrOpenDenied:
+		return "ErrOpenDenied"
+	case ErrOpening:
+		return "ErrOpening"
+	case ErrRefNumValue:
+		return "ErrRefNumValue"
+	case ErrState:
+		return "ErrState"
+	default:
+		return fmt.Sprintf("ErrRefNum(%d)", e)
+	}
+}
+
+type ErrTaskNot int32
 
 const (
 	ErrTaskNotFound ErrTaskNot = -10780
@@ -4470,7 +4538,61 @@ func (e ErrTaskNot) String() string {
 	}
 }
 
-type ErrWS int
+type ErrUnknownAttributeTag int32
+
+const (
+	ErrAlreadyInImagingMode      ErrUnknownAttributeTag = -5243
+	ErrCannotUndo                ErrUnknownAttributeTag = -5253
+	ErrEmptyScrap                ErrUnknownAttributeTag = -5249
+	ErrEngineNotFound            ErrUnknownAttributeTag = -5244
+	ErrInvalidRange              ErrUnknownAttributeTag = -5246
+	ErrIteratorReachedEnd        ErrUnknownAttributeTag = -5245
+	ErrMarginWilllNotFit         ErrUnknownAttributeTag = -5241
+	ErrNoHiliteText              ErrUnknownAttributeTag = -5248
+	ErrNonContiuousAttribute     ErrUnknownAttributeTag = -5252
+	ErrNotInImagingMode          ErrUnknownAttributeTag = -5242
+	ErrOffsetNotOnElementBounday ErrUnknownAttributeTag = -5247
+	ErrReadOnlyText              ErrUnknownAttributeTag = -5250
+	ErrUnknownAttributeTagValue  ErrUnknownAttributeTag = -5240
+	ErrUnknownElement            ErrUnknownAttributeTag = -5251
+)
+
+func (e ErrUnknownAttributeTag) String() string {
+	switch e {
+	case ErrAlreadyInImagingMode:
+		return "ErrAlreadyInImagingMode"
+	case ErrCannotUndo:
+		return "ErrCannotUndo"
+	case ErrEmptyScrap:
+		return "ErrEmptyScrap"
+	case ErrEngineNotFound:
+		return "ErrEngineNotFound"
+	case ErrInvalidRange:
+		return "ErrInvalidRange"
+	case ErrIteratorReachedEnd:
+		return "ErrIteratorReachedEnd"
+	case ErrMarginWilllNotFit:
+		return "ErrMarginWilllNotFit"
+	case ErrNoHiliteText:
+		return "ErrNoHiliteText"
+	case ErrNonContiuousAttribute:
+		return "ErrNonContiuousAttribute"
+	case ErrNotInImagingMode:
+		return "ErrNotInImagingMode"
+	case ErrOffsetNotOnElementBounday:
+		return "ErrOffsetNotOnElementBounday"
+	case ErrReadOnlyText:
+		return "ErrReadOnlyText"
+	case ErrUnknownAttributeTagValue:
+		return "ErrUnknownAttributeTagValue"
+	case ErrUnknownElement:
+		return "ErrUnknownElement"
+	default:
+		return fmt.Sprintf("ErrUnknownAttributeTag(%d)", e)
+	}
+}
+
+type ErrWS int32
 
 const (
 	// ErrWSInternalError: An internal framework error occured.
@@ -4498,7 +4620,7 @@ func (e ErrWS) String() string {
 	}
 }
 
-type EvtNot uint
+type EvtNot uint32
 
 const (
 	EvtNotEnb EvtNot = 1
@@ -4513,7 +4635,7 @@ func (e EvtNot) String() string {
 	}
 }
 
-type FFormatOK uint
+type FFormatOK uint32
 
 const (
 	// Deprecated.
@@ -4581,7 +4703,7 @@ func (e FFormatOK) String() string {
 	}
 }
 
-type FOnDesk uint
+type FOnDesk uint32
 
 const (
 	FHasBundle   FOnDesk = 8192
@@ -4602,7 +4724,7 @@ func (e FOnDesk) String() string {
 	}
 }
 
-type FPositive uint
+type FPositive uint32
 
 const (
 	// Deprecated.
@@ -4626,7 +4748,7 @@ func (e FPositive) String() string {
 	}
 }
 
-type FTrash int
+type FTrash int32
 
 const (
 	FDesktop    FTrash = -2
@@ -4647,7 +4769,7 @@ func (e FTrash) String() string {
 	}
 }
 
-type FV uint
+type FV uint32
 
 const (
 	// Deprecated.
@@ -4663,7 +4785,7 @@ func (e FV) String() string {
 	}
 }
 
-type False32b uint
+type False32b uint32
 
 const (
 	// Deprecated.
@@ -4683,7 +4805,7 @@ func (e False32b) String() string {
 	}
 }
 
-type FatalDateTime uint
+type FatalDateTime uint32
 
 const (
 	CantReadUtilities  FatalDateTime = 0x8200
@@ -4731,7 +4853,7 @@ func (e FatalDateTime) String() string {
 	}
 }
 
-type FidNotFound int
+type FidNotFound int32
 
 const (
 	BadFCBErr                       FidNotFound = -1327
@@ -4888,7 +5010,7 @@ func (e FidNotFound) String() string {
 	}
 }
 
-type FirstPickerError int
+type FirstPickerError int32
 
 const (
 	BadProfileError        FirstPickerError = -4008
@@ -4931,7 +5053,7 @@ func (e FirstPickerError) String() string {
 	}
 }
 
-type Form uint
+type Form uint32
 
 const (
 	// FormAbsolutePosition: # Discussion
@@ -4971,46 +5093,82 @@ func (e Form) String() string {
 	}
 }
 
-type Fs uint
+type FsAtMark uint32
 
 const (
-	FsAtMark       Fs = 0
-	FsCurPerm      Fs = 0
-	FsFromLEOF     Fs = 2
-	FsFromMark     Fs = 3
-	FsFromStart    Fs = 1
-	FsRdAccessPerm Fs = 0x1
-	FsRdDenyPerm   Fs = 0x10
-	FsRdPerm       Fs = 0x1
-	FsRdWrPerm     Fs = 0x3
-	FsRdWrShPerm   Fs = 0x4
-	FsWrAccessPerm Fs = 0x2
-	FsWrDenyPerm   Fs = 0x20
-	FsWrPerm       Fs = 0x2
+	FsAtMarkValue FsAtMark = 0
+	FsFromLEOF    FsAtMark = 2
+	FsFromMark    FsAtMark = 3
+	FsFromStart   FsAtMark = 1
 )
 
-func (e Fs) String() string {
+func (e FsAtMark) String() string {
 	switch e {
-	case FsAtMark:
-		return "FsAtMark"
+	case FsAtMarkValue:
+		return "FsAtMarkValue"
 	case FsFromLEOF:
 		return "FsFromLEOF"
 	case FsFromMark:
 		return "FsFromMark"
 	case FsFromStart:
 		return "FsFromStart"
-	case FsRdDenyPerm:
-		return "FsRdDenyPerm"
-	case FsRdWrShPerm:
-		return "FsRdWrShPerm"
-	case FsWrDenyPerm:
-		return "FsWrDenyPerm"
 	default:
-		return fmt.Sprintf("Fs(%d)", e)
+		return fmt.Sprintf("FsAtMark(%d)", e)
 	}
 }
 
-type FsRt uint
+type FsCurPerm uint32
+
+const (
+	FsCurPermValue FsCurPerm = 0
+	FsRdPerm       FsCurPerm = 0x1
+	FsRdWrPerm     FsCurPerm = 0x3
+	FsRdWrShPerm   FsCurPerm = 0x4
+	FsWrPerm       FsCurPerm = 0x2
+)
+
+func (e FsCurPerm) String() string {
+	switch e {
+	case FsCurPermValue:
+		return "FsCurPermValue"
+	case FsRdPerm:
+		return "FsRdPerm"
+	case FsRdWrPerm:
+		return "FsRdWrPerm"
+	case FsRdWrShPerm:
+		return "FsRdWrShPerm"
+	case FsWrPerm:
+		return "FsWrPerm"
+	default:
+		return fmt.Sprintf("FsCurPerm(%d)", e)
+	}
+}
+
+type FsRdAccessPerm uint32
+
+const (
+	FsRdAccessPermValue FsRdAccessPerm = 0x1
+	FsRdDenyPerm        FsRdAccessPerm = 0x10
+	FsWrAccessPerm      FsRdAccessPerm = 0x2
+	FsWrDenyPerm        FsRdAccessPerm = 0x20
+)
+
+func (e FsRdAccessPerm) String() string {
+	switch e {
+	case FsRdAccessPermValue:
+		return "FsRdAccessPermValue"
+	case FsRdDenyPerm:
+		return "FsRdDenyPerm"
+	case FsWrAccessPerm:
+		return "FsWrAccessPerm"
+	case FsWrDenyPerm:
+		return "FsWrDenyPerm"
+	default:
+		return fmt.Sprintf("FsRdAccessPerm(%d)", e)
+	}
+}
+
+type FsRt uint32
 
 const (
 	FsRtDirID FsRt = 2
@@ -5028,159 +5186,181 @@ func (e FsRt) String() string {
 	}
 }
 
-type FsSB uint
+type FsSBPartialName uint32
 
 const (
-	FsSBAccessDate             FsSB = 0x20000
-	FsSBAccessDateBit          FsSB = 17
-	FsSBAttributeModDate       FsSB = 0x10000
-	FsSBAttributeModDateBit    FsSB = 16
-	FsSBDrBkDat                FsSB = 0x800
-	FsSBDrBkDatBit             FsSB = 11
-	FsSBDrCrDat                FsSB = 0x200
-	FsSBDrCrDatBit             FsSB = 9
-	FsSBDrFndrInfo             FsSB = 0x1000
-	FsSBDrFndrInfoBit          FsSB = 12
-	FsSBDrMdDat                FsSB = 0x400
-	FsSBDrMdDatBit             FsSB = 10
-	FsSBDrNmFls                FsSB = 0x10
-	FsSBDrNmFlsBit             FsSB = 4
-	FsSBDrParID                FsSB = 0x2000
-	FsSBDrParIDBit             FsSB = 13
-	FsSBDrUsrWds               FsSB = 0x8
-	FsSBDrUsrWdsBit            FsSB = 3
-	FsSBFlAttrib               FsSB = 0x4
-	FsSBFlAttribBit            FsSB = 2
-	FsSBFlBkDat                FsSB = 0x800
-	FsSBFlBkDatBit             FsSB = 11
-	FsSBFlCrDat                FsSB = 0x200
-	FsSBFlCrDatBit             FsSB = 9
-	FsSBFlFndrInfo             FsSB = 0x8
-	FsSBFlFndrInfoBit          FsSB = 3
-	FsSBFlLgLen                FsSB = 0x20
-	FsSBFlLgLenBit             FsSB = 5
-	FsSBFlMdDat                FsSB = 0x400
-	FsSBFlMdDatBit             FsSB = 10
-	FsSBFlParID                FsSB = 0x2000
-	FsSBFlParIDBit             FsSB = 13
-	FsSBFlPyLen                FsSB = 0x40
-	FsSBFlPyLenBit             FsSB = 6
-	FsSBFlRLgLen               FsSB = 0x80
-	FsSBFlRLgLenBit            FsSB = 7
-	FsSBFlRPyLen               FsSB = 0x100
-	FsSBFlRPyLenBit            FsSB = 8
-	FsSBFlXFndrInfo            FsSB = 0x1000
-	FsSBFlXFndrInfoBit         FsSB = 12
-	FsSBFullName               FsSB = 0x2
-	FsSBFullNameBit            FsSB = 1
-	FsSBGroupID                FsSB = 0x400000
-	FsSBGroupIDBit             FsSB = 22
-	FsSBNegate                 FsSB = 0x4000
-	FsSBNegateBit              FsSB = 14
-	FsSBNodeID                 FsSB = 0x8000
-	FsSBNodeIDBit              FsSB = 15
-	FsSBPartialName            FsSB = 0x1
-	FsSBPartialNameBit         FsSB = 0
-	FsSBPermissions            FsSB = 0x40000
-	FsSBPermissionsBit         FsSB = 18
-	FsSBSkipHiddenItems        FsSB = 0x100000
-	FsSBSkipHiddenItemsBit     FsSB = 20
-	FsSBSkipPackageContents    FsSB = 0x80000
-	FsSBSkipPackageContentsBit FsSB = 19
-	FsSBUserID                 FsSB = 0x200000
-	FsSBUserIDBit              FsSB = 21
+	FsSBAccessDate          FsSBPartialName = 0x20000
+	FsSBAttributeModDate    FsSBPartialName = 0x10000
+	FsSBDrBkDat             FsSBPartialName = 0x800
+	FsSBDrCrDat             FsSBPartialName = 0x200
+	FsSBDrFndrInfo          FsSBPartialName = 0x1000
+	FsSBDrMdDat             FsSBPartialName = 0x400
+	FsSBDrNmFls             FsSBPartialName = 0x10
+	FsSBDrParID             FsSBPartialName = 0x2000
+	FsSBDrUsrWds            FsSBPartialName = 0x8
+	FsSBFlAttrib            FsSBPartialName = 0x4
+	FsSBFlBkDat             FsSBPartialName = 0x800
+	FsSBFlCrDat             FsSBPartialName = 0x200
+	FsSBFlFndrInfo          FsSBPartialName = 0x8
+	FsSBFlLgLen             FsSBPartialName = 0x20
+	FsSBFlMdDat             FsSBPartialName = 0x400
+	FsSBFlParID             FsSBPartialName = 0x2000
+	FsSBFlPyLen             FsSBPartialName = 0x40
+	FsSBFlRLgLen            FsSBPartialName = 0x80
+	FsSBFlRPyLen            FsSBPartialName = 0x100
+	FsSBFlXFndrInfo         FsSBPartialName = 0x1000
+	FsSBFullName            FsSBPartialName = 0x2
+	FsSBGroupID             FsSBPartialName = 0x400000
+	FsSBNegate              FsSBPartialName = 0x4000
+	FsSBNodeID              FsSBPartialName = 0x8000
+	FsSBPartialNameValue    FsSBPartialName = 0x1
+	FsSBPermissions         FsSBPartialName = 0x40000
+	FsSBSkipHiddenItems     FsSBPartialName = 0x100000
+	FsSBSkipPackageContents FsSBPartialName = 0x80000
+	FsSBUserID              FsSBPartialName = 0x200000
 )
 
-func (e FsSB) String() string {
+func (e FsSBPartialName) String() string {
 	switch e {
 	case FsSBAccessDate:
 		return "FsSBAccessDate"
-	case FsSBAccessDateBit:
-		return "FsSBAccessDateBit"
 	case FsSBAttributeModDate:
 		return "FsSBAttributeModDate"
-	case FsSBAttributeModDateBit:
-		return "FsSBAttributeModDateBit"
 	case FsSBDrBkDat:
 		return "FsSBDrBkDat"
-	case FsSBDrBkDatBit:
-		return "FsSBDrBkDatBit"
 	case FsSBDrCrDat:
 		return "FsSBDrCrDat"
-	case FsSBDrCrDatBit:
-		return "FsSBDrCrDatBit"
 	case FsSBDrFndrInfo:
 		return "FsSBDrFndrInfo"
-	case FsSBDrFndrInfoBit:
-		return "FsSBDrFndrInfoBit"
 	case FsSBDrMdDat:
 		return "FsSBDrMdDat"
+	case FsSBDrNmFls:
+		return "FsSBDrNmFls"
+	case FsSBDrParID:
+		return "FsSBDrParID"
+	case FsSBDrUsrWds:
+		return "FsSBDrUsrWds"
+	case FsSBFlAttrib:
+		return "FsSBFlAttrib"
+	case FsSBFlLgLen:
+		return "FsSBFlLgLen"
+	case FsSBFlPyLen:
+		return "FsSBFlPyLen"
+	case FsSBFlRLgLen:
+		return "FsSBFlRLgLen"
+	case FsSBFlRPyLen:
+		return "FsSBFlRPyLen"
+	case FsSBFullName:
+		return "FsSBFullName"
+	case FsSBGroupID:
+		return "FsSBGroupID"
+	case FsSBNegate:
+		return "FsSBNegate"
+	case FsSBNodeID:
+		return "FsSBNodeID"
+	case FsSBPartialNameValue:
+		return "FsSBPartialNameValue"
+	case FsSBPermissions:
+		return "FsSBPermissions"
+	case FsSBSkipHiddenItems:
+		return "FsSBSkipHiddenItems"
+	case FsSBSkipPackageContents:
+		return "FsSBSkipPackageContents"
+	case FsSBUserID:
+		return "FsSBUserID"
+	default:
+		return fmt.Sprintf("FsSBPartialName(%d)", e)
+	}
+}
+
+type FsSBPartialNameBit uint32
+
+const (
+	FsSBAccessDateBit          FsSBPartialNameBit = 17
+	FsSBAttributeModDateBit    FsSBPartialNameBit = 16
+	FsSBDrBkDatBit             FsSBPartialNameBit = 11
+	FsSBDrCrDatBit             FsSBPartialNameBit = 9
+	FsSBDrFndrInfoBit          FsSBPartialNameBit = 12
+	FsSBDrMdDatBit             FsSBPartialNameBit = 10
+	FsSBDrNmFlsBit             FsSBPartialNameBit = 4
+	FsSBDrParIDBit             FsSBPartialNameBit = 13
+	FsSBDrUsrWdsBit            FsSBPartialNameBit = 3
+	FsSBFlAttribBit            FsSBPartialNameBit = 2
+	FsSBFlBkDatBit             FsSBPartialNameBit = 11
+	FsSBFlCrDatBit             FsSBPartialNameBit = 9
+	FsSBFlFndrInfoBit          FsSBPartialNameBit = 3
+	FsSBFlLgLenBit             FsSBPartialNameBit = 5
+	FsSBFlMdDatBit             FsSBPartialNameBit = 10
+	FsSBFlParIDBit             FsSBPartialNameBit = 13
+	FsSBFlPyLenBit             FsSBPartialNameBit = 6
+	FsSBFlRLgLenBit            FsSBPartialNameBit = 7
+	FsSBFlRPyLenBit            FsSBPartialNameBit = 8
+	FsSBFlXFndrInfoBit         FsSBPartialNameBit = 12
+	FsSBFullNameBit            FsSBPartialNameBit = 1
+	FsSBGroupIDBit             FsSBPartialNameBit = 22
+	FsSBNegateBit              FsSBPartialNameBit = 14
+	FsSBNodeIDBit              FsSBPartialNameBit = 15
+	FsSBPartialNameBitValue    FsSBPartialNameBit = 0
+	FsSBPermissionsBit         FsSBPartialNameBit = 18
+	FsSBSkipHiddenItemsBit     FsSBPartialNameBit = 20
+	FsSBSkipPackageContentsBit FsSBPartialNameBit = 19
+	FsSBUserIDBit              FsSBPartialNameBit = 21
+)
+
+func (e FsSBPartialNameBit) String() string {
+	switch e {
+	case FsSBAccessDateBit:
+		return "FsSBAccessDateBit"
+	case FsSBAttributeModDateBit:
+		return "FsSBAttributeModDateBit"
+	case FsSBDrBkDatBit:
+		return "FsSBDrBkDatBit"
+	case FsSBDrCrDatBit:
+		return "FsSBDrCrDatBit"
+	case FsSBDrFndrInfoBit:
+		return "FsSBDrFndrInfoBit"
 	case FsSBDrMdDatBit:
 		return "FsSBDrMdDatBit"
 	case FsSBDrNmFlsBit:
 		return "FsSBDrNmFlsBit"
-	case FsSBDrParID:
-		return "FsSBDrParID"
 	case FsSBDrParIDBit:
 		return "FsSBDrParIDBit"
-	case FsSBDrUsrWds:
-		return "FsSBDrUsrWds"
 	case FsSBDrUsrWdsBit:
 		return "FsSBDrUsrWdsBit"
 	case FsSBFlAttribBit:
 		return "FsSBFlAttribBit"
-	case FsSBFlLgLen:
-		return "FsSBFlLgLen"
 	case FsSBFlLgLenBit:
 		return "FsSBFlLgLenBit"
-	case FsSBFlPyLen:
-		return "FsSBFlPyLen"
 	case FsSBFlPyLenBit:
 		return "FsSBFlPyLenBit"
-	case FsSBFlRLgLen:
-		return "FsSBFlRLgLen"
 	case FsSBFlRLgLenBit:
 		return "FsSBFlRLgLenBit"
-	case FsSBFlRPyLen:
-		return "FsSBFlRPyLen"
+	case FsSBFlRPyLenBit:
+		return "FsSBFlRPyLenBit"
 	case FsSBFullNameBit:
 		return "FsSBFullNameBit"
-	case FsSBGroupID:
-		return "FsSBGroupID"
 	case FsSBGroupIDBit:
 		return "FsSBGroupIDBit"
-	case FsSBNegate:
-		return "FsSBNegate"
 	case FsSBNegateBit:
 		return "FsSBNegateBit"
-	case FsSBNodeID:
-		return "FsSBNodeID"
 	case FsSBNodeIDBit:
 		return "FsSBNodeIDBit"
-	case FsSBPartialNameBit:
-		return "FsSBPartialNameBit"
-	case FsSBPermissions:
-		return "FsSBPermissions"
+	case FsSBPartialNameBitValue:
+		return "FsSBPartialNameBitValue"
 	case FsSBPermissionsBit:
 		return "FsSBPermissionsBit"
-	case FsSBSkipHiddenItems:
-		return "FsSBSkipHiddenItems"
 	case FsSBSkipHiddenItemsBit:
 		return "FsSBSkipHiddenItemsBit"
-	case FsSBSkipPackageContents:
-		return "FsSBSkipPackageContents"
 	case FsSBSkipPackageContentsBit:
 		return "FsSBSkipPackageContentsBit"
-	case FsSBUserID:
-		return "FsSBUserID"
 	case FsSBUserIDBit:
 		return "FsSBUserIDBit"
 	default:
-		return fmt.Sprintf("FsSB(%d)", e)
+		return fmt.Sprintf("FsSBPartialNameBit(%d)", e)
 	}
 }
 
-type FsUnix uint
+type FsUnix uint32
 
 const (
 	FsUnixPriv FsUnix = 1
@@ -5195,7 +5375,7 @@ func (e FsUnix) String() string {
 	}
 }
 
-type Fsm int
+type Fsm int32
 
 const (
 	FsmBadFFSNameErr        Fsm = -433
@@ -5231,7 +5411,7 @@ func (e Fsm) String() string {
 	}
 }
 
-type GenericDocumentIconResource int
+type GenericDocumentIconResource int32
 
 const (
 	AppleMenuFolderIconResource      GenericDocumentIconResource = -3982
@@ -5309,649 +5489,7 @@ func (e GenericDocumentIconResource) String() string {
 	}
 }
 
-const (
-	// Gestalt16BitAudioSupport: # Discussion
-	Gestalt16BitAudioSupport int = 12
-	// Gestalt16BitSoundIO: # Discussion
-	Gestalt16BitSoundIO    int = 7
-	Gestalt20thAnniversary int = 512
-	// Gestalt32BitAddressing: If `true`, the operating system is using 32-bit addressing mode.
-	Gestalt32BitAddressing int = 0
-	// Gestalt32BitCapable: If `true`, Machine is 32-bit capable.
-	Gestalt32BitCapable int = 2
-	Gestalt32BitQD      int = 0x200
-	Gestalt32BitQD11    int = 0x201
-	Gestalt32BitQD12    int = 0x220
-	Gestalt32BitQD13    int = 0x230
-	// Gestalt32BitSysZone: If `true`, there is a 32-bit compatible system zone.
-	Gestalt32BitSysZone int = 1
-	Gestalt68000        int = 1
-	Gestalt68010        int = 2
-	Gestalt68020        int = 3
-	Gestalt68030        int = 4
-	Gestalt68030MMU     int = 3
-	Gestalt68040        int = 5
-	Gestalt68040FPU     int = 3
-	Gestalt68040MMU     int = 4
-	Gestalt68851        int = 2
-	Gestalt68881        int = 1
-	Gestalt68882        int = 2
-	// Gestalt68k: If the [Gestalt] function returns `gestalt68k`, the system is a MC680x0 Macintosh.
-	Gestalt68k         int = 1
-	Gestalt8BitQD      int = 0x100
-	GestaltADBISOKbdII int = 11
-	GestaltADBKbdII    int = 10
-	GestaltAMU         int = 1
-	// GestaltATSUUpdate1: Indicates that version 1.1 of ATSUI is installed on the user’s system.
-	GestaltATSUUpdate1 int = 131072
-	// GestaltATSUUpdate2: Indicates that version 1.2 of ATSUI is installed on the user’s system.
-	GestaltATSUUpdate2 int = 196608
-	// GestaltATSUUpdate3: Indicates that version 2.0 of ATSUI is installed on the user’s system.
-	GestaltATSUUpdate3 int = 262144
-	// GestaltATSUUpdate4: Indicates that ATSUI for a version of macOS from 10.0.1 through 10.0.4 is installed on the user’s system.
-	GestaltATSUUpdate4 int = 327680
-	// GestaltATSUUpdate5: Indicates that version 2.3 of ATSUI is installed on the user’s system.
-	GestaltATSUUpdate5 int = 393216
-	// GestaltATSUUpdate6: Indicates that version 2.4 of ATSUI is installed on the user’s system.
-	GestaltATSUUpdate6 int = 458752
-	// GestaltATSUUpdate7: Indicates that version 2.5 of ATSUI is installed on the user’s system.
-	GestaltATSUUpdate7 int = 524288
-	// GestaltATSUVersion: Specifies the version of ATSUI installed on the user’s system.
-	GestaltATSUVersion int = 'u'<<24 | 'i'<<16 | 's'<<8 | 'v' // 'uisv'
-	GestaltAWS6150_60  int = 75
-	GestaltAWS6150_66  int = 100
-	GestaltAWS8150_110 int = 40
-	GestaltAWS8150_80  int = 65
-	GestaltAWS8550     int = 68
-	GestaltAWS9150_120 int = 57
-	GestaltAWS9150_80  int = 39
-	// GestaltAddressingModeAttr: The [Gestalt] selector you pass to determine the addressing mode attributes that are present.
-	GestaltAddressingModeAttr int = 'a'<<24 | 'd'<<16 | 'd'<<8 | 'r' // 'addr'
-	// GestaltAdminFeaturesFlagsAttr: The [Gestalt] selector you pass to determine the admin features that are present.
-	GestaltAdminFeaturesFlagsAttr int = 'f'<<24 | 'r'<<16 | 'e'<<8 | 'd' // 'fred'
-	GestaltAllegroQD              int = 0x250
-	// GestaltAllegroQDText: This is the version of QuickDraw Text used with Mac OS 8.2 and up.
-	GestaltAllegroQDText                       int = 0x100
-	GestaltAltivecRegistersSwappedCorrectlyBit int = 20
-	// GestaltAntiAliasedTextAvailable: Capable of antialiased text.
-	GestaltAntiAliasedTextAvailable int = 2
-	GestaltAppleAdjustADBKbd        int = 15
-	GestaltAppleAdjustISOKbd        int = 16
-	GestaltAppleAdjustKeypad        int = 14
-	// GestaltAppleEventsAttr: # Discussion
-	GestaltAppleEventsAttr int = 'e'<<24 | 'v'<<16 | 'n'<<8 | 't' // 'evnt'
-	// GestaltAppleEventsPresent: A [Gestalt] attribute constant.
-	GestaltAppleEventsPresent int = 0
-	GestaltAppleGuideIsDebug  int = 30
-	GestaltAppleGuidePresent  int = 31
-	GestaltArbitorAttr        int = 'a'<<24 | 'r'<<16 | 'b'<<8 | ' ' // 'arb '
-	GestaltArm                int = 20
-	GestaltAsyncSCSI          int = 0
-	GestaltAsyncSCSIINROM     int = 1
-	// GestaltBuiltInSoundInput: Set if a built-in sound input device is available.
-	GestaltBuiltInSoundInput int = 4
-	GestaltCPU601            int = 0x101
-	GestaltCPU603            int = 0x103
-	GestaltCPU603e           int = 0x106
-	GestaltCPU603ev          int = 0x107
-	GestaltCPU604            int = 0x104
-	GestaltCPU604e           int = 0x109
-	GestaltCPU604ev          int = 0x10a
-	GestaltCPU68000          int = 0
-	GestaltCPU68010          int = 1
-	GestaltCPU68020          int = 2
-	GestaltCPU68030          int = 3
-	GestaltCPU68040          int = 4
-	GestaltCPU750            int = 0x108
-	GestaltCPUG4             int = 0x10c
-	GestaltCPUG47450         int = 0x110
-	// GestaltCanStartDragInFloatWindow: If the bit specified by this mask is set, the Drag Manager can start a drag in a floating window.
-	GestaltCanStartDragInFloatWindow int = 4
-	GestaltCanUseCGTextRendering     int = 6
-	GestaltCardServicesPresent       int = 0
-	GestaltClassic                   int = 1
-	GestaltClassicII                 int = 23
-	// GestaltColorMatchingAttr: The selector for obtaining version information.
-	GestaltColorMatchingAttr int = 'c'<<24 | 'm'<<16 | 't'<<8 | 'a' // 'cmta'
-	// GestaltColorMatchingLibLoaded: This constant is provided for backward compatibility only.
-	GestaltColorMatchingLibLoaded int = 1
-	GestaltCreatesAliasFontRsrc   int = 4
-	GestaltCurrentGraphicsVersion int = 0x10200
-	// GestaltDTMgrSupportsFSM: If this bit is set in the `response` parameter, the desktop database supports File System Manager-based foreign file systems.
-	GestaltDTMgrSupportsFSM int = 7
-	// GestaltDesktopSpeechRecognition: If this bit is set, the Speech Recognition Manager supports the desktop microphone.
-	GestaltDesktopSpeechRecognition int = 1
-	// GestaltDragMgrAttr: The Gestalt selector passed to determine what features of the Drag Manager are present.
-	GestaltDragMgrAttr int = 'd'<<24 | 'r'<<16 | 'a'<<8 | 'g' // 'drag'
-	// GestaltDragMgrFloatingWind: If the bit specified by this mask is set, the Drag Manager floating window support functions are available.
-	GestaltDragMgrFloatingWind int = 1
-	// GestaltDragMgrHasImageSupport: If the bit specified by this mask is set, the Drag Manager image support functions are available.
-	GestaltDragMgrHasImageSupport int = 3
-	// GestaltDragMgrPresent: If the bit specified by this mask is set, the Drag Manager functions are available.
-	GestaltDragMgrPresent int = 0
-	// GestaltDupSelectorErr: Specifies you tried to add an entry that already existed.
-	GestaltDupSelectorErr int = -5552
-	GestaltEMMU1          int = 5
-	GestaltExtADBKbd      int = 4
-	GestaltExtISOADBKbd   int = 9
-	// GestaltExtendedTimeMgr: If this bit is set, the extended Time Manager is present.
-	GestaltExtendedTimeMgr              int = 3
-	GestaltExtendedWindowAttributes     int = 1
-	GestaltExtendedWindowAttributesBit  int = 1
-	GestaltExtendedWindowAttributesMask int = 2
-	GestaltFBCCurrentVersion            int = 0x11
-	GestaltFBCVersion                   int = 'f'<<24 | 'b'<<16 | 'c'<<8 | 'v' // 'fbcv'
-	// GestaltFPUType: A constant that represents the type of floating-point unit currently installed, if any.
-	GestaltFPUType                   int = 'f'<<24 | 'p'<<16 | 'u'<<8 | ' ' // 'fpu '
-	GestaltFSAllowsConcurrentAsyncIO int = 17
-	// GestaltFSAttr: A selector you pass to the [Gestalt] function.
-	GestaltFSAttr int = 'f'<<24 | 's'<<16 | ' '<<8 | ' ' // 'fs  '
-	// GestaltFSIncompatibleDFA82: If this bit is set in the `response` parameter, VCB and FCB structures are changed; DFA 8.2 is incompatible.
-	GestaltFSIncompatibleDFA82 int = 10
-	// GestaltFSMDoesDynamicLoad: If this bit is set in the `response` parameter, the File System Manager supports dynamic loading of external file system code resources.
-	GestaltFSMDoesDynamicLoad int = 3
-	// GestaltFSNoMFSVols: If this bit is set in the `response` parameter, the file system does not support MFS volumes.
-	GestaltFSNoMFSVols int = 8
-	// GestaltFSSupports2TBVols: If this bit is set in the `response` parameter, the file system supports 2 terabyte volumes.
-	GestaltFSSupports2TBVols int = 5
-	// GestaltFSSupports4GBVols: If this bit is set in the `response` parameter, the file system supports 4 gigabyte volumes.
-	GestaltFSSupports4GBVols        int = 4
-	GestaltFSSupportsExclusiveLocks int = 15
-	// GestaltFSSupportsHFSPlusVols: If this bit is set in the `response` parameter, the file system supports HFS Plus volumes.
-	GestaltFSSupportsHFSPlusVols         int = 9
-	GestaltFSSupportsHardLinkDetection   int = 16
-	GestaltFSUsesPOSIXPathsForConversion int = 14
-	GestaltFileAllocationZeroedBlocksBit int = 4
-	// GestaltFindFolderAttr: The selector you pass to the [Gestalt] function to determine the  [FindFolder] function attributes.
-	GestaltFindFolderAttr                           int = 'f'<<24 | 'o'<<16 | 'l'<<8 | 'd' // 'fold'
-	GestaltFindFolderPresent                        int = 0
-	GestaltFinderAttr                               int = 'f'<<24 | 'n'<<16 | 'd'<<8 | 'r' // 'fndr'
-	GestaltFinderCallsAEProcess                     int = 2
-	GestaltFinderDropEvent                          int = 0
-	GestaltFinderFloppyRootComments                 int = 8
-	GestaltFinderFullDragManagerSupport             int = 7
-	GestaltFinderHasClippings                       int = 6
-	GestaltFinderLargeAndNotSavedFlavorsOK          int = 9
-	GestaltFinderMagicPlacement                     int = 1
-	GestaltFinderSupports4GBVolumes                 int = 4
-	GestaltFinderUnderstandsRedirectedDesktopFolder int = 11
-	GestaltFinderUsesExtensibleFolderManager        int = 10
-	// GestaltFinderUsesSpecialOpenFoldersFile: Specifies that the Finder uses a special file to store the list of open folders.
-	GestaltFinderUsesSpecialOpenFoldersFile int = 0
-	// GestaltFolderDescSupport: If this bit is set, the extended Folder Manager functionality supporting folder descriptors and routings is available.
-	GestaltFolderDescSupport                    int = 1
-	GestaltFolderMgrFollowsAliasesWhenResolving int = 2
-	GestaltFolderMgrSupportsDomains             int = 4
-	GestaltFolderMgrSupportsExtendedCalls       int = 3
-	GestaltFolderMgrSupportsFSCalls             int = 5
-	// GestaltFontMgrAttr: The [Gestalt] selector you pass to determine which Font Manager attributes are present.
-	GestaltFontMgrAttr                int = 'f'<<24 | 'o'<<16 | 'n'<<8 | 't' // 'font'
-	GestaltFrontWindowMayBeHiddenBit  int = 8
-	GestaltFrontWindowMayBeHiddenMask int = 256
-	// GestaltFullExtFSDispatching: # Discussion
-	GestaltFullExtFSDispatching int = 0
-	GestaltGraphicsVersion      int = 'g'<<24 | 'r'<<16 | 'f'<<8 | 'x' // 'grfx'
-	// GestaltHardwareAttr: # Discussion
-	GestaltHardwareAttr     int = 'h'<<24 | 'd'<<16 | 'w'<<8 | 'r' // 'hdwr'
-	GestaltHasASC           int = 3
-	GestaltHasColor         int = 0
-	GestaltHasDeepGWorlds   int = 1
-	GestaltHasDirectPixMaps int = 2
-	GestaltHasEnhancedLtalk int = 30
-	// GestaltHasExtendedDiskInit: # Discussion
-	GestaltHasExtendedDiskInit int = 6
-	GestaltHasFMTuner          int = 7
-	// GestaltHasFSSpecCalls: If this bit is set in the `response` parameter, the operating environment provides the file system specification ([FSSpec]) versions of the basic file-manipulation functions, as well as the [FSMakeFSSpec] function.
-	GestaltHasFSSpecCalls int = 1
-	// GestaltHasFileSystemManager: If this bit is set in the `response` parameter, the File System Manager is present.
-	GestaltHasFileSystemManager   int = 2
-	GestaltHasFloatingWindows     int = 2
-	GestaltHasFloatingWindowsBit  int = 2
-	GestaltHasFloatingWindowsMask int = 4
-	GestaltHasGPIaToDCDa          int = 0
-	GestaltHasGPIaToRTxCa         int = 1
-	GestaltHasGPIbToDCDb          int = 2
-	GestaltHasGrayishTextOr       int = 3
-	// GestaltHasHFSPlusAPIs: # Discussion
-	GestaltHasHFSPlusAPIs        int = 12
-	GestaltHasHWClosedCaptioning int = 2
-	GestaltHasIRRemote           int = 3
-	GestaltHasParityCapability   int = 0
-	GestaltHasResourceOverrides  int = 1
-	// GestaltHasSCC: # Discussion
-	GestaltHasSCC int = 4
-	// GestaltHasSCSI: The `gestaltHasSCSI` bit means the machine is equipped with a SCSI implementation based on the 53C80 chip, which was introduced in the Macintosh Plus.
-	GestaltHasSCSI int = 7
-	// GestaltHasSCSI961: This bit is set if the machine has a SCSI implementation based on the 53C96 chip installed on an internal  bus.
-	GestaltHasSCSI961 int = 21
-	// GestaltHasSCSI962: This bit is set if the machine has a SCSI implementation based on the 53C96 chip installed on an  external bus.
-	GestaltHasSCSI962      int = 22
-	GestaltHasSerialFader  int = 6
-	GestaltHasSoftPowerOff int = 19
-	GestaltHasSoundFader   int = 1
-	// GestaltHasSoundInputDevice: Set if a sound input device is available.
-	GestaltHasSoundInputDevice    int = 5
-	GestaltHasStereoDecoder       int = 5
-	GestaltHasSystemIRFunction    int = 8
-	GestaltHasTVTuner             int = 0
-	GestaltHasUniversalROM        int = 24
-	GestaltHasVIA1                int = 0
-	GestaltHasVIA2                int = 1
-	GestaltHasVidDecoderScaler    int = 4
-	GestaltHasWindowBuffering     int = 3
-	GestaltHasWindowBufferingBit  int = 3
-	GestaltHasWindowBufferingMask int = 8
-	GestaltHasWindowShadowsBit    int = 6
-	GestaltHasWindowShadowsMask   int = 64
-	GestaltHasZoomedVideo         int = 11
-	// GestaltHelpMgrAttr: The selector you pass to the [Gestalt] function to determine the Help Manager attributes.
-	GestaltHelpMgrAttr       int = 'h'<<24 | 'e'<<16 | 'l'<<8 | 'p' // 'help'
-	GestaltHelpMgrExtensions int = 1
-	GestaltHelpMgrPresent    int = 0
-	GestaltHidePortA         int = 3
-	GestaltHidePortB         int = 4
-	// GestaltHighLevelMatching: This constant is provided for backward compatibility only.
-	GestaltHighLevelMatching        int = 0
-	GestaltINeedIRPowerOffConfirm   int = 10
-	GestaltIPCSupport               int = 7
-	GestaltIRDisabled               int = 9
-	GestaltInitHeapZerosOutHeapsBit int = 1
-	// GestaltIntel: If the [Gestalt] function returns `gestaltIntel`, the system is is an Intel-based Macintosh.
-	GestaltIntel             int = 10
-	GestaltJapanAdjustADBKbd int = 17
-	// GestaltKeyboardType: # Discussion
-	GestaltKeyboardType int = 'k'<<24 | 'b'<<16 | 'd'<<8 | ' ' // 'kbd '
-	// GestaltLaunchCanReturn: # Discussion
-	GestaltLaunchCanReturn int = 1
-	// GestaltLaunchControl: If this bit is set, the Process Manager is available.
-	GestaltLaunchControl int = 3
-	// GestaltLaunchFullFileSpec: # Discussion
-	GestaltLaunchFullFileSpec int = 2
-	// GestaltLineLevelInput: # Discussion
-	GestaltLineLevelInput int = 9
-	// GestaltLocationErr: Specifies the gestalt function ptr was not in the system heap.
-	GestaltLocationErr    int = -5553
-	GestaltMBLegacy       int = 0
-	GestaltMBMultipleBays int = 2
-	GestaltMBSingleBay    int = 1
-	// GestaltMMUType: The selector you pass to the [Gestalt] function to determine the  type of MMU currently installed.
-	GestaltMMUType                 int = 'm'<<24 | 'm'<<16 | 'u'<<8 | ' ' // 'mmu '
-	GestaltMac512KE                int = 3
-	GestaltMacAndPad               int = 2
-	GestaltMacCentris610           int = 52
-	GestaltMacCentris650           int = 30
-	GestaltMacCentris660AV         int = 60
-	GestaltMacClassic              int = 17
-	GestaltMacColorClassic         int = 49
-	GestaltMacII                   int = 6
-	GestaltMacIIci                 int = 11
-	GestaltMacIIcx                 int = 8
-	GestaltMacIIfx                 int = 13
-	GestaltMacIIsi                 int = 18
-	GestaltMacIIvi                 int = 44
-	GestaltMacIIvm                 int = 45
-	GestaltMacIIvx                 int = 48
-	GestaltMacIIx                  int = 7
-	GestaltMacKbd                  int = 1
-	GestaltMacLC                   int = 19
-	GestaltMacLC475                int = 89
-	GestaltMacLC520                int = 56
-	GestaltMacLC575                int = 92
-	GestaltMacLC580                int = 99
-	GestaltMacLCII                 int = 37
-	GestaltMacLCIII                int = 27
-	GestaltMacOSCompatibilityValue int = 1206
-	GestaltMacOSXQD                int = 0x300
-	GestaltMacOSXQDText            int = 0x200
-	GestaltMacPlus                 int = 4
-	GestaltMacPlusKbd              int = 3
-	GestaltMacQuadra605            int = 94
-	GestaltMacQuadra610            int = 53
-	GestaltMacQuadra630            int = 98
-	GestaltMacQuadra650            int = 36
-	GestaltMacQuadra660AV          int = 60
-	GestaltMacQuadra700            int = 22
-	GestaltMacQuadra800            int = 35
-	GestaltMacQuadra840AV          int = 78
-	GestaltMacQuadra900            int = 20
-	GestaltMacQuadra950            int = 26
-	GestaltMacSE                   int = 5
-	GestaltMacSE030                int = 9
-	GestaltMacTV                   int = 88
-	GestaltMacXL                   int = 2
-	GestaltMachineType             int = 'm'<<24 | 'a'<<16 | 'c'<<8 | 'h' // 'mach'
-	GestaltMediaBay                int = 'm'<<24 | 'b'<<16 | 'e'<<8 | 'h' // 'mbeh'
-	// GestaltMiscAttr: The selector you pass to the [Gestalt] function to determine information about miscellaneous pieces of the Operating System or hardware configuration.
-	GestaltMiscAttr int = 'm'<<24 | 'i'<<16 | 's'<<8 | 'c' // 'misc'
-	// GestaltMixedModeAttr: The Gestalt selector you pass to determine what version of Mixed Mode Manager is present.
-	GestaltMixedModeAttr int = 'm'<<24 | 'i'<<16 | 'x'<<8 | 'd' // 'mixd'
-	// GestaltMixedModeCFM68K: True if Mixed Mode supports CFM-68K calling conventions
-	GestaltMixedModeCFM68K int = 1
-	// GestaltMixedModeCFM68KHasState: True if CFM-68K Mixed Mode exports Save/RestoreMixedModeState
-	GestaltMixedModeCFM68KHasState int = 3
-	// GestaltMixedModeCFM68KHasTrap: True if CFM-68K Mixed Mode implements `_MixedModeDispatch` (versions 1.0.1 and prior did not)
-	GestaltMixedModeCFM68KHasTrap int = 2
-	// GestaltMixedModePowerPC: True if Mixed Mode supports PowerPC ABI calling conventions
-	GestaltMixedModePowerPC int = 0
-	// GestaltMultiChannels: # Discussion
-	GestaltMultiChannels int = 11
-	// GestaltMustUseFCBAccessors: If this bit is set in the `response` parameter, the File Manager no longer supports the low memory globals [FCBSPtr] and [FSFCBLen].
-	GestaltMustUseFCBAccessors int = 13
-	GestaltNativeCPUfamily     int = 'c'<<24 | 'p'<<16 | 'u'<<8 | 'f' // 'cpuf'
-	// GestaltNativeCPUtype: # Discussion
-	GestaltNativeCPUtype       int = 'c'<<24 | 'p'<<16 | 'u'<<8 | 't' // 'cput'
-	GestaltNativeProcessMgrBit int = 19
-	// GestaltNativeTimeMgr: If this bit is set, the native Time Manager is present.
-	GestaltNativeTimeMgr                   int = 4
-	GestaltNativeType1FontSupport          int = 5
-	GestaltNewHandleReturnsZeroedMemoryBit int = 2
-	GestaltNewPtrReturnsZeroedMemoryBit    int = 3
-	GestaltNoFPU                           int = 0
-	GestaltNoMMU                           int = 0
-	GestaltNuBusPresent                    int = 1
-	GestaltOCETB                           int = 0x102
-	GestaltOCEToolboxVersion               int = 'o'<<24 | 'c'<<16 | 'e'<<8 | 't' // 'ocet'
-	// GestaltOFA2available: OFA2 is available.
-	GestaltOFA2available int = 3
-	// GestaltOSAttr: # Discussion
-	GestaltOSAttr             int = 'o'<<24 | 's'<<16 | ' '<<8 | ' ' // 'os  '
-	GestaltOSLCompliantFinder int = 3
-	// GestaltOSLInSystem: A [Gestalt] attribute constant.
-	GestaltOSLInSystem          int = 2
-	GestaltOSXFBCCurrentVersion int = 0x100
-	// GestaltOriginalATSUVersion: Indicates that version 1.0 of ATSUI is installed on the user’s system.
-	GestaltOriginalATSUVersion int = 65536
-	GestaltOriginalQD          int = 0
-	// GestaltOriginalQDText: This is the original version of QuickDraw Text, used through Mac OS 8.1.
-	GestaltOriginalQDText int = 0
-	// GestaltOutlineFonts: If `true`, outline fonts are supported.
-	GestaltOutlineFonts          int = 0
-	GestaltPCCard                int = 'p'<<24 | 'c'<<16 | 'c'<<8 | 'd' // 'pccd'
-	GestaltPCCardFamilyPresent   int = 1
-	GestaltPCCardHasPowerControl int = 2
-	GestaltPCCardSupportsCardBus int = 3
-	// GestaltPMgrCPUIdle: If true the CPU is capable of going into a low–power-consumption state.
-	GestaltPMgrCPUIdle int = 1
-	// GestaltPMgrDispatchExists: If true, Dispatch is present.
-	GestaltPMgrDispatchExists int = 4
-	// GestaltPMgrExists: If true, the Power Manager is present.
-	GestaltPMgrExists int = 0
-	// GestaltPMgrSCC: If true, it is possible to stop the SCC clock, thus effectively turning off the serial ports.
-	GestaltPMgrSCC int = 2
-	// GestaltPMgrSound: If true, it is possible to turn off power to the sound circuits.
-	GestaltPMgrSound                           int = 3
-	GestaltPMgrSupportsAVPowerStateAtSleepWake int = 5
-	// GestaltPPCDragLibPresent: If the bit specified by this mask is set, the Drag Manager PPC Drag Library functions are available.
-	GestaltPPCDragLibPresent      int = 2
-	GestaltPPCQuickTimeLibPresent int = 0
-	GestaltPS2Keyboard            int = 27
-	// GestaltParityAttr: # Discussion
-	GestaltParityAttr    int = 'p'<<24 | 'r'<<16 | 't'<<8 | 'y' // 'prty'
-	GestaltParityEnabled int = 1
-	// GestaltPartialRsrcs: If `true`, partial resources exist.
-	GestaltPartialRsrcs int = 0
-	GestaltPerforma250  int = 49
-	GestaltPerforma450  int = 27
-	GestaltPerforma46x  int = 62
-	GestaltPerforma47x  int = 89
-	GestaltPerforma5300 int = 41
-	GestaltPerforma550  int = 80
-	GestaltPerforma580  int = 99
-	GestaltPerforma600  int = 45
-	GestaltPerforma6300 int = 42
-	GestaltPerforma6360 int = 58
-	GestaltPerforma6400 int = 58
-	// GestaltPlayAndRecord: # Discussion
-	GestaltPlayAndRecord          int = 6
-	GestaltPortADisabled          int = 5
-	GestaltPortBDisabled          int = 6
-	GestaltPortable               int = 10
-	GestaltPortableSlotPresent    int = 4
-	GestaltPortableUSBANSIKbd     int = 37
-	GestaltPortableUSBISOKbd      int = 38
-	GestaltPortableUSBJISKbd      int = 39
-	GestaltPowerBook100           int = 24
-	GestaltPowerBook140           int = 25
-	GestaltPowerBook1400          int = 310
-	GestaltPowerBook145           int = 54
-	GestaltPowerBook150           int = 115
-	GestaltPowerBook160           int = 34
-	GestaltPowerBook165           int = 84
-	GestaltPowerBook165c          int = 50
-	GestaltPowerBook170           int = 21
-	GestaltPowerBook180           int = 33
-	GestaltPowerBook180c          int = 71
-	GestaltPowerBook190           int = 85
-	GestaltPowerBook2400          int = 307
-	GestaltPowerBook3400          int = 306
-	GestaltPowerBook500PPCUpgrade int = 126
-	GestaltPowerBook520           int = 72
-	GestaltPowerBook520c          int = 72
-	GestaltPowerBook5300          int = 128
-	GestaltPowerBook540           int = 72
-	GestaltPowerBook540c          int = 72
-	GestaltPowerBookDuo210        int = 29
-	GestaltPowerBookDuo230        int = 32
-	GestaltPowerBookDuo2300       int = 124
-	GestaltPowerBookDuo250        int = 38
-	GestaltPowerBookDuo270c       int = 77
-	GestaltPowerBookDuo280        int = 102
-	GestaltPowerBookDuo280c       int = 103
-	GestaltPowerBookG3            int = 313
-	GestaltPowerBookG3Series      int = 312
-	GestaltPowerBookG3Series2     int = 314
-	GestaltPowerMac4400           int = 515
-	GestaltPowerMac4400_160       int = 514
-	GestaltPowerMac5200           int = 41
-	GestaltPowerMac5260           int = 41
-	GestaltPowerMac5400           int = 74
-	GestaltPowerMac5500           int = 512
-	GestaltPowerMac6100_60        int = 75
-	GestaltPowerMac6100_66        int = 100
-	GestaltPowerMac6200           int = 42
-	GestaltPowerMac6400           int = 58
-	GestaltPowerMac6500           int = 513
-	GestaltPowerMac7100_66        int = 112
-	GestaltPowerMac7100_80        int = 47
-	GestaltPowerMac7200           int = 108
-	GestaltPowerMac7300           int = 109
-	GestaltPowerMac7500           int = 68
-	GestaltPowerMac7600           int = 68
-	GestaltPowerMac8100_100       int = 55
-	GestaltPowerMac8100_110       int = 40
-	GestaltPowerMac8100_120       int = 12
-	GestaltPowerMac8100_80        int = 65
-	GestaltPowerMac8500           int = 69
-	GestaltPowerMac8600           int = 69
-	GestaltPowerMac9500           int = 67
-	GestaltPowerMac9600           int = 67
-	GestaltPowerMacCentris610     int = 119
-	GestaltPowerMacCentris650     int = 120
-	GestaltPowerMacG3             int = 510
-	GestaltPowerMacLC475          int = 104
-	GestaltPowerMacLC575          int = 105
-	GestaltPowerMacLC630          int = 106
-	GestaltPowerMacNewWorld       int = 406
-	GestaltPowerMacPerforma47x    int = 104
-	GestaltPowerMacPerforma57x    int = 105
-	GestaltPowerMacPerforma63x    int = 106
-	GestaltPowerMacQuadra610      int = 121
-	GestaltPowerMacQuadra630      int = 106
-	GestaltPowerMacQuadra650      int = 122
-	GestaltPowerMacQuadra700      int = 116
-	GestaltPowerMacQuadra800      int = 123
-	GestaltPowerMacQuadra900      int = 117
-	GestaltPowerMacQuadra950      int = 118
-	// GestaltPowerMgrAttr: The [Gestalt] selector you pass to determine which Power Manager capabilities are available.
-	GestaltPowerMgrAttr int = 'p'<<24 | 'o'<<16 | 'w'<<8 | 'r' // 'powr'
-	// GestaltPowerPCValue: If the [Gestalt] function returns `gestaltPowerPC`, the system is a PowerPC Macintosh.
-	GestaltPowerPCValue int = 2
-	// GestaltPowerPCAware: Old name for `gestaltMixedModePowerPC`
-	GestaltPowerPCAware  int = 0
-	GestaltProF16ANSIKbd int = 31
-	GestaltProF16ISOKbd  int = 32
-	GestaltProF16JISKbd  int = 33
-	// GestaltProcessorType: The selector you pass to the [Gestalt] function to determine the type of microprocessor currently running.
-	GestaltProcessorType     int = 'p'<<24 | 'r'<<16 | 'o'<<8 | 'c' // 'proc'
-	GestaltPrtblADBKbd       int = 6
-	GestaltPrtblISOKbd       int = 7
-	GestaltPwrBk99JISKbd     int = 201
-	GestaltPwrBkEKDomKbd     int = 195
-	GestaltPwrBkEKISOKbd     int = 196
-	GestaltPwrBkEKJISKbd     int = 197
-	GestaltPwrBkExtADBKbd    int = 24
-	GestaltPwrBkExtISOKbd    int = 20
-	GestaltPwrBkExtJISKbd    int = 21
-	GestaltPwrBkSubDomKbd    int = 28
-	GestaltPwrBkSubISOKbd    int = 29
-	GestaltPwrBkSubJISKbd    int = 30
-	GestaltPwrBookADBKbd     int = 12
-	GestaltPwrBookISOADBKbd  int = 13
-	GestaltQDHasLongRowBytes int = 5
-	GestaltQDTextFeatures    int = 'q'<<24 | 'd'<<16 | 't'<<8 | 'f' // 'qdtf'
-	GestaltQDTextVersion     int = 'q'<<24 | 'd'<<16 | 't'<<8 | 'x' // 'qdtx'
-	GestaltQuadra605         int = 94
-	GestaltQuadra610         int = 53
-	GestaltQuadra630         int = 98
-	GestaltQuadra650         int = 36
-	GestaltQuadra660AV       int = 60
-	GestaltQuadra700         int = 22
-	GestaltQuadra800         int = 35
-	GestaltQuadra840AV       int = 78
-	GestaltQuadra900         int = 20
-	GestaltQuadra950         int = 26
-	GestaltQuickTimeFeatures int = 'q'<<24 | 't'<<16 | 'r'<<8 | 's' // 'qtrs'
-	// GestaltQuickdrawFeatures: The selector you pass to the [Gestalt] function to determine the QuickDraw features.
-	GestaltQuickdrawFeatures int = 'q'<<24 | 'd'<<16 | 'r'<<8 | 'w' // 'qdrw'
-	// GestaltQuickdrawVersion: The Gestalt selector you pass to determine what version of QuickDraw is present.
-	GestaltQuickdrawVersion             int = 'q'<<24 | 'd'<<16 | ' '<<8 | ' ' // 'qd  '
-	GestaltRMFakeAppleMenuItemsRolledIn int = 1
-	GestaltRMForceSysHeapRolledIn       int = 0
-	GestaltRMSupportsFSCalls            int = 4
-	GestaltRMTypeIndexOrderingReverse   int = 8
-	// GestaltRealTempMemory: If `true`, temporary memory handles are real.
-	GestaltRealTempMemory int = 5
-	// GestaltResourceMgrAttr: The [Gestalt] selector you pass to determine which Resource Manager attributes are present.
-	GestaltResourceMgrAttr          int = 'r'<<24 | 's'<<16 | 'r'<<8 | 'c' // 'rsrc'
-	GestaltResourceMgrBugFixesAttrs int = 'r'<<24 | 'm'<<16 | 'b'<<8 | 'g' // 'rmbg'
-	// GestaltRevisedTimeMgr: If this bit is set, the revised Time Manager is present.
-	GestaltRevisedTimeMgr           int = 2
-	GestaltSCSI                     int = 's'<<24 | 'c'<<16 | 's'<<8 | 'i' // 'scsi'
-	GestaltSCSIPollSIH              int = 3
-	GestaltSCSISlotBoot             int = 2
-	GestaltSE30SlotPresent          int = 3
-	GestaltSESlotPresent            int = 2
-	GestaltSFServer                 int = 0x100
-	GestaltSafeOFAttr               int = 's'<<24 | 'a'<<16 | 'f'<<8 | 'e' // 'safe'
-	GestaltSanityCheckResourceFiles int = 2
-	// GestaltSbitFontSupport: sbit-only fonts are supported.
-	GestaltSbitFontSupport int = 1
-	// GestaltScriptingSupport: # Discussion
-	GestaltScriptingSupport        int = 1
-	GestaltScrollingThrottle       int = 0
-	GestaltSerialArbitrationExists int = 0
-	// GestaltSerialAttr: The selector you pass to the [Gestalt] function to determine the serial hardware attributes of the machine, such as whether or not the GPIa line is connected and can be used for external clocking.
-	GestaltSerialAttr               int = 's'<<24 | 'e'<<16 | 'r'<<8 | ' ' // 'ser '
-	GestaltSetDragImageUpdates      int = 5
-	GestaltSheetsAreWindowModalBit  int = 7
-	GestaltSheetsAreWindowModalMask int = 128
-	// GestaltSlotAttr: The selector you pass to the [Gestalt] function to determine the Slot Manager attributes.
-	GestaltSlotAttr      int = 's'<<24 | 'l'<<16 | 'o'<<8 | 't' // 'slot'
-	GestaltSlotMgrExists int = 0
-	// GestaltSndPlayDoubleBuffer: # Discussion
-	GestaltSndPlayDoubleBuffer int = 10
-	// GestaltSoundAttr: The Gestalt selector which you pass to the [Gestalt] function.
-	GestaltSoundAttr int = 's'<<24 | 'n'<<16 | 'd'<<8 | ' ' // 'snd '
-	// GestaltSoundIOMgrPresent: Set if the Sound Input Manager is available.
-	GestaltSoundIOMgrPresent int = 3
-	// GestaltSpecificMatchSupport: This bit is set if the Thread Manager supports the allocation of threads based on an exact match with the requested stack size.
-	GestaltSpecificMatchSupport int = 1
-	// GestaltSpeechRecognitionAttr: The selector which you pass to the [Gestalt] function to determine the Speech Recognition Manager attributes.
-	GestaltSpeechRecognitionAttr int = 's'<<24 | 'r'<<16 | 't'<<8 | 'a' // 'srta'
-	GestaltSquareMenuBar         int = 2
-	// GestaltStandardTimeMgr: If this bit is set, the original Time Manager is present.
-	GestaltStandardTimeMgr int = 1
-	GestaltStdADBKbd       int = 5
-	GestaltStdISOADBKbd    int = 8
-	// GestaltStereoCapability: Set if the built-in sound hardware is able to produce stereo sounds.
-	GestaltStereoCapability int = 0
-	// GestaltStereoInput: # Discussion
-	GestaltStereoInput int = 8
-	// GestaltStereoMixing: Set if the built-in sound hardware mixes both left and right channels of stereo sound into a single audio signal for the internal speaker.
-	GestaltStereoMixing                          int = 1
-	GestaltSupportsApplicationURL                int = 4
-	GestaltSupportsFSpResourceFileAlreadyOpenBit int = 3
-	GestaltSupportsMirroring                     int = 4
-	// GestaltSysArchitecture: The selector you pass to the [Gestalt] function to determine the native system architecture.
-	GestaltSysArchitecture    int = 's'<<24 | 'y'<<16 | 's'<<8 | 'a' // 'sysa'
-	GestaltSysDebuggerSupport int = 8
-	GestaltSysZoneGrowable    int = 0
-	// GestaltTE1: The version of TextEdit found in Mac IIci ROM.
-	GestaltTE1 int = 1
-	// GestaltTE2: The version of TextEdit shipped with 6.0.4 Script Systems on Mac IIci (Script bug fixes for Mac IIci).
-	GestaltTE2 int = 2
-	// GestaltTE3: The version of TextEdit shipped with 6.0.4 Script Systems (all but Mac IIci).
-	GestaltTE3 int = 3
-	// GestaltTE4: The version of TextEdit shipped in System 7.0.
-	GestaltTE4 int = 4
-	// GestaltTE5: [TextWidthHook] is available in TextEdit.
-	GestaltTE5    int = 5
-	GestaltTVAttr int = 't'<<24 | 'v'<<16 | ' '<<8 | ' ' // 'tv  '
-	// GestaltTelephoneSpeechRecognition: If this bit is set, the Speech Recognition Manager supports telephone input.
-	GestaltTelephoneSpeechRecognition int = 2
-	// GestaltTempMemSupport: If `true`, there is temporary memory support.
-	GestaltTempMemSupport int = 4
-	// GestaltTempMemTracked: If `true`, temporary memory handles are tracked.
-	GestaltTempMemTracked int = 6
-	// GestaltTextEditVersion: The [Gestalt] selector you pass to determine what version of TextEdit is present.
-	GestaltTextEditVersion   int = 't'<<24 | 'e'<<16 | ' '<<8 | ' ' // 'te  '
-	GestaltThirdPartyANSIKbd int = 40
-	GestaltThirdPartyISOKbd  int = 41
-	GestaltThirdPartyJISKbd  int = 42
-	GestaltThreadMgrAttr     int = 't'<<24 | 'h'<<16 | 'd'<<8 | 's' // 'thds'
-	// GestaltThreadMgrPresent: This bit is set if the Thread Manager is present.
-	GestaltThreadMgrPresent int = 0
-	// GestaltThreadsLibraryPresent: This bit is set if the native version of the threads library has been loaded.
-	GestaltThreadsLibraryPresent int = 2
-	// GestaltTimeMgrVersion: The Gestalt selector you pass to determine what version of the Time Manager is present.
-	GestaltTimeMgrVersion   int = 't'<<24 | 'm'<<16 | 'g'<<8 | 'r' // 'tmgr'
-	GestaltUSBAndyANSIKbd   int = 204
-	GestaltUSBAndyISOKbd    int = 205
-	GestaltUSBAndyJISKbd    int = 206
-	GestaltUSBCosmoANSIKbd  int = 198
-	GestaltUSBCosmoISOKbd   int = 199
-	GestaltUSBCosmoJISKbd   int = 200
-	GestaltUSBProF16ANSIKbd int = 34
-	GestaltUSBProF16ISOKbd  int = 35
-	GestaltUSBProF16JISKbd  int = 36
-	// GestaltUndefSelectorErr: Specifies an undefined selector was passed to the Gestalt Manager.
-	GestaltUndefSelectorErr int = -5551
-	// GestaltUnknownErr: Specifies an unknown error.
-	GestaltUnknownErr           int = -5550
-	GestaltUnknownThirdPartyKbd int = 3
-	GestaltVMZerosPagesBit      int = 0
-	// GestaltValueImplementedVers: The first version of the Gestalt Manager that implements this selector.
-	GestaltValueImplementedVers int = 5
-	// GestaltVersion: The selector you pass to the function Gestalt to determine the version of the Gestalt Manager.
-	GestaltVersion                         int = 'v'<<24 | 'e'<<16 | 'r'<<8 | 's' // 'vers'
-	GestaltWSIICanPrintWithoutPrGeneralBit int = 0
-	// GestaltWSIISupport: WSII support is included.
-	GestaltWSIISupport          int = 0
-	GestaltWindowLiveResizeBit  int = 4
-	GestaltWindowLiveResizeMask int = 16
-	// GestaltWindowMgrAttr: # Discussion
-	GestaltWindowMgrAttr int = 'w'<<24 | 'i'<<16 | 'n'<<8 | 'd' // 'wind'
-	// GestaltWindowMgrPresent: If the bit specified by this mask is set, the Window Manager functionality for Appearance Manager 1.1 is available.
-	GestaltWindowMgrPresent         int = 1
-	GestaltWindowMgrPresentBit      int = 0
-	GestaltWindowMgrPresentMask     int = 1
-	GestaltWindowMinimizeToDockBit  int = 5
-	GestaltWindowMinimizeToDockMask int = 32
-	GestaltWorldScriptIIAttr        int = 'w'<<24 | 's'<<16 | 'a'<<8 | 't' // 'wsat'
-	GestaltWorldScriptIIVersion     int = 'd'<<24 | 'o'<<16 | 'u'<<8 | 'b' // 'doub'
-)
-
-type GestaltAFP uint
+type GestaltAFP int32
 
 const (
 	GestaltAFPClient              GestaltAFP = 'a'<<24 | 'f'<<16 | 'p'<<8 | 's' // 'afps'
@@ -5966,7 +5504,7 @@ const (
 	GestaltAFPClient3_8_1         GestaltAFP = 0x9
 	GestaltAFPClient3_8_3         GestaltAFP = 0xa
 	GestaltAFPClient3_8_4         GestaltAFP = 0xb
-	GestaltAFPClientAttributeMask GestaltAFP = 0xffff0000
+	GestaltAFPClientAttributeMask GestaltAFP = -65536
 	GestaltAFPClientCfgRsrc       GestaltAFP = 16
 	GestaltAFPClientMultiReq      GestaltAFP = 31
 	GestaltAFPClientSupportsIP    GestaltAFP = 29
@@ -6017,21 +5555,20 @@ func (e GestaltAFP) String() string {
 	}
 }
 
-type GestaltALM uint
+type GestaltALMAttr uint32
 
 const (
-	GestaltALMAttr               GestaltALM = 't'<<24 | 'r'<<16 | 'i'<<8 | 'p' // 'trip'
-	GestaltALMHasCFMSupport      GestaltALM = 2
-	GestaltALMHasRescanNotifiers GestaltALM = 3
-	GestaltALMHasSFGroup         GestaltALM = 1
-	GestaltALMPresent            GestaltALM = 0
-	GestaltALMVers               GestaltALM = 'w'<<24 | 'a'<<16 | 'l'<<8 | 'k' // 'walk'
+	GestaltALMAttrValue          GestaltALMAttr = 't'<<24 | 'r'<<16 | 'i'<<8 | 'p' // 'trip'
+	GestaltALMHasCFMSupport      GestaltALMAttr = 2
+	GestaltALMHasRescanNotifiers GestaltALMAttr = 3
+	GestaltALMHasSFGroup         GestaltALMAttr = 1
+	GestaltALMPresent            GestaltALMAttr = 0
 )
 
-func (e GestaltALM) String() string {
+func (e GestaltALMAttr) String() string {
 	switch e {
-	case GestaltALMAttr:
-		return "GestaltALMAttr"
+	case GestaltALMAttrValue:
+		return "GestaltALMAttrValue"
 	case GestaltALMHasCFMSupport:
 		return "GestaltALMHasCFMSupport"
 	case GestaltALMHasRescanNotifiers:
@@ -6040,14 +5577,12 @@ func (e GestaltALM) String() string {
 		return "GestaltALMHasSFGroup"
 	case GestaltALMPresent:
 		return "GestaltALMPresent"
-	case GestaltALMVers:
-		return "GestaltALMVers"
 	default:
-		return fmt.Sprintf("GestaltALM(%d)", e)
+		return fmt.Sprintf("GestaltALMAttr(%d)", e)
 	}
 }
 
-type GestaltALMHasSF uint
+type GestaltALMHasSF uint32
 
 const (
 	GestaltALMHasSFLocation GestaltALMHasSF = 1
@@ -6062,7 +5597,9 @@ func (e GestaltALMHasSF) String() string {
 	}
 }
 
-type GestaltATA uint
+const GestaltALMVers uint32 = 'w'<<24 | 'a'<<16 | 'l'<<8 | 'k' // 'walk'
+
+type GestaltATA uint32
 
 const (
 	GestaltATAAttr    GestaltATA = 'a'<<24 | 't'<<16 | 'a'<<8 | ' ' // 'ata '
@@ -6080,7 +5617,7 @@ func (e GestaltATA) String() string {
 	}
 }
 
-type GestaltATSU uint
+type GestaltATSU uint32
 
 const (
 	// GestaltATSUAscentDescentControlsFeature: If the bit specified by this mask is set, ascent and descent controls (`kATSUDescentTag` and `kATSUAscentTag`) are available.
@@ -6158,7 +5695,55 @@ func (e GestaltATSU) String() string {
 	}
 }
 
-type GestaltATalk uint
+type GestaltATSUVersion uint32
+
+const (
+	// GestaltATSUUpdate1: Indicates that version 1.1 of ATSUI is installed on the user’s system.
+	GestaltATSUUpdate1 GestaltATSUVersion = 131072
+	// GestaltATSUUpdate2: Indicates that version 1.2 of ATSUI is installed on the user’s system.
+	GestaltATSUUpdate2 GestaltATSUVersion = 196608
+	// GestaltATSUUpdate3: Indicates that version 2.0 of ATSUI is installed on the user’s system.
+	GestaltATSUUpdate3 GestaltATSUVersion = 262144
+	// GestaltATSUUpdate4: Indicates that ATSUI for a version of macOS from 10.0.1 through 10.0.4 is installed on the user’s system.
+	GestaltATSUUpdate4 GestaltATSUVersion = 327680
+	// GestaltATSUUpdate5: Indicates that version 2.3 of ATSUI is installed on the user’s system.
+	GestaltATSUUpdate5 GestaltATSUVersion = 393216
+	// GestaltATSUUpdate6: Indicates that version 2.4 of ATSUI is installed on the user’s system.
+	GestaltATSUUpdate6 GestaltATSUVersion = 458752
+	// GestaltATSUUpdate7: Indicates that version 2.5 of ATSUI is installed on the user’s system.
+	GestaltATSUUpdate7 GestaltATSUVersion = 524288
+	// GestaltATSUVersionValue: Specifies the version of ATSUI installed on the user’s system.
+	GestaltATSUVersionValue GestaltATSUVersion = 'u'<<24 | 'i'<<16 | 's'<<8 | 'v' // 'uisv'
+	// GestaltOriginalATSUVersion: Indicates that version 1.0 of ATSUI is installed on the user’s system.
+	GestaltOriginalATSUVersion GestaltATSUVersion = 65536
+)
+
+func (e GestaltATSUVersion) String() string {
+	switch e {
+	case GestaltATSUUpdate1:
+		return "GestaltATSUUpdate1"
+	case GestaltATSUUpdate2:
+		return "GestaltATSUUpdate2"
+	case GestaltATSUUpdate3:
+		return "GestaltATSUUpdate3"
+	case GestaltATSUUpdate4:
+		return "GestaltATSUUpdate4"
+	case GestaltATSUUpdate5:
+		return "GestaltATSUUpdate5"
+	case GestaltATSUUpdate6:
+		return "GestaltATSUUpdate6"
+	case GestaltATSUUpdate7:
+		return "GestaltATSUUpdate7"
+	case GestaltATSUVersionValue:
+		return "GestaltATSUVersionValue"
+	case GestaltOriginalATSUVersion:
+		return "GestaltOriginalATSUVersion"
+	default:
+		return fmt.Sprintf("GestaltATSUVersion(%d)", e)
+	}
+}
+
+type GestaltATalk uint32
 
 const (
 	// GestaltATalkVersion: # Discussion
@@ -6174,7 +5759,7 @@ func (e GestaltATalk) String() string {
 	}
 }
 
-type GestaltAUX uint
+type GestaltAUX uint32
 
 const (
 	// GestaltAUXVersion: The version of A/UX if it is currently executing.
@@ -6190,7 +5775,7 @@ func (e GestaltAUX) String() string {
 	}
 }
 
-type GestaltAVLTree uint
+type GestaltAVLTree uint32
 
 const (
 	GestaltAVLTreeAttr                       GestaltAVLTree = 't'<<24 | 'r'<<16 | 'e'<<8 | 'e' // 'tree'
@@ -6214,7 +5799,55 @@ func (e GestaltAVLTree) String() string {
 	}
 }
 
-type GestaltAliasMgr uint
+type GestaltAddressingModeAttr uint32
+
+const (
+	// Gestalt32BitAddressing: If `true`, the operating system is using 32-bit addressing mode.
+	Gestalt32BitAddressing GestaltAddressingModeAttr = 0
+	// Gestalt32BitCapable: If `true`, Machine is 32-bit capable.
+	Gestalt32BitCapable GestaltAddressingModeAttr = 2
+	// Gestalt32BitSysZone: If `true`, there is a 32-bit compatible system zone.
+	Gestalt32BitSysZone GestaltAddressingModeAttr = 1
+	// GestaltAddressingModeAttrValue: The [Gestalt] selector you pass to determine the addressing mode attributes that are present.
+	GestaltAddressingModeAttrValue GestaltAddressingModeAttr = 'a'<<24 | 'd'<<16 | 'd'<<8 | 'r' // 'addr'
+)
+
+func (e GestaltAddressingModeAttr) String() string {
+	switch e {
+	case Gestalt32BitAddressing:
+		return "Gestalt32BitAddressing"
+	case Gestalt32BitCapable:
+		return "Gestalt32BitCapable"
+	case Gestalt32BitSysZone:
+		return "Gestalt32BitSysZone"
+	case GestaltAddressingModeAttrValue:
+		return "GestaltAddressingModeAttrValue"
+	default:
+		return fmt.Sprintf("GestaltAddressingModeAttr(%d)", e)
+	}
+}
+
+type GestaltAdminFeaturesFlagsAttr uint32
+
+const (
+	// GestaltAdminFeaturesFlagsAttrValue: The [Gestalt] selector you pass to determine the admin features that are present.
+	GestaltAdminFeaturesFlagsAttrValue GestaltAdminFeaturesFlagsAttr = 'f'<<24 | 'r'<<16 | 'e'<<8 | 'd' // 'fred'
+	// GestaltFinderUsesSpecialOpenFoldersFile: Specifies that the Finder uses a special file to store the list of open folders.
+	GestaltFinderUsesSpecialOpenFoldersFile GestaltAdminFeaturesFlagsAttr = 0
+)
+
+func (e GestaltAdminFeaturesFlagsAttr) String() string {
+	switch e {
+	case GestaltAdminFeaturesFlagsAttrValue:
+		return "GestaltAdminFeaturesFlagsAttrValue"
+	case GestaltFinderUsesSpecialOpenFoldersFile:
+		return "GestaltFinderUsesSpecialOpenFoldersFile"
+	default:
+		return fmt.Sprintf("GestaltAdminFeaturesFlagsAttr(%d)", e)
+	}
+}
+
+type GestaltAliasMgr uint32
 
 const (
 	// GestaltAliasMgrAttr: The selector you pass to the [Gestalt] function to determine the Alias Manager attributes.
@@ -6257,62 +5890,89 @@ func (e GestaltAliasMgr) String() string {
 	}
 }
 
-type GestaltAppearance uint
+type GestaltAppearanceAttr uint32
 
 const (
-	// GestaltAppearanceAttr: The [Gestalt] selector passed to determine whether the Appearance Manager is present.
-	GestaltAppearanceAttr GestaltAppearance = 'a'<<24 | 'p'<<16 | 'p'<<8 | 'r' // 'appr'
+	// GestaltAppearanceAttrValue: The [Gestalt] selector passed to determine whether the Appearance Manager is present.
+	GestaltAppearanceAttrValue GestaltAppearanceAttr = 'a'<<24 | 'p'<<16 | 'p'<<8 | 'r' // 'appr'
 	// GestaltAppearanceCompatMode: # Discussion
-	GestaltAppearanceCompatMode GestaltAppearance = 1
+	GestaltAppearanceCompatMode GestaltAppearanceAttr = 1
 	// GestaltAppearanceExists: # Discussion
-	GestaltAppearanceExists GestaltAppearance = 0
-	// GestaltAppearanceVersion: # Discussion
-	GestaltAppearanceVersion GestaltAppearance = 'a'<<24 | 'p'<<16 | 'v'<<8 | 'r' // 'apvr'
+	GestaltAppearanceExists GestaltAppearanceAttr = 0
 )
 
-func (e GestaltAppearance) String() string {
+func (e GestaltAppearanceAttr) String() string {
 	switch e {
-	case GestaltAppearanceAttr:
-		return "GestaltAppearanceAttr"
+	case GestaltAppearanceAttrValue:
+		return "GestaltAppearanceAttrValue"
 	case GestaltAppearanceCompatMode:
 		return "GestaltAppearanceCompatMode"
 	case GestaltAppearanceExists:
 		return "GestaltAppearanceExists"
-	case GestaltAppearanceVersion:
-		return "GestaltAppearanceVersion"
 	default:
-		return fmt.Sprintf("GestaltAppearance(%d)", e)
+		return fmt.Sprintf("GestaltAppearanceAttr(%d)", e)
 	}
 }
 
-type GestaltAppleScript uint
+const GestaltAppearanceVersion uint32 = 'a'<<24 | 'p'<<16 | 'v'<<8 | 'r' // 'apvr'
+
+type GestaltAppleEventsAttr uint32
 
 const (
-	// GestaltAppleScriptAttr: # Discussion
-	GestaltAppleScriptAttr           GestaltAppleScript = 'a'<<24 | 's'<<16 | 'c'<<8 | 'r' // 'ascr'
-	GestaltAppleScriptPowerPCSupport GestaltAppleScript = 1
-	// GestaltAppleScriptPresent: A [Gestalt] attribute constant.
-	GestaltAppleScriptPresent GestaltAppleScript = 0
-	// GestaltAppleScriptVersion: # Discussion
-	GestaltAppleScriptVersion GestaltAppleScript = 'a'<<24 | 's'<<16 | 'c'<<8 | 'v' // 'ascv'
+	// GestaltAppleEventsAttrValue: # Discussion
+	GestaltAppleEventsAttrValue GestaltAppleEventsAttr = 'e'<<24 | 'v'<<16 | 'n'<<8 | 't' // 'evnt'
+	// GestaltAppleEventsPresent: A [Gestalt] attribute constant.
+	GestaltAppleEventsPresent GestaltAppleEventsAttr = 0
+	// GestaltOSLInSystem: A [Gestalt] attribute constant.
+	GestaltOSLInSystem GestaltAppleEventsAttr = 2
+	// GestaltScriptingSupport: # Discussion
+	GestaltScriptingSupport       GestaltAppleEventsAttr = 1
+	GestaltSupportsApplicationURL GestaltAppleEventsAttr = 4
 )
 
-func (e GestaltAppleScript) String() string {
+func (e GestaltAppleEventsAttr) String() string {
 	switch e {
-	case GestaltAppleScriptAttr:
-		return "GestaltAppleScriptAttr"
+	case GestaltAppleEventsAttrValue:
+		return "GestaltAppleEventsAttrValue"
+	case GestaltAppleEventsPresent:
+		return "GestaltAppleEventsPresent"
+	case GestaltOSLInSystem:
+		return "GestaltOSLInSystem"
+	case GestaltScriptingSupport:
+		return "GestaltScriptingSupport"
+	case GestaltSupportsApplicationURL:
+		return "GestaltSupportsApplicationURL"
+	default:
+		return fmt.Sprintf("GestaltAppleEventsAttr(%d)", e)
+	}
+}
+
+type GestaltAppleScriptAttr uint32
+
+const (
+	// GestaltAppleScriptAttrValue: # Discussion
+	GestaltAppleScriptAttrValue      GestaltAppleScriptAttr = 'a'<<24 | 's'<<16 | 'c'<<8 | 'r' // 'ascr'
+	GestaltAppleScriptPowerPCSupport GestaltAppleScriptAttr = 1
+	// GestaltAppleScriptPresent: A [Gestalt] attribute constant.
+	GestaltAppleScriptPresent GestaltAppleScriptAttr = 0
+)
+
+func (e GestaltAppleScriptAttr) String() string {
+	switch e {
+	case GestaltAppleScriptAttrValue:
+		return "GestaltAppleScriptAttrValue"
 	case GestaltAppleScriptPowerPCSupport:
 		return "GestaltAppleScriptPowerPCSupport"
 	case GestaltAppleScriptPresent:
 		return "GestaltAppleScriptPresent"
-	case GestaltAppleScriptVersion:
-		return "GestaltAppleScriptVersion"
 	default:
-		return fmt.Sprintf("GestaltAppleScript(%d)", e)
+		return fmt.Sprintf("GestaltAppleScriptAttr(%d)", e)
 	}
 }
 
-type GestaltAppleTalk uint
+const GestaltAppleScriptVersion uint32 = 'a'<<24 | 's'<<16 | 'c'<<8 | 'v' // 'ascv'
+
+type GestaltAppleTalk uint32
 
 const (
 	// GestaltAppleTalkVersion: # Discussion
@@ -6328,7 +5988,25 @@ func (e GestaltAppleTalk) String() string {
 	}
 }
 
-type GestaltBusClk uint
+type GestaltArbitorAttr uint32
+
+const (
+	GestaltArbitorAttrValue        GestaltArbitorAttr = 'a'<<24 | 'r'<<16 | 'b'<<8 | ' ' // 'arb '
+	GestaltSerialArbitrationExists GestaltArbitorAttr = 0
+)
+
+func (e GestaltArbitorAttr) String() string {
+	switch e {
+	case GestaltArbitorAttrValue:
+		return "GestaltArbitorAttrValue"
+	case GestaltSerialArbitrationExists:
+		return "GestaltSerialArbitrationExists"
+	default:
+		return fmt.Sprintf("GestaltArbitorAttr(%d)", e)
+	}
+}
+
+type GestaltBusClk uint32
 
 const (
 	GestaltBusClkSpeed GestaltBusClk = 'b'<<24 | 'c'<<16 | 'l'<<8 | 'k' // 'bclk'
@@ -6343,7 +6021,7 @@ func (e GestaltBusClk) String() string {
 	}
 }
 
-type GestaltBusClkSpeedM uint
+type GestaltBusClkSpeedM uint32
 
 const (
 	GestaltBusClkSpeedMHz GestaltBusClkSpeedM = 'b'<<24 | 'c'<<16 | 'l'<<8 | 'm' // 'bclm'
@@ -6358,7 +6036,7 @@ func (e GestaltBusClkSpeedM) String() string {
 	}
 }
 
-type GestaltCF uint
+type GestaltCF uint32
 
 const (
 	GestaltCFM99Present     GestaltCF = 2
@@ -6385,39 +6063,21 @@ func (e GestaltCF) String() string {
 	}
 }
 
-type GestaltCP uint
+type GestaltCPU486 uint32
 
 const (
-	GestaltCPU486        GestaltCP = 'i'<<24 | '4'<<16 | '8'<<8 | '6' // 'i486'
-	GestaltCPU750FX      GestaltCP = 0x120
-	GestaltCPU970        GestaltCP = 0x139
-	GestaltCPU970FX      GestaltCP = 0x13c
-	GestaltCPU970MP      GestaltCP = 0x144
-	GestaltCPUApollo     GestaltCP = 0x111
-	GestaltCPUG47447     GestaltCP = 0x112
-	GestaltCPUPentium    GestaltCP = 'i'<<24 | '5'<<16 | '8'<<8 | '6' // 'i586'
-	GestaltCPUPentium4   GestaltCP = 'i'<<24 | '5'<<16 | 'i'<<8 | 'v' // 'i5iv'
-	GestaltCPUPentiumII  GestaltCP = 'i'<<24 | '5'<<16 | 'i'<<8 | 'i' // 'i5ii'
-	GestaltCPUPentiumPro GestaltCP = 'i'<<24 | '5'<<16 | 'p'<<8 | 'r' // 'i5pr'
-	GestaltCPUX86        GestaltCP = 'i'<<24 | 'x'<<16 | 'x'<<8 | 'x' // 'ixxx'
+	GestaltCPU486Value   GestaltCPU486 = 'i'<<24 | '4'<<16 | '8'<<8 | '6' // 'i486'
+	GestaltCPUPentium    GestaltCPU486 = 'i'<<24 | '5'<<16 | '8'<<8 | '6' // 'i586'
+	GestaltCPUPentium4   GestaltCPU486 = 'i'<<24 | '5'<<16 | 'i'<<8 | 'v' // 'i5iv'
+	GestaltCPUPentiumII  GestaltCPU486 = 'i'<<24 | '5'<<16 | 'i'<<8 | 'i' // 'i5ii'
+	GestaltCPUPentiumPro GestaltCPU486 = 'i'<<24 | '5'<<16 | 'p'<<8 | 'r' // 'i5pr'
+	GestaltCPUX86        GestaltCPU486 = 'i'<<24 | 'x'<<16 | 'x'<<8 | 'x' // 'ixxx'
 )
 
-func (e GestaltCP) String() string {
+func (e GestaltCPU486) String() string {
 	switch e {
-	case GestaltCPU486:
-		return "GestaltCPU486"
-	case GestaltCPU750FX:
-		return "GestaltCPU750FX"
-	case GestaltCPU970:
-		return "GestaltCPU970"
-	case GestaltCPU970FX:
-		return "GestaltCPU970FX"
-	case GestaltCPU970MP:
-		return "GestaltCPU970MP"
-	case GestaltCPUApollo:
-		return "GestaltCPUApollo"
-	case GestaltCPUG47447:
-		return "GestaltCPUG47447"
+	case GestaltCPU486Value:
+		return "GestaltCPU486Value"
 	case GestaltCPUPentium:
 		return "GestaltCPUPentium"
 	case GestaltCPUPentium4:
@@ -6429,11 +6089,11 @@ func (e GestaltCP) String() string {
 	case GestaltCPUX86:
 		return "GestaltCPUX86"
 	default:
-		return fmt.Sprintf("GestaltCP(%d)", e)
+		return fmt.Sprintf("GestaltCPU486(%d)", e)
 	}
 }
 
-type GestaltCPUAR uint
+type GestaltCPUAR uint32
 
 const (
 	GestaltCPUARM64     GestaltCPUAR = 'a'<<24 | 'x'<<16 | '6'<<8 | '4' // 'ax64'
@@ -6451,7 +6111,37 @@ func (e GestaltCPUAR) String() string {
 	}
 }
 
-type GestaltCRM uint
+type GestaltCPUApollo uint32
+
+const (
+	GestaltCPU750FX       GestaltCPUApollo = 0x120
+	GestaltCPU970         GestaltCPUApollo = 0x139
+	GestaltCPU970FX       GestaltCPUApollo = 0x13c
+	GestaltCPU970MP       GestaltCPUApollo = 0x144
+	GestaltCPUApolloValue GestaltCPUApollo = 0x111
+	GestaltCPUG47447      GestaltCPUApollo = 0x112
+)
+
+func (e GestaltCPUApollo) String() string {
+	switch e {
+	case GestaltCPU750FX:
+		return "GestaltCPU750FX"
+	case GestaltCPU970:
+		return "GestaltCPU970"
+	case GestaltCPU970FX:
+		return "GestaltCPU970FX"
+	case GestaltCPU970MP:
+		return "GestaltCPU970MP"
+	case GestaltCPUApolloValue:
+		return "GestaltCPUApolloValue"
+	case GestaltCPUG47447:
+		return "GestaltCPUG47447"
+	default:
+		return fmt.Sprintf("GestaltCPUApollo(%d)", e)
+	}
+}
+
+type GestaltCRM uint32
 
 const (
 	GestaltCRMAttr          GestaltCRM = 'c'<<24 | 'r'<<16 | 'm'<<8 | ' ' // 'crm '
@@ -6475,7 +6165,7 @@ func (e GestaltCRM) String() string {
 	}
 }
 
-type GestaltCTB uint
+type GestaltCTB uint32
 
 const (
 	// GestaltCTBVersion: The version number of the Communications Toolbox (in the low-order word of the return value).
@@ -6491,7 +6181,7 @@ func (e GestaltCTB) String() string {
 	}
 }
 
-type GestaltCarbon uint
+type GestaltCarbon uint32
 
 const (
 	GestaltCarbonVersion GestaltCarbon = 'c'<<24 | 'b'<<16 | 'o'<<8 | 'n' // 'cbon'
@@ -6506,7 +6196,7 @@ func (e GestaltCarbon) String() string {
 	}
 }
 
-type GestaltCloseView uint
+type GestaltCloseView uint32
 
 const (
 	GestaltCloseViewAttr               GestaltCloseView = 'B'<<24 | 'S'<<16 | 'D'<<8 | 'a' // 'BSDa'
@@ -6527,7 +6217,7 @@ func (e GestaltCloseView) String() string {
 	}
 }
 
-type GestaltCollectionMgr uint
+type GestaltCollectionMgr uint32
 
 const (
 	// GestaltCollectionMgrVersion: Collection Manager version.
@@ -6543,41 +6233,61 @@ func (e GestaltCollectionMgr) String() string {
 	}
 }
 
-type GestaltColor uint
+type GestaltColorMatchingAttr uint32
 
 const (
-	// GestaltColorMatchingVersion: The selector for obtaining version information.
-	GestaltColorMatchingVersion GestaltColor = 'c'<<24 | 'm'<<16 | 't'<<8 | 'c' // 'cmtc'
-	GestaltColorPicker          GestaltColor = 'c'<<24 | 'p'<<16 | 'k'<<8 | 'r' // 'cpkr'
-	GestaltColorPickerVersion   GestaltColor = 'c'<<24 | 'p'<<16 | 'k'<<8 | 'r' // 'cpkr'
-	// GestaltColorSync10: A [Gestalt] response value of `gestaltColorSync10` indicates version 1.0 of the ColorSync Manager is present.
-	GestaltColorSync10 GestaltColor = 0x100
-	// GestaltColorSync104: A [Gestalt] response value of `gestaltColorSync104` indicates version 1.4 of the ColorSync Manager is present.
-	GestaltColorSync104 GestaltColor = 0x104
-	// GestaltColorSync105: A [Gestalt] response value of `gestaltColorSync105` indicates version 1.5 of the ColorSync Manager is present.
-	GestaltColorSync105 GestaltColor = 0x105
-	// GestaltColorSync11: A [Gestalt] response value of `gestaltColorSync11` indicates version 1.0.3 of the ColorSync Manager is present.
-	GestaltColorSync11 GestaltColor = 0x110
-	// GestaltColorSync20: A [Gestalt] response value of `gestaltColorSync20` indicates version 2.0 of the ColorSync Manager is present.
-	GestaltColorSync20 GestaltColor = 0x200
-	// GestaltColorSync21: A [Gestalt] response value of `gestaltColorSync21` indicates version 2.1 of the ColorSync Manager is present.
-	GestaltColorSync21  GestaltColor = 0x210
-	GestaltColorSync211 GestaltColor = 0x211
-	GestaltColorSync212 GestaltColor = 0x212
-	GestaltColorSync213 GestaltColor = 0x213
-	// GestaltColorSync25: A [Gestalt] response value of `gestaltColorSync25` indicates version 2.5 of the ColorSync Manager is present.
-	GestaltColorSync25  GestaltColor = 0x250
-	GestaltColorSync26  GestaltColor = 0x260
-	GestaltColorSync261 GestaltColor = 0x261
-	GestaltColorSync30  GestaltColor = 0x300
+	// GestaltColorMatchingAttrValue: The selector for obtaining version information.
+	GestaltColorMatchingAttrValue GestaltColorMatchingAttr = 'c'<<24 | 'm'<<16 | 't'<<8 | 'a' // 'cmta'
+	// GestaltColorMatchingLibLoaded: This constant is provided for backward compatibility only.
+	GestaltColorMatchingLibLoaded GestaltColorMatchingAttr = 1
+	// GestaltHighLevelMatching: This constant is provided for backward compatibility only.
+	GestaltHighLevelMatching GestaltColorMatchingAttr = 0
 )
 
-func (e GestaltColor) String() string {
+func (e GestaltColorMatchingAttr) String() string {
 	switch e {
-	case GestaltColorMatchingVersion:
-		return "GestaltColorMatchingVersion"
-	case GestaltColorPicker:
-		return "GestaltColorPicker"
+	case GestaltColorMatchingAttrValue:
+		return "GestaltColorMatchingAttrValue"
+	case GestaltColorMatchingLibLoaded:
+		return "GestaltColorMatchingLibLoaded"
+	case GestaltHighLevelMatching:
+		return "GestaltHighLevelMatching"
+	default:
+		return fmt.Sprintf("GestaltColorMatchingAttr(%d)", e)
+	}
+}
+
+type GestaltColorMatchingVersion uint32
+
+const (
+	// GestaltColorMatchingVersionValue: The selector for obtaining version information.
+	GestaltColorMatchingVersionValue GestaltColorMatchingVersion = 'c'<<24 | 'm'<<16 | 't'<<8 | 'c' // 'cmtc'
+	// GestaltColorSync10: A [Gestalt] response value of `gestaltColorSync10` indicates version 1.0 of the ColorSync Manager is present.
+	GestaltColorSync10 GestaltColorMatchingVersion = 0x100
+	// GestaltColorSync104: A [Gestalt] response value of `gestaltColorSync104` indicates version 1.4 of the ColorSync Manager is present.
+	GestaltColorSync104 GestaltColorMatchingVersion = 0x104
+	// GestaltColorSync105: A [Gestalt] response value of `gestaltColorSync105` indicates version 1.5 of the ColorSync Manager is present.
+	GestaltColorSync105 GestaltColorMatchingVersion = 0x105
+	// GestaltColorSync11: A [Gestalt] response value of `gestaltColorSync11` indicates version 1.0.3 of the ColorSync Manager is present.
+	GestaltColorSync11 GestaltColorMatchingVersion = 0x110
+	// GestaltColorSync20: A [Gestalt] response value of `gestaltColorSync20` indicates version 2.0 of the ColorSync Manager is present.
+	GestaltColorSync20 GestaltColorMatchingVersion = 0x200
+	// GestaltColorSync21: A [Gestalt] response value of `gestaltColorSync21` indicates version 2.1 of the ColorSync Manager is present.
+	GestaltColorSync21  GestaltColorMatchingVersion = 0x210
+	GestaltColorSync211 GestaltColorMatchingVersion = 0x211
+	GestaltColorSync212 GestaltColorMatchingVersion = 0x212
+	GestaltColorSync213 GestaltColorMatchingVersion = 0x213
+	// GestaltColorSync25: A [Gestalt] response value of `gestaltColorSync25` indicates version 2.5 of the ColorSync Manager is present.
+	GestaltColorSync25  GestaltColorMatchingVersion = 0x250
+	GestaltColorSync26  GestaltColorMatchingVersion = 0x260
+	GestaltColorSync261 GestaltColorMatchingVersion = 0x261
+	GestaltColorSync30  GestaltColorMatchingVersion = 0x300
+)
+
+func (e GestaltColorMatchingVersion) String() string {
+	switch e {
+	case GestaltColorMatchingVersionValue:
+		return "GestaltColorMatchingVersionValue"
 	case GestaltColorSync10:
 		return "GestaltColorSync10"
 	case GestaltColorSync104:
@@ -6605,11 +6315,27 @@ func (e GestaltColor) String() string {
 	case GestaltColorSync30:
 		return "GestaltColorSync30"
 	default:
-		return fmt.Sprintf("GestaltColor(%d)", e)
+		return fmt.Sprintf("GestaltColorMatchingVersion(%d)", e)
 	}
 }
 
-type GestaltComponent uint
+type GestaltColorPickerVersion uint32
+
+const (
+	GestaltColorPicker             GestaltColorPickerVersion = 'c'<<24 | 'p'<<16 | 'k'<<8 | 'r' // 'cpkr'
+	GestaltColorPickerVersionValue GestaltColorPickerVersion = 'c'<<24 | 'p'<<16 | 'k'<<8 | 'r' // 'cpkr'
+)
+
+func (e GestaltColorPickerVersion) String() string {
+	switch e {
+	case GestaltColorPicker:
+		return "GestaltColorPicker"
+	default:
+		return fmt.Sprintf("GestaltColorPickerVersion(%d)", e)
+	}
+}
+
+type GestaltComponent uint32
 
 const (
 	// GestaltComponentMgr: The [Gestalt] selector you pass to determine what version of the Component Manager is present.
@@ -6628,7 +6354,7 @@ func (e GestaltComponent) String() string {
 	}
 }
 
-type GestaltCompression uint
+type GestaltCompression uint32
 
 const (
 	GestaltCompressionMgr GestaltCompression = 'i'<<24 | 'c'<<16 | 'm'<<8 | 'p' // 'icmp'
@@ -6643,7 +6369,7 @@ func (e GestaltCompression) String() string {
 	}
 }
 
-type GestaltConnMgr uint
+type GestaltConnMgr uint32
 
 const (
 	GestaltConnMgrAttr GestaltConnMgr = 'c'<<24 | 'o'<<16 | 'n'<<8 | 'n' // 'conn'
@@ -6671,7 +6397,7 @@ func (e GestaltConnMgr) String() string {
 	}
 }
 
-type GestaltControl uint
+type GestaltControl uint32
 
 const (
 	// GestaltControlMgrAttr: # Discussion
@@ -6695,7 +6421,7 @@ func (e GestaltControl) String() string {
 	}
 }
 
-type GestaltControlMgr uint
+type GestaltControlMgr uint32
 
 const (
 	GestaltControlMgrVersion GestaltControlMgr = 'c'<<24 | 'm'<<16 | 'v'<<8 | 'r' // 'cmvr'
@@ -6710,37 +6436,36 @@ func (e GestaltControlMgr) String() string {
 	}
 }
 
-type GestaltControlStrip uint
+type GestaltControlStripAttr uint32
 
 const (
-	GestaltControlStripAttr         GestaltControlStrip = 's'<<24 | 'd'<<16 | 'e'<<8 | 'v' // 'sdev'
-	GestaltControlStripExists       GestaltControlStrip = 0
-	GestaltControlStripUserFont     GestaltControlStrip = 2
-	GestaltControlStripUserHotKey   GestaltControlStrip = 3
-	GestaltControlStripVersion      GestaltControlStrip = 'c'<<24 | 's'<<16 | 'v'<<8 | 'r' // 'csvr'
-	GestaltControlStripVersionFixed GestaltControlStrip = 1
+	GestaltControlStripAttrValue    GestaltControlStripAttr = 's'<<24 | 'd'<<16 | 'e'<<8 | 'v' // 'sdev'
+	GestaltControlStripExists       GestaltControlStripAttr = 0
+	GestaltControlStripUserFont     GestaltControlStripAttr = 2
+	GestaltControlStripUserHotKey   GestaltControlStripAttr = 3
+	GestaltControlStripVersionFixed GestaltControlStripAttr = 1
 )
 
-func (e GestaltControlStrip) String() string {
+func (e GestaltControlStripAttr) String() string {
 	switch e {
-	case GestaltControlStripAttr:
-		return "GestaltControlStripAttr"
+	case GestaltControlStripAttrValue:
+		return "GestaltControlStripAttrValue"
 	case GestaltControlStripExists:
 		return "GestaltControlStripExists"
 	case GestaltControlStripUserFont:
 		return "GestaltControlStripUserFont"
 	case GestaltControlStripUserHotKey:
 		return "GestaltControlStripUserHotKey"
-	case GestaltControlStripVersion:
-		return "GestaltControlStripVersion"
 	case GestaltControlStripVersionFixed:
 		return "GestaltControlStripVersionFixed"
 	default:
-		return fmt.Sprintf("GestaltControlStrip(%d)", e)
+		return fmt.Sprintf("GestaltControlStripAttr(%d)", e)
 	}
 }
 
-type GestaltCountOfCP uint
+const GestaltControlStripVersion uint32 = 'c'<<24 | 's'<<16 | 'v'<<8 | 'r' // 'csvr'
+
+type GestaltCountOfCP uint32
 
 const (
 	GestaltCountOfCPUs GestaltCountOfCP = 'c'<<24 | 'p'<<16 | 'u'<<8 | 's' // 'cpus'
@@ -6755,7 +6480,7 @@ func (e GestaltCountOfCP) String() string {
 	}
 }
 
-type GestaltDBAccessMgr uint
+type GestaltDBAccessMgr uint32
 
 const (
 	GestaltDBAccessMgrAttr    GestaltDBAccessMgr = 'd'<<24 | 'b'<<16 | 'a'<<8 | 'c' // 'dbac'
@@ -6773,7 +6498,7 @@ func (e GestaltDBAccessMgr) String() string {
 	}
 }
 
-type GestaltDITLExt uint
+type GestaltDITLExt uint32
 
 const (
 	GestaltDITLExtAttr GestaltDITLExt = 'd'<<24 | 'i'<<16 | 't'<<8 | 'l' // 'ditl'
@@ -6795,7 +6520,7 @@ func (e GestaltDITLExt) String() string {
 	}
 }
 
-type GestaltDTP uint
+type GestaltDTP uint32
 
 const (
 	GestaltDTPInfo GestaltDTP = 'd'<<24 | 't'<<16 | 'p'<<8 | 'x' // 'dtpx'
@@ -6810,7 +6535,7 @@ func (e GestaltDTP) String() string {
 	}
 }
 
-type GestaltDTPFeatures uint
+type GestaltDTPFeatures uint32
 
 const (
 	GestaltDTPFeaturesValue GestaltDTPFeatures = 'd'<<24 | 't'<<16 | 'p'<<8 | 'f' // 'dtpf'
@@ -6828,7 +6553,7 @@ func (e GestaltDTPFeatures) String() string {
 	}
 }
 
-type GestaltDesktopPictures uint
+type GestaltDesktopPictures uint32
 
 const (
 	GestaltDesktopPicturesAttr      GestaltDesktopPictures = 'd'<<24 | 'k'<<16 | 'p'<<8 | 'x' // 'dkpx'
@@ -6849,7 +6574,7 @@ func (e GestaltDesktopPictures) String() string {
 	}
 }
 
-type GestaltDialog uint
+type GestaltDialog uint32
 
 const (
 	// GestaltDialogMgrAttr: # Discussion
@@ -6880,7 +6605,7 @@ func (e GestaltDialog) String() string {
 	}
 }
 
-type GestaltDictionaryMgr uint
+type GestaltDictionaryMgr uint32
 
 const (
 	GestaltDictionaryMgrAttr    GestaltDictionaryMgr = 'd'<<24 | 'i'<<16 | 'c'<<8 | 't' // 'dict'
@@ -6898,7 +6623,7 @@ func (e GestaltDictionaryMgr) String() string {
 	}
 }
 
-type GestaltDigitalSignature uint
+type GestaltDigitalSignature uint32
 
 const (
 	GestaltDigitalSignatureVersion GestaltDigitalSignature = 'd'<<24 | 's'<<16 | 'i'<<8 | 'g' // 'dsig'
@@ -6913,7 +6638,7 @@ func (e GestaltDigitalSignature) String() string {
 	}
 }
 
-type GestaltDiskCache uint
+type GestaltDiskCache uint32
 
 const (
 	// GestaltDiskCacheSize: A selector that you pass to the [Gestalt] function.
@@ -6929,31 +6654,29 @@ func (e GestaltDiskCache) String() string {
 	}
 }
 
-type GestaltDisplayMgr uint
+type GestaltDisplayMgrAttr uint32
 
 const (
-	// GestaltDisplayMgrAttr: The [Gestalt] selector you pass to determine which Display Manager attributes are present.
-	GestaltDisplayMgrAttr GestaltDisplayMgr = 'd'<<24 | 'p'<<16 | 'l'<<8 | 'y' // 'dply'
+	// GestaltDisplayMgrAttrValue: The [Gestalt] selector you pass to determine which Display Manager attributes are present.
+	GestaltDisplayMgrAttrValue GestaltDisplayMgrAttr = 'd'<<24 | 'p'<<16 | 'l'<<8 | 'y' // 'dply'
 	// GestaltDisplayMgrCanConfirm: Not yet supported.
-	GestaltDisplayMgrCanConfirm GestaltDisplayMgr = 4
+	GestaltDisplayMgrCanConfirm GestaltDisplayMgrAttr = 4
 	// GestaltDisplayMgrCanSwitchMirrored: If `true`, the Display Manager can switch modes on mirrored displays.
-	GestaltDisplayMgrCanSwitchMirrored GestaltDisplayMgr = 2
+	GestaltDisplayMgrCanSwitchMirrored GestaltDisplayMgrAttr = 2
 	// GestaltDisplayMgrColorSyncAware: If `true`, Display Manager supports profiles for displays.
-	GestaltDisplayMgrColorSyncAware    GestaltDisplayMgr = 5
-	GestaltDisplayMgrGeneratesProfiles GestaltDisplayMgr = 6
+	GestaltDisplayMgrColorSyncAware    GestaltDisplayMgrAttr = 5
+	GestaltDisplayMgrGeneratesProfiles GestaltDisplayMgrAttr = 6
 	// GestaltDisplayMgrPresent: If `true`, the Display Manager is present.
-	GestaltDisplayMgrPresent GestaltDisplayMgr = 0
+	GestaltDisplayMgrPresent GestaltDisplayMgrAttr = 0
 	// GestaltDisplayMgrSetDepthNotifies: If `true`, and you have registered for notification and you will be notified of depth mode changes.
-	GestaltDisplayMgrSetDepthNotifies GestaltDisplayMgr = 3
-	GestaltDisplayMgrSleepNotifies    GestaltDisplayMgr = 7
-	// GestaltDisplayMgrVers: The [Gestalt] selector you pass to determine what version of the Display Manager is present.
-	GestaltDisplayMgrVers GestaltDisplayMgr = 'd'<<24 | 'p'<<16 | 'l'<<8 | 'v' // 'dplv'
+	GestaltDisplayMgrSetDepthNotifies GestaltDisplayMgrAttr = 3
+	GestaltDisplayMgrSleepNotifies    GestaltDisplayMgrAttr = 7
 )
 
-func (e GestaltDisplayMgr) String() string {
+func (e GestaltDisplayMgrAttr) String() string {
 	switch e {
-	case GestaltDisplayMgrAttr:
-		return "GestaltDisplayMgrAttr"
+	case GestaltDisplayMgrAttrValue:
+		return "GestaltDisplayMgrAttrValue"
 	case GestaltDisplayMgrCanConfirm:
 		return "GestaltDisplayMgrCanConfirm"
 	case GestaltDisplayMgrCanSwitchMirrored:
@@ -6968,14 +6691,53 @@ func (e GestaltDisplayMgr) String() string {
 		return "GestaltDisplayMgrSetDepthNotifies"
 	case GestaltDisplayMgrSleepNotifies:
 		return "GestaltDisplayMgrSleepNotifies"
-	case GestaltDisplayMgrVers:
-		return "GestaltDisplayMgrVers"
 	default:
-		return fmt.Sprintf("GestaltDisplayMgr(%d)", e)
+		return fmt.Sprintf("GestaltDisplayMgrAttr(%d)", e)
 	}
 }
 
-type GestaltDrawSprocket uint
+const GestaltDisplayMgrVers uint32 = 'd'<<24 | 'p'<<16 | 'l'<<8 | 'v' // 'dplv'
+
+type GestaltDragMgrAttr uint32
+
+const (
+	// GestaltCanStartDragInFloatWindow: If the bit specified by this mask is set, the Drag Manager can start a drag in a floating window.
+	GestaltCanStartDragInFloatWindow GestaltDragMgrAttr = 4
+	// GestaltDragMgrAttrValue: The Gestalt selector passed to determine what features of the Drag Manager are present.
+	GestaltDragMgrAttrValue GestaltDragMgrAttr = 'd'<<24 | 'r'<<16 | 'a'<<8 | 'g' // 'drag'
+	// GestaltDragMgrFloatingWind: If the bit specified by this mask is set, the Drag Manager floating window support functions are available.
+	GestaltDragMgrFloatingWind GestaltDragMgrAttr = 1
+	// GestaltDragMgrHasImageSupport: If the bit specified by this mask is set, the Drag Manager image support functions are available.
+	GestaltDragMgrHasImageSupport GestaltDragMgrAttr = 3
+	// GestaltDragMgrPresent: If the bit specified by this mask is set, the Drag Manager functions are available.
+	GestaltDragMgrPresent GestaltDragMgrAttr = 0
+	// GestaltPPCDragLibPresent: If the bit specified by this mask is set, the Drag Manager PPC Drag Library functions are available.
+	GestaltPPCDragLibPresent   GestaltDragMgrAttr = 2
+	GestaltSetDragImageUpdates GestaltDragMgrAttr = 5
+)
+
+func (e GestaltDragMgrAttr) String() string {
+	switch e {
+	case GestaltCanStartDragInFloatWindow:
+		return "GestaltCanStartDragInFloatWindow"
+	case GestaltDragMgrAttrValue:
+		return "GestaltDragMgrAttrValue"
+	case GestaltDragMgrFloatingWind:
+		return "GestaltDragMgrFloatingWind"
+	case GestaltDragMgrHasImageSupport:
+		return "GestaltDragMgrHasImageSupport"
+	case GestaltDragMgrPresent:
+		return "GestaltDragMgrPresent"
+	case GestaltPPCDragLibPresent:
+		return "GestaltPPCDragLibPresent"
+	case GestaltSetDragImageUpdates:
+		return "GestaltSetDragImageUpdates"
+	default:
+		return fmt.Sprintf("GestaltDragMgrAttr(%d)", e)
+	}
+}
+
+type GestaltDrawSprocket uint32
 
 const (
 	GestaltDrawSprocketVersion GestaltDrawSprocket = 'd'<<24 | 's'<<16 | 'p'<<8 | 'v' // 'dspv'
@@ -6990,7 +6752,7 @@ func (e GestaltDrawSprocket) String() string {
 	}
 }
 
-type GestaltEasyAccess uint
+type GestaltEasyAccess uint32
 
 const (
 	GestaltEasyAccessAttr   GestaltEasyAccess = 'e'<<24 | 'a'<<16 | 's'<<8 | 'y' // 'easy'
@@ -7017,7 +6779,7 @@ func (e GestaltEasyAccess) String() string {
 	}
 }
 
-type GestaltEditionMgr uint
+type GestaltEditionMgr uint32
 
 const (
 	GestaltEditionMgrAttr             GestaltEditionMgr = 'e'<<24 | 'd'<<16 | 't'<<8 | 'n' // 'edtn'
@@ -7038,7 +6800,7 @@ func (e GestaltEditionMgr) String() string {
 	}
 }
 
-type GestaltExtToolbox uint
+type GestaltExtToolbox uint32
 
 const (
 	// GestaltExtToolboxTable: The base address of the second half of the Toolbox trap table if the table is discontiguous.
@@ -7054,7 +6816,7 @@ func (e GestaltExtToolbox) String() string {
 	}
 }
 
-type GestaltExtensionTable uint
+type GestaltExtensionTable uint32
 
 const (
 	GestaltExtensionTableVersion GestaltExtensionTable = 'e'<<24 | 't'<<16 | 'b'<<8 | 'l' // 'etbl'
@@ -7069,7 +6831,7 @@ func (e GestaltExtensionTable) String() string {
 	}
 }
 
-type GestaltFB uint
+type GestaltFB uint32
 
 const (
 	GestaltFBCIndexingState    GestaltFB = 'f'<<24 | 'b'<<16 | 'c'<<8 | 'i' // 'fbci'
@@ -7090,7 +6852,116 @@ func (e GestaltFB) String() string {
 	}
 }
 
-type GestaltFSM uint
+type GestaltFBCVersion uint32
+
+const (
+	GestaltFBCCurrentVersion    GestaltFBCVersion = 0x11
+	GestaltFBCVersionValue      GestaltFBCVersion = 'f'<<24 | 'b'<<16 | 'c'<<8 | 'v' // 'fbcv'
+	GestaltOSXFBCCurrentVersion GestaltFBCVersion = 0x100
+)
+
+func (e GestaltFBCVersion) String() string {
+	switch e {
+	case GestaltFBCCurrentVersion:
+		return "GestaltFBCCurrentVersion"
+	case GestaltFBCVersionValue:
+		return "GestaltFBCVersionValue"
+	case GestaltOSXFBCCurrentVersion:
+		return "GestaltOSXFBCCurrentVersion"
+	default:
+		return fmt.Sprintf("GestaltFBCVersion(%d)", e)
+	}
+}
+
+type GestaltFPUType uint32
+
+const (
+	Gestalt68040FPU GestaltFPUType = 3
+	Gestalt68881    GestaltFPUType = 1
+	Gestalt68882    GestaltFPUType = 2
+	// GestaltFPUTypeValue: A constant that represents the type of floating-point unit currently installed, if any.
+	GestaltFPUTypeValue GestaltFPUType = 'f'<<24 | 'p'<<16 | 'u'<<8 | ' ' // 'fpu '
+	GestaltNoFPU        GestaltFPUType = 0
+)
+
+func (e GestaltFPUType) String() string {
+	switch e {
+	case Gestalt68040FPU:
+		return "Gestalt68040FPU"
+	case Gestalt68881:
+		return "Gestalt68881"
+	case Gestalt68882:
+		return "Gestalt68882"
+	case GestaltFPUTypeValue:
+		return "GestaltFPUTypeValue"
+	case GestaltNoFPU:
+		return "GestaltNoFPU"
+	default:
+		return fmt.Sprintf("GestaltFPUType(%d)", e)
+	}
+}
+
+type GestaltFSAttr uint32
+
+const (
+	// GestaltDTMgrSupportsFSM: If this bit is set in the `response` parameter, the desktop database supports File System Manager-based foreign file systems.
+	GestaltDTMgrSupportsFSM GestaltFSAttr = 7
+	// GestaltFSAttrValue: A selector you pass to the [Gestalt] function.
+	GestaltFSAttrValue GestaltFSAttr = 'f'<<24 | 's'<<16 | ' '<<8 | ' ' // 'fs  '
+	// GestaltFSIncompatibleDFA82: If this bit is set in the `response` parameter, VCB and FCB structures are changed; DFA 8.2 is incompatible.
+	GestaltFSIncompatibleDFA82 GestaltFSAttr = 10
+	// GestaltFSMDoesDynamicLoad: If this bit is set in the `response` parameter, the File System Manager supports dynamic loading of external file system code resources.
+	GestaltFSMDoesDynamicLoad GestaltFSAttr = 3
+	// GestaltFSNoMFSVols: If this bit is set in the `response` parameter, the file system does not support MFS volumes.
+	GestaltFSNoMFSVols GestaltFSAttr = 8
+	// GestaltFSSupports2TBVols: If this bit is set in the `response` parameter, the file system supports 2 terabyte volumes.
+	GestaltFSSupports2TBVols GestaltFSAttr = 5
+	// GestaltFSSupports4GBVols: If this bit is set in the `response` parameter, the file system supports 4 gigabyte volumes.
+	GestaltFSSupports4GBVols GestaltFSAttr = 4
+	// GestaltFSSupportsHFSPlusVols: If this bit is set in the `response` parameter, the file system supports HFS Plus volumes.
+	GestaltFSSupportsHFSPlusVols GestaltFSAttr = 9
+	// GestaltFullExtFSDispatching: # Discussion
+	GestaltFullExtFSDispatching GestaltFSAttr = 0
+	// GestaltHasExtendedDiskInit: # Discussion
+	GestaltHasExtendedDiskInit GestaltFSAttr = 6
+	// GestaltHasFSSpecCalls: If this bit is set in the `response` parameter, the operating environment provides the file system specification ([FSSpec]) versions of the basic file-manipulation functions, as well as the [FSMakeFSSpec] function.
+	GestaltHasFSSpecCalls GestaltFSAttr = 1
+	// GestaltHasFileSystemManager: If this bit is set in the `response` parameter, the File System Manager is present.
+	GestaltHasFileSystemManager GestaltFSAttr = 2
+)
+
+func (e GestaltFSAttr) String() string {
+	switch e {
+	case GestaltDTMgrSupportsFSM:
+		return "GestaltDTMgrSupportsFSM"
+	case GestaltFSAttrValue:
+		return "GestaltFSAttrValue"
+	case GestaltFSIncompatibleDFA82:
+		return "GestaltFSIncompatibleDFA82"
+	case GestaltFSMDoesDynamicLoad:
+		return "GestaltFSMDoesDynamicLoad"
+	case GestaltFSNoMFSVols:
+		return "GestaltFSNoMFSVols"
+	case GestaltFSSupports2TBVols:
+		return "GestaltFSSupports2TBVols"
+	case GestaltFSSupports4GBVols:
+		return "GestaltFSSupports4GBVols"
+	case GestaltFSSupportsHFSPlusVols:
+		return "GestaltFSSupportsHFSPlusVols"
+	case GestaltFullExtFSDispatching:
+		return "GestaltFullExtFSDispatching"
+	case GestaltHasExtendedDiskInit:
+		return "GestaltHasExtendedDiskInit"
+	case GestaltHasFSSpecCalls:
+		return "GestaltHasFSSpecCalls"
+	case GestaltHasFileSystemManager:
+		return "GestaltHasFileSystemManager"
+	default:
+		return fmt.Sprintf("GestaltFSAttr(%d)", e)
+	}
+}
+
+type GestaltFSM uint32
 
 const (
 	// GestaltFSMVersion: Pass this selector to the [Gestalt] function to determine the version of the HFS External File Systems Manager (FSM).
@@ -7106,7 +6977,7 @@ func (e GestaltFSM) String() string {
 	}
 }
 
-type GestaltFSSupportsDirectI uint
+type GestaltFSSupportsDirectI uint32
 
 const (
 	GestaltFSSupportsDirectIO GestaltFSSupportsDirectI = 11
@@ -7121,7 +6992,7 @@ func (e GestaltFSSupportsDirectI) String() string {
 	}
 }
 
-type GestaltFXfrMgr uint
+type GestaltFXfrMgr uint32
 
 const (
 	GestaltFXfrMgrAsync GestaltFXfrMgr = 3
@@ -7149,7 +7020,7 @@ func (e GestaltFXfrMgr) String() string {
 	}
 }
 
-type GestaltFileMapping uint
+type GestaltFileMapping uint32
 
 const (
 	GestaltFileMappingAttr             GestaltFileMapping = 'f'<<24 | 'l'<<16 | 'm'<<8 | 'p' // 'flmp'
@@ -7170,7 +7041,42 @@ func (e GestaltFileMapping) String() string {
 	}
 }
 
-type GestaltFindFolderRedirection uint
+type GestaltFindFolderAttr uint32
+
+const (
+	// GestaltFindFolderAttrValue: The selector you pass to the [Gestalt] function to determine the  [FindFolder] function attributes.
+	GestaltFindFolderAttrValue GestaltFindFolderAttr = 'f'<<24 | 'o'<<16 | 'l'<<8 | 'd' // 'fold'
+	GestaltFindFolderPresent   GestaltFindFolderAttr = 0
+	// GestaltFolderDescSupport: If this bit is set, the extended Folder Manager functionality supporting folder descriptors and routings is available.
+	GestaltFolderDescSupport                    GestaltFindFolderAttr = 1
+	GestaltFolderMgrFollowsAliasesWhenResolving GestaltFindFolderAttr = 2
+	GestaltFolderMgrSupportsDomains             GestaltFindFolderAttr = 4
+	GestaltFolderMgrSupportsExtendedCalls       GestaltFindFolderAttr = 3
+	GestaltFolderMgrSupportsFSCalls             GestaltFindFolderAttr = 5
+)
+
+func (e GestaltFindFolderAttr) String() string {
+	switch e {
+	case GestaltFindFolderAttrValue:
+		return "GestaltFindFolderAttrValue"
+	case GestaltFindFolderPresent:
+		return "GestaltFindFolderPresent"
+	case GestaltFolderDescSupport:
+		return "GestaltFolderDescSupport"
+	case GestaltFolderMgrFollowsAliasesWhenResolving:
+		return "GestaltFolderMgrFollowsAliasesWhenResolving"
+	case GestaltFolderMgrSupportsDomains:
+		return "GestaltFolderMgrSupportsDomains"
+	case GestaltFolderMgrSupportsExtendedCalls:
+		return "GestaltFolderMgrSupportsExtendedCalls"
+	case GestaltFolderMgrSupportsFSCalls:
+		return "GestaltFolderMgrSupportsFSCalls"
+	default:
+		return fmt.Sprintf("GestaltFindFolderAttr(%d)", e)
+	}
+}
+
+type GestaltFindFolderRedirection uint32
 
 const (
 	GestaltFindFolderRedirectionAttr GestaltFindFolderRedirection = 'f'<<24 | 'o'<<16 | 'l'<<8 | 'e' // 'fole'
@@ -7185,7 +7091,55 @@ func (e GestaltFindFolderRedirection) String() string {
 	}
 }
 
-type GestaltFirstSlot uint
+type GestaltFinderAttr uint32
+
+const (
+	GestaltFinderAttrValue                          GestaltFinderAttr = 'f'<<24 | 'n'<<16 | 'd'<<8 | 'r' // 'fndr'
+	GestaltFinderCallsAEProcess                     GestaltFinderAttr = 2
+	GestaltFinderDropEvent                          GestaltFinderAttr = 0
+	GestaltFinderFloppyRootComments                 GestaltFinderAttr = 8
+	GestaltFinderFullDragManagerSupport             GestaltFinderAttr = 7
+	GestaltFinderHasClippings                       GestaltFinderAttr = 6
+	GestaltFinderLargeAndNotSavedFlavorsOK          GestaltFinderAttr = 9
+	GestaltFinderMagicPlacement                     GestaltFinderAttr = 1
+	GestaltFinderSupports4GBVolumes                 GestaltFinderAttr = 4
+	GestaltFinderUnderstandsRedirectedDesktopFolder GestaltFinderAttr = 11
+	GestaltFinderUsesExtensibleFolderManager        GestaltFinderAttr = 10
+	GestaltOSLCompliantFinder                       GestaltFinderAttr = 3
+)
+
+func (e GestaltFinderAttr) String() string {
+	switch e {
+	case GestaltFinderAttrValue:
+		return "GestaltFinderAttrValue"
+	case GestaltFinderCallsAEProcess:
+		return "GestaltFinderCallsAEProcess"
+	case GestaltFinderDropEvent:
+		return "GestaltFinderDropEvent"
+	case GestaltFinderFloppyRootComments:
+		return "GestaltFinderFloppyRootComments"
+	case GestaltFinderFullDragManagerSupport:
+		return "GestaltFinderFullDragManagerSupport"
+	case GestaltFinderHasClippings:
+		return "GestaltFinderHasClippings"
+	case GestaltFinderLargeAndNotSavedFlavorsOK:
+		return "GestaltFinderLargeAndNotSavedFlavorsOK"
+	case GestaltFinderMagicPlacement:
+		return "GestaltFinderMagicPlacement"
+	case GestaltFinderSupports4GBVolumes:
+		return "GestaltFinderSupports4GBVolumes"
+	case GestaltFinderUnderstandsRedirectedDesktopFolder:
+		return "GestaltFinderUnderstandsRedirectedDesktopFolder"
+	case GestaltFinderUsesExtensibleFolderManager:
+		return "GestaltFinderUsesExtensibleFolderManager"
+	case GestaltOSLCompliantFinder:
+		return "GestaltOSLCompliantFinder"
+	default:
+		return fmt.Sprintf("GestaltFinderAttr(%d)", e)
+	}
+}
+
+type GestaltFirstSlot uint32
 
 const (
 	// GestaltFirstSlotNumber: The first physical slot.
@@ -7201,7 +7155,7 @@ func (e GestaltFirstSlot) String() string {
 	}
 }
 
-type GestaltFloppy uint
+type GestaltFloppy uint32
 
 const (
 	GestaltFloppyAttr            GestaltFloppy = 'f'<<24 | 'l'<<16 | 'p'<<8 | 'y' // 'flpy'
@@ -7225,7 +7179,27 @@ func (e GestaltFloppy) String() string {
 	}
 }
 
-type GestaltGX uint
+type GestaltFontMgrAttr uint32
+
+const (
+	// GestaltFontMgrAttrValue: The [Gestalt] selector you pass to determine which Font Manager attributes are present.
+	GestaltFontMgrAttrValue GestaltFontMgrAttr = 'f'<<24 | 'o'<<16 | 'n'<<8 | 't' // 'font'
+	// GestaltOutlineFonts: If `true`, outline fonts are supported.
+	GestaltOutlineFonts GestaltFontMgrAttr = 0
+)
+
+func (e GestaltFontMgrAttr) String() string {
+	switch e {
+	case GestaltFontMgrAttrValue:
+		return "GestaltFontMgrAttrValue"
+	case GestaltOutlineFonts:
+		return "GestaltOutlineFonts"
+	default:
+		return fmt.Sprintf("GestaltFontMgrAttr(%d)", e)
+	}
+}
+
+type GestaltGX uint32
 
 const (
 	GestaltGXVersion GestaltGX = 'q'<<24 | 'd'<<16 | 'g'<<8 | 'x' // 'qdgx'
@@ -7240,7 +7214,7 @@ func (e GestaltGX) String() string {
 	}
 }
 
-type GestaltGXPrintingMgr uint
+type GestaltGXPrintingMgr uint32
 
 const (
 	GestaltGXPrintingMgrVersion GestaltGXPrintingMgr = 'p'<<24 | 'm'<<16 | 'g'<<8 | 'r' // 'pmgr'
@@ -7255,7 +7229,7 @@ func (e GestaltGXPrintingMgr) String() string {
 	}
 }
 
-type GestaltGraphics uint
+type GestaltGraphics uint32
 
 const (
 	GestaltGraphicsAttr        GestaltGraphics = 'g'<<24 | 'f'<<16 | 'x'<<8 | 'a' // 'gfxa'
@@ -7279,7 +7253,75 @@ func (e GestaltGraphics) String() string {
 	}
 }
 
-type GestaltHardwareVendor uint
+type GestaltGraphicsVersion uint32
+
+const (
+	GestaltCurrentGraphicsVersion GestaltGraphicsVersion = 0x10200
+	GestaltGraphicsVersionValue   GestaltGraphicsVersion = 'g'<<24 | 'r'<<16 | 'f'<<8 | 'x' // 'grfx'
+)
+
+func (e GestaltGraphicsVersion) String() string {
+	switch e {
+	case GestaltCurrentGraphicsVersion:
+		return "GestaltCurrentGraphicsVersion"
+	case GestaltGraphicsVersionValue:
+		return "GestaltGraphicsVersionValue"
+	default:
+		return fmt.Sprintf("GestaltGraphicsVersion(%d)", e)
+	}
+}
+
+type GestaltHardwareAttr uint32
+
+const (
+	// GestaltHardwareAttrValue: # Discussion
+	GestaltHardwareAttrValue GestaltHardwareAttr = 'h'<<24 | 'd'<<16 | 'w'<<8 | 'r' // 'hdwr'
+	GestaltHasASC            GestaltHardwareAttr = 3
+	GestaltHasEnhancedLtalk  GestaltHardwareAttr = 30
+	// GestaltHasSCC: # Discussion
+	GestaltHasSCC GestaltHardwareAttr = 4
+	// GestaltHasSCSI: The `gestaltHasSCSI` bit means the machine is equipped with a SCSI implementation based on the 53C80 chip, which was introduced in the Macintosh Plus.
+	GestaltHasSCSI GestaltHardwareAttr = 7
+	// GestaltHasSCSI961: This bit is set if the machine has a SCSI implementation based on the 53C96 chip installed on an internal  bus.
+	GestaltHasSCSI961 GestaltHardwareAttr = 21
+	// GestaltHasSCSI962: This bit is set if the machine has a SCSI implementation based on the 53C96 chip installed on an  external bus.
+	GestaltHasSCSI962      GestaltHardwareAttr = 22
+	GestaltHasSoftPowerOff GestaltHardwareAttr = 19
+	GestaltHasUniversalROM GestaltHardwareAttr = 24
+	GestaltHasVIA1         GestaltHardwareAttr = 0
+	GestaltHasVIA2         GestaltHardwareAttr = 1
+)
+
+func (e GestaltHardwareAttr) String() string {
+	switch e {
+	case GestaltHardwareAttrValue:
+		return "GestaltHardwareAttrValue"
+	case GestaltHasASC:
+		return "GestaltHasASC"
+	case GestaltHasEnhancedLtalk:
+		return "GestaltHasEnhancedLtalk"
+	case GestaltHasSCC:
+		return "GestaltHasSCC"
+	case GestaltHasSCSI:
+		return "GestaltHasSCSI"
+	case GestaltHasSCSI961:
+		return "GestaltHasSCSI961"
+	case GestaltHasSCSI962:
+		return "GestaltHasSCSI962"
+	case GestaltHasSoftPowerOff:
+		return "GestaltHasSoftPowerOff"
+	case GestaltHasUniversalROM:
+		return "GestaltHasUniversalROM"
+	case GestaltHasVIA1:
+		return "GestaltHasVIA1"
+	case GestaltHasVIA2:
+		return "GestaltHasVIA2"
+	default:
+		return fmt.Sprintf("GestaltHardwareAttr(%d)", e)
+	}
+}
+
+type GestaltHardwareVendor uint32
 
 const (
 	GestaltHardwareVendorApple GestaltHardwareVendor = 'A'<<24 | 'p'<<16 | 'p'<<8 | 'l' // 'Appl'
@@ -7297,7 +7339,39 @@ func (e GestaltHardwareVendor) String() string {
 	}
 }
 
-type GestaltHasSingleWindowMode uint
+type GestaltHasHFSPlusAPIs uint32
+
+const (
+	GestaltFSAllowsConcurrentAsyncIO     GestaltHasHFSPlusAPIs = 17
+	GestaltFSSupportsExclusiveLocks      GestaltHasHFSPlusAPIs = 15
+	GestaltFSSupportsHardLinkDetection   GestaltHasHFSPlusAPIs = 16
+	GestaltFSUsesPOSIXPathsForConversion GestaltHasHFSPlusAPIs = 14
+	// GestaltHasHFSPlusAPIsValue: # Discussion
+	GestaltHasHFSPlusAPIsValue GestaltHasHFSPlusAPIs = 12
+	// GestaltMustUseFCBAccessors: If this bit is set in the `response` parameter, the File Manager no longer supports the low memory globals [FCBSPtr] and [FSFCBLen].
+	GestaltMustUseFCBAccessors GestaltHasHFSPlusAPIs = 13
+)
+
+func (e GestaltHasHFSPlusAPIs) String() string {
+	switch e {
+	case GestaltFSAllowsConcurrentAsyncIO:
+		return "GestaltFSAllowsConcurrentAsyncIO"
+	case GestaltFSSupportsExclusiveLocks:
+		return "GestaltFSSupportsExclusiveLocks"
+	case GestaltFSSupportsHardLinkDetection:
+		return "GestaltFSSupportsHardLinkDetection"
+	case GestaltFSUsesPOSIXPathsForConversion:
+		return "GestaltFSUsesPOSIXPathsForConversion"
+	case GestaltHasHFSPlusAPIsValue:
+		return "GestaltHasHFSPlusAPIsValue"
+	case GestaltMustUseFCBAccessors:
+		return "GestaltMustUseFCBAccessors"
+	default:
+		return fmt.Sprintf("GestaltHasHFSPlusAPIs(%d)", e)
+	}
+}
+
+type GestaltHasSingleWindowMode uint32
 
 const (
 	GestaltHasSingleWindowModeBit  GestaltHasSingleWindowMode = 8
@@ -7315,7 +7389,35 @@ func (e GestaltHasSingleWindowMode) String() string {
 	}
 }
 
-type GestaltIconUtilities uint
+type GestaltHelpMgrAttr uint32
+
+const (
+	GestaltAppleGuideIsDebug GestaltHelpMgrAttr = 30
+	GestaltAppleGuidePresent GestaltHelpMgrAttr = 31
+	// GestaltHelpMgrAttrValue: The selector you pass to the [Gestalt] function to determine the Help Manager attributes.
+	GestaltHelpMgrAttrValue  GestaltHelpMgrAttr = 'h'<<24 | 'e'<<16 | 'l'<<8 | 'p' // 'help'
+	GestaltHelpMgrExtensions GestaltHelpMgrAttr = 1
+	GestaltHelpMgrPresent    GestaltHelpMgrAttr = 0
+)
+
+func (e GestaltHelpMgrAttr) String() string {
+	switch e {
+	case GestaltAppleGuideIsDebug:
+		return "GestaltAppleGuideIsDebug"
+	case GestaltAppleGuidePresent:
+		return "GestaltAppleGuidePresent"
+	case GestaltHelpMgrAttrValue:
+		return "GestaltHelpMgrAttrValue"
+	case GestaltHelpMgrExtensions:
+		return "GestaltHelpMgrExtensions"
+	case GestaltHelpMgrPresent:
+		return "GestaltHelpMgrPresent"
+	default:
+		return fmt.Sprintf("GestaltHelpMgrAttr(%d)", e)
+	}
+}
+
+type GestaltIconUtilities uint32
 
 const (
 	// GestaltIconUtilitiesAttr: # Discussion
@@ -7351,7 +7453,7 @@ func (e GestaltIconUtilities) String() string {
 	}
 }
 
-type GestaltInternal uint
+type GestaltInternal uint32
 
 const (
 	GestaltInternalDisplay GestaltInternal = 'i'<<24 | 'd'<<16 | 's'<<8 | 'p' // 'idsp'
@@ -7366,7 +7468,144 @@ func (e GestaltInternal) String() string {
 	}
 }
 
-type GestaltLogicalPage uint
+type GestaltKeyboardType uint32
+
+const (
+	GestaltADBISOKbdII       GestaltKeyboardType = 11
+	GestaltADBKbdII          GestaltKeyboardType = 10
+	GestaltAppleAdjustADBKbd GestaltKeyboardType = 15
+	GestaltAppleAdjustISOKbd GestaltKeyboardType = 16
+	GestaltAppleAdjustKeypad GestaltKeyboardType = 14
+	GestaltExtADBKbd         GestaltKeyboardType = 4
+	GestaltExtISOADBKbd      GestaltKeyboardType = 9
+	GestaltJapanAdjustADBKbd GestaltKeyboardType = 17
+	// GestaltKeyboardTypeValue: # Discussion
+	GestaltKeyboardTypeValue    GestaltKeyboardType = 'k'<<24 | 'b'<<16 | 'd'<<8 | ' ' // 'kbd '
+	GestaltMacAndPad            GestaltKeyboardType = 2
+	GestaltMacKbd               GestaltKeyboardType = 1
+	GestaltMacPlusKbd           GestaltKeyboardType = 3
+	GestaltPS2Keyboard          GestaltKeyboardType = 27
+	GestaltPortableUSBANSIKbd   GestaltKeyboardType = 37
+	GestaltPortableUSBISOKbd    GestaltKeyboardType = 38
+	GestaltPortableUSBJISKbd    GestaltKeyboardType = 39
+	GestaltPrtblADBKbd          GestaltKeyboardType = 6
+	GestaltPrtblISOKbd          GestaltKeyboardType = 7
+	GestaltPwrBk99JISKbd        GestaltKeyboardType = 201
+	GestaltPwrBkEKDomKbd        GestaltKeyboardType = 195
+	GestaltPwrBkEKISOKbd        GestaltKeyboardType = 196
+	GestaltPwrBkEKJISKbd        GestaltKeyboardType = 197
+	GestaltPwrBkExtADBKbd       GestaltKeyboardType = 24
+	GestaltPwrBkExtISOKbd       GestaltKeyboardType = 20
+	GestaltPwrBkExtJISKbd       GestaltKeyboardType = 21
+	GestaltPwrBkSubDomKbd       GestaltKeyboardType = 28
+	GestaltPwrBkSubISOKbd       GestaltKeyboardType = 29
+	GestaltPwrBkSubJISKbd       GestaltKeyboardType = 30
+	GestaltPwrBookADBKbd        GestaltKeyboardType = 12
+	GestaltPwrBookISOADBKbd     GestaltKeyboardType = 13
+	GestaltStdADBKbd            GestaltKeyboardType = 5
+	GestaltStdISOADBKbd         GestaltKeyboardType = 8
+	GestaltThirdPartyANSIKbd    GestaltKeyboardType = 40
+	GestaltThirdPartyISOKbd     GestaltKeyboardType = 41
+	GestaltThirdPartyJISKbd     GestaltKeyboardType = 42
+	GestaltUSBAndyANSIKbd       GestaltKeyboardType = 204
+	GestaltUSBAndyISOKbd        GestaltKeyboardType = 205
+	GestaltUSBAndyJISKbd        GestaltKeyboardType = 206
+	GestaltUSBCosmoANSIKbd      GestaltKeyboardType = 198
+	GestaltUSBCosmoISOKbd       GestaltKeyboardType = 199
+	GestaltUSBCosmoJISKbd       GestaltKeyboardType = 200
+	GestaltUnknownThirdPartyKbd GestaltKeyboardType = 3
+)
+
+func (e GestaltKeyboardType) String() string {
+	switch e {
+	case GestaltADBISOKbdII:
+		return "GestaltADBISOKbdII"
+	case GestaltADBKbdII:
+		return "GestaltADBKbdII"
+	case GestaltAppleAdjustADBKbd:
+		return "GestaltAppleAdjustADBKbd"
+	case GestaltAppleAdjustISOKbd:
+		return "GestaltAppleAdjustISOKbd"
+	case GestaltAppleAdjustKeypad:
+		return "GestaltAppleAdjustKeypad"
+	case GestaltExtADBKbd:
+		return "GestaltExtADBKbd"
+	case GestaltExtISOADBKbd:
+		return "GestaltExtISOADBKbd"
+	case GestaltJapanAdjustADBKbd:
+		return "GestaltJapanAdjustADBKbd"
+	case GestaltKeyboardTypeValue:
+		return "GestaltKeyboardTypeValue"
+	case GestaltMacAndPad:
+		return "GestaltMacAndPad"
+	case GestaltMacKbd:
+		return "GestaltMacKbd"
+	case GestaltMacPlusKbd:
+		return "GestaltMacPlusKbd"
+	case GestaltPS2Keyboard:
+		return "GestaltPS2Keyboard"
+	case GestaltPortableUSBANSIKbd:
+		return "GestaltPortableUSBANSIKbd"
+	case GestaltPortableUSBISOKbd:
+		return "GestaltPortableUSBISOKbd"
+	case GestaltPortableUSBJISKbd:
+		return "GestaltPortableUSBJISKbd"
+	case GestaltPrtblADBKbd:
+		return "GestaltPrtblADBKbd"
+	case GestaltPrtblISOKbd:
+		return "GestaltPrtblISOKbd"
+	case GestaltPwrBk99JISKbd:
+		return "GestaltPwrBk99JISKbd"
+	case GestaltPwrBkEKDomKbd:
+		return "GestaltPwrBkEKDomKbd"
+	case GestaltPwrBkEKISOKbd:
+		return "GestaltPwrBkEKISOKbd"
+	case GestaltPwrBkEKJISKbd:
+		return "GestaltPwrBkEKJISKbd"
+	case GestaltPwrBkExtADBKbd:
+		return "GestaltPwrBkExtADBKbd"
+	case GestaltPwrBkExtISOKbd:
+		return "GestaltPwrBkExtISOKbd"
+	case GestaltPwrBkExtJISKbd:
+		return "GestaltPwrBkExtJISKbd"
+	case GestaltPwrBkSubDomKbd:
+		return "GestaltPwrBkSubDomKbd"
+	case GestaltPwrBkSubISOKbd:
+		return "GestaltPwrBkSubISOKbd"
+	case GestaltPwrBkSubJISKbd:
+		return "GestaltPwrBkSubJISKbd"
+	case GestaltPwrBookADBKbd:
+		return "GestaltPwrBookADBKbd"
+	case GestaltPwrBookISOADBKbd:
+		return "GestaltPwrBookISOADBKbd"
+	case GestaltStdADBKbd:
+		return "GestaltStdADBKbd"
+	case GestaltStdISOADBKbd:
+		return "GestaltStdISOADBKbd"
+	case GestaltThirdPartyANSIKbd:
+		return "GestaltThirdPartyANSIKbd"
+	case GestaltThirdPartyISOKbd:
+		return "GestaltThirdPartyISOKbd"
+	case GestaltThirdPartyJISKbd:
+		return "GestaltThirdPartyJISKbd"
+	case GestaltUSBAndyANSIKbd:
+		return "GestaltUSBAndyANSIKbd"
+	case GestaltUSBAndyISOKbd:
+		return "GestaltUSBAndyISOKbd"
+	case GestaltUSBAndyJISKbd:
+		return "GestaltUSBAndyJISKbd"
+	case GestaltUSBCosmoANSIKbd:
+		return "GestaltUSBCosmoANSIKbd"
+	case GestaltUSBCosmoISOKbd:
+		return "GestaltUSBCosmoISOKbd"
+	case GestaltUSBCosmoJISKbd:
+		return "GestaltUSBCosmoJISKbd"
+	default:
+		return fmt.Sprintf("GestaltKeyboardType(%d)", e)
+	}
+}
+
+type GestaltLogicalPage uint32
 
 const (
 	// GestaltLogicalPageSize: The logical page size.
@@ -7382,7 +7621,7 @@ func (e GestaltLogicalPage) String() string {
 	}
 }
 
-type GestaltLogicalRAM uint
+type GestaltLogicalRAM uint32
 
 const (
 	// GestaltLogicalRAMSize: # Discussion
@@ -7398,7 +7637,7 @@ func (e GestaltLogicalRAM) String() string {
 	}
 }
 
-type GestaltLowMemory uint
+type GestaltLowMemory uint32
 
 const (
 	// GestaltLowMemorySize: The size (in bytes) of the low-memory area.
@@ -7414,7 +7653,41 @@ func (e GestaltLowMemory) String() string {
 	}
 }
 
-type GestaltMP uint
+type GestaltMMUType uint32
+
+const (
+	Gestalt68030MMU GestaltMMUType = 3
+	Gestalt68040MMU GestaltMMUType = 4
+	Gestalt68851    GestaltMMUType = 2
+	GestaltAMU      GestaltMMUType = 1
+	GestaltEMMU1    GestaltMMUType = 5
+	// GestaltMMUTypeValue: The selector you pass to the [Gestalt] function to determine the  type of MMU currently installed.
+	GestaltMMUTypeValue GestaltMMUType = 'm'<<24 | 'm'<<16 | 'u'<<8 | ' ' // 'mmu '
+	GestaltNoMMU        GestaltMMUType = 0
+)
+
+func (e GestaltMMUType) String() string {
+	switch e {
+	case Gestalt68030MMU:
+		return "Gestalt68030MMU"
+	case Gestalt68040MMU:
+		return "Gestalt68040MMU"
+	case Gestalt68851:
+		return "Gestalt68851"
+	case GestaltAMU:
+		return "GestaltAMU"
+	case GestaltEMMU1:
+		return "GestaltEMMU1"
+	case GestaltMMUTypeValue:
+		return "GestaltMMUTypeValue"
+	case GestaltNoMMU:
+		return "GestaltNoMMU"
+	default:
+		return fmt.Sprintf("GestaltMMUType(%d)", e)
+	}
+}
+
+type GestaltMP uint32
 
 const (
 	// GestaltMPCallableAPIsAttr: The Gestalt selector passed to determine the availability of preemptive system software functions.
@@ -7441,7 +7714,7 @@ func (e GestaltMP) String() string {
 	}
 }
 
-type GestaltMacOSCompatibility uint
+type GestaltMacOSCompatibility uint32
 
 const (
 	GestaltMacOSCompatibilityBoxAttr      GestaltMacOSCompatibility = 'b'<<24 | 'b'<<16 | 'o'<<8 | 'x' // 'bbox'
@@ -7465,7 +7738,7 @@ func (e GestaltMacOSCompatibility) String() string {
 	}
 }
 
-type GestaltMachine uint
+type GestaltMachine uint32
 
 const (
 	// GestaltMachineIcon: # Discussion
@@ -7481,7 +7754,388 @@ func (e GestaltMachine) String() string {
 	}
 }
 
-type GestaltMemoryMap uint
+type GestaltMachineType uint32
+
+const (
+	Gestalt20thAnniversary         GestaltMachineType = 512
+	GestaltAWS6150_60              GestaltMachineType = 75
+	GestaltAWS6150_66              GestaltMachineType = 100
+	GestaltAWS8150_110             GestaltMachineType = 40
+	GestaltAWS8150_80              GestaltMachineType = 65
+	GestaltAWS8550                 GestaltMachineType = 68
+	GestaltAWS9150_120             GestaltMachineType = 57
+	GestaltAWS9150_80              GestaltMachineType = 39
+	GestaltClassic                 GestaltMachineType = 1
+	GestaltClassicII               GestaltMachineType = 23
+	GestaltMac512KE                GestaltMachineType = 3
+	GestaltMacCentris610           GestaltMachineType = 52
+	GestaltMacCentris650           GestaltMachineType = 30
+	GestaltMacCentris660AV         GestaltMachineType = 60
+	GestaltMacClassic              GestaltMachineType = 17
+	GestaltMacColorClassic         GestaltMachineType = 49
+	GestaltMacII                   GestaltMachineType = 6
+	GestaltMacIIci                 GestaltMachineType = 11
+	GestaltMacIIcx                 GestaltMachineType = 8
+	GestaltMacIIfx                 GestaltMachineType = 13
+	GestaltMacIIsi                 GestaltMachineType = 18
+	GestaltMacIIvi                 GestaltMachineType = 44
+	GestaltMacIIvm                 GestaltMachineType = 45
+	GestaltMacIIvx                 GestaltMachineType = 48
+	GestaltMacIIx                  GestaltMachineType = 7
+	GestaltMacLC                   GestaltMachineType = 19
+	GestaltMacLC475                GestaltMachineType = 89
+	GestaltMacLC520                GestaltMachineType = 56
+	GestaltMacLC575                GestaltMachineType = 92
+	GestaltMacLC580                GestaltMachineType = 99
+	GestaltMacLCII                 GestaltMachineType = 37
+	GestaltMacLCIII                GestaltMachineType = 27
+	GestaltMacOSCompatibilityValue GestaltMachineType = 1206
+	GestaltMacPlus                 GestaltMachineType = 4
+	GestaltMacQuadra605            GestaltMachineType = 94
+	GestaltMacQuadra610            GestaltMachineType = 53
+	GestaltMacQuadra630            GestaltMachineType = 98
+	GestaltMacQuadra650            GestaltMachineType = 36
+	GestaltMacQuadra660AV          GestaltMachineType = 60
+	GestaltMacQuadra700            GestaltMachineType = 22
+	GestaltMacQuadra800            GestaltMachineType = 35
+	GestaltMacQuadra840AV          GestaltMachineType = 78
+	GestaltMacQuadra900            GestaltMachineType = 20
+	GestaltMacQuadra950            GestaltMachineType = 26
+	GestaltMacSE                   GestaltMachineType = 5
+	GestaltMacSE030                GestaltMachineType = 9
+	GestaltMacTV                   GestaltMachineType = 88
+	GestaltMacXL                   GestaltMachineType = 2
+	GestaltMachineTypeValue        GestaltMachineType = 'm'<<24 | 'a'<<16 | 'c'<<8 | 'h' // 'mach'
+	GestaltPerforma250             GestaltMachineType = 49
+	GestaltPerforma450             GestaltMachineType = 27
+	GestaltPerforma46x             GestaltMachineType = 62
+	GestaltPerforma47x             GestaltMachineType = 89
+	GestaltPerforma5300            GestaltMachineType = 41
+	GestaltPerforma550             GestaltMachineType = 80
+	GestaltPerforma580             GestaltMachineType = 99
+	GestaltPerforma600             GestaltMachineType = 45
+	GestaltPerforma6300            GestaltMachineType = 42
+	GestaltPerforma6360            GestaltMachineType = 58
+	GestaltPerforma6400            GestaltMachineType = 58
+	GestaltPortable                GestaltMachineType = 10
+	GestaltPowerBook100            GestaltMachineType = 24
+	GestaltPowerBook140            GestaltMachineType = 25
+	GestaltPowerBook1400           GestaltMachineType = 310
+	GestaltPowerBook145            GestaltMachineType = 54
+	GestaltPowerBook150            GestaltMachineType = 115
+	GestaltPowerBook160            GestaltMachineType = 34
+	GestaltPowerBook165            GestaltMachineType = 84
+	GestaltPowerBook165c           GestaltMachineType = 50
+	GestaltPowerBook170            GestaltMachineType = 21
+	GestaltPowerBook180            GestaltMachineType = 33
+	GestaltPowerBook180c           GestaltMachineType = 71
+	GestaltPowerBook190            GestaltMachineType = 85
+	GestaltPowerBook2400           GestaltMachineType = 307
+	GestaltPowerBook3400           GestaltMachineType = 306
+	GestaltPowerBook500PPCUpgrade  GestaltMachineType = 126
+	GestaltPowerBook520            GestaltMachineType = 72
+	GestaltPowerBook520c           GestaltMachineType = 72
+	GestaltPowerBook5300           GestaltMachineType = 128
+	GestaltPowerBook540            GestaltMachineType = 72
+	GestaltPowerBook540c           GestaltMachineType = 72
+	GestaltPowerBookDuo210         GestaltMachineType = 29
+	GestaltPowerBookDuo230         GestaltMachineType = 32
+	GestaltPowerBookDuo2300        GestaltMachineType = 124
+	GestaltPowerBookDuo250         GestaltMachineType = 38
+	GestaltPowerBookDuo270c        GestaltMachineType = 77
+	GestaltPowerBookDuo280         GestaltMachineType = 102
+	GestaltPowerBookDuo280c        GestaltMachineType = 103
+	GestaltPowerBookG3             GestaltMachineType = 313
+	GestaltPowerBookG3Series       GestaltMachineType = 312
+	GestaltPowerBookG3Series2      GestaltMachineType = 314
+	GestaltPowerMac4400            GestaltMachineType = 515
+	GestaltPowerMac4400_160        GestaltMachineType = 514
+	GestaltPowerMac5200            GestaltMachineType = 41
+	GestaltPowerMac5260            GestaltMachineType = 41
+	GestaltPowerMac5400            GestaltMachineType = 74
+	GestaltPowerMac5500            GestaltMachineType = 512
+	GestaltPowerMac6100_60         GestaltMachineType = 75
+	GestaltPowerMac6100_66         GestaltMachineType = 100
+	GestaltPowerMac6200            GestaltMachineType = 42
+	GestaltPowerMac6400            GestaltMachineType = 58
+	GestaltPowerMac6500            GestaltMachineType = 513
+	GestaltPowerMac7100_66         GestaltMachineType = 112
+	GestaltPowerMac7100_80         GestaltMachineType = 47
+	GestaltPowerMac7200            GestaltMachineType = 108
+	GestaltPowerMac7300            GestaltMachineType = 109
+	GestaltPowerMac7500            GestaltMachineType = 68
+	GestaltPowerMac7600            GestaltMachineType = 68
+	GestaltPowerMac8100_100        GestaltMachineType = 55
+	GestaltPowerMac8100_110        GestaltMachineType = 40
+	GestaltPowerMac8100_120        GestaltMachineType = 12
+	GestaltPowerMac8100_80         GestaltMachineType = 65
+	GestaltPowerMac8500            GestaltMachineType = 69
+	GestaltPowerMac8600            GestaltMachineType = 69
+	GestaltPowerMac9500            GestaltMachineType = 67
+	GestaltPowerMac9600            GestaltMachineType = 67
+	GestaltPowerMacCentris610      GestaltMachineType = 119
+	GestaltPowerMacCentris650      GestaltMachineType = 120
+	GestaltPowerMacG3              GestaltMachineType = 510
+	GestaltPowerMacLC475           GestaltMachineType = 104
+	GestaltPowerMacLC575           GestaltMachineType = 105
+	GestaltPowerMacLC630           GestaltMachineType = 106
+	GestaltPowerMacNewWorld        GestaltMachineType = 406
+	GestaltPowerMacPerforma47x     GestaltMachineType = 104
+	GestaltPowerMacPerforma57x     GestaltMachineType = 105
+	GestaltPowerMacPerforma63x     GestaltMachineType = 106
+	GestaltPowerMacQuadra610       GestaltMachineType = 121
+	GestaltPowerMacQuadra630       GestaltMachineType = 106
+	GestaltPowerMacQuadra650       GestaltMachineType = 122
+	GestaltPowerMacQuadra700       GestaltMachineType = 116
+	GestaltPowerMacQuadra800       GestaltMachineType = 123
+	GestaltPowerMacQuadra900       GestaltMachineType = 117
+	GestaltPowerMacQuadra950       GestaltMachineType = 118
+)
+
+func (e GestaltMachineType) String() string {
+	switch e {
+	case Gestalt20thAnniversary:
+		return "Gestalt20thAnniversary"
+	case GestaltAWS6150_60:
+		return "GestaltAWS6150_60"
+	case GestaltAWS6150_66:
+		return "GestaltAWS6150_66"
+	case GestaltAWS8150_110:
+		return "GestaltAWS8150_110"
+	case GestaltAWS8150_80:
+		return "GestaltAWS8150_80"
+	case GestaltAWS8550:
+		return "GestaltAWS8550"
+	case GestaltAWS9150_120:
+		return "GestaltAWS9150_120"
+	case GestaltAWS9150_80:
+		return "GestaltAWS9150_80"
+	case GestaltClassic:
+		return "GestaltClassic"
+	case GestaltClassicII:
+		return "GestaltClassicII"
+	case GestaltMac512KE:
+		return "GestaltMac512KE"
+	case GestaltMacCentris610:
+		return "GestaltMacCentris610"
+	case GestaltMacCentris650:
+		return "GestaltMacCentris650"
+	case GestaltMacCentris660AV:
+		return "GestaltMacCentris660AV"
+	case GestaltMacClassic:
+		return "GestaltMacClassic"
+	case GestaltMacColorClassic:
+		return "GestaltMacColorClassic"
+	case GestaltMacII:
+		return "GestaltMacII"
+	case GestaltMacIIci:
+		return "GestaltMacIIci"
+	case GestaltMacIIcx:
+		return "GestaltMacIIcx"
+	case GestaltMacIIfx:
+		return "GestaltMacIIfx"
+	case GestaltMacIIsi:
+		return "GestaltMacIIsi"
+	case GestaltMacIIvi:
+		return "GestaltMacIIvi"
+	case GestaltMacIIvm:
+		return "GestaltMacIIvm"
+	case GestaltMacIIvx:
+		return "GestaltMacIIvx"
+	case GestaltMacIIx:
+		return "GestaltMacIIx"
+	case GestaltMacLC:
+		return "GestaltMacLC"
+	case GestaltMacLC475:
+		return "GestaltMacLC475"
+	case GestaltMacLC520:
+		return "GestaltMacLC520"
+	case GestaltMacLC575:
+		return "GestaltMacLC575"
+	case GestaltMacLC580:
+		return "GestaltMacLC580"
+	case GestaltMacLCII:
+		return "GestaltMacLCII"
+	case GestaltMacLCIII:
+		return "GestaltMacLCIII"
+	case GestaltMacOSCompatibilityValue:
+		return "GestaltMacOSCompatibilityValue"
+	case GestaltMacPlus:
+		return "GestaltMacPlus"
+	case GestaltMacQuadra605:
+		return "GestaltMacQuadra605"
+	case GestaltMacQuadra610:
+		return "GestaltMacQuadra610"
+	case GestaltMacQuadra630:
+		return "GestaltMacQuadra630"
+	case GestaltMacQuadra650:
+		return "GestaltMacQuadra650"
+	case GestaltMacQuadra700:
+		return "GestaltMacQuadra700"
+	case GestaltMacQuadra800:
+		return "GestaltMacQuadra800"
+	case GestaltMacQuadra840AV:
+		return "GestaltMacQuadra840AV"
+	case GestaltMacQuadra900:
+		return "GestaltMacQuadra900"
+	case GestaltMacQuadra950:
+		return "GestaltMacQuadra950"
+	case GestaltMacSE:
+		return "GestaltMacSE"
+	case GestaltMacSE030:
+		return "GestaltMacSE030"
+	case GestaltMacTV:
+		return "GestaltMacTV"
+	case GestaltMacXL:
+		return "GestaltMacXL"
+	case GestaltMachineTypeValue:
+		return "GestaltMachineTypeValue"
+	case GestaltPerforma46x:
+		return "GestaltPerforma46x"
+	case GestaltPerforma5300:
+		return "GestaltPerforma5300"
+	case GestaltPerforma550:
+		return "GestaltPerforma550"
+	case GestaltPerforma6300:
+		return "GestaltPerforma6300"
+	case GestaltPerforma6360:
+		return "GestaltPerforma6360"
+	case GestaltPortable:
+		return "GestaltPortable"
+	case GestaltPowerBook100:
+		return "GestaltPowerBook100"
+	case GestaltPowerBook140:
+		return "GestaltPowerBook140"
+	case GestaltPowerBook1400:
+		return "GestaltPowerBook1400"
+	case GestaltPowerBook145:
+		return "GestaltPowerBook145"
+	case GestaltPowerBook150:
+		return "GestaltPowerBook150"
+	case GestaltPowerBook160:
+		return "GestaltPowerBook160"
+	case GestaltPowerBook165:
+		return "GestaltPowerBook165"
+	case GestaltPowerBook165c:
+		return "GestaltPowerBook165c"
+	case GestaltPowerBook170:
+		return "GestaltPowerBook170"
+	case GestaltPowerBook180:
+		return "GestaltPowerBook180"
+	case GestaltPowerBook180c:
+		return "GestaltPowerBook180c"
+	case GestaltPowerBook190:
+		return "GestaltPowerBook190"
+	case GestaltPowerBook2400:
+		return "GestaltPowerBook2400"
+	case GestaltPowerBook3400:
+		return "GestaltPowerBook3400"
+	case GestaltPowerBook500PPCUpgrade:
+		return "GestaltPowerBook500PPCUpgrade"
+	case GestaltPowerBook520:
+		return "GestaltPowerBook520"
+	case GestaltPowerBook5300:
+		return "GestaltPowerBook5300"
+	case GestaltPowerBookDuo210:
+		return "GestaltPowerBookDuo210"
+	case GestaltPowerBookDuo230:
+		return "GestaltPowerBookDuo230"
+	case GestaltPowerBookDuo2300:
+		return "GestaltPowerBookDuo2300"
+	case GestaltPowerBookDuo250:
+		return "GestaltPowerBookDuo250"
+	case GestaltPowerBookDuo270c:
+		return "GestaltPowerBookDuo270c"
+	case GestaltPowerBookDuo280:
+		return "GestaltPowerBookDuo280"
+	case GestaltPowerBookDuo280c:
+		return "GestaltPowerBookDuo280c"
+	case GestaltPowerBookG3:
+		return "GestaltPowerBookG3"
+	case GestaltPowerBookG3Series:
+		return "GestaltPowerBookG3Series"
+	case GestaltPowerBookG3Series2:
+		return "GestaltPowerBookG3Series2"
+	case GestaltPowerMac4400:
+		return "GestaltPowerMac4400"
+	case GestaltPowerMac4400_160:
+		return "GestaltPowerMac4400_160"
+	case GestaltPowerMac5400:
+		return "GestaltPowerMac5400"
+	case GestaltPowerMac6500:
+		return "GestaltPowerMac6500"
+	case GestaltPowerMac7100_66:
+		return "GestaltPowerMac7100_66"
+	case GestaltPowerMac7100_80:
+		return "GestaltPowerMac7100_80"
+	case GestaltPowerMac7200:
+		return "GestaltPowerMac7200"
+	case GestaltPowerMac7300:
+		return "GestaltPowerMac7300"
+	case GestaltPowerMac8100_100:
+		return "GestaltPowerMac8100_100"
+	case GestaltPowerMac8100_120:
+		return "GestaltPowerMac8100_120"
+	case GestaltPowerMac8500:
+		return "GestaltPowerMac8500"
+	case GestaltPowerMac9500:
+		return "GestaltPowerMac9500"
+	case GestaltPowerMacCentris610:
+		return "GestaltPowerMacCentris610"
+	case GestaltPowerMacCentris650:
+		return "GestaltPowerMacCentris650"
+	case GestaltPowerMacG3:
+		return "GestaltPowerMacG3"
+	case GestaltPowerMacLC475:
+		return "GestaltPowerMacLC475"
+	case GestaltPowerMacLC575:
+		return "GestaltPowerMacLC575"
+	case GestaltPowerMacLC630:
+		return "GestaltPowerMacLC630"
+	case GestaltPowerMacNewWorld:
+		return "GestaltPowerMacNewWorld"
+	case GestaltPowerMacQuadra610:
+		return "GestaltPowerMacQuadra610"
+	case GestaltPowerMacQuadra650:
+		return "GestaltPowerMacQuadra650"
+	case GestaltPowerMacQuadra700:
+		return "GestaltPowerMacQuadra700"
+	case GestaltPowerMacQuadra800:
+		return "GestaltPowerMacQuadra800"
+	case GestaltPowerMacQuadra900:
+		return "GestaltPowerMacQuadra900"
+	case GestaltPowerMacQuadra950:
+		return "GestaltPowerMacQuadra950"
+	default:
+		return fmt.Sprintf("GestaltMachineType(%d)", e)
+	}
+}
+
+type GestaltMediaBay uint32
+
+const (
+	GestaltMBLegacy       GestaltMediaBay = 0
+	GestaltMBMultipleBays GestaltMediaBay = 2
+	GestaltMBSingleBay    GestaltMediaBay = 1
+	GestaltMediaBayValue  GestaltMediaBay = 'm'<<24 | 'b'<<16 | 'e'<<8 | 'h' // 'mbeh'
+)
+
+func (e GestaltMediaBay) String() string {
+	switch e {
+	case GestaltMBLegacy:
+		return "GestaltMBLegacy"
+	case GestaltMBMultipleBays:
+		return "GestaltMBMultipleBays"
+	case GestaltMBSingleBay:
+		return "GestaltMBSingleBay"
+	case GestaltMediaBayValue:
+		return "GestaltMediaBayValue"
+	default:
+		return fmt.Sprintf("GestaltMediaBay(%d)", e)
+	}
+}
+
+type GestaltMemoryMap uint32
 
 const (
 	GestaltMemoryMapAttr   GestaltMemoryMap = 'm'<<24 | 'm'<<16 | 'a'<<8 | 'p' // 'mmap'
@@ -7499,7 +8153,7 @@ func (e GestaltMemoryMap) String() string {
 	}
 }
 
-type GestaltMenuMgr uint
+type GestaltMenuMgr uint32
 
 const (
 	GestaltMenuMgrAquaLayoutBit  GestaltMenuMgr = 1
@@ -7553,7 +8207,7 @@ func (e GestaltMenuMgr) String() string {
 	}
 }
 
-type GestaltMessageMgr uint
+type GestaltMessageMgr uint32
 
 const (
 	GestaltMessageMgrVersion GestaltMessageMgr = 'm'<<24 | 'e'<<16 | 's'<<8 | 's' // 'mess'
@@ -7568,7 +8222,29 @@ func (e GestaltMessageMgr) String() string {
 	}
 }
 
-type GestaltMixedMode uint
+type GestaltMiscAttr uint32
+
+const (
+	// GestaltMiscAttrValue: The selector you pass to the [Gestalt] function to determine information about miscellaneous pieces of the Operating System or hardware configuration.
+	GestaltMiscAttrValue     GestaltMiscAttr = 'm'<<24 | 'i'<<16 | 's'<<8 | 'c' // 'misc'
+	GestaltScrollingThrottle GestaltMiscAttr = 0
+	GestaltSquareMenuBar     GestaltMiscAttr = 2
+)
+
+func (e GestaltMiscAttr) String() string {
+	switch e {
+	case GestaltMiscAttrValue:
+		return "GestaltMiscAttrValue"
+	case GestaltScrollingThrottle:
+		return "GestaltScrollingThrottle"
+	case GestaltSquareMenuBar:
+		return "GestaltSquareMenuBar"
+	default:
+		return fmt.Sprintf("GestaltMiscAttr(%d)", e)
+	}
+}
+
+type GestaltMixedMode uint32
 
 const (
 	// GestaltMixedModeVersion: The selector you pass to the [Gestalt] function to determine the  version of Mixed Mode Manager.
@@ -7584,7 +8260,41 @@ func (e GestaltMixedMode) String() string {
 	}
 }
 
-type GestaltMultipleUsers uint
+type GestaltMixedModeAttr uint32
+
+const (
+	// GestaltMixedModeAttrValue: The Gestalt selector you pass to determine what version of Mixed Mode Manager is present.
+	GestaltMixedModeAttrValue GestaltMixedModeAttr = 'm'<<24 | 'i'<<16 | 'x'<<8 | 'd' // 'mixd'
+	// GestaltMixedModeCFM68K: True if Mixed Mode supports CFM-68K calling conventions
+	GestaltMixedModeCFM68K GestaltMixedModeAttr = 1
+	// GestaltMixedModeCFM68KHasState: True if CFM-68K Mixed Mode exports Save/RestoreMixedModeState
+	GestaltMixedModeCFM68KHasState GestaltMixedModeAttr = 3
+	// GestaltMixedModeCFM68KHasTrap: True if CFM-68K Mixed Mode implements `_MixedModeDispatch` (versions 1.0.1 and prior did not)
+	GestaltMixedModeCFM68KHasTrap GestaltMixedModeAttr = 2
+	// GestaltMixedModePowerPC: True if Mixed Mode supports PowerPC ABI calling conventions
+	GestaltMixedModePowerPC GestaltMixedModeAttr = 0
+	// GestaltPowerPCAware: Old name for `gestaltMixedModePowerPC`
+	GestaltPowerPCAware GestaltMixedModeAttr = 0
+)
+
+func (e GestaltMixedModeAttr) String() string {
+	switch e {
+	case GestaltMixedModeAttrValue:
+		return "GestaltMixedModeAttrValue"
+	case GestaltMixedModeCFM68K:
+		return "GestaltMixedModeCFM68K"
+	case GestaltMixedModeCFM68KHasState:
+		return "GestaltMixedModeCFM68KHasState"
+	case GestaltMixedModeCFM68KHasTrap:
+		return "GestaltMixedModeCFM68KHasTrap"
+	case GestaltMixedModePowerPC:
+		return "GestaltMixedModePowerPC"
+	default:
+		return fmt.Sprintf("GestaltMixedModeAttr(%d)", e)
+	}
+}
+
+type GestaltMultipleUsers uint32
 
 const (
 	GestaltMultipleUsersState GestaltMultipleUsers = 'm'<<24 | 'f'<<16 | 'd'<<8 | 'r' // 'mfdr'
@@ -7599,7 +8309,7 @@ func (e GestaltMultipleUsers) String() string {
 	}
 }
 
-type GestaltNameRegistry uint
+type GestaltNameRegistry uint32
 
 const (
 	GestaltNameRegistryVersion GestaltNameRegistry = 'n'<<24 | 'r'<<16 | 'e'<<8 | 'g' // 'nreg'
@@ -7614,7 +8324,71 @@ func (e GestaltNameRegistry) String() string {
 	}
 }
 
-type GestaltNotification uint
+type GestaltNativeCPUtype uint32
+
+const (
+	GestaltCPU601          GestaltNativeCPUtype = 0x101
+	GestaltCPU603          GestaltNativeCPUtype = 0x103
+	GestaltCPU603e         GestaltNativeCPUtype = 0x106
+	GestaltCPU603ev        GestaltNativeCPUtype = 0x107
+	GestaltCPU604          GestaltNativeCPUtype = 0x104
+	GestaltCPU604e         GestaltNativeCPUtype = 0x109
+	GestaltCPU604ev        GestaltNativeCPUtype = 0x10a
+	GestaltCPU68000        GestaltNativeCPUtype = 0
+	GestaltCPU68010        GestaltNativeCPUtype = 1
+	GestaltCPU68020        GestaltNativeCPUtype = 2
+	GestaltCPU68030        GestaltNativeCPUtype = 3
+	GestaltCPU68040        GestaltNativeCPUtype = 4
+	GestaltCPU750          GestaltNativeCPUtype = 0x108
+	GestaltCPUG4           GestaltNativeCPUtype = 0x10c
+	GestaltCPUG47450       GestaltNativeCPUtype = 0x110
+	GestaltNativeCPUfamily GestaltNativeCPUtype = 'c'<<24 | 'p'<<16 | 'u'<<8 | 'f' // 'cpuf'
+	// GestaltNativeCPUtypeValue: # Discussion
+	GestaltNativeCPUtypeValue GestaltNativeCPUtype = 'c'<<24 | 'p'<<16 | 'u'<<8 | 't' // 'cput'
+)
+
+func (e GestaltNativeCPUtype) String() string {
+	switch e {
+	case GestaltCPU601:
+		return "GestaltCPU601"
+	case GestaltCPU603:
+		return "GestaltCPU603"
+	case GestaltCPU603e:
+		return "GestaltCPU603e"
+	case GestaltCPU603ev:
+		return "GestaltCPU603ev"
+	case GestaltCPU604:
+		return "GestaltCPU604"
+	case GestaltCPU604e:
+		return "GestaltCPU604e"
+	case GestaltCPU604ev:
+		return "GestaltCPU604ev"
+	case GestaltCPU68000:
+		return "GestaltCPU68000"
+	case GestaltCPU68010:
+		return "GestaltCPU68010"
+	case GestaltCPU68020:
+		return "GestaltCPU68020"
+	case GestaltCPU68030:
+		return "GestaltCPU68030"
+	case GestaltCPU68040:
+		return "GestaltCPU68040"
+	case GestaltCPU750:
+		return "GestaltCPU750"
+	case GestaltCPUG4:
+		return "GestaltCPUG4"
+	case GestaltCPUG47450:
+		return "GestaltCPUG47450"
+	case GestaltNativeCPUfamily:
+		return "GestaltNativeCPUfamily"
+	case GestaltNativeCPUtypeValue:
+		return "GestaltNativeCPUtypeValue"
+	default:
+		return fmt.Sprintf("GestaltNativeCPUtype(%d)", e)
+	}
+}
+
+type GestaltNotification uint32
 
 const (
 	// GestaltNotificationMgrAttr: .The Gestalt selector which you pass to the [Gestalt] function to determine Notification Manager attributes.
@@ -7634,7 +8408,7 @@ func (e GestaltNotification) String() string {
 	}
 }
 
-type GestaltNuBus uint
+type GestaltNuBus uint32
 
 const (
 	// GestaltNuBusConnectors: A bitmap that describes the NuBus slot connector locations.
@@ -7650,7 +8424,7 @@ func (e GestaltNuBus) String() string {
 	}
 }
 
-type GestaltNuBusSlot uint
+type GestaltNuBusSlot uint32
 
 const (
 	GestaltNuBusSlotCount GestaltNuBusSlot = 'n'<<24 | 'u'<<16 | 'b'<<8 | 's' // 'nubs'
@@ -7665,7 +8439,7 @@ func (e GestaltNuBusSlot) String() string {
 	}
 }
 
-type GestaltOCE uint
+type GestaltOCE uint32
 
 const (
 	GestaltOCESFServerAvailable     GestaltOCE = 0x4
@@ -7692,7 +8466,28 @@ func (e GestaltOCE) String() string {
 	}
 }
 
-type GestaltOS uint
+type GestaltOCEToolboxVersion uint32
+
+const (
+	GestaltOCETB                  GestaltOCEToolboxVersion = 0x102
+	GestaltOCEToolboxVersionValue GestaltOCEToolboxVersion = 'o'<<24 | 'c'<<16 | 'e'<<8 | 't' // 'ocet'
+	GestaltSFServer               GestaltOCEToolboxVersion = 0x100
+)
+
+func (e GestaltOCEToolboxVersion) String() string {
+	switch e {
+	case GestaltOCETB:
+		return "GestaltOCETB"
+	case GestaltOCEToolboxVersionValue:
+		return "GestaltOCEToolboxVersionValue"
+	case GestaltSFServer:
+		return "GestaltSFServer"
+	default:
+		return fmt.Sprintf("GestaltOCEToolboxVersion(%d)", e)
+	}
+}
+
+type GestaltOS uint32
 
 const (
 	// GestaltOSTable: The selector you pass to the [Gestalt] function to determine the  base address of the operating system trap dispatch table.
@@ -7708,10 +8503,65 @@ func (e GestaltOS) String() string {
 	}
 }
 
-type GestaltOpen uint
+type GestaltOSAttr uint32
 
 const (
-	GestaltOpenTptValue                GestaltOpen = 'o'<<24 | 't'<<16 | 'a'<<8 | 'n' // 'otan'
+	GestaltAltivecRegistersSwappedCorrectlyBit GestaltOSAttr = 20
+	GestaltIPCSupport                          GestaltOSAttr = 7
+	// GestaltLaunchCanReturn: # Discussion
+	GestaltLaunchCanReturn GestaltOSAttr = 1
+	// GestaltLaunchControl: If this bit is set, the Process Manager is available.
+	GestaltLaunchControl GestaltOSAttr = 3
+	// GestaltLaunchFullFileSpec: # Discussion
+	GestaltLaunchFullFileSpec  GestaltOSAttr = 2
+	GestaltNativeProcessMgrBit GestaltOSAttr = 19
+	// GestaltOSAttrValue: # Discussion
+	GestaltOSAttrValue GestaltOSAttr = 'o'<<24 | 's'<<16 | ' '<<8 | ' ' // 'os  '
+	// GestaltRealTempMemory: If `true`, temporary memory handles are real.
+	GestaltRealTempMemory     GestaltOSAttr = 5
+	GestaltSysDebuggerSupport GestaltOSAttr = 8
+	GestaltSysZoneGrowable    GestaltOSAttr = 0
+	// GestaltTempMemSupport: If `true`, there is temporary memory support.
+	GestaltTempMemSupport GestaltOSAttr = 4
+	// GestaltTempMemTracked: If `true`, temporary memory handles are tracked.
+	GestaltTempMemTracked GestaltOSAttr = 6
+)
+
+func (e GestaltOSAttr) String() string {
+	switch e {
+	case GestaltAltivecRegistersSwappedCorrectlyBit:
+		return "GestaltAltivecRegistersSwappedCorrectlyBit"
+	case GestaltIPCSupport:
+		return "GestaltIPCSupport"
+	case GestaltLaunchCanReturn:
+		return "GestaltLaunchCanReturn"
+	case GestaltLaunchControl:
+		return "GestaltLaunchControl"
+	case GestaltLaunchFullFileSpec:
+		return "GestaltLaunchFullFileSpec"
+	case GestaltNativeProcessMgrBit:
+		return "GestaltNativeProcessMgrBit"
+	case GestaltOSAttrValue:
+		return "GestaltOSAttrValue"
+	case GestaltRealTempMemory:
+		return "GestaltRealTempMemory"
+	case GestaltSysDebuggerSupport:
+		return "GestaltSysDebuggerSupport"
+	case GestaltSysZoneGrowable:
+		return "GestaltSysZoneGrowable"
+	case GestaltTempMemSupport:
+		return "GestaltTempMemSupport"
+	case GestaltTempMemTracked:
+		return "GestaltTempMemTracked"
+	default:
+		return fmt.Sprintf("GestaltOSAttr(%d)", e)
+	}
+}
+
+type GestaltOpen uint32
+
+const (
+	GestaltOpenTpt                     GestaltOpen = 'o'<<24 | 't'<<16 | 'a'<<8 | 'n' // 'otan'
 	GestaltOpenTptAppleTalkLoadedBit   GestaltOpen = 3
 	GestaltOpenTptAppleTalkLoadedMask  GestaltOpen = 0x8
 	GestaltOpenTptAppleTalkPresentBit  GestaltOpen = 2
@@ -7732,8 +8582,8 @@ const (
 
 func (e GestaltOpen) String() string {
 	switch e {
-	case GestaltOpenTptValue:
-		return "GestaltOpenTptValue"
+	case GestaltOpenTpt:
+		return "GestaltOpenTpt"
 	case GestaltOpenTptAppleTalkLoadedBit:
 		return "GestaltOpenTptAppleTalkLoadedBit"
 	case GestaltOpenTptAppleTalkLoadedMask:
@@ -7765,7 +8615,7 @@ func (e GestaltOpen) String() string {
 	}
 }
 
-type GestaltOpenFirmware uint
+type GestaltOpenFirmware uint32
 
 const (
 	GestaltOpenFirmwareInfo GestaltOpenFirmware = 'o'<<24 | 'p'<<16 | 'f'<<8 | 'w' // 'opfw'
@@ -7780,46 +8630,7 @@ func (e GestaltOpenFirmware) String() string {
 	}
 }
 
-type GestaltOpenTpt uint
-
-const (
-	GestaltOpenTptARAPPresent            GestaltOpenTpt = 6
-	GestaltOpenTptPPPPresent             GestaltOpenTpt = 5
-	GestaltOpenTptRemoteAccessValue      GestaltOpenTpt = 'o'<<24 | 't'<<16 | 'r'<<8 | 'a' // 'otra'
-	GestaltOpenTptRemoteAccessClientOnly GestaltOpenTpt = 2
-	GestaltOpenTptRemoteAccessLoaded     GestaltOpenTpt = 1
-	GestaltOpenTptRemoteAccessMPServer   GestaltOpenTpt = 4
-	GestaltOpenTptRemoteAccessPServer    GestaltOpenTpt = 3
-	GestaltOpenTptRemoteAccessPresent    GestaltOpenTpt = 0
-	GestaltOpenTptVersions               GestaltOpenTpt = 'o'<<24 | 't'<<16 | 'v'<<8 | 'r' // 'otvr'
-)
-
-func (e GestaltOpenTpt) String() string {
-	switch e {
-	case GestaltOpenTptARAPPresent:
-		return "GestaltOpenTptARAPPresent"
-	case GestaltOpenTptPPPPresent:
-		return "GestaltOpenTptPPPPresent"
-	case GestaltOpenTptRemoteAccessValue:
-		return "GestaltOpenTptRemoteAccessValue"
-	case GestaltOpenTptRemoteAccessClientOnly:
-		return "GestaltOpenTptRemoteAccessClientOnly"
-	case GestaltOpenTptRemoteAccessLoaded:
-		return "GestaltOpenTptRemoteAccessLoaded"
-	case GestaltOpenTptRemoteAccessMPServer:
-		return "GestaltOpenTptRemoteAccessMPServer"
-	case GestaltOpenTptRemoteAccessPServer:
-		return "GestaltOpenTptRemoteAccessPServer"
-	case GestaltOpenTptRemoteAccessPresent:
-		return "GestaltOpenTptRemoteAccessPresent"
-	case GestaltOpenTptVersions:
-		return "GestaltOpenTptVersions"
-	default:
-		return fmt.Sprintf("GestaltOpenTpt(%d)", e)
-	}
-}
-
-type GestaltOpenTptNetwork uint
+type GestaltOpenTptNetwork uint32
 
 const (
 	GestaltOpenTptNetworkSetupValue               GestaltOpenTptNetwork = 'o'<<24 | 't'<<16 | 'c'<<8 | 'f' // 'otcf'
@@ -7843,7 +8654,7 @@ func (e GestaltOpenTptNetwork) String() string {
 	}
 }
 
-type GestaltOpenTptNetworkSetup uint
+type GestaltOpenTptNetworkSetup uint32
 
 const (
 	GestaltOpenTptNetworkSetupVersion GestaltOpenTptNetworkSetup = 'o'<<24 | 't'<<16 | 'c'<<8 | 'v' // 'otcv'
@@ -7858,7 +8669,7 @@ func (e GestaltOpenTptNetworkSetup) String() string {
 	}
 }
 
-type GestaltOpenTptRemoteAccess uint
+type GestaltOpenTptRemoteAccess uint32
 
 const (
 	GestaltOpenTptRemoteAccessVersion GestaltOpenTptRemoteAccess = 'o'<<24 | 't'<<16 | 'r'<<8 | 'v' // 'otrv'
@@ -7873,7 +8684,72 @@ func (e GestaltOpenTptRemoteAccess) String() string {
 	}
 }
 
-type GestaltPCX uint
+type GestaltOpenTptRemoteAccessEnum uint32
+
+const (
+	GestaltOpenTptARAPPresent            GestaltOpenTptRemoteAccessEnum = 6
+	GestaltOpenTptPPPPresent             GestaltOpenTptRemoteAccessEnum = 5
+	GestaltOpenTptRemoteAccessValue      GestaltOpenTptRemoteAccessEnum = 'o'<<24 | 't'<<16 | 'r'<<8 | 'a' // 'otra'
+	GestaltOpenTptRemoteAccessClientOnly GestaltOpenTptRemoteAccessEnum = 2
+	GestaltOpenTptRemoteAccessLoaded     GestaltOpenTptRemoteAccessEnum = 1
+	GestaltOpenTptRemoteAccessMPServer   GestaltOpenTptRemoteAccessEnum = 4
+	GestaltOpenTptRemoteAccessPServer    GestaltOpenTptRemoteAccessEnum = 3
+	GestaltOpenTptRemoteAccessPresent    GestaltOpenTptRemoteAccessEnum = 0
+)
+
+func (e GestaltOpenTptRemoteAccessEnum) String() string {
+	switch e {
+	case GestaltOpenTptARAPPresent:
+		return "GestaltOpenTptARAPPresent"
+	case GestaltOpenTptPPPPresent:
+		return "GestaltOpenTptPPPPresent"
+	case GestaltOpenTptRemoteAccessValue:
+		return "GestaltOpenTptRemoteAccessValue"
+	case GestaltOpenTptRemoteAccessClientOnly:
+		return "GestaltOpenTptRemoteAccessClientOnly"
+	case GestaltOpenTptRemoteAccessLoaded:
+		return "GestaltOpenTptRemoteAccessLoaded"
+	case GestaltOpenTptRemoteAccessMPServer:
+		return "GestaltOpenTptRemoteAccessMPServer"
+	case GestaltOpenTptRemoteAccessPServer:
+		return "GestaltOpenTptRemoteAccessPServer"
+	case GestaltOpenTptRemoteAccessPresent:
+		return "GestaltOpenTptRemoteAccessPresent"
+	default:
+		return fmt.Sprintf("GestaltOpenTptRemoteAccessEnum(%d)", e)
+	}
+}
+
+const GestaltOpenTptVersions uint32 = 'o'<<24 | 't'<<16 | 'v'<<8 | 'r' // 'otvr'
+
+type GestaltPCCard uint32
+
+const (
+	GestaltCardServicesPresent   GestaltPCCard = 0
+	GestaltPCCardValue           GestaltPCCard = 'p'<<24 | 'c'<<16 | 'c'<<8 | 'd' // 'pccd'
+	GestaltPCCardFamilyPresent   GestaltPCCard = 1
+	GestaltPCCardHasPowerControl GestaltPCCard = 2
+	GestaltPCCardSupportsCardBus GestaltPCCard = 3
+)
+
+func (e GestaltPCCard) String() string {
+	switch e {
+	case GestaltCardServicesPresent:
+		return "GestaltCardServicesPresent"
+	case GestaltPCCardValue:
+		return "GestaltPCCardValue"
+	case GestaltPCCardFamilyPresent:
+		return "GestaltPCCardFamilyPresent"
+	case GestaltPCCardHasPowerControl:
+		return "GestaltPCCardHasPowerControl"
+	case GestaltPCCardSupportsCardBus:
+		return "GestaltPCCardSupportsCardBus"
+	default:
+		return fmt.Sprintf("GestaltPCCard(%d)", e)
+	}
+}
+
+type GestaltPCX uint32
 
 const (
 	// GestaltPCXAttr: The selector you pass to the [Gestalt] function to determine the PC Exchange attributes.
@@ -7901,7 +8777,7 @@ func (e GestaltPCX) String() string {
 	}
 }
 
-type GestaltPPC uint
+type GestaltPPC uint32
 
 const (
 	GestaltPPCSupportsIncoming          GestaltPPC = 0x1
@@ -7944,7 +8820,29 @@ func (e GestaltPPC) String() string {
 	}
 }
 
-type GestaltPhysicalRAM uint
+type GestaltParityAttr uint32
+
+const (
+	GestaltHasParityCapability GestaltParityAttr = 0
+	// GestaltParityAttrValue: # Discussion
+	GestaltParityAttrValue GestaltParityAttr = 'p'<<24 | 'r'<<16 | 't'<<8 | 'y' // 'prty'
+	GestaltParityEnabled   GestaltParityAttr = 1
+)
+
+func (e GestaltParityAttr) String() string {
+	switch e {
+	case GestaltHasParityCapability:
+		return "GestaltHasParityCapability"
+	case GestaltParityAttrValue:
+		return "GestaltParityAttrValue"
+	case GestaltParityEnabled:
+		return "GestaltParityEnabled"
+	default:
+		return fmt.Sprintf("GestaltParityAttr(%d)", e)
+	}
+}
+
+type GestaltPhysicalRAM uint32
 
 const (
 	// GestaltPhysicalRAMSize: The selector you pass to the [Gestalt] function to determine the  number of bytes of physical RAM currently installed.
@@ -7960,7 +8858,7 @@ func (e GestaltPhysicalRAM) String() string {
 	}
 }
 
-type GestaltPhysicalRAMSizeIn uint
+type GestaltPhysicalRAMSizeIn uint32
 
 const (
 	GestaltPhysicalRAMSizeInMegabytes GestaltPhysicalRAMSizeIn = 'r'<<24 | 'a'<<16 | 'm'<<8 | 'm' // 'ramm'
@@ -7975,7 +8873,7 @@ func (e GestaltPhysicalRAMSizeIn) String() string {
 	}
 }
 
-type GestaltPopup uint
+type GestaltPopup uint32
 
 const (
 	// GestaltPopupAttr: The selector you pass to the [Gestalt] function to determine the  attribute of the pop-up control definition.
@@ -7994,7 +8892,7 @@ func (e GestaltPopup) String() string {
 	}
 }
 
-type GestaltPortable2001 uint
+type GestaltPortable2001 uint32
 
 const (
 	GestaltPortable2001ANSIKbd GestaltPortable2001 = 202
@@ -8015,7 +8913,7 @@ func (e GestaltPortable2001) String() string {
 	}
 }
 
-type GestaltPowerMgr uint
+type GestaltPowerMgr uint32
 
 const (
 	GestaltPowerMgrVers GestaltPowerMgr = 'p'<<24 | 'w'<<16 | 'r'<<8 | 'v' // 'pwrv'
@@ -8030,7 +8928,46 @@ func (e GestaltPowerMgr) String() string {
 	}
 }
 
-type GestaltPowerPC uint
+type GestaltPowerMgrAttr uint32
+
+const (
+	// GestaltPMgrCPUIdle: If true the CPU is capable of going into a low–power-consumption state.
+	GestaltPMgrCPUIdle GestaltPowerMgrAttr = 1
+	// GestaltPMgrDispatchExists: If true, Dispatch is present.
+	GestaltPMgrDispatchExists GestaltPowerMgrAttr = 4
+	// GestaltPMgrExists: If true, the Power Manager is present.
+	GestaltPMgrExists GestaltPowerMgrAttr = 0
+	// GestaltPMgrSCC: If true, it is possible to stop the SCC clock, thus effectively turning off the serial ports.
+	GestaltPMgrSCC GestaltPowerMgrAttr = 2
+	// GestaltPMgrSound: If true, it is possible to turn off power to the sound circuits.
+	GestaltPMgrSound                           GestaltPowerMgrAttr = 3
+	GestaltPMgrSupportsAVPowerStateAtSleepWake GestaltPowerMgrAttr = 5
+	// GestaltPowerMgrAttrValue: The [Gestalt] selector you pass to determine which Power Manager capabilities are available.
+	GestaltPowerMgrAttrValue GestaltPowerMgrAttr = 'p'<<24 | 'o'<<16 | 'w'<<8 | 'r' // 'powr'
+)
+
+func (e GestaltPowerMgrAttr) String() string {
+	switch e {
+	case GestaltPMgrCPUIdle:
+		return "GestaltPMgrCPUIdle"
+	case GestaltPMgrDispatchExists:
+		return "GestaltPMgrDispatchExists"
+	case GestaltPMgrExists:
+		return "GestaltPMgrExists"
+	case GestaltPMgrSCC:
+		return "GestaltPMgrSCC"
+	case GestaltPMgrSound:
+		return "GestaltPMgrSound"
+	case GestaltPMgrSupportsAVPowerStateAtSleepWake:
+		return "GestaltPMgrSupportsAVPowerStateAtSleepWake"
+	case GestaltPowerMgrAttrValue:
+		return "GestaltPowerMgrAttrValue"
+	default:
+		return fmt.Sprintf("GestaltPowerMgrAttr(%d)", e)
+	}
+}
+
+type GestaltPowerPC uint32
 
 const (
 	GestaltPowerPCASArchitecture            GestaltPowerPC = 8
@@ -8075,7 +9012,7 @@ func (e GestaltPowerPC) String() string {
 	}
 }
 
-type GestaltProcClk uint
+type GestaltProcClk uint32
 
 const (
 	GestaltProcClkSpeed GestaltProcClk = 'p'<<24 | 'c'<<16 | 'l'<<8 | 'k' // 'pclk'
@@ -8090,7 +9027,7 @@ func (e GestaltProcClk) String() string {
 	}
 }
 
-type GestaltProcClkSpeedM uint
+type GestaltProcClkSpeedM uint32
 
 const (
 	GestaltProcClkSpeedMHz GestaltProcClkSpeedM = 'm'<<24 | 'c'<<16 | 'l'<<8 | 'k' // 'mclk'
@@ -8105,7 +9042,7 @@ func (e GestaltProcClkSpeedM) String() string {
 	}
 }
 
-type GestaltProcessorCacheLine uint
+type GestaltProcessorCacheLine uint32
 
 const (
 	GestaltProcessorCacheLineSize GestaltProcessorCacheLine = 'c'<<24 | 's'<<16 | 'i'<<8 | 'z' // 'csiz'
@@ -8120,17 +9057,48 @@ func (e GestaltProcessorCacheLine) String() string {
 	}
 }
 
-type GestaltQD3 uint
+type GestaltProcessorType uint32
 
 const (
-	GestaltQD3DValue   GestaltQD3 = 'q'<<24 | 'd'<<16 | '3'<<8 | 'd' // 'qd3d'
+	Gestalt68000 GestaltProcessorType = 1
+	Gestalt68010 GestaltProcessorType = 2
+	Gestalt68020 GestaltProcessorType = 3
+	Gestalt68030 GestaltProcessorType = 4
+	Gestalt68040 GestaltProcessorType = 5
+	// GestaltProcessorTypeValue: The selector you pass to the [Gestalt] function to determine the type of microprocessor currently running.
+	GestaltProcessorTypeValue GestaltProcessorType = 'p'<<24 | 'r'<<16 | 'o'<<8 | 'c' // 'proc'
+)
+
+func (e GestaltProcessorType) String() string {
+	switch e {
+	case Gestalt68000:
+		return "Gestalt68000"
+	case Gestalt68010:
+		return "Gestalt68010"
+	case Gestalt68020:
+		return "Gestalt68020"
+	case Gestalt68030:
+		return "Gestalt68030"
+	case Gestalt68040:
+		return "Gestalt68040"
+	case GestaltProcessorTypeValue:
+		return "GestaltProcessorTypeValue"
+	default:
+		return fmt.Sprintf("GestaltProcessorType(%d)", e)
+	}
+}
+
+type GestaltQD3 uint32
+
+const (
+	GestaltQD3D        GestaltQD3 = 'q'<<24 | 'd'<<16 | '3'<<8 | 'd' // 'qd3d'
 	GestaltQD3DPresent GestaltQD3 = 0
 )
 
 func (e GestaltQD3) String() string {
 	switch e {
-	case GestaltQD3DValue:
-		return "GestaltQD3DValue"
+	case GestaltQD3D:
+		return "GestaltQD3D"
 	case GestaltQD3DPresent:
 		return "GestaltQD3DPresent"
 	default:
@@ -8138,28 +9106,93 @@ func (e GestaltQD3) String() string {
 	}
 }
 
-type GestaltQD3D uint
+const GestaltQD3DVersion uint32 = 'q'<<24 | '3'<<16 | 'v'<<8 | ' ' // 'q3v '
+
+type GestaltQD3DViewer uint32
 
 const (
-	GestaltQD3DVersion       GestaltQD3D = 'q'<<24 | '3'<<16 | 'v'<<8 | ' ' // 'q3v '
-	GestaltQD3DViewer        GestaltQD3D = 'q'<<24 | '3'<<16 | 'v'<<8 | 'c' // 'q3vc'
-	GestaltQD3DViewerPresent GestaltQD3D = 0
+	GestaltQD3DViewerValue   GestaltQD3DViewer = 'q'<<24 | '3'<<16 | 'v'<<8 | 'c' // 'q3vc'
+	GestaltQD3DViewerPresent GestaltQD3DViewer = 0
 )
 
-func (e GestaltQD3D) String() string {
+func (e GestaltQD3DViewer) String() string {
 	switch e {
-	case GestaltQD3DVersion:
-		return "GestaltQD3DVersion"
-	case GestaltQD3DViewer:
-		return "GestaltQD3DViewer"
+	case GestaltQD3DViewerValue:
+		return "GestaltQD3DViewerValue"
 	case GestaltQD3DViewerPresent:
 		return "GestaltQD3DViewerPresent"
 	default:
-		return fmt.Sprintf("GestaltQD3D(%d)", e)
+		return fmt.Sprintf("GestaltQD3DViewer(%d)", e)
 	}
 }
 
-type GestaltQTVR uint
+type GestaltQDTextFeatures uint32
+
+const (
+	// GestaltAntiAliasedTextAvailable: Capable of antialiased text.
+	GestaltAntiAliasedTextAvailable GestaltQDTextFeatures = 2
+	GestaltCanUseCGTextRendering    GestaltQDTextFeatures = 6
+	GestaltCreatesAliasFontRsrc     GestaltQDTextFeatures = 4
+	GestaltNativeType1FontSupport   GestaltQDTextFeatures = 5
+	// GestaltOFA2available: OFA2 is available.
+	GestaltOFA2available       GestaltQDTextFeatures = 3
+	GestaltQDTextFeaturesValue GestaltQDTextFeatures = 'q'<<24 | 'd'<<16 | 't'<<8 | 'f' // 'qdtf'
+	// GestaltSbitFontSupport: sbit-only fonts are supported.
+	GestaltSbitFontSupport GestaltQDTextFeatures = 1
+	// GestaltWSIISupport: WSII support is included.
+	GestaltWSIISupport GestaltQDTextFeatures = 0
+)
+
+func (e GestaltQDTextFeatures) String() string {
+	switch e {
+	case GestaltAntiAliasedTextAvailable:
+		return "GestaltAntiAliasedTextAvailable"
+	case GestaltCanUseCGTextRendering:
+		return "GestaltCanUseCGTextRendering"
+	case GestaltCreatesAliasFontRsrc:
+		return "GestaltCreatesAliasFontRsrc"
+	case GestaltNativeType1FontSupport:
+		return "GestaltNativeType1FontSupport"
+	case GestaltOFA2available:
+		return "GestaltOFA2available"
+	case GestaltQDTextFeaturesValue:
+		return "GestaltQDTextFeaturesValue"
+	case GestaltSbitFontSupport:
+		return "GestaltSbitFontSupport"
+	case GestaltWSIISupport:
+		return "GestaltWSIISupport"
+	default:
+		return fmt.Sprintf("GestaltQDTextFeatures(%d)", e)
+	}
+}
+
+type GestaltQDTextVersion uint32
+
+const (
+	// GestaltAllegroQDText: This is the version of QuickDraw Text used with Mac OS 8.2 and up.
+	GestaltAllegroQDText GestaltQDTextVersion = 0x100
+	GestaltMacOSXQDText  GestaltQDTextVersion = 0x200
+	// GestaltOriginalQDText: This is the original version of QuickDraw Text, used through Mac OS 8.1.
+	GestaltOriginalQDText     GestaltQDTextVersion = 0
+	GestaltQDTextVersionValue GestaltQDTextVersion = 'q'<<24 | 'd'<<16 | 't'<<8 | 'x' // 'qdtx'
+)
+
+func (e GestaltQDTextVersion) String() string {
+	switch e {
+	case GestaltAllegroQDText:
+		return "GestaltAllegroQDText"
+	case GestaltMacOSXQDText:
+		return "GestaltMacOSXQDText"
+	case GestaltOriginalQDText:
+		return "GestaltOriginalQDText"
+	case GestaltQDTextVersionValue:
+		return "GestaltQDTextVersionValue"
+	default:
+		return fmt.Sprintf("GestaltQDTextVersion(%d)", e)
+	}
+}
+
+type GestaltQTVR uint32
 
 const (
 	GestaltQTVRCubicPanosPresent    GestaltQTVR = 3
@@ -8186,7 +9219,7 @@ func (e GestaltQTVR) String() string {
 	}
 }
 
-type GestaltQTVRMgr uint
+type GestaltQTVRMgr uint32
 
 const (
 	GestaltQTVRMgrVers GestaltQTVRMgr = 'q'<<24 | 't'<<16 | 'v'<<8 | 'v' // 'qtvv'
@@ -8201,7 +9234,49 @@ func (e GestaltQTVRMgr) String() string {
 	}
 }
 
-type GestaltQuick uint
+type GestaltQuadra605 uint32
+
+const (
+	GestaltQuadra605Value GestaltQuadra605 = 94
+	GestaltQuadra610      GestaltQuadra605 = 53
+	GestaltQuadra630      GestaltQuadra605 = 98
+	GestaltQuadra650      GestaltQuadra605 = 36
+	GestaltQuadra660AV    GestaltQuadra605 = 60
+	GestaltQuadra700      GestaltQuadra605 = 22
+	GestaltQuadra800      GestaltQuadra605 = 35
+	GestaltQuadra840AV    GestaltQuadra605 = 78
+	GestaltQuadra900      GestaltQuadra605 = 20
+	GestaltQuadra950      GestaltQuadra605 = 26
+)
+
+func (e GestaltQuadra605) String() string {
+	switch e {
+	case GestaltQuadra605Value:
+		return "GestaltQuadra605Value"
+	case GestaltQuadra610:
+		return "GestaltQuadra610"
+	case GestaltQuadra630:
+		return "GestaltQuadra630"
+	case GestaltQuadra650:
+		return "GestaltQuadra650"
+	case GestaltQuadra660AV:
+		return "GestaltQuadra660AV"
+	case GestaltQuadra700:
+		return "GestaltQuadra700"
+	case GestaltQuadra800:
+		return "GestaltQuadra800"
+	case GestaltQuadra840AV:
+		return "GestaltQuadra840AV"
+	case GestaltQuadra900:
+		return "GestaltQuadra900"
+	case GestaltQuadra950:
+		return "GestaltQuadra950"
+	default:
+		return fmt.Sprintf("GestaltQuadra605(%d)", e)
+	}
+}
+
+type GestaltQuick uint32
 
 const (
 	GestaltQuickTimeValue GestaltQuick = 'q'<<24 | 't'<<16 | 'i'<<8 | 'm' // 'qtim'
@@ -8218,7 +9293,7 @@ func (e GestaltQuick) String() string {
 	}
 }
 
-type GestaltQuickTime uint
+type GestaltQuickTime uint32
 
 const (
 	GestaltQuickTimeConferencingValue GestaltQuickTime = 'm'<<24 | 't'<<16 | 'l'<<8 | 'k' // 'mtlk'
@@ -8233,7 +9308,7 @@ func (e GestaltQuickTime) String() string {
 	}
 }
 
-type GestaltQuickTimeConferencing uint
+type GestaltQuickTimeConferencing uint32
 
 const (
 	GestaltQuickTimeConferencingInfo GestaltQuickTimeConferencing = 'q'<<24 | 't'<<16 | 'c'<<8 | 'i' // 'qtci'
@@ -8248,25 +9323,29 @@ func (e GestaltQuickTimeConferencing) String() string {
 	}
 }
 
-type GestaltQuickTimeStreaming uint
+type GestaltQuickTimeFeatures uint32
 
 const (
-	GestaltQuickTimeStreamingFeatures GestaltQuickTimeStreaming = 'q'<<24 | 't'<<16 | 's'<<8 | 'f' // 'qtsf'
-	GestaltQuickTimeStreamingVersion  GestaltQuickTimeStreaming = 'q'<<24 | 't'<<16 | 's'<<8 | 't' // 'qtst'
+	GestaltPPCQuickTimeLibPresent GestaltQuickTimeFeatures = 0
+	GestaltQuickTimeFeaturesValue GestaltQuickTimeFeatures = 'q'<<24 | 't'<<16 | 'r'<<8 | 's' // 'qtrs'
 )
 
-func (e GestaltQuickTimeStreaming) String() string {
+func (e GestaltQuickTimeFeatures) String() string {
 	switch e {
-	case GestaltQuickTimeStreamingFeatures:
-		return "GestaltQuickTimeStreamingFeatures"
-	case GestaltQuickTimeStreamingVersion:
-		return "GestaltQuickTimeStreamingVersion"
+	case GestaltPPCQuickTimeLibPresent:
+		return "GestaltPPCQuickTimeLibPresent"
+	case GestaltQuickTimeFeaturesValue:
+		return "GestaltQuickTimeFeaturesValue"
 	default:
-		return fmt.Sprintf("GestaltQuickTimeStreaming(%d)", e)
+		return fmt.Sprintf("GestaltQuickTimeFeatures(%d)", e)
 	}
 }
 
-type GestaltQuickTimeThreadSafe uint
+const GestaltQuickTimeStreamingFeatures uint32 = 'q'<<24 | 't'<<16 | 's'<<8 | 'f' // 'qtsf'
+
+const GestaltQuickTimeStreamingVersion uint32 = 'q'<<24 | 't'<<16 | 's'<<8 | 't' // 'qtst'
+
+type GestaltQuickTimeThreadSafe uint32
 
 const (
 	GestaltQuickTimeThreadSafeFeaturesAttr   GestaltQuickTimeThreadSafe = 'q'<<24 | 't'<<16 | 't'<<8 | 'h' // 'qtth'
@@ -8302,7 +9381,81 @@ func (e GestaltQuickTimeThreadSafe) String() string {
 	}
 }
 
-type GestaltRBV uint
+type GestaltQuickdrawFeatures uint32
+
+const (
+	GestaltHasColor          GestaltQuickdrawFeatures = 0
+	GestaltHasDeepGWorlds    GestaltQuickdrawFeatures = 1
+	GestaltHasDirectPixMaps  GestaltQuickdrawFeatures = 2
+	GestaltHasGrayishTextOr  GestaltQuickdrawFeatures = 3
+	GestaltQDHasLongRowBytes GestaltQuickdrawFeatures = 5
+	// GestaltQuickdrawFeaturesValue: The selector you pass to the [Gestalt] function to determine the QuickDraw features.
+	GestaltQuickdrawFeaturesValue GestaltQuickdrawFeatures = 'q'<<24 | 'd'<<16 | 'r'<<8 | 'w' // 'qdrw'
+	GestaltSupportsMirroring      GestaltQuickdrawFeatures = 4
+)
+
+func (e GestaltQuickdrawFeatures) String() string {
+	switch e {
+	case GestaltHasColor:
+		return "GestaltHasColor"
+	case GestaltHasDeepGWorlds:
+		return "GestaltHasDeepGWorlds"
+	case GestaltHasDirectPixMaps:
+		return "GestaltHasDirectPixMaps"
+	case GestaltHasGrayishTextOr:
+		return "GestaltHasGrayishTextOr"
+	case GestaltQDHasLongRowBytes:
+		return "GestaltQDHasLongRowBytes"
+	case GestaltQuickdrawFeaturesValue:
+		return "GestaltQuickdrawFeaturesValue"
+	case GestaltSupportsMirroring:
+		return "GestaltSupportsMirroring"
+	default:
+		return fmt.Sprintf("GestaltQuickdrawFeatures(%d)", e)
+	}
+}
+
+type GestaltQuickdrawVersion uint32
+
+const (
+	Gestalt32BitQD    GestaltQuickdrawVersion = 0x200
+	Gestalt32BitQD11  GestaltQuickdrawVersion = 0x201
+	Gestalt32BitQD12  GestaltQuickdrawVersion = 0x220
+	Gestalt32BitQD13  GestaltQuickdrawVersion = 0x230
+	Gestalt8BitQD     GestaltQuickdrawVersion = 0x100
+	GestaltAllegroQD  GestaltQuickdrawVersion = 0x250
+	GestaltMacOSXQD   GestaltQuickdrawVersion = 0x300
+	GestaltOriginalQD GestaltQuickdrawVersion = 0
+	// GestaltQuickdrawVersionValue: The Gestalt selector you pass to determine what version of QuickDraw is present.
+	GestaltQuickdrawVersionValue GestaltQuickdrawVersion = 'q'<<24 | 'd'<<16 | ' '<<8 | ' ' // 'qd  '
+)
+
+func (e GestaltQuickdrawVersion) String() string {
+	switch e {
+	case Gestalt32BitQD:
+		return "Gestalt32BitQD"
+	case Gestalt32BitQD11:
+		return "Gestalt32BitQD11"
+	case Gestalt32BitQD12:
+		return "Gestalt32BitQD12"
+	case Gestalt32BitQD13:
+		return "Gestalt32BitQD13"
+	case Gestalt8BitQD:
+		return "Gestalt8BitQD"
+	case GestaltAllegroQD:
+		return "GestaltAllegroQD"
+	case GestaltMacOSXQD:
+		return "GestaltMacOSXQD"
+	case GestaltOriginalQD:
+		return "GestaltOriginalQD"
+	case GestaltQuickdrawVersionValue:
+		return "GestaltQuickdrawVersionValue"
+	default:
+		return fmt.Sprintf("GestaltQuickdrawVersion(%d)", e)
+	}
+}
+
+type GestaltRBV uint32
 
 const (
 	GestaltRBVAddr GestaltRBV = 'r'<<24 | 'b'<<16 | 'v'<<8 | ' ' // 'rbv '
@@ -8317,27 +9470,11 @@ func (e GestaltRBV) String() string {
 	}
 }
 
-type GestaltROM uint
+const GestaltROMSize uint32 = 'r'<<24 | 'o'<<16 | 'm'<<8 | ' ' // 'rom '
 
-const (
-	// GestaltROMSize: # Discussion
-	GestaltROMSize GestaltROM = 'r'<<24 | 'o'<<16 | 'm'<<8 | ' ' // 'rom '
-	// GestaltROMVersion: # Discussion
-	GestaltROMVersion GestaltROM = 'r'<<24 | 'o'<<16 | 'm'<<8 | 'v' // 'romv'
-)
+const GestaltROMVersion uint32 = 'r'<<24 | 'o'<<16 | 'm'<<8 | 'v' // 'romv'
 
-func (e GestaltROM) String() string {
-	switch e {
-	case GestaltROMSize:
-		return "GestaltROMSize"
-	case GestaltROMVersion:
-		return "GestaltROMVersion"
-	default:
-		return fmt.Sprintf("GestaltROM(%d)", e)
-	}
-}
-
-type GestaltRealtimeMgr uint
+type GestaltRealtimeMgr uint32
 
 const (
 	// GestaltRealtimeMgrAttr: The selector you pass to the [Gestalt] function to determine the Realtime Manager attributes.
@@ -8357,7 +9494,63 @@ func (e GestaltRealtimeMgr) String() string {
 	}
 }
 
-type GestaltSCCRead uint
+type GestaltResourceMgrAttr uint32
+
+const (
+	GestaltHasResourceOverrides GestaltResourceMgrAttr = 1
+	// GestaltPartialRsrcs: If `true`, partial resources exist.
+	GestaltPartialRsrcs GestaltResourceMgrAttr = 0
+	// GestaltResourceMgrAttrValue: The [Gestalt] selector you pass to determine which Resource Manager attributes are present.
+	GestaltResourceMgrAttrValue GestaltResourceMgrAttr = 'r'<<24 | 's'<<16 | 'r'<<8 | 'c' // 'rsrc'
+)
+
+func (e GestaltResourceMgrAttr) String() string {
+	switch e {
+	case GestaltHasResourceOverrides:
+		return "GestaltHasResourceOverrides"
+	case GestaltPartialRsrcs:
+		return "GestaltPartialRsrcs"
+	case GestaltResourceMgrAttrValue:
+		return "GestaltResourceMgrAttrValue"
+	default:
+		return fmt.Sprintf("GestaltResourceMgrAttr(%d)", e)
+	}
+}
+
+type GestaltResourceMgrBugFixesAttrs uint32
+
+const (
+	GestaltRMFakeAppleMenuItemsRolledIn          GestaltResourceMgrBugFixesAttrs = 1
+	GestaltRMForceSysHeapRolledIn                GestaltResourceMgrBugFixesAttrs = 0
+	GestaltRMSupportsFSCalls                     GestaltResourceMgrBugFixesAttrs = 4
+	GestaltRMTypeIndexOrderingReverse            GestaltResourceMgrBugFixesAttrs = 8
+	GestaltResourceMgrBugFixesAttrsValue         GestaltResourceMgrBugFixesAttrs = 'r'<<24 | 'm'<<16 | 'b'<<8 | 'g' // 'rmbg'
+	GestaltSanityCheckResourceFiles              GestaltResourceMgrBugFixesAttrs = 2
+	GestaltSupportsFSpResourceFileAlreadyOpenBit GestaltResourceMgrBugFixesAttrs = 3
+)
+
+func (e GestaltResourceMgrBugFixesAttrs) String() string {
+	switch e {
+	case GestaltRMFakeAppleMenuItemsRolledIn:
+		return "GestaltRMFakeAppleMenuItemsRolledIn"
+	case GestaltRMForceSysHeapRolledIn:
+		return "GestaltRMForceSysHeapRolledIn"
+	case GestaltRMSupportsFSCalls:
+		return "GestaltRMSupportsFSCalls"
+	case GestaltRMTypeIndexOrderingReverse:
+		return "GestaltRMTypeIndexOrderingReverse"
+	case GestaltResourceMgrBugFixesAttrsValue:
+		return "GestaltResourceMgrBugFixesAttrsValue"
+	case GestaltSanityCheckResourceFiles:
+		return "GestaltSanityCheckResourceFiles"
+	case GestaltSupportsFSpResourceFileAlreadyOpenBit:
+		return "GestaltSupportsFSpResourceFileAlreadyOpenBit"
+	default:
+		return fmt.Sprintf("GestaltResourceMgrBugFixesAttrs(%d)", e)
+	}
+}
+
+type GestaltSCCRead uint32
 
 const (
 	GestaltSCCReadAddr GestaltSCCRead = 's'<<24 | 'c'<<16 | 'c'<<8 | 'r' // 'sccr'
@@ -8372,7 +9565,7 @@ func (e GestaltSCCRead) String() string {
 	}
 }
 
-type GestaltSCCWrite uint
+type GestaltSCCWrite uint32
 
 const (
 	GestaltSCCWriteAddr GestaltSCCWrite = 's'<<24 | 'c'<<16 | 'c'<<8 | 'w' // 'sccw'
@@ -8387,7 +9580,34 @@ func (e GestaltSCCWrite) String() string {
 	}
 }
 
-type GestaltSDPFind uint
+type GestaltSCSI uint32
+
+const (
+	GestaltAsyncSCSI      GestaltSCSI = 0
+	GestaltAsyncSCSIINROM GestaltSCSI = 1
+	GestaltSCSIValue      GestaltSCSI = 's'<<24 | 'c'<<16 | 's'<<8 | 'i' // 'scsi'
+	GestaltSCSIPollSIH    GestaltSCSI = 3
+	GestaltSCSISlotBoot   GestaltSCSI = 2
+)
+
+func (e GestaltSCSI) String() string {
+	switch e {
+	case GestaltAsyncSCSI:
+		return "GestaltAsyncSCSI"
+	case GestaltAsyncSCSIINROM:
+		return "GestaltAsyncSCSIINROM"
+	case GestaltSCSIValue:
+		return "GestaltSCSIValue"
+	case GestaltSCSIPollSIH:
+		return "GestaltSCSIPollSIH"
+	case GestaltSCSISlotBoot:
+		return "GestaltSCSISlotBoot"
+	default:
+		return fmt.Sprintf("GestaltSCSI(%d)", e)
+	}
+}
+
+type GestaltSDPFind uint32
 
 const (
 	GestaltSDPFindVersion GestaltSDPFind = 'd'<<24 | 'f'<<16 | 'n'<<8 | 'd' // 'dfnd'
@@ -8402,7 +9622,7 @@ func (e GestaltSDPFind) String() string {
 	}
 }
 
-type GestaltSDPPrompt uint
+type GestaltSDPPrompt uint32
 
 const (
 	GestaltSDPPromptVersion GestaltSDPPrompt = 'p'<<24 | 'r'<<16 | 'p'<<8 | 'v' // 'prpv'
@@ -8417,7 +9637,7 @@ func (e GestaltSDPPrompt) String() string {
 	}
 }
 
-type GestaltSDPStandardDirectory uint
+type GestaltSDPStandardDirectory uint32
 
 const (
 	GestaltSDPStandardDirectoryVersion GestaltSDPStandardDirectory = 's'<<24 | 'd'<<16 | 'v'<<8 | 'r' // 'sdvr'
@@ -8432,7 +9652,7 @@ func (e GestaltSDPStandardDirectory) String() string {
 	}
 }
 
-type GestaltSMPMailer uint
+type GestaltSMPMailer uint32
 
 const (
 	GestaltSMPMailerVersion GestaltSMPMailer = 'm'<<24 | 'a'<<16 | 'l'<<8 | 'r' // 'malr'
@@ -8447,7 +9667,7 @@ func (e GestaltSMPMailer) String() string {
 	}
 }
 
-type GestaltSMPSPSendLetter uint
+type GestaltSMPSPSendLetter uint32
 
 const (
 	GestaltSMPSPSendLetterVersion GestaltSMPSPSendLetter = 's'<<24 | 'p'<<16 | 's'<<8 | 'l' // 'spsl'
@@ -8462,7 +9682,37 @@ func (e GestaltSMPSPSendLetter) String() string {
 	}
 }
 
-type GestaltScrapMgr uint
+type GestaltSafeOFAttr uint32
+
+const (
+	GestaltFileAllocationZeroedBlocksBit   GestaltSafeOFAttr = 4
+	GestaltInitHeapZerosOutHeapsBit        GestaltSafeOFAttr = 1
+	GestaltNewHandleReturnsZeroedMemoryBit GestaltSafeOFAttr = 2
+	GestaltNewPtrReturnsZeroedMemoryBit    GestaltSafeOFAttr = 3
+	GestaltSafeOFAttrValue                 GestaltSafeOFAttr = 's'<<24 | 'a'<<16 | 'f'<<8 | 'e' // 'safe'
+	GestaltVMZerosPagesBit                 GestaltSafeOFAttr = 0
+)
+
+func (e GestaltSafeOFAttr) String() string {
+	switch e {
+	case GestaltFileAllocationZeroedBlocksBit:
+		return "GestaltFileAllocationZeroedBlocksBit"
+	case GestaltInitHeapZerosOutHeapsBit:
+		return "GestaltInitHeapZerosOutHeapsBit"
+	case GestaltNewHandleReturnsZeroedMemoryBit:
+		return "GestaltNewHandleReturnsZeroedMemoryBit"
+	case GestaltNewPtrReturnsZeroedMemoryBit:
+		return "GestaltNewPtrReturnsZeroedMemoryBit"
+	case GestaltSafeOFAttrValue:
+		return "GestaltSafeOFAttrValue"
+	case GestaltVMZerosPagesBit:
+		return "GestaltVMZerosPagesBit"
+	default:
+		return fmt.Sprintf("GestaltSafeOFAttr(%d)", e)
+	}
+}
+
+type GestaltScrapMgr uint32
 
 const (
 	// GestaltScrapMgrAttr: The [Gestalt] selector you pass to determine which Scrap Manager attributes are present.
@@ -8482,7 +9732,7 @@ func (e GestaltScrapMgr) String() string {
 	}
 }
 
-type GestaltScreenCapture uint
+type GestaltScreenCapture uint32
 
 const (
 	GestaltScreenCaptureDir  GestaltScreenCapture = 'p'<<24 | 'i'<<16 | 'c'<<8 | '2' // 'pic2'
@@ -8500,7 +9750,7 @@ func (e GestaltScreenCapture) String() string {
 	}
 }
 
-type GestaltScript uint
+type GestaltScript uint32
 
 const (
 	// GestaltScriptCount: The selector you pass to the Gestalt function to determine the number of script systems currently active.
@@ -8516,7 +9766,7 @@ func (e GestaltScript) String() string {
 	}
 }
 
-type GestaltScriptMgr uint
+type GestaltScriptMgr uint32
 
 const (
 	// GestaltScriptMgrVersion: The selector you pass to the [Gestalt] function to determine the version number of the Script Manager (in the low-order word of the return value).
@@ -8532,7 +9782,44 @@ func (e GestaltScriptMgr) String() string {
 	}
 }
 
-type GestaltShutdown uint
+type GestaltSerialAttr uint32
+
+const (
+	GestaltHasGPIaToDCDa  GestaltSerialAttr = 0
+	GestaltHasGPIaToRTxCa GestaltSerialAttr = 1
+	GestaltHasGPIbToDCDb  GestaltSerialAttr = 2
+	GestaltHidePortA      GestaltSerialAttr = 3
+	GestaltHidePortB      GestaltSerialAttr = 4
+	GestaltPortADisabled  GestaltSerialAttr = 5
+	GestaltPortBDisabled  GestaltSerialAttr = 6
+	// GestaltSerialAttrValue: The selector you pass to the [Gestalt] function to determine the serial hardware attributes of the machine, such as whether or not the GPIa line is connected and can be used for external clocking.
+	GestaltSerialAttrValue GestaltSerialAttr = 's'<<24 | 'e'<<16 | 'r'<<8 | ' ' // 'ser '
+)
+
+func (e GestaltSerialAttr) String() string {
+	switch e {
+	case GestaltHasGPIaToDCDa:
+		return "GestaltHasGPIaToDCDa"
+	case GestaltHasGPIaToRTxCa:
+		return "GestaltHasGPIaToRTxCa"
+	case GestaltHasGPIbToDCDb:
+		return "GestaltHasGPIbToDCDb"
+	case GestaltHidePortA:
+		return "GestaltHidePortA"
+	case GestaltHidePortB:
+		return "GestaltHidePortB"
+	case GestaltPortADisabled:
+		return "GestaltPortADisabled"
+	case GestaltPortBDisabled:
+		return "GestaltPortBDisabled"
+	case GestaltSerialAttrValue:
+		return "GestaltSerialAttrValue"
+	default:
+		return fmt.Sprintf("GestaltSerialAttr(%d)", e)
+	}
+}
+
+type GestaltShutdown uint32
 
 const (
 	GestaltShutdownAttributes            GestaltShutdown = 's'<<24 | 'h'<<16 | 'u'<<8 | 't' // 'shut'
@@ -8550,7 +9837,38 @@ func (e GestaltShutdown) String() string {
 	}
 }
 
-type GestaltSoftwareVendor uint
+type GestaltSlotAttr uint32
+
+const (
+	GestaltNuBusPresent        GestaltSlotAttr = 1
+	GestaltPortableSlotPresent GestaltSlotAttr = 4
+	GestaltSE30SlotPresent     GestaltSlotAttr = 3
+	GestaltSESlotPresent       GestaltSlotAttr = 2
+	// GestaltSlotAttrValue: The selector you pass to the [Gestalt] function to determine the Slot Manager attributes.
+	GestaltSlotAttrValue GestaltSlotAttr = 's'<<24 | 'l'<<16 | 'o'<<8 | 't' // 'slot'
+	GestaltSlotMgrExists GestaltSlotAttr = 0
+)
+
+func (e GestaltSlotAttr) String() string {
+	switch e {
+	case GestaltNuBusPresent:
+		return "GestaltNuBusPresent"
+	case GestaltPortableSlotPresent:
+		return "GestaltPortableSlotPresent"
+	case GestaltSE30SlotPresent:
+		return "GestaltSE30SlotPresent"
+	case GestaltSESlotPresent:
+		return "GestaltSESlotPresent"
+	case GestaltSlotAttrValue:
+		return "GestaltSlotAttrValue"
+	case GestaltSlotMgrExists:
+		return "GestaltSlotMgrExists"
+	default:
+		return fmt.Sprintf("GestaltSlotAttr(%d)", e)
+	}
+}
+
+type GestaltSoftwareVendor uint32
 
 const (
 	GestaltSoftwareVendorApple    GestaltSoftwareVendor = 'A'<<24 | 'p'<<16 | 'p'<<8 | 'l' // 'Appl'
@@ -8571,7 +9889,71 @@ func (e GestaltSoftwareVendor) String() string {
 	}
 }
 
-type GestaltSpeech uint
+type GestaltSoundAttr uint32
+
+const (
+	// Gestalt16BitAudioSupport: # Discussion
+	Gestalt16BitAudioSupport GestaltSoundAttr = 12
+	// Gestalt16BitSoundIO: # Discussion
+	Gestalt16BitSoundIO GestaltSoundAttr = 7
+	// GestaltBuiltInSoundInput: Set if a built-in sound input device is available.
+	GestaltBuiltInSoundInput GestaltSoundAttr = 4
+	// GestaltHasSoundInputDevice: Set if a sound input device is available.
+	GestaltHasSoundInputDevice GestaltSoundAttr = 5
+	// GestaltLineLevelInput: # Discussion
+	GestaltLineLevelInput GestaltSoundAttr = 9
+	// GestaltMultiChannels: # Discussion
+	GestaltMultiChannels GestaltSoundAttr = 11
+	// GestaltPlayAndRecord: # Discussion
+	GestaltPlayAndRecord GestaltSoundAttr = 6
+	// GestaltSndPlayDoubleBuffer: # Discussion
+	GestaltSndPlayDoubleBuffer GestaltSoundAttr = 10
+	// GestaltSoundAttrValue: The Gestalt selector which you pass to the [Gestalt] function.
+	GestaltSoundAttrValue GestaltSoundAttr = 's'<<24 | 'n'<<16 | 'd'<<8 | ' ' // 'snd '
+	// GestaltSoundIOMgrPresent: Set if the Sound Input Manager is available.
+	GestaltSoundIOMgrPresent GestaltSoundAttr = 3
+	// GestaltStereoCapability: Set if the built-in sound hardware is able to produce stereo sounds.
+	GestaltStereoCapability GestaltSoundAttr = 0
+	// GestaltStereoInput: # Discussion
+	GestaltStereoInput GestaltSoundAttr = 8
+	// GestaltStereoMixing: Set if the built-in sound hardware mixes both left and right channels of stereo sound into a single audio signal for the internal speaker.
+	GestaltStereoMixing GestaltSoundAttr = 1
+)
+
+func (e GestaltSoundAttr) String() string {
+	switch e {
+	case Gestalt16BitAudioSupport:
+		return "Gestalt16BitAudioSupport"
+	case Gestalt16BitSoundIO:
+		return "Gestalt16BitSoundIO"
+	case GestaltBuiltInSoundInput:
+		return "GestaltBuiltInSoundInput"
+	case GestaltHasSoundInputDevice:
+		return "GestaltHasSoundInputDevice"
+	case GestaltLineLevelInput:
+		return "GestaltLineLevelInput"
+	case GestaltMultiChannels:
+		return "GestaltMultiChannels"
+	case GestaltPlayAndRecord:
+		return "GestaltPlayAndRecord"
+	case GestaltSndPlayDoubleBuffer:
+		return "GestaltSndPlayDoubleBuffer"
+	case GestaltSoundAttrValue:
+		return "GestaltSoundAttrValue"
+	case GestaltSoundIOMgrPresent:
+		return "GestaltSoundIOMgrPresent"
+	case GestaltStereoCapability:
+		return "GestaltStereoCapability"
+	case GestaltStereoInput:
+		return "GestaltStereoInput"
+	case GestaltStereoMixing:
+		return "GestaltStereoMixing"
+	default:
+		return fmt.Sprintf("GestaltSoundAttr(%d)", e)
+	}
+}
+
+type GestaltSpeech uint32
 
 const (
 	// GestaltSpeechAttr: The selector you pass to the [Gestalt] function to determine the Speech Manager attributes.
@@ -8593,7 +9975,7 @@ func (e GestaltSpeech) String() string {
 	}
 }
 
-type GestaltSpeechRecognition uint
+type GestaltSpeechRecognition uint32
 
 const (
 	GestaltSpeechRecognitionVersion GestaltSpeechRecognition = 's'<<24 | 'r'<<16 | 't'<<8 | 'b' // 'srtb'
@@ -8608,7 +9990,31 @@ func (e GestaltSpeechRecognition) String() string {
 	}
 }
 
-type GestaltSplitOS uint
+type GestaltSpeechRecognitionAttr uint32
+
+const (
+	// GestaltDesktopSpeechRecognition: If this bit is set, the Speech Recognition Manager supports the desktop microphone.
+	GestaltDesktopSpeechRecognition GestaltSpeechRecognitionAttr = 1
+	// GestaltSpeechRecognitionAttrValue: The selector which you pass to the [Gestalt] function to determine the Speech Recognition Manager attributes.
+	GestaltSpeechRecognitionAttrValue GestaltSpeechRecognitionAttr = 's'<<24 | 'r'<<16 | 't'<<8 | 'a' // 'srta'
+	// GestaltTelephoneSpeechRecognition: If this bit is set, the Speech Recognition Manager supports telephone input.
+	GestaltTelephoneSpeechRecognition GestaltSpeechRecognitionAttr = 2
+)
+
+func (e GestaltSpeechRecognitionAttr) String() string {
+	switch e {
+	case GestaltDesktopSpeechRecognition:
+		return "GestaltDesktopSpeechRecognition"
+	case GestaltSpeechRecognitionAttrValue:
+		return "GestaltSpeechRecognitionAttrValue"
+	case GestaltTelephoneSpeechRecognition:
+		return "GestaltTelephoneSpeechRecognition"
+	default:
+		return fmt.Sprintf("GestaltSpeechRecognitionAttr(%d)", e)
+	}
+}
+
+type GestaltSplitOS uint32
 
 const (
 	GestaltSplitOSAttr                                   GestaltSplitOS = 's'<<24 | 'p'<<16 | 'o'<<8 | 's' // 'spos'
@@ -8638,7 +10044,7 @@ func (e GestaltSplitOS) String() string {
 	}
 }
 
-type GestaltStandard uint
+type GestaltStandard uint32
 
 const (
 	// GestaltStandardFile58: # Discussion
@@ -8670,7 +10076,7 @@ func (e GestaltStandard) String() string {
 	}
 }
 
-type GestaltStdNBP uint
+type GestaltStdNBP uint32
 
 const (
 	// GestaltStdNBPAttr: The selector you pass to the [Gestalt] function to determine information about the StandardNBP (Name-Binding Protocol) function.
@@ -8692,7 +10098,38 @@ func (e GestaltStdNBP) String() string {
 	}
 }
 
-type GestaltSystem uint
+type GestaltSysArchitecture uint32
+
+const (
+	// Gestalt68k: If the [Gestalt] function returns `gestalt68k`, the system is a MC680x0 Macintosh.
+	Gestalt68k GestaltSysArchitecture = 1
+	GestaltArm GestaltSysArchitecture = 20
+	// GestaltIntel: If the [Gestalt] function returns `gestaltIntel`, the system is is an Intel-based Macintosh.
+	GestaltIntel GestaltSysArchitecture = 10
+	// GestaltPowerPCValue: If the [Gestalt] function returns `gestaltPowerPC`, the system is a PowerPC Macintosh.
+	GestaltPowerPCValue GestaltSysArchitecture = 2
+	// GestaltSysArchitectureValue: The selector you pass to the [Gestalt] function to determine the native system architecture.
+	GestaltSysArchitectureValue GestaltSysArchitecture = 's'<<24 | 'y'<<16 | 's'<<8 | 'a' // 'sysa'
+)
+
+func (e GestaltSysArchitecture) String() string {
+	switch e {
+	case Gestalt68k:
+		return "Gestalt68k"
+	case GestaltArm:
+		return "GestaltArm"
+	case GestaltIntel:
+		return "GestaltIntel"
+	case GestaltPowerPCValue:
+		return "GestaltPowerPCValue"
+	case GestaltSysArchitectureValue:
+		return "GestaltSysArchitectureValue"
+	default:
+		return fmt.Sprintf("GestaltSysArchitecture(%d)", e)
+	}
+}
+
+type GestaltSystem uint32
 
 const (
 	// Deprecated.
@@ -8720,7 +10157,7 @@ func (e GestaltSystem) String() string {
 	}
 }
 
-type GestaltSystemUpdate uint
+type GestaltSystemUpdate uint32
 
 const (
 	GestaltSystemUpdateVersion GestaltSystemUpdate = 's'<<24 | 'y'<<16 | 's'<<8 | 'u' // 'sysu'
@@ -8735,7 +10172,7 @@ func (e GestaltSystemUpdate) String() string {
 	}
 }
 
-type GestaltT uint
+type GestaltT uint32
 
 const (
 	GestaltTE6 GestaltT = 6
@@ -8750,7 +10187,7 @@ func (e GestaltT) String() string {
 	}
 }
 
-type GestaltTE uint
+type GestaltTE uint32
 
 const (
 	// GestaltTEAttr: The [Gestalt] selector you pass to determine whichTextEdit attributes are present.
@@ -8782,26 +10219,83 @@ func (e GestaltTE) String() string {
 	}
 }
 
-type GestaltTS uint
+type GestaltTSMTEAttr uint32
 
 const (
-	GestaltTSMDisplayMgrAwareBit GestaltTS = 0
-	GestaltTSMdoesTSMTEBit       GestaltTS = 1
-	GestaltTSMgr15               GestaltTS = 0x150
-	GestaltTSMgr20               GestaltTS = 0x200
-	GestaltTSMgr22               GestaltTS = 0x220
-	GestaltTSMgr23               GestaltTS = 0x230
-	GestaltTSMgrAttr             GestaltTS = 't'<<24 | 's'<<16 | 'm'<<8 | 'a' // 'tsma'
-	// GestaltTSMgrVersion: The selector you pass to the [Gestalt] function to determine the version of the Text Services Manager.
-	GestaltTSMgrVersion GestaltTS = 't'<<24 | 's'<<16 | 'm'<<8 | 'v' // 'tsmv'
+	GestaltTSMTE          GestaltTSMTEAttr = 0
+	GestaltTSMTEAttrValue GestaltTSMTEAttr = 't'<<24 | 'm'<<16 | 'T'<<8 | 'E' // 'tmTE'
+	GestaltTSMTEPresent   GestaltTSMTEAttr = 0
 )
 
-func (e GestaltTS) String() string {
+func (e GestaltTSMTEAttr) String() string {
+	switch e {
+	case GestaltTSMTE:
+		return "GestaltTSMTE"
+	case GestaltTSMTEAttrValue:
+		return "GestaltTSMTEAttrValue"
+	default:
+		return fmt.Sprintf("GestaltTSMTEAttr(%d)", e)
+	}
+}
+
+type GestaltTSMTEVersion uint32
+
+const (
+	GestaltTSMTE1            GestaltTSMTEVersion = 0x100
+	GestaltTSMTE15           GestaltTSMTEVersion = 0x150
+	GestaltTSMTE152          GestaltTSMTEVersion = 0x152
+	GestaltTSMTEVersionValue GestaltTSMTEVersion = 't'<<24 | 'm'<<16 | 'T'<<8 | 'V' // 'tmTV'
+)
+
+func (e GestaltTSMTEVersion) String() string {
+	switch e {
+	case GestaltTSMTE1:
+		return "GestaltTSMTE1"
+	case GestaltTSMTE15:
+		return "GestaltTSMTE15"
+	case GestaltTSMTE152:
+		return "GestaltTSMTE152"
+	case GestaltTSMTEVersionValue:
+		return "GestaltTSMTEVersionValue"
+	default:
+		return fmt.Sprintf("GestaltTSMTEVersion(%d)", e)
+	}
+}
+
+type GestaltTSMgrAttr uint32
+
+const (
+	GestaltTSMDisplayMgrAwareBit GestaltTSMgrAttr = 0
+	GestaltTSMdoesTSMTEBit       GestaltTSMgrAttr = 1
+	GestaltTSMgrAttrValue        GestaltTSMgrAttr = 't'<<24 | 's'<<16 | 'm'<<8 | 'a' // 'tsma'
+)
+
+func (e GestaltTSMgrAttr) String() string {
 	switch e {
 	case GestaltTSMDisplayMgrAwareBit:
 		return "GestaltTSMDisplayMgrAwareBit"
 	case GestaltTSMdoesTSMTEBit:
 		return "GestaltTSMdoesTSMTEBit"
+	case GestaltTSMgrAttrValue:
+		return "GestaltTSMgrAttrValue"
+	default:
+		return fmt.Sprintf("GestaltTSMgrAttr(%d)", e)
+	}
+}
+
+type GestaltTSMgrVersion uint32
+
+const (
+	GestaltTSMgr15 GestaltTSMgrVersion = 0x150
+	GestaltTSMgr20 GestaltTSMgrVersion = 0x200
+	GestaltTSMgr22 GestaltTSMgrVersion = 0x220
+	GestaltTSMgr23 GestaltTSMgrVersion = 0x230
+	// GestaltTSMgrVersionValue: The selector you pass to the [Gestalt] function to determine the version of the Text Services Manager.
+	GestaltTSMgrVersionValue GestaltTSMgrVersion = 't'<<24 | 's'<<16 | 'm'<<8 | 'v' // 'tsmv'
+)
+
+func (e GestaltTSMgrVersion) String() string {
+	switch e {
 	case GestaltTSMgr15:
 		return "GestaltTSMgr15"
 	case GestaltTSMgr20:
@@ -8810,47 +10304,65 @@ func (e GestaltTS) String() string {
 		return "GestaltTSMgr22"
 	case GestaltTSMgr23:
 		return "GestaltTSMgr23"
-	case GestaltTSMgrAttr:
-		return "GestaltTSMgrAttr"
-	case GestaltTSMgrVersion:
-		return "GestaltTSMgrVersion"
+	case GestaltTSMgrVersionValue:
+		return "GestaltTSMgrVersionValue"
 	default:
-		return fmt.Sprintf("GestaltTS(%d)", e)
+		return fmt.Sprintf("GestaltTSMgrVersion(%d)", e)
 	}
 }
 
-type GestaltTSMT uint
+type GestaltTVAttr uint32
 
 const (
-	GestaltTSMTE        GestaltTSMT = 0
-	GestaltTSMTE1       GestaltTSMT = 0x100
-	GestaltTSMTE15      GestaltTSMT = 0x150
-	GestaltTSMTE152     GestaltTSMT = 0x152
-	GestaltTSMTEAttr    GestaltTSMT = 't'<<24 | 'm'<<16 | 'T'<<8 | 'E' // 'tmTE'
-	GestaltTSMTEPresent GestaltTSMT = 0
-	GestaltTSMTEVersion GestaltTSMT = 't'<<24 | 'm'<<16 | 'T'<<8 | 'V' // 'tmTV'
+	GestaltHasFMTuner             GestaltTVAttr = 7
+	GestaltHasHWClosedCaptioning  GestaltTVAttr = 2
+	GestaltHasIRRemote            GestaltTVAttr = 3
+	GestaltHasSerialFader         GestaltTVAttr = 6
+	GestaltHasSoundFader          GestaltTVAttr = 1
+	GestaltHasStereoDecoder       GestaltTVAttr = 5
+	GestaltHasSystemIRFunction    GestaltTVAttr = 8
+	GestaltHasTVTuner             GestaltTVAttr = 0
+	GestaltHasVidDecoderScaler    GestaltTVAttr = 4
+	GestaltHasZoomedVideo         GestaltTVAttr = 11
+	GestaltINeedIRPowerOffConfirm GestaltTVAttr = 10
+	GestaltIRDisabled             GestaltTVAttr = 9
+	GestaltTVAttrValue            GestaltTVAttr = 't'<<24 | 'v'<<16 | ' '<<8 | ' ' // 'tv  '
 )
 
-func (e GestaltTSMT) String() string {
+func (e GestaltTVAttr) String() string {
 	switch e {
-	case GestaltTSMTE:
-		return "GestaltTSMTE"
-	case GestaltTSMTE1:
-		return "GestaltTSMTE1"
-	case GestaltTSMTE15:
-		return "GestaltTSMTE15"
-	case GestaltTSMTE152:
-		return "GestaltTSMTE152"
-	case GestaltTSMTEAttr:
-		return "GestaltTSMTEAttr"
-	case GestaltTSMTEVersion:
-		return "GestaltTSMTEVersion"
+	case GestaltHasFMTuner:
+		return "GestaltHasFMTuner"
+	case GestaltHasHWClosedCaptioning:
+		return "GestaltHasHWClosedCaptioning"
+	case GestaltHasIRRemote:
+		return "GestaltHasIRRemote"
+	case GestaltHasSerialFader:
+		return "GestaltHasSerialFader"
+	case GestaltHasSoundFader:
+		return "GestaltHasSoundFader"
+	case GestaltHasStereoDecoder:
+		return "GestaltHasStereoDecoder"
+	case GestaltHasSystemIRFunction:
+		return "GestaltHasSystemIRFunction"
+	case GestaltHasTVTuner:
+		return "GestaltHasTVTuner"
+	case GestaltHasVidDecoderScaler:
+		return "GestaltHasVidDecoderScaler"
+	case GestaltHasZoomedVideo:
+		return "GestaltHasZoomedVideo"
+	case GestaltINeedIRPowerOffConfirm:
+		return "GestaltINeedIRPowerOffConfirm"
+	case GestaltIRDisabled:
+		return "GestaltIRDisabled"
+	case GestaltTVAttrValue:
+		return "GestaltTVAttrValue"
 	default:
-		return fmt.Sprintf("GestaltTSMT(%d)", e)
+		return fmt.Sprintf("GestaltTVAttr(%d)", e)
 	}
 }
 
-type GestaltTeleMgr uint
+type GestaltTeleMgr uint32
 
 const (
 	GestaltTeleMgrAttr             GestaltTeleMgr = 't'<<24 | 'e'<<16 | 'l'<<8 | 'e' // 'tele'
@@ -8886,7 +10398,7 @@ func (e GestaltTeleMgr) String() string {
 	}
 }
 
-type GestaltTermMgr uint
+type GestaltTermMgr uint32
 
 const (
 	// GestaltTermMgrAttr: The selector you pass to the [Gestalt] function to determine the Terminal Manager attributes.
@@ -8908,7 +10420,102 @@ func (e GestaltTermMgr) String() string {
 	}
 }
 
-type GestaltToolbox uint
+type GestaltTextEditVersion uint32
+
+const (
+	// GestaltTE1: The version of TextEdit found in Mac IIci ROM.
+	GestaltTE1 GestaltTextEditVersion = 1
+	// GestaltTE2: The version of TextEdit shipped with 6.0.4 Script Systems on Mac IIci (Script bug fixes for Mac IIci).
+	GestaltTE2 GestaltTextEditVersion = 2
+	// GestaltTE3: The version of TextEdit shipped with 6.0.4 Script Systems (all but Mac IIci).
+	GestaltTE3 GestaltTextEditVersion = 3
+	// GestaltTE4: The version of TextEdit shipped in System 7.0.
+	GestaltTE4 GestaltTextEditVersion = 4
+	// GestaltTE5: [TextWidthHook] is available in TextEdit.
+	GestaltTE5 GestaltTextEditVersion = 5
+	// GestaltTextEditVersionValue: The [Gestalt] selector you pass to determine what version of TextEdit is present.
+	GestaltTextEditVersionValue GestaltTextEditVersion = 't'<<24 | 'e'<<16 | ' '<<8 | ' ' // 'te  '
+)
+
+func (e GestaltTextEditVersion) String() string {
+	switch e {
+	case GestaltTE1:
+		return "GestaltTE1"
+	case GestaltTE2:
+		return "GestaltTE2"
+	case GestaltTE3:
+		return "GestaltTE3"
+	case GestaltTE4:
+		return "GestaltTE4"
+	case GestaltTE5:
+		return "GestaltTE5"
+	case GestaltTextEditVersionValue:
+		return "GestaltTextEditVersionValue"
+	default:
+		return fmt.Sprintf("GestaltTextEditVersion(%d)", e)
+	}
+}
+
+type GestaltThreadMgrAttr uint32
+
+const (
+	// GestaltSpecificMatchSupport: This bit is set if the Thread Manager supports the allocation of threads based on an exact match with the requested stack size.
+	GestaltSpecificMatchSupport GestaltThreadMgrAttr = 1
+	GestaltThreadMgrAttrValue   GestaltThreadMgrAttr = 't'<<24 | 'h'<<16 | 'd'<<8 | 's' // 'thds'
+	// GestaltThreadMgrPresent: This bit is set if the Thread Manager is present.
+	GestaltThreadMgrPresent GestaltThreadMgrAttr = 0
+	// GestaltThreadsLibraryPresent: This bit is set if the native version of the threads library has been loaded.
+	GestaltThreadsLibraryPresent GestaltThreadMgrAttr = 2
+)
+
+func (e GestaltThreadMgrAttr) String() string {
+	switch e {
+	case GestaltSpecificMatchSupport:
+		return "GestaltSpecificMatchSupport"
+	case GestaltThreadMgrAttrValue:
+		return "GestaltThreadMgrAttrValue"
+	case GestaltThreadMgrPresent:
+		return "GestaltThreadMgrPresent"
+	case GestaltThreadsLibraryPresent:
+		return "GestaltThreadsLibraryPresent"
+	default:
+		return fmt.Sprintf("GestaltThreadMgrAttr(%d)", e)
+	}
+}
+
+type GestaltTimeMgrVersion uint32
+
+const (
+	// GestaltExtendedTimeMgr: If this bit is set, the extended Time Manager is present.
+	GestaltExtendedTimeMgr GestaltTimeMgrVersion = 3
+	// GestaltNativeTimeMgr: If this bit is set, the native Time Manager is present.
+	GestaltNativeTimeMgr GestaltTimeMgrVersion = 4
+	// GestaltRevisedTimeMgr: If this bit is set, the revised Time Manager is present.
+	GestaltRevisedTimeMgr GestaltTimeMgrVersion = 2
+	// GestaltStandardTimeMgr: If this bit is set, the original Time Manager is present.
+	GestaltStandardTimeMgr GestaltTimeMgrVersion = 1
+	// GestaltTimeMgrVersionValue: The Gestalt selector you pass to determine what version of the Time Manager is present.
+	GestaltTimeMgrVersionValue GestaltTimeMgrVersion = 't'<<24 | 'm'<<16 | 'g'<<8 | 'r' // 'tmgr'
+)
+
+func (e GestaltTimeMgrVersion) String() string {
+	switch e {
+	case GestaltExtendedTimeMgr:
+		return "GestaltExtendedTimeMgr"
+	case GestaltNativeTimeMgr:
+		return "GestaltNativeTimeMgr"
+	case GestaltRevisedTimeMgr:
+		return "GestaltRevisedTimeMgr"
+	case GestaltStandardTimeMgr:
+		return "GestaltStandardTimeMgr"
+	case GestaltTimeMgrVersionValue:
+		return "GestaltTimeMgrVersionValue"
+	default:
+		return fmt.Sprintf("GestaltTimeMgrVersion(%d)", e)
+	}
+}
+
+type GestaltToolbox uint32
 
 const (
 	// GestaltToolboxTable: The selector you pass to the [Gestalt] function to determine the base address of the Toolbox trap dispatch table.
@@ -8924,7 +10531,7 @@ func (e GestaltToolbox) String() string {
 	}
 }
 
-type GestaltTranslation uint
+type GestaltTranslation uint32
 
 const (
 	// GestaltTranslationAttr: The [Gestalt] selector you pass to determine which Translation Manager attributes are present.
@@ -8956,7 +10563,7 @@ func (e GestaltTranslation) String() string {
 	}
 }
 
-type GestaltUDF uint
+type GestaltUDF uint32
 
 const (
 	GestaltUDFSupport GestaltUDF = 'k'<<24 | 'u'<<16 | 'd'<<8 | 'f' // 'kudf'
@@ -8971,37 +10578,34 @@ func (e GestaltUDF) String() string {
 	}
 }
 
-type GestaltUSB uint
+type GestaltUSBAttr uint32
 
 const (
-	GestaltUSBAttr     GestaltUSB = 'u'<<24 | 's'<<16 | 'b'<<8 | ' ' // 'usb '
-	GestaltUSBHasIsoch GestaltUSB = 1
-	GestaltUSBPresent  GestaltUSB = 0
-	GestaltUSBVersion  GestaltUSB = 'u'<<24 | 's'<<16 | 'b'<<8 | 'v' // 'usbv'
+	GestaltUSBAttrValue GestaltUSBAttr = 'u'<<24 | 's'<<16 | 'b'<<8 | ' ' // 'usb '
+	GestaltUSBHasIsoch  GestaltUSBAttr = 1
+	GestaltUSBPresent   GestaltUSBAttr = 0
 )
 
-func (e GestaltUSB) String() string {
+func (e GestaltUSBAttr) String() string {
 	switch e {
-	case GestaltUSBAttr:
-		return "GestaltUSBAttr"
+	case GestaltUSBAttrValue:
+		return "GestaltUSBAttrValue"
 	case GestaltUSBHasIsoch:
 		return "GestaltUSBHasIsoch"
 	case GestaltUSBPresent:
 		return "GestaltUSBPresent"
-	case GestaltUSBVersion:
-		return "GestaltUSBVersion"
 	default:
-		return fmt.Sprintf("GestaltUSB(%d)", e)
+		return fmt.Sprintf("GestaltUSBAttr(%d)", e)
 	}
 }
 
-type GestaltUSBPrinterSharing uint
+type GestaltUSBPrinterSharing int32
 
 const (
 	GestaltUSBPrinterSharingAttr        GestaltUSBPrinterSharing = 'z'<<24 | 'a'<<16 | 'k'<<8 | ' ' // 'zak '
 	GestaltUSBPrinterSharingAttrBooted  GestaltUSBPrinterSharing = 0x40000000
-	GestaltUSBPrinterSharingAttrMask    GestaltUSBPrinterSharing = 0xffff0000
-	GestaltUSBPrinterSharingAttrRunning GestaltUSBPrinterSharing = 0x80000000
+	GestaltUSBPrinterSharingAttrMask    GestaltUSBPrinterSharing = -65536
+	GestaltUSBPrinterSharingAttrRunning GestaltUSBPrinterSharing = -2147483648
 	GestaltUSBPrinterSharingVersion     GestaltUSBPrinterSharing = 'z'<<24 | 'a'<<16 | 'k'<<8 | ' ' // 'zak '
 	GestaltUSBPrinterSharingVersionMask GestaltUSBPrinterSharing = 0xffff
 )
@@ -9023,7 +10627,67 @@ func (e GestaltUSBPrinterSharing) String() string {
 	}
 }
 
-type GestaltUserVisibleMachine uint
+type GestaltUSBProF16ANSIKbd uint32
+
+const (
+	GestaltProF16ANSIKbd         GestaltUSBProF16ANSIKbd = 31
+	GestaltProF16ISOKbd          GestaltUSBProF16ANSIKbd = 32
+	GestaltProF16JISKbd          GestaltUSBProF16ANSIKbd = 33
+	GestaltUSBProF16ANSIKbdValue GestaltUSBProF16ANSIKbd = 34
+	GestaltUSBProF16ISOKbd       GestaltUSBProF16ANSIKbd = 35
+	GestaltUSBProF16JISKbd       GestaltUSBProF16ANSIKbd = 36
+)
+
+func (e GestaltUSBProF16ANSIKbd) String() string {
+	switch e {
+	case GestaltProF16ANSIKbd:
+		return "GestaltProF16ANSIKbd"
+	case GestaltProF16ISOKbd:
+		return "GestaltProF16ISOKbd"
+	case GestaltProF16JISKbd:
+		return "GestaltProF16JISKbd"
+	case GestaltUSBProF16ANSIKbdValue:
+		return "GestaltUSBProF16ANSIKbdValue"
+	case GestaltUSBProF16ISOKbd:
+		return "GestaltUSBProF16ISOKbd"
+	case GestaltUSBProF16JISKbd:
+		return "GestaltUSBProF16JISKbd"
+	default:
+		return fmt.Sprintf("GestaltUSBProF16ANSIKbd(%d)", e)
+	}
+}
+
+const GestaltUSBVersion uint32 = 'u'<<24 | 's'<<16 | 'b'<<8 | 'v' // 'usbv'
+
+type GestaltUnknownErr int32
+
+const (
+	// GestaltDupSelectorErr: Specifies you tried to add an entry that already existed.
+	GestaltDupSelectorErr GestaltUnknownErr = -5552
+	// GestaltLocationErr: Specifies the gestalt function ptr was not in the system heap.
+	GestaltLocationErr GestaltUnknownErr = -5553
+	// GestaltUndefSelectorErr: Specifies an undefined selector was passed to the Gestalt Manager.
+	GestaltUndefSelectorErr GestaltUnknownErr = -5551
+	// GestaltUnknownErrValue: Specifies an unknown error.
+	GestaltUnknownErrValue GestaltUnknownErr = -5550
+)
+
+func (e GestaltUnknownErr) String() string {
+	switch e {
+	case GestaltDupSelectorErr:
+		return "GestaltDupSelectorErr"
+	case GestaltLocationErr:
+		return "GestaltLocationErr"
+	case GestaltUndefSelectorErr:
+		return "GestaltUndefSelectorErr"
+	case GestaltUnknownErrValue:
+		return "GestaltUnknownErrValue"
+	default:
+		return fmt.Sprintf("GestaltUnknownErr(%d)", e)
+	}
+}
+
+type GestaltUserVisibleMachine uint32
 
 const (
 	GestaltUserVisibleMachineName GestaltUserVisibleMachine = 'm'<<24 | 'n'<<16 | 'a'<<8 | 'm' // 'mnam'
@@ -9038,7 +10702,7 @@ func (e GestaltUserVisibleMachine) String() string {
 	}
 }
 
-type GestaltVIA1 uint
+type GestaltVIA1 uint32
 
 const (
 	GestaltVIA1Addr GestaltVIA1 = 'v'<<24 | 'i'<<16 | 'a'<<8 | '1' // 'via1'
@@ -9053,7 +10717,7 @@ func (e GestaltVIA1) String() string {
 	}
 }
 
-type GestaltVIA2 uint
+type GestaltVIA2 uint32
 
 const (
 	GestaltVIA2Addr GestaltVIA2 = 'v'<<24 | 'i'<<16 | 'a'<<8 | '2' // 'via2'
@@ -9068,7 +10732,7 @@ func (e GestaltVIA2) String() string {
 	}
 }
 
-type GestaltVM uint
+type GestaltVM uint32
 
 const (
 	// GestaltVMAttr: The [Gestalt] selector you pass to determine the virtual memory attributes that are present.
@@ -9097,7 +10761,7 @@ func (e GestaltVM) String() string {
 	}
 }
 
-type GestaltVMBackingStoreFileRef uint
+type GestaltVMBackingStoreFileRef uint32
 
 const (
 	GestaltVMBackingStoreFileRefNum GestaltVMBackingStoreFileRef = 'v'<<24 | 'm'<<16 | 'b'<<8 | 's' // 'vmbs'
@@ -9112,7 +10776,7 @@ func (e GestaltVMBackingStoreFileRef) String() string {
 	}
 }
 
-type GestaltVMInfo uint
+type GestaltVMInfo uint32
 
 const (
 	GestaltVMInfoNoneType        GestaltVMInfo = 3
@@ -9139,79 +10803,213 @@ func (e GestaltVMInfo) String() string {
 	}
 }
 
-type GestaltX86 uint
+type GestaltVersion uint32
 
 const (
-	GestaltX86AdditionalFeatures  GestaltX86 = 'x'<<24 | '8'<<16 | '6'<<8 | 'a' // 'x86a'
-	GestaltX86Features            GestaltX86 = 'x'<<24 | '8'<<16 | '6'<<8 | 'f' // 'x86f'
-	GestaltX86HasAPIC             GestaltX86 = 9
-	GestaltX86HasCID              GestaltX86 = 10
-	GestaltX86HasCLFSH            GestaltX86 = 19
-	GestaltX86HasCMOV             GestaltX86 = 15
-	GestaltX86HasCX16             GestaltX86 = 13
-	GestaltX86HasCX8              GestaltX86 = 8
-	GestaltX86HasDE               GestaltX86 = 2
-	GestaltX86HasDS               GestaltX86 = 21
-	GestaltX86HasDSCPL            GestaltX86 = 4
-	GestaltX86HasEST              GestaltX86 = 7
-	GestaltX86HasFPU              GestaltX86 = 0
-	GestaltX86HasFXSR             GestaltX86 = 24
-	GestaltX86HasHTT              GestaltX86 = 28
-	GestaltX86HasMCA              GestaltX86 = 14
-	GestaltX86HasMCE              GestaltX86 = 7
-	GestaltX86HasMMX              GestaltX86 = 23
-	GestaltX86HasMONITOR          GestaltX86 = 3
-	GestaltX86HasMSR              GestaltX86 = 5
-	GestaltX86HasMTRR             GestaltX86 = 12
-	GestaltX86HasPAE              GestaltX86 = 6
-	GestaltX86HasPAT              GestaltX86 = 16
-	GestaltX86HasPGE              GestaltX86 = 13
-	GestaltX86HasPSE              GestaltX86 = 3
-	GestaltX86HasPSE36            GestaltX86 = 17
-	GestaltX86HasPSN              GestaltX86 = 18
-	GestaltX86HasSEP              GestaltX86 = 11
-	GestaltX86HasSMX              GestaltX86 = 6
-	GestaltX86HasSS               GestaltX86 = 27
-	GestaltX86HasSSE              GestaltX86 = 25
-	GestaltX86HasSSE2             GestaltX86 = 26
-	GestaltX86HasSSE3             GestaltX86 = 0
-	GestaltX86HasSupplementalSSE3 GestaltX86 = 9
-	GestaltX86HasTM               GestaltX86 = 29
-	GestaltX86HasTM2              GestaltX86 = 8
-	GestaltX86HasTSC              GestaltX86 = 4
-	GestaltX86HasVME              GestaltX86 = 1
-	GestaltX86HasVMX              GestaltX86 = 5
-	GestaltX86HasxTPR             GestaltX86 = 14
-	GestaltX86ResACPI             GestaltX86 = 22
-	GestaltX86Serviced20          GestaltX86 = 20
+	// GestaltValueImplementedVers: The first version of the Gestalt Manager that implements this selector.
+	GestaltValueImplementedVers GestaltVersion = 5
+	// GestaltVersionValue: The selector you pass to the function Gestalt to determine the version of the Gestalt Manager.
+	GestaltVersionValue GestaltVersion = 'v'<<24 | 'e'<<16 | 'r'<<8 | 's' // 'vers'
 )
 
-func (e GestaltX86) String() string {
+func (e GestaltVersion) String() string {
 	switch e {
-	case GestaltX86AdditionalFeatures:
-		return "GestaltX86AdditionalFeatures"
-	case GestaltX86Features:
-		return "GestaltX86Features"
-	case GestaltX86HasAPIC:
-		return "GestaltX86HasAPIC"
+	case GestaltValueImplementedVers:
+		return "GestaltValueImplementedVers"
+	case GestaltVersionValue:
+		return "GestaltVersionValue"
+	default:
+		return fmt.Sprintf("GestaltVersion(%d)", e)
+	}
+}
+
+type GestaltWindowMgrAttr uint32
+
+const (
+	GestaltExtendedWindowAttributes     GestaltWindowMgrAttr = 1
+	GestaltExtendedWindowAttributesBit  GestaltWindowMgrAttr = 1
+	GestaltExtendedWindowAttributesMask GestaltWindowMgrAttr = 2
+	GestaltFrontWindowMayBeHiddenBit    GestaltWindowMgrAttr = 8
+	GestaltFrontWindowMayBeHiddenMask   GestaltWindowMgrAttr = 256
+	GestaltHasFloatingWindows           GestaltWindowMgrAttr = 2
+	GestaltHasFloatingWindowsBit        GestaltWindowMgrAttr = 2
+	GestaltHasFloatingWindowsMask       GestaltWindowMgrAttr = 4
+	GestaltHasWindowBuffering           GestaltWindowMgrAttr = 3
+	GestaltHasWindowBufferingBit        GestaltWindowMgrAttr = 3
+	GestaltHasWindowBufferingMask       GestaltWindowMgrAttr = 8
+	GestaltHasWindowShadowsBit          GestaltWindowMgrAttr = 6
+	GestaltHasWindowShadowsMask         GestaltWindowMgrAttr = 64
+	GestaltSheetsAreWindowModalBit      GestaltWindowMgrAttr = 7
+	GestaltSheetsAreWindowModalMask     GestaltWindowMgrAttr = 128
+	GestaltWindowLiveResizeBit          GestaltWindowMgrAttr = 4
+	GestaltWindowLiveResizeMask         GestaltWindowMgrAttr = 16
+	// GestaltWindowMgrAttrValue: # Discussion
+	GestaltWindowMgrAttrValue GestaltWindowMgrAttr = 'w'<<24 | 'i'<<16 | 'n'<<8 | 'd' // 'wind'
+	// GestaltWindowMgrPresent: If the bit specified by this mask is set, the Window Manager functionality for Appearance Manager 1.1 is available.
+	GestaltWindowMgrPresent         GestaltWindowMgrAttr = 1
+	GestaltWindowMgrPresentBit      GestaltWindowMgrAttr = 0
+	GestaltWindowMgrPresentMask     GestaltWindowMgrAttr = 1
+	GestaltWindowMinimizeToDockBit  GestaltWindowMgrAttr = 5
+	GestaltWindowMinimizeToDockMask GestaltWindowMgrAttr = 32
+)
+
+func (e GestaltWindowMgrAttr) String() string {
+	switch e {
+	case GestaltExtendedWindowAttributes:
+		return "GestaltExtendedWindowAttributes"
+	case GestaltExtendedWindowAttributesMask:
+		return "GestaltExtendedWindowAttributesMask"
+	case GestaltFrontWindowMayBeHiddenBit:
+		return "GestaltFrontWindowMayBeHiddenBit"
+	case GestaltFrontWindowMayBeHiddenMask:
+		return "GestaltFrontWindowMayBeHiddenMask"
+	case GestaltHasFloatingWindowsMask:
+		return "GestaltHasFloatingWindowsMask"
+	case GestaltHasWindowBuffering:
+		return "GestaltHasWindowBuffering"
+	case GestaltHasWindowShadowsBit:
+		return "GestaltHasWindowShadowsBit"
+	case GestaltHasWindowShadowsMask:
+		return "GestaltHasWindowShadowsMask"
+	case GestaltSheetsAreWindowModalBit:
+		return "GestaltSheetsAreWindowModalBit"
+	case GestaltSheetsAreWindowModalMask:
+		return "GestaltSheetsAreWindowModalMask"
+	case GestaltWindowLiveResizeMask:
+		return "GestaltWindowLiveResizeMask"
+	case GestaltWindowMgrAttrValue:
+		return "GestaltWindowMgrAttrValue"
+	case GestaltWindowMgrPresentBit:
+		return "GestaltWindowMgrPresentBit"
+	case GestaltWindowMinimizeToDockBit:
+		return "GestaltWindowMinimizeToDockBit"
+	case GestaltWindowMinimizeToDockMask:
+		return "GestaltWindowMinimizeToDockMask"
+	default:
+		return fmt.Sprintf("GestaltWindowMgrAttr(%d)", e)
+	}
+}
+
+type GestaltWorldScriptIIVersion uint32
+
+const (
+	GestaltWSIICanPrintWithoutPrGeneralBit GestaltWorldScriptIIVersion = 0
+	GestaltWorldScriptIIAttr               GestaltWorldScriptIIVersion = 'w'<<24 | 's'<<16 | 'a'<<8 | 't' // 'wsat'
+	GestaltWorldScriptIIVersionValue       GestaltWorldScriptIIVersion = 'd'<<24 | 'o'<<16 | 'u'<<8 | 'b' // 'doub'
+)
+
+func (e GestaltWorldScriptIIVersion) String() string {
+	switch e {
+	case GestaltWSIICanPrintWithoutPrGeneralBit:
+		return "GestaltWSIICanPrintWithoutPrGeneralBit"
+	case GestaltWorldScriptIIAttr:
+		return "GestaltWorldScriptIIAttr"
+	case GestaltWorldScriptIIVersionValue:
+		return "GestaltWorldScriptIIVersionValue"
+	default:
+		return fmt.Sprintf("GestaltWorldScriptIIVersion(%d)", e)
+	}
+}
+
+type GestaltX86AdditionalFeatures uint32
+
+const (
+	GestaltX86AdditionalFeaturesValue GestaltX86AdditionalFeatures = 'x'<<24 | '8'<<16 | '6'<<8 | 'a' // 'x86a'
+	GestaltX86HasCID                  GestaltX86AdditionalFeatures = 10
+	GestaltX86HasCX16                 GestaltX86AdditionalFeatures = 13
+	GestaltX86HasDSCPL                GestaltX86AdditionalFeatures = 4
+	GestaltX86HasEST                  GestaltX86AdditionalFeatures = 7
+	GestaltX86HasMONITOR              GestaltX86AdditionalFeatures = 3
+	GestaltX86HasSMX                  GestaltX86AdditionalFeatures = 6
+	GestaltX86HasSSE3                 GestaltX86AdditionalFeatures = 0
+	GestaltX86HasSupplementalSSE3     GestaltX86AdditionalFeatures = 9
+	GestaltX86HasTM2                  GestaltX86AdditionalFeatures = 8
+	GestaltX86HasVMX                  GestaltX86AdditionalFeatures = 5
+	GestaltX86HasxTPR                 GestaltX86AdditionalFeatures = 14
+)
+
+func (e GestaltX86AdditionalFeatures) String() string {
+	switch e {
+	case GestaltX86AdditionalFeaturesValue:
+		return "GestaltX86AdditionalFeaturesValue"
 	case GestaltX86HasCID:
 		return "GestaltX86HasCID"
+	case GestaltX86HasCX16:
+		return "GestaltX86HasCX16"
+	case GestaltX86HasDSCPL:
+		return "GestaltX86HasDSCPL"
+	case GestaltX86HasEST:
+		return "GestaltX86HasEST"
+	case GestaltX86HasMONITOR:
+		return "GestaltX86HasMONITOR"
+	case GestaltX86HasSMX:
+		return "GestaltX86HasSMX"
+	case GestaltX86HasSSE3:
+		return "GestaltX86HasSSE3"
+	case GestaltX86HasSupplementalSSE3:
+		return "GestaltX86HasSupplementalSSE3"
+	case GestaltX86HasTM2:
+		return "GestaltX86HasTM2"
+	case GestaltX86HasVMX:
+		return "GestaltX86HasVMX"
+	case GestaltX86HasxTPR:
+		return "GestaltX86HasxTPR"
+	default:
+		return fmt.Sprintf("GestaltX86AdditionalFeatures(%d)", e)
+	}
+}
+
+type GestaltX86Features uint32
+
+const (
+	GestaltX86FeaturesValue GestaltX86Features = 'x'<<24 | '8'<<16 | '6'<<8 | 'f' // 'x86f'
+	GestaltX86HasAPIC       GestaltX86Features = 9
+	GestaltX86HasCLFSH      GestaltX86Features = 19
+	GestaltX86HasCMOV       GestaltX86Features = 15
+	GestaltX86HasCX8        GestaltX86Features = 8
+	GestaltX86HasDE         GestaltX86Features = 2
+	GestaltX86HasDS         GestaltX86Features = 21
+	GestaltX86HasFPU        GestaltX86Features = 0
+	GestaltX86HasFXSR       GestaltX86Features = 24
+	GestaltX86HasHTT        GestaltX86Features = 28
+	GestaltX86HasMCA        GestaltX86Features = 14
+	GestaltX86HasMCE        GestaltX86Features = 7
+	GestaltX86HasMMX        GestaltX86Features = 23
+	GestaltX86HasMSR        GestaltX86Features = 5
+	GestaltX86HasMTRR       GestaltX86Features = 12
+	GestaltX86HasPAE        GestaltX86Features = 6
+	GestaltX86HasPAT        GestaltX86Features = 16
+	GestaltX86HasPGE        GestaltX86Features = 13
+	GestaltX86HasPSE        GestaltX86Features = 3
+	GestaltX86HasPSE36      GestaltX86Features = 17
+	GestaltX86HasPSN        GestaltX86Features = 18
+	GestaltX86HasSEP        GestaltX86Features = 11
+	GestaltX86HasSS         GestaltX86Features = 27
+	GestaltX86HasSSE        GestaltX86Features = 25
+	GestaltX86HasSSE2       GestaltX86Features = 26
+	GestaltX86HasTM         GestaltX86Features = 29
+	GestaltX86HasTSC        GestaltX86Features = 4
+	GestaltX86HasVME        GestaltX86Features = 1
+	GestaltX86ResACPI       GestaltX86Features = 22
+	GestaltX86Serviced20    GestaltX86Features = 20
+)
+
+func (e GestaltX86Features) String() string {
+	switch e {
+	case GestaltX86FeaturesValue:
+		return "GestaltX86FeaturesValue"
+	case GestaltX86HasAPIC:
+		return "GestaltX86HasAPIC"
 	case GestaltX86HasCLFSH:
 		return "GestaltX86HasCLFSH"
 	case GestaltX86HasCMOV:
 		return "GestaltX86HasCMOV"
-	case GestaltX86HasCX16:
-		return "GestaltX86HasCX16"
 	case GestaltX86HasCX8:
 		return "GestaltX86HasCX8"
 	case GestaltX86HasDE:
 		return "GestaltX86HasDE"
 	case GestaltX86HasDS:
 		return "GestaltX86HasDS"
-	case GestaltX86HasDSCPL:
-		return "GestaltX86HasDSCPL"
-	case GestaltX86HasEST:
-		return "GestaltX86HasEST"
 	case GestaltX86HasFPU:
 		return "GestaltX86HasFPU"
 	case GestaltX86HasFXSR:
@@ -9220,10 +11018,10 @@ func (e GestaltX86) String() string {
 		return "GestaltX86HasHTT"
 	case GestaltX86HasMCA:
 		return "GestaltX86HasMCA"
+	case GestaltX86HasMCE:
+		return "GestaltX86HasMCE"
 	case GestaltX86HasMMX:
 		return "GestaltX86HasMMX"
-	case GestaltX86HasMONITOR:
-		return "GestaltX86HasMONITOR"
 	case GestaltX86HasMSR:
 		return "GestaltX86HasMSR"
 	case GestaltX86HasMTRR:
@@ -9232,6 +11030,10 @@ func (e GestaltX86) String() string {
 		return "GestaltX86HasPAE"
 	case GestaltX86HasPAT:
 		return "GestaltX86HasPAT"
+	case GestaltX86HasPGE:
+		return "GestaltX86HasPGE"
+	case GestaltX86HasPSE:
+		return "GestaltX86HasPSE"
 	case GestaltX86HasPSE36:
 		return "GestaltX86HasPSE36"
 	case GestaltX86HasPSN:
@@ -9246,6 +11048,8 @@ func (e GestaltX86) String() string {
 		return "GestaltX86HasSSE2"
 	case GestaltX86HasTM:
 		return "GestaltX86HasTM"
+	case GestaltX86HasTSC:
+		return "GestaltX86HasTSC"
 	case GestaltX86HasVME:
 		return "GestaltX86HasVME"
 	case GestaltX86ResACPI:
@@ -9253,11 +11057,11 @@ func (e GestaltX86) String() string {
 	case GestaltX86Serviced20:
 		return "GestaltX86Serviced20"
 	default:
-		return fmt.Sprintf("GestaltX86(%d)", e)
+		return fmt.Sprintf("GestaltX86Features(%d)", e)
 	}
 }
 
-type Greaterthan uint
+type Greaterthan uint32
 
 const (
 	EQUALTO     Greaterthan = 2
@@ -9281,7 +11085,7 @@ func (e Greaterthan) String() string {
 	}
 }
 
-type Hm int
+type Hm int32
 
 const (
 	HmBalloonAborted       Hm = -853
@@ -9323,7 +11127,7 @@ func (e Hm) String() string {
 	}
 }
 
-type Hr int
+type Hr int32
 
 const (
 	HrHTMLRenderingLibNotInstalledErr Hr = -5360
@@ -9347,7 +11151,7 @@ func (e Hr) String() string {
 	}
 }
 
-type IMemFullErr int
+type IMemFullErr int32
 
 const (
 	IIOAbort         IMemFullErr = -27
@@ -9365,7 +11169,7 @@ func (e IMemFullErr) String() string {
 	}
 }
 
-type Int uint
+type Int uint32
 
 const (
 	// Deprecated.
@@ -9401,7 +11205,7 @@ func (e Int) String() string {
 	}
 }
 
-type InternalComponentErr int
+type InternalComponentErr int32
 
 const (
 	CantReceiveFromSynthesizerOSErr InternalComponentErr = -2073
@@ -9473,7 +11277,7 @@ func (e InternalComponentErr) String() string {
 	}
 }
 
-type InternalScrapErr int
+type InternalScrapErr int32
 
 const (
 	BadScrapRefErr              InternalScrapErr = -4990
@@ -9527,7 +11331,7 @@ func (e InternalScrapErr) String() string {
 	}
 }
 
-type InvalidComponentID int
+type InvalidComponentID int32
 
 const (
 	ComponentDontRegister InvalidComponentID = -3003
@@ -9560,7 +11364,7 @@ func (e InvalidComponentID) String() string {
 	}
 }
 
-type InvalidIconRefErr int
+type InvalidIconRefErr int32
 
 const (
 	InvalidIconRefErrValue InvalidIconRefErr = -2580
@@ -9581,7 +11385,7 @@ func (e InvalidIconRefErr) String() string {
 	}
 }
 
-type InvalidTranslationPathErr int
+type InvalidTranslationPathErr int32
 
 const (
 	BadTranslationSpecErr          InvalidTranslationPathErr = -3031
@@ -9608,7 +11412,7 @@ func (e InvalidTranslationPathErr) String() string {
 	}
 }
 
-type Itlc uint
+type Itlc uint32
 
 const (
 	ItlcDualCaret    Itlc = 6
@@ -9629,7 +11433,7 @@ func (e Itlc) String() string {
 	}
 }
 
-type ItlcDisableKeyScript uint
+type ItlcDisableKeyScript uint32
 
 const (
 	ItlcDisableKeyScriptSyncValue ItlcDisableKeyScript = 3
@@ -9644,7 +11448,7 @@ func (e ItlcDisableKeyScript) String() string {
 	}
 }
 
-type ItlcDisableKeyScriptSync uint
+type ItlcDisableKeyScriptSync uint32
 
 const (
 	ItlcDisableKeyScriptSyncMask ItlcDisableKeyScriptSync = 8
@@ -9659,22 +11463,18 @@ func (e ItlcDisableKeyScriptSync) String() string {
 	}
 }
 
-type Iu int
+type IuSystemCurLang int32
 
 const (
-	IuCurrentCurLang Iu = -4
-	IuCurrentDefLang Iu = -5
-	IuScriptCurLang  Iu = -6
-	IuScriptDefLang  Iu = -7
-	IuSystemCurLang  Iu = -2
-	IuSystemDefLang  Iu = -3
-	// Deprecated.
-	IuCurrentScript Iu = -2
-	// Deprecated.
-	IuSystemScript Iu = -1
+	IuCurrentCurLang     IuSystemCurLang = -4
+	IuCurrentDefLang     IuSystemCurLang = -5
+	IuScriptCurLang      IuSystemCurLang = -6
+	IuScriptDefLang      IuSystemCurLang = -7
+	IuSystemCurLangValue IuSystemCurLang = -2
+	IuSystemDefLang      IuSystemCurLang = -3
 )
 
-func (e Iu) String() string {
+func (e IuSystemCurLang) String() string {
 	switch e {
 	case IuCurrentCurLang:
 		return "IuCurrentCurLang"
@@ -9684,18 +11484,36 @@ func (e Iu) String() string {
 		return "IuScriptCurLang"
 	case IuScriptDefLang:
 		return "IuScriptDefLang"
-	case IuSystemCurLang:
-		return "IuSystemCurLang"
+	case IuSystemCurLangValue:
+		return "IuSystemCurLangValue"
 	case IuSystemDefLang:
 		return "IuSystemDefLang"
-	case IuSystemScript:
-		return "IuSystemScript"
 	default:
-		return fmt.Sprintf("Iu(%d)", e)
+		return fmt.Sprintf("IuSystemCurLang(%d)", e)
 	}
 }
 
-type K32BitHeap uint
+type IuSystemScript int32
+
+const (
+	// Deprecated.
+	IuCurrentScript IuSystemScript = -2
+	// Deprecated.
+	IuSystemScriptValue IuSystemScript = -1
+)
+
+func (e IuSystemScript) String() string {
+	switch e {
+	case IuCurrentScript:
+		return "IuCurrentScript"
+	case IuSystemScriptValue:
+		return "IuSystemScriptValue"
+	default:
+		return fmt.Sprintf("IuSystemScript(%d)", e)
+	}
+}
+
+type K32BitHeap uint32
 
 const (
 	// Deprecated.
@@ -9719,7 +11537,7 @@ func (e K32BitHeap) String() string {
 	}
 }
 
-type K68kInterruptLevelMask uint
+type K68kInterruptLevelMask uint32
 
 const (
 	// Deprecated.
@@ -9751,680 +11569,7 @@ func (e K68kInterruptLevelMask) String() string {
 	}
 }
 
-type KAE uint
-
-const (
-	KAEActivate KAE = 'a'<<24 | 'c'<<16 | 't'<<8 | 'v' // 'actv'
-	// KAEAlwaysInteract: # Discussion
-	KAEAlwaysInteract KAE = 0x30
-	// KAEAnswer: Event that is a reply Apple event.
-	KAEAnswer           KAE = 'a'<<24 | 'n'<<16 | 's'<<8 | 'r' // 'ansr'
-	KAEApplicationClass KAE = 'a'<<24 | 'p'<<16 | 'p'<<8 | 'l' // 'appl'
-	// KAEApplicationDied: Event sent by the Process Manager to an application that launched another application when the launched application quits or terminates.
-	KAEApplicationDied  KAE = 'o'<<24 | 'b'<<16 | 'i'<<8 | 't' // 'obit'
-	KAEAsk              KAE = 'a'<<24 | 's'<<16 | 'k'<<8 | ' ' // 'ask '
-	KAEAutoDown         KAE = 'a'<<24 | 'u'<<16 | 't'<<8 | 'o' // 'auto'
-	KAEBefore           KAE = 'b'<<24 | 'e'<<16 | 'f'<<8 | 'o' // 'befo'
-	KAEBeginTransaction KAE = 'b'<<24 | 'e'<<16 | 'g'<<8 | 'i' // 'begi'
-	KAEBeginning        KAE = 'b'<<24 | 'g'<<16 | 'n'<<8 | 'g' // 'bgng'
-	// KAEBeginsWith: The value of `operand1` begins with the value of `operand2` (for example, the string `"operand"` begins with the string `"opera"`).
-	KAEBeginsWith KAE = 'b'<<24 | 'g'<<16 | 'w'<<8 | 't' // 'bgwt'
-	KAEBold       KAE = 'b'<<24 | 'o'<<16 | 'l'<<8 | 'd' // 'bold'
-	// KAECanInteract: # Discussion
-	KAECanInteract KAE = 0x20
-	// KAECanSwitchLayer: # Discussion
-	KAECanSwitchLayer KAE = 0x40
-	KAECaseSensEquals KAE = 'c'<<24 | 's'<<16 | 'e'<<8 | 'q' // 'cseq'
-	KAECentered       KAE = 'c'<<24 | 'e'<<16 | 'n'<<8 | 't' // 'cent'
-	KAEChangeView     KAE = 'v'<<24 | 'i'<<16 | 'e'<<8 | 'w' // 'view'
-	KAEClone          KAE = 'c'<<24 | 'l'<<16 | 'o'<<8 | 'n' // 'clon'
-	KAEClose          KAE = 'c'<<24 | 'l'<<16 | 'o'<<8 | 's' // 'clos'
-	KAECommandClass   KAE = 'c'<<24 | 'm'<<16 | 'n'<<8 | 'd' // 'cmnd'
-	KAECondensed      KAE = 'c'<<24 | 'o'<<16 | 'n'<<8 | 'd' // 'cond'
-	// KAEContains: The value of `operand1` contains the value of `operand2 `(for example, the string `"operand"` contains the string `"era"`).
-	KAEContains KAE = 'c'<<24 | 'o'<<16 | 'n'<<8 | 't' // 'cont'
-	KAECopy     KAE = 'c'<<24 | 'o'<<16 | 'p'<<8 | 'y' // 'copy'
-	// KAECoreSuite: An Apple event in the Standard Suite.
-	KAECoreSuite       KAE = 'c'<<24 | 'o'<<16 | 'r'<<8 | 'e' // 'core'
-	KAECountElements   KAE = 'c'<<24 | 'n'<<16 | 't'<<8 | 'e' // 'cnte'
-	KAECreateElement   KAE = 'c'<<24 | 'r'<<16 | 'e'<<8 | 'l' // 'crel'
-	KAECreatePublisher KAE = 'c'<<24 | 'p'<<16 | 'u'<<8 | 'b' // 'cpub'
-	KAECut             KAE = 'c'<<24 | 'u'<<16 | 't'<<8 | ' ' // 'cut '
-	// KAEDataArray: Array items consist of data of the same size and same type, and are aligned on word boundaries.
-	KAEDataArray  KAE = 0
-	KAEDeactivate KAE = 'd'<<24 | 'a'<<16 | 'c'<<8 | 't' // 'dact'
-	KAEDelete     KAE = 'd'<<24 | 'e'<<16 | 'l'<<8 | 'o' // 'delo'
-	// KAEDescArray: Array items consist of descriptors of different descriptor types with data of variable size.
-	KAEDescArray KAE = 3
-	// KAEDirectCall: The source of the Apple event is a direct call that bypassed the PPC Toolbox.
-	KAEDirectCall                              KAE = 1
-	KAEDiskEvent                               KAE = 'd'<<24 | 'i'<<16 | 's'<<8 | 'k' // 'disk'
-	KAEDoNotAutomaticallyAddAnnotationsToEvent KAE = 0x10000
-	KAEDoObjectsExist                          KAE = 'd'<<24 | 'o'<<16 | 'e'<<8 | 'x' // 'doex'
-	KAEDoScript                                KAE = 'd'<<24 | 'o'<<16 | 's'<<8 | 'c' // 'dosc'
-	// KAEDontExecute: # Discussion
-	KAEDontExecute KAE = 0x2000
-	// KAEDontReconnect: # Discussion
-	KAEDontReconnect KAE = 0x80
-	// KAEDontRecord: # Discussion
-	KAEDontRecord         KAE = 0x1000
-	KAEDown               KAE = 'd'<<24 | 'o'<<16 | 'w'<<8 | 'n' // 'down'
-	KAEDrag               KAE = 'd'<<24 | 'r'<<16 | 'a'<<8 | 'g' // 'drag'
-	KAEDuplicateSelection KAE = 's'<<24 | 'd'<<16 | 'u'<<8 | 'p' // 'sdup'
-	KAEEditGraphic        KAE = 'e'<<24 | 'd'<<16 | 'i'<<8 | 't' // 'edit'
-	KAEEmptyTrash         KAE = 'e'<<24 | 'm'<<16 | 'p'<<8 | 't' // 'empt'
-	KAEEnd                KAE = 'e'<<24 | 'n'<<16 | 'd'<<8 | ' ' // 'end '
-	KAEEndTransaction     KAE = 'e'<<24 | 'n'<<16 | 'd'<<8 | 't' // 'endt'
-	// KAEEndsWith: The value of `operand1` ends with the value of `operand2` (for example, the string `"operand"` ends with the string `"and"`).
-	KAEEndsWith KAE = 'e'<<24 | 'n'<<16 | 'd'<<8 | 's' // 'ends'
-	// KAEEquals: The value of `operand1` is equal to the value of `operand2`
-	KAEEquals   KAE = '='<<24 | ' '<<16 | ' '<<8 | ' ' // '=   '
-	KAEExpanded KAE = 'p'<<24 | 'e'<<16 | 'x'<<8 | 'p' // 'pexp'
-	KAEFast     KAE = 'f'<<24 | 'a'<<16 | 's'<<8 | 't' // 'fast'
-	// KAEFinderEvents: An event that the Finder accepts.
-	KAEFinderEvents          KAE = 'F'<<24 | 'N'<<16 | 'D'<<8 | 'R' // 'FNDR'
-	KAEFormulaProtect        KAE = 'f'<<24 | 'p'<<16 | 'r'<<8 | 'o' // 'fpro'
-	KAEFullyJustified        KAE = 'f'<<24 | 'u'<<16 | 'l'<<8 | 'l' // 'full'
-	KAEGetClassInfo          KAE = 'q'<<24 | 'o'<<16 | 'b'<<8 | 'j' // 'qobj'
-	KAEGetData               KAE = 'g'<<24 | 'e'<<16 | 't'<<8 | 'd' // 'getd'
-	KAEGetDataSize           KAE = 'd'<<24 | 's'<<16 | 'i'<<8 | 'z' // 'dsiz'
-	KAEGetEventInfo          KAE = 'g'<<24 | 't'<<16 | 'e'<<8 | 'i' // 'gtei'
-	KAEGetInfoSelection      KAE = 's'<<24 | 'i'<<16 | 'n'<<8 | 'f' // 'sinf'
-	KAEGetPrivilegeSelection KAE = 's'<<24 | 'p'<<16 | 'r'<<8 | 'v' // 'sprv'
-	KAEGetSuiteInfo          KAE = 'g'<<24 | 't'<<16 | 's'<<8 | 'i' // 'gtsi'
-	// KAEGreaterThan: The value of `operand1` is greater than the value of `operand2`.
-	KAEGreaterThan KAE = '>'<<24 | ' '<<16 | ' '<<8 | ' ' // '>   '
-	// KAEGreaterThanEquals: The value of `operand1` is greater than or equal to the value of `operand2`.
-	KAEGreaterThanEquals KAE = '>'<<24 | '='<<16 | ' '<<8 | ' ' // '>=  '
-	KAEGrow              KAE = 'g'<<24 | 'r'<<16 | 'o'<<8 | 'w' // 'grow'
-	// KAEHTTPProxyHostAttr: A value of type `typeChar` or `typeUTF8Text`.
-	KAEHTTPProxyHostAttr KAE = 'x'<<24 | 'h'<<16 | 't'<<8 | 'h' // 'xhth'
-	// KAEHTTPProxyPortAttr: A value of type `typeSInt32`.
-	KAEHTTPProxyPortAttr  KAE = 'x'<<24 | 'h'<<16 | 't'<<8 | 'p' // 'xhtp'
-	KAEHandleSimpleRanges KAE = 0x20
-	KAEHiQuality          KAE = 'h'<<24 | 'i'<<16 | 'q'<<8 | 'u' // 'hiqu'
-	KAEHidden             KAE = 'h'<<24 | 'i'<<16 | 'd'<<8 | 'n' // 'hidn'
-	KAEHighLevel          KAE = 'h'<<24 | 'i'<<16 | 'g'<<8 | 'h' // 'high'
-	// KAEHighPriority: The Apple Event Manager posts the event at the beginning of the event queue of the server process.
-	KAEHighPriority KAE = 0x1
-	// KAEIDoMarking: The application provides marking callback functions.
-	KAEIDoMarking KAE = 0x4
-	// KAEIDoMinimum: The application does not handle whose tests or provide marking callbacks.
-	KAEIDoMinimum KAE = 0
-	// KAEIDoWhose: The application supports whose tests (supports key form `formWhose`).
-	KAEIDoWhose       KAE = 0x1
-	KAEISWebStarSuite KAE = 0x575757bd
-	KAEImageGraphic   KAE = 'i'<<24 | 'm'<<16 | 'g'<<8 | 'r' // 'imgr'
-	KAEInfo           KAE = 11
-	KAEInternetSuite  KAE = 'g'<<24 | 'u'<<16 | 'r'<<8 | 'l' // 'gurl'
-	KAEIsUniform      KAE = 'i'<<24 | 's'<<16 | 'u'<<8 | 'n' // 'isun'
-	KAEItalic         KAE = 'i'<<24 | 't'<<16 | 'a'<<8 | 'l' // 'ital'
-	KAEKeyClass       KAE = 'k'<<24 | 'e'<<16 | 'y'<<8 | 'c' // 'keyc'
-	// KAEKeyDescArray: Array items consist of keyword-specified descriptors with different keywords, different descriptor types, and data of variable size.
-	KAEKeyDescArray  KAE = 4
-	KAEKeyDown       KAE = 'k'<<24 | 'd'<<16 | 'w'<<8 | 'n' // 'kdwn'
-	KAELeftJustified KAE = 'l'<<24 | 'e'<<16 | 'f'<<8 | 't' // 'left'
-	KAELessThan      KAE = '<'<<24 | ' '<<16 | ' '<<8 | ' ' // '<   '
-	// KAELessThanEquals: The value of `operand1` is less than or equal to the value of `operand2`.
-	KAELessThanEquals KAE = '<'<<24 | '='<<16 | ' '<<8 | ' ' // '<=  '
-	// KAELocalProcess: The source application is another process on the same computer as the target application.
-	KAELocalProcess       KAE = 3
-	KAELogOut             KAE = 'l'<<24 | 'o'<<16 | 'g'<<8 | 'o' // 'logo'
-	KAELowercase          KAE = 'l'<<24 | 'o'<<16 | 'w'<<8 | 'c' // 'lowc'
-	KAEMain               KAE = 0
-	KAEMakeObjectsVisible KAE = 'm'<<24 | 'v'<<16 | 'i'<<8 | 's' // 'mvis'
-	KAEMenuClass          KAE = 'm'<<24 | 'e'<<16 | 'n'<<8 | 'u' // 'menu'
-	KAEMenuSelect         KAE = 'm'<<24 | 'h'<<16 | 'i'<<8 | 't' // 'mhit'
-	KAEMiscStandards      KAE = 'm'<<24 | 'i'<<16 | 's'<<8 | 'c' // 'misc'
-	KAEModifiable         KAE = 'm'<<24 | 'o'<<16 | 'd'<<8 | 'f' // 'modf'
-	KAEMouseClass         KAE = 'm'<<24 | 'o'<<16 | 'u'<<8 | 's' // 'mous'
-	KAEMouseDown          KAE = 'm'<<24 | 'd'<<16 | 'w'<<8 | 'n' // 'mdwn'
-	KAEMouseDownInBack    KAE = 'm'<<24 | 'd'<<16 | 'b'<<8 | 'k' // 'mdbk'
-	KAEMove               KAE = 'm'<<24 | 'o'<<16 | 'v'<<8 | 'e' // 'move'
-	KAEMoved              KAE = 'm'<<24 | 'o'<<16 | 'v'<<8 | 'e' // 'move'
-	KAENavigationKey      KAE = 'n'<<24 | 'a'<<16 | 'v'<<8 | 'e' // 'nave'
-	// KAENeverInteract: # Discussion
-	KAENeverInteract KAE = 0x10
-	KAENo            KAE = 'n'<<24 | 'o'<<16 | ' '<<8 | ' ' // 'no  '
-	KAENoArrow       KAE = 'a'<<24 | 'r'<<16 | 'n'<<8 | 'o' // 'arno'
-	// KAENoReply: The reply preference—your application does not want a reply Apple event.
-	KAENoReply       KAE = 0x1
-	KAENonmodifiable KAE = 'n'<<24 | 'm'<<16 | 'o'<<8 | 'd' // 'nmod'
-	// KAENormalPriority: The Apple Event Manager posts the event at the end of the event queue of the server process and the server processes the Apple event as soon as it has the opportunity.
-	KAENormalPriority KAE = 0
-	// KAENotifyRecording: # Discussion
-	KAENotifyRecording KAE = 'r'<<24 | 'e'<<16 | 'c'<<8 | 'r' // 'recr'
-	// KAENotifyStartRecording: An event that notifies an application that recording has been turned on.
-	KAENotifyStartRecording KAE = 'r'<<24 | 'e'<<16 | 'c'<<8 | '1' // 'rec1'
-	// KAENotifyStopRecording: An event that notifies an application that recording has been turned off.
-	KAENotifyStopRecording KAE = 'r'<<24 | 'e'<<16 | 'c'<<8 | '0' // 'rec0'
-	KAENullEvent           KAE = 'n'<<24 | 'u'<<16 | 'l'<<8 | 'l' // 'null'
-	KAEOSAXSizeResource    KAE = 'o'<<24 | 's'<<16 | 'i'<<8 | 'z' // 'osiz'
-	KAEOpen                KAE = 'o'<<24 | 'd'<<16 | 'o'<<8 | 'c' // 'odoc'
-	// KAEOpenApplication: Event that launches an application.
-	KAEOpenApplication KAE = 'o'<<24 | 'a'<<16 | 'p'<<8 | 'p' // 'oapp'
-	// KAEOpenContents: # Discussion
-	KAEOpenContents KAE = 'o'<<24 | 'c'<<16 | 'o'<<8 | 'n' // 'ocon'
-	// KAEOpenDocuments: # Discussion
-	KAEOpenDocuments KAE = 'o'<<24 | 'd'<<16 | 'o'<<8 | 'c' // 'odoc'
-	KAEOpenSelection KAE = 's'<<24 | 'o'<<16 | 'p'<<8 | 'e' // 'sope'
-	KAEOutline       KAE = 'o'<<24 | 'u'<<16 | 't'<<8 | 'l' // 'outl'
-	// KAEPackedArray: Array items consist of data of the same size and same type, and are packed without regard for word boundaries.
-	KAEPackedArray  KAE = 1
-	KAEPageSetup    KAE = 'p'<<24 | 'g'<<16 | 's'<<8 | 'u' // 'pgsu'
-	KAEPassSubDescs KAE = 0x8
-	KAEPaste        KAE = 'p'<<24 | 'a'<<16 | 's'<<8 | 't' // 'past'
-	KAEPlain        KAE = 'p'<<24 | 'l'<<16 | 'a'<<8 | 'n' // 'plan'
-	KAEPrint        KAE = 'p'<<24 | 'd'<<16 | 'o'<<8 | 'c' // 'pdoc'
-	// KAEPrintDocuments: Event that provides an application with a list of documents to print.
-	KAEPrintDocuments KAE = 'p'<<24 | 'd'<<16 | 'o'<<8 | 'c' // 'pdoc'
-	KAEPrintSelection KAE = 's'<<24 | 'p'<<16 | 'r'<<8 | 'i' // 'spri'
-	KAEPrintWindow    KAE = 'p'<<24 | 'w'<<16 | 'i'<<8 | 'n' // 'pwin'
-	// KAEProcessNonReplyEvents: Allow processing of non-reply Apple events while awaiting a synchronous Apple event reply (you specified `kAEWaitReply` for the reply preference).
-	KAEProcessNonReplyEvents KAE = 0x8000
-	KAEPromise               KAE = 'p'<<24 | 'r'<<16 | 'o'<<8 | 'm' // 'prom'
-	KAEPutAwaySelection      KAE = 's'<<24 | 'p'<<16 | 'u'<<8 | 't' // 'sput'
-	KAEQDAdMax               KAE = 'a'<<24 | 'd'<<16 | 'm'<<8 | 'x' // 'admx'
-	KAEQDAdMin               KAE = 'a'<<24 | 'd'<<16 | 'm'<<8 | 'n' // 'admn'
-	KAEQDAddOver             KAE = 'a'<<24 | 'd'<<16 | 'd'<<8 | 'o' // 'addo'
-	KAEQDAddPin              KAE = 'a'<<24 | 'd'<<16 | 'd'<<8 | 'p' // 'addp'
-	KAEQDBic                 KAE = 'b'<<24 | 'i'<<16 | 'c'<<8 | ' ' // 'bic '
-	KAEQDBlend               KAE = 'b'<<24 | 'l'<<16 | 'n'<<8 | 'd' // 'blnd'
-	KAEQDCopy                KAE = 'c'<<24 | 'p'<<16 | 'y'<<8 | ' ' // 'cpy '
-	KAEQDNotBic              KAE = 'n'<<24 | 'b'<<16 | 'i'<<8 | 'c' // 'nbic'
-	KAEQDNotCopy             KAE = 'n'<<24 | 'c'<<16 | 'p'<<8 | 'y' // 'ncpy'
-	KAEQDNotOr               KAE = 'n'<<24 | 't'<<16 | 'o'<<8 | 'r' // 'ntor'
-	KAEQDNotXor              KAE = 'n'<<24 | 'x'<<16 | 'o'<<8 | 'r' // 'nxor'
-	KAEQDOr                  KAE = 'o'<<24 | 'r'<<16 | ' '<<8 | ' ' // 'or  '
-	KAEQDSubOver             KAE = 's'<<24 | 'u'<<16 | 'b'<<8 | 'o' // 'subo'
-	KAEQDSubPin              KAE = 's'<<24 | 'u'<<16 | 'b'<<8 | 'p' // 'subp'
-	KAEQDSupplementalSuite   KAE = 'q'<<24 | 'd'<<16 | 's'<<8 | 'p' // 'qdsp'
-	KAEQDXor                 KAE = 'x'<<24 | 'o'<<16 | 'r'<<8 | ' ' // 'xor '
-	// KAEQueueReply: The reply preference—your application wants a reply Apple event.
-	KAEQueueReply     KAE = 0x2
-	KAEQuickdrawSuite KAE = 'q'<<24 | 'd'<<16 | 'r'<<8 | 'w' // 'qdrw'
-	KAEQuitAll        KAE = 'q'<<24 | 'u'<<16 | 'i'<<8 | 'a' // 'quia'
-	// KAEQuitApplication: Event that causes the application to quit.
-	KAEQuitApplication KAE = 'q'<<24 | 'u'<<16 | 'i'<<8 | 't' // 'quit'
-	KAERawKey          KAE = 'r'<<24 | 'k'<<16 | 'e'<<8 | 'y' // 'rkey'
-	KAEReallyLogOut    KAE = 'r'<<24 | 'l'<<16 | 'g'<<8 | 'o' // 'rlgo'
-	KAERedo            KAE = 'r'<<24 | 'e'<<16 | 'd'<<8 | 'o' // 'redo'
-	KAERegular         KAE = 'r'<<24 | 'e'<<16 | 'g'<<8 | 'l' // 'regl'
-	// KAERemoteProcess: The source application is a process on a remote computer on the network.
-	KAERemoteProcess KAE = 4
-	// KAEReopenApplication: Event that reopens an application.
-	KAEReopenApplication  KAE = 'r'<<24 | 'a'<<16 | 'p'<<8 | 'p' // 'rapp'
-	KAEReplace            KAE = 'r'<<24 | 'p'<<16 | 'l'<<8 | 'c' // 'rplc'
-	KAERequiredSuite      KAE = 'r'<<24 | 'e'<<16 | 'q'<<8 | 'd' // 'reqd'
-	KAEResized            KAE = 'r'<<24 | 's'<<16 | 'i'<<8 | 'z' // 'rsiz'
-	KAEResolveNestedLists KAE = 0x10
-	KAERestart            KAE = 'r'<<24 | 'e'<<16 | 's'<<8 | 't' // 'rest'
-	KAEResume             KAE = 'r'<<24 | 's'<<16 | 'm'<<8 | 'e' // 'rsme'
-	KAERevealSelection    KAE = 's'<<24 | 'r'<<16 | 'e'<<8 | 'v' // 'srev'
-	KAERevert             KAE = 'r'<<24 | 'v'<<16 | 'r'<<8 | 't' // 'rvrt'
-	KAERightJustified     KAE = 'r'<<24 | 'g'<<16 | 'h'<<8 | 't' // 'rght'
-	// KAESameProcess: The source of the Apple event is the same application that received the event (the target application and the source application are the same).
-	KAESameProcess           KAE = 2
-	KAESave                  KAE = 's'<<24 | 'a'<<16 | 'v'<<8 | 'e' // 'save'
-	KAEScrapEvent            KAE = 's'<<24 | 'c'<<16 | 'r'<<8 | 'p' // 'scrp'
-	KAEScriptingSizeResource KAE = 's'<<24 | 'c'<<16 | 's'<<8 | 'z' // 'scsz'
-	KAESelect                KAE = 's'<<24 | 'l'<<16 | 'c'<<8 | 't' // 'slct'
-	KAESetData               KAE = 's'<<24 | 'e'<<16 | 't'<<8 | 'd' // 'setd'
-	KAESetPosition           KAE = 'p'<<24 | 'o'<<16 | 's'<<8 | 'n' // 'posn'
-	KAEShadow                KAE = 's'<<24 | 'h'<<16 | 'a'<<8 | 'd' // 'shad'
-	KAESharing               KAE = 13
-	KAEShowClipboard         KAE = 's'<<24 | 'h'<<16 | 'c'<<8 | 'l' // 'shcl'
-	// KAEShowPreferences: # Discussion
-	KAEShowPreferences        KAE = 'p'<<24 | 'r'<<16 | 'e'<<8 | 'f' // 'pref'
-	KAEShowRestartDialog      KAE = 'r'<<24 | 'r'<<16 | 's'<<8 | 't' // 'rrst'
-	KAEShowShutdownDialog     KAE = 'r'<<24 | 's'<<16 | 'd'<<8 | 'n' // 'rsdn'
-	KAEShutDown               KAE = 's'<<24 | 'h'<<16 | 'u'<<8 | 't' // 'shut'
-	KAESleep                  KAE = 's'<<24 | 'l'<<16 | 'e'<<8 | 'p' // 'slep'
-	KAESmallCaps              KAE = 's'<<24 | 'm'<<16 | 'c'<<8 | 'p' // 'smcp'
-	KAESocks4Protocol         KAE = 4
-	KAESocks5Protocol         KAE = 5
-	KAESocksHostAttr          KAE = 'x'<<24 | 's'<<16 | 'h'<<8 | 's' // 'xshs'
-	KAESocksPasswordAttr      KAE = 'x'<<24 | 's'<<16 | 'h'<<8 | 'w' // 'xshw'
-	KAESocksPortAttr          KAE = 'x'<<24 | 's'<<16 | 'h'<<8 | 'p' // 'xshp'
-	KAESocksProxyAttr         KAE = 'x'<<24 | 's'<<16 | 'o'<<8 | 'k' // 'xsok'
-	KAESocksUserAttr          KAE = 'x'<<24 | 's'<<16 | 'h'<<8 | 'u' // 'xshu'
-	KAESpecialClassProperties KAE = 'c'<<24 | '@'<<16 | '#'<<8 | '!' // 'c@#!'
-	// KAEStartRecording: # Discussion
-	KAEStartRecording KAE = 'r'<<24 | 'e'<<16 | 'c'<<8 | 'a' // 'reca'
-	// KAEStopRecording: # Discussion
-	KAEStopRecording         KAE = 'r'<<24 | 'e'<<16 | 'c'<<8 | 'c' // 'recc'
-	KAEStoppedMoving         KAE = 's'<<24 | 't'<<16 | 'o'<<8 | 'p' // 'stop'
-	KAEStrikethrough         KAE = 's'<<24 | 't'<<16 | 'r'<<8 | 'k' // 'strk'
-	KAESubscript             KAE = 's'<<24 | 'b'<<16 | 's'<<8 | 'c' // 'sbsc'
-	KAESuperscript           KAE = 's'<<24 | 'p'<<16 | 's'<<8 | 'c' // 'spsc'
-	KAESuspend               KAE = 's'<<24 | 'u'<<16 | 's'<<8 | 'p' // 'susp'
-	KAETableSuite            KAE = 't'<<24 | 'b'<<16 | 'l'<<8 | 's' // 'tbls'
-	KAETerminologyExtension  KAE = 'a'<<24 | 'e'<<16 | 't'<<8 | 'e' // 'aete'
-	KAETextSuite             KAE = 'T'<<24 | 'E'<<16 | 'X'<<8 | 'T' // 'TEXT'
-	KAETransactionTerminated KAE = 't'<<24 | 't'<<16 | 'r'<<8 | 'm' // 'ttrm'
-	KAEUnderline             KAE = 'u'<<24 | 'n'<<16 | 'd'<<8 | 'l' // 'undl'
-	KAEUndo                  KAE = 'u'<<24 | 'n'<<16 | 'd'<<8 | 'o' // 'undo'
-	// KAEUnknownSource: The source of the Apple event is unknown.
-	KAEUnknownSource KAE = 0
-	KAEUp            KAE = 'u'<<24 | 'p'<<16 | ' '<<8 | ' ' // 'up  '
-	KAEUpdate        KAE = 'u'<<24 | 'p'<<16 | 'd'<<8 | 't' // 'updt'
-	// KAEUseHTTPProxyAttr: A value of type `typeBoolean`.
-	KAEUseHTTPProxyAttr     KAE = 'x'<<24 | 'u'<<16 | 'p'<<8 | 'r' // 'xupr'
-	KAEUseRelativeIterators KAE = 0x40
-	KAEUseSocksAttr         KAE = 'x'<<24 | 's'<<16 | 'c'<<8 | 's' // 'xscs'
-	KAEUserTerminology      KAE = 'a'<<24 | 'e'<<16 | 'u'<<8 | 't' // 'aeut'
-	KAEVirtualKey           KAE = 'k'<<24 | 'e'<<16 | 'y'<<8 | 'c' // 'keyc'
-	// KAEWaitReply: # Discussion
-	KAEWaitReply   KAE = 0x3
-	KAEWakeUpEvent KAE = 'w'<<24 | 'a'<<16 | 'k'<<8 | 'e' // 'wake'
-	// KAEWantReceipt: # Discussion
-	KAEWantReceipt     KAE = 0x200
-	KAEWholeWordEquals KAE = 'w'<<24 | 'w'<<16 | 'e'<<8 | 'q' // 'wweq'
-	KAEWindowClass     KAE = 'w'<<24 | 'i'<<16 | 'n'<<8 | 'd' // 'wind'
-	KAEYes             KAE = 'y'<<24 | 'e'<<16 | 's'<<8 | ' ' // 'yes '
-	KAEZoomValue       KAE = 'z'<<24 | 'o'<<16 | 'o'<<8 | 'm' // 'zoom'
-)
-
-func (e KAE) String() string {
-	switch e {
-	case KAEActivate:
-		return "KAEActivate"
-	case KAEAlwaysInteract:
-		return "KAEAlwaysInteract"
-	case KAEAnswer:
-		return "KAEAnswer"
-	case KAEApplicationClass:
-		return "KAEApplicationClass"
-	case KAEApplicationDied:
-		return "KAEApplicationDied"
-	case KAEAsk:
-		return "KAEAsk"
-	case KAEAutoDown:
-		return "KAEAutoDown"
-	case KAEBefore:
-		return "KAEBefore"
-	case KAEBeginTransaction:
-		return "KAEBeginTransaction"
-	case KAEBeginning:
-		return "KAEBeginning"
-	case KAEBeginsWith:
-		return "KAEBeginsWith"
-	case KAEBold:
-		return "KAEBold"
-	case KAECanInteract:
-		return "KAECanInteract"
-	case KAECanSwitchLayer:
-		return "KAECanSwitchLayer"
-	case KAECaseSensEquals:
-		return "KAECaseSensEquals"
-	case KAECentered:
-		return "KAECentered"
-	case KAEChangeView:
-		return "KAEChangeView"
-	case KAEClone:
-		return "KAEClone"
-	case KAEClose:
-		return "KAEClose"
-	case KAECommandClass:
-		return "KAECommandClass"
-	case KAECondensed:
-		return "KAECondensed"
-	case KAEContains:
-		return "KAEContains"
-	case KAECopy:
-		return "KAECopy"
-	case KAECoreSuite:
-		return "KAECoreSuite"
-	case KAECountElements:
-		return "KAECountElements"
-	case KAECreateElement:
-		return "KAECreateElement"
-	case KAECreatePublisher:
-		return "KAECreatePublisher"
-	case KAECut:
-		return "KAECut"
-	case KAEDataArray:
-		return "KAEDataArray"
-	case KAEDeactivate:
-		return "KAEDeactivate"
-	case KAEDelete:
-		return "KAEDelete"
-	case KAEDescArray:
-		return "KAEDescArray"
-	case KAEDirectCall:
-		return "KAEDirectCall"
-	case KAEDiskEvent:
-		return "KAEDiskEvent"
-	case KAEDoNotAutomaticallyAddAnnotationsToEvent:
-		return "KAEDoNotAutomaticallyAddAnnotationsToEvent"
-	case KAEDoObjectsExist:
-		return "KAEDoObjectsExist"
-	case KAEDoScript:
-		return "KAEDoScript"
-	case KAEDontExecute:
-		return "KAEDontExecute"
-	case KAEDontReconnect:
-		return "KAEDontReconnect"
-	case KAEDontRecord:
-		return "KAEDontRecord"
-	case KAEDown:
-		return "KAEDown"
-	case KAEDrag:
-		return "KAEDrag"
-	case KAEDuplicateSelection:
-		return "KAEDuplicateSelection"
-	case KAEEditGraphic:
-		return "KAEEditGraphic"
-	case KAEEmptyTrash:
-		return "KAEEmptyTrash"
-	case KAEEnd:
-		return "KAEEnd"
-	case KAEEndTransaction:
-		return "KAEEndTransaction"
-	case KAEEndsWith:
-		return "KAEEndsWith"
-	case KAEEquals:
-		return "KAEEquals"
-	case KAEExpanded:
-		return "KAEExpanded"
-	case KAEFast:
-		return "KAEFast"
-	case KAEFinderEvents:
-		return "KAEFinderEvents"
-	case KAEFormulaProtect:
-		return "KAEFormulaProtect"
-	case KAEFullyJustified:
-		return "KAEFullyJustified"
-	case KAEGetClassInfo:
-		return "KAEGetClassInfo"
-	case KAEGetData:
-		return "KAEGetData"
-	case KAEGetDataSize:
-		return "KAEGetDataSize"
-	case KAEGetEventInfo:
-		return "KAEGetEventInfo"
-	case KAEGetInfoSelection:
-		return "KAEGetInfoSelection"
-	case KAEGetPrivilegeSelection:
-		return "KAEGetPrivilegeSelection"
-	case KAEGetSuiteInfo:
-		return "KAEGetSuiteInfo"
-	case KAEGreaterThan:
-		return "KAEGreaterThan"
-	case KAEGreaterThanEquals:
-		return "KAEGreaterThanEquals"
-	case KAEGrow:
-		return "KAEGrow"
-	case KAEHTTPProxyHostAttr:
-		return "KAEHTTPProxyHostAttr"
-	case KAEHTTPProxyPortAttr:
-		return "KAEHTTPProxyPortAttr"
-	case KAEHiQuality:
-		return "KAEHiQuality"
-	case KAEHidden:
-		return "KAEHidden"
-	case KAEHighLevel:
-		return "KAEHighLevel"
-	case KAEIDoMarking:
-		return "KAEIDoMarking"
-	case KAEISWebStarSuite:
-		return "KAEISWebStarSuite"
-	case KAEImageGraphic:
-		return "KAEImageGraphic"
-	case KAEInfo:
-		return "KAEInfo"
-	case KAEInternetSuite:
-		return "KAEInternetSuite"
-	case KAEIsUniform:
-		return "KAEIsUniform"
-	case KAEItalic:
-		return "KAEItalic"
-	case KAEKeyClass:
-		return "KAEKeyClass"
-	case KAEKeyDown:
-		return "KAEKeyDown"
-	case KAELeftJustified:
-		return "KAELeftJustified"
-	case KAELessThan:
-		return "KAELessThan"
-	case KAELessThanEquals:
-		return "KAELessThanEquals"
-	case KAELogOut:
-		return "KAELogOut"
-	case KAELowercase:
-		return "KAELowercase"
-	case KAEMakeObjectsVisible:
-		return "KAEMakeObjectsVisible"
-	case KAEMenuClass:
-		return "KAEMenuClass"
-	case KAEMenuSelect:
-		return "KAEMenuSelect"
-	case KAEMiscStandards:
-		return "KAEMiscStandards"
-	case KAEModifiable:
-		return "KAEModifiable"
-	case KAEMouseClass:
-		return "KAEMouseClass"
-	case KAEMouseDown:
-		return "KAEMouseDown"
-	case KAEMouseDownInBack:
-		return "KAEMouseDownInBack"
-	case KAEMove:
-		return "KAEMove"
-	case KAENavigationKey:
-		return "KAENavigationKey"
-	case KAENeverInteract:
-		return "KAENeverInteract"
-	case KAENo:
-		return "KAENo"
-	case KAENoArrow:
-		return "KAENoArrow"
-	case KAENonmodifiable:
-		return "KAENonmodifiable"
-	case KAENotifyRecording:
-		return "KAENotifyRecording"
-	case KAENotifyStartRecording:
-		return "KAENotifyStartRecording"
-	case KAENotifyStopRecording:
-		return "KAENotifyStopRecording"
-	case KAENullEvent:
-		return "KAENullEvent"
-	case KAEOSAXSizeResource:
-		return "KAEOSAXSizeResource"
-	case KAEOpen:
-		return "KAEOpen"
-	case KAEOpenApplication:
-		return "KAEOpenApplication"
-	case KAEOpenContents:
-		return "KAEOpenContents"
-	case KAEOpenSelection:
-		return "KAEOpenSelection"
-	case KAEOutline:
-		return "KAEOutline"
-	case KAEPageSetup:
-		return "KAEPageSetup"
-	case KAEPassSubDescs:
-		return "KAEPassSubDescs"
-	case KAEPaste:
-		return "KAEPaste"
-	case KAEPlain:
-		return "KAEPlain"
-	case KAEPrint:
-		return "KAEPrint"
-	case KAEPrintSelection:
-		return "KAEPrintSelection"
-	case KAEPrintWindow:
-		return "KAEPrintWindow"
-	case KAEProcessNonReplyEvents:
-		return "KAEProcessNonReplyEvents"
-	case KAEPromise:
-		return "KAEPromise"
-	case KAEPutAwaySelection:
-		return "KAEPutAwaySelection"
-	case KAEQDAdMax:
-		return "KAEQDAdMax"
-	case KAEQDAdMin:
-		return "KAEQDAdMin"
-	case KAEQDAddOver:
-		return "KAEQDAddOver"
-	case KAEQDAddPin:
-		return "KAEQDAddPin"
-	case KAEQDBic:
-		return "KAEQDBic"
-	case KAEQDBlend:
-		return "KAEQDBlend"
-	case KAEQDCopy:
-		return "KAEQDCopy"
-	case KAEQDNotBic:
-		return "KAEQDNotBic"
-	case KAEQDNotCopy:
-		return "KAEQDNotCopy"
-	case KAEQDNotOr:
-		return "KAEQDNotOr"
-	case KAEQDNotXor:
-		return "KAEQDNotXor"
-	case KAEQDOr:
-		return "KAEQDOr"
-	case KAEQDSubOver:
-		return "KAEQDSubOver"
-	case KAEQDSubPin:
-		return "KAEQDSubPin"
-	case KAEQDSupplementalSuite:
-		return "KAEQDSupplementalSuite"
-	case KAEQDXor:
-		return "KAEQDXor"
-	case KAEQueueReply:
-		return "KAEQueueReply"
-	case KAEQuickdrawSuite:
-		return "KAEQuickdrawSuite"
-	case KAEQuitAll:
-		return "KAEQuitAll"
-	case KAEQuitApplication:
-		return "KAEQuitApplication"
-	case KAERawKey:
-		return "KAERawKey"
-	case KAEReallyLogOut:
-		return "KAEReallyLogOut"
-	case KAERedo:
-		return "KAERedo"
-	case KAERegular:
-		return "KAERegular"
-	case KAEReopenApplication:
-		return "KAEReopenApplication"
-	case KAEReplace:
-		return "KAEReplace"
-	case KAERequiredSuite:
-		return "KAERequiredSuite"
-	case KAEResized:
-		return "KAEResized"
-	case KAERestart:
-		return "KAERestart"
-	case KAEResume:
-		return "KAEResume"
-	case KAERevealSelection:
-		return "KAERevealSelection"
-	case KAERevert:
-		return "KAERevert"
-	case KAERightJustified:
-		return "KAERightJustified"
-	case KAESave:
-		return "KAESave"
-	case KAEScrapEvent:
-		return "KAEScrapEvent"
-	case KAEScriptingSizeResource:
-		return "KAEScriptingSizeResource"
-	case KAESelect:
-		return "KAESelect"
-	case KAESetData:
-		return "KAESetData"
-	case KAESetPosition:
-		return "KAESetPosition"
-	case KAEShadow:
-		return "KAEShadow"
-	case KAESharing:
-		return "KAESharing"
-	case KAEShowClipboard:
-		return "KAEShowClipboard"
-	case KAEShowPreferences:
-		return "KAEShowPreferences"
-	case KAEShowRestartDialog:
-		return "KAEShowRestartDialog"
-	case KAEShowShutdownDialog:
-		return "KAEShowShutdownDialog"
-	case KAEShutDown:
-		return "KAEShutDown"
-	case KAESleep:
-		return "KAESleep"
-	case KAESmallCaps:
-		return "KAESmallCaps"
-	case KAESocks5Protocol:
-		return "KAESocks5Protocol"
-	case KAESocksHostAttr:
-		return "KAESocksHostAttr"
-	case KAESocksPasswordAttr:
-		return "KAESocksPasswordAttr"
-	case KAESocksPortAttr:
-		return "KAESocksPortAttr"
-	case KAESocksProxyAttr:
-		return "KAESocksProxyAttr"
-	case KAESocksUserAttr:
-		return "KAESocksUserAttr"
-	case KAESpecialClassProperties:
-		return "KAESpecialClassProperties"
-	case KAEStartRecording:
-		return "KAEStartRecording"
-	case KAEStopRecording:
-		return "KAEStopRecording"
-	case KAEStoppedMoving:
-		return "KAEStoppedMoving"
-	case KAEStrikethrough:
-		return "KAEStrikethrough"
-	case KAESubscript:
-		return "KAESubscript"
-	case KAESuperscript:
-		return "KAESuperscript"
-	case KAESuspend:
-		return "KAESuspend"
-	case KAETableSuite:
-		return "KAETableSuite"
-	case KAETerminologyExtension:
-		return "KAETerminologyExtension"
-	case KAETextSuite:
-		return "KAETextSuite"
-	case KAETransactionTerminated:
-		return "KAETransactionTerminated"
-	case KAEUnderline:
-		return "KAEUnderline"
-	case KAEUndo:
-		return "KAEUndo"
-	case KAEUp:
-		return "KAEUp"
-	case KAEUpdate:
-		return "KAEUpdate"
-	case KAEUseHTTPProxyAttr:
-		return "KAEUseHTTPProxyAttr"
-	case KAEUseSocksAttr:
-		return "KAEUseSocksAttr"
-	case KAEUserTerminology:
-		return "KAEUserTerminology"
-	case KAEWakeUpEvent:
-		return "KAEWakeUpEvent"
-	case KAEWantReceipt:
-		return "KAEWantReceipt"
-	case KAEWholeWordEquals:
-		return "KAEWholeWordEquals"
-	case KAEWindowClass:
-		return "KAEWindowClass"
-	case KAEYes:
-		return "KAEYes"
-	case KAEZoomValue:
-		return "KAEZoomValue"
-	default:
-		return fmt.Sprintf("KAE(%d)", e)
-	}
-}
-
-type KAEAND uint
+type KAEAND uint32
 
 const (
 	// KAEANDValue: Specifies a logical [AND] operation.
@@ -10512,7 +11657,7 @@ func (e KAEAND) String() string {
 	}
 }
 
-type KAEApplicationActivation uint
+type KAEApplicationActivation uint32
 
 const (
 	KAEApplicationActivationExpected KAEApplicationActivation = 'a'<<24 | 'a'<<16 | 'p'<<8 | 'd' // 'aapd'
@@ -10527,12 +11672,115 @@ func (e KAEApplicationActivation) String() string {
 	}
 }
 
-type KAEDebug uint
+type KAEAsk uint32
+
+const (
+	KAEAskValue         KAEAsk = 'a'<<24 | 's'<<16 | 'k'<<8 | ' ' // 'ask '
+	KAEBefore           KAEAsk = 'b'<<24 | 'e'<<16 | 'f'<<8 | 'o' // 'befo'
+	KAEBeginTransaction KAEAsk = 'b'<<24 | 'e'<<16 | 'g'<<8 | 'i' // 'begi'
+	KAEBeginning        KAEAsk = 'b'<<24 | 'g'<<16 | 'n'<<8 | 'g' // 'bgng'
+	// KAEBeginsWith: The value of `operand1` begins with the value of `operand2` (for example, the string `"operand"` begins with the string `"opera"`).
+	KAEBeginsWith     KAEAsk = 'b'<<24 | 'g'<<16 | 'w'<<8 | 't' // 'bgwt'
+	KAEBold           KAEAsk = 'b'<<24 | 'o'<<16 | 'l'<<8 | 'd' // 'bold'
+	KAECaseSensEquals KAEAsk = 'c'<<24 | 's'<<16 | 'e'<<8 | 'q' // 'cseq'
+	KAECentered       KAEAsk = 'c'<<24 | 'e'<<16 | 'n'<<8 | 't' // 'cent'
+	KAEChangeView     KAEAsk = 'v'<<24 | 'i'<<16 | 'e'<<8 | 'w' // 'view'
+	KAEClone          KAEAsk = 'c'<<24 | 'l'<<16 | 'o'<<8 | 'n' // 'clon'
+	KAEClose          KAEAsk = 'c'<<24 | 'l'<<16 | 'o'<<8 | 's' // 'clos'
+	KAECondensed      KAEAsk = 'c'<<24 | 'o'<<16 | 'n'<<8 | 'd' // 'cond'
+	// KAEContains: The value of `operand1` contains the value of `operand2 `(for example, the string `"operand"` contains the string `"era"`).
+	KAEContains KAEAsk = 'c'<<24 | 'o'<<16 | 'n'<<8 | 't' // 'cont'
+	KAECopy     KAEAsk = 'c'<<24 | 'o'<<16 | 'p'<<8 | 'y' // 'copy'
+	// KAECoreSuite: An Apple event in the Standard Suite.
+	KAECoreSuite       KAEAsk = 'c'<<24 | 'o'<<16 | 'r'<<8 | 'e' // 'core'
+	KAECountElements   KAEAsk = 'c'<<24 | 'n'<<16 | 't'<<8 | 'e' // 'cnte'
+	KAECreateElement   KAEAsk = 'c'<<24 | 'r'<<16 | 'e'<<8 | 'l' // 'crel'
+	KAECreatePublisher KAEAsk = 'c'<<24 | 'p'<<16 | 'u'<<8 | 'b' // 'cpub'
+	KAECut             KAEAsk = 'c'<<24 | 'u'<<16 | 't'<<8 | ' ' // 'cut '
+	KAEDelete          KAEAsk = 'd'<<24 | 'e'<<16 | 'l'<<8 | 'o' // 'delo'
+)
+
+func (e KAEAsk) String() string {
+	switch e {
+	case KAEAskValue:
+		return "KAEAskValue"
+	case KAEBefore:
+		return "KAEBefore"
+	case KAEBeginTransaction:
+		return "KAEBeginTransaction"
+	case KAEBeginning:
+		return "KAEBeginning"
+	case KAEBeginsWith:
+		return "KAEBeginsWith"
+	case KAEBold:
+		return "KAEBold"
+	case KAECaseSensEquals:
+		return "KAECaseSensEquals"
+	case KAECentered:
+		return "KAECentered"
+	case KAEChangeView:
+		return "KAEChangeView"
+	case KAEClone:
+		return "KAEClone"
+	case KAEClose:
+		return "KAEClose"
+	case KAECondensed:
+		return "KAECondensed"
+	case KAEContains:
+		return "KAEContains"
+	case KAECopy:
+		return "KAECopy"
+	case KAECoreSuite:
+		return "KAECoreSuite"
+	case KAECountElements:
+		return "KAECountElements"
+	case KAECreateElement:
+		return "KAECreateElement"
+	case KAECreatePublisher:
+		return "KAECreatePublisher"
+	case KAECut:
+		return "KAECut"
+	case KAEDelete:
+		return "KAEDelete"
+	default:
+		return fmt.Sprintf("KAEAsk(%d)", e)
+	}
+}
+
+type KAEDataArray uint32
+
+const (
+	// KAEDataArrayValue: Array items consist of data of the same size and same type, and are aligned on word boundaries.
+	KAEDataArrayValue KAEDataArray = 0
+	// KAEDescArray: Array items consist of descriptors of different descriptor types with data of variable size.
+	KAEDescArray KAEDataArray = 3
+	// KAEKeyDescArray: Array items consist of keyword-specified descriptors with different keywords, different descriptor types, and data of variable size.
+	KAEKeyDescArray KAEDataArray = 4
+	// KAEPackedArray: Array items consist of data of the same size and same type, and are packed without regard for word boundaries.
+	KAEPackedArray KAEDataArray = 1
+)
+
+func (e KAEDataArray) String() string {
+	switch e {
+	case KAEDataArrayValue:
+		return "KAEDataArrayValue"
+	case KAEDescArray:
+		return "KAEDescArray"
+	case KAEKeyDescArray:
+		return "KAEKeyDescArray"
+	case KAEPackedArray:
+		return "KAEPackedArray"
+	default:
+		return fmt.Sprintf("KAEDataArray(%d)", e)
+	}
+}
+
+type KAEDebug int32
 
 const (
 	KAEDebugPOSTHeader  KAEDebug = 1
 	KAEDebugReplyHeader KAEDebug = 2
-	KAEDebugXMLDebugAll KAEDebug = 0xffffffff
+	KAEDebugXMLDebugAll KAEDebug = -1
 	KAEDebugXMLRequest  KAEDebug = 4
 	KAEDebugXMLResponse KAEDebug = 8
 )
@@ -10554,7 +11802,7 @@ func (e KAEDebug) String() string {
 	}
 }
 
-type KAEDefaultTimeout int
+type KAEDefaultTimeout int32
 
 const (
 	// KAEDefaultTimeoutValue: The timeout value is determined by the Apple Event Manager.
@@ -10574,7 +11822,7 @@ func (e KAEDefaultTimeout) String() string {
 	}
 }
 
-type KAEDescListFactor uint
+type KAEDescListFactor uint32
 
 const (
 	KAEDescListFactorNone        KAEDescListFactor = 0
@@ -10595,7 +11843,7 @@ func (e KAEDescListFactor) String() string {
 	}
 }
 
-type KAEDoNotPromptForUser uint
+type KAEDoNotPromptForUser uint32
 
 const (
 	KAEDoNotPromptForUserConsent KAEDoNotPromptForUser = 0x20000
@@ -10610,7 +11858,157 @@ func (e KAEDoNotPromptForUser) String() string {
 	}
 }
 
-type KAEHandle uint
+type KAEDoObjectsExist uint32
+
+const (
+	KAEDoObjectsExistValue KAEDoObjectsExist = 'd'<<24 | 'o'<<16 | 'e'<<8 | 'x' // 'doex'
+	KAEDoScript            KAEDoObjectsExist = 'd'<<24 | 'o'<<16 | 's'<<8 | 'c' // 'dosc'
+	KAEDrag                KAEDoObjectsExist = 'd'<<24 | 'r'<<16 | 'a'<<8 | 'g' // 'drag'
+	KAEDuplicateSelection  KAEDoObjectsExist = 's'<<24 | 'd'<<16 | 'u'<<8 | 'p' // 'sdup'
+	KAEEditGraphic         KAEDoObjectsExist = 'e'<<24 | 'd'<<16 | 'i'<<8 | 't' // 'edit'
+	KAEEmptyTrash          KAEDoObjectsExist = 'e'<<24 | 'm'<<16 | 'p'<<8 | 't' // 'empt'
+	KAEEnd                 KAEDoObjectsExist = 'e'<<24 | 'n'<<16 | 'd'<<8 | ' ' // 'end '
+	KAEEndTransaction      KAEDoObjectsExist = 'e'<<24 | 'n'<<16 | 'd'<<8 | 't' // 'endt'
+	// KAEEndsWith: The value of `operand1` ends with the value of `operand2` (for example, the string `"operand"` ends with the string `"and"`).
+	KAEEndsWith KAEDoObjectsExist = 'e'<<24 | 'n'<<16 | 'd'<<8 | 's' // 'ends'
+	// KAEEquals: The value of `operand1` is equal to the value of `operand2`
+	KAEEquals   KAEDoObjectsExist = '='<<24 | ' '<<16 | ' '<<8 | ' ' // '=   '
+	KAEExpanded KAEDoObjectsExist = 'p'<<24 | 'e'<<16 | 'x'<<8 | 'p' // 'pexp'
+	KAEFast     KAEDoObjectsExist = 'f'<<24 | 'a'<<16 | 's'<<8 | 't' // 'fast'
+	// KAEFinderEvents: An event that the Finder accepts.
+	KAEFinderEvents     KAEDoObjectsExist = 'F'<<24 | 'N'<<16 | 'D'<<8 | 'R' // 'FNDR'
+	KAEFormulaProtect   KAEDoObjectsExist = 'f'<<24 | 'p'<<16 | 'r'<<8 | 'o' // 'fpro'
+	KAEFullyJustified   KAEDoObjectsExist = 'f'<<24 | 'u'<<16 | 'l'<<8 | 'l' // 'full'
+	KAEGetClassInfo     KAEDoObjectsExist = 'q'<<24 | 'o'<<16 | 'b'<<8 | 'j' // 'qobj'
+	KAEGetData          KAEDoObjectsExist = 'g'<<24 | 'e'<<16 | 't'<<8 | 'd' // 'getd'
+	KAEGetDataSize      KAEDoObjectsExist = 'd'<<24 | 's'<<16 | 'i'<<8 | 'z' // 'dsiz'
+	KAEGetEventInfo     KAEDoObjectsExist = 'g'<<24 | 't'<<16 | 'e'<<8 | 'i' // 'gtei'
+	KAEGetInfoSelection KAEDoObjectsExist = 's'<<24 | 'i'<<16 | 'n'<<8 | 'f' // 'sinf'
+)
+
+func (e KAEDoObjectsExist) String() string {
+	switch e {
+	case KAEDoObjectsExistValue:
+		return "KAEDoObjectsExistValue"
+	case KAEDoScript:
+		return "KAEDoScript"
+	case KAEDrag:
+		return "KAEDrag"
+	case KAEDuplicateSelection:
+		return "KAEDuplicateSelection"
+	case KAEEditGraphic:
+		return "KAEEditGraphic"
+	case KAEEmptyTrash:
+		return "KAEEmptyTrash"
+	case KAEEnd:
+		return "KAEEnd"
+	case KAEEndTransaction:
+		return "KAEEndTransaction"
+	case KAEEndsWith:
+		return "KAEEndsWith"
+	case KAEEquals:
+		return "KAEEquals"
+	case KAEExpanded:
+		return "KAEExpanded"
+	case KAEFast:
+		return "KAEFast"
+	case KAEFinderEvents:
+		return "KAEFinderEvents"
+	case KAEFormulaProtect:
+		return "KAEFormulaProtect"
+	case KAEFullyJustified:
+		return "KAEFullyJustified"
+	case KAEGetClassInfo:
+		return "KAEGetClassInfo"
+	case KAEGetData:
+		return "KAEGetData"
+	case KAEGetDataSize:
+		return "KAEGetDataSize"
+	case KAEGetEventInfo:
+		return "KAEGetEventInfo"
+	case KAEGetInfoSelection:
+		return "KAEGetInfoSelection"
+	default:
+		return fmt.Sprintf("KAEDoObjectsExist(%d)", e)
+	}
+}
+
+type KAEGetPrivilegeSelection uint32
+
+const (
+	KAEGetPrivilegeSelectionValue KAEGetPrivilegeSelection = 's'<<24 | 'p'<<16 | 'r'<<8 | 'v' // 'sprv'
+	KAEGetSuiteInfo               KAEGetPrivilegeSelection = 'g'<<24 | 't'<<16 | 's'<<8 | 'i' // 'gtsi'
+	// KAEGreaterThan: The value of `operand1` is greater than the value of `operand2`.
+	KAEGreaterThan KAEGetPrivilegeSelection = '>'<<24 | ' '<<16 | ' '<<8 | ' ' // '>   '
+	// KAEGreaterThanEquals: The value of `operand1` is greater than or equal to the value of `operand2`.
+	KAEGreaterThanEquals KAEGetPrivilegeSelection = '>'<<24 | '='<<16 | ' '<<8 | ' ' // '>=  '
+	KAEGrow              KAEGetPrivilegeSelection = 'g'<<24 | 'r'<<16 | 'o'<<8 | 'w' // 'grow'
+	KAEHiQuality         KAEGetPrivilegeSelection = 'h'<<24 | 'i'<<16 | 'q'<<8 | 'u' // 'hiqu'
+	KAEHidden            KAEGetPrivilegeSelection = 'h'<<24 | 'i'<<16 | 'd'<<8 | 'n' // 'hidn'
+	KAEImageGraphic      KAEGetPrivilegeSelection = 'i'<<24 | 'm'<<16 | 'g'<<8 | 'r' // 'imgr'
+	KAEIsUniform         KAEGetPrivilegeSelection = 'i'<<24 | 's'<<16 | 'u'<<8 | 'n' // 'isun'
+	KAEItalic            KAEGetPrivilegeSelection = 'i'<<24 | 't'<<16 | 'a'<<8 | 'l' // 'ital'
+	KAELeftJustified     KAEGetPrivilegeSelection = 'l'<<24 | 'e'<<16 | 'f'<<8 | 't' // 'left'
+	KAELessThan          KAEGetPrivilegeSelection = '<'<<24 | ' '<<16 | ' '<<8 | ' ' // '<   '
+	// KAELessThanEquals: The value of `operand1` is less than or equal to the value of `operand2`.
+	KAELessThanEquals     KAEGetPrivilegeSelection = '<'<<24 | '='<<16 | ' '<<8 | ' ' // '<=  '
+	KAELowercase          KAEGetPrivilegeSelection = 'l'<<24 | 'o'<<16 | 'w'<<8 | 'c' // 'lowc'
+	KAEMakeObjectsVisible KAEGetPrivilegeSelection = 'm'<<24 | 'v'<<16 | 'i'<<8 | 's' // 'mvis'
+	KAEMiscStandards      KAEGetPrivilegeSelection = 'm'<<24 | 'i'<<16 | 's'<<8 | 'c' // 'misc'
+	KAEModifiable         KAEGetPrivilegeSelection = 'm'<<24 | 'o'<<16 | 'd'<<8 | 'f' // 'modf'
+	KAEMove               KAEGetPrivilegeSelection = 'm'<<24 | 'o'<<16 | 'v'<<8 | 'e' // 'move'
+	KAENo                 KAEGetPrivilegeSelection = 'n'<<24 | 'o'<<16 | ' '<<8 | ' ' // 'no  '
+	KAENoArrow            KAEGetPrivilegeSelection = 'a'<<24 | 'r'<<16 | 'n'<<8 | 'o' // 'arno'
+)
+
+func (e KAEGetPrivilegeSelection) String() string {
+	switch e {
+	case KAEGetPrivilegeSelectionValue:
+		return "KAEGetPrivilegeSelectionValue"
+	case KAEGetSuiteInfo:
+		return "KAEGetSuiteInfo"
+	case KAEGreaterThan:
+		return "KAEGreaterThan"
+	case KAEGreaterThanEquals:
+		return "KAEGreaterThanEquals"
+	case KAEGrow:
+		return "KAEGrow"
+	case KAEHiQuality:
+		return "KAEHiQuality"
+	case KAEHidden:
+		return "KAEHidden"
+	case KAEImageGraphic:
+		return "KAEImageGraphic"
+	case KAEIsUniform:
+		return "KAEIsUniform"
+	case KAEItalic:
+		return "KAEItalic"
+	case KAELeftJustified:
+		return "KAELeftJustified"
+	case KAELessThan:
+		return "KAELessThan"
+	case KAELessThanEquals:
+		return "KAELessThanEquals"
+	case KAELowercase:
+		return "KAELowercase"
+	case KAEMakeObjectsVisible:
+		return "KAEMakeObjectsVisible"
+	case KAEMiscStandards:
+		return "KAEMiscStandards"
+	case KAEModifiable:
+		return "KAEModifiable"
+	case KAEMove:
+		return "KAEMove"
+	case KAENo:
+		return "KAENo"
+	case KAENoArrow:
+		return "KAENoArrow"
+	default:
+		return fmt.Sprintf("KAEGetPrivilegeSelection(%d)", e)
+	}
+}
+
+type KAEHandle uint32
 
 const (
 	// KAEHandleArray: Array items consist of handles to data of the same type and possibly variable size.
@@ -10626,7 +12024,43 @@ func (e KAEHandle) String() string {
 	}
 }
 
-type KAEIS uint
+type KAEIDoMinimum uint32
+
+const (
+	KAEHandleSimpleRanges KAEIDoMinimum = 0x20
+	// KAEIDoMarking: The application provides marking callback functions.
+	KAEIDoMarking KAEIDoMinimum = 0x4
+	// KAEIDoMinimumValue: The application does not handle whose tests or provide marking callbacks.
+	KAEIDoMinimumValue KAEIDoMinimum = 0
+	// KAEIDoWhose: The application supports whose tests (supports key form `formWhose`).
+	KAEIDoWhose             KAEIDoMinimum = 0x1
+	KAEPassSubDescs         KAEIDoMinimum = 0x8
+	KAEResolveNestedLists   KAEIDoMinimum = 0x10
+	KAEUseRelativeIterators KAEIDoMinimum = 0x40
+)
+
+func (e KAEIDoMinimum) String() string {
+	switch e {
+	case KAEHandleSimpleRanges:
+		return "KAEHandleSimpleRanges"
+	case KAEIDoMarking:
+		return "KAEIDoMarking"
+	case KAEIDoMinimumValue:
+		return "KAEIDoMinimumValue"
+	case KAEIDoWhose:
+		return "KAEIDoWhose"
+	case KAEPassSubDescs:
+		return "KAEPassSubDescs"
+	case KAEResolveNestedLists:
+		return "KAEResolveNestedLists"
+	case KAEUseRelativeIterators:
+		return "KAEUseRelativeIterators"
+	default:
+		return fmt.Sprintf("KAEIDoMinimum(%d)", e)
+	}
+}
+
+type KAEIS uint32
 
 const (
 	KAEISAction         KAEIS = 'K'<<24 | 'a'<<16 | 'c'<<8 | 't' // 'Kact'
@@ -10689,7 +12123,7 @@ func (e KAEIS) String() string {
 	}
 }
 
-type KAEISGetURL uint
+type KAEISGetURL uint32
 
 const (
 	KAEISGetURLValue KAEISGetURL = 'g'<<24 | 'u'<<16 | 'r'<<8 | 'l' // 'gurl'
@@ -10707,7 +12141,457 @@ func (e KAEISGetURL) String() string {
 	}
 }
 
-type KAEQuit uint
+type KAEInfo uint32
+
+const (
+	KAEInfoValue KAEInfo = 11
+	KAEMain      KAEInfo = 0
+	KAESharing   KAEInfo = 13
+)
+
+func (e KAEInfo) String() string {
+	switch e {
+	case KAEInfoValue:
+		return "KAEInfoValue"
+	case KAEMain:
+		return "KAEMain"
+	case KAESharing:
+		return "KAESharing"
+	default:
+		return fmt.Sprintf("KAEInfo(%d)", e)
+	}
+}
+
+type KAEInternetSuite uint32
+
+const (
+	KAEISWebStarSuite     KAEInternetSuite = 0x575757bd
+	KAEInternetSuiteValue KAEInternetSuite = 'g'<<24 | 'u'<<16 | 'r'<<8 | 'l' // 'gurl'
+)
+
+func (e KAEInternetSuite) String() string {
+	switch e {
+	case KAEISWebStarSuite:
+		return "KAEISWebStarSuite"
+	case KAEInternetSuiteValue:
+		return "KAEInternetSuiteValue"
+	default:
+		return fmt.Sprintf("KAEInternetSuite(%d)", e)
+	}
+}
+
+type KAELogOut uint32
+
+const (
+	KAELogOutValue        KAELogOut = 'l'<<24 | 'o'<<16 | 'g'<<8 | 'o' // 'logo'
+	KAEReallyLogOut       KAELogOut = 'r'<<24 | 'l'<<16 | 'g'<<8 | 'o' // 'rlgo'
+	KAEShowRestartDialog  KAELogOut = 'r'<<24 | 'r'<<16 | 's'<<8 | 't' // 'rrst'
+	KAEShowShutdownDialog KAELogOut = 'r'<<24 | 's'<<16 | 'd'<<8 | 'n' // 'rsdn'
+)
+
+func (e KAELogOut) String() string {
+	switch e {
+	case KAELogOutValue:
+		return "KAELogOutValue"
+	case KAEReallyLogOut:
+		return "KAEReallyLogOut"
+	case KAEShowRestartDialog:
+		return "KAEShowRestartDialog"
+	case KAEShowShutdownDialog:
+		return "KAEShowShutdownDialog"
+	default:
+		return fmt.Sprintf("KAELogOut(%d)", e)
+	}
+}
+
+type KAEMenuClass uint32
+
+const (
+	KAEKeyDown         KAEMenuClass = 'k'<<24 | 'd'<<16 | 'w'<<8 | 'n' // 'kdwn'
+	KAEMenuClassValue  KAEMenuClass = 'm'<<24 | 'e'<<16 | 'n'<<8 | 'u' // 'menu'
+	KAEMenuSelect      KAEMenuClass = 'm'<<24 | 'h'<<16 | 'i'<<8 | 't' // 'mhit'
+	KAEMouseDown       KAEMenuClass = 'm'<<24 | 'd'<<16 | 'w'<<8 | 'n' // 'mdwn'
+	KAEMouseDownInBack KAEMenuClass = 'm'<<24 | 'd'<<16 | 'b'<<8 | 'k' // 'mdbk'
+	KAEPromise         KAEMenuClass = 'p'<<24 | 'r'<<16 | 'o'<<8 | 'm' // 'prom'
+	KAEResized         KAEMenuClass = 'r'<<24 | 's'<<16 | 'i'<<8 | 'z' // 'rsiz'
+)
+
+func (e KAEMenuClass) String() string {
+	switch e {
+	case KAEKeyDown:
+		return "KAEKeyDown"
+	case KAEMenuClassValue:
+		return "KAEMenuClassValue"
+	case KAEMenuSelect:
+		return "KAEMenuSelect"
+	case KAEMouseDown:
+		return "KAEMouseDown"
+	case KAEMouseDownInBack:
+		return "KAEMouseDownInBack"
+	case KAEPromise:
+		return "KAEPromise"
+	case KAEResized:
+		return "KAEResized"
+	default:
+		return fmt.Sprintf("KAEMenuClass(%d)", e)
+	}
+}
+
+type KAEMouseClass uint32
+
+const (
+	KAEActivate         KAEMouseClass = 'a'<<24 | 'c'<<16 | 't'<<8 | 'v' // 'actv'
+	KAEApplicationClass KAEMouseClass = 'a'<<24 | 'p'<<16 | 'p'<<8 | 'l' // 'appl'
+	KAEAutoDown         KAEMouseClass = 'a'<<24 | 'u'<<16 | 't'<<8 | 'o' // 'auto'
+	KAECommandClass     KAEMouseClass = 'c'<<24 | 'm'<<16 | 'n'<<8 | 'd' // 'cmnd'
+	KAEDeactivate       KAEMouseClass = 'd'<<24 | 'a'<<16 | 'c'<<8 | 't' // 'dact'
+	KAEDiskEvent        KAEMouseClass = 'd'<<24 | 'i'<<16 | 's'<<8 | 'k' // 'disk'
+	KAEDown             KAEMouseClass = 'd'<<24 | 'o'<<16 | 'w'<<8 | 'n' // 'down'
+	KAEHighLevel        KAEMouseClass = 'h'<<24 | 'i'<<16 | 'g'<<8 | 'h' // 'high'
+	KAEKeyClass         KAEMouseClass = 'k'<<24 | 'e'<<16 | 'y'<<8 | 'c' // 'keyc'
+	KAEMouseClassValue  KAEMouseClass = 'm'<<24 | 'o'<<16 | 'u'<<8 | 's' // 'mous'
+	KAEMoved            KAEMouseClass = 'm'<<24 | 'o'<<16 | 'v'<<8 | 'e' // 'move'
+	KAENavigationKey    KAEMouseClass = 'n'<<24 | 'a'<<16 | 'v'<<8 | 'e' // 'nave'
+	KAENullEvent        KAEMouseClass = 'n'<<24 | 'u'<<16 | 'l'<<8 | 'l' // 'null'
+	KAERawKey           KAEMouseClass = 'r'<<24 | 'k'<<16 | 'e'<<8 | 'y' // 'rkey'
+	KAEResume           KAEMouseClass = 'r'<<24 | 's'<<16 | 'm'<<8 | 'e' // 'rsme'
+	KAEScrapEvent       KAEMouseClass = 's'<<24 | 'c'<<16 | 'r'<<8 | 'p' // 'scrp'
+	KAEStoppedMoving    KAEMouseClass = 's'<<24 | 't'<<16 | 'o'<<8 | 'p' // 'stop'
+	KAESuspend          KAEMouseClass = 's'<<24 | 'u'<<16 | 's'<<8 | 'p' // 'susp'
+	KAEUp               KAEMouseClass = 'u'<<24 | 'p'<<16 | ' '<<8 | ' ' // 'up  '
+	KAEUpdate           KAEMouseClass = 'u'<<24 | 'p'<<16 | 'd'<<8 | 't' // 'updt'
+	KAEVirtualKey       KAEMouseClass = 'k'<<24 | 'e'<<16 | 'y'<<8 | 'c' // 'keyc'
+	KAEWakeUpEvent      KAEMouseClass = 'w'<<24 | 'a'<<16 | 'k'<<8 | 'e' // 'wake'
+	KAEWindowClass      KAEMouseClass = 'w'<<24 | 'i'<<16 | 'n'<<8 | 'd' // 'wind'
+)
+
+func (e KAEMouseClass) String() string {
+	switch e {
+	case KAEActivate:
+		return "KAEActivate"
+	case KAEApplicationClass:
+		return "KAEApplicationClass"
+	case KAEAutoDown:
+		return "KAEAutoDown"
+	case KAECommandClass:
+		return "KAECommandClass"
+	case KAEDeactivate:
+		return "KAEDeactivate"
+	case KAEDiskEvent:
+		return "KAEDiskEvent"
+	case KAEDown:
+		return "KAEDown"
+	case KAEHighLevel:
+		return "KAEHighLevel"
+	case KAEKeyClass:
+		return "KAEKeyClass"
+	case KAEMouseClassValue:
+		return "KAEMouseClassValue"
+	case KAEMoved:
+		return "KAEMoved"
+	case KAENavigationKey:
+		return "KAENavigationKey"
+	case KAENullEvent:
+		return "KAENullEvent"
+	case KAERawKey:
+		return "KAERawKey"
+	case KAEResume:
+		return "KAEResume"
+	case KAEScrapEvent:
+		return "KAEScrapEvent"
+	case KAEStoppedMoving:
+		return "KAEStoppedMoving"
+	case KAESuspend:
+		return "KAESuspend"
+	case KAEUp:
+		return "KAEUp"
+	case KAEUpdate:
+		return "KAEUpdate"
+	case KAEWakeUpEvent:
+		return "KAEWakeUpEvent"
+	case KAEWindowClass:
+		return "KAEWindowClass"
+	default:
+		return fmt.Sprintf("KAEMouseClass(%d)", e)
+	}
+}
+
+type KAENoReply uint32
+
+const (
+	// KAEAlwaysInteract: # Discussion
+	KAEAlwaysInteract KAENoReply = 0x30
+	// KAECanInteract: # Discussion
+	KAECanInteract KAENoReply = 0x20
+	// KAECanSwitchLayer: # Discussion
+	KAECanSwitchLayer                          KAENoReply = 0x40
+	KAEDoNotAutomaticallyAddAnnotationsToEvent KAENoReply = 0x10000
+	// KAEDontExecute: # Discussion
+	KAEDontExecute KAENoReply = 0x2000
+	// KAEDontReconnect: # Discussion
+	KAEDontReconnect KAENoReply = 0x80
+	// KAEDontRecord: # Discussion
+	KAEDontRecord KAENoReply = 0x1000
+	// KAENeverInteract: # Discussion
+	KAENeverInteract KAENoReply = 0x10
+	// KAENoReplyValue: The reply preference—your application does not want a reply Apple event.
+	KAENoReplyValue KAENoReply = 0x1
+	// KAEProcessNonReplyEvents: Allow processing of non-reply Apple events while awaiting a synchronous Apple event reply (you specified `kAEWaitReply` for the reply preference).
+	KAEProcessNonReplyEvents KAENoReply = 0x8000
+	// KAEQueueReply: The reply preference—your application wants a reply Apple event.
+	KAEQueueReply KAENoReply = 0x2
+	// KAEWaitReply: # Discussion
+	KAEWaitReply KAENoReply = 0x3
+	// KAEWantReceipt: # Discussion
+	KAEWantReceipt KAENoReply = 0x200
+)
+
+func (e KAENoReply) String() string {
+	switch e {
+	case KAEAlwaysInteract:
+		return "KAEAlwaysInteract"
+	case KAECanInteract:
+		return "KAECanInteract"
+	case KAECanSwitchLayer:
+		return "KAECanSwitchLayer"
+	case KAEDoNotAutomaticallyAddAnnotationsToEvent:
+		return "KAEDoNotAutomaticallyAddAnnotationsToEvent"
+	case KAEDontExecute:
+		return "KAEDontExecute"
+	case KAEDontReconnect:
+		return "KAEDontReconnect"
+	case KAEDontRecord:
+		return "KAEDontRecord"
+	case KAENeverInteract:
+		return "KAENeverInteract"
+	case KAENoReplyValue:
+		return "KAENoReplyValue"
+	case KAEProcessNonReplyEvents:
+		return "KAEProcessNonReplyEvents"
+	case KAEQueueReply:
+		return "KAEQueueReply"
+	case KAEWaitReply:
+		return "KAEWaitReply"
+	case KAEWantReceipt:
+		return "KAEWantReceipt"
+	default:
+		return fmt.Sprintf("KAENoReply(%d)", e)
+	}
+}
+
+type KAENonmodifiable uint32
+
+const (
+	KAENonmodifiableValue KAENonmodifiable = 'n'<<24 | 'm'<<16 | 'o'<<8 | 'd' // 'nmod'
+	KAEOpen               KAENonmodifiable = 'o'<<24 | 'd'<<16 | 'o'<<8 | 'c' // 'odoc'
+	KAEOpenSelection      KAENonmodifiable = 's'<<24 | 'o'<<16 | 'p'<<8 | 'e' // 'sope'
+	KAEOutline            KAENonmodifiable = 'o'<<24 | 'u'<<16 | 't'<<8 | 'l' // 'outl'
+	KAEPageSetup          KAENonmodifiable = 'p'<<24 | 'g'<<16 | 's'<<8 | 'u' // 'pgsu'
+	KAEPaste              KAENonmodifiable = 'p'<<24 | 'a'<<16 | 's'<<8 | 't' // 'past'
+	KAEPlain              KAENonmodifiable = 'p'<<24 | 'l'<<16 | 'a'<<8 | 'n' // 'plan'
+	KAEPrint              KAENonmodifiable = 'p'<<24 | 'd'<<16 | 'o'<<8 | 'c' // 'pdoc'
+	KAEPrintSelection     KAENonmodifiable = 's'<<24 | 'p'<<16 | 'r'<<8 | 'i' // 'spri'
+	KAEPrintWindow        KAENonmodifiable = 'p'<<24 | 'w'<<16 | 'i'<<8 | 'n' // 'pwin'
+	KAEPutAwaySelection   KAENonmodifiable = 's'<<24 | 'p'<<16 | 'u'<<8 | 't' // 'sput'
+	KAEQDAdMax            KAENonmodifiable = 'a'<<24 | 'd'<<16 | 'm'<<8 | 'x' // 'admx'
+	KAEQDAdMin            KAENonmodifiable = 'a'<<24 | 'd'<<16 | 'm'<<8 | 'n' // 'admn'
+	KAEQDAddOver          KAENonmodifiable = 'a'<<24 | 'd'<<16 | 'd'<<8 | 'o' // 'addo'
+	KAEQDAddPin           KAENonmodifiable = 'a'<<24 | 'd'<<16 | 'd'<<8 | 'p' // 'addp'
+	KAEQDBic              KAENonmodifiable = 'b'<<24 | 'i'<<16 | 'c'<<8 | ' ' // 'bic '
+	KAEQDBlend            KAENonmodifiable = 'b'<<24 | 'l'<<16 | 'n'<<8 | 'd' // 'blnd'
+	KAEQDCopy             KAENonmodifiable = 'c'<<24 | 'p'<<16 | 'y'<<8 | ' ' // 'cpy '
+	KAEQDNotBic           KAENonmodifiable = 'n'<<24 | 'b'<<16 | 'i'<<8 | 'c' // 'nbic'
+	KAEQDNotCopy          KAENonmodifiable = 'n'<<24 | 'c'<<16 | 'p'<<8 | 'y' // 'ncpy'
+)
+
+func (e KAENonmodifiable) String() string {
+	switch e {
+	case KAENonmodifiableValue:
+		return "KAENonmodifiableValue"
+	case KAEOpen:
+		return "KAEOpen"
+	case KAEOpenSelection:
+		return "KAEOpenSelection"
+	case KAEOutline:
+		return "KAEOutline"
+	case KAEPageSetup:
+		return "KAEPageSetup"
+	case KAEPaste:
+		return "KAEPaste"
+	case KAEPlain:
+		return "KAEPlain"
+	case KAEPrint:
+		return "KAEPrint"
+	case KAEPrintSelection:
+		return "KAEPrintSelection"
+	case KAEPrintWindow:
+		return "KAEPrintWindow"
+	case KAEPutAwaySelection:
+		return "KAEPutAwaySelection"
+	case KAEQDAdMax:
+		return "KAEQDAdMax"
+	case KAEQDAdMin:
+		return "KAEQDAdMin"
+	case KAEQDAddOver:
+		return "KAEQDAddOver"
+	case KAEQDAddPin:
+		return "KAEQDAddPin"
+	case KAEQDBic:
+		return "KAEQDBic"
+	case KAEQDBlend:
+		return "KAEQDBlend"
+	case KAEQDCopy:
+		return "KAEQDCopy"
+	case KAEQDNotBic:
+		return "KAEQDNotBic"
+	case KAEQDNotCopy:
+		return "KAEQDNotCopy"
+	default:
+		return fmt.Sprintf("KAENonmodifiable(%d)", e)
+	}
+}
+
+type KAENormalPriority uint32
+
+const (
+	// KAEHighPriority: The Apple Event Manager posts the event at the beginning of the event queue of the server process.
+	KAEHighPriority KAENormalPriority = 0x1
+	// KAENormalPriorityValue: The Apple Event Manager posts the event at the end of the event queue of the server process and the server processes the Apple event as soon as it has the opportunity.
+	KAENormalPriorityValue KAENormalPriority = 0
+)
+
+func (e KAENormalPriority) String() string {
+	switch e {
+	case KAEHighPriority:
+		return "KAEHighPriority"
+	case KAENormalPriorityValue:
+		return "KAENormalPriorityValue"
+	default:
+		return fmt.Sprintf("KAENormalPriority(%d)", e)
+	}
+}
+
+type KAEOpenApplication uint32
+
+const (
+	// KAEAnswer: Event that is a reply Apple event.
+	KAEAnswer KAEOpenApplication = 'a'<<24 | 'n'<<16 | 's'<<8 | 'r' // 'ansr'
+	// KAEApplicationDied: Event sent by the Process Manager to an application that launched another application when the launched application quits or terminates.
+	KAEApplicationDied KAEOpenApplication = 'o'<<24 | 'b'<<16 | 'i'<<8 | 't' // 'obit'
+	// KAEOpenApplicationValue: Event that launches an application.
+	KAEOpenApplicationValue KAEOpenApplication = 'o'<<24 | 'a'<<16 | 'p'<<8 | 'p' // 'oapp'
+	// KAEOpenContents: # Discussion
+	KAEOpenContents KAEOpenApplication = 'o'<<24 | 'c'<<16 | 'o'<<8 | 'n' // 'ocon'
+	// KAEOpenDocuments: # Discussion
+	KAEOpenDocuments KAEOpenApplication = 'o'<<24 | 'd'<<16 | 'o'<<8 | 'c' // 'odoc'
+	// KAEPrintDocuments: Event that provides an application with a list of documents to print.
+	KAEPrintDocuments KAEOpenApplication = 'p'<<24 | 'd'<<16 | 'o'<<8 | 'c' // 'pdoc'
+	// KAEQuitApplication: Event that causes the application to quit.
+	KAEQuitApplication KAEOpenApplication = 'q'<<24 | 'u'<<16 | 'i'<<8 | 't' // 'quit'
+	// KAEShowPreferences: # Discussion
+	KAEShowPreferences KAEOpenApplication = 'p'<<24 | 'r'<<16 | 'e'<<8 | 'f' // 'pref'
+)
+
+func (e KAEOpenApplication) String() string {
+	switch e {
+	case KAEAnswer:
+		return "KAEAnswer"
+	case KAEApplicationDied:
+		return "KAEApplicationDied"
+	case KAEOpenApplicationValue:
+		return "KAEOpenApplicationValue"
+	case KAEOpenContents:
+		return "KAEOpenContents"
+	case KAEOpenDocuments:
+		return "KAEOpenDocuments"
+	case KAEPrintDocuments:
+		return "KAEPrintDocuments"
+	case KAEQuitApplication:
+		return "KAEQuitApplication"
+	case KAEShowPreferences:
+		return "KAEShowPreferences"
+	default:
+		return fmt.Sprintf("KAEOpenApplication(%d)", e)
+	}
+}
+
+type KAEQDNotOr uint32
+
+const (
+	KAEQDNotOrValue        KAEQDNotOr = 'n'<<24 | 't'<<16 | 'o'<<8 | 'r' // 'ntor'
+	KAEQDNotXor            KAEQDNotOr = 'n'<<24 | 'x'<<16 | 'o'<<8 | 'r' // 'nxor'
+	KAEQDOr                KAEQDNotOr = 'o'<<24 | 'r'<<16 | ' '<<8 | ' ' // 'or  '
+	KAEQDSubOver           KAEQDNotOr = 's'<<24 | 'u'<<16 | 'b'<<8 | 'o' // 'subo'
+	KAEQDSubPin            KAEQDNotOr = 's'<<24 | 'u'<<16 | 'b'<<8 | 'p' // 'subp'
+	KAEQDSupplementalSuite KAEQDNotOr = 'q'<<24 | 'd'<<16 | 's'<<8 | 'p' // 'qdsp'
+	KAEQDXor               KAEQDNotOr = 'x'<<24 | 'o'<<16 | 'r'<<8 | ' ' // 'xor '
+	KAEQuickdrawSuite      KAEQDNotOr = 'q'<<24 | 'd'<<16 | 'r'<<8 | 'w' // 'qdrw'
+	KAEQuitAll             KAEQDNotOr = 'q'<<24 | 'u'<<16 | 'i'<<8 | 'a' // 'quia'
+	KAERedo                KAEQDNotOr = 'r'<<24 | 'e'<<16 | 'd'<<8 | 'o' // 'redo'
+	KAERegular             KAEQDNotOr = 'r'<<24 | 'e'<<16 | 'g'<<8 | 'l' // 'regl'
+	// KAEReopenApplication: Event that reopens an application.
+	KAEReopenApplication KAEQDNotOr = 'r'<<24 | 'a'<<16 | 'p'<<8 | 'p' // 'rapp'
+	KAEReplace           KAEQDNotOr = 'r'<<24 | 'p'<<16 | 'l'<<8 | 'c' // 'rplc'
+	KAERequiredSuite     KAEQDNotOr = 'r'<<24 | 'e'<<16 | 'q'<<8 | 'd' // 'reqd'
+	KAERestart           KAEQDNotOr = 'r'<<24 | 'e'<<16 | 's'<<8 | 't' // 'rest'
+	KAERevealSelection   KAEQDNotOr = 's'<<24 | 'r'<<16 | 'e'<<8 | 'v' // 'srev'
+	KAERevert            KAEQDNotOr = 'r'<<24 | 'v'<<16 | 'r'<<8 | 't' // 'rvrt'
+	KAERightJustified    KAEQDNotOr = 'r'<<24 | 'g'<<16 | 'h'<<8 | 't' // 'rght'
+	KAESave              KAEQDNotOr = 's'<<24 | 'a'<<16 | 'v'<<8 | 'e' // 'save'
+	KAESelect            KAEQDNotOr = 's'<<24 | 'l'<<16 | 'c'<<8 | 't' // 'slct'
+	KAESetData           KAEQDNotOr = 's'<<24 | 'e'<<16 | 't'<<8 | 'd' // 'setd'
+)
+
+func (e KAEQDNotOr) String() string {
+	switch e {
+	case KAEQDNotOrValue:
+		return "KAEQDNotOrValue"
+	case KAEQDNotXor:
+		return "KAEQDNotXor"
+	case KAEQDOr:
+		return "KAEQDOr"
+	case KAEQDSubOver:
+		return "KAEQDSubOver"
+	case KAEQDSubPin:
+		return "KAEQDSubPin"
+	case KAEQDSupplementalSuite:
+		return "KAEQDSupplementalSuite"
+	case KAEQDXor:
+		return "KAEQDXor"
+	case KAEQuickdrawSuite:
+		return "KAEQuickdrawSuite"
+	case KAEQuitAll:
+		return "KAEQuitAll"
+	case KAERedo:
+		return "KAERedo"
+	case KAERegular:
+		return "KAERegular"
+	case KAEReopenApplication:
+		return "KAEReopenApplication"
+	case KAEReplace:
+		return "KAEReplace"
+	case KAERequiredSuite:
+		return "KAERequiredSuite"
+	case KAERestart:
+		return "KAERestart"
+	case KAERevealSelection:
+		return "KAERevealSelection"
+	case KAERevert:
+		return "KAERevert"
+	case KAERightJustified:
+		return "KAERightJustified"
+	case KAESave:
+		return "KAESave"
+	case KAESelect:
+		return "KAESelect"
+	case KAESetData:
+		return "KAESetData"
+	default:
+		return fmt.Sprintf("KAEQDNotOr(%d)", e)
+	}
+}
+
+type KAEQuit uint32
 
 const (
 	KAEQuitPreserveState KAEQuit = 's'<<24 | 't'<<16 | 'a'<<8 | 't' // 'stat'
@@ -10725,7 +12609,123 @@ func (e KAEQuit) String() string {
 	}
 }
 
-type KAEU uint
+type KAESetPosition uint32
+
+const (
+	KAESetPositionValue       KAESetPosition = 'p'<<24 | 'o'<<16 | 's'<<8 | 'n' // 'posn'
+	KAEShadow                 KAESetPosition = 's'<<24 | 'h'<<16 | 'a'<<8 | 'd' // 'shad'
+	KAEShowClipboard          KAESetPosition = 's'<<24 | 'h'<<16 | 'c'<<8 | 'l' // 'shcl'
+	KAEShutDown               KAESetPosition = 's'<<24 | 'h'<<16 | 'u'<<8 | 't' // 'shut'
+	KAESleep                  KAESetPosition = 's'<<24 | 'l'<<16 | 'e'<<8 | 'p' // 'slep'
+	KAESmallCaps              KAESetPosition = 's'<<24 | 'm'<<16 | 'c'<<8 | 'p' // 'smcp'
+	KAESpecialClassProperties KAESetPosition = 'c'<<24 | '@'<<16 | '#'<<8 | '!' // 'c@#!'
+	KAEStrikethrough          KAESetPosition = 's'<<24 | 't'<<16 | 'r'<<8 | 'k' // 'strk'
+	KAESubscript              KAESetPosition = 's'<<24 | 'b'<<16 | 's'<<8 | 'c' // 'sbsc'
+	KAESuperscript            KAESetPosition = 's'<<24 | 'p'<<16 | 's'<<8 | 'c' // 'spsc'
+	KAETableSuite             KAESetPosition = 't'<<24 | 'b'<<16 | 'l'<<8 | 's' // 'tbls'
+	KAETextSuite              KAESetPosition = 'T'<<24 | 'E'<<16 | 'X'<<8 | 'T' // 'TEXT'
+	KAETransactionTerminated  KAESetPosition = 't'<<24 | 't'<<16 | 'r'<<8 | 'm' // 'ttrm'
+	KAEUnderline              KAESetPosition = 'u'<<24 | 'n'<<16 | 'd'<<8 | 'l' // 'undl'
+	KAEUndo                   KAESetPosition = 'u'<<24 | 'n'<<16 | 'd'<<8 | 'o' // 'undo'
+	KAEWholeWordEquals        KAESetPosition = 'w'<<24 | 'w'<<16 | 'e'<<8 | 'q' // 'wweq'
+	KAEYes                    KAESetPosition = 'y'<<24 | 'e'<<16 | 's'<<8 | ' ' // 'yes '
+	KAEZoomValue              KAESetPosition = 'z'<<24 | 'o'<<16 | 'o'<<8 | 'm' // 'zoom'
+)
+
+func (e KAESetPosition) String() string {
+	switch e {
+	case KAESetPositionValue:
+		return "KAESetPositionValue"
+	case KAEShadow:
+		return "KAEShadow"
+	case KAEShowClipboard:
+		return "KAEShowClipboard"
+	case KAEShutDown:
+		return "KAEShutDown"
+	case KAESleep:
+		return "KAESleep"
+	case KAESmallCaps:
+		return "KAESmallCaps"
+	case KAESpecialClassProperties:
+		return "KAESpecialClassProperties"
+	case KAEStrikethrough:
+		return "KAEStrikethrough"
+	case KAESubscript:
+		return "KAESubscript"
+	case KAESuperscript:
+		return "KAESuperscript"
+	case KAETableSuite:
+		return "KAETableSuite"
+	case KAETextSuite:
+		return "KAETextSuite"
+	case KAETransactionTerminated:
+		return "KAETransactionTerminated"
+	case KAEUnderline:
+		return "KAEUnderline"
+	case KAEUndo:
+		return "KAEUndo"
+	case KAEWholeWordEquals:
+		return "KAEWholeWordEquals"
+	case KAEYes:
+		return "KAEYes"
+	case KAEZoomValue:
+		return "KAEZoomValue"
+	default:
+		return fmt.Sprintf("KAESetPosition(%d)", e)
+	}
+}
+
+type KAESocks4Protocol uint32
+
+const (
+	KAESocks4ProtocolValue KAESocks4Protocol = 4
+	KAESocks5Protocol      KAESocks4Protocol = 5
+)
+
+func (e KAESocks4Protocol) String() string {
+	switch e {
+	case KAESocks4ProtocolValue:
+		return "KAESocks4ProtocolValue"
+	case KAESocks5Protocol:
+		return "KAESocks5Protocol"
+	default:
+		return fmt.Sprintf("KAESocks4Protocol(%d)", e)
+	}
+}
+
+type KAEStartRecording uint32
+
+const (
+	// KAENotifyRecording: # Discussion
+	KAENotifyRecording KAEStartRecording = 'r'<<24 | 'e'<<16 | 'c'<<8 | 'r' // 'recr'
+	// KAENotifyStartRecording: An event that notifies an application that recording has been turned on.
+	KAENotifyStartRecording KAEStartRecording = 'r'<<24 | 'e'<<16 | 'c'<<8 | '1' // 'rec1'
+	// KAENotifyStopRecording: An event that notifies an application that recording has been turned off.
+	KAENotifyStopRecording KAEStartRecording = 'r'<<24 | 'e'<<16 | 'c'<<8 | '0' // 'rec0'
+	// KAEStartRecordingValue: # Discussion
+	KAEStartRecordingValue KAEStartRecording = 'r'<<24 | 'e'<<16 | 'c'<<8 | 'a' // 'reca'
+	// KAEStopRecording: # Discussion
+	KAEStopRecording KAEStartRecording = 'r'<<24 | 'e'<<16 | 'c'<<8 | 'c' // 'recc'
+)
+
+func (e KAEStartRecording) String() string {
+	switch e {
+	case KAENotifyRecording:
+		return "KAENotifyRecording"
+	case KAENotifyStartRecording:
+		return "KAENotifyStartRecording"
+	case KAENotifyStopRecording:
+		return "KAENotifyStopRecording"
+	case KAEStartRecordingValue:
+		return "KAEStartRecordingValue"
+	case KAEStopRecording:
+		return "KAEStopRecording"
+	default:
+		return fmt.Sprintf("KAEStartRecording(%d)", e)
+	}
+}
+
+type KAEU uint32
 
 const (
 	KAEUTApostrophe             KAEU = 3
@@ -10782,7 +12782,117 @@ func (e KAEU) String() string {
 	}
 }
 
-type KAEZoom uint
+type KAEUnknownSource uint32
+
+const (
+	// KAEDirectCall: The source of the Apple event is a direct call that bypassed the PPC Toolbox.
+	KAEDirectCall KAEUnknownSource = 1
+	// KAELocalProcess: The source application is another process on the same computer as the target application.
+	KAELocalProcess KAEUnknownSource = 3
+	// KAERemoteProcess: The source application is a process on a remote computer on the network.
+	KAERemoteProcess KAEUnknownSource = 4
+	// KAESameProcess: The source of the Apple event is the same application that received the event (the target application and the source application are the same).
+	KAESameProcess KAEUnknownSource = 2
+	// KAEUnknownSourceValue: The source of the Apple event is unknown.
+	KAEUnknownSourceValue KAEUnknownSource = 0
+)
+
+func (e KAEUnknownSource) String() string {
+	switch e {
+	case KAEDirectCall:
+		return "KAEDirectCall"
+	case KAELocalProcess:
+		return "KAELocalProcess"
+	case KAERemoteProcess:
+		return "KAERemoteProcess"
+	case KAESameProcess:
+		return "KAESameProcess"
+	case KAEUnknownSourceValue:
+		return "KAEUnknownSourceValue"
+	default:
+		return fmt.Sprintf("KAEUnknownSource(%d)", e)
+	}
+}
+
+type KAEUseHTTPProxyAttr uint32
+
+const (
+	// KAEHTTPProxyHostAttr: A value of type `typeChar` or `typeUTF8Text`.
+	KAEHTTPProxyHostAttr KAEUseHTTPProxyAttr = 'x'<<24 | 'h'<<16 | 't'<<8 | 'h' // 'xhth'
+	// KAEHTTPProxyPortAttr: A value of type `typeSInt32`.
+	KAEHTTPProxyPortAttr KAEUseHTTPProxyAttr = 'x'<<24 | 'h'<<16 | 't'<<8 | 'p' // 'xhtp'
+	// KAEUseHTTPProxyAttrValue: A value of type `typeBoolean`.
+	KAEUseHTTPProxyAttrValue KAEUseHTTPProxyAttr = 'x'<<24 | 'u'<<16 | 'p'<<8 | 'r' // 'xupr'
+)
+
+func (e KAEUseHTTPProxyAttr) String() string {
+	switch e {
+	case KAEHTTPProxyHostAttr:
+		return "KAEHTTPProxyHostAttr"
+	case KAEHTTPProxyPortAttr:
+		return "KAEHTTPProxyPortAttr"
+	case KAEUseHTTPProxyAttrValue:
+		return "KAEUseHTTPProxyAttrValue"
+	default:
+		return fmt.Sprintf("KAEUseHTTPProxyAttr(%d)", e)
+	}
+}
+
+type KAEUseSocksAttr uint32
+
+const (
+	KAESocksHostAttr     KAEUseSocksAttr = 'x'<<24 | 's'<<16 | 'h'<<8 | 's' // 'xshs'
+	KAESocksPasswordAttr KAEUseSocksAttr = 'x'<<24 | 's'<<16 | 'h'<<8 | 'w' // 'xshw'
+	KAESocksPortAttr     KAEUseSocksAttr = 'x'<<24 | 's'<<16 | 'h'<<8 | 'p' // 'xshp'
+	KAESocksProxyAttr    KAEUseSocksAttr = 'x'<<24 | 's'<<16 | 'o'<<8 | 'k' // 'xsok'
+	KAESocksUserAttr     KAEUseSocksAttr = 'x'<<24 | 's'<<16 | 'h'<<8 | 'u' // 'xshu'
+	KAEUseSocksAttrValue KAEUseSocksAttr = 'x'<<24 | 's'<<16 | 'c'<<8 | 's' // 'xscs'
+)
+
+func (e KAEUseSocksAttr) String() string {
+	switch e {
+	case KAESocksHostAttr:
+		return "KAESocksHostAttr"
+	case KAESocksPasswordAttr:
+		return "KAESocksPasswordAttr"
+	case KAESocksPortAttr:
+		return "KAESocksPortAttr"
+	case KAESocksProxyAttr:
+		return "KAESocksProxyAttr"
+	case KAESocksUserAttr:
+		return "KAESocksUserAttr"
+	case KAEUseSocksAttrValue:
+		return "KAEUseSocksAttrValue"
+	default:
+		return fmt.Sprintf("KAEUseSocksAttr(%d)", e)
+	}
+}
+
+type KAEUserTerminology uint32
+
+const (
+	KAEOSAXSizeResource      KAEUserTerminology = 'o'<<24 | 's'<<16 | 'i'<<8 | 'z' // 'osiz'
+	KAEScriptingSizeResource KAEUserTerminology = 's'<<24 | 'c'<<16 | 's'<<8 | 'z' // 'scsz'
+	KAETerminologyExtension  KAEUserTerminology = 'a'<<24 | 'e'<<16 | 't'<<8 | 'e' // 'aete'
+	KAEUserTerminologyValue  KAEUserTerminology = 'a'<<24 | 'e'<<16 | 'u'<<8 | 't' // 'aeut'
+)
+
+func (e KAEUserTerminology) String() string {
+	switch e {
+	case KAEOSAXSizeResource:
+		return "KAEOSAXSizeResource"
+	case KAEScriptingSizeResource:
+		return "KAEScriptingSizeResource"
+	case KAETerminologyExtension:
+		return "KAETerminologyExtension"
+	case KAEUserTerminologyValue:
+		return "KAEUserTerminologyValue"
+	default:
+		return fmt.Sprintf("KAEUserTerminology(%d)", e)
+	}
+}
+
+type KAEZoom uint32
 
 const (
 	KAEZoomIn  KAEZoom = 7
@@ -10800,7 +12910,7 @@ func (e KAEZoom) String() string {
 	}
 }
 
-type KAFPExtendedFlagsAlternateAddress uint
+type KAFPExtendedFlagsAlternateAddress uint32
 
 const (
 	KAFPExtendedFlagsAlternateAddressMask KAFPExtendedFlagsAlternateAddress = 1
@@ -10815,7 +12925,7 @@ func (e KAFPExtendedFlagsAlternateAddress) String() string {
 	}
 }
 
-type KAFPTagLength uint
+type KAFPTagLength uint32
 
 const (
 	KAFPTagLengthDDP    KAFPTagLength = 0x6
@@ -10834,7 +12944,7 @@ func (e KAFPTagLength) String() string {
 	}
 }
 
-type KAFPTagType uint
+type KAFPTagType uint32
 
 const (
 	KAFPTagTypeDDP    KAFPTagType = 0x3
@@ -10858,7 +12968,7 @@ func (e KAFPTagType) String() string {
 	}
 }
 
-type KALM int
+type KALM int32
 
 const (
 	KALMDeferSwitchErr         KALM = -30043
@@ -10894,7 +13004,7 @@ func (e KALM) String() string {
 	}
 }
 
-type KALMLocationNotFound int
+type KALMLocationNotFound int32
 
 const (
 	KALMLocationNotFoundErr KALMLocationNotFound = -30048
@@ -10909,7 +13019,7 @@ func (e KALMLocationNotFound) String() string {
 	}
 }
 
-type KARM uint
+type KARM uint32
 
 const (
 	// Deprecated.
@@ -10949,42 +13059,66 @@ func (e KARM) String() string {
 	}
 }
 
-type KATSU int
+type KATSUInvalidFontFallbacksErr int32
 
 const (
-	KATSUBadStreamErr                 KATSU = -8902
-	KATSUBusyObjectErr                KATSU = -8809
-	KATSUCoordinateOverflowErr        KATSU = -8807
-	KATSUFontsMatched                 KATSU = -8793
-	KATSUFontsNotMatched              KATSU = -8794
-	KATSUInvalidAttributeSizeErr      KATSU = -8798
-	KATSUInvalidAttributeTagErr       KATSU = -8799
-	KATSUInvalidAttributeValueErr     KATSU = -8797
-	KATSUInvalidCacheErr              KATSU = -8800
-	KATSUInvalidCallInsideCallbackErr KATSU = -8904
-	KATSUInvalidFontErr               KATSU = -8796
-	KATSUInvalidFontFallbacksErr      KATSU = -8900
-	KATSUInvalidStyleErr              KATSU = -8791
-	KATSUInvalidTextLayoutErr         KATSU = -8790
-	KATSUInvalidTextRangeErr          KATSU = -8792
-	KATSULastErr                      KATSU = -8959
-	KATSULineBreakInWord              KATSU = -8808
-	KATSULowLevelErr                  KATSU = -8804
-	KATSUNoCorrespondingFontErr       KATSU = -8795
-	KATSUNoFontCmapAvailableErr       KATSU = -8805
-	KATSUNoFontNameErr                KATSU = -8905
-	KATSUNoFontScalerAvailableErr     KATSU = -8806
-	KATSUNoStyleRunsAssignedErr       KATSU = -8802
-	KATSUNotSetErr                    KATSU = -8801
-	KATSUOutputBufferTooSmallErr      KATSU = -8903
-	KATSUQuickDrawTextErr             KATSU = -8803
-	KATSUUnsupportedStreamFormatErr   KATSU = -8901
+	KATSUBadStreamErr                 KATSUInvalidFontFallbacksErr = -8902
+	KATSUInvalidCallInsideCallbackErr KATSUInvalidFontFallbacksErr = -8904
+	KATSUInvalidFontFallbacksErrValue KATSUInvalidFontFallbacksErr = -8900
+	KATSULastErr                      KATSUInvalidFontFallbacksErr = -8959
+	KATSUNoFontNameErr                KATSUInvalidFontFallbacksErr = -8905
+	KATSUOutputBufferTooSmallErr      KATSUInvalidFontFallbacksErr = -8903
+	KATSUUnsupportedStreamFormatErr   KATSUInvalidFontFallbacksErr = -8901
 )
 
-func (e KATSU) String() string {
+func (e KATSUInvalidFontFallbacksErr) String() string {
 	switch e {
 	case KATSUBadStreamErr:
 		return "KATSUBadStreamErr"
+	case KATSUInvalidCallInsideCallbackErr:
+		return "KATSUInvalidCallInsideCallbackErr"
+	case KATSUInvalidFontFallbacksErrValue:
+		return "KATSUInvalidFontFallbacksErrValue"
+	case KATSULastErr:
+		return "KATSULastErr"
+	case KATSUNoFontNameErr:
+		return "KATSUNoFontNameErr"
+	case KATSUOutputBufferTooSmallErr:
+		return "KATSUOutputBufferTooSmallErr"
+	case KATSUUnsupportedStreamFormatErr:
+		return "KATSUUnsupportedStreamFormatErr"
+	default:
+		return fmt.Sprintf("KATSUInvalidFontFallbacksErr(%d)", e)
+	}
+}
+
+type KATSUInvalidTextLayoutErr int32
+
+const (
+	KATSUBusyObjectErr             KATSUInvalidTextLayoutErr = -8809
+	KATSUCoordinateOverflowErr     KATSUInvalidTextLayoutErr = -8807
+	KATSUFontsMatched              KATSUInvalidTextLayoutErr = -8793
+	KATSUFontsNotMatched           KATSUInvalidTextLayoutErr = -8794
+	KATSUInvalidAttributeSizeErr   KATSUInvalidTextLayoutErr = -8798
+	KATSUInvalidAttributeTagErr    KATSUInvalidTextLayoutErr = -8799
+	KATSUInvalidAttributeValueErr  KATSUInvalidTextLayoutErr = -8797
+	KATSUInvalidCacheErr           KATSUInvalidTextLayoutErr = -8800
+	KATSUInvalidFontErr            KATSUInvalidTextLayoutErr = -8796
+	KATSUInvalidStyleErr           KATSUInvalidTextLayoutErr = -8791
+	KATSUInvalidTextLayoutErrValue KATSUInvalidTextLayoutErr = -8790
+	KATSUInvalidTextRangeErr       KATSUInvalidTextLayoutErr = -8792
+	KATSULineBreakInWord           KATSUInvalidTextLayoutErr = -8808
+	KATSULowLevelErr               KATSUInvalidTextLayoutErr = -8804
+	KATSUNoCorrespondingFontErr    KATSUInvalidTextLayoutErr = -8795
+	KATSUNoFontCmapAvailableErr    KATSUInvalidTextLayoutErr = -8805
+	KATSUNoFontScalerAvailableErr  KATSUInvalidTextLayoutErr = -8806
+	KATSUNoStyleRunsAssignedErr    KATSUInvalidTextLayoutErr = -8802
+	KATSUNotSetErr                 KATSUInvalidTextLayoutErr = -8801
+	KATSUQuickDrawTextErr          KATSUInvalidTextLayoutErr = -8803
+)
+
+func (e KATSUInvalidTextLayoutErr) String() string {
+	switch e {
 	case KATSUBusyObjectErr:
 		return "KATSUBusyObjectErr"
 	case KATSUCoordinateOverflowErr:
@@ -11001,20 +13135,14 @@ func (e KATSU) String() string {
 		return "KATSUInvalidAttributeValueErr"
 	case KATSUInvalidCacheErr:
 		return "KATSUInvalidCacheErr"
-	case KATSUInvalidCallInsideCallbackErr:
-		return "KATSUInvalidCallInsideCallbackErr"
 	case KATSUInvalidFontErr:
 		return "KATSUInvalidFontErr"
-	case KATSUInvalidFontFallbacksErr:
-		return "KATSUInvalidFontFallbacksErr"
 	case KATSUInvalidStyleErr:
 		return "KATSUInvalidStyleErr"
-	case KATSUInvalidTextLayoutErr:
-		return "KATSUInvalidTextLayoutErr"
+	case KATSUInvalidTextLayoutErrValue:
+		return "KATSUInvalidTextLayoutErrValue"
 	case KATSUInvalidTextRangeErr:
 		return "KATSUInvalidTextRangeErr"
-	case KATSULastErr:
-		return "KATSULastErr"
 	case KATSULineBreakInWord:
 		return "KATSULineBreakInWord"
 	case KATSULowLevelErr:
@@ -11023,26 +13151,20 @@ func (e KATSU) String() string {
 		return "KATSUNoCorrespondingFontErr"
 	case KATSUNoFontCmapAvailableErr:
 		return "KATSUNoFontCmapAvailableErr"
-	case KATSUNoFontNameErr:
-		return "KATSUNoFontNameErr"
 	case KATSUNoFontScalerAvailableErr:
 		return "KATSUNoFontScalerAvailableErr"
 	case KATSUNoStyleRunsAssignedErr:
 		return "KATSUNoStyleRunsAssignedErr"
 	case KATSUNotSetErr:
 		return "KATSUNotSetErr"
-	case KATSUOutputBufferTooSmallErr:
-		return "KATSUOutputBufferTooSmallErr"
 	case KATSUQuickDrawTextErr:
 		return "KATSUQuickDrawTextErr"
-	case KATSUUnsupportedStreamFormatErr:
-		return "KATSUUnsupportedStreamFormatErr"
 	default:
-		return fmt.Sprintf("KATSU(%d)", e)
+		return fmt.Sprintf("KATSUInvalidTextLayoutErr(%d)", e)
 	}
 }
 
-type KAlert uint
+type KAlert uint32
 
 const (
 	KAlertCautionIcon KAlert = 'c'<<24 | 'a'<<16 | 'u'<<8 | 't' // 'caut'
@@ -11063,24 +13185,7 @@ func (e KAlert) String() string {
 	}
 }
 
-type KAny uint
-
-const (
-	KAnyAuthType KAny = 0
-	KAnyPort     KAny = 0
-	KAnyProtocol KAny = 0
-)
-
-func (e KAny) String() string {
-	switch e {
-	case KAnyAuthType:
-		return "KAnyAuthType"
-	default:
-		return fmt.Sprintf("KAny(%d)", e)
-	}
-}
-
-type KAnyComponent uint
+type KAnyComponent uint32
 
 const (
 	// Deprecated.
@@ -11102,7 +13207,25 @@ func (e KAnyComponent) String() string {
 	}
 }
 
-type KAppearanceFolderIcon uint
+const KAnyPort uint32 = 0
+
+type KAnyProtocol uint32
+
+const (
+	KAnyAuthType      KAnyProtocol = 0
+	KAnyProtocolValue KAnyProtocol = 0
+)
+
+func (e KAnyProtocol) String() string {
+	switch e {
+	case KAnyAuthType:
+		return "KAnyAuthType"
+	default:
+		return fmt.Sprintf("KAnyProtocol(%d)", e)
+	}
+}
+
+type KAppearanceFolderIcon int32
 
 const (
 	KAppearanceFolderIconValue         KAppearanceFolderIcon = 'a'<<24 | 'p'<<16 | 'p'<<8 | 'r' // 'appr'
@@ -11121,23 +13244,23 @@ const (
 	KExtensionsFolderIcon              KAppearanceFolderIcon = 'e'<<24 | 'x'<<16 | 't'<<8 | 'n' // 'extn'
 	KFavoritesFolderIcon               KAppearanceFolderIcon = 'f'<<24 | 'a'<<16 | 'v'<<8 | 's' // 'favs'
 	KFontsFolderIcon                   KAppearanceFolderIcon = 'f'<<24 | 'o'<<16 | 'n'<<8 | 't' // 'font'
-	KHelpFolderIcon                    KAppearanceFolderIcon = 0xc4686c70
+	KHelpFolderIcon                    KAppearanceFolderIcon = -999789456
 	KInternetFolderIcon                KAppearanceFolderIcon = 0x696e74c4
-	KInternetPlugInFolderIcon          KAppearanceFolderIcon = 0xc46e6574
+	KInternetPlugInFolderIcon          KAppearanceFolderIcon = -999398028
 	KInternetSearchSitesFolderIcon     KAppearanceFolderIcon = 'i'<<24 | 's'<<16 | 's'<<8 | 'f' // 'issf'
-	KLocalesFolderIcon                 KAppearanceFolderIcon = 0xc46c6f63
+	KLocalesFolderIcon                 KAppearanceFolderIcon = -999526557
 	KMacOSReadMeFolderIcon             KAppearanceFolderIcon = 0x6d6f72c4
 	KPreferencesFolderIcon             KAppearanceFolderIcon = 0x707266c4
 	KPrintMonitorFolderIcon            KAppearanceFolderIcon = 'p'<<24 | 'r'<<16 | 'n'<<8 | 't' // 'prnt'
 	KPrinterDescriptionFolderIcon      KAppearanceFolderIcon = 'p'<<24 | 'p'<<16 | 'd'<<8 | 'f' // 'ppdf'
-	KPrinterDriverFolderIcon           KAppearanceFolderIcon = 0xc4707264
+	KPrinterDriverFolderIcon           KAppearanceFolderIcon = -999263644
 	KPublicFolderIcon                  KAppearanceFolderIcon = 'p'<<24 | 'u'<<16 | 'b'<<8 | 'f' // 'pubf'
 	KRecentApplicationsFolderIcon      KAppearanceFolderIcon = 'r'<<24 | 'a'<<16 | 'p'<<8 | 'p' // 'rapp'
 	KRecentDocumentsFolderIcon         KAppearanceFolderIcon = 'r'<<24 | 'd'<<16 | 'o'<<8 | 'c' // 'rdoc'
 	KRecentServersFolderIcon           KAppearanceFolderIcon = 'r'<<24 | 's'<<16 | 'r'<<8 | 'v' // 'rsrv'
-	KScriptingAdditionsFolderIcon      KAppearanceFolderIcon = 0xc4736372
+	KScriptingAdditionsFolderIcon      KAppearanceFolderIcon = -999070862
 	KScriptsFolderIcon                 KAppearanceFolderIcon = 0x736372c4
-	KSharedLibrariesFolderIcon         KAppearanceFolderIcon = 0xc46c6962
+	KSharedLibrariesFolderIcon         KAppearanceFolderIcon = -999528094
 	KShutdownItemsDisabledFolderIcon   KAppearanceFolderIcon = 's'<<24 | 'h'<<16 | 'd'<<8 | 'D' // 'shdD'
 	KShutdownItemsFolderIcon           KAppearanceFolderIcon = 's'<<24 | 'h'<<16 | 'd'<<8 | 'f' // 'shdf'
 	KSpeakableItemsFolder              KAppearanceFolderIcon = 's'<<24 | 'p'<<16 | 'k'<<8 | 'i' // 'spki'
@@ -11145,7 +13268,7 @@ const (
 	KStartupItemsFolderIcon            KAppearanceFolderIcon = 's'<<24 | 't'<<16 | 'r'<<8 | 't' // 'strt'
 	KSystemExtensionDisabledFolderIcon KAppearanceFolderIcon = 'm'<<24 | 'a'<<16 | 'c'<<8 | 'D' // 'macD'
 	KSystemFolderIcon                  KAppearanceFolderIcon = 'm'<<24 | 'a'<<16 | 'c'<<8 | 's' // 'macs'
-	KTextEncodingsFolderIcon           KAppearanceFolderIcon = 0xc4746578
+	KTextEncodingsFolderIcon           KAppearanceFolderIcon = -999004808
 	KUsersFolderIcon                   KAppearanceFolderIcon = 0x757372c4
 	KUtilitiesFolderIcon               KAppearanceFolderIcon = 0x757469c4
 	KVoicesFolderIcon                  KAppearanceFolderIcon = 'f'<<24 | 'v'<<16 | 'o'<<8 | 'c' // 'fvoc'
@@ -11246,7 +13369,7 @@ func (e KAppearanceFolderIcon) String() string {
 	}
 }
 
-type KAppleLogoIcon uint
+type KAppleLogoIcon uint32
 
 const (
 	KAppleLogoIconValue             KAppleLogoIcon = 'c'<<24 | 'a'<<16 | 'p'<<8 | 'l' // 'capl'
@@ -11336,7 +13459,7 @@ func (e KAppleLogoIcon) String() string {
 	}
 }
 
-type KAppleManufacturer uint
+type KAppleManufacturer uint32
 
 const (
 	// Deprecated.
@@ -11360,7 +13483,7 @@ func (e KAppleManufacturer) String() string {
 	}
 }
 
-type KAppleScriptBadgeIcon uint
+type KAppleScriptBadgeIcon uint32
 
 const (
 	KAlertCautionBadgeIcon     KAppleScriptBadgeIcon = 'c'<<24 | 'b'<<16 | 'd'<<8 | 'g' // 'cbdg'
@@ -11390,7 +13513,7 @@ func (e KAppleScriptBadgeIcon) String() string {
 	}
 }
 
-type KAppleTalkIcon uint
+type KAppleTalkIcon uint32
 
 const (
 	KAFPServerIcon      KAppleTalkIcon = 'a'<<24 | 'f'<<16 | 'p'<<8 | 's' // 'afps'
@@ -11423,7 +13546,7 @@ func (e KAppleTalkIcon) String() string {
 	}
 }
 
-type KAsync uint
+type KAsync uint32
 
 const (
 	KAsyncEjectComplete     KAsync = 6
@@ -11453,7 +13576,7 @@ func (e KAsync) String() string {
 	}
 }
 
-type KAutoGenerateReturnID int
+type KAutoGenerateReturnID int32
 
 const (
 	// KAnyTransactionID: # Discussion
@@ -11473,7 +13596,7 @@ func (e KAutoGenerateReturnID) String() string {
 	}
 }
 
-type KBadAdapterErr int
+type KBadAdapterErr int32
 
 const (
 	K16BitCardErr            KBadAdapterErr = -9084
@@ -11665,7 +13788,7 @@ func (e KBadAdapterErr) String() string {
 	}
 }
 
-type KBig5 uint
+type KBig5 uint32
 
 const (
 	// KBig5_BasicVariant: The basic encoding variant.
@@ -11692,7 +13815,7 @@ func (e KBig5) String() string {
 	}
 }
 
-type KBlessedBusError int
+type KBlessedBusError uint32
 
 const (
 	// Deprecated.
@@ -11708,7 +13831,7 @@ func (e KBlessedBusError) String() string {
 	}
 }
 
-type KBlessedFolder uint
+type KBlessedFolder uint32
 
 const (
 	KBlessedFolderValue KBlessedFolder = 'b'<<24 | 'l'<<16 | 's'<<8 | 'f' // 'blsf'
@@ -11726,7 +13849,7 @@ func (e KBlessedFolder) String() string {
 	}
 }
 
-type KBy uint
+type KBy uint32
 
 const (
 	KByCommentView KBy = 6
@@ -11765,7 +13888,7 @@ func (e KBy) String() string {
 	}
 }
 
-type KCSAccept uint
+type KCSAccept uint32
 
 const (
 	// Deprecated.
@@ -11785,7 +13908,7 @@ func (e KCSAccept) String() string {
 	}
 }
 
-type KCSDiskSpaceRecoveryOptionNoU uint
+type KCSDiskSpaceRecoveryOptionNoU uint32
 
 const (
 	KCSDiskSpaceRecoveryOptionNoUI KCSDiskSpaceRecoveryOptionNoU = 1
@@ -11800,7 +13923,7 @@ func (e KCSDiskSpaceRecoveryOptionNoU) String() string {
 	}
 }
 
-type KCSIdentity int
+type KCSIdentity int32
 
 const (
 	KCSIdentityAuthorityNotAccessibleErr KCSIdentity = -2
@@ -11836,7 +13959,7 @@ func (e KCSIdentity) String() string {
 	}
 }
 
-type KCSIdentityClass uint
+type KCSIdentityClass uint32
 
 const (
 	KCSIdentityClassGroup KCSIdentityClass = 2
@@ -11854,7 +13977,7 @@ func (e KCSIdentityClass) String() string {
 	}
 }
 
-type KCSIdentityCommit uint
+type KCSIdentityCommit uint32
 
 const (
 	KCSIdentityCommitCompleted KCSIdentityCommit = 1
@@ -11869,7 +13992,7 @@ func (e KCSIdentityCommit) String() string {
 	}
 }
 
-type KCSIdentityFlag uint
+type KCSIdentityFlag uint32
 
 const (
 	KCSIdentityFlagHidden KCSIdentityFlag = 1
@@ -11887,7 +14010,7 @@ func (e KCSIdentityFlag) String() string {
 	}
 }
 
-type KCSIdentityQuery uint
+type KCSIdentityQuery uint32
 
 const (
 	KCSIdentityQueryGenerateUpdateEvents    KCSIdentityQuery = 0x1
@@ -11905,7 +14028,7 @@ func (e KCSIdentityQuery) String() string {
 	}
 }
 
-type KCSIdentityQueryEvent uint
+type KCSIdentityQueryEvent uint32
 
 const (
 	KCSIdentityQueryEventErrorOccurred       KCSIdentityQueryEvent = 5
@@ -11932,7 +14055,7 @@ func (e KCSIdentityQueryEvent) String() string {
 	}
 }
 
-type KCSIdentityQueryString uint
+type KCSIdentityQueryString uint32
 
 const (
 	KCSIdentityQueryStringBeginsWith KCSIdentityQueryString = 2
@@ -11950,7 +14073,7 @@ func (e KCSIdentityQueryString) String() string {
 	}
 }
 
-type KCallingConventionWidth uint
+type KCallingConventionWidth int32
 
 const (
 	// Deprecated.
@@ -11996,7 +14119,7 @@ const (
 	// Deprecated.
 	KSpecialCaseSelectorWidth KCallingConventionWidth = 6
 	// Deprecated.
-	KStackParameterMask KCallingConventionWidth = 0xffffffc0
+	KStackParameterMask KCallingConventionWidth = -64
 	// Deprecated.
 	KStackParameterPhase KCallingConventionWidth = 6
 	// Deprecated.
@@ -12036,36 +14159,36 @@ func (e KCallingConventionWidth) String() string {
 	}
 }
 
-type KCertSearch uint
+type KCertSearch uint32
 
 const (
 	KCertSearchAny               KCertSearch = 0
-	KCertSearchDecryptAllowed    KCertSearch = 1
-	KCertSearchDecryptDisallowed KCertSearch = 1
+	KCertSearchDecryptAllowed    KCertSearch = 64
+	KCertSearchDecryptDisallowed KCertSearch = 128
 	KCertSearchDecryptIgnored    KCertSearch = 0
-	KCertSearchDecryptMask       KCertSearch = 1
-	KCertSearchEncryptAllowed    KCertSearch = 1
-	KCertSearchEncryptDisallowed KCertSearch = 1
+	KCertSearchDecryptMask       KCertSearch = 192
+	KCertSearchEncryptAllowed    KCertSearch = 16
+	KCertSearchEncryptDisallowed KCertSearch = 32
 	KCertSearchEncryptIgnored    KCertSearch = 0
-	KCertSearchEncryptMask       KCertSearch = 1
-	KCertSearchPrivKeyRequired   KCertSearch = 1
+	KCertSearchEncryptMask       KCertSearch = 48
+	KCertSearchPrivKeyRequired   KCertSearch = 4096
 	KCertSearchShift             KCertSearch = 0
 	KCertSearchSigningAllowed    KCertSearch = 1
-	KCertSearchSigningDisallowed KCertSearch = 1
+	KCertSearchSigningDisallowed KCertSearch = 2
 	KCertSearchSigningIgnored    KCertSearch = 0
-	KCertSearchSigningMask       KCertSearch = 1
-	KCertSearchUnwrapAllowed     KCertSearch = 1
-	KCertSearchUnwrapDisallowed  KCertSearch = 1
+	KCertSearchSigningMask       KCertSearch = 3
+	KCertSearchUnwrapAllowed     KCertSearch = 1024
+	KCertSearchUnwrapDisallowed  KCertSearch = 2048
 	KCertSearchUnwrapIgnored     KCertSearch = 0
-	KCertSearchUnwrapMask        KCertSearch = 1
-	KCertSearchVerifyAllowed     KCertSearch = 1
-	KCertSearchVerifyDisallowed  KCertSearch = 1
+	KCertSearchUnwrapMask        KCertSearch = 3072
+	KCertSearchVerifyAllowed     KCertSearch = 4
+	KCertSearchVerifyDisallowed  KCertSearch = 8
 	KCertSearchVerifyIgnored     KCertSearch = 0
-	KCertSearchVerifyMask        KCertSearch = 1
-	KCertSearchWrapAllowed       KCertSearch = 1
-	KCertSearchWrapDisallowed    KCertSearch = 1
+	KCertSearchVerifyMask        KCertSearch = 12
+	KCertSearchWrapAllowed       KCertSearch = 256
+	KCertSearchWrapDisallowed    KCertSearch = 512
 	KCertSearchWrapIgnored       KCertSearch = 0
-	KCertSearchWrapMask          KCertSearch = 1
+	KCertSearchWrapMask          KCertSearch = 768
 )
 
 func (e KCertSearch) String() string {
@@ -12074,12 +14197,48 @@ func (e KCertSearch) String() string {
 		return "KCertSearchAny"
 	case KCertSearchDecryptAllowed:
 		return "KCertSearchDecryptAllowed"
+	case KCertSearchDecryptDisallowed:
+		return "KCertSearchDecryptDisallowed"
+	case KCertSearchDecryptMask:
+		return "KCertSearchDecryptMask"
+	case KCertSearchEncryptAllowed:
+		return "KCertSearchEncryptAllowed"
+	case KCertSearchEncryptDisallowed:
+		return "KCertSearchEncryptDisallowed"
+	case KCertSearchEncryptMask:
+		return "KCertSearchEncryptMask"
+	case KCertSearchPrivKeyRequired:
+		return "KCertSearchPrivKeyRequired"
+	case KCertSearchSigningAllowed:
+		return "KCertSearchSigningAllowed"
+	case KCertSearchSigningDisallowed:
+		return "KCertSearchSigningDisallowed"
+	case KCertSearchSigningMask:
+		return "KCertSearchSigningMask"
+	case KCertSearchUnwrapAllowed:
+		return "KCertSearchUnwrapAllowed"
+	case KCertSearchUnwrapDisallowed:
+		return "KCertSearchUnwrapDisallowed"
+	case KCertSearchUnwrapMask:
+		return "KCertSearchUnwrapMask"
+	case KCertSearchVerifyAllowed:
+		return "KCertSearchVerifyAllowed"
+	case KCertSearchVerifyDisallowed:
+		return "KCertSearchVerifyDisallowed"
+	case KCertSearchVerifyMask:
+		return "KCertSearchVerifyMask"
+	case KCertSearchWrapAllowed:
+		return "KCertSearchWrapAllowed"
+	case KCertSearchWrapDisallowed:
+		return "KCertSearchWrapDisallowed"
+	case KCertSearchWrapMask:
+		return "KCertSearchWrapMask"
 	default:
 		return fmt.Sprintf("KCertSearch(%d)", e)
 	}
 }
 
-type KCertificateKCItemClass uint
+type KCertificateKCItemClass uint32
 
 const (
 	KAppleSharePasswordKCItemClass KCertificateKCItemClass = 'a'<<24 | 's'<<16 | 'h'<<8 | 'p' // 'ashp'
@@ -12103,7 +14262,7 @@ func (e KCertificateKCItemClass) String() string {
 	}
 }
 
-type KClassKCItemAttr uint
+type KClassKCItemAttr uint32
 
 const (
 	KAccountKCItemAttr        KClassKCItemAttr = 'a'<<24 | 'c'<<16 | 'c'<<8 | 't' // 'acct'
@@ -12232,7 +14391,7 @@ func (e KClassKCItemAttr) String() string {
 	}
 }
 
-type KClassic int
+type KClassic int32
 
 const (
 	// Deprecated.
@@ -12248,7 +14407,7 @@ func (e KClassic) String() string {
 	}
 }
 
-type KClassicPreferencesFolder uint
+type KClassicPreferencesFolder uint32
 
 const (
 	// Deprecated.
@@ -12264,7 +14423,7 @@ func (e KClassicPreferencesFolder) String() string {
 	}
 }
 
-type KClipboardIcon uint
+type KClipboardIcon uint32
 
 const (
 	KClipboardIconValue            KClipboardIcon = 'C'<<24 | 'L'<<16 | 'I'<<8 | 'P' // 'CLIP'
@@ -12415,7 +14574,7 @@ func (e KClipboardIcon) String() string {
 	}
 }
 
-type KClipping uint
+type KClipping uint32
 
 const (
 	KClippingCreator     KClipping = 'd'<<24 | 'r'<<16 | 'a'<<8 | 'g' // 'drag'
@@ -12442,7 +14601,7 @@ func (e KClipping) String() string {
 	}
 }
 
-type KCollate int
+type KCollate int32
 
 const (
 	KCollateAttributesNotFoundErr   KCollate = -29500
@@ -12478,277 +14637,7 @@ func (e KCollate) String() string {
 	}
 }
 
-type KCollection uint
-
-const (
-	// Deprecated.
-	KCollectionAllAttributes KCollection = 0xffffffff
-	// Deprecated.
-	KCollectionDefaultAttributes KCollection = 0x40000000
-	// Deprecated.
-	KCollectionLockBit KCollection = 31
-	// Deprecated.
-	KCollectionLockMask KCollection = 2147483648
-	// Deprecated.
-	KCollectionNoAttributes KCollection = 0
-	// Deprecated.
-	KCollectionPersistenceBit KCollection = 30
-	// Deprecated.
-	KCollectionPersistenceMask KCollection = 1073741824
-	// Deprecated.
-	KCollectionReserved0Bit KCollection = 16
-	// Deprecated.
-	KCollectionReserved0Mask KCollection = 65536
-	// Deprecated.
-	KCollectionReserved10Bit KCollection = 26
-	// Deprecated.
-	KCollectionReserved10Mask KCollection = 67108864
-	// Deprecated.
-	KCollectionReserved11Bit KCollection = 27
-	// Deprecated.
-	KCollectionReserved11Mask KCollection = 134217728
-	// Deprecated.
-	KCollectionReserved12Bit KCollection = 28
-	// Deprecated.
-	KCollectionReserved12Mask KCollection = 268435456
-	// Deprecated.
-	KCollectionReserved13Bit KCollection = 29
-	// Deprecated.
-	KCollectionReserved13Mask KCollection = 536870912
-	// Deprecated.
-	KCollectionReserved1Bit KCollection = 17
-	// Deprecated.
-	KCollectionReserved1Mask KCollection = 131072
-	// Deprecated.
-	KCollectionReserved2Bit KCollection = 18
-	// Deprecated.
-	KCollectionReserved2Mask KCollection = 262144
-	// Deprecated.
-	KCollectionReserved3Bit KCollection = 19
-	// Deprecated.
-	KCollectionReserved3Mask KCollection = 524288
-	// Deprecated.
-	KCollectionReserved4Bit KCollection = 20
-	// Deprecated.
-	KCollectionReserved4Mask KCollection = 1048576
-	// Deprecated.
-	KCollectionReserved5Bit KCollection = 21
-	// Deprecated.
-	KCollectionReserved5Mask KCollection = 2097152
-	// Deprecated.
-	KCollectionReserved6Bit KCollection = 22
-	// Deprecated.
-	KCollectionReserved6Mask KCollection = 4194304
-	// Deprecated.
-	KCollectionReserved7Bit KCollection = 23
-	// Deprecated.
-	KCollectionReserved7Mask KCollection = 8388608
-	// Deprecated.
-	KCollectionReserved8Bit KCollection = 24
-	// Deprecated.
-	KCollectionReserved8Mask KCollection = 16777216
-	// Deprecated.
-	KCollectionReserved9Bit KCollection = 25
-	// Deprecated.
-	KCollectionReserved9Mask KCollection = 33554432
-	// Deprecated.
-	KCollectionUser0Bit KCollection = 0
-	// Deprecated.
-	KCollectionUser0Mask KCollection = 1
-	// Deprecated.
-	KCollectionUser10Bit KCollection = 10
-	// Deprecated.
-	KCollectionUser10Mask KCollection = 1024
-	// Deprecated.
-	KCollectionUser11Bit KCollection = 11
-	// Deprecated.
-	KCollectionUser11Mask KCollection = 2048
-	// Deprecated.
-	KCollectionUser12Bit KCollection = 12
-	// Deprecated.
-	KCollectionUser12Mask KCollection = 4096
-	// Deprecated.
-	KCollectionUser13Bit KCollection = 13
-	// Deprecated.
-	KCollectionUser13Mask KCollection = 8192
-	// Deprecated.
-	KCollectionUser14Bit KCollection = 14
-	// Deprecated.
-	KCollectionUser14Mask KCollection = 16384
-	// Deprecated.
-	KCollectionUser15Bit KCollection = 15
-	// Deprecated.
-	KCollectionUser15Mask KCollection = 32768
-	// Deprecated.
-	KCollectionUser1Bit KCollection = 1
-	// Deprecated.
-	KCollectionUser1Mask KCollection = 2
-	// Deprecated.
-	KCollectionUser2Bit KCollection = 2
-	// Deprecated.
-	KCollectionUser2Mask KCollection = 4
-	// Deprecated.
-	KCollectionUser3Bit KCollection = 3
-	// Deprecated.
-	KCollectionUser3Mask KCollection = 8
-	// Deprecated.
-	KCollectionUser4Bit KCollection = 4
-	// Deprecated.
-	KCollectionUser4Mask KCollection = 16
-	// Deprecated.
-	KCollectionUser5Bit KCollection = 5
-	// Deprecated.
-	KCollectionUser5Mask KCollection = 32
-	// Deprecated.
-	KCollectionUser6Bit KCollection = 6
-	// Deprecated.
-	KCollectionUser6Mask KCollection = 64
-	// Deprecated.
-	KCollectionUser7Bit KCollection = 7
-	// Deprecated.
-	KCollectionUser7Mask KCollection = 128
-	// Deprecated.
-	KCollectionUser8Bit KCollection = 8
-	// Deprecated.
-	KCollectionUser8Mask KCollection = 256
-	// Deprecated.
-	KCollectionUser9Bit KCollection = 9
-	// Deprecated.
-	KCollectionUser9Mask KCollection = 512
-	// Deprecated.
-	KCollectionUserAttributes KCollection = 0xffff
-)
-
-func (e KCollection) String() string {
-	switch e {
-	case KCollectionAllAttributes:
-		return "KCollectionAllAttributes"
-	case KCollectionDefaultAttributes:
-		return "KCollectionDefaultAttributes"
-	case KCollectionLockBit:
-		return "KCollectionLockBit"
-	case KCollectionLockMask:
-		return "KCollectionLockMask"
-	case KCollectionNoAttributes:
-		return "KCollectionNoAttributes"
-	case KCollectionPersistenceBit:
-		return "KCollectionPersistenceBit"
-	case KCollectionReserved0Bit:
-		return "KCollectionReserved0Bit"
-	case KCollectionReserved0Mask:
-		return "KCollectionReserved0Mask"
-	case KCollectionReserved10Bit:
-		return "KCollectionReserved10Bit"
-	case KCollectionReserved10Mask:
-		return "KCollectionReserved10Mask"
-	case KCollectionReserved11Bit:
-		return "KCollectionReserved11Bit"
-	case KCollectionReserved11Mask:
-		return "KCollectionReserved11Mask"
-	case KCollectionReserved12Bit:
-		return "KCollectionReserved12Bit"
-	case KCollectionReserved12Mask:
-		return "KCollectionReserved12Mask"
-	case KCollectionReserved13Bit:
-		return "KCollectionReserved13Bit"
-	case KCollectionReserved13Mask:
-		return "KCollectionReserved13Mask"
-	case KCollectionReserved1Bit:
-		return "KCollectionReserved1Bit"
-	case KCollectionReserved1Mask:
-		return "KCollectionReserved1Mask"
-	case KCollectionReserved2Bit:
-		return "KCollectionReserved2Bit"
-	case KCollectionReserved2Mask:
-		return "KCollectionReserved2Mask"
-	case KCollectionReserved3Bit:
-		return "KCollectionReserved3Bit"
-	case KCollectionReserved3Mask:
-		return "KCollectionReserved3Mask"
-	case KCollectionReserved4Bit:
-		return "KCollectionReserved4Bit"
-	case KCollectionReserved4Mask:
-		return "KCollectionReserved4Mask"
-	case KCollectionReserved5Bit:
-		return "KCollectionReserved5Bit"
-	case KCollectionReserved5Mask:
-		return "KCollectionReserved5Mask"
-	case KCollectionReserved6Bit:
-		return "KCollectionReserved6Bit"
-	case KCollectionReserved6Mask:
-		return "KCollectionReserved6Mask"
-	case KCollectionReserved7Bit:
-		return "KCollectionReserved7Bit"
-	case KCollectionReserved7Mask:
-		return "KCollectionReserved7Mask"
-	case KCollectionReserved8Bit:
-		return "KCollectionReserved8Bit"
-	case KCollectionReserved8Mask:
-		return "KCollectionReserved8Mask"
-	case KCollectionReserved9Bit:
-		return "KCollectionReserved9Bit"
-	case KCollectionReserved9Mask:
-		return "KCollectionReserved9Mask"
-	case KCollectionUser0Mask:
-		return "KCollectionUser0Mask"
-	case KCollectionUser10Bit:
-		return "KCollectionUser10Bit"
-	case KCollectionUser10Mask:
-		return "KCollectionUser10Mask"
-	case KCollectionUser11Bit:
-		return "KCollectionUser11Bit"
-	case KCollectionUser11Mask:
-		return "KCollectionUser11Mask"
-	case KCollectionUser12Bit:
-		return "KCollectionUser12Bit"
-	case KCollectionUser12Mask:
-		return "KCollectionUser12Mask"
-	case KCollectionUser13Bit:
-		return "KCollectionUser13Bit"
-	case KCollectionUser13Mask:
-		return "KCollectionUser13Mask"
-	case KCollectionUser14Bit:
-		return "KCollectionUser14Bit"
-	case KCollectionUser14Mask:
-		return "KCollectionUser14Mask"
-	case KCollectionUser15Bit:
-		return "KCollectionUser15Bit"
-	case KCollectionUser15Mask:
-		return "KCollectionUser15Mask"
-	case KCollectionUser1Mask:
-		return "KCollectionUser1Mask"
-	case KCollectionUser2Mask:
-		return "KCollectionUser2Mask"
-	case KCollectionUser3Bit:
-		return "KCollectionUser3Bit"
-	case KCollectionUser3Mask:
-		return "KCollectionUser3Mask"
-	case KCollectionUser5Bit:
-		return "KCollectionUser5Bit"
-	case KCollectionUser5Mask:
-		return "KCollectionUser5Mask"
-	case KCollectionUser6Bit:
-		return "KCollectionUser6Bit"
-	case KCollectionUser6Mask:
-		return "KCollectionUser6Mask"
-	case KCollectionUser7Bit:
-		return "KCollectionUser7Bit"
-	case KCollectionUser7Mask:
-		return "KCollectionUser7Mask"
-	case KCollectionUser8Mask:
-		return "KCollectionUser8Mask"
-	case KCollectionUser9Bit:
-		return "KCollectionUser9Bit"
-	case KCollectionUser9Mask:
-		return "KCollectionUser9Mask"
-	case KCollectionUserAttributes:
-		return "KCollectionUserAttributes"
-	default:
-		return fmt.Sprintf("KCollection(%d)", e)
-	}
-}
-
-type KCollectionDontWant uint
+type KCollectionDontWant uint32
 
 const (
 	// Deprecated.
@@ -12774,7 +14663,315 @@ func (e KCollectionDontWant) String() string {
 	}
 }
 
-type KColorSyncFolderType uint
+type KCollectionNoAttributes int32
+
+const (
+	// Deprecated.
+	KCollectionAllAttributes KCollectionNoAttributes = -1
+	// Deprecated.
+	KCollectionDefaultAttributes KCollectionNoAttributes = 0x40000000
+	// Deprecated.
+	KCollectionNoAttributesValue KCollectionNoAttributes = 0
+	// Deprecated.
+	KCollectionUserAttributes KCollectionNoAttributes = 0xffff
+)
+
+func (e KCollectionNoAttributes) String() string {
+	switch e {
+	case KCollectionAllAttributes:
+		return "KCollectionAllAttributes"
+	case KCollectionDefaultAttributes:
+		return "KCollectionDefaultAttributes"
+	case KCollectionNoAttributesValue:
+		return "KCollectionNoAttributesValue"
+	case KCollectionUserAttributes:
+		return "KCollectionUserAttributes"
+	default:
+		return fmt.Sprintf("KCollectionNoAttributes(%d)", e)
+	}
+}
+
+type KCollectionUser0Bit uint32
+
+const (
+	// Deprecated.
+	KCollectionLockBit KCollectionUser0Bit = 31
+	// Deprecated.
+	KCollectionPersistenceBit KCollectionUser0Bit = 30
+	// Deprecated.
+	KCollectionReserved0Bit KCollectionUser0Bit = 16
+	// Deprecated.
+	KCollectionReserved10Bit KCollectionUser0Bit = 26
+	// Deprecated.
+	KCollectionReserved11Bit KCollectionUser0Bit = 27
+	// Deprecated.
+	KCollectionReserved12Bit KCollectionUser0Bit = 28
+	// Deprecated.
+	KCollectionReserved13Bit KCollectionUser0Bit = 29
+	// Deprecated.
+	KCollectionReserved1Bit KCollectionUser0Bit = 17
+	// Deprecated.
+	KCollectionReserved2Bit KCollectionUser0Bit = 18
+	// Deprecated.
+	KCollectionReserved3Bit KCollectionUser0Bit = 19
+	// Deprecated.
+	KCollectionReserved4Bit KCollectionUser0Bit = 20
+	// Deprecated.
+	KCollectionReserved5Bit KCollectionUser0Bit = 21
+	// Deprecated.
+	KCollectionReserved6Bit KCollectionUser0Bit = 22
+	// Deprecated.
+	KCollectionReserved7Bit KCollectionUser0Bit = 23
+	// Deprecated.
+	KCollectionReserved8Bit KCollectionUser0Bit = 24
+	// Deprecated.
+	KCollectionReserved9Bit KCollectionUser0Bit = 25
+	// Deprecated.
+	KCollectionUser0BitValue KCollectionUser0Bit = 0
+	// Deprecated.
+	KCollectionUser10Bit KCollectionUser0Bit = 10
+	// Deprecated.
+	KCollectionUser11Bit KCollectionUser0Bit = 11
+	// Deprecated.
+	KCollectionUser12Bit KCollectionUser0Bit = 12
+	// Deprecated.
+	KCollectionUser13Bit KCollectionUser0Bit = 13
+	// Deprecated.
+	KCollectionUser14Bit KCollectionUser0Bit = 14
+	// Deprecated.
+	KCollectionUser15Bit KCollectionUser0Bit = 15
+	// Deprecated.
+	KCollectionUser1Bit KCollectionUser0Bit = 1
+	// Deprecated.
+	KCollectionUser2Bit KCollectionUser0Bit = 2
+	// Deprecated.
+	KCollectionUser3Bit KCollectionUser0Bit = 3
+	// Deprecated.
+	KCollectionUser4Bit KCollectionUser0Bit = 4
+	// Deprecated.
+	KCollectionUser5Bit KCollectionUser0Bit = 5
+	// Deprecated.
+	KCollectionUser6Bit KCollectionUser0Bit = 6
+	// Deprecated.
+	KCollectionUser7Bit KCollectionUser0Bit = 7
+	// Deprecated.
+	KCollectionUser8Bit KCollectionUser0Bit = 8
+	// Deprecated.
+	KCollectionUser9Bit KCollectionUser0Bit = 9
+)
+
+func (e KCollectionUser0Bit) String() string {
+	switch e {
+	case KCollectionLockBit:
+		return "KCollectionLockBit"
+	case KCollectionPersistenceBit:
+		return "KCollectionPersistenceBit"
+	case KCollectionReserved0Bit:
+		return "KCollectionReserved0Bit"
+	case KCollectionReserved10Bit:
+		return "KCollectionReserved10Bit"
+	case KCollectionReserved11Bit:
+		return "KCollectionReserved11Bit"
+	case KCollectionReserved12Bit:
+		return "KCollectionReserved12Bit"
+	case KCollectionReserved13Bit:
+		return "KCollectionReserved13Bit"
+	case KCollectionReserved1Bit:
+		return "KCollectionReserved1Bit"
+	case KCollectionReserved2Bit:
+		return "KCollectionReserved2Bit"
+	case KCollectionReserved3Bit:
+		return "KCollectionReserved3Bit"
+	case KCollectionReserved4Bit:
+		return "KCollectionReserved4Bit"
+	case KCollectionReserved5Bit:
+		return "KCollectionReserved5Bit"
+	case KCollectionReserved6Bit:
+		return "KCollectionReserved6Bit"
+	case KCollectionReserved7Bit:
+		return "KCollectionReserved7Bit"
+	case KCollectionReserved8Bit:
+		return "KCollectionReserved8Bit"
+	case KCollectionReserved9Bit:
+		return "KCollectionReserved9Bit"
+	case KCollectionUser0BitValue:
+		return "KCollectionUser0BitValue"
+	case KCollectionUser10Bit:
+		return "KCollectionUser10Bit"
+	case KCollectionUser11Bit:
+		return "KCollectionUser11Bit"
+	case KCollectionUser12Bit:
+		return "KCollectionUser12Bit"
+	case KCollectionUser13Bit:
+		return "KCollectionUser13Bit"
+	case KCollectionUser14Bit:
+		return "KCollectionUser14Bit"
+	case KCollectionUser15Bit:
+		return "KCollectionUser15Bit"
+	case KCollectionUser1Bit:
+		return "KCollectionUser1Bit"
+	case KCollectionUser2Bit:
+		return "KCollectionUser2Bit"
+	case KCollectionUser3Bit:
+		return "KCollectionUser3Bit"
+	case KCollectionUser4Bit:
+		return "KCollectionUser4Bit"
+	case KCollectionUser5Bit:
+		return "KCollectionUser5Bit"
+	case KCollectionUser6Bit:
+		return "KCollectionUser6Bit"
+	case KCollectionUser7Bit:
+		return "KCollectionUser7Bit"
+	case KCollectionUser8Bit:
+		return "KCollectionUser8Bit"
+	case KCollectionUser9Bit:
+		return "KCollectionUser9Bit"
+	default:
+		return fmt.Sprintf("KCollectionUser0Bit(%d)", e)
+	}
+}
+
+type KCollectionUser0Mask uint32
+
+const (
+	// Deprecated.
+	KCollectionLockMask KCollectionUser0Mask = 2147483648
+	// Deprecated.
+	KCollectionPersistenceMask KCollectionUser0Mask = 1073741824
+	// Deprecated.
+	KCollectionReserved0Mask KCollectionUser0Mask = 65536
+	// Deprecated.
+	KCollectionReserved10Mask KCollectionUser0Mask = 67108864
+	// Deprecated.
+	KCollectionReserved11Mask KCollectionUser0Mask = 134217728
+	// Deprecated.
+	KCollectionReserved12Mask KCollectionUser0Mask = 268435456
+	// Deprecated.
+	KCollectionReserved13Mask KCollectionUser0Mask = 536870912
+	// Deprecated.
+	KCollectionReserved1Mask KCollectionUser0Mask = 131072
+	// Deprecated.
+	KCollectionReserved2Mask KCollectionUser0Mask = 262144
+	// Deprecated.
+	KCollectionReserved3Mask KCollectionUser0Mask = 524288
+	// Deprecated.
+	KCollectionReserved4Mask KCollectionUser0Mask = 1048576
+	// Deprecated.
+	KCollectionReserved5Mask KCollectionUser0Mask = 2097152
+	// Deprecated.
+	KCollectionReserved6Mask KCollectionUser0Mask = 4194304
+	// Deprecated.
+	KCollectionReserved7Mask KCollectionUser0Mask = 8388608
+	// Deprecated.
+	KCollectionReserved8Mask KCollectionUser0Mask = 16777216
+	// Deprecated.
+	KCollectionReserved9Mask KCollectionUser0Mask = 33554432
+	// Deprecated.
+	KCollectionUser0MaskValue KCollectionUser0Mask = 1
+	// Deprecated.
+	KCollectionUser10Mask KCollectionUser0Mask = 1024
+	// Deprecated.
+	KCollectionUser11Mask KCollectionUser0Mask = 2048
+	// Deprecated.
+	KCollectionUser12Mask KCollectionUser0Mask = 4096
+	// Deprecated.
+	KCollectionUser13Mask KCollectionUser0Mask = 8192
+	// Deprecated.
+	KCollectionUser14Mask KCollectionUser0Mask = 16384
+	// Deprecated.
+	KCollectionUser15Mask KCollectionUser0Mask = 32768
+	// Deprecated.
+	KCollectionUser1Mask KCollectionUser0Mask = 2
+	// Deprecated.
+	KCollectionUser2Mask KCollectionUser0Mask = 4
+	// Deprecated.
+	KCollectionUser3Mask KCollectionUser0Mask = 8
+	// Deprecated.
+	KCollectionUser4Mask KCollectionUser0Mask = 16
+	// Deprecated.
+	KCollectionUser5Mask KCollectionUser0Mask = 32
+	// Deprecated.
+	KCollectionUser6Mask KCollectionUser0Mask = 64
+	// Deprecated.
+	KCollectionUser7Mask KCollectionUser0Mask = 128
+	// Deprecated.
+	KCollectionUser8Mask KCollectionUser0Mask = 256
+	// Deprecated.
+	KCollectionUser9Mask KCollectionUser0Mask = 512
+)
+
+func (e KCollectionUser0Mask) String() string {
+	switch e {
+	case KCollectionLockMask:
+		return "KCollectionLockMask"
+	case KCollectionPersistenceMask:
+		return "KCollectionPersistenceMask"
+	case KCollectionReserved0Mask:
+		return "KCollectionReserved0Mask"
+	case KCollectionReserved10Mask:
+		return "KCollectionReserved10Mask"
+	case KCollectionReserved11Mask:
+		return "KCollectionReserved11Mask"
+	case KCollectionReserved12Mask:
+		return "KCollectionReserved12Mask"
+	case KCollectionReserved13Mask:
+		return "KCollectionReserved13Mask"
+	case KCollectionReserved1Mask:
+		return "KCollectionReserved1Mask"
+	case KCollectionReserved2Mask:
+		return "KCollectionReserved2Mask"
+	case KCollectionReserved3Mask:
+		return "KCollectionReserved3Mask"
+	case KCollectionReserved4Mask:
+		return "KCollectionReserved4Mask"
+	case KCollectionReserved5Mask:
+		return "KCollectionReserved5Mask"
+	case KCollectionReserved6Mask:
+		return "KCollectionReserved6Mask"
+	case KCollectionReserved7Mask:
+		return "KCollectionReserved7Mask"
+	case KCollectionReserved8Mask:
+		return "KCollectionReserved8Mask"
+	case KCollectionReserved9Mask:
+		return "KCollectionReserved9Mask"
+	case KCollectionUser0MaskValue:
+		return "KCollectionUser0MaskValue"
+	case KCollectionUser10Mask:
+		return "KCollectionUser10Mask"
+	case KCollectionUser11Mask:
+		return "KCollectionUser11Mask"
+	case KCollectionUser12Mask:
+		return "KCollectionUser12Mask"
+	case KCollectionUser13Mask:
+		return "KCollectionUser13Mask"
+	case KCollectionUser14Mask:
+		return "KCollectionUser14Mask"
+	case KCollectionUser15Mask:
+		return "KCollectionUser15Mask"
+	case KCollectionUser1Mask:
+		return "KCollectionUser1Mask"
+	case KCollectionUser2Mask:
+		return "KCollectionUser2Mask"
+	case KCollectionUser3Mask:
+		return "KCollectionUser3Mask"
+	case KCollectionUser4Mask:
+		return "KCollectionUser4Mask"
+	case KCollectionUser5Mask:
+		return "KCollectionUser5Mask"
+	case KCollectionUser6Mask:
+		return "KCollectionUser6Mask"
+	case KCollectionUser7Mask:
+		return "KCollectionUser7Mask"
+	case KCollectionUser8Mask:
+		return "KCollectionUser8Mask"
+	case KCollectionUser9Mask:
+		return "KCollectionUser9Mask"
+	default:
+		return fmt.Sprintf("KCollectionUser0Mask(%d)", e)
+	}
+}
+
+type KColorSyncFolderType uint32
 
 const (
 	// Deprecated.
@@ -13002,7 +15199,7 @@ func (e KColorSyncFolderType) String() string {
 	}
 }
 
-type KColorSyncProfilesFolderType uint
+type KColorSyncProfilesFolderType uint32
 
 const (
 	// Deprecated.
@@ -13038,7 +15235,7 @@ func (e KColorSyncProfilesFolderType) String() string {
 	}
 }
 
-type KComponent int
+type KComponent int32
 
 const (
 	// Deprecated.
@@ -13090,7 +15287,7 @@ func (e KComponent) String() string {
 	}
 }
 
-type KComponentDebug uint
+type KComponentDebug uint32
 
 const (
 	// Deprecated.
@@ -13106,7 +15303,7 @@ func (e KComponentDebug) String() string {
 	}
 }
 
-type KConnSuite uint
+type KConnSuite uint32
 
 const (
 	CADBAddress       KConnSuite = 'c'<<24 | 'a'<<16 | 'd'<<8 | 'b' // 'cadb'
@@ -13382,7 +15579,7 @@ func (e KConnSuite) String() string {
 	}
 }
 
-type KContainerFolderAliasType uint
+type KContainerFolderAliasType uint32
 
 const (
 	KAppPackageAliasType           KContainerFolderAliasType = 'f'<<24 | 'a'<<16 | 'p'<<8 | 'a' // 'fapa'
@@ -13433,7 +15630,7 @@ func (e KContainerFolderAliasType) String() string {
 	}
 }
 
-type KCooperativeThread uint
+type KCooperativeThread uint32
 
 const (
 	// Deprecated.
@@ -13453,7 +15650,7 @@ func (e KCooperativeThread) String() string {
 	}
 }
 
-type KCoreEndian uint
+type KCoreEndian uint32
 
 const (
 	// KCoreEndianAppleEventManagerDomain: Specifies that the domain is limited to Appleevents.
@@ -13473,7 +15670,7 @@ func (e KCoreEndian) String() string {
 	}
 }
 
-type KCoreEvent uint
+type KCoreEvent uint32
 
 const (
 	// KCoreEventClass: An Apple event sent by the Mac OS; applications that present a graphical interface to the user should be able to any events sent by the Mac OS that apply to the application.
@@ -13489,7 +15686,7 @@ func (e KCoreEvent) String() string {
 	}
 }
 
-type KCreateFolder uint
+type KCreateFolder uint32
 
 const (
 	// Deprecated.
@@ -13509,7 +15706,7 @@ func (e KCreateFolder) String() string {
 	}
 }
 
-type KCreateFolderAtBoot uint
+type KCreateFolderAtBoot uint32
 
 const (
 	// Deprecated.
@@ -13549,7 +15746,7 @@ func (e KCreateFolderAtBoot) String() string {
 	}
 }
 
-type KCurrentMixedModeState uint
+type KCurrentMixedModeState uint32
 
 const (
 	// Deprecated.
@@ -13565,7 +15762,7 @@ func (e KCurrentMixedModeState) String() string {
 	}
 }
 
-type KCurrentUserFolder uint
+type KCurrentUserFolder uint32
 
 const (
 	KCurrentUserFolderLocation KCurrentUserFolder = 'c'<<24 | 'u'<<16 | 's'<<8 | 'f' // 'cusf'
@@ -13580,7 +15777,7 @@ func (e KCurrentUserFolder) String() string {
 	}
 }
 
-type KCustomBadgeResource int
+type KCustomBadgeResource int32
 
 const (
 	KCustomBadgeResourceID      KCustomBadgeResource = -16455
@@ -13601,7 +15798,7 @@ func (e KCustomBadgeResource) String() string {
 	}
 }
 
-type KCustomIcon int
+type KCustomIcon int32
 
 const (
 	KCustomIconResource KCustomIcon = -16455
@@ -13616,7 +15813,7 @@ func (e KCustomIcon) String() string {
 	}
 }
 
-type KDMGenErr int
+type KDMGenErr int32
 
 const (
 	KDMCantBlock                   KDMGenErr = -6224
@@ -13669,7 +15866,7 @@ func (e KDMGenErr) String() string {
 	}
 }
 
-type KDOSJapanese uint
+type KDOSJapanese uint32
 
 const (
 	KDOSJapanesePalmVariant     KDOSJapanese = 1
@@ -13687,7 +15884,7 @@ func (e KDOSJapanese) String() string {
 	}
 }
 
-type KDSp int
+type KDSp int32
 
 const (
 	KDSpConfirmSwitchWarning      KDSp = -30448
@@ -13732,7 +15929,7 @@ func (e KDSp) String() string {
 	}
 }
 
-type KDTP int
+type KDTP int32
 
 const (
 	KDTPAbortJobErr  KDTP = 128
@@ -13756,7 +15953,7 @@ func (e KDTP) String() string {
 	}
 }
 
-type KDesktopFolderType uint
+type KDesktopFolderType uint32
 
 const (
 	// Deprecated.
@@ -13832,7 +16029,7 @@ func (e KDesktopFolderType) String() string {
 	}
 }
 
-type KDesktopIconResource int
+type KDesktopIconResource int32
 
 const (
 	KDesktopIconResourceValue       KDesktopIconResource = -3992
@@ -13862,7 +16059,7 @@ func (e KDesktopIconResource) String() string {
 	}
 }
 
-type KDeveloper uint
+type KDeveloper uint32
 
 const (
 	// Deprecated.
@@ -13890,7 +16087,7 @@ func (e KDeveloper) String() string {
 	}
 }
 
-type KDictionariesFolderType uint
+type KDictionariesFolderType uint32
 
 const (
 	KDictionariesFolderTypeValue KDictionariesFolderType = 'd'<<24 | 'i'<<16 | 'c'<<8 | 't' // 'dict'
@@ -13911,7 +16108,7 @@ func (e KDictionariesFolderType) String() string {
 	}
 }
 
-type KDocumentsFolderType uint
+type KDocumentsFolderType uint32
 
 const (
 	// Deprecated.
@@ -13947,7 +16144,7 @@ func (e KDocumentsFolderType) String() string {
 	}
 }
 
-type KDropBoxFolder uint
+type KDropBoxFolder uint32
 
 const (
 	// Deprecated.
@@ -13963,7 +16160,7 @@ func (e KDropBoxFolder) String() string {
 	}
 }
 
-type KDuration int
+type KDuration int32
 
 const (
 	// Deprecated.
@@ -13991,7 +16188,7 @@ func (e KDuration) String() string {
 	}
 }
 
-type KExportedFolderAliasType uint
+type KExportedFolderAliasType uint32
 
 const (
 	KDropFolderAliasType          KExportedFolderAliasType = 'f'<<24 | 'a'<<16 | 'd'<<8 | 'r' // 'fadr'
@@ -14015,7 +16212,7 @@ func (e KExportedFolderAliasType) String() string {
 	}
 }
 
-type KExtended uint
+type KExtended uint32
 
 const (
 	KExtendedFlagHasCustomBadge KExtended = 0x100
@@ -14039,7 +16236,7 @@ func (e KExtended) String() string {
 	}
 }
 
-type KFAServerApp uint
+type KFAServerApp uint32
 
 const (
 	KDoFolderActionEvent     KFAServerApp = 'f'<<24 | 'o'<<16 | 'l'<<8 | 'a' // 'fola'
@@ -14099,7 +16296,7 @@ func (e KFAServerApp) String() string {
 	}
 }
 
-type KFB int
+type KFB int32
 
 const (
 	KFBCaccessCanceled        KFB = -30521
@@ -14210,7 +16407,7 @@ func (e KFB) String() string {
 	}
 }
 
-type KFM int
+type KFM int32
 
 const (
 	KFMFontContainerAccessErr    KFM = -985
@@ -14240,7 +16437,7 @@ func (e KFM) String() string {
 	}
 }
 
-type KFN uint
+type KFN uint32
 
 const (
 	KFNNoImplicitAllSubscription KFN = 1
@@ -14258,7 +16455,7 @@ func (e KFN) String() string {
 	}
 }
 
-type KFNDirectoryModified uint
+type KFNDirectoryModified uint32
 
 const (
 	KFNDirectoryModifiedMessage KFNDirectoryModified = 1
@@ -14273,7 +16470,7 @@ func (e KFNDirectoryModified) String() string {
 	}
 }
 
-type KFNS int
+type KFNS int32
 
 const (
 	KFNSBadFlattenedSizeErr    KFNS = -29587
@@ -14312,7 +16509,7 @@ func (e KFNS) String() string {
 	}
 }
 
-type KFS uint
+type KFS uint32
 
 const (
 	KFSAllowConcurrentAsyncIOBit  KFS = 3
@@ -14359,7 +16556,7 @@ func (e KFS) String() string {
 	}
 }
 
-type KFSAliasInfo uint
+type KFSAliasInfo uint32
 
 const (
 	// Deprecated.
@@ -14403,7 +16600,7 @@ func (e KFSAliasInfo) String() string {
 	}
 }
 
-type KFSAlloc uint
+type KFSAlloc uint32
 
 const (
 	KFSAllocAllOrNothingMask KFSAlloc = 0x1
@@ -14430,7 +16627,7 @@ func (e KFSAlloc) String() string {
 	}
 }
 
-type KFSCatInfo uint
+type KFSCatInfo int32
 
 const (
 	KFSCatInfoAccessDate        KFSCatInfo = 0x100
@@ -14449,7 +16646,7 @@ const (
 	KFSCatInfoNone              KFSCatInfo = 0
 	KFSCatInfoParentDirID       KFSCatInfo = 0x8
 	KFSCatInfoPermissions       KFSCatInfo = 0x400
-	KFSCatInfoReserved          KFSCatInfo = 0xfffc0000
+	KFSCatInfoReserved          KFSCatInfo = -262144
 	KFSCatInfoRsrcSizes         KFSCatInfo = 0x8000
 	KFSCatInfoSetOwnership      KFSCatInfo = 0x100000
 	KFSCatInfoSettableInfo      KFSCatInfo = 0x1fe3
@@ -14520,7 +16717,7 @@ func (e KFSCatInfo) String() string {
 	}
 }
 
-type KFSEjectVolumeForce uint
+type KFSEjectVolumeForce uint32
 
 const (
 	KFSEjectVolumeForceEject KFSEjectVolumeForce = 1
@@ -14535,7 +16732,7 @@ func (e KFSEjectVolumeForce) String() string {
 	}
 }
 
-type KFSEventStreamCreate uint
+type KFSEventStreamCreate uint32
 
 const (
 	// KFSEventStreamCreateFlagFileEvents: # Discussion
@@ -14583,7 +16780,7 @@ func (e KFSEventStreamCreate) String() string {
 	}
 }
 
-type KFSEventStreamEventFlag uint
+type KFSEventStreamEventFlag uint32
 
 const (
 	// KFSEventStreamEventFlagEventIdsWrapped: # Discussion
@@ -14690,7 +16887,7 @@ func (e KFSEventStreamEventIdSince) String() string {
 	}
 }
 
-type KFSFileOperation uint
+type KFSFileOperation uint32
 
 const (
 	KFSFileOperationDefaultOptions             KFSFileOperation = 0
@@ -14717,7 +16914,7 @@ func (e KFSFileOperation) String() string {
 	}
 }
 
-type KFSInvalidVolumeRef uint
+type KFSInvalidVolumeRef uint32
 
 const (
 	KFSInvalidVolumeRefNum KFSInvalidVolumeRef = 0
@@ -14732,12 +16929,12 @@ func (e KFSInvalidVolumeRef) String() string {
 	}
 }
 
-type KFSIterate uint
+type KFSIterate int32
 
 const (
 	KFSIterateDelete   KFSIterate = 2
 	KFSIterateFlat     KFSIterate = 0
-	KFSIterateReserved KFSIterate = 0xfffffffc
+	KFSIterateReserved KFSIterate = -4
 	KFSIterateSubtree  KFSIterate = 1
 )
 
@@ -14756,7 +16953,7 @@ func (e KFSIterate) String() string {
 	}
 }
 
-type KFSMountServer uint
+type KFSMountServer uint32
 
 const (
 	KFSMountServerMarkDoNotDisplay     KFSMountServer = 1
@@ -14777,7 +16974,7 @@ func (e KFSMountServer) String() string {
 	}
 }
 
-type KFSMountServerMountWithout uint
+type KFSMountServerMountWithout uint32
 
 const (
 	KFSMountServerMountWithoutNotification KFSMountServerMountWithout = 2
@@ -14792,32 +16989,56 @@ func (e KFSMountServerMountWithout) String() string {
 	}
 }
 
-type KFSNode uint
+type KFSNodeInSharedBit uint32
 
 const (
-	KFSNodeCopyProtectBit   KFSNode = 6
-	KFSNodeCopyProtectMask  KFSNode = 0x40
-	KFSNodeDataOpenBit      KFSNode = 3
-	KFSNodeDataOpenMask     KFSNode = 0x8
-	KFSNodeForkOpenBit      KFSNode = 7
-	KFSNodeForkOpenMask     KFSNode = 0x80
-	KFSNodeHardLinkBit      KFSNode = 8
-	KFSNodeHardLinkMask     KFSNode = 0x100
-	KFSNodeInSharedBit      KFSNode = 2
-	KFSNodeInSharedMask     KFSNode = 0x4
-	KFSNodeIsDirectoryBit   KFSNode = 4
-	KFSNodeIsDirectoryMask  KFSNode = 0x10
-	KFSNodeIsMountedBit     KFSNode = 3
-	KFSNodeIsMountedMask    KFSNode = 0x8
-	KFSNodeIsSharePointBit  KFSNode = 5
-	KFSNodeIsSharePointMask KFSNode = 0x20
-	KFSNodeLockedBit        KFSNode = 0
-	KFSNodeLockedMask       KFSNode = 0x1
-	KFSNodeResOpenBit       KFSNode = 2
-	KFSNodeResOpenMask      KFSNode = 0x4
+	KFSNodeInSharedBitValue KFSNodeInSharedBit = 2
+	KFSNodeInSharedMask     KFSNodeInSharedBit = 0x4
+	KFSNodeIsMountedBit     KFSNodeInSharedBit = 3
+	KFSNodeIsMountedMask    KFSNodeInSharedBit = 0x8
+	KFSNodeIsSharePointBit  KFSNodeInSharedBit = 5
+	KFSNodeIsSharePointMask KFSNodeInSharedBit = 0x20
 )
 
-func (e KFSNode) String() string {
+func (e KFSNodeInSharedBit) String() string {
+	switch e {
+	case KFSNodeInSharedBitValue:
+		return "KFSNodeInSharedBitValue"
+	case KFSNodeInSharedMask:
+		return "KFSNodeInSharedMask"
+	case KFSNodeIsMountedBit:
+		return "KFSNodeIsMountedBit"
+	case KFSNodeIsMountedMask:
+		return "KFSNodeIsMountedMask"
+	case KFSNodeIsSharePointBit:
+		return "KFSNodeIsSharePointBit"
+	case KFSNodeIsSharePointMask:
+		return "KFSNodeIsSharePointMask"
+	default:
+		return fmt.Sprintf("KFSNodeInSharedBit(%d)", e)
+	}
+}
+
+type KFSNodeLockedBit uint32
+
+const (
+	KFSNodeCopyProtectBit  KFSNodeLockedBit = 6
+	KFSNodeCopyProtectMask KFSNodeLockedBit = 0x40
+	KFSNodeDataOpenBit     KFSNodeLockedBit = 3
+	KFSNodeDataOpenMask    KFSNodeLockedBit = 0x8
+	KFSNodeForkOpenBit     KFSNodeLockedBit = 7
+	KFSNodeForkOpenMask    KFSNodeLockedBit = 0x80
+	KFSNodeHardLinkBit     KFSNodeLockedBit = 8
+	KFSNodeHardLinkMask    KFSNodeLockedBit = 0x100
+	KFSNodeIsDirectoryBit  KFSNodeLockedBit = 4
+	KFSNodeIsDirectoryMask KFSNodeLockedBit = 0x10
+	KFSNodeLockedBitValue  KFSNodeLockedBit = 0
+	KFSNodeLockedMask      KFSNodeLockedBit = 0x1
+	KFSNodeResOpenBit      KFSNodeLockedBit = 2
+	KFSNodeResOpenMask     KFSNodeLockedBit = 0x4
+)
+
+func (e KFSNodeLockedBit) String() string {
 	switch e {
 	case KFSNodeCopyProtectBit:
 		return "KFSNodeCopyProtectBit"
@@ -14833,26 +17054,22 @@ func (e KFSNode) String() string {
 		return "KFSNodeForkOpenMask"
 	case KFSNodeHardLinkMask:
 		return "KFSNodeHardLinkMask"
-	case KFSNodeInSharedBit:
-		return "KFSNodeInSharedBit"
-	case KFSNodeInSharedMask:
-		return "KFSNodeInSharedMask"
+	case KFSNodeIsDirectoryBit:
+		return "KFSNodeIsDirectoryBit"
 	case KFSNodeIsDirectoryMask:
 		return "KFSNodeIsDirectoryMask"
-	case KFSNodeIsSharePointBit:
-		return "KFSNodeIsSharePointBit"
-	case KFSNodeIsSharePointMask:
-		return "KFSNodeIsSharePointMask"
-	case KFSNodeLockedBit:
-		return "KFSNodeLockedBit"
+	case KFSNodeLockedBitValue:
+		return "KFSNodeLockedBitValue"
 	case KFSNodeLockedMask:
 		return "KFSNodeLockedMask"
+	case KFSNodeResOpenBit:
+		return "KFSNodeResOpenBit"
 	default:
-		return fmt.Sprintf("KFSNode(%d)", e)
+		return fmt.Sprintf("KFSNodeLockedBit(%d)", e)
 	}
 }
 
-type KFSOperationStage uint
+type KFSOperationStage uint32
 
 const (
 	KFSOperationStageComplete     KFSOperationStage = 3
@@ -14876,7 +17093,7 @@ func (e KFSOperationStage) String() string {
 	}
 }
 
-type KFSPathMakeRef uint
+type KFSPathMakeRef uint32
 
 const (
 	KFSPathMakeRefDefaultOptions         KFSPathMakeRef = 0
@@ -14894,7 +17111,7 @@ func (e KFSPathMakeRef) String() string {
 	}
 }
 
-type KFSReplaceObject uint
+type KFSReplaceObject uint32
 
 const (
 	KFSReplaceObjectDefaultOptions              KFSReplaceObject = 0
@@ -14924,7 +17141,7 @@ func (e KFSReplaceObject) String() string {
 	}
 }
 
-type KFSUnmountVolumeForce uint
+type KFSUnmountVolumeForce uint32
 
 const (
 	KFSUnmountVolumeForceUnmount KFSUnmountVolumeForce = 1
@@ -14939,7 +17156,7 @@ func (e KFSUnmountVolumeForce) String() string {
 	}
 }
 
-type KFSVolFlag uint
+type KFSVolFlag uint32
 
 const (
 	KFSVolFlagDefaultVolumeBit     KFSVolFlag = 5
@@ -14981,7 +17198,7 @@ func (e KFSVolFlag) String() string {
 	}
 }
 
-type KFSVolInfo uint
+type KFSVolInfo uint32
 
 const (
 	KFSVolInfoBackupDate   KFSVolInfo = 0x4
@@ -15050,7 +17267,7 @@ func (e KFSVolInfo) String() string {
 	}
 }
 
-type KFirstMagicBusyFiletype uint
+type KFirstMagicBusyFiletype uint32
 
 const (
 	KFirstMagicBusyFiletypeValue KFirstMagicBusyFiletype = 'b'<<24 | 'z'<<16 | 'y'<<8 | ' ' // 'bzy '
@@ -15068,11 +17285,11 @@ func (e KFirstMagicBusyFiletype) String() string {
 	}
 }
 
-type KFolder uint
+type KFolder uint32
 
 const (
 	// Deprecated.
-	KFolderInLocalOrRemoteUserFolder KFolder = 32
+	KFolderInLocalOrRemoteUserFolder KFolder = 160
 	// Deprecated.
 	KFolderInRemoteUserFolderIfAvailable KFolder = 0x80
 	// Deprecated.
@@ -15115,6 +17332,8 @@ func (e KFolder) String() string {
 		return "KFolderInRemoteUserFolderIfAvailable"
 	case KFolderInRemoteUserFolderIfAvailableBit:
 		return "KFolderInRemoteUserFolderIfAvailableBit"
+	case KFolderInUserFolder:
+		return "KFolderInUserFolder"
 	case KFolderInUserFolderBit:
 		return "KFolderInUserFolderBit"
 	case KFolderManagerFolderInMacOS9FolderIfMacOSXIsInstalledBit:
@@ -15146,7 +17365,7 @@ func (e KFolder) String() string {
 	}
 }
 
-type KForkInfoFlags uint
+type KForkInfoFlags uint32
 
 const (
 	KForkInfoFlagsFileLockedBit   KForkInfoFlags = 5
@@ -15200,7 +17419,7 @@ func (e KForkInfoFlags) String() string {
 	}
 }
 
-type KFragment uint
+type KFragment uint32
 
 const (
 	// Deprecated.
@@ -15220,7 +17439,7 @@ func (e KFragment) String() string {
 	}
 }
 
-type KGenericDocumentIconResource int
+type KGenericDocumentIconResource int32
 
 const (
 	KFloppyIconResource               KGenericDocumentIconResource = -3998
@@ -15265,7 +17484,7 @@ func (e KGenericDocumentIconResource) String() string {
 	}
 }
 
-type KGenericFolderIcon uint
+type KGenericFolderIcon uint32
 
 const (
 	KDropFolderIcon         KGenericFolderIcon = 'd'<<24 | 'b'<<16 | 'o'<<8 | 'x' // 'dbox'
@@ -15298,7 +17517,7 @@ func (e KGenericFolderIcon) String() string {
 	}
 }
 
-type KGenericPreferencesIconResource int
+type KGenericPreferencesIconResource int32
 
 const (
 	KAppleMenuFolderIconResource         KGenericPreferencesIconResource = -3982
@@ -15328,7 +17547,7 @@ func (e KGenericPreferencesIconResource) String() string {
 	}
 }
 
-type KGetDebugOption uint
+type KGetDebugOption uint32
 
 const (
 	// Deprecated.
@@ -15348,43 +17567,41 @@ func (e KGetDebugOption) String() string {
 	}
 }
 
-type KHID int
+type KHIDSuccess int32
 
 const (
-	KHIDBadLogPhysValuesErr         KHID = -13942
-	KHIDBadLogicalMaximumErr        KHID = -13933
-	KHIDBadLogicalMinimumErr        KHID = -13934
-	KHIDBadParameterErr             KHID = -13938
-	KHIDBaseError                   KHID = -13950
-	KHIDBufferTooSmallErr           KHID = -13948
-	KHIDDeviceNotReady              KHID = -13910
-	KHIDEndOfDescriptorErr          KHID = -13936
-	KHIDIncompatibleReportErr       KHID = -13943
-	KHIDInvalidPreparsedDataErr     KHID = -13944
-	KHIDInvalidRangePageErr         KHID = -13923
-	KHIDInvalidReportLengthErr      KHID = -13940
-	KHIDInvalidReportTypeErr        KHID = -13941
-	KHIDInvertedLogicalRangeErr     KHID = -13932
-	KHIDInvertedPhysicalRangeErr    KHID = -13931
-	KHIDInvertedUsageRangeErr       KHID = -13929
-	KHIDNotEnoughMemoryErr          KHID = -13937
-	KHIDNotValueArrayErr            KHID = -13945
-	KHIDNullPointerErr              KHID = -13939
-	KHIDNullStateErr                KHID = -13949
-	KHIDReportCountZeroErr          KHID = -13925
-	KHIDReportIDZeroErr             KHID = -13924
-	KHIDReportSizeZeroErr           KHID = -13926
-	KHIDSuccess                     KHID = 0
-	KHIDUnmatchedDesignatorRangeErr KHID = -13927
-	KHIDUnmatchedStringRangeErr     KHID = -13928
-	KHIDUnmatchedUsageRangeErr      KHID = -13930
-	KHIDUsageNotFoundErr            KHID = -13946
-	KHIDUsagePageZeroErr            KHID = -13935
-	KHIDValueOutOfRangeErr          KHID = -13947
-	KHIDVersionIncompatibleErr      KHID = -13909
+	KHIDBadLogPhysValuesErr         KHIDSuccess = -13942
+	KHIDBadLogicalMaximumErr        KHIDSuccess = -13933
+	KHIDBadLogicalMinimumErr        KHIDSuccess = -13934
+	KHIDBadParameterErr             KHIDSuccess = -13938
+	KHIDBaseError                   KHIDSuccess = -13950
+	KHIDBufferTooSmallErr           KHIDSuccess = -13948
+	KHIDEndOfDescriptorErr          KHIDSuccess = -13936
+	KHIDIncompatibleReportErr       KHIDSuccess = -13943
+	KHIDInvalidPreparsedDataErr     KHIDSuccess = -13944
+	KHIDInvalidRangePageErr         KHIDSuccess = -13923
+	KHIDInvalidReportLengthErr      KHIDSuccess = -13940
+	KHIDInvalidReportTypeErr        KHIDSuccess = -13941
+	KHIDInvertedLogicalRangeErr     KHIDSuccess = -13932
+	KHIDInvertedPhysicalRangeErr    KHIDSuccess = -13931
+	KHIDInvertedUsageRangeErr       KHIDSuccess = -13929
+	KHIDNotEnoughMemoryErr          KHIDSuccess = -13937
+	KHIDNotValueArrayErr            KHIDSuccess = -13945
+	KHIDNullPointerErr              KHIDSuccess = -13939
+	KHIDNullStateErr                KHIDSuccess = -13949
+	KHIDReportCountZeroErr          KHIDSuccess = -13925
+	KHIDReportIDZeroErr             KHIDSuccess = -13924
+	KHIDReportSizeZeroErr           KHIDSuccess = -13926
+	KHIDSuccessValue                KHIDSuccess = 0
+	KHIDUnmatchedDesignatorRangeErr KHIDSuccess = -13927
+	KHIDUnmatchedStringRangeErr     KHIDSuccess = -13928
+	KHIDUnmatchedUsageRangeErr      KHIDSuccess = -13930
+	KHIDUsageNotFoundErr            KHIDSuccess = -13946
+	KHIDUsagePageZeroErr            KHIDSuccess = -13935
+	KHIDValueOutOfRangeErr          KHIDSuccess = -13947
 )
 
-func (e KHID) String() string {
+func (e KHIDSuccess) String() string {
 	switch e {
 	case KHIDBadLogPhysValuesErr:
 		return "KHIDBadLogPhysValuesErr"
@@ -15398,8 +17615,6 @@ func (e KHID) String() string {
 		return "KHIDBaseError"
 	case KHIDBufferTooSmallErr:
 		return "KHIDBufferTooSmallErr"
-	case KHIDDeviceNotReady:
-		return "KHIDDeviceNotReady"
 	case KHIDEndOfDescriptorErr:
 		return "KHIDEndOfDescriptorErr"
 	case KHIDIncompatibleReportErr:
@@ -15432,8 +17647,8 @@ func (e KHID) String() string {
 		return "KHIDReportIDZeroErr"
 	case KHIDReportSizeZeroErr:
 		return "KHIDReportSizeZeroErr"
-	case KHIDSuccess:
-		return "KHIDSuccess"
+	case KHIDSuccessValue:
+		return "KHIDSuccessValue"
 	case KHIDUnmatchedDesignatorRangeErr:
 		return "KHIDUnmatchedDesignatorRangeErr"
 	case KHIDUnmatchedStringRangeErr:
@@ -15446,50 +17661,78 @@ func (e KHID) String() string {
 		return "KHIDUsagePageZeroErr"
 	case KHIDValueOutOfRangeErr:
 		return "KHIDValueOutOfRangeErr"
-	case KHIDVersionIncompatibleErr:
-		return "KHIDVersionIncompatibleErr"
 	default:
-		return fmt.Sprintf("KHID(%d)", e)
+		return fmt.Sprintf("KHIDSuccess(%d)", e)
 	}
 }
 
-type KHandle uint
+type KHIDVersionIncompatibleErr int32
+
+const (
+	KHIDDeviceNotReady              KHIDVersionIncompatibleErr = -13910
+	KHIDVersionIncompatibleErrValue KHIDVersionIncompatibleErr = -13909
+)
+
+func (e KHIDVersionIncompatibleErr) String() string {
+	switch e {
+	case KHIDDeviceNotReady:
+		return "KHIDDeviceNotReady"
+	case KHIDVersionIncompatibleErrValue:
+		return "KHIDVersionIncompatibleErrValue"
+	default:
+		return fmt.Sprintf("KHIDVersionIncompatibleErr(%d)", e)
+	}
+}
+
+type KHandleIsResourceBit uint32
 
 const (
 	// Deprecated.
-	KHandleIsResourceBit KHandle = 5
+	KHandleIsResourceBitValue KHandleIsResourceBit = 5
 	// Deprecated.
-	KHandleIsResourceMask KHandle = 0x20
+	KHandleLockedBit KHandleIsResourceBit = 7
 	// Deprecated.
-	KHandleLockedBit KHandle = 7
-	// Deprecated.
-	KHandleLockedMask KHandle = 0x80
-	// Deprecated.
-	KHandlePurgeableBit KHandle = 6
-	// Deprecated.
-	KHandlePurgeableMask KHandle = 0x40
+	KHandlePurgeableBit KHandleIsResourceBit = 6
 )
 
-func (e KHandle) String() string {
+func (e KHandleIsResourceBit) String() string {
 	switch e {
-	case KHandleIsResourceBit:
-		return "KHandleIsResourceBit"
-	case KHandleIsResourceMask:
-		return "KHandleIsResourceMask"
+	case KHandleIsResourceBitValue:
+		return "KHandleIsResourceBitValue"
 	case KHandleLockedBit:
 		return "KHandleLockedBit"
-	case KHandleLockedMask:
-		return "KHandleLockedMask"
 	case KHandlePurgeableBit:
 		return "KHandlePurgeableBit"
-	case KHandlePurgeableMask:
-		return "KHandlePurgeableMask"
 	default:
-		return fmt.Sprintf("KHandle(%d)", e)
+		return fmt.Sprintf("KHandleIsResourceBit(%d)", e)
 	}
 }
 
-type KHuge1BitMask uint
+type KHandleIsResourceMask uint32
+
+const (
+	// Deprecated.
+	KHandleIsResourceMaskValue KHandleIsResourceMask = 0x20
+	// Deprecated.
+	KHandleLockedMask KHandleIsResourceMask = 0x80
+	// Deprecated.
+	KHandlePurgeableMask KHandleIsResourceMask = 0x40
+)
+
+func (e KHandleIsResourceMask) String() string {
+	switch e {
+	case KHandleIsResourceMaskValue:
+		return "KHandleIsResourceMaskValue"
+	case KHandleLockedMask:
+		return "KHandleLockedMask"
+	case KHandlePurgeableMask:
+		return "KHandlePurgeableMask"
+	default:
+		return fmt.Sprintf("KHandleIsResourceMask(%d)", e)
+	}
+}
+
+type KHuge1BitMask uint32
 
 const (
 	KHuge1BitMaskValue KHuge1BitMask = 'i'<<24 | 'c'<<16 | 'h'<<8 | '#' // 'ich#'
@@ -15516,7 +17759,7 @@ func (e KHuge1BitMask) String() string {
 	}
 }
 
-type KISOLatin1 uint
+type KISOLatin1 uint32
 
 const (
 	KISOLatin1MusicCDVariant  KISOLatin1 = 1
@@ -15534,7 +17777,7 @@ func (e KISOLatin1) String() string {
 	}
 }
 
-type KISOLatinArabic uint
+type KISOLatinArabic uint32
 
 const (
 	KISOLatinArabicExplicitOrderVariant KISOLatinArabic = 2
@@ -15555,7 +17798,7 @@ func (e KISOLatinArabic) String() string {
 	}
 }
 
-type KISOLatinHebrew uint
+type KISOLatinHebrew uint32
 
 const (
 	KISOLatinHebrewExplicitOrderVariant KISOLatinHebrew = 2
@@ -15576,7 +17819,7 @@ func (e KISOLatinHebrew) String() string {
 	}
 }
 
-type KISp int
+type KISp int32
 
 const (
 	KISpBufferToSmallErr    KISp = -30422
@@ -15618,7 +17861,7 @@ func (e KISp) String() string {
 	}
 }
 
-type KIcon uint
+type KIcon uint32
 
 const (
 	KIconServices128PixelDataARGB KIcon = 'i'<<24 | 'c'<<16 | '0'<<8 | '7' // 'ic07'
@@ -15642,7 +17885,7 @@ func (e KIcon) String() string {
 	}
 }
 
-type KIconFamily uint
+type KIconFamily uint32
 
 const (
 	KIconFamilyType KIconFamily = 'i'<<24 | 'c'<<16 | 'n'<<8 | 's' // 'icns'
@@ -15657,7 +17900,7 @@ func (e KIconFamily) String() string {
 	}
 }
 
-type KIconServices uint
+type KIconServices uint32
 
 const (
 	KIconServicesNoBadgeFlag        KIconServices = 0x1
@@ -15678,7 +17921,7 @@ func (e KIconServices) String() string {
 	}
 }
 
-type KIconServices256PixelDataARGB uint
+type KIconServices256PixelDataARGB uint32
 
 const (
 	KIconServices1024PixelDataARGB     KIconServices256PixelDataARGB = 'i'<<24 | 'c'<<16 | '1'<<8 | '0' // 'ic10'
@@ -15705,10 +17948,10 @@ func (e KIconServices256PixelDataARGB) String() string {
 	}
 }
 
-type KIconServicesCatalogInfo uint
+type KIconServicesCatalogInfo uint32
 
 const (
-	KIconServicesCatalogInfoMask KIconServicesCatalogInfo = 0x81c5e
+	KIconServicesCatalogInfoMask KIconServicesCatalogInfo = 531550
 )
 
 func (e KIconServicesCatalogInfo) String() string {
@@ -15720,7 +17963,7 @@ func (e KIconServicesCatalogInfo) String() string {
 	}
 }
 
-type KIdleKCEvent uint
+type KIdleKCEvent uint32
 
 const (
 	KAddKCEvent                 KIdleKCEvent = 3
@@ -15765,7 +18008,7 @@ func (e KIdleKCEvent) String() string {
 	}
 }
 
-type KIdleKCEventMask uint
+type KIdleKCEventMask uint32
 
 const (
 	KAddKCEventMask             KIdleKCEventMask = 8
@@ -15810,38 +18053,29 @@ func (e KIdleKCEventMask) String() string {
 	}
 }
 
-type KInternetLocation uint
+type KInternetLocationCreator uint32
 
 const (
-	KInternetLocationAFP                 KInternetLocation = 'i'<<24 | 'l'<<16 | 'a'<<8 | 'f' // 'ilaf'
-	KInternetLocationAppleShareIcon      KInternetLocation = 'i'<<24 | 'l'<<16 | 'a'<<8 | 'f' // 'ilaf'
-	KInternetLocationAppleTalk           KInternetLocation = 'i'<<24 | 'l'<<16 | 'a'<<8 | 't' // 'ilat'
-	KInternetLocationAppleTalkZoneIcon   KInternetLocation = 'i'<<24 | 'l'<<16 | 'a'<<8 | 't' // 'ilat'
-	KInternetLocationCreator             KInternetLocation = 'd'<<24 | 'r'<<16 | 'a'<<8 | 'g' // 'drag'
-	KInternetLocationFTP                 KInternetLocation = 'i'<<24 | 'l'<<16 | 'f'<<8 | 't' // 'ilft'
-	KInternetLocationFTPIcon             KInternetLocation = 'i'<<24 | 'l'<<16 | 'f'<<8 | 't' // 'ilft'
-	KInternetLocationFile                KInternetLocation = 'i'<<24 | 'l'<<16 | 'f'<<8 | 'i' // 'ilfi'
-	KInternetLocationFileIcon            KInternetLocation = 'i'<<24 | 'l'<<16 | 'f'<<8 | 'i' // 'ilfi'
-	KInternetLocationGeneric             KInternetLocation = 'i'<<24 | 'l'<<16 | 'g'<<8 | 'e' // 'ilge'
-	KInternetLocationGenericIcon         KInternetLocation = 'i'<<24 | 'l'<<16 | 'g'<<8 | 'e' // 'ilge'
-	KInternetLocationHTTP                KInternetLocation = 'i'<<24 | 'l'<<16 | 'h'<<8 | 't' // 'ilht'
-	KInternetLocationHTTPIcon            KInternetLocation = 'i'<<24 | 'l'<<16 | 'h'<<8 | 't' // 'ilht'
-	KInternetLocationMail                KInternetLocation = 'i'<<24 | 'l'<<16 | 'm'<<8 | 'a' // 'ilma'
-	KInternetLocationMailIcon            KInternetLocation = 'i'<<24 | 'l'<<16 | 'm'<<8 | 'a' // 'ilma'
-	KInternetLocationNNTP                KInternetLocation = 'i'<<24 | 'l'<<16 | 'n'<<8 | 'w' // 'ilnw'
-	KInternetLocationNSL                 KInternetLocation = 'i'<<24 | 'l'<<16 | 'n'<<8 | 's' // 'ilns'
-	KInternetLocationNSLNeighborhoodIcon KInternetLocation = 'i'<<24 | 'l'<<16 | 'n'<<8 | 's' // 'ilns'
-	KInternetLocationNewsIcon            KInternetLocation = 'i'<<24 | 'l'<<16 | 'n'<<8 | 'w' // 'ilnw'
+	KInternetLocationAFP          KInternetLocationCreator = 'i'<<24 | 'l'<<16 | 'a'<<8 | 'f' // 'ilaf'
+	KInternetLocationAppleTalk    KInternetLocationCreator = 'i'<<24 | 'l'<<16 | 'a'<<8 | 't' // 'ilat'
+	KInternetLocationCreatorValue KInternetLocationCreator = 'd'<<24 | 'r'<<16 | 'a'<<8 | 'g' // 'drag'
+	KInternetLocationFTP          KInternetLocationCreator = 'i'<<24 | 'l'<<16 | 'f'<<8 | 't' // 'ilft'
+	KInternetLocationFile         KInternetLocationCreator = 'i'<<24 | 'l'<<16 | 'f'<<8 | 'i' // 'ilfi'
+	KInternetLocationGeneric      KInternetLocationCreator = 'i'<<24 | 'l'<<16 | 'g'<<8 | 'e' // 'ilge'
+	KInternetLocationHTTP         KInternetLocationCreator = 'i'<<24 | 'l'<<16 | 'h'<<8 | 't' // 'ilht'
+	KInternetLocationMail         KInternetLocationCreator = 'i'<<24 | 'l'<<16 | 'm'<<8 | 'a' // 'ilma'
+	KInternetLocationNNTP         KInternetLocationCreator = 'i'<<24 | 'l'<<16 | 'n'<<8 | 'w' // 'ilnw'
+	KInternetLocationNSL          KInternetLocationCreator = 'i'<<24 | 'l'<<16 | 'n'<<8 | 's' // 'ilns'
 )
 
-func (e KInternetLocation) String() string {
+func (e KInternetLocationCreator) String() string {
 	switch e {
 	case KInternetLocationAFP:
 		return "KInternetLocationAFP"
 	case KInternetLocationAppleTalk:
 		return "KInternetLocationAppleTalk"
-	case KInternetLocationCreator:
-		return "KInternetLocationCreator"
+	case KInternetLocationCreatorValue:
+		return "KInternetLocationCreatorValue"
 	case KInternetLocationFTP:
 		return "KInternetLocationFTP"
 	case KInternetLocationFile:
@@ -15857,11 +18091,50 @@ func (e KInternetLocation) String() string {
 	case KInternetLocationNSL:
 		return "KInternetLocationNSL"
 	default:
-		return fmt.Sprintf("KInternetLocation(%d)", e)
+		return fmt.Sprintf("KInternetLocationCreator(%d)", e)
 	}
 }
 
-type KIsOnDesk uint
+type KInternetLocationHTTPIcon uint32
+
+const (
+	KInternetLocationAppleShareIcon      KInternetLocationHTTPIcon = 'i'<<24 | 'l'<<16 | 'a'<<8 | 'f' // 'ilaf'
+	KInternetLocationAppleTalkZoneIcon   KInternetLocationHTTPIcon = 'i'<<24 | 'l'<<16 | 'a'<<8 | 't' // 'ilat'
+	KInternetLocationFTPIcon             KInternetLocationHTTPIcon = 'i'<<24 | 'l'<<16 | 'f'<<8 | 't' // 'ilft'
+	KInternetLocationFileIcon            KInternetLocationHTTPIcon = 'i'<<24 | 'l'<<16 | 'f'<<8 | 'i' // 'ilfi'
+	KInternetLocationGenericIcon         KInternetLocationHTTPIcon = 'i'<<24 | 'l'<<16 | 'g'<<8 | 'e' // 'ilge'
+	KInternetLocationHTTPIconValue       KInternetLocationHTTPIcon = 'i'<<24 | 'l'<<16 | 'h'<<8 | 't' // 'ilht'
+	KInternetLocationMailIcon            KInternetLocationHTTPIcon = 'i'<<24 | 'l'<<16 | 'm'<<8 | 'a' // 'ilma'
+	KInternetLocationNSLNeighborhoodIcon KInternetLocationHTTPIcon = 'i'<<24 | 'l'<<16 | 'n'<<8 | 's' // 'ilns'
+	KInternetLocationNewsIcon            KInternetLocationHTTPIcon = 'i'<<24 | 'l'<<16 | 'n'<<8 | 'w' // 'ilnw'
+)
+
+func (e KInternetLocationHTTPIcon) String() string {
+	switch e {
+	case KInternetLocationAppleShareIcon:
+		return "KInternetLocationAppleShareIcon"
+	case KInternetLocationAppleTalkZoneIcon:
+		return "KInternetLocationAppleTalkZoneIcon"
+	case KInternetLocationFTPIcon:
+		return "KInternetLocationFTPIcon"
+	case KInternetLocationFileIcon:
+		return "KInternetLocationFileIcon"
+	case KInternetLocationGenericIcon:
+		return "KInternetLocationGenericIcon"
+	case KInternetLocationHTTPIconValue:
+		return "KInternetLocationHTTPIconValue"
+	case KInternetLocationMailIcon:
+		return "KInternetLocationMailIcon"
+	case KInternetLocationNSLNeighborhoodIcon:
+		return "KInternetLocationNSLNeighborhoodIcon"
+	case KInternetLocationNewsIcon:
+		return "KInternetLocationNewsIcon"
+	default:
+		return fmt.Sprintf("KInternetLocationHTTPIcon(%d)", e)
+	}
+}
+
+type KIsOnDesk uint32
 
 const (
 	KColor         KIsOnDesk = 0xe
@@ -15906,7 +18179,7 @@ func (e KIsOnDesk) String() string {
 	}
 }
 
-type KKCAuthType uint
+type KKCAuthType uint32
 
 const (
 	KKCAuthTypeDPA        KKCAuthType = 'd'<<24 | 'p'<<16 | 'a'<<8 | 'a' // 'dpaa'
@@ -15936,7 +18209,7 @@ func (e KKCAuthType) String() string {
 	}
 }
 
-type KKCProtocolType uint
+type KKCProtocolType uint32
 
 const (
 	KKCProtocolTypeAFP        KKCProtocolType = 'a'<<24 | 'f'<<16 | 'p'<<8 | ' ' // 'afp '
@@ -15987,7 +18260,7 @@ func (e KKCProtocolType) String() string {
 	}
 }
 
-type KLS int
+type KLS int32
 
 const (
 	// KLSAppDoesNotClaimTypeErr: Not currently used.
@@ -16107,7 +18380,7 @@ func (e KLS) String() string {
 	}
 }
 
-type KLSLaunch uint
+type KLSLaunch uint32
 
 const (
 	// Deprecated.
@@ -16139,7 +18412,7 @@ func (e KLSLaunch) String() string {
 	}
 }
 
-type KLSSharedFileList uint
+type KLSSharedFileList uint32
 
 const (
 	KLSSharedFileListDoNotMountVolumes KLSSharedFileList = 2
@@ -16157,7 +18430,7 @@ func (e KLSSharedFileList) String() string {
 	}
 }
 
-type KLSUnknown uint
+type KLSUnknown uint32
 
 const (
 	// KLSUnknownCreator: The value to supply as the creator signatureif no file creator information is available.
@@ -16175,7 +18448,7 @@ func (e KLSUnknown) String() string {
 	}
 }
 
-type KLarge1BitMask uint
+type KLarge1BitMask uint32
 
 const (
 	KLarge1BitMaskValue KLarge1BitMask = 'I'<<24 | 'C'<<16 | 'N'<<8 | '#' // 'ICN#'
@@ -16226,7 +18499,7 @@ func (e KLarge1BitMask) String() string {
 	}
 }
 
-type KLargeIconSize uint
+type KLargeIconSize uint32
 
 const (
 	KLarge4BitIconSize  KLargeIconSize = 512
@@ -16254,7 +18527,7 @@ func (e KLargeIconSize) String() string {
 	}
 }
 
-type KLastDomain int
+type KLastDomain int32
 
 const (
 	// Deprecated.
@@ -16270,7 +18543,7 @@ func (e KLastDomain) String() string {
 	}
 }
 
-type KLaunchToGetTerminology uint
+type KLaunchToGetTerminology uint32
 
 const (
 	KAlwaysSendSubject           KLaunchToGetTerminology = 8192
@@ -16291,29 +18564,24 @@ func (e KLaunchToGetTerminology) String() string {
 	}
 }
 
-type KLocale uint
+type KLocaleLanguageMask uint32
 
 const (
-	KLocaleAllPartsMask             KLocale = 0x3f
-	KLocaleAndVariantNameMask       KLocale = 0x3
-	KLocaleLanguageMask             KLocale = 1
-	KLocaleLanguageVariantMask      KLocale = 2
-	KLocaleNameMask                 KLocale = 1
-	KLocaleOperationVariantNameMask KLocale = 2
-	KLocaleRegionMask               KLocale = 16
-	KLocaleRegionVariantMask        KLocale = 32
-	KLocaleScriptMask               KLocale = 4
-	KLocaleScriptVariantMask        KLocale = 8
+	KLocaleAllPartsMask        KLocaleLanguageMask = 0x3f
+	KLocaleLanguageMaskValue   KLocaleLanguageMask = 1
+	KLocaleLanguageVariantMask KLocaleLanguageMask = 2
+	KLocaleRegionMask          KLocaleLanguageMask = 16
+	KLocaleRegionVariantMask   KLocaleLanguageMask = 32
+	KLocaleScriptMask          KLocaleLanguageMask = 4
+	KLocaleScriptVariantMask   KLocaleLanguageMask = 8
 )
 
-func (e KLocale) String() string {
+func (e KLocaleLanguageMask) String() string {
 	switch e {
 	case KLocaleAllPartsMask:
 		return "KLocaleAllPartsMask"
-	case KLocaleAndVariantNameMask:
-		return "KLocaleAndVariantNameMask"
-	case KLocaleLanguageMask:
-		return "KLocaleLanguageMask"
+	case KLocaleLanguageMaskValue:
+		return "KLocaleLanguageMaskValue"
 	case KLocaleLanguageVariantMask:
 		return "KLocaleLanguageVariantMask"
 	case KLocaleRegionMask:
@@ -16325,11 +18593,32 @@ func (e KLocale) String() string {
 	case KLocaleScriptVariantMask:
 		return "KLocaleScriptVariantMask"
 	default:
-		return fmt.Sprintf("KLocale(%d)", e)
+		return fmt.Sprintf("KLocaleLanguageMask(%d)", e)
 	}
 }
 
-type KLocales int
+type KLocaleNameMask uint32
+
+const (
+	KLocaleAndVariantNameMask       KLocaleNameMask = 0x3
+	KLocaleNameMaskValue            KLocaleNameMask = 1
+	KLocaleOperationVariantNameMask KLocaleNameMask = 2
+)
+
+func (e KLocaleNameMask) String() string {
+	switch e {
+	case KLocaleAndVariantNameMask:
+		return "KLocaleAndVariantNameMask"
+	case KLocaleNameMaskValue:
+		return "KLocaleNameMaskValue"
+	case KLocaleOperationVariantNameMask:
+		return "KLocaleOperationVariantNameMask"
+	default:
+		return fmt.Sprintf("KLocaleNameMask(%d)", e)
+	}
+}
+
+type KLocales int32
 
 const (
 	KLocalesBufferTooSmallErr    KLocales = -30001
@@ -16350,7 +18639,7 @@ func (e KLocales) String() string {
 	}
 }
 
-type KM68kISA uint
+type KM68kISA uint32
 
 const (
 	// Deprecated.
@@ -16370,144 +18659,7 @@ func (e KM68kISA) String() string {
 	}
 }
 
-type KMP int
-
-const (
-	KMPBlueBlockingErr KMP = -29293
-	// KMPDeletedErr: The desired notification the function was waiting upon was deleted.
-	KMPDeletedErr KMP = -29295
-	// KMPInsufficientResourcesErr: Could not complete task due to unavailable Multiprocessing Services resources.
-	KMPInsufficientResourcesErr KMP = -29298
-	// KMPInvalidIDErr: Invalid ID value.
-	KMPInvalidIDErr         KMP = -29299
-	KMPIterationEndErr      KMP = -29275
-	KMPPrivilegedErr        KMP = -29276
-	KMPProcessCreatedErr    KMP = -29288
-	KMPProcessTerminatedErr KMP = -29289
-	KMPTaskAbortedErr       KMP = -29297
-	// KMPTaskBlockedErr: The desired task is blocked.
-	KMPTaskBlockedErr KMP = -29291
-	KMPTaskCreatedErr KMP = -29290
-	// KMPTaskStoppedErr: The desired task is stopped.
-	KMPTaskStoppedErr KMP = -29292
-	// KMPTimeoutErr: The designated timeout interval passed before the function could take action.
-	KMPTimeoutErr KMP = -29296
-	// Deprecated.
-	KMPAddressSpaceInfoVersion KMP = 1
-	// Deprecated.
-	KMPAllocate1024ByteAligned KMP = 10
-	// Deprecated.
-	KMPAllocate16ByteAligned KMP = 4
-	// Deprecated.
-	KMPAllocate32ByteAligned KMP = 5
-	// Deprecated.
-	KMPAllocate4096ByteAligned KMP = 12
-	// Deprecated.
-	KMPAllocate8ByteAligned KMP = 3
-	// Deprecated.
-	KMPAllocateAltiVecAligned KMP = 4
-	// Deprecated.
-	KMPAllocateDefaultAligned KMP = 0
-	// Deprecated.
-	KMPAllocateInterlockAligned KMP = 255
-	// Deprecated.
-	KMPAllocateMaxAlignment KMP = 16
-	// Deprecated.
-	KMPAllocateVMPageAligned KMP = 254
-	// Deprecated.
-	KMPAllocateVMXAligned KMP = 4
-	// Deprecated.
-	KMPAnyRemoteContext KMP = 0
-	// Deprecated.
-	KMPAsyncInterruptRemoteContext KMP = 3
-	// Deprecated.
-	KMPCriticalRegionInfoVersion KMP = 1
-	// Deprecated.
-	KMPEventInfoVersion KMP = 1
-	// Deprecated.
-	KMPHighLevelDebugger KMP = 0x20000000
-	// Deprecated.
-	KMPInterruptRemoteContext KMP = 2
-	// Deprecated.
-	KMPLowLevelDebugger KMP = 0
-	// Deprecated.
-	KMPMidLevelDebugger KMP = 0x10000000
-	// Deprecated.
-	KMPNotificationInfoVersion KMP = 1
-	// Deprecated.
-	KMPOwningProcessRemoteContext KMP = 1
-	// Deprecated.
-	KMPPreserveTimerIDMask KMP = 1
-	// Deprecated.
-	KMPQueueInfoVersion KMP = 1
-	// Deprecated.
-	KMPSemaphoreInfoVersion KMP = 1
-	// Deprecated.
-	KMPTimeIsDeltaMask KMP = 2
-	// Deprecated.
-	KMPTimeIsDurationMask KMP = 4
-)
-
-func (e KMP) String() string {
-	switch e {
-	case KMPBlueBlockingErr:
-		return "KMPBlueBlockingErr"
-	case KMPDeletedErr:
-		return "KMPDeletedErr"
-	case KMPInsufficientResourcesErr:
-		return "KMPInsufficientResourcesErr"
-	case KMPInvalidIDErr:
-		return "KMPInvalidIDErr"
-	case KMPIterationEndErr:
-		return "KMPIterationEndErr"
-	case KMPPrivilegedErr:
-		return "KMPPrivilegedErr"
-	case KMPProcessCreatedErr:
-		return "KMPProcessCreatedErr"
-	case KMPProcessTerminatedErr:
-		return "KMPProcessTerminatedErr"
-	case KMPTaskAbortedErr:
-		return "KMPTaskAbortedErr"
-	case KMPTaskBlockedErr:
-		return "KMPTaskBlockedErr"
-	case KMPTaskCreatedErr:
-		return "KMPTaskCreatedErr"
-	case KMPTaskStoppedErr:
-		return "KMPTaskStoppedErr"
-	case KMPTimeoutErr:
-		return "KMPTimeoutErr"
-	case KMPAddressSpaceInfoVersion:
-		return "KMPAddressSpaceInfoVersion"
-	case KMPAllocate1024ByteAligned:
-		return "KMPAllocate1024ByteAligned"
-	case KMPAllocate16ByteAligned:
-		return "KMPAllocate16ByteAligned"
-	case KMPAllocate32ByteAligned:
-		return "KMPAllocate32ByteAligned"
-	case KMPAllocate4096ByteAligned:
-		return "KMPAllocate4096ByteAligned"
-	case KMPAllocate8ByteAligned:
-		return "KMPAllocate8ByteAligned"
-	case KMPAllocateDefaultAligned:
-		return "KMPAllocateDefaultAligned"
-	case KMPAllocateInterlockAligned:
-		return "KMPAllocateInterlockAligned"
-	case KMPAllocateMaxAlignment:
-		return "KMPAllocateMaxAlignment"
-	case KMPAllocateVMPageAligned:
-		return "KMPAllocateVMPageAligned"
-	case KMPHighLevelDebugger:
-		return "KMPHighLevelDebugger"
-	case KMPInterruptRemoteContext:
-		return "KMPInterruptRemoteContext"
-	case KMPMidLevelDebugger:
-		return "KMPMidLevelDebugger"
-	default:
-		return fmt.Sprintf("KMP(%d)", e)
-	}
-}
-
-type KMPAllocate uint
+type KMPAllocate uint32
 
 const (
 	// Deprecated.
@@ -16539,7 +18691,87 @@ func (e KMPAllocate) String() string {
 	}
 }
 
-type KMPCreateTask uint
+type KMPAllocateDefaultAligned uint32
+
+const (
+	// Deprecated.
+	KMPAllocate1024ByteAligned KMPAllocateDefaultAligned = 10
+	// Deprecated.
+	KMPAllocate16ByteAligned KMPAllocateDefaultAligned = 4
+	// Deprecated.
+	KMPAllocate32ByteAligned KMPAllocateDefaultAligned = 5
+	// Deprecated.
+	KMPAllocate4096ByteAligned KMPAllocateDefaultAligned = 12
+	// Deprecated.
+	KMPAllocate8ByteAligned KMPAllocateDefaultAligned = 3
+	// Deprecated.
+	KMPAllocateAltiVecAligned KMPAllocateDefaultAligned = 4
+	// Deprecated.
+	KMPAllocateDefaultAlignedValue KMPAllocateDefaultAligned = 0
+	// Deprecated.
+	KMPAllocateInterlockAligned KMPAllocateDefaultAligned = 255
+	// Deprecated.
+	KMPAllocateMaxAlignment KMPAllocateDefaultAligned = 16
+	// Deprecated.
+	KMPAllocateVMPageAligned KMPAllocateDefaultAligned = 254
+	// Deprecated.
+	KMPAllocateVMXAligned KMPAllocateDefaultAligned = 4
+)
+
+func (e KMPAllocateDefaultAligned) String() string {
+	switch e {
+	case KMPAllocate1024ByteAligned:
+		return "KMPAllocate1024ByteAligned"
+	case KMPAllocate16ByteAligned:
+		return "KMPAllocate16ByteAligned"
+	case KMPAllocate32ByteAligned:
+		return "KMPAllocate32ByteAligned"
+	case KMPAllocate4096ByteAligned:
+		return "KMPAllocate4096ByteAligned"
+	case KMPAllocate8ByteAligned:
+		return "KMPAllocate8ByteAligned"
+	case KMPAllocateDefaultAlignedValue:
+		return "KMPAllocateDefaultAlignedValue"
+	case KMPAllocateInterlockAligned:
+		return "KMPAllocateInterlockAligned"
+	case KMPAllocateMaxAlignment:
+		return "KMPAllocateMaxAlignment"
+	case KMPAllocateVMPageAligned:
+		return "KMPAllocateVMPageAligned"
+	default:
+		return fmt.Sprintf("KMPAllocateDefaultAligned(%d)", e)
+	}
+}
+
+type KMPAnyRemoteContext uint32
+
+const (
+	// Deprecated.
+	KMPAnyRemoteContextValue KMPAnyRemoteContext = 0
+	// Deprecated.
+	KMPAsyncInterruptRemoteContext KMPAnyRemoteContext = 3
+	// Deprecated.
+	KMPInterruptRemoteContext KMPAnyRemoteContext = 2
+	// Deprecated.
+	KMPOwningProcessRemoteContext KMPAnyRemoteContext = 1
+)
+
+func (e KMPAnyRemoteContext) String() string {
+	switch e {
+	case KMPAnyRemoteContextValue:
+		return "KMPAnyRemoteContextValue"
+	case KMPAsyncInterruptRemoteContext:
+		return "KMPAsyncInterruptRemoteContext"
+	case KMPInterruptRemoteContext:
+		return "KMPInterruptRemoteContext"
+	case KMPOwningProcessRemoteContext:
+		return "KMPOwningProcessRemoteContext"
+	default:
+		return fmt.Sprintf("KMPAnyRemoteContext(%d)", e)
+	}
+}
+
+type KMPCreateTask uint32
 
 const (
 	// Deprecated.
@@ -16549,7 +18781,7 @@ const (
 	// Deprecated.
 	KMPCreateTaskTakesAllExceptionsMask KMPCreateTask = 2
 	// Deprecated.
-	KMPCreateTaskValidOptionsMask KMPCreateTask = 1
+	KMPCreateTaskValidOptionsMask KMPCreateTask = 7
 )
 
 func (e KMPCreateTask) String() string {
@@ -16560,12 +18792,95 @@ func (e KMPCreateTask) String() string {
 		return "KMPCreateTaskSuspendedMask"
 	case KMPCreateTaskTakesAllExceptionsMask:
 		return "KMPCreateTaskTakesAllExceptionsMask"
+	case KMPCreateTaskValidOptionsMask:
+		return "KMPCreateTaskValidOptionsMask"
 	default:
 		return fmt.Sprintf("KMPCreateTask(%d)", e)
 	}
 }
 
-type KMPMaxAlloc uint
+type KMPIterationEndErr int32
+
+const (
+	KMPBlueBlockingErr KMPIterationEndErr = -29293
+	// KMPDeletedErr: The desired notification the function was waiting upon was deleted.
+	KMPDeletedErr KMPIterationEndErr = -29295
+	// KMPInsufficientResourcesErr: Could not complete task due to unavailable Multiprocessing Services resources.
+	KMPInsufficientResourcesErr KMPIterationEndErr = -29298
+	// KMPInvalidIDErr: Invalid ID value.
+	KMPInvalidIDErr         KMPIterationEndErr = -29299
+	KMPIterationEndErrValue KMPIterationEndErr = -29275
+	KMPPrivilegedErr        KMPIterationEndErr = -29276
+	KMPProcessCreatedErr    KMPIterationEndErr = -29288
+	KMPProcessTerminatedErr KMPIterationEndErr = -29289
+	KMPTaskAbortedErr       KMPIterationEndErr = -29297
+	// KMPTaskBlockedErr: The desired task is blocked.
+	KMPTaskBlockedErr KMPIterationEndErr = -29291
+	KMPTaskCreatedErr KMPIterationEndErr = -29290
+	// KMPTaskStoppedErr: The desired task is stopped.
+	KMPTaskStoppedErr KMPIterationEndErr = -29292
+	// KMPTimeoutErr: The designated timeout interval passed before the function could take action.
+	KMPTimeoutErr KMPIterationEndErr = -29296
+)
+
+func (e KMPIterationEndErr) String() string {
+	switch e {
+	case KMPBlueBlockingErr:
+		return "KMPBlueBlockingErr"
+	case KMPDeletedErr:
+		return "KMPDeletedErr"
+	case KMPInsufficientResourcesErr:
+		return "KMPInsufficientResourcesErr"
+	case KMPInvalidIDErr:
+		return "KMPInvalidIDErr"
+	case KMPIterationEndErrValue:
+		return "KMPIterationEndErrValue"
+	case KMPPrivilegedErr:
+		return "KMPPrivilegedErr"
+	case KMPProcessCreatedErr:
+		return "KMPProcessCreatedErr"
+	case KMPProcessTerminatedErr:
+		return "KMPProcessTerminatedErr"
+	case KMPTaskAbortedErr:
+		return "KMPTaskAbortedErr"
+	case KMPTaskBlockedErr:
+		return "KMPTaskBlockedErr"
+	case KMPTaskCreatedErr:
+		return "KMPTaskCreatedErr"
+	case KMPTaskStoppedErr:
+		return "KMPTaskStoppedErr"
+	case KMPTimeoutErr:
+		return "KMPTimeoutErr"
+	default:
+		return fmt.Sprintf("KMPIterationEndErr(%d)", e)
+	}
+}
+
+type KMPLowLevelDebugger uint32
+
+const (
+	// Deprecated.
+	KMPHighLevelDebugger KMPLowLevelDebugger = 0x20000000
+	// Deprecated.
+	KMPLowLevelDebuggerValue KMPLowLevelDebugger = 0
+	// Deprecated.
+	KMPMidLevelDebugger KMPLowLevelDebugger = 0x10000000
+)
+
+func (e KMPLowLevelDebugger) String() string {
+	switch e {
+	case KMPHighLevelDebugger:
+		return "KMPHighLevelDebugger"
+	case KMPLowLevelDebuggerValue:
+		return "KMPLowLevelDebuggerValue"
+	case KMPMidLevelDebugger:
+		return "KMPMidLevelDebugger"
+	default:
+		return fmt.Sprintf("KMPLowLevelDebugger(%d)", e)
+	}
+}
+
+type KMPMaxAlloc uint32
 
 const (
 	// Deprecated.
@@ -16581,7 +18896,7 @@ func (e KMPMaxAlloc) String() string {
 	}
 }
 
-type KMPNanokernelNeedsMemory int
+type KMPNanokernelNeedsMemory int32
 
 const (
 	KMPNanokernelNeedsMemoryErr KMPNanokernelNeedsMemory = -29294
@@ -16596,7 +18911,7 @@ func (e KMPNanokernelNeedsMemory) String() string {
 	}
 }
 
-type KMPNoI uint
+type KMPNoI uint32
 
 const (
 	// Deprecated.
@@ -16612,63 +18927,91 @@ func (e KMPNoI) String() string {
 	}
 }
 
-type KMPTask uint
+type KMPPreserveTimerIDMask uint32
 
 const (
 	// Deprecated.
-	KMPTaskBlocked KMPTask = 0
+	KMPPreserveTimerIDMaskValue KMPPreserveTimerIDMask = 1
 	// Deprecated.
-	KMPTaskPropagate KMPTask = 0
+	KMPTimeIsDeltaMask KMPPreserveTimerIDMask = 2
 	// Deprecated.
-	KMPTaskPropagateMask KMPTask = 1
-	// Deprecated.
-	KMPTaskReady KMPTask = 1
-	// Deprecated.
-	KMPTaskResumeBranch KMPTask = 2
-	// Deprecated.
-	KMPTaskResumeBranchMask KMPTask = 4
-	// Deprecated.
-	KMPTaskResumeMask KMPTask = 0
-	// Deprecated.
-	KMPTaskResumeStep KMPTask = 1
-	// Deprecated.
-	KMPTaskResumeStepMask KMPTask = 2
-	// Deprecated.
-	KMPTaskRunning KMPTask = 2
-	// Deprecated.
-	KMPTaskState32BitMemoryException KMPTask = 4
-	// Deprecated.
-	KMPTaskStateFPU KMPTask = 1
-	// Deprecated.
-	KMPTaskStateMachine KMPTask = 3
-	// Deprecated.
-	KMPTaskStateRegisters KMPTask = 0
-	// Deprecated.
-	KMPTaskStateTaskInfo KMPTask = 5
-	// Deprecated.
-	KMPTaskStateVectors KMPTask = 2
+	KMPTimeIsDurationMask KMPPreserveTimerIDMask = 4
 )
 
-func (e KMPTask) String() string {
+func (e KMPPreserveTimerIDMask) String() string {
 	switch e {
-	case KMPTaskBlocked:
-		return "KMPTaskBlocked"
-	case KMPTaskPropagateMask:
-		return "KMPTaskPropagateMask"
-	case KMPTaskResumeBranch:
-		return "KMPTaskResumeBranch"
-	case KMPTaskResumeBranchMask:
-		return "KMPTaskResumeBranchMask"
-	case KMPTaskStateMachine:
-		return "KMPTaskStateMachine"
-	case KMPTaskStateTaskInfo:
-		return "KMPTaskStateTaskInfo"
+	case KMPPreserveTimerIDMaskValue:
+		return "KMPPreserveTimerIDMaskValue"
+	case KMPTimeIsDeltaMask:
+		return "KMPTimeIsDeltaMask"
+	case KMPTimeIsDurationMask:
+		return "KMPTimeIsDurationMask"
 	default:
-		return fmt.Sprintf("KMPTask(%d)", e)
+		return fmt.Sprintf("KMPPreserveTimerIDMask(%d)", e)
 	}
 }
 
-type KMPTaskInfo uint
+type KMPQueueInfoVersion uint32
+
+const (
+	// Deprecated.
+	KMPAddressSpaceInfoVersion KMPQueueInfoVersion = 524289
+	// Deprecated.
+	KMPCriticalRegionInfoVersion KMPQueueInfoVersion = 393217
+	// Deprecated.
+	KMPEventInfoVersion KMPQueueInfoVersion = 589825
+	// Deprecated.
+	KMPNotificationInfoVersion KMPQueueInfoVersion = 786433
+	// Deprecated.
+	KMPQueueInfoVersionValue KMPQueueInfoVersion = 262145
+	// Deprecated.
+	KMPSemaphoreInfoVersion KMPQueueInfoVersion = 327681
+)
+
+func (e KMPQueueInfoVersion) String() string {
+	switch e {
+	case KMPAddressSpaceInfoVersion:
+		return "KMPAddressSpaceInfoVersion"
+	case KMPCriticalRegionInfoVersion:
+		return "KMPCriticalRegionInfoVersion"
+	case KMPEventInfoVersion:
+		return "KMPEventInfoVersion"
+	case KMPNotificationInfoVersion:
+		return "KMPNotificationInfoVersion"
+	case KMPQueueInfoVersionValue:
+		return "KMPQueueInfoVersionValue"
+	case KMPSemaphoreInfoVersion:
+		return "KMPSemaphoreInfoVersion"
+	default:
+		return fmt.Sprintf("KMPQueueInfoVersion(%d)", e)
+	}
+}
+
+type KMPTaskBlocked uint32
+
+const (
+	// Deprecated.
+	KMPTaskBlockedValue KMPTaskBlocked = 0
+	// Deprecated.
+	KMPTaskReady KMPTaskBlocked = 1
+	// Deprecated.
+	KMPTaskRunning KMPTaskBlocked = 2
+)
+
+func (e KMPTaskBlocked) String() string {
+	switch e {
+	case KMPTaskBlockedValue:
+		return "KMPTaskBlockedValue"
+	case KMPTaskReady:
+		return "KMPTaskReady"
+	case KMPTaskRunning:
+		return "KMPTaskRunning"
+	default:
+		return fmt.Sprintf("KMPTaskBlocked(%d)", e)
+	}
+}
+
+type KMPTaskInfo uint32
 
 const (
 	// Deprecated.
@@ -16684,7 +19027,77 @@ func (e KMPTaskInfo) String() string {
 	}
 }
 
-type KMacArabic uint
+type KMPTaskPropagate uint32
+
+const (
+	// Deprecated.
+	KMPTaskPropagateValue KMPTaskPropagate = 0
+	// Deprecated.
+	KMPTaskPropagateMask KMPTaskPropagate = 1
+	// Deprecated.
+	KMPTaskResumeBranch KMPTaskPropagate = 2
+	// Deprecated.
+	KMPTaskResumeBranchMask KMPTaskPropagate = 4
+	// Deprecated.
+	KMPTaskResumeMask KMPTaskPropagate = 0
+	// Deprecated.
+	KMPTaskResumeStep KMPTaskPropagate = 1
+	// Deprecated.
+	KMPTaskResumeStepMask KMPTaskPropagate = 2
+)
+
+func (e KMPTaskPropagate) String() string {
+	switch e {
+	case KMPTaskPropagateValue:
+		return "KMPTaskPropagateValue"
+	case KMPTaskPropagateMask:
+		return "KMPTaskPropagateMask"
+	case KMPTaskResumeBranch:
+		return "KMPTaskResumeBranch"
+	case KMPTaskResumeBranchMask:
+		return "KMPTaskResumeBranchMask"
+	default:
+		return fmt.Sprintf("KMPTaskPropagate(%d)", e)
+	}
+}
+
+type KMPTaskStateRegisters uint32
+
+const (
+	// Deprecated.
+	KMPTaskState32BitMemoryException KMPTaskStateRegisters = 4
+	// Deprecated.
+	KMPTaskStateFPU KMPTaskStateRegisters = 1
+	// Deprecated.
+	KMPTaskStateMachine KMPTaskStateRegisters = 3
+	// Deprecated.
+	KMPTaskStateRegistersValue KMPTaskStateRegisters = 0
+	// Deprecated.
+	KMPTaskStateTaskInfo KMPTaskStateRegisters = 5
+	// Deprecated.
+	KMPTaskStateVectors KMPTaskStateRegisters = 2
+)
+
+func (e KMPTaskStateRegisters) String() string {
+	switch e {
+	case KMPTaskState32BitMemoryException:
+		return "KMPTaskState32BitMemoryException"
+	case KMPTaskStateFPU:
+		return "KMPTaskStateFPU"
+	case KMPTaskStateMachine:
+		return "KMPTaskStateMachine"
+	case KMPTaskStateRegistersValue:
+		return "KMPTaskStateRegistersValue"
+	case KMPTaskStateTaskInfo:
+		return "KMPTaskStateTaskInfo"
+	case KMPTaskStateVectors:
+		return "KMPTaskStateVectors"
+	default:
+		return fmt.Sprintf("KMPTaskStateRegisters(%d)", e)
+	}
+}
+
+type KMacArabic uint32
 
 const (
 	// KMacArabicAlBayanVariant: A Mac OS Arabic variant used for the Arabic TrueType font Al Bayan.
@@ -16712,7 +19125,7 @@ func (e KMacArabic) String() string {
 	}
 }
 
-type KMacCroatian uint
+type KMacCroatian uint32
 
 const (
 	// KMacCroatianCurrencySignVariant: In versions of Mac OS earlier than 8.5, 0xDB is the currency sign.
@@ -16736,7 +19149,7 @@ func (e KMacCroatian) String() string {
 	}
 }
 
-type KMacCyrillic uint
+type KMacCyrillic uint32
 
 const (
 	// KMacCyrillicCurrSignStdVariant: In Mac OS versions prior to 9.0 (RU, BG), 0xFF = currency sign, 0xA2/0xB6 = CENT / PARTIAL DIFF.
@@ -16764,7 +19177,7 @@ func (e KMacCyrillic) String() string {
 	}
 }
 
-type KMacFarsi uint
+type KMacFarsi uint32
 
 const (
 	// KMacFarsiStandardVariant: This Mac OS Farsi variant is supported by the Tehran font (the system font for Farsi) and is the encoding supported by the text processing utilities.
@@ -16784,7 +19197,7 @@ func (e KMacFarsi) String() string {
 	}
 }
 
-type KMacGreek uint
+type KMacGreek uint32
 
 const (
 	KMacGreekDefaultVariant    KMacGreek = 0
@@ -16805,7 +19218,7 @@ func (e KMacGreek) String() string {
 	}
 }
 
-type KMacHebrew uint
+type KMacHebrew uint32
 
 const (
 	// KMacHebrewFigureSpaceVariant: The Mac OS Hebrew variant in which 0xD4 represents figure space, not left single quotation mark as in the standard variant.
@@ -16825,7 +19238,7 @@ func (e KMacHebrew) String() string {
 	}
 }
 
-type KMacIcelandic uint
+type KMacIcelandic uint32
 
 const (
 	// KMacIcelandicStdCurrSignVariant: In Mac OS versions prior to 8.5, 0xDB is the currency sign; 0xBB/0xBC are fem./masc.
@@ -16861,7 +19274,7 @@ func (e KMacIcelandic) String() string {
 	}
 }
 
-type KMacJapanese uint
+type KMacJapanese uint32
 
 const (
 	// KMacJapaneseBasicVariant: An artificial Mac OS Japanese variant without Apple double-byte extensions.
@@ -16897,7 +19310,7 @@ func (e KMacJapanese) String() string {
 	}
 }
 
-type KMacMemoryMaximumMemoryManagerBlock uint
+type KMacMemoryMaximumMemoryManagerBlock uint32
 
 const (
 	// Deprecated.
@@ -16913,7 +19326,7 @@ func (e KMacMemoryMaximumMemoryManagerBlock) String() string {
 	}
 }
 
-type KMacRoman uint
+type KMacRoman uint32
 
 const (
 	// KMacRomanCurrencySignVariant: In Mac OS versions earlier than 8.5 0xDB is the currency sign; still used for some older fonts even in Mac OS 8.5.
@@ -16937,7 +19350,7 @@ func (e KMacRoman) String() string {
 	}
 }
 
-type KMacRomanLatin1 uint
+type KMacRomanLatin1 uint32
 
 const (
 	// KMacRomanLatin1CroatianVariant: Permuted MacCroatian, Euro sign variant.
@@ -16973,7 +19386,7 @@ func (e KMacRomanLatin1) String() string {
 	}
 }
 
-type KMacRomanStandardVariant uint
+type KMacRomanStandardVariant uint32
 
 const (
 	KHebrewFigureSpaceVariant       KMacRomanStandardVariant = 1
@@ -17023,7 +19436,7 @@ func (e KMacRomanStandardVariant) String() string {
 	}
 }
 
-type KMacRomanian uint
+type KMacRomanian uint32
 
 const (
 	// KMacRomanianCurrencySignVariant: In Mac OS versions earlier than 8.5, 0xDB is the currency sign.
@@ -17047,7 +19460,7 @@ func (e KMacRomanian) String() string {
 	}
 }
 
-type KMacVT100 uint
+type KMacVT100 uint32
 
 const (
 	// KMacVT100CurrencySignVariant: In Mac OS versions earlier than 8.5, 0xDB is the currency sign.
@@ -17071,7 +19484,7 @@ func (e KMacVT100) String() string {
 	}
 }
 
-type KMachineNameStrI int
+type KMachineNameStrI int32
 
 const (
 	KMachineNameStrID KMachineNameStrI = -16395
@@ -17086,7 +19499,7 @@ func (e KMachineNameStrI) String() string {
 	}
 }
 
-type KMagicBusyCreation uint
+type KMagicBusyCreation uint32
 
 const (
 	KMagicBusyCreationDate KMagicBusyCreation = 0x4f3afdb0
@@ -17101,7 +19514,7 @@ func (e KMagicBusyCreation) String() string {
 	}
 }
 
-type KMagicTemporaryItemsFolderType uint
+type KMagicTemporaryItemsFolderType uint32
 
 const (
 	// Deprecated.
@@ -17129,7 +19542,7 @@ func (e KMagicTemporaryItemsFolderType) String() string {
 	}
 }
 
-type KModem int
+type KModem int32
 
 const (
 	KModemOutOfMemory        KModem = -14000
@@ -17150,7 +19563,7 @@ func (e KModem) String() string {
 	}
 }
 
-type KNS int
+type KNS int32
 
 const (
 	KNSL68kContextNotSupported     KNS = -4170
@@ -17255,7 +19668,7 @@ func (e KNS) String() string {
 	}
 }
 
-type KNSp int
+type KNSp int32
 
 const (
 	KNSpAddPlayerFailedErr       KNSp = -30389
@@ -17375,7 +19788,7 @@ func (e KNSp) String() string {
 	}
 }
 
-type KNav int
+type KNav int32
 
 const (
 	KNavCustomControlMessageFailedErr  KNav = -5697
@@ -17405,7 +19818,7 @@ func (e KNav) String() string {
 	}
 }
 
-type KNewSuspend uint
+type KNewSuspend uint32
 
 const (
 	// Deprecated.
@@ -17437,7 +19850,7 @@ func (e KNewSuspend) String() string {
 	}
 }
 
-type KNextBody uint
+type KNextBody uint32
 
 const (
 	KNextBodyValue KNextBody = 1
@@ -17455,7 +19868,7 @@ func (e KNextBody) String() string {
 	}
 }
 
-type KNoByteCode uint
+type KNoByteCode uint32
 
 const (
 	// Deprecated.
@@ -17483,7 +19896,7 @@ func (e KNoByteCode) String() string {
 	}
 }
 
-type KNoThreadID uint
+type KNoThreadID uint32
 
 const (
 	// Deprecated.
@@ -17507,7 +19920,7 @@ func (e KNoThreadID) String() string {
 	}
 }
 
-type KNoUserAuthentication uint
+type KNoUserAuthentication uint32
 
 const (
 	KEncryptPassword           KNoUserAuthentication = 3
@@ -17531,7 +19944,7 @@ func (e KNoUserAuthentication) String() string {
 	}
 }
 
-type KOSI uint
+type KOSI uint32
 
 const (
 	KOSIZCodeInSharedLibraries  KOSI = 11
@@ -17555,7 +19968,7 @@ func (e KOSI) String() string {
 	}
 }
 
-type KOTNoError int
+type KOTNoError int32
 
 const (
 	KEACCESErr                 KOTNoError = -3212
@@ -17850,7 +20263,7 @@ func (e KOTNoError) String() string {
 	}
 }
 
-type KOld68kRTA uint
+type KOld68kRTA uint32
 
 const (
 	// Deprecated.
@@ -17872,7 +20285,7 @@ func (e KOld68kRTA) String() string {
 	}
 }
 
-type KOnSystemDisk int
+type KOnSystemDisk int32
 
 const (
 	// Deprecated.
@@ -17912,7 +20325,7 @@ func (e KOnSystemDisk) String() string {
 	}
 }
 
-type KOpaque uint
+type KOpaque uint32
 
 const (
 	// Deprecated.
@@ -17980,7 +20393,7 @@ func (e KOpaque) String() string {
 	}
 }
 
-type KOwnerID2Name uint
+type KOwnerID2Name uint32
 
 const (
 	KGroupID2Name      KOwnerID2Name = 2
@@ -18007,103 +20420,115 @@ func (e KOwnerID2Name) String() string {
 	}
 }
 
-type KPEF int
+type KPEFAbsoluteExport int32
 
 const (
 	// Deprecated.
-	KPEFAbsoluteExport KPEF = -2
+	KPEFAbsoluteExportValue KPEFAbsoluteExport = -2
 	// Deprecated.
-	KPEFCodeSection KPEF = 0
-	// Deprecated.
-	KPEFCodeSymbol KPEF = 0
-	// Deprecated.
-	KPEFConstantSection KPEF = 3
-	// Deprecated.
-	KPEFDataSymbol KPEF = 0x1
-	// Deprecated.
-	KPEFDebugSection KPEF = 5
-	// Deprecated.
-	KPEFExceptionSection KPEF = 7
-	// Deprecated.
-	KPEFExecDataSection KPEF = 6
-	// Deprecated.
-	KPEFGlobalShare KPEF = 4
-	// Deprecated.
-	KPEFGlueSymbol KPEF = 0x4
-	// Deprecated.
-	KPEFInitLibBeforeMask KPEF = 0x80
-	// Deprecated.
-	KPEFLoaderSection KPEF = 4
-	// Deprecated.
-	KPEFPackedDataSection KPEF = 2
-	// Deprecated.
-	KPEFProcessShare KPEF = 1
-	// Deprecated.
-	KPEFProtectedShare KPEF = 5
-	// Deprecated.
-	KPEFReexportedImport KPEF = -3
-	// Deprecated.
-	KPEFTOCSymbol KPEF = 0x3
-	// Deprecated.
-	KPEFTVectorSymbol KPEF = 0x2
-	// Deprecated.
-	KPEFTag1 KPEF = 'J'<<24 | 'o'<<16 | 'y'<<8 | '!' // 'Joy!'
-	// Deprecated.
-	KPEFTag2 KPEF = 'p'<<24 | 'e'<<16 | 'f'<<8 | 'f' // 'peff'
-	// Deprecated.
-	KPEFTracebackSection KPEF = 8
-	// Deprecated.
-	KPEFUndefinedSymbol KPEF = 0xf
-	// Deprecated.
-	KPEFUnpackedDataSection KPEF = 1
-	// Deprecated.
-	KPEFVersion KPEF = 0x1
-	// Deprecated.
-	KPEFWeakImportLibMask KPEF = 0x40
-	// Deprecated.
-	KPEFWeakImportSymMask KPEF = 0x80
+	KPEFReexportedImport KPEFAbsoluteExport = -3
 )
 
-func (e KPEF) String() string {
+func (e KPEFAbsoluteExport) String() string {
 	switch e {
-	case KPEFAbsoluteExport:
-		return "KPEFAbsoluteExport"
-	case KPEFCodeSection:
-		return "KPEFCodeSection"
+	case KPEFAbsoluteExportValue:
+		return "KPEFAbsoluteExportValue"
+	case KPEFReexportedImport:
+		return "KPEFReexportedImport"
+	default:
+		return fmt.Sprintf("KPEFAbsoluteExport(%d)", e)
+	}
+}
+
+type KPEFCodeSection uint32
+
+const (
+	// Deprecated.
+	KPEFCodeSectionValue KPEFCodeSection = 0
+	// Deprecated.
+	KPEFConstantSection KPEFCodeSection = 3
+	// Deprecated.
+	KPEFDebugSection KPEFCodeSection = 5
+	// Deprecated.
+	KPEFExceptionSection KPEFCodeSection = 7
+	// Deprecated.
+	KPEFExecDataSection KPEFCodeSection = 6
+	// Deprecated.
+	KPEFLoaderSection KPEFCodeSection = 4
+	// Deprecated.
+	KPEFPackedDataSection KPEFCodeSection = 2
+	// Deprecated.
+	KPEFTracebackSection KPEFCodeSection = 8
+	// Deprecated.
+	KPEFUnpackedDataSection KPEFCodeSection = 1
+)
+
+func (e KPEFCodeSection) String() string {
+	switch e {
+	case KPEFCodeSectionValue:
+		return "KPEFCodeSectionValue"
 	case KPEFConstantSection:
 		return "KPEFConstantSection"
-	case KPEFDataSymbol:
-		return "KPEFDataSymbol"
 	case KPEFDebugSection:
 		return "KPEFDebugSection"
 	case KPEFExceptionSection:
 		return "KPEFExceptionSection"
 	case KPEFExecDataSection:
 		return "KPEFExecDataSection"
-	case KPEFGlobalShare:
-		return "KPEFGlobalShare"
-	case KPEFInitLibBeforeMask:
-		return "KPEFInitLibBeforeMask"
+	case KPEFLoaderSection:
+		return "KPEFLoaderSection"
 	case KPEFPackedDataSection:
 		return "KPEFPackedDataSection"
-	case KPEFReexportedImport:
-		return "KPEFReexportedImport"
-	case KPEFTag1:
-		return "KPEFTag1"
-	case KPEFTag2:
-		return "KPEFTag2"
 	case KPEFTracebackSection:
 		return "KPEFTracebackSection"
-	case KPEFUndefinedSymbol:
-		return "KPEFUndefinedSymbol"
-	case KPEFWeakImportLibMask:
-		return "KPEFWeakImportLibMask"
+	case KPEFUnpackedDataSection:
+		return "KPEFUnpackedDataSection"
 	default:
-		return fmt.Sprintf("KPEF(%d)", e)
+		return fmt.Sprintf("KPEFCodeSection(%d)", e)
 	}
 }
 
-type KPEFExpSym uint
+type KPEFCodeSymbol uint32
+
+const (
+	// Deprecated.
+	KPEFCodeSymbolValue KPEFCodeSymbol = 0
+	// Deprecated.
+	KPEFDataSymbol KPEFCodeSymbol = 0x1
+	// Deprecated.
+	KPEFGlueSymbol KPEFCodeSymbol = 0x4
+	// Deprecated.
+	KPEFTOCSymbol KPEFCodeSymbol = 0x3
+	// Deprecated.
+	KPEFTVectorSymbol KPEFCodeSymbol = 0x2
+	// Deprecated.
+	KPEFUndefinedSymbol KPEFCodeSymbol = 0xf
+	// Deprecated.
+	KPEFWeakImportSymMask KPEFCodeSymbol = 0x80
+)
+
+func (e KPEFCodeSymbol) String() string {
+	switch e {
+	case KPEFCodeSymbolValue:
+		return "KPEFCodeSymbolValue"
+	case KPEFDataSymbol:
+		return "KPEFDataSymbol"
+	case KPEFGlueSymbol:
+		return "KPEFGlueSymbol"
+	case KPEFTOCSymbol:
+		return "KPEFTOCSymbol"
+	case KPEFTVectorSymbol:
+		return "KPEFTVectorSymbol"
+	case KPEFUndefinedSymbol:
+		return "KPEFUndefinedSymbol"
+	case KPEFWeakImportSymMask:
+		return "KPEFWeakImportSymMask"
+	default:
+		return fmt.Sprintf("KPEFCodeSymbol(%d)", e)
+	}
+}
+
+type KPEFExpSym uint32
 
 const (
 	// Deprecated.
@@ -18125,7 +20550,7 @@ func (e KPEFExpSym) String() string {
 	}
 }
 
-type KPEFFirstSectionHeader uint
+type KPEFFirstSectionHeader uint32
 
 const (
 	// Deprecated.
@@ -18141,7 +20566,7 @@ func (e KPEFFirstSectionHeader) String() string {
 	}
 }
 
-type KPEFHash uint
+type KPEFHash uint32
 
 const (
 	// Deprecated.
@@ -18163,7 +20588,7 @@ func (e KPEFHash) String() string {
 	}
 }
 
-type KPEFHashSlot uint
+type KPEFHashSlot uint32
 
 const (
 	// Deprecated.
@@ -18189,7 +20614,7 @@ func (e KPEFHashSlot) String() string {
 	}
 }
 
-type KPEFImpSym uint
+type KPEFImpSym uint32
 
 const (
 	// Deprecated.
@@ -18211,61 +20636,97 @@ func (e KPEFImpSym) String() string {
 	}
 }
 
-type KPEFPkData uint
+type KPEFPkDataOpcodeShift uint32
 
 const (
 	// Deprecated.
-	KPEFPkDataBlock KPEFPkData = 1
+	KPEFPkDataCount5Mask KPEFPkDataOpcodeShift = 0x1f
 	// Deprecated.
-	KPEFPkDataCount5Mask KPEFPkData = 0x1f
+	KPEFPkDataMaxCount5 KPEFPkDataOpcodeShift = 31
 	// Deprecated.
-	KPEFPkDataMaxCount5 KPEFPkData = 31
+	KPEFPkDataOpcodeShiftValue KPEFPkDataOpcodeShift = 5
 	// Deprecated.
-	KPEFPkDataOpcodeShift KPEFPkData = 5
+	KPEFPkDataVCountEndMask KPEFPkDataOpcodeShift = 0x80
 	// Deprecated.
-	KPEFPkDataRepeat KPEFPkData = 2
+	KPEFPkDataVCountMask KPEFPkDataOpcodeShift = 0x7f
 	// Deprecated.
-	KPEFPkDataRepeatBlock KPEFPkData = 3
-	// Deprecated.
-	KPEFPkDataRepeatZero KPEFPkData = 4
-	// Deprecated.
-	KPEFPkDataVCountEndMask KPEFPkData = 0x80
-	// Deprecated.
-	KPEFPkDataVCountMask KPEFPkData = 0x7f
-	// Deprecated.
-	KPEFPkDataVCountShift KPEFPkData = 7
-	// Deprecated.
-	KPEFPkDataZero KPEFPkData = 0
+	KPEFPkDataVCountShift KPEFPkDataOpcodeShift = 7
 )
 
-func (e KPEFPkData) String() string {
+func (e KPEFPkDataOpcodeShift) String() string {
 	switch e {
-	case KPEFPkDataBlock:
-		return "KPEFPkDataBlock"
 	case KPEFPkDataCount5Mask:
 		return "KPEFPkDataCount5Mask"
-	case KPEFPkDataOpcodeShift:
-		return "KPEFPkDataOpcodeShift"
-	case KPEFPkDataRepeat:
-		return "KPEFPkDataRepeat"
-	case KPEFPkDataRepeatBlock:
-		return "KPEFPkDataRepeatBlock"
-	case KPEFPkDataRepeatZero:
-		return "KPEFPkDataRepeatZero"
+	case KPEFPkDataOpcodeShiftValue:
+		return "KPEFPkDataOpcodeShiftValue"
 	case KPEFPkDataVCountEndMask:
 		return "KPEFPkDataVCountEndMask"
 	case KPEFPkDataVCountMask:
 		return "KPEFPkDataVCountMask"
 	case KPEFPkDataVCountShift:
 		return "KPEFPkDataVCountShift"
-	case KPEFPkDataZero:
-		return "KPEFPkDataZero"
 	default:
-		return fmt.Sprintf("KPEFPkData(%d)", e)
+		return fmt.Sprintf("KPEFPkDataOpcodeShift(%d)", e)
 	}
 }
 
-type KPEFReloc uint
+type KPEFPkDataZero uint32
+
+const (
+	// Deprecated.
+	KPEFPkDataBlock KPEFPkDataZero = 1
+	// Deprecated.
+	KPEFPkDataRepeat KPEFPkDataZero = 2
+	// Deprecated.
+	KPEFPkDataRepeatBlock KPEFPkDataZero = 3
+	// Deprecated.
+	KPEFPkDataRepeatZero KPEFPkDataZero = 4
+	// Deprecated.
+	KPEFPkDataZeroValue KPEFPkDataZero = 0
+)
+
+func (e KPEFPkDataZero) String() string {
+	switch e {
+	case KPEFPkDataBlock:
+		return "KPEFPkDataBlock"
+	case KPEFPkDataRepeat:
+		return "KPEFPkDataRepeat"
+	case KPEFPkDataRepeatBlock:
+		return "KPEFPkDataRepeatBlock"
+	case KPEFPkDataRepeatZero:
+		return "KPEFPkDataRepeatZero"
+	case KPEFPkDataZeroValue:
+		return "KPEFPkDataZeroValue"
+	default:
+		return fmt.Sprintf("KPEFPkDataZero(%d)", e)
+	}
+}
+
+type KPEFProcessShare uint32
+
+const (
+	// Deprecated.
+	KPEFGlobalShare KPEFProcessShare = 4
+	// Deprecated.
+	KPEFProcessShareValue KPEFProcessShare = 1
+	// Deprecated.
+	KPEFProtectedShare KPEFProcessShare = 5
+)
+
+func (e KPEFProcessShare) String() string {
+	switch e {
+	case KPEFGlobalShare:
+		return "KPEFGlobalShare"
+	case KPEFProcessShareValue:
+		return "KPEFProcessShareValue"
+	case KPEFProtectedShare:
+		return "KPEFProtectedShare"
+	default:
+		return fmt.Sprintf("KPEFProcessShare(%d)", e)
+	}
+}
+
+type KPEFReloc uint32
 
 const (
 	// Deprecated.
@@ -18349,7 +20810,7 @@ func (e KPEFReloc) String() string {
 	}
 }
 
-type KPEFRelocBasicOpcode uint
+type KPEFRelocBasicOpcode uint32
 
 const (
 	// Deprecated.
@@ -18365,7 +20826,7 @@ func (e KPEFRelocBasicOpcode) String() string {
 	}
 }
 
-type KPEFRelocIncrPositionMax uint
+type KPEFRelocIncrPositionMax uint32
 
 const (
 	// Deprecated.
@@ -18381,7 +20842,7 @@ func (e KPEFRelocIncrPositionMax) String() string {
 	}
 }
 
-type KPEFRelocLg uint
+type KPEFRelocLg uint32
 
 const (
 	// Deprecated.
@@ -18405,7 +20866,7 @@ func (e KPEFRelocLg) String() string {
 	}
 }
 
-type KPEFRelocLgByImportMax uint
+type KPEFRelocLgByImportMax uint32
 
 const (
 	// Deprecated.
@@ -18421,7 +20882,7 @@ func (e KPEFRelocLgByImportMax) String() string {
 	}
 }
 
-type KPEFRelocLgRepeatMax uint
+type KPEFRelocLgRepeatMax uint32
 
 const (
 	// Deprecated.
@@ -18441,7 +20902,7 @@ func (e KPEFRelocLgRepeatMax) String() string {
 	}
 }
 
-type KPEFRelocLgSetOrBySectionMax uint
+type KPEFRelocLgSetOrBySectionMax uint32
 
 const (
 	// Deprecated.
@@ -18457,7 +20918,7 @@ func (e KPEFRelocLgSetOrBySectionMax) String() string {
 	}
 }
 
-type KPEFRelocRunMaxRun uint
+type KPEFRelocRunMaxRun uint32
 
 const (
 	// Deprecated.
@@ -18473,7 +20934,7 @@ func (e KPEFRelocRunMaxRun) String() string {
 	}
 }
 
-type KPEFRelocSetPosMax uint
+type KPEFRelocSetPosMax uint32
 
 const (
 	// Deprecated.
@@ -18489,7 +20950,7 @@ func (e KPEFRelocSetPosMax) String() string {
 	}
 }
 
-type KPEFRelocSmIndexMax uint
+type KPEFRelocSmIndexMax uint32
 
 const (
 	// Deprecated.
@@ -18505,7 +20966,7 @@ func (e KPEFRelocSmIndexMax) String() string {
 	}
 }
 
-type KPEFRelocSmRepeatMax uint
+type KPEFRelocSmRepeatMax uint32
 
 const (
 	// Deprecated.
@@ -18525,7 +20986,7 @@ func (e KPEFRelocSmRepeatMax) String() string {
 	}
 }
 
-type KPEFRelocWithSkipMax uint
+type KPEFRelocWithSkipMax uint32
 
 const (
 	// Deprecated.
@@ -18545,7 +21006,51 @@ func (e KPEFRelocWithSkipMax) String() string {
 	}
 }
 
-type KPOSIXError int
+type KPEFTag1 uint32
+
+const (
+	// Deprecated.
+	KPEFTag1Value KPEFTag1 = 'J'<<24 | 'o'<<16 | 'y'<<8 | '!' // 'Joy!'
+	// Deprecated.
+	KPEFTag2 KPEFTag1 = 'p'<<24 | 'e'<<16 | 'f'<<8 | 'f' // 'peff'
+	// Deprecated.
+	KPEFVersion KPEFTag1 = 0x1
+)
+
+func (e KPEFTag1) String() string {
+	switch e {
+	case KPEFTag1Value:
+		return "KPEFTag1Value"
+	case KPEFTag2:
+		return "KPEFTag2"
+	case KPEFVersion:
+		return "KPEFVersion"
+	default:
+		return fmt.Sprintf("KPEFTag1(%d)", e)
+	}
+}
+
+type KPEFWeakImportLibMask uint32
+
+const (
+	// Deprecated.
+	KPEFInitLibBeforeMask KPEFWeakImportLibMask = 0x80
+	// Deprecated.
+	KPEFWeakImportLibMaskValue KPEFWeakImportLibMask = 0x40
+)
+
+func (e KPEFWeakImportLibMask) String() string {
+	switch e {
+	case KPEFInitLibBeforeMask:
+		return "KPEFInitLibBeforeMask"
+	case KPEFWeakImportLibMaskValue:
+		return "KPEFWeakImportLibMaskValue"
+	default:
+		return fmt.Sprintf("KPEFWeakImportLibMask(%d)", e)
+	}
+}
+
+type KPOSIXError uint32
 
 const (
 	KPOSIXErrorBase            KPOSIXError = 100000
@@ -18866,7 +21371,7 @@ func (e KPOSIXError) String() string {
 	}
 }
 
-type KPageInMemory uint
+type KPageInMemory uint32
 
 const (
 	// Deprecated.
@@ -18890,7 +21395,7 @@ func (e KPageInMemory) String() string {
 	}
 }
 
-type KPascalStackBased uint
+type KPascalStackBased uint32
 
 const (
 	// Deprecated.
@@ -18934,7 +21439,7 @@ func (e KPascalStackBased) String() string {
 	}
 }
 
-type KPassSelector uint
+type KPassSelector uint32
 
 const (
 	// Deprecated.
@@ -18954,7 +21459,7 @@ func (e KPassSelector) String() string {
 	}
 }
 
-type KPolicyKCStopOn uint
+type KPolicyKCStopOn uint32
 
 const (
 	KFirstFailKCStopOn   KPolicyKCStopOn = 3
@@ -18978,7 +21483,7 @@ func (e KPolicyKCStopOn) String() string {
 	}
 }
 
-type KPowerHandlerExistsForDeviceErr int
+type KPowerHandlerExistsForDeviceErr int32
 
 const (
 	KBridgeSoftwareRunningCantSleep      KPowerHandlerExistsForDeviceErr = -13038
@@ -19017,33 +21522,47 @@ func (e KPowerHandlerExistsForDeviceErr) String() string {
 	}
 }
 
-type KProcDescriptorIs uint
+type KProcDescriptorIsAbsolute uint32
 
 const (
 	// Deprecated.
-	KProcDescriptorIsAbsolute KProcDescriptorIs = 0
+	KProcDescriptorIsAbsoluteValue KProcDescriptorIsAbsolute = 0
 	// Deprecated.
-	KProcDescriptorIsIndex KProcDescriptorIs = 0x20
-	// Deprecated.
-	KProcDescriptorIsProcPtr KProcDescriptorIs = 0
-	// Deprecated.
-	KProcDescriptorIsRelative KProcDescriptorIs = 0x1
+	KProcDescriptorIsRelative KProcDescriptorIsAbsolute = 0x1
 )
 
-func (e KProcDescriptorIs) String() string {
+func (e KProcDescriptorIsAbsolute) String() string {
 	switch e {
-	case KProcDescriptorIsAbsolute:
-		return "KProcDescriptorIsAbsolute"
-	case KProcDescriptorIsIndex:
-		return "KProcDescriptorIsIndex"
+	case KProcDescriptorIsAbsoluteValue:
+		return "KProcDescriptorIsAbsoluteValue"
 	case KProcDescriptorIsRelative:
 		return "KProcDescriptorIsRelative"
 	default:
-		return fmt.Sprintf("KProcDescriptorIs(%d)", e)
+		return fmt.Sprintf("KProcDescriptorIsAbsolute(%d)", e)
 	}
 }
 
-type KQD int
+type KProcDescriptorIsProcPtr uint32
+
+const (
+	// Deprecated.
+	KProcDescriptorIsIndex KProcDescriptorIsProcPtr = 0x20
+	// Deprecated.
+	KProcDescriptorIsProcPtrValue KProcDescriptorIsProcPtr = 0
+)
+
+func (e KProcDescriptorIsProcPtr) String() string {
+	switch e {
+	case KProcDescriptorIsIndex:
+		return "KProcDescriptorIsIndex"
+	case KProcDescriptorIsProcPtrValue:
+		return "KProcDescriptorIsProcPtrValue"
+	default:
+		return fmt.Sprintf("KProcDescriptorIsProcPtr(%d)", e)
+	}
+}
+
+type KQD int32
 
 const (
 	KQDCorruptPICTDataErr      KQD = -3954
@@ -19070,7 +21589,7 @@ func (e KQD) String() string {
 	}
 }
 
-type KQTSSUnknown int
+type KQTSSUnknown int32
 
 const (
 	KQTSSUnknownErr KQTSSUnknown = -6150
@@ -19085,7 +21604,7 @@ func (e KQTSSUnknown) String() string {
 	}
 }
 
-type KQuickLookFolder uint
+type KQuickLookFolder uint32
 
 const (
 	// Deprecated.
@@ -19101,7 +21620,7 @@ func (e KQuickLookFolder) String() string {
 	}
 }
 
-type KRA int
+type KRA int32
 
 const (
 	KRAATalkInactive           KRA = -7134
@@ -19233,7 +21752,7 @@ func (e KRA) String() string {
 	}
 }
 
-type KReadExtensionTerms uint
+type KReadExtensionTerms uint32
 
 const (
 	KReadExtensionTermsMask KReadExtensionTerms = 32768
@@ -19248,7 +21767,7 @@ func (e KReadExtensionTerms) String() string {
 	}
 }
 
-type KReadyThreadState uint
+type KReadyThreadState uint32
 
 const (
 	// Deprecated.
@@ -19272,7 +21791,7 @@ func (e KReadyThreadState) String() string {
 	}
 }
 
-type KRegisterD0 uint
+type KRegisterD0 uint32
 
 const (
 	// Deprecated.
@@ -19364,7 +21883,7 @@ func (e KRegisterD0) String() string {
 	}
 }
 
-type KRelativeFolder uint
+type KRelativeFolder uint32
 
 const (
 	KRedirectedRelativeFolder KRelativeFolder = 'r'<<24 | 'r'<<16 | 'e'<<8 | 'l' // 'rrel'
@@ -19385,7 +21904,7 @@ func (e KRelativeFolder) String() string {
 	}
 }
 
-type KResFileNotOpened int
+type KResFileNotOpened int32
 
 const (
 	// Deprecated.
@@ -19405,7 +21924,7 @@ func (e KResFileNotOpened) String() string {
 	}
 }
 
-type KResolveAlias uint
+type KResolveAlias uint32
 
 const (
 	// Deprecated.
@@ -19425,7 +21944,7 @@ func (e KResolveAlias) String() string {
 	}
 }
 
-type KRoutineDescriptor uint
+type KRoutineDescriptor uint32
 
 const (
 	// Deprecated.
@@ -19441,7 +21960,7 @@ func (e KRoutineDescriptor) String() string {
 	}
 }
 
-type KRoutineIs uint
+type KRoutineIs uint32
 
 const (
 	// Deprecated.
@@ -19461,7 +21980,7 @@ func (e KRoutineIs) String() string {
 	}
 }
 
-type KRoutingResource uint
+type KRoutingResource uint32
 
 const (
 	KRoutingResourceID   KRoutingResource = 0
@@ -19479,7 +21998,7 @@ func (e KRoutingResource) String() string {
 	}
 }
 
-type KRsrcChain uint
+type KRsrcChain uint32
 
 const (
 	// Deprecated.
@@ -19507,7 +22026,7 @@ func (e KRsrcChain) String() string {
 	}
 }
 
-type KSKSearchOption uint
+type KSKSearchOption uint32
 
 const (
 	// KSKSearchOptionDefault: # Discussion
@@ -19535,7 +22054,7 @@ func (e KSKSearchOption) String() string {
 	}
 }
 
-type KSOA uint
+type KSOA uint32
 
 const (
 	KSOAP1999Schema KSOA = 's'<<24 | 's'<<16 | '9'<<8 | '9' // 'ss99'
@@ -19553,7 +22072,7 @@ func (e KSOA) String() string {
 	}
 }
 
-type KSSp int
+type KSSp int32
 
 const (
 	KSSpCantInstallErr      KSSp = -30342
@@ -19580,25 +22099,25 @@ func (e KSSp) String() string {
 	}
 }
 
-type KSecOptionReserved uint
+type KSecOptionReserved uint32
 
 const (
 	KCertUsageAllAdd           KSecOptionReserved = 0x7fffff00
-	KCertUsageDecryptAdd       KSecOptionReserved = 1
-	KCertUsageDecryptAskAndAdd KSecOptionReserved = 1
-	KCertUsageEncryptAdd       KSecOptionReserved = 1
-	KCertUsageEncryptAskAndAdd KSecOptionReserved = 1
-	KCertUsageKeyExchAdd       KSecOptionReserved = 1
-	KCertUsageKeyExchAskAndAdd KSecOptionReserved = 1
-	KCertUsageRootAdd          KSecOptionReserved = 1
-	KCertUsageRootAskAndAdd    KSecOptionReserved = 1
-	KCertUsageSSLAdd           KSecOptionReserved = 1
-	KCertUsageSSLAskAndAdd     KSecOptionReserved = 1
+	KCertUsageDecryptAdd       KSecOptionReserved = 16384
+	KCertUsageDecryptAskAndAdd KSecOptionReserved = 32768
+	KCertUsageEncryptAdd       KSecOptionReserved = 4096
+	KCertUsageEncryptAskAndAdd KSecOptionReserved = 8192
+	KCertUsageKeyExchAdd       KSecOptionReserved = 65536
+	KCertUsageKeyExchAskAndAdd KSecOptionReserved = 131072
+	KCertUsageRootAdd          KSecOptionReserved = 262144
+	KCertUsageRootAskAndAdd    KSecOptionReserved = 524288
+	KCertUsageSSLAdd           KSecOptionReserved = 1048576
+	KCertUsageSSLAskAndAdd     KSecOptionReserved = 2097152
 	KCertUsageShift            KSecOptionReserved = 8
-	KCertUsageSigningAdd       KSecOptionReserved = 1
-	KCertUsageSigningAskAndAdd KSecOptionReserved = 1
-	KCertUsageVerifyAdd        KSecOptionReserved = 1
-	KCertUsageVerifyAskAndAdd  KSecOptionReserved = 1
+	KCertUsageSigningAdd       KSecOptionReserved = 256
+	KCertUsageSigningAskAndAdd KSecOptionReserved = 512
+	KCertUsageVerifyAdd        KSecOptionReserved = 1024
+	KCertUsageVerifyAskAndAdd  KSecOptionReserved = 2048
 	KSecOptionReservedValue    KSecOptionReserved = 0xff
 )
 
@@ -19608,8 +22127,34 @@ func (e KSecOptionReserved) String() string {
 		return "KCertUsageAllAdd"
 	case KCertUsageDecryptAdd:
 		return "KCertUsageDecryptAdd"
+	case KCertUsageDecryptAskAndAdd:
+		return "KCertUsageDecryptAskAndAdd"
+	case KCertUsageEncryptAdd:
+		return "KCertUsageEncryptAdd"
+	case KCertUsageEncryptAskAndAdd:
+		return "KCertUsageEncryptAskAndAdd"
+	case KCertUsageKeyExchAdd:
+		return "KCertUsageKeyExchAdd"
+	case KCertUsageKeyExchAskAndAdd:
+		return "KCertUsageKeyExchAskAndAdd"
+	case KCertUsageRootAdd:
+		return "KCertUsageRootAdd"
+	case KCertUsageRootAskAndAdd:
+		return "KCertUsageRootAskAndAdd"
+	case KCertUsageSSLAdd:
+		return "KCertUsageSSLAdd"
+	case KCertUsageSSLAskAndAdd:
+		return "KCertUsageSSLAskAndAdd"
 	case KCertUsageShift:
 		return "KCertUsageShift"
+	case KCertUsageSigningAdd:
+		return "KCertUsageSigningAdd"
+	case KCertUsageSigningAskAndAdd:
+		return "KCertUsageSigningAskAndAdd"
+	case KCertUsageVerifyAdd:
+		return "KCertUsageVerifyAdd"
+	case KCertUsageVerifyAskAndAdd:
+		return "KCertUsageVerifyAskAndAdd"
 	case KSecOptionReservedValue:
 		return "KSecOptionReservedValue"
 	default:
@@ -19617,7 +22162,7 @@ func (e KSecOptionReserved) String() string {
 	}
 }
 
-type KSelectorsAre uint
+type KSelectorsAre uint32
 
 const (
 	// Deprecated.
@@ -19637,7 +22182,7 @@ func (e KSelectorsAre) String() string {
 	}
 }
 
-type KServicesFolder uint
+type KServicesFolder uint32
 
 const (
 	// Deprecated.
@@ -19653,7 +22198,7 @@ func (e KServicesFolder) String() string {
 	}
 }
 
-type KSharedLibrariesFolderType uint
+type KSharedLibrariesFolderType uint32
 
 const (
 	// Deprecated.
@@ -19709,7 +22254,7 @@ func (e KSharedLibrariesFolderType) String() string {
 	}
 }
 
-type KSharingPrivs uint
+type KSharingPrivs uint32
 
 const (
 	KSharingPrivsNotApplicableIcon KSharingPrivs = 's'<<24 | 'h'<<16 | 'n'<<8 | 'a' // 'shna'
@@ -19736,7 +22281,7 @@ func (e KSharingPrivs) String() string {
 	}
 }
 
-type KShiftJIS uint
+type KShiftJIS uint32
 
 const (
 	KShiftJIS_BasicVariant   KShiftJIS = 0
@@ -19757,7 +22302,7 @@ func (e KShiftJIS) String() string {
 	}
 }
 
-type KSleepRequest uint
+type KSleepRequest uint32
 
 const (
 	KDeviceInitiatedWake KSleepRequest = 18
@@ -19848,7 +22393,7 @@ func (e KSleepRequest) String() string {
 	}
 }
 
-type KSpecial uint
+type KSpecial uint32
 
 const (
 	// Deprecated.
@@ -19864,7 +22409,7 @@ func (e KSpecial) String() string {
 	}
 }
 
-type KSpecialCase uint
+type KSpecialCase uint32
 
 const (
 	// Deprecated.
@@ -19932,7 +22477,7 @@ func (e KSpecialCase) String() string {
 	}
 }
 
-type KStartupFolderIconResource int
+type KStartupFolderIconResource int32
 
 const (
 	KControlPanelFolderIconResource KStartupFolderIconResource = -3976
@@ -19977,7 +22522,7 @@ func (e KStartupFolderIconResource) String() string {
 	}
 }
 
-type KSystemFolderAliasType uint
+type KSystemFolderAliasType uint32
 
 const (
 	KAppleMenuFolderAliasType        KSystemFolderAliasType = 'f'<<24 | 'a'<<16 | 'a'<<8 | 'm' // 'faam'
@@ -20010,7 +22555,7 @@ func (e KSystemFolderAliasType) String() string {
 	}
 }
 
-type KSystemFolderType uint
+type KSystemFolderType uint32
 
 const (
 	// Deprecated.
@@ -20262,7 +22807,7 @@ func (e KSystemFolderType) String() string {
 	}
 }
 
-type KSystemIcons uint
+type KSystemIcons uint32
 
 const (
 	KSystemIconsCreator KSystemIcons = 'm'<<24 | 'a'<<16 | 'c'<<8 | 's' // 'macs'
@@ -20277,130 +22822,76 @@ func (e KSystemIcons) String() string {
 	}
 }
 
-type KTEC int
+type KTECAvailableEncodingsResType uint32
 
 const (
-	KTECAddFallbackInterruptBit  KTEC = 7
-	KTECAddFallbackInterruptMask KTEC = 128
-	// KTECAddForceASCIIChangesBit: This is set if the new control flag bits `kUnicodeForceASCIIRangeBit` and `kUnicodeNoHalfwidthCharsBit` are supported for use with the functions [ConvertFromTextToUnicode], [ConvertFromUnicodeToText], and so forth.
-	KTECAddForceASCIIChangesBit   KTEC = 4
-	KTECAddForceASCIIChangesMask  KTEC = 16
-	KTECAddTextRunHeuristicsBit   KTEC = 6
-	KTECAddTextRunHeuristicsMask  KTEC = 64
-	KTECAvailableEncodingsResType KTEC = 'c'<<24 | 'v'<<16 | 'e'<<8 | 'n' // 'cven'
-	KTECAvailableSniffersResType  KTEC = 'c'<<24 | 'v'<<16 | 's'<<8 | 'f' // 'cvsf'
-	KTECChinesePluginSignature    KTEC = 'p'<<24 | 'z'<<16 | 'h'<<8 | 'o' // 'pzho'
-	KTECConversionInfoResType     KTEC = 'c'<<24 | 'v'<<16 | 'i'<<8 | 'f' // 'cvif'
-	// KTECFallbackTextLengthFixBit: # Discussion
-	KTECFallbackTextLengthFixBit  KTEC = 1
-	KTECFallbackTextLengthFixMask KTEC = 2
-	KTECInternetNamesResType      KTEC = 'c'<<24 | 'v'<<16 | 'm'<<8 | 'm' // 'cvmm'
-	KTECJapanesePluginSignature   KTEC = 'p'<<24 | 'j'<<16 | 'p'<<8 | 'n' // 'pjpn'
-	// KTECKeepInfoFixBit: This is set if the Unicode Converter has a bug fix to stop ignoring certain control flags
-	KTECKeepInfoFixBit        KTEC = 0
-	KTECKeepInfoFixMask       KTEC = 1
-	KTECKoreanPluginSignature KTEC = 'p'<<24 | 'k'<<16 | 'o'<<8 | 'r' // 'pkor'
-	KTECMailEncodingsResType  KTEC = 'c'<<24 | 'v'<<16 | 'm'<<8 | 'l' // 'cvml'
-	// KTECPreferredEncodingFixBit: This is set to indicate that if a preferred encoding is specified for [CreateUnicodeToTextRunInfo] and related functions, they handle it correctly even if it does not match the system script.
-	KTECPreferredEncodingFixBit  KTEC = 5
-	KTECPreferredEncodingFixMask KTEC = 32
-	KTECSignature                KTEC = 'e'<<24 | 'n'<<16 | 'c'<<8 | 'v' // 'encv'
-	KTECSubTextEncodingsResType  KTEC = 'c'<<24 | 'v'<<16 | 's'<<8 | 'b' // 'cvsb'
-	// KTECTextRunBitClearFixBit: This is set if [ConvertFromUnicodeToTextRun] and [ConvertFromUnicodeToScriptCodeRun] function correctly if the `kUnicodeTextRunBit` is clear.
-	KTECTextRunBitClearFixBit  KTEC = 2
-	KTECTextRunBitClearFixMask KTEC = 4
-	// KTECTextToUnicodeScanFixBit: # Discussion
-	KTECTextToUnicodeScanFixBit  KTEC = 3
-	KTECTextToUnicodeScanFixMask KTEC = 8
-	KTECUnicodePluginSignature   KTEC = 'p'<<24 | 'u'<<16 | 'n'<<8 | 'i' // 'puni'
-	KTECWebEncodingsResType      KTEC = 'c'<<24 | 'v'<<16 | 'w'<<8 | 'b' // 'cvwb'
-	KTEC_MIBEnumDontCare         KTEC = -1
+	KTECAvailableEncodingsResTypeValue KTECAvailableEncodingsResType = 'c'<<24 | 'v'<<16 | 'e'<<8 | 'n' // 'cven'
+	KTECAvailableSniffersResType       KTECAvailableEncodingsResType = 'c'<<24 | 'v'<<16 | 's'<<8 | 'f' // 'cvsf'
+	KTECConversionInfoResType          KTECAvailableEncodingsResType = 'c'<<24 | 'v'<<16 | 'i'<<8 | 'f' // 'cvif'
+	KTECInternetNamesResType           KTECAvailableEncodingsResType = 'c'<<24 | 'v'<<16 | 'm'<<8 | 'm' // 'cvmm'
+	KTECMailEncodingsResType           KTECAvailableEncodingsResType = 'c'<<24 | 'v'<<16 | 'm'<<8 | 'l' // 'cvml'
+	KTECSubTextEncodingsResType        KTECAvailableEncodingsResType = 'c'<<24 | 'v'<<16 | 's'<<8 | 'b' // 'cvsb'
+	KTECWebEncodingsResType            KTECAvailableEncodingsResType = 'c'<<24 | 'v'<<16 | 'w'<<8 | 'b' // 'cvwb'
 )
 
-func (e KTEC) String() string {
+func (e KTECAvailableEncodingsResType) String() string {
 	switch e {
-	case KTECAddFallbackInterruptBit:
-		return "KTECAddFallbackInterruptBit"
-	case KTECAddFallbackInterruptMask:
-		return "KTECAddFallbackInterruptMask"
-	case KTECAddForceASCIIChangesBit:
-		return "KTECAddForceASCIIChangesBit"
-	case KTECAddForceASCIIChangesMask:
-		return "KTECAddForceASCIIChangesMask"
-	case KTECAddTextRunHeuristicsBit:
-		return "KTECAddTextRunHeuristicsBit"
-	case KTECAddTextRunHeuristicsMask:
-		return "KTECAddTextRunHeuristicsMask"
-	case KTECAvailableEncodingsResType:
-		return "KTECAvailableEncodingsResType"
+	case KTECAvailableEncodingsResTypeValue:
+		return "KTECAvailableEncodingsResTypeValue"
 	case KTECAvailableSniffersResType:
 		return "KTECAvailableSniffersResType"
-	case KTECChinesePluginSignature:
-		return "KTECChinesePluginSignature"
 	case KTECConversionInfoResType:
 		return "KTECConversionInfoResType"
-	case KTECFallbackTextLengthFixBit:
-		return "KTECFallbackTextLengthFixBit"
-	case KTECFallbackTextLengthFixMask:
-		return "KTECFallbackTextLengthFixMask"
 	case KTECInternetNamesResType:
 		return "KTECInternetNamesResType"
-	case KTECJapanesePluginSignature:
-		return "KTECJapanesePluginSignature"
-	case KTECKeepInfoFixBit:
-		return "KTECKeepInfoFixBit"
-	case KTECKoreanPluginSignature:
-		return "KTECKoreanPluginSignature"
 	case KTECMailEncodingsResType:
 		return "KTECMailEncodingsResType"
-	case KTECPreferredEncodingFixBit:
-		return "KTECPreferredEncodingFixBit"
-	case KTECPreferredEncodingFixMask:
-		return "KTECPreferredEncodingFixMask"
-	case KTECSignature:
-		return "KTECSignature"
 	case KTECSubTextEncodingsResType:
 		return "KTECSubTextEncodingsResType"
-	case KTECTextToUnicodeScanFixBit:
-		return "KTECTextToUnicodeScanFixBit"
-	case KTECTextToUnicodeScanFixMask:
-		return "KTECTextToUnicodeScanFixMask"
-	case KTECUnicodePluginSignature:
-		return "KTECUnicodePluginSignature"
 	case KTECWebEncodingsResType:
 		return "KTECWebEncodingsResType"
-	case KTEC_MIBEnumDontCare:
-		return "KTEC_MIBEnumDontCare"
 	default:
-		return fmt.Sprintf("KTEC(%d)", e)
+		return fmt.Sprintf("KTECAvailableEncodingsResType(%d)", e)
 	}
 }
 
-type KTECDisable uint
+type KTECDisableFallbacksBit uint32
 
 const (
-	KTECDisableFallbacksBit      KTECDisable = 16
-	KTECDisableFallbacksMask     KTECDisable = 65536
-	KTECDisableLooseMappingsBit  KTECDisable = 17
-	KTECDisableLooseMappingsMask KTECDisable = 131072
+	KTECDisableFallbacksBitValue KTECDisableFallbacksBit = 16
+	KTECDisableLooseMappingsBit  KTECDisableFallbacksBit = 17
 )
 
-func (e KTECDisable) String() string {
+func (e KTECDisableFallbacksBit) String() string {
 	switch e {
-	case KTECDisableFallbacksBit:
-		return "KTECDisableFallbacksBit"
-	case KTECDisableFallbacksMask:
-		return "KTECDisableFallbacksMask"
+	case KTECDisableFallbacksBitValue:
+		return "KTECDisableFallbacksBitValue"
 	case KTECDisableLooseMappingsBit:
 		return "KTECDisableLooseMappingsBit"
+	default:
+		return fmt.Sprintf("KTECDisableFallbacksBit(%d)", e)
+	}
+}
+
+type KTECDisableFallbacksMask uint32
+
+const (
+	KTECDisableFallbacksMaskValue KTECDisableFallbacksMask = 65536
+	KTECDisableLooseMappingsMask  KTECDisableFallbacksMask = 131072
+)
+
+func (e KTECDisableFallbacksMask) String() string {
+	switch e {
+	case KTECDisableFallbacksMaskValue:
+		return "KTECDisableFallbacksMaskValue"
 	case KTECDisableLooseMappingsMask:
 		return "KTECDisableLooseMappingsMask"
 	default:
-		return fmt.Sprintf("KTECDisable(%d)", e)
+		return fmt.Sprintf("KTECDisableFallbacksMask(%d)", e)
 	}
 }
 
-type KTECInfoCurrent uint
+type KTECInfoCurrent uint32
 
 const (
 	KTECInfoCurrentFormat KTECInfoCurrent = 2
@@ -20415,7 +22906,7 @@ func (e KTECInfoCurrent) String() string {
 	}
 }
 
-type KTECInternetName uint
+type KTECInternetName uint32
 
 const (
 	KTECInternetNameDefaultUsageMask  KTECInternetName = 0
@@ -20436,7 +22927,85 @@ func (e KTECInternetName) String() string {
 	}
 }
 
-type KTECPlugin uint
+type KTECKeepInfoFixBit uint32
+
+const (
+	KTECAddFallbackInterruptBit KTECKeepInfoFixBit = 7
+	// KTECAddForceASCIIChangesBit: This is set if the new control flag bits `kUnicodeForceASCIIRangeBit` and `kUnicodeNoHalfwidthCharsBit` are supported for use with the functions [ConvertFromTextToUnicode], [ConvertFromUnicodeToText], and so forth.
+	KTECAddForceASCIIChangesBit KTECKeepInfoFixBit = 4
+	KTECAddTextRunHeuristicsBit KTECKeepInfoFixBit = 6
+	// KTECFallbackTextLengthFixBit: # Discussion
+	KTECFallbackTextLengthFixBit KTECKeepInfoFixBit = 1
+	// KTECKeepInfoFixBitValue: This is set if the Unicode Converter has a bug fix to stop ignoring certain control flags
+	KTECKeepInfoFixBitValue KTECKeepInfoFixBit = 0
+	// KTECPreferredEncodingFixBit: This is set to indicate that if a preferred encoding is specified for [CreateUnicodeToTextRunInfo] and related functions, they handle it correctly even if it does not match the system script.
+	KTECPreferredEncodingFixBit KTECKeepInfoFixBit = 5
+	// KTECTextRunBitClearFixBit: This is set if [ConvertFromUnicodeToTextRun] and [ConvertFromUnicodeToScriptCodeRun] function correctly if the `kUnicodeTextRunBit` is clear.
+	KTECTextRunBitClearFixBit KTECKeepInfoFixBit = 2
+	// KTECTextToUnicodeScanFixBit: # Discussion
+	KTECTextToUnicodeScanFixBit KTECKeepInfoFixBit = 3
+)
+
+func (e KTECKeepInfoFixBit) String() string {
+	switch e {
+	case KTECAddFallbackInterruptBit:
+		return "KTECAddFallbackInterruptBit"
+	case KTECAddForceASCIIChangesBit:
+		return "KTECAddForceASCIIChangesBit"
+	case KTECAddTextRunHeuristicsBit:
+		return "KTECAddTextRunHeuristicsBit"
+	case KTECFallbackTextLengthFixBit:
+		return "KTECFallbackTextLengthFixBit"
+	case KTECKeepInfoFixBitValue:
+		return "KTECKeepInfoFixBitValue"
+	case KTECPreferredEncodingFixBit:
+		return "KTECPreferredEncodingFixBit"
+	case KTECTextRunBitClearFixBit:
+		return "KTECTextRunBitClearFixBit"
+	case KTECTextToUnicodeScanFixBit:
+		return "KTECTextToUnicodeScanFixBit"
+	default:
+		return fmt.Sprintf("KTECKeepInfoFixBit(%d)", e)
+	}
+}
+
+type KTECKeepInfoFixMask uint32
+
+const (
+	KTECAddFallbackInterruptMask  KTECKeepInfoFixMask = 128
+	KTECAddForceASCIIChangesMask  KTECKeepInfoFixMask = 16
+	KTECAddTextRunHeuristicsMask  KTECKeepInfoFixMask = 64
+	KTECFallbackTextLengthFixMask KTECKeepInfoFixMask = 2
+	KTECKeepInfoFixMaskValue      KTECKeepInfoFixMask = 1
+	KTECPreferredEncodingFixMask  KTECKeepInfoFixMask = 32
+	KTECTextRunBitClearFixMask    KTECKeepInfoFixMask = 4
+	KTECTextToUnicodeScanFixMask  KTECKeepInfoFixMask = 8
+)
+
+func (e KTECKeepInfoFixMask) String() string {
+	switch e {
+	case KTECAddFallbackInterruptMask:
+		return "KTECAddFallbackInterruptMask"
+	case KTECAddForceASCIIChangesMask:
+		return "KTECAddForceASCIIChangesMask"
+	case KTECAddTextRunHeuristicsMask:
+		return "KTECAddTextRunHeuristicsMask"
+	case KTECFallbackTextLengthFixMask:
+		return "KTECFallbackTextLengthFixMask"
+	case KTECKeepInfoFixMaskValue:
+		return "KTECKeepInfoFixMaskValue"
+	case KTECPreferredEncodingFixMask:
+		return "KTECPreferredEncodingFixMask"
+	case KTECTextRunBitClearFixMask:
+		return "KTECTextRunBitClearFixMask"
+	case KTECTextToUnicodeScanFixMask:
+		return "KTECTextToUnicodeScanFixMask"
+	default:
+		return fmt.Sprintf("KTECKeepInfoFixMask(%d)", e)
+	}
+}
+
+type KTECPlugin uint32
 
 const (
 	KTECPluginCreator   KTECPlugin = 'e'<<24 | 'n'<<16 | 'c'<<8 | 'v' // 'encv'
@@ -20466,7 +23035,7 @@ func (e KTECPlugin) String() string {
 	}
 }
 
-type KTECPluginDispatchTable uint
+type KTECPluginDispatchTable uint32
 
 const (
 	// KTECPluginDispatchTableCurrentVersion: A meta value that specifies the current version.
@@ -20492,7 +23061,34 @@ func (e KTECPluginDispatchTable) String() string {
 	}
 }
 
-type KTMTask uint
+type KTECSignature uint32
+
+const (
+	KTECChinesePluginSignature  KTECSignature = 'p'<<24 | 'z'<<16 | 'h'<<8 | 'o' // 'pzho'
+	KTECJapanesePluginSignature KTECSignature = 'p'<<24 | 'j'<<16 | 'p'<<8 | 'n' // 'pjpn'
+	KTECKoreanPluginSignature   KTECSignature = 'p'<<24 | 'k'<<16 | 'o'<<8 | 'r' // 'pkor'
+	KTECSignatureValue          KTECSignature = 'e'<<24 | 'n'<<16 | 'c'<<8 | 'v' // 'encv'
+	KTECUnicodePluginSignature  KTECSignature = 'p'<<24 | 'u'<<16 | 'n'<<8 | 'i' // 'puni'
+)
+
+func (e KTECSignature) String() string {
+	switch e {
+	case KTECChinesePluginSignature:
+		return "KTECChinesePluginSignature"
+	case KTECJapanesePluginSignature:
+		return "KTECJapanesePluginSignature"
+	case KTECKoreanPluginSignature:
+		return "KTECKoreanPluginSignature"
+	case KTECSignatureValue:
+		return "KTECSignatureValue"
+	case KTECUnicodePluginSignature:
+		return "KTECUnicodePluginSignature"
+	default:
+		return fmt.Sprintf("KTECSignature(%d)", e)
+	}
+}
+
+type KTMTask uint32
 
 const (
 	// Deprecated.
@@ -20508,7 +23104,7 @@ func (e KTMTask) String() string {
 	}
 }
 
-type KTSM uint
+type KTSM uint32
 
 const (
 	KTSMInsideOfActiveInputArea KTSM = 3
@@ -20529,7 +23125,7 @@ func (e KTSM) String() string {
 	}
 }
 
-type KTSMHilite uint
+type KTSMHilite uint32
 
 const (
 	// KTSMHiliteBlockFillText: Specifies block fill highlight style.
@@ -20577,7 +23173,7 @@ func (e KTSMHilite) String() string {
 	}
 }
 
-type KTXN int
+type KTXN int32
 
 const (
 	KTXNATSUIIsNotInstalledErr              KTXN = -22016
@@ -20646,205 +23242,77 @@ func (e KTXN) String() string {
 	}
 }
 
-type KText int
+type KTextEncodingDOSLatinUS uint32
 
 const (
-	KTextCenter       KText = 1
-	KTextFlushDefault KText = 0
-	KTextFlushLeft    KText = -2
-	KTextFlushRight   KText = -1
-	// KTextLanguageDontCare: Indicates that language code is not provided for the derivation.
-	KTextLanguageDontCare KText = -128
-	// KTextRegionDontCare: The region code is not provided for the derivation.
-	KTextRegionDontCare KText = -128
-	// KTextScriptDontCare: Indicates that the code is not provided for the derivation.
-	KTextScriptDontCare KText = -128
-)
-
-func (e KText) String() string {
-	switch e {
-	case KTextCenter:
-		return "KTextCenter"
-	case KTextFlushDefault:
-		return "KTextFlushDefault"
-	case KTextFlushLeft:
-		return "KTextFlushLeft"
-	case KTextFlushRight:
-		return "KTextFlushRight"
-	case KTextLanguageDontCare:
-		return "KTextLanguageDontCare"
-	default:
-		return fmt.Sprintf("KText(%d)", e)
-	}
-}
-
-type KTextEncoding uint
-
-const (
-	KTextEncodingANSEL KTextEncoding = 0x601
-	// KTextEncodingBaseName: Requests the name of the base encoding.
-	KTextEncodingBaseName KTextEncoding = 1
-	// KTextEncodingBig5: Big-5 encoding.
-	KTextEncodingBig5            KTextEncoding = 0xa03
-	KTextEncodingBig5_E          KTextEncoding = 0xa09
-	KTextEncodingBig5_HKSCS_1999 KTextEncoding = 0xa06
-	// KTextEncodingCNS_11643_92_P1: CNS 11643-1992 plane 1.
-	KTextEncodingCNS_11643_92_P1 KTextEncoding = 0x651
-	// KTextEncodingCNS_11643_92_P2: CNS 11643-1992 plane 2.
-	KTextEncodingCNS_11643_92_P2 KTextEncoding = 0x652
-	// KTextEncodingCNS_11643_92_P3: CNS 11643-1992 plane 3 (11643-1986 plane 14).
-	KTextEncodingCNS_11643_92_P3 KTextEncoding = 0x653
 	// KTextEncodingDOSArabic: Code page 864.
-	KTextEncodingDOSArabic KTextEncoding = 0x419
+	KTextEncodingDOSArabic KTextEncodingDOSLatinUS = 0x419
 	// KTextEncodingDOSBalticRim: Code page 775.
-	KTextEncodingDOSBalticRim KTextEncoding = 0x406
+	KTextEncodingDOSBalticRim KTextEncodingDOSLatinUS = 0x406
 	// KTextEncodingDOSCanadianFrench: Code page 863.
-	KTextEncodingDOSCanadianFrench KTextEncoding = 0x418
+	KTextEncodingDOSCanadianFrench KTextEncodingDOSLatinUS = 0x418
 	// KTextEncodingDOSChineseSimplif: Code page 936, also for Windows.
-	KTextEncodingDOSChineseSimplif KTextEncoding = 0x421
+	KTextEncodingDOSChineseSimplif KTextEncodingDOSLatinUS = 0x421
 	// KTextEncodingDOSChineseTrad: Code page 950, also for Windows.
-	KTextEncodingDOSChineseTrad KTextEncoding = 0x423
+	KTextEncodingDOSChineseTrad KTextEncodingDOSLatinUS = 0x423
 	// KTextEncodingDOSCyrillic: Code page 855, IBM Cyrillic.
-	KTextEncodingDOSCyrillic KTextEncoding = 0x413
+	KTextEncodingDOSCyrillic KTextEncodingDOSLatinUS = 0x413
 	// KTextEncodingDOSGreek: Code page 737, formerly 437G.
-	KTextEncodingDOSGreek KTextEncoding = 0x405
+	KTextEncodingDOSGreek KTextEncodingDOSLatinUS = 0x405
 	// KTextEncodingDOSGreek1: Code page 851.
-	KTextEncodingDOSGreek1 KTextEncoding = 0x411
+	KTextEncodingDOSGreek1 KTextEncodingDOSLatinUS = 0x411
 	// KTextEncodingDOSGreek2: Code page 869, IBM Modern Green.
-	KTextEncodingDOSGreek2 KTextEncoding = 0x41c
+	KTextEncodingDOSGreek2 KTextEncodingDOSLatinUS = 0x41c
 	// KTextEncodingDOSHebrew: Code page 862.
-	KTextEncodingDOSHebrew KTextEncoding = 0x417
+	KTextEncodingDOSHebrew KTextEncodingDOSLatinUS = 0x417
 	// KTextEncodingDOSIcelandic: Code page 861.
-	KTextEncodingDOSIcelandic KTextEncoding = 0x416
+	KTextEncodingDOSIcelandic KTextEncodingDOSLatinUS = 0x416
 	// KTextEncodingDOSJapanese: Code page 932, also for Windows
-	KTextEncodingDOSJapanese KTextEncoding = 0x420
+	KTextEncodingDOSJapanese KTextEncodingDOSLatinUS = 0x420
 	// KTextEncodingDOSKorean: Code page 949, also for Windows; unified Hangul.
-	KTextEncodingDOSKorean KTextEncoding = 0x422
+	KTextEncodingDOSKorean KTextEncodingDOSLatinUS = 0x422
 	// KTextEncodingDOSLatin1: Code page 860.
-	KTextEncodingDOSLatin1 KTextEncoding = 0x410
+	KTextEncodingDOSLatin1 KTextEncodingDOSLatinUS = 0x410
 	// KTextEncodingDOSLatin2: Code page 852, Slavic.
-	KTextEncodingDOSLatin2 KTextEncoding = 0x412
-	// KTextEncodingDOSLatinUS: Code page 437.
-	KTextEncodingDOSLatinUS KTextEncoding = 0x400
+	KTextEncodingDOSLatin2 KTextEncodingDOSLatinUS = 0x412
+	// KTextEncodingDOSLatinUSValue: Code page 437.
+	KTextEncodingDOSLatinUSValue KTextEncodingDOSLatinUS = 0x400
 	// KTextEncodingDOSNordic: Cde page 865.
-	KTextEncodingDOSNordic KTextEncoding = 0x41a
+	KTextEncodingDOSNordic KTextEncodingDOSLatinUS = 0x41a
 	// KTextEncodingDOSPortuguese: Code page 860.
-	KTextEncodingDOSPortuguese KTextEncoding = 0x415
+	KTextEncodingDOSPortuguese KTextEncodingDOSLatinUS = 0x415
 	// KTextEncodingDOSRussian: Code page 866.
-	KTextEncodingDOSRussian KTextEncoding = 0x41b
+	KTextEncodingDOSRussian KTextEncodingDOSLatinUS = 0x41b
 	// KTextEncodingDOSThai: Code page 874, also for Windows.
-	KTextEncodingDOSThai KTextEncoding = 0x41d
+	KTextEncodingDOSThai KTextEncodingDOSLatinUS = 0x41d
 	// KTextEncodingDOSTurkish: Code page 857, IBM Turkish.
-	KTextEncodingDOSTurkish KTextEncoding = 0x414
-	// KTextEncodingFormatName: Requests the name of the encoding format, if available.
-	KTextEncodingFormatName KTextEncoding = 3
-	// KTextEncodingFullName: Requests the full name of the text encoding.
-	KTextEncodingFullName KTextEncoding = 0
-	// KTextEncodingGBK_95: Annex to GB13000-93, for Windows 95; EUC-CN extended.
-	KTextEncodingGBK_95        KTextEncoding = 0x631
-	KTextEncodingGB_18030_2000 KTextEncoding = 0x632
-	KTextEncodingGB_18030_2005 KTextEncoding = 0x632
-	KTextEncodingGB_2312_80    KTextEncoding = 0x630
-	// KTextEncodingHZ_GB_2312: See RFC 1842; for Chinese mail and news.
-	KTextEncodingHZ_GB_2312 KTextEncoding = 0xa05
-	// KTextEncodingISO10646_1993: This ISO UCS encoding has code points identical to Unicode 1.1.
-	KTextEncodingISO10646_1993 KTextEncoding = 0x101
-	KTextEncodingJIS_C6226_78  KTextEncoding = 0x624
-	// KTextEncodingJIS_X0201_76: JIS Roman and 1-byte katakana (halfwidth).
-	KTextEncodingJIS_X0201_76       KTextEncoding = 0x620
-	KTextEncodingJIS_X0208_83       KTextEncoding = 0x621
-	KTextEncodingJIS_X0208_90       KTextEncoding = 0x622
-	KTextEncodingJIS_X0212_90       KTextEncoding = 0x623
-	KTextEncodingJIS_X0213_MenKuTen KTextEncoding = 0x629
-	// KTextEncodingKOI8_R: Russian Internet standard.
-	KTextEncodingKOI8_R KTextEncoding = 0xa02
-	KTextEncodingKOI8_U KTextEncoding = 0xa08
-	// KTextEncodingKSC_5601_87: This is the same as KSC 5601-92 without Johab annex.
-	KTextEncodingKSC_5601_87 KTextEncoding = 0x640
-	// KTextEncodingKSC_5601_92_Johab: KSC 5601-92 Johab annex.
-	KTextEncodingKSC_5601_92_Johab KTextEncoding = 0x641
-	// KTextEncodingMacRomanLatin1: Mac OS Roman permuted to align with 8859-1.
-	KTextEncodingMacRomanLatin1 KTextEncoding = 0xa04
-	// KTextEncodingMultiRun: This is a special value for multiple encoded text, external run information.
-	KTextEncodingMultiRun KTextEncoding = 0xfff
-	// KTextEncodingShiftJIS: Plain Shift-JIS.
-	KTextEncodingShiftJIS       KTextEncoding = 0xa01
-	KTextEncodingShiftJIS_X0213 KTextEncoding = 0x628
-	KTextEncodingUS_ASCII       KTextEncoding = 0x600
-	// KTextEncodingUnicodeDefault: This is a meta value that takes on one of the following values, depending on the system.
-	KTextEncodingUnicodeDefault KTextEncoding = 0x100
-	KTextEncodingUnicodeV10_0   KTextEncoding = 0x114
-	KTextEncodingUnicodeV11_0   KTextEncoding = 0x115
-	KTextEncodingUnicodeV12_1   KTextEncoding = 0x116
-	KTextEncodingUnicodeV13_0   KTextEncoding = 0x117
-	KTextEncodingUnicodeV14_0   KTextEncoding = 0x118
-	KTextEncodingUnicodeV15_0   KTextEncoding = 0x119
-	KTextEncodingUnicodeV15_1   KTextEncoding = 0x11a
-	// KTextEncodingUnicodeV1_1: This is a Unicode encoding.
-	KTextEncodingUnicodeV1_1 KTextEncoding = 0x101
-	// KTextEncodingUnicodeV2_0: This is the new location for Korean Hangul.
-	KTextEncodingUnicodeV2_0 KTextEncoding = 0x103
-	// KTextEncodingUnicodeV2_1: For the Text Encoding Converter, Unicode 2.0 is equivalent to Unicode 2.1.
-	KTextEncodingUnicodeV2_1 KTextEncoding = 0x103
-	KTextEncodingUnicodeV3_0 KTextEncoding = 0x104
-	// KTextEncodingUnicodeV3_1: Adds characters requiring surrogate pairs in UTF-16
-	KTextEncodingUnicodeV3_1 KTextEncoding = 0x105
-	KTextEncodingUnicodeV3_2 KTextEncoding = 0x106
-	KTextEncodingUnicodeV4_0 KTextEncoding = 0x108
-	KTextEncodingUnicodeV5_0 KTextEncoding = 0x10a
-	KTextEncodingUnicodeV5_1 KTextEncoding = 0x10b
-	KTextEncodingUnicodeV6_0 KTextEncoding = 0x10d
-	KTextEncodingUnicodeV6_1 KTextEncoding = 0x10e
-	KTextEncodingUnicodeV6_3 KTextEncoding = 0x110
-	KTextEncodingUnicodeV7_0 KTextEncoding = 0x111
-	KTextEncodingUnicodeV8_0 KTextEncoding = 0x112
-	KTextEncodingUnicodeV9_0 KTextEncoding = 0x113
-	KTextEncodingUnknown     KTextEncoding = 0xffff
-	KTextEncodingVISCII      KTextEncoding = 0xa07
-	// KTextEncodingVariantName: Requests the name of the encoding variant, if available.
-	KTextEncodingVariantName KTextEncoding = 2
+	KTextEncodingDOSTurkish KTextEncodingDOSLatinUS = 0x414
 	// KTextEncodingWindowsANSI: Code page 1252 (alternate name).
-	KTextEncodingWindowsANSI KTextEncoding = 0x500
+	KTextEncodingWindowsANSI KTextEncodingDOSLatinUS = 0x500
 	// KTextEncodingWindowsArabic: Code page 1256.
-	KTextEncodingWindowsArabic KTextEncoding = 0x506
+	KTextEncodingWindowsArabic KTextEncodingDOSLatinUS = 0x506
 	// KTextEncodingWindowsBalticRim: Code page 1257.
-	KTextEncodingWindowsBalticRim KTextEncoding = 0x507
+	KTextEncodingWindowsBalticRim KTextEncodingDOSLatinUS = 0x507
 	// KTextEncodingWindowsCyrillic: Code page 1251, Slavic Cyrillic.
-	KTextEncodingWindowsCyrillic KTextEncoding = 0x502
+	KTextEncodingWindowsCyrillic KTextEncodingDOSLatinUS = 0x502
 	// KTextEncodingWindowsGreek: Code page 1253.
-	KTextEncodingWindowsGreek KTextEncoding = 0x503
+	KTextEncodingWindowsGreek KTextEncodingDOSLatinUS = 0x503
 	// KTextEncodingWindowsHebrew: Code page 1255.
-	KTextEncodingWindowsHebrew KTextEncoding = 0x505
+	KTextEncodingWindowsHebrew KTextEncodingDOSLatinUS = 0x505
 	// KTextEncodingWindowsKoreanJohab: Code page 1361, for Window NT.
-	KTextEncodingWindowsKoreanJohab KTextEncoding = 0x510
+	KTextEncodingWindowsKoreanJohab KTextEncodingDOSLatinUS = 0x510
 	// KTextEncodingWindowsLatin1: Code page 1252.
-	KTextEncodingWindowsLatin1 KTextEncoding = 0x500
+	KTextEncodingWindowsLatin1 KTextEncodingDOSLatinUS = 0x500
 	// KTextEncodingWindowsLatin2: Code page 1250, Central Europe.
-	KTextEncodingWindowsLatin2 KTextEncoding = 0x501
+	KTextEncodingWindowsLatin2 KTextEncodingDOSLatinUS = 0x501
 	// KTextEncodingWindowsLatin5: Code page 1254, Turkish.
-	KTextEncodingWindowsLatin5 KTextEncoding = 0x504
+	KTextEncodingWindowsLatin5 KTextEncodingDOSLatinUS = 0x504
 	// KTextEncodingWindowsVietnamese: Code page 1258.
-	KTextEncodingWindowsVietnamese KTextEncoding = 0x508
+	KTextEncodingWindowsVietnamese KTextEncodingDOSLatinUS = 0x508
 )
 
-func (e KTextEncoding) String() string {
+func (e KTextEncodingDOSLatinUS) String() string {
 	switch e {
-	case KTextEncodingANSEL:
-		return "KTextEncodingANSEL"
-	case KTextEncodingBaseName:
-		return "KTextEncodingBaseName"
-	case KTextEncodingBig5:
-		return "KTextEncodingBig5"
-	case KTextEncodingBig5_E:
-		return "KTextEncodingBig5_E"
-	case KTextEncodingBig5_HKSCS_1999:
-		return "KTextEncodingBig5_HKSCS_1999"
-	case KTextEncodingCNS_11643_92_P1:
-		return "KTextEncodingCNS_11643_92_P1"
-	case KTextEncodingCNS_11643_92_P2:
-		return "KTextEncodingCNS_11643_92_P2"
-	case KTextEncodingCNS_11643_92_P3:
-		return "KTextEncodingCNS_11643_92_P3"
 	case KTextEncodingDOSArabic:
 		return "KTextEncodingDOSArabic"
 	case KTextEncodingDOSBalticRim:
@@ -20875,8 +23343,8 @@ func (e KTextEncoding) String() string {
 		return "KTextEncodingDOSLatin1"
 	case KTextEncodingDOSLatin2:
 		return "KTextEncodingDOSLatin2"
-	case KTextEncodingDOSLatinUS:
-		return "KTextEncodingDOSLatinUS"
+	case KTextEncodingDOSLatinUSValue:
+		return "KTextEncodingDOSLatinUSValue"
 	case KTextEncodingDOSNordic:
 		return "KTextEncodingDOSNordic"
 	case KTextEncodingDOSPortuguese:
@@ -20887,98 +23355,6 @@ func (e KTextEncoding) String() string {
 		return "KTextEncodingDOSThai"
 	case KTextEncodingDOSTurkish:
 		return "KTextEncodingDOSTurkish"
-	case KTextEncodingFormatName:
-		return "KTextEncodingFormatName"
-	case KTextEncodingFullName:
-		return "KTextEncodingFullName"
-	case KTextEncodingGBK_95:
-		return "KTextEncodingGBK_95"
-	case KTextEncodingGB_18030_2000:
-		return "KTextEncodingGB_18030_2000"
-	case KTextEncodingGB_2312_80:
-		return "KTextEncodingGB_2312_80"
-	case KTextEncodingHZ_GB_2312:
-		return "KTextEncodingHZ_GB_2312"
-	case KTextEncodingISO10646_1993:
-		return "KTextEncodingISO10646_1993"
-	case KTextEncodingJIS_C6226_78:
-		return "KTextEncodingJIS_C6226_78"
-	case KTextEncodingJIS_X0201_76:
-		return "KTextEncodingJIS_X0201_76"
-	case KTextEncodingJIS_X0208_83:
-		return "KTextEncodingJIS_X0208_83"
-	case KTextEncodingJIS_X0208_90:
-		return "KTextEncodingJIS_X0208_90"
-	case KTextEncodingJIS_X0212_90:
-		return "KTextEncodingJIS_X0212_90"
-	case KTextEncodingJIS_X0213_MenKuTen:
-		return "KTextEncodingJIS_X0213_MenKuTen"
-	case KTextEncodingKOI8_R:
-		return "KTextEncodingKOI8_R"
-	case KTextEncodingKOI8_U:
-		return "KTextEncodingKOI8_U"
-	case KTextEncodingKSC_5601_87:
-		return "KTextEncodingKSC_5601_87"
-	case KTextEncodingKSC_5601_92_Johab:
-		return "KTextEncodingKSC_5601_92_Johab"
-	case KTextEncodingMacRomanLatin1:
-		return "KTextEncodingMacRomanLatin1"
-	case KTextEncodingMultiRun:
-		return "KTextEncodingMultiRun"
-	case KTextEncodingShiftJIS:
-		return "KTextEncodingShiftJIS"
-	case KTextEncodingShiftJIS_X0213:
-		return "KTextEncodingShiftJIS_X0213"
-	case KTextEncodingUS_ASCII:
-		return "KTextEncodingUS_ASCII"
-	case KTextEncodingUnicodeDefault:
-		return "KTextEncodingUnicodeDefault"
-	case KTextEncodingUnicodeV10_0:
-		return "KTextEncodingUnicodeV10_0"
-	case KTextEncodingUnicodeV11_0:
-		return "KTextEncodingUnicodeV11_0"
-	case KTextEncodingUnicodeV12_1:
-		return "KTextEncodingUnicodeV12_1"
-	case KTextEncodingUnicodeV13_0:
-		return "KTextEncodingUnicodeV13_0"
-	case KTextEncodingUnicodeV14_0:
-		return "KTextEncodingUnicodeV14_0"
-	case KTextEncodingUnicodeV15_0:
-		return "KTextEncodingUnicodeV15_0"
-	case KTextEncodingUnicodeV15_1:
-		return "KTextEncodingUnicodeV15_1"
-	case KTextEncodingUnicodeV2_0:
-		return "KTextEncodingUnicodeV2_0"
-	case KTextEncodingUnicodeV3_0:
-		return "KTextEncodingUnicodeV3_0"
-	case KTextEncodingUnicodeV3_1:
-		return "KTextEncodingUnicodeV3_1"
-	case KTextEncodingUnicodeV3_2:
-		return "KTextEncodingUnicodeV3_2"
-	case KTextEncodingUnicodeV4_0:
-		return "KTextEncodingUnicodeV4_0"
-	case KTextEncodingUnicodeV5_0:
-		return "KTextEncodingUnicodeV5_0"
-	case KTextEncodingUnicodeV5_1:
-		return "KTextEncodingUnicodeV5_1"
-	case KTextEncodingUnicodeV6_0:
-		return "KTextEncodingUnicodeV6_0"
-	case KTextEncodingUnicodeV6_1:
-		return "KTextEncodingUnicodeV6_1"
-	case KTextEncodingUnicodeV6_3:
-		return "KTextEncodingUnicodeV6_3"
-	case KTextEncodingUnicodeV7_0:
-		return "KTextEncodingUnicodeV7_0"
-	case KTextEncodingUnicodeV8_0:
-		return "KTextEncodingUnicodeV8_0"
-	case KTextEncodingUnicodeV9_0:
-		return "KTextEncodingUnicodeV9_0"
-	case KTextEncodingUnknown:
-		return "KTextEncodingUnknown"
-	case KTextEncodingVISCII:
-		return "KTextEncodingVISCII"
-	case KTextEncodingVariantName:
-		return "KTextEncodingVariantName"
 	case KTextEncodingWindowsANSI:
 		return "KTextEncodingWindowsANSI"
 	case KTextEncodingWindowsArabic:
@@ -21000,11 +23376,11 @@ func (e KTextEncoding) String() string {
 	case KTextEncodingWindowsVietnamese:
 		return "KTextEncodingWindowsVietnamese"
 	default:
-		return fmt.Sprintf("KTextEncoding(%d)", e)
+		return fmt.Sprintf("KTextEncodingDOSLatinUS(%d)", e)
 	}
 }
 
-type KTextEncodingDefault uint
+type KTextEncodingDefault uint32
 
 const (
 	// KTextEncodingDefaultVariant: The standard default variant for any base encoding.
@@ -21020,7 +23396,7 @@ func (e KTextEncodingDefault) String() string {
 	}
 }
 
-type KTextEncodingDefaultFormat uint
+type KTextEncodingDefaultFormat uint32
 
 const (
 	// KTextEncodingDefaultFormatValue: The standard default format for any base encoding.
@@ -21067,28 +23443,7 @@ func (e KTextEncodingDefaultFormat) String() string {
 	}
 }
 
-type KTextEncodingEBCDIC uint
-
-const (
-	// KTextEncodingEBCDIC_CP037: Code page 037, extended EBCDIC-US Latin1.
-	KTextEncodingEBCDIC_CP037     KTextEncodingEBCDIC = 0xc02
-	KTextEncodingEBCDIC_LatinCore KTextEncodingEBCDIC = 0xc01
-	// KTextEncodingEBCDIC_US: Basic EBCDIC-US encoding.
-	KTextEncodingEBCDIC_US KTextEncodingEBCDIC = 0xc01
-)
-
-func (e KTextEncodingEBCDIC) String() string {
-	switch e {
-	case KTextEncodingEBCDIC_CP037:
-		return "KTextEncodingEBCDIC_CP037"
-	case KTextEncodingEBCDIC_LatinCore:
-		return "KTextEncodingEBCDIC_LatinCore"
-	default:
-		return fmt.Sprintf("KTextEncodingEBCDIC(%d)", e)
-	}
-}
-
-type KTextEncodingEUC uint
+type KTextEncodingEUC uint32
 
 const (
 	// KTextEncodingEUC_CN: ISO 646, GB 2312-80.
@@ -21116,7 +23471,35 @@ func (e KTextEncodingEUC) String() string {
 	}
 }
 
-type KTextEncodingISO uint
+type KTextEncodingFullName uint32
+
+const (
+	// KTextEncodingBaseName: Requests the name of the base encoding.
+	KTextEncodingBaseName KTextEncodingFullName = 1
+	// KTextEncodingFormatName: Requests the name of the encoding format, if available.
+	KTextEncodingFormatName KTextEncodingFullName = 3
+	// KTextEncodingFullNameValue: Requests the full name of the text encoding.
+	KTextEncodingFullNameValue KTextEncodingFullName = 0
+	// KTextEncodingVariantName: Requests the name of the encoding variant, if available.
+	KTextEncodingVariantName KTextEncodingFullName = 2
+)
+
+func (e KTextEncodingFullName) String() string {
+	switch e {
+	case KTextEncodingBaseName:
+		return "KTextEncodingBaseName"
+	case KTextEncodingFormatName:
+		return "KTextEncodingFormatName"
+	case KTextEncodingFullNameValue:
+		return "KTextEncodingFullNameValue"
+	case KTextEncodingVariantName:
+		return "KTextEncodingVariantName"
+	default:
+		return fmt.Sprintf("KTextEncodingFullName(%d)", e)
+	}
+}
+
+type KTextEncodingISO uint32
 
 const (
 	// KTextEncodingISOLatin1: ISO 8859-1.
@@ -21183,107 +23566,135 @@ func (e KTextEncodingISO) String() string {
 	}
 }
 
-type KTextEncodingMac uint
+type KTextEncodingMacFarsi uint32
+
+const (
+	// KTextEncodingMacFarsiValue: Uses script code 4, `smArabic`.
+	KTextEncodingMacFarsiValue KTextEncodingMacFarsi = 0x8c
+	// KTextEncodingMacInuit: Uses script code 28, `smEthiopic`.]
+	KTextEncodingMacInuit KTextEncodingMacFarsi = 0xec
+	// KTextEncodingMacUkrainian: Uses script code 7, `smCyrillic`.]
+	KTextEncodingMacUkrainian KTextEncodingMacFarsi = 0x98
+	// KTextEncodingMacVT100: Uses script code 32, `smUninterp`; VT100/102 font from the common toolbox; Latin-1 characters plus box drawing.]
+	KTextEncodingMacVT100 KTextEncodingMacFarsi = 0xfc
+)
+
+func (e KTextEncodingMacFarsi) String() string {
+	switch e {
+	case KTextEncodingMacFarsiValue:
+		return "KTextEncodingMacFarsiValue"
+	case KTextEncodingMacInuit:
+		return "KTextEncodingMacInuit"
+	case KTextEncodingMacUkrainian:
+		return "KTextEncodingMacUkrainian"
+	case KTextEncodingMacVT100:
+		return "KTextEncodingMacVT100"
+	default:
+		return fmt.Sprintf("KTextEncodingMacFarsi(%d)", e)
+	}
+}
+
+type KTextEncodingMacHF uint32
+
+const (
+	// KTextEncodingMacHFS: This is a metavalue for a special Mac OS encoding.
+	KTextEncodingMacHFS KTextEncodingMacHF = 0xff
+)
+
+func (e KTextEncodingMacHF) String() string {
+	switch e {
+	case KTextEncodingMacHFS:
+		return "KTextEncodingMacHFS"
+	default:
+		return fmt.Sprintf("KTextEncodingMacHF(%d)", e)
+	}
+}
+
+type KTextEncodingMacRoman uint32
 
 const (
 	// KTextEncodingMacArabic: The encoding for Mac OS Arabic.
-	KTextEncodingMacArabic KTextEncodingMac = 4
+	KTextEncodingMacArabic KTextEncodingMacRoman = 4
 	// KTextEncodingMacArmenian: The encoding for Mac OS Armenian.
-	KTextEncodingMacArmenian KTextEncodingMac = 24
+	KTextEncodingMacArmenian KTextEncodingMacRoman = 24
 	// KTextEncodingMacBengali: The encoding for Mac OS Bengali.
-	KTextEncodingMacBengali KTextEncodingMac = 13
+	KTextEncodingMacBengali KTextEncodingMacRoman = 13
 	// KTextEncodingMacBurmese: The encoding for Mac OS Burmese.
-	KTextEncodingMacBurmese KTextEncodingMac = 19
+	KTextEncodingMacBurmese KTextEncodingMacRoman = 19
 	// KTextEncodingMacCeltic: This Mac OS encoding uses script code 0, `smRoman`.
-	KTextEncodingMacCeltic KTextEncodingMac = 39
+	KTextEncodingMacCeltic KTextEncodingMacRoman = 39
 	// KTextEncodingMacCentralEurRoman: The encoding for Mac OS Central European Roman.
-	KTextEncodingMacCentralEurRoman KTextEncodingMac = 29
+	KTextEncodingMacCentralEurRoman KTextEncodingMacRoman = 29
 	// KTextEncodingMacChineseSimp: The encoding for Mac OS simple Chinese.
-	KTextEncodingMacChineseSimp KTextEncodingMac = 25
+	KTextEncodingMacChineseSimp KTextEncodingMacRoman = 25
 	// KTextEncodingMacChineseTrad: The encoding for Mac OS traditional Chinese.
-	KTextEncodingMacChineseTrad KTextEncodingMac = 2
+	KTextEncodingMacChineseTrad KTextEncodingMacRoman = 2
 	// KTextEncodingMacCroatian: This Mac OS encoding uses script code 0, `smRoman`.
-	KTextEncodingMacCroatian KTextEncodingMac = 36
+	KTextEncodingMacCroatian KTextEncodingMacRoman = 36
 	// KTextEncodingMacCyrillic: The encoding for Mac OS Cyrillic.
-	KTextEncodingMacCyrillic KTextEncodingMac = 7
+	KTextEncodingMacCyrillic KTextEncodingMacRoman = 7
 	// KTextEncodingMacDevanagari: The encoding for Mac OS Devanagari.
-	KTextEncodingMacDevanagari KTextEncodingMac = 9
+	KTextEncodingMacDevanagari KTextEncodingMacRoman = 9
 	// KTextEncodingMacDingbats: This Mac OS encoding uses script code 0, `smRoman`.
-	KTextEncodingMacDingbats     KTextEncodingMac = 34
-	KTextEncodingMacEastEurRoman KTextEncodingMac = 29
+	KTextEncodingMacDingbats KTextEncodingMacRoman = 34
 	// KTextEncodingMacEthiopic: The encoding for Mac OS Ethiopic.
-	KTextEncodingMacEthiopic KTextEncodingMac = 28
+	KTextEncodingMacEthiopic KTextEncodingMacRoman = 28
 	// KTextEncodingMacExtArabic: The encoding for Mac OS ExtArabic.
-	KTextEncodingMacExtArabic KTextEncodingMac = 31
-	// KTextEncodingMacFarsi: Uses script code 4, `smArabic`.
-	KTextEncodingMacFarsi KTextEncodingMac = 0x8c
+	KTextEncodingMacExtArabic KTextEncodingMacRoman = 31
 	// KTextEncodingMacGaelic: This Mac OS encoding uses script code 0, `smRoman`.
-	KTextEncodingMacGaelic KTextEncodingMac = 40
-	KTextEncodingMacGeez   KTextEncodingMac = 28
+	KTextEncodingMacGaelic KTextEncodingMacRoman = 40
 	// KTextEncodingMacGeorgian: The encoding for Mac OS Georgian.
-	KTextEncodingMacGeorgian KTextEncodingMac = 23
+	KTextEncodingMacGeorgian KTextEncodingMacRoman = 23
 	// KTextEncodingMacGreek: The encoding for Mac OS Greek.
-	KTextEncodingMacGreek KTextEncodingMac = 6
+	KTextEncodingMacGreek KTextEncodingMacRoman = 6
 	// KTextEncodingMacGujarati: The encoding for Mac OS Gujurati.
-	KTextEncodingMacGujarati KTextEncodingMac = 11
+	KTextEncodingMacGujarati KTextEncodingMacRoman = 11
 	// KTextEncodingMacGurmukhi: The encoding for Mac OS Gurmukhi.
-	KTextEncodingMacGurmukhi KTextEncodingMac = 10
+	KTextEncodingMacGurmukhi KTextEncodingMacRoman = 10
 	// KTextEncodingMacHebrew: The encoding for Mac OS Hebrew.
-	KTextEncodingMacHebrew KTextEncodingMac = 5
+	KTextEncodingMacHebrew KTextEncodingMacRoman = 5
 	// KTextEncodingMacIcelandic: This Mac OS encoding uses script code 0, `smRoman`.
-	KTextEncodingMacIcelandic KTextEncodingMac = 37
-	// KTextEncodingMacInuit: Uses script code 28, `smEthiopic`.]
-	KTextEncodingMacInuit KTextEncodingMac = 0xec
+	KTextEncodingMacIcelandic KTextEncodingMacRoman = 37
 	// KTextEncodingMacJapanese: The encoding for Mac OS Japanese.
-	KTextEncodingMacJapanese KTextEncodingMac = 1
+	KTextEncodingMacJapanese KTextEncodingMacRoman = 1
 	// KTextEncodingMacKannada: The encoding for Mac OS Kannada.
-	KTextEncodingMacKannada        KTextEncodingMac = 16
-	KTextEncodingMacKeyboardGlyphs KTextEncodingMac = 41
+	KTextEncodingMacKannada        KTextEncodingMacRoman = 16
+	KTextEncodingMacKeyboardGlyphs KTextEncodingMacRoman = 41
 	// KTextEncodingMacKhmer: The encoding for Mac OS Khmer.
-	KTextEncodingMacKhmer KTextEncodingMac = 20
+	KTextEncodingMacKhmer KTextEncodingMacRoman = 20
 	// KTextEncodingMacKorean: The encoding for Mac OS Korean.
-	KTextEncodingMacKorean KTextEncodingMac = 3
+	KTextEncodingMacKorean KTextEncodingMacRoman = 3
 	// KTextEncodingMacLaotian: The encoding for Mac OS Laotian.
-	KTextEncodingMacLaotian KTextEncodingMac = 22
+	KTextEncodingMacLaotian KTextEncodingMacRoman = 22
 	// KTextEncodingMacMalayalam: The encoding for Mac OS Malayalam.
-	KTextEncodingMacMalayalam KTextEncodingMac = 17
+	KTextEncodingMacMalayalam KTextEncodingMacRoman = 17
 	// KTextEncodingMacMongolian: The encoding for Mac OS Mongolian.
-	KTextEncodingMacMongolian KTextEncodingMac = 27
+	KTextEncodingMacMongolian KTextEncodingMacRoman = 27
 	// KTextEncodingMacOriya: The encoding for Mac OS Oriya.
-	KTextEncodingMacOriya   KTextEncodingMac = 12
-	KTextEncodingMacRSymbol KTextEncodingMac = 8
-	// KTextEncodingMacRoman: The encoding for Mac OS Roman.
-	KTextEncodingMacRoman KTextEncodingMac = 0
+	KTextEncodingMacOriya KTextEncodingMacRoman = 12
+	// KTextEncodingMacRomanValue: The encoding for Mac OS Roman.
+	KTextEncodingMacRomanValue KTextEncodingMacRoman = 0
 	// KTextEncodingMacRomanian: This Mac OS encoding uses script code 0, `smRoman`.
-	KTextEncodingMacRomanian    KTextEncodingMac = 38
-	KTextEncodingMacSimpChinese KTextEncodingMac = 25
+	KTextEncodingMacRomanian KTextEncodingMacRoman = 38
 	// KTextEncodingMacSinhalese: The encoding for Mac OS Sinhalese.
-	KTextEncodingMacSinhalese KTextEncodingMac = 18
+	KTextEncodingMacSinhalese KTextEncodingMacRoman = 18
 	// KTextEncodingMacSymbol: This Mac OS encoding uses script code 0, `smRoman`.
-	KTextEncodingMacSymbol KTextEncodingMac = 33
+	KTextEncodingMacSymbol KTextEncodingMacRoman = 33
 	// KTextEncodingMacTamil: The encoding for Mac OS Tamil.
-	KTextEncodingMacTamil KTextEncodingMac = 14
+	KTextEncodingMacTamil KTextEncodingMacRoman = 14
 	// KTextEncodingMacTelugu: The encoding for Mac OS Telugu.
-	KTextEncodingMacTelugu KTextEncodingMac = 15
+	KTextEncodingMacTelugu KTextEncodingMacRoman = 15
 	// KTextEncodingMacThai: The encoding for Mac OS Thai.
-	KTextEncodingMacThai KTextEncodingMac = 21
+	KTextEncodingMacThai KTextEncodingMacRoman = 21
 	// KTextEncodingMacTibetan: The encoding for Mac OS Tibetan.
-	KTextEncodingMacTibetan     KTextEncodingMac = 26
-	KTextEncodingMacTradChinese KTextEncodingMac = 2
+	KTextEncodingMacTibetan KTextEncodingMacRoman = 26
 	// KTextEncodingMacTurkish: This Mac OS encoding uses script code 0, `smRoman`.
-	KTextEncodingMacTurkish KTextEncodingMac = 35
-	// KTextEncodingMacUkrainian: Uses script code 7, `smCyrillic`.]
-	KTextEncodingMacUkrainian KTextEncodingMac = 0x98
-	// KTextEncodingMacUnicode: # Discussion
-	KTextEncodingMacUnicode  KTextEncodingMac = 0x7e
-	KTextEncodingMacUninterp KTextEncodingMac = 32
-	// KTextEncodingMacVT100: Uses script code 32, `smUninterp`; VT100/102 font from the common toolbox; Latin-1 characters plus box drawing.]
-	KTextEncodingMacVT100 KTextEncodingMac = 0xfc
+	KTextEncodingMacTurkish KTextEncodingMacRoman = 35
 	// KTextEncodingMacVietnamese: The encoding for Mac OS Vietnamese.
-	KTextEncodingMacVietnamese KTextEncodingMac = 30
+	KTextEncodingMacVietnamese KTextEncodingMacRoman = 30
 )
 
-func (e KTextEncodingMac) String() string {
+func (e KTextEncodingMacRoman) String() string {
 	switch e {
 	case KTextEncodingMacArabic:
 		return "KTextEncodingMacArabic"
@@ -21313,8 +23724,6 @@ func (e KTextEncodingMac) String() string {
 		return "KTextEncodingMacEthiopic"
 	case KTextEncodingMacExtArabic:
 		return "KTextEncodingMacExtArabic"
-	case KTextEncodingMacFarsi:
-		return "KTextEncodingMacFarsi"
 	case KTextEncodingMacGaelic:
 		return "KTextEncodingMacGaelic"
 	case KTextEncodingMacGeorgian:
@@ -21329,8 +23738,6 @@ func (e KTextEncodingMac) String() string {
 		return "KTextEncodingMacHebrew"
 	case KTextEncodingMacIcelandic:
 		return "KTextEncodingMacIcelandic"
-	case KTextEncodingMacInuit:
-		return "KTextEncodingMacInuit"
 	case KTextEncodingMacJapanese:
 		return "KTextEncodingMacJapanese"
 	case KTextEncodingMacKannada:
@@ -21349,10 +23756,8 @@ func (e KTextEncodingMac) String() string {
 		return "KTextEncodingMacMongolian"
 	case KTextEncodingMacOriya:
 		return "KTextEncodingMacOriya"
-	case KTextEncodingMacRSymbol:
-		return "KTextEncodingMacRSymbol"
-	case KTextEncodingMacRoman:
-		return "KTextEncodingMacRoman"
+	case KTextEncodingMacRomanValue:
+		return "KTextEncodingMacRomanValue"
 	case KTextEncodingMacRomanian:
 		return "KTextEncodingMacRomanian"
 	case KTextEncodingMacSinhalese:
@@ -21369,38 +23774,65 @@ func (e KTextEncodingMac) String() string {
 		return "KTextEncodingMacTibetan"
 	case KTextEncodingMacTurkish:
 		return "KTextEncodingMacTurkish"
-	case KTextEncodingMacUkrainian:
-		return "KTextEncodingMacUkrainian"
-	case KTextEncodingMacUnicode:
-		return "KTextEncodingMacUnicode"
-	case KTextEncodingMacUninterp:
-		return "KTextEncodingMacUninterp"
-	case KTextEncodingMacVT100:
-		return "KTextEncodingMacVT100"
 	case KTextEncodingMacVietnamese:
 		return "KTextEncodingMacVietnamese"
 	default:
-		return fmt.Sprintf("KTextEncodingMac(%d)", e)
+		return fmt.Sprintf("KTextEncodingMacRoman(%d)", e)
 	}
 }
 
-type KTextEncodingMacHF uint
+type KTextEncodingMacTradChinese uint32
 
 const (
-	// KTextEncodingMacHFS: This is a metavalue for a special Mac OS encoding.
-	KTextEncodingMacHFS KTextEncodingMacHF = 0xff
+	KTextEncodingMacEastEurRoman     KTextEncodingMacTradChinese = 29
+	KTextEncodingMacGeez             KTextEncodingMacTradChinese = 28
+	KTextEncodingMacRSymbol          KTextEncodingMacTradChinese = 8
+	KTextEncodingMacSimpChinese      KTextEncodingMacTradChinese = 25
+	KTextEncodingMacTradChineseValue KTextEncodingMacTradChinese = 2
+	KTextEncodingMacUninterp         KTextEncodingMacTradChinese = 32
 )
 
-func (e KTextEncodingMacHF) String() string {
+func (e KTextEncodingMacTradChinese) String() string {
 	switch e {
-	case KTextEncodingMacHFS:
-		return "KTextEncodingMacHFS"
+	case KTextEncodingMacEastEurRoman:
+		return "KTextEncodingMacEastEurRoman"
+	case KTextEncodingMacGeez:
+		return "KTextEncodingMacGeez"
+	case KTextEncodingMacRSymbol:
+		return "KTextEncodingMacRSymbol"
+	case KTextEncodingMacSimpChinese:
+		return "KTextEncodingMacSimpChinese"
+	case KTextEncodingMacTradChineseValue:
+		return "KTextEncodingMacTradChineseValue"
+	case KTextEncodingMacUninterp:
+		return "KTextEncodingMacUninterp"
 	default:
-		return fmt.Sprintf("KTextEncodingMacHF(%d)", e)
+		return fmt.Sprintf("KTextEncodingMacTradChinese(%d)", e)
 	}
 }
 
-type KTextEncodingNextStep uint
+const KTextEncodingMacUnicode uint32 = 0x7e
+
+type KTextEncodingMultiRun uint32
+
+const (
+	// KTextEncodingMultiRunValue: This is a special value for multiple encoded text, external run information.
+	KTextEncodingMultiRunValue KTextEncodingMultiRun = 0xfff
+	KTextEncodingUnknown       KTextEncodingMultiRun = 0xffff
+)
+
+func (e KTextEncodingMultiRun) String() string {
+	switch e {
+	case KTextEncodingMultiRunValue:
+		return "KTextEncodingMultiRunValue"
+	case KTextEncodingUnknown:
+		return "KTextEncodingUnknown"
+	default:
+		return fmt.Sprintf("KTextEncodingMultiRun(%d)", e)
+	}
+}
+
+type KTextEncodingNextStep uint32
 
 const (
 	KTextEncodingNextStepJapanese KTextEncodingNextStep = 0xb02
@@ -21418,7 +23850,181 @@ func (e KTextEncodingNextStep) String() string {
 	}
 }
 
-type KTextServiceClass uint
+type KTextEncodingShiftJIS uint32
+
+const (
+	// KTextEncodingBig5: Big-5 encoding.
+	KTextEncodingBig5            KTextEncodingShiftJIS = 0xa03
+	KTextEncodingBig5_E          KTextEncodingShiftJIS = 0xa09
+	KTextEncodingBig5_HKSCS_1999 KTextEncodingShiftJIS = 0xa06
+	// KTextEncodingHZ_GB_2312: See RFC 1842; for Chinese mail and news.
+	KTextEncodingHZ_GB_2312 KTextEncodingShiftJIS = 0xa05
+	// KTextEncodingKOI8_R: Russian Internet standard.
+	KTextEncodingKOI8_R KTextEncodingShiftJIS = 0xa02
+	KTextEncodingKOI8_U KTextEncodingShiftJIS = 0xa08
+	// KTextEncodingMacRomanLatin1: Mac OS Roman permuted to align with 8859-1.
+	KTextEncodingMacRomanLatin1 KTextEncodingShiftJIS = 0xa04
+	// KTextEncodingShiftJISValue: Plain Shift-JIS.
+	KTextEncodingShiftJISValue KTextEncodingShiftJIS = 0xa01
+	KTextEncodingVISCII        KTextEncodingShiftJIS = 0xa07
+)
+
+func (e KTextEncodingShiftJIS) String() string {
+	switch e {
+	case KTextEncodingBig5:
+		return "KTextEncodingBig5"
+	case KTextEncodingBig5_E:
+		return "KTextEncodingBig5_E"
+	case KTextEncodingBig5_HKSCS_1999:
+		return "KTextEncodingBig5_HKSCS_1999"
+	case KTextEncodingHZ_GB_2312:
+		return "KTextEncodingHZ_GB_2312"
+	case KTextEncodingKOI8_R:
+		return "KTextEncodingKOI8_R"
+	case KTextEncodingKOI8_U:
+		return "KTextEncodingKOI8_U"
+	case KTextEncodingMacRomanLatin1:
+		return "KTextEncodingMacRomanLatin1"
+	case KTextEncodingShiftJISValue:
+		return "KTextEncodingShiftJISValue"
+	case KTextEncodingVISCII:
+		return "KTextEncodingVISCII"
+	default:
+		return fmt.Sprintf("KTextEncodingShiftJIS(%d)", e)
+	}
+}
+
+type KTextEncodingUnicodeDefault uint32
+
+const (
+	// KTextEncodingISO10646_1993: This ISO UCS encoding has code points identical to Unicode 1.1.
+	KTextEncodingISO10646_1993 KTextEncodingUnicodeDefault = 0x101
+	// KTextEncodingUnicodeDefaultValue: This is a meta value that takes on one of the following values, depending on the system.
+	KTextEncodingUnicodeDefaultValue KTextEncodingUnicodeDefault = 0x100
+	KTextEncodingUnicodeV10_0        KTextEncodingUnicodeDefault = 0x114
+	KTextEncodingUnicodeV11_0        KTextEncodingUnicodeDefault = 0x115
+	KTextEncodingUnicodeV12_1        KTextEncodingUnicodeDefault = 0x116
+	KTextEncodingUnicodeV13_0        KTextEncodingUnicodeDefault = 0x117
+	KTextEncodingUnicodeV14_0        KTextEncodingUnicodeDefault = 0x118
+	KTextEncodingUnicodeV15_0        KTextEncodingUnicodeDefault = 0x119
+	KTextEncodingUnicodeV15_1        KTextEncodingUnicodeDefault = 0x11a
+	// KTextEncodingUnicodeV1_1: This is a Unicode encoding.
+	KTextEncodingUnicodeV1_1 KTextEncodingUnicodeDefault = 0x101
+	// KTextEncodingUnicodeV2_0: This is the new location for Korean Hangul.
+	KTextEncodingUnicodeV2_0 KTextEncodingUnicodeDefault = 0x103
+	// KTextEncodingUnicodeV2_1: For the Text Encoding Converter, Unicode 2.0 is equivalent to Unicode 2.1.
+	KTextEncodingUnicodeV2_1 KTextEncodingUnicodeDefault = 0x103
+	KTextEncodingUnicodeV3_0 KTextEncodingUnicodeDefault = 0x104
+	// KTextEncodingUnicodeV3_1: Adds characters requiring surrogate pairs in UTF-16
+	KTextEncodingUnicodeV3_1 KTextEncodingUnicodeDefault = 0x105
+	KTextEncodingUnicodeV3_2 KTextEncodingUnicodeDefault = 0x106
+	KTextEncodingUnicodeV4_0 KTextEncodingUnicodeDefault = 0x108
+	KTextEncodingUnicodeV5_0 KTextEncodingUnicodeDefault = 0x10a
+	KTextEncodingUnicodeV5_1 KTextEncodingUnicodeDefault = 0x10b
+	KTextEncodingUnicodeV6_0 KTextEncodingUnicodeDefault = 0x10d
+	KTextEncodingUnicodeV6_1 KTextEncodingUnicodeDefault = 0x10e
+	KTextEncodingUnicodeV6_3 KTextEncodingUnicodeDefault = 0x110
+	KTextEncodingUnicodeV7_0 KTextEncodingUnicodeDefault = 0x111
+	KTextEncodingUnicodeV8_0 KTextEncodingUnicodeDefault = 0x112
+	KTextEncodingUnicodeV9_0 KTextEncodingUnicodeDefault = 0x113
+)
+
+func (e KTextEncodingUnicodeDefault) String() string {
+	switch e {
+	case KTextEncodingISO10646_1993:
+		return "KTextEncodingISO10646_1993"
+	case KTextEncodingUnicodeDefaultValue:
+		return "KTextEncodingUnicodeDefaultValue"
+	case KTextEncodingUnicodeV10_0:
+		return "KTextEncodingUnicodeV10_0"
+	case KTextEncodingUnicodeV11_0:
+		return "KTextEncodingUnicodeV11_0"
+	case KTextEncodingUnicodeV12_1:
+		return "KTextEncodingUnicodeV12_1"
+	case KTextEncodingUnicodeV13_0:
+		return "KTextEncodingUnicodeV13_0"
+	case KTextEncodingUnicodeV14_0:
+		return "KTextEncodingUnicodeV14_0"
+	case KTextEncodingUnicodeV15_0:
+		return "KTextEncodingUnicodeV15_0"
+	case KTextEncodingUnicodeV15_1:
+		return "KTextEncodingUnicodeV15_1"
+	case KTextEncodingUnicodeV2_0:
+		return "KTextEncodingUnicodeV2_0"
+	case KTextEncodingUnicodeV3_0:
+		return "KTextEncodingUnicodeV3_0"
+	case KTextEncodingUnicodeV3_1:
+		return "KTextEncodingUnicodeV3_1"
+	case KTextEncodingUnicodeV3_2:
+		return "KTextEncodingUnicodeV3_2"
+	case KTextEncodingUnicodeV4_0:
+		return "KTextEncodingUnicodeV4_0"
+	case KTextEncodingUnicodeV5_0:
+		return "KTextEncodingUnicodeV5_0"
+	case KTextEncodingUnicodeV5_1:
+		return "KTextEncodingUnicodeV5_1"
+	case KTextEncodingUnicodeV6_0:
+		return "KTextEncodingUnicodeV6_0"
+	case KTextEncodingUnicodeV6_1:
+		return "KTextEncodingUnicodeV6_1"
+	case KTextEncodingUnicodeV6_3:
+		return "KTextEncodingUnicodeV6_3"
+	case KTextEncodingUnicodeV7_0:
+		return "KTextEncodingUnicodeV7_0"
+	case KTextEncodingUnicodeV8_0:
+		return "KTextEncodingUnicodeV8_0"
+	case KTextEncodingUnicodeV9_0:
+		return "KTextEncodingUnicodeV9_0"
+	default:
+		return fmt.Sprintf("KTextEncodingUnicodeDefault(%d)", e)
+	}
+}
+
+type KTextFlushDefault int32
+
+const (
+	KTextCenter            KTextFlushDefault = 1
+	KTextFlushDefaultValue KTextFlushDefault = 0
+	KTextFlushLeft         KTextFlushDefault = -2
+	KTextFlushRight        KTextFlushDefault = -1
+)
+
+func (e KTextFlushDefault) String() string {
+	switch e {
+	case KTextCenter:
+		return "KTextCenter"
+	case KTextFlushDefaultValue:
+		return "KTextFlushDefaultValue"
+	case KTextFlushLeft:
+		return "KTextFlushLeft"
+	case KTextFlushRight:
+		return "KTextFlushRight"
+	default:
+		return fmt.Sprintf("KTextFlushDefault(%d)", e)
+	}
+}
+
+type KTextScriptDontCare int32
+
+const (
+	// KTextLanguageDontCare: Indicates that language code is not provided for the derivation.
+	KTextLanguageDontCare KTextScriptDontCare = -128
+	// KTextRegionDontCare: The region code is not provided for the derivation.
+	KTextRegionDontCare KTextScriptDontCare = -128
+	// KTextScriptDontCareValue: Indicates that the code is not provided for the derivation.
+	KTextScriptDontCareValue KTextScriptDontCare = -128
+)
+
+func (e KTextScriptDontCare) String() string {
+	switch e {
+	case KTextLanguageDontCare:
+		return "KTextLanguageDontCare"
+	default:
+		return fmt.Sprintf("KTextScriptDontCare(%d)", e)
+	}
+}
+
+type KTextServiceClass uint32
 
 const (
 	KGetSelectedText            KTextServiceClass = 'g'<<24 | 't'<<16 | 'x'<<8 | 't' // 'gtxt'
@@ -21529,7 +24135,7 @@ func (e KTextServiceClass) String() string {
 	}
 }
 
-type KTextUnsupportedEncodingErr int
+type KTextUnsupportedEncodingErr int32
 
 const (
 	// KTECArrayFullErr: # Discussion
@@ -21659,7 +24265,7 @@ func (e KTextUnsupportedEncodingErr) String() string {
 	}
 }
 
-type KTileIconVariant uint
+type KTileIconVariant uint32
 
 const (
 	KDropIconVariant      KTileIconVariant = 'd'<<24 | 'r'<<16 | 'o'<<8 | 'p' // 'drop'
@@ -21686,7 +24292,7 @@ func (e KTileIconVariant) String() string {
 	}
 }
 
-type KToolbar uint
+type KToolbar uint32
 
 const (
 	KToolbarAdvancedIcon           KToolbar = 't'<<24 | 'b'<<16 | 'a'<<8 | 'v' // 'tbav'
@@ -21752,46 +24358,7 @@ func (e KToolbar) String() string {
 	}
 }
 
-type KUC int
-
-const (
-	KUCHighSurrogateRangeEnd       KUC = 0xdbff
-	KUCHighSurrogateRangeStart     KUC = 0xd800
-	KUCLowSurrogateRangeEnd        KUC = 0xdfff
-	KUCLowSurrogateRangeStart      KUC = 0xdc00
-	KUCOutputBufferTooSmall        KUC = -25340
-	KUCTextBreakLocatorMissingType KUC = -25341
-	KUCTokenNotFound               KUC = -25346
-	KUCTokenizerIterationFinished  KUC = -25344
-	KUCTokenizerUnknownLang        KUC = -25345
-)
-
-func (e KUC) String() string {
-	switch e {
-	case KUCHighSurrogateRangeEnd:
-		return "KUCHighSurrogateRangeEnd"
-	case KUCHighSurrogateRangeStart:
-		return "KUCHighSurrogateRangeStart"
-	case KUCLowSurrogateRangeEnd:
-		return "KUCLowSurrogateRangeEnd"
-	case KUCLowSurrogateRangeStart:
-		return "KUCLowSurrogateRangeStart"
-	case KUCOutputBufferTooSmall:
-		return "KUCOutputBufferTooSmall"
-	case KUCTextBreakLocatorMissingType:
-		return "KUCTextBreakLocatorMissingType"
-	case KUCTokenNotFound:
-		return "KUCTokenNotFound"
-	case KUCTokenizerIterationFinished:
-		return "KUCTokenizerIterationFinished"
-	case KUCTokenizerUnknownLang:
-		return "KUCTokenizerUnknownLang"
-	default:
-		return fmt.Sprintf("KUC(%d)", e)
-	}
-}
-
-type KUCBidiCat uint
+type KUCBidiCat uint32
 
 const (
 	// KUCBidiCatArabicNumber: Weak types: AN Arabic number.
@@ -21895,7 +24462,7 @@ func (e KUCBidiCat) String() string {
 	}
 }
 
-type KUCCharPropType uint
+type KUCCharPropType uint32
 
 const (
 	// KUCCharPropTypeBidiCategory: Requests enumeration value.
@@ -21922,7 +24489,7 @@ func (e KUCCharPropType) String() string {
 	}
 }
 
-type KUCCollate uint
+type KUCCollate uint32
 
 const (
 	// KUCCollateCaseInsensitiveMask: If the corresponding bit is set, then uppercase and titlecase characters are treated as equivalent to the corresponding lowercase characters.
@@ -21962,11 +24529,11 @@ func (e KUCCollate) String() string {
 	}
 }
 
-type KUCCollateStandard uint
+type KUCCollateStandard uint32
 
 const (
 	// KUCCollateStandardOptions: # Discussion
-	KUCCollateStandardOptions KUCCollateStandard = 2
+	KUCCollateStandardOptions KUCCollateStandard = 6
 )
 
 func (e KUCCollateStandard) String() string {
@@ -21978,31 +24545,7 @@ func (e KUCCollateStandard) String() string {
 	}
 }
 
-type KUCCollateType uint
-
-const (
-	// KUCCollateTypeMask: You can use this mask to directly test bits 24-31 of a [UCCollateOptions] value.
-	KUCCollateTypeMask KUCCollateType = 0xff000000
-	// KUCCollateTypeShiftBits: # Discussion
-	KUCCollateTypeShiftBits KUCCollateType = 24
-	// KUCCollateTypeSourceMask: You can use this mask, in conjunction with the `kUCCollateTypeShiftBits` constant, to obtain a value identifying a fixed ordering scheme.
-	KUCCollateTypeSourceMask KUCCollateType = 0xff
-)
-
-func (e KUCCollateType) String() string {
-	switch e {
-	case KUCCollateTypeMask:
-		return "KUCCollateTypeMask"
-	case KUCCollateTypeShiftBits:
-		return "KUCCollateTypeShiftBits"
-	case KUCCollateTypeSourceMask:
-		return "KUCCollateTypeSourceMask"
-	default:
-		return fmt.Sprintf("KUCCollateType(%d)", e)
-	}
-}
-
-type KUCCollateTypeHFS uint
+type KUCCollateTypeHFS uint32
 
 const (
 	// KUCCollateTypeHFSExtended: # Discussion
@@ -22018,7 +24561,29 @@ func (e KUCCollateTypeHFS) String() string {
 	}
 }
 
-type KUCGenlCat uint
+const KUCCollateTypeMask uint32 = 4278190080
+
+type KUCCollateTypeSourceMask uint32
+
+const (
+	// KUCCollateTypeShiftBits: # Discussion
+	KUCCollateTypeShiftBits KUCCollateTypeSourceMask = 24
+	// KUCCollateTypeSourceMaskValue: You can use this mask, in conjunction with the `kUCCollateTypeShiftBits` constant, to obtain a value identifying a fixed ordering scheme.
+	KUCCollateTypeSourceMaskValue KUCCollateTypeSourceMask = 0xff
+)
+
+func (e KUCCollateTypeSourceMask) String() string {
+	switch e {
+	case KUCCollateTypeShiftBits:
+		return "KUCCollateTypeShiftBits"
+	case KUCCollateTypeSourceMaskValue:
+		return "KUCCollateTypeSourceMaskValue"
+	default:
+		return fmt.Sprintf("KUCCollateTypeSourceMask(%d)", e)
+	}
+}
+
+type KUCGenlCat uint32
 
 const (
 	// KUCGenlCatLetterLowercase: Ll Letter; lowercase.
@@ -22150,7 +24715,31 @@ func (e KUCGenlCat) String() string {
 	}
 }
 
-type KUCKey uint
+type KUCHighSurrogateRangeStart uint32
+
+const (
+	KUCHighSurrogateRangeEnd        KUCHighSurrogateRangeStart = 0xdbff
+	KUCHighSurrogateRangeStartValue KUCHighSurrogateRangeStart = 0xd800
+	KUCLowSurrogateRangeEnd         KUCHighSurrogateRangeStart = 0xdfff
+	KUCLowSurrogateRangeStart       KUCHighSurrogateRangeStart = 0xdc00
+)
+
+func (e KUCHighSurrogateRangeStart) String() string {
+	switch e {
+	case KUCHighSurrogateRangeEnd:
+		return "KUCHighSurrogateRangeEnd"
+	case KUCHighSurrogateRangeStartValue:
+		return "KUCHighSurrogateRangeStartValue"
+	case KUCLowSurrogateRangeEnd:
+		return "KUCLowSurrogateRangeEnd"
+	case KUCLowSurrogateRangeStart:
+		return "KUCLowSurrogateRangeStart"
+	default:
+		return fmt.Sprintf("KUCHighSurrogateRangeStart(%d)", e)
+	}
+}
+
+type KUCKey uint32
 
 const (
 	// KUCKeyLayoutFeatureInfoFormat: The format of a structure of type UCKeyLayoutFeatureInfo.
@@ -22190,7 +24779,7 @@ func (e KUCKey) String() string {
 	}
 }
 
-type KUCKeyAction uint
+type KUCKeyAction uint32
 
 const (
 	// KUCKeyActionAutoKey: The user has the key in an “auto-key” pressed state that is, the user is holding down the key for an extended period of time and is thereby generating multiple key strokes from the single key.
@@ -22218,7 +24807,7 @@ func (e KUCKeyAction) String() string {
 	}
 }
 
-type KUCKeyOutput uint
+type KUCKeyOutput uint32
 
 const (
 	// KUCKeyOutputGetIndexMask: You can use this mask to test the bits (0–13) in a [UCKeyOutput] value that provide the actual index to another structure.
@@ -22246,7 +24835,7 @@ func (e KUCKeyOutput) String() string {
 	}
 }
 
-type KUCKeyStateEntry uint
+type KUCKeyStateEntry uint32
 
 const (
 	// KUCKeyStateEntryRangeFormat: Specifies that the entry format is that of a structure of type UCKeyStateEntryRange.
@@ -22266,27 +24855,29 @@ func (e KUCKeyStateEntry) String() string {
 	}
 }
 
-type KUCKeyTranslateNoDeadKeys uint
+const KUCKeyTranslateNoDeadKeysBit uint32 = 0
+
+const KUCKeyTranslateNoDeadKeysMask uint32 = 1
+
+type KUCOutputBufferTooSmall int32
 
 const (
-	// KUCKeyTranslateNoDeadKeysBit: The bit number of the bit that turns off dead-key processing.
-	KUCKeyTranslateNoDeadKeysBit KUCKeyTranslateNoDeadKeys = 0
-	// KUCKeyTranslateNoDeadKeysMask: The mask for the bit that turns off dead-key processing.
-	KUCKeyTranslateNoDeadKeysMask KUCKeyTranslateNoDeadKeys = 1
+	KUCOutputBufferTooSmallValue   KUCOutputBufferTooSmall = -25340
+	KUCTextBreakLocatorMissingType KUCOutputBufferTooSmall = -25341
 )
 
-func (e KUCKeyTranslateNoDeadKeys) String() string {
+func (e KUCOutputBufferTooSmall) String() string {
 	switch e {
-	case KUCKeyTranslateNoDeadKeysBit:
-		return "KUCKeyTranslateNoDeadKeysBit"
-	case KUCKeyTranslateNoDeadKeysMask:
-		return "KUCKeyTranslateNoDeadKeysMask"
+	case KUCOutputBufferTooSmallValue:
+		return "KUCOutputBufferTooSmallValue"
+	case KUCTextBreakLocatorMissingType:
+		return "KUCTextBreakLocatorMissingType"
 	default:
-		return fmt.Sprintf("KUCKeyTranslateNoDeadKeys(%d)", e)
+		return fmt.Sprintf("KUCOutputBufferTooSmall(%d)", e)
 	}
 }
 
-type KUCTS int
+type KUCTS int32
 
 const (
 	KUCTSNoKeysAddedToObjectErr KUCTS = -25342
@@ -22304,7 +24895,7 @@ func (e KUCTS) String() string {
 	}
 }
 
-type KUCTSDirection uint
+type KUCTSDirection uint32
 
 const (
 	KUCTSDirectionNext     KUCTSDirection = 0
@@ -22322,7 +24913,7 @@ func (e KUCTSDirection) String() string {
 	}
 }
 
-type KUCTSOptions uint
+type KUCTSOptions uint32
 
 const (
 	KUCTSOptionsDataIsOrderedMask KUCTSOptions = 2
@@ -22343,34 +24934,26 @@ func (e KUCTSOptions) String() string {
 	}
 }
 
-type KUCTextBreak uint
+type KUCTextBreakCharMask uint32
 
 const (
-	// KUCTextBreakCharMask: If the bit specified by this mask is set, boundaries of characters may be located (with surrogate pairs treated as a single character).
-	KUCTextBreakCharMask KUCTextBreak = 1
+	// KUCTextBreakCharMaskValue: If the bit specified by this mask is set, boundaries of characters may be located (with surrogate pairs treated as a single character).
+	KUCTextBreakCharMaskValue KUCTextBreakCharMask = 1
 	// KUCTextBreakClusterMask: # Discussion
-	KUCTextBreakClusterMask KUCTextBreak = 4
-	// KUCTextBreakGoBackwardsMask: # Discussion
-	KUCTextBreakGoBackwardsMask KUCTextBreak = 2
-	// KUCTextBreakIterateMask: # Discussion
-	KUCTextBreakIterateMask KUCTextBreak = 4
-	// KUCTextBreakLeadingEdgeMask: # Discussion
-	KUCTextBreakLeadingEdgeMask KUCTextBreak = 1
+	KUCTextBreakClusterMask KUCTextBreakCharMask = 4
 	// KUCTextBreakLineMask: If the bit specified by this mask is set, potential line breaks may be located.
-	KUCTextBreakLineMask      KUCTextBreak = 64
-	KUCTextBreakParagraphMask KUCTextBreak = 256
+	KUCTextBreakLineMask      KUCTextBreakCharMask = 64
+	KUCTextBreakParagraphMask KUCTextBreakCharMask = 256
 	// KUCTextBreakWordMask: If the bit specified by this mask is set, boundaries of words may be located.
-	KUCTextBreakWordMask KUCTextBreak = 16
+	KUCTextBreakWordMask KUCTextBreakCharMask = 16
 )
 
-func (e KUCTextBreak) String() string {
+func (e KUCTextBreakCharMask) String() string {
 	switch e {
-	case KUCTextBreakCharMask:
-		return "KUCTextBreakCharMask"
+	case KUCTextBreakCharMaskValue:
+		return "KUCTextBreakCharMaskValue"
 	case KUCTextBreakClusterMask:
 		return "KUCTextBreakClusterMask"
-	case KUCTextBreakGoBackwardsMask:
-		return "KUCTextBreakGoBackwardsMask"
 	case KUCTextBreakLineMask:
 		return "KUCTextBreakLineMask"
 	case KUCTextBreakParagraphMask:
@@ -22378,11 +24961,56 @@ func (e KUCTextBreak) String() string {
 	case KUCTextBreakWordMask:
 		return "KUCTextBreakWordMask"
 	default:
-		return fmt.Sprintf("KUCTextBreak(%d)", e)
+		return fmt.Sprintf("KUCTextBreakCharMask(%d)", e)
 	}
 }
 
-type KUCTypeSelectMaxList uint
+type KUCTextBreakLeadingEdgeMask uint32
+
+const (
+	// KUCTextBreakGoBackwardsMask: # Discussion
+	KUCTextBreakGoBackwardsMask KUCTextBreakLeadingEdgeMask = 2
+	// KUCTextBreakIterateMask: # Discussion
+	KUCTextBreakIterateMask KUCTextBreakLeadingEdgeMask = 4
+	// KUCTextBreakLeadingEdgeMaskValue: # Discussion
+	KUCTextBreakLeadingEdgeMaskValue KUCTextBreakLeadingEdgeMask = 1
+)
+
+func (e KUCTextBreakLeadingEdgeMask) String() string {
+	switch e {
+	case KUCTextBreakGoBackwardsMask:
+		return "KUCTextBreakGoBackwardsMask"
+	case KUCTextBreakIterateMask:
+		return "KUCTextBreakIterateMask"
+	case KUCTextBreakLeadingEdgeMaskValue:
+		return "KUCTextBreakLeadingEdgeMaskValue"
+	default:
+		return fmt.Sprintf("KUCTextBreakLeadingEdgeMask(%d)", e)
+	}
+}
+
+type KUCTokenizerIterationFinished int32
+
+const (
+	KUCTokenNotFound                   KUCTokenizerIterationFinished = -25346
+	KUCTokenizerIterationFinishedValue KUCTokenizerIterationFinished = -25344
+	KUCTokenizerUnknownLang            KUCTokenizerIterationFinished = -25345
+)
+
+func (e KUCTokenizerIterationFinished) String() string {
+	switch e {
+	case KUCTokenNotFound:
+		return "KUCTokenNotFound"
+	case KUCTokenizerIterationFinishedValue:
+		return "KUCTokenizerIterationFinishedValue"
+	case KUCTokenizerUnknownLang:
+		return "KUCTokenizerUnknownLang"
+	default:
+		return fmt.Sprintf("KUCTokenizerIterationFinished(%d)", e)
+	}
+}
+
+type KUCTypeSelectMaxList uint32
 
 const (
 	KUCTypeSelectMaxListSize KUCTypeSelectMaxList = 0xffffffff
@@ -22397,7 +25025,7 @@ func (e KUCTypeSelectMaxList) String() string {
 	}
 }
 
-type KUR int
+type KUR int32
 
 const (
 	KURL68kNotSupportedError          KUR = -30788
@@ -22460,178 +25088,7 @@ func (e KUR) String() string {
 	}
 }
 
-type KUSB int
-
-const (
-	KUSBAbortedError           KUSB = -6982
-	KUSBAlreadyOpenErr         KUSB = -6991
-	KUSBBadDispatchTable       KUSB = -6950
-	KUSBBitstufErr             KUSB = -6914
-	KUSBBufOvrRunErr           KUSB = -6904
-	KUSBBufUnderRunErr         KUSB = -6903
-	KUSBCRCErr                 KUSB = -6915
-	KUSBCompletionError        KUSB = -6984
-	KUSBDataToggleErr          KUSB = -6913
-	KUSBDeviceBusy             KUSB = -6977
-	KUSBDeviceDisconnected     KUSB = -6972
-	KUSBDeviceErr              KUSB = -6989
-	KUSBDeviceNotSuspended     KUSB = -6973
-	KUSBDevicePowerProblem     KUSB = -6976
-	KUSBDeviceSuspended        KUSB = -6974
-	KUSBEndpointStallErr       KUSB = -6912
-	KUSBFlagsError             KUSB = -6983
-	KUSBIncorrectTypeErr       KUSB = -6995
-	KUSBInternalErr            KUSB = -6999
-	KUSBInvalidBuffer          KUSB = -6975
-	KUSBLinkErr                KUSB = -6916
-	KUSBNoBandwidthError       KUSB = -6981
-	KUSBNoDelay                KUSB = 0
-	KUSBNoDeviceErr            KUSB = -6990
-	KUSBNoErr                  KUSB = 0
-	KUSBNoTran                 KUSB = 0
-	KUSBNotFound               KUSB = -6987
-	KUSBNotHandled             KUSB = -6987
-	KUSBNotRespondingErr       KUSB = -6911
-	KUSBNotSent1Err            KUSB = -6902
-	KUSBNotSent2Err            KUSB = -6901
-	KUSBOutOfMemoryErr         KUSB = -6988
-	KUSBOverRunErr             KUSB = -6908
-	KUSBPBLengthError          KUSB = -6985
-	KUSBPBVersionError         KUSB = -6986
-	KUSBPIDCheckErr            KUSB = -6910
-	KUSBPending                KUSB = 1
-	KUSBPipeIdleError          KUSB = -6980
-	KUSBPipeStalledError       KUSB = -6979
-	KUSBPortDisabled           KUSB = -6969
-	KUSBQueueAborted           KUSB = -6970
-	KUSBQueueFull              KUSB = -6948
-	KUSBRes1Err                KUSB = -6906
-	KUSBRes2Err                KUSB = -6905
-	KUSBRqErr                  KUSB = -6994
-	KUSBTimedOut               KUSB = -6971
-	KUSBTooManyPipesErr        KUSB = -6996
-	KUSBTooManyTransactionsErr KUSB = -6992
-	KUSBUnderRunErr            KUSB = -6907
-	KUSBUnknownDeviceErr       KUSB = -6998
-	KUSBUnknownInterfaceErr    KUSB = -6978
-	KUSBUnknownNotification    KUSB = -6949
-	KUSBUnknownPipeErr         KUSB = -6997
-	KUSBUnknownRequestErr      KUSB = -6993
-	KUSBWrongPIDErr            KUSB = -6909
-)
-
-func (e KUSB) String() string {
-	switch e {
-	case KUSBAbortedError:
-		return "KUSBAbortedError"
-	case KUSBAlreadyOpenErr:
-		return "KUSBAlreadyOpenErr"
-	case KUSBBadDispatchTable:
-		return "KUSBBadDispatchTable"
-	case KUSBBitstufErr:
-		return "KUSBBitstufErr"
-	case KUSBBufOvrRunErr:
-		return "KUSBBufOvrRunErr"
-	case KUSBBufUnderRunErr:
-		return "KUSBBufUnderRunErr"
-	case KUSBCRCErr:
-		return "KUSBCRCErr"
-	case KUSBCompletionError:
-		return "KUSBCompletionError"
-	case KUSBDataToggleErr:
-		return "KUSBDataToggleErr"
-	case KUSBDeviceBusy:
-		return "KUSBDeviceBusy"
-	case KUSBDeviceDisconnected:
-		return "KUSBDeviceDisconnected"
-	case KUSBDeviceErr:
-		return "KUSBDeviceErr"
-	case KUSBDeviceNotSuspended:
-		return "KUSBDeviceNotSuspended"
-	case KUSBDevicePowerProblem:
-		return "KUSBDevicePowerProblem"
-	case KUSBDeviceSuspended:
-		return "KUSBDeviceSuspended"
-	case KUSBEndpointStallErr:
-		return "KUSBEndpointStallErr"
-	case KUSBFlagsError:
-		return "KUSBFlagsError"
-	case KUSBIncorrectTypeErr:
-		return "KUSBIncorrectTypeErr"
-	case KUSBInternalErr:
-		return "KUSBInternalErr"
-	case KUSBInvalidBuffer:
-		return "KUSBInvalidBuffer"
-	case KUSBLinkErr:
-		return "KUSBLinkErr"
-	case KUSBNoBandwidthError:
-		return "KUSBNoBandwidthError"
-	case KUSBNoDelay:
-		return "KUSBNoDelay"
-	case KUSBNoDeviceErr:
-		return "KUSBNoDeviceErr"
-	case KUSBNotFound:
-		return "KUSBNotFound"
-	case KUSBNotRespondingErr:
-		return "KUSBNotRespondingErr"
-	case KUSBNotSent1Err:
-		return "KUSBNotSent1Err"
-	case KUSBNotSent2Err:
-		return "KUSBNotSent2Err"
-	case KUSBOutOfMemoryErr:
-		return "KUSBOutOfMemoryErr"
-	case KUSBOverRunErr:
-		return "KUSBOverRunErr"
-	case KUSBPBLengthError:
-		return "KUSBPBLengthError"
-	case KUSBPBVersionError:
-		return "KUSBPBVersionError"
-	case KUSBPIDCheckErr:
-		return "KUSBPIDCheckErr"
-	case KUSBPending:
-		return "KUSBPending"
-	case KUSBPipeIdleError:
-		return "KUSBPipeIdleError"
-	case KUSBPipeStalledError:
-		return "KUSBPipeStalledError"
-	case KUSBPortDisabled:
-		return "KUSBPortDisabled"
-	case KUSBQueueAborted:
-		return "KUSBQueueAborted"
-	case KUSBQueueFull:
-		return "KUSBQueueFull"
-	case KUSBRes1Err:
-		return "KUSBRes1Err"
-	case KUSBRes2Err:
-		return "KUSBRes2Err"
-	case KUSBRqErr:
-		return "KUSBRqErr"
-	case KUSBTimedOut:
-		return "KUSBTimedOut"
-	case KUSBTooManyPipesErr:
-		return "KUSBTooManyPipesErr"
-	case KUSBTooManyTransactionsErr:
-		return "KUSBTooManyTransactionsErr"
-	case KUSBUnderRunErr:
-		return "KUSBUnderRunErr"
-	case KUSBUnknownDeviceErr:
-		return "KUSBUnknownDeviceErr"
-	case KUSBUnknownInterfaceErr:
-		return "KUSBUnknownInterfaceErr"
-	case KUSBUnknownNotification:
-		return "KUSBUnknownNotification"
-	case KUSBUnknownPipeErr:
-		return "KUSBUnknownPipeErr"
-	case KUSBUnknownRequestErr:
-		return "KUSBUnknownRequestErr"
-	case KUSBWrongPIDErr:
-		return "KUSBWrongPIDErr"
-	default:
-		return fmt.Sprintf("KUSB(%d)", e)
-	}
-}
-
-type KUSBInternal int
+type KUSBInternal int32
 
 const (
 	KUSBInternalReserved1  KUSBInternal = -6960
@@ -22673,7 +25130,216 @@ func (e KUSBInternal) String() string {
 	}
 }
 
-type KUTCDefault uint
+type KUSBNoErr uint32
+
+const (
+	KUSBNoDelay    KUSBNoErr = 0
+	KUSBNoErrValue KUSBNoErr = 0
+	KUSBNoTran     KUSBNoErr = 0
+	KUSBPending    KUSBNoErr = 1
+)
+
+func (e KUSBNoErr) String() string {
+	switch e {
+	case KUSBNoDelay:
+		return "KUSBNoDelay"
+	case KUSBPending:
+		return "KUSBPending"
+	default:
+		return fmt.Sprintf("KUSBNoErr(%d)", e)
+	}
+}
+
+type KUSBNotSent2Err int32
+
+const (
+	KUSBBitstufErr       KUSBNotSent2Err = -6914
+	KUSBBufOvrRunErr     KUSBNotSent2Err = -6904
+	KUSBBufUnderRunErr   KUSBNotSent2Err = -6903
+	KUSBCRCErr           KUSBNotSent2Err = -6915
+	KUSBDataToggleErr    KUSBNotSent2Err = -6913
+	KUSBEndpointStallErr KUSBNotSent2Err = -6912
+	KUSBLinkErr          KUSBNotSent2Err = -6916
+	KUSBNotRespondingErr KUSBNotSent2Err = -6911
+	KUSBNotSent1Err      KUSBNotSent2Err = -6902
+	KUSBNotSent2ErrValue KUSBNotSent2Err = -6901
+	KUSBOverRunErr       KUSBNotSent2Err = -6908
+	KUSBPIDCheckErr      KUSBNotSent2Err = -6910
+	KUSBRes1Err          KUSBNotSent2Err = -6906
+	KUSBRes2Err          KUSBNotSent2Err = -6905
+	KUSBUnderRunErr      KUSBNotSent2Err = -6907
+	KUSBWrongPIDErr      KUSBNotSent2Err = -6909
+)
+
+func (e KUSBNotSent2Err) String() string {
+	switch e {
+	case KUSBBitstufErr:
+		return "KUSBBitstufErr"
+	case KUSBBufOvrRunErr:
+		return "KUSBBufOvrRunErr"
+	case KUSBBufUnderRunErr:
+		return "KUSBBufUnderRunErr"
+	case KUSBCRCErr:
+		return "KUSBCRCErr"
+	case KUSBDataToggleErr:
+		return "KUSBDataToggleErr"
+	case KUSBEndpointStallErr:
+		return "KUSBEndpointStallErr"
+	case KUSBLinkErr:
+		return "KUSBLinkErr"
+	case KUSBNotRespondingErr:
+		return "KUSBNotRespondingErr"
+	case KUSBNotSent1Err:
+		return "KUSBNotSent1Err"
+	case KUSBNotSent2ErrValue:
+		return "KUSBNotSent2ErrValue"
+	case KUSBOverRunErr:
+		return "KUSBOverRunErr"
+	case KUSBPIDCheckErr:
+		return "KUSBPIDCheckErr"
+	case KUSBRes1Err:
+		return "KUSBRes1Err"
+	case KUSBRes2Err:
+		return "KUSBRes2Err"
+	case KUSBUnderRunErr:
+		return "KUSBUnderRunErr"
+	case KUSBWrongPIDErr:
+		return "KUSBWrongPIDErr"
+	default:
+		return fmt.Sprintf("KUSBNotSent2Err(%d)", e)
+	}
+}
+
+type KUSBPortDisabled int32
+
+const (
+	KUSBAbortedError           KUSBPortDisabled = -6982
+	KUSBAlreadyOpenErr         KUSBPortDisabled = -6991
+	KUSBCompletionError        KUSBPortDisabled = -6984
+	KUSBDeviceBusy             KUSBPortDisabled = -6977
+	KUSBDeviceDisconnected     KUSBPortDisabled = -6972
+	KUSBDeviceErr              KUSBPortDisabled = -6989
+	KUSBDeviceNotSuspended     KUSBPortDisabled = -6973
+	KUSBDevicePowerProblem     KUSBPortDisabled = -6976
+	KUSBDeviceSuspended        KUSBPortDisabled = -6974
+	KUSBFlagsError             KUSBPortDisabled = -6983
+	KUSBIncorrectTypeErr       KUSBPortDisabled = -6995
+	KUSBInternalErr            KUSBPortDisabled = -6999
+	KUSBInvalidBuffer          KUSBPortDisabled = -6975
+	KUSBNoBandwidthError       KUSBPortDisabled = -6981
+	KUSBNoDeviceErr            KUSBPortDisabled = -6990
+	KUSBNotFound               KUSBPortDisabled = -6987
+	KUSBOutOfMemoryErr         KUSBPortDisabled = -6988
+	KUSBPBLengthError          KUSBPortDisabled = -6985
+	KUSBPBVersionError         KUSBPortDisabled = -6986
+	KUSBPipeIdleError          KUSBPortDisabled = -6980
+	KUSBPipeStalledError       KUSBPortDisabled = -6979
+	KUSBPortDisabledValue      KUSBPortDisabled = -6969
+	KUSBQueueAborted           KUSBPortDisabled = -6970
+	KUSBRqErr                  KUSBPortDisabled = -6994
+	KUSBTimedOut               KUSBPortDisabled = -6971
+	KUSBTooManyPipesErr        KUSBPortDisabled = -6996
+	KUSBTooManyTransactionsErr KUSBPortDisabled = -6992
+	KUSBUnknownDeviceErr       KUSBPortDisabled = -6998
+	KUSBUnknownInterfaceErr    KUSBPortDisabled = -6978
+	KUSBUnknownPipeErr         KUSBPortDisabled = -6997
+	KUSBUnknownRequestErr      KUSBPortDisabled = -6993
+)
+
+func (e KUSBPortDisabled) String() string {
+	switch e {
+	case KUSBAbortedError:
+		return "KUSBAbortedError"
+	case KUSBAlreadyOpenErr:
+		return "KUSBAlreadyOpenErr"
+	case KUSBCompletionError:
+		return "KUSBCompletionError"
+	case KUSBDeviceBusy:
+		return "KUSBDeviceBusy"
+	case KUSBDeviceDisconnected:
+		return "KUSBDeviceDisconnected"
+	case KUSBDeviceErr:
+		return "KUSBDeviceErr"
+	case KUSBDeviceNotSuspended:
+		return "KUSBDeviceNotSuspended"
+	case KUSBDevicePowerProblem:
+		return "KUSBDevicePowerProblem"
+	case KUSBDeviceSuspended:
+		return "KUSBDeviceSuspended"
+	case KUSBFlagsError:
+		return "KUSBFlagsError"
+	case KUSBIncorrectTypeErr:
+		return "KUSBIncorrectTypeErr"
+	case KUSBInternalErr:
+		return "KUSBInternalErr"
+	case KUSBInvalidBuffer:
+		return "KUSBInvalidBuffer"
+	case KUSBNoBandwidthError:
+		return "KUSBNoBandwidthError"
+	case KUSBNoDeviceErr:
+		return "KUSBNoDeviceErr"
+	case KUSBNotFound:
+		return "KUSBNotFound"
+	case KUSBOutOfMemoryErr:
+		return "KUSBOutOfMemoryErr"
+	case KUSBPBLengthError:
+		return "KUSBPBLengthError"
+	case KUSBPBVersionError:
+		return "KUSBPBVersionError"
+	case KUSBPipeIdleError:
+		return "KUSBPipeIdleError"
+	case KUSBPipeStalledError:
+		return "KUSBPipeStalledError"
+	case KUSBPortDisabledValue:
+		return "KUSBPortDisabledValue"
+	case KUSBQueueAborted:
+		return "KUSBQueueAborted"
+	case KUSBRqErr:
+		return "KUSBRqErr"
+	case KUSBTimedOut:
+		return "KUSBTimedOut"
+	case KUSBTooManyPipesErr:
+		return "KUSBTooManyPipesErr"
+	case KUSBTooManyTransactionsErr:
+		return "KUSBTooManyTransactionsErr"
+	case KUSBUnknownDeviceErr:
+		return "KUSBUnknownDeviceErr"
+	case KUSBUnknownInterfaceErr:
+		return "KUSBUnknownInterfaceErr"
+	case KUSBUnknownPipeErr:
+		return "KUSBUnknownPipeErr"
+	case KUSBUnknownRequestErr:
+		return "KUSBUnknownRequestErr"
+	default:
+		return fmt.Sprintf("KUSBPortDisabled(%d)", e)
+	}
+}
+
+type KUSBQueueFull int32
+
+const (
+	KUSBBadDispatchTable    KUSBQueueFull = -6950
+	KUSBNotHandled          KUSBQueueFull = -6987
+	KUSBQueueFullValue      KUSBQueueFull = -6948
+	KUSBUnknownNotification KUSBQueueFull = -6949
+)
+
+func (e KUSBQueueFull) String() string {
+	switch e {
+	case KUSBBadDispatchTable:
+		return "KUSBBadDispatchTable"
+	case KUSBNotHandled:
+		return "KUSBNotHandled"
+	case KUSBQueueFullValue:
+		return "KUSBQueueFullValue"
+	case KUSBUnknownNotification:
+		return "KUSBUnknownNotification"
+	default:
+		return fmt.Sprintf("KUSBQueueFull(%d)", e)
+	}
+}
+
+type KUTCDefault uint32
 
 const (
 	// Deprecated.
@@ -22689,7 +25355,7 @@ func (e KUTCDefault) String() string {
 	}
 }
 
-type KUTCUnderflowErr int
+type KUTCUnderflowErr int32
 
 const (
 	KIllegalClockValueErr KUTCUnderflowErr = -8852
@@ -22710,152 +25376,38 @@ func (e KUTCUnderflowErr) String() string {
 	}
 }
 
-type KUnicode uint
+type KUnicodeByteOrderMark uint32
 
 const (
-	KUnicodeByteOrderMark KUnicode = 0xfeff
-	// KUnicodeDefaultDirection: Use the default direction.
-	KUnicodeDefaultDirection KUnicode = 0
-	// KUnicodeDefaultDirectionMask: # Discussion
-	KUnicodeDefaultDirectionMask KUnicode = 0
-	// KUnicodeDirectionalityBits: Sets directionality.
-	KUnicodeDirectionalityBits KUnicode = 2
-	// KUnicodeDirectionalityMask: A mask for setting the directionality control flag
-	KUnicodeDirectionalityMask KUnicode = 12
-	// KUnicodeForceASCIIRangeBit: Sets the force ASCII range control flag.
-	KUnicodeForceASCIIRangeBit KUnicode = 9
-	// KUnicodeForceASCIIRangeMask: # Discussion
-	KUnicodeForceASCIIRangeMask KUnicode = 512
-	// KUnicodeHFSPlusCompVariant: # Discussion
-	KUnicodeHFSPlusCompVariant KUnicode = 9
-	// KUnicodeHFSPlusDecompVariant: Specifies canonical decomposition according to Unicode 3.2 rules, with HFS+ exclusions ("HFS+ decomposition 3.2").
-	KUnicodeHFSPlusDecompVariant KUnicode = 8
-	// KUnicodeKeepInfoBit: Sets the keep-information control flag.
-	KUnicodeKeepInfoBit KUnicode = 1
-	// KUnicodeKeepInfoMask: # Discussion
-	KUnicodeKeepInfoMask KUnicode = 2
-	// KUnicodeKeepSameEncodingBit: Sets the keep-same-encoding control flag.
-	KUnicodeKeepSameEncodingBit KUnicode = 8
-	// KUnicodeKeepSameEncodingMask: # Discussion
-	KUnicodeKeepSameEncodingMask KUnicode = 256
-	// KUnicodeLeftToRight: Indicates left to right direction.
-	KUnicodeLeftToRight KUnicode = 1
-	// KUnicodeLeftToRightMask: # Discussion
-	KUnicodeLeftToRightMask KUnicode = 1
-	// KUnicodeLooseMappingsBit: Enables use of the loose-mapping portion of a character mapping table.
-	KUnicodeLooseMappingsBit KUnicode = 5
-	// KUnicodeLooseMappingsMask: # Discussion
-	KUnicodeLooseMappingsMask      KUnicode = 32
-	KUnicodeMapLineFeedToReturnBit KUnicode = 12
-	// KUnicodeMapLineFeedToReturnMask: # Discussion
-	KUnicodeMapLineFeedToReturnMask KUnicode = 4096
-	KUnicodeNoHalfwidthCharsBit     KUnicode = 10
-	// KUnicodeNoHalfwidthCharsMask: Sets the no halfwidth characters control flag.
-	KUnicodeNoHalfwidthCharsMask KUnicode = 1024
-	// KUnicodeNoSubset: The standard Unicode encoded character set in which the full set of Unicode characters are supported.
-	KUnicodeNoSubset           KUnicode = 0
-	KUnicodeNormalizationFormC KUnicode = 3
-	KUnicodeNormalizationFormD KUnicode = 5
+	KUnicodeByteOrderMarkValue KUnicodeByteOrderMark = 0xfeff
 	// KUnicodeNotAChar: Not a Unicode character; may be used as a terminator.
-	KUnicodeNotAChar KUnicode = 0xffff
+	KUnicodeNotAChar KUnicodeByteOrderMark = 0xffff
 	// KUnicodeObjectReplacement: A placeholder for a non-text object.
-	KUnicodeObjectReplacement KUnicode = 0xfffc
+	KUnicodeObjectReplacement KUnicodeByteOrderMark = 0xfffc
 	// KUnicodeReplacementChar: Unicode replacement for an input character that cannot be converted.
-	KUnicodeReplacementChar KUnicode = 0xfffd
-	// KUnicodeRightToLeft: Indicates right to left direction.
-	KUnicodeRightToLeft KUnicode = 2
-	// KUnicodeRightToLeftMask: # Discussion
-	KUnicodeRightToLeftMask KUnicode = 2
-	// KUnicodeStringUnterminatedBit: Sets the string-unterminated control flag.
-	KUnicodeStringUnterminatedBit KUnicode = 6
-	// KUnicodeStringUnterminatedMask: # Discussion
-	KUnicodeStringUnterminatedMask KUnicode = 64
+	KUnicodeReplacementChar KUnicodeByteOrderMark = 0xfffd
 	// KUnicodeSwappedByteOrderMark: Not a Unicode character; byte-swapped version of FEFF.
-	KUnicodeSwappedByteOrderMark KUnicode = 0xfffe
-	// KUnicodeTextRunBit: Sets the text-run control flag.
-	KUnicodeTextRunBit            KUnicode = 7
-	KUnicodeTextRunHeuristicsBit  KUnicode = 11
-	KUnicodeTextRunHeuristicsMask KUnicode = 2048
-	// KUnicodeTextRunMask: # Discussion
-	KUnicodeTextRunMask                 KUnicode = 128
-	KUnicodeUseExternalEncodingFormBit  KUnicode = 13
-	KUnicodeUseExternalEncodingFormMask KUnicode = 8192
-	// KUnicodeUseFallbacksBit: Enables use of fallback mappings.
-	KUnicodeUseFallbacksBit KUnicode = 0
-	// KUnicodeUseFallbacksMask: # Discussion
-	KUnicodeUseFallbacksMask KUnicode = 1
-	// KUnicodeVerticalFormBit: Sets the vertical form control flag.
-	KUnicodeVerticalFormBit KUnicode = 4
-	// KUnicodeVerticalFormMask: # Discussion
-	KUnicodeVerticalFormMask KUnicode = 16
+	KUnicodeSwappedByteOrderMark KUnicodeByteOrderMark = 0xfffe
 )
 
-func (e KUnicode) String() string {
+func (e KUnicodeByteOrderMark) String() string {
 	switch e {
-	case KUnicodeByteOrderMark:
-		return "KUnicodeByteOrderMark"
-	case KUnicodeDefaultDirection:
-		return "KUnicodeDefaultDirection"
-	case KUnicodeDirectionalityBits:
-		return "KUnicodeDirectionalityBits"
-	case KUnicodeDirectionalityMask:
-		return "KUnicodeDirectionalityMask"
-	case KUnicodeForceASCIIRangeBit:
-		return "KUnicodeForceASCIIRangeBit"
-	case KUnicodeForceASCIIRangeMask:
-		return "KUnicodeForceASCIIRangeMask"
-	case KUnicodeHFSPlusDecompVariant:
-		return "KUnicodeHFSPlusDecompVariant"
-	case KUnicodeKeepInfoBit:
-		return "KUnicodeKeepInfoBit"
-	case KUnicodeKeepSameEncodingMask:
-		return "KUnicodeKeepSameEncodingMask"
-	case KUnicodeLooseMappingsBit:
-		return "KUnicodeLooseMappingsBit"
-	case KUnicodeLooseMappingsMask:
-		return "KUnicodeLooseMappingsMask"
-	case KUnicodeMapLineFeedToReturnMask:
-		return "KUnicodeMapLineFeedToReturnMask"
-	case KUnicodeNoHalfwidthCharsBit:
-		return "KUnicodeNoHalfwidthCharsBit"
-	case KUnicodeNoHalfwidthCharsMask:
-		return "KUnicodeNoHalfwidthCharsMask"
-	case KUnicodeNormalizationFormC:
-		return "KUnicodeNormalizationFormC"
+	case KUnicodeByteOrderMarkValue:
+		return "KUnicodeByteOrderMarkValue"
 	case KUnicodeNotAChar:
 		return "KUnicodeNotAChar"
 	case KUnicodeObjectReplacement:
 		return "KUnicodeObjectReplacement"
 	case KUnicodeReplacementChar:
 		return "KUnicodeReplacementChar"
-	case KUnicodeStringUnterminatedBit:
-		return "KUnicodeStringUnterminatedBit"
-	case KUnicodeStringUnterminatedMask:
-		return "KUnicodeStringUnterminatedMask"
 	case KUnicodeSwappedByteOrderMark:
 		return "KUnicodeSwappedByteOrderMark"
-	case KUnicodeTextRunBit:
-		return "KUnicodeTextRunBit"
-	case KUnicodeTextRunHeuristicsBit:
-		return "KUnicodeTextRunHeuristicsBit"
-	case KUnicodeTextRunHeuristicsMask:
-		return "KUnicodeTextRunHeuristicsMask"
-	case KUnicodeTextRunMask:
-		return "KUnicodeTextRunMask"
-	case KUnicodeUseExternalEncodingFormBit:
-		return "KUnicodeUseExternalEncodingFormBit"
-	case KUnicodeUseExternalEncodingFormMask:
-		return "KUnicodeUseExternalEncodingFormMask"
-	case KUnicodeVerticalFormBit:
-		return "KUnicodeVerticalFormBit"
-	case KUnicodeVerticalFormMask:
-		return "KUnicodeVerticalFormMask"
 	default:
-		return fmt.Sprintf("KUnicode(%d)", e)
+		return fmt.Sprintf("KUnicodeByteOrderMark(%d)", e)
 	}
 }
 
-type KUnicodeCollation uint
+type KUnicodeCollation uint32
 
 const (
 	// KUnicodeCollationClass: Identifies collation as a class of operations.
@@ -22871,23 +25423,68 @@ func (e KUnicodeCollation) String() string {
 	}
 }
 
-type KUnicodeFallback uint
+type KUnicodeDefaultDirection uint32
+
+const (
+	// KUnicodeDefaultDirectionValue: Use the default direction.
+	KUnicodeDefaultDirectionValue KUnicodeDefaultDirection = 0
+	// KUnicodeLeftToRight: Indicates left to right direction.
+	KUnicodeLeftToRight KUnicodeDefaultDirection = 1
+	// KUnicodeRightToLeft: Indicates right to left direction.
+	KUnicodeRightToLeft KUnicodeDefaultDirection = 2
+)
+
+func (e KUnicodeDefaultDirection) String() string {
+	switch e {
+	case KUnicodeDefaultDirectionValue:
+		return "KUnicodeDefaultDirectionValue"
+	case KUnicodeLeftToRight:
+		return "KUnicodeLeftToRight"
+	case KUnicodeRightToLeft:
+		return "KUnicodeRightToLeft"
+	default:
+		return fmt.Sprintf("KUnicodeDefaultDirection(%d)", e)
+	}
+}
+
+type KUnicodeDefaultDirectionMask uint32
+
+const (
+	// KUnicodeDefaultDirectionMaskValue: # Discussion
+	KUnicodeDefaultDirectionMaskValue KUnicodeDefaultDirectionMask = 0
+	// KUnicodeLeftToRightMask: # Discussion
+	KUnicodeLeftToRightMask KUnicodeDefaultDirectionMask = 4
+	// KUnicodeRightToLeftMask: # Discussion
+	KUnicodeRightToLeftMask KUnicodeDefaultDirectionMask = 8
+)
+
+func (e KUnicodeDefaultDirectionMask) String() string {
+	switch e {
+	case KUnicodeDefaultDirectionMaskValue:
+		return "KUnicodeDefaultDirectionMaskValue"
+	case KUnicodeLeftToRightMask:
+		return "KUnicodeLeftToRightMask"
+	case KUnicodeRightToLeftMask:
+		return "KUnicodeRightToLeftMask"
+	default:
+		return fmt.Sprintf("KUnicodeDefaultDirectionMask(%d)", e)
+	}
+}
+
+type KUnicodeFallbackDefaultOnly uint32
 
 const (
 	// KUnicodeFallbackCustomFirst: Use the custom fallback handler first, then the default one.
-	KUnicodeFallbackCustomFirst KUnicodeFallback = 3
+	KUnicodeFallbackCustomFirst KUnicodeFallbackDefaultOnly = 3
 	// KUnicodeFallbackCustomOnly: Use the custom fallback handler only.
-	KUnicodeFallbackCustomOnly KUnicodeFallback = 1
+	KUnicodeFallbackCustomOnly KUnicodeFallbackDefaultOnly = 1
 	// KUnicodeFallbackDefaultFirst: Use the default fallback handler first, then the custom one.
-	KUnicodeFallbackDefaultFirst KUnicodeFallback = 2
-	// KUnicodeFallbackDefaultOnly: Use the default fallback handler only.
-	KUnicodeFallbackDefaultOnly KUnicodeFallback = 0
-	// KUnicodeFallbackInterruptSafeMask: Indicate that the caller’s fallback routine doesn’t move memory.
-	KUnicodeFallbackInterruptSafeMask KUnicodeFallback = 4
-	KUnicodeFallbackSequencingMask    KUnicodeFallback = 3
+	KUnicodeFallbackDefaultFirst KUnicodeFallbackDefaultOnly = 2
+	// KUnicodeFallbackDefaultOnlyValue: Use the default fallback handler only.
+	KUnicodeFallbackDefaultOnlyValue KUnicodeFallbackDefaultOnly = 0
 )
 
-func (e KUnicodeFallback) String() string {
+func (e KUnicodeFallbackDefaultOnly) String() string {
 	switch e {
 	case KUnicodeFallbackCustomFirst:
 		return "KUnicodeFallbackCustomFirst"
@@ -22895,16 +25492,14 @@ func (e KUnicodeFallback) String() string {
 		return "KUnicodeFallbackCustomOnly"
 	case KUnicodeFallbackDefaultFirst:
 		return "KUnicodeFallbackDefaultFirst"
-	case KUnicodeFallbackDefaultOnly:
-		return "KUnicodeFallbackDefaultOnly"
-	case KUnicodeFallbackInterruptSafeMask:
-		return "KUnicodeFallbackInterruptSafeMask"
+	case KUnicodeFallbackDefaultOnlyValue:
+		return "KUnicodeFallbackDefaultOnlyValue"
 	default:
-		return fmt.Sprintf("KUnicodeFallback(%d)", e)
+		return fmt.Sprintf("KUnicodeFallbackDefaultOnly(%d)", e)
 	}
 }
 
-type KUnicodeFallbackSequencing uint
+type KUnicodeFallbackSequencing uint32
 
 const (
 	KUnicodeFallbackSequencingBits KUnicodeFallbackSequencing = 0
@@ -22919,61 +25514,98 @@ func (e KUnicodeFallbackSequencing) String() string {
 	}
 }
 
-type KUnicodeMatch uint
+type KUnicodeFallbackSequencingMask uint32
 
 const (
-	// KUnicodeMatchOtherBaseBit: Excludes mappings that do not match the text encoding base of the `otherEncoding` field of the structure UnicodeMapping.
-	KUnicodeMatchOtherBaseBit KUnicodeMatch = 3
-	// KUnicodeMatchOtherBaseMask: If set, excludes mappings that do not match the text encoding base of the `otherEncoding` field of the structure UnicodeMapping.
-	KUnicodeMatchOtherBaseMask KUnicodeMatch = 8
-	// KUnicodeMatchOtherFormatBit: Excludes mappings that do not match the text encoding format of the `otherEncoding` field of the specified Unicode mapping structure.
-	KUnicodeMatchOtherFormatBit KUnicodeMatch = 5
-	// KUnicodeMatchOtherFormatMask: If set, excludes mappings that do not match the text encoding format of the `otherEncoding` field of the specified Unicode mapping structure.
-	KUnicodeMatchOtherFormatMask KUnicodeMatch = 32
-	// KUnicodeMatchOtherVariantBit: Excludes mappings that do not match the text encoding variant of the `otherEncoding` field of the specified Unicode mapping structure.
-	KUnicodeMatchOtherVariantBit KUnicodeMatch = 4
-	// KUnicodeMatchOtherVariantMask: If set, excludes mappings that do not match the text encoding variant of the `otherEncoding` field of the specified Unicode mapping structure.
-	KUnicodeMatchOtherVariantMask KUnicodeMatch = 16
-	// KUnicodeMatchUnicodeBaseBit: Excludes mappings that do not match the text encoding base of the `unicodeEncoding` field of the structure UnicodeMapping.
-	KUnicodeMatchUnicodeBaseBit KUnicodeMatch = 0
-	// KUnicodeMatchUnicodeBaseMask: If set, excludes mappings that do not match the text encoding base of the `unicodeEncoding` field of the structure UnicodeMapping.
-	KUnicodeMatchUnicodeBaseMask KUnicodeMatch = 1
-	// KUnicodeMatchUnicodeFormatBit: Excludes mappings that do not match the text encoding format of the `unicodeEncoding` field of the specified Unicode mapping structure.
-	KUnicodeMatchUnicodeFormatBit KUnicodeMatch = 2
-	// KUnicodeMatchUnicodeFormatMask: If set, excludes mappings that do not match the text encoding format of the `unicodeEncoding` field of the specified Unicode mapping structure.
-	KUnicodeMatchUnicodeFormatMask KUnicodeMatch = 4
-	// KUnicodeMatchUnicodeVariantBit: Excludes mappings that do not match the text encoding variant of the `unicodeEncoding` field of the specified Unicode mapping structure.
-	KUnicodeMatchUnicodeVariantBit KUnicodeMatch = 1
-	// KUnicodeMatchUnicodeVariantMask: If set, excludes mappings that do not match the text encoding variant of the `unicodeEncoding` field of the specified Unicode mapping structure.
-	KUnicodeMatchUnicodeVariantMask KUnicodeMatch = 2
+	// KUnicodeFallbackInterruptSafeMask: Indicate that the caller’s fallback routine doesn’t move memory.
+	KUnicodeFallbackInterruptSafeMask   KUnicodeFallbackSequencingMask = 4
+	KUnicodeFallbackSequencingMaskValue KUnicodeFallbackSequencingMask = 3
 )
 
-func (e KUnicodeMatch) String() string {
+func (e KUnicodeFallbackSequencingMask) String() string {
 	switch e {
-	case KUnicodeMatchOtherBaseBit:
-		return "KUnicodeMatchOtherBaseBit"
-	case KUnicodeMatchOtherBaseMask:
-		return "KUnicodeMatchOtherBaseMask"
-	case KUnicodeMatchOtherFormatBit:
-		return "KUnicodeMatchOtherFormatBit"
-	case KUnicodeMatchOtherFormatMask:
-		return "KUnicodeMatchOtherFormatMask"
-	case KUnicodeMatchOtherVariantBit:
-		return "KUnicodeMatchOtherVariantBit"
-	case KUnicodeMatchOtherVariantMask:
-		return "KUnicodeMatchOtherVariantMask"
-	case KUnicodeMatchUnicodeBaseBit:
-		return "KUnicodeMatchUnicodeBaseBit"
-	case KUnicodeMatchUnicodeBaseMask:
-		return "KUnicodeMatchUnicodeBaseMask"
-	case KUnicodeMatchUnicodeFormatBit:
-		return "KUnicodeMatchUnicodeFormatBit"
+	case KUnicodeFallbackInterruptSafeMask:
+		return "KUnicodeFallbackInterruptSafeMask"
+	case KUnicodeFallbackSequencingMaskValue:
+		return "KUnicodeFallbackSequencingMaskValue"
 	default:
-		return fmt.Sprintf("KUnicodeMatch(%d)", e)
+		return fmt.Sprintf("KUnicodeFallbackSequencingMask(%d)", e)
 	}
 }
 
-type KUnicodeNo uint
+type KUnicodeMatchUnicodeBaseBit uint32
+
+const (
+	// KUnicodeMatchOtherBaseBit: Excludes mappings that do not match the text encoding base of the `otherEncoding` field of the structure UnicodeMapping.
+	KUnicodeMatchOtherBaseBit KUnicodeMatchUnicodeBaseBit = 3
+	// KUnicodeMatchOtherFormatBit: Excludes mappings that do not match the text encoding format of the `otherEncoding` field of the specified Unicode mapping structure.
+	KUnicodeMatchOtherFormatBit KUnicodeMatchUnicodeBaseBit = 5
+	// KUnicodeMatchOtherVariantBit: Excludes mappings that do not match the text encoding variant of the `otherEncoding` field of the specified Unicode mapping structure.
+	KUnicodeMatchOtherVariantBit KUnicodeMatchUnicodeBaseBit = 4
+	// KUnicodeMatchUnicodeBaseBitValue: Excludes mappings that do not match the text encoding base of the `unicodeEncoding` field of the structure UnicodeMapping.
+	KUnicodeMatchUnicodeBaseBitValue KUnicodeMatchUnicodeBaseBit = 0
+	// KUnicodeMatchUnicodeFormatBit: Excludes mappings that do not match the text encoding format of the `unicodeEncoding` field of the specified Unicode mapping structure.
+	KUnicodeMatchUnicodeFormatBit KUnicodeMatchUnicodeBaseBit = 2
+	// KUnicodeMatchUnicodeVariantBit: Excludes mappings that do not match the text encoding variant of the `unicodeEncoding` field of the specified Unicode mapping structure.
+	KUnicodeMatchUnicodeVariantBit KUnicodeMatchUnicodeBaseBit = 1
+)
+
+func (e KUnicodeMatchUnicodeBaseBit) String() string {
+	switch e {
+	case KUnicodeMatchOtherBaseBit:
+		return "KUnicodeMatchOtherBaseBit"
+	case KUnicodeMatchOtherFormatBit:
+		return "KUnicodeMatchOtherFormatBit"
+	case KUnicodeMatchOtherVariantBit:
+		return "KUnicodeMatchOtherVariantBit"
+	case KUnicodeMatchUnicodeBaseBitValue:
+		return "KUnicodeMatchUnicodeBaseBitValue"
+	case KUnicodeMatchUnicodeFormatBit:
+		return "KUnicodeMatchUnicodeFormatBit"
+	case KUnicodeMatchUnicodeVariantBit:
+		return "KUnicodeMatchUnicodeVariantBit"
+	default:
+		return fmt.Sprintf("KUnicodeMatchUnicodeBaseBit(%d)", e)
+	}
+}
+
+type KUnicodeMatchUnicodeBaseMask uint32
+
+const (
+	// KUnicodeMatchOtherBaseMask: If set, excludes mappings that do not match the text encoding base of the `otherEncoding` field of the structure UnicodeMapping.
+	KUnicodeMatchOtherBaseMask KUnicodeMatchUnicodeBaseMask = 8
+	// KUnicodeMatchOtherFormatMask: If set, excludes mappings that do not match the text encoding format of the `otherEncoding` field of the specified Unicode mapping structure.
+	KUnicodeMatchOtherFormatMask KUnicodeMatchUnicodeBaseMask = 32
+	// KUnicodeMatchOtherVariantMask: If set, excludes mappings that do not match the text encoding variant of the `otherEncoding` field of the specified Unicode mapping structure.
+	KUnicodeMatchOtherVariantMask KUnicodeMatchUnicodeBaseMask = 16
+	// KUnicodeMatchUnicodeBaseMaskValue: If set, excludes mappings that do not match the text encoding base of the `unicodeEncoding` field of the structure UnicodeMapping.
+	KUnicodeMatchUnicodeBaseMaskValue KUnicodeMatchUnicodeBaseMask = 1
+	// KUnicodeMatchUnicodeFormatMask: If set, excludes mappings that do not match the text encoding format of the `unicodeEncoding` field of the specified Unicode mapping structure.
+	KUnicodeMatchUnicodeFormatMask KUnicodeMatchUnicodeBaseMask = 4
+	// KUnicodeMatchUnicodeVariantMask: If set, excludes mappings that do not match the text encoding variant of the `unicodeEncoding` field of the specified Unicode mapping structure.
+	KUnicodeMatchUnicodeVariantMask KUnicodeMatchUnicodeBaseMask = 2
+)
+
+func (e KUnicodeMatchUnicodeBaseMask) String() string {
+	switch e {
+	case KUnicodeMatchOtherBaseMask:
+		return "KUnicodeMatchOtherBaseMask"
+	case KUnicodeMatchOtherFormatMask:
+		return "KUnicodeMatchOtherFormatMask"
+	case KUnicodeMatchOtherVariantMask:
+		return "KUnicodeMatchOtherVariantMask"
+	case KUnicodeMatchUnicodeBaseMaskValue:
+		return "KUnicodeMatchUnicodeBaseMaskValue"
+	case KUnicodeMatchUnicodeFormatMask:
+		return "KUnicodeMatchUnicodeFormatMask"
+	case KUnicodeMatchUnicodeVariantMask:
+		return "KUnicodeMatchUnicodeVariantMask"
+	default:
+		return fmt.Sprintf("KUnicodeMatchUnicodeBaseMask(%d)", e)
+	}
+}
+
+type KUnicodeNo uint32
 
 const (
 	KUnicodeNoCompatibilityVariant KUnicodeNo = 1
@@ -22991,7 +25623,37 @@ func (e KUnicodeNo) String() string {
 	}
 }
 
-type KUnicodeTextBreak uint
+type KUnicodeNoSubset uint32
+
+const (
+	// KUnicodeHFSPlusCompVariant: # Discussion
+	KUnicodeHFSPlusCompVariant KUnicodeNoSubset = 9
+	// KUnicodeHFSPlusDecompVariant: Specifies canonical decomposition according to Unicode 3.2 rules, with HFS+ exclusions ("HFS+ decomposition 3.2").
+	KUnicodeHFSPlusDecompVariant KUnicodeNoSubset = 8
+	// KUnicodeNoSubsetValue: The standard Unicode encoded character set in which the full set of Unicode characters are supported.
+	KUnicodeNoSubsetValue      KUnicodeNoSubset = 0
+	KUnicodeNormalizationFormC KUnicodeNoSubset = 3
+	KUnicodeNormalizationFormD KUnicodeNoSubset = 5
+)
+
+func (e KUnicodeNoSubset) String() string {
+	switch e {
+	case KUnicodeHFSPlusCompVariant:
+		return "KUnicodeHFSPlusCompVariant"
+	case KUnicodeHFSPlusDecompVariant:
+		return "KUnicodeHFSPlusDecompVariant"
+	case KUnicodeNoSubsetValue:
+		return "KUnicodeNoSubsetValue"
+	case KUnicodeNormalizationFormC:
+		return "KUnicodeNormalizationFormC"
+	case KUnicodeNormalizationFormD:
+		return "KUnicodeNormalizationFormD"
+	default:
+		return fmt.Sprintf("KUnicodeNoSubset(%d)", e)
+	}
+}
+
+type KUnicodeTextBreak uint32
 
 const (
 	// KUnicodeTextBreakClass: Identifies the class of Unicode utility operations that find text boundaries.
@@ -23007,7 +25669,7 @@ func (e KUnicodeTextBreak) String() string {
 	}
 }
 
-type KUnicodeUse int
+type KUnicodeUse int32
 
 const (
 	// KUnicodeUseHFSPlusMapping: Indicates the mapping version used by HFS Plus to convert filenames between Mac OS encodings and Unicode.
@@ -23027,7 +25689,129 @@ func (e KUnicodeUse) String() string {
 	}
 }
 
-type KUnknownException uint
+type KUnicodeUseFallbacksBit uint32
+
+const (
+	// KUnicodeDirectionalityBits: Sets directionality.
+	KUnicodeDirectionalityBits KUnicodeUseFallbacksBit = 2
+	// KUnicodeForceASCIIRangeBit: Sets the force ASCII range control flag.
+	KUnicodeForceASCIIRangeBit KUnicodeUseFallbacksBit = 9
+	// KUnicodeKeepInfoBit: Sets the keep-information control flag.
+	KUnicodeKeepInfoBit KUnicodeUseFallbacksBit = 1
+	// KUnicodeKeepSameEncodingBit: Sets the keep-same-encoding control flag.
+	KUnicodeKeepSameEncodingBit KUnicodeUseFallbacksBit = 8
+	// KUnicodeLooseMappingsBit: Enables use of the loose-mapping portion of a character mapping table.
+	KUnicodeLooseMappingsBit       KUnicodeUseFallbacksBit = 5
+	KUnicodeMapLineFeedToReturnBit KUnicodeUseFallbacksBit = 12
+	KUnicodeNoHalfwidthCharsBit    KUnicodeUseFallbacksBit = 10
+	// KUnicodeStringUnterminatedBit: Sets the string-unterminated control flag.
+	KUnicodeStringUnterminatedBit KUnicodeUseFallbacksBit = 6
+	// KUnicodeTextRunBit: Sets the text-run control flag.
+	KUnicodeTextRunBit                 KUnicodeUseFallbacksBit = 7
+	KUnicodeTextRunHeuristicsBit       KUnicodeUseFallbacksBit = 11
+	KUnicodeUseExternalEncodingFormBit KUnicodeUseFallbacksBit = 13
+	// KUnicodeUseFallbacksBitValue: Enables use of fallback mappings.
+	KUnicodeUseFallbacksBitValue KUnicodeUseFallbacksBit = 0
+	// KUnicodeVerticalFormBit: Sets the vertical form control flag.
+	KUnicodeVerticalFormBit KUnicodeUseFallbacksBit = 4
+)
+
+func (e KUnicodeUseFallbacksBit) String() string {
+	switch e {
+	case KUnicodeDirectionalityBits:
+		return "KUnicodeDirectionalityBits"
+	case KUnicodeForceASCIIRangeBit:
+		return "KUnicodeForceASCIIRangeBit"
+	case KUnicodeKeepInfoBit:
+		return "KUnicodeKeepInfoBit"
+	case KUnicodeKeepSameEncodingBit:
+		return "KUnicodeKeepSameEncodingBit"
+	case KUnicodeLooseMappingsBit:
+		return "KUnicodeLooseMappingsBit"
+	case KUnicodeMapLineFeedToReturnBit:
+		return "KUnicodeMapLineFeedToReturnBit"
+	case KUnicodeNoHalfwidthCharsBit:
+		return "KUnicodeNoHalfwidthCharsBit"
+	case KUnicodeStringUnterminatedBit:
+		return "KUnicodeStringUnterminatedBit"
+	case KUnicodeTextRunBit:
+		return "KUnicodeTextRunBit"
+	case KUnicodeTextRunHeuristicsBit:
+		return "KUnicodeTextRunHeuristicsBit"
+	case KUnicodeUseExternalEncodingFormBit:
+		return "KUnicodeUseExternalEncodingFormBit"
+	case KUnicodeUseFallbacksBitValue:
+		return "KUnicodeUseFallbacksBitValue"
+	case KUnicodeVerticalFormBit:
+		return "KUnicodeVerticalFormBit"
+	default:
+		return fmt.Sprintf("KUnicodeUseFallbacksBit(%d)", e)
+	}
+}
+
+type KUnicodeUseFallbacksMask uint32
+
+const (
+	// KUnicodeDirectionalityMask: A mask for setting the directionality control flag
+	KUnicodeDirectionalityMask KUnicodeUseFallbacksMask = 12
+	// KUnicodeForceASCIIRangeMask: # Discussion
+	KUnicodeForceASCIIRangeMask KUnicodeUseFallbacksMask = 512
+	// KUnicodeKeepInfoMask: # Discussion
+	KUnicodeKeepInfoMask KUnicodeUseFallbacksMask = 2
+	// KUnicodeKeepSameEncodingMask: # Discussion
+	KUnicodeKeepSameEncodingMask KUnicodeUseFallbacksMask = 256
+	// KUnicodeLooseMappingsMask: # Discussion
+	KUnicodeLooseMappingsMask KUnicodeUseFallbacksMask = 32
+	// KUnicodeMapLineFeedToReturnMask: # Discussion
+	KUnicodeMapLineFeedToReturnMask KUnicodeUseFallbacksMask = 4096
+	// KUnicodeNoHalfwidthCharsMask: Sets the no halfwidth characters control flag.
+	KUnicodeNoHalfwidthCharsMask KUnicodeUseFallbacksMask = 1024
+	// KUnicodeStringUnterminatedMask: # Discussion
+	KUnicodeStringUnterminatedMask KUnicodeUseFallbacksMask = 64
+	KUnicodeTextRunHeuristicsMask  KUnicodeUseFallbacksMask = 2048
+	// KUnicodeTextRunMask: # Discussion
+	KUnicodeTextRunMask                 KUnicodeUseFallbacksMask = 128
+	KUnicodeUseExternalEncodingFormMask KUnicodeUseFallbacksMask = 8192
+	// KUnicodeUseFallbacksMaskValue: # Discussion
+	KUnicodeUseFallbacksMaskValue KUnicodeUseFallbacksMask = 1
+	// KUnicodeVerticalFormMask: # Discussion
+	KUnicodeVerticalFormMask KUnicodeUseFallbacksMask = 16
+)
+
+func (e KUnicodeUseFallbacksMask) String() string {
+	switch e {
+	case KUnicodeDirectionalityMask:
+		return "KUnicodeDirectionalityMask"
+	case KUnicodeForceASCIIRangeMask:
+		return "KUnicodeForceASCIIRangeMask"
+	case KUnicodeKeepInfoMask:
+		return "KUnicodeKeepInfoMask"
+	case KUnicodeKeepSameEncodingMask:
+		return "KUnicodeKeepSameEncodingMask"
+	case KUnicodeLooseMappingsMask:
+		return "KUnicodeLooseMappingsMask"
+	case KUnicodeMapLineFeedToReturnMask:
+		return "KUnicodeMapLineFeedToReturnMask"
+	case KUnicodeNoHalfwidthCharsMask:
+		return "KUnicodeNoHalfwidthCharsMask"
+	case KUnicodeStringUnterminatedMask:
+		return "KUnicodeStringUnterminatedMask"
+	case KUnicodeTextRunHeuristicsMask:
+		return "KUnicodeTextRunHeuristicsMask"
+	case KUnicodeTextRunMask:
+		return "KUnicodeTextRunMask"
+	case KUnicodeUseExternalEncodingFormMask:
+		return "KUnicodeUseExternalEncodingFormMask"
+	case KUnicodeUseFallbacksMaskValue:
+		return "KUnicodeUseFallbacksMaskValue"
+	case KUnicodeVerticalFormMask:
+		return "KUnicodeVerticalFormMask"
+	default:
+		return fmt.Sprintf("KUnicodeUseFallbacksMask(%d)", e)
+	}
+}
+
+type KUnknownException uint32
 
 const (
 	// Deprecated.
@@ -23111,7 +25895,7 @@ func (e KUnknownException) String() string {
 	}
 }
 
-type KUnlockStateKCStatus int
+type KUnlockStateKCStatus uint32
 
 const (
 	KRdPermKCStatus           KUnlockStateKCStatus = 2
@@ -23132,7 +25916,7 @@ func (e KUnlockStateKCStatus) String() string {
 	}
 }
 
-type KUse uint
+type KUse uint32
 
 const (
 	// Deprecated.
@@ -23152,7 +25936,7 @@ func (e KUse) String() string {
 	}
 }
 
-type KUserFolderIcon uint
+type KUserFolderIcon uint32
 
 const (
 	KGroupIcon           KUserFolderIcon = 'g'<<24 | 'r'<<16 | 'u'<<8 | 'p' // 'grup'
@@ -23182,7 +25966,7 @@ func (e KUserFolderIcon) String() string {
 	}
 }
 
-type KVCBFlags uint
+type KVCBFlags uint32
 
 const (
 	KVCBFlagsHFSPlusAPIsBit   KVCBFlags = 4
@@ -23218,7 +26002,7 @@ func (e KVCBFlags) String() string {
 	}
 }
 
-type KWidePosOffsetBit uint
+type KWidePosOffsetBit uint32
 
 const (
 	KMaximumBlocksIn4GB    KWidePosOffsetBit = 0x7fffff
@@ -23239,7 +26023,7 @@ func (e KWidePosOffsetBit) String() string {
 	}
 }
 
-type KWidgetsFolderType uint
+type KWidgetsFolderType uint32
 
 const (
 	KScreenSaversFolderType KWidgetsFolderType = 's'<<24 | 'c'<<16 | 'r'<<8 | 'n' // 'scrn'
@@ -23257,7 +26041,7 @@ func (e KWidgetsFolderType) String() string {
 	}
 }
 
-type KWindowsLatin1 uint
+type KWindowsLatin1 uint32
 
 const (
 	KWindowsLatin1PalmVariant     KWindowsLatin1 = 1
@@ -23275,7 +26059,7 @@ func (e KWindowsLatin1) String() string {
 	}
 }
 
-type KWriteReference uint
+type KWriteReference uint32
 
 const (
 	// Deprecated.
@@ -23305,7 +26089,7 @@ func (e KWriteReference) String() string {
 	}
 }
 
-type KX86IS uint
+type KX86IS uint32
 
 const (
 	// Deprecated.
@@ -23321,7 +26105,7 @@ func (e KX86IS) String() string {
 	}
 }
 
-type KX86RT uint
+type KX86RT uint32
 
 const (
 	// Deprecated.
@@ -23337,7 +26121,7 @@ func (e KX86RT) String() string {
 	}
 }
 
-type KXLibTag1 uint
+type KXLibTag1 int32
 
 const (
 	// Deprecated.
@@ -23345,7 +26129,7 @@ const (
 	// Deprecated.
 	KVLibTag2 KXLibTag1 = 'V'<<24 | 'L'<<16 | 'i'<<8 | 'b' // 'VLib'
 	// Deprecated.
-	KXLibTag1Value KXLibTag1 = 0xf04d6163
+	KXLibTag1Value KXLibTag1 = -263364253
 	// Deprecated.
 	KXLibVersion KXLibTag1 = 0x1
 )
@@ -23365,7 +26149,7 @@ func (e KXLibTag1) String() string {
 	}
 }
 
-type Kernel int
+type Kernel int32
 
 const (
 	KernelAlreadyFreeErr       Kernel = -2421
@@ -23443,7 +26227,7 @@ func (e Kernel) String() string {
 	}
 }
 
-type KeucCn uint
+type KeucCn uint32
 
 const (
 	KEUC_CN_BasicVariant KeucCn = 0
@@ -23461,7 +26245,7 @@ func (e KeucCn) String() string {
 	}
 }
 
-type KeucKr uint
+type KeucKr uint32
 
 const (
 	KEUC_KR_BasicVariant KeucKr = 0
@@ -23479,349 +26263,53 @@ func (e KeucKr) String() string {
 	}
 }
 
-type Key uint
+type KeyAEAngle uint32
 
 const (
-	// KeyAEAdjustMarksProc: Mark-adjusting function.
-	KeyAEAdjustMarksProc Key = 'a'<<24 | 'd'<<16 | 'j'<<8 | 'm' // 'adjm'
-	// KeyAECompareProc: Object-comparison function.
-	KeyAECompareProc Key = 'c'<<24 | 'm'<<16 | 'p'<<8 | 'r' // 'cmpr'
-	// KeyAECountProc: Object-counting function.
-	KeyAECountProc Key = 'c'<<24 | 'o'<<16 | 'n'<<8 | 't' // 'cont'
-	// KeyAEGetErrDescProc: Get error descriptor callback function.
-	KeyAEGetErrDescProc Key = 'i'<<24 | 'n'<<16 | 'd'<<8 | 'c' // 'indc'
-	// KeyAEMarkProc: Object-marking function.
-	KeyAEMarkProc Key = 'm'<<24 | 'a'<<16 | 'r'<<8 | 'k' // 'mark'
-	// KeyAEMarkTokenProc: Mark token function.
-	KeyAEMarkTokenProc Key = 'm'<<24 | 'k'<<16 | 'i'<<8 | 'd' // 'mkid'
-	// KeyAERangeStart: Specifies the first Apple event object in a desired range.
-	KeyAERangeStart Key = 's'<<24 | 't'<<16 | 'a'<<8 | 'r' // 'star'
-	// KeyAERangeStop: Specifies the last Apple event object in the desired range.
-	KeyAERangeStop Key = 's'<<24 | 't'<<16 | 'o'<<8 | 'p' // 'stop'
-	// KeyAERecorderCount: Used with the `keyword` parameter of the AEManagerInfo function.
-	KeyAERecorderCount Key = 'r'<<24 | 'e'<<16 | 'c'<<8 | 'r' // 'recr'
-	// KeyAEVersion: Used with the `keyword` parameter of the AEManagerInfo function.
-	KeyAEVersion              Key = 'v'<<24 | 'e'<<16 | 'r'<<8 | 's' // 'vers'
-	KeyAcceptTimeoutAttr      Key = 'a'<<24 | 'c'<<16 | 't'<<8 | 'm' // 'actm'
-	KeyActualSenderAuditToken Key = 'a'<<24 | 'c'<<16 | 'a'<<8 | 't' // 'acat'
-	// KeyAddressAttr: Address of a target or client application.
-	KeyAddressAttr              Key = 'a'<<24 | 'd'<<16 | 'd'<<8 | 'r' // 'addr'
-	KeyAppleEventAttributesAttr Key = 'a'<<24 | 't'<<16 | 't'<<8 | 'r' // 'attr'
-	KeyCloseAllWindows          Key = 'c'<<24 | 'a'<<16 | 'w'<<8 | ' ' // 'caw '
-	// KeyDirectObject: Direct parameter.
-	KeyDirectObject Key = '-'<<24 | '-'<<16 | '-'<<8 | '-' // '----'
-	// KeyDisposeTokenProc: Token disposal function.
-	KeyDisposeTokenProc Key = 'x'<<24 | 't'<<16 | 'o'<<8 | 'k' // 'xtok'
-	KeyDriveNumber      Key = 'd'<<24 | 'r'<<16 | 'v'<<8 | '#' // 'drv#'
-	KeyErrorCode        Key = 'e'<<24 | 'r'<<16 | 'r'<<8 | '#' // 'err#'
-	// KeyErrorNumber: Error number.
-	KeyErrorNumber Key = 'e'<<24 | 'r'<<16 | 'r'<<8 | 'n' // 'errn'
-	// KeyErrorString: Error string.
-	KeyErrorString Key = 'e'<<24 | 'r'<<16 | 'r'<<8 | 's' // 'errs'
-	// KeyEventClassAttr: Event class of an Apple event.
-	KeyEventClassAttr Key = 'e'<<24 | 'v'<<16 | 'c'<<8 | 'l' // 'evcl'
-	// KeyEventIDAttr: Event ID of an Apple event.
-	KeyEventIDAttr Key = 'e'<<24 | 'v'<<16 | 'i'<<8 | 'd' // 'evid'
-	// KeyEventSourceAttr: Nature of the source application.
-	KeyEventSourceAttr Key = 'e'<<24 | 's'<<16 | 'r'<<8 | 'c' // 'esrc'
-	KeyHighLevelClass  Key = 'h'<<24 | 'c'<<16 | 'l'<<8 | 's' // 'hcls'
-	KeyHighLevelID     Key = 'h'<<24 | 'i'<<16 | 'd'<<8 | ' ' // 'hid '
-	// KeyInteractLevelAttr: Settings for when to allow the Apple Event Manager to bring a server application to the foreground, if necessary, to interact with the user.
-	KeyInteractLevelAttr Key = 'i'<<24 | 'n'<<16 | 't'<<8 | 'e' // 'inte'
-	KeyKey               Key = 'k'<<24 | 'e'<<16 | 'y'<<8 | ' ' // 'key '
-	KeyKeyCode           Key = 'c'<<24 | 'o'<<16 | 'd'<<8 | 'e' // 'code'
-	KeyKeyboard          Key = 'k'<<24 | 'e'<<16 | 'y'<<8 | 'b' // 'keyb'
-	KeyLocalWhere        Key = 'l'<<24 | 'w'<<16 | 'h'<<8 | 'r' // 'lwhr'
-	KeyMenuID            Key = 'm'<<24 | 'i'<<16 | 'd'<<8 | ' ' // 'mid '
-	KeyMenuItem          Key = 'm'<<24 | 'i'<<16 | 't'<<8 | 'm' // 'mitm'
-	KeyMiscellaneous     Key = 'f'<<24 | 'm'<<16 | 's'<<8 | 'c' // 'fmsc'
-	// KeyMissedKeywordAttr: # Discussion
-	KeyMissedKeywordAttr Key = 'm'<<24 | 'i'<<16 | 's'<<8 | 's' // 'miss'
-	KeyModifiers         Key = 'm'<<24 | 'o'<<16 | 'd'<<8 | 's' // 'mods'
-	KeyNewBounds         Key = 'n'<<24 | 'b'<<16 | 'n'<<8 | 'd' // 'nbnd'
-	// KeyOptionalKeywordAttr: List of keywords for parameters of an Apple event that should be treated as optional by the target application.
-	KeyOptionalKeywordAttr Key = 'o'<<24 | 'p'<<16 | 't'<<8 | 'k' // 'optk'
-	// KeyOriginalAddressAttr: Address of original source of Apple event if the event has been forwarded (available only in version 1.01 or later versions of the Apple Event Manager).
-	KeyOriginalAddressAttr Key = 'f'<<24 | 'r'<<16 | 'o'<<8 | 'm' // 'from'
-	KeyOriginalBounds      Key = 'o'<<24 | 'b'<<16 | 'n'<<8 | 'd' // 'obnd'
-	// KeyPreDispatch: A predispatch handler (an Apple event handler that the Apple Event Manager calls immediately before it dispatches an Apple event).
-	KeyPreDispatch Key = 'p'<<24 | 'h'<<16 | 'a'<<8 | 'c' // 'phac'
-	// KeyProcessSerialNumber: Process serial number.
-	KeyProcessSerialNumber Key = 'p'<<24 | 's'<<16 | 'n'<<8 | ' ' // 'psn '
-	// KeyReplyRequestedAttr: A Boolean value indicating whether the Apple event expects to be replied to.
-	KeyReplyRequestedAttr Key = 'r'<<24 | 'e'<<16 | 'p'<<8 | 'q' // 'repq'
-	// KeyReturnIDAttr: Return ID for a reply Apple event.
-	KeyReturnIDAttr Key = 'r'<<24 | 't'<<16 | 'i'<<8 | 'd' // 'rtid'
-	// KeySelectProc: You pass this value in the `functionClass` parameter of the AEManagerInfo function to disable the Object Support Library.
-	KeySelectProc                                 Key = 's'<<24 | 'e'<<16 | 'l'<<8 | 'h' // 'selh'
-	KeySelection                                  Key = 'f'<<24 | 's'<<16 | 'e'<<8 | 'l' // 'fsel'
-	KeySenderApplescriptEntitlementsAttr          Key = 'e'<<24 | 'n'<<16 | 't'<<8 | 'l' // 'entl'
-	KeySenderApplicationIdentifierEntitlementAttr Key = 'a'<<24 | 'i'<<16 | 'e'<<8 | 'a' // 'aiea'
-	KeySenderApplicationSandboxed                 Key = 's'<<24 | 's'<<16 | 's'<<8 | 'b' // 'sssb'
-	KeySenderAuditTokenAttr                       Key = 't'<<24 | 'o'<<16 | 'k'<<8 | 'n' // 'tokn'
-	KeySenderEGIDAttr                             Key = 's'<<24 | 'g'<<16 | 'i'<<8 | 'd' // 'sgid'
-	KeySenderEUIDAttr                             Key = 's'<<24 | 'e'<<16 | 'i'<<8 | 'd' // 'seid'
-	KeySenderGIDAttr                              Key = 'g'<<24 | 'i'<<16 | 'd'<<8 | 's' // 'gids'
-	KeySenderPIDAttr                              Key = 's'<<24 | 'p'<<16 | 'i'<<8 | 'd' // 'spid'
-	KeySenderUIDAttr                              Key = 'u'<<24 | 'i'<<16 | 'd'<<8 | 's' // 'uids'
-	// KeyTimeoutAttr: Length of time, in ticks, that the client will wait for a reply or a result from the server.
-	KeyTimeoutAttr Key = 't'<<24 | 'i'<<16 | 'm'<<8 | 'o' // 'timo'
-	// KeyTransactionIDAttr: Transaction ID identifying a series of Apple events that are part of one transaction.
-	KeyTransactionIDAttr Key = 't'<<24 | 'r'<<16 | 'a'<<8 | 'n' // 'tran'
-	KeyWhen              Key = 'w'<<24 | 'h'<<16 | 'e'<<8 | 'n' // 'when'
-	KeyWhere             Key = 'w'<<24 | 'h'<<16 | 'e'<<8 | 'r' // 'wher'
-	KeyWindow            Key = 'k'<<24 | 'w'<<16 | 'n'<<8 | 'd' // 'kwnd'
+	KeyAEAngleValue KeyAEAngle = 'k'<<24 | 'a'<<16 | 'n'<<8 | 'g' // 'kang'
+	KeyAEArcAngle   KeyAEAngle = 'p'<<24 | 'a'<<16 | 'r'<<8 | 'c' // 'parc'
 )
 
-func (e Key) String() string {
+func (e KeyAEAngle) String() string {
 	switch e {
-	case KeyAEAdjustMarksProc:
-		return "KeyAEAdjustMarksProc"
-	case KeyAECompareProc:
-		return "KeyAECompareProc"
-	case KeyAECountProc:
-		return "KeyAECountProc"
-	case KeyAEGetErrDescProc:
-		return "KeyAEGetErrDescProc"
-	case KeyAEMarkProc:
-		return "KeyAEMarkProc"
-	case KeyAEMarkTokenProc:
-		return "KeyAEMarkTokenProc"
-	case KeyAERangeStart:
-		return "KeyAERangeStart"
-	case KeyAERangeStop:
-		return "KeyAERangeStop"
-	case KeyAERecorderCount:
-		return "KeyAERecorderCount"
-	case KeyAEVersion:
-		return "KeyAEVersion"
-	case KeyAcceptTimeoutAttr:
-		return "KeyAcceptTimeoutAttr"
-	case KeyActualSenderAuditToken:
-		return "KeyActualSenderAuditToken"
-	case KeyAddressAttr:
-		return "KeyAddressAttr"
-	case KeyAppleEventAttributesAttr:
-		return "KeyAppleEventAttributesAttr"
-	case KeyCloseAllWindows:
-		return "KeyCloseAllWindows"
-	case KeyDirectObject:
-		return "KeyDirectObject"
-	case KeyDisposeTokenProc:
-		return "KeyDisposeTokenProc"
-	case KeyDriveNumber:
-		return "KeyDriveNumber"
-	case KeyErrorCode:
-		return "KeyErrorCode"
-	case KeyErrorNumber:
-		return "KeyErrorNumber"
-	case KeyErrorString:
-		return "KeyErrorString"
-	case KeyEventClassAttr:
-		return "KeyEventClassAttr"
-	case KeyEventIDAttr:
-		return "KeyEventIDAttr"
-	case KeyEventSourceAttr:
-		return "KeyEventSourceAttr"
-	case KeyHighLevelClass:
-		return "KeyHighLevelClass"
-	case KeyHighLevelID:
-		return "KeyHighLevelID"
-	case KeyInteractLevelAttr:
-		return "KeyInteractLevelAttr"
-	case KeyKey:
-		return "KeyKey"
-	case KeyKeyCode:
-		return "KeyKeyCode"
-	case KeyKeyboard:
-		return "KeyKeyboard"
-	case KeyLocalWhere:
-		return "KeyLocalWhere"
-	case KeyMenuID:
-		return "KeyMenuID"
-	case KeyMenuItem:
-		return "KeyMenuItem"
-	case KeyMiscellaneous:
-		return "KeyMiscellaneous"
-	case KeyMissedKeywordAttr:
-		return "KeyMissedKeywordAttr"
-	case KeyModifiers:
-		return "KeyModifiers"
-	case KeyNewBounds:
-		return "KeyNewBounds"
-	case KeyOptionalKeywordAttr:
-		return "KeyOptionalKeywordAttr"
-	case KeyOriginalAddressAttr:
-		return "KeyOriginalAddressAttr"
-	case KeyOriginalBounds:
-		return "KeyOriginalBounds"
-	case KeyPreDispatch:
-		return "KeyPreDispatch"
-	case KeyProcessSerialNumber:
-		return "KeyProcessSerialNumber"
-	case KeyReplyRequestedAttr:
-		return "KeyReplyRequestedAttr"
-	case KeyReturnIDAttr:
-		return "KeyReturnIDAttr"
-	case KeySelectProc:
-		return "KeySelectProc"
-	case KeySelection:
-		return "KeySelection"
-	case KeySenderApplescriptEntitlementsAttr:
-		return "KeySenderApplescriptEntitlementsAttr"
-	case KeySenderApplicationIdentifierEntitlementAttr:
-		return "KeySenderApplicationIdentifierEntitlementAttr"
-	case KeySenderApplicationSandboxed:
-		return "KeySenderApplicationSandboxed"
-	case KeySenderAuditTokenAttr:
-		return "KeySenderAuditTokenAttr"
-	case KeySenderEGIDAttr:
-		return "KeySenderEGIDAttr"
-	case KeySenderEUIDAttr:
-		return "KeySenderEUIDAttr"
-	case KeySenderGIDAttr:
-		return "KeySenderGIDAttr"
-	case KeySenderPIDAttr:
-		return "KeySenderPIDAttr"
-	case KeySenderUIDAttr:
-		return "KeySenderUIDAttr"
-	case KeyTimeoutAttr:
-		return "KeyTimeoutAttr"
-	case KeyTransactionIDAttr:
-		return "KeyTransactionIDAttr"
-	case KeyWhen:
-		return "KeyWhen"
-	case KeyWhere:
-		return "KeyWhere"
-	case KeyWindow:
-		return "KeyWindow"
+	case KeyAEAngleValue:
+		return "KeyAEAngleValue"
+	case KeyAEArcAngle:
+		return "KeyAEArcAngle"
 	default:
-		return fmt.Sprintf("Key(%d)", e)
+		return fmt.Sprintf("KeyAEAngle(%d)", e)
 	}
 }
 
-type KeyAE uint
+type KeyAEBaseAddr uint32
 
 const (
-	KeyAEAngle          KeyAE = 'k'<<24 | 'a'<<16 | 'n'<<8 | 'g' // 'kang'
-	KeyAEArcAngle       KeyAE = 'p'<<24 | 'a'<<16 | 'r'<<8 | 'c' // 'parc'
-	KeyAEBaseAddr       KeyAE = 'b'<<24 | 'a'<<16 | 'd'<<8 | 'd' // 'badd'
-	KeyAEBestType       KeyAE = 'p'<<24 | 'b'<<16 | 's'<<8 | 't' // 'pbst'
-	KeyAEBgndColor      KeyAE = 'k'<<24 | 'b'<<16 | 'c'<<8 | 'l' // 'kbcl'
-	KeyAEBgndPattern    KeyAE = 'k'<<24 | 'b'<<16 | 'p'<<8 | 't' // 'kbpt'
-	KeyAEBounds         KeyAE = 'p'<<24 | 'b'<<16 | 'n'<<8 | 'd' // 'pbnd'
-	KeyAECellList       KeyAE = 'k'<<24 | 'c'<<16 | 'l'<<8 | 't' // 'kclt'
-	KeyAEClassID        KeyAE = 'c'<<24 | 'l'<<16 | 'I'<<8 | 'D' // 'clID'
-	KeyAEClauseOffsets  KeyAE = 'c'<<24 | 'l'<<16 | 'a'<<8 | 'u' // 'clau'
-	KeyAEColor          KeyAE = 'c'<<24 | 'o'<<16 | 'l'<<8 | 'r' // 'colr'
-	KeyAEColorTable     KeyAE = 'c'<<24 | 'l'<<16 | 't'<<8 | 'b' // 'cltb'
-	KeyAECurveHeight    KeyAE = 'k'<<24 | 'c'<<16 | 'h'<<8 | 'd' // 'kchd'
-	KeyAECurveWidth     KeyAE = 'k'<<24 | 'c'<<16 | 'w'<<8 | 'd' // 'kcwd'
-	KeyAEDashStyle      KeyAE = 'p'<<24 | 'd'<<16 | 's'<<8 | 't' // 'pdst'
-	KeyAEData           KeyAE = 'd'<<24 | 'a'<<16 | 't'<<8 | 'a' // 'data'
-	KeyAEDefaultType    KeyAE = 'd'<<24 | 'e'<<16 | 'f'<<8 | 't' // 'deft'
-	KeyAEDefinitionRect KeyAE = 'p'<<24 | 'd'<<16 | 'r'<<8 | 't' // 'pdrt'
-	KeyAEDescType       KeyAE = 'd'<<24 | 's'<<16 | 't'<<8 | 'p' // 'dstp'
-	KeyAEDestination    KeyAE = 'd'<<24 | 'e'<<16 | 's'<<8 | 't' // 'dest'
-	KeyAEDoAntiAlias    KeyAE = 'a'<<24 | 'n'<<16 | 't'<<8 | 'a' // 'anta'
-	KeyAEDoDithered     KeyAE = 'g'<<24 | 'd'<<16 | 'i'<<8 | 't' // 'gdit'
-	KeyAEDoRotate       KeyAE = 'k'<<24 | 'd'<<16 | 'r'<<8 | 't' // 'kdrt'
-	KeyAEDoScale        KeyAE = 'k'<<24 | 's'<<16 | 'c'<<8 | 'a' // 'ksca'
-	KeyAEDoTranslate    KeyAE = 'k'<<24 | 't'<<16 | 'r'<<8 | 'a' // 'ktra'
-	KeyAEDragging       KeyAE = 'b'<<24 | 'o'<<16 | 'o'<<8 | 'l' // 'bool'
-	KeyAEEditionFileLoc KeyAE = 'e'<<24 | 'l'<<16 | 'o'<<8 | 'c' // 'eloc'
-	KeyAEElements       KeyAE = 'e'<<24 | 'l'<<16 | 'm'<<8 | 's' // 'elms'
-	KeyAEEndPoint       KeyAE = 'p'<<24 | 'e'<<16 | 'n'<<8 | 'd' // 'pend'
-	KeyAEEventClass     KeyAE = 'e'<<24 | 'v'<<16 | 'c'<<8 | 'l' // 'evcl'
-	KeyAEEventID        KeyAE = 'e'<<24 | 'v'<<16 | 't'<<8 | 'i' // 'evti'
-	KeyAEFile           KeyAE = 'k'<<24 | 'f'<<16 | 'i'<<8 | 'l' // 'kfil'
-	KeyAEFileType       KeyAE = 'f'<<24 | 'l'<<16 | 't'<<8 | 'p' // 'fltp'
-	KeyAEFillColor      KeyAE = 'f'<<24 | 'l'<<16 | 'c'<<8 | 'l' // 'flcl'
-	KeyAEFillPattern    KeyAE = 'f'<<24 | 'l'<<16 | 'p'<<8 | 't' // 'flpt'
-	KeyAEFlipHorizontal KeyAE = 'k'<<24 | 'f'<<16 | 'h'<<8 | 'o' // 'kfho'
-	KeyAEFlipVertical   KeyAE = 'k'<<24 | 'f'<<16 | 'v'<<8 | 't' // 'kfvt'
-	KeyAEFont           KeyAE = 'f'<<24 | 'o'<<16 | 'n'<<8 | 't' // 'font'
-	KeyAEFormula        KeyAE = 'p'<<24 | 'f'<<16 | 'o'<<8 | 'r' // 'pfor'
-	KeyAEGraphicObjects KeyAE = 'g'<<24 | 'o'<<16 | 'b'<<8 | 's' // 'gobs'
-	KeyAEHiliteRange    KeyAE = 'h'<<24 | 'r'<<16 | 'n'<<8 | 'g' // 'hrng'
-	KeyAEID             KeyAE = 'I'<<24 | 'D'<<16 | ' '<<8 | ' ' // 'ID  '
-	KeyAEImageQuality   KeyAE = 'g'<<24 | 'q'<<16 | 'u'<<8 | 'a' // 'gqua'
-	KeyAEInsertHere     KeyAE = 'i'<<24 | 'n'<<16 | 's'<<8 | 'h' // 'insh'
-	KeyAEKeyForms       KeyAE = 'k'<<24 | 'e'<<16 | 'y'<<8 | 'f' // 'keyf'
-	KeyAEKeyword        KeyAE = 'k'<<24 | 'y'<<16 | 'w'<<8 | 'd' // 'kywd'
-	KeyAELeftSide       KeyAE = 'k'<<24 | 'l'<<16 | 'e'<<8 | 'f' // 'klef'
-	KeyAELevel          KeyAE = 'l'<<24 | 'e'<<16 | 'v'<<8 | 'l' // 'levl'
-	KeyAELineArrow      KeyAE = 'a'<<24 | 'r'<<16 | 'r'<<8 | 'o' // 'arro'
-	KeyAEName           KeyAE = 'p'<<24 | 'n'<<16 | 'a'<<8 | 'm' // 'pnam'
-	KeyAENewElementLoc  KeyAE = 'p'<<24 | 'n'<<16 | 'e'<<8 | 'l' // 'pnel'
-	KeyAEObject         KeyAE = 'k'<<24 | 'o'<<16 | 'b'<<8 | 'j' // 'kobj'
-	KeyAEObjectClass    KeyAE = 'k'<<24 | 'o'<<16 | 'c'<<8 | 'l' // 'kocl'
-	KeyAEOffStyles      KeyAE = 'o'<<24 | 'f'<<16 | 's'<<8 | 't' // 'ofst'
-	KeyAEOffset         KeyAE = 'o'<<24 | 'f'<<16 | 's'<<8 | 't' // 'ofst'
-	KeyAEOnStyles       KeyAE = 'o'<<24 | 'n'<<16 | 's'<<8 | 't' // 'onst'
-	KeyAEPMTable        KeyAE = 'k'<<24 | 'p'<<16 | 'm'<<8 | 't' // 'kpmt'
-	KeyAEParamFlags     KeyAE = 'p'<<24 | 'm'<<16 | 'f'<<8 | 'g' // 'pmfg'
-	KeyAEParameters     KeyAE = 'p'<<24 | 'r'<<16 | 'm'<<8 | 's' // 'prms'
-	KeyAEPenColor       KeyAE = 'p'<<24 | 'p'<<16 | 'c'<<8 | 'l' // 'ppcl'
-	KeyAEPenPattern     KeyAE = 'p'<<24 | 'p'<<16 | 'p'<<8 | 'a' // 'pppa'
-	KeyAEPenWidth       KeyAE = 'p'<<24 | 'p'<<16 | 'w'<<8 | 'd' // 'ppwd'
-	KeyAEPinRange       KeyAE = 'p'<<24 | 'n'<<16 | 'r'<<8 | 'g' // 'pnrg'
-	KeyAEPixMapMinus    KeyAE = 'k'<<24 | 'p'<<16 | 'm'<<8 | 'm' // 'kpmm'
-	KeyAEPixelDepth     KeyAE = 'p'<<24 | 'd'<<16 | 'p'<<8 | 't' // 'pdpt'
-	KeyAEPoint          KeyAE = 'g'<<24 | 'p'<<16 | 'o'<<8 | 's' // 'gpos'
-	KeyAEPointList      KeyAE = 'p'<<24 | 't'<<16 | 'l'<<8 | 't' // 'ptlt'
-	KeyAEPointSize      KeyAE = 'p'<<24 | 't'<<16 | 's'<<8 | 'z' // 'ptsz'
-	KeyAEPosition       KeyAE = 'k'<<24 | 'p'<<16 | 'o'<<8 | 's' // 'kpos'
-	KeyAEPropData       KeyAE = 'p'<<24 | 'r'<<16 | 'd'<<8 | 't' // 'prdt'
-	KeyAEPropFlags      KeyAE = 'p'<<24 | 'r'<<16 | 'f'<<8 | 'g' // 'prfg'
-	KeyAEPropID         KeyAE = 'p'<<24 | 'r'<<16 | 'o'<<8 | 'p' // 'prop'
-	KeyAEProperties     KeyAE = 'q'<<24 | 'p'<<16 | 'r'<<8 | 'o' // 'qpro'
-	KeyAEProperty       KeyAE = 'k'<<24 | 'p'<<16 | 'r'<<8 | 'p' // 'kprp'
-	KeyAEProtection     KeyAE = 'p'<<24 | 'p'<<16 | 'r'<<8 | 'o' // 'ppro'
-	KeyAERegionClass    KeyAE = 'r'<<24 | 'g'<<16 | 'n'<<8 | 'c' // 'rgnc'
-	KeyAERenderAs       KeyAE = 'k'<<24 | 'r'<<16 | 'e'<<8 | 'n' // 'kren'
-	KeyAERequestedType  KeyAE = 'r'<<24 | 't'<<16 | 'y'<<8 | 'p' // 'rtyp'
-	KeyAEResult         KeyAE = '-'<<24 | '-'<<16 | '-'<<8 | '-' // '----'
-	KeyAEResultInfo     KeyAE = 'r'<<24 | 's'<<16 | 'i'<<8 | 'n' // 'rsin'
-	KeyAERotPoint       KeyAE = 'k'<<24 | 'r'<<16 | 't'<<8 | 'p' // 'krtp'
-	KeyAERotation       KeyAE = 'p'<<24 | 'r'<<16 | 'o'<<8 | 't' // 'prot'
-	KeyAERowList        KeyAE = 'k'<<24 | 'r'<<16 | 'l'<<8 | 's' // 'krls'
-	KeyAESaveOptions    KeyAE = 's'<<24 | 'a'<<16 | 'v'<<8 | 'o' // 'savo'
-	KeyAEScale          KeyAE = 'p'<<24 | 's'<<16 | 'c'<<8 | 'l' // 'pscl'
-	KeyAEScriptTag      KeyAE = 'p'<<24 | 's'<<16 | 'c'<<8 | 't' // 'psct'
-	// KeyAESearchText: # Discussion
-	KeyAESearchText      KeyAE = 's'<<24 | 't'<<16 | 'x'<<8 | 't' // 'stxt'
-	KeyAEShowWhere       KeyAE = 's'<<24 | 'h'<<16 | 'o'<<8 | 'w' // 'show'
-	KeyAEStartAngle      KeyAE = 'p'<<24 | 'a'<<16 | 'n'<<8 | 'g' // 'pang'
-	KeyAEStartPoint      KeyAE = 'p'<<24 | 's'<<16 | 't'<<8 | 'p' // 'pstp'
-	KeyAEStyles          KeyAE = 'k'<<24 | 's'<<16 | 't'<<8 | 'y' // 'ksty'
-	KeyAESuiteID         KeyAE = 's'<<24 | 'u'<<16 | 'i'<<8 | 't' // 'suit'
-	KeyAEText            KeyAE = 'k'<<24 | 't'<<16 | 'x'<<8 | 't' // 'ktxt'
-	KeyAETextColor       KeyAE = 'p'<<24 | 't'<<16 | 'x'<<8 | 'c' // 'ptxc'
-	KeyAETextFont        KeyAE = 'p'<<24 | 't'<<16 | 'x'<<8 | 'f' // 'ptxf'
-	KeyAETextLineAscent  KeyAE = 'k'<<24 | 't'<<16 | 'a'<<8 | 's' // 'ktas'
-	KeyAETextLineHeight  KeyAE = 'k'<<24 | 't'<<16 | 'l'<<8 | 'h' // 'ktlh'
-	KeyAETextPointSize   KeyAE = 'p'<<24 | 't'<<16 | 'p'<<8 | 's' // 'ptps'
-	KeyAETextStyles      KeyAE = 't'<<24 | 'x'<<16 | 's'<<8 | 't' // 'txst'
-	KeyAETheText         KeyAE = 't'<<24 | 'h'<<16 | 't'<<8 | 'x' // 'thtx'
-	KeyAETransferMode    KeyAE = 'p'<<24 | 'p'<<16 | 't'<<8 | 'm' // 'pptm'
-	KeyAETranslation     KeyAE = 'p'<<24 | 't'<<16 | 'r'<<8 | 's' // 'ptrs'
-	KeyAETryAsStructGraf KeyAE = 't'<<24 | 'o'<<16 | 'o'<<8 | 'g' // 'toog'
-	KeyAEUniformStyles   KeyAE = 'u'<<24 | 's'<<16 | 't'<<8 | 'l' // 'ustl'
-	KeyAEUpdateOn        KeyAE = 'p'<<24 | 'u'<<16 | 'p'<<8 | 'd' // 'pupd'
-	KeyAEUserTerm        KeyAE = 'u'<<24 | 't'<<16 | 'r'<<8 | 'm' // 'utrm'
-	KeyAEWindow          KeyAE = 'w'<<24 | 'n'<<16 | 'd'<<8 | 'w' // 'wndw'
-	KeyAEWritingCode     KeyAE = 'w'<<24 | 'r'<<16 | 'c'<<8 | 'd' // 'wrcd'
+	KeyAEBaseAddrValue  KeyAEBaseAddr = 'b'<<24 | 'a'<<16 | 'd'<<8 | 'd' // 'badd'
+	KeyAEBestType       KeyAEBaseAddr = 'p'<<24 | 'b'<<16 | 's'<<8 | 't' // 'pbst'
+	KeyAEBgndColor      KeyAEBaseAddr = 'k'<<24 | 'b'<<16 | 'c'<<8 | 'l' // 'kbcl'
+	KeyAEBgndPattern    KeyAEBaseAddr = 'k'<<24 | 'b'<<16 | 'p'<<8 | 't' // 'kbpt'
+	KeyAEBounds         KeyAEBaseAddr = 'p'<<24 | 'b'<<16 | 'n'<<8 | 'd' // 'pbnd'
+	KeyAECellList       KeyAEBaseAddr = 'k'<<24 | 'c'<<16 | 'l'<<8 | 't' // 'kclt'
+	KeyAEClassID        KeyAEBaseAddr = 'c'<<24 | 'l'<<16 | 'I'<<8 | 'D' // 'clID'
+	KeyAEColor          KeyAEBaseAddr = 'c'<<24 | 'o'<<16 | 'l'<<8 | 'r' // 'colr'
+	KeyAEColorTable     KeyAEBaseAddr = 'c'<<24 | 'l'<<16 | 't'<<8 | 'b' // 'cltb'
+	KeyAECurveHeight    KeyAEBaseAddr = 'k'<<24 | 'c'<<16 | 'h'<<8 | 'd' // 'kchd'
+	KeyAECurveWidth     KeyAEBaseAddr = 'k'<<24 | 'c'<<16 | 'w'<<8 | 'd' // 'kcwd'
+	KeyAEDashStyle      KeyAEBaseAddr = 'p'<<24 | 'd'<<16 | 's'<<8 | 't' // 'pdst'
+	KeyAEData           KeyAEBaseAddr = 'd'<<24 | 'a'<<16 | 't'<<8 | 'a' // 'data'
+	KeyAEDefaultType    KeyAEBaseAddr = 'd'<<24 | 'e'<<16 | 'f'<<8 | 't' // 'deft'
+	KeyAEDefinitionRect KeyAEBaseAddr = 'p'<<24 | 'd'<<16 | 'r'<<8 | 't' // 'pdrt'
+	KeyAEDescType       KeyAEBaseAddr = 'd'<<24 | 's'<<16 | 't'<<8 | 'p' // 'dstp'
+	KeyAEDestination    KeyAEBaseAddr = 'd'<<24 | 'e'<<16 | 's'<<8 | 't' // 'dest'
+	KeyAEDoAntiAlias    KeyAEBaseAddr = 'a'<<24 | 'n'<<16 | 't'<<8 | 'a' // 'anta'
+	KeyAEDoDithered     KeyAEBaseAddr = 'g'<<24 | 'd'<<16 | 'i'<<8 | 't' // 'gdit'
+	KeyAEDoRotate       KeyAEBaseAddr = 'k'<<24 | 'd'<<16 | 'r'<<8 | 't' // 'kdrt'
 )
 
-func (e KeyAE) String() string {
+func (e KeyAEBaseAddr) String() string {
 	switch e {
-	case KeyAEAngle:
-		return "KeyAEAngle"
-	case KeyAEArcAngle:
-		return "KeyAEArcAngle"
-	case KeyAEBaseAddr:
-		return "KeyAEBaseAddr"
+	case KeyAEBaseAddrValue:
+		return "KeyAEBaseAddrValue"
 	case KeyAEBestType:
 		return "KeyAEBestType"
 	case KeyAEBgndColor:
@@ -23834,8 +26322,6 @@ func (e KeyAE) String() string {
 		return "KeyAECellList"
 	case KeyAEClassID:
 		return "KeyAEClassID"
-	case KeyAEClauseOffsets:
-		return "KeyAEClauseOffsets"
 	case KeyAEColor:
 		return "KeyAEColor"
 	case KeyAEColorTable:
@@ -23862,12 +26348,42 @@ func (e KeyAE) String() string {
 		return "KeyAEDoDithered"
 	case KeyAEDoRotate:
 		return "KeyAEDoRotate"
-	case KeyAEDoScale:
-		return "KeyAEDoScale"
+	default:
+		return fmt.Sprintf("KeyAEBaseAddr(%d)", e)
+	}
+}
+
+type KeyAEDoScale uint32
+
+const (
+	KeyAEDoScaleValue   KeyAEDoScale = 'k'<<24 | 's'<<16 | 'c'<<8 | 'a' // 'ksca'
+	KeyAEDoTranslate    KeyAEDoScale = 'k'<<24 | 't'<<16 | 'r'<<8 | 'a' // 'ktra'
+	KeyAEEditionFileLoc KeyAEDoScale = 'e'<<24 | 'l'<<16 | 'o'<<8 | 'c' // 'eloc'
+	KeyAEElements       KeyAEDoScale = 'e'<<24 | 'l'<<16 | 'm'<<8 | 's' // 'elms'
+	KeyAEEndPoint       KeyAEDoScale = 'p'<<24 | 'e'<<16 | 'n'<<8 | 'd' // 'pend'
+	KeyAEEventClass     KeyAEDoScale = 'e'<<24 | 'v'<<16 | 'c'<<8 | 'l' // 'evcl'
+	KeyAEEventID        KeyAEDoScale = 'e'<<24 | 'v'<<16 | 't'<<8 | 'i' // 'evti'
+	KeyAEFile           KeyAEDoScale = 'k'<<24 | 'f'<<16 | 'i'<<8 | 'l' // 'kfil'
+	KeyAEFileType       KeyAEDoScale = 'f'<<24 | 'l'<<16 | 't'<<8 | 'p' // 'fltp'
+	KeyAEFillColor      KeyAEDoScale = 'f'<<24 | 'l'<<16 | 'c'<<8 | 'l' // 'flcl'
+	KeyAEFillPattern    KeyAEDoScale = 'f'<<24 | 'l'<<16 | 'p'<<8 | 't' // 'flpt'
+	KeyAEFlipHorizontal KeyAEDoScale = 'k'<<24 | 'f'<<16 | 'h'<<8 | 'o' // 'kfho'
+	KeyAEFlipVertical   KeyAEDoScale = 'k'<<24 | 'f'<<16 | 'v'<<8 | 't' // 'kfvt'
+	KeyAEFont           KeyAEDoScale = 'f'<<24 | 'o'<<16 | 'n'<<8 | 't' // 'font'
+	KeyAEFormula        KeyAEDoScale = 'p'<<24 | 'f'<<16 | 'o'<<8 | 'r' // 'pfor'
+	KeyAEGraphicObjects KeyAEDoScale = 'g'<<24 | 'o'<<16 | 'b'<<8 | 's' // 'gobs'
+	KeyAEID             KeyAEDoScale = 'I'<<24 | 'D'<<16 | ' '<<8 | ' ' // 'ID  '
+	KeyAEImageQuality   KeyAEDoScale = 'g'<<24 | 'q'<<16 | 'u'<<8 | 'a' // 'gqua'
+	KeyAEInsertHere     KeyAEDoScale = 'i'<<24 | 'n'<<16 | 's'<<8 | 'h' // 'insh'
+	KeyAEKeyForms       KeyAEDoScale = 'k'<<24 | 'e'<<16 | 'y'<<8 | 'f' // 'keyf'
+)
+
+func (e KeyAEDoScale) String() string {
+	switch e {
+	case KeyAEDoScaleValue:
+		return "KeyAEDoScaleValue"
 	case KeyAEDoTranslate:
 		return "KeyAEDoTranslate"
-	case KeyAEDragging:
-		return "KeyAEDragging"
 	case KeyAEEditionFileLoc:
 		return "KeyAEEditionFileLoc"
 	case KeyAEElements:
@@ -23896,8 +26412,6 @@ func (e KeyAE) String() string {
 		return "KeyAEFormula"
 	case KeyAEGraphicObjects:
 		return "KeyAEGraphicObjects"
-	case KeyAEHiliteRange:
-		return "KeyAEHiliteRange"
 	case KeyAEID:
 		return "KeyAEID"
 	case KeyAEImageQuality:
@@ -23906,10 +26420,76 @@ func (e KeyAE) String() string {
 		return "KeyAEInsertHere"
 	case KeyAEKeyForms:
 		return "KeyAEKeyForms"
-	case KeyAEKeyword:
-		return "KeyAEKeyword"
+	default:
+		return fmt.Sprintf("KeyAEDoScale(%d)", e)
+	}
+}
+
+type KeyAEHiliteRange uint32
+
+const (
+	KeyAEClauseOffsets    KeyAEHiliteRange = 'c'<<24 | 'l'<<16 | 'a'<<8 | 'u' // 'clau'
+	KeyAEDragging         KeyAEHiliteRange = 'b'<<24 | 'o'<<16 | 'o'<<8 | 'l' // 'bool'
+	KeyAEHiliteRangeValue KeyAEHiliteRange = 'h'<<24 | 'r'<<16 | 'n'<<8 | 'g' // 'hrng'
+	KeyAELeftSide         KeyAEHiliteRange = 'k'<<24 | 'l'<<16 | 'e'<<8 | 'f' // 'klef'
+	KeyAEOffset           KeyAEHiliteRange = 'o'<<24 | 'f'<<16 | 's'<<8 | 't' // 'ofst'
+	KeyAEPinRange         KeyAEHiliteRange = 'p'<<24 | 'n'<<16 | 'r'<<8 | 'g' // 'pnrg'
+	KeyAEPoint            KeyAEHiliteRange = 'g'<<24 | 'p'<<16 | 'o'<<8 | 's' // 'gpos'
+	KeyAERegionClass      KeyAEHiliteRange = 'r'<<24 | 'g'<<16 | 'n'<<8 | 'c' // 'rgnc'
+)
+
+func (e KeyAEHiliteRange) String() string {
+	switch e {
+	case KeyAEClauseOffsets:
+		return "KeyAEClauseOffsets"
+	case KeyAEDragging:
+		return "KeyAEDragging"
+	case KeyAEHiliteRangeValue:
+		return "KeyAEHiliteRangeValue"
 	case KeyAELeftSide:
 		return "KeyAELeftSide"
+	case KeyAEOffset:
+		return "KeyAEOffset"
+	case KeyAEPinRange:
+		return "KeyAEPinRange"
+	case KeyAEPoint:
+		return "KeyAEPoint"
+	case KeyAERegionClass:
+		return "KeyAERegionClass"
+	default:
+		return fmt.Sprintf("KeyAEHiliteRange(%d)", e)
+	}
+}
+
+type KeyAEKeyword uint32
+
+const (
+	KeyAEKeywordValue  KeyAEKeyword = 'k'<<24 | 'y'<<16 | 'w'<<8 | 'd' // 'kywd'
+	KeyAELevel         KeyAEKeyword = 'l'<<24 | 'e'<<16 | 'v'<<8 | 'l' // 'levl'
+	KeyAELineArrow     KeyAEKeyword = 'a'<<24 | 'r'<<16 | 'r'<<8 | 'o' // 'arro'
+	KeyAEName          KeyAEKeyword = 'p'<<24 | 'n'<<16 | 'a'<<8 | 'm' // 'pnam'
+	KeyAENewElementLoc KeyAEKeyword = 'p'<<24 | 'n'<<16 | 'e'<<8 | 'l' // 'pnel'
+	KeyAEObject        KeyAEKeyword = 'k'<<24 | 'o'<<16 | 'b'<<8 | 'j' // 'kobj'
+	KeyAEObjectClass   KeyAEKeyword = 'k'<<24 | 'o'<<16 | 'c'<<8 | 'l' // 'kocl'
+	KeyAEOffStyles     KeyAEKeyword = 'o'<<24 | 'f'<<16 | 's'<<8 | 't' // 'ofst'
+	KeyAEOnStyles      KeyAEKeyword = 'o'<<24 | 'n'<<16 | 's'<<8 | 't' // 'onst'
+	KeyAEPMTable       KeyAEKeyword = 'k'<<24 | 'p'<<16 | 'm'<<8 | 't' // 'kpmt'
+	KeyAEParamFlags    KeyAEKeyword = 'p'<<24 | 'm'<<16 | 'f'<<8 | 'g' // 'pmfg'
+	KeyAEParameters    KeyAEKeyword = 'p'<<24 | 'r'<<16 | 'm'<<8 | 's' // 'prms'
+	KeyAEPenColor      KeyAEKeyword = 'p'<<24 | 'p'<<16 | 'c'<<8 | 'l' // 'ppcl'
+	KeyAEPenPattern    KeyAEKeyword = 'p'<<24 | 'p'<<16 | 'p'<<8 | 'a' // 'pppa'
+	KeyAEPenWidth      KeyAEKeyword = 'p'<<24 | 'p'<<16 | 'w'<<8 | 'd' // 'ppwd'
+	KeyAEPixMapMinus   KeyAEKeyword = 'k'<<24 | 'p'<<16 | 'm'<<8 | 'm' // 'kpmm'
+	KeyAEPixelDepth    KeyAEKeyword = 'p'<<24 | 'd'<<16 | 'p'<<8 | 't' // 'pdpt'
+	KeyAEPointList     KeyAEKeyword = 'p'<<24 | 't'<<16 | 'l'<<8 | 't' // 'ptlt'
+	KeyAEPointSize     KeyAEKeyword = 'p'<<24 | 't'<<16 | 's'<<8 | 'z' // 'ptsz'
+	KeyAEPosition      KeyAEKeyword = 'k'<<24 | 'p'<<16 | 'o'<<8 | 's' // 'kpos'
+)
+
+func (e KeyAEKeyword) String() string {
+	switch e {
+	case KeyAEKeywordValue:
+		return "KeyAEKeywordValue"
 	case KeyAELevel:
 		return "KeyAELevel"
 	case KeyAELineArrow:
@@ -23938,22 +26518,72 @@ func (e KeyAE) String() string {
 		return "KeyAEPenPattern"
 	case KeyAEPenWidth:
 		return "KeyAEPenWidth"
-	case KeyAEPinRange:
-		return "KeyAEPinRange"
 	case KeyAEPixMapMinus:
 		return "KeyAEPixMapMinus"
 	case KeyAEPixelDepth:
 		return "KeyAEPixelDepth"
-	case KeyAEPoint:
-		return "KeyAEPoint"
 	case KeyAEPointList:
 		return "KeyAEPointList"
 	case KeyAEPointSize:
 		return "KeyAEPointSize"
 	case KeyAEPosition:
 		return "KeyAEPosition"
-	case KeyAEPropData:
-		return "KeyAEPropData"
+	default:
+		return fmt.Sprintf("KeyAEKeyword(%d)", e)
+	}
+}
+
+type KeyAELaunchedAs uint32
+
+const (
+	// KeyAELaunchedAsLogInItem: If present in a `kAEOpenApplication` event, the receiving application was launched as a login item and should only perform actions suitable to that environment—for example, it probably shouldn't open an untitled document.
+	KeyAELaunchedAsLogInItem KeyAELaunchedAs = 'l'<<24 | 'g'<<16 | 'i'<<8 | 't' // 'lgit'
+	// KeyAELaunchedAsServiceItem: # Discussion
+	KeyAELaunchedAsServiceItem KeyAELaunchedAs = 's'<<24 | 'v'<<16 | 'i'<<8 | 't' // 'svit'
+)
+
+func (e KeyAELaunchedAs) String() string {
+	switch e {
+	case KeyAELaunchedAsLogInItem:
+		return "KeyAELaunchedAsLogInItem"
+	case KeyAELaunchedAsServiceItem:
+		return "KeyAELaunchedAsServiceItem"
+	default:
+		return fmt.Sprintf("KeyAELaunchedAs(%d)", e)
+	}
+}
+
+type KeyAEPropData uint32
+
+const (
+	KeyAEPropDataValue KeyAEPropData = 'p'<<24 | 'r'<<16 | 'd'<<8 | 't' // 'prdt'
+	KeyAEPropFlags     KeyAEPropData = 'p'<<24 | 'r'<<16 | 'f'<<8 | 'g' // 'prfg'
+	KeyAEPropID        KeyAEPropData = 'p'<<24 | 'r'<<16 | 'o'<<8 | 'p' // 'prop'
+	KeyAEProperties    KeyAEPropData = 'q'<<24 | 'p'<<16 | 'r'<<8 | 'o' // 'qpro'
+	KeyAEProperty      KeyAEPropData = 'k'<<24 | 'p'<<16 | 'r'<<8 | 'p' // 'kprp'
+	KeyAEProtection    KeyAEPropData = 'p'<<24 | 'p'<<16 | 'r'<<8 | 'o' // 'ppro'
+	KeyAERenderAs      KeyAEPropData = 'k'<<24 | 'r'<<16 | 'e'<<8 | 'n' // 'kren'
+	KeyAERequestedType KeyAEPropData = 'r'<<24 | 't'<<16 | 'y'<<8 | 'p' // 'rtyp'
+	KeyAEResult        KeyAEPropData = '-'<<24 | '-'<<16 | '-'<<8 | '-' // '----'
+	KeyAEResultInfo    KeyAEPropData = 'r'<<24 | 's'<<16 | 'i'<<8 | 'n' // 'rsin'
+	KeyAERotPoint      KeyAEPropData = 'k'<<24 | 'r'<<16 | 't'<<8 | 'p' // 'krtp'
+	KeyAERotation      KeyAEPropData = 'p'<<24 | 'r'<<16 | 'o'<<8 | 't' // 'prot'
+	KeyAERowList       KeyAEPropData = 'k'<<24 | 'r'<<16 | 'l'<<8 | 's' // 'krls'
+	KeyAESaveOptions   KeyAEPropData = 's'<<24 | 'a'<<16 | 'v'<<8 | 'o' // 'savo'
+	KeyAEScale         KeyAEPropData = 'p'<<24 | 's'<<16 | 'c'<<8 | 'l' // 'pscl'
+	KeyAEScriptTag     KeyAEPropData = 'p'<<24 | 's'<<16 | 'c'<<8 | 't' // 'psct'
+	// KeyAESearchText: # Discussion
+	KeyAESearchText KeyAEPropData = 's'<<24 | 't'<<16 | 'x'<<8 | 't' // 'stxt'
+	KeyAEShowWhere  KeyAEPropData = 's'<<24 | 'h'<<16 | 'o'<<8 | 'w' // 'show'
+	KeyAEStartAngle KeyAEPropData = 'p'<<24 | 'a'<<16 | 'n'<<8 | 'g' // 'pang'
+	KeyAEStartPoint KeyAEPropData = 'p'<<24 | 's'<<16 | 't'<<8 | 'p' // 'pstp'
+	KeyAEStyles     KeyAEPropData = 'k'<<24 | 's'<<16 | 't'<<8 | 'y' // 'ksty'
+)
+
+func (e KeyAEPropData) String() string {
+	switch e {
+	case KeyAEPropDataValue:
+		return "KeyAEPropDataValue"
 	case KeyAEPropFlags:
 		return "KeyAEPropFlags"
 	case KeyAEPropID:
@@ -23964,8 +26594,6 @@ func (e KeyAE) String() string {
 		return "KeyAEProperty"
 	case KeyAEProtection:
 		return "KeyAEProtection"
-	case KeyAERegionClass:
-		return "KeyAERegionClass"
 	case KeyAERenderAs:
 		return "KeyAERenderAs"
 	case KeyAERequestedType:
@@ -23996,8 +26624,100 @@ func (e KeyAE) String() string {
 		return "KeyAEStartPoint"
 	case KeyAEStyles:
 		return "KeyAEStyles"
-	case KeyAESuiteID:
-		return "KeyAESuiteID"
+	default:
+		return fmt.Sprintf("KeyAEPropData(%d)", e)
+	}
+}
+
+type KeyAERangeStart uint32
+
+const (
+	// KeyAEAdjustMarksProc: Mark-adjusting function.
+	KeyAEAdjustMarksProc KeyAERangeStart = 'a'<<24 | 'd'<<16 | 'j'<<8 | 'm' // 'adjm'
+	// KeyAECompareProc: Object-comparison function.
+	KeyAECompareProc KeyAERangeStart = 'c'<<24 | 'm'<<16 | 'p'<<8 | 'r' // 'cmpr'
+	// KeyAECountProc: Object-counting function.
+	KeyAECountProc KeyAERangeStart = 'c'<<24 | 'o'<<16 | 'n'<<8 | 't' // 'cont'
+	// KeyAEGetErrDescProc: Get error descriptor callback function.
+	KeyAEGetErrDescProc KeyAERangeStart = 'i'<<24 | 'n'<<16 | 'd'<<8 | 'c' // 'indc'
+	// KeyAEMarkProc: Object-marking function.
+	KeyAEMarkProc KeyAERangeStart = 'm'<<24 | 'a'<<16 | 'r'<<8 | 'k' // 'mark'
+	// KeyAEMarkTokenProc: Mark token function.
+	KeyAEMarkTokenProc KeyAERangeStart = 'm'<<24 | 'k'<<16 | 'i'<<8 | 'd' // 'mkid'
+	// KeyAERangeStartValue: Specifies the first Apple event object in a desired range.
+	KeyAERangeStartValue KeyAERangeStart = 's'<<24 | 't'<<16 | 'a'<<8 | 'r' // 'star'
+	// KeyAERangeStop: Specifies the last Apple event object in the desired range.
+	KeyAERangeStop KeyAERangeStart = 's'<<24 | 't'<<16 | 'o'<<8 | 'p' // 'stop'
+	// KeyDisposeTokenProc: Token disposal function.
+	KeyDisposeTokenProc KeyAERangeStart = 'x'<<24 | 't'<<16 | 'o'<<8 | 'k' // 'xtok'
+)
+
+func (e KeyAERangeStart) String() string {
+	switch e {
+	case KeyAEAdjustMarksProc:
+		return "KeyAEAdjustMarksProc"
+	case KeyAECompareProc:
+		return "KeyAECompareProc"
+	case KeyAECountProc:
+		return "KeyAECountProc"
+	case KeyAEGetErrDescProc:
+		return "KeyAEGetErrDescProc"
+	case KeyAEMarkProc:
+		return "KeyAEMarkProc"
+	case KeyAEMarkTokenProc:
+		return "KeyAEMarkTokenProc"
+	case KeyAERangeStartValue:
+		return "KeyAERangeStartValue"
+	case KeyAERangeStop:
+		return "KeyAERangeStop"
+	case KeyDisposeTokenProc:
+		return "KeyDisposeTokenProc"
+	default:
+		return fmt.Sprintf("KeyAERangeStart(%d)", e)
+	}
+}
+
+type KeyAERestoreApp uint32
+
+const (
+	KeyAERestoreAppState KeyAERestoreApp = 'r'<<24 | 's'<<16 | 't'<<8 | 'o' // 'rsto'
+)
+
+func (e KeyAERestoreApp) String() string {
+	switch e {
+	case KeyAERestoreAppState:
+		return "KeyAERestoreAppState"
+	default:
+		return fmt.Sprintf("KeyAERestoreApp(%d)", e)
+	}
+}
+
+type KeyAESuiteID uint32
+
+const (
+	KeyAESuiteIDValue    KeyAESuiteID = 's'<<24 | 'u'<<16 | 'i'<<8 | 't' // 'suit'
+	KeyAEText            KeyAESuiteID = 'k'<<24 | 't'<<16 | 'x'<<8 | 't' // 'ktxt'
+	KeyAETextColor       KeyAESuiteID = 'p'<<24 | 't'<<16 | 'x'<<8 | 'c' // 'ptxc'
+	KeyAETextFont        KeyAESuiteID = 'p'<<24 | 't'<<16 | 'x'<<8 | 'f' // 'ptxf'
+	KeyAETextLineAscent  KeyAESuiteID = 'k'<<24 | 't'<<16 | 'a'<<8 | 's' // 'ktas'
+	KeyAETextLineHeight  KeyAESuiteID = 'k'<<24 | 't'<<16 | 'l'<<8 | 'h' // 'ktlh'
+	KeyAETextPointSize   KeyAESuiteID = 'p'<<24 | 't'<<16 | 'p'<<8 | 's' // 'ptps'
+	KeyAETextStyles      KeyAESuiteID = 't'<<24 | 'x'<<16 | 's'<<8 | 't' // 'txst'
+	KeyAETheText         KeyAESuiteID = 't'<<24 | 'h'<<16 | 't'<<8 | 'x' // 'thtx'
+	KeyAETransferMode    KeyAESuiteID = 'p'<<24 | 'p'<<16 | 't'<<8 | 'm' // 'pptm'
+	KeyAETranslation     KeyAESuiteID = 'p'<<24 | 't'<<16 | 'r'<<8 | 's' // 'ptrs'
+	KeyAETryAsStructGraf KeyAESuiteID = 't'<<24 | 'o'<<16 | 'o'<<8 | 'g' // 'toog'
+	KeyAEUniformStyles   KeyAESuiteID = 'u'<<24 | 's'<<16 | 't'<<8 | 'l' // 'ustl'
+	KeyAEUpdateOn        KeyAESuiteID = 'p'<<24 | 'u'<<16 | 'p'<<8 | 'd' // 'pupd'
+	KeyAEUserTerm        KeyAESuiteID = 'u'<<24 | 't'<<16 | 'r'<<8 | 'm' // 'utrm'
+	KeyAEWindow          KeyAESuiteID = 'w'<<24 | 'n'<<16 | 'd'<<8 | 'w' // 'wndw'
+	KeyAEWritingCode     KeyAESuiteID = 'w'<<24 | 'r'<<16 | 'c'<<8 | 'd' // 'wrcd'
+)
+
+func (e KeyAESuiteID) String() string {
+	switch e {
+	case KeyAESuiteIDValue:
+		return "KeyAESuiteIDValue"
 	case KeyAEText:
 		return "KeyAEText"
 	case KeyAETextColor:
@@ -24031,46 +26751,136 @@ func (e KeyAE) String() string {
 	case KeyAEWritingCode:
 		return "KeyAEWritingCode"
 	default:
-		return fmt.Sprintf("KeyAE(%d)", e)
+		return fmt.Sprintf("KeyAESuiteID(%d)", e)
 	}
 }
 
-type KeyAELaunchedAs uint
+type KeyDirectObject uint32
 
 const (
-	// KeyAELaunchedAsLogInItem: If present in a `kAEOpenApplication` event, the receiving application was launched as a login item and should only perform actions suitable to that environment—for example, it probably shouldn't open an untitled document.
-	KeyAELaunchedAsLogInItem KeyAELaunchedAs = 'l'<<24 | 'g'<<16 | 'i'<<8 | 't' // 'lgit'
-	// KeyAELaunchedAsServiceItem: # Discussion
-	KeyAELaunchedAsServiceItem KeyAELaunchedAs = 's'<<24 | 'v'<<16 | 'i'<<8 | 't' // 'svit'
+	// KeyAERecorderCount: Used with the `keyword` parameter of the AEManagerInfo function.
+	KeyAERecorderCount KeyDirectObject = 'r'<<24 | 'e'<<16 | 'c'<<8 | 'r' // 'recr'
+	// KeyAEVersion: Used with the `keyword` parameter of the AEManagerInfo function.
+	KeyAEVersion KeyDirectObject = 'v'<<24 | 'e'<<16 | 'r'<<8 | 's' // 'vers'
+	// KeyDirectObjectValue: Direct parameter.
+	KeyDirectObjectValue KeyDirectObject = '-'<<24 | '-'<<16 | '-'<<8 | '-' // '----'
+	// KeyErrorNumber: Error number.
+	KeyErrorNumber KeyDirectObject = 'e'<<24 | 'r'<<16 | 'r'<<8 | 'n' // 'errn'
+	// KeyErrorString: Error string.
+	KeyErrorString KeyDirectObject = 'e'<<24 | 'r'<<16 | 'r'<<8 | 's' // 'errs'
+	// KeyPreDispatch: A predispatch handler (an Apple event handler that the Apple Event Manager calls immediately before it dispatches an Apple event).
+	KeyPreDispatch KeyDirectObject = 'p'<<24 | 'h'<<16 | 'a'<<8 | 'c' // 'phac'
+	// KeyProcessSerialNumber: Process serial number.
+	KeyProcessSerialNumber KeyDirectObject = 'p'<<24 | 's'<<16 | 'n'<<8 | ' ' // 'psn '
+	// KeySelectProc: You pass this value in the `functionClass` parameter of the AEManagerInfo function to disable the Object Support Library.
+	KeySelectProc KeyDirectObject = 's'<<24 | 'e'<<16 | 'l'<<8 | 'h' // 'selh'
 )
 
-func (e KeyAELaunchedAs) String() string {
+func (e KeyDirectObject) String() string {
 	switch e {
-	case KeyAELaunchedAsLogInItem:
-		return "KeyAELaunchedAsLogInItem"
-	case KeyAELaunchedAsServiceItem:
-		return "KeyAELaunchedAsServiceItem"
+	case KeyAERecorderCount:
+		return "KeyAERecorderCount"
+	case KeyAEVersion:
+		return "KeyAEVersion"
+	case KeyDirectObjectValue:
+		return "KeyDirectObjectValue"
+	case KeyErrorNumber:
+		return "KeyErrorNumber"
+	case KeyErrorString:
+		return "KeyErrorString"
+	case KeyPreDispatch:
+		return "KeyPreDispatch"
+	case KeyProcessSerialNumber:
+		return "KeyProcessSerialNumber"
+	case KeySelectProc:
+		return "KeySelectProc"
 	default:
-		return fmt.Sprintf("KeyAELaunchedAs(%d)", e)
+		return fmt.Sprintf("KeyDirectObject(%d)", e)
 	}
 }
 
-type KeyAERestoreApp uint
+type KeyMenuID uint32
 
 const (
-	KeyAERestoreAppState KeyAERestoreApp = 'r'<<24 | 's'<<16 | 't'<<8 | 'o' // 'rsto'
+	KeyCloseAllWindows KeyMenuID = 'c'<<24 | 'a'<<16 | 'w'<<8 | ' ' // 'caw '
+	KeyLocalWhere      KeyMenuID = 'l'<<24 | 'w'<<16 | 'h'<<8 | 'r' // 'lwhr'
+	KeyMenuIDValue     KeyMenuID = 'm'<<24 | 'i'<<16 | 'd'<<8 | ' ' // 'mid '
+	KeyMenuItem        KeyMenuID = 'm'<<24 | 'i'<<16 | 't'<<8 | 'm' // 'mitm'
+	KeyNewBounds       KeyMenuID = 'n'<<24 | 'b'<<16 | 'n'<<8 | 'd' // 'nbnd'
+	KeyOriginalBounds  KeyMenuID = 'o'<<24 | 'b'<<16 | 'n'<<8 | 'd' // 'obnd'
 )
 
-func (e KeyAERestoreApp) String() string {
+func (e KeyMenuID) String() string {
 	switch e {
-	case KeyAERestoreAppState:
-		return "KeyAERestoreAppState"
+	case KeyCloseAllWindows:
+		return "KeyCloseAllWindows"
+	case KeyLocalWhere:
+		return "KeyLocalWhere"
+	case KeyMenuIDValue:
+		return "KeyMenuIDValue"
+	case KeyMenuItem:
+		return "KeyMenuItem"
+	case KeyNewBounds:
+		return "KeyNewBounds"
+	case KeyOriginalBounds:
+		return "KeyOriginalBounds"
 	default:
-		return fmt.Sprintf("KeyAERestoreApp(%d)", e)
+		return fmt.Sprintf("KeyMenuID(%d)", e)
 	}
 }
 
-type KeyReplyPort uint
+type KeyMiscellaneous uint32
+
+const (
+	KeyDriveNumber        KeyMiscellaneous = 'd'<<24 | 'r'<<16 | 'v'<<8 | '#' // 'drv#'
+	KeyErrorCode          KeyMiscellaneous = 'e'<<24 | 'r'<<16 | 'r'<<8 | '#' // 'err#'
+	KeyHighLevelClass     KeyMiscellaneous = 'h'<<24 | 'c'<<16 | 'l'<<8 | 's' // 'hcls'
+	KeyHighLevelID        KeyMiscellaneous = 'h'<<24 | 'i'<<16 | 'd'<<8 | ' ' // 'hid '
+	KeyKey                KeyMiscellaneous = 'k'<<24 | 'e'<<16 | 'y'<<8 | ' ' // 'key '
+	KeyKeyCode            KeyMiscellaneous = 'c'<<24 | 'o'<<16 | 'd'<<8 | 'e' // 'code'
+	KeyKeyboard           KeyMiscellaneous = 'k'<<24 | 'e'<<16 | 'y'<<8 | 'b' // 'keyb'
+	KeyMiscellaneousValue KeyMiscellaneous = 'f'<<24 | 'm'<<16 | 's'<<8 | 'c' // 'fmsc'
+	KeyModifiers          KeyMiscellaneous = 'm'<<24 | 'o'<<16 | 'd'<<8 | 's' // 'mods'
+	KeySelection          KeyMiscellaneous = 'f'<<24 | 's'<<16 | 'e'<<8 | 'l' // 'fsel'
+	KeyWhen               KeyMiscellaneous = 'w'<<24 | 'h'<<16 | 'e'<<8 | 'n' // 'when'
+	KeyWhere              KeyMiscellaneous = 'w'<<24 | 'h'<<16 | 'e'<<8 | 'r' // 'wher'
+	KeyWindow             KeyMiscellaneous = 'k'<<24 | 'w'<<16 | 'n'<<8 | 'd' // 'kwnd'
+)
+
+func (e KeyMiscellaneous) String() string {
+	switch e {
+	case KeyDriveNumber:
+		return "KeyDriveNumber"
+	case KeyErrorCode:
+		return "KeyErrorCode"
+	case KeyHighLevelClass:
+		return "KeyHighLevelClass"
+	case KeyHighLevelID:
+		return "KeyHighLevelID"
+	case KeyKey:
+		return "KeyKey"
+	case KeyKeyCode:
+		return "KeyKeyCode"
+	case KeyKeyboard:
+		return "KeyKeyboard"
+	case KeyMiscellaneousValue:
+		return "KeyMiscellaneousValue"
+	case KeyModifiers:
+		return "KeyModifiers"
+	case KeySelection:
+		return "KeySelection"
+	case KeyWhen:
+		return "KeyWhen"
+	case KeyWhere:
+		return "KeyWhere"
+	case KeyWindow:
+		return "KeyWindow"
+	default:
+		return fmt.Sprintf("KeyMiscellaneous(%d)", e)
+	}
+}
+
+type KeyReplyPort uint32
 
 const (
 	KeyReplyPortAttr KeyReplyPort = 'r'<<24 | 'e'<<16 | 'p'<<8 | 'p' // 'repp'
@@ -24085,7 +26895,7 @@ func (e KeyReplyPort) String() string {
 	}
 }
 
-type KeySOAP uint
+type KeySOAP uint32
 
 const (
 	KeySOAPSMDNamespace      KeySOAP = 's'<<24 | 's'<<16 | 'n'<<8 | 's' // 'ssns'
@@ -24109,7 +26919,103 @@ func (e KeySOAP) String() string {
 	}
 }
 
-type KeyUserNameAttr uint
+type KeyTransactionIDAttr uint32
+
+const (
+	KeyAcceptTimeoutAttr      KeyTransactionIDAttr = 'a'<<24 | 'c'<<16 | 't'<<8 | 'm' // 'actm'
+	KeyActualSenderAuditToken KeyTransactionIDAttr = 'a'<<24 | 'c'<<16 | 'a'<<8 | 't' // 'acat'
+	// KeyAddressAttr: Address of a target or client application.
+	KeyAddressAttr              KeyTransactionIDAttr = 'a'<<24 | 'd'<<16 | 'd'<<8 | 'r' // 'addr'
+	KeyAppleEventAttributesAttr KeyTransactionIDAttr = 'a'<<24 | 't'<<16 | 't'<<8 | 'r' // 'attr'
+	// KeyEventClassAttr: Event class of an Apple event.
+	KeyEventClassAttr KeyTransactionIDAttr = 'e'<<24 | 'v'<<16 | 'c'<<8 | 'l' // 'evcl'
+	// KeyEventIDAttr: Event ID of an Apple event.
+	KeyEventIDAttr KeyTransactionIDAttr = 'e'<<24 | 'v'<<16 | 'i'<<8 | 'd' // 'evid'
+	// KeyEventSourceAttr: Nature of the source application.
+	KeyEventSourceAttr KeyTransactionIDAttr = 'e'<<24 | 's'<<16 | 'r'<<8 | 'c' // 'esrc'
+	// KeyInteractLevelAttr: Settings for when to allow the Apple Event Manager to bring a server application to the foreground, if necessary, to interact with the user.
+	KeyInteractLevelAttr KeyTransactionIDAttr = 'i'<<24 | 'n'<<16 | 't'<<8 | 'e' // 'inte'
+	// KeyMissedKeywordAttr: # Discussion
+	KeyMissedKeywordAttr KeyTransactionIDAttr = 'm'<<24 | 'i'<<16 | 's'<<8 | 's' // 'miss'
+	// KeyOptionalKeywordAttr: List of keywords for parameters of an Apple event that should be treated as optional by the target application.
+	KeyOptionalKeywordAttr KeyTransactionIDAttr = 'o'<<24 | 'p'<<16 | 't'<<8 | 'k' // 'optk'
+	// KeyOriginalAddressAttr: Address of original source of Apple event if the event has been forwarded (available only in version 1.01 or later versions of the Apple Event Manager).
+	KeyOriginalAddressAttr KeyTransactionIDAttr = 'f'<<24 | 'r'<<16 | 'o'<<8 | 'm' // 'from'
+	// KeyReplyRequestedAttr: A Boolean value indicating whether the Apple event expects to be replied to.
+	KeyReplyRequestedAttr KeyTransactionIDAttr = 'r'<<24 | 'e'<<16 | 'p'<<8 | 'q' // 'repq'
+	// KeyReturnIDAttr: Return ID for a reply Apple event.
+	KeyReturnIDAttr                               KeyTransactionIDAttr = 'r'<<24 | 't'<<16 | 'i'<<8 | 'd' // 'rtid'
+	KeySenderApplescriptEntitlementsAttr          KeyTransactionIDAttr = 'e'<<24 | 'n'<<16 | 't'<<8 | 'l' // 'entl'
+	KeySenderApplicationIdentifierEntitlementAttr KeyTransactionIDAttr = 'a'<<24 | 'i'<<16 | 'e'<<8 | 'a' // 'aiea'
+	KeySenderApplicationSandboxed                 KeyTransactionIDAttr = 's'<<24 | 's'<<16 | 's'<<8 | 'b' // 'sssb'
+	KeySenderAuditTokenAttr                       KeyTransactionIDAttr = 't'<<24 | 'o'<<16 | 'k'<<8 | 'n' // 'tokn'
+	KeySenderEGIDAttr                             KeyTransactionIDAttr = 's'<<24 | 'g'<<16 | 'i'<<8 | 'd' // 'sgid'
+	KeySenderEUIDAttr                             KeyTransactionIDAttr = 's'<<24 | 'e'<<16 | 'i'<<8 | 'd' // 'seid'
+	KeySenderGIDAttr                              KeyTransactionIDAttr = 'g'<<24 | 'i'<<16 | 'd'<<8 | 's' // 'gids'
+	KeySenderPIDAttr                              KeyTransactionIDAttr = 's'<<24 | 'p'<<16 | 'i'<<8 | 'd' // 'spid'
+	KeySenderUIDAttr                              KeyTransactionIDAttr = 'u'<<24 | 'i'<<16 | 'd'<<8 | 's' // 'uids'
+	// KeyTimeoutAttr: Length of time, in ticks, that the client will wait for a reply or a result from the server.
+	KeyTimeoutAttr KeyTransactionIDAttr = 't'<<24 | 'i'<<16 | 'm'<<8 | 'o' // 'timo'
+	// KeyTransactionIDAttrValue: Transaction ID identifying a series of Apple events that are part of one transaction.
+	KeyTransactionIDAttrValue KeyTransactionIDAttr = 't'<<24 | 'r'<<16 | 'a'<<8 | 'n' // 'tran'
+)
+
+func (e KeyTransactionIDAttr) String() string {
+	switch e {
+	case KeyAcceptTimeoutAttr:
+		return "KeyAcceptTimeoutAttr"
+	case KeyActualSenderAuditToken:
+		return "KeyActualSenderAuditToken"
+	case KeyAddressAttr:
+		return "KeyAddressAttr"
+	case KeyAppleEventAttributesAttr:
+		return "KeyAppleEventAttributesAttr"
+	case KeyEventClassAttr:
+		return "KeyEventClassAttr"
+	case KeyEventIDAttr:
+		return "KeyEventIDAttr"
+	case KeyEventSourceAttr:
+		return "KeyEventSourceAttr"
+	case KeyInteractLevelAttr:
+		return "KeyInteractLevelAttr"
+	case KeyMissedKeywordAttr:
+		return "KeyMissedKeywordAttr"
+	case KeyOptionalKeywordAttr:
+		return "KeyOptionalKeywordAttr"
+	case KeyOriginalAddressAttr:
+		return "KeyOriginalAddressAttr"
+	case KeyReplyRequestedAttr:
+		return "KeyReplyRequestedAttr"
+	case KeyReturnIDAttr:
+		return "KeyReturnIDAttr"
+	case KeySenderApplescriptEntitlementsAttr:
+		return "KeySenderApplescriptEntitlementsAttr"
+	case KeySenderApplicationIdentifierEntitlementAttr:
+		return "KeySenderApplicationIdentifierEntitlementAttr"
+	case KeySenderApplicationSandboxed:
+		return "KeySenderApplicationSandboxed"
+	case KeySenderAuditTokenAttr:
+		return "KeySenderAuditTokenAttr"
+	case KeySenderEGIDAttr:
+		return "KeySenderEGIDAttr"
+	case KeySenderEUIDAttr:
+		return "KeySenderEUIDAttr"
+	case KeySenderGIDAttr:
+		return "KeySenderGIDAttr"
+	case KeySenderPIDAttr:
+		return "KeySenderPIDAttr"
+	case KeySenderUIDAttr:
+		return "KeySenderUIDAttr"
+	case KeyTimeoutAttr:
+		return "KeyTimeoutAttr"
+	case KeyTransactionIDAttrValue:
+		return "KeyTransactionIDAttrValue"
+	default:
+		return fmt.Sprintf("KeyTransactionIDAttr(%d)", e)
+	}
+}
+
+type KeyUserNameAttr uint32
 
 const (
 	KAERPCClass                  KeyUserNameAttr = 'r'<<24 | 'p'<<16 | 'c'<<8 | ' ' // 'rpc '
@@ -24181,7 +27087,7 @@ func (e KeyUserNameAttr) String() string {
 	}
 }
 
-type KioACAccessOwnerBit uint
+type KioACAccessOwnerBit int32
 
 const (
 	KfullPrivileges               KioACAccessOwnerBit = 0x70007
@@ -24200,7 +27106,7 @@ const (
 	KioACAccessGroupWriteBit      KioACAccessOwnerBit = 10
 	KioACAccessGroupWriteMask     KioACAccessOwnerBit = 0x400
 	KioACAccessOwnerBitValue      KioACAccessOwnerBit = 31
-	KioACAccessOwnerMask          KioACAccessOwnerBit = 0x80000000
+	KioACAccessOwnerMask          KioACAccessOwnerBit = -2147483648
 	KioACAccessOwnerReadBit       KioACAccessOwnerBit = 1
 	KioACAccessOwnerReadMask      KioACAccessOwnerBit = 0x2
 	KioACAccessOwnerSearchBit     KioACAccessOwnerBit = 0
@@ -24279,7 +27185,7 @@ func (e KioACAccessOwnerBit) String() string {
 	}
 }
 
-type KioACUser uint
+type KioACUser uint32
 
 const (
 	KioACUserNoMakeChangesBit  KioACUser = 2
@@ -24311,7 +27217,7 @@ func (e KioACUser) String() string {
 	}
 }
 
-type KioFCB uint
+type KioFCB uint32
 
 const (
 	KioFCBFileLockedBit   KioFCB = 13
@@ -24371,7 +27277,7 @@ func (e KioFCB) String() string {
 	}
 }
 
-type KioFlAttribLockedBit uint
+type KioFlAttribLockedBit uint32
 
 const (
 	IoDirFlg                  KioFlAttribLockedBit = 4
@@ -24429,7 +27335,7 @@ func (e KioFlAttribLockedBit) String() string {
 	}
 }
 
-type KioVAtrb uint
+type KioVAtrb uint32
 
 const (
 	KioVAtrbDefaultVolumeBit   KioVAtrb = 5
@@ -24465,7 +27371,7 @@ func (e KioVAtrb) String() string {
 	}
 }
 
-type Kno uint
+type Kno uint32
 
 const (
 	KnoGroup Kno = 0
@@ -24480,7 +27386,7 @@ func (e Kno) String() string {
 	}
 }
 
-type KnoUser uint
+type KnoUser uint32
 
 const (
 	KadministratorUser KnoUser = 1
@@ -24498,7 +27404,57 @@ func (e KnoUser) String() string {
 	}
 }
 
-type Ktextencodingiso2022 uint
+type KtecMibenumdontcare int32
+
+const (
+	KTEC_MIBEnumDontCare KtecMibenumdontcare = -1
+)
+
+func (e KtecMibenumdontcare) String() string {
+	switch e {
+	case KTEC_MIBEnumDontCare:
+		return "KTEC_MIBEnumDontCare"
+	default:
+		return fmt.Sprintf("KtecMibenumdontcare(%d)", e)
+	}
+}
+
+type KtextencodingebcdicLatincore uint32
+
+const (
+	// KTextEncodingEBCDIC_CP037: Code page 037, extended EBCDIC-US Latin1.
+	KTextEncodingEBCDIC_CP037     KtextencodingebcdicLatincore = 0xc02
+	KTextEncodingEBCDIC_LatinCore KtextencodingebcdicLatincore = 0xc01
+)
+
+func (e KtextencodingebcdicLatincore) String() string {
+	switch e {
+	case KTextEncodingEBCDIC_CP037:
+		return "KTextEncodingEBCDIC_CP037"
+	case KTextEncodingEBCDIC_LatinCore:
+		return "KTextEncodingEBCDIC_LatinCore"
+	default:
+		return fmt.Sprintf("KtextencodingebcdicLatincore(%d)", e)
+	}
+}
+
+type KtextencodingebcdicUs uint32
+
+const (
+	// KTextEncodingEBCDIC_US: Basic EBCDIC-US encoding.
+	KTextEncodingEBCDIC_US KtextencodingebcdicUs = 0xc01
+)
+
+func (e KtextencodingebcdicUs) String() string {
+	switch e {
+	case KTextEncodingEBCDIC_US:
+		return "KTextEncodingEBCDIC_US"
+	default:
+		return fmt.Sprintf("KtextencodingebcdicUs(%d)", e)
+	}
+}
+
+type Ktextencodingiso2022 uint32
 
 const (
 	KTextEncodingISO_2022_CN     Ktextencodingiso2022 = 0x830
@@ -24535,20 +27491,93 @@ func (e Ktextencodingiso2022) String() string {
 	}
 }
 
+type KtextencodingusAscii uint32
+
+const (
+	KTextEncodingANSEL KtextencodingusAscii = 0x601
+	// KTextEncodingCNS_11643_92_P1: CNS 11643-1992 plane 1.
+	KTextEncodingCNS_11643_92_P1 KtextencodingusAscii = 0x651
+	// KTextEncodingCNS_11643_92_P2: CNS 11643-1992 plane 2.
+	KTextEncodingCNS_11643_92_P2 KtextencodingusAscii = 0x652
+	// KTextEncodingCNS_11643_92_P3: CNS 11643-1992 plane 3 (11643-1986 plane 14).
+	KTextEncodingCNS_11643_92_P3 KtextencodingusAscii = 0x653
+	// KTextEncodingGBK_95: Annex to GB13000-93, for Windows 95; EUC-CN extended.
+	KTextEncodingGBK_95        KtextencodingusAscii = 0x631
+	KTextEncodingGB_18030_2000 KtextencodingusAscii = 0x632
+	KTextEncodingGB_18030_2005 KtextencodingusAscii = 0x632
+	KTextEncodingGB_2312_80    KtextencodingusAscii = 0x630
+	KTextEncodingJIS_C6226_78  KtextencodingusAscii = 0x624
+	// KTextEncodingJIS_X0201_76: JIS Roman and 1-byte katakana (halfwidth).
+	KTextEncodingJIS_X0201_76       KtextencodingusAscii = 0x620
+	KTextEncodingJIS_X0208_83       KtextencodingusAscii = 0x621
+	KTextEncodingJIS_X0208_90       KtextencodingusAscii = 0x622
+	KTextEncodingJIS_X0212_90       KtextencodingusAscii = 0x623
+	KTextEncodingJIS_X0213_MenKuTen KtextencodingusAscii = 0x629
+	// KTextEncodingKSC_5601_87: This is the same as KSC 5601-92 without Johab annex.
+	KTextEncodingKSC_5601_87 KtextencodingusAscii = 0x640
+	// KTextEncodingKSC_5601_92_Johab: KSC 5601-92 Johab annex.
+	KTextEncodingKSC_5601_92_Johab KtextencodingusAscii = 0x641
+	KTextEncodingShiftJIS_X0213    KtextencodingusAscii = 0x628
+	KTextEncodingUS_ASCII          KtextencodingusAscii = 0x600
+)
+
+func (e KtextencodingusAscii) String() string {
+	switch e {
+	case KTextEncodingANSEL:
+		return "KTextEncodingANSEL"
+	case KTextEncodingCNS_11643_92_P1:
+		return "KTextEncodingCNS_11643_92_P1"
+	case KTextEncodingCNS_11643_92_P2:
+		return "KTextEncodingCNS_11643_92_P2"
+	case KTextEncodingCNS_11643_92_P3:
+		return "KTextEncodingCNS_11643_92_P3"
+	case KTextEncodingGBK_95:
+		return "KTextEncodingGBK_95"
+	case KTextEncodingGB_18030_2000:
+		return "KTextEncodingGB_18030_2000"
+	case KTextEncodingGB_2312_80:
+		return "KTextEncodingGB_2312_80"
+	case KTextEncodingJIS_C6226_78:
+		return "KTextEncodingJIS_C6226_78"
+	case KTextEncodingJIS_X0201_76:
+		return "KTextEncodingJIS_X0201_76"
+	case KTextEncodingJIS_X0208_83:
+		return "KTextEncodingJIS_X0208_83"
+	case KTextEncodingJIS_X0208_90:
+		return "KTextEncodingJIS_X0208_90"
+	case KTextEncodingJIS_X0212_90:
+		return "KTextEncodingJIS_X0212_90"
+	case KTextEncodingJIS_X0213_MenKuTen:
+		return "KTextEncodingJIS_X0213_MenKuTen"
+	case KTextEncodingKSC_5601_87:
+		return "KTextEncodingKSC_5601_87"
+	case KTextEncodingKSC_5601_92_Johab:
+		return "KTextEncodingKSC_5601_92_Johab"
+	case KTextEncodingShiftJIS_X0213:
+		return "KTextEncodingShiftJIS_X0213"
+	case KTextEncodingUS_ASCII:
+		return "KTextEncodingUS_ASCII"
+	default:
+		return fmt.Sprintf("KtextencodingusAscii(%d)", e)
+	}
+}
+
 // See: https://developer.apple.com/documentation/coreservices/lsacceptanceflags
 type LSAcceptanceFlags uint32
 
 const (
 	// AcceptAllowLoginUI: Requests that the user interface to log in be presented.
-	AcceptAllowLoginUI LSAcceptanceFlags = 0
+	AcceptAllowLoginUI LSAcceptanceFlags = 0x2
 	// AcceptDefault: Requests the default behavior that does not require the user interface to log in be presented.
-	AcceptDefault LSAcceptanceFlags = 0
+	AcceptDefault LSAcceptanceFlags = 0x1
 )
 
 func (e LSAcceptanceFlags) String() string {
 	switch e {
 	case AcceptAllowLoginUI:
 		return "AcceptAllowLoginUI"
+	case AcceptDefault:
+		return "AcceptDefault"
 	default:
 		return fmt.Sprintf("LSAcceptanceFlags(%d)", e)
 	}
@@ -24559,7 +27588,7 @@ type LSHandlerOptions uint32
 
 const (
 	// Deprecated.
-	IgnoreCreator LSHandlerOptions = 0
+	IgnoreCreator LSHandlerOptions = 1
 )
 
 func (e LSHandlerOptions) String() string {
@@ -24576,39 +27605,67 @@ type LSItemInfoFlags uint32
 
 const (
 	// Deprecated.
-	AppIsScriptable LSItemInfoFlags = 0
+	AppIsScriptable LSItemInfoFlags = 0x800
 	// Deprecated.
-	AppPrefersClassic LSItemInfoFlags = 0
+	AppPrefersClassic LSItemInfoFlags = 0x400
 	// Deprecated.
-	AppPrefersNative LSItemInfoFlags = 0
+	AppPrefersNative LSItemInfoFlags = 0x200
 	// Deprecated.
-	ExtensionIsHidden LSItemInfoFlags = 0
+	ExtensionIsHidden LSItemInfoFlags = 0x100000
 	// Deprecated.
-	IsAliasFile LSItemInfoFlags = 0
+	IsAliasFile LSItemInfoFlags = 0x10
 	// Deprecated.
-	IsApplication LSItemInfoFlags = 0
+	IsApplication LSItemInfoFlags = 4
 	// Deprecated.
-	IsClassicApp LSItemInfoFlags = 0
+	IsClassicApp LSItemInfoFlags = 0x100
 	// Deprecated.
-	IsContainer LSItemInfoFlags = 0
+	IsContainer LSItemInfoFlags = 0x8
 	// Deprecated.
-	IsInvisible LSItemInfoFlags = 0
+	IsInvisible LSItemInfoFlags = 0x40
 	// Deprecated.
-	IsNativeApp LSItemInfoFlags = 0
+	IsNativeApp LSItemInfoFlags = 0x80
 	// Deprecated.
-	IsPackage LSItemInfoFlags = 0
+	IsPackage LSItemInfoFlags = 0x2
 	// Deprecated.
-	IsPlainFile LSItemInfoFlags = 0
+	IsPlainFile LSItemInfoFlags = 0x1
 	// Deprecated.
-	IsSymlink LSItemInfoFlags = 0
+	IsSymlink LSItemInfoFlags = 0x20
 	// Deprecated.
-	IsVolume LSItemInfoFlags = 0
+	IsVolume LSItemInfoFlags = 0x1000
+	// Deprecated.
+	KLSItemInfoIsApplication LSItemInfoFlags = 0x4
 )
 
 func (e LSItemInfoFlags) String() string {
 	switch e {
 	case AppIsScriptable:
 		return "AppIsScriptable"
+	case AppPrefersClassic:
+		return "AppPrefersClassic"
+	case AppPrefersNative:
+		return "AppPrefersNative"
+	case ExtensionIsHidden:
+		return "ExtensionIsHidden"
+	case IsAliasFile:
+		return "IsAliasFile"
+	case IsApplication:
+		return "IsApplication"
+	case IsClassicApp:
+		return "IsClassicApp"
+	case IsContainer:
+		return "IsContainer"
+	case IsInvisible:
+		return "IsInvisible"
+	case IsNativeApp:
+		return "IsNativeApp"
+	case IsPackage:
+		return "IsPackage"
+	case IsPlainFile:
+		return "IsPlainFile"
+	case IsSymlink:
+		return "IsSymlink"
+	case IsVolume:
+		return "IsVolume"
 	default:
 		return fmt.Sprintf("LSItemInfoFlags(%d)", e)
 	}
@@ -24619,29 +27676,45 @@ type LSLaunchFlags uint32
 
 const (
 	// AndDisplayErrors: Requests that launch and open failures be displayed in the UI.
-	AndDisplayErrors LSLaunchFlags = 0
+	AndDisplayErrors LSLaunchFlags = 0x40
 	// AndHide: Requests that the application be hidden as soon as it completes its launch sequence.
-	AndHide LSLaunchFlags = 0
+	AndHide LSLaunchFlags = 0x100000
 	// AndHideOthers: Requests that other applications be hidden as soon as the opened application completes its launch sequence.
-	AndHideOthers LSLaunchFlags = 0
+	AndHideOthers LSLaunchFlags = 0x200000
 	// AndPrint: Requests that documents opened in the application be printed.
-	AndPrint LSLaunchFlags = 0
+	AndPrint LSLaunchFlags = 0x2
 	// Async: Requests that the application be launched asynchronously.
-	Async LSLaunchFlags = 0
+	Async LSLaunchFlags = 0x10000
 	// Defaults: Requests launching in the default manner (as if the only flags set were `kLSLaunchNoParams`, `kLSLaunchAsync`, and `kLSLaunchStartClassic`).
-	Defaults LSLaunchFlags = 0
+	Defaults LSLaunchFlags = 0x1
 	// DontAddToRecents: Requests that the application or documents not be added to the Finder’s Recent Items menu.
-	DontAddToRecents LSLaunchFlags = 0
+	DontAddToRecents LSLaunchFlags = 0x100
 	// DontSwitch: Requests that the application be launched without being brought to the foreground.
-	DontSwitch LSLaunchFlags = 0
+	DontSwitch LSLaunchFlags = 0x200
 	// NewInstance: Requests that a new instance of the application be started, even if one is already running.
-	NewInstance LSLaunchFlags = 0
+	NewInstance LSLaunchFlags = 0x80000
 )
 
 func (e LSLaunchFlags) String() string {
 	switch e {
 	case AndDisplayErrors:
 		return "AndDisplayErrors"
+	case AndHide:
+		return "AndHide"
+	case AndHideOthers:
+		return "AndHideOthers"
+	case AndPrint:
+		return "AndPrint"
+	case Async:
+		return "Async"
+	case Defaults:
+		return "Defaults"
+	case DontAddToRecents:
+		return "DontAddToRecents"
+	case DontSwitch:
+		return "DontSwitch"
+	case NewInstance:
+		return "NewInstance"
 	default:
 		return fmt.Sprintf("LSLaunchFlags(%d)", e)
 	}
@@ -24652,27 +27725,41 @@ type LSRequestedInfo uint32
 
 const (
 	// Deprecated.
-	RequestAllFlags LSRequestedInfo = 0
+	RequestAllFlags LSRequestedInfo = 0x10
 	// Deprecated.
-	RequestAllInfo LSRequestedInfo = 0
+	RequestAllInfo LSRequestedInfo = 0xffffffff
 	// Deprecated.
-	RequestAppTypeFlags LSRequestedInfo = 0
+	RequestAppTypeFlags LSRequestedInfo = 0x8
 	// Deprecated.
-	RequestBasicFlagsOnly LSRequestedInfo = 0
+	RequestBasicFlagsOnly LSRequestedInfo = 0x4
 	// Deprecated.
-	RequestExtension LSRequestedInfo = 0
+	RequestExtension LSRequestedInfo = 1
 	// Deprecated.
-	RequestExtensionFlagsOnly LSRequestedInfo = 0
+	RequestExtensionFlagsOnly LSRequestedInfo = 0x40
 	// Deprecated.
-	RequestIconAndKind LSRequestedInfo = 0
+	RequestIconAndKind LSRequestedInfo = 0x20
 	// Deprecated.
-	RequestTypeCreator LSRequestedInfo = 0
+	RequestTypeCreator LSRequestedInfo = 0x2
 )
 
 func (e LSRequestedInfo) String() string {
 	switch e {
 	case RequestAllFlags:
 		return "RequestAllFlags"
+	case RequestAllInfo:
+		return "RequestAllInfo"
+	case RequestAppTypeFlags:
+		return "RequestAppTypeFlags"
+	case RequestBasicFlagsOnly:
+		return "RequestBasicFlagsOnly"
+	case RequestExtension:
+		return "RequestExtension"
+	case RequestExtensionFlagsOnly:
+		return "RequestExtensionFlagsOnly"
+	case RequestIconAndKind:
+		return "RequestIconAndKind"
+	case RequestTypeCreator:
+		return "RequestTypeCreator"
 	default:
 		return fmt.Sprintf("LSRequestedInfo(%d)", e)
 	}
@@ -24683,27 +27770,35 @@ type LSRolesMask uint32
 
 const (
 	// All: Accepts any role with respect to the item.
-	All LSRolesMask = 0
+	All LSRolesMask = 0xffffffff
 	// Editor: Requests the role [Editor] (theapplication can read, present, manipulate, and save the item).
-	Editor LSRolesMask = 0
+	Editor LSRolesMask = 0x4
 	// None: Requests the role [None] (theapplication cannot open the item, but provides an icon and a kindstring for it).
-	None LSRolesMask = 0
+	None LSRolesMask = 0x1
 	// Shell: Requests the role [Shell] (theapplication can execute the item).
-	Shell LSRolesMask = 0
+	Shell LSRolesMask = 0x8
 	// Viewer: Requests the role [Viewer] (theapplication can read and present the item, but cannot manipulateor save it).
-	Viewer LSRolesMask = 0
+	Viewer LSRolesMask = 0x2
 )
 
 func (e LSRolesMask) String() string {
 	switch e {
 	case All:
 		return "All"
+	case Editor:
+		return "Editor"
+	case None:
+		return "None"
+	case Shell:
+		return "Shell"
+	case Viewer:
+		return "Viewer"
 	default:
 		return fmt.Sprintf("LSRolesMask(%d)", e)
 	}
 }
 
-type La int
+type La int32
 
 const (
 	LaDictionaryNotOpenedErr La = -6992
@@ -24766,419 +27861,351 @@ func (e La) String() string {
 	}
 }
 
-type Lang uint
+type LangBreton uint32
 
 const (
 	// Deprecated.
-	LangAfricaans Lang = 141
+	LangAzerbaijanRoman LangBreton = 150
 	// Deprecated.
-	LangAfrikaans Lang = 141
+	LangBretonValue LangBreton = 142
 	// Deprecated.
-	LangAlbanian Lang = 36
+	LangGreekAncient LangBreton = 148
 	// Deprecated.
-	LangAmharic Lang = 85
+	LangGreenlandic LangBreton = 149
 	// Deprecated.
-	LangArabic Lang = 12
+	LangInuktitut LangBreton = 143
 	// Deprecated.
-	LangArmenian Lang = 51
+	LangIrishGaelicScript LangBreton = 146
 	// Deprecated.
-	LangAssamese Lang = 68
+	LangManxGaelic LangBreton = 145
 	// Deprecated.
-	LangAymara Lang = 134
+	LangNynorsk LangBreton = 151
 	// Deprecated.
-	LangAzerbaijanAr Lang = 50
+	LangScottishGaelic LangBreton = 144
 	// Deprecated.
-	LangAzerbaijanRoman Lang = 150
-	// Deprecated.
-	LangAzerbaijani Lang = 49
-	// Deprecated.
-	LangBasque Lang = 129
-	// Deprecated.
-	LangBelorussian Lang = 46
-	// Deprecated.
-	LangBengali Lang = 67
-	// Deprecated.
-	LangBreton Lang = 142
-	// Deprecated.
-	LangBulgarian Lang = 44
-	// Deprecated.
-	LangBurmese Lang = 77
-	// Deprecated.
-	LangByelorussian Lang = 46
-	// Deprecated.
-	LangCatalan Lang = 130
-	// Deprecated.
-	LangChewa Lang = 92
-	// Deprecated.
-	LangChinese Lang = 19
-	// Deprecated.
-	LangCroatian Lang = 18
-	// Deprecated.
-	LangCzech Lang = 38
-	// Deprecated.
-	LangDanish Lang = 7
-	// Deprecated.
-	LangDutch Lang = 4
-	// Deprecated.
-	LangDzongkha Lang = 137
-	// Deprecated.
-	LangEnglish Lang = 0
-	// Deprecated.
-	LangEsperanto Lang = 94
-	// Deprecated.
-	LangEstonian Lang = 27
-	// Deprecated.
-	LangFaeroese Lang = 30
-	// Deprecated.
-	LangFaroese Lang = 30
-	// Deprecated.
-	LangFarsi Lang = 31
-	// Deprecated.
-	LangFinnish Lang = 13
-	// Deprecated.
-	LangFlemish Lang = 34
-	// Deprecated.
-	LangFrench Lang = 1
-	// Deprecated.
-	LangGalician Lang = 140
-	// Deprecated.
-	LangGalla Lang = 87
-	// Deprecated.
-	LangGeorgian Lang = 52
-	// Deprecated.
-	LangGerman Lang = 2
-	// Deprecated.
-	LangGreek Lang = 14
-	// Deprecated.
-	LangGreekAncient Lang = 148
-	// Deprecated.
-	LangGreekPoly Lang = 148
-	// Deprecated.
-	LangGreenlandic Lang = 149
-	// Deprecated.
-	LangGuarani Lang = 133
-	// Deprecated.
-	LangGujarati Lang = 69
-	// Deprecated.
-	LangHebrew Lang = 10
-	// Deprecated.
-	LangHindi Lang = 21
-	// Deprecated.
-	LangHungarian Lang = 26
-	// Deprecated.
-	LangIcelandic Lang = 15
-	// Deprecated.
-	LangIndonesian Lang = 81
-	// Deprecated.
-	LangInuktitut Lang = 143
-	// Deprecated.
-	LangIrish Lang = 35
-	// Deprecated.
-	LangIrishGaelic Lang = 35
-	// Deprecated.
-	LangIrishGaelicScript Lang = 146
-	// Deprecated.
-	LangItalian Lang = 3
-	// Deprecated.
-	LangJapanese Lang = 11
-	// Deprecated.
-	LangJavaneseRom Lang = 138
-	// Deprecated.
-	LangKannada Lang = 73
-	// Deprecated.
-	LangKashmiri Lang = 61
-	// Deprecated.
-	LangKazakh Lang = 48
-	// Deprecated.
-	LangKhmer Lang = 78
-	// Deprecated.
-	LangKinyarwanda Lang = 90
-	// Deprecated.
-	LangKirghiz Lang = 54
-	// Deprecated.
-	LangKorean Lang = 23
-	// Deprecated.
-	LangKurdish Lang = 60
-	// Deprecated.
-	LangLao Lang = 79
-	// Deprecated.
-	LangLappish Lang = 29
-	// Deprecated.
-	LangLapponian Lang = 29
-	// Deprecated.
-	LangLatin Lang = 131
-	// Deprecated.
-	LangLatvian Lang = 28
-	// Deprecated.
-	LangLettish Lang = 28
-	// Deprecated.
-	LangLithuanian Lang = 24
-	// Deprecated.
-	LangMacedonian Lang = 43
-	// Deprecated.
-	LangMalagasy Lang = 93
-	// Deprecated.
-	LangMalayArabic Lang = 84
-	// Deprecated.
-	LangMalayRoman Lang = 83
-	// Deprecated.
-	LangMalayalam Lang = 72
-	// Deprecated.
-	LangMalta Lang = 16
-	// Deprecated.
-	LangMaltese Lang = 16
-	// Deprecated.
-	LangManxGaelic Lang = 145
-	// Deprecated.
-	LangMarathi Lang = 66
-	// Deprecated.
-	LangMoldavian Lang = 53
-	// Deprecated.
-	LangMongolian Lang = 57
-	// Deprecated.
-	LangMongolianCyr Lang = 58
-	// Deprecated.
-	LangNepali Lang = 64
-	// Deprecated.
-	LangNorwegian Lang = 9
-	// Deprecated.
-	LangNyanja Lang = 92
-	// Deprecated.
-	LangNynorsk Lang = 151
-	// Deprecated.
-	LangOriya Lang = 71
-	// Deprecated.
-	LangOromo Lang = 87
-	// Deprecated.
-	LangPashto Lang = 59
-	// Deprecated.
-	LangPersian Lang = 31
-	// Deprecated.
-	LangPolish Lang = 25
-	// Deprecated.
-	LangPortugese Lang = 8
-	// Deprecated.
-	LangPortuguese Lang = 8
-	// Deprecated.
-	LangPunjabi Lang = 70
-	// Deprecated.
-	LangQuechua Lang = 132
-	// Deprecated.
-	LangRomanian Lang = 37
-	// Deprecated.
-	LangRuanda Lang = 90
-	// Deprecated.
-	LangRundi Lang = 91
-	// Deprecated.
-	LangRussian Lang = 32
-	// Deprecated.
-	LangSaamisk Lang = 29
-	// Deprecated.
-	LangSami Lang = 29
-	// Deprecated.
-	LangSanskrit Lang = 65
-	// Deprecated.
-	LangScottishGaelic Lang = 144
-	// Deprecated.
-	LangSerbian Lang = 42
-	// Deprecated.
-	LangSimpChinese Lang = 33
-	// Deprecated.
-	LangSindhi Lang = 62
-	// Deprecated.
-	LangSinhalese Lang = 76
-	// Deprecated.
-	LangSlovak Lang = 39
-	// Deprecated.
-	LangSlovenian Lang = 40
-	// Deprecated.
-	LangSomali Lang = 88
-	// Deprecated.
-	LangSpanish Lang = 6
-	// Deprecated.
-	LangSundaneseRom Lang = 139
-	// Deprecated.
-	LangSwahili Lang = 89
-	// Deprecated.
-	LangSwedish Lang = 5
-	// Deprecated.
-	LangTagalog Lang = 82
-	// Deprecated.
-	LangTajiki Lang = 55
-	// Deprecated.
-	LangTamil Lang = 74
-	// Deprecated.
-	LangTatar Lang = 135
-	// Deprecated.
-	LangTelugu Lang = 75
-	// Deprecated.
-	LangThai Lang = 22
-	// Deprecated.
-	LangTibetan Lang = 63
-	// Deprecated.
-	LangTigrinya Lang = 86
-	// Deprecated.
-	LangTongan Lang = 147
-	// Deprecated.
-	LangTradChinese Lang = 19
-	// Deprecated.
-	LangTurkish Lang = 17
-	// Deprecated.
-	LangTurkmen Lang = 56
-	// Deprecated.
-	LangUighur Lang = 136
-	// Deprecated.
-	LangUkrainian Lang = 45
-	// Deprecated.
-	LangUnspecified Lang = 32767
-	// Deprecated.
-	LangUrdu Lang = 20
-	// Deprecated.
-	LangUzbek Lang = 47
-	// Deprecated.
-	LangVietnamese Lang = 80
-	// Deprecated.
-	LangWelsh Lang = 128
-	// Deprecated.
-	LangYiddish Lang = 41
-	// Deprecated.
-	LangYugoslavian Lang = 18
+	LangTongan LangBreton = 147
 )
 
-func (e Lang) String() string {
+func (e LangBreton) String() string {
 	switch e {
-	case LangAfricaans:
-		return "LangAfricaans"
-	case LangAlbanian:
-		return "LangAlbanian"
-	case LangAmharic:
-		return "LangAmharic"
-	case LangArabic:
-		return "LangArabic"
-	case LangArmenian:
-		return "LangArmenian"
-	case LangAssamese:
-		return "LangAssamese"
-	case LangAymara:
-		return "LangAymara"
-	case LangAzerbaijanAr:
-		return "LangAzerbaijanAr"
 	case LangAzerbaijanRoman:
 		return "LangAzerbaijanRoman"
-	case LangAzerbaijani:
-		return "LangAzerbaijani"
-	case LangBasque:
-		return "LangBasque"
-	case LangBelorussian:
-		return "LangBelorussian"
-	case LangBengali:
-		return "LangBengali"
-	case LangBreton:
-		return "LangBreton"
-	case LangBulgarian:
-		return "LangBulgarian"
-	case LangBurmese:
-		return "LangBurmese"
-	case LangCatalan:
-		return "LangCatalan"
-	case LangChewa:
-		return "LangChewa"
-	case LangChinese:
-		return "LangChinese"
-	case LangCroatian:
-		return "LangCroatian"
-	case LangCzech:
-		return "LangCzech"
-	case LangDanish:
-		return "LangDanish"
-	case LangDutch:
-		return "LangDutch"
-	case LangDzongkha:
-		return "LangDzongkha"
-	case LangEnglish:
-		return "LangEnglish"
-	case LangEsperanto:
-		return "LangEsperanto"
-	case LangEstonian:
-		return "LangEstonian"
-	case LangFaeroese:
-		return "LangFaeroese"
-	case LangFarsi:
-		return "LangFarsi"
-	case LangFinnish:
-		return "LangFinnish"
-	case LangFlemish:
-		return "LangFlemish"
-	case LangFrench:
-		return "LangFrench"
-	case LangGalician:
-		return "LangGalician"
-	case LangGalla:
-		return "LangGalla"
-	case LangGeorgian:
-		return "LangGeorgian"
-	case LangGerman:
-		return "LangGerman"
-	case LangGreek:
-		return "LangGreek"
+	case LangBretonValue:
+		return "LangBretonValue"
 	case LangGreekAncient:
 		return "LangGreekAncient"
 	case LangGreenlandic:
 		return "LangGreenlandic"
-	case LangGuarani:
-		return "LangGuarani"
-	case LangGujarati:
-		return "LangGujarati"
+	case LangInuktitut:
+		return "LangInuktitut"
+	case LangIrishGaelicScript:
+		return "LangIrishGaelicScript"
+	case LangManxGaelic:
+		return "LangManxGaelic"
+	case LangNynorsk:
+		return "LangNynorsk"
+	case LangScottishGaelic:
+		return "LangScottishGaelic"
+	case LangTongan:
+		return "LangTongan"
+	default:
+		return fmt.Sprintf("LangBreton(%d)", e)
+	}
+}
+
+type LangEnglish uint32
+
+const (
+	// Deprecated.
+	LangArabic LangEnglish = 12
+	// Deprecated.
+	LangCroatian LangEnglish = 18
+	// Deprecated.
+	LangDanish LangEnglish = 7
+	// Deprecated.
+	LangDutch LangEnglish = 4
+	// Deprecated.
+	LangEnglishValue LangEnglish = 0
+	// Deprecated.
+	LangFinnish LangEnglish = 13
+	// Deprecated.
+	LangFrench LangEnglish = 1
+	// Deprecated.
+	LangGerman LangEnglish = 2
+	// Deprecated.
+	LangGreek LangEnglish = 14
+	// Deprecated.
+	LangHebrew LangEnglish = 10
+	// Deprecated.
+	LangHindi LangEnglish = 21
+	// Deprecated.
+	LangIcelandic LangEnglish = 15
+	// Deprecated.
+	LangItalian LangEnglish = 3
+	// Deprecated.
+	LangJapanese LangEnglish = 11
+	// Deprecated.
+	LangKorean LangEnglish = 23
+	// Deprecated.
+	LangMaltese LangEnglish = 16
+	// Deprecated.
+	LangNorwegian LangEnglish = 9
+	// Deprecated.
+	LangPortuguese LangEnglish = 8
+	// Deprecated.
+	LangSpanish LangEnglish = 6
+	// Deprecated.
+	LangSwedish LangEnglish = 5
+	// Deprecated.
+	LangThai LangEnglish = 22
+	// Deprecated.
+	LangTradChinese LangEnglish = 19
+	// Deprecated.
+	LangTurkish LangEnglish = 17
+	// Deprecated.
+	LangUrdu LangEnglish = 20
+)
+
+func (e LangEnglish) String() string {
+	switch e {
+	case LangArabic:
+		return "LangArabic"
+	case LangCroatian:
+		return "LangCroatian"
+	case LangDanish:
+		return "LangDanish"
+	case LangDutch:
+		return "LangDutch"
+	case LangEnglishValue:
+		return "LangEnglishValue"
+	case LangFinnish:
+		return "LangFinnish"
+	case LangFrench:
+		return "LangFrench"
+	case LangGerman:
+		return "LangGerman"
+	case LangGreek:
+		return "LangGreek"
 	case LangHebrew:
 		return "LangHebrew"
 	case LangHindi:
 		return "LangHindi"
-	case LangHungarian:
-		return "LangHungarian"
 	case LangIcelandic:
 		return "LangIcelandic"
-	case LangIndonesian:
-		return "LangIndonesian"
-	case LangInuktitut:
-		return "LangInuktitut"
-	case LangIrish:
-		return "LangIrish"
-	case LangIrishGaelicScript:
-		return "LangIrishGaelicScript"
 	case LangItalian:
 		return "LangItalian"
 	case LangJapanese:
 		return "LangJapanese"
-	case LangJavaneseRom:
-		return "LangJavaneseRom"
+	case LangKorean:
+		return "LangKorean"
+	case LangMaltese:
+		return "LangMaltese"
+	case LangNorwegian:
+		return "LangNorwegian"
+	case LangPortuguese:
+		return "LangPortuguese"
+	case LangSpanish:
+		return "LangSpanish"
+	case LangSwedish:
+		return "LangSwedish"
+	case LangThai:
+		return "LangThai"
+	case LangTradChinese:
+		return "LangTradChinese"
+	case LangTurkish:
+		return "LangTurkish"
+	case LangUrdu:
+		return "LangUrdu"
+	default:
+		return fmt.Sprintf("LangEnglish(%d)", e)
+	}
+}
+
+type LangLithuanian uint32
+
+const (
+	// Deprecated.
+	LangAlbanian LangLithuanian = 36
+	// Deprecated.
+	LangBelorussian LangLithuanian = 46
+	// Deprecated.
+	LangBulgarian LangLithuanian = 44
+	// Deprecated.
+	LangByelorussian LangLithuanian = 46
+	// Deprecated.
+	LangCzech LangLithuanian = 38
+	// Deprecated.
+	LangEstonian LangLithuanian = 27
+	// Deprecated.
+	LangFaroese LangLithuanian = 30
+	// Deprecated.
+	LangFarsi LangLithuanian = 31
+	// Deprecated.
+	LangFlemish LangLithuanian = 34
+	// Deprecated.
+	LangHungarian LangLithuanian = 26
+	// Deprecated.
+	LangIrishGaelic LangLithuanian = 35
+	// Deprecated.
+	LangLatvian LangLithuanian = 28
+	// Deprecated.
+	LangLithuanianValue LangLithuanian = 24
+	// Deprecated.
+	LangMacedonian LangLithuanian = 43
+	// Deprecated.
+	LangPersian LangLithuanian = 31
+	// Deprecated.
+	LangPolish LangLithuanian = 25
+	// Deprecated.
+	LangRomanian LangLithuanian = 37
+	// Deprecated.
+	LangRussian LangLithuanian = 32
+	// Deprecated.
+	LangSami LangLithuanian = 29
+	// Deprecated.
+	LangSerbian LangLithuanian = 42
+	// Deprecated.
+	LangSimpChinese LangLithuanian = 33
+	// Deprecated.
+	LangSlovak LangLithuanian = 39
+	// Deprecated.
+	LangSlovenian LangLithuanian = 40
+	// Deprecated.
+	LangUkrainian LangLithuanian = 45
+	// Deprecated.
+	LangYiddish LangLithuanian = 41
+)
+
+func (e LangLithuanian) String() string {
+	switch e {
+	case LangAlbanian:
+		return "LangAlbanian"
+	case LangBelorussian:
+		return "LangBelorussian"
+	case LangBulgarian:
+		return "LangBulgarian"
+	case LangCzech:
+		return "LangCzech"
+	case LangEstonian:
+		return "LangEstonian"
+	case LangFaroese:
+		return "LangFaroese"
+	case LangFarsi:
+		return "LangFarsi"
+	case LangFlemish:
+		return "LangFlemish"
+	case LangHungarian:
+		return "LangHungarian"
+	case LangIrishGaelic:
+		return "LangIrishGaelic"
+	case LangLatvian:
+		return "LangLatvian"
+	case LangLithuanianValue:
+		return "LangLithuanianValue"
+	case LangMacedonian:
+		return "LangMacedonian"
+	case LangPolish:
+		return "LangPolish"
+	case LangRomanian:
+		return "LangRomanian"
+	case LangRussian:
+		return "LangRussian"
+	case LangSami:
+		return "LangSami"
+	case LangSerbian:
+		return "LangSerbian"
+	case LangSimpChinese:
+		return "LangSimpChinese"
+	case LangSlovak:
+		return "LangSlovak"
+	case LangSlovenian:
+		return "LangSlovenian"
+	case LangUkrainian:
+		return "LangUkrainian"
+	case LangYiddish:
+		return "LangYiddish"
+	default:
+		return fmt.Sprintf("LangLithuanian(%d)", e)
+	}
+}
+
+type LangOriya uint32
+
+const (
+	// Deprecated.
+	LangAmharic LangOriya = 85
+	// Deprecated.
+	LangBurmese LangOriya = 77
+	// Deprecated.
+	LangChewa LangOriya = 92
+	// Deprecated.
+	LangEsperanto LangOriya = 94
+	// Deprecated.
+	LangIndonesian LangOriya = 81
+	// Deprecated.
+	LangKannada LangOriya = 73
+	// Deprecated.
+	LangKhmer LangOriya = 78
+	// Deprecated.
+	LangKinyarwanda LangOriya = 90
+	// Deprecated.
+	LangLao LangOriya = 79
+	// Deprecated.
+	LangMalagasy LangOriya = 93
+	// Deprecated.
+	LangMalayArabic LangOriya = 84
+	// Deprecated.
+	LangMalayRoman LangOriya = 83
+	// Deprecated.
+	LangMalayalam LangOriya = 72
+	// Deprecated.
+	LangNyanja LangOriya = 92
+	// Deprecated.
+	LangOriyaValue LangOriya = 71
+	// Deprecated.
+	LangOromo LangOriya = 87
+	// Deprecated.
+	LangRuanda LangOriya = 90
+	// Deprecated.
+	LangRundi LangOriya = 91
+	// Deprecated.
+	LangSinhalese LangOriya = 76
+	// Deprecated.
+	LangSomali LangOriya = 88
+	// Deprecated.
+	LangSwahili LangOriya = 89
+	// Deprecated.
+	LangTagalog LangOriya = 82
+	// Deprecated.
+	LangTamil LangOriya = 74
+	// Deprecated.
+	LangTelugu LangOriya = 75
+	// Deprecated.
+	LangTigrinya LangOriya = 86
+	// Deprecated.
+	LangVietnamese LangOriya = 80
+)
+
+func (e LangOriya) String() string {
+	switch e {
+	case LangAmharic:
+		return "LangAmharic"
+	case LangBurmese:
+		return "LangBurmese"
+	case LangChewa:
+		return "LangChewa"
+	case LangEsperanto:
+		return "LangEsperanto"
+	case LangIndonesian:
+		return "LangIndonesian"
 	case LangKannada:
 		return "LangKannada"
-	case LangKashmiri:
-		return "LangKashmiri"
-	case LangKazakh:
-		return "LangKazakh"
 	case LangKhmer:
 		return "LangKhmer"
 	case LangKinyarwanda:
 		return "LangKinyarwanda"
-	case LangKirghiz:
-		return "LangKirghiz"
-	case LangKorean:
-		return "LangKorean"
-	case LangKurdish:
-		return "LangKurdish"
 	case LangLao:
 		return "LangLao"
-	case LangLappish:
-		return "LangLappish"
-	case LangLatin:
-		return "LangLatin"
-	case LangLatvian:
-		return "LangLatvian"
-	case LangLithuanian:
-		return "LangLithuanian"
-	case LangMacedonian:
-		return "LangMacedonian"
 	case LangMalagasy:
 		return "LangMalagasy"
 	case LangMalayArabic:
@@ -25187,10 +28214,172 @@ func (e Lang) String() string {
 		return "LangMalayRoman"
 	case LangMalayalam:
 		return "LangMalayalam"
+	case LangOriyaValue:
+		return "LangOriyaValue"
+	case LangOromo:
+		return "LangOromo"
+	case LangRundi:
+		return "LangRundi"
+	case LangSinhalese:
+		return "LangSinhalese"
+	case LangSomali:
+		return "LangSomali"
+	case LangSwahili:
+		return "LangSwahili"
+	case LangTagalog:
+		return "LangTagalog"
+	case LangTamil:
+		return "LangTamil"
+	case LangTelugu:
+		return "LangTelugu"
+	case LangTigrinya:
+		return "LangTigrinya"
+	case LangVietnamese:
+		return "LangVietnamese"
+	default:
+		return fmt.Sprintf("LangOriya(%d)", e)
+	}
+}
+
+type LangPortugese uint32
+
+const (
+	// Deprecated.
+	LangAfricaans LangPortugese = 141
+	// Deprecated.
+	LangChinese LangPortugese = 19
+	// Deprecated.
+	LangFaeroese LangPortugese = 30
+	// Deprecated.
+	LangGalla LangPortugese = 87
+	// Deprecated.
+	LangGreekPoly LangPortugese = 148
+	// Deprecated.
+	LangIrish LangPortugese = 35
+	// Deprecated.
+	LangLappish LangPortugese = 29
+	// Deprecated.
+	LangLapponian LangPortugese = 29
+	// Deprecated.
+	LangLettish LangPortugese = 28
+	// Deprecated.
+	LangMalta LangPortugese = 16
+	// Deprecated.
+	LangPortugeseValue LangPortugese = 8
+	// Deprecated.
+	LangSaamisk LangPortugese = 29
+	// Deprecated.
+	LangYugoslavian LangPortugese = 18
+)
+
+func (e LangPortugese) String() string {
+	switch e {
+	case LangAfricaans:
+		return "LangAfricaans"
+	case LangChinese:
+		return "LangChinese"
+	case LangFaeroese:
+		return "LangFaeroese"
+	case LangGalla:
+		return "LangGalla"
+	case LangGreekPoly:
+		return "LangGreekPoly"
+	case LangIrish:
+		return "LangIrish"
+	case LangLappish:
+		return "LangLappish"
+	case LangLettish:
+		return "LangLettish"
 	case LangMalta:
 		return "LangMalta"
-	case LangManxGaelic:
-		return "LangManxGaelic"
+	case LangPortugeseValue:
+		return "LangPortugeseValue"
+	case LangYugoslavian:
+		return "LangYugoslavian"
+	default:
+		return fmt.Sprintf("LangPortugese(%d)", e)
+	}
+}
+
+const LangUnspecified uint32 = 32767
+
+type LangUzbek uint32
+
+const (
+	// Deprecated.
+	LangArmenian LangUzbek = 51
+	// Deprecated.
+	LangAssamese LangUzbek = 68
+	// Deprecated.
+	LangAzerbaijanAr LangUzbek = 50
+	// Deprecated.
+	LangAzerbaijani LangUzbek = 49
+	// Deprecated.
+	LangBengali LangUzbek = 67
+	// Deprecated.
+	LangGeorgian LangUzbek = 52
+	// Deprecated.
+	LangGujarati LangUzbek = 69
+	// Deprecated.
+	LangKashmiri LangUzbek = 61
+	// Deprecated.
+	LangKazakh LangUzbek = 48
+	// Deprecated.
+	LangKirghiz LangUzbek = 54
+	// Deprecated.
+	LangKurdish LangUzbek = 60
+	// Deprecated.
+	LangMarathi LangUzbek = 66
+	// Deprecated.
+	LangMoldavian LangUzbek = 53
+	// Deprecated.
+	LangMongolian LangUzbek = 57
+	// Deprecated.
+	LangMongolianCyr LangUzbek = 58
+	// Deprecated.
+	LangNepali LangUzbek = 64
+	// Deprecated.
+	LangPashto LangUzbek = 59
+	// Deprecated.
+	LangPunjabi LangUzbek = 70
+	// Deprecated.
+	LangSanskrit LangUzbek = 65
+	// Deprecated.
+	LangSindhi LangUzbek = 62
+	// Deprecated.
+	LangTajiki LangUzbek = 55
+	// Deprecated.
+	LangTibetan LangUzbek = 63
+	// Deprecated.
+	LangTurkmen LangUzbek = 56
+	// Deprecated.
+	LangUzbekValue LangUzbek = 47
+)
+
+func (e LangUzbek) String() string {
+	switch e {
+	case LangArmenian:
+		return "LangArmenian"
+	case LangAssamese:
+		return "LangAssamese"
+	case LangAzerbaijanAr:
+		return "LangAzerbaijanAr"
+	case LangAzerbaijani:
+		return "LangAzerbaijani"
+	case LangBengali:
+		return "LangBengali"
+	case LangGeorgian:
+		return "LangGeorgian"
+	case LangGujarati:
+		return "LangGujarati"
+	case LangKashmiri:
+		return "LangKashmiri"
+	case LangKazakh:
+		return "LangKazakh"
+	case LangKirghiz:
+		return "LangKirghiz"
+	case LangKurdish:
+		return "LangKurdish"
 	case LangMarathi:
 		return "LangMarathi"
 	case LangMoldavian:
@@ -25201,98 +28390,96 @@ func (e Lang) String() string {
 		return "LangMongolianCyr"
 	case LangNepali:
 		return "LangNepali"
-	case LangNorwegian:
-		return "LangNorwegian"
-	case LangNynorsk:
-		return "LangNynorsk"
-	case LangOriya:
-		return "LangOriya"
 	case LangPashto:
 		return "LangPashto"
-	case LangPolish:
-		return "LangPolish"
-	case LangPortugese:
-		return "LangPortugese"
 	case LangPunjabi:
 		return "LangPunjabi"
-	case LangQuechua:
-		return "LangQuechua"
-	case LangRomanian:
-		return "LangRomanian"
-	case LangRundi:
-		return "LangRundi"
-	case LangRussian:
-		return "LangRussian"
 	case LangSanskrit:
 		return "LangSanskrit"
-	case LangScottishGaelic:
-		return "LangScottishGaelic"
-	case LangSerbian:
-		return "LangSerbian"
-	case LangSimpChinese:
-		return "LangSimpChinese"
 	case LangSindhi:
 		return "LangSindhi"
-	case LangSinhalese:
-		return "LangSinhalese"
-	case LangSlovak:
-		return "LangSlovak"
-	case LangSlovenian:
-		return "LangSlovenian"
-	case LangSomali:
-		return "LangSomali"
-	case LangSpanish:
-		return "LangSpanish"
-	case LangSundaneseRom:
-		return "LangSundaneseRom"
-	case LangSwahili:
-		return "LangSwahili"
-	case LangSwedish:
-		return "LangSwedish"
-	case LangTagalog:
-		return "LangTagalog"
 	case LangTajiki:
 		return "LangTajiki"
-	case LangTamil:
-		return "LangTamil"
-	case LangTatar:
-		return "LangTatar"
-	case LangTelugu:
-		return "LangTelugu"
-	case LangThai:
-		return "LangThai"
 	case LangTibetan:
 		return "LangTibetan"
-	case LangTigrinya:
-		return "LangTigrinya"
-	case LangTongan:
-		return "LangTongan"
-	case LangTurkish:
-		return "LangTurkish"
 	case LangTurkmen:
 		return "LangTurkmen"
-	case LangUighur:
-		return "LangUighur"
-	case LangUkrainian:
-		return "LangUkrainian"
-	case LangUnspecified:
-		return "LangUnspecified"
-	case LangUrdu:
-		return "LangUrdu"
-	case LangUzbek:
-		return "LangUzbek"
-	case LangVietnamese:
-		return "LangVietnamese"
-	case LangWelsh:
-		return "LangWelsh"
-	case LangYiddish:
-		return "LangYiddish"
+	case LangUzbekValue:
+		return "LangUzbekValue"
 	default:
-		return fmt.Sprintf("Lang(%d)", e)
+		return fmt.Sprintf("LangUzbek(%d)", e)
 	}
 }
 
-type Large1BitMask uint
+type LangWelsh uint32
+
+const (
+	// Deprecated.
+	LangAfrikaans LangWelsh = 141
+	// Deprecated.
+	LangAymara LangWelsh = 134
+	// Deprecated.
+	LangBasque LangWelsh = 129
+	// Deprecated.
+	LangCatalan LangWelsh = 130
+	// Deprecated.
+	LangDzongkha LangWelsh = 137
+	// Deprecated.
+	LangGalician LangWelsh = 140
+	// Deprecated.
+	LangGuarani LangWelsh = 133
+	// Deprecated.
+	LangJavaneseRom LangWelsh = 138
+	// Deprecated.
+	LangLatin LangWelsh = 131
+	// Deprecated.
+	LangQuechua LangWelsh = 132
+	// Deprecated.
+	LangSundaneseRom LangWelsh = 139
+	// Deprecated.
+	LangTatar LangWelsh = 135
+	// Deprecated.
+	LangUighur LangWelsh = 136
+	// Deprecated.
+	LangWelshValue LangWelsh = 128
+)
+
+func (e LangWelsh) String() string {
+	switch e {
+	case LangAfrikaans:
+		return "LangAfrikaans"
+	case LangAymara:
+		return "LangAymara"
+	case LangBasque:
+		return "LangBasque"
+	case LangCatalan:
+		return "LangCatalan"
+	case LangDzongkha:
+		return "LangDzongkha"
+	case LangGalician:
+		return "LangGalician"
+	case LangGuarani:
+		return "LangGuarani"
+	case LangJavaneseRom:
+		return "LangJavaneseRom"
+	case LangLatin:
+		return "LangLatin"
+	case LangQuechua:
+		return "LangQuechua"
+	case LangSundaneseRom:
+		return "LangSundaneseRom"
+	case LangTatar:
+		return "LangTatar"
+	case LangUighur:
+		return "LangUighur"
+	case LangWelshValue:
+		return "LangWelshValue"
+	default:
+		return fmt.Sprintf("LangWelsh(%d)", e)
+	}
+}
+
+type Large1BitMask uint32
 
 const (
 	Large1BitMaskValue Large1BitMask = 'I'<<24 | 'C'<<16 | 'N'<<8 | '#' // 'ICN#'
@@ -25390,7 +28577,7 @@ func (e MDQuerySortOptionFlags) String() string {
 	}
 }
 
-type MPLibrary uint
+type MPLibrary uint32
 
 const (
 	// Deprecated.
@@ -25416,39 +28603,51 @@ func (e MPLibrary) String() string {
 	}
 }
 
-type Map uint
+type MapReadOnly uint32
 
 const (
 	// Deprecated.
-	MapChanged Map = 32
+	MapChanged MapReadOnly = 32
 	// Deprecated.
-	MapChangedBit Map = 5
+	MapCompact MapReadOnly = 64
 	// Deprecated.
-	MapCompact Map = 64
-	// Deprecated.
-	MapCompactBit Map = 6
-	// Deprecated.
-	MapReadOnly Map = 128
-	// Deprecated.
-	MapReadOnlyBit Map = 7
+	MapReadOnlyValue MapReadOnly = 128
 )
 
-func (e Map) String() string {
+func (e MapReadOnly) String() string {
 	switch e {
 	case MapChanged:
 		return "MapChanged"
-	case MapChangedBit:
-		return "MapChangedBit"
 	case MapCompact:
 		return "MapCompact"
+	case MapReadOnlyValue:
+		return "MapReadOnlyValue"
+	default:
+		return fmt.Sprintf("MapReadOnly(%d)", e)
+	}
+}
+
+type MapReadOnlyBit uint32
+
+const (
+	// Deprecated.
+	MapChangedBit MapReadOnlyBit = 5
+	// Deprecated.
+	MapCompactBit MapReadOnlyBit = 6
+	// Deprecated.
+	MapReadOnlyBitValue MapReadOnlyBit = 7
+)
+
+func (e MapReadOnlyBit) String() string {
+	switch e {
+	case MapChangedBit:
+		return "MapChangedBit"
 	case MapCompactBit:
 		return "MapCompactBit"
-	case MapReadOnly:
-		return "MapReadOnly"
-	case MapReadOnlyBit:
-		return "MapReadOnlyBit"
+	case MapReadOnlyBitValue:
+		return "MapReadOnlyBitValue"
 	default:
-		return fmt.Sprintf("Map(%d)", e)
+		return fmt.Sprintf("MapReadOnlyBit(%d)", e)
 	}
 }
 
@@ -25468,7 +28667,7 @@ func (e Max) String() string {
 	}
 }
 
-type Mdy uint
+type Mdy uint32
 
 const (
 	Dmy      Mdy = 1
@@ -25498,7 +28697,7 @@ func (e Mdy) String() string {
 	}
 }
 
-type MemROZWarn int
+type MemROZWarn int32
 
 const (
 	MemAZErr        MemROZWarn = -113
@@ -25545,7 +28744,7 @@ func (e MemROZWarn) String() string {
 	}
 }
 
-type Menu int
+type Menu int32
 
 const (
 	MenuInvalidErr          Menu = -5623
@@ -25576,7 +28775,7 @@ func (e Menu) String() string {
 	}
 }
 
-type Midi int
+type Midi int32
 
 const (
 	MidiDupIDErr        Midi = -260
@@ -25624,7 +28823,7 @@ func (e Midi) String() string {
 	}
 }
 
-type MinCountry uint
+type MinCountry uint32
 
 const (
 	// Deprecated.
@@ -25644,7 +28843,7 @@ func (e MinCountry) String() string {
 	}
 }
 
-type MmInternal int
+type MmInternal int32
 
 const (
 	MmInternalError MmInternal = -2526
@@ -25659,7 +28858,7 @@ func (e MmInternal) String() string {
 	}
 }
 
-type MpWorkFlag uint
+type MpWorkFlag uint32
 
 const (
 	// Deprecated.
@@ -25695,7 +28894,7 @@ func (e MpWorkFlag) String() string {
 	}
 }
 
-type Nbp int
+type Nbp int32
 
 const (
 	NbpBuffOvr   Nbp = -1024
@@ -25725,7 +28924,7 @@ func (e Nbp) String() string {
 	}
 }
 
-type NmTyp int
+type NmTyp int32
 
 const (
 	NmTypErr NmTyp = -299
@@ -25740,7 +28939,7 @@ func (e NmTyp) String() string {
 	}
 }
 
-type No int
+type No int32
 
 const (
 	NoScrapErr No = -100
@@ -25758,7 +28957,7 @@ func (e No) String() string {
 	}
 }
 
-type NoAdrMkErr int
+type NoAdrMkErr int32
 
 const (
 	BadBtSlpErr     NoAdrMkErr = -70
@@ -25842,7 +29041,7 @@ func (e NoAdrMkErr) String() string {
 	}
 }
 
-type NoCalls uint
+type NoCalls uint32
 
 const (
 	NoCallsValue NoCalls = 1
@@ -25864,7 +29063,7 @@ func (e NoCalls) String() string {
 	}
 }
 
-type NoDeviceForChannel int
+type NoDeviceForChannel int32
 
 const (
 	BadControllerHeight                NoDeviceForChannel = -9994
@@ -25921,7 +29120,7 @@ func (e NoDeviceForChannel) String() string {
 	}
 }
 
-type NoHardware int
+type NoHardware int32
 
 const (
 	BadChannel                   NoHardware = -205
@@ -26011,7 +29210,7 @@ func (e NoHardware) String() string {
 	}
 }
 
-type NoLoopingConstants uint
+type NoLoopingConstants uint32
 
 const (
 	ForwardBackwardLooping NoLoopingConstants = 2
@@ -26032,7 +29231,7 @@ func (e NoLoopingConstants) String() string {
 	}
 }
 
-type NoMaskFound int
+type NoMaskFound int32
 
 const (
 	NoMaskFoundErr NoMaskFound = -1000
@@ -26047,7 +29246,7 @@ func (e NoMaskFound) String() string {
 	}
 }
 
-type NoSynthFound int
+type NoSynthFound int32
 
 const (
 	// BadDictFormat: Pronunciation dictionary format error
@@ -26091,7 +29290,7 @@ func (e NoSynthFound) String() string {
 	}
 }
 
-type NoneTypeConstants uint
+type NoneTypeConstants uint32
 
 const (
 	ACE2Type  NoneTypeConstants = 'A'<<24 | 'C'<<16 | 'E'<<8 | '2' // 'ACE2'
@@ -26118,7 +29317,7 @@ func (e NoneTypeConstants) String() string {
 	}
 }
 
-type NotAQTVRMovieErr int
+type NotAQTVRMovieErr int32
 
 const (
 	CallNotSupportedByNodeErr     NotAQTVRMovieErr = -30542
@@ -26178,7 +29377,7 @@ func (e NotAQTVRMovieErr) String() string {
 	}
 }
 
-type NotBTree int
+type NotBTree int32
 
 const (
 	BtDupRecErr          NotBTree = -414
@@ -26217,7 +29416,7 @@ func (e NotBTree) String() string {
 	}
 }
 
-type NotEnoughMemoryErr int
+type NotEnoughMemoryErr int32
 
 const (
 	CannotDeferErr          NotEnoughMemoryErr = -625
@@ -26250,7 +29449,7 @@ func (e NotEnoughMemoryErr) String() string {
 	}
 }
 
-type NotInitErr int
+type NotInitErr int32
 
 const (
 	AuthFailErr         NotInitErr = -927
@@ -26349,7 +29548,7 @@ func (e NotInitErr) String() string {
 	}
 }
 
-type Nr int
+type Nr int32
 
 const (
 	NrCallNotSupported        Nr = -2557
@@ -26427,7 +29626,7 @@ func (e Nr) String() string {
 	}
 }
 
-type Number int
+type Number int32
 
 const (
 	NumberFormattingBadCurrencyPositionErr       Number = -5211
@@ -26480,7 +29679,7 @@ func (e Number) String() string {
 	}
 }
 
-type OverallActConstants uint
+type OverallActConstants uint32
 
 const (
 	HDActivity   OverallActConstants = 3
@@ -26507,7 +29706,7 @@ func (e OverallActConstants) String() string {
 	}
 }
 
-type PArcAngle uint
+type PArcAngle uint32
 
 const (
 	PArcAngleValue     PArcAngle = 'p'<<24 | 'a'<<16 | 'r'<<8 | 'c' // 'parc'
@@ -26579,7 +29778,7 @@ func (e PArcAngle) String() string {
 	}
 }
 
-type PFormula uint
+type PFormula uint32
 
 const (
 	PFormulaValue    PFormula = 'p'<<24 | 'f'<<16 | 'o'<<8 | 'r' // 'pfor'
@@ -26651,7 +29850,7 @@ func (e PFormula) String() string {
 	}
 }
 
-type PNewElementLoc uint
+type PNewElementLoc uint32
 
 const (
 	PNewElementLocValue PNewElementLoc = 'p'<<24 | 'n'<<16 | 'e'<<8 | 'l' // 'pnel'
@@ -26723,7 +29922,7 @@ func (e PNewElementLoc) String() string {
 	}
 }
 
-type PScheme uint
+type PScheme uint32
 
 const (
 	PDNSForm      PScheme = 'p'<<24 | 'D'<<16 | 'N'<<8 | 'S' // 'pDNS'
@@ -26762,7 +29961,7 @@ func (e PScheme) String() string {
 	}
 }
 
-type PTextStyles uint
+type PTextStyles uint32
 
 const (
 	PTextStylesValue PTextStyles = 't'<<24 | 'x'<<16 | 's'<<8 | 't' // 'txst'
@@ -26798,7 +29997,7 @@ func (e PTextStyles) String() string {
 	}
 }
 
-type ParamErr int
+type ParamErr int32
 
 const (
 	BadUnitErr           ParamErr = -21
@@ -26870,65 +30069,87 @@ func (e ParamErr) String() string {
 	}
 }
 
-type Platform uint
+type Platform68k uint32
 
 const (
 	// Deprecated.
-	Platform68k Platform = 1
+	Platform68kValue Platform68k = 1
 	// Deprecated.
-	PlatformAIXppc Platform = 1300
+	PlatformArm64NativeEntryPoint Platform68k = 9
 	// Deprecated.
-	PlatformArm64NativeEntryPoint Platform = 9
+	PlatformIA32NativeEntryPoint Platform68k = 6
 	// Deprecated.
-	PlatformIA32NativeEntryPoint Platform = 6
+	PlatformInterpreted Platform68k = 3
 	// Deprecated.
-	PlatformIRIXmips Platform = 1000
+	PlatformPowerPC Platform68k = 2
 	// Deprecated.
-	PlatformInterpreted Platform = 3
+	PlatformPowerPC64NativeEntryPoint Platform68k = 7
 	// Deprecated.
-	PlatformLinuxintel Platform = 1201
+	PlatformPowerPCNativeEntryPoint Platform68k = 5
 	// Deprecated.
-	PlatformLinuxppc Platform = 1200
+	PlatformWin32 Platform68k = 4
 	// Deprecated.
-	PlatformMacOSx86 Platform = 1500
-	// Deprecated.
-	PlatformNeXT68k Platform = 1403
-	// Deprecated.
-	PlatformNeXTIntel Platform = 1400
-	// Deprecated.
-	PlatformNeXTppc Platform = 1401
-	// Deprecated.
-	PlatformNeXTsparc Platform = 1402
-	// Deprecated.
-	PlatformPowerPC Platform = 2
-	// Deprecated.
-	PlatformPowerPC64NativeEntryPoint Platform = 7
-	// Deprecated.
-	PlatformPowerPCNativeEntryPoint Platform = 5
-	// Deprecated.
-	PlatformSunOSintel Platform = 1101
-	// Deprecated.
-	PlatformSunOSsparc Platform = 1100
-	// Deprecated.
-	PlatformWin32 Platform = 4
-	// Deprecated.
-	PlatformX86_64NativeEntryPoint Platform = 8
+	PlatformX86_64NativeEntryPoint Platform68k = 8
 )
 
-func (e Platform) String() string {
+func (e Platform68k) String() string {
 	switch e {
-	case Platform68k:
-		return "Platform68k"
-	case PlatformAIXppc:
-		return "PlatformAIXppc"
+	case Platform68kValue:
+		return "Platform68kValue"
 	case PlatformArm64NativeEntryPoint:
 		return "PlatformArm64NativeEntryPoint"
 	case PlatformIA32NativeEntryPoint:
 		return "PlatformIA32NativeEntryPoint"
-	case PlatformIRIXmips:
-		return "PlatformIRIXmips"
 	case PlatformInterpreted:
 		return "PlatformInterpreted"
+	case PlatformPowerPC:
+		return "PlatformPowerPC"
+	case PlatformPowerPC64NativeEntryPoint:
+		return "PlatformPowerPC64NativeEntryPoint"
+	case PlatformPowerPCNativeEntryPoint:
+		return "PlatformPowerPCNativeEntryPoint"
+	case PlatformWin32:
+		return "PlatformWin32"
+	case PlatformX86_64NativeEntryPoint:
+		return "PlatformX86_64NativeEntryPoint"
+	default:
+		return fmt.Sprintf("Platform68k(%d)", e)
+	}
+}
+
+type PlatformIRIXmips uint32
+
+const (
+	// Deprecated.
+	PlatformAIXppc PlatformIRIXmips = 1300
+	// Deprecated.
+	PlatformIRIXmipsValue PlatformIRIXmips = 1000
+	// Deprecated.
+	PlatformLinuxintel PlatformIRIXmips = 1201
+	// Deprecated.
+	PlatformLinuxppc PlatformIRIXmips = 1200
+	// Deprecated.
+	PlatformMacOSx86 PlatformIRIXmips = 1500
+	// Deprecated.
+	PlatformNeXT68k PlatformIRIXmips = 1403
+	// Deprecated.
+	PlatformNeXTIntel PlatformIRIXmips = 1400
+	// Deprecated.
+	PlatformNeXTppc PlatformIRIXmips = 1401
+	// Deprecated.
+	PlatformNeXTsparc PlatformIRIXmips = 1402
+	// Deprecated.
+	PlatformSunOSintel PlatformIRIXmips = 1101
+	// Deprecated.
+	PlatformSunOSsparc PlatformIRIXmips = 1100
+)
+
+func (e PlatformIRIXmips) String() string {
+	switch e {
+	case PlatformAIXppc:
+		return "PlatformAIXppc"
+	case PlatformIRIXmipsValue:
+		return "PlatformIRIXmipsValue"
 	case PlatformLinuxintel:
 		return "PlatformLinuxintel"
 	case PlatformLinuxppc:
@@ -26943,26 +30164,16 @@ func (e Platform) String() string {
 		return "PlatformNeXTppc"
 	case PlatformNeXTsparc:
 		return "PlatformNeXTsparc"
-	case PlatformPowerPC:
-		return "PlatformPowerPC"
-	case PlatformPowerPC64NativeEntryPoint:
-		return "PlatformPowerPC64NativeEntryPoint"
-	case PlatformPowerPCNativeEntryPoint:
-		return "PlatformPowerPCNativeEntryPoint"
 	case PlatformSunOSintel:
 		return "PlatformSunOSintel"
 	case PlatformSunOSsparc:
 		return "PlatformSunOSsparc"
-	case PlatformWin32:
-		return "PlatformWin32"
-	case PlatformX86_64NativeEntryPoint:
-		return "PlatformX86_64NativeEntryPoint"
 	default:
-		return fmt.Sprintf("Platform(%d)", e)
+		return fmt.Sprintf("PlatformIRIXmips(%d)", e)
 	}
 }
 
-type PleaseCacheBit uint
+type PleaseCacheBit uint32
 
 const (
 	ForceReadBit        PleaseCacheBit = 6
@@ -27004,7 +30215,7 @@ func (e PleaseCacheBit) String() string {
 	}
 }
 
-type Pm int
+type Pm int32
 
 const (
 	PmBusyErr      Pm = -13000
@@ -27034,7 +30245,7 @@ func (e Pm) String() string {
 	}
 }
 
-type PrinterStatusOpCodeNotSupported int
+type PrinterStatusOpCodeNotSupported int32
 
 const (
 	PrinterStatusOpCodeNotSupportedErr PrinterStatusOpCodeNotSupported = -25280
@@ -27049,7 +30260,7 @@ func (e PrinterStatusOpCodeNotSupported) String() string {
 	}
 }
 
-type ProcNotFound int
+type ProcNotFound int32
 
 const (
 	AppIsDaemon              ProcNotFound = -606
@@ -27094,7 +30305,7 @@ func (e ProcNotFound) String() string {
 	}
 }
 
-type Qts int
+type Qts int32
 
 const (
 	QtsAddressBusyErr         Qts = -5421
@@ -27139,7 +30350,7 @@ func (e Qts) String() string {
 	}
 }
 
-type RAlias uint
+type RAlias uint32
 
 const (
 	// Deprecated.
@@ -27155,7 +30366,7 @@ func (e RAlias) String() string {
 	}
 }
 
-type RcDB int
+type RcDB int32
 
 const (
 	RcDBAsyncNotSupp  RcDB = -809
@@ -27211,16 +30422,16 @@ func (e RcDB) String() string {
 
 const (
 	// Deprecated.
-	RegisterComponentAfterExisting uint = 4
+	RegisterComponentAfterExisting uint32 = 4
 	// Deprecated.
-	RegisterComponentAliasesOnly uint = 8
+	RegisterComponentAliasesOnly uint32 = 8
 	// Deprecated.
-	RegisterComponentGlobal uint = 1
+	RegisterComponentGlobal uint32 = 1
 	// Deprecated.
-	RegisterComponentNoDuplicates uint = 2
+	RegisterComponentNoDuplicates uint32 = 2
 )
 
-type ReqFailed int
+type ReqFailed int32
 
 const (
 	BadATPSkt      ReqFailed = -1099
@@ -27262,67 +30473,83 @@ func (e ReqFailed) String() string {
 	}
 }
 
-type Res uint
+type ResSysHeap uint32
 
 const (
 	// Deprecated.
-	ResChanged Res = 2
+	ResChanged ResSysHeap = 2
 	// Deprecated.
-	ResChangedBit Res = 1
+	ResLocked ResSysHeap = 16
 	// Deprecated.
-	ResLocked Res = 16
+	ResPreload ResSysHeap = 4
 	// Deprecated.
-	ResLockedBit Res = 4
+	ResProtected ResSysHeap = 8
 	// Deprecated.
-	ResPreload Res = 4
+	ResPurgeable ResSysHeap = 32
 	// Deprecated.
-	ResPreloadBit Res = 2
-	// Deprecated.
-	ResProtected Res = 8
-	// Deprecated.
-	ResProtectedBit Res = 3
-	// Deprecated.
-	ResPurgeable Res = 32
-	// Deprecated.
-	ResPurgeableBit Res = 5
-	// Deprecated.
-	ResSysHeap Res = 64
-	// Deprecated.
-	ResSysHeapBit Res = 6
-	// Deprecated.
-	ResSysRefBit Res = 7
+	ResSysHeapValue ResSysHeap = 64
 )
 
-func (e Res) String() string {
+func (e ResSysHeap) String() string {
 	switch e {
 	case ResChanged:
 		return "ResChanged"
-	case ResChangedBit:
-		return "ResChangedBit"
 	case ResLocked:
 		return "ResLocked"
-	case ResLockedBit:
-		return "ResLockedBit"
+	case ResPreload:
+		return "ResPreload"
 	case ResProtected:
 		return "ResProtected"
-	case ResProtectedBit:
-		return "ResProtectedBit"
 	case ResPurgeable:
 		return "ResPurgeable"
-	case ResPurgeableBit:
-		return "ResPurgeableBit"
-	case ResSysHeap:
-		return "ResSysHeap"
-	case ResSysHeapBit:
-		return "ResSysHeapBit"
-	case ResSysRefBit:
-		return "ResSysRefBit"
+	case ResSysHeapValue:
+		return "ResSysHeapValue"
 	default:
-		return fmt.Sprintf("Res(%d)", e)
+		return fmt.Sprintf("ResSysHeap(%d)", e)
 	}
 }
 
-type ResourceInMemory int
+type ResSysRefBit uint32
+
+const (
+	// Deprecated.
+	ResChangedBit ResSysRefBit = 1
+	// Deprecated.
+	ResLockedBit ResSysRefBit = 4
+	// Deprecated.
+	ResPreloadBit ResSysRefBit = 2
+	// Deprecated.
+	ResProtectedBit ResSysRefBit = 3
+	// Deprecated.
+	ResPurgeableBit ResSysRefBit = 5
+	// Deprecated.
+	ResSysHeapBit ResSysRefBit = 6
+	// Deprecated.
+	ResSysRefBitValue ResSysRefBit = 7
+)
+
+func (e ResSysRefBit) String() string {
+	switch e {
+	case ResChangedBit:
+		return "ResChangedBit"
+	case ResLockedBit:
+		return "ResLockedBit"
+	case ResPreloadBit:
+		return "ResPreloadBit"
+	case ResProtectedBit:
+		return "ResProtectedBit"
+	case ResPurgeableBit:
+		return "ResPurgeableBit"
+	case ResSysHeapBit:
+		return "ResSysHeapBit"
+	case ResSysRefBitValue:
+		return "ResSysRefBitValue"
+	default:
+		return fmt.Sprintf("ResSysRefBit(%d)", e)
+	}
+}
+
+type ResourceInMemory int32
 
 const (
 	AddRefFailed            ResourceInMemory = -195
@@ -27387,7 +30614,7 @@ func (e ResourceInMemory) String() string {
 	}
 }
 
-type RomanSysFond uint
+type RomanSysFond uint32
 
 const (
 	// Deprecated.
@@ -27510,7 +30737,7 @@ func (e SKSearchType) String() string {
 	}
 }
 
-type ShortDate uint
+type ShortDate uint32
 
 const (
 	AbbrevDate     ShortDate = 2
@@ -27531,7 +30758,7 @@ func (e ShortDate) String() string {
 	}
 }
 
-type SiInitSDTblErr int
+type SiInitSDTblErr uint32
 
 const (
 	SdmInitErr          SiInitSDTblErr = 11
@@ -27567,211 +30794,30 @@ func (e SiInitSDTblErr) String() string {
 	}
 }
 
-type Sm int
+type SmCPUErr int32
 
 const (
-	SmBadsPtrErr    Sm = -346
-	SmBlkMoveErr    Sm = -340
-	SmByteLanesErr  Sm = -347
-	SmCPUErr        Sm = -334
-	SmCRCFail       Sm = -301
-	SmCkStatusErr   Sm = -341
-	SmDisDrvrNamErr Sm = -343
-	SmDisabledSlot  Sm = -305
-	SmEmptySlot     Sm = -300
-	SmFormatErr     Sm = -302
-	SmGetDrvrNamErr Sm = -342
-	SmNewPErr       Sm = -339
-	SmNilsBlockErr  Sm = -336
-	SmNoDir         Sm = -304
-	SmNoGoodOpens   Sm = -349
-	SmNoMoresRsrcs  Sm = -344
-	SmNosInfoArray  Sm = -306
-	SmOffsetErr     Sm = -348
-	SmPRAMInitErr   Sm = -292
-	SmPriInitErr    Sm = -293
-	SmRecNotFnd     Sm = -351
-	SmRevisionErr   Sm = -303
-	SmSDMInitErr    Sm = -290
-	SmSRTInitErr    Sm = -291
-	SmSRTOvrFlErr   Sm = -350
-	SmSelOOBErr     Sm = -338
-	SmSlotOOBErr    Sm = -337
-	SmsGetDrvrErr   Sm = -345
-	SmsPointerNil   Sm = -335
-	// Deprecated.
-	SmAllScripts Sm = -3
-	// Deprecated.
-	SmAmharic Sm = 28
-	// Deprecated.
-	SmArabic Sm = 4
-	// Deprecated.
-	SmArmenian Sm = 24
-	// Deprecated.
-	SmBadScript Sm = -2
-	// Deprecated.
-	SmBadVerb Sm = -1
-	// Deprecated.
-	SmBengali Sm = 13
-	// Deprecated.
-	SmBurmese Sm = 19
-	// Deprecated.
-	SmCentralEuroRoman Sm = 29
-	// Deprecated.
-	SmChar1byte Sm = 0
-	// Deprecated.
-	SmChar2byte Sm = 0x8000
-	// Deprecated.
-	SmCharFISGreek Sm = 0x5
-	// Deprecated.
-	SmCharFISRussian Sm = 0x6
-	// Deprecated.
-	SmCharHorizontal Sm = 0
-	// Deprecated.
-	SmCharLeft Sm = 0
-	// Deprecated.
-	SmCharLower Sm = 0
-	// Deprecated.
-	SmCharRight Sm = 0x2000
-	// Deprecated.
-	SmCharUpper Sm = 0x4000
-	// Deprecated.
-	SmCharVertical Sm = 0x1000
-	// Deprecated.
-	SmChinese Sm = 2
-	// Deprecated.
-	SmCurrentScript Sm = -2
-	// Deprecated.
-	SmCyrillic Sm = 7
-	// Deprecated.
-	SmDevanagari Sm = 9
-	// Deprecated.
-	SmEastEurRoman Sm = 29
-	// Deprecated.
-	SmEthiopic Sm = 28
-	// Deprecated.
-	SmExtArabic Sm = 31
-	// Deprecated.
-	SmFISClassLvl1 Sm = 0
-	// Deprecated.
-	SmFISClassLvl2 Sm = 0x100
-	// Deprecated.
-	SmFISClassUser Sm = 0x200
-	// Deprecated.
-	SmFirstByte Sm = -1
-	// Deprecated.
-	SmGeez Sm = 28
-	// Deprecated.
-	SmGeorgian Sm = 23
-	// Deprecated.
-	SmGreek Sm = 6
-	// Deprecated.
-	SmGujarati Sm = 11
-	// Deprecated.
-	SmGurmukhi Sm = 10
-	// Deprecated.
-	SmHebrew Sm = 5
-	// Deprecated.
-	SmIdeographicLevel1 Sm = 0
-	// Deprecated.
-	SmIdeographicLevel2 Sm = 0x100
-	// Deprecated.
-	SmIdeographicUser Sm = 0x200
-	// Deprecated.
-	SmJamoBogJaeum Sm = 0x100
-	// Deprecated.
-	SmJamoBogMoeum Sm = 0x300
-	// Deprecated.
-	SmJamoJaeum Sm = 0
-	// Deprecated.
-	SmJamoMoeum Sm = 0x200
-	// Deprecated.
-	SmJapanese Sm = 1
-	// Deprecated.
-	SmKCHRCache Sm = 38
-	// Deprecated.
-	SmKanaHardOK Sm = 0x200
-	// Deprecated.
-	SmKanaSmall Sm = 0x100
-	// Deprecated.
-	SmKanaSoftOK Sm = 0x300
-	// Deprecated.
-	SmKannada Sm = 16
-	// Deprecated.
-	SmKeyScript Sm = 22
-	// Deprecated.
-	SmKhmer Sm = 20
-	// Deprecated.
-	SmKlingon Sm = 32
-	// Deprecated.
-	SmKorean Sm = 3
-	// Deprecated.
-	SmLao Sm = 22
-	// Deprecated.
-	SmLaotian Sm = 22
-	// Deprecated.
-	SmLastByte Sm = 1
-	// Deprecated.
-	SmMalayalam Sm = 17
-	// Deprecated.
-	SmMiddleByte Sm = 2
-	// Deprecated.
-	SmMongolian Sm = 27
-	// Deprecated.
-	SmNotInstalled Sm = 0
-	// Deprecated.
-	SmOriya Sm = 12
-	// Deprecated.
-	SmPunctBlank Sm = 0x300
-	// Deprecated.
-	SmPunctGraphic Sm = 0x500
-	// Deprecated.
-	SmPunctNormal Sm = 0
-	// Deprecated.
-	SmPunctNumber Sm = 0x100
-	// Deprecated.
-	SmPunctRepeat Sm = 0x400
-	// Deprecated.
-	SmPunctSymbol Sm = 0x200
-	// Deprecated.
-	SmRSymbol Sm = 8
-	// Deprecated.
-	SmRegionCode Sm = 40
-	// Deprecated.
-	SmRoman Sm = 0
-	// Deprecated.
-	SmRussian Sm = 7
-	// Deprecated.
-	SmSimpChinese Sm = 25
-	// Deprecated.
-	SmSindhi Sm = 31
-	// Deprecated.
-	SmSingleByte Sm = 0
-	// Deprecated.
-	SmSinhalese Sm = 18
-	// Deprecated.
-	SmSlavic Sm = 29
-	// Deprecated.
-	SmSysScript Sm = 18
-	// Deprecated.
-	SmSystemScript Sm = -1
-	// Deprecated.
-	SmTamil Sm = 14
-	// Deprecated.
-	SmTelugu Sm = 15
-	// Deprecated.
-	SmThai Sm = 21
-	// Deprecated.
-	SmTibetan Sm = 26
-	// Deprecated.
-	SmTradChinese Sm = 2
-	// Deprecated.
-	SmUninterp Sm = 32
-	// Deprecated.
-	SmVietnamese Sm = 30
+	SmBadsPtrErr    SmCPUErr = -346
+	SmBlkMoveErr    SmCPUErr = -340
+	SmByteLanesErr  SmCPUErr = -347
+	SmCPUErrValue   SmCPUErr = -334
+	SmCkStatusErr   SmCPUErr = -341
+	SmDisDrvrNamErr SmCPUErr = -343
+	SmGetDrvrNamErr SmCPUErr = -342
+	SmNewPErr       SmCPUErr = -339
+	SmNilsBlockErr  SmCPUErr = -336
+	SmNoGoodOpens   SmCPUErr = -349
+	SmNoMoresRsrcs  SmCPUErr = -344
+	SmOffsetErr     SmCPUErr = -348
+	SmRecNotFnd     SmCPUErr = -351
+	SmSRTOvrFlErr   SmCPUErr = -350
+	SmSelOOBErr     SmCPUErr = -338
+	SmSlotOOBErr    SmCPUErr = -337
+	SmsGetDrvrErr   SmCPUErr = -345
+	SmsPointerNil   SmCPUErr = -335
 )
 
-func (e Sm) String() string {
+func (e SmCPUErr) String() string {
 	switch e {
 	case SmBadsPtrErr:
 		return "SmBadsPtrErr"
@@ -27779,48 +30825,26 @@ func (e Sm) String() string {
 		return "SmBlkMoveErr"
 	case SmByteLanesErr:
 		return "SmByteLanesErr"
-	case SmCPUErr:
-		return "SmCPUErr"
-	case SmCRCFail:
-		return "SmCRCFail"
+	case SmCPUErrValue:
+		return "SmCPUErrValue"
 	case SmCkStatusErr:
 		return "SmCkStatusErr"
 	case SmDisDrvrNamErr:
 		return "SmDisDrvrNamErr"
-	case SmDisabledSlot:
-		return "SmDisabledSlot"
-	case SmEmptySlot:
-		return "SmEmptySlot"
-	case SmFormatErr:
-		return "SmFormatErr"
 	case SmGetDrvrNamErr:
 		return "SmGetDrvrNamErr"
 	case SmNewPErr:
 		return "SmNewPErr"
 	case SmNilsBlockErr:
 		return "SmNilsBlockErr"
-	case SmNoDir:
-		return "SmNoDir"
 	case SmNoGoodOpens:
 		return "SmNoGoodOpens"
 	case SmNoMoresRsrcs:
 		return "SmNoMoresRsrcs"
-	case SmNosInfoArray:
-		return "SmNosInfoArray"
 	case SmOffsetErr:
 		return "SmOffsetErr"
-	case SmPRAMInitErr:
-		return "SmPRAMInitErr"
-	case SmPriInitErr:
-		return "SmPriInitErr"
 	case SmRecNotFnd:
 		return "SmRecNotFnd"
-	case SmRevisionErr:
-		return "SmRevisionErr"
-	case SmSDMInitErr:
-		return "SmSDMInitErr"
-	case SmSRTInitErr:
-		return "SmSRTInitErr"
 	case SmSRTOvrFlErr:
 		return "SmSRTOvrFlErr"
 	case SmSelOOBErr:
@@ -27831,106 +30855,12 @@ func (e Sm) String() string {
 		return "SmsGetDrvrErr"
 	case SmsPointerNil:
 		return "SmsPointerNil"
-	case SmAllScripts:
-		return "SmAllScripts"
-	case SmAmharic:
-		return "SmAmharic"
-	case SmArabic:
-		return "SmArabic"
-	case SmArmenian:
-		return "SmArmenian"
-	case SmBadScript:
-		return "SmBadScript"
-	case SmBadVerb:
-		return "SmBadVerb"
-	case SmBengali:
-		return "SmBengali"
-	case SmBurmese:
-		return "SmBurmese"
-	case SmCentralEuroRoman:
-		return "SmCentralEuroRoman"
-	case SmChar1byte:
-		return "SmChar1byte"
-	case SmChar2byte:
-		return "SmChar2byte"
-	case SmCharFISGreek:
-		return "SmCharFISGreek"
-	case SmCharFISRussian:
-		return "SmCharFISRussian"
-	case SmCharRight:
-		return "SmCharRight"
-	case SmCharUpper:
-		return "SmCharUpper"
-	case SmCharVertical:
-		return "SmCharVertical"
-	case SmChinese:
-		return "SmChinese"
-	case SmCyrillic:
-		return "SmCyrillic"
-	case SmDevanagari:
-		return "SmDevanagari"
-	case SmExtArabic:
-		return "SmExtArabic"
-	case SmFISClassLvl2:
-		return "SmFISClassLvl2"
-	case SmFISClassUser:
-		return "SmFISClassUser"
-	case SmGeorgian:
-		return "SmGeorgian"
-	case SmGujarati:
-		return "SmGujarati"
-	case SmGurmukhi:
-		return "SmGurmukhi"
-	case SmJamoBogMoeum:
-		return "SmJamoBogMoeum"
-	case SmJapanese:
-		return "SmJapanese"
-	case SmKCHRCache:
-		return "SmKCHRCache"
-	case SmKannada:
-		return "SmKannada"
-	case SmKeyScript:
-		return "SmKeyScript"
-	case SmKhmer:
-		return "SmKhmer"
-	case SmKlingon:
-		return "SmKlingon"
-	case SmKorean:
-		return "SmKorean"
-	case SmMalayalam:
-		return "SmMalayalam"
-	case SmMongolian:
-		return "SmMongolian"
-	case SmOriya:
-		return "SmOriya"
-	case SmPunctGraphic:
-		return "SmPunctGraphic"
-	case SmPunctRepeat:
-		return "SmPunctRepeat"
-	case SmRSymbol:
-		return "SmRSymbol"
-	case SmRegionCode:
-		return "SmRegionCode"
-	case SmSimpChinese:
-		return "SmSimpChinese"
-	case SmSinhalese:
-		return "SmSinhalese"
-	case SmTamil:
-		return "SmTamil"
-	case SmTelugu:
-		return "SmTelugu"
-	case SmThai:
-		return "SmThai"
-	case SmTibetan:
-		return "SmTibetan"
-	case SmVietnamese:
-		return "SmVietnamese"
 	default:
-		return fmt.Sprintf("Sm(%d)", e)
+		return fmt.Sprintf("SmCPUErr(%d)", e)
 	}
 }
 
-type SmChar uint
+type SmChar uint32
 
 const (
 	// Deprecated.
@@ -28010,7 +30940,157 @@ func (e SmChar) String() string {
 	}
 }
 
-type SmKey int
+type SmCharFISGreek uint32
+
+const (
+	// Deprecated.
+	SmCharFISGreekValue SmCharFISGreek = 0x5
+	// Deprecated.
+	SmCharFISRussian SmCharFISGreek = 0x6
+	// Deprecated.
+	SmFISClassLvl1 SmCharFISGreek = 0
+	// Deprecated.
+	SmFISClassLvl2 SmCharFISGreek = 0x100
+	// Deprecated.
+	SmFISClassUser SmCharFISGreek = 0x200
+	// Deprecated.
+	SmIdeographicLevel1 SmCharFISGreek = 0
+	// Deprecated.
+	SmIdeographicLevel2 SmCharFISGreek = 0x100
+	// Deprecated.
+	SmIdeographicUser SmCharFISGreek = 0x200
+	// Deprecated.
+	SmJamoBogJaeum SmCharFISGreek = 0x100
+	// Deprecated.
+	SmJamoBogMoeum SmCharFISGreek = 0x300
+	// Deprecated.
+	SmJamoJaeum SmCharFISGreek = 0
+	// Deprecated.
+	SmJamoMoeum SmCharFISGreek = 0x200
+	// Deprecated.
+	SmKanaHardOK SmCharFISGreek = 0x200
+	// Deprecated.
+	SmKanaSmall SmCharFISGreek = 0x100
+	// Deprecated.
+	SmKanaSoftOK SmCharFISGreek = 0x300
+	// Deprecated.
+	SmPunctBlank SmCharFISGreek = 0x300
+	// Deprecated.
+	SmPunctGraphic SmCharFISGreek = 0x500
+	// Deprecated.
+	SmPunctNormal SmCharFISGreek = 0
+	// Deprecated.
+	SmPunctNumber SmCharFISGreek = 0x100
+	// Deprecated.
+	SmPunctRepeat SmCharFISGreek = 0x400
+	// Deprecated.
+	SmPunctSymbol SmCharFISGreek = 0x200
+)
+
+func (e SmCharFISGreek) String() string {
+	switch e {
+	case SmCharFISGreekValue:
+		return "SmCharFISGreekValue"
+	case SmCharFISRussian:
+		return "SmCharFISRussian"
+	case SmFISClassLvl1:
+		return "SmFISClassLvl1"
+	case SmFISClassLvl2:
+		return "SmFISClassLvl2"
+	case SmFISClassUser:
+		return "SmFISClassUser"
+	case SmJamoBogMoeum:
+		return "SmJamoBogMoeum"
+	case SmPunctGraphic:
+		return "SmPunctGraphic"
+	case SmPunctRepeat:
+		return "SmPunctRepeat"
+	default:
+		return fmt.Sprintf("SmCharFISGreek(%d)", e)
+	}
+}
+
+type SmCharHorizontal uint32
+
+const (
+	// Deprecated.
+	SmChar1byte SmCharHorizontal = 0
+	// Deprecated.
+	SmChar2byte SmCharHorizontal = 0x8000
+	// Deprecated.
+	SmCharHorizontalValue SmCharHorizontal = 0
+	// Deprecated.
+	SmCharLeft SmCharHorizontal = 0
+	// Deprecated.
+	SmCharLower SmCharHorizontal = 0
+	// Deprecated.
+	SmCharRight SmCharHorizontal = 0x2000
+	// Deprecated.
+	SmCharUpper SmCharHorizontal = 0x4000
+	// Deprecated.
+	SmCharVertical SmCharHorizontal = 0x1000
+)
+
+func (e SmCharHorizontal) String() string {
+	switch e {
+	case SmChar1byte:
+		return "SmChar1byte"
+	case SmChar2byte:
+		return "SmChar2byte"
+	case SmCharRight:
+		return "SmCharRight"
+	case SmCharUpper:
+		return "SmCharUpper"
+	case SmCharVertical:
+		return "SmCharVertical"
+	default:
+		return fmt.Sprintf("SmCharHorizontal(%d)", e)
+	}
+}
+
+type SmChinese uint32
+
+const (
+	// Deprecated.
+	SmAmharic SmChinese = 28
+	// Deprecated.
+	SmChineseValue SmChinese = 2
+	// Deprecated.
+	SmEastEurRoman SmChinese = 29
+	// Deprecated.
+	SmKlingon SmChinese = 32
+	// Deprecated.
+	SmLaotian SmChinese = 22
+	// Deprecated.
+	SmRussian SmChinese = 7
+	// Deprecated.
+	SmSindhi SmChinese = 31
+	// Deprecated.
+	SmSlavic SmChinese = 29
+)
+
+func (e SmChinese) String() string {
+	switch e {
+	case SmAmharic:
+		return "SmAmharic"
+	case SmChineseValue:
+		return "SmChineseValue"
+	case SmEastEurRoman:
+		return "SmEastEurRoman"
+	case SmKlingon:
+		return "SmKlingon"
+	case SmLaotian:
+		return "SmLaotian"
+	case SmRussian:
+		return "SmRussian"
+	case SmSindhi:
+		return "SmSindhi"
+	default:
+		return fmt.Sprintf("SmChinese(%d)", e)
+	}
+}
+
+type SmKey int32
 
 const (
 	// Deprecated.
@@ -28082,7 +31162,7 @@ func (e SmKey) String() string {
 	}
 }
 
-type SmKeyForceKeyScript uint
+type SmKeyForceKeyScript uint32
 
 const (
 	// Deprecated.
@@ -28102,11 +31182,11 @@ func (e SmKeyForceKeyScript) String() string {
 	}
 }
 
-type SmMask uint
+type SmMask int32
 
 const (
 	// Deprecated.
-	SmMaskAll SmMask = 0xffffffff
+	SmMaskAll SmMask = -1
 	// Deprecated.
 	SmMaskAscii SmMask = 0x1
 	// Deprecated.
@@ -28158,7 +31238,31 @@ func (e SmMask) String() string {
 	}
 }
 
-type SmResrvErr int
+type SmNotInstalled int32
+
+const (
+	// Deprecated.
+	SmBadScript SmNotInstalled = -2
+	// Deprecated.
+	SmBadVerb SmNotInstalled = -1
+	// Deprecated.
+	SmNotInstalledValue SmNotInstalled = 0
+)
+
+func (e SmNotInstalled) String() string {
+	switch e {
+	case SmBadScript:
+		return "SmBadScript"
+	case SmBadVerb:
+		return "SmBadVerb"
+	case SmNotInstalledValue:
+		return "SmNotInstalledValue"
+	default:
+		return fmt.Sprintf("SmNotInstalled(%d)", e)
+	}
+}
+
+type SmResrvErr int32
 
 const (
 	SmBLFieldBad    SmResrvErr = -309
@@ -28231,83 +31335,370 @@ func (e SmResrvErr) String() string {
 	}
 }
 
-type SmTrans uint
+type SmRoman uint32
 
 const (
 	// Deprecated.
-	SmTransAscii SmTrans = 0
+	SmArabic SmRoman = 4
 	// Deprecated.
-	SmTransAscii1 SmTrans = 2
+	SmArmenian SmRoman = 24
 	// Deprecated.
-	SmTransAscii2 SmTrans = 3
+	SmBengali SmRoman = 13
 	// Deprecated.
-	SmTransBopomofo2 SmTrans = 10
+	SmBurmese SmRoman = 19
 	// Deprecated.
-	SmTransCase SmTrans = 0xfe
+	SmCentralEuroRoman SmRoman = 29
 	// Deprecated.
-	SmTransGana2 SmTrans = 7
+	SmCyrillic SmRoman = 7
 	// Deprecated.
-	SmTransHangul2 SmTrans = 8
+	SmDevanagari SmRoman = 9
 	// Deprecated.
-	SmTransHangulFormat SmTrans = 2
+	SmEthiopic SmRoman = 28
 	// Deprecated.
-	SmTransJamo2 SmTrans = 9
+	SmExtArabic SmRoman = 31
 	// Deprecated.
-	SmTransKana1 SmTrans = 4
+	SmGeez SmRoman = 28
 	// Deprecated.
-	SmTransKana2 SmTrans = 5
+	SmGeorgian SmRoman = 23
 	// Deprecated.
-	SmTransLower SmTrans = 0x4000
+	SmGreek SmRoman = 6
 	// Deprecated.
-	SmTransNative SmTrans = 1
+	SmGujarati SmRoman = 11
 	// Deprecated.
-	SmTransPreDoubleByting SmTrans = 1
+	SmGurmukhi SmRoman = 10
 	// Deprecated.
-	SmTransPreLowerCasing SmTrans = 2
+	SmHebrew SmRoman = 5
 	// Deprecated.
-	SmTransRuleBaseFormat SmTrans = 1
+	SmJapanese SmRoman = 1
 	// Deprecated.
-	SmTransSystem SmTrans = 0xff
+	SmKannada SmRoman = 16
 	// Deprecated.
-	SmTransUpper SmTrans = 0x8000
+	SmKhmer SmRoman = 20
+	// Deprecated.
+	SmKorean SmRoman = 3
+	// Deprecated.
+	SmLao SmRoman = 22
+	// Deprecated.
+	SmMalayalam SmRoman = 17
+	// Deprecated.
+	SmMongolian SmRoman = 27
+	// Deprecated.
+	SmOriya SmRoman = 12
+	// Deprecated.
+	SmRSymbol SmRoman = 8
+	// Deprecated.
+	SmRomanValue SmRoman = 0
+	// Deprecated.
+	SmSimpChinese SmRoman = 25
+	// Deprecated.
+	SmSinhalese SmRoman = 18
+	// Deprecated.
+	SmTamil SmRoman = 14
+	// Deprecated.
+	SmTelugu SmRoman = 15
+	// Deprecated.
+	SmThai SmRoman = 21
+	// Deprecated.
+	SmTibetan SmRoman = 26
+	// Deprecated.
+	SmTradChinese SmRoman = 2
+	// Deprecated.
+	SmUninterp SmRoman = 32
+	// Deprecated.
+	SmVietnamese SmRoman = 30
 )
 
-func (e SmTrans) String() string {
+func (e SmRoman) String() string {
 	switch e {
-	case SmTransAscii:
-		return "SmTransAscii"
+	case SmArabic:
+		return "SmArabic"
+	case SmArmenian:
+		return "SmArmenian"
+	case SmBengali:
+		return "SmBengali"
+	case SmBurmese:
+		return "SmBurmese"
+	case SmCentralEuroRoman:
+		return "SmCentralEuroRoman"
+	case SmCyrillic:
+		return "SmCyrillic"
+	case SmDevanagari:
+		return "SmDevanagari"
+	case SmEthiopic:
+		return "SmEthiopic"
+	case SmExtArabic:
+		return "SmExtArabic"
+	case SmGeorgian:
+		return "SmGeorgian"
+	case SmGreek:
+		return "SmGreek"
+	case SmGujarati:
+		return "SmGujarati"
+	case SmGurmukhi:
+		return "SmGurmukhi"
+	case SmHebrew:
+		return "SmHebrew"
+	case SmJapanese:
+		return "SmJapanese"
+	case SmKannada:
+		return "SmKannada"
+	case SmKhmer:
+		return "SmKhmer"
+	case SmKorean:
+		return "SmKorean"
+	case SmLao:
+		return "SmLao"
+	case SmMalayalam:
+		return "SmMalayalam"
+	case SmMongolian:
+		return "SmMongolian"
+	case SmOriya:
+		return "SmOriya"
+	case SmRSymbol:
+		return "SmRSymbol"
+	case SmRomanValue:
+		return "SmRomanValue"
+	case SmSimpChinese:
+		return "SmSimpChinese"
+	case SmSinhalese:
+		return "SmSinhalese"
+	case SmTamil:
+		return "SmTamil"
+	case SmTelugu:
+		return "SmTelugu"
+	case SmThai:
+		return "SmThai"
+	case SmTibetan:
+		return "SmTibetan"
+	case SmTradChinese:
+		return "SmTradChinese"
+	case SmUninterp:
+		return "SmUninterp"
+	case SmVietnamese:
+		return "SmVietnamese"
+	default:
+		return fmt.Sprintf("SmRoman(%d)", e)
+	}
+}
+
+type SmSDMInitErr int32
+
+const (
+	SmCRCFail         SmSDMInitErr = -301
+	SmDisabledSlot    SmSDMInitErr = -305
+	SmEmptySlot       SmSDMInitErr = -300
+	SmFormatErr       SmSDMInitErr = -302
+	SmNoDir           SmSDMInitErr = -304
+	SmNosInfoArray    SmSDMInitErr = -306
+	SmPRAMInitErr     SmSDMInitErr = -292
+	SmPriInitErr      SmSDMInitErr = -293
+	SmRevisionErr     SmSDMInitErr = -303
+	SmSDMInitErrValue SmSDMInitErr = -290
+	SmSRTInitErr      SmSDMInitErr = -291
+)
+
+func (e SmSDMInitErr) String() string {
+	switch e {
+	case SmCRCFail:
+		return "SmCRCFail"
+	case SmDisabledSlot:
+		return "SmDisabledSlot"
+	case SmEmptySlot:
+		return "SmEmptySlot"
+	case SmFormatErr:
+		return "SmFormatErr"
+	case SmNoDir:
+		return "SmNoDir"
+	case SmNosInfoArray:
+		return "SmNosInfoArray"
+	case SmPRAMInitErr:
+		return "SmPRAMInitErr"
+	case SmPriInitErr:
+		return "SmPriInitErr"
+	case SmRevisionErr:
+		return "SmRevisionErr"
+	case SmSDMInitErrValue:
+		return "SmSDMInitErrValue"
+	case SmSRTInitErr:
+		return "SmSRTInitErr"
+	default:
+		return fmt.Sprintf("SmSDMInitErr(%d)", e)
+	}
+}
+
+type SmSingleByte int32
+
+const (
+	// Deprecated.
+	SmFirstByte SmSingleByte = -1
+	// Deprecated.
+	SmLastByte SmSingleByte = 1
+	// Deprecated.
+	SmMiddleByte SmSingleByte = 2
+	// Deprecated.
+	SmSingleByteValue SmSingleByte = 0
+)
+
+func (e SmSingleByte) String() string {
+	switch e {
+	case SmFirstByte:
+		return "SmFirstByte"
+	case SmLastByte:
+		return "SmLastByte"
+	case SmMiddleByte:
+		return "SmMiddleByte"
+	case SmSingleByteValue:
+		return "SmSingleByteValue"
+	default:
+		return fmt.Sprintf("SmSingleByte(%d)", e)
+	}
+}
+
+type SmSysScript uint32
+
+const (
+	// Deprecated.
+	SmKCHRCache SmSysScript = 38
+	// Deprecated.
+	SmKeyScript SmSysScript = 22
+	// Deprecated.
+	SmRegionCode SmSysScript = 40
+	// Deprecated.
+	SmSysScriptValue SmSysScript = 18
+)
+
+func (e SmSysScript) String() string {
+	switch e {
+	case SmKCHRCache:
+		return "SmKCHRCache"
+	case SmKeyScript:
+		return "SmKeyScript"
+	case SmRegionCode:
+		return "SmRegionCode"
+	case SmSysScriptValue:
+		return "SmSysScriptValue"
+	default:
+		return fmt.Sprintf("SmSysScript(%d)", e)
+	}
+}
+
+type SmSystemScript int32
+
+const (
+	// Deprecated.
+	SmAllScripts SmSystemScript = -3
+	// Deprecated.
+	SmCurrentScript SmSystemScript = -2
+	// Deprecated.
+	SmSystemScriptValue SmSystemScript = -1
+)
+
+func (e SmSystemScript) String() string {
+	switch e {
+	case SmAllScripts:
+		return "SmAllScripts"
+	case SmCurrentScript:
+		return "SmCurrentScript"
+	case SmSystemScriptValue:
+		return "SmSystemScriptValue"
+	default:
+		return fmt.Sprintf("SmSystemScript(%d)", e)
+	}
+}
+
+type SmTransAscii uint32
+
+const (
+	// Deprecated.
+	SmTransAsciiValue SmTransAscii = 0
+	// Deprecated.
+	SmTransAscii1 SmTransAscii = 2
+	// Deprecated.
+	SmTransAscii2 SmTransAscii = 3
+	// Deprecated.
+	SmTransCase SmTransAscii = 0xfe
+	// Deprecated.
+	SmTransKana1 SmTransAscii = 4
+	// Deprecated.
+	SmTransKana2 SmTransAscii = 5
+	// Deprecated.
+	SmTransNative SmTransAscii = 1
+	// Deprecated.
+	SmTransSystem SmTransAscii = 0xff
+)
+
+func (e SmTransAscii) String() string {
+	switch e {
+	case SmTransAsciiValue:
+		return "SmTransAsciiValue"
 	case SmTransAscii1:
 		return "SmTransAscii1"
 	case SmTransAscii2:
 		return "SmTransAscii2"
-	case SmTransBopomofo2:
-		return "SmTransBopomofo2"
 	case SmTransCase:
 		return "SmTransCase"
-	case SmTransGana2:
-		return "SmTransGana2"
-	case SmTransHangul2:
-		return "SmTransHangul2"
-	case SmTransJamo2:
-		return "SmTransJamo2"
 	case SmTransKana1:
 		return "SmTransKana1"
 	case SmTransKana2:
 		return "SmTransKana2"
-	case SmTransLower:
-		return "SmTransLower"
 	case SmTransNative:
 		return "SmTransNative"
 	case SmTransSystem:
 		return "SmTransSystem"
-	case SmTransUpper:
-		return "SmTransUpper"
 	default:
-		return fmt.Sprintf("SmTrans(%d)", e)
+		return fmt.Sprintf("SmTransAscii(%d)", e)
 	}
 }
 
-type SmUnicode uint
+type SmTransGana2 uint32
+
+const (
+	// Deprecated.
+	SmTransBopomofo2 SmTransGana2 = 10
+	// Deprecated.
+	SmTransGana2Value SmTransGana2 = 7
+	// Deprecated.
+	SmTransHangul2 SmTransGana2 = 8
+	// Deprecated.
+	SmTransHangulFormat SmTransGana2 = 2
+	// Deprecated.
+	SmTransJamo2 SmTransGana2 = 9
+	// Deprecated.
+	SmTransLower SmTransGana2 = 0x4000
+	// Deprecated.
+	SmTransPreDoubleByting SmTransGana2 = 1
+	// Deprecated.
+	SmTransPreLowerCasing SmTransGana2 = 2
+	// Deprecated.
+	SmTransRuleBaseFormat SmTransGana2 = 1
+	// Deprecated.
+	SmTransUpper SmTransGana2 = 0x8000
+)
+
+func (e SmTransGana2) String() string {
+	switch e {
+	case SmTransBopomofo2:
+		return "SmTransBopomofo2"
+	case SmTransGana2Value:
+		return "SmTransGana2Value"
+	case SmTransHangul2:
+		return "SmTransHangul2"
+	case SmTransHangulFormat:
+		return "SmTransHangulFormat"
+	case SmTransJamo2:
+		return "SmTransJamo2"
+	case SmTransLower:
+		return "SmTransLower"
+	case SmTransPreDoubleByting:
+		return "SmTransPreDoubleByting"
+	case SmTransUpper:
+		return "SmTransUpper"
+	default:
+		return fmt.Sprintf("SmTransGana2(%d)", e)
+	}
+}
+
+type SmUnicode uint32
 
 const (
 	SmUnicodeScript SmUnicode = 0x7e
@@ -28322,7 +31713,7 @@ func (e SmUnicode) String() string {
 	}
 }
 
-type SmWordSelectTable uint
+type SmWordSelectTable uint32
 
 const (
 	// Deprecated.
@@ -28364,7 +31755,7 @@ func (e SmWordSelectTable) String() string {
 	}
 }
 
-type SmallDateBit int
+type SmallDateBit int32
 
 const (
 	GenCdevRangeBit   SmallDateBit = 27
@@ -28397,7 +31788,7 @@ func (e SmallDateBit) String() string {
 	}
 }
 
-type Smc uint
+type Smc uint32
 
 const (
 	// Deprecated.
@@ -28437,7 +31828,7 @@ func (e Smc) String() string {
 	}
 }
 
-type Smf uint
+type Smf uint32
 
 const (
 	// Deprecated.
@@ -28469,7 +31860,7 @@ func (e Smf) String() string {
 	}
 }
 
-type SmfDisableKeyScriptSync uint
+type SmfDisableKeyScriptSync uint32
 
 const (
 	// Deprecated.
@@ -28485,7 +31876,7 @@ func (e SmfDisableKeyScriptSync) String() string {
 	}
 }
 
-type Smsf uint
+type Smsf uint32
 
 const (
 	// Deprecated.
@@ -28545,7 +31936,7 @@ func (e Smsf) String() string {
 	}
 }
 
-type Sorts int
+type Sorts int32
 
 const (
 	// Deprecated.
@@ -28569,7 +31960,7 @@ func (e Sorts) String() string {
 	}
 }
 
-type StartupFolderIconResource int
+type StartupFolderIconResource int32
 
 const (
 	ControlPanelFolderIconResource StartupFolderIconResource = -3976
@@ -28614,7 +32005,7 @@ func (e StartupFolderIconResource) String() string {
 	}
 }
 
-type SystemCurLang int
+type SystemCurLang int32
 
 const (
 	CurrentCurLang     SystemCurLang = -4
@@ -28644,7 +32035,7 @@ func (e SystemCurLang) String() string {
 	}
 }
 
-type TeScrapSizeErr int
+type TeScrapSizeErr int32
 
 const (
 	DriverHardwareGoneErr TeScrapSizeErr = -503
@@ -28665,7 +32056,7 @@ func (e TeScrapSizeErr) String() string {
 	}
 }
 
-type Tel int
+type Tel int32
 
 const (
 	TelAPattNotSupp       Tel = -10016
@@ -28899,7 +32290,7 @@ func (e Tel) String() string {
 	}
 }
 
-type TextParser int
+type TextParser int32
 
 const (
 	TextParserBadParamErr         TextParser = -5220
@@ -28941,7 +32332,7 @@ func (e TextParser) String() string {
 	}
 }
 
-type Theme int
+type Theme int32
 
 const (
 	ThemeBadCursorIndexErr           Theme = -30565
@@ -28980,7 +32371,7 @@ func (e Theme) String() string {
 	}
 }
 
-type Thread int
+type Thread int32
 
 const (
 	ThreadNotFoundErr    Thread = -618
@@ -29001,7 +32392,7 @@ func (e Thread) String() string {
 	}
 }
 
-type ThreadBadAppContext int
+type ThreadBadAppContext int32
 
 const (
 	ThreadBadAppContextErr ThreadBadAppContext = -616
@@ -29016,7 +32407,7 @@ func (e ThreadBadAppContext) String() string {
 	}
 }
 
-type TimeCycle24 uint
+type TimeCycle24 uint32
 
 const (
 	Century          TimeCycle24 = 128
@@ -29066,7 +32457,7 @@ func (e TimeCycle24) String() string {
 	}
 }
 
-type Toggle uint
+type Toggle uint32
 
 const (
 	ToggleBadChar    Toggle = 4
@@ -29109,7 +32500,7 @@ func (e Toggle) String() string {
 	}
 }
 
-type TokLeftQuote uint
+type TokLeftQuote uint32
 
 const (
 	CurNumberPartsVersion TokLeftQuote = 1
@@ -29173,345 +32564,211 @@ func (e TokLeftQuote) String() string {
 	}
 }
 
-type Token int
+type TokenIntl int32
 
 const (
 	// Deprecated.
-	Token1Quote Token = 52
+	TokenEmpty TokenIntl = -1
 	// Deprecated.
-	Token2Equal Token = 38
-	// Deprecated.
-	Token2Quote Token = 51
-	// Deprecated.
-	TokenAlpha Token = 4
-	// Deprecated.
-	TokenAltNum Token = 11
-	// Deprecated.
-	TokenAltReal Token = 13
-	// Deprecated.
-	TokenAmpersand Token = 57
-	// Deprecated.
-	TokenAsterisk Token = 26
-	// Deprecated.
-	TokenAtSign Token = 58
-	// Deprecated.
-	TokenBackSlash Token = 30
-	// Deprecated.
-	TokenBar Token = 59
-	// Deprecated.
-	TokenCapPi Token = 66
-	// Deprecated.
-	TokenCaret Token = 55
-	// Deprecated.
-	TokenCenterDot Token = 78
-	// Deprecated.
-	TokenColon Token = 68
-	// Deprecated.
-	TokenColonEqual Token = 39
-	// Deprecated.
-	TokenComma Token = 45
-	// Deprecated.
-	TokenDivide Token = 27
-	// Deprecated.
-	TokenDollar Token = 70
-	// Deprecated.
-	TokenEllipsis Token = 77
-	// Deprecated.
-	TokenEmpty Token = -1
-	// Deprecated.
-	TokenEqual Token = 33
-	// Deprecated.
-	TokenEscape Token = 10
-	// Deprecated.
-	TokenExclam Token = 43
-	// Deprecated.
-	TokenExclamEqual Token = 42
-	// Deprecated.
-	TokenFraction Token = 72
-	// Deprecated.
-	TokenGreat Token = 32
-	// Deprecated.
-	TokenGreatEqual1 Token = 37
-	// Deprecated.
-	TokenGreatEqual2 Token = 36
-	// Deprecated.
-	TokenHash Token = 69
-	// Deprecated.
-	TokenInfinity Token = 67
-	// Deprecated.
-	TokenIntegral Token = 64
-	// Deprecated.
-	TokenIntl Token = 4
-	// Deprecated.
-	TokenIntlCurrency Token = 73
-	// Deprecated.
-	TokenLeft1Quote Token = 49
-	// Deprecated.
-	TokenLeft2Quote Token = 47
-	// Deprecated.
-	TokenLeftBracket Token = 18
-	// Deprecated.
-	TokenLeftComment Token = 7
-	// Deprecated.
-	TokenLeftCurly Token = 20
-	// Deprecated.
-	TokenLeftEnclose Token = 22
-	// Deprecated.
-	TokenLeftLit Token = 2
-	// Deprecated.
-	TokenLeftParen Token = 16
-	// Deprecated.
-	TokenLeftSingGuillemet Token = 74
-	// Deprecated.
-	TokenLess Token = 31
-	// Deprecated.
-	TokenLessEqual1 Token = 35
-	// Deprecated.
-	TokenLessEqual2 Token = 34
-	// Deprecated.
-	TokenLessGreat Token = 41
-	// Deprecated.
-	TokenLiteral Token = 9
-	// Deprecated.
-	TokenMicro Token = 65
-	// Deprecated.
-	TokenMinus Token = 25
-	// Deprecated.
-	TokenNewLine Token = 6
-	// Deprecated.
-	TokenNil Token = 127
-	// Deprecated.
-	TokenNoBreakSpace Token = 71
-	// Deprecated.
-	TokenNotEqual Token = 40
-	// Deprecated.
-	TokenNumeric Token = 5
-	// Deprecated.
-	TokenPerThousand Token = 76
-	// Deprecated.
-	TokenPercent Token = 54
-	// Deprecated.
-	TokenPeriod Token = 46
-	// Deprecated.
-	TokenPi Token = 61
-	// Deprecated.
-	TokenPlus Token = 24
-	// Deprecated.
-	TokenPlusMinus Token = 28
-	// Deprecated.
-	TokenQuestion Token = 60
-	// Deprecated.
-	TokenRealNum Token = 12
-	// Deprecated.
-	TokenReserve1 Token = 14
-	// Deprecated.
-	TokenReserve2 Token = 15
-	// Deprecated.
-	TokenRight1Quote Token = 50
-	// Deprecated.
-	TokenRight2Quote Token = 48
-	// Deprecated.
-	TokenRightBracket Token = 19
-	// Deprecated.
-	TokenRightComment Token = 8
-	// Deprecated.
-	TokenRightCurly Token = 21
-	// Deprecated.
-	TokenRightEnclose Token = 23
-	// Deprecated.
-	TokenRightLit Token = 3
-	// Deprecated.
-	TokenRightParen Token = 17
-	// Deprecated.
-	TokenRightSingGuillemet Token = 75
-	// Deprecated.
-	TokenRoot Token = 62
-	// Deprecated.
-	TokenSemicolon Token = 53
-	// Deprecated.
-	TokenSigma Token = 63
-	// Deprecated.
-	TokenSlash Token = 29
-	// Deprecated.
-	TokenTilde Token = 44
-	// Deprecated.
-	TokenUnderline Token = 56
-	// Deprecated.
-	TokenUnknown Token = 0
-	// Deprecated.
-	TokenWhite Token = 1
+	TokenIntlValue TokenIntl = 4
 )
 
-func (e Token) String() string {
+func (e TokenIntl) String() string {
 	switch e {
-	case Token1Quote:
-		return "Token1Quote"
-	case Token2Equal:
-		return "Token2Equal"
-	case Token2Quote:
-		return "Token2Quote"
-	case TokenAlpha:
-		return "TokenAlpha"
-	case TokenAltNum:
-		return "TokenAltNum"
-	case TokenAltReal:
-		return "TokenAltReal"
-	case TokenAmpersand:
-		return "TokenAmpersand"
-	case TokenAsterisk:
-		return "TokenAsterisk"
-	case TokenAtSign:
-		return "TokenAtSign"
-	case TokenBackSlash:
-		return "TokenBackSlash"
-	case TokenBar:
-		return "TokenBar"
-	case TokenCapPi:
-		return "TokenCapPi"
-	case TokenCaret:
-		return "TokenCaret"
-	case TokenCenterDot:
-		return "TokenCenterDot"
-	case TokenColon:
-		return "TokenColon"
-	case TokenColonEqual:
-		return "TokenColonEqual"
-	case TokenComma:
-		return "TokenComma"
-	case TokenDivide:
-		return "TokenDivide"
-	case TokenDollar:
-		return "TokenDollar"
-	case TokenEllipsis:
-		return "TokenEllipsis"
 	case TokenEmpty:
 		return "TokenEmpty"
+	case TokenIntlValue:
+		return "TokenIntlValue"
+	default:
+		return fmt.Sprintf("TokenIntl(%d)", e)
+	}
+}
+
+type TokenLeftCurly uint32
+
+const (
+	// Deprecated.
+	Token2Equal TokenLeftCurly = 38
+	// Deprecated.
+	TokenAsterisk TokenLeftCurly = 26
+	// Deprecated.
+	TokenBackSlash TokenLeftCurly = 30
+	// Deprecated.
+	TokenColonEqual TokenLeftCurly = 39
+	// Deprecated.
+	TokenDivide TokenLeftCurly = 27
+	// Deprecated.
+	TokenEqual TokenLeftCurly = 33
+	// Deprecated.
+	TokenGreat TokenLeftCurly = 32
+	// Deprecated.
+	TokenGreatEqual1 TokenLeftCurly = 37
+	// Deprecated.
+	TokenGreatEqual2 TokenLeftCurly = 36
+	// Deprecated.
+	TokenLeftCurlyValue TokenLeftCurly = 20
+	// Deprecated.
+	TokenLeftEnclose TokenLeftCurly = 22
+	// Deprecated.
+	TokenLess TokenLeftCurly = 31
+	// Deprecated.
+	TokenLessEqual1 TokenLeftCurly = 35
+	// Deprecated.
+	TokenLessEqual2 TokenLeftCurly = 34
+	// Deprecated.
+	TokenMinus TokenLeftCurly = 25
+	// Deprecated.
+	TokenPlus TokenLeftCurly = 24
+	// Deprecated.
+	TokenPlusMinus TokenLeftCurly = 28
+	// Deprecated.
+	TokenRightCurly TokenLeftCurly = 21
+	// Deprecated.
+	TokenRightEnclose TokenLeftCurly = 23
+	// Deprecated.
+	TokenSlash TokenLeftCurly = 29
+)
+
+func (e TokenLeftCurly) String() string {
+	switch e {
+	case Token2Equal:
+		return "Token2Equal"
+	case TokenAsterisk:
+		return "TokenAsterisk"
+	case TokenBackSlash:
+		return "TokenBackSlash"
+	case TokenColonEqual:
+		return "TokenColonEqual"
+	case TokenDivide:
+		return "TokenDivide"
 	case TokenEqual:
 		return "TokenEqual"
-	case TokenEscape:
-		return "TokenEscape"
-	case TokenExclam:
-		return "TokenExclam"
-	case TokenExclamEqual:
-		return "TokenExclamEqual"
-	case TokenFraction:
-		return "TokenFraction"
 	case TokenGreat:
 		return "TokenGreat"
 	case TokenGreatEqual1:
 		return "TokenGreatEqual1"
 	case TokenGreatEqual2:
 		return "TokenGreatEqual2"
-	case TokenHash:
-		return "TokenHash"
-	case TokenInfinity:
-		return "TokenInfinity"
-	case TokenIntegral:
-		return "TokenIntegral"
-	case TokenIntlCurrency:
-		return "TokenIntlCurrency"
-	case TokenLeft1Quote:
-		return "TokenLeft1Quote"
-	case TokenLeft2Quote:
-		return "TokenLeft2Quote"
-	case TokenLeftBracket:
-		return "TokenLeftBracket"
-	case TokenLeftComment:
-		return "TokenLeftComment"
-	case TokenLeftCurly:
-		return "TokenLeftCurly"
+	case TokenLeftCurlyValue:
+		return "TokenLeftCurlyValue"
 	case TokenLeftEnclose:
 		return "TokenLeftEnclose"
-	case TokenLeftLit:
-		return "TokenLeftLit"
-	case TokenLeftParen:
-		return "TokenLeftParen"
-	case TokenLeftSingGuillemet:
-		return "TokenLeftSingGuillemet"
 	case TokenLess:
 		return "TokenLess"
 	case TokenLessEqual1:
 		return "TokenLessEqual1"
 	case TokenLessEqual2:
 		return "TokenLessEqual2"
-	case TokenLessGreat:
-		return "TokenLessGreat"
-	case TokenLiteral:
-		return "TokenLiteral"
-	case TokenMicro:
-		return "TokenMicro"
 	case TokenMinus:
 		return "TokenMinus"
-	case TokenNewLine:
-		return "TokenNewLine"
-	case TokenNil:
-		return "TokenNil"
-	case TokenNoBreakSpace:
-		return "TokenNoBreakSpace"
-	case TokenNotEqual:
-		return "TokenNotEqual"
-	case TokenNumeric:
-		return "TokenNumeric"
-	case TokenPerThousand:
-		return "TokenPerThousand"
-	case TokenPercent:
-		return "TokenPercent"
-	case TokenPeriod:
-		return "TokenPeriod"
-	case TokenPi:
-		return "TokenPi"
 	case TokenPlus:
 		return "TokenPlus"
 	case TokenPlusMinus:
 		return "TokenPlusMinus"
-	case TokenQuestion:
-		return "TokenQuestion"
-	case TokenRealNum:
-		return "TokenRealNum"
-	case TokenReserve1:
-		return "TokenReserve1"
-	case TokenReserve2:
-		return "TokenReserve2"
-	case TokenRight1Quote:
-		return "TokenRight1Quote"
-	case TokenRight2Quote:
-		return "TokenRight2Quote"
-	case TokenRightBracket:
-		return "TokenRightBracket"
-	case TokenRightComment:
-		return "TokenRightComment"
 	case TokenRightCurly:
 		return "TokenRightCurly"
 	case TokenRightEnclose:
 		return "TokenRightEnclose"
-	case TokenRightLit:
-		return "TokenRightLit"
-	case TokenRightParen:
-		return "TokenRightParen"
-	case TokenRightSingGuillemet:
-		return "TokenRightSingGuillemet"
-	case TokenRoot:
-		return "TokenRoot"
-	case TokenSemicolon:
-		return "TokenSemicolon"
-	case TokenSigma:
-		return "TokenSigma"
 	case TokenSlash:
 		return "TokenSlash"
+	default:
+		return fmt.Sprintf("TokenLeftCurly(%d)", e)
+	}
+}
+
+type TokenNotEqual uint32
+
+const (
+	// Deprecated.
+	Token1Quote TokenNotEqual = 52
+	// Deprecated.
+	Token2Quote TokenNotEqual = 51
+	// Deprecated.
+	TokenAmpersand TokenNotEqual = 57
+	// Deprecated.
+	TokenAtSign TokenNotEqual = 58
+	// Deprecated.
+	TokenBar TokenNotEqual = 59
+	// Deprecated.
+	TokenCaret TokenNotEqual = 55
+	// Deprecated.
+	TokenComma TokenNotEqual = 45
+	// Deprecated.
+	TokenExclam TokenNotEqual = 43
+	// Deprecated.
+	TokenExclamEqual TokenNotEqual = 42
+	// Deprecated.
+	TokenLeft1Quote TokenNotEqual = 49
+	// Deprecated.
+	TokenLeft2Quote TokenNotEqual = 47
+	// Deprecated.
+	TokenLessGreat TokenNotEqual = 41
+	// Deprecated.
+	TokenNotEqualValue TokenNotEqual = 40
+	// Deprecated.
+	TokenPercent TokenNotEqual = 54
+	// Deprecated.
+	TokenPeriod TokenNotEqual = 46
+	// Deprecated.
+	TokenRight1Quote TokenNotEqual = 50
+	// Deprecated.
+	TokenRight2Quote TokenNotEqual = 48
+	// Deprecated.
+	TokenSemicolon TokenNotEqual = 53
+	// Deprecated.
+	TokenTilde TokenNotEqual = 44
+	// Deprecated.
+	TokenUnderline TokenNotEqual = 56
+)
+
+func (e TokenNotEqual) String() string {
+	switch e {
+	case Token1Quote:
+		return "Token1Quote"
+	case Token2Quote:
+		return "Token2Quote"
+	case TokenAmpersand:
+		return "TokenAmpersand"
+	case TokenAtSign:
+		return "TokenAtSign"
+	case TokenBar:
+		return "TokenBar"
+	case TokenCaret:
+		return "TokenCaret"
+	case TokenComma:
+		return "TokenComma"
+	case TokenExclam:
+		return "TokenExclam"
+	case TokenExclamEqual:
+		return "TokenExclamEqual"
+	case TokenLeft1Quote:
+		return "TokenLeft1Quote"
+	case TokenLeft2Quote:
+		return "TokenLeft2Quote"
+	case TokenLessGreat:
+		return "TokenLessGreat"
+	case TokenNotEqualValue:
+		return "TokenNotEqualValue"
+	case TokenPercent:
+		return "TokenPercent"
+	case TokenPeriod:
+		return "TokenPeriod"
+	case TokenRight1Quote:
+		return "TokenRight1Quote"
+	case TokenRight2Quote:
+		return "TokenRight2Quote"
+	case TokenSemicolon:
+		return "TokenSemicolon"
 	case TokenTilde:
 		return "TokenTilde"
 	case TokenUnderline:
 		return "TokenUnderline"
-	case TokenUnknown:
-		return "TokenUnknown"
-	case TokenWhite:
-		return "TokenWhite"
 	default:
-		return fmt.Sprintf("Token(%d)", e)
+		return fmt.Sprintf("TokenNotEqual(%d)", e)
 	}
 }
 
-type TokenOK uint
+type TokenOK uint32
 
 const (
 	// Deprecated.
@@ -29547,7 +32804,191 @@ func (e TokenOK) String() string {
 	}
 }
 
-type Tsm int
+type TokenQuestion uint32
+
+const (
+	// Deprecated.
+	TokenCapPi TokenQuestion = 66
+	// Deprecated.
+	TokenCenterDot TokenQuestion = 78
+	// Deprecated.
+	TokenColon TokenQuestion = 68
+	// Deprecated.
+	TokenDollar TokenQuestion = 70
+	// Deprecated.
+	TokenEllipsis TokenQuestion = 77
+	// Deprecated.
+	TokenFraction TokenQuestion = 72
+	// Deprecated.
+	TokenHash TokenQuestion = 69
+	// Deprecated.
+	TokenInfinity TokenQuestion = 67
+	// Deprecated.
+	TokenIntegral TokenQuestion = 64
+	// Deprecated.
+	TokenIntlCurrency TokenQuestion = 73
+	// Deprecated.
+	TokenLeftSingGuillemet TokenQuestion = 74
+	// Deprecated.
+	TokenMicro TokenQuestion = 65
+	// Deprecated.
+	TokenNil TokenQuestion = 127
+	// Deprecated.
+	TokenNoBreakSpace TokenQuestion = 71
+	// Deprecated.
+	TokenPerThousand TokenQuestion = 76
+	// Deprecated.
+	TokenPi TokenQuestion = 61
+	// Deprecated.
+	TokenQuestionValue TokenQuestion = 60
+	// Deprecated.
+	TokenRightSingGuillemet TokenQuestion = 75
+	// Deprecated.
+	TokenRoot TokenQuestion = 62
+	// Deprecated.
+	TokenSigma TokenQuestion = 63
+)
+
+func (e TokenQuestion) String() string {
+	switch e {
+	case TokenCapPi:
+		return "TokenCapPi"
+	case TokenCenterDot:
+		return "TokenCenterDot"
+	case TokenColon:
+		return "TokenColon"
+	case TokenDollar:
+		return "TokenDollar"
+	case TokenEllipsis:
+		return "TokenEllipsis"
+	case TokenFraction:
+		return "TokenFraction"
+	case TokenHash:
+		return "TokenHash"
+	case TokenInfinity:
+		return "TokenInfinity"
+	case TokenIntegral:
+		return "TokenIntegral"
+	case TokenIntlCurrency:
+		return "TokenIntlCurrency"
+	case TokenLeftSingGuillemet:
+		return "TokenLeftSingGuillemet"
+	case TokenMicro:
+		return "TokenMicro"
+	case TokenNil:
+		return "TokenNil"
+	case TokenNoBreakSpace:
+		return "TokenNoBreakSpace"
+	case TokenPerThousand:
+		return "TokenPerThousand"
+	case TokenPi:
+		return "TokenPi"
+	case TokenQuestionValue:
+		return "TokenQuestionValue"
+	case TokenRightSingGuillemet:
+		return "TokenRightSingGuillemet"
+	case TokenRoot:
+		return "TokenRoot"
+	case TokenSigma:
+		return "TokenSigma"
+	default:
+		return fmt.Sprintf("TokenQuestion(%d)", e)
+	}
+}
+
+type TokenUnknown uint32
+
+const (
+	// Deprecated.
+	TokenAlpha TokenUnknown = 4
+	// Deprecated.
+	TokenAltNum TokenUnknown = 11
+	// Deprecated.
+	TokenAltReal TokenUnknown = 13
+	// Deprecated.
+	TokenEscape TokenUnknown = 10
+	// Deprecated.
+	TokenLeftBracket TokenUnknown = 18
+	// Deprecated.
+	TokenLeftComment TokenUnknown = 7
+	// Deprecated.
+	TokenLeftLit TokenUnknown = 2
+	// Deprecated.
+	TokenLeftParen TokenUnknown = 16
+	// Deprecated.
+	TokenLiteral TokenUnknown = 9
+	// Deprecated.
+	TokenNewLine TokenUnknown = 6
+	// Deprecated.
+	TokenNumeric TokenUnknown = 5
+	// Deprecated.
+	TokenRealNum TokenUnknown = 12
+	// Deprecated.
+	TokenReserve1 TokenUnknown = 14
+	// Deprecated.
+	TokenReserve2 TokenUnknown = 15
+	// Deprecated.
+	TokenRightBracket TokenUnknown = 19
+	// Deprecated.
+	TokenRightComment TokenUnknown = 8
+	// Deprecated.
+	TokenRightLit TokenUnknown = 3
+	// Deprecated.
+	TokenRightParen TokenUnknown = 17
+	// Deprecated.
+	TokenUnknownValue TokenUnknown = 0
+	// Deprecated.
+	TokenWhite TokenUnknown = 1
+)
+
+func (e TokenUnknown) String() string {
+	switch e {
+	case TokenAlpha:
+		return "TokenAlpha"
+	case TokenAltNum:
+		return "TokenAltNum"
+	case TokenAltReal:
+		return "TokenAltReal"
+	case TokenEscape:
+		return "TokenEscape"
+	case TokenLeftBracket:
+		return "TokenLeftBracket"
+	case TokenLeftComment:
+		return "TokenLeftComment"
+	case TokenLeftLit:
+		return "TokenLeftLit"
+	case TokenLeftParen:
+		return "TokenLeftParen"
+	case TokenLiteral:
+		return "TokenLiteral"
+	case TokenNewLine:
+		return "TokenNewLine"
+	case TokenNumeric:
+		return "TokenNumeric"
+	case TokenRealNum:
+		return "TokenRealNum"
+	case TokenReserve1:
+		return "TokenReserve1"
+	case TokenReserve2:
+		return "TokenReserve2"
+	case TokenRightBracket:
+		return "TokenRightBracket"
+	case TokenRightComment:
+		return "TokenRightComment"
+	case TokenRightLit:
+		return "TokenRightLit"
+	case TokenRightParen:
+		return "TokenRightParen"
+	case TokenUnknownValue:
+		return "TokenUnknownValue"
+	case TokenWhite:
+		return "TokenWhite"
+	default:
+		return fmt.Sprintf("TokenUnknown(%d)", e)
+	}
+}
+
+type Tsm int32
 
 const (
 	TsmAlreadyRegisteredErr            Tsm = -2503
@@ -29655,213 +33096,59 @@ func (e Tsm) String() string {
 	}
 }
 
-type Type uint
+type TypeAEList uint32
 
 const (
-	// Type128BitFloatingPoint: 128-bit floating point value.
-	Type128BitFloatingPoint Type = 'l'<<24 | 'd'<<16 | 'b'<<8 | 'l' // 'ldbl'
-	// TypeAEList: List of descriptors.
-	TypeAEList Type = 'l'<<24 | 'i'<<16 | 's'<<8 | 't' // 'list'
+	// TypeAEListValue: List of descriptors.
+	TypeAEListValue TypeAEList = 'l'<<24 | 'i'<<16 | 's'<<8 | 't' // 'list'
 	// TypeAERecord: List of keyword-specified descriptors.
-	TypeAERecord Type = 'r'<<24 | 'e'<<16 | 'c'<<8 | 'o' // 'reco'
-	TypeAEText   Type = 't'<<24 | 'T'<<16 | 'X'<<8 | 'T' // 'tTXT'
-	// TypeAbsoluteOrdinal: Specifies a descriptor whose data consists of one of the constants `kAEFirst`, `kAEMiddle`, `kAELast`, `kAEAny`, or `kAEAll`, which are described in AEDisposeToken.
-	TypeAbsoluteOrdinal Type = 'a'<<24 | 'b'<<16 | 's'<<8 | 'o' // 'abso'
+	TypeAERecord TypeAEList = 'r'<<24 | 'e'<<16 | 'c'<<8 | 'o' // 'reco'
 	// TypeAlias: Alias.
-	TypeAlias Type = 'a'<<24 | 'l'<<16 | 'i'<<8 | 's' // 'alis'
+	TypeAlias TypeAEList = 'a'<<24 | 'l'<<16 | 'i'<<8 | 's' // 'alis'
 	// TypeAppParameters: Process Manager launch parameters.
-	TypeAppParameters Type = 'a'<<24 | 'p'<<16 | 'p'<<8 | 'a' // 'appa'
+	TypeAppParameters TypeAEList = 'a'<<24 | 'p'<<16 | 'p'<<8 | 'a' // 'appa'
 	// TypeApplSignature: Application signature.
-	TypeApplSignature Type = 's'<<24 | 'i'<<16 | 'g'<<8 | 'n' // 'sign'
+	TypeApplSignature TypeAEList = 's'<<24 | 'i'<<16 | 'g'<<8 | 'n' // 'sign'
 	// TypeAppleEvent: Apple event.
-	TypeAppleEvent Type = 'a'<<24 | 'e'<<16 | 'v'<<8 | 't' // 'aevt'
+	TypeAppleEvent TypeAEList = 'a'<<24 | 'e'<<16 | 'v'<<8 | 't' // 'aevt'
 	// TypeApplicationURL: For specifying an application by URL.
-	TypeApplicationURL Type = 'a'<<24 | 'p'<<16 | 'r'<<8 | 'l' // 'aprl'
-	TypeArc            Type = 'c'<<24 | 'a'<<16 | 'r'<<8 | 'c' // 'carc'
-	TypeBest           Type = 'b'<<24 | 'e'<<16 | 's'<<8 | 't' // 'best'
-	TypeBookmarkData   Type = 'b'<<24 | 'm'<<16 | 'r'<<8 | 'k' // 'bmrk'
-	// TypeBoolean: Boolean value—single byte with value 0 or 1.
-	TypeBoolean        Type = 'b'<<24 | 'o'<<16 | 'o'<<8 | 'l' // 'bool'
-	TypeCFAbsoluteTime Type = 'c'<<24 | 'f'<<16 | 'a'<<8 | 't' // 'cfat'
-	// TypeCString: C string—Mac OS Roman characters followed by a NULL byte.
-	TypeCString     Type = 'c'<<24 | 's'<<16 | 't'<<8 | 'r' // 'cstr'
-	TypeCell        Type = 'c'<<24 | 'c'<<16 | 'e'<<8 | 'l' // 'ccel'
-	TypeCentimeters Type = 'c'<<24 | 'm'<<16 | 't'<<8 | 'r' // 'cmtr'
-	// TypeChar: # Discussion
-	TypeChar       Type = 'T'<<24 | 'E'<<16 | 'X'<<8 | 'T' // 'TEXT'
-	TypeClassInfo  Type = 'g'<<24 | 'c'<<16 | 'l'<<8 | 'i' // 'gcli'
-	TypeColorTable Type = 'c'<<24 | 'l'<<16 | 'r'<<8 | 't' // 'clrt'
-	TypeColumn     Type = 'c'<<24 | 'c'<<16 | 'o'<<8 | 'l' // 'ccol'
-	// TypeCompDescriptor: Specifies a comparison descriptor.
-	TypeCompDescriptor  Type = 'c'<<24 | 'm'<<16 | 'p'<<8 | 'd' // 'cmpd'
-	TypeCubicCentimeter Type = 'c'<<24 | 'c'<<16 | 'm'<<8 | 't' // 'ccmt'
-	TypeCubicFeet       Type = 'c'<<24 | 'f'<<16 | 'e'<<8 | 't' // 'cfet'
-	TypeCubicInches     Type = 'c'<<24 | 'u'<<16 | 'i'<<8 | 'n' // 'cuin'
-	TypeCubicMeters     Type = 'c'<<24 | 'm'<<16 | 'e'<<8 | 't' // 'cmet'
-	TypeCubicYards      Type = 'c'<<24 | 'y'<<16 | 'r'<<8 | 'd' // 'cyrd'
-	// TypeCurrentContainer: Specifies a container for an element that demarcates one boundary in a range.
-	TypeCurrentContainer Type = 'c'<<24 | 'c'<<16 | 'n'<<8 | 't' // 'ccnt'
-	TypeDashStyle        Type = 't'<<24 | 'd'<<16 | 'a'<<8 | 's' // 'tdas'
-	TypeData             Type = 't'<<24 | 'd'<<16 | 't'<<8 | 'a' // 'tdta'
-	// TypeDecimalStruct: Decimal.
-	TypeDecimalStruct Type = 'd'<<24 | 'e'<<16 | 'c'<<8 | 'm' // 'decm'
-	TypeDegreesC      Type = 'd'<<24 | 'e'<<16 | 'g'<<8 | 'c' // 'degc'
-	TypeDegreesF      Type = 'd'<<24 | 'e'<<16 | 'g'<<8 | 'f' // 'degf'
-	TypeDegreesK      Type = 'd'<<24 | 'e'<<16 | 'g'<<8 | 'k' // 'degk'
-	TypeDrawingArea   Type = 'c'<<24 | 'd'<<16 | 'r'<<8 | 'w' // 'cdrw'
-	TypeEPS           Type = 'E'<<24 | 'P'<<16 | 'S'<<8 | ' ' // 'EPS '
-	TypeElemInfo      Type = 'e'<<24 | 'l'<<16 | 'i'<<8 | 'n' // 'elin'
-	// TypeEncodedString: Styled Unicode text.
-	TypeEncodedString Type = 'e'<<24 | 'n'<<16 | 'c'<<8 | 's' // 'encs'
+	TypeApplicationURL TypeAEList = 'a'<<24 | 'p'<<16 | 'r'<<8 | 'l' // 'aprl'
+	TypeBookmarkData   TypeAEList = 'b'<<24 | 'm'<<16 | 'r'<<8 | 'k' // 'bmrk'
 	// TypeEnumerated: Enumerated data.
-	TypeEnumerated  Type = 'e'<<24 | 'n'<<16 | 'u'<<8 | 'm' // 'enum'
-	TypeEnumeration Type = 'e'<<24 | 'n'<<16 | 'u'<<8 | 'm' // 'enum'
-	TypeEventInfo   Type = 'e'<<24 | 'v'<<16 | 'i'<<8 | 'n' // 'evin'
-	TypeEventRecord Type = 'e'<<24 | 'v'<<16 | 'r'<<8 | 'c' // 'evrc'
+	TypeEnumerated  TypeAEList = 'e'<<24 | 'n'<<16 | 'u'<<8 | 'm' // 'enum'
+	TypeEventRecord TypeAEList = 'e'<<24 | 'v'<<16 | 'r'<<8 | 'c' // 'evrc'
 	// TypeFSRef: File system reference.
-	TypeFSRef Type = 'f'<<24 | 's'<<16 | 'r'<<8 | 'f' // 'fsrf'
+	TypeFSRef TypeAEList = 'f'<<24 | 's'<<16 | 'r'<<8 | 'f' // 'fsrf'
 	// TypeFalse: [FALSE] Boolean value.
-	TypeFalse Type = 'f'<<24 | 'a'<<16 | 'l'<<8 | 's' // 'fals'
-	TypeFeet  Type = 'f'<<24 | 'e'<<16 | 'e'<<8 | 't' // 'feet'
+	TypeFalse TypeAEList = 'f'<<24 | 'a'<<16 | 'l'<<8 | 's' // 'fals'
 	// TypeFileURL: A file URL.
-	TypeFileURL        Type = 'f'<<24 | 'u'<<16 | 'r'<<8 | 'l' // 'furl'
-	TypeFinderWindow   Type = 'f'<<24 | 'w'<<16 | 'i'<<8 | 'n' // 'fwin'
-	TypeFixed          Type = 'f'<<24 | 'i'<<16 | 'x'<<8 | 'd' // 'fixd'
-	TypeFixedPoint     Type = 'f'<<24 | 'p'<<16 | 'n'<<8 | 't' // 'fpnt'
-	TypeFixedRectangle Type = 'f'<<24 | 'r'<<16 | 'c'<<8 | 't' // 'frct'
-	TypeGIF            Type = 'G'<<24 | 'I'<<16 | 'F'<<8 | 'f' // 'GIFf'
-	TypeGallons        Type = 'g'<<24 | 'a'<<16 | 'l'<<8 | 'n' // 'galn'
-	TypeGrams          Type = 'g'<<24 | 'r'<<16 | 'a'<<8 | 'm' // 'gram'
-	TypeGraphicLine    Type = 'g'<<24 | 'l'<<16 | 'i'<<8 | 'n' // 'glin'
-	TypeGraphicText    Type = 'c'<<24 | 'g'<<16 | 't'<<8 | 'x' // 'cgtx'
-	TypeGroupedGraphic Type = 'c'<<24 | 'p'<<16 | 'i'<<8 | 'c' // 'cpic'
-	// TypeIEEE32BitFloatingPoint: 32-bit floating point value.
-	TypeIEEE32BitFloatingPoint Type = 's'<<24 | 'i'<<16 | 'n'<<8 | 'g' // 'sing'
-	// TypeIEEE64BitFloatingPoint: 64-bit floating point value.
-	TypeIEEE64BitFloatingPoint Type = 'd'<<24 | 'o'<<16 | 'u'<<8 | 'b' // 'doub'
-	TypeISO8601DateTime        Type = 'i'<<24 | 's'<<16 | 'o'<<8 | 't' // 'isot'
-	TypeInches                 Type = 'i'<<24 | 'n'<<16 | 'c'<<8 | 'h' // 'inch'
-	// TypeIndexDescriptor: Specifies a descriptor whose data indicates an indexed position within a range of values.
-	TypeIndexDescriptor Type = 'i'<<24 | 'n'<<16 | 'd'<<8 | 'e' // 'inde'
-	TypeInsertionLoc    Type = 'i'<<24 | 'n'<<16 | 's'<<8 | 'l' // 'insl'
-	// TypeIntlText: For important information, see the Version Notes section of the typeUnicodeText enum.
-	TypeIntlText        Type = 'i'<<24 | 't'<<16 | 'x'<<8 | 't' // 'itxt'
-	TypeIntlWritingCode Type = 'i'<<24 | 'n'<<16 | 't'<<8 | 'l' // 'intl'
-	TypeJPEG            Type = 'J'<<24 | 'P'<<16 | 'E'<<8 | 'G' // 'JPEG'
-	// TypeKernelProcessID: Indicates a descriptor containing a UNIX process ID.
-	TypeKernelProcessID Type = 'k'<<24 | 'p'<<16 | 'i'<<8 | 'd' // 'kpid'
+	TypeFileURL TypeAEList = 'f'<<24 | 'u'<<16 | 'r'<<8 | 'l' // 'furl'
+	TypeFixed   TypeAEList = 'f'<<24 | 'i'<<16 | 'x'<<8 | 'd' // 'fixd'
 	// TypeKeyword: Apple event keyword.
-	TypeKeyword    Type = 'k'<<24 | 'e'<<16 | 'y'<<8 | 'w' // 'keyw'
-	TypeKilograms  Type = 'k'<<24 | 'g'<<16 | 'r'<<8 | 'm' // 'kgrm'
-	TypeKilometers Type = 'k'<<24 | 'm'<<16 | 't'<<8 | 'r' // 'kmtr'
-	TypeLiters     Type = 'l'<<24 | 'i'<<16 | 't'<<8 | 'r' // 'litr'
-	// TypeLogicalDescriptor: Specifies a logical descriptor.
-	TypeLogicalDescriptor  Type = 'l'<<24 | 'o'<<16 | 'g'<<8 | 'i' // 'logi'
-	TypeLongDateTime       Type = 'l'<<24 | 'd'<<16 | 't'<<8 | ' ' // 'ldt '
-	TypeLongFixed          Type = 'l'<<24 | 'f'<<16 | 'x'<<8 | 'd' // 'lfxd'
-	TypeLongFixedPoint     Type = 'l'<<24 | 'f'<<16 | 'p'<<8 | 't' // 'lfpt'
-	TypeLongFixedRectangle Type = 'l'<<24 | 'f'<<16 | 'r'<<8 | 'c' // 'lfrc'
-	TypeLongPoint          Type = 'l'<<24 | 'p'<<16 | 'n'<<8 | 't' // 'lpnt'
-	TypeLongRectangle      Type = 'l'<<24 | 'r'<<16 | 'c'<<8 | 't' // 'lrct'
-	// TypeMachPort: Indicates a descriptor that specifies a Mach port.
-	TypeMachPort   Type = 'p'<<24 | 'o'<<16 | 'r'<<8 | 't' // 'port'
-	TypeMachineLoc Type = 'm'<<24 | 'L'<<16 | 'o'<<8 | 'c' // 'mLoc'
-	TypeMeters     Type = 'm'<<24 | 'e'<<16 | 't'<<8 | 'r' // 'metr'
-	TypeMiles      Type = 'm'<<24 | 'i'<<16 | 'l'<<8 | 'e' // 'mile'
+	TypeKeyword TypeAEList = 'k'<<24 | 'e'<<16 | 'y'<<8 | 'w' // 'keyw'
 	// TypeNull: A null data storage pointer.
-	TypeNull Type = 'n'<<24 | 'u'<<16 | 'l'<<8 | 'l' // 'null'
-	// TypeOSLTokenList: Specifies a descriptor whose data consists of a list of tokens.
-	TypeOSLTokenList Type = 'o'<<24 | 's'<<16 | 't'<<8 | 'l' // 'ostl'
-	// TypeObjectBeingExamined: # Discussion
-	TypeObjectBeingExamined Type = 'e'<<24 | 'x'<<16 | 'm'<<8 | 'n' // 'exmn'
-	// TypeObjectSpecifier: Specifies a descriptor used with the `keyAEContainer` keyword in a keyword-specified descriptor.
-	TypeObjectSpecifier Type = 'o'<<24 | 'b'<<16 | 'j'<<8 | ' ' // 'obj '
-	TypeOunces          Type = 'o'<<24 | 'z'<<16 | 's'<<8 | ' ' // 'ozs '
-	TypeOval            Type = 'c'<<24 | 'o'<<16 | 'v'<<8 | 'l' // 'covl'
-	// TypePString: Pascal string—unsigned length byte followed by Mac OS Roman characters.
-	TypePString     Type = 'p'<<24 | 's'<<16 | 't'<<8 | 'r' // 'pstr'
-	TypeParamInfo   Type = 'p'<<24 | 'm'<<16 | 'i'<<8 | 'n' // 'pmin'
-	TypePict        Type = 'P'<<24 | 'I'<<16 | 'C'<<8 | 'T' // 'PICT'
-	TypePixMapMinus Type = 't'<<24 | 'p'<<16 | 'm'<<8 | 'm' // 'tpmm'
-	TypePixelMap    Type = 'c'<<24 | 'p'<<16 | 'i'<<8 | 'x' // 'cpix'
-	TypePolygon     Type = 'c'<<24 | 'p'<<16 | 'g'<<8 | 'n' // 'cpgn'
-	TypePounds      Type = 'l'<<24 | 'b'<<16 | 's'<<8 | ' ' // 'lbs '
+	TypeNull TypeAEList = 'n'<<24 | 'u'<<16 | 'l'<<8 | 'l' // 'null'
 	// TypeProcessSerialNumber: A process serial number.
-	TypeProcessSerialNumber Type = 'p'<<24 | 's'<<16 | 'n'<<8 | ' ' // 'psn '
-	TypePropInfo            Type = 'p'<<24 | 'i'<<16 | 'n'<<8 | 'f' // 'pinf'
+	TypeProcessSerialNumber TypeAEList = 'p'<<24 | 's'<<16 | 'n'<<8 | ' ' // 'psn '
 	// TypeProperty: Apple event object property.
-	TypeProperty    Type = 'p'<<24 | 'r'<<16 | 'o'<<8 | 'p' // 'prop'
-	TypePtr         Type = 'p'<<24 | 't'<<16 | 'r'<<8 | ' ' // 'ptr '
-	TypeQDPoint     Type = 'Q'<<24 | 'D'<<16 | 'p'<<8 | 't' // 'QDpt'
-	TypeQDRectangle Type = 'q'<<24 | 'd'<<16 | 'r'<<8 | 't' // 'qdrt'
-	TypeQDRegion    Type = 'Q'<<24 | 'r'<<16 | 'g'<<8 | 'n' // 'Qrgn'
-	TypeQuarts      Type = 'q'<<24 | 'r'<<16 | 't'<<8 | 's' // 'qrts'
-	TypeRGB16       Type = 't'<<24 | 'r'<<16 | '1'<<8 | '6' // 'tr16'
-	TypeRGB96       Type = 't'<<24 | 'r'<<16 | '9'<<8 | '6' // 'tr96'
-	TypeRGBColor    Type = 'c'<<24 | 'R'<<16 | 'G'<<8 | 'B' // 'cRGB'
-	// TypeRangeDescriptor: # Discussion
-	TypeRangeDescriptor Type = 'r'<<24 | 'a'<<16 | 'n'<<8 | 'g' // 'rang'
-	TypeRectangle       Type = 'c'<<24 | 'r'<<16 | 'e'<<8 | 'c' // 'crec'
-	// TypeRelativeDescriptor: Specifies a descriptor whose data consists of one of the constants `kAENext` or `kAEPrevious`, which are described in AEDisposeToken.
-	TypeRelativeDescriptor Type = 'r'<<24 | 'e'<<16 | 'l'<<8 | ' ' // 'rel '
-	TypeRotation           Type = 't'<<24 | 'r'<<16 | 'o'<<8 | 't' // 'trot'
-	TypeRoundedRectangle   Type = 'c'<<24 | 'r'<<16 | 'r'<<8 | 'c' // 'crrc'
-	TypeRow                Type = 'c'<<24 | 'r'<<16 | 'o'<<8 | 'w' // 'crow'
-	// TypeSInt16: 16-bit signed integer.
-	TypeSInt16 Type = 's'<<24 | 'h'<<16 | 'o'<<8 | 'r' // 'shor'
-	// TypeSInt32: 32-bit signed integer.
-	TypeSInt32 Type = 'l'<<24 | 'o'<<16 | 'n'<<8 | 'g' // 'long'
-	// TypeSInt64: 64-bit signed integer.
-	TypeSInt64      Type = 'c'<<24 | 'o'<<16 | 'm'<<8 | 'p' // 'comp'
-	TypeScrapStyles Type = 's'<<24 | 't'<<16 | 'y'<<8 | 'l' // 'styl'
-	TypeScript      Type = 's'<<24 | 'c'<<16 | 'p'<<8 | 't' // 'scpt'
+	TypeProperty    TypeAEList = 'p'<<24 | 'r'<<16 | 'o'<<8 | 'p' // 'prop'
+	TypeQDRectangle TypeAEList = 'q'<<24 | 'd'<<16 | 'r'<<8 | 't' // 'qdrt'
 	// TypeSectionH: Handle to a section record.
-	TypeSectionH         Type = 's'<<24 | 'e'<<16 | 'c'<<8 | 't' // 'sect'
-	TypeSquareFeet       Type = 's'<<24 | 'q'<<16 | 'f'<<8 | 't' // 'sqft'
-	TypeSquareKilometers Type = 's'<<24 | 'q'<<16 | 'k'<<8 | 'm' // 'sqkm'
-	TypeSquareMeters     Type = 's'<<24 | 'q'<<16 | 'r'<<8 | 'm' // 'sqrm'
-	TypeSquareMiles      Type = 's'<<24 | 'q'<<16 | 'm'<<8 | 'i' // 'sqmi'
-	TypeSquareYards      Type = 's'<<24 | 'q'<<16 | 'y'<<8 | 'd' // 'sqyd'
-	// TypeStyledText: # Discussion
-	TypeStyledText Type = 'S'<<24 | 'T'<<16 | 'X'<<8 | 'T' // 'STXT'
-	// TypeStyledUnicodeText: Styled Unicode text.
-	TypeStyledUnicodeText Type = 's'<<24 | 'u'<<16 | 't'<<8 | 'x' // 'sutx'
-	TypeSuiteInfo         Type = 's'<<24 | 'u'<<16 | 'i'<<8 | 'n' // 'suin'
-	TypeTIFF              Type = 'T'<<24 | 'I'<<16 | 'F'<<8 | 'F' // 'TIFF'
-	TypeTable             Type = 'c'<<24 | 't'<<16 | 'b'<<8 | 'l' // 'ctbl'
-	TypeTextStyles        Type = 't'<<24 | 's'<<16 | 't'<<8 | 'y' // 'tsty'
-	// TypeToken: Specifies a descriptor whose data storage pointer refers to a structure of type AEDisposeToken.
-	TypeToken Type = 't'<<24 | 'o'<<16 | 'k'<<8 | 'e' // 'toke'
+	TypeSectionH TypeAEList = 's'<<24 | 'e'<<16 | 'c'<<8 | 't' // 'sect'
 	// TypeTrue: [TRUE] Boolean value.
-	TypeTrue Type = 't'<<24 | 'r'<<16 | 'u'<<8 | 'e' // 'true'
+	TypeTrue TypeAEList = 't'<<24 | 'r'<<16 | 'u'<<8 | 'e' // 'true'
 	// TypeType: Four-character code for event class or event ID
-	TypeType Type = 't'<<24 | 'y'<<16 | 'p'<<8 | 'e' // 'type'
-	// TypeUInt16: 16-bit unsigned integer.
-	TypeUInt16 Type = 'u'<<24 | 's'<<16 | 'h'<<8 | 'r' // 'ushr'
-	// TypeUInt32: 32-bit unsigned integer.
-	TypeUInt32 Type = 'm'<<24 | 'a'<<16 | 'g'<<8 | 'n' // 'magn'
-	// TypeUInt64: 64-bit unsigned integer.
-	TypeUInt64 Type = 'u'<<24 | 'c'<<16 | 'o'<<8 | 'm' // 'ucom'
-	// TypeUnicodeText: Unicode text.
-	TypeUnicodeText Type = 'u'<<24 | 't'<<16 | 'x'<<8 | 't' // 'utxt'
-	TypeVersion     Type = 'v'<<24 | 'e'<<16 | 'r'<<8 | 's' // 'vers'
+	TypeType TypeAEList = 't'<<24 | 'y'<<16 | 'p'<<8 | 'e' // 'type'
 	// TypeWildCard: Matches any type.
-	TypeWildCard Type = '*'<<24 | '*'<<16 | '*'<<8 | '*' // '****'
-	TypeYards    Type = 'y'<<24 | 'a'<<16 | 'r'<<8 | 'd' // 'yard'
+	TypeWildCard TypeAEList = '*'<<24 | '*'<<16 | '*'<<8 | '*' // '****'
 )
 
-func (e Type) String() string {
+func (e TypeAEList) String() string {
 	switch e {
-	case Type128BitFloatingPoint:
-		return "Type128BitFloatingPoint"
-	case TypeAEList:
-		return "TypeAEList"
+	case TypeAEListValue:
+		return "TypeAEListValue"
 	case TypeAERecord:
 		return "TypeAERecord"
-	case TypeAEText:
-		return "TypeAEText"
-	case TypeAbsoluteOrdinal:
-		return "TypeAbsoluteOrdinal"
 	case TypeAlias:
 		return "TypeAlias"
 	case TypeAppParameters:
@@ -29872,268 +33159,98 @@ func (e Type) String() string {
 		return "TypeAppleEvent"
 	case TypeApplicationURL:
 		return "TypeApplicationURL"
-	case TypeArc:
-		return "TypeArc"
-	case TypeBest:
-		return "TypeBest"
 	case TypeBookmarkData:
 		return "TypeBookmarkData"
-	case TypeBoolean:
-		return "TypeBoolean"
-	case TypeCFAbsoluteTime:
-		return "TypeCFAbsoluteTime"
-	case TypeCString:
-		return "TypeCString"
-	case TypeCell:
-		return "TypeCell"
-	case TypeCentimeters:
-		return "TypeCentimeters"
-	case TypeChar:
-		return "TypeChar"
-	case TypeClassInfo:
-		return "TypeClassInfo"
-	case TypeColorTable:
-		return "TypeColorTable"
-	case TypeColumn:
-		return "TypeColumn"
-	case TypeCompDescriptor:
-		return "TypeCompDescriptor"
-	case TypeCubicCentimeter:
-		return "TypeCubicCentimeter"
-	case TypeCubicFeet:
-		return "TypeCubicFeet"
-	case TypeCubicInches:
-		return "TypeCubicInches"
-	case TypeCubicMeters:
-		return "TypeCubicMeters"
-	case TypeCubicYards:
-		return "TypeCubicYards"
-	case TypeCurrentContainer:
-		return "TypeCurrentContainer"
-	case TypeDashStyle:
-		return "TypeDashStyle"
-	case TypeData:
-		return "TypeData"
-	case TypeDecimalStruct:
-		return "TypeDecimalStruct"
-	case TypeDegreesC:
-		return "TypeDegreesC"
-	case TypeDegreesF:
-		return "TypeDegreesF"
-	case TypeDegreesK:
-		return "TypeDegreesK"
-	case TypeDrawingArea:
-		return "TypeDrawingArea"
-	case TypeEPS:
-		return "TypeEPS"
-	case TypeElemInfo:
-		return "TypeElemInfo"
-	case TypeEncodedString:
-		return "TypeEncodedString"
 	case TypeEnumerated:
 		return "TypeEnumerated"
-	case TypeEventInfo:
-		return "TypeEventInfo"
 	case TypeEventRecord:
 		return "TypeEventRecord"
 	case TypeFSRef:
 		return "TypeFSRef"
 	case TypeFalse:
 		return "TypeFalse"
-	case TypeFeet:
-		return "TypeFeet"
 	case TypeFileURL:
 		return "TypeFileURL"
-	case TypeFinderWindow:
-		return "TypeFinderWindow"
 	case TypeFixed:
 		return "TypeFixed"
-	case TypeFixedPoint:
-		return "TypeFixedPoint"
-	case TypeFixedRectangle:
-		return "TypeFixedRectangle"
-	case TypeGIF:
-		return "TypeGIF"
-	case TypeGallons:
-		return "TypeGallons"
-	case TypeGrams:
-		return "TypeGrams"
-	case TypeGraphicLine:
-		return "TypeGraphicLine"
-	case TypeGraphicText:
-		return "TypeGraphicText"
-	case TypeGroupedGraphic:
-		return "TypeGroupedGraphic"
-	case TypeIEEE32BitFloatingPoint:
-		return "TypeIEEE32BitFloatingPoint"
-	case TypeIEEE64BitFloatingPoint:
-		return "TypeIEEE64BitFloatingPoint"
-	case TypeISO8601DateTime:
-		return "TypeISO8601DateTime"
-	case TypeInches:
-		return "TypeInches"
-	case TypeIndexDescriptor:
-		return "TypeIndexDescriptor"
-	case TypeInsertionLoc:
-		return "TypeInsertionLoc"
-	case TypeIntlText:
-		return "TypeIntlText"
-	case TypeIntlWritingCode:
-		return "TypeIntlWritingCode"
-	case TypeJPEG:
-		return "TypeJPEG"
-	case TypeKernelProcessID:
-		return "TypeKernelProcessID"
 	case TypeKeyword:
 		return "TypeKeyword"
-	case TypeKilograms:
-		return "TypeKilograms"
-	case TypeKilometers:
-		return "TypeKilometers"
-	case TypeLiters:
-		return "TypeLiters"
-	case TypeLogicalDescriptor:
-		return "TypeLogicalDescriptor"
-	case TypeLongDateTime:
-		return "TypeLongDateTime"
-	case TypeLongFixed:
-		return "TypeLongFixed"
-	case TypeLongFixedPoint:
-		return "TypeLongFixedPoint"
-	case TypeLongFixedRectangle:
-		return "TypeLongFixedRectangle"
-	case TypeLongPoint:
-		return "TypeLongPoint"
-	case TypeLongRectangle:
-		return "TypeLongRectangle"
-	case TypeMachPort:
-		return "TypeMachPort"
-	case TypeMachineLoc:
-		return "TypeMachineLoc"
-	case TypeMeters:
-		return "TypeMeters"
-	case TypeMiles:
-		return "TypeMiles"
 	case TypeNull:
 		return "TypeNull"
-	case TypeOSLTokenList:
-		return "TypeOSLTokenList"
-	case TypeObjectBeingExamined:
-		return "TypeObjectBeingExamined"
-	case TypeObjectSpecifier:
-		return "TypeObjectSpecifier"
-	case TypeOunces:
-		return "TypeOunces"
-	case TypeOval:
-		return "TypeOval"
-	case TypePString:
-		return "TypePString"
-	case TypeParamInfo:
-		return "TypeParamInfo"
-	case TypePict:
-		return "TypePict"
-	case TypePixMapMinus:
-		return "TypePixMapMinus"
-	case TypePixelMap:
-		return "TypePixelMap"
-	case TypePolygon:
-		return "TypePolygon"
-	case TypePounds:
-		return "TypePounds"
 	case TypeProcessSerialNumber:
 		return "TypeProcessSerialNumber"
-	case TypePropInfo:
-		return "TypePropInfo"
 	case TypeProperty:
 		return "TypeProperty"
-	case TypePtr:
-		return "TypePtr"
-	case TypeQDPoint:
-		return "TypeQDPoint"
 	case TypeQDRectangle:
 		return "TypeQDRectangle"
-	case TypeQDRegion:
-		return "TypeQDRegion"
-	case TypeQuarts:
-		return "TypeQuarts"
-	case TypeRGB16:
-		return "TypeRGB16"
-	case TypeRGB96:
-		return "TypeRGB96"
-	case TypeRGBColor:
-		return "TypeRGBColor"
-	case TypeRangeDescriptor:
-		return "TypeRangeDescriptor"
-	case TypeRectangle:
-		return "TypeRectangle"
-	case TypeRelativeDescriptor:
-		return "TypeRelativeDescriptor"
-	case TypeRotation:
-		return "TypeRotation"
-	case TypeRoundedRectangle:
-		return "TypeRoundedRectangle"
-	case TypeRow:
-		return "TypeRow"
-	case TypeSInt16:
-		return "TypeSInt16"
-	case TypeSInt32:
-		return "TypeSInt32"
-	case TypeSInt64:
-		return "TypeSInt64"
-	case TypeScrapStyles:
-		return "TypeScrapStyles"
-	case TypeScript:
-		return "TypeScript"
 	case TypeSectionH:
 		return "TypeSectionH"
-	case TypeSquareFeet:
-		return "TypeSquareFeet"
-	case TypeSquareKilometers:
-		return "TypeSquareKilometers"
-	case TypeSquareMeters:
-		return "TypeSquareMeters"
-	case TypeSquareMiles:
-		return "TypeSquareMiles"
-	case TypeSquareYards:
-		return "TypeSquareYards"
-	case TypeStyledText:
-		return "TypeStyledText"
-	case TypeStyledUnicodeText:
-		return "TypeStyledUnicodeText"
-	case TypeSuiteInfo:
-		return "TypeSuiteInfo"
-	case TypeTIFF:
-		return "TypeTIFF"
-	case TypeTable:
-		return "TypeTable"
-	case TypeTextStyles:
-		return "TypeTextStyles"
-	case TypeToken:
-		return "TypeToken"
 	case TypeTrue:
 		return "TypeTrue"
 	case TypeType:
 		return "TypeType"
-	case TypeUInt16:
-		return "TypeUInt16"
-	case TypeUInt32:
-		return "TypeUInt32"
-	case TypeUInt64:
-		return "TypeUInt64"
-	case TypeUnicodeText:
-		return "TypeUnicodeText"
-	case TypeVersion:
-		return "TypeVersion"
 	case TypeWildCard:
 		return "TypeWildCard"
-	case TypeYards:
-		return "TypeYards"
 	default:
-		return fmt.Sprintf("Type(%d)", e)
+		return fmt.Sprintf("TypeAEList(%d)", e)
 	}
 }
 
-type TypeApplicationBundleI uint
+type TypeAEText uint32
+
+const (
+	TypeAETextValue TypeAEText = 't'<<24 | 'T'<<16 | 'X'<<8 | 'T' // 'tTXT'
+	TypeArc         TypeAEText = 'c'<<24 | 'a'<<16 | 'r'<<8 | 'c' // 'carc'
+	TypeBest        TypeAEText = 'b'<<24 | 'e'<<16 | 's'<<8 | 't' // 'best'
+	TypeCell        TypeAEText = 'c'<<24 | 'c'<<16 | 'e'<<8 | 'l' // 'ccel'
+	TypeClassInfo   TypeAEText = 'g'<<24 | 'c'<<16 | 'l'<<8 | 'i' // 'gcli'
+	TypeColorTable  TypeAEText = 'c'<<24 | 'l'<<16 | 'r'<<8 | 't' // 'clrt'
+	TypeColumn      TypeAEText = 'c'<<24 | 'c'<<16 | 'o'<<8 | 'l' // 'ccol'
+	TypeDashStyle   TypeAEText = 't'<<24 | 'd'<<16 | 'a'<<8 | 's' // 'tdas'
+	TypeData        TypeAEText = 't'<<24 | 'd'<<16 | 't'<<8 | 'a' // 'tdta'
+	TypeDrawingArea TypeAEText = 'c'<<24 | 'd'<<16 | 'r'<<8 | 'w' // 'cdrw'
+	TypeEPS         TypeAEText = 'E'<<24 | 'P'<<16 | 'S'<<8 | ' ' // 'EPS '
+	TypeElemInfo    TypeAEText = 'e'<<24 | 'l'<<16 | 'i'<<8 | 'n' // 'elin'
+	TypeEnumeration TypeAEText = 'e'<<24 | 'n'<<16 | 'u'<<8 | 'm' // 'enum'
+	TypeEventInfo   TypeAEText = 'e'<<24 | 'v'<<16 | 'i'<<8 | 'n' // 'evin'
+)
+
+func (e TypeAEText) String() string {
+	switch e {
+	case TypeAETextValue:
+		return "TypeAETextValue"
+	case TypeArc:
+		return "TypeArc"
+	case TypeBest:
+		return "TypeBest"
+	case TypeCell:
+		return "TypeCell"
+	case TypeClassInfo:
+		return "TypeClassInfo"
+	case TypeColorTable:
+		return "TypeColorTable"
+	case TypeColumn:
+		return "TypeColumn"
+	case TypeDashStyle:
+		return "TypeDashStyle"
+	case TypeData:
+		return "TypeData"
+	case TypeDrawingArea:
+		return "TypeDrawingArea"
+	case TypeEPS:
+		return "TypeEPS"
+	case TypeElemInfo:
+		return "TypeElemInfo"
+	case TypeEnumeration:
+		return "TypeEnumeration"
+	case TypeEventInfo:
+		return "TypeEventInfo"
+	default:
+		return fmt.Sprintf("TypeAEText(%d)", e)
+	}
+}
+
+type TypeApplicationBundleI uint32
 
 const (
 	// TypeApplicationBundleID: Indicates a descriptor containing UTF-8 characters that specify the bundle ID of an application.
@@ -30149,7 +33266,7 @@ func (e TypeApplicationBundleI) String() string {
 	}
 }
 
-type TypeAudit uint
+type TypeAudit uint32
 
 const (
 	TypeAuditToken TypeAudit = 't'<<24 | 'o'<<16 | 'k'<<8 | 'n' // 'tokn'
@@ -30164,7 +33281,27 @@ func (e TypeAudit) String() string {
 	}
 }
 
-type TypeCF uint
+type TypeBoolean uint32
+
+const (
+	// TypeBooleanValue: Boolean value—single byte with value 0 or 1.
+	TypeBooleanValue TypeBoolean = 'b'<<24 | 'o'<<16 | 'o'<<8 | 'l' // 'bool'
+	// TypeChar: # Discussion
+	TypeChar TypeBoolean = 'T'<<24 | 'E'<<16 | 'X'<<8 | 'T' // 'TEXT'
+)
+
+func (e TypeBoolean) String() string {
+	switch e {
+	case TypeBooleanValue:
+		return "TypeBooleanValue"
+	case TypeChar:
+		return "TypeChar"
+	default:
+		return fmt.Sprintf("TypeBoolean(%d)", e)
+	}
+}
+
+type TypeCF uint32
 
 const (
 	TypeCFArrayRef                   TypeCF = 'c'<<24 | 'f'<<16 | 'a'<<8 | 'r' // 'cfar'
@@ -30209,7 +33346,83 @@ func (e TypeCF) String() string {
 	}
 }
 
-type TypeHI uint
+type TypeFinderWindow uint32
+
+const (
+	TypeCFAbsoluteTime    TypeFinderWindow = 'c'<<24 | 'f'<<16 | 'a'<<8 | 't' // 'cfat'
+	TypeFinderWindowValue TypeFinderWindow = 'f'<<24 | 'w'<<16 | 'i'<<8 | 'n' // 'fwin'
+	TypeFixedPoint        TypeFinderWindow = 'f'<<24 | 'p'<<16 | 'n'<<8 | 't' // 'fpnt'
+	TypeFixedRectangle    TypeFinderWindow = 'f'<<24 | 'r'<<16 | 'c'<<8 | 't' // 'frct'
+	TypeGraphicLine       TypeFinderWindow = 'g'<<24 | 'l'<<16 | 'i'<<8 | 'n' // 'glin'
+	TypeGraphicText       TypeFinderWindow = 'c'<<24 | 'g'<<16 | 't'<<8 | 'x' // 'cgtx'
+	TypeGroupedGraphic    TypeFinderWindow = 'c'<<24 | 'p'<<16 | 'i'<<8 | 'c' // 'cpic'
+	TypeISO8601DateTime   TypeFinderWindow = 'i'<<24 | 's'<<16 | 'o'<<8 | 't' // 'isot'
+	TypeInsertionLoc      TypeFinderWindow = 'i'<<24 | 'n'<<16 | 's'<<8 | 'l' // 'insl'
+	// TypeIntlText: For important information, see the Version Notes section of the typeUnicodeText enum.
+	TypeIntlText           TypeFinderWindow = 'i'<<24 | 't'<<16 | 'x'<<8 | 't' // 'itxt'
+	TypeIntlWritingCode    TypeFinderWindow = 'i'<<24 | 'n'<<16 | 't'<<8 | 'l' // 'intl'
+	TypeLongDateTime       TypeFinderWindow = 'l'<<24 | 'd'<<16 | 't'<<8 | ' ' // 'ldt '
+	TypeLongFixed          TypeFinderWindow = 'l'<<24 | 'f'<<16 | 'x'<<8 | 'd' // 'lfxd'
+	TypeLongFixedPoint     TypeFinderWindow = 'l'<<24 | 'f'<<16 | 'p'<<8 | 't' // 'lfpt'
+	TypeLongFixedRectangle TypeFinderWindow = 'l'<<24 | 'f'<<16 | 'r'<<8 | 'c' // 'lfrc'
+	TypeLongPoint          TypeFinderWindow = 'l'<<24 | 'p'<<16 | 'n'<<8 | 't' // 'lpnt'
+	TypeLongRectangle      TypeFinderWindow = 'l'<<24 | 'r'<<16 | 'c'<<8 | 't' // 'lrct'
+	TypeMachineLoc         TypeFinderWindow = 'm'<<24 | 'L'<<16 | 'o'<<8 | 'c' // 'mLoc'
+	TypeOval               TypeFinderWindow = 'c'<<24 | 'o'<<16 | 'v'<<8 | 'l' // 'covl'
+	TypeParamInfo          TypeFinderWindow = 'p'<<24 | 'm'<<16 | 'i'<<8 | 'n' // 'pmin'
+	TypePict               TypeFinderWindow = 'P'<<24 | 'I'<<16 | 'C'<<8 | 'T' // 'PICT'
+)
+
+func (e TypeFinderWindow) String() string {
+	switch e {
+	case TypeCFAbsoluteTime:
+		return "TypeCFAbsoluteTime"
+	case TypeFinderWindowValue:
+		return "TypeFinderWindowValue"
+	case TypeFixedPoint:
+		return "TypeFixedPoint"
+	case TypeFixedRectangle:
+		return "TypeFixedRectangle"
+	case TypeGraphicLine:
+		return "TypeGraphicLine"
+	case TypeGraphicText:
+		return "TypeGraphicText"
+	case TypeGroupedGraphic:
+		return "TypeGroupedGraphic"
+	case TypeISO8601DateTime:
+		return "TypeISO8601DateTime"
+	case TypeInsertionLoc:
+		return "TypeInsertionLoc"
+	case TypeIntlText:
+		return "TypeIntlText"
+	case TypeIntlWritingCode:
+		return "TypeIntlWritingCode"
+	case TypeLongDateTime:
+		return "TypeLongDateTime"
+	case TypeLongFixed:
+		return "TypeLongFixed"
+	case TypeLongFixedPoint:
+		return "TypeLongFixedPoint"
+	case TypeLongFixedRectangle:
+		return "TypeLongFixedRectangle"
+	case TypeLongPoint:
+		return "TypeLongPoint"
+	case TypeLongRectangle:
+		return "TypeLongRectangle"
+	case TypeMachineLoc:
+		return "TypeMachineLoc"
+	case TypeOval:
+		return "TypeOval"
+	case TypeParamInfo:
+		return "TypeParamInfo"
+	case TypePict:
+		return "TypePict"
+	default:
+		return fmt.Sprintf("TypeFinderWindow(%d)", e)
+	}
+}
+
+type TypeHI uint32
 
 const (
 	TypeHIMenu   TypeHI = 'm'<<24 | 'o'<<16 | 'b'<<8 | 'j' // 'mobj'
@@ -30227,7 +33440,249 @@ func (e TypeHI) String() string {
 	}
 }
 
-type TypeReplyPort uint
+type TypeKernelProcessID uint32
+
+const (
+	// TypeKernelProcessIDValue: Indicates a descriptor containing a UNIX process ID.
+	TypeKernelProcessIDValue TypeKernelProcessID = 'k'<<24 | 'p'<<16 | 'i'<<8 | 'd' // 'kpid'
+	// TypeMachPort: Indicates a descriptor that specifies a Mach port.
+	TypeMachPort TypeKernelProcessID = 'p'<<24 | 'o'<<16 | 'r'<<8 | 't' // 'port'
+)
+
+func (e TypeKernelProcessID) String() string {
+	switch e {
+	case TypeKernelProcessIDValue:
+		return "TypeKernelProcessIDValue"
+	case TypeMachPort:
+		return "TypeMachPort"
+	default:
+		return fmt.Sprintf("TypeKernelProcessID(%d)", e)
+	}
+}
+
+type TypeMeters uint32
+
+const (
+	TypeCentimeters      TypeMeters = 'c'<<24 | 'm'<<16 | 't'<<8 | 'r' // 'cmtr'
+	TypeCubicCentimeter  TypeMeters = 'c'<<24 | 'c'<<16 | 'm'<<8 | 't' // 'ccmt'
+	TypeCubicFeet        TypeMeters = 'c'<<24 | 'f'<<16 | 'e'<<8 | 't' // 'cfet'
+	TypeCubicInches      TypeMeters = 'c'<<24 | 'u'<<16 | 'i'<<8 | 'n' // 'cuin'
+	TypeCubicMeters      TypeMeters = 'c'<<24 | 'm'<<16 | 'e'<<8 | 't' // 'cmet'
+	TypeCubicYards       TypeMeters = 'c'<<24 | 'y'<<16 | 'r'<<8 | 'd' // 'cyrd'
+	TypeDegreesC         TypeMeters = 'd'<<24 | 'e'<<16 | 'g'<<8 | 'c' // 'degc'
+	TypeDegreesF         TypeMeters = 'd'<<24 | 'e'<<16 | 'g'<<8 | 'f' // 'degf'
+	TypeDegreesK         TypeMeters = 'd'<<24 | 'e'<<16 | 'g'<<8 | 'k' // 'degk'
+	TypeFeet             TypeMeters = 'f'<<24 | 'e'<<16 | 'e'<<8 | 't' // 'feet'
+	TypeGallons          TypeMeters = 'g'<<24 | 'a'<<16 | 'l'<<8 | 'n' // 'galn'
+	TypeGrams            TypeMeters = 'g'<<24 | 'r'<<16 | 'a'<<8 | 'm' // 'gram'
+	TypeInches           TypeMeters = 'i'<<24 | 'n'<<16 | 'c'<<8 | 'h' // 'inch'
+	TypeKilograms        TypeMeters = 'k'<<24 | 'g'<<16 | 'r'<<8 | 'm' // 'kgrm'
+	TypeKilometers       TypeMeters = 'k'<<24 | 'm'<<16 | 't'<<8 | 'r' // 'kmtr'
+	TypeLiters           TypeMeters = 'l'<<24 | 'i'<<16 | 't'<<8 | 'r' // 'litr'
+	TypeMetersValue      TypeMeters = 'm'<<24 | 'e'<<16 | 't'<<8 | 'r' // 'metr'
+	TypeMiles            TypeMeters = 'm'<<24 | 'i'<<16 | 'l'<<8 | 'e' // 'mile'
+	TypeOunces           TypeMeters = 'o'<<24 | 'z'<<16 | 's'<<8 | ' ' // 'ozs '
+	TypePounds           TypeMeters = 'l'<<24 | 'b'<<16 | 's'<<8 | ' ' // 'lbs '
+	TypeQuarts           TypeMeters = 'q'<<24 | 'r'<<16 | 't'<<8 | 's' // 'qrts'
+	TypeSquareFeet       TypeMeters = 's'<<24 | 'q'<<16 | 'f'<<8 | 't' // 'sqft'
+	TypeSquareKilometers TypeMeters = 's'<<24 | 'q'<<16 | 'k'<<8 | 'm' // 'sqkm'
+	TypeSquareMeters     TypeMeters = 's'<<24 | 'q'<<16 | 'r'<<8 | 'm' // 'sqrm'
+	TypeSquareMiles      TypeMeters = 's'<<24 | 'q'<<16 | 'm'<<8 | 'i' // 'sqmi'
+	TypeSquareYards      TypeMeters = 's'<<24 | 'q'<<16 | 'y'<<8 | 'd' // 'sqyd'
+	TypeYards            TypeMeters = 'y'<<24 | 'a'<<16 | 'r'<<8 | 'd' // 'yard'
+)
+
+func (e TypeMeters) String() string {
+	switch e {
+	case TypeCentimeters:
+		return "TypeCentimeters"
+	case TypeCubicCentimeter:
+		return "TypeCubicCentimeter"
+	case TypeCubicFeet:
+		return "TypeCubicFeet"
+	case TypeCubicInches:
+		return "TypeCubicInches"
+	case TypeCubicMeters:
+		return "TypeCubicMeters"
+	case TypeCubicYards:
+		return "TypeCubicYards"
+	case TypeDegreesC:
+		return "TypeDegreesC"
+	case TypeDegreesF:
+		return "TypeDegreesF"
+	case TypeDegreesK:
+		return "TypeDegreesK"
+	case TypeFeet:
+		return "TypeFeet"
+	case TypeGallons:
+		return "TypeGallons"
+	case TypeGrams:
+		return "TypeGrams"
+	case TypeInches:
+		return "TypeInches"
+	case TypeKilograms:
+		return "TypeKilograms"
+	case TypeKilometers:
+		return "TypeKilometers"
+	case TypeLiters:
+		return "TypeLiters"
+	case TypeMetersValue:
+		return "TypeMetersValue"
+	case TypeMiles:
+		return "TypeMiles"
+	case TypeOunces:
+		return "TypeOunces"
+	case TypePounds:
+		return "TypePounds"
+	case TypeQuarts:
+		return "TypeQuarts"
+	case TypeSquareFeet:
+		return "TypeSquareFeet"
+	case TypeSquareKilometers:
+		return "TypeSquareKilometers"
+	case TypeSquareMeters:
+		return "TypeSquareMeters"
+	case TypeSquareMiles:
+		return "TypeSquareMiles"
+	case TypeSquareYards:
+		return "TypeSquareYards"
+	case TypeYards:
+		return "TypeYards"
+	default:
+		return fmt.Sprintf("TypeMeters(%d)", e)
+	}
+}
+
+type TypeObjectSpecifier uint32
+
+const (
+	// TypeAbsoluteOrdinal: Specifies a descriptor whose data consists of one of the constants `kAEFirst`, `kAEMiddle`, `kAELast`, `kAEAny`, or `kAEAll`, which are described in AEDisposeToken.
+	TypeAbsoluteOrdinal TypeObjectSpecifier = 'a'<<24 | 'b'<<16 | 's'<<8 | 'o' // 'abso'
+	// TypeCompDescriptor: Specifies a comparison descriptor.
+	TypeCompDescriptor TypeObjectSpecifier = 'c'<<24 | 'm'<<16 | 'p'<<8 | 'd' // 'cmpd'
+	// TypeCurrentContainer: Specifies a container for an element that demarcates one boundary in a range.
+	TypeCurrentContainer TypeObjectSpecifier = 'c'<<24 | 'c'<<16 | 'n'<<8 | 't' // 'ccnt'
+	// TypeIndexDescriptor: Specifies a descriptor whose data indicates an indexed position within a range of values.
+	TypeIndexDescriptor TypeObjectSpecifier = 'i'<<24 | 'n'<<16 | 'd'<<8 | 'e' // 'inde'
+	// TypeLogicalDescriptor: Specifies a logical descriptor.
+	TypeLogicalDescriptor TypeObjectSpecifier = 'l'<<24 | 'o'<<16 | 'g'<<8 | 'i' // 'logi'
+	// TypeOSLTokenList: Specifies a descriptor whose data consists of a list of tokens.
+	TypeOSLTokenList TypeObjectSpecifier = 'o'<<24 | 's'<<16 | 't'<<8 | 'l' // 'ostl'
+	// TypeObjectBeingExamined: # Discussion
+	TypeObjectBeingExamined TypeObjectSpecifier = 'e'<<24 | 'x'<<16 | 'm'<<8 | 'n' // 'exmn'
+	// TypeObjectSpecifierValue: Specifies a descriptor used with the `keyAEContainer` keyword in a keyword-specified descriptor.
+	TypeObjectSpecifierValue TypeObjectSpecifier = 'o'<<24 | 'b'<<16 | 'j'<<8 | ' ' // 'obj '
+	// TypeRangeDescriptor: # Discussion
+	TypeRangeDescriptor TypeObjectSpecifier = 'r'<<24 | 'a'<<16 | 'n'<<8 | 'g' // 'rang'
+	// TypeRelativeDescriptor: Specifies a descriptor whose data consists of one of the constants `kAENext` or `kAEPrevious`, which are described in AEDisposeToken.
+	TypeRelativeDescriptor TypeObjectSpecifier = 'r'<<24 | 'e'<<16 | 'l'<<8 | ' ' // 'rel '
+	// TypeToken: Specifies a descriptor whose data storage pointer refers to a structure of type AEDisposeToken.
+	TypeToken TypeObjectSpecifier = 't'<<24 | 'o'<<16 | 'k'<<8 | 'e' // 'toke'
+)
+
+func (e TypeObjectSpecifier) String() string {
+	switch e {
+	case TypeAbsoluteOrdinal:
+		return "TypeAbsoluteOrdinal"
+	case TypeCompDescriptor:
+		return "TypeCompDescriptor"
+	case TypeCurrentContainer:
+		return "TypeCurrentContainer"
+	case TypeIndexDescriptor:
+		return "TypeIndexDescriptor"
+	case TypeLogicalDescriptor:
+		return "TypeLogicalDescriptor"
+	case TypeOSLTokenList:
+		return "TypeOSLTokenList"
+	case TypeObjectBeingExamined:
+		return "TypeObjectBeingExamined"
+	case TypeObjectSpecifierValue:
+		return "TypeObjectSpecifierValue"
+	case TypeRangeDescriptor:
+		return "TypeRangeDescriptor"
+	case TypeRelativeDescriptor:
+		return "TypeRelativeDescriptor"
+	case TypeToken:
+		return "TypeToken"
+	default:
+		return fmt.Sprintf("TypeObjectSpecifier(%d)", e)
+	}
+}
+
+type TypePixelMap uint32
+
+const (
+	TypePixMapMinus      TypePixelMap = 't'<<24 | 'p'<<16 | 'm'<<8 | 'm' // 'tpmm'
+	TypePixelMapValue    TypePixelMap = 'c'<<24 | 'p'<<16 | 'i'<<8 | 'x' // 'cpix'
+	TypePolygon          TypePixelMap = 'c'<<24 | 'p'<<16 | 'g'<<8 | 'n' // 'cpgn'
+	TypePropInfo         TypePixelMap = 'p'<<24 | 'i'<<16 | 'n'<<8 | 'f' // 'pinf'
+	TypePtr              TypePixelMap = 'p'<<24 | 't'<<16 | 'r'<<8 | ' ' // 'ptr '
+	TypeQDPoint          TypePixelMap = 'Q'<<24 | 'D'<<16 | 'p'<<8 | 't' // 'QDpt'
+	TypeQDRegion         TypePixelMap = 'Q'<<24 | 'r'<<16 | 'g'<<8 | 'n' // 'Qrgn'
+	TypeRGB16            TypePixelMap = 't'<<24 | 'r'<<16 | '1'<<8 | '6' // 'tr16'
+	TypeRGB96            TypePixelMap = 't'<<24 | 'r'<<16 | '9'<<8 | '6' // 'tr96'
+	TypeRGBColor         TypePixelMap = 'c'<<24 | 'R'<<16 | 'G'<<8 | 'B' // 'cRGB'
+	TypeRectangle        TypePixelMap = 'c'<<24 | 'r'<<16 | 'e'<<8 | 'c' // 'crec'
+	TypeRotation         TypePixelMap = 't'<<24 | 'r'<<16 | 'o'<<8 | 't' // 'trot'
+	TypeRoundedRectangle TypePixelMap = 'c'<<24 | 'r'<<16 | 'r'<<8 | 'c' // 'crrc'
+	TypeRow              TypePixelMap = 'c'<<24 | 'r'<<16 | 'o'<<8 | 'w' // 'crow'
+	TypeScrapStyles      TypePixelMap = 's'<<24 | 't'<<16 | 'y'<<8 | 'l' // 'styl'
+	TypeScript           TypePixelMap = 's'<<24 | 'c'<<16 | 'p'<<8 | 't' // 'scpt'
+	// TypeStyledText: # Discussion
+	TypeStyledText TypePixelMap = 'S'<<24 | 'T'<<16 | 'X'<<8 | 'T' // 'STXT'
+	TypeSuiteInfo  TypePixelMap = 's'<<24 | 'u'<<16 | 'i'<<8 | 'n' // 'suin'
+	TypeTable      TypePixelMap = 'c'<<24 | 't'<<16 | 'b'<<8 | 'l' // 'ctbl'
+	TypeTextStyles TypePixelMap = 't'<<24 | 's'<<16 | 't'<<8 | 'y' // 'tsty'
+)
+
+func (e TypePixelMap) String() string {
+	switch e {
+	case TypePixMapMinus:
+		return "TypePixMapMinus"
+	case TypePixelMapValue:
+		return "TypePixelMapValue"
+	case TypePolygon:
+		return "TypePolygon"
+	case TypePropInfo:
+		return "TypePropInfo"
+	case TypePtr:
+		return "TypePtr"
+	case TypeQDPoint:
+		return "TypeQDPoint"
+	case TypeQDRegion:
+		return "TypeQDRegion"
+	case TypeRGB16:
+		return "TypeRGB16"
+	case TypeRGB96:
+		return "TypeRGB96"
+	case TypeRGBColor:
+		return "TypeRGBColor"
+	case TypeRectangle:
+		return "TypeRectangle"
+	case TypeRotation:
+		return "TypeRotation"
+	case TypeRoundedRectangle:
+		return "TypeRoundedRectangle"
+	case TypeRow:
+		return "TypeRow"
+	case TypeScrapStyles:
+		return "TypeScrapStyles"
+	case TypeScript:
+		return "TypeScript"
+	case TypeStyledText:
+		return "TypeStyledText"
+	case TypeSuiteInfo:
+		return "TypeSuiteInfo"
+	case TypeTable:
+		return "TypeTable"
+	case TypeTextStyles:
+		return "TypeTextStyles"
+	default:
+		return fmt.Sprintf("TypePixelMap(%d)", e)
+	}
+}
+
+type TypeReplyPort uint32
 
 const (
 	TypeReplyPortAttr TypeReplyPort = 'r'<<24 | 'e'<<16 | 'p'<<8 | 'p' // 'repp'
@@ -30242,7 +33697,115 @@ func (e TypeReplyPort) String() string {
 	}
 }
 
-type TypeUT uint
+type TypeSInt16 uint32
+
+const (
+	// Type128BitFloatingPoint: 128-bit floating point value.
+	Type128BitFloatingPoint TypeSInt16 = 'l'<<24 | 'd'<<16 | 'b'<<8 | 'l' // 'ldbl'
+	// TypeDecimalStruct: Decimal.
+	TypeDecimalStruct TypeSInt16 = 'd'<<24 | 'e'<<16 | 'c'<<8 | 'm' // 'decm'
+	// TypeIEEE32BitFloatingPoint: 32-bit floating point value.
+	TypeIEEE32BitFloatingPoint TypeSInt16 = 's'<<24 | 'i'<<16 | 'n'<<8 | 'g' // 'sing'
+	// TypeIEEE64BitFloatingPoint: 64-bit floating point value.
+	TypeIEEE64BitFloatingPoint TypeSInt16 = 'd'<<24 | 'o'<<16 | 'u'<<8 | 'b' // 'doub'
+	// TypeSInt16Value: 16-bit signed integer.
+	TypeSInt16Value TypeSInt16 = 's'<<24 | 'h'<<16 | 'o'<<8 | 'r' // 'shor'
+	// TypeSInt32: 32-bit signed integer.
+	TypeSInt32 TypeSInt16 = 'l'<<24 | 'o'<<16 | 'n'<<8 | 'g' // 'long'
+	// TypeSInt64: 64-bit signed integer.
+	TypeSInt64 TypeSInt16 = 'c'<<24 | 'o'<<16 | 'm'<<8 | 'p' // 'comp'
+	// TypeUInt16: 16-bit unsigned integer.
+	TypeUInt16 TypeSInt16 = 'u'<<24 | 's'<<16 | 'h'<<8 | 'r' // 'ushr'
+	// TypeUInt32: 32-bit unsigned integer.
+	TypeUInt32 TypeSInt16 = 'm'<<24 | 'a'<<16 | 'g'<<8 | 'n' // 'magn'
+	// TypeUInt64: 64-bit unsigned integer.
+	TypeUInt64 TypeSInt16 = 'u'<<24 | 'c'<<16 | 'o'<<8 | 'm' // 'ucom'
+)
+
+func (e TypeSInt16) String() string {
+	switch e {
+	case Type128BitFloatingPoint:
+		return "Type128BitFloatingPoint"
+	case TypeDecimalStruct:
+		return "TypeDecimalStruct"
+	case TypeIEEE32BitFloatingPoint:
+		return "TypeIEEE32BitFloatingPoint"
+	case TypeIEEE64BitFloatingPoint:
+		return "TypeIEEE64BitFloatingPoint"
+	case TypeSInt16Value:
+		return "TypeSInt16Value"
+	case TypeSInt32:
+		return "TypeSInt32"
+	case TypeSInt64:
+		return "TypeSInt64"
+	case TypeUInt16:
+		return "TypeUInt16"
+	case TypeUInt32:
+		return "TypeUInt32"
+	case TypeUInt64:
+		return "TypeUInt64"
+	default:
+		return fmt.Sprintf("TypeSInt16(%d)", e)
+	}
+}
+
+type TypeStyledUnicodeText uint32
+
+const (
+	// TypeCString: C string—Mac OS Roman characters followed by a NULL byte.
+	TypeCString TypeStyledUnicodeText = 'c'<<24 | 's'<<16 | 't'<<8 | 'r' // 'cstr'
+	// TypeEncodedString: Styled Unicode text.
+	TypeEncodedString TypeStyledUnicodeText = 'e'<<24 | 'n'<<16 | 'c'<<8 | 's' // 'encs'
+	// TypePString: Pascal string—unsigned length byte followed by Mac OS Roman characters.
+	TypePString TypeStyledUnicodeText = 'p'<<24 | 's'<<16 | 't'<<8 | 'r' // 'pstr'
+	// TypeStyledUnicodeTextValue: Styled Unicode text.
+	TypeStyledUnicodeTextValue TypeStyledUnicodeText = 's'<<24 | 'u'<<16 | 't'<<8 | 'x' // 'sutx'
+	// TypeUnicodeText: Unicode text.
+	TypeUnicodeText TypeStyledUnicodeText = 'u'<<24 | 't'<<16 | 'x'<<8 | 't' // 'utxt'
+)
+
+func (e TypeStyledUnicodeText) String() string {
+	switch e {
+	case TypeCString:
+		return "TypeCString"
+	case TypeEncodedString:
+		return "TypeEncodedString"
+	case TypePString:
+		return "TypePString"
+	case TypeStyledUnicodeTextValue:
+		return "TypeStyledUnicodeTextValue"
+	case TypeUnicodeText:
+		return "TypeUnicodeText"
+	default:
+		return fmt.Sprintf("TypeStyledUnicodeText(%d)", e)
+	}
+}
+
+type TypeTIFF uint32
+
+const (
+	TypeGIF       TypeTIFF = 'G'<<24 | 'I'<<16 | 'F'<<8 | 'f' // 'GIFf'
+	TypeJPEG      TypeTIFF = 'J'<<24 | 'P'<<16 | 'E'<<8 | 'G' // 'JPEG'
+	TypeTIFFValue TypeTIFF = 'T'<<24 | 'I'<<16 | 'F'<<8 | 'F' // 'TIFF'
+	TypeVersion   TypeTIFF = 'v'<<24 | 'e'<<16 | 'r'<<8 | 's' // 'vers'
+)
+
+func (e TypeTIFF) String() string {
+	switch e {
+	case TypeGIF:
+		return "TypeGIF"
+	case TypeJPEG:
+		return "TypeJPEG"
+	case TypeTIFFValue:
+		return "TypeTIFFValue"
+	case TypeVersion:
+		return "TypeVersion"
+	default:
+		return fmt.Sprintf("TypeTIFF(%d)", e)
+	}
+}
+
+type TypeUT uint32
 
 const (
 	// TypeUTF16ExternalRepresentation: # Discussion
@@ -30262,7 +33825,7 @@ func (e TypeUT) String() string {
 	}
 }
 
-type TypeWhoseDescriptor uint
+type TypeWhoseDescriptor uint32
 
 const (
 	// FormWhose: # Discussion
@@ -30294,7 +33857,7 @@ func (e TypeWhoseDescriptor) String() string {
 	}
 }
 
-type Upp uint
+type Upp uint32
 
 const (
 	// Deprecated.
@@ -30340,7 +33903,7 @@ func (e Upp) String() string {
 	}
 }
 
-type Use uint
+type Use uint32
 
 const (
 	// Deprecated.
@@ -30372,7 +33935,7 @@ func (e Use) String() string {
 	}
 }
 
-type VLckdErr int
+type VLckdErr int32
 
 const (
 	BadMDBErr     VLckdErr = -60
@@ -30444,461 +34007,323 @@ func (e VLckdErr) String() string {
 	}
 }
 
-type Ver uint
+type VerFrBelgium uint32
 
 const (
 	// Deprecated.
-	VerAfrikaans Ver = 102
+	VerAfrikaans VerFrBelgium = 102
 	// Deprecated.
-	VerAlternateGr Ver = 64
+	VerEsperanto VerFrBelgium = 103
 	// Deprecated.
-	VerArabia Ver = 16
+	VerFrBelgiumValue VerFrBelgium = 98
 	// Deprecated.
-	VerArabic Ver = 16
+	VerGreenland VerFrBelgium = 107
 	// Deprecated.
-	VerArmenia Ver = 84
+	VerIrelandEnglish VerFrBelgium = 108
 	// Deprecated.
-	VerArmenian Ver = 84
+	VerMarathi VerFrBelgium = 104
 	// Deprecated.
-	VerAustralia Ver = 15
+	VerNepal VerFrBelgium = 106
 	// Deprecated.
-	VerAustria Ver = 92
+	VerNynorsk VerFrBelgium = 101
 	// Deprecated.
-	VerAustriaGerman Ver = 92
+	VerSingapore VerFrBelgium = 100
 	// Deprecated.
-	VerBelarus Ver = 61
+	VerTibetan VerFrBelgium = 105
 	// Deprecated.
-	VerBelgiumLux Ver = 6
-	// Deprecated.
-	VerBelgiumLuxPoint Ver = 27
-	// Deprecated.
-	VerBengali Ver = 60
-	// Deprecated.
-	VerBhutan Ver = 83
-	// Deprecated.
-	VerBrazil Ver = 71
-	// Deprecated.
-	VerBreton Ver = 77
-	// Deprecated.
-	VerBritain Ver = 2
-	// Deprecated.
-	VerBrittany Ver = 77
-	// Deprecated.
-	VerBulgaria Ver = 72
-	// Deprecated.
-	VerByeloRussian Ver = 61
-	// Deprecated.
-	VerCanadaComma Ver = 28
-	// Deprecated.
-	VerCanadaPoint Ver = 29
-	// Deprecated.
-	VerCatalonia Ver = 73
-	// Deprecated.
-	VerChina Ver = 52
-	// Deprecated.
-	VerCroatia Ver = 68
-	// Deprecated.
-	VerCyprus Ver = 23
-	// Deprecated.
-	VerCzech Ver = 56
-	// Deprecated.
-	VerDenmark Ver = 9
-	// Deprecated.
-	VerEastAsiaGeneric Ver = 58
-	// Deprecated.
-	VerEngCanada Ver = 82
-	// Deprecated.
-	VerEsperanto Ver = 103
-	// Deprecated.
-	VerEstonia Ver = 44
-	// Deprecated.
-	VerFaeroeIsl Ver = 47
-	// Deprecated.
-	VerFarEastGeneric Ver = 58
-	// Deprecated.
-	VerFaroeIsl Ver = 47
-	// Deprecated.
-	VerFinland Ver = 17
-	// Deprecated.
-	VerFlemish Ver = 6
-	// Deprecated.
-	VerFlemishPoint Ver = 27
-	// Deprecated.
-	VerFrBelgium Ver = 98
-	// Deprecated.
-	VerFrBelgiumLux Ver = 6
-	// Deprecated.
-	VerFrCanada Ver = 11
-	// Deprecated.
-	VerFrSwiss Ver = 18
-	// Deprecated.
-	VerFrance Ver = 1
-	// Deprecated.
-	VerFrenchUniversal Ver = 91
-	// Deprecated.
-	VerGenericFE Ver = 58
-	// Deprecated.
-	VerGeorgia Ver = 85
-	// Deprecated.
-	VerGeorgian Ver = 85
-	// Deprecated.
-	VerGermanReformed Ver = 70
-	// Deprecated.
-	VerGermany Ver = 3
-	// Deprecated.
-	VerGrSwiss Ver = 19
-	// Deprecated.
-	VerGreece Ver = 20
-	// Deprecated.
-	VerGreeceAlt Ver = 64
-	// Deprecated.
-	VerGreecePoly Ver = 40
-	// Deprecated.
-	VerGreekAncient Ver = 40
-	// Deprecated.
-	VerGreenland Ver = 107
-	// Deprecated.
-	VerGujarati Ver = 94
-	// Deprecated.
-	VerHungary Ver = 43
-	// Deprecated.
-	VerIceland Ver = 21
-	// Deprecated.
-	VerIndia Ver = 33
-	// Deprecated.
-	VerIndiaHindi Ver = 33
-	// Deprecated.
-	VerIndiaUrdu Ver = 96
-	// Deprecated.
-	VerInternational Ver = 37
-	// Deprecated.
-	VerIran Ver = 48
-	// Deprecated.
-	VerIreland Ver = 50
-	// Deprecated.
-	VerIrelandEnglish Ver = 108
-	// Deprecated.
-	VerIrishGaelicScript Ver = 81
-	// Deprecated.
-	VerIsrael Ver = 13
-	// Deprecated.
-	VerItalianSwiss Ver = 36
-	// Deprecated.
-	VerItaly Ver = 4
-	// Deprecated.
-	VerJapan Ver = 14
-	// Deprecated.
-	VerKorea Ver = 51
-	// Deprecated.
-	VerLapland Ver = 46
-	// Deprecated.
-	VerLatvia Ver = 45
-	// Deprecated.
-	VerLithuania Ver = 41
-	// Deprecated.
-	VerMacedonia Ver = 67
-	// Deprecated.
-	VerMacedonian Ver = 67
-	// Deprecated.
-	VerMagyar Ver = 59
-	// Deprecated.
-	VerMalta Ver = 22
-	// Deprecated.
-	VerManxGaelic Ver = 76
-	// Deprecated.
-	VerMarathi Ver = 104
-	// Deprecated.
-	VerMultilingual Ver = 74
-	// Deprecated.
-	VerNepal Ver = 106
-	// Deprecated.
-	VerNetherlands Ver = 5
-	// Deprecated.
-	VerNetherlandsComma Ver = 26
-	// Deprecated.
-	VerNorway Ver = 12
-	// Deprecated.
-	VerNunavut Ver = 78
-	// Deprecated.
-	VerNynorsk Ver = 101
-	// Deprecated.
-	VerPakistan Ver = 34
-	// Deprecated.
-	VerPakistanUrdu Ver = 34
-	// Deprecated.
-	VerPoland Ver = 42
-	// Deprecated.
-	VerPortugal Ver = 10
-	// Deprecated.
-	VerPunjabi Ver = 95
-	// Deprecated.
-	VerRomania Ver = 39
-	// Deprecated.
-	VerRumania Ver = 39
-	// Deprecated.
-	VerRussia Ver = 49
-	// Deprecated.
-	VerSami Ver = 46
-	// Deprecated.
-	VerScottishGaelic Ver = 75
-	// Deprecated.
-	VerScriptGeneric Ver = 55
-	// Deprecated.
-	VerSerbia Ver = 65
-	// Deprecated.
-	VerSerbian Ver = 65
-	// Deprecated.
-	VerSingapore Ver = 100
-	// Deprecated.
-	VerSlovak Ver = 57
-	// Deprecated.
-	VerSlovenia Ver = 66
-	// Deprecated.
-	VerSlovenian Ver = 66
-	// Deprecated.
-	VerSpLatinAmerica Ver = 86
-	// Deprecated.
-	VerSpain Ver = 8
-	// Deprecated.
-	VerSweden Ver = 7
-	// Deprecated.
-	VerTaiwan Ver = 53
-	// Deprecated.
-	VerThailand Ver = 54
-	// Deprecated.
-	VerTibet Ver = 105
-	// Deprecated.
-	VerTibetan Ver = 105
-	// Deprecated.
-	VerTonga Ver = 88
-	// Deprecated.
-	VerTurkey Ver = 24
-	// Deprecated.
-	VerTurkishModified Ver = 35
-	// Deprecated.
-	VerUS Ver = 0
-	// Deprecated.
-	VerUkraine Ver = 62
-	// Deprecated.
-	VerUkrania Ver = 62
-	// Deprecated.
-	VerUzbek Ver = 99
-	// Deprecated.
-	VerVietnam Ver = 97
-	// Deprecated.
-	VerWales Ver = 79
-	// Deprecated.
-	VerWelsh Ver = 79
-	// Deprecated.
-	VerYugoCroatian Ver = 25
-	// Deprecated.
-	VerYugoslavia Ver = 25
-	// Deprecated.
-	VervariantDenmark Ver = 32
-	// Deprecated.
-	VervariantNorway Ver = 31
-	// Deprecated.
-	VervariantPortugal Ver = 30
+	VerUzbek VerFrBelgium = 99
 )
 
-func (e Ver) String() string {
+func (e VerFrBelgium) String() string {
 	switch e {
 	case VerAfrikaans:
 		return "VerAfrikaans"
+	case VerEsperanto:
+		return "VerEsperanto"
+	case VerFrBelgiumValue:
+		return "VerFrBelgiumValue"
+	case VerGreenland:
+		return "VerGreenland"
+	case VerIrelandEnglish:
+		return "VerIrelandEnglish"
+	case VerMarathi:
+		return "VerMarathi"
+	case VerNepal:
+		return "VerNepal"
+	case VerNynorsk:
+		return "VerNynorsk"
+	case VerSingapore:
+		return "VerSingapore"
+	case VerTibetan:
+		return "VerTibetan"
+	case VerUzbek:
+		return "VerUzbek"
+	default:
+		return fmt.Sprintf("VerFrBelgium(%d)", e)
+	}
+}
+
+type VerFrBelgiumLux uint32
+
+const (
+	// Deprecated.
+	VerAlternateGr VerFrBelgiumLux = 64
+	// Deprecated.
+	VerArabia VerFrBelgiumLux = 16
+	// Deprecated.
+	VerArmenia VerFrBelgiumLux = 84
+	// Deprecated.
+	VerAustriaGerman VerFrBelgiumLux = 92
+	// Deprecated.
+	VerBelgiumLux VerFrBelgiumLux = 6
+	// Deprecated.
+	VerBelgiumLuxPoint VerFrBelgiumLux = 27
+	// Deprecated.
+	VerBrittany VerFrBelgiumLux = 77
+	// Deprecated.
+	VerByeloRussian VerFrBelgiumLux = 61
+	// Deprecated.
+	VerFaeroeIsl VerFrBelgiumLux = 47
+	// Deprecated.
+	VerFarEastGeneric VerFrBelgiumLux = 58
+	// Deprecated.
+	VerFrBelgiumLuxValue VerFrBelgiumLux = 6
+	// Deprecated.
+	VerGenericFE VerFrBelgiumLux = 58
+	// Deprecated.
+	VerGeorgia VerFrBelgiumLux = 85
+	// Deprecated.
+	VerGreecePoly VerFrBelgiumLux = 40
+	// Deprecated.
+	VerIndia VerFrBelgiumLux = 33
+	// Deprecated.
+	VerLapland VerFrBelgiumLux = 46
+	// Deprecated.
+	VerMacedonia VerFrBelgiumLux = 67
+	// Deprecated.
+	VerPakistan VerFrBelgiumLux = 34
+	// Deprecated.
+	VerRumania VerFrBelgiumLux = 39
+	// Deprecated.
+	VerSerbia VerFrBelgiumLux = 65
+	// Deprecated.
+	VerSlovenia VerFrBelgiumLux = 66
+	// Deprecated.
+	VerTibet VerFrBelgiumLux = 105
+	// Deprecated.
+	VerUkrania VerFrBelgiumLux = 62
+	// Deprecated.
+	VerWales VerFrBelgiumLux = 79
+	// Deprecated.
+	VerYugoslavia VerFrBelgiumLux = 25
+)
+
+func (e VerFrBelgiumLux) String() string {
+	switch e {
 	case VerAlternateGr:
 		return "VerAlternateGr"
 	case VerArabia:
 		return "VerArabia"
 	case VerArmenia:
 		return "VerArmenia"
-	case VerAustralia:
-		return "VerAustralia"
-	case VerAustria:
-		return "VerAustria"
-	case VerBelarus:
-		return "VerBelarus"
+	case VerAustriaGerman:
+		return "VerAustriaGerman"
 	case VerBelgiumLux:
 		return "VerBelgiumLux"
 	case VerBelgiumLuxPoint:
 		return "VerBelgiumLuxPoint"
-	case VerBengali:
-		return "VerBengali"
-	case VerBhutan:
-		return "VerBhutan"
-	case VerBrazil:
-		return "VerBrazil"
-	case VerBreton:
-		return "VerBreton"
-	case VerBritain:
-		return "VerBritain"
-	case VerBulgaria:
-		return "VerBulgaria"
-	case VerCanadaComma:
-		return "VerCanadaComma"
-	case VerCanadaPoint:
-		return "VerCanadaPoint"
-	case VerCatalonia:
-		return "VerCatalonia"
-	case VerChina:
-		return "VerChina"
-	case VerCroatia:
-		return "VerCroatia"
-	case VerCyprus:
-		return "VerCyprus"
-	case VerCzech:
-		return "VerCzech"
-	case VerDenmark:
-		return "VerDenmark"
-	case VerEastAsiaGeneric:
-		return "VerEastAsiaGeneric"
-	case VerEngCanada:
-		return "VerEngCanada"
-	case VerEsperanto:
-		return "VerEsperanto"
-	case VerEstonia:
-		return "VerEstonia"
+	case VerBrittany:
+		return "VerBrittany"
+	case VerByeloRussian:
+		return "VerByeloRussian"
 	case VerFaeroeIsl:
 		return "VerFaeroeIsl"
-	case VerFinland:
-		return "VerFinland"
-	case VerFrBelgium:
-		return "VerFrBelgium"
-	case VerFrCanada:
-		return "VerFrCanada"
-	case VerFrSwiss:
-		return "VerFrSwiss"
-	case VerFrance:
-		return "VerFrance"
-	case VerFrenchUniversal:
-		return "VerFrenchUniversal"
+	case VerFarEastGeneric:
+		return "VerFarEastGeneric"
 	case VerGeorgia:
 		return "VerGeorgia"
-	case VerGermanReformed:
-		return "VerGermanReformed"
-	case VerGermany:
-		return "VerGermany"
-	case VerGrSwiss:
-		return "VerGrSwiss"
-	case VerGreece:
-		return "VerGreece"
 	case VerGreecePoly:
 		return "VerGreecePoly"
-	case VerGreenland:
-		return "VerGreenland"
-	case VerGujarati:
-		return "VerGujarati"
-	case VerHungary:
-		return "VerHungary"
-	case VerIceland:
-		return "VerIceland"
 	case VerIndia:
 		return "VerIndia"
-	case VerIndiaUrdu:
-		return "VerIndiaUrdu"
+	case VerLapland:
+		return "VerLapland"
+	case VerMacedonia:
+		return "VerMacedonia"
+	case VerPakistan:
+		return "VerPakistan"
+	case VerRumania:
+		return "VerRumania"
+	case VerSerbia:
+		return "VerSerbia"
+	case VerSlovenia:
+		return "VerSlovenia"
+	case VerTibet:
+		return "VerTibet"
+	case VerUkrania:
+		return "VerUkrania"
+	case VerWales:
+		return "VerWales"
+	case VerYugoslavia:
+		return "VerYugoslavia"
+	default:
+		return fmt.Sprintf("VerFrBelgiumLux(%d)", e)
+	}
+}
+
+type VerIndiaHindi uint32
+
+const (
+	// Deprecated.
+	VerBelarus VerIndiaHindi = 61
+	// Deprecated.
+	VerBengali VerIndiaHindi = 60
+	// Deprecated.
+	VerChina VerIndiaHindi = 52
+	// Deprecated.
+	VerCzech VerIndiaHindi = 56
+	// Deprecated.
+	VerEastAsiaGeneric VerIndiaHindi = 58
+	// Deprecated.
+	VerEstonia VerIndiaHindi = 44
+	// Deprecated.
+	VerFaroeIsl VerIndiaHindi = 47
+	// Deprecated.
+	VerGreekAncient VerIndiaHindi = 40
+	// Deprecated.
+	VerHungary VerIndiaHindi = 43
+	// Deprecated.
+	VerIndiaHindiValue VerIndiaHindi = 33
+	// Deprecated.
+	VerInternational VerIndiaHindi = 37
+	// Deprecated.
+	VerIran VerIndiaHindi = 48
+	// Deprecated.
+	VerIreland VerIndiaHindi = 50
+	// Deprecated.
+	VerItalianSwiss VerIndiaHindi = 36
+	// Deprecated.
+	VerKorea VerIndiaHindi = 51
+	// Deprecated.
+	VerLatvia VerIndiaHindi = 45
+	// Deprecated.
+	VerLithuania VerIndiaHindi = 41
+	// Deprecated.
+	VerMagyar VerIndiaHindi = 59
+	// Deprecated.
+	VerPakistanUrdu VerIndiaHindi = 34
+	// Deprecated.
+	VerPoland VerIndiaHindi = 42
+	// Deprecated.
+	VerRomania VerIndiaHindi = 39
+	// Deprecated.
+	VerRussia VerIndiaHindi = 49
+	// Deprecated.
+	VerSami VerIndiaHindi = 46
+	// Deprecated.
+	VerScriptGeneric VerIndiaHindi = 55
+	// Deprecated.
+	VerSlovak VerIndiaHindi = 57
+	// Deprecated.
+	VerTaiwan VerIndiaHindi = 53
+	// Deprecated.
+	VerThailand VerIndiaHindi = 54
+	// Deprecated.
+	VerTurkishModified VerIndiaHindi = 35
+)
+
+func (e VerIndiaHindi) String() string {
+	switch e {
+	case VerBelarus:
+		return "VerBelarus"
+	case VerBengali:
+		return "VerBengali"
+	case VerChina:
+		return "VerChina"
+	case VerCzech:
+		return "VerCzech"
+	case VerEastAsiaGeneric:
+		return "VerEastAsiaGeneric"
+	case VerEstonia:
+		return "VerEstonia"
+	case VerFaroeIsl:
+		return "VerFaroeIsl"
+	case VerGreekAncient:
+		return "VerGreekAncient"
+	case VerHungary:
+		return "VerHungary"
+	case VerIndiaHindiValue:
+		return "VerIndiaHindiValue"
 	case VerInternational:
 		return "VerInternational"
 	case VerIran:
 		return "VerIran"
 	case VerIreland:
 		return "VerIreland"
-	case VerIrelandEnglish:
-		return "VerIrelandEnglish"
-	case VerIrishGaelicScript:
-		return "VerIrishGaelicScript"
-	case VerIsrael:
-		return "VerIsrael"
 	case VerItalianSwiss:
 		return "VerItalianSwiss"
-	case VerItaly:
-		return "VerItaly"
-	case VerJapan:
-		return "VerJapan"
 	case VerKorea:
 		return "VerKorea"
-	case VerLapland:
-		return "VerLapland"
 	case VerLatvia:
 		return "VerLatvia"
 	case VerLithuania:
 		return "VerLithuania"
-	case VerMacedonia:
-		return "VerMacedonia"
 	case VerMagyar:
 		return "VerMagyar"
-	case VerMalta:
-		return "VerMalta"
-	case VerManxGaelic:
-		return "VerManxGaelic"
-	case VerMarathi:
-		return "VerMarathi"
-	case VerMultilingual:
-		return "VerMultilingual"
-	case VerNepal:
-		return "VerNepal"
-	case VerNetherlands:
-		return "VerNetherlands"
-	case VerNetherlandsComma:
-		return "VerNetherlandsComma"
-	case VerNorway:
-		return "VerNorway"
-	case VerNunavut:
-		return "VerNunavut"
-	case VerNynorsk:
-		return "VerNynorsk"
-	case VerPakistan:
-		return "VerPakistan"
+	case VerPakistanUrdu:
+		return "VerPakistanUrdu"
 	case VerPoland:
 		return "VerPoland"
-	case VerPortugal:
-		return "VerPortugal"
-	case VerPunjabi:
-		return "VerPunjabi"
 	case VerRomania:
 		return "VerRomania"
 	case VerRussia:
 		return "VerRussia"
-	case VerScottishGaelic:
-		return "VerScottishGaelic"
+	case VerSami:
+		return "VerSami"
 	case VerScriptGeneric:
 		return "VerScriptGeneric"
-	case VerSerbia:
-		return "VerSerbia"
-	case VerSingapore:
-		return "VerSingapore"
 	case VerSlovak:
 		return "VerSlovak"
-	case VerSlovenia:
-		return "VerSlovenia"
-	case VerSpLatinAmerica:
-		return "VerSpLatinAmerica"
-	case VerSpain:
-		return "VerSpain"
-	case VerSweden:
-		return "VerSweden"
 	case VerTaiwan:
 		return "VerTaiwan"
 	case VerThailand:
 		return "VerThailand"
-	case VerTibet:
-		return "VerTibet"
-	case VerTonga:
-		return "VerTonga"
-	case VerTurkey:
-		return "VerTurkey"
 	case VerTurkishModified:
 		return "VerTurkishModified"
-	case VerUS:
-		return "VerUS"
-	case VerUkraine:
-		return "VerUkraine"
-	case VerUzbek:
-		return "VerUzbek"
-	case VerVietnam:
-		return "VerVietnam"
-	case VerWales:
-		return "VerWales"
-	case VerYugoCroatian:
-		return "VerYugoCroatian"
+	default:
+		return fmt.Sprintf("VerIndiaHindi(%d)", e)
+	}
+}
+
+type VerNetherlandsComma uint32
+
+const (
+	// Deprecated.
+	VerCanadaComma VerNetherlandsComma = 28
+	// Deprecated.
+	VerCanadaPoint VerNetherlandsComma = 29
+	// Deprecated.
+	VerFlemishPoint VerNetherlandsComma = 27
+	// Deprecated.
+	VerNetherlandsCommaValue VerNetherlandsComma = 26
+	// Deprecated.
+	VervariantDenmark VerNetherlandsComma = 32
+	// Deprecated.
+	VervariantNorway VerNetherlandsComma = 31
+	// Deprecated.
+	VervariantPortugal VerNetherlandsComma = 30
+)
+
+func (e VerNetherlandsComma) String() string {
+	switch e {
+	case VerCanadaComma:
+		return "VerCanadaComma"
+	case VerCanadaPoint:
+		return "VerCanadaPoint"
+	case VerFlemishPoint:
+		return "VerFlemishPoint"
+	case VerNetherlandsCommaValue:
+		return "VerNetherlandsCommaValue"
 	case VervariantDenmark:
 		return "VervariantDenmark"
 	case VervariantNorway:
@@ -30906,11 +34331,255 @@ func (e Ver) String() string {
 	case VervariantPortugal:
 		return "VervariantPortugal"
 	default:
-		return fmt.Sprintf("Ver(%d)", e)
+		return fmt.Sprintf("VerNetherlandsComma(%d)", e)
 	}
 }
 
-type VerUnspecified uint
+type VerUS uint32
+
+const (
+	// Deprecated.
+	VerArabic VerUS = 16
+	// Deprecated.
+	VerAustralia VerUS = 15
+	// Deprecated.
+	VerBritain VerUS = 2
+	// Deprecated.
+	VerCyprus VerUS = 23
+	// Deprecated.
+	VerDenmark VerUS = 9
+	// Deprecated.
+	VerFinland VerUS = 17
+	// Deprecated.
+	VerFlemish VerUS = 6
+	// Deprecated.
+	VerFrCanada VerUS = 11
+	// Deprecated.
+	VerFrSwiss VerUS = 18
+	// Deprecated.
+	VerFrance VerUS = 1
+	// Deprecated.
+	VerGermany VerUS = 3
+	// Deprecated.
+	VerGrSwiss VerUS = 19
+	// Deprecated.
+	VerGreece VerUS = 20
+	// Deprecated.
+	VerIceland VerUS = 21
+	// Deprecated.
+	VerIsrael VerUS = 13
+	// Deprecated.
+	VerItaly VerUS = 4
+	// Deprecated.
+	VerJapan VerUS = 14
+	// Deprecated.
+	VerMalta VerUS = 22
+	// Deprecated.
+	VerNetherlands VerUS = 5
+	// Deprecated.
+	VerNorway VerUS = 12
+	// Deprecated.
+	VerPortugal VerUS = 10
+	// Deprecated.
+	VerSpain VerUS = 8
+	// Deprecated.
+	VerSweden VerUS = 7
+	// Deprecated.
+	VerTurkey VerUS = 24
+	// Deprecated.
+	VerUSValue VerUS = 0
+	// Deprecated.
+	VerYugoCroatian VerUS = 25
+)
+
+func (e VerUS) String() string {
+	switch e {
+	case VerArabic:
+		return "VerArabic"
+	case VerAustralia:
+		return "VerAustralia"
+	case VerBritain:
+		return "VerBritain"
+	case VerCyprus:
+		return "VerCyprus"
+	case VerDenmark:
+		return "VerDenmark"
+	case VerFinland:
+		return "VerFinland"
+	case VerFlemish:
+		return "VerFlemish"
+	case VerFrCanada:
+		return "VerFrCanada"
+	case VerFrSwiss:
+		return "VerFrSwiss"
+	case VerFrance:
+		return "VerFrance"
+	case VerGermany:
+		return "VerGermany"
+	case VerGrSwiss:
+		return "VerGrSwiss"
+	case VerGreece:
+		return "VerGreece"
+	case VerIceland:
+		return "VerIceland"
+	case VerIsrael:
+		return "VerIsrael"
+	case VerItaly:
+		return "VerItaly"
+	case VerJapan:
+		return "VerJapan"
+	case VerMalta:
+		return "VerMalta"
+	case VerNetherlands:
+		return "VerNetherlands"
+	case VerNorway:
+		return "VerNorway"
+	case VerPortugal:
+		return "VerPortugal"
+	case VerSpain:
+		return "VerSpain"
+	case VerSweden:
+		return "VerSweden"
+	case VerTurkey:
+		return "VerTurkey"
+	case VerUSValue:
+		return "VerUSValue"
+	case VerYugoCroatian:
+		return "VerYugoCroatian"
+	default:
+		return fmt.Sprintf("VerUS(%d)", e)
+	}
+}
+
+type VerUkraine uint32
+
+const (
+	// Deprecated.
+	VerArmenian VerUkraine = 84
+	// Deprecated.
+	VerAustria VerUkraine = 92
+	// Deprecated.
+	VerBhutan VerUkraine = 83
+	// Deprecated.
+	VerBrazil VerUkraine = 71
+	// Deprecated.
+	VerBreton VerUkraine = 77
+	// Deprecated.
+	VerBulgaria VerUkraine = 72
+	// Deprecated.
+	VerCatalonia VerUkraine = 73
+	// Deprecated.
+	VerCroatia VerUkraine = 68
+	// Deprecated.
+	VerEngCanada VerUkraine = 82
+	// Deprecated.
+	VerFrenchUniversal VerUkraine = 91
+	// Deprecated.
+	VerGeorgian VerUkraine = 85
+	// Deprecated.
+	VerGermanReformed VerUkraine = 70
+	// Deprecated.
+	VerGreeceAlt VerUkraine = 64
+	// Deprecated.
+	VerGujarati VerUkraine = 94
+	// Deprecated.
+	VerIndiaUrdu VerUkraine = 96
+	// Deprecated.
+	VerIrishGaelicScript VerUkraine = 81
+	// Deprecated.
+	VerMacedonian VerUkraine = 67
+	// Deprecated.
+	VerManxGaelic VerUkraine = 76
+	// Deprecated.
+	VerMultilingual VerUkraine = 74
+	// Deprecated.
+	VerNunavut VerUkraine = 78
+	// Deprecated.
+	VerPunjabi VerUkraine = 95
+	// Deprecated.
+	VerScottishGaelic VerUkraine = 75
+	// Deprecated.
+	VerSerbian VerUkraine = 65
+	// Deprecated.
+	VerSlovenian VerUkraine = 66
+	// Deprecated.
+	VerSpLatinAmerica VerUkraine = 86
+	// Deprecated.
+	VerTonga VerUkraine = 88
+	// Deprecated.
+	VerUkraineValue VerUkraine = 62
+	// Deprecated.
+	VerVietnam VerUkraine = 97
+	// Deprecated.
+	VerWelsh VerUkraine = 79
+)
+
+func (e VerUkraine) String() string {
+	switch e {
+	case VerArmenian:
+		return "VerArmenian"
+	case VerAustria:
+		return "VerAustria"
+	case VerBhutan:
+		return "VerBhutan"
+	case VerBrazil:
+		return "VerBrazil"
+	case VerBreton:
+		return "VerBreton"
+	case VerBulgaria:
+		return "VerBulgaria"
+	case VerCatalonia:
+		return "VerCatalonia"
+	case VerCroatia:
+		return "VerCroatia"
+	case VerEngCanada:
+		return "VerEngCanada"
+	case VerFrenchUniversal:
+		return "VerFrenchUniversal"
+	case VerGeorgian:
+		return "VerGeorgian"
+	case VerGermanReformed:
+		return "VerGermanReformed"
+	case VerGreeceAlt:
+		return "VerGreeceAlt"
+	case VerGujarati:
+		return "VerGujarati"
+	case VerIndiaUrdu:
+		return "VerIndiaUrdu"
+	case VerIrishGaelicScript:
+		return "VerIrishGaelicScript"
+	case VerMacedonian:
+		return "VerMacedonian"
+	case VerManxGaelic:
+		return "VerManxGaelic"
+	case VerMultilingual:
+		return "VerMultilingual"
+	case VerNunavut:
+		return "VerNunavut"
+	case VerPunjabi:
+		return "VerPunjabi"
+	case VerScottishGaelic:
+		return "VerScottishGaelic"
+	case VerSerbian:
+		return "VerSerbian"
+	case VerSlovenian:
+		return "VerSlovenian"
+	case VerSpLatinAmerica:
+		return "VerSpLatinAmerica"
+	case VerTonga:
+		return "VerTonga"
+	case VerUkraineValue:
+		return "VerUkraineValue"
+	case VerVietnam:
+		return "VerVietnam"
+	case VerWelsh:
+		return "VerWelsh"
+	default:
+		return fmt.Sprintf("VerUkraine(%d)", e)
+	}
+}
+
+type VerUnspecified uint32
 
 const (
 	KTECResourceID      VerUnspecified = 128
@@ -30928,64 +34597,76 @@ func (e VerUnspecified) String() string {
 	}
 }
 
-type Vm int
+type VmInvalidBackingFileIDErr int32
 
 const (
-	VmAddressNotInFileViewErr    Vm = -647
-	VmBadDriver                  Vm = -632
-	VmBusyBackingFileErr         Vm = -642
-	VmFileViewAccessErr          Vm = -645
-	VmInvalidBackingFileIDErr    Vm = -640
-	VmInvalidFileViewIDErr       Vm = -644
-	VmInvalidOwningProcessErr    Vm = -648
-	VmKernelMMUInitErr           Vm = -629
-	VmMappingPrivilegesErr       Vm = -641
-	VmMemLckdErr                 Vm = -631
-	VmMorePhysicalThanVirtualErr Vm = -628
-	VmNoMoreBackingFilesErr      Vm = -643
-	VmNoMoreFileViewsErr         Vm = -646
-	VmNoVectorErr                Vm = -633
-	VmOffErr                     Vm = -630
+	VmAddressNotInFileViewErr      VmInvalidBackingFileIDErr = -647
+	VmBusyBackingFileErr           VmInvalidBackingFileIDErr = -642
+	VmFileViewAccessErr            VmInvalidBackingFileIDErr = -645
+	VmInvalidBackingFileIDErrValue VmInvalidBackingFileIDErr = -640
+	VmInvalidFileViewIDErr         VmInvalidBackingFileIDErr = -644
+	VmInvalidOwningProcessErr      VmInvalidBackingFileIDErr = -648
+	VmMappingPrivilegesErr         VmInvalidBackingFileIDErr = -641
+	VmNoMoreBackingFilesErr        VmInvalidBackingFileIDErr = -643
+	VmNoMoreFileViewsErr           VmInvalidBackingFileIDErr = -646
 )
 
-func (e Vm) String() string {
+func (e VmInvalidBackingFileIDErr) String() string {
 	switch e {
 	case VmAddressNotInFileViewErr:
 		return "VmAddressNotInFileViewErr"
-	case VmBadDriver:
-		return "VmBadDriver"
 	case VmBusyBackingFileErr:
 		return "VmBusyBackingFileErr"
 	case VmFileViewAccessErr:
 		return "VmFileViewAccessErr"
-	case VmInvalidBackingFileIDErr:
-		return "VmInvalidBackingFileIDErr"
+	case VmInvalidBackingFileIDErrValue:
+		return "VmInvalidBackingFileIDErrValue"
 	case VmInvalidFileViewIDErr:
 		return "VmInvalidFileViewIDErr"
 	case VmInvalidOwningProcessErr:
 		return "VmInvalidOwningProcessErr"
-	case VmKernelMMUInitErr:
-		return "VmKernelMMUInitErr"
 	case VmMappingPrivilegesErr:
 		return "VmMappingPrivilegesErr"
-	case VmMemLckdErr:
-		return "VmMemLckdErr"
-	case VmMorePhysicalThanVirtualErr:
-		return "VmMorePhysicalThanVirtualErr"
 	case VmNoMoreBackingFilesErr:
 		return "VmNoMoreBackingFilesErr"
 	case VmNoMoreFileViewsErr:
 		return "VmNoMoreFileViewsErr"
+	default:
+		return fmt.Sprintf("VmInvalidBackingFileIDErr(%d)", e)
+	}
+}
+
+type VmMorePhysicalThanVirtualErr int32
+
+const (
+	VmBadDriver                       VmMorePhysicalThanVirtualErr = -632
+	VmKernelMMUInitErr                VmMorePhysicalThanVirtualErr = -629
+	VmMemLckdErr                      VmMorePhysicalThanVirtualErr = -631
+	VmMorePhysicalThanVirtualErrValue VmMorePhysicalThanVirtualErr = -628
+	VmNoVectorErr                     VmMorePhysicalThanVirtualErr = -633
+	VmOffErr                          VmMorePhysicalThanVirtualErr = -630
+)
+
+func (e VmMorePhysicalThanVirtualErr) String() string {
+	switch e {
+	case VmBadDriver:
+		return "VmBadDriver"
+	case VmKernelMMUInitErr:
+		return "VmKernelMMUInitErr"
+	case VmMemLckdErr:
+		return "VmMemLckdErr"
+	case VmMorePhysicalThanVirtualErrValue:
+		return "VmMorePhysicalThanVirtualErrValue"
 	case VmNoVectorErr:
 		return "VmNoVectorErr"
 	case VmOffErr:
 		return "VmOffErr"
 	default:
-		return fmt.Sprintf("Vm(%d)", e)
+		return fmt.Sprintf("VmMorePhysicalThanVirtualErr(%d)", e)
 	}
 }
 
-type VolMount uint
+type VolMount uint32
 
 const (
 	VolMountChangedBit         VolMount = 14
@@ -31027,7 +34708,7 @@ func (e VolMount) String() string {
 	}
 }
 
-type WrongApplicationPlatform int
+type WrongApplicationPlatform int32
 
 const (
 	AppVersionTooOld              WrongApplicationPlatform = -876
@@ -31047,3 +34728,21 @@ func (e WrongApplicationPlatform) String() string {
 		return fmt.Sprintf("WrongApplicationPlatform(%d)", e)
 	}
 }
+
+// Boolean is an alias for referenced enum type TypeBoolean.
+type Boolean = TypeBoolean
+
+// Handle is an alias for referenced enum type KAEHandle.
+type Handle = KAEHandle
+
+// Int16 is an alias for referenced enum type TypeSInt16.
+type Int16 = TypeSInt16
+
+// ProcPtr is an alias for referenced enum type KProcDescriptorIsProcPtr.
+type ProcPtr = KProcDescriptorIsProcPtr
+
+// ResType is an alias for referenced enum type KTECAvailableEncodingsResType.
+type ResType = KTECAvailableEncodingsResType
+
+// SInt16 is an alias for referenced enum type TypeSInt16.
+type SInt16 = TypeSInt16

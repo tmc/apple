@@ -4,6 +4,7 @@ package fskit
 
 import (
 	"sync"
+	"unsafe"
 
 	"github.com/tmc/apple/foundation"
 	"github.com/tmc/apple/objc"
@@ -111,8 +112,8 @@ type IFSTask interface {
 	// Topic: Handling task cancellation
 
 	// A handler called by FSKit upon canceling the task.
-	CancellationHandler() VoidHandler
-	SetCancellationHandler(value VoidHandler)
+	CancellationHandler() unsafe.Pointer
+	SetCancellationHandler(value NSErrorVoidHandler)
 }
 
 // Init initializes the instance.
@@ -197,13 +198,13 @@ func (t FSTask) DidCompleteWithError(error_ foundation.NSError) {
 // [DispatchGroup]: https://developer.apple.com/documentation/Dispatch/DispatchGroup
 // [dispatch_group_wait]: https://developer.apple.com/documentation/Dispatch/dispatch_group_wait
 // [wait()]: https://developer.apple.com/documentation/Dispatch/DispatchGroup/wait()
-func (t FSTask) CancellationHandler() VoidHandler {
+func (t FSTask) CancellationHandler() NSErrorVoidHandler {
 	rv := objc.Send[objc.ID](t.ID, objc.Sel("cancellationHandler"))
 	_ = rv
 	return nil
 }
-func (t FSTask) SetCancellationHandler(value VoidHandler) {
-	block, cleanup := NewVoidBlock(value)
+func (t FSTask) SetCancellationHandler(value NSErrorVoidHandler) {
+	block, cleanup := NewNSErrorVoidBlock(value)
 	defer cleanup()
 	objc.Send[struct{}](t.ID, objc.Sel("setCancellationHandler:"), block)
 }

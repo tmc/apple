@@ -3,6 +3,7 @@
 package vmnet
 
 import (
+	"github.com/tmc/apple/kernel"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -30,7 +31,7 @@ type Vmnet_mode_t = Operating_modes_t
 type Vmnet_network_configuration_ref = uintptr
 
 // See: https://developer.apple.com/documentation/vmnet/vmnet_network_ref
-type Vmnet_network_ref = uintptr
+type Vmnet_network_ref = kernel.Pointer
 
 // See: https://developer.apple.com/documentation/vmnet/vmnet_start_interface_completion_handler_t
 type Vmnet_start_interface_completion_handler_t = func(Vmnet_return_t, objectivec.Object)

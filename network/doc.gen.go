@@ -14,16 +14,16 @@
 // # Essentials
 //
 //   - [NWEndpoint]: A local or remote endpoint in a network connection. ([NWEndpointType])
-//   - [NWParameters]: An object that stores the protocols to use for connections, options for sending data, and network path constraints. ([NWParametersConfigureProtocolBlock], [NWProtocolStack], [NWProtocolDefinition], [NWProtocolOptions], [NWParametersIterateInterfaceTypesBlock])
+//   - [NWParameters]: An object that stores the protocols to use for connections, options for sending data, and network path constraints.
 //
 // # Connections and Listeners
 //
 //   - [Implementing netcat with Network Framework]: Build a simple tool that establishes network connections and transfers data.
-//   - [NWConnection]: A bidirectional data connection between a local endpoint and a remote endpoint. ([NWConnectionState], [NWConnectionStateChangedHandler], [NWConnectionSendCompletion], [NWContentContext], [NWConnectionReceiveCompletion])
-//   - [NWListener]: An object you use to listen for incoming network connections. ([NWListenerNewConnectionHandler], [NWAdvertiseDescriptor], [NWListenerAdvertisedEndpointChangedHandler], [NWListenerStateChangedHandler], [NWListenerState])
-//   - [NWBrowser]: An object you use to browse for available network services. ([NWBrowseDescriptor], [NWBrowserBrowseResultsChangedHandler], [NWBrowseResult], [NWBrowserStateChangedHandler], [NWBrowserState])
-//   - [NWConnectionGroup]: An object you use to communicate with a group of endpoints, such as an IP multicast group on a local network. ([NWGroupDescriptor], [NWGroupDescriptorEnumerateEndpointsBlock], [NWConnectionGroupReceiveHandler], [NWConnectionGroupSendCompletion], [NWConnectionGroupStateChangedHandler])
-//   - [NWEthernetChannel]: An object you use to send and receive custom Ethernet frames. ([NWEthernetChannelStateChangedHandler], [NWEthernetChannelState], [NWEthernetChannelSendCompletion], [NWEthernetChannelReceiveHandler], [NWEthernetAddress])
+//   - [NWConnection]: A bidirectional data connection between a local endpoint and a remote endpoint. ([NWConnectionState])
+//   - [NWListener]: An object you use to listen for incoming network connections. ([NWListenerState])
+//   - [NWBrowser]: An object you use to browse for available network services. ([NWBrowserState])
+//   - [NWConnectionGroup]: An object you use to communicate with a group of endpoints, such as an IP multicast group on a local network.
+//   - [NWEthernetChannel]: An object you use to send and receive custom Ethernet frames. ([NWEthernetChannelState])
 //
 // # Network Protocols
 //
@@ -32,8 +32,8 @@
 //   - [QUIC Options]: Configure options for connections that use the QUIC transport protocol.
 //   - [UDP Options]: Configure options for connections that use the User Datagram Protocol.
 //   - [IP Options]: Configure Internet Protocol options on connections. ([NWIPEcnFlag], [NWIPVersion], [NWIPLocalAddressPreference])
-//   - [WebSocket Options]: Configure options for connections that use WebSocket. ([NWWsVersion], [NWWsOpcode], [NWWsCloseCode], [NWWsPongHandler], [NWWsClientRequestHandler])
-//   - [Framer Protocol Options]: Create custom protocols to frame applications messages over a connection. ([NWFramerStartHandler], [NWFramer], [NWFramerStartResult], [NWFramerOutputHandler], [NWFramerParseCompletion])
+//   - [WebSocket Options]: Configure options for connections that use WebSocket. ([NWWsVersion], [NWWsOpcode], [NWWsCloseCode])
+//   - [Framer Protocol Options]: Create custom protocols to frame applications messages over a connection. ([NWFramerStartResult])
 //
 // # Network Security and Privacy
 //
@@ -43,8 +43,8 @@
 //
 // # Paths and Interfaces
 //
-//   - [NWPath]: An object that contains information about the properties of the network that a connection uses, or that are available to your app. ([NWPathStatus], [NWPathEnumerateInterfacesBlock], [NWPathEnumerateGatewaysBlock])
-//   - [NWPathMonitor]: An observer that you use to monitor and react to network changes. ([NWPathMonitorUpdateHandler], [NWPathMonitorCancelHandler])
+//   - [NWPath]: An object that contains information about the properties of the network that a connection uses, or that are available to your app. ([NWPathStatus])
+//   - [NWPathMonitor]: An observer that you use to monitor and react to network changes.
 //   - [NWInterface]: An interface that a network connection uses to send and receive data. ([NWInterfaceType])
 //
 // # Memory Management
@@ -112,12 +112,6 @@
 //   - [NWPathGetLinkQuality]
 //   - [NWPathIsUltraConstrained]
 //
-// # Macros
-//
-//   - NW_ASSUME_EXTERNALLY_RETAINED_BEGIN
-//   - NW_ASSUME_EXTERNALLY_RETAINED_END
-//   - NW_EXTERNALLY_RETAINED
-//
 // # Enumerations
 //
 //   - [NWLinkQuality]//
@@ -148,9 +142,11 @@ import (
 	"github.com/ebitengine/purego"
 )
 
-// frameworkPaths lists paths to try when loading the Network library.
-// The framework bundle path is tried first; a /usr/lib dylib fallback covers
-// C-API frameworks that are not in the dyld shared cache as bundles.
+// frameworkPaths lists paths to try when loading the Network library,
+// in order. Frameworks whose symbols live in a known dylib resolve to that
+// dylib alone; the rest try the framework bundle first and then a /usr/lib
+// dylib fallback, which covers C-API frameworks that are not in the dyld
+// shared cache as bundles.
 var frameworkPaths = []string{
 	"/System/Library/Frameworks/Network.framework/Network",
 	"/usr/lib/libNetwork.dylib",

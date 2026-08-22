@@ -54,7 +54,6 @@
 //
 //   - [UNCalendarNotificationTrigger]: A trigger condition that causes a notification the system delivers at a specific date and time.
 //   - [UNTimeIntervalNotificationTrigger]: A trigger condition that causes the system to deliver a notification after the amount of time you specify elapses.
-//   - UNLocationNotificationTrigger: A trigger condition that causes the system to deliver a notification when the user’s device enters or exits a geographic region you specify.
 //   - [UNPushNotificationTrigger]: A trigger condition that indicates Apple Push Notification Service (APNs) has sent the notification.
 //   - [UNNotificationTrigger]: The common behavior for subclasses that trigger the delivery of a local or remote notification.
 //
@@ -99,8 +98,8 @@
 //   - [UNNotificationSound] - The sound played upon delivery of a notification.
 //   - [UNNotificationAction] - A task your app performs in response to a notification that the system delivers.
 //   - [UNTextInputNotificationAction] - An action that accepts user-typed text.
-//   - [UNNotificationAttachment] - A media file associated with a notification.
 //   - [UNNotificationRequest] - A request to schedule a local notification, which includes the content of the notification and the trigger conditions for delivery.
+//   - [UNCalendarNotificationTrigger] - A trigger condition that causes a notification the system delivers at a specific date and time.
 //
 // [APS Environment Entitlement]: https://developer.apple.com/documentation/BundleResources/Entitlements/aps-environment
 // [Asking permission to use notifications]: https://developer.apple.com/documentation/usernotifications/asking-permission-to-use-notifications
@@ -125,9 +124,11 @@ import (
 	"github.com/ebitengine/purego"
 )
 
-// frameworkPaths lists paths to try when loading the UserNotifications library.
-// The framework bundle path is tried first; a /usr/lib dylib fallback covers
-// C-API frameworks that are not in the dyld shared cache as bundles.
+// frameworkPaths lists paths to try when loading the UserNotifications library,
+// in order. Frameworks whose symbols live in a known dylib resolve to that
+// dylib alone; the rest try the framework bundle first and then a /usr/lib
+// dylib fallback, which covers C-API frameworks that are not in the dyld
+// shared cache as bundles.
 var frameworkPaths = []string{
 	"/System/Library/Frameworks/UserNotifications.framework/UserNotifications",
 	"/usr/lib/libUserNotifications.dylib",

@@ -102,9 +102,10 @@ func NewVNDetectAnimalBodyPoseRequest() VNDetectAnimalBodyPoseRequest {
 // [VNImageRequestHandler.PerformRequestsError].
 //
 // See: https://developer.apple.com/documentation/Vision/VNRequest/init(completionHandler:)
-func NewDetectAnimalBodyPoseRequestWithCompletionHandler(completionHandler VNRequestCompletionHandler) VNDetectAnimalBodyPoseRequest {
+func NewDetectAnimalBodyPoseRequestWithCompletionHandler(completionHandler VNRequestErrorHandler) VNDetectAnimalBodyPoseRequest {
+	_block0, _ := NewVNRequestErrorBlock(completionHandler)
 	instance := getVNDetectAnimalBodyPoseRequestClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCompletionHandler:"), completionHandler)
+	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCompletionHandler:"), _block0)
 	return VNDetectAnimalBodyPoseRequestFromID(rv)
 }
 

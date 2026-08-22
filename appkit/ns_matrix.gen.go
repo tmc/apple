@@ -435,7 +435,7 @@ type INSMatrix interface {
 	// Changes the number of rows and columns in the receiver.
 	RenewRowsColumns(newRows int, newCols int)
 	// Sorts the receiver’s cells in ascending order as defined by the specified comparison function.
-	SortUsingFunctionContext(compare objectivec.IObject, context unsafe.Pointer)
+	SortUsingFunctionContext(compare func(objectivec.IObject, objectivec.IObject, unsafe.Pointer) int, context unsafe.Pointer)
 	// Sorts the receiver’s cells in ascending order as defined by the comparison method.
 	SortUsingSelector(comparator objc.SEL)
 
@@ -576,6 +576,11 @@ type INSMatrix interface {
 
 	// The flags in effect at the mouse-down event that started the current tracking session.
 	MouseDownFlags() int
+
+	// Returns a Boolean value that indicates whether the sender should be enabled.
+	ValidateUserInterfaceItem(item NSValidatedUserInterfaceItem) bool
+	// Returns the tool tip string to be displayed due to the cursor pausing at location `point` within the tool tip rectangle identified by `tag` in the view `view`.
+	ViewStringForToolTipPointUserData(view INSView, tag NSToolTipTag, point corefoundation.CGPoint, data unsafe.Pointer) string
 }
 
 // Init initializes the instance.
@@ -1072,7 +1077,7 @@ func (m NSMatrix) RenewRowsColumns(newRows int, newCols int) {
 // case-insensitive.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSMatrix/sort(using:context:)
-func (m NSMatrix) SortUsingFunctionContext(compare objectivec.IObject, context unsafe.Pointer) {
+func (m NSMatrix) SortUsingFunctionContext(compare func(objectivec.IObject, objectivec.IObject, unsafe.Pointer) int, context unsafe.Pointer) {
 	objc.Send[objc.ID](m.ID, objc.Sel("sortUsingFunction:context:"), compare, context)
 }
 

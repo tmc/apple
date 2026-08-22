@@ -130,9 +130,10 @@ func NewVNDetectBarcodesRequest() VNDetectBarcodesRequest {
 // [VNImageRequestHandler.PerformRequestsError].
 //
 // See: https://developer.apple.com/documentation/Vision/VNRequest/init(completionHandler:)
-func NewDetectBarcodesRequestWithCompletionHandler(completionHandler VNRequestCompletionHandler) VNDetectBarcodesRequest {
+func NewDetectBarcodesRequestWithCompletionHandler(completionHandler VNRequestErrorHandler) VNDetectBarcodesRequest {
+	_block0, _ := NewVNRequestErrorBlock(completionHandler)
 	instance := getVNDetectBarcodesRequestClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCompletionHandler:"), completionHandler)
+	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCompletionHandler:"), _block0)
 	return VNDetectBarcodesRequestFromID(rv)
 }
 

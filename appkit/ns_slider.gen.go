@@ -69,7 +69,7 @@ func (nc NSSliderClass) Alloc() NSSlider {
 //   - [NSSlider.SetVertical]
 //   - [NSSlider.TrackFillColor]: The color of the filled portion of the slider track, in appearances that support it.
 //   - [NSSlider.SetTrackFillColor]
-//   - [NSSlider.TintProminence]: The tint prominence of the slider. The automatic behavior for a regular slider tints its track fill, while a slider with tick marks is untinted. Setting the tint prominence will override this default behavior and choose an explicit track fill tint behavior. See [NSTintProminence](<doc://com.apple.appkit/documentation/AppKit/NSTintProminence>) for a list of possible values.
+//   - [NSSlider.TintProminence]: The tint prominence of the slider. The automatic behavior for a regular slider tints its track fill, while a slider with tick marks is untinted. Setting the tint prominence will override this default behavior and choose an explicit track fill tint behavior. See [NSTintProminence](<https://developer.apple.com/documentation/AppKit/NSTintProminence>) for a list of possible values.
 //   - [NSSlider.SetTintProminence]
 //
 // # Asking about the value limits
@@ -126,7 +126,7 @@ func NSSliderFromID(id objc.ID) NSSlider {
 //   - [INSSlider.SetVertical]
 //   - [INSSlider.TrackFillColor]: The color of the filled portion of the slider track, in appearances that support it.
 //   - [INSSlider.SetTrackFillColor]
-//   - [INSSlider.TintProminence]: The tint prominence of the slider. The automatic behavior for a regular slider tints its track fill, while a slider with tick marks is untinted. Setting the tint prominence will override this default behavior and choose an explicit track fill tint behavior. See [NSTintProminence](<doc://com.apple.appkit/documentation/AppKit/NSTintProminence>) for a list of possible values.
+//   - [INSSlider.TintProminence]: The tint prominence of the slider. The automatic behavior for a regular slider tints its track fill, while a slider with tick marks is untinted. Setting the tint prominence will override this default behavior and choose an explicit track fill tint behavior. See [NSTintProminence](<https://developer.apple.com/documentation/AppKit/NSTintProminence>) for a list of possible values.
 //   - [INSSlider.SetTintProminence]
 //
 // # Asking about the value limits
@@ -174,7 +174,7 @@ type INSSlider interface {
 	// The color of the filled portion of the slider track, in appearances that support it.
 	TrackFillColor() INSColor
 	SetTrackFillColor(value INSColor)
-	// The tint prominence of the slider. The automatic behavior for a regular slider tints its track fill, while a slider with tick marks is untinted. Setting the tint prominence will override this default behavior and choose an explicit track fill tint behavior. See [NSTintProminence](<doc://com.apple.appkit/documentation/AppKit/NSTintProminence>) for a list of possible values.
+	// The tint prominence of the slider. The automatic behavior for a regular slider tints its track fill, while a slider with tick marks is untinted. Setting the tint prominence will override this default behavior and choose an explicit track fill tint behavior. See [NSTintProminence](<https://developer.apple.com/documentation/AppKit/NSTintProminence>) for a list of possible values.
 	TintProminence() NSTintProminence
 	SetTintProminence(value NSTintProminence)
 
@@ -394,67 +394,6 @@ func (s NSSlider) TickMarkValueAtIndex(index int) float64 {
 	return rv
 }
 
-// Decrements the slider’s value.
-//
-// # Return Value
-//
-// true if the action was successfully triggered; otherwise, false. This
-// method does not indicate the success or failure of the action, just the
-// fact that the action was successfully triggered.
-//
-// # Discussion
-//
-// This method must post an [valueChanged] notification after changing the
-// slider’s value.
-//
-// See: https://developer.apple.com/documentation/AppKit/NSAccessibilitySlider/accessibilityPerformDecrement()
-//
-// [valueChanged]: https://developer.apple.com/documentation/AppKit/NSAccessibility-swift.struct/Notification/valueChanged
-func (s NSSlider) AccessibilityPerformDecrement() bool {
-	rv := objc.Send[bool](s.ID, objc.Sel("accessibilityPerformDecrement"))
-	return rv
-}
-
-// Increments the slider’s value.
-//
-// # Return Value
-//
-// true if the action was successfully triggered; otherwise, false. This
-// method does not indicate the success or failure of the action, just the
-// fact that the action was successfully triggered.
-//
-// # Discussion
-//
-// This method must post an [valueChanged] notification after changing the
-// slider’s value.
-//
-// See: https://developer.apple.com/documentation/AppKit/NSAccessibilitySlider/accessibilityPerformIncrement()
-//
-// [valueChanged]: https://developer.apple.com/documentation/AppKit/NSAccessibility-swift.struct/Notification/valueChanged
-func (s NSSlider) AccessibilityPerformIncrement() bool {
-	rv := objc.Send[bool](s.ID, objc.Sel("accessibilityPerformIncrement"))
-	return rv
-}
-
-// Returns the slider’s value.
-//
-// # Return Value
-//
-// The value for the slider.
-//
-// # Discussion
-//
-// This method is the getter for the [NSAccessibilityProtocol] protocol’s
-// [accessibilityValue] property.
-//
-// See: https://developer.apple.com/documentation/AppKit/NSAccessibilitySlider/accessibilityValue()
-//
-// [accessibilityValue]: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityValue
-func (s NSSlider) AccessibilityValue() objectivec.IObject {
-	rv := objc.Send[objc.ID](s.ID, objc.Sel("accessibilityValue"))
-	return objectivec.Object{ID: rv}
-}
-
 // The type of the slider, such as vertical or circular.
 //
 // # Discussion
@@ -668,85 +607,3 @@ func (s NSSlider) SetNeutralValue(value float64) {
 }
 
 // Protocol methods for NSAccessibilitySlider
-
-// Returns the accessibility element’s frame in screen coordinates.
-//
-// # Return Value
-//
-// The element’s frame in screen coordinates.
-//
-// # Discussion
-//
-// This method is the getter for the [NSAccessibilityProtocol] protocol’s
-// [accessibilityFrame] property. This method is called whenever accessibility
-// clients request the [size] or [position] attributes.
-//
-// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityElementProtocol/accessibilityFrame()
-//
-// [accessibilityFrame]: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityFrame
-// [position]: https://developer.apple.com/documentation/AppKit/NSAccessibility-swift.struct/Attribute/position
-// [size]: https://developer.apple.com/documentation/AppKit/NSAccessibility-swift.struct/Attribute/size
-func (o NSSlider) AccessibilityFrame() corefoundation.CGRect {
-	rv := objc.Send[corefoundation.CGRect](o.ID, objc.Sel("accessibilityFrame"))
-	return rv
-}
-
-// Returns the accessibility element’s parent in the accessibility
-// hierarchy.
-//
-// # Return Value
-//
-// The element’s parent in the accessibility hierarchy.
-//
-// # Discussion
-//
-// This method is the getter for the [NSAccessibilityProtocol] protocol’s
-// [accessibilityParent] property.
-//
-// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityElementProtocol/accessibilityParent()
-//
-// [accessibilityParent]: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityParent
-func (o NSSlider) AccessibilityParent() objectivec.IObject {
-	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilityParent"))
-	return objectivec.Object{ID: rv}
-}
-
-// Returns the accessibility element’s identity.
-//
-// # Return Value
-//
-// Returns the unique ID for the accessibility element. It is often used in
-// automated testing.
-//
-// # Discussion
-//
-// This method is the getter for the [NSAccessibilityProtocol] protocol’s
-// [accessibilityIdentifier] property.
-//
-// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityElementProtocol/accessibilityIdentifier()
-//
-// [accessibilityIdentifier]: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityIdentifier
-func (o NSSlider) AccessibilityIdentifier() string {
-	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilityIdentifier"))
-	return foundation.NSStringFromID(rv).String()
-}
-
-// Returns a Boolean value that indicates whether the accessibility element
-// has the keyboard focus.
-//
-// # Return Value
-//
-// true if this element has the keyboard focus; otherwise, false.
-//
-// # Discussion
-//
-// This method is the getter for the [NSAccessibilityProtocol] protocol’s
-// [accessibilityFocused] property.
-//
-// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityElementProtocol/isAccessibilityFocused()
-//
-// [accessibilityFocused]: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityFocused
-func (o NSSlider) IsAccessibilityFocused() bool {
-	rv := objc.Send[bool](o.ID, objc.Sel("isAccessibilityFocused"))
-	return rv
-}

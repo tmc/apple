@@ -143,6 +143,10 @@ type INSTextContentStorage interface {
 
 	IncludesTextListMarkers() bool
 	SetIncludesTextListMarkers(value bool)
+
+	PerformEditingTransactionForTextStorageUsingBlock(textStorage NSTextStorage, transaction VoidHandler)
+	ProcessEditingForTextStorageEditedRangeChangeInLengthInvalidatedRange(textStorage NSTextStorage, editMask NSTextStorageEditActions, newCharRange foundation.NSRange, delta int, invalidatedCharRange foundation.NSRange)
+	TextStorage() NSTextStorage
 }
 
 // Init initializes the instance.
@@ -221,7 +225,8 @@ func (t NSTextContentStorage) AttributedStringForTextElement(textElement INSText
 
 // See: https://developer.apple.com/documentation/AppKit/NSTextStorageObserving/performEditingTransaction(for:using:)
 func (t NSTextContentStorage) PerformEditingTransactionForTextStorageUsingBlock(textStorage NSTextStorage, transaction VoidHandler) {
-	_block1, _ := NewVoidBlock(transaction)
+	_block1, _cleanup1 := NewVoidBlock(transaction)
+	defer _cleanup1()
 	objc.Send[objc.ID](t.ID, objc.Sel("performEditingTransactionForTextStorage:usingBlock:"), textStorage, _block1)
 }
 

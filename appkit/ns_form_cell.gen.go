@@ -133,8 +133,8 @@ type INSFormCell interface {
 	TitleBaseWritingDirection() NSWritingDirection
 	SetTitleBaseWritingDirection(value NSWritingDirection)
 	// The font used to draw cell’s title.
-	TitleFont() NSFont
-	SetTitleFont(value NSFont)
+	TitleFont() INSFont
+	SetTitleFont(value INSFont)
 
 	// Topic: Asking About Placeholder Values
 
@@ -269,11 +269,11 @@ func (f NSFormCell) SetTitleBaseWritingDirection(value NSWritingDirection) {
 // The font used to draw cell’s title.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSFormCell/titleFont
-func (f NSFormCell) TitleFont() NSFont {
+func (f NSFormCell) TitleFont() INSFont {
 	rv := objc.Send[objc.ID](f.ID, objc.Sel("titleFont"))
 	return NSFontFromID(objc.ID(rv))
 }
-func (f NSFormCell) SetTitleFont(value NSFont) {
+func (f NSFormCell) SetTitleFont(value INSFont) {
 	objc.Send[struct{}](f.ID, objc.Sel("setTitleFont:"), value)
 }
 

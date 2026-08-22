@@ -115,7 +115,6 @@ func (ac AVAssetExportSessionClass) Alloc() AVAssetExportSession {
 //
 // # Estimating duration
 //
-//   - [AVAssetExportSession.EstimateMaximumDurationWithCompletionHandler]: Starts estimating the maximum duration of the export while considering the asset, preset, and time range configuration of the export session.
 //   - [AVAssetExportSession.MaxDuration]: Provides an estimate of the maximum duration of the exported media.
 //
 // # Accessing the asset
@@ -202,7 +201,6 @@ func AVAssetExportSessionFromID(id objc.ID) AVAssetExportSession {
 //
 // # Estimating duration
 //
-//   - [IAVAssetExportSession.EstimateMaximumDurationWithCompletionHandler]: Starts estimating the maximum duration of the export while considering the asset, preset, and time range configuration of the export session.
 //   - [IAVAssetExportSession.MaxDuration]: Provides an estimate of the maximum duration of the exported media.
 //
 // # Accessing the asset
@@ -223,7 +221,7 @@ type IAVAssetExportSession interface {
 	// The name of the preset that the asset export session uses.
 	PresetName() string
 	// Determines the output file types an asset export session supports writing in its current configuration.
-	DetermineCompatibleFileTypesWithCompletionHandler(handler VoidHandler)
+	DetermineCompatibleFileTypesWithCompletionHandler(handler stringArrayHandler)
 
 	// Topic: Configuring output
 
@@ -296,8 +294,6 @@ type IAVAssetExportSession interface {
 
 	// Topic: Estimating duration
 
-	// Starts estimating the maximum duration of the export while considering the asset, preset, and time range configuration of the export session.
-	EstimateMaximumDurationWithCompletionHandler(handler CMTimeErrorHandler)
 	// Provides an estimate of the maximum duration of the exported media.
 	MaxDuration() coremedia.CMTime
 
@@ -364,8 +360,8 @@ func (a AVAssetExportSession) InitWithAssetPresetName(asset IAVAsset, presetName
 // determines the compatible file types.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVAssetExportSession/determineCompatibleFileTypes(completionHandler:)
-func (a AVAssetExportSession) DetermineCompatibleFileTypesWithCompletionHandler(handler VoidHandler) {
-	_block0, _ := NewVoidBlock(handler)
+func (a AVAssetExportSession) DetermineCompatibleFileTypesWithCompletionHandler(handler stringArrayHandler) {
+	_block0, _ := NewstringArrayBlock(handler)
 	objc.Send[objc.ID](a.ID, objc.Sel("determineCompatibleFileTypesWithCompletionHandler:"), _block0)
 }
 
@@ -382,22 +378,6 @@ func (a AVAssetExportSession) DetermineCompatibleFileTypesWithCompletionHandler(
 func (a AVAssetExportSession) EstimateOutputFileLengthWithCompletionHandler(handler int64_tErrorHandler) {
 	_block0, _ := Newint64_tErrorBlock(handler)
 	objc.Send[objc.ID](a.ID, objc.Sel("estimateOutputFileLengthWithCompletionHandler:"), _block0)
-}
-
-// Starts estimating the maximum duration of the export while considering the
-// asset, preset, and time range configuration of the export session.
-//
-// handler: A callback the system invokes when it finishes its estimation. It passes
-// the callback the following parameters:
-//
-// `estimatedMaximumDuration`: The system’s estimation of the maximum
-// duration. `error`: An optional error object that indicates if an error
-// occurred during processing.
-//
-// See: https://developer.apple.com/documentation/AVFoundation/AVAssetExportSession/estimateMaximumDuration(completionHandler:)
-func (a AVAssetExportSession) EstimateMaximumDurationWithCompletionHandler(handler CMTimeErrorHandler) {
-	_block0, _ := NewCMTimeErrorBlock(handler)
-	objc.Send[objc.ID](a.ID, objc.Sel("estimateMaximumDurationWithCompletionHandler:"), _block0)
 }
 
 // Returns all available export preset names.
@@ -742,16 +722,20 @@ func (a AVAssetExportSession) Asset() IAVAsset {
 
 // DetermineCompatibleFileTypes is a synchronous wrapper around [AVAssetExportSession.DetermineCompatibleFileTypesWithCompletionHandler].
 // It blocks until the completion handler fires or the context is cancelled.
-func (a AVAssetExportSession) DetermineCompatibleFileTypes(ctx context.Context) error {
-	done := make(chan struct{}, 1)
-	a.DetermineCompatibleFileTypesWithCompletionHandler(func() {
-		done <- struct{}{}
+func (a AVAssetExportSession) DetermineCompatibleFileTypes(ctx context.Context) ([]string, error) {
+	done := make(chan []string, 1)
+	a.DetermineCompatibleFileTypesWithCompletionHandler(func(val *[]string) {
+		var out []string
+		if val != nil {
+			out = append(out, (*val)...)
+		}
+		done <- out
 	})
 	select {
-	case <-done:
-		return nil
+	case r := <-done:
+		return r, nil
 	case <-ctx.Done():
-		return ctx.Err()
+		return nil, ctx.Err()
 	}
 }
 
@@ -786,24 +770,5 @@ func (a AVAssetExportSession) EstimateOutputFileLength(ctx context.Context) (int
 		return r.val, r.err
 	case <-ctx.Done():
 		return 0, ctx.Err()
-	}
-}
-
-// EstimateMaximumDuration is a synchronous wrapper around [AVAssetExportSession.EstimateMaximumDurationWithCompletionHandler].
-// It blocks until the completion handler fires or the context is cancelled.
-func (a AVAssetExportSession) EstimateMaximumDuration(ctx context.Context) (coremedia.CMTime, error) {
-	type result struct {
-		val coremedia.CMTime
-		err error
-	}
-	done := make(chan result, 1)
-	a.EstimateMaximumDurationWithCompletionHandler(func(val coremedia.CMTime, err error) {
-		done <- result{val, err}
-	})
-	select {
-	case r := <-done:
-		return r.val, r.err
-	case <-ctx.Done():
-		return coremedia.CMTime{}, ctx.Err()
 	}
 }

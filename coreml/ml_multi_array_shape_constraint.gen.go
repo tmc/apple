@@ -83,7 +83,7 @@ type IMLMultiArrayShapeConstraint interface {
 	// Topic: Accessing the Constraints
 
 	// Array of allowed shapes for a multiarray feature.
-	EnumeratedShapes() []foundation.INSArray
+	EnumeratedShapes() []foundation.NSArray
 	// The allowable range for a dimention of the multiarray.
 	SizeRangeForDimension() []foundation.NSValue
 	// The type of the shape constraint.
@@ -131,9 +131,9 @@ func (m MLMultiArrayShapeConstraint) EncodeWithCoder(coder foundation.INSCoder) 
 // Array of allowed shapes for a multiarray feature.
 //
 // See: https://developer.apple.com/documentation/CoreML/MLMultiArrayShapeConstraint/enumeratedShapes
-func (m MLMultiArrayShapeConstraint) EnumeratedShapes() []foundation.INSArray {
+func (m MLMultiArrayShapeConstraint) EnumeratedShapes() []foundation.NSArray {
 	rv := objc.Send[[]objc.ID](m.ID, objc.Sel("enumeratedShapes"))
-	return objc.ConvertSlice(rv, func(id objc.ID) foundation.INSArray {
+	return objc.ConvertSlice(rv, func(id objc.ID) foundation.NSArray {
 		return foundation.NSArrayFromID(id)
 	})
 }

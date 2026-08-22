@@ -171,8 +171,20 @@ func NewNSKeyedUnarchiverDelegate(config NSKeyedUnarchiverDelegateConfig) NSKeye
 		methods = append(methods, objc.MethodDef{
 			Cmd: objc.RegisterName("unarchiverDidFinish:"),
 			Fn: func(self objc.ID, _cmd objc.SEL, unarchiverID objc.ID) {
+				// Names which delegate was running if a panic unwinds out of
+				// it. The frames between here and the Objective-C caller are
+				// runtime and purego dispatch, so without this the traceback
+				// never says which selector dispatched. Deliberately no
+				// recover: see [objc.NoteDelegatePanic].
+				_delegateDone := false
+				defer func() {
+					if !_delegateDone {
+						objc.NoteDelegatePanic("NSKeyedUnarchiverDelegate", "unarchiverDidFinish:")
+					}
+				}()
 				unarchiver := NSKeyedUnarchiverFromID(unarchiverID)
 				fn(unarchiver)
+				_delegateDone = true
 			},
 		})
 	}
@@ -182,8 +194,20 @@ func NewNSKeyedUnarchiverDelegate(config NSKeyedUnarchiverDelegateConfig) NSKeye
 		methods = append(methods, objc.MethodDef{
 			Cmd: objc.RegisterName("unarchiverWillFinish:"),
 			Fn: func(self objc.ID, _cmd objc.SEL, unarchiverID objc.ID) {
+				// Names which delegate was running if a panic unwinds out of
+				// it. The frames between here and the Objective-C caller are
+				// runtime and purego dispatch, so without this the traceback
+				// never says which selector dispatched. Deliberately no
+				// recover: see [objc.NoteDelegatePanic].
+				_delegateDone := false
+				defer func() {
+					if !_delegateDone {
+						objc.NoteDelegatePanic("NSKeyedUnarchiverDelegate", "unarchiverWillFinish:")
+					}
+				}()
 				unarchiver := NSKeyedUnarchiverFromID(unarchiverID)
 				fn(unarchiver)
+				_delegateDone = true
 			},
 		})
 	}

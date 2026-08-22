@@ -50,10 +50,10 @@ func (nc NSTableViewDiffableDataSourceClass) Alloc() NSTableViewDiffableDataSour
 //
 // # Overview
 //
-// A object is a specialized type of data source that works together with your
-// table view object. It provides the behavior you need to manage updates to
-// your table view’s data and UI in a simple, efficient way. It also
-// conforms to the [NSTableViewDataSource] protocol.
+// A diffable data source object is a specialized type of data source that
+// works together with your table view object. It provides the behavior you
+// need to manage updates to your table view’s data and UI in a simple,
+// efficient way. It also conforms to the [NSTableViewDataSource] protocol.
 //
 // To fill a table view with data:
 //
@@ -149,16 +149,16 @@ type INSTableViewDiffableDataSource interface {
 	// Topic: Creating a Diffable Data Source
 
 	// Creates a diffable data source with the specified cell provider, and connects it to the specified table view.
-	InitWithTableViewCellProvider(tableView INSTableView, cellProvider NSTableViewDiffableDataSourceCellProvider) NSTableViewDiffableDataSource
+	InitWithTableViewCellProvider(tableView INSTableView, cellProvider NSViewTableViewTableColumnInt64IObjectHandler) NSTableViewDiffableDataSource
 
 	// Topic: Creating Row and Section Views
 
 	// The closure that configures and returns the table view’s row views from the diffable data source.
-	RowViewProvider() NSTableViewDiffableDataSourceRowProvider
-	SetRowViewProvider(value NSTableViewDiffableDataSourceRowProvider)
+	RowViewProvider() NSTableRowViewTableViewInt64IObjectHandler
+	SetRowViewProvider(value NSTableRowViewTableViewInt64IObjectHandler)
 	// The closure that configures and returns the table view’s section header views from the diffable data source.
-	SectionHeaderViewProvider() NSTableViewDiffableDataSourceSectionHeaderViewProvider
-	SetSectionHeaderViewProvider(value NSTableViewDiffableDataSourceSectionHeaderViewProvider)
+	SectionHeaderViewProvider() NSViewTableViewInt64IObjectHandler
+	SetSectionHeaderViewProvider(value NSViewTableViewInt64IObjectHandler)
 
 	// Topic: Identifying Items and Sections
 
@@ -213,9 +213,10 @@ func NewNSTableViewDiffableDataSource() NSTableViewDiffableDataSource {
 // [TableViewViewForTableColumnRow] delegate method.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTableViewDiffableDataSourceReference/init(tableView:cellProvider:)
-func NewTableViewDiffableDataSourceWithTableViewCellProvider(tableView INSTableView, cellProvider NSTableViewDiffableDataSourceCellProvider) NSTableViewDiffableDataSource {
+func NewTableViewDiffableDataSourceWithTableViewCellProvider(tableView INSTableView, cellProvider NSViewTableViewTableColumnInt64IObjectHandler) NSTableViewDiffableDataSource {
+	_block1, _ := NewNSViewTableViewTableColumnInt64IObjectBlock(cellProvider)
 	instance := getNSTableViewDiffableDataSourceClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithTableView:cellProvider:"), tableView, cellProvider)
+	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithTableView:cellProvider:"), tableView, _block1)
 	return NSTableViewDiffableDataSourceFromID(rv)
 }
 
@@ -231,12 +232,9 @@ var _nstableviewdiffabledatasource_initwithtableview_cellprovider_p1_key byte
 // [TableViewViewForTableColumnRow] delegate method.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTableViewDiffableDataSourceReference/init(tableView:cellProvider:)
-func (t NSTableViewDiffableDataSource) InitWithTableViewCellProvider(tableView INSTableView, cellProvider NSTableViewDiffableDataSourceCellProvider) NSTableViewDiffableDataSource {
-	_block1 := objc.NewBlock(func(_ objc.Block, arg0 objc.ID, arg1 objc.ID, arg2 int, arg3 objc.ID) objc.ID {
-		return cellProvider(NSTableViewFromID(arg0), NSTableColumnFromID(arg1), arg2, objectivec.ObjectFromID(arg3)).ID
-	})
-	rv := objc.Send[NSTableViewDiffableDataSource](t.ID, objc.Sel("initWithTableView:cellProvider:"), tableView, objc.ID(_block1))
-	objc.AssociateBlockWithReceiver(rv.ID, &_nstableviewdiffabledatasource_initwithtableview_cellprovider_p1_key, _block1)
+func (t NSTableViewDiffableDataSource) InitWithTableViewCellProvider(tableView INSTableView, cellProvider NSViewTableViewTableColumnInt64IObjectHandler) NSTableViewDiffableDataSource {
+	_block1, _ := NewNSViewTableViewTableColumnInt64IObjectBlock(cellProvider)
+	rv := objc.Send[NSTableViewDiffableDataSource](t.ID, objc.Sel("initWithTableView:cellProvider:"), tableView, _block1)
 	return rv
 }
 
@@ -623,12 +621,15 @@ func (t NSTableViewDiffableDataSource) TableViewValidateDropProposedRowProposedD
 // This property replaces the [TableViewRowViewForRow] delegate method.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTableViewDiffableDataSourceReference/rowViewProvider
-func (t NSTableViewDiffableDataSource) RowViewProvider() NSTableViewDiffableDataSourceRowProvider {
-	rv := objc.Send[NSTableViewDiffableDataSourceRowProvider](t.ID, objc.Sel("rowViewProvider"))
-	return NSTableViewDiffableDataSourceRowProvider(rv)
+func (t NSTableViewDiffableDataSource) RowViewProvider() NSTableRowViewTableViewInt64IObjectHandler {
+	rv := objc.Send[objc.ID](t.ID, objc.Sel("rowViewProvider"))
+	_ = rv
+	return nil
 }
-func (t NSTableViewDiffableDataSource) SetRowViewProvider(value NSTableViewDiffableDataSourceRowProvider) {
-	objc.Send[struct{}](t.ID, objc.Sel("setRowViewProvider:"), value)
+func (t NSTableViewDiffableDataSource) SetRowViewProvider(value NSTableRowViewTableViewInt64IObjectHandler) {
+	block, cleanup := NewNSTableRowViewTableViewInt64IObjectBlock(value)
+	defer cleanup()
+	objc.Send[struct{}](t.ID, objc.Sel("setRowViewProvider:"), block)
 }
 
 // The closure that configures and returns the table view’s section header
@@ -643,12 +644,15 @@ func (t NSTableViewDiffableDataSource) SetRowViewProvider(value NSTableViewDiffa
 // method. Instead, it uses the current snapshot’s sections.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTableViewDiffableDataSourceReference/sectionHeaderViewProvider
-func (t NSTableViewDiffableDataSource) SectionHeaderViewProvider() NSTableViewDiffableDataSourceSectionHeaderViewProvider {
-	rv := objc.Send[NSTableViewDiffableDataSourceSectionHeaderViewProvider](t.ID, objc.Sel("sectionHeaderViewProvider"))
-	return NSTableViewDiffableDataSourceSectionHeaderViewProvider(rv)
+func (t NSTableViewDiffableDataSource) SectionHeaderViewProvider() NSViewTableViewInt64IObjectHandler {
+	rv := objc.Send[objc.ID](t.ID, objc.Sel("sectionHeaderViewProvider"))
+	_ = rv
+	return nil
 }
-func (t NSTableViewDiffableDataSource) SetSectionHeaderViewProvider(value NSTableViewDiffableDataSourceSectionHeaderViewProvider) {
-	objc.Send[struct{}](t.ID, objc.Sel("setSectionHeaderViewProvider:"), value)
+func (t NSTableViewDiffableDataSource) SetSectionHeaderViewProvider(value NSViewTableViewInt64IObjectHandler) {
+	block, cleanup := NewNSViewTableViewInt64IObjectBlock(value)
+	defer cleanup()
+	objc.Send[struct{}](t.ID, objc.Sel("setSectionHeaderViewProvider:"), block)
 }
 
 // The default animation the UI uses to show differences between rows.

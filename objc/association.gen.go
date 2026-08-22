@@ -1,4 +1,4 @@
-// Code generated from Apple documentation by applegen. DO NOT EDIT.
+// Code generated from internal/generator/templates/runtime/objc.txtar by applegen. DO NOT EDIT.
 
 package objc
 
@@ -47,10 +47,9 @@ func ensureAssociation() {
 // methods (set*Block:, set*Handler:, set*Callback:) to free the prior
 // block when overwritten.
 //
-// The function is unexported: keys are package-level vars emitted by
-// applegen at each call site, so external callers have no need to
-// construct them. The block must be a Go-owned block returned by
-// NewBlock; the caller transfers ownership.
+// Keys are package-level vars emitted by applegen at each call site, so a
+// caller outside generated code has no need to construct one. The block must
+// be a Go-owned block returned by NewBlock; the caller transfers ownership.
 func AssociateBlockWithReceiver(receiver ID, key *byte, block Block) {
 	if receiver == 0 || key == nil || block == 0 {
 		return

@@ -135,10 +135,22 @@ func NewNSUserActivityDelegate(config NSUserActivityDelegateConfig) NSUserActivi
 		methods = append(methods, objc.MethodDef{
 			Cmd: objc.RegisterName("userActivity:didReceiveInputStream:outputStream:"),
 			Fn: func(self objc.ID, _cmd objc.SEL, userActivityID objc.ID, inputStreamID objc.ID, outputStreamID objc.ID) {
+				// Names which delegate was running if a panic unwinds out of
+				// it. The frames between here and the Objective-C caller are
+				// runtime and purego dispatch, so without this the traceback
+				// never says which selector dispatched. Deliberately no
+				// recover: see [objc.NoteDelegatePanic].
+				_delegateDone := false
+				defer func() {
+					if !_delegateDone {
+						objc.NoteDelegatePanic("NSUserActivityDelegate", "userActivity:didReceiveInputStream:outputStream:")
+					}
+				}()
 				userActivity := NSUserActivityFromID(userActivityID)
 				inputStream := NSInputStreamFromID(inputStreamID)
 				outputStream := NSOutputStreamFromID(outputStreamID)
 				fn(userActivity, inputStream, outputStream)
+				_delegateDone = true
 			},
 		})
 	}
@@ -148,8 +160,20 @@ func NewNSUserActivityDelegate(config NSUserActivityDelegateConfig) NSUserActivi
 		methods = append(methods, objc.MethodDef{
 			Cmd: objc.RegisterName("userActivityWasContinued:"),
 			Fn: func(self objc.ID, _cmd objc.SEL, userActivityID objc.ID) {
+				// Names which delegate was running if a panic unwinds out of
+				// it. The frames between here and the Objective-C caller are
+				// runtime and purego dispatch, so without this the traceback
+				// never says which selector dispatched. Deliberately no
+				// recover: see [objc.NoteDelegatePanic].
+				_delegateDone := false
+				defer func() {
+					if !_delegateDone {
+						objc.NoteDelegatePanic("NSUserActivityDelegate", "userActivityWasContinued:")
+					}
+				}()
 				userActivity := NSUserActivityFromID(userActivityID)
 				fn(userActivity)
+				_delegateDone = true
 			},
 		})
 	}
@@ -159,8 +183,20 @@ func NewNSUserActivityDelegate(config NSUserActivityDelegateConfig) NSUserActivi
 		methods = append(methods, objc.MethodDef{
 			Cmd: objc.RegisterName("userActivityWillSave:"),
 			Fn: func(self objc.ID, _cmd objc.SEL, userActivityID objc.ID) {
+				// Names which delegate was running if a panic unwinds out of
+				// it. The frames between here and the Objective-C caller are
+				// runtime and purego dispatch, so without this the traceback
+				// never says which selector dispatched. Deliberately no
+				// recover: see [objc.NoteDelegatePanic].
+				_delegateDone := false
+				defer func() {
+					if !_delegateDone {
+						objc.NoteDelegatePanic("NSUserActivityDelegate", "userActivityWillSave:")
+					}
+				}()
 				userActivity := NSUserActivityFromID(userActivityID)
 				fn(userActivity)
+				_delegateDone = true
 			},
 		})
 	}

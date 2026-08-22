@@ -13,7 +13,7 @@ import (
 type VNFaceObservationAccepting interface {
 	objectivec.IObject
 
-	// An array of [VNFaceObservation](<doc://Vision/documentation/Vision/VNFaceObservation>) objects to process as part of the request.
+	// An array of [VNFaceObservation](<https://developer.apple.com/documentation/Vision/VNFaceObservation>) objects to process as part of the request.
 	//
 	// See: https://developer.apple.com/documentation/Vision/VNFaceObservationAccepting/inputFaceObservations
 	InputFaceObservations() []VNFaceObservation

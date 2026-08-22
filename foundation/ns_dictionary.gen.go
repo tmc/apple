@@ -7,6 +7,7 @@ import (
 	"sync"
 	"unsafe"
 
+	"github.com/tmc/apple/kernel"
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -59,8 +60,8 @@ func (nc NSDictionaryClass) Alloc() NSDictionary {
 // Use this class or its subclass [NSMutableDictionary] when you need a
 // convenient and efficient way to retrieve data associated with an arbitrary
 // key. [NSDictionary] creates static dictionaries, and [NSMutableDictionary]
-// creates dynamic dictionaries. (For convenience, the term refers to any
-// instance of one of these classes without specifying its exact class
+// creates dynamic dictionaries. (For convenience, the term dictionary refers
+// to any instance of one of these classes without specifying its exact class
 // membership.)
 //
 // A key-value pair within a dictionary is called an entry. Each entry
@@ -81,7 +82,7 @@ func (nc NSDictionaryClass) Alloc() NSDictionary {
 //
 // In addition to the provided initializers, such as
 // [NSMutableDictionary.InitWithObjectsForKeys], you can create an
-// [NSDictionary] object using a .
+// [NSDictionary] object using a dictionary literal.
 //
 // In Objective-C, the compiler generates code that makes an underlying call
 // to the [NSDictionaryClass.DictionaryWithObjectsForKeysCount] method.
@@ -103,13 +104,13 @@ func (nc NSDictionaryClass) Alloc() NSDictionary {
 //
 // In addition to the provided instance methods, such as
 // [NSDictionary.ObjectForKey], you can access [NSDictionary] values by their
-// keys using .
+// keys using subscripting.
 //
 // # Enumerating Entries Using for-in Loops
 //
 // In addition to the provided instance methods, such as
 // [NSDictionary.EnumerateKeysAndObjectsUsingBlock], you can enumerate
-// [NSDictionary] entries using .
+// [NSDictionary] entries using for-in loops.
 //
 // In Objective-C, [NSDictionary] conforms to the [NSFastEnumeration]
 // protocol.
@@ -154,7 +155,6 @@ func (nc NSDictionaryClass) Alloc() NSDictionary {
 // # Creating a Dictionary from Objects and Keys
 //
 //   - [NSDictionary.InitWithObjectsForKeys]: Initializes a newly allocated dictionary with key-value pairs constructed from the provided arrays of keys and objects.
-//   - [NSDictionary.InitWithObjectsForKeysCount]: Initializes a newly allocated dictionary with the specified number of key-value pairs constructed from the provided C arrays of keys and objects.
 //
 // # Creating a Dictionary from Another Dictionary
 //
@@ -164,6 +164,10 @@ func (nc NSDictionaryClass) Alloc() NSDictionary {
 // # Creating a Dictionary from an External Source
 //
 //   - [NSDictionary.InitWithContentsOfURLError]: Initializes a newly allocated dictionary using the keys and values found at a given URL.
+//
+// # Creating a Dictionary from an NSCoder
+//
+//   - [NSDictionary.InitWithCoder]: Creates a dictionary initialized from data in the provided unarchiver.
 //
 // # Counting Entries
 //
@@ -265,7 +269,6 @@ func NSDictionaryFromID(id objc.ID) NSDictionary {
 // # Creating a Dictionary from Objects and Keys
 //
 //   - [INSDictionary.InitWithObjectsForKeys]: Initializes a newly allocated dictionary with key-value pairs constructed from the provided arrays of keys and objects.
-//   - [INSDictionary.InitWithObjectsForKeysCount]: Initializes a newly allocated dictionary with the specified number of key-value pairs constructed from the provided C arrays of keys and objects.
 //
 // # Creating a Dictionary from Another Dictionary
 //
@@ -275,6 +278,10 @@ func NSDictionaryFromID(id objc.ID) NSDictionary {
 // # Creating a Dictionary from an External Source
 //
 //   - [INSDictionary.InitWithContentsOfURLError]: Initializes a newly allocated dictionary using the keys and values found at a given URL.
+//
+// # Creating a Dictionary from an NSCoder
+//
+//   - [INSDictionary.InitWithCoder]: Creates a dictionary initialized from data in the provided unarchiver.
 //
 // # Counting Entries
 //
@@ -348,14 +355,11 @@ func NSDictionaryFromID(id objc.ID) NSDictionary {
 // See: https://developer.apple.com/documentation/Foundation/NSDictionary
 type INSDictionary interface {
 	objectivec.IObject
-	NSSecureCoding
 
 	// Topic: Creating a Dictionary from Objects and Keys
 
 	// Initializes a newly allocated dictionary with key-value pairs constructed from the provided arrays of keys and objects.
 	InitWithObjectsForKeys(objects []objectivec.IObject, keys []objectivec.IObject) NSDictionary
-	// Initializes a newly allocated dictionary with the specified number of key-value pairs constructed from the provided C arrays of keys and objects.
-	InitWithObjectsForKeysCount(objects []objectivec.IObject, keys []NSCopying, cnt uint) NSDictionary
 
 	// Topic: Creating a Dictionary from Another Dictionary
 
@@ -368,6 +372,11 @@ type INSDictionary interface {
 
 	// Initializes a newly allocated dictionary using the keys and values found at a given URL.
 	InitWithContentsOfURLError(url INSURL) (NSDictionary, error)
+
+	// Topic: Creating a Dictionary from an NSCoder
+
+	// Creates a dictionary initialized from data in the provided unarchiver.
+	InitWithCoder(coder INSCoder) NSDictionary
 
 	// Topic: Counting Entries
 
@@ -408,11 +417,11 @@ type INSDictionary interface {
 	// Topic: Sorting Dictionaries
 
 	// Returns an array of the dictionary’s keys, in the order they would be in if the dictionary were sorted by its values.
-	KeysSortedByValueUsingSelector(comparator objectivec.SEL) []objectivec.IObject
+	KeysSortedByValueUsingSelector(comparator objc.SEL) []objectivec.IObject
 	// Returns an array of the dictionary’s keys, in the order they would be in if the dictionary were sorted by its values using a given comparator block.
-	KeysSortedByValueUsingComparator(cmptr NSComparator) []objectivec.IObject
+	KeysSortedByValueUsingComparator(cmptr NSComparisonResultIObjectHandler) []objectivec.IObject
 	// Returns an array of the dictionary’s keys, in the order they would be in if the dictionary were sorted by its values using a given comparator block and a specified set of options.
-	KeysSortedByValueWithOptionsUsingComparator(opts NSSortOptions, cmptr NSComparator) []objectivec.IObject
+	KeysSortedByValueWithOptionsUsingComparator(opts NSSortOptions, cmptr NSComparisonResultIObjectHandler) []objectivec.IObject
 
 	// Topic: Filtering Dictionaries
 
@@ -477,8 +486,10 @@ type INSDictionary interface {
 	// Initializes a newly allocated dictionary and adds to it objects from another given dictionary.
 	__swiftInitWithDictionary_NSDictionary(otherDictionary INSDictionary) INSDictionary
 
-	// Returns by reference C arrays of the keys and values in the dictionary.
-	GetObjectsAndKeysCount(objects []objectivec.IObject, keys []objectivec.IObject, count uint)
+	// Returns by reference a C array of objects over which the sender should iterate.
+	CountByEnumeratingWithStateObjectsCount(state NSFastEnumerationState, buffer []kernel.ID, len_ uint) uint
+	// Encodes the receiver using a given archiver.
+	EncodeWithCoder(coder INSCoder)
 	// Initializes a newly allocated dictionary with entries constructed from the specified set of values and keys.
 	InitWithObjectsAndKeys(firstObject objectivec.IObject) NSDictionary
 }
@@ -549,6 +560,9 @@ func NewDictionaryWithContentsOfURLError(url INSURL) (NSDictionary, error) {
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
 		return NSDictionary{}, NSErrorFrom(errorPtr)
+	}
+	if rv == 0 {
+		return NSDictionary{}, objc.ErrInitFailed
 	}
 	return NSDictionaryFromID(rv), nil
 }
@@ -702,32 +716,6 @@ func NewDictionaryWithObjectsForKeys(objects []objectivec.IObject, keys []object
 // See: https://developer.apple.com/documentation/Foundation/NSDictionary/init(objects:forKeys:)
 func (d NSDictionary) InitWithObjectsForKeys(objects []objectivec.IObject, keys []objectivec.IObject) NSDictionary {
 	rv := objc.Send[NSDictionary](d.ID, objc.Sel("initWithObjects:forKeys:"), objectivec.IObjectSliceToNSArray(objects), objectivec.IObjectSliceToNSArray(keys))
-	return rv
-}
-
-// Initializes a newly allocated dictionary with the specified number of
-// key-value pairs constructed from the provided C arrays of keys and objects.
-//
-// objects: A C array of values for the new dictionary.
-//
-// keys: A C array of keys for the new dictionary. Each key is copied (using
-// [CopyWithZone]; keys must conform to the [NSCopying] protocol), and the
-// copy is added to the new dictionary.
-//
-// cnt: The number of elements to use from the `keys` and `objects` arrays. `count`
-// must not exceed the number of elements in `objects` or `keys`.
-//
-// # Discussion
-//
-// This method steps through the `objects` and `keys` arrays, creating entries
-// in the new dictionary as it goes. An [NSInvalidArgumentException] is raised
-// if a key or value object is `nil`.
-//
-// This method is a designated initializer of [NSDictionary].
-//
-// See: https://developer.apple.com/documentation/Foundation/NSDictionary/init(objects:forKeys:count:)
-func (d NSDictionary) InitWithObjectsForKeysCount(objects []objectivec.IObject, keys []NSCopying, cnt uint) NSDictionary {
-	rv := objc.Send[NSDictionary](d.ID, objc.Sel("initWithObjects:forKeys:count:"), objc.CArray(objects), objc.CArray(keys), cnt)
 	return rv
 }
 
@@ -1019,7 +1007,8 @@ func (d NSDictionary) ObjectEnumerator() INSEnumerator {
 //
 // See: https://developer.apple.com/documentation/Foundation/NSDictionary/enumerateKeysAndObjects(_:)
 func (d NSDictionary) EnumerateKeysAndObjectsUsingBlock(block IObjectIObjectBoolHandler) {
-	_block0, _ := NewIObjectIObjectBoolBlock(block)
+	_block0, _cleanup0 := NewIObjectIObjectBoolBlock(block)
+	defer _cleanup0()
 	objc.Send[objc.ID](d.ID, objc.Sel("enumerateKeysAndObjectsUsingBlock:"), _block0)
 }
 
@@ -1036,7 +1025,8 @@ func (d NSDictionary) EnumerateKeysAndObjectsUsingBlock(block IObjectIObjectBool
 //
 // See: https://developer.apple.com/documentation/Foundation/NSDictionary/enumerateKeysAndObjects(options:using:)
 func (d NSDictionary) EnumerateKeysAndObjectsWithOptionsUsingBlock(opts NSEnumerationOptions, block IObjectIObjectBoolHandler) {
-	_block1, _ := NewIObjectIObjectBoolBlock(block)
+	_block1, _cleanup1 := NewIObjectIObjectBoolBlock(block)
+	defer _cleanup1()
 	objc.Send[objc.ID](d.ID, objc.Sel("enumerateKeysAndObjectsWithOptions:usingBlock:"), opts, _block1)
 }
 
@@ -1063,7 +1053,7 @@ func (d NSDictionary) EnumerateKeysAndObjectsWithOptionsUsingBlock(opts NSEnumer
 // values and has as its single argument the other value from the dictionary.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSDictionary/keysSortedByValue(using:)
-func (d NSDictionary) KeysSortedByValueUsingSelector(comparator objectivec.SEL) []objectivec.IObject {
+func (d NSDictionary) KeysSortedByValueUsingSelector(comparator objc.SEL) []objectivec.IObject {
 	rv := objc.Send[[]objc.ID](d.ID, objc.Sel("keysSortedByValueUsingSelector:"), comparator)
 	return objc.ConvertSlice(rv, func(id objc.ID) objectivec.IObject {
 		return objectivec.Object{ID: id}
@@ -1081,12 +1071,10 @@ func (d NSDictionary) KeysSortedByValueUsingSelector(comparator objectivec.SEL) 
 // dictionary were sorted by its values using `cmptr`.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSDictionary/keysSortedByValue(comparator:)
-func (d NSDictionary) KeysSortedByValueUsingComparator(cmptr NSComparator) []objectivec.IObject {
-	_block0 := objc.NewBlock(func(_ objc.Block, arg0 objc.ID, arg1 objc.ID) NSComparisonResult {
-		return cmptr(objectivec.ObjectFromID(arg0), objectivec.ObjectFromID(arg1))
-	})
-	defer _block0.Release()
-	rv := objc.Send[[]objc.ID](d.ID, objc.Sel("keysSortedByValueUsingComparator:"), objc.ID(_block0))
+func (d NSDictionary) KeysSortedByValueUsingComparator(cmptr NSComparisonResultIObjectHandler) []objectivec.IObject {
+	_block0, _cleanup0 := NewNSComparisonResultIObjectBlock(cmptr)
+	defer _cleanup0()
+	rv := objc.Send[[]objc.ID](d.ID, objc.Sel("keysSortedByValueUsingComparator:"), _block0)
 	return objc.ConvertSlice(rv, func(id objc.ID) objectivec.IObject {
 		return objectivec.Object{ID: id}
 	})
@@ -1107,12 +1095,10 @@ func (d NSDictionary) KeysSortedByValueUsingComparator(cmptr NSComparator) []obj
 // in `opts`.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSDictionary/keysSortedByValue(options:usingComparator:)
-func (d NSDictionary) KeysSortedByValueWithOptionsUsingComparator(opts NSSortOptions, cmptr NSComparator) []objectivec.IObject {
-	_block1 := objc.NewBlock(func(_ objc.Block, arg0 objc.ID, arg1 objc.ID) NSComparisonResult {
-		return cmptr(objectivec.ObjectFromID(arg0), objectivec.ObjectFromID(arg1))
-	})
-	defer _block1.Release()
-	rv := objc.Send[[]objc.ID](d.ID, objc.Sel("keysSortedByValueWithOptions:usingComparator:"), opts, objc.ID(_block1))
+func (d NSDictionary) KeysSortedByValueWithOptionsUsingComparator(opts NSSortOptions, cmptr NSComparisonResultIObjectHandler) []objectivec.IObject {
+	_block1, _cleanup1 := NewNSComparisonResultIObjectBlock(cmptr)
+	defer _cleanup1()
+	rv := objc.Send[[]objc.ID](d.ID, objc.Sel("keysSortedByValueWithOptions:usingComparator:"), opts, _block1)
 	return objc.ConvertSlice(rv, func(id objc.ID) objectivec.IObject {
 		return objectivec.Object{ID: id}
 	})
@@ -1129,7 +1115,8 @@ func (d NSDictionary) KeysSortedByValueWithOptionsUsingComparator(opts NSSortOpt
 //
 // See: https://developer.apple.com/documentation/Foundation/NSDictionary/keysOfEntries(passingTest:)
 func (d NSDictionary) KeysOfEntriesPassingTest(predicate BoolIObjectHandler) INSSet {
-	_block0, _ := NewBoolIObjectBlock(predicate)
+	_block0, _cleanup0 := NewBoolIObjectBlock(predicate)
+	defer _cleanup0()
 	rv := objc.Send[objc.ID](d.ID, objc.Sel("keysOfEntriesPassingTest:"), _block0)
 	return NSSetFromID(rv)
 }
@@ -1147,7 +1134,8 @@ func (d NSDictionary) KeysOfEntriesPassingTest(predicate BoolIObjectHandler) INS
 //
 // See: https://developer.apple.com/documentation/Foundation/NSDictionary/keysOfEntries(options:passingTest:)
 func (d NSDictionary) KeysOfEntriesWithOptionsPassingTest(opts NSEnumerationOptions, predicate BoolIObjectHandler) INSSet {
-	_block1, _ := NewBoolIObjectBlock(predicate)
+	_block1, _cleanup1 := NewBoolIObjectBlock(predicate)
+	defer _cleanup1()
 	rv := objc.Send[objc.ID](d.ID, objc.Sel("keysOfEntriesWithOptions:passingTest:"), opts, _block1)
 	return NSSetFromID(rv)
 }
@@ -1167,7 +1155,7 @@ func (d NSDictionary) KeysOfEntriesWithOptionsPassingTest(opts NSEnumerationOpti
 //
 // If the dictionary’s contents are all property list objects, you can use
 // the location written by this method to initialize a new dictionary with the
-// instance method `NSDictionary/init()-4pv16`.
+// instance method `NSDictionary/init(contentsOfURL:)-4pv16`.
 //
 // If you need greater control over the property list representation, use
 // [NSPropertyListSerialization] instead.
@@ -1549,7 +1537,7 @@ func (d NSDictionary) CanSwiftInitWithDictionary_NSDictionary() bool {
 // is finished.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSDictionary/countByEnumeratingWithState:objects:count:
-func (d NSDictionary) CountByEnumeratingWithStateObjectsCount(state NSFastEnumerationState, buffer []unsafe.Pointer, len_ uint) uint {
+func (d NSDictionary) CountByEnumeratingWithStateObjectsCount(state NSFastEnumerationState, buffer []kernel.ID, len_ uint) uint {
 	rv := objc.Send[uint](d.ID, objc.Sel("countByEnumeratingWithState:objects:count:"), state, objc.CArray(buffer), len_)
 	return rv
 }
@@ -1561,25 +1549,6 @@ func (d NSDictionary) CountByEnumeratingWithStateObjectsCount(state NSFastEnumer
 // See: https://developer.apple.com/documentation/Foundation/NSCoding/encode(with:)
 func (d NSDictionary) EncodeWithCoder(coder INSCoder) {
 	objc.Send[objc.ID](d.ID, objc.Sel("encodeWithCoder:"), coder)
-}
-
-// Returns by reference C arrays of the keys and values in the dictionary.
-//
-// objects: Upon return, contains a C array of the values in the dictionary.
-//
-// keys: Upon return, contains a C array of the keys in the dictionary.
-//
-// count: The maximum number of objects to return.
-//
-// # Discussion
-//
-// The elements in the returned array and the keys array have a one-for-one
-// correspondence, so that the nth object in the returned array corresponds to
-// the the key in keys.
-//
-// See: https://developer.apple.com/documentation/Foundation/NSDictionary/getObjects:andKeys:count:
-func (d NSDictionary) GetObjectsAndKeysCount(objects []objectivec.IObject, keys []objectivec.IObject, count uint) {
-	objc.Send[objc.ID](d.ID, objc.Sel("getObjects:andKeys:count:"), objc.CArray(objects), objc.CArray(keys), count)
 }
 
 // Initializes a newly allocated dictionary with entries constructed from the
@@ -1748,33 +1717,6 @@ func (_NSDictionaryClass NSDictionaryClass) DictionaryWithObjectsAndKeys(firstOb
 // See: https://developer.apple.com/documentation/Foundation/NSDictionary/dictionaryWithObjects:forKeys:
 func (_NSDictionaryClass NSDictionaryClass) DictionaryWithObjectsForKeys(objects []objectivec.IObject, keys []objectivec.IObject) NSDictionary {
 	rv := objc.Send[objc.ID](objc.ID(_NSDictionaryClass.class), objc.Sel("dictionaryWithObjects:forKeys:"), objectivec.IObjectSliceToNSArray(objects), objectivec.IObjectSliceToNSArray(keys))
-	return NSDictionaryFromID(rv)
-}
-
-// Creates a dictionary containing a specified number of objects from a C
-// array.
-//
-// objects: A C array of values for the new dictionary.
-//
-// keys: A C array of keys for the new dictionary. Each key is copied (using
-// [CopyWithZone]; keys must conform to the [NSCopying] protocol), and the
-// copy is added to the new dictionary.
-//
-// cnt: The number of elements to use from the `keys` and `objects` arrays. `cnt`
-// must not exceed the number of elements in `objects` or `keys`.
-//
-// # Discussion
-//
-// This method steps through the `objects` and `keys` arrays, creating entries
-// in the new dictionary as it goes. An [NSInvalidArgumentException] is raised
-// if a key or value object is `nil`.
-//
-// The following code fragment illustrates how to create a dictionary that
-// associates the alphabetic characters with their ASCII values:
-//
-// See: https://developer.apple.com/documentation/Foundation/NSDictionary/dictionaryWithObjects:forKeys:count:
-func (_NSDictionaryClass NSDictionaryClass) DictionaryWithObjectsForKeysCount(objects []objectivec.IObject, keys []NSCopying, cnt uint) NSDictionary {
-	rv := objc.Send[objc.ID](objc.ID(_NSDictionaryClass.class), objc.Sel("dictionaryWithObjects:forKeys:count:"), objc.CArray(objects), objc.CArray(keys), cnt)
 	return NSDictionaryFromID(rv)
 }
 

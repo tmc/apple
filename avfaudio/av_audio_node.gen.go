@@ -5,6 +5,7 @@ package avfaudio
 import (
 	"sync"
 
+	"github.com/tmc/apple/audiotoolbox"
 	"github.com/tmc/apple/foundation"
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
@@ -172,7 +173,7 @@ type IAVAudioNode interface {
 	// Topic: Installing and Removing an Audio Tap
 
 	// Installs an audio tap on a bus you specify to record, monitor, and observe the output of the node.
-	InstallTapOnBusBufferSizeFormatBlock(bus AVAudioNodeBus, bufferSize AVAudioFrameCount, format IAVAudioFormat, tapBlock AVAudioNodeTapBlock)
+	InstallTapOnBusBufferSizeFormatBlock(bus AVAudioNodeBus, bufferSize AVAudioFrameCount, format IAVAudioFormat, tapBlock AVAudioPCMBufferAVAudioTimeHandler)
 	// Removes an audio tap on a bus you specify.
 	RemoveTapOnBus(bus AVAudioNodeBus)
 
@@ -189,7 +190,7 @@ type IAVAudioNode interface {
 	// Topic: Getting Audio Node Properties
 
 	// An audio unit object that wraps or underlies the implementation’s audio unit.
-	AUAudioUnit() objectivec.IObject
+	AUAudioUnit() audiotoolbox.AUAudioUnit
 	// The processing latency of the node, in seconds.
 	Latency() foundation.NSTimeInterval
 	// The maximum render pipeline latency downstream of the node, in seconds.
@@ -300,12 +301,9 @@ func (a AVAudioNode) NameForOutputBus(bus AVAudioNodeBus) string {
 // can install only one tap on any bus.
 //
 // See: https://developer.apple.com/documentation/AVFAudio/AVAudioNode/installTap(onBus:bufferSize:format:block:)
-func (a AVAudioNode) InstallTapOnBusBufferSizeFormatBlock(bus AVAudioNodeBus, bufferSize AVAudioFrameCount, format IAVAudioFormat, tapBlock AVAudioNodeTapBlock) {
-	_block3 := objc.NewBlock(func(_ objc.Block, arg0 objc.ID, arg1 objc.ID) {
-		tapBlock(AVAudioPCMBufferFromID(arg0), AVAudioTimeFromID(arg1))
-	})
-	// _block3 intentionally not released: "installTapOnBus:bufferSize:format:block:" retains the block past return.
-	objc.Send[objc.ID](a.ID, objc.Sel("installTapOnBus:bufferSize:format:block:"), bus, bufferSize, format, objc.ID(_block3))
+func (a AVAudioNode) InstallTapOnBusBufferSizeFormatBlock(bus AVAudioNodeBus, bufferSize AVAudioFrameCount, format IAVAudioFormat, tapBlock AVAudioPCMBufferAVAudioTimeHandler) {
+	_block3, _ := NewAVAudioPCMBufferAVAudioTimeBlock(tapBlock)
+	objc.Send[objc.ID](a.ID, objc.Sel("installTapOnBus:bufferSize:format:block:"), bus, bufferSize, format, _block3)
 }
 
 // Removes an audio tap on a bus you specify.
@@ -379,9 +377,9 @@ func (a AVAudioNode) LastRenderTime() IAVAudioTime {
 // See: https://developer.apple.com/documentation/AVFAudio/AVAudioNode/auAudioUnit
 //
 // [AUAudioUnit]: https://developer.apple.com/documentation/AudioToolbox/AUAudioUnit
-func (a AVAudioNode) AUAudioUnit() objectivec.IObject {
+func (a AVAudioNode) AUAudioUnit() audiotoolbox.AUAudioUnit {
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("AUAudioUnit"))
-	return objectivec.Object{ID: rv}
+	return audiotoolbox.AUAudioUnitFromID(objc.ID(rv))
 }
 
 // The processing latency of the node, in seconds.

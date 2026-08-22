@@ -306,6 +306,8 @@ type INSPathCell interface {
 	PanelValidateURLError(sender objectivec.IObject, url foundation.NSURL) (bool, error)
 	// Tells the delegate that the Save panel is about to expand or collapse because the user clicked the disclosure triangle that displays or hides the file browser.
 	PanelWillExpand(sender objectivec.IObject, expanding bool)
+	// Implemented to override the default action of enabling or disabling a specific menu item.
+	ValidateMenuItem(menuItem INSMenuItem) bool
 }
 
 // Init initializes the instance.
@@ -818,3 +820,5 @@ func (_NSPathCellClass NSPathCellClass) PathComponentCellClass() objectivec.Clas
 }
 
 // Protocol methods for NSMenuItemValidation
+
+// Protocol methods for NSOpenSavePanelDelegate

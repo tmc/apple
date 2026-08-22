@@ -66,7 +66,7 @@ func (nc NSUserDefaultsControllerClass) Alloc() NSUserDefaultsController {
 //   - [NSUserDefaultsController.SetAppliesImmediately]
 //   - [NSUserDefaultsController.Values]: Returns a key value coding compliant object that is used to access the user default properties.
 //   - [NSUserDefaultsController.Revert]: Causes the receiver to discard any unsaved changes to bound user default properties, restoring their previous values.
-//   - [NSUserDefaultsController.RevertToInitialValues]: Causes the receiver to discard all edits and replace the values of all the user default properties with any corresponding values in the [initialValues](<doc://com.apple.appkit/documentation/AppKit/NSUserDefaultsController/initialValues>) dictionary.
+//   - [NSUserDefaultsController.RevertToInitialValues]: Causes the receiver to discard all edits and replace the values of all the user default properties with any corresponding values in the [initialValues](<https://developer.apple.com/documentation/AppKit/NSUserDefaultsController/initialValues>) dictionary.
 //   - [NSUserDefaultsController.Save]: Saves the values of the receiver’s user default properties.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSUserDefaultsController
@@ -103,7 +103,7 @@ func NSUserDefaultsControllerFromID(id objc.ID) NSUserDefaultsController {
 //   - [INSUserDefaultsController.SetAppliesImmediately]
 //   - [INSUserDefaultsController.Values]: Returns a key value coding compliant object that is used to access the user default properties.
 //   - [INSUserDefaultsController.Revert]: Causes the receiver to discard any unsaved changes to bound user default properties, restoring their previous values.
-//   - [INSUserDefaultsController.RevertToInitialValues]: Causes the receiver to discard all edits and replace the values of all the user default properties with any corresponding values in the [initialValues](<doc://com.apple.appkit/documentation/AppKit/NSUserDefaultsController/initialValues>) dictionary.
+//   - [INSUserDefaultsController.RevertToInitialValues]: Causes the receiver to discard all edits and replace the values of all the user default properties with any corresponding values in the [initialValues](<https://developer.apple.com/documentation/AppKit/NSUserDefaultsController/initialValues>) dictionary.
 //   - [INSUserDefaultsController.Save]: Saves the values of the receiver’s user default properties.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSUserDefaultsController
@@ -131,7 +131,7 @@ type INSUserDefaultsController interface {
 	Values() objectivec.IObject
 	// Causes the receiver to discard any unsaved changes to bound user default properties, restoring their previous values.
 	Revert(sender objectivec.IObject)
-	// Causes the receiver to discard all edits and replace the values of all the user default properties with any corresponding values in the [initialValues](<doc://com.apple.appkit/documentation/AppKit/NSUserDefaultsController/initialValues>) dictionary.
+	// Causes the receiver to discard all edits and replace the values of all the user default properties with any corresponding values in the [initialValues](<https://developer.apple.com/documentation/AppKit/NSUserDefaultsController/initialValues>) dictionary.
 	RevertToInitialValues(sender objectivec.IObject)
 	// Saves the values of the receiver’s user default properties.
 	Save(sender objectivec.IObject)

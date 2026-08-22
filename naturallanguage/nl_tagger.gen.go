@@ -5,9 +5,9 @@ package naturallanguage
 import (
 	"context"
 	"sync"
+	"unsafe"
 
 	"github.com/tmc/apple/foundation"
-	"github.com/tmc/apple/kernel"
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -164,7 +164,7 @@ type INLTagger interface {
 	GazetteersForTagScheme(tagScheme NLTagScheme) []NLGazetteer
 
 	// Enumerates a block over the tagger’s string, given a range, token unit, and tag scheme.
-	EnumerateTagsInRangeUnitSchemeOptionsUsingBlock(range_ foundation.NSRange, unit NLTokenUnit, scheme NLTagScheme, options NLTaggerOptions, block func(*string, kernel.Pointer, *bool))
+	EnumerateTagsInRangeUnitSchemeOptionsUsingBlock(range_ foundation.NSRange, unit NLTokenUnit, scheme NLTagScheme, options NLTaggerOptions, block StringNSRangeBoolHandler)
 	// Sets the language for a range of text within the tagger’s string.
 	SetLanguageRange(language NLLanguage, range_ foundation.NSRange)
 	// Sets the orthography for the specified range.
@@ -174,7 +174,7 @@ type INLTagger interface {
 	// Finds multiple possible tags for a given linguistic unit, for a single scheme, at the specified character position.
 	TagHypothesesAtIndexUnitSchemeMaximumCountTokenRange(characterIndex uint, unit NLTokenUnit, scheme NLTagScheme, maximumCount uint, tokenRange foundation.NSRangePointer) foundation.INSDictionary
 	// Finds an array of linguistic tags and token ranges for a given string range and linguistic unit.
-	TagsInRangeUnitSchemeOptionsTokenRanges(range_ foundation.NSRange, unit NLTokenUnit, scheme NLTagScheme, options NLTaggerOptions, tokenRanges []foundation.NSValue) []string
+	TagsInRangeUnitSchemeOptionsTokenRanges(range_ foundation.NSRange, unit NLTokenUnit, scheme NLTagScheme, options NLTaggerOptions, tokenRanges *foundation.NSArray) []string
 	// Returns the range of the linguistic unit containing the specified character index.
 	TokenRangeAtIndexUnit(characterIndex uint, unit NLTokenUnit) foundation.NSRange
 	// Finds the entire range of all tokens of the specified linguistic unit contained completely or partially within the specified range.
@@ -339,12 +339,10 @@ func (t NLTagger) GazetteersForTagScheme(tagScheme NLTagScheme) []NLGazetteer {
 // [NLTokenUnit]: https://developer.apple.com/documentation/NaturalLanguage/NLTokenUnit
 // [lemma]: https://developer.apple.com/documentation/NaturalLanguage/NLTagScheme/lemma
 // [lexicalClass]: https://developer.apple.com/documentation/NaturalLanguage/NLTagScheme/lexicalClass
-func (t NLTagger) EnumerateTagsInRangeUnitSchemeOptionsUsingBlock(range_ foundation.NSRange, unit NLTokenUnit, scheme NLTagScheme, options NLTaggerOptions, block func(*string, kernel.Pointer, *bool)) {
-	_block4 := objc.NewBlock(func(_ objc.Block, arg0 objc.ID, arg1 kernel.Pointer, arg2 *bool) {
-		block(objc.IDToStringPtr(arg0), arg1, arg2)
-	})
-	defer _block4.Release()
-	objc.Send[objc.ID](t.ID, objc.Sel("enumerateTagsInRange:unit:scheme:options:usingBlock:"), range_, unit, scheme, options, objc.ID(_block4))
+func (t NLTagger) EnumerateTagsInRangeUnitSchemeOptionsUsingBlock(range_ foundation.NSRange, unit NLTokenUnit, scheme NLTagScheme, options NLTaggerOptions, block StringNSRangeBoolHandler) {
+	_block4, _cleanup4 := NewStringNSRangeBoolBlock(block)
+	defer _cleanup4()
+	objc.Send[objc.ID](t.ID, objc.Sel("enumerateTagsInRange:unit:scheme:options:usingBlock:"), range_, unit, scheme, options, _block4)
 }
 
 // Sets the language for a range of text within the tagger’s string.
@@ -460,8 +458,8 @@ func (t NLTagger) TagHypothesesAtIndexUnitSchemeMaximumCountTokenRange(character
 //
 // [NLTokenUnit]: https://developer.apple.com/documentation/NaturalLanguage/NLTokenUnit
 // [NLTagger.Options]: https://developer.apple.com/documentation/NaturalLanguage/NLTagger/Options
-func (t NLTagger) TagsInRangeUnitSchemeOptionsTokenRanges(range_ foundation.NSRange, unit NLTokenUnit, scheme NLTagScheme, options NLTaggerOptions, tokenRanges []foundation.NSValue) []string {
-	rv := objc.Send[[]objc.ID](t.ID, objc.Sel("tagsInRange:unit:scheme:options:tokenRanges:"), range_, unit, objc.String(string(scheme)), options, objectivec.IObjectSliceToNSArray(tokenRanges))
+func (t NLTagger) TagsInRangeUnitSchemeOptionsTokenRanges(range_ foundation.NSRange, unit NLTokenUnit, scheme NLTagScheme, options NLTaggerOptions, tokenRanges *foundation.NSArray) []string {
+	rv := objc.Send[[]objc.ID](t.ID, objc.Sel("tagsInRange:unit:scheme:options:tokenRanges:"), range_, unit, objc.String(string(scheme)), options, unsafe.Pointer(tokenRanges))
 	return objc.ConvertSliceToStrings(rv)
 }
 

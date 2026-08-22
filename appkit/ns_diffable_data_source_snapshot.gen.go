@@ -48,9 +48,9 @@ func (nc NSDiffableDataSourceSnapshotClass) Alloc() NSDiffableDataSourceSnapshot
 //
 // # Overview
 //
-// Diffable data sources use to provide data for collection views and table
-// views. Through a snapshot, you set up the initial state of the data that
-// displays in a view, and later update that data.
+// Diffable data sources use snapshots to provide data for collection views
+// and table views. Through a snapshot, you set up the initial state of the
+// data that displays in a view, and later update that data.
 //
 // The data in a snapshot is made up of the sections and items you want to
 // display, in the specific order you want to display them. You configure what

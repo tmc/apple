@@ -192,7 +192,6 @@ func NSTextCheckingResultFromID(id objc.ID) NSTextCheckingResult {
 // See: https://developer.apple.com/documentation/Foundation/NSTextCheckingResult
 type INSTextCheckingResult interface {
 	objectivec.IObject
-	NSSecureCoding
 
 	// Topic: Text Checking Type Range and Type
 
@@ -266,6 +265,10 @@ type INSTextCheckingResult interface {
 	// Topic: Instance Methods
 
 	RangeWithName(name string) NSRange
+
+	// Encodes the receiver using a given archiver.
+	EncodeWithCoder(coder INSCoder)
+	InitWithCoder(coder INSCoder) NSTextCheckingResult
 }
 
 // Init initializes the instance.

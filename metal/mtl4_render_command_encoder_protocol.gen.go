@@ -3,6 +3,8 @@
 package metal
 
 import (
+	"unsafe"
+
 	"github.com/tmc/apple/foundation"
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
@@ -180,7 +182,7 @@ type MTL4RenderCommandEncoder interface {
 	// See: https://developer.apple.com/documentation/Metal/MTL4RenderCommandEncoder/executeCommands(buffer:indirectBuffer:)
 	ExecuteCommandsInBufferIndirectBuffer(indirectCommandBuffer MTLIndirectCommandBuffer, indirectRangeBuffer MTLGPUAddress)
 
-	// Writes a GPU timestamp into the given [MTL4CounterHeap](<doc://com.apple.metal/documentation/Metal/MTL4CounterHeap>) at `index` after `stage` completes.
+	// Writes a GPU timestamp into the given [MTL4CounterHeap](<https://developer.apple.com/documentation/Metal/MTL4CounterHeap>) at `index` after `stage` completes.
 	//
 	// See: https://developer.apple.com/documentation/Metal/MTL4RenderCommandEncoder/writeTimestamp(granularity:after:counterHeap:index:)
 	WriteTimestampWithGranularityAfterStageIntoHeapAtIndex(granularity MTL4TimestampGranularity, stage MTLRenderStages, counterHeap MTL4CounterHeap, index uint)
@@ -1135,7 +1137,7 @@ func (o MTL4RenderCommandEncoderObject) SetScissorRectsCount(scissorRects []MTLS
 //
 // [MTLVertexAmplificationViewMapping]: https://developer.apple.com/documentation/Metal/MTLVertexAmplificationViewMapping
 func (o MTL4RenderCommandEncoderObject) SetVertexAmplificationCountViewMappings(count uint, viewMappings *MTLVertexAmplificationViewMapping) {
-	objc.Send[struct{}](o.ID, objc.Sel("setVertexAmplificationCount:viewMappings:"), count, viewMappings)
+	objc.Send[struct{}](o.ID, objc.Sel("setVertexAmplificationCount:viewMappings:"), count, unsafe.Pointer(viewMappings))
 }
 
 // Sets an array of viewports to transform vertices from normalized device
@@ -1254,9 +1256,10 @@ func (o MTL4RenderCommandEncoderObject) PushDebugGroup(string_ string) {
 // that depend on those fences when your app commits the enclosing
 // [MTLCommandBuffer].
 //
-// To synchronize different stages within a single pass, create an because a
-// fence can only synchronize memory operations between different passes. For
-// more information, see [Synchronizing stages within a pass].
+// To synchronize different stages within a single pass, create an intrapass
+// barrier because a fence can only synchronize memory operations between
+// different passes. For more information, see [Synchronizing stages within a
+// pass].
 //
 // See: https://developer.apple.com/documentation/Metal/MTL4CommandEncoder/updateFence(_:afterEncoderStages:)
 //
@@ -1304,9 +1307,10 @@ func (o MTL4RenderCommandEncoderObject) UpdateFenceAfterEncoderStages(fence MTLF
 // that depend on those fences when your app commits the enclosing
 // [MTLCommandBuffer].
 //
-// To synchronize different stages within a single pass, create an because a
-// fence can only synchronize memory operations between different passes. For
-// more information, see [Synchronizing stages within a pass].
+// To synchronize different stages within a single pass, create an intrapass
+// barrier because a fence can only synchronize memory operations between
+// different passes. For more information, see [Synchronizing stages within a
+// pass].
 //
 // See: https://developer.apple.com/documentation/Metal/MTL4CommandEncoder/waitForFence(_:beforeEncoderStages:)
 //
@@ -1332,9 +1336,9 @@ func (o MTL4RenderCommandEncoderObject) WaitForFenceBeforeEncoderStages(fence MT
 // # Discussion
 //
 // Encode a barrier that guarantees that any subsequent work you encode in the
-// , corresponding to `beforeEncoderStages`, doesn’t begin until all prior
-// commands in this command encoder, corresponding to `afterEncoderStages`,
-// completes.
+// current command encoder, corresponding to `beforeEncoderStages`, doesn’t
+// begin until all prior commands in this command encoder, corresponding to
+// `afterEncoderStages`, completes.
 //
 // When calling this method, it’s your responsibility to ensure parameters
 // `afterEncoderStages` and `beforeEncoderStages` contain a combination of
@@ -1409,9 +1413,9 @@ func (o MTL4RenderCommandEncoderObject) BarrierAfterQueueStagesBeforeStagesVisib
 // # Discussion
 //
 // This method encodes a barrier that guarantees that any work you encode
-// using , corresponding to `beforeQueueStages`, don’t begin until all
-// commands you previously encode in the current encoder (and prior encoders),
-// corresponding to `afterStages`, complete.
+// using subsequent command encoders, corresponding to `beforeQueueStages`,
+// don’t begin until all commands you previously encode in the current
+// encoder (and prior encoders), corresponding to `afterStages`, complete.
 //
 // When calling this method, you can pass any [MTLStages] to parameters
 // `afterStages` and `beforeQueueStages`, even stages that don’t relate to

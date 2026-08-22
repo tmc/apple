@@ -120,7 +120,7 @@ type ICIFilterShape interface {
 	// Topic: Modifying a Filter Shape
 
 	// Modifies a filter shape object so that it is inset by the specified x and y values.
-	InsetByXY(dx int, dy int) ICIFilterShape
+	InsetByXY(dx int32, dy int32) ICIFilterShape
 	// Creates a filter shape object that represents the intersection of the current filter shape and the specified filter shape object.
 	IntersectWith(s2 ICIFilterShape) ICIFilterShape
 	// Creates a filter shape that represents the intersection of the current filter shape and a rectangle.
@@ -191,7 +191,7 @@ func (f CIFilterShape) InitWithRect(r corefoundation.CGRect) CIFilterShape {
 // dy: A value that specifies an inset in the y direction.
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIFilterShape/insetBy(x:y:)
-func (f CIFilterShape) InsetByXY(dx int, dy int) ICIFilterShape {
+func (f CIFilterShape) InsetByXY(dx int32, dy int32) ICIFilterShape {
 	rv := objc.Send[objc.ID](f.ID, objc.Sel("insetByX:Y:"), dx, dy)
 	return CIFilterShapeFromID(rv)
 }

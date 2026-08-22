@@ -6,8 +6,9 @@ import (
 	"sync"
 	"unsafe"
 
-	"github.com/tmc/apple/kernel"
+	"github.com/tmc/apple/foundation"
 	"github.com/tmc/apple/objc"
+	"github.com/tmc/apple/objectivec"
 )
 
 // The class instance for the [CKQueryOperation] class.
@@ -175,14 +176,14 @@ type ICKQueryOperation interface {
 	ResultsLimit() uint
 	SetResultsLimit(value uint)
 	// The fields of the records to fetch.
-	DesiredKeys() unsafe.Pointer
-	SetDesiredKeys(value kernel.Pointer)
+	DesiredKeys() []CKRecordFieldKey
+	SetDesiredKeys(value []CKRecordFieldKey)
 
 	// Topic: Instance Properties
 
 	// The closure to execute when a record match is available.
 	RecordMatchedBlock() unsafe.Pointer
-	SetRecordMatchedBlock(value kernel.Pointer)
+	SetRecordMatchedBlock(value unsafe.Pointer)
 }
 
 // Init initializes the instance.
@@ -385,12 +386,14 @@ func (c CKQueryOperation) SetResultsLimit(value uint) {
 // The fields of the records to fetch.
 //
 // See: https://developer.apple.com/documentation/cloudkit/ckqueryoperation/desiredkeys-7qrse
-func (c CKQueryOperation) DesiredKeys() unsafe.Pointer {
-	rv := objc.Send[unsafe.Pointer](c.ID, objc.Sel("desiredKeys"))
-	return rv
+func (c CKQueryOperation) DesiredKeys() []CKRecordFieldKey {
+	rv := objc.Send[[]objc.ID](c.ID, objc.Sel("desiredKeys"))
+	return objc.ConvertSlice(rv, func(id objc.ID) CKRecordFieldKey {
+		return CKRecordFieldKey(foundation.NSStringFromID(id).String())
+	})
 }
-func (c CKQueryOperation) SetDesiredKeys(value kernel.Pointer) {
-	objc.Send[struct{}](c.ID, objc.Sel("setDesiredKeys:"), value)
+func (c CKQueryOperation) SetDesiredKeys(value []CKRecordFieldKey) {
+	objc.Send[struct{}](c.ID, objc.Sel("setDesiredKeys:"), objectivec.StringSliceToNSArray(value))
 }
 
 // The closure to execute when a record match is available.
@@ -400,6 +403,6 @@ func (c CKQueryOperation) RecordMatchedBlock() unsafe.Pointer {
 	rv := objc.Send[unsafe.Pointer](c.ID, objc.Sel("recordMatchedBlock"))
 	return rv
 }
-func (c CKQueryOperation) SetRecordMatchedBlock(value kernel.Pointer) {
+func (c CKQueryOperation) SetRecordMatchedBlock(value unsafe.Pointer) {
 	objc.Send[struct{}](c.ID, objc.Sel("setRecordMatchedBlock:"), value)
 }

@@ -125,7 +125,11 @@ func (nc NSScriptCommandClass) Alloc() NSScriptCommand {
 // # Suspending and resuming commands
 //
 //   - [NSScriptCommand.SuspendExecution]: Suspends the execution of the receiver.
-//   - [NSScriptCommand.ResumeExecutionWithResult]: If a successful, unmatched, invocation of [suspendExecution()](<doc://com.apple.foundation/documentation/Foundation/NSScriptCommand/suspendExecution()>) has been made, resume the execution of the command.
+//   - [NSScriptCommand.ResumeExecutionWithResult]: If a successful, unmatched, invocation of [suspendExecution()](<https://developer.apple.com/documentation/Foundation/NSScriptCommand/suspendExecution()>) has been made, resume the execution of the command.
+//
+// # Initializers
+//
+//   - [NSScriptCommand.InitWithCoder]
 //
 // See: https://developer.apple.com/documentation/Foundation/NSScriptCommand
 //
@@ -196,7 +200,11 @@ func NSScriptCommandFromID(id objc.ID) NSScriptCommand {
 // # Suspending and resuming commands
 //
 //   - [INSScriptCommand.SuspendExecution]: Suspends the execution of the receiver.
-//   - [INSScriptCommand.ResumeExecutionWithResult]: If a successful, unmatched, invocation of [suspendExecution()](<doc://com.apple.foundation/documentation/Foundation/NSScriptCommand/suspendExecution()>) has been made, resume the execution of the command.
+//   - [INSScriptCommand.ResumeExecutionWithResult]: If a successful, unmatched, invocation of [suspendExecution()](<https://developer.apple.com/documentation/Foundation/NSScriptCommand/suspendExecution()>) has been made, resume the execution of the command.
+//
+// # Initializers
+//
+//   - [INSScriptCommand.InitWithCoder]
 //
 // See: https://developer.apple.com/documentation/Foundation/NSScriptCommand
 type INSScriptCommand interface {
@@ -267,8 +275,15 @@ type INSScriptCommand interface {
 
 	// Suspends the execution of the receiver.
 	SuspendExecution()
-	// If a successful, unmatched, invocation of [suspendExecution()](<doc://com.apple.foundation/documentation/Foundation/NSScriptCommand/suspendExecution()>) has been made, resume the execution of the command.
+	// If a successful, unmatched, invocation of [suspendExecution()](<https://developer.apple.com/documentation/Foundation/NSScriptCommand/suspendExecution()>) has been made, resume the execution of the command.
 	ResumeExecutionWithResult(result objectivec.IObject)
+
+	// Topic: Initializers
+
+	InitWithCoder(inCoder INSCoder) NSScriptCommand
+
+	// Encodes the receiver using a given archiver.
+	EncodeWithCoder(coder INSCoder)
 }
 
 // Init initializes the instance.

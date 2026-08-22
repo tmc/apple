@@ -123,15 +123,3 @@ func (o MTLBufferBindingObject) BufferStructType() IMTLStructType {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("bufferStructType"))
 	return MTLStructTypeFromID(rv)
 }
-
-// See: https://developer.apple.com/documentation/Metal/MTLBinding/isArgument
-func (o MTLBufferBindingObject) Argument() bool {
-	rv := objc.Send[bool](o.ID, objc.Sel("isArgument"))
-	return bool(rv)
-}
-
-// See: https://developer.apple.com/documentation/Metal/MTLBinding/isUsed
-func (o MTLBufferBindingObject) Used() bool {
-	rv := objc.Send[bool](o.ID, objc.Sel("isUsed"))
-	return bool(rv)
-}

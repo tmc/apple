@@ -4,7 +4,6 @@ package appkit
 
 import (
 	"sync"
-	"unsafe"
 
 	"github.com/tmc/apple/corefoundation"
 	"github.com/tmc/apple/foundation"
@@ -220,7 +219,7 @@ type INSPrintOperation interface {
 	// Runs the print operation on the current thread.
 	RunOperation() bool
 	// Runs the print operation, calling your custom delegate method upon completion.
-	RunOperationModalForWindowDelegateDidRunSelectorContextInfo(docWindow INSWindow, delegate objectivec.IObject, didRunSelector objc.SEL, contextInfo unsafe.Pointer)
+	RunOperationModalForWindowDelegateDidRunSelectorContextInfo(docWindow INSWindow, delegate objectivec.IObject, didRunSelector objc.SEL, contextInfo uintptr)
 	// Called at the end of a print operation to remove the print operation as the current operation.
 	CleanUpOperation()
 	// Delivers the results of the print operation to the intended destination.
@@ -385,7 +384,7 @@ func (p NSPrintOperation) RunOperation() bool {
 // may be messaged in that spawned, non-main thread.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSPrintOperation/runModal(for:delegate:didRun:contextInfo:)
-func (p NSPrintOperation) RunOperationModalForWindowDelegateDidRunSelectorContextInfo(docWindow INSWindow, delegate objectivec.IObject, didRunSelector objc.SEL, contextInfo unsafe.Pointer) {
+func (p NSPrintOperation) RunOperationModalForWindowDelegateDidRunSelectorContextInfo(docWindow INSWindow, delegate objectivec.IObject, didRunSelector objc.SEL, contextInfo uintptr) {
 	objc.Send[objc.ID](p.ID, objc.Sel("runOperationModalForWindow:delegate:didRunSelector:contextInfo:"), docWindow, delegate, didRunSelector, contextInfo)
 }
 

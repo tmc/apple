@@ -16,10 +16,10 @@ import (
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/CoreAudio/AudioDriverPlugInHostInfo
 type AudioDriverPlugInHostInfo struct {
-	MDeviceID                  uint32
+	MDeviceID                  AudioDeviceID
+	MIOAudioDevice             uint32
+	MIOAudioEngine             uint32
 	MDevicePropertyChangedProc AudioDriverPlugInDevicePropertyChangedProc
-	MIOAudioDevice             uintptr
-	MIOAudioEngine             uintptr
 	MStreamPropertyChangedProc AudioDriverPlugInStreamPropertyChangedProc
 }
 
@@ -30,7 +30,7 @@ type AudioDriverPlugInHostInfo struct {
 type AudioHardwareIOProcStreamUsage struct {
 	MIOProc        unsafe.Pointer
 	MNumberStreams uint32
-	MStreamIsOn    uint32
+	MStreamIsOn    [1]uint32
 }
 
 // AudioObjectPropertyAddress - An AudioObjectPropertyAddress collects the three parts that identify a specific property together in a struct for easy transmission.
@@ -38,9 +38,9 @@ type AudioHardwareIOProcStreamUsage struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/CoreAudio/AudioObjectPropertyAddress
 type AudioObjectPropertyAddress struct {
-	MSelector uint32
-	MScope    uint32
-	MElement  uint32
+	MSelector AudioObjectPropertySelector
+	MScope    AudioObjectPropertyScope
+	MElement  AudioObjectPropertyElement
 }
 
 // AudioServerPlugInClientInfo
@@ -48,10 +48,10 @@ type AudioObjectPropertyAddress struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/CoreAudio/AudioServerPlugInClientInfo
 type AudioServerPlugInClientInfo struct {
-	MBundleID       corefoundation.CFStringRef
 	MClientID       uint32
-	MIsNativeEndian bool
 	MProcessID      int32
+	MIsNativeEndian bool
+	MBundleID       corefoundation.CFStringRef
 }
 
 // AudioServerPlugInCustomPropertyInfo
@@ -59,9 +59,9 @@ type AudioServerPlugInClientInfo struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/CoreAudio/AudioServerPlugInCustomPropertyInfo
 type AudioServerPlugInCustomPropertyInfo struct {
+	MSelector          AudioObjectPropertySelector
 	MPropertyDataType  uint32
 	MQualifierDataType uint32
-	MSelector          uint32
 }
 
 // AudioServerPlugInDriverInterface
@@ -69,28 +69,29 @@ type AudioServerPlugInCustomPropertyInfo struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/CoreAudio/AudioServerPlugInDriverInterface
 type AudioServerPlugInDriverInterface struct {
-	AbortDeviceConfigurationChange   func(uintptr, uint, uint64, unsafe.Pointer) int
-	AddDeviceClient                  func(uintptr, uint, uintptr) int
-	AddRef                           func(unsafe.Pointer) uint
-	BeginIOOperation                 func(uintptr, uint, uint, uint, uint, uintptr) int
-	CreateDevice                     func(uintptr, uintptr, uintptr, *uint) int
-	DestroyDevice                    func(uintptr, uint) int
-	DoIOOperation                    func(uintptr, uint, uint, uint, uint, uint, uintptr, unsafe.Pointer, unsafe.Pointer) int
-	EndIOOperation                   func(uintptr, uint, uint, uint, uint, uintptr) int
-	GetPropertyData                  func(uintptr, uint, int, uintptr, uint, unsafe.Pointer, uint, *uint, unsafe.Pointer) int
-	GetPropertyDataSize              func(uintptr, uint, int, uintptr, uint, unsafe.Pointer, *uint) int
-	GetZeroTimeStamp                 func(uintptr, uint, uint, []float64, *uint64, *uint64) int
-	HasProperty                      func(uintptr, uint, int, uintptr) uint8
-	Initialize                       func(uintptr, uintptr) int
-	IsPropertySettable               func(uintptr, uint, int, uintptr, *byte) int
-	PerformDeviceConfigurationChange func(uintptr, uint, uint64, unsafe.Pointer) int
-	QueryInterface                   func(unsafe.Pointer, corefoundation.CFUUIDBytes, unsafe.Pointer) int
-	Release                          func(unsafe.Pointer) uint
-	RemoveDeviceClient               func(uintptr, uint, uintptr) int
-	SetPropertyData                  func(uintptr, uint, int, uintptr, uint, unsafe.Pointer, uint, unsafe.Pointer) int
-	StartIO                          func(uintptr, uint, uint) int
-	StopIO                           func(uintptr, uint, uint) int
-	WillDoIOOperation                func(uintptr, uint, uint, uint, *byte, *byte) int
+	_reserved                        unsafe.Pointer
+	QueryInterface                   func(unsafe.Pointer, corefoundation.CFUUIDBytes, unsafe.Pointer) int32
+	AddRef                           func(unsafe.Pointer) uint32
+	Release                          func(unsafe.Pointer) uint32
+	Initialize                       func(uintptr, uintptr) int32
+	CreateDevice                     func(uintptr, uintptr, uintptr, *uint32) int32
+	DestroyDevice                    func(uintptr, uint32) int32
+	AddDeviceClient                  func(uintptr, uint32, uintptr) int32
+	RemoveDeviceClient               func(uintptr, uint32, uintptr) int32
+	PerformDeviceConfigurationChange func(uintptr, uint32, uint64, unsafe.Pointer) int32
+	AbortDeviceConfigurationChange   func(uintptr, uint32, uint64, unsafe.Pointer) int32
+	HasProperty                      func(uintptr, uint32, int32, uintptr) uint8
+	IsPropertySettable               func(uintptr, uint32, int32, uintptr, *byte) int32
+	GetPropertyDataSize              func(uintptr, uint32, int32, uintptr, uint32, unsafe.Pointer, *uint32) int32
+	GetPropertyData                  func(uintptr, uint32, int32, uintptr, uint32, unsafe.Pointer, uint32, *uint32, unsafe.Pointer) int32
+	SetPropertyData                  func(uintptr, uint32, int32, uintptr, uint32, unsafe.Pointer, uint32, unsafe.Pointer) int32
+	StartIO                          func(uintptr, uint32, uint32) int32
+	StopIO                           func(uintptr, uint32, uint32) int32
+	GetZeroTimeStamp                 func(uintptr, uint32, uint32, []float64, *uint64, *uint64) int32
+	WillDoIOOperation                func(uintptr, uint32, uint32, uint32, *byte, *byte) int32
+	BeginIOOperation                 func(uintptr, uint32, uint32, uint32, uint32, uintptr) int32
+	DoIOOperation                    func(uintptr, uint32, uint32, uint32, uint32, uint32, uintptr, unsafe.Pointer, unsafe.Pointer) int32
+	EndIOOperation                   func(uintptr, uint32, uint32, uint32, uint32, uintptr) int32
 }
 
 // AudioServerPlugInHostInterface
@@ -98,11 +99,11 @@ type AudioServerPlugInDriverInterface struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/CoreAudio/AudioServerPlugInHostInterface
 type AudioServerPlugInHostInterface struct {
-	CopyFromStorage                  func(uintptr, uintptr, unsafe.Pointer) int
-	DeleteFromStorage                func(uintptr, uintptr) int
-	PropertiesChanged                func(uintptr, uint, uint, uintptr) int
-	RequestDeviceConfigurationChange func(uintptr, uint, uint64, unsafe.Pointer) int
-	WriteToStorage                   func(uintptr, uintptr, unsafe.Pointer) int
+	PropertiesChanged                func(uintptr, uint32, uint32, uintptr) int32
+	CopyFromStorage                  func(uintptr, uintptr, unsafe.Pointer) int32
+	WriteToStorage                   func(uintptr, uintptr, unsafe.Pointer) int32
+	DeleteFromStorage                func(uintptr, uintptr) int32
+	RequestDeviceConfigurationChange func(uintptr, uint32, uint64, unsafe.Pointer) int32
 }
 
 // AudioServerPlugInIOCycleInfo
@@ -110,14 +111,13 @@ type AudioServerPlugInHostInterface struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/CoreAudio/AudioServerPlugInIOCycleInfo
 type AudioServerPlugInIOCycleInfo struct {
-	MCurrentTime              coreaudiotypes.AudioTimeStamp
-	MDeviceHostTicksPerFrame  float64
 	MIOCycleCounter           uint64
-	MInputTime                coreaudiotypes.AudioTimeStamp
-	MMainHostTicksPerFrame    float64
-	MMasterHostTicksPerFrame  float64
 	MNominalIOBufferFrameSize uint32
+	MCurrentTime              coreaudiotypes.AudioTimeStamp
+	MInputTime                coreaudiotypes.AudioTimeStamp
 	MOutputTime               coreaudiotypes.AudioTimeStamp
+	MMainHostTicksPerFrame    float64
+	MDeviceHostTicksPerFrame  float64
 }
 
 // AudioStreamRangedDescription - This structure allows a specific sample rate range to be associated with an AudioStreamBasicDescription that specifies its sample rate as kAudioStreamAnyRate.

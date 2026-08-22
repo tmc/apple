@@ -29,8 +29,6 @@ func (c AVCaptureDeviceFormat) IsVideoStabilizationModeSupported(videoStabilizat
 // Indicates the horizontal field of view for an aspect ratio, either
 // uncorrected or corrected for geometric distortion.
 //
-// aspectRatio is a [avfoundation.AVCaptureAspectRatio].
-//
 // # Discussion
 //
 // A float indicating the field of view for the corresponding

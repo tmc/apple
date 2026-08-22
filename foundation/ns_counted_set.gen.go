@@ -5,7 +5,6 @@ package foundation
 import (
 	"sync"
 
-	"github.com/tmc/apple/kernel"
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -197,8 +196,8 @@ func NewCountedSetWithCollectionViewIndexPath(indexPath objectivec.IObject) NSCo
 }
 
 // See: https://developer.apple.com/documentation/Foundation/NSSet/init(collectionViewIndexPaths:)
-func NewCountedSetWithCollectionViewIndexPaths(indexPaths []kernel.ID) NSCountedSet {
-	rv := objc.Send[objc.ID](objc.ID(getNSCountedSetClass().class), objc.Sel("setWithCollectionViewIndexPaths:"), indexPaths)
+func NewCountedSetWithCollectionViewIndexPaths(indexPaths []objectivec.IObject) NSCountedSet {
+	rv := objc.Send[objc.ID](objc.ID(getNSCountedSetClass().class), objc.Sel("setWithCollectionViewIndexPaths:"), objectivec.IObjectSliceToNSArray(indexPaths))
 	return NSCountedSetFromID(rv)
 }
 

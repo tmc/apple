@@ -1155,9 +1155,22 @@ func NewNSTableViewDelegate(config NSTableViewDelegateConfig) NSTableViewDelegat
 		methods = append(methods, objc.MethodDef{
 			Cmd: objc.RegisterName("tableView:viewForTableColumn:row:"),
 			Fn: func(self objc.ID, _cmd objc.SEL, tableViewID objc.ID, tableColumnID objc.ID, row int) objc.ID {
+				// Names which delegate was running if a panic unwinds out of
+				// it. The frames between here and the Objective-C caller are
+				// runtime and purego dispatch, so without this the traceback
+				// never says which selector dispatched. Deliberately no
+				// recover: see [objc.NoteDelegatePanic].
+				_delegateDone := false
+				defer func() {
+					if !_delegateDone {
+						objc.NoteDelegatePanic("NSTableViewDelegate", "tableView:viewForTableColumn:row:")
+					}
+				}()
 				tableView := NSTableViewFromID(tableViewID)
 				tableColumn := NSTableColumnFromID(tableColumnID)
-				return fn(tableView, tableColumn, row).GetID()
+				_delegateResult := fn(tableView, tableColumn, row).GetID()
+				_delegateDone = true
+				return _delegateResult
 			},
 		})
 	}
@@ -1167,8 +1180,21 @@ func NewNSTableViewDelegate(config NSTableViewDelegateConfig) NSTableViewDelegat
 		methods = append(methods, objc.MethodDef{
 			Cmd: objc.RegisterName("tableView:rowViewForRow:"),
 			Fn: func(self objc.ID, _cmd objc.SEL, tableViewID objc.ID, row int) objc.ID {
+				// Names which delegate was running if a panic unwinds out of
+				// it. The frames between here and the Objective-C caller are
+				// runtime and purego dispatch, so without this the traceback
+				// never says which selector dispatched. Deliberately no
+				// recover: see [objc.NoteDelegatePanic].
+				_delegateDone := false
+				defer func() {
+					if !_delegateDone {
+						objc.NoteDelegatePanic("NSTableViewDelegate", "tableView:rowViewForRow:")
+					}
+				}()
 				tableView := NSTableViewFromID(tableViewID)
-				return fn(tableView, row).GetID()
+				_delegateResult := fn(tableView, row).GetID()
+				_delegateDone = true
+				return _delegateResult
 			},
 		})
 	}
@@ -1178,9 +1204,21 @@ func NewNSTableViewDelegate(config NSTableViewDelegateConfig) NSTableViewDelegat
 		methods = append(methods, objc.MethodDef{
 			Cmd: objc.RegisterName("tableView:didAddRowView:forRow:"),
 			Fn: func(self objc.ID, _cmd objc.SEL, tableViewID objc.ID, rowViewID objc.ID, row int) {
+				// Names which delegate was running if a panic unwinds out of
+				// it. The frames between here and the Objective-C caller are
+				// runtime and purego dispatch, so without this the traceback
+				// never says which selector dispatched. Deliberately no
+				// recover: see [objc.NoteDelegatePanic].
+				_delegateDone := false
+				defer func() {
+					if !_delegateDone {
+						objc.NoteDelegatePanic("NSTableViewDelegate", "tableView:didAddRowView:forRow:")
+					}
+				}()
 				tableView := NSTableViewFromID(tableViewID)
 				rowView := NSTableRowViewFromID(rowViewID)
 				fn(tableView, rowView, row)
+				_delegateDone = true
 			},
 		})
 	}
@@ -1190,9 +1228,21 @@ func NewNSTableViewDelegate(config NSTableViewDelegateConfig) NSTableViewDelegat
 		methods = append(methods, objc.MethodDef{
 			Cmd: objc.RegisterName("tableView:didRemoveRowView:forRow:"),
 			Fn: func(self objc.ID, _cmd objc.SEL, tableViewID objc.ID, rowViewID objc.ID, row int) {
+				// Names which delegate was running if a panic unwinds out of
+				// it. The frames between here and the Objective-C caller are
+				// runtime and purego dispatch, so without this the traceback
+				// never says which selector dispatched. Deliberately no
+				// recover: see [objc.NoteDelegatePanic].
+				_delegateDone := false
+				defer func() {
+					if !_delegateDone {
+						objc.NoteDelegatePanic("NSTableViewDelegate", "tableView:didRemoveRowView:forRow:")
+					}
+				}()
 				tableView := NSTableViewFromID(tableViewID)
 				rowView := NSTableRowViewFromID(rowViewID)
 				fn(tableView, rowView, row)
+				_delegateDone = true
 			},
 		})
 	}
@@ -1202,8 +1252,21 @@ func NewNSTableViewDelegate(config NSTableViewDelegateConfig) NSTableViewDelegat
 		methods = append(methods, objc.MethodDef{
 			Cmd: objc.RegisterName("tableView:isGroupRow:"),
 			Fn: func(self objc.ID, _cmd objc.SEL, tableViewID objc.ID, row int) bool {
+				// Names which delegate was running if a panic unwinds out of
+				// it. The frames between here and the Objective-C caller are
+				// runtime and purego dispatch, so without this the traceback
+				// never says which selector dispatched. Deliberately no
+				// recover: see [objc.NoteDelegatePanic].
+				_delegateDone := false
+				defer func() {
+					if !_delegateDone {
+						objc.NoteDelegatePanic("NSTableViewDelegate", "tableView:isGroupRow:")
+					}
+				}()
 				tableView := NSTableViewFromID(tableViewID)
-				return fn(tableView, row)
+				_delegateResult := fn(tableView, row)
+				_delegateDone = true
+				return _delegateResult
 			},
 		})
 	}
@@ -1213,9 +1276,22 @@ func NewNSTableViewDelegate(config NSTableViewDelegateConfig) NSTableViewDelegat
 		methods = append(methods, objc.MethodDef{
 			Cmd: objc.RegisterName("tableView:dataCellForTableColumn:row:"),
 			Fn: func(self objc.ID, _cmd objc.SEL, tableViewID objc.ID, tableColumnID objc.ID, row int) objc.ID {
+				// Names which delegate was running if a panic unwinds out of
+				// it. The frames between here and the Objective-C caller are
+				// runtime and purego dispatch, so without this the traceback
+				// never says which selector dispatched. Deliberately no
+				// recover: see [objc.NoteDelegatePanic].
+				_delegateDone := false
+				defer func() {
+					if !_delegateDone {
+						objc.NoteDelegatePanic("NSTableViewDelegate", "tableView:dataCellForTableColumn:row:")
+					}
+				}()
 				tableView := NSTableViewFromID(tableViewID)
 				tableColumn := NSTableColumnFromID(tableColumnID)
-				return fn(tableView, tableColumn, row).GetID()
+				_delegateResult := fn(tableView, tableColumn, row).GetID()
+				_delegateDone = true
+				return _delegateResult
 			},
 		})
 	}
@@ -1225,9 +1301,22 @@ func NewNSTableViewDelegate(config NSTableViewDelegateConfig) NSTableViewDelegat
 		methods = append(methods, objc.MethodDef{
 			Cmd: objc.RegisterName("tableView:shouldShowCellExpansionForTableColumn:row:"),
 			Fn: func(self objc.ID, _cmd objc.SEL, tableViewID objc.ID, tableColumnID objc.ID, row int) bool {
+				// Names which delegate was running if a panic unwinds out of
+				// it. The frames between here and the Objective-C caller are
+				// runtime and purego dispatch, so without this the traceback
+				// never says which selector dispatched. Deliberately no
+				// recover: see [objc.NoteDelegatePanic].
+				_delegateDone := false
+				defer func() {
+					if !_delegateDone {
+						objc.NoteDelegatePanic("NSTableViewDelegate", "tableView:shouldShowCellExpansionForTableColumn:row:")
+					}
+				}()
 				tableView := NSTableViewFromID(tableViewID)
 				tableColumn := NSTableColumnFromID(tableColumnID)
-				return fn(tableView, tableColumn, row)
+				_delegateResult := fn(tableView, tableColumn, row)
+				_delegateDone = true
+				return _delegateResult
 			},
 		})
 	}
@@ -1237,9 +1326,22 @@ func NewNSTableViewDelegate(config NSTableViewDelegateConfig) NSTableViewDelegat
 		methods = append(methods, objc.MethodDef{
 			Cmd: objc.RegisterName("tableView:shouldEditTableColumn:row:"),
 			Fn: func(self objc.ID, _cmd objc.SEL, tableViewID objc.ID, tableColumnID objc.ID, row int) bool {
+				// Names which delegate was running if a panic unwinds out of
+				// it. The frames between here and the Objective-C caller are
+				// runtime and purego dispatch, so without this the traceback
+				// never says which selector dispatched. Deliberately no
+				// recover: see [objc.NoteDelegatePanic].
+				_delegateDone := false
+				defer func() {
+					if !_delegateDone {
+						objc.NoteDelegatePanic("NSTableViewDelegate", "tableView:shouldEditTableColumn:row:")
+					}
+				}()
 				tableView := NSTableViewFromID(tableViewID)
 				tableColumn := NSTableColumnFromID(tableColumnID)
-				return fn(tableView, tableColumn, row)
+				_delegateResult := fn(tableView, tableColumn, row)
+				_delegateDone = true
+				return _delegateResult
 			},
 		})
 	}
@@ -1249,8 +1351,21 @@ func NewNSTableViewDelegate(config NSTableViewDelegateConfig) NSTableViewDelegat
 		methods = append(methods, objc.MethodDef{
 			Cmd: objc.RegisterName("tableView:heightOfRow:"),
 			Fn: func(self objc.ID, _cmd objc.SEL, tableViewID objc.ID, row int) float64 {
+				// Names which delegate was running if a panic unwinds out of
+				// it. The frames between here and the Objective-C caller are
+				// runtime and purego dispatch, so without this the traceback
+				// never says which selector dispatched. Deliberately no
+				// recover: see [objc.NoteDelegatePanic].
+				_delegateDone := false
+				defer func() {
+					if !_delegateDone {
+						objc.NoteDelegatePanic("NSTableViewDelegate", "tableView:heightOfRow:")
+					}
+				}()
 				tableView := NSTableViewFromID(tableViewID)
-				return fn(tableView, row)
+				_delegateResult := fn(tableView, row)
+				_delegateDone = true
+				return _delegateResult
 			},
 		})
 	}
@@ -1260,8 +1375,21 @@ func NewNSTableViewDelegate(config NSTableViewDelegateConfig) NSTableViewDelegat
 		methods = append(methods, objc.MethodDef{
 			Cmd: objc.RegisterName("tableView:sizeToFitWidthOfColumn:"),
 			Fn: func(self objc.ID, _cmd objc.SEL, tableViewID objc.ID, column int) float64 {
+				// Names which delegate was running if a panic unwinds out of
+				// it. The frames between here and the Objective-C caller are
+				// runtime and purego dispatch, so without this the traceback
+				// never says which selector dispatched. Deliberately no
+				// recover: see [objc.NoteDelegatePanic].
+				_delegateDone := false
+				defer func() {
+					if !_delegateDone {
+						objc.NoteDelegatePanic("NSTableViewDelegate", "tableView:sizeToFitWidthOfColumn:")
+					}
+				}()
 				tableView := NSTableViewFromID(tableViewID)
-				return fn(tableView, column)
+				_delegateResult := fn(tableView, column)
+				_delegateDone = true
+				return _delegateResult
 			},
 		})
 	}
@@ -1271,8 +1399,21 @@ func NewNSTableViewDelegate(config NSTableViewDelegateConfig) NSTableViewDelegat
 		methods = append(methods, objc.MethodDef{
 			Cmd: objc.RegisterName("selectionShouldChangeInTableView:"),
 			Fn: func(self objc.ID, _cmd objc.SEL, tableViewID objc.ID) bool {
+				// Names which delegate was running if a panic unwinds out of
+				// it. The frames between here and the Objective-C caller are
+				// runtime and purego dispatch, so without this the traceback
+				// never says which selector dispatched. Deliberately no
+				// recover: see [objc.NoteDelegatePanic].
+				_delegateDone := false
+				defer func() {
+					if !_delegateDone {
+						objc.NoteDelegatePanic("NSTableViewDelegate", "selectionShouldChangeInTableView:")
+					}
+				}()
 				tableView := NSTableViewFromID(tableViewID)
-				return fn(tableView)
+				_delegateResult := fn(tableView)
+				_delegateDone = true
+				return _delegateResult
 			},
 		})
 	}
@@ -1282,8 +1423,21 @@ func NewNSTableViewDelegate(config NSTableViewDelegateConfig) NSTableViewDelegat
 		methods = append(methods, objc.MethodDef{
 			Cmd: objc.RegisterName("tableView:shouldSelectRow:"),
 			Fn: func(self objc.ID, _cmd objc.SEL, tableViewID objc.ID, row int) bool {
+				// Names which delegate was running if a panic unwinds out of
+				// it. The frames between here and the Objective-C caller are
+				// runtime and purego dispatch, so without this the traceback
+				// never says which selector dispatched. Deliberately no
+				// recover: see [objc.NoteDelegatePanic].
+				_delegateDone := false
+				defer func() {
+					if !_delegateDone {
+						objc.NoteDelegatePanic("NSTableViewDelegate", "tableView:shouldSelectRow:")
+					}
+				}()
 				tableView := NSTableViewFromID(tableViewID)
-				return fn(tableView, row)
+				_delegateResult := fn(tableView, row)
+				_delegateDone = true
+				return _delegateResult
 			},
 		})
 	}
@@ -1293,9 +1447,22 @@ func NewNSTableViewDelegate(config NSTableViewDelegateConfig) NSTableViewDelegat
 		methods = append(methods, objc.MethodDef{
 			Cmd: objc.RegisterName("tableView:selectionIndexesForProposedSelection:"),
 			Fn: func(self objc.ID, _cmd objc.SEL, tableViewID objc.ID, proposedSelectionIndexesID objc.ID) objc.ID {
+				// Names which delegate was running if a panic unwinds out of
+				// it. The frames between here and the Objective-C caller are
+				// runtime and purego dispatch, so without this the traceback
+				// never says which selector dispatched. Deliberately no
+				// recover: see [objc.NoteDelegatePanic].
+				_delegateDone := false
+				defer func() {
+					if !_delegateDone {
+						objc.NoteDelegatePanic("NSTableViewDelegate", "tableView:selectionIndexesForProposedSelection:")
+					}
+				}()
 				tableView := NSTableViewFromID(tableViewID)
 				proposedSelectionIndexes := foundation.NSIndexSetFromID(proposedSelectionIndexesID)
-				return fn(tableView, proposedSelectionIndexes).GetID()
+				_delegateResult := fn(tableView, proposedSelectionIndexes).GetID()
+				_delegateDone = true
+				return _delegateResult
 			},
 		})
 	}
@@ -1305,9 +1472,22 @@ func NewNSTableViewDelegate(config NSTableViewDelegateConfig) NSTableViewDelegat
 		methods = append(methods, objc.MethodDef{
 			Cmd: objc.RegisterName("tableView:shouldSelectTableColumn:"),
 			Fn: func(self objc.ID, _cmd objc.SEL, tableViewID objc.ID, tableColumnID objc.ID) bool {
+				// Names which delegate was running if a panic unwinds out of
+				// it. The frames between here and the Objective-C caller are
+				// runtime and purego dispatch, so without this the traceback
+				// never says which selector dispatched. Deliberately no
+				// recover: see [objc.NoteDelegatePanic].
+				_delegateDone := false
+				defer func() {
+					if !_delegateDone {
+						objc.NoteDelegatePanic("NSTableViewDelegate", "tableView:shouldSelectTableColumn:")
+					}
+				}()
 				tableView := NSTableViewFromID(tableViewID)
 				tableColumn := NSTableColumnFromID(tableColumnID)
-				return fn(tableView, tableColumn)
+				_delegateResult := fn(tableView, tableColumn)
+				_delegateDone = true
+				return _delegateResult
 			},
 		})
 	}
@@ -1317,8 +1497,20 @@ func NewNSTableViewDelegate(config NSTableViewDelegateConfig) NSTableViewDelegat
 		methods = append(methods, objc.MethodDef{
 			Cmd: objc.RegisterName("tableViewSelectionIsChanging:"),
 			Fn: func(self objc.ID, _cmd objc.SEL, notificationID objc.ID) {
+				// Names which delegate was running if a panic unwinds out of
+				// it. The frames between here and the Objective-C caller are
+				// runtime and purego dispatch, so without this the traceback
+				// never says which selector dispatched. Deliberately no
+				// recover: see [objc.NoteDelegatePanic].
+				_delegateDone := false
+				defer func() {
+					if !_delegateDone {
+						objc.NoteDelegatePanic("NSTableViewDelegate", "tableViewSelectionIsChanging:")
+					}
+				}()
 				notification := foundation.NSNotificationFromID(notificationID)
 				fn(notification)
+				_delegateDone = true
 			},
 		})
 	}
@@ -1328,8 +1520,20 @@ func NewNSTableViewDelegate(config NSTableViewDelegateConfig) NSTableViewDelegat
 		methods = append(methods, objc.MethodDef{
 			Cmd: objc.RegisterName("tableViewSelectionDidChange:"),
 			Fn: func(self objc.ID, _cmd objc.SEL, notificationID objc.ID) {
+				// Names which delegate was running if a panic unwinds out of
+				// it. The frames between here and the Objective-C caller are
+				// runtime and purego dispatch, so without this the traceback
+				// never says which selector dispatched. Deliberately no
+				// recover: see [objc.NoteDelegatePanic].
+				_delegateDone := false
+				defer func() {
+					if !_delegateDone {
+						objc.NoteDelegatePanic("NSTableViewDelegate", "tableViewSelectionDidChange:")
+					}
+				}()
 				notification := foundation.NSNotificationFromID(notificationID)
 				fn(notification)
+				_delegateDone = true
 			},
 		})
 	}
@@ -1339,8 +1543,21 @@ func NewNSTableViewDelegate(config NSTableViewDelegateConfig) NSTableViewDelegat
 		methods = append(methods, objc.MethodDef{
 			Cmd: objc.RegisterName("tableView:shouldReorderColumn:toColumn:"),
 			Fn: func(self objc.ID, _cmd objc.SEL, tableViewID objc.ID, columnIndex int, newColumnIndex int) bool {
+				// Names which delegate was running if a panic unwinds out of
+				// it. The frames between here and the Objective-C caller are
+				// runtime and purego dispatch, so without this the traceback
+				// never says which selector dispatched. Deliberately no
+				// recover: see [objc.NoteDelegatePanic].
+				_delegateDone := false
+				defer func() {
+					if !_delegateDone {
+						objc.NoteDelegatePanic("NSTableViewDelegate", "tableView:shouldReorderColumn:toColumn:")
+					}
+				}()
 				tableView := NSTableViewFromID(tableViewID)
-				return fn(tableView, columnIndex, newColumnIndex)
+				_delegateResult := fn(tableView, columnIndex, newColumnIndex)
+				_delegateDone = true
+				return _delegateResult
 			},
 		})
 	}
@@ -1350,9 +1567,21 @@ func NewNSTableViewDelegate(config NSTableViewDelegateConfig) NSTableViewDelegat
 		methods = append(methods, objc.MethodDef{
 			Cmd: objc.RegisterName("tableView:didDragTableColumn:"),
 			Fn: func(self objc.ID, _cmd objc.SEL, tableViewID objc.ID, tableColumnID objc.ID) {
+				// Names which delegate was running if a panic unwinds out of
+				// it. The frames between here and the Objective-C caller are
+				// runtime and purego dispatch, so without this the traceback
+				// never says which selector dispatched. Deliberately no
+				// recover: see [objc.NoteDelegatePanic].
+				_delegateDone := false
+				defer func() {
+					if !_delegateDone {
+						objc.NoteDelegatePanic("NSTableViewDelegate", "tableView:didDragTableColumn:")
+					}
+				}()
 				tableView := NSTableViewFromID(tableViewID)
 				tableColumn := NSTableColumnFromID(tableColumnID)
 				fn(tableView, tableColumn)
+				_delegateDone = true
 			},
 		})
 	}
@@ -1362,8 +1591,20 @@ func NewNSTableViewDelegate(config NSTableViewDelegateConfig) NSTableViewDelegat
 		methods = append(methods, objc.MethodDef{
 			Cmd: objc.RegisterName("tableViewColumnDidMove:"),
 			Fn: func(self objc.ID, _cmd objc.SEL, notificationID objc.ID) {
+				// Names which delegate was running if a panic unwinds out of
+				// it. The frames between here and the Objective-C caller are
+				// runtime and purego dispatch, so without this the traceback
+				// never says which selector dispatched. Deliberately no
+				// recover: see [objc.NoteDelegatePanic].
+				_delegateDone := false
+				defer func() {
+					if !_delegateDone {
+						objc.NoteDelegatePanic("NSTableViewDelegate", "tableViewColumnDidMove:")
+					}
+				}()
 				notification := foundation.NSNotificationFromID(notificationID)
 				fn(notification)
+				_delegateDone = true
 			},
 		})
 	}
@@ -1373,8 +1614,20 @@ func NewNSTableViewDelegate(config NSTableViewDelegateConfig) NSTableViewDelegat
 		methods = append(methods, objc.MethodDef{
 			Cmd: objc.RegisterName("tableViewColumnDidResize:"),
 			Fn: func(self objc.ID, _cmd objc.SEL, notificationID objc.ID) {
+				// Names which delegate was running if a panic unwinds out of
+				// it. The frames between here and the Objective-C caller are
+				// runtime and purego dispatch, so without this the traceback
+				// never says which selector dispatched. Deliberately no
+				// recover: see [objc.NoteDelegatePanic].
+				_delegateDone := false
+				defer func() {
+					if !_delegateDone {
+						objc.NoteDelegatePanic("NSTableViewDelegate", "tableViewColumnDidResize:")
+					}
+				}()
 				notification := foundation.NSNotificationFromID(notificationID)
 				fn(notification)
+				_delegateDone = true
 			},
 		})
 	}
@@ -1384,9 +1637,21 @@ func NewNSTableViewDelegate(config NSTableViewDelegateConfig) NSTableViewDelegat
 		methods = append(methods, objc.MethodDef{
 			Cmd: objc.RegisterName("tableView:didClickTableColumn:"),
 			Fn: func(self objc.ID, _cmd objc.SEL, tableViewID objc.ID, tableColumnID objc.ID) {
+				// Names which delegate was running if a panic unwinds out of
+				// it. The frames between here and the Objective-C caller are
+				// runtime and purego dispatch, so without this the traceback
+				// never says which selector dispatched. Deliberately no
+				// recover: see [objc.NoteDelegatePanic].
+				_delegateDone := false
+				defer func() {
+					if !_delegateDone {
+						objc.NoteDelegatePanic("NSTableViewDelegate", "tableView:didClickTableColumn:")
+					}
+				}()
 				tableView := NSTableViewFromID(tableViewID)
 				tableColumn := NSTableColumnFromID(tableColumnID)
 				fn(tableView, tableColumn)
+				_delegateDone = true
 			},
 		})
 	}
@@ -1396,9 +1661,21 @@ func NewNSTableViewDelegate(config NSTableViewDelegateConfig) NSTableViewDelegat
 		methods = append(methods, objc.MethodDef{
 			Cmd: objc.RegisterName("tableView:mouseDownInHeaderOfTableColumn:"),
 			Fn: func(self objc.ID, _cmd objc.SEL, tableViewID objc.ID, tableColumnID objc.ID) {
+				// Names which delegate was running if a panic unwinds out of
+				// it. The frames between here and the Objective-C caller are
+				// runtime and purego dispatch, so without this the traceback
+				// never says which selector dispatched. Deliberately no
+				// recover: see [objc.NoteDelegatePanic].
+				_delegateDone := false
+				defer func() {
+					if !_delegateDone {
+						objc.NoteDelegatePanic("NSTableViewDelegate", "tableView:mouseDownInHeaderOfTableColumn:")
+					}
+				}()
 				tableView := NSTableViewFromID(tableViewID)
 				tableColumn := NSTableColumnFromID(tableColumnID)
 				fn(tableView, tableColumn)
+				_delegateDone = true
 			},
 		})
 	}
@@ -1408,10 +1685,23 @@ func NewNSTableViewDelegate(config NSTableViewDelegateConfig) NSTableViewDelegat
 		methods = append(methods, objc.MethodDef{
 			Cmd: objc.RegisterName("tableView:shouldTrackCell:forTableColumn:row:"),
 			Fn: func(self objc.ID, _cmd objc.SEL, tableViewID objc.ID, cellID objc.ID, tableColumnID objc.ID, row int) bool {
+				// Names which delegate was running if a panic unwinds out of
+				// it. The frames between here and the Objective-C caller are
+				// runtime and purego dispatch, so without this the traceback
+				// never says which selector dispatched. Deliberately no
+				// recover: see [objc.NoteDelegatePanic].
+				_delegateDone := false
+				defer func() {
+					if !_delegateDone {
+						objc.NoteDelegatePanic("NSTableViewDelegate", "tableView:shouldTrackCell:forTableColumn:row:")
+					}
+				}()
 				tableView := NSTableViewFromID(tableViewID)
 				cell := NSCellFromID(cellID)
 				tableColumn := NSTableColumnFromID(tableColumnID)
-				return fn(tableView, cell, tableColumn, row)
+				_delegateResult := fn(tableView, cell, tableColumn, row)
+				_delegateDone = true
+				return _delegateResult
 			},
 		})
 	}
@@ -1421,9 +1711,22 @@ func NewNSTableViewDelegate(config NSTableViewDelegateConfig) NSTableViewDelegat
 		methods = append(methods, objc.MethodDef{
 			Cmd: objc.RegisterName("tableView:userCanChangeVisibilityOfTableColumn:"),
 			Fn: func(self objc.ID, _cmd objc.SEL, tableViewID objc.ID, columnID objc.ID) bool {
+				// Names which delegate was running if a panic unwinds out of
+				// it. The frames between here and the Objective-C caller are
+				// runtime and purego dispatch, so without this the traceback
+				// never says which selector dispatched. Deliberately no
+				// recover: see [objc.NoteDelegatePanic].
+				_delegateDone := false
+				defer func() {
+					if !_delegateDone {
+						objc.NoteDelegatePanic("NSTableViewDelegate", "tableView:userCanChangeVisibilityOfTableColumn:")
+					}
+				}()
 				tableView := NSTableViewFromID(tableViewID)
 				column := NSTableColumnFromID(columnID)
-				return fn(tableView, column)
+				_delegateResult := fn(tableView, column)
+				_delegateDone = true
+				return _delegateResult
 			},
 		})
 	}

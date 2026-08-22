@@ -1736,10 +1736,10 @@ func NSPointInRect(aPoint corefoundation.CGPoint, aRect corefoundation.CGRect) b
 	return nsPointInRect(aPoint, aRect)
 }
 
-var _nSProtocolFromString func(namestr NSString) **objectivec.Protocol
+var _nSProtocolFromString func(namestr NSString) *objectivec.Protocol
 var _nSProtocolFromStringErr error
 
-func tryNSProtocolFromString(namestr NSString) (**objectivec.Protocol, error) {
+func tryNSProtocolFromString(namestr NSString) (*objectivec.Protocol, error) {
 	if _nSProtocolFromString == nil {
 		return nil, symbolCallError("NSProtocolFromString", "10.5", _nSProtocolFromStringErr)
 	}
@@ -1749,7 +1749,7 @@ func tryNSProtocolFromString(namestr NSString) (**objectivec.Protocol, error) {
 // NSProtocolFromString returns a the protocol with a given name.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSProtocolFromString(_:)
-func NSProtocolFromString(namestr NSString) **objectivec.Protocol {
+func NSProtocolFromString(namestr NSString) *objectivec.Protocol {
 	result, callErr := tryNSProtocolFromString(namestr)
 	if callErr != nil {
 		panic(callErr)
@@ -1801,10 +1801,10 @@ func NSReallocateCollectable(ptr unsafe.Pointer, size uint, options uint) unsafe
 	return result
 }
 
-var _nSRecordAllocationEvent func(eventType int, object objectivec.Object)
+var _nSRecordAllocationEvent func(eventType int32, object objectivec.Object)
 var _nSRecordAllocationEventErr error
 
-func tryNSRecordAllocationEvent(eventType int, object objectivec.Object) error {
+func tryNSRecordAllocationEvent(eventType int32, object objectivec.Object) error {
 	if _nSRecordAllocationEvent == nil {
 		return symbolCallError("NSRecordAllocationEvent", "10.0", _nSRecordAllocationEventErr)
 	}
@@ -1815,7 +1815,7 @@ func tryNSRecordAllocationEvent(eventType int, object objectivec.Object) error {
 // NSRecordAllocationEvent notes an object or zone allocation event and various other statistics, such as the time and current thread.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSRecordAllocationEvent
-func NSRecordAllocationEvent(eventType int, object objectivec.Object) {
+func NSRecordAllocationEvent(eventType int32, object objectivec.Object) {
 	if callErr := tryNSRecordAllocationEvent(eventType, object); callErr != nil {
 		panic(callErr)
 	}
@@ -2177,10 +2177,10 @@ func NSStringFromPoint(aPoint corefoundation.CGPoint) NSString {
 	return result
 }
 
-var _nSStringFromProtocol func(proto **objectivec.Protocol) NSString
+var _nSStringFromProtocol func(proto *objectivec.Protocol) NSString
 var _nSStringFromProtocolErr error
 
-func tryNSStringFromProtocol(proto **objectivec.Protocol) (NSString, error) {
+func tryNSStringFromProtocol(proto *objectivec.Protocol) (NSString, error) {
 	if _nSStringFromProtocol == nil {
 		return NSString{}, symbolCallError("NSStringFromProtocol", "10.5", _nSStringFromProtocolErr)
 	}
@@ -2190,7 +2190,7 @@ func tryNSStringFromProtocol(proto **objectivec.Protocol) (NSString, error) {
 // NSStringFromProtocol returns the name of a protocol as a string.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSStringFromProtocol(_:)
-func NSStringFromProtocol(proto **objectivec.Protocol) NSString {
+func NSStringFromProtocol(proto *objectivec.Protocol) NSString {
 	result, callErr := tryNSStringFromProtocol(proto)
 	if callErr != nil {
 		panic(callErr)
@@ -2475,12 +2475,12 @@ func NSZoneRealloc(zone *NSZone, ptr unsafe.Pointer, size uint) unsafe.Pointer {
 	return result
 }
 
-var _nXReadNSObjectFromCoder func(decoder *NSCoder) *objectivec.NSObject
+var _nXReadNSObjectFromCoder func(decoder *NSCoder) objectivec.Object
 var _nXReadNSObjectFromCoderErr error
 
-func tryNXReadNSObjectFromCoder(decoder *NSCoder) (*objectivec.NSObject, error) {
+func tryNXReadNSObjectFromCoder(decoder *NSCoder) (objectivec.Object, error) {
 	if _nXReadNSObjectFromCoder == nil {
-		return nil, symbolCallError("NXReadNSObjectFromCoder", "10.0", _nXReadNSObjectFromCoderErr)
+		return objectivec.Object{}, symbolCallError("NXReadNSObjectFromCoder", "10.0", _nXReadNSObjectFromCoderErr)
 	}
 	return _nXReadNSObjectFromCoder(decoder), nil
 }
@@ -2490,7 +2490,7 @@ func tryNXReadNSObjectFromCoder(decoder *NSCoder) (*objectivec.NSObject, error) 
 // Deprecated: Deprecated since macOS 10.5.
 //
 // See: https://developer.apple.com/documentation/Foundation/NXReadNSObjectFromCoder
-func NXReadNSObjectFromCoder(decoder *NSCoder) *objectivec.NSObject {
+func NXReadNSObjectFromCoder(decoder *NSCoder) objectivec.Object {
 	result, callErr := tryNXReadNSObjectFromCoder(decoder)
 	if callErr != nil {
 		panic(callErr)

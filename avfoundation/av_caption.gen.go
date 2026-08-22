@@ -4,6 +4,7 @@ package avfoundation
 
 import (
 	"sync"
+	"unsafe"
 
 	"github.com/tmc/apple/coregraphics"
 	"github.com/tmc/apple/coremedia"
@@ -226,7 +227,7 @@ func (c AVCaption) InitWithTextTimeRange(text string, timeRange coremedia.CMTime
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCaption/backgroundColorAtIndex:range:
 func (c AVCaption) BackgroundColorAtIndexRange(index int, outRange *foundation.NSRange) coregraphics.CGColorRef {
-	rv := objc.Send[coregraphics.CGColorRef](c.ID, objc.Sel("backgroundColorAtIndex:range:"), index, outRange)
+	rv := objc.Send[coregraphics.CGColorRef](c.ID, objc.Sel("backgroundColorAtIndex:range:"), index, unsafe.Pointer(outRange))
 	return coregraphics.CGColorRef(rv)
 }
 
@@ -242,7 +243,7 @@ func (c AVCaption) BackgroundColorAtIndexRange(index int, outRange *foundation.N
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCaption/decorationAtIndex:range:
 func (c AVCaption) DecorationAtIndexRange(index int, outRange *foundation.NSRange) AVCaptionDecoration {
-	rv := objc.Send[AVCaptionDecoration](c.ID, objc.Sel("decorationAtIndex:range:"), index, outRange)
+	rv := objc.Send[AVCaptionDecoration](c.ID, objc.Sel("decorationAtIndex:range:"), index, unsafe.Pointer(outRange))
 	return AVCaptionDecoration(rv)
 }
 
@@ -258,7 +259,7 @@ func (c AVCaption) DecorationAtIndexRange(index int, outRange *foundation.NSRang
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCaption/fontStyleAtIndex:range:
 func (c AVCaption) FontStyleAtIndexRange(index int, outRange *foundation.NSRange) AVCaptionFontStyle {
-	rv := objc.Send[AVCaptionFontStyle](c.ID, objc.Sel("fontStyleAtIndex:range:"), index, outRange)
+	rv := objc.Send[AVCaptionFontStyle](c.ID, objc.Sel("fontStyleAtIndex:range:"), index, unsafe.Pointer(outRange))
 	return AVCaptionFontStyle(rv)
 }
 
@@ -274,7 +275,7 @@ func (c AVCaption) FontStyleAtIndexRange(index int, outRange *foundation.NSRange
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCaption/fontWeightAtIndex:range:
 func (c AVCaption) FontWeightAtIndexRange(index int, outRange *foundation.NSRange) AVCaptionFontWeight {
-	rv := objc.Send[AVCaptionFontWeight](c.ID, objc.Sel("fontWeightAtIndex:range:"), index, outRange)
+	rv := objc.Send[AVCaptionFontWeight](c.ID, objc.Sel("fontWeightAtIndex:range:"), index, unsafe.Pointer(outRange))
 	return AVCaptionFontWeight(rv)
 }
 
@@ -296,7 +297,7 @@ func (c AVCaption) InitWithCoder(coder foundation.INSCoder) AVCaption {
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCaption/rubyAtIndex:range:
 func (c AVCaption) RubyAtIndexRange(index int, outRange *foundation.NSRange) IAVCaptionRuby {
-	rv := objc.Send[objc.ID](c.ID, objc.Sel("rubyAtIndex:range:"), index, outRange)
+	rv := objc.Send[objc.ID](c.ID, objc.Sel("rubyAtIndex:range:"), index, unsafe.Pointer(outRange))
 	return AVCaptionRubyFromID(rv)
 }
 
@@ -312,7 +313,7 @@ func (c AVCaption) RubyAtIndexRange(index int, outRange *foundation.NSRange) IAV
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCaption/textColorAtIndex:range:
 func (c AVCaption) TextColorAtIndexRange(index int, outRange *foundation.NSRange) coregraphics.CGColorRef {
-	rv := objc.Send[coregraphics.CGColorRef](c.ID, objc.Sel("textColorAtIndex:range:"), index, outRange)
+	rv := objc.Send[coregraphics.CGColorRef](c.ID, objc.Sel("textColorAtIndex:range:"), index, unsafe.Pointer(outRange))
 	return coregraphics.CGColorRef(rv)
 }
 
@@ -328,7 +329,7 @@ func (c AVCaption) TextColorAtIndexRange(index int, outRange *foundation.NSRange
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCaption/textCombineAtIndex:range:
 func (c AVCaption) TextCombineAtIndexRange(index int, outRange *foundation.NSRange) AVCaptionTextCombine {
-	rv := objc.Send[AVCaptionTextCombine](c.ID, objc.Sel("textCombineAtIndex:range:"), index, outRange)
+	rv := objc.Send[AVCaptionTextCombine](c.ID, objc.Sel("textCombineAtIndex:range:"), index, unsafe.Pointer(outRange))
 	return AVCaptionTextCombine(rv)
 }
 func (c AVCaption) EncodeWithCoder(coder foundation.INSCoder) {

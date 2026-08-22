@@ -128,7 +128,7 @@ func (o NSURLConnectionDownloadDelegateObject) ConnectionDidResumeDownloadingTot
 // [connection(_:didReceive:)]. In fact, those other methods are not invoked
 // (except on older operating systems, where applicable).
 //
-// In this method,you invoke one of the challenge-responder methods
+// In this method,you must invoke one of the challenge-responder methods
 // ([NSURLAuthenticationChallengeSender] protocol):
 //
 // - [UseCredentialForAuthenticationChallenge] -
@@ -234,9 +234,21 @@ func NewNSURLConnectionDownloadDelegate(config NSURLConnectionDownloadDelegateCo
 		methods = append(methods, objc.MethodDef{
 			Cmd: objc.RegisterName("connectionDidFinishDownloading:destinationURL:"),
 			Fn: func(self objc.ID, _cmd objc.SEL, connectionID objc.ID, destinationURLID objc.ID) {
+				// Names which delegate was running if a panic unwinds out of
+				// it. The frames between here and the Objective-C caller are
+				// runtime and purego dispatch, so without this the traceback
+				// never says which selector dispatched. Deliberately no
+				// recover: see [objc.NoteDelegatePanic].
+				_delegateDone := false
+				defer func() {
+					if !_delegateDone {
+						objc.NoteDelegatePanic("NSURLConnectionDownloadDelegate", "connectionDidFinishDownloading:destinationURL:")
+					}
+				}()
 				connection := NSURLConnectionFromID(connectionID)
 				destinationURL := objectivec.ObjectFromID(destinationURLID)
 				fn(connection, destinationURL)
+				_delegateDone = true
 			},
 		})
 	}
@@ -246,8 +258,20 @@ func NewNSURLConnectionDownloadDelegate(config NSURLConnectionDownloadDelegateCo
 		methods = append(methods, objc.MethodDef{
 			Cmd: objc.RegisterName("connection:didWriteData:totalBytesWritten:expectedTotalBytes:"),
 			Fn: func(self objc.ID, _cmd objc.SEL, connectionID objc.ID, bytesWritten int64, totalBytesWritten int64, expectedTotalBytes int64) {
+				// Names which delegate was running if a panic unwinds out of
+				// it. The frames between here and the Objective-C caller are
+				// runtime and purego dispatch, so without this the traceback
+				// never says which selector dispatched. Deliberately no
+				// recover: see [objc.NoteDelegatePanic].
+				_delegateDone := false
+				defer func() {
+					if !_delegateDone {
+						objc.NoteDelegatePanic("NSURLConnectionDownloadDelegate", "connection:didWriteData:totalBytesWritten:expectedTotalBytes:")
+					}
+				}()
 				connection := NSURLConnectionFromID(connectionID)
 				fn(connection, bytesWritten, totalBytesWritten, expectedTotalBytes)
+				_delegateDone = true
 			},
 		})
 	}
@@ -257,8 +281,20 @@ func NewNSURLConnectionDownloadDelegate(config NSURLConnectionDownloadDelegateCo
 		methods = append(methods, objc.MethodDef{
 			Cmd: objc.RegisterName("connectionDidResumeDownloading:totalBytesWritten:expectedTotalBytes:"),
 			Fn: func(self objc.ID, _cmd objc.SEL, connectionID objc.ID, totalBytesWritten int64, expectedTotalBytes int64) {
+				// Names which delegate was running if a panic unwinds out of
+				// it. The frames between here and the Objective-C caller are
+				// runtime and purego dispatch, so without this the traceback
+				// never says which selector dispatched. Deliberately no
+				// recover: see [objc.NoteDelegatePanic].
+				_delegateDone := false
+				defer func() {
+					if !_delegateDone {
+						objc.NoteDelegatePanic("NSURLConnectionDownloadDelegate", "connectionDidResumeDownloading:totalBytesWritten:expectedTotalBytes:")
+					}
+				}()
 				connection := NSURLConnectionFromID(connectionID)
 				fn(connection, totalBytesWritten, expectedTotalBytes)
+				_delegateDone = true
 			},
 		})
 	}

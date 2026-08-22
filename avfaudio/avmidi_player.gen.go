@@ -3,6 +3,7 @@
 package avfaudio
 
 import (
+	"context"
 	"sync"
 	"unsafe"
 
@@ -132,7 +133,7 @@ type IAVMIDIPlayer interface {
 	// Prepares the player to play the sequence by prerolling all events.
 	PrepareToPlay()
 	// Plays the MIDI sequence.
-	Play(completionHandler ErrorHandler)
+	Play(completionHandler VoidHandler)
 	// Stops playing the sequence.
 	Stop()
 	// A Boolean value that indicates whether the sequence is playing.
@@ -193,6 +194,9 @@ func NewMIDIPlayerWithContentsOfURLSoundBankURLError(inURL foundation.NSURL, ban
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
 		return AVMIDIPlayer{}, foundation.NSErrorFrom(errorPtr)
 	}
+	if rv == 0 {
+		return AVMIDIPlayer{}, objc.ErrInitFailed
+	}
 	return AVMIDIPlayerFromID(rv), nil
 }
 
@@ -216,6 +220,9 @@ func NewMIDIPlayerWithDataSoundBankURLError(data foundation.NSData, bankURL foun
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
 		return AVMIDIPlayer{}, foundation.NSErrorFrom(errorPtr)
+	}
+	if rv == 0 {
+		return AVMIDIPlayer{}, objc.ErrInitFailed
 	}
 	return AVMIDIPlayerFromID(rv), nil
 }
@@ -286,8 +293,8 @@ func (m AVMIDIPlayer) PrepareToPlay() {
 // completionHandler: A closure the system calls when playback completes.
 //
 // See: https://developer.apple.com/documentation/AVFAudio/AVMIDIPlayer/play(_:)
-func (m AVMIDIPlayer) Play(completionHandler ErrorHandler) {
-	_block0, _ := NewErrorBlock(completionHandler)
+func (m AVMIDIPlayer) Play(completionHandler VoidHandler) {
+	_block0, _ := NewVoidBlock(completionHandler)
 	objc.Send[objc.ID](m.ID, objc.Sel("play:"), _block0)
 }
 
@@ -338,4 +345,19 @@ func (m AVMIDIPlayer) SetCurrentPosition(value foundation.NSTimeInterval) {
 func (m AVMIDIPlayer) Duration() foundation.NSTimeInterval {
 	rv := objc.Send[foundation.NSTimeInterval](m.ID, objc.Sel("duration"))
 	return foundation.NSTimeInterval(rv)
+}
+
+// PlaySync is a synchronous wrapper around [AVMIDIPlayer.Play].
+// It blocks until the completion handler fires or the context is cancelled.
+func (m AVMIDIPlayer) PlaySync(ctx context.Context) error {
+	done := make(chan struct{}, 1)
+	m.Play(func() {
+		done <- struct{}{}
+	})
+	select {
+	case <-done:
+		return nil
+	case <-ctx.Done():
+		return ctx.Err()
+	}
 }

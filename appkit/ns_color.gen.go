@@ -7,6 +7,7 @@ import (
 
 	"github.com/tmc/apple/corefoundation"
 	"github.com/tmc/apple/coregraphics"
+	"github.com/tmc/apple/coreimage"
 	"github.com/tmc/apple/foundation"
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
@@ -385,9 +386,17 @@ type INSColor interface {
 
 	// The pattern image used to paint the target area.
 	PatternImage() INSImage
+	// Returns a localized description of the color for use in accessibility attributes.
+	AccessibilityName() string
 	// Creates a color object from data in an unarchiver.
 	InitWithCoder(coder foundation.INSCoder) NSColor
 	InitWithPasteboardPropertyListOfType(propertyList objectivec.IObject, type_ NSPasteboardType) NSColor
+	// Returns a property list object to represent the receiver on a pasteboard as an object of a specified type.
+	PasteboardPropertyListForType(type_ NSPasteboardType) objectivec.IObject
+	// Returns an array of UTI strings of data types the receiver can write to a given pasteboard.
+	WritableTypesForPasteboard(pasteboard INSPasteboard) []string
+	// Returns options for writing data of a specified type to a given pasteboard.
+	WritingOptionsForTypePasteboard(type_ NSPasteboardType, pasteboard INSPasteboard) NSPasteboardWritingOptions
 	EncodeWithCoder(coder foundation.INSCoder)
 }
 
@@ -432,8 +441,8 @@ func NewColorFromPasteboard(pasteBoard INSPasteboard) NSColor {
 // name: The name of the color in the asset catalog.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSColor/init(named:)
-func NewColorNamed(name string) NSColor {
-	rv := objc.Send[objc.ID](objc.ID(getNSColorClass().class), objc.Sel("colorNamed:"), objc.String(name))
+func NewColorNamed(name NSColorName) NSColor {
+	rv := objc.Send[objc.ID](objc.ID(getNSColorClass().class), objc.Sel("colorNamed:"), objc.String(string(name)))
 	return NSColorFromID(rv)
 }
 
@@ -445,8 +454,8 @@ func NewColorNamed(name string) NSColor {
 // bundle: The app bundle.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSColor/init(named:bundle:)
-func NewColorNamedBundle(name string, bundle foundation.NSBundle) NSColor {
-	rv := objc.Send[objc.ID](objc.ID(getNSColorClass().class), objc.Sel("colorNamed:bundle:"), objc.String(name), bundle)
+func NewColorNamedBundle(name NSColorName, bundle foundation.NSBundle) NSColor {
+	rv := objc.Send[objc.ID](objc.ID(getNSColorClass().class), objc.Sel("colorNamed:bundle:"), objc.String(string(name)), bundle)
 	return NSColorFromID(rv)
 }
 
@@ -462,7 +471,7 @@ func NewColorNamedBundle(name string, bundle foundation.NSBundle) NSColor {
 //
 // This method may return `nil`.
 //
-// See: https://developer.apple.com/documentation/AppKit/NSColor/init(cgColor:)-1hzl8
+// See: https://developer.apple.com/documentation/AppKit/NSColor/init(cgColor:)
 func NewColorWithCGColor(cgColor coregraphics.CGColorRef) NSColor {
 	rv := objc.Send[objc.ID](objc.ID(getNSColorClass().class), objc.Sel("colorWithCGColor:"), cgColor)
 	return NSColorFromID(rv)
@@ -481,9 +490,9 @@ func NewColorWithCGColor(cgColor coregraphics.CGColorRef) NSColor {
 // The method raises if the color space and components associated with `color`
 // are `nil` or invalid.
 //
-// See: https://developer.apple.com/documentation/AppKit/NSColor/init(CIColor:)-3rxsk
-func NewColorWithCIColor(color objectivec.IObject) NSColor {
-	rv := objc.Send[objc.ID](objc.ID(getNSColorClass().class), objc.Sel("colorWithCIColor:"), color)
+// See: https://developer.apple.com/documentation/AppKit/NSColor/init(CIColor:)
+func NewColorWithCIColor(color *coreimage.CIColor) NSColor {
+	rv := objc.Send[objc.ID](objc.ID(getNSColorClass().class), objc.Sel("colorWithCIColor:"), color.ID)
 	return NSColorFromID(rv)
 }
 
@@ -579,8 +588,8 @@ func NewColorWithCalibratedWhiteAlpha(white float64, alpha float64) NSColor {
 // name matches the value in `colorName`.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSColor/init(catalogName:colorName:)
-func NewColorWithCatalogNameColorName(listName string, colorName string) NSColor {
-	rv := objc.Send[objc.ID](objc.ID(getNSColorClass().class), objc.Sel("colorWithCatalogName:colorName:"), objc.String(listName), objc.String(colorName))
+func NewColorWithCatalogNameColorName(listName NSColorListName, colorName NSColorName) NSColor {
+	rv := objc.Send[objc.ID](objc.ID(getNSColorClass().class), objc.Sel("colorWithCatalogName:colorName:"), objc.String(string(listName)), objc.String(string(colorName)))
 	return NSColorFromID(rv)
 }
 
@@ -941,7 +950,7 @@ func NewColorWithRedGreenBlueAlphaLinearExposure(red float64, green float64, blu
 // Values below 0.0 are interpreted as 0.0, and values above 1.0 are
 // interpreted as 1.0.
 //
-// See: https://developer.apple.com/documentation/AppKit/NSColor/init(srgbRed:green:blue:alpha:)-9oz51
+// See: https://developer.apple.com/documentation/AppKit/NSColor/init(srgbRed:green:blue:alpha:)
 func NewColorWithSRGBRedGreenBlueAlpha(red float64, green float64, blue float64, alpha float64) NSColor {
 	rv := objc.Send[objc.ID](objc.ID(getNSColorClass().class), objc.Sel("colorWithSRGBRed:green:blue:alpha:"), red, green, blue, alpha)
 	return NSColorFromID(rv)
@@ -1455,8 +1464,8 @@ func (c NSColor) EncodeWithCoder(coder foundation.INSCoder) {
 // the decoded color joins the other color and becomes dynamic again.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSColor/init(name:dynamicProvider:)
-func (_NSColorClass NSColorClass) ColorWithNameDynamicProvider(colorName string, dynamicProvider AppearanceHandler) NSColor {
-	_block1, _ := NewAppearanceBlock(dynamicProvider)
+func (_NSColorClass NSColorClass) ColorWithNameDynamicProvider(colorName NSColorName, dynamicProvider NSColorAppearanceHandler) NSColor {
+	_block1, _ := NewNSColorAppearanceBlock(dynamicProvider)
 	rv := objc.Send[objc.ID](objc.ID(_NSColorClass.class), objc.Sel("colorWithName:dynamicProvider:"), objc.String(colorName), _block1)
 	return NSColorFromID(rv)
 }
@@ -2829,5 +2838,7 @@ func (_NSColorClass NSColorClass) YellowColor() NSColor {
 }
 
 // Protocol methods for NSAccessibilityColor
+
+// Protocol methods for NSPasteboardReading
 
 // Protocol methods for NSPasteboardWriting

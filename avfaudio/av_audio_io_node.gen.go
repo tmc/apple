@@ -7,6 +7,7 @@ import (
 	"sync"
 	"unsafe"
 
+	"github.com/tmc/apple/audiotoolbox"
 	"github.com/tmc/apple/foundation"
 	"github.com/tmc/apple/objc"
 )
@@ -110,7 +111,7 @@ type IAVAudioIONode interface {
 	// Topic: Getting the Audio Unit
 
 	// The node’s underlying audio unit, if any.
-	AudioUnit() IAVAudioUnit
+	AudioUnit() audiotoolbox.AudioUnit
 
 	// Topic: Getting the I/O Latency
 
@@ -166,9 +167,9 @@ func (a AVAudioIONode) SetVoiceProcessingEnabledError(enabled bool) (bool, error
 // The node’s underlying audio unit, if any.
 //
 // See: https://developer.apple.com/documentation/AVFAudio/AVAudioIONode/audioUnit
-func (a AVAudioIONode) AudioUnit() IAVAudioUnit {
-	rv := objc.Send[objc.ID](a.ID, objc.Sel("audioUnit"))
-	return AVAudioUnitFromID(objc.ID(rv))
+func (a AVAudioIONode) AudioUnit() audiotoolbox.AudioUnit {
+	rv := objc.Send[audiotoolbox.AudioUnit](a.ID, objc.Sel("audioUnit"))
+	return audiotoolbox.AudioUnit(rv)
 }
 
 // The presentation or hardware latency, applicable when rendering to or from

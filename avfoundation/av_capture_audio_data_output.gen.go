@@ -273,7 +273,7 @@ func (c AVCaptureAudioDataOutput) SetAudioSettings(value foundation.INSDictionar
 // `kAudioChannelLayoutTag_Unknown` (the default value).
 //
 // Your [AVCaptureSession] validates your app’s adherence to the the above
-// rules when you call `AVCaptureSession/` or
+// rules when you call `AVCaptureSession/startRunning:` or
 // [AVCaptureSession.CommitConfiguration] and throws a
 // [NSInvalidArgumentException] if necessary.
 //

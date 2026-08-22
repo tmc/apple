@@ -6,6 +6,7 @@ import (
 	"sync"
 	"unsafe"
 
+	"github.com/tmc/apple/coreml"
 	"github.com/tmc/apple/foundation"
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
@@ -145,9 +146,9 @@ func NewNLModel() NLModel {
 // Creates a new natural language model based on a compiled Core ML model at
 // the given URL.
 //
-// url: The location of the Core ML model file in the file system (ending with
-// `XCUIElementTypeMlmodelc`) that’s the basis for this natural language
-// model.
+// url: The location of the compiled Core ML model file in the file system (ending
+// with `XCUIElementTypeMlmodelc`) that’s the basis for this natural
+// language model.
 //
 // See: https://developer.apple.com/documentation/NaturalLanguage/NLModel/init(contentsOf:)
 func NewModelWithContentsOfURLError(url foundation.NSURL) (NLModel, error) {
@@ -156,6 +157,9 @@ func NewModelWithContentsOfURLError(url foundation.NSURL) (NLModel, error) {
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
 		return NLModel{}, foundation.NSErrorFrom(errorPtr)
+	}
+	if rv == 0 {
+		return NLModel{}, objc.ErrInitFailed
 	}
 	return NLModelFromID(rv), nil
 }
@@ -166,13 +170,16 @@ func NewModelWithContentsOfURLError(url foundation.NSURL) (NLModel, error) {
 // mlModel: A Core ML model instance that’s the basis for this natural language
 // model.
 //
-// See: https://developer.apple.com/documentation/NaturalLanguage/NLModel/init(mlModel:)-9tpjr
-func NewModelWithMLModelError(mlModel objectivec.IObject) (NLModel, error) {
+// See: https://developer.apple.com/documentation/NaturalLanguage/NLModel/init(mlModel:)
+func NewModelWithMLModelError(mlModel *coreml.MLModel) (NLModel, error) {
 	var errorPtr objc.ID
-	rv := objc.Send[objc.ID](objc.ID(getNLModelClass().class), objc.Sel("modelWithMLModel:error:"), mlModel, unsafe.Pointer(&errorPtr))
+	rv := objc.Send[objc.ID](objc.ID(getNLModelClass().class), objc.Sel("modelWithMLModel:error:"), mlModel.ID, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
 		return NLModel{}, foundation.NSErrorFrom(errorPtr)
+	}
+	if rv == 0 {
+		return NLModel{}, objc.ErrInitFailed
 	}
 	return NLModelFromID(rv), nil
 }

@@ -5,16 +5,16 @@
 package pdfkit
 
 import (
-	"github.com/tmc/apple/kernel"
+	"github.com/tmc/apple/foundation"
 	"github.com/tmc/apple/objc"
 )
 
 // See: https://developer.apple.com/documentation/PDFKit/PDFThumbnailView/contentInset
-func (p PDFThumbnailView) ContentInset() unsafe.Pointer {
-	rv := objc.Send[unsafe.Pointer](p.ID, objc.Sel("contentInset"))
-	return rv
+func (p PDFThumbnailView) ContentInset() foundation.UIEdgeInsets {
+	rv := objc.Send[foundation.UIEdgeInsets](p.ID, objc.Sel("contentInset"))
+	return foundation.UIEdgeInsets(rv)
 }
-func (p PDFThumbnailView) SetContentInset(value kernel.Pointer) {
+func (p PDFThumbnailView) SetContentInset(value foundation.UIEdgeInsets) {
 	objc.Send[struct{}](p.ID, objc.Sel("setContentInset:"), value)
 }
 

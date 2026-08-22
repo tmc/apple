@@ -59,7 +59,7 @@ func (nc NEAppProxyTCPFlowClass) Alloc() NEAppProxyTCPFlow {
 //
 // # Getting flow information
 //
-//   - [NEAppProxyTCPFlow.RemoteEndpoint]: An [NWEndpoint](<doc://com.apple.networkextension/documentation/NetworkExtension/NWEndpoint>) object containing information about the intended remote endpoint of the flow.
+//   - [NEAppProxyTCPFlow.RemoteEndpoint]: An [NWEndpoint](<https://developer.apple.com/documentation/NetworkExtension/NWEndpoint>) object containing information about the intended remote endpoint of the flow.
 //
 // # Instance Properties
 //
@@ -90,7 +90,7 @@ func NEAppProxyTCPFlowFromID(id objc.ID) NEAppProxyTCPFlow {
 //
 // # Getting flow information
 //
-//   - [INEAppProxyTCPFlow.RemoteEndpoint]: An [NWEndpoint](<doc://com.apple.networkextension/documentation/NetworkExtension/NWEndpoint>) object containing information about the intended remote endpoint of the flow.
+//   - [INEAppProxyTCPFlow.RemoteEndpoint]: An [NWEndpoint](<https://developer.apple.com/documentation/NetworkExtension/NWEndpoint>) object containing information about the intended remote endpoint of the flow.
 //
 // # Instance Properties
 //
@@ -109,7 +109,7 @@ type INEAppProxyTCPFlow interface {
 
 	// Topic: Getting flow information
 
-	// An [NWEndpoint](<doc://com.apple.networkextension/documentation/NetworkExtension/NWEndpoint>) object containing information about the intended remote endpoint of the flow.
+	// An [NWEndpoint](<https://developer.apple.com/documentation/NetworkExtension/NWEndpoint>) object containing information about the intended remote endpoint of the flow.
 	RemoteEndpoint() INWEndpoint
 
 	// Topic: Instance Properties

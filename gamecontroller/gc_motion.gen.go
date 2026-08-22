@@ -158,8 +158,8 @@ type IGCMotion interface {
 	// Topic: Receiving a Callback When Input Values Change
 
 	// The block that the profile calls when an element’s value changes.
-	ValueChangedHandler() GCMotionValueChangedHandler
-	SetValueChangedHandler(value GCMotionValueChangedHandler)
+	ValueChangedHandler() GCMotionHandler
+	SetValueChangedHandler(value GCMotionHandler)
 
 	// Topic: Verifying Capabilities
 
@@ -246,12 +246,15 @@ func (g GCMotion) Controller() IGCController {
 // changes, the profile only calls the block for the containing element.
 //
 // See: https://developer.apple.com/documentation/GameController/GCMotion/valueChangedHandler
-func (g GCMotion) ValueChangedHandler() GCMotionValueChangedHandler {
-	rv := objc.Send[GCMotionValueChangedHandler](g.ID, objc.Sel("valueChangedHandler"))
-	return GCMotionValueChangedHandler(rv)
+func (g GCMotion) ValueChangedHandler() GCMotionHandler {
+	rv := objc.Send[objc.ID](g.ID, objc.Sel("valueChangedHandler"))
+	_ = rv
+	return nil
 }
-func (g GCMotion) SetValueChangedHandler(value GCMotionValueChangedHandler) {
-	objc.Send[struct{}](g.ID, objc.Sel("setValueChangedHandler:"), value)
+func (g GCMotion) SetValueChangedHandler(value GCMotionHandler) {
+	block, cleanup := NewGCMotionBlock(value)
+	defer cleanup()
+	objc.Send[struct{}](g.ID, objc.Sel("setValueChangedHandler:"), block)
 }
 
 // A Boolean value that indicates whether the controller provides attitude
@@ -298,8 +301,8 @@ func (g GCMotion) HasGravityAndUserAcceleration() bool {
 //
 // # Discussion
 //
-// The is the orientation of a body relative to the controller’s reference
-// frame.
+// The attitude is the orientation of a body relative to the controller’s
+// reference frame.
 //
 // See: https://developer.apple.com/documentation/GameController/GCMotion/attitude
 func (g GCMotion) Attitude() GCQuaternion {
@@ -311,8 +314,8 @@ func (g GCMotion) Attitude() GCQuaternion {
 //
 // # Discussion
 //
-// The is a gyroscopic measurement of the controller’s rotation around the
-// x, y, and z axes.
+// The rotation rate is a gyroscopic measurement of the controller’s
+// rotation around the x, y, and z axes.
 //
 // See: https://developer.apple.com/documentation/GameController/GCMotion/rotationRate
 func (g GCMotion) RotationRate() GCRotationRate {

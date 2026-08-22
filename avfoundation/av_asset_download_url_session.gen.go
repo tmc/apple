@@ -101,7 +101,7 @@ func NewAVAssetDownloadURLSession() AVAssetDownloadURLSession {
 // Creates a URL session to download assets.
 //
 // configuration: The configuration for this download session. The configuration you provide
-// must be a configuration or the system raises an exception.
+// must be a background configuration or the system raises an exception.
 //
 // delegate: The delegate object to handle asset download progress updates and other
 // session related events.

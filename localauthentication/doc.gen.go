@@ -59,24 +59,6 @@
 //
 //   - [LAEnvironmentObserver]
 //
-// # Macros
-//
-//   - LA_EXPORT
-//   - LA_EXTERN
-//   - kLAAccessControlOperationCreateItem
-//   - kLAAccessControlOperationCreateKey
-//   - kLAAccessControlOperationUseItem
-//   - kLAAccessControlOperationUseKeyDecrypt
-//   - kLAAccessControlOperationUseKeyKeyExchange
-//   - kLAAccessControlOperationUseKeySign
-//   - kLACompanionTypeMac
-//   - kLACompanionTypeNone
-//   - kLACompanionTypeVision
-//   - kLACompanionTypeWatch
-//   - kLAErrorCompanionNotAvailable
-//   - kLAPolicyDeviceOwnerAuthenticationWithBiometricsOrCompanion
-//   - kLAPolicyDeviceOwnerAuthenticationWithCompanion
-//
 // # Enumerations
 //
 //   - [LACompanionType]//
@@ -105,9 +87,11 @@ import (
 	"github.com/ebitengine/purego"
 )
 
-// frameworkPaths lists paths to try when loading the LocalAuthentication library.
-// The framework bundle path is tried first; a /usr/lib dylib fallback covers
-// C-API frameworks that are not in the dyld shared cache as bundles.
+// frameworkPaths lists paths to try when loading the LocalAuthentication library,
+// in order. Frameworks whose symbols live in a known dylib resolve to that
+// dylib alone; the rest try the framework bundle first and then a /usr/lib
+// dylib fallback, which covers C-API frameworks that are not in the dyld
+// shared cache as bundles.
 var frameworkPaths = []string{
 	"/System/Library/Frameworks/LocalAuthentication.framework/LocalAuthentication",
 	"/usr/lib/libLocalAuthentication.dylib",

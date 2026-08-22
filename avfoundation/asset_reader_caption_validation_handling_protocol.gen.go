@@ -3,7 +3,6 @@
 package avfoundation
 
 import (
-	"github.com/tmc/apple/kernel"
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -42,6 +41,6 @@ func AVAssetReaderCaptionValidationHandlingObjectFromID(id objc.ID) AVAssetReade
 // syntaxElements: The array of unsupported syntax elements that the adaptor object skipped.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVAssetReaderCaptionValidationHandling/captionAdaptor(_:didVendCaption:skippingUnsupportedSourceSyntaxElements:)
-func (o AVAssetReaderCaptionValidationHandlingObject) CaptionAdaptorDidVendCaptionSkippingUnsupportedSourceSyntaxElements(adaptor kernel.ID, caption IAVCaption, syntaxElements []string) {
+func (o AVAssetReaderCaptionValidationHandlingObject) CaptionAdaptorDidVendCaptionSkippingUnsupportedSourceSyntaxElements(adaptor objectivec.IObject, caption IAVCaption, syntaxElements []string) {
 	objc.Send[struct{}](o.ID, objc.Sel("captionAdaptor:didVendCaption:skippingUnsupportedSourceSyntaxElements:"), adaptor, caption, objectivec.StringSliceToNSArray(syntaxElements))
 }

@@ -481,19 +481,7 @@ func (e PDFTextAnnotationIconType) String() string {
 // See: https://developer.apple.com/documentation/PDFKit/PDFThumbnailLayoutMode
 type PDFThumbnailLayoutMode int
 
-const (
-	PDFThumbnailLayoutModeHorizontal PDFThumbnailLayoutMode = 0
-	PDFThumbnailLayoutModeVertical   PDFThumbnailLayoutMode = 0
-)
-
-func (e PDFThumbnailLayoutMode) String() string {
-	switch e {
-	case PDFThumbnailLayoutModeHorizontal:
-		return "PDFThumbnailLayoutModeHorizontal"
-	default:
-		return fmt.Sprintf("PDFThumbnailLayoutMode(%d)", e)
-	}
-}
+const ()
 
 // See: https://developer.apple.com/documentation/PDFKit/PDFWidgetCellState
 type PDFWidgetCellState int

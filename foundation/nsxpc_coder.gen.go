@@ -4,10 +4,10 @@ package foundation
 
 import (
 	"sync"
-	"unsafe"
 
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
+	"github.com/tmc/apple/xpc"
 )
 
 // The class instance for the [NSXPCCoder] class.
@@ -110,9 +110,9 @@ type INSXPCCoder interface {
 	// Topic: Encoding and Decoding
 
 	// Encodes an object to send over an XPC connection.
-	EncodeXPCObjectForKey(xpcObject unsafe.Pointer, key string)
+	EncodeXPCObjectForKey(xpcObject objectivec.NSObject, key string)
 	// Decodes an object and validates that its type matches the type a service provides over XPC.
-	DecodeXPCObjectOfTypeForKey(type_ unsafe.Pointer, key string) unsafe.Pointer
+	DecodeXPCObjectOfTypeForKey(type_ xpc.Xpc_type_t, key string) objectivec.Object
 }
 
 // Init initializes the instance.
@@ -141,7 +141,7 @@ func NewNSXPCCoder() NSXPCCoder {
 // key: A string that your app uses to reference the encoded object.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSXPCCoder/encodeXPCObject(_:forKey:)
-func (x NSXPCCoder) EncodeXPCObjectForKey(xpcObject unsafe.Pointer, key string) {
+func (x NSXPCCoder) EncodeXPCObjectForKey(xpcObject objectivec.NSObject, key string) {
 	objc.Send[objc.ID](x.ID, objc.Sel("encodeXPCObject:forKey:"), xpcObject, objc.String(key))
 }
 
@@ -170,9 +170,9 @@ func (x NSXPCCoder) EncodeXPCObjectForKey(xpcObject unsafe.Pointer, key string) 
 // See: https://developer.apple.com/documentation/Foundation/NSXPCCoder/decodeXPCObject(ofType:forKey:)
 //
 // [XPC]: https://developer.apple.com/documentation/XPC
-func (x NSXPCCoder) DecodeXPCObjectOfTypeForKey(type_ unsafe.Pointer, key string) unsafe.Pointer {
-	rv := objc.Send[unsafe.Pointer](x.ID, objc.Sel("decodeXPCObjectOfType:forKey:"), type_, objc.String(key))
-	return rv
+func (x NSXPCCoder) DecodeXPCObjectOfTypeForKey(type_ xpc.Xpc_type_t, key string) objectivec.Object {
+	rv := objc.Send[objc.ID](x.ID, objc.Sel("decodeXPCObjectOfType:forKey:"), type_, objc.String(key))
+	return objectivec.ObjectFromID(rv)
 }
 
 // The connection currently performing encoding or decoding.

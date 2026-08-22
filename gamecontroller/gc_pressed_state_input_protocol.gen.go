@@ -19,11 +19,6 @@ type GCPressedStateInput interface {
 	// See: https://developer.apple.com/documentation/GameController/GCPressedStateInput/isPressed
 	IsPressed() bool
 
-	// A Boolean value that indicates whether the user presses the button.
-	//
-	// See: https://developer.apple.com/documentation/GameController/GCPressedStateInput/isPressed
-	Pressed() bool
-
 	// The time of the most recent press state change.
 	//
 	// See: https://developer.apple.com/documentation/GameController/GCPressedStateInput/lastPressedStateTimestamp
@@ -61,14 +56,6 @@ func GCPressedStateInputObjectFromID(id objc.ID) GCPressedStateInputObject {
 //
 // See: https://developer.apple.com/documentation/GameController/GCPressedStateInput/isPressed
 func (o GCPressedStateInputObject) IsPressed() bool {
-	rv := objc.Send[bool](o.ID, objc.Sel("isPressed"))
-	return rv
-}
-
-// A Boolean value that indicates whether the user presses the button.
-//
-// See: https://developer.apple.com/documentation/GameController/GCPressedStateInput/isPressed
-func (o GCPressedStateInputObject) Pressed() bool {
 	rv := objc.Send[bool](o.ID, objc.Sel("isPressed"))
 	return bool(rv)
 }

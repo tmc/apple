@@ -165,7 +165,7 @@ func NewNSUserUnixTask() NSUserUnixTask {
 //
 // If invoked from a subclass, the result will be that class or `nil`.
 //
-// See: https://developer.apple.com/documentation/Foundation/NSUserScriptTask/init(url:)-2qgls
+// See: https://developer.apple.com/documentation/Foundation/NSUserScriptTask/init(url:)
 func NewUserUnixTaskWithURLError(url INSURL) (NSUserUnixTask, error) {
 	var errorPtr objc.ID
 	instance := getNSUserUnixTaskClass().Alloc()
@@ -173,6 +173,9 @@ func NewUserUnixTaskWithURLError(url INSURL) (NSUserUnixTask, error) {
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
 		return NSUserUnixTask{}, NSErrorFrom(errorPtr)
+	}
+	if rv == 0 {
+		return NSUserUnixTask{}, objc.ErrInitFailed
 	}
 	return NSUserUnixTaskFromID(rv), nil
 }

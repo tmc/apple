@@ -4,7 +4,6 @@ package vision
 
 import (
 	"sync"
-	"unsafe"
 
 	"github.com/tmc/apple/foundation"
 	"github.com/tmc/apple/objc"
@@ -111,7 +110,7 @@ func NewRecognizedPoint3DWithCoder(coder foundation.INSCoder) VNRecognizedPoint3
 // position: The three-dimensional position.
 //
 // See: https://developer.apple.com/documentation/Vision/VNPoint3D/init(position:)
-func NewRecognizedPoint3DWithPosition(position unsafe.Pointer) VNRecognizedPoint3D {
+func NewRecognizedPoint3DWithPosition(position [4][4]float32) VNRecognizedPoint3D {
 	instance := getVNRecognizedPoint3DClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithPosition:"), position)
 	return VNRecognizedPoint3DFromID(rv)

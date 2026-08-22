@@ -11,12 +11,25 @@ type AuthorizationContextFlags uint32
 
 const (
 	// KAuthorizationContextFlagExtractable: It is possible for the authorization client to use the AuthorizationCopyInfo(_:_:_:) function to obtain the value.
-	KAuthorizationContextFlagExtractable AuthorizationContextFlags = 0
+	KAuthorizationContextFlagExtractable AuthorizationContextFlags = 1
 	// KAuthorizationContextFlagSticky: This data persists through an interrupted or failed evaluation.
-	KAuthorizationContextFlagSticky AuthorizationContextFlags = 0
+	KAuthorizationContextFlagSticky AuthorizationContextFlags = 4
 	// KAuthorizationContextFlagVolatile: The value is not saved for the authorization client.
-	KAuthorizationContextFlagVolatile AuthorizationContextFlags = 0
+	KAuthorizationContextFlagVolatile AuthorizationContextFlags = 2
 )
+
+func (e AuthorizationContextFlags) String() string {
+	switch e {
+	case KAuthorizationContextFlagExtractable:
+		return "KAuthorizationContextFlagExtractable"
+	case KAuthorizationContextFlagSticky:
+		return "KAuthorizationContextFlagSticky"
+	case KAuthorizationContextFlagVolatile:
+		return "KAuthorizationContextFlagVolatile"
+	default:
+		return fmt.Sprintf("AuthorizationContextFlags(%d)", e)
+	}
+}
 
 // See: https://developer.apple.com/documentation/Security/AuthorizationFlags
 type AuthorizationFlags uint32
@@ -63,18 +76,33 @@ func (e AuthorizationFlags) String() string {
 }
 
 // See: https://developer.apple.com/documentation/Security/AuthorizationResult
-type AuthorizationResult int32
+type AuthorizationResult uint32
 
 const (
 	// KAuthorizationResultAllow: The authorization operation succeeded and authorization should be granted.
 	KAuthorizationResultAllow AuthorizationResult = 0
 	// KAuthorizationResultDeny: The authorization operation succeeded and authorization should be denied.
-	KAuthorizationResultDeny AuthorizationResult = 0
+	KAuthorizationResultDeny AuthorizationResult = 1
 	// KAuthorizationResultUndefined: The authorization operation failed and should not be retried for this session.
-	KAuthorizationResultUndefined AuthorizationResult = 0
+	KAuthorizationResultUndefined AuthorizationResult = 2
 	// KAuthorizationResultUserCanceled: The user has requested that the authorization evaluation be terminated.
-	KAuthorizationResultUserCanceled AuthorizationResult = 0
+	KAuthorizationResultUserCanceled AuthorizationResult = 3
 )
+
+func (e AuthorizationResult) String() string {
+	switch e {
+	case KAuthorizationResultAllow:
+		return "KAuthorizationResultAllow"
+	case KAuthorizationResultDeny:
+		return "KAuthorizationResultDeny"
+	case KAuthorizationResultUndefined:
+		return "KAuthorizationResultUndefined"
+	case KAuthorizationResultUserCanceled:
+		return "KAuthorizationResultUserCanceled"
+	default:
+		return fmt.Sprintf("AuthorizationResult(%d)", e)
+	}
+}
 
 // See: https://developer.apple.com/documentation/Security/CMSCertificateChainMode
 type CMSCertificateChainMode uint32
@@ -154,7 +182,7 @@ func (e CMSSignedAttributes) String() string {
 }
 
 // See: https://developer.apple.com/documentation/Security/CMSSignerStatus
-type CMSSignerStatus int32
+type CMSSignerStatus uint32
 
 const (
 	// KCMSSignerInvalidCert: The message was signed but the signer’s certificate could not be verified.
@@ -190,306 +218,142 @@ func (e CMSSignerStatus) String() string {
 	}
 }
 
-type Cssm int
+type CssmAcBaseAcError int32
 
 const (
-	CSSMERR_AC_INVALID_BASE_ACLS                       Cssm = -2147405567
-	CSSMERR_AC_INVALID_ENCODING                        Cssm = -2147405565
-	CSSMERR_AC_INVALID_REQUESTOR                       Cssm = -2147405563
-	CSSMERR_AC_INVALID_REQUEST_DESCRIPTOR              Cssm = -2147405562
-	CSSMERR_AC_INVALID_TUPLE_CREDENTIALS               Cssm = -2147405566
-	CSSMERR_AC_INVALID_VALIDITY_PERIOD                 Cssm = -2147405564
-	CSSMERR_CL_INVALID_BUNDLE_INFO                     Cssm = -2147411708
-	CSSMERR_CL_INVALID_BUNDLE_POINTER                  Cssm = -2147411711
-	CSSMERR_CL_INVALID_CACHE_HANDLE                    Cssm = -2147411710
-	CSSMERR_CL_INVALID_CRL_INDEX                       Cssm = -2147411707
-	CSSMERR_CL_INVALID_RESULTS_HANDLE                  Cssm = -2147411709
-	CSSMERR_CL_INVALID_SCOPE                           Cssm = -2147411706
-	CSSMERR_CL_NO_FIELD_VALUES                         Cssm = -2147411705
-	CSSMERR_CL_SCOPE_NOT_SUPPORTED                     Cssm = -2147411704
-	CSSMERR_CSP_ALGID_MISMATCH                         Cssm = -2147415789
-	CSSMERR_CSP_ALREADY_LOGGED_IN                      Cssm = -2147415726
-	CSSMERR_CSP_ATTACH_HANDLE_BUSY                     Cssm = -2147415802
-	CSSMERR_CSP_BLOCK_SIZE_MISMATCH                    Cssm = -2147415731
-	CSSMERR_CSP_CRYPTO_DATA_CALLBACK_FAILED            Cssm = -2147415722
-	CSSMERR_CSP_DEVICE_ERROR                           Cssm = -2147415804
-	CSSMERR_CSP_DEVICE_MEMORY_ERROR                    Cssm = -2147415803
-	CSSMERR_CSP_DEVICE_VERIFY_FAILED                   Cssm = -2147415728
-	CSSMERR_CSP_INPUT_LENGTH_ERROR                     Cssm = -2147415807
-	CSSMERR_CSP_INVALID_ALGORITHM                      Cssm = -2147415759
-	CSSMERR_CSP_INVALID_ATTR_ACCESS_CREDENTIALS        Cssm = -2147415678
-	CSSMERR_CSP_INVALID_ATTR_ALG_PARAMS                Cssm = -2147415704
-	CSSMERR_CSP_INVALID_ATTR_BASE                      Cssm = -2147415686
-	CSSMERR_CSP_INVALID_ATTR_BLOCK_SIZE                Cssm = -2147415738
-	CSSMERR_CSP_INVALID_ATTR_DL_DB_HANDLE              Cssm = -2147415680
-	CSSMERR_CSP_INVALID_ATTR_EFFECTIVE_BITS            Cssm = -2147415696
-	CSSMERR_CSP_INVALID_ATTR_END_DATE                  Cssm = -2147415692
-	CSSMERR_CSP_INVALID_ATTR_INIT_VECTOR               Cssm = -2147415752
-	CSSMERR_CSP_INVALID_ATTR_ITERATION_COUNT           Cssm = -2147415682
-	CSSMERR_CSP_INVALID_ATTR_KEY                       Cssm = -2147415754
-	CSSMERR_CSP_INVALID_ATTR_KEY_LENGTH                Cssm = -2147415740
-	CSSMERR_CSP_INVALID_ATTR_KEY_TYPE                  Cssm = -2147415700
-	CSSMERR_CSP_INVALID_ATTR_LABEL                     Cssm = -2147415702
-	CSSMERR_CSP_INVALID_ATTR_MODE                      Cssm = -2147415698
-	CSSMERR_CSP_INVALID_ATTR_OUTPUT_SIZE               Cssm = -2147415708
-	CSSMERR_CSP_INVALID_ATTR_PADDING                   Cssm = -2147415748
-	CSSMERR_CSP_INVALID_ATTR_PASSPHRASE                Cssm = -2147415742
-	CSSMERR_CSP_INVALID_ATTR_PRIME                     Cssm = -2147415688
-	CSSMERR_CSP_INVALID_ATTR_PRIVATE_KEY_FORMAT        Cssm = -2147415674
-	CSSMERR_CSP_INVALID_ATTR_PUBLIC_KEY_FORMAT         Cssm = -2147415676
-	CSSMERR_CSP_INVALID_ATTR_RANDOM                    Cssm = -2147415746
-	CSSMERR_CSP_INVALID_ATTR_ROUNDS                    Cssm = -2147415706
-	CSSMERR_CSP_INVALID_ATTR_SALT                      Cssm = -2147415750
-	CSSMERR_CSP_INVALID_ATTR_SEED                      Cssm = -2147415744
-	CSSMERR_CSP_INVALID_ATTR_START_DATE                Cssm = -2147415694
-	CSSMERR_CSP_INVALID_ATTR_SUBPRIME                  Cssm = -2147415684
-	CSSMERR_CSP_INVALID_ATTR_SYMMETRIC_KEY_FORMAT      Cssm = -2147415672
-	CSSMERR_CSP_INVALID_ATTR_VERSION                   Cssm = -2147415690
-	CSSMERR_CSP_INVALID_ATTR_WRAPPED_KEY_FORMAT        Cssm = -2147415670
-	CSSMERR_CSP_INVALID_CONTEXT                        Cssm = -2147415760
-	CSSMERR_CSP_INVALID_DATA_COUNT                     Cssm = -2147415768
-	CSSMERR_CSP_INVALID_DIGEST_ALGORITHM               Cssm = -2147415723
-	CSSMERR_CSP_INVALID_INPUT_VECTOR                   Cssm = -2147415766
-	CSSMERR_CSP_INVALID_KEY                            Cssm = -2147415792
-	CSSMERR_CSP_INVALID_KEYATTR_MASK                   Cssm = -2147415780
-	CSSMERR_CSP_INVALID_KEYUSAGE_MASK                  Cssm = -2147415782
-	CSSMERR_CSP_INVALID_KEY_CLASS                      Cssm = -2147415790
-	CSSMERR_CSP_INVALID_KEY_FORMAT                     Cssm = -2147415776
-	CSSMERR_CSP_INVALID_KEY_LABEL                      Cssm = -2147415778
-	CSSMERR_CSP_INVALID_KEY_POINTER                    Cssm = -2147415783
-	CSSMERR_CSP_INVALID_KEY_REFERENCE                  Cssm = -2147415791
-	CSSMERR_CSP_INVALID_LOGIN_NAME                     Cssm = -2147415727
-	CSSMERR_CSP_INVALID_OUTPUT_VECTOR                  Cssm = -2147415765
-	CSSMERR_CSP_INVALID_SIGNATURE                      Cssm = -2147415733
-	CSSMERR_CSP_KEY_BLOB_TYPE_INCORRECT                Cssm = -2147415787
-	CSSMERR_CSP_KEY_HEADER_INCONSISTENT                Cssm = -2147415786
-	CSSMERR_CSP_KEY_LABEL_ALREADY_EXISTS               Cssm = -2147415724
-	CSSMERR_CSP_KEY_USAGE_INCORRECT                    Cssm = -2147415788
-	CSSMERR_CSP_MISSING_ATTR_ACCESS_CREDENTIALS        Cssm = -2147415677
-	CSSMERR_CSP_MISSING_ATTR_ALG_PARAMS                Cssm = -2147415703
-	CSSMERR_CSP_MISSING_ATTR_BASE                      Cssm = -2147415685
-	CSSMERR_CSP_MISSING_ATTR_BLOCK_SIZE                Cssm = -2147415737
-	CSSMERR_CSP_MISSING_ATTR_DL_DB_HANDLE              Cssm = -2147415679
-	CSSMERR_CSP_MISSING_ATTR_EFFECTIVE_BITS            Cssm = -2147415695
-	CSSMERR_CSP_MISSING_ATTR_END_DATE                  Cssm = -2147415691
-	CSSMERR_CSP_MISSING_ATTR_INIT_VECTOR               Cssm = -2147415751
-	CSSMERR_CSP_MISSING_ATTR_ITERATION_COUNT           Cssm = -2147415681
-	CSSMERR_CSP_MISSING_ATTR_KEY                       Cssm = -2147415753
-	CSSMERR_CSP_MISSING_ATTR_KEY_LENGTH                Cssm = -2147415739
-	CSSMERR_CSP_MISSING_ATTR_KEY_TYPE                  Cssm = -2147415699
-	CSSMERR_CSP_MISSING_ATTR_LABEL                     Cssm = -2147415701
-	CSSMERR_CSP_MISSING_ATTR_MODE                      Cssm = -2147415697
-	CSSMERR_CSP_MISSING_ATTR_OUTPUT_SIZE               Cssm = -2147415707
-	CSSMERR_CSP_MISSING_ATTR_PADDING                   Cssm = -2147415747
-	CSSMERR_CSP_MISSING_ATTR_PASSPHRASE                Cssm = -2147415741
-	CSSMERR_CSP_MISSING_ATTR_PRIME                     Cssm = -2147415687
-	CSSMERR_CSP_MISSING_ATTR_PRIVATE_KEY_FORMAT        Cssm = -2147415673
-	CSSMERR_CSP_MISSING_ATTR_PUBLIC_KEY_FORMAT         Cssm = -2147415675
-	CSSMERR_CSP_MISSING_ATTR_RANDOM                    Cssm = -2147415745
-	CSSMERR_CSP_MISSING_ATTR_ROUNDS                    Cssm = -2147415705
-	CSSMERR_CSP_MISSING_ATTR_SALT                      Cssm = -2147415749
-	CSSMERR_CSP_MISSING_ATTR_SEED                      Cssm = -2147415743
-	CSSMERR_CSP_MISSING_ATTR_START_DATE                Cssm = -2147415693
-	CSSMERR_CSP_MISSING_ATTR_SUBPRIME                  Cssm = -2147415683
-	CSSMERR_CSP_MISSING_ATTR_SYMMETRIC_KEY_FORMAT      Cssm = -2147415671
-	CSSMERR_CSP_MISSING_ATTR_VERSION                   Cssm = -2147415689
-	CSSMERR_CSP_MISSING_ATTR_WRAPPED_KEY_FORMAT        Cssm = -2147415669
-	CSSMERR_CSP_NOT_LOGGED_IN                          Cssm = -2147415801
-	CSSMERR_CSP_OUTPUT_LENGTH_ERROR                    Cssm = -2147415806
-	CSSMERR_CSP_PRIVATE_KEY_ALREADY_EXISTS             Cssm = -2147415725
-	CSSMERR_CSP_PRIVATE_KEY_NOT_FOUND                  Cssm = -2147415730
-	CSSMERR_CSP_PRIVILEGE_NOT_SUPPORTED                Cssm = -2147415805
-	CSSMERR_CSP_PUBLIC_KEY_INCONSISTENT                Cssm = -2147415729
-	CSSMERR_CSP_QUERY_SIZE_UNKNOWN                     Cssm = -2147415732
-	CSSMERR_CSP_STAGED_OPERATION_IN_PROGRESS           Cssm = -2147415736
-	CSSMERR_CSP_STAGED_OPERATION_NOT_STARTED           Cssm = -2147415735
-	CSSMERR_CSP_UNSUPPORTED_KEYATTR_MASK               Cssm = -2147415779
-	CSSMERR_CSP_UNSUPPORTED_KEYUSAGE_MASK              Cssm = -2147415781
-	CSSMERR_CSP_UNSUPPORTED_KEY_FORMAT                 Cssm = -2147415785
-	CSSMERR_CSP_UNSUPPORTED_KEY_LABEL                  Cssm = -2147415777
-	CSSMERR_CSP_UNSUPPORTED_KEY_SIZE                   Cssm = -2147415784
-	CSSMERR_CSP_VECTOR_OF_BUFS_UNSUPPORTED             Cssm = -2147415767
-	CSSMERR_CSP_VERIFY_FAILED                          Cssm = -2147415734
-	CSSMERR_CSSM_ADDIN_AUTHENTICATE_FAILED             Cssm = -2147417828
-	CSSMERR_CSSM_ADDIN_LOAD_FAILED                     Cssm = -2147417834
-	CSSMERR_CSSM_ADDIN_UNLOAD_FAILED                   Cssm = -2147417832
-	CSSMERR_CSSM_ATTRIBUTE_NOT_IN_CONTEXT              Cssm = -2147417822
-	CSSMERR_CSSM_BUFFER_TOO_SMALL                      Cssm = -2147417824
-	CSSMERR_CSSM_EMM_AUTHENTICATE_FAILED               Cssm = -2147417829
-	CSSMERR_CSSM_EMM_LOAD_FAILED                       Cssm = -2147417836
-	CSSMERR_CSSM_EMM_UNLOAD_FAILED                     Cssm = -2147417835
-	CSSMERR_CSSM_EVENT_NOTIFICATION_CALLBACK_NOT_FOUND Cssm = -2147417819
-	CSSMERR_CSSM_INVALID_ADDIN_FUNCTION_TABLE          Cssm = -2147417830
-	CSSMERR_CSSM_INVALID_ATTRIBUTE                     Cssm = -2147417823
-	CSSMERR_CSSM_INVALID_KEY_HIERARCHY                 Cssm = -2147417833
-	CSSMERR_CSSM_INVALID_PVC                           Cssm = -2147417837
-	CSSMERR_CSSM_INVALID_SERVICE_MASK                  Cssm = -2147417827
-	CSSMERR_CSSM_INVALID_SUBSERVICEID                  Cssm = -2147417825
-	CSSMERR_CSSM_LIB_REF_NOT_FOUND                     Cssm = -2147417831
-	CSSMERR_CSSM_MODULE_MANAGER_INITIALIZE_FAIL        Cssm = -2147417821
-	CSSMERR_CSSM_MODULE_MANAGER_NOT_FOUND              Cssm = -2147417820
-	CSSMERR_CSSM_MODULE_NOT_LOADED                     Cssm = -2147417826
-	CSSMERR_CSSM_PVC_ALREADY_CONFIGURED                Cssm = -2147417838
-	CSSMERR_CSSM_SCOPE_NOT_SUPPORTED                   Cssm = -2147417839
-	CSSMERR_DL_DATABASE_CORRUPT                        Cssm = -2147413759
-	CSSMERR_DL_DATASTORE_ALREADY_EXISTS                Cssm = -2147413736
-	CSSMERR_DL_DATASTORE_DOESNOT_EXIST                 Cssm = -2147413737
-	CSSMERR_DL_DATASTORE_IS_OPEN                       Cssm = -2147413734
-	CSSMERR_DL_DB_LOCKED                               Cssm = -2147413735
-	CSSMERR_DL_ENDOFDATA                               Cssm = -2147413715
-	CSSMERR_DL_FIELD_SPECIFIED_MULTIPLE                Cssm = -2147413742
-	CSSMERR_DL_INCOMPATIBLE_FIELD_FORMAT               Cssm = -2147413741
-	CSSMERR_DL_INVALID_ACCESS_REQUEST                  Cssm = -2147413724
-	CSSMERR_DL_INVALID_DB_LOCATION                     Cssm = -2147413725
-	CSSMERR_DL_INVALID_DB_NAME                         Cssm = -2147413738
-	CSSMERR_DL_INVALID_FIELD_NAME                      Cssm = -2147413750
-	CSSMERR_DL_INVALID_INDEX_INFO                      Cssm = -2147413723
-	CSSMERR_DL_INVALID_MODIFY_MODE                     Cssm = -2147413718
-	CSSMERR_DL_INVALID_NEW_OWNER                       Cssm = -2147413721
-	CSSMERR_DL_INVALID_OPEN_PARAMETERS                 Cssm = -2147413717
-	CSSMERR_DL_INVALID_PARSING_MODULE                  Cssm = -2147413740
-	CSSMERR_DL_INVALID_QUERY                           Cssm = -2147413714
-	CSSMERR_DL_INVALID_RECORDTYPE                      Cssm = -2147413751
-	CSSMERR_DL_INVALID_RECORD_INDEX                    Cssm = -2147413752
-	CSSMERR_DL_INVALID_RECORD_UID                      Cssm = -2147413720
-	CSSMERR_DL_INVALID_RESULTS_HANDLE                  Cssm = -2147413726
-	CSSMERR_DL_INVALID_SELECTION_TAG                   Cssm = -2147413722
-	CSSMERR_DL_INVALID_UNIQUE_INDEX_DATA               Cssm = -2147413719
-	CSSMERR_DL_INVALID_VALUE                           Cssm = -2147413713
-	CSSMERR_DL_MISSING_VALUE                           Cssm = -2147413732
-	CSSMERR_DL_MULTIPLE_VALUES_UNSUPPORTED             Cssm = -2147413712
-	CSSMERR_DL_RECORD_MODIFIED                         Cssm = -2147413716
-	CSSMERR_DL_RECORD_NOT_FOUND                        Cssm = -2147413733
-	CSSMERR_DL_STALE_UNIQUE_RECORD                     Cssm = -2147413711
-	CSSMERR_DL_UNSUPPORTED_FIELD_FORMAT                Cssm = -2147413749
-	CSSMERR_DL_UNSUPPORTED_INDEX_INFO                  Cssm = -2147413748
-	CSSMERR_DL_UNSUPPORTED_LOCALITY                    Cssm = -2147413747
-	CSSMERR_DL_UNSUPPORTED_NUM_ATTRIBUTES              Cssm = -2147413746
-	CSSMERR_DL_UNSUPPORTED_NUM_INDEXES                 Cssm = -2147413745
-	CSSMERR_DL_UNSUPPORTED_NUM_RECORDTYPES             Cssm = -2147413744
-	CSSMERR_DL_UNSUPPORTED_NUM_SELECTION_PREDS         Cssm = -2147413729
-	CSSMERR_DL_UNSUPPORTED_OPERATOR                    Cssm = -2147413727
-	CSSMERR_DL_UNSUPPORTED_QUERY                       Cssm = -2147413731
-	CSSMERR_DL_UNSUPPORTED_QUERY_LIMITS                Cssm = -2147413730
-	CSSMERR_DL_UNSUPPORTED_RECORDTYPE                  Cssm = -2147413743
-	CSSMERR_TP_AUTHENTICATION_FAILED                   Cssm = -2147409657
-	CSSMERR_TP_CERTGROUP_INCOMPLETE                    Cssm = -2147409656
-	CSSMERR_TP_CERTIFICATE_CANT_OPERATE                Cssm = -2147409655
-	CSSMERR_TP_CERT_EXPIRED                            Cssm = -2147409654
-	CSSMERR_TP_CERT_NOT_VALID_YET                      Cssm = -2147409653
-	CSSMERR_TP_CERT_REVOKED                            Cssm = -2147409652
-	CSSMERR_TP_CERT_SUSPENDED                          Cssm = -2147409651
-	CSSMERR_TP_INSUFFICIENT_CREDENTIALS                Cssm = -2147409650
-	CSSMERR_TP_INVALID_ACTION                          Cssm = -2147409649
-	CSSMERR_TP_INVALID_ACTION_DATA                     Cssm = -2147409648
-	CSSMERR_TP_INVALID_ANCHOR_CERT                     Cssm = -2147409646
-	CSSMERR_TP_INVALID_AUTHORITY                       Cssm = -2147409645
-	CSSMERR_TP_INVALID_CALLBACK                        Cssm = -2147409625
-	CSSMERR_TP_INVALID_CALLERAUTH_CONTEXT_POINTER      Cssm = -2147409663
-	CSSMERR_TP_INVALID_CERTGROUP                       Cssm = -2147409660
-	CSSMERR_TP_INVALID_CERTIFICATE                     Cssm = -2147409643
-	CSSMERR_TP_INVALID_CERT_AUTHORITY                  Cssm = -2147409642
-	CSSMERR_TP_INVALID_CRL                             Cssm = -2147409638
-	CSSMERR_TP_INVALID_CRLGROUP                        Cssm = -2147409659
-	CSSMERR_TP_INVALID_CRLGROUP_POINTER                Cssm = -2147409658
-	CSSMERR_TP_INVALID_CRL_AUTHORITY                   Cssm = -2147409641
-	CSSMERR_TP_INVALID_CRL_ENCODING                    Cssm = -2147409640
-	CSSMERR_TP_INVALID_CRL_TYPE                        Cssm = -2147409639
-	CSSMERR_TP_INVALID_FORM_TYPE                       Cssm = -2147409637
-	CSSMERR_TP_INVALID_ID                              Cssm = -2147409636
-	CSSMERR_TP_INVALID_IDENTIFIER                      Cssm = -2147409635
-	CSSMERR_TP_INVALID_IDENTIFIER_POINTER              Cssm = -2147409662
-	CSSMERR_TP_INVALID_INDEX                           Cssm = -2147409634
-	CSSMERR_TP_INVALID_KEYCACHE_HANDLE                 Cssm = -2147409661
-	CSSMERR_TP_INVALID_NAME                            Cssm = -2147409633
-	CSSMERR_TP_INVALID_POLICY_IDENTIFIERS              Cssm = -2147409632
-	CSSMERR_TP_INVALID_REASON                          Cssm = -2147409630
-	CSSMERR_TP_INVALID_REQUEST_INPUTS                  Cssm = -2147409629
-	CSSMERR_TP_INVALID_RESPONSE_VECTOR                 Cssm = -2147409628
-	CSSMERR_TP_INVALID_SIGNATURE                       Cssm = -2147409627
-	CSSMERR_TP_INVALID_STOP_ON_POLICY                  Cssm = -2147409626
-	CSSMERR_TP_INVALID_TIMESTRING                      Cssm = -2147409631
-	CSSMERR_TP_INVALID_TUPLE                           Cssm = -2147409624
-	CSSMERR_TP_INVALID_TUPLEGROUP                      Cssm = -2147409614
-	CSSMERR_TP_INVALID_TUPLEGROUP_POINTER              Cssm = -2147409615
-	CSSMERR_TP_NOT_SIGNER                              Cssm = -2147409623
-	CSSMERR_TP_NOT_TRUSTED                             Cssm = -2147409622
-	CSSMERR_TP_NO_DEFAULT_AUTHORITY                    Cssm = -2147409621
-	CSSMERR_TP_REJECTED_FORM                           Cssm = -2147409620
-	CSSMERR_TP_REQUEST_LOST                            Cssm = -2147409619
-	CSSMERR_TP_REQUEST_REJECTED                        Cssm = -2147409618
-	CSSMERR_TP_UNSUPPORTED_ADDR_TYPE                   Cssm = -2147409617
-	CSSMERR_TP_UNSUPPORTED_SERVICE                     Cssm = -2147409616
-	CSSMERR_TP_VERIFY_ACTION_FAILED                    Cssm = -2147409644
-	CSSM_AC_BASE_AC_ERROR                              Cssm = 0
-	CSSM_AC_BASE_ERROR                                 Cssm = -2147407872
-	CSSM_AC_PRIVATE_ERROR                              Cssm = -2147405824
-	CSSM_BASE_ERROR                                    Cssm = -0x7fff0000
-	CSSM_CL_BASE_CL_ERROR                              Cssm = 0
-	CSSM_CL_BASE_ERROR                                 Cssm = -2147414016
-	CSSM_CL_PRIVATE_ERROR                              Cssm = -2147411968
-	CSSM_CSP_BASE_CSP_ERROR                            Cssm = 0
-	CSSM_CSP_BASE_ERROR                                Cssm = -2147418112
-	CSSM_CSP_PRIVATE_ERROR                             Cssm = -2147416064
-	CSSM_CSSM_BASE_CSSM_ERROR                          Cssm = 0
-	CSSM_CSSM_BASE_ERROR                               Cssm = -2147418112
-	CSSM_CSSM_PRIVATE_ERROR                            Cssm = -2147418112
-	CSSM_CUSTOM_COMMON_ERROR_EXTENT                    Cssm = 224
-	CSSM_DL_BASE_DL_ERROR                              Cssm = 0
-	CSSM_DL_BASE_ERROR                                 Cssm = -2147416064
-	CSSM_DL_PRIVATE_ERROR                              Cssm = -2147414016
-	CSSM_ERRCODE_DEVICE_FAILED                         Cssm = 229
-	CSSM_ERRCODE_DEVICE_RESET                          Cssm = 228
-	CSSM_ERRCODE_INSUFFICIENT_CLIENT_IDENTIFICATION    Cssm = 227
-	CSSM_ERRCODE_IN_DARK_WAKE                          Cssm = 230
-	CSSM_ERRCODE_NO_USER_INTERACTION                   Cssm = 224
-	CSSM_ERRCODE_SERVICE_NOT_AVAILABLE                 Cssm = 226
-	CSSM_ERRCODE_USER_CANCELED                         Cssm = 225
-	CSSM_ERRORCODE_COMMON_EXTENT                       Cssm = 0x100
-	CSSM_ERRORCODE_CUSTOM_OFFSET                       Cssm = 0x400
-	CSSM_ERRORCODE_MODULE_EXTENT                       Cssm = 0x800
-	CSSM_FALSE                                         Cssm = 0
-	CSSM_KR_BASE_ERROR                                 Cssm = -2147409920
-	CSSM_KR_PRIVATE_ERROR                              Cssm = -2147407872
-	CSSM_OK                                            Cssm = 0
-	CSSM_TP_BASE_ERROR                                 Cssm = -2147411968
-	CSSM_TP_BASE_TP_ERROR                              Cssm = 0
-	CSSM_TP_PRIVATE_ERROR                              Cssm = -2147409920
-	CSSM_TRUE                                          Cssm = 0
+	CSSMERR_AC_INVALID_BASE_ACLS          CssmAcBaseAcError = -2147405567
+	CSSMERR_AC_INVALID_ENCODING           CssmAcBaseAcError = -2147405565
+	CSSMERR_AC_INVALID_REQUESTOR          CssmAcBaseAcError = -2147405563
+	CSSMERR_AC_INVALID_REQUEST_DESCRIPTOR CssmAcBaseAcError = -2147405562
+	CSSMERR_AC_INVALID_TUPLE_CREDENTIALS  CssmAcBaseAcError = -2147405566
+	CSSMERR_AC_INVALID_VALIDITY_PERIOD    CssmAcBaseAcError = -2147405564
+	CSSM_AC_BASE_AC_ERROR                 CssmAcBaseAcError = -2147405568
 )
 
-type CssmAclAuthorization uint
+func (e CssmAcBaseAcError) String() string {
+	switch e {
+	case CSSMERR_AC_INVALID_BASE_ACLS:
+		return "CSSMERR_AC_INVALID_BASE_ACLS"
+	case CSSMERR_AC_INVALID_ENCODING:
+		return "CSSMERR_AC_INVALID_ENCODING"
+	case CSSMERR_AC_INVALID_REQUESTOR:
+		return "CSSMERR_AC_INVALID_REQUESTOR"
+	case CSSMERR_AC_INVALID_REQUEST_DESCRIPTOR:
+		return "CSSMERR_AC_INVALID_REQUEST_DESCRIPTOR"
+	case CSSMERR_AC_INVALID_TUPLE_CREDENTIALS:
+		return "CSSMERR_AC_INVALID_TUPLE_CREDENTIALS"
+	case CSSMERR_AC_INVALID_VALIDITY_PERIOD:
+		return "CSSMERR_AC_INVALID_VALIDITY_PERIOD"
+	case CSSM_AC_BASE_AC_ERROR:
+		return "CSSM_AC_BASE_AC_ERROR"
+	default:
+		return fmt.Sprintf("CssmAcBaseAcError(%d)", e)
+	}
+}
+
+type CssmAclAuthorizationChangeAcl uint32
 
 const (
-	CSSM_ACL_AUTHORIZATION_ANY                      CssmAclAuthorization = 1
-	CSSM_ACL_AUTHORIZATION_CHANGE_ACL               CssmAclAuthorization = 65536
-	CSSM_ACL_AUTHORIZATION_CHANGE_OWNER             CssmAclAuthorization = 65537
-	CSSM_ACL_AUTHORIZATION_DBS_CREATE               CssmAclAuthorization = 22
-	CSSM_ACL_AUTHORIZATION_DBS_DELETE               CssmAclAuthorization = 23
-	CSSM_ACL_AUTHORIZATION_DB_DELETE                CssmAclAuthorization = 17
-	CSSM_ACL_AUTHORIZATION_DB_INSERT                CssmAclAuthorization = 19
-	CSSM_ACL_AUTHORIZATION_DB_MODIFY                CssmAclAuthorization = 20
-	CSSM_ACL_AUTHORIZATION_DB_READ                  CssmAclAuthorization = 21
-	CSSM_ACL_AUTHORIZATION_DECRYPT                  CssmAclAuthorization = 24
-	CSSM_ACL_AUTHORIZATION_DELETE                   CssmAclAuthorization = 25
-	CSSM_ACL_AUTHORIZATION_DERIVE                   CssmAclAuthorization = 28
-	CSSM_ACL_AUTHORIZATION_ENCRYPT                  CssmAclAuthorization = 35
-	CSSM_ACL_AUTHORIZATION_EXPORT_CLEAR             CssmAclAuthorization = 37
-	CSSM_ACL_AUTHORIZATION_EXPORT_WRAPPED           CssmAclAuthorization = 38
-	CSSM_ACL_AUTHORIZATION_GENKEY                   CssmAclAuthorization = 41
-	CSSM_ACL_AUTHORIZATION_IMPORT_CLEAR             CssmAclAuthorization = 47
-	CSSM_ACL_AUTHORIZATION_IMPORT_WRAPPED           CssmAclAuthorization = 48
-	CSSM_ACL_AUTHORIZATION_INTEGRITY                CssmAclAuthorization = 65539
-	CSSM_ACL_AUTHORIZATION_LOGIN                    CssmAclAuthorization = 57
-	CSSM_ACL_AUTHORIZATION_MAC                      CssmAclAuthorization = 59
-	CSSM_ACL_AUTHORIZATION_PARTITION_ID             CssmAclAuthorization = 65538
-	CSSM_ACL_AUTHORIZATION_PREAUTH_BASE             CssmAclAuthorization = 0
-	CSSM_ACL_AUTHORIZATION_PREAUTH_END              CssmAclAuthorization = 0
-	CSSM_ACL_AUTHORIZATION_SIGN                     CssmAclAuthorization = 115
-	CSSM_ACL_AUTHORIZATION_TAG_VENDOR_DEFINED_START CssmAclAuthorization = 0x10000
+	CSSM_ACL_AUTHORIZATION_CHANGE_ACL   CssmAclAuthorizationChangeAcl = 65536
+	CSSM_ACL_AUTHORIZATION_CHANGE_OWNER CssmAclAuthorizationChangeAcl = 65537
+	CSSM_ACL_AUTHORIZATION_INTEGRITY    CssmAclAuthorizationChangeAcl = 65539
+	CSSM_ACL_AUTHORIZATION_PARTITION_ID CssmAclAuthorizationChangeAcl = 65538
+	CSSM_ACL_AUTHORIZATION_PREAUTH_BASE CssmAclAuthorizationChangeAcl = 16842752
+	CSSM_ACL_AUTHORIZATION_PREAUTH_END  CssmAclAuthorizationChangeAcl = 16908288
 )
 
-type CssmAclCodeSignature uint
+func (e CssmAclAuthorizationChangeAcl) String() string {
+	switch e {
+	case CSSM_ACL_AUTHORIZATION_CHANGE_ACL:
+		return "CSSM_ACL_AUTHORIZATION_CHANGE_ACL"
+	case CSSM_ACL_AUTHORIZATION_CHANGE_OWNER:
+		return "CSSM_ACL_AUTHORIZATION_CHANGE_OWNER"
+	case CSSM_ACL_AUTHORIZATION_INTEGRITY:
+		return "CSSM_ACL_AUTHORIZATION_INTEGRITY"
+	case CSSM_ACL_AUTHORIZATION_PARTITION_ID:
+		return "CSSM_ACL_AUTHORIZATION_PARTITION_ID"
+	case CSSM_ACL_AUTHORIZATION_PREAUTH_BASE:
+		return "CSSM_ACL_AUTHORIZATION_PREAUTH_BASE"
+	case CSSM_ACL_AUTHORIZATION_PREAUTH_END:
+		return "CSSM_ACL_AUTHORIZATION_PREAUTH_END"
+	default:
+		return fmt.Sprintf("CssmAclAuthorizationChangeAcl(%d)", e)
+	}
+}
+
+type CssmAclAuthorizationTagVendorDefinedStart uint32
+
+const (
+	CSSM_ACL_AUTHORIZATION_ANY                      CssmAclAuthorizationTagVendorDefinedStart = 1
+	CSSM_ACL_AUTHORIZATION_DBS_CREATE               CssmAclAuthorizationTagVendorDefinedStart = 22
+	CSSM_ACL_AUTHORIZATION_DBS_DELETE               CssmAclAuthorizationTagVendorDefinedStart = 23
+	CSSM_ACL_AUTHORIZATION_DB_DELETE                CssmAclAuthorizationTagVendorDefinedStart = 17
+	CSSM_ACL_AUTHORIZATION_DB_INSERT                CssmAclAuthorizationTagVendorDefinedStart = 19
+	CSSM_ACL_AUTHORIZATION_DB_MODIFY                CssmAclAuthorizationTagVendorDefinedStart = 20
+	CSSM_ACL_AUTHORIZATION_DB_READ                  CssmAclAuthorizationTagVendorDefinedStart = 21
+	CSSM_ACL_AUTHORIZATION_DECRYPT                  CssmAclAuthorizationTagVendorDefinedStart = 24
+	CSSM_ACL_AUTHORIZATION_DELETE                   CssmAclAuthorizationTagVendorDefinedStart = 25
+	CSSM_ACL_AUTHORIZATION_DERIVE                   CssmAclAuthorizationTagVendorDefinedStart = 28
+	CSSM_ACL_AUTHORIZATION_ENCRYPT                  CssmAclAuthorizationTagVendorDefinedStart = 35
+	CSSM_ACL_AUTHORIZATION_EXPORT_CLEAR             CssmAclAuthorizationTagVendorDefinedStart = 37
+	CSSM_ACL_AUTHORIZATION_EXPORT_WRAPPED           CssmAclAuthorizationTagVendorDefinedStart = 38
+	CSSM_ACL_AUTHORIZATION_GENKEY                   CssmAclAuthorizationTagVendorDefinedStart = 41
+	CSSM_ACL_AUTHORIZATION_IMPORT_CLEAR             CssmAclAuthorizationTagVendorDefinedStart = 47
+	CSSM_ACL_AUTHORIZATION_IMPORT_WRAPPED           CssmAclAuthorizationTagVendorDefinedStart = 48
+	CSSM_ACL_AUTHORIZATION_LOGIN                    CssmAclAuthorizationTagVendorDefinedStart = 57
+	CSSM_ACL_AUTHORIZATION_MAC                      CssmAclAuthorizationTagVendorDefinedStart = 59
+	CSSM_ACL_AUTHORIZATION_SIGN                     CssmAclAuthorizationTagVendorDefinedStart = 115
+	CSSM_ACL_AUTHORIZATION_TAG_VENDOR_DEFINED_START CssmAclAuthorizationTagVendorDefinedStart = 0x10000
+)
+
+func (e CssmAclAuthorizationTagVendorDefinedStart) String() string {
+	switch e {
+	case CSSM_ACL_AUTHORIZATION_ANY:
+		return "CSSM_ACL_AUTHORIZATION_ANY"
+	case CSSM_ACL_AUTHORIZATION_DBS_CREATE:
+		return "CSSM_ACL_AUTHORIZATION_DBS_CREATE"
+	case CSSM_ACL_AUTHORIZATION_DBS_DELETE:
+		return "CSSM_ACL_AUTHORIZATION_DBS_DELETE"
+	case CSSM_ACL_AUTHORIZATION_DB_DELETE:
+		return "CSSM_ACL_AUTHORIZATION_DB_DELETE"
+	case CSSM_ACL_AUTHORIZATION_DB_INSERT:
+		return "CSSM_ACL_AUTHORIZATION_DB_INSERT"
+	case CSSM_ACL_AUTHORIZATION_DB_MODIFY:
+		return "CSSM_ACL_AUTHORIZATION_DB_MODIFY"
+	case CSSM_ACL_AUTHORIZATION_DB_READ:
+		return "CSSM_ACL_AUTHORIZATION_DB_READ"
+	case CSSM_ACL_AUTHORIZATION_DECRYPT:
+		return "CSSM_ACL_AUTHORIZATION_DECRYPT"
+	case CSSM_ACL_AUTHORIZATION_DELETE:
+		return "CSSM_ACL_AUTHORIZATION_DELETE"
+	case CSSM_ACL_AUTHORIZATION_DERIVE:
+		return "CSSM_ACL_AUTHORIZATION_DERIVE"
+	case CSSM_ACL_AUTHORIZATION_ENCRYPT:
+		return "CSSM_ACL_AUTHORIZATION_ENCRYPT"
+	case CSSM_ACL_AUTHORIZATION_EXPORT_CLEAR:
+		return "CSSM_ACL_AUTHORIZATION_EXPORT_CLEAR"
+	case CSSM_ACL_AUTHORIZATION_EXPORT_WRAPPED:
+		return "CSSM_ACL_AUTHORIZATION_EXPORT_WRAPPED"
+	case CSSM_ACL_AUTHORIZATION_GENKEY:
+		return "CSSM_ACL_AUTHORIZATION_GENKEY"
+	case CSSM_ACL_AUTHORIZATION_IMPORT_CLEAR:
+		return "CSSM_ACL_AUTHORIZATION_IMPORT_CLEAR"
+	case CSSM_ACL_AUTHORIZATION_IMPORT_WRAPPED:
+		return "CSSM_ACL_AUTHORIZATION_IMPORT_WRAPPED"
+	case CSSM_ACL_AUTHORIZATION_LOGIN:
+		return "CSSM_ACL_AUTHORIZATION_LOGIN"
+	case CSSM_ACL_AUTHORIZATION_MAC:
+		return "CSSM_ACL_AUTHORIZATION_MAC"
+	case CSSM_ACL_AUTHORIZATION_SIGN:
+		return "CSSM_ACL_AUTHORIZATION_SIGN"
+	case CSSM_ACL_AUTHORIZATION_TAG_VENDOR_DEFINED_START:
+		return "CSSM_ACL_AUTHORIZATION_TAG_VENDOR_DEFINED_START"
+	default:
+		return fmt.Sprintf("CssmAclAuthorizationTagVendorDefinedStart(%d)", e)
+	}
+}
+
+type CssmAclCodeSignature uint32
 
 const (
 	CSSM_ACL_CODE_SIGNATURE_INVALID CssmAclCodeSignature = 0
@@ -507,7 +371,7 @@ func (e CssmAclCodeSignature) String() string {
 	}
 }
 
-type CssmAclEditMode uint
+type CssmAclEditMode uint32
 
 const (
 	CSSM_ACL_EDIT_MODE_ADD     CssmAclEditMode = 1
@@ -528,7 +392,7 @@ func (e CssmAclEditMode) String() string {
 	}
 }
 
-type CssmAclKeychainPrompt uint
+type CssmAclKeychainPrompt uint32
 
 const (
 	CSSM_ACL_KEYCHAIN_PROMPT_INVALID            CssmAclKeychainPrompt = 0x40
@@ -555,7 +419,7 @@ func (e CssmAclKeychainPrompt) String() string {
 	}
 }
 
-type CssmAclKeychainPromptCurrent uint
+type CssmAclKeychainPromptCurrent uint32
 
 const (
 	CSSM_ACL_KEYCHAIN_PROMPT_CURRENT_VERSION CssmAclKeychainPromptCurrent = 0x101
@@ -570,16 +434,31 @@ func (e CssmAclKeychainPromptCurrent) String() string {
 	}
 }
 
-type CssmAclMatch uint
+type CssmAclMatch uint32
 
 const (
-	CSSM_ACL_MATCH_BITS       CssmAclMatch = 1
+	CSSM_ACL_MATCH_BITS       CssmAclMatch = 3
 	CSSM_ACL_MATCH_GID        CssmAclMatch = 0x2
 	CSSM_ACL_MATCH_HONOR_ROOT CssmAclMatch = 0x100
 	CSSM_ACL_MATCH_UID        CssmAclMatch = 0x1
 )
 
-type CssmAclPreauthTracking uint
+func (e CssmAclMatch) String() string {
+	switch e {
+	case CSSM_ACL_MATCH_BITS:
+		return "CSSM_ACL_MATCH_BITS"
+	case CSSM_ACL_MATCH_GID:
+		return "CSSM_ACL_MATCH_GID"
+	case CSSM_ACL_MATCH_HONOR_ROOT:
+		return "CSSM_ACL_MATCH_HONOR_ROOT"
+	case CSSM_ACL_MATCH_UID:
+		return "CSSM_ACL_MATCH_UID"
+	default:
+		return fmt.Sprintf("CssmAclMatch(%d)", e)
+	}
+}
+
+type CssmAclPreauthTracking uint32
 
 const (
 	CSSM_ACL_PREAUTH_TRACKING_AUTHORIZED CssmAclPreauthTracking = 0x80000000
@@ -603,7 +482,7 @@ func (e CssmAclPreauthTracking) String() string {
 	}
 }
 
-type CssmAclProcessSelectorCurrent uint
+type CssmAclProcessSelectorCurrent uint32
 
 const (
 	CSSM_ACL_PROCESS_SELECTOR_CURRENT_VERSION CssmAclProcessSelectorCurrent = 0x101
@@ -618,62 +497,37 @@ func (e CssmAclProcessSelectorCurrent) String() string {
 	}
 }
 
-type CssmAclSubjectType uint
+type CssmAclSubjectTypeAny uint32
 
 const (
-	CSSM_ACL_SUBJECT_TYPE_ANY                 CssmAclSubjectType = 1
-	CSSM_ACL_SUBJECT_TYPE_ASYMMETRIC_KEY      CssmAclSubjectType = 65547
-	CSSM_ACL_SUBJECT_TYPE_BIOMETRIC           CssmAclSubjectType = 8
-	CSSM_ACL_SUBJECT_TYPE_CODE_SIGNATURE      CssmAclSubjectType = 116
-	CSSM_ACL_SUBJECT_TYPE_COMMENT             CssmAclSubjectType = 12
-	CSSM_ACL_SUBJECT_TYPE_EXT_PAM_NAME        CssmAclSubjectType = 78
-	CSSM_ACL_SUBJECT_TYPE_HASHED_SUBJECT      CssmAclSubjectType = 44
-	CSSM_ACL_SUBJECT_TYPE_KEYCHAIN_PROMPT     CssmAclSubjectType = 65536
-	CSSM_ACL_SUBJECT_TYPE_LOGIN_NAME          CssmAclSubjectType = 58
-	CSSM_ACL_SUBJECT_TYPE_PARTITION           CssmAclSubjectType = 65548
-	CSSM_ACL_SUBJECT_TYPE_PASSWORD            CssmAclSubjectType = 79
-	CSSM_ACL_SUBJECT_TYPE_PREAUTH             CssmAclSubjectType = 65545
-	CSSM_ACL_SUBJECT_TYPE_PREAUTH_SOURCE      CssmAclSubjectType = 65546
-	CSSM_ACL_SUBJECT_TYPE_PROCESS             CssmAclSubjectType = 65539
-	CSSM_ACL_SUBJECT_TYPE_PROMPTED_BIOMETRIC  CssmAclSubjectType = 83
-	CSSM_ACL_SUBJECT_TYPE_PROMPTED_PASSWORD   CssmAclSubjectType = 84
-	CSSM_ACL_SUBJECT_TYPE_PROTECTED_BIOMETRIC CssmAclSubjectType = 86
-	CSSM_ACL_SUBJECT_TYPE_PROTECTED_PASSWORD  CssmAclSubjectType = 87
-	CSSM_ACL_SUBJECT_TYPE_PUBLIC_KEY          CssmAclSubjectType = 89
-	CSSM_ACL_SUBJECT_TYPE_SYMMETRIC_KEY       CssmAclSubjectType = 65541
-	CSSM_ACL_SUBJECT_TYPE_THRESHOLD           CssmAclSubjectType = 123
+	CSSM_ACL_SUBJECT_TYPE_ANY                 CssmAclSubjectTypeAny = 1
+	CSSM_ACL_SUBJECT_TYPE_BIOMETRIC           CssmAclSubjectTypeAny = 8
+	CSSM_ACL_SUBJECT_TYPE_EXT_PAM_NAME        CssmAclSubjectTypeAny = 78
+	CSSM_ACL_SUBJECT_TYPE_HASHED_SUBJECT      CssmAclSubjectTypeAny = 44
+	CSSM_ACL_SUBJECT_TYPE_LOGIN_NAME          CssmAclSubjectTypeAny = 58
+	CSSM_ACL_SUBJECT_TYPE_PASSWORD            CssmAclSubjectTypeAny = 79
+	CSSM_ACL_SUBJECT_TYPE_PROMPTED_BIOMETRIC  CssmAclSubjectTypeAny = 83
+	CSSM_ACL_SUBJECT_TYPE_PROMPTED_PASSWORD   CssmAclSubjectTypeAny = 84
+	CSSM_ACL_SUBJECT_TYPE_PROTECTED_BIOMETRIC CssmAclSubjectTypeAny = 86
+	CSSM_ACL_SUBJECT_TYPE_PROTECTED_PASSWORD  CssmAclSubjectTypeAny = 87
+	CSSM_ACL_SUBJECT_TYPE_PUBLIC_KEY          CssmAclSubjectTypeAny = 89
+	CSSM_ACL_SUBJECT_TYPE_THRESHOLD           CssmAclSubjectTypeAny = 123
 )
 
-func (e CssmAclSubjectType) String() string {
+func (e CssmAclSubjectTypeAny) String() string {
 	switch e {
 	case CSSM_ACL_SUBJECT_TYPE_ANY:
 		return "CSSM_ACL_SUBJECT_TYPE_ANY"
-	case CSSM_ACL_SUBJECT_TYPE_ASYMMETRIC_KEY:
-		return "CSSM_ACL_SUBJECT_TYPE_ASYMMETRIC_KEY"
 	case CSSM_ACL_SUBJECT_TYPE_BIOMETRIC:
 		return "CSSM_ACL_SUBJECT_TYPE_BIOMETRIC"
-	case CSSM_ACL_SUBJECT_TYPE_CODE_SIGNATURE:
-		return "CSSM_ACL_SUBJECT_TYPE_CODE_SIGNATURE"
-	case CSSM_ACL_SUBJECT_TYPE_COMMENT:
-		return "CSSM_ACL_SUBJECT_TYPE_COMMENT"
 	case CSSM_ACL_SUBJECT_TYPE_EXT_PAM_NAME:
 		return "CSSM_ACL_SUBJECT_TYPE_EXT_PAM_NAME"
 	case CSSM_ACL_SUBJECT_TYPE_HASHED_SUBJECT:
 		return "CSSM_ACL_SUBJECT_TYPE_HASHED_SUBJECT"
-	case CSSM_ACL_SUBJECT_TYPE_KEYCHAIN_PROMPT:
-		return "CSSM_ACL_SUBJECT_TYPE_KEYCHAIN_PROMPT"
 	case CSSM_ACL_SUBJECT_TYPE_LOGIN_NAME:
 		return "CSSM_ACL_SUBJECT_TYPE_LOGIN_NAME"
-	case CSSM_ACL_SUBJECT_TYPE_PARTITION:
-		return "CSSM_ACL_SUBJECT_TYPE_PARTITION"
 	case CSSM_ACL_SUBJECT_TYPE_PASSWORD:
 		return "CSSM_ACL_SUBJECT_TYPE_PASSWORD"
-	case CSSM_ACL_SUBJECT_TYPE_PREAUTH:
-		return "CSSM_ACL_SUBJECT_TYPE_PREAUTH"
-	case CSSM_ACL_SUBJECT_TYPE_PREAUTH_SOURCE:
-		return "CSSM_ACL_SUBJECT_TYPE_PREAUTH_SOURCE"
-	case CSSM_ACL_SUBJECT_TYPE_PROCESS:
-		return "CSSM_ACL_SUBJECT_TYPE_PROCESS"
 	case CSSM_ACL_SUBJECT_TYPE_PROMPTED_BIOMETRIC:
 		return "CSSM_ACL_SUBJECT_TYPE_PROMPTED_BIOMETRIC"
 	case CSSM_ACL_SUBJECT_TYPE_PROMPTED_PASSWORD:
@@ -684,16 +538,53 @@ func (e CssmAclSubjectType) String() string {
 		return "CSSM_ACL_SUBJECT_TYPE_PROTECTED_PASSWORD"
 	case CSSM_ACL_SUBJECT_TYPE_PUBLIC_KEY:
 		return "CSSM_ACL_SUBJECT_TYPE_PUBLIC_KEY"
-	case CSSM_ACL_SUBJECT_TYPE_SYMMETRIC_KEY:
-		return "CSSM_ACL_SUBJECT_TYPE_SYMMETRIC_KEY"
 	case CSSM_ACL_SUBJECT_TYPE_THRESHOLD:
 		return "CSSM_ACL_SUBJECT_TYPE_THRESHOLD"
 	default:
-		return fmt.Sprintf("CssmAclSubjectType(%d)", e)
+		return fmt.Sprintf("CssmAclSubjectTypeAny(%d)", e)
 	}
 }
 
-type CssmAddr uint
+type CssmAclSubjectTypeKeychainPrompt uint32
+
+const (
+	CSSM_ACL_SUBJECT_TYPE_ASYMMETRIC_KEY  CssmAclSubjectTypeKeychainPrompt = 65547
+	CSSM_ACL_SUBJECT_TYPE_CODE_SIGNATURE  CssmAclSubjectTypeKeychainPrompt = 116
+	CSSM_ACL_SUBJECT_TYPE_COMMENT         CssmAclSubjectTypeKeychainPrompt = 12
+	CSSM_ACL_SUBJECT_TYPE_KEYCHAIN_PROMPT CssmAclSubjectTypeKeychainPrompt = 65536
+	CSSM_ACL_SUBJECT_TYPE_PARTITION       CssmAclSubjectTypeKeychainPrompt = 65548
+	CSSM_ACL_SUBJECT_TYPE_PREAUTH         CssmAclSubjectTypeKeychainPrompt = 65545
+	CSSM_ACL_SUBJECT_TYPE_PREAUTH_SOURCE  CssmAclSubjectTypeKeychainPrompt = 65546
+	CSSM_ACL_SUBJECT_TYPE_PROCESS         CssmAclSubjectTypeKeychainPrompt = 65539
+	CSSM_ACL_SUBJECT_TYPE_SYMMETRIC_KEY   CssmAclSubjectTypeKeychainPrompt = 65541
+)
+
+func (e CssmAclSubjectTypeKeychainPrompt) String() string {
+	switch e {
+	case CSSM_ACL_SUBJECT_TYPE_ASYMMETRIC_KEY:
+		return "CSSM_ACL_SUBJECT_TYPE_ASYMMETRIC_KEY"
+	case CSSM_ACL_SUBJECT_TYPE_CODE_SIGNATURE:
+		return "CSSM_ACL_SUBJECT_TYPE_CODE_SIGNATURE"
+	case CSSM_ACL_SUBJECT_TYPE_COMMENT:
+		return "CSSM_ACL_SUBJECT_TYPE_COMMENT"
+	case CSSM_ACL_SUBJECT_TYPE_KEYCHAIN_PROMPT:
+		return "CSSM_ACL_SUBJECT_TYPE_KEYCHAIN_PROMPT"
+	case CSSM_ACL_SUBJECT_TYPE_PARTITION:
+		return "CSSM_ACL_SUBJECT_TYPE_PARTITION"
+	case CSSM_ACL_SUBJECT_TYPE_PREAUTH:
+		return "CSSM_ACL_SUBJECT_TYPE_PREAUTH"
+	case CSSM_ACL_SUBJECT_TYPE_PREAUTH_SOURCE:
+		return "CSSM_ACL_SUBJECT_TYPE_PREAUTH_SOURCE"
+	case CSSM_ACL_SUBJECT_TYPE_PROCESS:
+		return "CSSM_ACL_SUBJECT_TYPE_PROCESS"
+	case CSSM_ACL_SUBJECT_TYPE_SYMMETRIC_KEY:
+		return "CSSM_ACL_SUBJECT_TYPE_SYMMETRIC_KEY"
+	default:
+		return fmt.Sprintf("CssmAclSubjectTypeKeychainPrompt(%d)", e)
+	}
+}
+
+type CssmAddr uint32
 
 const (
 	CSSM_ADDR_CUSTOM   CssmAddr = 1
@@ -720,222 +611,641 @@ func (e CssmAddr) String() string {
 	}
 }
 
-type CssmAlgclass uint
+type CssmAlgclass uint32
 
 const (
-	CSSM_ALGCLASS_ASYMMETRIC CssmAlgclass = 0
-	CSSM_ALGCLASS_CUSTOM     CssmAlgclass = 0
-	CSSM_ALGCLASS_DERIVEKEY  CssmAlgclass = 0
-	CSSM_ALGCLASS_DIGEST     CssmAlgclass = 0
-	CSSM_ALGCLASS_KEYGEN     CssmAlgclass = 0
-	CSSM_ALGCLASS_MAC        CssmAlgclass = 0
+	CSSM_ALGCLASS_ASYMMETRIC CssmAlgclass = 8
+	CSSM_ALGCLASS_CUSTOM     CssmAlgclass = 1
+	CSSM_ALGCLASS_DERIVEKEY  CssmAlgclass = 10
+	CSSM_ALGCLASS_DIGEST     CssmAlgclass = 4
+	CSSM_ALGCLASS_KEYGEN     CssmAlgclass = 9
+	CSSM_ALGCLASS_MAC        CssmAlgclass = 7
 	CSSM_ALGCLASS_NONE       CssmAlgclass = 0
-	CSSM_ALGCLASS_RANDOMGEN  CssmAlgclass = 0
-	CSSM_ALGCLASS_SIGNATURE  CssmAlgclass = 0
-	CSSM_ALGCLASS_SYMMETRIC  CssmAlgclass = 0
-	CSSM_ALGCLASS_UNIQUEGEN  CssmAlgclass = 0
+	CSSM_ALGCLASS_RANDOMGEN  CssmAlgclass = 5
+	CSSM_ALGCLASS_SIGNATURE  CssmAlgclass = 2
+	CSSM_ALGCLASS_SYMMETRIC  CssmAlgclass = 3
+	CSSM_ALGCLASS_UNIQUEGEN  CssmAlgclass = 6
 )
 
-type CssmAlgid uint
+func (e CssmAlgclass) String() string {
+	switch e {
+	case CSSM_ALGCLASS_ASYMMETRIC:
+		return "CSSM_ALGCLASS_ASYMMETRIC"
+	case CSSM_ALGCLASS_CUSTOM:
+		return "CSSM_ALGCLASS_CUSTOM"
+	case CSSM_ALGCLASS_DERIVEKEY:
+		return "CSSM_ALGCLASS_DERIVEKEY"
+	case CSSM_ALGCLASS_DIGEST:
+		return "CSSM_ALGCLASS_DIGEST"
+	case CSSM_ALGCLASS_KEYGEN:
+		return "CSSM_ALGCLASS_KEYGEN"
+	case CSSM_ALGCLASS_MAC:
+		return "CSSM_ALGCLASS_MAC"
+	case CSSM_ALGCLASS_NONE:
+		return "CSSM_ALGCLASS_NONE"
+	case CSSM_ALGCLASS_RANDOMGEN:
+		return "CSSM_ALGCLASS_RANDOMGEN"
+	case CSSM_ALGCLASS_SIGNATURE:
+		return "CSSM_ALGCLASS_SIGNATURE"
+	case CSSM_ALGCLASS_SYMMETRIC:
+		return "CSSM_ALGCLASS_SYMMETRIC"
+	case CSSM_ALGCLASS_UNIQUEGEN:
+		return "CSSM_ALGCLASS_UNIQUEGEN"
+	default:
+		return fmt.Sprintf("CssmAlgclass(%d)", e)
+	}
+}
+
+type CssmAlgidAppleYarrow uint32
 
 const (
-	CSSM_ALGID_3DES                CssmAlgid = 0
-	CSSM_ALGID_3DES_1KEY           CssmAlgid = 20
-	CSSM_ALGID_3DES_1KEY_EEE       CssmAlgid = 0
-	CSSM_ALGID_3DES_2KEY           CssmAlgid = 18
-	CSSM_ALGID_3DES_2KEY_EDE       CssmAlgid = 0
-	CSSM_ALGID_3DES_2KEY_EEE       CssmAlgid = 0
-	CSSM_ALGID_3DES_3KEY           CssmAlgid = 17
-	CSSM_ALGID_3DES_3KEY_EDE       CssmAlgid = 0
-	CSSM_ALGID_3DES_3KEY_EEE       CssmAlgid = 0
-	CSSM_ALGID_AES                 CssmAlgid = 1
-	CSSM_ALGID_APPLE_YARROW        CssmAlgid = 0
-	CSSM_ALGID_ASC                 CssmAlgid = 7
-	CSSM_ALGID_BATON               CssmAlgid = 0
-	CSSM_ALGID_BLOWFISH            CssmAlgid = 0
-	CSSM_ALGID_CAST                CssmAlgid = 0
-	CSSM_ALGID_CAST3               CssmAlgid = 0
-	CSSM_ALGID_CAST5               CssmAlgid = 0
-	CSSM_ALGID_CDMF                CssmAlgid = 0
-	CSSM_ALGID_CRAB                CssmAlgid = 0
-	CSSM_ALGID_CUSTOM              CssmAlgid = 0
-	CSSM_ALGID_ConcatBaseAndData   CssmAlgid = 0
-	CSSM_ALGID_ConcatBaseAndKey    CssmAlgid = 0
-	CSSM_ALGID_ConcatDataAndBase   CssmAlgid = 0
-	CSSM_ALGID_ConcatKeyAndBase    CssmAlgid = 0
-	CSSM_ALGID_DES                 CssmAlgid = 0
-	CSSM_ALGID_DESRandom           CssmAlgid = 0
-	CSSM_ALGID_DESX                CssmAlgid = 0
-	CSSM_ALGID_DH                  CssmAlgid = 0
-	CSSM_ALGID_DSA                 CssmAlgid = 0
-	CSSM_ALGID_DSA_BSAFE           CssmAlgid = 0
-	CSSM_ALGID_ECAES               CssmAlgid = 0
-	CSSM_ALGID_ECC                 CssmAlgid = 0
-	CSSM_ALGID_ECDH                CssmAlgid = 0
-	CSSM_ALGID_ECDH_X963_KDF       CssmAlgid = 29
-	CSSM_ALGID_ECDSA               CssmAlgid = 0
-	CSSM_ALGID_ECDSA_SPECIFIED     CssmAlgid = 28
-	CSSM_ALGID_ECES                CssmAlgid = 0
-	CSSM_ALGID_ECMQV               CssmAlgid = 0
-	CSSM_ALGID_ECNRA               CssmAlgid = 0
-	CSSM_ALGID_ENTROPY_DEFAULT     CssmAlgid = 17
-	CSSM_ALGID_ElGamal             CssmAlgid = 0
-	CSSM_ALGID_ExtractFromKey      CssmAlgid = 0
-	CSSM_ALGID_FASTHASH            CssmAlgid = 0
-	CSSM_ALGID_FEAL                CssmAlgid = 0
-	CSSM_ALGID_FEE                 CssmAlgid = 2
-	CSSM_ALGID_FEED                CssmAlgid = 5
-	CSSM_ALGID_FEEDEXP             CssmAlgid = 6
-	CSSM_ALGID_FEE_MD5             CssmAlgid = 3
-	CSSM_ALGID_FEE_SHA1            CssmAlgid = 4
-	CSSM_ALGID_FIPS186Random       CssmAlgid = 0
-	CSSM_ALGID_FortezzaTimestamp   CssmAlgid = 0
-	CSSM_ALGID_GOST                CssmAlgid = 0
-	CSSM_ALGID_GenericSecret       CssmAlgid = 0
-	CSSM_ALGID_HAVAL               CssmAlgid = 0
-	CSSM_ALGID_HAVAL3              CssmAlgid = 0
-	CSSM_ALGID_HAVAL4              CssmAlgid = 0
-	CSSM_ALGID_HAVAL5              CssmAlgid = 0
-	CSSM_ALGID_IBCHASH             CssmAlgid = 0
-	CSSM_ALGID_IDEA                CssmAlgid = 0
-	CSSM_ALGID_IntelPlatformRandom CssmAlgid = 0
-	CSSM_ALGID_JUNIPER             CssmAlgid = 0
-	CSSM_ALGID_KEA                 CssmAlgid = 0
-	CSSM_ALGID_KEYCHAIN_KEY        CssmAlgid = 9
-	CSSM_ALGID_KHAFRE              CssmAlgid = 0
-	CSSM_ALGID_KHUFU               CssmAlgid = 0
-	CSSM_ALGID_LAST                CssmAlgid = 0
-	CSSM_ALGID_LOKI                CssmAlgid = 0
-	CSSM_ALGID_LUCIFER             CssmAlgid = 0
-	CSSM_ALGID_MADRYGA             CssmAlgid = 0
-	CSSM_ALGID_MAYFLY              CssmAlgid = 0
-	CSSM_ALGID_MD2                 CssmAlgid = 0
-	CSSM_ALGID_MD2Random           CssmAlgid = 0
-	CSSM_ALGID_MD2WithRSA          CssmAlgid = 0
-	CSSM_ALGID_MD4                 CssmAlgid = 0
-	CSSM_ALGID_MD5                 CssmAlgid = 0
-	CSSM_ALGID_MD5HMAC             CssmAlgid = 0
-	CSSM_ALGID_MD5Random           CssmAlgid = 0
-	CSSM_ALGID_MD5WithRSA          CssmAlgid = 0
-	CSSM_ALGID_MMB                 CssmAlgid = 0
-	CSSM_ALGID_MQV                 CssmAlgid = 0
-	CSSM_ALGID_NHASH               CssmAlgid = 0
-	CSSM_ALGID_NONE                CssmAlgid = 0
-	CSSM_ALGID_NRA                 CssmAlgid = 0
-	CSSM_ALGID_OPENSSH1            CssmAlgid = 23
-	CSSM_ALGID_PBE_OPENSSL_MD5     CssmAlgid = 13
-	CSSM_ALGID_PH                  CssmAlgid = 0
-	CSSM_ALGID_PKCS12_PBE_ENCR     CssmAlgid = 10
-	CSSM_ALGID_PKCS12_PBE_MAC      CssmAlgid = 11
-	CSSM_ALGID_PKCS12_SHA1_PBE     CssmAlgid = 0
-	CSSM_ALGID_PKCS5_PBKDF1_MD2    CssmAlgid = 0
-	CSSM_ALGID_PKCS5_PBKDF1_MD5    CssmAlgid = 0
-	CSSM_ALGID_PKCS5_PBKDF1_SHA1   CssmAlgid = 0
-	CSSM_ALGID_PKCS5_PBKDF2        CssmAlgid = 0
-	CSSM_ALGID_RC2                 CssmAlgid = 0
-	CSSM_ALGID_RC4                 CssmAlgid = 0
-	CSSM_ALGID_RC5                 CssmAlgid = 0
-	CSSM_ALGID_RDES                CssmAlgid = 0
-	CSSM_ALGID_REDOC               CssmAlgid = 0
-	CSSM_ALGID_REDOC3              CssmAlgid = 0
-	CSSM_ALGID_RIPEMAC             CssmAlgid = 0
-	CSSM_ALGID_RIPEMD              CssmAlgid = 0
-	CSSM_ALGID_RSA                 CssmAlgid = 0
-	CSSM_ALGID_RUNNING_COUNTER     CssmAlgid = 0
-	CSSM_ALGID_SAFER               CssmAlgid = 0
-	CSSM_ALGID_SEAL                CssmAlgid = 0
-	CSSM_ALGID_SECURE_PASSPHRASE   CssmAlgid = 12
-	CSSM_ALGID_SHA1                CssmAlgid = 0
-	CSSM_ALGID_SHA1HMAC            CssmAlgid = 0
-	CSSM_ALGID_SHA1HMAC_LEGACY     CssmAlgid = 8
-	CSSM_ALGID_SHA1WithDSA         CssmAlgid = 0
-	CSSM_ALGID_SHA1WithECDSA       CssmAlgid = 0
-	CSSM_ALGID_SHA1WithECNRA       CssmAlgid = 0
-	CSSM_ALGID_SHA1WithRSA         CssmAlgid = 0
-	CSSM_ALGID_SHA224              CssmAlgid = 18
-	CSSM_ALGID_SHA224WithECDSA     CssmAlgid = 24
-	CSSM_ALGID_SHA224WithRSA       CssmAlgid = 19
-	CSSM_ALGID_SHA256              CssmAlgid = 14
-	CSSM_ALGID_SHA256WithECDSA     CssmAlgid = 25
-	CSSM_ALGID_SHA256WithRSA       CssmAlgid = 20
-	CSSM_ALGID_SHA384              CssmAlgid = 15
-	CSSM_ALGID_SHA384WithECDSA     CssmAlgid = 26
-	CSSM_ALGID_SHA384WithRSA       CssmAlgid = 21
-	CSSM_ALGID_SHA512              CssmAlgid = 16
-	CSSM_ALGID_SHA512WithECDSA     CssmAlgid = 27
-	CSSM_ALGID_SHA512WithRSA       CssmAlgid = 22
-	CSSM_ALGID_SHARandom           CssmAlgid = 0
-	CSSM_ALGID_SKIPJACK            CssmAlgid = 0
-	CSSM_ALGID_SSL3KeyAndMacDerive CssmAlgid = 0
-	CSSM_ALGID_SSL3MD5             CssmAlgid = 0
-	CSSM_ALGID_SSL3MD5_MAC         CssmAlgid = 0
-	CSSM_ALGID_SSL3PrePrimaryGen   CssmAlgid = 0
-	CSSM_ALGID_SSL3PrimaryDerive   CssmAlgid = 0
-	CSSM_ALGID_SSL3SHA1            CssmAlgid = 0
-	CSSM_ALGID_SSL3SHA1_MAC        CssmAlgid = 0
-	CSSM_ALGID_TIGER               CssmAlgid = 0
-	CSSM_ALGID_UTC                 CssmAlgid = 0
-	CSSM_ALGID_VENDOR_DEFINED      CssmAlgid = 0
-	CSSM_ALGID_WrapLynks           CssmAlgid = 0
-	CSSM_ALGID_WrapSET_OAEP        CssmAlgid = 0
-	CSSM_ALGID_XORBaseAndData      CssmAlgid = 0
-	CSSM_ALGID__FIRST_UNUSED       CssmAlgid = 30
-	// Deprecated.
-	CSSM_ALGID_SSL3MasterDerive CssmAlgid = 63
-	// Deprecated.
-	CSSM_ALGID_SSL3PreMasterGen CssmAlgid = 62
+	CSSM_ALGID_AES               CssmAlgidAppleYarrow = 2147483649
+	CSSM_ALGID_APPLE_YARROW      CssmAlgidAppleYarrow = 2147483648
+	CSSM_ALGID_ASC               CssmAlgidAppleYarrow = 2147483655
+	CSSM_ALGID_ECDH_X963_KDF     CssmAlgidAppleYarrow = 2147483677
+	CSSM_ALGID_ECDSA_SPECIFIED   CssmAlgidAppleYarrow = 2147483676
+	CSSM_ALGID_ENTROPY_DEFAULT   CssmAlgidAppleYarrow = 2147483665
+	CSSM_ALGID_FEE               CssmAlgidAppleYarrow = 2147483650
+	CSSM_ALGID_FEED              CssmAlgidAppleYarrow = 2147483653
+	CSSM_ALGID_FEEDEXP           CssmAlgidAppleYarrow = 2147483654
+	CSSM_ALGID_FEE_MD5           CssmAlgidAppleYarrow = 2147483651
+	CSSM_ALGID_FEE_SHA1          CssmAlgidAppleYarrow = 2147483652
+	CSSM_ALGID_KEYCHAIN_KEY      CssmAlgidAppleYarrow = 2147483657
+	CSSM_ALGID_OPENSSH1          CssmAlgidAppleYarrow = 2147483671
+	CSSM_ALGID_PBE_OPENSSL_MD5   CssmAlgidAppleYarrow = 2147483661
+	CSSM_ALGID_PKCS12_PBE_ENCR   CssmAlgidAppleYarrow = 2147483658
+	CSSM_ALGID_PKCS12_PBE_MAC    CssmAlgidAppleYarrow = 2147483659
+	CSSM_ALGID_SECURE_PASSPHRASE CssmAlgidAppleYarrow = 2147483660
+	CSSM_ALGID_SHA1HMAC_LEGACY   CssmAlgidAppleYarrow = 2147483656
+	CSSM_ALGID_SHA224            CssmAlgidAppleYarrow = 2147483666
+	CSSM_ALGID_SHA224WithECDSA   CssmAlgidAppleYarrow = 2147483672
+	CSSM_ALGID_SHA224WithRSA     CssmAlgidAppleYarrow = 2147483667
+	CSSM_ALGID_SHA256            CssmAlgidAppleYarrow = 2147483662
+	CSSM_ALGID_SHA256WithECDSA   CssmAlgidAppleYarrow = 2147483673
+	CSSM_ALGID_SHA256WithRSA     CssmAlgidAppleYarrow = 2147483668
+	CSSM_ALGID_SHA384            CssmAlgidAppleYarrow = 2147483663
+	CSSM_ALGID_SHA384WithECDSA   CssmAlgidAppleYarrow = 2147483674
+	CSSM_ALGID_SHA384WithRSA     CssmAlgidAppleYarrow = 2147483669
+	CSSM_ALGID_SHA512            CssmAlgidAppleYarrow = 2147483664
+	CSSM_ALGID_SHA512WithECDSA   CssmAlgidAppleYarrow = 2147483675
+	CSSM_ALGID_SHA512WithRSA     CssmAlgidAppleYarrow = 2147483670
+	CSSM_ALGID__FIRST_UNUSED     CssmAlgidAppleYarrow = 2147483678
 )
 
-type CssmAlgmode uint
+func (e CssmAlgidAppleYarrow) String() string {
+	switch e {
+	case CSSM_ALGID_AES:
+		return "CSSM_ALGID_AES"
+	case CSSM_ALGID_APPLE_YARROW:
+		return "CSSM_ALGID_APPLE_YARROW"
+	case CSSM_ALGID_ASC:
+		return "CSSM_ALGID_ASC"
+	case CSSM_ALGID_ECDH_X963_KDF:
+		return "CSSM_ALGID_ECDH_X963_KDF"
+	case CSSM_ALGID_ECDSA_SPECIFIED:
+		return "CSSM_ALGID_ECDSA_SPECIFIED"
+	case CSSM_ALGID_ENTROPY_DEFAULT:
+		return "CSSM_ALGID_ENTROPY_DEFAULT"
+	case CSSM_ALGID_FEE:
+		return "CSSM_ALGID_FEE"
+	case CSSM_ALGID_FEED:
+		return "CSSM_ALGID_FEED"
+	case CSSM_ALGID_FEEDEXP:
+		return "CSSM_ALGID_FEEDEXP"
+	case CSSM_ALGID_FEE_MD5:
+		return "CSSM_ALGID_FEE_MD5"
+	case CSSM_ALGID_FEE_SHA1:
+		return "CSSM_ALGID_FEE_SHA1"
+	case CSSM_ALGID_KEYCHAIN_KEY:
+		return "CSSM_ALGID_KEYCHAIN_KEY"
+	case CSSM_ALGID_OPENSSH1:
+		return "CSSM_ALGID_OPENSSH1"
+	case CSSM_ALGID_PBE_OPENSSL_MD5:
+		return "CSSM_ALGID_PBE_OPENSSL_MD5"
+	case CSSM_ALGID_PKCS12_PBE_ENCR:
+		return "CSSM_ALGID_PKCS12_PBE_ENCR"
+	case CSSM_ALGID_PKCS12_PBE_MAC:
+		return "CSSM_ALGID_PKCS12_PBE_MAC"
+	case CSSM_ALGID_SECURE_PASSPHRASE:
+		return "CSSM_ALGID_SECURE_PASSPHRASE"
+	case CSSM_ALGID_SHA1HMAC_LEGACY:
+		return "CSSM_ALGID_SHA1HMAC_LEGACY"
+	case CSSM_ALGID_SHA224:
+		return "CSSM_ALGID_SHA224"
+	case CSSM_ALGID_SHA224WithECDSA:
+		return "CSSM_ALGID_SHA224WithECDSA"
+	case CSSM_ALGID_SHA224WithRSA:
+		return "CSSM_ALGID_SHA224WithRSA"
+	case CSSM_ALGID_SHA256:
+		return "CSSM_ALGID_SHA256"
+	case CSSM_ALGID_SHA256WithECDSA:
+		return "CSSM_ALGID_SHA256WithECDSA"
+	case CSSM_ALGID_SHA256WithRSA:
+		return "CSSM_ALGID_SHA256WithRSA"
+	case CSSM_ALGID_SHA384:
+		return "CSSM_ALGID_SHA384"
+	case CSSM_ALGID_SHA384WithECDSA:
+		return "CSSM_ALGID_SHA384WithECDSA"
+	case CSSM_ALGID_SHA384WithRSA:
+		return "CSSM_ALGID_SHA384WithRSA"
+	case CSSM_ALGID_SHA512:
+		return "CSSM_ALGID_SHA512"
+	case CSSM_ALGID_SHA512WithECDSA:
+		return "CSSM_ALGID_SHA512WithECDSA"
+	case CSSM_ALGID_SHA512WithRSA:
+		return "CSSM_ALGID_SHA512WithRSA"
+	case CSSM_ALGID__FIRST_UNUSED:
+		return "CSSM_ALGID__FIRST_UNUSED"
+	default:
+		return fmt.Sprintf("CssmAlgidAppleYarrow(%d)", e)
+	}
+}
+
+type CssmAlgidNone uint32
 
 const (
-	CSSM_ALGMODE_BC             CssmAlgmode = 0
-	CSSM_ALGMODE_CBC            CssmAlgmode = 0
-	CSSM_ALGMODE_CBC128         CssmAlgmode = 0
-	CSSM_ALGMODE_CBC64          CssmAlgmode = 0
-	CSSM_ALGMODE_CBCC           CssmAlgmode = 0
-	CSSM_ALGMODE_CBCPD          CssmAlgmode = 0
-	CSSM_ALGMODE_CBCPadIV8      CssmAlgmode = 0
-	CSSM_ALGMODE_CBC_IV8        CssmAlgmode = 0
-	CSSM_ALGMODE_CFB            CssmAlgmode = 0
-	CSSM_ALGMODE_CFB16          CssmAlgmode = 0
-	CSSM_ALGMODE_CFB32          CssmAlgmode = 0
-	CSSM_ALGMODE_CFB8           CssmAlgmode = 0
-	CSSM_ALGMODE_CFBPadIV8      CssmAlgmode = 0
-	CSSM_ALGMODE_CFB_IV8        CssmAlgmode = 0
-	CSSM_ALGMODE_COUNTER        CssmAlgmode = 0
-	CSSM_ALGMODE_CUSTOM         CssmAlgmode = 0
-	CSSM_ALGMODE_ECB            CssmAlgmode = 0
-	CSSM_ALGMODE_ECB128         CssmAlgmode = 0
-	CSSM_ALGMODE_ECB64          CssmAlgmode = 0
-	CSSM_ALGMODE_ECB96          CssmAlgmode = 0
-	CSSM_ALGMODE_ECBPad         CssmAlgmode = 0
-	CSSM_ALGMODE_ISO_9796       CssmAlgmode = 0
-	CSSM_ALGMODE_LAST           CssmAlgmode = 0
+	CSSM_ALGID_3DES                CssmAlgidNone = 77
+	CSSM_ALGID_3DES_1KEY           CssmAlgidNone = 20
+	CSSM_ALGID_3DES_1KEY_EEE       CssmAlgidNone = 19
+	CSSM_ALGID_3DES_2KEY           CssmAlgidNone = 18
+	CSSM_ALGID_3DES_2KEY_EDE       CssmAlgidNone = 18
+	CSSM_ALGID_3DES_2KEY_EEE       CssmAlgidNone = 21
+	CSSM_ALGID_3DES_3KEY           CssmAlgidNone = 17
+	CSSM_ALGID_3DES_3KEY_EDE       CssmAlgidNone = 17
+	CSSM_ALGID_3DES_3KEY_EEE       CssmAlgidNone = 20
+	CSSM_ALGID_BATON               CssmAlgidNone = 72
+	CSSM_ALGID_BLOWFISH            CssmAlgidNone = 28
+	CSSM_ALGID_CAST                CssmAlgidNone = 27
+	CSSM_ALGID_CAST3               CssmAlgidNone = 53
+	CSSM_ALGID_CAST5               CssmAlgidNone = 54
+	CSSM_ALGID_CDMF                CssmAlgidNone = 52
+	CSSM_ALGID_CRAB                CssmAlgidNone = 41
+	CSSM_ALGID_CUSTOM              CssmAlgidNone = 1
+	CSSM_ALGID_ConcatBaseAndData   CssmAlgidNone = 58
+	CSSM_ALGID_ConcatBaseAndKey    CssmAlgidNone = 56
+	CSSM_ALGID_ConcatDataAndBase   CssmAlgidNone = 59
+	CSSM_ALGID_ConcatKeyAndBase    CssmAlgidNone = 57
+	CSSM_ALGID_DES                 CssmAlgidNone = 14
+	CSSM_ALGID_DESRandom           CssmAlgidNone = 50
+	CSSM_ALGID_DESX                CssmAlgidNone = 15
+	CSSM_ALGID_DH                  CssmAlgidNone = 2
+	CSSM_ALGID_DSA                 CssmAlgidNone = 43
+	CSSM_ALGID_DSA_BSAFE           CssmAlgidNone = 83
+	CSSM_ALGID_ECAES               CssmAlgidNone = 90
+	CSSM_ALGID_ECC                 CssmAlgidNone = 93
+	CSSM_ALGID_ECDH                CssmAlgidNone = 84
+	CSSM_ALGID_ECDSA               CssmAlgidNone = 73
+	CSSM_ALGID_ECES                CssmAlgidNone = 89
+	CSSM_ALGID_ECMQV               CssmAlgidNone = 85
+	CSSM_ALGID_ECNRA               CssmAlgidNone = 87
+	CSSM_ALGID_ElGamal             CssmAlgidNone = 46
+	CSSM_ALGID_ExtractFromKey      CssmAlgidNone = 61
+	CSSM_ALGID_FASTHASH            CssmAlgidNone = 76
+	CSSM_ALGID_FEAL                CssmAlgidNone = 32
+	CSSM_ALGID_FIPS186Random       CssmAlgidNone = 92
+	CSSM_ALGID_FortezzaTimestamp   CssmAlgidNone = 80
+	CSSM_ALGID_GOST                CssmAlgidNone = 39
+	CSSM_ALGID_GenericSecret       CssmAlgidNone = 55
+	CSSM_ALGID_HAVAL               CssmAlgidNone = 10
+	CSSM_ALGID_HAVAL3              CssmAlgidNone = 98
+	CSSM_ALGID_HAVAL4              CssmAlgidNone = 99
+	CSSM_ALGID_HAVAL5              CssmAlgidNone = 100
+	CSSM_ALGID_IBCHASH             CssmAlgidNone = 12
+	CSSM_ALGID_IDEA                CssmAlgidNone = 22
+	CSSM_ALGID_IntelPlatformRandom CssmAlgidNone = 96
+	CSSM_ALGID_JUNIPER             CssmAlgidNone = 75
+	CSSM_ALGID_KEA                 CssmAlgidNone = 4
+	CSSM_ALGID_KHAFRE              CssmAlgidNone = 37
+	CSSM_ALGID_KHUFU               CssmAlgidNone = 36
+	CSSM_ALGID_LAST                CssmAlgidNone = 2147483647
+	CSSM_ALGID_LOKI                CssmAlgidNone = 35
+	CSSM_ALGID_LUCIFER             CssmAlgidNone = 30
+	CSSM_ALGID_MADRYGA             CssmAlgidNone = 31
+	CSSM_ALGID_MAYFLY              CssmAlgidNone = 74
+	CSSM_ALGID_MD2                 CssmAlgidNone = 5
+	CSSM_ALGID_MD2Random           CssmAlgidNone = 47
+	CSSM_ALGID_MD2WithRSA          CssmAlgidNone = 45
+	CSSM_ALGID_MD4                 CssmAlgidNone = 6
+	CSSM_ALGID_MD5                 CssmAlgidNone = 7
+	CSSM_ALGID_MD5HMAC             CssmAlgidNone = 102
+	CSSM_ALGID_MD5Random           CssmAlgidNone = 48
+	CSSM_ALGID_MD5WithRSA          CssmAlgidNone = 44
+	CSSM_ALGID_MMB                 CssmAlgidNone = 38
+	CSSM_ALGID_MQV                 CssmAlgidNone = 94
+	CSSM_ALGID_NHASH               CssmAlgidNone = 9
+	CSSM_ALGID_NONE                CssmAlgidNone = 0
+	CSSM_ALGID_NRA                 CssmAlgidNone = 95
+	CSSM_ALGID_PH                  CssmAlgidNone = 3
+	CSSM_ALGID_PKCS12_SHA1_PBE     CssmAlgidNone = 86
+	CSSM_ALGID_PKCS5_PBKDF1_MD2    CssmAlgidNone = 68
+	CSSM_ALGID_PKCS5_PBKDF1_MD5    CssmAlgidNone = 67
+	CSSM_ALGID_PKCS5_PBKDF1_SHA1   CssmAlgidNone = 69
+	CSSM_ALGID_PKCS5_PBKDF2        CssmAlgidNone = 103
+	CSSM_ALGID_RC2                 CssmAlgidNone = 23
+	CSSM_ALGID_RC4                 CssmAlgidNone = 25
+	CSSM_ALGID_RC5                 CssmAlgidNone = 24
+	CSSM_ALGID_RDES                CssmAlgidNone = 16
+	CSSM_ALGID_REDOC               CssmAlgidNone = 33
+	CSSM_ALGID_REDOC3              CssmAlgidNone = 34
+	CSSM_ALGID_RIPEMAC             CssmAlgidNone = 13
+	CSSM_ALGID_RIPEMD              CssmAlgidNone = 11
+	CSSM_ALGID_RSA                 CssmAlgidNone = 42
+	CSSM_ALGID_RUNNING_COUNTER     CssmAlgidNone = 104
+	CSSM_ALGID_SAFER               CssmAlgidNone = 40
+	CSSM_ALGID_SEAL                CssmAlgidNone = 26
+	CSSM_ALGID_SHA1                CssmAlgidNone = 8
+	CSSM_ALGID_SHA1HMAC            CssmAlgidNone = 91
+	CSSM_ALGID_SHA1WithDSA         CssmAlgidNone = 81
+	CSSM_ALGID_SHA1WithECDSA       CssmAlgidNone = 82
+	CSSM_ALGID_SHA1WithECNRA       CssmAlgidNone = 88
+	CSSM_ALGID_SHA1WithRSA         CssmAlgidNone = 51
+	CSSM_ALGID_SHARandom           CssmAlgidNone = 49
+	CSSM_ALGID_SKIPJACK            CssmAlgidNone = 29
+	CSSM_ALGID_SSL3KeyAndMacDerive CssmAlgidNone = 64
+	CSSM_ALGID_SSL3MD5             CssmAlgidNone = 78
+	CSSM_ALGID_SSL3MD5_MAC         CssmAlgidNone = 65
+	CSSM_ALGID_SSL3PrePrimaryGen   CssmAlgidNone = 62
+	CSSM_ALGID_SSL3PrimaryDerive   CssmAlgidNone = 63
+	CSSM_ALGID_SSL3SHA1            CssmAlgidNone = 79
+	CSSM_ALGID_SSL3SHA1_MAC        CssmAlgidNone = 66
+	CSSM_ALGID_TIGER               CssmAlgidNone = 101
+	CSSM_ALGID_UTC                 CssmAlgidNone = 97
+	CSSM_ALGID_VENDOR_DEFINED      CssmAlgidNone = 2147483648
+	CSSM_ALGID_WrapLynks           CssmAlgidNone = 70
+	CSSM_ALGID_WrapSET_OAEP        CssmAlgidNone = 71
+	CSSM_ALGID_XORBaseAndData      CssmAlgidNone = 60
+	// Deprecated: use CSSM_ALGID_SSL3PrimaryDerive.
+	CSSM_ALGID_SSL3MasterDerive CssmAlgidNone = 63
+	// Deprecated: use CSSM_ALGID_SSL3PrePrimaryGen.
+	CSSM_ALGID_SSL3PreMasterGen CssmAlgidNone = 62
+)
+
+func (e CssmAlgidNone) String() string {
+	switch e {
+	case CSSM_ALGID_3DES:
+		return "CSSM_ALGID_3DES"
+	case CSSM_ALGID_3DES_1KEY:
+		return "CSSM_ALGID_3DES_1KEY"
+	case CSSM_ALGID_3DES_1KEY_EEE:
+		return "CSSM_ALGID_3DES_1KEY_EEE"
+	case CSSM_ALGID_3DES_2KEY:
+		return "CSSM_ALGID_3DES_2KEY"
+	case CSSM_ALGID_3DES_2KEY_EEE:
+		return "CSSM_ALGID_3DES_2KEY_EEE"
+	case CSSM_ALGID_3DES_3KEY:
+		return "CSSM_ALGID_3DES_3KEY"
+	case CSSM_ALGID_BATON:
+		return "CSSM_ALGID_BATON"
+	case CSSM_ALGID_BLOWFISH:
+		return "CSSM_ALGID_BLOWFISH"
+	case CSSM_ALGID_CAST:
+		return "CSSM_ALGID_CAST"
+	case CSSM_ALGID_CAST3:
+		return "CSSM_ALGID_CAST3"
+	case CSSM_ALGID_CAST5:
+		return "CSSM_ALGID_CAST5"
+	case CSSM_ALGID_CDMF:
+		return "CSSM_ALGID_CDMF"
+	case CSSM_ALGID_CRAB:
+		return "CSSM_ALGID_CRAB"
+	case CSSM_ALGID_CUSTOM:
+		return "CSSM_ALGID_CUSTOM"
+	case CSSM_ALGID_ConcatBaseAndData:
+		return "CSSM_ALGID_ConcatBaseAndData"
+	case CSSM_ALGID_ConcatBaseAndKey:
+		return "CSSM_ALGID_ConcatBaseAndKey"
+	case CSSM_ALGID_ConcatDataAndBase:
+		return "CSSM_ALGID_ConcatDataAndBase"
+	case CSSM_ALGID_ConcatKeyAndBase:
+		return "CSSM_ALGID_ConcatKeyAndBase"
+	case CSSM_ALGID_DES:
+		return "CSSM_ALGID_DES"
+	case CSSM_ALGID_DESRandom:
+		return "CSSM_ALGID_DESRandom"
+	case CSSM_ALGID_DESX:
+		return "CSSM_ALGID_DESX"
+	case CSSM_ALGID_DH:
+		return "CSSM_ALGID_DH"
+	case CSSM_ALGID_DSA:
+		return "CSSM_ALGID_DSA"
+	case CSSM_ALGID_DSA_BSAFE:
+		return "CSSM_ALGID_DSA_BSAFE"
+	case CSSM_ALGID_ECAES:
+		return "CSSM_ALGID_ECAES"
+	case CSSM_ALGID_ECC:
+		return "CSSM_ALGID_ECC"
+	case CSSM_ALGID_ECDH:
+		return "CSSM_ALGID_ECDH"
+	case CSSM_ALGID_ECDSA:
+		return "CSSM_ALGID_ECDSA"
+	case CSSM_ALGID_ECES:
+		return "CSSM_ALGID_ECES"
+	case CSSM_ALGID_ECMQV:
+		return "CSSM_ALGID_ECMQV"
+	case CSSM_ALGID_ECNRA:
+		return "CSSM_ALGID_ECNRA"
+	case CSSM_ALGID_ElGamal:
+		return "CSSM_ALGID_ElGamal"
+	case CSSM_ALGID_ExtractFromKey:
+		return "CSSM_ALGID_ExtractFromKey"
+	case CSSM_ALGID_FASTHASH:
+		return "CSSM_ALGID_FASTHASH"
+	case CSSM_ALGID_FEAL:
+		return "CSSM_ALGID_FEAL"
+	case CSSM_ALGID_FIPS186Random:
+		return "CSSM_ALGID_FIPS186Random"
+	case CSSM_ALGID_FortezzaTimestamp:
+		return "CSSM_ALGID_FortezzaTimestamp"
+	case CSSM_ALGID_GOST:
+		return "CSSM_ALGID_GOST"
+	case CSSM_ALGID_GenericSecret:
+		return "CSSM_ALGID_GenericSecret"
+	case CSSM_ALGID_HAVAL:
+		return "CSSM_ALGID_HAVAL"
+	case CSSM_ALGID_HAVAL3:
+		return "CSSM_ALGID_HAVAL3"
+	case CSSM_ALGID_HAVAL4:
+		return "CSSM_ALGID_HAVAL4"
+	case CSSM_ALGID_HAVAL5:
+		return "CSSM_ALGID_HAVAL5"
+	case CSSM_ALGID_IBCHASH:
+		return "CSSM_ALGID_IBCHASH"
+	case CSSM_ALGID_IDEA:
+		return "CSSM_ALGID_IDEA"
+	case CSSM_ALGID_IntelPlatformRandom:
+		return "CSSM_ALGID_IntelPlatformRandom"
+	case CSSM_ALGID_JUNIPER:
+		return "CSSM_ALGID_JUNIPER"
+	case CSSM_ALGID_KEA:
+		return "CSSM_ALGID_KEA"
+	case CSSM_ALGID_KHAFRE:
+		return "CSSM_ALGID_KHAFRE"
+	case CSSM_ALGID_KHUFU:
+		return "CSSM_ALGID_KHUFU"
+	case CSSM_ALGID_LAST:
+		return "CSSM_ALGID_LAST"
+	case CSSM_ALGID_LOKI:
+		return "CSSM_ALGID_LOKI"
+	case CSSM_ALGID_LUCIFER:
+		return "CSSM_ALGID_LUCIFER"
+	case CSSM_ALGID_MADRYGA:
+		return "CSSM_ALGID_MADRYGA"
+	case CSSM_ALGID_MAYFLY:
+		return "CSSM_ALGID_MAYFLY"
+	case CSSM_ALGID_MD2:
+		return "CSSM_ALGID_MD2"
+	case CSSM_ALGID_MD2Random:
+		return "CSSM_ALGID_MD2Random"
+	case CSSM_ALGID_MD2WithRSA:
+		return "CSSM_ALGID_MD2WithRSA"
+	case CSSM_ALGID_MD4:
+		return "CSSM_ALGID_MD4"
+	case CSSM_ALGID_MD5:
+		return "CSSM_ALGID_MD5"
+	case CSSM_ALGID_MD5HMAC:
+		return "CSSM_ALGID_MD5HMAC"
+	case CSSM_ALGID_MD5Random:
+		return "CSSM_ALGID_MD5Random"
+	case CSSM_ALGID_MD5WithRSA:
+		return "CSSM_ALGID_MD5WithRSA"
+	case CSSM_ALGID_MMB:
+		return "CSSM_ALGID_MMB"
+	case CSSM_ALGID_MQV:
+		return "CSSM_ALGID_MQV"
+	case CSSM_ALGID_NHASH:
+		return "CSSM_ALGID_NHASH"
+	case CSSM_ALGID_NONE:
+		return "CSSM_ALGID_NONE"
+	case CSSM_ALGID_NRA:
+		return "CSSM_ALGID_NRA"
+	case CSSM_ALGID_PH:
+		return "CSSM_ALGID_PH"
+	case CSSM_ALGID_PKCS12_SHA1_PBE:
+		return "CSSM_ALGID_PKCS12_SHA1_PBE"
+	case CSSM_ALGID_PKCS5_PBKDF1_MD2:
+		return "CSSM_ALGID_PKCS5_PBKDF1_MD2"
+	case CSSM_ALGID_PKCS5_PBKDF1_MD5:
+		return "CSSM_ALGID_PKCS5_PBKDF1_MD5"
+	case CSSM_ALGID_PKCS5_PBKDF1_SHA1:
+		return "CSSM_ALGID_PKCS5_PBKDF1_SHA1"
+	case CSSM_ALGID_PKCS5_PBKDF2:
+		return "CSSM_ALGID_PKCS5_PBKDF2"
+	case CSSM_ALGID_RC2:
+		return "CSSM_ALGID_RC2"
+	case CSSM_ALGID_RC4:
+		return "CSSM_ALGID_RC4"
+	case CSSM_ALGID_RC5:
+		return "CSSM_ALGID_RC5"
+	case CSSM_ALGID_RDES:
+		return "CSSM_ALGID_RDES"
+	case CSSM_ALGID_REDOC:
+		return "CSSM_ALGID_REDOC"
+	case CSSM_ALGID_REDOC3:
+		return "CSSM_ALGID_REDOC3"
+	case CSSM_ALGID_RIPEMAC:
+		return "CSSM_ALGID_RIPEMAC"
+	case CSSM_ALGID_RIPEMD:
+		return "CSSM_ALGID_RIPEMD"
+	case CSSM_ALGID_RSA:
+		return "CSSM_ALGID_RSA"
+	case CSSM_ALGID_RUNNING_COUNTER:
+		return "CSSM_ALGID_RUNNING_COUNTER"
+	case CSSM_ALGID_SAFER:
+		return "CSSM_ALGID_SAFER"
+	case CSSM_ALGID_SEAL:
+		return "CSSM_ALGID_SEAL"
+	case CSSM_ALGID_SHA1:
+		return "CSSM_ALGID_SHA1"
+	case CSSM_ALGID_SHA1HMAC:
+		return "CSSM_ALGID_SHA1HMAC"
+	case CSSM_ALGID_SHA1WithDSA:
+		return "CSSM_ALGID_SHA1WithDSA"
+	case CSSM_ALGID_SHA1WithECDSA:
+		return "CSSM_ALGID_SHA1WithECDSA"
+	case CSSM_ALGID_SHA1WithECNRA:
+		return "CSSM_ALGID_SHA1WithECNRA"
+	case CSSM_ALGID_SHA1WithRSA:
+		return "CSSM_ALGID_SHA1WithRSA"
+	case CSSM_ALGID_SHARandom:
+		return "CSSM_ALGID_SHARandom"
+	case CSSM_ALGID_SKIPJACK:
+		return "CSSM_ALGID_SKIPJACK"
+	case CSSM_ALGID_SSL3KeyAndMacDerive:
+		return "CSSM_ALGID_SSL3KeyAndMacDerive"
+	case CSSM_ALGID_SSL3MD5:
+		return "CSSM_ALGID_SSL3MD5"
+	case CSSM_ALGID_SSL3MD5_MAC:
+		return "CSSM_ALGID_SSL3MD5_MAC"
+	case CSSM_ALGID_SSL3PrePrimaryGen:
+		return "CSSM_ALGID_SSL3PrePrimaryGen"
+	case CSSM_ALGID_SSL3PrimaryDerive:
+		return "CSSM_ALGID_SSL3PrimaryDerive"
+	case CSSM_ALGID_SSL3SHA1:
+		return "CSSM_ALGID_SSL3SHA1"
+	case CSSM_ALGID_SSL3SHA1_MAC:
+		return "CSSM_ALGID_SSL3SHA1_MAC"
+	case CSSM_ALGID_TIGER:
+		return "CSSM_ALGID_TIGER"
+	case CSSM_ALGID_UTC:
+		return "CSSM_ALGID_UTC"
+	case CSSM_ALGID_VENDOR_DEFINED:
+		return "CSSM_ALGID_VENDOR_DEFINED"
+	case CSSM_ALGID_WrapLynks:
+		return "CSSM_ALGID_WrapLynks"
+	case CSSM_ALGID_WrapSET_OAEP:
+		return "CSSM_ALGID_WrapSET_OAEP"
+	case CSSM_ALGID_XORBaseAndData:
+		return "CSSM_ALGID_XORBaseAndData"
+	default:
+		return fmt.Sprintf("CssmAlgidNone(%d)", e)
+	}
+}
+
+type CssmAlgmode uint32
+
+const (
+	CSSM_ALGMODE_BC             CssmAlgmode = 14
+	CSSM_ALGMODE_CBC            CssmAlgmode = 4
+	CSSM_ALGMODE_CBC128         CssmAlgmode = 36
+	CSSM_ALGMODE_CBC64          CssmAlgmode = 25
+	CSSM_ALGMODE_CBCC           CssmAlgmode = 16
+	CSSM_ALGMODE_CBCPD          CssmAlgmode = 20
+	CSSM_ALGMODE_CBCPadIV8      CssmAlgmode = 6
+	CSSM_ALGMODE_CBC_IV8        CssmAlgmode = 5
+	CSSM_ALGMODE_CFB            CssmAlgmode = 7
+	CSSM_ALGMODE_CFB16          CssmAlgmode = 29
+	CSSM_ALGMODE_CFB32          CssmAlgmode = 28
+	CSSM_ALGMODE_CFB8           CssmAlgmode = 30
+	CSSM_ALGMODE_CFBPadIV8      CssmAlgmode = 9
+	CSSM_ALGMODE_CFB_IV8        CssmAlgmode = 8
+	CSSM_ALGMODE_COUNTER        CssmAlgmode = 13
+	CSSM_ALGMODE_CUSTOM         CssmAlgmode = 1
+	CSSM_ALGMODE_ECB            CssmAlgmode = 2
+	CSSM_ALGMODE_ECB128         CssmAlgmode = 34
+	CSSM_ALGMODE_ECB64          CssmAlgmode = 24
+	CSSM_ALGMODE_ECB96          CssmAlgmode = 35
+	CSSM_ALGMODE_ECBPad         CssmAlgmode = 3
+	CSSM_ALGMODE_ISO_9796       CssmAlgmode = 41
+	CSSM_ALGMODE_LAST           CssmAlgmode = 2147483647
 	CSSM_ALGMODE_NONE           CssmAlgmode = 0
-	CSSM_ALGMODE_OAEP_HASH      CssmAlgmode = 0
-	CSSM_ALGMODE_OFB            CssmAlgmode = 0
-	CSSM_ALGMODE_OFB64          CssmAlgmode = 0
-	CSSM_ALGMODE_OFBNLF         CssmAlgmode = 0
-	CSSM_ALGMODE_OFBPadIV8      CssmAlgmode = 0
-	CSSM_ALGMODE_OFB_IV8        CssmAlgmode = 0
-	CSSM_ALGMODE_PBC            CssmAlgmode = 0
-	CSSM_ALGMODE_PCBC           CssmAlgmode = 0
-	CSSM_ALGMODE_PFB            CssmAlgmode = 0
-	CSSM_ALGMODE_PKCS1_EME_OAEP CssmAlgmode = 0
-	CSSM_ALGMODE_PKCS1_EME_V15  CssmAlgmode = 0
-	CSSM_ALGMODE_PKCS1_EMSA_V15 CssmAlgmode = 0
-	CSSM_ALGMODE_PRIVATE_KEY    CssmAlgmode = 0
-	CSSM_ALGMODE_PRIVATE_WRAP   CssmAlgmode = 0
-	CSSM_ALGMODE_PUBLIC_KEY     CssmAlgmode = 0
-	CSSM_ALGMODE_RELAYX         CssmAlgmode = 0
-	CSSM_ALGMODE_SHUFFLE        CssmAlgmode = 0
-	CSSM_ALGMODE_VENDOR_DEFINED CssmAlgmode = 0
-	CSSM_ALGMODE_WRAP           CssmAlgmode = 0
-	CSSM_ALGMODE_X9_31          CssmAlgmode = 0
+	CSSM_ALGMODE_OAEP_HASH      CssmAlgmode = 37
+	CSSM_ALGMODE_OFB            CssmAlgmode = 10
+	CSSM_ALGMODE_OFB64          CssmAlgmode = 26
+	CSSM_ALGMODE_OFBNLF         CssmAlgmode = 17
+	CSSM_ALGMODE_OFBPadIV8      CssmAlgmode = 12
+	CSSM_ALGMODE_OFB_IV8        CssmAlgmode = 11
+	CSSM_ALGMODE_PBC            CssmAlgmode = 18
+	CSSM_ALGMODE_PCBC           CssmAlgmode = 15
+	CSSM_ALGMODE_PFB            CssmAlgmode = 19
+	CSSM_ALGMODE_PKCS1_EME_OAEP CssmAlgmode = 39
+	CSSM_ALGMODE_PKCS1_EME_V15  CssmAlgmode = 38
+	CSSM_ALGMODE_PKCS1_EMSA_V15 CssmAlgmode = 40
+	CSSM_ALGMODE_PRIVATE_KEY    CssmAlgmode = 22
+	CSSM_ALGMODE_PRIVATE_WRAP   CssmAlgmode = 32
+	CSSM_ALGMODE_PUBLIC_KEY     CssmAlgmode = 21
+	CSSM_ALGMODE_RELAYX         CssmAlgmode = 33
+	CSSM_ALGMODE_SHUFFLE        CssmAlgmode = 23
+	CSSM_ALGMODE_VENDOR_DEFINED CssmAlgmode = 2147483648
+	CSSM_ALGMODE_WRAP           CssmAlgmode = 31
+	CSSM_ALGMODE_X9_31          CssmAlgmode = 42
 )
 
-type CssmApple uint
+func (e CssmAlgmode) String() string {
+	switch e {
+	case CSSM_ALGMODE_BC:
+		return "CSSM_ALGMODE_BC"
+	case CSSM_ALGMODE_CBC:
+		return "CSSM_ALGMODE_CBC"
+	case CSSM_ALGMODE_CBC128:
+		return "CSSM_ALGMODE_CBC128"
+	case CSSM_ALGMODE_CBC64:
+		return "CSSM_ALGMODE_CBC64"
+	case CSSM_ALGMODE_CBCC:
+		return "CSSM_ALGMODE_CBCC"
+	case CSSM_ALGMODE_CBCPD:
+		return "CSSM_ALGMODE_CBCPD"
+	case CSSM_ALGMODE_CBCPadIV8:
+		return "CSSM_ALGMODE_CBCPadIV8"
+	case CSSM_ALGMODE_CBC_IV8:
+		return "CSSM_ALGMODE_CBC_IV8"
+	case CSSM_ALGMODE_CFB:
+		return "CSSM_ALGMODE_CFB"
+	case CSSM_ALGMODE_CFB16:
+		return "CSSM_ALGMODE_CFB16"
+	case CSSM_ALGMODE_CFB32:
+		return "CSSM_ALGMODE_CFB32"
+	case CSSM_ALGMODE_CFB8:
+		return "CSSM_ALGMODE_CFB8"
+	case CSSM_ALGMODE_CFBPadIV8:
+		return "CSSM_ALGMODE_CFBPadIV8"
+	case CSSM_ALGMODE_CFB_IV8:
+		return "CSSM_ALGMODE_CFB_IV8"
+	case CSSM_ALGMODE_COUNTER:
+		return "CSSM_ALGMODE_COUNTER"
+	case CSSM_ALGMODE_CUSTOM:
+		return "CSSM_ALGMODE_CUSTOM"
+	case CSSM_ALGMODE_ECB:
+		return "CSSM_ALGMODE_ECB"
+	case CSSM_ALGMODE_ECB128:
+		return "CSSM_ALGMODE_ECB128"
+	case CSSM_ALGMODE_ECB64:
+		return "CSSM_ALGMODE_ECB64"
+	case CSSM_ALGMODE_ECB96:
+		return "CSSM_ALGMODE_ECB96"
+	case CSSM_ALGMODE_ECBPad:
+		return "CSSM_ALGMODE_ECBPad"
+	case CSSM_ALGMODE_ISO_9796:
+		return "CSSM_ALGMODE_ISO_9796"
+	case CSSM_ALGMODE_LAST:
+		return "CSSM_ALGMODE_LAST"
+	case CSSM_ALGMODE_NONE:
+		return "CSSM_ALGMODE_NONE"
+	case CSSM_ALGMODE_OAEP_HASH:
+		return "CSSM_ALGMODE_OAEP_HASH"
+	case CSSM_ALGMODE_OFB:
+		return "CSSM_ALGMODE_OFB"
+	case CSSM_ALGMODE_OFB64:
+		return "CSSM_ALGMODE_OFB64"
+	case CSSM_ALGMODE_OFBNLF:
+		return "CSSM_ALGMODE_OFBNLF"
+	case CSSM_ALGMODE_OFBPadIV8:
+		return "CSSM_ALGMODE_OFBPadIV8"
+	case CSSM_ALGMODE_OFB_IV8:
+		return "CSSM_ALGMODE_OFB_IV8"
+	case CSSM_ALGMODE_PBC:
+		return "CSSM_ALGMODE_PBC"
+	case CSSM_ALGMODE_PCBC:
+		return "CSSM_ALGMODE_PCBC"
+	case CSSM_ALGMODE_PFB:
+		return "CSSM_ALGMODE_PFB"
+	case CSSM_ALGMODE_PKCS1_EME_OAEP:
+		return "CSSM_ALGMODE_PKCS1_EME_OAEP"
+	case CSSM_ALGMODE_PKCS1_EME_V15:
+		return "CSSM_ALGMODE_PKCS1_EME_V15"
+	case CSSM_ALGMODE_PKCS1_EMSA_V15:
+		return "CSSM_ALGMODE_PKCS1_EMSA_V15"
+	case CSSM_ALGMODE_PRIVATE_KEY:
+		return "CSSM_ALGMODE_PRIVATE_KEY"
+	case CSSM_ALGMODE_PRIVATE_WRAP:
+		return "CSSM_ALGMODE_PRIVATE_WRAP"
+	case CSSM_ALGMODE_PUBLIC_KEY:
+		return "CSSM_ALGMODE_PUBLIC_KEY"
+	case CSSM_ALGMODE_RELAYX:
+		return "CSSM_ALGMODE_RELAYX"
+	case CSSM_ALGMODE_SHUFFLE:
+		return "CSSM_ALGMODE_SHUFFLE"
+	case CSSM_ALGMODE_VENDOR_DEFINED:
+		return "CSSM_ALGMODE_VENDOR_DEFINED"
+	case CSSM_ALGMODE_WRAP:
+		return "CSSM_ALGMODE_WRAP"
+	case CSSM_ALGMODE_X9_31:
+		return "CSSM_ALGMODE_X9_31"
+	default:
+		return fmt.Sprintf("CssmAlgmode(%d)", e)
+	}
+}
+
+type CssmApple uint32
 
 const (
 	CSSM_APPLECSPDL_DB_CHANGE_PASSWORD CssmApple = 5
@@ -945,8 +1255,8 @@ const (
 	CSSM_APPLECSPDL_DB_LOCK            CssmApple = 0
 	CSSM_APPLECSPDL_DB_SET_SETTINGS    CssmApple = 3
 	CSSM_APPLECSPDL_DB_UNLOCK          CssmApple = 1
-	CSSM_APPLECSP_KEYDIGEST            CssmApple = 256
-	CSSM_APPLECSP_PUBKEY               CssmApple = 257
+	CSSM_APPLECSP_KEYDIGEST            CssmApple = 0x100
+	CSSM_APPLECSP_PUBKEY               CssmApple = 0x101
 	CSSM_APPLESCPDL_CSP_GET_KEYHANDLE  CssmApple = 7
 	CSSM_APPLE_PRIVATE_CSPDL_CODE_10   CssmApple = 10
 	CSSM_APPLE_PRIVATE_CSPDL_CODE_11   CssmApple = 11
@@ -1040,7 +1350,7 @@ func (e CssmApple) String() string {
 	}
 }
 
-type CssmAppleUnlockType uint
+type CssmAppleUnlockType uint32
 
 const (
 	CSSM_APPLE_UNLOCK_TYPE_KEYBAG          CssmAppleUnlockType = 3
@@ -1061,7 +1371,7 @@ func (e CssmAppleUnlockType) String() string {
 	}
 }
 
-type CssmAppledlOpenParameters uint
+type CssmAppledlOpenParameters uint32
 
 const (
 	CSSM_APPLEDL_OPEN_PARAMETERS_VERSION CssmAppledlOpenParameters = 1
@@ -1076,7 +1386,7 @@ func (e CssmAppledlOpenParameters) String() string {
 	}
 }
 
-type CssmApplefiledl uint
+type CssmApplefiledl uint32
 
 const (
 	CSSM_APPLEFILEDL_COMMIT            CssmApplefiledl = 1
@@ -1109,7 +1419,7 @@ func (e CssmApplefiledl) String() string {
 	}
 }
 
-type CssmApplex509cl uint
+type CssmApplex509cl uint32
 
 const (
 	CSSM_APPLEX509CL_OBTAIN_CSR CssmApplex509cl = 0
@@ -1127,7 +1437,7 @@ func (e CssmApplex509cl) String() string {
 	}
 }
 
-type CssmAscOptimize uint
+type CssmAscOptimize uint32
 
 const (
 	CSSM_ASC_OPTIMIZE_ASCII     CssmAscOptimize = 5
@@ -1157,7 +1467,7 @@ func (e CssmAscOptimize) String() string {
 	}
 }
 
-type CssmAttachRead uint
+type CssmAttachRead uint32
 
 const (
 	CSSM_ATTACH_READ_ONLY CssmAttachRead = 0x1
@@ -1172,75 +1482,232 @@ func (e CssmAttachRead) String() string {
 	}
 }
 
-type CssmAttribute uint
+type CssmAttributeDataNone uint32
 
 const (
-	CSSM_ATTRIBUTE_ACCESS_CREDENTIALS      CssmAttribute = 2147483648
-	CSSM_ATTRIBUTE_ALERT_TITLE             CssmAttribute = 0
-	CSSM_ATTRIBUTE_ALG_ID                  CssmAttribute = 268435456
-	CSSM_ATTRIBUTE_ALG_PARAMS              CssmAttribute = 536870912
-	CSSM_ATTRIBUTE_ASC_OPTIMIZATION        CssmAttribute = 0
-	CSSM_ATTRIBUTE_BASE                    CssmAttribute = 536870912
-	CSSM_ATTRIBUTE_BLOCK_SIZE              CssmAttribute = 268435456
-	CSSM_ATTRIBUTE_CSP_HANDLE              CssmAttribute = 268435456
-	CSSM_ATTRIBUTE_CUSTOM                  CssmAttribute = 536870912
-	CSSM_ATTRIBUTE_DATA_ACCESS_CREDENTIALS CssmAttribute = 0x80000000
-	CSSM_ATTRIBUTE_DATA_CRYPTO_DATA        CssmAttribute = 0x30000000
-	CSSM_ATTRIBUTE_DATA_CSSM_DATA          CssmAttribute = 0x20000000
-	CSSM_ATTRIBUTE_DATA_DATE               CssmAttribute = 0x60000000
-	CSSM_ATTRIBUTE_DATA_DL_DB_HANDLE       CssmAttribute = 0x2000000
-	CSSM_ATTRIBUTE_DATA_KEY                CssmAttribute = 0x40000000
-	CSSM_ATTRIBUTE_DATA_KR_PROFILE         CssmAttribute = 0x3000000
-	CSSM_ATTRIBUTE_DATA_NONE               CssmAttribute = 0
-	CSSM_ATTRIBUTE_DATA_RANGE              CssmAttribute = 0x70000000
-	CSSM_ATTRIBUTE_DATA_STRING             CssmAttribute = 0x50000000
-	CSSM_ATTRIBUTE_DATA_UINT32             CssmAttribute = 0x10000000
-	CSSM_ATTRIBUTE_DATA_VERSION            CssmAttribute = 0x1000000
-	CSSM_ATTRIBUTE_DESCRIPTION             CssmAttribute = 1342177280
-	CSSM_ATTRIBUTE_DL_DB_HANDLE            CssmAttribute = 33554432
-	CSSM_ATTRIBUTE_EFFECTIVE_BITS          CssmAttribute = 268435456
-	CSSM_ATTRIBUTE_END_DATE                CssmAttribute = 1610612736
-	CSSM_ATTRIBUTE_FEE_CURVE_TYPE          CssmAttribute = 0
-	CSSM_ATTRIBUTE_FEE_PRIME_TYPE          CssmAttribute = 0
-	CSSM_ATTRIBUTE_INIT_VECTOR             CssmAttribute = 536870912
-	CSSM_ATTRIBUTE_ITERATION_COUNT         CssmAttribute = 268435456
-	CSSM_ATTRIBUTE_IV_SIZE                 CssmAttribute = 268435456
-	CSSM_ATTRIBUTE_KEY                     CssmAttribute = 1073741824
-	CSSM_ATTRIBUTE_KEYATTR                 CssmAttribute = 268435456
-	CSSM_ATTRIBUTE_KEYUSAGE                CssmAttribute = 268435456
-	CSSM_ATTRIBUTE_KEY_LENGTH              CssmAttribute = 268435456
-	CSSM_ATTRIBUTE_KEY_LENGTH_RANGE        CssmAttribute = 1879048192
-	CSSM_ATTRIBUTE_KEY_TYPE                CssmAttribute = 268435456
-	CSSM_ATTRIBUTE_KRPROFILE_LOCAL         CssmAttribute = 50331648
-	CSSM_ATTRIBUTE_KRPROFILE_REMOTE        CssmAttribute = 50331648
-	CSSM_ATTRIBUTE_LABEL                   CssmAttribute = 536870912
-	CSSM_ATTRIBUTE_MODE                    CssmAttribute = 268435456
-	CSSM_ATTRIBUTE_NONE                    CssmAttribute = 0
-	CSSM_ATTRIBUTE_OUTPUT_SIZE             CssmAttribute = 268435456
-	CSSM_ATTRIBUTE_PADDING                 CssmAttribute = 268435456
-	CSSM_ATTRIBUTE_PARAM_KEY               CssmAttribute = 0
-	CSSM_ATTRIBUTE_PASSPHRASE              CssmAttribute = 805306368
-	CSSM_ATTRIBUTE_PRIME                   CssmAttribute = 536870912
-	CSSM_ATTRIBUTE_PRIVATE_KEY_FORMAT      CssmAttribute = 268435456
-	CSSM_ATTRIBUTE_PROMPT                  CssmAttribute = 0
-	CSSM_ATTRIBUTE_PUBLIC_KEY              CssmAttribute = 0
-	CSSM_ATTRIBUTE_PUBLIC_KEY_FORMAT       CssmAttribute = 268435456
-	CSSM_ATTRIBUTE_RANDOM                  CssmAttribute = 536870912
-	CSSM_ATTRIBUTE_ROUNDS                  CssmAttribute = 268435456
-	CSSM_ATTRIBUTE_ROUNDS_RANGE            CssmAttribute = 1879048192
-	CSSM_ATTRIBUTE_RSA_BLINDING            CssmAttribute = 0
-	CSSM_ATTRIBUTE_SALT                    CssmAttribute = 536870912
-	CSSM_ATTRIBUTE_SEED                    CssmAttribute = 805306368
-	CSSM_ATTRIBUTE_START_DATE              CssmAttribute = 1610612736
-	CSSM_ATTRIBUTE_SUBPRIME                CssmAttribute = 536870912
-	CSSM_ATTRIBUTE_SYMMETRIC_KEY_FORMAT    CssmAttribute = 268435456
-	CSSM_ATTRIBUTE_TYPE_MASK               CssmAttribute = 0xff000000
-	CSSM_ATTRIBUTE_VERIFY_PASSPHRASE       CssmAttribute = 0
-	CSSM_ATTRIBUTE_VERSION                 CssmAttribute = 16777216
-	CSSM_ATTRIBUTE_WRAPPED_KEY_FORMAT      CssmAttribute = 268435456
+	CSSM_ATTRIBUTE_DATA_ACCESS_CREDENTIALS CssmAttributeDataNone = 0x80000000
+	CSSM_ATTRIBUTE_DATA_CRYPTO_DATA        CssmAttributeDataNone = 0x30000000
+	CSSM_ATTRIBUTE_DATA_CSSM_DATA          CssmAttributeDataNone = 0x20000000
+	CSSM_ATTRIBUTE_DATA_DATE               CssmAttributeDataNone = 0x60000000
+	CSSM_ATTRIBUTE_DATA_DL_DB_HANDLE       CssmAttributeDataNone = 0x2000000
+	CSSM_ATTRIBUTE_DATA_KEY                CssmAttributeDataNone = 0x40000000
+	CSSM_ATTRIBUTE_DATA_KR_PROFILE         CssmAttributeDataNone = 0x3000000
+	CSSM_ATTRIBUTE_DATA_NONE               CssmAttributeDataNone = 0
+	CSSM_ATTRIBUTE_DATA_RANGE              CssmAttributeDataNone = 0x70000000
+	CSSM_ATTRIBUTE_DATA_STRING             CssmAttributeDataNone = 0x50000000
+	CSSM_ATTRIBUTE_DATA_UINT32             CssmAttributeDataNone = 0x10000000
+	CSSM_ATTRIBUTE_DATA_VERSION            CssmAttributeDataNone = 0x1000000
+	CSSM_ATTRIBUTE_TYPE_MASK               CssmAttributeDataNone = 0xff000000
 )
 
-type CssmAttributeVendor uint
+func (e CssmAttributeDataNone) String() string {
+	switch e {
+	case CSSM_ATTRIBUTE_DATA_ACCESS_CREDENTIALS:
+		return "CSSM_ATTRIBUTE_DATA_ACCESS_CREDENTIALS"
+	case CSSM_ATTRIBUTE_DATA_CRYPTO_DATA:
+		return "CSSM_ATTRIBUTE_DATA_CRYPTO_DATA"
+	case CSSM_ATTRIBUTE_DATA_CSSM_DATA:
+		return "CSSM_ATTRIBUTE_DATA_CSSM_DATA"
+	case CSSM_ATTRIBUTE_DATA_DATE:
+		return "CSSM_ATTRIBUTE_DATA_DATE"
+	case CSSM_ATTRIBUTE_DATA_DL_DB_HANDLE:
+		return "CSSM_ATTRIBUTE_DATA_DL_DB_HANDLE"
+	case CSSM_ATTRIBUTE_DATA_KEY:
+		return "CSSM_ATTRIBUTE_DATA_KEY"
+	case CSSM_ATTRIBUTE_DATA_KR_PROFILE:
+		return "CSSM_ATTRIBUTE_DATA_KR_PROFILE"
+	case CSSM_ATTRIBUTE_DATA_NONE:
+		return "CSSM_ATTRIBUTE_DATA_NONE"
+	case CSSM_ATTRIBUTE_DATA_RANGE:
+		return "CSSM_ATTRIBUTE_DATA_RANGE"
+	case CSSM_ATTRIBUTE_DATA_STRING:
+		return "CSSM_ATTRIBUTE_DATA_STRING"
+	case CSSM_ATTRIBUTE_DATA_UINT32:
+		return "CSSM_ATTRIBUTE_DATA_UINT32"
+	case CSSM_ATTRIBUTE_DATA_VERSION:
+		return "CSSM_ATTRIBUTE_DATA_VERSION"
+	case CSSM_ATTRIBUTE_TYPE_MASK:
+		return "CSSM_ATTRIBUTE_TYPE_MASK"
+	default:
+		return fmt.Sprintf("CssmAttributeDataNone(%d)", e)
+	}
+}
+
+type CssmAttributeNone uint32
+
+const (
+	CSSM_ATTRIBUTE_ACCESS_CREDENTIALS   CssmAttributeNone = 2147483684
+	CSSM_ATTRIBUTE_ALG_ID               CssmAttributeNone = 268435485
+	CSSM_ATTRIBUTE_ALG_PARAMS           CssmAttributeNone = 536870928
+	CSSM_ATTRIBUTE_BASE                 CssmAttributeNone = 536870939
+	CSSM_ATTRIBUTE_BLOCK_SIZE           CssmAttributeNone = 268435468
+	CSSM_ATTRIBUTE_CSP_HANDLE           CssmAttributeNone = 268435490
+	CSSM_ATTRIBUTE_CUSTOM               CssmAttributeNone = 536870913
+	CSSM_ATTRIBUTE_DESCRIPTION          CssmAttributeNone = 1342177282
+	CSSM_ATTRIBUTE_DL_DB_HANDLE         CssmAttributeNone = 33554467
+	CSSM_ATTRIBUTE_EFFECTIVE_BITS       CssmAttributeNone = 268435476
+	CSSM_ATTRIBUTE_END_DATE             CssmAttributeNone = 1610612758
+	CSSM_ATTRIBUTE_INIT_VECTOR          CssmAttributeNone = 536870916
+	CSSM_ATTRIBUTE_ITERATION_COUNT      CssmAttributeNone = 268435486
+	CSSM_ATTRIBUTE_IV_SIZE              CssmAttributeNone = 268435471
+	CSSM_ATTRIBUTE_KEY                  CssmAttributeNone = 1073741827
+	CSSM_ATTRIBUTE_KEYATTR              CssmAttributeNone = 268435480
+	CSSM_ATTRIBUTE_KEYUSAGE             CssmAttributeNone = 268435479
+	CSSM_ATTRIBUTE_KEY_LENGTH           CssmAttributeNone = 268435466
+	CSSM_ATTRIBUTE_KEY_LENGTH_RANGE     CssmAttributeNone = 1879048203
+	CSSM_ATTRIBUTE_KEY_TYPE             CssmAttributeNone = 268435474
+	CSSM_ATTRIBUTE_KRPROFILE_LOCAL      CssmAttributeNone = 50331680
+	CSSM_ATTRIBUTE_KRPROFILE_REMOTE     CssmAttributeNone = 50331681
+	CSSM_ATTRIBUTE_LABEL                CssmAttributeNone = 536870929
+	CSSM_ATTRIBUTE_MODE                 CssmAttributeNone = 268435475
+	CSSM_ATTRIBUTE_NONE                 CssmAttributeNone = 0
+	CSSM_ATTRIBUTE_OUTPUT_SIZE          CssmAttributeNone = 268435469
+	CSSM_ATTRIBUTE_PADDING              CssmAttributeNone = 268435462
+	CSSM_ATTRIBUTE_PASSPHRASE           CssmAttributeNone = 805306377
+	CSSM_ATTRIBUTE_PRIME                CssmAttributeNone = 536870938
+	CSSM_ATTRIBUTE_PRIVATE_KEY_FORMAT   CssmAttributeNone = 268435494
+	CSSM_ATTRIBUTE_PUBLIC_KEY_FORMAT    CssmAttributeNone = 268435493
+	CSSM_ATTRIBUTE_RANDOM               CssmAttributeNone = 536870919
+	CSSM_ATTRIBUTE_ROUNDS               CssmAttributeNone = 268435470
+	CSSM_ATTRIBUTE_ROUNDS_RANGE         CssmAttributeNone = 1879048223
+	CSSM_ATTRIBUTE_SALT                 CssmAttributeNone = 536870917
+	CSSM_ATTRIBUTE_SEED                 CssmAttributeNone = 805306376
+	CSSM_ATTRIBUTE_START_DATE           CssmAttributeNone = 1610612757
+	CSSM_ATTRIBUTE_SUBPRIME             CssmAttributeNone = 536870940
+	CSSM_ATTRIBUTE_SYMMETRIC_KEY_FORMAT CssmAttributeNone = 268435495
+	CSSM_ATTRIBUTE_VERSION              CssmAttributeNone = 16777241
+	CSSM_ATTRIBUTE_WRAPPED_KEY_FORMAT   CssmAttributeNone = 268435496
+)
+
+func (e CssmAttributeNone) String() string {
+	switch e {
+	case CSSM_ATTRIBUTE_ACCESS_CREDENTIALS:
+		return "CSSM_ATTRIBUTE_ACCESS_CREDENTIALS"
+	case CSSM_ATTRIBUTE_ALG_ID:
+		return "CSSM_ATTRIBUTE_ALG_ID"
+	case CSSM_ATTRIBUTE_ALG_PARAMS:
+		return "CSSM_ATTRIBUTE_ALG_PARAMS"
+	case CSSM_ATTRIBUTE_BASE:
+		return "CSSM_ATTRIBUTE_BASE"
+	case CSSM_ATTRIBUTE_BLOCK_SIZE:
+		return "CSSM_ATTRIBUTE_BLOCK_SIZE"
+	case CSSM_ATTRIBUTE_CSP_HANDLE:
+		return "CSSM_ATTRIBUTE_CSP_HANDLE"
+	case CSSM_ATTRIBUTE_CUSTOM:
+		return "CSSM_ATTRIBUTE_CUSTOM"
+	case CSSM_ATTRIBUTE_DESCRIPTION:
+		return "CSSM_ATTRIBUTE_DESCRIPTION"
+	case CSSM_ATTRIBUTE_DL_DB_HANDLE:
+		return "CSSM_ATTRIBUTE_DL_DB_HANDLE"
+	case CSSM_ATTRIBUTE_EFFECTIVE_BITS:
+		return "CSSM_ATTRIBUTE_EFFECTIVE_BITS"
+	case CSSM_ATTRIBUTE_END_DATE:
+		return "CSSM_ATTRIBUTE_END_DATE"
+	case CSSM_ATTRIBUTE_INIT_VECTOR:
+		return "CSSM_ATTRIBUTE_INIT_VECTOR"
+	case CSSM_ATTRIBUTE_ITERATION_COUNT:
+		return "CSSM_ATTRIBUTE_ITERATION_COUNT"
+	case CSSM_ATTRIBUTE_IV_SIZE:
+		return "CSSM_ATTRIBUTE_IV_SIZE"
+	case CSSM_ATTRIBUTE_KEY:
+		return "CSSM_ATTRIBUTE_KEY"
+	case CSSM_ATTRIBUTE_KEYATTR:
+		return "CSSM_ATTRIBUTE_KEYATTR"
+	case CSSM_ATTRIBUTE_KEYUSAGE:
+		return "CSSM_ATTRIBUTE_KEYUSAGE"
+	case CSSM_ATTRIBUTE_KEY_LENGTH:
+		return "CSSM_ATTRIBUTE_KEY_LENGTH"
+	case CSSM_ATTRIBUTE_KEY_LENGTH_RANGE:
+		return "CSSM_ATTRIBUTE_KEY_LENGTH_RANGE"
+	case CSSM_ATTRIBUTE_KEY_TYPE:
+		return "CSSM_ATTRIBUTE_KEY_TYPE"
+	case CSSM_ATTRIBUTE_KRPROFILE_LOCAL:
+		return "CSSM_ATTRIBUTE_KRPROFILE_LOCAL"
+	case CSSM_ATTRIBUTE_KRPROFILE_REMOTE:
+		return "CSSM_ATTRIBUTE_KRPROFILE_REMOTE"
+	case CSSM_ATTRIBUTE_LABEL:
+		return "CSSM_ATTRIBUTE_LABEL"
+	case CSSM_ATTRIBUTE_MODE:
+		return "CSSM_ATTRIBUTE_MODE"
+	case CSSM_ATTRIBUTE_NONE:
+		return "CSSM_ATTRIBUTE_NONE"
+	case CSSM_ATTRIBUTE_OUTPUT_SIZE:
+		return "CSSM_ATTRIBUTE_OUTPUT_SIZE"
+	case CSSM_ATTRIBUTE_PADDING:
+		return "CSSM_ATTRIBUTE_PADDING"
+	case CSSM_ATTRIBUTE_PASSPHRASE:
+		return "CSSM_ATTRIBUTE_PASSPHRASE"
+	case CSSM_ATTRIBUTE_PRIME:
+		return "CSSM_ATTRIBUTE_PRIME"
+	case CSSM_ATTRIBUTE_PRIVATE_KEY_FORMAT:
+		return "CSSM_ATTRIBUTE_PRIVATE_KEY_FORMAT"
+	case CSSM_ATTRIBUTE_PUBLIC_KEY_FORMAT:
+		return "CSSM_ATTRIBUTE_PUBLIC_KEY_FORMAT"
+	case CSSM_ATTRIBUTE_RANDOM:
+		return "CSSM_ATTRIBUTE_RANDOM"
+	case CSSM_ATTRIBUTE_ROUNDS:
+		return "CSSM_ATTRIBUTE_ROUNDS"
+	case CSSM_ATTRIBUTE_ROUNDS_RANGE:
+		return "CSSM_ATTRIBUTE_ROUNDS_RANGE"
+	case CSSM_ATTRIBUTE_SALT:
+		return "CSSM_ATTRIBUTE_SALT"
+	case CSSM_ATTRIBUTE_SEED:
+		return "CSSM_ATTRIBUTE_SEED"
+	case CSSM_ATTRIBUTE_START_DATE:
+		return "CSSM_ATTRIBUTE_START_DATE"
+	case CSSM_ATTRIBUTE_SUBPRIME:
+		return "CSSM_ATTRIBUTE_SUBPRIME"
+	case CSSM_ATTRIBUTE_SYMMETRIC_KEY_FORMAT:
+		return "CSSM_ATTRIBUTE_SYMMETRIC_KEY_FORMAT"
+	case CSSM_ATTRIBUTE_VERSION:
+		return "CSSM_ATTRIBUTE_VERSION"
+	case CSSM_ATTRIBUTE_WRAPPED_KEY_FORMAT:
+		return "CSSM_ATTRIBUTE_WRAPPED_KEY_FORMAT"
+	default:
+		return fmt.Sprintf("CssmAttributeNone(%d)", e)
+	}
+}
+
+type CssmAttributePublicKey uint32
+
+const (
+	CSSM_ATTRIBUTE_ALERT_TITLE       CssmAttributePublicKey = 545259527
+	CSSM_ATTRIBUTE_ASC_OPTIMIZATION  CssmAttributePublicKey = 276824067
+	CSSM_ATTRIBUTE_FEE_CURVE_TYPE    CssmAttributePublicKey = 276824066
+	CSSM_ATTRIBUTE_FEE_PRIME_TYPE    CssmAttributePublicKey = 276824065
+	CSSM_ATTRIBUTE_PARAM_KEY         CssmAttributePublicKey = 1082130437
+	CSSM_ATTRIBUTE_PROMPT            CssmAttributePublicKey = 545259526
+	CSSM_ATTRIBUTE_PUBLIC_KEY        CssmAttributePublicKey = 1082130432
+	CSSM_ATTRIBUTE_RSA_BLINDING      CssmAttributePublicKey = 276824068
+	CSSM_ATTRIBUTE_VERIFY_PASSPHRASE CssmAttributePublicKey = 276824072
+)
+
+func (e CssmAttributePublicKey) String() string {
+	switch e {
+	case CSSM_ATTRIBUTE_ALERT_TITLE:
+		return "CSSM_ATTRIBUTE_ALERT_TITLE"
+	case CSSM_ATTRIBUTE_ASC_OPTIMIZATION:
+		return "CSSM_ATTRIBUTE_ASC_OPTIMIZATION"
+	case CSSM_ATTRIBUTE_FEE_CURVE_TYPE:
+		return "CSSM_ATTRIBUTE_FEE_CURVE_TYPE"
+	case CSSM_ATTRIBUTE_FEE_PRIME_TYPE:
+		return "CSSM_ATTRIBUTE_FEE_PRIME_TYPE"
+	case CSSM_ATTRIBUTE_PARAM_KEY:
+		return "CSSM_ATTRIBUTE_PARAM_KEY"
+	case CSSM_ATTRIBUTE_PROMPT:
+		return "CSSM_ATTRIBUTE_PROMPT"
+	case CSSM_ATTRIBUTE_PUBLIC_KEY:
+		return "CSSM_ATTRIBUTE_PUBLIC_KEY"
+	case CSSM_ATTRIBUTE_RSA_BLINDING:
+		return "CSSM_ATTRIBUTE_RSA_BLINDING"
+	case CSSM_ATTRIBUTE_VERIFY_PASSPHRASE:
+		return "CSSM_ATTRIBUTE_VERIFY_PASSPHRASE"
+	default:
+		return fmt.Sprintf("CssmAttributePublicKey(%d)", e)
+	}
+}
+
+type CssmAttributeVendor uint32
 
 const (
 	CSSM_ATTRIBUTE_VENDOR_DEFINED CssmAttributeVendor = 0x800000
@@ -1255,65 +1722,110 @@ func (e CssmAttributeVendor) String() string {
 	}
 }
 
-type CssmC uint
+type CssmBaseError int32
 
 const (
-	CSSM_CERT_ACL_ENTRY                          CssmC = 0xc
-	CSSM_CERT_BUNDLE_CUSTOM                      CssmC = 0x1
-	CSSM_CERT_BUNDLE_LAST                        CssmC = 0x7fff
-	CSSM_CERT_BUNDLE_PFX                         CssmC = 0x5
-	CSSM_CERT_BUNDLE_PGP_KEYRING                 CssmC = 0x7
-	CSSM_CERT_BUNDLE_PKCS12                      CssmC = 0x4
-	CSSM_CERT_BUNDLE_PKCS7_SIGNED_DATA           CssmC = 0x2
-	CSSM_CERT_BUNDLE_PKCS7_SIGNED_ENVELOPED_DATA CssmC = 0x3
-	CSSM_CERT_BUNDLE_SPKI_SEQUENCE               CssmC = 0x6
-	CSSM_CERT_BUNDLE_UNKNOWN                     CssmC = 0
-	CSSM_CERT_ENCODING_BER                       CssmC = 0x2
-	CSSM_CERT_ENCODING_CUSTOM                    CssmC = 0x1
-	CSSM_CERT_ENCODING_DER                       CssmC = 0x3
-	CSSM_CERT_ENCODING_LAST                      CssmC = 0x7fff
-	CSSM_CERT_ENCODING_MULTIPLE                  CssmC = 0x7ffe
-	CSSM_CERT_ENCODING_NDR                       CssmC = 0x4
-	CSSM_CERT_ENCODING_PGP                       CssmC = 0x6
-	CSSM_CERT_ENCODING_SEXPR                     CssmC = 0x5
-	CSSM_CERT_ENCODING_UNKNOWN                   CssmC = 0
-	CSSM_CERT_Intel                              CssmC = 0x8
-	CSSM_CERT_LAST                               CssmC = 0x7fff
-	CSSM_CERT_MULTIPLE                           CssmC = 0x7ffe
-	CSSM_CERT_PARSE_FORMAT_COMPLEX               CssmC = 0x3
-	CSSM_CERT_PARSE_FORMAT_CUSTOM                CssmC = 0x1
-	CSSM_CERT_PARSE_FORMAT_LAST                  CssmC = 0x7fff
-	CSSM_CERT_PARSE_FORMAT_MULTIPLE              CssmC = 0x7ffe
-	CSSM_CERT_PARSE_FORMAT_NONE                  CssmC = 0
-	CSSM_CERT_PARSE_FORMAT_OID_NAMED             CssmC = 0x4
-	CSSM_CERT_PARSE_FORMAT_SEXPR                 CssmC = 0x2
-	CSSM_CERT_PARSE_FORMAT_TUPLE                 CssmC = 0x5
-	CSSM_CERT_PGP                                CssmC = 0x4
-	CSSM_CERT_SDSIv1                             CssmC = 0x6
-	CSSM_CERT_SPKI                               CssmC = 0x5
-	CSSM_CERT_TUPLE                              CssmC = 0xb
-	CSSM_CERT_UNKNOWN                            CssmC = 0
-	CSSM_CERT_X9_ATTRIBUTE                       CssmC = 0xa
-	CSSM_CERT_X_509_ATTRIBUTE                    CssmC = 0x9
-	CSSM_CERT_X_509v1                            CssmC = 0x1
-	CSSM_CERT_X_509v2                            CssmC = 0x2
-	CSSM_CERT_X_509v3                            CssmC = 0x3
-	CSSM_CL_CUSTOM_CERT_BUNDLE_TYPE              CssmC = 0x8000
-	CSSM_CL_CUSTOM_CERT_ENCODING                 CssmC = 0x8000
-	CSSM_CL_CUSTOM_CERT_PARSE_FORMAT             CssmC = 0x8000
-	CSSM_CL_CUSTOM_CERT_TYPE                     CssmC = 0x8000
-	CSSM_CL_CUSTOM_CRL_PARSE_FORMAT              CssmC = 0x8000
-	CSSM_CRL_PARSE_FORMAT_COMPLEX                CssmC = 0x3
-	CSSM_CRL_PARSE_FORMAT_CUSTOM                 CssmC = 0x1
-	CSSM_CRL_PARSE_FORMAT_LAST                   CssmC = 0x7fff
-	CSSM_CRL_PARSE_FORMAT_MULTIPLE               CssmC = 0x7ffe
-	CSSM_CRL_PARSE_FORMAT_NONE                   CssmC = 0
-	CSSM_CRL_PARSE_FORMAT_OID_NAMED              CssmC = 0x4
-	CSSM_CRL_PARSE_FORMAT_SEXPR                  CssmC = 0x2
-	CSSM_CRL_PARSE_FORMAT_TUPLE                  CssmC = 0x5
+	CSSM_AC_BASE_ERROR           CssmBaseError = -2147405824
+	CSSM_AC_PRIVATE_ERROR        CssmBaseError = -2147404800
+	CSSM_BASE_ERROR              CssmBaseError = -0x7fff0000
+	CSSM_CL_BASE_ERROR           CssmBaseError = -2147411968
+	CSSM_CL_PRIVATE_ERROR        CssmBaseError = -2147410944
+	CSSM_CSP_BASE_ERROR          CssmBaseError = -2147416064
+	CSSM_CSP_PRIVATE_ERROR       CssmBaseError = -2147415040
+	CSSM_CSSM_BASE_ERROR         CssmBaseError = -2147418112
+	CSSM_CSSM_PRIVATE_ERROR      CssmBaseError = -2147417088
+	CSSM_DL_BASE_ERROR           CssmBaseError = -2147414016
+	CSSM_DL_PRIVATE_ERROR        CssmBaseError = -2147412992
+	CSSM_ERRORCODE_COMMON_EXTENT CssmBaseError = 0x100
+	CSSM_ERRORCODE_CUSTOM_OFFSET CssmBaseError = 0x400
+	CSSM_ERRORCODE_MODULE_EXTENT CssmBaseError = 0x800
+	CSSM_KR_BASE_ERROR           CssmBaseError = -2147407872
+	CSSM_KR_PRIVATE_ERROR        CssmBaseError = -2147406848
+	CSSM_TP_BASE_ERROR           CssmBaseError = -2147409920
+	CSSM_TP_PRIVATE_ERROR        CssmBaseError = -2147408896
 )
 
-type CssmCLTemplate uint
+func (e CssmBaseError) String() string {
+	switch e {
+	case CSSM_AC_BASE_ERROR:
+		return "CSSM_AC_BASE_ERROR"
+	case CSSM_AC_PRIVATE_ERROR:
+		return "CSSM_AC_PRIVATE_ERROR"
+	case CSSM_BASE_ERROR:
+		return "CSSM_BASE_ERROR"
+	case CSSM_CL_BASE_ERROR:
+		return "CSSM_CL_BASE_ERROR"
+	case CSSM_CL_PRIVATE_ERROR:
+		return "CSSM_CL_PRIVATE_ERROR"
+	case CSSM_CSP_BASE_ERROR:
+		return "CSSM_CSP_BASE_ERROR"
+	case CSSM_CSP_PRIVATE_ERROR:
+		return "CSSM_CSP_PRIVATE_ERROR"
+	case CSSM_CSSM_PRIVATE_ERROR:
+		return "CSSM_CSSM_PRIVATE_ERROR"
+	case CSSM_DL_BASE_ERROR:
+		return "CSSM_DL_BASE_ERROR"
+	case CSSM_DL_PRIVATE_ERROR:
+		return "CSSM_DL_PRIVATE_ERROR"
+	case CSSM_ERRORCODE_COMMON_EXTENT:
+		return "CSSM_ERRORCODE_COMMON_EXTENT"
+	case CSSM_ERRORCODE_CUSTOM_OFFSET:
+		return "CSSM_ERRORCODE_CUSTOM_OFFSET"
+	case CSSM_ERRORCODE_MODULE_EXTENT:
+		return "CSSM_ERRORCODE_MODULE_EXTENT"
+	case CSSM_KR_BASE_ERROR:
+		return "CSSM_KR_BASE_ERROR"
+	case CSSM_KR_PRIVATE_ERROR:
+		return "CSSM_KR_PRIVATE_ERROR"
+	case CSSM_TP_BASE_ERROR:
+		return "CSSM_TP_BASE_ERROR"
+	case CSSM_TP_PRIVATE_ERROR:
+		return "CSSM_TP_PRIVATE_ERROR"
+	default:
+		return fmt.Sprintf("CssmBaseError(%d)", e)
+	}
+}
+
+type CssmCLBaseCLError int32
+
+const (
+	CSSMERR_CL_INVALID_BUNDLE_INFO    CssmCLBaseCLError = -2147411708
+	CSSMERR_CL_INVALID_BUNDLE_POINTER CssmCLBaseCLError = -2147411711
+	CSSMERR_CL_INVALID_CACHE_HANDLE   CssmCLBaseCLError = -2147411710
+	CSSMERR_CL_INVALID_CRL_INDEX      CssmCLBaseCLError = -2147411707
+	CSSMERR_CL_INVALID_RESULTS_HANDLE CssmCLBaseCLError = -2147411709
+	CSSMERR_CL_INVALID_SCOPE          CssmCLBaseCLError = -2147411706
+	CSSMERR_CL_NO_FIELD_VALUES        CssmCLBaseCLError = -2147411705
+	CSSMERR_CL_SCOPE_NOT_SUPPORTED    CssmCLBaseCLError = -2147411704
+	CSSM_CL_BASE_CL_ERROR             CssmCLBaseCLError = -2147411712
+)
+
+func (e CssmCLBaseCLError) String() string {
+	switch e {
+	case CSSMERR_CL_INVALID_BUNDLE_INFO:
+		return "CSSMERR_CL_INVALID_BUNDLE_INFO"
+	case CSSMERR_CL_INVALID_BUNDLE_POINTER:
+		return "CSSMERR_CL_INVALID_BUNDLE_POINTER"
+	case CSSMERR_CL_INVALID_CACHE_HANDLE:
+		return "CSSMERR_CL_INVALID_CACHE_HANDLE"
+	case CSSMERR_CL_INVALID_CRL_INDEX:
+		return "CSSMERR_CL_INVALID_CRL_INDEX"
+	case CSSMERR_CL_INVALID_RESULTS_HANDLE:
+		return "CSSMERR_CL_INVALID_RESULTS_HANDLE"
+	case CSSMERR_CL_INVALID_SCOPE:
+		return "CSSMERR_CL_INVALID_SCOPE"
+	case CSSMERR_CL_NO_FIELD_VALUES:
+		return "CSSMERR_CL_NO_FIELD_VALUES"
+	case CSSMERR_CL_SCOPE_NOT_SUPPORTED:
+		return "CSSMERR_CL_SCOPE_NOT_SUPPORTED"
+	case CSSM_CL_BASE_CL_ERROR:
+		return "CSSM_CL_BASE_CL_ERROR"
+	default:
+		return fmt.Sprintf("CssmCLBaseCLError(%d)", e)
+	}
+}
+
+type CssmCLTemplate uint32
 
 const (
 	CSSM_CL_TEMPLATE_INTERMEDIATE_CERT CssmCLTemplate = 1
@@ -1331,7 +1843,7 @@ func (e CssmCLTemplate) String() string {
 	}
 }
 
-type CssmCertBundleEncoding uint
+type CssmCertBundleEncoding uint32
 
 const (
 	CSSM_CERT_BUNDLE_ENCODING_BER     CssmCertBundleEncoding = 0x2
@@ -1361,21 +1873,144 @@ func (e CssmCertBundleEncoding) String() string {
 	}
 }
 
-type CssmCertStatus int
+type CssmCertBundleUnknown uint32
 
 const (
-	CSSM_CERT_STATUS_EXPIRED                      CssmCertStatus = 1
-	CSSM_CERT_STATUS_IS_FROM_NET                  CssmCertStatus = 32
-	CSSM_CERT_STATUS_IS_IN_ANCHORS                CssmCertStatus = 8
-	CSSM_CERT_STATUS_IS_IN_INPUT_CERTS            CssmCertStatus = 4
-	CSSM_CERT_STATUS_IS_ROOT                      CssmCertStatus = 16
-	CSSM_CERT_STATUS_NOT_VALID_YET                CssmCertStatus = 2
-	CSSM_CERT_STATUS_TRUST_SETTINGS_DENY          CssmCertStatus = 1024
-	CSSM_CERT_STATUS_TRUST_SETTINGS_FOUND_ADMIN   CssmCertStatus = 128
-	CSSM_CERT_STATUS_TRUST_SETTINGS_FOUND_SYSTEM  CssmCertStatus = 256
-	CSSM_CERT_STATUS_TRUST_SETTINGS_FOUND_USER    CssmCertStatus = 64
-	CSSM_CERT_STATUS_TRUST_SETTINGS_IGNORED_ERROR CssmCertStatus = 2048
-	CSSM_CERT_STATUS_TRUST_SETTINGS_TRUST         CssmCertStatus = 512
+	CSSM_CERT_BUNDLE_CUSTOM                      CssmCertBundleUnknown = 0x1
+	CSSM_CERT_BUNDLE_LAST                        CssmCertBundleUnknown = 0x7fff
+	CSSM_CERT_BUNDLE_PFX                         CssmCertBundleUnknown = 0x5
+	CSSM_CERT_BUNDLE_PGP_KEYRING                 CssmCertBundleUnknown = 0x7
+	CSSM_CERT_BUNDLE_PKCS12                      CssmCertBundleUnknown = 0x4
+	CSSM_CERT_BUNDLE_PKCS7_SIGNED_DATA           CssmCertBundleUnknown = 0x2
+	CSSM_CERT_BUNDLE_PKCS7_SIGNED_ENVELOPED_DATA CssmCertBundleUnknown = 0x3
+	CSSM_CERT_BUNDLE_SPKI_SEQUENCE               CssmCertBundleUnknown = 0x6
+	CSSM_CERT_BUNDLE_UNKNOWN                     CssmCertBundleUnknown = 0
+	CSSM_CL_CUSTOM_CERT_BUNDLE_TYPE              CssmCertBundleUnknown = 0x8000
+)
+
+func (e CssmCertBundleUnknown) String() string {
+	switch e {
+	case CSSM_CERT_BUNDLE_CUSTOM:
+		return "CSSM_CERT_BUNDLE_CUSTOM"
+	case CSSM_CERT_BUNDLE_LAST:
+		return "CSSM_CERT_BUNDLE_LAST"
+	case CSSM_CERT_BUNDLE_PFX:
+		return "CSSM_CERT_BUNDLE_PFX"
+	case CSSM_CERT_BUNDLE_PGP_KEYRING:
+		return "CSSM_CERT_BUNDLE_PGP_KEYRING"
+	case CSSM_CERT_BUNDLE_PKCS12:
+		return "CSSM_CERT_BUNDLE_PKCS12"
+	case CSSM_CERT_BUNDLE_PKCS7_SIGNED_DATA:
+		return "CSSM_CERT_BUNDLE_PKCS7_SIGNED_DATA"
+	case CSSM_CERT_BUNDLE_PKCS7_SIGNED_ENVELOPED_DATA:
+		return "CSSM_CERT_BUNDLE_PKCS7_SIGNED_ENVELOPED_DATA"
+	case CSSM_CERT_BUNDLE_SPKI_SEQUENCE:
+		return "CSSM_CERT_BUNDLE_SPKI_SEQUENCE"
+	case CSSM_CERT_BUNDLE_UNKNOWN:
+		return "CSSM_CERT_BUNDLE_UNKNOWN"
+	case CSSM_CL_CUSTOM_CERT_BUNDLE_TYPE:
+		return "CSSM_CL_CUSTOM_CERT_BUNDLE_TYPE"
+	default:
+		return fmt.Sprintf("CssmCertBundleUnknown(%d)", e)
+	}
+}
+
+type CssmCertEncodingUnknown uint32
+
+const (
+	CSSM_CERT_ENCODING_BER       CssmCertEncodingUnknown = 0x2
+	CSSM_CERT_ENCODING_CUSTOM    CssmCertEncodingUnknown = 0x1
+	CSSM_CERT_ENCODING_DER       CssmCertEncodingUnknown = 0x3
+	CSSM_CERT_ENCODING_LAST      CssmCertEncodingUnknown = 0x7fff
+	CSSM_CERT_ENCODING_MULTIPLE  CssmCertEncodingUnknown = 0x7ffe
+	CSSM_CERT_ENCODING_NDR       CssmCertEncodingUnknown = 0x4
+	CSSM_CERT_ENCODING_PGP       CssmCertEncodingUnknown = 0x6
+	CSSM_CERT_ENCODING_SEXPR     CssmCertEncodingUnknown = 0x5
+	CSSM_CERT_ENCODING_UNKNOWN   CssmCertEncodingUnknown = 0
+	CSSM_CL_CUSTOM_CERT_ENCODING CssmCertEncodingUnknown = 0x8000
+)
+
+func (e CssmCertEncodingUnknown) String() string {
+	switch e {
+	case CSSM_CERT_ENCODING_BER:
+		return "CSSM_CERT_ENCODING_BER"
+	case CSSM_CERT_ENCODING_CUSTOM:
+		return "CSSM_CERT_ENCODING_CUSTOM"
+	case CSSM_CERT_ENCODING_DER:
+		return "CSSM_CERT_ENCODING_DER"
+	case CSSM_CERT_ENCODING_LAST:
+		return "CSSM_CERT_ENCODING_LAST"
+	case CSSM_CERT_ENCODING_MULTIPLE:
+		return "CSSM_CERT_ENCODING_MULTIPLE"
+	case CSSM_CERT_ENCODING_NDR:
+		return "CSSM_CERT_ENCODING_NDR"
+	case CSSM_CERT_ENCODING_PGP:
+		return "CSSM_CERT_ENCODING_PGP"
+	case CSSM_CERT_ENCODING_SEXPR:
+		return "CSSM_CERT_ENCODING_SEXPR"
+	case CSSM_CERT_ENCODING_UNKNOWN:
+		return "CSSM_CERT_ENCODING_UNKNOWN"
+	case CSSM_CL_CUSTOM_CERT_ENCODING:
+		return "CSSM_CL_CUSTOM_CERT_ENCODING"
+	default:
+		return fmt.Sprintf("CssmCertEncodingUnknown(%d)", e)
+	}
+}
+
+type CssmCertParseFormatNone uint32
+
+const (
+	CSSM_CERT_PARSE_FORMAT_COMPLEX   CssmCertParseFormatNone = 0x3
+	CSSM_CERT_PARSE_FORMAT_CUSTOM    CssmCertParseFormatNone = 0x1
+	CSSM_CERT_PARSE_FORMAT_LAST      CssmCertParseFormatNone = 0x7fff
+	CSSM_CERT_PARSE_FORMAT_MULTIPLE  CssmCertParseFormatNone = 0x7ffe
+	CSSM_CERT_PARSE_FORMAT_NONE      CssmCertParseFormatNone = 0
+	CSSM_CERT_PARSE_FORMAT_OID_NAMED CssmCertParseFormatNone = 0x4
+	CSSM_CERT_PARSE_FORMAT_SEXPR     CssmCertParseFormatNone = 0x2
+	CSSM_CERT_PARSE_FORMAT_TUPLE     CssmCertParseFormatNone = 0x5
+	CSSM_CL_CUSTOM_CERT_PARSE_FORMAT CssmCertParseFormatNone = 0x8000
+)
+
+func (e CssmCertParseFormatNone) String() string {
+	switch e {
+	case CSSM_CERT_PARSE_FORMAT_COMPLEX:
+		return "CSSM_CERT_PARSE_FORMAT_COMPLEX"
+	case CSSM_CERT_PARSE_FORMAT_CUSTOM:
+		return "CSSM_CERT_PARSE_FORMAT_CUSTOM"
+	case CSSM_CERT_PARSE_FORMAT_LAST:
+		return "CSSM_CERT_PARSE_FORMAT_LAST"
+	case CSSM_CERT_PARSE_FORMAT_MULTIPLE:
+		return "CSSM_CERT_PARSE_FORMAT_MULTIPLE"
+	case CSSM_CERT_PARSE_FORMAT_NONE:
+		return "CSSM_CERT_PARSE_FORMAT_NONE"
+	case CSSM_CERT_PARSE_FORMAT_OID_NAMED:
+		return "CSSM_CERT_PARSE_FORMAT_OID_NAMED"
+	case CSSM_CERT_PARSE_FORMAT_SEXPR:
+		return "CSSM_CERT_PARSE_FORMAT_SEXPR"
+	case CSSM_CERT_PARSE_FORMAT_TUPLE:
+		return "CSSM_CERT_PARSE_FORMAT_TUPLE"
+	case CSSM_CL_CUSTOM_CERT_PARSE_FORMAT:
+		return "CSSM_CL_CUSTOM_CERT_PARSE_FORMAT"
+	default:
+		return fmt.Sprintf("CssmCertParseFormatNone(%d)", e)
+	}
+}
+
+type CssmCertStatus uint32
+
+const (
+	CSSM_CERT_STATUS_EXPIRED                      CssmCertStatus = 0x1
+	CSSM_CERT_STATUS_IS_FROM_NET                  CssmCertStatus = 0x20
+	CSSM_CERT_STATUS_IS_IN_ANCHORS                CssmCertStatus = 0x8
+	CSSM_CERT_STATUS_IS_IN_INPUT_CERTS            CssmCertStatus = 0x4
+	CSSM_CERT_STATUS_IS_ROOT                      CssmCertStatus = 0x10
+	CSSM_CERT_STATUS_NOT_VALID_YET                CssmCertStatus = 0x2
+	CSSM_CERT_STATUS_TRUST_SETTINGS_DENY          CssmCertStatus = 0x400
+	CSSM_CERT_STATUS_TRUST_SETTINGS_FOUND_ADMIN   CssmCertStatus = 0x80
+	CSSM_CERT_STATUS_TRUST_SETTINGS_FOUND_SYSTEM  CssmCertStatus = 0x100
+	CSSM_CERT_STATUS_TRUST_SETTINGS_FOUND_USER    CssmCertStatus = 0x40
+	CSSM_CERT_STATUS_TRUST_SETTINGS_IGNORED_ERROR CssmCertStatus = 0x800
+	CSSM_CERT_STATUS_TRUST_SETTINGS_TRUST         CssmCertStatus = 0x200
 )
 
 func (e CssmCertStatus) String() string {
@@ -1409,7 +2044,64 @@ func (e CssmCertStatus) String() string {
 	}
 }
 
-type CssmCertgroup uint
+type CssmCertUnknown uint32
+
+const (
+	CSSM_CERT_ACL_ENTRY       CssmCertUnknown = 0xc
+	CSSM_CERT_Intel           CssmCertUnknown = 0x8
+	CSSM_CERT_LAST            CssmCertUnknown = 0x7fff
+	CSSM_CERT_MULTIPLE        CssmCertUnknown = 0x7ffe
+	CSSM_CERT_PGP             CssmCertUnknown = 0x4
+	CSSM_CERT_SDSIv1          CssmCertUnknown = 0x6
+	CSSM_CERT_SPKI            CssmCertUnknown = 0x5
+	CSSM_CERT_TUPLE           CssmCertUnknown = 0xb
+	CSSM_CERT_UNKNOWN         CssmCertUnknown = 0
+	CSSM_CERT_X9_ATTRIBUTE    CssmCertUnknown = 0xa
+	CSSM_CERT_X_509_ATTRIBUTE CssmCertUnknown = 0x9
+	CSSM_CERT_X_509v1         CssmCertUnknown = 0x1
+	CSSM_CERT_X_509v2         CssmCertUnknown = 0x2
+	CSSM_CERT_X_509v3         CssmCertUnknown = 0x3
+	CSSM_CL_CUSTOM_CERT_TYPE  CssmCertUnknown = 0x8000
+)
+
+func (e CssmCertUnknown) String() string {
+	switch e {
+	case CSSM_CERT_ACL_ENTRY:
+		return "CSSM_CERT_ACL_ENTRY"
+	case CSSM_CERT_Intel:
+		return "CSSM_CERT_Intel"
+	case CSSM_CERT_LAST:
+		return "CSSM_CERT_LAST"
+	case CSSM_CERT_MULTIPLE:
+		return "CSSM_CERT_MULTIPLE"
+	case CSSM_CERT_PGP:
+		return "CSSM_CERT_PGP"
+	case CSSM_CERT_SDSIv1:
+		return "CSSM_CERT_SDSIv1"
+	case CSSM_CERT_SPKI:
+		return "CSSM_CERT_SPKI"
+	case CSSM_CERT_TUPLE:
+		return "CSSM_CERT_TUPLE"
+	case CSSM_CERT_UNKNOWN:
+		return "CSSM_CERT_UNKNOWN"
+	case CSSM_CERT_X9_ATTRIBUTE:
+		return "CSSM_CERT_X9_ATTRIBUTE"
+	case CSSM_CERT_X_509_ATTRIBUTE:
+		return "CSSM_CERT_X_509_ATTRIBUTE"
+	case CSSM_CERT_X_509v1:
+		return "CSSM_CERT_X_509v1"
+	case CSSM_CERT_X_509v2:
+		return "CSSM_CERT_X_509v2"
+	case CSSM_CERT_X_509v3:
+		return "CSSM_CERT_X_509v3"
+	case CSSM_CL_CUSTOM_CERT_TYPE:
+		return "CSSM_CL_CUSTOM_CERT_TYPE"
+	default:
+		return fmt.Sprintf("CssmCertUnknown(%d)", e)
+	}
+}
+
+type CssmCertgroup uint32
 
 const (
 	CSSM_CERTGROUP_CERT_PAIR    CssmCertgroup = 0x3
@@ -1433,7 +2125,7 @@ func (e CssmCertgroup) String() string {
 	}
 }
 
-type CssmContextEvent uint
+type CssmContextEvent uint32
 
 const (
 	CSSM_CONTEXT_EVENT_CREATE CssmContextEvent = 1
@@ -1454,7 +2146,7 @@ func (e CssmContextEvent) String() string {
 	}
 }
 
-type CssmCrlEncoding uint
+type CssmCrlEncoding uint32
 
 const (
 	CSSM_CRL_ENCODING_BER      CssmCrlEncoding = 0x2
@@ -1487,7 +2179,46 @@ func (e CssmCrlEncoding) String() string {
 	}
 }
 
-type CssmCrlType uint
+type CssmCrlParseFormatNone uint32
+
+const (
+	CSSM_CL_CUSTOM_CRL_PARSE_FORMAT CssmCrlParseFormatNone = 0x8000
+	CSSM_CRL_PARSE_FORMAT_COMPLEX   CssmCrlParseFormatNone = 0x3
+	CSSM_CRL_PARSE_FORMAT_CUSTOM    CssmCrlParseFormatNone = 0x1
+	CSSM_CRL_PARSE_FORMAT_LAST      CssmCrlParseFormatNone = 0x7fff
+	CSSM_CRL_PARSE_FORMAT_MULTIPLE  CssmCrlParseFormatNone = 0x7ffe
+	CSSM_CRL_PARSE_FORMAT_NONE      CssmCrlParseFormatNone = 0
+	CSSM_CRL_PARSE_FORMAT_OID_NAMED CssmCrlParseFormatNone = 0x4
+	CSSM_CRL_PARSE_FORMAT_SEXPR     CssmCrlParseFormatNone = 0x2
+	CSSM_CRL_PARSE_FORMAT_TUPLE     CssmCrlParseFormatNone = 0x5
+)
+
+func (e CssmCrlParseFormatNone) String() string {
+	switch e {
+	case CSSM_CL_CUSTOM_CRL_PARSE_FORMAT:
+		return "CSSM_CL_CUSTOM_CRL_PARSE_FORMAT"
+	case CSSM_CRL_PARSE_FORMAT_COMPLEX:
+		return "CSSM_CRL_PARSE_FORMAT_COMPLEX"
+	case CSSM_CRL_PARSE_FORMAT_CUSTOM:
+		return "CSSM_CRL_PARSE_FORMAT_CUSTOM"
+	case CSSM_CRL_PARSE_FORMAT_LAST:
+		return "CSSM_CRL_PARSE_FORMAT_LAST"
+	case CSSM_CRL_PARSE_FORMAT_MULTIPLE:
+		return "CSSM_CRL_PARSE_FORMAT_MULTIPLE"
+	case CSSM_CRL_PARSE_FORMAT_NONE:
+		return "CSSM_CRL_PARSE_FORMAT_NONE"
+	case CSSM_CRL_PARSE_FORMAT_OID_NAMED:
+		return "CSSM_CRL_PARSE_FORMAT_OID_NAMED"
+	case CSSM_CRL_PARSE_FORMAT_SEXPR:
+		return "CSSM_CRL_PARSE_FORMAT_SEXPR"
+	case CSSM_CRL_PARSE_FORMAT_TUPLE:
+		return "CSSM_CRL_PARSE_FORMAT_TUPLE"
+	default:
+		return fmt.Sprintf("CssmCrlParseFormatNone(%d)", e)
+	}
+}
+
+type CssmCrlType uint32
 
 const (
 	CSSM_CRL_TYPE_MULTIPLE CssmCrlType = 0x7ffe
@@ -1514,7 +2245,7 @@ func (e CssmCrlType) String() string {
 	}
 }
 
-type CssmCrlgroup uint
+type CssmCrlgroup uint32
 
 const (
 	CSSM_CRLGROUP_CRL_PAIR    CssmCrlgroup = 0x3
@@ -1538,27 +2269,331 @@ func (e CssmCrlgroup) String() string {
 	}
 }
 
-type CssmCsp uint
+type CssmCspBaseCspError int32
 
 const (
-	CSSM_CSP_HARDWARE                 CssmCsp = 1
-	CSSM_CSP_HYBRID                   CssmCsp = 1
-	CSSM_CSP_SOFTWARE                 CssmCsp = 1
-	CSSM_CSP_STORES_CERTIFICATES      CssmCsp = 0x8000000
-	CSSM_CSP_STORES_GENERIC           CssmCsp = 0x10000000
-	CSSM_CSP_STORES_PRIVATE_KEYS      CssmCsp = 0x1000000
-	CSSM_CSP_STORES_PUBLIC_KEYS       CssmCsp = 0x2000000
-	CSSM_CSP_STORES_SESSION_KEYS      CssmCsp = 0x4000000
-	CSSM_CSP_TOK_LOGIN_REQUIRED       CssmCsp = 0x4
-	CSSM_CSP_TOK_PRIVATE_KEY_PASSWORD CssmCsp = 0x400000
-	CSSM_CSP_TOK_PROT_AUTHENTICATION  CssmCsp = 0x100
-	CSSM_CSP_TOK_SESSION_KEY_PASSWORD CssmCsp = 0x200000
-	CSSM_CSP_TOK_USER_PIN_EXPIRED     CssmCsp = 0x100000
-	CSSM_CSP_TOK_USER_PIN_INITIALIZED CssmCsp = 0x8
-	CSSM_CSP_TOK_WRITE_PROTECTED      CssmCsp = 0x2
+	CSSMERR_CSP_ALGID_MISMATCH                    CssmCspBaseCspError = -2147415789
+	CSSMERR_CSP_ALREADY_LOGGED_IN                 CssmCspBaseCspError = -2147415726
+	CSSMERR_CSP_ATTACH_HANDLE_BUSY                CssmCspBaseCspError = -2147415802
+	CSSMERR_CSP_BLOCK_SIZE_MISMATCH               CssmCspBaseCspError = -2147415731
+	CSSMERR_CSP_CRYPTO_DATA_CALLBACK_FAILED       CssmCspBaseCspError = -2147415722
+	CSSMERR_CSP_DEVICE_ERROR                      CssmCspBaseCspError = -2147415804
+	CSSMERR_CSP_DEVICE_MEMORY_ERROR               CssmCspBaseCspError = -2147415803
+	CSSMERR_CSP_DEVICE_VERIFY_FAILED              CssmCspBaseCspError = -2147415728
+	CSSMERR_CSP_INPUT_LENGTH_ERROR                CssmCspBaseCspError = -2147415807
+	CSSMERR_CSP_INVALID_ALGORITHM                 CssmCspBaseCspError = -2147415759
+	CSSMERR_CSP_INVALID_ATTR_ACCESS_CREDENTIALS   CssmCspBaseCspError = -2147415678
+	CSSMERR_CSP_INVALID_ATTR_ALG_PARAMS           CssmCspBaseCspError = -2147415704
+	CSSMERR_CSP_INVALID_ATTR_BASE                 CssmCspBaseCspError = -2147415686
+	CSSMERR_CSP_INVALID_ATTR_BLOCK_SIZE           CssmCspBaseCspError = -2147415738
+	CSSMERR_CSP_INVALID_ATTR_DL_DB_HANDLE         CssmCspBaseCspError = -2147415680
+	CSSMERR_CSP_INVALID_ATTR_EFFECTIVE_BITS       CssmCspBaseCspError = -2147415696
+	CSSMERR_CSP_INVALID_ATTR_END_DATE             CssmCspBaseCspError = -2147415692
+	CSSMERR_CSP_INVALID_ATTR_INIT_VECTOR          CssmCspBaseCspError = -2147415752
+	CSSMERR_CSP_INVALID_ATTR_ITERATION_COUNT      CssmCspBaseCspError = -2147415682
+	CSSMERR_CSP_INVALID_ATTR_KEY                  CssmCspBaseCspError = -2147415754
+	CSSMERR_CSP_INVALID_ATTR_KEY_LENGTH           CssmCspBaseCspError = -2147415740
+	CSSMERR_CSP_INVALID_ATTR_KEY_TYPE             CssmCspBaseCspError = -2147415700
+	CSSMERR_CSP_INVALID_ATTR_LABEL                CssmCspBaseCspError = -2147415702
+	CSSMERR_CSP_INVALID_ATTR_MODE                 CssmCspBaseCspError = -2147415698
+	CSSMERR_CSP_INVALID_ATTR_OUTPUT_SIZE          CssmCspBaseCspError = -2147415708
+	CSSMERR_CSP_INVALID_ATTR_PADDING              CssmCspBaseCspError = -2147415748
+	CSSMERR_CSP_INVALID_ATTR_PASSPHRASE           CssmCspBaseCspError = -2147415742
+	CSSMERR_CSP_INVALID_ATTR_PRIME                CssmCspBaseCspError = -2147415688
+	CSSMERR_CSP_INVALID_ATTR_PRIVATE_KEY_FORMAT   CssmCspBaseCspError = -2147415674
+	CSSMERR_CSP_INVALID_ATTR_PUBLIC_KEY_FORMAT    CssmCspBaseCspError = -2147415676
+	CSSMERR_CSP_INVALID_ATTR_RANDOM               CssmCspBaseCspError = -2147415746
+	CSSMERR_CSP_INVALID_ATTR_ROUNDS               CssmCspBaseCspError = -2147415706
+	CSSMERR_CSP_INVALID_ATTR_SALT                 CssmCspBaseCspError = -2147415750
+	CSSMERR_CSP_INVALID_ATTR_SEED                 CssmCspBaseCspError = -2147415744
+	CSSMERR_CSP_INVALID_ATTR_START_DATE           CssmCspBaseCspError = -2147415694
+	CSSMERR_CSP_INVALID_ATTR_SUBPRIME             CssmCspBaseCspError = -2147415684
+	CSSMERR_CSP_INVALID_ATTR_SYMMETRIC_KEY_FORMAT CssmCspBaseCspError = -2147415672
+	CSSMERR_CSP_INVALID_ATTR_VERSION              CssmCspBaseCspError = -2147415690
+	CSSMERR_CSP_INVALID_ATTR_WRAPPED_KEY_FORMAT   CssmCspBaseCspError = -2147415670
+	CSSMERR_CSP_INVALID_CONTEXT                   CssmCspBaseCspError = -2147415760
+	CSSMERR_CSP_INVALID_DATA_COUNT                CssmCspBaseCspError = -2147415768
+	CSSMERR_CSP_INVALID_DIGEST_ALGORITHM          CssmCspBaseCspError = -2147415723
+	CSSMERR_CSP_INVALID_INPUT_VECTOR              CssmCspBaseCspError = -2147415766
+	CSSMERR_CSP_INVALID_KEY                       CssmCspBaseCspError = -2147415792
+	CSSMERR_CSP_INVALID_KEYATTR_MASK              CssmCspBaseCspError = -2147415780
+	CSSMERR_CSP_INVALID_KEYUSAGE_MASK             CssmCspBaseCspError = -2147415782
+	CSSMERR_CSP_INVALID_KEY_CLASS                 CssmCspBaseCspError = -2147415790
+	CSSMERR_CSP_INVALID_KEY_FORMAT                CssmCspBaseCspError = -2147415776
+	CSSMERR_CSP_INVALID_KEY_LABEL                 CssmCspBaseCspError = -2147415778
+	CSSMERR_CSP_INVALID_KEY_POINTER               CssmCspBaseCspError = -2147415783
+	CSSMERR_CSP_INVALID_KEY_REFERENCE             CssmCspBaseCspError = -2147415791
+	CSSMERR_CSP_INVALID_LOGIN_NAME                CssmCspBaseCspError = -2147415727
+	CSSMERR_CSP_INVALID_OUTPUT_VECTOR             CssmCspBaseCspError = -2147415765
+	CSSMERR_CSP_INVALID_SIGNATURE                 CssmCspBaseCspError = -2147415733
+	CSSMERR_CSP_KEY_BLOB_TYPE_INCORRECT           CssmCspBaseCspError = -2147415787
+	CSSMERR_CSP_KEY_HEADER_INCONSISTENT           CssmCspBaseCspError = -2147415786
+	CSSMERR_CSP_KEY_LABEL_ALREADY_EXISTS          CssmCspBaseCspError = -2147415724
+	CSSMERR_CSP_KEY_USAGE_INCORRECT               CssmCspBaseCspError = -2147415788
+	CSSMERR_CSP_MISSING_ATTR_ACCESS_CREDENTIALS   CssmCspBaseCspError = -2147415677
+	CSSMERR_CSP_MISSING_ATTR_ALG_PARAMS           CssmCspBaseCspError = -2147415703
+	CSSMERR_CSP_MISSING_ATTR_BASE                 CssmCspBaseCspError = -2147415685
+	CSSMERR_CSP_MISSING_ATTR_BLOCK_SIZE           CssmCspBaseCspError = -2147415737
+	CSSMERR_CSP_MISSING_ATTR_DL_DB_HANDLE         CssmCspBaseCspError = -2147415679
+	CSSMERR_CSP_MISSING_ATTR_EFFECTIVE_BITS       CssmCspBaseCspError = -2147415695
+	CSSMERR_CSP_MISSING_ATTR_END_DATE             CssmCspBaseCspError = -2147415691
+	CSSMERR_CSP_MISSING_ATTR_INIT_VECTOR          CssmCspBaseCspError = -2147415751
+	CSSMERR_CSP_MISSING_ATTR_ITERATION_COUNT      CssmCspBaseCspError = -2147415681
+	CSSMERR_CSP_MISSING_ATTR_KEY                  CssmCspBaseCspError = -2147415753
+	CSSMERR_CSP_MISSING_ATTR_KEY_LENGTH           CssmCspBaseCspError = -2147415739
+	CSSMERR_CSP_MISSING_ATTR_KEY_TYPE             CssmCspBaseCspError = -2147415699
+	CSSMERR_CSP_MISSING_ATTR_LABEL                CssmCspBaseCspError = -2147415701
+	CSSMERR_CSP_MISSING_ATTR_MODE                 CssmCspBaseCspError = -2147415697
+	CSSMERR_CSP_MISSING_ATTR_OUTPUT_SIZE          CssmCspBaseCspError = -2147415707
+	CSSMERR_CSP_MISSING_ATTR_PADDING              CssmCspBaseCspError = -2147415747
+	CSSMERR_CSP_MISSING_ATTR_PASSPHRASE           CssmCspBaseCspError = -2147415741
+	CSSMERR_CSP_MISSING_ATTR_PRIME                CssmCspBaseCspError = -2147415687
+	CSSMERR_CSP_MISSING_ATTR_PRIVATE_KEY_FORMAT   CssmCspBaseCspError = -2147415673
+	CSSMERR_CSP_MISSING_ATTR_PUBLIC_KEY_FORMAT    CssmCspBaseCspError = -2147415675
+	CSSMERR_CSP_MISSING_ATTR_RANDOM               CssmCspBaseCspError = -2147415745
+	CSSMERR_CSP_MISSING_ATTR_ROUNDS               CssmCspBaseCspError = -2147415705
+	CSSMERR_CSP_MISSING_ATTR_SALT                 CssmCspBaseCspError = -2147415749
+	CSSMERR_CSP_MISSING_ATTR_SEED                 CssmCspBaseCspError = -2147415743
+	CSSMERR_CSP_MISSING_ATTR_START_DATE           CssmCspBaseCspError = -2147415693
+	CSSMERR_CSP_MISSING_ATTR_SUBPRIME             CssmCspBaseCspError = -2147415683
+	CSSMERR_CSP_MISSING_ATTR_SYMMETRIC_KEY_FORMAT CssmCspBaseCspError = -2147415671
+	CSSMERR_CSP_MISSING_ATTR_VERSION              CssmCspBaseCspError = -2147415689
+	CSSMERR_CSP_MISSING_ATTR_WRAPPED_KEY_FORMAT   CssmCspBaseCspError = -2147415669
+	CSSMERR_CSP_NOT_LOGGED_IN                     CssmCspBaseCspError = -2147415801
+	CSSMERR_CSP_OUTPUT_LENGTH_ERROR               CssmCspBaseCspError = -2147415806
+	CSSMERR_CSP_PRIVATE_KEY_ALREADY_EXISTS        CssmCspBaseCspError = -2147415725
+	CSSMERR_CSP_PRIVATE_KEY_NOT_FOUND             CssmCspBaseCspError = -2147415730
+	CSSMERR_CSP_PRIVILEGE_NOT_SUPPORTED           CssmCspBaseCspError = -2147415805
+	CSSMERR_CSP_PUBLIC_KEY_INCONSISTENT           CssmCspBaseCspError = -2147415729
+	CSSMERR_CSP_QUERY_SIZE_UNKNOWN                CssmCspBaseCspError = -2147415732
+	CSSMERR_CSP_STAGED_OPERATION_IN_PROGRESS      CssmCspBaseCspError = -2147415736
+	CSSMERR_CSP_STAGED_OPERATION_NOT_STARTED      CssmCspBaseCspError = -2147415735
+	CSSMERR_CSP_UNSUPPORTED_KEYATTR_MASK          CssmCspBaseCspError = -2147415779
+	CSSMERR_CSP_UNSUPPORTED_KEYUSAGE_MASK         CssmCspBaseCspError = -2147415781
+	CSSMERR_CSP_UNSUPPORTED_KEY_FORMAT            CssmCspBaseCspError = -2147415785
+	CSSMERR_CSP_UNSUPPORTED_KEY_LABEL             CssmCspBaseCspError = -2147415777
+	CSSMERR_CSP_UNSUPPORTED_KEY_SIZE              CssmCspBaseCspError = -2147415784
+	CSSMERR_CSP_VECTOR_OF_BUFS_UNSUPPORTED        CssmCspBaseCspError = -2147415767
+	CSSMERR_CSP_VERIFY_FAILED                     CssmCspBaseCspError = -2147415734
+	CSSM_CSP_BASE_CSP_ERROR                       CssmCspBaseCspError = -2147415808
 )
 
-type CssmCspRdr uint
+func (e CssmCspBaseCspError) String() string {
+	switch e {
+	case CSSMERR_CSP_ALGID_MISMATCH:
+		return "CSSMERR_CSP_ALGID_MISMATCH"
+	case CSSMERR_CSP_ALREADY_LOGGED_IN:
+		return "CSSMERR_CSP_ALREADY_LOGGED_IN"
+	case CSSMERR_CSP_ATTACH_HANDLE_BUSY:
+		return "CSSMERR_CSP_ATTACH_HANDLE_BUSY"
+	case CSSMERR_CSP_BLOCK_SIZE_MISMATCH:
+		return "CSSMERR_CSP_BLOCK_SIZE_MISMATCH"
+	case CSSMERR_CSP_CRYPTO_DATA_CALLBACK_FAILED:
+		return "CSSMERR_CSP_CRYPTO_DATA_CALLBACK_FAILED"
+	case CSSMERR_CSP_DEVICE_ERROR:
+		return "CSSMERR_CSP_DEVICE_ERROR"
+	case CSSMERR_CSP_DEVICE_MEMORY_ERROR:
+		return "CSSMERR_CSP_DEVICE_MEMORY_ERROR"
+	case CSSMERR_CSP_DEVICE_VERIFY_FAILED:
+		return "CSSMERR_CSP_DEVICE_VERIFY_FAILED"
+	case CSSMERR_CSP_INPUT_LENGTH_ERROR:
+		return "CSSMERR_CSP_INPUT_LENGTH_ERROR"
+	case CSSMERR_CSP_INVALID_ALGORITHM:
+		return "CSSMERR_CSP_INVALID_ALGORITHM"
+	case CSSMERR_CSP_INVALID_ATTR_ACCESS_CREDENTIALS:
+		return "CSSMERR_CSP_INVALID_ATTR_ACCESS_CREDENTIALS"
+	case CSSMERR_CSP_INVALID_ATTR_ALG_PARAMS:
+		return "CSSMERR_CSP_INVALID_ATTR_ALG_PARAMS"
+	case CSSMERR_CSP_INVALID_ATTR_BASE:
+		return "CSSMERR_CSP_INVALID_ATTR_BASE"
+	case CSSMERR_CSP_INVALID_ATTR_BLOCK_SIZE:
+		return "CSSMERR_CSP_INVALID_ATTR_BLOCK_SIZE"
+	case CSSMERR_CSP_INVALID_ATTR_DL_DB_HANDLE:
+		return "CSSMERR_CSP_INVALID_ATTR_DL_DB_HANDLE"
+	case CSSMERR_CSP_INVALID_ATTR_EFFECTIVE_BITS:
+		return "CSSMERR_CSP_INVALID_ATTR_EFFECTIVE_BITS"
+	case CSSMERR_CSP_INVALID_ATTR_END_DATE:
+		return "CSSMERR_CSP_INVALID_ATTR_END_DATE"
+	case CSSMERR_CSP_INVALID_ATTR_INIT_VECTOR:
+		return "CSSMERR_CSP_INVALID_ATTR_INIT_VECTOR"
+	case CSSMERR_CSP_INVALID_ATTR_ITERATION_COUNT:
+		return "CSSMERR_CSP_INVALID_ATTR_ITERATION_COUNT"
+	case CSSMERR_CSP_INVALID_ATTR_KEY:
+		return "CSSMERR_CSP_INVALID_ATTR_KEY"
+	case CSSMERR_CSP_INVALID_ATTR_KEY_LENGTH:
+		return "CSSMERR_CSP_INVALID_ATTR_KEY_LENGTH"
+	case CSSMERR_CSP_INVALID_ATTR_KEY_TYPE:
+		return "CSSMERR_CSP_INVALID_ATTR_KEY_TYPE"
+	case CSSMERR_CSP_INVALID_ATTR_LABEL:
+		return "CSSMERR_CSP_INVALID_ATTR_LABEL"
+	case CSSMERR_CSP_INVALID_ATTR_MODE:
+		return "CSSMERR_CSP_INVALID_ATTR_MODE"
+	case CSSMERR_CSP_INVALID_ATTR_OUTPUT_SIZE:
+		return "CSSMERR_CSP_INVALID_ATTR_OUTPUT_SIZE"
+	case CSSMERR_CSP_INVALID_ATTR_PADDING:
+		return "CSSMERR_CSP_INVALID_ATTR_PADDING"
+	case CSSMERR_CSP_INVALID_ATTR_PASSPHRASE:
+		return "CSSMERR_CSP_INVALID_ATTR_PASSPHRASE"
+	case CSSMERR_CSP_INVALID_ATTR_PRIME:
+		return "CSSMERR_CSP_INVALID_ATTR_PRIME"
+	case CSSMERR_CSP_INVALID_ATTR_PRIVATE_KEY_FORMAT:
+		return "CSSMERR_CSP_INVALID_ATTR_PRIVATE_KEY_FORMAT"
+	case CSSMERR_CSP_INVALID_ATTR_PUBLIC_KEY_FORMAT:
+		return "CSSMERR_CSP_INVALID_ATTR_PUBLIC_KEY_FORMAT"
+	case CSSMERR_CSP_INVALID_ATTR_RANDOM:
+		return "CSSMERR_CSP_INVALID_ATTR_RANDOM"
+	case CSSMERR_CSP_INVALID_ATTR_ROUNDS:
+		return "CSSMERR_CSP_INVALID_ATTR_ROUNDS"
+	case CSSMERR_CSP_INVALID_ATTR_SALT:
+		return "CSSMERR_CSP_INVALID_ATTR_SALT"
+	case CSSMERR_CSP_INVALID_ATTR_SEED:
+		return "CSSMERR_CSP_INVALID_ATTR_SEED"
+	case CSSMERR_CSP_INVALID_ATTR_START_DATE:
+		return "CSSMERR_CSP_INVALID_ATTR_START_DATE"
+	case CSSMERR_CSP_INVALID_ATTR_SUBPRIME:
+		return "CSSMERR_CSP_INVALID_ATTR_SUBPRIME"
+	case CSSMERR_CSP_INVALID_ATTR_SYMMETRIC_KEY_FORMAT:
+		return "CSSMERR_CSP_INVALID_ATTR_SYMMETRIC_KEY_FORMAT"
+	case CSSMERR_CSP_INVALID_ATTR_VERSION:
+		return "CSSMERR_CSP_INVALID_ATTR_VERSION"
+	case CSSMERR_CSP_INVALID_ATTR_WRAPPED_KEY_FORMAT:
+		return "CSSMERR_CSP_INVALID_ATTR_WRAPPED_KEY_FORMAT"
+	case CSSMERR_CSP_INVALID_CONTEXT:
+		return "CSSMERR_CSP_INVALID_CONTEXT"
+	case CSSMERR_CSP_INVALID_DATA_COUNT:
+		return "CSSMERR_CSP_INVALID_DATA_COUNT"
+	case CSSMERR_CSP_INVALID_DIGEST_ALGORITHM:
+		return "CSSMERR_CSP_INVALID_DIGEST_ALGORITHM"
+	case CSSMERR_CSP_INVALID_INPUT_VECTOR:
+		return "CSSMERR_CSP_INVALID_INPUT_VECTOR"
+	case CSSMERR_CSP_INVALID_KEY:
+		return "CSSMERR_CSP_INVALID_KEY"
+	case CSSMERR_CSP_INVALID_KEYATTR_MASK:
+		return "CSSMERR_CSP_INVALID_KEYATTR_MASK"
+	case CSSMERR_CSP_INVALID_KEYUSAGE_MASK:
+		return "CSSMERR_CSP_INVALID_KEYUSAGE_MASK"
+	case CSSMERR_CSP_INVALID_KEY_CLASS:
+		return "CSSMERR_CSP_INVALID_KEY_CLASS"
+	case CSSMERR_CSP_INVALID_KEY_FORMAT:
+		return "CSSMERR_CSP_INVALID_KEY_FORMAT"
+	case CSSMERR_CSP_INVALID_KEY_LABEL:
+		return "CSSMERR_CSP_INVALID_KEY_LABEL"
+	case CSSMERR_CSP_INVALID_KEY_POINTER:
+		return "CSSMERR_CSP_INVALID_KEY_POINTER"
+	case CSSMERR_CSP_INVALID_KEY_REFERENCE:
+		return "CSSMERR_CSP_INVALID_KEY_REFERENCE"
+	case CSSMERR_CSP_INVALID_LOGIN_NAME:
+		return "CSSMERR_CSP_INVALID_LOGIN_NAME"
+	case CSSMERR_CSP_INVALID_OUTPUT_VECTOR:
+		return "CSSMERR_CSP_INVALID_OUTPUT_VECTOR"
+	case CSSMERR_CSP_INVALID_SIGNATURE:
+		return "CSSMERR_CSP_INVALID_SIGNATURE"
+	case CSSMERR_CSP_KEY_BLOB_TYPE_INCORRECT:
+		return "CSSMERR_CSP_KEY_BLOB_TYPE_INCORRECT"
+	case CSSMERR_CSP_KEY_HEADER_INCONSISTENT:
+		return "CSSMERR_CSP_KEY_HEADER_INCONSISTENT"
+	case CSSMERR_CSP_KEY_LABEL_ALREADY_EXISTS:
+		return "CSSMERR_CSP_KEY_LABEL_ALREADY_EXISTS"
+	case CSSMERR_CSP_KEY_USAGE_INCORRECT:
+		return "CSSMERR_CSP_KEY_USAGE_INCORRECT"
+	case CSSMERR_CSP_MISSING_ATTR_ACCESS_CREDENTIALS:
+		return "CSSMERR_CSP_MISSING_ATTR_ACCESS_CREDENTIALS"
+	case CSSMERR_CSP_MISSING_ATTR_ALG_PARAMS:
+		return "CSSMERR_CSP_MISSING_ATTR_ALG_PARAMS"
+	case CSSMERR_CSP_MISSING_ATTR_BASE:
+		return "CSSMERR_CSP_MISSING_ATTR_BASE"
+	case CSSMERR_CSP_MISSING_ATTR_BLOCK_SIZE:
+		return "CSSMERR_CSP_MISSING_ATTR_BLOCK_SIZE"
+	case CSSMERR_CSP_MISSING_ATTR_DL_DB_HANDLE:
+		return "CSSMERR_CSP_MISSING_ATTR_DL_DB_HANDLE"
+	case CSSMERR_CSP_MISSING_ATTR_EFFECTIVE_BITS:
+		return "CSSMERR_CSP_MISSING_ATTR_EFFECTIVE_BITS"
+	case CSSMERR_CSP_MISSING_ATTR_END_DATE:
+		return "CSSMERR_CSP_MISSING_ATTR_END_DATE"
+	case CSSMERR_CSP_MISSING_ATTR_INIT_VECTOR:
+		return "CSSMERR_CSP_MISSING_ATTR_INIT_VECTOR"
+	case CSSMERR_CSP_MISSING_ATTR_ITERATION_COUNT:
+		return "CSSMERR_CSP_MISSING_ATTR_ITERATION_COUNT"
+	case CSSMERR_CSP_MISSING_ATTR_KEY:
+		return "CSSMERR_CSP_MISSING_ATTR_KEY"
+	case CSSMERR_CSP_MISSING_ATTR_KEY_LENGTH:
+		return "CSSMERR_CSP_MISSING_ATTR_KEY_LENGTH"
+	case CSSMERR_CSP_MISSING_ATTR_KEY_TYPE:
+		return "CSSMERR_CSP_MISSING_ATTR_KEY_TYPE"
+	case CSSMERR_CSP_MISSING_ATTR_LABEL:
+		return "CSSMERR_CSP_MISSING_ATTR_LABEL"
+	case CSSMERR_CSP_MISSING_ATTR_MODE:
+		return "CSSMERR_CSP_MISSING_ATTR_MODE"
+	case CSSMERR_CSP_MISSING_ATTR_OUTPUT_SIZE:
+		return "CSSMERR_CSP_MISSING_ATTR_OUTPUT_SIZE"
+	case CSSMERR_CSP_MISSING_ATTR_PADDING:
+		return "CSSMERR_CSP_MISSING_ATTR_PADDING"
+	case CSSMERR_CSP_MISSING_ATTR_PASSPHRASE:
+		return "CSSMERR_CSP_MISSING_ATTR_PASSPHRASE"
+	case CSSMERR_CSP_MISSING_ATTR_PRIME:
+		return "CSSMERR_CSP_MISSING_ATTR_PRIME"
+	case CSSMERR_CSP_MISSING_ATTR_PRIVATE_KEY_FORMAT:
+		return "CSSMERR_CSP_MISSING_ATTR_PRIVATE_KEY_FORMAT"
+	case CSSMERR_CSP_MISSING_ATTR_PUBLIC_KEY_FORMAT:
+		return "CSSMERR_CSP_MISSING_ATTR_PUBLIC_KEY_FORMAT"
+	case CSSMERR_CSP_MISSING_ATTR_RANDOM:
+		return "CSSMERR_CSP_MISSING_ATTR_RANDOM"
+	case CSSMERR_CSP_MISSING_ATTR_ROUNDS:
+		return "CSSMERR_CSP_MISSING_ATTR_ROUNDS"
+	case CSSMERR_CSP_MISSING_ATTR_SALT:
+		return "CSSMERR_CSP_MISSING_ATTR_SALT"
+	case CSSMERR_CSP_MISSING_ATTR_SEED:
+		return "CSSMERR_CSP_MISSING_ATTR_SEED"
+	case CSSMERR_CSP_MISSING_ATTR_START_DATE:
+		return "CSSMERR_CSP_MISSING_ATTR_START_DATE"
+	case CSSMERR_CSP_MISSING_ATTR_SUBPRIME:
+		return "CSSMERR_CSP_MISSING_ATTR_SUBPRIME"
+	case CSSMERR_CSP_MISSING_ATTR_SYMMETRIC_KEY_FORMAT:
+		return "CSSMERR_CSP_MISSING_ATTR_SYMMETRIC_KEY_FORMAT"
+	case CSSMERR_CSP_MISSING_ATTR_VERSION:
+		return "CSSMERR_CSP_MISSING_ATTR_VERSION"
+	case CSSMERR_CSP_MISSING_ATTR_WRAPPED_KEY_FORMAT:
+		return "CSSMERR_CSP_MISSING_ATTR_WRAPPED_KEY_FORMAT"
+	case CSSMERR_CSP_NOT_LOGGED_IN:
+		return "CSSMERR_CSP_NOT_LOGGED_IN"
+	case CSSMERR_CSP_OUTPUT_LENGTH_ERROR:
+		return "CSSMERR_CSP_OUTPUT_LENGTH_ERROR"
+	case CSSMERR_CSP_PRIVATE_KEY_ALREADY_EXISTS:
+		return "CSSMERR_CSP_PRIVATE_KEY_ALREADY_EXISTS"
+	case CSSMERR_CSP_PRIVATE_KEY_NOT_FOUND:
+		return "CSSMERR_CSP_PRIVATE_KEY_NOT_FOUND"
+	case CSSMERR_CSP_PRIVILEGE_NOT_SUPPORTED:
+		return "CSSMERR_CSP_PRIVILEGE_NOT_SUPPORTED"
+	case CSSMERR_CSP_PUBLIC_KEY_INCONSISTENT:
+		return "CSSMERR_CSP_PUBLIC_KEY_INCONSISTENT"
+	case CSSMERR_CSP_QUERY_SIZE_UNKNOWN:
+		return "CSSMERR_CSP_QUERY_SIZE_UNKNOWN"
+	case CSSMERR_CSP_STAGED_OPERATION_IN_PROGRESS:
+		return "CSSMERR_CSP_STAGED_OPERATION_IN_PROGRESS"
+	case CSSMERR_CSP_STAGED_OPERATION_NOT_STARTED:
+		return "CSSMERR_CSP_STAGED_OPERATION_NOT_STARTED"
+	case CSSMERR_CSP_UNSUPPORTED_KEYATTR_MASK:
+		return "CSSMERR_CSP_UNSUPPORTED_KEYATTR_MASK"
+	case CSSMERR_CSP_UNSUPPORTED_KEYUSAGE_MASK:
+		return "CSSMERR_CSP_UNSUPPORTED_KEYUSAGE_MASK"
+	case CSSMERR_CSP_UNSUPPORTED_KEY_FORMAT:
+		return "CSSMERR_CSP_UNSUPPORTED_KEY_FORMAT"
+	case CSSMERR_CSP_UNSUPPORTED_KEY_LABEL:
+		return "CSSMERR_CSP_UNSUPPORTED_KEY_LABEL"
+	case CSSMERR_CSP_UNSUPPORTED_KEY_SIZE:
+		return "CSSMERR_CSP_UNSUPPORTED_KEY_SIZE"
+	case CSSMERR_CSP_VECTOR_OF_BUFS_UNSUPPORTED:
+		return "CSSMERR_CSP_VECTOR_OF_BUFS_UNSUPPORTED"
+	case CSSMERR_CSP_VERIFY_FAILED:
+		return "CSSMERR_CSP_VERIFY_FAILED"
+	case CSSM_CSP_BASE_CSP_ERROR:
+		return "CSSM_CSP_BASE_CSP_ERROR"
+	default:
+		return fmt.Sprintf("CssmCspBaseCspError(%d)", e)
+	}
+}
+
+type CssmCspRdr uint32
 
 const (
 	CSSM_CSP_RDR_EXISTS       CssmCspRdr = 0x2
@@ -1579,7 +2614,28 @@ func (e CssmCspRdr) String() string {
 	}
 }
 
-type CssmCspTok uint
+type CssmCspSoftware uint32
+
+const (
+	CSSM_CSP_HARDWARE CssmCspSoftware = 2
+	CSSM_CSP_HYBRID   CssmCspSoftware = 3
+	CSSM_CSP_SOFTWARE CssmCspSoftware = 1
+)
+
+func (e CssmCspSoftware) String() string {
+	switch e {
+	case CSSM_CSP_HARDWARE:
+		return "CSSM_CSP_HARDWARE"
+	case CSSM_CSP_HYBRID:
+		return "CSSM_CSP_HYBRID"
+	case CSSM_CSP_SOFTWARE:
+		return "CSSM_CSP_SOFTWARE"
+	default:
+		return fmt.Sprintf("CssmCspSoftware(%d)", e)
+	}
+}
+
+type CssmCspTok uint32
 
 const (
 	CSSM_CSP_TOK_CLOCK_EXISTS CssmCspTok = 0x40
@@ -1597,72 +2653,266 @@ func (e CssmCspTok) String() string {
 	}
 }
 
-type CssmD uint
+type CssmCspTokWriteProtected uint32
+
+const (
+	CSSM_CSP_STORES_CERTIFICATES      CssmCspTokWriteProtected = 0x8000000
+	CSSM_CSP_STORES_GENERIC           CssmCspTokWriteProtected = 0x10000000
+	CSSM_CSP_STORES_PRIVATE_KEYS      CssmCspTokWriteProtected = 0x1000000
+	CSSM_CSP_STORES_PUBLIC_KEYS       CssmCspTokWriteProtected = 0x2000000
+	CSSM_CSP_STORES_SESSION_KEYS      CssmCspTokWriteProtected = 0x4000000
+	CSSM_CSP_TOK_LOGIN_REQUIRED       CssmCspTokWriteProtected = 0x4
+	CSSM_CSP_TOK_PRIVATE_KEY_PASSWORD CssmCspTokWriteProtected = 0x400000
+	CSSM_CSP_TOK_PROT_AUTHENTICATION  CssmCspTokWriteProtected = 0x100
+	CSSM_CSP_TOK_SESSION_KEY_PASSWORD CssmCspTokWriteProtected = 0x200000
+	CSSM_CSP_TOK_USER_PIN_EXPIRED     CssmCspTokWriteProtected = 0x100000
+	CSSM_CSP_TOK_USER_PIN_INITIALIZED CssmCspTokWriteProtected = 0x8
+	CSSM_CSP_TOK_WRITE_PROTECTED      CssmCspTokWriteProtected = 0x2
+)
+
+func (e CssmCspTokWriteProtected) String() string {
+	switch e {
+	case CSSM_CSP_STORES_CERTIFICATES:
+		return "CSSM_CSP_STORES_CERTIFICATES"
+	case CSSM_CSP_STORES_GENERIC:
+		return "CSSM_CSP_STORES_GENERIC"
+	case CSSM_CSP_STORES_PRIVATE_KEYS:
+		return "CSSM_CSP_STORES_PRIVATE_KEYS"
+	case CSSM_CSP_STORES_PUBLIC_KEYS:
+		return "CSSM_CSP_STORES_PUBLIC_KEYS"
+	case CSSM_CSP_STORES_SESSION_KEYS:
+		return "CSSM_CSP_STORES_SESSION_KEYS"
+	case CSSM_CSP_TOK_LOGIN_REQUIRED:
+		return "CSSM_CSP_TOK_LOGIN_REQUIRED"
+	case CSSM_CSP_TOK_PRIVATE_KEY_PASSWORD:
+		return "CSSM_CSP_TOK_PRIVATE_KEY_PASSWORD"
+	case CSSM_CSP_TOK_PROT_AUTHENTICATION:
+		return "CSSM_CSP_TOK_PROT_AUTHENTICATION"
+	case CSSM_CSP_TOK_SESSION_KEY_PASSWORD:
+		return "CSSM_CSP_TOK_SESSION_KEY_PASSWORD"
+	case CSSM_CSP_TOK_USER_PIN_EXPIRED:
+		return "CSSM_CSP_TOK_USER_PIN_EXPIRED"
+	case CSSM_CSP_TOK_USER_PIN_INITIALIZED:
+		return "CSSM_CSP_TOK_USER_PIN_INITIALIZED"
+	case CSSM_CSP_TOK_WRITE_PROTECTED:
+		return "CSSM_CSP_TOK_WRITE_PROTECTED"
+	default:
+		return fmt.Sprintf("CssmCspTokWriteProtected(%d)", e)
+	}
+}
+
+type CssmCssmBaseCssmError int32
+
+const (
+	CSSMERR_CSSM_ADDIN_AUTHENTICATE_FAILED             CssmCssmBaseCssmError = -2147417828
+	CSSMERR_CSSM_ADDIN_LOAD_FAILED                     CssmCssmBaseCssmError = -2147417834
+	CSSMERR_CSSM_ADDIN_UNLOAD_FAILED                   CssmCssmBaseCssmError = -2147417832
+	CSSMERR_CSSM_ATTRIBUTE_NOT_IN_CONTEXT              CssmCssmBaseCssmError = -2147417822
+	CSSMERR_CSSM_BUFFER_TOO_SMALL                      CssmCssmBaseCssmError = -2147417824
+	CSSMERR_CSSM_EMM_AUTHENTICATE_FAILED               CssmCssmBaseCssmError = -2147417829
+	CSSMERR_CSSM_EMM_LOAD_FAILED                       CssmCssmBaseCssmError = -2147417836
+	CSSMERR_CSSM_EMM_UNLOAD_FAILED                     CssmCssmBaseCssmError = -2147417835
+	CSSMERR_CSSM_EVENT_NOTIFICATION_CALLBACK_NOT_FOUND CssmCssmBaseCssmError = -2147417819
+	CSSMERR_CSSM_INVALID_ADDIN_FUNCTION_TABLE          CssmCssmBaseCssmError = -2147417830
+	CSSMERR_CSSM_INVALID_ATTRIBUTE                     CssmCssmBaseCssmError = -2147417823
+	CSSMERR_CSSM_INVALID_KEY_HIERARCHY                 CssmCssmBaseCssmError = -2147417833
+	CSSMERR_CSSM_INVALID_PVC                           CssmCssmBaseCssmError = -2147417837
+	CSSMERR_CSSM_INVALID_SERVICE_MASK                  CssmCssmBaseCssmError = -2147417827
+	CSSMERR_CSSM_INVALID_SUBSERVICEID                  CssmCssmBaseCssmError = -2147417825
+	CSSMERR_CSSM_LIB_REF_NOT_FOUND                     CssmCssmBaseCssmError = -2147417831
+	CSSMERR_CSSM_MODULE_MANAGER_INITIALIZE_FAIL        CssmCssmBaseCssmError = -2147417821
+	CSSMERR_CSSM_MODULE_MANAGER_NOT_FOUND              CssmCssmBaseCssmError = -2147417820
+	CSSMERR_CSSM_MODULE_NOT_LOADED                     CssmCssmBaseCssmError = -2147417826
+	CSSMERR_CSSM_PVC_ALREADY_CONFIGURED                CssmCssmBaseCssmError = -2147417838
+	CSSMERR_CSSM_SCOPE_NOT_SUPPORTED                   CssmCssmBaseCssmError = -2147417839
+	CSSM_CSSM_BASE_CSSM_ERROR                          CssmCssmBaseCssmError = -2147417840
+)
+
+func (e CssmCssmBaseCssmError) String() string {
+	switch e {
+	case CSSMERR_CSSM_ADDIN_AUTHENTICATE_FAILED:
+		return "CSSMERR_CSSM_ADDIN_AUTHENTICATE_FAILED"
+	case CSSMERR_CSSM_ADDIN_LOAD_FAILED:
+		return "CSSMERR_CSSM_ADDIN_LOAD_FAILED"
+	case CSSMERR_CSSM_ADDIN_UNLOAD_FAILED:
+		return "CSSMERR_CSSM_ADDIN_UNLOAD_FAILED"
+	case CSSMERR_CSSM_ATTRIBUTE_NOT_IN_CONTEXT:
+		return "CSSMERR_CSSM_ATTRIBUTE_NOT_IN_CONTEXT"
+	case CSSMERR_CSSM_BUFFER_TOO_SMALL:
+		return "CSSMERR_CSSM_BUFFER_TOO_SMALL"
+	case CSSMERR_CSSM_EMM_AUTHENTICATE_FAILED:
+		return "CSSMERR_CSSM_EMM_AUTHENTICATE_FAILED"
+	case CSSMERR_CSSM_EMM_LOAD_FAILED:
+		return "CSSMERR_CSSM_EMM_LOAD_FAILED"
+	case CSSMERR_CSSM_EMM_UNLOAD_FAILED:
+		return "CSSMERR_CSSM_EMM_UNLOAD_FAILED"
+	case CSSMERR_CSSM_EVENT_NOTIFICATION_CALLBACK_NOT_FOUND:
+		return "CSSMERR_CSSM_EVENT_NOTIFICATION_CALLBACK_NOT_FOUND"
+	case CSSMERR_CSSM_INVALID_ADDIN_FUNCTION_TABLE:
+		return "CSSMERR_CSSM_INVALID_ADDIN_FUNCTION_TABLE"
+	case CSSMERR_CSSM_INVALID_ATTRIBUTE:
+		return "CSSMERR_CSSM_INVALID_ATTRIBUTE"
+	case CSSMERR_CSSM_INVALID_KEY_HIERARCHY:
+		return "CSSMERR_CSSM_INVALID_KEY_HIERARCHY"
+	case CSSMERR_CSSM_INVALID_PVC:
+		return "CSSMERR_CSSM_INVALID_PVC"
+	case CSSMERR_CSSM_INVALID_SERVICE_MASK:
+		return "CSSMERR_CSSM_INVALID_SERVICE_MASK"
+	case CSSMERR_CSSM_INVALID_SUBSERVICEID:
+		return "CSSMERR_CSSM_INVALID_SUBSERVICEID"
+	case CSSMERR_CSSM_LIB_REF_NOT_FOUND:
+		return "CSSMERR_CSSM_LIB_REF_NOT_FOUND"
+	case CSSMERR_CSSM_MODULE_MANAGER_INITIALIZE_FAIL:
+		return "CSSMERR_CSSM_MODULE_MANAGER_INITIALIZE_FAIL"
+	case CSSMERR_CSSM_MODULE_MANAGER_NOT_FOUND:
+		return "CSSMERR_CSSM_MODULE_MANAGER_NOT_FOUND"
+	case CSSMERR_CSSM_MODULE_NOT_LOADED:
+		return "CSSMERR_CSSM_MODULE_NOT_LOADED"
+	case CSSMERR_CSSM_PVC_ALREADY_CONFIGURED:
+		return "CSSMERR_CSSM_PVC_ALREADY_CONFIGURED"
+	case CSSMERR_CSSM_SCOPE_NOT_SUPPORTED:
+		return "CSSMERR_CSSM_SCOPE_NOT_SUPPORTED"
+	case CSSM_CSSM_BASE_CSSM_ERROR:
+		return "CSSM_CSSM_BASE_CSSM_ERROR"
+	default:
+		return fmt.Sprintf("CssmCssmBaseCssmError(%d)", e)
+	}
+}
+
+type CssmCustomCommonErrorExtent uint32
+
+const (
+	CSSM_CUSTOM_COMMON_ERROR_EXTENT                 CssmCustomCommonErrorExtent = 0xe0
+	CSSM_ERRCODE_DEVICE_FAILED                      CssmCustomCommonErrorExtent = 0xe5
+	CSSM_ERRCODE_DEVICE_RESET                       CssmCustomCommonErrorExtent = 0xe4
+	CSSM_ERRCODE_INSUFFICIENT_CLIENT_IDENTIFICATION CssmCustomCommonErrorExtent = 0xe3
+	CSSM_ERRCODE_IN_DARK_WAKE                       CssmCustomCommonErrorExtent = 0xe6
+	CSSM_ERRCODE_NO_USER_INTERACTION                CssmCustomCommonErrorExtent = 0xe0
+	CSSM_ERRCODE_SERVICE_NOT_AVAILABLE              CssmCustomCommonErrorExtent = 0xe2
+	CSSM_ERRCODE_USER_CANCELED                      CssmCustomCommonErrorExtent = 0xe1
+)
+
+func (e CssmCustomCommonErrorExtent) String() string {
+	switch e {
+	case CSSM_CUSTOM_COMMON_ERROR_EXTENT:
+		return "CSSM_CUSTOM_COMMON_ERROR_EXTENT"
+	case CSSM_ERRCODE_DEVICE_FAILED:
+		return "CSSM_ERRCODE_DEVICE_FAILED"
+	case CSSM_ERRCODE_DEVICE_RESET:
+		return "CSSM_ERRCODE_DEVICE_RESET"
+	case CSSM_ERRCODE_INSUFFICIENT_CLIENT_IDENTIFICATION:
+		return "CSSM_ERRCODE_INSUFFICIENT_CLIENT_IDENTIFICATION"
+	case CSSM_ERRCODE_IN_DARK_WAKE:
+		return "CSSM_ERRCODE_IN_DARK_WAKE"
+	case CSSM_ERRCODE_SERVICE_NOT_AVAILABLE:
+		return "CSSM_ERRCODE_SERVICE_NOT_AVAILABLE"
+	case CSSM_ERRCODE_USER_CANCELED:
+		return "CSSM_ERRCODE_USER_CANCELED"
+	default:
+		return fmt.Sprintf("CssmCustomCommonErrorExtent(%d)", e)
+	}
+}
+
+type CssmD uint32
 
 const (
 	CSSM_DB_RECORDTYPE_APP_DEFINED_END   CssmD = 0xffffffff
 	CSSM_DB_RECORDTYPE_APP_DEFINED_START CssmD = 0x80000000
-	CSSM_DB_RECORDTYPE_OPEN_GROUP_END    CssmD = 10
+	CSSM_DB_RECORDTYPE_OPEN_GROUP_END    CssmD = 18
 	CSSM_DB_RECORDTYPE_OPEN_GROUP_START  CssmD = 0xa
-	CSSM_DB_RECORDTYPE_SCHEMA_END        CssmD = 0
+	CSSM_DB_RECORDTYPE_SCHEMA_END        CssmD = 4
 	CSSM_DB_RECORDTYPE_SCHEMA_START      CssmD = 0
-	CSSM_DL_DB_RECORD_ALL_KEYS           CssmD = 10
+	CSSM_DL_DB_RECORD_ALL_KEYS           CssmD = 18
 	CSSM_DL_DB_RECORD_ANY                CssmD = 10
-	CSSM_DL_DB_RECORD_CERT               CssmD = 10
-	CSSM_DL_DB_RECORD_CRL                CssmD = 10
-	CSSM_DL_DB_RECORD_GENERIC            CssmD = 10
-	CSSM_DL_DB_RECORD_POLICY             CssmD = 10
-	CSSM_DL_DB_RECORD_PRIVATE_KEY        CssmD = 10
-	CSSM_DL_DB_RECORD_PUBLIC_KEY         CssmD = 10
-	CSSM_DL_DB_RECORD_SYMMETRIC_KEY      CssmD = 10
-	CSSM_DL_DB_SCHEMA_ATTRIBUTES         CssmD = 0
-	CSSM_DL_DB_SCHEMA_INDEXES            CssmD = 0
+	CSSM_DL_DB_RECORD_CERT               CssmD = 11
+	CSSM_DL_DB_RECORD_CRL                CssmD = 12
+	CSSM_DL_DB_RECORD_GENERIC            CssmD = 14
+	CSSM_DL_DB_RECORD_POLICY             CssmD = 13
+	CSSM_DL_DB_RECORD_PRIVATE_KEY        CssmD = 16
+	CSSM_DL_DB_RECORD_PUBLIC_KEY         CssmD = 15
+	CSSM_DL_DB_RECORD_SYMMETRIC_KEY      CssmD = 17
+	CSSM_DL_DB_SCHEMA_ATTRIBUTES         CssmD = 2
+	CSSM_DL_DB_SCHEMA_INDEXES            CssmD = 1
 	CSSM_DL_DB_SCHEMA_INFO               CssmD = 0
-	CSSM_DL_DB_SCHEMA_PARSING_MODULE     CssmD = 0
+	CSSM_DL_DB_SCHEMA_PARSING_MODULE     CssmD = 3
 )
 
-type CssmDb uint
+func (e CssmD) String() string {
+	switch e {
+	case CSSM_DB_RECORDTYPE_APP_DEFINED_END:
+		return "CSSM_DB_RECORDTYPE_APP_DEFINED_END"
+	case CSSM_DB_RECORDTYPE_APP_DEFINED_START:
+		return "CSSM_DB_RECORDTYPE_APP_DEFINED_START"
+	case CSSM_DB_RECORDTYPE_OPEN_GROUP_END:
+		return "CSSM_DB_RECORDTYPE_OPEN_GROUP_END"
+	case CSSM_DB_RECORDTYPE_OPEN_GROUP_START:
+		return "CSSM_DB_RECORDTYPE_OPEN_GROUP_START"
+	case CSSM_DB_RECORDTYPE_SCHEMA_END:
+		return "CSSM_DB_RECORDTYPE_SCHEMA_END"
+	case CSSM_DB_RECORDTYPE_SCHEMA_START:
+		return "CSSM_DB_RECORDTYPE_SCHEMA_START"
+	case CSSM_DL_DB_RECORD_CERT:
+		return "CSSM_DL_DB_RECORD_CERT"
+	case CSSM_DL_DB_RECORD_CRL:
+		return "CSSM_DL_DB_RECORD_CRL"
+	case CSSM_DL_DB_RECORD_GENERIC:
+		return "CSSM_DL_DB_RECORD_GENERIC"
+	case CSSM_DL_DB_RECORD_POLICY:
+		return "CSSM_DL_DB_RECORD_POLICY"
+	case CSSM_DL_DB_RECORD_PRIVATE_KEY:
+		return "CSSM_DL_DB_RECORD_PRIVATE_KEY"
+	case CSSM_DL_DB_RECORD_PUBLIC_KEY:
+		return "CSSM_DL_DB_RECORD_PUBLIC_KEY"
+	case CSSM_DL_DB_RECORD_SYMMETRIC_KEY:
+		return "CSSM_DL_DB_RECORD_SYMMETRIC_KEY"
+	case CSSM_DL_DB_SCHEMA_ATTRIBUTES:
+		return "CSSM_DL_DB_SCHEMA_ATTRIBUTES"
+	case CSSM_DL_DB_SCHEMA_INDEXES:
+		return "CSSM_DL_DB_SCHEMA_INDEXES"
+	case CSSM_DL_DB_SCHEMA_PARSING_MODULE:
+		return "CSSM_DL_DB_SCHEMA_PARSING_MODULE"
+	default:
+		return fmt.Sprintf("CssmD(%d)", e)
+	}
+}
+
+type CssmDbAccessRead uint32
 
 const (
-	CSSM_DB_AND                        CssmDb = 1
-	CSSM_DB_CONTAINS                   CssmDb = 4
-	CSSM_DB_CONTAINS_FINAL_SUBSTRING   CssmDb = 6
-	CSSM_DB_CONTAINS_INITIAL_SUBSTRING CssmDb = 5
-	CSSM_DB_EQUAL                      CssmDb = 0
-	CSSM_DB_FILESYSTEMSCAN_MODE        CssmDb = 1
-	CSSM_DB_GREATER_THAN               CssmDb = 3
-	CSSM_DB_LESS_THAN                  CssmDb = 2
-	CSSM_DB_NONE                       CssmDb = 0
-	CSSM_DB_NOT_EQUAL                  CssmDb = 1
-	CSSM_DB_OR                         CssmDb = 2
-	CSSM_DB_TRANSACTIONAL_MODE         CssmDb = 0
+	CSSM_DB_ACCESS_PRIVILEGED CssmDbAccessRead = 0x4
+	CSSM_DB_ACCESS_READ       CssmDbAccessRead = 0x1
+	CSSM_DB_ACCESS_WRITE      CssmDbAccessRead = 0x2
 )
 
-type CssmDbAccess uint
-
-const (
-	CSSM_DB_ACCESS_PRIVILEGED CssmDbAccess = 0x4
-	CSSM_DB_ACCESS_READ       CssmDbAccess = 0x1
-	CSSM_DB_ACCESS_RESET      CssmDbAccess = 0x10000
-	CSSM_DB_ACCESS_WRITE      CssmDbAccess = 0x2
-)
-
-func (e CssmDbAccess) String() string {
+func (e CssmDbAccessRead) String() string {
 	switch e {
 	case CSSM_DB_ACCESS_PRIVILEGED:
 		return "CSSM_DB_ACCESS_PRIVILEGED"
 	case CSSM_DB_ACCESS_READ:
 		return "CSSM_DB_ACCESS_READ"
-	case CSSM_DB_ACCESS_RESET:
-		return "CSSM_DB_ACCESS_RESET"
 	case CSSM_DB_ACCESS_WRITE:
 		return "CSSM_DB_ACCESS_WRITE"
 	default:
-		return fmt.Sprintf("CssmDbAccess(%d)", e)
+		return fmt.Sprintf("CssmDbAccessRead(%d)", e)
 	}
 }
 
-type CssmDbAttributeFormat uint
+type CssmDbAccessReset uint32
+
+const (
+	CSSM_DB_ACCESS_RESET CssmDbAccessReset = 0x10000
+)
+
+func (e CssmDbAccessReset) String() string {
+	switch e {
+	case CSSM_DB_ACCESS_RESET:
+		return "CSSM_DB_ACCESS_RESET"
+	default:
+		return fmt.Sprintf("CssmDbAccessReset(%d)", e)
+	}
+}
+
+type CssmDbAttributeFormat uint32
 
 const (
 	CSSM_DB_ATTRIBUTE_FORMAT_BIG_NUM      CssmDbAttributeFormat = 3
@@ -1701,7 +2951,7 @@ func (e CssmDbAttributeFormat) String() string {
 	}
 }
 
-type CssmDbAttributeNameAs uint
+type CssmDbAttributeNameAs uint32
 
 const (
 	CSSM_DB_ATTRIBUTE_NAME_AS_INTEGER CssmDbAttributeNameAs = 2
@@ -1722,7 +2972,7 @@ func (e CssmDbAttributeNameAs) String() string {
 	}
 }
 
-type CssmDbCertUse uint
+type CssmDbCertUse uint32
 
 const (
 	CSSM_DB_CERT_USE_OWNER   CssmDbCertUse = 0x4
@@ -1752,7 +3002,7 @@ func (e CssmDbCertUse) String() string {
 	}
 }
 
-type CssmDbDatastores uint
+type CssmDbDatastores uint32
 
 const (
 	CSSM_DB_DATASTORES_UNKNOWN CssmDbDatastores = 0xffffffff
@@ -1767,7 +3017,40 @@ func (e CssmDbDatastores) String() string {
 	}
 }
 
-type CssmDbIndex uint
+type CssmDbEqual uint32
+
+const (
+	CSSM_DB_CONTAINS                   CssmDbEqual = 4
+	CSSM_DB_CONTAINS_FINAL_SUBSTRING   CssmDbEqual = 6
+	CSSM_DB_CONTAINS_INITIAL_SUBSTRING CssmDbEqual = 5
+	CSSM_DB_EQUAL                      CssmDbEqual = 0
+	CSSM_DB_GREATER_THAN               CssmDbEqual = 3
+	CSSM_DB_LESS_THAN                  CssmDbEqual = 2
+	CSSM_DB_NOT_EQUAL                  CssmDbEqual = 1
+)
+
+func (e CssmDbEqual) String() string {
+	switch e {
+	case CSSM_DB_CONTAINS:
+		return "CSSM_DB_CONTAINS"
+	case CSSM_DB_CONTAINS_FINAL_SUBSTRING:
+		return "CSSM_DB_CONTAINS_FINAL_SUBSTRING"
+	case CSSM_DB_CONTAINS_INITIAL_SUBSTRING:
+		return "CSSM_DB_CONTAINS_INITIAL_SUBSTRING"
+	case CSSM_DB_EQUAL:
+		return "CSSM_DB_EQUAL"
+	case CSSM_DB_GREATER_THAN:
+		return "CSSM_DB_GREATER_THAN"
+	case CSSM_DB_LESS_THAN:
+		return "CSSM_DB_LESS_THAN"
+	case CSSM_DB_NOT_EQUAL:
+		return "CSSM_DB_NOT_EQUAL"
+	default:
+		return fmt.Sprintf("CssmDbEqual(%d)", e)
+	}
+}
+
+type CssmDbIndex uint32
 
 const (
 	CSSM_DB_INDEX_NONUNIQUE CssmDbIndex = 1
@@ -1785,7 +3068,7 @@ func (e CssmDbIndex) String() string {
 	}
 }
 
-type CssmDbIndexOn uint
+type CssmDbIndexOn uint32
 
 const (
 	CSSM_DB_INDEX_ON_ATTRIBUTE CssmDbIndexOn = 1
@@ -1806,16 +3089,70 @@ func (e CssmDbIndexOn) String() string {
 	}
 }
 
-type CssmDbModifyAttribute uint
+type CssmDbModifyAttribute uint32
 
 const (
-	CSSM_DB_MODIFY_ATTRIBUTE_ADD     CssmDbModifyAttribute = 0
-	CSSM_DB_MODIFY_ATTRIBUTE_DELETE  CssmDbModifyAttribute = 0
+	CSSM_DB_MODIFY_ATTRIBUTE_ADD     CssmDbModifyAttribute = 1
+	CSSM_DB_MODIFY_ATTRIBUTE_DELETE  CssmDbModifyAttribute = 2
 	CSSM_DB_MODIFY_ATTRIBUTE_NONE    CssmDbModifyAttribute = 0
-	CSSM_DB_MODIFY_ATTRIBUTE_REPLACE CssmDbModifyAttribute = 0
+	CSSM_DB_MODIFY_ATTRIBUTE_REPLACE CssmDbModifyAttribute = 3
 )
 
-type CssmDl uint
+func (e CssmDbModifyAttribute) String() string {
+	switch e {
+	case CSSM_DB_MODIFY_ATTRIBUTE_ADD:
+		return "CSSM_DB_MODIFY_ATTRIBUTE_ADD"
+	case CSSM_DB_MODIFY_ATTRIBUTE_DELETE:
+		return "CSSM_DB_MODIFY_ATTRIBUTE_DELETE"
+	case CSSM_DB_MODIFY_ATTRIBUTE_NONE:
+		return "CSSM_DB_MODIFY_ATTRIBUTE_NONE"
+	case CSSM_DB_MODIFY_ATTRIBUTE_REPLACE:
+		return "CSSM_DB_MODIFY_ATTRIBUTE_REPLACE"
+	default:
+		return fmt.Sprintf("CssmDbModifyAttribute(%d)", e)
+	}
+}
+
+type CssmDbNone uint32
+
+const (
+	CSSM_DB_AND  CssmDbNone = 1
+	CSSM_DB_NONE CssmDbNone = 0
+	CSSM_DB_OR   CssmDbNone = 2
+)
+
+func (e CssmDbNone) String() string {
+	switch e {
+	case CSSM_DB_AND:
+		return "CSSM_DB_AND"
+	case CSSM_DB_NONE:
+		return "CSSM_DB_NONE"
+	case CSSM_DB_OR:
+		return "CSSM_DB_OR"
+	default:
+		return fmt.Sprintf("CssmDbNone(%d)", e)
+	}
+}
+
+type CssmDbTransactionalMode uint32
+
+const (
+	CSSM_DB_FILESYSTEMSCAN_MODE CssmDbTransactionalMode = 1
+	CSSM_DB_TRANSACTIONAL_MODE  CssmDbTransactionalMode = 0
+)
+
+func (e CssmDbTransactionalMode) String() string {
+	switch e {
+	case CSSM_DB_FILESYSTEMSCAN_MODE:
+		return "CSSM_DB_FILESYSTEMSCAN_MODE"
+	case CSSM_DB_TRANSACTIONAL_MODE:
+		return "CSSM_DB_TRANSACTIONAL_MODE"
+	default:
+		return fmt.Sprintf("CssmDbTransactionalMode(%d)", e)
+	}
+}
+
+type CssmDl uint32
 
 const (
 	CSSM_DL_CUSTOM    CssmDl = 1
@@ -1851,21 +3188,184 @@ func (e CssmDl) String() string {
 	}
 }
 
-type CssmDlDbRecord uint
+type CssmDlBaseDlError int32
 
 const (
-	CSSM_DL_DB_RECORD_APPLESHARE_PASSWORD CssmDlDbRecord = 2147483648
-	CSSM_DL_DB_RECORD_EXTENDED_ATTRIBUTE  CssmDlDbRecord = 2147483652
-	CSSM_DL_DB_RECORD_GENERIC_PASSWORD    CssmDlDbRecord = 2147483648
-	CSSM_DL_DB_RECORD_INTERNET_PASSWORD   CssmDlDbRecord = 2147483648
-	CSSM_DL_DB_RECORD_METADATA            CssmDlDbRecord = 2147483648
-	CSSM_DL_DB_RECORD_UNLOCK_REFERRAL     CssmDlDbRecord = 2147483651
-	CSSM_DL_DB_RECORD_USER_TRUST          CssmDlDbRecord = 2147483649
-	CSSM_DL_DB_RECORD_X509_CERTIFICATE    CssmDlDbRecord = 2147483648
-	CSSM_DL_DB_RECORD_X509_CRL            CssmDlDbRecord = 2147483650
+	CSSMERR_DL_DATABASE_CORRUPT                CssmDlBaseDlError = -2147413759
+	CSSMERR_DL_DATASTORE_ALREADY_EXISTS        CssmDlBaseDlError = -2147413736
+	CSSMERR_DL_DATASTORE_DOESNOT_EXIST         CssmDlBaseDlError = -2147413737
+	CSSMERR_DL_DATASTORE_IS_OPEN               CssmDlBaseDlError = -2147413734
+	CSSMERR_DL_DB_LOCKED                       CssmDlBaseDlError = -2147413735
+	CSSMERR_DL_ENDOFDATA                       CssmDlBaseDlError = -2147413715
+	CSSMERR_DL_FIELD_SPECIFIED_MULTIPLE        CssmDlBaseDlError = -2147413742
+	CSSMERR_DL_INCOMPATIBLE_FIELD_FORMAT       CssmDlBaseDlError = -2147413741
+	CSSMERR_DL_INVALID_ACCESS_REQUEST          CssmDlBaseDlError = -2147413724
+	CSSMERR_DL_INVALID_DB_LOCATION             CssmDlBaseDlError = -2147413725
+	CSSMERR_DL_INVALID_DB_NAME                 CssmDlBaseDlError = -2147413738
+	CSSMERR_DL_INVALID_FIELD_NAME              CssmDlBaseDlError = -2147413750
+	CSSMERR_DL_INVALID_INDEX_INFO              CssmDlBaseDlError = -2147413723
+	CSSMERR_DL_INVALID_MODIFY_MODE             CssmDlBaseDlError = -2147413718
+	CSSMERR_DL_INVALID_NEW_OWNER               CssmDlBaseDlError = -2147413721
+	CSSMERR_DL_INVALID_OPEN_PARAMETERS         CssmDlBaseDlError = -2147413717
+	CSSMERR_DL_INVALID_PARSING_MODULE          CssmDlBaseDlError = -2147413740
+	CSSMERR_DL_INVALID_QUERY                   CssmDlBaseDlError = -2147413714
+	CSSMERR_DL_INVALID_RECORDTYPE              CssmDlBaseDlError = -2147413751
+	CSSMERR_DL_INVALID_RECORD_INDEX            CssmDlBaseDlError = -2147413752
+	CSSMERR_DL_INVALID_RECORD_UID              CssmDlBaseDlError = -2147413720
+	CSSMERR_DL_INVALID_RESULTS_HANDLE          CssmDlBaseDlError = -2147413726
+	CSSMERR_DL_INVALID_SELECTION_TAG           CssmDlBaseDlError = -2147413722
+	CSSMERR_DL_INVALID_UNIQUE_INDEX_DATA       CssmDlBaseDlError = -2147413719
+	CSSMERR_DL_INVALID_VALUE                   CssmDlBaseDlError = -2147413713
+	CSSMERR_DL_MISSING_VALUE                   CssmDlBaseDlError = -2147413732
+	CSSMERR_DL_MULTIPLE_VALUES_UNSUPPORTED     CssmDlBaseDlError = -2147413712
+	CSSMERR_DL_RECORD_MODIFIED                 CssmDlBaseDlError = -2147413716
+	CSSMERR_DL_RECORD_NOT_FOUND                CssmDlBaseDlError = -2147413733
+	CSSMERR_DL_STALE_UNIQUE_RECORD             CssmDlBaseDlError = -2147413711
+	CSSMERR_DL_UNSUPPORTED_FIELD_FORMAT        CssmDlBaseDlError = -2147413749
+	CSSMERR_DL_UNSUPPORTED_INDEX_INFO          CssmDlBaseDlError = -2147413748
+	CSSMERR_DL_UNSUPPORTED_LOCALITY            CssmDlBaseDlError = -2147413747
+	CSSMERR_DL_UNSUPPORTED_NUM_ATTRIBUTES      CssmDlBaseDlError = -2147413746
+	CSSMERR_DL_UNSUPPORTED_NUM_INDEXES         CssmDlBaseDlError = -2147413745
+	CSSMERR_DL_UNSUPPORTED_NUM_RECORDTYPES     CssmDlBaseDlError = -2147413744
+	CSSMERR_DL_UNSUPPORTED_NUM_SELECTION_PREDS CssmDlBaseDlError = -2147413729
+	CSSMERR_DL_UNSUPPORTED_OPERATOR            CssmDlBaseDlError = -2147413727
+	CSSMERR_DL_UNSUPPORTED_QUERY               CssmDlBaseDlError = -2147413731
+	CSSMERR_DL_UNSUPPORTED_QUERY_LIMITS        CssmDlBaseDlError = -2147413730
+	CSSMERR_DL_UNSUPPORTED_RECORDTYPE          CssmDlBaseDlError = -2147413743
+	CSSM_DL_BASE_DL_ERROR                      CssmDlBaseDlError = -2147413760
 )
 
-type CssmElapsedTime int
+func (e CssmDlBaseDlError) String() string {
+	switch e {
+	case CSSMERR_DL_DATABASE_CORRUPT:
+		return "CSSMERR_DL_DATABASE_CORRUPT"
+	case CSSMERR_DL_DATASTORE_ALREADY_EXISTS:
+		return "CSSMERR_DL_DATASTORE_ALREADY_EXISTS"
+	case CSSMERR_DL_DATASTORE_DOESNOT_EXIST:
+		return "CSSMERR_DL_DATASTORE_DOESNOT_EXIST"
+	case CSSMERR_DL_DATASTORE_IS_OPEN:
+		return "CSSMERR_DL_DATASTORE_IS_OPEN"
+	case CSSMERR_DL_DB_LOCKED:
+		return "CSSMERR_DL_DB_LOCKED"
+	case CSSMERR_DL_ENDOFDATA:
+		return "CSSMERR_DL_ENDOFDATA"
+	case CSSMERR_DL_FIELD_SPECIFIED_MULTIPLE:
+		return "CSSMERR_DL_FIELD_SPECIFIED_MULTIPLE"
+	case CSSMERR_DL_INCOMPATIBLE_FIELD_FORMAT:
+		return "CSSMERR_DL_INCOMPATIBLE_FIELD_FORMAT"
+	case CSSMERR_DL_INVALID_ACCESS_REQUEST:
+		return "CSSMERR_DL_INVALID_ACCESS_REQUEST"
+	case CSSMERR_DL_INVALID_DB_LOCATION:
+		return "CSSMERR_DL_INVALID_DB_LOCATION"
+	case CSSMERR_DL_INVALID_DB_NAME:
+		return "CSSMERR_DL_INVALID_DB_NAME"
+	case CSSMERR_DL_INVALID_FIELD_NAME:
+		return "CSSMERR_DL_INVALID_FIELD_NAME"
+	case CSSMERR_DL_INVALID_INDEX_INFO:
+		return "CSSMERR_DL_INVALID_INDEX_INFO"
+	case CSSMERR_DL_INVALID_MODIFY_MODE:
+		return "CSSMERR_DL_INVALID_MODIFY_MODE"
+	case CSSMERR_DL_INVALID_NEW_OWNER:
+		return "CSSMERR_DL_INVALID_NEW_OWNER"
+	case CSSMERR_DL_INVALID_OPEN_PARAMETERS:
+		return "CSSMERR_DL_INVALID_OPEN_PARAMETERS"
+	case CSSMERR_DL_INVALID_PARSING_MODULE:
+		return "CSSMERR_DL_INVALID_PARSING_MODULE"
+	case CSSMERR_DL_INVALID_QUERY:
+		return "CSSMERR_DL_INVALID_QUERY"
+	case CSSMERR_DL_INVALID_RECORDTYPE:
+		return "CSSMERR_DL_INVALID_RECORDTYPE"
+	case CSSMERR_DL_INVALID_RECORD_INDEX:
+		return "CSSMERR_DL_INVALID_RECORD_INDEX"
+	case CSSMERR_DL_INVALID_RECORD_UID:
+		return "CSSMERR_DL_INVALID_RECORD_UID"
+	case CSSMERR_DL_INVALID_RESULTS_HANDLE:
+		return "CSSMERR_DL_INVALID_RESULTS_HANDLE"
+	case CSSMERR_DL_INVALID_SELECTION_TAG:
+		return "CSSMERR_DL_INVALID_SELECTION_TAG"
+	case CSSMERR_DL_INVALID_UNIQUE_INDEX_DATA:
+		return "CSSMERR_DL_INVALID_UNIQUE_INDEX_DATA"
+	case CSSMERR_DL_INVALID_VALUE:
+		return "CSSMERR_DL_INVALID_VALUE"
+	case CSSMERR_DL_MISSING_VALUE:
+		return "CSSMERR_DL_MISSING_VALUE"
+	case CSSMERR_DL_MULTIPLE_VALUES_UNSUPPORTED:
+		return "CSSMERR_DL_MULTIPLE_VALUES_UNSUPPORTED"
+	case CSSMERR_DL_RECORD_MODIFIED:
+		return "CSSMERR_DL_RECORD_MODIFIED"
+	case CSSMERR_DL_RECORD_NOT_FOUND:
+		return "CSSMERR_DL_RECORD_NOT_FOUND"
+	case CSSMERR_DL_STALE_UNIQUE_RECORD:
+		return "CSSMERR_DL_STALE_UNIQUE_RECORD"
+	case CSSMERR_DL_UNSUPPORTED_FIELD_FORMAT:
+		return "CSSMERR_DL_UNSUPPORTED_FIELD_FORMAT"
+	case CSSMERR_DL_UNSUPPORTED_INDEX_INFO:
+		return "CSSMERR_DL_UNSUPPORTED_INDEX_INFO"
+	case CSSMERR_DL_UNSUPPORTED_LOCALITY:
+		return "CSSMERR_DL_UNSUPPORTED_LOCALITY"
+	case CSSMERR_DL_UNSUPPORTED_NUM_ATTRIBUTES:
+		return "CSSMERR_DL_UNSUPPORTED_NUM_ATTRIBUTES"
+	case CSSMERR_DL_UNSUPPORTED_NUM_INDEXES:
+		return "CSSMERR_DL_UNSUPPORTED_NUM_INDEXES"
+	case CSSMERR_DL_UNSUPPORTED_NUM_RECORDTYPES:
+		return "CSSMERR_DL_UNSUPPORTED_NUM_RECORDTYPES"
+	case CSSMERR_DL_UNSUPPORTED_NUM_SELECTION_PREDS:
+		return "CSSMERR_DL_UNSUPPORTED_NUM_SELECTION_PREDS"
+	case CSSMERR_DL_UNSUPPORTED_OPERATOR:
+		return "CSSMERR_DL_UNSUPPORTED_OPERATOR"
+	case CSSMERR_DL_UNSUPPORTED_QUERY:
+		return "CSSMERR_DL_UNSUPPORTED_QUERY"
+	case CSSMERR_DL_UNSUPPORTED_QUERY_LIMITS:
+		return "CSSMERR_DL_UNSUPPORTED_QUERY_LIMITS"
+	case CSSMERR_DL_UNSUPPORTED_RECORDTYPE:
+		return "CSSMERR_DL_UNSUPPORTED_RECORDTYPE"
+	case CSSM_DL_BASE_DL_ERROR:
+		return "CSSM_DL_BASE_DL_ERROR"
+	default:
+		return fmt.Sprintf("CssmDlBaseDlError(%d)", e)
+	}
+}
+
+type CssmDlDbRecord uint32
+
+const (
+	CSSM_DL_DB_RECORD_APPLESHARE_PASSWORD CssmDlDbRecord = 2147483650
+	CSSM_DL_DB_RECORD_EXTENDED_ATTRIBUTE  CssmDlDbRecord = 2147487748
+	CSSM_DL_DB_RECORD_GENERIC_PASSWORD    CssmDlDbRecord = 2147483648
+	CSSM_DL_DB_RECORD_INTERNET_PASSWORD   CssmDlDbRecord = 2147483649
+	CSSM_DL_DB_RECORD_METADATA            CssmDlDbRecord = 2147516416
+	CSSM_DL_DB_RECORD_UNLOCK_REFERRAL     CssmDlDbRecord = 2147487747
+	CSSM_DL_DB_RECORD_USER_TRUST          CssmDlDbRecord = 2147487745
+	CSSM_DL_DB_RECORD_X509_CERTIFICATE    CssmDlDbRecord = 2147487744
+	CSSM_DL_DB_RECORD_X509_CRL            CssmDlDbRecord = 2147487746
+)
+
+func (e CssmDlDbRecord) String() string {
+	switch e {
+	case CSSM_DL_DB_RECORD_APPLESHARE_PASSWORD:
+		return "CSSM_DL_DB_RECORD_APPLESHARE_PASSWORD"
+	case CSSM_DL_DB_RECORD_EXTENDED_ATTRIBUTE:
+		return "CSSM_DL_DB_RECORD_EXTENDED_ATTRIBUTE"
+	case CSSM_DL_DB_RECORD_GENERIC_PASSWORD:
+		return "CSSM_DL_DB_RECORD_GENERIC_PASSWORD"
+	case CSSM_DL_DB_RECORD_INTERNET_PASSWORD:
+		return "CSSM_DL_DB_RECORD_INTERNET_PASSWORD"
+	case CSSM_DL_DB_RECORD_METADATA:
+		return "CSSM_DL_DB_RECORD_METADATA"
+	case CSSM_DL_DB_RECORD_UNLOCK_REFERRAL:
+		return "CSSM_DL_DB_RECORD_UNLOCK_REFERRAL"
+	case CSSM_DL_DB_RECORD_USER_TRUST:
+		return "CSSM_DL_DB_RECORD_USER_TRUST"
+	case CSSM_DL_DB_RECORD_X509_CERTIFICATE:
+		return "CSSM_DL_DB_RECORD_X509_CERTIFICATE"
+	case CSSM_DL_DB_RECORD_X509_CRL:
+		return "CSSM_DL_DB_RECORD_X509_CRL"
+	default:
+		return fmt.Sprintf("CssmDlDbRecord(%d)", e)
+	}
+}
+
+type CssmElapsedTime int32
 
 const (
 	CSSM_ELAPSED_TIME_COMPLETE CssmElapsedTime = -2
@@ -1883,111 +3383,90 @@ func (e CssmElapsedTime) String() string {
 	}
 }
 
-type CssmErrcode int
+type CssmErrcodeInternalError uint32
 
 const (
-	CSSM_ERRCODE_ACL_ADD_FAILED                 CssmErrcode = 0x36
-	CSSM_ERRCODE_ACL_BASE_CERTS_NOT_SUPPORTED   CssmErrcode = 0x27
-	CSSM_ERRCODE_ACL_CHALLENGE_CALLBACK_FAILED  CssmErrcode = 0x2d
-	CSSM_ERRCODE_ACL_CHANGE_FAILED              CssmErrcode = 0x31
-	CSSM_ERRCODE_ACL_DELETE_FAILED              CssmErrcode = 0x34
-	CSSM_ERRCODE_ACL_ENTRY_TAG_NOT_FOUND        CssmErrcode = 0x2f
-	CSSM_ERRCODE_ACL_REPLACE_FAILED             CssmErrcode = 0x35
-	CSSM_ERRCODE_ACL_SUBJECT_TYPE_NOT_SUPPORTED CssmErrcode = 0x2b
-	CSSM_ERRCODE_CRL_ALREADY_SIGNED             CssmErrcode = 0x47
-	CSSM_ERRCODE_FUNCTION_FAILED                CssmErrcode = 0xa
-	CSSM_ERRCODE_FUNCTION_NOT_IMPLEMENTED       CssmErrcode = 0x7
-	CSSM_ERRCODE_INCOMPATIBLE_VERSION           CssmErrcode = 0x41
-	CSSM_ERRCODE_INTERNAL_ERROR                 CssmErrcode = 0x1
-	CSSM_ERRCODE_INVALID_ACCESS_CREDENTIALS     CssmErrcode = 0x25
-	CSSM_ERRCODE_INVALID_ACL_BASE_CERTS         CssmErrcode = 0x26
-	CSSM_ERRCODE_INVALID_ACL_CHALLENGE_CALLBACK CssmErrcode = 0x2c
-	CSSM_ERRCODE_INVALID_ACL_EDIT_MODE          CssmErrcode = 0x30
-	CSSM_ERRCODE_INVALID_ACL_ENTRY_TAG          CssmErrcode = 0x2e
-	CSSM_ERRCODE_INVALID_ACL_SUBJECT_VALUE      CssmErrcode = 0x2a
-	CSSM_ERRCODE_INVALID_AC_HANDLE              CssmErrcode = 0x55
-	CSSM_ERRCODE_INVALID_CERTGROUP_POINTER      CssmErrcode = 0x42
-	CSSM_ERRCODE_INVALID_CERT_POINTER           CssmErrcode = 0x43
-	CSSM_ERRCODE_INVALID_CL_HANDLE              CssmErrcode = 0x52
-	CSSM_ERRCODE_INVALID_CONTEXT_HANDLE         CssmErrcode = 0x40
-	CSSM_ERRCODE_INVALID_CRL_POINTER            CssmErrcode = 0x44
-	CSSM_ERRCODE_INVALID_CRYPTO_DATA            CssmErrcode = 0x58
-	CSSM_ERRCODE_INVALID_CSP_HANDLE             CssmErrcode = 0x50
-	CSSM_ERRCODE_INVALID_DATA                   CssmErrcode = 0x46
-	CSSM_ERRCODE_INVALID_DB_HANDLE              CssmErrcode = 0x4a
-	CSSM_ERRCODE_INVALID_DB_LIST                CssmErrcode = 0x4c
-	CSSM_ERRCODE_INVALID_DB_LIST_POINTER        CssmErrcode = 0x4d
-	CSSM_ERRCODE_INVALID_DL_HANDLE              CssmErrcode = 0x51
-	CSSM_ERRCODE_INVALID_FIELD_POINTER          CssmErrcode = 0x45
-	CSSM_ERRCODE_INVALID_GUID                   CssmErrcode = 0xc
-	CSSM_ERRCODE_INVALID_INPUT_POINTER          CssmErrcode = 0x5
-	CSSM_ERRCODE_INVALID_KR_HANDLE              CssmErrcode = 0x54
-	CSSM_ERRCODE_INVALID_NETWORK_ADDR           CssmErrcode = 0x57
-	CSSM_ERRCODE_INVALID_NEW_ACL_ENTRY          CssmErrcode = 0x32
-	CSSM_ERRCODE_INVALID_NEW_ACL_OWNER          CssmErrcode = 0x33
-	CSSM_ERRCODE_INVALID_NUMBER_OF_FIELDS       CssmErrcode = 0x48
-	CSSM_ERRCODE_INVALID_OUTPUT_POINTER         CssmErrcode = 0x6
-	CSSM_ERRCODE_INVALID_PASSTHROUGH_ID         CssmErrcode = 0x56
-	CSSM_ERRCODE_INVALID_POINTER                CssmErrcode = 0x4
-	CSSM_ERRCODE_INVALID_SAMPLE_VALUE           CssmErrcode = 0x28
-	CSSM_ERRCODE_INVALID_TP_HANDLE              CssmErrcode = 0x53
-	CSSM_ERRCODE_MDS_ERROR                      CssmErrcode = 0x3
-	CSSM_ERRCODE_MEMORY_ERROR                   CssmErrcode = 0x2
-	CSSM_ERRCODE_MODULE_MANIFEST_VERIFY_FAILED  CssmErrcode = 0xb
-	CSSM_ERRCODE_OBJECT_ACL_NOT_SUPPORTED       CssmErrcode = 0x23
-	CSSM_ERRCODE_OBJECT_ACL_REQUIRED            CssmErrcode = 0x24
-	CSSM_ERRCODE_OBJECT_MANIP_AUTH_DENIED       CssmErrcode = 0x22
-	CSSM_ERRCODE_OBJECT_USE_AUTH_DENIED         CssmErrcode = 0x21
-	CSSM_ERRCODE_OPERATION_AUTH_DENIED          CssmErrcode = 0x20
-	CSSM_ERRCODE_OS_ACCESS_DENIED               CssmErrcode = 0x9
-	CSSM_ERRCODE_PRIVILEGE_NOT_GRANTED          CssmErrcode = 0x4b
-	CSSM_ERRCODE_SAMPLE_VALUE_NOT_SUPPORTED     CssmErrcode = 0x29
-	CSSM_ERRCODE_SELF_CHECK_FAILED              CssmErrcode = 0x8
-	CSSM_ERRCODE_UNKNOWN_FORMAT                 CssmErrcode = 0x4e
-	CSSM_ERRCODE_UNKNOWN_TAG                    CssmErrcode = 0x4f
-	CSSM_ERRCODE_VERIFICATION_FAILURE           CssmErrcode = 0x49
+	CSSM_ERRCODE_FUNCTION_FAILED               CssmErrcodeInternalError = 0xa
+	CSSM_ERRCODE_FUNCTION_NOT_IMPLEMENTED      CssmErrcodeInternalError = 0x7
+	CSSM_ERRCODE_INTERNAL_ERROR                CssmErrcodeInternalError = 0x1
+	CSSM_ERRCODE_INVALID_GUID                  CssmErrcodeInternalError = 0xc
+	CSSM_ERRCODE_INVALID_INPUT_POINTER         CssmErrcodeInternalError = 0x5
+	CSSM_ERRCODE_INVALID_OUTPUT_POINTER        CssmErrcodeInternalError = 0x6
+	CSSM_ERRCODE_INVALID_POINTER               CssmErrcodeInternalError = 0x4
+	CSSM_ERRCODE_MDS_ERROR                     CssmErrcodeInternalError = 0x3
+	CSSM_ERRCODE_MEMORY_ERROR                  CssmErrcodeInternalError = 0x2
+	CSSM_ERRCODE_MODULE_MANIFEST_VERIFY_FAILED CssmErrcodeInternalError = 0xb
+	CSSM_ERRCODE_OS_ACCESS_DENIED              CssmErrcodeInternalError = 0x9
+	CSSM_ERRCODE_SELF_CHECK_FAILED             CssmErrcodeInternalError = 0x8
 )
 
-func (e CssmErrcode) String() string {
+func (e CssmErrcodeInternalError) String() string {
 	switch e {
-	case CSSM_ERRCODE_ACL_ADD_FAILED:
-		return "CSSM_ERRCODE_ACL_ADD_FAILED"
-	case CSSM_ERRCODE_ACL_BASE_CERTS_NOT_SUPPORTED:
-		return "CSSM_ERRCODE_ACL_BASE_CERTS_NOT_SUPPORTED"
-	case CSSM_ERRCODE_ACL_CHALLENGE_CALLBACK_FAILED:
-		return "CSSM_ERRCODE_ACL_CHALLENGE_CALLBACK_FAILED"
-	case CSSM_ERRCODE_ACL_CHANGE_FAILED:
-		return "CSSM_ERRCODE_ACL_CHANGE_FAILED"
-	case CSSM_ERRCODE_ACL_DELETE_FAILED:
-		return "CSSM_ERRCODE_ACL_DELETE_FAILED"
-	case CSSM_ERRCODE_ACL_ENTRY_TAG_NOT_FOUND:
-		return "CSSM_ERRCODE_ACL_ENTRY_TAG_NOT_FOUND"
-	case CSSM_ERRCODE_ACL_REPLACE_FAILED:
-		return "CSSM_ERRCODE_ACL_REPLACE_FAILED"
-	case CSSM_ERRCODE_ACL_SUBJECT_TYPE_NOT_SUPPORTED:
-		return "CSSM_ERRCODE_ACL_SUBJECT_TYPE_NOT_SUPPORTED"
-	case CSSM_ERRCODE_CRL_ALREADY_SIGNED:
-		return "CSSM_ERRCODE_CRL_ALREADY_SIGNED"
 	case CSSM_ERRCODE_FUNCTION_FAILED:
 		return "CSSM_ERRCODE_FUNCTION_FAILED"
 	case CSSM_ERRCODE_FUNCTION_NOT_IMPLEMENTED:
 		return "CSSM_ERRCODE_FUNCTION_NOT_IMPLEMENTED"
-	case CSSM_ERRCODE_INCOMPATIBLE_VERSION:
-		return "CSSM_ERRCODE_INCOMPATIBLE_VERSION"
 	case CSSM_ERRCODE_INTERNAL_ERROR:
 		return "CSSM_ERRCODE_INTERNAL_ERROR"
-	case CSSM_ERRCODE_INVALID_ACCESS_CREDENTIALS:
-		return "CSSM_ERRCODE_INVALID_ACCESS_CREDENTIALS"
-	case CSSM_ERRCODE_INVALID_ACL_BASE_CERTS:
-		return "CSSM_ERRCODE_INVALID_ACL_BASE_CERTS"
-	case CSSM_ERRCODE_INVALID_ACL_CHALLENGE_CALLBACK:
-		return "CSSM_ERRCODE_INVALID_ACL_CHALLENGE_CALLBACK"
-	case CSSM_ERRCODE_INVALID_ACL_EDIT_MODE:
-		return "CSSM_ERRCODE_INVALID_ACL_EDIT_MODE"
-	case CSSM_ERRCODE_INVALID_ACL_ENTRY_TAG:
-		return "CSSM_ERRCODE_INVALID_ACL_ENTRY_TAG"
-	case CSSM_ERRCODE_INVALID_ACL_SUBJECT_VALUE:
-		return "CSSM_ERRCODE_INVALID_ACL_SUBJECT_VALUE"
+	case CSSM_ERRCODE_INVALID_GUID:
+		return "CSSM_ERRCODE_INVALID_GUID"
+	case CSSM_ERRCODE_INVALID_INPUT_POINTER:
+		return "CSSM_ERRCODE_INVALID_INPUT_POINTER"
+	case CSSM_ERRCODE_INVALID_OUTPUT_POINTER:
+		return "CSSM_ERRCODE_INVALID_OUTPUT_POINTER"
+	case CSSM_ERRCODE_INVALID_POINTER:
+		return "CSSM_ERRCODE_INVALID_POINTER"
+	case CSSM_ERRCODE_MDS_ERROR:
+		return "CSSM_ERRCODE_MDS_ERROR"
+	case CSSM_ERRCODE_MEMORY_ERROR:
+		return "CSSM_ERRCODE_MEMORY_ERROR"
+	case CSSM_ERRCODE_MODULE_MANIFEST_VERIFY_FAILED:
+		return "CSSM_ERRCODE_MODULE_MANIFEST_VERIFY_FAILED"
+	case CSSM_ERRCODE_OS_ACCESS_DENIED:
+		return "CSSM_ERRCODE_OS_ACCESS_DENIED"
+	case CSSM_ERRCODE_SELF_CHECK_FAILED:
+		return "CSSM_ERRCODE_SELF_CHECK_FAILED"
+	default:
+		return fmt.Sprintf("CssmErrcodeInternalError(%d)", e)
+	}
+}
+
+type CssmErrcodeInvalidContextHandle uint32
+
+const (
+	CSSM_ERRCODE_CRL_ALREADY_SIGNED        CssmErrcodeInvalidContextHandle = 0x47
+	CSSM_ERRCODE_INCOMPATIBLE_VERSION      CssmErrcodeInvalidContextHandle = 0x41
+	CSSM_ERRCODE_INVALID_AC_HANDLE         CssmErrcodeInvalidContextHandle = 0x55
+	CSSM_ERRCODE_INVALID_CERTGROUP_POINTER CssmErrcodeInvalidContextHandle = 0x42
+	CSSM_ERRCODE_INVALID_CERT_POINTER      CssmErrcodeInvalidContextHandle = 0x43
+	CSSM_ERRCODE_INVALID_CL_HANDLE         CssmErrcodeInvalidContextHandle = 0x52
+	CSSM_ERRCODE_INVALID_CONTEXT_HANDLE    CssmErrcodeInvalidContextHandle = 0x40
+	CSSM_ERRCODE_INVALID_CRL_POINTER       CssmErrcodeInvalidContextHandle = 0x44
+	CSSM_ERRCODE_INVALID_CRYPTO_DATA       CssmErrcodeInvalidContextHandle = 0x58
+	CSSM_ERRCODE_INVALID_CSP_HANDLE        CssmErrcodeInvalidContextHandle = 0x50
+	CSSM_ERRCODE_INVALID_DATA              CssmErrcodeInvalidContextHandle = 0x46
+	CSSM_ERRCODE_INVALID_DB_HANDLE         CssmErrcodeInvalidContextHandle = 0x4a
+	CSSM_ERRCODE_INVALID_DB_LIST           CssmErrcodeInvalidContextHandle = 0x4c
+	CSSM_ERRCODE_INVALID_DB_LIST_POINTER   CssmErrcodeInvalidContextHandle = 0x4d
+	CSSM_ERRCODE_INVALID_DL_HANDLE         CssmErrcodeInvalidContextHandle = 0x51
+	CSSM_ERRCODE_INVALID_FIELD_POINTER     CssmErrcodeInvalidContextHandle = 0x45
+	CSSM_ERRCODE_INVALID_KR_HANDLE         CssmErrcodeInvalidContextHandle = 0x54
+	CSSM_ERRCODE_INVALID_NETWORK_ADDR      CssmErrcodeInvalidContextHandle = 0x57
+	CSSM_ERRCODE_INVALID_NUMBER_OF_FIELDS  CssmErrcodeInvalidContextHandle = 0x48
+	CSSM_ERRCODE_INVALID_PASSTHROUGH_ID    CssmErrcodeInvalidContextHandle = 0x56
+	CSSM_ERRCODE_INVALID_TP_HANDLE         CssmErrcodeInvalidContextHandle = 0x53
+	CSSM_ERRCODE_PRIVILEGE_NOT_GRANTED     CssmErrcodeInvalidContextHandle = 0x4b
+	CSSM_ERRCODE_UNKNOWN_FORMAT            CssmErrcodeInvalidContextHandle = 0x4e
+	CSSM_ERRCODE_UNKNOWN_TAG               CssmErrcodeInvalidContextHandle = 0x4f
+	CSSM_ERRCODE_VERIFICATION_FAILURE      CssmErrcodeInvalidContextHandle = 0x49
+)
+
+func (e CssmErrcodeInvalidContextHandle) String() string {
+	switch e {
+	case CSSM_ERRCODE_CRL_ALREADY_SIGNED:
+		return "CSSM_ERRCODE_CRL_ALREADY_SIGNED"
+	case CSSM_ERRCODE_INCOMPATIBLE_VERSION:
+		return "CSSM_ERRCODE_INCOMPATIBLE_VERSION"
 	case CSSM_ERRCODE_INVALID_AC_HANDLE:
 		return "CSSM_ERRCODE_INVALID_AC_HANDLE"
 	case CSSM_ERRCODE_INVALID_CERTGROUP_POINTER:
@@ -2016,36 +3495,93 @@ func (e CssmErrcode) String() string {
 		return "CSSM_ERRCODE_INVALID_DL_HANDLE"
 	case CSSM_ERRCODE_INVALID_FIELD_POINTER:
 		return "CSSM_ERRCODE_INVALID_FIELD_POINTER"
-	case CSSM_ERRCODE_INVALID_GUID:
-		return "CSSM_ERRCODE_INVALID_GUID"
-	case CSSM_ERRCODE_INVALID_INPUT_POINTER:
-		return "CSSM_ERRCODE_INVALID_INPUT_POINTER"
 	case CSSM_ERRCODE_INVALID_KR_HANDLE:
 		return "CSSM_ERRCODE_INVALID_KR_HANDLE"
 	case CSSM_ERRCODE_INVALID_NETWORK_ADDR:
 		return "CSSM_ERRCODE_INVALID_NETWORK_ADDR"
+	case CSSM_ERRCODE_INVALID_NUMBER_OF_FIELDS:
+		return "CSSM_ERRCODE_INVALID_NUMBER_OF_FIELDS"
+	case CSSM_ERRCODE_INVALID_PASSTHROUGH_ID:
+		return "CSSM_ERRCODE_INVALID_PASSTHROUGH_ID"
+	case CSSM_ERRCODE_INVALID_TP_HANDLE:
+		return "CSSM_ERRCODE_INVALID_TP_HANDLE"
+	case CSSM_ERRCODE_PRIVILEGE_NOT_GRANTED:
+		return "CSSM_ERRCODE_PRIVILEGE_NOT_GRANTED"
+	case CSSM_ERRCODE_UNKNOWN_FORMAT:
+		return "CSSM_ERRCODE_UNKNOWN_FORMAT"
+	case CSSM_ERRCODE_UNKNOWN_TAG:
+		return "CSSM_ERRCODE_UNKNOWN_TAG"
+	case CSSM_ERRCODE_VERIFICATION_FAILURE:
+		return "CSSM_ERRCODE_VERIFICATION_FAILURE"
+	default:
+		return fmt.Sprintf("CssmErrcodeInvalidContextHandle(%d)", e)
+	}
+}
+
+type CssmErrcodeOperationAuthDenied uint32
+
+const (
+	CSSM_ERRCODE_ACL_ADD_FAILED                 CssmErrcodeOperationAuthDenied = 0x36
+	CSSM_ERRCODE_ACL_BASE_CERTS_NOT_SUPPORTED   CssmErrcodeOperationAuthDenied = 0x27
+	CSSM_ERRCODE_ACL_CHALLENGE_CALLBACK_FAILED  CssmErrcodeOperationAuthDenied = 0x2d
+	CSSM_ERRCODE_ACL_CHANGE_FAILED              CssmErrcodeOperationAuthDenied = 0x31
+	CSSM_ERRCODE_ACL_DELETE_FAILED              CssmErrcodeOperationAuthDenied = 0x34
+	CSSM_ERRCODE_ACL_ENTRY_TAG_NOT_FOUND        CssmErrcodeOperationAuthDenied = 0x2f
+	CSSM_ERRCODE_ACL_REPLACE_FAILED             CssmErrcodeOperationAuthDenied = 0x35
+	CSSM_ERRCODE_ACL_SUBJECT_TYPE_NOT_SUPPORTED CssmErrcodeOperationAuthDenied = 0x2b
+	CSSM_ERRCODE_INVALID_ACCESS_CREDENTIALS     CssmErrcodeOperationAuthDenied = 0x25
+	CSSM_ERRCODE_INVALID_ACL_BASE_CERTS         CssmErrcodeOperationAuthDenied = 0x26
+	CSSM_ERRCODE_INVALID_ACL_CHALLENGE_CALLBACK CssmErrcodeOperationAuthDenied = 0x2c
+	CSSM_ERRCODE_INVALID_ACL_EDIT_MODE          CssmErrcodeOperationAuthDenied = 0x30
+	CSSM_ERRCODE_INVALID_ACL_ENTRY_TAG          CssmErrcodeOperationAuthDenied = 0x2e
+	CSSM_ERRCODE_INVALID_ACL_SUBJECT_VALUE      CssmErrcodeOperationAuthDenied = 0x2a
+	CSSM_ERRCODE_INVALID_NEW_ACL_ENTRY          CssmErrcodeOperationAuthDenied = 0x32
+	CSSM_ERRCODE_INVALID_NEW_ACL_OWNER          CssmErrcodeOperationAuthDenied = 0x33
+	CSSM_ERRCODE_INVALID_SAMPLE_VALUE           CssmErrcodeOperationAuthDenied = 0x28
+	CSSM_ERRCODE_OBJECT_ACL_NOT_SUPPORTED       CssmErrcodeOperationAuthDenied = 0x23
+	CSSM_ERRCODE_OBJECT_ACL_REQUIRED            CssmErrcodeOperationAuthDenied = 0x24
+	CSSM_ERRCODE_OBJECT_MANIP_AUTH_DENIED       CssmErrcodeOperationAuthDenied = 0x22
+	CSSM_ERRCODE_OBJECT_USE_AUTH_DENIED         CssmErrcodeOperationAuthDenied = 0x21
+	CSSM_ERRCODE_OPERATION_AUTH_DENIED          CssmErrcodeOperationAuthDenied = 0x20
+	CSSM_ERRCODE_SAMPLE_VALUE_NOT_SUPPORTED     CssmErrcodeOperationAuthDenied = 0x29
+)
+
+func (e CssmErrcodeOperationAuthDenied) String() string {
+	switch e {
+	case CSSM_ERRCODE_ACL_ADD_FAILED:
+		return "CSSM_ERRCODE_ACL_ADD_FAILED"
+	case CSSM_ERRCODE_ACL_BASE_CERTS_NOT_SUPPORTED:
+		return "CSSM_ERRCODE_ACL_BASE_CERTS_NOT_SUPPORTED"
+	case CSSM_ERRCODE_ACL_CHALLENGE_CALLBACK_FAILED:
+		return "CSSM_ERRCODE_ACL_CHALLENGE_CALLBACK_FAILED"
+	case CSSM_ERRCODE_ACL_CHANGE_FAILED:
+		return "CSSM_ERRCODE_ACL_CHANGE_FAILED"
+	case CSSM_ERRCODE_ACL_DELETE_FAILED:
+		return "CSSM_ERRCODE_ACL_DELETE_FAILED"
+	case CSSM_ERRCODE_ACL_ENTRY_TAG_NOT_FOUND:
+		return "CSSM_ERRCODE_ACL_ENTRY_TAG_NOT_FOUND"
+	case CSSM_ERRCODE_ACL_REPLACE_FAILED:
+		return "CSSM_ERRCODE_ACL_REPLACE_FAILED"
+	case CSSM_ERRCODE_ACL_SUBJECT_TYPE_NOT_SUPPORTED:
+		return "CSSM_ERRCODE_ACL_SUBJECT_TYPE_NOT_SUPPORTED"
+	case CSSM_ERRCODE_INVALID_ACCESS_CREDENTIALS:
+		return "CSSM_ERRCODE_INVALID_ACCESS_CREDENTIALS"
+	case CSSM_ERRCODE_INVALID_ACL_BASE_CERTS:
+		return "CSSM_ERRCODE_INVALID_ACL_BASE_CERTS"
+	case CSSM_ERRCODE_INVALID_ACL_CHALLENGE_CALLBACK:
+		return "CSSM_ERRCODE_INVALID_ACL_CHALLENGE_CALLBACK"
+	case CSSM_ERRCODE_INVALID_ACL_EDIT_MODE:
+		return "CSSM_ERRCODE_INVALID_ACL_EDIT_MODE"
+	case CSSM_ERRCODE_INVALID_ACL_ENTRY_TAG:
+		return "CSSM_ERRCODE_INVALID_ACL_ENTRY_TAG"
+	case CSSM_ERRCODE_INVALID_ACL_SUBJECT_VALUE:
+		return "CSSM_ERRCODE_INVALID_ACL_SUBJECT_VALUE"
 	case CSSM_ERRCODE_INVALID_NEW_ACL_ENTRY:
 		return "CSSM_ERRCODE_INVALID_NEW_ACL_ENTRY"
 	case CSSM_ERRCODE_INVALID_NEW_ACL_OWNER:
 		return "CSSM_ERRCODE_INVALID_NEW_ACL_OWNER"
-	case CSSM_ERRCODE_INVALID_NUMBER_OF_FIELDS:
-		return "CSSM_ERRCODE_INVALID_NUMBER_OF_FIELDS"
-	case CSSM_ERRCODE_INVALID_OUTPUT_POINTER:
-		return "CSSM_ERRCODE_INVALID_OUTPUT_POINTER"
-	case CSSM_ERRCODE_INVALID_PASSTHROUGH_ID:
-		return "CSSM_ERRCODE_INVALID_PASSTHROUGH_ID"
-	case CSSM_ERRCODE_INVALID_POINTER:
-		return "CSSM_ERRCODE_INVALID_POINTER"
 	case CSSM_ERRCODE_INVALID_SAMPLE_VALUE:
 		return "CSSM_ERRCODE_INVALID_SAMPLE_VALUE"
-	case CSSM_ERRCODE_INVALID_TP_HANDLE:
-		return "CSSM_ERRCODE_INVALID_TP_HANDLE"
-	case CSSM_ERRCODE_MDS_ERROR:
-		return "CSSM_ERRCODE_MDS_ERROR"
-	case CSSM_ERRCODE_MEMORY_ERROR:
-		return "CSSM_ERRCODE_MEMORY_ERROR"
-	case CSSM_ERRCODE_MODULE_MANIFEST_VERIFY_FAILED:
-		return "CSSM_ERRCODE_MODULE_MANIFEST_VERIFY_FAILED"
 	case CSSM_ERRCODE_OBJECT_ACL_NOT_SUPPORTED:
 		return "CSSM_ERRCODE_OBJECT_ACL_NOT_SUPPORTED"
 	case CSSM_ERRCODE_OBJECT_ACL_REQUIRED:
@@ -2056,26 +3592,14 @@ func (e CssmErrcode) String() string {
 		return "CSSM_ERRCODE_OBJECT_USE_AUTH_DENIED"
 	case CSSM_ERRCODE_OPERATION_AUTH_DENIED:
 		return "CSSM_ERRCODE_OPERATION_AUTH_DENIED"
-	case CSSM_ERRCODE_OS_ACCESS_DENIED:
-		return "CSSM_ERRCODE_OS_ACCESS_DENIED"
-	case CSSM_ERRCODE_PRIVILEGE_NOT_GRANTED:
-		return "CSSM_ERRCODE_PRIVILEGE_NOT_GRANTED"
 	case CSSM_ERRCODE_SAMPLE_VALUE_NOT_SUPPORTED:
 		return "CSSM_ERRCODE_SAMPLE_VALUE_NOT_SUPPORTED"
-	case CSSM_ERRCODE_SELF_CHECK_FAILED:
-		return "CSSM_ERRCODE_SELF_CHECK_FAILED"
-	case CSSM_ERRCODE_UNKNOWN_FORMAT:
-		return "CSSM_ERRCODE_UNKNOWN_FORMAT"
-	case CSSM_ERRCODE_UNKNOWN_TAG:
-		return "CSSM_ERRCODE_UNKNOWN_TAG"
-	case CSSM_ERRCODE_VERIFICATION_FAILURE:
-		return "CSSM_ERRCODE_VERIFICATION_FAILURE"
 	default:
-		return fmt.Sprintf("CssmErrcode(%d)", e)
+		return fmt.Sprintf("CssmErrcodeOperationAuthDenied(%d)", e)
 	}
 }
 
-type CssmEstimatedTime int
+type CssmEstimatedTime int32
 
 const (
 	CSSM_ESTIMATED_TIME_UNKNOWN CssmEstimatedTime = -1
@@ -2090,7 +3614,7 @@ func (e CssmEstimatedTime) String() string {
 	}
 }
 
-type CssmEvidenceForm uint
+type CssmEvidenceForm uint32
 
 const (
 	CSSM_EVIDENCE_FORM_CERT          CssmEvidenceForm = 0x1
@@ -2132,15 +3656,46 @@ func (e CssmEvidenceForm) String() string {
 	}
 }
 
-type CssmEvidenceFormApple uint
+type CssmEvidenceFormApple uint32
 
 const (
-	CSSM_EVIDENCE_FORM_APPLE_CERTGROUP CssmEvidenceFormApple = 2147483648
-	CSSM_EVIDENCE_FORM_APPLE_CERT_INFO CssmEvidenceFormApple = 2147483648
+	CSSM_EVIDENCE_FORM_APPLE_CERTGROUP CssmEvidenceFormApple = 2147483649
+	CSSM_EVIDENCE_FORM_APPLE_CERT_INFO CssmEvidenceFormApple = 2147483650
 	CSSM_EVIDENCE_FORM_APPLE_HEADER    CssmEvidenceFormApple = 2147483648
 )
 
-type CssmFeeCurveType uint
+func (e CssmEvidenceFormApple) String() string {
+	switch e {
+	case CSSM_EVIDENCE_FORM_APPLE_CERTGROUP:
+		return "CSSM_EVIDENCE_FORM_APPLE_CERTGROUP"
+	case CSSM_EVIDENCE_FORM_APPLE_CERT_INFO:
+		return "CSSM_EVIDENCE_FORM_APPLE_CERT_INFO"
+	case CSSM_EVIDENCE_FORM_APPLE_HEADER:
+		return "CSSM_EVIDENCE_FORM_APPLE_HEADER"
+	default:
+		return fmt.Sprintf("CssmEvidenceFormApple(%d)", e)
+	}
+}
+
+type CssmFalse uint32
+
+const (
+	CSSM_FALSE CssmFalse = 0
+	CSSM_TRUE  CssmFalse = 1
+)
+
+func (e CssmFalse) String() string {
+	switch e {
+	case CSSM_FALSE:
+		return "CSSM_FALSE"
+	case CSSM_TRUE:
+		return "CSSM_TRUE"
+	default:
+		return fmt.Sprintf("CssmFalse(%d)", e)
+	}
+}
+
+type CssmFeeCurveType uint32
 
 const (
 	CSSM_FEE_CURVE_TYPE_ANSI_X9_62  CssmFeeCurveType = 3
@@ -2164,7 +3719,7 @@ func (e CssmFeeCurveType) String() string {
 	}
 }
 
-type CssmFeePrimeType uint
+type CssmFeePrimeType uint32
 
 const (
 	CSSM_FEE_PRIME_TYPE_DEFAULT  CssmFeePrimeType = 0
@@ -2188,7 +3743,7 @@ func (e CssmFeePrimeType) String() string {
 	}
 }
 
-type CssmFieldvalueComplexData uint
+type CssmFieldvalueComplexData uint32
 
 const (
 	CSSM_FIELDVALUE_COMPLEX_DATA_TYPE CssmFieldvalueComplexData = 0xffffffff
@@ -2203,7 +3758,7 @@ func (e CssmFieldvalueComplexData) String() string {
 	}
 }
 
-type CssmHint uint
+type CssmHint uint32
 
 const (
 	CSSM_HINT_ADDRESS_APP CssmHint = 1
@@ -2224,7 +3779,7 @@ func (e CssmHint) String() string {
 	}
 }
 
-type CssmInvalid uint
+type CssmInvalid uint32
 
 const (
 	CSSM_INVALID_HANDLE CssmInvalid = 0
@@ -2239,7 +3794,7 @@ func (e CssmInvalid) String() string {
 	}
 }
 
-type CssmKeyHierarchy uint
+type CssmKeyHierarchy uint32
 
 const (
 	CSSM_KEY_HIERARCHY_EXPORT CssmKeyHierarchy = 2
@@ -2260,7 +3815,7 @@ func (e CssmKeyHierarchy) String() string {
 	}
 }
 
-type CssmKeyattr uint
+type CssmKeyattr uint32
 
 const (
 	CSSM_KEYATTR_ALWAYS_SENSITIVE  CssmKeyattr = 0x10
@@ -2305,7 +3860,7 @@ func (e CssmKeyattr) String() string {
 	}
 }
 
-type CssmKeyattrP uint
+type CssmKeyattrP uint32
 
 const (
 	CSSM_KEYATTR_PARTIAL            CssmKeyattrP = 0x10000
@@ -2323,7 +3878,7 @@ func (e CssmKeyattrP) String() string {
 	}
 }
 
-type CssmKeyblob uint
+type CssmKeyblob uint32
 
 const (
 	CSSM_KEYBLOB_OTHER     CssmKeyblob = 0xffffffff
@@ -2347,28 +3902,24 @@ func (e CssmKeyblob) String() string {
 	}
 }
 
-type CssmKeyblobRawFormat uint
+type CssmKeyblobRawFormatNone uint32
 
 const (
-	CSSM_KEYBLOB_RAW_FORMAT_BSAFE        CssmKeyblobRawFormat = 6
-	CSSM_KEYBLOB_RAW_FORMAT_CCA          CssmKeyblobRawFormat = 9
-	CSSM_KEYBLOB_RAW_FORMAT_FIPS186      CssmKeyblobRawFormat = 5
-	CSSM_KEYBLOB_RAW_FORMAT_MSCAPI       CssmKeyblobRawFormat = 3
-	CSSM_KEYBLOB_RAW_FORMAT_NONE         CssmKeyblobRawFormat = 0
-	CSSM_KEYBLOB_RAW_FORMAT_OCTET_STRING CssmKeyblobRawFormat = 12
-	CSSM_KEYBLOB_RAW_FORMAT_OPENSSH      CssmKeyblobRawFormat = 2147483649
-	CSSM_KEYBLOB_RAW_FORMAT_OPENSSH2     CssmKeyblobRawFormat = 2147483651
-	CSSM_KEYBLOB_RAW_FORMAT_OPENSSL      CssmKeyblobRawFormat = 2147483650
-	CSSM_KEYBLOB_RAW_FORMAT_OTHER        CssmKeyblobRawFormat = 0xffffffff
-	CSSM_KEYBLOB_RAW_FORMAT_PGP          CssmKeyblobRawFormat = 4
-	CSSM_KEYBLOB_RAW_FORMAT_PKCS1        CssmKeyblobRawFormat = 1
-	CSSM_KEYBLOB_RAW_FORMAT_PKCS3        CssmKeyblobRawFormat = 2
-	CSSM_KEYBLOB_RAW_FORMAT_PKCS8        CssmKeyblobRawFormat = 10
-	CSSM_KEYBLOB_RAW_FORMAT_SPKI         CssmKeyblobRawFormat = 11
-	CSSM_KEYBLOB_RAW_FORMAT_X509         CssmKeyblobRawFormat = 2147483648
+	CSSM_KEYBLOB_RAW_FORMAT_BSAFE        CssmKeyblobRawFormatNone = 6
+	CSSM_KEYBLOB_RAW_FORMAT_CCA          CssmKeyblobRawFormatNone = 9
+	CSSM_KEYBLOB_RAW_FORMAT_FIPS186      CssmKeyblobRawFormatNone = 5
+	CSSM_KEYBLOB_RAW_FORMAT_MSCAPI       CssmKeyblobRawFormatNone = 3
+	CSSM_KEYBLOB_RAW_FORMAT_NONE         CssmKeyblobRawFormatNone = 0
+	CSSM_KEYBLOB_RAW_FORMAT_OCTET_STRING CssmKeyblobRawFormatNone = 12
+	CSSM_KEYBLOB_RAW_FORMAT_OTHER        CssmKeyblobRawFormatNone = 0xffffffff
+	CSSM_KEYBLOB_RAW_FORMAT_PGP          CssmKeyblobRawFormatNone = 4
+	CSSM_KEYBLOB_RAW_FORMAT_PKCS1        CssmKeyblobRawFormatNone = 1
+	CSSM_KEYBLOB_RAW_FORMAT_PKCS3        CssmKeyblobRawFormatNone = 2
+	CSSM_KEYBLOB_RAW_FORMAT_PKCS8        CssmKeyblobRawFormatNone = 10
+	CSSM_KEYBLOB_RAW_FORMAT_SPKI         CssmKeyblobRawFormatNone = 11
 )
 
-func (e CssmKeyblobRawFormat) String() string {
+func (e CssmKeyblobRawFormatNone) String() string {
 	switch e {
 	case CSSM_KEYBLOB_RAW_FORMAT_BSAFE:
 		return "CSSM_KEYBLOB_RAW_FORMAT_BSAFE"
@@ -2382,12 +3933,6 @@ func (e CssmKeyblobRawFormat) String() string {
 		return "CSSM_KEYBLOB_RAW_FORMAT_NONE"
 	case CSSM_KEYBLOB_RAW_FORMAT_OCTET_STRING:
 		return "CSSM_KEYBLOB_RAW_FORMAT_OCTET_STRING"
-	case CSSM_KEYBLOB_RAW_FORMAT_OPENSSH:
-		return "CSSM_KEYBLOB_RAW_FORMAT_OPENSSH"
-	case CSSM_KEYBLOB_RAW_FORMAT_OPENSSH2:
-		return "CSSM_KEYBLOB_RAW_FORMAT_OPENSSH2"
-	case CSSM_KEYBLOB_RAW_FORMAT_OPENSSL:
-		return "CSSM_KEYBLOB_RAW_FORMAT_OPENSSL"
 	case CSSM_KEYBLOB_RAW_FORMAT_OTHER:
 		return "CSSM_KEYBLOB_RAW_FORMAT_OTHER"
 	case CSSM_KEYBLOB_RAW_FORMAT_PGP:
@@ -2400,14 +3945,12 @@ func (e CssmKeyblobRawFormat) String() string {
 		return "CSSM_KEYBLOB_RAW_FORMAT_PKCS8"
 	case CSSM_KEYBLOB_RAW_FORMAT_SPKI:
 		return "CSSM_KEYBLOB_RAW_FORMAT_SPKI"
-	case CSSM_KEYBLOB_RAW_FORMAT_X509:
-		return "CSSM_KEYBLOB_RAW_FORMAT_X509"
 	default:
-		return fmt.Sprintf("CssmKeyblobRawFormat(%d)", e)
+		return fmt.Sprintf("CssmKeyblobRawFormatNone(%d)", e)
 	}
 }
 
-type CssmKeyblobRawFormatVendor uint
+type CssmKeyblobRawFormatVendor uint32
 
 const (
 	CSSM_KEYBLOB_RAW_FORMAT_VENDOR_DEFINED CssmKeyblobRawFormatVendor = 0x80000000
@@ -2422,7 +3965,31 @@ func (e CssmKeyblobRawFormatVendor) String() string {
 	}
 }
 
-type CssmKeyblobRefFormat uint
+type CssmKeyblobRawFormatX509 uint32
+
+const (
+	CSSM_KEYBLOB_RAW_FORMAT_OPENSSH  CssmKeyblobRawFormatX509 = 2147483649
+	CSSM_KEYBLOB_RAW_FORMAT_OPENSSH2 CssmKeyblobRawFormatX509 = 2147483651
+	CSSM_KEYBLOB_RAW_FORMAT_OPENSSL  CssmKeyblobRawFormatX509 = 2147483650
+	CSSM_KEYBLOB_RAW_FORMAT_X509     CssmKeyblobRawFormatX509 = 2147483648
+)
+
+func (e CssmKeyblobRawFormatX509) String() string {
+	switch e {
+	case CSSM_KEYBLOB_RAW_FORMAT_OPENSSH:
+		return "CSSM_KEYBLOB_RAW_FORMAT_OPENSSH"
+	case CSSM_KEYBLOB_RAW_FORMAT_OPENSSH2:
+		return "CSSM_KEYBLOB_RAW_FORMAT_OPENSSH2"
+	case CSSM_KEYBLOB_RAW_FORMAT_OPENSSL:
+		return "CSSM_KEYBLOB_RAW_FORMAT_OPENSSL"
+	case CSSM_KEYBLOB_RAW_FORMAT_X509:
+		return "CSSM_KEYBLOB_RAW_FORMAT_X509"
+	default:
+		return fmt.Sprintf("CssmKeyblobRawFormatX509(%d)", e)
+	}
+}
+
+type CssmKeyblobRefFormat uint32
 
 const (
 	CSSM_KEYBLOB_REF_FORMAT_INTEGER CssmKeyblobRefFormat = 0
@@ -2446,31 +4013,43 @@ func (e CssmKeyblobRefFormat) String() string {
 	}
 }
 
-type CssmKeyblobWrappedFormat uint
+type CssmKeyblobWrappedFormatAppleCustom uint32
 
 const (
-	CSSM_KEYBLOB_WRAPPED_FORMAT_APPLE_CUSTOM CssmKeyblobWrappedFormat = 100
-	CSSM_KEYBLOB_WRAPPED_FORMAT_MSCAPI       CssmKeyblobWrappedFormat = 3
-	CSSM_KEYBLOB_WRAPPED_FORMAT_NONE         CssmKeyblobWrappedFormat = 0
-	CSSM_KEYBLOB_WRAPPED_FORMAT_OPENSSH1     CssmKeyblobWrappedFormat = 102
-	CSSM_KEYBLOB_WRAPPED_FORMAT_OPENSSL      CssmKeyblobWrappedFormat = 101
-	CSSM_KEYBLOB_WRAPPED_FORMAT_OTHER        CssmKeyblobWrappedFormat = 0xffffffff
-	CSSM_KEYBLOB_WRAPPED_FORMAT_PKCS7        CssmKeyblobWrappedFormat = 2
-	CSSM_KEYBLOB_WRAPPED_FORMAT_PKCS8        CssmKeyblobWrappedFormat = 1
+	CSSM_KEYBLOB_WRAPPED_FORMAT_APPLE_CUSTOM CssmKeyblobWrappedFormatAppleCustom = 100
+	CSSM_KEYBLOB_WRAPPED_FORMAT_OPENSSH1     CssmKeyblobWrappedFormatAppleCustom = 102
+	CSSM_KEYBLOB_WRAPPED_FORMAT_OPENSSL      CssmKeyblobWrappedFormatAppleCustom = 101
 )
 
-func (e CssmKeyblobWrappedFormat) String() string {
+func (e CssmKeyblobWrappedFormatAppleCustom) String() string {
 	switch e {
 	case CSSM_KEYBLOB_WRAPPED_FORMAT_APPLE_CUSTOM:
 		return "CSSM_KEYBLOB_WRAPPED_FORMAT_APPLE_CUSTOM"
-	case CSSM_KEYBLOB_WRAPPED_FORMAT_MSCAPI:
-		return "CSSM_KEYBLOB_WRAPPED_FORMAT_MSCAPI"
-	case CSSM_KEYBLOB_WRAPPED_FORMAT_NONE:
-		return "CSSM_KEYBLOB_WRAPPED_FORMAT_NONE"
 	case CSSM_KEYBLOB_WRAPPED_FORMAT_OPENSSH1:
 		return "CSSM_KEYBLOB_WRAPPED_FORMAT_OPENSSH1"
 	case CSSM_KEYBLOB_WRAPPED_FORMAT_OPENSSL:
 		return "CSSM_KEYBLOB_WRAPPED_FORMAT_OPENSSL"
+	default:
+		return fmt.Sprintf("CssmKeyblobWrappedFormatAppleCustom(%d)", e)
+	}
+}
+
+type CssmKeyblobWrappedFormatNone uint32
+
+const (
+	CSSM_KEYBLOB_WRAPPED_FORMAT_MSCAPI CssmKeyblobWrappedFormatNone = 3
+	CSSM_KEYBLOB_WRAPPED_FORMAT_NONE   CssmKeyblobWrappedFormatNone = 0
+	CSSM_KEYBLOB_WRAPPED_FORMAT_OTHER  CssmKeyblobWrappedFormatNone = 0xffffffff
+	CSSM_KEYBLOB_WRAPPED_FORMAT_PKCS7  CssmKeyblobWrappedFormatNone = 2
+	CSSM_KEYBLOB_WRAPPED_FORMAT_PKCS8  CssmKeyblobWrappedFormatNone = 1
+)
+
+func (e CssmKeyblobWrappedFormatNone) String() string {
+	switch e {
+	case CSSM_KEYBLOB_WRAPPED_FORMAT_MSCAPI:
+		return "CSSM_KEYBLOB_WRAPPED_FORMAT_MSCAPI"
+	case CSSM_KEYBLOB_WRAPPED_FORMAT_NONE:
+		return "CSSM_KEYBLOB_WRAPPED_FORMAT_NONE"
 	case CSSM_KEYBLOB_WRAPPED_FORMAT_OTHER:
 		return "CSSM_KEYBLOB_WRAPPED_FORMAT_OTHER"
 	case CSSM_KEYBLOB_WRAPPED_FORMAT_PKCS7:
@@ -2478,11 +4057,11 @@ func (e CssmKeyblobWrappedFormat) String() string {
 	case CSSM_KEYBLOB_WRAPPED_FORMAT_PKCS8:
 		return "CSSM_KEYBLOB_WRAPPED_FORMAT_PKCS8"
 	default:
-		return fmt.Sprintf("CssmKeyblobWrappedFormat(%d)", e)
+		return fmt.Sprintf("CssmKeyblobWrappedFormatNone(%d)", e)
 	}
 }
 
-type CssmKeyclass uint
+type CssmKeyclass uint32
 
 const (
 	CSSM_KEYCLASS_OTHER       CssmKeyclass = 0xffffffff
@@ -2509,7 +4088,7 @@ func (e CssmKeyclass) String() string {
 	}
 }
 
-type CssmKeyheader uint
+type CssmKeyheader uint32
 
 const (
 	CSSM_KEYHEADER_VERSION CssmKeyheader = 2
@@ -2524,7 +4103,7 @@ func (e CssmKeyheader) String() string {
 	}
 }
 
-type CssmKeyuse uint
+type CssmKeyuse uint32
 
 const (
 	CSSM_KEYUSE_ANY            CssmKeyuse = 0x80000000
@@ -2566,7 +4145,7 @@ func (e CssmKeyuse) String() string {
 	}
 }
 
-type CssmListElement uint
+type CssmListElement uint32
 
 const (
 	CSSM_LIST_ELEMENT_DATUM   CssmListElement = 0
@@ -2587,7 +4166,7 @@ func (e CssmListElement) String() string {
 	}
 }
 
-type CssmListType uint
+type CssmListType uint32
 
 const (
 	CSSM_LIST_TYPE_CUSTOM  CssmListType = 1
@@ -2608,11 +4187,11 @@ func (e CssmListType) String() string {
 	}
 }
 
-type CssmMds int
+type CssmMds int32
 
 const (
-	CSSM_MDS_BASE_ERROR    CssmMds = -2147416064
-	CSSM_MDS_PRIVATE_ERROR CssmMds = -2147414016
+	CSSM_MDS_BASE_ERROR    CssmMds = -2147414016
+	CSSM_MDS_PRIVATE_ERROR CssmMds = -2147412992
 )
 
 func (e CssmMds) String() string {
@@ -2626,7 +4205,7 @@ func (e CssmMds) String() string {
 	}
 }
 
-type CssmModuleString uint
+type CssmModuleString uint32
 
 const (
 	CSSM_MODULE_STRING_SIZE CssmModuleString = 64
@@ -2641,7 +4220,7 @@ func (e CssmModuleString) String() string {
 	}
 }
 
-type CssmNetProto uint
+type CssmNetProto uint32
 
 const (
 	CSSM_NET_PROTO_CMP         CssmNetProto = 10
@@ -2689,7 +4268,7 @@ func (e CssmNetProto) String() string {
 	}
 }
 
-type CssmNotify uint
+type CssmNotify uint32
 
 const (
 	CSSM_NOTIFY_FAULT  CssmNotify = 3
@@ -2710,28 +4289,76 @@ func (e CssmNotify) String() string {
 	}
 }
 
-type CssmPadding uint
+type CssmOk uint32
 
 const (
-	CSSM_PADDING_ALTERNATE      CssmPadding = 0
-	CSSM_PADDING_CIPHERSTEALING CssmPadding = 0
-	CSSM_PADDING_CUSTOM         CssmPadding = 0
-	CSSM_PADDING_FF             CssmPadding = 0
-	CSSM_PADDING_NONE           CssmPadding = 0
-	CSSM_PADDING_ONE            CssmPadding = 0
-	CSSM_PADDING_PKCS1          CssmPadding = 0
-	CSSM_PADDING_PKCS5          CssmPadding = 0
-	CSSM_PADDING_PKCS7          CssmPadding = 0
-	CSSM_PADDING_RANDOM         CssmPadding = 0
-	CSSM_PADDING_SIGRAW         CssmPadding = 0
-	CSSM_PADDING_VENDOR_DEFINED CssmPadding = 0
-	CSSM_PADDING_ZERO           CssmPadding = 0
+	CSSM_OK CssmOk = 0
 )
 
-type CssmPaddingApple uint
+func (e CssmOk) String() string {
+	switch e {
+	case CSSM_OK:
+		return "CSSM_OK"
+	default:
+		return fmt.Sprintf("CssmOk(%d)", e)
+	}
+}
+
+type CssmPadding uint32
 
 const (
-	CSSM_PADDING_APPLE_SSLv2 CssmPaddingApple = 0
+	CSSM_PADDING_ALTERNATE      CssmPadding = 4
+	CSSM_PADDING_CIPHERSTEALING CssmPadding = 8
+	CSSM_PADDING_CUSTOM         CssmPadding = 1
+	CSSM_PADDING_FF             CssmPadding = 5
+	CSSM_PADDING_NONE           CssmPadding = 0
+	CSSM_PADDING_ONE            CssmPadding = 3
+	CSSM_PADDING_PKCS1          CssmPadding = 10
+	CSSM_PADDING_PKCS5          CssmPadding = 6
+	CSSM_PADDING_PKCS7          CssmPadding = 7
+	CSSM_PADDING_RANDOM         CssmPadding = 9
+	CSSM_PADDING_SIGRAW         CssmPadding = 11
+	CSSM_PADDING_VENDOR_DEFINED CssmPadding = 2147483648
+	CSSM_PADDING_ZERO           CssmPadding = 2
+)
+
+func (e CssmPadding) String() string {
+	switch e {
+	case CSSM_PADDING_ALTERNATE:
+		return "CSSM_PADDING_ALTERNATE"
+	case CSSM_PADDING_CIPHERSTEALING:
+		return "CSSM_PADDING_CIPHERSTEALING"
+	case CSSM_PADDING_CUSTOM:
+		return "CSSM_PADDING_CUSTOM"
+	case CSSM_PADDING_FF:
+		return "CSSM_PADDING_FF"
+	case CSSM_PADDING_NONE:
+		return "CSSM_PADDING_NONE"
+	case CSSM_PADDING_ONE:
+		return "CSSM_PADDING_ONE"
+	case CSSM_PADDING_PKCS1:
+		return "CSSM_PADDING_PKCS1"
+	case CSSM_PADDING_PKCS5:
+		return "CSSM_PADDING_PKCS5"
+	case CSSM_PADDING_PKCS7:
+		return "CSSM_PADDING_PKCS7"
+	case CSSM_PADDING_RANDOM:
+		return "CSSM_PADDING_RANDOM"
+	case CSSM_PADDING_SIGRAW:
+		return "CSSM_PADDING_SIGRAW"
+	case CSSM_PADDING_VENDOR_DEFINED:
+		return "CSSM_PADDING_VENDOR_DEFINED"
+	case CSSM_PADDING_ZERO:
+		return "CSSM_PADDING_ZERO"
+	default:
+		return fmt.Sprintf("CssmPadding(%d)", e)
+	}
+}
+
+type CssmPaddingApple uint32
+
+const (
+	CSSM_PADDING_APPLE_SSLv2 CssmPaddingApple = 2147483648
 )
 
 func (e CssmPaddingApple) String() string {
@@ -2743,7 +4370,7 @@ func (e CssmPaddingApple) String() string {
 	}
 }
 
-type CssmPkcs5Pbkdf2PrfHmac uint
+type CssmPkcs5Pbkdf2PrfHmac uint32
 
 const (
 	CSSM_PKCS5_PBKDF2_PRF_HMAC_SHA1 CssmPkcs5Pbkdf2PrfHmac = 0
@@ -2758,22 +4385,46 @@ func (e CssmPkcs5Pbkdf2PrfHmac) String() string {
 	}
 }
 
-type CssmPkcsOaep uint
+type CssmPkcsOaep uint32
 
 const (
-	CSSM_PKCS_OAEP_MGF1_MD5  CssmPkcsOaep = 0
-	CSSM_PKCS_OAEP_MGF1_SHA1 CssmPkcsOaep = 0
+	CSSM_PKCS_OAEP_MGF1_MD5  CssmPkcsOaep = 2
+	CSSM_PKCS_OAEP_MGF1_SHA1 CssmPkcsOaep = 1
 	CSSM_PKCS_OAEP_MGF_NONE  CssmPkcsOaep = 0
 )
 
-type CssmPkcsOaepPsource uint
+func (e CssmPkcsOaep) String() string {
+	switch e {
+	case CSSM_PKCS_OAEP_MGF1_MD5:
+		return "CSSM_PKCS_OAEP_MGF1_MD5"
+	case CSSM_PKCS_OAEP_MGF1_SHA1:
+		return "CSSM_PKCS_OAEP_MGF1_SHA1"
+	case CSSM_PKCS_OAEP_MGF_NONE:
+		return "CSSM_PKCS_OAEP_MGF_NONE"
+	default:
+		return fmt.Sprintf("CssmPkcsOaep(%d)", e)
+	}
+}
+
+type CssmPkcsOaepPsource uint32
 
 const (
 	CSSM_PKCS_OAEP_PSOURCE_NONE       CssmPkcsOaepPsource = 0
-	CSSM_PKCS_OAEP_PSOURCE_Pspecified CssmPkcsOaepPsource = 0
+	CSSM_PKCS_OAEP_PSOURCE_Pspecified CssmPkcsOaepPsource = 1
 )
 
-type CssmPrivilegeScope uint
+func (e CssmPkcsOaepPsource) String() string {
+	switch e {
+	case CSSM_PKCS_OAEP_PSOURCE_NONE:
+		return "CSSM_PKCS_OAEP_PSOURCE_NONE"
+	case CSSM_PKCS_OAEP_PSOURCE_Pspecified:
+		return "CSSM_PKCS_OAEP_PSOURCE_Pspecified"
+	default:
+		return fmt.Sprintf("CssmPkcsOaepPsource(%d)", e)
+	}
+}
+
+type CssmPrivilegeScope uint32
 
 const (
 	CSSM_PRIVILEGE_SCOPE_NONE    CssmPrivilegeScope = 0
@@ -2794,7 +4445,7 @@ func (e CssmPrivilegeScope) String() string {
 	}
 }
 
-type CssmPvc uint
+type CssmPvc uint32
 
 const (
 	CSSM_PVC_APP  CssmPvc = 1
@@ -2815,7 +4466,7 @@ func (e CssmPvc) String() string {
 	}
 }
 
-type CssmQueryReturn uint
+type CssmQueryReturn uint32
 
 const (
 	CSSM_QUERY_RETURN_DATA CssmQueryReturn = 0x1
@@ -2830,7 +4481,7 @@ func (e CssmQueryReturn) String() string {
 	}
 }
 
-type CssmQuerySizelimit uint
+type CssmQuerySizelimit uint32
 
 const (
 	CSSM_QUERY_SIZELIMIT_NONE CssmQuerySizelimit = 0
@@ -2845,7 +4496,7 @@ func (e CssmQuerySizelimit) String() string {
 	}
 }
 
-type CssmQueryTimelimit uint
+type CssmQueryTimelimit uint32
 
 const (
 	CSSM_QUERY_TIMELIMIT_NONE CssmQueryTimelimit = 0
@@ -2860,41 +4511,27 @@ func (e CssmQueryTimelimit) String() string {
 	}
 }
 
-type CssmSampleType uint
+type CssmSampleTypeKeychainPrompt uint32
 
 const (
-	CSSM_SAMPLE_TYPE_ASYMMETRIC_KEY       CssmSampleType = 65547
-	CSSM_SAMPLE_TYPE_BIOMETRIC            CssmSampleType = 8
-	CSSM_SAMPLE_TYPE_COMMENT              CssmSampleType = 12
-	CSSM_SAMPLE_TYPE_HASHED_PASSWORD      CssmSampleType = 43
-	CSSM_SAMPLE_TYPE_KEYBAG_KEY           CssmSampleType = 65549
-	CSSM_SAMPLE_TYPE_KEYCHAIN_CHANGE_LOCK CssmSampleType = 65538
-	CSSM_SAMPLE_TYPE_KEYCHAIN_LOCK        CssmSampleType = 65537
-	CSSM_SAMPLE_TYPE_KEYCHAIN_PROMPT      CssmSampleType = 65536
-	CSSM_SAMPLE_TYPE_PASSWORD             CssmSampleType = 79
-	CSSM_SAMPLE_TYPE_PREAUTH              CssmSampleType = 65545
-	CSSM_SAMPLE_TYPE_PROCESS              CssmSampleType = 65539
-	CSSM_SAMPLE_TYPE_PROMPTED_BIOMETRIC   CssmSampleType = 83
-	CSSM_SAMPLE_TYPE_PROMPTED_PASSWORD    CssmSampleType = 84
-	CSSM_SAMPLE_TYPE_PROTECTED_BIOMETRIC  CssmSampleType = 86
-	CSSM_SAMPLE_TYPE_PROTECTED_PASSWORD   CssmSampleType = 87
-	CSSM_SAMPLE_TYPE_RETRY_ID             CssmSampleType = 85
-	CSSM_SAMPLE_TYPE_SIGNED_NONCE         CssmSampleType = 117
-	CSSM_SAMPLE_TYPE_SIGNED_SECRET        CssmSampleType = 118
-	CSSM_SAMPLE_TYPE_SYMMETRIC_KEY        CssmSampleType = 65541
-	CSSM_SAMPLE_TYPE_THRESHOLD            CssmSampleType = 123
+	CSSM_SAMPLE_TYPE_ASYMMETRIC_KEY       CssmSampleTypeKeychainPrompt = 65547
+	CSSM_SAMPLE_TYPE_COMMENT              CssmSampleTypeKeychainPrompt = 12
+	CSSM_SAMPLE_TYPE_KEYBAG_KEY           CssmSampleTypeKeychainPrompt = 65549
+	CSSM_SAMPLE_TYPE_KEYCHAIN_CHANGE_LOCK CssmSampleTypeKeychainPrompt = 65538
+	CSSM_SAMPLE_TYPE_KEYCHAIN_LOCK        CssmSampleTypeKeychainPrompt = 65537
+	CSSM_SAMPLE_TYPE_KEYCHAIN_PROMPT      CssmSampleTypeKeychainPrompt = 65536
+	CSSM_SAMPLE_TYPE_PREAUTH              CssmSampleTypeKeychainPrompt = 65545
+	CSSM_SAMPLE_TYPE_PROCESS              CssmSampleTypeKeychainPrompt = 65539
+	CSSM_SAMPLE_TYPE_RETRY_ID             CssmSampleTypeKeychainPrompt = 85
+	CSSM_SAMPLE_TYPE_SYMMETRIC_KEY        CssmSampleTypeKeychainPrompt = 65541
 )
 
-func (e CssmSampleType) String() string {
+func (e CssmSampleTypeKeychainPrompt) String() string {
 	switch e {
 	case CSSM_SAMPLE_TYPE_ASYMMETRIC_KEY:
 		return "CSSM_SAMPLE_TYPE_ASYMMETRIC_KEY"
-	case CSSM_SAMPLE_TYPE_BIOMETRIC:
-		return "CSSM_SAMPLE_TYPE_BIOMETRIC"
 	case CSSM_SAMPLE_TYPE_COMMENT:
 		return "CSSM_SAMPLE_TYPE_COMMENT"
-	case CSSM_SAMPLE_TYPE_HASHED_PASSWORD:
-		return "CSSM_SAMPLE_TYPE_HASHED_PASSWORD"
 	case CSSM_SAMPLE_TYPE_KEYBAG_KEY:
 		return "CSSM_SAMPLE_TYPE_KEYBAG_KEY"
 	case CSSM_SAMPLE_TYPE_KEYCHAIN_CHANGE_LOCK:
@@ -2903,12 +4540,42 @@ func (e CssmSampleType) String() string {
 		return "CSSM_SAMPLE_TYPE_KEYCHAIN_LOCK"
 	case CSSM_SAMPLE_TYPE_KEYCHAIN_PROMPT:
 		return "CSSM_SAMPLE_TYPE_KEYCHAIN_PROMPT"
-	case CSSM_SAMPLE_TYPE_PASSWORD:
-		return "CSSM_SAMPLE_TYPE_PASSWORD"
 	case CSSM_SAMPLE_TYPE_PREAUTH:
 		return "CSSM_SAMPLE_TYPE_PREAUTH"
 	case CSSM_SAMPLE_TYPE_PROCESS:
 		return "CSSM_SAMPLE_TYPE_PROCESS"
+	case CSSM_SAMPLE_TYPE_RETRY_ID:
+		return "CSSM_SAMPLE_TYPE_RETRY_ID"
+	case CSSM_SAMPLE_TYPE_SYMMETRIC_KEY:
+		return "CSSM_SAMPLE_TYPE_SYMMETRIC_KEY"
+	default:
+		return fmt.Sprintf("CssmSampleTypeKeychainPrompt(%d)", e)
+	}
+}
+
+type CssmSampleTypePassword uint32
+
+const (
+	CSSM_SAMPLE_TYPE_BIOMETRIC           CssmSampleTypePassword = 8
+	CSSM_SAMPLE_TYPE_HASHED_PASSWORD     CssmSampleTypePassword = 43
+	CSSM_SAMPLE_TYPE_PASSWORD            CssmSampleTypePassword = 79
+	CSSM_SAMPLE_TYPE_PROMPTED_BIOMETRIC  CssmSampleTypePassword = 83
+	CSSM_SAMPLE_TYPE_PROMPTED_PASSWORD   CssmSampleTypePassword = 84
+	CSSM_SAMPLE_TYPE_PROTECTED_BIOMETRIC CssmSampleTypePassword = 86
+	CSSM_SAMPLE_TYPE_PROTECTED_PASSWORD  CssmSampleTypePassword = 87
+	CSSM_SAMPLE_TYPE_SIGNED_NONCE        CssmSampleTypePassword = 117
+	CSSM_SAMPLE_TYPE_SIGNED_SECRET       CssmSampleTypePassword = 118
+	CSSM_SAMPLE_TYPE_THRESHOLD           CssmSampleTypePassword = 123
+)
+
+func (e CssmSampleTypePassword) String() string {
+	switch e {
+	case CSSM_SAMPLE_TYPE_BIOMETRIC:
+		return "CSSM_SAMPLE_TYPE_BIOMETRIC"
+	case CSSM_SAMPLE_TYPE_HASHED_PASSWORD:
+		return "CSSM_SAMPLE_TYPE_HASHED_PASSWORD"
+	case CSSM_SAMPLE_TYPE_PASSWORD:
+		return "CSSM_SAMPLE_TYPE_PASSWORD"
 	case CSSM_SAMPLE_TYPE_PROMPTED_BIOMETRIC:
 		return "CSSM_SAMPLE_TYPE_PROMPTED_BIOMETRIC"
 	case CSSM_SAMPLE_TYPE_PROMPTED_PASSWORD:
@@ -2917,22 +4584,18 @@ func (e CssmSampleType) String() string {
 		return "CSSM_SAMPLE_TYPE_PROTECTED_BIOMETRIC"
 	case CSSM_SAMPLE_TYPE_PROTECTED_PASSWORD:
 		return "CSSM_SAMPLE_TYPE_PROTECTED_PASSWORD"
-	case CSSM_SAMPLE_TYPE_RETRY_ID:
-		return "CSSM_SAMPLE_TYPE_RETRY_ID"
 	case CSSM_SAMPLE_TYPE_SIGNED_NONCE:
 		return "CSSM_SAMPLE_TYPE_SIGNED_NONCE"
 	case CSSM_SAMPLE_TYPE_SIGNED_SECRET:
 		return "CSSM_SAMPLE_TYPE_SIGNED_SECRET"
-	case CSSM_SAMPLE_TYPE_SYMMETRIC_KEY:
-		return "CSSM_SAMPLE_TYPE_SYMMETRIC_KEY"
 	case CSSM_SAMPLE_TYPE_THRESHOLD:
 		return "CSSM_SAMPLE_TYPE_THRESHOLD"
 	default:
-		return fmt.Sprintf("CssmSampleType(%d)", e)
+		return fmt.Sprintf("CssmSampleTypePassword(%d)", e)
 	}
 }
 
-type CssmService uint
+type CssmService uint32
 
 const (
 	CSSM_SERVICE_AC   CssmService = 0x20
@@ -2965,7 +4628,7 @@ func (e CssmService) String() string {
 	}
 }
 
-type CssmTp uint
+type CssmTp uint32
 
 const (
 	CSSM_TP_CERT_DIR_UPDATE   CssmTp = 0x8
@@ -2992,24 +4655,79 @@ func (e CssmTp) String() string {
 	}
 }
 
-type CssmTpAction uint
+type CssmTpActionAllowExpired uint32
 
 const (
-	CSSM_TP_ACTION_ALLOW_EXPIRED          CssmTpAction = 0x1
-	CSSM_TP_ACTION_ALLOW_EXPIRED_ROOT     CssmTpAction = 0x8
-	CSSM_TP_ACTION_CRL_SUFFICIENT         CssmTpAction = 0x4
-	CSSM_TP_ACTION_DEFAULT                CssmTpAction = 0
-	CSSM_TP_ACTION_FETCH_CERT_FROM_NET    CssmTpAction = 0x4
-	CSSM_TP_ACTION_FETCH_CRL_FROM_NET     CssmTpAction = 0x2
-	CSSM_TP_ACTION_IMPLICIT_ANCHORS       CssmTpAction = 0x40
-	CSSM_TP_ACTION_LEAF_IS_CA             CssmTpAction = 0x2
-	CSSM_TP_ACTION_REQUIRE_CRL_IF_PRESENT CssmTpAction = 0x8
-	CSSM_TP_ACTION_REQUIRE_CRL_PER_CERT   CssmTpAction = 0x1
-	CSSM_TP_ACTION_REQUIRE_REV_PER_CERT   CssmTpAction = 0x10
-	CSSM_TP_ACTION_TRUST_SETTINGS         CssmTpAction = 0x20
+	CSSM_TP_ACTION_ALLOW_EXPIRED        CssmTpActionAllowExpired = 0x1
+	CSSM_TP_ACTION_ALLOW_EXPIRED_ROOT   CssmTpActionAllowExpired = 0x8
+	CSSM_TP_ACTION_FETCH_CERT_FROM_NET  CssmTpActionAllowExpired = 0x4
+	CSSM_TP_ACTION_IMPLICIT_ANCHORS     CssmTpActionAllowExpired = 0x40
+	CSSM_TP_ACTION_LEAF_IS_CA           CssmTpActionAllowExpired = 0x2
+	CSSM_TP_ACTION_REQUIRE_REV_PER_CERT CssmTpActionAllowExpired = 0x10
+	CSSM_TP_ACTION_TRUST_SETTINGS       CssmTpActionAllowExpired = 0x20
 )
 
-type CssmTpAuthorityRequestC uint
+func (e CssmTpActionAllowExpired) String() string {
+	switch e {
+	case CSSM_TP_ACTION_ALLOW_EXPIRED:
+		return "CSSM_TP_ACTION_ALLOW_EXPIRED"
+	case CSSM_TP_ACTION_ALLOW_EXPIRED_ROOT:
+		return "CSSM_TP_ACTION_ALLOW_EXPIRED_ROOT"
+	case CSSM_TP_ACTION_FETCH_CERT_FROM_NET:
+		return "CSSM_TP_ACTION_FETCH_CERT_FROM_NET"
+	case CSSM_TP_ACTION_IMPLICIT_ANCHORS:
+		return "CSSM_TP_ACTION_IMPLICIT_ANCHORS"
+	case CSSM_TP_ACTION_LEAF_IS_CA:
+		return "CSSM_TP_ACTION_LEAF_IS_CA"
+	case CSSM_TP_ACTION_REQUIRE_REV_PER_CERT:
+		return "CSSM_TP_ACTION_REQUIRE_REV_PER_CERT"
+	case CSSM_TP_ACTION_TRUST_SETTINGS:
+		return "CSSM_TP_ACTION_TRUST_SETTINGS"
+	default:
+		return fmt.Sprintf("CssmTpActionAllowExpired(%d)", e)
+	}
+}
+
+type CssmTpActionDefault uint32
+
+const (
+	CSSM_TP_ACTION_DEFAULT CssmTpActionDefault = 0
+)
+
+func (e CssmTpActionDefault) String() string {
+	switch e {
+	case CSSM_TP_ACTION_DEFAULT:
+		return "CSSM_TP_ACTION_DEFAULT"
+	default:
+		return fmt.Sprintf("CssmTpActionDefault(%d)", e)
+	}
+}
+
+type CssmTpActionRequireCrlPerCert uint32
+
+const (
+	CSSM_TP_ACTION_CRL_SUFFICIENT         CssmTpActionRequireCrlPerCert = 0x4
+	CSSM_TP_ACTION_FETCH_CRL_FROM_NET     CssmTpActionRequireCrlPerCert = 0x2
+	CSSM_TP_ACTION_REQUIRE_CRL_IF_PRESENT CssmTpActionRequireCrlPerCert = 0x8
+	CSSM_TP_ACTION_REQUIRE_CRL_PER_CERT   CssmTpActionRequireCrlPerCert = 0x1
+)
+
+func (e CssmTpActionRequireCrlPerCert) String() string {
+	switch e {
+	case CSSM_TP_ACTION_CRL_SUFFICIENT:
+		return "CSSM_TP_ACTION_CRL_SUFFICIENT"
+	case CSSM_TP_ACTION_FETCH_CRL_FROM_NET:
+		return "CSSM_TP_ACTION_FETCH_CRL_FROM_NET"
+	case CSSM_TP_ACTION_REQUIRE_CRL_IF_PRESENT:
+		return "CSSM_TP_ACTION_REQUIRE_CRL_IF_PRESENT"
+	case CSSM_TP_ACTION_REQUIRE_CRL_PER_CERT:
+		return "CSSM_TP_ACTION_REQUIRE_CRL_PER_CERT"
+	default:
+		return fmt.Sprintf("CssmTpActionRequireCrlPerCert(%d)", e)
+	}
+}
+
+type CssmTpAuthorityRequestC uint32
 
 const (
 	CSSM_TP_AUTHORITY_REQUEST_CERTISSUE      CssmTpAuthorityRequestC = 0x1
@@ -3045,22 +4763,193 @@ func (e CssmTpAuthorityRequestC) String() string {
 	}
 }
 
-type CssmTpCertchange uint
+type CssmTpBaseTpError int32
 
 const (
-	CSSM_TP_CERTCHANGE_HOLD           CssmTpCertchange = 0x2
-	CSSM_TP_CERTCHANGE_NONE           CssmTpCertchange = 0
-	CSSM_TP_CERTCHANGE_NOT_AUTHORIZED CssmTpCertchange = 0x5
-	CSSM_TP_CERTCHANGE_OK             CssmTpCertchange = 0x1
-	CSSM_TP_CERTCHANGE_OKWITHNEWTIME  CssmTpCertchange = 0x2
-	CSSM_TP_CERTCHANGE_REJECTED       CssmTpCertchange = 0x4
-	CSSM_TP_CERTCHANGE_RELEASE        CssmTpCertchange = 0x3
-	CSSM_TP_CERTCHANGE_REVOKE         CssmTpCertchange = 0x1
-	CSSM_TP_CERTCHANGE_STATUS_UNKNOWN CssmTpCertchange = 0
-	CSSM_TP_CERTCHANGE_WRONGCA        CssmTpCertchange = 0x3
+	CSSMERR_TP_AUTHENTICATION_FAILED              CssmTpBaseTpError = -2147409657
+	CSSMERR_TP_CERTGROUP_INCOMPLETE               CssmTpBaseTpError = -2147409656
+	CSSMERR_TP_CERTIFICATE_CANT_OPERATE           CssmTpBaseTpError = -2147409655
+	CSSMERR_TP_CERT_EXPIRED                       CssmTpBaseTpError = -2147409654
+	CSSMERR_TP_CERT_NOT_VALID_YET                 CssmTpBaseTpError = -2147409653
+	CSSMERR_TP_CERT_REVOKED                       CssmTpBaseTpError = -2147409652
+	CSSMERR_TP_CERT_SUSPENDED                     CssmTpBaseTpError = -2147409651
+	CSSMERR_TP_INSUFFICIENT_CREDENTIALS           CssmTpBaseTpError = -2147409650
+	CSSMERR_TP_INVALID_ACTION                     CssmTpBaseTpError = -2147409649
+	CSSMERR_TP_INVALID_ACTION_DATA                CssmTpBaseTpError = -2147409648
+	CSSMERR_TP_INVALID_ANCHOR_CERT                CssmTpBaseTpError = -2147409646
+	CSSMERR_TP_INVALID_AUTHORITY                  CssmTpBaseTpError = -2147409645
+	CSSMERR_TP_INVALID_CALLBACK                   CssmTpBaseTpError = -2147409625
+	CSSMERR_TP_INVALID_CALLERAUTH_CONTEXT_POINTER CssmTpBaseTpError = -2147409663
+	CSSMERR_TP_INVALID_CERTGROUP                  CssmTpBaseTpError = -2147409660
+	CSSMERR_TP_INVALID_CERTIFICATE                CssmTpBaseTpError = -2147409643
+	CSSMERR_TP_INVALID_CERT_AUTHORITY             CssmTpBaseTpError = -2147409642
+	CSSMERR_TP_INVALID_CRL                        CssmTpBaseTpError = -2147409638
+	CSSMERR_TP_INVALID_CRLGROUP                   CssmTpBaseTpError = -2147409659
+	CSSMERR_TP_INVALID_CRLGROUP_POINTER           CssmTpBaseTpError = -2147409658
+	CSSMERR_TP_INVALID_CRL_AUTHORITY              CssmTpBaseTpError = -2147409641
+	CSSMERR_TP_INVALID_CRL_ENCODING               CssmTpBaseTpError = -2147409640
+	CSSMERR_TP_INVALID_CRL_TYPE                   CssmTpBaseTpError = -2147409639
+	CSSMERR_TP_INVALID_FORM_TYPE                  CssmTpBaseTpError = -2147409637
+	CSSMERR_TP_INVALID_ID                         CssmTpBaseTpError = -2147409636
+	CSSMERR_TP_INVALID_IDENTIFIER                 CssmTpBaseTpError = -2147409635
+	CSSMERR_TP_INVALID_IDENTIFIER_POINTER         CssmTpBaseTpError = -2147409662
+	CSSMERR_TP_INVALID_INDEX                      CssmTpBaseTpError = -2147409634
+	CSSMERR_TP_INVALID_KEYCACHE_HANDLE            CssmTpBaseTpError = -2147409661
+	CSSMERR_TP_INVALID_NAME                       CssmTpBaseTpError = -2147409633
+	CSSMERR_TP_INVALID_POLICY_IDENTIFIERS         CssmTpBaseTpError = -2147409632
+	CSSMERR_TP_INVALID_REASON                     CssmTpBaseTpError = -2147409630
+	CSSMERR_TP_INVALID_REQUEST_INPUTS             CssmTpBaseTpError = -2147409629
+	CSSMERR_TP_INVALID_RESPONSE_VECTOR            CssmTpBaseTpError = -2147409628
+	CSSMERR_TP_INVALID_SIGNATURE                  CssmTpBaseTpError = -2147409627
+	CSSMERR_TP_INVALID_STOP_ON_POLICY             CssmTpBaseTpError = -2147409626
+	CSSMERR_TP_INVALID_TIMESTRING                 CssmTpBaseTpError = -2147409631
+	CSSMERR_TP_INVALID_TUPLE                      CssmTpBaseTpError = -2147409624
+	CSSMERR_TP_INVALID_TUPLEGROUP                 CssmTpBaseTpError = -2147409614
+	CSSMERR_TP_INVALID_TUPLEGROUP_POINTER         CssmTpBaseTpError = -2147409615
+	CSSMERR_TP_NOT_SIGNER                         CssmTpBaseTpError = -2147409623
+	CSSMERR_TP_NOT_TRUSTED                        CssmTpBaseTpError = -2147409622
+	CSSMERR_TP_NO_DEFAULT_AUTHORITY               CssmTpBaseTpError = -2147409621
+	CSSMERR_TP_REJECTED_FORM                      CssmTpBaseTpError = -2147409620
+	CSSMERR_TP_REQUEST_LOST                       CssmTpBaseTpError = -2147409619
+	CSSMERR_TP_REQUEST_REJECTED                   CssmTpBaseTpError = -2147409618
+	CSSMERR_TP_UNSUPPORTED_ADDR_TYPE              CssmTpBaseTpError = -2147409617
+	CSSMERR_TP_UNSUPPORTED_SERVICE                CssmTpBaseTpError = -2147409616
+	CSSMERR_TP_VERIFY_ACTION_FAILED               CssmTpBaseTpError = -2147409644
+	CSSM_TP_BASE_TP_ERROR                         CssmTpBaseTpError = -2147409664
 )
 
-type CssmTpCertchangeReason uint
+func (e CssmTpBaseTpError) String() string {
+	switch e {
+	case CSSMERR_TP_AUTHENTICATION_FAILED:
+		return "CSSMERR_TP_AUTHENTICATION_FAILED"
+	case CSSMERR_TP_CERTGROUP_INCOMPLETE:
+		return "CSSMERR_TP_CERTGROUP_INCOMPLETE"
+	case CSSMERR_TP_CERTIFICATE_CANT_OPERATE:
+		return "CSSMERR_TP_CERTIFICATE_CANT_OPERATE"
+	case CSSMERR_TP_CERT_EXPIRED:
+		return "CSSMERR_TP_CERT_EXPIRED"
+	case CSSMERR_TP_CERT_NOT_VALID_YET:
+		return "CSSMERR_TP_CERT_NOT_VALID_YET"
+	case CSSMERR_TP_CERT_REVOKED:
+		return "CSSMERR_TP_CERT_REVOKED"
+	case CSSMERR_TP_CERT_SUSPENDED:
+		return "CSSMERR_TP_CERT_SUSPENDED"
+	case CSSMERR_TP_INSUFFICIENT_CREDENTIALS:
+		return "CSSMERR_TP_INSUFFICIENT_CREDENTIALS"
+	case CSSMERR_TP_INVALID_ACTION:
+		return "CSSMERR_TP_INVALID_ACTION"
+	case CSSMERR_TP_INVALID_ACTION_DATA:
+		return "CSSMERR_TP_INVALID_ACTION_DATA"
+	case CSSMERR_TP_INVALID_ANCHOR_CERT:
+		return "CSSMERR_TP_INVALID_ANCHOR_CERT"
+	case CSSMERR_TP_INVALID_AUTHORITY:
+		return "CSSMERR_TP_INVALID_AUTHORITY"
+	case CSSMERR_TP_INVALID_CALLBACK:
+		return "CSSMERR_TP_INVALID_CALLBACK"
+	case CSSMERR_TP_INVALID_CALLERAUTH_CONTEXT_POINTER:
+		return "CSSMERR_TP_INVALID_CALLERAUTH_CONTEXT_POINTER"
+	case CSSMERR_TP_INVALID_CERTGROUP:
+		return "CSSMERR_TP_INVALID_CERTGROUP"
+	case CSSMERR_TP_INVALID_CERTIFICATE:
+		return "CSSMERR_TP_INVALID_CERTIFICATE"
+	case CSSMERR_TP_INVALID_CERT_AUTHORITY:
+		return "CSSMERR_TP_INVALID_CERT_AUTHORITY"
+	case CSSMERR_TP_INVALID_CRL:
+		return "CSSMERR_TP_INVALID_CRL"
+	case CSSMERR_TP_INVALID_CRLGROUP:
+		return "CSSMERR_TP_INVALID_CRLGROUP"
+	case CSSMERR_TP_INVALID_CRLGROUP_POINTER:
+		return "CSSMERR_TP_INVALID_CRLGROUP_POINTER"
+	case CSSMERR_TP_INVALID_CRL_AUTHORITY:
+		return "CSSMERR_TP_INVALID_CRL_AUTHORITY"
+	case CSSMERR_TP_INVALID_CRL_ENCODING:
+		return "CSSMERR_TP_INVALID_CRL_ENCODING"
+	case CSSMERR_TP_INVALID_CRL_TYPE:
+		return "CSSMERR_TP_INVALID_CRL_TYPE"
+	case CSSMERR_TP_INVALID_FORM_TYPE:
+		return "CSSMERR_TP_INVALID_FORM_TYPE"
+	case CSSMERR_TP_INVALID_ID:
+		return "CSSMERR_TP_INVALID_ID"
+	case CSSMERR_TP_INVALID_IDENTIFIER:
+		return "CSSMERR_TP_INVALID_IDENTIFIER"
+	case CSSMERR_TP_INVALID_IDENTIFIER_POINTER:
+		return "CSSMERR_TP_INVALID_IDENTIFIER_POINTER"
+	case CSSMERR_TP_INVALID_INDEX:
+		return "CSSMERR_TP_INVALID_INDEX"
+	case CSSMERR_TP_INVALID_KEYCACHE_HANDLE:
+		return "CSSMERR_TP_INVALID_KEYCACHE_HANDLE"
+	case CSSMERR_TP_INVALID_NAME:
+		return "CSSMERR_TP_INVALID_NAME"
+	case CSSMERR_TP_INVALID_POLICY_IDENTIFIERS:
+		return "CSSMERR_TP_INVALID_POLICY_IDENTIFIERS"
+	case CSSMERR_TP_INVALID_REASON:
+		return "CSSMERR_TP_INVALID_REASON"
+	case CSSMERR_TP_INVALID_REQUEST_INPUTS:
+		return "CSSMERR_TP_INVALID_REQUEST_INPUTS"
+	case CSSMERR_TP_INVALID_RESPONSE_VECTOR:
+		return "CSSMERR_TP_INVALID_RESPONSE_VECTOR"
+	case CSSMERR_TP_INVALID_SIGNATURE:
+		return "CSSMERR_TP_INVALID_SIGNATURE"
+	case CSSMERR_TP_INVALID_STOP_ON_POLICY:
+		return "CSSMERR_TP_INVALID_STOP_ON_POLICY"
+	case CSSMERR_TP_INVALID_TIMESTRING:
+		return "CSSMERR_TP_INVALID_TIMESTRING"
+	case CSSMERR_TP_INVALID_TUPLE:
+		return "CSSMERR_TP_INVALID_TUPLE"
+	case CSSMERR_TP_INVALID_TUPLEGROUP:
+		return "CSSMERR_TP_INVALID_TUPLEGROUP"
+	case CSSMERR_TP_INVALID_TUPLEGROUP_POINTER:
+		return "CSSMERR_TP_INVALID_TUPLEGROUP_POINTER"
+	case CSSMERR_TP_NOT_SIGNER:
+		return "CSSMERR_TP_NOT_SIGNER"
+	case CSSMERR_TP_NOT_TRUSTED:
+		return "CSSMERR_TP_NOT_TRUSTED"
+	case CSSMERR_TP_NO_DEFAULT_AUTHORITY:
+		return "CSSMERR_TP_NO_DEFAULT_AUTHORITY"
+	case CSSMERR_TP_REJECTED_FORM:
+		return "CSSMERR_TP_REJECTED_FORM"
+	case CSSMERR_TP_REQUEST_LOST:
+		return "CSSMERR_TP_REQUEST_LOST"
+	case CSSMERR_TP_REQUEST_REJECTED:
+		return "CSSMERR_TP_REQUEST_REJECTED"
+	case CSSMERR_TP_UNSUPPORTED_ADDR_TYPE:
+		return "CSSMERR_TP_UNSUPPORTED_ADDR_TYPE"
+	case CSSMERR_TP_UNSUPPORTED_SERVICE:
+		return "CSSMERR_TP_UNSUPPORTED_SERVICE"
+	case CSSMERR_TP_VERIFY_ACTION_FAILED:
+		return "CSSMERR_TP_VERIFY_ACTION_FAILED"
+	case CSSM_TP_BASE_TP_ERROR:
+		return "CSSM_TP_BASE_TP_ERROR"
+	default:
+		return fmt.Sprintf("CssmTpBaseTpError(%d)", e)
+	}
+}
+
+type CssmTpCertchangeNone uint32
+
+const (
+	CSSM_TP_CERTCHANGE_HOLD    CssmTpCertchangeNone = 0x2
+	CSSM_TP_CERTCHANGE_NONE    CssmTpCertchangeNone = 0
+	CSSM_TP_CERTCHANGE_RELEASE CssmTpCertchangeNone = 0x3
+	CSSM_TP_CERTCHANGE_REVOKE  CssmTpCertchangeNone = 0x1
+)
+
+func (e CssmTpCertchangeNone) String() string {
+	switch e {
+	case CSSM_TP_CERTCHANGE_HOLD:
+		return "CSSM_TP_CERTCHANGE_HOLD"
+	case CSSM_TP_CERTCHANGE_NONE:
+		return "CSSM_TP_CERTCHANGE_NONE"
+	case CSSM_TP_CERTCHANGE_RELEASE:
+		return "CSSM_TP_CERTCHANGE_RELEASE"
+	case CSSM_TP_CERTCHANGE_REVOKE:
+		return "CSSM_TP_CERTCHANGE_REVOKE"
+	default:
+		return fmt.Sprintf("CssmTpCertchangeNone(%d)", e)
+	}
+}
+
+type CssmTpCertchangeReason uint32
 
 const (
 	CSSM_TP_CERTCHANGE_REASON_AFFILIATIONCHANGE   CssmTpCertchangeReason = 0x4
@@ -3096,7 +4985,37 @@ func (e CssmTpCertchangeReason) String() string {
 	}
 }
 
-type CssmTpCertissue uint
+type CssmTpCertchangeStatusUnknown uint32
+
+const (
+	CSSM_TP_CERTCHANGE_NOT_AUTHORIZED CssmTpCertchangeStatusUnknown = 0x5
+	CSSM_TP_CERTCHANGE_OK             CssmTpCertchangeStatusUnknown = 0x1
+	CSSM_TP_CERTCHANGE_OKWITHNEWTIME  CssmTpCertchangeStatusUnknown = 0x2
+	CSSM_TP_CERTCHANGE_REJECTED       CssmTpCertchangeStatusUnknown = 0x4
+	CSSM_TP_CERTCHANGE_STATUS_UNKNOWN CssmTpCertchangeStatusUnknown = 0
+	CSSM_TP_CERTCHANGE_WRONGCA        CssmTpCertchangeStatusUnknown = 0x3
+)
+
+func (e CssmTpCertchangeStatusUnknown) String() string {
+	switch e {
+	case CSSM_TP_CERTCHANGE_NOT_AUTHORIZED:
+		return "CSSM_TP_CERTCHANGE_NOT_AUTHORIZED"
+	case CSSM_TP_CERTCHANGE_OK:
+		return "CSSM_TP_CERTCHANGE_OK"
+	case CSSM_TP_CERTCHANGE_OKWITHNEWTIME:
+		return "CSSM_TP_CERTCHANGE_OKWITHNEWTIME"
+	case CSSM_TP_CERTCHANGE_REJECTED:
+		return "CSSM_TP_CERTCHANGE_REJECTED"
+	case CSSM_TP_CERTCHANGE_STATUS_UNKNOWN:
+		return "CSSM_TP_CERTCHANGE_STATUS_UNKNOWN"
+	case CSSM_TP_CERTCHANGE_WRONGCA:
+		return "CSSM_TP_CERTCHANGE_WRONGCA"
+	default:
+		return fmt.Sprintf("CssmTpCertchangeStatusUnknown(%d)", e)
+	}
+}
+
+type CssmTpCertissue uint32
 
 const (
 	CSSM_TP_CERTISSUE_NOT_AUTHORIZED    CssmTpCertissue = 0x5
@@ -3129,7 +5048,7 @@ func (e CssmTpCertissue) String() string {
 	}
 }
 
-type CssmTpCertnotarize uint
+type CssmTpCertnotarize uint32
 
 const (
 	CSSM_TP_CERTNOTARIZE_NOT_AUTHORIZED    CssmTpCertnotarize = 0x5
@@ -3159,7 +5078,7 @@ func (e CssmTpCertnotarize) String() string {
 	}
 }
 
-type CssmTpCertreclaim uint
+type CssmTpCertreclaim uint32
 
 const (
 	CSSM_TP_CERTRECLAIM_NOMATCH        CssmTpCertreclaim = 0x2
@@ -3186,7 +5105,7 @@ func (e CssmTpCertreclaim) String() string {
 	}
 }
 
-type CssmTpCertverify uint
+type CssmTpCertverify uint32
 
 const (
 	CSSM_TP_CERTVERIFY_EXPIRED                   CssmTpCertverify = 0x5
@@ -3249,7 +5168,7 @@ func (e CssmTpCertverify) String() string {
 	}
 }
 
-type CssmTpConfirm uint
+type CssmTpConfirm uint32
 
 const (
 	CSSM_TP_CONFIRM_ACCEPT         CssmTpConfirm = 0x1
@@ -3270,7 +5189,7 @@ func (e CssmTpConfirm) String() string {
 	}
 }
 
-type CssmTpCrlissue uint
+type CssmTpCrlissue uint32
 
 const (
 	CSSM_TP_CRLISSUE_INVALID_DOMAIN     CssmTpCrlissue = 0x3
@@ -3303,7 +5222,7 @@ func (e CssmTpCrlissue) String() string {
 	}
 }
 
-type CssmTpFormType uint
+type CssmTpFormType uint32
 
 const (
 	CSSM_TP_FORM_TYPE_GENERIC      CssmTpFormType = 0
@@ -3321,7 +5240,7 @@ func (e CssmTpFormType) String() string {
 	}
 }
 
-type CssmTpStopOn uint
+type CssmTpStopOn uint32
 
 const (
 	CSSM_TP_STOP_ON_FIRST_FAIL CssmTpStopOn = 3
@@ -3345,7 +5264,7 @@ func (e CssmTpStopOn) String() string {
 	}
 }
 
-type CssmUsee uint
+type CssmUsee uint32
 
 const (
 	CSSM_USEE_AUTHENTICATION CssmUsee = 6
@@ -3393,7 +5312,7 @@ func (e CssmUsee) String() string {
 	}
 }
 
-type CssmValueNot int
+type CssmValueNot int32
 
 const (
 	CSSM_VALUE_NOT_AVAILABLE CssmValueNot = -1
@@ -3408,162 +5327,481 @@ func (e CssmValueNot) String() string {
 	}
 }
 
-type CssmWordid int
+type CssmWordidKeychainPrompt uint32
 
 const (
-	CSSM_WORDID_A                    CssmWordid = 2
-	CSSM_WORDID_ACL                  CssmWordid = 3
-	CSSM_WORDID_ALPHA                CssmWordid = 4
-	CSSM_WORDID_ASYMMETRIC_KEY       CssmWordid = 65547
-	CSSM_WORDID_B                    CssmWordid = 5
-	CSSM_WORDID_BER                  CssmWordid = 6
-	CSSM_WORDID_BINARY               CssmWordid = 7
-	CSSM_WORDID_BIOMETRIC            CssmWordid = 8
-	CSSM_WORDID_C                    CssmWordid = 9
-	CSSM_WORDID_CANCELED             CssmWordid = 10
-	CSSM_WORDID_CERT                 CssmWordid = 11
-	CSSM_WORDID_COMMENT              CssmWordid = 12
-	CSSM_WORDID_CRL                  CssmWordid = 13
-	CSSM_WORDID_CUSTOM               CssmWordid = 14
-	CSSM_WORDID_D                    CssmWordid = 15
-	CSSM_WORDID_DATE                 CssmWordid = 16
-	CSSM_WORDID_DBS_CREATE           CssmWordid = 22
-	CSSM_WORDID_DBS_DELETE           CssmWordid = 23
-	CSSM_WORDID_DB_DELETE            CssmWordid = 17
-	CSSM_WORDID_DB_EXEC_STORED_QUERY CssmWordid = 18
-	CSSM_WORDID_DB_INSERT            CssmWordid = 19
-	CSSM_WORDID_DB_MODIFY            CssmWordid = 20
-	CSSM_WORDID_DB_READ              CssmWordid = 21
-	CSSM_WORDID_DECRYPT              CssmWordid = 24
-	CSSM_WORDID_DELETE               CssmWordid = 25
-	CSSM_WORDID_DELTA_CRL            CssmWordid = 26
-	CSSM_WORDID_DER                  CssmWordid = 27
-	CSSM_WORDID_DERIVE               CssmWordid = 28
-	CSSM_WORDID_DISPLAY              CssmWordid = 29
-	CSSM_WORDID_DO                   CssmWordid = 30
-	CSSM_WORDID_DSA                  CssmWordid = 31
-	CSSM_WORDID_DSA_SHA1             CssmWordid = 32
-	CSSM_WORDID_E                    CssmWordid = 33
-	CSSM_WORDID_ELGAMAL              CssmWordid = 34
-	CSSM_WORDID_ENCRYPT              CssmWordid = 35
-	CSSM_WORDID_ENTRY                CssmWordid = 36
-	CSSM_WORDID_EXPORT_CLEAR         CssmWordid = 37
-	CSSM_WORDID_EXPORT_WRAPPED       CssmWordid = 38
-	CSSM_WORDID_G                    CssmWordid = 39
-	CSSM_WORDID_GE                   CssmWordid = 40
-	CSSM_WORDID_GENKEY               CssmWordid = 41
-	CSSM_WORDID_HASH                 CssmWordid = 42
-	CSSM_WORDID_HASHED_PASSWORD      CssmWordid = 43
-	CSSM_WORDID_HASHED_SUBJECT       CssmWordid = 44
-	CSSM_WORDID_HAVAL                CssmWordid = 45
-	CSSM_WORDID_IBCHASH              CssmWordid = 46
-	CSSM_WORDID_IMPORT_CLEAR         CssmWordid = 47
-	CSSM_WORDID_IMPORT_WRAPPED       CssmWordid = 48
-	CSSM_WORDID_INTEL                CssmWordid = 49
-	CSSM_WORDID_ISSUER               CssmWordid = 50
-	CSSM_WORDID_ISSUER_INFO          CssmWordid = 51
-	CSSM_WORDID_KEA                  CssmWordid = 53
-	CSSM_WORDID_KEY                  CssmWordid = 65543
-	CSSM_WORDID_KEYBAG_KEY           CssmWordid = 65549
-	CSSM_WORDID_KEYCHAIN_CHANGE_LOCK CssmWordid = 65538
-	CSSM_WORDID_KEYCHAIN_LOCK        CssmWordid = 65537
-	CSSM_WORDID_KEYCHAIN_PROMPT      CssmWordid = 65536
-	CSSM_WORDID_KEYHOLDER            CssmWordid = 54
-	CSSM_WORDID_K_OF_N               CssmWordid = 52
-	CSSM_WORDID_L                    CssmWordid = 55
-	CSSM_WORDID_LE                   CssmWordid = 56
-	CSSM_WORDID_LOGIN                CssmWordid = 57
-	CSSM_WORDID_LOGIN_NAME           CssmWordid = 58
-	CSSM_WORDID_MAC                  CssmWordid = 59
-	CSSM_WORDID_MD2                  CssmWordid = 60
-	CSSM_WORDID_MD2WITHRSA           CssmWordid = 61
-	CSSM_WORDID_MD4                  CssmWordid = 62
-	CSSM_WORDID_MD5                  CssmWordid = 63
-	CSSM_WORDID_MD5WITHRSA           CssmWordid = 64
-	CSSM_WORDID_N                    CssmWordid = 65
-	CSSM_WORDID_NAME                 CssmWordid = 66
-	CSSM_WORDID_NDR                  CssmWordid = 67
-	CSSM_WORDID_NHASH                CssmWordid = 68
-	CSSM_WORDID_NOT_AFTER            CssmWordid = 69
-	CSSM_WORDID_NOT_BEFORE           CssmWordid = 70
-	CSSM_WORDID_NULL                 CssmWordid = 71
-	CSSM_WORDID_NUMERIC              CssmWordid = 72
-	CSSM_WORDID_OBJECT_HASH          CssmWordid = 73
-	CSSM_WORDID_ONE_TIME             CssmWordid = 74
-	CSSM_WORDID_ONLINE               CssmWordid = 75
-	CSSM_WORDID_OWNER                CssmWordid = 76
-	CSSM_WORDID_P                    CssmWordid = 77
-	CSSM_WORDID_PAM_NAME             CssmWordid = 78
-	CSSM_WORDID_PARTITION            CssmWordid = 65548
-	CSSM_WORDID_PASSWORD             CssmWordid = 79
-	CSSM_WORDID_PGP                  CssmWordid = 80
-	CSSM_WORDID_PIN                  CssmWordid = 65544
-	CSSM_WORDID_PREAUTH              CssmWordid = 65545
-	CSSM_WORDID_PREAUTH_SOURCE       CssmWordid = 65546
-	CSSM_WORDID_PREFIX               CssmWordid = 81
-	CSSM_WORDID_PRIVATE_KEY          CssmWordid = 82
-	CSSM_WORDID_PROCESS              CssmWordid = 65539
-	CSSM_WORDID_PROMPTED_BIOMETRIC   CssmWordid = 83
-	CSSM_WORDID_PROMPTED_PASSWORD    CssmWordid = 84
-	CSSM_WORDID_PROPAGATE            CssmWordid = 85
-	CSSM_WORDID_PROTECTED_BIOMETRIC  CssmWordid = 86
-	CSSM_WORDID_PROTECTED_PASSWORD   CssmWordid = 87
-	CSSM_WORDID_PROTECTED_PIN        CssmWordid = 88
-	CSSM_WORDID_PUBLIC_KEY           CssmWordid = 89
-	CSSM_WORDID_PUBLIC_KEY_FROM_CERT CssmWordid = 90
-	CSSM_WORDID_Q                    CssmWordid = 91
-	CSSM_WORDID_RANGE                CssmWordid = 92
-	CSSM_WORDID_REVAL                CssmWordid = 93
-	CSSM_WORDID_RIPEMAC              CssmWordid = 94
-	CSSM_WORDID_RIPEMD               CssmWordid = 95
-	CSSM_WORDID_RIPEMD160            CssmWordid = 96
-	CSSM_WORDID_RSA                  CssmWordid = 97
-	CSSM_WORDID_RSA_ISO9796          CssmWordid = 98
-	CSSM_WORDID_RSA_PKCS             CssmWordid = 99
-	CSSM_WORDID_RSA_PKCS1            CssmWordid = 102
-	CSSM_WORDID_RSA_PKCS1_MD5        CssmWordid = 103
-	CSSM_WORDID_RSA_PKCS1_SHA1       CssmWordid = 104
-	CSSM_WORDID_RSA_PKCS1_SIG        CssmWordid = 105
-	CSSM_WORDID_RSA_PKCS_MD5         CssmWordid = 100
-	CSSM_WORDID_RSA_PKCS_SHA1        CssmWordid = 101
-	CSSM_WORDID_RSA_RAW              CssmWordid = 106
-	CSSM_WORDID_SDSIV1               CssmWordid = 107
-	CSSM_WORDID_SEQUENCE             CssmWordid = 108
-	CSSM_WORDID_SET                  CssmWordid = 109
-	CSSM_WORDID_SEXPR                CssmWordid = 110
-	CSSM_WORDID_SHA1                 CssmWordid = 111
-	CSSM_WORDID_SHA1WITHDSA          CssmWordid = 112
-	CSSM_WORDID_SHA1WITHECDSA        CssmWordid = 113
-	CSSM_WORDID_SHA1WITHRSA          CssmWordid = 114
-	CSSM_WORDID_SIGN                 CssmWordid = 115
-	CSSM_WORDID_SIGNATURE            CssmWordid = 116
-	CSSM_WORDID_SIGNED_NONCE         CssmWordid = 117
-	CSSM_WORDID_SIGNED_SECRET        CssmWordid = 118
-	CSSM_WORDID_SPKI                 CssmWordid = 119
-	CSSM_WORDID_SUBJECT              CssmWordid = 120
-	CSSM_WORDID_SUBJECT_INFO         CssmWordid = 121
-	CSSM_WORDID_SYMMETRIC_KEY        CssmWordid = 65541
-	CSSM_WORDID_SYSTEM               CssmWordid = 65542
-	CSSM_WORDID_TAG                  CssmWordid = 122
-	CSSM_WORDID_THRESHOLD            CssmWordid = 123
-	CSSM_WORDID_TIME                 CssmWordid = 124
-	CSSM_WORDID_URI                  CssmWordid = 125
-	CSSM_WORDID_VENDOR_END           CssmWordid = 0x7fff0000
-	CSSM_WORDID_VENDOR_START         CssmWordid = 0x10000
-	CSSM_WORDID_VERSION              CssmWordid = 126
-	CSSM_WORDID_X509V1               CssmWordid = 128
-	CSSM_WORDID_X509V2               CssmWordid = 129
-	CSSM_WORDID_X509V3               CssmWordid = 130
-	CSSM_WORDID_X509_ATTRIBUTE       CssmWordid = 127
-	CSSM_WORDID_X9_ATTRIBUTE         CssmWordid = 131
-	CSSM_WORDID__FIRST_UNUSED        CssmWordid = 65550
-	CSSM_WORDID__NLU_                CssmWordid = 0
-	CSSM_WORDID__RESERVED_1          CssmWordid = 65540
-	CSSM_WORDID__STAR_               CssmWordid = 1
-	CSSM_WORDID__UNK_                CssmWordid = -1
+	CSSM_WORDID_ASYMMETRIC_KEY       CssmWordidKeychainPrompt = 65547
+	CSSM_WORDID_KEY                  CssmWordidKeychainPrompt = 65543
+	CSSM_WORDID_KEYBAG_KEY           CssmWordidKeychainPrompt = 65549
+	CSSM_WORDID_KEYCHAIN_CHANGE_LOCK CssmWordidKeychainPrompt = 65538
+	CSSM_WORDID_KEYCHAIN_LOCK        CssmWordidKeychainPrompt = 65537
+	CSSM_WORDID_KEYCHAIN_PROMPT      CssmWordidKeychainPrompt = 65536
+	CSSM_WORDID_PARTITION            CssmWordidKeychainPrompt = 65548
+	CSSM_WORDID_PIN                  CssmWordidKeychainPrompt = 65544
+	CSSM_WORDID_PREAUTH              CssmWordidKeychainPrompt = 65545
+	CSSM_WORDID_PREAUTH_SOURCE       CssmWordidKeychainPrompt = 65546
+	CSSM_WORDID_PROCESS              CssmWordidKeychainPrompt = 65539
+	CSSM_WORDID_SYMMETRIC_KEY        CssmWordidKeychainPrompt = 65541
+	CSSM_WORDID_SYSTEM               CssmWordidKeychainPrompt = 65542
+	CSSM_WORDID__FIRST_UNUSED        CssmWordidKeychainPrompt = 65550
+	CSSM_WORDID__RESERVED_1          CssmWordidKeychainPrompt = 65540
 )
 
-type Cssmerr int
+func (e CssmWordidKeychainPrompt) String() string {
+	switch e {
+	case CSSM_WORDID_ASYMMETRIC_KEY:
+		return "CSSM_WORDID_ASYMMETRIC_KEY"
+	case CSSM_WORDID_KEY:
+		return "CSSM_WORDID_KEY"
+	case CSSM_WORDID_KEYBAG_KEY:
+		return "CSSM_WORDID_KEYBAG_KEY"
+	case CSSM_WORDID_KEYCHAIN_CHANGE_LOCK:
+		return "CSSM_WORDID_KEYCHAIN_CHANGE_LOCK"
+	case CSSM_WORDID_KEYCHAIN_LOCK:
+		return "CSSM_WORDID_KEYCHAIN_LOCK"
+	case CSSM_WORDID_KEYCHAIN_PROMPT:
+		return "CSSM_WORDID_KEYCHAIN_PROMPT"
+	case CSSM_WORDID_PARTITION:
+		return "CSSM_WORDID_PARTITION"
+	case CSSM_WORDID_PIN:
+		return "CSSM_WORDID_PIN"
+	case CSSM_WORDID_PREAUTH:
+		return "CSSM_WORDID_PREAUTH"
+	case CSSM_WORDID_PREAUTH_SOURCE:
+		return "CSSM_WORDID_PREAUTH_SOURCE"
+	case CSSM_WORDID_PROCESS:
+		return "CSSM_WORDID_PROCESS"
+	case CSSM_WORDID_SYMMETRIC_KEY:
+		return "CSSM_WORDID_SYMMETRIC_KEY"
+	case CSSM_WORDID_SYSTEM:
+		return "CSSM_WORDID_SYSTEM"
+	case CSSM_WORDID__FIRST_UNUSED:
+		return "CSSM_WORDID__FIRST_UNUSED"
+	case CSSM_WORDID__RESERVED_1:
+		return "CSSM_WORDID__RESERVED_1"
+	default:
+		return fmt.Sprintf("CssmWordidKeychainPrompt(%d)", e)
+	}
+}
+
+type CssmWordidUnk int32
+
+const (
+	CSSM_WORDID_A                    CssmWordidUnk = 2
+	CSSM_WORDID_ACL                  CssmWordidUnk = 3
+	CSSM_WORDID_ALPHA                CssmWordidUnk = 4
+	CSSM_WORDID_B                    CssmWordidUnk = 5
+	CSSM_WORDID_BER                  CssmWordidUnk = 6
+	CSSM_WORDID_BINARY               CssmWordidUnk = 7
+	CSSM_WORDID_BIOMETRIC            CssmWordidUnk = 8
+	CSSM_WORDID_C                    CssmWordidUnk = 9
+	CSSM_WORDID_CANCELED             CssmWordidUnk = 10
+	CSSM_WORDID_CERT                 CssmWordidUnk = 11
+	CSSM_WORDID_COMMENT              CssmWordidUnk = 12
+	CSSM_WORDID_CRL                  CssmWordidUnk = 13
+	CSSM_WORDID_CUSTOM               CssmWordidUnk = 14
+	CSSM_WORDID_D                    CssmWordidUnk = 15
+	CSSM_WORDID_DATE                 CssmWordidUnk = 16
+	CSSM_WORDID_DBS_CREATE           CssmWordidUnk = 22
+	CSSM_WORDID_DBS_DELETE           CssmWordidUnk = 23
+	CSSM_WORDID_DB_DELETE            CssmWordidUnk = 17
+	CSSM_WORDID_DB_EXEC_STORED_QUERY CssmWordidUnk = 18
+	CSSM_WORDID_DB_INSERT            CssmWordidUnk = 19
+	CSSM_WORDID_DB_MODIFY            CssmWordidUnk = 20
+	CSSM_WORDID_DB_READ              CssmWordidUnk = 21
+	CSSM_WORDID_DECRYPT              CssmWordidUnk = 24
+	CSSM_WORDID_DELETE               CssmWordidUnk = 25
+	CSSM_WORDID_DELTA_CRL            CssmWordidUnk = 26
+	CSSM_WORDID_DER                  CssmWordidUnk = 27
+	CSSM_WORDID_DERIVE               CssmWordidUnk = 28
+	CSSM_WORDID_DISPLAY              CssmWordidUnk = 29
+	CSSM_WORDID_DO                   CssmWordidUnk = 30
+	CSSM_WORDID_DSA                  CssmWordidUnk = 31
+	CSSM_WORDID_DSA_SHA1             CssmWordidUnk = 32
+	CSSM_WORDID_E                    CssmWordidUnk = 33
+	CSSM_WORDID_ELGAMAL              CssmWordidUnk = 34
+	CSSM_WORDID_ENCRYPT              CssmWordidUnk = 35
+	CSSM_WORDID_ENTRY                CssmWordidUnk = 36
+	CSSM_WORDID_EXPORT_CLEAR         CssmWordidUnk = 37
+	CSSM_WORDID_EXPORT_WRAPPED       CssmWordidUnk = 38
+	CSSM_WORDID_G                    CssmWordidUnk = 39
+	CSSM_WORDID_GE                   CssmWordidUnk = 40
+	CSSM_WORDID_GENKEY               CssmWordidUnk = 41
+	CSSM_WORDID_HASH                 CssmWordidUnk = 42
+	CSSM_WORDID_HASHED_PASSWORD      CssmWordidUnk = 43
+	CSSM_WORDID_HASHED_SUBJECT       CssmWordidUnk = 44
+	CSSM_WORDID_HAVAL                CssmWordidUnk = 45
+	CSSM_WORDID_IBCHASH              CssmWordidUnk = 46
+	CSSM_WORDID_IMPORT_CLEAR         CssmWordidUnk = 47
+	CSSM_WORDID_IMPORT_WRAPPED       CssmWordidUnk = 48
+	CSSM_WORDID_INTEL                CssmWordidUnk = 49
+	CSSM_WORDID_ISSUER               CssmWordidUnk = 50
+	CSSM_WORDID_ISSUER_INFO          CssmWordidUnk = 51
+	CSSM_WORDID_KEA                  CssmWordidUnk = 53
+	CSSM_WORDID_KEYHOLDER            CssmWordidUnk = 54
+	CSSM_WORDID_K_OF_N               CssmWordidUnk = 52
+	CSSM_WORDID_L                    CssmWordidUnk = 55
+	CSSM_WORDID_LE                   CssmWordidUnk = 56
+	CSSM_WORDID_LOGIN                CssmWordidUnk = 57
+	CSSM_WORDID_LOGIN_NAME           CssmWordidUnk = 58
+	CSSM_WORDID_MAC                  CssmWordidUnk = 59
+	CSSM_WORDID_MD2                  CssmWordidUnk = 60
+	CSSM_WORDID_MD2WITHRSA           CssmWordidUnk = 61
+	CSSM_WORDID_MD4                  CssmWordidUnk = 62
+	CSSM_WORDID_MD5                  CssmWordidUnk = 63
+	CSSM_WORDID_MD5WITHRSA           CssmWordidUnk = 64
+	CSSM_WORDID_N                    CssmWordidUnk = 65
+	CSSM_WORDID_NAME                 CssmWordidUnk = 66
+	CSSM_WORDID_NDR                  CssmWordidUnk = 67
+	CSSM_WORDID_NHASH                CssmWordidUnk = 68
+	CSSM_WORDID_NOT_AFTER            CssmWordidUnk = 69
+	CSSM_WORDID_NOT_BEFORE           CssmWordidUnk = 70
+	CSSM_WORDID_NULL                 CssmWordidUnk = 71
+	CSSM_WORDID_NUMERIC              CssmWordidUnk = 72
+	CSSM_WORDID_OBJECT_HASH          CssmWordidUnk = 73
+	CSSM_WORDID_ONE_TIME             CssmWordidUnk = 74
+	CSSM_WORDID_ONLINE               CssmWordidUnk = 75
+	CSSM_WORDID_OWNER                CssmWordidUnk = 76
+	CSSM_WORDID_P                    CssmWordidUnk = 77
+	CSSM_WORDID_PAM_NAME             CssmWordidUnk = 78
+	CSSM_WORDID_PASSWORD             CssmWordidUnk = 79
+	CSSM_WORDID_PGP                  CssmWordidUnk = 80
+	CSSM_WORDID_PREFIX               CssmWordidUnk = 81
+	CSSM_WORDID_PRIVATE_KEY          CssmWordidUnk = 82
+	CSSM_WORDID_PROMPTED_BIOMETRIC   CssmWordidUnk = 83
+	CSSM_WORDID_PROMPTED_PASSWORD    CssmWordidUnk = 84
+	CSSM_WORDID_PROPAGATE            CssmWordidUnk = 85
+	CSSM_WORDID_PROTECTED_BIOMETRIC  CssmWordidUnk = 86
+	CSSM_WORDID_PROTECTED_PASSWORD   CssmWordidUnk = 87
+	CSSM_WORDID_PROTECTED_PIN        CssmWordidUnk = 88
+	CSSM_WORDID_PUBLIC_KEY           CssmWordidUnk = 89
+	CSSM_WORDID_PUBLIC_KEY_FROM_CERT CssmWordidUnk = 90
+	CSSM_WORDID_Q                    CssmWordidUnk = 91
+	CSSM_WORDID_RANGE                CssmWordidUnk = 92
+	CSSM_WORDID_REVAL                CssmWordidUnk = 93
+	CSSM_WORDID_RIPEMAC              CssmWordidUnk = 94
+	CSSM_WORDID_RIPEMD               CssmWordidUnk = 95
+	CSSM_WORDID_RIPEMD160            CssmWordidUnk = 96
+	CSSM_WORDID_RSA                  CssmWordidUnk = 97
+	CSSM_WORDID_RSA_ISO9796          CssmWordidUnk = 98
+	CSSM_WORDID_RSA_PKCS             CssmWordidUnk = 99
+	CSSM_WORDID_RSA_PKCS1            CssmWordidUnk = 102
+	CSSM_WORDID_RSA_PKCS1_MD5        CssmWordidUnk = 103
+	CSSM_WORDID_RSA_PKCS1_SHA1       CssmWordidUnk = 104
+	CSSM_WORDID_RSA_PKCS1_SIG        CssmWordidUnk = 105
+	CSSM_WORDID_RSA_PKCS_MD5         CssmWordidUnk = 100
+	CSSM_WORDID_RSA_PKCS_SHA1        CssmWordidUnk = 101
+	CSSM_WORDID_RSA_RAW              CssmWordidUnk = 106
+	CSSM_WORDID_SDSIV1               CssmWordidUnk = 107
+	CSSM_WORDID_SEQUENCE             CssmWordidUnk = 108
+	CSSM_WORDID_SET                  CssmWordidUnk = 109
+	CSSM_WORDID_SEXPR                CssmWordidUnk = 110
+	CSSM_WORDID_SHA1                 CssmWordidUnk = 111
+	CSSM_WORDID_SHA1WITHDSA          CssmWordidUnk = 112
+	CSSM_WORDID_SHA1WITHECDSA        CssmWordidUnk = 113
+	CSSM_WORDID_SHA1WITHRSA          CssmWordidUnk = 114
+	CSSM_WORDID_SIGN                 CssmWordidUnk = 115
+	CSSM_WORDID_SIGNATURE            CssmWordidUnk = 116
+	CSSM_WORDID_SIGNED_NONCE         CssmWordidUnk = 117
+	CSSM_WORDID_SIGNED_SECRET        CssmWordidUnk = 118
+	CSSM_WORDID_SPKI                 CssmWordidUnk = 119
+	CSSM_WORDID_SUBJECT              CssmWordidUnk = 120
+	CSSM_WORDID_SUBJECT_INFO         CssmWordidUnk = 121
+	CSSM_WORDID_TAG                  CssmWordidUnk = 122
+	CSSM_WORDID_THRESHOLD            CssmWordidUnk = 123
+	CSSM_WORDID_TIME                 CssmWordidUnk = 124
+	CSSM_WORDID_URI                  CssmWordidUnk = 125
+	CSSM_WORDID_VENDOR_END           CssmWordidUnk = 0x7fff0000
+	CSSM_WORDID_VENDOR_START         CssmWordidUnk = 0x10000
+	CSSM_WORDID_VERSION              CssmWordidUnk = 126
+	CSSM_WORDID_X509V1               CssmWordidUnk = 128
+	CSSM_WORDID_X509V2               CssmWordidUnk = 129
+	CSSM_WORDID_X509V3               CssmWordidUnk = 130
+	CSSM_WORDID_X509_ATTRIBUTE       CssmWordidUnk = 127
+	CSSM_WORDID_X9_ATTRIBUTE         CssmWordidUnk = 131
+	CSSM_WORDID__NLU_                CssmWordidUnk = 0
+	CSSM_WORDID__STAR_               CssmWordidUnk = 1
+	CSSM_WORDID__UNK_                CssmWordidUnk = -1
+)
+
+func (e CssmWordidUnk) String() string {
+	switch e {
+	case CSSM_WORDID_A:
+		return "CSSM_WORDID_A"
+	case CSSM_WORDID_ACL:
+		return "CSSM_WORDID_ACL"
+	case CSSM_WORDID_ALPHA:
+		return "CSSM_WORDID_ALPHA"
+	case CSSM_WORDID_B:
+		return "CSSM_WORDID_B"
+	case CSSM_WORDID_BER:
+		return "CSSM_WORDID_BER"
+	case CSSM_WORDID_BINARY:
+		return "CSSM_WORDID_BINARY"
+	case CSSM_WORDID_BIOMETRIC:
+		return "CSSM_WORDID_BIOMETRIC"
+	case CSSM_WORDID_C:
+		return "CSSM_WORDID_C"
+	case CSSM_WORDID_CANCELED:
+		return "CSSM_WORDID_CANCELED"
+	case CSSM_WORDID_CERT:
+		return "CSSM_WORDID_CERT"
+	case CSSM_WORDID_COMMENT:
+		return "CSSM_WORDID_COMMENT"
+	case CSSM_WORDID_CRL:
+		return "CSSM_WORDID_CRL"
+	case CSSM_WORDID_CUSTOM:
+		return "CSSM_WORDID_CUSTOM"
+	case CSSM_WORDID_D:
+		return "CSSM_WORDID_D"
+	case CSSM_WORDID_DATE:
+		return "CSSM_WORDID_DATE"
+	case CSSM_WORDID_DBS_CREATE:
+		return "CSSM_WORDID_DBS_CREATE"
+	case CSSM_WORDID_DBS_DELETE:
+		return "CSSM_WORDID_DBS_DELETE"
+	case CSSM_WORDID_DB_DELETE:
+		return "CSSM_WORDID_DB_DELETE"
+	case CSSM_WORDID_DB_EXEC_STORED_QUERY:
+		return "CSSM_WORDID_DB_EXEC_STORED_QUERY"
+	case CSSM_WORDID_DB_INSERT:
+		return "CSSM_WORDID_DB_INSERT"
+	case CSSM_WORDID_DB_MODIFY:
+		return "CSSM_WORDID_DB_MODIFY"
+	case CSSM_WORDID_DB_READ:
+		return "CSSM_WORDID_DB_READ"
+	case CSSM_WORDID_DECRYPT:
+		return "CSSM_WORDID_DECRYPT"
+	case CSSM_WORDID_DELETE:
+		return "CSSM_WORDID_DELETE"
+	case CSSM_WORDID_DELTA_CRL:
+		return "CSSM_WORDID_DELTA_CRL"
+	case CSSM_WORDID_DER:
+		return "CSSM_WORDID_DER"
+	case CSSM_WORDID_DERIVE:
+		return "CSSM_WORDID_DERIVE"
+	case CSSM_WORDID_DISPLAY:
+		return "CSSM_WORDID_DISPLAY"
+	case CSSM_WORDID_DO:
+		return "CSSM_WORDID_DO"
+	case CSSM_WORDID_DSA:
+		return "CSSM_WORDID_DSA"
+	case CSSM_WORDID_DSA_SHA1:
+		return "CSSM_WORDID_DSA_SHA1"
+	case CSSM_WORDID_E:
+		return "CSSM_WORDID_E"
+	case CSSM_WORDID_ELGAMAL:
+		return "CSSM_WORDID_ELGAMAL"
+	case CSSM_WORDID_ENCRYPT:
+		return "CSSM_WORDID_ENCRYPT"
+	case CSSM_WORDID_ENTRY:
+		return "CSSM_WORDID_ENTRY"
+	case CSSM_WORDID_EXPORT_CLEAR:
+		return "CSSM_WORDID_EXPORT_CLEAR"
+	case CSSM_WORDID_EXPORT_WRAPPED:
+		return "CSSM_WORDID_EXPORT_WRAPPED"
+	case CSSM_WORDID_G:
+		return "CSSM_WORDID_G"
+	case CSSM_WORDID_GE:
+		return "CSSM_WORDID_GE"
+	case CSSM_WORDID_GENKEY:
+		return "CSSM_WORDID_GENKEY"
+	case CSSM_WORDID_HASH:
+		return "CSSM_WORDID_HASH"
+	case CSSM_WORDID_HASHED_PASSWORD:
+		return "CSSM_WORDID_HASHED_PASSWORD"
+	case CSSM_WORDID_HASHED_SUBJECT:
+		return "CSSM_WORDID_HASHED_SUBJECT"
+	case CSSM_WORDID_HAVAL:
+		return "CSSM_WORDID_HAVAL"
+	case CSSM_WORDID_IBCHASH:
+		return "CSSM_WORDID_IBCHASH"
+	case CSSM_WORDID_IMPORT_CLEAR:
+		return "CSSM_WORDID_IMPORT_CLEAR"
+	case CSSM_WORDID_IMPORT_WRAPPED:
+		return "CSSM_WORDID_IMPORT_WRAPPED"
+	case CSSM_WORDID_INTEL:
+		return "CSSM_WORDID_INTEL"
+	case CSSM_WORDID_ISSUER:
+		return "CSSM_WORDID_ISSUER"
+	case CSSM_WORDID_ISSUER_INFO:
+		return "CSSM_WORDID_ISSUER_INFO"
+	case CSSM_WORDID_KEA:
+		return "CSSM_WORDID_KEA"
+	case CSSM_WORDID_KEYHOLDER:
+		return "CSSM_WORDID_KEYHOLDER"
+	case CSSM_WORDID_K_OF_N:
+		return "CSSM_WORDID_K_OF_N"
+	case CSSM_WORDID_L:
+		return "CSSM_WORDID_L"
+	case CSSM_WORDID_LE:
+		return "CSSM_WORDID_LE"
+	case CSSM_WORDID_LOGIN:
+		return "CSSM_WORDID_LOGIN"
+	case CSSM_WORDID_LOGIN_NAME:
+		return "CSSM_WORDID_LOGIN_NAME"
+	case CSSM_WORDID_MAC:
+		return "CSSM_WORDID_MAC"
+	case CSSM_WORDID_MD2:
+		return "CSSM_WORDID_MD2"
+	case CSSM_WORDID_MD2WITHRSA:
+		return "CSSM_WORDID_MD2WITHRSA"
+	case CSSM_WORDID_MD4:
+		return "CSSM_WORDID_MD4"
+	case CSSM_WORDID_MD5:
+		return "CSSM_WORDID_MD5"
+	case CSSM_WORDID_MD5WITHRSA:
+		return "CSSM_WORDID_MD5WITHRSA"
+	case CSSM_WORDID_N:
+		return "CSSM_WORDID_N"
+	case CSSM_WORDID_NAME:
+		return "CSSM_WORDID_NAME"
+	case CSSM_WORDID_NDR:
+		return "CSSM_WORDID_NDR"
+	case CSSM_WORDID_NHASH:
+		return "CSSM_WORDID_NHASH"
+	case CSSM_WORDID_NOT_AFTER:
+		return "CSSM_WORDID_NOT_AFTER"
+	case CSSM_WORDID_NOT_BEFORE:
+		return "CSSM_WORDID_NOT_BEFORE"
+	case CSSM_WORDID_NULL:
+		return "CSSM_WORDID_NULL"
+	case CSSM_WORDID_NUMERIC:
+		return "CSSM_WORDID_NUMERIC"
+	case CSSM_WORDID_OBJECT_HASH:
+		return "CSSM_WORDID_OBJECT_HASH"
+	case CSSM_WORDID_ONE_TIME:
+		return "CSSM_WORDID_ONE_TIME"
+	case CSSM_WORDID_ONLINE:
+		return "CSSM_WORDID_ONLINE"
+	case CSSM_WORDID_OWNER:
+		return "CSSM_WORDID_OWNER"
+	case CSSM_WORDID_P:
+		return "CSSM_WORDID_P"
+	case CSSM_WORDID_PAM_NAME:
+		return "CSSM_WORDID_PAM_NAME"
+	case CSSM_WORDID_PASSWORD:
+		return "CSSM_WORDID_PASSWORD"
+	case CSSM_WORDID_PGP:
+		return "CSSM_WORDID_PGP"
+	case CSSM_WORDID_PREFIX:
+		return "CSSM_WORDID_PREFIX"
+	case CSSM_WORDID_PRIVATE_KEY:
+		return "CSSM_WORDID_PRIVATE_KEY"
+	case CSSM_WORDID_PROMPTED_BIOMETRIC:
+		return "CSSM_WORDID_PROMPTED_BIOMETRIC"
+	case CSSM_WORDID_PROMPTED_PASSWORD:
+		return "CSSM_WORDID_PROMPTED_PASSWORD"
+	case CSSM_WORDID_PROPAGATE:
+		return "CSSM_WORDID_PROPAGATE"
+	case CSSM_WORDID_PROTECTED_BIOMETRIC:
+		return "CSSM_WORDID_PROTECTED_BIOMETRIC"
+	case CSSM_WORDID_PROTECTED_PASSWORD:
+		return "CSSM_WORDID_PROTECTED_PASSWORD"
+	case CSSM_WORDID_PROTECTED_PIN:
+		return "CSSM_WORDID_PROTECTED_PIN"
+	case CSSM_WORDID_PUBLIC_KEY:
+		return "CSSM_WORDID_PUBLIC_KEY"
+	case CSSM_WORDID_PUBLIC_KEY_FROM_CERT:
+		return "CSSM_WORDID_PUBLIC_KEY_FROM_CERT"
+	case CSSM_WORDID_Q:
+		return "CSSM_WORDID_Q"
+	case CSSM_WORDID_RANGE:
+		return "CSSM_WORDID_RANGE"
+	case CSSM_WORDID_REVAL:
+		return "CSSM_WORDID_REVAL"
+	case CSSM_WORDID_RIPEMAC:
+		return "CSSM_WORDID_RIPEMAC"
+	case CSSM_WORDID_RIPEMD:
+		return "CSSM_WORDID_RIPEMD"
+	case CSSM_WORDID_RIPEMD160:
+		return "CSSM_WORDID_RIPEMD160"
+	case CSSM_WORDID_RSA:
+		return "CSSM_WORDID_RSA"
+	case CSSM_WORDID_RSA_ISO9796:
+		return "CSSM_WORDID_RSA_ISO9796"
+	case CSSM_WORDID_RSA_PKCS:
+		return "CSSM_WORDID_RSA_PKCS"
+	case CSSM_WORDID_RSA_PKCS1:
+		return "CSSM_WORDID_RSA_PKCS1"
+	case CSSM_WORDID_RSA_PKCS1_MD5:
+		return "CSSM_WORDID_RSA_PKCS1_MD5"
+	case CSSM_WORDID_RSA_PKCS1_SHA1:
+		return "CSSM_WORDID_RSA_PKCS1_SHA1"
+	case CSSM_WORDID_RSA_PKCS1_SIG:
+		return "CSSM_WORDID_RSA_PKCS1_SIG"
+	case CSSM_WORDID_RSA_PKCS_MD5:
+		return "CSSM_WORDID_RSA_PKCS_MD5"
+	case CSSM_WORDID_RSA_PKCS_SHA1:
+		return "CSSM_WORDID_RSA_PKCS_SHA1"
+	case CSSM_WORDID_RSA_RAW:
+		return "CSSM_WORDID_RSA_RAW"
+	case CSSM_WORDID_SDSIV1:
+		return "CSSM_WORDID_SDSIV1"
+	case CSSM_WORDID_SEQUENCE:
+		return "CSSM_WORDID_SEQUENCE"
+	case CSSM_WORDID_SET:
+		return "CSSM_WORDID_SET"
+	case CSSM_WORDID_SEXPR:
+		return "CSSM_WORDID_SEXPR"
+	case CSSM_WORDID_SHA1:
+		return "CSSM_WORDID_SHA1"
+	case CSSM_WORDID_SHA1WITHDSA:
+		return "CSSM_WORDID_SHA1WITHDSA"
+	case CSSM_WORDID_SHA1WITHECDSA:
+		return "CSSM_WORDID_SHA1WITHECDSA"
+	case CSSM_WORDID_SHA1WITHRSA:
+		return "CSSM_WORDID_SHA1WITHRSA"
+	case CSSM_WORDID_SIGN:
+		return "CSSM_WORDID_SIGN"
+	case CSSM_WORDID_SIGNATURE:
+		return "CSSM_WORDID_SIGNATURE"
+	case CSSM_WORDID_SIGNED_NONCE:
+		return "CSSM_WORDID_SIGNED_NONCE"
+	case CSSM_WORDID_SIGNED_SECRET:
+		return "CSSM_WORDID_SIGNED_SECRET"
+	case CSSM_WORDID_SPKI:
+		return "CSSM_WORDID_SPKI"
+	case CSSM_WORDID_SUBJECT:
+		return "CSSM_WORDID_SUBJECT"
+	case CSSM_WORDID_SUBJECT_INFO:
+		return "CSSM_WORDID_SUBJECT_INFO"
+	case CSSM_WORDID_TAG:
+		return "CSSM_WORDID_TAG"
+	case CSSM_WORDID_THRESHOLD:
+		return "CSSM_WORDID_THRESHOLD"
+	case CSSM_WORDID_TIME:
+		return "CSSM_WORDID_TIME"
+	case CSSM_WORDID_URI:
+		return "CSSM_WORDID_URI"
+	case CSSM_WORDID_VENDOR_END:
+		return "CSSM_WORDID_VENDOR_END"
+	case CSSM_WORDID_VENDOR_START:
+		return "CSSM_WORDID_VENDOR_START"
+	case CSSM_WORDID_VERSION:
+		return "CSSM_WORDID_VERSION"
+	case CSSM_WORDID_X509V1:
+		return "CSSM_WORDID_X509V1"
+	case CSSM_WORDID_X509V2:
+		return "CSSM_WORDID_X509V2"
+	case CSSM_WORDID_X509V3:
+		return "CSSM_WORDID_X509V3"
+	case CSSM_WORDID_X509_ATTRIBUTE:
+		return "CSSM_WORDID_X509_ATTRIBUTE"
+	case CSSM_WORDID_X9_ATTRIBUTE:
+		return "CSSM_WORDID_X9_ATTRIBUTE"
+	case CSSM_WORDID__NLU_:
+		return "CSSM_WORDID__NLU_"
+	case CSSM_WORDID__STAR_:
+		return "CSSM_WORDID__STAR_"
+	case CSSM_WORDID__UNK_:
+		return "CSSM_WORDID__UNK_"
+	default:
+		return fmt.Sprintf("CssmWordidUnk(%d)", e)
+	}
+}
+
+type Cssmerr int32
 
 const (
 	CSSMERR_AC_DEVICE_FAILED                        Cssmerr = -2147405595
@@ -3701,7 +5939,7 @@ func (e Cssmerr) String() string {
 	}
 }
 
-type CssmerrAc int
+type CssmerrAc int32
 
 const (
 	CSSMERR_AC_FUNCTION_FAILED          CssmerrAc = -2147405814
@@ -3770,7 +6008,7 @@ func (e CssmerrAc) String() string {
 	}
 }
 
-type CssmerrAppleDotmac int
+type CssmerrAppleDotmac int32
 
 const (
 	CSSMERR_APPLE_DOTMAC_CSR_VERIFY_FAIL          CssmerrAppleDotmac = -2147408785
@@ -3821,7 +6059,7 @@ func (e CssmerrAppleDotmac) String() string {
 	}
 }
 
-type CssmerrAppledl int
+type CssmerrAppledl int32
 
 const (
 	CSSMERR_APPLEDL_DISK_FULL                  CssmerrAppledl = -2147412991
@@ -3857,7 +6095,7 @@ func (e CssmerrAppledl) String() string {
 	}
 }
 
-type CssmerrAppletp int
+type CssmerrAppletp int32
 
 const (
 	CSSMERR_APPLETP_BAD_CERT_FROM_ISSUER         CssmerrAppletp = -2147408873
@@ -4055,7 +6293,7 @@ func (e CssmerrAppletp) String() string {
 	}
 }
 
-type CssmerrCL int
+type CssmerrCL int32
 
 const (
 	CSSMERR_CL_CRL_ALREADY_SIGNED        CssmerrCL = -2147411897
@@ -4133,60 +6371,138 @@ func (e CssmerrCL) String() string {
 	}
 }
 
-type CssmerrCsp int
+type CssmerrCspAppleAddApplicationAclSubject int32
 
 const (
-	CSSMERR_CSPDL_APPLE_DL_CONVERSION_ERROR       CssmerrCsp = -2147415035
-	CSSMERR_CSP_ACL_ADD_FAILED                    CssmerrCsp = -2147416010
-	CSSMERR_CSP_ACL_BASE_CERTS_NOT_SUPPORTED      CssmerrCsp = -2147416025
-	CSSMERR_CSP_ACL_CHALLENGE_CALLBACK_FAILED     CssmerrCsp = -2147416019
-	CSSMERR_CSP_ACL_CHANGE_FAILED                 CssmerrCsp = -2147416015
-	CSSMERR_CSP_ACL_DELETE_FAILED                 CssmerrCsp = -2147416012
-	CSSMERR_CSP_ACL_ENTRY_TAG_NOT_FOUND           CssmerrCsp = -2147416017
-	CSSMERR_CSP_ACL_REPLACE_FAILED                CssmerrCsp = -2147416011
-	CSSMERR_CSP_ACL_SUBJECT_TYPE_NOT_SUPPORTED    CssmerrCsp = -2147416021
-	CSSMERR_CSP_APPLE_ADD_APPLICATION_ACL_SUBJECT CssmerrCsp = -2147415040
-	CSSMERR_CSP_APPLE_INVALID_KEY_END_DATE        CssmerrCsp = -2147415036
-	CSSMERR_CSP_APPLE_INVALID_KEY_START_DATE      CssmerrCsp = -2147415037
-	CSSMERR_CSP_APPLE_PUBLIC_KEY_INCOMPLETE       CssmerrCsp = -2147415039
-	CSSMERR_CSP_APPLE_SIGNATURE_MISMATCH          CssmerrCsp = -2147415038
-	CSSMERR_CSP_APPLE_SSLv2_ROLLBACK              CssmerrCsp = -2147415034
-	CSSMERR_CSP_FUNCTION_FAILED                   CssmerrCsp = -2147416054
-	CSSMERR_CSP_FUNCTION_NOT_IMPLEMENTED          CssmerrCsp = -2147416057
-	CSSMERR_CSP_INTERNAL_ERROR                    CssmerrCsp = -2147416063
-	CSSMERR_CSP_INVALID_ACCESS_CREDENTIALS        CssmerrCsp = -2147416027
-	CSSMERR_CSP_INVALID_ACL_BASE_CERTS            CssmerrCsp = -2147416026
-	CSSMERR_CSP_INVALID_ACL_CHALLENGE_CALLBACK    CssmerrCsp = -2147416020
-	CSSMERR_CSP_INVALID_ACL_EDIT_MODE             CssmerrCsp = -2147416016
-	CSSMERR_CSP_INVALID_ACL_ENTRY_TAG             CssmerrCsp = -2147416018
-	CSSMERR_CSP_INVALID_ACL_SUBJECT_VALUE         CssmerrCsp = -2147416022
-	CSSMERR_CSP_INVALID_CONTEXT_HANDLE            CssmerrCsp = -2147416000
-	CSSMERR_CSP_INVALID_CRYPTO_DATA               CssmerrCsp = -2147415976
-	CSSMERR_CSP_INVALID_DATA                      CssmerrCsp = -2147415994
-	CSSMERR_CSP_INVALID_INPUT_POINTER             CssmerrCsp = -2147416059
-	CSSMERR_CSP_INVALID_NEW_ACL_ENTRY             CssmerrCsp = -2147416014
-	CSSMERR_CSP_INVALID_NEW_ACL_OWNER             CssmerrCsp = -2147416013
-	CSSMERR_CSP_INVALID_OUTPUT_POINTER            CssmerrCsp = -2147416058
-	CSSMERR_CSP_INVALID_PASSTHROUGH_ID            CssmerrCsp = -2147415978
-	CSSMERR_CSP_INVALID_POINTER                   CssmerrCsp = -2147416060
-	CSSMERR_CSP_INVALID_SAMPLE_VALUE              CssmerrCsp = -2147416024
-	CSSMERR_CSP_MDS_ERROR                         CssmerrCsp = -2147416061
-	CSSMERR_CSP_MEMORY_ERROR                      CssmerrCsp = -2147416062
-	CSSMERR_CSP_OBJECT_ACL_NOT_SUPPORTED          CssmerrCsp = -2147416029
-	CSSMERR_CSP_OBJECT_ACL_REQUIRED               CssmerrCsp = -2147416028
-	CSSMERR_CSP_OBJECT_MANIP_AUTH_DENIED          CssmerrCsp = -2147416030
-	CSSMERR_CSP_OBJECT_USE_AUTH_DENIED            CssmerrCsp = -2147416031
-	CSSMERR_CSP_OPERATION_AUTH_DENIED             CssmerrCsp = -2147416032
-	CSSMERR_CSP_OS_ACCESS_DENIED                  CssmerrCsp = -2147416055
-	CSSMERR_CSP_PRIVILEGE_NOT_GRANTED             CssmerrCsp = -2147415989
-	CSSMERR_CSP_SAMPLE_VALUE_NOT_SUPPORTED        CssmerrCsp = -2147416023
-	CSSMERR_CSP_SELF_CHECK_FAILED                 CssmerrCsp = -2147416056
+	CSSMERR_CSPDL_APPLE_DL_CONVERSION_ERROR       CssmerrCspAppleAddApplicationAclSubject = -2147415035
+	CSSMERR_CSP_APPLE_ADD_APPLICATION_ACL_SUBJECT CssmerrCspAppleAddApplicationAclSubject = -2147415040
+	CSSMERR_CSP_APPLE_INVALID_KEY_END_DATE        CssmerrCspAppleAddApplicationAclSubject = -2147415036
+	CSSMERR_CSP_APPLE_INVALID_KEY_START_DATE      CssmerrCspAppleAddApplicationAclSubject = -2147415037
+	CSSMERR_CSP_APPLE_PUBLIC_KEY_INCOMPLETE       CssmerrCspAppleAddApplicationAclSubject = -2147415039
+	CSSMERR_CSP_APPLE_SIGNATURE_MISMATCH          CssmerrCspAppleAddApplicationAclSubject = -2147415038
+	CSSMERR_CSP_APPLE_SSLv2_ROLLBACK              CssmerrCspAppleAddApplicationAclSubject = -2147415034
 )
 
-func (e CssmerrCsp) String() string {
+func (e CssmerrCspAppleAddApplicationAclSubject) String() string {
 	switch e {
 	case CSSMERR_CSPDL_APPLE_DL_CONVERSION_ERROR:
 		return "CSSMERR_CSPDL_APPLE_DL_CONVERSION_ERROR"
+	case CSSMERR_CSP_APPLE_ADD_APPLICATION_ACL_SUBJECT:
+		return "CSSMERR_CSP_APPLE_ADD_APPLICATION_ACL_SUBJECT"
+	case CSSMERR_CSP_APPLE_INVALID_KEY_END_DATE:
+		return "CSSMERR_CSP_APPLE_INVALID_KEY_END_DATE"
+	case CSSMERR_CSP_APPLE_INVALID_KEY_START_DATE:
+		return "CSSMERR_CSP_APPLE_INVALID_KEY_START_DATE"
+	case CSSMERR_CSP_APPLE_PUBLIC_KEY_INCOMPLETE:
+		return "CSSMERR_CSP_APPLE_PUBLIC_KEY_INCOMPLETE"
+	case CSSMERR_CSP_APPLE_SIGNATURE_MISMATCH:
+		return "CSSMERR_CSP_APPLE_SIGNATURE_MISMATCH"
+	case CSSMERR_CSP_APPLE_SSLv2_ROLLBACK:
+		return "CSSMERR_CSP_APPLE_SSLv2_ROLLBACK"
+	default:
+		return fmt.Sprintf("CssmerrCspAppleAddApplicationAclSubject(%d)", e)
+	}
+}
+
+type CssmerrCspInternalError int32
+
+const (
+	CSSMERR_CSP_FUNCTION_FAILED          CssmerrCspInternalError = -2147416054
+	CSSMERR_CSP_FUNCTION_NOT_IMPLEMENTED CssmerrCspInternalError = -2147416057
+	CSSMERR_CSP_INTERNAL_ERROR           CssmerrCspInternalError = -2147416063
+	CSSMERR_CSP_INVALID_INPUT_POINTER    CssmerrCspInternalError = -2147416059
+	CSSMERR_CSP_INVALID_OUTPUT_POINTER   CssmerrCspInternalError = -2147416058
+	CSSMERR_CSP_INVALID_POINTER          CssmerrCspInternalError = -2147416060
+	CSSMERR_CSP_MDS_ERROR                CssmerrCspInternalError = -2147416061
+	CSSMERR_CSP_MEMORY_ERROR             CssmerrCspInternalError = -2147416062
+	CSSMERR_CSP_OS_ACCESS_DENIED         CssmerrCspInternalError = -2147416055
+	CSSMERR_CSP_SELF_CHECK_FAILED        CssmerrCspInternalError = -2147416056
+)
+
+func (e CssmerrCspInternalError) String() string {
+	switch e {
+	case CSSMERR_CSP_FUNCTION_FAILED:
+		return "CSSMERR_CSP_FUNCTION_FAILED"
+	case CSSMERR_CSP_FUNCTION_NOT_IMPLEMENTED:
+		return "CSSMERR_CSP_FUNCTION_NOT_IMPLEMENTED"
+	case CSSMERR_CSP_INTERNAL_ERROR:
+		return "CSSMERR_CSP_INTERNAL_ERROR"
+	case CSSMERR_CSP_INVALID_INPUT_POINTER:
+		return "CSSMERR_CSP_INVALID_INPUT_POINTER"
+	case CSSMERR_CSP_INVALID_OUTPUT_POINTER:
+		return "CSSMERR_CSP_INVALID_OUTPUT_POINTER"
+	case CSSMERR_CSP_INVALID_POINTER:
+		return "CSSMERR_CSP_INVALID_POINTER"
+	case CSSMERR_CSP_MDS_ERROR:
+		return "CSSMERR_CSP_MDS_ERROR"
+	case CSSMERR_CSP_MEMORY_ERROR:
+		return "CSSMERR_CSP_MEMORY_ERROR"
+	case CSSMERR_CSP_OS_ACCESS_DENIED:
+		return "CSSMERR_CSP_OS_ACCESS_DENIED"
+	case CSSMERR_CSP_SELF_CHECK_FAILED:
+		return "CSSMERR_CSP_SELF_CHECK_FAILED"
+	default:
+		return fmt.Sprintf("CssmerrCspInternalError(%d)", e)
+	}
+}
+
+type CssmerrCspInvalidContextHandle int32
+
+const (
+	CSSMERR_CSP_INVALID_CONTEXT_HANDLE CssmerrCspInvalidContextHandle = -2147416000
+	CSSMERR_CSP_INVALID_CRYPTO_DATA    CssmerrCspInvalidContextHandle = -2147415976
+	CSSMERR_CSP_INVALID_DATA           CssmerrCspInvalidContextHandle = -2147415994
+	CSSMERR_CSP_INVALID_PASSTHROUGH_ID CssmerrCspInvalidContextHandle = -2147415978
+	CSSMERR_CSP_PRIVILEGE_NOT_GRANTED  CssmerrCspInvalidContextHandle = -2147415989
+)
+
+func (e CssmerrCspInvalidContextHandle) String() string {
+	switch e {
+	case CSSMERR_CSP_INVALID_CONTEXT_HANDLE:
+		return "CSSMERR_CSP_INVALID_CONTEXT_HANDLE"
+	case CSSMERR_CSP_INVALID_CRYPTO_DATA:
+		return "CSSMERR_CSP_INVALID_CRYPTO_DATA"
+	case CSSMERR_CSP_INVALID_DATA:
+		return "CSSMERR_CSP_INVALID_DATA"
+	case CSSMERR_CSP_INVALID_PASSTHROUGH_ID:
+		return "CSSMERR_CSP_INVALID_PASSTHROUGH_ID"
+	case CSSMERR_CSP_PRIVILEGE_NOT_GRANTED:
+		return "CSSMERR_CSP_PRIVILEGE_NOT_GRANTED"
+	default:
+		return fmt.Sprintf("CssmerrCspInvalidContextHandle(%d)", e)
+	}
+}
+
+type CssmerrCspOperationAuthDenied int32
+
+const (
+	CSSMERR_CSP_ACL_ADD_FAILED                 CssmerrCspOperationAuthDenied = -2147416010
+	CSSMERR_CSP_ACL_BASE_CERTS_NOT_SUPPORTED   CssmerrCspOperationAuthDenied = -2147416025
+	CSSMERR_CSP_ACL_CHALLENGE_CALLBACK_FAILED  CssmerrCspOperationAuthDenied = -2147416019
+	CSSMERR_CSP_ACL_CHANGE_FAILED              CssmerrCspOperationAuthDenied = -2147416015
+	CSSMERR_CSP_ACL_DELETE_FAILED              CssmerrCspOperationAuthDenied = -2147416012
+	CSSMERR_CSP_ACL_ENTRY_TAG_NOT_FOUND        CssmerrCspOperationAuthDenied = -2147416017
+	CSSMERR_CSP_ACL_REPLACE_FAILED             CssmerrCspOperationAuthDenied = -2147416011
+	CSSMERR_CSP_ACL_SUBJECT_TYPE_NOT_SUPPORTED CssmerrCspOperationAuthDenied = -2147416021
+	CSSMERR_CSP_INVALID_ACCESS_CREDENTIALS     CssmerrCspOperationAuthDenied = -2147416027
+	CSSMERR_CSP_INVALID_ACL_BASE_CERTS         CssmerrCspOperationAuthDenied = -2147416026
+	CSSMERR_CSP_INVALID_ACL_CHALLENGE_CALLBACK CssmerrCspOperationAuthDenied = -2147416020
+	CSSMERR_CSP_INVALID_ACL_EDIT_MODE          CssmerrCspOperationAuthDenied = -2147416016
+	CSSMERR_CSP_INVALID_ACL_ENTRY_TAG          CssmerrCspOperationAuthDenied = -2147416018
+	CSSMERR_CSP_INVALID_ACL_SUBJECT_VALUE      CssmerrCspOperationAuthDenied = -2147416022
+	CSSMERR_CSP_INVALID_NEW_ACL_ENTRY          CssmerrCspOperationAuthDenied = -2147416014
+	CSSMERR_CSP_INVALID_NEW_ACL_OWNER          CssmerrCspOperationAuthDenied = -2147416013
+	CSSMERR_CSP_INVALID_SAMPLE_VALUE           CssmerrCspOperationAuthDenied = -2147416024
+	CSSMERR_CSP_OBJECT_ACL_NOT_SUPPORTED       CssmerrCspOperationAuthDenied = -2147416029
+	CSSMERR_CSP_OBJECT_ACL_REQUIRED            CssmerrCspOperationAuthDenied = -2147416028
+	CSSMERR_CSP_OBJECT_MANIP_AUTH_DENIED       CssmerrCspOperationAuthDenied = -2147416030
+	CSSMERR_CSP_OBJECT_USE_AUTH_DENIED         CssmerrCspOperationAuthDenied = -2147416031
+	CSSMERR_CSP_OPERATION_AUTH_DENIED          CssmerrCspOperationAuthDenied = -2147416032
+	CSSMERR_CSP_SAMPLE_VALUE_NOT_SUPPORTED     CssmerrCspOperationAuthDenied = -2147416023
+)
+
+func (e CssmerrCspOperationAuthDenied) String() string {
+	switch e {
 	case CSSMERR_CSP_ACL_ADD_FAILED:
 		return "CSSMERR_CSP_ACL_ADD_FAILED"
 	case CSSMERR_CSP_ACL_BASE_CERTS_NOT_SUPPORTED:
@@ -4203,24 +6519,6 @@ func (e CssmerrCsp) String() string {
 		return "CSSMERR_CSP_ACL_REPLACE_FAILED"
 	case CSSMERR_CSP_ACL_SUBJECT_TYPE_NOT_SUPPORTED:
 		return "CSSMERR_CSP_ACL_SUBJECT_TYPE_NOT_SUPPORTED"
-	case CSSMERR_CSP_APPLE_ADD_APPLICATION_ACL_SUBJECT:
-		return "CSSMERR_CSP_APPLE_ADD_APPLICATION_ACL_SUBJECT"
-	case CSSMERR_CSP_APPLE_INVALID_KEY_END_DATE:
-		return "CSSMERR_CSP_APPLE_INVALID_KEY_END_DATE"
-	case CSSMERR_CSP_APPLE_INVALID_KEY_START_DATE:
-		return "CSSMERR_CSP_APPLE_INVALID_KEY_START_DATE"
-	case CSSMERR_CSP_APPLE_PUBLIC_KEY_INCOMPLETE:
-		return "CSSMERR_CSP_APPLE_PUBLIC_KEY_INCOMPLETE"
-	case CSSMERR_CSP_APPLE_SIGNATURE_MISMATCH:
-		return "CSSMERR_CSP_APPLE_SIGNATURE_MISMATCH"
-	case CSSMERR_CSP_APPLE_SSLv2_ROLLBACK:
-		return "CSSMERR_CSP_APPLE_SSLv2_ROLLBACK"
-	case CSSMERR_CSP_FUNCTION_FAILED:
-		return "CSSMERR_CSP_FUNCTION_FAILED"
-	case CSSMERR_CSP_FUNCTION_NOT_IMPLEMENTED:
-		return "CSSMERR_CSP_FUNCTION_NOT_IMPLEMENTED"
-	case CSSMERR_CSP_INTERNAL_ERROR:
-		return "CSSMERR_CSP_INTERNAL_ERROR"
 	case CSSMERR_CSP_INVALID_ACCESS_CREDENTIALS:
 		return "CSSMERR_CSP_INVALID_ACCESS_CREDENTIALS"
 	case CSSMERR_CSP_INVALID_ACL_BASE_CERTS:
@@ -4233,30 +6531,12 @@ func (e CssmerrCsp) String() string {
 		return "CSSMERR_CSP_INVALID_ACL_ENTRY_TAG"
 	case CSSMERR_CSP_INVALID_ACL_SUBJECT_VALUE:
 		return "CSSMERR_CSP_INVALID_ACL_SUBJECT_VALUE"
-	case CSSMERR_CSP_INVALID_CONTEXT_HANDLE:
-		return "CSSMERR_CSP_INVALID_CONTEXT_HANDLE"
-	case CSSMERR_CSP_INVALID_CRYPTO_DATA:
-		return "CSSMERR_CSP_INVALID_CRYPTO_DATA"
-	case CSSMERR_CSP_INVALID_DATA:
-		return "CSSMERR_CSP_INVALID_DATA"
-	case CSSMERR_CSP_INVALID_INPUT_POINTER:
-		return "CSSMERR_CSP_INVALID_INPUT_POINTER"
 	case CSSMERR_CSP_INVALID_NEW_ACL_ENTRY:
 		return "CSSMERR_CSP_INVALID_NEW_ACL_ENTRY"
 	case CSSMERR_CSP_INVALID_NEW_ACL_OWNER:
 		return "CSSMERR_CSP_INVALID_NEW_ACL_OWNER"
-	case CSSMERR_CSP_INVALID_OUTPUT_POINTER:
-		return "CSSMERR_CSP_INVALID_OUTPUT_POINTER"
-	case CSSMERR_CSP_INVALID_PASSTHROUGH_ID:
-		return "CSSMERR_CSP_INVALID_PASSTHROUGH_ID"
-	case CSSMERR_CSP_INVALID_POINTER:
-		return "CSSMERR_CSP_INVALID_POINTER"
 	case CSSMERR_CSP_INVALID_SAMPLE_VALUE:
 		return "CSSMERR_CSP_INVALID_SAMPLE_VALUE"
-	case CSSMERR_CSP_MDS_ERROR:
-		return "CSSMERR_CSP_MDS_ERROR"
-	case CSSMERR_CSP_MEMORY_ERROR:
-		return "CSSMERR_CSP_MEMORY_ERROR"
 	case CSSMERR_CSP_OBJECT_ACL_NOT_SUPPORTED:
 		return "CSSMERR_CSP_OBJECT_ACL_NOT_SUPPORTED"
 	case CSSMERR_CSP_OBJECT_ACL_REQUIRED:
@@ -4267,64 +6547,40 @@ func (e CssmerrCsp) String() string {
 		return "CSSMERR_CSP_OBJECT_USE_AUTH_DENIED"
 	case CSSMERR_CSP_OPERATION_AUTH_DENIED:
 		return "CSSMERR_CSP_OPERATION_AUTH_DENIED"
-	case CSSMERR_CSP_OS_ACCESS_DENIED:
-		return "CSSMERR_CSP_OS_ACCESS_DENIED"
-	case CSSMERR_CSP_PRIVILEGE_NOT_GRANTED:
-		return "CSSMERR_CSP_PRIVILEGE_NOT_GRANTED"
 	case CSSMERR_CSP_SAMPLE_VALUE_NOT_SUPPORTED:
 		return "CSSMERR_CSP_SAMPLE_VALUE_NOT_SUPPORTED"
-	case CSSMERR_CSP_SELF_CHECK_FAILED:
-		return "CSSMERR_CSP_SELF_CHECK_FAILED"
 	default:
-		return fmt.Sprintf("CssmerrCsp(%d)", e)
+		return fmt.Sprintf("CssmerrCspOperationAuthDenied(%d)", e)
 	}
 }
 
-type CssmerrCssm int
+type CssmerrCssmInternalError int32
 
 const (
-	CSSMERR_CSSM_FUNCTION_FAILED               CssmerrCssm = -2147418102
-	CSSMERR_CSSM_FUNCTION_INTEGRITY_FAIL       CssmerrCssm = -2147417851
-	CSSMERR_CSSM_FUNCTION_NOT_IMPLEMENTED      CssmerrCssm = -2147418105
-	CSSMERR_CSSM_INCOMPATIBLE_VERSION          CssmerrCssm = -2147418047
-	CSSMERR_CSSM_INTERNAL_ERROR                CssmerrCssm = -2147418111
-	CSSMERR_CSSM_INVALID_ADDIN_HANDLE          CssmerrCssm = -2147417855
-	CSSMERR_CSSM_INVALID_CONTEXT_HANDLE        CssmerrCssm = -2147418048
-	CSSMERR_CSSM_INVALID_GUID                  CssmerrCssm = -2147418100
-	CSSMERR_CSSM_INVALID_HANDLE_USAGE          CssmerrCssm = -2147417853
-	CSSMERR_CSSM_INVALID_INPUT_POINTER         CssmerrCssm = -2147418107
-	CSSMERR_CSSM_INVALID_OUTPUT_POINTER        CssmerrCssm = -2147418106
-	CSSMERR_CSSM_INVALID_POINTER               CssmerrCssm = -2147418108
-	CSSMERR_CSSM_MDS_ERROR                     CssmerrCssm = -2147418109
-	CSSMERR_CSSM_MEMORY_ERROR                  CssmerrCssm = -2147418110
-	CSSMERR_CSSM_MODULE_MANIFEST_VERIFY_FAILED CssmerrCssm = -2147418101
-	CSSMERR_CSSM_NOT_INITIALIZED               CssmerrCssm = -2147417854
-	CSSMERR_CSSM_OS_ACCESS_DENIED              CssmerrCssm = -2147418103
-	CSSMERR_CSSM_PRIVILEGE_NOT_GRANTED         CssmerrCssm = -2147418037
-	CSSMERR_CSSM_PVC_REFERENT_NOT_FOUND        CssmerrCssm = -2147417852
-	CSSMERR_CSSM_SELF_CHECK_FAILED             CssmerrCssm = -2147418104
+	CSSMERR_CSSM_FUNCTION_FAILED               CssmerrCssmInternalError = -2147418102
+	CSSMERR_CSSM_FUNCTION_NOT_IMPLEMENTED      CssmerrCssmInternalError = -2147418105
+	CSSMERR_CSSM_INTERNAL_ERROR                CssmerrCssmInternalError = -2147418111
+	CSSMERR_CSSM_INVALID_GUID                  CssmerrCssmInternalError = -2147418100
+	CSSMERR_CSSM_INVALID_INPUT_POINTER         CssmerrCssmInternalError = -2147418107
+	CSSMERR_CSSM_INVALID_OUTPUT_POINTER        CssmerrCssmInternalError = -2147418106
+	CSSMERR_CSSM_INVALID_POINTER               CssmerrCssmInternalError = -2147418108
+	CSSMERR_CSSM_MDS_ERROR                     CssmerrCssmInternalError = -2147418109
+	CSSMERR_CSSM_MEMORY_ERROR                  CssmerrCssmInternalError = -2147418110
+	CSSMERR_CSSM_MODULE_MANIFEST_VERIFY_FAILED CssmerrCssmInternalError = -2147418101
+	CSSMERR_CSSM_OS_ACCESS_DENIED              CssmerrCssmInternalError = -2147418103
+	CSSMERR_CSSM_SELF_CHECK_FAILED             CssmerrCssmInternalError = -2147418104
 )
 
-func (e CssmerrCssm) String() string {
+func (e CssmerrCssmInternalError) String() string {
 	switch e {
 	case CSSMERR_CSSM_FUNCTION_FAILED:
 		return "CSSMERR_CSSM_FUNCTION_FAILED"
-	case CSSMERR_CSSM_FUNCTION_INTEGRITY_FAIL:
-		return "CSSMERR_CSSM_FUNCTION_INTEGRITY_FAIL"
 	case CSSMERR_CSSM_FUNCTION_NOT_IMPLEMENTED:
 		return "CSSMERR_CSSM_FUNCTION_NOT_IMPLEMENTED"
-	case CSSMERR_CSSM_INCOMPATIBLE_VERSION:
-		return "CSSMERR_CSSM_INCOMPATIBLE_VERSION"
 	case CSSMERR_CSSM_INTERNAL_ERROR:
 		return "CSSMERR_CSSM_INTERNAL_ERROR"
-	case CSSMERR_CSSM_INVALID_ADDIN_HANDLE:
-		return "CSSMERR_CSSM_INVALID_ADDIN_HANDLE"
-	case CSSMERR_CSSM_INVALID_CONTEXT_HANDLE:
-		return "CSSMERR_CSSM_INVALID_CONTEXT_HANDLE"
 	case CSSMERR_CSSM_INVALID_GUID:
 		return "CSSMERR_CSSM_INVALID_GUID"
-	case CSSMERR_CSSM_INVALID_HANDLE_USAGE:
-		return "CSSMERR_CSSM_INVALID_HANDLE_USAGE"
 	case CSSMERR_CSSM_INVALID_INPUT_POINTER:
 		return "CSSMERR_CSSM_INVALID_INPUT_POINTER"
 	case CSSMERR_CSSM_INVALID_OUTPUT_POINTER:
@@ -4337,99 +6593,90 @@ func (e CssmerrCssm) String() string {
 		return "CSSMERR_CSSM_MEMORY_ERROR"
 	case CSSMERR_CSSM_MODULE_MANIFEST_VERIFY_FAILED:
 		return "CSSMERR_CSSM_MODULE_MANIFEST_VERIFY_FAILED"
-	case CSSMERR_CSSM_NOT_INITIALIZED:
-		return "CSSMERR_CSSM_NOT_INITIALIZED"
 	case CSSMERR_CSSM_OS_ACCESS_DENIED:
 		return "CSSMERR_CSSM_OS_ACCESS_DENIED"
-	case CSSMERR_CSSM_PRIVILEGE_NOT_GRANTED:
-		return "CSSMERR_CSSM_PRIVILEGE_NOT_GRANTED"
-	case CSSMERR_CSSM_PVC_REFERENT_NOT_FOUND:
-		return "CSSMERR_CSSM_PVC_REFERENT_NOT_FOUND"
 	case CSSMERR_CSSM_SELF_CHECK_FAILED:
 		return "CSSMERR_CSSM_SELF_CHECK_FAILED"
 	default:
-		return fmt.Sprintf("CssmerrCssm(%d)", e)
+		return fmt.Sprintf("CssmerrCssmInternalError(%d)", e)
 	}
 }
 
-type CssmerrDl int
+type CssmerrCssmInvalidAddinHandle int32
 
 const (
-	CSSMERR_DL_ACL_ADD_FAILED                 CssmerrDl = -2147413962
-	CSSMERR_DL_ACL_BASE_CERTS_NOT_SUPPORTED   CssmerrDl = -2147413977
-	CSSMERR_DL_ACL_CHALLENGE_CALLBACK_FAILED  CssmerrDl = -2147413971
-	CSSMERR_DL_ACL_CHANGE_FAILED              CssmerrDl = -2147413967
-	CSSMERR_DL_ACL_DELETE_FAILED              CssmerrDl = -2147413964
-	CSSMERR_DL_ACL_ENTRY_TAG_NOT_FOUND        CssmerrDl = -2147413969
-	CSSMERR_DL_ACL_REPLACE_FAILED             CssmerrDl = -2147413963
-	CSSMERR_DL_ACL_SUBJECT_TYPE_NOT_SUPPORTED CssmerrDl = -2147413973
-	CSSMERR_DL_FUNCTION_FAILED                CssmerrDl = -2147414006
-	CSSMERR_DL_FUNCTION_NOT_IMPLEMENTED       CssmerrDl = -2147414009
-	CSSMERR_DL_INTERNAL_ERROR                 CssmerrDl = -2147414015
-	CSSMERR_DL_INVALID_ACCESS_CREDENTIALS     CssmerrDl = -2147413979
-	CSSMERR_DL_INVALID_ACL_BASE_CERTS         CssmerrDl = -2147413978
-	CSSMERR_DL_INVALID_ACL_CHALLENGE_CALLBACK CssmerrDl = -2147413972
-	CSSMERR_DL_INVALID_ACL_EDIT_MODE          CssmerrDl = -2147413968
-	CSSMERR_DL_INVALID_ACL_ENTRY_TAG          CssmerrDl = -2147413970
-	CSSMERR_DL_INVALID_ACL_SUBJECT_VALUE      CssmerrDl = -2147413974
-	CSSMERR_DL_INVALID_CL_HANDLE              CssmerrDl = -2147413934
-	CSSMERR_DL_INVALID_CSP_HANDLE             CssmerrDl = -2147413936
-	CSSMERR_DL_INVALID_DB_LIST_POINTER        CssmerrDl = -2147413939
-	CSSMERR_DL_INVALID_DL_HANDLE              CssmerrDl = -2147413935
-	CSSMERR_DL_INVALID_INPUT_POINTER          CssmerrDl = -2147414011
-	CSSMERR_DL_INVALID_NEW_ACL_ENTRY          CssmerrDl = -2147413966
-	CSSMERR_DL_INVALID_NEW_ACL_OWNER          CssmerrDl = -2147413965
-	CSSMERR_DL_INVALID_OUTPUT_POINTER         CssmerrDl = -2147414010
-	CSSMERR_DL_INVALID_POINTER                CssmerrDl = -2147414012
-	CSSMERR_DL_INVALID_SAMPLE_VALUE           CssmerrDl = -2147413976
-	CSSMERR_DL_MDS_ERROR                      CssmerrDl = -2147414013
-	CSSMERR_DL_MEMORY_ERROR                   CssmerrDl = -2147414014
-	CSSMERR_DL_OBJECT_ACL_NOT_SUPPORTED       CssmerrDl = -2147413981
-	CSSMERR_DL_OBJECT_ACL_REQUIRED            CssmerrDl = -2147413980
-	CSSMERR_DL_OBJECT_MANIP_AUTH_DENIED       CssmerrDl = -2147413982
-	CSSMERR_DL_OBJECT_USE_AUTH_DENIED         CssmerrDl = -2147413983
-	CSSMERR_DL_OPERATION_AUTH_DENIED          CssmerrDl = -2147413984
-	CSSMERR_DL_OS_ACCESS_DENIED               CssmerrDl = -2147414007
-	CSSMERR_DL_SAMPLE_VALUE_NOT_SUPPORTED     CssmerrDl = -2147413975
-	CSSMERR_DL_SELF_CHECK_FAILED              CssmerrDl = -2147414008
+	CSSMERR_CSSM_FUNCTION_INTEGRITY_FAIL CssmerrCssmInvalidAddinHandle = -2147417851
+	CSSMERR_CSSM_INVALID_ADDIN_HANDLE    CssmerrCssmInvalidAddinHandle = -2147417855
+	CSSMERR_CSSM_INVALID_HANDLE_USAGE    CssmerrCssmInvalidAddinHandle = -2147417853
+	CSSMERR_CSSM_NOT_INITIALIZED         CssmerrCssmInvalidAddinHandle = -2147417854
+	CSSMERR_CSSM_PVC_REFERENT_NOT_FOUND  CssmerrCssmInvalidAddinHandle = -2147417852
 )
 
-func (e CssmerrDl) String() string {
+func (e CssmerrCssmInvalidAddinHandle) String() string {
 	switch e {
-	case CSSMERR_DL_ACL_ADD_FAILED:
-		return "CSSMERR_DL_ACL_ADD_FAILED"
-	case CSSMERR_DL_ACL_BASE_CERTS_NOT_SUPPORTED:
-		return "CSSMERR_DL_ACL_BASE_CERTS_NOT_SUPPORTED"
-	case CSSMERR_DL_ACL_CHALLENGE_CALLBACK_FAILED:
-		return "CSSMERR_DL_ACL_CHALLENGE_CALLBACK_FAILED"
-	case CSSMERR_DL_ACL_CHANGE_FAILED:
-		return "CSSMERR_DL_ACL_CHANGE_FAILED"
-	case CSSMERR_DL_ACL_DELETE_FAILED:
-		return "CSSMERR_DL_ACL_DELETE_FAILED"
-	case CSSMERR_DL_ACL_ENTRY_TAG_NOT_FOUND:
-		return "CSSMERR_DL_ACL_ENTRY_TAG_NOT_FOUND"
-	case CSSMERR_DL_ACL_REPLACE_FAILED:
-		return "CSSMERR_DL_ACL_REPLACE_FAILED"
-	case CSSMERR_DL_ACL_SUBJECT_TYPE_NOT_SUPPORTED:
-		return "CSSMERR_DL_ACL_SUBJECT_TYPE_NOT_SUPPORTED"
+	case CSSMERR_CSSM_FUNCTION_INTEGRITY_FAIL:
+		return "CSSMERR_CSSM_FUNCTION_INTEGRITY_FAIL"
+	case CSSMERR_CSSM_INVALID_ADDIN_HANDLE:
+		return "CSSMERR_CSSM_INVALID_ADDIN_HANDLE"
+	case CSSMERR_CSSM_INVALID_HANDLE_USAGE:
+		return "CSSMERR_CSSM_INVALID_HANDLE_USAGE"
+	case CSSMERR_CSSM_NOT_INITIALIZED:
+		return "CSSMERR_CSSM_NOT_INITIALIZED"
+	case CSSMERR_CSSM_PVC_REFERENT_NOT_FOUND:
+		return "CSSMERR_CSSM_PVC_REFERENT_NOT_FOUND"
+	default:
+		return fmt.Sprintf("CssmerrCssmInvalidAddinHandle(%d)", e)
+	}
+}
+
+type CssmerrCssmInvalidContextHandle int32
+
+const (
+	CSSMERR_CSSM_INCOMPATIBLE_VERSION   CssmerrCssmInvalidContextHandle = -2147418047
+	CSSMERR_CSSM_INVALID_CONTEXT_HANDLE CssmerrCssmInvalidContextHandle = -2147418048
+	CSSMERR_CSSM_PRIVILEGE_NOT_GRANTED  CssmerrCssmInvalidContextHandle = -2147418037
+)
+
+func (e CssmerrCssmInvalidContextHandle) String() string {
+	switch e {
+	case CSSMERR_CSSM_INCOMPATIBLE_VERSION:
+		return "CSSMERR_CSSM_INCOMPATIBLE_VERSION"
+	case CSSMERR_CSSM_INVALID_CONTEXT_HANDLE:
+		return "CSSMERR_CSSM_INVALID_CONTEXT_HANDLE"
+	case CSSMERR_CSSM_PRIVILEGE_NOT_GRANTED:
+		return "CSSMERR_CSSM_PRIVILEGE_NOT_GRANTED"
+	default:
+		return fmt.Sprintf("CssmerrCssmInvalidContextHandle(%d)", e)
+	}
+}
+
+type CssmerrDlInternalError int32
+
+const (
+	CSSMERR_DL_FUNCTION_FAILED          CssmerrDlInternalError = -2147414006
+	CSSMERR_DL_FUNCTION_NOT_IMPLEMENTED CssmerrDlInternalError = -2147414009
+	CSSMERR_DL_INTERNAL_ERROR           CssmerrDlInternalError = -2147414015
+	CSSMERR_DL_INVALID_CL_HANDLE        CssmerrDlInternalError = -2147413934
+	CSSMERR_DL_INVALID_CSP_HANDLE       CssmerrDlInternalError = -2147413936
+	CSSMERR_DL_INVALID_DB_LIST_POINTER  CssmerrDlInternalError = -2147413939
+	CSSMERR_DL_INVALID_DL_HANDLE        CssmerrDlInternalError = -2147413935
+	CSSMERR_DL_INVALID_INPUT_POINTER    CssmerrDlInternalError = -2147414011
+	CSSMERR_DL_INVALID_OUTPUT_POINTER   CssmerrDlInternalError = -2147414010
+	CSSMERR_DL_INVALID_POINTER          CssmerrDlInternalError = -2147414012
+	CSSMERR_DL_MDS_ERROR                CssmerrDlInternalError = -2147414013
+	CSSMERR_DL_MEMORY_ERROR             CssmerrDlInternalError = -2147414014
+	CSSMERR_DL_OS_ACCESS_DENIED         CssmerrDlInternalError = -2147414007
+	CSSMERR_DL_SELF_CHECK_FAILED        CssmerrDlInternalError = -2147414008
+)
+
+func (e CssmerrDlInternalError) String() string {
+	switch e {
 	case CSSMERR_DL_FUNCTION_FAILED:
 		return "CSSMERR_DL_FUNCTION_FAILED"
 	case CSSMERR_DL_FUNCTION_NOT_IMPLEMENTED:
 		return "CSSMERR_DL_FUNCTION_NOT_IMPLEMENTED"
 	case CSSMERR_DL_INTERNAL_ERROR:
 		return "CSSMERR_DL_INTERNAL_ERROR"
-	case CSSMERR_DL_INVALID_ACCESS_CREDENTIALS:
-		return "CSSMERR_DL_INVALID_ACCESS_CREDENTIALS"
-	case CSSMERR_DL_INVALID_ACL_BASE_CERTS:
-		return "CSSMERR_DL_INVALID_ACL_BASE_CERTS"
-	case CSSMERR_DL_INVALID_ACL_CHALLENGE_CALLBACK:
-		return "CSSMERR_DL_INVALID_ACL_CHALLENGE_CALLBACK"
-	case CSSMERR_DL_INVALID_ACL_EDIT_MODE:
-		return "CSSMERR_DL_INVALID_ACL_EDIT_MODE"
-	case CSSMERR_DL_INVALID_ACL_ENTRY_TAG:
-		return "CSSMERR_DL_INVALID_ACL_ENTRY_TAG"
-	case CSSMERR_DL_INVALID_ACL_SUBJECT_VALUE:
-		return "CSSMERR_DL_INVALID_ACL_SUBJECT_VALUE"
 	case CSSMERR_DL_INVALID_CL_HANDLE:
 		return "CSSMERR_DL_INVALID_CL_HANDLE"
 	case CSSMERR_DL_INVALID_CSP_HANDLE:
@@ -4440,42 +6687,24 @@ func (e CssmerrDl) String() string {
 		return "CSSMERR_DL_INVALID_DL_HANDLE"
 	case CSSMERR_DL_INVALID_INPUT_POINTER:
 		return "CSSMERR_DL_INVALID_INPUT_POINTER"
-	case CSSMERR_DL_INVALID_NEW_ACL_ENTRY:
-		return "CSSMERR_DL_INVALID_NEW_ACL_ENTRY"
-	case CSSMERR_DL_INVALID_NEW_ACL_OWNER:
-		return "CSSMERR_DL_INVALID_NEW_ACL_OWNER"
 	case CSSMERR_DL_INVALID_OUTPUT_POINTER:
 		return "CSSMERR_DL_INVALID_OUTPUT_POINTER"
 	case CSSMERR_DL_INVALID_POINTER:
 		return "CSSMERR_DL_INVALID_POINTER"
-	case CSSMERR_DL_INVALID_SAMPLE_VALUE:
-		return "CSSMERR_DL_INVALID_SAMPLE_VALUE"
 	case CSSMERR_DL_MDS_ERROR:
 		return "CSSMERR_DL_MDS_ERROR"
 	case CSSMERR_DL_MEMORY_ERROR:
 		return "CSSMERR_DL_MEMORY_ERROR"
-	case CSSMERR_DL_OBJECT_ACL_NOT_SUPPORTED:
-		return "CSSMERR_DL_OBJECT_ACL_NOT_SUPPORTED"
-	case CSSMERR_DL_OBJECT_ACL_REQUIRED:
-		return "CSSMERR_DL_OBJECT_ACL_REQUIRED"
-	case CSSMERR_DL_OBJECT_MANIP_AUTH_DENIED:
-		return "CSSMERR_DL_OBJECT_MANIP_AUTH_DENIED"
-	case CSSMERR_DL_OBJECT_USE_AUTH_DENIED:
-		return "CSSMERR_DL_OBJECT_USE_AUTH_DENIED"
-	case CSSMERR_DL_OPERATION_AUTH_DENIED:
-		return "CSSMERR_DL_OPERATION_AUTH_DENIED"
 	case CSSMERR_DL_OS_ACCESS_DENIED:
 		return "CSSMERR_DL_OS_ACCESS_DENIED"
-	case CSSMERR_DL_SAMPLE_VALUE_NOT_SUPPORTED:
-		return "CSSMERR_DL_SAMPLE_VALUE_NOT_SUPPORTED"
 	case CSSMERR_DL_SELF_CHECK_FAILED:
 		return "CSSMERR_DL_SELF_CHECK_FAILED"
 	default:
-		return fmt.Sprintf("CssmerrDl(%d)", e)
+		return fmt.Sprintf("CssmerrDlInternalError(%d)", e)
 	}
 }
 
-type CssmerrDlInvalid int
+type CssmerrDlInvalid int32
 
 const (
 	CSSMERR_DL_INVALID_DB_HANDLE      CssmerrDlInvalid = -2147413942
@@ -4496,7 +6725,88 @@ func (e CssmerrDlInvalid) String() string {
 	}
 }
 
-type CssmerrTp int
+type CssmerrDlOperationAuthDenied int32
+
+const (
+	CSSMERR_DL_ACL_ADD_FAILED                 CssmerrDlOperationAuthDenied = -2147413962
+	CSSMERR_DL_ACL_BASE_CERTS_NOT_SUPPORTED   CssmerrDlOperationAuthDenied = -2147413977
+	CSSMERR_DL_ACL_CHALLENGE_CALLBACK_FAILED  CssmerrDlOperationAuthDenied = -2147413971
+	CSSMERR_DL_ACL_CHANGE_FAILED              CssmerrDlOperationAuthDenied = -2147413967
+	CSSMERR_DL_ACL_DELETE_FAILED              CssmerrDlOperationAuthDenied = -2147413964
+	CSSMERR_DL_ACL_ENTRY_TAG_NOT_FOUND        CssmerrDlOperationAuthDenied = -2147413969
+	CSSMERR_DL_ACL_REPLACE_FAILED             CssmerrDlOperationAuthDenied = -2147413963
+	CSSMERR_DL_ACL_SUBJECT_TYPE_NOT_SUPPORTED CssmerrDlOperationAuthDenied = -2147413973
+	CSSMERR_DL_INVALID_ACCESS_CREDENTIALS     CssmerrDlOperationAuthDenied = -2147413979
+	CSSMERR_DL_INVALID_ACL_BASE_CERTS         CssmerrDlOperationAuthDenied = -2147413978
+	CSSMERR_DL_INVALID_ACL_CHALLENGE_CALLBACK CssmerrDlOperationAuthDenied = -2147413972
+	CSSMERR_DL_INVALID_ACL_EDIT_MODE          CssmerrDlOperationAuthDenied = -2147413968
+	CSSMERR_DL_INVALID_ACL_ENTRY_TAG          CssmerrDlOperationAuthDenied = -2147413970
+	CSSMERR_DL_INVALID_ACL_SUBJECT_VALUE      CssmerrDlOperationAuthDenied = -2147413974
+	CSSMERR_DL_INVALID_NEW_ACL_ENTRY          CssmerrDlOperationAuthDenied = -2147413966
+	CSSMERR_DL_INVALID_NEW_ACL_OWNER          CssmerrDlOperationAuthDenied = -2147413965
+	CSSMERR_DL_INVALID_SAMPLE_VALUE           CssmerrDlOperationAuthDenied = -2147413976
+	CSSMERR_DL_OBJECT_ACL_NOT_SUPPORTED       CssmerrDlOperationAuthDenied = -2147413981
+	CSSMERR_DL_OBJECT_ACL_REQUIRED            CssmerrDlOperationAuthDenied = -2147413980
+	CSSMERR_DL_OBJECT_MANIP_AUTH_DENIED       CssmerrDlOperationAuthDenied = -2147413982
+	CSSMERR_DL_OBJECT_USE_AUTH_DENIED         CssmerrDlOperationAuthDenied = -2147413983
+	CSSMERR_DL_OPERATION_AUTH_DENIED          CssmerrDlOperationAuthDenied = -2147413984
+	CSSMERR_DL_SAMPLE_VALUE_NOT_SUPPORTED     CssmerrDlOperationAuthDenied = -2147413975
+)
+
+func (e CssmerrDlOperationAuthDenied) String() string {
+	switch e {
+	case CSSMERR_DL_ACL_ADD_FAILED:
+		return "CSSMERR_DL_ACL_ADD_FAILED"
+	case CSSMERR_DL_ACL_BASE_CERTS_NOT_SUPPORTED:
+		return "CSSMERR_DL_ACL_BASE_CERTS_NOT_SUPPORTED"
+	case CSSMERR_DL_ACL_CHALLENGE_CALLBACK_FAILED:
+		return "CSSMERR_DL_ACL_CHALLENGE_CALLBACK_FAILED"
+	case CSSMERR_DL_ACL_CHANGE_FAILED:
+		return "CSSMERR_DL_ACL_CHANGE_FAILED"
+	case CSSMERR_DL_ACL_DELETE_FAILED:
+		return "CSSMERR_DL_ACL_DELETE_FAILED"
+	case CSSMERR_DL_ACL_ENTRY_TAG_NOT_FOUND:
+		return "CSSMERR_DL_ACL_ENTRY_TAG_NOT_FOUND"
+	case CSSMERR_DL_ACL_REPLACE_FAILED:
+		return "CSSMERR_DL_ACL_REPLACE_FAILED"
+	case CSSMERR_DL_ACL_SUBJECT_TYPE_NOT_SUPPORTED:
+		return "CSSMERR_DL_ACL_SUBJECT_TYPE_NOT_SUPPORTED"
+	case CSSMERR_DL_INVALID_ACCESS_CREDENTIALS:
+		return "CSSMERR_DL_INVALID_ACCESS_CREDENTIALS"
+	case CSSMERR_DL_INVALID_ACL_BASE_CERTS:
+		return "CSSMERR_DL_INVALID_ACL_BASE_CERTS"
+	case CSSMERR_DL_INVALID_ACL_CHALLENGE_CALLBACK:
+		return "CSSMERR_DL_INVALID_ACL_CHALLENGE_CALLBACK"
+	case CSSMERR_DL_INVALID_ACL_EDIT_MODE:
+		return "CSSMERR_DL_INVALID_ACL_EDIT_MODE"
+	case CSSMERR_DL_INVALID_ACL_ENTRY_TAG:
+		return "CSSMERR_DL_INVALID_ACL_ENTRY_TAG"
+	case CSSMERR_DL_INVALID_ACL_SUBJECT_VALUE:
+		return "CSSMERR_DL_INVALID_ACL_SUBJECT_VALUE"
+	case CSSMERR_DL_INVALID_NEW_ACL_ENTRY:
+		return "CSSMERR_DL_INVALID_NEW_ACL_ENTRY"
+	case CSSMERR_DL_INVALID_NEW_ACL_OWNER:
+		return "CSSMERR_DL_INVALID_NEW_ACL_OWNER"
+	case CSSMERR_DL_INVALID_SAMPLE_VALUE:
+		return "CSSMERR_DL_INVALID_SAMPLE_VALUE"
+	case CSSMERR_DL_OBJECT_ACL_NOT_SUPPORTED:
+		return "CSSMERR_DL_OBJECT_ACL_NOT_SUPPORTED"
+	case CSSMERR_DL_OBJECT_ACL_REQUIRED:
+		return "CSSMERR_DL_OBJECT_ACL_REQUIRED"
+	case CSSMERR_DL_OBJECT_MANIP_AUTH_DENIED:
+		return "CSSMERR_DL_OBJECT_MANIP_AUTH_DENIED"
+	case CSSMERR_DL_OBJECT_USE_AUTH_DENIED:
+		return "CSSMERR_DL_OBJECT_USE_AUTH_DENIED"
+	case CSSMERR_DL_OPERATION_AUTH_DENIED:
+		return "CSSMERR_DL_OPERATION_AUTH_DENIED"
+	case CSSMERR_DL_SAMPLE_VALUE_NOT_SUPPORTED:
+		return "CSSMERR_DL_SAMPLE_VALUE_NOT_SUPPORTED"
+	default:
+		return fmt.Sprintf("CssmerrDlOperationAuthDenied(%d)", e)
+	}
+}
+
+type CssmerrTp int32
 
 const (
 	CSSMERR_TP_CRL_ALREADY_SIGNED        CssmerrTp = -2147409849
@@ -4595,7 +6905,7 @@ func (e CssmerrTp) String() string {
 	}
 }
 
-type ErrAuthorization int
+type ErrAuthorization int32
 
 const (
 	// ErrAuthorizationBadAddress: The requested socket address is invalid.
@@ -4667,7 +6977,7 @@ func (e ErrAuthorization) String() string {
 	}
 }
 
-type ErrSSL int
+type ErrSSL int32
 
 const (
 	// ErrSSLATSCertificateHashAlgorithmViolation: The peer certificate hash algorithm isn’t App Transport Security compliant.
@@ -4973,946 +7283,1902 @@ func (e ErrSSL) String() string {
 	}
 }
 
-type ErrSec int
+type ErrSecCSUnimplemented int32
+
+const (
+	// ErrSecCSAmbiguousBundleFormat: The bundle could be an app or a framework.
+	ErrSecCSAmbiguousBundleFormat ErrSecCSUnimplemented = -67011
+	// ErrSecCSBadBundleFormat: The bundle format is unrecognized, invalid, or unsuitable.
+	ErrSecCSBadBundleFormat ErrSecCSUnimplemented = -67028
+	// ErrSecCSBadCallbackValue: The monitor callback returned invalid value.
+	ErrSecCSBadCallbackValue ErrSecCSUnimplemented = -67020
+	// ErrSecCSBadDictionaryFormat: A required information property list (Info.plist) file or resource is malformed.
+	ErrSecCSBadDictionaryFormat ErrSecCSUnimplemented = -67058
+	// ErrSecCSBadDiskImageFormat: The disk image format unrecognized, invalid, or unsuitable.
+	ErrSecCSBadDiskImageFormat ErrSecCSUnimplemented = -67001
+	// ErrSecCSBadFrameworkVersion: The embedded framework contains a modified or invalid version.
+	ErrSecCSBadFrameworkVersion ErrSecCSUnimplemented = -67009
+	// ErrSecCSBadLVArch: The library validation flag cannot be used with an i386 binary.
+	ErrSecCSBadLVArch ErrSecCSUnimplemented = -67017
+	// ErrSecCSBadMainExecutable: The main executable failed strict validation.
+	ErrSecCSBadMainExecutable ErrSecCSUnimplemented = -67010
+	// ErrSecCSBadNestedCode: The nested code is modified or invalid.
+	ErrSecCSBadNestedCode ErrSecCSUnimplemented = -67021
+	// ErrSecCSBadObjectFormat: The object file format invalid or unsuitable.
+	ErrSecCSBadObjectFormat ErrSecCSUnimplemented = -67049
+	// ErrSecCSBadResource: A sealed resource is missing or invalid.
+	ErrSecCSBadResource ErrSecCSUnimplemented = -67054
+	// ErrSecCSBadTeamIdentifier: A Team Identifier is wrong or inappropriate.
+	ErrSecCSBadTeamIdentifier     ErrSecCSUnimplemented = -66997
+	ErrSecCSCMSConstructionFailed ErrSecCSUnimplemented = -66991
+	// ErrSecCSCMSTooLarge: The signature is too large to embed.
+	ErrSecCSCMSTooLarge ErrSecCSUnimplemented = -67036
+	// ErrSecCSCancelled: The operation was terminated by explicit cancellation.
+	ErrSecCSCancelled ErrSecCSUnimplemented = -67006
+	// ErrSecCSDBAccess: Cannot access signature database.
+	ErrSecCSDBAccess ErrSecCSUnimplemented = -67032
+	// ErrSecCSDBDenied: Access to signature database denied.
+	ErrSecCSDBDenied ErrSecCSUnimplemented = -67033
+	// ErrSecCSDSStoreSymlink: A `.DS_Store` file can’t be a symlink.
+	ErrSecCSDSStoreSymlink ErrSecCSUnimplemented = -67012
+	// ErrSecCSDbCorrupt: A system database or file is corrupt.
+	ErrSecCSDbCorrupt ErrSecCSUnimplemented = -67024
+	// ErrSecCSFileHardQuarantined: File open or execution not allowed.
+	ErrSecCSFileHardQuarantined ErrSecCSUnimplemented = -67026
+	// ErrSecCSGuestInvalid: The identity of guest code has been invalidated.
+	ErrSecCSGuestInvalid ErrSecCSUnimplemented = -67063
+	// ErrSecCSHelperFailed: The codesign_allocate helper tool can’t be found or used.
+	ErrSecCSHelperFailed ErrSecCSUnimplemented = -67019
+	// ErrSecCSHostProtocolContradiction: Host protocol violation: contradictory hosting modes.
+	ErrSecCSHostProtocolContradiction ErrSecCSUnimplemented = -67043
+	// ErrSecCSHostProtocolDedicationError: Host protocol violation: operation not allowed with or for a dedicated guest.
+	ErrSecCSHostProtocolDedicationError ErrSecCSUnimplemented = -67042
+	// ErrSecCSHostProtocolInvalidAttribute: Code signing host returned invalid or inconsistent attributes for guest code.
+	ErrSecCSHostProtocolInvalidAttribute ErrSecCSUnimplemented = -67031
+	// ErrSecCSHostProtocolInvalidHash: Host protocol violation: invalid hash of guest code.
+	ErrSecCSHostProtocolInvalidHash ErrSecCSUnimplemented = -67035
+	// ErrSecCSHostProtocolNotProxy: Host protocol violation: proxy hosting not engaged.
+	ErrSecCSHostProtocolNotProxy ErrSecCSUnimplemented = -67041
+	// ErrSecCSHostProtocolRelativePath: Host protocol violation: absolute guest path required.
+	ErrSecCSHostProtocolRelativePath ErrSecCSUnimplemented = -67044
+	// ErrSecCSHostProtocolStateError: Host protocol violation: invalid guest state change request.
+	ErrSecCSHostProtocolStateError ErrSecCSUnimplemented = -67040
+	// ErrSecCSHostProtocolUnrelated: Host protocol violation: the specified code is not a guest of the specified code signing host.
+	ErrSecCSHostProtocolUnrelated ErrSecCSUnimplemented = -67039
+	// ErrSecCSHostReject: Code rejected its host.
+	ErrSecCSHostReject ErrSecCSUnimplemented = -67047
+	// ErrSecCSInfoPlistFailed: The Info.plist file or the signature has been modified.
+	ErrSecCSInfoPlistFailed ErrSecCSUnimplemented = -67030
+	// ErrSecCSInternalError: Internal error in Code Signing Services subsystem.
+	ErrSecCSInternalError ErrSecCSUnimplemented = -67048
+	// ErrSecCSInvalidAssociatedFileData: Resource fork, Finder information, or similar detritus not allowed.
+	ErrSecCSInvalidAssociatedFileData ErrSecCSUnimplemented = -66999
+	// ErrSecCSInvalidAttributeValues: An attribute value associated with a key is out of range or is the wrong type.
+	ErrSecCSInvalidAttributeValues ErrSecCSUnimplemented = -67066
+	// ErrSecCSInvalidEntitlements: Encountered an invalid entitlement plist.
+	ErrSecCSInvalidEntitlements ErrSecCSUnimplemented = -66994
+	// ErrSecCSInvalidFlags: Invalid or inappropriate API flags specified.
+	ErrSecCSInvalidFlags ErrSecCSUnimplemented = -67070
+	// ErrSecCSInvalidObjectRef: Invalid API object reference.
+	ErrSecCSInvalidObjectRef ErrSecCSUnimplemented = -67071
+	// ErrSecCSInvalidPlatform: Invalid platform identifier or platform mismatch.
+	ErrSecCSInvalidPlatform ErrSecCSUnimplemented = -67005
+	// ErrSecCSInvalidRuntimeVersion: An invalid runtime version was explicity set.
+	ErrSecCSInvalidRuntimeVersion ErrSecCSUnimplemented = -66993
+	// ErrSecCSInvalidSymlink: Invalid destination for symbolic link in bundle.
+	ErrSecCSInvalidSymlink ErrSecCSUnimplemented = -67003
+	// ErrSecCSInvalidTeamIdentifier: A Team Identifier string is invalid.
+	ErrSecCSInvalidTeamIdentifier ErrSecCSUnimplemented = -66998
+	// ErrSecCSMultipleGuests: Code signing host has more than one block of guest code with this attribute value.
+	ErrSecCSMultipleGuests ErrSecCSUnimplemented = -67064
+	// ErrSecCSNoMainExecutable: The code has no main executable file.
+	ErrSecCSNoMainExecutable ErrSecCSUnimplemented = -67029
+	// ErrSecCSNoMatches: No matches were found for a search or update operation.
+	ErrSecCSNoMatches ErrSecCSUnimplemented = -67027
+	// ErrSecCSNoSuchCode: Code signing host has no guest code with the requested attributes.
+	ErrSecCSNoSuchCode ErrSecCSUnimplemented = -67065
+	// ErrSecCSNotAHost: This code is not a code signing host.
+	ErrSecCSNotAHost ErrSecCSUnimplemented = -67046
+	// ErrSecCSNotAppLike: The code is valid but does not seem to be an app.
+	ErrSecCSNotAppLike ErrSecCSUnimplemented = -67002
+	// ErrSecCSNotSupported: Operation not supported for this type of code.
+	ErrSecCSNotSupported ErrSecCSUnimplemented = -67037
+	// ErrSecCSObjectRequired: A required pointer argument was null.
+	ErrSecCSObjectRequired ErrSecCSUnimplemented = -67069
+	// ErrSecCSOutdated: The presented data is out of date.
+	ErrSecCSOutdated ErrSecCSUnimplemented = -67025
+	// ErrSecCSRegularFile: The main executable or Info.plist must be a regular file (and not, for example, a symbolic link).
+	ErrSecCSRegularFile        ErrSecCSUnimplemented = -67015
+	ErrSecCSRemoteSignerFailed ErrSecCSUnimplemented = -66990
+	// ErrSecCSReqFailed: The code failed to satisfy one of the code requirements.
+	ErrSecCSReqFailed ErrSecCSUnimplemented = -67050
+	// ErrSecCSReqInvalid: Invalid or corrupted code requirements.
+	ErrSecCSReqInvalid ErrSecCSUnimplemented = -67052
+	// ErrSecCSReqUnsupported: Unsupported type or version of code requirements.
+	ErrSecCSReqUnsupported ErrSecCSUnimplemented = -67051
+	// ErrSecCSResourceDirectoryFailed: A directory or its signature has been modified and is therefore invalid.
+	ErrSecCSResourceDirectoryFailed ErrSecCSUnimplemented = -67023
+	// ErrSecCSResourceNotSupported: Found an unsupported resource.
+	ErrSecCSResourceNotSupported ErrSecCSUnimplemented = -67016
+	// ErrSecCSResourceRulesInvalid: Invalid resource selection rule or rules.
+	ErrSecCSResourceRulesInvalid ErrSecCSUnimplemented = -67053
+	// ErrSecCSResourcesInvalid: The sealed resource directory is invalid.
+	ErrSecCSResourcesInvalid ErrSecCSUnimplemented = -67055
+	// ErrSecCSResourcesNotFound: Cannot find sealed resources in code.
+	ErrSecCSResourcesNotFound ErrSecCSUnimplemented = -67056
+	// ErrSecCSResourcesNotSealed: Resources are not sealed by the signature.
+	ErrSecCSResourcesNotSealed ErrSecCSUnimplemented = -67057
+	// ErrSecCSRevokedNotarization: Notarization indicates this code has been revoked.
+	ErrSecCSRevokedNotarization ErrSecCSUnimplemented = -66992
+	// ErrSecCSSigDBAccess: Can’t access signature database.
+	ErrSecCSSigDBAccess ErrSecCSUnimplemented = -67032
+	// ErrSecCSSigDBDenied: Access to signature database denied.
+	ErrSecCSSigDBDenied ErrSecCSUnimplemented = -67033
+	// ErrSecCSSignatureFailed: Code or signature modified.
+	ErrSecCSSignatureFailed ErrSecCSUnimplemented = -67061
+	// ErrSecCSSignatureInvalid: Invalid format for signature.
+	ErrSecCSSignatureInvalid ErrSecCSUnimplemented = -67045
+	// ErrSecCSSignatureNotVerifiable: Signature cannot be read.
+	ErrSecCSSignatureNotVerifiable ErrSecCSUnimplemented = -67060
+	// ErrSecCSSignatureUnsupported: Unsupported type or version of signature.
+	ErrSecCSSignatureUnsupported ErrSecCSUnimplemented = -67059
+	// ErrSecCSSignatureUntrusted: The signature is valid but signer isn’t trusted.
+	ErrSecCSSignatureUntrusted ErrSecCSUnimplemented = -66996
+	// ErrSecCSStaticCodeChanged: The code on disk has been modified after the code started running.
+	ErrSecCSStaticCodeChanged ErrSecCSUnimplemented = -67034
+	// ErrSecCSStaticCodeNotFound: Cannot find code object on disk.
+	ErrSecCSStaticCodeNotFound ErrSecCSUnimplemented = -67068
+	// ErrSecCSTooBig: The code is too big for current signing format.
+	ErrSecCSTooBig ErrSecCSUnimplemented = -67004
+	// ErrSecCSUnimplementedValue: Unimplemented code signing feature.
+	ErrSecCSUnimplementedValue ErrSecCSUnimplemented = -67072
+	// ErrSecCSUnsealedAppRoot: Unsealed contents present in the bundle root.
+	ErrSecCSUnsealedAppRoot ErrSecCSUnimplemented = -67014
+	// ErrSecCSUnsealedFrameworkRoot: Unsealed contents present in the root directory of an embedded framework.
+	ErrSecCSUnsealedFrameworkRoot ErrSecCSUnimplemented = -67008
+	// ErrSecCSUnsigned: Code object is not signed.
+	ErrSecCSUnsigned ErrSecCSUnimplemented = -67062
+	// ErrSecCSUnsignedNestedCode: Nested code is unsigned.
+	ErrSecCSUnsignedNestedCode ErrSecCSUnimplemented = -67022
+	// ErrSecCSUnsupportedDigestAlgorithm: The signature digest algorithm(s) specified are not supported.
+	ErrSecCSUnsupportedDigestAlgorithm ErrSecCSUnimplemented = -67000
+	// ErrSecCSUnsupportedGuestAttributes: Cannot locate guest code using this attribute set.
+	ErrSecCSUnsupportedGuestAttributes ErrSecCSUnimplemented = -67067
+	ErrSecCSVetoed                     ErrSecCSUnimplemented = -67018
+	// ErrSecCSWeakResourceEnvelope: The resource envelope is obsolete (version 1 signature).
+	ErrSecCSWeakResourceEnvelope ErrSecCSUnimplemented = -67007
+	// ErrSecCSWeakResourceRules: The resource envelope is obsolete (custom omit rules).
+	ErrSecCSWeakResourceRules ErrSecCSUnimplemented = -67013
+	// ErrSecMultipleExecSegments: The image contains multiple executable segments.
+	ErrSecMultipleExecSegments ErrSecCSUnimplemented = -66995
+)
+
+func (e ErrSecCSUnimplemented) String() string {
+	switch e {
+	case ErrSecCSAmbiguousBundleFormat:
+		return "ErrSecCSAmbiguousBundleFormat"
+	case ErrSecCSBadBundleFormat:
+		return "ErrSecCSBadBundleFormat"
+	case ErrSecCSBadCallbackValue:
+		return "ErrSecCSBadCallbackValue"
+	case ErrSecCSBadDictionaryFormat:
+		return "ErrSecCSBadDictionaryFormat"
+	case ErrSecCSBadDiskImageFormat:
+		return "ErrSecCSBadDiskImageFormat"
+	case ErrSecCSBadFrameworkVersion:
+		return "ErrSecCSBadFrameworkVersion"
+	case ErrSecCSBadLVArch:
+		return "ErrSecCSBadLVArch"
+	case ErrSecCSBadMainExecutable:
+		return "ErrSecCSBadMainExecutable"
+	case ErrSecCSBadNestedCode:
+		return "ErrSecCSBadNestedCode"
+	case ErrSecCSBadObjectFormat:
+		return "ErrSecCSBadObjectFormat"
+	case ErrSecCSBadResource:
+		return "ErrSecCSBadResource"
+	case ErrSecCSBadTeamIdentifier:
+		return "ErrSecCSBadTeamIdentifier"
+	case ErrSecCSCMSConstructionFailed:
+		return "ErrSecCSCMSConstructionFailed"
+	case ErrSecCSCMSTooLarge:
+		return "ErrSecCSCMSTooLarge"
+	case ErrSecCSCancelled:
+		return "ErrSecCSCancelled"
+	case ErrSecCSDBAccess:
+		return "ErrSecCSDBAccess"
+	case ErrSecCSDBDenied:
+		return "ErrSecCSDBDenied"
+	case ErrSecCSDSStoreSymlink:
+		return "ErrSecCSDSStoreSymlink"
+	case ErrSecCSDbCorrupt:
+		return "ErrSecCSDbCorrupt"
+	case ErrSecCSFileHardQuarantined:
+		return "ErrSecCSFileHardQuarantined"
+	case ErrSecCSGuestInvalid:
+		return "ErrSecCSGuestInvalid"
+	case ErrSecCSHelperFailed:
+		return "ErrSecCSHelperFailed"
+	case ErrSecCSHostProtocolContradiction:
+		return "ErrSecCSHostProtocolContradiction"
+	case ErrSecCSHostProtocolDedicationError:
+		return "ErrSecCSHostProtocolDedicationError"
+	case ErrSecCSHostProtocolInvalidAttribute:
+		return "ErrSecCSHostProtocolInvalidAttribute"
+	case ErrSecCSHostProtocolInvalidHash:
+		return "ErrSecCSHostProtocolInvalidHash"
+	case ErrSecCSHostProtocolNotProxy:
+		return "ErrSecCSHostProtocolNotProxy"
+	case ErrSecCSHostProtocolRelativePath:
+		return "ErrSecCSHostProtocolRelativePath"
+	case ErrSecCSHostProtocolStateError:
+		return "ErrSecCSHostProtocolStateError"
+	case ErrSecCSHostProtocolUnrelated:
+		return "ErrSecCSHostProtocolUnrelated"
+	case ErrSecCSHostReject:
+		return "ErrSecCSHostReject"
+	case ErrSecCSInfoPlistFailed:
+		return "ErrSecCSInfoPlistFailed"
+	case ErrSecCSInternalError:
+		return "ErrSecCSInternalError"
+	case ErrSecCSInvalidAssociatedFileData:
+		return "ErrSecCSInvalidAssociatedFileData"
+	case ErrSecCSInvalidAttributeValues:
+		return "ErrSecCSInvalidAttributeValues"
+	case ErrSecCSInvalidEntitlements:
+		return "ErrSecCSInvalidEntitlements"
+	case ErrSecCSInvalidFlags:
+		return "ErrSecCSInvalidFlags"
+	case ErrSecCSInvalidObjectRef:
+		return "ErrSecCSInvalidObjectRef"
+	case ErrSecCSInvalidPlatform:
+		return "ErrSecCSInvalidPlatform"
+	case ErrSecCSInvalidRuntimeVersion:
+		return "ErrSecCSInvalidRuntimeVersion"
+	case ErrSecCSInvalidSymlink:
+		return "ErrSecCSInvalidSymlink"
+	case ErrSecCSInvalidTeamIdentifier:
+		return "ErrSecCSInvalidTeamIdentifier"
+	case ErrSecCSMultipleGuests:
+		return "ErrSecCSMultipleGuests"
+	case ErrSecCSNoMainExecutable:
+		return "ErrSecCSNoMainExecutable"
+	case ErrSecCSNoMatches:
+		return "ErrSecCSNoMatches"
+	case ErrSecCSNoSuchCode:
+		return "ErrSecCSNoSuchCode"
+	case ErrSecCSNotAHost:
+		return "ErrSecCSNotAHost"
+	case ErrSecCSNotAppLike:
+		return "ErrSecCSNotAppLike"
+	case ErrSecCSNotSupported:
+		return "ErrSecCSNotSupported"
+	case ErrSecCSObjectRequired:
+		return "ErrSecCSObjectRequired"
+	case ErrSecCSOutdated:
+		return "ErrSecCSOutdated"
+	case ErrSecCSRegularFile:
+		return "ErrSecCSRegularFile"
+	case ErrSecCSRemoteSignerFailed:
+		return "ErrSecCSRemoteSignerFailed"
+	case ErrSecCSReqFailed:
+		return "ErrSecCSReqFailed"
+	case ErrSecCSReqInvalid:
+		return "ErrSecCSReqInvalid"
+	case ErrSecCSReqUnsupported:
+		return "ErrSecCSReqUnsupported"
+	case ErrSecCSResourceDirectoryFailed:
+		return "ErrSecCSResourceDirectoryFailed"
+	case ErrSecCSResourceNotSupported:
+		return "ErrSecCSResourceNotSupported"
+	case ErrSecCSResourceRulesInvalid:
+		return "ErrSecCSResourceRulesInvalid"
+	case ErrSecCSResourcesInvalid:
+		return "ErrSecCSResourcesInvalid"
+	case ErrSecCSResourcesNotFound:
+		return "ErrSecCSResourcesNotFound"
+	case ErrSecCSResourcesNotSealed:
+		return "ErrSecCSResourcesNotSealed"
+	case ErrSecCSRevokedNotarization:
+		return "ErrSecCSRevokedNotarization"
+	case ErrSecCSSignatureFailed:
+		return "ErrSecCSSignatureFailed"
+	case ErrSecCSSignatureInvalid:
+		return "ErrSecCSSignatureInvalid"
+	case ErrSecCSSignatureNotVerifiable:
+		return "ErrSecCSSignatureNotVerifiable"
+	case ErrSecCSSignatureUnsupported:
+		return "ErrSecCSSignatureUnsupported"
+	case ErrSecCSSignatureUntrusted:
+		return "ErrSecCSSignatureUntrusted"
+	case ErrSecCSStaticCodeChanged:
+		return "ErrSecCSStaticCodeChanged"
+	case ErrSecCSStaticCodeNotFound:
+		return "ErrSecCSStaticCodeNotFound"
+	case ErrSecCSTooBig:
+		return "ErrSecCSTooBig"
+	case ErrSecCSUnimplementedValue:
+		return "ErrSecCSUnimplementedValue"
+	case ErrSecCSUnsealedAppRoot:
+		return "ErrSecCSUnsealedAppRoot"
+	case ErrSecCSUnsealedFrameworkRoot:
+		return "ErrSecCSUnsealedFrameworkRoot"
+	case ErrSecCSUnsigned:
+		return "ErrSecCSUnsigned"
+	case ErrSecCSUnsignedNestedCode:
+		return "ErrSecCSUnsignedNestedCode"
+	case ErrSecCSUnsupportedDigestAlgorithm:
+		return "ErrSecCSUnsupportedDigestAlgorithm"
+	case ErrSecCSUnsupportedGuestAttributes:
+		return "ErrSecCSUnsupportedGuestAttributes"
+	case ErrSecCSVetoed:
+		return "ErrSecCSVetoed"
+	case ErrSecCSWeakResourceEnvelope:
+		return "ErrSecCSWeakResourceEnvelope"
+	case ErrSecCSWeakResourceRules:
+		return "ErrSecCSWeakResourceRules"
+	case ErrSecMultipleExecSegments:
+		return "ErrSecMultipleExecSegments"
+	default:
+		return fmt.Sprintf("ErrSecCSUnimplemented(%d)", e)
+	}
+}
+
+type ErrSecSuccess int32
 
 const (
 	// ErrSecACLAddFailed: An ACL add operation failed.
-	ErrSecACLAddFailed ErrSec = 0
+	ErrSecACLAddFailed ErrSecSuccess = -67698
 	// ErrSecACLChangeFailed: An ACL change operation failed.
-	ErrSecACLChangeFailed ErrSec = 0
+	ErrSecACLChangeFailed ErrSecSuccess = -67699
 	// ErrSecACLDeleteFailed: An ACL delete operation failed.
-	ErrSecACLDeleteFailed ErrSec = 0
+	ErrSecACLDeleteFailed ErrSecSuccess = -67696
 	// ErrSecACLNotSimple: The access control list is not in standard simple form.
-	ErrSecACLNotSimple ErrSec = 0
+	ErrSecACLNotSimple ErrSecSuccess = -25240
 	// ErrSecACLReplaceFailed: An ACL replace operation failed.
-	ErrSecACLReplaceFailed ErrSec = 0
+	ErrSecACLReplaceFailed ErrSecSuccess = -67697
 	// ErrSecAddinLoadFailed: The add-in load operation failed.
-	ErrSecAddinLoadFailed ErrSec = 0
+	ErrSecAddinLoadFailed ErrSecSuccess = -67711
 	// ErrSecAddinUnloadFailed: The add-in unload operation failed.
-	ErrSecAddinUnloadFailed ErrSec = 0
+	ErrSecAddinUnloadFailed ErrSecSuccess = -67714
 	// ErrSecAlgorithmMismatch: An algorithm mismatch occurred.
-	ErrSecAlgorithmMismatch ErrSec = 0
+	ErrSecAlgorithmMismatch ErrSecSuccess = -67730
 	// ErrSecAllocate: Failed to allocate memory.
-	ErrSecAllocate ErrSec = 0
+	ErrSecAllocate ErrSecSuccess = -108
 	// ErrSecAlreadyLoggedIn: The user is already logged in.
-	ErrSecAlreadyLoggedIn ErrSec = 0
+	ErrSecAlreadyLoggedIn ErrSecSuccess = -67814
 	// ErrSecAppleAddAppACLSubject: Adding an application ACL subject failed.
-	ErrSecAppleAddAppACLSubject ErrSec = 0
+	ErrSecAppleAddAppACLSubject ErrSecSuccess = -67589
 	// ErrSecAppleInvalidKeyEndDate: The specified key has an invalid end date.
-	ErrSecAppleInvalidKeyEndDate ErrSec = 0
+	ErrSecAppleInvalidKeyEndDate ErrSecSuccess = -67593
 	// ErrSecAppleInvalidKeyStartDate: The specified key has an invalid start date.
-	ErrSecAppleInvalidKeyStartDate ErrSec = 0
+	ErrSecAppleInvalidKeyStartDate ErrSecSuccess = -67592
 	// ErrSecApplePublicKeyIncomplete: The public key is incomplete.
-	ErrSecApplePublicKeyIncomplete ErrSec = 0
+	ErrSecApplePublicKeyIncomplete ErrSecSuccess = -67590
 	// ErrSecAppleSSLv2Rollback: A SSLv2 rollback error has occurred.
-	ErrSecAppleSSLv2Rollback ErrSec = 0
+	ErrSecAppleSSLv2Rollback ErrSecSuccess = -67595
 	// ErrSecAppleSignatureMismatch: A signature mismatch has occurred.
-	ErrSecAppleSignatureMismatch ErrSec = 0
+	ErrSecAppleSignatureMismatch ErrSecSuccess = -67591
 	// ErrSecAttachHandleBusy: The CSP handle was busy.
-	ErrSecAttachHandleBusy ErrSec = 0
+	ErrSecAttachHandleBusy ErrSecSuccess = -67728
 	// ErrSecAttributeNotInContext: An attribute was not in the context.
-	ErrSecAttributeNotInContext ErrSec = 0
+	ErrSecAttributeNotInContext ErrSecSuccess = -67720
 	// ErrSecAuthFailed: Authorization and/or authentication failed.
-	ErrSecAuthFailed ErrSec = 0
+	ErrSecAuthFailed ErrSecSuccess = -25293
 	// ErrSecBadReq: Bad parameter or invalid state for operation.
-	ErrSecBadReq ErrSec = 0
+	ErrSecBadReq ErrSecSuccess = -909
 	// ErrSecBlockSizeMismatch: A block size mismatch occurred.
-	ErrSecBlockSizeMismatch ErrSec = 0
+	ErrSecBlockSizeMismatch ErrSecSuccess = -67810
 	// ErrSecBufferTooSmall: The buffer is too small.
-	ErrSecBufferTooSmall ErrSec = 0
+	ErrSecBufferTooSmall ErrSecSuccess = -25301
 	// ErrSecCRLAlreadySigned: The certificate revocation list is already signed.
-	ErrSecCRLAlreadySigned ErrSec = 0
+	ErrSecCRLAlreadySigned ErrSecSuccess = -67684
 	// ErrSecCRLBadURI: The certificate revocation list has a bad uniform resource identifier.
-	ErrSecCRLBadURI ErrSec = 0
+	ErrSecCRLBadURI ErrSecSuccess = -67617
 	// ErrSecCRLExpired: The certificate revocation list has expired.
-	ErrSecCRLExpired ErrSec = 0
+	ErrSecCRLExpired ErrSecSuccess = -67613
 	// ErrSecCRLNotFound: The certificate revocation list was not found.
-	ErrSecCRLNotFound ErrSec = 0
+	ErrSecCRLNotFound ErrSecSuccess = -67615
 	// ErrSecCRLNotTrusted: The certificate revocation list is not trusted.
-	ErrSecCRLNotTrusted ErrSec = 0
+	ErrSecCRLNotTrusted ErrSecSuccess = -67620
 	// ErrSecCRLNotValidYet: The certificate revocation list is not yet valid.
-	ErrSecCRLNotValidYet ErrSec = 0
+	ErrSecCRLNotValidYet ErrSecSuccess = -67614
 	// ErrSecCRLPolicyFailed: The certificate revocation list policy failed.
-	ErrSecCRLPolicyFailed ErrSec = 0
+	ErrSecCRLPolicyFailed ErrSecSuccess = -67621
 	// ErrSecCRLServerDown: The certificate revocation list server is down.
-	ErrSecCRLServerDown ErrSec = 0
-	// ErrSecCSAmbiguousBundleFormat: The bundle could be an app or a framework.
-	ErrSecCSAmbiguousBundleFormat ErrSec = -67011
-	// ErrSecCSBadBundleFormat: The bundle format is unrecognized, invalid, or unsuitable.
-	ErrSecCSBadBundleFormat ErrSec = -67028
-	// ErrSecCSBadCallbackValue: The monitor callback returned invalid value.
-	ErrSecCSBadCallbackValue ErrSec = -67020
-	// ErrSecCSBadDictionaryFormat: A required information property list (Info.plist) file or resource is malformed.
-	ErrSecCSBadDictionaryFormat ErrSec = -67058
-	// ErrSecCSBadDiskImageFormat: The disk image format unrecognized, invalid, or unsuitable.
-	ErrSecCSBadDiskImageFormat ErrSec = -67001
-	// ErrSecCSBadFrameworkVersion: The embedded framework contains a modified or invalid version.
-	ErrSecCSBadFrameworkVersion ErrSec = -67009
-	// ErrSecCSBadLVArch: The library validation flag cannot be used with an i386 binary.
-	ErrSecCSBadLVArch ErrSec = -67017
-	// ErrSecCSBadMainExecutable: The main executable failed strict validation.
-	ErrSecCSBadMainExecutable ErrSec = -67010
-	// ErrSecCSBadNestedCode: The nested code is modified or invalid.
-	ErrSecCSBadNestedCode ErrSec = -67021
-	// ErrSecCSBadObjectFormat: The object file format invalid or unsuitable.
-	ErrSecCSBadObjectFormat ErrSec = -67049
-	// ErrSecCSBadResource: A sealed resource is missing or invalid.
-	ErrSecCSBadResource ErrSec = -67054
-	// ErrSecCSBadTeamIdentifier: A Team Identifier is wrong or inappropriate.
-	ErrSecCSBadTeamIdentifier     ErrSec = -66997
-	ErrSecCSCMSConstructionFailed ErrSec = -66991
-	// ErrSecCSCMSTooLarge: The signature is too large to embed.
-	ErrSecCSCMSTooLarge ErrSec = -67036
-	// ErrSecCSCancelled: The operation was terminated by explicit cancellation.
-	ErrSecCSCancelled ErrSec = -67006
-	// ErrSecCSDBAccess: Cannot access signature database.
-	ErrSecCSDBAccess ErrSec = -67032
-	// ErrSecCSDBDenied: Access to signature database denied.
-	ErrSecCSDBDenied ErrSec = -67033
-	// ErrSecCSDSStoreSymlink: A `.DS_Store` file can’t be a symlink.
-	ErrSecCSDSStoreSymlink ErrSec = -67012
-	// ErrSecCSDbCorrupt: A system database or file is corrupt.
-	ErrSecCSDbCorrupt ErrSec = -67024
-	// ErrSecCSFileHardQuarantined: File open or execution not allowed.
-	ErrSecCSFileHardQuarantined ErrSec = -67026
-	// ErrSecCSGuestInvalid: The identity of guest code has been invalidated.
-	ErrSecCSGuestInvalid ErrSec = -67063
-	// ErrSecCSHelperFailed: The codesign_allocate helper tool can’t be found or used.
-	ErrSecCSHelperFailed ErrSec = -67019
-	// ErrSecCSHostProtocolContradiction: Host protocol violation: contradictory hosting modes.
-	ErrSecCSHostProtocolContradiction ErrSec = -67043
-	// ErrSecCSHostProtocolDedicationError: Host protocol violation: operation not allowed with or for a dedicated guest.
-	ErrSecCSHostProtocolDedicationError ErrSec = -67042
-	// ErrSecCSHostProtocolInvalidAttribute: Code signing host returned invalid or inconsistent attributes for guest code.
-	ErrSecCSHostProtocolInvalidAttribute ErrSec = -67031
-	// ErrSecCSHostProtocolInvalidHash: Host protocol violation: invalid hash of guest code.
-	ErrSecCSHostProtocolInvalidHash ErrSec = -67035
-	// ErrSecCSHostProtocolNotProxy: Host protocol violation: proxy hosting not engaged.
-	ErrSecCSHostProtocolNotProxy ErrSec = -67041
-	// ErrSecCSHostProtocolRelativePath: Host protocol violation: absolute guest path required.
-	ErrSecCSHostProtocolRelativePath ErrSec = -67044
-	// ErrSecCSHostProtocolStateError: Host protocol violation: invalid guest state change request.
-	ErrSecCSHostProtocolStateError ErrSec = -67040
-	// ErrSecCSHostProtocolUnrelated: Host protocol violation: the specified code is not a guest of the specified code signing host.
-	ErrSecCSHostProtocolUnrelated ErrSec = -67039
-	// ErrSecCSHostReject: Code rejected its host.
-	ErrSecCSHostReject ErrSec = -67047
-	// ErrSecCSInfoPlistFailed: The Info.plist file or the signature has been modified.
-	ErrSecCSInfoPlistFailed ErrSec = -67030
-	// ErrSecCSInternalError: Internal error in Code Signing Services subsystem.
-	ErrSecCSInternalError ErrSec = -67048
-	// ErrSecCSInvalidAssociatedFileData: Resource fork, Finder information, or similar detritus not allowed.
-	ErrSecCSInvalidAssociatedFileData ErrSec = -66999
-	// ErrSecCSInvalidAttributeValues: An attribute value associated with a key is out of range or is the wrong type.
-	ErrSecCSInvalidAttributeValues ErrSec = -67066
-	// ErrSecCSInvalidEntitlements: Encountered an invalid entitlement plist.
-	ErrSecCSInvalidEntitlements ErrSec = -66994
-	// ErrSecCSInvalidFlags: Invalid or inappropriate API flags specified.
-	ErrSecCSInvalidFlags ErrSec = -67070
-	// ErrSecCSInvalidObjectRef: Invalid API object reference.
-	ErrSecCSInvalidObjectRef ErrSec = -67071
-	// ErrSecCSInvalidPlatform: Invalid platform identifier or platform mismatch.
-	ErrSecCSInvalidPlatform ErrSec = -67005
-	// ErrSecCSInvalidRuntimeVersion: An invalid runtime version was explicity set.
-	ErrSecCSInvalidRuntimeVersion ErrSec = -66993
-	// ErrSecCSInvalidSymlink: Invalid destination for symbolic link in bundle.
-	ErrSecCSInvalidSymlink ErrSec = -67003
-	// ErrSecCSInvalidTeamIdentifier: A Team Identifier string is invalid.
-	ErrSecCSInvalidTeamIdentifier ErrSec = -66998
-	// ErrSecCSMultipleGuests: Code signing host has more than one block of guest code with this attribute value.
-	ErrSecCSMultipleGuests ErrSec = -67064
-	// ErrSecCSNoMainExecutable: The code has no main executable file.
-	ErrSecCSNoMainExecutable ErrSec = -67029
-	// ErrSecCSNoMatches: No matches were found for a search or update operation.
-	ErrSecCSNoMatches ErrSec = -67027
-	// ErrSecCSNoSuchCode: Code signing host has no guest code with the requested attributes.
-	ErrSecCSNoSuchCode ErrSec = -67065
-	// ErrSecCSNotAHost: This code is not a code signing host.
-	ErrSecCSNotAHost ErrSec = -67046
-	// ErrSecCSNotAppLike: The code is valid but does not seem to be an app.
-	ErrSecCSNotAppLike ErrSec = -67002
-	// ErrSecCSNotSupported: Operation not supported for this type of code.
-	ErrSecCSNotSupported ErrSec = -67037
-	// ErrSecCSObjectRequired: A required pointer argument was null.
-	ErrSecCSObjectRequired ErrSec = -67069
-	// ErrSecCSOutdated: The presented data is out of date.
-	ErrSecCSOutdated ErrSec = -67025
-	// ErrSecCSRegularFile: The main executable or Info.plist must be a regular file (and not, for example, a symbolic link).
-	ErrSecCSRegularFile        ErrSec = -67015
-	ErrSecCSRemoteSignerFailed ErrSec = -66990
-	// ErrSecCSReqFailed: The code failed to satisfy one of the code requirements.
-	ErrSecCSReqFailed ErrSec = -67050
-	// ErrSecCSReqInvalid: Invalid or corrupted code requirements.
-	ErrSecCSReqInvalid ErrSec = -67052
-	// ErrSecCSReqUnsupported: Unsupported type or version of code requirements.
-	ErrSecCSReqUnsupported ErrSec = -67051
-	// ErrSecCSResourceDirectoryFailed: A directory or its signature has been modified and is therefore invalid.
-	ErrSecCSResourceDirectoryFailed ErrSec = -67023
-	// ErrSecCSResourceNotSupported: Found an unsupported resource.
-	ErrSecCSResourceNotSupported ErrSec = -67016
-	// ErrSecCSResourceRulesInvalid: Invalid resource selection rule or rules.
-	ErrSecCSResourceRulesInvalid ErrSec = -67053
-	// ErrSecCSResourcesInvalid: The sealed resource directory is invalid.
-	ErrSecCSResourcesInvalid ErrSec = -67055
-	// ErrSecCSResourcesNotFound: Cannot find sealed resources in code.
-	ErrSecCSResourcesNotFound ErrSec = -67056
-	// ErrSecCSResourcesNotSealed: Resources are not sealed by the signature.
-	ErrSecCSResourcesNotSealed ErrSec = -67057
-	// ErrSecCSRevokedNotarization: Notarization indicates this code has been revoked.
-	ErrSecCSRevokedNotarization ErrSec = -66992
-	// ErrSecCSSigDBAccess: Can’t access signature database.
-	ErrSecCSSigDBAccess ErrSec = -67032
-	// ErrSecCSSigDBDenied: Access to signature database denied.
-	ErrSecCSSigDBDenied ErrSec = -67033
-	// ErrSecCSSignatureFailed: Code or signature modified.
-	ErrSecCSSignatureFailed ErrSec = -67061
-	// ErrSecCSSignatureInvalid: Invalid format for signature.
-	ErrSecCSSignatureInvalid ErrSec = -67045
-	// ErrSecCSSignatureNotVerifiable: Signature cannot be read.
-	ErrSecCSSignatureNotVerifiable ErrSec = -67060
-	// ErrSecCSSignatureUnsupported: Unsupported type or version of signature.
-	ErrSecCSSignatureUnsupported ErrSec = -67059
-	// ErrSecCSSignatureUntrusted: The signature is valid but signer isn’t trusted.
-	ErrSecCSSignatureUntrusted ErrSec = -66996
-	// ErrSecCSStaticCodeChanged: The code on disk has been modified after the code started running.
-	ErrSecCSStaticCodeChanged ErrSec = -67034
-	// ErrSecCSStaticCodeNotFound: Cannot find code object on disk.
-	ErrSecCSStaticCodeNotFound ErrSec = -67068
-	// ErrSecCSTooBig: The code is too big for current signing format.
-	ErrSecCSTooBig ErrSec = -67004
-	// ErrSecCSUnimplemented: Unimplemented code signing feature.
-	ErrSecCSUnimplemented ErrSec = -67072
-	// ErrSecCSUnsealedAppRoot: Unsealed contents present in the bundle root.
-	ErrSecCSUnsealedAppRoot ErrSec = -67014
-	// ErrSecCSUnsealedFrameworkRoot: Unsealed contents present in the root directory of an embedded framework.
-	ErrSecCSUnsealedFrameworkRoot ErrSec = -67008
-	// ErrSecCSUnsigned: Code object is not signed.
-	ErrSecCSUnsigned ErrSec = -67062
-	// ErrSecCSUnsignedNestedCode: Nested code is unsigned.
-	ErrSecCSUnsignedNestedCode ErrSec = -67022
-	// ErrSecCSUnsupportedDigestAlgorithm: The signature digest algorithm(s) specified are not supported.
-	ErrSecCSUnsupportedDigestAlgorithm ErrSec = -67000
-	// ErrSecCSUnsupportedGuestAttributes: Cannot locate guest code using this attribute set.
-	ErrSecCSUnsupportedGuestAttributes ErrSec = -67067
-	ErrSecCSVetoed                     ErrSec = -67018
-	// ErrSecCSWeakResourceEnvelope: The resource envelope is obsolete (version 1 signature).
-	ErrSecCSWeakResourceEnvelope ErrSec = -67007
-	// ErrSecCSWeakResourceRules: The resource envelope is obsolete (custom omit rules).
-	ErrSecCSWeakResourceRules ErrSec = -67013
+	ErrSecCRLServerDown ErrSecSuccess = -67616
 	// ErrSecCallbackFailed: A callback failed.
-	ErrSecCallbackFailed ErrSec = 0
+	ErrSecCallbackFailed ErrSecSuccess = -67695
 	// ErrSecCertificateCannotOperate: The certificate cannot operate.
-	ErrSecCertificateCannotOperate      ErrSec = 0
-	ErrSecCertificateDuplicateExtension ErrSec = 0
+	ErrSecCertificateCannotOperate      ErrSecSuccess = -67817
+	ErrSecCertificateDuplicateExtension ErrSecSuccess = -67903
 	// ErrSecCertificateExpired: An expired certificate was detected.
-	ErrSecCertificateExpired ErrSec = 0
-	ErrSecCertificateIsCA    ErrSec = 0
+	ErrSecCertificateExpired ErrSecSuccess = -67818
+	ErrSecCertificateIsCA    ErrSecSuccess = -67902
 	// ErrSecCertificateNameNotAllowed: The requested name isn’t allowed for this certificate.
-	ErrSecCertificateNameNotAllowed ErrSec = 0
+	ErrSecCertificateNameNotAllowed ErrSecSuccess = -67900
 	// ErrSecCertificateNotValidYet: The certificate is not yet valid.
-	ErrSecCertificateNotValidYet ErrSec = 0
+	ErrSecCertificateNotValidYet ErrSecSuccess = -67819
 	// ErrSecCertificatePolicyNotAllowed: The requested policy isn’t allowed for this certificate.
-	ErrSecCertificatePolicyNotAllowed ErrSec = 0
+	ErrSecCertificatePolicyNotAllowed ErrSecSuccess = -67899
 	// ErrSecCertificateRevoked: The certificate was revoked.
-	ErrSecCertificateRevoked ErrSec = 0
+	ErrSecCertificateRevoked ErrSecSuccess = -67820
 	// ErrSecCertificateSuspended: The certificate was suspended.
-	ErrSecCertificateSuspended ErrSec = 0
+	ErrSecCertificateSuspended ErrSecSuccess = -67821
 	// ErrSecCertificateValidityPeriodTooLong: The validity period in the certificate exceeds the maximum allowed period.
-	ErrSecCertificateValidityPeriodTooLong ErrSec = 0
+	ErrSecCertificateValidityPeriodTooLong ErrSecSuccess = -67901
 	// ErrSecCodeSigningBadCertChainLength: Code signing encountered an incorrect certificate chain length.
-	ErrSecCodeSigningBadCertChainLength ErrSec = 0
+	ErrSecCodeSigningBadCertChainLength ErrSecSuccess = -67647
 	// ErrSecCodeSigningBadPathLengthConstraint: Code signing encountered an incorrect path length constraint.
-	ErrSecCodeSigningBadPathLengthConstraint ErrSec = 0
+	ErrSecCodeSigningBadPathLengthConstraint ErrSecSuccess = -67649
 	// ErrSecCodeSigningDevelopment: Code signing indicated use of a development-only certificate.
-	ErrSecCodeSigningDevelopment ErrSec = 0
+	ErrSecCodeSigningDevelopment ErrSecSuccess = -67651
 	// ErrSecCodeSigningNoBasicConstraints: Code signing found no basic constraints.
-	ErrSecCodeSigningNoBasicConstraints ErrSec = 0
+	ErrSecCodeSigningNoBasicConstraints ErrSecSuccess = -67648
 	// ErrSecCodeSigningNoExtendedKeyUsage: Code signing found no extended key usage.
-	ErrSecCodeSigningNoExtendedKeyUsage ErrSec = 0
+	ErrSecCodeSigningNoExtendedKeyUsage ErrSecSuccess = -67650
 	// ErrSecConversionError: A conversion error has occurred.
-	ErrSecConversionError ErrSec = 0
+	ErrSecConversionError ErrSecSuccess = -67594
 	// ErrSecCoreFoundationUnknown: An unknown Core Foundation error occurred.
-	ErrSecCoreFoundationUnknown ErrSec = 0
+	ErrSecCoreFoundationUnknown ErrSecSuccess = -4960
 	// ErrSecCreateChainFailed: The attempt to create a certificate chain failed.
-	ErrSecCreateChainFailed ErrSec = 0
+	ErrSecCreateChainFailed ErrSecSuccess = -25318
 	// ErrSecDataNotAvailable: The data is not available.
-	ErrSecDataNotAvailable ErrSec = 0
+	ErrSecDataNotAvailable ErrSecSuccess = -25316
 	// ErrSecDataNotModifiable: The data is not modifiable.
-	ErrSecDataNotModifiable ErrSec = 0
+	ErrSecDataNotModifiable ErrSecSuccess = -25317
 	// ErrSecDataTooLarge: The data is too large for the particular data type.
-	ErrSecDataTooLarge ErrSec = 0
+	ErrSecDataTooLarge ErrSecSuccess = -25302
 	// ErrSecDatabaseLocked: The database is locked.
-	ErrSecDatabaseLocked ErrSec = 0
+	ErrSecDatabaseLocked ErrSecSuccess = -67869
 	// ErrSecDatastoreIsOpen: The data store is open.
-	ErrSecDatastoreIsOpen ErrSec = 0
+	ErrSecDatastoreIsOpen ErrSecSuccess = -67870
 	// ErrSecDecode: Unable to decode the provided data.
-	ErrSecDecode ErrSec = 0
+	ErrSecDecode ErrSecSuccess = -26275
 	// ErrSecDeviceError: A device error was encountered.
-	ErrSecDeviceError ErrSec = 0
+	ErrSecDeviceError ErrSecSuccess = -67727
 	// ErrSecDeviceFailed: A device failure has occurred.
-	ErrSecDeviceFailed ErrSec = 0
+	ErrSecDeviceFailed ErrSecSuccess = -67588
 	// ErrSecDeviceReset: A device reset has occurred.
-	ErrSecDeviceReset ErrSec = 0
+	ErrSecDeviceReset ErrSecSuccess = -67587
 	// ErrSecDeviceVerifyFailed: A device verification failure has occurred.
-	ErrSecDeviceVerifyFailed ErrSec = 0
+	ErrSecDeviceVerifyFailed ErrSecSuccess = -67812
 	// ErrSecDiskFull: The disk is full.
-	ErrSecDiskFull ErrSec = 0
+	ErrSecDiskFull ErrSecSuccess = -34
 	// ErrSecDuplicateCallback: More than one callback of the same name exists.
-	ErrSecDuplicateCallback ErrSec = 0
+	ErrSecDuplicateCallback ErrSecSuccess = -25297
 	// ErrSecDuplicateItem: The item already exists.
-	ErrSecDuplicateItem ErrSec = 0
+	ErrSecDuplicateItem ErrSecSuccess = -25299
 	// ErrSecDuplicateKeychain: A keychain with the same name already exists.
-	ErrSecDuplicateKeychain ErrSec = 0
+	ErrSecDuplicateKeychain ErrSecSuccess = -25296
 	// ErrSecEMMLoadFailed: The elective module manager load failed.
-	ErrSecEMMLoadFailed ErrSec = 0
+	ErrSecEMMLoadFailed ErrSecSuccess = -67709
 	// ErrSecEMMUnloadFailed: The elective module manager unload has failed.
-	ErrSecEMMUnloadFailed ErrSec = 0
+	ErrSecEMMUnloadFailed ErrSecSuccess = -67710
 	// ErrSecEndOfData: An end-of-data was detected.
-	ErrSecEndOfData ErrSec = 0
+	ErrSecEndOfData ErrSecSuccess = -67634
 	// ErrSecEventNotificationCallbackNotFound: An event notification callback was not found.
-	ErrSecEventNotificationCallbackNotFound ErrSec = 0
+	ErrSecEventNotificationCallbackNotFound ErrSecSuccess = -67723
 	// ErrSecExtendedKeyUsageNotCritical: The extended key usage extension was not marked critical.
-	ErrSecExtendedKeyUsageNotCritical ErrSec = 0
+	ErrSecExtendedKeyUsageNotCritical ErrSecSuccess = -67881
 	// ErrSecFieldSpecifiedMultiple: Too many fields were specified.
-	ErrSecFieldSpecifiedMultiple ErrSec = 0
+	ErrSecFieldSpecifiedMultiple ErrSecSuccess = -67866
 	// ErrSecFileTooBig: The file is too big.
-	ErrSecFileTooBig ErrSec = 0
+	ErrSecFileTooBig ErrSecSuccess = -67597
 	// ErrSecFunctionFailed: A function has failed.
-	ErrSecFunctionFailed ErrSec = 0
+	ErrSecFunctionFailed ErrSecSuccess = -67677
 	// ErrSecFunctionIntegrityFail: A function address is not within the verified module.
-	ErrSecFunctionIntegrityFail ErrSec = 0
+	ErrSecFunctionIntegrityFail ErrSecSuccess = -67670
 	// ErrSecHostNameMismatch: A host name mismatch has occurred.
-	ErrSecHostNameMismatch ErrSec = 0
+	ErrSecHostNameMismatch ErrSecSuccess = -67602
 	// ErrSecIDPFailure: The issuing distribution point is not valid.
-	ErrSecIDPFailure ErrSec = 0
+	ErrSecIDPFailure ErrSecSuccess = -67622
 	// ErrSecIO: I/O error.
-	ErrSecIO ErrSec = 0
+	ErrSecIO ErrSecSuccess = -36
 	// ErrSecInDarkWake: The user interface cannot be displayed because the system is in a dark wake state.
-	ErrSecInDarkWake ErrSec = 0
+	ErrSecInDarkWake ErrSecSuccess = -25320
 	// ErrSecIncompatibleDatabaseBlob: The specified database has an incompatible blob.
-	ErrSecIncompatibleDatabaseBlob ErrSec = 0
+	ErrSecIncompatibleDatabaseBlob ErrSecSuccess = -67600
 	// ErrSecIncompatibleFieldFormat: The field format is incompatible.
-	ErrSecIncompatibleFieldFormat ErrSec = 0
+	ErrSecIncompatibleFieldFormat ErrSecSuccess = -67867
 	// ErrSecIncompatibleKeyBlob: The specified database has an incompatible key blob.
-	ErrSecIncompatibleKeyBlob ErrSec = 0
+	ErrSecIncompatibleKeyBlob ErrSecSuccess = -67601
 	// ErrSecIncompatibleVersion: The version is incompatible.
-	ErrSecIncompatibleVersion ErrSec = 0
+	ErrSecIncompatibleVersion ErrSecSuccess = -67704
 	// ErrSecIncompleteCertRevocationCheck: An incomplete certificate revocation check occurred.
-	ErrSecIncompleteCertRevocationCheck ErrSec = 0
+	ErrSecIncompleteCertRevocationCheck ErrSecSuccess = -67635
 	// ErrSecInputLengthError: An input length error occurred.
-	ErrSecInputLengthError ErrSec = 0
+	ErrSecInputLengthError ErrSecSuccess = -67724
 	// ErrSecInsufficientClientID: The client ID is incorrect.
-	ErrSecInsufficientClientID ErrSec = 0
+	ErrSecInsufficientClientID ErrSecSuccess = -67586
 	// ErrSecInsufficientCredentials: Insufficient credentials were detected.
-	ErrSecInsufficientCredentials ErrSec = 0
+	ErrSecInsufficientCredentials ErrSecSuccess = -67822
 	// ErrSecInteractionNotAllowed: Interaction with the Security Server is not allowed.
-	ErrSecInteractionNotAllowed ErrSec = 0
+	ErrSecInteractionNotAllowed ErrSecSuccess = -25308
 	// ErrSecInteractionRequired: User interaction is required.
-	ErrSecInteractionRequired ErrSec = 0
+	ErrSecInteractionRequired ErrSecSuccess = -25315
 	// ErrSecInternalComponent: An internal component experienced an error.
-	ErrSecInternalComponent ErrSec = 0
+	ErrSecInternalComponent ErrSecSuccess = -2070
 	// ErrSecInternalError: An internal error occurred.
-	ErrSecInternalError ErrSec = 0
+	ErrSecInternalError ErrSecSuccess = -67671
 	// ErrSecInvalidACL: An invalid access control list was detected.
-	ErrSecInvalidACL ErrSec = 0
+	ErrSecInvalidACL ErrSecSuccess = -67702
 	// ErrSecInvalidAccessCredentials: Invalid access credentials were detected.
-	ErrSecInvalidAccessCredentials ErrSec = 0
+	ErrSecInvalidAccessCredentials ErrSecSuccess = -67700
 	// ErrSecInvalidAccessRequest: The access request is invalid.
-	ErrSecInvalidAccessRequest ErrSec = 0
+	ErrSecInvalidAccessRequest ErrSecSuccess = -67876
 	// ErrSecInvalidAction: The action is invalid.
-	ErrSecInvalidAction ErrSec = 0
+	ErrSecInvalidAction ErrSecSuccess = -67823
 	// ErrSecInvalidAddinFunctionTable: An invalid add-in function table was detected.
-	ErrSecInvalidAddinFunctionTable ErrSec = 0
+	ErrSecInvalidAddinFunctionTable ErrSecSuccess = -67716
 	// ErrSecInvalidAlgorithm: An invalid algorithm was detected.
-	ErrSecInvalidAlgorithm ErrSec = 0
+	ErrSecInvalidAlgorithm ErrSecSuccess = -67747
 	// ErrSecInvalidAlgorithmParms: An algorithm parameters attribute is not valid.
-	ErrSecInvalidAlgorithmParms ErrSec = 0
+	ErrSecInvalidAlgorithmParms ErrSecSuccess = -67770
 	// ErrSecInvalidAttributeAccessCredentials: An access credentials attribute is not valid.
-	ErrSecInvalidAttributeAccessCredentials ErrSec = 0
+	ErrSecInvalidAttributeAccessCredentials ErrSecSuccess = -67796
 	// ErrSecInvalidAttributeBase: A base attribute is not valid.
-	ErrSecInvalidAttributeBase ErrSec = 0
+	ErrSecInvalidAttributeBase ErrSecSuccess = -67788
 	// ErrSecInvalidAttributeBlockSize: A block size attribute is not valid.
-	ErrSecInvalidAttributeBlockSize ErrSec = 0
+	ErrSecInvalidAttributeBlockSize ErrSecSuccess = -67764
 	// ErrSecInvalidAttributeDLDBHandle: A database handle attribute is not valid.
-	ErrSecInvalidAttributeDLDBHandle ErrSec = 0
+	ErrSecInvalidAttributeDLDBHandle ErrSecSuccess = -67794
 	// ErrSecInvalidAttributeEffectiveBits: An effective bits attribute is not valid.
-	ErrSecInvalidAttributeEffectiveBits ErrSec = 0
+	ErrSecInvalidAttributeEffectiveBits ErrSecSuccess = -67778
 	// ErrSecInvalidAttributeEndDate: An end date attribute is not valid.
-	ErrSecInvalidAttributeEndDate ErrSec = 0
+	ErrSecInvalidAttributeEndDate ErrSecSuccess = -67782
 	// ErrSecInvalidAttributeInitVector: An init vector attribute is not valid.
-	ErrSecInvalidAttributeInitVector ErrSec = 0
+	ErrSecInvalidAttributeInitVector ErrSecSuccess = -67750
 	// ErrSecInvalidAttributeIterationCount: An iteration count attribute is not valid.
-	ErrSecInvalidAttributeIterationCount ErrSec = 0
+	ErrSecInvalidAttributeIterationCount ErrSecSuccess = -67792
 	// ErrSecInvalidAttributeKey: A key attribute is not valid.
-	ErrSecInvalidAttributeKey ErrSec = 0
+	ErrSecInvalidAttributeKey ErrSecSuccess = -67748
 	// ErrSecInvalidAttributeKeyLength: A key length attribute is not valid.
-	ErrSecInvalidAttributeKeyLength ErrSec = 0
+	ErrSecInvalidAttributeKeyLength ErrSecSuccess = -67762
 	// ErrSecInvalidAttributeKeyType: A key type attribute is not valid.
-	ErrSecInvalidAttributeKeyType ErrSec = 0
+	ErrSecInvalidAttributeKeyType ErrSecSuccess = -67774
 	// ErrSecInvalidAttributeLabel: A label attribute is not valid.
-	ErrSecInvalidAttributeLabel ErrSec = 0
+	ErrSecInvalidAttributeLabel ErrSecSuccess = -67772
 	// ErrSecInvalidAttributeMode: A mode attribute is not valid.
-	ErrSecInvalidAttributeMode ErrSec = 0
+	ErrSecInvalidAttributeMode ErrSecSuccess = -67776
 	// ErrSecInvalidAttributeOutputSize: An output size attribute is not valid.
-	ErrSecInvalidAttributeOutputSize ErrSec = 0
+	ErrSecInvalidAttributeOutputSize ErrSecSuccess = -67766
 	// ErrSecInvalidAttributePadding: A padding attribute is not valid.
-	ErrSecInvalidAttributePadding ErrSec = 0
+	ErrSecInvalidAttributePadding ErrSecSuccess = -67754
 	// ErrSecInvalidAttributePassphrase: A passphrase attribute is not valid.
-	ErrSecInvalidAttributePassphrase ErrSec = 0
+	ErrSecInvalidAttributePassphrase ErrSecSuccess = -67760
 	// ErrSecInvalidAttributePrime: A prime attribute is not valid.
-	ErrSecInvalidAttributePrime ErrSec = 0
+	ErrSecInvalidAttributePrime ErrSecSuccess = -67786
 	// ErrSecInvalidAttributePrivateKeyFormat: A private key format attribute is not valid.
-	ErrSecInvalidAttributePrivateKeyFormat ErrSec = 0
+	ErrSecInvalidAttributePrivateKeyFormat ErrSecSuccess = -67800
 	// ErrSecInvalidAttributePublicKeyFormat: A public key format attribute is not valid.
-	ErrSecInvalidAttributePublicKeyFormat ErrSec = 0
+	ErrSecInvalidAttributePublicKeyFormat ErrSecSuccess = -67798
 	// ErrSecInvalidAttributeRandom: A random number attribute is not valid.
-	ErrSecInvalidAttributeRandom ErrSec = 0
+	ErrSecInvalidAttributeRandom ErrSecSuccess = -67756
 	// ErrSecInvalidAttributeRounds: The number of rounds attribute is not valid.
-	ErrSecInvalidAttributeRounds ErrSec = 0
+	ErrSecInvalidAttributeRounds ErrSecSuccess = -67768
 	// ErrSecInvalidAttributeSalt: A salt attribute is not valid.
-	ErrSecInvalidAttributeSalt ErrSec = 0
+	ErrSecInvalidAttributeSalt ErrSecSuccess = -67752
 	// ErrSecInvalidAttributeSeed: A seed attribute is not valid.
-	ErrSecInvalidAttributeSeed ErrSec = 0
+	ErrSecInvalidAttributeSeed ErrSecSuccess = -67758
 	// ErrSecInvalidAttributeStartDate: A start date attribute is not valid.
-	ErrSecInvalidAttributeStartDate ErrSec = 0
+	ErrSecInvalidAttributeStartDate ErrSecSuccess = -67780
 	// ErrSecInvalidAttributeSubprime: A subprime attribute is not valid.
-	ErrSecInvalidAttributeSubprime ErrSec = 0
+	ErrSecInvalidAttributeSubprime ErrSecSuccess = -67790
 	// ErrSecInvalidAttributeSymmetricKeyFormat: A symmetric key format attribute is not valid.
-	ErrSecInvalidAttributeSymmetricKeyFormat ErrSec = 0
+	ErrSecInvalidAttributeSymmetricKeyFormat ErrSecSuccess = -67802
 	// ErrSecInvalidAttributeVersion: A version attribute is not valid.
-	ErrSecInvalidAttributeVersion ErrSec = 0
+	ErrSecInvalidAttributeVersion ErrSecSuccess = -67784
 	// ErrSecInvalidAttributeWrappedKeyFormat: A wrapped key format attribute is not valid.
-	ErrSecInvalidAttributeWrappedKeyFormat ErrSec = 0
+	ErrSecInvalidAttributeWrappedKeyFormat ErrSecSuccess = -67804
 	// ErrSecInvalidAuthority: The authority is not valid.
-	ErrSecInvalidAuthority ErrSec = 0
+	ErrSecInvalidAuthority ErrSecSuccess = -67824
 	// ErrSecInvalidAuthorityKeyID: The authority key ID is not valid.
-	ErrSecInvalidAuthorityKeyID ErrSec = 0
+	ErrSecInvalidAuthorityKeyID ErrSecSuccess = -67606
 	// ErrSecInvalidBaseACLs: The base access control lists are not valid.
-	ErrSecInvalidBaseACLs ErrSec = 0
+	ErrSecInvalidBaseACLs ErrSecSuccess = -67851
 	// ErrSecInvalidBundleInfo: The bundle information is not valid.
-	ErrSecInvalidBundleInfo ErrSec = 0
+	ErrSecInvalidBundleInfo ErrSecSuccess = -67857
 	// ErrSecInvalidCRL: The certificate revocation list is not valid.
-	ErrSecInvalidCRL          ErrSec = 0
-	ErrSecInvalidCRLAuthority ErrSec = 0
+	ErrSecInvalidCRL          ErrSecSuccess = -67830
+	ErrSecInvalidCRLAuthority ErrSecSuccess = -67827
 	// ErrSecInvalidCRLEncoding: The certificate revocation list encoding is not valid.
-	ErrSecInvalidCRLEncoding ErrSec = 0
+	ErrSecInvalidCRLEncoding ErrSecSuccess = -67828
 	// ErrSecInvalidCRLGroup: An invalid certificate revocation list group was detected.
-	ErrSecInvalidCRLGroup ErrSec = 0
+	ErrSecInvalidCRLGroup ErrSecSuccess = -67816
 	// ErrSecInvalidCRLIndex: The certificate revocation list index is not valid.
-	ErrSecInvalidCRLIndex ErrSec = 0
+	ErrSecInvalidCRLIndex ErrSecSuccess = -67858
 	// ErrSecInvalidCRLType: The certificate revocation list type is not valid.
-	ErrSecInvalidCRLType ErrSec = 0
+	ErrSecInvalidCRLType ErrSecSuccess = -67829
 	// ErrSecInvalidCallback: The callback is not valid.
-	ErrSecInvalidCallback ErrSec = 0
+	ErrSecInvalidCallback ErrSecSuccess = -25298
 	// ErrSecInvalidCertAuthority: The certificate authority is not valid.
-	ErrSecInvalidCertAuthority ErrSec = 0
+	ErrSecInvalidCertAuthority ErrSecSuccess = -67826
 	// ErrSecInvalidCertificateGroup: An invalid certificate group was detected.
-	ErrSecInvalidCertificateGroup ErrSec = 0
+	ErrSecInvalidCertificateGroup ErrSecSuccess = -67691
 	// ErrSecInvalidCertificateRef: An invalid certificate reference was detected.
-	ErrSecInvalidCertificateRef ErrSec = 0
+	ErrSecInvalidCertificateRef ErrSecSuccess = -67690
 	// ErrSecInvalidContext: An invalid context was detected.
-	ErrSecInvalidContext ErrSec = 0
+	ErrSecInvalidContext ErrSecSuccess = -67746
 	// ErrSecInvalidDBList: An invalid DB list was detected.
-	ErrSecInvalidDBList ErrSec = 0
+	ErrSecInvalidDBList ErrSecSuccess = -67681
 	// ErrSecInvalidDBLocation: The database location is not valid.
-	ErrSecInvalidDBLocation ErrSec = 0
+	ErrSecInvalidDBLocation ErrSecSuccess = -67875
 	// ErrSecInvalidData: Invalid data was detected.
-	ErrSecInvalidData ErrSec = 0
+	ErrSecInvalidData ErrSecSuccess = -67673
 	// ErrSecInvalidDatabaseBlob: The specified database has an invalid blob.
-	ErrSecInvalidDatabaseBlob ErrSec = 0
+	ErrSecInvalidDatabaseBlob ErrSecSuccess = -67598
 	// ErrSecInvalidDigestAlgorithm: An invalid digest algorithm was detected.
-	ErrSecInvalidDigestAlgorithm ErrSec = 0
+	ErrSecInvalidDigestAlgorithm ErrSecSuccess = -67815
 	// ErrSecInvalidEncoding: The encoding is not valid.
-	ErrSecInvalidEncoding ErrSec = 0
+	ErrSecInvalidEncoding ErrSecSuccess = -67853
 	// ErrSecInvalidExtendedKeyUsage: The extended key usage is not valid.
-	ErrSecInvalidExtendedKeyUsage ErrSec = 0
+	ErrSecInvalidExtendedKeyUsage ErrSecSuccess = -67609
 	// ErrSecInvalidFormType: The form type is not valid.
-	ErrSecInvalidFormType ErrSec = 0
+	ErrSecInvalidFormType ErrSecSuccess = -67831
 	// ErrSecInvalidGUID: An invalid GUID was detected.
-	ErrSecInvalidGUID ErrSec = 0
+	ErrSecInvalidGUID ErrSecSuccess = -67679
 	// ErrSecInvalidHandle: An invalid handle was encountered.
-	ErrSecInvalidHandle ErrSec = 0
+	ErrSecInvalidHandle ErrSecSuccess = -67680
 	// ErrSecInvalidHandleUsage: The common security services manager handle does not match with the service type.
-	ErrSecInvalidHandleUsage ErrSec = 0
+	ErrSecInvalidHandleUsage ErrSecSuccess = -67668
 	// ErrSecInvalidID: The ID is not valid.
-	ErrSecInvalidID ErrSec = 0
+	ErrSecInvalidID ErrSecSuccess = -67832
 	// ErrSecInvalidIDLinkage: The ID linkage is not valid.
-	ErrSecInvalidIDLinkage ErrSec = 0
+	ErrSecInvalidIDLinkage ErrSecSuccess = -67610
 	// ErrSecInvalidIdentifier: The identifier is not valid.
-	ErrSecInvalidIdentifier ErrSec = 0
+	ErrSecInvalidIdentifier ErrSecSuccess = -67833
 	// ErrSecInvalidIndex: The index is not valid.
-	ErrSecInvalidIndex ErrSec = 0
+	ErrSecInvalidIndex ErrSecSuccess = -67834
 	// ErrSecInvalidIndexInfo: The index information is not valid.
-	ErrSecInvalidIndexInfo ErrSec = 0
+	ErrSecInvalidIndexInfo ErrSecSuccess = -67877
 	// ErrSecInvalidInputVector: The input vector is not valid.
-	ErrSecInvalidInputVector ErrSec = 0
+	ErrSecInvalidInputVector ErrSecSuccess = -67744
 	// ErrSecInvalidItemRef: The item reference is invalid.
-	ErrSecInvalidItemRef ErrSec = 0
+	ErrSecInvalidItemRef ErrSecSuccess = -25304
 	// ErrSecInvalidKeyAttributeMask: The key attribute mask is not valid.
-	ErrSecInvalidKeyAttributeMask ErrSec = 0
+	ErrSecInvalidKeyAttributeMask ErrSecSuccess = -67738
 	// ErrSecInvalidKeyBlob: The specified database has an invalid key blob.
-	ErrSecInvalidKeyBlob ErrSec = 0
+	ErrSecInvalidKeyBlob ErrSecSuccess = -67599
 	// ErrSecInvalidKeyFormat: The key format is not valid.
-	ErrSecInvalidKeyFormat ErrSec = 0
+	ErrSecInvalidKeyFormat ErrSecSuccess = -67742
 	// ErrSecInvalidKeyHierarchy: An invalid key hierarchy was detected.
-	ErrSecInvalidKeyHierarchy ErrSec = 0
+	ErrSecInvalidKeyHierarchy ErrSecSuccess = -67713
 	// ErrSecInvalidKeyLabel: The key label is not valid.
-	ErrSecInvalidKeyLabel ErrSec = 0
+	ErrSecInvalidKeyLabel ErrSecSuccess = -67740
 	// ErrSecInvalidKeyRef: An invalid key was encountered.
-	ErrSecInvalidKeyRef ErrSec = 0
+	ErrSecInvalidKeyRef ErrSecSuccess = -67712
 	// ErrSecInvalidKeyUsageForPolicy: The key usage is not valid for the specified policy.
-	ErrSecInvalidKeyUsageForPolicy ErrSec = 0
+	ErrSecInvalidKeyUsageForPolicy ErrSecSuccess = -67608
 	// ErrSecInvalidKeyUsageMask: The key usage mask is not valid.
-	ErrSecInvalidKeyUsageMask ErrSec = 0
+	ErrSecInvalidKeyUsageMask ErrSecSuccess = -67736
 	// ErrSecInvalidKeychain: The keychain is not valid.
-	ErrSecInvalidKeychain ErrSec = 0
+	ErrSecInvalidKeychain ErrSecSuccess = -25295
 	// ErrSecInvalidLoginName: An invalid login name was detected.
-	ErrSecInvalidLoginName ErrSec = 0
+	ErrSecInvalidLoginName ErrSecSuccess = -67813
 	// ErrSecInvalidModifyMode: The modify mode is not valid.
-	ErrSecInvalidModifyMode ErrSec = 0
+	ErrSecInvalidModifyMode ErrSecSuccess = -67879
 	// ErrSecInvalidName: An invalid name was detected.
-	ErrSecInvalidName ErrSec = 0
+	ErrSecInvalidName ErrSecSuccess = -67689
 	// ErrSecInvalidNetworkAddress: An invalid network address was detected.
-	ErrSecInvalidNetworkAddress ErrSec = 0
+	ErrSecInvalidNetworkAddress ErrSecSuccess = -67683
 	// ErrSecInvalidNewOwner: The new owner is not valid.
-	ErrSecInvalidNewOwner ErrSec = 0
+	ErrSecInvalidNewOwner ErrSecSuccess = -67878
 	// ErrSecInvalidNumberOfFields: An invalid number of fields were detected.
-	ErrSecInvalidNumberOfFields ErrSec = 0
+	ErrSecInvalidNumberOfFields ErrSecSuccess = -67685
 	// ErrSecInvalidOutputVector: The output vector is not valid.
-	ErrSecInvalidOutputVector ErrSec = 0
+	ErrSecInvalidOutputVector ErrSecSuccess = -67745
 	// ErrSecInvalidOwnerEdit: An invalid attempt to change the owner of an item.
-	ErrSecInvalidOwnerEdit ErrSec = 0
+	ErrSecInvalidOwnerEdit ErrSecSuccess = -25244
 	// ErrSecInvalidPVC: An invalid pointer validation checking policy was detected.
-	ErrSecInvalidPVC ErrSec = 0
+	ErrSecInvalidPVC ErrSecSuccess = -67708
 	// ErrSecInvalidParsingModule: The parsing module is not valid.
-	ErrSecInvalidParsingModule ErrSec = 0
+	ErrSecInvalidParsingModule ErrSecSuccess = -67868
 	// ErrSecInvalidPassthroughID: An invalid passthrough ID was detected.
-	ErrSecInvalidPassthroughID ErrSec = 0
+	ErrSecInvalidPassthroughID ErrSecSuccess = -67682
 	// ErrSecInvalidPasswordRef: The password reference is invalid.
-	ErrSecInvalidPasswordRef ErrSec = 0
+	ErrSecInvalidPasswordRef ErrSecSuccess = -25261
 	// ErrSecInvalidPointer: An invalid pointer was detected.
-	ErrSecInvalidPointer ErrSec = 0
+	ErrSecInvalidPointer ErrSecSuccess = -67675
 	// ErrSecInvalidPolicyIdentifiers: The policy identifiers are not valid.
-	ErrSecInvalidPolicyIdentifiers ErrSec = 0
+	ErrSecInvalidPolicyIdentifiers ErrSecSuccess = -67835
 	// ErrSecInvalidPrefsDomain: The preference domain specified is invalid.
-	ErrSecInvalidPrefsDomain ErrSec = 0
+	ErrSecInvalidPrefsDomain ErrSecSuccess = -25319
 	// ErrSecInvalidQuery: The specified query is not valid.
-	ErrSecInvalidQuery ErrSec = 0
+	ErrSecInvalidQuery ErrSecSuccess = -67693
 	// ErrSecInvalidReason: The trust policy reason is not valid.
-	ErrSecInvalidReason ErrSec = 0
+	ErrSecInvalidReason ErrSecSuccess = -67837
 	// ErrSecInvalidRecord: An invalid record was detected.
-	ErrSecInvalidRecord ErrSec = 0
+	ErrSecInvalidRecord ErrSecSuccess = -67701
 	// ErrSecInvalidRequestInputs: The request inputs are not valid.
-	ErrSecInvalidRequestInputs ErrSec = 0
+	ErrSecInvalidRequestInputs ErrSecSuccess = -67838
 	// ErrSecInvalidRequestor: The requestor is not valid.
-	ErrSecInvalidRequestor ErrSec = 0
+	ErrSecInvalidRequestor ErrSecSuccess = -67855
 	// ErrSecInvalidResponseVector: The response vector is not valid.
-	ErrSecInvalidResponseVector ErrSec = 0
+	ErrSecInvalidResponseVector ErrSecSuccess = -67839
 	// ErrSecInvalidRoot: The root or anchor certificate is not valid.
-	ErrSecInvalidRoot ErrSec = 0
+	ErrSecInvalidRoot ErrSecSuccess = -67612
 	// ErrSecInvalidSampleValue: An invalid sample value was detected.
-	ErrSecInvalidSampleValue ErrSec = 0
+	ErrSecInvalidSampleValue ErrSecSuccess = -67703
 	// ErrSecInvalidScope: An invalid scope was detected.
-	ErrSecInvalidScope ErrSec = 0
+	ErrSecInvalidScope ErrSecSuccess = -67706
 	// ErrSecInvalidSearchRef: The search reference is invalid.
-	ErrSecInvalidSearchRef ErrSec = 0
+	ErrSecInvalidSearchRef ErrSecSuccess = -25305
 	// ErrSecInvalidServiceMask: An invalid service mask was detected.
-	ErrSecInvalidServiceMask ErrSec = 0
+	ErrSecInvalidServiceMask ErrSecSuccess = -67717
 	// ErrSecInvalidSignature: An invalid signature was detected.
-	ErrSecInvalidSignature ErrSec = 0
+	ErrSecInvalidSignature ErrSecSuccess = -67688
 	// ErrSecInvalidStopOnPolicy: The stop-on policy is not valid.
-	ErrSecInvalidStopOnPolicy ErrSec = 0
+	ErrSecInvalidStopOnPolicy ErrSecSuccess = -67840
 	// ErrSecInvalidSubServiceID: An invalid sub-service ID was detected.
-	ErrSecInvalidSubServiceID ErrSec = 0
+	ErrSecInvalidSubServiceID ErrSecSuccess = -67719
 	// ErrSecInvalidSubjectKeyID: The subject key ID is not valid.
-	ErrSecInvalidSubjectKeyID ErrSec = 0
+	ErrSecInvalidSubjectKeyID ErrSecSuccess = -67607
 	// ErrSecInvalidSubjectName: An invalid certificate subject name was detected.
-	ErrSecInvalidSubjectName ErrSec = 0
+	ErrSecInvalidSubjectName ErrSecSuccess = -67655
 	// ErrSecInvalidTimeString: The time specified is not valid.
-	ErrSecInvalidTimeString ErrSec = 0
+	ErrSecInvalidTimeString ErrSecSuccess = -67836
 	// ErrSecInvalidTrustSetting: The trust setting is invalid.
-	ErrSecInvalidTrustSetting ErrSec = 0
+	ErrSecInvalidTrustSetting ErrSecSuccess = -25242
 	// ErrSecInvalidTrustSettings: The trust settings record is corrupted.
-	ErrSecInvalidTrustSettings ErrSec = 0
+	ErrSecInvalidTrustSettings ErrSecSuccess = -25262
 	// ErrSecInvalidTuple: The tuple is not valid.
-	ErrSecInvalidTuple ErrSec = 0
+	ErrSecInvalidTuple ErrSecSuccess = -67841
 	// ErrSecInvalidTupleCredentials: The tuple credentials are not valid.
-	ErrSecInvalidTupleCredentials ErrSec = 0
+	ErrSecInvalidTupleCredentials ErrSecSuccess = -67852
 	// ErrSecInvalidTupleGroup: The tuple group is not valid.
-	ErrSecInvalidTupleGroup ErrSec = 0
+	ErrSecInvalidTupleGroup ErrSecSuccess = -67850
 	// ErrSecInvalidValidityPeriod: The validity period is not valid.
-	ErrSecInvalidValidityPeriod ErrSec = 0
+	ErrSecInvalidValidityPeriod ErrSecSuccess = -67854
 	// ErrSecInvalidValue: An invalid value was detected.
-	ErrSecInvalidValue ErrSec = 0
+	ErrSecInvalidValue ErrSecSuccess = -67694
 	// ErrSecItemNotFound: The item cannot be found.
-	ErrSecItemNotFound ErrSec = 0
+	ErrSecItemNotFound ErrSecSuccess = -25300
 	// ErrSecKeyBlobTypeIncorrect: The key blob type is incorrect.
-	ErrSecKeyBlobTypeIncorrect ErrSec = 0
+	ErrSecKeyBlobTypeIncorrect ErrSecSuccess = -67732
 	// ErrSecKeyHeaderInconsistent: The key header is inconsistent.
-	ErrSecKeyHeaderInconsistent ErrSec = 0
+	ErrSecKeyHeaderInconsistent ErrSecSuccess = -67733
 	// ErrSecKeyIsSensitive: The key must be wrapped to be exported.
-	ErrSecKeyIsSensitive ErrSec = 0
+	ErrSecKeyIsSensitive ErrSecSuccess = -25258
 	// ErrSecKeySizeNotAllowed: The key size is not allowed.
-	ErrSecKeySizeNotAllowed ErrSec = 0
+	ErrSecKeySizeNotAllowed ErrSecSuccess = -25311
 	// ErrSecKeyUsageIncorrect: The key usage is incorrect.
-	ErrSecKeyUsageIncorrect ErrSec = 0
+	ErrSecKeyUsageIncorrect ErrSecSuccess = -67731
 	// ErrSecLibraryReferenceNotFound: A library reference was not found.
-	ErrSecLibraryReferenceNotFound ErrSec = 0
+	ErrSecLibraryReferenceNotFound ErrSecSuccess = -67715
 	// ErrSecMDSError: A module directory service error occurred.
-	ErrSecMDSError ErrSec = 0
+	ErrSecMDSError ErrSecSuccess = -67674
 	// ErrSecMemoryError: A memory error occurred.
-	ErrSecMemoryError ErrSec = 0
+	ErrSecMemoryError ErrSecSuccess = -67672
 	// ErrSecMissingAlgorithmParms: An algorithm parameters attribute is missing.
-	ErrSecMissingAlgorithmParms ErrSec = 0
+	ErrSecMissingAlgorithmParms ErrSecSuccess = -67771
 	// ErrSecMissingAttributeAccessCredentials: An access credentials attribute is missing.
-	ErrSecMissingAttributeAccessCredentials ErrSec = 0
+	ErrSecMissingAttributeAccessCredentials ErrSecSuccess = -67797
 	// ErrSecMissingAttributeBase: A base attribute is missing.
-	ErrSecMissingAttributeBase ErrSec = 0
+	ErrSecMissingAttributeBase ErrSecSuccess = -67789
 	// ErrSecMissingAttributeBlockSize: A block size attribute is missing.
-	ErrSecMissingAttributeBlockSize ErrSec = 0
+	ErrSecMissingAttributeBlockSize ErrSecSuccess = -67765
 	// ErrSecMissingAttributeDLDBHandle: A database handle attribute is missing.
-	ErrSecMissingAttributeDLDBHandle ErrSec = 0
+	ErrSecMissingAttributeDLDBHandle ErrSecSuccess = -67795
 	// ErrSecMissingAttributeEffectiveBits: An effective bits attribute is missing.
-	ErrSecMissingAttributeEffectiveBits ErrSec = 0
+	ErrSecMissingAttributeEffectiveBits ErrSecSuccess = -67779
 	// ErrSecMissingAttributeEndDate: An end date attribute is missing.
-	ErrSecMissingAttributeEndDate ErrSec = 0
+	ErrSecMissingAttributeEndDate ErrSecSuccess = -67783
 	// ErrSecMissingAttributeInitVector: An init vector attribute is missing.
-	ErrSecMissingAttributeInitVector ErrSec = 0
+	ErrSecMissingAttributeInitVector ErrSecSuccess = -67751
 	// ErrSecMissingAttributeIterationCount: An iteration count attribute is missing.
-	ErrSecMissingAttributeIterationCount ErrSec = 0
+	ErrSecMissingAttributeIterationCount ErrSecSuccess = -67793
 	// ErrSecMissingAttributeKey: A key attribute is missing.
-	ErrSecMissingAttributeKey ErrSec = 0
+	ErrSecMissingAttributeKey ErrSecSuccess = -67749
 	// ErrSecMissingAttributeKeyLength: A key length attribute is missing.
-	ErrSecMissingAttributeKeyLength ErrSec = 0
+	ErrSecMissingAttributeKeyLength ErrSecSuccess = -67763
 	// ErrSecMissingAttributeKeyType: A key type attribute is missing.
-	ErrSecMissingAttributeKeyType ErrSec = 0
+	ErrSecMissingAttributeKeyType ErrSecSuccess = -67775
 	// ErrSecMissingAttributeLabel: A label attribute is missing.
-	ErrSecMissingAttributeLabel ErrSec = 0
+	ErrSecMissingAttributeLabel ErrSecSuccess = -67773
 	// ErrSecMissingAttributeMode: A mode attribute is missing.
-	ErrSecMissingAttributeMode ErrSec = 0
+	ErrSecMissingAttributeMode ErrSecSuccess = -67777
 	// ErrSecMissingAttributeOutputSize: An output size attribute is missing.
-	ErrSecMissingAttributeOutputSize ErrSec = 0
+	ErrSecMissingAttributeOutputSize ErrSecSuccess = -67767
 	// ErrSecMissingAttributePadding: A padding attribute is missing.
-	ErrSecMissingAttributePadding ErrSec = 0
+	ErrSecMissingAttributePadding ErrSecSuccess = -67755
 	// ErrSecMissingAttributePassphrase: A passphrase attribute is missing.
-	ErrSecMissingAttributePassphrase ErrSec = 0
+	ErrSecMissingAttributePassphrase ErrSecSuccess = -67761
 	// ErrSecMissingAttributePrime: A prime attribute is missing.
-	ErrSecMissingAttributePrime ErrSec = 0
+	ErrSecMissingAttributePrime ErrSecSuccess = -67787
 	// ErrSecMissingAttributePrivateKeyFormat: A private key format attribute is missing.
-	ErrSecMissingAttributePrivateKeyFormat ErrSec = 0
+	ErrSecMissingAttributePrivateKeyFormat ErrSecSuccess = -67801
 	// ErrSecMissingAttributePublicKeyFormat: A public key format attribute is missing.
-	ErrSecMissingAttributePublicKeyFormat ErrSec = 0
+	ErrSecMissingAttributePublicKeyFormat ErrSecSuccess = -67799
 	// ErrSecMissingAttributeRandom: A random number attribute is missing.
-	ErrSecMissingAttributeRandom ErrSec = 0
+	ErrSecMissingAttributeRandom ErrSecSuccess = -67757
 	// ErrSecMissingAttributeRounds: The number of rounds attribute is missing.
-	ErrSecMissingAttributeRounds ErrSec = 0
+	ErrSecMissingAttributeRounds ErrSecSuccess = -67769
 	// ErrSecMissingAttributeSalt: A salt attribute is missing.
-	ErrSecMissingAttributeSalt ErrSec = 0
+	ErrSecMissingAttributeSalt ErrSecSuccess = -67753
 	// ErrSecMissingAttributeSeed: A seed attribute is missing.
-	ErrSecMissingAttributeSeed ErrSec = 0
+	ErrSecMissingAttributeSeed ErrSecSuccess = -67759
 	// ErrSecMissingAttributeStartDate: A start date attribute is missing.
-	ErrSecMissingAttributeStartDate ErrSec = 0
+	ErrSecMissingAttributeStartDate ErrSecSuccess = -67781
 	// ErrSecMissingAttributeSubprime: A subprime attribute is missing.
-	ErrSecMissingAttributeSubprime ErrSec = 0
+	ErrSecMissingAttributeSubprime ErrSecSuccess = -67791
 	// ErrSecMissingAttributeSymmetricKeyFormat: A symmetric key format attribute is missing.
-	ErrSecMissingAttributeSymmetricKeyFormat ErrSec = 0
+	ErrSecMissingAttributeSymmetricKeyFormat ErrSecSuccess = -67803
 	// ErrSecMissingAttributeVersion: A version attribute is missing.
-	ErrSecMissingAttributeVersion ErrSec = 0
+	ErrSecMissingAttributeVersion ErrSecSuccess = -67785
 	// ErrSecMissingAttributeWrappedKeyFormat: A wrapped key format attribute is missing.
-	ErrSecMissingAttributeWrappedKeyFormat ErrSec = 0
+	ErrSecMissingAttributeWrappedKeyFormat ErrSecSuccess = -67805
 	// ErrSecMissingEntitlement: A required entitlement is missing.
-	ErrSecMissingEntitlement            ErrSec = 0
-	ErrSecMissingQualifiedCertStatement ErrSec = 0
+	ErrSecMissingEntitlement            ErrSecSuccess = -34018
+	ErrSecMissingQualifiedCertStatement ErrSecSuccess = -67904
 	// ErrSecMissingRequiredExtension: A required certificate extension is missing.
-	ErrSecMissingRequiredExtension ErrSec = 0
+	ErrSecMissingRequiredExtension ErrSecSuccess = -67880
 	// ErrSecMissingValue: A missing value was detected.
-	ErrSecMissingValue ErrSec = 0
+	ErrSecMissingValue ErrSecSuccess = -67871
 	// ErrSecMobileMeCSRVerifyFailure: A MobileMe certificate signing request verification failure occurred.
-	ErrSecMobileMeCSRVerifyFailure ErrSec = 0
+	ErrSecMobileMeCSRVerifyFailure ErrSecSuccess = -67665
 	// ErrSecMobileMeFailedConsistencyCheck: MobileMe found a failed consistency check.
-	ErrSecMobileMeFailedConsistencyCheck ErrSec = 0
+	ErrSecMobileMeFailedConsistencyCheck ErrSecSuccess = -67666
 	// ErrSecMobileMeNoRequestPending: MobileMe has no request pending.
-	ErrSecMobileMeNoRequestPending ErrSec = 0
+	ErrSecMobileMeNoRequestPending ErrSecSuccess = -67664
 	// ErrSecMobileMeRequestAlreadyPending: A MobileMe request is already pending.
-	ErrSecMobileMeRequestAlreadyPending ErrSec = 0
+	ErrSecMobileMeRequestAlreadyPending ErrSecSuccess = -67663
 	// ErrSecMobileMeRequestQueued: The MobileMe request will be sent during the next connection.
-	ErrSecMobileMeRequestQueued ErrSec = 0
+	ErrSecMobileMeRequestQueued ErrSecSuccess = -67657
 	// ErrSecMobileMeRequestRedirected: The MobileMe request was redirected.
-	ErrSecMobileMeRequestRedirected ErrSec = 0
+	ErrSecMobileMeRequestRedirected ErrSecSuccess = -67658
 	// ErrSecMobileMeServerAlreadyExists: The MobileMe server reported that the item already exists.
-	ErrSecMobileMeServerAlreadyExists ErrSec = 0
+	ErrSecMobileMeServerAlreadyExists ErrSecSuccess = -67661
 	// ErrSecMobileMeServerError: A MobileMe server error occurred.
-	ErrSecMobileMeServerError ErrSec = 0
+	ErrSecMobileMeServerError ErrSecSuccess = -67659
 	// ErrSecMobileMeServerNotAvailable: The MobileMe server is not available.
-	ErrSecMobileMeServerNotAvailable ErrSec = 0
+	ErrSecMobileMeServerNotAvailable ErrSecSuccess = -67660
 	// ErrSecMobileMeServerServiceErr: A MobileMe service error occurred.
-	ErrSecMobileMeServerServiceErr ErrSec = 0
+	ErrSecMobileMeServerServiceErr ErrSecSuccess = -67662
 	// ErrSecModuleManagerInitializeFailed: A module failed to initialize.
-	ErrSecModuleManagerInitializeFailed ErrSec = 0
+	ErrSecModuleManagerInitializeFailed ErrSecSuccess = -67721
 	// ErrSecModuleManagerNotFound: A module was not found.
-	ErrSecModuleManagerNotFound ErrSec = 0
+	ErrSecModuleManagerNotFound ErrSecSuccess = -67722
 	// ErrSecModuleManifestVerifyFailed: A module manifest verification failure occurred.
-	ErrSecModuleManifestVerifyFailed ErrSec = 0
+	ErrSecModuleManifestVerifyFailed ErrSecSuccess = -67678
 	// ErrSecModuleNotLoaded: A module was not loaded.
-	ErrSecModuleNotLoaded ErrSec = 0
-	// ErrSecMultipleExecSegments: The image contains multiple executable segments.
-	ErrSecMultipleExecSegments ErrSec = -66995
+	ErrSecModuleNotLoaded ErrSecSuccess = -67718
 	// ErrSecMultiplePrivKeys: An attempt was made to import multiple private keys.
-	ErrSecMultiplePrivKeys ErrSec = 0
+	ErrSecMultiplePrivKeys ErrSecSuccess = -25259
 	// ErrSecMultipleValuesUnsupported: Multiple values are not supported.
-	ErrSecMultipleValuesUnsupported ErrSec = 0
+	ErrSecMultipleValuesUnsupported ErrSecSuccess = -67842
 	// ErrSecNetworkFailure: A network failure occurred.
-	ErrSecNetworkFailure ErrSec = 0
+	ErrSecNetworkFailure ErrSecSuccess = -67636
 	// ErrSecNoAccessForItem: The specified item has no access control.
-	ErrSecNoAccessForItem ErrSec = 0
+	ErrSecNoAccessForItem ErrSecSuccess = -25243
 	// ErrSecNoBasicConstraints: No basic constraints were found.
-	ErrSecNoBasicConstraints ErrSec = 0
+	ErrSecNoBasicConstraints ErrSecSuccess = -67604
 	// ErrSecNoBasicConstraintsCA: No basic CA constraints were found.
-	ErrSecNoBasicConstraintsCA ErrSec = 0
+	ErrSecNoBasicConstraintsCA ErrSecSuccess = -67605
 	// ErrSecNoCertificateModule: There is no certificate module available.
-	ErrSecNoCertificateModule ErrSec = 0
+	ErrSecNoCertificateModule ErrSecSuccess = -25313
 	// ErrSecNoDefaultAuthority: No default authority was detected.
-	ErrSecNoDefaultAuthority ErrSec = 0
+	ErrSecNoDefaultAuthority ErrSecSuccess = -67844
 	// ErrSecNoDefaultKeychain: A default keychain does not exist.
-	ErrSecNoDefaultKeychain ErrSec = 0
+	ErrSecNoDefaultKeychain ErrSecSuccess = -25307
 	// ErrSecNoFieldValues: No field values were detected.
-	ErrSecNoFieldValues ErrSec = 0
+	ErrSecNoFieldValues ErrSecSuccess = -67859
 	// ErrSecNoPolicyModule: There is no policy module available.
-	ErrSecNoPolicyModule ErrSec = 0
+	ErrSecNoPolicyModule ErrSecSuccess = -25314
 	// ErrSecNoStorageModule: There is no storage module available.
-	ErrSecNoStorageModule ErrSec = 0
+	ErrSecNoStorageModule ErrSecSuccess = -25312
 	// ErrSecNoSuchAttr: The attribute does not exist.
-	ErrSecNoSuchAttr ErrSec = 0
+	ErrSecNoSuchAttr ErrSecSuccess = -25303
 	// ErrSecNoSuchClass: The keychain item class does not exist.
-	ErrSecNoSuchClass ErrSec = 0
+	ErrSecNoSuchClass ErrSecSuccess = -25306
 	// ErrSecNoSuchKeychain: The keychain does not exist.
-	ErrSecNoSuchKeychain ErrSec = 0
+	ErrSecNoSuchKeychain ErrSecSuccess = -25294
 	// ErrSecNoTrustSettings: No trust settings were found.
-	ErrSecNoTrustSettings ErrSec = 0
+	ErrSecNoTrustSettings ErrSecSuccess = -25263
 	// ErrSecNotAvailable: No trust results are available.
-	ErrSecNotAvailable ErrSec = 0
+	ErrSecNotAvailable ErrSecSuccess = -25291
 	// ErrSecNotInitialized: A function was called without initializing the common security services manager.
-	ErrSecNotInitialized ErrSec = 0
+	ErrSecNotInitialized ErrSecSuccess = -67667
 	// ErrSecNotLoggedIn: You are not logged in.
-	ErrSecNotLoggedIn ErrSec = 0
+	ErrSecNotLoggedIn ErrSecSuccess = -67729
 	// ErrSecNotSigner: The certificate is not signed by its proposed parent.
-	ErrSecNotSigner ErrSec = 0
+	ErrSecNotSigner ErrSecSuccess = -26267
 	// ErrSecNotTrusted: The trust policy is not trusted.
-	ErrSecNotTrusted ErrSec = 0
+	ErrSecNotTrusted ErrSecSuccess = -67843
 	// ErrSecOCSPBadRequest: The online certificate status protocol (OCSP) request is incorrect or cannot be parsed.
-	ErrSecOCSPBadRequest ErrSec = 0
+	ErrSecOCSPBadRequest ErrSecSuccess = -67631
 	// ErrSecOCSPBadResponse: The online certificate status protocol (OCSP) response is incorrect or cannot be parsed.
-	ErrSecOCSPBadResponse ErrSec = 0
+	ErrSecOCSPBadResponse ErrSecSuccess = -67630
 	// ErrSecOCSPNoSigner: The online certificate status protocol (OCSP) response has no signer.
-	ErrSecOCSPNoSigner ErrSec = 0
+	ErrSecOCSPNoSigner ErrSecSuccess = -67640
 	// ErrSecOCSPNotTrustedToAnchor: The online certificate status protocol (OCSP) response is not trusted to a root or anchor certificate.
-	ErrSecOCSPNotTrustedToAnchor ErrSec = 0
+	ErrSecOCSPNotTrustedToAnchor ErrSecSuccess = -67637
 	// ErrSecOCSPResponderInternalError: The online certificate status protocol (OCSP) responder detected an internal error.
-	ErrSecOCSPResponderInternalError ErrSec = 0
+	ErrSecOCSPResponderInternalError ErrSecSuccess = -67642
 	// ErrSecOCSPResponderMalformedReq: The online certificate status protocol (OCSP) responder detected a malformed request.
-	ErrSecOCSPResponderMalformedReq ErrSec = 0
+	ErrSecOCSPResponderMalformedReq ErrSecSuccess = -67641
 	// ErrSecOCSPResponderSignatureRequired: The online certificate status protocol (OCSP) responder requires a signature.
-	ErrSecOCSPResponderSignatureRequired ErrSec = 0
+	ErrSecOCSPResponderSignatureRequired ErrSecSuccess = -67644
 	// ErrSecOCSPResponderTryLater: The online certificate status protocol (OCSP) responder is busy, try again later.
-	ErrSecOCSPResponderTryLater ErrSec = 0
+	ErrSecOCSPResponderTryLater ErrSecSuccess = -67643
 	// ErrSecOCSPResponderUnauthorized: The online certificate status protocol (OCSP) responder rejects the request as unauthorized.
-	ErrSecOCSPResponderUnauthorized ErrSec = 0
+	ErrSecOCSPResponderUnauthorized ErrSecSuccess = -67645
 	// ErrSecOCSPResponseNonceMismatch: The online certificate status protocol (OCSP) response nonce does not match the request.
-	ErrSecOCSPResponseNonceMismatch ErrSec = 0
+	ErrSecOCSPResponseNonceMismatch ErrSecSuccess = -67646
 	// ErrSecOCSPSignatureError: The online certificate status protocol (OCSP) response has an invalid signature.
-	ErrSecOCSPSignatureError ErrSec = 0
+	ErrSecOCSPSignatureError ErrSecSuccess = -67639
 	// ErrSecOCSPStatusUnrecognized: The online certificate status protocol (OCSP) server does not recognize this certificate.
-	ErrSecOCSPStatusUnrecognized ErrSec = 0
+	ErrSecOCSPStatusUnrecognized ErrSecSuccess = -67633
 	// ErrSecOCSPUnavailable: The online certificate status protocol (OCSP) service is unavailable.
-	ErrSecOCSPUnavailable ErrSec = 0
+	ErrSecOCSPUnavailable ErrSecSuccess = -67632
 	// ErrSecOpWr: The file is already open with write permission.
-	ErrSecOpWr ErrSec = 0
+	ErrSecOpWr ErrSecSuccess = -49
 	// ErrSecOutputLengthError: An output length error was detected.
-	ErrSecOutputLengthError ErrSec = 0
+	ErrSecOutputLengthError ErrSecSuccess = -67725
 	// ErrSecPVCAlreadyConfigured: The PVC is already configured.
-	ErrSecPVCAlreadyConfigured ErrSec = 0
+	ErrSecPVCAlreadyConfigured ErrSecSuccess = -67707
 	// ErrSecPVCReferentNotFound: A reference to the calling module was not found in the list of authorized callers.
-	ErrSecPVCReferentNotFound ErrSec = 0
+	ErrSecPVCReferentNotFound ErrSecSuccess = -67669
 	// ErrSecParam: One or more parameters passed to the function are not valid.
-	ErrSecParam ErrSec = 0
+	ErrSecParam ErrSecSuccess = -50
 	// ErrSecPassphraseRequired: A password is required for import or export.
-	ErrSecPassphraseRequired ErrSec = 0
+	ErrSecPassphraseRequired ErrSecSuccess = -25260
 	// ErrSecPathLengthConstraintExceeded: The path length constraint was exceeded.
-	ErrSecPathLengthConstraintExceeded ErrSec = 0
+	ErrSecPathLengthConstraintExceeded ErrSecSuccess = -67611
 	// ErrSecPkcs12VerifyFailure: MAC verification failed during PKCS12 Import.
-	ErrSecPkcs12VerifyFailure ErrSec = 0
+	ErrSecPkcs12VerifyFailure ErrSecSuccess = -25264
 	// ErrSecPolicyNotFound: The specified policy cannot be found.
-	ErrSecPolicyNotFound ErrSec = 0
+	ErrSecPolicyNotFound ErrSecSuccess = -25241
 	// ErrSecPrivilegeNotGranted: The privilege is not granted.
-	ErrSecPrivilegeNotGranted ErrSec = 0
+	ErrSecPrivilegeNotGranted ErrSecSuccess = -67705
 	// ErrSecPrivilegeNotSupported: The privilege is not supported.
-	ErrSecPrivilegeNotSupported ErrSec = 0
+	ErrSecPrivilegeNotSupported ErrSecSuccess = -67726
 	// ErrSecPublicKeyInconsistent: The public key is inconsistent.
-	ErrSecPublicKeyInconsistent ErrSec = 0
+	ErrSecPublicKeyInconsistent ErrSecSuccess = -67811
 	// ErrSecQuerySizeUnknown: The query size is unknown.
-	ErrSecQuerySizeUnknown ErrSec = 0
+	ErrSecQuerySizeUnknown ErrSecSuccess = -67809
 	// ErrSecQuotaExceeded: The quota was exceeded.
-	ErrSecQuotaExceeded ErrSec = 0
+	ErrSecQuotaExceeded ErrSecSuccess = -67596
 	// ErrSecReadOnly: Read-only error.
-	ErrSecReadOnly ErrSec = 0
+	ErrSecReadOnly ErrSecSuccess = -25292
 	// ErrSecReadOnlyAttr: The attribute is read-only.
-	ErrSecReadOnlyAttr ErrSec = 0
+	ErrSecReadOnlyAttr ErrSecSuccess = -25309
 	// ErrSecRecordModified: The record is modified.
-	ErrSecRecordModified ErrSec = 0
+	ErrSecRecordModified ErrSecSuccess = -67638
 	// ErrSecRejectedForm: The trust policy has a rejected form.
-	ErrSecRejectedForm ErrSec = 0
+	ErrSecRejectedForm ErrSecSuccess = -67845
 	// ErrSecRequestDescriptor: The request descriptor is not valid.
-	ErrSecRequestDescriptor ErrSec = 0
+	ErrSecRequestDescriptor ErrSecSuccess = -67856
 	// ErrSecRequestLost: The request is lost.
-	ErrSecRequestLost ErrSec = 0
+	ErrSecRequestLost ErrSecSuccess = -67846
 	// ErrSecRequestRejected: The request is rejected.
-	ErrSecRequestRejected ErrSec = 0
+	ErrSecRequestRejected ErrSecSuccess = -67847
 	// ErrSecResourceSignBadCertChainLength: Resource signing detects an incorrect certificate chain length.
-	ErrSecResourceSignBadCertChainLength ErrSec = 0
+	ErrSecResourceSignBadCertChainLength ErrSecSuccess = -67652
 	// ErrSecResourceSignBadExtKeyUsage: Resource signing detects an error in the extended key usage.
-	ErrSecResourceSignBadExtKeyUsage ErrSec = 0
-	ErrSecRestrictedAPI              ErrSec = 0
+	ErrSecResourceSignBadExtKeyUsage ErrSecSuccess = -67653
+	ErrSecRestrictedAPI              ErrSecSuccess = -34020
 	// ErrSecSMIMEBadExtendedKeyUsage: The appropriate extended key usage for SMIME is not found.
-	ErrSecSMIMEBadExtendedKeyUsage ErrSec = 0
+	ErrSecSMIMEBadExtendedKeyUsage ErrSecSuccess = -67624
 	// ErrSecSMIMEBadKeyUsage: The key usage is not compatible with SMIME.
-	ErrSecSMIMEBadKeyUsage ErrSec = 0
+	ErrSecSMIMEBadKeyUsage ErrSecSuccess = -67625
 	// ErrSecSMIMEEmailAddressesNotFound: An email address mismatch was detected.
-	ErrSecSMIMEEmailAddressesNotFound ErrSec = 0
+	ErrSecSMIMEEmailAddressesNotFound ErrSecSuccess = -67623
 	// ErrSecSMIMEKeyUsageNotCritical: The key usage extension is not marked as critical.
-	ErrSecSMIMEKeyUsageNotCritical ErrSec = 0
+	ErrSecSMIMEKeyUsageNotCritical ErrSecSuccess = -67626
 	// ErrSecSMIMENoEmailAddress: No email address is found in the certificate.
-	ErrSecSMIMENoEmailAddress ErrSec = 0
+	ErrSecSMIMENoEmailAddress ErrSecSuccess = -67627
 	// ErrSecSMIMESubjAltNameNotCritical: The subject alternative name extension is not marked as critical.
-	ErrSecSMIMESubjAltNameNotCritical ErrSec = 0
+	ErrSecSMIMESubjAltNameNotCritical ErrSecSuccess = -67628
 	// ErrSecSSLBadExtendedKeyUsage: The appropriate extended key usage for SSL is not found.
-	ErrSecSSLBadExtendedKeyUsage ErrSec = 0
+	ErrSecSSLBadExtendedKeyUsage ErrSecSuccess = -67629
 	// ErrSecSelfCheckFailed: Self-check failed.
-	ErrSecSelfCheckFailed ErrSec = 0
+	ErrSecSelfCheckFailed ErrSecSuccess = -67676
 	// ErrSecServiceNotAvailable: Self-check failed.
-	ErrSecServiceNotAvailable ErrSec = 0
+	ErrSecServiceNotAvailable ErrSecSuccess = -67585
 	// ErrSecSigningTimeMissing: A signing time is missing.
-	ErrSecSigningTimeMissing ErrSec = 0
+	ErrSecSigningTimeMissing ErrSecSuccess = -67894
 	// ErrSecStagedOperationInProgress: A staged operation is in progress.
-	ErrSecStagedOperationInProgress ErrSec = 0
+	ErrSecStagedOperationInProgress ErrSecSuccess = -67806
 	// ErrSecStagedOperationNotStarted: A staged operation was not started.
-	ErrSecStagedOperationNotStarted ErrSec = 0
-	// ErrSecSuccess: No error.
-	ErrSecSuccess ErrSec = 0
+	ErrSecStagedOperationNotStarted ErrSecSuccess = -67807
+	// ErrSecSuccessValue: No error.
+	ErrSecSuccessValue ErrSecSuccess = 0
 	// ErrSecTagNotFound: The specified tag is not found.
-	ErrSecTagNotFound ErrSec = 0
+	ErrSecTagNotFound ErrSecSuccess = -67692
 	// ErrSecTimestampAddInfoNotAvailable: The additional information requested is not available.
-	ErrSecTimestampAddInfoNotAvailable ErrSec = 0
+	ErrSecTimestampAddInfoNotAvailable ErrSecSuccess = -67892
 	// ErrSecTimestampBadAlg: Found an unrecognized or unsupported algorithm identifier (AI) in timestamp.
-	ErrSecTimestampBadAlg ErrSec = 0
+	ErrSecTimestampBadAlg ErrSecSuccess = -67886
 	// ErrSecTimestampBadDataFormat: The timestamp data submitted has the wrong format.
-	ErrSecTimestampBadDataFormat ErrSec = 0
+	ErrSecTimestampBadDataFormat ErrSecSuccess = -67888
 	// ErrSecTimestampBadRequest: The timestamp transaction is not permitted or supported.
-	ErrSecTimestampBadRequest ErrSec = 0
+	ErrSecTimestampBadRequest ErrSecSuccess = -67887
 	// ErrSecTimestampInvalid: The timestamp is not valid.
-	ErrSecTimestampInvalid ErrSec = 0
+	ErrSecTimestampInvalid ErrSecSuccess = -67883
 	// ErrSecTimestampMissing: A timestamp is expected but is not found.
-	ErrSecTimestampMissing ErrSec = 0
+	ErrSecTimestampMissing ErrSecSuccess = -67882
 	// ErrSecTimestampNotTrusted: The timestamp is not trusted.
-	ErrSecTimestampNotTrusted ErrSec = 0
+	ErrSecTimestampNotTrusted ErrSecSuccess = -67884
 	// ErrSecTimestampRejection: A timestamp transaction is rejected.
-	ErrSecTimestampRejection ErrSec = 0
+	ErrSecTimestampRejection ErrSecSuccess = -67895
 	// ErrSecTimestampRevocationNotification: A timestamp authority revocation notification is issued.
-	ErrSecTimestampRevocationNotification ErrSec = 0
+	ErrSecTimestampRevocationNotification ErrSecSuccess = -67898
 	// ErrSecTimestampRevocationWarning: A timestamp authority revocation warning is issued.
-	ErrSecTimestampRevocationWarning   ErrSec = 0
-	ErrSecTimestampServiceNotAvailable ErrSec = 0
+	ErrSecTimestampRevocationWarning   ErrSecSuccess = -67897
+	ErrSecTimestampServiceNotAvailable ErrSecSuccess = -67885
 	// ErrSecTimestampSystemFailure: The timestamp request cannot be handled due to a system failure.
-	ErrSecTimestampSystemFailure ErrSec = 0
+	ErrSecTimestampSystemFailure ErrSecSuccess = -67893
 	// ErrSecTimestampTimeNotAvailable: The time source for the timestamp authority is not available.
-	ErrSecTimestampTimeNotAvailable ErrSec = 0
+	ErrSecTimestampTimeNotAvailable ErrSecSuccess = -67889
 	// ErrSecTimestampUnacceptedExtension: The requested extension is not supported by the timestamp authority.
-	ErrSecTimestampUnacceptedExtension ErrSec = 0
+	ErrSecTimestampUnacceptedExtension ErrSecSuccess = -67891
 	// ErrSecTimestampUnacceptedPolicy: The requested policy is not supported by the timestamp authority.
-	ErrSecTimestampUnacceptedPolicy ErrSec = 0
+	ErrSecTimestampUnacceptedPolicy ErrSecSuccess = -67890
 	// ErrSecTimestampWaiting: A timestamp transaction is waiting.
-	ErrSecTimestampWaiting ErrSec = 0
+	ErrSecTimestampWaiting ErrSecSuccess = -67896
 	// ErrSecTrustNotAvailable: No trust results are available.
-	ErrSecTrustNotAvailable ErrSec = 0
+	ErrSecTrustNotAvailable ErrSecSuccess = -25245
 	// ErrSecTrustSettingDeny: The trust setting for this policy is set to Deny.
-	ErrSecTrustSettingDeny ErrSec = 0
+	ErrSecTrustSettingDeny ErrSecSuccess = -67654
 	// ErrSecUnimplemented: A function or operation is not implemented.
-	ErrSecUnimplemented ErrSec = 0
+	ErrSecUnimplemented ErrSecSuccess = -4
 	// ErrSecUnknownCRLExtension: An unknown certificate revocation list extension was detected.
-	ErrSecUnknownCRLExtension ErrSec = 0
+	ErrSecUnknownCRLExtension ErrSecSuccess = -67619
 	// ErrSecUnknownCertExtension: An unknown certificate extension was detected.
-	ErrSecUnknownCertExtension ErrSec = 0
+	ErrSecUnknownCertExtension ErrSecSuccess = -67618
 	// ErrSecUnknownCriticalExtensionFlag: There is an unknown critical extension flag.
-	ErrSecUnknownCriticalExtensionFlag ErrSec = 0
+	ErrSecUnknownCriticalExtensionFlag ErrSecSuccess = -67603
 	// ErrSecUnknownFormat: The item you are trying to import has an unknown format.
-	ErrSecUnknownFormat ErrSec = 0
+	ErrSecUnknownFormat ErrSecSuccess = -25257
 	// ErrSecUnknownQualifiedCertStatement: An unknown qualified certificate statement was detected.
-	ErrSecUnknownQualifiedCertStatement ErrSec = 0
+	ErrSecUnknownQualifiedCertStatement ErrSecSuccess = -67656
 	// ErrSecUnknownTag: An unknown tag was detected.
-	ErrSecUnknownTag ErrSec = 0
+	ErrSecUnknownTag ErrSecSuccess = -67687
 	// ErrSecUnsupportedAddressType: The address type is not supported.
-	ErrSecUnsupportedAddressType ErrSec = 0
+	ErrSecUnsupportedAddressType ErrSecSuccess = -67848
 	// ErrSecUnsupportedFieldFormat: The field format is not supported.
-	ErrSecUnsupportedFieldFormat ErrSec = 0
+	ErrSecUnsupportedFieldFormat ErrSecSuccess = -67860
 	// ErrSecUnsupportedFormat: The specified import or export format is not supported.
-	ErrSecUnsupportedFormat ErrSec = 0
+	ErrSecUnsupportedFormat ErrSecSuccess = -25256
 	// ErrSecUnsupportedIndexInfo: The index information is not supported.
-	ErrSecUnsupportedIndexInfo ErrSec = 0
+	ErrSecUnsupportedIndexInfo ErrSecSuccess = -67861
 	// ErrSecUnsupportedKeyAttributeMask: The key attribute mask is not supported.
-	ErrSecUnsupportedKeyAttributeMask ErrSec = 0
+	ErrSecUnsupportedKeyAttributeMask ErrSecSuccess = -67739
 	// ErrSecUnsupportedKeyFormat: The key header format is not supported.
-	ErrSecUnsupportedKeyFormat ErrSec = 0
+	ErrSecUnsupportedKeyFormat ErrSecSuccess = -67734
 	// ErrSecUnsupportedKeyLabel: The key label is not supported.
-	ErrSecUnsupportedKeyLabel ErrSec = 0
+	ErrSecUnsupportedKeyLabel ErrSecSuccess = -67741
 	// ErrSecUnsupportedKeySize: The key size is not supported.
-	ErrSecUnsupportedKeySize ErrSec = 0
+	ErrSecUnsupportedKeySize ErrSecSuccess = -67735
 	// ErrSecUnsupportedKeyUsageMask: The key usage mask is not supported.
-	ErrSecUnsupportedKeyUsageMask ErrSec = 0
+	ErrSecUnsupportedKeyUsageMask ErrSecSuccess = -67737
 	// ErrSecUnsupportedLocality: The locality is not supported.
-	ErrSecUnsupportedLocality ErrSec = 0
+	ErrSecUnsupportedLocality ErrSecSuccess = -67862
 	// ErrSecUnsupportedNumAttributes: The number of attributes is not supported.
-	ErrSecUnsupportedNumAttributes ErrSec = 0
+	ErrSecUnsupportedNumAttributes ErrSecSuccess = -67863
 	// ErrSecUnsupportedNumIndexes: The number of indexes is not supported.
-	ErrSecUnsupportedNumIndexes ErrSec = 0
+	ErrSecUnsupportedNumIndexes ErrSecSuccess = -67864
 	// ErrSecUnsupportedNumRecordTypes: The number of record types is not supported.
-	ErrSecUnsupportedNumRecordTypes ErrSec = 0
+	ErrSecUnsupportedNumRecordTypes ErrSecSuccess = -67865
 	// ErrSecUnsupportedNumSelectionPreds: The number of selection predicates is not supported.
-	ErrSecUnsupportedNumSelectionPreds ErrSec = 0
+	ErrSecUnsupportedNumSelectionPreds ErrSecSuccess = -67873
 	// ErrSecUnsupportedOperator: The operator is not supported.
-	ErrSecUnsupportedOperator ErrSec = 0
+	ErrSecUnsupportedOperator ErrSecSuccess = -67874
 	// ErrSecUnsupportedQueryLimits: The query limits are not supported.
-	ErrSecUnsupportedQueryLimits ErrSec = 0
+	ErrSecUnsupportedQueryLimits ErrSecSuccess = -67872
 	// ErrSecUnsupportedService: The service is not supported.
-	ErrSecUnsupportedService ErrSec = 0
+	ErrSecUnsupportedService ErrSecSuccess = -67849
 	// ErrSecUnsupportedVectorOfBuffers: The vector of buffers is not supported.
-	ErrSecUnsupportedVectorOfBuffers ErrSec = 0
+	ErrSecUnsupportedVectorOfBuffers ErrSecSuccess = -67743
 	// ErrSecUserCanceled: User canceled the operation.
-	ErrSecUserCanceled ErrSec = 0
+	ErrSecUserCanceled ErrSecSuccess = -128
 	// ErrSecVerificationFailure: A verification failure occurred.
-	ErrSecVerificationFailure ErrSec = 0
+	ErrSecVerificationFailure ErrSecSuccess = -67686
 	// ErrSecVerifyActionFailed: A verify action failed.
-	ErrSecVerifyActionFailed ErrSec = 0
+	ErrSecVerifyActionFailed ErrSecSuccess = -67825
 	// ErrSecVerifyFailed: A cryptographic verification failure occurred.
-	ErrSecVerifyFailed ErrSec = 0
+	ErrSecVerifyFailed ErrSecSuccess = -67808
 	// ErrSecWrPerm: Write permissions error.
-	ErrSecWrPerm ErrSec = 0
+	ErrSecWrPerm ErrSecSuccess = -61
 	// ErrSecWrongSecVersion: The version is incorrect.
-	ErrSecWrongSecVersion ErrSec = 0
+	ErrSecWrongSecVersion ErrSecSuccess = -25310
 	// Deprecated.
-	ErrSecDskFull ErrSec = 0
-	// Deprecated.
-	ErrSecInvaldCRLAuthority ErrSec = 0
-	// Deprecated.
-	ErrSecInvalidTupleCredendtials ErrSec = 0
+	ErrSecDskFull ErrSecSuccess = -34
+	// Deprecated: use ErrSecInvalidCRLAuthority.
+	ErrSecInvaldCRLAuthority ErrSecSuccess = -67827
+	// Deprecated: use ErrSecInvalidTupleCredentials.
+	ErrSecInvalidTupleCredendtials ErrSecSuccess = -67852
 )
 
-type ErrSecureDownloadInvalid int
+func (e ErrSecSuccess) String() string {
+	switch e {
+	case ErrSecACLAddFailed:
+		return "ErrSecACLAddFailed"
+	case ErrSecACLChangeFailed:
+		return "ErrSecACLChangeFailed"
+	case ErrSecACLDeleteFailed:
+		return "ErrSecACLDeleteFailed"
+	case ErrSecACLNotSimple:
+		return "ErrSecACLNotSimple"
+	case ErrSecACLReplaceFailed:
+		return "ErrSecACLReplaceFailed"
+	case ErrSecAddinLoadFailed:
+		return "ErrSecAddinLoadFailed"
+	case ErrSecAddinUnloadFailed:
+		return "ErrSecAddinUnloadFailed"
+	case ErrSecAlgorithmMismatch:
+		return "ErrSecAlgorithmMismatch"
+	case ErrSecAllocate:
+		return "ErrSecAllocate"
+	case ErrSecAlreadyLoggedIn:
+		return "ErrSecAlreadyLoggedIn"
+	case ErrSecAppleAddAppACLSubject:
+		return "ErrSecAppleAddAppACLSubject"
+	case ErrSecAppleInvalidKeyEndDate:
+		return "ErrSecAppleInvalidKeyEndDate"
+	case ErrSecAppleInvalidKeyStartDate:
+		return "ErrSecAppleInvalidKeyStartDate"
+	case ErrSecApplePublicKeyIncomplete:
+		return "ErrSecApplePublicKeyIncomplete"
+	case ErrSecAppleSSLv2Rollback:
+		return "ErrSecAppleSSLv2Rollback"
+	case ErrSecAppleSignatureMismatch:
+		return "ErrSecAppleSignatureMismatch"
+	case ErrSecAttachHandleBusy:
+		return "ErrSecAttachHandleBusy"
+	case ErrSecAttributeNotInContext:
+		return "ErrSecAttributeNotInContext"
+	case ErrSecAuthFailed:
+		return "ErrSecAuthFailed"
+	case ErrSecBadReq:
+		return "ErrSecBadReq"
+	case ErrSecBlockSizeMismatch:
+		return "ErrSecBlockSizeMismatch"
+	case ErrSecBufferTooSmall:
+		return "ErrSecBufferTooSmall"
+	case ErrSecCRLAlreadySigned:
+		return "ErrSecCRLAlreadySigned"
+	case ErrSecCRLBadURI:
+		return "ErrSecCRLBadURI"
+	case ErrSecCRLExpired:
+		return "ErrSecCRLExpired"
+	case ErrSecCRLNotFound:
+		return "ErrSecCRLNotFound"
+	case ErrSecCRLNotTrusted:
+		return "ErrSecCRLNotTrusted"
+	case ErrSecCRLNotValidYet:
+		return "ErrSecCRLNotValidYet"
+	case ErrSecCRLPolicyFailed:
+		return "ErrSecCRLPolicyFailed"
+	case ErrSecCRLServerDown:
+		return "ErrSecCRLServerDown"
+	case ErrSecCallbackFailed:
+		return "ErrSecCallbackFailed"
+	case ErrSecCertificateCannotOperate:
+		return "ErrSecCertificateCannotOperate"
+	case ErrSecCertificateDuplicateExtension:
+		return "ErrSecCertificateDuplicateExtension"
+	case ErrSecCertificateExpired:
+		return "ErrSecCertificateExpired"
+	case ErrSecCertificateIsCA:
+		return "ErrSecCertificateIsCA"
+	case ErrSecCertificateNameNotAllowed:
+		return "ErrSecCertificateNameNotAllowed"
+	case ErrSecCertificateNotValidYet:
+		return "ErrSecCertificateNotValidYet"
+	case ErrSecCertificatePolicyNotAllowed:
+		return "ErrSecCertificatePolicyNotAllowed"
+	case ErrSecCertificateRevoked:
+		return "ErrSecCertificateRevoked"
+	case ErrSecCertificateSuspended:
+		return "ErrSecCertificateSuspended"
+	case ErrSecCertificateValidityPeriodTooLong:
+		return "ErrSecCertificateValidityPeriodTooLong"
+	case ErrSecCodeSigningBadCertChainLength:
+		return "ErrSecCodeSigningBadCertChainLength"
+	case ErrSecCodeSigningBadPathLengthConstraint:
+		return "ErrSecCodeSigningBadPathLengthConstraint"
+	case ErrSecCodeSigningDevelopment:
+		return "ErrSecCodeSigningDevelopment"
+	case ErrSecCodeSigningNoBasicConstraints:
+		return "ErrSecCodeSigningNoBasicConstraints"
+	case ErrSecCodeSigningNoExtendedKeyUsage:
+		return "ErrSecCodeSigningNoExtendedKeyUsage"
+	case ErrSecConversionError:
+		return "ErrSecConversionError"
+	case ErrSecCoreFoundationUnknown:
+		return "ErrSecCoreFoundationUnknown"
+	case ErrSecCreateChainFailed:
+		return "ErrSecCreateChainFailed"
+	case ErrSecDataNotAvailable:
+		return "ErrSecDataNotAvailable"
+	case ErrSecDataNotModifiable:
+		return "ErrSecDataNotModifiable"
+	case ErrSecDataTooLarge:
+		return "ErrSecDataTooLarge"
+	case ErrSecDatabaseLocked:
+		return "ErrSecDatabaseLocked"
+	case ErrSecDatastoreIsOpen:
+		return "ErrSecDatastoreIsOpen"
+	case ErrSecDecode:
+		return "ErrSecDecode"
+	case ErrSecDeviceError:
+		return "ErrSecDeviceError"
+	case ErrSecDeviceFailed:
+		return "ErrSecDeviceFailed"
+	case ErrSecDeviceReset:
+		return "ErrSecDeviceReset"
+	case ErrSecDeviceVerifyFailed:
+		return "ErrSecDeviceVerifyFailed"
+	case ErrSecDiskFull:
+		return "ErrSecDiskFull"
+	case ErrSecDuplicateCallback:
+		return "ErrSecDuplicateCallback"
+	case ErrSecDuplicateItem:
+		return "ErrSecDuplicateItem"
+	case ErrSecDuplicateKeychain:
+		return "ErrSecDuplicateKeychain"
+	case ErrSecEMMLoadFailed:
+		return "ErrSecEMMLoadFailed"
+	case ErrSecEMMUnloadFailed:
+		return "ErrSecEMMUnloadFailed"
+	case ErrSecEndOfData:
+		return "ErrSecEndOfData"
+	case ErrSecEventNotificationCallbackNotFound:
+		return "ErrSecEventNotificationCallbackNotFound"
+	case ErrSecExtendedKeyUsageNotCritical:
+		return "ErrSecExtendedKeyUsageNotCritical"
+	case ErrSecFieldSpecifiedMultiple:
+		return "ErrSecFieldSpecifiedMultiple"
+	case ErrSecFileTooBig:
+		return "ErrSecFileTooBig"
+	case ErrSecFunctionFailed:
+		return "ErrSecFunctionFailed"
+	case ErrSecFunctionIntegrityFail:
+		return "ErrSecFunctionIntegrityFail"
+	case ErrSecHostNameMismatch:
+		return "ErrSecHostNameMismatch"
+	case ErrSecIDPFailure:
+		return "ErrSecIDPFailure"
+	case ErrSecIO:
+		return "ErrSecIO"
+	case ErrSecInDarkWake:
+		return "ErrSecInDarkWake"
+	case ErrSecIncompatibleDatabaseBlob:
+		return "ErrSecIncompatibleDatabaseBlob"
+	case ErrSecIncompatibleFieldFormat:
+		return "ErrSecIncompatibleFieldFormat"
+	case ErrSecIncompatibleKeyBlob:
+		return "ErrSecIncompatibleKeyBlob"
+	case ErrSecIncompatibleVersion:
+		return "ErrSecIncompatibleVersion"
+	case ErrSecIncompleteCertRevocationCheck:
+		return "ErrSecIncompleteCertRevocationCheck"
+	case ErrSecInputLengthError:
+		return "ErrSecInputLengthError"
+	case ErrSecInsufficientClientID:
+		return "ErrSecInsufficientClientID"
+	case ErrSecInsufficientCredentials:
+		return "ErrSecInsufficientCredentials"
+	case ErrSecInteractionNotAllowed:
+		return "ErrSecInteractionNotAllowed"
+	case ErrSecInteractionRequired:
+		return "ErrSecInteractionRequired"
+	case ErrSecInternalComponent:
+		return "ErrSecInternalComponent"
+	case ErrSecInternalError:
+		return "ErrSecInternalError"
+	case ErrSecInvalidACL:
+		return "ErrSecInvalidACL"
+	case ErrSecInvalidAccessCredentials:
+		return "ErrSecInvalidAccessCredentials"
+	case ErrSecInvalidAccessRequest:
+		return "ErrSecInvalidAccessRequest"
+	case ErrSecInvalidAction:
+		return "ErrSecInvalidAction"
+	case ErrSecInvalidAddinFunctionTable:
+		return "ErrSecInvalidAddinFunctionTable"
+	case ErrSecInvalidAlgorithm:
+		return "ErrSecInvalidAlgorithm"
+	case ErrSecInvalidAlgorithmParms:
+		return "ErrSecInvalidAlgorithmParms"
+	case ErrSecInvalidAttributeAccessCredentials:
+		return "ErrSecInvalidAttributeAccessCredentials"
+	case ErrSecInvalidAttributeBase:
+		return "ErrSecInvalidAttributeBase"
+	case ErrSecInvalidAttributeBlockSize:
+		return "ErrSecInvalidAttributeBlockSize"
+	case ErrSecInvalidAttributeDLDBHandle:
+		return "ErrSecInvalidAttributeDLDBHandle"
+	case ErrSecInvalidAttributeEffectiveBits:
+		return "ErrSecInvalidAttributeEffectiveBits"
+	case ErrSecInvalidAttributeEndDate:
+		return "ErrSecInvalidAttributeEndDate"
+	case ErrSecInvalidAttributeInitVector:
+		return "ErrSecInvalidAttributeInitVector"
+	case ErrSecInvalidAttributeIterationCount:
+		return "ErrSecInvalidAttributeIterationCount"
+	case ErrSecInvalidAttributeKey:
+		return "ErrSecInvalidAttributeKey"
+	case ErrSecInvalidAttributeKeyLength:
+		return "ErrSecInvalidAttributeKeyLength"
+	case ErrSecInvalidAttributeKeyType:
+		return "ErrSecInvalidAttributeKeyType"
+	case ErrSecInvalidAttributeLabel:
+		return "ErrSecInvalidAttributeLabel"
+	case ErrSecInvalidAttributeMode:
+		return "ErrSecInvalidAttributeMode"
+	case ErrSecInvalidAttributeOutputSize:
+		return "ErrSecInvalidAttributeOutputSize"
+	case ErrSecInvalidAttributePadding:
+		return "ErrSecInvalidAttributePadding"
+	case ErrSecInvalidAttributePassphrase:
+		return "ErrSecInvalidAttributePassphrase"
+	case ErrSecInvalidAttributePrime:
+		return "ErrSecInvalidAttributePrime"
+	case ErrSecInvalidAttributePrivateKeyFormat:
+		return "ErrSecInvalidAttributePrivateKeyFormat"
+	case ErrSecInvalidAttributePublicKeyFormat:
+		return "ErrSecInvalidAttributePublicKeyFormat"
+	case ErrSecInvalidAttributeRandom:
+		return "ErrSecInvalidAttributeRandom"
+	case ErrSecInvalidAttributeRounds:
+		return "ErrSecInvalidAttributeRounds"
+	case ErrSecInvalidAttributeSalt:
+		return "ErrSecInvalidAttributeSalt"
+	case ErrSecInvalidAttributeSeed:
+		return "ErrSecInvalidAttributeSeed"
+	case ErrSecInvalidAttributeStartDate:
+		return "ErrSecInvalidAttributeStartDate"
+	case ErrSecInvalidAttributeSubprime:
+		return "ErrSecInvalidAttributeSubprime"
+	case ErrSecInvalidAttributeSymmetricKeyFormat:
+		return "ErrSecInvalidAttributeSymmetricKeyFormat"
+	case ErrSecInvalidAttributeVersion:
+		return "ErrSecInvalidAttributeVersion"
+	case ErrSecInvalidAttributeWrappedKeyFormat:
+		return "ErrSecInvalidAttributeWrappedKeyFormat"
+	case ErrSecInvalidAuthority:
+		return "ErrSecInvalidAuthority"
+	case ErrSecInvalidAuthorityKeyID:
+		return "ErrSecInvalidAuthorityKeyID"
+	case ErrSecInvalidBaseACLs:
+		return "ErrSecInvalidBaseACLs"
+	case ErrSecInvalidBundleInfo:
+		return "ErrSecInvalidBundleInfo"
+	case ErrSecInvalidCRL:
+		return "ErrSecInvalidCRL"
+	case ErrSecInvalidCRLAuthority:
+		return "ErrSecInvalidCRLAuthority"
+	case ErrSecInvalidCRLEncoding:
+		return "ErrSecInvalidCRLEncoding"
+	case ErrSecInvalidCRLGroup:
+		return "ErrSecInvalidCRLGroup"
+	case ErrSecInvalidCRLIndex:
+		return "ErrSecInvalidCRLIndex"
+	case ErrSecInvalidCRLType:
+		return "ErrSecInvalidCRLType"
+	case ErrSecInvalidCallback:
+		return "ErrSecInvalidCallback"
+	case ErrSecInvalidCertAuthority:
+		return "ErrSecInvalidCertAuthority"
+	case ErrSecInvalidCertificateGroup:
+		return "ErrSecInvalidCertificateGroup"
+	case ErrSecInvalidCertificateRef:
+		return "ErrSecInvalidCertificateRef"
+	case ErrSecInvalidContext:
+		return "ErrSecInvalidContext"
+	case ErrSecInvalidDBList:
+		return "ErrSecInvalidDBList"
+	case ErrSecInvalidDBLocation:
+		return "ErrSecInvalidDBLocation"
+	case ErrSecInvalidData:
+		return "ErrSecInvalidData"
+	case ErrSecInvalidDatabaseBlob:
+		return "ErrSecInvalidDatabaseBlob"
+	case ErrSecInvalidDigestAlgorithm:
+		return "ErrSecInvalidDigestAlgorithm"
+	case ErrSecInvalidEncoding:
+		return "ErrSecInvalidEncoding"
+	case ErrSecInvalidExtendedKeyUsage:
+		return "ErrSecInvalidExtendedKeyUsage"
+	case ErrSecInvalidFormType:
+		return "ErrSecInvalidFormType"
+	case ErrSecInvalidGUID:
+		return "ErrSecInvalidGUID"
+	case ErrSecInvalidHandle:
+		return "ErrSecInvalidHandle"
+	case ErrSecInvalidHandleUsage:
+		return "ErrSecInvalidHandleUsage"
+	case ErrSecInvalidID:
+		return "ErrSecInvalidID"
+	case ErrSecInvalidIDLinkage:
+		return "ErrSecInvalidIDLinkage"
+	case ErrSecInvalidIdentifier:
+		return "ErrSecInvalidIdentifier"
+	case ErrSecInvalidIndex:
+		return "ErrSecInvalidIndex"
+	case ErrSecInvalidIndexInfo:
+		return "ErrSecInvalidIndexInfo"
+	case ErrSecInvalidInputVector:
+		return "ErrSecInvalidInputVector"
+	case ErrSecInvalidItemRef:
+		return "ErrSecInvalidItemRef"
+	case ErrSecInvalidKeyAttributeMask:
+		return "ErrSecInvalidKeyAttributeMask"
+	case ErrSecInvalidKeyBlob:
+		return "ErrSecInvalidKeyBlob"
+	case ErrSecInvalidKeyFormat:
+		return "ErrSecInvalidKeyFormat"
+	case ErrSecInvalidKeyHierarchy:
+		return "ErrSecInvalidKeyHierarchy"
+	case ErrSecInvalidKeyLabel:
+		return "ErrSecInvalidKeyLabel"
+	case ErrSecInvalidKeyRef:
+		return "ErrSecInvalidKeyRef"
+	case ErrSecInvalidKeyUsageForPolicy:
+		return "ErrSecInvalidKeyUsageForPolicy"
+	case ErrSecInvalidKeyUsageMask:
+		return "ErrSecInvalidKeyUsageMask"
+	case ErrSecInvalidKeychain:
+		return "ErrSecInvalidKeychain"
+	case ErrSecInvalidLoginName:
+		return "ErrSecInvalidLoginName"
+	case ErrSecInvalidModifyMode:
+		return "ErrSecInvalidModifyMode"
+	case ErrSecInvalidName:
+		return "ErrSecInvalidName"
+	case ErrSecInvalidNetworkAddress:
+		return "ErrSecInvalidNetworkAddress"
+	case ErrSecInvalidNewOwner:
+		return "ErrSecInvalidNewOwner"
+	case ErrSecInvalidNumberOfFields:
+		return "ErrSecInvalidNumberOfFields"
+	case ErrSecInvalidOutputVector:
+		return "ErrSecInvalidOutputVector"
+	case ErrSecInvalidOwnerEdit:
+		return "ErrSecInvalidOwnerEdit"
+	case ErrSecInvalidPVC:
+		return "ErrSecInvalidPVC"
+	case ErrSecInvalidParsingModule:
+		return "ErrSecInvalidParsingModule"
+	case ErrSecInvalidPassthroughID:
+		return "ErrSecInvalidPassthroughID"
+	case ErrSecInvalidPasswordRef:
+		return "ErrSecInvalidPasswordRef"
+	case ErrSecInvalidPointer:
+		return "ErrSecInvalidPointer"
+	case ErrSecInvalidPolicyIdentifiers:
+		return "ErrSecInvalidPolicyIdentifiers"
+	case ErrSecInvalidPrefsDomain:
+		return "ErrSecInvalidPrefsDomain"
+	case ErrSecInvalidQuery:
+		return "ErrSecInvalidQuery"
+	case ErrSecInvalidReason:
+		return "ErrSecInvalidReason"
+	case ErrSecInvalidRecord:
+		return "ErrSecInvalidRecord"
+	case ErrSecInvalidRequestInputs:
+		return "ErrSecInvalidRequestInputs"
+	case ErrSecInvalidRequestor:
+		return "ErrSecInvalidRequestor"
+	case ErrSecInvalidResponseVector:
+		return "ErrSecInvalidResponseVector"
+	case ErrSecInvalidRoot:
+		return "ErrSecInvalidRoot"
+	case ErrSecInvalidSampleValue:
+		return "ErrSecInvalidSampleValue"
+	case ErrSecInvalidScope:
+		return "ErrSecInvalidScope"
+	case ErrSecInvalidSearchRef:
+		return "ErrSecInvalidSearchRef"
+	case ErrSecInvalidServiceMask:
+		return "ErrSecInvalidServiceMask"
+	case ErrSecInvalidSignature:
+		return "ErrSecInvalidSignature"
+	case ErrSecInvalidStopOnPolicy:
+		return "ErrSecInvalidStopOnPolicy"
+	case ErrSecInvalidSubServiceID:
+		return "ErrSecInvalidSubServiceID"
+	case ErrSecInvalidSubjectKeyID:
+		return "ErrSecInvalidSubjectKeyID"
+	case ErrSecInvalidSubjectName:
+		return "ErrSecInvalidSubjectName"
+	case ErrSecInvalidTimeString:
+		return "ErrSecInvalidTimeString"
+	case ErrSecInvalidTrustSetting:
+		return "ErrSecInvalidTrustSetting"
+	case ErrSecInvalidTrustSettings:
+		return "ErrSecInvalidTrustSettings"
+	case ErrSecInvalidTuple:
+		return "ErrSecInvalidTuple"
+	case ErrSecInvalidTupleCredentials:
+		return "ErrSecInvalidTupleCredentials"
+	case ErrSecInvalidTupleGroup:
+		return "ErrSecInvalidTupleGroup"
+	case ErrSecInvalidValidityPeriod:
+		return "ErrSecInvalidValidityPeriod"
+	case ErrSecInvalidValue:
+		return "ErrSecInvalidValue"
+	case ErrSecItemNotFound:
+		return "ErrSecItemNotFound"
+	case ErrSecKeyBlobTypeIncorrect:
+		return "ErrSecKeyBlobTypeIncorrect"
+	case ErrSecKeyHeaderInconsistent:
+		return "ErrSecKeyHeaderInconsistent"
+	case ErrSecKeyIsSensitive:
+		return "ErrSecKeyIsSensitive"
+	case ErrSecKeySizeNotAllowed:
+		return "ErrSecKeySizeNotAllowed"
+	case ErrSecKeyUsageIncorrect:
+		return "ErrSecKeyUsageIncorrect"
+	case ErrSecLibraryReferenceNotFound:
+		return "ErrSecLibraryReferenceNotFound"
+	case ErrSecMDSError:
+		return "ErrSecMDSError"
+	case ErrSecMemoryError:
+		return "ErrSecMemoryError"
+	case ErrSecMissingAlgorithmParms:
+		return "ErrSecMissingAlgorithmParms"
+	case ErrSecMissingAttributeAccessCredentials:
+		return "ErrSecMissingAttributeAccessCredentials"
+	case ErrSecMissingAttributeBase:
+		return "ErrSecMissingAttributeBase"
+	case ErrSecMissingAttributeBlockSize:
+		return "ErrSecMissingAttributeBlockSize"
+	case ErrSecMissingAttributeDLDBHandle:
+		return "ErrSecMissingAttributeDLDBHandle"
+	case ErrSecMissingAttributeEffectiveBits:
+		return "ErrSecMissingAttributeEffectiveBits"
+	case ErrSecMissingAttributeEndDate:
+		return "ErrSecMissingAttributeEndDate"
+	case ErrSecMissingAttributeInitVector:
+		return "ErrSecMissingAttributeInitVector"
+	case ErrSecMissingAttributeIterationCount:
+		return "ErrSecMissingAttributeIterationCount"
+	case ErrSecMissingAttributeKey:
+		return "ErrSecMissingAttributeKey"
+	case ErrSecMissingAttributeKeyLength:
+		return "ErrSecMissingAttributeKeyLength"
+	case ErrSecMissingAttributeKeyType:
+		return "ErrSecMissingAttributeKeyType"
+	case ErrSecMissingAttributeLabel:
+		return "ErrSecMissingAttributeLabel"
+	case ErrSecMissingAttributeMode:
+		return "ErrSecMissingAttributeMode"
+	case ErrSecMissingAttributeOutputSize:
+		return "ErrSecMissingAttributeOutputSize"
+	case ErrSecMissingAttributePadding:
+		return "ErrSecMissingAttributePadding"
+	case ErrSecMissingAttributePassphrase:
+		return "ErrSecMissingAttributePassphrase"
+	case ErrSecMissingAttributePrime:
+		return "ErrSecMissingAttributePrime"
+	case ErrSecMissingAttributePrivateKeyFormat:
+		return "ErrSecMissingAttributePrivateKeyFormat"
+	case ErrSecMissingAttributePublicKeyFormat:
+		return "ErrSecMissingAttributePublicKeyFormat"
+	case ErrSecMissingAttributeRandom:
+		return "ErrSecMissingAttributeRandom"
+	case ErrSecMissingAttributeRounds:
+		return "ErrSecMissingAttributeRounds"
+	case ErrSecMissingAttributeSalt:
+		return "ErrSecMissingAttributeSalt"
+	case ErrSecMissingAttributeSeed:
+		return "ErrSecMissingAttributeSeed"
+	case ErrSecMissingAttributeStartDate:
+		return "ErrSecMissingAttributeStartDate"
+	case ErrSecMissingAttributeSubprime:
+		return "ErrSecMissingAttributeSubprime"
+	case ErrSecMissingAttributeSymmetricKeyFormat:
+		return "ErrSecMissingAttributeSymmetricKeyFormat"
+	case ErrSecMissingAttributeVersion:
+		return "ErrSecMissingAttributeVersion"
+	case ErrSecMissingAttributeWrappedKeyFormat:
+		return "ErrSecMissingAttributeWrappedKeyFormat"
+	case ErrSecMissingEntitlement:
+		return "ErrSecMissingEntitlement"
+	case ErrSecMissingQualifiedCertStatement:
+		return "ErrSecMissingQualifiedCertStatement"
+	case ErrSecMissingRequiredExtension:
+		return "ErrSecMissingRequiredExtension"
+	case ErrSecMissingValue:
+		return "ErrSecMissingValue"
+	case ErrSecMobileMeCSRVerifyFailure:
+		return "ErrSecMobileMeCSRVerifyFailure"
+	case ErrSecMobileMeFailedConsistencyCheck:
+		return "ErrSecMobileMeFailedConsistencyCheck"
+	case ErrSecMobileMeNoRequestPending:
+		return "ErrSecMobileMeNoRequestPending"
+	case ErrSecMobileMeRequestAlreadyPending:
+		return "ErrSecMobileMeRequestAlreadyPending"
+	case ErrSecMobileMeRequestQueued:
+		return "ErrSecMobileMeRequestQueued"
+	case ErrSecMobileMeRequestRedirected:
+		return "ErrSecMobileMeRequestRedirected"
+	case ErrSecMobileMeServerAlreadyExists:
+		return "ErrSecMobileMeServerAlreadyExists"
+	case ErrSecMobileMeServerError:
+		return "ErrSecMobileMeServerError"
+	case ErrSecMobileMeServerNotAvailable:
+		return "ErrSecMobileMeServerNotAvailable"
+	case ErrSecMobileMeServerServiceErr:
+		return "ErrSecMobileMeServerServiceErr"
+	case ErrSecModuleManagerInitializeFailed:
+		return "ErrSecModuleManagerInitializeFailed"
+	case ErrSecModuleManagerNotFound:
+		return "ErrSecModuleManagerNotFound"
+	case ErrSecModuleManifestVerifyFailed:
+		return "ErrSecModuleManifestVerifyFailed"
+	case ErrSecModuleNotLoaded:
+		return "ErrSecModuleNotLoaded"
+	case ErrSecMultiplePrivKeys:
+		return "ErrSecMultiplePrivKeys"
+	case ErrSecMultipleValuesUnsupported:
+		return "ErrSecMultipleValuesUnsupported"
+	case ErrSecNetworkFailure:
+		return "ErrSecNetworkFailure"
+	case ErrSecNoAccessForItem:
+		return "ErrSecNoAccessForItem"
+	case ErrSecNoBasicConstraints:
+		return "ErrSecNoBasicConstraints"
+	case ErrSecNoBasicConstraintsCA:
+		return "ErrSecNoBasicConstraintsCA"
+	case ErrSecNoCertificateModule:
+		return "ErrSecNoCertificateModule"
+	case ErrSecNoDefaultAuthority:
+		return "ErrSecNoDefaultAuthority"
+	case ErrSecNoDefaultKeychain:
+		return "ErrSecNoDefaultKeychain"
+	case ErrSecNoFieldValues:
+		return "ErrSecNoFieldValues"
+	case ErrSecNoPolicyModule:
+		return "ErrSecNoPolicyModule"
+	case ErrSecNoStorageModule:
+		return "ErrSecNoStorageModule"
+	case ErrSecNoSuchAttr:
+		return "ErrSecNoSuchAttr"
+	case ErrSecNoSuchClass:
+		return "ErrSecNoSuchClass"
+	case ErrSecNoSuchKeychain:
+		return "ErrSecNoSuchKeychain"
+	case ErrSecNoTrustSettings:
+		return "ErrSecNoTrustSettings"
+	case ErrSecNotAvailable:
+		return "ErrSecNotAvailable"
+	case ErrSecNotInitialized:
+		return "ErrSecNotInitialized"
+	case ErrSecNotLoggedIn:
+		return "ErrSecNotLoggedIn"
+	case ErrSecNotSigner:
+		return "ErrSecNotSigner"
+	case ErrSecNotTrusted:
+		return "ErrSecNotTrusted"
+	case ErrSecOCSPBadRequest:
+		return "ErrSecOCSPBadRequest"
+	case ErrSecOCSPBadResponse:
+		return "ErrSecOCSPBadResponse"
+	case ErrSecOCSPNoSigner:
+		return "ErrSecOCSPNoSigner"
+	case ErrSecOCSPNotTrustedToAnchor:
+		return "ErrSecOCSPNotTrustedToAnchor"
+	case ErrSecOCSPResponderInternalError:
+		return "ErrSecOCSPResponderInternalError"
+	case ErrSecOCSPResponderMalformedReq:
+		return "ErrSecOCSPResponderMalformedReq"
+	case ErrSecOCSPResponderSignatureRequired:
+		return "ErrSecOCSPResponderSignatureRequired"
+	case ErrSecOCSPResponderTryLater:
+		return "ErrSecOCSPResponderTryLater"
+	case ErrSecOCSPResponderUnauthorized:
+		return "ErrSecOCSPResponderUnauthorized"
+	case ErrSecOCSPResponseNonceMismatch:
+		return "ErrSecOCSPResponseNonceMismatch"
+	case ErrSecOCSPSignatureError:
+		return "ErrSecOCSPSignatureError"
+	case ErrSecOCSPStatusUnrecognized:
+		return "ErrSecOCSPStatusUnrecognized"
+	case ErrSecOCSPUnavailable:
+		return "ErrSecOCSPUnavailable"
+	case ErrSecOpWr:
+		return "ErrSecOpWr"
+	case ErrSecOutputLengthError:
+		return "ErrSecOutputLengthError"
+	case ErrSecPVCAlreadyConfigured:
+		return "ErrSecPVCAlreadyConfigured"
+	case ErrSecPVCReferentNotFound:
+		return "ErrSecPVCReferentNotFound"
+	case ErrSecParam:
+		return "ErrSecParam"
+	case ErrSecPassphraseRequired:
+		return "ErrSecPassphraseRequired"
+	case ErrSecPathLengthConstraintExceeded:
+		return "ErrSecPathLengthConstraintExceeded"
+	case ErrSecPkcs12VerifyFailure:
+		return "ErrSecPkcs12VerifyFailure"
+	case ErrSecPolicyNotFound:
+		return "ErrSecPolicyNotFound"
+	case ErrSecPrivilegeNotGranted:
+		return "ErrSecPrivilegeNotGranted"
+	case ErrSecPrivilegeNotSupported:
+		return "ErrSecPrivilegeNotSupported"
+	case ErrSecPublicKeyInconsistent:
+		return "ErrSecPublicKeyInconsistent"
+	case ErrSecQuerySizeUnknown:
+		return "ErrSecQuerySizeUnknown"
+	case ErrSecQuotaExceeded:
+		return "ErrSecQuotaExceeded"
+	case ErrSecReadOnly:
+		return "ErrSecReadOnly"
+	case ErrSecReadOnlyAttr:
+		return "ErrSecReadOnlyAttr"
+	case ErrSecRecordModified:
+		return "ErrSecRecordModified"
+	case ErrSecRejectedForm:
+		return "ErrSecRejectedForm"
+	case ErrSecRequestDescriptor:
+		return "ErrSecRequestDescriptor"
+	case ErrSecRequestLost:
+		return "ErrSecRequestLost"
+	case ErrSecRequestRejected:
+		return "ErrSecRequestRejected"
+	case ErrSecResourceSignBadCertChainLength:
+		return "ErrSecResourceSignBadCertChainLength"
+	case ErrSecResourceSignBadExtKeyUsage:
+		return "ErrSecResourceSignBadExtKeyUsage"
+	case ErrSecRestrictedAPI:
+		return "ErrSecRestrictedAPI"
+	case ErrSecSMIMEBadExtendedKeyUsage:
+		return "ErrSecSMIMEBadExtendedKeyUsage"
+	case ErrSecSMIMEBadKeyUsage:
+		return "ErrSecSMIMEBadKeyUsage"
+	case ErrSecSMIMEEmailAddressesNotFound:
+		return "ErrSecSMIMEEmailAddressesNotFound"
+	case ErrSecSMIMEKeyUsageNotCritical:
+		return "ErrSecSMIMEKeyUsageNotCritical"
+	case ErrSecSMIMENoEmailAddress:
+		return "ErrSecSMIMENoEmailAddress"
+	case ErrSecSMIMESubjAltNameNotCritical:
+		return "ErrSecSMIMESubjAltNameNotCritical"
+	case ErrSecSSLBadExtendedKeyUsage:
+		return "ErrSecSSLBadExtendedKeyUsage"
+	case ErrSecSelfCheckFailed:
+		return "ErrSecSelfCheckFailed"
+	case ErrSecServiceNotAvailable:
+		return "ErrSecServiceNotAvailable"
+	case ErrSecSigningTimeMissing:
+		return "ErrSecSigningTimeMissing"
+	case ErrSecStagedOperationInProgress:
+		return "ErrSecStagedOperationInProgress"
+	case ErrSecStagedOperationNotStarted:
+		return "ErrSecStagedOperationNotStarted"
+	case ErrSecSuccessValue:
+		return "ErrSecSuccessValue"
+	case ErrSecTagNotFound:
+		return "ErrSecTagNotFound"
+	case ErrSecTimestampAddInfoNotAvailable:
+		return "ErrSecTimestampAddInfoNotAvailable"
+	case ErrSecTimestampBadAlg:
+		return "ErrSecTimestampBadAlg"
+	case ErrSecTimestampBadDataFormat:
+		return "ErrSecTimestampBadDataFormat"
+	case ErrSecTimestampBadRequest:
+		return "ErrSecTimestampBadRequest"
+	case ErrSecTimestampInvalid:
+		return "ErrSecTimestampInvalid"
+	case ErrSecTimestampMissing:
+		return "ErrSecTimestampMissing"
+	case ErrSecTimestampNotTrusted:
+		return "ErrSecTimestampNotTrusted"
+	case ErrSecTimestampRejection:
+		return "ErrSecTimestampRejection"
+	case ErrSecTimestampRevocationNotification:
+		return "ErrSecTimestampRevocationNotification"
+	case ErrSecTimestampRevocationWarning:
+		return "ErrSecTimestampRevocationWarning"
+	case ErrSecTimestampServiceNotAvailable:
+		return "ErrSecTimestampServiceNotAvailable"
+	case ErrSecTimestampSystemFailure:
+		return "ErrSecTimestampSystemFailure"
+	case ErrSecTimestampTimeNotAvailable:
+		return "ErrSecTimestampTimeNotAvailable"
+	case ErrSecTimestampUnacceptedExtension:
+		return "ErrSecTimestampUnacceptedExtension"
+	case ErrSecTimestampUnacceptedPolicy:
+		return "ErrSecTimestampUnacceptedPolicy"
+	case ErrSecTimestampWaiting:
+		return "ErrSecTimestampWaiting"
+	case ErrSecTrustNotAvailable:
+		return "ErrSecTrustNotAvailable"
+	case ErrSecTrustSettingDeny:
+		return "ErrSecTrustSettingDeny"
+	case ErrSecUnimplemented:
+		return "ErrSecUnimplemented"
+	case ErrSecUnknownCRLExtension:
+		return "ErrSecUnknownCRLExtension"
+	case ErrSecUnknownCertExtension:
+		return "ErrSecUnknownCertExtension"
+	case ErrSecUnknownCriticalExtensionFlag:
+		return "ErrSecUnknownCriticalExtensionFlag"
+	case ErrSecUnknownFormat:
+		return "ErrSecUnknownFormat"
+	case ErrSecUnknownQualifiedCertStatement:
+		return "ErrSecUnknownQualifiedCertStatement"
+	case ErrSecUnknownTag:
+		return "ErrSecUnknownTag"
+	case ErrSecUnsupportedAddressType:
+		return "ErrSecUnsupportedAddressType"
+	case ErrSecUnsupportedFieldFormat:
+		return "ErrSecUnsupportedFieldFormat"
+	case ErrSecUnsupportedFormat:
+		return "ErrSecUnsupportedFormat"
+	case ErrSecUnsupportedIndexInfo:
+		return "ErrSecUnsupportedIndexInfo"
+	case ErrSecUnsupportedKeyAttributeMask:
+		return "ErrSecUnsupportedKeyAttributeMask"
+	case ErrSecUnsupportedKeyFormat:
+		return "ErrSecUnsupportedKeyFormat"
+	case ErrSecUnsupportedKeyLabel:
+		return "ErrSecUnsupportedKeyLabel"
+	case ErrSecUnsupportedKeySize:
+		return "ErrSecUnsupportedKeySize"
+	case ErrSecUnsupportedKeyUsageMask:
+		return "ErrSecUnsupportedKeyUsageMask"
+	case ErrSecUnsupportedLocality:
+		return "ErrSecUnsupportedLocality"
+	case ErrSecUnsupportedNumAttributes:
+		return "ErrSecUnsupportedNumAttributes"
+	case ErrSecUnsupportedNumIndexes:
+		return "ErrSecUnsupportedNumIndexes"
+	case ErrSecUnsupportedNumRecordTypes:
+		return "ErrSecUnsupportedNumRecordTypes"
+	case ErrSecUnsupportedNumSelectionPreds:
+		return "ErrSecUnsupportedNumSelectionPreds"
+	case ErrSecUnsupportedOperator:
+		return "ErrSecUnsupportedOperator"
+	case ErrSecUnsupportedQueryLimits:
+		return "ErrSecUnsupportedQueryLimits"
+	case ErrSecUnsupportedService:
+		return "ErrSecUnsupportedService"
+	case ErrSecUnsupportedVectorOfBuffers:
+		return "ErrSecUnsupportedVectorOfBuffers"
+	case ErrSecUserCanceled:
+		return "ErrSecUserCanceled"
+	case ErrSecVerificationFailure:
+		return "ErrSecVerificationFailure"
+	case ErrSecVerifyActionFailed:
+		return "ErrSecVerifyActionFailed"
+	case ErrSecVerifyFailed:
+		return "ErrSecVerifyFailed"
+	case ErrSecWrPerm:
+		return "ErrSecWrPerm"
+	case ErrSecWrongSecVersion:
+		return "ErrSecWrongSecVersion"
+	default:
+		return fmt.Sprintf("ErrSecSuccess(%d)", e)
+	}
+}
+
+type ErrSecureDownloadInvalid int32
 
 const (
-	ErrSecureDownloadInvalidDownload ErrSecureDownloadInvalid = 0
-	ErrSecureDownloadInvalidTicket   ErrSecureDownloadInvalid = 0
+	ErrSecureDownloadInvalidDownload ErrSecureDownloadInvalid = -20053
+	ErrSecureDownloadInvalidTicket   ErrSecureDownloadInvalid = -20052
 )
 
-type ErrSession int
+func (e ErrSecureDownloadInvalid) String() string {
+	switch e {
+	case ErrSecureDownloadInvalidDownload:
+		return "ErrSecureDownloadInvalidDownload"
+	case ErrSecureDownloadInvalidTicket:
+		return "ErrSecureDownloadInvalidTicket"
+	default:
+		return fmt.Sprintf("ErrSecureDownloadInvalid(%d)", e)
+	}
+}
+
+type ErrSession int32
 
 const (
 	// ErrSessionAuthorizationDenied: Authorization denied.
@@ -5952,10 +9218,10 @@ func (e ErrSession) String() string {
 	}
 }
 
-type KAuthorizationCallbacks uint
+type KAuthorizationCallbacks uint32
 
 const (
-	KAuthorizationCallbacksVersion KAuthorizationCallbacks = 0
+	KAuthorizationCallbacksVersion KAuthorizationCallbacks = 4
 )
 
 func (e KAuthorizationCallbacks) String() string {
@@ -5967,7 +9233,7 @@ func (e KAuthorizationCallbacks) String() string {
 	}
 }
 
-type KAuthorizationFlagCanNotPre uint
+type KAuthorizationFlagCanNotPre uint32
 
 const (
 	// KAuthorizationFlagCanNotPreAuthorize: Indicates the Security Server could not preauthorizethe right.
@@ -5983,7 +9249,7 @@ func (e KAuthorizationFlagCanNotPre) String() string {
 	}
 }
 
-type KAuthorizationPluginInterface uint
+type KAuthorizationPluginInterface uint32
 
 const (
 	KAuthorizationPluginInterfaceVersion KAuthorizationPluginInterface = 0
@@ -5998,84 +9264,132 @@ func (e KAuthorizationPluginInterface) String() string {
 	}
 }
 
-type KSec uint
+type KSecCSCheckAllArchitectures uint32
 
 const (
-	// KSecCertEncodingItemAttr: Certificate encoding.
-	KSecCertEncodingItemAttr KSec = 'c'<<24 | 'e'<<16 | 'n'<<8 | 'c' // 'cenc'
-	// KSecCertTypeItemAttr: Certificate type.
-	KSecCertTypeItemAttr KSec = 'c'<<24 | 't'<<16 | 'y'<<8 | 'p' // 'ctyp'
-	// KSecHonorRoot: The access control list should treat the root user as a typical user for ownership purposes.
-	KSecHonorRoot KSec = 0
-	// KSecIssuerItemAttr: DER-encoded issuer distinguished name.
-	KSecIssuerItemAttr KSec = 'i'<<24 | 's'<<16 | 's'<<8 | 'u' // 'issu'
-	// KSecMatchBits: The access control list should be owned by users whose ID matches the specified user ID or who are members of a group whose ID matches the specified group ID parameter.
-	KSecMatchBits KSec = 0
-	// KSecPublicKeyHashItemAttr: Public key hash.
-	KSecPublicKeyHashItemAttr KSec = 'h'<<24 | 'p'<<16 | 'k'<<8 | 'y' // 'hpky'
-	// KSecReadPermStatus: Indicates the keychain is readable.
-	KSecReadPermStatus KSec = 0
-	// KSecSerialNumberItemAttr: DER-encoded certificate serial number (without the tag and length).
-	KSecSerialNumberItemAttr KSec = 's'<<24 | 'n'<<16 | 'b'<<8 | 'r' // 'snbr'
-	// KSecSubjectItemAttr: DER-encoded subject distinguished name.
-	KSecSubjectItemAttr KSec = 's'<<24 | 'u'<<16 | 'b'<<8 | 'j' // 'subj'
-	// KSecSubjectKeyIdentifierItemAttr: Subject key identifier.
-	KSecSubjectKeyIdentifierItemAttr KSec = 's'<<24 | 'k'<<16 | 'i'<<8 | 'd' // 'skid'
-	// KSecUnlockStateStatus: Indicates the keychain is unlocked.
-	KSecUnlockStateStatus KSec = 0
-	// KSecUseOnlyGID: The access control list should be owned by users that are members of a group matching the specified group ID parameter.
-	KSecUseOnlyGID KSec = 0
-	// KSecUseOnlyUID: The access control list should be owned by the user matching the specified user ID parameter.
-	KSecUseOnlyUID KSec = 0
-	// KSecWritePermStatus: Indicates the keychain is writable.
-	KSecWritePermStatus KSec = 0
-)
-
-type KSecCS uint
-
-const (
-	KSecCSAllowNetworkAccess KSecCS = 65536
+	KSecCSAllowNetworkAccess KSecCSCheckAllArchitectures = 65536
 	// KSecCSBasicValidateOnly: Do not validate either the main executable or the bundle resources, if any.
-	KSecCSBasicValidateOnly  KSecCS = 2
-	KSecCSCalculateCMSDigest KSecCS = 64
-	// KSecCSCheckAllArchitectures: For multi-architecture (universal) Mach-O programs, validate all architectures included.
-	KSecCSCheckAllArchitectures        KSecCS = 1
-	KSecCSCheckGatekeeperArchitectures KSecCS = 64
+	KSecCSBasicValidateOnly KSecCSCheckAllArchitectures = 6
+	// KSecCSCheckAllArchitecturesValue: For multi-architecture (universal) Mach-O programs, validate all architectures included.
+	KSecCSCheckAllArchitecturesValue   KSecCSCheckAllArchitectures = 1
+	KSecCSCheckGatekeeperArchitectures KSecCSCheckAllArchitectures = 65
 	// KSecCSCheckNestedCode: For code in bundle form, locate and recursively check embedded code.
-	KSecCSCheckNestedCode KSecCS = 8
-	// KSecCSContentInformation: More information about the file system contents making up the signed code on disk.
-	KSecCSContentInformation KSecCS = 16
-	// KSecCSDedicatedHost: Declares dedicated hosting for the given host.
-	KSecCSDedicatedHost KSecCS = 1
+	KSecCSCheckNestedCode KSecCSCheckAllArchitectures = 8
 	// KSecCSDoNotValidateExecutable: Do not validate the contents of the main executable.
-	KSecCSDoNotValidateExecutable KSecCS = 2
+	KSecCSDoNotValidateExecutable KSecCSCheckAllArchitectures = 2
 	// KSecCSDoNotValidateResources: Do not validate the presence and contents of all bundle resources (if any).
-	KSecCSDoNotValidateResources KSecCS = 4
-	// KSecCSDynamicInformation: Dynamic validity information about running code.
-	KSecCSDynamicInformation       KSecCS = 8
-	KSecCSFastExecutableValidation KSecCS = 131072
-	KSecCSFullReport               KSecCS = 32
-	// KSecCSGenerateGuestHash: Ask the host to generate the unique binary identifier (kSecCodeInfoUnique) from the copy on disk at the path given.
-	KSecCSGenerateGuestHash KSecCS = 2
-	// KSecCSInternalInformation: Internal code signing information.
-	KSecCSInternalInformation KSecCS = 1
-	// KSecCSRequirementInformation: Code requirements—including the designated requirement—embedded in the code.
-	KSecCSRequirementInformation KSecCS = 4
-	KSecCSRestrictSidebandData   KSecCS = 512
-	KSecCSRestrictSymlinks       KSecCS = 128
-	KSecCSRestrictToAppLike      KSecCS = 256
-	// KSecCSSigningInformation: Cryptographic signing information.
-	KSecCSSigningInformation KSecCS = 2
-	KSecCSSingleThreaded     KSecCS = 4096
-	// KSecCSSkipResourceDirectory: Suppress validating the resource directory.
-	KSecCSSkipResourceDirectory KSecCS = 32
+	KSecCSDoNotValidateResources   KSecCSCheckAllArchitectures = 4
+	KSecCSFastExecutableValidation KSecCSCheckAllArchitectures = 131072
+	KSecCSFullReport               KSecCSCheckAllArchitectures = 32
+	KSecCSRestrictSidebandData     KSecCSCheckAllArchitectures = 512
+	KSecCSRestrictSymlinks         KSecCSCheckAllArchitectures = 128
+	KSecCSRestrictToAppLike        KSecCSCheckAllArchitectures = 256
+	KSecCSSingleThreaded           KSecCSCheckAllArchitectures = 4096
 	// KSecCSStrictValidate: Perform additional checks to ensure the validity of code in bundle form.
-	KSecCSStrictValidate         KSecCS = 16
-	KSecCSUseSoftwareSigningCert KSecCS = 1024
-	KSecCSValidatePEH            KSecCS = 2048
+	KSecCSStrictValidate         KSecCSCheckAllArchitectures = 16
+	KSecCSUseSoftwareSigningCert KSecCSCheckAllArchitectures = 1024
+	KSecCSValidatePEH            KSecCSCheckAllArchitectures = 2048
 )
 
-type KSecCSUseAll uint
+func (e KSecCSCheckAllArchitectures) String() string {
+	switch e {
+	case KSecCSAllowNetworkAccess:
+		return "KSecCSAllowNetworkAccess"
+	case KSecCSBasicValidateOnly:
+		return "KSecCSBasicValidateOnly"
+	case KSecCSCheckAllArchitecturesValue:
+		return "KSecCSCheckAllArchitecturesValue"
+	case KSecCSCheckGatekeeperArchitectures:
+		return "KSecCSCheckGatekeeperArchitectures"
+	case KSecCSCheckNestedCode:
+		return "KSecCSCheckNestedCode"
+	case KSecCSDoNotValidateExecutable:
+		return "KSecCSDoNotValidateExecutable"
+	case KSecCSDoNotValidateResources:
+		return "KSecCSDoNotValidateResources"
+	case KSecCSFastExecutableValidation:
+		return "KSecCSFastExecutableValidation"
+	case KSecCSFullReport:
+		return "KSecCSFullReport"
+	case KSecCSRestrictSidebandData:
+		return "KSecCSRestrictSidebandData"
+	case KSecCSRestrictSymlinks:
+		return "KSecCSRestrictSymlinks"
+	case KSecCSRestrictToAppLike:
+		return "KSecCSRestrictToAppLike"
+	case KSecCSSingleThreaded:
+		return "KSecCSSingleThreaded"
+	case KSecCSStrictValidate:
+		return "KSecCSStrictValidate"
+	case KSecCSUseSoftwareSigningCert:
+		return "KSecCSUseSoftwareSigningCert"
+	case KSecCSValidatePEH:
+		return "KSecCSValidatePEH"
+	default:
+		return fmt.Sprintf("KSecCSCheckAllArchitectures(%d)", e)
+	}
+}
+
+type KSecCSDedicatedHost uint32
+
+const (
+	// KSecCSDedicatedHostValue: Declares dedicated hosting for the given host.
+	KSecCSDedicatedHostValue KSecCSDedicatedHost = 1
+	// KSecCSGenerateGuestHash: Ask the host to generate the unique binary identifier (kSecCodeInfoUnique) from the copy on disk at the path given.
+	KSecCSGenerateGuestHash KSecCSDedicatedHost = 2
+)
+
+func (e KSecCSDedicatedHost) String() string {
+	switch e {
+	case KSecCSDedicatedHostValue:
+		return "KSecCSDedicatedHostValue"
+	case KSecCSGenerateGuestHash:
+		return "KSecCSGenerateGuestHash"
+	default:
+		return fmt.Sprintf("KSecCSDedicatedHost(%d)", e)
+	}
+}
+
+type KSecCSInternalInformation uint32
+
+const (
+	KSecCSCalculateCMSDigest KSecCSInternalInformation = 64
+	// KSecCSContentInformation: More information about the file system contents making up the signed code on disk.
+	KSecCSContentInformation KSecCSInternalInformation = 16
+	// KSecCSDynamicInformation: Dynamic validity information about running code.
+	KSecCSDynamicInformation KSecCSInternalInformation = 8
+	// KSecCSInternalInformationValue: Internal code signing information.
+	KSecCSInternalInformationValue KSecCSInternalInformation = 1
+	// KSecCSRequirementInformation: Code requirements—including the designated requirement—embedded in the code.
+	KSecCSRequirementInformation KSecCSInternalInformation = 4
+	// KSecCSSigningInformation: Cryptographic signing information.
+	KSecCSSigningInformation KSecCSInternalInformation = 2
+	// KSecCSSkipResourceDirectory: Suppress validating the resource directory.
+	KSecCSSkipResourceDirectory KSecCSInternalInformation = 32
+)
+
+func (e KSecCSInternalInformation) String() string {
+	switch e {
+	case KSecCSCalculateCMSDigest:
+		return "KSecCSCalculateCMSDigest"
+	case KSecCSContentInformation:
+		return "KSecCSContentInformation"
+	case KSecCSDynamicInformation:
+		return "KSecCSDynamicInformation"
+	case KSecCSInternalInformationValue:
+		return "KSecCSInternalInformationValue"
+	case KSecCSRequirementInformation:
+		return "KSecCSRequirementInformation"
+	case KSecCSSigningInformation:
+		return "KSecCSSigningInformation"
+	case KSecCSSkipResourceDirectory:
+		return "KSecCSSkipResourceDirectory"
+	default:
+		return fmt.Sprintf("KSecCSInternalInformation(%d)", e)
+	}
+}
+
+type KSecCSUseAll uint32
 
 const (
 	// KSecCSUseAllArchitectures: Flag for requesting all architectures.
@@ -6091,66 +9405,127 @@ func (e KSecCSUseAll) String() string {
 	}
 }
 
-type KSecKey uint
+type KSecKeyKeyClass int32
 
 const (
 	// KSecKeyAlias: Type blob; currently unused.
-	KSecKeyAlias KSecKey = 0
+	KSecKeyAlias KSecKeyKeyClass = 2
 	// KSecKeyAlwaysSensitive: Type uint32; value is nonzero.
-	KSecKeyAlwaysSensitive KSecKey = 0
+	KSecKeyAlwaysSensitive KSecKeyKeyClass = 15
 	// KSecKeyApplicationTag: Type blob; currently unused.
-	KSecKeyApplicationTag KSecKey = 0
+	KSecKeyApplicationTag KSecKeyKeyClass = 7
 	// KSecKeyDecrypt: Type uint32; value is nonzero.
-	KSecKeyDecrypt KSecKey = 0
+	KSecKeyDecrypt KSecKeyKeyClass = 19
 	// KSecKeyEffectiveKeySize: Type uint32; value is the effective number of bits in this key.
-	KSecKeyEffectiveKeySize KSecKey = 0
+	KSecKeyEffectiveKeySize KSecKeyKeyClass = 11
 	// KSecKeyEncrypt: Type uint32; value is nonzero.
-	KSecKeyEncrypt KSecKey = 0
+	KSecKeyEncrypt KSecKeyKeyClass = 18
 	// KSecKeyEndDate: Type `CSSM_DATE`.
-	KSecKeyEndDate KSecKey = 0
+	KSecKeyEndDate KSecKeyKeyClass = 13
 	// KSecKeyExtractable: Type uint32; value is nonzero.
-	KSecKeyExtractable KSecKey = 0
-	// KSecKeyKeyClass: Type uint32 (`CSSM_KEYCLASS`); value is one of `CSSM_KEYCLASS_PUBLIC_KEY`, `CSSM_KEYCLASS_PRIVATE_KEY` or `CSSM_KEYCLASS_SESSION_KEY`.
-	KSecKeyKeyClass KSecKey = 0
+	KSecKeyExtractable KSecKeyKeyClass = 16
+	// KSecKeyKeyClassValue: Type uint32 (`CSSM_KEYCLASS`); value is one of `CSSM_KEYCLASS_PUBLIC_KEY`, `CSSM_KEYCLASS_PRIVATE_KEY` or `CSSM_KEYCLASS_SESSION_KEY`.
+	KSecKeyKeyClassValue KSecKeyKeyClass = 0
 	// KSecKeyKeyCreator: Type data.
-	KSecKeyKeyCreator KSecKey = 0
+	KSecKeyKeyCreator KSecKeyKeyClass = 8
 	// KSecKeyKeySizeInBits: Type uint32; value is the number of bits in this key.
-	KSecKeyKeySizeInBits KSecKey = 0
+	KSecKeyKeySizeInBits KSecKeyKeyClass = 10
 	// KSecKeyKeyType: Type uint32; value is a CSSM algorithm (`CSSM_ALGORITHMS`) representing the algorithm associated with this key.
-	KSecKeyKeyType KSecKey = 0
+	KSecKeyKeyType KSecKeyKeyClass = 9
 	// KSecKeyLabel: # Discussion
-	KSecKeyLabel KSecKey = 0
+	KSecKeyLabel KSecKeyKeyClass = 6
 	// KSecKeyModifiable: Type uint32; value is nonzero.
-	KSecKeyModifiable KSecKey = 0
+	KSecKeyModifiable KSecKeyKeyClass = 5
 	// KSecKeyNeverExtractable: Type uint32; value is nonzero.
-	KSecKeyNeverExtractable KSecKey = 0
+	KSecKeyNeverExtractable KSecKeyKeyClass = 17
 	// KSecKeyPermanent: Type uint32; value is nonzero.
-	KSecKeyPermanent KSecKey = 0
+	KSecKeyPermanent KSecKeyKeyClass = 3
 	// KSecKeyPrintName: Type blob; human readable name of the key.
-	KSecKeyPrintName KSecKey = 0
+	KSecKeyPrintName KSecKeyKeyClass = 1
 	// KSecKeyPrivate: Type uint32; value is nonzero.
-	KSecKeyPrivate KSecKey = 0
+	KSecKeyPrivate KSecKeyKeyClass = 4
 	// KSecKeySensitive: Type uint32; value is nonzero.
-	KSecKeySensitive KSecKey = 0
+	KSecKeySensitive KSecKeyKeyClass = 14
 	// KSecKeySign: Type uint32, value is nonzero.
-	KSecKeySign KSecKey = 0
+	KSecKeySign KSecKeyKeyClass = 21
 	// KSecKeySignRecover: Type uint32.
-	KSecKeySignRecover KSecKey = 0
+	KSecKeySignRecover KSecKeyKeyClass = 23
 	// KSecKeyUnwrap: Type uint32; value is nonzero.
-	KSecKeyUnwrap KSecKey = 0
+	KSecKeyUnwrap KSecKeyKeyClass = 26
 	// KSecKeyVerify: Type uint32, value is nonzero.
-	KSecKeyVerify KSecKey = 0
+	KSecKeyVerify KSecKeyKeyClass = 22
 	// KSecKeyVerifyRecover: Type uint32.
-	KSecKeyVerifyRecover KSecKey = 0
+	KSecKeyVerifyRecover KSecKeyKeyClass = 24
 	// KSecKeyWrap: Type uint32; value is nonzero.
-	KSecKeyWrap KSecKey = 0
+	KSecKeyWrap KSecKeyKeyClass = 25
 	// Deprecated.
-	KSecKeyDerive KSecKey = 0
+	KSecKeyDerive KSecKeyKeyClass = 20
 	// Deprecated.
-	KSecKeyStartDate KSecKey = 0
+	KSecKeyStartDate KSecKeyKeyClass = 12
 )
 
-type KSecNo uint
+func (e KSecKeyKeyClass) String() string {
+	switch e {
+	case KSecKeyAlias:
+		return "KSecKeyAlias"
+	case KSecKeyAlwaysSensitive:
+		return "KSecKeyAlwaysSensitive"
+	case KSecKeyApplicationTag:
+		return "KSecKeyApplicationTag"
+	case KSecKeyDecrypt:
+		return "KSecKeyDecrypt"
+	case KSecKeyEffectiveKeySize:
+		return "KSecKeyEffectiveKeySize"
+	case KSecKeyEncrypt:
+		return "KSecKeyEncrypt"
+	case KSecKeyEndDate:
+		return "KSecKeyEndDate"
+	case KSecKeyExtractable:
+		return "KSecKeyExtractable"
+	case KSecKeyKeyClassValue:
+		return "KSecKeyKeyClassValue"
+	case KSecKeyKeyCreator:
+		return "KSecKeyKeyCreator"
+	case KSecKeyKeySizeInBits:
+		return "KSecKeyKeySizeInBits"
+	case KSecKeyKeyType:
+		return "KSecKeyKeyType"
+	case KSecKeyLabel:
+		return "KSecKeyLabel"
+	case KSecKeyModifiable:
+		return "KSecKeyModifiable"
+	case KSecKeyNeverExtractable:
+		return "KSecKeyNeverExtractable"
+	case KSecKeyPermanent:
+		return "KSecKeyPermanent"
+	case KSecKeyPrintName:
+		return "KSecKeyPrintName"
+	case KSecKeyPrivate:
+		return "KSecKeyPrivate"
+	case KSecKeySensitive:
+		return "KSecKeySensitive"
+	case KSecKeySign:
+		return "KSecKeySign"
+	case KSecKeySignRecover:
+		return "KSecKeySignRecover"
+	case KSecKeyUnwrap:
+		return "KSecKeyUnwrap"
+	case KSecKeyVerify:
+		return "KSecKeyVerify"
+	case KSecKeyVerifyRecover:
+		return "KSecKeyVerifyRecover"
+	case KSecKeyWrap:
+		return "KSecKeyWrap"
+	case KSecKeyDerive:
+		return "KSecKeyDerive"
+	case KSecKeyStartDate:
+		return "KSecKeyStartDate"
+	default:
+		return fmt.Sprintf("KSecKeyKeyClass(%d)", e)
+	}
+}
+
+type KSecNo uint32
 
 const (
 	// KSecNoGuest: Not a valid [SecGuestRef] object.
@@ -6170,7 +9545,7 @@ type KSecRevocation uint
 
 const (
 	// KSecRevocationCRLMethod: Perform revocation checking using the CRL (Certification Revocation List) method.
-	KSecRevocationCRLMethod KSecRevocation = 17
+	KSecRevocationCRLMethod KSecRevocation = 2
 	// KSecRevocationNetworkAccessDisabled: Consult only locally cached replies; do not use network access.
 	KSecRevocationNetworkAccessDisabled KSecRevocation = 16
 	// KSecRevocationOCSPMethod: Perform revocation     checking using OCSP (Online Certificate Status Protocol).
@@ -6180,7 +9555,7 @@ const (
 	// KSecRevocationRequirePositiveResponse: Require a positive response to pass the policy.
 	KSecRevocationRequirePositiveResponse KSecRevocation = 8
 	// KSecRevocationUseAnyAvailableMethod: Perform either OCSP or CRL checking.
-	KSecRevocationUseAnyAvailableMethod KSecRevocation = 0
+	KSecRevocationUseAnyAvailableMethod KSecRevocation = 3
 )
 
 func (e KSecRevocation) String() string {
@@ -6202,59 +9577,209 @@ func (e KSecRevocation) String() string {
 	}
 }
 
-type KSecTransform uint
+type KSecSubjectItemAttr uint32
+
+const (
+	// KSecCertEncodingItemAttr: Certificate encoding.
+	KSecCertEncodingItemAttr KSecSubjectItemAttr = 'c'<<24 | 'e'<<16 | 'n'<<8 | 'c' // 'cenc'
+	// KSecCertTypeItemAttr: Certificate type.
+	KSecCertTypeItemAttr KSecSubjectItemAttr = 'c'<<24 | 't'<<16 | 'y'<<8 | 'p' // 'ctyp'
+	// KSecIssuerItemAttr: DER-encoded issuer distinguished name.
+	KSecIssuerItemAttr KSecSubjectItemAttr = 'i'<<24 | 's'<<16 | 's'<<8 | 'u' // 'issu'
+	// KSecPublicKeyHashItemAttr: Public key hash.
+	KSecPublicKeyHashItemAttr KSecSubjectItemAttr = 'h'<<24 | 'p'<<16 | 'k'<<8 | 'y' // 'hpky'
+	// KSecSerialNumberItemAttr: DER-encoded certificate serial number (without the tag and length).
+	KSecSerialNumberItemAttr KSecSubjectItemAttr = 's'<<24 | 'n'<<16 | 'b'<<8 | 'r' // 'snbr'
+	// KSecSubjectItemAttrValue: DER-encoded subject distinguished name.
+	KSecSubjectItemAttrValue KSecSubjectItemAttr = 's'<<24 | 'u'<<16 | 'b'<<8 | 'j' // 'subj'
+	// KSecSubjectKeyIdentifierItemAttr: Subject key identifier.
+	KSecSubjectKeyIdentifierItemAttr KSecSubjectItemAttr = 's'<<24 | 'k'<<16 | 'i'<<8 | 'd' // 'skid'
+)
+
+func (e KSecSubjectItemAttr) String() string {
+	switch e {
+	case KSecCertEncodingItemAttr:
+		return "KSecCertEncodingItemAttr"
+	case KSecCertTypeItemAttr:
+		return "KSecCertTypeItemAttr"
+	case KSecIssuerItemAttr:
+		return "KSecIssuerItemAttr"
+	case KSecPublicKeyHashItemAttr:
+		return "KSecPublicKeyHashItemAttr"
+	case KSecSerialNumberItemAttr:
+		return "KSecSerialNumberItemAttr"
+	case KSecSubjectItemAttrValue:
+		return "KSecSubjectItemAttrValue"
+	case KSecSubjectKeyIdentifierItemAttr:
+		return "KSecSubjectKeyIdentifierItemAttr"
+	default:
+		return fmt.Sprintf("KSecSubjectItemAttr(%d)", e)
+	}
+}
+
+type KSecTransform int
 
 const (
 	// Deprecated.
-	KSecTransformErrorAbortInProgress KSecTransform = 0
+	KSecTransformErrorAbortInProgress KSecTransform = 19
 	// Deprecated.
-	KSecTransformErrorAborted KSecTransform = 0
+	KSecTransformErrorAborted KSecTransform = 20
 	// Deprecated.
-	KSecTransformErrorAttributeNotFound KSecTransform = 0
+	KSecTransformErrorAttributeNotFound KSecTransform = 1
 	// Deprecated.
-	KSecTransformErrorInvalidAlgorithm KSecTransform = 0
+	KSecTransformErrorInvalidAlgorithm KSecTransform = 6
 	// Deprecated.
-	KSecTransformErrorInvalidConnection KSecTransform = 0
+	KSecTransformErrorInvalidConnection KSecTransform = 15
 	// Deprecated.
-	KSecTransformErrorInvalidInput KSecTransform = 0
+	KSecTransformErrorInvalidInput KSecTransform = 10
 	// Deprecated.
-	KSecTransformErrorInvalidInputDictionary KSecTransform = 0
+	KSecTransformErrorInvalidInputDictionary KSecTransform = 5
 	// Deprecated.
-	KSecTransformErrorInvalidLength KSecTransform = 0
+	KSecTransformErrorInvalidLength KSecTransform = 7
 	// Deprecated.
-	KSecTransformErrorInvalidOperation KSecTransform = 0
+	KSecTransformErrorInvalidOperation KSecTransform = 2
 	// Deprecated.
-	KSecTransformErrorInvalidType KSecTransform = 0
+	KSecTransformErrorInvalidType KSecTransform = 8
 	// Deprecated.
-	KSecTransformErrorMissingParameter KSecTransform = 0
+	KSecTransformErrorMissingParameter KSecTransform = 14
 	// Deprecated.
-	KSecTransformErrorMoreThanOneOutput KSecTransform = 0
+	KSecTransformErrorMoreThanOneOutput KSecTransform = 4
 	// Deprecated.
-	KSecTransformErrorNameAlreadyRegistered KSecTransform = 0
+	KSecTransformErrorNameAlreadyRegistered KSecTransform = 11
 	// Deprecated.
-	KSecTransformErrorNotInitializedCorrectly KSecTransform = 0
+	KSecTransformErrorNotInitializedCorrectly KSecTransform = 3
 	// Deprecated.
-	KSecTransformErrorUnsupportedAttribute KSecTransform = 0
+	KSecTransformErrorUnsupportedAttribute KSecTransform = 12
 	// Deprecated.
-	KSecTransformInvalidArgument KSecTransform = 0
+	KSecTransformInvalidArgument KSecTransform = 21
 	// Deprecated.
-	KSecTransformInvalidOverride KSecTransform = 0
+	KSecTransformInvalidOverride KSecTransform = 17
 	// Deprecated.
-	KSecTransformOperationNotSupportedOnGroup KSecTransform = 0
+	KSecTransformOperationNotSupportedOnGroup KSecTransform = 13
 	// Deprecated.
-	KSecTransformTransformIsExecuting KSecTransform = 0
+	KSecTransformTransformIsExecuting KSecTransform = 16
 	// Deprecated.
-	KSecTransformTransformIsNotRegistered KSecTransform = 0
+	KSecTransformTransformIsNotRegistered KSecTransform = 18
 )
 
-type NoSecuritySession uint
+func (e KSecTransform) String() string {
+	switch e {
+	case KSecTransformErrorAbortInProgress:
+		return "KSecTransformErrorAbortInProgress"
+	case KSecTransformErrorAborted:
+		return "KSecTransformErrorAborted"
+	case KSecTransformErrorAttributeNotFound:
+		return "KSecTransformErrorAttributeNotFound"
+	case KSecTransformErrorInvalidAlgorithm:
+		return "KSecTransformErrorInvalidAlgorithm"
+	case KSecTransformErrorInvalidConnection:
+		return "KSecTransformErrorInvalidConnection"
+	case KSecTransformErrorInvalidInput:
+		return "KSecTransformErrorInvalidInput"
+	case KSecTransformErrorInvalidInputDictionary:
+		return "KSecTransformErrorInvalidInputDictionary"
+	case KSecTransformErrorInvalidLength:
+		return "KSecTransformErrorInvalidLength"
+	case KSecTransformErrorInvalidOperation:
+		return "KSecTransformErrorInvalidOperation"
+	case KSecTransformErrorInvalidType:
+		return "KSecTransformErrorInvalidType"
+	case KSecTransformErrorMissingParameter:
+		return "KSecTransformErrorMissingParameter"
+	case KSecTransformErrorMoreThanOneOutput:
+		return "KSecTransformErrorMoreThanOneOutput"
+	case KSecTransformErrorNameAlreadyRegistered:
+		return "KSecTransformErrorNameAlreadyRegistered"
+	case KSecTransformErrorNotInitializedCorrectly:
+		return "KSecTransformErrorNotInitializedCorrectly"
+	case KSecTransformErrorUnsupportedAttribute:
+		return "KSecTransformErrorUnsupportedAttribute"
+	case KSecTransformInvalidArgument:
+		return "KSecTransformInvalidArgument"
+	case KSecTransformInvalidOverride:
+		return "KSecTransformInvalidOverride"
+	case KSecTransformOperationNotSupportedOnGroup:
+		return "KSecTransformOperationNotSupportedOnGroup"
+	case KSecTransformTransformIsExecuting:
+		return "KSecTransformTransformIsExecuting"
+	case KSecTransformTransformIsNotRegistered:
+		return "KSecTransformTransformIsNotRegistered"
+	default:
+		return fmt.Sprintf("KSecTransform(%d)", e)
+	}
+}
+
+type KSecUnlockStateStatus uint32
+
+const (
+	// KSecReadPermStatus: Indicates the keychain is readable.
+	KSecReadPermStatus KSecUnlockStateStatus = 2
+	// KSecUnlockStateStatusValue: Indicates the keychain is unlocked.
+	KSecUnlockStateStatusValue KSecUnlockStateStatus = 1
+	// KSecWritePermStatus: Indicates the keychain is writable.
+	KSecWritePermStatus KSecUnlockStateStatus = 4
+)
+
+func (e KSecUnlockStateStatus) String() string {
+	switch e {
+	case KSecReadPermStatus:
+		return "KSecReadPermStatus"
+	case KSecUnlockStateStatusValue:
+		return "KSecUnlockStateStatusValue"
+	case KSecWritePermStatus:
+		return "KSecWritePermStatus"
+	default:
+		return fmt.Sprintf("KSecUnlockStateStatus(%d)", e)
+	}
+}
+
+type KSecUseOnlyUID uint32
+
+const (
+	// KSecHonorRoot: The access control list should treat the root user as a typical user for ownership purposes.
+	KSecHonorRoot KSecUseOnlyUID = 0x100
+	// KSecMatchBits: The access control list should be owned by users whose ID matches the specified user ID or who are members of a group whose ID matches the specified group ID parameter.
+	KSecMatchBits KSecUseOnlyUID = 3
+	// KSecUseOnlyGID: The access control list should be owned by users that are members of a group matching the specified group ID parameter.
+	KSecUseOnlyGID KSecUseOnlyUID = 2
+	// KSecUseOnlyUIDValue: The access control list should be owned by the user matching the specified user ID parameter.
+	KSecUseOnlyUIDValue KSecUseOnlyUID = 1
+)
+
+func (e KSecUseOnlyUID) String() string {
+	switch e {
+	case KSecHonorRoot:
+		return "KSecHonorRoot"
+	case KSecMatchBits:
+		return "KSecMatchBits"
+	case KSecUseOnlyGID:
+		return "KSecUseOnlyGID"
+	case KSecUseOnlyUIDValue:
+		return "KSecUseOnlyUIDValue"
+	default:
+		return fmt.Sprintf("KSecUseOnlyUID(%d)", e)
+	}
+}
+
+type NoSecuritySession uint32
 
 const (
 	// CallerSecuritySession: A value that is a placeholder for the caller’s session.
-	CallerSecuritySession NoSecuritySession = 0
+	CallerSecuritySession NoSecuritySession = 4294967295
 	// NoSecuritySessionValue: Not a valid session.
 	NoSecuritySessionValue NoSecuritySession = 0
 )
+
+func (e NoSecuritySession) String() string {
+	switch e {
+	case CallerSecuritySession:
+		return "CallerSecuritySession"
+	case NoSecuritySessionValue:
+		return "NoSecuritySessionValue"
+	default:
+		return fmt.Sprintf("NoSecuritySession(%d)", e)
+	}
+}
 
 // See: https://developer.apple.com/documentation/Security/SSLAuthenticate
 type SSLAuthenticate int32
@@ -6362,192 +9887,515 @@ func (e SSLConnectionType) String() string {
 	}
 }
 
-type SSLNullWithNullNull uint
+type SSLNullWithNullNull uint16
 
 const (
 	// SSL_DHE_DSS_EXPORT_WITH_DES40_CBC_SHA: Session key size conforms to pre-1998 US export restrictions.
-	SSL_DHE_DSS_EXPORT_WITH_DES40_CBC_SHA SSLNullWithNullNull = 17
-	SSL_DHE_DSS_WITH_3DES_EDE_CBC_SHA     SSLNullWithNullNull = 19
-	SSL_DHE_DSS_WITH_DES_CBC_SHA          SSLNullWithNullNull = 18
+	SSL_DHE_DSS_EXPORT_WITH_DES40_CBC_SHA SSLNullWithNullNull = 0x11
+	SSL_DHE_DSS_WITH_3DES_EDE_CBC_SHA     SSLNullWithNullNull = 0x13
+	SSL_DHE_DSS_WITH_DES_CBC_SHA          SSLNullWithNullNull = 0x12
 	// SSL_DHE_RSA_EXPORT_WITH_DES40_CBC_SHA: Session key size conforms to pre-1998 US export restrictions.
-	SSL_DHE_RSA_EXPORT_WITH_DES40_CBC_SHA SSLNullWithNullNull = 20
-	SSL_DHE_RSA_WITH_3DES_EDE_CBC_SHA     SSLNullWithNullNull = 22
-	SSL_DHE_RSA_WITH_DES_CBC_SHA          SSLNullWithNullNull = 21
-	SSL_DH_DSS_EXPORT_WITH_DES40_CBC_SHA  SSLNullWithNullNull = 11
-	SSL_DH_DSS_WITH_3DES_EDE_CBC_SHA      SSLNullWithNullNull = 13
-	SSL_DH_DSS_WITH_DES_CBC_SHA           SSLNullWithNullNull = 12
+	SSL_DHE_RSA_EXPORT_WITH_DES40_CBC_SHA SSLNullWithNullNull = 0x14
+	SSL_DHE_RSA_WITH_3DES_EDE_CBC_SHA     SSLNullWithNullNull = 0x16
+	SSL_DHE_RSA_WITH_DES_CBC_SHA          SSLNullWithNullNull = 0x15
+	SSL_DH_DSS_EXPORT_WITH_DES40_CBC_SHA  SSLNullWithNullNull = 0xb
+	SSL_DH_DSS_WITH_3DES_EDE_CBC_SHA      SSLNullWithNullNull = 0xd
+	SSL_DH_DSS_WITH_DES_CBC_SHA           SSLNullWithNullNull = 0xc
 	// SSL_DH_RSA_EXPORT_WITH_DES40_CBC_SHA: Session key size conforms to pre-1998 US export restrictions.
-	SSL_DH_RSA_EXPORT_WITH_DES40_CBC_SHA SSLNullWithNullNull = 14
-	SSL_DH_RSA_WITH_3DES_EDE_CBC_SHA     SSLNullWithNullNull = 16
-	SSL_DH_RSA_WITH_DES_CBC_SHA          SSLNullWithNullNull = 15
+	SSL_DH_RSA_EXPORT_WITH_DES40_CBC_SHA SSLNullWithNullNull = 0xe
+	SSL_DH_RSA_WITH_3DES_EDE_CBC_SHA     SSLNullWithNullNull = 0x10
+	SSL_DH_RSA_WITH_DES_CBC_SHA          SSLNullWithNullNull = 0xf
 	// SSL_DH_anon_EXPORT_WITH_DES40_CBC_SHA: Session key size conforms to pre-1998 US export restrictions.
-	SSL_DH_anon_EXPORT_WITH_DES40_CBC_SHA SSLNullWithNullNull = 25
+	SSL_DH_anon_EXPORT_WITH_DES40_CBC_SHA SSLNullWithNullNull = 0x19
 	// SSL_DH_anon_EXPORT_WITH_RC4_40_MD5: Session key size conforms to pre-1998 US export restrictions.
-	SSL_DH_anon_EXPORT_WITH_RC4_40_MD5     SSLNullWithNullNull = 23
-	SSL_DH_anon_WITH_3DES_EDE_CBC_SHA      SSLNullWithNullNull = 27
-	SSL_DH_anon_WITH_DES_CBC_SHA           SSLNullWithNullNull = 26
-	SSL_DH_anon_WITH_RC4_128_MD5           SSLNullWithNullNull = 24
-	SSL_FORTEZZA_DMS_WITH_FORTEZZA_CBC_SHA SSLNullWithNullNull = 29
-	SSL_FORTEZZA_DMS_WITH_NULL_SHA         SSLNullWithNullNull = 28
-	SSL_NO_SUCH_CIPHERSUITE                SSLNullWithNullNull = 65535
+	SSL_DH_anon_EXPORT_WITH_RC4_40_MD5     SSLNullWithNullNull = 0x17
+	SSL_DH_anon_WITH_3DES_EDE_CBC_SHA      SSLNullWithNullNull = 0x1b
+	SSL_DH_anon_WITH_DES_CBC_SHA           SSLNullWithNullNull = 0x1a
+	SSL_DH_anon_WITH_RC4_128_MD5           SSLNullWithNullNull = 0x18
+	SSL_FORTEZZA_DMS_WITH_FORTEZZA_CBC_SHA SSLNullWithNullNull = 0x1d
+	SSL_FORTEZZA_DMS_WITH_NULL_SHA         SSLNullWithNullNull = 0x1c
+	SSL_NO_SUCH_CIPHERSUITE                SSLNullWithNullNull = 0xffff
 	SSL_NULL_WITH_NULL_NULL                SSLNullWithNullNull = 0
 	// SSL_RSA_EXPORT_WITH_DES40_CBC_SHA: Session key size conforms to pre-1998 US export restrictions.
-	SSL_RSA_EXPORT_WITH_DES40_CBC_SHA SSLNullWithNullNull = 8
+	SSL_RSA_EXPORT_WITH_DES40_CBC_SHA SSLNullWithNullNull = 0x8
 	// SSL_RSA_EXPORT_WITH_RC2_CBC_40_MD5: Session key size conforms to pre-1998 US export restrictions.
-	SSL_RSA_EXPORT_WITH_RC2_CBC_40_MD5 SSLNullWithNullNull = 6
+	SSL_RSA_EXPORT_WITH_RC2_CBC_40_MD5 SSLNullWithNullNull = 0x6
 	// SSL_RSA_EXPORT_WITH_RC4_40_MD5: Session key size conforms to pre-1998 US export restrictions.
-	SSL_RSA_EXPORT_WITH_RC4_40_MD5 SSLNullWithNullNull = 3
+	SSL_RSA_EXPORT_WITH_RC4_40_MD5 SSLNullWithNullNull = 0x3
 	// SSL_RSA_WITH_3DES_EDE_CBC_MD5: This value can be specified for SSL 2 but not SSL 3.
-	SSL_RSA_WITH_3DES_EDE_CBC_MD5 SSLNullWithNullNull = 65411
-	SSL_RSA_WITH_3DES_EDE_CBC_SHA SSLNullWithNullNull = 10
+	SSL_RSA_WITH_3DES_EDE_CBC_MD5 SSLNullWithNullNull = 0xff83
+	SSL_RSA_WITH_3DES_EDE_CBC_SHA SSLNullWithNullNull = 0xa
 	// SSL_RSA_WITH_DES_CBC_MD5: This value can be specified for SSL 2 but not SSL 3.
-	SSL_RSA_WITH_DES_CBC_MD5 SSLNullWithNullNull = 65410
-	SSL_RSA_WITH_DES_CBC_SHA SSLNullWithNullNull = 9
+	SSL_RSA_WITH_DES_CBC_MD5 SSLNullWithNullNull = 0xff82
+	SSL_RSA_WITH_DES_CBC_SHA SSLNullWithNullNull = 0x9
 	// SSL_RSA_WITH_IDEA_CBC_MD5: This value can be specified for SSL 2 but not SSL 3.
-	SSL_RSA_WITH_IDEA_CBC_MD5 SSLNullWithNullNull = 65409
-	SSL_RSA_WITH_IDEA_CBC_SHA SSLNullWithNullNull = 7
-	SSL_RSA_WITH_NULL_MD5     SSLNullWithNullNull = 1
-	SSL_RSA_WITH_NULL_SHA     SSLNullWithNullNull = 2
+	SSL_RSA_WITH_IDEA_CBC_MD5 SSLNullWithNullNull = 0xff81
+	SSL_RSA_WITH_IDEA_CBC_SHA SSLNullWithNullNull = 0x7
+	SSL_RSA_WITH_NULL_MD5     SSLNullWithNullNull = 0x1
+	SSL_RSA_WITH_NULL_SHA     SSLNullWithNullNull = 0x2
 	// SSL_RSA_WITH_RC2_CBC_MD5: This value can be specified for SSL 2 but not SSL 3.
-	SSL_RSA_WITH_RC2_CBC_MD5                      SSLNullWithNullNull = 65408
-	SSL_RSA_WITH_RC4_128_MD5                      SSLNullWithNullNull = 4
-	SSL_RSA_WITH_RC4_128_SHA                      SSLNullWithNullNull = 5
-	TLS_AES_128_CCM_8_SHA256                      SSLNullWithNullNull = 4869
-	TLS_AES_128_CCM_SHA256                        SSLNullWithNullNull = 4868
-	TLS_AES_128_GCM_SHA256                        SSLNullWithNullNull = 4865
-	TLS_AES_256_GCM_SHA384                        SSLNullWithNullNull = 4866
-	TLS_CHACHA20_POLY1305_SHA256                  SSLNullWithNullNull = 4867
-	TLS_DHE_DSS_WITH_3DES_EDE_CBC_SHA             SSLNullWithNullNull = 19
-	TLS_DHE_DSS_WITH_AES_128_CBC_SHA              SSLNullWithNullNull = 50
-	TLS_DHE_DSS_WITH_AES_128_CBC_SHA256           SSLNullWithNullNull = 64
-	TLS_DHE_DSS_WITH_AES_128_GCM_SHA256           SSLNullWithNullNull = 162
-	TLS_DHE_DSS_WITH_AES_256_CBC_SHA              SSLNullWithNullNull = 56
-	TLS_DHE_DSS_WITH_AES_256_CBC_SHA256           SSLNullWithNullNull = 106
-	TLS_DHE_DSS_WITH_AES_256_GCM_SHA384           SSLNullWithNullNull = 163
-	TLS_DHE_PSK_WITH_3DES_EDE_CBC_SHA             SSLNullWithNullNull = 143
-	TLS_DHE_PSK_WITH_AES_128_CBC_SHA              SSLNullWithNullNull = 144
-	TLS_DHE_PSK_WITH_AES_128_CBC_SHA256           SSLNullWithNullNull = 178
-	TLS_DHE_PSK_WITH_AES_128_GCM_SHA256           SSLNullWithNullNull = 170
-	TLS_DHE_PSK_WITH_AES_256_CBC_SHA              SSLNullWithNullNull = 145
-	TLS_DHE_PSK_WITH_AES_256_CBC_SHA384           SSLNullWithNullNull = 179
-	TLS_DHE_PSK_WITH_AES_256_GCM_SHA384           SSLNullWithNullNull = 171
-	TLS_DHE_PSK_WITH_NULL_SHA                     SSLNullWithNullNull = 45
-	TLS_DHE_PSK_WITH_NULL_SHA256                  SSLNullWithNullNull = 180
-	TLS_DHE_PSK_WITH_NULL_SHA384                  SSLNullWithNullNull = 181
-	TLS_DHE_PSK_WITH_RC4_128_SHA                  SSLNullWithNullNull = 142
-	TLS_DHE_RSA_WITH_3DES_EDE_CBC_SHA             SSLNullWithNullNull = 22
-	TLS_DHE_RSA_WITH_AES_128_CBC_SHA              SSLNullWithNullNull = 51
-	TLS_DHE_RSA_WITH_AES_128_CBC_SHA256           SSLNullWithNullNull = 103
-	TLS_DHE_RSA_WITH_AES_128_GCM_SHA256           SSLNullWithNullNull = 158
-	TLS_DHE_RSA_WITH_AES_256_CBC_SHA              SSLNullWithNullNull = 57
-	TLS_DHE_RSA_WITH_AES_256_CBC_SHA256           SSLNullWithNullNull = 107
-	TLS_DHE_RSA_WITH_AES_256_GCM_SHA384           SSLNullWithNullNull = 159
-	TLS_DH_DSS_WITH_3DES_EDE_CBC_SHA              SSLNullWithNullNull = 13
-	TLS_DH_DSS_WITH_AES_128_CBC_SHA               SSLNullWithNullNull = 48
-	TLS_DH_DSS_WITH_AES_128_CBC_SHA256            SSLNullWithNullNull = 62
-	TLS_DH_DSS_WITH_AES_128_GCM_SHA256            SSLNullWithNullNull = 164
-	TLS_DH_DSS_WITH_AES_256_CBC_SHA               SSLNullWithNullNull = 54
-	TLS_DH_DSS_WITH_AES_256_CBC_SHA256            SSLNullWithNullNull = 104
-	TLS_DH_DSS_WITH_AES_256_GCM_SHA384            SSLNullWithNullNull = 165
-	TLS_DH_RSA_WITH_3DES_EDE_CBC_SHA              SSLNullWithNullNull = 16
-	TLS_DH_RSA_WITH_AES_128_CBC_SHA               SSLNullWithNullNull = 49
-	TLS_DH_RSA_WITH_AES_128_CBC_SHA256            SSLNullWithNullNull = 63
-	TLS_DH_RSA_WITH_AES_128_GCM_SHA256            SSLNullWithNullNull = 160
-	TLS_DH_RSA_WITH_AES_256_CBC_SHA               SSLNullWithNullNull = 55
-	TLS_DH_RSA_WITH_AES_256_CBC_SHA256            SSLNullWithNullNull = 105
-	TLS_DH_RSA_WITH_AES_256_GCM_SHA384            SSLNullWithNullNull = 161
-	TLS_DH_anon_WITH_3DES_EDE_CBC_SHA             SSLNullWithNullNull = 27
-	TLS_DH_anon_WITH_AES_128_CBC_SHA              SSLNullWithNullNull = 52
-	TLS_DH_anon_WITH_AES_128_CBC_SHA256           SSLNullWithNullNull = 108
-	TLS_DH_anon_WITH_AES_128_GCM_SHA256           SSLNullWithNullNull = 166
-	TLS_DH_anon_WITH_AES_256_CBC_SHA              SSLNullWithNullNull = 58
-	TLS_DH_anon_WITH_AES_256_CBC_SHA256           SSLNullWithNullNull = 109
-	TLS_DH_anon_WITH_AES_256_GCM_SHA384           SSLNullWithNullNull = 167
-	TLS_DH_anon_WITH_RC4_128_MD5                  SSLNullWithNullNull = 24
-	TLS_ECDHE_ECDSA_WITH_3DES_EDE_CBC_SHA         SSLNullWithNullNull = 49160
-	TLS_ECDHE_ECDSA_WITH_AES_128_CBC_SHA          SSLNullWithNullNull = 49161
-	TLS_ECDHE_ECDSA_WITH_AES_128_CBC_SHA256       SSLNullWithNullNull = 49187
-	TLS_ECDHE_ECDSA_WITH_AES_128_GCM_SHA256       SSLNullWithNullNull = 49195
-	TLS_ECDHE_ECDSA_WITH_AES_256_CBC_SHA          SSLNullWithNullNull = 49162
-	TLS_ECDHE_ECDSA_WITH_AES_256_CBC_SHA384       SSLNullWithNullNull = 49188
-	TLS_ECDHE_ECDSA_WITH_AES_256_GCM_SHA384       SSLNullWithNullNull = 49196
-	TLS_ECDHE_ECDSA_WITH_CHACHA20_POLY1305_SHA256 SSLNullWithNullNull = 52393
-	TLS_ECDHE_ECDSA_WITH_NULL_SHA                 SSLNullWithNullNull = 49158
-	TLS_ECDHE_ECDSA_WITH_RC4_128_SHA              SSLNullWithNullNull = 49159
-	TLS_ECDHE_PSK_WITH_AES_128_CBC_SHA            SSLNullWithNullNull = 49205
-	TLS_ECDHE_PSK_WITH_AES_256_CBC_SHA            SSLNullWithNullNull = 49206
-	TLS_ECDHE_PSK_WITH_CHACHA20_POLY1305_SHA256   SSLNullWithNullNull = 52396
-	TLS_ECDHE_RSA_WITH_3DES_EDE_CBC_SHA           SSLNullWithNullNull = 49170
-	TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA            SSLNullWithNullNull = 49171
-	TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256         SSLNullWithNullNull = 49191
-	TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256         SSLNullWithNullNull = 49199
-	TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA            SSLNullWithNullNull = 49172
-	TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA384         SSLNullWithNullNull = 49192
-	TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384         SSLNullWithNullNull = 49200
-	TLS_ECDHE_RSA_WITH_CHACHA20_POLY1305_SHA256   SSLNullWithNullNull = 52392
-	TLS_ECDHE_RSA_WITH_NULL_SHA                   SSLNullWithNullNull = 49168
-	TLS_ECDHE_RSA_WITH_RC4_128_SHA                SSLNullWithNullNull = 49169
-	TLS_ECDH_ECDSA_WITH_3DES_EDE_CBC_SHA          SSLNullWithNullNull = 49155
-	TLS_ECDH_ECDSA_WITH_AES_128_CBC_SHA           SSLNullWithNullNull = 49156
-	TLS_ECDH_ECDSA_WITH_AES_128_CBC_SHA256        SSLNullWithNullNull = 49189
-	TLS_ECDH_ECDSA_WITH_AES_128_GCM_SHA256        SSLNullWithNullNull = 49197
-	TLS_ECDH_ECDSA_WITH_AES_256_CBC_SHA           SSLNullWithNullNull = 49157
-	TLS_ECDH_ECDSA_WITH_AES_256_CBC_SHA384        SSLNullWithNullNull = 49190
-	TLS_ECDH_ECDSA_WITH_AES_256_GCM_SHA384        SSLNullWithNullNull = 49198
-	TLS_ECDH_ECDSA_WITH_NULL_SHA                  SSLNullWithNullNull = 49153
-	TLS_ECDH_ECDSA_WITH_RC4_128_SHA               SSLNullWithNullNull = 49154
-	TLS_ECDH_RSA_WITH_3DES_EDE_CBC_SHA            SSLNullWithNullNull = 49165
-	TLS_ECDH_RSA_WITH_AES_128_CBC_SHA             SSLNullWithNullNull = 49166
-	TLS_ECDH_RSA_WITH_AES_128_CBC_SHA256          SSLNullWithNullNull = 49193
-	TLS_ECDH_RSA_WITH_AES_128_GCM_SHA256          SSLNullWithNullNull = 49201
-	TLS_ECDH_RSA_WITH_AES_256_CBC_SHA             SSLNullWithNullNull = 49167
-	TLS_ECDH_RSA_WITH_AES_256_CBC_SHA384          SSLNullWithNullNull = 49194
-	TLS_ECDH_RSA_WITH_AES_256_GCM_SHA384          SSLNullWithNullNull = 49202
-	TLS_ECDH_RSA_WITH_NULL_SHA                    SSLNullWithNullNull = 49163
-	TLS_ECDH_RSA_WITH_RC4_128_SHA                 SSLNullWithNullNull = 49164
-	TLS_ECDH_anon_WITH_3DES_EDE_CBC_SHA           SSLNullWithNullNull = 49175
-	TLS_ECDH_anon_WITH_AES_128_CBC_SHA            SSLNullWithNullNull = 49176
-	TLS_ECDH_anon_WITH_AES_256_CBC_SHA            SSLNullWithNullNull = 49177
-	TLS_ECDH_anon_WITH_NULL_SHA                   SSLNullWithNullNull = 49173
-	TLS_ECDH_anon_WITH_RC4_128_SHA                SSLNullWithNullNull = 49174
-	TLS_EMPTY_RENEGOTIATION_INFO_SCSV             SSLNullWithNullNull = 255
+	SSL_RSA_WITH_RC2_CBC_MD5                      SSLNullWithNullNull = 0xff80
+	SSL_RSA_WITH_RC4_128_MD5                      SSLNullWithNullNull = 0x4
+	SSL_RSA_WITH_RC4_128_SHA                      SSLNullWithNullNull = 0x5
+	TLS_AES_128_CCM_8_SHA256                      SSLNullWithNullNull = 0x1305
+	TLS_AES_128_CCM_SHA256                        SSLNullWithNullNull = 0x1304
+	TLS_AES_128_GCM_SHA256                        SSLNullWithNullNull = 0x1301
+	TLS_AES_256_GCM_SHA384                        SSLNullWithNullNull = 0x1302
+	TLS_CHACHA20_POLY1305_SHA256                  SSLNullWithNullNull = 0x1303
+	TLS_DHE_DSS_WITH_3DES_EDE_CBC_SHA             SSLNullWithNullNull = 0x13
+	TLS_DHE_DSS_WITH_AES_128_CBC_SHA              SSLNullWithNullNull = 0x32
+	TLS_DHE_DSS_WITH_AES_128_CBC_SHA256           SSLNullWithNullNull = 0x40
+	TLS_DHE_DSS_WITH_AES_128_GCM_SHA256           SSLNullWithNullNull = 0xa2
+	TLS_DHE_DSS_WITH_AES_256_CBC_SHA              SSLNullWithNullNull = 0x38
+	TLS_DHE_DSS_WITH_AES_256_CBC_SHA256           SSLNullWithNullNull = 0x6a
+	TLS_DHE_DSS_WITH_AES_256_GCM_SHA384           SSLNullWithNullNull = 0xa3
+	TLS_DHE_PSK_WITH_3DES_EDE_CBC_SHA             SSLNullWithNullNull = 0x8f
+	TLS_DHE_PSK_WITH_AES_128_CBC_SHA              SSLNullWithNullNull = 0x90
+	TLS_DHE_PSK_WITH_AES_128_CBC_SHA256           SSLNullWithNullNull = 0xb2
+	TLS_DHE_PSK_WITH_AES_128_GCM_SHA256           SSLNullWithNullNull = 0xaa
+	TLS_DHE_PSK_WITH_AES_256_CBC_SHA              SSLNullWithNullNull = 0x91
+	TLS_DHE_PSK_WITH_AES_256_CBC_SHA384           SSLNullWithNullNull = 0xb3
+	TLS_DHE_PSK_WITH_AES_256_GCM_SHA384           SSLNullWithNullNull = 0xab
+	TLS_DHE_PSK_WITH_NULL_SHA                     SSLNullWithNullNull = 0x2d
+	TLS_DHE_PSK_WITH_NULL_SHA256                  SSLNullWithNullNull = 0xb4
+	TLS_DHE_PSK_WITH_NULL_SHA384                  SSLNullWithNullNull = 0xb5
+	TLS_DHE_PSK_WITH_RC4_128_SHA                  SSLNullWithNullNull = 0x8e
+	TLS_DHE_RSA_WITH_3DES_EDE_CBC_SHA             SSLNullWithNullNull = 0x16
+	TLS_DHE_RSA_WITH_AES_128_CBC_SHA              SSLNullWithNullNull = 0x33
+	TLS_DHE_RSA_WITH_AES_128_CBC_SHA256           SSLNullWithNullNull = 0x67
+	TLS_DHE_RSA_WITH_AES_128_GCM_SHA256           SSLNullWithNullNull = 0x9e
+	TLS_DHE_RSA_WITH_AES_256_CBC_SHA              SSLNullWithNullNull = 0x39
+	TLS_DHE_RSA_WITH_AES_256_CBC_SHA256           SSLNullWithNullNull = 0x6b
+	TLS_DHE_RSA_WITH_AES_256_GCM_SHA384           SSLNullWithNullNull = 0x9f
+	TLS_DH_DSS_WITH_3DES_EDE_CBC_SHA              SSLNullWithNullNull = 0xd
+	TLS_DH_DSS_WITH_AES_128_CBC_SHA               SSLNullWithNullNull = 0x30
+	TLS_DH_DSS_WITH_AES_128_CBC_SHA256            SSLNullWithNullNull = 0x3e
+	TLS_DH_DSS_WITH_AES_128_GCM_SHA256            SSLNullWithNullNull = 0xa4
+	TLS_DH_DSS_WITH_AES_256_CBC_SHA               SSLNullWithNullNull = 0x36
+	TLS_DH_DSS_WITH_AES_256_CBC_SHA256            SSLNullWithNullNull = 0x68
+	TLS_DH_DSS_WITH_AES_256_GCM_SHA384            SSLNullWithNullNull = 0xa5
+	TLS_DH_RSA_WITH_3DES_EDE_CBC_SHA              SSLNullWithNullNull = 0x10
+	TLS_DH_RSA_WITH_AES_128_CBC_SHA               SSLNullWithNullNull = 0x31
+	TLS_DH_RSA_WITH_AES_128_CBC_SHA256            SSLNullWithNullNull = 0x3f
+	TLS_DH_RSA_WITH_AES_128_GCM_SHA256            SSLNullWithNullNull = 0xa0
+	TLS_DH_RSA_WITH_AES_256_CBC_SHA               SSLNullWithNullNull = 0x37
+	TLS_DH_RSA_WITH_AES_256_CBC_SHA256            SSLNullWithNullNull = 0x69
+	TLS_DH_RSA_WITH_AES_256_GCM_SHA384            SSLNullWithNullNull = 0xa1
+	TLS_DH_anon_WITH_3DES_EDE_CBC_SHA             SSLNullWithNullNull = 0x1b
+	TLS_DH_anon_WITH_AES_128_CBC_SHA              SSLNullWithNullNull = 0x34
+	TLS_DH_anon_WITH_AES_128_CBC_SHA256           SSLNullWithNullNull = 0x6c
+	TLS_DH_anon_WITH_AES_128_GCM_SHA256           SSLNullWithNullNull = 0xa6
+	TLS_DH_anon_WITH_AES_256_CBC_SHA              SSLNullWithNullNull = 0x3a
+	TLS_DH_anon_WITH_AES_256_CBC_SHA256           SSLNullWithNullNull = 0x6d
+	TLS_DH_anon_WITH_AES_256_GCM_SHA384           SSLNullWithNullNull = 0xa7
+	TLS_DH_anon_WITH_RC4_128_MD5                  SSLNullWithNullNull = 0x18
+	TLS_ECDHE_ECDSA_WITH_3DES_EDE_CBC_SHA         SSLNullWithNullNull = 0xc008
+	TLS_ECDHE_ECDSA_WITH_AES_128_CBC_SHA          SSLNullWithNullNull = 0xc009
+	TLS_ECDHE_ECDSA_WITH_AES_128_CBC_SHA256       SSLNullWithNullNull = 0xc023
+	TLS_ECDHE_ECDSA_WITH_AES_128_GCM_SHA256       SSLNullWithNullNull = 0xc02b
+	TLS_ECDHE_ECDSA_WITH_AES_256_CBC_SHA          SSLNullWithNullNull = 0xc00a
+	TLS_ECDHE_ECDSA_WITH_AES_256_CBC_SHA384       SSLNullWithNullNull = 0xc024
+	TLS_ECDHE_ECDSA_WITH_AES_256_GCM_SHA384       SSLNullWithNullNull = 0xc02c
+	TLS_ECDHE_ECDSA_WITH_CHACHA20_POLY1305_SHA256 SSLNullWithNullNull = 0xcca9
+	TLS_ECDHE_ECDSA_WITH_NULL_SHA                 SSLNullWithNullNull = 0xc006
+	TLS_ECDHE_ECDSA_WITH_RC4_128_SHA              SSLNullWithNullNull = 0xc007
+	TLS_ECDHE_PSK_WITH_AES_128_CBC_SHA            SSLNullWithNullNull = 0xc035
+	TLS_ECDHE_PSK_WITH_AES_256_CBC_SHA            SSLNullWithNullNull = 0xc036
+	TLS_ECDHE_PSK_WITH_CHACHA20_POLY1305_SHA256   SSLNullWithNullNull = 0xccac
+	TLS_ECDHE_RSA_WITH_3DES_EDE_CBC_SHA           SSLNullWithNullNull = 0xc012
+	TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA            SSLNullWithNullNull = 0xc013
+	TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256         SSLNullWithNullNull = 0xc027
+	TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256         SSLNullWithNullNull = 0xc02f
+	TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA            SSLNullWithNullNull = 0xc014
+	TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA384         SSLNullWithNullNull = 0xc028
+	TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384         SSLNullWithNullNull = 0xc030
+	TLS_ECDHE_RSA_WITH_CHACHA20_POLY1305_SHA256   SSLNullWithNullNull = 0xcca8
+	TLS_ECDHE_RSA_WITH_NULL_SHA                   SSLNullWithNullNull = 0xc010
+	TLS_ECDHE_RSA_WITH_RC4_128_SHA                SSLNullWithNullNull = 0xc011
+	TLS_ECDH_ECDSA_WITH_3DES_EDE_CBC_SHA          SSLNullWithNullNull = 0xc003
+	TLS_ECDH_ECDSA_WITH_AES_128_CBC_SHA           SSLNullWithNullNull = 0xc004
+	TLS_ECDH_ECDSA_WITH_AES_128_CBC_SHA256        SSLNullWithNullNull = 0xc025
+	TLS_ECDH_ECDSA_WITH_AES_128_GCM_SHA256        SSLNullWithNullNull = 0xc02d
+	TLS_ECDH_ECDSA_WITH_AES_256_CBC_SHA           SSLNullWithNullNull = 0xc005
+	TLS_ECDH_ECDSA_WITH_AES_256_CBC_SHA384        SSLNullWithNullNull = 0xc026
+	TLS_ECDH_ECDSA_WITH_AES_256_GCM_SHA384        SSLNullWithNullNull = 0xc02e
+	TLS_ECDH_ECDSA_WITH_NULL_SHA                  SSLNullWithNullNull = 0xc001
+	TLS_ECDH_ECDSA_WITH_RC4_128_SHA               SSLNullWithNullNull = 0xc002
+	TLS_ECDH_RSA_WITH_3DES_EDE_CBC_SHA            SSLNullWithNullNull = 0xc00d
+	TLS_ECDH_RSA_WITH_AES_128_CBC_SHA             SSLNullWithNullNull = 0xc00e
+	TLS_ECDH_RSA_WITH_AES_128_CBC_SHA256          SSLNullWithNullNull = 0xc029
+	TLS_ECDH_RSA_WITH_AES_128_GCM_SHA256          SSLNullWithNullNull = 0xc031
+	TLS_ECDH_RSA_WITH_AES_256_CBC_SHA             SSLNullWithNullNull = 0xc00f
+	TLS_ECDH_RSA_WITH_AES_256_CBC_SHA384          SSLNullWithNullNull = 0xc02a
+	TLS_ECDH_RSA_WITH_AES_256_GCM_SHA384          SSLNullWithNullNull = 0xc032
+	TLS_ECDH_RSA_WITH_NULL_SHA                    SSLNullWithNullNull = 0xc00b
+	TLS_ECDH_RSA_WITH_RC4_128_SHA                 SSLNullWithNullNull = 0xc00c
+	TLS_ECDH_anon_WITH_3DES_EDE_CBC_SHA           SSLNullWithNullNull = 0xc017
+	TLS_ECDH_anon_WITH_AES_128_CBC_SHA            SSLNullWithNullNull = 0xc018
+	TLS_ECDH_anon_WITH_AES_256_CBC_SHA            SSLNullWithNullNull = 0xc019
+	TLS_ECDH_anon_WITH_NULL_SHA                   SSLNullWithNullNull = 0xc015
+	TLS_ECDH_anon_WITH_RC4_128_SHA                SSLNullWithNullNull = 0xc016
+	TLS_EMPTY_RENEGOTIATION_INFO_SCSV             SSLNullWithNullNull = 0xff
 	TLS_NULL_WITH_NULL_NULL                       SSLNullWithNullNull = 0
-	TLS_PSK_WITH_3DES_EDE_CBC_SHA                 SSLNullWithNullNull = 139
-	TLS_PSK_WITH_AES_128_CBC_SHA                  SSLNullWithNullNull = 140
-	TLS_PSK_WITH_AES_128_CBC_SHA256               SSLNullWithNullNull = 174
-	TLS_PSK_WITH_AES_128_GCM_SHA256               SSLNullWithNullNull = 168
-	TLS_PSK_WITH_AES_256_CBC_SHA                  SSLNullWithNullNull = 141
-	TLS_PSK_WITH_AES_256_CBC_SHA384               SSLNullWithNullNull = 175
-	TLS_PSK_WITH_AES_256_GCM_SHA384               SSLNullWithNullNull = 169
-	TLS_PSK_WITH_CHACHA20_POLY1305_SHA256         SSLNullWithNullNull = 52395
-	TLS_PSK_WITH_NULL_SHA                         SSLNullWithNullNull = 44
-	TLS_PSK_WITH_NULL_SHA256                      SSLNullWithNullNull = 176
-	TLS_PSK_WITH_NULL_SHA384                      SSLNullWithNullNull = 177
-	TLS_PSK_WITH_RC4_128_SHA                      SSLNullWithNullNull = 138
-	TLS_RSA_PSK_WITH_3DES_EDE_CBC_SHA             SSLNullWithNullNull = 147
-	TLS_RSA_PSK_WITH_AES_128_CBC_SHA              SSLNullWithNullNull = 148
-	TLS_RSA_PSK_WITH_AES_128_CBC_SHA256           SSLNullWithNullNull = 182
-	TLS_RSA_PSK_WITH_AES_128_GCM_SHA256           SSLNullWithNullNull = 172
-	TLS_RSA_PSK_WITH_AES_256_CBC_SHA              SSLNullWithNullNull = 149
-	TLS_RSA_PSK_WITH_AES_256_CBC_SHA384           SSLNullWithNullNull = 183
-	TLS_RSA_PSK_WITH_AES_256_GCM_SHA384           SSLNullWithNullNull = 173
-	TLS_RSA_PSK_WITH_NULL_SHA                     SSLNullWithNullNull = 46
-	TLS_RSA_PSK_WITH_NULL_SHA256                  SSLNullWithNullNull = 184
-	TLS_RSA_PSK_WITH_NULL_SHA384                  SSLNullWithNullNull = 185
-	TLS_RSA_PSK_WITH_RC4_128_SHA                  SSLNullWithNullNull = 146
-	TLS_RSA_WITH_3DES_EDE_CBC_SHA                 SSLNullWithNullNull = 10
-	TLS_RSA_WITH_AES_128_CBC_SHA                  SSLNullWithNullNull = 47
-	TLS_RSA_WITH_AES_128_CBC_SHA256               SSLNullWithNullNull = 60
-	TLS_RSA_WITH_AES_128_GCM_SHA256               SSLNullWithNullNull = 156
-	TLS_RSA_WITH_AES_256_CBC_SHA                  SSLNullWithNullNull = 53
-	TLS_RSA_WITH_AES_256_CBC_SHA256               SSLNullWithNullNull = 61
-	TLS_RSA_WITH_AES_256_GCM_SHA384               SSLNullWithNullNull = 157
-	TLS_RSA_WITH_NULL_MD5                         SSLNullWithNullNull = 1
-	TLS_RSA_WITH_NULL_SHA                         SSLNullWithNullNull = 2
-	TLS_RSA_WITH_NULL_SHA256                      SSLNullWithNullNull = 59
-	TLS_RSA_WITH_RC4_128_MD5                      SSLNullWithNullNull = 4
-	TLS_RSA_WITH_RC4_128_SHA                      SSLNullWithNullNull = 5
+	TLS_PSK_WITH_3DES_EDE_CBC_SHA                 SSLNullWithNullNull = 0x8b
+	TLS_PSK_WITH_AES_128_CBC_SHA                  SSLNullWithNullNull = 0x8c
+	TLS_PSK_WITH_AES_128_CBC_SHA256               SSLNullWithNullNull = 0xae
+	TLS_PSK_WITH_AES_128_GCM_SHA256               SSLNullWithNullNull = 0xa8
+	TLS_PSK_WITH_AES_256_CBC_SHA                  SSLNullWithNullNull = 0x8d
+	TLS_PSK_WITH_AES_256_CBC_SHA384               SSLNullWithNullNull = 0xaf
+	TLS_PSK_WITH_AES_256_GCM_SHA384               SSLNullWithNullNull = 0xa9
+	TLS_PSK_WITH_CHACHA20_POLY1305_SHA256         SSLNullWithNullNull = 0xccab
+	TLS_PSK_WITH_NULL_SHA                         SSLNullWithNullNull = 0x2c
+	TLS_PSK_WITH_NULL_SHA256                      SSLNullWithNullNull = 0xb0
+	TLS_PSK_WITH_NULL_SHA384                      SSLNullWithNullNull = 0xb1
+	TLS_PSK_WITH_RC4_128_SHA                      SSLNullWithNullNull = 0x8a
+	TLS_RSA_PSK_WITH_3DES_EDE_CBC_SHA             SSLNullWithNullNull = 0x93
+	TLS_RSA_PSK_WITH_AES_128_CBC_SHA              SSLNullWithNullNull = 0x94
+	TLS_RSA_PSK_WITH_AES_128_CBC_SHA256           SSLNullWithNullNull = 0xb6
+	TLS_RSA_PSK_WITH_AES_128_GCM_SHA256           SSLNullWithNullNull = 0xac
+	TLS_RSA_PSK_WITH_AES_256_CBC_SHA              SSLNullWithNullNull = 0x95
+	TLS_RSA_PSK_WITH_AES_256_CBC_SHA384           SSLNullWithNullNull = 0xb7
+	TLS_RSA_PSK_WITH_AES_256_GCM_SHA384           SSLNullWithNullNull = 0xad
+	TLS_RSA_PSK_WITH_NULL_SHA                     SSLNullWithNullNull = 0x2e
+	TLS_RSA_PSK_WITH_NULL_SHA256                  SSLNullWithNullNull = 0xb8
+	TLS_RSA_PSK_WITH_NULL_SHA384                  SSLNullWithNullNull = 0xb9
+	TLS_RSA_PSK_WITH_RC4_128_SHA                  SSLNullWithNullNull = 0x92
+	TLS_RSA_WITH_3DES_EDE_CBC_SHA                 SSLNullWithNullNull = 0xa
+	TLS_RSA_WITH_AES_128_CBC_SHA                  SSLNullWithNullNull = 0x2f
+	TLS_RSA_WITH_AES_128_CBC_SHA256               SSLNullWithNullNull = 0x3c
+	TLS_RSA_WITH_AES_128_GCM_SHA256               SSLNullWithNullNull = 0x9c
+	TLS_RSA_WITH_AES_256_CBC_SHA                  SSLNullWithNullNull = 0x35
+	TLS_RSA_WITH_AES_256_CBC_SHA256               SSLNullWithNullNull = 0x3d
+	TLS_RSA_WITH_AES_256_GCM_SHA384               SSLNullWithNullNull = 0x9d
+	TLS_RSA_WITH_NULL_MD5                         SSLNullWithNullNull = 0x1
+	TLS_RSA_WITH_NULL_SHA                         SSLNullWithNullNull = 0x2
+	TLS_RSA_WITH_NULL_SHA256                      SSLNullWithNullNull = 0x3b
+	TLS_RSA_WITH_RC4_128_MD5                      SSLNullWithNullNull = 0x4
+	TLS_RSA_WITH_RC4_128_SHA                      SSLNullWithNullNull = 0x5
 )
+
+func (e SSLNullWithNullNull) String() string {
+	switch e {
+	case SSL_DHE_DSS_EXPORT_WITH_DES40_CBC_SHA:
+		return "SSL_DHE_DSS_EXPORT_WITH_DES40_CBC_SHA"
+	case SSL_DHE_DSS_WITH_3DES_EDE_CBC_SHA:
+		return "SSL_DHE_DSS_WITH_3DES_EDE_CBC_SHA"
+	case SSL_DHE_DSS_WITH_DES_CBC_SHA:
+		return "SSL_DHE_DSS_WITH_DES_CBC_SHA"
+	case SSL_DHE_RSA_EXPORT_WITH_DES40_CBC_SHA:
+		return "SSL_DHE_RSA_EXPORT_WITH_DES40_CBC_SHA"
+	case SSL_DHE_RSA_WITH_3DES_EDE_CBC_SHA:
+		return "SSL_DHE_RSA_WITH_3DES_EDE_CBC_SHA"
+	case SSL_DHE_RSA_WITH_DES_CBC_SHA:
+		return "SSL_DHE_RSA_WITH_DES_CBC_SHA"
+	case SSL_DH_DSS_EXPORT_WITH_DES40_CBC_SHA:
+		return "SSL_DH_DSS_EXPORT_WITH_DES40_CBC_SHA"
+	case SSL_DH_DSS_WITH_3DES_EDE_CBC_SHA:
+		return "SSL_DH_DSS_WITH_3DES_EDE_CBC_SHA"
+	case SSL_DH_DSS_WITH_DES_CBC_SHA:
+		return "SSL_DH_DSS_WITH_DES_CBC_SHA"
+	case SSL_DH_RSA_EXPORT_WITH_DES40_CBC_SHA:
+		return "SSL_DH_RSA_EXPORT_WITH_DES40_CBC_SHA"
+	case SSL_DH_RSA_WITH_3DES_EDE_CBC_SHA:
+		return "SSL_DH_RSA_WITH_3DES_EDE_CBC_SHA"
+	case SSL_DH_RSA_WITH_DES_CBC_SHA:
+		return "SSL_DH_RSA_WITH_DES_CBC_SHA"
+	case SSL_DH_anon_EXPORT_WITH_DES40_CBC_SHA:
+		return "SSL_DH_anon_EXPORT_WITH_DES40_CBC_SHA"
+	case SSL_DH_anon_EXPORT_WITH_RC4_40_MD5:
+		return "SSL_DH_anon_EXPORT_WITH_RC4_40_MD5"
+	case SSL_DH_anon_WITH_3DES_EDE_CBC_SHA:
+		return "SSL_DH_anon_WITH_3DES_EDE_CBC_SHA"
+	case SSL_DH_anon_WITH_DES_CBC_SHA:
+		return "SSL_DH_anon_WITH_DES_CBC_SHA"
+	case SSL_DH_anon_WITH_RC4_128_MD5:
+		return "SSL_DH_anon_WITH_RC4_128_MD5"
+	case SSL_FORTEZZA_DMS_WITH_FORTEZZA_CBC_SHA:
+		return "SSL_FORTEZZA_DMS_WITH_FORTEZZA_CBC_SHA"
+	case SSL_FORTEZZA_DMS_WITH_NULL_SHA:
+		return "SSL_FORTEZZA_DMS_WITH_NULL_SHA"
+	case SSL_NO_SUCH_CIPHERSUITE:
+		return "SSL_NO_SUCH_CIPHERSUITE"
+	case SSL_NULL_WITH_NULL_NULL:
+		return "SSL_NULL_WITH_NULL_NULL"
+	case SSL_RSA_EXPORT_WITH_DES40_CBC_SHA:
+		return "SSL_RSA_EXPORT_WITH_DES40_CBC_SHA"
+	case SSL_RSA_EXPORT_WITH_RC2_CBC_40_MD5:
+		return "SSL_RSA_EXPORT_WITH_RC2_CBC_40_MD5"
+	case SSL_RSA_EXPORT_WITH_RC4_40_MD5:
+		return "SSL_RSA_EXPORT_WITH_RC4_40_MD5"
+	case SSL_RSA_WITH_3DES_EDE_CBC_MD5:
+		return "SSL_RSA_WITH_3DES_EDE_CBC_MD5"
+	case SSL_RSA_WITH_3DES_EDE_CBC_SHA:
+		return "SSL_RSA_WITH_3DES_EDE_CBC_SHA"
+	case SSL_RSA_WITH_DES_CBC_MD5:
+		return "SSL_RSA_WITH_DES_CBC_MD5"
+	case SSL_RSA_WITH_DES_CBC_SHA:
+		return "SSL_RSA_WITH_DES_CBC_SHA"
+	case SSL_RSA_WITH_IDEA_CBC_MD5:
+		return "SSL_RSA_WITH_IDEA_CBC_MD5"
+	case SSL_RSA_WITH_IDEA_CBC_SHA:
+		return "SSL_RSA_WITH_IDEA_CBC_SHA"
+	case SSL_RSA_WITH_NULL_MD5:
+		return "SSL_RSA_WITH_NULL_MD5"
+	case SSL_RSA_WITH_NULL_SHA:
+		return "SSL_RSA_WITH_NULL_SHA"
+	case SSL_RSA_WITH_RC2_CBC_MD5:
+		return "SSL_RSA_WITH_RC2_CBC_MD5"
+	case SSL_RSA_WITH_RC4_128_MD5:
+		return "SSL_RSA_WITH_RC4_128_MD5"
+	case SSL_RSA_WITH_RC4_128_SHA:
+		return "SSL_RSA_WITH_RC4_128_SHA"
+	case TLS_AES_128_CCM_8_SHA256:
+		return "TLS_AES_128_CCM_8_SHA256"
+	case TLS_AES_128_CCM_SHA256:
+		return "TLS_AES_128_CCM_SHA256"
+	case TLS_AES_128_GCM_SHA256:
+		return "TLS_AES_128_GCM_SHA256"
+	case TLS_AES_256_GCM_SHA384:
+		return "TLS_AES_256_GCM_SHA384"
+	case TLS_CHACHA20_POLY1305_SHA256:
+		return "TLS_CHACHA20_POLY1305_SHA256"
+	case TLS_DHE_DSS_WITH_AES_128_CBC_SHA:
+		return "TLS_DHE_DSS_WITH_AES_128_CBC_SHA"
+	case TLS_DHE_DSS_WITH_AES_128_CBC_SHA256:
+		return "TLS_DHE_DSS_WITH_AES_128_CBC_SHA256"
+	case TLS_DHE_DSS_WITH_AES_128_GCM_SHA256:
+		return "TLS_DHE_DSS_WITH_AES_128_GCM_SHA256"
+	case TLS_DHE_DSS_WITH_AES_256_CBC_SHA:
+		return "TLS_DHE_DSS_WITH_AES_256_CBC_SHA"
+	case TLS_DHE_DSS_WITH_AES_256_CBC_SHA256:
+		return "TLS_DHE_DSS_WITH_AES_256_CBC_SHA256"
+	case TLS_DHE_DSS_WITH_AES_256_GCM_SHA384:
+		return "TLS_DHE_DSS_WITH_AES_256_GCM_SHA384"
+	case TLS_DHE_PSK_WITH_3DES_EDE_CBC_SHA:
+		return "TLS_DHE_PSK_WITH_3DES_EDE_CBC_SHA"
+	case TLS_DHE_PSK_WITH_AES_128_CBC_SHA:
+		return "TLS_DHE_PSK_WITH_AES_128_CBC_SHA"
+	case TLS_DHE_PSK_WITH_AES_128_CBC_SHA256:
+		return "TLS_DHE_PSK_WITH_AES_128_CBC_SHA256"
+	case TLS_DHE_PSK_WITH_AES_128_GCM_SHA256:
+		return "TLS_DHE_PSK_WITH_AES_128_GCM_SHA256"
+	case TLS_DHE_PSK_WITH_AES_256_CBC_SHA:
+		return "TLS_DHE_PSK_WITH_AES_256_CBC_SHA"
+	case TLS_DHE_PSK_WITH_AES_256_CBC_SHA384:
+		return "TLS_DHE_PSK_WITH_AES_256_CBC_SHA384"
+	case TLS_DHE_PSK_WITH_AES_256_GCM_SHA384:
+		return "TLS_DHE_PSK_WITH_AES_256_GCM_SHA384"
+	case TLS_DHE_PSK_WITH_NULL_SHA:
+		return "TLS_DHE_PSK_WITH_NULL_SHA"
+	case TLS_DHE_PSK_WITH_NULL_SHA256:
+		return "TLS_DHE_PSK_WITH_NULL_SHA256"
+	case TLS_DHE_PSK_WITH_NULL_SHA384:
+		return "TLS_DHE_PSK_WITH_NULL_SHA384"
+	case TLS_DHE_PSK_WITH_RC4_128_SHA:
+		return "TLS_DHE_PSK_WITH_RC4_128_SHA"
+	case TLS_DHE_RSA_WITH_AES_128_CBC_SHA:
+		return "TLS_DHE_RSA_WITH_AES_128_CBC_SHA"
+	case TLS_DHE_RSA_WITH_AES_128_CBC_SHA256:
+		return "TLS_DHE_RSA_WITH_AES_128_CBC_SHA256"
+	case TLS_DHE_RSA_WITH_AES_128_GCM_SHA256:
+		return "TLS_DHE_RSA_WITH_AES_128_GCM_SHA256"
+	case TLS_DHE_RSA_WITH_AES_256_CBC_SHA:
+		return "TLS_DHE_RSA_WITH_AES_256_CBC_SHA"
+	case TLS_DHE_RSA_WITH_AES_256_CBC_SHA256:
+		return "TLS_DHE_RSA_WITH_AES_256_CBC_SHA256"
+	case TLS_DHE_RSA_WITH_AES_256_GCM_SHA384:
+		return "TLS_DHE_RSA_WITH_AES_256_GCM_SHA384"
+	case TLS_DH_DSS_WITH_AES_128_CBC_SHA:
+		return "TLS_DH_DSS_WITH_AES_128_CBC_SHA"
+	case TLS_DH_DSS_WITH_AES_128_CBC_SHA256:
+		return "TLS_DH_DSS_WITH_AES_128_CBC_SHA256"
+	case TLS_DH_DSS_WITH_AES_128_GCM_SHA256:
+		return "TLS_DH_DSS_WITH_AES_128_GCM_SHA256"
+	case TLS_DH_DSS_WITH_AES_256_CBC_SHA:
+		return "TLS_DH_DSS_WITH_AES_256_CBC_SHA"
+	case TLS_DH_DSS_WITH_AES_256_CBC_SHA256:
+		return "TLS_DH_DSS_WITH_AES_256_CBC_SHA256"
+	case TLS_DH_DSS_WITH_AES_256_GCM_SHA384:
+		return "TLS_DH_DSS_WITH_AES_256_GCM_SHA384"
+	case TLS_DH_RSA_WITH_AES_128_CBC_SHA:
+		return "TLS_DH_RSA_WITH_AES_128_CBC_SHA"
+	case TLS_DH_RSA_WITH_AES_128_CBC_SHA256:
+		return "TLS_DH_RSA_WITH_AES_128_CBC_SHA256"
+	case TLS_DH_RSA_WITH_AES_128_GCM_SHA256:
+		return "TLS_DH_RSA_WITH_AES_128_GCM_SHA256"
+	case TLS_DH_RSA_WITH_AES_256_CBC_SHA:
+		return "TLS_DH_RSA_WITH_AES_256_CBC_SHA"
+	case TLS_DH_RSA_WITH_AES_256_CBC_SHA256:
+		return "TLS_DH_RSA_WITH_AES_256_CBC_SHA256"
+	case TLS_DH_RSA_WITH_AES_256_GCM_SHA384:
+		return "TLS_DH_RSA_WITH_AES_256_GCM_SHA384"
+	case TLS_DH_anon_WITH_AES_128_CBC_SHA:
+		return "TLS_DH_anon_WITH_AES_128_CBC_SHA"
+	case TLS_DH_anon_WITH_AES_128_CBC_SHA256:
+		return "TLS_DH_anon_WITH_AES_128_CBC_SHA256"
+	case TLS_DH_anon_WITH_AES_128_GCM_SHA256:
+		return "TLS_DH_anon_WITH_AES_128_GCM_SHA256"
+	case TLS_DH_anon_WITH_AES_256_CBC_SHA:
+		return "TLS_DH_anon_WITH_AES_256_CBC_SHA"
+	case TLS_DH_anon_WITH_AES_256_CBC_SHA256:
+		return "TLS_DH_anon_WITH_AES_256_CBC_SHA256"
+	case TLS_DH_anon_WITH_AES_256_GCM_SHA384:
+		return "TLS_DH_anon_WITH_AES_256_GCM_SHA384"
+	case TLS_ECDHE_ECDSA_WITH_3DES_EDE_CBC_SHA:
+		return "TLS_ECDHE_ECDSA_WITH_3DES_EDE_CBC_SHA"
+	case TLS_ECDHE_ECDSA_WITH_AES_128_CBC_SHA:
+		return "TLS_ECDHE_ECDSA_WITH_AES_128_CBC_SHA"
+	case TLS_ECDHE_ECDSA_WITH_AES_128_CBC_SHA256:
+		return "TLS_ECDHE_ECDSA_WITH_AES_128_CBC_SHA256"
+	case TLS_ECDHE_ECDSA_WITH_AES_128_GCM_SHA256:
+		return "TLS_ECDHE_ECDSA_WITH_AES_128_GCM_SHA256"
+	case TLS_ECDHE_ECDSA_WITH_AES_256_CBC_SHA:
+		return "TLS_ECDHE_ECDSA_WITH_AES_256_CBC_SHA"
+	case TLS_ECDHE_ECDSA_WITH_AES_256_CBC_SHA384:
+		return "TLS_ECDHE_ECDSA_WITH_AES_256_CBC_SHA384"
+	case TLS_ECDHE_ECDSA_WITH_AES_256_GCM_SHA384:
+		return "TLS_ECDHE_ECDSA_WITH_AES_256_GCM_SHA384"
+	case TLS_ECDHE_ECDSA_WITH_CHACHA20_POLY1305_SHA256:
+		return "TLS_ECDHE_ECDSA_WITH_CHACHA20_POLY1305_SHA256"
+	case TLS_ECDHE_ECDSA_WITH_NULL_SHA:
+		return "TLS_ECDHE_ECDSA_WITH_NULL_SHA"
+	case TLS_ECDHE_ECDSA_WITH_RC4_128_SHA:
+		return "TLS_ECDHE_ECDSA_WITH_RC4_128_SHA"
+	case TLS_ECDHE_PSK_WITH_AES_128_CBC_SHA:
+		return "TLS_ECDHE_PSK_WITH_AES_128_CBC_SHA"
+	case TLS_ECDHE_PSK_WITH_AES_256_CBC_SHA:
+		return "TLS_ECDHE_PSK_WITH_AES_256_CBC_SHA"
+	case TLS_ECDHE_PSK_WITH_CHACHA20_POLY1305_SHA256:
+		return "TLS_ECDHE_PSK_WITH_CHACHA20_POLY1305_SHA256"
+	case TLS_ECDHE_RSA_WITH_3DES_EDE_CBC_SHA:
+		return "TLS_ECDHE_RSA_WITH_3DES_EDE_CBC_SHA"
+	case TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA:
+		return "TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA"
+	case TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256:
+		return "TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256"
+	case TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256:
+		return "TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256"
+	case TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA:
+		return "TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA"
+	case TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA384:
+		return "TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA384"
+	case TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384:
+		return "TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384"
+	case TLS_ECDHE_RSA_WITH_CHACHA20_POLY1305_SHA256:
+		return "TLS_ECDHE_RSA_WITH_CHACHA20_POLY1305_SHA256"
+	case TLS_ECDHE_RSA_WITH_NULL_SHA:
+		return "TLS_ECDHE_RSA_WITH_NULL_SHA"
+	case TLS_ECDHE_RSA_WITH_RC4_128_SHA:
+		return "TLS_ECDHE_RSA_WITH_RC4_128_SHA"
+	case TLS_ECDH_ECDSA_WITH_3DES_EDE_CBC_SHA:
+		return "TLS_ECDH_ECDSA_WITH_3DES_EDE_CBC_SHA"
+	case TLS_ECDH_ECDSA_WITH_AES_128_CBC_SHA:
+		return "TLS_ECDH_ECDSA_WITH_AES_128_CBC_SHA"
+	case TLS_ECDH_ECDSA_WITH_AES_128_CBC_SHA256:
+		return "TLS_ECDH_ECDSA_WITH_AES_128_CBC_SHA256"
+	case TLS_ECDH_ECDSA_WITH_AES_128_GCM_SHA256:
+		return "TLS_ECDH_ECDSA_WITH_AES_128_GCM_SHA256"
+	case TLS_ECDH_ECDSA_WITH_AES_256_CBC_SHA:
+		return "TLS_ECDH_ECDSA_WITH_AES_256_CBC_SHA"
+	case TLS_ECDH_ECDSA_WITH_AES_256_CBC_SHA384:
+		return "TLS_ECDH_ECDSA_WITH_AES_256_CBC_SHA384"
+	case TLS_ECDH_ECDSA_WITH_AES_256_GCM_SHA384:
+		return "TLS_ECDH_ECDSA_WITH_AES_256_GCM_SHA384"
+	case TLS_ECDH_ECDSA_WITH_NULL_SHA:
+		return "TLS_ECDH_ECDSA_WITH_NULL_SHA"
+	case TLS_ECDH_ECDSA_WITH_RC4_128_SHA:
+		return "TLS_ECDH_ECDSA_WITH_RC4_128_SHA"
+	case TLS_ECDH_RSA_WITH_3DES_EDE_CBC_SHA:
+		return "TLS_ECDH_RSA_WITH_3DES_EDE_CBC_SHA"
+	case TLS_ECDH_RSA_WITH_AES_128_CBC_SHA:
+		return "TLS_ECDH_RSA_WITH_AES_128_CBC_SHA"
+	case TLS_ECDH_RSA_WITH_AES_128_CBC_SHA256:
+		return "TLS_ECDH_RSA_WITH_AES_128_CBC_SHA256"
+	case TLS_ECDH_RSA_WITH_AES_128_GCM_SHA256:
+		return "TLS_ECDH_RSA_WITH_AES_128_GCM_SHA256"
+	case TLS_ECDH_RSA_WITH_AES_256_CBC_SHA:
+		return "TLS_ECDH_RSA_WITH_AES_256_CBC_SHA"
+	case TLS_ECDH_RSA_WITH_AES_256_CBC_SHA384:
+		return "TLS_ECDH_RSA_WITH_AES_256_CBC_SHA384"
+	case TLS_ECDH_RSA_WITH_AES_256_GCM_SHA384:
+		return "TLS_ECDH_RSA_WITH_AES_256_GCM_SHA384"
+	case TLS_ECDH_RSA_WITH_NULL_SHA:
+		return "TLS_ECDH_RSA_WITH_NULL_SHA"
+	case TLS_ECDH_RSA_WITH_RC4_128_SHA:
+		return "TLS_ECDH_RSA_WITH_RC4_128_SHA"
+	case TLS_ECDH_anon_WITH_3DES_EDE_CBC_SHA:
+		return "TLS_ECDH_anon_WITH_3DES_EDE_CBC_SHA"
+	case TLS_ECDH_anon_WITH_AES_128_CBC_SHA:
+		return "TLS_ECDH_anon_WITH_AES_128_CBC_SHA"
+	case TLS_ECDH_anon_WITH_AES_256_CBC_SHA:
+		return "TLS_ECDH_anon_WITH_AES_256_CBC_SHA"
+	case TLS_ECDH_anon_WITH_NULL_SHA:
+		return "TLS_ECDH_anon_WITH_NULL_SHA"
+	case TLS_ECDH_anon_WITH_RC4_128_SHA:
+		return "TLS_ECDH_anon_WITH_RC4_128_SHA"
+	case TLS_EMPTY_RENEGOTIATION_INFO_SCSV:
+		return "TLS_EMPTY_RENEGOTIATION_INFO_SCSV"
+	case TLS_PSK_WITH_3DES_EDE_CBC_SHA:
+		return "TLS_PSK_WITH_3DES_EDE_CBC_SHA"
+	case TLS_PSK_WITH_AES_128_CBC_SHA:
+		return "TLS_PSK_WITH_AES_128_CBC_SHA"
+	case TLS_PSK_WITH_AES_128_CBC_SHA256:
+		return "TLS_PSK_WITH_AES_128_CBC_SHA256"
+	case TLS_PSK_WITH_AES_128_GCM_SHA256:
+		return "TLS_PSK_WITH_AES_128_GCM_SHA256"
+	case TLS_PSK_WITH_AES_256_CBC_SHA:
+		return "TLS_PSK_WITH_AES_256_CBC_SHA"
+	case TLS_PSK_WITH_AES_256_CBC_SHA384:
+		return "TLS_PSK_WITH_AES_256_CBC_SHA384"
+	case TLS_PSK_WITH_AES_256_GCM_SHA384:
+		return "TLS_PSK_WITH_AES_256_GCM_SHA384"
+	case TLS_PSK_WITH_CHACHA20_POLY1305_SHA256:
+		return "TLS_PSK_WITH_CHACHA20_POLY1305_SHA256"
+	case TLS_PSK_WITH_NULL_SHA:
+		return "TLS_PSK_WITH_NULL_SHA"
+	case TLS_PSK_WITH_NULL_SHA256:
+		return "TLS_PSK_WITH_NULL_SHA256"
+	case TLS_PSK_WITH_NULL_SHA384:
+		return "TLS_PSK_WITH_NULL_SHA384"
+	case TLS_PSK_WITH_RC4_128_SHA:
+		return "TLS_PSK_WITH_RC4_128_SHA"
+	case TLS_RSA_PSK_WITH_3DES_EDE_CBC_SHA:
+		return "TLS_RSA_PSK_WITH_3DES_EDE_CBC_SHA"
+	case TLS_RSA_PSK_WITH_AES_128_CBC_SHA:
+		return "TLS_RSA_PSK_WITH_AES_128_CBC_SHA"
+	case TLS_RSA_PSK_WITH_AES_128_CBC_SHA256:
+		return "TLS_RSA_PSK_WITH_AES_128_CBC_SHA256"
+	case TLS_RSA_PSK_WITH_AES_128_GCM_SHA256:
+		return "TLS_RSA_PSK_WITH_AES_128_GCM_SHA256"
+	case TLS_RSA_PSK_WITH_AES_256_CBC_SHA:
+		return "TLS_RSA_PSK_WITH_AES_256_CBC_SHA"
+	case TLS_RSA_PSK_WITH_AES_256_CBC_SHA384:
+		return "TLS_RSA_PSK_WITH_AES_256_CBC_SHA384"
+	case TLS_RSA_PSK_WITH_AES_256_GCM_SHA384:
+		return "TLS_RSA_PSK_WITH_AES_256_GCM_SHA384"
+	case TLS_RSA_PSK_WITH_NULL_SHA:
+		return "TLS_RSA_PSK_WITH_NULL_SHA"
+	case TLS_RSA_PSK_WITH_NULL_SHA256:
+		return "TLS_RSA_PSK_WITH_NULL_SHA256"
+	case TLS_RSA_PSK_WITH_NULL_SHA384:
+		return "TLS_RSA_PSK_WITH_NULL_SHA384"
+	case TLS_RSA_PSK_WITH_RC4_128_SHA:
+		return "TLS_RSA_PSK_WITH_RC4_128_SHA"
+	case TLS_RSA_WITH_AES_128_CBC_SHA:
+		return "TLS_RSA_WITH_AES_128_CBC_SHA"
+	case TLS_RSA_WITH_AES_128_CBC_SHA256:
+		return "TLS_RSA_WITH_AES_128_CBC_SHA256"
+	case TLS_RSA_WITH_AES_128_GCM_SHA256:
+		return "TLS_RSA_WITH_AES_128_GCM_SHA256"
+	case TLS_RSA_WITH_AES_256_CBC_SHA:
+		return "TLS_RSA_WITH_AES_256_CBC_SHA"
+	case TLS_RSA_WITH_AES_256_CBC_SHA256:
+		return "TLS_RSA_WITH_AES_256_CBC_SHA256"
+	case TLS_RSA_WITH_AES_256_GCM_SHA384:
+		return "TLS_RSA_WITH_AES_256_GCM_SHA384"
+	case TLS_RSA_WITH_NULL_SHA256:
+		return "TLS_RSA_WITH_NULL_SHA256"
+	default:
+		return fmt.Sprintf("SSLNullWithNullNull(%d)", e)
+	}
+}
 
 // See: https://developer.apple.com/documentation/Security/SSLProtocol
 type SSLProtocol int32
@@ -6722,7 +10570,7 @@ func (e SSLSessionState) String() string {
 }
 
 // See: https://developer.apple.com/documentation/Security/SecAccessControlCreateFlags
-type SecAccessControlCreateFlags int
+type SecAccessControlCreateFlags uint
 
 const (
 	// KSecAccessControlAnd: Indicates that all constraints must be satisfied.
@@ -6742,37 +10590,87 @@ const (
 	KSecAccessControlPrivateKeyUsage SecAccessControlCreateFlags = 1073741824
 	// KSecAccessControlUserPresence: Constraint to access an item with either biometry or passcode.
 	KSecAccessControlUserPresence SecAccessControlCreateFlags = 1
-	// Deprecated.
+	// Deprecated: use KSecAccessControlBiometryAny.
 	KSecAccessControlTouchIDAny SecAccessControlCreateFlags = 2
-	// Deprecated.
+	// Deprecated: use KSecAccessControlBiometryCurrentSet.
 	KSecAccessControlTouchIDCurrentSet SecAccessControlCreateFlags = 8
-	// Deprecated.
+	// Deprecated: use KSecAccessControlCompanion.
 	KSecAccessControlWatch SecAccessControlCreateFlags = 32
 )
 
+func (e SecAccessControlCreateFlags) String() string {
+	switch e {
+	case KSecAccessControlAnd:
+		return "KSecAccessControlAnd"
+	case KSecAccessControlApplicationPassword:
+		return "KSecAccessControlApplicationPassword"
+	case KSecAccessControlBiometryAny:
+		return "KSecAccessControlBiometryAny"
+	case KSecAccessControlBiometryCurrentSet:
+		return "KSecAccessControlBiometryCurrentSet"
+	case KSecAccessControlCompanion:
+		return "KSecAccessControlCompanion"
+	case KSecAccessControlDevicePasscode:
+		return "KSecAccessControlDevicePasscode"
+	case KSecAccessControlOr:
+		return "KSecAccessControlOr"
+	case KSecAccessControlPrivateKeyUsage:
+		return "KSecAccessControlPrivateKeyUsage"
+	case KSecAccessControlUserPresence:
+		return "KSecAccessControlUserPresence"
+	default:
+		return fmt.Sprintf("SecAccessControlCreateFlags(%d)", e)
+	}
+}
+
 // See: https://developer.apple.com/documentation/Security/SecAuthenticationType
-type SecAuthenticationType int
+type SecAuthenticationType uint32
 
 const (
 	// KSecAuthenticationTypeAny: Specifies that any authentication type is acceptable.
 	KSecAuthenticationTypeAny SecAuthenticationType = 0
 	// KSecAuthenticationTypeDPA: Specifies Distributed Password authentication.
-	KSecAuthenticationTypeDPA SecAuthenticationType = 0
+	KSecAuthenticationTypeDPA SecAuthenticationType = 'a'<<24 | 'a'<<16 | 'p'<<8 | 'd' // 'aapd'
 	// KSecAuthenticationTypeDefault: Specifies the default authentication type.
-	KSecAuthenticationTypeDefault SecAuthenticationType = 0
+	KSecAuthenticationTypeDefault SecAuthenticationType = 't'<<24 | 'l'<<16 | 'f'<<8 | 'd' // 'tlfd'
 	// KSecAuthenticationTypeHTMLForm: Specifies HTML form based authentication.
-	KSecAuthenticationTypeHTMLForm SecAuthenticationType = 0
+	KSecAuthenticationTypeHTMLForm SecAuthenticationType = 'm'<<24 | 'r'<<16 | 'o'<<8 | 'f' // 'mrof'
 	// KSecAuthenticationTypeHTTPBasic: Specifies HTTP Basic authentication.
-	KSecAuthenticationTypeHTTPBasic SecAuthenticationType = 0
+	KSecAuthenticationTypeHTTPBasic SecAuthenticationType = 'p'<<24 | 't'<<16 | 't'<<8 | 'h' // 'ptth'
 	// KSecAuthenticationTypeHTTPDigest: Specifies HTTP Digest Access authentication.
-	KSecAuthenticationTypeHTTPDigest SecAuthenticationType = 0
+	KSecAuthenticationTypeHTTPDigest SecAuthenticationType = 'd'<<24 | 't'<<16 | 't'<<8 | 'h' // 'dtth'
 	// KSecAuthenticationTypeMSN: Specifies Microsoft Network default authentication.
-	KSecAuthenticationTypeMSN SecAuthenticationType = 0
+	KSecAuthenticationTypeMSN SecAuthenticationType = 'a'<<24 | 'n'<<16 | 's'<<8 | 'm' // 'ansm'
 	// KSecAuthenticationTypeNTLM: Specifies Windows NT LAN Manager authentication.
-	KSecAuthenticationTypeNTLM SecAuthenticationType = 0
+	KSecAuthenticationTypeNTLM SecAuthenticationType = 'm'<<24 | 'l'<<16 | 't'<<8 | 'n' // 'mltn'
 	// KSecAuthenticationTypeRPA: Specifies Remote Password authentication.
-	KSecAuthenticationTypeRPA SecAuthenticationType = 0
+	KSecAuthenticationTypeRPA SecAuthenticationType = 'a'<<24 | 'a'<<16 | 'p'<<8 | 'r' // 'aapr'
 )
+
+func (e SecAuthenticationType) String() string {
+	switch e {
+	case KSecAuthenticationTypeAny:
+		return "KSecAuthenticationTypeAny"
+	case KSecAuthenticationTypeDPA:
+		return "KSecAuthenticationTypeDPA"
+	case KSecAuthenticationTypeDefault:
+		return "KSecAuthenticationTypeDefault"
+	case KSecAuthenticationTypeHTMLForm:
+		return "KSecAuthenticationTypeHTMLForm"
+	case KSecAuthenticationTypeHTTPBasic:
+		return "KSecAuthenticationTypeHTTPBasic"
+	case KSecAuthenticationTypeHTTPDigest:
+		return "KSecAuthenticationTypeHTTPDigest"
+	case KSecAuthenticationTypeMSN:
+		return "KSecAuthenticationTypeMSN"
+	case KSecAuthenticationTypeNTLM:
+		return "KSecAuthenticationTypeNTLM"
+	case KSecAuthenticationTypeRPA:
+		return "KSecAuthenticationTypeRPA"
+	default:
+		return fmt.Sprintf("SecAuthenticationType(%d)", e)
+	}
+}
 
 // See: https://developer.apple.com/documentation/Security/SecCSDigestAlgorithm
 type SecCSDigestAlgorithm uint32
@@ -6904,7 +10802,7 @@ func (e SecCodeSignatureFlags) String() string {
 }
 
 // See: https://developer.apple.com/documentation/Security/SecCodeStatus
-type SecCodeStatus int32
+type SecCodeStatus uint32
 
 const (
 	// KSecCodeStatusDebugged: The code has been debugged by another process that was allowed to do so.
@@ -6937,7 +10835,7 @@ func (e SecCodeStatus) String() string {
 }
 
 // See: https://developer.apple.com/documentation/Security/SecCredentialType
-type SecCredentialType int
+type SecCredentialType uint32
 
 const (
 	// Deprecated.
@@ -7072,7 +10970,7 @@ func (e SecExternalItemType) String() string {
 }
 
 // See: https://developer.apple.com/documentation/Security/SecItemAttr
-type SecItemAttr int
+type SecItemAttr uint32
 
 const (
 	// KSecAccountItemAttr: Identifies the account attribute.
@@ -7197,7 +11095,7 @@ func (e SecItemAttr) String() string {
 }
 
 // See: https://developer.apple.com/documentation/Security/SecItemClass
-type SecItemClass int
+type SecItemClass uint32
 
 const (
 	// KSecCertificateItemClass: Indicates that the item is an X509 certificate.
@@ -7335,6 +11233,29 @@ const (
 	KSecp521r1 SecKeySizes = 521
 )
 
+func (e SecKeySizes) String() string {
+	switch e {
+	case KSec3DES192:
+		return "KSec3DES192"
+	case KSecAES128:
+		return "KSecAES128"
+	case KSecAES256:
+		return "KSecAES256"
+	case KSecDefaultKeySize:
+		return "KSecDefaultKeySize"
+	case KSecRSAMax:
+		return "KSecRSAMax"
+	case KSecRSAMin:
+		return "KSecRSAMin"
+	case KSecp384r1:
+		return "KSecp384r1"
+	case KSecp521r1:
+		return "KSecp521r1"
+	default:
+		return fmt.Sprintf("SecKeySizes(%d)", e)
+	}
+}
+
 // See: https://developer.apple.com/documentation/Security/SecKeyUsage
 type SecKeyUsage uint32
 
@@ -7365,6 +11286,37 @@ const (
 	KSecKeyUsageNonRepudiation SecKeyUsage = 2
 	KSecKeyUsageUnspecified    SecKeyUsage = 0
 )
+
+func (e SecKeyUsage) String() string {
+	switch e {
+	case KSecKeyUsageAll:
+		return "KSecKeyUsageAll"
+	case KSecKeyUsageCRLSign:
+		return "KSecKeyUsageCRLSign"
+	case KSecKeyUsageContentCommitment:
+		return "KSecKeyUsageContentCommitment"
+	case KSecKeyUsageCritical:
+		return "KSecKeyUsageCritical"
+	case KSecKeyUsageDataEncipherment:
+		return "KSecKeyUsageDataEncipherment"
+	case KSecKeyUsageDecipherOnly:
+		return "KSecKeyUsageDecipherOnly"
+	case KSecKeyUsageDigitalSignature:
+		return "KSecKeyUsageDigitalSignature"
+	case KSecKeyUsageEncipherOnly:
+		return "KSecKeyUsageEncipherOnly"
+	case KSecKeyUsageKeyAgreement:
+		return "KSecKeyUsageKeyAgreement"
+	case KSecKeyUsageKeyCertSign:
+		return "KSecKeyUsageKeyCertSign"
+	case KSecKeyUsageKeyEncipherment:
+		return "KSecKeyUsageKeyEncipherment"
+	case KSecKeyUsageUnspecified:
+		return "KSecKeyUsageUnspecified"
+	default:
+		return fmt.Sprintf("SecKeyUsage(%d)", e)
+	}
+}
 
 // See: https://developer.apple.com/documentation/Security/SecKeychainEvent
 type SecKeychainEvent uint32
@@ -7477,7 +11429,7 @@ func (e SecKeychainEventMask) String() string {
 }
 
 // See: https://developer.apple.com/documentation/Security/SecKeychainPromptSelector
-type SecKeychainPromptSelector int
+type SecKeychainPromptSelector uint16
 
 const (
 	// KSecKeychainPromptInvalid: Indicates that a passphrase should be required when an application with an invalid signature attempts to use the keychain, overriding the system default.
@@ -7596,7 +11548,7 @@ func (e SecPreferencesDomain) String() string {
 }
 
 // See: https://developer.apple.com/documentation/Security/SecProtocolType
-type SecProtocolType int
+type SecProtocolType uint32
 
 const (
 	// KSecProtocolTypeAFP: Indicates AFP over TCP.
@@ -7768,6 +11720,25 @@ const (
 	KSecRequirementTypeCount SecRequirementType = 6
 )
 
+func (e SecRequirementType) String() string {
+	switch e {
+	case KSecDesignatedRequirementType:
+		return "KSecDesignatedRequirementType"
+	case KSecGuestRequirementType:
+		return "KSecGuestRequirementType"
+	case KSecHostRequirementType:
+		return "KSecHostRequirementType"
+	case KSecInvalidRequirementType:
+		return "KSecInvalidRequirementType"
+	case KSecLibraryRequirementType:
+		return "KSecLibraryRequirementType"
+	case KSecPluginRequirementType:
+		return "KSecPluginRequirementType"
+	default:
+		return fmt.Sprintf("SecRequirementType(%d)", e)
+	}
+}
+
 // See: https://developer.apple.com/documentation/Security/SecTransformMetaAttributeType
 type SecTransformMetaAttributeType int
 
@@ -7867,7 +11838,7 @@ func (e SecTrustOptionFlags) String() string {
 }
 
 // See: https://developer.apple.com/documentation/Security/SecTrustResultType
-type SecTrustResultType int32
+type SecTrustResultType uint32
 
 const (
 	// KSecTrustResultDeny: The user specified that the certificate should not be trusted.
@@ -7978,7 +11949,7 @@ func (e SecTrustSettingsKeyUsage) String() string {
 }
 
 // See: https://developer.apple.com/documentation/Security/SecTrustSettingsResult
-type SecTrustSettingsResult int32
+type SecTrustSettingsResult uint32
 
 const (
 	// KSecTrustSettingsResultDeny: This certificate is explicitly distrusted.
@@ -8057,13 +12028,26 @@ func (e SessionCreationFlags) String() string {
 }
 
 // See: https://developer.apple.com/documentation/Security/SecureDownloadTrustCallbackResult
-type SecureDownloadTrustCallbackResult int32
+type SecureDownloadTrustCallbackResult uint32
 
 const (
 	KSecureDownloadDoNotEvaluateSigner SecureDownloadTrustCallbackResult = 0
-	KSecureDownloadEvaluateSigner      SecureDownloadTrustCallbackResult = 0
-	KSecureDownloadFailEvaluation      SecureDownloadTrustCallbackResult = 0
+	KSecureDownloadEvaluateSigner      SecureDownloadTrustCallbackResult = 1
+	KSecureDownloadFailEvaluation      SecureDownloadTrustCallbackResult = 2
 )
+
+func (e SecureDownloadTrustCallbackResult) String() string {
+	switch e {
+	case KSecureDownloadDoNotEvaluateSigner:
+		return "KSecureDownloadDoNotEvaluateSigner"
+	case KSecureDownloadEvaluateSigner:
+		return "KSecureDownloadEvaluateSigner"
+	case KSecureDownloadFailEvaluation:
+		return "KSecureDownloadFailEvaluation"
+	default:
+		return fmt.Sprintf("SecureDownloadTrustCallbackResult(%d)", e)
+	}
+}
 
 // See: https://developer.apple.com/documentation/Security/CE_CrlDistributionPointNameType
 type CE_CrlDistributionPointNameType uint32
@@ -8163,7 +12147,7 @@ func (e CE_DataType) String() string {
 }
 
 // See: https://developer.apple.com/documentation/Security/CE_GeneralNameType-c.enum
-type CE_GeneralNameType uint32
+type CE_GeneralNameType int
 
 const (
 	GNT_DNSName       CE_GeneralNameType = 2
@@ -8401,15 +12385,6 @@ func (e Tls_protocol_version_t) String() string {
 		return fmt.Sprintf("Tls_protocol_version_t(%d)", e)
 	}
 }
-
-// CeCrlDistributionPointNameType is a Go-name alias for CE_CrlDistributionPointNameType.
-type CeCrlDistributionPointNameType = CE_CrlDistributionPointNameType
-
-// CeDataType is a Go-name alias for CE_DataType.
-type CeDataType = CE_DataType
-
-// CeGeneralNameType is a Go-name alias for CE_GeneralNameType.
-type CeGeneralNameType = CE_GeneralNameType
 
 // CssmAppledlOpenParametersMask is a Go-name alias for Cssm_appledl_open_parameters_mask.
 type CssmAppledlOpenParametersMask = Cssm_appledl_open_parameters_mask

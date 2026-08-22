@@ -3,8 +3,6 @@
 package appkit
 
 import (
-	"unsafe"
-
 	"github.com/ebitengine/purego"
 	"github.com/tmc/apple/foundation"
 	"github.com/tmc/apple/objc"
@@ -8339,7 +8337,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSApp"); err == nil && ptr != 0 {
-		App = *(*NSApplication)(unsafe.Pointer(ptr))
+		App = objc.ValueAt[NSApplication](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSAppKitIgnoredException"); err == nil && ptr != 0 {
@@ -8353,7 +8351,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSAppKitVersionNumber"); err == nil && ptr != 0 {
-		NSAppKitVersions.Number = *(*NSAppKitVersion)(unsafe.Pointer(ptr))
+		NSAppKitVersions.Number = objc.ValueAt[NSAppKitVersion](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSAppKitVirtualMemoryException"); err == nil && ptr != 0 {
@@ -8837,7 +8835,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSBlack"); err == nil && ptr != 0 {
-		Black = *(*float64)(unsafe.Pointer(ptr))
+		Black = objc.ValueAt[float64](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSBottomMarginDocumentAttribute"); err == nil && ptr != 0 {
@@ -9331,7 +9329,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSDarkGray"); err == nil && ptr != 0 {
-		DarkGray = *(*float64)(unsafe.Pointer(ptr))
+		DarkGray = objc.ValueAt[float64](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSDataBinding"); err == nil && ptr != 0 {
@@ -9515,7 +9513,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSDirectionalEdgeInsetsZero"); err == nil && ptr != 0 {
-		DirectionalEdgeInsetsZero = *(*NSDirectionalEdgeInsets)(unsafe.Pointer(ptr))
+		DirectionalEdgeInsetsZero = objc.ValueAt[NSDirectionalEdgeInsets](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSDisplayNameBindingOption"); err == nil && ptr != 0 {
@@ -10099,7 +10097,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSFontIdentityMatrix"); err == nil && ptr != 0 {
-		FontIdentityMatrix = *(*float64)(unsafe.Pointer(ptr))
+		FontIdentityMatrix = objc.ValueAt[float64](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSFontItalicBinding"); err == nil && ptr != 0 {
@@ -10393,35 +10391,35 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSFontWeightBlack"); err == nil && ptr != 0 {
-		NSFontWeights.Black = *(*NSFontWeight)(unsafe.Pointer(ptr))
+		NSFontWeights.Black = objc.ValueAt[NSFontWeight](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSFontWeightBold"); err == nil && ptr != 0 {
-		NSFontWeights.Bold = *(*NSFontWeight)(unsafe.Pointer(ptr))
+		NSFontWeights.Bold = objc.ValueAt[NSFontWeight](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSFontWeightHeavy"); err == nil && ptr != 0 {
-		NSFontWeights.Heavy = *(*NSFontWeight)(unsafe.Pointer(ptr))
+		NSFontWeights.Heavy = objc.ValueAt[NSFontWeight](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSFontWeightLight"); err == nil && ptr != 0 {
-		NSFontWeights.Light = *(*NSFontWeight)(unsafe.Pointer(ptr))
+		NSFontWeights.Light = objc.ValueAt[NSFontWeight](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSFontWeightMedium"); err == nil && ptr != 0 {
-		NSFontWeights.Medium = *(*NSFontWeight)(unsafe.Pointer(ptr))
+		NSFontWeights.Medium = objc.ValueAt[NSFontWeight](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSFontWeightRegular"); err == nil && ptr != 0 {
-		NSFontWeights.Regular = *(*NSFontWeight)(unsafe.Pointer(ptr))
+		NSFontWeights.Regular = objc.ValueAt[NSFontWeight](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSFontWeightSemibold"); err == nil && ptr != 0 {
-		NSFontWeights.Semibold = *(*NSFontWeight)(unsafe.Pointer(ptr))
+		NSFontWeights.Semibold = objc.ValueAt[NSFontWeight](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSFontWeightThin"); err == nil && ptr != 0 {
-		NSFontWeights.Thin = *(*NSFontWeight)(unsafe.Pointer(ptr))
+		NSFontWeights.Thin = objc.ValueAt[NSFontWeight](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSFontWeightTrait"); err == nil && ptr != 0 {
@@ -10435,23 +10433,23 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSFontWeightUltraLight"); err == nil && ptr != 0 {
-		NSFontWeights.UltraLight = *(*NSFontWeight)(unsafe.Pointer(ptr))
+		NSFontWeights.UltraLight = objc.ValueAt[NSFontWeight](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSFontWidthCompressed"); err == nil && ptr != 0 {
-		NSFontWidths.Compressed = *(*NSFontWidth)(unsafe.Pointer(ptr))
+		NSFontWidths.Compressed = objc.ValueAt[NSFontWidth](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSFontWidthCondensed"); err == nil && ptr != 0 {
-		NSFontWidths.Condensed = *(*NSFontWidth)(unsafe.Pointer(ptr))
+		NSFontWidths.Condensed = objc.ValueAt[NSFontWidth](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSFontWidthExpanded"); err == nil && ptr != 0 {
-		NSFontWidths.Expanded = *(*NSFontWidth)(unsafe.Pointer(ptr))
+		NSFontWidths.Expanded = objc.ValueAt[NSFontWidth](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSFontWidthStandard"); err == nil && ptr != 0 {
-		NSFontWidths.Standard = *(*NSFontWidth)(unsafe.Pointer(ptr))
+		NSFontWidths.Standard = objc.ValueAt[NSFontWidth](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSFontWidthTrait"); err == nil && ptr != 0 {
@@ -10565,7 +10563,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSGridViewSizeForContent"); err == nil && ptr != 0 {
-		GridViewSizeForContent = *(*float64)(unsafe.Pointer(ptr))
+		GridViewSizeForContent = objc.ValueAt[float64](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSHTMLTextDocumentType"); err == nil && ptr != 0 {
@@ -12329,7 +12327,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSLightGray"); err == nil && ptr != 0 {
-		LightGray = *(*float64)(unsafe.Pointer(ptr))
+		LightGray = objc.ValueAt[float64](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSLinkAttributeName"); err == nil && ptr != 0 {
@@ -14273,11 +14271,11 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSSliderAccessoryWidthDefault"); err == nil && ptr != 0 {
-		NSSliderAccessoryWidths.Default = *(*NSSliderAccessoryWidth)(unsafe.Pointer(ptr))
+		NSSliderAccessoryWidths.Default = objc.ValueAt[NSSliderAccessoryWidth](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSSliderAccessoryWidthWide"); err == nil && ptr != 0 {
-		NSSliderAccessoryWidths.Wide = *(*NSSliderAccessoryWidth)(unsafe.Pointer(ptr))
+		NSSliderAccessoryWidths.Wide = objc.ValueAt[NSSliderAccessoryWidth](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSSortDescriptorsBinding"); err == nil && ptr != 0 {
@@ -14851,7 +14849,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSSplitViewControllerAutomaticDimension"); err == nil && ptr != 0 {
-		SplitViewControllerAutomaticDimension = *(*float64)(unsafe.Pointer(ptr))
+		SplitViewControllerAutomaticDimension = objc.ValueAt[float64](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSSplitViewDidResizeSubviewsNotification"); err == nil && ptr != 0 {
@@ -14865,7 +14863,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSSplitViewItemUnspecifiedDimension"); err == nil && ptr != 0 {
-		SplitViewItemUnspecifiedDimension = *(*float64)(unsafe.Pointer(ptr))
+		SplitViewItemUnspecifiedDimension = objc.ValueAt[float64](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSSplitViewWillResizeSubviewsNotification"); err == nil && ptr != 0 {
@@ -16749,7 +16747,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSViewNoIntrinsicMetric"); err == nil && ptr != 0 {
-		ViewNoIntrinsicMetric = *(*float64)(unsafe.Pointer(ptr))
+		ViewNoIntrinsicMetric = objc.ValueAt[float64](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSViewSizeDocumentAttribute"); err == nil && ptr != 0 {
@@ -16943,7 +16941,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSWhite"); err == nil && ptr != 0 {
-		White = *(*float64)(unsafe.Pointer(ptr))
+		White = objc.ValueAt[float64](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "NSWidthBinding"); err == nil && ptr != 0 {
@@ -17752,9 +17750,9 @@ var NSControlStateValues struct {
 
 // NSDefinitionPresentationTypes provides typed accessors for [NSDefinitionPresentationType] constants.
 var NSDefinitionPresentationTypes struct {
-	// DictionaryApplication: A possible value of the [presentationType](<doc://com.apple.appkit/documentation/AppKit/NSView/DefinitionOptionKey/presentationType>) dictionary key that invokes Dictionary application to display the definition.
+	// DictionaryApplication: A possible value of the [presentationType](<https://developer.apple.com/documentation/AppKit/NSView/DefinitionOptionKey/presentationType>) dictionary key that invokes Dictionary application to display the definition.
 	DictionaryApplication NSDefinitionPresentationType
-	// Overlay: A possible value of the [presentationType](<doc://com.apple.appkit/documentation/AppKit/NSView/DefinitionOptionKey/presentationType>) dictionary key that produces a small overlay window at the string location,
+	// Overlay: A possible value of the [presentationType](<https://developer.apple.com/documentation/AppKit/NSView/DefinitionOptionKey/presentationType>) dictionary key that produces a small overlay window at the string location,
 	Overlay NSDefinitionPresentationType
 }
 
@@ -18116,7 +18114,7 @@ var NSLayoutPrioritys struct {
 	DragThatCanResizeWindow NSLayoutPriority
 	// DragThatCannotResizeWindow: Priority level at which a split view divider, say, is dragged.
 	DragThatCannotResizeWindow NSLayoutPriority
-	// FittingSizeCompression: When you send a [fittingSize](<doc://com.apple.appkit/documentation/AppKit/NSView/fittingSize>) message to a view, the smallest size that is large enough for the view’s contents is computed.
+	// FittingSizeCompression: When you send a [fittingSize](<https://developer.apple.com/documentation/AppKit/NSView/fittingSize>) message to a view, the smallest size that is large enough for the view’s contents is computed.
 	FittingSizeCompression NSLayoutPriority
 	// Required: A required constraint.
 	Required NSLayoutPriority
@@ -18126,15 +18124,15 @@ var NSLayoutPrioritys struct {
 
 // NSModalResponses provides typed accessors for [NSModalResponse] constants.
 var NSModalResponses struct {
-	// Abort: Modal session was broken with [abortModal()](<doc://com.apple.appkit/documentation/AppKit/NSApplication/abortModal()>).
+	// Abort: Modal session was broken with [abortModal()](<https://developer.apple.com/documentation/AppKit/NSApplication/abortModal()>).
 	Abort NSModalResponse
 	// Cancel: The presentation or dismissal of the sheet has been canceled.
 	Cancel NSModalResponse
-	// Continue: Modal session is continuing (returned by [runModalSession(_:)](<doc://com.apple.appkit/documentation/AppKit/NSApplication/runModalSession(_:)>) only).
+	// Continue: Modal session is continuing (returned by [runModalSession(_:)](<https://developer.apple.com/documentation/AppKit/NSApplication/runModalSession(_:)>) only).
 	Continue NSModalResponse
 	// OK: The presentation or dismissal of the sheet has finished.
 	OK NSModalResponse
-	// Stop: Modal session was broken with [stopModal()](<doc://com.apple.appkit/documentation/AppKit/NSApplication/stopModal()>).
+	// Stop: Modal session was broken with [stopModal()](<https://developer.apple.com/documentation/AppKit/NSApplication/stopModal()>).
 	Stop NSModalResponse
 }
 
@@ -18321,9 +18319,9 @@ var NSTextContentTypes struct {
 	MiddleName NSTextContentType
 	// Name: A property that defines the content in a text input area as a name.
 	Name NSTextContentType
-	// NamePrefix: A property that defines the content in a text input area as a prefix or title, such as .
+	// NamePrefix: A property that defines the content in a text input area as a prefix or title, such as Dr.
 	NamePrefix NSTextContentType
-	// NameSuffix: A property that defines the content in a text input area as a suffix, such as .
+	// NameSuffix: A property that defines the content in a text input area as a suffix, such as Jr.
 	NameSuffix NSTextContentType
 	// NewPassword: A property that defines the content in a text input area as a new password.
 	NewPassword NSTextContentType

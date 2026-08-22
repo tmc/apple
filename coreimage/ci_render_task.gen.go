@@ -54,7 +54,7 @@ func (cc CIRenderTaskClass) Alloc() CIRenderTask {
 //
 // # Instance Methods
 //
-//   - [CIRenderTask.WaitUntilCompletedAndReturnError]: Waits until the [CIRenderTask](<doc://com.apple.coreimage/documentation/CoreImage/CIRenderTask>) finishes and returns.
+//   - [CIRenderTask.WaitUntilCompletedAndReturnError]: Waits until the [CIRenderTask](<https://developer.apple.com/documentation/CoreImage/CIRenderTask>) finishes and returns.
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIRenderTask
 type CIRenderTask struct {
@@ -75,7 +75,7 @@ func CIRenderTaskFromID(id objc.ID) CIRenderTask {
 //
 // # Instance Methods
 //
-//   - [ICIRenderTask.WaitUntilCompletedAndReturnError]: Waits until the [CIRenderTask](<doc://com.apple.coreimage/documentation/CoreImage/CIRenderTask>) finishes and returns.
+//   - [ICIRenderTask.WaitUntilCompletedAndReturnError]: Waits until the [CIRenderTask](<https://developer.apple.com/documentation/CoreImage/CIRenderTask>) finishes and returns.
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIRenderTask
 type ICIRenderTask interface {
@@ -83,7 +83,7 @@ type ICIRenderTask interface {
 
 	// Topic: Instance Methods
 
-	// Waits until the [CIRenderTask](<doc://com.apple.coreimage/documentation/CoreImage/CIRenderTask>) finishes and returns.
+	// Waits until the [CIRenderTask](<https://developer.apple.com/documentation/CoreImage/CIRenderTask>) finishes and returns.
 	WaitUntilCompletedAndReturnError() (ICIRenderInfo, error)
 }
 

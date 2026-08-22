@@ -80,7 +80,7 @@ func (mc MTL4MeshRenderPipelineDescriptorClass) Alloc() MTL4MeshRenderPipelineDe
 //   - [MTL4MeshRenderPipelineDescriptor.SetMeshStaticLinkingDescriptor]
 //   - [MTL4MeshRenderPipelineDescriptor.MeshThreadgroupSizeIsMultipleOfThreadExecutionWidth]: Provides a guarantee to Metal regarding the number of threadgroup threads for the mesh stage of a pipeline you create from this descriptor.
 //   - [MTL4MeshRenderPipelineDescriptor.SetMeshThreadgroupSizeIsMultipleOfThreadExecutionWidth]
-//   - [MTL4MeshRenderPipelineDescriptor.ObjectFunctionDescriptor]: Assigns a function descriptor representing the function this pipeline executes for each  in the object shader stage.
+//   - [MTL4MeshRenderPipelineDescriptor.ObjectFunctionDescriptor]: Assigns a function descriptor representing the function this pipeline executes for each object in the object shader stage.
 //   - [MTL4MeshRenderPipelineDescriptor.SetObjectFunctionDescriptor]
 //   - [MTL4MeshRenderPipelineDescriptor.ObjectStaticLinkingDescriptor]: Provides static linking information for the object stage of the render pipeline.
 //   - [MTL4MeshRenderPipelineDescriptor.SetObjectStaticLinkingDescriptor]
@@ -154,7 +154,7 @@ func MTL4MeshRenderPipelineDescriptorFromID(id objc.ID) MTL4MeshRenderPipelineDe
 //   - [IMTL4MeshRenderPipelineDescriptor.SetMeshStaticLinkingDescriptor]
 //   - [IMTL4MeshRenderPipelineDescriptor.MeshThreadgroupSizeIsMultipleOfThreadExecutionWidth]: Provides a guarantee to Metal regarding the number of threadgroup threads for the mesh stage of a pipeline you create from this descriptor.
 //   - [IMTL4MeshRenderPipelineDescriptor.SetMeshThreadgroupSizeIsMultipleOfThreadExecutionWidth]
-//   - [IMTL4MeshRenderPipelineDescriptor.ObjectFunctionDescriptor]: Assigns a function descriptor representing the function this pipeline executes for each  in the object shader stage.
+//   - [IMTL4MeshRenderPipelineDescriptor.ObjectFunctionDescriptor]: Assigns a function descriptor representing the function this pipeline executes for each object in the object shader stage.
 //   - [IMTL4MeshRenderPipelineDescriptor.SetObjectFunctionDescriptor]
 //   - [IMTL4MeshRenderPipelineDescriptor.ObjectStaticLinkingDescriptor]: Provides static linking information for the object stage of the render pipeline.
 //   - [IMTL4MeshRenderPipelineDescriptor.SetObjectStaticLinkingDescriptor]
@@ -228,7 +228,7 @@ type IMTL4MeshRenderPipelineDescriptor interface {
 	// Provides a guarantee to Metal regarding the number of threadgroup threads for the mesh stage of a pipeline you create from this descriptor.
 	MeshThreadgroupSizeIsMultipleOfThreadExecutionWidth() bool
 	SetMeshThreadgroupSizeIsMultipleOfThreadExecutionWidth(value bool)
-	// Assigns a function descriptor representing the function this pipeline executes for each  in the object shader stage.
+	// Assigns a function descriptor representing the function this pipeline executes for each object in the object shader stage.
 	ObjectFunctionDescriptor() IMTL4FunctionDescriptor
 	SetObjectFunctionDescriptor(value IMTL4FunctionDescriptor)
 	// Provides static linking information for the object stage of the render pipeline.
@@ -573,7 +573,7 @@ func (m MTL4MeshRenderPipelineDescriptor) SetMeshThreadgroupSizeIsMultipleOfThre
 }
 
 // Assigns a function descriptor representing the function this pipeline
-// executes for each in the object shader stage.
+// executes for each object in the object shader stage.
 //
 // See: https://developer.apple.com/documentation/Metal/MTL4MeshRenderPipelineDescriptor/objectFunctionDescriptor
 func (m MTL4MeshRenderPipelineDescriptor) ObjectFunctionDescriptor() IMTL4FunctionDescriptor {

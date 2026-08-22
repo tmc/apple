@@ -273,8 +273,8 @@ type INSTabView interface {
 	// Topic: Modifying the Font
 
 	// The font used for the tab view’s label text.
-	Font() NSFont
-	SetFont(value NSFont)
+	Font() INSFont
+	SetFont(value INSFont)
 
 	// Topic: Manipulating the Background
 
@@ -685,11 +685,11 @@ func (t NSTabView) SelectedTabViewItem() INSTabViewItem {
 // needed.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTabView/font
-func (t NSTabView) Font() NSFont {
+func (t NSTabView) Font() INSFont {
 	rv := objc.Send[objc.ID](t.ID, objc.Sel("font"))
 	return NSFontFromID(objc.ID(rv))
 }
-func (t NSTabView) SetFont(value NSFont) {
+func (t NSTabView) SetFont(value INSFont) {
 	objc.Send[struct{}](t.ID, objc.Sel("setFont:"), value)
 }
 

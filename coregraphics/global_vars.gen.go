@@ -3,8 +3,6 @@
 package coregraphics
 
 import (
-	"unsafe"
-
 	"github.com/ebitengine/purego"
 	"github.com/tmc/apple/corefoundation"
 	"github.com/tmc/apple/objc"
@@ -364,27 +362,27 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "CGAffineTransformIdentity"); err == nil && ptr != 0 {
-		CGAffineTransformIdentity = *(*corefoundation.CGAffineTransform)(unsafe.Pointer(ptr))
+		CGAffineTransformIdentity = objc.ValueAt[corefoundation.CGAffineTransform](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "CGPointZero"); err == nil && ptr != 0 {
-		CGPointZero = *(*corefoundation.CGPoint)(unsafe.Pointer(ptr))
+		CGPointZero = objc.ValueAt[corefoundation.CGPoint](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "CGRectInfinite"); err == nil && ptr != 0 {
-		CGRectInfinite = *(*corefoundation.CGRect)(unsafe.Pointer(ptr))
+		CGRectInfinite = objc.ValueAt[corefoundation.CGRect](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "CGRectNull"); err == nil && ptr != 0 {
-		CGRectNull = *(*corefoundation.CGRect)(unsafe.Pointer(ptr))
+		CGRectNull = objc.ValueAt[corefoundation.CGRect](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "CGRectZero"); err == nil && ptr != 0 {
-		CGRectZero = *(*corefoundation.CGRect)(unsafe.Pointer(ptr))
+		CGRectZero = objc.ValueAt[corefoundation.CGRect](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "CGSizeZero"); err == nil && ptr != 0 {
-		CGSizeZero = *(*corefoundation.CGSize)(unsafe.Pointer(ptr))
+		CGSizeZero = objc.ValueAt[corefoundation.CGSize](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCGAdaptiveMaximumBitDepth"); err == nil && ptr != 0 {
@@ -1198,19 +1196,19 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCGPDFTagPropertyActualText"); err == nil && ptr != 0 {
-		KCGPDFTagPropertyActualText = *(*CGPDFTagProperty)(unsafe.Pointer(ptr))
+		KCGPDFTagPropertyActualText = objc.ValueAt[CGPDFTagProperty](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCGPDFTagPropertyAlternativeText"); err == nil && ptr != 0 {
-		KCGPDFTagPropertyAlternativeText = *(*CGPDFTagProperty)(unsafe.Pointer(ptr))
+		KCGPDFTagPropertyAlternativeText = objc.ValueAt[CGPDFTagProperty](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCGPDFTagPropertyLanguageText"); err == nil && ptr != 0 {
-		KCGPDFTagPropertyLanguageText = *(*CGPDFTagProperty)(unsafe.Pointer(ptr))
+		KCGPDFTagPropertyLanguageText = objc.ValueAt[CGPDFTagProperty](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCGPDFTagPropertyTitleText"); err == nil && ptr != 0 {
-		KCGPDFTagPropertyTitleText = *(*CGPDFTagProperty)(unsafe.Pointer(ptr))
+		KCGPDFTagPropertyTitleText = objc.ValueAt[CGPDFTagProperty](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCGPDFXDestinationOutputProfile"); err == nil && ptr != 0 {

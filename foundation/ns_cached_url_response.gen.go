@@ -106,7 +106,6 @@ func NSCachedURLResponseFromID(id objc.ID) CachedURLResponse { return CachedURLR
 // See: https://developer.apple.com/documentation/Foundation/CachedURLResponse
 type ICachedURLResponse interface {
 	objectivec.IObject
-	NSSecureCoding
 
 	// Topic: Creating a cached URL response
 
@@ -125,6 +124,10 @@ type ICachedURLResponse interface {
 	StoragePolicy() NSURLCacheStoragePolicy
 	// The cached response’s user info dictionary.
 	UserInfo() INSDictionary
+
+	// Encodes the receiver using a given archiver.
+	EncodeWithCoder(coder INSCoder)
+	InitWithCoder(coder INSCoder) CachedURLResponse
 }
 
 // Init initializes the instance.

@@ -58,7 +58,6 @@ func (ac AVCaptionRubyClass) Alloc() AVCaptionRuby {
 // # Accessing text properties
 //
 //   - [AVCaptionRuby.Text]: The ruby text.
-//   - [AVCaptionRuby.Position]: The ruby text position.
 //   - [AVCaptionRuby.Alignment]: The ruby text alignment.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCaption/Ruby
@@ -86,7 +85,6 @@ func AVCaptionRubyFromID(id objc.ID) AVCaptionRuby {
 // # Accessing text properties
 //
 //   - [IAVCaptionRuby.Text]: The ruby text.
-//   - [IAVCaptionRuby.Position]: The ruby text position.
 //   - [IAVCaptionRuby.Alignment]: The ruby text alignment.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCaption/Ruby
@@ -104,11 +102,11 @@ type IAVCaptionRuby interface {
 
 	// The ruby text.
 	Text() string
-	// The ruby text position.
-	Position() AVCaptionRubyPosition
 	// The ruby text alignment.
 	Alignment() AVCaptionRubyAlignment
 
+	// The ruby text position.
+	Position() AVCaptionRubyPosition
 	EncodeWithCoder(coder foundation.INSCoder)
 }
 
@@ -192,18 +190,18 @@ func (c AVCaptionRuby) Text() string {
 	return foundation.NSStringFromID(rv).String()
 }
 
-// The ruby text position.
-//
-// See: https://developer.apple.com/documentation/AVFoundation/AVCaption/Ruby/position-swift.property
-func (c AVCaptionRuby) Position() AVCaptionRubyPosition {
-	rv := objc.Send[AVCaptionRubyPosition](c.ID, objc.Sel("position"))
-	return AVCaptionRubyPosition(rv)
-}
-
 // The ruby text alignment.
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVCaption/Ruby/alignment-swift.property
 func (c AVCaptionRuby) Alignment() AVCaptionRubyAlignment {
 	rv := objc.Send[AVCaptionRubyAlignment](c.ID, objc.Sel("alignment"))
 	return AVCaptionRubyAlignment(rv)
+}
+
+// The ruby text position.
+//
+// See: https://developer.apple.com/documentation/AVFoundation/AVCaption/Ruby/position
+func (c AVCaptionRuby) Position() AVCaptionRubyPosition {
+	rv := objc.Send[AVCaptionRubyPosition](c.ID, objc.Sel("position"))
+	return AVCaptionRubyPosition(rv)
 }

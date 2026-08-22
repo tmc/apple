@@ -115,7 +115,8 @@ func NewMLState() MLState {
 //
 // See: https://developer.apple.com/documentation/CoreML/MLState/getMultiArrayForStateNamed:handler:
 func (s MLState) GetMultiArrayForStateNamedHandler(stateName string, handler MLMultiArrayHandler) {
-	_block1, _ := NewMLMultiArrayBlock(handler)
+	_block1, _cleanup1 := NewMLMultiArrayBlock(handler)
+	defer _cleanup1()
 	objc.Send[objc.ID](s.ID, objc.Sel("getMultiArrayForStateNamed:handler:"), objc.String(stateName), _block1)
 }
 

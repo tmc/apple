@@ -30,7 +30,8 @@ func (e BLAS_THREADING) String() string {
 	}
 }
 
-type BNNSActivationFunction uint
+// See: https://developer.apple.com/documentation/Accelerate/BNNSActivationFunction
+type BNNSActivationFunction uint32
 
 const (
 	// BNNSActivationFunctionAbs: An activation function that returns the absolute value of its input.
@@ -184,94 +185,95 @@ func (e BNNSActivationFunction) String() string {
 	}
 }
 
-type BNNSArithmetic uint
+// See: https://developer.apple.com/documentation/Accelerate/BNNSArithmeticFunction
+type BNNSArithmeticFunction uint32
 
 const (
 	// BNNSArithmeticAbs: An operation that calculates the element-wise absolute of its input.
-	BNNSArithmeticAbs BNNSArithmetic = 32
+	BNNSArithmeticAbs BNNSArithmeticFunction = 32
 	// BNNSArithmeticAcos: An operation that calculates the element-wise inverse cosine of its input.
-	BNNSArithmeticAcos BNNSArithmetic = 13
+	BNNSArithmeticAcos BNNSArithmeticFunction = 13
 	// BNNSArithmeticAcosh: An operation that calculates the element-wise inverse hyperbolic cosine of its input.
-	BNNSArithmeticAcosh BNNSArithmetic = 19
+	BNNSArithmeticAcosh BNNSArithmeticFunction = 19
 	// BNNSArithmeticAdd: An operation that calculates the element-wise sum of its two inputs.
-	BNNSArithmeticAdd BNNSArithmetic = 0
+	BNNSArithmeticAdd BNNSArithmeticFunction = 0
 	// BNNSArithmeticAsin: An operation that calculates the element-wise inverse sine of its input.
-	BNNSArithmeticAsin BNNSArithmetic = 12
+	BNNSArithmeticAsin BNNSArithmeticFunction = 12
 	// BNNSArithmeticAsinh: An operation that calculates the element-wise inverse hyperbolic sine of its input.
-	BNNSArithmeticAsinh BNNSArithmetic = 18
+	BNNSArithmeticAsinh BNNSArithmeticFunction = 18
 	// BNNSArithmeticAtan: An operation that calculates the element-wise inverse tangent of its input.
-	BNNSArithmeticAtan BNNSArithmetic = 14
+	BNNSArithmeticAtan BNNSArithmeticFunction = 14
 	// BNNSArithmeticAtanh: An operation that calculates the element-wise inverse hyperbolic tangent of its input.
-	BNNSArithmeticAtanh BNNSArithmetic = 20
+	BNNSArithmeticAtanh BNNSArithmeticFunction = 20
 	// BNNSArithmeticCeil: An operation that calculates the element-wise ceiling of its input.
-	BNNSArithmeticCeil BNNSArithmetic = 6
+	BNNSArithmeticCeil BNNSArithmeticFunction = 6
 	// BNNSArithmeticCos: An operation that calculates the element-wise cosine of its input.
-	BNNSArithmeticCos BNNSArithmetic = 10
+	BNNSArithmeticCos BNNSArithmeticFunction = 10
 	// BNNSArithmeticCosh: An operation that calculates the element-wise hyperbolic cosine of its input.
-	BNNSArithmeticCosh BNNSArithmetic = 16
+	BNNSArithmeticCosh BNNSArithmeticFunction = 16
 	// BNNSArithmeticDivide: An operation that calculates the element-wise division of its two inputs.
-	BNNSArithmeticDivide BNNSArithmetic = 3
+	BNNSArithmeticDivide BNNSArithmeticFunction = 3
 	// BNNSArithmeticDivideNoNaN: An operation that calculates the element-wise division of its two inputs and returns zero if the divisor is zero, even if the first input is NaN or infinity.
-	BNNSArithmeticDivideNoNaN BNNSArithmetic = 27
+	BNNSArithmeticDivideNoNaN BNNSArithmeticFunction = 27
 	// BNNSArithmeticErf: An operation that calculates the element-wise error function of its input.
-	BNNSArithmeticErf BNNSArithmetic = 40
-	// BNNSArithmeticExp: An operation that calculates the element-wise result of  raised to the power of its input.
-	BNNSArithmeticExp BNNSArithmetic = 22
+	BNNSArithmeticErf BNNSArithmeticFunction = 40
+	// BNNSArithmeticExp: An operation that calculates the element-wise result of e raised to the power of its input.
+	BNNSArithmeticExp BNNSArithmeticFunction = 22
 	// BNNSArithmeticExp2: An operation that calculates the element-wise result of 2 raised to the power of its input.
-	BNNSArithmeticExp2 BNNSArithmetic = 23
+	BNNSArithmeticExp2 BNNSArithmeticFunction = 23
 	// BNNSArithmeticFloor: An operation that calculates the element-wise floor of its input.
-	BNNSArithmeticFloor BNNSArithmetic = 7
+	BNNSArithmeticFloor BNNSArithmeticFunction = 7
 	// BNNSArithmeticFloorDivide: An operation that calculates the element-wise floor division of its inputs.
-	BNNSArithmeticFloorDivide BNNSArithmetic = 37
+	BNNSArithmeticFloorDivide BNNSArithmeticFunction = 37
 	// BNNSArithmeticLog: An operation that calculates the element-wise natural logarithm of its input.
-	BNNSArithmeticLog BNNSArithmetic = 24
+	BNNSArithmeticLog BNNSArithmeticFunction = 24
 	// BNNSArithmeticLog2: An operation that calculates the element-wise base 2 logarithm of its input.
-	BNNSArithmeticLog2 BNNSArithmetic = 25
+	BNNSArithmeticLog2 BNNSArithmeticFunction = 25
 	// BNNSArithmeticMaximum: An operation that calculates the element-wise maximum of its two inputs.
-	BNNSArithmeticMaximum BNNSArithmetic = 30
+	BNNSArithmeticMaximum BNNSArithmeticFunction = 30
 	// BNNSArithmeticMinimum: An operation that calculates the element-wise minimum of its two inputs.
-	BNNSArithmeticMinimum BNNSArithmetic = 29
+	BNNSArithmeticMinimum BNNSArithmeticFunction = 29
 	// BNNSArithmeticMultiply: An operation that calculates the element-wise product of its two inputs.
-	BNNSArithmeticMultiply BNNSArithmetic = 2
+	BNNSArithmeticMultiply BNNSArithmeticFunction = 2
 	// BNNSArithmeticMultiplyAdd: An operation that calculates the element-wise fused multiply-add of its three inputs.
-	BNNSArithmeticMultiplyAdd BNNSArithmetic = 28
+	BNNSArithmeticMultiplyAdd BNNSArithmeticFunction = 28
 	// BNNSArithmeticMultiplyNoNaN: An operation that calculates the element-wise product of its two inputs and returns zero, even if the first input is NaN or infinity.
-	BNNSArithmeticMultiplyNoNaN BNNSArithmetic = 26
+	BNNSArithmeticMultiplyNoNaN BNNSArithmeticFunction = 26
 	// BNNSArithmeticNegate: An operation that calculates the element-wise negation of its input.
-	BNNSArithmeticNegate BNNSArithmetic = 34
+	BNNSArithmeticNegate BNNSArithmeticFunction = 34
 	// BNNSArithmeticPow: An operation that calculates the element-wise first input raised to the power of its second input.
-	BNNSArithmeticPow BNNSArithmetic = 21
+	BNNSArithmeticPow BNNSArithmeticFunction = 21
 	// BNNSArithmeticReciprocal: An operation that calculates the element-wise reciprocal of its input.
-	BNNSArithmeticReciprocal BNNSArithmetic = 35
+	BNNSArithmeticReciprocal BNNSArithmeticFunction = 35
 	// BNNSArithmeticReciprocalSquareRoot: An operation that calculates the element-wise reciprocal square root of its input.
-	BNNSArithmeticReciprocalSquareRoot BNNSArithmetic = 5
+	BNNSArithmeticReciprocalSquareRoot BNNSArithmeticFunction = 5
 	// BNNSArithmeticRound: An operation that calculates the element-wise rounding of its input.
-	BNNSArithmeticRound BNNSArithmetic = 8
+	BNNSArithmeticRound BNNSArithmeticFunction = 8
 	// BNNSArithmeticSelect: An operation that selects elements from either its second or third input based on the corresponding value of its first input.
-	BNNSArithmeticSelect BNNSArithmetic = 31
+	BNNSArithmeticSelect BNNSArithmeticFunction = 31
 	// BNNSArithmeticSign: An operation that calculates the element-wise sign of its input.
-	BNNSArithmeticSign BNNSArithmetic = 33
+	BNNSArithmeticSign BNNSArithmeticFunction = 33
 	// BNNSArithmeticSin: An operation that calculates the element-wise sine of its input.
-	BNNSArithmeticSin BNNSArithmetic = 9
+	BNNSArithmeticSin BNNSArithmeticFunction = 9
 	// BNNSArithmeticSinh: An operation that calculates the element-wise hyperbolic sine of its input.
-	BNNSArithmeticSinh BNNSArithmetic = 15
+	BNNSArithmeticSinh BNNSArithmeticFunction = 15
 	// BNNSArithmeticSquare: An operation that calculates the element-wise square of its input.
-	BNNSArithmeticSquare BNNSArithmetic = 36
+	BNNSArithmeticSquare BNNSArithmeticFunction = 36
 	// BNNSArithmeticSquareRoot: An operation that calculates the element-wise square root of its input.
-	BNNSArithmeticSquareRoot BNNSArithmetic = 4
+	BNNSArithmeticSquareRoot BNNSArithmeticFunction = 4
 	// BNNSArithmeticSubtract: An operation that calculates the element-wise difference of its two inputs.
-	BNNSArithmeticSubtract BNNSArithmetic = 1
+	BNNSArithmeticSubtract BNNSArithmeticFunction = 1
 	// BNNSArithmeticTan: An operation that calculates the element-wise tangent of its input.
-	BNNSArithmeticTan BNNSArithmetic = 11
+	BNNSArithmeticTan BNNSArithmeticFunction = 11
 	// BNNSArithmeticTanh: An operation that calculates the element-wise hyperbolic tangent of its input.
-	BNNSArithmeticTanh BNNSArithmetic = 17
+	BNNSArithmeticTanh BNNSArithmeticFunction = 17
 	// BNNSArithmeticTruncDivide: An operation that calculates the element-wise truncated division of its inputs.
-	BNNSArithmeticTruncDivide BNNSArithmetic = 38
+	BNNSArithmeticTruncDivide BNNSArithmeticFunction = 38
 	// BNNSArithmeticTruncRemainder: An operation that calculates the element-wise remainder of truncated division of its inputs.
-	BNNSArithmeticTruncRemainder BNNSArithmetic = 39
+	BNNSArithmeticTruncRemainder BNNSArithmeticFunction = 39
 )
 
-func (e BNNSArithmetic) String() string {
+func (e BNNSArithmeticFunction) String() string {
 	switch e {
 	case BNNSArithmeticAbs:
 		return "BNNSArithmeticAbs"
@@ -356,70 +358,100 @@ func (e BNNSArithmetic) String() string {
 	case BNNSArithmeticTruncRemainder:
 		return "BNNSArithmeticTruncRemainder"
 	default:
-		return fmt.Sprintf("BNNSArithmetic(%d)", e)
+		return fmt.Sprintf("BNNSArithmeticFunction(%d)", e)
 	}
 }
 
-type BNNSData uint
+// See: https://developer.apple.com/documentation/Accelerate/BNNSBoxCoordinateMode
+type BNNSBoxCoordinateMode uint32
+
+const (
+	// BNNSCenterSizeHeightFirst: Specifies coordinates as corners with the order: height start, width start, height end, width end.
+	BNNSCenterSizeHeightFirst BNNSBoxCoordinateMode = 2
+	// BNNSCenterSizeWidthFirst: Specifies coordinates as corners with the order: width start, height start, width end, height end.
+	BNNSCenterSizeWidthFirst BNNSBoxCoordinateMode = 3
+	// BNNSCornersHeightFirst: Specifies coordinates as center and size with the order: height center, width center, height, width.
+	BNNSCornersHeightFirst BNNSBoxCoordinateMode = 0
+	// BNNSCornersWidthFirst: Specifies coordinates as center and size with the order: width center, height center, width, height.
+	BNNSCornersWidthFirst BNNSBoxCoordinateMode = 1
+)
+
+func (e BNNSBoxCoordinateMode) String() string {
+	switch e {
+	case BNNSCenterSizeHeightFirst:
+		return "BNNSCenterSizeHeightFirst"
+	case BNNSCenterSizeWidthFirst:
+		return "BNNSCenterSizeWidthFirst"
+	case BNNSCornersHeightFirst:
+		return "BNNSCornersHeightFirst"
+	case BNNSCornersWidthFirst:
+		return "BNNSCornersWidthFirst"
+	default:
+		return fmt.Sprintf("BNNSBoxCoordinateMode(%d)", e)
+	}
+}
+
+// See: https://developer.apple.com/documentation/Accelerate/BNNSDataLayout
+type BNNSDataLayout uint32
 
 const (
 	// BNNSDataLayout1DFirstMajor: A constant that represents a 1D first-major vector.
-	BNNSDataLayout1DFirstMajor BNNSData = 0x18001
+	BNNSDataLayout1DFirstMajor BNNSDataLayout = 0x18001
 	// BNNSDataLayout1DLastMajor: A constant that represents a 1D last-major vector.
-	BNNSDataLayout1DLastMajor BNNSData = 0x18000
+	BNNSDataLayout1DLastMajor BNNSDataLayout = 0x18000
 	// BNNSDataLayout2DFirstMajor: A constant that represents a 2D first-major matrix.
-	BNNSDataLayout2DFirstMajor BNNSData = 0x28001
+	BNNSDataLayout2DFirstMajor BNNSDataLayout = 0x28001
 	// BNNSDataLayout2DLastMajor: A constant that represents a 2D last-major matrix.
-	BNNSDataLayout2DLastMajor BNNSData = 0x28000
+	BNNSDataLayout2DLastMajor BNNSDataLayout = 0x28000
 	// BNNSDataLayout3DFirstMajor: A constant that represents a 3D first-major tensor.
-	BNNSDataLayout3DFirstMajor BNNSData = 0x38001
+	BNNSDataLayout3DFirstMajor BNNSDataLayout = 0x38001
 	// BNNSDataLayout3DLastMajor: A constant that represents a 3D last-major tensor.
-	BNNSDataLayout3DLastMajor BNNSData = 0x38000
+	BNNSDataLayout3DLastMajor BNNSDataLayout = 0x38000
 	// BNNSDataLayout4DFirstMajor: A constant that represents a 4D first-major tensor.
-	BNNSDataLayout4DFirstMajor BNNSData = 0x48001
+	BNNSDataLayout4DFirstMajor BNNSDataLayout = 0x48001
 	// BNNSDataLayout4DLastMajor: A constant that represents a 4D last-major tensor.
-	BNNSDataLayout4DLastMajor BNNSData = 0x48000
+	BNNSDataLayout4DLastMajor BNNSDataLayout = 0x48000
 	// BNNSDataLayout5DFirstMajor: A constant that represents a 5D first-major tensor.
-	BNNSDataLayout5DFirstMajor BNNSData = 0x58001
+	BNNSDataLayout5DFirstMajor BNNSDataLayout = 0x58001
 	// BNNSDataLayout5DLastMajor: A constant that represents a 5D last-major tensor.
-	BNNSDataLayout5DLastMajor BNNSData = 0x58000
+	BNNSDataLayout5DLastMajor BNNSDataLayout = 0x58000
 	// BNNSDataLayout6DFirstMajor: A constant that represents a 6D first-major tensor.
-	BNNSDataLayout6DFirstMajor BNNSData = 0x68001
+	BNNSDataLayout6DFirstMajor BNNSDataLayout = 0x68001
 	// BNNSDataLayout6DLastMajor: A constant that represents a 6D last-major tensor.
-	BNNSDataLayout6DLastMajor BNNSData = 0x68000
+	BNNSDataLayout6DLastMajor BNNSDataLayout = 0x68000
 	// BNNSDataLayout7DFirstMajor: A constant that represents a 7D first-major tensor.
-	BNNSDataLayout7DFirstMajor BNNSData = 0x78001
+	BNNSDataLayout7DFirstMajor BNNSDataLayout = 0x78001
 	// BNNSDataLayout7DLastMajor: A constant that represents a 7D last-major tensor.
-	BNNSDataLayout7DLastMajor BNNSData = 0x78000
+	BNNSDataLayout7DLastMajor BNNSDataLayout = 0x78000
 	// BNNSDataLayout8DFirstMajor: A constant that represents a 8D first-major tensor.
-	BNNSDataLayout8DFirstMajor BNNSData = 0x88001
+	BNNSDataLayout8DFirstMajor BNNSDataLayout = 0x88001
 	// BNNSDataLayout8DLastMajor: A constant that represents a 8D last-major tensor.
-	BNNSDataLayout8DLastMajor BNNSData = 0x88000
+	BNNSDataLayout8DLastMajor BNNSDataLayout = 0x88000
 	// BNNSDataLayoutColumnMajorMatrix: A constant that represents a 2D column-major matrix.
-	BNNSDataLayoutColumnMajorMatrix BNNSData = 0x20001
+	BNNSDataLayoutColumnMajorMatrix BNNSDataLayout = 0x20001
 	// BNNSDataLayoutConvolutionWeightsIOHrWr: A constant that represents a 4D array of rotated convolution weights.
-	BNNSDataLayoutConvolutionWeightsIOHrWr BNNSData = 0x40002
+	BNNSDataLayoutConvolutionWeightsIOHrWr BNNSDataLayout = 0x40002
 	// BNNSDataLayoutConvolutionWeightsOIHW: A constant that represents a 4D array of convolution weights.
-	BNNSDataLayoutConvolutionWeightsOIHW BNNSData = 0x40000
+	BNNSDataLayoutConvolutionWeightsOIHW BNNSDataLayout = 0x40000
 	// BNNSDataLayoutConvolutionWeightsOIHW_Pack32: A constant that represents a 4D array of packed convolution weights with 32-output channel packing and 128-byte array address alignment.
-	BNNSDataLayoutConvolutionWeightsOIHW_Pack32 BNNSData = 0x40010
+	BNNSDataLayoutConvolutionWeightsOIHW_Pack32 BNNSDataLayout = 0x40010
 	// BNNSDataLayoutConvolutionWeightsOIHrWr: A constant that represents a 4D array of rotated convolution weights.
-	BNNSDataLayoutConvolutionWeightsOIHrWr BNNSData = 0x40001
-	BNNSDataLayoutFullyConnectedSparse     BNNSData = 0x21001
+	BNNSDataLayoutConvolutionWeightsOIHrWr BNNSDataLayout = 0x40001
+	BNNSDataLayoutFullyConnectedSparse     BNNSDataLayout = 0x21001
 	// BNNSDataLayoutImageCHW: A constant that represents a 3D image stack.
-	BNNSDataLayoutImageCHW BNNSData = 0x30000
-	BNNSDataLayoutMHA_DHK  BNNSData = 0x30003
+	BNNSDataLayoutImageCHW BNNSDataLayout = 0x30000
+	BNNSDataLayoutMHA_DHK  BNNSDataLayout = 0x30003
 	// BNNSDataLayoutNSE: A constant that represents a 3D tensor with the size elements embedding dimension, sequence length, and batch size.
-	BNNSDataLayoutNSE BNNSData = 0x30002
+	BNNSDataLayoutNSE BNNSDataLayout = 0x30002
 	// BNNSDataLayoutRowMajorMatrix: A constant that represents a 2D row-major matrix.
-	BNNSDataLayoutRowMajorMatrix BNNSData = 0x20000
+	BNNSDataLayoutRowMajorMatrix BNNSDataLayout = 0x20000
 	// BNNSDataLayoutSNE: A constant that represents a 3D tensor with the size elements embedding dimension, batch size, and sequence length.
-	BNNSDataLayoutSNE BNNSData = 0x30001
+	BNNSDataLayoutSNE BNNSDataLayout = 0x30001
 	// BNNSDataLayoutVector: A constant that represents a 1D vector.
-	BNNSDataLayoutVector BNNSData = 0x10000
+	BNNSDataLayoutVector BNNSDataLayout = 0x10000
 )
 
-func (e BNNSData) String() string {
+func (e BNNSDataLayout) String() string {
 	switch e {
 	case BNNSDataLayout1DFirstMajor:
 		return "BNNSDataLayout1DFirstMajor"
@@ -478,69 +510,70 @@ func (e BNNSData) String() string {
 	case BNNSDataLayoutVector:
 		return "BNNSDataLayoutVector"
 	default:
-		return fmt.Sprintf("BNNSData(%d)", e)
+		return fmt.Sprintf("BNNSDataLayout(%d)", e)
 	}
 }
 
-type BNNSDataType uint
+// See: https://developer.apple.com/documentation/Accelerate/BNNSDataType
+type BNNSDataType uint32
 
 const (
 	// BNNSDataTypeBFloat16: # Discussion
-	BNNSDataTypeBFloat16 BNNSDataType = 65536
+	BNNSDataTypeBFloat16 BNNSDataType = 98320
 	// BNNSDataTypeBoolean: # Discussion
-	BNNSDataTypeBoolean BNNSDataType = 1048576
+	BNNSDataTypeBoolean BNNSDataType = 1048584
 	// BNNSDataTypeFloat16: # Discussion
-	BNNSDataTypeFloat16 BNNSDataType = 65536
+	BNNSDataTypeFloat16 BNNSDataType = 65552
 	// BNNSDataTypeFloat32: # Discussion
-	BNNSDataTypeFloat32 BNNSDataType = 65536
+	BNNSDataTypeFloat32 BNNSDataType = 65568
 	// BNNSDataTypeFloatBit: # Discussion
 	BNNSDataTypeFloatBit BNNSDataType = 0x10000
 	// BNNSDataTypeIndexed1: # Discussion
-	BNNSDataTypeIndexed1 BNNSDataType = 524288
+	BNNSDataTypeIndexed1 BNNSDataType = 524289
 	// BNNSDataTypeIndexed2: # Discussion
-	BNNSDataTypeIndexed2 BNNSDataType = 524288
+	BNNSDataTypeIndexed2 BNNSDataType = 524290
 	// BNNSDataTypeIndexed4: # Discussion
-	BNNSDataTypeIndexed4 BNNSDataType = 524288
+	BNNSDataTypeIndexed4 BNNSDataType = 524292
 	// BNNSDataTypeIndexed8: # Discussion
-	BNNSDataTypeIndexed8 BNNSDataType = 524288
+	BNNSDataTypeIndexed8 BNNSDataType = 524296
 	// BNNSDataTypeIndexedBit: # Discussion
 	BNNSDataTypeIndexedBit BNNSDataType = 0x80000
 	// BNNSDataTypeInt1: # Discussion
-	BNNSDataTypeInt1 BNNSDataType = 131072
+	BNNSDataTypeInt1 BNNSDataType = 131073
 	// BNNSDataTypeInt16: # Discussion
-	BNNSDataTypeInt16 BNNSDataType = 131072
+	BNNSDataTypeInt16 BNNSDataType = 131088
 	// BNNSDataTypeInt2: # Discussion
-	BNNSDataTypeInt2 BNNSDataType = 131072
+	BNNSDataTypeInt2 BNNSDataType = 131074
 	// BNNSDataTypeInt32: # Discussion
-	BNNSDataTypeInt32 BNNSDataType = 131072
+	BNNSDataTypeInt32 BNNSDataType = 131104
 	// BNNSDataTypeInt4: # Discussion
-	BNNSDataTypeInt4 BNNSDataType = 131072
+	BNNSDataTypeInt4 BNNSDataType = 131076
 	// BNNSDataTypeInt64: # Discussion
-	BNNSDataTypeInt64 BNNSDataType = 131072
+	BNNSDataTypeInt64 BNNSDataType = 131136
 	// BNNSDataTypeInt8: # Discussion
-	BNNSDataTypeInt8 BNNSDataType = 131072
+	BNNSDataTypeInt8 BNNSDataType = 131080
 	// BNNSDataTypeIntBit: # Discussion
 	BNNSDataTypeIntBit BNNSDataType = 0x20000
 	// BNNSDataTypeMiscellaneousBit: # Discussion
 	BNNSDataTypeMiscellaneousBit BNNSDataType = 0x100000
 	// BNNSDataTypeUInt1: # Discussion
-	BNNSDataTypeUInt1 BNNSDataType = 262144
+	BNNSDataTypeUInt1 BNNSDataType = 262145
 	// BNNSDataTypeUInt16: # Discussion
-	BNNSDataTypeUInt16 BNNSDataType = 262144
+	BNNSDataTypeUInt16 BNNSDataType = 262160
 	// BNNSDataTypeUInt2: # Discussion
-	BNNSDataTypeUInt2 BNNSDataType = 262144
+	BNNSDataTypeUInt2 BNNSDataType = 262146
 	// BNNSDataTypeUInt3: # Discussion
-	BNNSDataTypeUInt3 BNNSDataType = 262144
+	BNNSDataTypeUInt3 BNNSDataType = 262147
 	// BNNSDataTypeUInt32: # Discussion
-	BNNSDataTypeUInt32 BNNSDataType = 262144
+	BNNSDataTypeUInt32 BNNSDataType = 262176
 	// BNNSDataTypeUInt4: # Discussion
-	BNNSDataTypeUInt4 BNNSDataType = 262144
+	BNNSDataTypeUInt4 BNNSDataType = 262148
 	// BNNSDataTypeUInt6: # Discussion
-	BNNSDataTypeUInt6 BNNSDataType = 262144
+	BNNSDataTypeUInt6 BNNSDataType = 262150
 	// BNNSDataTypeUInt64: # Discussion
-	BNNSDataTypeUInt64 BNNSDataType = 262144
+	BNNSDataTypeUInt64 BNNSDataType = 262208
 	// BNNSDataTypeUInt8: # Discussion
-	BNNSDataTypeUInt8 BNNSDataType = 262144
+	BNNSDataTypeUInt8 BNNSDataType = 262152
 	// BNNSDataTypeUIntBit: # Discussion
 	BNNSDataTypeUIntBit BNNSDataType = 0x40000
 )
@@ -551,56 +584,181 @@ func (e BNNSDataType) String() string {
 		return "BNNSDataTypeBFloat16"
 	case BNNSDataTypeBoolean:
 		return "BNNSDataTypeBoolean"
+	case BNNSDataTypeFloat16:
+		return "BNNSDataTypeFloat16"
+	case BNNSDataTypeFloat32:
+		return "BNNSDataTypeFloat32"
+	case BNNSDataTypeFloatBit:
+		return "BNNSDataTypeFloatBit"
 	case BNNSDataTypeIndexed1:
 		return "BNNSDataTypeIndexed1"
+	case BNNSDataTypeIndexed2:
+		return "BNNSDataTypeIndexed2"
+	case BNNSDataTypeIndexed4:
+		return "BNNSDataTypeIndexed4"
+	case BNNSDataTypeIndexed8:
+		return "BNNSDataTypeIndexed8"
+	case BNNSDataTypeIndexedBit:
+		return "BNNSDataTypeIndexedBit"
 	case BNNSDataTypeInt1:
 		return "BNNSDataTypeInt1"
+	case BNNSDataTypeInt16:
+		return "BNNSDataTypeInt16"
+	case BNNSDataTypeInt2:
+		return "BNNSDataTypeInt2"
+	case BNNSDataTypeInt32:
+		return "BNNSDataTypeInt32"
+	case BNNSDataTypeInt4:
+		return "BNNSDataTypeInt4"
+	case BNNSDataTypeInt64:
+		return "BNNSDataTypeInt64"
+	case BNNSDataTypeInt8:
+		return "BNNSDataTypeInt8"
+	case BNNSDataTypeIntBit:
+		return "BNNSDataTypeIntBit"
+	case BNNSDataTypeMiscellaneousBit:
+		return "BNNSDataTypeMiscellaneousBit"
 	case BNNSDataTypeUInt1:
 		return "BNNSDataTypeUInt1"
+	case BNNSDataTypeUInt16:
+		return "BNNSDataTypeUInt16"
+	case BNNSDataTypeUInt2:
+		return "BNNSDataTypeUInt2"
+	case BNNSDataTypeUInt3:
+		return "BNNSDataTypeUInt3"
+	case BNNSDataTypeUInt32:
+		return "BNNSDataTypeUInt32"
+	case BNNSDataTypeUInt4:
+		return "BNNSDataTypeUInt4"
+	case BNNSDataTypeUInt6:
+		return "BNNSDataTypeUInt6"
+	case BNNSDataTypeUInt64:
+		return "BNNSDataTypeUInt64"
+	case BNNSDataTypeUInt8:
+		return "BNNSDataTypeUInt8"
+	case BNNSDataTypeUIntBit:
+		return "BNNSDataTypeUIntBit"
 	default:
 		return fmt.Sprintf("BNNSDataType(%d)", e)
 	}
 }
 
-type BNNSEmbeddingFlagScaleGradientBy uint
+// See: https://developer.apple.com/documentation/Accelerate/BNNSDescriptorType
+type BNNSDescriptorType uint32
+
+const (
+	// BNNSConstant: A constant that doesn’t have a gradient.
+	BNNSConstant BNNSDescriptorType = 0
+	// BNNSParameter: A parameter that’s trainable, such as weights or bias.
+	BNNSParameter BNNSDescriptorType = 2
+	// BNNSSample: A sample such as input or output.
+	BNNSSample BNNSDescriptorType = 1
+)
+
+func (e BNNSDescriptorType) String() string {
+	switch e {
+	case BNNSConstant:
+		return "BNNSConstant"
+	case BNNSParameter:
+		return "BNNSParameter"
+	case BNNSSample:
+		return "BNNSSample"
+	default:
+		return fmt.Sprintf("BNNSDescriptorType(%d)", e)
+	}
+}
+
+// See: https://developer.apple.com/documentation/Accelerate/BNNSEmbeddingFlags
+type BNNSEmbeddingFlags uint32
 
 const (
 	// BNNSEmbeddingFlagScaleGradientByFrequency: A flag that specifies that the operation scales calculated gradients based on the number of occurrence of the corresponding index in the input.
-	BNNSEmbeddingFlagScaleGradientByFrequency BNNSEmbeddingFlagScaleGradientBy = 1
+	BNNSEmbeddingFlagScaleGradientByFrequency BNNSEmbeddingFlags = 1
 )
 
-func (e BNNSEmbeddingFlagScaleGradientBy) String() string {
+func (e BNNSEmbeddingFlags) String() string {
 	switch e {
 	case BNNSEmbeddingFlagScaleGradientByFrequency:
 		return "BNNSEmbeddingFlagScaleGradientByFrequency"
 	default:
-		return fmt.Sprintf("BNNSEmbeddingFlagScaleGradientBy(%d)", e)
+		return fmt.Sprintf("BNNSEmbeddingFlags(%d)", e)
 	}
 }
 
-type BNNSFlagsUseClient uint
+// See: https://developer.apple.com/documentation/Accelerate/BNNSFilterType
+type BNNSFilterType uint32
+
+const (
+	// BNNSArithmetic: An arithmetic filter.
+	BNNSArithmetic BNNSFilterType = 8
+	// BNNSBatchNorm: A batch normalization filter.
+	BNNSBatchNorm BNNSFilterType = 2
+	// BNNSConvolution: A convolution filter.
+	BNNSConvolution BNNSFilterType = 0
+	// BNNSFullyConnected: A fully connected filter.
+	BNNSFullyConnected BNNSFilterType = 1
+	// BNNSGroupNorm: A group normalization filter.
+	BNNSGroupNorm BNNSFilterType = 5
+	// BNNSInstanceNorm: An instance normalization filter.
+	BNNSInstanceNorm BNNSFilterType = 3
+	// BNNSLayerNorm: A layer normalization filter.
+	BNNSLayerNorm BNNSFilterType = 4
+	// BNNSQuantization: A quantization filter.
+	BNNSQuantization BNNSFilterType = 7
+	// BNNSTransposedConvolution: A transposed convolution filter.
+	BNNSTransposedConvolution BNNSFilterType = 6
+)
+
+func (e BNNSFilterType) String() string {
+	switch e {
+	case BNNSArithmetic:
+		return "BNNSArithmetic"
+	case BNNSBatchNorm:
+		return "BNNSBatchNorm"
+	case BNNSConvolution:
+		return "BNNSConvolution"
+	case BNNSFullyConnected:
+		return "BNNSFullyConnected"
+	case BNNSGroupNorm:
+		return "BNNSGroupNorm"
+	case BNNSInstanceNorm:
+		return "BNNSInstanceNorm"
+	case BNNSLayerNorm:
+		return "BNNSLayerNorm"
+	case BNNSQuantization:
+		return "BNNSQuantization"
+	case BNNSTransposedConvolution:
+		return "BNNSTransposedConvolution"
+	default:
+		return fmt.Sprintf("BNNSFilterType(%d)", e)
+	}
+}
+
+// See: https://developer.apple.com/documentation/Accelerate/BNNSFlags
+type BNNSFlags uint32
 
 const (
 	// BNNSFlagsUseClientPtr: A flag that instructs the filter to use pointers to data you provide at creation time.
-	BNNSFlagsUseClientPtr BNNSFlagsUseClient = 0x1
+	BNNSFlagsUseClientPtr BNNSFlags = 0x1
 )
 
-func (e BNNSFlagsUseClient) String() string {
+func (e BNNSFlags) String() string {
 	switch e {
 	case BNNSFlagsUseClientPtr:
 		return "BNNSFlagsUseClientPtr"
 	default:
-		return fmt.Sprintf("BNNSFlagsUseClient(%d)", e)
+		return fmt.Sprintf("BNNSFlags(%d)", e)
 	}
 }
 
-type BNNSGraphArgumentIntent uint
+// See: https://developer.apple.com/documentation/Accelerate/BNNSGraphArgumentIntent
+type BNNSGraphArgumentIntent uint32
 
 const (
 	// BNNSGraphArgumentIntentIn: A constant that specifies the argument provides an input tensor.
 	BNNSGraphArgumentIntentIn BNNSGraphArgumentIntent = 1
 	// BNNSGraphArgumentIntentInOut: A constant that specifies the argument is an in-place input and output tensor.
-	BNNSGraphArgumentIntentInOut BNNSGraphArgumentIntent = 1
+	BNNSGraphArgumentIntentInOut BNNSGraphArgumentIntent = 3
 	// BNNSGraphArgumentIntentOut: A constant that specifies the argument provides an output tensor.
 	BNNSGraphArgumentIntentOut BNNSGraphArgumentIntent = 2
 )
@@ -609,6 +767,8 @@ func (e BNNSGraphArgumentIntent) String() string {
 	switch e {
 	case BNNSGraphArgumentIntentIn:
 		return "BNNSGraphArgumentIntentIn"
+	case BNNSGraphArgumentIntentInOut:
+		return "BNNSGraphArgumentIntentInOut"
 	case BNNSGraphArgumentIntentOut:
 		return "BNNSGraphArgumentIntentOut"
 	default:
@@ -616,7 +776,8 @@ func (e BNNSGraphArgumentIntent) String() string {
 	}
 }
 
-type BNNSGraphArgumentType uint
+// See: https://developer.apple.com/documentation/Accelerate/BNNSGraphArgumentType
+type BNNSGraphArgumentType uint32
 
 const (
 	// BNNSGraphArgumentTypePointer: A pointer to the raw data for the tensor.
@@ -636,7 +797,8 @@ func (e BNNSGraphArgumentType) String() string {
 	}
 }
 
-type BNNSGraphMessageLevel uint
+// See: https://developer.apple.com/documentation/Accelerate/BNNSGraphMessageLevel
+type BNNSGraphMessageLevel uint32
 
 const (
 	// BNNSGraphMessageLevelError: A constant that specifies error message types.
@@ -664,7 +826,8 @@ func (e BNNSGraphMessageLevel) String() string {
 	}
 }
 
-type BNNSGraphOptimizationPreference uint
+// See: https://developer.apple.com/documentation/Accelerate/BNNSGraphOptimizationPreference
+type BNNSGraphOptimizationPreference uint32
 
 const (
 	// BNNSGraphOptimizationPreferenceIRSize: A constant that specifies compilation optimization for smallest graph size on disk.
@@ -684,7 +847,8 @@ func (e BNNSGraphOptimizationPreference) String() string {
 	}
 }
 
-type BNNSInterpolationMethod uint
+// See: https://developer.apple.com/documentation/Accelerate/BNNSInterpolationMethod
+type BNNSInterpolationMethod uint32
 
 const (
 	// BNNSInterpolationMethodLinear: Interpolation that is linear or bilinear depending on the number of resized dimensions.
@@ -704,42 +868,44 @@ func (e BNNSInterpolationMethod) String() string {
 	}
 }
 
-type BNNSLayerFlagsLSTM uint
+// See: https://developer.apple.com/documentation/Accelerate/BNNSLayerFlags
+type BNNSLayerFlags uint32
 
 const (
 	// BNNSLayerFlagsLSTMBidirectional: A flag that enables bidirectional long short-term memory (LSTM).
-	BNNSLayerFlagsLSTMBidirectional BNNSLayerFlagsLSTM = 0x1
+	BNNSLayerFlagsLSTMBidirectional BNNSLayerFlags = 0x1
 	// BNNSLayerFlagsLSTMDefaultActivations: A flag that ignores the specified gate activations and instructs the operation to use default activations.
-	BNNSLayerFlagsLSTMDefaultActivations BNNSLayerFlagsLSTM = 0x2
+	BNNSLayerFlagsLSTMDefaultActivations BNNSLayerFlags = 0x2
 )
 
-func (e BNNSLayerFlagsLSTM) String() string {
+func (e BNNSLayerFlags) String() string {
 	switch e {
 	case BNNSLayerFlagsLSTMBidirectional:
 		return "BNNSLayerFlagsLSTMBidirectional"
 	case BNNSLayerFlagsLSTMDefaultActivations:
 		return "BNNSLayerFlagsLSTMDefaultActivations"
 	default:
-		return fmt.Sprintf("BNNSLayerFlagsLSTM(%d)", e)
+		return fmt.Sprintf("BNNSLayerFlags(%d)", e)
 	}
 }
 
-type BNNSLinearSampling uint
+// See: https://developer.apple.com/documentation/Accelerate/BNNSLinearSamplingMode
+type BNNSLinearSamplingMode uint32
 
 const (
 	// BNNSLinearSamplingAlignCorners: The align corners sampling mode.
-	BNNSLinearSamplingAlignCorners BNNSLinearSampling = 1
+	BNNSLinearSamplingAlignCorners BNNSLinearSamplingMode = 1
 	// BNNSLinearSamplingDefault: The default linear sampling mode.
-	BNNSLinearSamplingDefault BNNSLinearSampling = 0
+	BNNSLinearSamplingDefault BNNSLinearSamplingMode = 0
 	// BNNSLinearSamplingOffsetCorners: The offset corners sampling mode.
-	BNNSLinearSamplingOffsetCorners BNNSLinearSampling = 4
+	BNNSLinearSamplingOffsetCorners BNNSLinearSamplingMode = 4
 	// BNNSLinearSamplingStrictAlignCorners: The strict align corners sampling mode.
-	BNNSLinearSamplingStrictAlignCorners BNNSLinearSampling = 3
+	BNNSLinearSamplingStrictAlignCorners BNNSLinearSamplingMode = 3
 	// BNNSLinearSamplingUnalignCorners: The unalign corners sampling mode.
-	BNNSLinearSamplingUnalignCorners BNNSLinearSampling = 2
+	BNNSLinearSamplingUnalignCorners BNNSLinearSamplingMode = 2
 )
 
-func (e BNNSLinearSampling) String() string {
+func (e BNNSLinearSamplingMode) String() string {
 	switch e {
 	case BNNSLinearSamplingAlignCorners:
 		return "BNNSLinearSamplingAlignCorners"
@@ -752,11 +918,12 @@ func (e BNNSLinearSampling) String() string {
 	case BNNSLinearSamplingUnalignCorners:
 		return "BNNSLinearSamplingUnalignCorners"
 	default:
-		return fmt.Sprintf("BNNSLinearSampling(%d)", e)
+		return fmt.Sprintf("BNNSLinearSamplingMode(%d)", e)
 	}
 }
 
-type BNNSLossFunction uint
+// See: https://developer.apple.com/documentation/Accelerate/BNNSLossFunction
+type BNNSLossFunction uint32
 
 const (
 	// BNNSLossFunctionCategoricalCrossEntropy: Performs categorical cross entropy computation between input prediction and labels.
@@ -808,22 +975,23 @@ func (e BNNSLossFunction) String() string {
 	}
 }
 
-type BNNSLossReduction uint
+// See: https://developer.apple.com/documentation/Accelerate/BNNSLossReductionFunction
+type BNNSLossReductionFunction uint32
 
 const (
 	// BNNSLossReductionMean: Sums the loss of all samples in the batch and divides by the number of samples.
-	BNNSLossReductionMean BNNSLossReduction = 3
+	BNNSLossReductionMean BNNSLossReductionFunction = 3
 	// BNNSLossReductionNonZeroWeightMean: Sums the loss of all samples in the batch and divides by the number of non-zero weights.
-	BNNSLossReductionNonZeroWeightMean BNNSLossReduction = 4
+	BNNSLossReductionNonZeroWeightMean BNNSLossReductionFunction = 4
 	// BNNSLossReductionNone: Returns the loss without any reduction.
-	BNNSLossReductionNone BNNSLossReduction = 0
+	BNNSLossReductionNone BNNSLossReductionFunction = 0
 	// BNNSLossReductionSum: Sums the loss of all samples in the batch.
-	BNNSLossReductionSum BNNSLossReduction = 1
+	BNNSLossReductionSum BNNSLossReductionFunction = 1
 	// BNNSLossReductionWeightedMean: Sums the loss of all samples in the batch and divides by the sum of all weights.
-	BNNSLossReductionWeightedMean BNNSLossReduction = 2
+	BNNSLossReductionWeightedMean BNNSLossReductionFunction = 2
 )
 
-func (e BNNSLossReduction) String() string {
+func (e BNNSLossReductionFunction) String() string {
 	switch e {
 	case BNNSLossReductionMean:
 		return "BNNSLossReductionMean"
@@ -836,44 +1004,63 @@ func (e BNNSLossReduction) String() string {
 	case BNNSLossReductionWeightedMean:
 		return "BNNSLossReductionWeightedMean"
 	default:
-		return fmt.Sprintf("BNNSLossReduction(%d)", e)
+		return fmt.Sprintf("BNNSLossReductionFunction(%d)", e)
 	}
 }
 
-type BNNSNDArrayFlagBackprop uint
+// See: https://developer.apple.com/documentation/Accelerate/BNNSNDArrayFlags
+type BNNSNDArrayFlags uint32
 
 const (
 	// BNNSNDArrayFlagBackpropAccumulate: A flag that indicates backpropagation adds the value of the Jacobian to the elements of this n-dimensional array.
-	BNNSNDArrayFlagBackpropAccumulate BNNSNDArrayFlagBackprop = 1
+	BNNSNDArrayFlagBackpropAccumulate BNNSNDArrayFlags = 1
 	// BNNSNDArrayFlagBackpropSet: A flag that indicates the elements of this n-dimensional array are overwritten by the Jacobian during backpropagation.
-	BNNSNDArrayFlagBackpropSet BNNSNDArrayFlagBackprop = 0
+	BNNSNDArrayFlagBackpropSet BNNSNDArrayFlags = 0
 )
 
-func (e BNNSNDArrayFlagBackprop) String() string {
+func (e BNNSNDArrayFlags) String() string {
 	switch e {
 	case BNNSNDArrayFlagBackpropAccumulate:
 		return "BNNSNDArrayFlagBackpropAccumulate"
 	case BNNSNDArrayFlagBackpropSet:
 		return "BNNSNDArrayFlagBackpropSet"
 	default:
-		return fmt.Sprintf("BNNSNDArrayFlagBackprop(%d)", e)
+		return fmt.Sprintf("BNNSNDArrayFlags(%d)", e)
 	}
 }
 
-type BNNSOptimizerClipping uint
+// See: https://developer.apple.com/documentation/Accelerate/BNNSNormType
+type BNNSNormType uint32
+
+const (
+	// BNNSL2Norm: A constant that represents the L2 norm.
+	BNNSL2Norm BNNSNormType = 1
+)
+
+func (e BNNSNormType) String() string {
+	switch e {
+	case BNNSL2Norm:
+		return "BNNSL2Norm"
+	default:
+		return fmt.Sprintf("BNNSNormType(%d)", e)
+	}
+}
+
+// See: https://developer.apple.com/documentation/Accelerate/BNNSOptimizerClippingFunction
+type BNNSOptimizerClippingFunction uint32
 
 const (
 	// BNNSOptimizerClippingByGlobalNorm: A constant that specifes clipping to a maximum global Euclidean norm.
-	BNNSOptimizerClippingByGlobalNorm BNNSOptimizerClipping = 3
+	BNNSOptimizerClippingByGlobalNorm BNNSOptimizerClippingFunction = 3
 	// BNNSOptimizerClippingByNorm: A constant that specifes clipping to a maximum Euclidean norm.
-	BNNSOptimizerClippingByNorm BNNSOptimizerClipping = 2
+	BNNSOptimizerClippingByNorm BNNSOptimizerClippingFunction = 2
 	// BNNSOptimizerClippingByValue: A constant that specifes clipping to minimum and maximum values.
-	BNNSOptimizerClippingByValue BNNSOptimizerClipping = 1
+	BNNSOptimizerClippingByValue BNNSOptimizerClippingFunction = 1
 	// BNNSOptimizerClippingNone: A constant that specifes no clipping.
-	BNNSOptimizerClippingNone BNNSOptimizerClipping = 0
+	BNNSOptimizerClippingNone BNNSOptimizerClippingFunction = 0
 )
 
-func (e BNNSOptimizerClipping) String() string {
+func (e BNNSOptimizerClippingFunction) String() string {
 	switch e {
 	case BNNSOptimizerClippingByGlobalNorm:
 		return "BNNSOptimizerClippingByGlobalNorm"
@@ -884,11 +1071,12 @@ func (e BNNSOptimizerClipping) String() string {
 	case BNNSOptimizerClippingNone:
 		return "BNNSOptimizerClippingNone"
 	default:
-		return fmt.Sprintf("BNNSOptimizerClipping(%d)", e)
+		return fmt.Sprintf("BNNSOptimizerClippingFunction(%d)", e)
 	}
 }
 
-type BNNSOptimizerFunction uint
+// See: https://developer.apple.com/documentation/Accelerate/BNNSOptimizerFunction
+type BNNSOptimizerFunction uint32
 
 const (
 	// BNNSOptimizerFunctionAdam: An optimizer function that updates parameters according to the Adam algorithm.
@@ -948,18 +1136,19 @@ func (e BNNSOptimizerFunction) String() string {
 	}
 }
 
-type BNNSOptimizerRegularization uint
+// See: https://developer.apple.com/documentation/Accelerate/BNNSOptimizerRegularizationFunction
+type BNNSOptimizerRegularizationFunction uint32
 
 const (
 	// BNNSOptimizerRegularizationL1: A regularization function that applies L1 regularization.
-	BNNSOptimizerRegularizationL1 BNNSOptimizerRegularization = 1
+	BNNSOptimizerRegularizationL1 BNNSOptimizerRegularizationFunction = 1
 	// BNNSOptimizerRegularizationL2: A regularization function that applies L2 regularization.
-	BNNSOptimizerRegularizationL2 BNNSOptimizerRegularization = 2
+	BNNSOptimizerRegularizationL2 BNNSOptimizerRegularizationFunction = 2
 	// BNNSOptimizerRegularizationNone: A regularization function that adoesn’t apply any regularization.
-	BNNSOptimizerRegularizationNone BNNSOptimizerRegularization = 0
+	BNNSOptimizerRegularizationNone BNNSOptimizerRegularizationFunction = 0
 )
 
-func (e BNNSOptimizerRegularization) String() string {
+func (e BNNSOptimizerRegularizationFunction) String() string {
 	switch e {
 	case BNNSOptimizerRegularizationL1:
 		return "BNNSOptimizerRegularizationL1"
@@ -968,11 +1157,37 @@ func (e BNNSOptimizerRegularization) String() string {
 	case BNNSOptimizerRegularizationNone:
 		return "BNNSOptimizerRegularizationNone"
 	default:
-		return fmt.Sprintf("BNNSOptimizerRegularization(%d)", e)
+		return fmt.Sprintf("BNNSOptimizerRegularizationFunction(%d)", e)
 	}
 }
 
-type BNNSPaddingMode uint
+// See: https://developer.apple.com/documentation/Accelerate/BNNSOptimizerSGDMomentumVariant
+type BNNSOptimizerSGDMomentumVariant uint32
+
+const (
+	// BNNSSGDMomentumVariant0: A constant that indicates SGD momentum variant 0.
+	BNNSSGDMomentumVariant0 BNNSOptimizerSGDMomentumVariant = 0
+	// BNNSSGDMomentumVariant1: A constant that indicates SGD momentum variant 1.
+	BNNSSGDMomentumVariant1 BNNSOptimizerSGDMomentumVariant = 1
+	// BNNSSGDMomentumVariant2: A constant that indicates SGD momentum variant 2.
+	BNNSSGDMomentumVariant2 BNNSOptimizerSGDMomentumVariant = 2
+)
+
+func (e BNNSOptimizerSGDMomentumVariant) String() string {
+	switch e {
+	case BNNSSGDMomentumVariant0:
+		return "BNNSSGDMomentumVariant0"
+	case BNNSSGDMomentumVariant1:
+		return "BNNSSGDMomentumVariant1"
+	case BNNSSGDMomentumVariant2:
+		return "BNNSSGDMomentumVariant2"
+	default:
+		return fmt.Sprintf("BNNSOptimizerSGDMomentumVariant(%d)", e)
+	}
+}
+
+// See: https://developer.apple.com/documentation/Accelerate/BNNSPaddingMode
+type BNNSPaddingMode uint32
 
 const (
 	// BNNSPaddingModeConstant: A constant that indicates that a padding operation fills the padded area with a specified constant.
@@ -996,7 +1211,8 @@ func (e BNNSPaddingMode) String() string {
 	}
 }
 
-type BNNSPointerSpecifier uint
+// See: https://developer.apple.com/documentation/Accelerate/BNNSPointerSpecifier
+type BNNSPointerSpecifier uint32
 
 const (
 	// BNNSPointerSpecifierAlpha: A constant that specifies the alpha pointer.
@@ -1016,7 +1232,8 @@ func (e BNNSPointerSpecifier) String() string {
 	}
 }
 
-type BNNSPoolingFunction uint
+// See: https://developer.apple.com/documentation/Accelerate/BNNSPoolingFunction
+type BNNSPoolingFunction uint32
 
 const (
 	// BNNSPoolingFunctionAverageCountExcludePadding: A function for pooling that computes the average of each element in the pooling kernel, excluding zero-padding.
@@ -1050,7 +1267,8 @@ func (e BNNSPoolingFunction) String() string {
 	}
 }
 
-type BNNSQuantizerFunction uint
+// See: https://developer.apple.com/documentation/Accelerate/BNNSQuantizerFunction
+type BNNSQuantizerFunction uint32
 
 const (
 	// BNNSQuantizerFunctionDequantize: A constant that specifes conversion to a higher precision.
@@ -1070,23 +1288,25 @@ func (e BNNSQuantizerFunction) String() string {
 	}
 }
 
-type BNNSRandomGeneratorMethodAES uint
+// See: https://developer.apple.com/documentation/Accelerate/BNNSRandomGeneratorMethod
+type BNNSRandomGeneratorMethod uint32
 
 const (
 	// BNNSRandomGeneratorMethodAES_CTR: A constant that specifes an implementation that’s based on the Advanced Encryption Standard (AES) hash of a counter.
-	BNNSRandomGeneratorMethodAES_CTR BNNSRandomGeneratorMethodAES = 0
+	BNNSRandomGeneratorMethodAES_CTR BNNSRandomGeneratorMethod = 0
 )
 
-func (e BNNSRandomGeneratorMethodAES) String() string {
+func (e BNNSRandomGeneratorMethod) String() string {
 	switch e {
 	case BNNSRandomGeneratorMethodAES_CTR:
 		return "BNNSRandomGeneratorMethodAES_CTR"
 	default:
-		return fmt.Sprintf("BNNSRandomGeneratorMethodAES(%d)", e)
+		return fmt.Sprintf("BNNSRandomGeneratorMethod(%d)", e)
 	}
 }
 
-type BNNSReduceFunction uint
+// See: https://developer.apple.com/documentation/Accelerate/BNNSReduceFunction
+type BNNSReduceFunction uint32
 
 const (
 	// BNNSReduceFunctionAll: An alias of the logical AND reduction function.
@@ -1169,7 +1389,8 @@ func (e BNNSReduceFunction) String() string {
 	}
 }
 
-type BNNSRelationalOperator uint
+// See: https://developer.apple.com/documentation/Accelerate/BNNSRelationalOperator
+type BNNSRelationalOperator uint32
 
 const (
 	// BNNSRelationalOperatorEqual: The operator that indicates the equal-to relationship.
@@ -1229,31 +1450,8 @@ func (e BNNSRelationalOperator) String() string {
 	}
 }
 
-type BNNSSGDMomentum uint
-
-const (
-	// BNNSSGDMomentumVariant0: A constant that indicates SGD momentum variant 0.
-	BNNSSGDMomentumVariant0 BNNSSGDMomentum = 0
-	// BNNSSGDMomentumVariant1: A constant that indicates SGD momentum variant 1.
-	BNNSSGDMomentumVariant1 BNNSSGDMomentum = 1
-	// BNNSSGDMomentumVariant2: A constant that indicates SGD momentum variant 2.
-	BNNSSGDMomentumVariant2 BNNSSGDMomentum = 2
-)
-
-func (e BNNSSGDMomentum) String() string {
-	switch e {
-	case BNNSSGDMomentumVariant0:
-		return "BNNSSGDMomentumVariant0"
-	case BNNSSGDMomentumVariant1:
-		return "BNNSSGDMomentumVariant1"
-	case BNNSSGDMomentumVariant2:
-		return "BNNSSGDMomentumVariant2"
-	default:
-		return fmt.Sprintf("BNNSSGDMomentum(%d)", e)
-	}
-}
-
-type BNNSShuffleType uint
+// See: https://developer.apple.com/documentation/Accelerate/BNNSShuffleType
+type BNNSShuffleType uint32
 
 const (
 	BNNSShuffleTypeDepthToSpaceNCHW BNNSShuffleType = 2
@@ -1279,7 +1477,8 @@ func (e BNNSShuffleType) String() string {
 	}
 }
 
-type BNNSSparsityType uint
+// See: https://developer.apple.com/documentation/Accelerate/BNNSSparsityType
+type BNNSSparsityType uint32
 
 const (
 	BNNSSparsityTypeUnstructured BNNSSparsityType = 0
@@ -1294,7 +1493,8 @@ func (e BNNSSparsityType) String() string {
 	}
 }
 
-type BNNSTargetSystem uint
+// See: https://developer.apple.com/documentation/Accelerate/BNNSTargetSystem
+type BNNSTargetSystem uint32
 
 const (
 	BNNSTargetSystemGeneric BNNSTargetSystem = 0
@@ -1306,84 +1506,6 @@ func (e BNNSTargetSystem) String() string {
 		return "BNNSTargetSystemGeneric"
 	default:
 		return fmt.Sprintf("BNNSTargetSystem(%d)", e)
-	}
-}
-
-type Bnns uint
-
-const (
-	// BnnsArithmetic: An arithmetic filter.
-	BnnsArithmetic Bnns = 8
-	// BNNSBatchNorm: A batch normalization filter.
-	BNNSBatchNorm Bnns = 2
-	// BNNSCenterSizeHeightFirst: Specifies coordinates as corners with the order: height start, width start, height end, width end.
-	BNNSCenterSizeHeightFirst Bnns = 2
-	// BNNSCenterSizeWidthFirst: Specifies coordinates as corners with the order: width start, height start, width end, height end.
-	BNNSCenterSizeWidthFirst Bnns = 3
-	// BNNSConstant: A constant that doesn’t have a gradient.
-	BNNSConstant Bnns = 0
-	// BNNSConvolution: A convolution filter.
-	BNNSConvolution Bnns = 0
-	// BNNSCornersHeightFirst: Specifies coordinates as center and size with the order: height center, width center, height, width.
-	BNNSCornersHeightFirst Bnns = 0
-	// BNNSCornersWidthFirst: Specifies coordinates as center and size with the order: width center, height center, width, height.
-	BNNSCornersWidthFirst Bnns = 1
-	// BNNSFullyConnected: A fully connected filter.
-	BNNSFullyConnected Bnns = 1
-	// BNNSGroupNorm: A group normalization filter.
-	BNNSGroupNorm Bnns = 5
-	// BNNSInstanceNorm: An instance normalization filter.
-	BNNSInstanceNorm Bnns = 3
-	// BNNSLayerNorm: A layer normalization filter.
-	BNNSLayerNorm Bnns = 4
-	// BNNSParameter: A parameter that’s trainable, such as weights or bias.
-	BNNSParameter Bnns = 2
-	// BNNSQuantization: A quantization filter.
-	BNNSQuantization Bnns = 7
-	// BNNSSample: A sample such as input or output.
-	BNNSSample Bnns = 1
-	// BNNSTransposedConvolution: A transposed convolution filter.
-	BNNSTransposedConvolution Bnns = 6
-)
-
-func (e Bnns) String() string {
-	switch e {
-	case BnnsArithmetic:
-		return "BnnsArithmetic"
-	case BNNSBatchNorm:
-		return "BNNSBatchNorm"
-	case BNNSCenterSizeWidthFirst:
-		return "BNNSCenterSizeWidthFirst"
-	case BNNSConstant:
-		return "BNNSConstant"
-	case BNNSCornersWidthFirst:
-		return "BNNSCornersWidthFirst"
-	case BNNSGroupNorm:
-		return "BNNSGroupNorm"
-	case BNNSLayerNorm:
-		return "BNNSLayerNorm"
-	case BNNSQuantization:
-		return "BNNSQuantization"
-	case BNNSTransposedConvolution:
-		return "BNNSTransposedConvolution"
-	default:
-		return fmt.Sprintf("Bnns(%d)", e)
-	}
-}
-
-type Bnnsl2 uint
-
-const (
-	// BNNSL2Norm: A constant that represents the L2 norm.
-	BNNSL2Norm Bnnsl2 = 1
-)
-
-func (e Bnnsl2) String() string {
-	switch e {
-	case BNNSL2Norm:
-		return "BNNSL2Norm"
-	default:
-		return fmt.Sprintf("Bnnsl2(%d)", e)
 	}
 }
 
@@ -1448,7 +1570,7 @@ func (e CBLAS_SIDE) String() string {
 type CBLAS_TRANSPOSE uint32
 
 const (
-	AtlasConj      CBLAS_TRANSPOSE = 0
+	AtlasConj      CBLAS_TRANSPOSE = 114
 	CblasConjTrans CBLAS_TRANSPOSE = 113
 	CblasNoTrans   CBLAS_TRANSPOSE = 111
 	CblasTrans     CBLAS_TRANSPOSE = 112
@@ -1488,34 +1610,48 @@ func (e CBLAS_UPLO) String() string {
 	}
 }
 
-type Fft int
+type FftForward int32
 
 const (
 	// FFT_FORWARD: Forward FFT.
-	FFT_FORWARD Fft = 1
+	FFT_FORWARD FftForward = 1
 	// FFT_INVERSE: Inverse FFT.
-	FFT_INVERSE Fft = -1
-	FFT_RADIX2  Fft = 0
-	FFT_RADIX3  Fft = 1
-	FFT_RADIX5  Fft = 2
+	FFT_INVERSE FftForward = -1
 )
 
-func (e Fft) String() string {
+func (e FftForward) String() string {
 	switch e {
 	case FFT_FORWARD:
 		return "FFT_FORWARD"
 	case FFT_INVERSE:
 		return "FFT_INVERSE"
-	case FFT_RADIX2:
-		return "FFT_RADIX2"
-	case FFT_RADIX5:
-		return "FFT_RADIX5"
 	default:
-		return fmt.Sprintf("Fft(%d)", e)
+		return fmt.Sprintf("FftForward(%d)", e)
 	}
 }
 
-type KFFT uint
+type FftRadix2 uint32
+
+const (
+	FFT_RADIX2 FftRadix2 = 0
+	FFT_RADIX3 FftRadix2 = 1
+	FFT_RADIX5 FftRadix2 = 2
+)
+
+func (e FftRadix2) String() string {
+	switch e {
+	case FFT_RADIX2:
+		return "FFT_RADIX2"
+	case FFT_RADIX3:
+		return "FFT_RADIX3"
+	case FFT_RADIX5:
+		return "FFT_RADIX5"
+	default:
+		return fmt.Sprintf("FftRadix2(%d)", e)
+	}
+}
+
+type KFFT uint32
 
 const (
 	KFFTRadix2 KFFT = 0
@@ -1536,7 +1672,7 @@ func (e KFFT) String() string {
 	}
 }
 
-type KFFTDirection int
+type KFFTDirection int32
 
 const (
 	KFFTDirection_Forward KFFTDirection = 1
@@ -1554,7 +1690,7 @@ func (e KFFTDirection) String() string {
 	}
 }
 
-type KRotate0DegreesClockwise uint
+type KRotate0DegreesClockwise uint32
 
 const (
 	// KRotate0DegreesClockwiseValue: A constant that specifies rotation by 0° (that is, copy without rotating).
@@ -1562,273 +1698,202 @@ const (
 	// KRotate0DegreesCounterClockwise: A constant that specifies rotation by 0° (that is, copy without rotating).
 	KRotate0DegreesCounterClockwise KRotate0DegreesClockwise = 0
 	// KRotate180DegreesClockwise: A constant that specifies rotation by 180° clockwise.
-	KRotate180DegreesClockwise KRotate0DegreesClockwise = 0
+	KRotate180DegreesClockwise KRotate0DegreesClockwise = 2
 	// KRotate180DegreesCounterClockwise: A constant that specifies rotation by 180° counterclockwise.
-	KRotate180DegreesCounterClockwise KRotate0DegreesClockwise = 0
+	KRotate180DegreesCounterClockwise KRotate0DegreesClockwise = 2
 	// KRotate270DegreesClockwise: A constant that specifies rotation by 270° clockwise.
-	KRotate270DegreesClockwise KRotate0DegreesClockwise = 0
+	KRotate270DegreesClockwise KRotate0DegreesClockwise = 1
 	// KRotate270DegreesCounterClockwise: A constant that specifies rotation by 270° counterclockwise.
-	KRotate270DegreesCounterClockwise KRotate0DegreesClockwise = 0
+	KRotate270DegreesCounterClockwise KRotate0DegreesClockwise = 3
 	// KRotate90DegreesClockwise: A constant that specifies rotation by 90° clockwise.
-	KRotate90DegreesClockwise KRotate0DegreesClockwise = 0
+	KRotate90DegreesClockwise KRotate0DegreesClockwise = 3
 	// KRotate90DegreesCounterClockwise: A constant that specifies rotation by 90° counterclockwise.
-	KRotate90DegreesCounterClockwise KRotate0DegreesClockwise = 0
+	KRotate90DegreesCounterClockwise KRotate0DegreesClockwise = 1
 )
 
 func (e KRotate0DegreesClockwise) String() string {
 	switch e {
 	case KRotate0DegreesClockwiseValue:
 		return "KRotate0DegreesClockwiseValue"
+	case KRotate180DegreesClockwise:
+		return "KRotate180DegreesClockwise"
+	case KRotate270DegreesClockwise:
+		return "KRotate270DegreesClockwise"
+	case KRotate270DegreesCounterClockwise:
+		return "KRotate270DegreesCounterClockwise"
 	default:
 		return fmt.Sprintf("KRotate0DegreesClockwise(%d)", e)
 	}
 }
 
-type Kv uint
-
-const (
-	// KvImage420Yp8_Cb8_Cr8: Any y420 or f420 (planar component Y’CbCr 8-bit 4:2:0) buffer.
-	KvImage420Yp8_Cb8_Cr8 Kv = 0
-	// KvImage420Yp8_CbCr8: Any 420v or 420f (biplanar component Y’CbCr 8-bit 4:2:0, video-range) buffer.
-	KvImage420Yp8_CbCr8 Kv = 0
-	// KvImage422CbYpCrYp16: Any v216 (component Y’CbCr 10,12,14,16-bit 4:2:2) buffer.
-	KvImage422CbYpCrYp16 Kv = 0
-	// KvImage422CbYpCrYp8: Any 2vuy (component Y’CbCr 8-bit 4:2:2) buffer.
-	KvImage422CbYpCrYp8 Kv = 0
-	// KvImage422CbYpCrYp8_AA8: Any a2vy (first plane: video-range component Y’CbCr 8-bit 4:2:2, ordered Cb Y’0 Cr Y’1; second plane: alpha 8-bit) buffer.
-	KvImage422CbYpCrYp8_AA8 Kv = 0
-	// KvImage422CrYpCbYpCbYpCbYpCrYpCrYp10: Any v210 (component Y’CbCr 10-bit 4:2:2) buffer.
-	KvImage422CrYpCbYpCbYpCbYpCrYpCrYp10 Kv = 0
-	// KvImage422YpCbYpCr8: Any yuvs or yuvf (component Y’CbCr 8-bit 4:2:2, ordered Y’0 Cb Y’1 Cr) buffer.
-	KvImage422YpCbYpCr8 Kv = 0
-	// KvImage444AYpCbCr16: Any y416 (component Y’CbCrA 16-bit 4:4:4:4, ordered A Y’ Cb Cr, full range alpha, video range Y’CbCr) buffer.
-	KvImage444AYpCbCr16 Kv = 0
-	// KvImage444AYpCbCr8: Any r408 or y408 (component Y’CbCrA 8-bit 4:4:4:4, ordered A Y’ Cb Cr, full range alpha, video range Y’CbCr) buffer.
-	KvImage444AYpCbCr8 Kv = 0
-	// KvImage444CbYpCrA8: Any v408 (component Y’CbCrA 8-bit 4:4:4:4) buffer.
-	KvImage444CbYpCrA8 Kv = 0
-	// KvImage444CrYpCb10: Any v410 (component Y’CbCr 10-bit 4:4:4) buffer.
-	KvImage444CrYpCb10 Kv = 0
-	// KvImage444CrYpCb8: Any v308 (component Y’CbCr 8-bit 4:4:4) buffer.
-	KvImage444CrYpCb8 Kv = 0
-)
-
-func (e Kv) String() string {
-	switch e {
-	case KvImage420Yp8_Cb8_Cr8:
-		return "KvImage420Yp8_Cb8_Cr8"
-	default:
-		return fmt.Sprintf("Kv(%d)", e)
-	}
-}
-
-type KvImage uint
-
-const (
-	// KvImageBackgroundColorFill: A flag that uses the background color for missing pixels.
-	KvImageBackgroundColorFill KvImage = 0
-	// KvImageBufferSizeMismatch: The function requires the source and destination buffers to have the same height and the same width, but they do not.
-	KvImageBufferSizeMismatch KvImage = 0
-	KvImageColorSyncIsAbsent  KvImage = 0
-	// KvImageCopyInPlace: A flag that copies the value of the edge pixel in the source to the destination.
-	KvImageCopyInPlace       KvImage = 0
-	KvImageCoreVideoIsAbsent KvImage = 0
-	// KvImageDoNotClamp: A flag that disables clamping in some conversions to floating-point formats.
-	KvImageDoNotClamp KvImage = 0
-	// KvImageDoNotTile: A flag that disables vImage internal tiling routines.
-	KvImageDoNotTile KvImage = 0
-	// KvImageEdgeExtend: A flag that extends the edges of the image infinitely.
-	KvImageEdgeExtend KvImage = 0
-	// KvImageFullInterpolation: Full linear interpolation.
-	KvImageFullInterpolation KvImage = 0
-	// KvImageGetTempBufferSize: A flag that returns the minimum temporary buffer size for the operation, given the parameters provided.
-	KvImageGetTempBufferSize KvImage = 0
-	// KvImageHDRContent: A flag that uses HDR-aware methods.
-	KvImageHDRContent KvImage = 0
-	// KvImageHalfInterpolation: Partial linear interpolation.
-	KvImageHalfInterpolation KvImage = 0
-	// KvImageHighQualityResampling: A flag that uses a higher-quality, slower resampling filter for geometry operations.
-	KvImageHighQualityResampling KvImage = 0
-	// KvImageInternalError: A serious error occured inside vImage, which prevented vImage from continuing.
-	KvImageInternalError        KvImage = 0
-	KvImageInvalidCVImageFormat KvImage = 0
-	// KvImageInvalidEdgeStyle: The edge style specified is invalid.
-	KvImageInvalidEdgeStyle   KvImage = 0
-	KvImageInvalidImageFormat KvImage = 0
-	KvImageInvalidImageObject KvImage = 0
-	// KvImageInvalidKernelSize: Either the kernel height, the kernel width, or both, are even.
-	KvImageInvalidKernelSize KvImage = 0
-	// KvImageInvalidOffset_X: The `srcOffsetToROI_X` parameter that specifies the left edge of the region of interest is greater than the width of the source image.
-	KvImageInvalidOffset_X KvImage = 0
-	// KvImageInvalidOffset_Y: The `srcOffsetToROI_Y` parameter that specifies the top edge of the region of interest is greater than the height of the source image.
-	KvImageInvalidOffset_Y KvImage = 0
-	// KvImageInvalidParameter: Invalid parameter.
-	KvImageInvalidParameter KvImage = 0
-	KvImageInvalidRowBytes  KvImage = 0
-	// KvImageLeaveAlphaUnchanged: A flag that restricts the operation to red, green, and blue channels only.
-	KvImageLeaveAlphaUnchanged KvImage = 0
-	// KvImageMemoryAllocationError: An attempt to allocate memory failed.
-	KvImageMemoryAllocationError KvImage = 0
-	// KvImageNoAllocate: A flag that prevents vImage from allocating additional storage.
-	KvImageNoAllocate KvImage = 0
-	// KvImageNoError: The vImage function completed without error.
-	KvImageNoError KvImage = 0
-	// KvImageNoFlags: A flag that sets the behavior to the default.
-	KvImageNoFlags KvImage = 0
-	// KvImageNoInterpolation: Nearest neighbor interpolation.
-	KvImageNoInterpolation KvImage = 0
-	// KvImageNullPointerArgument: A pointer parameter is [NULL] and it must not be.
-	KvImageNullPointerArgument         KvImage = 0
-	KvImageOutOfPlaceOperationRequired KvImage = 0
-	// KvImagePrintDiagnosticsToConsole: A flag that prints a debug message if the operation fails.
-	KvImagePrintDiagnosticsToConsole KvImage = 0
-	// KvImageRoiLargerThanInputBuffer: The region of interest, as specified by the `srcOffsetToROI_X` and `srcOffsetToROI_Y` parameters and the height and width of the destination buffer, extends beyond the bottom edge or right edge of the source buffer.
-	KvImageRoiLargerThanInputBuffer KvImage = 0
-	// KvImageTruncateKernel: A flag that uses only the part of the kernel that overlaps the image.
-	KvImageTruncateKernel KvImage = 0
-	// KvImageUnknownFlagsBit: The flag is not recognized.
-	KvImageUnknownFlagsBit KvImage = 0
-	// KvImageUnsupportedConversion: Some lower level conversion APIs only support conversion among a sparse matrix of image formats.
-	KvImageUnsupportedConversion KvImage = 0
-	// KvImageUseFP16Accumulator: A flag that specifies vImage uses faster but lower-precision internal arithmetic for floating-point 16-bit operations.
-	KvImageUseFP16Accumulator KvImage = 0
-)
-
-func (e KvImage) String() string {
-	switch e {
-	case KvImageBackgroundColorFill:
-		return "KvImageBackgroundColorFill"
-	default:
-		return fmt.Sprintf("KvImage(%d)", e)
-	}
-}
-
-type KvImageARG uint
-
-const (
-	// KvImageARGB16Q12: Any 8-bit four-channel interleaved buffer.
-	KvImageARGB16Q12 KvImageARG = 0
-	// KvImageARGB16U: Any 16-bit unsigned, four-channel interleaved buffer.
-	KvImageARGB16U KvImageARG = 0
-	// KvImageARGB8888: Any 16-bit signed fixed-point, four-channel interleaved buffer.
-	KvImageARGB8888 KvImageARG = 0
-)
-
-func (e KvImageARG) String() string {
-	switch e {
-	case KvImageARGB16Q12:
-		return "KvImageARGB16Q12"
-	default:
-		return fmt.Sprintf("KvImageARG(%d)", e)
-	}
-}
-
-type KvImageBufferTypeCode uint
+type KvImageBufferTypeCode uint32
 
 const (
 	// KvImageBufferTypeCode_Alpha: The buffer contains the alpha channel.
-	KvImageBufferTypeCode_Alpha KvImageBufferTypeCode = 0
+	KvImageBufferTypeCode_Alpha KvImageBufferTypeCode = 17
 	// KvImageBufferTypeCode_CGFormat: The buffer contains data describable as a vImage Core Graphics image format as a single buffer.
-	KvImageBufferTypeCode_CGFormat KvImageBufferTypeCode = 0
+	KvImageBufferTypeCode_CGFormat KvImageBufferTypeCode = 24
 	// KvImageBufferTypeCode_CMYK_Black: If the image has a CMYK color model, the buffer contains the black channel.
-	KvImageBufferTypeCode_CMYK_Black KvImageBufferTypeCode = 0
+	KvImageBufferTypeCode_CMYK_Black KvImageBufferTypeCode = 4
 	// KvImageBufferTypeCode_CMYK_Cyan: If the image has a CMYK color model, the buffer contains the cyan channel.
-	KvImageBufferTypeCode_CMYK_Cyan KvImageBufferTypeCode = 0
+	KvImageBufferTypeCode_CMYK_Cyan KvImageBufferTypeCode = 1
 	// KvImageBufferTypeCode_CMYK_Magenta: If the image has a CMYK color model, the buffer contains the magenta channel.
-	KvImageBufferTypeCode_CMYK_Magenta KvImageBufferTypeCode = 0
+	KvImageBufferTypeCode_CMYK_Magenta KvImageBufferTypeCode = 2
 	// KvImageBufferTypeCode_CMYK_Yellow: If the image has a CMYK color model, the buffer contains the yellow channel.
-	KvImageBufferTypeCode_CMYK_Yellow KvImageBufferTypeCode = 0
+	KvImageBufferTypeCode_CMYK_Yellow KvImageBufferTypeCode = 3
 	// KvImageBufferTypeCode_CVPixelBuffer_YCbCr: The buffer contains luminance and both chroma channels interleaved according to the vImageConstCVImageFormat image type.
-	KvImageBufferTypeCode_CVPixelBuffer_YCbCr KvImageBufferTypeCode = 0
+	KvImageBufferTypeCode_CVPixelBuffer_YCbCr KvImageBufferTypeCode = 19
 	// KvImageBufferTypeCode_Cb: The buffer contains the blue chrominance channel.
-	KvImageBufferTypeCode_Cb KvImageBufferTypeCode = 0
+	KvImageBufferTypeCode_Cb KvImageBufferTypeCode = 22
 	// KvImageBufferTypeCode_Chroma: The buffer contains both chrominance channels, interleaved.
-	KvImageBufferTypeCode_Chroma KvImageBufferTypeCode = 0
+	KvImageBufferTypeCode_Chroma KvImageBufferTypeCode = 21
 	// KvImageBufferTypeCode_Chunky: The buffer contains chunky data not describable as a vImage Core Graphics image format.
-	KvImageBufferTypeCode_Chunky              KvImageBufferTypeCode = 0
-	KvImageBufferTypeCode_ColorSpaceChannel1  KvImageBufferTypeCode = 0
-	KvImageBufferTypeCode_ColorSpaceChannel10 KvImageBufferTypeCode = 0
-	KvImageBufferTypeCode_ColorSpaceChannel11 KvImageBufferTypeCode = 0
-	KvImageBufferTypeCode_ColorSpaceChannel12 KvImageBufferTypeCode = 0
-	KvImageBufferTypeCode_ColorSpaceChannel13 KvImageBufferTypeCode = 0
-	KvImageBufferTypeCode_ColorSpaceChannel14 KvImageBufferTypeCode = 0
-	KvImageBufferTypeCode_ColorSpaceChannel15 KvImageBufferTypeCode = 0
-	KvImageBufferTypeCode_ColorSpaceChannel16 KvImageBufferTypeCode = 0
-	KvImageBufferTypeCode_ColorSpaceChannel2  KvImageBufferTypeCode = 0
-	KvImageBufferTypeCode_ColorSpaceChannel3  KvImageBufferTypeCode = 0
-	KvImageBufferTypeCode_ColorSpaceChannel4  KvImageBufferTypeCode = 0
-	KvImageBufferTypeCode_ColorSpaceChannel5  KvImageBufferTypeCode = 0
-	KvImageBufferTypeCode_ColorSpaceChannel6  KvImageBufferTypeCode = 0
-	KvImageBufferTypeCode_ColorSpaceChannel7  KvImageBufferTypeCode = 0
-	KvImageBufferTypeCode_ColorSpaceChannel8  KvImageBufferTypeCode = 0
-	KvImageBufferTypeCode_ColorSpaceChannel9  KvImageBufferTypeCode = 0
+	KvImageBufferTypeCode_Chunky              KvImageBufferTypeCode = 25
+	KvImageBufferTypeCode_ColorSpaceChannel1  KvImageBufferTypeCode = 1
+	KvImageBufferTypeCode_ColorSpaceChannel10 KvImageBufferTypeCode = 10
+	KvImageBufferTypeCode_ColorSpaceChannel11 KvImageBufferTypeCode = 11
+	KvImageBufferTypeCode_ColorSpaceChannel12 KvImageBufferTypeCode = 12
+	KvImageBufferTypeCode_ColorSpaceChannel13 KvImageBufferTypeCode = 13
+	KvImageBufferTypeCode_ColorSpaceChannel14 KvImageBufferTypeCode = 14
+	KvImageBufferTypeCode_ColorSpaceChannel15 KvImageBufferTypeCode = 15
+	KvImageBufferTypeCode_ColorSpaceChannel16 KvImageBufferTypeCode = 16
+	KvImageBufferTypeCode_ColorSpaceChannel2  KvImageBufferTypeCode = 2
+	KvImageBufferTypeCode_ColorSpaceChannel3  KvImageBufferTypeCode = 3
+	KvImageBufferTypeCode_ColorSpaceChannel4  KvImageBufferTypeCode = 4
+	KvImageBufferTypeCode_ColorSpaceChannel5  KvImageBufferTypeCode = 5
+	KvImageBufferTypeCode_ColorSpaceChannel6  KvImageBufferTypeCode = 6
+	KvImageBufferTypeCode_ColorSpaceChannel7  KvImageBufferTypeCode = 7
+	KvImageBufferTypeCode_ColorSpaceChannel8  KvImageBufferTypeCode = 8
+	KvImageBufferTypeCode_ColorSpaceChannel9  KvImageBufferTypeCode = 9
 	// KvImageBufferTypeCode_Cr: The buffer contains the red chrominance channel.
-	KvImageBufferTypeCode_Cr KvImageBufferTypeCode = 0
+	KvImageBufferTypeCode_Cr KvImageBufferTypeCode = 23
 	// KvImageBufferTypeCode_EndOfList: End of list marker.
 	KvImageBufferTypeCode_EndOfList KvImageBufferTypeCode = 0
 	// KvImageBufferTypeCode_Indexed: The buffer contains data in an indexed colorspace.
-	KvImageBufferTypeCode_Indexed KvImageBufferTypeCode = 0
-	// KvImageBufferTypeCode_LAB_A: If the image has a LAB color model, the buffer contains the  channel.
-	KvImageBufferTypeCode_LAB_A KvImageBufferTypeCode = 0
-	// KvImageBufferTypeCode_LAB_B: If the image has a LAB color model, the buffer contains the  channel.
-	KvImageBufferTypeCode_LAB_B KvImageBufferTypeCode = 0
-	// KvImageBufferTypeCode_LAB_L: If the image has a LAB color model, the buffer contains the  channel.
-	KvImageBufferTypeCode_LAB_L KvImageBufferTypeCode = 0
+	KvImageBufferTypeCode_Indexed KvImageBufferTypeCode = 18
+	// KvImageBufferTypeCode_LAB_A: If the image has a LAB color model, the buffer contains the a* channel.
+	KvImageBufferTypeCode_LAB_A KvImageBufferTypeCode = 2
+	// KvImageBufferTypeCode_LAB_B: If the image has a LAB color model, the buffer contains the b* channel.
+	KvImageBufferTypeCode_LAB_B KvImageBufferTypeCode = 3
+	// KvImageBufferTypeCode_LAB_L: If the image has a LAB color model, the buffer contains the L* channel.
+	KvImageBufferTypeCode_LAB_L KvImageBufferTypeCode = 1
 	// KvImageBufferTypeCode_Luminance: The buffer contains only luminance data.
-	KvImageBufferTypeCode_Luminance KvImageBufferTypeCode = 0
+	KvImageBufferTypeCode_Luminance KvImageBufferTypeCode = 20
 	// KvImageBufferTypeCode_Monochrome: The buffer contains a single color channel.
-	KvImageBufferTypeCode_Monochrome KvImageBufferTypeCode = 0
+	KvImageBufferTypeCode_Monochrome KvImageBufferTypeCode = 1
 	// KvImageBufferTypeCode_RGB_Blue: If the image has a RGB color model, the buffer contains the blue channel.
-	KvImageBufferTypeCode_RGB_Blue KvImageBufferTypeCode = 0
+	KvImageBufferTypeCode_RGB_Blue KvImageBufferTypeCode = 3
 	// KvImageBufferTypeCode_RGB_Green: If the image has a RGB color model, the buffer contains the green channel.
-	KvImageBufferTypeCode_RGB_Green KvImageBufferTypeCode = 0
+	KvImageBufferTypeCode_RGB_Green KvImageBufferTypeCode = 2
 	// KvImageBufferTypeCode_RGB_Red: If the image has a RGB color model, the buffer contains the red channel.
-	KvImageBufferTypeCode_RGB_Red           KvImageBufferTypeCode = 0
-	KvImageBufferTypeCode_UniqueFormatCount KvImageBufferTypeCode = 0
-	// KvImageBufferTypeCode_XYZ_X: If the image has a XYZ color model, the buffer contains the  channel.
-	KvImageBufferTypeCode_XYZ_X KvImageBufferTypeCode = 0
-	// KvImageBufferTypeCode_XYZ_Y: If the image has a XYZ color model, the buffer contains the  channel.
-	KvImageBufferTypeCode_XYZ_Y KvImageBufferTypeCode = 0
-	// KvImageBufferTypeCode_XYZ_Z: If the image has a XYZ color model, the buffer contains the  channel.
-	KvImageBufferTypeCode_XYZ_Z KvImageBufferTypeCode = 0
+	KvImageBufferTypeCode_RGB_Red           KvImageBufferTypeCode = 1
+	KvImageBufferTypeCode_UniqueFormatCount KvImageBufferTypeCode = 26
+	// KvImageBufferTypeCode_XYZ_X: If the image has a XYZ color model, the buffer contains the X channel.
+	KvImageBufferTypeCode_XYZ_X KvImageBufferTypeCode = 1
+	// KvImageBufferTypeCode_XYZ_Y: If the image has a XYZ color model, the buffer contains the Y channel.
+	KvImageBufferTypeCode_XYZ_Y KvImageBufferTypeCode = 2
+	// KvImageBufferTypeCode_XYZ_Z: If the image has a XYZ color model, the buffer contains the Z channel.
+	KvImageBufferTypeCode_XYZ_Z KvImageBufferTypeCode = 3
 )
 
 func (e KvImageBufferTypeCode) String() string {
 	switch e {
 	case KvImageBufferTypeCode_Alpha:
 		return "KvImageBufferTypeCode_Alpha"
+	case KvImageBufferTypeCode_CGFormat:
+		return "KvImageBufferTypeCode_CGFormat"
+	case KvImageBufferTypeCode_CMYK_Black:
+		return "KvImageBufferTypeCode_CMYK_Black"
+	case KvImageBufferTypeCode_CMYK_Cyan:
+		return "KvImageBufferTypeCode_CMYK_Cyan"
+	case KvImageBufferTypeCode_CMYK_Magenta:
+		return "KvImageBufferTypeCode_CMYK_Magenta"
+	case KvImageBufferTypeCode_CMYK_Yellow:
+		return "KvImageBufferTypeCode_CMYK_Yellow"
+	case KvImageBufferTypeCode_CVPixelBuffer_YCbCr:
+		return "KvImageBufferTypeCode_CVPixelBuffer_YCbCr"
+	case KvImageBufferTypeCode_Cb:
+		return "KvImageBufferTypeCode_Cb"
+	case KvImageBufferTypeCode_Chroma:
+		return "KvImageBufferTypeCode_Chroma"
+	case KvImageBufferTypeCode_Chunky:
+		return "KvImageBufferTypeCode_Chunky"
+	case KvImageBufferTypeCode_ColorSpaceChannel10:
+		return "KvImageBufferTypeCode_ColorSpaceChannel10"
+	case KvImageBufferTypeCode_ColorSpaceChannel11:
+		return "KvImageBufferTypeCode_ColorSpaceChannel11"
+	case KvImageBufferTypeCode_ColorSpaceChannel12:
+		return "KvImageBufferTypeCode_ColorSpaceChannel12"
+	case KvImageBufferTypeCode_ColorSpaceChannel13:
+		return "KvImageBufferTypeCode_ColorSpaceChannel13"
+	case KvImageBufferTypeCode_ColorSpaceChannel14:
+		return "KvImageBufferTypeCode_ColorSpaceChannel14"
+	case KvImageBufferTypeCode_ColorSpaceChannel15:
+		return "KvImageBufferTypeCode_ColorSpaceChannel15"
+	case KvImageBufferTypeCode_ColorSpaceChannel16:
+		return "KvImageBufferTypeCode_ColorSpaceChannel16"
+	case KvImageBufferTypeCode_ColorSpaceChannel5:
+		return "KvImageBufferTypeCode_ColorSpaceChannel5"
+	case KvImageBufferTypeCode_ColorSpaceChannel6:
+		return "KvImageBufferTypeCode_ColorSpaceChannel6"
+	case KvImageBufferTypeCode_ColorSpaceChannel7:
+		return "KvImageBufferTypeCode_ColorSpaceChannel7"
+	case KvImageBufferTypeCode_ColorSpaceChannel8:
+		return "KvImageBufferTypeCode_ColorSpaceChannel8"
+	case KvImageBufferTypeCode_ColorSpaceChannel9:
+		return "KvImageBufferTypeCode_ColorSpaceChannel9"
+	case KvImageBufferTypeCode_Cr:
+		return "KvImageBufferTypeCode_Cr"
+	case KvImageBufferTypeCode_EndOfList:
+		return "KvImageBufferTypeCode_EndOfList"
+	case KvImageBufferTypeCode_Indexed:
+		return "KvImageBufferTypeCode_Indexed"
+	case KvImageBufferTypeCode_Luminance:
+		return "KvImageBufferTypeCode_Luminance"
+	case KvImageBufferTypeCode_UniqueFormatCount:
+		return "KvImageBufferTypeCode_UniqueFormatCount"
 	default:
 		return fmt.Sprintf("KvImageBufferTypeCode(%d)", e)
 	}
 }
 
-type KvImageCVImageFormat uint
+type KvImageCVImageFormat int32
 
 const (
 	// KvImageCVImageFormat_AlphaIsOneHint: A hint that indicates the alpha channel is opaque.
-	KvImageCVImageFormat_AlphaIsOneHint KvImageCVImageFormat = 0
+	KvImageCVImageFormat_AlphaIsOneHint KvImageCVImageFormat = -21604
 	// KvImageCVImageFormat_ChromaSiting: An error code that indicates the chroma siting information is absent.
-	KvImageCVImageFormat_ChromaSiting KvImageCVImageFormat = 0
+	KvImageCVImageFormat_ChromaSiting KvImageCVImageFormat = -21601
 	// KvImageCVImageFormat_ColorSpace: An error code that indicates the image’s color space is missing.
-	KvImageCVImageFormat_ColorSpace KvImageCVImageFormat = 0
+	KvImageCVImageFormat_ColorSpace KvImageCVImageFormat = -21602
 	// KvImageCVImageFormat_ConversionMatrix: An error code that indicates the required conversion matrix is absent.
-	KvImageCVImageFormat_ConversionMatrix KvImageCVImageFormat = 0
+	KvImageCVImageFormat_ConversionMatrix KvImageCVImageFormat = -21600
 	// KvImageCVImageFormat_NoError: An error code that indicates the conversion completed without error.
 	KvImageCVImageFormat_NoError KvImageCVImageFormat = 0
 	// KvImageCVImageFormat_VideoChannelDescription: An error code that indicates the range and clipping information is missing.
-	KvImageCVImageFormat_VideoChannelDescription KvImageCVImageFormat = 0
+	KvImageCVImageFormat_VideoChannelDescription KvImageCVImageFormat = -21603
 )
 
 func (e KvImageCVImageFormat) String() string {
 	switch e {
 	case KvImageCVImageFormat_AlphaIsOneHint:
 		return "KvImageCVImageFormat_AlphaIsOneHint"
+	case KvImageCVImageFormat_ChromaSiting:
+		return "KvImageCVImageFormat_ChromaSiting"
+	case KvImageCVImageFormat_ColorSpace:
+		return "KvImageCVImageFormat_ColorSpace"
+	case KvImageCVImageFormat_ConversionMatrix:
+		return "KvImageCVImageFormat_ConversionMatrix"
+	case KvImageCVImageFormat_NoError:
+		return "KvImageCVImageFormat_NoError"
+	case KvImageCVImageFormat_VideoChannelDescription:
+		return "KvImageCVImageFormat_VideoChannelDescription"
 	default:
 		return fmt.Sprintf("KvImageCVImageFormat(%d)", e)
 	}
 }
 
-type KvImageConvert uint
+type KvImageConvert uint32
 
 const (
 	// KvImageConvert_DitherAtkinson: A constant that indicates the conversion will add Atkinson dithering to the image.
@@ -1869,49 +1934,71 @@ func (e KvImageConvert) String() string {
 	}
 }
 
-type KvImageGamma uint
+type KvImageGamma uint32
 
 const (
 	// KvImageGamma_11_over_5_half_precision: A half-precision calculation using a gamma value of 11/5 or 2.2.
-	KvImageGamma_11_over_5_half_precision KvImageGamma = 0
+	KvImageGamma_11_over_5_half_precision KvImageGamma = 5
 	// KvImageGamma_11_over_9_half_precision: A half-precision calculation using a gamma value of 11/9 or (11/5)/(9/5).
-	KvImageGamma_11_over_9_half_precision KvImageGamma = 0
+	KvImageGamma_11_over_9_half_precision KvImageGamma = 8
 	// KvImageGamma_5_over_11_half_precision: A half-precision calculation using a gamma value of 5/11 or 1/2.2.
-	KvImageGamma_5_over_11_half_precision KvImageGamma = 0
+	KvImageGamma_5_over_11_half_precision KvImageGamma = 4
 	// KvImageGamma_5_over_9_half_precision: A half-precision calculation using a gamma value of 5/9 or 1/1.8.
-	KvImageGamma_5_over_9_half_precision KvImageGamma = 0
+	KvImageGamma_5_over_9_half_precision KvImageGamma = 2
 	// KvImageGamma_9_over_11_half_precision: A half-precision calculation using a gamma value of 9/11 or (9/5)/(11/5).
-	KvImageGamma_9_over_11_half_precision KvImageGamma = 0
+	KvImageGamma_9_over_11_half_precision KvImageGamma = 9
 	// KvImageGamma_9_over_5_half_precision: A half-precision calculation using a gamma value of 9/5 or 1.8.
-	KvImageGamma_9_over_5_half_precision KvImageGamma = 0
+	KvImageGamma_9_over_5_half_precision KvImageGamma = 3
 	// KvImageGamma_BT709_forward_half_precision: The ITU-R BT.709 standard.
-	KvImageGamma_BT709_forward_half_precision KvImageGamma = 0
+	KvImageGamma_BT709_forward_half_precision KvImageGamma = 10
 	// KvImageGamma_BT709_reverse_half_precision: The ITU-R BT.709 standard reverse.
-	KvImageGamma_BT709_reverse_half_precision KvImageGamma = 0
+	KvImageGamma_BT709_reverse_half_precision KvImageGamma = 11
 	// KvImageGamma_UseGammaValue: A user-defined gamma value with full-precision calculation.
 	KvImageGamma_UseGammaValue KvImageGamma = 0
 	// KvImageGamma_UseGammaValue_half_precision: A user-defined gamma value with half-precision calculation.
-	KvImageGamma_UseGammaValue_half_precision KvImageGamma = 0
+	KvImageGamma_UseGammaValue_half_precision KvImageGamma = 1
 	// KvImageGamma_sRGB_forward_half_precision: A half-precision calculation using the sRGB standard gamma value of 2.2.
-	KvImageGamma_sRGB_forward_half_precision KvImageGamma = 0
+	KvImageGamma_sRGB_forward_half_precision KvImageGamma = 6
 	// KvImageGamma_sRGB_reverse_half_precision: A half-precision calculation using the sRGB standard gamma value of 1/2.2.
-	KvImageGamma_sRGB_reverse_half_precision KvImageGamma = 0
+	KvImageGamma_sRGB_reverse_half_precision KvImageGamma = 7
 )
 
 func (e KvImageGamma) String() string {
 	switch e {
 	case KvImageGamma_11_over_5_half_precision:
 		return "KvImageGamma_11_over_5_half_precision"
+	case KvImageGamma_11_over_9_half_precision:
+		return "KvImageGamma_11_over_9_half_precision"
+	case KvImageGamma_5_over_11_half_precision:
+		return "KvImageGamma_5_over_11_half_precision"
+	case KvImageGamma_5_over_9_half_precision:
+		return "KvImageGamma_5_over_9_half_precision"
+	case KvImageGamma_9_over_11_half_precision:
+		return "KvImageGamma_9_over_11_half_precision"
+	case KvImageGamma_9_over_5_half_precision:
+		return "KvImageGamma_9_over_5_half_precision"
+	case KvImageGamma_BT709_forward_half_precision:
+		return "KvImageGamma_BT709_forward_half_precision"
+	case KvImageGamma_BT709_reverse_half_precision:
+		return "KvImageGamma_BT709_reverse_half_precision"
+	case KvImageGamma_UseGammaValue:
+		return "KvImageGamma_UseGammaValue"
+	case KvImageGamma_UseGammaValue_half_precision:
+		return "KvImageGamma_UseGammaValue_half_precision"
+	case KvImageGamma_sRGB_forward_half_precision:
+		return "KvImageGamma_sRGB_forward_half_precision"
+	case KvImageGamma_sRGB_reverse_half_precision:
+		return "KvImageGamma_sRGB_reverse_half_precision"
 	default:
 		return fmt.Sprintf("KvImageGamma(%d)", e)
 	}
 }
 
-type KvImageInterpolation uint
+type KvImageInterpolation uint32
 
 const (
 	// KvImageInterpolationLinear: Linear interpoation
-	KvImageInterpolationLinear KvImageInterpolation = 0
+	KvImageInterpolationLinear KvImageInterpolation = 1
 	// KvImageInterpolationNearest: Nearest neigborhood
 	KvImageInterpolationNearest KvImageInterpolation = 0
 )
@@ -1920,33 +2007,17 @@ func (e KvImageInterpolation) String() string {
 	switch e {
 	case KvImageInterpolationLinear:
 		return "KvImageInterpolationLinear"
+	case KvImageInterpolationNearest:
+		return "KvImageInterpolationNearest"
 	default:
 		return fmt.Sprintf("KvImageInterpolation(%d)", e)
 	}
 }
 
-type KvImageMDTableHint uint
+type KvImageMatrixType uint32
 
 const (
-	// KvImageMDTableHint_16Q12: A table for transforming 16Q12 data.
-	KvImageMDTableHint_16Q12 KvImageMDTableHint = 0
-	// KvImageMDTableHint_Float: A table for transforming floating-point data.
-	KvImageMDTableHint_Float KvImageMDTableHint = 0
-)
-
-func (e KvImageMDTableHint) String() string {
-	switch e {
-	case KvImageMDTableHint_16Q12:
-		return "KvImageMDTableHint_16Q12"
-	default:
-		return fmt.Sprintf("KvImageMDTableHint(%d)", e)
-	}
-}
-
-type KvImageMatrixType uint
-
-const (
-	KvImageMatrixType_ARGBToYpCbCrMatrix KvImageMatrixType = 0
+	KvImageMatrixType_ARGBToYpCbCrMatrix KvImageMatrixType = 1
 	KvImageMatrixType_None               KvImageMatrixType = 0
 )
 
@@ -1954,227 +2025,244 @@ func (e KvImageMatrixType) String() string {
 	switch e {
 	case KvImageMatrixType_ARGBToYpCbCrMatrix:
 		return "KvImageMatrixType_ARGBToYpCbCrMatrix"
+	case KvImageMatrixType_None:
+		return "KvImageMatrixType_None"
 	default:
 		return fmt.Sprintf("KvImageMatrixType(%d)", e)
 	}
 }
 
-type KvimagePNGFilterValue uint
+type KvImageNoError int32
+
+const (
+	// KvImageBufferSizeMismatch: The function requires the source and destination buffers to have the same height and the same width, but they do not.
+	KvImageBufferSizeMismatch KvImageNoError = -21774
+	KvImageColorSyncIsAbsent  KvImageNoError = -21779
+	KvImageCoreVideoIsAbsent  KvImageNoError = -21784
+	// KvImageInternalError: A serious error occured inside vImage, which prevented vImage from continuing.
+	KvImageInternalError        KvImageNoError = -21776
+	KvImageInvalidCVImageFormat KvImageNoError = -21782
+	// KvImageInvalidEdgeStyle: The edge style specified is invalid.
+	KvImageInvalidEdgeStyle   KvImageNoError = -21768
+	KvImageInvalidImageFormat KvImageNoError = -21778
+	KvImageInvalidImageObject KvImageNoError = -21781
+	// KvImageInvalidKernelSize: Either the kernel height, the kernel width, or both, are even.
+	KvImageInvalidKernelSize KvImageNoError = -21767
+	// KvImageInvalidOffset_X: The `srcOffsetToROI_X` parameter that specifies the left edge of the region of interest is greater than the width of the source image.
+	KvImageInvalidOffset_X KvImageNoError = -21769
+	// KvImageInvalidOffset_Y: The `srcOffsetToROI_Y` parameter that specifies the top edge of the region of interest is greater than the height of the source image.
+	KvImageInvalidOffset_Y KvImageNoError = -21770
+	// KvImageInvalidParameter: Invalid parameter.
+	KvImageInvalidParameter KvImageNoError = -21773
+	KvImageInvalidRowBytes  KvImageNoError = -21777
+	// KvImageMemoryAllocationError: An attempt to allocate memory failed.
+	KvImageMemoryAllocationError KvImageNoError = -21771
+	// KvImageNoErrorValue: The vImage function completed without error.
+	KvImageNoErrorValue KvImageNoError = 0
+	// KvImageNullPointerArgument: A pointer parameter is [NULL] and it must not be.
+	KvImageNullPointerArgument         KvImageNoError = -21772
+	KvImageOutOfPlaceOperationRequired KvImageNoError = -21780
+	// KvImageRoiLargerThanInputBuffer: The region of interest, as specified by the `srcOffsetToROI_X` and `srcOffsetToROI_Y` parameters and the height and width of the destination buffer, extends beyond the bottom edge or right edge of the source buffer.
+	KvImageRoiLargerThanInputBuffer KvImageNoError = -21766
+	// KvImageUnknownFlagsBit: The flag is not recognized.
+	KvImageUnknownFlagsBit KvImageNoError = -21775
+	// KvImageUnsupportedConversion: Some lower level conversion APIs only support conversion among a sparse matrix of image formats.
+	KvImageUnsupportedConversion KvImageNoError = -21783
+)
+
+func (e KvImageNoError) String() string {
+	switch e {
+	case KvImageBufferSizeMismatch:
+		return "KvImageBufferSizeMismatch"
+	case KvImageColorSyncIsAbsent:
+		return "KvImageColorSyncIsAbsent"
+	case KvImageCoreVideoIsAbsent:
+		return "KvImageCoreVideoIsAbsent"
+	case KvImageInternalError:
+		return "KvImageInternalError"
+	case KvImageInvalidCVImageFormat:
+		return "KvImageInvalidCVImageFormat"
+	case KvImageInvalidEdgeStyle:
+		return "KvImageInvalidEdgeStyle"
+	case KvImageInvalidImageFormat:
+		return "KvImageInvalidImageFormat"
+	case KvImageInvalidImageObject:
+		return "KvImageInvalidImageObject"
+	case KvImageInvalidKernelSize:
+		return "KvImageInvalidKernelSize"
+	case KvImageInvalidOffset_X:
+		return "KvImageInvalidOffset_X"
+	case KvImageInvalidOffset_Y:
+		return "KvImageInvalidOffset_Y"
+	case KvImageInvalidParameter:
+		return "KvImageInvalidParameter"
+	case KvImageInvalidRowBytes:
+		return "KvImageInvalidRowBytes"
+	case KvImageMemoryAllocationError:
+		return "KvImageMemoryAllocationError"
+	case KvImageNoErrorValue:
+		return "KvImageNoErrorValue"
+	case KvImageNullPointerArgument:
+		return "KvImageNullPointerArgument"
+	case KvImageOutOfPlaceOperationRequired:
+		return "KvImageOutOfPlaceOperationRequired"
+	case KvImageRoiLargerThanInputBuffer:
+		return "KvImageRoiLargerThanInputBuffer"
+	case KvImageUnknownFlagsBit:
+		return "KvImageUnknownFlagsBit"
+	case KvImageUnsupportedConversion:
+		return "KvImageUnsupportedConversion"
+	default:
+		return fmt.Sprintf("KvImageNoError(%d)", e)
+	}
+}
+
+type KvImageNoFlags uint32
+
+const (
+	// KvImageBackgroundColorFill: A flag that uses the background color for missing pixels.
+	KvImageBackgroundColorFill KvImageNoFlags = 4
+	// KvImageCopyInPlace: A flag that copies the value of the edge pixel in the source to the destination.
+	KvImageCopyInPlace KvImageNoFlags = 2
+	// KvImageDoNotClamp: A flag that disables clamping in some conversions to floating-point formats.
+	KvImageDoNotClamp KvImageNoFlags = 2048
+	// KvImageDoNotTile: A flag that disables vImage internal tiling routines.
+	KvImageDoNotTile KvImageNoFlags = 16
+	// KvImageEdgeExtend: A flag that extends the edges of the image infinitely.
+	KvImageEdgeExtend KvImageNoFlags = 8
+	// KvImageGetTempBufferSize: A flag that returns the minimum temporary buffer size for the operation, given the parameters provided.
+	KvImageGetTempBufferSize KvImageNoFlags = 128
+	// KvImageHDRContent: A flag that uses HDR-aware methods.
+	KvImageHDRContent KvImageNoFlags = 1024
+	// KvImageHighQualityResampling: A flag that uses a higher-quality, slower resampling filter for geometry operations.
+	KvImageHighQualityResampling KvImageNoFlags = 32
+	// KvImageLeaveAlphaUnchanged: A flag that restricts the operation to red, green, and blue channels only.
+	KvImageLeaveAlphaUnchanged KvImageNoFlags = 1
+	// KvImageNoAllocate: A flag that prevents vImage from allocating additional storage.
+	KvImageNoAllocate KvImageNoFlags = 512
+	// KvImageNoFlagsValue: A flag that sets the behavior to the default.
+	KvImageNoFlagsValue KvImageNoFlags = 0
+	// KvImagePrintDiagnosticsToConsole: A flag that prints a debug message if the operation fails.
+	KvImagePrintDiagnosticsToConsole KvImageNoFlags = 256
+	// KvImageTruncateKernel: A flag that uses only the part of the kernel that overlaps the image.
+	KvImageTruncateKernel KvImageNoFlags = 64
+	// KvImageUseFP16Accumulator: A flag that specifies vImage uses faster but lower-precision internal arithmetic for floating-point 16-bit operations.
+	KvImageUseFP16Accumulator KvImageNoFlags = 4096
+)
+
+func (e KvImageNoFlags) String() string {
+	switch e {
+	case KvImageBackgroundColorFill:
+		return "KvImageBackgroundColorFill"
+	case KvImageCopyInPlace:
+		return "KvImageCopyInPlace"
+	case KvImageDoNotClamp:
+		return "KvImageDoNotClamp"
+	case KvImageDoNotTile:
+		return "KvImageDoNotTile"
+	case KvImageEdgeExtend:
+		return "KvImageEdgeExtend"
+	case KvImageGetTempBufferSize:
+		return "KvImageGetTempBufferSize"
+	case KvImageHDRContent:
+		return "KvImageHDRContent"
+	case KvImageHighQualityResampling:
+		return "KvImageHighQualityResampling"
+	case KvImageLeaveAlphaUnchanged:
+		return "KvImageLeaveAlphaUnchanged"
+	case KvImageNoAllocate:
+		return "KvImageNoAllocate"
+	case KvImageNoFlagsValue:
+		return "KvImageNoFlagsValue"
+	case KvImagePrintDiagnosticsToConsole:
+		return "KvImagePrintDiagnosticsToConsole"
+	case KvImageTruncateKernel:
+		return "KvImageTruncateKernel"
+	case KvImageUseFP16Accumulator:
+		return "KvImageUseFP16Accumulator"
+	default:
+		return fmt.Sprintf("KvImageNoFlags(%d)", e)
+	}
+}
+
+type KvimagePNGFilterValue uint32
 
 const (
 	// KvImage_PNG_FILTER_VALUE_AVG: A filter that predicts a pixel value from the average of the pixels to the left and above the predicted pixel location.
-	KvImage_PNG_FILTER_VALUE_AVG KvimagePNGFilterValue = 0
+	KvImage_PNG_FILTER_VALUE_AVG KvimagePNGFilterValue = 3
 	// KvImage_PNG_FILTER_VALUE_NONE: No filtering.
 	KvImage_PNG_FILTER_VALUE_NONE KvimagePNGFilterValue = 0
 	// KvImage_PNG_FILTER_VALUE_PAETH: A filter that predicts a pixel value by applying a linear function to the pixels located to the left, above, and to the upper-left of the predicted pixel location.
-	KvImage_PNG_FILTER_VALUE_PAETH KvimagePNGFilterValue = 0
+	KvImage_PNG_FILTER_VALUE_PAETH KvimagePNGFilterValue = 4
 	// KvImage_PNG_FILTER_VALUE_SUB: A filter that computes the difference between each byte of a pixel and the value of the corresponding byte of the pixel located to the left.
-	KvImage_PNG_FILTER_VALUE_SUB KvimagePNGFilterValue = 0
+	KvImage_PNG_FILTER_VALUE_SUB KvimagePNGFilterValue = 1
 	// KvImage_PNG_FILTER_VALUE_UP: A filter that computes the difference between each byte of a pixel and the value of the corresponding byte of the pixel located above.
-	KvImage_PNG_FILTER_VALUE_UP KvimagePNGFilterValue = 0
+	KvImage_PNG_FILTER_VALUE_UP KvimagePNGFilterValue = 2
 )
 
 func (e KvimagePNGFilterValue) String() string {
 	switch e {
 	case KvImage_PNG_FILTER_VALUE_AVG:
 		return "KvImage_PNG_FILTER_VALUE_AVG"
+	case KvImage_PNG_FILTER_VALUE_NONE:
+		return "KvImage_PNG_FILTER_VALUE_NONE"
+	case KvImage_PNG_FILTER_VALUE_PAETH:
+		return "KvImage_PNG_FILTER_VALUE_PAETH"
+	case KvImage_PNG_FILTER_VALUE_SUB:
+		return "KvImage_PNG_FILTER_VALUE_SUB"
+	case KvImage_PNG_FILTER_VALUE_UP:
+		return "KvImage_PNG_FILTER_VALUE_UP"
 	default:
 		return fmt.Sprintf("KvimagePNGFilterValue(%d)", e)
 	}
 }
 
-type Quadrature int
-
-const (
-	// QUADRATURE_ALLOC_ERROR: A constant that indicates that memory allocation failed.
-	QUADRATURE_ALLOC_ERROR Quadrature = -3
-	// QUADRATURE_ERROR: A constant that indicates that a generic error occurred.
-	QUADRATURE_ERROR Quadrature = -1
-	// QUADRATURE_INTEGRATE_BAD_BEHAVIOUR_ERROR: A constant that indicates bad integrand behaviour, or that an excessive roundoff error occurred.
-	QUADRATURE_INTEGRATE_BAD_BEHAVIOUR_ERROR Quadrature = -102
-	// QUADRATURE_INTEGRATE_MAX_EVAL_ERROR: A constant that indicates that the requested accuracy limit could not be reached.
-	QUADRATURE_INTEGRATE_MAX_EVAL_ERROR Quadrature = -101
-	// QUADRATURE_INTERNAL_ERROR: A constant that indicates that an internal error occurred.
-	QUADRATURE_INTERNAL_ERROR Quadrature = -99
-	// QUADRATURE_INVALID_ARG_ERROR: A constant that indicates that an invalid argument was passed to the operation.
-	QUADRATURE_INVALID_ARG_ERROR Quadrature = -2
-	// QUADRATURE_SUCCESS: A constant that indicates that the Quadrature operation was successful.
-	QUADRATURE_SUCCESS Quadrature = 0
-)
-
-func (e Quadrature) String() string {
-	switch e {
-	case QUADRATURE_ALLOC_ERROR:
-		return "QUADRATURE_ALLOC_ERROR"
-	case QUADRATURE_ERROR:
-		return "QUADRATURE_ERROR"
-	case QUADRATURE_INTEGRATE_BAD_BEHAVIOUR_ERROR:
-		return "QUADRATURE_INTEGRATE_BAD_BEHAVIOUR_ERROR"
-	case QUADRATURE_INTEGRATE_MAX_EVAL_ERROR:
-		return "QUADRATURE_INTEGRATE_MAX_EVAL_ERROR"
-	case QUADRATURE_INTERNAL_ERROR:
-		return "QUADRATURE_INTERNAL_ERROR"
-	case QUADRATURE_INVALID_ARG_ERROR:
-		return "QUADRATURE_INVALID_ARG_ERROR"
-	case QUADRATURE_SUCCESS:
-		return "QUADRATURE_SUCCESS"
-	default:
-		return fmt.Sprintf("Quadrature(%d)", e)
-	}
-}
-
-type QuadratureIntegrateQ uint
-
-const (
-	// QUADRATURE_INTEGRATE_QAG: A constant that specifies a simple globally adaptive integrator.
-	QUADRATURE_INTEGRATE_QAG QuadratureIntegrateQ = 1
-	// QUADRATURE_INTEGRATE_QAGS: A constant that specifies global adaptive quadrature.
-	QUADRATURE_INTEGRATE_QAGS QuadratureIntegrateQ = 2
-	// QUADRATURE_INTEGRATE_QNG: A constant that specifies a simple non-adaptive automatic integrator.
-	QUADRATURE_INTEGRATE_QNG QuadratureIntegrateQ = 0
-)
-
-func (e QuadratureIntegrateQ) String() string {
-	switch e {
-	case QUADRATURE_INTEGRATE_QAG:
-		return "QUADRATURE_INTEGRATE_QAG"
-	case QUADRATURE_INTEGRATE_QAGS:
-		return "QUADRATURE_INTEGRATE_QAGS"
-	case QUADRATURE_INTEGRATE_QNG:
-		return "QUADRATURE_INTEGRATE_QNG"
-	default:
-		return fmt.Sprintf("QuadratureIntegrateQ(%d)", e)
-	}
-}
-
-type Sparse int
-
-const (
-	// SPARSE_CANNOT_SET_PROPERTY: A property was set after values were inserted into the matrix.
-	SPARSE_CANNOT_SET_PROPERTY Sparse = -1001
-	// SPARSE_ILLEGAL_PARAMETER: Operation was not completed because one or more of the arguments had an illegal value.
-	SPARSE_ILLEGAL_PARAMETER Sparse = -1000
-	// SPARSE_LOWER_SYMMETRIC: A symmetric matrix with values derived from the lower triangle.
-	SPARSE_LOWER_SYMMETRIC Sparse = 8
-	// SPARSE_LOWER_TRIANGULAR: A lower triangular matrix.
-	SPARSE_LOWER_TRIANGULAR Sparse = 2
-	// SPARSE_SUCCESS: Operation was a success.
-	SPARSE_SUCCESS Sparse = 0
-	// SPARSE_SYSTEM_ERROR: An internal error has occured, such as non enough memory.
-	SPARSE_SYSTEM_ERROR Sparse = -1002
-	// SPARSE_UPPER_SYMMETRIC: A symmetric matrix with values derived from the upper triangle.
-	SPARSE_UPPER_SYMMETRIC Sparse = 4
-	// SPARSE_UPPER_TRIANGULAR: An upper triangular matrix.
-	SPARSE_UPPER_TRIANGULAR Sparse = 1
-	// SparseFactorizationFailed: The factorization failed due to a numerical issue.
-	SparseFactorizationFailed Sparse = -1
-	// SparseHermitian: A flag to describe the type of matrix represented.
-	SparseHermitian Sparse = 7
-	// SparseInternalError: The factorization encountered an internal error, such as failing to allocate memory.
-	SparseInternalError Sparse = -3
-	// SparseLowerTriangle: A constant that specifies the lower triangle.
-	SparseLowerTriangle Sparse = 1
-	// SparseMatrixIsSingular: The factorization aborted because the matrix is singular.
-	SparseMatrixIsSingular Sparse = -2
-	// SparseOrdinary: An unsymmetric sparse matrix without special structure.
-	SparseOrdinary Sparse = 0
-	// SparseParameterError: An error in a user-supplied parameter.
-	SparseParameterError Sparse = -4
-	// SparseStatusOK: The factorization was successful.
-	SparseStatusOK Sparse = 0
-	// SparseStatusReleased: The system freed the factorization object.
-	SparseStatusReleased Sparse = -2147483647
-	// SparseSymmetric: A symmetric sparse matrix.
-	SparseSymmetric Sparse = 3
-	// SparseTriangular: A triangular sparse matrix with a nonunit diagonal.
-	SparseTriangular Sparse = 1
-	// SparseUnitTriangular: A triangular sparse matrix with a unit diagonal.
-	SparseUnitTriangular Sparse = 2
-	// SparseUpperTriangle: A constant that specifies the upper triangle.
-	SparseUpperTriangle Sparse = 0
-)
-
-func (e Sparse) String() string {
-	switch e {
-	case SPARSE_CANNOT_SET_PROPERTY:
-		return "SPARSE_CANNOT_SET_PROPERTY"
-	case SPARSE_ILLEGAL_PARAMETER:
-		return "SPARSE_ILLEGAL_PARAMETER"
-	case SPARSE_LOWER_SYMMETRIC:
-		return "SPARSE_LOWER_SYMMETRIC"
-	case SPARSE_LOWER_TRIANGULAR:
-		return "SPARSE_LOWER_TRIANGULAR"
-	case SPARSE_SUCCESS:
-		return "SPARSE_SUCCESS"
-	case SPARSE_SYSTEM_ERROR:
-		return "SPARSE_SYSTEM_ERROR"
-	case SPARSE_UPPER_SYMMETRIC:
-		return "SPARSE_UPPER_SYMMETRIC"
-	case SPARSE_UPPER_TRIANGULAR:
-		return "SPARSE_UPPER_TRIANGULAR"
-	case SparseFactorizationFailed:
-		return "SparseFactorizationFailed"
-	case SparseHermitian:
-		return "SparseHermitian"
-	case SparseInternalError:
-		return "SparseInternalError"
-	case SparseMatrixIsSingular:
-		return "SparseMatrixIsSingular"
-	case SparseParameterError:
-		return "SparseParameterError"
-	case SparseStatusReleased:
-		return "SparseStatusReleased"
-	case SparseSymmetric:
-		return "SparseSymmetric"
-	default:
-		return fmt.Sprintf("Sparse(%d)", e)
-	}
-}
-
-type SparseDefault uint
+// See: https://developer.apple.com/documentation/Accelerate/SparseControl_t
+type SparseControl_t uint32
 
 const (
 	// SparseDefaultControl: A flag that indicates default values.
-	SparseDefaultControl SparseDefault = 0
+	SparseDefaultControl SparseControl_t = 0
 )
 
-func (e SparseDefault) String() string {
+func (e SparseControl_t) String() string {
 	switch e {
 	case SparseDefaultControl:
 		return "SparseDefaultControl"
 	default:
-		return fmt.Sprintf("SparseDefault(%d)", e)
+		return fmt.Sprintf("SparseControl_t(%d)", e)
 	}
 }
 
-type SparseFactorization uint
+// See: https://developer.apple.com/documentation/Accelerate/SparseFactorization_t
+type SparseFactorization_t uint8
 
 const (
-	// SparseFactorizationCholesky: A constant that represents Cholesky () factorization.
-	SparseFactorizationCholesky SparseFactorization = 0
-	// SparseFactorizationCholeskyAtA: A constant that represents  factorization without storing .
-	SparseFactorizationCholeskyAtA SparseFactorization = 41
-	// SparseFactorizationLDLT: A constant that represents the default  factorization.
-	SparseFactorizationLDLT SparseFactorization = 1
-	// SparseFactorizationLDLTSBK: A constant that represents  factorization with Supernode-Bunch-Kaufman and static pivoting.
-	SparseFactorizationLDLTSBK SparseFactorization = 3
-	// SparseFactorizationLDLTTPP: A constant that represents  factorization with full-threshold partial pivoting.
-	SparseFactorizationLDLTTPP SparseFactorization = 4
-	// SparseFactorizationLDLTUnpivoted: A constant that represents Cholesky-like  factorization with only one-by-one pivots and no pivoting.
-	SparseFactorizationLDLTUnpivoted SparseFactorization = 2
+	// SparseFactorizationCholesky: A constant that represents Cholesky (LLᵀ) factorization.
+	SparseFactorizationCholesky SparseFactorization_t = 0
+	// SparseFactorizationCholeskyAtA: A constant that represents QR factorization without storing Q.
+	SparseFactorizationCholeskyAtA SparseFactorization_t = 41
+	// SparseFactorizationLDLT: A constant that represents the default LDLᵀ factorization.
+	SparseFactorizationLDLT SparseFactorization_t = 1
+	// SparseFactorizationLDLTSBK: A constant that represents LDLᵀ factorization with Supernode-Bunch-Kaufman and static pivoting.
+	SparseFactorizationLDLTSBK SparseFactorization_t = 3
+	// SparseFactorizationLDLTTPP: A constant that represents LDLᵀ factorization with full-threshold partial pivoting.
+	SparseFactorizationLDLTTPP SparseFactorization_t = 4
+	// SparseFactorizationLDLTUnpivoted: A constant that represents Cholesky-like LDLᵀ factorization with only one-by-one pivots and no pivoting.
+	SparseFactorizationLDLTUnpivoted SparseFactorization_t = 2
 	// SparseFactorizationLU: Default LU factorization, currently LU with TPP.
-	SparseFactorizationLU SparseFactorization = 80
+	SparseFactorizationLU SparseFactorization_t = 80
 	// SparseFactorizationLUSPP: LU factorization with partial pivoting restricted to within supernodes only.
-	SparseFactorizationLUSPP SparseFactorization = 82
+	SparseFactorizationLUSPP SparseFactorization_t = 82
 	// SparseFactorizationLUTPP: LU factorization with threshold partial pivoting.
-	SparseFactorizationLUTPP SparseFactorization = 83
+	SparseFactorizationLUTPP SparseFactorization_t = 83
 	// SparseFactorizationLUUnpivoted: LU factorization with no numerical pivoting.
-	SparseFactorizationLUUnpivoted SparseFactorization = 81
+	SparseFactorizationLUUnpivoted SparseFactorization_t = 81
 	// SparseFactorizationQR: A constant that represents QR factorization.
-	SparseFactorizationQR SparseFactorization = 40
+	SparseFactorizationQR SparseFactorization_t = 40
 )
 
-func (e SparseFactorization) String() string {
+func (e SparseFactorization_t) String() string {
 	switch e {
 	case SparseFactorizationCholesky:
 		return "SparseFactorizationCholesky"
@@ -2199,26 +2287,52 @@ func (e SparseFactorization) String() string {
 	case SparseFactorizationQR:
 		return "SparseFactorizationQR"
 	default:
-		return fmt.Sprintf("SparseFactorization(%d)", e)
+		return fmt.Sprintf("SparseFactorization_t(%d)", e)
 	}
 }
 
-type SparseIterative int
+// See: https://developer.apple.com/documentation/Accelerate/SparseGMRESVariant_t
+type SparseGMRESVariant_t uint8
+
+const (
+	// SparseVariantDQGMRES: A constant that specifies the DQGMRES variant.
+	SparseVariantDQGMRES SparseGMRESVariant_t = 0
+	// SparseVariantFGMRES: A constant that specifies the flexible GMRES variant.
+	SparseVariantFGMRES SparseGMRESVariant_t = 2
+	// SparseVariantGMRES: A constant that specifies the standard restarted GMRES variant.
+	SparseVariantGMRES SparseGMRESVariant_t = 1
+)
+
+func (e SparseGMRESVariant_t) String() string {
+	switch e {
+	case SparseVariantDQGMRES:
+		return "SparseVariantDQGMRES"
+	case SparseVariantFGMRES:
+		return "SparseVariantFGMRES"
+	case SparseVariantGMRES:
+		return "SparseVariantGMRES"
+	default:
+		return fmt.Sprintf("SparseGMRESVariant_t(%d)", e)
+	}
+}
+
+// See: https://developer.apple.com/documentation/Accelerate/SparseIterativeStatus_t
+type SparseIterativeStatus_t int32
 
 const (
 	// SparseIterativeConverged: A status that indicates the convergence of all solutions.
-	SparseIterativeConverged SparseIterative = 0
+	SparseIterativeConverged SparseIterativeStatus_t = 0
 	// SparseIterativeIllConditioned: A status that indicates the operation determines the problem is sufficiently ill-conditioned that convergence is unlikely.
-	SparseIterativeIllConditioned SparseIterative = -2
+	SparseIterativeIllConditioned SparseIterativeStatus_t = -2
 	// SparseIterativeInternalError: A status that indicates an internal failure.
-	SparseIterativeInternalError SparseIterative = -99
+	SparseIterativeInternalError SparseIterativeStatus_t = -99
 	// SparseIterativeMaxIterations: A status that indicates a failure to converge one or more solutions in the maximum number of iterations.
-	SparseIterativeMaxIterations SparseIterative = 1
+	SparseIterativeMaxIterations SparseIterativeStatus_t = 1
 	// SparseIterativeParameterError: A status that indicates an error with one or more parameters.
-	SparseIterativeParameterError SparseIterative = -1
+	SparseIterativeParameterError SparseIterativeStatus_t = -1
 )
 
-func (e SparseIterative) String() string {
+func (e SparseIterativeStatus_t) String() string {
 	switch e {
 	case SparseIterativeConverged:
 		return "SparseIterativeConverged"
@@ -2231,76 +2345,83 @@ func (e SparseIterative) String() string {
 	case SparseIterativeParameterError:
 		return "SparseIterativeParameterError"
 	default:
-		return fmt.Sprintf("SparseIterative(%d)", e)
+		return fmt.Sprintf("SparseIterativeStatus_t(%d)", e)
 	}
 }
 
-type SparseLSMRCT uint
+// See: https://developer.apple.com/documentation/Accelerate/SparseKind_t
+type SparseKind_t uint32
+
+const (
+	// SparseHermitian: A flag to describe the type of matrix represented.
+	SparseHermitian SparseKind_t = 7
+	// SparseOrdinary: An unsymmetric sparse matrix without special structure.
+	SparseOrdinary SparseKind_t = 0
+	// SparseSymmetric: A symmetric sparse matrix.
+	SparseSymmetric SparseKind_t = 3
+	// SparseTriangular: A triangular sparse matrix with a nonunit diagonal.
+	SparseTriangular SparseKind_t = 1
+	// SparseUnitTriangular: A triangular sparse matrix with a unit diagonal.
+	SparseUnitTriangular SparseKind_t = 2
+)
+
+func (e SparseKind_t) String() string {
+	switch e {
+	case SparseHermitian:
+		return "SparseHermitian"
+	case SparseOrdinary:
+		return "SparseOrdinary"
+	case SparseSymmetric:
+		return "SparseSymmetric"
+	case SparseTriangular:
+		return "SparseTriangular"
+	case SparseUnitTriangular:
+		return "SparseUnitTriangular"
+	default:
+		return fmt.Sprintf("SparseKind_t(%d)", e)
+	}
+}
+
+// See: https://developer.apple.com/documentation/Accelerate/SparseLSMRConvergenceTest_t
+type SparseLSMRConvergenceTest_t int32
 
 const (
 	// SparseLSMRCTDefault: The default convergence test.
-	SparseLSMRCTDefault SparseLSMRCT = 0
+	SparseLSMRCTDefault SparseLSMRConvergenceTest_t = 0
 	// SparseLSMRCTFongSaunders: Fong and Saunder’s original convergence test.
-	SparseLSMRCTFongSaunders SparseLSMRCT = 1
+	SparseLSMRCTFongSaunders SparseLSMRConvergenceTest_t = 1
 )
 
-func (e SparseLSMRCT) String() string {
+func (e SparseLSMRConvergenceTest_t) String() string {
 	switch e {
 	case SparseLSMRCTDefault:
 		return "SparseLSMRCTDefault"
 	case SparseLSMRCTFongSaunders:
 		return "SparseLSMRCTFongSaunders"
 	default:
-		return fmt.Sprintf("SparseLSMRCT(%d)", e)
+		return fmt.Sprintf("SparseLSMRConvergenceTest_t(%d)", e)
 	}
 }
 
-type SparseNorm uint
-
-const (
-	// SPARSE_NORM_INF: Norm Inf
-	SPARSE_NORM_INF SparseNorm = 175
-	// SPARSE_NORM_ONE: Norm One
-	SPARSE_NORM_ONE SparseNorm = 171
-	// SPARSE_NORM_R1: Norm R1
-	SPARSE_NORM_R1 SparseNorm = 179
-	// SPARSE_NORM_TWO: Norm Two
-	SPARSE_NORM_TWO SparseNorm = 173
-)
-
-func (e SparseNorm) String() string {
-	switch e {
-	case SPARSE_NORM_INF:
-		return "SPARSE_NORM_INF"
-	case SPARSE_NORM_ONE:
-		return "SPARSE_NORM_ONE"
-	case SPARSE_NORM_R1:
-		return "SPARSE_NORM_R1"
-	case SPARSE_NORM_TWO:
-		return "SPARSE_NORM_TWO"
-	default:
-		return fmt.Sprintf("SparseNorm(%d)", e)
-	}
-}
-
-type SparseOrder uint
+// See: https://developer.apple.com/documentation/Accelerate/SparseOrder_t
+type SparseOrder_t uint8
 
 const (
 	// SparseOrderAMD: Approximate minimum degree (AMD) ordering.
-	SparseOrderAMD SparseOrder = 2
-	// SparseOrderCOLAMD: The column AMD ordering for .
-	SparseOrderCOLAMD SparseOrder = 4
+	SparseOrderAMD SparseOrder_t = 2
+	// SparseOrderCOLAMD: The column AMD ordering for AᵀA.
+	SparseOrderCOLAMD SparseOrder_t = 4
 	// SparseOrderDefault: The default ordering.
-	SparseOrderDefault SparseOrder = 0
+	SparseOrderDefault SparseOrder_t = 0
 	// SparseOrderMTMetis: Specifies type of fill-reducing ordering.
-	SparseOrderMTMetis SparseOrder = 5
+	SparseOrderMTMetis SparseOrder_t = 5
 	// SparseOrderMetis: METIS nested dissection ordering.
-	SparseOrderMetis SparseOrder = 3
+	SparseOrderMetis SparseOrder_t = 3
 	// SparseOrderUser: The user-supplied ordering, or identity if the order parameter is null.
-	SparseOrderUser SparseOrder = 1
+	SparseOrderUser SparseOrder_t = 1
 )
 
-func (e SparseOrder) String() string {
+func (e SparseOrder_t) String() string {
 	switch e {
 	case SparseOrderAMD:
 		return "SparseOrderAMD"
@@ -2315,24 +2436,25 @@ func (e SparseOrder) String() string {
 	case SparseOrderUser:
 		return "SparseOrderUser"
 	default:
-		return fmt.Sprintf("SparseOrder(%d)", e)
+		return fmt.Sprintf("SparseOrder_t(%d)", e)
 	}
 }
 
-type SparsePreconditioner uint
+// See: https://developer.apple.com/documentation/Accelerate/SparsePreconditioner_t
+type SparsePreconditioner_t int32
 
 const (
 	// SparsePreconditionerDiagScaling: A diagonal scaling preconditioner.
-	SparsePreconditionerDiagScaling SparsePreconditioner = 3
+	SparsePreconditionerDiagScaling SparsePreconditioner_t = 3
 	// SparsePreconditionerDiagonal: A Jacobi preconditioner.
-	SparsePreconditionerDiagonal SparsePreconditioner = 2
+	SparsePreconditionerDiagonal SparsePreconditioner_t = 2
 	// SparsePreconditionerNone: No preconditioner.
-	SparsePreconditionerNone SparsePreconditioner = 0
+	SparsePreconditionerNone SparsePreconditioner_t = 0
 	// SparsePreconditionerUser: A user-provided preconditioner.
-	SparsePreconditionerUser SparsePreconditioner = 1
+	SparsePreconditionerUser SparsePreconditioner_t = 1
 )
 
-func (e SparsePreconditioner) String() string {
+func (e SparsePreconditioner_t) String() string {
 	switch e {
 	case SparsePreconditionerDiagScaling:
 		return "SparsePreconditionerDiagScaling"
@@ -2343,26 +2465,27 @@ func (e SparsePreconditioner) String() string {
 	case SparsePreconditionerUser:
 		return "SparsePreconditionerUser"
 	default:
-		return fmt.Sprintf("SparsePreconditioner(%d)", e)
+		return fmt.Sprintf("SparsePreconditioner_t(%d)", e)
 	}
 }
 
-type SparseScaling uint
+// See: https://developer.apple.com/documentation/Accelerate/SparseScaling_t
+type SparseScaling_t uint8
 
 const (
 	// SparseScalingDefault: Default scaling.
-	SparseScalingDefault SparseScaling = 0
+	SparseScalingDefault SparseScaling_t = 0
 	// SparseScalingEquilibriationInf: The norm equilibration scaling using infinity norm.
-	SparseScalingEquilibriationInf SparseScaling = 2
+	SparseScalingEquilibriationInf SparseScaling_t = 2
 	// SparseScalingHungarianScalingAndOrdering: Scaling and ordering using the Hungarian algorithm.
-	SparseScalingHungarianScalingAndOrdering SparseScaling = 4
+	SparseScalingHungarianScalingAndOrdering SparseScaling_t = 4
 	// SparseScalingHungarianScalingOnly: Scaling using the Hungarian algorithm.
-	SparseScalingHungarianScalingOnly SparseScaling = 3
+	SparseScalingHungarianScalingOnly SparseScaling_t = 3
 	// SparseScalingUser: User scaling.
-	SparseScalingUser SparseScaling = 1
+	SparseScalingUser SparseScaling_t = 1
 )
 
-func (e SparseScaling) String() string {
+func (e SparseScaling_t) String() string {
 	switch e {
 	case SparseScalingDefault:
 		return "SparseScalingDefault"
@@ -2375,38 +2498,76 @@ func (e SparseScaling) String() string {
 	case SparseScalingUser:
 		return "SparseScalingUser"
 	default:
-		return fmt.Sprintf("SparseScaling(%d)", e)
+		return fmt.Sprintf("SparseScaling_t(%d)", e)
 	}
 }
 
-type SparseSubfactor uint
+// See: https://developer.apple.com/documentation/Accelerate/SparseStatus_t
+type SparseStatus_t int32
 
 const (
-	// SparseSubfactorD: A  factor subfactor that’s valid for ` `only.
-	SparseSubfactorD SparseSubfactor = 4
-	// SparseSubfactorInvalid: An invalid subfactor that indicates the requested type is incompatible with the supplied factorization or the system has destroyed it.
-	SparseSubfactorInvalid SparseSubfactor = 0
-	// SparseSubfactorL: An  factor subfactor that’s valid for Cholesky and  only.
-	SparseSubfactorL SparseSubfactor = 3
-	// SparseSubfactorP: A permutation subfactor that’s valid for all factorization types.
-	SparseSubfactorP SparseSubfactor = 1
-	// SparseSubfactorPLPS: A half-solve subfactor that’s valid for Cholesky and  only.
-	SparseSubfactorPLPS SparseSubfactor = 5
-	// SparseSubfactorQ: A  factor subfactor that’s valid for QR only.
-	SparseSubfactorQ SparseSubfactor = 6
-	// SparseSubfactorR: An  factor subfactor that’s valid for QR and Cholesky  only.
-	SparseSubfactorR SparseSubfactor = 7
-	// SparseSubfactorRP: A half-solve subfactor that’s valid for QR and Cholesky  only.
-	SparseSubfactorRP SparseSubfactor = 8
-	// SparseSubfactorS: A diagonal scaling subfactor that’s valid for Cholesky and  only.
-	SparseSubfactorS SparseSubfactor = 2
-	// SparseSubfactorSc: Types of sub-factor object.
-	SparseSubfactorSc SparseSubfactor = 10
-	// SparseSubfactorSr: Types of sub-factor object.
-	SparseSubfactorSr SparseSubfactor = 9
+	// SparseFactorizationFailed: The factorization failed due to a numerical issue.
+	SparseFactorizationFailed SparseStatus_t = -1
+	// SparseInternalError: The factorization encountered an internal error, such as failing to allocate memory.
+	SparseInternalError SparseStatus_t = -3
+	// SparseMatrixIsSingular: The factorization aborted because the matrix is singular.
+	SparseMatrixIsSingular SparseStatus_t = -2
+	// SparseParameterError: An error in a user-supplied parameter.
+	SparseParameterError SparseStatus_t = -4
+	// SparseStatusOK: The factorization was successful.
+	SparseStatusOK SparseStatus_t = 0
+	// SparseStatusReleased: The system freed the factorization object.
+	SparseStatusReleased SparseStatus_t = -2147483647
 )
 
-func (e SparseSubfactor) String() string {
+func (e SparseStatus_t) String() string {
+	switch e {
+	case SparseFactorizationFailed:
+		return "SparseFactorizationFailed"
+	case SparseInternalError:
+		return "SparseInternalError"
+	case SparseMatrixIsSingular:
+		return "SparseMatrixIsSingular"
+	case SparseParameterError:
+		return "SparseParameterError"
+	case SparseStatusOK:
+		return "SparseStatusOK"
+	case SparseStatusReleased:
+		return "SparseStatusReleased"
+	default:
+		return fmt.Sprintf("SparseStatus_t(%d)", e)
+	}
+}
+
+// See: https://developer.apple.com/documentation/Accelerate/SparseSubfactor_t
+type SparseSubfactor_t uint8
+
+const (
+	// SparseSubfactorD: A D factor subfactor that’s valid for LDLᵀ` `only.
+	SparseSubfactorD SparseSubfactor_t = 4
+	// SparseSubfactorInvalid: An invalid subfactor that indicates the requested type is incompatible with the supplied factorization or the system has destroyed it.
+	SparseSubfactorInvalid SparseSubfactor_t = 0
+	// SparseSubfactorL: An L factor subfactor that’s valid for Cholesky and LDLᵀ only.
+	SparseSubfactorL SparseSubfactor_t = 3
+	// SparseSubfactorP: A permutation subfactor that’s valid for all factorization types.
+	SparseSubfactorP SparseSubfactor_t = 1
+	// SparseSubfactorPLPS: A half-solve subfactor that’s valid for Cholesky and LDLᵀ only.
+	SparseSubfactorPLPS SparseSubfactor_t = 5
+	// SparseSubfactorQ: A Q factor subfactor that’s valid for QR only.
+	SparseSubfactorQ SparseSubfactor_t = 6
+	// SparseSubfactorR: An R factor subfactor that’s valid for QR and Cholesky AᵀA only.
+	SparseSubfactorR SparseSubfactor_t = 7
+	// SparseSubfactorRP: A half-solve subfactor that’s valid for QR and Cholesky AᵀA only.
+	SparseSubfactorRP SparseSubfactor_t = 8
+	// SparseSubfactorS: A diagonal scaling subfactor that’s valid for Cholesky and LDLᵀ only.
+	SparseSubfactorS SparseSubfactor_t = 2
+	// SparseSubfactorSc: Types of sub-factor object.
+	SparseSubfactorSc SparseSubfactor_t = 10
+	// SparseSubfactorSr: Types of sub-factor object.
+	SparseSubfactorSr SparseSubfactor_t = 9
+)
+
+func (e SparseSubfactor_t) String() string {
 	switch e {
 	case SparseSubfactorD:
 		return "SparseSubfactorD"
@@ -2431,51 +2592,49 @@ func (e SparseSubfactor) String() string {
 	case SparseSubfactorSr:
 		return "SparseSubfactorSr"
 	default:
-		return fmt.Sprintf("SparseSubfactor(%d)", e)
+		return fmt.Sprintf("SparseSubfactor_t(%d)", e)
 	}
 }
 
-type SparseUpdatePartial uint
+// See: https://developer.apple.com/documentation/Accelerate/SparseTriangle_t
+type SparseTriangle_t uint8
+
+const (
+	// SparseLowerTriangle: A constant that specifies the lower triangle.
+	SparseLowerTriangle SparseTriangle_t = 1
+	// SparseUpperTriangle: A constant that specifies the upper triangle.
+	SparseUpperTriangle SparseTriangle_t = 0
+)
+
+func (e SparseTriangle_t) String() string {
+	switch e {
+	case SparseLowerTriangle:
+		return "SparseLowerTriangle"
+	case SparseUpperTriangle:
+		return "SparseUpperTriangle"
+	default:
+		return fmt.Sprintf("SparseTriangle_t(%d)", e)
+	}
+}
+
+// See: https://developer.apple.com/documentation/Accelerate/SparseUpdate_t
+type SparseUpdate_t uint8
 
 const (
 	// SparseUpdatePartialRefactor: Low-rank update algorithm selector
-	SparseUpdatePartialRefactor SparseUpdatePartial = 0
+	SparseUpdatePartialRefactor SparseUpdate_t = 0
 )
 
-func (e SparseUpdatePartial) String() string {
+func (e SparseUpdate_t) String() string {
 	switch e {
 	case SparseUpdatePartialRefactor:
 		return "SparseUpdatePartialRefactor"
 	default:
-		return fmt.Sprintf("SparseUpdatePartial(%d)", e)
+		return fmt.Sprintf("SparseUpdate_t(%d)", e)
 	}
 }
 
-type SparseVariant uint
-
-const (
-	// SparseVariantDQGMRES: A constant that specifies the DQGMRES variant.
-	SparseVariantDQGMRES SparseVariant = 0
-	// SparseVariantFGMRES: A constant that specifies the flexible GMRES variant.
-	SparseVariantFGMRES SparseVariant = 2
-	// SparseVariantGMRES: A constant that specifies the standard restarted GMRES variant.
-	SparseVariantGMRES SparseVariant = 1
-)
-
-func (e SparseVariant) String() string {
-	switch e {
-	case SparseVariantDQGMRES:
-		return "SparseVariantDQGMRES"
-	case SparseVariantFGMRES:
-		return "SparseVariantFGMRES"
-	case SparseVariantGMRES:
-		return "SparseVariantGMRES"
-	default:
-		return fmt.Sprintf("SparseVariant(%d)", e)
-	}
-}
-
-type VdspHa uint
+type VdspHa uint32
 
 const (
 	// VDSP_HALF_WINDOW: Specifies that the window should only contain the bottom half of the values (`0` to `(N+1)/2`).
@@ -2496,6 +2655,159 @@ func (e VdspHa) String() string {
 		return "VDSP_HANN_NORM"
 	default:
 		return fmt.Sprintf("VdspHa(%d)", e)
+	}
+}
+
+// See: https://developer.apple.com/documentation/Accelerate/quadrature_integrator
+type Quadrature_integrator uint32
+
+const (
+	// QUADRATURE_INTEGRATE_QAG: A constant that specifies a simple globally adaptive integrator.
+	QUADRATURE_INTEGRATE_QAG Quadrature_integrator = 1
+	// QUADRATURE_INTEGRATE_QAGS: A constant that specifies global adaptive quadrature.
+	QUADRATURE_INTEGRATE_QAGS Quadrature_integrator = 2
+	// QUADRATURE_INTEGRATE_QNG: A constant that specifies a simple non-adaptive automatic integrator.
+	QUADRATURE_INTEGRATE_QNG Quadrature_integrator = 0
+)
+
+func (e Quadrature_integrator) String() string {
+	switch e {
+	case QUADRATURE_INTEGRATE_QAG:
+		return "QUADRATURE_INTEGRATE_QAG"
+	case QUADRATURE_INTEGRATE_QAGS:
+		return "QUADRATURE_INTEGRATE_QAGS"
+	case QUADRATURE_INTEGRATE_QNG:
+		return "QUADRATURE_INTEGRATE_QNG"
+	default:
+		return fmt.Sprintf("Quadrature_integrator(%d)", e)
+	}
+}
+
+// See: https://developer.apple.com/documentation/Accelerate/quadrature_status
+type Quadrature_status int32
+
+const (
+	// QUADRATURE_ALLOC_ERROR: A constant that indicates that memory allocation failed.
+	QUADRATURE_ALLOC_ERROR Quadrature_status = -3
+	// QUADRATURE_ERROR: A constant that indicates that a generic error occurred.
+	QUADRATURE_ERROR Quadrature_status = -1
+	// QUADRATURE_INTEGRATE_BAD_BEHAVIOUR_ERROR: A constant that indicates bad integrand behaviour, or that an excessive roundoff error occurred.
+	QUADRATURE_INTEGRATE_BAD_BEHAVIOUR_ERROR Quadrature_status = -102
+	// QUADRATURE_INTEGRATE_MAX_EVAL_ERROR: A constant that indicates that the requested accuracy limit could not be reached.
+	QUADRATURE_INTEGRATE_MAX_EVAL_ERROR Quadrature_status = -101
+	// QUADRATURE_INTERNAL_ERROR: A constant that indicates that an internal error occurred.
+	QUADRATURE_INTERNAL_ERROR Quadrature_status = -99
+	// QUADRATURE_INVALID_ARG_ERROR: A constant that indicates that an invalid argument was passed to the operation.
+	QUADRATURE_INVALID_ARG_ERROR Quadrature_status = -2
+	// QUADRATURE_SUCCESS: A constant that indicates that the Quadrature operation was successful.
+	QUADRATURE_SUCCESS Quadrature_status = 0
+)
+
+func (e Quadrature_status) String() string {
+	switch e {
+	case QUADRATURE_ALLOC_ERROR:
+		return "QUADRATURE_ALLOC_ERROR"
+	case QUADRATURE_ERROR:
+		return "QUADRATURE_ERROR"
+	case QUADRATURE_INTEGRATE_BAD_BEHAVIOUR_ERROR:
+		return "QUADRATURE_INTEGRATE_BAD_BEHAVIOUR_ERROR"
+	case QUADRATURE_INTEGRATE_MAX_EVAL_ERROR:
+		return "QUADRATURE_INTEGRATE_MAX_EVAL_ERROR"
+	case QUADRATURE_INTERNAL_ERROR:
+		return "QUADRATURE_INTERNAL_ERROR"
+	case QUADRATURE_INVALID_ARG_ERROR:
+		return "QUADRATURE_INVALID_ARG_ERROR"
+	case QUADRATURE_SUCCESS:
+		return "QUADRATURE_SUCCESS"
+	default:
+		return fmt.Sprintf("Quadrature_status(%d)", e)
+	}
+}
+
+// See: https://developer.apple.com/documentation/Accelerate/sparse_matrix_property
+type Sparse_matrix_property uint32
+
+const (
+	// SPARSE_LOWER_SYMMETRIC: A symmetric matrix with values derived from the lower triangle.
+	SPARSE_LOWER_SYMMETRIC Sparse_matrix_property = 8
+	// SPARSE_LOWER_TRIANGULAR: A lower triangular matrix.
+	SPARSE_LOWER_TRIANGULAR Sparse_matrix_property = 2
+	// SPARSE_UPPER_SYMMETRIC: A symmetric matrix with values derived from the upper triangle.
+	SPARSE_UPPER_SYMMETRIC Sparse_matrix_property = 4
+	// SPARSE_UPPER_TRIANGULAR: An upper triangular matrix.
+	SPARSE_UPPER_TRIANGULAR Sparse_matrix_property = 1
+)
+
+func (e Sparse_matrix_property) String() string {
+	switch e {
+	case SPARSE_LOWER_SYMMETRIC:
+		return "SPARSE_LOWER_SYMMETRIC"
+	case SPARSE_LOWER_TRIANGULAR:
+		return "SPARSE_LOWER_TRIANGULAR"
+	case SPARSE_UPPER_SYMMETRIC:
+		return "SPARSE_UPPER_SYMMETRIC"
+	case SPARSE_UPPER_TRIANGULAR:
+		return "SPARSE_UPPER_TRIANGULAR"
+	default:
+		return fmt.Sprintf("Sparse_matrix_property(%d)", e)
+	}
+}
+
+// See: https://developer.apple.com/documentation/Accelerate/sparse_norm
+type Sparse_norm uint32
+
+const (
+	// SPARSE_NORM_INF: Norm Inf
+	SPARSE_NORM_INF Sparse_norm = 175
+	// SPARSE_NORM_ONE: Norm One
+	SPARSE_NORM_ONE Sparse_norm = 171
+	// SPARSE_NORM_R1: Norm R1
+	SPARSE_NORM_R1 Sparse_norm = 179
+	// SPARSE_NORM_TWO: Norm Two
+	SPARSE_NORM_TWO Sparse_norm = 173
+)
+
+func (e Sparse_norm) String() string {
+	switch e {
+	case SPARSE_NORM_INF:
+		return "SPARSE_NORM_INF"
+	case SPARSE_NORM_ONE:
+		return "SPARSE_NORM_ONE"
+	case SPARSE_NORM_R1:
+		return "SPARSE_NORM_R1"
+	case SPARSE_NORM_TWO:
+		return "SPARSE_NORM_TWO"
+	default:
+		return fmt.Sprintf("Sparse_norm(%d)", e)
+	}
+}
+
+// See: https://developer.apple.com/documentation/Accelerate/sparse_status
+type Sparse_status int32
+
+const (
+	// SPARSE_CANNOT_SET_PROPERTY: A property was set after values were inserted into the matrix.
+	SPARSE_CANNOT_SET_PROPERTY Sparse_status = -1001
+	// SPARSE_ILLEGAL_PARAMETER: Operation was not completed because one or more of the arguments had an illegal value.
+	SPARSE_ILLEGAL_PARAMETER Sparse_status = -1000
+	// SPARSE_SUCCESS: Operation was a success.
+	SPARSE_SUCCESS Sparse_status = 0
+	// SPARSE_SYSTEM_ERROR: An internal error has occured, such as non enough memory.
+	SPARSE_SYSTEM_ERROR Sparse_status = -1002
+)
+
+func (e Sparse_status) String() string {
+	switch e {
+	case SPARSE_CANNOT_SET_PROPERTY:
+		return "SPARSE_CANNOT_SET_PROPERTY"
+	case SPARSE_ILLEGAL_PARAMETER:
+		return "SPARSE_ILLEGAL_PARAMETER"
+	case SPARSE_SUCCESS:
+		return "SPARSE_SUCCESS"
+	case SPARSE_SYSTEM_ERROR:
+		return "SPARSE_SYSTEM_ERROR"
+	default:
+		return fmt.Sprintf("Sparse_status(%d)", e)
 	}
 }
 
@@ -2550,7 +2862,7 @@ type VDSP_DFT_RealtoComplex int
 
 const (
 	VDSP_DFT_Interleaved_ComplextoComplex VDSP_DFT_RealtoComplex = 0
-	VDSP_DFT_Interleaved_RealtoComplex    VDSP_DFT_RealtoComplex = 1
+	VDSP_DFT_Interleaved_RealtoComplex    VDSP_DFT_RealtoComplex = -1
 )
 
 func (e VDSP_DFT_RealtoComplex) String() string {
@@ -2561,6 +2873,138 @@ func (e VDSP_DFT_RealtoComplex) String() string {
 		return "VDSP_DFT_Interleaved_RealtoComplex"
 	default:
 		return fmt.Sprintf("VDSP_DFT_RealtoComplex(%d)", e)
+	}
+}
+
+// See: https://developer.apple.com/documentation/Accelerate/vImageARGBType
+type VImageARGBType uint32
+
+const (
+	// KvImageARGB16Q12: Any 8-bit four-channel interleaved buffer.
+	KvImageARGB16Q12 VImageARGBType = 2
+	// KvImageARGB16U: Any 16-bit unsigned, four-channel interleaved buffer.
+	KvImageARGB16U VImageARGBType = 1
+	// KvImageARGB8888: Any 16-bit signed fixed-point, four-channel interleaved buffer.
+	KvImageARGB8888 VImageARGBType = 0
+)
+
+func (e VImageARGBType) String() string {
+	switch e {
+	case KvImageARGB16Q12:
+		return "KvImageARGB16Q12"
+	case KvImageARGB16U:
+		return "KvImageARGB16U"
+	case KvImageARGB8888:
+		return "KvImageARGB8888"
+	default:
+		return fmt.Sprintf("VImageARGBType(%d)", e)
+	}
+}
+
+// See: https://developer.apple.com/documentation/Accelerate/vImageMDTableUsageHint
+type VImageMDTableUsageHint uint32
+
+const (
+	// KvImageMDTableHint_16Q12: A table for transforming 16Q12 data.
+	KvImageMDTableHint_16Q12 VImageMDTableUsageHint = 1
+	// KvImageMDTableHint_Float: A table for transforming floating-point data.
+	KvImageMDTableHint_Float VImageMDTableUsageHint = 2
+)
+
+func (e VImageMDTableUsageHint) String() string {
+	switch e {
+	case KvImageMDTableHint_16Q12:
+		return "KvImageMDTableHint_16Q12"
+	case KvImageMDTableHint_Float:
+		return "KvImageMDTableHint_Float"
+	default:
+		return fmt.Sprintf("VImageMDTableUsageHint(%d)", e)
+	}
+}
+
+// See: https://developer.apple.com/documentation/Accelerate/vImageYpCbCrType
+type VImageYpCbCrType uint32
+
+const (
+	// KvImage420Yp8_Cb8_Cr8: Any y420 or f420 (planar component Y’CbCr 8-bit 4:2:0) buffer.
+	KvImage420Yp8_Cb8_Cr8 VImageYpCbCrType = 3
+	// KvImage420Yp8_CbCr8: Any 420v or 420f (biplanar component Y’CbCr 8-bit 4:2:0, video-range) buffer.
+	KvImage420Yp8_CbCr8 VImageYpCbCrType = 4
+	// KvImage422CbYpCrYp16: Any v216 (component Y’CbCr 10,12,14,16-bit 4:2:2) buffer.
+	KvImage422CbYpCrYp16 VImageYpCbCrType = 13
+	// KvImage422CbYpCrYp8: Any 2vuy (component Y’CbCr 8-bit 4:2:2) buffer.
+	KvImage422CbYpCrYp8 VImageYpCbCrType = 0
+	// KvImage422CbYpCrYp8_AA8: Any a2vy (first plane: video-range component Y’CbCr 8-bit 4:2:2, ordered Cb Y’0 Cr Y’1; second plane: alpha 8-bit) buffer.
+	KvImage422CbYpCrYp8_AA8 VImageYpCbCrType = 2
+	// KvImage422CrYpCbYpCbYpCbYpCrYpCrYp10: Any v210 (component Y’CbCr 10-bit 4:2:2) buffer.
+	KvImage422CrYpCbYpCbYpCbYpCrYpCrYp10 VImageYpCbCrType = 9
+	// KvImage422YpCbYpCr8: Any yuvs or yuvf (component Y’CbCr 8-bit 4:2:2, ordered Y’0 Cb Y’1 Cr) buffer.
+	KvImage422YpCbYpCr8 VImageYpCbCrType = 1
+	// KvImage444AYpCbCr16: Any y416 (component Y’CbCrA 16-bit 4:4:4:4, ordered A Y’ Cb Cr, full range alpha, video range Y’CbCr) buffer.
+	KvImage444AYpCbCr16 VImageYpCbCrType = 14
+	// KvImage444AYpCbCr8: Any r408 or y408 (component Y’CbCrA 8-bit 4:4:4:4, ordered A Y’ Cb Cr, full range alpha, video range Y’CbCr) buffer.
+	KvImage444AYpCbCr8 VImageYpCbCrType = 5
+	// KvImage444CbYpCrA8: Any v408 (component Y’CbCrA 8-bit 4:4:4:4) buffer.
+	KvImage444CbYpCrA8 VImageYpCbCrType = 7
+	// KvImage444CrYpCb10: Any v410 (component Y’CbCr 10-bit 4:4:4) buffer.
+	KvImage444CrYpCb10 VImageYpCbCrType = 8
+	// KvImage444CrYpCb8: Any v308 (component Y’CbCr 8-bit 4:4:4) buffer.
+	KvImage444CrYpCb8 VImageYpCbCrType = 6
+)
+
+func (e VImageYpCbCrType) String() string {
+	switch e {
+	case KvImage420Yp8_Cb8_Cr8:
+		return "KvImage420Yp8_Cb8_Cr8"
+	case KvImage420Yp8_CbCr8:
+		return "KvImage420Yp8_CbCr8"
+	case KvImage422CbYpCrYp16:
+		return "KvImage422CbYpCrYp16"
+	case KvImage422CbYpCrYp8:
+		return "KvImage422CbYpCrYp8"
+	case KvImage422CbYpCrYp8_AA8:
+		return "KvImage422CbYpCrYp8_AA8"
+	case KvImage422CrYpCbYpCbYpCbYpCrYpCrYp10:
+		return "KvImage422CrYpCbYpCbYpCbYpCrYpCrYp10"
+	case KvImage422YpCbYpCr8:
+		return "KvImage422YpCbYpCr8"
+	case KvImage444AYpCbCr16:
+		return "KvImage444AYpCbCr16"
+	case KvImage444AYpCbCr8:
+		return "KvImage444AYpCbCr8"
+	case KvImage444CbYpCrA8:
+		return "KvImage444CbYpCrA8"
+	case KvImage444CrYpCb10:
+		return "KvImage444CrYpCb10"
+	case KvImage444CrYpCb8:
+		return "KvImage444CrYpCb8"
+	default:
+		return fmt.Sprintf("VImageYpCbCrType(%d)", e)
+	}
+}
+
+// See: https://developer.apple.com/documentation/Accelerate/vImage_InterpolationMethod
+type VImage_InterpolationMethod uint32
+
+const (
+	// KvImageFullInterpolation: Full linear interpolation.
+	KvImageFullInterpolation VImage_InterpolationMethod = 1
+	// KvImageHalfInterpolation: Partial linear interpolation.
+	KvImageHalfInterpolation VImage_InterpolationMethod = 2
+	// KvImageNoInterpolation: Nearest neighbor interpolation.
+	KvImageNoInterpolation VImage_InterpolationMethod = 0
+)
+
+func (e VImage_InterpolationMethod) String() string {
+	switch e {
+	case KvImageFullInterpolation:
+		return "KvImageFullInterpolation"
+	case KvImageHalfInterpolation:
+		return "KvImageHalfInterpolation"
+	case KvImageNoInterpolation:
+		return "KvImageNoInterpolation"
+	default:
+		return fmt.Sprintf("VImage_InterpolationMethod(%d)", e)
 	}
 }
 
@@ -2582,6 +3026,57 @@ type CblasTranspose = CBLAS_TRANSPOSE
 // CblasUplo is a Go-name alias for CBLAS_UPLO.
 type CblasUplo = CBLAS_UPLO
 
+// SparseControl is a Go-name alias for SparseControl_t.
+type SparseControl = SparseControl_t
+
+// SparseFactorization is a Go-name alias for SparseFactorization_t.
+type SparseFactorization = SparseFactorization_t
+
+// SparseGMRESVariant is a Go-name alias for SparseGMRESVariant_t.
+type SparseGMRESVariant = SparseGMRESVariant_t
+
+// SparseIterativeStatus is a Go-name alias for SparseIterativeStatus_t.
+type SparseIterativeStatus = SparseIterativeStatus_t
+
+// SparseKind is a Go-name alias for SparseKind_t.
+type SparseKind = SparseKind_t
+
+// SparseLSMRConvergenceTest is a Go-name alias for SparseLSMRConvergenceTest_t.
+type SparseLSMRConvergenceTest = SparseLSMRConvergenceTest_t
+
+// SparseOrder is a Go-name alias for SparseOrder_t.
+type SparseOrder = SparseOrder_t
+
+// SparsePreconditioner is a Go-name alias for SparsePreconditioner_t.
+type SparsePreconditioner = SparsePreconditioner_t
+
+// SparseScaling is a Go-name alias for SparseScaling_t.
+type SparseScaling = SparseScaling_t
+
+// SparseStatus is a Go-name alias for SparseStatus_t.
+type SparseStatus = SparseStatus_t
+
+// SparseSubfactor is a Go-name alias for SparseSubfactor_t.
+type SparseSubfactor = SparseSubfactor_t
+
+// SparseTriangle is a Go-name alias for SparseTriangle_t.
+type SparseTriangle = SparseTriangle_t
+
+// SparseUpdate is a Go-name alias for SparseUpdate_t.
+type SparseUpdate = SparseUpdate_t
+
+// QuadratureIntegrator is a Go-name alias for Quadrature_integrator.
+type QuadratureIntegrator = Quadrature_integrator
+
+// QuadratureStatus is a Go-name alias for Quadrature_status.
+type QuadratureStatus = Quadrature_status
+
+// SparseMatrixProperty is a Go-name alias for Sparse_matrix_property.
+type SparseMatrixProperty = Sparse_matrix_property
+
+// SparseNorm is a Go-name alias for Sparse_norm.
+type SparseNorm = Sparse_norm
+
 // VdspDctType is a Go-name alias for VDSP_DCT_Type.
 type VdspDctType = VDSP_DCT_Type
 
@@ -2590,3 +3085,6 @@ type VdspDftDirection = VDSP_DFT_Direction
 
 // VdspDftRealtoComplex is a Go-name alias for VDSP_DFT_RealtoComplex.
 type VdspDftRealtoComplex = VDSP_DFT_RealtoComplex
+
+// VImageInterpolationMethod is a Go-name alias for VImage_InterpolationMethod.
+type VImageInterpolationMethod = VImage_InterpolationMethod

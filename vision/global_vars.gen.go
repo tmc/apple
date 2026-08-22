@@ -3,8 +3,6 @@
 package vision
 
 import (
-	"unsafe"
-
 	"github.com/ebitengine/purego"
 	"github.com/tmc/apple/corefoundation"
 	"github.com/tmc/apple/objc"
@@ -259,7 +257,7 @@ const (
 
 	// VNDetectBarcodesRequestRevision1 is a constant for specifying revision 1 of the barcode detection request.
 	//
-	// Deprecated: Deprecated since macOS 14.0. Use [VNDetectBarcodesRequestRevision3](<doc://Vision/documentation/Vision/VNDetectBarcodesRequestRevision3>) instead.
+	// Deprecated: Deprecated since macOS 14.0. Use [VNDetectBarcodesRequestRevision3](<https://developer.apple.com/documentation/Vision/VNDetectBarcodesRequestRevision3>) instead.
 	//
 	// See: https://developer.apple.com/documentation/Vision/VNDetectBarcodesRequestRevision1
 	VNDetectBarcodesRequestRevision1 uint = 1
@@ -348,127 +346,127 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "VNAnimalBodyPoseObservationJointNameLeftBackElbow"); err == nil && ptr != 0 {
-		VNAnimalBodyPoseObservationJointNames.LeftBackElbow = *(*VNAnimalBodyPoseObservationJointName)(unsafe.Pointer(ptr))
+		VNAnimalBodyPoseObservationJointNames.LeftBackElbow = objc.ValueAt[VNAnimalBodyPoseObservationJointName](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "VNAnimalBodyPoseObservationJointNameLeftBackKnee"); err == nil && ptr != 0 {
-		VNAnimalBodyPoseObservationJointNames.LeftBackKnee = *(*VNAnimalBodyPoseObservationJointName)(unsafe.Pointer(ptr))
+		VNAnimalBodyPoseObservationJointNames.LeftBackKnee = objc.ValueAt[VNAnimalBodyPoseObservationJointName](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "VNAnimalBodyPoseObservationJointNameLeftBackPaw"); err == nil && ptr != 0 {
-		VNAnimalBodyPoseObservationJointNames.LeftBackPaw = *(*VNAnimalBodyPoseObservationJointName)(unsafe.Pointer(ptr))
+		VNAnimalBodyPoseObservationJointNames.LeftBackPaw = objc.ValueAt[VNAnimalBodyPoseObservationJointName](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "VNAnimalBodyPoseObservationJointNameLeftEarBottom"); err == nil && ptr != 0 {
-		VNAnimalBodyPoseObservationJointNames.LeftEarBottom = *(*VNAnimalBodyPoseObservationJointName)(unsafe.Pointer(ptr))
+		VNAnimalBodyPoseObservationJointNames.LeftEarBottom = objc.ValueAt[VNAnimalBodyPoseObservationJointName](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "VNAnimalBodyPoseObservationJointNameLeftEarMiddle"); err == nil && ptr != 0 {
-		VNAnimalBodyPoseObservationJointNames.LeftEarMiddle = *(*VNAnimalBodyPoseObservationJointName)(unsafe.Pointer(ptr))
+		VNAnimalBodyPoseObservationJointNames.LeftEarMiddle = objc.ValueAt[VNAnimalBodyPoseObservationJointName](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "VNAnimalBodyPoseObservationJointNameLeftEarTop"); err == nil && ptr != 0 {
-		VNAnimalBodyPoseObservationJointNames.LeftEarTop = *(*VNAnimalBodyPoseObservationJointName)(unsafe.Pointer(ptr))
+		VNAnimalBodyPoseObservationJointNames.LeftEarTop = objc.ValueAt[VNAnimalBodyPoseObservationJointName](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "VNAnimalBodyPoseObservationJointNameLeftEye"); err == nil && ptr != 0 {
-		VNAnimalBodyPoseObservationJointNames.LeftEye = *(*VNAnimalBodyPoseObservationJointName)(unsafe.Pointer(ptr))
+		VNAnimalBodyPoseObservationJointNames.LeftEye = objc.ValueAt[VNAnimalBodyPoseObservationJointName](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "VNAnimalBodyPoseObservationJointNameLeftFrontElbow"); err == nil && ptr != 0 {
-		VNAnimalBodyPoseObservationJointNames.LeftFrontElbow = *(*VNAnimalBodyPoseObservationJointName)(unsafe.Pointer(ptr))
+		VNAnimalBodyPoseObservationJointNames.LeftFrontElbow = objc.ValueAt[VNAnimalBodyPoseObservationJointName](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "VNAnimalBodyPoseObservationJointNameLeftFrontKnee"); err == nil && ptr != 0 {
-		VNAnimalBodyPoseObservationJointNames.LeftFrontKnee = *(*VNAnimalBodyPoseObservationJointName)(unsafe.Pointer(ptr))
+		VNAnimalBodyPoseObservationJointNames.LeftFrontKnee = objc.ValueAt[VNAnimalBodyPoseObservationJointName](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "VNAnimalBodyPoseObservationJointNameLeftFrontPaw"); err == nil && ptr != 0 {
-		VNAnimalBodyPoseObservationJointNames.LeftFrontPaw = *(*VNAnimalBodyPoseObservationJointName)(unsafe.Pointer(ptr))
+		VNAnimalBodyPoseObservationJointNames.LeftFrontPaw = objc.ValueAt[VNAnimalBodyPoseObservationJointName](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "VNAnimalBodyPoseObservationJointNameNeck"); err == nil && ptr != 0 {
-		VNAnimalBodyPoseObservationJointNames.Neck = *(*VNAnimalBodyPoseObservationJointName)(unsafe.Pointer(ptr))
+		VNAnimalBodyPoseObservationJointNames.Neck = objc.ValueAt[VNAnimalBodyPoseObservationJointName](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "VNAnimalBodyPoseObservationJointNameNose"); err == nil && ptr != 0 {
-		VNAnimalBodyPoseObservationJointNames.Nose = *(*VNAnimalBodyPoseObservationJointName)(unsafe.Pointer(ptr))
+		VNAnimalBodyPoseObservationJointNames.Nose = objc.ValueAt[VNAnimalBodyPoseObservationJointName](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "VNAnimalBodyPoseObservationJointNameRightBackElbow"); err == nil && ptr != 0 {
-		VNAnimalBodyPoseObservationJointNames.RightBackElbow = *(*VNAnimalBodyPoseObservationJointName)(unsafe.Pointer(ptr))
+		VNAnimalBodyPoseObservationJointNames.RightBackElbow = objc.ValueAt[VNAnimalBodyPoseObservationJointName](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "VNAnimalBodyPoseObservationJointNameRightBackKnee"); err == nil && ptr != 0 {
-		VNAnimalBodyPoseObservationJointNames.RightBackKnee = *(*VNAnimalBodyPoseObservationJointName)(unsafe.Pointer(ptr))
+		VNAnimalBodyPoseObservationJointNames.RightBackKnee = objc.ValueAt[VNAnimalBodyPoseObservationJointName](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "VNAnimalBodyPoseObservationJointNameRightBackPaw"); err == nil && ptr != 0 {
-		VNAnimalBodyPoseObservationJointNames.RightBackPaw = *(*VNAnimalBodyPoseObservationJointName)(unsafe.Pointer(ptr))
+		VNAnimalBodyPoseObservationJointNames.RightBackPaw = objc.ValueAt[VNAnimalBodyPoseObservationJointName](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "VNAnimalBodyPoseObservationJointNameRightEarBottom"); err == nil && ptr != 0 {
-		VNAnimalBodyPoseObservationJointNames.RightEarBottom = *(*VNAnimalBodyPoseObservationJointName)(unsafe.Pointer(ptr))
+		VNAnimalBodyPoseObservationJointNames.RightEarBottom = objc.ValueAt[VNAnimalBodyPoseObservationJointName](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "VNAnimalBodyPoseObservationJointNameRightEarMiddle"); err == nil && ptr != 0 {
-		VNAnimalBodyPoseObservationJointNames.RightEarMiddle = *(*VNAnimalBodyPoseObservationJointName)(unsafe.Pointer(ptr))
+		VNAnimalBodyPoseObservationJointNames.RightEarMiddle = objc.ValueAt[VNAnimalBodyPoseObservationJointName](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "VNAnimalBodyPoseObservationJointNameRightEarTop"); err == nil && ptr != 0 {
-		VNAnimalBodyPoseObservationJointNames.RightEarTop = *(*VNAnimalBodyPoseObservationJointName)(unsafe.Pointer(ptr))
+		VNAnimalBodyPoseObservationJointNames.RightEarTop = objc.ValueAt[VNAnimalBodyPoseObservationJointName](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "VNAnimalBodyPoseObservationJointNameRightEye"); err == nil && ptr != 0 {
-		VNAnimalBodyPoseObservationJointNames.RightEye = *(*VNAnimalBodyPoseObservationJointName)(unsafe.Pointer(ptr))
+		VNAnimalBodyPoseObservationJointNames.RightEye = objc.ValueAt[VNAnimalBodyPoseObservationJointName](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "VNAnimalBodyPoseObservationJointNameRightFrontElbow"); err == nil && ptr != 0 {
-		VNAnimalBodyPoseObservationJointNames.RightFrontElbow = *(*VNAnimalBodyPoseObservationJointName)(unsafe.Pointer(ptr))
+		VNAnimalBodyPoseObservationJointNames.RightFrontElbow = objc.ValueAt[VNAnimalBodyPoseObservationJointName](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "VNAnimalBodyPoseObservationJointNameRightFrontKnee"); err == nil && ptr != 0 {
-		VNAnimalBodyPoseObservationJointNames.RightFrontKnee = *(*VNAnimalBodyPoseObservationJointName)(unsafe.Pointer(ptr))
+		VNAnimalBodyPoseObservationJointNames.RightFrontKnee = objc.ValueAt[VNAnimalBodyPoseObservationJointName](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "VNAnimalBodyPoseObservationJointNameRightFrontPaw"); err == nil && ptr != 0 {
-		VNAnimalBodyPoseObservationJointNames.RightFrontPaw = *(*VNAnimalBodyPoseObservationJointName)(unsafe.Pointer(ptr))
+		VNAnimalBodyPoseObservationJointNames.RightFrontPaw = objc.ValueAt[VNAnimalBodyPoseObservationJointName](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "VNAnimalBodyPoseObservationJointNameTailBottom"); err == nil && ptr != 0 {
-		VNAnimalBodyPoseObservationJointNames.TailBottom = *(*VNAnimalBodyPoseObservationJointName)(unsafe.Pointer(ptr))
+		VNAnimalBodyPoseObservationJointNames.TailBottom = objc.ValueAt[VNAnimalBodyPoseObservationJointName](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "VNAnimalBodyPoseObservationJointNameTailMiddle"); err == nil && ptr != 0 {
-		VNAnimalBodyPoseObservationJointNames.TailMiddle = *(*VNAnimalBodyPoseObservationJointName)(unsafe.Pointer(ptr))
+		VNAnimalBodyPoseObservationJointNames.TailMiddle = objc.ValueAt[VNAnimalBodyPoseObservationJointName](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "VNAnimalBodyPoseObservationJointNameTailTop"); err == nil && ptr != 0 {
-		VNAnimalBodyPoseObservationJointNames.TailTop = *(*VNAnimalBodyPoseObservationJointName)(unsafe.Pointer(ptr))
+		VNAnimalBodyPoseObservationJointNames.TailTop = objc.ValueAt[VNAnimalBodyPoseObservationJointName](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "VNAnimalBodyPoseObservationJointsGroupNameAll"); err == nil && ptr != 0 {
-		VNAnimalBodyPoseObservationJointsGroupNames.All = *(*VNAnimalBodyPoseObservationJointsGroupName)(unsafe.Pointer(ptr))
+		VNAnimalBodyPoseObservationJointsGroupNames.All = objc.ValueAt[VNAnimalBodyPoseObservationJointsGroupName](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "VNAnimalBodyPoseObservationJointsGroupNameForelegs"); err == nil && ptr != 0 {
-		VNAnimalBodyPoseObservationJointsGroupNames.Forelegs = *(*VNAnimalBodyPoseObservationJointsGroupName)(unsafe.Pointer(ptr))
+		VNAnimalBodyPoseObservationJointsGroupNames.Forelegs = objc.ValueAt[VNAnimalBodyPoseObservationJointsGroupName](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "VNAnimalBodyPoseObservationJointsGroupNameHead"); err == nil && ptr != 0 {
-		VNAnimalBodyPoseObservationJointsGroupNames.Head = *(*VNAnimalBodyPoseObservationJointsGroupName)(unsafe.Pointer(ptr))
+		VNAnimalBodyPoseObservationJointsGroupNames.Head = objc.ValueAt[VNAnimalBodyPoseObservationJointsGroupName](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "VNAnimalBodyPoseObservationJointsGroupNameHindlegs"); err == nil && ptr != 0 {
-		VNAnimalBodyPoseObservationJointsGroupNames.Hindlegs = *(*VNAnimalBodyPoseObservationJointsGroupName)(unsafe.Pointer(ptr))
+		VNAnimalBodyPoseObservationJointsGroupNames.Hindlegs = objc.ValueAt[VNAnimalBodyPoseObservationJointsGroupName](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "VNAnimalBodyPoseObservationJointsGroupNameTail"); err == nil && ptr != 0 {
-		VNAnimalBodyPoseObservationJointsGroupNames.Tail = *(*VNAnimalBodyPoseObservationJointsGroupName)(unsafe.Pointer(ptr))
+		VNAnimalBodyPoseObservationJointsGroupNames.Tail = objc.ValueAt[VNAnimalBodyPoseObservationJointsGroupName](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "VNAnimalBodyPoseObservationJointsGroupNameTrunk"); err == nil && ptr != 0 {
-		VNAnimalBodyPoseObservationJointsGroupNames.Trunk = *(*VNAnimalBodyPoseObservationJointsGroupName)(unsafe.Pointer(ptr))
+		VNAnimalBodyPoseObservationJointsGroupNames.Trunk = objc.ValueAt[VNAnimalBodyPoseObservationJointsGroupName](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "VNAnimalIdentifierCat"); err == nil && ptr != 0 {
@@ -762,311 +760,311 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "VNHumanBodyPose3DObservationJointNameCenterHead"); err == nil && ptr != 0 {
-		VNHumanBodyPose3DObservationJointNames.CenterHead = *(*VNHumanBodyPose3DObservationJointName)(unsafe.Pointer(ptr))
+		VNHumanBodyPose3DObservationJointNames.CenterHead = objc.ValueAt[VNHumanBodyPose3DObservationJointName](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "VNHumanBodyPose3DObservationJointNameCenterShoulder"); err == nil && ptr != 0 {
-		VNHumanBodyPose3DObservationJointNames.CenterShoulder = *(*VNHumanBodyPose3DObservationJointName)(unsafe.Pointer(ptr))
+		VNHumanBodyPose3DObservationJointNames.CenterShoulder = objc.ValueAt[VNHumanBodyPose3DObservationJointName](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "VNHumanBodyPose3DObservationJointNameLeftAnkle"); err == nil && ptr != 0 {
-		VNHumanBodyPose3DObservationJointNames.LeftAnkle = *(*VNHumanBodyPose3DObservationJointName)(unsafe.Pointer(ptr))
+		VNHumanBodyPose3DObservationJointNames.LeftAnkle = objc.ValueAt[VNHumanBodyPose3DObservationJointName](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "VNHumanBodyPose3DObservationJointNameLeftElbow"); err == nil && ptr != 0 {
-		VNHumanBodyPose3DObservationJointNames.LeftElbow = *(*VNHumanBodyPose3DObservationJointName)(unsafe.Pointer(ptr))
+		VNHumanBodyPose3DObservationJointNames.LeftElbow = objc.ValueAt[VNHumanBodyPose3DObservationJointName](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "VNHumanBodyPose3DObservationJointNameLeftHip"); err == nil && ptr != 0 {
-		VNHumanBodyPose3DObservationJointNames.LeftHip = *(*VNHumanBodyPose3DObservationJointName)(unsafe.Pointer(ptr))
+		VNHumanBodyPose3DObservationJointNames.LeftHip = objc.ValueAt[VNHumanBodyPose3DObservationJointName](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "VNHumanBodyPose3DObservationJointNameLeftKnee"); err == nil && ptr != 0 {
-		VNHumanBodyPose3DObservationJointNames.LeftKnee = *(*VNHumanBodyPose3DObservationJointName)(unsafe.Pointer(ptr))
+		VNHumanBodyPose3DObservationJointNames.LeftKnee = objc.ValueAt[VNHumanBodyPose3DObservationJointName](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "VNHumanBodyPose3DObservationJointNameLeftShoulder"); err == nil && ptr != 0 {
-		VNHumanBodyPose3DObservationJointNames.LeftShoulder = *(*VNHumanBodyPose3DObservationJointName)(unsafe.Pointer(ptr))
+		VNHumanBodyPose3DObservationJointNames.LeftShoulder = objc.ValueAt[VNHumanBodyPose3DObservationJointName](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "VNHumanBodyPose3DObservationJointNameLeftWrist"); err == nil && ptr != 0 {
-		VNHumanBodyPose3DObservationJointNames.LeftWrist = *(*VNHumanBodyPose3DObservationJointName)(unsafe.Pointer(ptr))
+		VNHumanBodyPose3DObservationJointNames.LeftWrist = objc.ValueAt[VNHumanBodyPose3DObservationJointName](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "VNHumanBodyPose3DObservationJointNameRightAnkle"); err == nil && ptr != 0 {
-		VNHumanBodyPose3DObservationJointNames.RightAnkle = *(*VNHumanBodyPose3DObservationJointName)(unsafe.Pointer(ptr))
+		VNHumanBodyPose3DObservationJointNames.RightAnkle = objc.ValueAt[VNHumanBodyPose3DObservationJointName](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "VNHumanBodyPose3DObservationJointNameRightElbow"); err == nil && ptr != 0 {
-		VNHumanBodyPose3DObservationJointNames.RightElbow = *(*VNHumanBodyPose3DObservationJointName)(unsafe.Pointer(ptr))
+		VNHumanBodyPose3DObservationJointNames.RightElbow = objc.ValueAt[VNHumanBodyPose3DObservationJointName](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "VNHumanBodyPose3DObservationJointNameRightHip"); err == nil && ptr != 0 {
-		VNHumanBodyPose3DObservationJointNames.RightHip = *(*VNHumanBodyPose3DObservationJointName)(unsafe.Pointer(ptr))
+		VNHumanBodyPose3DObservationJointNames.RightHip = objc.ValueAt[VNHumanBodyPose3DObservationJointName](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "VNHumanBodyPose3DObservationJointNameRightKnee"); err == nil && ptr != 0 {
-		VNHumanBodyPose3DObservationJointNames.RightKnee = *(*VNHumanBodyPose3DObservationJointName)(unsafe.Pointer(ptr))
+		VNHumanBodyPose3DObservationJointNames.RightKnee = objc.ValueAt[VNHumanBodyPose3DObservationJointName](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "VNHumanBodyPose3DObservationJointNameRightShoulder"); err == nil && ptr != 0 {
-		VNHumanBodyPose3DObservationJointNames.RightShoulder = *(*VNHumanBodyPose3DObservationJointName)(unsafe.Pointer(ptr))
+		VNHumanBodyPose3DObservationJointNames.RightShoulder = objc.ValueAt[VNHumanBodyPose3DObservationJointName](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "VNHumanBodyPose3DObservationJointNameRightWrist"); err == nil && ptr != 0 {
-		VNHumanBodyPose3DObservationJointNames.RightWrist = *(*VNHumanBodyPose3DObservationJointName)(unsafe.Pointer(ptr))
+		VNHumanBodyPose3DObservationJointNames.RightWrist = objc.ValueAt[VNHumanBodyPose3DObservationJointName](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "VNHumanBodyPose3DObservationJointNameRoot"); err == nil && ptr != 0 {
-		VNHumanBodyPose3DObservationJointNames.Root = *(*VNHumanBodyPose3DObservationJointName)(unsafe.Pointer(ptr))
+		VNHumanBodyPose3DObservationJointNames.Root = objc.ValueAt[VNHumanBodyPose3DObservationJointName](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "VNHumanBodyPose3DObservationJointNameSpine"); err == nil && ptr != 0 {
-		VNHumanBodyPose3DObservationJointNames.Spine = *(*VNHumanBodyPose3DObservationJointName)(unsafe.Pointer(ptr))
+		VNHumanBodyPose3DObservationJointNames.Spine = objc.ValueAt[VNHumanBodyPose3DObservationJointName](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "VNHumanBodyPose3DObservationJointNameTopHead"); err == nil && ptr != 0 {
-		VNHumanBodyPose3DObservationJointNames.TopHead = *(*VNHumanBodyPose3DObservationJointName)(unsafe.Pointer(ptr))
+		VNHumanBodyPose3DObservationJointNames.TopHead = objc.ValueAt[VNHumanBodyPose3DObservationJointName](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "VNHumanBodyPose3DObservationJointsGroupNameAll"); err == nil && ptr != 0 {
-		VNHumanBodyPose3DObservationJointsGroupNames.All = *(*VNHumanBodyPose3DObservationJointsGroupName)(unsafe.Pointer(ptr))
+		VNHumanBodyPose3DObservationJointsGroupNames.All = objc.ValueAt[VNHumanBodyPose3DObservationJointsGroupName](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "VNHumanBodyPose3DObservationJointsGroupNameHead"); err == nil && ptr != 0 {
-		VNHumanBodyPose3DObservationJointsGroupNames.Head = *(*VNHumanBodyPose3DObservationJointsGroupName)(unsafe.Pointer(ptr))
+		VNHumanBodyPose3DObservationJointsGroupNames.Head = objc.ValueAt[VNHumanBodyPose3DObservationJointsGroupName](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "VNHumanBodyPose3DObservationJointsGroupNameLeftArm"); err == nil && ptr != 0 {
-		VNHumanBodyPose3DObservationJointsGroupNames.LeftArm = *(*VNHumanBodyPose3DObservationJointsGroupName)(unsafe.Pointer(ptr))
+		VNHumanBodyPose3DObservationJointsGroupNames.LeftArm = objc.ValueAt[VNHumanBodyPose3DObservationJointsGroupName](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "VNHumanBodyPose3DObservationJointsGroupNameLeftLeg"); err == nil && ptr != 0 {
-		VNHumanBodyPose3DObservationJointsGroupNames.LeftLeg = *(*VNHumanBodyPose3DObservationJointsGroupName)(unsafe.Pointer(ptr))
+		VNHumanBodyPose3DObservationJointsGroupNames.LeftLeg = objc.ValueAt[VNHumanBodyPose3DObservationJointsGroupName](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "VNHumanBodyPose3DObservationJointsGroupNameRightArm"); err == nil && ptr != 0 {
-		VNHumanBodyPose3DObservationJointsGroupNames.RightArm = *(*VNHumanBodyPose3DObservationJointsGroupName)(unsafe.Pointer(ptr))
+		VNHumanBodyPose3DObservationJointsGroupNames.RightArm = objc.ValueAt[VNHumanBodyPose3DObservationJointsGroupName](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "VNHumanBodyPose3DObservationJointsGroupNameRightLeg"); err == nil && ptr != 0 {
-		VNHumanBodyPose3DObservationJointsGroupNames.RightLeg = *(*VNHumanBodyPose3DObservationJointsGroupName)(unsafe.Pointer(ptr))
+		VNHumanBodyPose3DObservationJointsGroupNames.RightLeg = objc.ValueAt[VNHumanBodyPose3DObservationJointsGroupName](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "VNHumanBodyPose3DObservationJointsGroupNameTorso"); err == nil && ptr != 0 {
-		VNHumanBodyPose3DObservationJointsGroupNames.Torso = *(*VNHumanBodyPose3DObservationJointsGroupName)(unsafe.Pointer(ptr))
+		VNHumanBodyPose3DObservationJointsGroupNames.Torso = objc.ValueAt[VNHumanBodyPose3DObservationJointsGroupName](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "VNHumanBodyPoseObservationJointNameLeftAnkle"); err == nil && ptr != 0 {
-		VNHumanBodyPoseObservationJointNames.LeftAnkle = *(*VNHumanBodyPoseObservationJointName)(unsafe.Pointer(ptr))
+		VNHumanBodyPoseObservationJointNames.LeftAnkle = objc.ValueAt[VNHumanBodyPoseObservationJointName](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "VNHumanBodyPoseObservationJointNameLeftEar"); err == nil && ptr != 0 {
-		VNHumanBodyPoseObservationJointNames.LeftEar = *(*VNHumanBodyPoseObservationJointName)(unsafe.Pointer(ptr))
+		VNHumanBodyPoseObservationJointNames.LeftEar = objc.ValueAt[VNHumanBodyPoseObservationJointName](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "VNHumanBodyPoseObservationJointNameLeftElbow"); err == nil && ptr != 0 {
-		VNHumanBodyPoseObservationJointNames.LeftElbow = *(*VNHumanBodyPoseObservationJointName)(unsafe.Pointer(ptr))
+		VNHumanBodyPoseObservationJointNames.LeftElbow = objc.ValueAt[VNHumanBodyPoseObservationJointName](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "VNHumanBodyPoseObservationJointNameLeftEye"); err == nil && ptr != 0 {
-		VNHumanBodyPoseObservationJointNames.LeftEye = *(*VNHumanBodyPoseObservationJointName)(unsafe.Pointer(ptr))
+		VNHumanBodyPoseObservationJointNames.LeftEye = objc.ValueAt[VNHumanBodyPoseObservationJointName](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "VNHumanBodyPoseObservationJointNameLeftHip"); err == nil && ptr != 0 {
-		VNHumanBodyPoseObservationJointNames.LeftHip = *(*VNHumanBodyPoseObservationJointName)(unsafe.Pointer(ptr))
+		VNHumanBodyPoseObservationJointNames.LeftHip = objc.ValueAt[VNHumanBodyPoseObservationJointName](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "VNHumanBodyPoseObservationJointNameLeftKnee"); err == nil && ptr != 0 {
-		VNHumanBodyPoseObservationJointNames.LeftKnee = *(*VNHumanBodyPoseObservationJointName)(unsafe.Pointer(ptr))
+		VNHumanBodyPoseObservationJointNames.LeftKnee = objc.ValueAt[VNHumanBodyPoseObservationJointName](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "VNHumanBodyPoseObservationJointNameLeftShoulder"); err == nil && ptr != 0 {
-		VNHumanBodyPoseObservationJointNames.LeftShoulder = *(*VNHumanBodyPoseObservationJointName)(unsafe.Pointer(ptr))
+		VNHumanBodyPoseObservationJointNames.LeftShoulder = objc.ValueAt[VNHumanBodyPoseObservationJointName](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "VNHumanBodyPoseObservationJointNameLeftWrist"); err == nil && ptr != 0 {
-		VNHumanBodyPoseObservationJointNames.LeftWrist = *(*VNHumanBodyPoseObservationJointName)(unsafe.Pointer(ptr))
+		VNHumanBodyPoseObservationJointNames.LeftWrist = objc.ValueAt[VNHumanBodyPoseObservationJointName](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "VNHumanBodyPoseObservationJointNameNeck"); err == nil && ptr != 0 {
-		VNHumanBodyPoseObservationJointNames.Neck = *(*VNHumanBodyPoseObservationJointName)(unsafe.Pointer(ptr))
+		VNHumanBodyPoseObservationJointNames.Neck = objc.ValueAt[VNHumanBodyPoseObservationJointName](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "VNHumanBodyPoseObservationJointNameNose"); err == nil && ptr != 0 {
-		VNHumanBodyPoseObservationJointNames.Nose = *(*VNHumanBodyPoseObservationJointName)(unsafe.Pointer(ptr))
+		VNHumanBodyPoseObservationJointNames.Nose = objc.ValueAt[VNHumanBodyPoseObservationJointName](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "VNHumanBodyPoseObservationJointNameRightAnkle"); err == nil && ptr != 0 {
-		VNHumanBodyPoseObservationJointNames.RightAnkle = *(*VNHumanBodyPoseObservationJointName)(unsafe.Pointer(ptr))
+		VNHumanBodyPoseObservationJointNames.RightAnkle = objc.ValueAt[VNHumanBodyPoseObservationJointName](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "VNHumanBodyPoseObservationJointNameRightEar"); err == nil && ptr != 0 {
-		VNHumanBodyPoseObservationJointNames.RightEar = *(*VNHumanBodyPoseObservationJointName)(unsafe.Pointer(ptr))
+		VNHumanBodyPoseObservationJointNames.RightEar = objc.ValueAt[VNHumanBodyPoseObservationJointName](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "VNHumanBodyPoseObservationJointNameRightElbow"); err == nil && ptr != 0 {
-		VNHumanBodyPoseObservationJointNames.RightElbow = *(*VNHumanBodyPoseObservationJointName)(unsafe.Pointer(ptr))
+		VNHumanBodyPoseObservationJointNames.RightElbow = objc.ValueAt[VNHumanBodyPoseObservationJointName](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "VNHumanBodyPoseObservationJointNameRightEye"); err == nil && ptr != 0 {
-		VNHumanBodyPoseObservationJointNames.RightEye = *(*VNHumanBodyPoseObservationJointName)(unsafe.Pointer(ptr))
+		VNHumanBodyPoseObservationJointNames.RightEye = objc.ValueAt[VNHumanBodyPoseObservationJointName](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "VNHumanBodyPoseObservationJointNameRightHip"); err == nil && ptr != 0 {
-		VNHumanBodyPoseObservationJointNames.RightHip = *(*VNHumanBodyPoseObservationJointName)(unsafe.Pointer(ptr))
+		VNHumanBodyPoseObservationJointNames.RightHip = objc.ValueAt[VNHumanBodyPoseObservationJointName](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "VNHumanBodyPoseObservationJointNameRightKnee"); err == nil && ptr != 0 {
-		VNHumanBodyPoseObservationJointNames.RightKnee = *(*VNHumanBodyPoseObservationJointName)(unsafe.Pointer(ptr))
+		VNHumanBodyPoseObservationJointNames.RightKnee = objc.ValueAt[VNHumanBodyPoseObservationJointName](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "VNHumanBodyPoseObservationJointNameRightShoulder"); err == nil && ptr != 0 {
-		VNHumanBodyPoseObservationJointNames.RightShoulder = *(*VNHumanBodyPoseObservationJointName)(unsafe.Pointer(ptr))
+		VNHumanBodyPoseObservationJointNames.RightShoulder = objc.ValueAt[VNHumanBodyPoseObservationJointName](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "VNHumanBodyPoseObservationJointNameRightWrist"); err == nil && ptr != 0 {
-		VNHumanBodyPoseObservationJointNames.RightWrist = *(*VNHumanBodyPoseObservationJointName)(unsafe.Pointer(ptr))
+		VNHumanBodyPoseObservationJointNames.RightWrist = objc.ValueAt[VNHumanBodyPoseObservationJointName](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "VNHumanBodyPoseObservationJointNameRoot"); err == nil && ptr != 0 {
-		VNHumanBodyPoseObservationJointNames.Root = *(*VNHumanBodyPoseObservationJointName)(unsafe.Pointer(ptr))
+		VNHumanBodyPoseObservationJointNames.Root = objc.ValueAt[VNHumanBodyPoseObservationJointName](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "VNHumanBodyPoseObservationJointsGroupNameAll"); err == nil && ptr != 0 {
-		VNHumanBodyPoseObservationJointsGroupNames.All = *(*VNHumanBodyPoseObservationJointsGroupName)(unsafe.Pointer(ptr))
+		VNHumanBodyPoseObservationJointsGroupNames.All = objc.ValueAt[VNHumanBodyPoseObservationJointsGroupName](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "VNHumanBodyPoseObservationJointsGroupNameFace"); err == nil && ptr != 0 {
-		VNHumanBodyPoseObservationJointsGroupNames.Face = *(*VNHumanBodyPoseObservationJointsGroupName)(unsafe.Pointer(ptr))
+		VNHumanBodyPoseObservationJointsGroupNames.Face = objc.ValueAt[VNHumanBodyPoseObservationJointsGroupName](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "VNHumanBodyPoseObservationJointsGroupNameLeftArm"); err == nil && ptr != 0 {
-		VNHumanBodyPoseObservationJointsGroupNames.LeftArm = *(*VNHumanBodyPoseObservationJointsGroupName)(unsafe.Pointer(ptr))
+		VNHumanBodyPoseObservationJointsGroupNames.LeftArm = objc.ValueAt[VNHumanBodyPoseObservationJointsGroupName](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "VNHumanBodyPoseObservationJointsGroupNameLeftLeg"); err == nil && ptr != 0 {
-		VNHumanBodyPoseObservationJointsGroupNames.LeftLeg = *(*VNHumanBodyPoseObservationJointsGroupName)(unsafe.Pointer(ptr))
+		VNHumanBodyPoseObservationJointsGroupNames.LeftLeg = objc.ValueAt[VNHumanBodyPoseObservationJointsGroupName](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "VNHumanBodyPoseObservationJointsGroupNameRightArm"); err == nil && ptr != 0 {
-		VNHumanBodyPoseObservationJointsGroupNames.RightArm = *(*VNHumanBodyPoseObservationJointsGroupName)(unsafe.Pointer(ptr))
+		VNHumanBodyPoseObservationJointsGroupNames.RightArm = objc.ValueAt[VNHumanBodyPoseObservationJointsGroupName](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "VNHumanBodyPoseObservationJointsGroupNameRightLeg"); err == nil && ptr != 0 {
-		VNHumanBodyPoseObservationJointsGroupNames.RightLeg = *(*VNHumanBodyPoseObservationJointsGroupName)(unsafe.Pointer(ptr))
+		VNHumanBodyPoseObservationJointsGroupNames.RightLeg = objc.ValueAt[VNHumanBodyPoseObservationJointsGroupName](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "VNHumanBodyPoseObservationJointsGroupNameTorso"); err == nil && ptr != 0 {
-		VNHumanBodyPoseObservationJointsGroupNames.Torso = *(*VNHumanBodyPoseObservationJointsGroupName)(unsafe.Pointer(ptr))
+		VNHumanBodyPoseObservationJointsGroupNames.Torso = objc.ValueAt[VNHumanBodyPoseObservationJointsGroupName](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "VNHumanHandPoseObservationJointNameIndexDIP"); err == nil && ptr != 0 {
-		VNHumanHandPoseObservationJointNames.IndexDIP = *(*VNHumanHandPoseObservationJointName)(unsafe.Pointer(ptr))
+		VNHumanHandPoseObservationJointNames.IndexDIP = objc.ValueAt[VNHumanHandPoseObservationJointName](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "VNHumanHandPoseObservationJointNameIndexMCP"); err == nil && ptr != 0 {
-		VNHumanHandPoseObservationJointNames.IndexMCP = *(*VNHumanHandPoseObservationJointName)(unsafe.Pointer(ptr))
+		VNHumanHandPoseObservationJointNames.IndexMCP = objc.ValueAt[VNHumanHandPoseObservationJointName](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "VNHumanHandPoseObservationJointNameIndexPIP"); err == nil && ptr != 0 {
-		VNHumanHandPoseObservationJointNames.IndexPIP = *(*VNHumanHandPoseObservationJointName)(unsafe.Pointer(ptr))
+		VNHumanHandPoseObservationJointNames.IndexPIP = objc.ValueAt[VNHumanHandPoseObservationJointName](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "VNHumanHandPoseObservationJointNameIndexTip"); err == nil && ptr != 0 {
-		VNHumanHandPoseObservationJointNames.IndexTip = *(*VNHumanHandPoseObservationJointName)(unsafe.Pointer(ptr))
+		VNHumanHandPoseObservationJointNames.IndexTip = objc.ValueAt[VNHumanHandPoseObservationJointName](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "VNHumanHandPoseObservationJointNameLittleDIP"); err == nil && ptr != 0 {
-		VNHumanHandPoseObservationJointNames.LittleDIP = *(*VNHumanHandPoseObservationJointName)(unsafe.Pointer(ptr))
+		VNHumanHandPoseObservationJointNames.LittleDIP = objc.ValueAt[VNHumanHandPoseObservationJointName](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "VNHumanHandPoseObservationJointNameLittleMCP"); err == nil && ptr != 0 {
-		VNHumanHandPoseObservationJointNames.LittleMCP = *(*VNHumanHandPoseObservationJointName)(unsafe.Pointer(ptr))
+		VNHumanHandPoseObservationJointNames.LittleMCP = objc.ValueAt[VNHumanHandPoseObservationJointName](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "VNHumanHandPoseObservationJointNameLittlePIP"); err == nil && ptr != 0 {
-		VNHumanHandPoseObservationJointNames.LittlePIP = *(*VNHumanHandPoseObservationJointName)(unsafe.Pointer(ptr))
+		VNHumanHandPoseObservationJointNames.LittlePIP = objc.ValueAt[VNHumanHandPoseObservationJointName](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "VNHumanHandPoseObservationJointNameLittleTip"); err == nil && ptr != 0 {
-		VNHumanHandPoseObservationJointNames.LittleTip = *(*VNHumanHandPoseObservationJointName)(unsafe.Pointer(ptr))
+		VNHumanHandPoseObservationJointNames.LittleTip = objc.ValueAt[VNHumanHandPoseObservationJointName](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "VNHumanHandPoseObservationJointNameMiddleDIP"); err == nil && ptr != 0 {
-		VNHumanHandPoseObservationJointNames.MiddleDIP = *(*VNHumanHandPoseObservationJointName)(unsafe.Pointer(ptr))
+		VNHumanHandPoseObservationJointNames.MiddleDIP = objc.ValueAt[VNHumanHandPoseObservationJointName](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "VNHumanHandPoseObservationJointNameMiddleMCP"); err == nil && ptr != 0 {
-		VNHumanHandPoseObservationJointNames.MiddleMCP = *(*VNHumanHandPoseObservationJointName)(unsafe.Pointer(ptr))
+		VNHumanHandPoseObservationJointNames.MiddleMCP = objc.ValueAt[VNHumanHandPoseObservationJointName](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "VNHumanHandPoseObservationJointNameMiddlePIP"); err == nil && ptr != 0 {
-		VNHumanHandPoseObservationJointNames.MiddlePIP = *(*VNHumanHandPoseObservationJointName)(unsafe.Pointer(ptr))
+		VNHumanHandPoseObservationJointNames.MiddlePIP = objc.ValueAt[VNHumanHandPoseObservationJointName](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "VNHumanHandPoseObservationJointNameMiddleTip"); err == nil && ptr != 0 {
-		VNHumanHandPoseObservationJointNames.MiddleTip = *(*VNHumanHandPoseObservationJointName)(unsafe.Pointer(ptr))
+		VNHumanHandPoseObservationJointNames.MiddleTip = objc.ValueAt[VNHumanHandPoseObservationJointName](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "VNHumanHandPoseObservationJointNameRingDIP"); err == nil && ptr != 0 {
-		VNHumanHandPoseObservationJointNames.RingDIP = *(*VNHumanHandPoseObservationJointName)(unsafe.Pointer(ptr))
+		VNHumanHandPoseObservationJointNames.RingDIP = objc.ValueAt[VNHumanHandPoseObservationJointName](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "VNHumanHandPoseObservationJointNameRingMCP"); err == nil && ptr != 0 {
-		VNHumanHandPoseObservationJointNames.RingMCP = *(*VNHumanHandPoseObservationJointName)(unsafe.Pointer(ptr))
+		VNHumanHandPoseObservationJointNames.RingMCP = objc.ValueAt[VNHumanHandPoseObservationJointName](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "VNHumanHandPoseObservationJointNameRingPIP"); err == nil && ptr != 0 {
-		VNHumanHandPoseObservationJointNames.RingPIP = *(*VNHumanHandPoseObservationJointName)(unsafe.Pointer(ptr))
+		VNHumanHandPoseObservationJointNames.RingPIP = objc.ValueAt[VNHumanHandPoseObservationJointName](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "VNHumanHandPoseObservationJointNameRingTip"); err == nil && ptr != 0 {
-		VNHumanHandPoseObservationJointNames.RingTip = *(*VNHumanHandPoseObservationJointName)(unsafe.Pointer(ptr))
+		VNHumanHandPoseObservationJointNames.RingTip = objc.ValueAt[VNHumanHandPoseObservationJointName](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "VNHumanHandPoseObservationJointNameThumbCMC"); err == nil && ptr != 0 {
-		VNHumanHandPoseObservationJointNames.ThumbCMC = *(*VNHumanHandPoseObservationJointName)(unsafe.Pointer(ptr))
+		VNHumanHandPoseObservationJointNames.ThumbCMC = objc.ValueAt[VNHumanHandPoseObservationJointName](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "VNHumanHandPoseObservationJointNameThumbIP"); err == nil && ptr != 0 {
-		VNHumanHandPoseObservationJointNames.ThumbIP = *(*VNHumanHandPoseObservationJointName)(unsafe.Pointer(ptr))
+		VNHumanHandPoseObservationJointNames.ThumbIP = objc.ValueAt[VNHumanHandPoseObservationJointName](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "VNHumanHandPoseObservationJointNameThumbMP"); err == nil && ptr != 0 {
-		VNHumanHandPoseObservationJointNames.ThumbMP = *(*VNHumanHandPoseObservationJointName)(unsafe.Pointer(ptr))
+		VNHumanHandPoseObservationJointNames.ThumbMP = objc.ValueAt[VNHumanHandPoseObservationJointName](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "VNHumanHandPoseObservationJointNameThumbTip"); err == nil && ptr != 0 {
-		VNHumanHandPoseObservationJointNames.ThumbTip = *(*VNHumanHandPoseObservationJointName)(unsafe.Pointer(ptr))
+		VNHumanHandPoseObservationJointNames.ThumbTip = objc.ValueAt[VNHumanHandPoseObservationJointName](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "VNHumanHandPoseObservationJointNameWrist"); err == nil && ptr != 0 {
-		VNHumanHandPoseObservationJointNames.Wrist = *(*VNHumanHandPoseObservationJointName)(unsafe.Pointer(ptr))
+		VNHumanHandPoseObservationJointNames.Wrist = objc.ValueAt[VNHumanHandPoseObservationJointName](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "VNHumanHandPoseObservationJointsGroupNameAll"); err == nil && ptr != 0 {
-		VNHumanHandPoseObservationJointsGroupNames.All = *(*VNHumanHandPoseObservationJointsGroupName)(unsafe.Pointer(ptr))
+		VNHumanHandPoseObservationJointsGroupNames.All = objc.ValueAt[VNHumanHandPoseObservationJointsGroupName](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "VNHumanHandPoseObservationJointsGroupNameIndexFinger"); err == nil && ptr != 0 {
-		VNHumanHandPoseObservationJointsGroupNames.IndexFinger = *(*VNHumanHandPoseObservationJointsGroupName)(unsafe.Pointer(ptr))
+		VNHumanHandPoseObservationJointsGroupNames.IndexFinger = objc.ValueAt[VNHumanHandPoseObservationJointsGroupName](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "VNHumanHandPoseObservationJointsGroupNameLittleFinger"); err == nil && ptr != 0 {
-		VNHumanHandPoseObservationJointsGroupNames.LittleFinger = *(*VNHumanHandPoseObservationJointsGroupName)(unsafe.Pointer(ptr))
+		VNHumanHandPoseObservationJointsGroupNames.LittleFinger = objc.ValueAt[VNHumanHandPoseObservationJointsGroupName](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "VNHumanHandPoseObservationJointsGroupNameMiddleFinger"); err == nil && ptr != 0 {
-		VNHumanHandPoseObservationJointsGroupNames.MiddleFinger = *(*VNHumanHandPoseObservationJointsGroupName)(unsafe.Pointer(ptr))
+		VNHumanHandPoseObservationJointsGroupNames.MiddleFinger = objc.ValueAt[VNHumanHandPoseObservationJointsGroupName](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "VNHumanHandPoseObservationJointsGroupNameRingFinger"); err == nil && ptr != 0 {
-		VNHumanHandPoseObservationJointsGroupNames.RingFinger = *(*VNHumanHandPoseObservationJointsGroupName)(unsafe.Pointer(ptr))
+		VNHumanHandPoseObservationJointsGroupNames.RingFinger = objc.ValueAt[VNHumanHandPoseObservationJointsGroupName](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "VNHumanHandPoseObservationJointsGroupNameThumb"); err == nil && ptr != 0 {
-		VNHumanHandPoseObservationJointsGroupNames.Thumb = *(*VNHumanHandPoseObservationJointsGroupName)(unsafe.Pointer(ptr))
+		VNHumanHandPoseObservationJointsGroupNames.Thumb = objc.ValueAt[VNHumanHandPoseObservationJointsGroupName](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "VNImageOptionCIContext"); err == nil && ptr != 0 {
@@ -1100,7 +1098,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "VNNormalizedIdentityRect"); err == nil && ptr != 0 {
-		VNNormalizedIdentityRect = *(*corefoundation.CGRect)(unsafe.Pointer(ptr))
+		VNNormalizedIdentityRect = objc.ValueAt[corefoundation.CGRect](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "VNRecognizedPoint3DGroupKeyAll"); err == nil && ptr != 0 {
@@ -1124,7 +1122,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "VNVisionVersionNumber"); err == nil && ptr != 0 {
-		VNVisionVersionNumber = *(*float64)(unsafe.Pointer(ptr))
+		VNVisionVersionNumber = objc.ValueAt[float64](ptr)
 	}
 
 }

@@ -5,6 +5,7 @@ package avfaudio
 import (
 	"sync"
 
+	"github.com/tmc/apple/audiotoolbox"
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -78,14 +79,14 @@ func (ac AVSpeechSynthesisProviderAudioUnitClass) Alloc() AVSpeechSynthesisProvi
 //
 // See: https://developer.apple.com/documentation/AVFAudio/AVSpeechSynthesisProviderAudioUnit
 type AVSpeechSynthesisProviderAudioUnit struct {
-	objectivec.Object
+	audiotoolbox.AUAudioUnit
 }
 
 // AVSpeechSynthesisProviderAudioUnitFromID constructs a [AVSpeechSynthesisProviderAudioUnit] from an objc.ID.
 //
 // An object that generates speech from text.
 func AVSpeechSynthesisProviderAudioUnitFromID(id objc.ID) AVSpeechSynthesisProviderAudioUnit {
-	return AVSpeechSynthesisProviderAudioUnit{objectivec.Object{ID: id}}
+	return AVSpeechSynthesisProviderAudioUnit{AUAudioUnit: audiotoolbox.AUAudioUnitFromID(id)}
 }
 
 // NOTE: AVSpeechSynthesisProviderAudioUnit adopts protocols; skip strict compile-time interface assertion.
@@ -113,7 +114,7 @@ func AVSpeechSynthesisProviderAudioUnitFromID(id objc.ID) AVSpeechSynthesisProvi
 //
 // See: https://developer.apple.com/documentation/AVFAudio/AVSpeechSynthesisProviderAudioUnit
 type IAVSpeechSynthesisProviderAudioUnit interface {
-	objectivec.IObject
+	audiotoolbox.IAUAudioUnit
 
 	// Topic: Rendering speech
 
@@ -123,8 +124,8 @@ type IAVSpeechSynthesisProviderAudioUnit interface {
 	// Topic: Supplying metadata
 
 	// A block that subclasses use to send marker information to the host.
-	SpeechSynthesisOutputMetadataBlock() AVSpeechSynthesisProviderOutputBlock
-	SetSpeechSynthesisOutputMetadataBlock(value AVSpeechSynthesisProviderOutputBlock)
+	SpeechSynthesisOutputMetadataBlock() AVSpeechSynthesisMarkerArrayAVSpeechSynthesisProviderRequestHandler
+	SetSpeechSynthesisOutputMetadataBlock(value AVSpeechSynthesisMarkerArrayAVSpeechSynthesisProviderRequestHandler)
 
 	// Topic: Getting and setting voices
 
@@ -200,12 +201,15 @@ func (s AVSpeechSynthesisProviderAudioUnit) CancelSpeechRequest() {
 // replaces that audio buffer range’s marker data.
 //
 // See: https://developer.apple.com/documentation/AVFAudio/AVSpeechSynthesisProviderAudioUnit/speechSynthesisOutputMetadataBlock
-func (s AVSpeechSynthesisProviderAudioUnit) SpeechSynthesisOutputMetadataBlock() AVSpeechSynthesisProviderOutputBlock {
-	rv := objc.Send[AVSpeechSynthesisProviderOutputBlock](s.ID, objc.Sel("speechSynthesisOutputMetadataBlock"))
-	return AVSpeechSynthesisProviderOutputBlock(rv)
+func (s AVSpeechSynthesisProviderAudioUnit) SpeechSynthesisOutputMetadataBlock() AVSpeechSynthesisMarkerArrayAVSpeechSynthesisProviderRequestHandler {
+	rv := objc.Send[objc.ID](s.ID, objc.Sel("speechSynthesisOutputMetadataBlock"))
+	_ = rv
+	return nil
 }
-func (s AVSpeechSynthesisProviderAudioUnit) SetSpeechSynthesisOutputMetadataBlock(value AVSpeechSynthesisProviderOutputBlock) {
-	objc.Send[struct{}](s.ID, objc.Sel("setSpeechSynthesisOutputMetadataBlock:"), value)
+func (s AVSpeechSynthesisProviderAudioUnit) SetSpeechSynthesisOutputMetadataBlock(value AVSpeechSynthesisMarkerArrayAVSpeechSynthesisProviderRequestHandler) {
+	block, cleanup := NewAVSpeechSynthesisMarkerArrayAVSpeechSynthesisProviderRequestBlock(value)
+	defer cleanup()
+	objc.Send[struct{}](s.ID, objc.Sel("setSpeechSynthesisOutputMetadataBlock:"), block)
 }
 
 // A list of voices the audio unit provides to the system.

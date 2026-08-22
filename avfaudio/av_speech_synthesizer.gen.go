@@ -6,7 +6,6 @@ import (
 	"context"
 	"sync"
 
-	"github.com/tmc/apple/foundation"
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -169,9 +168,9 @@ type IAVSpeechSynthesizer interface {
 	// Topic: Directing speech output
 
 	// Generates speech for the utterance and invokes the callback with the audio buffer.
-	WriteUtteranceToBufferCallback(utterance IAVSpeechUtterance, bufferCallback AVSpeechSynthesizerBufferCallback)
+	WriteUtteranceToBufferCallback(utterance IAVSpeechUtterance, bufferCallback AVAudioBufferHandler)
 	// Generates audio buffers and associated metadata for storage or further speech synthesis processing.
-	WriteUtteranceToBufferCallbackToMarkerCallback(utterance IAVSpeechUtterance, bufferCallback AVSpeechSynthesizerBufferCallback, markerCallback AVSpeechSynthesizerMarkerCallback)
+	WriteUtteranceToBufferCallbackToMarkerCallback(utterance IAVSpeechUtterance, bufferCallback AVAudioBufferHandler, markerCallback AVSpeechSynthesisMarkerArrayHandler)
 }
 
 // Init initializes the instance.
@@ -280,10 +279,9 @@ func (s AVSpeechSynthesizer) StopSpeakingAtBoundary(boundary AVSpeechBoundary) b
 // synthesized speech.
 //
 // See: https://developer.apple.com/documentation/AVFAudio/AVSpeechSynthesizer/write(_:toBufferCallback:)
-func (s AVSpeechSynthesizer) WriteUtteranceToBufferCallback(utterance IAVSpeechUtterance, bufferCallback AVSpeechSynthesizerBufferCallback) {
-	_block1 := objc.NewBlock(func(_ objc.Block, arg0 objc.ID) { bufferCallback(AVAudioBufferFromID(arg0)) })
-	// _block1 intentionally not released: "writeUtterance:toBufferCallback:" retains the block past return.
-	objc.Send[objc.ID](s.ID, objc.Sel("writeUtterance:toBufferCallback:"), utterance, objc.ID(_block1))
+func (s AVSpeechSynthesizer) WriteUtteranceToBufferCallback(utterance IAVSpeechUtterance, bufferCallback AVAudioBufferHandler) {
+	_block1, _ := NewAVAudioBufferBlock(bufferCallback)
+	objc.Send[objc.ID](s.ID, objc.Sel("writeUtterance:toBufferCallback:"), utterance, _block1)
 }
 
 // Generates audio buffers and associated metadata for storage or further
@@ -296,21 +294,10 @@ func (s AVSpeechSynthesizer) WriteUtteranceToBufferCallback(utterance IAVSpeechU
 // markerCallback: A callback that the system invokes with marker information.
 //
 // See: https://developer.apple.com/documentation/AVFAudio/AVSpeechSynthesizer/write(_:toBufferCallback:toMarkerCallback:)
-func (s AVSpeechSynthesizer) WriteUtteranceToBufferCallbackToMarkerCallback(utterance IAVSpeechUtterance, bufferCallback AVSpeechSynthesizerBufferCallback, markerCallback AVSpeechSynthesizerMarkerCallback) {
-	_block1 := objc.NewBlock(func(_ objc.Block, arg0 objc.ID) { bufferCallback(AVAudioBufferFromID(arg0)) })
-	// _block1 intentionally not released: "writeUtterance:toBufferCallback:toMarkerCallback:" retains the block past return.
-	_block2 := objc.NewBlock(func(_ objc.Block, arg0 objc.ID) {
-		markerCallback(func() []AVSpeechSynthesisMarker {
-			a := foundation.NSArrayFromID(arg0)
-			out := make([]AVSpeechSynthesisMarker, int(a.Count()))
-			for i := range out {
-				out[i] = AVSpeechSynthesisMarkerFromID(a.ObjectAtIndex(uint(i)).GetID())
-			}
-			return out
-		}())
-	})
-	// _block2 intentionally not released: "writeUtterance:toBufferCallback:toMarkerCallback:" retains the block past return.
-	objc.Send[objc.ID](s.ID, objc.Sel("writeUtterance:toBufferCallback:toMarkerCallback:"), utterance, objc.ID(_block1), objc.ID(_block2))
+func (s AVSpeechSynthesizer) WriteUtteranceToBufferCallbackToMarkerCallback(utterance IAVSpeechUtterance, bufferCallback AVAudioBufferHandler, markerCallback AVSpeechSynthesisMarkerArrayHandler) {
+	_block1, _ := NewAVAudioBufferBlock(bufferCallback)
+	_block2, _ := NewAVSpeechSynthesisMarkerArrayBlock(markerCallback)
+	objc.Send[objc.ID](s.ID, objc.Sel("writeUtterance:toBufferCallback:toMarkerCallback:"), utterance, _block1, _block2)
 }
 
 // Prompts the user to authorize your app to use personal voices.
@@ -380,6 +367,40 @@ func (s AVSpeechSynthesizer) SetDelegate(value AVSpeechSynthesizerDelegate) {
 func (_AVSpeechSynthesizerClass AVSpeechSynthesizerClass) PersonalVoiceAuthorizationStatus() AVSpeechSynthesisPersonalVoiceAuthorizationStatus {
 	rv := objc.Send[AVSpeechSynthesisPersonalVoiceAuthorizationStatus](objc.ID(_AVSpeechSynthesizerClass.class), objc.Sel("personalVoiceAuthorizationStatus"))
 	return AVSpeechSynthesisPersonalVoiceAuthorizationStatus(rv)
+}
+
+// WriteUtteranceToBufferCallbackSync is a synchronous wrapper around [AVSpeechSynthesizer.WriteUtteranceToBufferCallback].
+// It blocks until the completion handler fires or the context is cancelled.
+func (s AVSpeechSynthesizer) WriteUtteranceToBufferCallbackSync(ctx context.Context, utterance IAVSpeechUtterance) (*AVAudioBuffer, error) {
+	done := make(chan *AVAudioBuffer, 1)
+	s.WriteUtteranceToBufferCallback(utterance, func(val *AVAudioBuffer) {
+		done <- val
+	})
+	select {
+	case r := <-done:
+		return r, nil
+	case <-ctx.Done():
+		return nil, ctx.Err()
+	}
+}
+
+// WriteUtteranceToBufferCallbackToMarkerCallbackSync is a synchronous wrapper around [AVSpeechSynthesizer.WriteUtteranceToBufferCallbackToMarkerCallback].
+// It blocks until the completion handler fires or the context is cancelled.
+func (s AVSpeechSynthesizer) WriteUtteranceToBufferCallbackToMarkerCallbackSync(ctx context.Context, utterance IAVSpeechUtterance, bufferCallback AVAudioBufferHandler) ([]AVSpeechSynthesisMarker, error) {
+	done := make(chan []AVSpeechSynthesisMarker, 1)
+	s.WriteUtteranceToBufferCallbackToMarkerCallback(utterance, bufferCallback, func(val *[]AVSpeechSynthesisMarker) {
+		var out []AVSpeechSynthesisMarker
+		if val != nil {
+			out = append(out, (*val)...)
+		}
+		done <- out
+	})
+	select {
+	case r := <-done:
+		return r, nil
+	case <-ctx.Done():
+		return nil, ctx.Err()
+	}
 }
 
 // RequestPersonalVoiceAuthorization is a synchronous wrapper around [AVSpeechSynthesizer.RequestPersonalVoiceAuthorizationWithCompletionHandler].

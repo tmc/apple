@@ -3,8 +3,6 @@
 package uniformtypeidentifiers
 
 import (
-	"unsafe"
-
 	"github.com/ebitengine/purego"
 	"github.com/tmc/apple/objc"
 )
@@ -53,563 +51,563 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "UTType3DContent"); err == nil && ptr != 0 {
-		UTType3DContent = *(*UTType)(unsafe.Pointer(ptr))
+		UTType3DContent = objc.ValueAt[UTType](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "UTTypeAHAP"); err == nil && ptr != 0 {
-		UTTypes.AHAP = *(*UTType)(unsafe.Pointer(ptr))
+		UTTypes.AHAP = objc.ValueAt[UTType](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "UTTypeAIFF"); err == nil && ptr != 0 {
-		UTTypes.AIFF = *(*UTType)(unsafe.Pointer(ptr))
+		UTTypes.AIFF = objc.ValueAt[UTType](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "UTTypeARReferenceObject"); err == nil && ptr != 0 {
-		UTTypes.ARReferenceObject = *(*UTType)(unsafe.Pointer(ptr))
+		UTTypes.ARReferenceObject = objc.ValueAt[UTType](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "UTTypeAVI"); err == nil && ptr != 0 {
-		UTTypes.AVI = *(*UTType)(unsafe.Pointer(ptr))
+		UTTypes.AVI = objc.ValueAt[UTType](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "UTTypeAliasFile"); err == nil && ptr != 0 {
-		UTTypes.AliasFile = *(*UTType)(unsafe.Pointer(ptr))
+		UTTypes.AliasFile = objc.ValueAt[UTType](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "UTTypeAppleArchive"); err == nil && ptr != 0 {
-		UTTypes.AppleArchive = *(*UTType)(unsafe.Pointer(ptr))
+		UTTypes.AppleArchive = objc.ValueAt[UTType](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "UTTypeAppleProtectedMPEG4Audio"); err == nil && ptr != 0 {
-		UTTypes.AppleProtectedMPEG4Audio = *(*UTType)(unsafe.Pointer(ptr))
+		UTTypes.AppleProtectedMPEG4Audio = objc.ValueAt[UTType](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "UTTypeAppleProtectedMPEG4Video"); err == nil && ptr != 0 {
-		UTTypes.AppleProtectedMPEG4Video = *(*UTType)(unsafe.Pointer(ptr))
+		UTTypes.AppleProtectedMPEG4Video = objc.ValueAt[UTType](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "UTTypeAppleScript"); err == nil && ptr != 0 {
-		UTTypes.AppleScript = *(*UTType)(unsafe.Pointer(ptr))
+		UTTypes.AppleScript = objc.ValueAt[UTType](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "UTTypeApplication"); err == nil && ptr != 0 {
-		UTTypes.Application = *(*UTType)(unsafe.Pointer(ptr))
+		UTTypes.Application = objc.ValueAt[UTType](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "UTTypeApplicationBundle"); err == nil && ptr != 0 {
-		UTTypes.ApplicationBundle = *(*UTType)(unsafe.Pointer(ptr))
+		UTTypes.ApplicationBundle = objc.ValueAt[UTType](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "UTTypeApplicationExtension"); err == nil && ptr != 0 {
-		UTTypes.ApplicationExtension = *(*UTType)(unsafe.Pointer(ptr))
+		UTTypes.ApplicationExtension = objc.ValueAt[UTType](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "UTTypeArchive"); err == nil && ptr != 0 {
-		UTTypes.Archive = *(*UTType)(unsafe.Pointer(ptr))
+		UTTypes.Archive = objc.ValueAt[UTType](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "UTTypeAssemblyLanguageSource"); err == nil && ptr != 0 {
-		UTTypes.AssemblyLanguageSource = *(*UTType)(unsafe.Pointer(ptr))
+		UTTypes.AssemblyLanguageSource = objc.ValueAt[UTType](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "UTTypeAudio"); err == nil && ptr != 0 {
-		UTTypes.Audio = *(*UTType)(unsafe.Pointer(ptr))
+		UTTypes.Audio = objc.ValueAt[UTType](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "UTTypeAudiovisualContent"); err == nil && ptr != 0 {
-		UTTypes.AudiovisualContent = *(*UTType)(unsafe.Pointer(ptr))
+		UTTypes.AudiovisualContent = objc.ValueAt[UTType](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "UTTypeBMP"); err == nil && ptr != 0 {
-		UTTypes.BMP = *(*UTType)(unsafe.Pointer(ptr))
+		UTTypes.BMP = objc.ValueAt[UTType](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "UTTypeBZ2"); err == nil && ptr != 0 {
-		UTTypes.BZ2 = *(*UTType)(unsafe.Pointer(ptr))
+		UTTypes.BZ2 = objc.ValueAt[UTType](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "UTTypeBinaryPropertyList"); err == nil && ptr != 0 {
-		UTTypes.BinaryPropertyList = *(*UTType)(unsafe.Pointer(ptr))
+		UTTypes.BinaryPropertyList = objc.ValueAt[UTType](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "UTTypeBookmark"); err == nil && ptr != 0 {
-		UTTypes.Bookmark = *(*UTType)(unsafe.Pointer(ptr))
+		UTTypes.Bookmark = objc.ValueAt[UTType](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "UTTypeBundle"); err == nil && ptr != 0 {
-		UTTypes.Bundle = *(*UTType)(unsafe.Pointer(ptr))
+		UTTypes.Bundle = objc.ValueAt[UTType](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "UTTypeCHeader"); err == nil && ptr != 0 {
-		UTTypes.CHeader = *(*UTType)(unsafe.Pointer(ptr))
+		UTTypes.CHeader = objc.ValueAt[UTType](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "UTTypeCPlusPlusHeader"); err == nil && ptr != 0 {
-		UTTypes.CPlusPlusHeader = *(*UTType)(unsafe.Pointer(ptr))
+		UTTypes.CPlusPlusHeader = objc.ValueAt[UTType](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "UTTypeCPlusPlusSource"); err == nil && ptr != 0 {
-		UTTypes.CPlusPlusSource = *(*UTType)(unsafe.Pointer(ptr))
+		UTTypes.CPlusPlusSource = objc.ValueAt[UTType](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "UTTypeCSS"); err == nil && ptr != 0 {
-		UTTypes.CSS = *(*UTType)(unsafe.Pointer(ptr))
+		UTTypes.CSS = objc.ValueAt[UTType](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "UTTypeCSource"); err == nil && ptr != 0 {
-		UTTypes.CSource = *(*UTType)(unsafe.Pointer(ptr))
+		UTTypes.CSource = objc.ValueAt[UTType](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "UTTypeCalendarEvent"); err == nil && ptr != 0 {
-		UTTypes.CalendarEvent = *(*UTType)(unsafe.Pointer(ptr))
+		UTTypes.CalendarEvent = objc.ValueAt[UTType](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "UTTypeCommaSeparatedText"); err == nil && ptr != 0 {
-		UTTypes.CommaSeparatedText = *(*UTType)(unsafe.Pointer(ptr))
+		UTTypes.CommaSeparatedText = objc.ValueAt[UTType](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "UTTypeCompositeContent"); err == nil && ptr != 0 {
-		UTTypes.CompositeContent = *(*UTType)(unsafe.Pointer(ptr))
+		UTTypes.CompositeContent = objc.ValueAt[UTType](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "UTTypeContact"); err == nil && ptr != 0 {
-		UTTypes.Contact = *(*UTType)(unsafe.Pointer(ptr))
+		UTTypes.Contact = objc.ValueAt[UTType](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "UTTypeContent"); err == nil && ptr != 0 {
-		UTTypes.Content = *(*UTType)(unsafe.Pointer(ptr))
+		UTTypes.Content = objc.ValueAt[UTType](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "UTTypeDNG"); err == nil && ptr != 0 {
-		UTTypes.DNG = *(*UTType)(unsafe.Pointer(ptr))
+		UTTypes.DNG = objc.ValueAt[UTType](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "UTTypeData"); err == nil && ptr != 0 {
-		UTTypes.Data = *(*UTType)(unsafe.Pointer(ptr))
+		UTTypes.Data = objc.ValueAt[UTType](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "UTTypeDatabase"); err == nil && ptr != 0 {
-		UTTypes.Database = *(*UTType)(unsafe.Pointer(ptr))
+		UTTypes.Database = objc.ValueAt[UTType](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "UTTypeDelimitedText"); err == nil && ptr != 0 {
-		UTTypes.DelimitedText = *(*UTType)(unsafe.Pointer(ptr))
+		UTTypes.DelimitedText = objc.ValueAt[UTType](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "UTTypeDirectory"); err == nil && ptr != 0 {
-		UTTypes.Directory = *(*UTType)(unsafe.Pointer(ptr))
+		UTTypes.Directory = objc.ValueAt[UTType](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "UTTypeDiskImage"); err == nil && ptr != 0 {
-		UTTypes.DiskImage = *(*UTType)(unsafe.Pointer(ptr))
+		UTTypes.DiskImage = objc.ValueAt[UTType](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "UTTypeEPUB"); err == nil && ptr != 0 {
-		UTTypes.EPUB = *(*UTType)(unsafe.Pointer(ptr))
+		UTTypes.EPUB = objc.ValueAt[UTType](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "UTTypeEXE"); err == nil && ptr != 0 {
-		UTTypes.EXE = *(*UTType)(unsafe.Pointer(ptr))
+		UTTypes.EXE = objc.ValueAt[UTType](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "UTTypeEXR"); err == nil && ptr != 0 {
-		UTTypes.EXR = *(*UTType)(unsafe.Pointer(ptr))
+		UTTypes.EXR = objc.ValueAt[UTType](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "UTTypeEmailMessage"); err == nil && ptr != 0 {
-		UTTypes.EmailMessage = *(*UTType)(unsafe.Pointer(ptr))
+		UTTypes.EmailMessage = objc.ValueAt[UTType](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "UTTypeExecutable"); err == nil && ptr != 0 {
-		UTTypes.Executable = *(*UTType)(unsafe.Pointer(ptr))
+		UTTypes.Executable = objc.ValueAt[UTType](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "UTTypeFileURL"); err == nil && ptr != 0 {
-		UTTypes.FileURL = *(*UTType)(unsafe.Pointer(ptr))
+		UTTypes.FileURL = objc.ValueAt[UTType](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "UTTypeFlatRTFD"); err == nil && ptr != 0 {
-		UTTypes.FlatRTFD = *(*UTType)(unsafe.Pointer(ptr))
+		UTTypes.FlatRTFD = objc.ValueAt[UTType](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "UTTypeFolder"); err == nil && ptr != 0 {
-		UTTypes.Folder = *(*UTType)(unsafe.Pointer(ptr))
+		UTTypes.Folder = objc.ValueAt[UTType](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "UTTypeFont"); err == nil && ptr != 0 {
-		UTTypes.Font = *(*UTType)(unsafe.Pointer(ptr))
+		UTTypes.Font = objc.ValueAt[UTType](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "UTTypeFramework"); err == nil && ptr != 0 {
-		UTTypes.Framework = *(*UTType)(unsafe.Pointer(ptr))
+		UTTypes.Framework = objc.ValueAt[UTType](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "UTTypeGIF"); err == nil && ptr != 0 {
-		UTTypes.GIF = *(*UTType)(unsafe.Pointer(ptr))
+		UTTypes.GIF = objc.ValueAt[UTType](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "UTTypeGZIP"); err == nil && ptr != 0 {
-		UTTypes.GZIP = *(*UTType)(unsafe.Pointer(ptr))
+		UTTypes.GZIP = objc.ValueAt[UTType](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "UTTypeGeoJSON"); err == nil && ptr != 0 {
-		UTTypes.GeoJSON = *(*UTType)(unsafe.Pointer(ptr))
+		UTTypes.GeoJSON = objc.ValueAt[UTType](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "UTTypeHEIC"); err == nil && ptr != 0 {
-		UTTypes.HEIC = *(*UTType)(unsafe.Pointer(ptr))
+		UTTypes.HEIC = objc.ValueAt[UTType](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "UTTypeHEICS"); err == nil && ptr != 0 {
-		UTTypes.HEICS = *(*UTType)(unsafe.Pointer(ptr))
+		UTTypes.HEICS = objc.ValueAt[UTType](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "UTTypeHEIF"); err == nil && ptr != 0 {
-		UTTypes.HEIF = *(*UTType)(unsafe.Pointer(ptr))
+		UTTypes.HEIF = objc.ValueAt[UTType](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "UTTypeHTML"); err == nil && ptr != 0 {
-		UTTypes.HTML = *(*UTType)(unsafe.Pointer(ptr))
+		UTTypes.HTML = objc.ValueAt[UTType](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "UTTypeICNS"); err == nil && ptr != 0 {
-		UTTypes.ICNS = *(*UTType)(unsafe.Pointer(ptr))
+		UTTypes.ICNS = objc.ValueAt[UTType](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "UTTypeICO"); err == nil && ptr != 0 {
-		UTTypes.ICO = *(*UTType)(unsafe.Pointer(ptr))
+		UTTypes.ICO = objc.ValueAt[UTType](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "UTTypeImage"); err == nil && ptr != 0 {
-		UTTypes.Image = *(*UTType)(unsafe.Pointer(ptr))
+		UTTypes.Image = objc.ValueAt[UTType](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "UTTypeInternetLocation"); err == nil && ptr != 0 {
-		UTTypes.InternetLocation = *(*UTType)(unsafe.Pointer(ptr))
+		UTTypes.InternetLocation = objc.ValueAt[UTType](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "UTTypeInternetShortcut"); err == nil && ptr != 0 {
-		UTTypes.InternetShortcut = *(*UTType)(unsafe.Pointer(ptr))
+		UTTypes.InternetShortcut = objc.ValueAt[UTType](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "UTTypeItem"); err == nil && ptr != 0 {
-		UTTypes.Item = *(*UTType)(unsafe.Pointer(ptr))
+		UTTypes.Item = objc.ValueAt[UTType](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "UTTypeJPEG"); err == nil && ptr != 0 {
-		UTTypes.JPEG = *(*UTType)(unsafe.Pointer(ptr))
+		UTTypes.JPEG = objc.ValueAt[UTType](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "UTTypeJPEGXL"); err == nil && ptr != 0 {
-		UTTypes.JPEGXL = *(*UTType)(unsafe.Pointer(ptr))
+		UTTypes.JPEGXL = objc.ValueAt[UTType](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "UTTypeJSON"); err == nil && ptr != 0 {
-		UTTypes.JSON = *(*UTType)(unsafe.Pointer(ptr))
+		UTTypes.JSON = objc.ValueAt[UTType](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "UTTypeJavaScript"); err == nil && ptr != 0 {
-		UTTypes.JavaScript = *(*UTType)(unsafe.Pointer(ptr))
+		UTTypes.JavaScript = objc.ValueAt[UTType](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "UTTypeLinkPresentationMetadata"); err == nil && ptr != 0 {
-		UTTypes.LinkPresentationMetadata = *(*UTType)(unsafe.Pointer(ptr))
+		UTTypes.LinkPresentationMetadata = objc.ValueAt[UTType](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "UTTypeLivePhoto"); err == nil && ptr != 0 {
-		UTTypes.LivePhoto = *(*UTType)(unsafe.Pointer(ptr))
+		UTTypes.LivePhoto = objc.ValueAt[UTType](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "UTTypeLog"); err == nil && ptr != 0 {
-		UTTypes.Log = *(*UTType)(unsafe.Pointer(ptr))
+		UTTypes.Log = objc.ValueAt[UTType](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "UTTypeM3UPlaylist"); err == nil && ptr != 0 {
-		UTTypes.M3UPlaylist = *(*UTType)(unsafe.Pointer(ptr))
+		UTTypes.M3UPlaylist = objc.ValueAt[UTType](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "UTTypeMIDI"); err == nil && ptr != 0 {
-		UTTypes.MIDI = *(*UTType)(unsafe.Pointer(ptr))
+		UTTypes.MIDI = objc.ValueAt[UTType](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "UTTypeMP3"); err == nil && ptr != 0 {
-		UTTypes.MP3 = *(*UTType)(unsafe.Pointer(ptr))
+		UTTypes.MP3 = objc.ValueAt[UTType](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "UTTypeMPEG"); err == nil && ptr != 0 {
-		UTTypes.MPEG = *(*UTType)(unsafe.Pointer(ptr))
+		UTTypes.MPEG = objc.ValueAt[UTType](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "UTTypeMPEG2TransportStream"); err == nil && ptr != 0 {
-		UTTypes.MPEG2TransportStream = *(*UTType)(unsafe.Pointer(ptr))
+		UTTypes.MPEG2TransportStream = objc.ValueAt[UTType](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "UTTypeMPEG2Video"); err == nil && ptr != 0 {
-		UTTypes.MPEG2Video = *(*UTType)(unsafe.Pointer(ptr))
+		UTTypes.MPEG2Video = objc.ValueAt[UTType](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "UTTypeMPEG4Audio"); err == nil && ptr != 0 {
-		UTTypes.MPEG4Audio = *(*UTType)(unsafe.Pointer(ptr))
+		UTTypes.MPEG4Audio = objc.ValueAt[UTType](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "UTTypeMPEG4Movie"); err == nil && ptr != 0 {
-		UTTypes.MPEG4Movie = *(*UTType)(unsafe.Pointer(ptr))
+		UTTypes.MPEG4Movie = objc.ValueAt[UTType](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "UTTypeMakefile"); err == nil && ptr != 0 {
-		UTTypes.Makefile = *(*UTType)(unsafe.Pointer(ptr))
+		UTTypes.Makefile = objc.ValueAt[UTType](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "UTTypeMessage"); err == nil && ptr != 0 {
-		UTTypes.Message = *(*UTType)(unsafe.Pointer(ptr))
+		UTTypes.Message = objc.ValueAt[UTType](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "UTTypeMountPoint"); err == nil && ptr != 0 {
-		UTTypes.MountPoint = *(*UTType)(unsafe.Pointer(ptr))
+		UTTypes.MountPoint = objc.ValueAt[UTType](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "UTTypeMovie"); err == nil && ptr != 0 {
-		UTTypes.Movie = *(*UTType)(unsafe.Pointer(ptr))
+		UTTypes.Movie = objc.ValueAt[UTType](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "UTTypeOSAScript"); err == nil && ptr != 0 {
-		UTTypes.OSAScript = *(*UTType)(unsafe.Pointer(ptr))
+		UTTypes.OSAScript = objc.ValueAt[UTType](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "UTTypeOSAScriptBundle"); err == nil && ptr != 0 {
-		UTTypes.OSAScriptBundle = *(*UTType)(unsafe.Pointer(ptr))
+		UTTypes.OSAScriptBundle = objc.ValueAt[UTType](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "UTTypeObjectiveCPlusPlusSource"); err == nil && ptr != 0 {
-		UTTypes.ObjectiveCPlusPlusSource = *(*UTType)(unsafe.Pointer(ptr))
+		UTTypes.ObjectiveCPlusPlusSource = objc.ValueAt[UTType](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "UTTypeObjectiveCSource"); err == nil && ptr != 0 {
-		UTTypes.ObjectiveCSource = *(*UTType)(unsafe.Pointer(ptr))
+		UTTypes.ObjectiveCSource = objc.ValueAt[UTType](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "UTTypePDF"); err == nil && ptr != 0 {
-		UTTypes.PDF = *(*UTType)(unsafe.Pointer(ptr))
+		UTTypes.PDF = objc.ValueAt[UTType](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "UTTypePHPScript"); err == nil && ptr != 0 {
-		UTTypes.PHPScript = *(*UTType)(unsafe.Pointer(ptr))
+		UTTypes.PHPScript = objc.ValueAt[UTType](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "UTTypePKCS12"); err == nil && ptr != 0 {
-		UTTypes.PKCS12 = *(*UTType)(unsafe.Pointer(ptr))
+		UTTypes.PKCS12 = objc.ValueAt[UTType](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "UTTypePNG"); err == nil && ptr != 0 {
-		UTTypes.PNG = *(*UTType)(unsafe.Pointer(ptr))
+		UTTypes.PNG = objc.ValueAt[UTType](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "UTTypePackage"); err == nil && ptr != 0 {
-		UTTypes.Package = *(*UTType)(unsafe.Pointer(ptr))
+		UTTypes.Package = objc.ValueAt[UTType](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "UTTypePerlScript"); err == nil && ptr != 0 {
-		UTTypes.PerlScript = *(*UTType)(unsafe.Pointer(ptr))
+		UTTypes.PerlScript = objc.ValueAt[UTType](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "UTTypePlainText"); err == nil && ptr != 0 {
-		UTTypes.PlainText = *(*UTType)(unsafe.Pointer(ptr))
+		UTTypes.PlainText = objc.ValueAt[UTType](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "UTTypePlaylist"); err == nil && ptr != 0 {
-		UTTypes.Playlist = *(*UTType)(unsafe.Pointer(ptr))
+		UTTypes.Playlist = objc.ValueAt[UTType](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "UTTypePluginBundle"); err == nil && ptr != 0 {
-		UTTypes.PluginBundle = *(*UTType)(unsafe.Pointer(ptr))
+		UTTypes.PluginBundle = objc.ValueAt[UTType](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "UTTypePresentation"); err == nil && ptr != 0 {
-		UTTypes.Presentation = *(*UTType)(unsafe.Pointer(ptr))
+		UTTypes.Presentation = objc.ValueAt[UTType](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "UTTypePropertyList"); err == nil && ptr != 0 {
-		UTTypes.PropertyList = *(*UTType)(unsafe.Pointer(ptr))
+		UTTypes.PropertyList = objc.ValueAt[UTType](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "UTTypePythonScript"); err == nil && ptr != 0 {
-		UTTypes.PythonScript = *(*UTType)(unsafe.Pointer(ptr))
+		UTTypes.PythonScript = objc.ValueAt[UTType](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "UTTypeQuickLookGenerator"); err == nil && ptr != 0 {
-		UTTypes.QuickLookGenerator = *(*UTType)(unsafe.Pointer(ptr))
+		UTTypes.QuickLookGenerator = objc.ValueAt[UTType](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "UTTypeQuickTimeMovie"); err == nil && ptr != 0 {
-		UTTypes.QuickTimeMovie = *(*UTType)(unsafe.Pointer(ptr))
+		UTTypes.QuickTimeMovie = objc.ValueAt[UTType](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "UTTypeRAWImage"); err == nil && ptr != 0 {
-		UTTypes.RAWImage = *(*UTType)(unsafe.Pointer(ptr))
+		UTTypes.RAWImage = objc.ValueAt[UTType](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "UTTypeRTF"); err == nil && ptr != 0 {
-		UTTypes.RTF = *(*UTType)(unsafe.Pointer(ptr))
+		UTTypes.RTF = objc.ValueAt[UTType](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "UTTypeRTFD"); err == nil && ptr != 0 {
-		UTTypes.RTFD = *(*UTType)(unsafe.Pointer(ptr))
+		UTTypes.RTFD = objc.ValueAt[UTType](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "UTTypeRealityFile"); err == nil && ptr != 0 {
-		UTTypes.RealityFile = *(*UTType)(unsafe.Pointer(ptr))
+		UTTypes.RealityFile = objc.ValueAt[UTType](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "UTTypeResolvable"); err == nil && ptr != 0 {
-		UTTypes.Resolvable = *(*UTType)(unsafe.Pointer(ptr))
+		UTTypes.Resolvable = objc.ValueAt[UTType](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "UTTypeRubyScript"); err == nil && ptr != 0 {
-		UTTypes.RubyScript = *(*UTType)(unsafe.Pointer(ptr))
+		UTTypes.RubyScript = objc.ValueAt[UTType](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "UTTypeSVG"); err == nil && ptr != 0 {
-		UTTypes.SVG = *(*UTType)(unsafe.Pointer(ptr))
+		UTTypes.SVG = objc.ValueAt[UTType](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "UTTypeSceneKitScene"); err == nil && ptr != 0 {
-		UTTypes.SceneKitScene = *(*UTType)(unsafe.Pointer(ptr))
+		UTTypes.SceneKitScene = objc.ValueAt[UTType](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "UTTypeScript"); err == nil && ptr != 0 {
-		UTTypes.Script = *(*UTType)(unsafe.Pointer(ptr))
+		UTTypes.Script = objc.ValueAt[UTType](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "UTTypeShellScript"); err == nil && ptr != 0 {
-		UTTypes.ShellScript = *(*UTType)(unsafe.Pointer(ptr))
+		UTTypes.ShellScript = objc.ValueAt[UTType](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "UTTypeSourceCode"); err == nil && ptr != 0 {
-		UTTypes.SourceCode = *(*UTType)(unsafe.Pointer(ptr))
+		UTTypes.SourceCode = objc.ValueAt[UTType](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "UTTypeSpotlightImporter"); err == nil && ptr != 0 {
-		UTTypes.SpotlightImporter = *(*UTType)(unsafe.Pointer(ptr))
+		UTTypes.SpotlightImporter = objc.ValueAt[UTType](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "UTTypeSpreadsheet"); err == nil && ptr != 0 {
-		UTTypes.Spreadsheet = *(*UTType)(unsafe.Pointer(ptr))
+		UTTypes.Spreadsheet = objc.ValueAt[UTType](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "UTTypeSwiftSource"); err == nil && ptr != 0 {
-		UTTypes.SwiftSource = *(*UTType)(unsafe.Pointer(ptr))
+		UTTypes.SwiftSource = objc.ValueAt[UTType](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "UTTypeSymbolicLink"); err == nil && ptr != 0 {
-		UTTypes.SymbolicLink = *(*UTType)(unsafe.Pointer(ptr))
+		UTTypes.SymbolicLink = objc.ValueAt[UTType](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "UTTypeSystemPreferencesPane"); err == nil && ptr != 0 {
-		UTTypes.SystemPreferencesPane = *(*UTType)(unsafe.Pointer(ptr))
+		UTTypes.SystemPreferencesPane = objc.ValueAt[UTType](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "UTTypeTIFF"); err == nil && ptr != 0 {
-		UTTypes.TIFF = *(*UTType)(unsafe.Pointer(ptr))
+		UTTypes.TIFF = objc.ValueAt[UTType](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "UTTypeTabSeparatedText"); err == nil && ptr != 0 {
-		UTTypes.TabSeparatedText = *(*UTType)(unsafe.Pointer(ptr))
+		UTTypes.TabSeparatedText = objc.ValueAt[UTType](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "UTTypeTarArchive"); err == nil && ptr != 0 {
-		UTTypes.TarArchive = *(*UTType)(unsafe.Pointer(ptr))
+		UTTypes.TarArchive = objc.ValueAt[UTType](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "UTTypeText"); err == nil && ptr != 0 {
-		UTTypes.Text = *(*UTType)(unsafe.Pointer(ptr))
+		UTTypes.Text = objc.ValueAt[UTType](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "UTTypeToDoItem"); err == nil && ptr != 0 {
-		UTTypes.ToDoItem = *(*UTType)(unsafe.Pointer(ptr))
+		UTTypes.ToDoItem = objc.ValueAt[UTType](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "UTTypeURL"); err == nil && ptr != 0 {
-		UTTypes.URL = *(*UTType)(unsafe.Pointer(ptr))
+		UTTypes.URL = objc.ValueAt[UTType](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "UTTypeURLBookmarkData"); err == nil && ptr != 0 {
-		UTTypes.URLBookmarkData = *(*UTType)(unsafe.Pointer(ptr))
+		UTTypes.URLBookmarkData = objc.ValueAt[UTType](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "UTTypeUSD"); err == nil && ptr != 0 {
-		UTTypes.USD = *(*UTType)(unsafe.Pointer(ptr))
+		UTTypes.USD = objc.ValueAt[UTType](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "UTTypeUSDZ"); err == nil && ptr != 0 {
-		UTTypes.USDZ = *(*UTType)(unsafe.Pointer(ptr))
+		UTTypes.USDZ = objc.ValueAt[UTType](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "UTTypeUTF16ExternalPlainText"); err == nil && ptr != 0 {
-		UTTypes.UTF16ExternalPlainText = *(*UTType)(unsafe.Pointer(ptr))
+		UTTypes.UTF16ExternalPlainText = objc.ValueAt[UTType](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "UTTypeUTF16PlainText"); err == nil && ptr != 0 {
-		UTTypes.UTF16PlainText = *(*UTType)(unsafe.Pointer(ptr))
+		UTTypes.UTF16PlainText = objc.ValueAt[UTType](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "UTTypeUTF8PlainText"); err == nil && ptr != 0 {
-		UTTypes.UTF8PlainText = *(*UTType)(unsafe.Pointer(ptr))
+		UTTypes.UTF8PlainText = objc.ValueAt[UTType](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "UTTypeUTF8TabSeparatedText"); err == nil && ptr != 0 {
-		UTTypes.UTF8TabSeparatedText = *(*UTType)(unsafe.Pointer(ptr))
+		UTTypes.UTF8TabSeparatedText = objc.ValueAt[UTType](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "UTTypeUnixExecutable"); err == nil && ptr != 0 {
-		UTTypes.UnixExecutable = *(*UTType)(unsafe.Pointer(ptr))
+		UTTypes.UnixExecutable = objc.ValueAt[UTType](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "UTTypeVCard"); err == nil && ptr != 0 {
-		UTTypes.VCard = *(*UTType)(unsafe.Pointer(ptr))
+		UTTypes.VCard = objc.ValueAt[UTType](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "UTTypeVideo"); err == nil && ptr != 0 {
-		UTTypes.Video = *(*UTType)(unsafe.Pointer(ptr))
+		UTTypes.Video = objc.ValueAt[UTType](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "UTTypeVolume"); err == nil && ptr != 0 {
-		UTTypes.Volume = *(*UTType)(unsafe.Pointer(ptr))
+		UTTypes.Volume = objc.ValueAt[UTType](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "UTTypeWAV"); err == nil && ptr != 0 {
-		UTTypes.WAV = *(*UTType)(unsafe.Pointer(ptr))
+		UTTypes.WAV = objc.ValueAt[UTType](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "UTTypeWebArchive"); err == nil && ptr != 0 {
-		UTTypes.WebArchive = *(*UTType)(unsafe.Pointer(ptr))
+		UTTypes.WebArchive = objc.ValueAt[UTType](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "UTTypeWebP"); err == nil && ptr != 0 {
-		UTTypes.WebP = *(*UTType)(unsafe.Pointer(ptr))
+		UTTypes.WebP = objc.ValueAt[UTType](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "UTTypeX509Certificate"); err == nil && ptr != 0 {
-		UTTypes.X509Certificate = *(*UTType)(unsafe.Pointer(ptr))
+		UTTypes.X509Certificate = objc.ValueAt[UTType](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "UTTypeXML"); err == nil && ptr != 0 {
-		UTTypes.XML = *(*UTType)(unsafe.Pointer(ptr))
+		UTTypes.XML = objc.ValueAt[UTType](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "UTTypeXMLPropertyList"); err == nil && ptr != 0 {
-		UTTypes.XMLPropertyList = *(*UTType)(unsafe.Pointer(ptr))
+		UTTypes.XMLPropertyList = objc.ValueAt[UTType](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "UTTypeXPCService"); err == nil && ptr != 0 {
-		UTTypes.XPCService = *(*UTType)(unsafe.Pointer(ptr))
+		UTTypes.XPCService = objc.ValueAt[UTType](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "UTTypeYAML"); err == nil && ptr != 0 {
-		UTTypes.YAML = *(*UTType)(unsafe.Pointer(ptr))
+		UTTypes.YAML = objc.ValueAt[UTType](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "UTTypeZIP"); err == nil && ptr != 0 {
-		UTTypes.ZIP = *(*UTType)(unsafe.Pointer(ptr))
+		UTTypes.ZIP = objc.ValueAt[UTType](ptr)
 	}
 
 }

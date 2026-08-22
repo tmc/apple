@@ -5,6 +5,8 @@
 package foundation
 
 import (
+	"unsafe"
+
 	"github.com/tmc/apple/corefoundation"
 	"github.com/tmc/apple/objc"
 )
@@ -89,6 +91,8 @@ func (_NSValueClass NSValueClass) ValueWithCGAffineTransform(transform corefound
 //
 // insets: The value for the new object.
 //
+// insets is a [uikit.UIEdgeInsets].
+//
 // # Return Value
 //
 // A new value object that contains the edge inset information.
@@ -103,6 +107,8 @@ func (_NSValueClass NSValueClass) ValueWithUIEdgeInsets(insets unsafe.Pointer) N
 //
 // insets: The value for the new object.
 //
+// insets is a [uikit.UIOffset].
+//
 // # Return Value
 //
 // A new value object that contains the offset information.
@@ -113,6 +119,8 @@ func (_NSValueClass NSValueClass) ValueWithUIOffset(insets unsafe.Pointer) NSVal
 	return NSValueFromID(rv)
 }
 
+// insets is a [appkit.NSDirectionalEdgeInsets].
+//
 // See: https://developer.apple.com/documentation/Foundation/NSValue/init(directionalEdgeInsets:)
 func (_NSValueClass NSValueClass) ValueWithDirectionalEdgeInsets(insets unsafe.Pointer) NSValue {
 	rv := objc.Send[objc.ID](objc.ID(_NSValueClass.class), objc.Sel("valueWithDirectionalEdgeInsets:"), insets)

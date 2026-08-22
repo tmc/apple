@@ -218,12 +218,13 @@ func (_CIImageProcessorKernelClass CIImageProcessorKernelClass) ApplyWithExtentI
 // `/CIContext/workingFormat`.
 //
 // If a processor wants data in a colorspace other than the context’s
-// working color space, then call `/CIImage/` on the processor input. If a
-// processor wants it input as alpha-unpremultiplied RGBA data, then call
-// `/CIImage/imageByUnpremultiplyingAlpha` on the processor input.
+// working color space, then call
+// `/CIImage/imageByColorMatchingWorkingSpaceToColorSpace:` on the processor
+// input. If a processor wants it input as alpha-unpremultiplied RGBA data,
+// then call `/CIImage/imageByUnpremultiplyingAlpha` on the processor input.
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIImageProcessorKernel/formatForInput(at:)
-func (_CIImageProcessorKernelClass CIImageProcessorKernelClass) FormatForInputAtIndex(inputIndex int) CIFormat {
+func (_CIImageProcessorKernelClass CIImageProcessorKernelClass) FormatForInputAtIndex(inputIndex int32) CIFormat {
 	rv := objc.Send[CIFormat](objc.ID(_CIImageProcessorKernelClass.class), objc.Sel("formatForInputAtIndex:"), inputIndex)
 	return CIFormat(rv)
 }
@@ -290,7 +291,7 @@ func (_CIImageProcessorKernelClass CIImageProcessorKernelClass) ProcessWithInput
 // The default implementation would return outputRect.
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIImageProcessorKernel/roi(forInput:arguments:outputRect:)
-func (_CIImageProcessorKernelClass CIImageProcessorKernelClass) RoiForInputArgumentsOutputRect(inputIndex int, arguments foundation.INSDictionary, outputRect corefoundation.CGRect) corefoundation.CGRect {
+func (_CIImageProcessorKernelClass CIImageProcessorKernelClass) RoiForInputArgumentsOutputRect(inputIndex int32, arguments foundation.INSDictionary, outputRect corefoundation.CGRect) corefoundation.CGRect {
 	rv := objc.Send[corefoundation.CGRect](objc.ID(_CIImageProcessorKernelClass.class), objc.Sel("roiForInput:arguments:outputRect:"), inputIndex, arguments, outputRect)
 	return corefoundation.CGRect(rv)
 }
@@ -310,10 +311,10 @@ func (_CIImageProcessorKernelClass CIImageProcessorKernelClass) RoiForInputArgum
 //
 // An array of [CIVector] that specify tile regions of the `inputIndex`’th
 // input that is required for the above `outputRect` Each region tile in the
-// array is a created by calling `/CIVector//` The tiles may overlap but
-// should fully cover the area of ‘input’ that is needed. If a processor
-// has multiple inputs, then each input should return the same number of
-// region tiles.
+// array is a created by calling `/CIVector/vectorWithCGRect:/` The tiles may
+// overlap but should fully cover the area of ‘input’ that is needed. If a
+// processor has multiple inputs, then each input should return the same
+// number of region tiles.
 //
 // # Discussion
 //
@@ -328,7 +329,7 @@ func (_CIImageProcessorKernelClass CIImageProcessorKernelClass) RoiForInputArgum
 // will be called once for each tile.
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIImageProcessorKernel/roiTileArray(forInput:arguments:outputRect:)
-func (_CIImageProcessorKernelClass CIImageProcessorKernelClass) RoiTileArrayForInputArgumentsOutputRect(inputIndex int, arguments foundation.INSDictionary, outputRect corefoundation.CGRect) []CIVector {
+func (_CIImageProcessorKernelClass CIImageProcessorKernelClass) RoiTileArrayForInputArgumentsOutputRect(inputIndex int32, arguments foundation.INSDictionary, outputRect corefoundation.CGRect) []CIVector {
 	rv := objc.Send[[]objc.ID](objc.ID(_CIImageProcessorKernelClass.class), objc.Sel("roiTileArrayForInput:arguments:outputRect:"), inputIndex, arguments, outputRect)
 	return objc.ConvertSlice(rv, func(id objc.ID) CIVector {
 		return CIVectorFromID(id)
@@ -341,8 +342,8 @@ func (_CIImageProcessorKernelClass CIImageProcessorKernelClass) RoiTileArrayForI
 //
 // extents: The array of bounding rectangles that the [CIImageProcessorKernel] can
 // produce. Each rectangle in the array is an object created using
-// `/CIVector/` This method will return `CIImage.EmptyImage()` if a rectangle
-// in the array is empty.
+// `/CIVector/vectorWithCGRect:` This method will return
+// `CIImage.EmptyImage()` if a rectangle in the array is empty.
 //
 // inputs: An array of [CIImage] objects to use as input.
 //
@@ -408,7 +409,7 @@ func (_CIImageProcessorKernelClass CIImageProcessorKernelClass) ApplyWithExtents
 // best matches the rendering context’s `/CIContext/workingFormat`.
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIImageProcessorKernel/outputFormat(at:arguments:)
-func (_CIImageProcessorKernelClass CIImageProcessorKernelClass) OutputFormatAtIndexArguments(outputIndex int, arguments foundation.INSDictionary) CIFormat {
+func (_CIImageProcessorKernelClass CIImageProcessorKernelClass) OutputFormatAtIndexArguments(outputIndex int32, arguments foundation.INSDictionary) CIFormat {
 	rv := objc.Send[CIFormat](objc.ID(_CIImageProcessorKernelClass.class), objc.Sel("outputFormatAtIndex:arguments:"), outputIndex, arguments)
 	return CIFormat(rv)
 }
@@ -466,9 +467,10 @@ func (_CIImageProcessorKernelClass CIImageProcessorKernelClass) ProcessWithInput
 // best matches the rendering context’s `/CIContext/workingFormat`.
 //
 // If a processor returns data in a color space other than the context working
-// color space, then call `/CIImage/` on the processor output. If a processor
-// returns data as alpha-unpremultiplied RGBA data, then call,
-// `/CIImage/imageByPremultiplyingAlpha` on the processor output.
+// color space, then call
+// `/CIImage/imageByColorMatchingColorSpaceToWorkingSpace:` on the processor
+// output. If a processor returns data as alpha-unpremultiplied RGBA data,
+// then call, `/CIImage/imageByPremultiplyingAlpha` on the processor output.
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIImageProcessorKernel/outputFormat
 func (_CIImageProcessorKernelClass CIImageProcessorKernelClass) OutputFormat() CIFormat {

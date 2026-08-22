@@ -53,9 +53,9 @@ func (nc NSAttributedStringClass) Alloc() NSAttributedString {
 //
 // [NSAttributedString] is a type you use to manage strings of stylized
 // Unicode text. In addition to text, an attributed string contains key-value
-// pairs known as that specify additional information to apply to ranges of
-// characters within the string. Attributed strings support many different
-// kinds of attributes, including:
+// pairs known as attributes that specify additional information to apply to
+// ranges of characters within the string. Attributed strings support many
+// different kinds of attributes, including:
 //
 // - Rendering attributes that specify font, color, kern, ligature, and other
 // details - Attributes for attachments and adaptive image glyphs - Semantic
@@ -300,7 +300,6 @@ func NSAttributedStringFromID(id objc.ID) NSAttributedString {
 // See: https://developer.apple.com/documentation/Foundation/NSAttributedString
 type INSAttributedString interface {
 	objectivec.IObject
-	NSSecureCoding
 
 	// Topic: Exporting the string as data
 
@@ -414,17 +413,20 @@ type INSAttributedString interface {
 	// The name of the text encoding to use.
 	TextEncodingName() INSString
 	// Calculates and returns a bounding rectangle for the attributed string using the options specified within the specified rectangle in the current graphics context.
-	BoundingRectWithSizeOptions(size corefoundation.CGSize, options NSStringDrawingOptions) NSRect
+	BoundingRectWithSizeOptions(size NSSize, options NSStringDrawingOptions) NSRect
 	// Draws the attributed string with the specified options within the specified rectangle in the current graphics context.
-	DrawWithRectOptions(rect corefoundation.CGRect, options NSStringDrawingOptions)
+	DrawWithRectOptions(rect NSRect, options NSStringDrawingOptions)
+	// Encodes the receiver using a given archiver.
+	EncodeWithCoder(coder INSCoder)
 	// Creates a new attributed string from the contents of another attributed string.
 	InitWithAttributedString(attrStr INSAttributedString) NSAttributedString
+	InitWithCoder(coder INSCoder) NSAttributedString
 	// Creates an attributed string from the contents of a specified URL that contains Markdown-formatted data using the provided options.
 	InitWithContentsOfMarkdownFileAtURLOptionsBaseURLError(markdownFile INSURL, options INSAttributedStringMarkdownParsingOptions, baseURL INSURL) (NSAttributedString, error)
 	// Creates an attributed string from the contents of the specified data object.
-	InitWithDataOptionsDocumentAttributesError(data INSData, options INSDictionary, dict INSDictionary) (NSAttributedString, error)
+	InitWithDataOptionsDocumentAttributesError(data INSData, options INSDictionary, dict *NSDictionary) (NSAttributedString, error)
 	// Creates an attributed string from Microsoft Word format data in the specified data object.
-	InitWithDocFormatDocumentAttributes(data INSData, dict INSDictionary) NSAttributedString
+	InitWithDocFormatDocumentAttributes(data INSData, dict *NSDictionary) NSAttributedString
 	// Initializes an attributed string by substituting arguments into a specially formatted string.
 	InitWithFormatOptionsLocale(format INSAttributedString, options NSAttributedStringFormattingOptions, locale INSLocale) NSAttributedString
 	// Initializes an attributed string by substituting a list of function arguments into a specially formatted string.
@@ -434,27 +436,33 @@ type INSAttributedString interface {
 	// Initializes an attributed string by substituting a list of function arguments into a specially formatted string and applying additional contextual information.
 	InitWithFormatOptionsLocaleContextArguments(format INSAttributedString, options NSAttributedStringFormattingOptions, locale INSLocale, context INSDictionary, arguments kernel.VaList) NSAttributedString
 	// Creates an attributed string from the HTML in the specified data object and base URL.
-	InitWithHTMLBaseURLDocumentAttributes(data INSData, base INSURL, dict INSDictionary) NSAttributedString
+	InitWithHTMLBaseURLDocumentAttributes(data INSData, base INSURL, dict *NSDictionary) NSAttributedString
 	// Creates an attributed string from the HTML in the specified data object.
-	InitWithHTMLDocumentAttributes(data INSData, dict INSDictionary) NSAttributedString
+	InitWithHTMLDocumentAttributes(data INSData, dict *NSDictionary) NSAttributedString
 	// Creates an attributed string from the HTML in the specified data object.
-	InitWithHTMLOptionsDocumentAttributes(data INSData, options INSDictionary, dict INSDictionary) NSAttributedString
+	InitWithHTMLOptionsDocumentAttributes(data INSData, options INSDictionary, dict *NSDictionary) NSAttributedString
 	// Creates an attributed string from Markdown-formatted data using the provided options.
 	InitWithMarkdownOptionsBaseURLError(markdown INSData, options INSAttributedStringMarkdownParsingOptions, baseURL INSURL) (NSAttributedString, error)
 	// Creates an attributed string from a Markdown-formatted string using the provided options.
 	InitWithMarkdownStringOptionsBaseURLError(markdownString string, options INSAttributedStringMarkdownParsingOptions, baseURL INSURL) (NSAttributedString, error)
 	// Creates an attributed string by decoding the stream of RTFD commands and data in the specified data object.
-	InitWithRTFDDocumentAttributes(data INSData, dict INSDictionary) NSAttributedString
+	InitWithRTFDDocumentAttributes(data INSData, dict *NSDictionary) NSAttributedString
 	// Creates an attributed string from the specified file wrapper that contains an RTFD document.
-	InitWithRTFDFileWrapperDocumentAttributes(wrapper INSFileWrapper, dict INSDictionary) NSAttributedString
+	InitWithRTFDFileWrapperDocumentAttributes(wrapper INSFileWrapper, dict *NSDictionary) NSAttributedString
 	// Creates an attributed string by decoding the stream of RTF commands and data in the specified data object.
-	InitWithRTFDocumentAttributes(data INSData, dict INSDictionary) NSAttributedString
+	InitWithRTFDocumentAttributes(data INSData, dict *NSDictionary) NSAttributedString
 	// Creates an attributed string with the specified text and no attribute information.
 	InitWithString(str string) NSAttributedString
 	// Creates an attributed string with the specified text and attributes.
 	InitWithStringAttributes(str string, attrs INSDictionary) NSAttributedString
 	// Creates an attributed string from the contents of the specified URL.
-	InitWithURLOptionsDocumentAttributesError(url INSURL, options INSDictionary, dict INSDictionary) (NSAttributedString, error)
+	InitWithURLOptionsDocumentAttributesError(url INSURL, options INSDictionary, dict *NSDictionary) (NSAttributedString, error)
+	// Asks the item provider for the representation visibility specification for the given UTI.
+	ItemProviderVisibilityForRepresentationWithTypeIdentifier(typeIdentifier string) NSItemProviderRepresentationVisibility
+	// Loads data of a particular type, identified by the given UTI.
+	LoadDataWithTypeIdentifierForItemProviderCompletionHandler(typeIdentifier string, completionHandler DataErrorHandler) INSProgress
+	// An array of UTI strings representing the types of data that can be loaded for an item provider.
+	WritableTypeIdentifiersForItemProvider() []string
 }
 
 // Init initializes the instance.
@@ -588,6 +596,9 @@ func NewAttributedStringWithContentsOfMarkdownFileAtURLOptionsBaseURLError(markd
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
 		return NSAttributedString{}, NSErrorFrom(errorPtr)
 	}
+	if rv == 0 {
+		return NSAttributedString{}, objc.ErrInitFailed
+	}
 	return NSAttributedStringFromID(rv), nil
 }
 
@@ -634,13 +645,16 @@ func NewAttributedStringWithContentsOfMarkdownFileAtURLOptionsBaseURLError(markd
 // [html]: https://developer.apple.com/documentation/Foundation/NSAttributedString/DocumentType/html
 //
 // [documentType]: https://developer.apple.com/documentation/Foundation/NSAttributedString/DocumentAttributeKey/documentType
-func NewAttributedStringWithDataOptionsDocumentAttributesError(data INSData, options INSDictionary, dict INSDictionary) (NSAttributedString, error) {
+func NewAttributedStringWithDataOptionsDocumentAttributesError(data INSData, options INSDictionary, dict *NSDictionary) (NSAttributedString, error) {
 	var errorPtr objc.ID
 	instance := getNSAttributedStringClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithData:options:documentAttributes:error:"), data, options, dict, unsafe.Pointer(&errorPtr))
+	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithData:options:documentAttributes:error:"), data, options, unsafe.Pointer(dict), unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
 		return NSAttributedString{}, NSErrorFrom(errorPtr)
+	}
+	if rv == 0 {
+		return NSAttributedString{}, objc.ErrInitFailed
 	}
 	return NSAttributedStringFromID(rv), nil
 }
@@ -660,9 +674,9 @@ func NewAttributedStringWithDataOptionsDocumentAttributesError(data INSData, opt
 // can’t decode the data.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSAttributedString/init(docFormat:documentAttributes:)
-func NewAttributedStringWithDocFormatDocumentAttributes(data INSData, dict INSDictionary) NSAttributedString {
+func NewAttributedStringWithDocFormatDocumentAttributes(data INSData, dict *NSDictionary) NSAttributedString {
 	instance := getNSAttributedStringClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithDocFormat:documentAttributes:"), data, dict)
+	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithDocFormat:documentAttributes:"), data, unsafe.Pointer(dict))
 	return NSAttributedStringFromID(rv)
 }
 
@@ -702,13 +716,16 @@ func NewAttributedStringWithDocFormatDocumentAttributes(data INSData, dict INSDi
 // [html]: https://developer.apple.com/documentation/Foundation/NSAttributedString/DocumentType/html
 //
 // [documentType]: https://developer.apple.com/documentation/Foundation/NSAttributedString/DocumentAttributeKey/documentType
-func NewAttributedStringWithFileURLOptionsDocumentAttributesError(url INSURL, options INSDictionary, dict INSDictionary) (NSAttributedString, error) {
+func NewAttributedStringWithFileURLOptionsDocumentAttributesError(url INSURL, options INSDictionary, dict *NSDictionary) (NSAttributedString, error) {
 	var errorPtr objc.ID
 	instance := getNSAttributedStringClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithFileURL:options:documentAttributes:error:"), url, options, dict, unsafe.Pointer(&errorPtr))
+	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithFileURL:options:documentAttributes:error:"), url, options, unsafe.Pointer(dict), unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
 		return NSAttributedString{}, NSErrorFrom(errorPtr)
+	}
+	if rv == 0 {
+		return NSAttributedString{}, objc.ErrInitFailed
 	}
 	return NSAttributedStringFromID(rv), nil
 }
@@ -849,9 +866,9 @@ func NewAttributedStringWithFormatOptionsLocaleContextArguments(format INSAttrib
 // Returns an initialized object, or `nil` if the data can’t be decoded.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSAttributedString/init(HTML:baseURL:documentAttributes:)
-func NewAttributedStringWithHTMLBaseURLDocumentAttributes(data INSData, base INSURL, dict INSDictionary) NSAttributedString {
+func NewAttributedStringWithHTMLBaseURLDocumentAttributes(data INSData, base INSURL, dict *NSDictionary) NSAttributedString {
 	instance := getNSAttributedStringClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithHTML:baseURL:documentAttributes:"), data, base, dict)
+	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithHTML:baseURL:documentAttributes:"), data, base, unsafe.Pointer(dict))
 	return NSAttributedStringFromID(rv)
 }
 
@@ -869,9 +886,9 @@ func NewAttributedStringWithHTMLBaseURLDocumentAttributes(data INSData, base INS
 // Returns an initialized object, or `nil` if the data can’t be decoded.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSAttributedString/init(HTML:documentAttributes:)
-func NewAttributedStringWithHTMLDocumentAttributes(data INSData, dict INSDictionary) NSAttributedString {
+func NewAttributedStringWithHTMLDocumentAttributes(data INSData, dict *NSDictionary) NSAttributedString {
 	instance := getNSAttributedStringClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithHTML:documentAttributes:"), data, dict)
+	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithHTML:documentAttributes:"), data, unsafe.Pointer(dict))
 	return NSAttributedStringFromID(rv)
 }
 
@@ -894,9 +911,9 @@ func NewAttributedStringWithHTMLDocumentAttributes(data INSData, dict INSDiction
 // See: https://developer.apple.com/documentation/Foundation/NSAttributedString/init(HTML:options:documentAttributes:)
 //
 // [NSAttributedStringDocumentReadingOptionKey]: https://developer.apple.com/documentation/UIKit/NSAttributedStringDocumentReadingOptionKey
-func NewAttributedStringWithHTMLOptionsDocumentAttributes(data INSData, options INSDictionary, dict INSDictionary) NSAttributedString {
+func NewAttributedStringWithHTMLOptionsDocumentAttributes(data INSData, options INSDictionary, dict *NSDictionary) NSAttributedString {
 	instance := getNSAttributedStringClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithHTML:options:documentAttributes:"), data, options, dict)
+	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithHTML:options:documentAttributes:"), data, options, unsafe.Pointer(dict))
 	return NSAttributedStringFromID(rv)
 }
 
@@ -929,6 +946,9 @@ func NewAttributedStringWithMarkdownOptionsBaseURLError(markdown INSData, option
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
 		return NSAttributedString{}, NSErrorFrom(errorPtr)
+	}
+	if rv == 0 {
+		return NSAttributedString{}, objc.ErrInitFailed
 	}
 	return NSAttributedStringFromID(rv), nil
 }
@@ -963,6 +983,9 @@ func NewAttributedStringWithMarkdownStringOptionsBaseURLError(markdownString str
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
 		return NSAttributedString{}, NSErrorFrom(errorPtr)
 	}
+	if rv == 0 {
+		return NSAttributedString{}, objc.ErrInitFailed
+	}
 	return NSAttributedStringFromID(rv), nil
 }
 
@@ -981,9 +1004,9 @@ func NewAttributedStringWithMarkdownStringOptionsBaseURLError(markdownString str
 // can’t decode the data.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSAttributedString/init(RTFD:documentAttributes:)
-func NewAttributedStringWithRTFDDocumentAttributes(data INSData, dict INSDictionary) NSAttributedString {
+func NewAttributedStringWithRTFDDocumentAttributes(data INSData, dict *NSDictionary) NSAttributedString {
 	instance := getNSAttributedStringClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithRTFD:documentAttributes:"), data, dict)
+	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithRTFD:documentAttributes:"), data, unsafe.Pointer(dict))
 	return NSAttributedStringFromID(rv)
 }
 
@@ -1012,9 +1035,9 @@ func NewAttributedStringWithRTFDDocumentAttributes(data INSData, dict INSDiction
 // See: https://developer.apple.com/documentation/Foundation/NSAttributedString/init(RTFDFileWrapper:documentAttributes:)
 //
 // [NSAttributedString.DocumentAttributeKey]: https://developer.apple.com/documentation/Foundation/NSAttributedString/DocumentAttributeKey
-func NewAttributedStringWithRTFDFileWrapperDocumentAttributes(wrapper INSFileWrapper, dict INSDictionary) NSAttributedString {
+func NewAttributedStringWithRTFDFileWrapperDocumentAttributes(wrapper INSFileWrapper, dict *NSDictionary) NSAttributedString {
 	instance := getNSAttributedStringClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithRTFDFileWrapper:documentAttributes:"), wrapper, dict)
+	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithRTFDFileWrapper:documentAttributes:"), wrapper, unsafe.Pointer(dict))
 	return NSAttributedStringFromID(rv)
 }
 
@@ -1042,9 +1065,9 @@ func NewAttributedStringWithRTFDFileWrapperDocumentAttributes(wrapper INSFileWra
 // See: https://developer.apple.com/documentation/Foundation/NSAttributedString/init(RTF:documentAttributes:)
 //
 // [NSAttributedString.DocumentAttributeKey]: https://developer.apple.com/documentation/Foundation/NSAttributedString/DocumentAttributeKey
-func NewAttributedStringWithRTFDocumentAttributes(data INSData, dict INSDictionary) NSAttributedString {
+func NewAttributedStringWithRTFDocumentAttributes(data INSData, dict *NSDictionary) NSAttributedString {
 	instance := getNSAttributedStringClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithRTF:documentAttributes:"), data, dict)
+	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithRTF:documentAttributes:"), data, unsafe.Pointer(dict))
 	return NSAttributedStringFromID(rv)
 }
 
@@ -1133,13 +1156,16 @@ func NewAttributedStringWithStringAttributes(str string, attrs INSDictionary) NS
 //
 // [documentType]: https://developer.apple.com/documentation/Foundation/NSAttributedString/DocumentReadingOptionKey/documentType
 // [fileType]: https://developer.apple.com/documentation/Foundation/NSAttributedString/DocumentReadingOptionKey/fileType
-func NewAttributedStringWithURLOptionsDocumentAttributesError(url INSURL, options INSDictionary, dict INSDictionary) (NSAttributedString, error) {
+func NewAttributedStringWithURLOptionsDocumentAttributesError(url INSURL, options INSDictionary, dict *NSDictionary) (NSAttributedString, error) {
 	var errorPtr objc.ID
 	instance := getNSAttributedStringClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithURL:options:documentAttributes:error:"), url, options, dict, unsafe.Pointer(&errorPtr))
+	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithURL:options:documentAttributes:error:"), url, options, unsafe.Pointer(dict), unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
 		return NSAttributedString{}, NSErrorFrom(errorPtr)
+	}
+	if rv == 0 {
+		return NSAttributedString{}, objc.ErrInitFailed
 	}
 	return NSAttributedStringFromID(rv), nil
 }
@@ -1611,7 +1637,8 @@ func (a NSAttributedString) AttributeAtIndexLongestEffectiveRangeInRange(attrNam
 //
 // [NSAttributedString.EnumerationOptions]: https://developer.apple.com/documentation/Foundation/NSAttributedString/EnumerationOptions
 func (a NSAttributedString) EnumerateAttributeInRangeOptionsUsingBlock(attrName NSAttributedStringKey, enumerationRange NSRange, opts NSAttributedStringEnumerationOptions, block IObjectNSRangeBoolHandler) {
-	_block3, _ := NewIObjectNSRangeBoolBlock(block)
+	_block3, _cleanup3 := NewIObjectNSRangeBoolBlock(block)
+	defer _cleanup3()
 	objc.Send[objc.ID](a.ID, objc.Sel("enumerateAttribute:inRange:options:usingBlock:"), objc.String(string(attrName)), enumerationRange, opts, _block3)
 }
 
@@ -1789,7 +1816,7 @@ func (a NSAttributedString) AttributedStringByInflectingString() INSAttributedSt
 //
 // location: The location of the item.
 //
-// list is a [*uikit.NSTextList].
+// list is a [*appkit.NSTextList].
 //
 // # Return Value
 //
@@ -1827,7 +1854,7 @@ func (a NSAttributedString) RangeOfTextBlockAtIndex(block objectivec.IObject, lo
 //
 // location: The location in the text list.
 //
-// list is a [*uikit.NSTextList].
+// list is a [*appkit.NSTextList].
 //
 // # Return Value
 //
@@ -1931,7 +1958,7 @@ func (a NSAttributedString) DrawInRect(rect corefoundation.CGRect) {
 // about the actual values used to render the string. This parameter may be
 // `nil`.
 //
-// context is a [*uikit.NSStringDrawingContext].
+// context is a [*appkit.NSStringDrawingContext].
 //
 // # Discussion
 //
@@ -2004,7 +2031,7 @@ func (a NSAttributedString) Size() NSSize {
 // about the actual values used to render the string. This parameter may be
 // `nil`.
 //
-// context is a [*uikit.NSStringDrawingContext].
+// context is a [*appkit.NSStringDrawingContext].
 //
 // # Return Value
 //
@@ -2081,7 +2108,7 @@ func (a NSAttributedString) ContainsAttachmentsInRange(range_ NSRange) bool {
 // See: https://developer.apple.com/documentation/Foundation/NSAttributedString/boundingRect(with:options:)
 //
 // [NSStringDrawingOptions]: https://developer.apple.com/documentation/UIKit/NSStringDrawingOptions
-func (a NSAttributedString) BoundingRectWithSizeOptions(size corefoundation.CGSize, options NSStringDrawingOptions) NSRect {
+func (a NSAttributedString) BoundingRectWithSizeOptions(size NSSize, options NSStringDrawingOptions) NSRect {
 	rv := objc.Send[NSRect](a.ID, objc.Sel("boundingRectWithSize:options:"), size, options)
 	return NSRect(rv)
 }
@@ -2115,7 +2142,7 @@ func (a NSAttributedString) BoundingRectWithSizeOptions(size corefoundation.CGSi
 // See: https://developer.apple.com/documentation/Foundation/NSAttributedString/draw(with:options:)
 //
 // [NSStringDrawingOptions]: https://developer.apple.com/documentation/UIKit/NSStringDrawingOptions
-func (a NSAttributedString) DrawWithRectOptions(rect corefoundation.CGRect, options NSStringDrawingOptions) {
+func (a NSAttributedString) DrawWithRectOptions(rect NSRect, options NSStringDrawingOptions) {
 	objc.Send[objc.ID](a.ID, objc.Sel("drawWithRect:options:"), rect, options)
 }
 
@@ -2226,9 +2253,9 @@ func (a NSAttributedString) InitWithContentsOfMarkdownFileAtURLOptionsBaseURLErr
 // [html]: https://developer.apple.com/documentation/Foundation/NSAttributedString/DocumentType/html
 //
 // [documentType]: https://developer.apple.com/documentation/Foundation/NSAttributedString/DocumentAttributeKey/documentType
-func (a NSAttributedString) InitWithDataOptionsDocumentAttributesError(data INSData, options INSDictionary, dict INSDictionary) (NSAttributedString, error) {
+func (a NSAttributedString) InitWithDataOptionsDocumentAttributesError(data INSData, options INSDictionary, dict *NSDictionary) (NSAttributedString, error) {
 	var errorPtr objc.ID
-	rv := objc.Send[objc.ID](a.ID, objc.Sel("initWithData:options:documentAttributes:error:"), data, options, dict, unsafe.Pointer(&errorPtr))
+	rv := objc.Send[objc.ID](a.ID, objc.Sel("initWithData:options:documentAttributes:error:"), data, options, unsafe.Pointer(dict), unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
 		return NSAttributedString{}, NSErrorFrom(errorPtr)
@@ -2252,8 +2279,8 @@ func (a NSAttributedString) InitWithDataOptionsDocumentAttributesError(data INSD
 // can’t decode the data.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSAttributedString/init(docFormat:documentAttributes:)
-func (a NSAttributedString) InitWithDocFormatDocumentAttributes(data INSData, dict INSDictionary) NSAttributedString {
-	rv := objc.Send[NSAttributedString](a.ID, objc.Sel("initWithDocFormat:documentAttributes:"), data, dict)
+func (a NSAttributedString) InitWithDocFormatDocumentAttributes(data INSData, dict *NSDictionary) NSAttributedString {
+	rv := objc.Send[NSAttributedString](a.ID, objc.Sel("initWithDocFormat:documentAttributes:"), data, unsafe.Pointer(dict))
 	return rv
 }
 
@@ -2389,8 +2416,8 @@ func (a NSAttributedString) InitWithFormatOptionsLocaleContextArguments(format I
 // Returns an initialized object, or `nil` if the data can’t be decoded.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSAttributedString/init(HTML:baseURL:documentAttributes:)
-func (a NSAttributedString) InitWithHTMLBaseURLDocumentAttributes(data INSData, base INSURL, dict INSDictionary) NSAttributedString {
-	rv := objc.Send[NSAttributedString](a.ID, objc.Sel("initWithHTML:baseURL:documentAttributes:"), data, base, dict)
+func (a NSAttributedString) InitWithHTMLBaseURLDocumentAttributes(data INSData, base INSURL, dict *NSDictionary) NSAttributedString {
+	rv := objc.Send[NSAttributedString](a.ID, objc.Sel("initWithHTML:baseURL:documentAttributes:"), data, base, unsafe.Pointer(dict))
 	return rv
 }
 
@@ -2408,8 +2435,8 @@ func (a NSAttributedString) InitWithHTMLBaseURLDocumentAttributes(data INSData, 
 // Returns an initialized object, or `nil` if the data can’t be decoded.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSAttributedString/init(HTML:documentAttributes:)
-func (a NSAttributedString) InitWithHTMLDocumentAttributes(data INSData, dict INSDictionary) NSAttributedString {
-	rv := objc.Send[NSAttributedString](a.ID, objc.Sel("initWithHTML:documentAttributes:"), data, dict)
+func (a NSAttributedString) InitWithHTMLDocumentAttributes(data INSData, dict *NSDictionary) NSAttributedString {
+	rv := objc.Send[NSAttributedString](a.ID, objc.Sel("initWithHTML:documentAttributes:"), data, unsafe.Pointer(dict))
 	return rv
 }
 
@@ -2432,8 +2459,8 @@ func (a NSAttributedString) InitWithHTMLDocumentAttributes(data INSData, dict IN
 // See: https://developer.apple.com/documentation/Foundation/NSAttributedString/init(HTML:options:documentAttributes:)
 //
 // [NSAttributedStringDocumentReadingOptionKey]: https://developer.apple.com/documentation/UIKit/NSAttributedStringDocumentReadingOptionKey
-func (a NSAttributedString) InitWithHTMLOptionsDocumentAttributes(data INSData, options INSDictionary, dict INSDictionary) NSAttributedString {
-	rv := objc.Send[NSAttributedString](a.ID, objc.Sel("initWithHTML:options:documentAttributes:"), data, options, dict)
+func (a NSAttributedString) InitWithHTMLOptionsDocumentAttributes(data INSData, options INSDictionary, dict *NSDictionary) NSAttributedString {
+	rv := objc.Send[NSAttributedString](a.ID, objc.Sel("initWithHTML:options:documentAttributes:"), data, options, unsafe.Pointer(dict))
 	return rv
 }
 
@@ -2518,8 +2545,8 @@ func (a NSAttributedString) InitWithMarkdownStringOptionsBaseURLError(markdownSt
 // can’t decode the data.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSAttributedString/init(RTFD:documentAttributes:)
-func (a NSAttributedString) InitWithRTFDDocumentAttributes(data INSData, dict INSDictionary) NSAttributedString {
-	rv := objc.Send[NSAttributedString](a.ID, objc.Sel("initWithRTFD:documentAttributes:"), data, dict)
+func (a NSAttributedString) InitWithRTFDDocumentAttributes(data INSData, dict *NSDictionary) NSAttributedString {
+	rv := objc.Send[NSAttributedString](a.ID, objc.Sel("initWithRTFD:documentAttributes:"), data, unsafe.Pointer(dict))
 	return rv
 }
 
@@ -2548,8 +2575,8 @@ func (a NSAttributedString) InitWithRTFDDocumentAttributes(data INSData, dict IN
 // See: https://developer.apple.com/documentation/Foundation/NSAttributedString/init(RTFDFileWrapper:documentAttributes:)
 //
 // [NSAttributedString.DocumentAttributeKey]: https://developer.apple.com/documentation/Foundation/NSAttributedString/DocumentAttributeKey
-func (a NSAttributedString) InitWithRTFDFileWrapperDocumentAttributes(wrapper INSFileWrapper, dict INSDictionary) NSAttributedString {
-	rv := objc.Send[NSAttributedString](a.ID, objc.Sel("initWithRTFDFileWrapper:documentAttributes:"), wrapper, dict)
+func (a NSAttributedString) InitWithRTFDFileWrapperDocumentAttributes(wrapper INSFileWrapper, dict *NSDictionary) NSAttributedString {
+	rv := objc.Send[NSAttributedString](a.ID, objc.Sel("initWithRTFDFileWrapper:documentAttributes:"), wrapper, unsafe.Pointer(dict))
 	return rv
 }
 
@@ -2577,8 +2604,8 @@ func (a NSAttributedString) InitWithRTFDFileWrapperDocumentAttributes(wrapper IN
 // See: https://developer.apple.com/documentation/Foundation/NSAttributedString/init(RTF:documentAttributes:)
 //
 // [NSAttributedString.DocumentAttributeKey]: https://developer.apple.com/documentation/Foundation/NSAttributedString/DocumentAttributeKey
-func (a NSAttributedString) InitWithRTFDocumentAttributes(data INSData, dict INSDictionary) NSAttributedString {
-	rv := objc.Send[NSAttributedString](a.ID, objc.Sel("initWithRTF:documentAttributes:"), data, dict)
+func (a NSAttributedString) InitWithRTFDocumentAttributes(data INSData, dict *NSDictionary) NSAttributedString {
+	rv := objc.Send[NSAttributedString](a.ID, objc.Sel("initWithRTF:documentAttributes:"), data, unsafe.Pointer(dict))
 	return rv
 }
 
@@ -2665,9 +2692,9 @@ func (a NSAttributedString) InitWithStringAttributes(str string, attrs INSDictio
 //
 // [documentType]: https://developer.apple.com/documentation/Foundation/NSAttributedString/DocumentReadingOptionKey/documentType
 // [fileType]: https://developer.apple.com/documentation/Foundation/NSAttributedString/DocumentReadingOptionKey/fileType
-func (a NSAttributedString) InitWithURLOptionsDocumentAttributesError(url INSURL, options INSDictionary, dict INSDictionary) (NSAttributedString, error) {
+func (a NSAttributedString) InitWithURLOptionsDocumentAttributesError(url INSURL, options INSDictionary, dict *NSDictionary) (NSAttributedString, error) {
 	var errorPtr objc.ID
-	rv := objc.Send[objc.ID](a.ID, objc.Sel("initWithURL:options:documentAttributes:error:"), url, options, dict, unsafe.Pointer(&errorPtr))
+	rv := objc.Send[objc.ID](a.ID, objc.Sel("initWithURL:options:documentAttributes:error:"), url, options, unsafe.Pointer(dict), unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
 		return NSAttributedString{}, NSErrorFrom(errorPtr)
@@ -2735,8 +2762,9 @@ func (a NSAttributedString) WritableTypeIdentifiersForItemProvider() []string {
 // See: https://developer.apple.com/documentation/Foundation/NSAttributedString/loadFromHTML(data:options:completionHandler:)
 //
 // [NSAttributedStringDocumentReadingOptionKey]: https://developer.apple.com/documentation/UIKit/NSAttributedStringDocumentReadingOptionKey
-func (_NSAttributedStringClass NSAttributedStringClass) LoadFromHTMLWithDataOptionsCompletionHandler(data INSData, options INSDictionary, completionHandler uintptr) {
-	objc.Send[objc.ID](objc.ID(_NSAttributedStringClass.class), objc.Sel("loadFromHTMLWithData:options:completionHandler:"), data, options, completionHandler)
+func (_NSAttributedStringClass NSAttributedStringClass) LoadFromHTMLWithDataOptionsCompletionHandler(data INSData, options INSDictionary, completionHandler ErrorHandler) {
+	_block2, _ := NewErrorBlock(completionHandler)
+	objc.Send[objc.ID](objc.ID(_NSAttributedStringClass.class), objc.Sel("loadFromHTMLWithData:options:completionHandler:"), data, options, _block2)
 }
 
 // Creates an attributed string by converting the content of a local HTML file
@@ -2752,8 +2780,9 @@ func (_NSAttributedStringClass NSAttributedStringClass) LoadFromHTMLWithDataOpti
 // See: https://developer.apple.com/documentation/Foundation/NSAttributedString/loadFromHTML(fileURL:options:completionHandler:)
 //
 // [NSAttributedStringDocumentReadingOptionKey]: https://developer.apple.com/documentation/UIKit/NSAttributedStringDocumentReadingOptionKey
-func (_NSAttributedStringClass NSAttributedStringClass) LoadFromHTMLWithFileURLOptionsCompletionHandler(fileURL INSURL, options INSDictionary, completionHandler uintptr) {
-	objc.Send[objc.ID](objc.ID(_NSAttributedStringClass.class), objc.Sel("loadFromHTMLWithFileURL:options:completionHandler:"), fileURL, options, completionHandler)
+func (_NSAttributedStringClass NSAttributedStringClass) LoadFromHTMLWithFileURLOptionsCompletionHandler(fileURL INSURL, options INSDictionary, completionHandler ErrorHandler) {
+	_block2, _ := NewErrorBlock(completionHandler)
+	objc.Send[objc.ID](objc.ID(_NSAttributedStringClass.class), objc.Sel("loadFromHTMLWithFileURL:options:completionHandler:"), fileURL, options, _block2)
 }
 
 // Creates an attributed string by converting the contents of the specified
@@ -2769,8 +2798,9 @@ func (_NSAttributedStringClass NSAttributedStringClass) LoadFromHTMLWithFileURLO
 // See: https://developer.apple.com/documentation/Foundation/NSAttributedString/loadFromHTML(request:options:completionHandler:)
 //
 // [NSAttributedStringDocumentReadingOptionKey]: https://developer.apple.com/documentation/UIKit/NSAttributedStringDocumentReadingOptionKey
-func (_NSAttributedStringClass NSAttributedStringClass) LoadFromHTMLWithRequestOptionsCompletionHandler(request INSURLRequest, options INSDictionary, completionHandler uintptr) {
-	objc.Send[objc.ID](objc.ID(_NSAttributedStringClass.class), objc.Sel("loadFromHTMLWithRequest:options:completionHandler:"), request, options, completionHandler)
+func (_NSAttributedStringClass NSAttributedStringClass) LoadFromHTMLWithRequestOptionsCompletionHandler(request INSURLRequest, options INSDictionary, completionHandler ErrorHandler) {
+	_block2, _ := NewErrorBlock(completionHandler)
+	objc.Send[objc.ID](objc.ID(_NSAttributedStringClass.class), objc.Sel("loadFromHTMLWithRequest:options:completionHandler:"), request, options, _block2)
 }
 
 // Creates an attributed string from the specified HTML string.
@@ -2785,8 +2815,9 @@ func (_NSAttributedStringClass NSAttributedStringClass) LoadFromHTMLWithRequestO
 // See: https://developer.apple.com/documentation/Foundation/NSAttributedString/loadFromHTML(string:options:completionHandler:)
 //
 // [NSAttributedStringDocumentReadingOptionKey]: https://developer.apple.com/documentation/UIKit/NSAttributedStringDocumentReadingOptionKey
-func (_NSAttributedStringClass NSAttributedStringClass) LoadFromHTMLWithStringOptionsCompletionHandler(string_ string, options INSDictionary, completionHandler uintptr) {
-	objc.Send[objc.ID](objc.ID(_NSAttributedStringClass.class), objc.Sel("loadFromHTMLWithString:options:completionHandler:"), objc.String(string_), options, completionHandler)
+func (_NSAttributedStringClass NSAttributedStringClass) LoadFromHTMLWithStringOptionsCompletionHandler(string_ string, options INSDictionary, completionHandler ErrorHandler) {
+	_block2, _ := NewErrorBlock(completionHandler)
+	objc.Send[objc.ID](objc.ID(_NSAttributedStringClass.class), objc.Sel("loadFromHTMLWithString:options:completionHandler:"), objc.String(string_), options, _block2)
 }
 
 // Creates an attributed string by substituting arguments into a specially

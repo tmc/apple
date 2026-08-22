@@ -163,12 +163,12 @@ type NSCollectionViewDecorationElementKind = string
 // NSCollectionViewDiffableDataSourceItemProvider is a closure that configures and returns an item for a collection view from its diffable data source.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSCollectionViewDiffableDataSourceReferenceItemProvider
-type NSCollectionViewDiffableDataSourceItemProvider = func(NSCollectionView, foundation.NSIndexPath, objectivec.IObject) NSCollectionViewItem
+type NSCollectionViewDiffableDataSourceItemProvider = func(collectionView NSCollectionView, indexPath foundation.NSIndexPath, itemIdentifier objectivec.IObject) NSCollectionViewItem
 
 // NSCollectionViewDiffableDataSourceSupplementaryViewProvider is a closure that configures and returns a collection view’s supplementary view, such as a header or footer, from a diffable data source.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSCollectionViewDiffableDataSourceReferenceSupplementaryViewProvider
-type NSCollectionViewDiffableDataSourceSupplementaryViewProvider = func(NSCollectionView, string, foundation.NSIndexPath) NSView
+type NSCollectionViewDiffableDataSourceSupplementaryViewProvider = func(collectionView NSCollectionView, kind string, indexPath foundation.NSIndexPath) NSView
 
 // See: https://developer.apple.com/documentation/AppKit/NSCollectionView/SupplementaryElementKind
 type NSCollectionViewSupplementaryElementKind = string
@@ -526,7 +526,7 @@ type NSStatusItemAutosaveName = string
 // NSStoryboardControllerCreator is a block that you use to handle the custom creation of controller objects from your storyboard file.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSStoryboardControllerCreator
-type NSStoryboardControllerCreator = func(foundation.NSCoder) objectivec.IObject
+type NSStoryboardControllerCreator = func(coder foundation.NSCoder) objectivec.IObject
 
 // NSStoryboardName is the name of the storyboard file.
 //

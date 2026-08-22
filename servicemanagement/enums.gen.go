@@ -6,7 +6,7 @@ import (
 	"fmt"
 )
 
-type KSMError int
+type KSMError uint32
 
 const (
 	// KSMErrorAlreadyRegistered: The application is already registered.

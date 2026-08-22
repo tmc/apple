@@ -81,8 +81,8 @@ func (dc DimensionClass) Alloc() Dimension {
 // existing [NSDimension] subclass using the
 // [NSUnitVolume.InitWithSymbolConverter] method.
 //
-// For example, the is a nonstandard unit of length (1 smoot = 1.70180 m). You
-// can create a new instance of [NSUnitLength] as follows:
+// For example, the smoot is a nonstandard unit of length (1 smoot = 1.70180
+// m). You can create a new instance of [NSUnitLength] as follows:
 //
 // # Extending Existing Dimension Subclasses
 //

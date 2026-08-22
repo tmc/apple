@@ -108,9 +108,21 @@ func NewAVAssetWriterDelegate(config AVAssetWriterDelegateConfig) AVAssetWriterD
 		methods = append(methods, objc.MethodDef{
 			Cmd: objc.RegisterName("assetWriter:didOutputSegmentData:segmentType:"),
 			Fn: func(self objc.ID, _cmd objc.SEL, writerID objc.ID, segmentDataID objc.ID, segmentType AVAssetSegmentType) {
+				// Names which delegate was running if a panic unwinds out of
+				// it. The frames between here and the Objective-C caller are
+				// runtime and purego dispatch, so without this the traceback
+				// never says which selector dispatched. Deliberately no
+				// recover: see [objc.NoteDelegatePanic].
+				_delegateDone := false
+				defer func() {
+					if !_delegateDone {
+						objc.NoteDelegatePanic("AVAssetWriterDelegate", "assetWriter:didOutputSegmentData:segmentType:")
+					}
+				}()
 				writer := AVAssetWriterFromID(writerID)
 				segmentData := foundation.NSDataFromID(segmentDataID)
 				fn(writer, segmentData, segmentType)
+				_delegateDone = true
 			},
 		})
 	}
@@ -120,10 +132,22 @@ func NewAVAssetWriterDelegate(config AVAssetWriterDelegateConfig) AVAssetWriterD
 		methods = append(methods, objc.MethodDef{
 			Cmd: objc.RegisterName("assetWriter:didOutputSegmentData:segmentType:segmentReport:"),
 			Fn: func(self objc.ID, _cmd objc.SEL, writerID objc.ID, segmentDataID objc.ID, segmentType AVAssetSegmentType, segmentReportID objc.ID) {
+				// Names which delegate was running if a panic unwinds out of
+				// it. The frames between here and the Objective-C caller are
+				// runtime and purego dispatch, so without this the traceback
+				// never says which selector dispatched. Deliberately no
+				// recover: see [objc.NoteDelegatePanic].
+				_delegateDone := false
+				defer func() {
+					if !_delegateDone {
+						objc.NoteDelegatePanic("AVAssetWriterDelegate", "assetWriter:didOutputSegmentData:segmentType:segmentReport:")
+					}
+				}()
 				writer := AVAssetWriterFromID(writerID)
 				segmentData := foundation.NSDataFromID(segmentDataID)
 				segmentReport := AVAssetSegmentReportFromID(segmentReportID)
 				fn(writer, segmentData, segmentType, segmentReport)
+				_delegateDone = true
 			},
 		})
 	}

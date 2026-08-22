@@ -105,7 +105,7 @@ func (xc XMLDocumentClass) Alloc() XMLDocument {
 // # Initializing NSXMLDocument Objects
 //
 //   - [XMLDocument.InitWithContentsOfURLOptionsError]: Initializes and returns an NSXMLDocument object created from the XML or HTML contents of a URL-referenced source
-//   - [XMLDocument.InitWithDataOptionsError]: Initializes and returns an [NSXMLDocument] object created from an [NSData](<doc://com.apple.foundation/documentation/Foundation/NSData>) object.
+//   - [XMLDocument.InitWithDataOptionsError]: Initializes and returns an [NSXMLDocument] object created from an [NSData](<https://developer.apple.com/documentation/Foundation/NSData>) object.
 //   - [XMLDocument.InitWithRootElement]: Returns an [NSXMLDocument] object initialized with a single child, the root element.
 //   - [XMLDocument.InitWithXMLStringOptionsError]: Initializes and returns an [NSXMLDocument] object created from a string containing XML markup text.
 //
@@ -115,7 +115,7 @@ func (xc XMLDocumentClass) Alloc() XMLDocument {
 //   - [XMLDocument.SetCharacterEncoding]
 //   - [XMLDocument.DocumentContentKind]: Sets the kind of output content for the receiver.
 //   - [XMLDocument.SetDocumentContentKind]
-//   - [XMLDocument.DTD]: Returns an [XMLDTD](<doc://com.apple.foundation/documentation/Foundation/XMLDTD>) object representing the internal DTD associated with the receiver.
+//   - [XMLDocument.DTD]: Returns an [XMLDTD](<https://developer.apple.com/documentation/Foundation/XMLDTD>) object representing the internal DTD associated with the receiver.
 //   - [XMLDocument.SetDTD]
 //   - [XMLDocument.IsStandalone]: Sets a Boolean value that specifies whether the receiver represents a standalone XML document.
 //   - [XMLDocument.SetStandalone]
@@ -141,7 +141,7 @@ func (xc XMLDocumentClass) Alloc() XMLDocument {
 //
 //   - [XMLDocument.ObjectByApplyingXSLTArgumentsError]: Applies the XSLT pattern rules and templates (specified as a data object) to the receiver and returns a document object containing transformed XML or HTML markup.
 //   - [XMLDocument.ObjectByApplyingXSLTStringArgumentsError]: Applies the XSLT pattern rules and templates (specified as a string) to the receiver and returns a document object containing transformed XML or HTML markup.
-//   - [XMLDocument.ObjectByApplyingXSLTAtURLArgumentsError]: Applies the XSLT pattern rules and templates located at a specified URL to the receiver and returns a document object containing transformed XML markup or an [NSData](<doc://com.apple.foundation/documentation/Foundation/NSData>) object containing plain text, RTF text, and so on.
+//   - [XMLDocument.ObjectByApplyingXSLTAtURLArgumentsError]: Applies the XSLT pattern rules and templates located at a specified URL to the receiver and returns a document object containing transformed XML markup or an [NSData](<https://developer.apple.com/documentation/Foundation/NSData>) object containing plain text, RTF text, and so on.
 //
 // # Writing a Document as XML Data
 //
@@ -177,7 +177,7 @@ func NSXMLDocumentFromID(id objc.ID) XMLDocument { return XMLDocumentFromID(id) 
 // # Initializing NSXMLDocument Objects
 //
 //   - [IXMLDocument.InitWithContentsOfURLOptionsError]: Initializes and returns an NSXMLDocument object created from the XML or HTML contents of a URL-referenced source
-//   - [IXMLDocument.InitWithDataOptionsError]: Initializes and returns an [NSXMLDocument] object created from an [NSData](<doc://com.apple.foundation/documentation/Foundation/NSData>) object.
+//   - [IXMLDocument.InitWithDataOptionsError]: Initializes and returns an [NSXMLDocument] object created from an [NSData](<https://developer.apple.com/documentation/Foundation/NSData>) object.
 //   - [IXMLDocument.InitWithRootElement]: Returns an [NSXMLDocument] object initialized with a single child, the root element.
 //   - [IXMLDocument.InitWithXMLStringOptionsError]: Initializes and returns an [NSXMLDocument] object created from a string containing XML markup text.
 //
@@ -187,7 +187,7 @@ func NSXMLDocumentFromID(id objc.ID) XMLDocument { return XMLDocumentFromID(id) 
 //   - [IXMLDocument.SetCharacterEncoding]
 //   - [IXMLDocument.DocumentContentKind]: Sets the kind of output content for the receiver.
 //   - [IXMLDocument.SetDocumentContentKind]
-//   - [IXMLDocument.DTD]: Returns an [XMLDTD](<doc://com.apple.foundation/documentation/Foundation/XMLDTD>) object representing the internal DTD associated with the receiver.
+//   - [IXMLDocument.DTD]: Returns an [XMLDTD](<https://developer.apple.com/documentation/Foundation/XMLDTD>) object representing the internal DTD associated with the receiver.
 //   - [IXMLDocument.SetDTD]
 //   - [IXMLDocument.IsStandalone]: Sets a Boolean value that specifies whether the receiver represents a standalone XML document.
 //   - [IXMLDocument.SetStandalone]
@@ -213,7 +213,7 @@ func NSXMLDocumentFromID(id objc.ID) XMLDocument { return XMLDocumentFromID(id) 
 //
 //   - [IXMLDocument.ObjectByApplyingXSLTArgumentsError]: Applies the XSLT pattern rules and templates (specified as a data object) to the receiver and returns a document object containing transformed XML or HTML markup.
 //   - [IXMLDocument.ObjectByApplyingXSLTStringArgumentsError]: Applies the XSLT pattern rules and templates (specified as a string) to the receiver and returns a document object containing transformed XML or HTML markup.
-//   - [IXMLDocument.ObjectByApplyingXSLTAtURLArgumentsError]: Applies the XSLT pattern rules and templates located at a specified URL to the receiver and returns a document object containing transformed XML markup or an [NSData](<doc://com.apple.foundation/documentation/Foundation/NSData>) object containing plain text, RTF text, and so on.
+//   - [IXMLDocument.ObjectByApplyingXSLTAtURLArgumentsError]: Applies the XSLT pattern rules and templates located at a specified URL to the receiver and returns a document object containing transformed XML markup or an [NSData](<https://developer.apple.com/documentation/Foundation/NSData>) object containing plain text, RTF text, and so on.
 //
 // # Writing a Document as XML Data
 //
@@ -232,7 +232,7 @@ type IXMLDocument interface {
 
 	// Initializes and returns an NSXMLDocument object created from the XML or HTML contents of a URL-referenced source
 	InitWithContentsOfURLOptionsError(url INSURL, mask NSXMLNodeOptions) (XMLDocument, error)
-	// Initializes and returns an [NSXMLDocument] object created from an [NSData](<doc://com.apple.foundation/documentation/Foundation/NSData>) object.
+	// Initializes and returns an [NSXMLDocument] object created from an [NSData](<https://developer.apple.com/documentation/Foundation/NSData>) object.
 	InitWithDataOptionsError(data INSData, mask NSXMLNodeOptions) (XMLDocument, error)
 	// Returns an [NSXMLDocument] object initialized with a single child, the root element.
 	InitWithRootElement(element INSXMLElement) XMLDocument
@@ -247,7 +247,7 @@ type IXMLDocument interface {
 	// Sets the kind of output content for the receiver.
 	DocumentContentKind() NSXMLDocumentContentKind
 	SetDocumentContentKind(value NSXMLDocumentContentKind)
-	// Returns an [XMLDTD](<doc://com.apple.foundation/documentation/Foundation/XMLDTD>) object representing the internal DTD associated with the receiver.
+	// Returns an [XMLDTD](<https://developer.apple.com/documentation/Foundation/XMLDTD>) object representing the internal DTD associated with the receiver.
 	DTD() INSXMLDTD
 	SetDTD(value INSXMLDTD)
 	// Sets a Boolean value that specifies whether the receiver represents a standalone XML document.
@@ -286,7 +286,7 @@ type IXMLDocument interface {
 	ObjectByApplyingXSLTArgumentsError(xslt INSData, arguments INSDictionary) (objectivec.IObject, error)
 	// Applies the XSLT pattern rules and templates (specified as a string) to the receiver and returns a document object containing transformed XML or HTML markup.
 	ObjectByApplyingXSLTStringArgumentsError(xslt string, arguments INSDictionary) (objectivec.IObject, error)
-	// Applies the XSLT pattern rules and templates located at a specified URL to the receiver and returns a document object containing transformed XML markup or an [NSData](<doc://com.apple.foundation/documentation/Foundation/NSData>) object containing plain text, RTF text, and so on.
+	// Applies the XSLT pattern rules and templates located at a specified URL to the receiver and returns a document object containing transformed XML markup or an [NSData](<https://developer.apple.com/documentation/Foundation/NSData>) object containing plain text, RTF text, and so on.
 	ObjectByApplyingXSLTAtURLArgumentsError(xsltURL INSURL, argument INSDictionary) (objectivec.IObject, error)
 
 	// Topic: Writing a Document as XML Data
@@ -345,6 +345,9 @@ func NewXMLDocumentWithContentsOfURLOptionsError(url INSURL, mask NSXMLNodeOptio
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
 		return XMLDocument{}, NSErrorFrom(errorPtr)
 	}
+	if rv == 0 {
+		return XMLDocument{}, objc.ErrInitFailed
+	}
 	return XMLDocumentFromID(rv), nil
 }
 
@@ -378,6 +381,9 @@ func NewXMLDocumentWithDataOptionsError(data INSData, mask NSXMLNodeOptions) (XM
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
 		return XMLDocument{}, NSErrorFrom(errorPtr)
+	}
+	if rv == 0 {
+		return XMLDocument{}, objc.ErrInitFailed
 	}
 	return XMLDocumentFromID(rv), nil
 }
@@ -482,7 +488,7 @@ func NewXMLDocumentWithRootElement(element INSXMLElement) XMLDocument {
 //
 // The encoding of the document is set to UTF-8.
 //
-// See: https://developer.apple.com/documentation/Foundation/XMLDocument/init(xmlString:options:)-65m2r
+// See: https://developer.apple.com/documentation/Foundation/XMLDocument/init(xmlString:options:)
 func NewXMLDocumentWithXMLStringOptionsError(string_ string, mask NSXMLNodeOptions) (XMLDocument, error) {
 	var errorPtr objc.ID
 	instance := getXMLDocumentClass().Alloc()
@@ -490,6 +496,9 @@ func NewXMLDocumentWithXMLStringOptionsError(string_ string, mask NSXMLNodeOptio
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
 		return XMLDocument{}, NSErrorFrom(errorPtr)
+	}
+	if rv == 0 {
+		return XMLDocument{}, objc.ErrInitFailed
 	}
 	return XMLDocumentFromID(rv), nil
 }
@@ -515,7 +524,7 @@ func (x XMLDocument) InitWithContentsOfURLOptionsError(url INSURL, mask NSXMLNod
 	rv := objc.Send[objc.ID](x.ID, objc.Sel("initWithContentsOfURL:options:error:"), url, mask, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
-		return XMLDocument{}, NSErrorFrom(errorPtr)
+		return *new(XMLDocument), NSErrorFrom(errorPtr)
 	}
 	return NSXMLDocumentFromID(rv), nil
 
@@ -549,7 +558,7 @@ func (x XMLDocument) InitWithDataOptionsError(data INSData, mask NSXMLNodeOption
 	rv := objc.Send[objc.ID](x.ID, objc.Sel("initWithData:options:error:"), data, mask, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
-		return XMLDocument{}, NSErrorFrom(errorPtr)
+		return *new(XMLDocument), NSErrorFrom(errorPtr)
 	}
 	return NSXMLDocumentFromID(rv), nil
 
@@ -588,13 +597,13 @@ func (x XMLDocument) InitWithRootElement(element INSXMLElement) XMLDocument {
 //
 // The encoding of the document is set to UTF-8.
 //
-// See: https://developer.apple.com/documentation/Foundation/XMLDocument/init(xmlString:options:)-65m2r
+// See: https://developer.apple.com/documentation/Foundation/XMLDocument/init(xmlString:options:)
 func (x XMLDocument) InitWithXMLStringOptionsError(string_ string, mask NSXMLNodeOptions) (XMLDocument, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](x.ID, objc.Sel("initWithXMLString:options:error:"), objc.String(string_), mask, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
-		return XMLDocument{}, NSErrorFrom(errorPtr)
+		return *new(XMLDocument), NSErrorFrom(errorPtr)
 	}
 	return NSXMLDocumentFromID(rv), nil
 
@@ -717,8 +726,8 @@ func (x XMLDocument) ReplaceChildAtIndexWithNode(index uint, node INSXMLNode) {
 // # Return Value
 //
 // Depending on intended output, the method returns an [NSXMLDocument] object
-// an [NSData] data containing transformed XML or HTML markup. If the message
-// is supposed to create plain text or RTF, then an [NSData] object is
+// or an [NSData] data containing transformed XML or HTML markup. If the
+// message is supposed to create plain text or RTF, then an [NSData] object is
 // returned, otherwise an XML document object. The method returns `nil` if
 // XSLT processing did not succeed.
 //
@@ -749,8 +758,8 @@ func (x XMLDocument) ObjectByApplyingXSLTArgumentsError(xslt INSData, arguments 
 // # Return Value
 //
 // Depending on intended output, the method returns an [NSXMLDocument] object
-// an [NSData] data containing transformed XML or HTML markup. If the message
-// is supposed to create plain text or RTF, then an [NSData] object is
+// or an [NSData] data containing transformed XML or HTML markup. If the
+// message is supposed to create plain text or RTF, then an [NSData] object is
 // returned, otherwise an XML document object. The method returns `nil` if
 // XSLT processing did not succeed.
 //
@@ -780,7 +789,7 @@ func (x XMLDocument) ObjectByApplyingXSLTStringArgumentsError(xslt string, argum
 //
 // # Return Value
 //
-// Depending on intended output, the returns an [NSXMLDocument] object an
+// Depending on intended output, the returns an [NSXMLDocument] object or an
 // [NSData] data containing transformed XML or HTML markup. If the message is
 // supposed to create plain text or RTF, then an [NSData] object is returned,
 // otherwise an XML document object. The method returns `nil` if XSLT

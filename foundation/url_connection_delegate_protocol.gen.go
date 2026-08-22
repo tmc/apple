@@ -51,7 +51,7 @@ func NSURLConnectionDelegateObjectFromID(id objc.ID) NSURLConnectionDelegateObje
 // [connection(_:didReceive:)]. In fact, those other methods are not invoked
 // (except on older operating systems, where applicable).
 //
-// In this method,you invoke one of the challenge-responder methods
+// In this method,you must invoke one of the challenge-responder methods
 // ([NSURLAuthenticationChallengeSender] protocol):
 //
 // - [UseCredentialForAuthenticationChallenge] -
@@ -161,9 +161,21 @@ func NewNSURLConnectionDelegate(config NSURLConnectionDelegateConfig) NSURLConne
 		methods = append(methods, objc.MethodDef{
 			Cmd: objc.RegisterName("connection:willSendRequestForAuthenticationChallenge:"),
 			Fn: func(self objc.ID, _cmd objc.SEL, connectionID objc.ID, challengeID objc.ID) {
+				// Names which delegate was running if a panic unwinds out of
+				// it. The frames between here and the Objective-C caller are
+				// runtime and purego dispatch, so without this the traceback
+				// never says which selector dispatched. Deliberately no
+				// recover: see [objc.NoteDelegatePanic].
+				_delegateDone := false
+				defer func() {
+					if !_delegateDone {
+						objc.NoteDelegatePanic("NSURLConnectionDelegate", "connection:willSendRequestForAuthenticationChallenge:")
+					}
+				}()
 				connection := NSURLConnectionFromID(connectionID)
 				challenge := NSURLAuthenticationChallengeFromID(challengeID)
 				fn(connection, challenge)
+				_delegateDone = true
 			},
 		})
 	}
@@ -173,8 +185,21 @@ func NewNSURLConnectionDelegate(config NSURLConnectionDelegateConfig) NSURLConne
 		methods = append(methods, objc.MethodDef{
 			Cmd: objc.RegisterName("connectionShouldUseCredentialStorage:"),
 			Fn: func(self objc.ID, _cmd objc.SEL, connectionID objc.ID) bool {
+				// Names which delegate was running if a panic unwinds out of
+				// it. The frames between here and the Objective-C caller are
+				// runtime and purego dispatch, so without this the traceback
+				// never says which selector dispatched. Deliberately no
+				// recover: see [objc.NoteDelegatePanic].
+				_delegateDone := false
+				defer func() {
+					if !_delegateDone {
+						objc.NoteDelegatePanic("NSURLConnectionDelegate", "connectionShouldUseCredentialStorage:")
+					}
+				}()
 				connection := NSURLConnectionFromID(connectionID)
-				return fn(connection)
+				_delegateResult := fn(connection)
+				_delegateDone = true
+				return _delegateResult
 			},
 		})
 	}
@@ -184,9 +209,21 @@ func NewNSURLConnectionDelegate(config NSURLConnectionDelegateConfig) NSURLConne
 		methods = append(methods, objc.MethodDef{
 			Cmd: objc.RegisterName("connection:didFailWithError:"),
 			Fn: func(self objc.ID, _cmd objc.SEL, connectionID objc.ID, error_ID objc.ID) {
+				// Names which delegate was running if a panic unwinds out of
+				// it. The frames between here and the Objective-C caller are
+				// runtime and purego dispatch, so without this the traceback
+				// never says which selector dispatched. Deliberately no
+				// recover: see [objc.NoteDelegatePanic].
+				_delegateDone := false
+				defer func() {
+					if !_delegateDone {
+						objc.NoteDelegatePanic("NSURLConnectionDelegate", "connection:didFailWithError:")
+					}
+				}()
 				connection := NSURLConnectionFromID(connectionID)
 				error_ := objectivec.ObjectFromID(error_ID)
 				fn(connection, error_)
+				_delegateDone = true
 			},
 		})
 	}

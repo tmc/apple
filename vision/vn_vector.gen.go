@@ -221,7 +221,7 @@ func NewVectorWithVectorHeadTail(head IVNPoint, tail IVNPoint) VNVector {
 //
 // y: The y-component.
 //
-// See: https://developer.apple.com/documentation/Vision/VNVector/init(xComponent:yComponent:)-3p5k3
+// See: https://developer.apple.com/documentation/Vision/VNVector/init(xComponent:yComponent:)
 func NewVectorWithXComponentYComponent(x float64, y float64) VNVector {
 	instance := getVNVectorClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithXComponent:yComponent:"), x, y)
@@ -259,7 +259,7 @@ func (v VNVector) InitWithVectorHeadTail(head IVNPoint, tail IVNPoint) VNVector 
 //
 // y: The y-component.
 //
-// See: https://developer.apple.com/documentation/Vision/VNVector/init(xComponent:yComponent:)-3p5k3
+// See: https://developer.apple.com/documentation/Vision/VNVector/init(xComponent:yComponent:)
 func (v VNVector) InitWithXComponentYComponent(x float64, y float64) VNVector {
 	rv := objc.Send[VNVector](v.ID, objc.Sel("initWithXComponent:yComponent:"), x, y)
 	return rv

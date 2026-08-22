@@ -12,6 +12,11 @@ import (
 // See: https://developer.apple.com/documentation/AppKit/NSIgnoreMisspelledWords
 type NSIgnoreMisspelledWords interface {
 	objectivec.IObject
+
+	// IgnoreSpelling protocol.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSIgnoreMisspelledWords/ignoreSpelling(_:)
+	IgnoreSpelling(sender objectivec.IObject)
 }
 
 // NSIgnoreMisspelledWordsObject wraps an existing Objective-C object that conforms to the NSIgnoreMisspelledWords protocol.

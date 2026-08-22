@@ -358,7 +358,8 @@ func (m NSMetadataQuery) IndexOfResult(result objectivec.IObject) uint {
 //
 // See: https://developer.apple.com/documentation/Foundation/NSMetadataQuery/enumerateResults(_:)
 func (m NSMetadataQuery) EnumerateResultsUsingBlock(block IObjectUintBoolHandler) {
-	_block0, _ := NewIObjectUintBoolBlock(block)
+	_block0, _cleanup0 := NewIObjectUintBoolBlock(block)
+	defer _cleanup0()
 	objc.Send[objc.ID](m.ID, objc.Sel("enumerateResultsUsingBlock:"), _block0)
 }
 
@@ -378,7 +379,8 @@ func (m NSMetadataQuery) EnumerateResultsUsingBlock(block IObjectUintBoolHandler
 //
 // [NSEnumerationOptions]: https://developer.apple.com/documentation/Foundation/NSEnumerationOptions
 func (m NSMetadataQuery) EnumerateResultsWithOptionsUsingBlock(opts NSEnumerationOptions, block IObjectUintBoolHandler) {
-	_block1, _ := NewIObjectUintBoolBlock(block)
+	_block1, _cleanup1 := NewIObjectUintBoolBlock(block)
+	defer _cleanup1()
 	objc.Send[objc.ID](m.ID, objc.Sel("enumerateResultsWithOptions:usingBlock:"), opts, _block1)
 }
 

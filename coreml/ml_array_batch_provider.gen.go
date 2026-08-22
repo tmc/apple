@@ -101,6 +101,11 @@ type IMLArrayBatchProvider interface {
 
 	// The array of feature providers.
 	Array() []objectivec.IObject
+
+	// The number of feature providers in this batch.
+	Count() int
+	// Returns the feature provider at the given index.
+	FeaturesAtIndex(index int) MLFeatureProvider
 }
 
 // Init initializes the instance.
@@ -142,6 +147,9 @@ func NewArrayBatchProviderWithDictionaryError(dictionary foundation.INSDictionar
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
 		return MLArrayBatchProvider{}, foundation.NSErrorFrom(errorPtr)
+	}
+	if rv == 0 {
+		return MLArrayBatchProvider{}, objc.ErrInitFailed
 	}
 	return MLArrayBatchProviderFromID(rv), nil
 }

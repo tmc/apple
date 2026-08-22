@@ -209,7 +209,9 @@ func (o NSDraggingInfoObject) SlideDraggedImageTo(screenPoint corefoundation.CGP
 //
 // [NSDraggingItemEnumerationOptions]: https://developer.apple.com/documentation/AppKit/NSDraggingItemEnumerationOptions
 func (o NSDraggingInfoObject) EnumerateDraggingItemsWithOptionsForViewClassesSearchOptionsUsingBlock(enumOpts NSDraggingItemEnumerationOptions, view INSView, classArray []objectivec.Class, searchOptions foundation.INSDictionary, block DraggingItemIntBoolHandler) {
-	objc.Send[struct{}](o.ID, objc.Sel("enumerateDraggingItemsWithOptions:forView:classes:searchOptions:usingBlock:"), enumOpts, view, objectivec.ClassSliceToNSArray(classArray), searchOptions, block)
+	_block4, _cleanup4 := NewDraggingItemIntBoolBlock(block)
+	defer _cleanup4()
+	objc.Send[struct{}](o.ID, objc.Sel("enumerateDraggingItemsWithOptions:forView:classes:searchOptions:usingBlock:"), enumOpts, view, objectivec.ClassSliceToNSArray(classArray), searchOptions, objc.ID(_block4))
 }
 
 // Resets a spring-loading operation to its initial state.

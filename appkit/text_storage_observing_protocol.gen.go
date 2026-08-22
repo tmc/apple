@@ -50,7 +50,9 @@ func NSTextStorageObservingObjectFromID(id objc.ID) NSTextStorageObservingObject
 
 // See: https://developer.apple.com/documentation/AppKit/NSTextStorageObserving/performEditingTransaction(for:using:)
 func (o NSTextStorageObservingObject) PerformEditingTransactionForTextStorageUsingBlock(textStorage NSTextStorage, transaction VoidHandler) {
-	objc.Send[struct{}](o.ID, objc.Sel("performEditingTransactionForTextStorage:usingBlock:"), textStorage, transaction)
+	_block1, _cleanup1 := NewVoidBlock(transaction)
+	defer _cleanup1()
+	objc.Send[struct{}](o.ID, objc.Sel("performEditingTransactionForTextStorage:usingBlock:"), textStorage, objc.ID(_block1))
 }
 
 // See: https://developer.apple.com/documentation/AppKit/NSTextStorageObserving/processEditing(for:edited:range:changeInLength:invalidatedRange:)

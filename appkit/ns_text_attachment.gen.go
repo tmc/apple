@@ -189,7 +189,17 @@ type INSTextAttachment interface {
 	AttachmentCell() INSTextAttachmentCell
 	SetAttachmentCell(value INSTextAttachmentCell)
 
+	// Returns the layout bounds of the attachment you specify.
+	AttachmentBoundsForAttributesLocationTextContainerProposedLineFragmentPosition(attributes foundation.INSDictionary, location NSTextLocation, textContainer INSTextContainer, proposedLineFragment corefoundation.CGRect, position corefoundation.CGPoint) corefoundation.CGRect
+	// Returns the layout bounds of the text attachment to the layout manager.
+	AttachmentBoundsForTextContainerProposedLineFragmentGlyphPositionCharacterIndex(textContainer INSTextContainer, lineFrag corefoundation.CGRect, position corefoundation.CGPoint, charIndex uint) corefoundation.CGRect
+	// Returns the image object rendered at the bounds and inside the text container you specify.
+	ImageForBoundsAttributesLocationTextContainer(bounds corefoundation.CGRect, attributes foundation.INSDictionary, location NSTextLocation, textContainer INSTextContainer) INSImage
+	// Returns the image object that the layout manager renders in the specified image bounds rectangle inside the text container.
+	ImageForBoundsTextContainerCharacterIndex(imageBounds corefoundation.CGRect, textContainer INSTextContainer, charIndex uint) INSImage
 	InitWithCoder(coder foundation.INSCoder) NSTextAttachment
+	// Returns the text attachment view provider corresponding to the file type.
+	ViewProviderForParentViewLocationTextContainer(parentView INSView, location NSTextLocation, textContainer INSTextContainer) INSTextAttachmentViewProvider
 	EncodeWithCoder(coder foundation.INSCoder)
 }
 

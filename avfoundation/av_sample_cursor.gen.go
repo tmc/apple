@@ -209,7 +209,7 @@ type IAVSampleCursor interface {
 	// Topic: Comparing sample cursors
 
 	// Compares the relative positions of two sample cursors and returns their relative positions.
-	ComparePositionInDecodeOrderWithPositionOfCursor(cursor IAVSampleCursor) foundation.NSComparisonResult
+	ComparePositionInDecodeOrderWithPositionOfCursor(cursor IAVSampleCursor) foundation.ComparisonResult
 }
 
 // Init initializes the instance.
@@ -387,9 +387,9 @@ func (s AVSampleCursor) SamplesWithLaterDecodeTimeStampsMayHaveEarlierPresentati
 // instances of [AVAssetTrack].
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVSampleCursor/comparePositionInDecodeOrder(withPositionOf:)
-func (s AVSampleCursor) ComparePositionInDecodeOrderWithPositionOfCursor(cursor IAVSampleCursor) foundation.NSComparisonResult {
+func (s AVSampleCursor) ComparePositionInDecodeOrderWithPositionOfCursor(cursor IAVSampleCursor) foundation.ComparisonResult {
 	rv := objc.Send[foundation.NSComparisonResult](s.ID, objc.Sel("comparePositionInDecodeOrderWithPositionOfCursor:"), cursor)
-	return foundation.NSComparisonResult(rv)
+	return foundation.ComparisonResult(rv)
 }
 
 // The decode timestamp of the sample at the current position of the cursor.

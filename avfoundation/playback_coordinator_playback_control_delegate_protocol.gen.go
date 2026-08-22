@@ -68,7 +68,8 @@ func AVPlaybackCoordinatorPlaybackControlDelegateObjectFromID(id objc.ID) AVPlay
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVPlaybackCoordinatorPlaybackControlDelegate/playbackCoordinator(_:didIssue:completionHandler:)-73p3a
 func (o AVPlaybackCoordinatorPlaybackControlDelegateObject) PlaybackCoordinatorDidIssuePlayCommandCompletionHandler(coordinator IAVDelegatingPlaybackCoordinator, playCommand IAVDelegatingPlaybackCoordinatorPlayCommand, completionHandler VoidHandler) {
-	objc.Send[struct{}](o.ID, objc.Sel("playbackCoordinator:didIssuePlayCommand:completionHandler:"), coordinator, playCommand, completionHandler)
+	_block2, _ := NewVoidBlock(completionHandler)
+	objc.Send[struct{}](o.ID, objc.Sel("playbackCoordinator:didIssuePlayCommand:completionHandler:"), coordinator, playCommand, _block2)
 }
 
 // Tells the delegate to pause playback.
@@ -92,7 +93,8 @@ func (o AVPlaybackCoordinatorPlaybackControlDelegateObject) PlaybackCoordinatorD
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVPlaybackCoordinatorPlaybackControlDelegate/playbackCoordinator(_:didIssue:completionHandler:)-56t01
 func (o AVPlaybackCoordinatorPlaybackControlDelegateObject) PlaybackCoordinatorDidIssuePauseCommandCompletionHandler(coordinator IAVDelegatingPlaybackCoordinator, pauseCommand IAVDelegatingPlaybackCoordinatorPauseCommand, completionHandler VoidHandler) {
-	objc.Send[struct{}](o.ID, objc.Sel("playbackCoordinator:didIssuePauseCommand:completionHandler:"), coordinator, pauseCommand, completionHandler)
+	_block2, _ := NewVoidBlock(completionHandler)
+	objc.Send[struct{}](o.ID, objc.Sel("playbackCoordinator:didIssuePauseCommand:completionHandler:"), coordinator, pauseCommand, _block2)
 }
 
 // Tells the delegate to seek to a new time.
@@ -121,7 +123,8 @@ func (o AVPlaybackCoordinatorPlaybackControlDelegateObject) PlaybackCoordinatorD
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVPlaybackCoordinatorPlaybackControlDelegate/playbackCoordinator(_:didIssue:completionHandler:)-4fk8y
 func (o AVPlaybackCoordinatorPlaybackControlDelegateObject) PlaybackCoordinatorDidIssueSeekCommandCompletionHandler(coordinator IAVDelegatingPlaybackCoordinator, seekCommand IAVDelegatingPlaybackCoordinatorSeekCommand, completionHandler VoidHandler) {
-	objc.Send[struct{}](o.ID, objc.Sel("playbackCoordinator:didIssueSeekCommand:completionHandler:"), coordinator, seekCommand, completionHandler)
+	_block2, _ := NewVoidBlock(completionHandler)
+	objc.Send[struct{}](o.ID, objc.Sel("playbackCoordinator:didIssueSeekCommand:completionHandler:"), coordinator, seekCommand, _block2)
 }
 
 // Tells the delegate to expect playback soon and to start buffering media
@@ -153,5 +156,6 @@ func (o AVPlaybackCoordinatorPlaybackControlDelegateObject) PlaybackCoordinatorD
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVPlaybackCoordinatorPlaybackControlDelegate/playbackCoordinator(_:didIssue:completionHandler:)-btle
 func (o AVPlaybackCoordinatorPlaybackControlDelegateObject) PlaybackCoordinatorDidIssueBufferingCommandCompletionHandler(coordinator IAVDelegatingPlaybackCoordinator, bufferingCommand IAVDelegatingPlaybackCoordinatorBufferingCommand, completionHandler VoidHandler) {
-	objc.Send[struct{}](o.ID, objc.Sel("playbackCoordinator:didIssueBufferingCommand:completionHandler:"), coordinator, bufferingCommand, completionHandler)
+	_block2, _ := NewVoidBlock(completionHandler)
+	objc.Send[struct{}](o.ID, objc.Sel("playbackCoordinator:didIssueBufferingCommand:completionHandler:"), coordinator, bufferingCommand, _block2)
 }

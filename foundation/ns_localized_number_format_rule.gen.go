@@ -60,7 +60,6 @@ func NSLocalizedNumberFormatRuleFromID(id objc.ID) NSLocalizedNumberFormatRule {
 // See: https://developer.apple.com/documentation/Foundation/NSLocalizedNumberFormatRule
 type INSLocalizedNumberFormatRule interface {
 	objectivec.IObject
-	NSSecureCoding
 
 	InitWithCoder(coder INSCoder) NSLocalizedNumberFormatRule
 	// Encodes the receiver using a given archiver.

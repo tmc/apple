@@ -98,7 +98,7 @@ type INSController interface {
 	// Attempts to commit any pending edits.
 	CommitEditing() bool
 	// Attempts to commit any pending changes in known editors of the receiver.
-	CommitEditingWithDelegateDidCommitSelectorContextInfo(delegate objectivec.IObject, didCommitSelector objc.SEL, contextInfo unsafe.Pointer)
+	CommitEditingWithDelegateDidCommitSelectorContextInfo(delegate objectivec.IObject, didCommitSelector objc.SEL, contextInfo uintptr)
 	// Discards any pending changes by registered editors.
 	DiscardEditing()
 	// A Boolean value indicating if any editors are registered with the controller.
@@ -218,7 +218,7 @@ func (c NSController) CommitEditing() bool {
 // provides no information beyond simple success/failure.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSController/commitEditing(withDelegate:didCommit:contextInfo:)
-func (c NSController) CommitEditingWithDelegateDidCommitSelectorContextInfo(delegate objectivec.IObject, didCommitSelector objc.SEL, contextInfo unsafe.Pointer) {
+func (c NSController) CommitEditingWithDelegateDidCommitSelectorContextInfo(delegate objectivec.IObject, didCommitSelector objc.SEL, contextInfo uintptr) {
 	objc.Send[objc.ID](c.ID, objc.Sel("commitEditingWithDelegate:didCommitSelector:contextInfo:"), delegate, didCommitSelector, contextInfo)
 }
 
@@ -272,5 +272,7 @@ func (c NSController) IsEditing() bool {
 	rv := objc.Send[bool](c.ID, objc.Sel("isEditing"))
 	return rv
 }
+
+// Protocol methods for NSEditor
 
 // Protocol methods for NSEditorRegistration

@@ -278,9 +278,9 @@ type INSMutableAttributedString interface {
 	// Topic: Reading Content
 
 	// Sets the contents of the attributed string using the specified data object`.`
-	ReadFromDataOptionsDocumentAttributesError(data INSData, opts INSDictionary, dict INSDictionary) (bool, error)
+	ReadFromDataOptionsDocumentAttributesError(data INSData, opts INSDictionary, dict *NSDictionary) (bool, error)
 	// Sets the contents of attributed string using the contents of the specified file.
-	ReadFromURLOptionsDocumentAttributesError(url INSURL, opts INSDictionary, dict INSDictionary) (bool, error)
+	ReadFromURLOptionsDocumentAttributesError(url INSURL, opts INSDictionary, dict *NSDictionary) (bool, error)
 
 	// Formats the specified string and arguments with the current locale, then appends the result to the receiver.
 	AppendLocalizedFormat(format INSAttributedString)
@@ -396,6 +396,9 @@ func NewMutableAttributedStringWithContentsOfMarkdownFileAtURLOptionsBaseURLErro
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
 		return NSMutableAttributedString{}, NSErrorFrom(errorPtr)
 	}
+	if rv == 0 {
+		return NSMutableAttributedString{}, objc.ErrInitFailed
+	}
 	return NSMutableAttributedStringFromID(rv), nil
 }
 
@@ -442,13 +445,16 @@ func NewMutableAttributedStringWithContentsOfMarkdownFileAtURLOptionsBaseURLErro
 // [html]: https://developer.apple.com/documentation/Foundation/NSAttributedString/DocumentType/html
 //
 // [documentType]: https://developer.apple.com/documentation/Foundation/NSAttributedString/DocumentAttributeKey/documentType
-func NewMutableAttributedStringWithDataOptionsDocumentAttributesError(data INSData, options INSDictionary, dict INSDictionary) (NSMutableAttributedString, error) {
+func NewMutableAttributedStringWithDataOptionsDocumentAttributesError(data INSData, options INSDictionary, dict *NSDictionary) (NSMutableAttributedString, error) {
 	var errorPtr objc.ID
 	instance := getNSMutableAttributedStringClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithData:options:documentAttributes:error:"), data, options, dict, unsafe.Pointer(&errorPtr))
+	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithData:options:documentAttributes:error:"), data, options, unsafe.Pointer(dict), unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
 		return NSMutableAttributedString{}, NSErrorFrom(errorPtr)
+	}
+	if rv == 0 {
+		return NSMutableAttributedString{}, objc.ErrInitFailed
 	}
 	return NSMutableAttributedStringFromID(rv), nil
 }
@@ -468,9 +474,9 @@ func NewMutableAttributedStringWithDataOptionsDocumentAttributesError(data INSDa
 // can’t decode the data.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSAttributedString/init(docFormat:documentAttributes:)
-func NewMutableAttributedStringWithDocFormatDocumentAttributes(data INSData, dict INSDictionary) NSMutableAttributedString {
+func NewMutableAttributedStringWithDocFormatDocumentAttributes(data INSData, dict *NSDictionary) NSMutableAttributedString {
 	instance := getNSMutableAttributedStringClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithDocFormat:documentAttributes:"), data, dict)
+	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithDocFormat:documentAttributes:"), data, unsafe.Pointer(dict))
 	return NSMutableAttributedStringFromID(rv)
 }
 
@@ -510,13 +516,16 @@ func NewMutableAttributedStringWithDocFormatDocumentAttributes(data INSData, dic
 // [html]: https://developer.apple.com/documentation/Foundation/NSAttributedString/DocumentType/html
 //
 // [documentType]: https://developer.apple.com/documentation/Foundation/NSAttributedString/DocumentAttributeKey/documentType
-func NewMutableAttributedStringWithFileURLOptionsDocumentAttributesError(url INSURL, options INSDictionary, dict INSDictionary) (NSMutableAttributedString, error) {
+func NewMutableAttributedStringWithFileURLOptionsDocumentAttributesError(url INSURL, options INSDictionary, dict *NSDictionary) (NSMutableAttributedString, error) {
 	var errorPtr objc.ID
 	instance := getNSMutableAttributedStringClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithFileURL:options:documentAttributes:error:"), url, options, dict, unsafe.Pointer(&errorPtr))
+	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithFileURL:options:documentAttributes:error:"), url, options, unsafe.Pointer(dict), unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
 		return NSMutableAttributedString{}, NSErrorFrom(errorPtr)
+	}
+	if rv == 0 {
+		return NSMutableAttributedString{}, objc.ErrInitFailed
 	}
 	return NSMutableAttributedStringFromID(rv), nil
 }
@@ -657,9 +666,9 @@ func NewMutableAttributedStringWithFormatOptionsLocaleContextArguments(format IN
 // Returns an initialized object, or `nil` if the data can’t be decoded.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSAttributedString/init(HTML:baseURL:documentAttributes:)
-func NewMutableAttributedStringWithHTMLBaseURLDocumentAttributes(data INSData, base INSURL, dict INSDictionary) NSMutableAttributedString {
+func NewMutableAttributedStringWithHTMLBaseURLDocumentAttributes(data INSData, base INSURL, dict *NSDictionary) NSMutableAttributedString {
 	instance := getNSMutableAttributedStringClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithHTML:baseURL:documentAttributes:"), data, base, dict)
+	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithHTML:baseURL:documentAttributes:"), data, base, unsafe.Pointer(dict))
 	return NSMutableAttributedStringFromID(rv)
 }
 
@@ -677,9 +686,9 @@ func NewMutableAttributedStringWithHTMLBaseURLDocumentAttributes(data INSData, b
 // Returns an initialized object, or `nil` if the data can’t be decoded.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSAttributedString/init(HTML:documentAttributes:)
-func NewMutableAttributedStringWithHTMLDocumentAttributes(data INSData, dict INSDictionary) NSMutableAttributedString {
+func NewMutableAttributedStringWithHTMLDocumentAttributes(data INSData, dict *NSDictionary) NSMutableAttributedString {
 	instance := getNSMutableAttributedStringClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithHTML:documentAttributes:"), data, dict)
+	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithHTML:documentAttributes:"), data, unsafe.Pointer(dict))
 	return NSMutableAttributedStringFromID(rv)
 }
 
@@ -702,9 +711,9 @@ func NewMutableAttributedStringWithHTMLDocumentAttributes(data INSData, dict INS
 // See: https://developer.apple.com/documentation/Foundation/NSAttributedString/init(HTML:options:documentAttributes:)
 //
 // [NSAttributedStringDocumentReadingOptionKey]: https://developer.apple.com/documentation/UIKit/NSAttributedStringDocumentReadingOptionKey
-func NewMutableAttributedStringWithHTMLOptionsDocumentAttributes(data INSData, options INSDictionary, dict INSDictionary) NSMutableAttributedString {
+func NewMutableAttributedStringWithHTMLOptionsDocumentAttributes(data INSData, options INSDictionary, dict *NSDictionary) NSMutableAttributedString {
 	instance := getNSMutableAttributedStringClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithHTML:options:documentAttributes:"), data, options, dict)
+	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithHTML:options:documentAttributes:"), data, options, unsafe.Pointer(dict))
 	return NSMutableAttributedStringFromID(rv)
 }
 
@@ -737,6 +746,9 @@ func NewMutableAttributedStringWithMarkdownOptionsBaseURLError(markdown INSData,
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
 		return NSMutableAttributedString{}, NSErrorFrom(errorPtr)
+	}
+	if rv == 0 {
+		return NSMutableAttributedString{}, objc.ErrInitFailed
 	}
 	return NSMutableAttributedStringFromID(rv), nil
 }
@@ -771,6 +783,9 @@ func NewMutableAttributedStringWithMarkdownStringOptionsBaseURLError(markdownStr
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
 		return NSMutableAttributedString{}, NSErrorFrom(errorPtr)
 	}
+	if rv == 0 {
+		return NSMutableAttributedString{}, objc.ErrInitFailed
+	}
 	return NSMutableAttributedStringFromID(rv), nil
 }
 
@@ -789,9 +804,9 @@ func NewMutableAttributedStringWithMarkdownStringOptionsBaseURLError(markdownStr
 // can’t decode the data.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSAttributedString/init(RTFD:documentAttributes:)
-func NewMutableAttributedStringWithRTFDDocumentAttributes(data INSData, dict INSDictionary) NSMutableAttributedString {
+func NewMutableAttributedStringWithRTFDDocumentAttributes(data INSData, dict *NSDictionary) NSMutableAttributedString {
 	instance := getNSMutableAttributedStringClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithRTFD:documentAttributes:"), data, dict)
+	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithRTFD:documentAttributes:"), data, unsafe.Pointer(dict))
 	return NSMutableAttributedStringFromID(rv)
 }
 
@@ -820,9 +835,9 @@ func NewMutableAttributedStringWithRTFDDocumentAttributes(data INSData, dict INS
 // See: https://developer.apple.com/documentation/Foundation/NSAttributedString/init(RTFDFileWrapper:documentAttributes:)
 //
 // [NSAttributedString.DocumentAttributeKey]: https://developer.apple.com/documentation/Foundation/NSAttributedString/DocumentAttributeKey
-func NewMutableAttributedStringWithRTFDFileWrapperDocumentAttributes(wrapper INSFileWrapper, dict INSDictionary) NSMutableAttributedString {
+func NewMutableAttributedStringWithRTFDFileWrapperDocumentAttributes(wrapper INSFileWrapper, dict *NSDictionary) NSMutableAttributedString {
 	instance := getNSMutableAttributedStringClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithRTFDFileWrapper:documentAttributes:"), wrapper, dict)
+	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithRTFDFileWrapper:documentAttributes:"), wrapper, unsafe.Pointer(dict))
 	return NSMutableAttributedStringFromID(rv)
 }
 
@@ -850,9 +865,9 @@ func NewMutableAttributedStringWithRTFDFileWrapperDocumentAttributes(wrapper INS
 // See: https://developer.apple.com/documentation/Foundation/NSAttributedString/init(RTF:documentAttributes:)
 //
 // [NSAttributedString.DocumentAttributeKey]: https://developer.apple.com/documentation/Foundation/NSAttributedString/DocumentAttributeKey
-func NewMutableAttributedStringWithRTFDocumentAttributes(data INSData, dict INSDictionary) NSMutableAttributedString {
+func NewMutableAttributedStringWithRTFDocumentAttributes(data INSData, dict *NSDictionary) NSMutableAttributedString {
 	instance := getNSMutableAttributedStringClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithRTF:documentAttributes:"), data, dict)
+	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithRTF:documentAttributes:"), data, unsafe.Pointer(dict))
 	return NSMutableAttributedStringFromID(rv)
 }
 
@@ -941,13 +956,16 @@ func NewMutableAttributedStringWithStringAttributes(str string, attrs INSDiction
 //
 // [documentType]: https://developer.apple.com/documentation/Foundation/NSAttributedString/DocumentReadingOptionKey/documentType
 // [fileType]: https://developer.apple.com/documentation/Foundation/NSAttributedString/DocumentReadingOptionKey/fileType
-func NewMutableAttributedStringWithURLOptionsDocumentAttributesError(url INSURL, options INSDictionary, dict INSDictionary) (NSMutableAttributedString, error) {
+func NewMutableAttributedStringWithURLOptionsDocumentAttributesError(url INSURL, options INSDictionary, dict *NSDictionary) (NSMutableAttributedString, error) {
 	var errorPtr objc.ID
 	instance := getNSMutableAttributedStringClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithURL:options:documentAttributes:error:"), url, options, dict, unsafe.Pointer(&errorPtr))
+	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithURL:options:documentAttributes:error:"), url, options, unsafe.Pointer(dict), unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
 		return NSMutableAttributedString{}, NSErrorFrom(errorPtr)
+	}
+	if rv == 0 {
+		return NSMutableAttributedString{}, objc.ErrInitFailed
 	}
 	return NSMutableAttributedStringFromID(rv), nil
 }
@@ -1440,9 +1458,9 @@ func (m NSMutableAttributedString) FixParagraphStyleAttributeInRange(range_ NSRa
 // reason why the attributed string object could not be created.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSMutableAttributedString/read(from:options:documentAttributes:)-5mbcx
-func (m NSMutableAttributedString) ReadFromDataOptionsDocumentAttributesError(data INSData, opts INSDictionary, dict INSDictionary) (bool, error) {
+func (m NSMutableAttributedString) ReadFromDataOptionsDocumentAttributesError(data INSData, opts INSDictionary, dict *NSDictionary) (bool, error) {
 	var errorPtr objc.ID
-	rv := objc.Send[bool](m.ID, objc.Sel("readFromData:options:documentAttributes:error:"), data, opts, dict, unsafe.Pointer(&errorPtr))
+	rv := objc.Send[bool](m.ID, objc.Sel("readFromData:options:documentAttributes:error:"), data, opts, unsafe.Pointer(dict), unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
 		return false, NSErrorFrom(errorPtr)
@@ -1480,9 +1498,9 @@ func (m NSMutableAttributedString) ReadFromDataOptionsDocumentAttributesError(da
 // away explicitly.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSMutableAttributedString/read(from:options:documentAttributes:)-54wth
-func (m NSMutableAttributedString) ReadFromURLOptionsDocumentAttributesError(url INSURL, opts INSDictionary, dict INSDictionary) (bool, error) {
+func (m NSMutableAttributedString) ReadFromURLOptionsDocumentAttributesError(url INSURL, opts INSDictionary, dict *NSDictionary) (bool, error) {
 	var errorPtr objc.ID
-	rv := objc.Send[bool](m.ID, objc.Sel("readFromURL:options:documentAttributes:error:"), url, opts, dict, unsafe.Pointer(&errorPtr))
+	rv := objc.Send[bool](m.ID, objc.Sel("readFromURL:options:documentAttributes:error:"), url, opts, unsafe.Pointer(dict), unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
 		return false, NSErrorFrom(errorPtr)

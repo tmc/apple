@@ -38,33 +38,6 @@ func NewAnimationContextBlock(handler AnimationContextHandler) (objc.ID, func())
 	return objc.ID(block), func() { block.Release() }
 }
 
-// AppearanceHandler is the signature for a completion handler block.
-//
-// Used by:
-//   - [NSColor.ColorWithNameDynamicProvider]
-type AppearanceHandler = func(*NSAppearance)
-
-// NewAppearanceBlock wraps a Go [AppearanceHandler] as an Objective-C block.
-// The caller must defer the returned cleanup function.
-//
-// Used by:
-//   - [NSColor.ColorWithNameDynamicProvider]
-func NewAppearanceBlock(handler AppearanceHandler) (objc.ID, func()) {
-	if handler == nil {
-		return 0, func() {}
-	}
-	block := objc.NewBlock(func(b objc.Block, resultID objc.ID) {
-		var result *NSAppearance
-		if resultID != 0 {
-			objc.Send[objc.ID](resultID, objc.Sel("retain"))
-			v := NSAppearanceFromID(resultID)
-			result = &v
-		}
-		handler(result)
-	})
-	return objc.ID(block), func() { block.Release() }
-}
-
 // ArrayHandler handles The Block used to add results to the search.
 //   - items: The items to add to the results array. The `handleMatchedItems` block can be invoked from any thread desired.  If it is called more than once the additional results will be appended after previous items until the maximum is reached.
 //
@@ -123,8 +96,30 @@ func NewBoolCGRectBlock(handler BoolCGRectHandler) (objc.ID, func()) {
 	return objc.ID(block), func() { block.Release() }
 }
 
+// BoolErrorHandler is the signature for a completion handler block.
+//
+// Used by:
+//   - [NSFontAssetRequest.DownloadFontAssetsWithCompletionHandler]
+type BoolErrorHandler = func(error) bool
+
+// NewBoolErrorBlock wraps a Go [BoolErrorHandler] as an Objective-C block.
+// The caller must defer the returned cleanup function.
+//
+// Used by:
+//   - [NSFontAssetRequest.DownloadFontAssetsWithCompletionHandler]
+func NewBoolErrorBlock(handler BoolErrorHandler) (objc.ID, func()) {
+	if handler == nil {
+		return 0, func() {}
+	}
+	block := objc.NewBlock(func(b objc.Block, errID objc.ID) bool {
+		return handler(foundation.SafeErrorFrom(errID))
+	})
+	objc.SetNSErrorBlockSignature(block)
+	return objc.ID(block), func() { block.Release() }
+}
+
 // BoolHandler handles A completion handler block to execute when the changes made in the `updates` block have finished animating.
-//   - finished: A Boolean value indicating whether the animations completed successfully. The value of this parameter is [true](<doc://com.apple.documentation/documentation/Swift/true>) if the animations ran to completion or [false](<doc://com.apple.documentation/documentation/Swift/false>) if they were interrupted.
+//   - finished: A Boolean value indicating whether the animations completed successfully. The value of this parameter is [true](<https://developer.apple.com/documentation/Swift/true>) if the animations ran to completion or [false](<https://developer.apple.com/documentation/Swift/false>) if they were interrupted.
 //
 // Used by:
 //   - [NSCollectionView.PerformBatchUpdatesCompletionHandler]
@@ -153,6 +148,138 @@ func NewBoolBlock(handler BoolHandler) (objc.ID, func()) {
 	return objc.ID(block), func() { block.Release() }
 }
 
+// BoolTextElementHandler handles A block you use to evaluate whether to continue the enumeration or tell the method to stop.
+//
+// Used by:
+//   - [NSTextContentManager.EnumerateTextElementsFromLocationOptionsUsingBlock]
+//   - [NSTextContentStorage.EnumerateTextElementsFromLocationOptionsUsingBlock]
+//   - [NSTextElementProvider.EnumerateTextElementsFromLocationOptionsUsingBlock]
+type BoolTextElementHandler = func(*NSTextElement) bool
+
+// NewBoolTextElementBlock wraps a Go [BoolTextElementHandler] as an Objective-C block.
+// The caller must defer the returned cleanup function.
+//
+// Used by:
+//   - [NSTextContentManager.EnumerateTextElementsFromLocationOptionsUsingBlock]
+//   - [NSTextContentStorage.EnumerateTextElementsFromLocationOptionsUsingBlock]
+//   - [NSTextElementProvider.EnumerateTextElementsFromLocationOptionsUsingBlock]
+func NewBoolTextElementBlock(handler BoolTextElementHandler) (objc.ID, func()) {
+	if handler == nil {
+		return 0, func() {}
+	}
+	block := objc.NewBlock(func(b objc.Block, resultID objc.ID) bool {
+		var result *NSTextElement
+		if resultID != 0 {
+			objc.Send[objc.ID](resultID, objc.Sel("retain"))
+			v := NSTextElementFromID(resultID)
+			result = &v
+		}
+		return handler(result)
+	})
+	return objc.ID(block), func() { block.Release() }
+}
+
+// BoolTextLayoutFragmentHandler handles A closure you provide that determines if the enumeration finishes early.
+//
+// Used by:
+//   - [NSTextLayoutManager.EnumerateTextLayoutFragmentsFromLocationOptionsUsingBlock]
+type BoolTextLayoutFragmentHandler = func(*NSTextLayoutFragment) bool
+
+// NewBoolTextLayoutFragmentBlock wraps a Go [BoolTextLayoutFragmentHandler] as an Objective-C block.
+// The caller must defer the returned cleanup function.
+//
+// Used by:
+//   - [NSTextLayoutManager.EnumerateTextLayoutFragmentsFromLocationOptionsUsingBlock]
+func NewBoolTextLayoutFragmentBlock(handler BoolTextLayoutFragmentHandler) (objc.ID, func()) {
+	if handler == nil {
+		return 0, func() {}
+	}
+	block := objc.NewBlock(func(b objc.Block, resultID objc.ID) bool {
+		var result *NSTextLayoutFragment
+		if resultID != 0 {
+			objc.Send[objc.ID](resultID, objc.Sel("retain"))
+			v := NSTextLayoutFragmentFromID(resultID)
+			result = &v
+		}
+		return handler(result)
+	})
+	return objc.ID(block), func() { block.Release() }
+}
+
+// BoolTextRangeCGRectFloat64TextContainerHandler handles A closure you provide to determine if the enumeration finishes early.
+//
+// Used by:
+//   - [NSTextLayoutManager.EnumerateTextSegmentsInRangeTypeOptionsUsingBlock]
+type BoolTextRangeCGRectFloat64TextContainerHandler = func(*NSTextRange, corefoundation.CGRect, float64, *NSTextContainer) bool
+
+// NewBoolTextRangeCGRectFloat64TextContainerBlock wraps a Go [BoolTextRangeCGRectFloat64TextContainerHandler] as an Objective-C block.
+// The caller must defer the returned cleanup function.
+//
+// Used by:
+//   - [NSTextLayoutManager.EnumerateTextSegmentsInRangeTypeOptionsUsingBlock]
+func NewBoolTextRangeCGRectFloat64TextContainerBlock(handler BoolTextRangeCGRectFloat64TextContainerHandler) (objc.ID, func()) {
+	if handler == nil {
+		return 0, func() {}
+	}
+	block := objc.NewBlock(func(b objc.Block, resultID objc.ID, extra0 corefoundation.CGRect, extra1 float64, extra2ID objc.ID) bool {
+		var result *NSTextRange
+		if resultID != 0 {
+			objc.Send[objc.ID](resultID, objc.Sel("retain"))
+			v := NSTextRangeFromID(resultID)
+			result = &v
+		}
+		var extra2 *NSTextContainer
+		if extra2ID != 0 {
+			objc.Send[objc.ID](extra2ID, objc.Sel("retain"))
+			v := NSTextContainerFromID(extra2ID)
+			extra2 = &v
+		}
+		return handler(result, extra0, extra1, extra2)
+	})
+	return objc.ID(block), func() { block.Release() }
+}
+
+// BoolVoidHandler handles A closure you provide to determine if the enumeration finishes early.
+//
+// Used by:
+//   - [NSTextLayoutManager.EnumerateRenderingAttributesFromLocationReverseUsingBlock]
+type BoolVoidHandler = func() bool
+
+// NewBoolVoidBlock wraps a Go [BoolVoidHandler] as an Objective-C block.
+// The caller must defer the returned cleanup function.
+//
+// Used by:
+//   - [NSTextLayoutManager.EnumerateRenderingAttributesFromLocationReverseUsingBlock]
+func NewBoolVoidBlock(handler BoolVoidHandler) (objc.ID, func()) {
+	if handler == nil {
+		return 0, func() {}
+	}
+	block := objc.NewBlock(func(b objc.Block) bool {
+		return handler()
+	})
+	return objc.ID(block), func() { block.Release() }
+}
+
+// CGPointNSCollectionLayoutEnvironmentHandler handles completion with primitive and object results.
+type CGPointNSCollectionLayoutEnvironmentHandler = func(corefoundation.CGPoint, NSCollectionLayoutEnvironment)
+
+// NewCGPointNSCollectionLayoutEnvironmentBlock wraps a Go [CGPointNSCollectionLayoutEnvironmentHandler] as an Objective-C block.
+// The caller must defer the returned cleanup function.
+func NewCGPointNSCollectionLayoutEnvironmentBlock(handler CGPointNSCollectionLayoutEnvironmentHandler) (objc.ID, func()) {
+	if handler == nil {
+		return 0, func() {}
+	}
+	block := objc.NewBlock(func(b objc.Block, primitive corefoundation.CGPoint, extra0ID objc.ID) {
+		var extra0 NSCollectionLayoutEnvironment
+		if extra0ID != 0 {
+			objc.Send[objc.ID](extra0ID, objc.Sel("retain"))
+			extra0 = NSCollectionLayoutEnvironmentObjectFromID(extra0ID)
+		}
+		handler(primitive, extra0)
+	})
+	return objc.ID(block), func() { block.Release() }
+}
+
 // CGPointNSRangeHandler handles The originProvider block object should return the baseline origin for the first character at the adjusted range.
 //   - adjustedRange: The adjusted range.
 //
@@ -177,11 +304,11 @@ func NewCGPointNSRangeBlock(handler CGPointNSRangeHandler) (objc.ID, func()) {
 
 // CGRectBoolHandler handles The block to apply to the glyph range.
 //   - rect: The current enclosing rectangle.
-//   - stop: A reference to a Boolean value. The block can set the value to [true](<doc://com.apple.documentation/documentation/Swift/true>) to stop further processing of the array. The stop argument is an out-only argument. You should only set this Boolean to [true](<doc://com.apple.documentation/documentation/Swift/true>) within the block.
+//   - stop: A reference to a Boolean value. The block can set the value to [true](<https://developer.apple.com/documentation/Swift/true>) to stop further processing of the array. The stop argument is an out-only argument. You should only set this Boolean to [true](<https://developer.apple.com/documentation/Swift/true>) within the block.
 //
 // Used by:
 //   - [NSLayoutManager.EnumerateEnclosingRectsForGlyphRangeWithinSelectedGlyphRangeInTextContainerUsingBlock]
-type CGRectBoolHandler = func(corefoundation.CGRect, bool)
+type CGRectBoolHandler = func(corefoundation.CGRect, *bool)
 
 // NewCGRectBoolBlock wraps a Go [CGRectBoolHandler] as an Objective-C block.
 // The caller must defer the returned cleanup function.
@@ -192,7 +319,7 @@ func NewCGRectBoolBlock(handler CGRectBoolHandler) (objc.ID, func()) {
 	if handler == nil {
 		return 0, func() {}
 	}
-	block := objc.NewBlock(func(b objc.Block, primitive corefoundation.CGRect, extra0 bool) {
+	block := objc.NewBlock(func(b objc.Block, primitive corefoundation.CGRect, extra0 *bool) {
 		handler(primitive, extra0)
 	})
 	return objc.ID(block), func() { block.Release() }
@@ -203,11 +330,11 @@ func NewCGRectBoolBlock(handler CGRectBoolHandler) (objc.ID, func()) {
 //   - usedRect: The portion of the line fragment rectangle that actually contains glyphs or other marks that are drawn (including the text container’s line fragment padding).
 //   - textContainer: The text container in which the glyphs are laid out.
 //   - glyphRange: The range of glyphs laid out in the current line fragment.
-//   - stop: A reference to a Boolean value. The block can set the value to [true](<doc://com.apple.documentation/documentation/Swift/true>) to stop further processing of the array. The stop argument is an out-only argument. You should only set this Boolean to [true](<doc://com.apple.documentation/documentation/Swift/true>) within the block.
+//   - stop: A reference to a Boolean value. The block can set the value to [true](<https://developer.apple.com/documentation/Swift/true>) to stop further processing of the array. The stop argument is an out-only argument. You should only set this Boolean to [true](<https://developer.apple.com/documentation/Swift/true>) within the block.
 //
 // Used by:
 //   - [NSLayoutManager.EnumerateLineFragmentsForGlyphRangeUsingBlock]
-type CGRectCGRectTextContainerNSRangeBoolHandler = func(corefoundation.CGRect, corefoundation.CGRect, *NSTextContainer, foundation.NSRange, bool)
+type CGRectCGRectTextContainerNSRangeBoolHandler = func(corefoundation.CGRect, corefoundation.CGRect, *NSTextContainer, foundation.NSRange, *bool)
 
 // NewCGRectCGRectTextContainerNSRangeBoolBlock wraps a Go [CGRectCGRectTextContainerNSRangeBoolHandler] as an Objective-C block.
 // The caller must defer the returned cleanup function.
@@ -218,7 +345,7 @@ func NewCGRectCGRectTextContainerNSRangeBoolBlock(handler CGRectCGRectTextContai
 	if handler == nil {
 		return 0, func() {}
 	}
-	block := objc.NewBlock(func(b objc.Block, primitive corefoundation.CGRect, extra0 corefoundation.CGRect, extra1ID objc.ID, extra2 foundation.NSRange, extra3 bool) {
+	block := objc.NewBlock(func(b objc.Block, primitive corefoundation.CGRect, extra0 corefoundation.CGRect, extra1ID objc.ID, extra2 foundation.NSRange, extra3 *bool) {
 		var extra1 *NSTextContainer
 		if extra1ID != 0 {
 			objc.Send[objc.ID](extra1ID, objc.Sel("retain"))
@@ -314,7 +441,7 @@ func NewDocumentBoolErrorBlock(handler DocumentBoolErrorHandler) (objc.ID, func(
 // Used by:
 //   - [NSDraggingInfo.EnumerateDraggingItemsWithOptionsForViewClassesSearchOptionsUsingBlock]
 //   - [NSDraggingSession.EnumerateDraggingItemsWithOptionsForViewClassesSearchOptionsUsingBlock]
-type DraggingItemIntBoolHandler = func(*NSDraggingItem, int, bool)
+type DraggingItemIntBoolHandler = func(*NSDraggingItem, int, *bool)
 
 // NewDraggingItemIntBoolBlock wraps a Go [DraggingItemIntBoolHandler] as an Objective-C block.
 // The caller must defer the returned cleanup function.
@@ -326,7 +453,7 @@ func NewDraggingItemIntBoolBlock(handler DraggingItemIntBoolHandler) (objc.ID, f
 	if handler == nil {
 		return 0, func() {}
 	}
-	block := objc.NewBlock(func(b objc.Block, resultID objc.ID, extra0 int, extra1 bool) {
+	block := objc.NewBlock(func(b objc.Block, resultID objc.ID, extra0 int, extra1 *bool) {
 		var result *NSDraggingItem
 		if resultID != 0 {
 			objc.Send[objc.ID](resultID, objc.Sel("retain"))
@@ -354,7 +481,6 @@ func NewDraggingItemIntBoolBlock(handler DraggingItemIntBoolHandler) (objc.ID, f
 //   - [NSDocument.SaveToURLOfTypeForSaveOperationCompletionHandler]
 //   - [NSDocument.UnlockWithCompletionHandler]
 //   - [NSFilePromiseProviderDelegate.FilePromiseProviderWritePromiseToURLCompletionHandler]
-//   - [NSFontAssetRequest.DownloadFontAssetsWithCompletionHandler]
 //   - [NSTextContentManager.SynchronizeTextLayoutManagers]
 //   - [NSTextContentManager.SynchronizeToBackingStore]
 //   - [NSTextContentStorage.SynchronizeToBackingStore]
@@ -384,7 +510,6 @@ type ErrorHandler = func(error)
 //   - [NSDocument.SaveToURLOfTypeForSaveOperationCompletionHandler]
 //   - [NSDocument.UnlockWithCompletionHandler]
 //   - [NSFilePromiseProviderDelegate.FilePromiseProviderWritePromiseToURLCompletionHandler]
-//   - [NSFontAssetRequest.DownloadFontAssetsWithCompletionHandler]
 //   - [NSTextContentManager.SynchronizeTextLayoutManagers]
 //   - [NSTextContentManager.SynchronizeToBackingStore]
 //   - [NSTextContentStorage.SynchronizeToBackingStore]
@@ -413,7 +538,7 @@ func NewErrorBlock(handler ErrorHandler) (objc.ID, func()) {
 //
 // Used by:
 //   - [NSWindow.TrackEventsMatchingMaskTimeoutModeHandler]
-type EventBoolHandler = func(*NSEvent, bool)
+type EventBoolHandler = func(*NSEvent, *bool)
 
 // NewEventBoolBlock wraps a Go [EventBoolHandler] as an Objective-C block.
 // The caller must defer the returned cleanup function.
@@ -424,7 +549,7 @@ func NewEventBoolBlock(handler EventBoolHandler) (objc.ID, func()) {
 	if handler == nil {
 		return 0, func() {}
 	}
-	block := objc.NewBlock(func(b objc.Block, resultID objc.ID, extra0 bool) {
+	block := objc.NewBlock(func(b objc.Block, resultID objc.ID, extra0 *bool) {
 		var result *NSEvent
 		if resultID != 0 {
 			objc.Send[objc.ID](resultID, objc.Sel("retain"))
@@ -440,7 +565,6 @@ func NewEventBoolBlock(handler EventBoolHandler) (objc.ID, func()) {
 //
 // Used by:
 //   - [NSEvent.AddGlobalMonitorForEventsMatchingMaskHandler]
-//   - [NSEvent.AddLocalMonitorForEventsMatchingMaskHandler]
 type EventHandler = func(*NSEvent)
 
 // NewEventBlock wraps a Go [EventHandler] as an Objective-C block.
@@ -448,7 +572,6 @@ type EventHandler = func(*NSEvent)
 //
 // Used by:
 //   - [NSEvent.AddGlobalMonitorForEventsMatchingMaskHandler]
-//   - [NSEvent.AddLocalMonitorForEventsMatchingMaskHandler]
 func NewEventBlock(handler EventHandler) (objc.ID, func()) {
 	if handler == nil {
 		return 0, func() {}
@@ -482,13 +605,13 @@ func NewFloat32Block(handler Float32Handler) (objc.ID, func()) {
 
 // Float64NSEventPhaseBoolBoolHandler handles The Block used as the tracking handler.
 //   - gestureAmount: The amount of gesture that you should display in the user interface. This may be a fractional amount.
-//   - phase: The phase of the physical gesture as performed by the user. See [NSEvent.Phase](<doc://com.apple.appkit/documentation/AppKit/NSEvent/Phase-swift.struct>) for possible values. When the phase is either [ended](<doc://com.apple.appkit/documentation/AppKit/NSEvent/Phase-swift.struct/ended>), or [mayBegin](<doc://com.apple.appkit/documentation/AppKit/NSEvent/Phase-swift.struct/mayBegin>), the user has physically ended the gesture successfully or un-successfully, respectively.
+//   - phase: The phase of the physical gesture as performed by the user. See [NSEvent.Phase](<https://developer.apple.com/documentation/AppKit/NSEvent/Phase-swift.struct>) for possible values. When the phase is either [ended](<https://developer.apple.com/documentation/AppKit/NSEvent/Phase-swift.struct/ended>), or [mayBegin](<https://developer.apple.com/documentation/AppKit/NSEvent/Phase-swift.struct/mayBegin>), the user has physically ended the gesture successfully or un-successfully, respectively.
 //   - isComplete: Signifies the swipe and animation are complete and you should release any temporary animation objects.
-//   - stop: A reference to a Boolean value. The Block can set the value to [true](<doc://com.apple.documentation/documentation/Swift/true>) to stop further processing of the array. The `stop` argument is an out-only argument. You should only ever set this Boolean to [true](<doc://com.apple.documentation/documentation/Swift/true>) within the Block
+//   - stop: A reference to a Boolean value. The Block can set the value to [true](<https://developer.apple.com/documentation/Swift/true>) to stop further processing of the array. The `stop` argument is an out-only argument. You should only ever set this Boolean to [true](<https://developer.apple.com/documentation/Swift/true>) within the Block
 //
 // Used by:
 //   - [NSEvent.TrackSwipeEventWithOptionsDampenAmountThresholdMinMaxUsingHandler]
-type Float64NSEventPhaseBoolBoolHandler = func(float64, NSEventPhase, bool, bool)
+type Float64NSEventPhaseBoolBoolHandler = func(float64, NSEventPhase, bool, *bool)
 
 // NewFloat64NSEventPhaseBoolBoolBlock wraps a Go [Float64NSEventPhaseBoolBoolHandler] as an Objective-C block.
 // The caller must defer the returned cleanup function.
@@ -499,7 +622,7 @@ func NewFloat64NSEventPhaseBoolBoolBlock(handler Float64NSEventPhaseBoolBoolHand
 	if handler == nil {
 		return 0, func() {}
 	}
-	block := objc.NewBlock(func(b objc.Block, primitive float64, extra0 NSEventPhase, extra1 bool, extra2 bool) {
+	block := objc.NewBlock(func(b objc.Block, primitive float64, extra0 NSEventPhase, extra1 bool, extra2 *bool) {
 		handler(primitive, extra0, extra1, extra2)
 	})
 	return objc.ID(block), func() { block.Release() }
@@ -510,7 +633,7 @@ func NewFloat64NSEventPhaseBoolBoolBlock(handler Float64NSEventPhaseBoolBoolHand
 // Used by:
 //   - [NSTextLayoutManager.EnumerateCaretOffsetsInLineFragmentAtLocationUsingBlock]
 //   - [NSTextSelectionDataSource.EnumerateCaretOffsetsInLineFragmentAtLocationUsingBlock]
-type Float64NSTextLocationBoolBoolHandler = func(float64, NSTextLocation, bool, bool)
+type Float64NSTextLocationBoolBoolHandler = func(float64, NSTextLocation, bool, *bool)
 
 // NewFloat64NSTextLocationBoolBoolBlock wraps a Go [Float64NSTextLocationBoolBoolHandler] as an Objective-C block.
 // The caller must defer the returned cleanup function.
@@ -522,7 +645,7 @@ func NewFloat64NSTextLocationBoolBoolBlock(handler Float64NSTextLocationBoolBool
 	if handler == nil {
 		return 0, func() {}
 	}
-	block := objc.NewBlock(func(b objc.Block, primitive float64, extra0ID objc.ID, extra1 bool, extra2 bool) {
+	block := objc.NewBlock(func(b objc.Block, primitive float64, extra0ID objc.ID, extra1 bool, extra2 *bool) {
 		var extra0 NSTextLocation
 		if extra0ID != 0 {
 			objc.Send[objc.ID](extra0ID, objc.Sel("retain"))
@@ -532,6 +655,13 @@ func NewFloat64NSTextLocationBoolBoolBlock(handler Float64NSTextLocationBoolBool
 	})
 	return objc.ID(block), func() { block.Release() }
 }
+
+// IObjectCoderHandler is the signature for a completion handler block.
+//
+// Used by:
+//   - [NSStoryboard.InstantiateControllerWithIdentifierCreator]
+//   - [NSStoryboard.InstantiateInitialControllerWithCreator]
+type IObjectCoderHandler = func(*foundation.INSCoder) objectivec.IObject
 
 // IntHandler handles The completion handler that runs when the user clicks the OK or Cancel button in the Open dialog.
 //
@@ -585,7 +715,7 @@ func NewIntTextCheckingResultArrayBlock(handler IntTextCheckingResultArrayHandle
 
 // IntTextCheckingResultArrayOrthographyIntHandler handles The completion handler block object will be called (in an arbitrary context) when results are available, with the sequence number and results.
 //   - sequenceNumber: A monotonically increasing sequence number.
-//   - results: An array of [NSTextCheckingResult](<doc://com.apple.documentation/documentation/Foundation/NSTextCheckingResult>) objects describing particular items found during checking and their individual ranges, sorted by range origin, then range end, then result type.
+//   - results: An array of [NSTextCheckingResult](<https://developer.apple.com/documentation/Foundation/NSTextCheckingResult>) objects describing particular items found during checking and their individual ranges, sorted by range origin, then range end, then result type.
 //   - orthography: The orthography of the string.
 //   - wordCount: The number of words in the range of the string.
 //
@@ -650,7 +780,7 @@ func NewMenuBlock(handler MenuHandler) (objc.ID, func()) {
 }
 
 // ModalResponseHandler handles The completion handler that gets called when the sheet’s modal session ends.
-//   - result: The action taken by the user. The value of this parameter is [NSFileHandlingPanelOKButton](<doc://com.apple.appkit/documentation/AppKit/NSFileHandlingPanelOKButton>) if the user chose the OK button or [NSFileHandlingPanelCancelButton](<doc://com.apple.appkit/documentation/AppKit/NSFileHandlingPanelCancelButton>) if the user chose the Cancel button.
+//   - result: The action taken by the user. The value of this parameter is [NSFileHandlingPanelOKButton](<https://developer.apple.com/documentation/AppKit/NSFileHandlingPanelOKButton>) if the user chose the OK button or [NSFileHandlingPanelCancelButton](<https://developer.apple.com/documentation/AppKit/NSFileHandlingPanelCancelButton>) if the user chose the Cancel button.
 //
 // Used by:
 //   - [NSAlert.BeginSheetModalForWindowCompletionHandler]
@@ -680,7 +810,7 @@ func NewModalResponseBlock(handler ModalResponseHandler) (objc.ID, func()) {
 }
 
 // NSAttributedStringIObjectHandler handles completion with primitive and object results.
-type NSAttributedStringIObjectHandler = func(objectivec.IObject, int64)
+type NSAttributedStringIObjectHandler = func(objectivec.IObject, int64) foundation.NSAttributedString
 
 // NewNSAttributedStringIObjectBlock wraps a Go [NSAttributedStringIObjectHandler] as an Objective-C block.
 // The caller must defer the returned cleanup function.
@@ -688,14 +818,14 @@ func NewNSAttributedStringIObjectBlock(handler NSAttributedStringIObjectHandler)
 	if handler == nil {
 		return 0, func() {}
 	}
-	block := objc.NewBlock(func(b objc.Block, primitiveID objc.ID, extra0 int64) {
+	block := objc.NewBlock(func(b objc.Block, primitiveID objc.ID, extra0 int64) objc.ID {
 		var primitive objectivec.IObject
 		if primitiveID != 0 {
 			objc.Send[objc.ID](primitiveID, objc.Sel("retain"))
 			obj := objectivec.ObjectFromID(primitiveID)
 			primitive = &obj
 		}
-		handler(primitive, extra0)
+		return handler(primitive, extra0).ID
 	})
 	return objc.ID(block), func() { block.Release() }
 }
@@ -735,6 +865,139 @@ func NewNSBezierPathArrayBlock(handler NSBezierPathArrayHandler) (objc.ID, func(
 	return objc.ID(block), func() { block.Release() }
 }
 
+// NSCollectionLayoutGroupCustomItemNSCollectionLayoutEnvironmentHandler is the signature for a completion handler block.
+//
+// Used by:
+//   - [NSCollectionLayoutGroup.CustomGroupWithLayoutSizeItemProvider]
+type NSCollectionLayoutGroupCustomItemNSCollectionLayoutEnvironmentHandler = func(NSCollectionLayoutEnvironment) []NSCollectionLayoutGroupCustomItem
+
+// NSCollectionLayoutGroupCustomItemProvider handles A closure that creates and returns each of the custom group’s items.
+
+// NSCollectionLayoutSectionInt64Handler handles completion with primitive and object results.
+//
+// Used by:
+//   - [NSCollectionViewCompositionalLayout.InitWithSectionProviderConfiguration]
+//   - [NSCollectionViewCompositionalLayout.InitWithSectionProvider]
+type NSCollectionLayoutSectionInt64Handler = func(int64, NSCollectionLayoutEnvironment) NSCollectionLayoutSection
+
+// NewNSCollectionLayoutSectionInt64Block wraps a Go [NSCollectionLayoutSectionInt64Handler] as an Objective-C block.
+// The caller must defer the returned cleanup function.
+//
+// Used by:
+//   - [NSCollectionViewCompositionalLayout.InitWithSectionProviderConfiguration]
+//   - [NSCollectionViewCompositionalLayout.InitWithSectionProvider]
+func NewNSCollectionLayoutSectionInt64Block(handler NSCollectionLayoutSectionInt64Handler) (objc.ID, func()) {
+	if handler == nil {
+		return 0, func() {}
+	}
+	block := objc.NewBlock(func(b objc.Block, primitive int64, extra0ID objc.ID) objc.ID {
+		var extra0 NSCollectionLayoutEnvironment
+		if extra0ID != 0 {
+			objc.Send[objc.ID](extra0ID, objc.Sel("retain"))
+			extra0 = NSCollectionLayoutEnvironmentObjectFromID(extra0ID)
+		}
+		return handler(primitive, extra0).ID
+	})
+	return objc.ID(block), func() { block.Release() }
+}
+
+// NSCollectionLayoutSectionVisibleItemsInvalidationHandler handles A closure called before each layout cycle to allow modification of items in a section immediately before they’re displayed.
+
+// NSCollectionViewItemCollectionViewIndexPathIObjectHandler handles A closure that creates and returns each of the items for the collection view from the data the diffable data source provides.
+//
+// Used by:
+//   - [NSCollectionViewDiffableDataSource.InitWithCollectionViewItemProvider]
+type NSCollectionViewItemCollectionViewIndexPathIObjectHandler = func(*NSCollectionView, *foundation.NSIndexPath, objectivec.IObject) NSCollectionViewItem
+
+// NewNSCollectionViewItemCollectionViewIndexPathIObjectBlock wraps a Go [NSCollectionViewItemCollectionViewIndexPathIObjectHandler] as an Objective-C block.
+// The caller must defer the returned cleanup function.
+//
+// Used by:
+//   - [NSCollectionViewDiffableDataSource.InitWithCollectionViewItemProvider]
+func NewNSCollectionViewItemCollectionViewIndexPathIObjectBlock(handler NSCollectionViewItemCollectionViewIndexPathIObjectHandler) (objc.ID, func()) {
+	if handler == nil {
+		return 0, func() {}
+	}
+	block := objc.NewBlock(func(b objc.Block, resultID objc.ID, extra0ID objc.ID, extra1ID objc.ID) objc.ID {
+		var result *NSCollectionView
+		if resultID != 0 {
+			objc.Send[objc.ID](resultID, objc.Sel("retain"))
+			v := NSCollectionViewFromID(resultID)
+			result = &v
+		}
+		var extra0 *foundation.NSIndexPath
+		if extra0ID != 0 {
+			objc.Send[objc.ID](extra0ID, objc.Sel("retain"))
+			v := foundation.NSIndexPathFromID(extra0ID)
+			extra0 = &v
+		}
+		var extra1 objectivec.IObject
+		if extra1ID != 0 {
+			objc.Send[objc.ID](extra1ID, objc.Sel("retain"))
+			extra1 = objectivec.ObjectFromID(extra1ID)
+		}
+		return handler(result, extra0, extra1).ID
+	})
+	return objc.ID(block), func() { block.Release() }
+}
+
+// NSColorAppearanceHandler is the signature for a completion handler block.
+//
+// Used by:
+//   - [NSColor.ColorWithNameDynamicProvider]
+type NSColorAppearanceHandler = func(*NSAppearance) NSColor
+
+// NewNSColorAppearanceBlock wraps a Go [NSColorAppearanceHandler] as an Objective-C block.
+// The caller must defer the returned cleanup function.
+//
+// Used by:
+//   - [NSColor.ColorWithNameDynamicProvider]
+func NewNSColorAppearanceBlock(handler NSColorAppearanceHandler) (objc.ID, func()) {
+	if handler == nil {
+		return 0, func() {}
+	}
+	block := objc.NewBlock(func(b objc.Block, resultID objc.ID) objc.ID {
+		var result *NSAppearance
+		if resultID != 0 {
+			objc.Send[objc.ID](resultID, objc.Sel("retain"))
+			v := NSAppearanceFromID(resultID)
+			result = &v
+		}
+		return handler(result).ID
+	})
+	return objc.ID(block), func() { block.Release() }
+}
+
+// NSDraggingImageComponentVoidHandler is the signature for a completion handler block.
+type NSDraggingImageComponentVoidHandler = func() []NSDraggingImageComponent
+
+// NSEventEventHandler handles The event handler block object.
+//
+// Used by:
+//   - [NSEvent.AddLocalMonitorForEventsMatchingMaskHandler]
+type NSEventEventHandler = func(*NSEvent) NSEvent
+
+// NewNSEventEventBlock wraps a Go [NSEventEventHandler] as an Objective-C block.
+// The caller must defer the returned cleanup function.
+//
+// Used by:
+//   - [NSEvent.AddLocalMonitorForEventsMatchingMaskHandler]
+func NewNSEventEventBlock(handler NSEventEventHandler) (objc.ID, func()) {
+	if handler == nil {
+		return 0, func() {}
+	}
+	block := objc.NewBlock(func(b objc.Block, resultID objc.ID) objc.ID {
+		var result *NSEvent
+		if resultID != 0 {
+			objc.Send[objc.ID](resultID, objc.Sel("retain"))
+			v := NSEventFromID(resultID)
+			result = &v
+		}
+		return handler(result).ID
+	})
+	return objc.ID(block), func() { block.Release() }
+}
+
 // NSRangeUUIDHandler handles A handler to execute with the required information.
 //
 // Used by:
@@ -762,12 +1025,52 @@ func NewNSRangeUUIDBlock(handler NSRangeUUIDHandler) (objc.ID, func()) {
 	return objc.ID(block), func() { block.Release() }
 }
 
+// NSStoryboardControllerCreator handles A block that you use to handle the custom creation of controller objects from your storyboard file.
+
+// NewNSStoryboardControllerCreatorBlock wraps a Go [NSStoryboardControllerCreator] as an Objective-C block.
+// The caller must defer the returned cleanup function.
+func NewNSStoryboardControllerCreatorBlock(handler NSStoryboardControllerCreator) (objc.ID, func()) {
+	if handler == nil {
+		return 0, func() {}
+	}
+	block := objc.NewBlock(func(b objc.Block, primitiveVal foundation.NSCoder) objc.ID {
+		return handler(primitiveVal).GetID()
+	})
+	return objc.ID(block), func() { block.Release() }
+}
+
+// NSTableRowViewTableViewInt64IObjectHandler is the signature for a completion handler block.
+type NSTableRowViewTableViewInt64IObjectHandler = func(*NSTableView, int64, objectivec.IObject) NSTableRowView
+
+// NewNSTableRowViewTableViewInt64IObjectBlock wraps a Go [NSTableRowViewTableViewInt64IObjectHandler] as an Objective-C block.
+// The caller must defer the returned cleanup function.
+func NewNSTableRowViewTableViewInt64IObjectBlock(handler NSTableRowViewTableViewInt64IObjectHandler) (objc.ID, func()) {
+	if handler == nil {
+		return 0, func() {}
+	}
+	block := objc.NewBlock(func(b objc.Block, resultID objc.ID, extra0 int64, extra1ID objc.ID) objc.ID {
+		var result *NSTableView
+		if resultID != 0 {
+			objc.Send[objc.ID](resultID, objc.Sel("retain"))
+			v := NSTableViewFromID(resultID)
+			result = &v
+		}
+		var extra1 objectivec.IObject
+		if extra1ID != 0 {
+			objc.Send[objc.ID](extra1ID, objc.Sel("retain"))
+			extra1 = objectivec.ObjectFromID(extra1ID)
+		}
+		return handler(result, extra0, extra1).ID
+	})
+	return objc.ID(block), func() { block.Release() }
+}
+
 // NSTextLocationBoolHandler handles A closure to invoke to evaluate the container boundaries; end the enumeration early by returning `false`.
 //
 // Used by:
 //   - [NSTextLayoutManager.EnumerateContainerBoundariesFromLocationReverseUsingBlock]
 //   - [NSTextSelectionDataSource.EnumerateContainerBoundariesFromLocationReverseUsingBlock]
-type NSTextLocationBoolHandler = func(NSTextLocation, bool)
+type NSTextLocationBoolHandler = func(NSTextLocation, *bool)
 
 // NewNSTextLocationBoolBlock wraps a Go [NSTextLocationBoolHandler] as an Objective-C block.
 // The caller must defer the returned cleanup function.
@@ -779,7 +1082,7 @@ func NewNSTextLocationBoolBlock(handler NSTextLocationBoolHandler) (objc.ID, fun
 	if handler == nil {
 		return 0, func() {}
 	}
-	block := objc.NewBlock(func(b objc.Block, resultID objc.ID, extra0 bool) {
+	block := objc.NewBlock(func(b objc.Block, resultID objc.ID, extra0 *bool) {
 		var result NSTextLocation
 		if resultID != 0 {
 			objc.Send[objc.ID](resultID, objc.Sel("retain"))
@@ -889,6 +1192,98 @@ func NewNSValueArrayBlock(handler NSValueArrayHandler) (objc.ID, func()) {
 	return objc.ID(block), func() { block.Release() }
 }
 
+// NSViewCollectionViewStringIndexPathHandler is the signature for a completion handler block.
+type NSViewCollectionViewStringIndexPathHandler = func(*NSCollectionView, string, *foundation.NSIndexPath) NSView
+
+// NewNSViewCollectionViewStringIndexPathBlock wraps a Go [NSViewCollectionViewStringIndexPathHandler] as an Objective-C block.
+// The caller must defer the returned cleanup function.
+func NewNSViewCollectionViewStringIndexPathBlock(handler NSViewCollectionViewStringIndexPathHandler) (objc.ID, func()) {
+	if handler == nil {
+		return 0, func() {}
+	}
+	block := objc.NewBlock(func(b objc.Block, resultID objc.ID, extra0ID objc.ID, extra1ID objc.ID) objc.ID {
+		var result *NSCollectionView
+		if resultID != 0 {
+			objc.Send[objc.ID](resultID, objc.Sel("retain"))
+			v := NSCollectionViewFromID(resultID)
+			result = &v
+		}
+		var extra0 string = objc.IDToString(extra0ID)
+		var extra1 *foundation.NSIndexPath
+		if extra1ID != 0 {
+			objc.Send[objc.ID](extra1ID, objc.Sel("retain"))
+			v := foundation.NSIndexPathFromID(extra1ID)
+			extra1 = &v
+		}
+		return handler(result, extra0, extra1).ID
+	})
+	return objc.ID(block), func() { block.Release() }
+}
+
+// NSViewTableViewInt64IObjectHandler is the signature for a completion handler block.
+type NSViewTableViewInt64IObjectHandler = func(*NSTableView, int64, objectivec.IObject) NSView
+
+// NewNSViewTableViewInt64IObjectBlock wraps a Go [NSViewTableViewInt64IObjectHandler] as an Objective-C block.
+// The caller must defer the returned cleanup function.
+func NewNSViewTableViewInt64IObjectBlock(handler NSViewTableViewInt64IObjectHandler) (objc.ID, func()) {
+	if handler == nil {
+		return 0, func() {}
+	}
+	block := objc.NewBlock(func(b objc.Block, resultID objc.ID, extra0 int64, extra1ID objc.ID) objc.ID {
+		var result *NSTableView
+		if resultID != 0 {
+			objc.Send[objc.ID](resultID, objc.Sel("retain"))
+			v := NSTableViewFromID(resultID)
+			result = &v
+		}
+		var extra1 objectivec.IObject
+		if extra1ID != 0 {
+			objc.Send[objc.ID](extra1ID, objc.Sel("retain"))
+			extra1 = objectivec.ObjectFromID(extra1ID)
+		}
+		return handler(result, extra0, extra1).ID
+	})
+	return objc.ID(block), func() { block.Release() }
+}
+
+// NSViewTableViewTableColumnInt64IObjectHandler handles A closure that creates and returns each of the cells for the table view from the data the diffable data source provides.
+//
+// Used by:
+//   - [NSTableViewDiffableDataSource.InitWithTableViewCellProvider]
+type NSViewTableViewTableColumnInt64IObjectHandler = func(*NSTableView, *NSTableColumn, int64, objectivec.IObject) NSView
+
+// NewNSViewTableViewTableColumnInt64IObjectBlock wraps a Go [NSViewTableViewTableColumnInt64IObjectHandler] as an Objective-C block.
+// The caller must defer the returned cleanup function.
+//
+// Used by:
+//   - [NSTableViewDiffableDataSource.InitWithTableViewCellProvider]
+func NewNSViewTableViewTableColumnInt64IObjectBlock(handler NSViewTableViewTableColumnInt64IObjectHandler) (objc.ID, func()) {
+	if handler == nil {
+		return 0, func() {}
+	}
+	block := objc.NewBlock(func(b objc.Block, resultID objc.ID, extra0ID objc.ID, extra1 int64, extra2ID objc.ID) objc.ID {
+		var result *NSTableView
+		if resultID != 0 {
+			objc.Send[objc.ID](resultID, objc.Sel("retain"))
+			v := NSTableViewFromID(resultID)
+			result = &v
+		}
+		var extra0 *NSTableColumn
+		if extra0ID != 0 {
+			objc.Send[objc.ID](extra0ID, objc.Sel("retain"))
+			v := NSTableColumnFromID(extra0ID)
+			extra0 = &v
+		}
+		var extra2 objectivec.IObject
+		if extra2ID != 0 {
+			objc.Send[objc.ID](extra2ID, objc.Sel("retain"))
+			extra2 = objectivec.ObjectFromID(extra2ID)
+		}
+		return handler(result, extra0, extra1, extra2).ID
+	})
+	return objc.ID(block), func() { block.Release() }
+}
+
 // PageLayoutResultHandler handles completion with a primitive value.
 //
 // Used by:
@@ -933,7 +1328,7 @@ func NewPrintPanelResultBlock(handler PrintPanelResultHandler) (objc.ID, func())
 
 // RunningApplicationErrorHandler handles The completion handler block to call asynchronously with the results.
 //   - app: On success, this parameter contains a reference to the app that opened the URL. If the app didn’t open the URL successfully, this parameter is `nil`.
-//   - error: On failure, this parameter contains an [NSError](<doc://com.apple.documentation/documentation/Foundation/NSError>) object indicating the reason for the failure. If the method opened the URL successfully, this parameter is `nil`.
+//   - error: On failure, this parameter contains an [NSError](<https://developer.apple.com/documentation/Foundation/NSError>) object indicating the reason for the failure. If the method opened the URL successfully, this parameter is `nil`.
 //
 // The error can be type-asserted to *foundation.NSError for Domain, Code, and UserInfo.
 //
@@ -1000,6 +1395,26 @@ func NewSliderAccessoryBlock(handler SliderAccessoryHandler) (objc.ID, func()) {
 //   - [NSSpellChecker.ShowCorrectionIndicatorOfTypePrimaryStringAlternativeStringsForStringInRectViewCompletionHandler]
 type StringHandler = func(*string)
 
+// NewStringBlock wraps a Go [StringHandler] as an Objective-C block.
+// The caller must defer the returned cleanup function.
+//
+// Used by:
+//   - [NSSpellChecker.ShowCorrectionIndicatorOfTypePrimaryStringAlternativeStringsForStringInRectViewCompletionHandler]
+func NewStringBlock(handler StringHandler) (objc.ID, func()) {
+	if handler == nil {
+		return 0, func() {}
+	}
+	block := objc.NewBlock(func(b objc.Block, resultID objc.ID) {
+		var result *string
+		if resultID != 0 {
+			v := objc.IDToString(resultID)
+			result = &v
+		}
+		handler(result)
+	})
+	return objc.ID(block), func() { block.Release() }
+}
+
 // StringSetErrorHandler handles A block the system invokes after detecting patterns on the pasteboard.
 //
 // Used by:
@@ -1013,6 +1428,39 @@ type StringSetErrorHandler = func(*foundation.INSSet, error)
 //   - [NSTextLayoutManager.EnumerateSubstringsFromLocationOptionsUsingBlock]
 //   - [NSTextSelectionDataSource.EnumerateSubstringsFromLocationOptionsUsingBlock]
 type StringTextRangeTextRangeBoolHandler = func(*string, *NSTextRange, *NSTextRange, *bool)
+
+// NewStringTextRangeTextRangeBoolBlock wraps a Go [StringTextRangeTextRangeBoolHandler] as an Objective-C block.
+// The caller must defer the returned cleanup function.
+//
+// Used by:
+//   - [NSTextLayoutManager.EnumerateSubstringsFromLocationOptionsUsingBlock]
+//   - [NSTextSelectionDataSource.EnumerateSubstringsFromLocationOptionsUsingBlock]
+func NewStringTextRangeTextRangeBoolBlock(handler StringTextRangeTextRangeBoolHandler) (objc.ID, func()) {
+	if handler == nil {
+		return 0, func() {}
+	}
+	block := objc.NewBlock(func(b objc.Block, resultID objc.ID, extra0ID objc.ID, extra1ID objc.ID, extra2 *bool) {
+		var result *string
+		if resultID != 0 {
+			v := objc.IDToString(resultID)
+			result = &v
+		}
+		var extra0 *NSTextRange
+		if extra0ID != 0 {
+			objc.Send[objc.ID](extra0ID, objc.Sel("retain"))
+			v := NSTextRangeFromID(extra0ID)
+			extra0 = &v
+		}
+		var extra1 *NSTextRange
+		if extra1ID != 0 {
+			objc.Send[objc.ID](extra1ID, objc.Sel("retain"))
+			v := NSTextRangeFromID(extra1ID)
+			extra1 = &v
+		}
+		handler(result, extra0, extra1, extra2)
+	})
+	return objc.ID(block), func() { block.Release() }
+}
 
 // StringidDictionaryErrorHandler handles A block the system invokes after detecting metadata on the pasteboard.
 //
@@ -1081,64 +1529,6 @@ func NewTableViewRowActionIntBlock(handler TableViewRowActionIntHandler) (objc.I
 	return objc.ID(block), func() { block.Release() }
 }
 
-// TextElementHandler handles A block you use to evaluate whether to continue the enumeration or tell the method to stop.
-//
-// Used by:
-//   - [NSTextContentManager.EnumerateTextElementsFromLocationOptionsUsingBlock]
-//   - [NSTextContentStorage.EnumerateTextElementsFromLocationOptionsUsingBlock]
-//   - [NSTextElementProvider.EnumerateTextElementsFromLocationOptionsUsingBlock]
-type TextElementHandler = func(*NSTextElement)
-
-// NewTextElementBlock wraps a Go [TextElementHandler] as an Objective-C block.
-// The caller must defer the returned cleanup function.
-//
-// Used by:
-//   - [NSTextContentManager.EnumerateTextElementsFromLocationOptionsUsingBlock]
-//   - [NSTextContentStorage.EnumerateTextElementsFromLocationOptionsUsingBlock]
-//   - [NSTextElementProvider.EnumerateTextElementsFromLocationOptionsUsingBlock]
-func NewTextElementBlock(handler TextElementHandler) (objc.ID, func()) {
-	if handler == nil {
-		return 0, func() {}
-	}
-	block := objc.NewBlock(func(b objc.Block, resultID objc.ID) {
-		var result *NSTextElement
-		if resultID != 0 {
-			objc.Send[objc.ID](resultID, objc.Sel("retain"))
-			v := NSTextElementFromID(resultID)
-			result = &v
-		}
-		handler(result)
-	})
-	return objc.ID(block), func() { block.Release() }
-}
-
-// TextLayoutFragmentHandler handles A closure you provide that determines if the enumeration finishes early.
-//
-// Used by:
-//   - [NSTextLayoutManager.EnumerateTextLayoutFragmentsFromLocationOptionsUsingBlock]
-type TextLayoutFragmentHandler = func(*NSTextLayoutFragment)
-
-// NewTextLayoutFragmentBlock wraps a Go [TextLayoutFragmentHandler] as an Objective-C block.
-// The caller must defer the returned cleanup function.
-//
-// Used by:
-//   - [NSTextLayoutManager.EnumerateTextLayoutFragmentsFromLocationOptionsUsingBlock]
-func NewTextLayoutFragmentBlock(handler TextLayoutFragmentHandler) (objc.ID, func()) {
-	if handler == nil {
-		return 0, func() {}
-	}
-	block := objc.NewBlock(func(b objc.Block, resultID objc.ID) {
-		var result *NSTextLayoutFragment
-		if resultID != 0 {
-			objc.Send[objc.ID](resultID, objc.Sel("retain"))
-			v := NSTextLayoutFragmentFromID(resultID)
-			result = &v
-		}
-		handler(result)
-	})
-	return objc.ID(block), func() { block.Release() }
-}
-
 // TextLayoutManagerTextLayoutFragmentHandler is the signature for a completion handler block.
 type TextLayoutManagerTextLayoutFragmentHandler = func(*NSTextLayoutManager, *NSTextLayoutFragment)
 
@@ -1193,39 +1583,6 @@ func NewTextPreviewBlock(handler TextPreviewHandler) (objc.ID, func()) {
 	return objc.ID(block), func() { block.Release() }
 }
 
-// TextRangeCGRectFloat64TextContainerHandler handles A closure you provide to determine if the enumeration finishes early.
-//
-// Used by:
-//   - [NSTextLayoutManager.EnumerateTextSegmentsInRangeTypeOptionsUsingBlock]
-type TextRangeCGRectFloat64TextContainerHandler = func(*NSTextRange, corefoundation.CGRect, float64, *NSTextContainer)
-
-// NewTextRangeCGRectFloat64TextContainerBlock wraps a Go [TextRangeCGRectFloat64TextContainerHandler] as an Objective-C block.
-// The caller must defer the returned cleanup function.
-//
-// Used by:
-//   - [NSTextLayoutManager.EnumerateTextSegmentsInRangeTypeOptionsUsingBlock]
-func NewTextRangeCGRectFloat64TextContainerBlock(handler TextRangeCGRectFloat64TextContainerHandler) (objc.ID, func()) {
-	if handler == nil {
-		return 0, func() {}
-	}
-	block := objc.NewBlock(func(b objc.Block, resultID objc.ID, extra0 corefoundation.CGRect, extra1 float64, extra2ID objc.ID) {
-		var result *NSTextRange
-		if resultID != 0 {
-			objc.Send[objc.ID](resultID, objc.Sel("retain"))
-			v := NSTextRangeFromID(resultID)
-			result = &v
-		}
-		var extra2 *NSTextContainer
-		if extra2ID != 0 {
-			objc.Send[objc.ID](extra2ID, objc.Sel("retain"))
-			v := NSTextContainerFromID(extra2ID)
-			extra2 = &v
-		}
-		handler(result, extra0, extra1, extra2)
-	})
-	return objc.ID(block), func() { block.Release() }
-}
-
 // URLErrorHandler handles A block to be called on the supplied operationQueue when the promised file is ready to be read.
 // The error can be type-asserted to *foundation.NSError for Domain, Code, and UserInfo.
 //
@@ -1255,7 +1612,7 @@ func NewURLErrorBlock(handler URLErrorHandler) (objc.ID, func()) {
 }
 
 // URLNSURLDictionaryErrorHandler handles The completion handler block object to call when the operation completes.
-//   - newURLs: A dictionary parameter whose keys and values are [NSURL](<doc://com.apple.documentation/documentation/Foundation/NSURL>) objects. Each key is a URL from the [URLs] parameter. The value of each key is a URL representing the location of the duplicated file. If this method could not duplicate a file, the corresponding URL is not included in the dictionary.
+//   - newURLs: A dictionary parameter whose keys and values are [NSURL](<https://developer.apple.com/documentation/Foundation/NSURL>) objects. Each key is a URL from the [URLs] parameter. The value of each key is a URL representing the location of the duplicated file. If this method could not duplicate a file, the corresponding URL is not included in the dictionary.
 //   - error: If the operation succeeded for every file, this parameter is `nil`. If the operation failed for one or more files, the parameter contains an error object describing the overall result of the operation in a manner suitable for presentation to the user.
 //
 // Used by:
@@ -1307,7 +1664,6 @@ func NewViewBlock(handler ViewHandler) (objc.ID, func()) {
 //   - [NSTableViewDiffableDataSource.ApplySnapshotAnimatingDifferencesCompletion]
 //   - [NSTextContentManager.PerformEditingTransactionUsingBlock]
 //   - [NSTextContentStorage.PerformEditingTransactionForTextStorageUsingBlock]
-//   - [NSTextLayoutManager.EnumerateRenderingAttributesFromLocationReverseUsingBlock]
 //   - [NSTextStorageObserving.PerformEditingTransactionForTextStorageUsingBlock]
 //   - [NSViewController.TransitionFromViewControllerToViewControllerOptionsCompletionHandler]
 //   - [NSWritingToolsCoordinatorDelegate.WritingToolsCoordinatorFinishTextAnimationForRangeInContextCompletion]
@@ -1335,7 +1691,6 @@ type VoidHandler = func()
 //   - [NSTableViewDiffableDataSource.ApplySnapshotAnimatingDifferencesCompletion]
 //   - [NSTextContentManager.PerformEditingTransactionUsingBlock]
 //   - [NSTextContentStorage.PerformEditingTransactionForTextStorageUsingBlock]
-//   - [NSTextLayoutManager.EnumerateRenderingAttributesFromLocationReverseUsingBlock]
 //   - [NSTextStorageObserving.PerformEditingTransactionForTextStorageUsingBlock]
 //   - [NSViewController.TransitionFromViewControllerToViewControllerOptionsCompletionHandler]
 //   - [NSWritingToolsCoordinatorDelegate.WritingToolsCoordinatorFinishTextAnimationForRangeInContextCompletion]
@@ -1355,11 +1710,11 @@ func NewVoidBlock(handler VoidHandler) (objc.ID, func()) {
 
 // WindowBoolHandler handles The block to execute for each window.
 //   - window: The window for which to execute the block.
-//   - stop: A Boolean value that stops the enumeration early when set to [true](<doc://com.apple.documentation/documentation/Swift/true>) (the default value is [false](<doc://com.apple.documentation/documentation/Swift/false>)).
+//   - stop: A Boolean value that stops the enumeration early when set to [true](<https://developer.apple.com/documentation/Swift/true>) (the default value is [false](<https://developer.apple.com/documentation/Swift/false>)).
 //
 // Used by:
 //   - [NSApplication.EnumerateWindowsWithOptionsUsingBlock]
-type WindowBoolHandler = func(*NSWindow, bool)
+type WindowBoolHandler = func(*NSWindow, *bool)
 
 // NewWindowBoolBlock wraps a Go [WindowBoolHandler] as an Objective-C block.
 // The caller must defer the returned cleanup function.
@@ -1370,7 +1725,7 @@ func NewWindowBoolBlock(handler WindowBoolHandler) (objc.ID, func()) {
 	if handler == nil {
 		return 0, func() {}
 	}
-	block := objc.NewBlock(func(b objc.Block, resultID objc.ID, extra0 bool) {
+	block := objc.NewBlock(func(b objc.Block, resultID objc.ID, extra0 *bool) {
 		var result *NSWindow
 		if resultID != 0 {
 			objc.Send[objc.ID](resultID, objc.Sel("retain"))
@@ -1417,7 +1772,7 @@ func NewWindowErrorBlock(handler WindowErrorHandler) (objc.ID, func()) {
 }
 
 // WorkspaceAuthorizationErrorHandler handles The completion handler to call when the authorization request is completed.
-//   - authorization: The authorization granted for this app. Use it when creating a new [FileManager](<doc://com.apple.documentation/documentation/Foundation/FileManager>) with [init(authorization:)](<doc://com.apple.documentation/documentation/Foundation/FileManager/init(authorization:)>).
+//   - authorization: The authorization granted for this app. Use it when creating a new [FileManager](<https://developer.apple.com/documentation/Foundation/FileManager>) with [init(authorization:)](<https://developer.apple.com/documentation/Foundation/FileManager/init(authorization:)>).
 //   - error: `nil` if the app is authorized; otherwise, a pointer to the authorization error.
 //
 // The error can be type-asserted to *foundation.NSError for Domain, Code, and UserInfo.

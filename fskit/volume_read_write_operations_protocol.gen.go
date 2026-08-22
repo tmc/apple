@@ -68,7 +68,9 @@ func FSVolumeReadWriteOperationsObjectFromID(id objc.ID) FSVolumeReadWriteOperat
 //
 // See: https://developer.apple.com/documentation/FSKit/FSVolume/ReadWriteOperations/read(from:at:length:into:replyHandler:)
 func (o FSVolumeReadWriteOperationsObject) ReadFromFileOffsetLengthIntoBufferReplyHandler(item IFSItem, offset int64, length uintptr, buffer IFSMutableFileDataBuffer, reply size_tErrorHandler) {
-	objc.Send[struct{}](o.ID, objc.Sel("readFromFile:offset:length:intoBuffer:replyHandler:"), item, offset, length, buffer, reply)
+	_block4, _cleanup4 := Newsize_tErrorBlock(reply)
+	defer _cleanup4()
+	objc.Send[struct{}](o.ID, objc.Sel("readFromFile:offset:length:intoBuffer:replyHandler:"), item, offset, length, buffer, objc.ID(_block4))
 }
 
 // Writes contents to the given file item.
@@ -98,5 +100,7 @@ func (o FSVolumeReadWriteOperationsObject) ReadFromFileOffsetLengthIntoBufferRep
 //
 // [NSPOSIXErrorDomain]: https://developer.apple.com/documentation/Foundation/NSPOSIXErrorDomain
 func (o FSVolumeReadWriteOperationsObject) WriteContentsToFileAtOffsetReplyHandler(contents foundation.NSData, item IFSItem, offset int64, reply size_tErrorHandler) {
-	objc.Send[struct{}](o.ID, objc.Sel("writeContents:toFile:atOffset:replyHandler:"), contents, item, offset, reply)
+	_block3, _cleanup3 := Newsize_tErrorBlock(reply)
+	defer _cleanup3()
+	objc.Send[struct{}](o.ID, objc.Sel("writeContents:toFile:atOffset:replyHandler:"), contents, item, offset, objc.ID(_block3))
 }

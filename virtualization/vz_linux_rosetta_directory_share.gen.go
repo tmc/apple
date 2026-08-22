@@ -160,6 +160,9 @@ func NewLinuxRosettaDirectoryShareWithError() (VZLinuxRosettaDirectoryShare, err
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
 		return VZLinuxRosettaDirectoryShare{}, foundation.NSErrorFrom(errorPtr)
 	}
+	if rv == 0 {
+		return VZLinuxRosettaDirectoryShare{}, objc.ErrInitFailed
+	}
 	return VZLinuxRosettaDirectoryShareFromID(rv), nil
 }
 

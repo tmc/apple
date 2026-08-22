@@ -3,6 +3,7 @@
 package avfaudio
 
 import (
+	"context"
 	"sync"
 
 	"github.com/tmc/apple/objc"
@@ -191,21 +192,21 @@ type IAVAudioPlayerNode interface {
 	// Topic: Scheduling Playback
 
 	// Schedules the playing of an entire audio file.
-	ScheduleFileAtTimeCompletionHandler(file IAVAudioFile, when IAVAudioTime, completionHandler ErrorHandler)
+	ScheduleFileAtTimeCompletionHandler(file IAVAudioFile, when IAVAudioTime, completionHandler VoidHandler)
 	// Schedules the playing of an entire audio file with a callback option you specify.
-	ScheduleFileAtTimeCompletionCallbackTypeCompletionHandler(file IAVAudioFile, when IAVAudioTime, callbackType AVAudioPlayerNodeCompletionCallbackType, completionHandler ErrorHandler)
+	ScheduleFileAtTimeCompletionCallbackTypeCompletionHandler(file IAVAudioFile, when IAVAudioTime, callbackType AVAudioPlayerNodeCompletionCallbackType, completionHandler AVAudioPlayerNodeCompletionCallbackTypeHandler)
 	// Schedules the playing of an audio file segment.
-	ScheduleSegmentStartingFrameFrameCountAtTimeCompletionHandler(file IAVAudioFile, startFrame AVAudioFramePosition, numberFrames AVAudioFrameCount, when IAVAudioTime, completionHandler ErrorHandler)
+	ScheduleSegmentStartingFrameFrameCountAtTimeCompletionHandler(file IAVAudioFile, startFrame AVAudioFramePosition, numberFrames AVAudioFrameCount, when IAVAudioTime, completionHandler VoidHandler)
 	// Schedules the playing of an audio file segment with a callback option you specify.
-	ScheduleSegmentStartingFrameFrameCountAtTimeCompletionCallbackTypeCompletionHandler(file IAVAudioFile, startFrame AVAudioFramePosition, numberFrames AVAudioFrameCount, when IAVAudioTime, callbackType AVAudioPlayerNodeCompletionCallbackType, completionHandler ErrorHandler)
+	ScheduleSegmentStartingFrameFrameCountAtTimeCompletionCallbackTypeCompletionHandler(file IAVAudioFile, startFrame AVAudioFramePosition, numberFrames AVAudioFrameCount, when IAVAudioTime, callbackType AVAudioPlayerNodeCompletionCallbackType, completionHandler AVAudioPlayerNodeCompletionCallbackTypeHandler)
 	// Schedules the playing samples from an audio buffer at the time and playback options you specify.
-	ScheduleBufferAtTimeOptionsCompletionHandler(buffer IAVAudioPCMBuffer, when IAVAudioTime, options AVAudioPlayerNodeBufferOptions, completionHandler ErrorHandler)
+	ScheduleBufferAtTimeOptionsCompletionHandler(buffer IAVAudioPCMBuffer, when IAVAudioTime, options AVAudioPlayerNodeBufferOptions, completionHandler VoidHandler)
 	// Schedules the playing samples from an audio buffer.
-	ScheduleBufferCompletionHandler(buffer IAVAudioPCMBuffer, completionHandler ErrorHandler)
+	ScheduleBufferCompletionHandler(buffer IAVAudioPCMBuffer, completionHandler VoidHandler)
 	// Schedules the playing samples from an audio buffer with the playback options you specify.
-	ScheduleBufferAtTimeOptionsCompletionCallbackTypeCompletionHandler(buffer IAVAudioPCMBuffer, when IAVAudioTime, options AVAudioPlayerNodeBufferOptions, callbackType AVAudioPlayerNodeCompletionCallbackType, completionHandler ErrorHandler)
+	ScheduleBufferAtTimeOptionsCompletionCallbackTypeCompletionHandler(buffer IAVAudioPCMBuffer, when IAVAudioTime, options AVAudioPlayerNodeBufferOptions, callbackType AVAudioPlayerNodeCompletionCallbackType, completionHandler AVAudioPlayerNodeCompletionCallbackTypeHandler)
 	// Schedules the playing samples from an audio buffer with the callback option you specify.
-	ScheduleBufferCompletionCallbackTypeCompletionHandler(buffer IAVAudioPCMBuffer, callbackType AVAudioPlayerNodeCompletionCallbackType, completionHandler ErrorHandler)
+	ScheduleBufferCompletionCallbackTypeCompletionHandler(buffer IAVAudioPCMBuffer, callbackType AVAudioPlayerNodeCompletionCallbackType, completionHandler AVAudioPlayerNodeCompletionCallbackTypeHandler)
 
 	// Topic: Converting Node and Player Times
 
@@ -228,6 +229,29 @@ type IAVAudioPlayerNode interface {
 	Pause()
 	// Clears all of the node’s events you schedule and stops playback.
 	Stop()
+
+	// Gets the audio mixing destination object that corresponds to the specified mixer node and input bus.
+	DestinationForMixerBus(mixer IAVAudioNode, bus AVAudioNodeBus) IAVAudioMixingDestination
+	// A value that simulates filtering of the direct path of sound due to an obstacle.
+	Obstruction() float32
+	// A value that simulates filtering of the direct and reverb paths of sound due to an obstacle.
+	Occlusion() float32
+	// The bus’s stereo pan.
+	Pan() float32
+	// The in-head mode for a point source.
+	PointSourceInHeadMode() AVAudio3DMixingPointSourceInHeadMode
+	// The location of the source in the 3D environment.
+	Position() AVAudio3DPoint
+	// A value that changes the playback rate of the input signal.
+	Rate() float32
+	// The type of rendering algorithm the mixer uses.
+	RenderingAlgorithm() AVAudio3DMixingRenderingAlgorithm
+	// A value that controls the blend of dry and reverb processed audio.
+	ReverbBlend() float32
+	// The source mode for the input bus of the audio environment node.
+	SourceMode() AVAudio3DMixingSourceMode
+	// The bus’s input volume.
+	Volume() float32
 }
 
 // Init initializes the instance.
@@ -261,8 +285,8 @@ func NewAVAudioPlayerNode() AVAudioPlayerNode {
 // # Discussion
 //
 // See: https://developer.apple.com/documentation/AVFAudio/AVAudioPlayerNode/scheduleFile(_:at:completionHandler:)
-func (a AVAudioPlayerNode) ScheduleFileAtTimeCompletionHandler(file IAVAudioFile, when IAVAudioTime, completionHandler ErrorHandler) {
-	_block2, _ := NewErrorBlock(completionHandler)
+func (a AVAudioPlayerNode) ScheduleFileAtTimeCompletionHandler(file IAVAudioFile, when IAVAudioTime, completionHandler VoidHandler) {
+	_block2, _ := NewVoidBlock(completionHandler)
 	objc.Send[objc.ID](a.ID, objc.Sel("scheduleFile:atTime:completionHandler:"), file, when, _block2)
 }
 
@@ -281,8 +305,8 @@ func (a AVAudioPlayerNode) ScheduleFileAtTimeCompletionHandler(file IAVAudioFile
 // # Discussion
 //
 // See: https://developer.apple.com/documentation/AVFAudio/AVAudioPlayerNode/scheduleFile(_:at:completionCallbackType:completionHandler:)
-func (a AVAudioPlayerNode) ScheduleFileAtTimeCompletionCallbackTypeCompletionHandler(file IAVAudioFile, when IAVAudioTime, callbackType AVAudioPlayerNodeCompletionCallbackType, completionHandler ErrorHandler) {
-	_block3, _ := NewErrorBlock(completionHandler)
+func (a AVAudioPlayerNode) ScheduleFileAtTimeCompletionCallbackTypeCompletionHandler(file IAVAudioFile, when IAVAudioTime, callbackType AVAudioPlayerNodeCompletionCallbackType, completionHandler AVAudioPlayerNodeCompletionCallbackTypeHandler) {
+	_block3, _ := NewAVAudioPlayerNodeCompletionCallbackTypeBlock(completionHandler)
 	objc.Send[objc.ID](a.ID, objc.Sel("scheduleFile:atTime:completionCallbackType:completionHandler:"), file, when, callbackType, _block3)
 }
 
@@ -302,8 +326,8 @@ func (a AVAudioPlayerNode) ScheduleFileAtTimeCompletionCallbackTypeCompletionHan
 // # Discussion
 //
 // See: https://developer.apple.com/documentation/AVFAudio/AVAudioPlayerNode/scheduleSegment(_:startingFrame:frameCount:at:completionHandler:)
-func (a AVAudioPlayerNode) ScheduleSegmentStartingFrameFrameCountAtTimeCompletionHandler(file IAVAudioFile, startFrame AVAudioFramePosition, numberFrames AVAudioFrameCount, when IAVAudioTime, completionHandler ErrorHandler) {
-	_block4, _ := NewErrorBlock(completionHandler)
+func (a AVAudioPlayerNode) ScheduleSegmentStartingFrameFrameCountAtTimeCompletionHandler(file IAVAudioFile, startFrame AVAudioFramePosition, numberFrames AVAudioFrameCount, when IAVAudioTime, completionHandler VoidHandler) {
+	_block4, _ := NewVoidBlock(completionHandler)
 	objc.Send[objc.ID](a.ID, objc.Sel("scheduleSegment:startingFrame:frameCount:atTime:completionHandler:"), file, startFrame, numberFrames, when, _block4)
 }
 
@@ -326,8 +350,8 @@ func (a AVAudioPlayerNode) ScheduleSegmentStartingFrameFrameCountAtTimeCompletio
 // # Discussion
 //
 // See: https://developer.apple.com/documentation/AVFAudio/AVAudioPlayerNode/scheduleSegment(_:startingFrame:frameCount:at:completionCallbackType:completionHandler:)
-func (a AVAudioPlayerNode) ScheduleSegmentStartingFrameFrameCountAtTimeCompletionCallbackTypeCompletionHandler(file IAVAudioFile, startFrame AVAudioFramePosition, numberFrames AVAudioFrameCount, when IAVAudioTime, callbackType AVAudioPlayerNodeCompletionCallbackType, completionHandler ErrorHandler) {
-	_block5, _ := NewErrorBlock(completionHandler)
+func (a AVAudioPlayerNode) ScheduleSegmentStartingFrameFrameCountAtTimeCompletionCallbackTypeCompletionHandler(file IAVAudioFile, startFrame AVAudioFramePosition, numberFrames AVAudioFrameCount, when IAVAudioTime, callbackType AVAudioPlayerNodeCompletionCallbackType, completionHandler AVAudioPlayerNodeCompletionCallbackTypeHandler) {
+	_block5, _ := NewAVAudioPlayerNodeCompletionCallbackTypeBlock(completionHandler)
 	objc.Send[objc.ID](a.ID, objc.Sel("scheduleSegment:startingFrame:frameCount:atTime:completionCallbackType:completionHandler:"), file, startFrame, numberFrames, when, callbackType, _block5)
 }
 
@@ -346,8 +370,8 @@ func (a AVAudioPlayerNode) ScheduleSegmentStartingFrameFrameCountAtTimeCompletio
 // # Discussion
 //
 // See: https://developer.apple.com/documentation/AVFAudio/AVAudioPlayerNode/scheduleBuffer(_:at:options:completionHandler:)
-func (a AVAudioPlayerNode) ScheduleBufferAtTimeOptionsCompletionHandler(buffer IAVAudioPCMBuffer, when IAVAudioTime, options AVAudioPlayerNodeBufferOptions, completionHandler ErrorHandler) {
-	_block3, _ := NewErrorBlock(completionHandler)
+func (a AVAudioPlayerNode) ScheduleBufferAtTimeOptionsCompletionHandler(buffer IAVAudioPCMBuffer, when IAVAudioTime, options AVAudioPlayerNodeBufferOptions, completionHandler VoidHandler) {
+	_block3, _ := NewVoidBlock(completionHandler)
 	objc.Send[objc.ID](a.ID, objc.Sel("scheduleBuffer:atTime:options:completionHandler:"), buffer, when, options, _block3)
 }
 
@@ -361,8 +385,8 @@ func (a AVAudioPlayerNode) ScheduleBufferAtTimeOptionsCompletionHandler(buffer I
 // # Discussion
 //
 // See: https://developer.apple.com/documentation/AVFAudio/AVAudioPlayerNode/scheduleBuffer(_:completionHandler:)
-func (a AVAudioPlayerNode) ScheduleBufferCompletionHandler(buffer IAVAudioPCMBuffer, completionHandler ErrorHandler) {
-	_block1, _ := NewErrorBlock(completionHandler)
+func (a AVAudioPlayerNode) ScheduleBufferCompletionHandler(buffer IAVAudioPCMBuffer, completionHandler VoidHandler) {
+	_block1, _ := NewVoidBlock(completionHandler)
 	objc.Send[objc.ID](a.ID, objc.Sel("scheduleBuffer:completionHandler:"), buffer, _block1)
 }
 
@@ -383,8 +407,8 @@ func (a AVAudioPlayerNode) ScheduleBufferCompletionHandler(buffer IAVAudioPCMBuf
 // # Discussion
 //
 // See: https://developer.apple.com/documentation/AVFAudio/AVAudioPlayerNode/scheduleBuffer(_:at:options:completionCallbackType:completionHandler:)
-func (a AVAudioPlayerNode) ScheduleBufferAtTimeOptionsCompletionCallbackTypeCompletionHandler(buffer IAVAudioPCMBuffer, when IAVAudioTime, options AVAudioPlayerNodeBufferOptions, callbackType AVAudioPlayerNodeCompletionCallbackType, completionHandler ErrorHandler) {
-	_block4, _ := NewErrorBlock(completionHandler)
+func (a AVAudioPlayerNode) ScheduleBufferAtTimeOptionsCompletionCallbackTypeCompletionHandler(buffer IAVAudioPCMBuffer, when IAVAudioTime, options AVAudioPlayerNodeBufferOptions, callbackType AVAudioPlayerNodeCompletionCallbackType, completionHandler AVAudioPlayerNodeCompletionCallbackTypeHandler) {
+	_block4, _ := NewAVAudioPlayerNodeCompletionCallbackTypeBlock(completionHandler)
 	objc.Send[objc.ID](a.ID, objc.Sel("scheduleBuffer:atTime:options:completionCallbackType:completionHandler:"), buffer, when, options, callbackType, _block4)
 }
 
@@ -401,8 +425,8 @@ func (a AVAudioPlayerNode) ScheduleBufferAtTimeOptionsCompletionCallbackTypeComp
 // # Discussion
 //
 // See: https://developer.apple.com/documentation/AVFAudio/AVAudioPlayerNode/scheduleBuffer(_:completionCallbackType:completionHandler:)
-func (a AVAudioPlayerNode) ScheduleBufferCompletionCallbackTypeCompletionHandler(buffer IAVAudioPCMBuffer, callbackType AVAudioPlayerNodeCompletionCallbackType, completionHandler ErrorHandler) {
-	_block2, _ := NewErrorBlock(completionHandler)
+func (a AVAudioPlayerNode) ScheduleBufferCompletionCallbackTypeCompletionHandler(buffer IAVAudioPCMBuffer, callbackType AVAudioPlayerNodeCompletionCallbackType, completionHandler AVAudioPlayerNodeCompletionCallbackTypeHandler) {
+	_block2, _ := NewAVAudioPlayerNodeCompletionCallbackTypeBlock(completionHandler)
 	objc.Send[objc.ID](a.ID, objc.Sel("scheduleBuffer:completionCallbackType:completionHandler:"), buffer, callbackType, _block2)
 }
 
@@ -777,4 +801,124 @@ func (o AVAudioPlayerNode) SetRenderingAlgorithm(value AVAudio3DMixingRenderingA
 // See: https://developer.apple.com/documentation/AVFAudio/AVAudioStereoMixing/pan
 func (o AVAudioPlayerNode) SetPan(value float32) {
 	objc.Send[struct{}](o.ID, objc.Sel("setPan:"), value)
+}
+
+// ScheduleFileAtTime is a synchronous wrapper around [AVAudioPlayerNode.ScheduleFileAtTimeCompletionHandler].
+// It blocks until the completion handler fires or the context is cancelled.
+func (a AVAudioPlayerNode) ScheduleFileAtTime(ctx context.Context, file IAVAudioFile, when IAVAudioTime) error {
+	done := make(chan struct{}, 1)
+	a.ScheduleFileAtTimeCompletionHandler(file, when, func() {
+		done <- struct{}{}
+	})
+	select {
+	case <-done:
+		return nil
+	case <-ctx.Done():
+		return ctx.Err()
+	}
+}
+
+// ScheduleFileAtTimeCompletionCallbackType is a synchronous wrapper around [AVAudioPlayerNode.ScheduleFileAtTimeCompletionCallbackTypeCompletionHandler].
+// It blocks until the completion handler fires or the context is cancelled.
+func (a AVAudioPlayerNode) ScheduleFileAtTimeCompletionCallbackType(ctx context.Context, file IAVAudioFile, when IAVAudioTime, callbackType AVAudioPlayerNodeCompletionCallbackType) (int, error) {
+	done := make(chan int, 1)
+	a.ScheduleFileAtTimeCompletionCallbackTypeCompletionHandler(file, when, callbackType, func(val int) {
+		done <- val
+	})
+	select {
+	case r := <-done:
+		return r, nil
+	case <-ctx.Done():
+		return 0, ctx.Err()
+	}
+}
+
+// ScheduleSegmentStartingFrameFrameCountAtTime is a synchronous wrapper around [AVAudioPlayerNode.ScheduleSegmentStartingFrameFrameCountAtTimeCompletionHandler].
+// It blocks until the completion handler fires or the context is cancelled.
+func (a AVAudioPlayerNode) ScheduleSegmentStartingFrameFrameCountAtTime(ctx context.Context, file IAVAudioFile, startFrame AVAudioFramePosition, numberFrames AVAudioFrameCount, when IAVAudioTime) error {
+	done := make(chan struct{}, 1)
+	a.ScheduleSegmentStartingFrameFrameCountAtTimeCompletionHandler(file, startFrame, numberFrames, when, func() {
+		done <- struct{}{}
+	})
+	select {
+	case <-done:
+		return nil
+	case <-ctx.Done():
+		return ctx.Err()
+	}
+}
+
+// ScheduleSegmentStartingFrameFrameCountAtTimeCompletionCallbackType is a synchronous wrapper around [AVAudioPlayerNode.ScheduleSegmentStartingFrameFrameCountAtTimeCompletionCallbackTypeCompletionHandler].
+// It blocks until the completion handler fires or the context is cancelled.
+func (a AVAudioPlayerNode) ScheduleSegmentStartingFrameFrameCountAtTimeCompletionCallbackType(ctx context.Context, file IAVAudioFile, startFrame AVAudioFramePosition, numberFrames AVAudioFrameCount, when IAVAudioTime, callbackType AVAudioPlayerNodeCompletionCallbackType) (int, error) {
+	done := make(chan int, 1)
+	a.ScheduleSegmentStartingFrameFrameCountAtTimeCompletionCallbackTypeCompletionHandler(file, startFrame, numberFrames, when, callbackType, func(val int) {
+		done <- val
+	})
+	select {
+	case r := <-done:
+		return r, nil
+	case <-ctx.Done():
+		return 0, ctx.Err()
+	}
+}
+
+// ScheduleBufferAtTimeOptions is a synchronous wrapper around [AVAudioPlayerNode.ScheduleBufferAtTimeOptionsCompletionHandler].
+// It blocks until the completion handler fires or the context is cancelled.
+func (a AVAudioPlayerNode) ScheduleBufferAtTimeOptions(ctx context.Context, buffer IAVAudioPCMBuffer, when IAVAudioTime, options AVAudioPlayerNodeBufferOptions) error {
+	done := make(chan struct{}, 1)
+	a.ScheduleBufferAtTimeOptionsCompletionHandler(buffer, when, options, func() {
+		done <- struct{}{}
+	})
+	select {
+	case <-done:
+		return nil
+	case <-ctx.Done():
+		return ctx.Err()
+	}
+}
+
+// ScheduleBuffer is a synchronous wrapper around [AVAudioPlayerNode.ScheduleBufferCompletionHandler].
+// It blocks until the completion handler fires or the context is cancelled.
+func (a AVAudioPlayerNode) ScheduleBuffer(ctx context.Context, buffer IAVAudioPCMBuffer) error {
+	done := make(chan struct{}, 1)
+	a.ScheduleBufferCompletionHandler(buffer, func() {
+		done <- struct{}{}
+	})
+	select {
+	case <-done:
+		return nil
+	case <-ctx.Done():
+		return ctx.Err()
+	}
+}
+
+// ScheduleBufferAtTimeOptionsCompletionCallbackType is a synchronous wrapper around [AVAudioPlayerNode.ScheduleBufferAtTimeOptionsCompletionCallbackTypeCompletionHandler].
+// It blocks until the completion handler fires or the context is cancelled.
+func (a AVAudioPlayerNode) ScheduleBufferAtTimeOptionsCompletionCallbackType(ctx context.Context, buffer IAVAudioPCMBuffer, when IAVAudioTime, options AVAudioPlayerNodeBufferOptions, callbackType AVAudioPlayerNodeCompletionCallbackType) (int, error) {
+	done := make(chan int, 1)
+	a.ScheduleBufferAtTimeOptionsCompletionCallbackTypeCompletionHandler(buffer, when, options, callbackType, func(val int) {
+		done <- val
+	})
+	select {
+	case r := <-done:
+		return r, nil
+	case <-ctx.Done():
+		return 0, ctx.Err()
+	}
+}
+
+// ScheduleBufferCompletionCallbackType is a synchronous wrapper around [AVAudioPlayerNode.ScheduleBufferCompletionCallbackTypeCompletionHandler].
+// It blocks until the completion handler fires or the context is cancelled.
+func (a AVAudioPlayerNode) ScheduleBufferCompletionCallbackType(ctx context.Context, buffer IAVAudioPCMBuffer, callbackType AVAudioPlayerNodeCompletionCallbackType) (int, error) {
+	done := make(chan int, 1)
+	a.ScheduleBufferCompletionCallbackTypeCompletionHandler(buffer, callbackType, func(val int) {
+		done <- val
+	})
+	select {
+	case r := <-done:
+		return r, nil
+	case <-ctx.Done():
+		return 0, ctx.Err()
+	}
 }

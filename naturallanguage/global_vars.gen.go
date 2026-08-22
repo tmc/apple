@@ -1540,7 +1540,7 @@ var NLTagSchemes struct {
 	LexicalClass NLTagScheme
 	// NameType: A scheme that classifies tokens according to whether they are part of a named entity.
 	NameType NLTagScheme
-	// NameTypeOrLexicalClass: A scheme that classifies tokens corresponding to names according to [nameType](<doc://com.apple.naturallanguage/documentation/NaturalLanguage/NLTagScheme/nameType>), and classifies all other tokens according to [lexicalClass](<doc://com.apple.naturallanguage/documentation/NaturalLanguage/NLTagScheme/lexicalClass>).
+	// NameTypeOrLexicalClass: A scheme that classifies tokens corresponding to names according to [nameType](<https://developer.apple.com/documentation/NaturalLanguage/NLTagScheme/nameType>), and classifies all other tokens according to [lexicalClass](<https://developer.apple.com/documentation/NaturalLanguage/NLTagScheme/lexicalClass>).
 	NameTypeOrLexicalClass NLTagScheme
 	// Script: A scheme that supplies the script for a token, if it can determine one.
 	Script NLTagScheme

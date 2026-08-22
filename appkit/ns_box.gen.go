@@ -202,8 +202,8 @@ type INSBox interface {
 	Title() string
 	SetTitle(value string)
 	// The font object used to draw the receiver’s title.
-	TitleFont() NSFont
-	SetTitleFont(value NSFont)
+	TitleFont() INSFont
+	SetTitleFont(value INSFont)
 	// A constant representing the title position.
 	TitlePosition() NSTitlePosition
 	SetTitlePosition(value NSTitlePosition)
@@ -404,11 +404,11 @@ func (b NSBox) SetTitle(value string) {
 // resized to absorb the difference.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSBox/titleFont
-func (b NSBox) TitleFont() NSFont {
+func (b NSBox) TitleFont() INSFont {
 	rv := objc.Send[objc.ID](b.ID, objc.Sel("titleFont"))
 	return NSFontFromID(objc.ID(rv))
 }
-func (b NSBox) SetTitleFont(value NSFont) {
+func (b NSBox) SetTitleFont(value INSFont) {
 	objc.Send[struct{}](b.ID, objc.Sel("setTitleFont:"), value)
 }
 

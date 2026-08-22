@@ -4,6 +4,7 @@ package appkit
 
 import (
 	"fmt"
+	"unsafe"
 
 	"github.com/tmc/apple/corefoundation"
 	"github.com/tmc/apple/foundation"
@@ -119,7 +120,7 @@ func (o NSSharingServiceDelegateObject) SharingServiceSourceFrameOnScreenForShar
 //
 // See: https://developer.apple.com/documentation/AppKit/NSSharingServiceDelegate/sharingService(_:transitionImageForShareItem:contentRect:)
 func (o NSSharingServiceDelegateObject) SharingServiceTransitionImageForShareItemContentRect(sharingService INSSharingService, item objectivec.IObject, contentRect *corefoundation.CGRect) INSImage {
-	rv := objc.Send[objc.ID](o.ID, objc.Sel("sharingService:transitionImageForShareItem:contentRect:"), sharingService, item, contentRect)
+	rv := objc.Send[objc.ID](o.ID, objc.Sel("sharingService:transitionImageForShareItem:contentRect:"), sharingService, item, unsafe.Pointer(contentRect))
 	return NSImageFromID(rv)
 }
 
@@ -170,7 +171,7 @@ func (o NSSharingServiceDelegateObject) SharingServiceSourceWindowForShareItemsS
 //
 // See: https://developer.apple.com/documentation/AppKit/NSSharingServiceDelegate/anchoringView(for:showRelativeTo:preferredEdge:)
 func (o NSSharingServiceDelegateObject) AnchoringViewForSharingServiceShowRelativeToRectPreferredEdge(sharingService INSSharingService, positioningRect *corefoundation.CGRect, preferredEdge foundation.NSRectEdge) INSView {
-	rv := objc.Send[objc.ID](o.ID, objc.Sel("anchoringViewForSharingService:showRelativeToRect:preferredEdge:"), sharingService, positioningRect, preferredEdge)
+	rv := objc.Send[objc.ID](o.ID, objc.Sel("anchoringViewForSharingService:showRelativeToRect:preferredEdge:"), sharingService, unsafe.Pointer(positioningRect), preferredEdge)
 	return NSViewFromID(rv)
 }
 
@@ -224,9 +225,21 @@ func NewNSSharingServiceDelegate(config NSSharingServiceDelegateConfig) NSSharin
 		methods = append(methods, objc.MethodDef{
 			Cmd: objc.RegisterName("sharingService:willShareItems:"),
 			Fn: func(self objc.ID, _cmd objc.SEL, sharingServiceID objc.ID, itemsID objc.ID) {
+				// Names which delegate was running if a panic unwinds out of
+				// it. The frames between here and the Objective-C caller are
+				// runtime and purego dispatch, so without this the traceback
+				// never says which selector dispatched. Deliberately no
+				// recover: see [objc.NoteDelegatePanic].
+				_delegateDone := false
+				defer func() {
+					if !_delegateDone {
+						objc.NoteDelegatePanic("NSSharingServiceDelegate", "sharingService:willShareItems:")
+					}
+				}()
 				sharingService := NSSharingServiceFromID(sharingServiceID)
 				items := foundation.NSArrayFromID(itemsID)
 				fn(sharingService, items)
+				_delegateDone = true
 			},
 		})
 	}
@@ -236,9 +249,21 @@ func NewNSSharingServiceDelegate(config NSSharingServiceDelegateConfig) NSSharin
 		methods = append(methods, objc.MethodDef{
 			Cmd: objc.RegisterName("sharingService:didShareItems:"),
 			Fn: func(self objc.ID, _cmd objc.SEL, sharingServiceID objc.ID, itemsID objc.ID) {
+				// Names which delegate was running if a panic unwinds out of
+				// it. The frames between here and the Objective-C caller are
+				// runtime and purego dispatch, so without this the traceback
+				// never says which selector dispatched. Deliberately no
+				// recover: see [objc.NoteDelegatePanic].
+				_delegateDone := false
+				defer func() {
+					if !_delegateDone {
+						objc.NoteDelegatePanic("NSSharingServiceDelegate", "sharingService:didShareItems:")
+					}
+				}()
 				sharingService := NSSharingServiceFromID(sharingServiceID)
 				items := foundation.NSArrayFromID(itemsID)
 				fn(sharingService, items)
+				_delegateDone = true
 			},
 		})
 	}
@@ -248,10 +273,22 @@ func NewNSSharingServiceDelegate(config NSSharingServiceDelegateConfig) NSSharin
 		methods = append(methods, objc.MethodDef{
 			Cmd: objc.RegisterName("sharingService:didFailToShareItems:error:"),
 			Fn: func(self objc.ID, _cmd objc.SEL, sharingServiceID objc.ID, itemsID objc.ID, error_ID objc.ID) {
+				// Names which delegate was running if a panic unwinds out of
+				// it. The frames between here and the Objective-C caller are
+				// runtime and purego dispatch, so without this the traceback
+				// never says which selector dispatched. Deliberately no
+				// recover: see [objc.NoteDelegatePanic].
+				_delegateDone := false
+				defer func() {
+					if !_delegateDone {
+						objc.NoteDelegatePanic("NSSharingServiceDelegate", "sharingService:didFailToShareItems:error:")
+					}
+				}()
 				sharingService := NSSharingServiceFromID(sharingServiceID)
 				items := foundation.NSArrayFromID(itemsID)
 				error_ := foundation.NSErrorFromID(error_ID)
 				fn(sharingService, items, error_)
+				_delegateDone = true
 			},
 		})
 	}
@@ -261,9 +298,22 @@ func NewNSSharingServiceDelegate(config NSSharingServiceDelegateConfig) NSSharin
 		methods = append(methods, objc.MethodDef{
 			Cmd: objc.RegisterName("sharingService:sourceWindowForShareItems:sharingContentScope:"),
 			Fn: func(self objc.ID, _cmd objc.SEL, sharingServiceID objc.ID, itemsID objc.ID, sharingContentScope NSSharingContentScope) objc.ID {
+				// Names which delegate was running if a panic unwinds out of
+				// it. The frames between here and the Objective-C caller are
+				// runtime and purego dispatch, so without this the traceback
+				// never says which selector dispatched. Deliberately no
+				// recover: see [objc.NoteDelegatePanic].
+				_delegateDone := false
+				defer func() {
+					if !_delegateDone {
+						objc.NoteDelegatePanic("NSSharingServiceDelegate", "sharingService:sourceWindowForShareItems:sharingContentScope:")
+					}
+				}()
 				sharingService := NSSharingServiceFromID(sharingServiceID)
 				items := foundation.NSArrayFromID(itemsID)
-				return fn(sharingService, items, sharingContentScope).GetID()
+				_delegateResult := fn(sharingService, items, sharingContentScope).GetID()
+				_delegateDone = true
+				return _delegateResult
 			},
 		})
 	}
@@ -273,8 +323,21 @@ func NewNSSharingServiceDelegate(config NSSharingServiceDelegateConfig) NSSharin
 		methods = append(methods, objc.MethodDef{
 			Cmd: objc.RegisterName("anchoringViewForSharingService:showRelativeToRect:preferredEdge:"),
 			Fn: func(self objc.ID, _cmd objc.SEL, sharingServiceID objc.ID, positioningRect *corefoundation.CGRect, preferredEdge foundation.NSRectEdge) objc.ID {
+				// Names which delegate was running if a panic unwinds out of
+				// it. The frames between here and the Objective-C caller are
+				// runtime and purego dispatch, so without this the traceback
+				// never says which selector dispatched. Deliberately no
+				// recover: see [objc.NoteDelegatePanic].
+				_delegateDone := false
+				defer func() {
+					if !_delegateDone {
+						objc.NoteDelegatePanic("NSSharingServiceDelegate", "anchoringViewForSharingService:showRelativeToRect:preferredEdge:")
+					}
+				}()
 				sharingService := NSSharingServiceFromID(sharingServiceID)
-				return fn(sharingService, positioningRect, preferredEdge).GetID()
+				_delegateResult := fn(sharingService, positioningRect, preferredEdge).GetID()
+				_delegateDone = true
+				return _delegateResult
 			},
 		})
 	}

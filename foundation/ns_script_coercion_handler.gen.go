@@ -86,7 +86,7 @@ type INSScriptCoercionHandler interface {
 	// Returns an object of a given class representing a given value.
 	CoerceValueToClass(value objectivec.IObject, toClass objectivec.Class) objectivec.IObject
 	// Registers a given object (typically a class) to handle coercions (conversions) from one given class to another.
-	RegisterCoercerSelectorToConvertFromClassToClass(coercer objectivec.IObject, selector objectivec.SEL, fromClass objectivec.Class, toClass objectivec.Class)
+	RegisterCoercerSelectorToConvertFromClassToClass(coercer objectivec.IObject, selector objc.SEL, fromClass objectivec.Class, toClass objectivec.Class)
 }
 
 // Init initializes the instance.
@@ -141,7 +141,7 @@ func (s NSScriptCoercionHandler) CoerceValueToClass(value objectivec.IObject, to
 // toClass: The class to which instances of `fromClass` are coerced.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSScriptCoercionHandler/registerCoercer(_:selector:toConvertFrom:to:)
-func (s NSScriptCoercionHandler) RegisterCoercerSelectorToConvertFromClassToClass(coercer objectivec.IObject, selector objectivec.SEL, fromClass objectivec.Class, toClass objectivec.Class) {
+func (s NSScriptCoercionHandler) RegisterCoercerSelectorToConvertFromClassToClass(coercer objectivec.IObject, selector objc.SEL, fromClass objectivec.Class, toClass objectivec.Class) {
 	objc.Send[objc.ID](s.ID, objc.Sel("registerCoercer:selector:toConvertFromClass:toClass:"), coercer, selector, fromClass, toClass)
 }
 

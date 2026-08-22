@@ -58,7 +58,7 @@ func NSAccessibilityStepperObjectFromID(id objc.ID) NSAccessibilityStepperObject
 // # Discussion
 //
 // This method is the getter for the [NSAccessibilityProtocol] protocol’s
-// [accessibilityLabel] property.
+// [NSWindow.AccessibilityLabel] property.
 //
 // Do not include the control’s type in the label (for example, use
 // [Volume], not `Volume stepper`). If possible use a single word. To help
@@ -67,8 +67,6 @@ func NSAccessibilityStepperObjectFromID(id objc.ID) NSAccessibilityStepperObject
 // period at the end. Always localize the label.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSAccessibilityStepper/accessibilityLabel()
-//
-// [accessibilityLabel]: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityLabel
 func (o NSAccessibilityStepperObject) AccessibilityLabel() string {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilityLabel"))
 	return foundation.NSStringFromID(rv).String()
@@ -125,11 +123,9 @@ func (o NSAccessibilityStepperObject) AccessibilityPerformIncrement() bool {
 // # Discussion
 //
 // This method is the getter for the [NSAccessibilityProtocol] protocol’s
-// [accessibilityValue] property.
+// [NSWindow.AccessibilityValue] property.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSAccessibilityStepper/accessibilityValue()
-//
-// [accessibilityValue]: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityValue
 func (o NSAccessibilityStepperObject) AccessibilityValue() objectivec.IObject {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilityValue"))
 	return objectivec.Object{ID: rv}
@@ -144,12 +140,11 @@ func (o NSAccessibilityStepperObject) AccessibilityValue() objectivec.IObject {
 // # Discussion
 //
 // This method is the getter for the [NSAccessibilityProtocol] protocol’s
-// [accessibilityFrame] property. This method is called whenever accessibility
-// clients request the [size] or [position] attributes.
+// [NSWindow.AccessibilityFrame] property. This method is called whenever
+// accessibility clients request the [size] or [position] attributes.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSAccessibilityElementProtocol/accessibilityFrame()
 //
-// [accessibilityFrame]: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityFrame
 // [position]: https://developer.apple.com/documentation/AppKit/NSAccessibility-swift.struct/Attribute/position
 // [size]: https://developer.apple.com/documentation/AppKit/NSAccessibility-swift.struct/Attribute/size
 func (o NSAccessibilityStepperObject) AccessibilityFrame() corefoundation.CGRect {
@@ -167,11 +162,9 @@ func (o NSAccessibilityStepperObject) AccessibilityFrame() corefoundation.CGRect
 // # Discussion
 //
 // This method is the getter for the [NSAccessibilityProtocol] protocol’s
-// [accessibilityParent] property.
+// [NSWindow.AccessibilityParent] property.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSAccessibilityElementProtocol/accessibilityParent()
-//
-// [accessibilityParent]: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityParent
 func (o NSAccessibilityStepperObject) AccessibilityParent() objectivec.IObject {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilityParent"))
 	return objectivec.Object{ID: rv}
@@ -187,11 +180,9 @@ func (o NSAccessibilityStepperObject) AccessibilityParent() objectivec.IObject {
 // # Discussion
 //
 // This method is the getter for the [NSAccessibilityProtocol] protocol’s
-// [accessibilityIdentifier] property.
+// [NSWindow.AccessibilityIdentifier] property.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSAccessibilityElementProtocol/accessibilityIdentifier()
-//
-// [accessibilityIdentifier]: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityIdentifier
 func (o NSAccessibilityStepperObject) AccessibilityIdentifier() string {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilityIdentifier"))
 	return foundation.NSStringFromID(rv).String()
@@ -207,11 +198,9 @@ func (o NSAccessibilityStepperObject) AccessibilityIdentifier() string {
 // # Discussion
 //
 // This method is the getter for the [NSAccessibilityProtocol] protocol’s
-// [accessibilityFocused] property.
+// [NSWindow.AccessibilityFocused] property.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSAccessibilityElementProtocol/isAccessibilityFocused()
-//
-// [accessibilityFocused]: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityFocused
 func (o NSAccessibilityStepperObject) IsAccessibilityFocused() bool {
 	rv := objc.Send[bool](o.ID, objc.Sel("isAccessibilityFocused"))
 	return rv

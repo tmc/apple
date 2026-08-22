@@ -131,9 +131,21 @@ func NewAVCaptureTimecodeGeneratorDelegate(config AVCaptureTimecodeGeneratorDele
 		methods = append(methods, objc.MethodDef{
 			Cmd: objc.RegisterName("timecodeGenerator:didReceiveUpdate:fromSource:"),
 			Fn: func(self objc.ID, _cmd objc.SEL, generatorID objc.ID, timecode AVCaptureTimecode, sourceID objc.ID) {
+				// Names which delegate was running if a panic unwinds out of
+				// it. The frames between here and the Objective-C caller are
+				// runtime and purego dispatch, so without this the traceback
+				// never says which selector dispatched. Deliberately no
+				// recover: see [objc.NoteDelegatePanic].
+				_delegateDone := false
+				defer func() {
+					if !_delegateDone {
+						objc.NoteDelegatePanic("AVCaptureTimecodeGeneratorDelegate", "timecodeGenerator:didReceiveUpdate:fromSource:")
+					}
+				}()
 				generator := AVCaptureTimecodeGeneratorFromID(generatorID)
 				source := AVCaptureTimecodeSourceFromID(sourceID)
 				fn(generator, timecode, source)
+				_delegateDone = true
 			},
 		})
 	}
@@ -143,9 +155,21 @@ func NewAVCaptureTimecodeGeneratorDelegate(config AVCaptureTimecodeGeneratorDele
 		methods = append(methods, objc.MethodDef{
 			Cmd: objc.RegisterName("timecodeGenerator:transitionedToSynchronizationStatus:forSource:"),
 			Fn: func(self objc.ID, _cmd objc.SEL, generatorID objc.ID, synchronizationStatus AVCaptureTimecodeGeneratorSynchronizationStatus, sourceID objc.ID) {
+				// Names which delegate was running if a panic unwinds out of
+				// it. The frames between here and the Objective-C caller are
+				// runtime and purego dispatch, so without this the traceback
+				// never says which selector dispatched. Deliberately no
+				// recover: see [objc.NoteDelegatePanic].
+				_delegateDone := false
+				defer func() {
+					if !_delegateDone {
+						objc.NoteDelegatePanic("AVCaptureTimecodeGeneratorDelegate", "timecodeGenerator:transitionedToSynchronizationStatus:forSource:")
+					}
+				}()
 				generator := AVCaptureTimecodeGeneratorFromID(generatorID)
 				source := AVCaptureTimecodeSourceFromID(sourceID)
 				fn(generator, synchronizationStatus, source)
+				_delegateDone = true
 			},
 		})
 	}

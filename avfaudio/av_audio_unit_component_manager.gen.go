@@ -4,8 +4,8 @@ package avfaudio
 
 import (
 	"sync"
-	"unsafe"
 
+	"github.com/tmc/apple/audiotoolbox"
 	"github.com/tmc/apple/foundation"
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
@@ -110,11 +110,11 @@ type IAVAudioUnitComponentManager interface {
 	// Topic: Getting matching audio components
 
 	// Gets an array of audio component objects that match the description.
-	ComponentsMatchingDescription(desc unsafe.Pointer) []AVAudioUnitComponent
+	ComponentsMatchingDescription(desc audiotoolbox.AudioComponentDescription) []AVAudioUnitComponent
 	// Gets an array of audio component objects that match the search predicate.
 	ComponentsMatchingPredicate(predicate foundation.NSPredicate) []AVAudioUnitComponent
 	// Gets an array of audio components that pass the block method.
-	ComponentsPassingTest(testHandler AVAudioUnitComponentInt8Handler) []AVAudioUnitComponent
+	ComponentsPassingTest(testHandler BoolAVAudioUnitComponentInt8Handler) []AVAudioUnitComponent
 
 	// Topic: Getting audio unit tags
 
@@ -145,8 +145,6 @@ func NewAVAudioUnitComponentManager() AVAudioUnitComponentManager {
 
 // Gets an array of audio component objects that match the description.
 //
-// desc is a [audiotoolbox.AudioComponentDescription].
-//
 // # Return Value
 //
 // An array of [AVAudioComponent] objects that match the `description`.
@@ -161,7 +159,7 @@ func NewAVAudioUnitComponentManager() AVAudioUnitComponentManager {
 // See: https://developer.apple.com/documentation/AVFAudio/AVAudioUnitComponentManager/components(matching:)-9qt94
 //
 // [AudioComponentDescription]: https://developer.apple.com/documentation/AudioToolbox/AudioComponentDescription
-func (a AVAudioUnitComponentManager) ComponentsMatchingDescription(desc unsafe.Pointer) []AVAudioUnitComponent {
+func (a AVAudioUnitComponentManager) ComponentsMatchingDescription(desc audiotoolbox.AudioComponentDescription) []AVAudioUnitComponent {
 	rv := objc.Send[[]objc.ID](a.ID, objc.Sel("componentsMatchingDescription:"), desc)
 	return objc.ConvertSlice(rv, func(id objc.ID) AVAudioUnitComponent {
 		return AVAudioUnitComponentFromID(id)
@@ -215,8 +213,8 @@ func (a AVAudioUnitComponentManager) ComponentsMatchingPredicate(predicate found
 // instance to the array.
 //
 // See: https://developer.apple.com/documentation/AVFAudio/AVAudioUnitComponentManager/components(passingTest:)
-func (a AVAudioUnitComponentManager) ComponentsPassingTest(testHandler AVAudioUnitComponentInt8Handler) []AVAudioUnitComponent {
-	_block0, _ := NewAVAudioUnitComponentInt8Block(testHandler)
+func (a AVAudioUnitComponentManager) ComponentsPassingTest(testHandler BoolAVAudioUnitComponentInt8Handler) []AVAudioUnitComponent {
+	_block0, _ := NewBoolAVAudioUnitComponentInt8Block(testHandler)
 	rv := objc.Send[[]objc.ID](a.ID, objc.Sel("componentsPassingTest:"), _block0)
 	return objc.ConvertSlice(rv, func(id objc.ID) AVAudioUnitComponent {
 		return AVAudioUnitComponentFromID(id)

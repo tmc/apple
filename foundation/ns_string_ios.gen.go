@@ -5,6 +5,8 @@
 package foundation
 
 import (
+	"unsafe"
+
 	"github.com/tmc/apple/objc"
 )
 

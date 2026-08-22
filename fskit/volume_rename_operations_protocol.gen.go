@@ -22,11 +22,6 @@ type FSVolumeRenameOperations interface {
 	//
 	// See: https://developer.apple.com/documentation/FSKit/FSVolume/RenameOperations/isVolumeRenameInhibited
 	IsVolumeRenameInhibited() bool
-
-	// A Boolean value that instructs FSKit not to call this protocol’s methods, even if the volume conforms to it.
-	//
-	// See: https://developer.apple.com/documentation/FSKit/FSVolume/RenameOperations/isVolumeRenameInhibited
-	VolumeRenameInhibited() bool
 	SetVolumeRenameInhibited(value bool)
 }
 
@@ -59,16 +54,9 @@ func FSVolumeRenameOperationsObjectFromID(id objc.ID) FSVolumeRenameOperationsOb
 //
 // See: https://developer.apple.com/documentation/FSKit/FSVolume/RenameOperations/setVolumeName(_:replyHandler:)
 func (o FSVolumeRenameOperationsObject) SetVolumeNameReplyHandler(name IFSFileName, reply FSFileNameErrorHandler) {
-	objc.Send[struct{}](o.ID, objc.Sel("setVolumeName:replyHandler:"), name, reply)
-}
-
-// A Boolean value that instructs FSKit not to call this protocol’s methods,
-// even if the volume conforms to it.
-//
-// See: https://developer.apple.com/documentation/FSKit/FSVolume/RenameOperations/isVolumeRenameInhibited
-func (o FSVolumeRenameOperationsObject) IsVolumeRenameInhibited() bool {
-	rv := objc.Send[bool](o.ID, objc.Sel("isVolumeRenameInhibited"))
-	return rv
+	_block1, _cleanup1 := NewFSFileNameErrorBlock(reply)
+	defer _cleanup1()
+	objc.Send[struct{}](o.ID, objc.Sel("setVolumeName:replyHandler:"), name, objc.ID(_block1))
 }
 
 // A Boolean value that instructs FSKit not to call this protocol’s methods,
@@ -81,7 +69,7 @@ func (o FSVolumeRenameOperationsObject) IsVolumeRenameInhibited() bool {
 // no effect.
 //
 // See: https://developer.apple.com/documentation/FSKit/FSVolume/RenameOperations/isVolumeRenameInhibited
-func (o FSVolumeRenameOperationsObject) VolumeRenameInhibited() bool {
+func (o FSVolumeRenameOperationsObject) IsVolumeRenameInhibited() bool {
 	rv := objc.Send[bool](o.ID, objc.Sel("isVolumeRenameInhibited"))
 	return bool(rv)
 }

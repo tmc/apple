@@ -5,7 +5,6 @@ package foundation
 import (
 	"sync"
 
-	"github.com/tmc/apple/corefoundation"
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -147,7 +146,6 @@ func NSAffineTransformFromID(id objc.ID) NSAffineTransform {
 // See: https://developer.apple.com/documentation/Foundation/NSAffineTransform
 type INSAffineTransform interface {
 	objectivec.IObject
-	NSSecureCoding
 
 	// Topic: Creating an Affine Transform
 
@@ -176,9 +174,9 @@ type INSAffineTransform interface {
 	// Topic: Transforming Data and Objects
 
 	// Applies the receiver’s transform to the specified point and returns the result.
-	TransformPoint(aPoint corefoundation.CGPoint) NSPoint
+	TransformPoint(aPoint NSPoint) NSPoint
 	// Applies the receiver’s transform to the specified size and returns the results.
-	TransformSize(aSize corefoundation.CGSize) NSSize
+	TransformSize(aSize NSSize) NSSize
 	// Creates and returns a new Bézier path object with each point in the given path transformed by the receiver.
 	TransformBezierPath(path objectivec.IObject) objectivec.IObject
 
@@ -194,6 +192,10 @@ type INSAffineTransform interface {
 	Set()
 	// Appends the receiver’s matrix to the current transformation matrix stored in the current graphics context, replacing the current transformation matrix with the result.
 	Concat()
+
+	// Encodes the receiver using a given archiver.
+	EncodeWithCoder(coder INSCoder)
+	InitWithCoder(coder INSCoder) NSAffineTransform
 }
 
 // Init initializes the instance.
@@ -401,7 +403,7 @@ func (a NSAffineTransform) Invert() {
 // The resulting point after applying the receiver’s transformations.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSAffineTransform/transform(_:)-41p16
-func (a NSAffineTransform) TransformPoint(aPoint corefoundation.CGPoint) NSPoint {
+func (a NSAffineTransform) TransformPoint(aPoint NSPoint) NSPoint {
 	rv := objc.Send[NSPoint](a.ID, objc.Sel("transformPoint:"), aPoint)
 	return NSPoint(rv)
 }
@@ -428,7 +430,7 @@ func (a NSAffineTransform) TransformPoint(aPoint corefoundation.CGPoint) NSPoint
 // need to take scaling and rotation factors into account.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSAffineTransform/transform(_:)-5r6ol
-func (a NSAffineTransform) TransformSize(aSize corefoundation.CGSize) NSSize {
+func (a NSAffineTransform) TransformSize(aSize NSSize) NSSize {
 	rv := objc.Send[NSSize](a.ID, objc.Sel("transformSize:"), aSize)
 	return NSSize(rv)
 }

@@ -59,10 +59,6 @@ func (nc NSOrderedSetClass) Alloc() NSOrderedSet {
 // contained in the set is a consideration—testing for membership of an
 // array is slower than testing for membership of a set.
 //
-// # Creating an Ordered Set
-//
-//   - [NSOrderedSet.InitWithObjectsCount]: Initializes a newly allocated set with a specified number of objects from a given C array of objects.
-//
 // # Initializing an Ordered Set
 //
 //   - [NSOrderedSet.InitWithArray]: Initializes a newly allocated set with the objects that are contained in a given array.
@@ -131,6 +127,10 @@ func (nc NSOrderedSetClass) Alloc() NSOrderedSet {
 //   - [NSOrderedSet.Array]: A representation of the ordered set as an array.
 //   - [NSOrderedSet.Set]: A representation of the set containing the contents of the ordered set.
 //
+// # Initializers
+//
+//   - [NSOrderedSet.InitWithCoder]
+//
 // See: https://developer.apple.com/documentation/Foundation/NSOrderedSet
 type NSOrderedSet struct {
 	objectivec.Object
@@ -147,10 +147,6 @@ func NSOrderedSetFromID(id objc.ID) NSOrderedSet {
 // Protocol method surfaces are generated separately and may include optional methods.
 
 // An interface definition for the [NSOrderedSet] class.
-//
-// # Creating an Ordered Set
-//
-//   - [INSOrderedSet.InitWithObjectsCount]: Initializes a newly allocated set with a specified number of objects from a given C array of objects.
 //
 // # Initializing an Ordered Set
 //
@@ -220,15 +216,13 @@ func NSOrderedSetFromID(id objc.ID) NSOrderedSet {
 //   - [INSOrderedSet.Array]: A representation of the ordered set as an array.
 //   - [INSOrderedSet.Set]: A representation of the set containing the contents of the ordered set.
 //
+// # Initializers
+//
+//   - [INSOrderedSet.InitWithCoder]
+//
 // See: https://developer.apple.com/documentation/Foundation/NSOrderedSet
 type INSOrderedSet interface {
 	objectivec.IObject
-	NSSecureCoding
-
-	// Topic: Creating an Ordered Set
-
-	// Initializes a newly allocated set with a specified number of objects from a given C array of objects.
-	InitWithObjectsCount(objects []objectivec.IObject, cnt uint) NSOrderedSet
 
 	// Topic: Initializing an Ordered Set
 
@@ -279,7 +273,7 @@ type INSOrderedSet interface {
 	// Returns the index of the specified object.
 	IndexOfObject(object objectivec.IObject) uint
 	// Returns the index, within a specified range, of an object compared with elements in the ordered set using a given NSComparator block.
-	IndexOfObjectInSortedRangeOptionsUsingComparator(object objectivec.IObject, range_ NSRange, opts NSBinarySearchingOptions, cmp NSComparator) uint
+	IndexOfObjectInSortedRangeOptionsUsingComparator(object objectivec.IObject, range_ NSRange, opts NSBinarySearchingOptions, cmp NSComparisonResultIObjectHandler) uint
 	// Returns the index, from a given set of indexes, of the object in the ordered set that passes a test in a given block for a given set of enumeration options.
 	IndexOfObjectAtIndexesOptionsPassingTest(s INSIndexSet, opts NSEnumerationOptions, predicate BoolIObjectHandler) uint
 	// Returns the index of the object in the ordered set that passes a test in a given block.
@@ -317,9 +311,9 @@ type INSOrderedSet interface {
 	// Returns an array of the ordered set’s elements sorted as specified by a given array of sort descriptors.
 	SortedArrayUsingDescriptors(sortDescriptors []NSSortDescriptor) []objectivec.IObject
 	// Returns an array that lists the receiving ordered set’s elements in ascending order, as determined by the comparison method specified by a given [NSComparator] block
-	SortedArrayUsingComparator(cmptr NSComparator) []objectivec.IObject
+	SortedArrayUsingComparator(cmptr NSComparisonResultIObjectHandler) []objectivec.IObject
 	// Returns an array that lists the receiving ordered set’s elements in ascending order, as determined by the comparison method specified by a given [NSComparator] block.
-	SortedArrayWithOptionsUsingComparator(opts NSSortOptions, cmptr NSComparator) []objectivec.IObject
+	SortedArrayWithOptionsUsingComparator(opts NSSortOptions, cmptr NSComparisonResultIObjectHandler) []objectivec.IObject
 
 	// Topic: Filtering Ordered Sets
 
@@ -342,14 +336,18 @@ type INSOrderedSet interface {
 	// A representation of the set containing the contents of the ordered set.
 	Set() INSSet
 
+	// Topic: Initializers
+
+	InitWithCoder(coder INSCoder) NSOrderedSet
+
 	// Compares two ordered sets to create a difference object that represents the changes between them.
 	DifferenceFromOrderedSet(other INSOrderedSet) INSOrderedCollectionDifference
 	// Compares two ordered sets, with options, to create a difference object that represents the changes between them.
 	DifferenceFromOrderedSetWithOptions(other INSOrderedSet, options NSOrderedCollectionDifferenceCalculationOptions) INSOrderedCollectionDifference
 	// Compares two ordered sets, using the provided block and with options, to create a difference object that represents the changes between them.
 	DifferenceFromOrderedSetWithOptionsUsingEquivalenceTest(other INSOrderedSet, options NSOrderedCollectionDifferenceCalculationOptions, block BoolIObjectHandler) INSOrderedCollectionDifference
-	// Copies the objects contained in the ordered set that fall within the specified range to `objects`.
-	GetObjectsRange(objects []objectivec.IObject, range_ NSRange)
+	// Encodes the receiver using a given archiver.
+	EncodeWithCoder(coder INSCoder)
 	// Initializes a newly allocated set with members taken from the specified list of objects.
 	InitWithObjects(firstObj objectivec.IObject) NSOrderedSet
 	// Creates a new ordered set by applying a difference object to an existing ordered set.
@@ -649,32 +647,6 @@ func (o NSOrderedSet) InitWithObject(object objectivec.IObject) NSOrderedSet {
 	return rv
 }
 
-// Initializes a newly allocated set with a specified number of objects from a
-// given C array of objects.
-//
-// objects: A C array of objects to add to the new set.
-//
-// If the same object appears more than once in objects, it is added only once
-// to the returned ordered set.
-//
-// cnt: The number of objects from objects to add to the new ordered set.
-//
-// # Return Value
-//
-// An initialized ordered set containing cnt objects from the list of objects
-// specified by objects. The returned set might be different than the original
-// receiver.
-//
-// # Discussion
-//
-// This method is a designated initializer of [NSOrderedSet].
-//
-// See: https://developer.apple.com/documentation/Foundation/NSOrderedSet/init(objects:count:)-2ai32
-func (o NSOrderedSet) InitWithObjectsCount(objects []objectivec.IObject, cnt uint) NSOrderedSet {
-	rv := objc.Send[NSOrderedSet](o.ID, objc.Sel("initWithObjects:count:"), objc.CArray(objects), cnt)
-	return rv
-}
-
 // Initializes a new ordered set with the contents of a set.
 //
 // set: A set.
@@ -799,7 +771,8 @@ func (o NSOrderedSet) ContainsObject(object objectivec.IObject) bool {
 //
 // See: https://developer.apple.com/documentation/Foundation/NSOrderedSet/enumerateObjects(at:options:using:)
 func (o NSOrderedSet) EnumerateObjectsAtIndexesOptionsUsingBlock(s INSIndexSet, opts NSEnumerationOptions, block IObjectUintBoolHandler) {
-	_block2, _ := NewIObjectUintBoolBlock(block)
+	_block2, _cleanup2 := NewIObjectUintBoolBlock(block)
+	defer _cleanup2()
 	objc.Send[objc.ID](o.ID, objc.Sel("enumerateObjectsAtIndexes:options:usingBlock:"), s, opts, _block2)
 }
 
@@ -819,7 +792,8 @@ func (o NSOrderedSet) EnumerateObjectsAtIndexesOptionsUsingBlock(s INSIndexSet, 
 //
 // See: https://developer.apple.com/documentation/Foundation/NSOrderedSet/enumerateObjects(_:)
 func (o NSOrderedSet) EnumerateObjectsUsingBlock(block IObjectUintBoolHandler) {
-	_block0, _ := NewIObjectUintBoolBlock(block)
+	_block0, _cleanup0 := NewIObjectUintBoolBlock(block)
+	defer _cleanup0()
 	objc.Send[objc.ID](o.ID, objc.Sel("enumerateObjectsUsingBlock:"), _block0)
 }
 
@@ -844,7 +818,8 @@ func (o NSOrderedSet) EnumerateObjectsUsingBlock(block IObjectUintBoolHandler) {
 //
 // See: https://developer.apple.com/documentation/Foundation/NSOrderedSet/enumerateObjects(options:using:)
 func (o NSOrderedSet) EnumerateObjectsWithOptionsUsingBlock(opts NSEnumerationOptions, block IObjectUintBoolHandler) {
-	_block1, _ := NewIObjectUintBoolBlock(block)
+	_block1, _cleanup1 := NewIObjectUintBoolBlock(block)
+	defer _cleanup1()
 	objc.Send[objc.ID](o.ID, objc.Sel("enumerateObjectsWithOptions:usingBlock:"), opts, _block1)
 }
 
@@ -984,12 +959,10 @@ func (o NSOrderedSet) IndexOfObject(object objectivec.IObject) uint {
 // [NSBinarySearchingOptions]: https://developer.apple.com/documentation/Foundation/NSBinarySearchingOptions
 //
 // [invalidArgumentException]: https://developer.apple.com/documentation/Foundation/NSExceptionName/invalidArgumentException
-func (o NSOrderedSet) IndexOfObjectInSortedRangeOptionsUsingComparator(object objectivec.IObject, range_ NSRange, opts NSBinarySearchingOptions, cmp NSComparator) uint {
-	_block3 := objc.NewBlock(func(_ objc.Block, arg0 objc.ID, arg1 objc.ID) NSComparisonResult {
-		return cmp(objectivec.ObjectFromID(arg0), objectivec.ObjectFromID(arg1))
-	})
-	defer _block3.Release()
-	rv := objc.Send[uint](o.ID, objc.Sel("indexOfObject:inSortedRange:options:usingComparator:"), object, range_, opts, objc.ID(_block3))
+func (o NSOrderedSet) IndexOfObjectInSortedRangeOptionsUsingComparator(object objectivec.IObject, range_ NSRange, opts NSBinarySearchingOptions, cmp NSComparisonResultIObjectHandler) uint {
+	_block3, _cleanup3 := NewNSComparisonResultIObjectBlock(cmp)
+	defer _cleanup3()
+	rv := objc.Send[uint](o.ID, objc.Sel("indexOfObject:inSortedRange:options:usingComparator:"), object, range_, opts, _block3)
 	return rv
 }
 
@@ -1031,7 +1004,8 @@ func (o NSOrderedSet) IndexOfObjectInSortedRangeOptionsUsingComparator(object ob
 //
 // See: https://developer.apple.com/documentation/Foundation/NSOrderedSet/index(ofObjectAt:options:passingTest:)
 func (o NSOrderedSet) IndexOfObjectAtIndexesOptionsPassingTest(s INSIndexSet, opts NSEnumerationOptions, predicate BoolIObjectHandler) uint {
-	_block2, _ := NewBoolIObjectBlock(predicate)
+	_block2, _cleanup2 := NewBoolIObjectBlock(predicate)
+	defer _cleanup2()
 	rv := objc.Send[uint](o.ID, objc.Sel("indexOfObjectAtIndexes:options:passingTest:"), s, opts, _block2)
 	return rv
 }
@@ -1057,7 +1031,8 @@ func (o NSOrderedSet) IndexOfObjectAtIndexesOptionsPassingTest(s INSIndexSet, op
 //
 // See: https://developer.apple.com/documentation/Foundation/NSOrderedSet/index(ofObjectPassingTest:)
 func (o NSOrderedSet) IndexOfObjectPassingTest(predicate BoolIObjectHandler) uint {
-	_block0, _ := NewBoolIObjectBlock(predicate)
+	_block0, _cleanup0 := NewBoolIObjectBlock(predicate)
+	defer _cleanup0()
 	rv := objc.Send[uint](o.ID, objc.Sel("indexOfObjectPassingTest:"), _block0)
 	return rv
 }
@@ -1097,7 +1072,8 @@ func (o NSOrderedSet) IndexOfObjectPassingTest(predicate BoolIObjectHandler) uin
 //
 // See: https://developer.apple.com/documentation/Foundation/NSOrderedSet/index(_:ofObjectPassingTest:)
 func (o NSOrderedSet) IndexOfObjectWithOptionsPassingTest(opts NSEnumerationOptions, predicate BoolIObjectHandler) uint {
-	_block1, _ := NewBoolIObjectBlock(predicate)
+	_block1, _cleanup1 := NewBoolIObjectBlock(predicate)
+	defer _cleanup1()
 	rv := objc.Send[uint](o.ID, objc.Sel("indexOfObjectWithOptions:passingTest:"), opts, _block1)
 	return rv
 }
@@ -1140,7 +1116,8 @@ func (o NSOrderedSet) IndexOfObjectWithOptionsPassingTest(opts NSEnumerationOpti
 //
 // See: https://developer.apple.com/documentation/Foundation/NSOrderedSet/indexes(ofObjectsAt:options:passingTest:)
 func (o NSOrderedSet) IndexesOfObjectsAtIndexesOptionsPassingTest(s INSIndexSet, opts NSEnumerationOptions, predicate BoolIObjectHandler) INSIndexSet {
-	_block2, _ := NewBoolIObjectBlock(predicate)
+	_block2, _cleanup2 := NewBoolIObjectBlock(predicate)
+	defer _cleanup2()
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("indexesOfObjectsAtIndexes:options:passingTest:"), s, opts, _block2)
 	return NSIndexSetFromID(rv)
 }
@@ -1170,7 +1147,8 @@ func (o NSOrderedSet) IndexesOfObjectsAtIndexesOptionsPassingTest(s INSIndexSet,
 //
 // See: https://developer.apple.com/documentation/Foundation/NSOrderedSet/indexes(ofObjectsPassingTest:)
 func (o NSOrderedSet) IndexesOfObjectsPassingTest(predicate BoolIObjectHandler) INSIndexSet {
-	_block0, _ := NewBoolIObjectBlock(predicate)
+	_block0, _cleanup0 := NewBoolIObjectBlock(predicate)
+	defer _cleanup0()
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("indexesOfObjectsPassingTest:"), _block0)
 	return NSIndexSetFromID(rv)
 }
@@ -1209,7 +1187,8 @@ func (o NSOrderedSet) IndexesOfObjectsPassingTest(predicate BoolIObjectHandler) 
 //
 // See: https://developer.apple.com/documentation/Foundation/NSOrderedSet/indexes(options:ofObjectsPassingTest:)
 func (o NSOrderedSet) IndexesOfObjectsWithOptionsPassingTest(opts NSEnumerationOptions, predicate BoolIObjectHandler) INSIndexSet {
-	_block1, _ := NewBoolIObjectBlock(predicate)
+	_block1, _cleanup1 := NewBoolIObjectBlock(predicate)
+	defer _cleanup1()
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("indexesOfObjectsWithOptions:passingTest:"), opts, _block1)
 	return NSIndexSetFromID(rv)
 }
@@ -1382,12 +1361,10 @@ func (o NSOrderedSet) SortedArrayUsingDescriptors(sortDescriptors []NSSortDescri
 // order, as determined by the comparison method specified `cmptr`.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSOrderedSet/sortedArray(comparator:)
-func (o NSOrderedSet) SortedArrayUsingComparator(cmptr NSComparator) []objectivec.IObject {
-	_block0 := objc.NewBlock(func(_ objc.Block, arg0 objc.ID, arg1 objc.ID) NSComparisonResult {
-		return cmptr(objectivec.ObjectFromID(arg0), objectivec.ObjectFromID(arg1))
-	})
-	defer _block0.Release()
-	rv := objc.Send[[]objc.ID](o.ID, objc.Sel("sortedArrayUsingComparator:"), objc.ID(_block0))
+func (o NSOrderedSet) SortedArrayUsingComparator(cmptr NSComparisonResultIObjectHandler) []objectivec.IObject {
+	_block0, _cleanup0 := NewNSComparisonResultIObjectBlock(cmptr)
+	defer _cleanup0()
+	rv := objc.Send[[]objc.ID](o.ID, objc.Sel("sortedArrayUsingComparator:"), _block0)
 	return objc.ConvertSlice(rv, func(id objc.ID) objectivec.IObject {
 		return objectivec.Object{ID: id}
 	})
@@ -1408,12 +1385,10 @@ func (o NSOrderedSet) SortedArrayUsingComparator(cmptr NSComparator) []objective
 // order, as determined by the comparison method specified `cmptr`.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSOrderedSet/sortedArray(options:usingComparator:)
-func (o NSOrderedSet) SortedArrayWithOptionsUsingComparator(opts NSSortOptions, cmptr NSComparator) []objectivec.IObject {
-	_block1 := objc.NewBlock(func(_ objc.Block, arg0 objc.ID, arg1 objc.ID) NSComparisonResult {
-		return cmptr(objectivec.ObjectFromID(arg0), objectivec.ObjectFromID(arg1))
-	})
-	defer _block1.Release()
-	rv := objc.Send[[]objc.ID](o.ID, objc.Sel("sortedArrayWithOptions:usingComparator:"), opts, objc.ID(_block1))
+func (o NSOrderedSet) SortedArrayWithOptionsUsingComparator(opts NSSortOptions, cmptr NSComparisonResultIObjectHandler) []objectivec.IObject {
+	_block1, _cleanup1 := NewNSComparisonResultIObjectBlock(cmptr)
+	defer _cleanup1()
+	rv := objc.Send[[]objc.ID](o.ID, objc.Sel("sortedArrayWithOptions:usingComparator:"), opts, _block1)
 	return objc.ConvertSlice(rv, func(id objc.ID) objectivec.IObject {
 		return objectivec.Object{ID: id}
 	})
@@ -1506,33 +1481,6 @@ func (o NSOrderedSet) InitWithCoder(coder INSCoder) NSOrderedSet {
 	return rv
 }
 
-// Returns by reference a C array of objects over which the sender should
-// iterate, and as the return value the number of objects in the array.
-//
-// state: Context information that is used in the enumeration to, in addition to
-// other possibilities, ensure that the collection has not been mutated.
-//
-// buffer: A C array of objects over which the sender is to iterate.
-//
-// len: The maximum number of objects to return in `stackbuf`.
-//
-// # Return Value
-//
-// The number of objects returned in `stackbuf`. Returns `0` when the
-// iteration is finished.
-//
-// # Discussion
-//
-// The state structure is assumed to be of stack local memory, so you can
-// recast the passed in state structure to one more suitable for your
-// iteration.
-//
-// See: https://developer.apple.com/documentation/Foundation/NSFastEnumeration/countByEnumerating(with:objects:count:)
-func (o NSOrderedSet) CountByEnumeratingWithStateObjectsCount(state NSFastEnumerationState, buffer []objectivec.IObject, len_ uint) uint {
-	rv := objc.Send[uint](o.ID, objc.Sel("countByEnumeratingWithState:objects:count:"), state, objc.CArray(buffer), len_)
-	return rv
-}
-
 // Compares two ordered sets to create a difference object that represents the
 // changes between them.
 //
@@ -1586,7 +1534,8 @@ func (o NSOrderedSet) DifferenceFromOrderedSetWithOptions(other INSOrderedSet, o
 //
 // See: https://developer.apple.com/documentation/Foundation/NSOrderedSet/differenceFromOrderedSet:withOptions:usingEquivalenceTest:
 func (o NSOrderedSet) DifferenceFromOrderedSetWithOptionsUsingEquivalenceTest(other INSOrderedSet, options NSOrderedCollectionDifferenceCalculationOptions, block BoolIObjectHandler) INSOrderedCollectionDifference {
-	_block2, _ := NewBoolIObjectBlock(block)
+	_block2, _cleanup2 := NewBoolIObjectBlock(block)
+	defer _cleanup2()
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("differenceFromOrderedSet:withOptions:usingEquivalenceTest:"), other, options, _block2)
 	return NSOrderedCollectionDifferenceFromID(rv)
 }
@@ -1598,24 +1547,6 @@ func (o NSOrderedSet) DifferenceFromOrderedSetWithOptionsUsingEquivalenceTest(ot
 // See: https://developer.apple.com/documentation/Foundation/NSCoding/encode(with:)
 func (o NSOrderedSet) EncodeWithCoder(coder INSCoder) {
 	objc.Send[objc.ID](o.ID, objc.Sel("encodeWithCoder:"), coder)
-}
-
-// Copies the objects contained in the ordered set that fall within the
-// specified range to `objects`.
-//
-// objects: A C array of objects of size at least the length of the range specified by
-// aRange.
-//
-// range: A range within the bounds of the array.
-//
-// If the location plus the length of the range is greater than the count of
-// the array, this method raises an [rangeException].
-//
-// See: https://developer.apple.com/documentation/Foundation/NSOrderedSet/getObjects:range:
-//
-// [rangeException]: https://developer.apple.com/documentation/Foundation/NSExceptionName/rangeException
-func (o NSOrderedSet) GetObjectsRange(objects []objectivec.IObject, range_ NSRange) {
-	objc.Send[objc.ID](o.ID, objc.Sel("getObjects:range:"), objectivec.IObjectSliceToNSArray(objects), range_)
 }
 
 // Initializes a newly allocated set with members taken from the specified
@@ -1652,28 +1583,6 @@ func (o NSOrderedSet) InitWithObjects(firstObj objectivec.IObject) NSOrderedSet 
 // See: https://developer.apple.com/documentation/Foundation/NSOrderedSet/orderedSetByApplyingDifference:
 func (o NSOrderedSet) OrderedSetByApplyingDifference(difference INSOrderedCollectionDifference) INSOrderedSet {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("orderedSetByApplyingDifference:"), difference)
-	return NSOrderedSetFromID(rv)
-}
-
-// Creates and returns a set containing a specified number of objects from a
-// given C array of objects.
-//
-// objects: A C array of objects to add to the new ordered set.
-//
-// If the same object appears more than once in objects, it is added only once
-// to the returned ordered set. Each object receives a retain message as it is
-// added to the set.
-//
-// cnt: The number of objects from objects to add to the new set.
-//
-// # Return Value
-//
-// A new ordered set containing cnt objects from the list of objects specified
-// by `objects`.
-//
-// See: https://developer.apple.com/documentation/Foundation/NSOrderedSet/init(objects:count:)-3ny0m
-func (_NSOrderedSetClass NSOrderedSetClass) OrderedSetWithObjectsCount(objects []objectivec.IObject, cnt uint) NSOrderedSet {
-	rv := objc.Send[objc.ID](objc.ID(_NSOrderedSetClass.class), objc.Sel("orderedSetWithObjects:count:"), objc.CArray(objects), cnt)
 	return NSOrderedSetFromID(rv)
 }
 

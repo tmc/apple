@@ -3,8 +3,6 @@
 package corevideo
 
 import (
-	"unsafe"
-
 	"github.com/ebitengine/purego"
 	"github.com/tmc/apple/objc"
 )
@@ -1437,7 +1435,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCVIndefiniteTime"); err == nil && ptr != 0 {
-		KCVIndefiniteTime = *(*CVTime)(unsafe.Pointer(ptr))
+		KCVIndefiniteTime = objc.ValueAt[CVTime](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCVMetalBufferCacheMaximumBufferAgeKey"); err == nil && ptr != 0 {
@@ -2151,7 +2149,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kCVZeroTime"); err == nil && ptr != 0 {
-		KCVZeroTime = *(*CVTime)(unsafe.Pointer(ptr))
+		KCVZeroTime = objc.ValueAt[CVTime](ptr)
 	}
 
 }

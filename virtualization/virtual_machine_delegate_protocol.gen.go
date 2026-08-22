@@ -126,8 +126,20 @@ func NewVZVirtualMachineDelegate(config VZVirtualMachineDelegateConfig) VZVirtua
 		methods = append(methods, objc.MethodDef{
 			Cmd: objc.RegisterName("guestDidStopVirtualMachine:"),
 			Fn: func(self objc.ID, _cmd objc.SEL, virtualMachineID objc.ID) {
+				// Names which delegate was running if a panic unwinds out of
+				// it. The frames between here and the Objective-C caller are
+				// runtime and purego dispatch, so without this the traceback
+				// never says which selector dispatched. Deliberately no
+				// recover: see [objc.NoteDelegatePanic].
+				_delegateDone := false
+				defer func() {
+					if !_delegateDone {
+						objc.NoteDelegatePanic("VZVirtualMachineDelegate", "guestDidStopVirtualMachine:")
+					}
+				}()
 				virtualMachine := VZVirtualMachineFromID(virtualMachineID)
 				fn(virtualMachine)
+				_delegateDone = true
 			},
 		})
 	}
@@ -137,9 +149,21 @@ func NewVZVirtualMachineDelegate(config VZVirtualMachineDelegateConfig) VZVirtua
 		methods = append(methods, objc.MethodDef{
 			Cmd: objc.RegisterName("virtualMachine:didStopWithError:"),
 			Fn: func(self objc.ID, _cmd objc.SEL, virtualMachineID objc.ID, error_ID objc.ID) {
+				// Names which delegate was running if a panic unwinds out of
+				// it. The frames between here and the Objective-C caller are
+				// runtime and purego dispatch, so without this the traceback
+				// never says which selector dispatched. Deliberately no
+				// recover: see [objc.NoteDelegatePanic].
+				_delegateDone := false
+				defer func() {
+					if !_delegateDone {
+						objc.NoteDelegatePanic("VZVirtualMachineDelegate", "virtualMachine:didStopWithError:")
+					}
+				}()
 				virtualMachine := VZVirtualMachineFromID(virtualMachineID)
 				error_ := foundation.NSErrorFromID(error_ID)
 				fn(virtualMachine, error_)
+				_delegateDone = true
 			},
 		})
 	}
@@ -149,10 +173,22 @@ func NewVZVirtualMachineDelegate(config VZVirtualMachineDelegateConfig) VZVirtua
 		methods = append(methods, objc.MethodDef{
 			Cmd: objc.RegisterName("virtualMachine:networkDevice:attachmentWasDisconnectedWithError:"),
 			Fn: func(self objc.ID, _cmd objc.SEL, virtualMachineID objc.ID, networkDeviceID objc.ID, error_ID objc.ID) {
+				// Names which delegate was running if a panic unwinds out of
+				// it. The frames between here and the Objective-C caller are
+				// runtime and purego dispatch, so without this the traceback
+				// never says which selector dispatched. Deliberately no
+				// recover: see [objc.NoteDelegatePanic].
+				_delegateDone := false
+				defer func() {
+					if !_delegateDone {
+						objc.NoteDelegatePanic("VZVirtualMachineDelegate", "virtualMachine:networkDevice:attachmentWasDisconnectedWithError:")
+					}
+				}()
 				virtualMachine := VZVirtualMachineFromID(virtualMachineID)
 				networkDevice := VZNetworkDeviceFromID(networkDeviceID)
 				error_ := foundation.NSErrorFromID(error_ID)
 				fn(virtualMachine, networkDevice, error_)
+				_delegateDone = true
 			},
 		})
 	}

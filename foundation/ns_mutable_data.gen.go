@@ -305,7 +305,7 @@ func NewMutableDataWithBase64Encoding(base64String string) NSMutableData {
 // See: https://developer.apple.com/documentation/Foundation/NSData/init(bytes:length:)
 func NewMutableDataWithBytesLength(bytes []byte) NSMutableData {
 	instance := getNSMutableDataClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithBytes:length:"), unsafe.Pointer(unsafe.SliceData(bytes)), uint(len(bytes)))
+	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithBytes:length:"), objc.BytesPointer(bytes), uint(len(bytes)))
 	return NSMutableDataFromID(rv)
 }
 
@@ -439,6 +439,9 @@ func NewMutableDataWithContentsOfFileOptionsError(path string, readOptionsMask N
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
 		return NSMutableData{}, NSErrorFrom(errorPtr)
 	}
+	if rv == 0 {
+		return NSMutableData{}, objc.ErrInitFailed
+	}
 	return NSMutableDataFromID(rv), nil
 }
 
@@ -457,6 +460,9 @@ func NewMutableDataWithContentsOfURLOptionsError(url INSURL, readOptionsMask NSD
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
 		return NSMutableData{}, NSErrorFrom(errorPtr)
+	}
+	if rv == 0 {
+		return NSMutableData{}, objc.ErrInitFailed
 	}
 	return NSMutableDataFromID(rv), nil
 }
@@ -553,7 +559,7 @@ func (m NSMutableData) InitWithLength(length uint) NSMutableData {
 //
 // [Working With Mutable Binary Data]: https://developer.apple.com/library/archive/documentation/Cocoa/Conceptual/BinaryData/Tasks/WorkingMutableData.html#//apple_ref/doc/uid/20002150
 func (m NSMutableData) AppendBytesLength(bytes []byte) {
-	objc.Send[objc.ID](m.ID, objc.Sel("appendBytes:length:"), unsafe.Pointer(unsafe.SliceData(bytes)), uint(len(bytes)))
+	objc.Send[objc.ID](m.ID, objc.Sel("appendBytes:length:"), objc.BytesPointer(bytes), uint(len(bytes)))
 }
 
 // Appends the content of another data object to the receiver.
@@ -774,7 +780,7 @@ func (_NSMutableDataClass NSMutableDataClass) DataWithLength(length uint) NSMuta
 //
 // If the length of the receiver’s data is not zero, this property is
 // guaranteed to contain a pointer to the object’s internal bytes. If the
-// length of receiver’s data zero, this property may or may not contain
+// length of receiver’s data is zero, this property may or may not contain
 // [NULL] dependent upon many factors related to how the object was created
 // (moreover, in this case the method result might change between different
 // releases). The returned pointer is valid until the data object is

@@ -63,8 +63,9 @@ func (nc NSDateClass) Alloc() NSDate {
 // representations of dates and times, as well as with [NSCalendar] objects to
 // perform calendar arithmetic.
 //
-// [NSDate] is with its Core Foundation counterpart, [CFDate]. See [Toll-Free
-// Bridging] for more information on toll-free bridging.
+// [NSDate] is toll-free bridged with its Core Foundation counterpart,
+// [CFDate]. See [Toll-Free Bridging] for more information on toll-free
+// bridging.
 //
 // # Subclassing Notes
 //
@@ -104,6 +105,7 @@ func (nc NSDateClass) Alloc() NSDate {
 //   - [NSDate.InitWithTimeIntervalSinceNow]: Returns a date object initialized relative to the current date and time by a given number of seconds.
 //   - [NSDate.InitWithTimeIntervalSinceReferenceDate]: Returns a date object initialized relative to 00:00:00 UTC on 1 January 2001 by a given number of seconds.
 //   - [NSDate.InitWithTimeIntervalSince1970]: Returns a date object initialized relative to 00:00:00 UTC on 1 January 1970 by a given number of seconds.
+//   - [NSDate.InitWithCoder]: Returns a date object initialized from data in the given unarchiver.
 //
 // # Comparing Dates
 //
@@ -159,6 +161,7 @@ func NSDateFromID(id objc.ID) NSDate {
 //   - [INSDate.InitWithTimeIntervalSinceNow]: Returns a date object initialized relative to the current date and time by a given number of seconds.
 //   - [INSDate.InitWithTimeIntervalSinceReferenceDate]: Returns a date object initialized relative to 00:00:00 UTC on 1 January 2001 by a given number of seconds.
 //   - [INSDate.InitWithTimeIntervalSince1970]: Returns a date object initialized relative to 00:00:00 UTC on 1 January 1970 by a given number of seconds.
+//   - [INSDate.InitWithCoder]: Returns a date object initialized from data in the given unarchiver.
 //
 // # Comparing Dates
 //
@@ -190,7 +193,6 @@ func NSDateFromID(id objc.ID) NSDate {
 // See: https://developer.apple.com/documentation/Foundation/NSDate
 type INSDate interface {
 	objectivec.IObject
-	NSSecureCoding
 
 	// Topic: Initializing a Date
 
@@ -200,6 +202,8 @@ type INSDate interface {
 	InitWithTimeIntervalSinceReferenceDate(ti float64) NSDate
 	// Returns a date object initialized relative to 00:00:00 UTC on 1 January 1970 by a given number of seconds.
 	InitWithTimeIntervalSince1970(secs float64) NSDate
+	// Returns a date object initialized from data in the given unarchiver.
+	InitWithCoder(coder INSCoder) NSDate
 
 	// Topic: Comparing Dates
 
@@ -238,6 +242,9 @@ type INSDate interface {
 	// Topic: Initializers
 
 	InitWithTimeIntervalSinceDate(secsToBeAdded float64, date INSDate) NSDate
+
+	// Encodes the receiver using a given archiver.
+	EncodeWithCoder(coder INSCoder)
 }
 
 // Init initializes the instance.

@@ -879,9 +879,22 @@ func NewNSCollectionViewDelegate(config NSCollectionViewDelegateConfig) NSCollec
 		methods = append(methods, objc.MethodDef{
 			Cmd: objc.RegisterName("collectionView:shouldSelectItemsAtIndexPaths:"),
 			Fn: func(self objc.ID, _cmd objc.SEL, collectionViewID objc.ID, indexPathsID objc.ID) objc.ID {
+				// Names which delegate was running if a panic unwinds out of
+				// it. The frames between here and the Objective-C caller are
+				// runtime and purego dispatch, so without this the traceback
+				// never says which selector dispatched. Deliberately no
+				// recover: see [objc.NoteDelegatePanic].
+				_delegateDone := false
+				defer func() {
+					if !_delegateDone {
+						objc.NoteDelegatePanic("NSCollectionViewDelegate", "collectionView:shouldSelectItemsAtIndexPaths:")
+					}
+				}()
 				collectionView := NSCollectionViewFromID(collectionViewID)
 				indexPaths := foundation.NSSetFromID(indexPathsID)
-				return fn(collectionView, indexPaths).GetID()
+				_delegateResult := fn(collectionView, indexPaths).GetID()
+				_delegateDone = true
+				return _delegateResult
 			},
 		})
 	}
@@ -891,9 +904,21 @@ func NewNSCollectionViewDelegate(config NSCollectionViewDelegateConfig) NSCollec
 		methods = append(methods, objc.MethodDef{
 			Cmd: objc.RegisterName("collectionView:didSelectItemsAtIndexPaths:"),
 			Fn: func(self objc.ID, _cmd objc.SEL, collectionViewID objc.ID, indexPathsID objc.ID) {
+				// Names which delegate was running if a panic unwinds out of
+				// it. The frames between here and the Objective-C caller are
+				// runtime and purego dispatch, so without this the traceback
+				// never says which selector dispatched. Deliberately no
+				// recover: see [objc.NoteDelegatePanic].
+				_delegateDone := false
+				defer func() {
+					if !_delegateDone {
+						objc.NoteDelegatePanic("NSCollectionViewDelegate", "collectionView:didSelectItemsAtIndexPaths:")
+					}
+				}()
 				collectionView := NSCollectionViewFromID(collectionViewID)
 				indexPaths := foundation.NSSetFromID(indexPathsID)
 				fn(collectionView, indexPaths)
+				_delegateDone = true
 			},
 		})
 	}
@@ -903,9 +928,22 @@ func NewNSCollectionViewDelegate(config NSCollectionViewDelegateConfig) NSCollec
 		methods = append(methods, objc.MethodDef{
 			Cmd: objc.RegisterName("collectionView:shouldDeselectItemsAtIndexPaths:"),
 			Fn: func(self objc.ID, _cmd objc.SEL, collectionViewID objc.ID, indexPathsID objc.ID) objc.ID {
+				// Names which delegate was running if a panic unwinds out of
+				// it. The frames between here and the Objective-C caller are
+				// runtime and purego dispatch, so without this the traceback
+				// never says which selector dispatched. Deliberately no
+				// recover: see [objc.NoteDelegatePanic].
+				_delegateDone := false
+				defer func() {
+					if !_delegateDone {
+						objc.NoteDelegatePanic("NSCollectionViewDelegate", "collectionView:shouldDeselectItemsAtIndexPaths:")
+					}
+				}()
 				collectionView := NSCollectionViewFromID(collectionViewID)
 				indexPaths := foundation.NSSetFromID(indexPathsID)
-				return fn(collectionView, indexPaths).GetID()
+				_delegateResult := fn(collectionView, indexPaths).GetID()
+				_delegateDone = true
+				return _delegateResult
 			},
 		})
 	}
@@ -915,9 +953,21 @@ func NewNSCollectionViewDelegate(config NSCollectionViewDelegateConfig) NSCollec
 		methods = append(methods, objc.MethodDef{
 			Cmd: objc.RegisterName("collectionView:didDeselectItemsAtIndexPaths:"),
 			Fn: func(self objc.ID, _cmd objc.SEL, collectionViewID objc.ID, indexPathsID objc.ID) {
+				// Names which delegate was running if a panic unwinds out of
+				// it. The frames between here and the Objective-C caller are
+				// runtime and purego dispatch, so without this the traceback
+				// never says which selector dispatched. Deliberately no
+				// recover: see [objc.NoteDelegatePanic].
+				_delegateDone := false
+				defer func() {
+					if !_delegateDone {
+						objc.NoteDelegatePanic("NSCollectionViewDelegate", "collectionView:didDeselectItemsAtIndexPaths:")
+					}
+				}()
 				collectionView := NSCollectionViewFromID(collectionViewID)
 				indexPaths := foundation.NSSetFromID(indexPathsID)
 				fn(collectionView, indexPaths)
+				_delegateDone = true
 			},
 		})
 	}
@@ -927,9 +977,22 @@ func NewNSCollectionViewDelegate(config NSCollectionViewDelegateConfig) NSCollec
 		methods = append(methods, objc.MethodDef{
 			Cmd: objc.RegisterName("collectionView:shouldChangeItemsAtIndexPaths:toHighlightState:"),
 			Fn: func(self objc.ID, _cmd objc.SEL, collectionViewID objc.ID, indexPathsID objc.ID, highlightState NSCollectionViewItemHighlightState) objc.ID {
+				// Names which delegate was running if a panic unwinds out of
+				// it. The frames between here and the Objective-C caller are
+				// runtime and purego dispatch, so without this the traceback
+				// never says which selector dispatched. Deliberately no
+				// recover: see [objc.NoteDelegatePanic].
+				_delegateDone := false
+				defer func() {
+					if !_delegateDone {
+						objc.NoteDelegatePanic("NSCollectionViewDelegate", "collectionView:shouldChangeItemsAtIndexPaths:toHighlightState:")
+					}
+				}()
 				collectionView := NSCollectionViewFromID(collectionViewID)
 				indexPaths := foundation.NSSetFromID(indexPathsID)
-				return fn(collectionView, indexPaths, highlightState).GetID()
+				_delegateResult := fn(collectionView, indexPaths, highlightState).GetID()
+				_delegateDone = true
+				return _delegateResult
 			},
 		})
 	}
@@ -939,9 +1002,21 @@ func NewNSCollectionViewDelegate(config NSCollectionViewDelegateConfig) NSCollec
 		methods = append(methods, objc.MethodDef{
 			Cmd: objc.RegisterName("collectionView:didChangeItemsAtIndexPaths:toHighlightState:"),
 			Fn: func(self objc.ID, _cmd objc.SEL, collectionViewID objc.ID, indexPathsID objc.ID, highlightState NSCollectionViewItemHighlightState) {
+				// Names which delegate was running if a panic unwinds out of
+				// it. The frames between here and the Objective-C caller are
+				// runtime and purego dispatch, so without this the traceback
+				// never says which selector dispatched. Deliberately no
+				// recover: see [objc.NoteDelegatePanic].
+				_delegateDone := false
+				defer func() {
+					if !_delegateDone {
+						objc.NoteDelegatePanic("NSCollectionViewDelegate", "collectionView:didChangeItemsAtIndexPaths:toHighlightState:")
+					}
+				}()
 				collectionView := NSCollectionViewFromID(collectionViewID)
 				indexPaths := foundation.NSSetFromID(indexPathsID)
 				fn(collectionView, indexPaths, highlightState)
+				_delegateDone = true
 			},
 		})
 	}
@@ -951,10 +1026,22 @@ func NewNSCollectionViewDelegate(config NSCollectionViewDelegateConfig) NSCollec
 		methods = append(methods, objc.MethodDef{
 			Cmd: objc.RegisterName("collectionView:willDisplayItem:forRepresentedObjectAtIndexPath:"),
 			Fn: func(self objc.ID, _cmd objc.SEL, collectionViewID objc.ID, itemID objc.ID, indexPathID objc.ID) {
+				// Names which delegate was running if a panic unwinds out of
+				// it. The frames between here and the Objective-C caller are
+				// runtime and purego dispatch, so without this the traceback
+				// never says which selector dispatched. Deliberately no
+				// recover: see [objc.NoteDelegatePanic].
+				_delegateDone := false
+				defer func() {
+					if !_delegateDone {
+						objc.NoteDelegatePanic("NSCollectionViewDelegate", "collectionView:willDisplayItem:forRepresentedObjectAtIndexPath:")
+					}
+				}()
 				collectionView := NSCollectionViewFromID(collectionViewID)
 				item := NSCollectionViewItemFromID(itemID)
 				indexPath := foundation.NSIndexPathFromID(indexPathID)
 				fn(collectionView, item, indexPath)
+				_delegateDone = true
 			},
 		})
 	}
@@ -964,10 +1051,22 @@ func NewNSCollectionViewDelegate(config NSCollectionViewDelegateConfig) NSCollec
 		methods = append(methods, objc.MethodDef{
 			Cmd: objc.RegisterName("collectionView:didEndDisplayingItem:forRepresentedObjectAtIndexPath:"),
 			Fn: func(self objc.ID, _cmd objc.SEL, collectionViewID objc.ID, itemID objc.ID, indexPathID objc.ID) {
+				// Names which delegate was running if a panic unwinds out of
+				// it. The frames between here and the Objective-C caller are
+				// runtime and purego dispatch, so without this the traceback
+				// never says which selector dispatched. Deliberately no
+				// recover: see [objc.NoteDelegatePanic].
+				_delegateDone := false
+				defer func() {
+					if !_delegateDone {
+						objc.NoteDelegatePanic("NSCollectionViewDelegate", "collectionView:didEndDisplayingItem:forRepresentedObjectAtIndexPath:")
+					}
+				}()
 				collectionView := NSCollectionViewFromID(collectionViewID)
 				item := NSCollectionViewItemFromID(itemID)
 				indexPath := foundation.NSIndexPathFromID(indexPathID)
 				fn(collectionView, item, indexPath)
+				_delegateDone = true
 			},
 		})
 	}
@@ -977,11 +1076,23 @@ func NewNSCollectionViewDelegate(config NSCollectionViewDelegateConfig) NSCollec
 		methods = append(methods, objc.MethodDef{
 			Cmd: objc.RegisterName("collectionView:willDisplaySupplementaryView:forElementKind:atIndexPath:"),
 			Fn: func(self objc.ID, _cmd objc.SEL, collectionViewID objc.ID, viewID objc.ID, elementKindID objc.ID, indexPathID objc.ID) {
+				// Names which delegate was running if a panic unwinds out of
+				// it. The frames between here and the Objective-C caller are
+				// runtime and purego dispatch, so without this the traceback
+				// never says which selector dispatched. Deliberately no
+				// recover: see [objc.NoteDelegatePanic].
+				_delegateDone := false
+				defer func() {
+					if !_delegateDone {
+						objc.NoteDelegatePanic("NSCollectionViewDelegate", "collectionView:willDisplaySupplementaryView:forElementKind:atIndexPath:")
+					}
+				}()
 				collectionView := NSCollectionViewFromID(collectionViewID)
 				view := NSViewFromID(viewID)
 				elementKind := NSCollectionViewSupplementaryElementKind(objc.GoString(objc.Send[*byte](elementKindID, objc.Sel("UTF8String"))))
 				indexPath := foundation.NSIndexPathFromID(indexPathID)
 				fn(collectionView, view, elementKind, indexPath)
+				_delegateDone = true
 			},
 		})
 	}
@@ -991,11 +1102,23 @@ func NewNSCollectionViewDelegate(config NSCollectionViewDelegateConfig) NSCollec
 		methods = append(methods, objc.MethodDef{
 			Cmd: objc.RegisterName("collectionView:didEndDisplayingSupplementaryView:forElementOfKind:atIndexPath:"),
 			Fn: func(self objc.ID, _cmd objc.SEL, collectionViewID objc.ID, viewID objc.ID, elementKindID objc.ID, indexPathID objc.ID) {
+				// Names which delegate was running if a panic unwinds out of
+				// it. The frames between here and the Objective-C caller are
+				// runtime and purego dispatch, so without this the traceback
+				// never says which selector dispatched. Deliberately no
+				// recover: see [objc.NoteDelegatePanic].
+				_delegateDone := false
+				defer func() {
+					if !_delegateDone {
+						objc.NoteDelegatePanic("NSCollectionViewDelegate", "collectionView:didEndDisplayingSupplementaryView:forElementOfKind:atIndexPath:")
+					}
+				}()
 				collectionView := NSCollectionViewFromID(collectionViewID)
 				view := NSViewFromID(viewID)
 				elementKind := NSCollectionViewSupplementaryElementKind(objc.GoString(objc.Send[*byte](elementKindID, objc.Sel("UTF8String"))))
 				indexPath := foundation.NSIndexPathFromID(indexPathID)
 				fn(collectionView, view, elementKind, indexPath)
+				_delegateDone = true
 			},
 		})
 	}
@@ -1005,10 +1128,23 @@ func NewNSCollectionViewDelegate(config NSCollectionViewDelegateConfig) NSCollec
 		methods = append(methods, objc.MethodDef{
 			Cmd: objc.RegisterName("collectionView:transitionLayoutForOldLayout:newLayout:"),
 			Fn: func(self objc.ID, _cmd objc.SEL, collectionViewID objc.ID, fromLayoutID objc.ID, toLayoutID objc.ID) objc.ID {
+				// Names which delegate was running if a panic unwinds out of
+				// it. The frames between here and the Objective-C caller are
+				// runtime and purego dispatch, so without this the traceback
+				// never says which selector dispatched. Deliberately no
+				// recover: see [objc.NoteDelegatePanic].
+				_delegateDone := false
+				defer func() {
+					if !_delegateDone {
+						objc.NoteDelegatePanic("NSCollectionViewDelegate", "collectionView:transitionLayoutForOldLayout:newLayout:")
+					}
+				}()
 				collectionView := NSCollectionViewFromID(collectionViewID)
 				fromLayout := NSCollectionViewLayoutFromID(fromLayoutID)
 				toLayout := NSCollectionViewLayoutFromID(toLayoutID)
-				return fn(collectionView, fromLayout, toLayout).GetID()
+				_delegateResult := fn(collectionView, fromLayout, toLayout).GetID()
+				_delegateDone = true
+				return _delegateResult
 			},
 		})
 	}
@@ -1018,10 +1154,23 @@ func NewNSCollectionViewDelegate(config NSCollectionViewDelegateConfig) NSCollec
 		methods = append(methods, objc.MethodDef{
 			Cmd: objc.RegisterName("collectionView:canDragItemsAtIndexPaths:withEvent:"),
 			Fn: func(self objc.ID, _cmd objc.SEL, collectionViewID objc.ID, indexPathsID objc.ID, eventID objc.ID) bool {
+				// Names which delegate was running if a panic unwinds out of
+				// it. The frames between here and the Objective-C caller are
+				// runtime and purego dispatch, so without this the traceback
+				// never says which selector dispatched. Deliberately no
+				// recover: see [objc.NoteDelegatePanic].
+				_delegateDone := false
+				defer func() {
+					if !_delegateDone {
+						objc.NoteDelegatePanic("NSCollectionViewDelegate", "collectionView:canDragItemsAtIndexPaths:withEvent:")
+					}
+				}()
 				collectionView := NSCollectionViewFromID(collectionViewID)
 				indexPaths := foundation.NSSetFromID(indexPathsID)
 				event := NSEventFromID(eventID)
-				return fn(collectionView, indexPaths, event)
+				_delegateResult := fn(collectionView, indexPaths, event)
+				_delegateDone = true
+				return _delegateResult
 			},
 		})
 	}
@@ -1031,10 +1180,23 @@ func NewNSCollectionViewDelegate(config NSCollectionViewDelegateConfig) NSCollec
 		methods = append(methods, objc.MethodDef{
 			Cmd: objc.RegisterName("collectionView:draggingImageForItemsAtIndexPaths:withEvent:offset:"),
 			Fn: func(self objc.ID, _cmd objc.SEL, collectionViewID objc.ID, indexPathsID objc.ID, eventID objc.ID, dragImageOffset foundation.NSPointPointer) objc.ID {
+				// Names which delegate was running if a panic unwinds out of
+				// it. The frames between here and the Objective-C caller are
+				// runtime and purego dispatch, so without this the traceback
+				// never says which selector dispatched. Deliberately no
+				// recover: see [objc.NoteDelegatePanic].
+				_delegateDone := false
+				defer func() {
+					if !_delegateDone {
+						objc.NoteDelegatePanic("NSCollectionViewDelegate", "collectionView:draggingImageForItemsAtIndexPaths:withEvent:offset:")
+					}
+				}()
 				collectionView := NSCollectionViewFromID(collectionViewID)
 				indexPaths := foundation.NSSetFromID(indexPathsID)
 				event := NSEventFromID(eventID)
-				return fn(collectionView, indexPaths, event, dragImageOffset).GetID()
+				_delegateResult := fn(collectionView, indexPaths, event, dragImageOffset).GetID()
+				_delegateDone = true
+				return _delegateResult
 			},
 		})
 	}
@@ -1044,10 +1206,23 @@ func NewNSCollectionViewDelegate(config NSCollectionViewDelegateConfig) NSCollec
 		methods = append(methods, objc.MethodDef{
 			Cmd: objc.RegisterName("collectionView:canDragItemsAtIndexes:withEvent:"),
 			Fn: func(self objc.ID, _cmd objc.SEL, collectionViewID objc.ID, indexesID objc.ID, eventID objc.ID) bool {
+				// Names which delegate was running if a panic unwinds out of
+				// it. The frames between here and the Objective-C caller are
+				// runtime and purego dispatch, so without this the traceback
+				// never says which selector dispatched. Deliberately no
+				// recover: see [objc.NoteDelegatePanic].
+				_delegateDone := false
+				defer func() {
+					if !_delegateDone {
+						objc.NoteDelegatePanic("NSCollectionViewDelegate", "collectionView:canDragItemsAtIndexes:withEvent:")
+					}
+				}()
 				collectionView := NSCollectionViewFromID(collectionViewID)
 				indexes := foundation.NSIndexSetFromID(indexesID)
 				event := NSEventFromID(eventID)
-				return fn(collectionView, indexes, event)
+				_delegateResult := fn(collectionView, indexes, event)
+				_delegateDone = true
+				return _delegateResult
 			},
 		})
 	}
@@ -1057,10 +1232,23 @@ func NewNSCollectionViewDelegate(config NSCollectionViewDelegateConfig) NSCollec
 		methods = append(methods, objc.MethodDef{
 			Cmd: objc.RegisterName("collectionView:draggingImageForItemsAtIndexes:withEvent:offset:"),
 			Fn: func(self objc.ID, _cmd objc.SEL, collectionViewID objc.ID, indexesID objc.ID, eventID objc.ID, dragImageOffset foundation.NSPointPointer) objc.ID {
+				// Names which delegate was running if a panic unwinds out of
+				// it. The frames between here and the Objective-C caller are
+				// runtime and purego dispatch, so without this the traceback
+				// never says which selector dispatched. Deliberately no
+				// recover: see [objc.NoteDelegatePanic].
+				_delegateDone := false
+				defer func() {
+					if !_delegateDone {
+						objc.NoteDelegatePanic("NSCollectionViewDelegate", "collectionView:draggingImageForItemsAtIndexes:withEvent:offset:")
+					}
+				}()
 				collectionView := NSCollectionViewFromID(collectionViewID)
 				indexes := foundation.NSIndexSetFromID(indexesID)
 				event := NSEventFromID(eventID)
-				return fn(collectionView, indexes, event, dragImageOffset).GetID()
+				_delegateResult := fn(collectionView, indexes, event, dragImageOffset).GetID()
+				_delegateDone = true
+				return _delegateResult
 			},
 		})
 	}

@@ -52,10 +52,10 @@ func (ic InputStreamClass) Alloc() InputStream {
 //
 // # Subclassing Notes
 //
-// [NSInputStream] is an abstract superclass of a consisting of concrete
-// subclasses of [NSStream] that provide standard read-only access to stream
-// data. Although [NSInputStream] is probably sufficient for most situations
-// requiring access to stream data, you can create a subclass of
+// [NSInputStream] is an abstract superclass of a class cluster consisting of
+// concrete subclasses of [NSStream] that provide standard read-only access to
+// stream data. Although [NSInputStream] is probably sufficient for most
+// situations requiring access to stream data, you can create a subclass of
 // [NSInputStream] if you want more specialized behavior (for example, you
 // want to record statistics on the data in a stream).
 //
@@ -234,7 +234,7 @@ func NewInputStreamWithFileAtPath(path string) InputStream {
 //
 // The stream must be opened before it can be used.
 //
-// See: https://developer.apple.com/documentation/Foundation/InputStream/init(url:)-1lfmj
+// See: https://developer.apple.com/documentation/Foundation/InputStream/init(url:)
 func NewInputStreamWithURL(url INSURL) InputStream {
 	instance := getInputStreamClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithURL:"), url)
@@ -294,7 +294,7 @@ func (i InputStream) InitWithFileAtPath(path string) InputStream {
 //
 // The stream must be opened before it can be used.
 //
-// See: https://developer.apple.com/documentation/Foundation/InputStream/init(url:)-1lfmj
+// See: https://developer.apple.com/documentation/Foundation/InputStream/init(url:)
 func (i InputStream) InitWithURL(url INSURL) InputStream {
 	rv := objc.Send[InputStream](i.ID, objc.Sel("initWithURL:"), url)
 	return rv
@@ -320,7 +320,7 @@ func (i InputStream) InitWithURL(url INSURL) InputStream {
 //
 // See: https://developer.apple.com/documentation/Foundation/InputStream/read(_:maxLength:)
 func (i InputStream) ReadMaxLength(buffer *uint8, len_ uint) int {
-	rv := objc.Send[int](i.ID, objc.Sel("read:maxLength:"), buffer, len_)
+	rv := objc.Send[int](i.ID, objc.Sel("read:maxLength:"), unsafe.Pointer(buffer), len_)
 	return rv
 }
 

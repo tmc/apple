@@ -182,9 +182,9 @@ func NewNSMutableString() NSMutableString {
 // specified length a `nil` value is returned.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSString/init(bytes:length:encoding:)
-func NewMutableStringWithBytesLengthEncoding(bytes []byte, encoding uint) NSMutableString {
+func NewMutableStringWithBytesLengthEncoding(bytes []byte, encoding NSStringEncoding) NSMutableString {
 	instance := getNSMutableStringClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithBytes:length:encoding:"), unsafe.Pointer(unsafe.SliceData(bytes)), uint(len(bytes)), encoding)
+	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithBytes:length:encoding:"), objc.BytesPointer(bytes), uint(len(bytes)), encoding)
 	return NSMutableStringFromID(rv)
 }
 
@@ -216,7 +216,7 @@ func NewMutableStringWithBytesLengthEncoding(bytes []byte, encoding uint) NSMuta
 // string with the buffer, without having the buffer deallocated.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSString/init(bytesNoCopy:length:encoding:freeWhenDone:)
-func NewMutableStringWithBytesNoCopyLengthEncodingFreeWhenDone(bytes unsafe.Pointer, len_ uint, encoding uint, freeBuffer bool) NSMutableString {
+func NewMutableStringWithBytesNoCopyLengthEncodingFreeWhenDone(bytes unsafe.Pointer, len_ uint, encoding NSStringEncoding, freeBuffer bool) NSMutableString {
 	instance := getNSMutableStringClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithBytesNoCopy:length:encoding:freeWhenDone:"), bytes, len_, encoding, freeBuffer)
 	return NSMutableStringFromID(rv)
@@ -244,7 +244,7 @@ func NewMutableStringWithCString(bytes string) NSMutableString {
 }
 
 // See: https://developer.apple.com/documentation/Foundation/NSString/init(cString:encoding:)-20f9h
-func NewMutableStringWithCStringEncoding(nullTerminatedCString string, encoding uint) NSMutableString {
+func NewMutableStringWithCStringEncoding(nullTerminatedCString string, encoding NSStringEncoding) NSMutableString {
 	instance := getNSMutableStringClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCString:encoding:"), unsafe.Pointer(unsafe.StringData(nullTerminatedCString+"\x00")), encoding)
 	return NSMutableStringFromID(rv)
@@ -262,7 +262,7 @@ func NewMutableStringWithCStringEncoding(nullTerminatedCString string, encoding 
 // object, which might be different from the original receiver.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSString/init(CString:length:)-5ure3
-func NewMutableStringWithCStringLength(bytes unsafe.Pointer, length int) NSMutableString {
+func NewMutableStringWithCStringLength(bytes *int8, length int) NSMutableString {
 	instance := getNSMutableStringClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCString:length:"), bytes, length)
 	return NSMutableStringFromID(rv)
@@ -291,7 +291,7 @@ func NewMutableStringWithCStringLength(bytes unsafe.Pointer, length int) NSMutab
 // immutable (`const char *`) C-string buffer.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSString/init(CStringNoCopy:length:freeWhenDone:)-86dm2
-func NewMutableStringWithCStringNoCopyLengthFreeWhenDone(bytes unsafe.Pointer, length int, freeBuffer bool) NSMutableString {
+func NewMutableStringWithCStringNoCopyLengthFreeWhenDone(bytes *int8, length int, freeBuffer bool) NSMutableString {
 	instance := getNSMutableStringClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCStringNoCopy:length:freeWhenDone:"), bytes, length, freeBuffer)
 	return NSMutableStringFromID(rv)
@@ -311,8 +311,8 @@ func NewMutableStringWithCStringNoCopyLengthFreeWhenDone(bytes unsafe.Pointer, l
 // # Discussion
 //
 // The number of characters indicated by `capacity` is simply a hint to
-// increase the efficiency of data storage. The value does limit the length of
-// the string.
+// increase the efficiency of data storage. The value does not limit the
+// length of the string.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSMutableString/init(capacity:)
 func NewMutableStringWithCapacity(capacity uint) NSMutableString {
@@ -415,13 +415,16 @@ func NewMutableStringWithContentsOfFile(path string) NSMutableString {
 // # Discussion
 //
 // See: https://developer.apple.com/documentation/Foundation/NSString/init(contentsOfFile:encoding:)
-func NewMutableStringWithContentsOfFileEncodingError(path string, enc uint) (NSMutableString, error) {
+func NewMutableStringWithContentsOfFileEncodingError(path string, enc NSStringEncoding) (NSMutableString, error) {
 	var errorPtr objc.ID
 	instance := getNSMutableStringClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithContentsOfFile:encoding:error:"), objc.String(path), enc, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
 		return NSMutableString{}, NSErrorFrom(errorPtr)
+	}
+	if rv == 0 {
+		return NSMutableString{}, objc.ErrInitFailed
 	}
 	return NSMutableStringFromID(rv), nil
 }
@@ -445,13 +448,16 @@ func NewMutableStringWithContentsOfFileEncodingError(path string, enc uint) (NSM
 // # Discussion
 //
 // See: https://developer.apple.com/documentation/Foundation/NSString/init(contentsOfFile:usedEncoding:)
-func NewMutableStringWithContentsOfFileUsedEncodingError(path string, enc uint) (NSMutableString, error) {
+func NewMutableStringWithContentsOfFileUsedEncodingError(path string, enc *uint) (NSMutableString, error) {
 	var errorPtr objc.ID
 	instance := getNSMutableStringClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithContentsOfFile:usedEncoding:error:"), objc.String(path), enc, unsafe.Pointer(&errorPtr))
+	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithContentsOfFile:usedEncoding:error:"), objc.String(path), unsafe.Pointer(enc), unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
 		return NSMutableString{}, NSErrorFrom(errorPtr)
+	}
+	if rv == 0 {
+		return NSMutableString{}, objc.ErrInitFailed
 	}
 	return NSMutableStringFromID(rv), nil
 }
@@ -476,7 +482,7 @@ func NewMutableStringWithContentsOfURL(url INSURL) NSMutableString {
 }
 
 // See: https://developer.apple.com/documentation/Foundation/NSString/init(contentsOf:encoding:)
-func NewMutableStringWithContentsOfURLEncodingError(url INSURL, enc uint) (NSMutableString, error) {
+func NewMutableStringWithContentsOfURLEncodingError(url INSURL, enc NSStringEncoding) (NSMutableString, error) {
 	var errorPtr objc.ID
 	instance := getNSMutableStringClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithContentsOfURL:encoding:error:"), url, enc, unsafe.Pointer(&errorPtr))
@@ -484,17 +490,23 @@ func NewMutableStringWithContentsOfURLEncodingError(url INSURL, enc uint) (NSMut
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
 		return NSMutableString{}, NSErrorFrom(errorPtr)
 	}
+	if rv == 0 {
+		return NSMutableString{}, objc.ErrInitFailed
+	}
 	return NSMutableStringFromID(rv), nil
 }
 
 // See: https://developer.apple.com/documentation/Foundation/NSString/init(contentsOf:usedEncoding:)
-func NewMutableStringWithContentsOfURLUsedEncodingError(url INSURL, enc uint) (NSMutableString, error) {
+func NewMutableStringWithContentsOfURLUsedEncodingError(url INSURL, enc *uint) (NSMutableString, error) {
 	var errorPtr objc.ID
 	instance := getNSMutableStringClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithContentsOfURL:usedEncoding:error:"), url, enc, unsafe.Pointer(&errorPtr))
+	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithContentsOfURL:usedEncoding:error:"), url, unsafe.Pointer(enc), unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
 		return NSMutableString{}, NSErrorFrom(errorPtr)
+	}
+	if rv == 0 {
+		return NSMutableString{}, objc.ErrInitFailed
 	}
 	return NSMutableStringFromID(rv), nil
 }
@@ -517,7 +529,7 @@ func NewMutableStringWithContentsOfURLUsedEncodingError(url INSURL, enc uint) (N
 // `encoding`).
 //
 // See: https://developer.apple.com/documentation/Foundation/NSString/init(data:encoding:)
-func NewMutableStringWithDataEncoding(data INSData, encoding uint) NSMutableString {
+func NewMutableStringWithDataEncoding(data INSData, encoding NSStringEncoding) NSMutableString {
 	instance := getNSMutableStringClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithData:encoding:"), data, encoding)
 	return NSMutableStringFromID(rv)
@@ -703,6 +715,9 @@ func NewMutableStringWithValidatedFormatValidFormatSpecifiersArgumentsError(form
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
 		return NSMutableString{}, NSErrorFrom(errorPtr)
 	}
+	if rv == 0 {
+		return NSMutableString{}, objc.ErrInitFailed
+	}
 	return NSMutableStringFromID(rv), nil
 }
 
@@ -714,6 +729,9 @@ func NewMutableStringWithValidatedFormatValidFormatSpecifiersError(format string
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
 		return NSMutableString{}, NSErrorFrom(errorPtr)
+	}
+	if rv == 0 {
+		return NSMutableString{}, objc.ErrInitFailed
 	}
 	return NSMutableStringFromID(rv), nil
 }
@@ -727,6 +745,9 @@ func NewMutableStringWithValidatedFormatValidFormatSpecifiersLocaleArgumentsErro
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
 		return NSMutableString{}, NSErrorFrom(errorPtr)
 	}
+	if rv == 0 {
+		return NSMutableString{}, objc.ErrInitFailed
+	}
 	return NSMutableStringFromID(rv), nil
 }
 
@@ -738,6 +759,9 @@ func NewMutableStringWithValidatedFormatValidFormatSpecifiersLocaleError(format 
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
 		return NSMutableString{}, NSErrorFrom(errorPtr)
+	}
+	if rv == 0 {
+		return NSMutableString{}, objc.ErrInitFailed
 	}
 	return NSMutableStringFromID(rv), nil
 }
@@ -756,8 +780,8 @@ func NewMutableStringWithValidatedFormatValidFormatSpecifiersLocaleError(format 
 // # Discussion
 //
 // The number of characters indicated by `capacity` is simply a hint to
-// increase the efficiency of data storage. The value does limit the length of
-// the string.
+// increase the efficiency of data storage. The value does not limit the
+// length of the string.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSMutableString/init(capacity:)
 func (m NSMutableString) InitWithCapacity(capacity uint) NSMutableString {
@@ -929,8 +953,8 @@ func (m NSMutableString) AppendFormat(format string) {
 // # Discussion
 //
 // The number of characters indicated by `capacity` is simply a hint to
-// increase the efficiency of data storage. The value does limit the length of
-// the string.
+// increase the efficiency of data storage. The value does not limit the
+// length of the string.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSMutableString/stringWithCapacity:
 func (_NSMutableStringClass NSMutableStringClass) StringWithCapacity(capacity uint) NSMutableString {

@@ -202,10 +202,10 @@ func DADiskCopyDescription(disk DADiskRef) corefoundation.CFDictionaryRef {
 	return result
 }
 
-var _dADiskCopyIOMedia func(disk DADiskRef) uintptr
+var _dADiskCopyIOMedia func(disk DADiskRef) uint32
 var _dADiskCopyIOMediaErr error
 
-func tryDADiskCopyIOMedia(disk DADiskRef) (uintptr, error) {
+func tryDADiskCopyIOMedia(disk DADiskRef) (uint32, error) {
 	if _dADiskCopyIOMedia == nil {
 		return 0, symbolCallError("DADiskCopyIOMedia", "10.4", _dADiskCopyIOMediaErr)
 	}
@@ -215,7 +215,7 @@ func tryDADiskCopyIOMedia(disk DADiskRef) (uintptr, error) {
 // DADiskCopyIOMedia obtains the I/O Kit media object for the specified disk.
 //
 // See: https://developer.apple.com/documentation/DiskArbitration/DADiskCopyIOMedia(_:)
-func DADiskCopyIOMedia(disk DADiskRef) uintptr {
+func DADiskCopyIOMedia(disk DADiskRef) uint32 {
 	result, callErr := tryDADiskCopyIOMedia(disk)
 	if callErr != nil {
 		panic(callErr)
@@ -265,10 +265,10 @@ func DADiskCreateFromBSDName(allocator corefoundation.CFAllocatorRef, session DA
 	return result
 }
 
-var _dADiskCreateFromIOMedia func(allocator corefoundation.CFAllocatorRef, session DASessionRef, media uintptr) DADiskRef
+var _dADiskCreateFromIOMedia func(allocator corefoundation.CFAllocatorRef, session DASessionRef, media uint32) DADiskRef
 var _dADiskCreateFromIOMediaErr error
 
-func tryDADiskCreateFromIOMedia(allocator corefoundation.CFAllocatorRef, session DASessionRef, media uintptr) (DADiskRef, error) {
+func tryDADiskCreateFromIOMedia(allocator corefoundation.CFAllocatorRef, session DASessionRef, media uint32) (DADiskRef, error) {
 	if _dADiskCreateFromIOMedia == nil {
 		return *new(DADiskRef), symbolCallError("DADiskCreateFromIOMedia", "10.4", _dADiskCreateFromIOMediaErr)
 	}
@@ -278,7 +278,7 @@ func tryDADiskCreateFromIOMedia(allocator corefoundation.CFAllocatorRef, session
 // DADiskCreateFromIOMedia creates a new disk object.
 //
 // See: https://developer.apple.com/documentation/DiskArbitration/DADiskCreateFromIOMedia(_:_:_:)
-func DADiskCreateFromIOMedia(allocator corefoundation.CFAllocatorRef, session DASessionRef, media uintptr) DADiskRef {
+func DADiskCreateFromIOMedia(allocator corefoundation.CFAllocatorRef, session DASessionRef, media uint32) DADiskRef {
 	result, callErr := tryDADiskCreateFromIOMedia(allocator, session, media)
 	if callErr != nil {
 		panic(callErr)
@@ -431,10 +431,10 @@ func DADiskMount(disk DADiskRef, path corefoundation.CFURLRef, options DADiskMou
 	}
 }
 
-var _dADiskMountWithArguments func(disk DADiskRef, path corefoundation.CFURLRef, options DADiskMountOptions, callback DADiskMountCallback, context unsafe.Pointer, arguments corefoundation.CFStringRef)
+var _dADiskMountWithArguments func(disk DADiskRef, path corefoundation.CFURLRef, options DADiskMountOptions, callback DADiskMountCallback, context unsafe.Pointer, arguments *corefoundation.CFStringRef)
 var _dADiskMountWithArgumentsErr error
 
-func tryDADiskMountWithArguments(disk DADiskRef, path corefoundation.CFURLRef, options DADiskMountOptions, callback DADiskMountCallback, context unsafe.Pointer, arguments corefoundation.CFStringRef) error {
+func tryDADiskMountWithArguments(disk DADiskRef, path corefoundation.CFURLRef, options DADiskMountOptions, callback DADiskMountCallback, context unsafe.Pointer, arguments *corefoundation.CFStringRef) error {
 	if _dADiskMountWithArguments == nil {
 		return symbolCallError("DADiskMountWithArguments", "10.4", _dADiskMountWithArgumentsErr)
 	}
@@ -445,7 +445,7 @@ func tryDADiskMountWithArguments(disk DADiskRef, path corefoundation.CFURLRef, o
 // DADiskMountWithArguments mounts the volume at the specified disk object, with the specified mount options.
 //
 // See: https://developer.apple.com/documentation/DiskArbitration/DADiskMountWithArguments(_:_:_:_:_:_:)
-func DADiskMountWithArguments(disk DADiskRef, path corefoundation.CFURLRef, options DADiskMountOptions, callback DADiskMountCallback, context unsafe.Pointer, arguments corefoundation.CFStringRef) {
+func DADiskMountWithArguments(disk DADiskRef, path corefoundation.CFURLRef, options DADiskMountOptions, callback DADiskMountCallback, context unsafe.Pointer, arguments *corefoundation.CFStringRef) {
 	if callErr := tryDADiskMountWithArguments(disk, path, options, callback, context, arguments); callErr != nil {
 		panic(callErr)
 	}

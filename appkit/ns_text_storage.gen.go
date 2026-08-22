@@ -272,8 +272,8 @@ type INSTextStorage interface {
 	Characters() []NSTextStorage
 	SetCharacters(value []NSTextStorage)
 	// The font for the text storage.
-	Font() NSFont
-	SetFont(value NSFont)
+	Font() INSFont
+	SetFont(value INSFont)
 	// The color for the text.
 	ForegroundColor() INSColor
 	SetForegroundColor(value INSColor)
@@ -286,6 +286,12 @@ type INSTextStorage interface {
 
 	// Initializes an instance with a property list object and a type string.
 	InitWithPasteboardPropertyListOfType(propertyList objectivec.IObject, type_ NSPasteboardType) NSTextStorage
+	// Returns a property list object to represent the receiver on a pasteboard as an object of a specified type.
+	PasteboardPropertyListForType(type_ NSPasteboardType) objectivec.IObject
+	// Returns an array of UTI strings of data types the receiver can write to a given pasteboard.
+	WritableTypesForPasteboard(pasteboard INSPasteboard) []string
+	// Returns options for writing data of a specified type to a given pasteboard.
+	WritingOptionsForTypePasteboard(type_ NSPasteboardType, pasteboard INSPasteboard) NSPasteboardWritingOptions
 }
 
 // Init initializes the instance.
@@ -820,11 +826,11 @@ func (t NSTextStorage) SetCharacters(value []NSTextStorage) {
 // this property directly.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTextStorage/font
-func (t NSTextStorage) Font() NSFont {
+func (t NSTextStorage) Font() INSFont {
 	rv := objc.Send[objc.ID](t.ID, objc.Sel("font"))
 	return NSFontFromID(objc.ID(rv))
 }
-func (t NSTextStorage) SetFont(value NSFont) {
+func (t NSTextStorage) SetFont(value INSFont) {
 	objc.Send[struct{}](t.ID, objc.Sel("setFont:"), value)
 }
 
@@ -854,5 +860,7 @@ func (t NSTextStorage) TextStorageObserver() NSTextStorageObserving {
 func (t NSTextStorage) SetTextStorageObserver(value NSTextStorageObserving) {
 	objc.Send[struct{}](t.ID, objc.Sel("setTextStorageObserver:"), value)
 }
+
+// Protocol methods for NSPasteboardReading
 
 // Protocol methods for NSPasteboardWriting

@@ -10,30 +10,46 @@ import (
 type IOURLError int32
 
 const (
-	KIOURLImproperArgumentsError       IOURLError = 0
-	KIOURLPropertyKeyUnavailableError  IOURLError = 0
-	KIOURLRemoteHostUnavailableError   IOURLError = 0
-	KIOURLResourceAccessViolationError IOURLError = 0
-	KIOURLResourceNotFoundError        IOURLError = 0
-	KIOURLTimeoutError                 IOURLError = 0
-	KIOURLUnknownError                 IOURLError = 0
-	KIOURLUnknownPropertyKeyError      IOURLError = 0
-	KIOURLUnknownSchemeError           IOURLError = 0
+	KIOURLImproperArgumentsError       IOURLError = -15
+	KIOURLPropertyKeyUnavailableError  IOURLError = -17
+	KIOURLRemoteHostUnavailableError   IOURLError = -14
+	KIOURLResourceAccessViolationError IOURLError = -13
+	KIOURLResourceNotFoundError        IOURLError = -12
+	KIOURLTimeoutError                 IOURLError = -18
+	KIOURLUnknownError                 IOURLError = -10
+	KIOURLUnknownPropertyKeyError      IOURLError = -16
+	KIOURLUnknownSchemeError           IOURLError = -11
 )
 
 func (e IOURLError) String() string {
 	switch e {
 	case KIOURLImproperArgumentsError:
 		return "KIOURLImproperArgumentsError"
+	case KIOURLPropertyKeyUnavailableError:
+		return "KIOURLPropertyKeyUnavailableError"
+	case KIOURLRemoteHostUnavailableError:
+		return "KIOURLRemoteHostUnavailableError"
+	case KIOURLResourceAccessViolationError:
+		return "KIOURLResourceAccessViolationError"
+	case KIOURLResourceNotFoundError:
+		return "KIOURLResourceNotFoundError"
+	case KIOURLTimeoutError:
+		return "KIOURLTimeoutError"
+	case KIOURLUnknownError:
+		return "KIOURLUnknownError"
+	case KIOURLUnknownPropertyKeyError:
+		return "KIOURLUnknownPropertyKeyError"
+	case KIOURLUnknownSchemeError:
+		return "KIOURLUnknownSchemeError"
 	default:
 		return fmt.Sprintf("IOURLError(%d)", e)
 	}
 }
 
-type KDisplayVendorID uint
+type KDisplayVendorID uint32
 
 const (
-	KDisplayVendorIDUnknown KDisplayVendorID = 0x756e6b6e
+	KDisplayVendorIDUnknown KDisplayVendorID = 'u'<<24 | 'n'<<16 | 'k'<<8 | 'n' // 'unkn'
 )
 
 func (e KDisplayVendorID) String() string {
@@ -45,7 +61,7 @@ func (e KDisplayVendorID) String() string {
 	}
 }
 
-type KFirstIOKitNotificationType uint
+type KFirstIOKitNotificationType uint32
 
 const (
 	KFirstIOKitNotificationTypeValue     KFirstIOKitNotificationType = 100
@@ -85,30 +101,24 @@ func (e KFirstIOKitNotificationType) String() string {
 	}
 }
 
-type KIO uint
+type KIOAsyncReservedIndex uint32
 
 const (
-	KIOAsyncCalloutCount           KIO = 3
-	KIOAsyncCalloutFuncIndex       KIO = 1
-	KIOAsyncCalloutRefconIndex     KIO = 2
-	KIOAsyncReservedCount          KIO = 1
-	KIOAsyncReservedIndex          KIO = 0
-	KIOCopybackCache               KIO = 3
-	KIOCopybackInnerCache          KIO = 5
-	KIODefaultCache                KIO = 0
-	KIOInhibitCache                KIO = 1
-	KIOInterestCalloutCount        KIO = 4
-	KIOInterestCalloutFuncIndex    KIO = 1
-	KIOInterestCalloutRefconIndex  KIO = 2
-	KIOInterestCalloutServiceIndex KIO = 3
-	KIOMatchingCalloutCount        KIO = 3
-	KIOMatchingCalloutFuncIndex    KIO = 1
-	KIOMatchingCalloutRefconIndex  KIO = 2
-	KIOWriteCombineCache           KIO = 4
-	KIOWriteThruCache              KIO = 2
+	KIOAsyncCalloutCount           KIOAsyncReservedIndex = 3
+	KIOAsyncCalloutFuncIndex       KIOAsyncReservedIndex = 1
+	KIOAsyncCalloutRefconIndex     KIOAsyncReservedIndex = 2
+	KIOAsyncReservedCount          KIOAsyncReservedIndex = 1
+	KIOAsyncReservedIndexValue     KIOAsyncReservedIndex = 0
+	KIOInterestCalloutCount        KIOAsyncReservedIndex = 4
+	KIOInterestCalloutFuncIndex    KIOAsyncReservedIndex = 1
+	KIOInterestCalloutRefconIndex  KIOAsyncReservedIndex = 2
+	KIOInterestCalloutServiceIndex KIOAsyncReservedIndex = 3
+	KIOMatchingCalloutCount        KIOAsyncReservedIndex = 3
+	KIOMatchingCalloutFuncIndex    KIOAsyncReservedIndex = 1
+	KIOMatchingCalloutRefconIndex  KIOAsyncReservedIndex = 2
 )
 
-func (e KIO) String() string {
+func (e KIOAsyncReservedIndex) String() string {
 	switch e {
 	case KIOAsyncCalloutCount:
 		return "KIOAsyncCalloutCount"
@@ -116,14 +126,12 @@ func (e KIO) String() string {
 		return "KIOAsyncCalloutFuncIndex"
 	case KIOAsyncCalloutRefconIndex:
 		return "KIOAsyncCalloutRefconIndex"
-	case KIOAsyncReservedIndex:
-		return "KIOAsyncReservedIndex"
-	case KIOCopybackInnerCache:
-		return "KIOCopybackInnerCache"
+	case KIOAsyncReservedIndexValue:
+		return "KIOAsyncReservedIndexValue"
 	case KIOInterestCalloutCount:
 		return "KIOInterestCalloutCount"
 	default:
-		return fmt.Sprintf("KIO(%d)", e)
+		return fmt.Sprintf("KIOAsyncReservedIndex(%d)", e)
 	}
 }
 
@@ -142,7 +150,7 @@ func (e KIOCFSerializeTo) String() string {
 	}
 }
 
-type KIOConnectMethodVarOutput int
+type KIOConnectMethodVarOutput int32
 
 const (
 	KIOConnectMethodVarOutputSize KIOConnectMethodVarOutput = -3
@@ -157,7 +165,37 @@ func (e KIOConnectMethodVarOutput) String() string {
 	}
 }
 
-type KIODefaultMemory uint
+type KIODefaultCache uint32
+
+const (
+	KIOCopybackCache      KIODefaultCache = 3
+	KIOCopybackInnerCache KIODefaultCache = 5
+	KIODefaultCacheValue  KIODefaultCache = 0
+	KIOInhibitCache       KIODefaultCache = 1
+	KIOWriteCombineCache  KIODefaultCache = 4
+	KIOWriteThruCache     KIODefaultCache = 2
+)
+
+func (e KIODefaultCache) String() string {
+	switch e {
+	case KIOCopybackCache:
+		return "KIOCopybackCache"
+	case KIOCopybackInnerCache:
+		return "KIOCopybackInnerCache"
+	case KIODefaultCacheValue:
+		return "KIODefaultCacheValue"
+	case KIOInhibitCache:
+		return "KIOInhibitCache"
+	case KIOWriteCombineCache:
+		return "KIOWriteCombineCache"
+	case KIOWriteThruCache:
+		return "KIOWriteThruCache"
+	default:
+		return fmt.Sprintf("KIODefaultCache(%d)", e)
+	}
+}
+
+type KIODefaultMemory uint32
 
 const (
 	KIODefaultMemoryType KIODefaultMemory = 0
@@ -172,16 +210,16 @@ func (e KIODefaultMemory) String() string {
 	}
 }
 
-type KIOMap uint
+type KIOMap uint32
 
 const (
 	KIOMapAnywhere           KIOMap = 0x1
 	KIOMapCacheMask          KIOMap = 0xf00
 	KIOMapCacheShift         KIOMap = 8
-	KIOMapCopybackCache      KIOMap = 3
-	KIOMapCopybackInnerCache KIOMap = 5
+	KIOMapCopybackCache      KIOMap = 768
+	KIOMapCopybackInnerCache KIOMap = 1280
 	KIOMapDefaultCache       KIOMap = 0
-	KIOMapInhibitCache       KIOMap = 1
+	KIOMapInhibitCache       KIOMap = 256
 	KIOMapOverwrite          KIOMap = 0x20000000
 	KIOMapPrefault           KIOMap = 0x10000000
 	KIOMapReadOnly           KIOMap = 0x1000
@@ -189,8 +227,8 @@ const (
 	KIOMapStatic             KIOMap = 0x1000000
 	KIOMapUnique             KIOMap = 0x4000000
 	KIOMapUserOptionsMask    KIOMap = 0xfff
-	KIOMapWriteCombineCache  KIOMap = 4
-	KIOMapWriteThruCache     KIOMap = 2
+	KIOMapWriteCombineCache  KIOMap = 1024
+	KIOMapWriteThruCache     KIOMap = 512
 )
 
 func (e KIOMap) String() string {
@@ -207,6 +245,8 @@ func (e KIOMap) String() string {
 		return "KIOMapCopybackInnerCache"
 	case KIOMapDefaultCache:
 		return "KIOMapDefaultCache"
+	case KIOMapInhibitCache:
+		return "KIOMapInhibitCache"
 	case KIOMapOverwrite:
 		return "KIOMapOverwrite"
 	case KIOMapPrefault:
@@ -230,7 +270,7 @@ func (e KIOMap) String() string {
 	}
 }
 
-type KIORegistryIterate uint
+type KIORegistryIterate uint32
 
 const (
 	KIORegistryIterateParents     KIORegistryIterate = 0x2
@@ -248,7 +288,7 @@ func (e KIORegistryIterate) String() string {
 	}
 }
 
-type KIOServiceInteraction uint
+type KIOServiceInteraction uint32
 
 const (
 	KIOServiceInteractionAllowed KIOServiceInteraction = 0x1
@@ -263,19 +303,19 @@ func (e KIOServiceInteraction) String() string {
 	}
 }
 
-type KNanosecondScale uint
+type KNanosecondScale uint32
 
 const (
 	// KMicrosecondScale: # Discussion
 	KMicrosecondScale KNanosecondScale = 1000
 	// KMillisecondScale: # Discussion
-	KMillisecondScale KNanosecondScale = 0
+	KMillisecondScale KNanosecondScale = 1000000
 	// KNanosecondScaleValue: # Discussion
 	KNanosecondScaleValue KNanosecondScale = 1
 	// KSecondScale: # Discussion
-	KSecondScale KNanosecondScale = 0
+	KSecondScale KNanosecondScale = 1000000000
 	// KTickScale: # Discussion
-	KTickScale KNanosecondScale = 0
+	KTickScale KNanosecondScale = 10000000
 )
 
 func (e KNanosecondScale) String() string {
@@ -286,12 +326,16 @@ func (e KNanosecondScale) String() string {
 		return "KMillisecondScale"
 	case KNanosecondScaleValue:
 		return "KNanosecondScaleValue"
+	case KSecondScale:
+		return "KSecondScale"
+	case KTickScale:
+		return "KTickScale"
 	default:
 		return fmt.Sprintf("KNanosecondScale(%d)", e)
 	}
 }
 
-type KOSAsyncRef uint
+type KOSAsyncRef uint32
 
 const (
 	KOSAsyncRefCount KOSAsyncRef = 8
@@ -309,23 +353,25 @@ func (e KOSAsyncRef) String() string {
 	}
 }
 
-type KOSAsyncRef64 uint
+type KOSAsyncRef64 uint32
 
 const (
 	KOSAsyncRef64Count KOSAsyncRef64 = 8
-	KOSAsyncRef64Size  KOSAsyncRef64 = 8
+	KOSAsyncRef64Size  KOSAsyncRef64 = 64
 )
 
 func (e KOSAsyncRef64) String() string {
 	switch e {
 	case KOSAsyncRef64Count:
 		return "KOSAsyncRef64Count"
+	case KOSAsyncRef64Size:
+		return "KOSAsyncRef64Size"
 	default:
 		return fmt.Sprintf("KOSAsyncRef64(%d)", e)
 	}
 }
 
-type KOSNotificationMessageID uint
+type KOSNotificationMessageID uint32
 
 const (
 	KMaxAsyncArgs                 KOSNotificationMessageID = 16

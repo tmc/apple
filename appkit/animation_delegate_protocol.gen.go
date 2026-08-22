@@ -11,7 +11,7 @@ import (
 
 var _ = fmt.Sprintf
 
-// A set of optional methods implemented by delegates of [NSAnimation](<doc://com.apple.appkit/documentation/AppKit/NSAnimation>) objects.
+// A set of optional methods implemented by delegates of [NSAnimation](<https://developer.apple.com/documentation/AppKit/NSAnimation>) objects.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSAnimationDelegate
 type NSAnimationDelegate interface {
@@ -187,8 +187,20 @@ func NewNSAnimationDelegate(config NSAnimationDelegateConfig) NSAnimationDelegat
 		methods = append(methods, objc.MethodDef{
 			Cmd: objc.RegisterName("animationDidEnd:"),
 			Fn: func(self objc.ID, _cmd objc.SEL, animationID objc.ID) {
+				// Names which delegate was running if a panic unwinds out of
+				// it. The frames between here and the Objective-C caller are
+				// runtime and purego dispatch, so without this the traceback
+				// never says which selector dispatched. Deliberately no
+				// recover: see [objc.NoteDelegatePanic].
+				_delegateDone := false
+				defer func() {
+					if !_delegateDone {
+						objc.NoteDelegatePanic("NSAnimationDelegate", "animationDidEnd:")
+					}
+				}()
 				animation := NSAnimationFromID(animationID)
 				fn(animation)
+				_delegateDone = true
 			},
 		})
 	}
@@ -198,8 +210,20 @@ func NewNSAnimationDelegate(config NSAnimationDelegateConfig) NSAnimationDelegat
 		methods = append(methods, objc.MethodDef{
 			Cmd: objc.RegisterName("animationDidStop:"),
 			Fn: func(self objc.ID, _cmd objc.SEL, animationID objc.ID) {
+				// Names which delegate was running if a panic unwinds out of
+				// it. The frames between here and the Objective-C caller are
+				// runtime and purego dispatch, so without this the traceback
+				// never says which selector dispatched. Deliberately no
+				// recover: see [objc.NoteDelegatePanic].
+				_delegateDone := false
+				defer func() {
+					if !_delegateDone {
+						objc.NoteDelegatePanic("NSAnimationDelegate", "animationDidStop:")
+					}
+				}()
 				animation := NSAnimationFromID(animationID)
 				fn(animation)
+				_delegateDone = true
 			},
 		})
 	}
@@ -209,8 +233,21 @@ func NewNSAnimationDelegate(config NSAnimationDelegateConfig) NSAnimationDelegat
 		methods = append(methods, objc.MethodDef{
 			Cmd: objc.RegisterName("animationShouldStart:"),
 			Fn: func(self objc.ID, _cmd objc.SEL, animationID objc.ID) bool {
+				// Names which delegate was running if a panic unwinds out of
+				// it. The frames between here and the Objective-C caller are
+				// runtime and purego dispatch, so without this the traceback
+				// never says which selector dispatched. Deliberately no
+				// recover: see [objc.NoteDelegatePanic].
+				_delegateDone := false
+				defer func() {
+					if !_delegateDone {
+						objc.NoteDelegatePanic("NSAnimationDelegate", "animationShouldStart:")
+					}
+				}()
 				animation := NSAnimationFromID(animationID)
-				return fn(animation)
+				_delegateResult := fn(animation)
+				_delegateDone = true
+				return _delegateResult
 			},
 		})
 	}
@@ -220,8 +257,21 @@ func NewNSAnimationDelegate(config NSAnimationDelegateConfig) NSAnimationDelegat
 		methods = append(methods, objc.MethodDef{
 			Cmd: objc.RegisterName("animation:valueForProgress:"),
 			Fn: func(self objc.ID, _cmd objc.SEL, animationID objc.ID, progress NSAnimationProgress) float32 {
+				// Names which delegate was running if a panic unwinds out of
+				// it. The frames between here and the Objective-C caller are
+				// runtime and purego dispatch, so without this the traceback
+				// never says which selector dispatched. Deliberately no
+				// recover: see [objc.NoteDelegatePanic].
+				_delegateDone := false
+				defer func() {
+					if !_delegateDone {
+						objc.NoteDelegatePanic("NSAnimationDelegate", "animation:valueForProgress:")
+					}
+				}()
 				animation := NSAnimationFromID(animationID)
-				return fn(animation, progress)
+				_delegateResult := fn(animation, progress)
+				_delegateDone = true
+				return _delegateResult
 			},
 		})
 	}
@@ -231,8 +281,20 @@ func NewNSAnimationDelegate(config NSAnimationDelegateConfig) NSAnimationDelegat
 		methods = append(methods, objc.MethodDef{
 			Cmd: objc.RegisterName("animation:didReachProgressMark:"),
 			Fn: func(self objc.ID, _cmd objc.SEL, animationID objc.ID, progress NSAnimationProgress) {
+				// Names which delegate was running if a panic unwinds out of
+				// it. The frames between here and the Objective-C caller are
+				// runtime and purego dispatch, so without this the traceback
+				// never says which selector dispatched. Deliberately no
+				// recover: see [objc.NoteDelegatePanic].
+				_delegateDone := false
+				defer func() {
+					if !_delegateDone {
+						objc.NoteDelegatePanic("NSAnimationDelegate", "animation:didReachProgressMark:")
+					}
+				}()
 				animation := NSAnimationFromID(animationID)
 				fn(animation, progress)
+				_delegateDone = true
 			},
 		})
 	}

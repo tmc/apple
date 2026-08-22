@@ -325,8 +325,8 @@ type INSControl interface {
 	FloatValue() float32
 	SetFloatValue(value float32)
 	// The value of the receiver’s cell as an integer.
-	IntValue() int
-	SetIntValue(value int)
+	IntValue() int32
+	SetIntValue(value int32)
 	// The value of the receiver’s cell as an integer value.
 	IntegerValue() int
 	SetIntegerValue(value int)
@@ -361,8 +361,8 @@ type INSControl interface {
 	Alignment() NSTextAlignment
 	SetAlignment(value NSTextAlignment)
 	// The font used to draw text in the receiver’s cell.
-	Font() NSFont
-	SetFont(value NSFont)
+	Font() INSFont
+	SetFont(value INSFont)
 	// The line break mode to use for text in the control’s cell.
 	LineBreakMode() NSLineBreakMode
 	SetLineBreakMode(value NSLineBreakMode)
@@ -1140,11 +1140,11 @@ func (c NSControl) SetFloatValue(value float32) {
 // redisplayed; [NSActionCell] performs its own updating of cells.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSControl/intValue
-func (c NSControl) IntValue() int {
-	rv := objc.Send[int](c.ID, objc.Sel("intValue"))
+func (c NSControl) IntValue() int32 {
+	rv := objc.Send[int32](c.ID, objc.Sel("intValue"))
 	return rv
 }
-func (c NSControl) SetIntValue(value int) {
+func (c NSControl) SetIntValue(value int32) {
 	objc.Send[struct{}](c.ID, objc.Sel("setIntValue:"), value)
 }
 
@@ -1268,11 +1268,11 @@ func (c NSControl) SetAlignment(value NSTextAlignment) {
 // object used globally for editing) is updated with the new font object.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSControl/font
-func (c NSControl) Font() NSFont {
+func (c NSControl) Font() INSFont {
 	rv := objc.Send[objc.ID](c.ID, objc.Sel("font"))
 	return NSFontFromID(objc.ID(rv))
 }
-func (c NSControl) SetFont(value NSFont) {
+func (c NSControl) SetFont(value INSFont) {
 	objc.Send[struct{}](c.ID, objc.Sel("setFont:"), value)
 }
 

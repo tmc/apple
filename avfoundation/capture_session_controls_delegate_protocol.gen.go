@@ -154,8 +154,20 @@ func NewAVCaptureSessionControlsDelegate(config AVCaptureSessionControlsDelegate
 		methods = append(methods, objc.MethodDef{
 			Cmd: objc.RegisterName("sessionControlsDidBecomeActive:"),
 			Fn: func(self objc.ID, _cmd objc.SEL, sessionID objc.ID) {
+				// Names which delegate was running if a panic unwinds out of
+				// it. The frames between here and the Objective-C caller are
+				// runtime and purego dispatch, so without this the traceback
+				// never says which selector dispatched. Deliberately no
+				// recover: see [objc.NoteDelegatePanic].
+				_delegateDone := false
+				defer func() {
+					if !_delegateDone {
+						objc.NoteDelegatePanic("AVCaptureSessionControlsDelegate", "sessionControlsDidBecomeActive:")
+					}
+				}()
 				session := AVCaptureSessionFromID(sessionID)
 				fn(session)
+				_delegateDone = true
 			},
 		})
 	}
@@ -165,8 +177,20 @@ func NewAVCaptureSessionControlsDelegate(config AVCaptureSessionControlsDelegate
 		methods = append(methods, objc.MethodDef{
 			Cmd: objc.RegisterName("sessionControlsWillEnterFullscreenAppearance:"),
 			Fn: func(self objc.ID, _cmd objc.SEL, sessionID objc.ID) {
+				// Names which delegate was running if a panic unwinds out of
+				// it. The frames between here and the Objective-C caller are
+				// runtime and purego dispatch, so without this the traceback
+				// never says which selector dispatched. Deliberately no
+				// recover: see [objc.NoteDelegatePanic].
+				_delegateDone := false
+				defer func() {
+					if !_delegateDone {
+						objc.NoteDelegatePanic("AVCaptureSessionControlsDelegate", "sessionControlsWillEnterFullscreenAppearance:")
+					}
+				}()
 				session := AVCaptureSessionFromID(sessionID)
 				fn(session)
+				_delegateDone = true
 			},
 		})
 	}
@@ -176,8 +200,20 @@ func NewAVCaptureSessionControlsDelegate(config AVCaptureSessionControlsDelegate
 		methods = append(methods, objc.MethodDef{
 			Cmd: objc.RegisterName("sessionControlsWillExitFullscreenAppearance:"),
 			Fn: func(self objc.ID, _cmd objc.SEL, sessionID objc.ID) {
+				// Names which delegate was running if a panic unwinds out of
+				// it. The frames between here and the Objective-C caller are
+				// runtime and purego dispatch, so without this the traceback
+				// never says which selector dispatched. Deliberately no
+				// recover: see [objc.NoteDelegatePanic].
+				_delegateDone := false
+				defer func() {
+					if !_delegateDone {
+						objc.NoteDelegatePanic("AVCaptureSessionControlsDelegate", "sessionControlsWillExitFullscreenAppearance:")
+					}
+				}()
 				session := AVCaptureSessionFromID(sessionID)
 				fn(session)
+				_delegateDone = true
 			},
 		})
 	}
@@ -187,8 +223,20 @@ func NewAVCaptureSessionControlsDelegate(config AVCaptureSessionControlsDelegate
 		methods = append(methods, objc.MethodDef{
 			Cmd: objc.RegisterName("sessionControlsDidBecomeInactive:"),
 			Fn: func(self objc.ID, _cmd objc.SEL, sessionID objc.ID) {
+				// Names which delegate was running if a panic unwinds out of
+				// it. The frames between here and the Objective-C caller are
+				// runtime and purego dispatch, so without this the traceback
+				// never says which selector dispatched. Deliberately no
+				// recover: see [objc.NoteDelegatePanic].
+				_delegateDone := false
+				defer func() {
+					if !_delegateDone {
+						objc.NoteDelegatePanic("AVCaptureSessionControlsDelegate", "sessionControlsDidBecomeInactive:")
+					}
+				}()
 				session := AVCaptureSessionFromID(sessionID)
 				fn(session)
+				_delegateDone = true
 			},
 		})
 	}

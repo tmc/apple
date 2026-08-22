@@ -97,8 +97,9 @@ func NewVNGeneratePersonInstanceMaskRequest() VNGeneratePersonInstanceMaskReques
 // [VNImageRequestHandler.PerformRequestsError].
 //
 // See: https://developer.apple.com/documentation/Vision/VNRequest/init(completionHandler:)
-func NewGeneratePersonInstanceMaskRequestWithCompletionHandler(completionHandler VNRequestCompletionHandler) VNGeneratePersonInstanceMaskRequest {
+func NewGeneratePersonInstanceMaskRequestWithCompletionHandler(completionHandler VNRequestErrorHandler) VNGeneratePersonInstanceMaskRequest {
+	_block0, _ := NewVNRequestErrorBlock(completionHandler)
 	instance := getVNGeneratePersonInstanceMaskRequestClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCompletionHandler:"), completionHandler)
+	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCompletionHandler:"), _block0)
 	return VNGeneratePersonInstanceMaskRequestFromID(rv)
 }

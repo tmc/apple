@@ -567,7 +567,7 @@ func (e CGDisplayStreamUpdateRectType) String() string {
 }
 
 // See: https://developer.apple.com/documentation/CoreGraphics/CGError
-type CGError int
+type CGError int32
 
 const (
 	// KCGErrorCannotComplete: The requested operation is inappropriate for the parameters passed in, or the current system state.
@@ -1340,7 +1340,7 @@ const (
 	KCGImageByteOrder32Little CGImageByteOrderInfo = 8192
 	KCGImageByteOrderDefault  CGImageByteOrderInfo = 0
 	// Deprecated: use CGBitmapInfo.__byteOrderInfoMask.
-	KCGImageByteOrderMask CGImageByteOrderInfo = 0
+	KCGImageByteOrderMask CGImageByteOrderInfo = 28672
 )
 
 func (e CGImageByteOrderInfo) String() string {
@@ -1355,6 +1355,8 @@ func (e CGImageByteOrderInfo) String() string {
 		return "KCGImageByteOrder32Host"
 	case KCGImageByteOrderDefault:
 		return "KCGImageByteOrderDefault"
+	case KCGImageByteOrderMask:
+		return "KCGImageByteOrderMask"
 	default:
 		return fmt.Sprintf("CGImageByteOrderInfo(%d)", e)
 	}
@@ -1389,7 +1391,7 @@ const (
 	KCGImagePixelFormatRGB565    CGImagePixelFormatInfo = 131072
 	KCGImagePixelFormatRGBCIF10  CGImagePixelFormatInfo = 262144
 	// Deprecated: use CGBitmapInfo.__pixelFormatInfoMask.
-	KCGImagePixelFormatMask CGImagePixelFormatInfo = 0
+	KCGImagePixelFormatMask CGImagePixelFormatInfo = 983040
 )
 
 func (e CGImagePixelFormatInfo) String() string {
@@ -1404,6 +1406,8 @@ func (e CGImagePixelFormatInfo) String() string {
 		return "KCGImagePixelFormatRGB565"
 	case KCGImagePixelFormatRGBCIF10:
 		return "KCGImagePixelFormatRGBCIF10"
+	case KCGImagePixelFormatMask:
+		return "KCGImagePixelFormatMask"
 	default:
 		return fmt.Sprintf("CGImagePixelFormatInfo(%d)", e)
 	}

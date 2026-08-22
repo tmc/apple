@@ -112,7 +112,6 @@ func NSURLProtectionSpaceFromID(id objc.ID) URLProtectionSpace { return URLProte
 // See: https://developer.apple.com/documentation/Foundation/URLProtectionSpace
 type IURLProtectionSpace interface {
 	objectivec.IObject
-	NSSecureCoding
 
 	// Topic: Creating a protection space
 
@@ -144,6 +143,9 @@ type IURLProtectionSpace interface {
 
 	// A Boolean value that indicates whether the receiver represents a proxy server.
 	IsProxy() bool
+	// Encodes the receiver using a given archiver.
+	EncodeWithCoder(coder INSCoder)
+	InitWithCoder(coder INSCoder) URLProtectionSpace
 }
 
 // Init initializes the instance.

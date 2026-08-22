@@ -3,7 +3,8 @@
 package javascriptcore
 
 import (
-	"github.com/tmc/apple/kernel"
+	"unsafe"
+
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -15,7 +16,7 @@ type JSChar = uint16
 // JSClassAttributes is a set of JavaScript class attributes.
 //
 // See: https://developer.apple.com/documentation/JavaScriptCore/JSClassAttributes
-type JSClassAttributes = uint
+type JSClassAttributes = uint32
 
 // JSClassRef is a JavaScript class.
 //
@@ -40,52 +41,52 @@ type JSGlobalContextRef uintptr
 // JSObjectCallAsConstructorCallback is the callback type for using an object as a constructor.
 //
 // See: https://developer.apple.com/documentation/JavaScriptCore/JSObjectCallAsConstructorCallback
-type JSObjectCallAsConstructorCallback = func(uintptr, uintptr, uint, uintptr, uintptr) uintptr
+type JSObjectCallAsConstructorCallback = func(ctx JSContextRef, constructor JSObjectRef, argumentCount uint, arguments uintptr, exception uintptr) JSObjectRef
 
 // JSObjectCallAsFunctionCallback is the callback type for calling an object as a function.
 //
 // See: https://developer.apple.com/documentation/JavaScriptCore/JSObjectCallAsFunctionCallback
-type JSObjectCallAsFunctionCallback = func(uintptr, uintptr, uintptr, uint, uintptr, uintptr) uintptr
+type JSObjectCallAsFunctionCallback = func(ctx JSContextRef, function JSObjectRef, thisObject JSObjectRef, argumentCount uint, arguments uintptr, exception uintptr) JSValueRef
 
 // JSObjectConvertToTypeCallback is the callback type for converting an object to a particular JavaScript type.
 //
 // See: https://developer.apple.com/documentation/JavaScriptCore/JSObjectConvertToTypeCallback
-type JSObjectConvertToTypeCallback = func(uintptr, uintptr, JSType, uintptr) uintptr
+type JSObjectConvertToTypeCallback = func(ctx JSContextRef, object JSObjectRef, type_ JSType, exception uintptr) JSValueRef
 
 // JSObjectDeletePropertyCallback is the callback type for deleting a property.
 //
 // See: https://developer.apple.com/documentation/JavaScriptCore/JSObjectDeletePropertyCallback
-type JSObjectDeletePropertyCallback = func(uintptr, uintptr, uintptr, uintptr) bool
+type JSObjectDeletePropertyCallback = func(ctx JSContextRef, object JSObjectRef, propertyName JSStringRef, exception uintptr) bool
 
 // JSObjectFinalizeCallback is the callback type for finalizing an object (preparing it for garbage collection).
 //
 // See: https://developer.apple.com/documentation/JavaScriptCore/JSObjectFinalizeCallback
-type JSObjectFinalizeCallback = func(uintptr)
+type JSObjectFinalizeCallback = func(object JSObjectRef)
 
 // JSObjectGetPropertyCallback is the callback type for getting a property’s value.
 //
 // See: https://developer.apple.com/documentation/JavaScriptCore/JSObjectGetPropertyCallback
-type JSObjectGetPropertyCallback = func(uintptr, uintptr, uintptr, uintptr) uintptr
+type JSObjectGetPropertyCallback = func(ctx JSContextRef, object JSObjectRef, propertyName JSStringRef, exception uintptr) JSValueRef
 
 // JSObjectGetPropertyNamesCallback is the callback type for collecting the names of an object’s properties.
 //
 // See: https://developer.apple.com/documentation/JavaScriptCore/JSObjectGetPropertyNamesCallback
-type JSObjectGetPropertyNamesCallback = func(uintptr, uintptr, uintptr)
+type JSObjectGetPropertyNamesCallback = func(ctx JSContextRef, object JSObjectRef, accumulator JSPropertyNameAccumulatorRef)
 
 // JSObjectHasInstanceCallback is the callback type for checking whether an object is an instance of a particular type.
 //
 // See: https://developer.apple.com/documentation/JavaScriptCore/JSObjectHasInstanceCallback
-type JSObjectHasInstanceCallback = func(uintptr, uintptr, uintptr, uintptr) bool
+type JSObjectHasInstanceCallback = func(ctx JSContextRef, constructor JSObjectRef, possibleInstance JSValueRef, exception uintptr) bool
 
 // JSObjectHasPropertyCallback is the callback type for determining whether an object has a property.
 //
 // See: https://developer.apple.com/documentation/JavaScriptCore/JSObjectHasPropertyCallback
-type JSObjectHasPropertyCallback = func(uintptr, uintptr, uintptr) bool
+type JSObjectHasPropertyCallback = func(ctx JSContextRef, object JSObjectRef, propertyName JSStringRef) bool
 
 // JSObjectInitializeCallback is the callback type for first creating an object.
 //
 // See: https://developer.apple.com/documentation/JavaScriptCore/JSObjectInitializeCallback
-type JSObjectInitializeCallback = func(uintptr, uintptr)
+type JSObjectInitializeCallback = func(ctx JSContextRef, object JSObjectRef)
 
 // JSObjectRef is a JavaScript object.
 //
@@ -95,12 +96,12 @@ type JSObjectRef uintptr
 // JSObjectSetPropertyCallback is the callback type for setting a property’s value.
 //
 // See: https://developer.apple.com/documentation/JavaScriptCore/JSObjectSetPropertyCallback
-type JSObjectSetPropertyCallback = func(uintptr, uintptr, uintptr, uintptr, uintptr) bool
+type JSObjectSetPropertyCallback = func(ctx JSContextRef, object JSObjectRef, propertyName JSStringRef, value JSValueRef, exception uintptr) bool
 
 // JSPropertyAttributes is a set of JavaScript property attributes.
 //
 // See: https://developer.apple.com/documentation/JavaScriptCore/JSPropertyAttributes
-type JSPropertyAttributes = uint
+type JSPropertyAttributes = uint32
 
 // JSPropertyNameAccumulatorRef is an ordered set of the names of a JavaScript object’s properties.
 //
@@ -120,7 +121,7 @@ type JSStringRef uintptr
 // JSTypedArrayBytesDeallocator is a function that deallocates bytes that pass to a typed array constructor.
 //
 // See: https://developer.apple.com/documentation/JavaScriptCore/JSTypedArrayBytesDeallocator
-type JSTypedArrayBytesDeallocator = func(kernel.Pointer, kernel.Pointer)
+type JSTypedArrayBytesDeallocator = func(bytes unsafe.Pointer, deallocatorContext unsafe.Pointer)
 
 // JSValueProperty is a type that identifies a property of a JavaScript value.
 //

@@ -94,6 +94,15 @@ type IGCRacingWheelInputState interface {
 	ClutchPedal() GCButtonElement
 	// The controller’s gear shift element.
 	Shifter() IGCGearShifterElement
+
+	// The physical device that this profile represents.
+	Device() GCDevice
+	// The time in seconds between the last event and the current time.
+	LastEventLatency() foundation.NSTimeInterval
+	// The time of the most recent event.
+	LastEventTimestamp() foundation.NSTimeInterval
+	// Returns the element that the key specifies.
+	ObjectForKeyedSubscript(key string) GCPhysicalInputElement
 }
 
 // Init initializes the instance.

@@ -48,13 +48,13 @@ type CIQRCodeErrorCorrectionLevel int
 
 const (
 	// CIQRCodeErrorCorrectionLevelH: Indicates that approximately 65% of the symbol data is dedicated to error correction.
-	CIQRCodeErrorCorrectionLevelH CIQRCodeErrorCorrectionLevel = 3
+	CIQRCodeErrorCorrectionLevelH CIQRCodeErrorCorrectionLevel = 72
 	// CIQRCodeErrorCorrectionLevelL: Indicates that approximately 20% of the symbol data is dedicated to error correction.
-	CIQRCodeErrorCorrectionLevelL CIQRCodeErrorCorrectionLevel = 0
+	CIQRCodeErrorCorrectionLevelL CIQRCodeErrorCorrectionLevel = 76
 	// CIQRCodeErrorCorrectionLevelM: Indicates that approximately 37% of the symbol data is dedicated to error correction.
-	CIQRCodeErrorCorrectionLevelM CIQRCodeErrorCorrectionLevel = 1
+	CIQRCodeErrorCorrectionLevelM CIQRCodeErrorCorrectionLevel = 77
 	// CIQRCodeErrorCorrectionLevelQ: Indicates that approximately 55% of the symbol data is dedicated to error correction.
-	CIQRCodeErrorCorrectionLevelQ CIQRCodeErrorCorrectionLevel = 2
+	CIQRCodeErrorCorrectionLevelQ CIQRCodeErrorCorrectionLevel = 81
 )
 
 func (e CIQRCodeErrorCorrectionLevel) String() string {

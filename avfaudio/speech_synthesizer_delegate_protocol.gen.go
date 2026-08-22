@@ -214,9 +214,21 @@ func NewAVSpeechSynthesizerDelegate(config AVSpeechSynthesizerDelegateConfig) AV
 		methods = append(methods, objc.MethodDef{
 			Cmd: objc.RegisterName("speechSynthesizer:didStartSpeechUtterance:"),
 			Fn: func(self objc.ID, _cmd objc.SEL, synthesizerID objc.ID, utteranceID objc.ID) {
+				// Names which delegate was running if a panic unwinds out of
+				// it. The frames between here and the Objective-C caller are
+				// runtime and purego dispatch, so without this the traceback
+				// never says which selector dispatched. Deliberately no
+				// recover: see [objc.NoteDelegatePanic].
+				_delegateDone := false
+				defer func() {
+					if !_delegateDone {
+						objc.NoteDelegatePanic("AVSpeechSynthesizerDelegate", "speechSynthesizer:didStartSpeechUtterance:")
+					}
+				}()
 				synthesizer := AVSpeechSynthesizerFromID(synthesizerID)
 				utterance := AVSpeechUtteranceFromID(utteranceID)
 				fn(synthesizer, utterance)
+				_delegateDone = true
 			},
 		})
 	}
@@ -226,9 +238,21 @@ func NewAVSpeechSynthesizerDelegate(config AVSpeechSynthesizerDelegateConfig) AV
 		methods = append(methods, objc.MethodDef{
 			Cmd: objc.RegisterName("speechSynthesizer:willSpeakRangeOfSpeechString:utterance:"),
 			Fn: func(self objc.ID, _cmd objc.SEL, synthesizerID objc.ID, characterRange foundation.NSRange, utteranceID objc.ID) {
+				// Names which delegate was running if a panic unwinds out of
+				// it. The frames between here and the Objective-C caller are
+				// runtime and purego dispatch, so without this the traceback
+				// never says which selector dispatched. Deliberately no
+				// recover: see [objc.NoteDelegatePanic].
+				_delegateDone := false
+				defer func() {
+					if !_delegateDone {
+						objc.NoteDelegatePanic("AVSpeechSynthesizerDelegate", "speechSynthesizer:willSpeakRangeOfSpeechString:utterance:")
+					}
+				}()
 				synthesizer := AVSpeechSynthesizerFromID(synthesizerID)
 				utterance := AVSpeechUtteranceFromID(utteranceID)
 				fn(synthesizer, characterRange, utterance)
+				_delegateDone = true
 			},
 		})
 	}
@@ -238,10 +262,22 @@ func NewAVSpeechSynthesizerDelegate(config AVSpeechSynthesizerDelegateConfig) AV
 		methods = append(methods, objc.MethodDef{
 			Cmd: objc.RegisterName("speechSynthesizer:willSpeakMarker:utterance:"),
 			Fn: func(self objc.ID, _cmd objc.SEL, synthesizerID objc.ID, markerID objc.ID, utteranceID objc.ID) {
+				// Names which delegate was running if a panic unwinds out of
+				// it. The frames between here and the Objective-C caller are
+				// runtime and purego dispatch, so without this the traceback
+				// never says which selector dispatched. Deliberately no
+				// recover: see [objc.NoteDelegatePanic].
+				_delegateDone := false
+				defer func() {
+					if !_delegateDone {
+						objc.NoteDelegatePanic("AVSpeechSynthesizerDelegate", "speechSynthesizer:willSpeakMarker:utterance:")
+					}
+				}()
 				synthesizer := AVSpeechSynthesizerFromID(synthesizerID)
 				marker := AVSpeechSynthesisMarkerFromID(markerID)
 				utterance := AVSpeechUtteranceFromID(utteranceID)
 				fn(synthesizer, marker, utterance)
+				_delegateDone = true
 			},
 		})
 	}
@@ -251,9 +287,21 @@ func NewAVSpeechSynthesizerDelegate(config AVSpeechSynthesizerDelegateConfig) AV
 		methods = append(methods, objc.MethodDef{
 			Cmd: objc.RegisterName("speechSynthesizer:didPauseSpeechUtterance:"),
 			Fn: func(self objc.ID, _cmd objc.SEL, synthesizerID objc.ID, utteranceID objc.ID) {
+				// Names which delegate was running if a panic unwinds out of
+				// it. The frames between here and the Objective-C caller are
+				// runtime and purego dispatch, so without this the traceback
+				// never says which selector dispatched. Deliberately no
+				// recover: see [objc.NoteDelegatePanic].
+				_delegateDone := false
+				defer func() {
+					if !_delegateDone {
+						objc.NoteDelegatePanic("AVSpeechSynthesizerDelegate", "speechSynthesizer:didPauseSpeechUtterance:")
+					}
+				}()
 				synthesizer := AVSpeechSynthesizerFromID(synthesizerID)
 				utterance := AVSpeechUtteranceFromID(utteranceID)
 				fn(synthesizer, utterance)
+				_delegateDone = true
 			},
 		})
 	}
@@ -263,9 +311,21 @@ func NewAVSpeechSynthesizerDelegate(config AVSpeechSynthesizerDelegateConfig) AV
 		methods = append(methods, objc.MethodDef{
 			Cmd: objc.RegisterName("speechSynthesizer:didContinueSpeechUtterance:"),
 			Fn: func(self objc.ID, _cmd objc.SEL, synthesizerID objc.ID, utteranceID objc.ID) {
+				// Names which delegate was running if a panic unwinds out of
+				// it. The frames between here and the Objective-C caller are
+				// runtime and purego dispatch, so without this the traceback
+				// never says which selector dispatched. Deliberately no
+				// recover: see [objc.NoteDelegatePanic].
+				_delegateDone := false
+				defer func() {
+					if !_delegateDone {
+						objc.NoteDelegatePanic("AVSpeechSynthesizerDelegate", "speechSynthesizer:didContinueSpeechUtterance:")
+					}
+				}()
 				synthesizer := AVSpeechSynthesizerFromID(synthesizerID)
 				utterance := AVSpeechUtteranceFromID(utteranceID)
 				fn(synthesizer, utterance)
+				_delegateDone = true
 			},
 		})
 	}
@@ -275,9 +335,21 @@ func NewAVSpeechSynthesizerDelegate(config AVSpeechSynthesizerDelegateConfig) AV
 		methods = append(methods, objc.MethodDef{
 			Cmd: objc.RegisterName("speechSynthesizer:didFinishSpeechUtterance:"),
 			Fn: func(self objc.ID, _cmd objc.SEL, synthesizerID objc.ID, utteranceID objc.ID) {
+				// Names which delegate was running if a panic unwinds out of
+				// it. The frames between here and the Objective-C caller are
+				// runtime and purego dispatch, so without this the traceback
+				// never says which selector dispatched. Deliberately no
+				// recover: see [objc.NoteDelegatePanic].
+				_delegateDone := false
+				defer func() {
+					if !_delegateDone {
+						objc.NoteDelegatePanic("AVSpeechSynthesizerDelegate", "speechSynthesizer:didFinishSpeechUtterance:")
+					}
+				}()
 				synthesizer := AVSpeechSynthesizerFromID(synthesizerID)
 				utterance := AVSpeechUtteranceFromID(utteranceID)
 				fn(synthesizer, utterance)
+				_delegateDone = true
 			},
 		})
 	}
@@ -287,9 +359,21 @@ func NewAVSpeechSynthesizerDelegate(config AVSpeechSynthesizerDelegateConfig) AV
 		methods = append(methods, objc.MethodDef{
 			Cmd: objc.RegisterName("speechSynthesizer:didCancelSpeechUtterance:"),
 			Fn: func(self objc.ID, _cmd objc.SEL, synthesizerID objc.ID, utteranceID objc.ID) {
+				// Names which delegate was running if a panic unwinds out of
+				// it. The frames between here and the Objective-C caller are
+				// runtime and purego dispatch, so without this the traceback
+				// never says which selector dispatched. Deliberately no
+				// recover: see [objc.NoteDelegatePanic].
+				_delegateDone := false
+				defer func() {
+					if !_delegateDone {
+						objc.NoteDelegatePanic("AVSpeechSynthesizerDelegate", "speechSynthesizer:didCancelSpeechUtterance:")
+					}
+				}()
 				synthesizer := AVSpeechSynthesizerFromID(synthesizerID)
 				utterance := AVSpeechUtteranceFromID(utteranceID)
 				fn(synthesizer, utterance)
+				_delegateDone = true
 			},
 		})
 	}

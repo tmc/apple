@@ -58,11 +58,11 @@ func (wc WKWebExtensionMatchPatternClass) Alloc() WKWebExtensionMatchPattern {
 //
 // # Instance Properties
 //
-//   - [WKWebExtensionMatchPattern.Host]: The host part of the pattern string, unless [matchesAllURLs](<doc://com.apple.webkit/documentation/WebKit/WKWebExtension/MatchPattern/matchesAllURLs>) is [YES].
+//   - [WKWebExtensionMatchPattern.Host]: The host part of the pattern string, unless [matchesAllURLs](<https://developer.apple.com/documentation/WebKit/WKWebExtension/MatchPattern/matchesAllURLs>) is [YES].
 //   - [WKWebExtensionMatchPattern.MatchesAllHosts]: A Boolean value that indicates if the pattern is `<all_urls>` or has `*` as the host.
 //   - [WKWebExtensionMatchPattern.MatchesAllURLs]: A Boolean value that indicates if the pattern is `<all_urls>`.
-//   - [WKWebExtensionMatchPattern.Path]: The path part of the pattern string, unless [matchesAllURLs](<doc://com.apple.webkit/documentation/WebKit/WKWebExtension/MatchPattern/matchesAllURLs>) is [YES].
-//   - [WKWebExtensionMatchPattern.Scheme]: The scheme part of the pattern string, unless [matchesAllURLs](<doc://com.apple.webkit/documentation/WebKit/WKWebExtension/MatchPattern/matchesAllURLs>) is [YES].
+//   - [WKWebExtensionMatchPattern.Path]: The path part of the pattern string, unless [matchesAllURLs](<https://developer.apple.com/documentation/WebKit/WKWebExtension/MatchPattern/matchesAllURLs>) is [YES].
+//   - [WKWebExtensionMatchPattern.Scheme]: The scheme part of the pattern string, unless [matchesAllURLs](<https://developer.apple.com/documentation/WebKit/WKWebExtension/MatchPattern/matchesAllURLs>) is [YES].
 //   - [WKWebExtensionMatchPattern.String]: The original pattern string.
 //
 // # Instance Methods
@@ -96,11 +96,11 @@ func WKWebExtensionMatchPatternFromID(id objc.ID) WKWebExtensionMatchPattern {
 //
 // # Instance Properties
 //
-//   - [IWKWebExtensionMatchPattern.Host]: The host part of the pattern string, unless [matchesAllURLs](<doc://com.apple.webkit/documentation/WebKit/WKWebExtension/MatchPattern/matchesAllURLs>) is [YES].
+//   - [IWKWebExtensionMatchPattern.Host]: The host part of the pattern string, unless [matchesAllURLs](<https://developer.apple.com/documentation/WebKit/WKWebExtension/MatchPattern/matchesAllURLs>) is [YES].
 //   - [IWKWebExtensionMatchPattern.MatchesAllHosts]: A Boolean value that indicates if the pattern is `<all_urls>` or has `*` as the host.
 //   - [IWKWebExtensionMatchPattern.MatchesAllURLs]: A Boolean value that indicates if the pattern is `<all_urls>`.
-//   - [IWKWebExtensionMatchPattern.Path]: The path part of the pattern string, unless [matchesAllURLs](<doc://com.apple.webkit/documentation/WebKit/WKWebExtension/MatchPattern/matchesAllURLs>) is [YES].
-//   - [IWKWebExtensionMatchPattern.Scheme]: The scheme part of the pattern string, unless [matchesAllURLs](<doc://com.apple.webkit/documentation/WebKit/WKWebExtension/MatchPattern/matchesAllURLs>) is [YES].
+//   - [IWKWebExtensionMatchPattern.Path]: The path part of the pattern string, unless [matchesAllURLs](<https://developer.apple.com/documentation/WebKit/WKWebExtension/MatchPattern/matchesAllURLs>) is [YES].
+//   - [IWKWebExtensionMatchPattern.Scheme]: The scheme part of the pattern string, unless [matchesAllURLs](<https://developer.apple.com/documentation/WebKit/WKWebExtension/MatchPattern/matchesAllURLs>) is [YES].
 //   - [IWKWebExtensionMatchPattern.String]: The original pattern string.
 //
 // # Instance Methods
@@ -123,15 +123,15 @@ type IWKWebExtensionMatchPattern interface {
 
 	// Topic: Instance Properties
 
-	// The host part of the pattern string, unless [matchesAllURLs](<doc://com.apple.webkit/documentation/WebKit/WKWebExtension/MatchPattern/matchesAllURLs>) is [YES].
+	// The host part of the pattern string, unless [matchesAllURLs](<https://developer.apple.com/documentation/WebKit/WKWebExtension/MatchPattern/matchesAllURLs>) is [YES].
 	Host() string
 	// A Boolean value that indicates if the pattern is `<all_urls>` or has `*` as the host.
 	MatchesAllHosts() bool
 	// A Boolean value that indicates if the pattern is `<all_urls>`.
 	MatchesAllURLs() bool
-	// The path part of the pattern string, unless [matchesAllURLs](<doc://com.apple.webkit/documentation/WebKit/WKWebExtension/MatchPattern/matchesAllURLs>) is [YES].
+	// The path part of the pattern string, unless [matchesAllURLs](<https://developer.apple.com/documentation/WebKit/WKWebExtension/MatchPattern/matchesAllURLs>) is [YES].
 	Path() string
-	// The scheme part of the pattern string, unless [matchesAllURLs](<doc://com.apple.webkit/documentation/WebKit/WKWebExtension/MatchPattern/matchesAllURLs>) is [YES].
+	// The scheme part of the pattern string, unless [matchesAllURLs](<https://developer.apple.com/documentation/WebKit/WKWebExtension/MatchPattern/matchesAllURLs>) is [YES].
 	Scheme() string
 	// The original pattern string.
 	String() string
@@ -189,6 +189,9 @@ func NewWebExtensionMatchPatternWithSchemeHostPathError(scheme string, host stri
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
 		return WKWebExtensionMatchPattern{}, foundation.NSErrorFrom(errorPtr)
 	}
+	if rv == 0 {
+		return WKWebExtensionMatchPattern{}, objc.ErrInitFailed
+	}
 	return WKWebExtensionMatchPatternFromID(rv), nil
 }
 
@@ -211,6 +214,9 @@ func NewWebExtensionMatchPatternWithStringError(string_ string) (WKWebExtensionM
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
 		return WKWebExtensionMatchPattern{}, foundation.NSErrorFrom(errorPtr)
+	}
+	if rv == 0 {
+		return WKWebExtensionMatchPattern{}, objc.ErrInitFailed
 	}
 	return WKWebExtensionMatchPatternFromID(rv), nil
 }

@@ -58,7 +58,8 @@ func NSItemProviderWritingObjectFromID(id objc.ID) NSItemProviderWritingObject {
 //
 // See: https://developer.apple.com/documentation/Foundation/NSItemProviderWriting/loadData(withTypeIdentifier:forItemProviderCompletionHandler:)
 func (o NSItemProviderWritingObject) LoadDataWithTypeIdentifierForItemProviderCompletionHandler(typeIdentifier string, completionHandler DataErrorHandler) INSProgress {
-	rv := objc.Send[objc.ID](o.ID, objc.Sel("loadDataWithTypeIdentifier:forItemProviderCompletionHandler:"), objc.String(typeIdentifier), completionHandler)
+	_block1, _ := NewDataErrorBlock(completionHandler)
+	rv := objc.Send[objc.ID](o.ID, objc.Sel("loadDataWithTypeIdentifier:forItemProviderCompletionHandler:"), objc.String(typeIdentifier), _block1)
 	return NSProgressFromID(rv)
 }
 
@@ -91,7 +92,7 @@ func (o NSItemProviderWritingObject) ItemProviderVisibilityForRepresentationWith
 // extended array of UTIs based on the object. For example, for an [NSURL]
 // object, your implementation could offer the `public.File()-url` UTI, in
 // addition to the `public.Url()` UTI, if your implementation detects that the
-// stored URL uses the `//` scheme.
+// stored URL uses the `file://` scheme.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSItemProviderWriting/writableTypeIdentifiersForItemProvider-swift.property
 func (o NSItemProviderWritingObject) WritableTypeIdentifiersForItemProvider() []string {

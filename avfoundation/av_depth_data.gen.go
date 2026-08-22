@@ -8,6 +8,7 @@ import (
 
 	"github.com/tmc/apple/corevideo"
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/imageio"
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -50,10 +51,11 @@ func (ac AVDepthDataClass) Alloc() AVDepthData {
 //
 // # Overview
 //
-// is a generic term for a map of per-pixel data containing depth-related
-// information. A depth data object wraps a disparity or depth map and
-// provides conversion methods, focus information, and camera calibration data
-// to aid in using the map for rendering or computer vision tasks.
+// Depth data is a generic term for a map of per-pixel data containing
+// depth-related information. A depth data object wraps a disparity or depth
+// map and provides conversion methods, focus information, and camera
+// calibration data to aid in using the map for rendering or computer vision
+// tasks.
 //
 // A depth map describes at each pixel the distance to an object, in meters.
 //
@@ -169,7 +171,7 @@ type IAVDepthData interface {
 	// Topic: Creating depth data
 
 	// Returns a dictionary representation of the depth data suitable for writing into an image file.
-	DictionaryRepresentationForAuxiliaryDataType(outAuxDataType string) foundation.INSDictionary
+	DictionaryRepresentationForAuxiliaryDataType(outAuxDataType *foundation.NSString) foundation.INSDictionary
 
 	// Topic: Reading pixel depth information
 
@@ -190,7 +192,7 @@ type IAVDepthData interface {
 	// Topic: Transforming and processing
 
 	// Returns a derivative depth data object by mirroring or rotating it to the specified orientation.
-	DepthDataByApplyingExifOrientation(exifOrientation uint) IAVDepthData
+	DepthDataByApplyingExifOrientation(exifOrientation imageio.CGImagePropertyOrientation) IAVDepthData
 	// Returns a derivative depth data object by converting the depth data map to the specified data type.
 	DepthDataByConvertingToDepthDataType(depthDataType uint32) IAVDepthData
 	// The list of depth data formats to which you can convert this depth data.
@@ -249,6 +251,9 @@ func NewDepthDataFromDictionaryRepresentationError(imageSourceAuxDataInfoDiction
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
 		return AVDepthData{}, foundation.NSErrorFrom(errorPtr)
 	}
+	if rv == 0 {
+		return AVDepthData{}, objc.ErrInitFailed
+	}
 	return AVDepthDataFromID(rv), nil
 }
 
@@ -271,8 +276,8 @@ func NewDepthDataFromDictionaryRepresentationError(imageSourceAuxDataInfoDiction
 // [kCGImageAuxiliaryDataTypeDepth]: https://developer.apple.com/documentation/ImageIO/kCGImageAuxiliaryDataTypeDepth
 // [kCGImageAuxiliaryDataTypeDisparity]: https://developer.apple.com/documentation/ImageIO/kCGImageAuxiliaryDataTypeDisparity
 // [CGImageDestinationAddAuxiliaryDataInfo(_:_:_:)]: https://developer.apple.com/documentation/ImageIO/CGImageDestinationAddAuxiliaryDataInfo(_:_:_:)
-func (d AVDepthData) DictionaryRepresentationForAuxiliaryDataType(outAuxDataType string) foundation.INSDictionary {
-	rv := objc.Send[objc.ID](d.ID, objc.Sel("dictionaryRepresentationForAuxiliaryDataType:"), objc.String(outAuxDataType))
+func (d AVDepthData) DictionaryRepresentationForAuxiliaryDataType(outAuxDataType *foundation.NSString) foundation.INSDictionary {
+	rv := objc.Send[objc.ID](d.ID, objc.Sel("dictionaryRepresentationForAuxiliaryDataType:"), unsafe.Pointer(outAuxDataType))
 	return foundation.NSDictionaryFromID(rv)
 }
 
@@ -301,7 +306,7 @@ func (d AVDepthData) DictionaryRepresentationForAuxiliaryDataType(outAuxDataType
 // See: https://developer.apple.com/documentation/AVFoundation/AVDepthData/applyingExifOrientation(_:)
 //
 // [CGImagePropertyOrientation.up]: https://developer.apple.com/documentation/ImageIO/CGImagePropertyOrientation/up
-func (d AVDepthData) DepthDataByApplyingExifOrientation(exifOrientation uint) IAVDepthData {
+func (d AVDepthData) DepthDataByApplyingExifOrientation(exifOrientation imageio.CGImagePropertyOrientation) IAVDepthData {
 	rv := objc.Send[objc.ID](d.ID, objc.Sel("depthDataByApplyingExifOrientation:"), exifOrientation)
 	return AVDepthDataFromID(rv)
 }

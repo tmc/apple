@@ -74,7 +74,8 @@ func WKNavigationDelegateObjectFromID(id objc.ID) WKNavigationDelegateObject {
 //
 // [WKNavigationActionPolicy]: https://developer.apple.com/documentation/WebKit/WKNavigationActionPolicy
 func (o WKNavigationDelegateObject) WebViewDecidePolicyForNavigationActionPreferencesDecisionHandler(webView IWKWebView, navigationAction IWKNavigationAction, preferences IWKWebpagePreferences, decisionHandler IntWKWebpagePreferencesHandler) {
-	objc.Send[struct{}](o.ID, objc.Sel("webView:decidePolicyForNavigationAction:preferences:decisionHandler:"), webView, navigationAction, preferences, decisionHandler)
+	_block3, _ := NewIntWKWebpagePreferencesBlock(decisionHandler)
+	objc.Send[struct{}](o.ID, objc.Sel("webView:decidePolicyForNavigationAction:preferences:decisionHandler:"), webView, navigationAction, preferences, _block3)
 }
 
 // Asks the delegate for permission to navigate to new content based on the
@@ -108,7 +109,8 @@ func (o WKNavigationDelegateObject) WebViewDecidePolicyForNavigationActionPrefer
 //
 // [WKNavigationActionPolicy]: https://developer.apple.com/documentation/WebKit/WKNavigationActionPolicy
 func (o WKNavigationDelegateObject) WebViewDecidePolicyForNavigationActionDecisionHandler(webView IWKWebView, navigationAction IWKNavigationAction, decisionHandler WKNavigationActionPolicyHandler) {
-	objc.Send[struct{}](o.ID, objc.Sel("webView:decidePolicyForNavigationAction:decisionHandler:"), webView, navigationAction, decisionHandler)
+	_block2, _ := NewWKNavigationActionPolicyBlock(decisionHandler)
+	objc.Send[struct{}](o.ID, objc.Sel("webView:decidePolicyForNavigationAction:decisionHandler:"), webView, navigationAction, _block2)
 }
 
 // Asks the delegate for permission to navigate to new content after the
@@ -140,7 +142,8 @@ func (o WKNavigationDelegateObject) WebViewDecidePolicyForNavigationActionDecisi
 //
 // [WKNavigationResponsePolicy]: https://developer.apple.com/documentation/WebKit/WKNavigationResponsePolicy
 func (o WKNavigationDelegateObject) WebViewDecidePolicyForNavigationResponseDecisionHandler(webView IWKWebView, navigationResponse IWKNavigationResponse, decisionHandler WKNavigationResponsePolicyHandler) {
-	objc.Send[struct{}](o.ID, objc.Sel("webView:decidePolicyForNavigationResponse:decisionHandler:"), webView, navigationResponse, decisionHandler)
+	_block2, _ := NewWKNavigationResponsePolicyBlock(decisionHandler)
+	objc.Send[struct{}](o.ID, objc.Sel("webView:decidePolicyForNavigationResponse:decisionHandler:"), webView, navigationResponse, _block2)
 }
 
 // Tells the delegate that navigation from the main frame has started.
@@ -230,7 +233,8 @@ func (o WKNavigationDelegateObject) WebViewDidFinishNavigation(webView IWKWebVie
 // [URLSession.AuthChallengeDisposition]: https://developer.apple.com/documentation/Foundation/URLSession/AuthChallengeDisposition
 // [URLSession.AuthChallengeDisposition.rejectProtectionSpace]: https://developer.apple.com/documentation/Foundation/URLSession/AuthChallengeDisposition/rejectProtectionSpace
 func (o WKNavigationDelegateObject) WebViewDidReceiveAuthenticationChallengeCompletionHandler(webView IWKWebView, challenge foundation.NSURLAuthenticationChallenge, completionHandler IntURLCredentialHandler) {
-	objc.Send[struct{}](o.ID, objc.Sel("webView:didReceiveAuthenticationChallenge:completionHandler:"), webView, challenge, completionHandler)
+	_block2, _ := NewIntURLCredentialBlock(completionHandler)
+	objc.Send[struct{}](o.ID, objc.Sel("webView:didReceiveAuthenticationChallenge:completionHandler:"), webView, challenge, _block2)
 }
 
 // Asks the delegate whether to continue with a connection that uses a
@@ -254,7 +258,8 @@ func (o WKNavigationDelegateObject) WebViewDidReceiveAuthenticationChallengeComp
 //
 // See: https://developer.apple.com/documentation/WebKit/WKNavigationDelegate/webView(_:authenticationChallenge:shouldAllowDeprecatedTLS:)
 func (o WKNavigationDelegateObject) WebViewAuthenticationChallengeShouldAllowDeprecatedTLS(webView IWKWebView, challenge foundation.NSURLAuthenticationChallenge, decisionHandler BoolHandler) {
-	objc.Send[struct{}](o.ID, objc.Sel("webView:authenticationChallenge:shouldAllowDeprecatedTLS:"), webView, challenge, decisionHandler)
+	_block2, _ := NewBoolBlock(decisionHandler)
+	objc.Send[struct{}](o.ID, objc.Sel("webView:authenticationChallenge:shouldAllowDeprecatedTLS:"), webView, challenge, _block2)
 }
 
 // Tells the delegate that an error occurred during navigation.
@@ -341,7 +346,8 @@ func (o WKNavigationDelegateObject) WebViewNavigationActionDidBecomeDownload(web
 
 // See: https://developer.apple.com/documentation/WebKit/WKNavigationDelegate/webView(_:shouldGoTo:willUseInstantBack:completionHandler:)
 func (o WKNavigationDelegateObject) WebViewShouldGoToBackForwardListItemWillUseInstantBackCompletionHandler(webView IWKWebView, backForwardListItem IWKBackForwardListItem, willUseInstantBack bool, completionHandler BoolHandler) {
-	objc.Send[struct{}](o.ID, objc.Sel("webView:shouldGoToBackForwardListItem:willUseInstantBack:completionHandler:"), webView, backForwardListItem, willUseInstantBack, completionHandler)
+	_block3, _ := NewBoolBlock(completionHandler)
+	objc.Send[struct{}](o.ID, objc.Sel("webView:shouldGoToBackForwardListItem:willUseInstantBack:completionHandler:"), webView, backForwardListItem, willUseInstantBack, _block3)
 }
 
 // WKNavigationDelegateConfig holds optional typed callbacks for [WKNavigationDelegate] methods.
@@ -402,9 +408,21 @@ func NewWKNavigationDelegate(config WKNavigationDelegateConfig) WKNavigationDele
 		methods = append(methods, objc.MethodDef{
 			Cmd: objc.RegisterName("webView:didStartProvisionalNavigation:"),
 			Fn: func(self objc.ID, _cmd objc.SEL, webViewID objc.ID, navigationID objc.ID) {
+				// Names which delegate was running if a panic unwinds out of
+				// it. The frames between here and the Objective-C caller are
+				// runtime and purego dispatch, so without this the traceback
+				// never says which selector dispatched. Deliberately no
+				// recover: see [objc.NoteDelegatePanic].
+				_delegateDone := false
+				defer func() {
+					if !_delegateDone {
+						objc.NoteDelegatePanic("WKNavigationDelegate", "webView:didStartProvisionalNavigation:")
+					}
+				}()
 				webView := WKWebViewFromID(webViewID)
 				navigation := WKNavigationFromID(navigationID)
 				fn(webView, navigation)
+				_delegateDone = true
 			},
 		})
 	}
@@ -414,9 +432,21 @@ func NewWKNavigationDelegate(config WKNavigationDelegateConfig) WKNavigationDele
 		methods = append(methods, objc.MethodDef{
 			Cmd: objc.RegisterName("webView:didReceiveServerRedirectForProvisionalNavigation:"),
 			Fn: func(self objc.ID, _cmd objc.SEL, webViewID objc.ID, navigationID objc.ID) {
+				// Names which delegate was running if a panic unwinds out of
+				// it. The frames between here and the Objective-C caller are
+				// runtime and purego dispatch, so without this the traceback
+				// never says which selector dispatched. Deliberately no
+				// recover: see [objc.NoteDelegatePanic].
+				_delegateDone := false
+				defer func() {
+					if !_delegateDone {
+						objc.NoteDelegatePanic("WKNavigationDelegate", "webView:didReceiveServerRedirectForProvisionalNavigation:")
+					}
+				}()
 				webView := WKWebViewFromID(webViewID)
 				navigation := WKNavigationFromID(navigationID)
 				fn(webView, navigation)
+				_delegateDone = true
 			},
 		})
 	}
@@ -426,9 +456,21 @@ func NewWKNavigationDelegate(config WKNavigationDelegateConfig) WKNavigationDele
 		methods = append(methods, objc.MethodDef{
 			Cmd: objc.RegisterName("webView:didCommitNavigation:"),
 			Fn: func(self objc.ID, _cmd objc.SEL, webViewID objc.ID, navigationID objc.ID) {
+				// Names which delegate was running if a panic unwinds out of
+				// it. The frames between here and the Objective-C caller are
+				// runtime and purego dispatch, so without this the traceback
+				// never says which selector dispatched. Deliberately no
+				// recover: see [objc.NoteDelegatePanic].
+				_delegateDone := false
+				defer func() {
+					if !_delegateDone {
+						objc.NoteDelegatePanic("WKNavigationDelegate", "webView:didCommitNavigation:")
+					}
+				}()
 				webView := WKWebViewFromID(webViewID)
 				navigation := WKNavigationFromID(navigationID)
 				fn(webView, navigation)
+				_delegateDone = true
 			},
 		})
 	}
@@ -438,9 +480,21 @@ func NewWKNavigationDelegate(config WKNavigationDelegateConfig) WKNavigationDele
 		methods = append(methods, objc.MethodDef{
 			Cmd: objc.RegisterName("webView:didFinishNavigation:"),
 			Fn: func(self objc.ID, _cmd objc.SEL, webViewID objc.ID, navigationID objc.ID) {
+				// Names which delegate was running if a panic unwinds out of
+				// it. The frames between here and the Objective-C caller are
+				// runtime and purego dispatch, so without this the traceback
+				// never says which selector dispatched. Deliberately no
+				// recover: see [objc.NoteDelegatePanic].
+				_delegateDone := false
+				defer func() {
+					if !_delegateDone {
+						objc.NoteDelegatePanic("WKNavigationDelegate", "webView:didFinishNavigation:")
+					}
+				}()
 				webView := WKWebViewFromID(webViewID)
 				navigation := WKNavigationFromID(navigationID)
 				fn(webView, navigation)
+				_delegateDone = true
 			},
 		})
 	}
@@ -450,10 +504,22 @@ func NewWKNavigationDelegate(config WKNavigationDelegateConfig) WKNavigationDele
 		methods = append(methods, objc.MethodDef{
 			Cmd: objc.RegisterName("webView:didFailNavigation:withError:"),
 			Fn: func(self objc.ID, _cmd objc.SEL, webViewID objc.ID, navigationID objc.ID, error_ID objc.ID) {
+				// Names which delegate was running if a panic unwinds out of
+				// it. The frames between here and the Objective-C caller are
+				// runtime and purego dispatch, so without this the traceback
+				// never says which selector dispatched. Deliberately no
+				// recover: see [objc.NoteDelegatePanic].
+				_delegateDone := false
+				defer func() {
+					if !_delegateDone {
+						objc.NoteDelegatePanic("WKNavigationDelegate", "webView:didFailNavigation:withError:")
+					}
+				}()
 				webView := WKWebViewFromID(webViewID)
 				navigation := WKNavigationFromID(navigationID)
 				error_ := foundation.NSErrorFromID(error_ID)
 				fn(webView, navigation, error_)
+				_delegateDone = true
 			},
 		})
 	}
@@ -463,10 +529,22 @@ func NewWKNavigationDelegate(config WKNavigationDelegateConfig) WKNavigationDele
 		methods = append(methods, objc.MethodDef{
 			Cmd: objc.RegisterName("webView:didFailProvisionalNavigation:withError:"),
 			Fn: func(self objc.ID, _cmd objc.SEL, webViewID objc.ID, navigationID objc.ID, error_ID objc.ID) {
+				// Names which delegate was running if a panic unwinds out of
+				// it. The frames between here and the Objective-C caller are
+				// runtime and purego dispatch, so without this the traceback
+				// never says which selector dispatched. Deliberately no
+				// recover: see [objc.NoteDelegatePanic].
+				_delegateDone := false
+				defer func() {
+					if !_delegateDone {
+						objc.NoteDelegatePanic("WKNavigationDelegate", "webView:didFailProvisionalNavigation:withError:")
+					}
+				}()
 				webView := WKWebViewFromID(webViewID)
 				navigation := WKNavigationFromID(navigationID)
 				error_ := foundation.NSErrorFromID(error_ID)
 				fn(webView, navigation, error_)
+				_delegateDone = true
 			},
 		})
 	}
@@ -476,8 +554,20 @@ func NewWKNavigationDelegate(config WKNavigationDelegateConfig) WKNavigationDele
 		methods = append(methods, objc.MethodDef{
 			Cmd: objc.RegisterName("webViewWebContentProcessDidTerminate:"),
 			Fn: func(self objc.ID, _cmd objc.SEL, webViewID objc.ID) {
+				// Names which delegate was running if a panic unwinds out of
+				// it. The frames between here and the Objective-C caller are
+				// runtime and purego dispatch, so without this the traceback
+				// never says which selector dispatched. Deliberately no
+				// recover: see [objc.NoteDelegatePanic].
+				_delegateDone := false
+				defer func() {
+					if !_delegateDone {
+						objc.NoteDelegatePanic("WKNavigationDelegate", "webViewWebContentProcessDidTerminate:")
+					}
+				}()
 				webView := WKWebViewFromID(webViewID)
 				fn(webView)
+				_delegateDone = true
 			},
 		})
 	}
@@ -487,10 +577,22 @@ func NewWKNavigationDelegate(config WKNavigationDelegateConfig) WKNavigationDele
 		methods = append(methods, objc.MethodDef{
 			Cmd: objc.RegisterName("webView:navigationResponse:didBecomeDownload:"),
 			Fn: func(self objc.ID, _cmd objc.SEL, webViewID objc.ID, navigationResponseID objc.ID, downloadID objc.ID) {
+				// Names which delegate was running if a panic unwinds out of
+				// it. The frames between here and the Objective-C caller are
+				// runtime and purego dispatch, so without this the traceback
+				// never says which selector dispatched. Deliberately no
+				// recover: see [objc.NoteDelegatePanic].
+				_delegateDone := false
+				defer func() {
+					if !_delegateDone {
+						objc.NoteDelegatePanic("WKNavigationDelegate", "webView:navigationResponse:didBecomeDownload:")
+					}
+				}()
 				webView := WKWebViewFromID(webViewID)
 				navigationResponse := WKNavigationResponseFromID(navigationResponseID)
 				download := WKDownloadFromID(downloadID)
 				fn(webView, navigationResponse, download)
+				_delegateDone = true
 			},
 		})
 	}
@@ -500,10 +602,22 @@ func NewWKNavigationDelegate(config WKNavigationDelegateConfig) WKNavigationDele
 		methods = append(methods, objc.MethodDef{
 			Cmd: objc.RegisterName("webView:navigationAction:didBecomeDownload:"),
 			Fn: func(self objc.ID, _cmd objc.SEL, webViewID objc.ID, navigationActionID objc.ID, downloadID objc.ID) {
+				// Names which delegate was running if a panic unwinds out of
+				// it. The frames between here and the Objective-C caller are
+				// runtime and purego dispatch, so without this the traceback
+				// never says which selector dispatched. Deliberately no
+				// recover: see [objc.NoteDelegatePanic].
+				_delegateDone := false
+				defer func() {
+					if !_delegateDone {
+						objc.NoteDelegatePanic("WKNavigationDelegate", "webView:navigationAction:didBecomeDownload:")
+					}
+				}()
 				webView := WKWebViewFromID(webViewID)
 				navigationAction := WKNavigationActionFromID(navigationActionID)
 				download := WKDownloadFromID(downloadID)
 				fn(webView, navigationAction, download)
+				_delegateDone = true
 			},
 		})
 	}

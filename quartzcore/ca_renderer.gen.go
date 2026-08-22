@@ -4,6 +4,7 @@ package quartzcore
 
 import (
 	"sync"
+	"unsafe"
 
 	"github.com/tmc/apple/corefoundation"
 	"github.com/tmc/apple/corevideo"
@@ -139,7 +140,7 @@ type ICARenderer interface {
 	// Topic: Rendering a Frame
 
 	// Begin rendering a frame at the specified time.
-	BeginFrameAtTimeTimeStamp(t corefoundation.CFTimeInterval, ts corevideo.CVTimeStamp)
+	BeginFrameAtTimeTimeStamp(t corefoundation.CFTimeInterval, ts *corevideo.CVTimeStamp)
 	// Returns the bounds of the update region that contains all pixels that will be rendered by the current frame.
 	UpdateBounds() corefoundation.CGRect
 	// Adds the rectangle to the update region of the current frame.
@@ -177,7 +178,7 @@ func NewCARenderer() CARenderer {
 
 // Creates a layer renderer from a Metal texture.
 //
-// See: https://developer.apple.com/documentation/QuartzCore/CARenderer/init(mtlTexture:options:)-1cr0b
+// See: https://developer.apple.com/documentation/QuartzCore/CARenderer/init(mtlTexture:options:)
 func NewRendererWithMTLTextureOptions(tex metal.MTLTexture, dict foundation.INSDictionary) CARenderer {
 	rv := objc.Send[objc.ID](objc.ID(getCARendererClass().class), objc.Sel("rendererWithMTLTexture:options:"), tex, dict)
 	return CARendererFromID(rv)
@@ -190,8 +191,8 @@ func NewRendererWithMTLTextureOptions(tex metal.MTLTexture, dict foundation.INSD
 // ts: The display timestamp associated with timeInterval. Can be null.
 //
 // See: https://developer.apple.com/documentation/QuartzCore/CARenderer/beginFrame(atTime:timeStamp:)
-func (r CARenderer) BeginFrameAtTimeTimeStamp(t corefoundation.CFTimeInterval, ts corevideo.CVTimeStamp) {
-	objc.Send[objc.ID](r.ID, objc.Sel("beginFrameAtTime:timeStamp:"), t, ts)
+func (r CARenderer) BeginFrameAtTimeTimeStamp(t corefoundation.CFTimeInterval, ts *corevideo.CVTimeStamp) {
+	objc.Send[objc.ID](r.ID, objc.Sel("beginFrameAtTime:timeStamp:"), t, unsafe.Pointer(ts))
 }
 
 // Returns the bounds of the update region that contains all pixels that will

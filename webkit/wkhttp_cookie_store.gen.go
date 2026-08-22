@@ -305,7 +305,7 @@ func (h WKHTTPCookieStore) GetAllCookiesSync(ctx context.Context) ([]foundation.
 
 // SetCookie is a synchronous wrapper around [WKHTTPCookieStore.SetCookieCompletionHandler].
 // It blocks until the completion handler fires or the context is cancelled.
-func (h WKHTTPCookieStore) SetCookie(ctx context.Context, cookie foundation.HTTPCookie) error {
+func (h WKHTTPCookieStore) SetCookie(ctx context.Context, cookie foundation.NSHTTPCookie) error {
 	done := make(chan struct{}, 1)
 	h.SetCookieCompletionHandler(cookie, func() {
 		done <- struct{}{}
@@ -320,7 +320,7 @@ func (h WKHTTPCookieStore) SetCookie(ctx context.Context, cookie foundation.HTTP
 
 // DeleteCookie is a synchronous wrapper around [WKHTTPCookieStore.DeleteCookieCompletionHandler].
 // It blocks until the completion handler fires or the context is cancelled.
-func (h WKHTTPCookieStore) DeleteCookie(ctx context.Context, cookie foundation.HTTPCookie) error {
+func (h WKHTTPCookieStore) DeleteCookie(ctx context.Context, cookie foundation.NSHTTPCookie) error {
 	done := make(chan struct{}, 1)
 	h.DeleteCookieCompletionHandler(cookie, func() {
 		done <- struct{}{}

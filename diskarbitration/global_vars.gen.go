@@ -3,8 +3,6 @@
 package diskarbitration
 
 import (
-	"unsafe"
-
 	"github.com/ebitengine/purego"
 	"github.com/tmc/apple/corefoundation"
 	"github.com/tmc/apple/objc"
@@ -237,19 +235,19 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kDADiskDescriptionMatchMediaUnformatted"); err == nil && ptr != 0 {
-		KDADiskDescriptionMatchMediaUnformatted = *(*corefoundation.CFDictionaryRef)(unsafe.Pointer(ptr))
+		KDADiskDescriptionMatchMediaUnformatted = objc.ValueAt[corefoundation.CFDictionaryRef](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kDADiskDescriptionMatchMediaWhole"); err == nil && ptr != 0 {
-		KDADiskDescriptionMatchMediaWhole = *(*corefoundation.CFDictionaryRef)(unsafe.Pointer(ptr))
+		KDADiskDescriptionMatchMediaWhole = objc.ValueAt[corefoundation.CFDictionaryRef](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kDADiskDescriptionMatchVolumeMountable"); err == nil && ptr != 0 {
-		KDADiskDescriptionMatchVolumeMountable = *(*corefoundation.CFDictionaryRef)(unsafe.Pointer(ptr))
+		KDADiskDescriptionMatchVolumeMountable = objc.ValueAt[corefoundation.CFDictionaryRef](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kDADiskDescriptionMatchVolumeUnrecognized"); err == nil && ptr != 0 {
-		KDADiskDescriptionMatchVolumeUnrecognized = *(*corefoundation.CFDictionaryRef)(unsafe.Pointer(ptr))
+		KDADiskDescriptionMatchVolumeUnrecognized = objc.ValueAt[corefoundation.CFDictionaryRef](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kDADiskDescriptionMediaBSDMajorKey"); err == nil && ptr != 0 {
@@ -533,11 +531,11 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kDADiskDescriptionWatchVolumeName"); err == nil && ptr != 0 {
-		KDADiskDescriptionWatchVolumeName = *(*corefoundation.CFArrayRef)(unsafe.Pointer(ptr))
+		KDADiskDescriptionWatchVolumeName = objc.ValueAt[corefoundation.CFArrayRef](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kDADiskDescriptionWatchVolumePath"); err == nil && ptr != 0 {
-		KDADiskDescriptionWatchVolumePath = *(*corefoundation.CFArrayRef)(unsafe.Pointer(ptr))
+		KDADiskDescriptionWatchVolumePath = objc.ValueAt[corefoundation.CFArrayRef](ptr)
 	}
 
 }

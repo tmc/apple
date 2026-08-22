@@ -149,7 +149,6 @@ func NSMapTableFromID(id objc.ID) NSMapTable {
 // See: https://developer.apple.com/documentation/Foundation/NSMapTable
 type INSMapTable interface {
 	objectivec.IObject
-	NSSecureCoding
 
 	// Topic: Creating and Initializing a Map Table
 
@@ -189,6 +188,10 @@ type INSMapTable interface {
 	KeyPointerFunctions() INSPointerFunctions
 	// The pointer functions the map table uses to manage values.
 	ValuePointerFunctions() INSPointerFunctions
+
+	// Encodes the receiver using a given archiver.
+	EncodeWithCoder(coder INSCoder)
+	InitWithCoder(coder INSCoder) NSMapTable
 }
 
 // Init initializes the instance.
@@ -413,33 +416,6 @@ func (m NSMapTable) RemoveAllObjects() {
 func (m NSMapTable) DictionaryRepresentation() INSDictionary {
 	rv := objc.Send[objc.ID](m.ID, objc.Sel("dictionaryRepresentation"))
 	return NSDictionaryFromID(rv)
-}
-
-// Returns by reference a C array of objects over which the sender should
-// iterate, and as the return value the number of objects in the array.
-//
-// state: Context information that is used in the enumeration to, in addition to
-// other possibilities, ensure that the collection has not been mutated.
-//
-// buffer: A C array of objects over which the sender is to iterate.
-//
-// len: The maximum number of objects to return in `stackbuf`.
-//
-// # Return Value
-//
-// The number of objects returned in `stackbuf`. Returns `0` when the
-// iteration is finished.
-//
-// # Discussion
-//
-// The state structure is assumed to be of stack local memory, so you can
-// recast the passed in state structure to one more suitable for your
-// iteration.
-//
-// See: https://developer.apple.com/documentation/Foundation/NSFastEnumeration/countByEnumerating(with:objects:count:)
-func (m NSMapTable) CountByEnumeratingWithStateObjectsCount(state NSFastEnumerationState, buffer []objectivec.IObject, len_ uint) uint {
-	rv := objc.Send[uint](m.ID, objc.Sel("countByEnumeratingWithState:objects:count:"), state, objc.CArray(buffer), len_)
-	return rv
 }
 
 // Encodes the receiver using a given archiver.

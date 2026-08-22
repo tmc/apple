@@ -350,6 +350,9 @@ func NewAudioPlayerWithContentsOfURLError(url foundation.NSURL) (AVAudioPlayer, 
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
 		return AVAudioPlayer{}, foundation.NSErrorFrom(errorPtr)
 	}
+	if rv == 0 {
+		return AVAudioPlayer{}, objc.ErrInitFailed
+	}
 	return AVAudioPlayerFromID(rv), nil
 }
 
@@ -380,6 +383,9 @@ func NewAudioPlayerWithContentsOfURLFileTypeHintError(url foundation.NSURL, utiS
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
 		return AVAudioPlayer{}, foundation.NSErrorFrom(errorPtr)
 	}
+	if rv == 0 {
+		return AVAudioPlayer{}, objc.ErrInitFailed
+	}
 	return AVAudioPlayerFromID(rv), nil
 }
 
@@ -403,6 +409,9 @@ func NewAudioPlayerWithDataError(data foundation.NSData) (AVAudioPlayer, error) 
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
 		return AVAudioPlayer{}, foundation.NSErrorFrom(errorPtr)
+	}
+	if rv == 0 {
+		return AVAudioPlayer{}, objc.ErrInitFailed
 	}
 	return AVAudioPlayerFromID(rv), nil
 }
@@ -433,6 +442,9 @@ func NewAudioPlayerWithDataFileTypeHintError(data foundation.NSData, utiString s
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
 		return AVAudioPlayer{}, foundation.NSErrorFrom(errorPtr)
+	}
+	if rv == 0 {
+		return AVAudioPlayer{}, objc.ErrInitFailed
 	}
 	return AVAudioPlayerFromID(rv), nil
 }

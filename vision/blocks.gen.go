@@ -3,10 +3,26 @@
 package vision
 
 import (
+	"github.com/tmc/apple/foundation"
 	"github.com/tmc/apple/objc"
 )
 
-// ErrorHandler handles The block to invoke after the request finishes processing.
+// VNRequestCompletionHandler handles A type alias to encapsulate the syntax for the completion handler the system calls after the request finishes processing.
+
+// NewVNRequestCompletionHandlerBlock wraps a Go [VNRequestCompletionHandler] as an Objective-C block.
+// The caller must defer the returned cleanup function.
+func NewVNRequestCompletionHandlerBlock(handler VNRequestCompletionHandler) (objc.ID, func()) {
+	if handler == nil {
+		return 0, func() {}
+	}
+	block := objc.NewBlock(func(b objc.Block, primitive VNRequest, extra0 foundation.NSError) {
+		handler(primitive, extra0)
+	})
+	return objc.ID(block), func() { block.Release() }
+}
+
+// VNRequestErrorHandler handles The block to invoke after the request finishes processing.
+// The error can be type-asserted to *foundation.NSError for Domain, Code, and UserInfo.
 //
 // Used by:
 //   - [VNCalculateImageAestheticsScoresRequest.InitWithCompletionHandler]
@@ -120,9 +136,9 @@ import (
 //   - [VNTranslationalImageRegistrationRequest.InitWithTargetedImageDataOrientationOptionsCompletionHandler]
 //   - [VNTranslationalImageRegistrationRequest.InitWithTargetedImageURLOptionsCompletionHandler]
 //   - [VNTranslationalImageRegistrationRequest.InitWithTargetedImageURLOrientationOptionsCompletionHandler]
-type ErrorHandler = func()
+type VNRequestErrorHandler = func(*VNRequest, error)
 
-// NewErrorBlock wraps a Go [ErrorHandler] as an Objective-C block.
+// NewVNRequestErrorBlock wraps a Go [VNRequestErrorHandler] as an Objective-C block.
 // The caller must defer the returned cleanup function.
 //
 // Used by:
@@ -237,12 +253,53 @@ type ErrorHandler = func()
 //   - [VNTranslationalImageRegistrationRequest.InitWithTargetedImageDataOrientationOptionsCompletionHandler]
 //   - [VNTranslationalImageRegistrationRequest.InitWithTargetedImageURLOptionsCompletionHandler]
 //   - [VNTranslationalImageRegistrationRequest.InitWithTargetedImageURLOrientationOptionsCompletionHandler]
-func NewErrorBlock(handler ErrorHandler) (objc.ID, func()) {
+func NewVNRequestErrorBlock(handler VNRequestErrorHandler) (objc.ID, func()) {
 	if handler == nil {
 		return 0, func() {}
 	}
-	block := objc.NewBlock(func(b objc.Block) {
-		handler()
+	block := objc.NewBlock(func(b objc.Block, resultID objc.ID, errID objc.ID) {
+		var result *VNRequest
+		if resultID != 0 {
+			objc.Send[objc.ID](resultID, objc.Sel("retain"))
+			v := VNRequestFromID(resultID)
+			result = &v
+		}
+		handler(result, foundation.SafeErrorFrom(errID))
+	})
+	return objc.ID(block), func() { block.Release() }
+}
+
+// VNRequestFloat64ErrorHandler is the signature for a completion handler block.
+type VNRequestFloat64ErrorHandler = func(*VNRequest, float64, error)
+
+// NewVNRequestFloat64ErrorBlock wraps a Go [VNRequestFloat64ErrorHandler] as an Objective-C block.
+// The caller must defer the returned cleanup function.
+func NewVNRequestFloat64ErrorBlock(handler VNRequestFloat64ErrorHandler) (objc.ID, func()) {
+	if handler == nil {
+		return 0, func() {}
+	}
+	block := objc.NewBlock(func(b objc.Block, resultID objc.ID, extra0 float64, errID objc.ID) {
+		var result *VNRequest
+		if resultID != 0 {
+			objc.Send[objc.ID](resultID, objc.Sel("retain"))
+			v := VNRequestFromID(resultID)
+			result = &v
+		}
+		handler(result, extra0, foundation.SafeErrorFrom(errID))
+	})
+	return objc.ID(block), func() { block.Release() }
+}
+
+// VNRequestProgressHandler handles A block executed at intervals during the processing of a Vision request.
+
+// NewVNRequestProgressHandlerBlock wraps a Go [VNRequestProgressHandler] as an Objective-C block.
+// The caller must defer the returned cleanup function.
+func NewVNRequestProgressHandlerBlock(handler VNRequestProgressHandler) (objc.ID, func()) {
+	if handler == nil {
+		return 0, func() {}
+	}
+	block := objc.NewBlock(func(b objc.Block, primitive VNRequest, extra0 float64, extra1 foundation.NSError) {
+		handler(primitive, extra0, extra1)
 	})
 	return objc.ID(block), func() { block.Release() }
 }

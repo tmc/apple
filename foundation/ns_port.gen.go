@@ -87,7 +87,7 @@ func (pc PortClass) Alloc() Port {
 //
 // # Validation
 //
-//   - [Port.Invalidate]: Marks the receiver as invalid and posts an [didBecomeInvalidNotification](<doc://com.apple.foundation/documentation/Foundation/Port/didBecomeInvalidNotification>) to the default notification center.
+//   - [Port.Invalidate]: Marks the receiver as invalid and posts an [didBecomeInvalidNotification](<https://developer.apple.com/documentation/Foundation/Port/didBecomeInvalidNotification>) to the default notification center.
 //   - [Port.IsValid]: A Boolean value that indicates whether the receiver is valid.
 //
 // # Setting the Delegate
@@ -131,7 +131,7 @@ func NSPortFromID(id objc.ID) Port { return PortFromID(id) }
 //
 // # Validation
 //
-//   - [IPort.Invalidate]: Marks the receiver as invalid and posts an [didBecomeInvalidNotification](<doc://com.apple.foundation/documentation/Foundation/Port/didBecomeInvalidNotification>) to the default notification center.
+//   - [IPort.Invalidate]: Marks the receiver as invalid and posts an [didBecomeInvalidNotification](<https://developer.apple.com/documentation/Foundation/Port/didBecomeInvalidNotification>) to the default notification center.
 //   - [IPort.IsValid]: A Boolean value that indicates whether the receiver is valid.
 //
 // # Setting the Delegate
@@ -156,7 +156,7 @@ type IPort interface {
 
 	// Topic: Validation
 
-	// Marks the receiver as invalid and posts an [didBecomeInvalidNotification](<doc://com.apple.foundation/documentation/Foundation/Port/didBecomeInvalidNotification>) to the default notification center.
+	// Marks the receiver as invalid and posts an [didBecomeInvalidNotification](<https://developer.apple.com/documentation/Foundation/Port/didBecomeInvalidNotification>) to the default notification center.
 	Invalidate()
 	// A Boolean value that indicates whether the receiver is valid.
 	IsValid() bool
@@ -183,6 +183,10 @@ type IPort interface {
 	RemoveFromRunLoopForMode(runLoop INSRunLoop, mode NSRunLoopMode)
 	// This method should be implemented by a subclass to set up monitoring of a port when added to a given run loop in a given input mode.
 	ScheduleInRunLoopForMode(runLoop INSRunLoop, mode NSRunLoopMode)
+
+	// Encodes the receiver using a given archiver.
+	EncodeWithCoder(coder INSCoder)
+	InitWithCoder(coder INSCoder) Port
 }
 
 // Init initializes the instance.

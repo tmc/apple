@@ -16,7 +16,7 @@ type MTLLogState interface {
 	// Adds a log handler to customize the presentation of shader logging.
 	//
 	// See: https://developer.apple.com/documentation/Metal/MTLLogState/addLogHandler(_:)
-	AddLogHandler(block VoidHandler)
+	AddLogHandler(block StringStringMTLLogLevelStringHandler)
 }
 
 // MTLLogStateObject wraps an existing Objective-C object that conforms to the MTLLogState protocol.
@@ -49,7 +49,9 @@ func MTLLogStateObjectFromID(id objc.ID) MTLLogStateObject {
 //
 // See: https://developer.apple.com/documentation/Metal/MTLLogState/addLogHandler(_:)
 //
-// [Generating Log Messages from Your Code]: https://developer.apple.com/documentation/os/generating-log-messages-from-your-code#Create-a-Log-Object-to-Organize-Messages
-func (o MTLLogStateObject) AddLogHandler(block VoidHandler) {
-	objc.Send[struct{}](o.ID, objc.Sel("addLogHandler:"), block)
+// [Generating Log Messages from Your Code]: https://developer.apple.com/documentation/os/generating-log-messages-from-your-code
+func (o MTLLogStateObject) AddLogHandler(block StringStringMTLLogLevelStringHandler) {
+	_block0, _cleanup0 := NewStringStringMTLLogLevelStringBlock(block)
+	defer _cleanup0()
+	objc.Send[struct{}](o.ID, objc.Sel("addLogHandler:"), objc.ID(_block0))
 }

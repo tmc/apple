@@ -258,8 +258,21 @@ func NewNSPopoverDelegate(config NSPopoverDelegateConfig) NSPopoverDelegateObjec
 		methods = append(methods, objc.MethodDef{
 			Cmd: objc.RegisterName("detachableWindowForPopover:"),
 			Fn: func(self objc.ID, _cmd objc.SEL, popoverID objc.ID) objc.ID {
+				// Names which delegate was running if a panic unwinds out of
+				// it. The frames between here and the Objective-C caller are
+				// runtime and purego dispatch, so without this the traceback
+				// never says which selector dispatched. Deliberately no
+				// recover: see [objc.NoteDelegatePanic].
+				_delegateDone := false
+				defer func() {
+					if !_delegateDone {
+						objc.NoteDelegatePanic("NSPopoverDelegate", "detachableWindowForPopover:")
+					}
+				}()
 				popover := NSPopoverFromID(popoverID)
-				return fn(popover).GetID()
+				_delegateResult := fn(popover).GetID()
+				_delegateDone = true
+				return _delegateResult
 			},
 		})
 	}
@@ -269,8 +282,21 @@ func NewNSPopoverDelegate(config NSPopoverDelegateConfig) NSPopoverDelegateObjec
 		methods = append(methods, objc.MethodDef{
 			Cmd: objc.RegisterName("popoverShouldClose:"),
 			Fn: func(self objc.ID, _cmd objc.SEL, popoverID objc.ID) bool {
+				// Names which delegate was running if a panic unwinds out of
+				// it. The frames between here and the Objective-C caller are
+				// runtime and purego dispatch, so without this the traceback
+				// never says which selector dispatched. Deliberately no
+				// recover: see [objc.NoteDelegatePanic].
+				_delegateDone := false
+				defer func() {
+					if !_delegateDone {
+						objc.NoteDelegatePanic("NSPopoverDelegate", "popoverShouldClose:")
+					}
+				}()
 				popover := NSPopoverFromID(popoverID)
-				return fn(popover)
+				_delegateResult := fn(popover)
+				_delegateDone = true
+				return _delegateResult
 			},
 		})
 	}
@@ -280,8 +306,20 @@ func NewNSPopoverDelegate(config NSPopoverDelegateConfig) NSPopoverDelegateObjec
 		methods = append(methods, objc.MethodDef{
 			Cmd: objc.RegisterName("popoverWillShow:"),
 			Fn: func(self objc.ID, _cmd objc.SEL, notificationID objc.ID) {
+				// Names which delegate was running if a panic unwinds out of
+				// it. The frames between here and the Objective-C caller are
+				// runtime and purego dispatch, so without this the traceback
+				// never says which selector dispatched. Deliberately no
+				// recover: see [objc.NoteDelegatePanic].
+				_delegateDone := false
+				defer func() {
+					if !_delegateDone {
+						objc.NoteDelegatePanic("NSPopoverDelegate", "popoverWillShow:")
+					}
+				}()
 				notification := foundation.NSNotificationFromID(notificationID)
 				fn(notification)
+				_delegateDone = true
 			},
 		})
 	}
@@ -291,8 +329,20 @@ func NewNSPopoverDelegate(config NSPopoverDelegateConfig) NSPopoverDelegateObjec
 		methods = append(methods, objc.MethodDef{
 			Cmd: objc.RegisterName("popoverDidShow:"),
 			Fn: func(self objc.ID, _cmd objc.SEL, notificationID objc.ID) {
+				// Names which delegate was running if a panic unwinds out of
+				// it. The frames between here and the Objective-C caller are
+				// runtime and purego dispatch, so without this the traceback
+				// never says which selector dispatched. Deliberately no
+				// recover: see [objc.NoteDelegatePanic].
+				_delegateDone := false
+				defer func() {
+					if !_delegateDone {
+						objc.NoteDelegatePanic("NSPopoverDelegate", "popoverDidShow:")
+					}
+				}()
 				notification := foundation.NSNotificationFromID(notificationID)
 				fn(notification)
+				_delegateDone = true
 			},
 		})
 	}
@@ -302,8 +352,20 @@ func NewNSPopoverDelegate(config NSPopoverDelegateConfig) NSPopoverDelegateObjec
 		methods = append(methods, objc.MethodDef{
 			Cmd: objc.RegisterName("popoverWillClose:"),
 			Fn: func(self objc.ID, _cmd objc.SEL, notificationID objc.ID) {
+				// Names which delegate was running if a panic unwinds out of
+				// it. The frames between here and the Objective-C caller are
+				// runtime and purego dispatch, so without this the traceback
+				// never says which selector dispatched. Deliberately no
+				// recover: see [objc.NoteDelegatePanic].
+				_delegateDone := false
+				defer func() {
+					if !_delegateDone {
+						objc.NoteDelegatePanic("NSPopoverDelegate", "popoverWillClose:")
+					}
+				}()
 				notification := foundation.NSNotificationFromID(notificationID)
 				fn(notification)
+				_delegateDone = true
 			},
 		})
 	}
@@ -313,8 +375,20 @@ func NewNSPopoverDelegate(config NSPopoverDelegateConfig) NSPopoverDelegateObjec
 		methods = append(methods, objc.MethodDef{
 			Cmd: objc.RegisterName("popoverDidClose:"),
 			Fn: func(self objc.ID, _cmd objc.SEL, notificationID objc.ID) {
+				// Names which delegate was running if a panic unwinds out of
+				// it. The frames between here and the Objective-C caller are
+				// runtime and purego dispatch, so without this the traceback
+				// never says which selector dispatched. Deliberately no
+				// recover: see [objc.NoteDelegatePanic].
+				_delegateDone := false
+				defer func() {
+					if !_delegateDone {
+						objc.NoteDelegatePanic("NSPopoverDelegate", "popoverDidClose:")
+					}
+				}()
 				notification := foundation.NSNotificationFromID(notificationID)
 				fn(notification)
+				_delegateDone = true
 			},
 		})
 	}
@@ -324,8 +398,20 @@ func NewNSPopoverDelegate(config NSPopoverDelegateConfig) NSPopoverDelegateObjec
 		methods = append(methods, objc.MethodDef{
 			Cmd: objc.RegisterName("popoverDidDetach:"),
 			Fn: func(self objc.ID, _cmd objc.SEL, popoverID objc.ID) {
+				// Names which delegate was running if a panic unwinds out of
+				// it. The frames between here and the Objective-C caller are
+				// runtime and purego dispatch, so without this the traceback
+				// never says which selector dispatched. Deliberately no
+				// recover: see [objc.NoteDelegatePanic].
+				_delegateDone := false
+				defer func() {
+					if !_delegateDone {
+						objc.NoteDelegatePanic("NSPopoverDelegate", "popoverDidDetach:")
+					}
+				}()
 				popover := NSPopoverFromID(popoverID)
 				fn(popover)
+				_delegateDone = true
 			},
 		})
 	}
@@ -335,8 +421,21 @@ func NewNSPopoverDelegate(config NSPopoverDelegateConfig) NSPopoverDelegateObjec
 		methods = append(methods, objc.MethodDef{
 			Cmd: objc.RegisterName("popoverShouldDetach:"),
 			Fn: func(self objc.ID, _cmd objc.SEL, popoverID objc.ID) bool {
+				// Names which delegate was running if a panic unwinds out of
+				// it. The frames between here and the Objective-C caller are
+				// runtime and purego dispatch, so without this the traceback
+				// never says which selector dispatched. Deliberately no
+				// recover: see [objc.NoteDelegatePanic].
+				_delegateDone := false
+				defer func() {
+					if !_delegateDone {
+						objc.NoteDelegatePanic("NSPopoverDelegate", "popoverShouldDetach:")
+					}
+				}()
 				popover := NSPopoverFromID(popoverID)
-				return fn(popover)
+				_delegateResult := fn(popover)
+				_delegateDone = true
+				return _delegateResult
 			},
 		})
 	}

@@ -251,7 +251,8 @@ func NewNSDraggingSession() NSDraggingSession {
 //
 // [NSDraggingItemEnumerationOptions]: https://developer.apple.com/documentation/AppKit/NSDraggingItemEnumerationOptions
 func (d NSDraggingSession) EnumerateDraggingItemsWithOptionsForViewClassesSearchOptionsUsingBlock(enumOpts NSDraggingItemEnumerationOptions, view INSView, classArray []objectivec.Class, searchOptions foundation.INSDictionary, block DraggingItemIntBoolHandler) {
-	_block4, _ := NewDraggingItemIntBoolBlock(block)
+	_block4, _cleanup4 := NewDraggingItemIntBoolBlock(block)
+	defer _cleanup4()
 	objc.Send[objc.ID](d.ID, objc.Sel("enumerateDraggingItemsWithOptions:forView:classes:searchOptions:usingBlock:"), enumOpts, view, classArray, searchOptions, _block4)
 }
 
@@ -290,8 +291,8 @@ func (d NSDraggingSession) SetAnimatesToStartingPositionsOnCancelOrFail(value bo
 // Setting this value causes the dragging formation to change immediately,
 // provided a valid destination has not overriden the behavior. If the
 // dragging session hasn’t started yet, the dragging items will animate into
-// formation immediately upon start. It is recommended to never change the
-// formation when starting a drag.
+// formation immediately upon start. It is highly recommended to never change
+// the formation when starting a drag.
 //
 // The default value is [NSDraggingFormationNone].
 //

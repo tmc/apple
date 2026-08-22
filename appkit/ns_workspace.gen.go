@@ -308,7 +308,7 @@ type INSWorkspace interface {
 	// Returns an array of URLs to all available applications that can open the specified bundle identifier.
 	URLsForApplicationsWithBundleIdentifier(bundleIdentifier string) []foundation.NSURL
 	// Returns information about the file system at the specified path.
-	GetFileSystemInfoForPathIsRemovableIsWritableIsUnmountableDescriptionType(fullPath string, description string, fileSystemType string) (bool, bool, bool, bool)
+	GetFileSystemInfoForPathIsRemovableIsWritableIsUnmountableDescriptionType(fullPath string, description *foundation.NSString, fileSystemType *foundation.NSString) (bool, bool, bool, bool)
 	// Determines whether the specified path is a file package.
 	IsFilePackageAtPath(fullPath string) bool
 	// Returns the frontmost app, which is the app that receives key events.
@@ -742,7 +742,7 @@ func (w NSWorkspace) URLsForApplicationsWithBundleIdentifier(bundleIdentifier st
 // You can safely call this method from any thread of your app.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSWorkspace/getFileSystemInfo(forPath:isRemovable:isWritable:isUnmountable:description:type:)
-func (w NSWorkspace) GetFileSystemInfoForPathIsRemovableIsWritableIsUnmountableDescriptionType(fullPath string, description string, fileSystemType string) (bool, bool, bool, bool) {
+func (w NSWorkspace) GetFileSystemInfoForPathIsRemovableIsWritableIsUnmountableDescriptionType(fullPath string, description *foundation.NSString, fileSystemType *foundation.NSString) (bool, bool, bool, bool) {
 	var removableFlag bool
 	var writableFlag bool
 	var unmountableFlag bool

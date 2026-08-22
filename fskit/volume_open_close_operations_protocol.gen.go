@@ -27,11 +27,6 @@ type FSVolumeOpenCloseOperations interface {
 	//
 	// See: https://developer.apple.com/documentation/FSKit/FSVolume/OpenCloseOperations/isOpenCloseInhibited
 	IsOpenCloseInhibited() bool
-
-	// A Boolean value that instructs FSKit not to call this protocol’s methods, even if the volume conforms to it.
-	//
-	// See: https://developer.apple.com/documentation/FSKit/FSVolume/OpenCloseOperations/isOpenCloseInhibited
-	OpenCloseInhibited() bool
 	SetOpenCloseInhibited(value bool)
 }
 
@@ -65,7 +60,9 @@ func FSVolumeOpenCloseOperationsObjectFromID(id objc.ID) FSVolumeOpenCloseOperat
 //
 // See: https://developer.apple.com/documentation/FSKit/FSVolume/OpenCloseOperations/openItem(_:modes:replyHandler:)
 func (o FSVolumeOpenCloseOperationsObject) OpenItemWithModesReplyHandler(item IFSItem, modes FSVolumeOpenModes, reply ErrorHandler) {
-	objc.Send[struct{}](o.ID, objc.Sel("openItem:withModes:replyHandler:"), item, modes, reply)
+	_block2, _cleanup2 := NewErrorBlock(reply)
+	defer _cleanup2()
+	objc.Send[struct{}](o.ID, objc.Sel("openItem:withModes:replyHandler:"), item, modes, objc.ID(_block2))
 }
 
 // Closes a file from further access.
@@ -81,16 +78,9 @@ func (o FSVolumeOpenCloseOperationsObject) OpenItemWithModesReplyHandler(item IF
 //
 // See: https://developer.apple.com/documentation/FSKit/FSVolume/OpenCloseOperations/closeItem(_:modes:replyHandler:)
 func (o FSVolumeOpenCloseOperationsObject) CloseItemKeepingModesReplyHandler(item IFSItem, modes FSVolumeOpenModes, reply ErrorHandler) {
-	objc.Send[struct{}](o.ID, objc.Sel("closeItem:keepingModes:replyHandler:"), item, modes, reply)
-}
-
-// A Boolean value that instructs FSKit not to call this protocol’s methods,
-// even if the volume conforms to it.
-//
-// See: https://developer.apple.com/documentation/FSKit/FSVolume/OpenCloseOperations/isOpenCloseInhibited
-func (o FSVolumeOpenCloseOperationsObject) IsOpenCloseInhibited() bool {
-	rv := objc.Send[bool](o.ID, objc.Sel("isOpenCloseInhibited"))
-	return rv
+	_block2, _cleanup2 := NewErrorBlock(reply)
+	defer _cleanup2()
+	objc.Send[struct{}](o.ID, objc.Sel("closeItem:keepingModes:replyHandler:"), item, modes, objc.ID(_block2))
 }
 
 // A Boolean value that instructs FSKit not to call this protocol’s methods,
@@ -103,7 +93,7 @@ func (o FSVolumeOpenCloseOperationsObject) IsOpenCloseInhibited() bool {
 // no effect.
 //
 // See: https://developer.apple.com/documentation/FSKit/FSVolume/OpenCloseOperations/isOpenCloseInhibited
-func (o FSVolumeOpenCloseOperationsObject) OpenCloseInhibited() bool {
+func (o FSVolumeOpenCloseOperationsObject) IsOpenCloseInhibited() bool {
 	rv := objc.Send[bool](o.ID, objc.Sel("isOpenCloseInhibited"))
 	return bool(rv)
 }

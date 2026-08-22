@@ -6,13 +6,13 @@ import (
 	"fmt"
 )
 
-type CFByteOrder uint
+type CFByteOrder int
 
 const (
 	// CFByteOrderBigEndian: Multi-byte values are stored with the most-significant bytes stored first.
-	CFByteOrderBigEndian CFByteOrder = 0
+	CFByteOrderBigEndian CFByteOrder = 2
 	// CFByteOrderLittleEndian: Multi-byte values are stored with the least-significant bytes stored first.
-	CFByteOrderLittleEndian CFByteOrder = 0
+	CFByteOrderLittleEndian CFByteOrder = 1
 	// CFByteOrderUnknown: The byte order is unknown.
 	CFByteOrderUnknown CFByteOrder = 0
 )
@@ -21,13 +21,17 @@ func (e CFByteOrder) String() string {
 	switch e {
 	case CFByteOrderBigEndian:
 		return "CFByteOrderBigEndian"
+	case CFByteOrderLittleEndian:
+		return "CFByteOrderLittleEndian"
+	case CFByteOrderUnknown:
+		return "CFByteOrderUnknown"
 	default:
 		return fmt.Sprintf("CFByteOrder(%d)", e)
 	}
 }
 
 // See: https://developer.apple.com/documentation/CoreFoundation/CFCalendarUnit
-type CFCalendarUnit int
+type CFCalendarUnit uint
 
 const (
 	// KCFCalendarUnitDay: Specifies the day unit.
@@ -197,7 +201,7 @@ func (e CFComparisonResult) String() string {
 }
 
 // See: https://developer.apple.com/documentation/CoreFoundation/CFDataSearchFlags
-type CFDataSearchFlags int
+type CFDataSearchFlags uint
 
 const (
 	// KCFDataSearchAnchored: # Discussion
@@ -251,7 +255,7 @@ func (e CFDateFormatterStyle) String() string {
 }
 
 // See: https://developer.apple.com/documentation/CoreFoundation/CFFileSecurityClearOptions
-type CFFileSecurityClearOptions int
+type CFFileSecurityClearOptions uint
 
 const (
 	// KCFFileSecurityClearAccessControlList: Clear the access control list.
@@ -288,7 +292,7 @@ func (e CFFileSecurityClearOptions) String() string {
 }
 
 // See: https://developer.apple.com/documentation/CoreFoundation/CFGregorianUnitFlags
-type CFGregorianUnitFlags int
+type CFGregorianUnitFlags uint
 
 const (
 	// Deprecated.
@@ -329,7 +333,7 @@ func (e CFGregorianUnitFlags) String() string {
 }
 
 // See: https://developer.apple.com/documentation/CoreFoundation/CFISO8601DateFormatOptions
-type CFISO8601DateFormatOptions int
+type CFISO8601DateFormatOptions uint
 
 const (
 	KCFISO8601DateFormatWithColonSeparatorInTime     CFISO8601DateFormatOptions = 512
@@ -337,9 +341,9 @@ const (
 	KCFISO8601DateFormatWithDashSeparatorInDate      CFISO8601DateFormatOptions = 256
 	KCFISO8601DateFormatWithDay                      CFISO8601DateFormatOptions = 16
 	KCFISO8601DateFormatWithFractionalSeconds        CFISO8601DateFormatOptions = 2048
-	KCFISO8601DateFormatWithFullDate                 CFISO8601DateFormatOptions = 1
-	KCFISO8601DateFormatWithFullTime                 CFISO8601DateFormatOptions = 32
-	KCFISO8601DateFormatWithInternetDateTime         CFISO8601DateFormatOptions = 275
+	KCFISO8601DateFormatWithFullDate                 CFISO8601DateFormatOptions = 275
+	KCFISO8601DateFormatWithFullTime                 CFISO8601DateFormatOptions = 1632
+	KCFISO8601DateFormatWithInternetDateTime         CFISO8601DateFormatOptions = 1907
 	KCFISO8601DateFormatWithMonth                    CFISO8601DateFormatOptions = 2
 	KCFISO8601DateFormatWithSpaceBetweenDateAndTime  CFISO8601DateFormatOptions = 128
 	KCFISO8601DateFormatWithTime                     CFISO8601DateFormatOptions = 32
@@ -370,10 +374,14 @@ func (e CFISO8601DateFormatOptions) String() string {
 		return "KCFISO8601DateFormatWithMonth"
 	case KCFISO8601DateFormatWithSpaceBetweenDateAndTime:
 		return "KCFISO8601DateFormatWithSpaceBetweenDateAndTime"
+	case KCFISO8601DateFormatWithTime:
+		return "KCFISO8601DateFormatWithTime"
 	case KCFISO8601DateFormatWithTimeZone:
 		return "KCFISO8601DateFormatWithTimeZone"
 	case KCFISO8601DateFormatWithWeekOfYear:
 		return "KCFISO8601DateFormatWithWeekOfYear"
+	case KCFISO8601DateFormatWithYear:
+		return "KCFISO8601DateFormatWithYear"
 	default:
 		return fmt.Sprintf("CFISO8601DateFormatOptions(%d)", e)
 	}
@@ -442,7 +450,7 @@ func (e CFNotificationSuspensionBehavior) String() string {
 }
 
 // See: https://developer.apple.com/documentation/CoreFoundation/CFNumberFormatterOptionFlags
-type CFNumberFormatterOptionFlags int
+type CFNumberFormatterOptionFlags uint
 
 const (
 	// KCFNumberFormatterParseIntegersOnly: Specifies that only integers should be parsed.
@@ -682,7 +690,7 @@ func (e CFPropertyListFormat) String() string {
 }
 
 // See: https://developer.apple.com/documentation/CoreFoundation/CFPropertyListMutabilityOptions
-type CFPropertyListMutabilityOptions int
+type CFPropertyListMutabilityOptions uint
 
 const (
 	// KCFPropertyListImmutable: Specifies that the property list should be immutable.
@@ -707,7 +715,7 @@ func (e CFPropertyListMutabilityOptions) String() string {
 }
 
 // See: https://developer.apple.com/documentation/CoreFoundation/CFRunLoopActivity
-type CFRunLoopActivity int
+type CFRunLoopActivity uint
 
 const (
 	// KCFRunLoopAfterWaiting: Inside the event processing loop after the run loop wakes up, but before processing the event that woke it up.
@@ -748,7 +756,7 @@ func (e CFRunLoopActivity) String() string {
 }
 
 // See: https://developer.apple.com/documentation/CoreFoundation/CFRunLoopRunResult
-type CFRunLoopRunResult int
+type CFRunLoopRunResult int32
 
 const (
 	// KCFRunLoopRunFinished: The running run loop mode has no sources or timers to process.
@@ -777,7 +785,7 @@ func (e CFRunLoopRunResult) String() string {
 }
 
 // See: https://developer.apple.com/documentation/CoreFoundation/CFSocketCallBackType
-type CFSocketCallBackType int
+type CFSocketCallBackType uint
 
 const (
 	// KCFSocketAcceptCallBack: New connections will be automatically accepted and the callback is called with the data argument being a pointer to a CFSocketNativeHandle of the child socket.
@@ -864,7 +872,7 @@ func (e CFStreamErrorDomain) String() string {
 }
 
 // See: https://developer.apple.com/documentation/CoreFoundation/CFStreamEventType
-type CFStreamEventType int
+type CFStreamEventType uint
 
 const (
 	// KCFStreamEventCanAcceptBytes: The stream can accept bytes for writing.
@@ -1013,7 +1021,7 @@ func (e CFStringBuiltInEncodings) String() string {
 }
 
 // See: https://developer.apple.com/documentation/CoreFoundation/CFStringCompareFlags
-type CFStringCompareFlags int
+type CFStringCompareFlags uint
 
 const (
 	// KCFCompareAnchored: Performs searching only on characters at the beginning or end of the range.
@@ -1566,7 +1574,7 @@ func (e CFStringNormalizationForm) String() string {
 }
 
 // See: https://developer.apple.com/documentation/CoreFoundation/CFStringTokenizerTokenType
-type CFStringTokenizerTokenType int
+type CFStringTokenizerTokenType uint
 
 const (
 	// KCFStringTokenizerTokenHasDerivedSubTokensMask: Compound token which may contain derived subtokens.
@@ -1644,7 +1652,7 @@ func (e CFTimeZoneNameStyle) String() string {
 }
 
 // See: https://developer.apple.com/documentation/CoreFoundation/CFURLBookmarkCreationOptions
-type CFURLBookmarkCreationOptions int
+type CFURLBookmarkCreationOptions uint
 
 const (
 	// KCFURLBookmarkCreationMinimalBookmarkMask: Specifies that an alias created with the bookmark data be created with minimal information, which may make it smaller but still able to resolve in certain ways.
@@ -1657,7 +1665,7 @@ const (
 	KCFURLBookmarkCreationWithSecurityScope            CFURLBookmarkCreationOptions = 2048
 	KCFURLBookmarkCreationWithoutImplicitSecurityScope CFURLBookmarkCreationOptions = 536870912
 	// Deprecated.
-	KCFURLBookmarkCreationPreferFileIDResolutionMask CFURLBookmarkCreationOptions = 536870913
+	KCFURLBookmarkCreationPreferFileIDResolutionMask CFURLBookmarkCreationOptions = 256
 )
 
 func (e CFURLBookmarkCreationOptions) String() string {
@@ -1680,7 +1688,7 @@ func (e CFURLBookmarkCreationOptions) String() string {
 }
 
 // See: https://developer.apple.com/documentation/CoreFoundation/CFURLBookmarkResolutionOptions
-type CFURLBookmarkResolutionOptions int
+type CFURLBookmarkResolutionOptions uint
 
 const (
 	// KCFBookmarkResolutionWithoutMountingMask: Specifies that no volume should be mounted during resolution of the bookmark data.
@@ -1771,7 +1779,7 @@ func (e CFURLComponentType) String() string {
 }
 
 // See: https://developer.apple.com/documentation/CoreFoundation/CFURLEnumeratorOptions
-type CFURLEnumeratorOptions int
+type CFURLEnumeratorOptions uint
 
 const (
 	// KCFURLEnumeratorDefaultBehavior: The enumerator performs its default behavior.
@@ -1951,7 +1959,7 @@ func (e CFXMLEntityTypeCode) String() string {
 }
 
 // See: https://developer.apple.com/documentation/CoreFoundation/CFXMLParserOptions
-type CFXMLParserOptions int
+type CFXMLParserOptions uint
 
 const (
 	// KCFXMLParserAddImpliedAttributes: Where the DTD specifies implied attribute-value pairs for a particular element, add those pairs to any occurrences of the element in the element tree.
@@ -2105,7 +2113,7 @@ func (e CGRectEdge) String() string {
 	}
 }
 
-type KCFBundleExecutableArchitecture uint
+type KCFBundleExecutableArchitecture uint32
 
 const (
 	KCFBundleExecutableArchitectureARM64 KCFBundleExecutableArchitecture = 0x100000c
@@ -2172,7 +2180,7 @@ func (e KCFFileDescriptor) String() string {
 	}
 }
 
-type KCFMessagePort int
+type KCFMessagePort int32
 
 const (
 	// KCFMessagePortBecameInvalidError: The message port was invalidated.
@@ -2228,23 +2236,23 @@ func (e KCFNotification) String() string {
 	}
 }
 
-type KCFPropertyList uint
+type KCFPropertyListReadCorruptError int
 
 const (
-	// KCFPropertyListReadCorruptError: Signifies an error parsing a property list.
-	KCFPropertyListReadCorruptError KCFPropertyList = 3840
+	// KCFPropertyListReadCorruptErrorValue: Signifies an error parsing a property list.
+	KCFPropertyListReadCorruptErrorValue KCFPropertyListReadCorruptError = 3840
 	// KCFPropertyListReadStreamError: Signifies a stream error reading a property list.
-	KCFPropertyListReadStreamError KCFPropertyList = 3842
+	KCFPropertyListReadStreamError KCFPropertyListReadCorruptError = 3842
 	// KCFPropertyListReadUnknownVersionError: Signifies the version number in the property list is unknown.
-	KCFPropertyListReadUnknownVersionError KCFPropertyList = 3841
+	KCFPropertyListReadUnknownVersionError KCFPropertyListReadCorruptError = 3841
 	// KCFPropertyListWriteStreamError: Signifies a stream error writing a property list.
-	KCFPropertyListWriteStreamError KCFPropertyList = 3851
+	KCFPropertyListWriteStreamError KCFPropertyListReadCorruptError = 3851
 )
 
-func (e KCFPropertyList) String() string {
+func (e KCFPropertyListReadCorruptError) String() string {
 	switch e {
-	case KCFPropertyListReadCorruptError:
-		return "KCFPropertyListReadCorruptError"
+	case KCFPropertyListReadCorruptErrorValue:
+		return "KCFPropertyListReadCorruptErrorValue"
 	case KCFPropertyListReadStreamError:
 		return "KCFPropertyListReadStreamError"
 	case KCFPropertyListReadUnknownVersionError:
@@ -2252,35 +2260,35 @@ func (e KCFPropertyList) String() string {
 	case KCFPropertyListWriteStreamError:
 		return "KCFPropertyListWriteStreamError"
 	default:
-		return fmt.Sprintf("KCFPropertyList(%d)", e)
+		return fmt.Sprintf("KCFPropertyListReadCorruptError(%d)", e)
 	}
 }
 
-type KCFSocket uint
+type KCFSocketAutomaticallyReenableReadCallBack uint
 
 const (
 	// KCFSocketAutomaticallyReenableAcceptCallBack: # Discussion
-	KCFSocketAutomaticallyReenableAcceptCallBack KCFSocket = 2
+	KCFSocketAutomaticallyReenableAcceptCallBack KCFSocketAutomaticallyReenableReadCallBack = 2
 	// KCFSocketAutomaticallyReenableDataCallBack: # Discussion
-	KCFSocketAutomaticallyReenableDataCallBack KCFSocket = 3
-	// KCFSocketAutomaticallyReenableReadCallBack: # Discussion
-	KCFSocketAutomaticallyReenableReadCallBack KCFSocket = 1
+	KCFSocketAutomaticallyReenableDataCallBack KCFSocketAutomaticallyReenableReadCallBack = 3
+	// KCFSocketAutomaticallyReenableReadCallBackValue: # Discussion
+	KCFSocketAutomaticallyReenableReadCallBackValue KCFSocketAutomaticallyReenableReadCallBack = 1
 	// KCFSocketAutomaticallyReenableWriteCallBack: # Discussion
-	KCFSocketAutomaticallyReenableWriteCallBack KCFSocket = 8
+	KCFSocketAutomaticallyReenableWriteCallBack KCFSocketAutomaticallyReenableReadCallBack = 8
 	// KCFSocketCloseOnInvalidate: When enabled using CFSocketSetSocketFlags(_:_:), the native socket associated with a CFSocket object is closed when the CFSocket object is invalidated.
-	KCFSocketCloseOnInvalidate KCFSocket = 128
+	KCFSocketCloseOnInvalidate KCFSocketAutomaticallyReenableReadCallBack = 128
 	// KCFSocketLeaveErrors: # Discussion
-	KCFSocketLeaveErrors KCFSocket = 64
+	KCFSocketLeaveErrors KCFSocketAutomaticallyReenableReadCallBack = 64
 )
 
-func (e KCFSocket) String() string {
+func (e KCFSocketAutomaticallyReenableReadCallBack) String() string {
 	switch e {
 	case KCFSocketAutomaticallyReenableAcceptCallBack:
 		return "KCFSocketAutomaticallyReenableAcceptCallBack"
 	case KCFSocketAutomaticallyReenableDataCallBack:
 		return "KCFSocketAutomaticallyReenableDataCallBack"
-	case KCFSocketAutomaticallyReenableReadCallBack:
-		return "KCFSocketAutomaticallyReenableReadCallBack"
+	case KCFSocketAutomaticallyReenableReadCallBackValue:
+		return "KCFSocketAutomaticallyReenableReadCallBackValue"
 	case KCFSocketAutomaticallyReenableWriteCallBack:
 		return "KCFSocketAutomaticallyReenableWriteCallBack"
 	case KCFSocketCloseOnInvalidate:
@@ -2288,7 +2296,7 @@ func (e KCFSocket) String() string {
 	case KCFSocketLeaveErrors:
 		return "KCFSocketLeaveErrors"
 	default:
-		return fmt.Sprintf("KCFSocket(%d)", e)
+		return fmt.Sprintf("KCFSocketAutomaticallyReenableReadCallBack(%d)", e)
 	}
 }
 
@@ -2332,46 +2340,78 @@ func (e KCFStringTokenizer) String() string {
 	}
 }
 
-type KCFUserNotification uint
+type KCFUserNotificationDefaultResponse uint
 
 const (
 	// KCFUserNotificationAlternateResponse: The alternate button was pressed.
-	KCFUserNotificationAlternateResponse KCFUserNotification = 1
+	KCFUserNotificationAlternateResponse KCFUserNotificationDefaultResponse = 1
 	// KCFUserNotificationCancelResponse: No button was pressed and the notification timed out.
-	KCFUserNotificationCancelResponse KCFUserNotification = 3
-	// KCFUserNotificationCautionAlertLevel: The notification is somewhat serious.
-	KCFUserNotificationCautionAlertLevel KCFUserNotification = 2
-	// KCFUserNotificationDefaultResponse: The default button was pressed.
-	KCFUserNotificationDefaultResponse KCFUserNotification = 0
-	// KCFUserNotificationNoDefaultButtonFlag: Displays the dialog without the default, alternate, or other buttons.
-	KCFUserNotificationNoDefaultButtonFlag KCFUserNotification = 32
-	// KCFUserNotificationNoteAlertLevel: The notification is not very serious.
-	KCFUserNotificationNoteAlertLevel KCFUserNotification = 1
+	KCFUserNotificationCancelResponse KCFUserNotificationDefaultResponse = 3
+	// KCFUserNotificationDefaultResponseValue: The default button was pressed.
+	KCFUserNotificationDefaultResponseValue KCFUserNotificationDefaultResponse = 0
 	// KCFUserNotificationOtherResponse: The third button was pressed.
-	KCFUserNotificationOtherResponse KCFUserNotification = 2
-	// KCFUserNotificationPlainAlertLevel: The notification is not serious.
-	KCFUserNotificationPlainAlertLevel KCFUserNotification = 3
-	// KCFUserNotificationStopAlertLevel: The notification is very serious.
-	KCFUserNotificationStopAlertLevel KCFUserNotification = 0
-	// KCFUserNotificationUseRadioButtonsFlag: Creates a group of radio buttons instead of checkboxes for the elements in the kCFUserNotificationCheckBoxTitlesKey array in the user notification’s description dictionary.
-	KCFUserNotificationUseRadioButtonsFlag KCFUserNotification = 64
+	KCFUserNotificationOtherResponse KCFUserNotificationDefaultResponse = 2
 )
 
-func (e KCFUserNotification) String() string {
+func (e KCFUserNotificationDefaultResponse) String() string {
 	switch e {
 	case KCFUserNotificationAlternateResponse:
 		return "KCFUserNotificationAlternateResponse"
 	case KCFUserNotificationCancelResponse:
 		return "KCFUserNotificationCancelResponse"
-	case KCFUserNotificationCautionAlertLevel:
-		return "KCFUserNotificationCautionAlertLevel"
-	case KCFUserNotificationDefaultResponse:
-		return "KCFUserNotificationDefaultResponse"
-	case KCFUserNotificationNoDefaultButtonFlag:
-		return "KCFUserNotificationNoDefaultButtonFlag"
+	case KCFUserNotificationDefaultResponseValue:
+		return "KCFUserNotificationDefaultResponseValue"
+	case KCFUserNotificationOtherResponse:
+		return "KCFUserNotificationOtherResponse"
+	default:
+		return fmt.Sprintf("KCFUserNotificationDefaultResponse(%d)", e)
+	}
+}
+
+type KCFUserNotificationNoDefaultButtonFlag uint
+
+const (
+	// KCFUserNotificationNoDefaultButtonFlagValue: Displays the dialog without the default, alternate, or other buttons.
+	KCFUserNotificationNoDefaultButtonFlagValue KCFUserNotificationNoDefaultButtonFlag = 32
+	// KCFUserNotificationUseRadioButtonsFlag: Creates a group of radio buttons instead of checkboxes for the elements in the kCFUserNotificationCheckBoxTitlesKey array in the user notification’s description dictionary.
+	KCFUserNotificationUseRadioButtonsFlag KCFUserNotificationNoDefaultButtonFlag = 64
+)
+
+func (e KCFUserNotificationNoDefaultButtonFlag) String() string {
+	switch e {
+	case KCFUserNotificationNoDefaultButtonFlagValue:
+		return "KCFUserNotificationNoDefaultButtonFlagValue"
 	case KCFUserNotificationUseRadioButtonsFlag:
 		return "KCFUserNotificationUseRadioButtonsFlag"
 	default:
-		return fmt.Sprintf("KCFUserNotification(%d)", e)
+		return fmt.Sprintf("KCFUserNotificationNoDefaultButtonFlag(%d)", e)
+	}
+}
+
+type KCFUserNotificationStopAlertLevel uint
+
+const (
+	// KCFUserNotificationCautionAlertLevel: The notification is somewhat serious.
+	KCFUserNotificationCautionAlertLevel KCFUserNotificationStopAlertLevel = 2
+	// KCFUserNotificationNoteAlertLevel: The notification is not very serious.
+	KCFUserNotificationNoteAlertLevel KCFUserNotificationStopAlertLevel = 1
+	// KCFUserNotificationPlainAlertLevel: The notification is not serious.
+	KCFUserNotificationPlainAlertLevel KCFUserNotificationStopAlertLevel = 3
+	// KCFUserNotificationStopAlertLevelValue: The notification is very serious.
+	KCFUserNotificationStopAlertLevelValue KCFUserNotificationStopAlertLevel = 0
+)
+
+func (e KCFUserNotificationStopAlertLevel) String() string {
+	switch e {
+	case KCFUserNotificationCautionAlertLevel:
+		return "KCFUserNotificationCautionAlertLevel"
+	case KCFUserNotificationNoteAlertLevel:
+		return "KCFUserNotificationNoteAlertLevel"
+	case KCFUserNotificationPlainAlertLevel:
+		return "KCFUserNotificationPlainAlertLevel"
+	case KCFUserNotificationStopAlertLevelValue:
+		return "KCFUserNotificationStopAlertLevelValue"
+	default:
+		return fmt.Sprintf("KCFUserNotificationStopAlertLevel(%d)", e)
 	}
 }

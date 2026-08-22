@@ -118,139 +118,7 @@ func (e DOMXPathExceptionCode) String() string {
 	}
 }
 
-type Dom uint
-
-const (
-	DOM_ADDITION                                  Dom = 2
-	DOM_ANY_TYPE                                  Dom = 0
-	DOM_ANY_UNORDERED_NODE_TYPE                   Dom = 8
-	DOM_ATTRIBUTE_NODE                            Dom = 2
-	DOM_AT_TARGET                                 Dom = 2
-	DOM_BOOLEAN_TYPE                              Dom = 3
-	DOM_BOTH                                      Dom = 2
-	DOM_BUBBLING_PHASE                            Dom = 3
-	DOM_CAPTURING_PHASE                           Dom = 1
-	DOM_CDATA_SECTION_NODE                        Dom = 4
-	DOM_CHARSET_RULE                              Dom = 2
-	DOM_COMMENT_NODE                              Dom = 8
-	DOM_DOCUMENT_FRAGMENT_NODE                    Dom = 11
-	DOM_DOCUMENT_NODE                             Dom = 9
-	DOM_DOCUMENT_POSITION_CONTAINED_BY            Dom = 0x10
-	DOM_DOCUMENT_POSITION_CONTAINS                Dom = 0x8
-	DOM_DOCUMENT_POSITION_DISCONNECTED            Dom = 0x1
-	DOM_DOCUMENT_POSITION_FOLLOWING               Dom = 0x4
-	DOM_DOCUMENT_POSITION_IMPLEMENTATION_SPECIFIC Dom = 0x20
-	DOM_DOCUMENT_POSITION_PRECEDING               Dom = 0x2
-	DOM_DOCUMENT_TYPE_NODE                        Dom = 10
-	DOM_ELEMENT_NODE                              Dom = 1
-	DOM_END_TO_END                                Dom = 2
-	DOM_END_TO_START                              Dom = 3
-	DOM_ENTITY_NODE                               Dom = 6
-	DOM_ENTITY_REFERENCE_NODE                     Dom = 5
-	DOM_FILTER_ACCEPT                             Dom = 1
-	DOM_FILTER_REJECT                             Dom = 2
-	DOM_FILTER_SKIP                               Dom = 3
-	DOM_FIRST_ORDERED_NODE_TYPE                   Dom = 9
-	DOM_FONT_FACE_RULE                            Dom = 5
-	DOM_HORIZONTAL                                Dom = 0
-	DOM_IMPORT_RULE                               Dom = 3
-	DOM_KEYFRAMES_RULE                            Dom = 7
-	DOM_KEYFRAME_RULE                             Dom = 8
-	DOM_MEDIA_RULE                                Dom = 4
-	DOM_MODIFICATION                              Dom = 1
-	DOM_NAMESPACE_RULE                            Dom = 10
-	DOM_NODE_AFTER                                Dom = 1
-	DOM_NODE_BEFORE                               Dom = 0
-	DOM_NODE_BEFORE_AND_AFTER                     Dom = 2
-	DOM_NODE_INSIDE                               Dom = 3
-	DOM_NONE                                      Dom = 0
-	DOM_NOTATION_NODE                             Dom = 12
-	DOM_NUMBER_TYPE                               Dom = 1
-	DOM_ORDERED_NODE_ITERATOR_TYPE                Dom = 5
-	DOM_ORDERED_NODE_SNAPSHOT_TYPE                Dom = 7
-	DOM_PAGE_RULE                                 Dom = 6
-	DOM_PROCESSING_INSTRUCTION_NODE               Dom = 7
-	DOM_REMOVAL                                   Dom = 3
-	DOM_SHOW_ALL                                  Dom = 0xffffffff
-	DOM_SHOW_ATTRIBUTE                            Dom = 0x2
-	DOM_SHOW_CDATA_SECTION                        Dom = 0x8
-	DOM_SHOW_COMMENT                              Dom = 0x80
-	DOM_SHOW_DOCUMENT                             Dom = 0x100
-	DOM_SHOW_DOCUMENT_FRAGMENT                    Dom = 0x400
-	DOM_SHOW_DOCUMENT_TYPE                        Dom = 0x200
-	DOM_SHOW_ELEMENT                              Dom = 0x1
-	DOM_SHOW_ENTITY                               Dom = 0x20
-	DOM_SHOW_ENTITY_REFERENCE                     Dom = 0x10
-	DOM_SHOW_NOTATION                             Dom = 0x800
-	DOM_SHOW_PROCESSING_INSTRUCTION               Dom = 0x40
-	DOM_SHOW_TEXT                                 Dom = 0x4
-	DOM_START_TO_END                              Dom = 1
-	DOM_START_TO_START                            Dom = 0
-	DOM_STRING_TYPE                               Dom = 2
-	DOM_STYLE_RULE                                Dom = 1
-	DOM_SUPPORTS_RULE                             Dom = 12
-	DOM_TEXT_NODE                                 Dom = 3
-	DOM_UNKNOWN_RULE                              Dom = 0
-	DOM_UNORDERED_NODE_ITERATOR_TYPE              Dom = 4
-	DOM_UNORDERED_NODE_SNAPSHOT_TYPE              Dom = 6
-	DOM_VERTICAL                                  Dom = 1
-	DOM_WEBKIT_KEYFRAMES_RULE                     Dom = 7
-	DOM_WEBKIT_KEYFRAME_RULE                      Dom = 8
-	DOM_WEBKIT_REGION_RULE                        Dom = 16
-)
-
-func (e Dom) String() string {
-	switch e {
-	case DOM_ADDITION:
-		return "DOM_ADDITION"
-	case DOM_ANY_TYPE:
-		return "DOM_ANY_TYPE"
-	case DOM_ANY_UNORDERED_NODE_TYPE:
-		return "DOM_ANY_UNORDERED_NODE_TYPE"
-	case DOM_BOOLEAN_TYPE:
-		return "DOM_BOOLEAN_TYPE"
-	case DOM_CAPTURING_PHASE:
-		return "DOM_CAPTURING_PHASE"
-	case DOM_CDATA_SECTION_NODE:
-		return "DOM_CDATA_SECTION_NODE"
-	case DOM_DOCUMENT_FRAGMENT_NODE:
-		return "DOM_DOCUMENT_FRAGMENT_NODE"
-	case DOM_DOCUMENT_NODE:
-		return "DOM_DOCUMENT_NODE"
-	case DOM_DOCUMENT_POSITION_CONTAINED_BY:
-		return "DOM_DOCUMENT_POSITION_CONTAINED_BY"
-	case DOM_DOCUMENT_POSITION_IMPLEMENTATION_SPECIFIC:
-		return "DOM_DOCUMENT_POSITION_IMPLEMENTATION_SPECIFIC"
-	case DOM_DOCUMENT_TYPE_NODE:
-		return "DOM_DOCUMENT_TYPE_NODE"
-	case DOM_ENTITY_NODE:
-		return "DOM_ENTITY_NODE"
-	case DOM_ENTITY_REFERENCE_NODE:
-		return "DOM_ENTITY_REFERENCE_NODE"
-	case DOM_KEYFRAMES_RULE:
-		return "DOM_KEYFRAMES_RULE"
-	case DOM_NOTATION_NODE:
-		return "DOM_NOTATION_NODE"
-	case DOM_SHOW_ALL:
-		return "DOM_SHOW_ALL"
-	case DOM_SHOW_COMMENT:
-		return "DOM_SHOW_COMMENT"
-	case DOM_SHOW_DOCUMENT:
-		return "DOM_SHOW_DOCUMENT"
-	case DOM_SHOW_DOCUMENT_FRAGMENT:
-		return "DOM_SHOW_DOCUMENT_FRAGMENT"
-	case DOM_SHOW_DOCUMENT_TYPE:
-		return "DOM_SHOW_DOCUMENT_TYPE"
-	case DOM_SHOW_NOTATION:
-		return "DOM_SHOW_NOTATION"
-	case DOM_SHOW_PROCESSING_INSTRUCTION:
-		return "DOM_SHOW_PROCESSING_INSTRUCTION"
-	default:
-		return fmt.Sprintf("Dom(%d)", e)
-	}
-}
-
-type DomAllowKeyboard uint
+type DomAllowKeyboard uint32
 
 const (
 	DOM_ALLOW_KEYBOARD_INPUT DomAllowKeyboard = 1
@@ -265,46 +133,108 @@ func (e DomAllowKeyboard) String() string {
 	}
 }
 
-type DomCSS uint
+type DomAnyType uint32
 
 const (
-	DOM_CSS_ATTR            DomCSS = 22
-	DOM_CSS_CM              DomCSS = 6
-	DOM_CSS_COUNTER         DomCSS = 23
-	DOM_CSS_CUSTOM          DomCSS = 3
-	DOM_CSS_DEG             DomCSS = 11
-	DOM_CSS_DIMENSION       DomCSS = 18
-	DOM_CSS_EMS             DomCSS = 3
-	DOM_CSS_EXS             DomCSS = 4
-	DOM_CSS_GRAD            DomCSS = 13
-	DOM_CSS_HZ              DomCSS = 16
-	DOM_CSS_IDENT           DomCSS = 21
-	DOM_CSS_IN              DomCSS = 8
-	DOM_CSS_INHERIT         DomCSS = 0
-	DOM_CSS_KHZ             DomCSS = 17
-	DOM_CSS_MM              DomCSS = 7
-	DOM_CSS_MS              DomCSS = 14
-	DOM_CSS_NUMBER          DomCSS = 1
-	DOM_CSS_PC              DomCSS = 10
-	DOM_CSS_PERCENTAGE      DomCSS = 2
-	DOM_CSS_PRIMITIVE_VALUE DomCSS = 1
-	DOM_CSS_PT              DomCSS = 9
-	DOM_CSS_PX              DomCSS = 5
-	DOM_CSS_RAD             DomCSS = 12
-	DOM_CSS_RECT            DomCSS = 24
-	DOM_CSS_RGBCOLOR        DomCSS = 25
-	DOM_CSS_S               DomCSS = 15
-	DOM_CSS_STRING          DomCSS = 19
-	DOM_CSS_UNKNOWN         DomCSS = 0
-	DOM_CSS_URI             DomCSS = 20
-	DOM_CSS_VALUE_LIST      DomCSS = 2
-	DOM_CSS_VH              DomCSS = 27
-	DOM_CSS_VMAX            DomCSS = 29
-	DOM_CSS_VMIN            DomCSS = 28
-	DOM_CSS_VW              DomCSS = 26
+	DOM_ANY_TYPE                     DomAnyType = 0
+	DOM_ANY_UNORDERED_NODE_TYPE      DomAnyType = 8
+	DOM_BOOLEAN_TYPE                 DomAnyType = 3
+	DOM_FIRST_ORDERED_NODE_TYPE      DomAnyType = 9
+	DOM_NUMBER_TYPE                  DomAnyType = 1
+	DOM_ORDERED_NODE_ITERATOR_TYPE   DomAnyType = 5
+	DOM_ORDERED_NODE_SNAPSHOT_TYPE   DomAnyType = 7
+	DOM_STRING_TYPE                  DomAnyType = 2
+	DOM_UNORDERED_NODE_ITERATOR_TYPE DomAnyType = 4
+	DOM_UNORDERED_NODE_SNAPSHOT_TYPE DomAnyType = 6
 )
 
-func (e DomCSS) String() string {
+func (e DomAnyType) String() string {
+	switch e {
+	case DOM_ANY_TYPE:
+		return "DOM_ANY_TYPE"
+	case DOM_ANY_UNORDERED_NODE_TYPE:
+		return "DOM_ANY_UNORDERED_NODE_TYPE"
+	case DOM_BOOLEAN_TYPE:
+		return "DOM_BOOLEAN_TYPE"
+	case DOM_FIRST_ORDERED_NODE_TYPE:
+		return "DOM_FIRST_ORDERED_NODE_TYPE"
+	case DOM_NUMBER_TYPE:
+		return "DOM_NUMBER_TYPE"
+	case DOM_ORDERED_NODE_ITERATOR_TYPE:
+		return "DOM_ORDERED_NODE_ITERATOR_TYPE"
+	case DOM_ORDERED_NODE_SNAPSHOT_TYPE:
+		return "DOM_ORDERED_NODE_SNAPSHOT_TYPE"
+	case DOM_STRING_TYPE:
+		return "DOM_STRING_TYPE"
+	case DOM_UNORDERED_NODE_ITERATOR_TYPE:
+		return "DOM_UNORDERED_NODE_ITERATOR_TYPE"
+	case DOM_UNORDERED_NODE_SNAPSHOT_TYPE:
+		return "DOM_UNORDERED_NODE_SNAPSHOT_TYPE"
+	default:
+		return fmt.Sprintf("DomAnyType(%d)", e)
+	}
+}
+
+type DomCSSInherit uint32
+
+const (
+	DOM_CSS_CUSTOM          DomCSSInherit = 3
+	DOM_CSS_INHERIT         DomCSSInherit = 0
+	DOM_CSS_PRIMITIVE_VALUE DomCSSInherit = 1
+	DOM_CSS_VALUE_LIST      DomCSSInherit = 2
+)
+
+func (e DomCSSInherit) String() string {
+	switch e {
+	case DOM_CSS_CUSTOM:
+		return "DOM_CSS_CUSTOM"
+	case DOM_CSS_INHERIT:
+		return "DOM_CSS_INHERIT"
+	case DOM_CSS_PRIMITIVE_VALUE:
+		return "DOM_CSS_PRIMITIVE_VALUE"
+	case DOM_CSS_VALUE_LIST:
+		return "DOM_CSS_VALUE_LIST"
+	default:
+		return fmt.Sprintf("DomCSSInherit(%d)", e)
+	}
+}
+
+type DomCSSUnknown uint32
+
+const (
+	DOM_CSS_ATTR       DomCSSUnknown = 22
+	DOM_CSS_CM         DomCSSUnknown = 6
+	DOM_CSS_COUNTER    DomCSSUnknown = 23
+	DOM_CSS_DEG        DomCSSUnknown = 11
+	DOM_CSS_DIMENSION  DomCSSUnknown = 18
+	DOM_CSS_EMS        DomCSSUnknown = 3
+	DOM_CSS_EXS        DomCSSUnknown = 4
+	DOM_CSS_GRAD       DomCSSUnknown = 13
+	DOM_CSS_HZ         DomCSSUnknown = 16
+	DOM_CSS_IDENT      DomCSSUnknown = 21
+	DOM_CSS_IN         DomCSSUnknown = 8
+	DOM_CSS_KHZ        DomCSSUnknown = 17
+	DOM_CSS_MM         DomCSSUnknown = 7
+	DOM_CSS_MS         DomCSSUnknown = 14
+	DOM_CSS_NUMBER     DomCSSUnknown = 1
+	DOM_CSS_PC         DomCSSUnknown = 10
+	DOM_CSS_PERCENTAGE DomCSSUnknown = 2
+	DOM_CSS_PT         DomCSSUnknown = 9
+	DOM_CSS_PX         DomCSSUnknown = 5
+	DOM_CSS_RAD        DomCSSUnknown = 12
+	DOM_CSS_RECT       DomCSSUnknown = 24
+	DOM_CSS_RGBCOLOR   DomCSSUnknown = 25
+	DOM_CSS_S          DomCSSUnknown = 15
+	DOM_CSS_STRING     DomCSSUnknown = 19
+	DOM_CSS_UNKNOWN    DomCSSUnknown = 0
+	DOM_CSS_URI        DomCSSUnknown = 20
+	DOM_CSS_VH         DomCSSUnknown = 27
+	DOM_CSS_VMAX       DomCSSUnknown = 29
+	DOM_CSS_VMIN       DomCSSUnknown = 28
+	DOM_CSS_VW         DomCSSUnknown = 26
+)
+
+func (e DomCSSUnknown) String() string {
 	switch e {
 	case DOM_CSS_ATTR:
 		return "DOM_CSS_ATTR"
@@ -312,12 +242,12 @@ func (e DomCSS) String() string {
 		return "DOM_CSS_CM"
 	case DOM_CSS_COUNTER:
 		return "DOM_CSS_COUNTER"
-	case DOM_CSS_CUSTOM:
-		return "DOM_CSS_CUSTOM"
 	case DOM_CSS_DEG:
 		return "DOM_CSS_DEG"
 	case DOM_CSS_DIMENSION:
 		return "DOM_CSS_DIMENSION"
+	case DOM_CSS_EMS:
+		return "DOM_CSS_EMS"
 	case DOM_CSS_EXS:
 		return "DOM_CSS_EXS"
 	case DOM_CSS_GRAD:
@@ -328,8 +258,6 @@ func (e DomCSS) String() string {
 		return "DOM_CSS_IDENT"
 	case DOM_CSS_IN:
 		return "DOM_CSS_IN"
-	case DOM_CSS_INHERIT:
-		return "DOM_CSS_INHERIT"
 	case DOM_CSS_KHZ:
 		return "DOM_CSS_KHZ"
 	case DOM_CSS_MM:
@@ -356,6 +284,8 @@ func (e DomCSS) String() string {
 		return "DOM_CSS_S"
 	case DOM_CSS_STRING:
 		return "DOM_CSS_STRING"
+	case DOM_CSS_UNKNOWN:
+		return "DOM_CSS_UNKNOWN"
 	case DOM_CSS_URI:
 		return "DOM_CSS_URI"
 	case DOM_CSS_VH:
@@ -367,11 +297,11 @@ func (e DomCSS) String() string {
 	case DOM_CSS_VW:
 		return "DOM_CSS_VW"
 	default:
-		return fmt.Sprintf("DomCSS(%d)", e)
+		return fmt.Sprintf("DomCSSUnknown(%d)", e)
 	}
 }
 
-type DomDomDelta uint
+type DomDomDelta uint32
 
 const (
 	DOM_DOM_DELTA_LINE  DomDomDelta = 0x1
@@ -392,7 +322,142 @@ func (e DomDomDelta) String() string {
 	}
 }
 
-type DomKeyLocation uint
+type DomElementNode uint32
+
+const (
+	DOM_ATTRIBUTE_NODE                            DomElementNode = 2
+	DOM_CDATA_SECTION_NODE                        DomElementNode = 4
+	DOM_COMMENT_NODE                              DomElementNode = 8
+	DOM_DOCUMENT_FRAGMENT_NODE                    DomElementNode = 11
+	DOM_DOCUMENT_NODE                             DomElementNode = 9
+	DOM_DOCUMENT_POSITION_CONTAINED_BY            DomElementNode = 0x10
+	DOM_DOCUMENT_POSITION_CONTAINS                DomElementNode = 0x8
+	DOM_DOCUMENT_POSITION_DISCONNECTED            DomElementNode = 0x1
+	DOM_DOCUMENT_POSITION_FOLLOWING               DomElementNode = 0x4
+	DOM_DOCUMENT_POSITION_IMPLEMENTATION_SPECIFIC DomElementNode = 0x20
+	DOM_DOCUMENT_POSITION_PRECEDING               DomElementNode = 0x2
+	DOM_DOCUMENT_TYPE_NODE                        DomElementNode = 10
+	DOM_ELEMENT_NODE                              DomElementNode = 1
+	DOM_ENTITY_NODE                               DomElementNode = 6
+	DOM_ENTITY_REFERENCE_NODE                     DomElementNode = 5
+	DOM_NOTATION_NODE                             DomElementNode = 12
+	DOM_PROCESSING_INSTRUCTION_NODE               DomElementNode = 7
+	DOM_TEXT_NODE                                 DomElementNode = 3
+)
+
+func (e DomElementNode) String() string {
+	switch e {
+	case DOM_ATTRIBUTE_NODE:
+		return "DOM_ATTRIBUTE_NODE"
+	case DOM_CDATA_SECTION_NODE:
+		return "DOM_CDATA_SECTION_NODE"
+	case DOM_COMMENT_NODE:
+		return "DOM_COMMENT_NODE"
+	case DOM_DOCUMENT_FRAGMENT_NODE:
+		return "DOM_DOCUMENT_FRAGMENT_NODE"
+	case DOM_DOCUMENT_NODE:
+		return "DOM_DOCUMENT_NODE"
+	case DOM_DOCUMENT_POSITION_CONTAINED_BY:
+		return "DOM_DOCUMENT_POSITION_CONTAINED_BY"
+	case DOM_DOCUMENT_POSITION_DISCONNECTED:
+		return "DOM_DOCUMENT_POSITION_DISCONNECTED"
+	case DOM_DOCUMENT_POSITION_IMPLEMENTATION_SPECIFIC:
+		return "DOM_DOCUMENT_POSITION_IMPLEMENTATION_SPECIFIC"
+	case DOM_DOCUMENT_TYPE_NODE:
+		return "DOM_DOCUMENT_TYPE_NODE"
+	case DOM_ENTITY_NODE:
+		return "DOM_ENTITY_NODE"
+	case DOM_ENTITY_REFERENCE_NODE:
+		return "DOM_ENTITY_REFERENCE_NODE"
+	case DOM_NOTATION_NODE:
+		return "DOM_NOTATION_NODE"
+	case DOM_PROCESSING_INSTRUCTION_NODE:
+		return "DOM_PROCESSING_INSTRUCTION_NODE"
+	case DOM_TEXT_NODE:
+		return "DOM_TEXT_NODE"
+	default:
+		return fmt.Sprintf("DomElementNode(%d)", e)
+	}
+}
+
+type DomFilterAccept uint32
+
+const (
+	DOM_FILTER_ACCEPT               DomFilterAccept = 1
+	DOM_FILTER_REJECT               DomFilterAccept = 2
+	DOM_FILTER_SKIP                 DomFilterAccept = 3
+	DOM_SHOW_ALL                    DomFilterAccept = 0xffffffff
+	DOM_SHOW_ATTRIBUTE              DomFilterAccept = 0x2
+	DOM_SHOW_CDATA_SECTION          DomFilterAccept = 0x8
+	DOM_SHOW_COMMENT                DomFilterAccept = 0x80
+	DOM_SHOW_DOCUMENT               DomFilterAccept = 0x100
+	DOM_SHOW_DOCUMENT_FRAGMENT      DomFilterAccept = 0x400
+	DOM_SHOW_DOCUMENT_TYPE          DomFilterAccept = 0x200
+	DOM_SHOW_ELEMENT                DomFilterAccept = 0x1
+	DOM_SHOW_ENTITY                 DomFilterAccept = 0x20
+	DOM_SHOW_ENTITY_REFERENCE       DomFilterAccept = 0x10
+	DOM_SHOW_NOTATION               DomFilterAccept = 0x800
+	DOM_SHOW_PROCESSING_INSTRUCTION DomFilterAccept = 0x40
+	DOM_SHOW_TEXT                   DomFilterAccept = 0x4
+)
+
+func (e DomFilterAccept) String() string {
+	switch e {
+	case DOM_FILTER_ACCEPT:
+		return "DOM_FILTER_ACCEPT"
+	case DOM_FILTER_REJECT:
+		return "DOM_FILTER_REJECT"
+	case DOM_FILTER_SKIP:
+		return "DOM_FILTER_SKIP"
+	case DOM_SHOW_ALL:
+		return "DOM_SHOW_ALL"
+	case DOM_SHOW_CDATA_SECTION:
+		return "DOM_SHOW_CDATA_SECTION"
+	case DOM_SHOW_COMMENT:
+		return "DOM_SHOW_COMMENT"
+	case DOM_SHOW_DOCUMENT:
+		return "DOM_SHOW_DOCUMENT"
+	case DOM_SHOW_DOCUMENT_FRAGMENT:
+		return "DOM_SHOW_DOCUMENT_FRAGMENT"
+	case DOM_SHOW_DOCUMENT_TYPE:
+		return "DOM_SHOW_DOCUMENT_TYPE"
+	case DOM_SHOW_ENTITY:
+		return "DOM_SHOW_ENTITY"
+	case DOM_SHOW_ENTITY_REFERENCE:
+		return "DOM_SHOW_ENTITY_REFERENCE"
+	case DOM_SHOW_NOTATION:
+		return "DOM_SHOW_NOTATION"
+	case DOM_SHOW_PROCESSING_INSTRUCTION:
+		return "DOM_SHOW_PROCESSING_INSTRUCTION"
+	case DOM_SHOW_TEXT:
+		return "DOM_SHOW_TEXT"
+	default:
+		return fmt.Sprintf("DomFilterAccept(%d)", e)
+	}
+}
+
+type DomHorizontal uint32
+
+const (
+	DOM_BOTH       DomHorizontal = 2
+	DOM_HORIZONTAL DomHorizontal = 0
+	DOM_VERTICAL   DomHorizontal = 1
+)
+
+func (e DomHorizontal) String() string {
+	switch e {
+	case DOM_BOTH:
+		return "DOM_BOTH"
+	case DOM_HORIZONTAL:
+		return "DOM_HORIZONTAL"
+	case DOM_VERTICAL:
+		return "DOM_VERTICAL"
+	default:
+		return fmt.Sprintf("DomHorizontal(%d)", e)
+	}
+}
+
+type DomKeyLocation uint32
 
 const (
 	DOM_KEY_LOCATION_LEFT     DomKeyLocation = 0x1
@@ -416,12 +481,135 @@ func (e DomKeyLocation) String() string {
 	}
 }
 
+type DomModification uint32
+
+const (
+	DOM_ADDITION     DomModification = 2
+	DOM_MODIFICATION DomModification = 1
+	DOM_REMOVAL      DomModification = 3
+)
+
+func (e DomModification) String() string {
+	switch e {
+	case DOM_ADDITION:
+		return "DOM_ADDITION"
+	case DOM_MODIFICATION:
+		return "DOM_MODIFICATION"
+	case DOM_REMOVAL:
+		return "DOM_REMOVAL"
+	default:
+		return fmt.Sprintf("DomModification(%d)", e)
+	}
+}
+
+type DomNone uint32
+
+const (
+	DOM_AT_TARGET       DomNone = 2
+	DOM_BUBBLING_PHASE  DomNone = 3
+	DOM_CAPTURING_PHASE DomNone = 1
+	DOM_NONE            DomNone = 0
+)
+
+func (e DomNone) String() string {
+	switch e {
+	case DOM_AT_TARGET:
+		return "DOM_AT_TARGET"
+	case DOM_BUBBLING_PHASE:
+		return "DOM_BUBBLING_PHASE"
+	case DOM_CAPTURING_PHASE:
+		return "DOM_CAPTURING_PHASE"
+	case DOM_NONE:
+		return "DOM_NONE"
+	default:
+		return fmt.Sprintf("DomNone(%d)", e)
+	}
+}
+
+type DomStartToStart uint32
+
+const (
+	DOM_END_TO_END            DomStartToStart = 2
+	DOM_END_TO_START          DomStartToStart = 3
+	DOM_NODE_AFTER            DomStartToStart = 1
+	DOM_NODE_BEFORE           DomStartToStart = 0
+	DOM_NODE_BEFORE_AND_AFTER DomStartToStart = 2
+	DOM_NODE_INSIDE           DomStartToStart = 3
+	DOM_START_TO_END          DomStartToStart = 1
+	DOM_START_TO_START        DomStartToStart = 0
+)
+
+func (e DomStartToStart) String() string {
+	switch e {
+	case DOM_END_TO_END:
+		return "DOM_END_TO_END"
+	case DOM_END_TO_START:
+		return "DOM_END_TO_START"
+	case DOM_NODE_AFTER:
+		return "DOM_NODE_AFTER"
+	case DOM_NODE_BEFORE:
+		return "DOM_NODE_BEFORE"
+	default:
+		return fmt.Sprintf("DomStartToStart(%d)", e)
+	}
+}
+
+type DomUnknownRule uint32
+
+const (
+	DOM_CHARSET_RULE          DomUnknownRule = 2
+	DOM_FONT_FACE_RULE        DomUnknownRule = 5
+	DOM_IMPORT_RULE           DomUnknownRule = 3
+	DOM_KEYFRAMES_RULE        DomUnknownRule = 7
+	DOM_KEYFRAME_RULE         DomUnknownRule = 8
+	DOM_MEDIA_RULE            DomUnknownRule = 4
+	DOM_NAMESPACE_RULE        DomUnknownRule = 10
+	DOM_PAGE_RULE             DomUnknownRule = 6
+	DOM_STYLE_RULE            DomUnknownRule = 1
+	DOM_SUPPORTS_RULE         DomUnknownRule = 12
+	DOM_UNKNOWN_RULE          DomUnknownRule = 0
+	DOM_WEBKIT_KEYFRAMES_RULE DomUnknownRule = 7
+	DOM_WEBKIT_KEYFRAME_RULE  DomUnknownRule = 8
+	DOM_WEBKIT_REGION_RULE    DomUnknownRule = 16
+)
+
+func (e DomUnknownRule) String() string {
+	switch e {
+	case DOM_CHARSET_RULE:
+		return "DOM_CHARSET_RULE"
+	case DOM_FONT_FACE_RULE:
+		return "DOM_FONT_FACE_RULE"
+	case DOM_IMPORT_RULE:
+		return "DOM_IMPORT_RULE"
+	case DOM_KEYFRAMES_RULE:
+		return "DOM_KEYFRAMES_RULE"
+	case DOM_KEYFRAME_RULE:
+		return "DOM_KEYFRAME_RULE"
+	case DOM_MEDIA_RULE:
+		return "DOM_MEDIA_RULE"
+	case DOM_NAMESPACE_RULE:
+		return "DOM_NAMESPACE_RULE"
+	case DOM_PAGE_RULE:
+		return "DOM_PAGE_RULE"
+	case DOM_STYLE_RULE:
+		return "DOM_STYLE_RULE"
+	case DOM_SUPPORTS_RULE:
+		return "DOM_SUPPORTS_RULE"
+	case DOM_UNKNOWN_RULE:
+		return "DOM_UNKNOWN_RULE"
+	case DOM_WEBKIT_REGION_RULE:
+		return "DOM_WEBKIT_REGION_RULE"
+	default:
+		return fmt.Sprintf("DomUnknownRule(%d)", e)
+	}
+}
+
 // See: https://developer.apple.com/documentation/WebKit/WKAudiovisualMediaTypes
-type WKAudiovisualMediaTypes int
+type WKAudiovisualMediaTypes uint
 
 const (
 	// WKAudiovisualMediaTypeAll: All media types require a user gesture to begin playing.
-	WKAudiovisualMediaTypeAll WKAudiovisualMediaTypes = -1
+	WKAudiovisualMediaTypeAll WKAudiovisualMediaTypes = 18446744073709551615
 	// WKAudiovisualMediaTypeAudio: Media types that contain audio require a user gesture to begin playing.
 	WKAudiovisualMediaTypeAudio WKAudiovisualMediaTypes = 1
 	// WKAudiovisualMediaTypeNone: No media types require a user gesture to begin playing.
@@ -494,37 +682,7 @@ func (e WKCookiePolicy) String() string {
 // See: https://developer.apple.com/documentation/WebKit/WKDataDetectorTypes
 type WKDataDetectorTypes uint
 
-const (
-	// WKDataDetectorTypeAddress: Detect addresses in text and turn them into links to display the location.
-	WKDataDetectorTypeAddress WKDataDetectorTypes = 0
-	// WKDataDetectorTypeAll: Detect all data types and turn them into links.
-	WKDataDetectorTypeAll WKDataDetectorTypes = 0
-	// WKDataDetectorTypeCalendarEvent: Turn future dates and times into links to create calendar events.
-	WKDataDetectorTypeCalendarEvent WKDataDetectorTypes = 0
-	// WKDataDetectorTypeFlightNumber: Detect flight numbers in text and turn them into links.
-	WKDataDetectorTypeFlightNumber WKDataDetectorTypes = 0
-	// WKDataDetectorTypeLink: Detect URLs in text and turn them into links.
-	WKDataDetectorTypeLink WKDataDetectorTypes = 0
-	// WKDataDetectorTypeLookupSuggestion: Detect Spotlight suggestions and turn them into links.
-	WKDataDetectorTypeLookupSuggestion WKDataDetectorTypes = 0
-	// WKDataDetectorTypeNone: No data detection.
-	WKDataDetectorTypeNone WKDataDetectorTypes = 0
-	// WKDataDetectorTypePhoneNumber: Detect phone numbers in text and create a link to call the specified number.
-	WKDataDetectorTypePhoneNumber WKDataDetectorTypes = 0
-	// WKDataDetectorTypeTrackingNumber: Detect tracking numbers in text and turn them into links.
-	WKDataDetectorTypeTrackingNumber WKDataDetectorTypes = 0
-	// Deprecated: use WKDataDetectorTypeLookupSuggestion.
-	WKDataDetectorTypeSpotlightSuggestion WKDataDetectorTypes = 0
-)
-
-func (e WKDataDetectorTypes) String() string {
-	switch e {
-	case WKDataDetectorTypeAddress:
-		return "WKDataDetectorTypeAddress"
-	default:
-		return fmt.Sprintf("WKDataDetectorTypes(%d)", e)
-	}
-}
+const ()
 
 // See: https://developer.apple.com/documentation/WebKit/WKDialogResult
 type WKDialogResult int
@@ -938,21 +1096,7 @@ func (e WKSecurityRestrictionMode) String() string {
 // See: https://developer.apple.com/documentation/WebKit/WKSelectionGranularity
 type WKSelectionGranularity int
 
-const (
-	// Deprecated.
-	WKSelectionGranularityCharacter WKSelectionGranularity = 0
-	// Deprecated.
-	WKSelectionGranularityDynamic WKSelectionGranularity = 0
-)
-
-func (e WKSelectionGranularity) String() string {
-	switch e {
-	case WKSelectionGranularityCharacter:
-		return "WKSelectionGranularityCharacter"
-	default:
-		return fmt.Sprintf("WKSelectionGranularity(%d)", e)
-	}
-}
+const ()
 
 // See: https://developer.apple.com/documentation/WebKit/WKUserInterfaceDirectionPolicy
 type WKUserInterfaceDirectionPolicy int
@@ -1474,19 +1618,16 @@ func (e WebDragSourceAction) String() string {
 	}
 }
 
-type WebKitError int
+type WebKitErrorCannotFindPlugInConstants uint32
 
 const (
-	WebKitErrorBlockedPlugInVersion               WebKitError = 203
-	WebKitErrorCannotFindPlugIn                   WebKitError = 200
-	WebKitErrorCannotLoadPlugIn                   WebKitError = 201
-	WebKitErrorCannotShowMIMEType                 WebKitError = 100
-	WebKitErrorCannotShowURL                      WebKitError = 101
-	WebKitErrorFrameLoadInterruptedByPolicyChange WebKitError = 102
-	WebKitErrorJavaUnavailable                    WebKitError = 202
+	WebKitErrorBlockedPlugInVersion WebKitErrorCannotFindPlugInConstants = 203
+	WebKitErrorCannotFindPlugIn     WebKitErrorCannotFindPlugInConstants = 200
+	WebKitErrorCannotLoadPlugIn     WebKitErrorCannotFindPlugInConstants = 201
+	WebKitErrorJavaUnavailable      WebKitErrorCannotFindPlugInConstants = 202
 )
 
-func (e WebKitError) String() string {
+func (e WebKitErrorCannotFindPlugInConstants) String() string {
 	switch e {
 	case WebKitErrorBlockedPlugInVersion:
 		return "WebKitErrorBlockedPlugInVersion"
@@ -1494,20 +1635,35 @@ func (e WebKitError) String() string {
 		return "WebKitErrorCannotFindPlugIn"
 	case WebKitErrorCannotLoadPlugIn:
 		return "WebKitErrorCannotLoadPlugIn"
+	case WebKitErrorJavaUnavailable:
+		return "WebKitErrorJavaUnavailable"
+	default:
+		return fmt.Sprintf("WebKitErrorCannotFindPlugInConstants(%d)", e)
+	}
+}
+
+type WebKitErrorCannotShowMIMETypeConstants uint32
+
+const (
+	WebKitErrorCannotShowMIMEType                 WebKitErrorCannotShowMIMETypeConstants = 100
+	WebKitErrorCannotShowURL                      WebKitErrorCannotShowMIMETypeConstants = 101
+	WebKitErrorFrameLoadInterruptedByPolicyChange WebKitErrorCannotShowMIMETypeConstants = 102
+)
+
+func (e WebKitErrorCannotShowMIMETypeConstants) String() string {
+	switch e {
 	case WebKitErrorCannotShowMIMEType:
 		return "WebKitErrorCannotShowMIMEType"
 	case WebKitErrorCannotShowURL:
 		return "WebKitErrorCannotShowURL"
 	case WebKitErrorFrameLoadInterruptedByPolicyChange:
 		return "WebKitErrorFrameLoadInterruptedByPolicyChange"
-	case WebKitErrorJavaUnavailable:
-		return "WebKitErrorJavaUnavailable"
 	default:
-		return fmt.Sprintf("WebKitError(%d)", e)
+		return fmt.Sprintf("WebKitErrorCannotShowMIMETypeConstants(%d)", e)
 	}
 }
 
-type WebMenuItem uint
+type WebMenuItem uint32
 
 const (
 	// WebMenuItemPDFActualSize: Display a PDF document at its original size.

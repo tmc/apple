@@ -77,9 +77,9 @@ func (nc NSNumberClass) Alloc() NSNumber {
 // [NSNumber.CharValue].
 //
 // An [NSNumber] object initialized with a value of a particular type
-// accessing the converted value of a different of type, such as `unsigned
-// int` and `float`, will convert its stored value to that converted type in
-// the following ways:
+// accessing the converted value of a different kind of type, such as
+// `unsigned int` and `float`, will convert its stored value to that converted
+// type in the following ways:
 //
 // [Table data omitted]
 //
@@ -123,7 +123,7 @@ func (nc NSNumberClass) Alloc() NSNumber {
 //
 //   - [NSNumber.BoolValue]: The number object’s value expressed as a Boolean value.
 //   - [NSNumber.CharValue]: The number object’s value expressed as a `char`.
-//   - [NSNumber.DecimalValue]: The number object’s value expressed as an [Decimal](<doc://com.apple.foundation/documentation/Foundation/Decimal>) structure.
+//   - [NSNumber.DecimalValue]: The number object’s value expressed as an [Decimal](<https://developer.apple.com/documentation/Foundation/Decimal>) structure.
 //   - [NSNumber.DoubleValue]: The number object’s value expressed as a `double`, converted as necessary.
 //   - [NSNumber.FloatValue]: The number object’s value expressed as a `float`, converted as necessary.
 //   - [NSNumber.IntValue]: The number object’s value expressed as an `int`, converted as necessary.
@@ -187,7 +187,7 @@ func NSNumberFromID(id objc.ID) NSNumber {
 //
 //   - [INSNumber.BoolValue]: The number object’s value expressed as a Boolean value.
 //   - [INSNumber.CharValue]: The number object’s value expressed as a `char`.
-//   - [INSNumber.DecimalValue]: The number object’s value expressed as an [Decimal](<doc://com.apple.foundation/documentation/Foundation/Decimal>) structure.
+//   - [INSNumber.DecimalValue]: The number object’s value expressed as an [Decimal](<https://developer.apple.com/documentation/Foundation/Decimal>) structure.
 //   - [INSNumber.DoubleValue]: The number object’s value expressed as a `double`, converted as necessary.
 //   - [INSNumber.FloatValue]: The number object’s value expressed as a `float`, converted as necessary.
 //   - [INSNumber.IntValue]: The number object’s value expressed as an `int`, converted as necessary.
@@ -225,7 +225,7 @@ type INSNumber interface {
 	// Returns an [NSNumber] object initialized to contain a given value, treated as a `float`.
 	InitWithFloat(value float32) NSNumber
 	// Returns an [NSNumber] object initialized to contain a given value, treated as a signed `int`.
-	InitWithInt(value int) NSNumber
+	InitWithInt(value int32) NSNumber
 	// Returns an [NSNumber] object initialized to contain a given value, treated as an [NSInteger].
 	InitWithInteger(value int) NSNumber
 	// Returns an [NSNumber] object initialized to contain `value`, treated as a signed `long long`.
@@ -249,14 +249,14 @@ type INSNumber interface {
 	BoolValue() bool
 	// The number object’s value expressed as a `char`.
 	CharValue() int8
-	// The number object’s value expressed as an [Decimal](<doc://com.apple.foundation/documentation/Foundation/Decimal>) structure.
+	// The number object’s value expressed as an [Decimal](<https://developer.apple.com/documentation/Foundation/Decimal>) structure.
 	DecimalValue() NSDecimal
 	// The number object’s value expressed as a `double`, converted as necessary.
 	DoubleValue() float64
 	// The number object’s value expressed as a `float`, converted as necessary.
 	FloatValue() float32
 	// The number object’s value expressed as an `int`, converted as necessary.
-	IntValue() int
+	IntValue() int32
 	// The number object’s value expressed as an [NSInteger] object, converted as necessary.
 	IntegerValue() int
 	// The number object’s value expressed as a `long long`, converted as necessary.
@@ -434,7 +434,7 @@ func NewNumberWithFloat(value float32) NSNumber {
 // An [NSNumber] object containing `value`, treating it as a signed `int`.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSNumber/init(value:)-7jvmg
-func NewNumberWithInt(value int) NSNumber {
+func NewNumberWithInt(value int32) NSNumber {
 	instance := getNSNumberClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithInt:"), value)
 	return NSNumberFromID(rv)
@@ -673,7 +673,7 @@ func (n NSNumber) InitWithFloat(value float32) NSNumber {
 // An [NSNumber] object containing `value`, treating it as a signed `int`.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSNumber/init(value:)-7jvmg
-func (n NSNumber) InitWithInt(value int) NSNumber {
+func (n NSNumber) InitWithInt(value int32) NSNumber {
 	rv := objc.Send[NSNumber](n.ID, objc.Sel("initWithInt:"), value)
 	return rv
 }
@@ -983,7 +983,7 @@ func (_NSNumberClass NSNumberClass) NumberWithFloat(value float32) NSNumber {
 // An [NSNumber] object containing `value`, treating it as a signed `int`.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSNumber/numberWithInt:
-func (_NSNumberClass NSNumberClass) NumberWithInt(value int) NSNumber {
+func (_NSNumberClass NSNumberClass) NumberWithInt(value int32) NSNumber {
 	rv := objc.Send[objc.ID](objc.ID(_NSNumberClass.class), objc.Sel("numberWithInt:"), value)
 	return NSNumberFromID(rv)
 }
@@ -1199,8 +1199,8 @@ func (n NSNumber) FloatValue() float32 {
 // The number object’s value expressed as an `int`, converted as necessary.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSNumber/int32Value
-func (n NSNumber) IntValue() int {
-	rv := objc.Send[int](n.ID, objc.Sel("intValue"))
+func (n NSNumber) IntValue() int32 {
+	rv := objc.Send[int32](n.ID, objc.Sel("intValue"))
 	return rv
 }
 

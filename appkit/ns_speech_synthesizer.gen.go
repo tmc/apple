@@ -65,8 +65,8 @@ func (nc NSSpeechSynthesizerClass) Alloc() NSSpeechSynthesizer {
 // movie track.
 //
 // When you create an [NSSpeechSynthesizer] instance using the default
-// initializer (`init`), the class uses the selected in System Preferences >
-// Speech. Alternatively, you can select a specific voice for an
+// initializer (`init`), the class uses the default voice selected in System
+// Preferences > Speech. Alternatively, you can select a specific voice for an
 // [NSSpeechSynthesizer] instance by initializing it with
 // [NSSpeechSynthesizer.InitWithVoice]. To begin synthesis, send either
 // [NSSpeechSynthesizer.StartSpeakingString] or

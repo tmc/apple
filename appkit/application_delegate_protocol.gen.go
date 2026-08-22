@@ -543,7 +543,8 @@ func (o NSApplicationDelegateObject) ApplicationWillContinueUserActivityWithType
 // [NSUserActivity]: https://developer.apple.com/documentation/Foundation/NSUserActivity
 // [userInfo]: https://developer.apple.com/documentation/Foundation/NSUserActivity/userInfo
 func (o NSApplicationDelegateObject) ApplicationContinueUserActivityRestorationHandler(application INSApplication, userActivity foundation.NSUserActivity, restorationHandler VoidHandler) bool {
-	rv := objc.Send[bool](o.ID, objc.Sel("application:continueUserActivity:restorationHandler:"), application, userActivity, restorationHandler)
+	_block2, _ := NewVoidBlock(restorationHandler)
+	rv := objc.Send[bool](o.ID, objc.Sel("application:continueUserActivity:restorationHandler:"), application, userActivity, _block2)
 	return rv
 }
 
@@ -1238,8 +1239,20 @@ func NewNSApplicationDelegate(config NSApplicationDelegateConfig) NSApplicationD
 		methods = append(methods, objc.MethodDef{
 			Cmd: objc.RegisterName("applicationWillFinishLaunching:"),
 			Fn: func(self objc.ID, _cmd objc.SEL, notificationID objc.ID) {
+				// Names which delegate was running if a panic unwinds out of
+				// it. The frames between here and the Objective-C caller are
+				// runtime and purego dispatch, so without this the traceback
+				// never says which selector dispatched. Deliberately no
+				// recover: see [objc.NoteDelegatePanic].
+				_delegateDone := false
+				defer func() {
+					if !_delegateDone {
+						objc.NoteDelegatePanic("NSApplicationDelegate", "applicationWillFinishLaunching:")
+					}
+				}()
 				notification := foundation.NSNotificationFromID(notificationID)
 				fn(notification)
+				_delegateDone = true
 			},
 		})
 	}
@@ -1249,8 +1262,20 @@ func NewNSApplicationDelegate(config NSApplicationDelegateConfig) NSApplicationD
 		methods = append(methods, objc.MethodDef{
 			Cmd: objc.RegisterName("applicationDidFinishLaunching:"),
 			Fn: func(self objc.ID, _cmd objc.SEL, notificationID objc.ID) {
+				// Names which delegate was running if a panic unwinds out of
+				// it. The frames between here and the Objective-C caller are
+				// runtime and purego dispatch, so without this the traceback
+				// never says which selector dispatched. Deliberately no
+				// recover: see [objc.NoteDelegatePanic].
+				_delegateDone := false
+				defer func() {
+					if !_delegateDone {
+						objc.NoteDelegatePanic("NSApplicationDelegate", "applicationDidFinishLaunching:")
+					}
+				}()
 				notification := foundation.NSNotificationFromID(notificationID)
 				fn(notification)
+				_delegateDone = true
 			},
 		})
 	}
@@ -1260,8 +1285,20 @@ func NewNSApplicationDelegate(config NSApplicationDelegateConfig) NSApplicationD
 		methods = append(methods, objc.MethodDef{
 			Cmd: objc.RegisterName("applicationWillBecomeActive:"),
 			Fn: func(self objc.ID, _cmd objc.SEL, notificationID objc.ID) {
+				// Names which delegate was running if a panic unwinds out of
+				// it. The frames between here and the Objective-C caller are
+				// runtime and purego dispatch, so without this the traceback
+				// never says which selector dispatched. Deliberately no
+				// recover: see [objc.NoteDelegatePanic].
+				_delegateDone := false
+				defer func() {
+					if !_delegateDone {
+						objc.NoteDelegatePanic("NSApplicationDelegate", "applicationWillBecomeActive:")
+					}
+				}()
 				notification := foundation.NSNotificationFromID(notificationID)
 				fn(notification)
+				_delegateDone = true
 			},
 		})
 	}
@@ -1271,8 +1308,20 @@ func NewNSApplicationDelegate(config NSApplicationDelegateConfig) NSApplicationD
 		methods = append(methods, objc.MethodDef{
 			Cmd: objc.RegisterName("applicationDidBecomeActive:"),
 			Fn: func(self objc.ID, _cmd objc.SEL, notificationID objc.ID) {
+				// Names which delegate was running if a panic unwinds out of
+				// it. The frames between here and the Objective-C caller are
+				// runtime and purego dispatch, so without this the traceback
+				// never says which selector dispatched. Deliberately no
+				// recover: see [objc.NoteDelegatePanic].
+				_delegateDone := false
+				defer func() {
+					if !_delegateDone {
+						objc.NoteDelegatePanic("NSApplicationDelegate", "applicationDidBecomeActive:")
+					}
+				}()
 				notification := foundation.NSNotificationFromID(notificationID)
 				fn(notification)
+				_delegateDone = true
 			},
 		})
 	}
@@ -1282,8 +1331,20 @@ func NewNSApplicationDelegate(config NSApplicationDelegateConfig) NSApplicationD
 		methods = append(methods, objc.MethodDef{
 			Cmd: objc.RegisterName("applicationWillResignActive:"),
 			Fn: func(self objc.ID, _cmd objc.SEL, notificationID objc.ID) {
+				// Names which delegate was running if a panic unwinds out of
+				// it. The frames between here and the Objective-C caller are
+				// runtime and purego dispatch, so without this the traceback
+				// never says which selector dispatched. Deliberately no
+				// recover: see [objc.NoteDelegatePanic].
+				_delegateDone := false
+				defer func() {
+					if !_delegateDone {
+						objc.NoteDelegatePanic("NSApplicationDelegate", "applicationWillResignActive:")
+					}
+				}()
 				notification := foundation.NSNotificationFromID(notificationID)
 				fn(notification)
+				_delegateDone = true
 			},
 		})
 	}
@@ -1293,8 +1354,20 @@ func NewNSApplicationDelegate(config NSApplicationDelegateConfig) NSApplicationD
 		methods = append(methods, objc.MethodDef{
 			Cmd: objc.RegisterName("applicationDidResignActive:"),
 			Fn: func(self objc.ID, _cmd objc.SEL, notificationID objc.ID) {
+				// Names which delegate was running if a panic unwinds out of
+				// it. The frames between here and the Objective-C caller are
+				// runtime and purego dispatch, so without this the traceback
+				// never says which selector dispatched. Deliberately no
+				// recover: see [objc.NoteDelegatePanic].
+				_delegateDone := false
+				defer func() {
+					if !_delegateDone {
+						objc.NoteDelegatePanic("NSApplicationDelegate", "applicationDidResignActive:")
+					}
+				}()
 				notification := foundation.NSNotificationFromID(notificationID)
 				fn(notification)
+				_delegateDone = true
 			},
 		})
 	}
@@ -1304,8 +1377,21 @@ func NewNSApplicationDelegate(config NSApplicationDelegateConfig) NSApplicationD
 		methods = append(methods, objc.MethodDef{
 			Cmd: objc.RegisterName("applicationShouldTerminate:"),
 			Fn: func(self objc.ID, _cmd objc.SEL, senderID objc.ID) NSApplicationTerminateReply {
+				// Names which delegate was running if a panic unwinds out of
+				// it. The frames between here and the Objective-C caller are
+				// runtime and purego dispatch, so without this the traceback
+				// never says which selector dispatched. Deliberately no
+				// recover: see [objc.NoteDelegatePanic].
+				_delegateDone := false
+				defer func() {
+					if !_delegateDone {
+						objc.NoteDelegatePanic("NSApplicationDelegate", "applicationShouldTerminate:")
+					}
+				}()
 				sender := NSApplicationFromID(senderID)
-				return fn(sender)
+				_delegateResult := fn(sender)
+				_delegateDone = true
+				return _delegateResult
 			},
 		})
 	}
@@ -1315,8 +1401,21 @@ func NewNSApplicationDelegate(config NSApplicationDelegateConfig) NSApplicationD
 		methods = append(methods, objc.MethodDef{
 			Cmd: objc.RegisterName("applicationShouldTerminateAfterLastWindowClosed:"),
 			Fn: func(self objc.ID, _cmd objc.SEL, senderID objc.ID) bool {
+				// Names which delegate was running if a panic unwinds out of
+				// it. The frames between here and the Objective-C caller are
+				// runtime and purego dispatch, so without this the traceback
+				// never says which selector dispatched. Deliberately no
+				// recover: see [objc.NoteDelegatePanic].
+				_delegateDone := false
+				defer func() {
+					if !_delegateDone {
+						objc.NoteDelegatePanic("NSApplicationDelegate", "applicationShouldTerminateAfterLastWindowClosed:")
+					}
+				}()
 				sender := NSApplicationFromID(senderID)
-				return fn(sender)
+				_delegateResult := fn(sender)
+				_delegateDone = true
+				return _delegateResult
 			},
 		})
 	}
@@ -1326,8 +1425,20 @@ func NewNSApplicationDelegate(config NSApplicationDelegateConfig) NSApplicationD
 		methods = append(methods, objc.MethodDef{
 			Cmd: objc.RegisterName("applicationWillTerminate:"),
 			Fn: func(self objc.ID, _cmd objc.SEL, notificationID objc.ID) {
+				// Names which delegate was running if a panic unwinds out of
+				// it. The frames between here and the Objective-C caller are
+				// runtime and purego dispatch, so without this the traceback
+				// never says which selector dispatched. Deliberately no
+				// recover: see [objc.NoteDelegatePanic].
+				_delegateDone := false
+				defer func() {
+					if !_delegateDone {
+						objc.NoteDelegatePanic("NSApplicationDelegate", "applicationWillTerminate:")
+					}
+				}()
 				notification := foundation.NSNotificationFromID(notificationID)
 				fn(notification)
+				_delegateDone = true
 			},
 		})
 	}
@@ -1337,8 +1448,20 @@ func NewNSApplicationDelegate(config NSApplicationDelegateConfig) NSApplicationD
 		methods = append(methods, objc.MethodDef{
 			Cmd: objc.RegisterName("applicationWillHide:"),
 			Fn: func(self objc.ID, _cmd objc.SEL, notificationID objc.ID) {
+				// Names which delegate was running if a panic unwinds out of
+				// it. The frames between here and the Objective-C caller are
+				// runtime and purego dispatch, so without this the traceback
+				// never says which selector dispatched. Deliberately no
+				// recover: see [objc.NoteDelegatePanic].
+				_delegateDone := false
+				defer func() {
+					if !_delegateDone {
+						objc.NoteDelegatePanic("NSApplicationDelegate", "applicationWillHide:")
+					}
+				}()
 				notification := foundation.NSNotificationFromID(notificationID)
 				fn(notification)
+				_delegateDone = true
 			},
 		})
 	}
@@ -1348,8 +1471,20 @@ func NewNSApplicationDelegate(config NSApplicationDelegateConfig) NSApplicationD
 		methods = append(methods, objc.MethodDef{
 			Cmd: objc.RegisterName("applicationDidHide:"),
 			Fn: func(self objc.ID, _cmd objc.SEL, notificationID objc.ID) {
+				// Names which delegate was running if a panic unwinds out of
+				// it. The frames between here and the Objective-C caller are
+				// runtime and purego dispatch, so without this the traceback
+				// never says which selector dispatched. Deliberately no
+				// recover: see [objc.NoteDelegatePanic].
+				_delegateDone := false
+				defer func() {
+					if !_delegateDone {
+						objc.NoteDelegatePanic("NSApplicationDelegate", "applicationDidHide:")
+					}
+				}()
 				notification := foundation.NSNotificationFromID(notificationID)
 				fn(notification)
+				_delegateDone = true
 			},
 		})
 	}
@@ -1359,8 +1494,20 @@ func NewNSApplicationDelegate(config NSApplicationDelegateConfig) NSApplicationD
 		methods = append(methods, objc.MethodDef{
 			Cmd: objc.RegisterName("applicationWillUnhide:"),
 			Fn: func(self objc.ID, _cmd objc.SEL, notificationID objc.ID) {
+				// Names which delegate was running if a panic unwinds out of
+				// it. The frames between here and the Objective-C caller are
+				// runtime and purego dispatch, so without this the traceback
+				// never says which selector dispatched. Deliberately no
+				// recover: see [objc.NoteDelegatePanic].
+				_delegateDone := false
+				defer func() {
+					if !_delegateDone {
+						objc.NoteDelegatePanic("NSApplicationDelegate", "applicationWillUnhide:")
+					}
+				}()
 				notification := foundation.NSNotificationFromID(notificationID)
 				fn(notification)
+				_delegateDone = true
 			},
 		})
 	}
@@ -1370,8 +1517,20 @@ func NewNSApplicationDelegate(config NSApplicationDelegateConfig) NSApplicationD
 		methods = append(methods, objc.MethodDef{
 			Cmd: objc.RegisterName("applicationDidUnhide:"),
 			Fn: func(self objc.ID, _cmd objc.SEL, notificationID objc.ID) {
+				// Names which delegate was running if a panic unwinds out of
+				// it. The frames between here and the Objective-C caller are
+				// runtime and purego dispatch, so without this the traceback
+				// never says which selector dispatched. Deliberately no
+				// recover: see [objc.NoteDelegatePanic].
+				_delegateDone := false
+				defer func() {
+					if !_delegateDone {
+						objc.NoteDelegatePanic("NSApplicationDelegate", "applicationDidUnhide:")
+					}
+				}()
 				notification := foundation.NSNotificationFromID(notificationID)
 				fn(notification)
+				_delegateDone = true
 			},
 		})
 	}
@@ -1381,8 +1540,20 @@ func NewNSApplicationDelegate(config NSApplicationDelegateConfig) NSApplicationD
 		methods = append(methods, objc.MethodDef{
 			Cmd: objc.RegisterName("applicationWillUpdate:"),
 			Fn: func(self objc.ID, _cmd objc.SEL, notificationID objc.ID) {
+				// Names which delegate was running if a panic unwinds out of
+				// it. The frames between here and the Objective-C caller are
+				// runtime and purego dispatch, so without this the traceback
+				// never says which selector dispatched. Deliberately no
+				// recover: see [objc.NoteDelegatePanic].
+				_delegateDone := false
+				defer func() {
+					if !_delegateDone {
+						objc.NoteDelegatePanic("NSApplicationDelegate", "applicationWillUpdate:")
+					}
+				}()
 				notification := foundation.NSNotificationFromID(notificationID)
 				fn(notification)
+				_delegateDone = true
 			},
 		})
 	}
@@ -1392,8 +1563,20 @@ func NewNSApplicationDelegate(config NSApplicationDelegateConfig) NSApplicationD
 		methods = append(methods, objc.MethodDef{
 			Cmd: objc.RegisterName("applicationDidUpdate:"),
 			Fn: func(self objc.ID, _cmd objc.SEL, notificationID objc.ID) {
+				// Names which delegate was running if a panic unwinds out of
+				// it. The frames between here and the Objective-C caller are
+				// runtime and purego dispatch, so without this the traceback
+				// never says which selector dispatched. Deliberately no
+				// recover: see [objc.NoteDelegatePanic].
+				_delegateDone := false
+				defer func() {
+					if !_delegateDone {
+						objc.NoteDelegatePanic("NSApplicationDelegate", "applicationDidUpdate:")
+					}
+				}()
 				notification := foundation.NSNotificationFromID(notificationID)
 				fn(notification)
+				_delegateDone = true
 			},
 		})
 	}
@@ -1403,8 +1586,21 @@ func NewNSApplicationDelegate(config NSApplicationDelegateConfig) NSApplicationD
 		methods = append(methods, objc.MethodDef{
 			Cmd: objc.RegisterName("applicationShouldHandleReopen:hasVisibleWindows:"),
 			Fn: func(self objc.ID, _cmd objc.SEL, senderID objc.ID, hasVisibleWindows bool) bool {
+				// Names which delegate was running if a panic unwinds out of
+				// it. The frames between here and the Objective-C caller are
+				// runtime and purego dispatch, so without this the traceback
+				// never says which selector dispatched. Deliberately no
+				// recover: see [objc.NoteDelegatePanic].
+				_delegateDone := false
+				defer func() {
+					if !_delegateDone {
+						objc.NoteDelegatePanic("NSApplicationDelegate", "applicationShouldHandleReopen:hasVisibleWindows:")
+					}
+				}()
 				sender := NSApplicationFromID(senderID)
-				return fn(sender, hasVisibleWindows)
+				_delegateResult := fn(sender, hasVisibleWindows)
+				_delegateDone = true
+				return _delegateResult
 			},
 		})
 	}
@@ -1414,8 +1610,21 @@ func NewNSApplicationDelegate(config NSApplicationDelegateConfig) NSApplicationD
 		methods = append(methods, objc.MethodDef{
 			Cmd: objc.RegisterName("applicationDockMenu:"),
 			Fn: func(self objc.ID, _cmd objc.SEL, senderID objc.ID) objc.ID {
+				// Names which delegate was running if a panic unwinds out of
+				// it. The frames between here and the Objective-C caller are
+				// runtime and purego dispatch, so without this the traceback
+				// never says which selector dispatched. Deliberately no
+				// recover: see [objc.NoteDelegatePanic].
+				_delegateDone := false
+				defer func() {
+					if !_delegateDone {
+						objc.NoteDelegatePanic("NSApplicationDelegate", "applicationDockMenu:")
+					}
+				}()
 				sender := NSApplicationFromID(senderID)
-				return fn(sender).GetID()
+				_delegateResult := fn(sender).GetID()
+				_delegateDone = true
+				return _delegateResult
 			},
 		})
 	}
@@ -1425,8 +1634,21 @@ func NewNSApplicationDelegate(config NSApplicationDelegateConfig) NSApplicationD
 		methods = append(methods, objc.MethodDef{
 			Cmd: objc.RegisterName("applicationShouldAutomaticallyLocalizeKeyEquivalents:"),
 			Fn: func(self objc.ID, _cmd objc.SEL, applicationID objc.ID) bool {
+				// Names which delegate was running if a panic unwinds out of
+				// it. The frames between here and the Objective-C caller are
+				// runtime and purego dispatch, so without this the traceback
+				// never says which selector dispatched. Deliberately no
+				// recover: see [objc.NoteDelegatePanic].
+				_delegateDone := false
+				defer func() {
+					if !_delegateDone {
+						objc.NoteDelegatePanic("NSApplicationDelegate", "applicationShouldAutomaticallyLocalizeKeyEquivalents:")
+					}
+				}()
 				application := NSApplicationFromID(applicationID)
-				return fn(application)
+				_delegateResult := fn(application)
+				_delegateDone = true
+				return _delegateResult
 			},
 		})
 	}
@@ -1436,9 +1658,22 @@ func NewNSApplicationDelegate(config NSApplicationDelegateConfig) NSApplicationD
 		methods = append(methods, objc.MethodDef{
 			Cmd: objc.RegisterName("application:willPresentError:"),
 			Fn: func(self objc.ID, _cmd objc.SEL, applicationID objc.ID, error_ID objc.ID) objc.ID {
+				// Names which delegate was running if a panic unwinds out of
+				// it. The frames between here and the Objective-C caller are
+				// runtime and purego dispatch, so without this the traceback
+				// never says which selector dispatched. Deliberately no
+				// recover: see [objc.NoteDelegatePanic].
+				_delegateDone := false
+				defer func() {
+					if !_delegateDone {
+						objc.NoteDelegatePanic("NSApplicationDelegate", "application:willPresentError:")
+					}
+				}()
 				application := NSApplicationFromID(applicationID)
 				error_ := foundation.NSErrorFromID(error_ID)
-				return fn(application, error_).GetID()
+				_delegateResult := fn(application, error_).GetID()
+				_delegateDone = true
+				return _delegateResult
 			},
 		})
 	}
@@ -1448,8 +1683,20 @@ func NewNSApplicationDelegate(config NSApplicationDelegateConfig) NSApplicationD
 		methods = append(methods, objc.MethodDef{
 			Cmd: objc.RegisterName("applicationDidChangeScreenParameters:"),
 			Fn: func(self objc.ID, _cmd objc.SEL, notificationID objc.ID) {
+				// Names which delegate was running if a panic unwinds out of
+				// it. The frames between here and the Objective-C caller are
+				// runtime and purego dispatch, so without this the traceback
+				// never says which selector dispatched. Deliberately no
+				// recover: see [objc.NoteDelegatePanic].
+				_delegateDone := false
+				defer func() {
+					if !_delegateDone {
+						objc.NoteDelegatePanic("NSApplicationDelegate", "applicationDidChangeScreenParameters:")
+					}
+				}()
 				notification := foundation.NSNotificationFromID(notificationID)
 				fn(notification)
+				_delegateDone = true
 			},
 		})
 	}
@@ -1459,9 +1706,21 @@ func NewNSApplicationDelegate(config NSApplicationDelegateConfig) NSApplicationD
 		methods = append(methods, objc.MethodDef{
 			Cmd: objc.RegisterName("application:didUpdateUserActivity:"),
 			Fn: func(self objc.ID, _cmd objc.SEL, applicationID objc.ID, userActivityID objc.ID) {
+				// Names which delegate was running if a panic unwinds out of
+				// it. The frames between here and the Objective-C caller are
+				// runtime and purego dispatch, so without this the traceback
+				// never says which selector dispatched. Deliberately no
+				// recover: see [objc.NoteDelegatePanic].
+				_delegateDone := false
+				defer func() {
+					if !_delegateDone {
+						objc.NoteDelegatePanic("NSApplicationDelegate", "application:didUpdateUserActivity:")
+					}
+				}()
 				application := NSApplicationFromID(applicationID)
 				userActivity := foundation.NSUserActivityFromID(userActivityID)
 				fn(application, userActivity)
+				_delegateDone = true
 			},
 		})
 	}
@@ -1471,9 +1730,21 @@ func NewNSApplicationDelegate(config NSApplicationDelegateConfig) NSApplicationD
 		methods = append(methods, objc.MethodDef{
 			Cmd: objc.RegisterName("application:didRegisterForRemoteNotificationsWithDeviceToken:"),
 			Fn: func(self objc.ID, _cmd objc.SEL, applicationID objc.ID, deviceTokenID objc.ID) {
+				// Names which delegate was running if a panic unwinds out of
+				// it. The frames between here and the Objective-C caller are
+				// runtime and purego dispatch, so without this the traceback
+				// never says which selector dispatched. Deliberately no
+				// recover: see [objc.NoteDelegatePanic].
+				_delegateDone := false
+				defer func() {
+					if !_delegateDone {
+						objc.NoteDelegatePanic("NSApplicationDelegate", "application:didRegisterForRemoteNotificationsWithDeviceToken:")
+					}
+				}()
 				application := NSApplicationFromID(applicationID)
 				deviceToken := foundation.NSDataFromID(deviceTokenID)
 				fn(application, deviceToken)
+				_delegateDone = true
 			},
 		})
 	}
@@ -1483,9 +1754,21 @@ func NewNSApplicationDelegate(config NSApplicationDelegateConfig) NSApplicationD
 		methods = append(methods, objc.MethodDef{
 			Cmd: objc.RegisterName("application:didFailToRegisterForRemoteNotificationsWithError:"),
 			Fn: func(self objc.ID, _cmd objc.SEL, applicationID objc.ID, error_ID objc.ID) {
+				// Names which delegate was running if a panic unwinds out of
+				// it. The frames between here and the Objective-C caller are
+				// runtime and purego dispatch, so without this the traceback
+				// never says which selector dispatched. Deliberately no
+				// recover: see [objc.NoteDelegatePanic].
+				_delegateDone := false
+				defer func() {
+					if !_delegateDone {
+						objc.NoteDelegatePanic("NSApplicationDelegate", "application:didFailToRegisterForRemoteNotificationsWithError:")
+					}
+				}()
 				application := NSApplicationFromID(applicationID)
 				error_ := foundation.NSErrorFromID(error_ID)
 				fn(application, error_)
+				_delegateDone = true
 			},
 		})
 	}
@@ -1495,9 +1778,21 @@ func NewNSApplicationDelegate(config NSApplicationDelegateConfig) NSApplicationD
 		methods = append(methods, objc.MethodDef{
 			Cmd: objc.RegisterName("application:didReceiveRemoteNotification:"),
 			Fn: func(self objc.ID, _cmd objc.SEL, applicationID objc.ID, userInfoID objc.ID) {
+				// Names which delegate was running if a panic unwinds out of
+				// it. The frames between here and the Objective-C caller are
+				// runtime and purego dispatch, so without this the traceback
+				// never says which selector dispatched. Deliberately no
+				// recover: see [objc.NoteDelegatePanic].
+				_delegateDone := false
+				defer func() {
+					if !_delegateDone {
+						objc.NoteDelegatePanic("NSApplicationDelegate", "application:didReceiveRemoteNotification:")
+					}
+				}()
 				application := NSApplicationFromID(applicationID)
 				userInfo := foundation.NSDictionaryFromID(userInfoID)
 				fn(application, userInfo)
+				_delegateDone = true
 			},
 		})
 	}
@@ -1507,8 +1802,21 @@ func NewNSApplicationDelegate(config NSApplicationDelegateConfig) NSApplicationD
 		methods = append(methods, objc.MethodDef{
 			Cmd: objc.RegisterName("applicationShouldOpenUntitledFile:"),
 			Fn: func(self objc.ID, _cmd objc.SEL, senderID objc.ID) bool {
+				// Names which delegate was running if a panic unwinds out of
+				// it. The frames between here and the Objective-C caller are
+				// runtime and purego dispatch, so without this the traceback
+				// never says which selector dispatched. Deliberately no
+				// recover: see [objc.NoteDelegatePanic].
+				_delegateDone := false
+				defer func() {
+					if !_delegateDone {
+						objc.NoteDelegatePanic("NSApplicationDelegate", "applicationShouldOpenUntitledFile:")
+					}
+				}()
 				sender := NSApplicationFromID(senderID)
-				return fn(sender)
+				_delegateResult := fn(sender)
+				_delegateDone = true
+				return _delegateResult
 			},
 		})
 	}
@@ -1518,8 +1826,21 @@ func NewNSApplicationDelegate(config NSApplicationDelegateConfig) NSApplicationD
 		methods = append(methods, objc.MethodDef{
 			Cmd: objc.RegisterName("applicationOpenUntitledFile:"),
 			Fn: func(self objc.ID, _cmd objc.SEL, senderID objc.ID) bool {
+				// Names which delegate was running if a panic unwinds out of
+				// it. The frames between here and the Objective-C caller are
+				// runtime and purego dispatch, so without this the traceback
+				// never says which selector dispatched. Deliberately no
+				// recover: see [objc.NoteDelegatePanic].
+				_delegateDone := false
+				defer func() {
+					if !_delegateDone {
+						objc.NoteDelegatePanic("NSApplicationDelegate", "applicationOpenUntitledFile:")
+					}
+				}()
 				sender := NSApplicationFromID(senderID)
-				return fn(sender)
+				_delegateResult := fn(sender)
+				_delegateDone = true
+				return _delegateResult
 			},
 		})
 	}
@@ -1529,8 +1850,21 @@ func NewNSApplicationDelegate(config NSApplicationDelegateConfig) NSApplicationD
 		methods = append(methods, objc.MethodDef{
 			Cmd: objc.RegisterName("applicationSupportsSecureRestorableState:"),
 			Fn: func(self objc.ID, _cmd objc.SEL, appID objc.ID) bool {
+				// Names which delegate was running if a panic unwinds out of
+				// it. The frames between here and the Objective-C caller are
+				// runtime and purego dispatch, so without this the traceback
+				// never says which selector dispatched. Deliberately no
+				// recover: see [objc.NoteDelegatePanic].
+				_delegateDone := false
+				defer func() {
+					if !_delegateDone {
+						objc.NoteDelegatePanic("NSApplicationDelegate", "applicationSupportsSecureRestorableState:")
+					}
+				}()
 				app := NSApplicationFromID(appID)
-				return fn(app)
+				_delegateResult := fn(app)
+				_delegateDone = true
+				return _delegateResult
 			},
 		})
 	}
@@ -1540,8 +1874,20 @@ func NewNSApplicationDelegate(config NSApplicationDelegateConfig) NSApplicationD
 		methods = append(methods, objc.MethodDef{
 			Cmd: objc.RegisterName("applicationProtectedDataDidBecomeAvailable:"),
 			Fn: func(self objc.ID, _cmd objc.SEL, notificationID objc.ID) {
+				// Names which delegate was running if a panic unwinds out of
+				// it. The frames between here and the Objective-C caller are
+				// runtime and purego dispatch, so without this the traceback
+				// never says which selector dispatched. Deliberately no
+				// recover: see [objc.NoteDelegatePanic].
+				_delegateDone := false
+				defer func() {
+					if !_delegateDone {
+						objc.NoteDelegatePanic("NSApplicationDelegate", "applicationProtectedDataDidBecomeAvailable:")
+					}
+				}()
 				notification := foundation.NSNotificationFromID(notificationID)
 				fn(notification)
+				_delegateDone = true
 			},
 		})
 	}
@@ -1551,8 +1897,20 @@ func NewNSApplicationDelegate(config NSApplicationDelegateConfig) NSApplicationD
 		methods = append(methods, objc.MethodDef{
 			Cmd: objc.RegisterName("applicationProtectedDataWillBecomeUnavailable:"),
 			Fn: func(self objc.ID, _cmd objc.SEL, notificationID objc.ID) {
+				// Names which delegate was running if a panic unwinds out of
+				// it. The frames between here and the Objective-C caller are
+				// runtime and purego dispatch, so without this the traceback
+				// never says which selector dispatched. Deliberately no
+				// recover: see [objc.NoteDelegatePanic].
+				_delegateDone := false
+				defer func() {
+					if !_delegateDone {
+						objc.NoteDelegatePanic("NSApplicationDelegate", "applicationProtectedDataWillBecomeUnavailable:")
+					}
+				}()
 				notification := foundation.NSNotificationFromID(notificationID)
 				fn(notification)
+				_delegateDone = true
 			},
 		})
 	}
@@ -1562,9 +1920,21 @@ func NewNSApplicationDelegate(config NSApplicationDelegateConfig) NSApplicationD
 		methods = append(methods, objc.MethodDef{
 			Cmd: objc.RegisterName("application:willEncodeRestorableState:"),
 			Fn: func(self objc.ID, _cmd objc.SEL, appID objc.ID, coderID objc.ID) {
+				// Names which delegate was running if a panic unwinds out of
+				// it. The frames between here and the Objective-C caller are
+				// runtime and purego dispatch, so without this the traceback
+				// never says which selector dispatched. Deliberately no
+				// recover: see [objc.NoteDelegatePanic].
+				_delegateDone := false
+				defer func() {
+					if !_delegateDone {
+						objc.NoteDelegatePanic("NSApplicationDelegate", "application:willEncodeRestorableState:")
+					}
+				}()
 				app := NSApplicationFromID(appID)
 				coder := foundation.NSCoderFromID(coderID)
 				fn(app, coder)
+				_delegateDone = true
 			},
 		})
 	}
@@ -1574,9 +1944,21 @@ func NewNSApplicationDelegate(config NSApplicationDelegateConfig) NSApplicationD
 		methods = append(methods, objc.MethodDef{
 			Cmd: objc.RegisterName("application:didDecodeRestorableState:"),
 			Fn: func(self objc.ID, _cmd objc.SEL, appID objc.ID, coderID objc.ID) {
+				// Names which delegate was running if a panic unwinds out of
+				// it. The frames between here and the Objective-C caller are
+				// runtime and purego dispatch, so without this the traceback
+				// never says which selector dispatched. Deliberately no
+				// recover: see [objc.NoteDelegatePanic].
+				_delegateDone := false
+				defer func() {
+					if !_delegateDone {
+						objc.NoteDelegatePanic("NSApplicationDelegate", "application:didDecodeRestorableState:")
+					}
+				}()
 				app := NSApplicationFromID(appID)
 				coder := foundation.NSCoderFromID(coderID)
 				fn(app, coder)
+				_delegateDone = true
 			},
 		})
 	}
@@ -1586,8 +1968,20 @@ func NewNSApplicationDelegate(config NSApplicationDelegateConfig) NSApplicationD
 		methods = append(methods, objc.MethodDef{
 			Cmd: objc.RegisterName("applicationDidChangeOcclusionState:"),
 			Fn: func(self objc.ID, _cmd objc.SEL, notificationID objc.ID) {
+				// Names which delegate was running if a panic unwinds out of
+				// it. The frames between here and the Objective-C caller are
+				// runtime and purego dispatch, so without this the traceback
+				// never says which selector dispatched. Deliberately no
+				// recover: see [objc.NoteDelegatePanic].
+				_delegateDone := false
+				defer func() {
+					if !_delegateDone {
+						objc.NoteDelegatePanic("NSApplicationDelegate", "applicationDidChangeOcclusionState:")
+					}
+				}()
 				notification := foundation.NSNotificationFromID(notificationID)
 				fn(notification)
+				_delegateDone = true
 			},
 		})
 	}

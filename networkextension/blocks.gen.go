@@ -3,6 +3,8 @@
 package networkextension
 
 import (
+	"unsafe"
+
 	"github.com/tmc/apple/foundation"
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
@@ -71,7 +73,7 @@ func NewDataBlock(handler DataHandler) (objc.ID, func()) {
 }
 
 // ErrorHandler handles Called when the open operation is complete.
-//   - error: A `nil` value indicates the flow opened successfully. A non-`nil` value indicates the flow could not be opened. See [NEAppProxyFlowError](<doc://com.apple.networkextension/documentation/NetworkExtension/NEAppProxyFlowError-swift.struct>) for a list of expected error codes.
+//   - error: A `nil` value indicates the flow opened successfully. A non-`nil` value indicates the flow could not be opened. See [NEAppProxyFlowError](<https://developer.apple.com/documentation/NetworkExtension/NEAppProxyFlowError-swift.struct>) for a list of expected error codes.
 //
 // The error can be type-asserted to *foundation.NSError for Domain, Code, and UserInfo.
 //
@@ -185,6 +187,33 @@ func NewNEAppProxyProviderManagerArrayErrorBlock(handler NEAppProxyProviderManag
 			result = &res
 		}
 		handler(result, foundation.SafeErrorFrom(errID))
+	})
+	return objc.ID(block), func() { block.Release() }
+}
+
+// NEFilterPacketProviderVerdictNEFilterPacketContextOS_nw_interfaceObjectIntUnsafePointerUint32Handler is the signature for a completion handler block.
+type NEFilterPacketProviderVerdictNEFilterPacketContextOS_nw_interfaceObjectIntUnsafePointerUint32Handler = func(*NEFilterPacketContext, *objectivec.Object, int, unsafe.Pointer, uint32) NEFilterPacketProviderVerdict
+
+// NewNEFilterPacketProviderVerdictNEFilterPacketContextOS_nw_interfaceObjectIntUnsafePointerUint32Block wraps a Go [NEFilterPacketProviderVerdictNEFilterPacketContextOS_nw_interfaceObjectIntUnsafePointerUint32Handler] as an Objective-C block.
+// The caller must defer the returned cleanup function.
+func NewNEFilterPacketProviderVerdictNEFilterPacketContextOS_nw_interfaceObjectIntUnsafePointerUint32Block(handler NEFilterPacketProviderVerdictNEFilterPacketContextOS_nw_interfaceObjectIntUnsafePointerUint32Handler) (objc.ID, func()) {
+	if handler == nil {
+		return 0, func() {}
+	}
+	block := objc.NewBlock(func(b objc.Block, resultID objc.ID, extra0ID objc.ID, extra1 int, extra2 unsafe.Pointer, extra3 uint32) NEFilterPacketProviderVerdict {
+		var result *NEFilterPacketContext
+		if resultID != 0 {
+			objc.Send[objc.ID](resultID, objc.Sel("retain"))
+			v := NEFilterPacketContextFromID(resultID)
+			result = &v
+		}
+		var extra0 *objectivec.Object
+		if extra0ID != 0 {
+			objc.Send[objc.ID](extra0ID, objc.Sel("retain"))
+			v := objectivec.ObjectFromID(extra0ID)
+			extra0 = &v
+		}
+		return handler(result, extra0, extra1, extra2, extra3)
 	})
 	return objc.ID(block), func() { block.Release() }
 }
@@ -519,7 +548,7 @@ func NewNSDataArrayObjectArrayErrorBlock(handler NSDataArrayObjectArrayErrorHand
 //
 // Used by:
 //   - [NWTCPConnectionAuthenticationDelegate.ProvideIdentityForConnectionCompletionHandler]
-type SecIdentityRefArrayHandler = func(security.SecIdentity, *foundation.NSArray)
+type SecIdentityRefArrayHandler = func(security.SecIdentityRef, *foundation.NSArray)
 
 // NewSecIdentityRefArrayBlock wraps a Go [SecIdentityRefArrayHandler] as an Objective-C block.
 // The caller must defer the returned cleanup function.
@@ -530,8 +559,7 @@ func NewSecIdentityRefArrayBlock(handler SecIdentityRefArrayHandler) (objc.ID, f
 	if handler == nil {
 		return 0, func() {}
 	}
-	block := objc.NewBlock(func(b objc.Block, primitiveID objc.ID, extra0ID objc.ID) {
-		primitive := security.SecIdentity{ID: primitiveID}
+	block := objc.NewBlock(func(b objc.Block, primitive security.SecIdentityRef, extra0ID objc.ID) {
 		var extra0 *foundation.NSArray
 		if extra0ID != 0 {
 			objc.Send[objc.ID](extra0ID, objc.Sel("retain"))
@@ -547,7 +575,7 @@ func NewSecIdentityRefArrayBlock(handler SecIdentityRefArrayHandler) (objc.ID, f
 //
 // Used by:
 //   - [NWTCPConnectionAuthenticationDelegate.EvaluateTrustForConnectionPeerCertificateChainCompletionHandler]
-type SecTrustRefHandler = func(security.SecTrust)
+type SecTrustRefHandler = func(security.SecTrustRef)
 
 // NewSecTrustRefBlock wraps a Go [SecTrustRefHandler] as an Objective-C block.
 // The caller must defer the returned cleanup function.
@@ -558,8 +586,8 @@ func NewSecTrustRefBlock(handler SecTrustRefHandler) (objc.ID, func()) {
 	if handler == nil {
 		return 0, func() {}
 	}
-	block := objc.NewBlock(func(b objc.Block, primitiveVal objc.ID) {
-		handler(security.SecTrust{ID: primitiveVal})
+	block := objc.NewBlock(func(b objc.Block, primitiveVal security.SecTrustRef) {
+		handler(primitiveVal)
 	})
 	return objc.ID(block), func() { block.Release() }
 }

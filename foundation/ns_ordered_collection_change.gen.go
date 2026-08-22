@@ -61,7 +61,7 @@ func (nc NSOrderedCollectionChangeClass) Alloc() NSOrderedCollectionChange {
 //   - [NSOrderedCollectionChange.Index]: The index location of the change.
 //   - [NSOrderedCollectionChange.SetIndex]
 //   - [NSOrderedCollectionChange.GetObject]: An object the change inserts or removes.
-//   - [NSOrderedCollectionChange.AssociatedIndex]: When this property is set to a value other than [NSNotFound](<doc://com.apple.foundation/documentation/Foundation/NSNotFound-9t5v2>), the receiver is one half of a move, and this value is the index of the change’s counterpart of the opposite type in the diff.
+//   - [NSOrderedCollectionChange.AssociatedIndex]: When this property is set to a value other than [NSNotFound](<https://developer.apple.com/documentation/Foundation/NSNotFound-9t5v2>), the receiver is one half of a move, and this value is the index of the change’s counterpart of the opposite type in the diff.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSOrderedCollectionChange
 type NSOrderedCollectionChange struct {
@@ -91,7 +91,7 @@ func NSOrderedCollectionChangeFromID(id objc.ID) NSOrderedCollectionChange {
 //   - [INSOrderedCollectionChange.Index]: The index location of the change.
 //   - [INSOrderedCollectionChange.SetIndex]
 //   - [INSOrderedCollectionChange.GetObject]: An object the change inserts or removes.
-//   - [INSOrderedCollectionChange.AssociatedIndex]: When this property is set to a value other than [NSNotFound](<doc://com.apple.foundation/documentation/Foundation/NSNotFound-9t5v2>), the receiver is one half of a move, and this value is the index of the change’s counterpart of the opposite type in the diff.
+//   - [INSOrderedCollectionChange.AssociatedIndex]: When this property is set to a value other than [NSNotFound](<https://developer.apple.com/documentation/Foundation/NSNotFound-9t5v2>), the receiver is one half of a move, and this value is the index of the change’s counterpart of the opposite type in the diff.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSOrderedCollectionChange
 type INSOrderedCollectionChange interface {
@@ -113,7 +113,7 @@ type INSOrderedCollectionChange interface {
 	SetIndex(value int)
 	// An object the change inserts or removes.
 	GetObject() objectivec.IObject
-	// When this property is set to a value other than [NSNotFound](<doc://com.apple.foundation/documentation/Foundation/NSNotFound-9t5v2>), the receiver is one half of a move, and this value is the index of the change’s counterpart of the opposite type in the diff.
+	// When this property is set to a value other than [NSNotFound](<https://developer.apple.com/documentation/Foundation/NSNotFound-9t5v2>), the receiver is one half of a move, and this value is the index of the change’s counterpart of the opposite type in the diff.
 	AssociatedIndex() uint
 }
 

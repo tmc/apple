@@ -3,8 +3,6 @@
 package systemconfiguration
 
 import (
-	"unsafe"
-
 	"github.com/ebitengine/purego"
 	"github.com/tmc/apple/objc"
 )
@@ -1543,7 +1541,7 @@ func init() {
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kSCNetworkInterfaceIPv4"); err == nil && ptr != 0 {
-		KSCNetworkInterfaceIPv4 = *(*SCNetworkInterfaceRef)(unsafe.Pointer(ptr))
+		KSCNetworkInterfaceIPv4 = objc.ValueAt[SCNetworkInterfaceRef](ptr)
 	}
 
 	if ptr, err := purego.Dlsym(frameworkHandle, "kSCNetworkInterfaceType6to4"); err == nil && ptr != 0 {

@@ -92,6 +92,8 @@ type IVNRecognizedText interface {
 	// Calculates the bounding box around the characters in the range of a string.
 	BoundingBoxForRangeError(range_ foundation.NSRange) (IVNRectangleObservation, error)
 	InitWithCoder(coder foundation.INSCoder) VNRecognizedText
+	// The revision of the [VNRequest](<https://developer.apple.com/documentation/Vision/VNRequest>) subclass used to generate the implementing object.
+	RequestRevision() uint
 	EncodeWithCoder(coder foundation.INSCoder)
 }
 

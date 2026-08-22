@@ -591,7 +591,7 @@ type CKSharingParticipantAccessOption uint
 
 const (
 	// CKSharingParticipantAccessOptionAny: The permission option the system uses to control whether a user can share publicly or privately.
-	CKSharingParticipantAccessOptionAny CKSharingParticipantAccessOption = 1
+	CKSharingParticipantAccessOptionAny CKSharingParticipantAccessOption = 3
 	// CKSharingParticipantAccessOptionAnyoneWithLink: The permission option the system uses to control whether a user can share publicly.
 	CKSharingParticipantAccessOptionAnyoneWithLink CKSharingParticipantAccessOption = 1
 	// CKSharingParticipantAccessOptionSpecifiedRecipientsOnly: The permission option the system uses to control whether a user can share privately.
@@ -602,6 +602,8 @@ func (e CKSharingParticipantAccessOption) String() string {
 	switch e {
 	case CKSharingParticipantAccessOptionAny:
 		return "CKSharingParticipantAccessOptionAny"
+	case CKSharingParticipantAccessOptionAnyoneWithLink:
+		return "CKSharingParticipantAccessOptionAnyoneWithLink"
 	case CKSharingParticipantAccessOptionSpecifiedRecipientsOnly:
 		return "CKSharingParticipantAccessOptionSpecifiedRecipientsOnly"
 	default:
@@ -614,7 +616,7 @@ type CKSharingParticipantPermissionOption uint
 
 const (
 	// CKSharingParticipantPermissionOptionAny: The permission option the system uses to control whether a user can grant read-only or write access.
-	CKSharingParticipantPermissionOptionAny CKSharingParticipantPermissionOption = 1
+	CKSharingParticipantPermissionOptionAny CKSharingParticipantPermissionOption = 3
 	// CKSharingParticipantPermissionOptionReadOnly: The permission option the system uses to control whether a user can grant read-only access.
 	CKSharingParticipantPermissionOptionReadOnly CKSharingParticipantPermissionOption = 1
 	// CKSharingParticipantPermissionOptionReadWrite: The permission option the system uses to control whether a user can grant write access.
@@ -625,6 +627,8 @@ func (e CKSharingParticipantPermissionOption) String() string {
 	switch e {
 	case CKSharingParticipantPermissionOptionAny:
 		return "CKSharingParticipantPermissionOptionAny"
+	case CKSharingParticipantPermissionOptionReadOnly:
+		return "CKSharingParticipantPermissionOptionReadOnly"
 	case CKSharingParticipantPermissionOptionReadWrite:
 		return "CKSharingParticipantPermissionOptionReadWrite"
 	default:

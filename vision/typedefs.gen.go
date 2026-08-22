@@ -99,4 +99,4 @@ type VNRequestCompletionHandler = func(VNRequest, foundation.NSError)
 // VNRequestProgressHandler is a block executed at intervals during the processing of a Vision request.
 //
 // See: https://developer.apple.com/documentation/Vision/VNRequestProgressHandler
-type VNRequestProgressHandler = func(VNRequest, float64, foundation.NSError)
+type VNRequestProgressHandler = func(request VNRequest, fractionCompleted float64, error_ foundation.NSError)

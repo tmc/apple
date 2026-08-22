@@ -121,6 +121,9 @@ type IVNContour interface {
 	ChildContours() []VNContour
 	// Retrieves the child contour object at the specified index.
 	ChildContourAtIndexError(childContourIndex uint) (IVNContour, error)
+
+	// The revision of the [VNRequest](<https://developer.apple.com/documentation/Vision/VNRequest>) subclass used to generate the implementing object.
+	RequestRevision() uint
 }
 
 // Init initializes the instance.

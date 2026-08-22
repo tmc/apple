@@ -306,7 +306,7 @@ func NewNetServiceWithDomainTypeName(domain string, type_ string, name string) N
 // This method is the designated initializer.
 //
 // See: https://developer.apple.com/documentation/Foundation/NetService/init(domain:type:name:port:)
-func NewNetServiceWithDomainTypeNamePort(domain string, type_ string, name string, port int) NetService {
+func NewNetServiceWithDomainTypeNamePort(domain string, type_ string, name string, port int32) NetService {
 	instance := getNetServiceClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithDomain:type:name:port:"), objc.String(domain), objc.String(type_), objc.String(name), port)
 	return NetServiceFromID(rv)

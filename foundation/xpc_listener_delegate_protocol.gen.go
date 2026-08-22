@@ -94,9 +94,22 @@ func NewNSXPCListenerDelegate(config NSXPCListenerDelegateConfig) NSXPCListenerD
 		methods = append(methods, objc.MethodDef{
 			Cmd: objc.RegisterName("listener:shouldAcceptNewConnection:"),
 			Fn: func(self objc.ID, _cmd objc.SEL, listenerID objc.ID, newConnectionID objc.ID) bool {
+				// Names which delegate was running if a panic unwinds out of
+				// it. The frames between here and the Objective-C caller are
+				// runtime and purego dispatch, so without this the traceback
+				// never says which selector dispatched. Deliberately no
+				// recover: see [objc.NoteDelegatePanic].
+				_delegateDone := false
+				defer func() {
+					if !_delegateDone {
+						objc.NoteDelegatePanic("NSXPCListenerDelegate", "listener:shouldAcceptNewConnection:")
+					}
+				}()
 				listener := NSXPCListenerFromID(listenerID)
 				newConnection := NSXPCConnectionFromID(newConnectionID)
-				return fn(listener, newConnection)
+				_delegateResult := fn(listener, newConnection)
+				_delegateDone = true
+				return _delegateResult
 			},
 		})
 	}

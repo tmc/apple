@@ -651,13 +651,14 @@ func (c CKShare) BlockedIdentities() []CKShareBlockedIdentity {
 //
 // # Responding to Access Requests:
 //
-// - - Fetch the participant information by running
+// - Approve Requesters: - - Fetch the participant information by running
 // [CKFetchShareParticipantsOperation] with the requester’s
 // [CKShareAccessRequester.ParticipantLookupInfo]. - Add the resulting
-// participant to the share. - - Use [CKShare.DenyRequesters] to remove the
-// requester from the requesters list. - - Use [CKShare.BlockRequesters] to
-// block requesters. - Blocking a requester prevents them from sending future
-// access requests to the share.
+// participant to the share. - Deny Requesters: - - Use
+// [CKShare.DenyRequesters] to remove the requester from the requesters list.
+// - Block Requesters: - - Use [CKShare.BlockRequesters] to block requesters.
+// - Blocking a requester prevents them from sending future access requests to
+// the share.
 //
 // See: https://developer.apple.com/documentation/CloudKit/CKShare/requesters
 func (c CKShare) Requesters() []CKShareAccessRequester {

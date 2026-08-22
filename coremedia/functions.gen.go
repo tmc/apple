@@ -7,10 +7,11 @@ import (
 	"unsafe"
 
 	"github.com/ebitengine/purego"
+	"github.com/tmc/apple/audiotoolbox"
+	"github.com/tmc/apple/coreaudiotypes"
 	"github.com/tmc/apple/corefoundation"
 	"github.com/tmc/apple/corevideo"
 	"github.com/tmc/apple/dispatch"
-	"github.com/tmc/apple/kernel"
 	"github.com/tmc/apple/objc"
 )
 
@@ -208,6 +209,27 @@ func CMAudioFormatDescriptionCopyAsBigEndianSoundDescriptionBlockBuffer(allocato
 	return result
 }
 
+var _cMAudioFormatDescriptionCreate func(allocator corefoundation.CFAllocatorRef, asbd *coreaudiotypes.AudioStreamBasicDescription, layoutSize uintptr, layout *coreaudiotypes.AudioChannelLayout, magicCookieSize uintptr, magicCookie unsafe.Pointer, extensions corefoundation.CFDictionaryRef, formatDescriptionOut *CMAudioFormatDescriptionRef) int32
+var _cMAudioFormatDescriptionCreateErr error
+
+func tryCMAudioFormatDescriptionCreate(allocator corefoundation.CFAllocatorRef, asbd *coreaudiotypes.AudioStreamBasicDescription, layoutSize uintptr, layout *coreaudiotypes.AudioChannelLayout, magicCookieSize uintptr, magicCookie unsafe.Pointer, extensions corefoundation.CFDictionaryRef, formatDescriptionOut *CMAudioFormatDescriptionRef) (int32, error) {
+	if _cMAudioFormatDescriptionCreate == nil {
+		return 0, symbolCallError("CMAudioFormatDescriptionCreate", "10.7", _cMAudioFormatDescriptionCreateErr)
+	}
+	return _cMAudioFormatDescriptionCreate(allocator, asbd, layoutSize, layout, magicCookieSize, magicCookie, extensions, formatDescriptionOut), nil
+}
+
+// CMAudioFormatDescriptionCreate creates a format description for an audio media stream.
+//
+// See: https://developer.apple.com/documentation/CoreMedia/CMAudioFormatDescriptionCreate(allocator:asbd:layoutSize:layout:magicCookieSize:magicCookie:extensions:formatDescriptionOut:)
+func CMAudioFormatDescriptionCreate(allocator corefoundation.CFAllocatorRef, asbd *coreaudiotypes.AudioStreamBasicDescription, layoutSize uintptr, layout *coreaudiotypes.AudioChannelLayout, magicCookieSize uintptr, magicCookie unsafe.Pointer, extensions corefoundation.CFDictionaryRef, formatDescriptionOut *CMAudioFormatDescriptionRef) int32 {
+	result, callErr := tryCMAudioFormatDescriptionCreate(allocator, asbd, layoutSize, layout, magicCookieSize, magicCookie, extensions, formatDescriptionOut)
+	if callErr != nil {
+		panic(callErr)
+	}
+	return result
+}
+
 var _cMAudioFormatDescriptionCreateFromBigEndianSoundDescriptionBlockBuffer func(allocator corefoundation.CFAllocatorRef, soundDescriptionBlockBuffer CMBlockBufferRef, flavor CMSoundDescriptionFlavor, formatDescriptionOut *CMAudioFormatDescriptionRef) int32
 var _cMAudioFormatDescriptionCreateFromBigEndianSoundDescriptionBlockBufferErr error
 
@@ -292,6 +314,48 @@ func CMAudioFormatDescriptionEqual(formatDescription CMAudioFormatDescriptionRef
 	return result
 }
 
+var _cMAudioFormatDescriptionGetChannelLayout func(desc CMAudioFormatDescriptionRef, sizeOut *uintptr) *coreaudiotypes.AudioChannelLayout
+var _cMAudioFormatDescriptionGetChannelLayoutErr error
+
+func tryCMAudioFormatDescriptionGetChannelLayout(desc CMAudioFormatDescriptionRef, sizeOut *uintptr) (*coreaudiotypes.AudioChannelLayout, error) {
+	if _cMAudioFormatDescriptionGetChannelLayout == nil {
+		return nil, symbolCallError("CMAudioFormatDescriptionGetChannelLayout", "10.7", _cMAudioFormatDescriptionGetChannelLayoutErr)
+	}
+	return _cMAudioFormatDescriptionGetChannelLayout(desc, sizeOut), nil
+}
+
+// CMAudioFormatDescriptionGetChannelLayout returns a read-only pointer to, and the size of, the audio channel layout inside an audio format description.
+//
+// See: https://developer.apple.com/documentation/CoreMedia/CMAudioFormatDescriptionGetChannelLayout(_:sizeOut:)
+func CMAudioFormatDescriptionGetChannelLayout(desc CMAudioFormatDescriptionRef, sizeOut *uintptr) *coreaudiotypes.AudioChannelLayout {
+	result, callErr := tryCMAudioFormatDescriptionGetChannelLayout(desc, sizeOut)
+	if callErr != nil {
+		panic(callErr)
+	}
+	return result
+}
+
+var _cMAudioFormatDescriptionGetFormatList func(desc CMAudioFormatDescriptionRef, sizeOut *uintptr) *audiotoolbox.AudioFormatListItem
+var _cMAudioFormatDescriptionGetFormatListErr error
+
+func tryCMAudioFormatDescriptionGetFormatList(desc CMAudioFormatDescriptionRef, sizeOut *uintptr) (*audiotoolbox.AudioFormatListItem, error) {
+	if _cMAudioFormatDescriptionGetFormatList == nil {
+		return nil, symbolCallError("CMAudioFormatDescriptionGetFormatList", "10.7", _cMAudioFormatDescriptionGetFormatListErr)
+	}
+	return _cMAudioFormatDescriptionGetFormatList(desc, sizeOut), nil
+}
+
+// CMAudioFormatDescriptionGetFormatList returns a read-only pointer to, and size of, the array of audio format list item structures in an audio format description.
+//
+// See: https://developer.apple.com/documentation/CoreMedia/CMAudioFormatDescriptionGetFormatList(_:sizeOut:)
+func CMAudioFormatDescriptionGetFormatList(desc CMAudioFormatDescriptionRef, sizeOut *uintptr) *audiotoolbox.AudioFormatListItem {
+	result, callErr := tryCMAudioFormatDescriptionGetFormatList(desc, sizeOut)
+	if callErr != nil {
+		panic(callErr)
+	}
+	return result
+}
+
 var _cMAudioFormatDescriptionGetMagicCookie func(desc CMAudioFormatDescriptionRef, sizeOut *uintptr) unsafe.Pointer
 var _cMAudioFormatDescriptionGetMagicCookieErr error
 
@@ -307,6 +371,135 @@ func tryCMAudioFormatDescriptionGetMagicCookie(desc CMAudioFormatDescriptionRef,
 // See: https://developer.apple.com/documentation/CoreMedia/CMAudioFormatDescriptionGetMagicCookie(_:sizeOut:)
 func CMAudioFormatDescriptionGetMagicCookie(desc CMAudioFormatDescriptionRef, sizeOut *uintptr) unsafe.Pointer {
 	result, callErr := tryCMAudioFormatDescriptionGetMagicCookie(desc, sizeOut)
+	if callErr != nil {
+		panic(callErr)
+	}
+	return result
+}
+
+var _cMAudioFormatDescriptionGetMostCompatibleFormat func(desc CMAudioFormatDescriptionRef) *audiotoolbox.AudioFormatListItem
+var _cMAudioFormatDescriptionGetMostCompatibleFormatErr error
+
+func tryCMAudioFormatDescriptionGetMostCompatibleFormat(desc CMAudioFormatDescriptionRef) (*audiotoolbox.AudioFormatListItem, error) {
+	if _cMAudioFormatDescriptionGetMostCompatibleFormat == nil {
+		return nil, symbolCallError("CMAudioFormatDescriptionGetMostCompatibleFormat", "10.7", _cMAudioFormatDescriptionGetMostCompatibleFormatErr)
+	}
+	return _cMAudioFormatDescriptionGetMostCompatibleFormat(desc), nil
+}
+
+// CMAudioFormatDescriptionGetMostCompatibleFormat returns a read-only pointer to the appropriate audio format list item in an audio format description.
+//
+// See: https://developer.apple.com/documentation/CoreMedia/CMAudioFormatDescriptionGetMostCompatibleFormat(_:)
+func CMAudioFormatDescriptionGetMostCompatibleFormat(desc CMAudioFormatDescriptionRef) *audiotoolbox.AudioFormatListItem {
+	result, callErr := tryCMAudioFormatDescriptionGetMostCompatibleFormat(desc)
+	if callErr != nil {
+		panic(callErr)
+	}
+	return result
+}
+
+var _cMAudioFormatDescriptionGetRichestDecodableFormat func(desc CMAudioFormatDescriptionRef) *audiotoolbox.AudioFormatListItem
+var _cMAudioFormatDescriptionGetRichestDecodableFormatErr error
+
+func tryCMAudioFormatDescriptionGetRichestDecodableFormat(desc CMAudioFormatDescriptionRef) (*audiotoolbox.AudioFormatListItem, error) {
+	if _cMAudioFormatDescriptionGetRichestDecodableFormat == nil {
+		return nil, symbolCallError("CMAudioFormatDescriptionGetRichestDecodableFormat", "10.7", _cMAudioFormatDescriptionGetRichestDecodableFormatErr)
+	}
+	return _cMAudioFormatDescriptionGetRichestDecodableFormat(desc), nil
+}
+
+// CMAudioFormatDescriptionGetRichestDecodableFormat returns a read-only pointer to the appropriate audio format list item in an audio format description.
+//
+// See: https://developer.apple.com/documentation/CoreMedia/CMAudioFormatDescriptionGetRichestDecodableFormat(_:)
+func CMAudioFormatDescriptionGetRichestDecodableFormat(desc CMAudioFormatDescriptionRef) *audiotoolbox.AudioFormatListItem {
+	result, callErr := tryCMAudioFormatDescriptionGetRichestDecodableFormat(desc)
+	if callErr != nil {
+		panic(callErr)
+	}
+	return result
+}
+
+var _cMAudioFormatDescriptionGetStreamBasicDescription func(desc CMAudioFormatDescriptionRef) *coreaudiotypes.AudioStreamBasicDescription
+var _cMAudioFormatDescriptionGetStreamBasicDescriptionErr error
+
+func tryCMAudioFormatDescriptionGetStreamBasicDescription(desc CMAudioFormatDescriptionRef) (*coreaudiotypes.AudioStreamBasicDescription, error) {
+	if _cMAudioFormatDescriptionGetStreamBasicDescription == nil {
+		return nil, symbolCallError("CMAudioFormatDescriptionGetStreamBasicDescription", "10.7", _cMAudioFormatDescriptionGetStreamBasicDescriptionErr)
+	}
+	return _cMAudioFormatDescriptionGetStreamBasicDescription(desc), nil
+}
+
+// CMAudioFormatDescriptionGetStreamBasicDescription returns a read-only pointer to the audio stream description in an audio format description.
+//
+// See: https://developer.apple.com/documentation/CoreMedia/CMAudioFormatDescriptionGetStreamBasicDescription(_:)
+func CMAudioFormatDescriptionGetStreamBasicDescription(desc CMAudioFormatDescriptionRef) *coreaudiotypes.AudioStreamBasicDescription {
+	result, callErr := tryCMAudioFormatDescriptionGetStreamBasicDescription(desc)
+	if callErr != nil {
+		panic(callErr)
+	}
+	return result
+}
+
+var _cMAudioSampleBufferCreateReadyWithPacketDescriptions func(allocator corefoundation.CFAllocatorRef, dataBuffer CMBlockBufferRef, formatDescription CMFormatDescriptionRef, numSamples CMItemCount, presentationTimeStamp CMTime, packetDescriptions *coreaudiotypes.AudioStreamPacketDescription, sampleBufferOut *CMSampleBufferRef) int32
+var _cMAudioSampleBufferCreateReadyWithPacketDescriptionsErr error
+
+func tryCMAudioSampleBufferCreateReadyWithPacketDescriptions(allocator corefoundation.CFAllocatorRef, dataBuffer CMBlockBufferRef, formatDescription CMFormatDescriptionRef, numSamples CMItemCount, presentationTimeStamp CMTime, packetDescriptions *coreaudiotypes.AudioStreamPacketDescription, sampleBufferOut *CMSampleBufferRef) (int32, error) {
+	if _cMAudioSampleBufferCreateReadyWithPacketDescriptions == nil {
+		return 0, symbolCallError("CMAudioSampleBufferCreateReadyWithPacketDescriptions", "10.10", _cMAudioSampleBufferCreateReadyWithPacketDescriptionsErr)
+	}
+	return _cMAudioSampleBufferCreateReadyWithPacketDescriptions(allocator, dataBuffer, formatDescription, numSamples, presentationTimeStamp, packetDescriptions, sampleBufferOut), nil
+}
+
+// CMAudioSampleBufferCreateReadyWithPacketDescriptions creates a sample buffer with packet descriptions.
+//
+// See: https://developer.apple.com/documentation/CoreMedia/CMAudioSampleBufferCreateReadyWithPacketDescriptions(allocator:dataBuffer:formatDescription:sampleCount:presentationTimeStamp:packetDescriptions:sampleBufferOut:)
+func CMAudioSampleBufferCreateReadyWithPacketDescriptions(allocator corefoundation.CFAllocatorRef, dataBuffer CMBlockBufferRef, formatDescription CMFormatDescriptionRef, numSamples CMItemCount, presentationTimeStamp CMTime, packetDescriptions *coreaudiotypes.AudioStreamPacketDescription, sampleBufferOut *CMSampleBufferRef) int32 {
+	result, callErr := tryCMAudioSampleBufferCreateReadyWithPacketDescriptions(allocator, dataBuffer, formatDescription, numSamples, presentationTimeStamp, packetDescriptions, sampleBufferOut)
+	if callErr != nil {
+		panic(callErr)
+	}
+	return result
+}
+
+var _cMAudioSampleBufferCreateWithPacketDescriptions func(allocator corefoundation.CFAllocatorRef, dataBuffer CMBlockBufferRef, dataReady bool, makeDataReadyCallback CMSampleBufferMakeDataReadyCallback, makeDataReadyRefcon unsafe.Pointer, formatDescription CMFormatDescriptionRef, numSamples CMItemCount, presentationTimeStamp CMTime, packetDescriptions *coreaudiotypes.AudioStreamPacketDescription, sampleBufferOut *CMSampleBufferRef) int32
+var _cMAudioSampleBufferCreateWithPacketDescriptionsErr error
+
+func tryCMAudioSampleBufferCreateWithPacketDescriptions(allocator corefoundation.CFAllocatorRef, dataBuffer CMBlockBufferRef, dataReady bool, makeDataReadyCallback CMSampleBufferMakeDataReadyCallback, makeDataReadyRefcon unsafe.Pointer, formatDescription CMFormatDescriptionRef, numSamples CMItemCount, presentationTimeStamp CMTime, packetDescriptions *coreaudiotypes.AudioStreamPacketDescription, sampleBufferOut *CMSampleBufferRef) (int32, error) {
+	if _cMAudioSampleBufferCreateWithPacketDescriptions == nil {
+		return 0, symbolCallError("CMAudioSampleBufferCreateWithPacketDescriptions", "10.7", _cMAudioSampleBufferCreateWithPacketDescriptionsErr)
+	}
+	return _cMAudioSampleBufferCreateWithPacketDescriptions(allocator, dataBuffer, dataReady, makeDataReadyCallback, makeDataReadyRefcon, formatDescription, numSamples, presentationTimeStamp, packetDescriptions, sampleBufferOut), nil
+}
+
+// CMAudioSampleBufferCreateWithPacketDescriptions creates a sample buffer with packet descriptions and a callback to make the data ready for use.
+//
+// See: https://developer.apple.com/documentation/CoreMedia/CMAudioSampleBufferCreateWithPacketDescriptions(allocator:dataBuffer:dataReady:makeDataReadyCallback:refcon:formatDescription:sampleCount:presentationTimeStamp:packetDescriptions:sampleBufferOut:)
+func CMAudioSampleBufferCreateWithPacketDescriptions(allocator corefoundation.CFAllocatorRef, dataBuffer CMBlockBufferRef, dataReady bool, makeDataReadyCallback CMSampleBufferMakeDataReadyCallback, makeDataReadyRefcon unsafe.Pointer, formatDescription CMFormatDescriptionRef, numSamples CMItemCount, presentationTimeStamp CMTime, packetDescriptions *coreaudiotypes.AudioStreamPacketDescription, sampleBufferOut *CMSampleBufferRef) int32 {
+	result, callErr := tryCMAudioSampleBufferCreateWithPacketDescriptions(allocator, dataBuffer, dataReady, makeDataReadyCallback, makeDataReadyRefcon, formatDescription, numSamples, presentationTimeStamp, packetDescriptions, sampleBufferOut)
+	if callErr != nil {
+		panic(callErr)
+	}
+	return result
+}
+
+var _cMAudioSampleBufferCreateWithPacketDescriptionsAndMakeDataReadyHandler func(allocator corefoundation.CFAllocatorRef, dataBuffer CMBlockBufferRef, dataReady bool, formatDescription CMFormatDescriptionRef, numSamples CMItemCount, presentationTimeStamp CMTime, packetDescriptions *coreaudiotypes.AudioStreamPacketDescription, sampleBufferOut *CMSampleBufferRef, makeDataReadyHandler unsafe.Pointer) int32
+var _cMAudioSampleBufferCreateWithPacketDescriptionsAndMakeDataReadyHandlerErr error
+
+func tryCMAudioSampleBufferCreateWithPacketDescriptionsAndMakeDataReadyHandler(allocator corefoundation.CFAllocatorRef, dataBuffer CMBlockBufferRef, dataReady bool, formatDescription CMFormatDescriptionRef, numSamples CMItemCount, presentationTimeStamp CMTime, packetDescriptions *coreaudiotypes.AudioStreamPacketDescription, sampleBufferOut *CMSampleBufferRef, makeDataReadyHandler CMSampleBufferMakeDataReadyHandler) (int32, error) {
+	if _cMAudioSampleBufferCreateWithPacketDescriptionsAndMakeDataReadyHandler == nil {
+		return 0, symbolCallError("CMAudioSampleBufferCreateWithPacketDescriptionsAndMakeDataReadyHandler", "10.14.4", _cMAudioSampleBufferCreateWithPacketDescriptionsAndMakeDataReadyHandlerErr)
+	}
+	_block0Value := objc.NewBlock(func(_ objc.Block, blockArg0 unsafe.Pointer) int32 { return makeDataReadyHandler(blockArg0) })
+	defer _block0Value.Release()
+	_block0 := unsafe.Pointer(_block0Value)
+	return _cMAudioSampleBufferCreateWithPacketDescriptionsAndMakeDataReadyHandler(allocator, dataBuffer, dataReady, formatDescription, numSamples, presentationTimeStamp, packetDescriptions, sampleBufferOut, _block0), nil
+}
+
+// CMAudioSampleBufferCreateWithPacketDescriptionsAndMakeDataReadyHandler creates a sample buffer with packet descriptions and a handler to make the data ready for use.
+//
+// See: https://developer.apple.com/documentation/CoreMedia/CMAudioSampleBufferCreateWithPacketDescriptionsAndMakeDataReadyHandler(_:_:_:_:_:_:_:_:_:)
+func CMAudioSampleBufferCreateWithPacketDescriptionsAndMakeDataReadyHandler(allocator corefoundation.CFAllocatorRef, dataBuffer CMBlockBufferRef, dataReady bool, formatDescription CMFormatDescriptionRef, numSamples CMItemCount, presentationTimeStamp CMTime, packetDescriptions *coreaudiotypes.AudioStreamPacketDescription, sampleBufferOut *CMSampleBufferRef, makeDataReadyHandler CMSampleBufferMakeDataReadyHandler) int32 {
+	result, callErr := tryCMAudioSampleBufferCreateWithPacketDescriptionsAndMakeDataReadyHandler(allocator, dataBuffer, dataReady, formatDescription, numSamples, presentationTimeStamp, packetDescriptions, sampleBufferOut, makeDataReadyHandler)
 	if callErr != nil {
 		panic(callErr)
 	}
@@ -649,21 +842,21 @@ func CMBlockBufferReplaceDataBytes(sourceBytes unsafe.Pointer, destinationBuffer
 	return result
 }
 
-var _cMBufferQueueCallForEachBuffer func(queue CMBufferQueueRef, refcon uintptr) int32
+var _cMBufferQueueCallForEachBuffer func(queue CMBufferQueueRef, callback func(unsafe.Pointer, unsafe.Pointer) int32, refcon uintptr) int32
 var _cMBufferQueueCallForEachBufferErr error
 
-func tryCMBufferQueueCallForEachBuffer(queue CMBufferQueueRef, refcon uintptr) (int32, error) {
+func tryCMBufferQueueCallForEachBuffer(queue CMBufferQueueRef, callback func(unsafe.Pointer, unsafe.Pointer) int32, refcon uintptr) (int32, error) {
 	if _cMBufferQueueCallForEachBuffer == nil {
 		return 0, symbolCallError("CMBufferQueueCallForEachBuffer", "10.7", _cMBufferQueueCallForEachBufferErr)
 	}
-	return _cMBufferQueueCallForEachBuffer(queue, refcon), nil
+	return _cMBufferQueueCallForEachBuffer(queue, callback, refcon), nil
 }
 
 // CMBufferQueueCallForEachBuffer calls a function for every buffer in a queue.
 //
 // See: https://developer.apple.com/documentation/CoreMedia/CMBufferQueueCallForEachBuffer(_:callback:refcon:)
-func CMBufferQueueCallForEachBuffer(queue CMBufferQueueRef, refcon uintptr) int32 {
-	result, callErr := tryCMBufferQueueCallForEachBuffer(queue, refcon)
+func CMBufferQueueCallForEachBuffer(queue CMBufferQueueRef, callback func(unsafe.Pointer, unsafe.Pointer) int32, refcon uintptr) int32 {
+	result, callErr := tryCMBufferQueueCallForEachBuffer(queue, callback, refcon)
 	if callErr != nil {
 		panic(callErr)
 	}
@@ -712,10 +905,10 @@ func CMBufferQueueCopyHead(queue CMBufferQueueRef) CMBufferRef {
 	return result
 }
 
-var _cMBufferQueueCreate func(allocator corefoundation.CFAllocatorRef, capacity int, callbacks *CMBufferCallbacks, queueOut *CMBufferQueueRef) int32
+var _cMBufferQueueCreate func(allocator corefoundation.CFAllocatorRef, capacity CMItemCount, callbacks *CMBufferCallbacks, queueOut *CMBufferQueueRef) int32
 var _cMBufferQueueCreateErr error
 
-func tryCMBufferQueueCreate(allocator corefoundation.CFAllocatorRef, capacity int, callbacks *CMBufferCallbacks, queueOut *CMBufferQueueRef) (int32, error) {
+func tryCMBufferQueueCreate(allocator corefoundation.CFAllocatorRef, capacity CMItemCount, callbacks *CMBufferCallbacks, queueOut *CMBufferQueueRef) (int32, error) {
 	if _cMBufferQueueCreate == nil {
 		return 0, symbolCallError("CMBufferQueueCreate", "10.7", _cMBufferQueueCreateErr)
 	}
@@ -725,7 +918,7 @@ func tryCMBufferQueueCreate(allocator corefoundation.CFAllocatorRef, capacity in
 // CMBufferQueueCreate creates a buffer queue with callbacks to inspect buffers.
 //
 // See: https://developer.apple.com/documentation/CoreMedia/CMBufferQueueCreate(allocator:capacity:callbacks:queueOut:)
-func CMBufferQueueCreate(allocator corefoundation.CFAllocatorRef, capacity int, callbacks *CMBufferCallbacks, queueOut *CMBufferQueueRef) int32 {
+func CMBufferQueueCreate(allocator corefoundation.CFAllocatorRef, capacity CMItemCount, callbacks *CMBufferCallbacks, queueOut *CMBufferQueueRef) int32 {
 	result, callErr := tryCMBufferQueueCreate(allocator, capacity, callbacks, queueOut)
 	if callErr != nil {
 		panic(callErr)
@@ -733,10 +926,10 @@ func CMBufferQueueCreate(allocator corefoundation.CFAllocatorRef, capacity int, 
 	return result
 }
 
-var _cMBufferQueueCreateWithHandlers func(allocator corefoundation.CFAllocatorRef, capacity int, handlers *CMBufferHandlers, queueOut *CMBufferQueueRef) int32
+var _cMBufferQueueCreateWithHandlers func(allocator corefoundation.CFAllocatorRef, capacity CMItemCount, handlers *CMBufferHandlers, queueOut *CMBufferQueueRef) int32
 var _cMBufferQueueCreateWithHandlersErr error
 
-func tryCMBufferQueueCreateWithHandlers(allocator corefoundation.CFAllocatorRef, capacity int, handlers *CMBufferHandlers, queueOut *CMBufferQueueRef) (int32, error) {
+func tryCMBufferQueueCreateWithHandlers(allocator corefoundation.CFAllocatorRef, capacity CMItemCount, handlers *CMBufferHandlers, queueOut *CMBufferQueueRef) (int32, error) {
 	if _cMBufferQueueCreateWithHandlers == nil {
 		return 0, symbolCallError("CMBufferQueueCreateWithHandlers", "10.14.4", _cMBufferQueueCreateWithHandlersErr)
 	}
@@ -746,7 +939,7 @@ func tryCMBufferQueueCreateWithHandlers(allocator corefoundation.CFAllocatorRef,
 // CMBufferQueueCreateWithHandlers creates a buffer queue with handlers to inspect buffers.
 //
 // See: https://developer.apple.com/documentation/CoreMedia/CMBufferQueueCreateWithHandlers(_:_:_:_:)
-func CMBufferQueueCreateWithHandlers(allocator corefoundation.CFAllocatorRef, capacity int, handlers *CMBufferHandlers, queueOut *CMBufferQueueRef) int32 {
+func CMBufferQueueCreateWithHandlers(allocator corefoundation.CFAllocatorRef, capacity CMItemCount, handlers *CMBufferHandlers, queueOut *CMBufferQueueRef) int32 {
 	result, callErr := tryCMBufferQueueCreateWithHandlers(allocator, capacity, handlers, queueOut)
 	if callErr != nil {
 		panic(callErr)
@@ -817,12 +1010,12 @@ func CMBufferQueueEnqueue(queue CMBufferQueueRef, buf CMBufferRef) int32 {
 	return result
 }
 
-var _cMBufferQueueGetBufferCount func(queue CMBufferQueueRef) int
+var _cMBufferQueueGetBufferCount func(queue CMBufferQueueRef) CMItemCount
 var _cMBufferQueueGetBufferCountErr error
 
-func tryCMBufferQueueGetBufferCount(queue CMBufferQueueRef) (int, error) {
+func tryCMBufferQueueGetBufferCount(queue CMBufferQueueRef) (CMItemCount, error) {
 	if _cMBufferQueueGetBufferCount == nil {
-		return 0, symbolCallError("CMBufferQueueGetBufferCount", "10.7", _cMBufferQueueGetBufferCountErr)
+		return *new(CMItemCount), symbolCallError("CMBufferQueueGetBufferCount", "10.7", _cMBufferQueueGetBufferCountErr)
 	}
 	return _cMBufferQueueGetBufferCount(queue), nil
 }
@@ -830,7 +1023,7 @@ func tryCMBufferQueueGetBufferCount(queue CMBufferQueueRef) (int, error) {
 // CMBufferQueueGetBufferCount gets the number of buffers in the queue.
 //
 // See: https://developer.apple.com/documentation/CoreMedia/CMBufferQueueGetBufferCount(_:)
-func CMBufferQueueGetBufferCount(queue CMBufferQueueRef) int {
+func CMBufferQueueGetBufferCount(queue CMBufferQueueRef) CMItemCount {
 	result, callErr := tryCMBufferQueueGetBufferCount(queue)
 	if callErr != nil {
 		panic(callErr)
@@ -1120,7 +1313,7 @@ func tryCMBufferQueueInstallTriggerHandler(queue CMBufferQueueRef, condition CMB
 	if _cMBufferQueueInstallTriggerHandler == nil {
 		return 0, symbolCallError("CMBufferQueueInstallTriggerHandler", "10.14.4", _cMBufferQueueInstallTriggerHandlerErr)
 	}
-	_block0Value := objc.NewBlock(func(_ objc.Block, blockArg0 kernel.Pointer) { handler(blockArg0) })
+	_block0Value := objc.NewBlock(func(_ objc.Block, blockArg0 unsafe.Pointer) { handler(blockArg0) })
 	defer _block0Value.Release()
 	_block0 := unsafe.Pointer(_block0Value)
 	return _cMBufferQueueInstallTriggerHandler(queue, condition, time, triggerTokenOut, _block0), nil
@@ -1137,14 +1330,14 @@ func CMBufferQueueInstallTriggerHandler(queue CMBufferQueueRef, condition CMBuff
 	return result
 }
 
-var _cMBufferQueueInstallTriggerHandlerWithIntegerThreshold func(queue CMBufferQueueRef, condition CMBufferQueueTriggerCondition, threshold int, triggerTokenOut *CMBufferQueueTriggerToken, handler unsafe.Pointer) int32
+var _cMBufferQueueInstallTriggerHandlerWithIntegerThreshold func(queue CMBufferQueueRef, condition CMBufferQueueTriggerCondition, threshold CMItemCount, triggerTokenOut *CMBufferQueueTriggerToken, handler unsafe.Pointer) int32
 var _cMBufferQueueInstallTriggerHandlerWithIntegerThresholdErr error
 
-func tryCMBufferQueueInstallTriggerHandlerWithIntegerThreshold(queue CMBufferQueueRef, condition CMBufferQueueTriggerCondition, threshold int, triggerTokenOut *CMBufferQueueTriggerToken, handler CMBufferQueueTriggerHandler) (int32, error) {
+func tryCMBufferQueueInstallTriggerHandlerWithIntegerThreshold(queue CMBufferQueueRef, condition CMBufferQueueTriggerCondition, threshold CMItemCount, triggerTokenOut *CMBufferQueueTriggerToken, handler CMBufferQueueTriggerHandler) (int32, error) {
 	if _cMBufferQueueInstallTriggerHandlerWithIntegerThreshold == nil {
 		return 0, symbolCallError("CMBufferQueueInstallTriggerHandlerWithIntegerThreshold", "10.14.4", _cMBufferQueueInstallTriggerHandlerWithIntegerThresholdErr)
 	}
-	_block0Value := objc.NewBlock(func(_ objc.Block, blockArg0 kernel.Pointer) { handler(blockArg0) })
+	_block0Value := objc.NewBlock(func(_ objc.Block, blockArg0 unsafe.Pointer) { handler(blockArg0) })
 	defer _block0Value.Release()
 	_block0 := unsafe.Pointer(_block0Value)
 	return _cMBufferQueueInstallTriggerHandlerWithIntegerThreshold(queue, condition, threshold, triggerTokenOut, _block0), nil
@@ -1153,7 +1346,7 @@ func tryCMBufferQueueInstallTriggerHandlerWithIntegerThreshold(queue CMBufferQue
 // CMBufferQueueInstallTriggerHandlerWithIntegerThreshold installs a trigger with a handler and threshold on a buffer queue.
 //
 // See: https://developer.apple.com/documentation/CoreMedia/CMBufferQueueInstallTriggerHandlerWithIntegerThreshold(_:_:_:_:_:)
-func CMBufferQueueInstallTriggerHandlerWithIntegerThreshold(queue CMBufferQueueRef, condition CMBufferQueueTriggerCondition, threshold int, triggerTokenOut *CMBufferQueueTriggerToken, handler CMBufferQueueTriggerHandler) int32 {
+func CMBufferQueueInstallTriggerHandlerWithIntegerThreshold(queue CMBufferQueueRef, condition CMBufferQueueTriggerCondition, threshold CMItemCount, triggerTokenOut *CMBufferQueueTriggerToken, handler CMBufferQueueTriggerHandler) int32 {
 	result, callErr := tryCMBufferQueueInstallTriggerHandlerWithIntegerThreshold(queue, condition, threshold, triggerTokenOut, handler)
 	if callErr != nil {
 		panic(callErr)
@@ -1161,10 +1354,10 @@ func CMBufferQueueInstallTriggerHandlerWithIntegerThreshold(queue CMBufferQueueR
 	return result
 }
 
-var _cMBufferQueueInstallTriggerWithIntegerThreshold func(queue CMBufferQueueRef, callback CMBufferQueueTriggerCallback, refcon uintptr, condition CMBufferQueueTriggerCondition, threshold int, triggerTokenOut *CMBufferQueueTriggerToken) int32
+var _cMBufferQueueInstallTriggerWithIntegerThreshold func(queue CMBufferQueueRef, callback CMBufferQueueTriggerCallback, refcon uintptr, condition CMBufferQueueTriggerCondition, threshold CMItemCount, triggerTokenOut *CMBufferQueueTriggerToken) int32
 var _cMBufferQueueInstallTriggerWithIntegerThresholdErr error
 
-func tryCMBufferQueueInstallTriggerWithIntegerThreshold(queue CMBufferQueueRef, callback CMBufferQueueTriggerCallback, refcon uintptr, condition CMBufferQueueTriggerCondition, threshold int, triggerTokenOut *CMBufferQueueTriggerToken) (int32, error) {
+func tryCMBufferQueueInstallTriggerWithIntegerThreshold(queue CMBufferQueueRef, callback CMBufferQueueTriggerCallback, refcon uintptr, condition CMBufferQueueTriggerCondition, threshold CMItemCount, triggerTokenOut *CMBufferQueueTriggerToken) (int32, error) {
 	if _cMBufferQueueInstallTriggerWithIntegerThreshold == nil {
 		return 0, symbolCallError("CMBufferQueueInstallTriggerWithIntegerThreshold", "10.7", _cMBufferQueueInstallTriggerWithIntegerThresholdErr)
 	}
@@ -1174,7 +1367,7 @@ func tryCMBufferQueueInstallTriggerWithIntegerThreshold(queue CMBufferQueueRef, 
 // CMBufferQueueInstallTriggerWithIntegerThreshold installs a trigger with a callback and threshold on a buffer queue.
 //
 // See: https://developer.apple.com/documentation/CoreMedia/CMBufferQueueInstallTriggerWithIntegerThreshold(_:callback:refcon:condition:threshold:triggerTokenOut:)
-func CMBufferQueueInstallTriggerWithIntegerThreshold(queue CMBufferQueueRef, callback CMBufferQueueTriggerCallback, refcon uintptr, condition CMBufferQueueTriggerCondition, threshold int, triggerTokenOut *CMBufferQueueTriggerToken) int32 {
+func CMBufferQueueInstallTriggerWithIntegerThreshold(queue CMBufferQueueRef, callback CMBufferQueueTriggerCallback, refcon uintptr, condition CMBufferQueueTriggerCondition, threshold CMItemCount, triggerTokenOut *CMBufferQueueTriggerToken) int32 {
 	result, callErr := tryCMBufferQueueInstallTriggerWithIntegerThreshold(queue, callback, refcon, condition, threshold, triggerTokenOut)
 	if callErr != nil {
 		panic(callErr)
@@ -1287,21 +1480,21 @@ func CMBufferQueueReset(queue CMBufferQueueRef) int32 {
 	return result
 }
 
-var _cMBufferQueueResetWithCallback func(queue CMBufferQueueRef, refcon uintptr) int32
+var _cMBufferQueueResetWithCallback func(queue CMBufferQueueRef, callback func(unsafe.Pointer, unsafe.Pointer), refcon uintptr) int32
 var _cMBufferQueueResetWithCallbackErr error
 
-func tryCMBufferQueueResetWithCallback(queue CMBufferQueueRef, refcon uintptr) (int32, error) {
+func tryCMBufferQueueResetWithCallback(queue CMBufferQueueRef, callback func(unsafe.Pointer, unsafe.Pointer), refcon uintptr) (int32, error) {
 	if _cMBufferQueueResetWithCallback == nil {
 		return 0, symbolCallError("CMBufferQueueResetWithCallback", "10.7", _cMBufferQueueResetWithCallbackErr)
 	}
-	return _cMBufferQueueResetWithCallback(queue, refcon), nil
+	return _cMBufferQueueResetWithCallback(queue, callback, refcon), nil
 }
 
 // CMBufferQueueResetWithCallback a callback that invokes a function for every buffer in a queue and then resets the queue.
 //
 // See: https://developer.apple.com/documentation/CoreMedia/CMBufferQueueResetWithCallback(_:callback:refcon:)
-func CMBufferQueueResetWithCallback(queue CMBufferQueueRef, refcon uintptr) int32 {
-	result, callErr := tryCMBufferQueueResetWithCallback(queue, refcon)
+func CMBufferQueueResetWithCallback(queue CMBufferQueueRef, callback func(unsafe.Pointer, unsafe.Pointer), refcon uintptr) int32 {
+	result, callErr := tryCMBufferQueueResetWithCallback(queue, callback, refcon)
 	if callErr != nil {
 		panic(callErr)
 	}
@@ -1336,7 +1529,7 @@ func tryCMBufferQueueSetValidationHandler(queue CMBufferQueueRef, handler CMBuff
 	if _cMBufferQueueSetValidationHandler == nil {
 		return 0, symbolCallError("CMBufferQueueSetValidationHandler", "10.14.4", _cMBufferQueueSetValidationHandlerErr)
 	}
-	_block0Value := objc.NewBlock(func(_ objc.Block, blockArg0 kernel.Pointer, blockArg1 kernel.Pointer) int {
+	_block0Value := objc.NewBlock(func(_ objc.Block, blockArg0 unsafe.Pointer, blockArg1 unsafe.Pointer) int32 {
 		return handler(blockArg0, blockArg1)
 	})
 	defer _block0Value.Release()
@@ -1606,10 +1799,10 @@ func CMClosedCaptionFormatDescriptionCreateFromBigEndianClosedCaptionDescription
 	return result
 }
 
-var _cMCopyDictionaryOfAttachments func(allocator corefoundation.CFAllocatorRef, target CMAttachmentBearerRef, attachmentMode CMAttachmentMode) corefoundation.CFDictionaryRef
+var _cMCopyDictionaryOfAttachments func(allocator corefoundation.CFAllocatorRef, target CMAttachmentBearerRef, attachmentMode uint32) corefoundation.CFDictionaryRef
 var _cMCopyDictionaryOfAttachmentsErr error
 
-func tryCMCopyDictionaryOfAttachments(allocator corefoundation.CFAllocatorRef, target CMAttachmentBearerRef, attachmentMode CMAttachmentMode) (corefoundation.CFDictionaryRef, error) {
+func tryCMCopyDictionaryOfAttachments(allocator corefoundation.CFAllocatorRef, target CMAttachmentBearerRef, attachmentMode uint32) (corefoundation.CFDictionaryRef, error) {
 	if _cMCopyDictionaryOfAttachments == nil {
 		return *new(corefoundation.CFDictionaryRef), symbolCallError("CMCopyDictionaryOfAttachments", "10.7", _cMCopyDictionaryOfAttachmentsErr)
 	}
@@ -1619,7 +1812,7 @@ func tryCMCopyDictionaryOfAttachments(allocator corefoundation.CFAllocatorRef, t
 // CMCopyDictionaryOfAttachments returns a dictionary of all attachments for an attachment bearer object.
 //
 // See: https://developer.apple.com/documentation/CoreMedia/CMCopyDictionaryOfAttachments(allocator:target:attachmentMode:)
-func CMCopyDictionaryOfAttachments(allocator corefoundation.CFAllocatorRef, target CMAttachmentBearerRef, attachmentMode CMAttachmentMode) corefoundation.CFDictionaryRef {
+func CMCopyDictionaryOfAttachments(allocator corefoundation.CFAllocatorRef, target CMAttachmentBearerRef, attachmentMode uint32) corefoundation.CFDictionaryRef {
 	result, callErr := tryCMCopyDictionaryOfAttachments(allocator, target, attachmentMode)
 	if callErr != nil {
 		panic(callErr)
@@ -1648,10 +1841,10 @@ func CMDoesBigEndianSoundDescriptionRequireLegacyCBRSampleTableLayout(soundDescr
 	return result
 }
 
-var _cMFormatDescriptionCreate func(allocator corefoundation.CFAllocatorRef, mediaType uint32, mediaSubType uint32, extensions corefoundation.CFDictionaryRef, formatDescriptionOut *CMFormatDescriptionRef) int32
+var _cMFormatDescriptionCreate func(allocator corefoundation.CFAllocatorRef, mediaType CMMediaType, mediaSubType uint32, extensions corefoundation.CFDictionaryRef, formatDescriptionOut *CMFormatDescriptionRef) int32
 var _cMFormatDescriptionCreateErr error
 
-func tryCMFormatDescriptionCreate(allocator corefoundation.CFAllocatorRef, mediaType uint32, mediaSubType uint32, extensions corefoundation.CFDictionaryRef, formatDescriptionOut *CMFormatDescriptionRef) (int32, error) {
+func tryCMFormatDescriptionCreate(allocator corefoundation.CFAllocatorRef, mediaType CMMediaType, mediaSubType uint32, extensions corefoundation.CFDictionaryRef, formatDescriptionOut *CMFormatDescriptionRef) (int32, error) {
 	if _cMFormatDescriptionCreate == nil {
 		return 0, symbolCallError("CMFormatDescriptionCreate", "10.7", _cMFormatDescriptionCreateErr)
 	}
@@ -1661,7 +1854,7 @@ func tryCMFormatDescriptionCreate(allocator corefoundation.CFAllocatorRef, media
 // CMFormatDescriptionCreate creates a format description for general use.
 //
 // See: https://developer.apple.com/documentation/CoreMedia/CMFormatDescriptionCreate(allocator:mediaType:mediaSubType:extensions:formatDescriptionOut:)
-func CMFormatDescriptionCreate(allocator corefoundation.CFAllocatorRef, mediaType uint32, mediaSubType uint32, extensions corefoundation.CFDictionaryRef, formatDescriptionOut *CMFormatDescriptionRef) int32 {
+func CMFormatDescriptionCreate(allocator corefoundation.CFAllocatorRef, mediaType CMMediaType, mediaSubType uint32, extensions corefoundation.CFDictionaryRef, formatDescriptionOut *CMFormatDescriptionRef) int32 {
 	result, callErr := tryCMFormatDescriptionCreate(allocator, mediaType, mediaSubType, extensions, formatDescriptionOut)
 	if callErr != nil {
 		panic(callErr)
@@ -1774,12 +1967,12 @@ func CMFormatDescriptionGetMediaSubType(desc CMFormatDescriptionRef) uint32 {
 	return result
 }
 
-var _cMFormatDescriptionGetMediaType func(desc CMFormatDescriptionRef) uint32
+var _cMFormatDescriptionGetMediaType func(desc CMFormatDescriptionRef) CMMediaType
 var _cMFormatDescriptionGetMediaTypeErr error
 
-func tryCMFormatDescriptionGetMediaType(desc CMFormatDescriptionRef) (uint32, error) {
+func tryCMFormatDescriptionGetMediaType(desc CMFormatDescriptionRef) (CMMediaType, error) {
 	if _cMFormatDescriptionGetMediaType == nil {
-		return 0, symbolCallError("CMFormatDescriptionGetMediaType", "10.7", _cMFormatDescriptionGetMediaTypeErr)
+		return *new(CMMediaType), symbolCallError("CMFormatDescriptionGetMediaType", "10.7", _cMFormatDescriptionGetMediaTypeErr)
 	}
 	return _cMFormatDescriptionGetMediaType(desc), nil
 }
@@ -1787,7 +1980,7 @@ func tryCMFormatDescriptionGetMediaType(desc CMFormatDescriptionRef) (uint32, er
 // CMFormatDescriptionGetMediaType returns the media type of a format description.
 //
 // See: https://developer.apple.com/documentation/CoreMedia/CMFormatDescriptionGetMediaType(_:)
-func CMFormatDescriptionGetMediaType(desc CMFormatDescriptionRef) uint32 {
+func CMFormatDescriptionGetMediaType(desc CMFormatDescriptionRef) CMMediaType {
 	result, callErr := tryCMFormatDescriptionGetMediaType(desc)
 	if callErr != nil {
 		panic(callErr)
@@ -1816,10 +2009,10 @@ func CMFormatDescriptionGetTypeID() uint {
 	return result
 }
 
-var _cMGetAttachment func(target CMAttachmentBearerRef, key corefoundation.CFStringRef, attachmentModeOut *CMAttachmentMode) corefoundation.CFTypeRef
+var _cMGetAttachment func(target CMAttachmentBearerRef, key corefoundation.CFStringRef, attachmentModeOut *uint32) corefoundation.CFTypeRef
 var _cMGetAttachmentErr error
 
-func tryCMGetAttachment(target CMAttachmentBearerRef, key corefoundation.CFStringRef, attachmentModeOut *CMAttachmentMode) (corefoundation.CFTypeRef, error) {
+func tryCMGetAttachment(target CMAttachmentBearerRef, key corefoundation.CFStringRef, attachmentModeOut *uint32) (corefoundation.CFTypeRef, error) {
 	if _cMGetAttachment == nil {
 		return *new(corefoundation.CFTypeRef), symbolCallError("CMGetAttachment", "10.7", _cMGetAttachmentErr)
 	}
@@ -1829,7 +2022,7 @@ func tryCMGetAttachment(target CMAttachmentBearerRef, key corefoundation.CFStrin
 // CMGetAttachment returns an attachment from an attachment bearer object.
 //
 // See: https://developer.apple.com/documentation/CoreMedia/CMGetAttachment(_:key:attachmentModeOut:)
-func CMGetAttachment(target CMAttachmentBearerRef, key corefoundation.CFStringRef, attachmentModeOut *CMAttachmentMode) corefoundation.CFTypeRef {
+func CMGetAttachment(target CMAttachmentBearerRef, key corefoundation.CFStringRef, attachmentModeOut *uint32) corefoundation.CFTypeRef {
 	result, callErr := tryCMGetAttachment(target, key, attachmentModeOut)
 	if callErr != nil {
 		panic(callErr)
@@ -2462,42 +2655,63 @@ func CMRemoveAttachment(target CMAttachmentBearerRef, key corefoundation.CFStrin
 	}
 }
 
-var _cMSampleBufferCallBlockForEachSample func(sbuf CMSampleBufferRef) int32
+var _cMSampleBufferCallBlockForEachSample func(sbuf CMSampleBufferRef, handler func(uintptr, int) int32) int32
 var _cMSampleBufferCallBlockForEachSampleErr error
 
-func tryCMSampleBufferCallBlockForEachSample(sbuf CMSampleBufferRef) (int32, error) {
+func tryCMSampleBufferCallBlockForEachSample(sbuf CMSampleBufferRef, handler func(uintptr, int) int32) (int32, error) {
 	if _cMSampleBufferCallBlockForEachSample == nil {
 		return 0, symbolCallError("CMSampleBufferCallBlockForEachSample", "10.10", _cMSampleBufferCallBlockForEachSampleErr)
 	}
-	return _cMSampleBufferCallBlockForEachSample(sbuf), nil
+	return _cMSampleBufferCallBlockForEachSample(sbuf, handler), nil
 }
 
 // CMSampleBufferCallBlockForEachSample calls a block for every individual sample in a sample buffer.
 //
 // See: https://developer.apple.com/documentation/CoreMedia/CMSampleBufferCallBlockForEachSample(_:_:)
-func CMSampleBufferCallBlockForEachSample(sbuf CMSampleBufferRef) int32 {
-	result, callErr := tryCMSampleBufferCallBlockForEachSample(sbuf)
+func CMSampleBufferCallBlockForEachSample(sbuf CMSampleBufferRef, handler func(uintptr, int) int32) int32 {
+	result, callErr := tryCMSampleBufferCallBlockForEachSample(sbuf, handler)
 	if callErr != nil {
 		panic(callErr)
 	}
 	return result
 }
 
-var _cMSampleBufferCallForEachSample func(sbuf CMSampleBufferRef, refcon uintptr) int32
+var _cMSampleBufferCallForEachSample func(sbuf CMSampleBufferRef, callback func(CMSampleBufferRef, int, unsafe.Pointer) int32, refcon uintptr) int32
 var _cMSampleBufferCallForEachSampleErr error
 
-func tryCMSampleBufferCallForEachSample(sbuf CMSampleBufferRef, refcon uintptr) (int32, error) {
+func tryCMSampleBufferCallForEachSample(sbuf CMSampleBufferRef, callback func(CMSampleBufferRef, int, unsafe.Pointer) int32, refcon uintptr) (int32, error) {
 	if _cMSampleBufferCallForEachSample == nil {
 		return 0, symbolCallError("CMSampleBufferCallForEachSample", "10.7", _cMSampleBufferCallForEachSampleErr)
 	}
-	return _cMSampleBufferCallForEachSample(sbuf, refcon), nil
+	return _cMSampleBufferCallForEachSample(sbuf, callback, refcon), nil
 }
 
 // CMSampleBufferCallForEachSample calls a function for every individual sample in a sample buffer.
 //
 // See: https://developer.apple.com/documentation/CoreMedia/CMSampleBufferCallForEachSample(_:callback:refcon:)
-func CMSampleBufferCallForEachSample(sbuf CMSampleBufferRef, refcon uintptr) int32 {
-	result, callErr := tryCMSampleBufferCallForEachSample(sbuf, refcon)
+func CMSampleBufferCallForEachSample(sbuf CMSampleBufferRef, callback func(CMSampleBufferRef, int, unsafe.Pointer) int32, refcon uintptr) int32 {
+	result, callErr := tryCMSampleBufferCallForEachSample(sbuf, callback, refcon)
+	if callErr != nil {
+		panic(callErr)
+	}
+	return result
+}
+
+var _cMSampleBufferCopyPCMDataIntoAudioBufferList func(sbuf CMSampleBufferRef, frameOffset int32, numFrames int32, bufferList *coreaudiotypes.AudioBufferList) int32
+var _cMSampleBufferCopyPCMDataIntoAudioBufferListErr error
+
+func tryCMSampleBufferCopyPCMDataIntoAudioBufferList(sbuf CMSampleBufferRef, frameOffset int32, numFrames int32, bufferList *coreaudiotypes.AudioBufferList) (int32, error) {
+	if _cMSampleBufferCopyPCMDataIntoAudioBufferList == nil {
+		return 0, symbolCallError("CMSampleBufferCopyPCMDataIntoAudioBufferList", "10.9", _cMSampleBufferCopyPCMDataIntoAudioBufferListErr)
+	}
+	return _cMSampleBufferCopyPCMDataIntoAudioBufferList(sbuf, frameOffset, numFrames, bufferList), nil
+}
+
+// CMSampleBufferCopyPCMDataIntoAudioBufferList copies PCM audio data from a sample buffer into an audio buffer list.
+//
+// See: https://developer.apple.com/documentation/CoreMedia/CMSampleBufferCopyPCMDataIntoAudioBufferList(_:at:frameCount:into:)
+func CMSampleBufferCopyPCMDataIntoAudioBufferList(sbuf CMSampleBufferRef, frameOffset int32, numFrames int32, bufferList *coreaudiotypes.AudioBufferList) int32 {
+	result, callErr := tryCMSampleBufferCopyPCMDataIntoAudioBufferList(sbuf, frameOffset, numFrames, bufferList)
 	if callErr != nil {
 		panic(callErr)
 	}
@@ -2525,10 +2739,10 @@ func CMSampleBufferCopySampleBufferForRange(allocator corefoundation.CFAllocator
 	return result
 }
 
-var _cMSampleBufferCreate func(allocator corefoundation.CFAllocatorRef, dataBuffer CMBlockBufferRef, dataReady bool, makeDataReadyCallback CMSampleBufferMakeDataReadyCallback, makeDataReadyRefcon unsafe.Pointer, formatDescription CMFormatDescriptionRef, numSamples int, numSampleTimingEntries int, sampleTimingArray *CMSampleTimingInfo, numSampleSizeEntries int, sampleSizeArray *uintptr, sampleBufferOut *CMSampleBufferRef) int32
+var _cMSampleBufferCreate func(allocator corefoundation.CFAllocatorRef, dataBuffer CMBlockBufferRef, dataReady bool, makeDataReadyCallback CMSampleBufferMakeDataReadyCallback, makeDataReadyRefcon unsafe.Pointer, formatDescription CMFormatDescriptionRef, numSamples CMItemCount, numSampleTimingEntries CMItemCount, sampleTimingArray *CMSampleTimingInfo, numSampleSizeEntries CMItemCount, sampleSizeArray *uintptr, sampleBufferOut *CMSampleBufferRef) int32
 var _cMSampleBufferCreateErr error
 
-func tryCMSampleBufferCreate(allocator corefoundation.CFAllocatorRef, dataBuffer CMBlockBufferRef, dataReady bool, makeDataReadyCallback CMSampleBufferMakeDataReadyCallback, makeDataReadyRefcon unsafe.Pointer, formatDescription CMFormatDescriptionRef, numSamples int, numSampleTimingEntries int, sampleTimingArray *CMSampleTimingInfo, numSampleSizeEntries int, sampleSizeArray *uintptr, sampleBufferOut *CMSampleBufferRef) (int32, error) {
+func tryCMSampleBufferCreate(allocator corefoundation.CFAllocatorRef, dataBuffer CMBlockBufferRef, dataReady bool, makeDataReadyCallback CMSampleBufferMakeDataReadyCallback, makeDataReadyRefcon unsafe.Pointer, formatDescription CMFormatDescriptionRef, numSamples CMItemCount, numSampleTimingEntries CMItemCount, sampleTimingArray *CMSampleTimingInfo, numSampleSizeEntries CMItemCount, sampleSizeArray *uintptr, sampleBufferOut *CMSampleBufferRef) (int32, error) {
 	if _cMSampleBufferCreate == nil {
 		return 0, symbolCallError("CMSampleBufferCreate", "10.7", _cMSampleBufferCreateErr)
 	}
@@ -2538,7 +2752,7 @@ func tryCMSampleBufferCreate(allocator corefoundation.CFAllocatorRef, dataBuffer
 // CMSampleBufferCreate creates a sample buffer with a callback to make the data ready for use.
 //
 // See: https://developer.apple.com/documentation/CoreMedia/CMSampleBufferCreate(allocator:dataBuffer:dataReady:makeDataReadyCallback:refcon:formatDescription:sampleCount:sampleTimingEntryCount:sampleTimingArray:sampleSizeEntryCount:sampleSizeArray:sampleBufferOut:)
-func CMSampleBufferCreate(allocator corefoundation.CFAllocatorRef, dataBuffer CMBlockBufferRef, dataReady bool, makeDataReadyCallback CMSampleBufferMakeDataReadyCallback, makeDataReadyRefcon unsafe.Pointer, formatDescription CMFormatDescriptionRef, numSamples int, numSampleTimingEntries int, sampleTimingArray *CMSampleTimingInfo, numSampleSizeEntries int, sampleSizeArray *uintptr, sampleBufferOut *CMSampleBufferRef) int32 {
+func CMSampleBufferCreate(allocator corefoundation.CFAllocatorRef, dataBuffer CMBlockBufferRef, dataReady bool, makeDataReadyCallback CMSampleBufferMakeDataReadyCallback, makeDataReadyRefcon unsafe.Pointer, formatDescription CMFormatDescriptionRef, numSamples CMItemCount, numSampleTimingEntries CMItemCount, sampleTimingArray *CMSampleTimingInfo, numSampleSizeEntries CMItemCount, sampleSizeArray *uintptr, sampleBufferOut *CMSampleBufferRef) int32 {
 	result, callErr := tryCMSampleBufferCreate(allocator, dataBuffer, dataReady, makeDataReadyCallback, makeDataReadyRefcon, formatDescription, numSamples, numSampleTimingEntries, sampleTimingArray, numSampleSizeEntries, sampleSizeArray, sampleBufferOut)
 	if callErr != nil {
 		panic(callErr)
@@ -2567,10 +2781,10 @@ func CMSampleBufferCreateCopy(allocator corefoundation.CFAllocatorRef, sbuf CMSa
 	return result
 }
 
-var _cMSampleBufferCreateCopyWithNewTiming func(allocator corefoundation.CFAllocatorRef, originalSBuf CMSampleBufferRef, numSampleTimingEntries int, sampleTimingArray *CMSampleTimingInfo, sampleBufferOut *CMSampleBufferRef) int32
+var _cMSampleBufferCreateCopyWithNewTiming func(allocator corefoundation.CFAllocatorRef, originalSBuf CMSampleBufferRef, numSampleTimingEntries CMItemCount, sampleTimingArray *CMSampleTimingInfo, sampleBufferOut *CMSampleBufferRef) int32
 var _cMSampleBufferCreateCopyWithNewTimingErr error
 
-func tryCMSampleBufferCreateCopyWithNewTiming(allocator corefoundation.CFAllocatorRef, originalSBuf CMSampleBufferRef, numSampleTimingEntries int, sampleTimingArray *CMSampleTimingInfo, sampleBufferOut *CMSampleBufferRef) (int32, error) {
+func tryCMSampleBufferCreateCopyWithNewTiming(allocator corefoundation.CFAllocatorRef, originalSBuf CMSampleBufferRef, numSampleTimingEntries CMItemCount, sampleTimingArray *CMSampleTimingInfo, sampleBufferOut *CMSampleBufferRef) (int32, error) {
 	if _cMSampleBufferCreateCopyWithNewTiming == nil {
 		return 0, symbolCallError("CMSampleBufferCreateCopyWithNewTiming", "10.7", _cMSampleBufferCreateCopyWithNewTimingErr)
 	}
@@ -2580,7 +2794,7 @@ func tryCMSampleBufferCreateCopyWithNewTiming(allocator corefoundation.CFAllocat
 // CMSampleBufferCreateCopyWithNewTiming creates a copy of a sample buffer with new timing information.
 //
 // See: https://developer.apple.com/documentation/CoreMedia/CMSampleBufferCreateCopyWithNewTiming(allocator:sampleBuffer:sampleTimingEntryCount:sampleTimingArray:sampleBufferOut:)
-func CMSampleBufferCreateCopyWithNewTiming(allocator corefoundation.CFAllocatorRef, originalSBuf CMSampleBufferRef, numSampleTimingEntries int, sampleTimingArray *CMSampleTimingInfo, sampleBufferOut *CMSampleBufferRef) int32 {
+func CMSampleBufferCreateCopyWithNewTiming(allocator corefoundation.CFAllocatorRef, originalSBuf CMSampleBufferRef, numSampleTimingEntries CMItemCount, sampleTimingArray *CMSampleTimingInfo, sampleBufferOut *CMSampleBufferRef) int32 {
 	result, callErr := tryCMSampleBufferCreateCopyWithNewTiming(allocator, originalSBuf, numSampleTimingEntries, sampleTimingArray, sampleBufferOut)
 	if callErr != nil {
 		panic(callErr)
@@ -2616,7 +2830,7 @@ func tryCMSampleBufferCreateForImageBufferWithMakeDataReadyHandler(allocator cor
 	if _cMSampleBufferCreateForImageBufferWithMakeDataReadyHandler == nil {
 		return 0, symbolCallError("CMSampleBufferCreateForImageBufferWithMakeDataReadyHandler", "10.14.4", _cMSampleBufferCreateForImageBufferWithMakeDataReadyHandlerErr)
 	}
-	_block0Value := objc.NewBlock(func(_ objc.Block, blockArg0 kernel.Pointer) int { return makeDataReadyHandler(blockArg0) })
+	_block0Value := objc.NewBlock(func(_ objc.Block, blockArg0 unsafe.Pointer) int32 { return makeDataReadyHandler(blockArg0) })
 	defer _block0Value.Release()
 	_block0 := unsafe.Pointer(_block0Value)
 	return _cMSampleBufferCreateForImageBufferWithMakeDataReadyHandler(allocator, imageBuffer, dataReady, formatDescription, sampleTiming, sampleBufferOut, _block0), nil
@@ -2654,10 +2868,10 @@ func CMSampleBufferCreateForTaggedBufferGroup(allocator corefoundation.CFAllocat
 	return result
 }
 
-var _cMSampleBufferCreateReady func(allocator corefoundation.CFAllocatorRef, dataBuffer CMBlockBufferRef, formatDescription CMFormatDescriptionRef, numSamples int, numSampleTimingEntries int, sampleTimingArray *CMSampleTimingInfo, numSampleSizeEntries int, sampleSizeArray *uintptr, sampleBufferOut *CMSampleBufferRef) int32
+var _cMSampleBufferCreateReady func(allocator corefoundation.CFAllocatorRef, dataBuffer CMBlockBufferRef, formatDescription CMFormatDescriptionRef, numSamples CMItemCount, numSampleTimingEntries CMItemCount, sampleTimingArray *CMSampleTimingInfo, numSampleSizeEntries CMItemCount, sampleSizeArray *uintptr, sampleBufferOut *CMSampleBufferRef) int32
 var _cMSampleBufferCreateReadyErr error
 
-func tryCMSampleBufferCreateReady(allocator corefoundation.CFAllocatorRef, dataBuffer CMBlockBufferRef, formatDescription CMFormatDescriptionRef, numSamples int, numSampleTimingEntries int, sampleTimingArray *CMSampleTimingInfo, numSampleSizeEntries int, sampleSizeArray *uintptr, sampleBufferOut *CMSampleBufferRef) (int32, error) {
+func tryCMSampleBufferCreateReady(allocator corefoundation.CFAllocatorRef, dataBuffer CMBlockBufferRef, formatDescription CMFormatDescriptionRef, numSamples CMItemCount, numSampleTimingEntries CMItemCount, sampleTimingArray *CMSampleTimingInfo, numSampleSizeEntries CMItemCount, sampleSizeArray *uintptr, sampleBufferOut *CMSampleBufferRef) (int32, error) {
 	if _cMSampleBufferCreateReady == nil {
 		return 0, symbolCallError("CMSampleBufferCreateReady", "10.10", _cMSampleBufferCreateReadyErr)
 	}
@@ -2667,7 +2881,7 @@ func tryCMSampleBufferCreateReady(allocator corefoundation.CFAllocatorRef, dataB
 // CMSampleBufferCreateReady creates a sample buffer with media data.
 //
 // See: https://developer.apple.com/documentation/CoreMedia/CMSampleBufferCreateReady(allocator:dataBuffer:formatDescription:sampleCount:sampleTimingEntryCount:sampleTimingArray:sampleSizeEntryCount:sampleSizeArray:sampleBufferOut:)
-func CMSampleBufferCreateReady(allocator corefoundation.CFAllocatorRef, dataBuffer CMBlockBufferRef, formatDescription CMFormatDescriptionRef, numSamples int, numSampleTimingEntries int, sampleTimingArray *CMSampleTimingInfo, numSampleSizeEntries int, sampleSizeArray *uintptr, sampleBufferOut *CMSampleBufferRef) int32 {
+func CMSampleBufferCreateReady(allocator corefoundation.CFAllocatorRef, dataBuffer CMBlockBufferRef, formatDescription CMFormatDescriptionRef, numSamples CMItemCount, numSampleTimingEntries CMItemCount, sampleTimingArray *CMSampleTimingInfo, numSampleSizeEntries CMItemCount, sampleSizeArray *uintptr, sampleBufferOut *CMSampleBufferRef) int32 {
 	result, callErr := tryCMSampleBufferCreateReady(allocator, dataBuffer, formatDescription, numSamples, numSampleTimingEntries, sampleTimingArray, numSampleSizeEntries, sampleSizeArray, sampleBufferOut)
 	if callErr != nil {
 		panic(callErr)
@@ -2696,14 +2910,14 @@ func CMSampleBufferCreateReadyWithImageBuffer(allocator corefoundation.CFAllocat
 	return result
 }
 
-var _cMSampleBufferCreateWithMakeDataReadyHandler func(allocator corefoundation.CFAllocatorRef, dataBuffer CMBlockBufferRef, dataReady bool, formatDescription CMFormatDescriptionRef, numSamples int, numSampleTimingEntries int, sampleTimingArray *CMSampleTimingInfo, numSampleSizeEntries int, sampleSizeArray *uintptr, sampleBufferOut *CMSampleBufferRef, makeDataReadyHandler unsafe.Pointer) int32
+var _cMSampleBufferCreateWithMakeDataReadyHandler func(allocator corefoundation.CFAllocatorRef, dataBuffer CMBlockBufferRef, dataReady bool, formatDescription CMFormatDescriptionRef, numSamples CMItemCount, numSampleTimingEntries CMItemCount, sampleTimingArray *CMSampleTimingInfo, numSampleSizeEntries CMItemCount, sampleSizeArray *uintptr, sampleBufferOut *CMSampleBufferRef, makeDataReadyHandler unsafe.Pointer) int32
 var _cMSampleBufferCreateWithMakeDataReadyHandlerErr error
 
-func tryCMSampleBufferCreateWithMakeDataReadyHandler(allocator corefoundation.CFAllocatorRef, dataBuffer CMBlockBufferRef, dataReady bool, formatDescription CMFormatDescriptionRef, numSamples int, numSampleTimingEntries int, sampleTimingArray *CMSampleTimingInfo, numSampleSizeEntries int, sampleSizeArray *uintptr, sampleBufferOut *CMSampleBufferRef, makeDataReadyHandler CMSampleBufferMakeDataReadyHandler) (int32, error) {
+func tryCMSampleBufferCreateWithMakeDataReadyHandler(allocator corefoundation.CFAllocatorRef, dataBuffer CMBlockBufferRef, dataReady bool, formatDescription CMFormatDescriptionRef, numSamples CMItemCount, numSampleTimingEntries CMItemCount, sampleTimingArray *CMSampleTimingInfo, numSampleSizeEntries CMItemCount, sampleSizeArray *uintptr, sampleBufferOut *CMSampleBufferRef, makeDataReadyHandler CMSampleBufferMakeDataReadyHandler) (int32, error) {
 	if _cMSampleBufferCreateWithMakeDataReadyHandler == nil {
 		return 0, symbolCallError("CMSampleBufferCreateWithMakeDataReadyHandler", "10.14.4", _cMSampleBufferCreateWithMakeDataReadyHandlerErr)
 	}
-	_block0Value := objc.NewBlock(func(_ objc.Block, blockArg0 kernel.Pointer) int { return makeDataReadyHandler(blockArg0) })
+	_block0Value := objc.NewBlock(func(_ objc.Block, blockArg0 unsafe.Pointer) int32 { return makeDataReadyHandler(blockArg0) })
 	defer _block0Value.Release()
 	_block0 := unsafe.Pointer(_block0Value)
 	return _cMSampleBufferCreateWithMakeDataReadyHandler(allocator, dataBuffer, dataReady, formatDescription, numSamples, numSampleTimingEntries, sampleTimingArray, numSampleSizeEntries, sampleSizeArray, sampleBufferOut, _block0), nil
@@ -2712,7 +2926,7 @@ func tryCMSampleBufferCreateWithMakeDataReadyHandler(allocator corefoundation.CF
 // CMSampleBufferCreateWithMakeDataReadyHandler creates a sample buffer with a handler to make the data ready for use.
 //
 // See: https://developer.apple.com/documentation/CoreMedia/CMSampleBufferCreateWithMakeDataReadyHandler(_:_:_:_:_:_:_:_:_:_:_:)
-func CMSampleBufferCreateWithMakeDataReadyHandler(allocator corefoundation.CFAllocatorRef, dataBuffer CMBlockBufferRef, dataReady bool, formatDescription CMFormatDescriptionRef, numSamples int, numSampleTimingEntries int, sampleTimingArray *CMSampleTimingInfo, numSampleSizeEntries int, sampleSizeArray *uintptr, sampleBufferOut *CMSampleBufferRef, makeDataReadyHandler CMSampleBufferMakeDataReadyHandler) int32 {
+func CMSampleBufferCreateWithMakeDataReadyHandler(allocator corefoundation.CFAllocatorRef, dataBuffer CMBlockBufferRef, dataReady bool, formatDescription CMFormatDescriptionRef, numSamples CMItemCount, numSampleTimingEntries CMItemCount, sampleTimingArray *CMSampleTimingInfo, numSampleSizeEntries CMItemCount, sampleSizeArray *uintptr, sampleBufferOut *CMSampleBufferRef, makeDataReadyHandler CMSampleBufferMakeDataReadyHandler) int32 {
 	result, callErr := tryCMSampleBufferCreateWithMakeDataReadyHandler(allocator, dataBuffer, dataReady, formatDescription, numSamples, numSampleTimingEntries, sampleTimingArray, numSampleSizeEntries, sampleSizeArray, sampleBufferOut, makeDataReadyHandler)
 	if callErr != nil {
 		panic(callErr)
@@ -2735,6 +2949,69 @@ func tryCMSampleBufferDataIsReady(sbuf CMSampleBufferRef) (bool, error) {
 // See: https://developer.apple.com/documentation/CoreMedia/CMSampleBufferDataIsReady(_:)
 func CMSampleBufferDataIsReady(sbuf CMSampleBufferRef) bool {
 	result, callErr := tryCMSampleBufferDataIsReady(sbuf)
+	if callErr != nil {
+		panic(callErr)
+	}
+	return result
+}
+
+var _cMSampleBufferGetAudioBufferListWithRetainedBlockBuffer func(sbuf CMSampleBufferRef, bufferListSizeNeededOut *uintptr, bufferListOut *coreaudiotypes.AudioBufferList, bufferListSize uintptr, blockBufferStructureAllocator corefoundation.CFAllocatorRef, blockBufferBlockAllocator corefoundation.CFAllocatorRef, flags uint32, blockBufferOut *uintptr) int32
+var _cMSampleBufferGetAudioBufferListWithRetainedBlockBufferErr error
+
+func tryCMSampleBufferGetAudioBufferListWithRetainedBlockBuffer(sbuf CMSampleBufferRef, bufferListSizeNeededOut *uintptr, bufferListOut *coreaudiotypes.AudioBufferList, bufferListSize uintptr, blockBufferStructureAllocator corefoundation.CFAllocatorRef, blockBufferBlockAllocator corefoundation.CFAllocatorRef, flags uint32, blockBufferOut *uintptr) (int32, error) {
+	if _cMSampleBufferGetAudioBufferListWithRetainedBlockBuffer == nil {
+		return 0, symbolCallError("CMSampleBufferGetAudioBufferListWithRetainedBlockBuffer", "10.7", _cMSampleBufferGetAudioBufferListWithRetainedBlockBufferErr)
+	}
+	return _cMSampleBufferGetAudioBufferListWithRetainedBlockBuffer(sbuf, bufferListSizeNeededOut, bufferListOut, bufferListSize, blockBufferStructureAllocator, blockBufferBlockAllocator, flags, blockBufferOut), nil
+}
+
+// CMSampleBufferGetAudioBufferListWithRetainedBlockBuffer returns an audio buffer list that contains the media data.
+//
+// See: https://developer.apple.com/documentation/CoreMedia/CMSampleBufferGetAudioBufferListWithRetainedBlockBuffer(_:bufferListSizeNeededOut:bufferListOut:bufferListSize:blockBufferAllocator:blockBufferMemoryAllocator:flags:blockBufferOut:)
+func CMSampleBufferGetAudioBufferListWithRetainedBlockBuffer(sbuf CMSampleBufferRef, bufferListSizeNeededOut *uintptr, bufferListOut *coreaudiotypes.AudioBufferList, bufferListSize uintptr, blockBufferStructureAllocator corefoundation.CFAllocatorRef, blockBufferBlockAllocator corefoundation.CFAllocatorRef, flags uint32, blockBufferOut *uintptr) int32 {
+	result, callErr := tryCMSampleBufferGetAudioBufferListWithRetainedBlockBuffer(sbuf, bufferListSizeNeededOut, bufferListOut, bufferListSize, blockBufferStructureAllocator, blockBufferBlockAllocator, flags, blockBufferOut)
+	if callErr != nil {
+		panic(callErr)
+	}
+	return result
+}
+
+var _cMSampleBufferGetAudioStreamPacketDescriptions func(sbuf CMSampleBufferRef, packetDescriptionsSize uintptr, packetDescriptionsOut *coreaudiotypes.AudioStreamPacketDescription, packetDescriptionsSizeNeededOut *uintptr) int32
+var _cMSampleBufferGetAudioStreamPacketDescriptionsErr error
+
+func tryCMSampleBufferGetAudioStreamPacketDescriptions(sbuf CMSampleBufferRef, packetDescriptionsSize uintptr, packetDescriptionsOut *coreaudiotypes.AudioStreamPacketDescription, packetDescriptionsSizeNeededOut *uintptr) (int32, error) {
+	if _cMSampleBufferGetAudioStreamPacketDescriptions == nil {
+		return 0, symbolCallError("CMSampleBufferGetAudioStreamPacketDescriptions", "10.7", _cMSampleBufferGetAudioStreamPacketDescriptionsErr)
+	}
+	return _cMSampleBufferGetAudioStreamPacketDescriptions(sbuf, packetDescriptionsSize, packetDescriptionsOut, packetDescriptionsSizeNeededOut), nil
+}
+
+// CMSampleBufferGetAudioStreamPacketDescriptions creates an array of audio stream packet descriptions.
+//
+// See: https://developer.apple.com/documentation/CoreMedia/CMSampleBufferGetAudioStreamPacketDescriptions(_:allocatedSize:packetDescriptionsOut:packetDescriptionsSizeNeededOut:)
+func CMSampleBufferGetAudioStreamPacketDescriptions(sbuf CMSampleBufferRef, packetDescriptionsSize uintptr, packetDescriptionsOut *coreaudiotypes.AudioStreamPacketDescription, packetDescriptionsSizeNeededOut *uintptr) int32 {
+	result, callErr := tryCMSampleBufferGetAudioStreamPacketDescriptions(sbuf, packetDescriptionsSize, packetDescriptionsOut, packetDescriptionsSizeNeededOut)
+	if callErr != nil {
+		panic(callErr)
+	}
+	return result
+}
+
+var _cMSampleBufferGetAudioStreamPacketDescriptionsPtr func(sbuf CMSampleBufferRef, packetDescriptionsPointerOut *objc.ID, packetDescriptionsSizeOut *uintptr) int32
+var _cMSampleBufferGetAudioStreamPacketDescriptionsPtrErr error
+
+func tryCMSampleBufferGetAudioStreamPacketDescriptionsPtr(sbuf CMSampleBufferRef, packetDescriptionsPointerOut *objc.ID, packetDescriptionsSizeOut *uintptr) (int32, error) {
+	if _cMSampleBufferGetAudioStreamPacketDescriptionsPtr == nil {
+		return 0, symbolCallError("CMSampleBufferGetAudioStreamPacketDescriptionsPtr", "10.7", _cMSampleBufferGetAudioStreamPacketDescriptionsPtrErr)
+	}
+	return _cMSampleBufferGetAudioStreamPacketDescriptionsPtr(sbuf, packetDescriptionsPointerOut, packetDescriptionsSizeOut), nil
+}
+
+// CMSampleBufferGetAudioStreamPacketDescriptionsPtr returns a pointer to a constant array of audio stream packet descriptions.
+//
+// See: https://developer.apple.com/documentation/CoreMedia/CMSampleBufferGetAudioStreamPacketDescriptionsPtr(_:packetDescriptionsPointerOut:sizeOut:)
+func CMSampleBufferGetAudioStreamPacketDescriptionsPtr(sbuf CMSampleBufferRef, packetDescriptionsPointerOut *objc.ID, packetDescriptionsSizeOut *uintptr) int32 {
+	result, callErr := tryCMSampleBufferGetAudioStreamPacketDescriptionsPtr(sbuf, packetDescriptionsPointerOut, packetDescriptionsSizeOut)
 	if callErr != nil {
 		panic(callErr)
 	}
@@ -2846,12 +3123,12 @@ func CMSampleBufferGetImageBuffer(sbuf CMSampleBufferRef) corevideo.CVImageBuffe
 	return result
 }
 
-var _cMSampleBufferGetNumSamples func(sbuf CMSampleBufferRef) int
+var _cMSampleBufferGetNumSamples func(sbuf CMSampleBufferRef) CMItemCount
 var _cMSampleBufferGetNumSamplesErr error
 
-func tryCMSampleBufferGetNumSamples(sbuf CMSampleBufferRef) (int, error) {
+func tryCMSampleBufferGetNumSamples(sbuf CMSampleBufferRef) (CMItemCount, error) {
 	if _cMSampleBufferGetNumSamples == nil {
-		return 0, symbolCallError("CMSampleBufferGetNumSamples", "10.7", _cMSampleBufferGetNumSamplesErr)
+		return *new(CMItemCount), symbolCallError("CMSampleBufferGetNumSamples", "10.7", _cMSampleBufferGetNumSamplesErr)
 	}
 	return _cMSampleBufferGetNumSamples(sbuf), nil
 }
@@ -2859,7 +3136,7 @@ func tryCMSampleBufferGetNumSamples(sbuf CMSampleBufferRef) (int, error) {
 // CMSampleBufferGetNumSamples returns the number of media samples in a sample buffer.
 //
 // See: https://developer.apple.com/documentation/CoreMedia/CMSampleBufferGetNumSamples(_:)
-func CMSampleBufferGetNumSamples(sbuf CMSampleBufferRef) int {
+func CMSampleBufferGetNumSamples(sbuf CMSampleBufferRef) CMItemCount {
 	result, callErr := tryCMSampleBufferGetNumSamples(sbuf)
 	if callErr != nil {
 		panic(callErr)
@@ -2930,10 +3207,10 @@ func CMSampleBufferGetOutputPresentationTimeStamp(sbuf CMSampleBufferRef) CMTime
 	return result
 }
 
-var _cMSampleBufferGetOutputSampleTimingInfoArray func(sbuf CMSampleBufferRef, timingArrayEntries int, timingArrayOut *CMSampleTimingInfo, timingArrayEntriesNeededOut *int) int32
+var _cMSampleBufferGetOutputSampleTimingInfoArray func(sbuf CMSampleBufferRef, timingArrayEntries CMItemCount, timingArrayOut *CMSampleTimingInfo, timingArrayEntriesNeededOut *CMItemCount) int32
 var _cMSampleBufferGetOutputSampleTimingInfoArrayErr error
 
-func tryCMSampleBufferGetOutputSampleTimingInfoArray(sbuf CMSampleBufferRef, timingArrayEntries int, timingArrayOut *CMSampleTimingInfo, timingArrayEntriesNeededOut *int) (int32, error) {
+func tryCMSampleBufferGetOutputSampleTimingInfoArray(sbuf CMSampleBufferRef, timingArrayEntries CMItemCount, timingArrayOut *CMSampleTimingInfo, timingArrayEntriesNeededOut *CMItemCount) (int32, error) {
 	if _cMSampleBufferGetOutputSampleTimingInfoArray == nil {
 		return 0, symbolCallError("CMSampleBufferGetOutputSampleTimingInfoArray", "10.7", _cMSampleBufferGetOutputSampleTimingInfoArrayErr)
 	}
@@ -2943,7 +3220,7 @@ func tryCMSampleBufferGetOutputSampleTimingInfoArray(sbuf CMSampleBufferRef, tim
 // CMSampleBufferGetOutputSampleTimingInfoArray retrieves an array of output timing information structures that represents each sample in a sample buffer.
 //
 // See: https://developer.apple.com/documentation/CoreMedia/CMSampleBufferGetOutputSampleTimingInfoArray(_:entryCount:arrayToFill:entriesNeededOut:)
-func CMSampleBufferGetOutputSampleTimingInfoArray(sbuf CMSampleBufferRef, timingArrayEntries int, timingArrayOut *CMSampleTimingInfo, timingArrayEntriesNeededOut *int) int32 {
+func CMSampleBufferGetOutputSampleTimingInfoArray(sbuf CMSampleBufferRef, timingArrayEntries CMItemCount, timingArrayOut *CMSampleTimingInfo, timingArrayEntriesNeededOut *CMItemCount) int32 {
 	result, callErr := tryCMSampleBufferGetOutputSampleTimingInfoArray(sbuf, timingArrayEntries, timingArrayOut, timingArrayEntriesNeededOut)
 	if callErr != nil {
 		panic(callErr)
@@ -2993,10 +3270,10 @@ func CMSampleBufferGetSampleAttachmentsArray(sbuf CMSampleBufferRef, createIfNec
 	return result
 }
 
-var _cMSampleBufferGetSampleSize func(sbuf CMSampleBufferRef, sampleIndex int) uintptr
+var _cMSampleBufferGetSampleSize func(sbuf CMSampleBufferRef, sampleIndex CMItemIndex) uintptr
 var _cMSampleBufferGetSampleSizeErr error
 
-func tryCMSampleBufferGetSampleSize(sbuf CMSampleBufferRef, sampleIndex int) (uintptr, error) {
+func tryCMSampleBufferGetSampleSize(sbuf CMSampleBufferRef, sampleIndex CMItemIndex) (uintptr, error) {
 	if _cMSampleBufferGetSampleSize == nil {
 		return 0, symbolCallError("CMSampleBufferGetSampleSize", "10.7", _cMSampleBufferGetSampleSizeErr)
 	}
@@ -3006,7 +3283,7 @@ func tryCMSampleBufferGetSampleSize(sbuf CMSampleBufferRef, sampleIndex int) (ui
 // CMSampleBufferGetSampleSize returns the size in bytes of a specified sample in a sample buffer.
 //
 // See: https://developer.apple.com/documentation/CoreMedia/CMSampleBufferGetSampleSize(_:at:)
-func CMSampleBufferGetSampleSize(sbuf CMSampleBufferRef, sampleIndex int) uintptr {
+func CMSampleBufferGetSampleSize(sbuf CMSampleBufferRef, sampleIndex CMItemIndex) uintptr {
 	result, callErr := tryCMSampleBufferGetSampleSize(sbuf, sampleIndex)
 	if callErr != nil {
 		panic(callErr)
@@ -3014,10 +3291,10 @@ func CMSampleBufferGetSampleSize(sbuf CMSampleBufferRef, sampleIndex int) uintpt
 	return result
 }
 
-var _cMSampleBufferGetSampleSizeArray func(sbuf CMSampleBufferRef, sizeArrayEntries int, sizeArrayOut *uintptr, sizeArrayEntriesNeededOut *int) int32
+var _cMSampleBufferGetSampleSizeArray func(sbuf CMSampleBufferRef, sizeArrayEntries CMItemCount, sizeArrayOut *uintptr, sizeArrayEntriesNeededOut *CMItemCount) int32
 var _cMSampleBufferGetSampleSizeArrayErr error
 
-func tryCMSampleBufferGetSampleSizeArray(sbuf CMSampleBufferRef, sizeArrayEntries int, sizeArrayOut *uintptr, sizeArrayEntriesNeededOut *int) (int32, error) {
+func tryCMSampleBufferGetSampleSizeArray(sbuf CMSampleBufferRef, sizeArrayEntries CMItemCount, sizeArrayOut *uintptr, sizeArrayEntriesNeededOut *CMItemCount) (int32, error) {
 	if _cMSampleBufferGetSampleSizeArray == nil {
 		return 0, symbolCallError("CMSampleBufferGetSampleSizeArray", "10.7", _cMSampleBufferGetSampleSizeArrayErr)
 	}
@@ -3027,7 +3304,7 @@ func tryCMSampleBufferGetSampleSizeArray(sbuf CMSampleBufferRef, sizeArrayEntrie
 // CMSampleBufferGetSampleSizeArray retrieves an array of sample sizes that represents each sample in a sample buffer.
 //
 // See: https://developer.apple.com/documentation/CoreMedia/CMSampleBufferGetSampleSizeArray(_:entryCount:arrayToFill:entriesNeededOut:)
-func CMSampleBufferGetSampleSizeArray(sbuf CMSampleBufferRef, sizeArrayEntries int, sizeArrayOut *uintptr, sizeArrayEntriesNeededOut *int) int32 {
+func CMSampleBufferGetSampleSizeArray(sbuf CMSampleBufferRef, sizeArrayEntries CMItemCount, sizeArrayOut *uintptr, sizeArrayEntriesNeededOut *CMItemCount) int32 {
 	result, callErr := tryCMSampleBufferGetSampleSizeArray(sbuf, sizeArrayEntries, sizeArrayOut, sizeArrayEntriesNeededOut)
 	if callErr != nil {
 		panic(callErr)
@@ -3035,10 +3312,10 @@ func CMSampleBufferGetSampleSizeArray(sbuf CMSampleBufferRef, sizeArrayEntries i
 	return result
 }
 
-var _cMSampleBufferGetSampleTimingInfo func(sbuf CMSampleBufferRef, sampleIndex int, timingInfoOut *CMSampleTimingInfo) int32
+var _cMSampleBufferGetSampleTimingInfo func(sbuf CMSampleBufferRef, sampleIndex CMItemIndex, timingInfoOut *CMSampleTimingInfo) int32
 var _cMSampleBufferGetSampleTimingInfoErr error
 
-func tryCMSampleBufferGetSampleTimingInfo(sbuf CMSampleBufferRef, sampleIndex int, timingInfoOut *CMSampleTimingInfo) (int32, error) {
+func tryCMSampleBufferGetSampleTimingInfo(sbuf CMSampleBufferRef, sampleIndex CMItemIndex, timingInfoOut *CMSampleTimingInfo) (int32, error) {
 	if _cMSampleBufferGetSampleTimingInfo == nil {
 		return 0, symbolCallError("CMSampleBufferGetSampleTimingInfo", "10.7", _cMSampleBufferGetSampleTimingInfoErr)
 	}
@@ -3048,7 +3325,7 @@ func tryCMSampleBufferGetSampleTimingInfo(sbuf CMSampleBufferRef, sampleIndex in
 // CMSampleBufferGetSampleTimingInfo retrieves a timing information structure that describes a specified sample in a sample buffer.
 //
 // See: https://developer.apple.com/documentation/CoreMedia/CMSampleBufferGetSampleTimingInfo(_:at:timingInfoOut:)
-func CMSampleBufferGetSampleTimingInfo(sbuf CMSampleBufferRef, sampleIndex int, timingInfoOut *CMSampleTimingInfo) int32 {
+func CMSampleBufferGetSampleTimingInfo(sbuf CMSampleBufferRef, sampleIndex CMItemIndex, timingInfoOut *CMSampleTimingInfo) int32 {
 	result, callErr := tryCMSampleBufferGetSampleTimingInfo(sbuf, sampleIndex, timingInfoOut)
 	if callErr != nil {
 		panic(callErr)
@@ -3056,10 +3333,10 @@ func CMSampleBufferGetSampleTimingInfo(sbuf CMSampleBufferRef, sampleIndex int, 
 	return result
 }
 
-var _cMSampleBufferGetSampleTimingInfoArray func(sbuf CMSampleBufferRef, numSampleTimingEntries int, timingArrayOut *CMSampleTimingInfo, timingArrayEntriesNeededOut *int) int32
+var _cMSampleBufferGetSampleTimingInfoArray func(sbuf CMSampleBufferRef, numSampleTimingEntries CMItemCount, timingArrayOut *CMSampleTimingInfo, timingArrayEntriesNeededOut *CMItemCount) int32
 var _cMSampleBufferGetSampleTimingInfoArrayErr error
 
-func tryCMSampleBufferGetSampleTimingInfoArray(sbuf CMSampleBufferRef, numSampleTimingEntries int, timingArrayOut *CMSampleTimingInfo, timingArrayEntriesNeededOut *int) (int32, error) {
+func tryCMSampleBufferGetSampleTimingInfoArray(sbuf CMSampleBufferRef, numSampleTimingEntries CMItemCount, timingArrayOut *CMSampleTimingInfo, timingArrayEntriesNeededOut *CMItemCount) (int32, error) {
 	if _cMSampleBufferGetSampleTimingInfoArray == nil {
 		return 0, symbolCallError("CMSampleBufferGetSampleTimingInfoArray", "10.7", _cMSampleBufferGetSampleTimingInfoArrayErr)
 	}
@@ -3069,7 +3346,7 @@ func tryCMSampleBufferGetSampleTimingInfoArray(sbuf CMSampleBufferRef, numSample
 // CMSampleBufferGetSampleTimingInfoArray retrieves an array of sample timing information structures that represents each sample in a sample buffer.
 //
 // See: https://developer.apple.com/documentation/CoreMedia/CMSampleBufferGetSampleTimingInfoArray(_:entryCount:arrayToFill:entriesNeededOut:)
-func CMSampleBufferGetSampleTimingInfoArray(sbuf CMSampleBufferRef, numSampleTimingEntries int, timingArrayOut *CMSampleTimingInfo, timingArrayEntriesNeededOut *int) int32 {
+func CMSampleBufferGetSampleTimingInfoArray(sbuf CMSampleBufferRef, numSampleTimingEntries CMItemCount, timingArrayOut *CMSampleTimingInfo, timingArrayEntriesNeededOut *CMItemCount) int32 {
 	result, callErr := tryCMSampleBufferGetSampleTimingInfoArray(sbuf, numSampleTimingEntries, timingArrayOut, timingArrayEntriesNeededOut)
 	if callErr != nil {
 		panic(callErr)
@@ -3245,6 +3522,27 @@ func CMSampleBufferSetDataBuffer(sbuf CMSampleBufferRef, dataBuffer CMBlockBuffe
 	return result
 }
 
+var _cMSampleBufferSetDataBufferFromAudioBufferList func(sbuf CMSampleBufferRef, blockBufferStructureAllocator corefoundation.CFAllocatorRef, blockBufferBlockAllocator corefoundation.CFAllocatorRef, flags uint32, bufferList *coreaudiotypes.AudioBufferList) int32
+var _cMSampleBufferSetDataBufferFromAudioBufferListErr error
+
+func tryCMSampleBufferSetDataBufferFromAudioBufferList(sbuf CMSampleBufferRef, blockBufferStructureAllocator corefoundation.CFAllocatorRef, blockBufferBlockAllocator corefoundation.CFAllocatorRef, flags uint32, bufferList *coreaudiotypes.AudioBufferList) (int32, error) {
+	if _cMSampleBufferSetDataBufferFromAudioBufferList == nil {
+		return 0, symbolCallError("CMSampleBufferSetDataBufferFromAudioBufferList", "10.7", _cMSampleBufferSetDataBufferFromAudioBufferListErr)
+	}
+	return _cMSampleBufferSetDataBufferFromAudioBufferList(sbuf, blockBufferStructureAllocator, blockBufferBlockAllocator, flags, bufferList), nil
+}
+
+// CMSampleBufferSetDataBufferFromAudioBufferList creates a block buffer that contains a copy of the data from an audio buffer list.
+//
+// See: https://developer.apple.com/documentation/CoreMedia/CMSampleBufferSetDataBufferFromAudioBufferList(_:blockBufferAllocator:blockBufferMemoryAllocator:flags:bufferList:)
+func CMSampleBufferSetDataBufferFromAudioBufferList(sbuf CMSampleBufferRef, blockBufferStructureAllocator corefoundation.CFAllocatorRef, blockBufferBlockAllocator corefoundation.CFAllocatorRef, flags uint32, bufferList *coreaudiotypes.AudioBufferList) int32 {
+	result, callErr := tryCMSampleBufferSetDataBufferFromAudioBufferList(sbuf, blockBufferStructureAllocator, blockBufferBlockAllocator, flags, bufferList)
+	if callErr != nil {
+		panic(callErr)
+	}
+	return result
+}
+
 var _cMSampleBufferSetDataFailed func(sbuf CMSampleBufferRef, status int32) int32
 var _cMSampleBufferSetDataFailedErr error
 
@@ -3315,7 +3613,7 @@ func tryCMSampleBufferSetInvalidateHandler(sbuf CMSampleBufferRef, invalidateHan
 	if _cMSampleBufferSetInvalidateHandler == nil {
 		return 0, symbolCallError("CMSampleBufferSetInvalidateHandler", "10.10", _cMSampleBufferSetInvalidateHandlerErr)
 	}
-	_block0Value := objc.NewBlock(func(_ objc.Block, blockArg0 kernel.Pointer) { invalidateHandler(blockArg0) })
+	_block0Value := objc.NewBlock(func(_ objc.Block, blockArg0 unsafe.Pointer) { invalidateHandler(blockArg0) })
 	defer _block0Value.Release()
 	_block0 := unsafe.Pointer(_block0Value)
 	return _cMSampleBufferSetInvalidateHandler(sbuf, _block0), nil
@@ -3374,10 +3672,10 @@ func CMSampleBufferTrackDataReadiness(sbuf CMSampleBufferRef, sampleBufferToTrac
 	return result
 }
 
-var _cMSetAttachment func(target CMAttachmentBearerRef, key corefoundation.CFStringRef, value corefoundation.CFTypeRef, attachmentMode CMAttachmentMode)
+var _cMSetAttachment func(target CMAttachmentBearerRef, key corefoundation.CFStringRef, value corefoundation.CFTypeRef, attachmentMode uint32)
 var _cMSetAttachmentErr error
 
-func tryCMSetAttachment(target CMAttachmentBearerRef, key corefoundation.CFStringRef, value corefoundation.CFTypeRef, attachmentMode CMAttachmentMode) error {
+func tryCMSetAttachment(target CMAttachmentBearerRef, key corefoundation.CFStringRef, value corefoundation.CFTypeRef, attachmentMode uint32) error {
 	if _cMSetAttachment == nil {
 		return symbolCallError("CMSetAttachment", "10.7", _cMSetAttachmentErr)
 	}
@@ -3388,16 +3686,16 @@ func tryCMSetAttachment(target CMAttachmentBearerRef, key corefoundation.CFStrin
 // CMSetAttachment sets or adds an attachment to an attachment bearer object.
 //
 // See: https://developer.apple.com/documentation/CoreMedia/CMSetAttachment(_:key:value:attachmentMode:)
-func CMSetAttachment(target CMAttachmentBearerRef, key corefoundation.CFStringRef, value corefoundation.CFTypeRef, attachmentMode CMAttachmentMode) {
+func CMSetAttachment(target CMAttachmentBearerRef, key corefoundation.CFStringRef, value corefoundation.CFTypeRef, attachmentMode uint32) {
 	if callErr := tryCMSetAttachment(target, key, value, attachmentMode); callErr != nil {
 		panic(callErr)
 	}
 }
 
-var _cMSetAttachments func(target CMAttachmentBearerRef, theAttachments corefoundation.CFDictionaryRef, attachmentMode CMAttachmentMode)
+var _cMSetAttachments func(target CMAttachmentBearerRef, theAttachments corefoundation.CFDictionaryRef, attachmentMode uint32)
 var _cMSetAttachmentsErr error
 
-func tryCMSetAttachments(target CMAttachmentBearerRef, theAttachments corefoundation.CFDictionaryRef, attachmentMode CMAttachmentMode) error {
+func tryCMSetAttachments(target CMAttachmentBearerRef, theAttachments corefoundation.CFDictionaryRef, attachmentMode uint32) error {
 	if _cMSetAttachments == nil {
 		return symbolCallError("CMSetAttachments", "10.7", _cMSetAttachmentsErr)
 	}
@@ -3408,7 +3706,7 @@ func tryCMSetAttachments(target CMAttachmentBearerRef, theAttachments corefounda
 // CMSetAttachments sets a dictionary of attachments on an attachment bearer object.
 //
 // See: https://developer.apple.com/documentation/CoreMedia/CMSetAttachments(_:attachments:attachmentMode:)
-func CMSetAttachments(target CMAttachmentBearerRef, theAttachments corefoundation.CFDictionaryRef, attachmentMode CMAttachmentMode) {
+func CMSetAttachments(target CMAttachmentBearerRef, theAttachments corefoundation.CFDictionaryRef, attachmentMode uint32) {
 	if callErr := tryCMSetAttachments(target, theAttachments, attachmentMode); callErr != nil {
 		panic(callErr)
 	}
@@ -3960,10 +4258,10 @@ func CMTagCollectionAddTag(tagCollection CMMutableTagCollectionRef, tagToAdd CMT
 	return result
 }
 
-var _cMTagCollectionAddTagsFromArray func(tagCollection CMMutableTagCollectionRef, tags *CMTag, tagCount int) int32
+var _cMTagCollectionAddTagsFromArray func(tagCollection CMMutableTagCollectionRef, tags *CMTag, tagCount CMItemCount) int32
 var _cMTagCollectionAddTagsFromArrayErr error
 
-func tryCMTagCollectionAddTagsFromArray(tagCollection CMMutableTagCollectionRef, tags *CMTag, tagCount int) (int32, error) {
+func tryCMTagCollectionAddTagsFromArray(tagCollection CMMutableTagCollectionRef, tags *CMTag, tagCount CMItemCount) (int32, error) {
 	if _cMTagCollectionAddTagsFromArray == nil {
 		return 0, symbolCallError("CMTagCollectionAddTagsFromArray", "14.0", _cMTagCollectionAddTagsFromArrayErr)
 	}
@@ -3973,7 +4271,7 @@ func tryCMTagCollectionAddTagsFromArray(tagCollection CMMutableTagCollectionRef,
 // CMTagCollectionAddTagsFromArray adds the tags contained in a C-style array to a tag collection.
 //
 // See: https://developer.apple.com/documentation/CoreMedia/CMTagCollectionAddTagsFromArray
-func CMTagCollectionAddTagsFromArray(tagCollection CMMutableTagCollectionRef, tags *CMTag, tagCount int) int32 {
+func CMTagCollectionAddTagsFromArray(tagCollection CMMutableTagCollectionRef, tags *CMTag, tagCount CMItemCount) int32 {
 	result, callErr := tryCMTagCollectionAddTagsFromArray(tagCollection, tags, tagCount)
 	if callErr != nil {
 		panic(callErr)
@@ -4064,10 +4362,10 @@ func CMTagCollectionContainsCategory(tagCollection CMTagCollectionRef, category 
 	return result
 }
 
-var _cMTagCollectionContainsSpecifiedTags func(tagCollection CMTagCollectionRef, containedTags *CMTag, containedTagCount int) bool
+var _cMTagCollectionContainsSpecifiedTags func(tagCollection CMTagCollectionRef, containedTags *CMTag, containedTagCount CMItemCount) bool
 var _cMTagCollectionContainsSpecifiedTagsErr error
 
-func tryCMTagCollectionContainsSpecifiedTags(tagCollection CMTagCollectionRef, containedTags *CMTag, containedTagCount int) (bool, error) {
+func tryCMTagCollectionContainsSpecifiedTags(tagCollection CMTagCollectionRef, containedTags *CMTag, containedTagCount CMItemCount) (bool, error) {
 	if _cMTagCollectionContainsSpecifiedTags == nil {
 		return false, symbolCallError("CMTagCollectionContainsSpecifiedTags", "14.0", _cMTagCollectionContainsSpecifiedTagsErr)
 	}
@@ -4077,7 +4375,7 @@ func tryCMTagCollectionContainsSpecifiedTags(tagCollection CMTagCollectionRef, c
 // CMTagCollectionContainsSpecifiedTags determines if a tag collection contains a subset of tags.
 //
 // See: https://developer.apple.com/documentation/CoreMedia/CMTagCollectionContainsSpecifiedTags
-func CMTagCollectionContainsSpecifiedTags(tagCollection CMTagCollectionRef, containedTags *CMTag, containedTagCount int) bool {
+func CMTagCollectionContainsSpecifiedTags(tagCollection CMTagCollectionRef, containedTags *CMTag, containedTagCount CMItemCount) bool {
 	result, callErr := tryCMTagCollectionContainsSpecifiedTags(tagCollection, containedTags, containedTagCount)
 	if callErr != nil {
 		panic(callErr)
@@ -4190,10 +4488,10 @@ func CMTagCollectionCopyDescription(allocator corefoundation.CFAllocatorRef, tag
 	return result
 }
 
-var _cMTagCollectionCopyTagsOfCategories func(allocator corefoundation.CFAllocatorRef, tagCollection CMTagCollectionRef, categories *CMTagCategory, categoriesCount int, collectionWithTagsOfCategories *CMTagCollectionRef) int32
+var _cMTagCollectionCopyTagsOfCategories func(allocator corefoundation.CFAllocatorRef, tagCollection CMTagCollectionRef, categories *CMTagCategory, categoriesCount CMItemCount, collectionWithTagsOfCategories *CMTagCollectionRef) int32
 var _cMTagCollectionCopyTagsOfCategoriesErr error
 
-func tryCMTagCollectionCopyTagsOfCategories(allocator corefoundation.CFAllocatorRef, tagCollection CMTagCollectionRef, categories *CMTagCategory, categoriesCount int, collectionWithTagsOfCategories *CMTagCollectionRef) (int32, error) {
+func tryCMTagCollectionCopyTagsOfCategories(allocator corefoundation.CFAllocatorRef, tagCollection CMTagCollectionRef, categories *CMTagCategory, categoriesCount CMItemCount, collectionWithTagsOfCategories *CMTagCollectionRef) (int32, error) {
 	if _cMTagCollectionCopyTagsOfCategories == nil {
 		return 0, symbolCallError("CMTagCollectionCopyTagsOfCategories", "14.0", _cMTagCollectionCopyTagsOfCategoriesErr)
 	}
@@ -4203,7 +4501,7 @@ func tryCMTagCollectionCopyTagsOfCategories(allocator corefoundation.CFAllocator
 // CMTagCollectionCopyTagsOfCategories creates a new tag collection from an existing collection, copying all tags which match a list of categories.
 //
 // See: https://developer.apple.com/documentation/CoreMedia/CMTagCollectionCopyTagsOfCategories
-func CMTagCollectionCopyTagsOfCategories(allocator corefoundation.CFAllocatorRef, tagCollection CMTagCollectionRef, categories *CMTagCategory, categoriesCount int, collectionWithTagsOfCategories *CMTagCollectionRef) int32 {
+func CMTagCollectionCopyTagsOfCategories(allocator corefoundation.CFAllocatorRef, tagCollection CMTagCollectionRef, categories *CMTagCategory, categoriesCount CMItemCount, collectionWithTagsOfCategories *CMTagCollectionRef) int32 {
 	result, callErr := tryCMTagCollectionCopyTagsOfCategories(allocator, tagCollection, categories, categoriesCount, collectionWithTagsOfCategories)
 	if callErr != nil {
 		panic(callErr)
@@ -4211,12 +4509,12 @@ func CMTagCollectionCopyTagsOfCategories(allocator corefoundation.CFAllocatorRef
 	return result
 }
 
-var _cMTagCollectionCountTagsWithFilterFunction func(tagCollection CMTagCollectionRef, filterApplier CMTagCollectionTagFilterFunction, context unsafe.Pointer) int
+var _cMTagCollectionCountTagsWithFilterFunction func(tagCollection CMTagCollectionRef, filterApplier CMTagCollectionTagFilterFunction, context unsafe.Pointer) CMItemCount
 var _cMTagCollectionCountTagsWithFilterFunctionErr error
 
-func tryCMTagCollectionCountTagsWithFilterFunction(tagCollection CMTagCollectionRef, filterApplier CMTagCollectionTagFilterFunction, context unsafe.Pointer) (int, error) {
+func tryCMTagCollectionCountTagsWithFilterFunction(tagCollection CMTagCollectionRef, filterApplier CMTagCollectionTagFilterFunction, context unsafe.Pointer) (CMItemCount, error) {
 	if _cMTagCollectionCountTagsWithFilterFunction == nil {
-		return 0, symbolCallError("CMTagCollectionCountTagsWithFilterFunction", "14.0", _cMTagCollectionCountTagsWithFilterFunctionErr)
+		return *new(CMItemCount), symbolCallError("CMTagCollectionCountTagsWithFilterFunction", "14.0", _cMTagCollectionCountTagsWithFilterFunctionErr)
 	}
 	return _cMTagCollectionCountTagsWithFilterFunction(tagCollection, filterApplier, context), nil
 }
@@ -4224,7 +4522,7 @@ func tryCMTagCollectionCountTagsWithFilterFunction(tagCollection CMTagCollection
 // CMTagCollectionCountTagsWithFilterFunction counts the number of tags in a collection matching an evaluation function.
 //
 // See: https://developer.apple.com/documentation/CoreMedia/CMTagCollectionCountTagsWithFilterFunction
-func CMTagCollectionCountTagsWithFilterFunction(tagCollection CMTagCollectionRef, filterApplier CMTagCollectionTagFilterFunction, context unsafe.Pointer) int {
+func CMTagCollectionCountTagsWithFilterFunction(tagCollection CMTagCollectionRef, filterApplier CMTagCollectionTagFilterFunction, context unsafe.Pointer) CMItemCount {
 	result, callErr := tryCMTagCollectionCountTagsWithFilterFunction(tagCollection, filterApplier, context)
 	if callErr != nil {
 		panic(callErr)
@@ -4232,10 +4530,10 @@ func CMTagCollectionCountTagsWithFilterFunction(tagCollection CMTagCollectionRef
 	return result
 }
 
-var _cMTagCollectionCreate func(allocator corefoundation.CFAllocatorRef, tags *CMTag, tagCount int, newCollectionOut *CMTagCollectionRef) int32
+var _cMTagCollectionCreate func(allocator corefoundation.CFAllocatorRef, tags *CMTag, tagCount CMItemCount, newCollectionOut *CMTagCollectionRef) int32
 var _cMTagCollectionCreateErr error
 
-func tryCMTagCollectionCreate(allocator corefoundation.CFAllocatorRef, tags *CMTag, tagCount int, newCollectionOut *CMTagCollectionRef) (int32, error) {
+func tryCMTagCollectionCreate(allocator corefoundation.CFAllocatorRef, tags *CMTag, tagCount CMItemCount, newCollectionOut *CMTagCollectionRef) (int32, error) {
 	if _cMTagCollectionCreate == nil {
 		return 0, symbolCallError("CMTagCollectionCreate", "14.0", _cMTagCollectionCreateErr)
 	}
@@ -4245,7 +4543,7 @@ func tryCMTagCollectionCreate(allocator corefoundation.CFAllocatorRef, tags *CMT
 // CMTagCollectionCreate creates a new tag collection from an existing C-style array of tags.
 //
 // See: https://developer.apple.com/documentation/CoreMedia/CMTagCollectionCreate
-func CMTagCollectionCreate(allocator corefoundation.CFAllocatorRef, tags *CMTag, tagCount int, newCollectionOut *CMTagCollectionRef) int32 {
+func CMTagCollectionCreate(allocator corefoundation.CFAllocatorRef, tags *CMTag, tagCount CMItemCount, newCollectionOut *CMTagCollectionRef) int32 {
 	result, callErr := tryCMTagCollectionCreate(allocator, tags, tagCount, newCollectionOut)
 	if callErr != nil {
 		panic(callErr)
@@ -4442,12 +4740,12 @@ func CMTagCollectionCreateUnion(tagCollection1 CMTagCollectionRef, tagCollection
 	return result
 }
 
-var _cMTagCollectionGetCount func(tagCollection CMTagCollectionRef) int
+var _cMTagCollectionGetCount func(tagCollection CMTagCollectionRef) CMItemCount
 var _cMTagCollectionGetCountErr error
 
-func tryCMTagCollectionGetCount(tagCollection CMTagCollectionRef) (int, error) {
+func tryCMTagCollectionGetCount(tagCollection CMTagCollectionRef) (CMItemCount, error) {
 	if _cMTagCollectionGetCount == nil {
-		return 0, symbolCallError("CMTagCollectionGetCount", "14.0", _cMTagCollectionGetCountErr)
+		return *new(CMItemCount), symbolCallError("CMTagCollectionGetCount", "14.0", _cMTagCollectionGetCountErr)
 	}
 	return _cMTagCollectionGetCount(tagCollection), nil
 }
@@ -4455,7 +4753,7 @@ func tryCMTagCollectionGetCount(tagCollection CMTagCollectionRef) (int, error) {
 // CMTagCollectionGetCount gets the number of tags in a tag collection.
 //
 // See: https://developer.apple.com/documentation/CoreMedia/CMTagCollectionGetCount
-func CMTagCollectionGetCount(tagCollection CMTagCollectionRef) int {
+func CMTagCollectionGetCount(tagCollection CMTagCollectionRef) CMItemCount {
 	result, callErr := tryCMTagCollectionGetCount(tagCollection)
 	if callErr != nil {
 		panic(callErr)
@@ -4463,12 +4761,12 @@ func CMTagCollectionGetCount(tagCollection CMTagCollectionRef) int {
 	return result
 }
 
-var _cMTagCollectionGetCountOfCategory func(tagCollection CMTagCollectionRef, category CMTagCategory) int
+var _cMTagCollectionGetCountOfCategory func(tagCollection CMTagCollectionRef, category CMTagCategory) CMItemCount
 var _cMTagCollectionGetCountOfCategoryErr error
 
-func tryCMTagCollectionGetCountOfCategory(tagCollection CMTagCollectionRef, category CMTagCategory) (int, error) {
+func tryCMTagCollectionGetCountOfCategory(tagCollection CMTagCollectionRef, category CMTagCategory) (CMItemCount, error) {
 	if _cMTagCollectionGetCountOfCategory == nil {
-		return 0, symbolCallError("CMTagCollectionGetCountOfCategory", "14.0", _cMTagCollectionGetCountOfCategoryErr)
+		return *new(CMItemCount), symbolCallError("CMTagCollectionGetCountOfCategory", "14.0", _cMTagCollectionGetCountOfCategoryErr)
 	}
 	return _cMTagCollectionGetCountOfCategory(tagCollection, category), nil
 }
@@ -4476,7 +4774,7 @@ func tryCMTagCollectionGetCountOfCategory(tagCollection CMTagCollectionRef, cate
 // CMTagCollectionGetCountOfCategory retrieves the number of tags in the collection matching a given category.
 //
 // See: https://developer.apple.com/documentation/CoreMedia/CMTagCollectionGetCountOfCategory
-func CMTagCollectionGetCountOfCategory(tagCollection CMTagCollectionRef, category CMTagCategory) int {
+func CMTagCollectionGetCountOfCategory(tagCollection CMTagCollectionRef, category CMTagCategory) CMItemCount {
 	result, callErr := tryCMTagCollectionGetCountOfCategory(tagCollection, category)
 	if callErr != nil {
 		panic(callErr)
@@ -4484,10 +4782,10 @@ func CMTagCollectionGetCountOfCategory(tagCollection CMTagCollectionRef, categor
 	return result
 }
 
-var _cMTagCollectionGetTags func(tagCollection CMTagCollectionRef, tagBuffer *CMTag, tagBufferCount int, numberOfTagsCopied *int) int32
+var _cMTagCollectionGetTags func(tagCollection CMTagCollectionRef, tagBuffer *CMTag, tagBufferCount CMItemCount, numberOfTagsCopied *CMItemCount) int32
 var _cMTagCollectionGetTagsErr error
 
-func tryCMTagCollectionGetTags(tagCollection CMTagCollectionRef, tagBuffer *CMTag, tagBufferCount int, numberOfTagsCopied *int) (int32, error) {
+func tryCMTagCollectionGetTags(tagCollection CMTagCollectionRef, tagBuffer *CMTag, tagBufferCount CMItemCount, numberOfTagsCopied *CMItemCount) (int32, error) {
 	if _cMTagCollectionGetTags == nil {
 		return 0, symbolCallError("CMTagCollectionGetTags", "14.0", _cMTagCollectionGetTagsErr)
 	}
@@ -4497,7 +4795,7 @@ func tryCMTagCollectionGetTags(tagCollection CMTagCollectionRef, tagBuffer *CMTa
 // CMTagCollectionGetTags retrieves an arbitrary number of tags from the collection.
 //
 // See: https://developer.apple.com/documentation/CoreMedia/CMTagCollectionGetTags
-func CMTagCollectionGetTags(tagCollection CMTagCollectionRef, tagBuffer *CMTag, tagBufferCount int, numberOfTagsCopied *int) int32 {
+func CMTagCollectionGetTags(tagCollection CMTagCollectionRef, tagBuffer *CMTag, tagBufferCount CMItemCount, numberOfTagsCopied *CMItemCount) int32 {
 	result, callErr := tryCMTagCollectionGetTags(tagCollection, tagBuffer, tagBufferCount, numberOfTagsCopied)
 	if callErr != nil {
 		panic(callErr)
@@ -4505,10 +4803,10 @@ func CMTagCollectionGetTags(tagCollection CMTagCollectionRef, tagBuffer *CMTag, 
 	return result
 }
 
-var _cMTagCollectionGetTagsWithCategory func(tagCollection CMTagCollectionRef, category CMTagCategory, tagBuffer *CMTag, tagBufferCount int, numberOfTagsCopied *int) int32
+var _cMTagCollectionGetTagsWithCategory func(tagCollection CMTagCollectionRef, category CMTagCategory, tagBuffer *CMTag, tagBufferCount CMItemCount, numberOfTagsCopied *CMItemCount) int32
 var _cMTagCollectionGetTagsWithCategoryErr error
 
-func tryCMTagCollectionGetTagsWithCategory(tagCollection CMTagCollectionRef, category CMTagCategory, tagBuffer *CMTag, tagBufferCount int, numberOfTagsCopied *int) (int32, error) {
+func tryCMTagCollectionGetTagsWithCategory(tagCollection CMTagCollectionRef, category CMTagCategory, tagBuffer *CMTag, tagBufferCount CMItemCount, numberOfTagsCopied *CMItemCount) (int32, error) {
 	if _cMTagCollectionGetTagsWithCategory == nil {
 		return 0, symbolCallError("CMTagCollectionGetTagsWithCategory", "14.0", _cMTagCollectionGetTagsWithCategoryErr)
 	}
@@ -4518,7 +4816,7 @@ func tryCMTagCollectionGetTagsWithCategory(tagCollection CMTagCollectionRef, cat
 // CMTagCollectionGetTagsWithCategory retrieves a C-style array of tags with a given category from a tag collection.
 //
 // See: https://developer.apple.com/documentation/CoreMedia/CMTagCollectionGetTagsWithCategory
-func CMTagCollectionGetTagsWithCategory(tagCollection CMTagCollectionRef, category CMTagCategory, tagBuffer *CMTag, tagBufferCount int, numberOfTagsCopied *int) int32 {
+func CMTagCollectionGetTagsWithCategory(tagCollection CMTagCollectionRef, category CMTagCategory, tagBuffer *CMTag, tagBufferCount CMItemCount, numberOfTagsCopied *CMItemCount) int32 {
 	result, callErr := tryCMTagCollectionGetTagsWithCategory(tagCollection, category, tagBuffer, tagBufferCount, numberOfTagsCopied)
 	if callErr != nil {
 		panic(callErr)
@@ -4526,10 +4824,10 @@ func CMTagCollectionGetTagsWithCategory(tagCollection CMTagCollectionRef, catego
 	return result
 }
 
-var _cMTagCollectionGetTagsWithFilterFunction func(tagCollection CMTagCollectionRef, tagBuffer *CMTag, tagBufferCount int, numberOfTagsCopied *int, filter CMTagCollectionTagFilterFunction, context unsafe.Pointer) int32
+var _cMTagCollectionGetTagsWithFilterFunction func(tagCollection CMTagCollectionRef, tagBuffer *CMTag, tagBufferCount CMItemCount, numberOfTagsCopied *CMItemCount, filter CMTagCollectionTagFilterFunction, context unsafe.Pointer) int32
 var _cMTagCollectionGetTagsWithFilterFunctionErr error
 
-func tryCMTagCollectionGetTagsWithFilterFunction(tagCollection CMTagCollectionRef, tagBuffer *CMTag, tagBufferCount int, numberOfTagsCopied *int, filter CMTagCollectionTagFilterFunction, context unsafe.Pointer) (int32, error) {
+func tryCMTagCollectionGetTagsWithFilterFunction(tagCollection CMTagCollectionRef, tagBuffer *CMTag, tagBufferCount CMItemCount, numberOfTagsCopied *CMItemCount, filter CMTagCollectionTagFilterFunction, context unsafe.Pointer) (int32, error) {
 	if _cMTagCollectionGetTagsWithFilterFunction == nil {
 		return 0, symbolCallError("CMTagCollectionGetTagsWithFilterFunction", "14.0", _cMTagCollectionGetTagsWithFilterFunctionErr)
 	}
@@ -4539,7 +4837,7 @@ func tryCMTagCollectionGetTagsWithFilterFunction(tagCollection CMTagCollectionRe
 // CMTagCollectionGetTagsWithFilterFunction gets all tags in a collection matching an evaluation function.
 //
 // See: https://developer.apple.com/documentation/CoreMedia/CMTagCollectionGetTagsWithFilterFunction
-func CMTagCollectionGetTagsWithFilterFunction(tagCollection CMTagCollectionRef, tagBuffer *CMTag, tagBufferCount int, numberOfTagsCopied *int, filter CMTagCollectionTagFilterFunction, context unsafe.Pointer) int32 {
+func CMTagCollectionGetTagsWithFilterFunction(tagCollection CMTagCollectionRef, tagBuffer *CMTag, tagBufferCount CMItemCount, numberOfTagsCopied *CMItemCount, filter CMTagCollectionTagFilterFunction, context unsafe.Pointer) int32 {
 	result, callErr := tryCMTagCollectionGetTagsWithFilterFunction(tagCollection, tagBuffer, tagBufferCount, numberOfTagsCopied, filter, context)
 	if callErr != nil {
 		panic(callErr)
@@ -5282,12 +5580,12 @@ func CMTaggedBufferGroupGetCVPixelBufferForTagCollection(group CMTaggedBufferGro
 	return result
 }
 
-var _cMTaggedBufferGroupGetCount func(group CMTaggedBufferGroupRef) int
+var _cMTaggedBufferGroupGetCount func(group CMTaggedBufferGroupRef) CMItemCount
 var _cMTaggedBufferGroupGetCountErr error
 
-func tryCMTaggedBufferGroupGetCount(group CMTaggedBufferGroupRef) (int, error) {
+func tryCMTaggedBufferGroupGetCount(group CMTaggedBufferGroupRef) (CMItemCount, error) {
 	if _cMTaggedBufferGroupGetCount == nil {
-		return 0, symbolCallError("CMTaggedBufferGroupGetCount", "14.0", _cMTaggedBufferGroupGetCountErr)
+		return *new(CMItemCount), symbolCallError("CMTaggedBufferGroupGetCount", "14.0", _cMTaggedBufferGroupGetCountErr)
 	}
 	return _cMTaggedBufferGroupGetCount(group), nil
 }
@@ -5295,7 +5593,7 @@ func tryCMTaggedBufferGroupGetCount(group CMTaggedBufferGroupRef) (int, error) {
 // CMTaggedBufferGroupGetCount gets the number of buffers contained within a tagged buffer group.
 //
 // See: https://developer.apple.com/documentation/CoreMedia/CMTaggedBufferGroupGetCount
-func CMTaggedBufferGroupGetCount(group CMTaggedBufferGroupRef) int {
+func CMTaggedBufferGroupGetCount(group CMTaggedBufferGroupRef) CMItemCount {
 	result, callErr := tryCMTaggedBufferGroupGetCount(group)
 	if callErr != nil {
 		panic(callErr)
@@ -5303,12 +5601,12 @@ func CMTaggedBufferGroupGetCount(group CMTaggedBufferGroupRef) int {
 	return result
 }
 
-var _cMTaggedBufferGroupGetNumberOfMatchesForTagCollection func(group CMTaggedBufferGroupRef, tagCollection CMTagCollectionRef) int
+var _cMTaggedBufferGroupGetNumberOfMatchesForTagCollection func(group CMTaggedBufferGroupRef, tagCollection CMTagCollectionRef) CMItemCount
 var _cMTaggedBufferGroupGetNumberOfMatchesForTagCollectionErr error
 
-func tryCMTaggedBufferGroupGetNumberOfMatchesForTagCollection(group CMTaggedBufferGroupRef, tagCollection CMTagCollectionRef) (int, error) {
+func tryCMTaggedBufferGroupGetNumberOfMatchesForTagCollection(group CMTaggedBufferGroupRef, tagCollection CMTagCollectionRef) (CMItemCount, error) {
 	if _cMTaggedBufferGroupGetNumberOfMatchesForTagCollection == nil {
-		return 0, symbolCallError("CMTaggedBufferGroupGetNumberOfMatchesForTagCollection", "14.0", _cMTaggedBufferGroupGetNumberOfMatchesForTagCollectionErr)
+		return *new(CMItemCount), symbolCallError("CMTaggedBufferGroupGetNumberOfMatchesForTagCollection", "14.0", _cMTaggedBufferGroupGetNumberOfMatchesForTagCollectionErr)
 	}
 	return _cMTaggedBufferGroupGetNumberOfMatchesForTagCollection(group, tagCollection), nil
 }
@@ -5316,7 +5614,7 @@ func tryCMTaggedBufferGroupGetNumberOfMatchesForTagCollection(group CMTaggedBuff
 // CMTaggedBufferGroupGetNumberOfMatchesForTagCollection gets the number of buffers in the group associated with a given tag collection.
 //
 // See: https://developer.apple.com/documentation/CoreMedia/CMTaggedBufferGroupGetNumberOfMatchesForTagCollection
-func CMTaggedBufferGroupGetNumberOfMatchesForTagCollection(group CMTaggedBufferGroupRef, tagCollection CMTagCollectionRef) int {
+func CMTaggedBufferGroupGetNumberOfMatchesForTagCollection(group CMTaggedBufferGroupRef, tagCollection CMTagCollectionRef) CMItemCount {
 	result, callErr := tryCMTaggedBufferGroupGetNumberOfMatchesForTagCollection(group, tagCollection)
 	if callErr != nil {
 		panic(callErr)
@@ -5387,10 +5685,10 @@ func CMTextFormatDescriptionCopyAsBigEndianTextDescriptionBlockBuffer(allocator 
 	return result
 }
 
-var _cMTextFormatDescriptionCreateFromBigEndianTextDescriptionBlockBuffer func(allocator corefoundation.CFAllocatorRef, textDescriptionBlockBuffer CMBlockBufferRef, flavor CMTextDescriptionFlavor, mediaType uint32, formatDescriptionOut *CMTextFormatDescriptionRef) int32
+var _cMTextFormatDescriptionCreateFromBigEndianTextDescriptionBlockBuffer func(allocator corefoundation.CFAllocatorRef, textDescriptionBlockBuffer CMBlockBufferRef, flavor CMTextDescriptionFlavor, mediaType CMMediaType, formatDescriptionOut *CMTextFormatDescriptionRef) int32
 var _cMTextFormatDescriptionCreateFromBigEndianTextDescriptionBlockBufferErr error
 
-func tryCMTextFormatDescriptionCreateFromBigEndianTextDescriptionBlockBuffer(allocator corefoundation.CFAllocatorRef, textDescriptionBlockBuffer CMBlockBufferRef, flavor CMTextDescriptionFlavor, mediaType uint32, formatDescriptionOut *CMTextFormatDescriptionRef) (int32, error) {
+func tryCMTextFormatDescriptionCreateFromBigEndianTextDescriptionBlockBuffer(allocator corefoundation.CFAllocatorRef, textDescriptionBlockBuffer CMBlockBufferRef, flavor CMTextDescriptionFlavor, mediaType CMMediaType, formatDescriptionOut *CMTextFormatDescriptionRef) (int32, error) {
 	if _cMTextFormatDescriptionCreateFromBigEndianTextDescriptionBlockBuffer == nil {
 		return 0, symbolCallError("CMTextFormatDescriptionCreateFromBigEndianTextDescriptionBlockBuffer", "10.10", _cMTextFormatDescriptionCreateFromBigEndianTextDescriptionBlockBufferErr)
 	}
@@ -5400,7 +5698,7 @@ func tryCMTextFormatDescriptionCreateFromBigEndianTextDescriptionBlockBuffer(all
 // CMTextFormatDescriptionCreateFromBigEndianTextDescriptionBlockBuffer creates a text format description from a big-endian text description structure inside a buffer.
 //
 // See: https://developer.apple.com/documentation/CoreMedia/CMTextFormatDescriptionCreateFromBigEndianTextDescriptionBlockBuffer(allocator:bigEndianTextDescriptionBlockBuffer:flavor:mediaType:formatDescriptionOut:)
-func CMTextFormatDescriptionCreateFromBigEndianTextDescriptionBlockBuffer(allocator corefoundation.CFAllocatorRef, textDescriptionBlockBuffer CMBlockBufferRef, flavor CMTextDescriptionFlavor, mediaType uint32, formatDescriptionOut *CMTextFormatDescriptionRef) int32 {
+func CMTextFormatDescriptionCreateFromBigEndianTextDescriptionBlockBuffer(allocator corefoundation.CFAllocatorRef, textDescriptionBlockBuffer CMBlockBufferRef, flavor CMTextDescriptionFlavor, mediaType CMMediaType, formatDescriptionOut *CMTextFormatDescriptionRef) int32 {
 	result, callErr := tryCMTextFormatDescriptionCreateFromBigEndianTextDescriptionBlockBuffer(allocator, textDescriptionBlockBuffer, flavor, mediaType, formatDescriptionOut)
 	if callErr != nil {
 		panic(callErr)
@@ -5408,10 +5706,10 @@ func CMTextFormatDescriptionCreateFromBigEndianTextDescriptionBlockBuffer(alloca
 	return result
 }
 
-var _cMTextFormatDescriptionCreateFromBigEndianTextDescriptionData func(allocator corefoundation.CFAllocatorRef, textDescriptionData *byte, size uintptr, flavor CMTextDescriptionFlavor, mediaType uint32, formatDescriptionOut *CMTextFormatDescriptionRef) int32
+var _cMTextFormatDescriptionCreateFromBigEndianTextDescriptionData func(allocator corefoundation.CFAllocatorRef, textDescriptionData *byte, size uintptr, flavor CMTextDescriptionFlavor, mediaType CMMediaType, formatDescriptionOut *CMTextFormatDescriptionRef) int32
 var _cMTextFormatDescriptionCreateFromBigEndianTextDescriptionDataErr error
 
-func tryCMTextFormatDescriptionCreateFromBigEndianTextDescriptionData(allocator corefoundation.CFAllocatorRef, textDescriptionData []byte, size uintptr, flavor CMTextDescriptionFlavor, mediaType uint32, formatDescriptionOut *CMTextFormatDescriptionRef) (int32, error) {
+func tryCMTextFormatDescriptionCreateFromBigEndianTextDescriptionData(allocator corefoundation.CFAllocatorRef, textDescriptionData []byte, size uintptr, flavor CMTextDescriptionFlavor, mediaType CMMediaType, formatDescriptionOut *CMTextFormatDescriptionRef) (int32, error) {
 	if _cMTextFormatDescriptionCreateFromBigEndianTextDescriptionData == nil {
 		return 0, symbolCallError("CMTextFormatDescriptionCreateFromBigEndianTextDescriptionData", "10.10", _cMTextFormatDescriptionCreateFromBigEndianTextDescriptionDataErr)
 	}
@@ -5421,7 +5719,7 @@ func tryCMTextFormatDescriptionCreateFromBigEndianTextDescriptionData(allocator 
 // CMTextFormatDescriptionCreateFromBigEndianTextDescriptionData creates a text format description from a big-endian text description structure.
 //
 // See: https://developer.apple.com/documentation/CoreMedia/CMTextFormatDescriptionCreateFromBigEndianTextDescriptionData(allocator:bigEndianTextDescriptionData:size:flavor:mediaType:formatDescriptionOut:)
-func CMTextFormatDescriptionCreateFromBigEndianTextDescriptionData(allocator corefoundation.CFAllocatorRef, textDescriptionData []byte, size uintptr, flavor CMTextDescriptionFlavor, mediaType uint32, formatDescriptionOut *CMTextFormatDescriptionRef) int32 {
+func CMTextFormatDescriptionCreateFromBigEndianTextDescriptionData(allocator corefoundation.CFAllocatorRef, textDescriptionData []byte, size uintptr, flavor CMTextDescriptionFlavor, mediaType CMMediaType, formatDescriptionOut *CMTextFormatDescriptionRef) int32 {
 	result, callErr := tryCMTextFormatDescriptionCreateFromBigEndianTextDescriptionData(allocator, textDescriptionData, size, flavor, mediaType, formatDescriptionOut)
 	if callErr != nil {
 		panic(callErr)
@@ -6770,10 +7068,10 @@ func CMTimebaseGetTimeAndRate(timebase CMTimebaseRef, timeOut *CMTime, rateOut *
 	return result
 }
 
-var _cMTimebaseGetTimeWithTimeScale func(timebase CMTimebaseRef, timescale int32, method CMTimeRoundingMethod) CMTime
+var _cMTimebaseGetTimeWithTimeScale func(timebase CMTimebaseRef, timescale CMTimeScale, method CMTimeRoundingMethod) CMTime
 var _cMTimebaseGetTimeWithTimeScaleErr error
 
-func tryCMTimebaseGetTimeWithTimeScale(timebase CMTimebaseRef, timescale int32, method CMTimeRoundingMethod) (CMTime, error) {
+func tryCMTimebaseGetTimeWithTimeScale(timebase CMTimebaseRef, timescale CMTimeScale, method CMTimeRoundingMethod) (CMTime, error) {
 	if _cMTimebaseGetTimeWithTimeScale == nil {
 		return CMTime{}, symbolCallError("CMTimebaseGetTimeWithTimeScale", "10.8", _cMTimebaseGetTimeWithTimeScaleErr)
 	}
@@ -6783,7 +7081,7 @@ func tryCMTimebaseGetTimeWithTimeScale(timebase CMTimebaseRef, timescale int32, 
 // CMTimebaseGetTimeWithTimeScale returns the current time from a timebase in the specified timescale.
 //
 // See: https://developer.apple.com/documentation/CoreMedia/CMTimebaseGetTimeWithTimeScale(_:timescale:method:)
-func CMTimebaseGetTimeWithTimeScale(timebase CMTimebaseRef, timescale int32, method CMTimeRoundingMethod) CMTime {
+func CMTimebaseGetTimeWithTimeScale(timebase CMTimebaseRef, timescale CMTimeScale, method CMTimeRoundingMethod) CMTime {
 	result, callErr := tryCMTimebaseGetTimeWithTimeScale(timebase, timescale, method)
 	if callErr != nil {
 		panic(callErr)
@@ -7211,10 +7509,10 @@ func CMVideoFormatDescriptionCreateFromBigEndianImageDescriptionData(allocator c
 	return result
 }
 
-var _cMVideoFormatDescriptionCreateFromH264ParameterSets func(allocator corefoundation.CFAllocatorRef, parameterSetCount uintptr, parameterSetPointers *byte, parameterSetSizes *uintptr, NALUnitHeaderLength int, formatDescriptionOut *CMFormatDescriptionRef) int32
+var _cMVideoFormatDescriptionCreateFromH264ParameterSets func(allocator corefoundation.CFAllocatorRef, parameterSetCount uintptr, parameterSetPointers *byte, parameterSetSizes *uintptr, NALUnitHeaderLength int32, formatDescriptionOut *CMFormatDescriptionRef) int32
 var _cMVideoFormatDescriptionCreateFromH264ParameterSetsErr error
 
-func tryCMVideoFormatDescriptionCreateFromH264ParameterSets(allocator corefoundation.CFAllocatorRef, parameterSetCount uintptr, parameterSetPointers []byte, parameterSetSizes *uintptr, NALUnitHeaderLength int, formatDescriptionOut *CMFormatDescriptionRef) (int32, error) {
+func tryCMVideoFormatDescriptionCreateFromH264ParameterSets(allocator corefoundation.CFAllocatorRef, parameterSetCount uintptr, parameterSetPointers []byte, parameterSetSizes *uintptr, NALUnitHeaderLength int32, formatDescriptionOut *CMFormatDescriptionRef) (int32, error) {
 	if _cMVideoFormatDescriptionCreateFromH264ParameterSets == nil {
 		return 0, symbolCallError("CMVideoFormatDescriptionCreateFromH264ParameterSets", "10.9", _cMVideoFormatDescriptionCreateFromH264ParameterSetsErr)
 	}
@@ -7224,7 +7522,7 @@ func tryCMVideoFormatDescriptionCreateFromH264ParameterSets(allocator corefounda
 // CMVideoFormatDescriptionCreateFromH264ParameterSets creates a format description for a video media stream that the parameter set describes.
 //
 // See: https://developer.apple.com/documentation/CoreMedia/CMVideoFormatDescriptionCreateFromH264ParameterSets(allocator:parameterSetCount:parameterSetPointers:parameterSetSizes:nalUnitHeaderLength:formatDescriptionOut:)
-func CMVideoFormatDescriptionCreateFromH264ParameterSets(allocator corefoundation.CFAllocatorRef, parameterSetCount uintptr, parameterSetPointers []byte, parameterSetSizes *uintptr, NALUnitHeaderLength int, formatDescriptionOut *CMFormatDescriptionRef) int32 {
+func CMVideoFormatDescriptionCreateFromH264ParameterSets(allocator corefoundation.CFAllocatorRef, parameterSetCount uintptr, parameterSetPointers []byte, parameterSetSizes *uintptr, NALUnitHeaderLength int32, formatDescriptionOut *CMFormatDescriptionRef) int32 {
 	result, callErr := tryCMVideoFormatDescriptionCreateFromH264ParameterSets(allocator, parameterSetCount, parameterSetPointers, parameterSetSizes, NALUnitHeaderLength, formatDescriptionOut)
 	if callErr != nil {
 		panic(callErr)
@@ -7232,10 +7530,10 @@ func CMVideoFormatDescriptionCreateFromH264ParameterSets(allocator corefoundatio
 	return result
 }
 
-var _cMVideoFormatDescriptionCreateFromHEVCParameterSets func(allocator corefoundation.CFAllocatorRef, parameterSetCount uintptr, parameterSetPointers *byte, parameterSetSizes *uintptr, NALUnitHeaderLength int, extensions corefoundation.CFDictionaryRef, formatDescriptionOut *CMFormatDescriptionRef) int32
+var _cMVideoFormatDescriptionCreateFromHEVCParameterSets func(allocator corefoundation.CFAllocatorRef, parameterSetCount uintptr, parameterSetPointers *byte, parameterSetSizes *uintptr, NALUnitHeaderLength int32, extensions corefoundation.CFDictionaryRef, formatDescriptionOut *CMFormatDescriptionRef) int32
 var _cMVideoFormatDescriptionCreateFromHEVCParameterSetsErr error
 
-func tryCMVideoFormatDescriptionCreateFromHEVCParameterSets(allocator corefoundation.CFAllocatorRef, parameterSetCount uintptr, parameterSetPointers []byte, parameterSetSizes *uintptr, NALUnitHeaderLength int, extensions corefoundation.CFDictionaryRef, formatDescriptionOut *CMFormatDescriptionRef) (int32, error) {
+func tryCMVideoFormatDescriptionCreateFromHEVCParameterSets(allocator corefoundation.CFAllocatorRef, parameterSetCount uintptr, parameterSetPointers []byte, parameterSetSizes *uintptr, NALUnitHeaderLength int32, extensions corefoundation.CFDictionaryRef, formatDescriptionOut *CMFormatDescriptionRef) (int32, error) {
 	if _cMVideoFormatDescriptionCreateFromHEVCParameterSets == nil {
 		return 0, symbolCallError("CMVideoFormatDescriptionCreateFromHEVCParameterSets", "10.13", _cMVideoFormatDescriptionCreateFromHEVCParameterSetsErr)
 	}
@@ -7245,7 +7543,7 @@ func tryCMVideoFormatDescriptionCreateFromHEVCParameterSets(allocator corefounda
 // CMVideoFormatDescriptionCreateFromHEVCParameterSets creates a format description for a video media stream using HEVC (H.265) parameter set NAL units.
 //
 // See: https://developer.apple.com/documentation/CoreMedia/CMVideoFormatDescriptionCreateFromHEVCParameterSets(allocator:parameterSetCount:parameterSetPointers:parameterSetSizes:nalUnitHeaderLength:extensions:formatDescriptionOut:)
-func CMVideoFormatDescriptionCreateFromHEVCParameterSets(allocator corefoundation.CFAllocatorRef, parameterSetCount uintptr, parameterSetPointers []byte, parameterSetSizes *uintptr, NALUnitHeaderLength int, extensions corefoundation.CFDictionaryRef, formatDescriptionOut *CMFormatDescriptionRef) int32 {
+func CMVideoFormatDescriptionCreateFromHEVCParameterSets(allocator corefoundation.CFAllocatorRef, parameterSetCount uintptr, parameterSetPointers []byte, parameterSetSizes *uintptr, NALUnitHeaderLength int32, extensions corefoundation.CFDictionaryRef, formatDescriptionOut *CMFormatDescriptionRef) int32 {
 	result, callErr := tryCMVideoFormatDescriptionCreateFromHEVCParameterSets(allocator, parameterSetCount, parameterSetPointers, parameterSetSizes, NALUnitHeaderLength, extensions, formatDescriptionOut)
 	if callErr != nil {
 		panic(callErr)
@@ -7316,20 +7614,20 @@ func CMVideoFormatDescriptionGetExtensionKeysCommonWithImageBuffers() corefounda
 	return result
 }
 
-var _cMVideoFormatDescriptionGetH264ParameterSetAtIndex func(videoDesc CMFormatDescriptionRef, parameterSetIndex uintptr, parameterSetPointerOut *byte, parameterSetSizeOut *uintptr, parameterSetCountOut *uintptr, NALUnitHeaderLengthOut *int) int32
+var _cMVideoFormatDescriptionGetH264ParameterSetAtIndex func(videoDesc CMFormatDescriptionRef, parameterSetIndex uintptr, parameterSetPointerOut *byte, parameterSetSizeOut *uintptr, parameterSetCountOut *uintptr, NALUnitHeaderLengthOut *int32) int32
 var _cMVideoFormatDescriptionGetH264ParameterSetAtIndexErr error
 
-func tryCMVideoFormatDescriptionGetH264ParameterSetAtIndex(videoDesc CMFormatDescriptionRef, parameterSetIndex uintptr, parameterSetPointerOut []byte, parameterSetSizeOut *uintptr, parameterSetCountOut *uintptr, NALUnitHeaderLengthOut []int) (int32, error) {
+func tryCMVideoFormatDescriptionGetH264ParameterSetAtIndex(videoDesc CMFormatDescriptionRef, parameterSetIndex uintptr, parameterSetPointerOut []byte, parameterSetSizeOut *uintptr, parameterSetCountOut *uintptr, NALUnitHeaderLengthOut *int32) (int32, error) {
 	if _cMVideoFormatDescriptionGetH264ParameterSetAtIndex == nil {
 		return 0, symbolCallError("CMVideoFormatDescriptionGetH264ParameterSetAtIndex", "10.9", _cMVideoFormatDescriptionGetH264ParameterSetAtIndexErr)
 	}
-	return _cMVideoFormatDescriptionGetH264ParameterSetAtIndex(videoDesc, parameterSetIndex, unsafe.SliceData(parameterSetPointerOut), parameterSetSizeOut, parameterSetCountOut, unsafe.SliceData(NALUnitHeaderLengthOut)), nil
+	return _cMVideoFormatDescriptionGetH264ParameterSetAtIndex(videoDesc, parameterSetIndex, unsafe.SliceData(parameterSetPointerOut), parameterSetSizeOut, parameterSetCountOut, NALUnitHeaderLengthOut), nil
 }
 
 // CMVideoFormatDescriptionGetH264ParameterSetAtIndex returns a parameter set that an H.264 format description contains.
 //
 // See: https://developer.apple.com/documentation/CoreMedia/CMVideoFormatDescriptionGetH264ParameterSetAtIndex(_:parameterSetIndex:parameterSetPointerOut:parameterSetSizeOut:parameterSetCountOut:nalUnitHeaderLengthOut:)
-func CMVideoFormatDescriptionGetH264ParameterSetAtIndex(videoDesc CMFormatDescriptionRef, parameterSetIndex uintptr, parameterSetPointerOut []byte, parameterSetSizeOut *uintptr, parameterSetCountOut *uintptr, NALUnitHeaderLengthOut []int) int32 {
+func CMVideoFormatDescriptionGetH264ParameterSetAtIndex(videoDesc CMFormatDescriptionRef, parameterSetIndex uintptr, parameterSetPointerOut []byte, parameterSetSizeOut *uintptr, parameterSetCountOut *uintptr, NALUnitHeaderLengthOut *int32) int32 {
 	result, callErr := tryCMVideoFormatDescriptionGetH264ParameterSetAtIndex(videoDesc, parameterSetIndex, parameterSetPointerOut, parameterSetSizeOut, parameterSetCountOut, NALUnitHeaderLengthOut)
 	if callErr != nil {
 		panic(callErr)
@@ -7337,20 +7635,20 @@ func CMVideoFormatDescriptionGetH264ParameterSetAtIndex(videoDesc CMFormatDescri
 	return result
 }
 
-var _cMVideoFormatDescriptionGetHEVCParameterSetAtIndex func(videoDesc CMFormatDescriptionRef, parameterSetIndex uintptr, parameterSetPointerOut *byte, parameterSetSizeOut *uintptr, parameterSetCountOut *uintptr, NALUnitHeaderLengthOut *int) int32
+var _cMVideoFormatDescriptionGetHEVCParameterSetAtIndex func(videoDesc CMFormatDescriptionRef, parameterSetIndex uintptr, parameterSetPointerOut *byte, parameterSetSizeOut *uintptr, parameterSetCountOut *uintptr, NALUnitHeaderLengthOut *int32) int32
 var _cMVideoFormatDescriptionGetHEVCParameterSetAtIndexErr error
 
-func tryCMVideoFormatDescriptionGetHEVCParameterSetAtIndex(videoDesc CMFormatDescriptionRef, parameterSetIndex uintptr, parameterSetPointerOut []byte, parameterSetSizeOut *uintptr, parameterSetCountOut *uintptr, NALUnitHeaderLengthOut []int) (int32, error) {
+func tryCMVideoFormatDescriptionGetHEVCParameterSetAtIndex(videoDesc CMFormatDescriptionRef, parameterSetIndex uintptr, parameterSetPointerOut []byte, parameterSetSizeOut *uintptr, parameterSetCountOut *uintptr, NALUnitHeaderLengthOut *int32) (int32, error) {
 	if _cMVideoFormatDescriptionGetHEVCParameterSetAtIndex == nil {
 		return 0, symbolCallError("CMVideoFormatDescriptionGetHEVCParameterSetAtIndex", "10.13", _cMVideoFormatDescriptionGetHEVCParameterSetAtIndexErr)
 	}
-	return _cMVideoFormatDescriptionGetHEVCParameterSetAtIndex(videoDesc, parameterSetIndex, unsafe.SliceData(parameterSetPointerOut), parameterSetSizeOut, parameterSetCountOut, unsafe.SliceData(NALUnitHeaderLengthOut)), nil
+	return _cMVideoFormatDescriptionGetHEVCParameterSetAtIndex(videoDesc, parameterSetIndex, unsafe.SliceData(parameterSetPointerOut), parameterSetSizeOut, parameterSetCountOut, NALUnitHeaderLengthOut), nil
 }
 
 // CMVideoFormatDescriptionGetHEVCParameterSetAtIndex returns a parameter set contained in an HEVC (H.265) format description.
 //
 // See: https://developer.apple.com/documentation/CoreMedia/CMVideoFormatDescriptionGetHEVCParameterSetAtIndex(_:parameterSetIndex:parameterSetPointerOut:parameterSetSizeOut:parameterSetCountOut:nalUnitHeaderLengthOut:)
-func CMVideoFormatDescriptionGetHEVCParameterSetAtIndex(videoDesc CMFormatDescriptionRef, parameterSetIndex uintptr, parameterSetPointerOut []byte, parameterSetSizeOut *uintptr, parameterSetCountOut *uintptr, NALUnitHeaderLengthOut []int) int32 {
+func CMVideoFormatDescriptionGetHEVCParameterSetAtIndex(videoDesc CMFormatDescriptionRef, parameterSetIndex uintptr, parameterSetPointerOut []byte, parameterSetSizeOut *uintptr, parameterSetCountOut *uintptr, NALUnitHeaderLengthOut *int32) int32 {
 	result, callErr := tryCMVideoFormatDescriptionGetHEVCParameterSetAtIndex(videoDesc, parameterSetIndex, parameterSetPointerOut, parameterSetSizeOut, parameterSetCountOut, NALUnitHeaderLengthOut)
 	if callErr != nil {
 		panic(callErr)
@@ -7410,11 +7708,20 @@ func init() {
 	registerFunc(&_cMAudioDeviceClockSetAudioDeviceID, &_cMAudioDeviceClockSetAudioDeviceIDErr, frameworkHandle, "CMAudioDeviceClockSetAudioDeviceID", "10.8")
 	registerFunc(&_cMAudioDeviceClockSetAudioDeviceUID, &_cMAudioDeviceClockSetAudioDeviceUIDErr, frameworkHandle, "CMAudioDeviceClockSetAudioDeviceUID", "10.8")
 	registerFunc(&_cMAudioFormatDescriptionCopyAsBigEndianSoundDescriptionBlockBuffer, &_cMAudioFormatDescriptionCopyAsBigEndianSoundDescriptionBlockBufferErr, frameworkHandle, "CMAudioFormatDescriptionCopyAsBigEndianSoundDescriptionBlockBuffer", "10.10")
+	registerFunc(&_cMAudioFormatDescriptionCreate, &_cMAudioFormatDescriptionCreateErr, frameworkHandle, "CMAudioFormatDescriptionCreate", "10.7")
 	registerFunc(&_cMAudioFormatDescriptionCreateFromBigEndianSoundDescriptionBlockBuffer, &_cMAudioFormatDescriptionCreateFromBigEndianSoundDescriptionBlockBufferErr, frameworkHandle, "CMAudioFormatDescriptionCreateFromBigEndianSoundDescriptionBlockBuffer", "10.10")
 	registerFunc(&_cMAudioFormatDescriptionCreateFromBigEndianSoundDescriptionData, &_cMAudioFormatDescriptionCreateFromBigEndianSoundDescriptionDataErr, frameworkHandle, "CMAudioFormatDescriptionCreateFromBigEndianSoundDescriptionData", "10.10")
 	registerFunc(&_cMAudioFormatDescriptionCreateSummary, &_cMAudioFormatDescriptionCreateSummaryErr, frameworkHandle, "CMAudioFormatDescriptionCreateSummary", "10.7")
 	registerFunc(&_cMAudioFormatDescriptionEqual, &_cMAudioFormatDescriptionEqualErr, frameworkHandle, "CMAudioFormatDescriptionEqual", "10.7")
+	registerFunc(&_cMAudioFormatDescriptionGetChannelLayout, &_cMAudioFormatDescriptionGetChannelLayoutErr, frameworkHandle, "CMAudioFormatDescriptionGetChannelLayout", "10.7")
+	registerFunc(&_cMAudioFormatDescriptionGetFormatList, &_cMAudioFormatDescriptionGetFormatListErr, frameworkHandle, "CMAudioFormatDescriptionGetFormatList", "10.7")
 	registerFunc(&_cMAudioFormatDescriptionGetMagicCookie, &_cMAudioFormatDescriptionGetMagicCookieErr, frameworkHandle, "CMAudioFormatDescriptionGetMagicCookie", "10.7")
+	registerFunc(&_cMAudioFormatDescriptionGetMostCompatibleFormat, &_cMAudioFormatDescriptionGetMostCompatibleFormatErr, frameworkHandle, "CMAudioFormatDescriptionGetMostCompatibleFormat", "10.7")
+	registerFunc(&_cMAudioFormatDescriptionGetRichestDecodableFormat, &_cMAudioFormatDescriptionGetRichestDecodableFormatErr, frameworkHandle, "CMAudioFormatDescriptionGetRichestDecodableFormat", "10.7")
+	registerFunc(&_cMAudioFormatDescriptionGetStreamBasicDescription, &_cMAudioFormatDescriptionGetStreamBasicDescriptionErr, frameworkHandle, "CMAudioFormatDescriptionGetStreamBasicDescription", "10.7")
+	registerFunc(&_cMAudioSampleBufferCreateReadyWithPacketDescriptions, &_cMAudioSampleBufferCreateReadyWithPacketDescriptionsErr, frameworkHandle, "CMAudioSampleBufferCreateReadyWithPacketDescriptions", "10.10")
+	registerFunc(&_cMAudioSampleBufferCreateWithPacketDescriptions, &_cMAudioSampleBufferCreateWithPacketDescriptionsErr, frameworkHandle, "CMAudioSampleBufferCreateWithPacketDescriptions", "10.7")
+	registerFunc(&_cMAudioSampleBufferCreateWithPacketDescriptionsAndMakeDataReadyHandler, &_cMAudioSampleBufferCreateWithPacketDescriptionsAndMakeDataReadyHandlerErr, frameworkHandle, "CMAudioSampleBufferCreateWithPacketDescriptionsAndMakeDataReadyHandler", "10.14.4")
 	registerFunc(&_cMBlockBufferAccessDataBytes, &_cMBlockBufferAccessDataBytesErr, frameworkHandle, "CMBlockBufferAccessDataBytes", "10.7")
 	registerFunc(&_cMBlockBufferAppendBufferReference, &_cMBlockBufferAppendBufferReferenceErr, frameworkHandle, "CMBlockBufferAppendBufferReference", "10.7")
 	registerFunc(&_cMBlockBufferAppendMemoryBlock, &_cMBlockBufferAppendMemoryBlockErr, frameworkHandle, "CMBlockBufferAppendMemoryBlock", "10.7")
@@ -7519,6 +7826,7 @@ func init() {
 	registerFunc(&_cMRemoveAttachment, &_cMRemoveAttachmentErr, frameworkHandle, "CMRemoveAttachment", "10.7")
 	registerFunc(&_cMSampleBufferCallBlockForEachSample, &_cMSampleBufferCallBlockForEachSampleErr, frameworkHandle, "CMSampleBufferCallBlockForEachSample", "10.10")
 	registerFunc(&_cMSampleBufferCallForEachSample, &_cMSampleBufferCallForEachSampleErr, frameworkHandle, "CMSampleBufferCallForEachSample", "10.7")
+	registerFunc(&_cMSampleBufferCopyPCMDataIntoAudioBufferList, &_cMSampleBufferCopyPCMDataIntoAudioBufferListErr, frameworkHandle, "CMSampleBufferCopyPCMDataIntoAudioBufferList", "10.9")
 	registerFunc(&_cMSampleBufferCopySampleBufferForRange, &_cMSampleBufferCopySampleBufferForRangeErr, frameworkHandle, "CMSampleBufferCopySampleBufferForRange", "10.7")
 	registerFunc(&_cMSampleBufferCreate, &_cMSampleBufferCreateErr, frameworkHandle, "CMSampleBufferCreate", "10.7")
 	registerFunc(&_cMSampleBufferCreateCopy, &_cMSampleBufferCreateCopyErr, frameworkHandle, "CMSampleBufferCreateCopy", "10.7")
@@ -7530,6 +7838,9 @@ func init() {
 	registerFunc(&_cMSampleBufferCreateReadyWithImageBuffer, &_cMSampleBufferCreateReadyWithImageBufferErr, frameworkHandle, "CMSampleBufferCreateReadyWithImageBuffer", "10.10")
 	registerFunc(&_cMSampleBufferCreateWithMakeDataReadyHandler, &_cMSampleBufferCreateWithMakeDataReadyHandlerErr, frameworkHandle, "CMSampleBufferCreateWithMakeDataReadyHandler", "10.14.4")
 	registerFunc(&_cMSampleBufferDataIsReady, &_cMSampleBufferDataIsReadyErr, frameworkHandle, "CMSampleBufferDataIsReady", "10.7")
+	registerFunc(&_cMSampleBufferGetAudioBufferListWithRetainedBlockBuffer, &_cMSampleBufferGetAudioBufferListWithRetainedBlockBufferErr, frameworkHandle, "CMSampleBufferGetAudioBufferListWithRetainedBlockBuffer", "10.7")
+	registerFunc(&_cMSampleBufferGetAudioStreamPacketDescriptions, &_cMSampleBufferGetAudioStreamPacketDescriptionsErr, frameworkHandle, "CMSampleBufferGetAudioStreamPacketDescriptions", "10.7")
+	registerFunc(&_cMSampleBufferGetAudioStreamPacketDescriptionsPtr, &_cMSampleBufferGetAudioStreamPacketDescriptionsPtrErr, frameworkHandle, "CMSampleBufferGetAudioStreamPacketDescriptionsPtr", "10.7")
 	registerFunc(&_cMSampleBufferGetDataBuffer, &_cMSampleBufferGetDataBufferErr, frameworkHandle, "CMSampleBufferGetDataBuffer", "10.7")
 	registerFunc(&_cMSampleBufferGetDecodeTimeStamp, &_cMSampleBufferGetDecodeTimeStampErr, frameworkHandle, "CMSampleBufferGetDecodeTimeStamp", "10.7")
 	registerFunc(&_cMSampleBufferGetDuration, &_cMSampleBufferGetDurationErr, frameworkHandle, "CMSampleBufferGetDuration", "10.7")
@@ -7554,6 +7865,7 @@ func init() {
 	registerFunc(&_cMSampleBufferIsValid, &_cMSampleBufferIsValidErr, frameworkHandle, "CMSampleBufferIsValid", "10.7")
 	registerFunc(&_cMSampleBufferMakeDataReady, &_cMSampleBufferMakeDataReadyErr, frameworkHandle, "CMSampleBufferMakeDataReady", "10.7")
 	registerFunc(&_cMSampleBufferSetDataBuffer, &_cMSampleBufferSetDataBufferErr, frameworkHandle, "CMSampleBufferSetDataBuffer", "10.7")
+	registerFunc(&_cMSampleBufferSetDataBufferFromAudioBufferList, &_cMSampleBufferSetDataBufferFromAudioBufferListErr, frameworkHandle, "CMSampleBufferSetDataBufferFromAudioBufferList", "10.7")
 	registerFunc(&_cMSampleBufferSetDataFailed, &_cMSampleBufferSetDataFailedErr, frameworkHandle, "CMSampleBufferSetDataFailed", "10.10")
 	registerFunc(&_cMSampleBufferSetDataReady, &_cMSampleBufferSetDataReadyErr, frameworkHandle, "CMSampleBufferSetDataReady", "10.7")
 	registerFunc(&_cMSampleBufferSetInvalidateCallback, &_cMSampleBufferSetInvalidateCallbackErr, frameworkHandle, "CMSampleBufferSetInvalidateCallback", "10.7")

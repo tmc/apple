@@ -7,6 +7,7 @@ import (
 
 	"github.com/tmc/apple/foundation"
 	"github.com/tmc/apple/objc"
+	"github.com/tmc/apple/objectivec"
 )
 
 // The class instance for the [AVMutableVideoCompositionInstruction] class.
@@ -68,7 +69,7 @@ func AVMutableVideoCompositionInstructionFromID(id objc.ID) AVMutableVideoCompos
 //
 // See: https://developer.apple.com/documentation/AVFoundation/AVMutableVideoCompositionInstruction
 type IAVMutableVideoCompositionInstruction interface {
-	IAVVideoCompositionInstruction
+	objectivec.IObject
 }
 
 // Init initializes the instance.

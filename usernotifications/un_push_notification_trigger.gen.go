@@ -5,6 +5,7 @@ package usernotifications
 import (
 	"sync"
 
+	"github.com/tmc/apple/foundation"
 	"github.com/tmc/apple/objc"
 )
 
@@ -93,4 +94,11 @@ func NewUNPushNotificationTrigger() UNPushNotificationTrigger {
 	class := getUNPushNotificationTriggerClass()
 	rv := objc.Send[UNPushNotificationTrigger](objc.ID(class.class), objc.Sel("new"))
 	return rv
+}
+
+// See: https://developer.apple.com/documentation/UserNotifications/UNNotificationTrigger/init(coder:)
+func NewUNPushNotificationTriggerWithCoder(coder foundation.INSCoder) UNPushNotificationTrigger {
+	instance := getUNPushNotificationTriggerClass().Alloc()
+	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
+	return UNPushNotificationTriggerFromID(rv)
 }

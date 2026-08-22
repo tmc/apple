@@ -247,7 +247,7 @@ type IUndoManager interface {
 	// Topic: Registering undo operations
 
 	// Registers the selector of the specified target to implement a single undo operation that the target receives.
-	RegisterUndoWithTargetSelectorObject(target objectivec.IObject, selector objectivec.SEL, object objectivec.IObject)
+	RegisterUndoWithTargetSelectorObject(target objectivec.IObject, selector objc.SEL, object objectivec.IObject)
 	// Prepares the undo manager for invocation-based undo with the given target as the subject of the next undo operation.
 	PrepareWithInvocationTarget(target objectivec.IObject) objectivec.IObject
 
@@ -413,7 +413,7 @@ func NewUndoManager() UndoManager {
 // See: https://developer.apple.com/documentation/Foundation/UndoManager/registerUndo(withTarget:selector:object:)
 //
 // [Selectors]: https://developer.apple.com/library/archive/documentation/Swift/Conceptual/BuildingCocoaApps/InteractingWithObjective-CAPIs.html#//apple_ref/doc/uid/TP40014216-CH4-ID59
-func (u UndoManager) RegisterUndoWithTargetSelectorObject(target objectivec.IObject, selector objectivec.SEL, object objectivec.IObject) {
+func (u UndoManager) RegisterUndoWithTargetSelectorObject(target objectivec.IObject, selector objc.SEL, object objectivec.IObject) {
 	objc.Send[objc.ID](u.ID, objc.Sel("registerUndoWithTarget:selector:object:"), target, selector, object)
 }
 

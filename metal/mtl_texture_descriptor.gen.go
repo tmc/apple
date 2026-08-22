@@ -599,7 +599,7 @@ func (t MTLTextureDescriptor) SetCompressionType(value MTLTextureCompressionType
 //
 // # Discussion
 //
-// Set this property to a non-zero value to create a .
+// Set this property to a non-zero value to create a placement sparse texture.
 //
 // Placement sparse textures are instances of [MTLTexture] that you assign
 // memory to using a [MTLHeap] instance of type [MTLHeapTypePlacement] and a

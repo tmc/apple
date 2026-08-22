@@ -522,7 +522,7 @@ func NewNSEvent() NSEvent {
 // object. If no Cocoa event corresponds to the [CGEventRef] object, this
 // method returns `nil`.
 //
-// See: https://developer.apple.com/documentation/AppKit/NSEvent/init(cgEvent:)-4igjn
+// See: https://developer.apple.com/documentation/AppKit/NSEvent/init(cgEvent:)
 //
 // [CGEvent]: https://developer.apple.com/documentation/CoreGraphics/CGEvent
 func NewEventWithCGEvent(cgEvent coregraphics.CGEvent) NSEvent {
@@ -1082,8 +1082,8 @@ func (_NSEventClass NSEventClass) AddGlobalMonitorForEventsMatchingMaskHandler(m
 // [NSScrollWheel]: https://developer.apple.com/documentation/AppKit/NSScrollWheel
 // [NSTabletPoint]: https://developer.apple.com/documentation/AppKit/NSTabletPoint
 // [NSTabletProximity]: https://developer.apple.com/documentation/AppKit/NSTabletProximity
-func (_NSEventClass NSEventClass) AddLocalMonitorForEventsMatchingMaskHandler(mask NSEventMask, block EventHandler) objectivec.IObject {
-	_block1, _ := NewEventBlock(block)
+func (_NSEventClass NSEventClass) AddLocalMonitorForEventsMatchingMaskHandler(mask NSEventMask, block NSEventEventHandler) objectivec.IObject {
+	_block1, _ := NewNSEventEventBlock(block)
 	rv := objc.Send[objc.ID](objc.ID(_NSEventClass.class), objc.Sel("addLocalMonitorForEventsMatchingMask:handler:"), mask, _block1)
 	return objectivec.Object{ID: rv}
 }

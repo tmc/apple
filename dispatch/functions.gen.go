@@ -7,6 +7,7 @@ import (
 	"unsafe"
 
 	"github.com/ebitengine/purego"
+	"github.com/tmc/apple/os"
 )
 
 type unavailableSymbolError struct {
@@ -86,13 +87,13 @@ var _dispatch_afterErr error
 var _dispatch_after_f func(when uint64, queue uintptr, context unsafe.Pointer, work unsafe.Pointer)
 var _dispatch_after_fErr error
 
-var _dispatch_allow_send_signals func(preserve_signum int) int
+var _dispatch_allow_send_signals func(preserve_signum int32) int32
 var _dispatch_allow_send_signalsErr error
 
 var _dispatch_apply func(iterations uintptr, queue uintptr, work unsafe.Pointer)
 var _dispatch_applyErr error
 
-var _dispatch_apply_f func(iterations uintptr, queue uintptr, context unsafe.Pointer, work unsafe.Pointer)
+var _dispatch_apply_f func(iterations uintptr, queue uintptr, context unsafe.Pointer, work func(unsafe.Pointer, uint))
 var _dispatch_apply_fErr error
 
 var _dispatch_assert_queue func(queue uintptr)
@@ -137,16 +138,16 @@ var _dispatch_barrier_sync_fErr error
 var _dispatch_block_cancel func(block unsafe.Pointer)
 var _dispatch_block_cancelErr error
 
-var _dispatch_block_create func(flags uintptr, block unsafe.Pointer) unsafe.Pointer
+var _dispatch_block_create func(flags uint64, block unsafe.Pointer) unsafe.Pointer
 var _dispatch_block_createErr error
 
-var _dispatch_block_create_with_qos_class func(flags uintptr, qos_class uint32, relative_priority int, block unsafe.Pointer) unsafe.Pointer
+var _dispatch_block_create_with_qos_class func(flags uint64, qos_class uint32, relative_priority int32, block unsafe.Pointer) unsafe.Pointer
 var _dispatch_block_create_with_qos_classErr error
 
 var _dispatch_block_notify func(block unsafe.Pointer, queue uintptr, notification_block unsafe.Pointer)
 var _dispatch_block_notifyErr error
 
-var _dispatch_block_perform func(flags uintptr, block unsafe.Pointer)
+var _dispatch_block_perform func(flags uint64, block unsafe.Pointer)
 var _dispatch_block_performErr error
 
 var _dispatch_block_testcancel func(block unsafe.Pointer) int
@@ -224,7 +225,7 @@ var _dispatch_io_createErr error
 var _dispatch_io_create_with_io func(type_ uint, io uintptr, queue uintptr, cleanup_handler uintptr) uintptr
 var _dispatch_io_create_with_ioErr error
 
-var _dispatch_io_create_with_path func(type_ uint, path string, oflag int, mode uint16, queue uintptr, cleanup_handler uintptr) uintptr
+var _dispatch_io_create_with_path func(type_ uint, path string, oflag int32, mode uint16, queue uintptr, cleanup_handler uintptr) uintptr
 var _dispatch_io_create_with_pathErr error
 
 var _dispatch_io_get_descriptor func(channel uintptr) int32
@@ -248,25 +249,19 @@ var _dispatch_io_writeErr error
 var _dispatch_main func()
 var _dispatch_mainErr error
 
-var _dispatch_once func(predicate *int, block unsafe.Pointer)
-var _dispatch_onceErr error
-
-var _dispatch_once_f func(predicate *int, context unsafe.Pointer, function unsafe.Pointer)
-var _dispatch_once_fErr error
-
-var _dispatch_queue_attr_make_initially_inactive func(attr unsafe.Pointer) unsafe.Pointer
+var _dispatch_queue_attr_make_initially_inactive func(attr uintptr) uintptr
 var _dispatch_queue_attr_make_initially_inactiveErr error
 
-var _dispatch_queue_attr_make_with_autorelease_frequency func(attr unsafe.Pointer, frequency uintptr) unsafe.Pointer
+var _dispatch_queue_attr_make_with_autorelease_frequency func(attr uintptr, frequency uintptr) uintptr
 var _dispatch_queue_attr_make_with_autorelease_frequencyErr error
 
-var _dispatch_queue_attr_make_with_qos_class func(attr unsafe.Pointer, qos_class uint32, relative_priority int) unsafe.Pointer
+var _dispatch_queue_attr_make_with_qos_class func(attr uintptr, qos_class uint32, relative_priority int32) uintptr
 var _dispatch_queue_attr_make_with_qos_classErr error
 
 var _dispatch_queue_create func(label string, attr dispatch_queue_attr_t) uintptr
 var _dispatch_queue_createErr error
 
-var _dispatch_queue_create_with_target func(label string, attr unsafe.Pointer, target uintptr) uintptr
+var _dispatch_queue_create_with_target func(label string, attr uintptr, target uintptr) uintptr
 var _dispatch_queue_create_with_targetErr error
 
 var _dispatch_queue_get_label func(queue uintptr) *byte
@@ -308,7 +303,7 @@ var _dispatch_set_contextErr error
 var _dispatch_set_finalizer_f func(object uintptr, finalizer unsafe.Pointer)
 var _dispatch_set_finalizer_fErr error
 
-var _dispatch_set_qos_class_floor func(object uintptr, qos_class uint32, relative_priority int)
+var _dispatch_set_qos_class_floor func(object uintptr, qos_class uint32, relative_priority int32)
 var _dispatch_set_qos_class_floorErr error
 
 var _dispatch_set_target_queue func(object uintptr, queue uintptr)
@@ -317,7 +312,7 @@ var _dispatch_set_target_queueErr error
 var _dispatch_source_cancel func(source uintptr)
 var _dispatch_source_cancelErr error
 
-var _dispatch_source_create func(type_ Dispatch_source_type_t, handle uintptr, mask uintptr, queue uintptr) uintptr
+var _dispatch_source_create func(type_ uintptr, handle uintptr, mask uintptr, queue uintptr) uintptr
 var _dispatch_source_createErr error
 
 var _dispatch_source_get_data func(source uintptr) uintptr
@@ -377,7 +372,7 @@ var _dispatch_workloop_create_inactiveErr error
 var _dispatch_workloop_set_autorelease_frequency func(workloop uintptr, frequency uintptr)
 var _dispatch_workloop_set_autorelease_frequencyErr error
 
-var _dispatch_workloop_set_os_workgroup func(workloop uintptr, workgroup unsafe.Pointer)
+var _dispatch_workloop_set_os_workgroup func(workloop uintptr, workgroup os.Os_workgroup_t)
 var _dispatch_workloop_set_os_workgroupErr error
 
 var _dispatch_write func(fd int32, data uintptr, queue uintptr, io_handler unsafe.Pointer)
@@ -444,8 +439,6 @@ func init() {
 	registerFunc(&_dispatch_io_set_low_water, &_dispatch_io_set_low_waterErr, frameworkHandle, "dispatch_io_set_low_water", "10.7")
 	registerFunc(&_dispatch_io_write, &_dispatch_io_writeErr, frameworkHandle, "dispatch_io_write", "10.7")
 	registerFunc(&_dispatch_main, &_dispatch_mainErr, frameworkHandle, "dispatch_main", "10.6")
-	registerFunc(&_dispatch_once, &_dispatch_onceErr, frameworkHandle, "dispatch_once", "10.6")
-	registerFunc(&_dispatch_once_f, &_dispatch_once_fErr, frameworkHandle, "dispatch_once_f", "10.6")
 	registerFunc(&_dispatch_queue_attr_make_initially_inactive, &_dispatch_queue_attr_make_initially_inactiveErr, frameworkHandle, "dispatch_queue_attr_make_initially_inactive", "10.12")
 	registerFunc(&_dispatch_queue_attr_make_with_autorelease_frequency, &_dispatch_queue_attr_make_with_autorelease_frequencyErr, frameworkHandle, "dispatch_queue_attr_make_with_autorelease_frequency", "10.12")
 	registerFunc(&_dispatch_queue_attr_make_with_qos_class, &_dispatch_queue_attr_make_with_qos_classErr, frameworkHandle, "dispatch_queue_attr_make_with_qos_class", "10.10")

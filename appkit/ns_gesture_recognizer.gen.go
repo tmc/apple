@@ -252,10 +252,10 @@ func (nc NSGestureRecognizerClass) Alloc() NSGestureRecognizer {
 //
 // # Instance Methods
 //
-//   - [NSGestureRecognizer.TouchesBeganWithEvent]: Called when one or more fingers first make contact with an [NSTouchBar](<doc://com.apple.appkit/documentation/AppKit/NSTouchBar>) instance on the Touch Bar.
-//   - [NSGestureRecognizer.TouchesCancelledWithEvent]: Called when a system event, such as a low-memory warning, cancels an in-progress touch event in an [NSTouchBar](<doc://com.apple.appkit/documentation/AppKit/NSTouchBar>) object.
-//   - [NSGestureRecognizer.TouchesEndedWithEvent]: Called when one or more fingers are removed from contact with an [NSTouchBar](<doc://com.apple.appkit/documentation/AppKit/NSTouchBar>) instance on the Touch Bar.
-//   - [NSGestureRecognizer.TouchesMovedWithEvent]: Called when one or more fingers, associated with an in-progress event, move within an [NSTouchBar](<doc://com.apple.appkit/documentation/AppKit/NSTouchBar>) instance on the Touch Bar.
+//   - [NSGestureRecognizer.TouchesBeganWithEvent]: Called when one or more fingers first make contact with an [NSTouchBar](<https://developer.apple.com/documentation/AppKit/NSTouchBar>) instance on the Touch Bar.
+//   - [NSGestureRecognizer.TouchesCancelledWithEvent]: Called when a system event, such as a low-memory warning, cancels an in-progress touch event in an [NSTouchBar](<https://developer.apple.com/documentation/AppKit/NSTouchBar>) object.
+//   - [NSGestureRecognizer.TouchesEndedWithEvent]: Called when one or more fingers are removed from contact with an [NSTouchBar](<https://developer.apple.com/documentation/AppKit/NSTouchBar>) instance on the Touch Bar.
+//   - [NSGestureRecognizer.TouchesMovedWithEvent]: Called when one or more fingers, associated with an in-progress event, move within an [NSTouchBar](<https://developer.apple.com/documentation/AppKit/NSTouchBar>) instance on the Touch Bar.
 //   - [NSGestureRecognizer.MouseCancelled]
 //
 // See: https://developer.apple.com/documentation/AppKit/NSGestureRecognizer
@@ -363,10 +363,10 @@ func NSGestureRecognizerFromID(id objc.ID) NSGestureRecognizer {
 //
 // # Instance Methods
 //
-//   - [INSGestureRecognizer.TouchesBeganWithEvent]: Called when one or more fingers first make contact with an [NSTouchBar](<doc://com.apple.appkit/documentation/AppKit/NSTouchBar>) instance on the Touch Bar.
-//   - [INSGestureRecognizer.TouchesCancelledWithEvent]: Called when a system event, such as a low-memory warning, cancels an in-progress touch event in an [NSTouchBar](<doc://com.apple.appkit/documentation/AppKit/NSTouchBar>) object.
-//   - [INSGestureRecognizer.TouchesEndedWithEvent]: Called when one or more fingers are removed from contact with an [NSTouchBar](<doc://com.apple.appkit/documentation/AppKit/NSTouchBar>) instance on the Touch Bar.
-//   - [INSGestureRecognizer.TouchesMovedWithEvent]: Called when one or more fingers, associated with an in-progress event, move within an [NSTouchBar](<doc://com.apple.appkit/documentation/AppKit/NSTouchBar>) instance on the Touch Bar.
+//   - [INSGestureRecognizer.TouchesBeganWithEvent]: Called when one or more fingers first make contact with an [NSTouchBar](<https://developer.apple.com/documentation/AppKit/NSTouchBar>) instance on the Touch Bar.
+//   - [INSGestureRecognizer.TouchesCancelledWithEvent]: Called when a system event, such as a low-memory warning, cancels an in-progress touch event in an [NSTouchBar](<https://developer.apple.com/documentation/AppKit/NSTouchBar>) object.
+//   - [INSGestureRecognizer.TouchesEndedWithEvent]: Called when one or more fingers are removed from contact with an [NSTouchBar](<https://developer.apple.com/documentation/AppKit/NSTouchBar>) instance on the Touch Bar.
+//   - [INSGestureRecognizer.TouchesMovedWithEvent]: Called when one or more fingers, associated with an in-progress event, move within an [NSTouchBar](<https://developer.apple.com/documentation/AppKit/NSTouchBar>) instance on the Touch Bar.
 //   - [INSGestureRecognizer.MouseCancelled]
 //
 // See: https://developer.apple.com/documentation/AppKit/NSGestureRecognizer
@@ -494,13 +494,13 @@ type INSGestureRecognizer interface {
 
 	// Topic: Instance Methods
 
-	// Called when one or more fingers first make contact with an [NSTouchBar](<doc://com.apple.appkit/documentation/AppKit/NSTouchBar>) instance on the Touch Bar.
+	// Called when one or more fingers first make contact with an [NSTouchBar](<https://developer.apple.com/documentation/AppKit/NSTouchBar>) instance on the Touch Bar.
 	TouchesBeganWithEvent(event INSEvent)
-	// Called when a system event, such as a low-memory warning, cancels an in-progress touch event in an [NSTouchBar](<doc://com.apple.appkit/documentation/AppKit/NSTouchBar>) object.
+	// Called when a system event, such as a low-memory warning, cancels an in-progress touch event in an [NSTouchBar](<https://developer.apple.com/documentation/AppKit/NSTouchBar>) object.
 	TouchesCancelledWithEvent(event INSEvent)
-	// Called when one or more fingers are removed from contact with an [NSTouchBar](<doc://com.apple.appkit/documentation/AppKit/NSTouchBar>) instance on the Touch Bar.
+	// Called when one or more fingers are removed from contact with an [NSTouchBar](<https://developer.apple.com/documentation/AppKit/NSTouchBar>) instance on the Touch Bar.
 	TouchesEndedWithEvent(event INSEvent)
-	// Called when one or more fingers, associated with an in-progress event, move within an [NSTouchBar](<doc://com.apple.appkit/documentation/AppKit/NSTouchBar>) instance on the Touch Bar.
+	// Called when one or more fingers, associated with an in-progress event, move within an [NSTouchBar](<https://developer.apple.com/documentation/AppKit/NSTouchBar>) instance on the Touch Bar.
 	TouchesMovedWithEvent(event INSEvent)
 	MouseCancelled(event INSEvent)
 

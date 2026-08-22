@@ -79,19 +79,19 @@
 // # Barcode Descriptions
 //
 //   - [CIBarcodeDescriptor]: An abstract base class that represents a machine-readable code’s attributes.
-//   - [CIQRCodeDescriptor]: A concrete subclass of the Core Image Barcode Descriptor that represents a square QR code symbol. ([ErrorCorrectedPayload], [SymbolVersion], [MaskPattern], [ErrorCorrectionLevel])
-//   - [CIAztecCodeDescriptor]: A concrete subclass the Core Image Barcode Descriptor that represents an Aztec code symbol. ([ErrorCorrectedPayload], [IsCompact], [LayerCount], [DataCodewordCount])
-//   - [CIPDF417CodeDescriptor]: A concrete subclass of Core Image Barcode Descriptor that represents a PDF417 symbol. ([ErrorCorrectedPayload], [IsCompact], [RowCount], [ColumnCount])
-//   - [CIDataMatrixCodeDescriptor]: A concrete subclass the Core Image Barcode Descriptor that represents an Data Matrix code symbol. ([ErrorCorrectedPayload], [RowCount], [ColumnCount], [EccVersion])
+//   - [CIQRCodeDescriptor]: A concrete subclass of the Core Image Barcode Descriptor that represents a square QR code symbol.
+//   - [CIAztecCodeDescriptor]: A concrete subclass the Core Image Barcode Descriptor that represents an Aztec code symbol.
+//   - [CIPDF417CodeDescriptor]: A concrete subclass of Core Image Barcode Descriptor that represents a PDF417 symbol.
+//   - [CIDataMatrixCodeDescriptor]: A concrete subclass the Core Image Barcode Descriptor that represents an Data Matrix code symbol.
 //
 // # Image Feature Detection
 //
 //   - [CIDetector]: An image processor that identifies notable features, such as faces and barcodes, in a still image or video.
-//   - [CIFeature]: The abstract superclass for objects representing notable features detected in an image. ([Bounds])
-//   - [CIFaceFeature]: Information about a face detected in a still or video image. ([Bounds], [HasFaceAngle], [FaceAngle], [HasLeftEyePosition], [HasRightEyePosition])
-//   - [CIRectangleFeature]: Information about a rectangular region detected in a still or video image. ([Bounds], [BottomLeft], [BottomRight], [TopLeft], [TopRight])
-//   - [CITextFeature]: Information about a text that was detected in a still or video image. ([Bounds], [BottomLeft], [BottomRight], [TopLeft], [TopRight])
-//   - [CIQRCodeFeature]: Information about a Quick Response code detected in a still or video image. ([Bounds], [SymbolDescriptor], [BottomLeft], [BottomRight], [TopLeft])
+//   - [CIFeature]: The abstract superclass for objects representing notable features detected in an image.
+//   - [CIFaceFeature]: Information about a face detected in a still or video image.
+//   - [CIRectangleFeature]: Information about a rectangular region detected in a still or video image.
+//   - [CITextFeature]: Information about a text that was detected in a still or video image.
+//   - [CIQRCodeFeature]: Information about a Quick Response code detected in a still or video image.
 //
 // # Image Units
 //
@@ -120,12 +120,7 @@
 //   - [KCIImageRepresentationHDRGainMapAsRGB]: An optional key and value to request the gain map channel to be color instead of monochrome.
 //   - [KCIImageRepresentationHDRGainMapImage]: An optional key and value to save a gain map channel to a JPEG or HEIF.
 //   - [CIRAWDecoderVersion9]
-//   - [CIRAWDecoderVersion9DNG]
-//
-// # Macros
-//
-//   - CI_EXTERN_C_BEGIN
-//   - CI_EXTERN_C_END//
+//   - [CIRAWDecoderVersion9DNG]//
 //
 // # Key Types
 //
@@ -170,9 +165,11 @@ import (
 	"github.com/ebitengine/purego"
 )
 
-// frameworkPaths lists paths to try when loading the CoreImage library.
-// The framework bundle path is tried first; a /usr/lib dylib fallback covers
-// C-API frameworks that are not in the dyld shared cache as bundles.
+// frameworkPaths lists paths to try when loading the CoreImage library,
+// in order. Frameworks whose symbols live in a known dylib resolve to that
+// dylib alone; the rest try the framework bundle first and then a /usr/lib
+// dylib fallback, which covers C-API frameworks that are not in the dyld
+// shared cache as bundles.
 var frameworkPaths = []string{
 	"/System/Library/Frameworks/CoreImage.framework/CoreImage",
 	"/usr/lib/libCoreImage.dylib",

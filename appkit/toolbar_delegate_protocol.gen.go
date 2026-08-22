@@ -278,9 +278,22 @@ func NewNSToolbarDelegate(config NSToolbarDelegateConfig) NSToolbarDelegateObjec
 		methods = append(methods, objc.MethodDef{
 			Cmd: objc.RegisterName("toolbar:itemForItemIdentifier:willBeInsertedIntoToolbar:"),
 			Fn: func(self objc.ID, _cmd objc.SEL, toolbarID objc.ID, itemIdentifierID objc.ID, flag bool) objc.ID {
+				// Names which delegate was running if a panic unwinds out of
+				// it. The frames between here and the Objective-C caller are
+				// runtime and purego dispatch, so without this the traceback
+				// never says which selector dispatched. Deliberately no
+				// recover: see [objc.NoteDelegatePanic].
+				_delegateDone := false
+				defer func() {
+					if !_delegateDone {
+						objc.NoteDelegatePanic("NSToolbarDelegate", "toolbar:itemForItemIdentifier:willBeInsertedIntoToolbar:")
+					}
+				}()
 				toolbar := NSToolbarFromID(toolbarID)
 				itemIdentifier := NSToolbarItemIdentifier(objc.GoString(objc.Send[*byte](itemIdentifierID, objc.Sel("UTF8String"))))
-				return fn(toolbar, itemIdentifier, flag).GetID()
+				_delegateResult := fn(toolbar, itemIdentifier, flag).GetID()
+				_delegateDone = true
+				return _delegateResult
 			},
 		})
 	}
@@ -290,8 +303,20 @@ func NewNSToolbarDelegate(config NSToolbarDelegateConfig) NSToolbarDelegateObjec
 		methods = append(methods, objc.MethodDef{
 			Cmd: objc.RegisterName("toolbarWillAddItem:"),
 			Fn: func(self objc.ID, _cmd objc.SEL, notificationID objc.ID) {
+				// Names which delegate was running if a panic unwinds out of
+				// it. The frames between here and the Objective-C caller are
+				// runtime and purego dispatch, so without this the traceback
+				// never says which selector dispatched. Deliberately no
+				// recover: see [objc.NoteDelegatePanic].
+				_delegateDone := false
+				defer func() {
+					if !_delegateDone {
+						objc.NoteDelegatePanic("NSToolbarDelegate", "toolbarWillAddItem:")
+					}
+				}()
 				notification := foundation.NSNotificationFromID(notificationID)
 				fn(notification)
+				_delegateDone = true
 			},
 		})
 	}
@@ -301,8 +326,20 @@ func NewNSToolbarDelegate(config NSToolbarDelegateConfig) NSToolbarDelegateObjec
 		methods = append(methods, objc.MethodDef{
 			Cmd: objc.RegisterName("toolbarDidRemoveItem:"),
 			Fn: func(self objc.ID, _cmd objc.SEL, notificationID objc.ID) {
+				// Names which delegate was running if a panic unwinds out of
+				// it. The frames between here and the Objective-C caller are
+				// runtime and purego dispatch, so without this the traceback
+				// never says which selector dispatched. Deliberately no
+				// recover: see [objc.NoteDelegatePanic].
+				_delegateDone := false
+				defer func() {
+					if !_delegateDone {
+						objc.NoteDelegatePanic("NSToolbarDelegate", "toolbarDidRemoveItem:")
+					}
+				}()
 				notification := foundation.NSNotificationFromID(notificationID)
 				fn(notification)
+				_delegateDone = true
 			},
 		})
 	}
@@ -312,8 +349,21 @@ func NewNSToolbarDelegate(config NSToolbarDelegateConfig) NSToolbarDelegateObjec
 		methods = append(methods, objc.MethodDef{
 			Cmd: objc.RegisterName("toolbarImmovableItemIdentifiers:"),
 			Fn: func(self objc.ID, _cmd objc.SEL, toolbarID objc.ID) objc.ID {
+				// Names which delegate was running if a panic unwinds out of
+				// it. The frames between here and the Objective-C caller are
+				// runtime and purego dispatch, so without this the traceback
+				// never says which selector dispatched. Deliberately no
+				// recover: see [objc.NoteDelegatePanic].
+				_delegateDone := false
+				defer func() {
+					if !_delegateDone {
+						objc.NoteDelegatePanic("NSToolbarDelegate", "toolbarImmovableItemIdentifiers:")
+					}
+				}()
 				toolbar := NSToolbarFromID(toolbarID)
-				return fn(toolbar).GetID()
+				_delegateResult := fn(toolbar).GetID()
+				_delegateDone = true
+				return _delegateResult
 			},
 		})
 	}
@@ -323,9 +373,22 @@ func NewNSToolbarDelegate(config NSToolbarDelegateConfig) NSToolbarDelegateObjec
 		methods = append(methods, objc.MethodDef{
 			Cmd: objc.RegisterName("toolbar:itemIdentifier:canBeInsertedAtIndex:"),
 			Fn: func(self objc.ID, _cmd objc.SEL, toolbarID objc.ID, itemIdentifierID objc.ID, index int) bool {
+				// Names which delegate was running if a panic unwinds out of
+				// it. The frames between here and the Objective-C caller are
+				// runtime and purego dispatch, so without this the traceback
+				// never says which selector dispatched. Deliberately no
+				// recover: see [objc.NoteDelegatePanic].
+				_delegateDone := false
+				defer func() {
+					if !_delegateDone {
+						objc.NoteDelegatePanic("NSToolbarDelegate", "toolbar:itemIdentifier:canBeInsertedAtIndex:")
+					}
+				}()
 				toolbar := NSToolbarFromID(toolbarID)
 				itemIdentifier := NSToolbarItemIdentifier(objc.GoString(objc.Send[*byte](itemIdentifierID, objc.Sel("UTF8String"))))
-				return fn(toolbar, itemIdentifier, index)
+				_delegateResult := fn(toolbar, itemIdentifier, index)
+				_delegateDone = true
+				return _delegateResult
 			},
 		})
 	}

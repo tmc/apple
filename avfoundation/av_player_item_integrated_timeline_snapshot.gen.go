@@ -4,6 +4,7 @@ package avfoundation
 
 import (
 	"sync"
+	"unsafe"
 
 	"github.com/tmc/apple/coremedia"
 	"github.com/tmc/apple/foundation"
@@ -128,7 +129,7 @@ func NewAVPlayerItemIntegratedTimelineSnapshot() AVPlayerItemIntegratedTimelineS
 
 // See: https://developer.apple.com/documentation/AVFoundation/AVPlayerItemIntegratedTimelineSnapshot/mapTime:toSegment:atSegmentOffset:
 func (p AVPlayerItemIntegratedTimelineSnapshot) MapTimeToSegmentAtSegmentOffset(time coremedia.CMTime, timeSegmentOut *AVPlayerItemSegment, segmentOffsetOut *coremedia.CMTime) {
-	objc.Send[objc.ID](p.ID, objc.Sel("mapTime:toSegment:atSegmentOffset:"), time, timeSegmentOut, segmentOffsetOut)
+	objc.Send[objc.ID](p.ID, objc.Sel("mapTime:toSegment:atSegmentOffset:"), time, unsafe.Pointer(timeSegmentOut), unsafe.Pointer(segmentOffsetOut))
 }
 
 // The total duration of the primary item and scheduled interstitial events.

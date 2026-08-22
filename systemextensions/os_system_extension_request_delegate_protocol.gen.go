@@ -197,8 +197,20 @@ func NewOSSystemExtensionRequestDelegate(config OSSystemExtensionRequestDelegate
 		methods = append(methods, objc.MethodDef{
 			Cmd: objc.RegisterName("request:didFinishWithResult:"),
 			Fn: func(self objc.ID, _cmd objc.SEL, requestID objc.ID, result OSSystemExtensionRequestResult) {
+				// Names which delegate was running if a panic unwinds out of
+				// it. The frames between here and the Objective-C caller are
+				// runtime and purego dispatch, so without this the traceback
+				// never says which selector dispatched. Deliberately no
+				// recover: see [objc.NoteDelegatePanic].
+				_delegateDone := false
+				defer func() {
+					if !_delegateDone {
+						objc.NoteDelegatePanic("OSSystemExtensionRequestDelegate", "request:didFinishWithResult:")
+					}
+				}()
 				request := OSSystemExtensionRequestFromID(requestID)
 				fn(request, result)
+				_delegateDone = true
 			},
 		})
 	}
@@ -208,9 +220,21 @@ func NewOSSystemExtensionRequestDelegate(config OSSystemExtensionRequestDelegate
 		methods = append(methods, objc.MethodDef{
 			Cmd: objc.RegisterName("request:didFailWithError:"),
 			Fn: func(self objc.ID, _cmd objc.SEL, requestID objc.ID, error_ID objc.ID) {
+				// Names which delegate was running if a panic unwinds out of
+				// it. The frames between here and the Objective-C caller are
+				// runtime and purego dispatch, so without this the traceback
+				// never says which selector dispatched. Deliberately no
+				// recover: see [objc.NoteDelegatePanic].
+				_delegateDone := false
+				defer func() {
+					if !_delegateDone {
+						objc.NoteDelegatePanic("OSSystemExtensionRequestDelegate", "request:didFailWithError:")
+					}
+				}()
 				request := OSSystemExtensionRequestFromID(requestID)
 				error_ := foundation.NSErrorFromID(error_ID)
 				fn(request, error_)
+				_delegateDone = true
 			},
 		})
 	}
@@ -220,8 +244,20 @@ func NewOSSystemExtensionRequestDelegate(config OSSystemExtensionRequestDelegate
 		methods = append(methods, objc.MethodDef{
 			Cmd: objc.RegisterName("requestNeedsUserApproval:"),
 			Fn: func(self objc.ID, _cmd objc.SEL, requestID objc.ID) {
+				// Names which delegate was running if a panic unwinds out of
+				// it. The frames between here and the Objective-C caller are
+				// runtime and purego dispatch, so without this the traceback
+				// never says which selector dispatched. Deliberately no
+				// recover: see [objc.NoteDelegatePanic].
+				_delegateDone := false
+				defer func() {
+					if !_delegateDone {
+						objc.NoteDelegatePanic("OSSystemExtensionRequestDelegate", "requestNeedsUserApproval:")
+					}
+				}()
 				request := OSSystemExtensionRequestFromID(requestID)
 				fn(request)
+				_delegateDone = true
 			},
 		})
 	}
@@ -231,10 +267,23 @@ func NewOSSystemExtensionRequestDelegate(config OSSystemExtensionRequestDelegate
 		methods = append(methods, objc.MethodDef{
 			Cmd: objc.RegisterName("request:actionForReplacingExtension:withExtension:"),
 			Fn: func(self objc.ID, _cmd objc.SEL, requestID objc.ID, existingID objc.ID, extID objc.ID) OSSystemExtensionReplacementAction {
+				// Names which delegate was running if a panic unwinds out of
+				// it. The frames between here and the Objective-C caller are
+				// runtime and purego dispatch, so without this the traceback
+				// never says which selector dispatched. Deliberately no
+				// recover: see [objc.NoteDelegatePanic].
+				_delegateDone := false
+				defer func() {
+					if !_delegateDone {
+						objc.NoteDelegatePanic("OSSystemExtensionRequestDelegate", "request:actionForReplacingExtension:withExtension:")
+					}
+				}()
 				request := OSSystemExtensionRequestFromID(requestID)
 				existing := OSSystemExtensionPropertiesFromID(existingID)
 				ext := OSSystemExtensionPropertiesFromID(extID)
-				return fn(request, existing, ext)
+				_delegateResult := fn(request, existing, ext)
+				_delegateDone = true
+				return _delegateResult
 			},
 		})
 	}

@@ -94,7 +94,7 @@ type INSFontAssetRequest interface {
 
 	// Topic: Downloading a Font Asset
 
-	DownloadFontAssetsWithCompletionHandler(completionHandler ErrorHandler)
+	DownloadFontAssetsWithCompletionHandler(completionHandler BoolErrorHandler)
 	DownloadedFontDescriptors() []NSFontDescriptor
 
 	// Topic: Getting the Download Progress
@@ -135,8 +135,8 @@ func (f NSFontAssetRequest) InitWithFontDescriptorsOptions(fontDescriptors []NSF
 }
 
 // See: https://developer.apple.com/documentation/AppKit/NSFontAssetRequest/download(withCompletionHandler:)
-func (f NSFontAssetRequest) DownloadFontAssetsWithCompletionHandler(completionHandler ErrorHandler) {
-	_block0, _ := NewErrorBlock(completionHandler)
+func (f NSFontAssetRequest) DownloadFontAssetsWithCompletionHandler(completionHandler BoolErrorHandler) {
+	_block0, _ := NewBoolErrorBlock(completionHandler)
 	objc.Send[objc.ID](f.ID, objc.Sel("downloadFontAssetsWithCompletionHandler:"), _block0)
 }
 

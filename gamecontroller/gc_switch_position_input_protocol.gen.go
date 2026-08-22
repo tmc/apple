@@ -14,11 +14,6 @@ import (
 type GCSwitchPositionInput interface {
 	objectivec.IObject
 
-	// A Boolean value that indicates whether the position change is sequential.
-	//
-	// See: https://developer.apple.com/documentation/GameController/GCSwitchPositionInput/isSequential
-	IsSequential() bool
-
 	// The range of possible values for the switch.
 	//
 	// See: https://developer.apple.com/documentation/GameController/GCSwitchPositionInput/positionRange
@@ -27,7 +22,7 @@ type GCSwitchPositionInput interface {
 	// A Boolean value that indicates whether the position change is sequential.
 	//
 	// See: https://developer.apple.com/documentation/GameController/GCSwitchPositionInput/isSequential
-	Sequential() bool
+	IsSequential() bool
 
 	// A Boolean value that indicates whether the position value wraps when it reaches the range’s minimum or maximum value.
 	//
@@ -72,14 +67,6 @@ func GCSwitchPositionInputObjectFromID(id objc.ID) GCSwitchPositionInputObject {
 	}
 }
 
-// A Boolean value that indicates whether the position change is sequential.
-//
-// See: https://developer.apple.com/documentation/GameController/GCSwitchPositionInput/isSequential
-func (o GCSwitchPositionInputObject) IsSequential() bool {
-	rv := objc.Send[bool](o.ID, objc.Sel("isSequential"))
-	return rv
-}
-
 // The range of possible values for the switch.
 //
 // See: https://developer.apple.com/documentation/GameController/GCSwitchPositionInput/positionRange
@@ -96,7 +83,7 @@ func (o GCSwitchPositionInputObject) PositionRange() foundation.NSRange {
 // sequence.
 //
 // See: https://developer.apple.com/documentation/GameController/GCSwitchPositionInput/isSequential
-func (o GCSwitchPositionInputObject) Sequential() bool {
+func (o GCSwitchPositionInputObject) IsSequential() bool {
 	rv := objc.Send[bool](o.ID, objc.Sel("isSequential"))
 	return bool(rv)
 }

@@ -77,10 +77,10 @@ func registerSymbol(dst *uintptr, errDst *error, handle uintptr, name, introduce
 	*errDst = nil
 }
 
-var _fs_errorForCocoaError func(errorCode int) *foundation.NSError
+var _fs_errorForCocoaError func(errorCode int32) *foundation.NSError
 var _fs_errorForCocoaErrorErr error
 
-func tryFs_errorForCocoaError(errorCode int) (*foundation.NSError, error) {
+func tryFs_errorForCocoaError(errorCode int32) (*foundation.NSError, error) {
 	if _fs_errorForCocoaError == nil {
 		return nil, symbolCallError("fs_errorForCocoaError", "15.4", _fs_errorForCocoaErrorErr)
 	}
@@ -90,7 +90,7 @@ func tryFs_errorForCocoaError(errorCode int) (*foundation.NSError, error) {
 // Fs_errorForCocoaError creates an error object for the given Cocoa error code.
 //
 // See: https://developer.apple.com/documentation/FSKit/fs_errorForCocoaError(_:)
-func Fs_errorForCocoaError(errorCode int) *foundation.NSError {
+func Fs_errorForCocoaError(errorCode int32) *foundation.NSError {
 	result, callErr := tryFs_errorForCocoaError(errorCode)
 	if callErr != nil {
 		panic(callErr)
@@ -98,10 +98,10 @@ func Fs_errorForCocoaError(errorCode int) *foundation.NSError {
 	return result
 }
 
-var _fs_errorForMachError func(errorCode int) *foundation.NSError
+var _fs_errorForMachError func(errorCode int32) *foundation.NSError
 var _fs_errorForMachErrorErr error
 
-func tryFs_errorForMachError(errorCode int) (*foundation.NSError, error) {
+func tryFs_errorForMachError(errorCode int32) (*foundation.NSError, error) {
 	if _fs_errorForMachError == nil {
 		return nil, symbolCallError("fs_errorForMachError", "15.4", _fs_errorForMachErrorErr)
 	}
@@ -111,7 +111,7 @@ func tryFs_errorForMachError(errorCode int) (*foundation.NSError, error) {
 // Fs_errorForMachError creates an error object for the given Mach error code.
 //
 // See: https://developer.apple.com/documentation/FSKit/fs_errorForMachError(_:)
-func Fs_errorForMachError(errorCode int) *foundation.NSError {
+func Fs_errorForMachError(errorCode int32) *foundation.NSError {
 	result, callErr := tryFs_errorForMachError(errorCode)
 	if callErr != nil {
 		panic(callErr)
@@ -119,10 +119,10 @@ func Fs_errorForMachError(errorCode int) *foundation.NSError {
 	return result
 }
 
-var _fs_errorForPOSIXError func(arg0 int) *foundation.NSError
+var _fs_errorForPOSIXError func(arg0 int32) *foundation.NSError
 var _fs_errorForPOSIXErrorErr error
 
-func tryFs_errorForPOSIXError(arg0 int) (*foundation.NSError, error) {
+func tryFs_errorForPOSIXError(arg0 int32) (*foundation.NSError, error) {
 	if _fs_errorForPOSIXError == nil {
 		return nil, symbolCallError("fs_errorForPOSIXError", "15.4", _fs_errorForPOSIXErrorErr)
 	}
@@ -132,7 +132,7 @@ func tryFs_errorForPOSIXError(arg0 int) (*foundation.NSError, error) {
 // Fs_errorForPOSIXError creates an error object for the given POSIX error code.
 //
 // See: https://developer.apple.com/documentation/FSKit/fs_errorForPOSIXError(_:)
-func Fs_errorForPOSIXError(arg0 int) *foundation.NSError {
+func Fs_errorForPOSIXError(arg0 int32) *foundation.NSError {
 	result, callErr := tryFs_errorForPOSIXError(arg0)
 	if callErr != nil {
 		panic(callErr)

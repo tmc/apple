@@ -400,8 +400,20 @@ func NewNSSplitViewDelegate(config NSSplitViewDelegateConfig) NSSplitViewDelegat
 		methods = append(methods, objc.MethodDef{
 			Cmd: objc.RegisterName("splitViewWillResizeSubviews:"),
 			Fn: func(self objc.ID, _cmd objc.SEL, notificationID objc.ID) {
+				// Names which delegate was running if a panic unwinds out of
+				// it. The frames between here and the Objective-C caller are
+				// runtime and purego dispatch, so without this the traceback
+				// never says which selector dispatched. Deliberately no
+				// recover: see [objc.NoteDelegatePanic].
+				_delegateDone := false
+				defer func() {
+					if !_delegateDone {
+						objc.NoteDelegatePanic("NSSplitViewDelegate", "splitViewWillResizeSubviews:")
+					}
+				}()
 				notification := foundation.NSNotificationFromID(notificationID)
 				fn(notification)
+				_delegateDone = true
 			},
 		})
 	}
@@ -411,8 +423,20 @@ func NewNSSplitViewDelegate(config NSSplitViewDelegateConfig) NSSplitViewDelegat
 		methods = append(methods, objc.MethodDef{
 			Cmd: objc.RegisterName("splitViewDidResizeSubviews:"),
 			Fn: func(self objc.ID, _cmd objc.SEL, notificationID objc.ID) {
+				// Names which delegate was running if a panic unwinds out of
+				// it. The frames between here and the Objective-C caller are
+				// runtime and purego dispatch, so without this the traceback
+				// never says which selector dispatched. Deliberately no
+				// recover: see [objc.NoteDelegatePanic].
+				_delegateDone := false
+				defer func() {
+					if !_delegateDone {
+						objc.NoteDelegatePanic("NSSplitViewDelegate", "splitViewDidResizeSubviews:")
+					}
+				}()
 				notification := foundation.NSNotificationFromID(notificationID)
 				fn(notification)
+				_delegateDone = true
 			},
 		})
 	}
@@ -422,9 +446,22 @@ func NewNSSplitViewDelegate(config NSSplitViewDelegateConfig) NSSplitViewDelegat
 		methods = append(methods, objc.MethodDef{
 			Cmd: objc.RegisterName("splitView:canCollapseSubview:"),
 			Fn: func(self objc.ID, _cmd objc.SEL, splitViewID objc.ID, subviewID objc.ID) bool {
+				// Names which delegate was running if a panic unwinds out of
+				// it. The frames between here and the Objective-C caller are
+				// runtime and purego dispatch, so without this the traceback
+				// never says which selector dispatched. Deliberately no
+				// recover: see [objc.NoteDelegatePanic].
+				_delegateDone := false
+				defer func() {
+					if !_delegateDone {
+						objc.NoteDelegatePanic("NSSplitViewDelegate", "splitView:canCollapseSubview:")
+					}
+				}()
 				splitView := NSSplitViewFromID(splitViewID)
 				subview := NSViewFromID(subviewID)
-				return fn(splitView, subview)
+				_delegateResult := fn(splitView, subview)
+				_delegateDone = true
+				return _delegateResult
 			},
 		})
 	}
@@ -434,8 +471,21 @@ func NewNSSplitViewDelegate(config NSSplitViewDelegateConfig) NSSplitViewDelegat
 		methods = append(methods, objc.MethodDef{
 			Cmd: objc.RegisterName("splitView:shouldHideDividerAtIndex:"),
 			Fn: func(self objc.ID, _cmd objc.SEL, splitViewID objc.ID, dividerIndex int) bool {
+				// Names which delegate was running if a panic unwinds out of
+				// it. The frames between here and the Objective-C caller are
+				// runtime and purego dispatch, so without this the traceback
+				// never says which selector dispatched. Deliberately no
+				// recover: see [objc.NoteDelegatePanic].
+				_delegateDone := false
+				defer func() {
+					if !_delegateDone {
+						objc.NoteDelegatePanic("NSSplitViewDelegate", "splitView:shouldHideDividerAtIndex:")
+					}
+				}()
 				splitView := NSSplitViewFromID(splitViewID)
-				return fn(splitView, dividerIndex)
+				_delegateResult := fn(splitView, dividerIndex)
+				_delegateDone = true
+				return _delegateResult
 			},
 		})
 	}
@@ -445,8 +495,21 @@ func NewNSSplitViewDelegate(config NSSplitViewDelegateConfig) NSSplitViewDelegat
 		methods = append(methods, objc.MethodDef{
 			Cmd: objc.RegisterName("splitView:constrainSplitPosition:ofSubviewAt:"),
 			Fn: func(self objc.ID, _cmd objc.SEL, splitViewID objc.ID, proposedPosition float64, dividerIndex int) float64 {
+				// Names which delegate was running if a panic unwinds out of
+				// it. The frames between here and the Objective-C caller are
+				// runtime and purego dispatch, so without this the traceback
+				// never says which selector dispatched. Deliberately no
+				// recover: see [objc.NoteDelegatePanic].
+				_delegateDone := false
+				defer func() {
+					if !_delegateDone {
+						objc.NoteDelegatePanic("NSSplitViewDelegate", "splitView:constrainSplitPosition:ofSubviewAt:")
+					}
+				}()
 				splitView := NSSplitViewFromID(splitViewID)
-				return fn(splitView, proposedPosition, dividerIndex)
+				_delegateResult := fn(splitView, proposedPosition, dividerIndex)
+				_delegateDone = true
+				return _delegateResult
 			},
 		})
 	}
@@ -456,8 +519,21 @@ func NewNSSplitViewDelegate(config NSSplitViewDelegateConfig) NSSplitViewDelegat
 		methods = append(methods, objc.MethodDef{
 			Cmd: objc.RegisterName("splitView:constrainMinCoordinate:ofSubviewAt:"),
 			Fn: func(self objc.ID, _cmd objc.SEL, splitViewID objc.ID, proposedMinimumPosition float64, dividerIndex int) float64 {
+				// Names which delegate was running if a panic unwinds out of
+				// it. The frames between here and the Objective-C caller are
+				// runtime and purego dispatch, so without this the traceback
+				// never says which selector dispatched. Deliberately no
+				// recover: see [objc.NoteDelegatePanic].
+				_delegateDone := false
+				defer func() {
+					if !_delegateDone {
+						objc.NoteDelegatePanic("NSSplitViewDelegate", "splitView:constrainMinCoordinate:ofSubviewAt:")
+					}
+				}()
 				splitView := NSSplitViewFromID(splitViewID)
-				return fn(splitView, proposedMinimumPosition, dividerIndex)
+				_delegateResult := fn(splitView, proposedMinimumPosition, dividerIndex)
+				_delegateDone = true
+				return _delegateResult
 			},
 		})
 	}
@@ -467,8 +543,21 @@ func NewNSSplitViewDelegate(config NSSplitViewDelegateConfig) NSSplitViewDelegat
 		methods = append(methods, objc.MethodDef{
 			Cmd: objc.RegisterName("splitView:constrainMaxCoordinate:ofSubviewAt:"),
 			Fn: func(self objc.ID, _cmd objc.SEL, splitViewID objc.ID, proposedMaximumPosition float64, dividerIndex int) float64 {
+				// Names which delegate was running if a panic unwinds out of
+				// it. The frames between here and the Objective-C caller are
+				// runtime and purego dispatch, so without this the traceback
+				// never says which selector dispatched. Deliberately no
+				// recover: see [objc.NoteDelegatePanic].
+				_delegateDone := false
+				defer func() {
+					if !_delegateDone {
+						objc.NoteDelegatePanic("NSSplitViewDelegate", "splitView:constrainMaxCoordinate:ofSubviewAt:")
+					}
+				}()
 				splitView := NSSplitViewFromID(splitViewID)
-				return fn(splitView, proposedMaximumPosition, dividerIndex)
+				_delegateResult := fn(splitView, proposedMaximumPosition, dividerIndex)
+				_delegateDone = true
+				return _delegateResult
 			},
 		})
 	}
@@ -478,9 +567,22 @@ func NewNSSplitViewDelegate(config NSSplitViewDelegateConfig) NSSplitViewDelegat
 		methods = append(methods, objc.MethodDef{
 			Cmd: objc.RegisterName("splitView:shouldAdjustSizeOfSubview:"),
 			Fn: func(self objc.ID, _cmd objc.SEL, splitViewID objc.ID, viewID objc.ID) bool {
+				// Names which delegate was running if a panic unwinds out of
+				// it. The frames between here and the Objective-C caller are
+				// runtime and purego dispatch, so without this the traceback
+				// never says which selector dispatched. Deliberately no
+				// recover: see [objc.NoteDelegatePanic].
+				_delegateDone := false
+				defer func() {
+					if !_delegateDone {
+						objc.NoteDelegatePanic("NSSplitViewDelegate", "splitView:shouldAdjustSizeOfSubview:")
+					}
+				}()
 				splitView := NSSplitViewFromID(splitViewID)
 				view := NSViewFromID(viewID)
-				return fn(splitView, view)
+				_delegateResult := fn(splitView, view)
+				_delegateDone = true
+				return _delegateResult
 			},
 		})
 	}

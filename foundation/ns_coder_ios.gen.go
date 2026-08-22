@@ -5,6 +5,8 @@
 package foundation
 
 import (
+	"unsafe"
+
 	"github.com/tmc/apple/corefoundation"
 	"github.com/tmc/apple/objc"
 )
@@ -106,6 +108,8 @@ func (c NSCoder) EncodeCGVectorForKey(vector corefoundation.CGVector, key string
 //
 // key: The key identifying the data.
 //
+// insets is a [appkit.NSDirectionalEdgeInsets].
+//
 // # Discussion
 //
 // When decoding the data from the archive, you pass the value in the key
@@ -124,6 +128,8 @@ func (c NSCoder) EncodeDirectionalEdgeInsetsForKey(insets unsafe.Pointer, key st
 //
 // key: The key identifying the data.
 //
+// insets is a [uikit.UIEdgeInsets].
+//
 // # Discussion
 //
 // When decoding the data from the archive, you pass the value in the `key`
@@ -141,6 +147,8 @@ func (c NSCoder) EncodeUIEdgeInsetsForKey(insets unsafe.Pointer, key string) {
 // offset: The offset data to encode.
 //
 // key: The key identifying the data.
+//
+// offset is a [uikit.UIOffset].
 //
 // # Discussion
 //

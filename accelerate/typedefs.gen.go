@@ -5,7 +5,6 @@ package accelerate
 import (
 	"unsafe"
 
-	"github.com/tmc/apple/kernel"
 	"github.com/tmc/apple/objectivec"
 )
 
@@ -17,29 +16,29 @@ type BLASParamErrorProc = func(*byte, *byte, *int, *int)
 // BNNSAlloc is a type-alias for a user-provided memory allocation function.
 //
 // See: https://developer.apple.com/documentation/Accelerate/BNNSAlloc
-type BNNSAlloc = func(kernel.Pointer, uint, uint) int
+type BNNSAlloc = func(unsafe.Pointer, uint, uint) int32
 
 // BNNSFilter is an opaque type that represents a filter.
 //
 // Deprecated: Deprecated since macOS 15.0. Use BNNSGraph* APIs
 //
 // See: https://developer.apple.com/documentation/Accelerate/BNNSFilter
-type BNNSFilter = kernel.Pointer
+type BNNSFilter = unsafe.Pointer
 
 // BNNSFree is a type-alias for a user-provided memory deallocation function.
 //
 // See: https://developer.apple.com/documentation/Accelerate/BNNSFree
-type BNNSFree = func(kernel.Pointer)
+type BNNSFree = func(unsafe.Pointer)
 
 // BNNSNearestNeighbors is a k-nearest neighbors object.
 //
 // See: https://developer.apple.com/documentation/Accelerate/BNNSNearestNeighbors
-type BNNSNearestNeighbors = kernel.Pointer
+type BNNSNearestNeighbors = unsafe.Pointer
 
 // BNNSRandomGenerator is a pointer to a random number generator object.
 //
 // See: https://developer.apple.com/documentation/Accelerate/BNNSRandomGenerator
-type BNNSRandomGenerator = kernel.Pointer
+type BNNSRandomGenerator = unsafe.Pointer
 
 // See: https://developer.apple.com/documentation/Accelerate/COMPLEX
 type COMPLEX = DSPComplex
@@ -56,12 +55,12 @@ type DOUBLE_COMPLEX_SPLIT = DSPDoubleSplitComplex
 // FFTDirection is constants that specify whether to perform a forward or inverse FFT.
 //
 // See: https://developer.apple.com/documentation/Accelerate/FFTDirection
-type FFTDirection = int
+type FFTDirection = int32
 
 // FFTRadix is the radix of the FFT decomposition.
 //
 // See: https://developer.apple.com/documentation/Accelerate/FFTRadix
-type FFTRadix = int
+type FFTRadix = int32
 
 // FFTSetup is an opaque type that contains setup information for a single-precision FFT transform.
 //
@@ -76,13 +75,13 @@ type FFTSetupD = uintptr
 // GammaFunction is a type for a gamma function.
 //
 // See: https://developer.apple.com/documentation/Accelerate/GammaFunction
-type GammaFunction = kernel.Pointer
+type GammaFunction = unsafe.Pointer
 
 // See: https://developer.apple.com/documentation/Accelerate/Pixel_16F
 type Pixel_16F = uint16
 
 // See: https://developer.apple.com/documentation/Accelerate/Pixel_16F16F
-type Pixel_16F16F = kernel.Pointer
+type Pixel_16F16F = [2]uint16
 
 // Pixel_16Q12 is a type for a signed 16-bit, fixed-point number with 12 bits of fractional precision.
 //
@@ -95,7 +94,7 @@ type Pixel_16Q12 = int16
 type Pixel_16S = int16
 
 // See: https://developer.apple.com/documentation/Accelerate/Pixel_16S16S
-type Pixel_16S16S = kernel.Pointer
+type Pixel_16S16S = [2]int16
 
 // Pixel_16U is a type for a planar, 16-bits-per-channel, unsigned pixel.
 //
@@ -105,7 +104,7 @@ type Pixel_16U = uint16
 // Pixel_16U16U is a type for a two-channel, 16-bits-per-channel, unsigned pixel.
 //
 // See: https://developer.apple.com/documentation/Accelerate/Pixel_16U16U
-type Pixel_16U16U = kernel.Pointer
+type Pixel_16U16U = [2]uint16
 
 // Pixel_32U is a type you use for the XRGB2101010 format.
 //
@@ -120,25 +119,25 @@ type Pixel_8 = uint8
 // Pixel_88 is a type for a two-channel, 8-bits-per-channel, unsigned pixel.
 //
 // See: https://developer.apple.com/documentation/Accelerate/Pixel_88
-type Pixel_88 = kernel.Pointer
+type Pixel_88 = [2]uint8
 
 // Pixel_8888 is a type for a four-channel, 8-bits-per-channel, unsigned pixel.
 //
 // See: https://developer.apple.com/documentation/Accelerate/Pixel_8888
-type Pixel_8888 = kernel.Pointer
+type Pixel_8888 = [4]uint8
 
 // See: https://developer.apple.com/documentation/Accelerate/Pixel_ARGB_16F
-type Pixel_ARGB_16F = kernel.Pointer
+type Pixel_ARGB_16F = [4]uint16
 
 // Pixel_ARGB_16S is a type for a four-channel, 16-bits-per-channel, signed pixel.
 //
 // See: https://developer.apple.com/documentation/Accelerate/Pixel_ARGB_16S
-type Pixel_ARGB_16S = kernel.Pointer
+type Pixel_ARGB_16S = [4]int16
 
 // Pixel_ARGB_16U is a type for a four-channel, 16-bits-per-channel, unsigned pixel.
 //
 // See: https://developer.apple.com/documentation/Accelerate/Pixel_ARGB_16U
-type Pixel_ARGB_16U = kernel.Pointer
+type Pixel_ARGB_16U = [4]uint16
 
 // Pixel_F is a type for a planar, 32-bits-per-channel, floating-point pixel.
 //
@@ -146,17 +145,17 @@ type Pixel_ARGB_16U = kernel.Pointer
 type Pixel_F = float32
 
 // See: https://developer.apple.com/documentation/Accelerate/Pixel_FF
-type Pixel_FF = kernel.Pointer
+type Pixel_FF = [2]float32
 
 // Pixel_FFFF is a type for a four-channel, 32-bits-per-channel, floating-point pixel.
 //
 // See: https://developer.apple.com/documentation/Accelerate/Pixel_FFFF
-type Pixel_FFFF = kernel.Pointer
+type Pixel_FFFF = [4]float32
 
 // ResamplingFilter is a pointer to a resampling filter callback function.
 //
 // See: https://developer.apple.com/documentation/Accelerate/ResamplingFilter
-type ResamplingFilter = kernel.Pointer
+type ResamplingFilter = unsafe.Pointer
 
 // Bnns_graph_compile_message_fn_t is the graph compile-message logging callback function.
 //
@@ -171,12 +170,12 @@ type Bnns_graph_execute_message_fn_t = func(BNNSGraphMessageLevel, *byte, *byte,
 // Bnns_graph_free_all_fn_t is the workspace and output deallocation function.
 //
 // See: https://developer.apple.com/documentation/Accelerate/bnns_graph_free_all_fn_t
-type Bnns_graph_free_all_fn_t = func(kernel.Pointer, uint)
+type Bnns_graph_free_all_fn_t = func(unsafe.Pointer, uint)
 
 // Bnns_graph_realloc_fn_t is the workspace and output allocation function.
 //
 // See: https://developer.apple.com/documentation/Accelerate/bnns_graph_realloc_fn_t
-type Bnns_graph_realloc_fn_t = func(kernel.Pointer, uint, kernel.Pointer, uint, uint) int
+type Bnns_graph_realloc_fn_t = func(unsafe.Pointer, uint, unsafe.Pointer, uint, uint) int32
 
 // See: https://developer.apple.com/documentation/Accelerate/la_attribute_t
 type La_attribute_t = uint
@@ -185,7 +184,7 @@ type La_attribute_t = uint
 type La_count_t = uint
 
 // See: https://developer.apple.com/documentation/Accelerate/la_deallocator_t
-type La_deallocator_t = func(kernel.Pointer)
+type La_deallocator_t = func(unsafe.Pointer)
 
 // See: https://developer.apple.com/documentation/Accelerate/la_hint_t
 type La_hint_t = uint
@@ -200,13 +199,13 @@ type La_norm_t = uint
 type La_object_t = objectivec.Object
 
 // See: https://developer.apple.com/documentation/Accelerate/la_scalar_type_t
-type La_scalar_type_t = uint
+type La_scalar_type_t = uint32
 
 // See: https://developer.apple.com/documentation/Accelerate/la_status_t
 type La_status_t = int
 
 // See: https://developer.apple.com/documentation/Accelerate/quadrature_function_array
-type Quadrature_function_array = func(kernel.Pointer, uint, []float64, []float64)
+type Quadrature_function_array = func(arg unsafe.Pointer, n uint, x []float64, y []float64)
 
 // Simd_bool is a Boolean scalar value.
 //
@@ -221,37 +220,37 @@ type Simd_char1 = int8
 // Simd_char16 is a vector of sixteen 8-bit signed integer elements.
 //
 // See: https://developer.apple.com/documentation/simd/simd_char16
-type Simd_char16 = int8
+type Simd_char16 = [16]int8
 
 // Simd_char2 is a vector of two 8-bit signed integer elements.
 //
 // See: https://developer.apple.com/documentation/simd/simd_char2
-type Simd_char2 = int8
+type Simd_char2 = [2]int8
 
 // Simd_char3 is a vector of three 8-bit signed integer elements.
 //
 // See: https://developer.apple.com/documentation/simd/simd_char3
-type Simd_char3 = int8
+type Simd_char3 = [4]int8
 
 // Simd_char32 is a vector of thirty-two 8-bit signed integer elements.
 //
 // See: https://developer.apple.com/documentation/simd/simd_char32
-type Simd_char32 = int8
+type Simd_char32 = [32]int8
 
 // Simd_char4 is a vector of four 8-bit signed integer elements.
 //
 // See: https://developer.apple.com/documentation/simd/simd_char4
-type Simd_char4 = int8
+type Simd_char4 = [4]int8
 
 // Simd_char64 is a vector of sixty-four 8-bit signed integer elements.
 //
 // See: https://developer.apple.com/documentation/simd/simd_char64
-type Simd_char64 = int8
+type Simd_char64 = [64]int8
 
 // Simd_char8 is a vector of eight 8-bit signed integer elements.
 //
 // See: https://developer.apple.com/documentation/simd/simd_char8
-type Simd_char8 = int8
+type Simd_char8 = [8]int8
 
 // Simd_double1 is a vector of one 64-bit floating-point element.
 //
@@ -261,22 +260,22 @@ type Simd_double1 = float64
 // Simd_double2 is a vector of two 64-bit floating-point elements.
 //
 // See: https://developer.apple.com/documentation/simd/simd_double2
-type Simd_double2 = float64
+type Simd_double2 = [2]float64
 
 // Simd_double3 is a vector of three 64-bit floating-point elements.
 //
 // See: https://developer.apple.com/documentation/simd/simd_double3
-type Simd_double3 = float64
+type Simd_double3 = [4]float64
 
 // Simd_double4 is a vector of four 64-bit floating-point elements.
 //
 // See: https://developer.apple.com/documentation/simd/simd_double4
-type Simd_double4 = float64
+type Simd_double4 = [4]float64
 
 // Simd_double8 is a vector of eight 64-bit floating-point elements.
 //
 // See: https://developer.apple.com/documentation/simd/simd_double8
-type Simd_double8 = float64
+type Simd_double8 = [8]float64
 
 // Simd_float1 is a vector of one 32-bit floating-point element.
 //
@@ -286,92 +285,92 @@ type Simd_float1 = float32
 // Simd_float16 is a vector of sixteen 32-bit floating-point elements.
 //
 // See: https://developer.apple.com/documentation/simd/simd_float16
-type Simd_float16 = float32
+type Simd_float16 = [16]float32
 
 // Simd_float2 is a vector of two 32-bit floating-point elements.
 //
 // See: https://developer.apple.com/documentation/simd/simd_float2
-type Simd_float2 = float32
+type Simd_float2 = [2]float32
 
 // Simd_float3 is a vector of three 32-bit floating-point elements.
 //
 // See: https://developer.apple.com/documentation/simd/simd_float3
-type Simd_float3 = float32
+type Simd_float3 = [4]float32
 
 // Simd_float4 is a vector of four 32-bit floating-point elements.
 //
 // See: https://developer.apple.com/documentation/simd/simd_float4
-type Simd_float4 = float32
+type Simd_float4 = [4]float32
 
 // Simd_float8 is a vector of eight 32-bit floating-point elements.
 //
 // See: https://developer.apple.com/documentation/simd/simd_float8
-type Simd_float8 = float32
+type Simd_float8 = [8]float32
 
 // Simd_half1 is a vector of one 16-bit floating-point element.
 //
 // See: https://developer.apple.com/documentation/simd/simd_half1
-type Simd_half1 = kernel.Pointer
+type Simd_half1 = uint16
 
 // Simd_half16 is a vector of sixteen 16-bit floating-point elements.
 //
 // See: https://developer.apple.com/documentation/simd/simd_half16
-type Simd_half16 = kernel.Pointer
+type Simd_half16 = [16]uint16
 
 // Simd_half2 is a vector of two 16-bit floating-point elements.
 //
 // See: https://developer.apple.com/documentation/simd/simd_half2
-type Simd_half2 = kernel.Pointer
+type Simd_half2 = [2]uint16
 
 // Simd_half3 is a vector of three 16-bit floating-point elements.
 //
 // See: https://developer.apple.com/documentation/simd/simd_half3
-type Simd_half3 = kernel.Pointer
+type Simd_half3 = [4]uint16
 
 // Simd_half32 is a vector of thirty-two 16-bit floating-point elements.
 //
 // See: https://developer.apple.com/documentation/simd/simd_half32
-type Simd_half32 = kernel.Pointer
+type Simd_half32 = [32]uint16
 
 // Simd_half4 is a vector of four 16-bit floating-point elements.
 //
 // See: https://developer.apple.com/documentation/simd/simd_half4
-type Simd_half4 = kernel.Pointer
+type Simd_half4 = [4]uint16
 
 // Simd_half8 is a vector of eight 16-bit floating-point elements.
 //
 // See: https://developer.apple.com/documentation/simd/simd_half8
-type Simd_half8 = kernel.Pointer
+type Simd_half8 = [8]uint16
 
 // Simd_int1 is a vector of one 32-bit signed integer element.
 //
 // See: https://developer.apple.com/documentation/simd/simd_int1
-type Simd_int1 = int
+type Simd_int1 = int32
 
 // Simd_int16 is a vector of sixteen 32-bit signed integer elements.
 //
 // See: https://developer.apple.com/documentation/simd/simd_int16
-type Simd_int16 = int
+type Simd_int16 = [16]int32
 
 // Simd_int2 is a vector of two 32-bit signed integer elements.
 //
 // See: https://developer.apple.com/documentation/simd/simd_int2
-type Simd_int2 = int
+type Simd_int2 = [2]int32
 
 // Simd_int3 is a vector of three 32-bit signed integer elements.
 //
 // See: https://developer.apple.com/documentation/simd/simd_int3
-type Simd_int3 = int
+type Simd_int3 = [4]int32
 
 // Simd_int4 is a vector of four 32-bit signed integer elements.
 //
 // See: https://developer.apple.com/documentation/simd/simd_int4
-type Simd_int4 = int
+type Simd_int4 = [4]int32
 
 // Simd_int8 is a vector of eight 32-bit signed integer elements.
 //
 // See: https://developer.apple.com/documentation/simd/simd_int8
-type Simd_int8 = int
+type Simd_int8 = [8]int32
 
 // Simd_long1 is a vector of one 64-bit signed integer element.
 //
@@ -381,237 +380,237 @@ type Simd_long1 = int
 // Simd_long2 is a vector of two 64-bit signed integer elements.
 //
 // See: https://developer.apple.com/documentation/simd/simd_long2
-type Simd_long2 = int
+type Simd_long2 = [2]int64
 
 // Simd_long3 is a vector of three 64-bit signed integer elements.
 //
 // See: https://developer.apple.com/documentation/simd/simd_long3
-type Simd_long3 = int
+type Simd_long3 = [4]int64
 
 // Simd_long4 is a vector of four 64-bit signed integer elements.
 //
 // See: https://developer.apple.com/documentation/simd/simd_long4
-type Simd_long4 = int
+type Simd_long4 = [4]int64
 
 // Simd_long8 is a vector of eight 64-bit signed integer elements.
 //
 // See: https://developer.apple.com/documentation/simd/simd_long8
-type Simd_long8 = int
+type Simd_long8 = [8]int64
 
 // Simd_packed_char16 is a packed vector of sixteen 8-bit signed integer elements.
 //
 // See: https://developer.apple.com/documentation/simd/simd_packed_char16
-type Simd_packed_char16 = int8
+type Simd_packed_char16 = [16]int8
 
 // Simd_packed_char2 is a packed vector of two 8-bit signed integer elements.
 //
 // See: https://developer.apple.com/documentation/simd/simd_packed_char2
-type Simd_packed_char2 = int8
+type Simd_packed_char2 = [2]int8
 
 // Simd_packed_char32 is a packed vector of thirty-two 8-bit signed integer elements.
 //
 // See: https://developer.apple.com/documentation/simd/simd_packed_char32
-type Simd_packed_char32 = int8
+type Simd_packed_char32 = [32]int8
 
 // Simd_packed_char4 is a packed vector of four 8-bit signed integer elements.
 //
 // See: https://developer.apple.com/documentation/simd/simd_packed_char4
-type Simd_packed_char4 = int8
+type Simd_packed_char4 = [4]int8
 
 // Simd_packed_char64 is a packed vector of sixty-four 8-bit signed integer elements.
 //
 // See: https://developer.apple.com/documentation/simd/simd_packed_char64
-type Simd_packed_char64 = int8
+type Simd_packed_char64 = [64]int8
 
 // Simd_packed_char8 is a packed vector of eight 8-bit signed integer elements.
 //
 // See: https://developer.apple.com/documentation/simd/simd_packed_char8
-type Simd_packed_char8 = int8
+type Simd_packed_char8 = [8]int8
 
 // Simd_packed_double2 is a packed vector of two 64-bit floating-point elements.
 //
 // See: https://developer.apple.com/documentation/simd/simd_packed_double2
-type Simd_packed_double2 = float64
+type Simd_packed_double2 = [2]float64
 
 // Simd_packed_double4 is a packed vector of four 64-bit floating-point elements.
 //
 // See: https://developer.apple.com/documentation/simd/simd_packed_double4
-type Simd_packed_double4 = float64
+type Simd_packed_double4 = [4]float64
 
 // Simd_packed_double8 is a packed vector of eight 64-bit floating-point elements.
 //
 // See: https://developer.apple.com/documentation/simd/simd_packed_double8
-type Simd_packed_double8 = float64
+type Simd_packed_double8 = [8]float64
 
 // Simd_packed_float16 is a packed vector of sixteen 32-bit floating-point elements.
 //
 // See: https://developer.apple.com/documentation/simd/simd_packed_float16
-type Simd_packed_float16 = float32
+type Simd_packed_float16 = [16]float32
 
 // Simd_packed_float2 is a packed vector of two 32-bit floating-point elements.
 //
 // See: https://developer.apple.com/documentation/simd/simd_packed_float2
-type Simd_packed_float2 = float32
+type Simd_packed_float2 = [2]float32
 
 // Simd_packed_float4 is a packed vector of four 32-bit floating-point elements.
 //
 // See: https://developer.apple.com/documentation/simd/simd_packed_float4
-type Simd_packed_float4 = float32
+type Simd_packed_float4 = [4]float32
 
 // Simd_packed_float8 is a packed vector of eight 32-bit floating-point elements.
 //
 // See: https://developer.apple.com/documentation/simd/simd_packed_float8
-type Simd_packed_float8 = float32
+type Simd_packed_float8 = [8]float32
 
 // Simd_packed_int16 is a packed vector of sixteen 32-bit signed integer elements.
 //
 // See: https://developer.apple.com/documentation/simd/simd_packed_int16
-type Simd_packed_int16 = int
+type Simd_packed_int16 = [16]int32
 
 // Simd_packed_int2 is a packed vector of two 32-bit signed integer elements.
 //
 // See: https://developer.apple.com/documentation/simd/simd_packed_int2
-type Simd_packed_int2 = int
+type Simd_packed_int2 = [2]int32
 
 // Simd_packed_int4 is a packed vector of four 32-bit signed integer elements.
 //
 // See: https://developer.apple.com/documentation/simd/simd_packed_int4
-type Simd_packed_int4 = int
+type Simd_packed_int4 = [4]int32
 
 // Simd_packed_int8 is a packed vector of eight 32-bit signed integer elements.
 //
 // See: https://developer.apple.com/documentation/simd/simd_packed_int8
-type Simd_packed_int8 = int
+type Simd_packed_int8 = [8]int32
 
 // Simd_packed_long2 is a packed vector of two 64-bit signed integer elements.
 //
 // See: https://developer.apple.com/documentation/simd/simd_packed_long2
-type Simd_packed_long2 = int
+type Simd_packed_long2 = [2]int64
 
 // Simd_packed_long4 is a packed vector of four 64-bit signed integer elements.
 //
 // See: https://developer.apple.com/documentation/simd/simd_packed_long4
-type Simd_packed_long4 = int
+type Simd_packed_long4 = [4]int64
 
 // Simd_packed_long8 is a packed vector of eight 64-bit signed integer elements.
 //
 // See: https://developer.apple.com/documentation/simd/simd_packed_long8
-type Simd_packed_long8 = int
+type Simd_packed_long8 = [8]int64
 
 // Simd_packed_short16 is a packed vector of sixteen 16-bit signed integer elements.
 //
 // See: https://developer.apple.com/documentation/simd/simd_packed_short16
-type Simd_packed_short16 = int16
+type Simd_packed_short16 = [16]int16
 
 // Simd_packed_short2 is a packed vector of two 16-bit signed integer elements.
 //
 // See: https://developer.apple.com/documentation/simd/simd_packed_short2
-type Simd_packed_short2 = int16
+type Simd_packed_short2 = [2]int16
 
 // Simd_packed_short32 is a packed vector of thirty-two 16-bit signed integer elements.
 //
 // See: https://developer.apple.com/documentation/simd/simd_packed_short32
-type Simd_packed_short32 = int16
+type Simd_packed_short32 = [32]int16
 
 // Simd_packed_short4 is a packed vector of four 16-bit signed integer elements.
 //
 // See: https://developer.apple.com/documentation/simd/simd_packed_short4
-type Simd_packed_short4 = int16
+type Simd_packed_short4 = [4]int16
 
 // Simd_packed_short8 is a packed vector of eight 16-bit signed integer elements.
 //
 // See: https://developer.apple.com/documentation/simd/simd_packed_short8
-type Simd_packed_short8 = int16
+type Simd_packed_short8 = [8]int16
 
 // Simd_packed_uchar16 is a packed vector of sixteen 8-bit unsigned integer elements.
 //
 // See: https://developer.apple.com/documentation/simd/simd_packed_uchar16
-type Simd_packed_uchar16 = uint8
+type Simd_packed_uchar16 = [16]uint8
 
 // Simd_packed_uchar2 is a packed vector of two 8-bit unsigned integer elements.
 //
 // See: https://developer.apple.com/documentation/simd/simd_packed_uchar2
-type Simd_packed_uchar2 = uint8
+type Simd_packed_uchar2 = [2]uint8
 
 // Simd_packed_uchar32 is a packed vector of thirty-two 8-bit unsigned integer elements.
 //
 // See: https://developer.apple.com/documentation/simd/simd_packed_uchar32
-type Simd_packed_uchar32 = uint8
+type Simd_packed_uchar32 = [32]uint8
 
 // Simd_packed_uchar4 is a packed vector of four 8-bit unsigned integer elements.
 //
 // See: https://developer.apple.com/documentation/simd/simd_packed_uchar4
-type Simd_packed_uchar4 = uint8
+type Simd_packed_uchar4 = [4]uint8
 
 // Simd_packed_uchar64 is a packed vector of sixty-four 8-bit unsigned integer elements.
 //
 // See: https://developer.apple.com/documentation/simd/simd_packed_uchar64
-type Simd_packed_uchar64 = uint8
+type Simd_packed_uchar64 = [64]uint8
 
 // Simd_packed_uchar8 is a packed vector of eight 8-bit unsigned integer elements.
 //
 // See: https://developer.apple.com/documentation/simd/simd_packed_uchar8
-type Simd_packed_uchar8 = uint8
+type Simd_packed_uchar8 = [8]uint8
 
 // Simd_packed_uint16 is a packed vector of sixteen 32-bit unsigned integer elements.
 //
 // See: https://developer.apple.com/documentation/simd/simd_packed_uint16
-type Simd_packed_uint16 = uint
+type Simd_packed_uint16 = [16]uint32
 
 // Simd_packed_uint2 is a packed vector of two 32-bit unsigned integer elements.
 //
 // See: https://developer.apple.com/documentation/simd/simd_packed_uint2
-type Simd_packed_uint2 = uint
+type Simd_packed_uint2 = [2]uint32
 
 // Simd_packed_uint4 is a packed vector of four 32-bit unsigned integer elements.
 //
 // See: https://developer.apple.com/documentation/simd/simd_packed_uint4
-type Simd_packed_uint4 = uint
+type Simd_packed_uint4 = [4]uint32
 
 // Simd_packed_uint8 is a packed vector of eight 32-bit unsigned integer elements.
 //
 // See: https://developer.apple.com/documentation/simd/simd_packed_uint8
-type Simd_packed_uint8 = uint
+type Simd_packed_uint8 = [8]uint32
 
 // Simd_packed_ulong2 is a packed vector of two 64-bit unsigned integer element.
 //
 // See: https://developer.apple.com/documentation/simd/simd_packed_ulong2
-type Simd_packed_ulong2 = uint
+type Simd_packed_ulong2 = [2]uint64
 
 // Simd_packed_ulong4 is a packed vector of four 64-bit unsigned integer elements.
 //
 // See: https://developer.apple.com/documentation/simd/simd_packed_ulong4
-type Simd_packed_ulong4 = uint
+type Simd_packed_ulong4 = [4]uint64
 
 // Simd_packed_ulong8 is a packed vector of eight 64-bit unsigned integer elements.
 //
 // See: https://developer.apple.com/documentation/simd/simd_packed_ulong8
-type Simd_packed_ulong8 = uint
+type Simd_packed_ulong8 = [8]uint64
 
 // Simd_packed_ushort16 is a packed vector of sixteen 16-bit unsigned integer elements.
 //
 // See: https://developer.apple.com/documentation/simd/simd_packed_ushort16
-type Simd_packed_ushort16 = uint16
+type Simd_packed_ushort16 = [16]uint16
 
 // Simd_packed_ushort2 is a packed vector of two 16-bit unsigned integer elements.
 //
 // See: https://developer.apple.com/documentation/simd/simd_packed_ushort2
-type Simd_packed_ushort2 = uint16
+type Simd_packed_ushort2 = [2]uint16
 
 // Simd_packed_ushort32 is a packed vector of thirty-two 16-bit unsigned integer elements.
 //
 // See: https://developer.apple.com/documentation/simd/simd_packed_ushort32
-type Simd_packed_ushort32 = uint16
+type Simd_packed_ushort32 = [32]uint16
 
 // Simd_packed_ushort4 is a packed vector of four 16-bit unsigned integer elements.
 //
 // See: https://developer.apple.com/documentation/simd/simd_packed_ushort4
-type Simd_packed_ushort4 = uint16
+type Simd_packed_ushort4 = [4]uint16
 
 // Simd_packed_ushort8 is a packed vector of eight 16-bit unsigned integer elements.
 //
 // See: https://developer.apple.com/documentation/simd/simd_packed_ushort8
-type Simd_packed_ushort8 = uint16
+type Simd_packed_ushort8 = [8]uint16
 
 // Simd_short1 is a vector of one 16-bit signed integer element.
 //
@@ -621,102 +620,102 @@ type Simd_short1 = int16
 // Simd_short16 is a vector of sixteen 16-bit signed integer elements.
 //
 // See: https://developer.apple.com/documentation/simd/simd_short16
-type Simd_short16 = int16
+type Simd_short16 = [16]int16
 
 // Simd_short2 is a vector of two 16-bit signed integer elements.
 //
 // See: https://developer.apple.com/documentation/simd/simd_short2
-type Simd_short2 = int16
+type Simd_short2 = [2]int16
 
 // Simd_short3 is a vector of three 16-bit signed integer elements.
 //
 // See: https://developer.apple.com/documentation/simd/simd_short3
-type Simd_short3 = int16
+type Simd_short3 = [4]int16
 
 // Simd_short32 is a vector of thirty-two 16-bit signed integer elements.
 //
 // See: https://developer.apple.com/documentation/simd/simd_short32
-type Simd_short32 = int16
+type Simd_short32 = [32]int16
 
 // Simd_short4 is a vector of four 16-bit signed integer elements.
 //
 // See: https://developer.apple.com/documentation/simd/simd_short4
-type Simd_short4 = int16
+type Simd_short4 = [4]int16
 
 // Simd_short8 is a vector of eight 16-bit signed integer elements.
 //
 // See: https://developer.apple.com/documentation/simd/simd_short8
-type Simd_short8 = int16
+type Simd_short8 = [8]int16
 
 // Simd_uchar1 is a vector of one 8-bit unsigned integer element.
 //
 // See: https://developer.apple.com/documentation/simd/simd_uchar1
-type Simd_uchar1 = uint8
+type Simd_uchar1 = byte
 
 // Simd_uchar16 is a vector of sixteen 8-bit unsigned integer elements.
 //
 // See: https://developer.apple.com/documentation/simd/simd_uchar16
-type Simd_uchar16 = uint8
+type Simd_uchar16 = [16]uint8
 
 // Simd_uchar2 is a vector of two 8-bit unsigned integer elements.
 //
 // See: https://developer.apple.com/documentation/simd/simd_uchar2
-type Simd_uchar2 = uint8
+type Simd_uchar2 = [2]uint8
 
 // Simd_uchar3 is a vector of three 8-bit unsigned integer elements.
 //
 // See: https://developer.apple.com/documentation/simd/simd_uchar3
-type Simd_uchar3 = uint8
+type Simd_uchar3 = [4]uint8
 
 // Simd_uchar32 is a vector of thirty-two 8-bit unsigned integer elements.
 //
 // See: https://developer.apple.com/documentation/simd/simd_uchar32
-type Simd_uchar32 = uint8
+type Simd_uchar32 = [32]uint8
 
 // Simd_uchar4 is a vector of four 8-bit unsigned integer elements.
 //
 // See: https://developer.apple.com/documentation/simd/simd_uchar4
-type Simd_uchar4 = uint8
+type Simd_uchar4 = [4]uint8
 
 // Simd_uchar64 is a vector of sixty-four 8-bit unsigned integer elements.
 //
 // See: https://developer.apple.com/documentation/simd/simd_uchar64
-type Simd_uchar64 = uint8
+type Simd_uchar64 = [64]uint8
 
 // Simd_uchar8 is a vector of eight 8-bit unsigned integer elements.
 //
 // See: https://developer.apple.com/documentation/simd/simd_uchar8
-type Simd_uchar8 = uint8
+type Simd_uchar8 = [8]uint8
 
 // Simd_uint1 is a vector of one 32-bit unsigned integer element.
 //
 // See: https://developer.apple.com/documentation/simd/simd_uint1
-type Simd_uint1 = uint
+type Simd_uint1 = uint32
 
 // Simd_uint16 is a vector of sixteen 32-bit unsigned integer elements.
 //
 // See: https://developer.apple.com/documentation/simd/simd_uint16
-type Simd_uint16 = uint
+type Simd_uint16 = [16]uint32
 
 // Simd_uint2 is a vector of two 32-bit unsigned integer elements.
 //
 // See: https://developer.apple.com/documentation/simd/simd_uint2
-type Simd_uint2 = uint
+type Simd_uint2 = [2]uint32
 
 // Simd_uint3 is a vector of three 32-bit unsigned integer elements.
 //
 // See: https://developer.apple.com/documentation/simd/simd_uint3
-type Simd_uint3 = uint
+type Simd_uint3 = [4]uint32
 
 // Simd_uint4 is a vector of four 32-bit unsigned integer elements.
 //
 // See: https://developer.apple.com/documentation/simd/simd_uint4
-type Simd_uint4 = uint
+type Simd_uint4 = [4]uint32
 
 // Simd_uint8 is a vector of eight 32-bit unsigned integer elements.
 //
 // See: https://developer.apple.com/documentation/simd/simd_uint8
-type Simd_uint8 = uint
+type Simd_uint8 = [8]uint32
 
 // Simd_ulong1 is a vector of one 64-bit unsigned integer element.
 //
@@ -726,22 +725,22 @@ type Simd_ulong1 = uint
 // Simd_ulong2 is a vector of two 64-bit unsigned integer elements.
 //
 // See: https://developer.apple.com/documentation/simd/simd_ulong2
-type Simd_ulong2 = uint
+type Simd_ulong2 = [2]uint64
 
 // Simd_ulong3 is a vector of three 64-bit unsigned integer elements.
 //
 // See: https://developer.apple.com/documentation/simd/simd_ulong3
-type Simd_ulong3 = uint
+type Simd_ulong3 = [4]uint64
 
 // Simd_ulong4 is a vector of four 64-bit unsigned integer elements.
 //
 // See: https://developer.apple.com/documentation/simd/simd_ulong4
-type Simd_ulong4 = uint
+type Simd_ulong4 = [4]uint64
 
 // Simd_ulong8 is a vector of eight 64-bit unsigned integer elements.
 //
 // See: https://developer.apple.com/documentation/simd/simd_ulong8
-type Simd_ulong8 = uint
+type Simd_ulong8 = [8]uint64
 
 // Simd_ushort1 is a vector of one 16-bit unsigned integer element.
 //
@@ -751,32 +750,32 @@ type Simd_ushort1 = uint16
 // Simd_ushort16 is a vector of sixteen 16-bit unsigned integer elements.
 //
 // See: https://developer.apple.com/documentation/simd/simd_ushort16
-type Simd_ushort16 = uint16
+type Simd_ushort16 = [16]uint16
 
 // Simd_ushort2 is a vector of two 16-bit unsigned integer elements.
 //
 // See: https://developer.apple.com/documentation/simd/simd_ushort2
-type Simd_ushort2 = uint16
+type Simd_ushort2 = [2]uint16
 
 // Simd_ushort3 is a vector of three 16-bit unsigned integer elements.
 //
 // See: https://developer.apple.com/documentation/simd/simd_ushort3
-type Simd_ushort3 = uint16
+type Simd_ushort3 = [4]uint16
 
 // Simd_ushort32 is a vector of thirty-two 16-bit unsigned integer elements.
 //
 // See: https://developer.apple.com/documentation/simd/simd_ushort32
-type Simd_ushort32 = uint16
+type Simd_ushort32 = [32]uint16
 
 // Simd_ushort4 is a vector of four 16-bit unsigned integer elements.
 //
 // See: https://developer.apple.com/documentation/simd/simd_ushort4
-type Simd_ushort4 = uint16
+type Simd_ushort4 = [4]uint16
 
 // Simd_ushort8 is a vector of eight 16-bit unsigned integer elements.
 //
 // See: https://developer.apple.com/documentation/simd/simd_ushort8
-type Simd_ushort8 = uint16
+type Simd_ushort8 = [8]uint16
 
 // Sparse_dimension is the dimension type.
 //
@@ -812,7 +811,7 @@ type Sparse_stride = int64
 // VBool32 is a 128-bit vector packed with `bool int` values.
 //
 // See: https://developer.apple.com/documentation/Accelerate/vBool32
-type VBool32 = uint
+type VBool32 = uint32
 
 // VDSP_DFT_Interleaved_Setup is an opaque type that contains setup information for an interleaved single-precision discrete Fourier transform (DFT).
 //
@@ -895,12 +894,12 @@ type VImageCVImageFormatRef uintptr
 // VImageConstCVImageFormatRef is an immutable description of image encoding in a Core Video pixel buffer.
 //
 // See: https://developer.apple.com/documentation/Accelerate/vImageConstCVImageFormat
-type VImageConstCVImageFormatRef = unsafe.Pointer
+type VImageConstCVImageFormatRef uintptr
 
 // VImageConverterRef is a description of a conversion from one image format to another.
 //
 // See: https://developer.apple.com/documentation/Accelerate/vImageConverter
-type VImageConverterRef = unsafe.Pointer
+type VImageConverterRef uintptr
 
 // VImageMatrixType is an enumeration of RGB -> Y’CbCr conversion matrix types.
 //
@@ -945,7 +944,7 @@ type VSInt16 = int16
 // VSInt32 is a 128-bit vector packed with `signed int` values.
 //
 // See: https://developer.apple.com/documentation/Accelerate/vSInt32
-type VSInt32 = int
+type VSInt32 = int32
 
 // VSInt64 is a 128-bit vector packed with `int64_t` values.
 //
@@ -965,7 +964,7 @@ type VUInt16 = uint16
 // VUInt32 is a 128-bit vector packed with `unsigned int` values.
 //
 // See: https://developer.apple.com/documentation/Accelerate/vUInt32
-type VUInt32 = uint
+type VUInt32 = uint32
 
 // VUInt64 is a 128-bit vector packed with `uint64_t` values.
 //
@@ -1486,87 +1485,3 @@ type VImageMultidimensionalTable = VImage_MultidimensionalTable
 
 // VImageWarpInterpolation is a Go-name alias for VImage_WarpInterpolation.
 type VImageWarpInterpolation = VImage_WarpInterpolation
-
-// BNNSArithmeticFunction aliases the generated arithmetic-function enum.
-type BNNSArithmeticFunction = BNNSArithmetic
-
-// BNNSBoxCoordinateMode aliases the generated box-coordinate enum family.
-type BNNSBoxCoordinateMode = Bnns
-
-// BNNSDescriptorType is the descriptor-kind enum used by BNNS tensor parameter structs.
-type BNNSDescriptorType = Bnns
-
-// BNNSDataLayout is the layout enum used by BNNSNDArrayDescriptor.
-type BNNSDataLayout = BNNSData
-
-// BNNSEmbeddingFlags aliases the generated embedding-flags enum.
-type BNNSEmbeddingFlags = BNNSEmbeddingFlagScaleGradientBy
-
-// BNNSFilterType aliases the generated BNNS filter-type enum family.
-type BNNSFilterType = Bnns
-
-// BNNSLinearSamplingMode aliases the generated linear-sampling enum.
-type BNNSLinearSamplingMode = BNNSLinearSampling
-
-// BNNSLossReductionFunction aliases the generated loss-reduction enum.
-type BNNSLossReductionFunction = BNNSLossReduction
-
-// BNNSNDArrayFlags is the flag enum used by BNNSNDArrayDescriptor.
-type BNNSNDArrayFlags = BNNSNDArrayFlagBackprop
-
-// BNNSNormType aliases the generated norm-type enum.
-type BNNSNormType = Bnnsl2
-
-// BNNSOptimizerClippingFunction aliases the generated optimizer-clipping enum.
-type BNNSOptimizerClippingFunction = BNNSOptimizerClipping
-
-// BNNSOptimizerRegularizationFunction aliases the generated regularization enum.
-type BNNSOptimizerRegularizationFunction = BNNSOptimizerRegularization
-
-// BNNSOptimizerSGDMomentumVariant aliases the generated SGD-momentum enum.
-type BNNSOptimizerSGDMomentumVariant = BNNSSGDMomentum
-
-// BNNSRandomGeneratorMethod aliases the generated random-generator enum.
-type BNNSRandomGeneratorMethod = BNNSRandomGeneratorMethodAES
-
-// Quadrature_integrator aliases the generated quadrature-integrator enum.
-type Quadrature_integrator = QuadratureIntegrateQ
-
-// Quadrature_status aliases the generated quadrature status enum.
-type Quadrature_status = Quadrature
-
-// SparseControl_t aliases the generated sparse-control enum.
-type SparseControl_t = SparseDefault
-
-// SparseGMRESVariant_t aliases the generated sparse-variant enum.
-type SparseGMRESVariant_t = SparseVariant
-
-// SparseKind_t aliases the generated sparse matrix-kind enum.
-type SparseKind_t = Sparse
-
-// SparseLSMRConvergenceTest_t aliases the generated sparse LSMR convergence enum.
-type SparseLSMRConvergenceTest_t = SparseLSMRCT
-
-// SparseStatus_t aliases the generated sparse status enum.
-type SparseStatus_t = Sparse
-
-// SparseTriangle_t aliases the generated sparse triangle enum.
-type SparseTriangle_t = Sparse
-
-// Sparse_matrix_property aliases the generated sparse matrix-property enum.
-type Sparse_matrix_property = Sparse
-
-// Sparse_status aliases the generated sparse status enum.
-type Sparse_status = Sparse
-
-// VImageARGBType aliases the generated vImage ARGB pixel-type enum.
-type VImageARGBType = KvImageARG
-
-// VImageMDTableUsageHint aliases the generated multidimensional-table hint enum.
-type VImageMDTableUsageHint = KvImageMDTableHint
-
-// VImage_InterpolationMethod aliases the generated vImage interpolation enum.
-type VImage_InterpolationMethod = KvImage
-
-// VImageYpCbCrType aliases the generated vImage YpCbCr pixel-type enum.
-type VImageYpCbCrType = Kv

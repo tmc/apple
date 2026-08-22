@@ -108,6 +108,7 @@ func (nc NSExpressionClass) Alloc() NSExpression {
 // # Creating an Expression
 //
 //   - [NSExpression.InitWithExpressionType]: Creates the expression with the specified expression type.
+//   - [NSExpression.InitWithCoder]: Creates an expression by decoding from the coder you specify.
 //
 // # Getting Information About an Expression
 //
@@ -154,6 +155,7 @@ func NSExpressionFromID(id objc.ID) NSExpression {
 // # Creating an Expression
 //
 //   - [INSExpression.InitWithExpressionType]: Creates the expression with the specified expression type.
+//   - [INSExpression.InitWithCoder]: Creates an expression by decoding from the coder you specify.
 //
 // # Getting Information About an Expression
 //
@@ -183,12 +185,13 @@ func NSExpressionFromID(id objc.ID) NSExpression {
 // See: https://developer.apple.com/documentation/Foundation/NSExpression
 type INSExpression interface {
 	objectivec.IObject
-	NSSecureCoding
 
 	// Topic: Creating an Expression
 
 	// Creates the expression with the specified expression type.
 	InitWithExpressionType(type_ NSExpressionType) NSExpression
+	// Creates an expression by decoding from the coder you specify.
+	InitWithCoder(coder INSCoder) NSExpression
 
 	// Topic: Getting Information About an Expression
 
@@ -230,6 +233,9 @@ type INSExpression interface {
 
 	// The block that executes to evaluate the expression.
 	ExpressionBlock() IObjectIObjectHandler
+
+	// Encodes the receiver using a given archiver.
+	EncodeWithCoder(coder INSCoder)
 }
 
 // Init initializes the instance.

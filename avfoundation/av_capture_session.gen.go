@@ -605,7 +605,7 @@ func (c AVCaptureSession) RemoveConnection(connection IAVCaptureConnection) {
 // first frame, so that deferred start processing doesn’t interfere with
 // other initialization operations. For example, if using a [CAMetalLayer] to
 // draw camera frames, add a `presentHandler` (using
-// doc://com.apple.documentation/metal/mtldrawable/addpresentedhandler) to the
+// ) to the
 // first drawable and call [AVCaptureSession.RunDeferredStartWhenNeeded] from
 // there.
 //

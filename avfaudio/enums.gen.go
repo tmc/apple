@@ -371,7 +371,7 @@ func (e AVAudioDynamicRangeControlConfiguration) String() string {
 }
 
 // See: https://developer.apple.com/documentation/AVFAudio/AVAudioEngineManualRenderingError
-type AVAudioEngineManualRenderingError int
+type AVAudioEngineManualRenderingError int32
 
 const (
 	// AVAudioEngineManualRenderingErrorInitialized: An operation that the system can’t perform because the engine is still running.
@@ -627,20 +627,7 @@ func (e AVAudioSessionActivationOptions) String() string {
 // See: https://developer.apple.com/documentation/AVFAudio/AVAudioSessionAnchoringStrategy
 type AVAudioSessionAnchoringStrategy int
 
-const (
-	AVAudioSessionAnchoringStrategyAutomatic AVAudioSessionAnchoringStrategy = 0
-	AVAudioSessionAnchoringStrategyFront     AVAudioSessionAnchoringStrategy = 0
-	AVAudioSessionAnchoringStrategyScene     AVAudioSessionAnchoringStrategy = 0
-)
-
-func (e AVAudioSessionAnchoringStrategy) String() string {
-	switch e {
-	case AVAudioSessionAnchoringStrategyAutomatic:
-		return "AVAudioSessionAnchoringStrategyAutomatic"
-	default:
-		return fmt.Sprintf("AVAudioSessionAnchoringStrategy(%d)", e)
-	}
-}
+const ()
 
 // See: https://developer.apple.com/documentation/AVFAudio/AVAudioSession/CategoryOptions-swift.struct
 type AVAudioSessionCategoryOptions uint
@@ -775,7 +762,7 @@ func (e AVAudioSessionIOType) String() string {
 	}
 }
 
-type AVAudioSessionInterruptionFlags uint
+type AVAudioSessionInterruptionFlags uint32
 
 const (
 	// Deprecated: use AVAudioSessionInterruptionOptions.
@@ -819,8 +806,6 @@ const (
 	AVAudioSessionInterruptionReasonDeviceUnauthenticated AVAudioSessionInterruptionReason = 0
 	// AVAudioSessionInterruptionReasonRouteDisconnected: The system interrupts the audio session due to a disconnection of an audio route.
 	AVAudioSessionInterruptionReasonRouteDisconnected AVAudioSessionInterruptionReason = 4
-	// AVAudioSessionInterruptionReasonSceneWasBackgrounded: The system backgrounds the scene and interrupts the audio session.
-	AVAudioSessionInterruptionReasonSceneWasBackgrounded AVAudioSessionInterruptionReason = 0
 	// Deprecated.
 	AVAudioSessionInterruptionReasonAppWasSuspended AVAudioSessionInterruptionReason = 1
 )
@@ -1071,7 +1056,7 @@ func (e AVAudioSessionRouteSharingPolicy) String() string {
 	}
 }
 
-type AVAudioSessionSetActiveFlags uint
+type AVAudioSessionSetActiveFlags uint32
 
 const (
 	// Deprecated: use AVAudioSessionSetActiveOptions.
@@ -1128,43 +1113,12 @@ func (e AVAudioSessionSilenceSecondaryAudioHintType) String() string {
 // See: https://developer.apple.com/documentation/AVFAudio/AVAudioSession/SoundStageSize
 type AVAudioSessionSoundStageSize int
 
-const (
-	// AVAudioSessionSoundStageSizeAutomatic: The system sets the sound stage size.
-	AVAudioSessionSoundStageSizeAutomatic AVAudioSessionSoundStageSize = 0
-	// AVAudioSessionSoundStageSizeLarge: A large sound stage.
-	AVAudioSessionSoundStageSizeLarge AVAudioSessionSoundStageSize = 0
-	// AVAudioSessionSoundStageSizeMedium: A medium sound stage.
-	AVAudioSessionSoundStageSizeMedium AVAudioSessionSoundStageSize = 0
-	// AVAudioSessionSoundStageSizeSmall: A small sound stage.
-	AVAudioSessionSoundStageSizeSmall AVAudioSessionSoundStageSize = 0
-)
-
-func (e AVAudioSessionSoundStageSize) String() string {
-	switch e {
-	case AVAudioSessionSoundStageSizeAutomatic:
-		return "AVAudioSessionSoundStageSizeAutomatic"
-	default:
-		return fmt.Sprintf("AVAudioSessionSoundStageSize(%d)", e)
-	}
-}
+const ()
 
 // See: https://developer.apple.com/documentation/AVFAudio/AVAudioSessionSpatialExperience-c.enum
 type AVAudioSessionSpatialExperience int
 
-const (
-	AVAudioSessionSpatialExperienceBypassed    AVAudioSessionSpatialExperience = 0
-	AVAudioSessionSpatialExperienceFixed       AVAudioSessionSpatialExperience = 0
-	AVAudioSessionSpatialExperienceHeadTracked AVAudioSessionSpatialExperience = 0
-)
-
-func (e AVAudioSessionSpatialExperience) String() string {
-	switch e {
-	case AVAudioSessionSpatialExperienceBypassed:
-		return "AVAudioSessionSpatialExperienceBypassed"
-	default:
-		return fmt.Sprintf("AVAudioSessionSpatialExperience(%d)", e)
-	}
-}
+const ()
 
 // See: https://developer.apple.com/documentation/AVFAudio/AVAudioSession/StereoOrientation
 type AVAudioStereoOrientation int
@@ -1795,7 +1749,7 @@ func (e AVSpeechSynthesisMarkerMark) String() string {
 }
 
 // See: https://developer.apple.com/documentation/AVFAudio/AVSpeechSynthesizer/PersonalVoiceAuthorizationStatus-swift.enum
-type AVSpeechSynthesisPersonalVoiceAuthorizationStatus int
+type AVSpeechSynthesisPersonalVoiceAuthorizationStatus uint
 
 const (
 	// AVSpeechSynthesisPersonalVoiceAuthorizationStatusAuthorized: The user granted your app’s request to use personal voices.

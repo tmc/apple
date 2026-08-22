@@ -5,32 +5,32 @@ package gamecontroller
 // GCControllerAxisValueChangedHandler is the signature for the block that executes when the user changes the axis value.
 //
 // See: https://developer.apple.com/documentation/GameController/GCControllerAxisValueChangedHandler
-type GCControllerAxisValueChangedHandler = func(GCControllerAxisInput, float32)
+type GCControllerAxisValueChangedHandler = func(axis GCControllerAxisInput, value float32)
 
 // GCControllerButtonTouchedChangedHandler is the signature for the block that executes when the user touches the button if the controller supports that feature.
 //
 // See: https://developer.apple.com/documentation/GameController/GCControllerButtonTouchedChangedHandler
-type GCControllerButtonTouchedChangedHandler = func(GCControllerButtonInput, float32, bool, bool)
+type GCControllerButtonTouchedChangedHandler = func(button GCControllerButtonInput, value float32, pressed bool, touched bool)
 
 // GCControllerButtonValueChangedHandler is the signature for the block that executes when a button’s state changes.
 //
 // See: https://developer.apple.com/documentation/GameController/GCControllerButtonValueChangedHandler
-type GCControllerButtonValueChangedHandler = func(GCControllerButtonInput, float32, bool)
+type GCControllerButtonValueChangedHandler = func(button GCControllerButtonInput, value float32, pressed bool)
 
 // GCControllerDirectionPadValueChangedHandler is the signature for the block that executes when either axis changes values.
 //
 // See: https://developer.apple.com/documentation/GameController/GCControllerDirectionPadValueChangedHandler
-type GCControllerDirectionPadValueChangedHandler = func(GCControllerDirectionPad, float32, float32)
+type GCControllerDirectionPadValueChangedHandler = func(dpad GCControllerDirectionPad, xValue float32, yValue float32)
 
 // GCControllerTouchpadHandler is the signature for the block that executes when the user interacts with the touchpad.
 //
 // See: https://developer.apple.com/documentation/GameController/GCControllerTouchpadHandler
-type GCControllerTouchpadHandler = func(GCControllerTouchpad, float32, float32, float32, bool)
+type GCControllerTouchpadHandler = func(touchpad GCControllerTouchpad, xValue float32, yValue float32, buttonValue float32, buttonPressed bool)
 
 // GCExtendedGamepadValueChangedHandler is the signature for the block that the profile calls when an element’s value changes.
 //
 // See: https://developer.apple.com/documentation/GameController/GCExtendedGamepadValueChangedHandler
-type GCExtendedGamepadValueChangedHandler = func(GCExtendedGamepad, GCControllerElement)
+type GCExtendedGamepadValueChangedHandler = func(gamepad GCExtendedGamepad, element GCControllerElement)
 
 // GCGamepadValueChangedHandler is signature for the block executed if any element in the gamepad profile changes value.
 //
@@ -75,19 +75,19 @@ type GCKeyCode = int
 // GCKeyboardValueChangedHandler is the signature for the block that the keyboard input profile calls when a key value changes.
 //
 // See: https://developer.apple.com/documentation/GameController/GCKeyboardValueChangedHandler
-type GCKeyboardValueChangedHandler = func(GCKeyboardInput, GCControllerButtonInput, int, bool)
+type GCKeyboardValueChangedHandler = func(keyboard GCKeyboardInput, key GCControllerButtonInput, keyCode int, pressed bool)
 
 // GCMicroGamepadValueChangedHandler is signature for the block that this profile calls when an element’s value changes.
 //
 // See: https://developer.apple.com/documentation/GameController/GCMicroGamepadValueChangedHandler
-type GCMicroGamepadValueChangedHandler = func(GCMicroGamepad, GCControllerElement)
+type GCMicroGamepadValueChangedHandler = func(gamepad GCMicroGamepad, element GCControllerElement)
 
 // GCMotionValueChangedHandler is the signature for the block that the profile calls when an element’s value changes.
 //
 // See: https://developer.apple.com/documentation/GameController/GCMotionValueChangedHandler
-type GCMotionValueChangedHandler = func(GCMotion)
+type GCMotionValueChangedHandler = func(motion GCMotion)
 
 // GCMouseMoved is the signature for the block that the mouse input profile calls when the mouse moves.
 //
 // See: https://developer.apple.com/documentation/GameController/GCMouseMoved
-type GCMouseMoved = func(GCMouseInput, float32, float32)
+type GCMouseMoved = func(mouse GCMouseInput, deltaX float32, deltaY float32)

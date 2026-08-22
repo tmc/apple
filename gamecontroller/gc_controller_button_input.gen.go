@@ -111,14 +111,14 @@ type IGCControllerButtonInput interface {
 	// Topic: Getting change information
 
 	// The block that the element calls when the user touches the button.
-	TouchedChangedHandler() GCControllerButtonTouchedChangedHandler
-	SetTouchedChangedHandler(value GCControllerButtonTouchedChangedHandler)
+	TouchedChangedHandler() GCControllerButtonInputFloat32BoolBoolHandler
+	SetTouchedChangedHandler(value GCControllerButtonInputFloat32BoolBoolHandler)
 	// The block that the element calls when the user presses or releases the button.
-	PressedChangedHandler() GCControllerButtonValueChangedHandler
-	SetPressedChangedHandler(value GCControllerButtonValueChangedHandler)
+	PressedChangedHandler() GCControllerButtonInputFloat32BoolHandler
+	SetPressedChangedHandler(value GCControllerButtonInputFloat32BoolHandler)
 	// The block that the element calls when the user changes the level of pressure on the button.
-	ValueChangedHandler() GCControllerButtonValueChangedHandler
-	SetValueChangedHandler(value GCControllerButtonValueChangedHandler)
+	ValueChangedHandler() GCControllerButtonInputFloat32BoolHandler
+	SetValueChangedHandler(value GCControllerButtonInputFloat32BoolHandler)
 }
 
 // Init initializes the instance.
@@ -201,12 +201,15 @@ func (g GCControllerButtonInput) Value() float32 {
 // before pressing the button.
 //
 // See: https://developer.apple.com/documentation/GameController/GCControllerButtonInput/touchedChangedHandler
-func (g GCControllerButtonInput) TouchedChangedHandler() GCControllerButtonTouchedChangedHandler {
-	rv := objc.Send[GCControllerButtonTouchedChangedHandler](g.ID, objc.Sel("touchedChangedHandler"))
-	return GCControllerButtonTouchedChangedHandler(rv)
+func (g GCControllerButtonInput) TouchedChangedHandler() GCControllerButtonInputFloat32BoolBoolHandler {
+	rv := objc.Send[objc.ID](g.ID, objc.Sel("touchedChangedHandler"))
+	_ = rv
+	return nil
 }
-func (g GCControllerButtonInput) SetTouchedChangedHandler(value GCControllerButtonTouchedChangedHandler) {
-	objc.Send[struct{}](g.ID, objc.Sel("setTouchedChangedHandler:"), value)
+func (g GCControllerButtonInput) SetTouchedChangedHandler(value GCControllerButtonInputFloat32BoolBoolHandler) {
+	block, cleanup := NewGCControllerButtonInputFloat32BoolBoolBlock(value)
+	defer cleanup()
+	objc.Send[struct{}](g.ID, objc.Sel("setTouchedChangedHandler:"), block)
 }
 
 // The block that the element calls when the user presses or releases the
@@ -219,12 +222,15 @@ func (g GCControllerButtonInput) SetTouchedChangedHandler(value GCControllerButt
 // property changes.
 //
 // See: https://developer.apple.com/documentation/GameController/GCControllerButtonInput/pressedChangedHandler
-func (g GCControllerButtonInput) PressedChangedHandler() GCControllerButtonValueChangedHandler {
-	rv := objc.Send[GCControllerButtonValueChangedHandler](g.ID, objc.Sel("pressedChangedHandler"))
-	return GCControllerButtonValueChangedHandler(rv)
+func (g GCControllerButtonInput) PressedChangedHandler() GCControllerButtonInputFloat32BoolHandler {
+	rv := objc.Send[objc.ID](g.ID, objc.Sel("pressedChangedHandler"))
+	_ = rv
+	return nil
 }
-func (g GCControllerButtonInput) SetPressedChangedHandler(value GCControllerButtonValueChangedHandler) {
-	objc.Send[struct{}](g.ID, objc.Sel("setPressedChangedHandler:"), value)
+func (g GCControllerButtonInput) SetPressedChangedHandler(value GCControllerButtonInputFloat32BoolHandler) {
+	block, cleanup := NewGCControllerButtonInputFloat32BoolBlock(value)
+	defer cleanup()
+	objc.Send[struct{}](g.ID, objc.Sel("setPressedChangedHandler:"), block)
 }
 
 // The block that the element calls when the user changes the level of
@@ -235,10 +241,13 @@ func (g GCControllerButtonInput) SetPressedChangedHandler(value GCControllerButt
 // Set this handler when you want to know when the pressure level changes.
 //
 // See: https://developer.apple.com/documentation/GameController/GCControllerButtonInput/valueChangedHandler
-func (g GCControllerButtonInput) ValueChangedHandler() GCControllerButtonValueChangedHandler {
-	rv := objc.Send[GCControllerButtonValueChangedHandler](g.ID, objc.Sel("valueChangedHandler"))
-	return GCControllerButtonValueChangedHandler(rv)
+func (g GCControllerButtonInput) ValueChangedHandler() GCControllerButtonInputFloat32BoolHandler {
+	rv := objc.Send[objc.ID](g.ID, objc.Sel("valueChangedHandler"))
+	_ = rv
+	return nil
 }
-func (g GCControllerButtonInput) SetValueChangedHandler(value GCControllerButtonValueChangedHandler) {
-	objc.Send[struct{}](g.ID, objc.Sel("setValueChangedHandler:"), value)
+func (g GCControllerButtonInput) SetValueChangedHandler(value GCControllerButtonInputFloat32BoolHandler) {
+	block, cleanup := NewGCControllerButtonInputFloat32BoolBlock(value)
+	defer cleanup()
+	objc.Send[struct{}](g.ID, objc.Sel("setValueChangedHandler:"), block)
 }

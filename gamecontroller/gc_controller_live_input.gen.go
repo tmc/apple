@@ -102,9 +102,12 @@ type IGCControllerLiveInput interface {
 	// Topic: Handling device input
 
 	// Returns the next device input state from the queue.
-	NextInputState() IGCControllerInputState
+	NextInputState() interface {
+		GCDevicePhysicalInputState
+		GCDevicePhysicalInputStateDiff
+	}
 	// Returns a snapshot of the physical device inputs.
-	Capture() IGCControllerInputState
+	Capture() GCDevicePhysicalInputState
 
 	// Topic: Remapping controls
 
@@ -119,11 +122,6 @@ type IGCControllerLiveInput interface {
 	InputStateQueueDepth() int
 	// The dispatch queue that the system uses for callbacks.
 	Queue() dispatch.Queue
-	Elements() IGCPhysicalInputElementCollection
-	Axes() IGCPhysicalInputElementCollection
-	Buttons() IGCPhysicalInputElementCollection
-	Dpads() IGCPhysicalInputElementCollection
-	Switches() IGCPhysicalInputElementCollection
 }
 
 // Init initializes the instance.
@@ -147,26 +145,45 @@ func NewGCControllerLiveInput() GCControllerLiveInput {
 
 // Returns the next device input state from the queue.
 //
+// SDK narrowing: GCControllerLiveInput declares this as - (GCControllerInputState<GCDevicePhysicalInputStateDiff> *)nextInputState.
+// Go has no covariance, so the base declaration on GCDevicePhysicalInput is used.
+// Convert with GCControllerInputStateFromID(v.GetID()) to recover the narrowed type.
+//
 // # Return Value
 //
 // The next input state in the queue or `nil` if the queue is empty.
 //
 // See: https://developer.apple.com/documentation/GameController/GCControllerLiveInput/nextInputState()
-func (g GCControllerLiveInput) NextInputState() IGCControllerInputState {
+func (g GCControllerLiveInput) NextInputState() interface {
+	GCDevicePhysicalInputState
+	GCDevicePhysicalInputStateDiff
+} {
 	rv := objc.Send[objc.ID](g.ID, objc.Sel("nextInputState"))
-	return GCControllerInputStateFromID(rv)
+	return struct {
+		objectivec.Object
+		GCDevicePhysicalInputStateObject
+		GCDevicePhysicalInputStateDiffObject
+	}{
+		Object:                               objectivec.ObjectFromID(rv),
+		GCDevicePhysicalInputStateObject:     GCDevicePhysicalInputStateObjectFromID(rv),
+		GCDevicePhysicalInputStateDiffObject: GCDevicePhysicalInputStateDiffObjectFromID(rv),
+	}
 }
 
 // Returns a snapshot of the physical device inputs.
+//
+// SDK narrowing: GCControllerLiveInput declares this as - (GCControllerInputState *)capture.
+// Go has no covariance, so the base declaration on GCDevicePhysicalInput is used.
+// Convert with GCControllerInputStateFromID(v.GetID()) to recover the narrowed type.
 //
 // # Return Value
 //
 // A new instance containing the current state of the physical device input.
 //
 // See: https://developer.apple.com/documentation/GameController/GCControllerLiveInput/capture()
-func (g GCControllerLiveInput) Capture() IGCControllerInputState {
+func (g GCControllerLiveInput) Capture() GCDevicePhysicalInputState {
 	rv := objc.Send[objc.ID](g.ID, objc.Sel("capture"))
-	return GCControllerInputStateFromID(rv)
+	return GCDevicePhysicalInputStateObjectFromID(rv)
 }
 
 // A block that the profile calls when an element’s value changes.
@@ -217,4 +234,73 @@ func (g GCControllerLiveInput) Queue() dispatch.Queue {
 func (g GCControllerLiveInput) UnmappedInput() IGCControllerLiveInput {
 	rv := objc.Send[objc.ID](g.ID, objc.Sel("unmappedInput"))
 	return GCControllerLiveInputFromID(objc.ID(rv))
+}
+
+// Protocol methods for GCDevicePhysicalInput
+
+// The maximum number of input values that the queue stores.
+//
+// # Discussion
+//
+// When the queue reaches this limit, Game Controller starts removing the
+// oldest input states from the queue. The default value for this property is
+// `1` which indicates no buffering.
+//
+// See: https://developer.apple.com/documentation/GameController/GCDevicePhysicalInput/inputStateQueueDepth
+func (o GCControllerLiveInput) SetInputStateQueueDepth(value int) {
+	objc.Send[struct{}](o.ID, objc.Sel("setInputStateQueueDepth:"), value)
+}
+
+// The dispatch queue that the system uses for callbacks.
+//
+// # Discussion
+//
+// Objects that conform to the [GCDevicePhysicalInput] protocol dispatch
+// callbacks on the device’s [HandlerQueue] property by default. If you want
+// to use a different dispatch queue, set this property to the preferred queue
+// before you set callbacks.
+//
+// See: https://developer.apple.com/documentation/GameController/GCDevicePhysicalInput/queue
+func (o GCControllerLiveInput) SetQueue(value dispatch.Queue) {
+	objc.Send[struct{}](o.ID, objc.Sel("setQueue:"), value)
+}
+
+// The device’s elements as key-value pairs for lookup by name.
+//
+// See: https://developer.apple.com/documentation/GameController/GCDevicePhysicalInputState/elements-1shp2
+func (o GCControllerLiveInput) Elements() IGCPhysicalInputElementCollection {
+	rv := objc.Send[objc.ID](o.ID, objc.Sel("elements"))
+	return GCPhysicalInputElementCollectionFromID(rv)
+}
+
+// The device’s axes as key-value pairs for lookup by name.
+//
+// See: https://developer.apple.com/documentation/GameController/GCDevicePhysicalInputState/axes-80rx
+func (o GCControllerLiveInput) Axes() IGCPhysicalInputElementCollection {
+	rv := objc.Send[objc.ID](o.ID, objc.Sel("axes"))
+	return GCPhysicalInputElementCollectionFromID(rv)
+}
+
+// The device’s buttons as key-value pairs for lookup by name.
+//
+// See: https://developer.apple.com/documentation/GameController/GCDevicePhysicalInputState/buttons-3257g
+func (o GCControllerLiveInput) Buttons() IGCPhysicalInputElementCollection {
+	rv := objc.Send[objc.ID](o.ID, objc.Sel("buttons"))
+	return GCPhysicalInputElementCollectionFromID(rv)
+}
+
+// The device’s directional pads as key-value pairs for lookup by name.
+//
+// See: https://developer.apple.com/documentation/GameController/GCDevicePhysicalInputState/dpads-5yr9x
+func (o GCControllerLiveInput) Dpads() IGCPhysicalInputElementCollection {
+	rv := objc.Send[objc.ID](o.ID, objc.Sel("dpads"))
+	return GCPhysicalInputElementCollectionFromID(rv)
+}
+
+// The device’s switches as key-value pairs for lookup by name.
+//
+// See: https://developer.apple.com/documentation/GameController/GCDevicePhysicalInputState/switches-6bws2
+func (o GCControllerLiveInput) Switches() IGCPhysicalInputElementCollection {
+	rv := objc.Send[objc.ID](o.ID, objc.Sel("switches"))
+	return GCPhysicalInputElementCollectionFromID(rv)
 }

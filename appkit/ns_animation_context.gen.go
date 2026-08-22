@@ -202,14 +202,16 @@ func (_NSAnimationContextClass NSAnimationContextClass) EndGrouping() {
 //
 // See: https://developer.apple.com/documentation/AppKit/NSAnimationContext/runAnimationGroup(_:completionHandler:)
 func (_NSAnimationContextClass NSAnimationContextClass) RunAnimationGroupCompletionHandler(changes AnimationContextHandler, completionHandler VoidHandler) {
-	_block0, _ := NewAnimationContextBlock(changes)
+	_block0, _cleanup0 := NewAnimationContextBlock(changes)
+	defer _cleanup0()
 	_block1, _ := NewVoidBlock(completionHandler)
 	objc.Send[objc.ID](objc.ID(_NSAnimationContextClass.class), objc.Sel("runAnimationGroup:completionHandler:"), _block0, _block1)
 }
 
 // See: https://developer.apple.com/documentation/AppKit/NSAnimationContext/runAnimationGroup(_:)
 func (_NSAnimationContextClass NSAnimationContextClass) RunAnimationGroup(changes AnimationContextHandler) {
-	_block0, _ := NewAnimationContextBlock(changes)
+	_block0, _cleanup0 := NewAnimationContextBlock(changes)
+	defer _cleanup0()
 	objc.Send[objc.ID](objc.ID(_NSAnimationContextClass.class), objc.Sel("runAnimationGroup:"), _block0)
 }
 

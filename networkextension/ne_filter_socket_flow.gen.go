@@ -103,11 +103,11 @@ type INEFilterSocketFlow interface {
 	// An object containing details about the socket’s local endpoint.
 	LocalEndpoint() INWEndpoint
 	// The protocol family of the socket.
-	SocketFamily() int
+	SocketFamily() int32
 	// The type of the socket.
-	SocketType() int
+	SocketType() int32
 	// The protocol of the socket.
-	SocketProtocol() int
+	SocketProtocol() int32
 
 	// Topic: Instance Properties
 
@@ -188,8 +188,8 @@ func (f NEFilterSocketFlow) LocalEndpoint() INWEndpoint {
 // `PF_INET6`.
 //
 // See: https://developer.apple.com/documentation/NetworkExtension/NEFilterSocketFlow/socketFamily
-func (f NEFilterSocketFlow) SocketFamily() int {
-	rv := objc.Send[int](f.ID, objc.Sel("socketFamily"))
+func (f NEFilterSocketFlow) SocketFamily() int32 {
+	rv := objc.Send[int32](f.ID, objc.Sel("socketFamily"))
 	return rv
 }
 
@@ -200,8 +200,8 @@ func (f NEFilterSocketFlow) SocketFamily() int {
 // Examples of socket types include `SOCK_STREAM` and `SOCK_DGRAM`.
 //
 // See: https://developer.apple.com/documentation/NetworkExtension/NEFilterSocketFlow/socketType
-func (f NEFilterSocketFlow) SocketType() int {
-	rv := objc.Send[int](f.ID, objc.Sel("socketType"))
+func (f NEFilterSocketFlow) SocketType() int32 {
+	rv := objc.Send[int32](f.ID, objc.Sel("socketType"))
 	return rv
 }
 
@@ -212,8 +212,8 @@ func (f NEFilterSocketFlow) SocketType() int {
 // Examples of protocols include `IPPROTO_TCP` and `IPPROTO_IP`.
 //
 // See: https://developer.apple.com/documentation/NetworkExtension/NEFilterSocketFlow/socketProtocol
-func (f NEFilterSocketFlow) SocketProtocol() int {
-	rv := objc.Send[int](f.ID, objc.Sel("socketProtocol"))
+func (f NEFilterSocketFlow) SocketProtocol() int32 {
+	rv := objc.Send[int32](f.ID, objc.Sel("socketProtocol"))
 	return rv
 }
 

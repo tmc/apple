@@ -48,11 +48,11 @@ func (nc NSCollectionViewDiffableDataSourceClass) Alloc() NSCollectionViewDiffab
 //
 // # Overview
 //
-// A object is a specialized type of data source that works together with your
-// collection view object. It provides the behavior you need to manage updates
-// to your collection view’s data and UI in a simple, efficient way. It also
-// conforms to the [NSCollectionViewDataSource] protocol and provides
-// implementations for all of the protocol’s methods.
+// A diffable data source object is a specialized type of data source that
+// works together with your collection view object. It provides the behavior
+// you need to manage updates to your collection view’s data and UI in a
+// simple, efficient way. It also conforms to the [NSCollectionViewDataSource]
+// protocol and provides implementations for all of the protocol’s methods.
 //
 // To fill a collection view with data:
 //
@@ -133,13 +133,13 @@ type INSCollectionViewDiffableDataSource interface {
 	// Topic: Creating a Diffable Data Source
 
 	// Creates a diffable data source with the specified item provider, and connects it to the specified collection view.
-	InitWithCollectionViewItemProvider(collectionView INSCollectionView, itemProvider NSCollectionViewDiffableDataSourceItemProvider) NSCollectionViewDiffableDataSource
+	InitWithCollectionViewItemProvider(collectionView INSCollectionView, itemProvider NSCollectionViewItemCollectionViewIndexPathIObjectHandler) NSCollectionViewDiffableDataSource
 
 	// Topic: Creating Supplementary Views
 
 	// The closure that configures and returns the collection view’s supplementary views, such as headers and footers, from the diffable data source.
-	SupplementaryViewProvider() NSCollectionViewDiffableDataSourceSupplementaryViewProvider
-	SetSupplementaryViewProvider(value NSCollectionViewDiffableDataSourceSupplementaryViewProvider)
+	SupplementaryViewProvider() NSViewCollectionViewStringIndexPathHandler
+	SetSupplementaryViewProvider(value NSViewCollectionViewStringIndexPathHandler)
 
 	// Topic: Identifying Items
 
@@ -154,6 +154,15 @@ type INSCollectionViewDiffableDataSource interface {
 	Snapshot() INSDiffableDataSourceSnapshot
 	// Updates the UI to reflect the state of the data in the specified snapshot, optionally animating the UI changes.
 	ApplySnapshotAnimatingDifferences(snapshot INSDiffableDataSourceSnapshot, animatingDifferences bool)
+
+	// Asks your data source object to provide the item at the specified location in the collection view.
+	CollectionViewItemForRepresentedObjectAtIndexPath(collectionView INSCollectionView, indexPath foundation.NSIndexPath) INSCollectionViewItem
+	// Asks your data source object to provide the number of items in the specified section.
+	CollectionViewNumberOfItemsInSection(collectionView INSCollectionView, section int) int
+	// Asks your data source object to provide the supplementary view at the specified location in a section of the collection view.
+	CollectionViewViewForSupplementaryElementOfKindAtIndexPath(collectionView INSCollectionView, kind NSCollectionViewSupplementaryElementKind, indexPath foundation.NSIndexPath) INSView
+	// Asks your data source object to provide the total number of sections.
+	NumberOfSectionsInCollectionView(collectionView INSCollectionView) int
 }
 
 // Init initializes the instance.
@@ -185,9 +194,10 @@ func NewNSCollectionViewDiffableDataSource() NSCollectionViewDiffableDataSource 
 // view from the data the diffable data source provides.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSCollectionViewDiffableDataSourceReference/init(collectionView:itemProvider:)
-func NewCollectionViewDiffableDataSourceWithCollectionViewItemProvider(collectionView INSCollectionView, itemProvider NSCollectionViewDiffableDataSourceItemProvider) NSCollectionViewDiffableDataSource {
+func NewCollectionViewDiffableDataSourceWithCollectionViewItemProvider(collectionView INSCollectionView, itemProvider NSCollectionViewItemCollectionViewIndexPathIObjectHandler) NSCollectionViewDiffableDataSource {
+	_block1, _ := NewNSCollectionViewItemCollectionViewIndexPathIObjectBlock(itemProvider)
 	instance := getNSCollectionViewDiffableDataSourceClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCollectionView:itemProvider:"), collectionView, itemProvider)
+	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCollectionView:itemProvider:"), collectionView, _block1)
 	return NSCollectionViewDiffableDataSourceFromID(rv)
 }
 
@@ -203,12 +213,9 @@ var _nscollectionviewdiffabledatasource_initwithcollectionview_itemprovider_p1_k
 // view from the data the diffable data source provides.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSCollectionViewDiffableDataSourceReference/init(collectionView:itemProvider:)
-func (c NSCollectionViewDiffableDataSource) InitWithCollectionViewItemProvider(collectionView INSCollectionView, itemProvider NSCollectionViewDiffableDataSourceItemProvider) NSCollectionViewDiffableDataSource {
-	_block1 := objc.NewBlock(func(_ objc.Block, arg0 objc.ID, arg1 objc.ID, arg2 objc.ID) objc.ID {
-		return itemProvider(NSCollectionViewFromID(arg0), foundation.NSIndexPathFromID(arg1), objectivec.ObjectFromID(arg2)).ID
-	})
-	rv := objc.Send[NSCollectionViewDiffableDataSource](c.ID, objc.Sel("initWithCollectionView:itemProvider:"), collectionView, objc.ID(_block1))
-	objc.AssociateBlockWithReceiver(rv.ID, &_nscollectionviewdiffabledatasource_initwithcollectionview_itemprovider_p1_key, _block1)
+func (c NSCollectionViewDiffableDataSource) InitWithCollectionViewItemProvider(collectionView INSCollectionView, itemProvider NSCollectionViewItemCollectionViewIndexPathIObjectHandler) NSCollectionViewDiffableDataSource {
+	_block1, _ := NewNSCollectionViewItemCollectionViewIndexPathIObjectBlock(itemProvider)
+	rv := objc.Send[NSCollectionViewDiffableDataSource](c.ID, objc.Sel("initWithCollectionView:itemProvider:"), collectionView, _block1)
 	return rv
 }
 
@@ -277,7 +284,7 @@ func (c NSCollectionViewDiffableDataSource) Snapshot() INSDiffableDataSourceSnap
 //
 // animatingDifferences: If true, the diffable data source computes the difference between the
 // collection view’s current state and the new state in the snapshot, which
-// is an O() operation, where is the number of items in the snapshot. The
+// is an O(n) operation, where n is the number of items in the snapshot. The
 // differences in the UI between the current state and new state are animated.
 // If false, the collection view UI is set to the new state without any
 // animations, with no additional overhead for computing a diff. Any ongoing
@@ -417,12 +424,15 @@ func (c NSCollectionViewDiffableDataSource) NumberOfSectionsInCollectionView(col
 // source.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSCollectionViewDiffableDataSourceReference/supplementaryViewProvider
-func (c NSCollectionViewDiffableDataSource) SupplementaryViewProvider() NSCollectionViewDiffableDataSourceSupplementaryViewProvider {
-	rv := objc.Send[NSCollectionViewDiffableDataSourceSupplementaryViewProvider](c.ID, objc.Sel("supplementaryViewProvider"))
-	return NSCollectionViewDiffableDataSourceSupplementaryViewProvider(rv)
+func (c NSCollectionViewDiffableDataSource) SupplementaryViewProvider() NSViewCollectionViewStringIndexPathHandler {
+	rv := objc.Send[objc.ID](c.ID, objc.Sel("supplementaryViewProvider"))
+	_ = rv
+	return nil
 }
-func (c NSCollectionViewDiffableDataSource) SetSupplementaryViewProvider(value NSCollectionViewDiffableDataSourceSupplementaryViewProvider) {
-	objc.Send[struct{}](c.ID, objc.Sel("setSupplementaryViewProvider:"), value)
+func (c NSCollectionViewDiffableDataSource) SetSupplementaryViewProvider(value NSViewCollectionViewStringIndexPathHandler) {
+	block, cleanup := NewNSViewCollectionViewStringIndexPathBlock(value)
+	defer cleanup()
+	objc.Send[struct{}](c.ID, objc.Sel("setSupplementaryViewProvider:"), block)
 }
 
 // Protocol methods for NSCollectionViewDataSource

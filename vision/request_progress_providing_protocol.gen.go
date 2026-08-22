@@ -17,7 +17,7 @@ type VNRequestProgressProviding interface {
 	//
 	// See: https://developer.apple.com/documentation/Vision/VNRequestProgressProviding/progressHandler
 	ProgressHandler() VNRequestProgressHandler
-	SetProgressHandler(value VNRequestProgressHandler)
+	SetProgressHandler(value objc.ID)
 
 	// A Boolean set to true when a request can’t determine its progress in fractions completed.
 	//
@@ -60,7 +60,7 @@ func (o VNRequestProgressProvidingObject) ProgressHandler() VNRequestProgressHan
 	return VNRequestProgressHandler(rv)
 }
 
-func (o VNRequestProgressProvidingObject) SetProgressHandler(value VNRequestProgressHandler) {
+func (o VNRequestProgressProvidingObject) SetProgressHandler(value objc.ID) {
 	objc.Send[struct{}](o.ID, objc.Sel("setProgressHandler:"), value)
 }
 

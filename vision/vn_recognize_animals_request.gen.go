@@ -117,9 +117,10 @@ func NewVNRecognizeAnimalsRequest() VNRecognizeAnimalsRequest {
 // [VNImageRequestHandler.PerformRequestsError].
 //
 // See: https://developer.apple.com/documentation/Vision/VNRequest/init(completionHandler:)
-func NewRecognizeAnimalsRequestWithCompletionHandler(completionHandler VNRequestCompletionHandler) VNRecognizeAnimalsRequest {
+func NewRecognizeAnimalsRequestWithCompletionHandler(completionHandler VNRequestErrorHandler) VNRecognizeAnimalsRequest {
+	_block0, _ := NewVNRequestErrorBlock(completionHandler)
 	instance := getVNRecognizeAnimalsRequestClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCompletionHandler:"), completionHandler)
+	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCompletionHandler:"), _block0)
 	return VNRecognizeAnimalsRequestFromID(rv)
 }
 

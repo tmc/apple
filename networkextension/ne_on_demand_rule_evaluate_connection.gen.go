@@ -54,7 +54,7 @@ func (nc NEOnDemandRuleEvaluateConnectionClass) Alloc() NEOnDemandRuleEvaluateCo
 //
 // # Accessing connection rules
 //
-//   - [NEOnDemandRuleEvaluateConnection.ConnectionRules]: An array of [NEEvaluateConnectionRule](<doc://com.apple.networkextension/documentation/NetworkExtension/NEEvaluateConnectionRule>) objects
+//   - [NEOnDemandRuleEvaluateConnection.ConnectionRules]: An array of [NEEvaluateConnectionRule](<https://developer.apple.com/documentation/NetworkExtension/NEEvaluateConnectionRule>) objects
 //   - [NEOnDemandRuleEvaluateConnection.SetConnectionRules]
 //
 // See: https://developer.apple.com/documentation/NetworkExtension/NEOnDemandRuleEvaluateConnection
@@ -77,7 +77,7 @@ func NEOnDemandRuleEvaluateConnectionFromID(id objc.ID) NEOnDemandRuleEvaluateCo
 //
 // # Accessing connection rules
 //
-//   - [INEOnDemandRuleEvaluateConnection.ConnectionRules]: An array of [NEEvaluateConnectionRule](<doc://com.apple.networkextension/documentation/NetworkExtension/NEEvaluateConnectionRule>) objects
+//   - [INEOnDemandRuleEvaluateConnection.ConnectionRules]: An array of [NEEvaluateConnectionRule](<https://developer.apple.com/documentation/NetworkExtension/NEEvaluateConnectionRule>) objects
 //   - [INEOnDemandRuleEvaluateConnection.SetConnectionRules]
 //
 // See: https://developer.apple.com/documentation/NetworkExtension/NEOnDemandRuleEvaluateConnection
@@ -86,7 +86,7 @@ type INEOnDemandRuleEvaluateConnection interface {
 
 	// Topic: Accessing connection rules
 
-	// An array of [NEEvaluateConnectionRule](<doc://com.apple.networkextension/documentation/NetworkExtension/NEEvaluateConnectionRule>) objects
+	// An array of [NEEvaluateConnectionRule](<https://developer.apple.com/documentation/NetworkExtension/NEEvaluateConnectionRule>) objects
 	ConnectionRules() []NEEvaluateConnectionRule
 	SetConnectionRules(value []NEEvaluateConnectionRule)
 }

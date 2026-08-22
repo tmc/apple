@@ -8,7 +8,6 @@ import (
 	"unsafe"
 
 	"github.com/tmc/apple/foundation"
-	"github.com/tmc/apple/kernel"
 	"github.com/tmc/apple/objc"
 )
 
@@ -67,10 +66,6 @@ func (vc VNHumanBodyPose3DObservationClass) Alloc() VNHumanBodyPose3DObservation
 //   - [VNHumanBodyPose3DObservation.HeightEstimation]: The technique the framework uses to estimate body height.
 //   - [VNHumanBodyPose3DObservation.BodyHeight]: The estimated human body height, in meters.
 //
-// # Getting the Camera Position
-//
-//   - [VNHumanBodyPose3DObservation.CameraOriginMatrix]: A transform from the skeleton hip to the camera.
-//
 // See: https://developer.apple.com/documentation/Vision/VNHumanBodyPose3DObservation
 type VNHumanBodyPose3DObservation struct {
 	VNRecognizedPoints3DObservation
@@ -108,10 +103,6 @@ func VNHumanBodyPose3DObservationFromID(id objc.ID) VNHumanBodyPose3DObservation
 //   - [IVNHumanBodyPose3DObservation.HeightEstimation]: The technique the framework uses to estimate body height.
 //   - [IVNHumanBodyPose3DObservation.BodyHeight]: The estimated human body height, in meters.
 //
-// # Getting the Camera Position
-//
-//   - [IVNHumanBodyPose3DObservation.CameraOriginMatrix]: A transform from the skeleton hip to the camera.
-//
 // See: https://developer.apple.com/documentation/Vision/VNHumanBodyPose3DObservation
 type IVNHumanBodyPose3DObservation interface {
 	IVNRecognizedPoints3DObservation
@@ -144,13 +135,8 @@ type IVNHumanBodyPose3DObservation interface {
 	// The estimated human body height, in meters.
 	BodyHeight() float32
 
-	// Topic: Getting the Camera Position
-
-	// A transform from the skeleton hip to the camera.
-	CameraOriginMatrix() unsafe.Pointer
-
 	// Gets a position relative to the camera for the body joint you specify.
-	GetCameraRelativePositionForJointNameError(modelPositionOut kernel.Pointer, jointName VNHumanBodyPose3DObservationJointName) (bool, error)
+	GetCameraRelativePositionForJointNameError(modelPositionOut *[4][4]float32, jointName VNHumanBodyPose3DObservationJointName) (bool, error)
 }
 
 // Init initializes the instance.
@@ -269,7 +255,7 @@ func (h VNHumanBodyPose3DObservation) ParentJointNameForJointName(jointName VNHu
 // A Boolean value that indicates the success of determining the position.
 //
 // See: https://developer.apple.com/documentation/Vision/VNHumanBodyPose3DObservation/getCameraRelativePosition:forJointName:error:
-func (h VNHumanBodyPose3DObservation) GetCameraRelativePositionForJointNameError(modelPositionOut kernel.Pointer, jointName VNHumanBodyPose3DObservationJointName) (bool, error) {
+func (h VNHumanBodyPose3DObservation) GetCameraRelativePositionForJointNameError(modelPositionOut *[4][4]float32, jointName VNHumanBodyPose3DObservationJointName) (bool, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[bool](h.ID, objc.Sel("getCameraRelativePosition:forJointName:error:"), modelPositionOut, jointName, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
@@ -319,13 +305,5 @@ func (h VNHumanBodyPose3DObservation) HeightEstimation() VNHumanBodyPose3DObserv
 // See: https://developer.apple.com/documentation/Vision/VNHumanBodyPose3DObservation/bodyHeight
 func (h VNHumanBodyPose3DObservation) BodyHeight() float32 {
 	rv := objc.Send[float32](h.ID, objc.Sel("bodyHeight"))
-	return rv
-}
-
-// A transform from the skeleton hip to the camera.
-//
-// See: https://developer.apple.com/documentation/Vision/VNHumanBodyPose3DObservation/cameraOriginMatrix
-func (h VNHumanBodyPose3DObservation) CameraOriginMatrix() unsafe.Pointer {
-	rv := objc.Send[unsafe.Pointer](h.ID, objc.Sel("cameraOriginMatrix"))
 	return rv
 }

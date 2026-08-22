@@ -8,7 +8,6 @@ import (
 	"unsafe"
 
 	"github.com/tmc/apple/foundation"
-	"github.com/tmc/apple/kernel"
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -140,7 +139,7 @@ func (_VNGeometryUtilsClass VNGeometryUtilsClass) BoundingCircleForPointsError(p
 // The bounding [VNCircle] object.
 //
 // See: https://developer.apple.com/documentation/Vision/VNGeometryUtils/boundingCircle(forSIMDPoints:pointCount:)
-func (_VNGeometryUtilsClass VNGeometryUtilsClass) BoundingCircleForSIMDPointsPointCountError(points kernel.Pointer, pointCount int) (VNCircle, error) {
+func (_VNGeometryUtilsClass VNGeometryUtilsClass) BoundingCircleForSIMDPointsPointCountError(points *[2]float32, pointCount int) (VNCircle, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](objc.ID(_VNGeometryUtilsClass.class), objc.Sel("boundingCircleForSIMDPoints:pointCount:error:"), points, pointCount, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {

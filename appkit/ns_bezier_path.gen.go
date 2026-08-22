@@ -303,9 +303,9 @@ type INSBezierPath interface {
 	// Appends a rounded rectangular path to the path.
 	AppendBezierPathWithRoundedRectXRadiusYRadius(rect corefoundation.CGRect, xRadius float64, yRadius float64)
 	// Appends an outline of the specified glyph to the path.
-	AppendBezierPathWithCGGlyphInFont(glyph coregraphics.CGGlyph, font NSFont)
+	AppendBezierPathWithCGGlyphInFont(glyph coregraphics.CGGlyph, font INSFont)
 	// Appends the outlines of the specified glyphs to the path.
-	AppendBezierPathWithCGGlyphsCountInFont(glyphs []coregraphics.CGGlyph, count int, font NSFont)
+	AppendBezierPathWithCGGlyphsCountInFont(glyphs []coregraphics.CGGlyph, count int, font INSFont)
 
 	// Topic: Accessing a Path’s Attributes
 
@@ -856,14 +856,14 @@ func (b NSBezierPath) AppendBezierPathWithRoundedRectXRadiusYRadius(rect corefou
 // Appends an outline of the specified glyph to the path.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSBezierPath/append(withCGGlyph:in:)
-func (b NSBezierPath) AppendBezierPathWithCGGlyphInFont(glyph coregraphics.CGGlyph, font NSFont) {
+func (b NSBezierPath) AppendBezierPathWithCGGlyphInFont(glyph coregraphics.CGGlyph, font INSFont) {
 	objc.Send[objc.ID](b.ID, objc.Sel("appendBezierPathWithCGGlyph:inFont:"), glyph, font)
 }
 
 // Appends the outlines of the specified glyphs to the path.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSBezierPath/append(withCGGlyphs:count:in:)
-func (b NSBezierPath) AppendBezierPathWithCGGlyphsCountInFont(glyphs []coregraphics.CGGlyph, count int, font NSFont) {
+func (b NSBezierPath) AppendBezierPathWithCGGlyphsCountInFont(glyphs []coregraphics.CGGlyph, count int, font INSFont) {
 	objc.Send[objc.ID](b.ID, objc.Sel("appendBezierPathWithCGGlyphs:count:inFont:"), objc.CArray(glyphs), count, font)
 }
 

@@ -3,10 +3,12 @@
 package foundation
 
 import (
+	"context"
 	"sync"
 	"unsafe"
 
 	"github.com/tmc/apple/objc"
+	"github.com/tmc/apple/objectivec"
 )
 
 // The class instance for the [NSUserAutomatorTask] class.
@@ -99,7 +101,7 @@ type INSUserAutomatorTask interface {
 	// Topic: Executing Automator Tasks
 
 	// Execute the Automator workflow by providing it as securely coded input.
-	ExecuteWithInputCompletionHandler(input NSSecureCoding, handler ErrorHandler)
+	ExecuteWithInputCompletionHandler(input NSSecureCoding, handler ObjectErrorHandler)
 	// The variables required by the Automator workflow.
 	Variables() INSDictionary
 	SetVariables(value INSDictionary)
@@ -141,7 +143,7 @@ func NewNSUserAutomatorTask() NSUserAutomatorTask {
 //
 // If invoked from a subclass, the result will be that class or `nil`.
 //
-// See: https://developer.apple.com/documentation/Foundation/NSUserScriptTask/init(url:)-2qgls
+// See: https://developer.apple.com/documentation/Foundation/NSUserScriptTask/init(url:)
 func NewUserAutomatorTaskWithURLError(url INSURL) (NSUserAutomatorTask, error) {
 	var errorPtr objc.ID
 	instance := getNSUserAutomatorTaskClass().Alloc()
@@ -149,6 +151,9 @@ func NewUserAutomatorTaskWithURLError(url INSURL) (NSUserAutomatorTask, error) {
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
 		return NSUserAutomatorTask{}, NSErrorFrom(errorPtr)
+	}
+	if rv == 0 {
+		return NSUserAutomatorTask{}, objc.ErrInitFailed
 	}
 	return NSUserAutomatorTaskFromID(rv), nil
 }
@@ -172,8 +177,8 @@ func NewUserAutomatorTaskWithURLError(url INSURL) (NSUserAutomatorTask, error) {
 // parameter will be `nil`.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSUserAutomatorTask/execute(withInput:completionHandler:)
-func (u NSUserAutomatorTask) ExecuteWithInputCompletionHandler(input NSSecureCoding, handler ErrorHandler) {
-	_block1, _ := NewErrorBlock(handler)
+func (u NSUserAutomatorTask) ExecuteWithInputCompletionHandler(input NSSecureCoding, handler ObjectErrorHandler) {
+	_block1, _ := NewObjectErrorBlock(handler)
 	objc.Send[objc.ID](u.ID, objc.Sel("executeWithInput:completionHandler:"), input, _block1)
 }
 
@@ -186,4 +191,23 @@ func (u NSUserAutomatorTask) Variables() INSDictionary {
 }
 func (u NSUserAutomatorTask) SetVariables(value INSDictionary) {
 	objc.Send[struct{}](u.ID, objc.Sel("setVariables:"), value)
+}
+
+// ExecuteWithInput is a synchronous wrapper around [NSUserAutomatorTask.ExecuteWithInputCompletionHandler].
+// It blocks until the completion handler fires or the context is cancelled.
+func (u NSUserAutomatorTask) ExecuteWithInput(ctx context.Context, input NSSecureCoding) (objectivec.IObject, error) {
+	type result struct {
+		val objectivec.IObject
+		err error
+	}
+	done := make(chan result, 1)
+	u.ExecuteWithInputCompletionHandler(input, func(val objectivec.IObject, err error) {
+		done <- result{val, err}
+	})
+	select {
+	case r := <-done:
+		return r.val, r.err
+	case <-ctx.Done():
+		return nil, ctx.Err()
+	}
 }

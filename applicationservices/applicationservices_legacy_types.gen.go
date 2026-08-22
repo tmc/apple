@@ -42,7 +42,7 @@ type SpeechDoneUPP = unsafe.Pointer
 type SpeechTextDoneUPP = unsafe.Pointer
 type SpeechDoneProcPtr = func(*SpeechChannelRecord, uintptr)
 type SpeechPhonemeProcPtr = func(*SpeechChannelRecord, uintptr, int16)
-type SpeechErrorProcPtr = func(*SpeechChannelRecord, uintptr, int16, int)
+type SpeechErrorProcPtr = func(*SpeechChannelRecord, uintptr, int16, int32)
 type SpeechTextDoneProcPtr = func(*SpeechChannelRecord, uintptr, unsafe.Pointer, unsafe.Pointer, unsafe.Pointer)
 type SpeechSyncProcPtr = func(*SpeechChannelRecord, uintptr, uint32)
 

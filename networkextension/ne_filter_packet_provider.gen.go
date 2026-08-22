@@ -89,8 +89,8 @@ type INEFilterPacketProvider interface {
 	// Topic: Filtering packets
 
 	// A Swift closure or an ObjectiveC block that handles each packet received by the filter.
-	PacketHandler() NEFilterPacketHandler
-	SetPacketHandler(value NEFilterPacketHandler)
+	PacketHandler() NEFilterPacketProviderVerdictNEFilterPacketContextOS_nw_interfaceObjectIntUnsafePointerUint32Handler
+	SetPacketHandler(value NEFilterPacketProviderVerdictNEFilterPacketContextOS_nw_interfaceObjectIntUnsafePointerUint32Handler)
 
 	// Topic: Delaying packets
 
@@ -168,10 +168,13 @@ func (f NEFilterPacketProvider) AllowPacket(packet INEPacket) {
 // See: https://developer.apple.com/documentation/NetworkExtension/NEFilterPacketProvider/packetHandler
 //
 // [NEFilterPacketProvider.Verdict]: https://developer.apple.com/documentation/NetworkExtension/NEFilterPacketProvider/Verdict
-func (f NEFilterPacketProvider) PacketHandler() NEFilterPacketHandler {
-	rv := objc.Send[NEFilterPacketHandler](f.ID, objc.Sel("packetHandler"))
-	return NEFilterPacketHandler(rv)
+func (f NEFilterPacketProvider) PacketHandler() NEFilterPacketProviderVerdictNEFilterPacketContextOS_nw_interfaceObjectIntUnsafePointerUint32Handler {
+	rv := objc.Send[objc.ID](f.ID, objc.Sel("packetHandler"))
+	_ = rv
+	return nil
 }
-func (f NEFilterPacketProvider) SetPacketHandler(value NEFilterPacketHandler) {
-	objc.Send[struct{}](f.ID, objc.Sel("setPacketHandler:"), value)
+func (f NEFilterPacketProvider) SetPacketHandler(value NEFilterPacketProviderVerdictNEFilterPacketContextOS_nw_interfaceObjectIntUnsafePointerUint32Handler) {
+	block, cleanup := NewNEFilterPacketProviderVerdictNEFilterPacketContextOS_nw_interfaceObjectIntUnsafePointerUint32Block(value)
+	defer cleanup()
+	objc.Send[struct{}](f.ID, objc.Sel("setPacketHandler:"), block)
 }

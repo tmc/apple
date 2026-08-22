@@ -49,6 +49,10 @@ func (nc NSFileSecurityClass) Alloc() NSFileSecurity {
 // [NSFileSecurity] contains no methods of its own. Instead, it is
 // transparently bridged to [CFFileSecurity].
 //
+// # Initializers
+//
+//   - [NSFileSecurity.InitWithCoder]
+//
 // See: https://developer.apple.com/documentation/Foundation/NSFileSecurity
 //
 // [CFFileSecurity]: https://developer.apple.com/documentation/CoreFoundation/CFFileSecurity
@@ -68,10 +72,20 @@ func NSFileSecurityFromID(id objc.ID) NSFileSecurity {
 
 // An interface definition for the [NSFileSecurity] class.
 //
+// # Initializers
+//
+//   - [INSFileSecurity.InitWithCoder]
+//
 // See: https://developer.apple.com/documentation/Foundation/NSFileSecurity
 type INSFileSecurity interface {
 	objectivec.IObject
-	NSSecureCoding
+
+	// Topic: Initializers
+
+	InitWithCoder(coder INSCoder) NSFileSecurity
+
+	// Encodes the receiver using a given archiver.
+	EncodeWithCoder(coder INSCoder)
 }
 
 // Init initializes the instance.

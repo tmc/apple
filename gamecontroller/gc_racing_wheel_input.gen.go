@@ -85,12 +85,15 @@ type IGCRacingWheelInput interface {
 	// Topic: Creating snapshots
 
 	// Returns a snapshot of the racing wheel inputs.
-	Capture() IGCRacingWheelInputState
+	Capture() GCDevicePhysicalInputState
 
 	// Topic: Polling for input
 
 	// Returns the next input state of the racing wheel from the queue.
-	NextInputState() IGCRacingWheelInputState
+	NextInputState() interface {
+		GCDevicePhysicalInputState
+		GCDevicePhysicalInputStateDiff
+	}
 
 	// A block that the profile calls when an element’s value changes.
 	ElementValueDidChangeHandler() func(objectivec.IObject)
@@ -100,11 +103,6 @@ type IGCRacingWheelInput interface {
 	InputStateQueueDepth() int
 	// The dispatch queue that the system uses for callbacks.
 	Queue() dispatch.Queue
-	Elements() IGCPhysicalInputElementCollection
-	Axes() IGCPhysicalInputElementCollection
-	Buttons() IGCPhysicalInputElementCollection
-	Dpads() IGCPhysicalInputElementCollection
-	Switches() IGCPhysicalInputElementCollection
 }
 
 // Init initializes the instance.
@@ -128,18 +126,26 @@ func NewGCRacingWheelInput() GCRacingWheelInput {
 
 // Returns a snapshot of the racing wheel inputs.
 //
+// SDK narrowing: GCRacingWheelInput declares this as - (GCRacingWheelInputState *)capture.
+// Go has no covariance, so the base declaration on GCDevicePhysicalInput is used.
+// Convert with GCRacingWheelInputStateFromID(v.GetID()) to recover the narrowed type.
+//
 // # Return Value
 //
 // A new instance containing the current state vector of the racing wheel
 // input.
 //
 // See: https://developer.apple.com/documentation/GameController/GCRacingWheelInput/capture()
-func (g GCRacingWheelInput) Capture() IGCRacingWheelInputState {
+func (g GCRacingWheelInput) Capture() GCDevicePhysicalInputState {
 	rv := objc.Send[objc.ID](g.ID, objc.Sel("capture"))
-	return GCRacingWheelInputStateFromID(rv)
+	return GCDevicePhysicalInputStateObjectFromID(rv)
 }
 
 // Returns the next input state of the racing wheel from the queue.
+//
+// SDK narrowing: GCRacingWheelInput declares this as - (GCRacingWheelInputState<GCDevicePhysicalInputStateDiff> *)nextInputState.
+// Go has no covariance, so the base declaration on GCDevicePhysicalInput is used.
+// Convert with GCRacingWheelInputStateFromID(v.GetID()) to recover the narrowed type.
 //
 // # Return Value
 //
@@ -150,9 +156,20 @@ func (g GCRacingWheelInput) Capture() IGCRacingWheelInputState {
 // This method removes the next input state from the queue.
 //
 // See: https://developer.apple.com/documentation/GameController/GCRacingWheelInput/nextInputState()
-func (g GCRacingWheelInput) NextInputState() IGCRacingWheelInputState {
+func (g GCRacingWheelInput) NextInputState() interface {
+	GCDevicePhysicalInputState
+	GCDevicePhysicalInputStateDiff
+} {
 	rv := objc.Send[objc.ID](g.ID, objc.Sel("nextInputState"))
-	return GCRacingWheelInputStateFromID(rv)
+	return struct {
+		objectivec.Object
+		GCDevicePhysicalInputStateObject
+		GCDevicePhysicalInputStateDiffObject
+	}{
+		Object:                               objectivec.ObjectFromID(rv),
+		GCDevicePhysicalInputStateObject:     GCDevicePhysicalInputStateObjectFromID(rv),
+		GCDevicePhysicalInputStateDiffObject: GCDevicePhysicalInputStateDiffObjectFromID(rv),
+	}
 }
 
 // A block that the profile calls when an element’s value changes.
@@ -188,4 +205,73 @@ func (g GCRacingWheelInput) InputStateQueueDepth() int {
 func (g GCRacingWheelInput) Queue() dispatch.Queue {
 	rv := objc.Send[uintptr](g.ID, objc.Sel("queue"))
 	return dispatch.QueueFromHandle(rv)
+}
+
+// Protocol methods for GCDevicePhysicalInput
+
+// The maximum number of input values that the queue stores.
+//
+// # Discussion
+//
+// When the queue reaches this limit, Game Controller starts removing the
+// oldest input states from the queue. The default value for this property is
+// `1` which indicates no buffering.
+//
+// See: https://developer.apple.com/documentation/GameController/GCDevicePhysicalInput/inputStateQueueDepth
+func (o GCRacingWheelInput) SetInputStateQueueDepth(value int) {
+	objc.Send[struct{}](o.ID, objc.Sel("setInputStateQueueDepth:"), value)
+}
+
+// The dispatch queue that the system uses for callbacks.
+//
+// # Discussion
+//
+// Objects that conform to the [GCDevicePhysicalInput] protocol dispatch
+// callbacks on the device’s [HandlerQueue] property by default. If you want
+// to use a different dispatch queue, set this property to the preferred queue
+// before you set callbacks.
+//
+// See: https://developer.apple.com/documentation/GameController/GCDevicePhysicalInput/queue
+func (o GCRacingWheelInput) SetQueue(value dispatch.Queue) {
+	objc.Send[struct{}](o.ID, objc.Sel("setQueue:"), value)
+}
+
+// The device’s elements as key-value pairs for lookup by name.
+//
+// See: https://developer.apple.com/documentation/GameController/GCDevicePhysicalInputState/elements-1shp2
+func (o GCRacingWheelInput) Elements() IGCPhysicalInputElementCollection {
+	rv := objc.Send[objc.ID](o.ID, objc.Sel("elements"))
+	return GCPhysicalInputElementCollectionFromID(rv)
+}
+
+// The device’s axes as key-value pairs for lookup by name.
+//
+// See: https://developer.apple.com/documentation/GameController/GCDevicePhysicalInputState/axes-80rx
+func (o GCRacingWheelInput) Axes() IGCPhysicalInputElementCollection {
+	rv := objc.Send[objc.ID](o.ID, objc.Sel("axes"))
+	return GCPhysicalInputElementCollectionFromID(rv)
+}
+
+// The device’s buttons as key-value pairs for lookup by name.
+//
+// See: https://developer.apple.com/documentation/GameController/GCDevicePhysicalInputState/buttons-3257g
+func (o GCRacingWheelInput) Buttons() IGCPhysicalInputElementCollection {
+	rv := objc.Send[objc.ID](o.ID, objc.Sel("buttons"))
+	return GCPhysicalInputElementCollectionFromID(rv)
+}
+
+// The device’s directional pads as key-value pairs for lookup by name.
+//
+// See: https://developer.apple.com/documentation/GameController/GCDevicePhysicalInputState/dpads-5yr9x
+func (o GCRacingWheelInput) Dpads() IGCPhysicalInputElementCollection {
+	rv := objc.Send[objc.ID](o.ID, objc.Sel("dpads"))
+	return GCPhysicalInputElementCollectionFromID(rv)
+}
+
+// The device’s switches as key-value pairs for lookup by name.
+//
+// See: https://developer.apple.com/documentation/GameController/GCDevicePhysicalInputState/switches-6bws2
+func (o GCRacingWheelInput) Switches() IGCPhysicalInputElementCollection {
+	rv := objc.Send[objc.ID](o.ID, objc.Sel("switches"))
+	return GCPhysicalInputElementCollectionFromID(rv)
 }

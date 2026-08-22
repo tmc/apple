@@ -17,19 +17,6 @@
 //   - [ColorSync Manager] ([CMFlattenProcPtr], [CM2Profile], [CMDeviceInfo], [CMDeviceProfileArray], [CMDeviceScope])
 //   - [Speech Synthesis Manager] ([SpeechDoneProcPtr], [SpeechErrorProcPtr], [SpeechErrorCFProcPtr], [SpeechPhonemeProcPtr], [SpeechSyncProcPtr])
 //
-// # Classes
-//
-//   - ColorSyncCMM
-//   - ColorSyncMutableProfile
-//   - ColorSyncProfile
-//   - ColorSyncTransform
-//   - HIMutableShape
-//   - HIShape
-//   - Pasteboard
-//   - Translation
-//   - AXTextMarker
-//   - AXTextMarkerRange
-//
 // # Protocols
 //
 //   - [PDEPanel]
@@ -48,9 +35,11 @@ import (
 	"github.com/ebitengine/purego"
 )
 
-// frameworkPaths lists paths to try when loading the ApplicationServices library.
-// The framework bundle path is tried first; a /usr/lib dylib fallback covers
-// C-API frameworks that are not in the dyld shared cache as bundles.
+// frameworkPaths lists paths to try when loading the ApplicationServices library,
+// in order. Frameworks whose symbols live in a known dylib resolve to that
+// dylib alone; the rest try the framework bundle first and then a /usr/lib
+// dylib fallback, which covers C-API frameworks that are not in the dyld
+// shared cache as bundles.
 var frameworkPaths = []string{
 	"/System/Library/Frameworks/ApplicationServices.framework/ApplicationServices",
 	"/usr/lib/libApplicationServices.dylib",

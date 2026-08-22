@@ -48,11 +48,12 @@ func (mc MTLFunctionStitchingGraphClass) Alloc() MTLFunctionStitchingGraph {
 // # Overview
 //
 // An [MTLFunctionStitchingGraph] instance describes the function graph for a
-// stitched function. A is a visible function you create by composing other
-// Metal shader functions together in a function graph. A function stitching
-// graph contains nodes for the function’s arguments and any functions it
-// calls in the implementation. Data flows from the arguments to the end of
-// the graph until the stitched function evaluates all of the graph’s nodes.
+// stitched function. A stitched function is a visible function you create by
+// composing other Metal shader functions together in a function graph. A
+// function stitching graph contains nodes for the function’s arguments and
+// any functions it calls in the implementation. Data flows from the arguments
+// to the end of the graph until the stitched function evaluates all of the
+// graph’s nodes.
 //
 // The graph in the figure below constructs a new function that adds numbers
 // from two source arrays, storing the result in a third array. The

@@ -71,7 +71,7 @@ func (nc NSNameSpecifierClass) Alloc() NSNameSpecifier {
 //
 // # Initializing a name specifier
 //
-//   - [NSNameSpecifier.InitWithContainerClassDescriptionContainerSpecifierKeyName]: Invokes the super class’s [init(containerClassDescription:containerSpecifier:key:)](<doc://com.apple.foundation/documentation/Foundation/NSScriptObjectSpecifier/init(containerClassDescription:containerSpecifier:key:)>) method and then sets the name instance variable to `name`.
+//   - [NSNameSpecifier.InitWithContainerClassDescriptionContainerSpecifierKeyName]: Invokes the super class’s [init(containerClassDescription:containerSpecifier:key:)](<https://developer.apple.com/documentation/Foundation/NSScriptObjectSpecifier/init(containerClassDescription:containerSpecifier:key:)>) method and then sets the name instance variable to `name`.
 //
 // # Accessing a name specifier
 //
@@ -97,7 +97,7 @@ func NSNameSpecifierFromID(id objc.ID) NSNameSpecifier {
 //
 // # Initializing a name specifier
 //
-//   - [INSNameSpecifier.InitWithContainerClassDescriptionContainerSpecifierKeyName]: Invokes the super class’s [init(containerClassDescription:containerSpecifier:key:)](<doc://com.apple.foundation/documentation/Foundation/NSScriptObjectSpecifier/init(containerClassDescription:containerSpecifier:key:)>) method and then sets the name instance variable to `name`.
+//   - [INSNameSpecifier.InitWithContainerClassDescriptionContainerSpecifierKeyName]: Invokes the super class’s [init(containerClassDescription:containerSpecifier:key:)](<https://developer.apple.com/documentation/Foundation/NSScriptObjectSpecifier/init(containerClassDescription:containerSpecifier:key:)>) method and then sets the name instance variable to `name`.
 //
 // # Accessing a name specifier
 //
@@ -110,7 +110,7 @@ type INSNameSpecifier interface {
 
 	// Topic: Initializing a name specifier
 
-	// Invokes the super class’s [init(containerClassDescription:containerSpecifier:key:)](<doc://com.apple.foundation/documentation/Foundation/NSScriptObjectSpecifier/init(containerClassDescription:containerSpecifier:key:)>) method and then sets the name instance variable to `name`.
+	// Invokes the super class’s [init(containerClassDescription:containerSpecifier:key:)](<https://developer.apple.com/documentation/Foundation/NSScriptObjectSpecifier/init(containerClassDescription:containerSpecifier:key:)>) method and then sets the name instance variable to `name`.
 	InitWithContainerClassDescriptionContainerSpecifierKeyName(classDesc INSScriptClassDescription, container INSScriptObjectSpecifier, property string, name string) NSNameSpecifier
 
 	// Topic: Accessing a name specifier

@@ -200,7 +200,7 @@ func NewAVURLAsset() AVURLAsset {
 //
 // URL: A URL to a local, remote, or HTTP Live Streaming media resource.
 //
-// See: https://developer.apple.com/documentation/AVFoundation/AVAsset/init(url:)-42gl8
+// See: https://developer.apple.com/documentation/AVFoundation/AVAsset/init(url:)
 func NewURLAssetWithURL(URL foundation.NSURL) AVURLAsset {
 	rv := objc.Send[objc.ID](objc.ID(getAVURLAssetClass().class), objc.Sel("assetWithURL:"), URL)
 	return AVURLAssetFromID(rv)
@@ -219,7 +219,7 @@ func NewURLAssetWithURL(URL foundation.NSURL) AVURLAsset {
 //
 // An asset that models the media resource found at [URL].
 //
-// See: https://developer.apple.com/documentation/AVFoundation/AVURLAsset/init(url:options:)-2x8uu
+// See: https://developer.apple.com/documentation/AVFoundation/AVURLAsset/init(url:options:)
 //
 // [Initialization options]: https://developer.apple.com/documentation/AVFoundation/initialization-options
 func NewURLAssetWithURLOptions(URL foundation.NSURL, options foundation.INSDictionary) AVURLAsset {
@@ -241,7 +241,7 @@ func NewURLAssetWithURLOptions(URL foundation.NSURL, options foundation.INSDicti
 //
 // An asset that models the media resource found at [URL].
 //
-// See: https://developer.apple.com/documentation/AVFoundation/AVURLAsset/init(url:options:)-2x8uu
+// See: https://developer.apple.com/documentation/AVFoundation/AVURLAsset/init(url:options:)
 //
 // [Initialization options]: https://developer.apple.com/documentation/AVFoundation/initialization-options
 func (u AVURLAsset) InitWithURLOptions(URL foundation.NSURL, options foundation.INSDictionary) AVURLAsset {

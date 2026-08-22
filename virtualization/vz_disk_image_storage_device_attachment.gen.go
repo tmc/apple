@@ -56,11 +56,11 @@ func (vc VZDiskImageStorageDeviceAttachmentClass) Alloc() VZDiskImageStorageDevi
 //
 // RAW disk images: A file that’s the requested size of the VM disk, this
 // format results in a 1-to-1 mapping between the offsets in the file and the
-// offsets in the VM disk. ASIF disk images: (ASIF) files transfer more
-// efficiently between hosts or disks because their intrinsic structure
-// doesn’t depend on the host file system’s capabilities. The size the
-// ASIF file takes on the file system is proportional to the actual data
-// stored in the disk image.
+// offsets in the VM disk. ASIF disk images: Apple Sparse Image Format (ASIF)
+// files transfer more efficiently between hosts or disks because their
+// intrinsic structure doesn’t depend on the host file system’s
+// capabilities. The size the ASIF file takes on the file system is
+// proportional to the actual data stored in the disk image.
 //
 // # Create the disk image
 //
@@ -218,7 +218,7 @@ func NewVZDiskImageStorageDeviceAttachment() VZDiskImageStorageDeviceAttachment 
 // operating system flushes data, described by one of the available
 // [VZDiskImageSynchronizationMode] modes.
 //
-// See: https://developer.apple.com/documentation/Virtualization/VZDiskImageStorageDeviceAttachment/init(url:readOnly:cachingMode:synchronizationMode:)-36gc5
+// See: https://developer.apple.com/documentation/Virtualization/VZDiskImageStorageDeviceAttachment/init(url:readOnly:cachingMode:synchronizationMode:)
 //
 // [VZDiskImageCachingMode]: https://developer.apple.com/documentation/Virtualization/VZDiskImageCachingMode
 // [VZDiskImageSynchronizationMode]: https://developer.apple.com/documentation/Virtualization/VZDiskImageSynchronizationMode
@@ -230,31 +230,8 @@ func NewDiskImageStorageDeviceAttachmentWithURLReadOnlyCachingModeSynchronizatio
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
 		return VZDiskImageStorageDeviceAttachment{}, foundation.NSErrorFrom(errorPtr)
 	}
-	return VZDiskImageStorageDeviceAttachmentFromID(rv), nil
-}
-
-// Creates the attachment object from the specified disk image.
-//
-// url: A URL that points to a local disk image in RAW format.
-//
-// readOnly: A Boolean that indicates whether to configure the disk image as read-only.
-// Specify true to prevent the guest operating system from writing to the disk
-// image, and false to allow writing.
-//
-// # Return Value
-//
-// In Swift the methods returns an attachment object; in Objective-C the
-// methods returns an attachment object on success, or `nil` if an error
-// occurred
-//
-// See: https://developer.apple.com/documentation/Virtualization/VZDiskImageStorageDeviceAttachment/init(url:readOnly:)-9qeco
-func NewDiskImageStorageDeviceAttachmentWithURLReadOnlyError(url foundation.NSURL, readOnly bool) (VZDiskImageStorageDeviceAttachment, error) {
-	var errorPtr objc.ID
-	instance := getVZDiskImageStorageDeviceAttachmentClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithURL:readOnly:error:"), url, readOnly, unsafe.Pointer(&errorPtr))
-	if errorPtr != 0 {
-		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
-		return VZDiskImageStorageDeviceAttachment{}, foundation.NSErrorFrom(errorPtr)
+	if rv == 0 {
+		return VZDiskImageStorageDeviceAttachment{}, objc.ErrInitFailed
 	}
 	return VZDiskImageStorageDeviceAttachmentFromID(rv), nil
 }
@@ -273,7 +250,36 @@ func NewDiskImageStorageDeviceAttachmentWithURLReadOnlyError(url foundation.NSUR
 // methods returns an attachment object on success, or `nil` if an error
 // occurred
 //
-// See: https://developer.apple.com/documentation/Virtualization/VZDiskImageStorageDeviceAttachment/init(url:readOnly:)-9qeco
+// See: https://developer.apple.com/documentation/Virtualization/VZDiskImageStorageDeviceAttachment/init(url:readOnly:)
+func NewDiskImageStorageDeviceAttachmentWithURLReadOnlyError(url foundation.NSURL, readOnly bool) (VZDiskImageStorageDeviceAttachment, error) {
+	var errorPtr objc.ID
+	instance := getVZDiskImageStorageDeviceAttachmentClass().Alloc()
+	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithURL:readOnly:error:"), url, readOnly, unsafe.Pointer(&errorPtr))
+	if errorPtr != 0 {
+		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
+		return VZDiskImageStorageDeviceAttachment{}, foundation.NSErrorFrom(errorPtr)
+	}
+	if rv == 0 {
+		return VZDiskImageStorageDeviceAttachment{}, objc.ErrInitFailed
+	}
+	return VZDiskImageStorageDeviceAttachmentFromID(rv), nil
+}
+
+// Creates the attachment object from the specified disk image.
+//
+// url: A URL that points to a local disk image in RAW format.
+//
+// readOnly: A Boolean that indicates whether to configure the disk image as read-only.
+// Specify true to prevent the guest operating system from writing to the disk
+// image, and false to allow writing.
+//
+// # Return Value
+//
+// In Swift the methods returns an attachment object; in Objective-C the
+// methods returns an attachment object on success, or `nil` if an error
+// occurred
+//
+// See: https://developer.apple.com/documentation/Virtualization/VZDiskImageStorageDeviceAttachment/init(url:readOnly:)
 func (d VZDiskImageStorageDeviceAttachment) InitWithURLReadOnlyError(url foundation.NSURL, readOnly bool) (VZDiskImageStorageDeviceAttachment, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](d.ID, objc.Sel("initWithURL:readOnly:error:"), url, readOnly, unsafe.Pointer(&errorPtr))
@@ -299,7 +305,7 @@ func (d VZDiskImageStorageDeviceAttachment) InitWithURLReadOnlyError(url foundat
 // operating system flushes data, described by one of the available
 // [VZDiskImageSynchronizationMode] modes.
 //
-// See: https://developer.apple.com/documentation/Virtualization/VZDiskImageStorageDeviceAttachment/init(url:readOnly:cachingMode:synchronizationMode:)-36gc5
+// See: https://developer.apple.com/documentation/Virtualization/VZDiskImageStorageDeviceAttachment/init(url:readOnly:cachingMode:synchronizationMode:)
 //
 // [VZDiskImageCachingMode]: https://developer.apple.com/documentation/Virtualization/VZDiskImageCachingMode
 // [VZDiskImageSynchronizationMode]: https://developer.apple.com/documentation/Virtualization/VZDiskImageSynchronizationMode

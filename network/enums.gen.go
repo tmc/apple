@@ -6,7 +6,48 @@ import (
 	"fmt"
 )
 
-type NWBrowserState uint
+type NWBrowseResultChange uint32
+
+const (
+	// NWBrowseResultChangeIdentical: The compared services are identical.
+	NWBrowseResultChangeIdentical NWBrowseResultChange = 0x1
+	// NWBrowseResultChangeInterfaceAdded: The service was discovered over a new interface.
+	NWBrowseResultChangeInterfaceAdded NWBrowseResultChange = 0x8
+	// NWBrowseResultChangeInterfaceRemoved: The service was no longer discovered over a certain interface.
+	NWBrowseResultChangeInterfaceRemoved NWBrowseResultChange = 0x10
+	// NWBrowseResultChangeInvalid: The comparison was invallid.
+	NWBrowseResultChangeInvalid NWBrowseResultChange = 0
+	// NWBrowseResultChangeResultAdded: A new service was discovered.
+	NWBrowseResultChangeResultAdded NWBrowseResultChange = 0x2
+	// NWBrowseResultChangeResultRemoved: A previously discovered service was removed.
+	NWBrowseResultChangeResultRemoved NWBrowseResultChange = 0x4
+	// NWBrowseResultChangeTXTRecordChanged: The service’s associated TXT record changed.
+	NWBrowseResultChangeTXTRecordChanged NWBrowseResultChange = 0x20
+)
+
+func (e NWBrowseResultChange) String() string {
+	switch e {
+	case NWBrowseResultChangeIdentical:
+		return "NWBrowseResultChangeIdentical"
+	case NWBrowseResultChangeInterfaceAdded:
+		return "NWBrowseResultChangeInterfaceAdded"
+	case NWBrowseResultChangeInterfaceRemoved:
+		return "NWBrowseResultChangeInterfaceRemoved"
+	case NWBrowseResultChangeInvalid:
+		return "NWBrowseResultChangeInvalid"
+	case NWBrowseResultChangeResultAdded:
+		return "NWBrowseResultChangeResultAdded"
+	case NWBrowseResultChangeResultRemoved:
+		return "NWBrowseResultChangeResultRemoved"
+	case NWBrowseResultChangeTXTRecordChanged:
+		return "NWBrowseResultChangeTXTRecordChanged"
+	default:
+		return fmt.Sprintf("NWBrowseResultChange(%d)", e)
+	}
+}
+
+// See: https://developer.apple.com/documentation/Network/nw_browser_state_t
+type NWBrowserState uint32
 
 const (
 	// NWBrowserStateCancelled: The browser has been canceled.
@@ -37,7 +78,8 @@ func (e NWBrowserState) String() string {
 	}
 }
 
-type NWConnectionGroupState uint
+// See: https://developer.apple.com/documentation/Network/nw_connection_group_state_t
+type NWConnectionGroupState uint32
 
 const (
 	// NWConnectionGroupStateCancelled: The connection group has been canceled.
@@ -69,7 +111,8 @@ func (e NWConnectionGroupState) String() string {
 	}
 }
 
-type NWConnectionState uint
+// See: https://developer.apple.com/documentation/Network/nw_connection_state_t
+type NWConnectionState uint32
 
 const (
 	// NWConnectionStateCancelled: The connection has been canceled.
@@ -105,7 +148,8 @@ func (e NWConnectionState) String() string {
 	}
 }
 
-type NWDataTransferReportState uint
+// See: https://developer.apple.com/documentation/Network/nw_data_transfer_report_state_t
+type NWDataTransferReportState uint32
 
 const (
 	// NWDataTransferReportStateCollected: The data transfer report has completed, and data can be examined.
@@ -125,7 +169,8 @@ func (e NWDataTransferReportState) String() string {
 	}
 }
 
-type NWEndpointType uint
+// See: https://developer.apple.com/documentation/Network/nw_endpoint_type_t
+type NWEndpointType uint32
 
 const (
 	// NWEndpointTypeAddress: An endpoint represented as an IP address and port.
@@ -157,7 +202,8 @@ func (e NWEndpointType) String() string {
 	}
 }
 
-type NWErrorDomain int
+// See: https://developer.apple.com/documentation/Network/nw_error_domain_t
+type NWErrorDomain uint32
 
 const (
 	// NWErrorDomainDns: A DNS error encountered in resolving, browsing, or advertising.
@@ -188,7 +234,8 @@ func (e NWErrorDomain) String() string {
 	}
 }
 
-type NWEthernetChannelState uint
+// See: https://developer.apple.com/documentation/Network/nw_ethernet_channel_state_t
+type NWEthernetChannelState uint32
 
 const (
 	// NWEthernetChannelStateCancelled: The channel has been canceled.
@@ -224,7 +271,8 @@ func (e NWEthernetChannelState) String() string {
 	}
 }
 
-type NWFramerStartResult int
+// See: https://developer.apple.com/documentation/Network/nw_framer_start_result_t
+type NWFramerStartResult uint32
 
 const (
 	// NWFramerStartResultReady: The protocol is immediately ready to send and receive data.
@@ -244,83 +292,8 @@ func (e NWFramerStartResult) String() string {
 	}
 }
 
-type NWIPEcnFlag uint
-
-const (
-	// NWIPEcnFlagCe: Congestion Experienced.
-	NWIPEcnFlagCe NWIPEcnFlag = 3
-	// NWIPEcnFlagEct0: ECN Capable Transport (flag 0).
-	NWIPEcnFlagEct0 NWIPEcnFlag = 2
-	// NWIPEcnFlagEct1: ECN Capable Transport (flag 1).
-	NWIPEcnFlagEct1 NWIPEcnFlag = 1
-	// NWIPEcnFlagNonEct: Non-ECN Capable Transport.
-	NWIPEcnFlagNonEct NWIPEcnFlag = 0
-)
-
-func (e NWIPEcnFlag) String() string {
-	switch e {
-	case NWIPEcnFlagCe:
-		return "NWIPEcnFlagCe"
-	case NWIPEcnFlagEct0:
-		return "NWIPEcnFlagEct0"
-	case NWIPEcnFlagEct1:
-		return "NWIPEcnFlagEct1"
-	case NWIPEcnFlagNonEct:
-		return "NWIPEcnFlagNonEct"
-	default:
-		return fmt.Sprintf("NWIPEcnFlag(%d)", e)
-	}
-}
-
-type NWIPLocalAddressPreference uint
-
-const (
-	// NWIPLocalAddressPreferenceDefault: Allow the system to decide which kind of local address to prefer for a connection or listener.
-	NWIPLocalAddressPreferenceDefault NWIPLocalAddressPreference = 0
-	// NWIPLocalAddressPreferenceStable: Prefer using stable local addresses.
-	NWIPLocalAddressPreferenceStable NWIPLocalAddressPreference = 2
-	// NWIPLocalAddressPreferenceTemporary: Prefer using temporary local addresses.
-	NWIPLocalAddressPreferenceTemporary NWIPLocalAddressPreference = 1
-)
-
-func (e NWIPLocalAddressPreference) String() string {
-	switch e {
-	case NWIPLocalAddressPreferenceDefault:
-		return "NWIPLocalAddressPreferenceDefault"
-	case NWIPLocalAddressPreferenceStable:
-		return "NWIPLocalAddressPreferenceStable"
-	case NWIPLocalAddressPreferenceTemporary:
-		return "NWIPLocalAddressPreferenceTemporary"
-	default:
-		return fmt.Sprintf("NWIPLocalAddressPreference(%d)", e)
-	}
-}
-
-type NWIPVersion uint
-
-const (
-	// NWIPVersion4: Require IP version 4.
-	NWIPVersion4 NWIPVersion = 4
-	// NWIPVersion6: Require IP version 6.
-	NWIPVersion6 NWIPVersion = 6
-	// NWIPVersionAny: Allow any IP version.
-	NWIPVersionAny NWIPVersion = 0
-)
-
-func (e NWIPVersion) String() string {
-	switch e {
-	case NWIPVersion4:
-		return "NWIPVersion4"
-	case NWIPVersion6:
-		return "NWIPVersion6"
-	case NWIPVersionAny:
-		return "NWIPVersionAny"
-	default:
-		return fmt.Sprintf("NWIPVersion(%d)", e)
-	}
-}
-
-type NWInterfaceRadioType uint
+// See: https://developer.apple.com/documentation/Network/nw_interface_radio_type_t
+type NWInterfaceRadioType uint32
 
 const (
 	NWInterfaceRadioTypeCellCdma     NWInterfaceRadioType = 0x87
@@ -380,7 +353,8 @@ func (e NWInterfaceRadioType) String() string {
 	}
 }
 
-type NWInterfaceType uint
+// See: https://developer.apple.com/documentation/Network/nw_interface_type_t
+type NWInterfaceType uint32
 
 const (
 	// NWInterfaceTypeCellular: The network interface type used for communication over cellular networks.
@@ -412,7 +386,87 @@ func (e NWInterfaceType) String() string {
 	}
 }
 
-type NWLinkQuality uint
+// See: https://developer.apple.com/documentation/Network/nw_ip_ecn_flag_t
+type NWIPEcnFlag uint32
+
+const (
+	// NWIPEcnFlagCe: Congestion Experienced.
+	NWIPEcnFlagCe NWIPEcnFlag = 3
+	// NWIPEcnFlagEct0: ECN Capable Transport (flag 0).
+	NWIPEcnFlagEct0 NWIPEcnFlag = 2
+	// NWIPEcnFlagEct1: ECN Capable Transport (flag 1).
+	NWIPEcnFlagEct1 NWIPEcnFlag = 1
+	// NWIPEcnFlagNonEct: Non-ECN Capable Transport.
+	NWIPEcnFlagNonEct NWIPEcnFlag = 0
+)
+
+func (e NWIPEcnFlag) String() string {
+	switch e {
+	case NWIPEcnFlagCe:
+		return "NWIPEcnFlagCe"
+	case NWIPEcnFlagEct0:
+		return "NWIPEcnFlagEct0"
+	case NWIPEcnFlagEct1:
+		return "NWIPEcnFlagEct1"
+	case NWIPEcnFlagNonEct:
+		return "NWIPEcnFlagNonEct"
+	default:
+		return fmt.Sprintf("NWIPEcnFlag(%d)", e)
+	}
+}
+
+// See: https://developer.apple.com/documentation/Network/nw_ip_local_address_preference_t
+type NWIPLocalAddressPreference uint32
+
+const (
+	// NWIPLocalAddressPreferenceDefault: Allow the system to decide which kind of local address to prefer for a connection or listener.
+	NWIPLocalAddressPreferenceDefault NWIPLocalAddressPreference = 0
+	// NWIPLocalAddressPreferenceStable: Prefer using stable local addresses.
+	NWIPLocalAddressPreferenceStable NWIPLocalAddressPreference = 2
+	// NWIPLocalAddressPreferenceTemporary: Prefer using temporary local addresses.
+	NWIPLocalAddressPreferenceTemporary NWIPLocalAddressPreference = 1
+)
+
+func (e NWIPLocalAddressPreference) String() string {
+	switch e {
+	case NWIPLocalAddressPreferenceDefault:
+		return "NWIPLocalAddressPreferenceDefault"
+	case NWIPLocalAddressPreferenceStable:
+		return "NWIPLocalAddressPreferenceStable"
+	case NWIPLocalAddressPreferenceTemporary:
+		return "NWIPLocalAddressPreferenceTemporary"
+	default:
+		return fmt.Sprintf("NWIPLocalAddressPreference(%d)", e)
+	}
+}
+
+// See: https://developer.apple.com/documentation/Network/nw_ip_version_t
+type NWIPVersion uint32
+
+const (
+	// NWIPVersion4: Require IP version 4.
+	NWIPVersion4 NWIPVersion = 4
+	// NWIPVersion6: Require IP version 6.
+	NWIPVersion6 NWIPVersion = 6
+	// NWIPVersionAny: Allow any IP version.
+	NWIPVersionAny NWIPVersion = 0
+)
+
+func (e NWIPVersion) String() string {
+	switch e {
+	case NWIPVersion4:
+		return "NWIPVersion4"
+	case NWIPVersion6:
+		return "NWIPVersion6"
+	case NWIPVersionAny:
+		return "NWIPVersionAny"
+	default:
+		return fmt.Sprintf("NWIPVersion(%d)", e)
+	}
+}
+
+// See: https://developer.apple.com/documentation/Network/nw_link_quality_t
+type NWLinkQuality uint32
 
 const (
 	NWLinkQualityGood     NWLinkQuality = 30
@@ -436,7 +490,8 @@ func (e NWLinkQuality) String() string {
 	}
 }
 
-type NWListenerState uint
+// See: https://developer.apple.com/documentation/Network/nw_listener_state_t
+type NWListenerState uint32
 
 const (
 	// NWListenerStateCancelled: The listener has been canceled.
@@ -468,7 +523,8 @@ func (e NWListenerState) String() string {
 	}
 }
 
-type NWMultipathService uint
+// See: https://developer.apple.com/documentation/Network/nw_multipath_service_t
+type NWMultipathService uint32
 
 const (
 	// NWMultipathServiceAggregate: Enable multipath to maximize bandwidth across multiple interfaces.
@@ -496,7 +552,8 @@ func (e NWMultipathService) String() string {
 	}
 }
 
-type NWMultipathVersion int
+// See: https://developer.apple.com/documentation/Network/nw_multipath_version_t
+type NWMultipathVersion int32
 
 const (
 	NWMultipathVersion0           NWMultipathVersion = 0
@@ -517,7 +574,29 @@ func (e NWMultipathVersion) String() string {
 	}
 }
 
-type NWParametersExpiredDnsBehavior uint
+// See: https://developer.apple.com/documentation/Network/nw_parameters_attribution_t
+type NWParametersAttribution uint8
+
+const (
+	// NWParametersAttributionDeveloper: A developer-initiated network request.
+	NWParametersAttributionDeveloper NWParametersAttribution = 1
+	// NWParametersAttributionUser: The user explicitly directs the app to make a network request.
+	NWParametersAttributionUser NWParametersAttribution = 2
+)
+
+func (e NWParametersAttribution) String() string {
+	switch e {
+	case NWParametersAttributionDeveloper:
+		return "NWParametersAttributionDeveloper"
+	case NWParametersAttributionUser:
+		return "NWParametersAttributionUser"
+	default:
+		return fmt.Sprintf("NWParametersAttribution(%d)", e)
+	}
+}
+
+// See: https://developer.apple.com/documentation/Network/nw_parameters_expired_dns_behavior_t
+type NWParametersExpiredDnsBehavior uint32
 
 const (
 	// NWParametersExpiredDnsBehaviorAllow: Explicitly allow the use of expired DNS answers.
@@ -544,7 +623,8 @@ func (e NWParametersExpiredDnsBehavior) String() string {
 	}
 }
 
-type NWPathStatus int
+// See: https://developer.apple.com/documentation/Network/nw_path_status_t
+type NWPathStatus uint32
 
 const (
 	// NWPathStatusInvalid: The path is not valid.
@@ -572,7 +652,8 @@ func (e NWPathStatus) String() string {
 	}
 }
 
-type NWPathUnsatisfiedReason uint
+// See: https://developer.apple.com/documentation/Network/nw_path_unsatisfied_reason_t
+type NWPathUnsatisfiedReason uint32
 
 const (
 	NWPathUnsatisfiedReasonCellularDenied     NWPathUnsatisfiedReason = 1
@@ -599,7 +680,8 @@ func (e NWPathUnsatisfiedReason) String() string {
 	}
 }
 
-type NWQuicStreamType uint
+// See: https://developer.apple.com/documentation/Network/nw_quic_stream_type_t
+type NWQuicStreamType uint32
 
 const (
 	NWQuicStreamTypeBidirectional  NWQuicStreamType = 1
@@ -623,7 +705,8 @@ func (e NWQuicStreamType) String() string {
 	}
 }
 
-type NWReportResolutionProtocol uint
+// See: https://developer.apple.com/documentation/Network/nw_report_resolution_protocol_t
+type NWReportResolutionProtocol uint32
 
 const (
 	// NWReportResolutionProtocolHttps: The connection used HTTPS for DNS resolution.
@@ -655,7 +738,8 @@ func (e NWReportResolutionProtocol) String() string {
 	}
 }
 
-type NWReportResolutionSource uint
+// See: https://developer.apple.com/documentation/Network/nw_report_resolution_source_t
+type NWReportResolutionSource uint32
 
 const (
 	// NWReportResolutionSourceCache: The DNS response was retrieved from a local cache.
@@ -679,7 +763,8 @@ func (e NWReportResolutionSource) String() string {
 	}
 }
 
-type NWServiceClass uint
+// See: https://developer.apple.com/documentation/Network/nw_service_class_t
+type NWServiceClass uint32
 
 const (
 	// NWServiceClassBackground: Bulk traffic, or traffic that can be deprioritized behind foreground traffic.
@@ -715,7 +800,8 @@ func (e NWServiceClass) String() string {
 	}
 }
 
-type NWTXTRecordFindKey uint
+// See: https://developer.apple.com/documentation/Network/nw_txt_record_find_key_t
+type NWTXTRecordFindKey uint32
 
 const (
 	// NWTXTRecordFindKeyEmptyValue: The key is present and has an empty associated value.
@@ -747,7 +833,8 @@ func (e NWTXTRecordFindKey) String() string {
 	}
 }
 
-type NWWsCloseCode uint
+// See: https://developer.apple.com/documentation/Network/nw_ws_close_code_t
+type NWWsCloseCode uint32
 
 const (
 	// NWWsCloseCodeAbnormalClosure: This value is reserved for local errors and indicates that no Close message was received.
@@ -807,7 +894,8 @@ func (e NWWsCloseCode) String() string {
 	}
 }
 
-type NWWsOpcode int
+// See: https://developer.apple.com/documentation/Network/nw_ws_opcode_t
+type NWWsOpcode int32
 
 const (
 	// NWWsOpcodeBinary: A binary data message.
@@ -847,7 +935,8 @@ func (e NWWsOpcode) String() string {
 	}
 }
 
-type NWWsResponseStatus int
+// See: https://developer.apple.com/documentation/Network/nw_ws_response_status_t
+type NWWsResponseStatus uint32
 
 const (
 	// NWWsResponseStatusAccept: The client request is being accepted.
@@ -871,7 +960,8 @@ func (e NWWsResponseStatus) String() string {
 	}
 }
 
-type NWWsVersion uint
+// See: https://developer.apple.com/documentation/Network/nw_ws_version_t
+type NWWsVersion uint32
 
 const (
 	// NWWsVersion13: Version 13 of the WebSocket protocol.
@@ -891,63 +981,92 @@ func (e NWWsVersion) String() string {
 	}
 }
 
-type NWBrowseResultChange int
+// Nw_browser_state_t is a C-name alias for NWBrowserState.
+type Nw_browser_state_t = NWBrowserState
 
-const (
-	// NWBrowseResultChangeIdentical: The compared services are identical.
-	NWBrowseResultChangeIdentical NWBrowseResultChange = 0x1
-	// NWBrowseResultChangeInterfaceAdded: The service was discovered over a new interface.
-	NWBrowseResultChangeInterfaceAdded NWBrowseResultChange = 0x8
-	// NWBrowseResultChangeInterfaceRemoved: The service was no longer discovered over a certain interface.
-	NWBrowseResultChangeInterfaceRemoved NWBrowseResultChange = 0x10
-	// NWBrowseResultChangeInvalid: The comparison was invallid.
-	NWBrowseResultChangeInvalid NWBrowseResultChange = 0
-	// NWBrowseResultChangeResultAdded: A new service was discovered.
-	NWBrowseResultChangeResultAdded NWBrowseResultChange = 0x2
-	// NWBrowseResultChangeResultRemoved: A previously discovered service was removed.
-	NWBrowseResultChangeResultRemoved NWBrowseResultChange = 0x4
-	// NWBrowseResultChangeTXTRecordChanged: The service’s associated TXT record changed.
-	NWBrowseResultChangeTXTRecordChanged NWBrowseResultChange = 0x20
-)
+// Nw_connection_group_state_t is a C-name alias for NWConnectionGroupState.
+type Nw_connection_group_state_t = NWConnectionGroupState
 
-func (e NWBrowseResultChange) String() string {
-	switch e {
-	case NWBrowseResultChangeIdentical:
-		return "NWBrowseResultChangeIdentical"
-	case NWBrowseResultChangeInterfaceAdded:
-		return "NWBrowseResultChangeInterfaceAdded"
-	case NWBrowseResultChangeInterfaceRemoved:
-		return "NWBrowseResultChangeInterfaceRemoved"
-	case NWBrowseResultChangeInvalid:
-		return "NWBrowseResultChangeInvalid"
-	case NWBrowseResultChangeResultAdded:
-		return "NWBrowseResultChangeResultAdded"
-	case NWBrowseResultChangeResultRemoved:
-		return "NWBrowseResultChangeResultRemoved"
-	case NWBrowseResultChangeTXTRecordChanged:
-		return "NWBrowseResultChangeTXTRecordChanged"
-	default:
-		return fmt.Sprintf("NWBrowseResultChange(%d)", e)
-	}
-}
+// Nw_connection_state_t is a C-name alias for NWConnectionState.
+type Nw_connection_state_t = NWConnectionState
 
-// See: https://developer.apple.com/documentation/Network/nw_parameters_attribution_t
-type NWParametersAttribution uint8
+// Nw_data_transfer_report_state_t is a C-name alias for NWDataTransferReportState.
+type Nw_data_transfer_report_state_t = NWDataTransferReportState
 
-const (
-	// NWParametersAttributionDeveloper: A developer-initiated network request.
-	NWParametersAttributionDeveloper NWParametersAttribution = 1
-	// NWParametersAttributionUser: The user explicitly directs the app to make a network request.
-	NWParametersAttributionUser NWParametersAttribution = 2
-)
+// Nw_endpoint_type_t is a C-name alias for NWEndpointType.
+type Nw_endpoint_type_t = NWEndpointType
 
-func (e NWParametersAttribution) String() string {
-	switch e {
-	case NWParametersAttributionDeveloper:
-		return "NWParametersAttributionDeveloper"
-	case NWParametersAttributionUser:
-		return "NWParametersAttributionUser"
-	default:
-		return fmt.Sprintf("NWParametersAttribution(%d)", e)
-	}
-}
+// Nw_error_domain_t is a C-name alias for NWErrorDomain.
+type Nw_error_domain_t = NWErrorDomain
+
+// Nw_ethernet_channel_state_t is a C-name alias for NWEthernetChannelState.
+type Nw_ethernet_channel_state_t = NWEthernetChannelState
+
+// Nw_framer_start_result_t is a C-name alias for NWFramerStartResult.
+type Nw_framer_start_result_t = NWFramerStartResult
+
+// Nw_interface_radio_type_t is a C-name alias for NWInterfaceRadioType.
+type Nw_interface_radio_type_t = NWInterfaceRadioType
+
+// Nw_interface_type_t is a C-name alias for NWInterfaceType.
+type Nw_interface_type_t = NWInterfaceType
+
+// Nw_ip_ecn_flag_t is a C-name alias for NWIPEcnFlag.
+type Nw_ip_ecn_flag_t = NWIPEcnFlag
+
+// Nw_ip_local_address_preference_t is a C-name alias for NWIPLocalAddressPreference.
+type Nw_ip_local_address_preference_t = NWIPLocalAddressPreference
+
+// Nw_ip_version_t is a C-name alias for NWIPVersion.
+type Nw_ip_version_t = NWIPVersion
+
+// Nw_link_quality_t is a C-name alias for NWLinkQuality.
+type Nw_link_quality_t = NWLinkQuality
+
+// Nw_listener_state_t is a C-name alias for NWListenerState.
+type Nw_listener_state_t = NWListenerState
+
+// Nw_multipath_service_t is a C-name alias for NWMultipathService.
+type Nw_multipath_service_t = NWMultipathService
+
+// Nw_multipath_version_t is a C-name alias for NWMultipathVersion.
+type Nw_multipath_version_t = NWMultipathVersion
+
+// Nw_parameters_attribution_t is a C-name alias for NWParametersAttribution.
+type Nw_parameters_attribution_t = NWParametersAttribution
+
+// Nw_parameters_expired_dns_behavior_t is a C-name alias for NWParametersExpiredDnsBehavior.
+type Nw_parameters_expired_dns_behavior_t = NWParametersExpiredDnsBehavior
+
+// Nw_path_status_t is a C-name alias for NWPathStatus.
+type Nw_path_status_t = NWPathStatus
+
+// Nw_path_unsatisfied_reason_t is a C-name alias for NWPathUnsatisfiedReason.
+type Nw_path_unsatisfied_reason_t = NWPathUnsatisfiedReason
+
+// Nw_quic_stream_type_t is a C-name alias for NWQuicStreamType.
+type Nw_quic_stream_type_t = NWQuicStreamType
+
+// Nw_report_resolution_protocol_t is a C-name alias for NWReportResolutionProtocol.
+type Nw_report_resolution_protocol_t = NWReportResolutionProtocol
+
+// Nw_report_resolution_source_t is a C-name alias for NWReportResolutionSource.
+type Nw_report_resolution_source_t = NWReportResolutionSource
+
+// Nw_service_class_t is a C-name alias for NWServiceClass.
+type Nw_service_class_t = NWServiceClass
+
+// Nw_txt_record_find_key_t is a C-name alias for NWTXTRecordFindKey.
+type Nw_txt_record_find_key_t = NWTXTRecordFindKey
+
+// Nw_ws_close_code_t is a C-name alias for NWWsCloseCode.
+type Nw_ws_close_code_t = NWWsCloseCode
+
+// Nw_ws_opcode_t is a C-name alias for NWWsOpcode.
+type Nw_ws_opcode_t = NWWsOpcode
+
+// Nw_ws_response_status_t is a C-name alias for NWWsResponseStatus.
+type Nw_ws_response_status_t = NWWsResponseStatus
+
+// Nw_ws_version_t is a C-name alias for NWWsVersion.
+type Nw_ws_version_t = NWWsVersion

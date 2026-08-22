@@ -244,7 +244,7 @@ type INSTextLayoutManager interface {
 	// Returns the usage bounds for the text container.
 	UsageBoundsForTextContainer() corefoundation.CGRect
 	// Enumerates text segments of a specific type and in the text range you provide.
-	EnumerateTextSegmentsInRangeTypeOptionsUsingBlock(textRange INSTextRange, type_ NSTextLayoutManagerSegmentType, options NSTextLayoutManagerSegmentOptions, block TextRangeCGRectFloat64TextContainerHandler)
+	EnumerateTextSegmentsInRangeTypeOptionsUsingBlock(textRange INSTextRange, type_ NSTextLayoutManagerSegmentType, options NSTextLayoutManagerSegmentOptions, block BoolTextRangeCGRectFloat64TextContainerHandler)
 	// Replaces the current text content manager with a new one you provide.
 	ReplaceTextContentManager(textContentManager INSTextContentManager)
 	// Replaces content at the location you specify with an attributed string you provide.
@@ -257,7 +257,7 @@ type INSTextLayoutManager interface {
 	// Sets the rendering attribute for the value and range you specify.
 	AddRenderingAttributeValueForTextRange(renderingAttribute foundation.NSAttributedStringKey, value objectivec.IObject, textRange INSTextRange)
 	// Enumerates the rendering attributes from a location you specify.
-	EnumerateRenderingAttributesFromLocationReverseUsingBlock(location NSTextLocation, reverse bool, block VoidHandler)
+	EnumerateRenderingAttributesFromLocationReverseUsingBlock(location NSTextLocation, reverse bool, block BoolVoidHandler)
 	// Returns a dictionary of rendering attributes for rendering a link.
 	RenderingAttributesForLinkAtLocation(link objectivec.IObject, location NSTextLocation) foundation.INSDictionary
 	// Invalidates the rendering attributes of the specified text range.
@@ -282,7 +282,7 @@ type INSTextLayoutManager interface {
 	// Performs the layout for specified text range.
 	EnsureLayoutForRange(range_ INSTextRange)
 	// Enumerates the text layout fragments starting at the specified location.
-	EnumerateTextLayoutFragmentsFromLocationOptionsUsingBlock(location NSTextLocation, options NSTextLayoutFragmentEnumerationOptions, block TextLayoutFragmentHandler) NSTextLocation
+	EnumerateTextLayoutFragmentsFromLocationOptionsUsingBlock(location NSTextLocation, options NSTextLayoutFragmentEnumerationOptions, block BoolTextLayoutFragmentHandler) NSTextLocation
 
 	// Topic: Instance Properties
 
@@ -290,6 +290,26 @@ type INSTextLayoutManager interface {
 	ResolvesNaturalAlignmentWithBaseWritingDirection() bool
 	SetResolvesNaturalAlignmentWithBaseWritingDirection(value bool)
 
+	// Returns the base writing direction at the location you specify.
+	BaseWritingDirectionAtLocation(location NSTextLocation) NSTextSelectionNavigationWritingDirection
+	// Returns the starting and ending locations for the document.
+	DocumentRange() INSTextRange
+	// Enumerates all the insertion point caret offsets from left to right in visual order.
+	EnumerateCaretOffsetsInLineFragmentAtLocationUsingBlock(location NSTextLocation, block Float64NSTextLocationBoolBoolHandler)
+	// Enumerates all the container boundaries starting from the location you specify.
+	EnumerateContainerBoundariesFromLocationReverseUsingBlock(location NSTextLocation, reverse bool, block NSTextLocationBoolHandler)
+	// Enumerates the textual segment boundaries starting at the location you specify.
+	EnumerateSubstringsFromLocationOptionsUsingBlock(location NSTextLocation, options foundation.NSStringEnumerationOptions, block StringTextRangeTextRangeBoolHandler)
+	// Returns the range of the line fragment that contains the point you specify.
+	LineFragmentRangeForPointInContainerAtLocation(point corefoundation.CGPoint, location NSTextLocation) INSTextRange
+	// Returns a new location using the location and offset you specify.
+	LocationFromLocationWithOffset(location NSTextLocation, offset int) NSTextLocation
+	// Returns the offset between the two locations you specify.
+	OffsetFromLocationToLocation(from NSTextLocation, to NSTextLocation) int
+	// Returns the layout orientation at the location you specify.
+	TextLayoutOrientationAtLocation(location NSTextLocation) NSTextSelectionNavigationLayoutOrientation
+	// Returns a text range that corresponds to selection granularity of the enclosing location.
+	TextRangeForSelectionGranularityEnclosingLocation(selectionGranularity NSTextSelectionGranularity, location NSTextLocation) INSTextRange
 	EncodeWithCoder(coder foundation.INSCoder)
 }
 
@@ -359,8 +379,9 @@ func (t NSTextLayoutManager) InitWithCoder(coder foundation.INSCoder) NSTextLayo
 //
 // [NSTextLayoutManager.SegmentType]: https://developer.apple.com/documentation/AppKit/NSTextLayoutManager/SegmentType
 // [NSTextLayoutManager.SegmentOptions]: https://developer.apple.com/documentation/AppKit/NSTextLayoutManager/SegmentOptions
-func (t NSTextLayoutManager) EnumerateTextSegmentsInRangeTypeOptionsUsingBlock(textRange INSTextRange, type_ NSTextLayoutManagerSegmentType, options NSTextLayoutManagerSegmentOptions, block TextRangeCGRectFloat64TextContainerHandler) {
-	_block3, _ := NewTextRangeCGRectFloat64TextContainerBlock(block)
+func (t NSTextLayoutManager) EnumerateTextSegmentsInRangeTypeOptionsUsingBlock(textRange INSTextRange, type_ NSTextLayoutManagerSegmentType, options NSTextLayoutManagerSegmentOptions, block BoolTextRangeCGRectFloat64TextContainerHandler) {
+	_block3, _cleanup3 := NewBoolTextRangeCGRectFloat64TextContainerBlock(block)
+	defer _cleanup3()
 	objc.Send[objc.ID](t.ID, objc.Sel("enumerateTextSegmentsInRange:type:options:usingBlock:"), textRange, type_, options, _block3)
 }
 
@@ -440,8 +461,9 @@ func (t NSTextLayoutManager) AddRenderingAttributeValueForTextRange(renderingAtt
 // attributes. Returning `false` from `block` breaks out of the enumeration.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTextLayoutManager/enumerateRenderingAttributes(from:reverse:using:)
-func (t NSTextLayoutManager) EnumerateRenderingAttributesFromLocationReverseUsingBlock(location NSTextLocation, reverse bool, block VoidHandler) {
-	_block2, _ := NewVoidBlock(block)
+func (t NSTextLayoutManager) EnumerateRenderingAttributesFromLocationReverseUsingBlock(location NSTextLocation, reverse bool, block BoolVoidHandler) {
+	_block2, _cleanup2 := NewBoolVoidBlock(block)
+	defer _cleanup2()
 	objc.Send[objc.ID](t.ID, objc.Sel("enumerateRenderingAttributesFromLocation:reverse:usingBlock:"), location, reverse, _block2)
 }
 
@@ -597,8 +619,9 @@ func (t NSTextLayoutManager) EnsureLayoutForRange(range_ INSTextRange) {
 // See: https://developer.apple.com/documentation/AppKit/NSTextLayoutManager/enumerateTextLayoutFragments(from:options:using:)
 //
 // [NSTextLayoutFragment.EnumerationOptions]: https://developer.apple.com/documentation/AppKit/NSTextLayoutFragment/EnumerationOptions
-func (t NSTextLayoutManager) EnumerateTextLayoutFragmentsFromLocationOptionsUsingBlock(location NSTextLocation, options NSTextLayoutFragmentEnumerationOptions, block TextLayoutFragmentHandler) NSTextLocation {
-	_block2, _ := NewTextLayoutFragmentBlock(block)
+func (t NSTextLayoutManager) EnumerateTextLayoutFragmentsFromLocationOptionsUsingBlock(location NSTextLocation, options NSTextLayoutFragmentEnumerationOptions, block BoolTextLayoutFragmentHandler) NSTextLocation {
+	_block2, _cleanup2 := NewBoolTextLayoutFragmentBlock(block)
+	defer _cleanup2()
 	rv := objc.Send[objc.ID](t.ID, objc.Sel("enumerateTextLayoutFragmentsFromLocation:options:usingBlock:"), location, options, _block2)
 	return NSTextLocationObjectFromID(rv)
 }
@@ -645,7 +668,8 @@ func (t NSTextLayoutManager) DocumentRange() INSTextRange {
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTextSelectionDataSource/enumerateCaretOffsetsInLineFragment(at:using:)
 func (t NSTextLayoutManager) EnumerateCaretOffsetsInLineFragmentAtLocationUsingBlock(location NSTextLocation, block Float64NSTextLocationBoolBoolHandler) {
-	_block1, _ := NewFloat64NSTextLocationBoolBoolBlock(block)
+	_block1, _cleanup1 := NewFloat64NSTextLocationBoolBoolBlock(block)
+	defer _cleanup1()
 	objc.Send[objc.ID](t.ID, objc.Sel("enumerateCaretOffsetsInLineFragmentAtLocation:usingBlock:"), location, _block1)
 }
 
@@ -668,8 +692,30 @@ func (t NSTextLayoutManager) EnumerateCaretOffsetsInLineFragmentAtLocationUsingB
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTextSelectionDataSource/enumerateContainerBoundaries(from:reverse:using:)
 func (t NSTextLayoutManager) EnumerateContainerBoundariesFromLocationReverseUsingBlock(location NSTextLocation, reverse bool, block NSTextLocationBoolHandler) {
-	_block2, _ := NewNSTextLocationBoolBlock(block)
+	_block2, _cleanup2 := NewNSTextLocationBoolBlock(block)
+	defer _cleanup2()
 	objc.Send[objc.ID](t.ID, objc.Sel("enumerateContainerBoundariesFromLocation:reverse:usingBlock:"), location, reverse, _block2)
+}
+
+// Enumerates the textual segment boundaries starting at the location you
+// specify.
+//
+// location: The location where the enumeration starts.
+//
+// options: One or more of the available [NSString.EnumerationOptions].
+//
+// block: A closure to invoke to evaluate the substrings; end the enumeration early
+// by returning `false`.
+//
+// # Discussion
+//
+// See: https://developer.apple.com/documentation/AppKit/NSTextSelectionDataSource/enumerateSubstrings(from:options:using:)
+//
+// [NSString.EnumerationOptions]: https://developer.apple.com/documentation/Foundation/NSString/EnumerationOptions
+func (t NSTextLayoutManager) EnumerateSubstringsFromLocationOptionsUsingBlock(location NSTextLocation, options foundation.NSStringEnumerationOptions, block StringTextRangeTextRangeBoolHandler) {
+	_block2, _cleanup2 := NewStringTextRangeTextRangeBoolBlock(block)
+	defer _cleanup2()
+	objc.Send[objc.ID](t.ID, objc.Sel("enumerateSubstringsFromLocation:options:usingBlock:"), location, options, _block2)
 }
 
 // Returns the range of the line fragment that contains the point you specify.

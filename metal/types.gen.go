@@ -22,8 +22,8 @@ type MTL4BufferRange struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/Metal/MTL4CopySparseBufferMappingOperation
 type MTL4CopySparseBufferMappingOperation struct {
-	DestinationOffset uint               // The origin in the destination buffer, in tiles.
 	SourceRange       foundation.NSRange // The range in the source buffer, in tiles.
+	DestinationOffset uint               // The origin in the destination buffer, in tiles.
 
 }
 
@@ -32,12 +32,12 @@ type MTL4CopySparseBufferMappingOperation struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/Metal/MTL4CopySparseTextureMappingOperation
 type MTL4CopySparseTextureMappingOperation struct {
-	DestinationLevel  uint      // The index of the mipmap level in the destination texture.
-	DestinationOrigin MTLOrigin // The origin in the destination texture to copy into, in tiles.
-	DestinationSlice  uint      // The index of the array slice in the destination texture to copy into.
-	SourceLevel       uint      // The index of the mipmap level in the source texture.
 	SourceRegion      MTLRegion // The region in the source texture, in tiles.
+	SourceLevel       uint      // The index of the mipmap level in the source texture.
 	SourceSlice       uint      // The index of the array slice in the texture source of the copy operation.
+	DestinationOrigin MTLOrigin // The origin in the destination texture to copy into, in tiles.
+	DestinationLevel  uint      // The index of the mipmap level in the destination texture.
+	DestinationSlice  uint      // The index of the array slice in the destination texture to copy into.
 
 }
 
@@ -54,9 +54,9 @@ type MTL4TimestampHeapEntry struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/Metal/MTL4UpdateSparseBufferMappingOperation
 type MTL4UpdateSparseBufferMappingOperation struct {
+	Mode        MTLSparseTextureMappingMode // The mode of the mapping operation to perform.
 	BufferRange foundation.NSRange          // The range in the buffer, in tiles.
 	HeapOffset  uint                        // The starting offset in the heap, in tiles.
-	Mode        MTLSparseTextureMappingMode // The mode of the mapping operation to perform.
 
 }
 
@@ -65,11 +65,11 @@ type MTL4UpdateSparseBufferMappingOperation struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/Metal/MTL4UpdateSparseTextureMappingOperation
 type MTL4UpdateSparseTextureMappingOperation struct {
-	HeapOffset    uint                        // The starting offset in the heap, in tiles.
 	Mode          MTLSparseTextureMappingMode // The mode of the mapping operation to perform.
-	TextureLevel  uint                        // The index of the mipmap level in the texture to update.
 	TextureRegion MTLRegion                   // The region in the texture to update, in tiles.
+	TextureLevel  uint                        // The index of the mipmap level in the texture to update.
 	TextureSlice  uint                        // The index of the array slice in the texture to update.
+	HeapOffset    uint                        // The starting offset in the heap, in tiles.
 
 }
 
@@ -78,11 +78,11 @@ type MTL4UpdateSparseTextureMappingOperation struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/Metal/MTLAccelerationStructureInstanceDescriptor
 type MTLAccelerationStructureInstanceDescriptor struct {
-	AccelerationStructureIndex      uint32                                  // The index of the acceleration structure to use for the instance.
 	TransformationMatrix            MTLPackedFloat4x3                       // The transform for placing and orienting the instance in the scene.
-	IntersectionFunctionTableOffset uint32                                  // An offset for determining which function in the intersection function table Metal needs to call when testing a ray against the instance.
 	Options                         MTLAccelerationStructureInstanceOptions // The options for the instance.
 	Mask                            uint32                                  // A mask to use for the instance when testing a ray against the geometry.
+	IntersectionFunctionTableOffset uint32                                  // An offset for determining which function in the intersection function table Metal needs to call when testing a ray against the instance.
+	AccelerationStructureIndex      uint32                                  // The index of the acceleration structure to use for the instance.
 
 }
 
@@ -91,17 +91,17 @@ type MTLAccelerationStructureInstanceDescriptor struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/Metal/MTLAccelerationStructureMotionInstanceDescriptor
 type MTLAccelerationStructureMotionInstanceDescriptor struct {
-	AccelerationStructureIndex      uint32                                  // The index of an acceleration structure which applies to the next acceleration-structure motion instance you create with the descriptor.
-	MotionStartTime                 float32                                 // A starting time for the range of motion that the key-frame data represents.
-	MotionEndTime                   float32                                 // An ending time for the range of motion that the key-frame data represents.
-	MotionStartBorderMode           MTLMotionBorderMode                     // A behavior that configures how a motion instance handles timestamps before a starting time.
-	MotionEndBorderMode             MTLMotionBorderMode                     // A behavior that configures how a motion instance handles timestamps after an ending time.
-	MotionTransformsStartIndex      uint32                                  // The index of motion data that represents the first key-frame motion data, which applies to the next acceleration-structure motion instance you create with the descriptor.
-	MotionTransformsCount           uint32                                  // The number of motion data key-frames, which applies to the next acceleration-structure motion instance you create with the descriptor.
-	IntersectionFunctionTableOffset uint32                                  // An offset into the intersection-function table for ray tracing, which applies to the next acceleration-structure motion instance you create with the descriptor.
 	Options                         MTLAccelerationStructureInstanceOptions // An option set which applies to the next acceleration structure motion-instance you create with the descriptor.
 	Mask                            uint32                                  // A mask for testing ray-tracing rays with a scene’s geometry, which applies to the next acceleration-structure motion instance you create with the descriptor.
+	IntersectionFunctionTableOffset uint32                                  // An offset into the intersection-function table for ray tracing, which applies to the next acceleration-structure motion instance you create with the descriptor.
+	AccelerationStructureIndex      uint32                                  // The index of an acceleration structure which applies to the next acceleration-structure motion instance you create with the descriptor.
 	UserID                          uint32                                  // An unique identifier, which applies to the next acceleration-structure motion instance you create with the descriptor.
+	MotionTransformsStartIndex      uint32                                  // The index of motion data that represents the first key-frame motion data, which applies to the next acceleration-structure motion instance you create with the descriptor.
+	MotionTransformsCount           uint32                                  // The number of motion data key-frames, which applies to the next acceleration-structure motion instance you create with the descriptor.
+	MotionStartBorderMode           MTLMotionBorderMode                     // A behavior that configures how a motion instance handles timestamps before a starting time.
+	MotionEndBorderMode             MTLMotionBorderMode                     // A behavior that configures how a motion instance handles timestamps after an ending time.
+	MotionStartTime                 float32                                 // A starting time for the range of motion that the key-frame data represents.
+	MotionEndTime                   float32                                 // An ending time for the range of motion that the key-frame data represents.
 
 }
 
@@ -121,11 +121,11 @@ type MTLAccelerationStructureSizes struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/Metal/MTLAccelerationStructureUserIDInstanceDescriptor
 type MTLAccelerationStructureUserIDInstanceDescriptor struct {
-	AccelerationStructureIndex      uint32                                  // The index of the acceleration structure to use for the instance.
 	TransformationMatrix            MTLPackedFloat4x3                       // The transform for placing and orienting the instance in the scene.
-	IntersectionFunctionTableOffset uint32                                  // An offset for determining which function in the intersection function table Metal calls when testing a ray against the instance.
 	Options                         MTLAccelerationStructureInstanceOptions // The options for the instance.
 	Mask                            uint32                                  // A mask to use for the instance when testing a ray against the geometry.
+	IntersectionFunctionTableOffset uint32                                  // An offset for determining which function in the intersection function table Metal calls when testing a ray against the instance.
+	AccelerationStructureIndex      uint32                                  // The index of the acceleration structure to use for the instance.
 	UserID                          uint32                                  // The user identifier for the instance.
 
 }
@@ -207,7 +207,7 @@ type MTLCounterResultTimestamp struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/Metal/MTLDispatchThreadgroupsIndirectArguments
 type MTLDispatchThreadgroupsIndirectArguments struct {
-	ThreadgroupsPerGrid uint32 // The number of threadgroups for the grid, in each dimension.
+	ThreadgroupsPerGrid [3]uint32 // The number of threadgroups for the grid, in each dimension.
 
 }
 
@@ -216,8 +216,8 @@ type MTLDispatchThreadgroupsIndirectArguments struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/Metal/MTLDispatchThreadsIndirectArguments
 type MTLDispatchThreadsIndirectArguments struct {
-	ThreadsPerGrid        uint32
-	ThreadsPerThreadgroup uint32
+	ThreadsPerGrid        [3]uint32
+	ThreadsPerThreadgroup [3]uint32
 }
 
 // MTLDrawIndexedPrimitivesIndirectArguments - The data layout required for drawing indexed primitives via indirect buffer calls.
@@ -262,12 +262,12 @@ type MTLDrawPrimitivesIndirectArguments struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/Metal/MTLIndirectAccelerationStructureInstanceDescriptor
 type MTLIndirectAccelerationStructureInstanceDescriptor struct {
-	AccelerationStructureID         MTLResourceID
-	IntersectionFunctionTableOffset uint32
-	Mask                            uint32
-	Options                         MTLAccelerationStructureInstanceOptions
 	TransformationMatrix            MTLPackedFloat4x3
+	Options                         MTLAccelerationStructureInstanceOptions
+	Mask                            uint32
+	IntersectionFunctionTableOffset uint32
 	UserID                          uint32
+	AccelerationStructureID         MTLResourceID
 }
 
 // MTLIndirectAccelerationStructureMotionInstanceDescriptor - A description of an instance in an acceleration structure that the GPU can populate, with motion data for the instance.
@@ -275,17 +275,17 @@ type MTLIndirectAccelerationStructureInstanceDescriptor struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/Metal/MTLIndirectAccelerationStructureMotionInstanceDescriptor
 type MTLIndirectAccelerationStructureMotionInstanceDescriptor struct {
-	AccelerationStructureID         MTLResourceID                           // The acceleration resource handle to use for this instance.
-	MotionStartTime                 float32                                 // The start time of the motion instance.
-	MotionStartBorderMode           MTLMotionBorderMode                     // The motion border mode describing what happens if Metal samples the acceleration structure before the motion start time.
-	MotionEndTime                   float32                                 // The end time of the motion instance.
-	MotionEndBorderMode             MTLMotionBorderMode                     // The motion border mode describing what happens if Metal samples the acceleration structure after the motion end time.
-	MotionTransformsCount           uint32                                  // The number of motion transforms belonging to the motion instance.
-	MotionTransformsStartIndex      uint32                                  // The index of the first set of transforms describing one keyframe of the animation.
-	UserID                          uint32                                  // A user-assigned ID to help identify the instance.
-	IntersectionFunctionTableOffset uint32                                  // An offset for determining which function in the intersection function table Metal calls when testing a ray against the instance.
-	Mask                            uint32                                  // An instance mask to ignore geometry during ray tracing.
 	Options                         MTLAccelerationStructureInstanceOptions // The options for this instance.
+	Mask                            uint32                                  // An instance mask to ignore geometry during ray tracing.
+	IntersectionFunctionTableOffset uint32                                  // An offset for determining which function in the intersection function table Metal calls when testing a ray against the instance.
+	UserID                          uint32                                  // A user-assigned ID to help identify the instance.
+	AccelerationStructureID         MTLResourceID                           // The acceleration resource handle to use for this instance.
+	MotionTransformsStartIndex      uint32                                  // The index of the first set of transforms describing one keyframe of the animation.
+	MotionTransformsCount           uint32                                  // The number of motion transforms belonging to the motion instance.
+	MotionStartBorderMode           MTLMotionBorderMode                     // The motion border mode describing what happens if Metal samples the acceleration structure before the motion start time.
+	MotionEndBorderMode             MTLMotionBorderMode                     // The motion border mode describing what happens if Metal samples the acceleration structure after the motion end time.
+	MotionStartTime                 float32                                 // The start time of the motion instance.
+	MotionEndTime                   float32                                 // The end time of the motion instance.
 
 }
 
@@ -341,10 +341,9 @@ type MTLOrigin struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/Metal/MTLPackedFloat3-c.struct
 type MTLPackedFloat3 struct {
-	Elements [3]float32
-	X        float32
-	Y        float32
-	Z        float32
+	X float32
+	Y float32
+	Z float32
 }
 
 // MTLPackedFloat4x3 - A structure that contains the top three rows of a 4x4 matrix of 32-bit floating-point values, in column-major order.
@@ -371,8 +370,8 @@ type MTLPackedFloatQuaternion struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/Metal/MTLQuadTessellationFactorsHalf
 type MTLQuadTessellationFactorsHalf struct {
-	EdgeTessellationFactor   uint16 // The edge tessellation factors, with each index value providing the tessellation factor for a particular edge.
-	InsideTessellationFactor uint16 // The inside tessellation factors, with the value in index 0 providing the horizontal tessellation factor and the value in index 1 providing the vertical tessellation factor.
+	EdgeTessellationFactor   [4]uint16 // The edge tessellation factors, with each index value providing the tessellation factor for a particular edge.
+	InsideTessellationFactor [2]uint16 // The inside tessellation factors, with the value in index 0 providing the horizontal tessellation factor and the value in index 1 providing the vertical tessellation factor.
 
 }
 
@@ -391,6 +390,7 @@ type MTLRegion struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/Metal/MTLResourceID
 type MTLResourceID struct {
+	_impl uint64
 }
 
 // MTLSamplePosition - A subpixel sample position for use in multisample antialiasing (MSAA).
@@ -408,10 +408,10 @@ type MTLSamplePosition struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/Metal/MTLScissorRect
 type MTLScissorRect struct {
-	Height uint // The height of the scissor rectangle, in pixels.
-	Width  uint // The width of the scissor rectangle, in pixels.
 	X      uint // The x window coordinate of the upper-left corner of the scissor rectangle.
 	Y      uint // The y window coordinate of the upper-left corner of the scissor rectangle.
+	Width  uint // The width of the scissor rectangle, in pixels.
+	Height uint // The height of the scissor rectangle, in pixels.
 
 }
 
@@ -441,8 +441,8 @@ type MTLSizeAndAlign struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/Metal/MTLStageInRegionIndirectArguments
 type MTLStageInRegionIndirectArguments struct {
-	StageInOrigin uint32 // The location of the upper-left corner of the block.
-	StageInSize   uint32 // The size of the block.
+	StageInOrigin [3]uint32 // The location of the upper-left corner of the block.
+	StageInSize   [3]uint32 // The size of the block.
 
 }
 
@@ -463,8 +463,8 @@ type MTLTextureSwizzleChannels struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/Metal/MTLTriangleTessellationFactorsHalf
 type MTLTriangleTessellationFactorsHalf struct {
-	InsideTessellationFactor uint16 // The inside tessellation factor.
-	EdgeTessellationFactor   uint16 // The edge tessellation factors, with each index value providing the tessellation factor for a particular edge.
+	EdgeTessellationFactor   [3]uint16 // The edge tessellation factors, with each index value providing the tessellation factor for a particular edge.
+	InsideTessellationFactor uint16    // The inside tessellation factor.
 
 }
 
@@ -473,8 +473,8 @@ type MTLTriangleTessellationFactorsHalf struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/Metal/MTLVertexAmplificationViewMapping
 type MTLVertexAmplificationViewMapping struct {
-	RenderTargetArrayIndexOffset uint32 // An offset into the list of render targets.
 	ViewportArrayIndexOffset     uint32 // An offset into the list of viewports.
+	RenderTargetArrayIndexOffset uint32 // An offset into the list of render targets.
 
 }
 
@@ -490,46 +490,4 @@ type MTLViewport struct {
 	Znear   float64 // The z coordinate of the near clipping plane of the viewport.
 	Zfar    float64 // The z coordinate of the far clipping plane of the viewport.
 
-}
-
-// _Unnamed_struct___Anonymous_field0
-//
-// [Full Topic]
-// [Full Topic]: https://developer.apple.com/documentation/Metal/MTLPackedFloat3-swift.typealias/__Unnamed_struct___Anonymous_field0
-type _Unnamed_struct___Anonymous_field0 struct {
-}
-
-// _Unnamed_union___Anonymous_field0
-//
-// [Full Topic]
-// [Full Topic]: https://developer.apple.com/documentation/Metal/MTLPackedFloat3-swift.typealias/__Unnamed_union___Anonymous_field0
-type _Unnamed_union___Anonymous_field0 struct {
-}
-
-// Elements
-//
-// [Full Topic]
-// [Full Topic]: https://developer.apple.com/documentation/Metal/MTLPackedFloat3-swift.typealias/elements-9o66u
-type Elements struct {
-}
-
-// X
-//
-// [Full Topic]
-// [Full Topic]: https://developer.apple.com/documentation/Metal/MTLPackedFloat3-swift.typealias/x-5cc6v
-type X struct {
-}
-
-// Y
-//
-// [Full Topic]
-// [Full Topic]: https://developer.apple.com/documentation/Metal/MTLPackedFloat3-swift.typealias/y-3zmij
-type Y struct {
-}
-
-// Z
-//
-// [Full Topic]
-// [Full Topic]: https://developer.apple.com/documentation/Metal/MTLPackedFloat3-swift.typealias/z-5juk6
-type Z struct {
 }

@@ -79,8 +79,6 @@ func (ac AVAssetImageGeneratorClass) Alloc() AVAssetImageGenerator {
 //
 // # Generating images
 //
-//   - [AVAssetImageGenerator.GenerateCGImageAsynchronouslyForTimeCompletionHandler]: Generates an image asynchronously for a requested time, and returns the result in a callback.
-//   - [AVAssetImageGenerator.GenerateCGImagesAsynchronouslyForTimesCompletionHandler]: Generates images asynchronously for an array of requested times, and returns the results in a callback.
 //   - [AVAssetImageGenerator.CancelAllCGImageGeneration]: Cancels all pending image generation requests.
 //
 // # Accessing the asset
@@ -131,8 +129,6 @@ func AVAssetImageGeneratorFromID(id objc.ID) AVAssetImageGenerator {
 //
 // # Generating images
 //
-//   - [IAVAssetImageGenerator.GenerateCGImageAsynchronouslyForTimeCompletionHandler]: Generates an image asynchronously for a requested time, and returns the result in a callback.
-//   - [IAVAssetImageGenerator.GenerateCGImagesAsynchronouslyForTimesCompletionHandler]: Generates images asynchronously for an array of requested times, and returns the results in a callback.
 //   - [IAVAssetImageGenerator.CancelAllCGImageGeneration]: Cancels all pending image generation requests.
 //
 // # Accessing the asset
@@ -179,10 +175,6 @@ type IAVAssetImageGenerator interface {
 
 	// Topic: Generating images
 
-	// Generates an image asynchronously for a requested time, and returns the result in a callback.
-	GenerateCGImageAsynchronouslyForTimeCompletionHandler(requestedTime coremedia.CMTime, handler CGImageRefCMTimeErrorHandler)
-	// Generates images asynchronously for an array of requested times, and returns the results in a callback.
-	GenerateCGImagesAsynchronouslyForTimesCompletionHandler(requestedTimes []foundation.NSValue, handler ErrorHandler)
 	// Cancels all pending image generation requests.
 	CancelAllCGImageGeneration()
 
@@ -230,45 +222,6 @@ func NewAssetImageGeneratorWithAsset(asset IAVAsset) AVAssetImageGenerator {
 func (a AVAssetImageGenerator) InitWithAsset(asset IAVAsset) AVAssetImageGenerator {
 	rv := objc.Send[AVAssetImageGenerator](a.ID, objc.Sel("initWithAsset:"), asset)
 	return rv
-}
-
-// Generates an image asynchronously for a requested time, and returns the
-// result in a callback.
-//
-// requestedTime: A time in the video timeline for which to generate an image. The requested
-// time and actual time at which it generates an image may differ depending on
-// the generator’s time tolerance settings.
-//
-// handler: A callback that the image generator invokes with the result of the request.
-//
-// # Discussion
-//
-// Swift clients should use the asynchronous [image(at:)] method instead.
-//
-// See: https://developer.apple.com/documentation/AVFoundation/AVAssetImageGenerator/generateCGImageAsynchronously(for:completionHandler:)
-//
-// [image(at:)]: https://developer.apple.com/documentation/AVFoundation/AVAssetImageGenerator/image(at:)
-func (a AVAssetImageGenerator) GenerateCGImageAsynchronouslyForTimeCompletionHandler(requestedTime coremedia.CMTime, handler CGImageRefCMTimeErrorHandler) {
-	_block1, _ := NewCGImageRefCMTimeErrorBlock(handler)
-	objc.Send[objc.ID](a.ID, objc.Sel("generateCGImageAsynchronouslyForTime:completionHandler:"), requestedTime, _block1)
-}
-
-// Generates images asynchronously for an array of requested times, and
-// returns the results in a callback.
-//
-// requestedTimes: An array of times, contained in NSValue objects, in the video timeline for
-// which to generate images.
-//
-// handler: A callback that the image generator invokes for each requested image time.
-//
-// # Discussion
-//
-// Swift clients should prefer the asynchronous `images()` method instead.
-//
-// See: https://developer.apple.com/documentation/AVFoundation/AVAssetImageGenerator/generateCGImagesAsynchronously(forTimes:completionHandler:)
-func (a AVAssetImageGenerator) GenerateCGImagesAsynchronouslyForTimesCompletionHandler(requestedTimes []foundation.NSValue, handler ErrorHandler) {
-	_block1, _ := NewErrorBlock(handler)
-	objc.Send[objc.ID](a.ID, objc.Sel("generateCGImagesAsynchronouslyForTimes:completionHandler:"), requestedTimes, _block1)
 }
 
 // Cancels all pending image generation requests.

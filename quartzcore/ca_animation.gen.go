@@ -222,6 +222,25 @@ type ICAAnimation interface {
 	PreferredFrameRateRange() CAFrameRateRange
 	SetPreferredFrameRateRange(value CAFrameRateRange)
 
+	// Determines if the receiver plays in the reverse upon completion.
+	Autoreverses() bool
+	// Specifies the begin time of the receiver in relation to its parent object, if applicable.
+	BeginTime() corefoundation.CFTimeInterval
+	// Specifies the basic duration of the animation, in seconds.
+	Duration() corefoundation.CFTimeInterval
+	// Determines if the receiver’s presentation is frozen or removed once its active duration has completed.
+	FillMode() CAMediaTimingFillMode
+	InitWithCoder(coder foundation.INSCoder) CAAnimation
+	// Determines the number of times the animation will repeat.
+	RepeatCount() float32
+	// Determines how many seconds the animation will repeat for.
+	RepeatDuration() corefoundation.CFTimeInterval
+	// Called to trigger the action specified by the identifier.
+	RunActionForKeyObjectArguments(event string, anObject objectivec.IObject, dict foundation.INSDictionary)
+	// Specifies how time is mapped to receiver’s time space from the parent time space.
+	Speed() float32
+	// Specifies an additional time offset in active local time.
+	TimeOffset() corefoundation.CFTimeInterval
 	EncodeWithCoder(coder foundation.INSCoder)
 	// Sets the value of the property identified by the given key.
 	SetValueForKey(value objectivec.IObject, key string)
@@ -246,6 +265,13 @@ func NewCAAnimation() CAAnimation {
 	class := getCAAnimationClass()
 	rv := objc.Send[CAAnimation](objc.ID(class.class), objc.Sel("new"))
 	return rv
+}
+
+// See: https://developer.apple.com/documentation/QuartzCore/CAAnimation/init(coder:)
+func NewAnimationWithCoder(coder foundation.INSCoder) CAAnimation {
+	instance := getCAAnimationClass().Alloc()
+	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
+	return CAAnimationFromID(rv)
 }
 
 // Creates an animation from a SceneKit animation.
@@ -309,6 +335,12 @@ func (a CAAnimation) Duration() corefoundation.CFTimeInterval {
 func (a CAAnimation) FillMode() CAMediaTimingFillMode {
 	rv := objc.Send[objc.ID](a.ID, objc.Sel("fillMode"))
 	return CAMediaTimingFillMode(foundation.NSStringFromID(rv).String())
+}
+
+// See: https://developer.apple.com/documentation/QuartzCore/CAAnimation/init(coder:)
+func (a CAAnimation) InitWithCoder(coder foundation.INSCoder) CAAnimation {
+	rv := objc.Send[CAAnimation](a.ID, objc.Sel("initWithCoder:"), coder)
+	return rv
 }
 
 // Determines the number of times the animation will repeat.

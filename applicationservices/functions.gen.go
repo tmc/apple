@@ -9,6 +9,7 @@ import (
 	"github.com/ebitengine/purego"
 	"github.com/tmc/apple/corefoundation"
 	"github.com/tmc/apple/coregraphics"
+	"github.com/tmc/apple/coreservices"
 	"github.com/tmc/apple/kernel"
 	"github.com/tmc/apple/objc"
 )
@@ -146,14 +147,14 @@ func AXIsProcessTrustedWithOptions(options corefoundation.CFDictionaryRef) bool 
 	return result
 }
 
-var _aXMakeProcessTrusted func(arg0 corefoundation.CFStringRef) AXError
+var _aXMakeProcessTrusted func(executablePath corefoundation.CFStringRef) AXError
 var _aXMakeProcessTrustedErr error
 
-func tryAXMakeProcessTrusted(arg0 corefoundation.CFStringRef) (AXError, error) {
+func tryAXMakeProcessTrusted(executablePath corefoundation.CFStringRef) (AXError, error) {
 	if _aXMakeProcessTrusted == nil {
 		return *new(AXError), symbolCallError("AXMakeProcessTrusted", "10.4", _aXMakeProcessTrustedErr)
 	}
-	return _aXMakeProcessTrusted(arg0), nil
+	return _aXMakeProcessTrusted(executablePath), nil
 }
 
 // AXMakeProcessTrusted attempts to make the process represented by the specified path a trusted accessibility client.
@@ -161,8 +162,8 @@ func tryAXMakeProcessTrusted(arg0 corefoundation.CFStringRef) (AXError, error) {
 // Deprecated: Deprecated since macOS 10.9.
 //
 // See: https://developer.apple.com/documentation/applicationservices/1462083-axmakeprocesstrusted
-func AXMakeProcessTrusted(arg0 corefoundation.CFStringRef) AXError {
-	result, callErr := tryAXMakeProcessTrusted(arg0)
+func AXMakeProcessTrusted(executablePath corefoundation.CFStringRef) AXError {
+	result, callErr := tryAXMakeProcessTrusted(executablePath)
 	if callErr != nil {
 		panic(callErr)
 	}
@@ -197,7 +198,7 @@ func tryAXObserverCreate(application int32, callback AXObserverCallback, outObse
 	if _aXObserverCreate == nil {
 		return *new(AXError), symbolCallError("AXObserverCreate", "10.2", _aXObserverCreateErr)
 	}
-	_block0Value := objc.NewBlock(func(_ objc.Block, blockArg0 AXObserverRef, blockArg1 AXUIElementRef, blockArg2 corefoundation.CFString, blockArg3 unsafe.Pointer) {
+	_block0Value := objc.NewBlock(func(_ objc.Block, blockArg0 AXObserverRef, blockArg1 AXUIElementRef, blockArg2 corefoundation.CFStringRef, blockArg3 unsafe.Pointer) {
 		callback(blockArg0, blockArg1, blockArg2, blockArg3)
 	})
 	defer _block0Value.Release()
@@ -223,7 +224,7 @@ func tryAXObserverCreateWithInfoCallback(application int32, callback AXObserverC
 	if _aXObserverCreateWithInfoCallback == nil {
 		return *new(AXError), symbolCallError("AXObserverCreateWithInfoCallback", "10.9", _aXObserverCreateWithInfoCallbackErr)
 	}
-	_block0Value := objc.NewBlock(func(_ objc.Block, blockArg0 AXObserverRef, blockArg1 AXUIElementRef, blockArg2 corefoundation.CFString, blockArg3 corefoundation.CFDictionaryRef, blockArg4 unsafe.Pointer) {
+	_block0Value := objc.NewBlock(func(_ objc.Block, blockArg0 AXObserverRef, blockArg1 AXUIElementRef, blockArg2 corefoundation.CFStringRef, blockArg3 corefoundation.CFDictionaryRef, blockArg4 unsafe.Pointer) {
 		callback(blockArg0, blockArg1, blockArg2, blockArg3, blockArg4)
 	})
 	defer _block0Value.Release()
@@ -830,14 +831,14 @@ func AXUIElementPerformAction(element AXUIElementRef, action corefoundation.CFSt
 	return result
 }
 
-var _aXUIElementPostKeyboardEvent func(arg0 AXUIElementRef, arg1 uint16, arg2 uint16, arg3 bool) AXError
+var _aXUIElementPostKeyboardEvent func(application AXUIElementRef, keyChar uint16, virtualKey uint16, keyDown bool) AXError
 var _aXUIElementPostKeyboardEventErr error
 
-func tryAXUIElementPostKeyboardEvent(arg0 AXUIElementRef, arg1 uint16, arg2 uint16, arg3 bool) (AXError, error) {
+func tryAXUIElementPostKeyboardEvent(application AXUIElementRef, keyChar uint16, virtualKey uint16, keyDown bool) (AXError, error) {
 	if _aXUIElementPostKeyboardEvent == nil {
 		return *new(AXError), symbolCallError("AXUIElementPostKeyboardEvent", "10.0", _aXUIElementPostKeyboardEventErr)
 	}
-	return _aXUIElementPostKeyboardEvent(arg0, arg1, arg2, arg3), nil
+	return _aXUIElementPostKeyboardEvent(application, keyChar, virtualKey, keyDown), nil
 }
 
 // AXUIElementPostKeyboardEvent posts keys to the specified application.
@@ -845,8 +846,8 @@ func tryAXUIElementPostKeyboardEvent(arg0 AXUIElementRef, arg1 uint16, arg2 uint
 // Deprecated: Deprecated since macOS 10.9.
 //
 // See: https://developer.apple.com/documentation/applicationservices/1462057-axuielementpostkeyboardevent
-func AXUIElementPostKeyboardEvent(arg0 AXUIElementRef, arg1 uint16, arg2 uint16, arg3 bool) AXError {
-	result, callErr := tryAXUIElementPostKeyboardEvent(arg0, arg1, arg2, arg3)
+func AXUIElementPostKeyboardEvent(application AXUIElementRef, keyChar uint16, virtualKey uint16, keyDown bool) AXError {
+	result, callErr := tryAXUIElementPostKeyboardEvent(application, keyChar, virtualKey, keyDown)
 	if callErr != nil {
 		panic(callErr)
 	}
@@ -1025,14 +1026,14 @@ func CopyPhonemesFromText(chan_ *SpeechChannelRecord, text corefoundation.CFStri
 	return result
 }
 
-var _copyProcessName func(arg0 *ProcessSerialNumber, arg1 corefoundation.CFStringRef) int32
+var _copyProcessName func(psn *ProcessSerialNumber, name *corefoundation.CFStringRef) int32
 var _copyProcessNameErr error
 
-func tryCopyProcessName(arg0 *ProcessSerialNumber, arg1 corefoundation.CFStringRef) (int32, error) {
+func tryCopyProcessName(psn *ProcessSerialNumber, name *corefoundation.CFStringRef) (int32, error) {
 	if _copyProcessName == nil {
 		return 0, symbolCallError("CopyProcessName", "10.0", _copyProcessNameErr)
 	}
-	return _copyProcessName(arg0, arg1), nil
+	return _copyProcessName(psn, name), nil
 }
 
 // CopyProcessName.
@@ -1040,8 +1041,8 @@ func tryCopyProcessName(arg0 *ProcessSerialNumber, arg1 corefoundation.CFStringR
 // Deprecated: Deprecated since macOS 10.9.
 //
 // See: https://developer.apple.com/documentation/applicationservices/1501067-copyprocessname
-func CopyProcessName(arg0 *ProcessSerialNumber, arg1 corefoundation.CFStringRef) int32 {
-	result, callErr := tryCopyProcessName(arg0, arg1)
+func CopyProcessName(psn *ProcessSerialNumber, name *corefoundation.CFStringRef) int32 {
+	result, callErr := tryCopyProcessName(psn, name)
 	if callErr != nil {
 		panic(callErr)
 	}
@@ -1065,6 +1066,29 @@ func tryCopySpeechProperty(chan_ *SpeechChannelRecord, property corefoundation.C
 // See: https://developer.apple.com/documentation/applicationservices/1459075-copyspeechproperty
 func CopySpeechProperty(chan_ *SpeechChannelRecord, property corefoundation.CFStringRef, object *corefoundation.CFTypeRef) int16 {
 	result, callErr := tryCopySpeechProperty(chan_, property, object)
+	if callErr != nil {
+		panic(callErr)
+	}
+	return result
+}
+
+var _countVoices func(numVoices int16) int16
+var _countVoicesErr error
+
+func tryCountVoices(numVoices int16) (int16, error) {
+	if _countVoices == nil {
+		return 0, symbolCallError("CountVoices", "10.0", _countVoicesErr)
+	}
+	return _countVoices(numVoices), nil
+}
+
+// CountVoices determines how many voices are available.
+//
+// Deprecated: Deprecated since macOS 13.0.
+//
+// See: https://developer.apple.com/documentation/applicationservices/1459947-countvoices
+func CountVoices(numVoices int16) int16 {
+	result, callErr := tryCountVoices(numVoices)
 	if callErr != nil {
 		panic(callErr)
 	}
@@ -1134,14 +1158,14 @@ func DisposeSpeechChannel(chan_ *SpeechChannelRecord) int16 {
 	return result
 }
 
-var _disposeSpeechDoneUPP func(arg0 SpeechDoneUPP)
+var _disposeSpeechDoneUPP func(userUPP SpeechDoneUPP)
 var _disposeSpeechDoneUPPErr error
 
-func tryDisposeSpeechDoneUPP(arg0 SpeechDoneUPP) error {
+func tryDisposeSpeechDoneUPP(userUPP SpeechDoneUPP) error {
 	if _disposeSpeechDoneUPP == nil {
 		return symbolCallError("DisposeSpeechDoneUPP", "10.0", _disposeSpeechDoneUPPErr)
 	}
-	_disposeSpeechDoneUPP(arg0)
+	_disposeSpeechDoneUPP(userUPP)
 	return nil
 }
 
@@ -1150,20 +1174,20 @@ func tryDisposeSpeechDoneUPP(arg0 SpeechDoneUPP) error {
 // Deprecated: Deprecated since macOS 10.8.
 //
 // See: https://developer.apple.com/documentation/applicationservices/1552237-disposespeechdoneupp
-func DisposeSpeechDoneUPP(arg0 SpeechDoneUPP) {
-	if callErr := tryDisposeSpeechDoneUPP(arg0); callErr != nil {
+func DisposeSpeechDoneUPP(userUPP SpeechDoneUPP) {
+	if callErr := tryDisposeSpeechDoneUPP(userUPP); callErr != nil {
 		panic(callErr)
 	}
 }
 
-var _disposeSpeechErrorUPP func(arg0 SpeechErrorUPP)
+var _disposeSpeechErrorUPP func(userUPP SpeechErrorUPP)
 var _disposeSpeechErrorUPPErr error
 
-func tryDisposeSpeechErrorUPP(arg0 SpeechErrorUPP) error {
+func tryDisposeSpeechErrorUPP(userUPP SpeechErrorUPP) error {
 	if _disposeSpeechErrorUPP == nil {
 		return symbolCallError("DisposeSpeechErrorUPP", "10.0", _disposeSpeechErrorUPPErr)
 	}
-	_disposeSpeechErrorUPP(arg0)
+	_disposeSpeechErrorUPP(userUPP)
 	return nil
 }
 
@@ -1172,20 +1196,20 @@ func tryDisposeSpeechErrorUPP(arg0 SpeechErrorUPP) error {
 // Deprecated: Deprecated since macOS 10.8.
 //
 // See: https://developer.apple.com/documentation/applicationservices/1552245-disposespeecherrorupp
-func DisposeSpeechErrorUPP(arg0 SpeechErrorUPP) {
-	if callErr := tryDisposeSpeechErrorUPP(arg0); callErr != nil {
+func DisposeSpeechErrorUPP(userUPP SpeechErrorUPP) {
+	if callErr := tryDisposeSpeechErrorUPP(userUPP); callErr != nil {
 		panic(callErr)
 	}
 }
 
-var _disposeSpeechPhonemeUPP func(arg0 SpeechPhonemeUPP)
+var _disposeSpeechPhonemeUPP func(userUPP SpeechPhonemeUPP)
 var _disposeSpeechPhonemeUPPErr error
 
-func tryDisposeSpeechPhonemeUPP(arg0 SpeechPhonemeUPP) error {
+func tryDisposeSpeechPhonemeUPP(userUPP SpeechPhonemeUPP) error {
 	if _disposeSpeechPhonemeUPP == nil {
 		return symbolCallError("DisposeSpeechPhonemeUPP", "10.0", _disposeSpeechPhonemeUPPErr)
 	}
-	_disposeSpeechPhonemeUPP(arg0)
+	_disposeSpeechPhonemeUPP(userUPP)
 	return nil
 }
 
@@ -1194,20 +1218,20 @@ func tryDisposeSpeechPhonemeUPP(arg0 SpeechPhonemeUPP) error {
 // Deprecated: Deprecated since macOS 10.8.
 //
 // See: https://developer.apple.com/documentation/applicationservices/1552226-disposespeechphonemeupp
-func DisposeSpeechPhonemeUPP(arg0 SpeechPhonemeUPP) {
-	if callErr := tryDisposeSpeechPhonemeUPP(arg0); callErr != nil {
+func DisposeSpeechPhonemeUPP(userUPP SpeechPhonemeUPP) {
+	if callErr := tryDisposeSpeechPhonemeUPP(userUPP); callErr != nil {
 		panic(callErr)
 	}
 }
 
-var _disposeSpeechSyncUPP func(arg0 SpeechSyncUPP)
+var _disposeSpeechSyncUPP func(userUPP SpeechSyncUPP)
 var _disposeSpeechSyncUPPErr error
 
-func tryDisposeSpeechSyncUPP(arg0 SpeechSyncUPP) error {
+func tryDisposeSpeechSyncUPP(userUPP SpeechSyncUPP) error {
 	if _disposeSpeechSyncUPP == nil {
 		return symbolCallError("DisposeSpeechSyncUPP", "10.0", _disposeSpeechSyncUPPErr)
 	}
-	_disposeSpeechSyncUPP(arg0)
+	_disposeSpeechSyncUPP(userUPP)
 	return nil
 }
 
@@ -1216,20 +1240,20 @@ func tryDisposeSpeechSyncUPP(arg0 SpeechSyncUPP) error {
 // Deprecated: Deprecated since macOS 10.8.
 //
 // See: https://developer.apple.com/documentation/applicationservices/1552219-disposespeechsyncupp
-func DisposeSpeechSyncUPP(arg0 SpeechSyncUPP) {
-	if callErr := tryDisposeSpeechSyncUPP(arg0); callErr != nil {
+func DisposeSpeechSyncUPP(userUPP SpeechSyncUPP) {
+	if callErr := tryDisposeSpeechSyncUPP(userUPP); callErr != nil {
 		panic(callErr)
 	}
 }
 
-var _disposeSpeechTextDoneUPP func(arg0 SpeechTextDoneUPP)
+var _disposeSpeechTextDoneUPP func(userUPP SpeechTextDoneUPP)
 var _disposeSpeechTextDoneUPPErr error
 
-func tryDisposeSpeechTextDoneUPP(arg0 SpeechTextDoneUPP) error {
+func tryDisposeSpeechTextDoneUPP(userUPP SpeechTextDoneUPP) error {
 	if _disposeSpeechTextDoneUPP == nil {
 		return symbolCallError("DisposeSpeechTextDoneUPP", "10.0", _disposeSpeechTextDoneUPPErr)
 	}
-	_disposeSpeechTextDoneUPP(arg0)
+	_disposeSpeechTextDoneUPP(userUPP)
 	return nil
 }
 
@@ -1238,20 +1262,20 @@ func tryDisposeSpeechTextDoneUPP(arg0 SpeechTextDoneUPP) error {
 // Deprecated: Deprecated since macOS 10.8.
 //
 // See: https://developer.apple.com/documentation/applicationservices/1552229-disposespeechtextdoneupp
-func DisposeSpeechTextDoneUPP(arg0 SpeechTextDoneUPP) {
-	if callErr := tryDisposeSpeechTextDoneUPP(arg0); callErr != nil {
+func DisposeSpeechTextDoneUPP(userUPP SpeechTextDoneUPP) {
+	if callErr := tryDisposeSpeechTextDoneUPP(userUPP); callErr != nil {
 		panic(callErr)
 	}
 }
 
-var _disposeSpeechWordUPP func(arg0 SpeechWordUPP)
+var _disposeSpeechWordUPP func(userUPP SpeechWordUPP)
 var _disposeSpeechWordUPPErr error
 
-func tryDisposeSpeechWordUPP(arg0 SpeechWordUPP) error {
+func tryDisposeSpeechWordUPP(userUPP SpeechWordUPP) error {
 	if _disposeSpeechWordUPP == nil {
 		return symbolCallError("DisposeSpeechWordUPP", "10.0", _disposeSpeechWordUPPErr)
 	}
-	_disposeSpeechWordUPP(arg0)
+	_disposeSpeechWordUPP(userUPP)
 	return nil
 }
 
@@ -1260,8 +1284,8 @@ func tryDisposeSpeechWordUPP(arg0 SpeechWordUPP) error {
 // Deprecated: Deprecated since macOS 10.8.
 //
 // See: https://developer.apple.com/documentation/applicationservices/1552222-disposespeechwordupp
-func DisposeSpeechWordUPP(arg0 SpeechWordUPP) {
-	if callErr := tryDisposeSpeechWordUPP(arg0); callErr != nil {
+func DisposeSpeechWordUPP(userUPP SpeechWordUPP) {
+	if callErr := tryDisposeSpeechWordUPP(userUPP); callErr != nil {
 		panic(callErr)
 	}
 }
@@ -1288,14 +1312,14 @@ func ExitToShell() {
 	}
 }
 
-var _getCurrentProcess func(arg0 *ProcessSerialNumber) int16
+var _getCurrentProcess func(pPSN *ProcessSerialNumber) int16
 var _getCurrentProcessErr error
 
-func tryGetCurrentProcess(arg0 *ProcessSerialNumber) (int16, error) {
+func tryGetCurrentProcess(pPSN *ProcessSerialNumber) (int16, error) {
 	if _getCurrentProcess == nil {
 		return 0, symbolCallError("GetCurrentProcess", "10.0", _getCurrentProcessErr)
 	}
-	return _getCurrentProcess(arg0), nil
+	return _getCurrentProcess(pPSN), nil
 }
 
 // GetCurrentProcess.
@@ -1303,22 +1327,22 @@ func tryGetCurrentProcess(arg0 *ProcessSerialNumber) (int16, error) {
 // Deprecated: Deprecated since macOS 10.9.
 //
 // See: https://developer.apple.com/documentation/applicationservices/1501115-getcurrentprocess
-func GetCurrentProcess(arg0 *ProcessSerialNumber) int16 {
-	result, callErr := tryGetCurrentProcess(arg0)
+func GetCurrentProcess(pPSN *ProcessSerialNumber) int16 {
+	result, callErr := tryGetCurrentProcess(pPSN)
 	if callErr != nil {
 		panic(callErr)
 	}
 	return result
 }
 
-var _getFrontProcess func(arg0 *ProcessSerialNumber) int16
+var _getFrontProcess func(pPSN *ProcessSerialNumber) int16
 var _getFrontProcessErr error
 
-func tryGetFrontProcess(arg0 *ProcessSerialNumber) (int16, error) {
+func tryGetFrontProcess(pPSN *ProcessSerialNumber) (int16, error) {
 	if _getFrontProcess == nil {
 		return 0, symbolCallError("GetFrontProcess", "10.0", _getFrontProcessErr)
 	}
-	return _getFrontProcess(arg0), nil
+	return _getFrontProcess(pPSN), nil
 }
 
 // GetFrontProcess.
@@ -1326,18 +1350,18 @@ func tryGetFrontProcess(arg0 *ProcessSerialNumber) (int16, error) {
 // Deprecated: Deprecated since macOS 10.9.
 //
 // See: https://developer.apple.com/documentation/applicationservices/1501050-getfrontprocess
-func GetFrontProcess(arg0 *ProcessSerialNumber) int16 {
-	result, callErr := tryGetFrontProcess(arg0)
+func GetFrontProcess(pPSN *ProcessSerialNumber) int16 {
+	result, callErr := tryGetFrontProcess(pPSN)
 	if callErr != nil {
 		panic(callErr)
 	}
 	return result
 }
 
-var _getIconFamilyData func(iconFamily unsafe.Pointer, iconType uint32, h unsafe.Pointer) int16
+var _getIconFamilyData func(iconFamily unsafe.Pointer, iconType uint32, h kernel.Handle) int16
 var _getIconFamilyDataErr error
 
-func tryGetIconFamilyData(iconFamily unsafe.Pointer, iconType uint32, h unsafe.Pointer) (int16, error) {
+func tryGetIconFamilyData(iconFamily unsafe.Pointer, iconType uint32, h kernel.Handle) (int16, error) {
 	if _getIconFamilyData == nil {
 		return 0, symbolCallError("GetIconFamilyData", "10.0", _getIconFamilyDataErr)
 	}
@@ -1347,7 +1371,7 @@ func tryGetIconFamilyData(iconFamily unsafe.Pointer, iconType uint32, h unsafe.P
 // GetIconFamilyData.
 //
 // See: https://developer.apple.com/documentation/applicationservices/1462743-geticonfamilydata
-func GetIconFamilyData(iconFamily unsafe.Pointer, iconType uint32, h unsafe.Pointer) int16 {
+func GetIconFamilyData(iconFamily unsafe.Pointer, iconType uint32, h kernel.Handle) int16 {
 	result, callErr := tryGetIconFamilyData(iconFamily, iconType, h)
 	if callErr != nil {
 		panic(callErr)
@@ -1376,10 +1400,10 @@ func GetIconRefVariant(inIconRef unsafe.Pointer, inVariant uint32, outTransform 
 	return result
 }
 
-var _getIndVoice func(index unsafe.Pointer, voice unsafe.Pointer) int16
+var _getIndVoice func(index int16, voice unsafe.Pointer) int16
 var _getIndVoiceErr error
 
-func tryGetIndVoice(index unsafe.Pointer, voice unsafe.Pointer) (int16, error) {
+func tryGetIndVoice(index int16, voice unsafe.Pointer) (int16, error) {
 	if _getIndVoice == nil {
 		return 0, symbolCallError("GetIndVoice", "10.0", _getIndVoiceErr)
 	}
@@ -1391,7 +1415,7 @@ func tryGetIndVoice(index unsafe.Pointer, voice unsafe.Pointer) (int16, error) {
 // Deprecated: Deprecated since macOS 13.0.
 //
 // See: https://developer.apple.com/documentation/applicationservices/1464595-getindvoice
-func GetIndVoice(index unsafe.Pointer, voice unsafe.Pointer) int16 {
+func GetIndVoice(index int16, voice unsafe.Pointer) int16 {
 	result, callErr := tryGetIndVoice(index, voice)
 	if callErr != nil {
 		panic(callErr)
@@ -1399,14 +1423,14 @@ func GetIndVoice(index unsafe.Pointer, voice unsafe.Pointer) int16 {
 	return result
 }
 
-var _getNextProcess func(arg0 *ProcessSerialNumber) int16
+var _getNextProcess func(pPSN *ProcessSerialNumber) int16
 var _getNextProcessErr error
 
-func tryGetNextProcess(arg0 *ProcessSerialNumber) (int16, error) {
+func tryGetNextProcess(pPSN *ProcessSerialNumber) (int16, error) {
 	if _getNextProcess == nil {
 		return 0, symbolCallError("GetNextProcess", "10.0", _getNextProcessErr)
 	}
-	return _getNextProcess(arg0), nil
+	return _getNextProcess(pPSN), nil
 }
 
 // GetNextProcess.
@@ -1414,22 +1438,22 @@ func tryGetNextProcess(arg0 *ProcessSerialNumber) (int16, error) {
 // Deprecated: Deprecated since macOS 10.9.
 //
 // See: https://developer.apple.com/documentation/applicationservices/1501061-getnextprocess
-func GetNextProcess(arg0 *ProcessSerialNumber) int16 {
-	result, callErr := tryGetNextProcess(arg0)
+func GetNextProcess(pPSN *ProcessSerialNumber) int16 {
+	result, callErr := tryGetNextProcess(pPSN)
 	if callErr != nil {
 		panic(callErr)
 	}
 	return result
 }
 
-var _getProcessBundleLocation func(arg0 *ProcessSerialNumber, arg1 unsafe.Pointer) int32
+var _getProcessBundleLocation func(psn *ProcessSerialNumber, location *coreservices.FSRef) int32
 var _getProcessBundleLocationErr error
 
-func tryGetProcessBundleLocation(arg0 *ProcessSerialNumber, arg1 unsafe.Pointer) (int32, error) {
+func tryGetProcessBundleLocation(psn *ProcessSerialNumber, location *coreservices.FSRef) (int32, error) {
 	if _getProcessBundleLocation == nil {
 		return 0, symbolCallError("GetProcessBundleLocation", "10.0", _getProcessBundleLocationErr)
 	}
-	return _getProcessBundleLocation(arg0, arg1), nil
+	return _getProcessBundleLocation(psn, location), nil
 }
 
 // GetProcessBundleLocation.
@@ -1437,22 +1461,22 @@ func tryGetProcessBundleLocation(arg0 *ProcessSerialNumber, arg1 unsafe.Pointer)
 // Deprecated: Deprecated since macOS 10.9.
 //
 // See: https://developer.apple.com/documentation/applicationservices/1501092-getprocessbundlelocation
-func GetProcessBundleLocation(arg0 *ProcessSerialNumber, arg1 unsafe.Pointer) int32 {
-	result, callErr := tryGetProcessBundleLocation(arg0, arg1)
+func GetProcessBundleLocation(psn *ProcessSerialNumber, location *coreservices.FSRef) int32 {
+	result, callErr := tryGetProcessBundleLocation(psn, location)
 	if callErr != nil {
 		panic(callErr)
 	}
 	return result
 }
 
-var _getProcessForPID func(arg0 int32, arg1 *ProcessSerialNumber) int32
+var _getProcessForPID func(pid int32, psn *ProcessSerialNumber) int32
 var _getProcessForPIDErr error
 
-func tryGetProcessForPID(arg0 int32, arg1 *ProcessSerialNumber) (int32, error) {
+func tryGetProcessForPID(pid int32, psn *ProcessSerialNumber) (int32, error) {
 	if _getProcessForPID == nil {
 		return 0, symbolCallError("GetProcessForPID", "10.0", _getProcessForPIDErr)
 	}
-	return _getProcessForPID(arg0, arg1), nil
+	return _getProcessForPID(pid, psn), nil
 }
 
 // GetProcessForPID.
@@ -1460,22 +1484,22 @@ func tryGetProcessForPID(arg0 int32, arg1 *ProcessSerialNumber) (int32, error) {
 // Deprecated: Deprecated since macOS 10.9.
 //
 // See: https://developer.apple.com/documentation/applicationservices/1501069-getprocessforpid
-func GetProcessForPID(arg0 int32, arg1 *ProcessSerialNumber) int32 {
-	result, callErr := tryGetProcessForPID(arg0, arg1)
+func GetProcessForPID(pid int32, psn *ProcessSerialNumber) int32 {
+	result, callErr := tryGetProcessForPID(pid, psn)
 	if callErr != nil {
 		panic(callErr)
 	}
 	return result
 }
 
-var _getProcessInformation func(arg0 *ProcessSerialNumber, arg1 ProcessInfoRec) int16
+var _getProcessInformation func(PSN *ProcessSerialNumber, info *ProcessInfoRec) int16
 var _getProcessInformationErr error
 
-func tryGetProcessInformation(arg0 *ProcessSerialNumber, arg1 ProcessInfoRec) (int16, error) {
+func tryGetProcessInformation(PSN *ProcessSerialNumber, info *ProcessInfoRec) (int16, error) {
 	if _getProcessInformation == nil {
 		return 0, symbolCallError("GetProcessInformation", "10.0", _getProcessInformationErr)
 	}
-	return _getProcessInformation(arg0, arg1), nil
+	return _getProcessInformation(PSN, info), nil
 }
 
 // GetProcessInformation.
@@ -1483,22 +1507,22 @@ func tryGetProcessInformation(arg0 *ProcessSerialNumber, arg1 ProcessInfoRec) (i
 // Deprecated: Deprecated since macOS 10.9.
 //
 // See: https://developer.apple.com/documentation/applicationservices/1501011-getprocessinformation
-func GetProcessInformation(arg0 *ProcessSerialNumber, arg1 ProcessInfoRec) int16 {
-	result, callErr := tryGetProcessInformation(arg0, arg1)
+func GetProcessInformation(PSN *ProcessSerialNumber, info *ProcessInfoRec) int16 {
+	result, callErr := tryGetProcessInformation(PSN, info)
 	if callErr != nil {
 		panic(callErr)
 	}
 	return result
 }
 
-var _getProcessPID func(arg0 *ProcessSerialNumber, arg1 int32) int32
+var _getProcessPID func(psn *ProcessSerialNumber, pid *int32) int32
 var _getProcessPIDErr error
 
-func tryGetProcessPID(arg0 *ProcessSerialNumber, arg1 int32) (int32, error) {
+func tryGetProcessPID(psn *ProcessSerialNumber, pid *int32) (int32, error) {
 	if _getProcessPID == nil {
 		return 0, symbolCallError("GetProcessPID", "10.0", _getProcessPIDErr)
 	}
-	return _getProcessPID(arg0, arg1), nil
+	return _getProcessPID(psn, pid), nil
 }
 
 // GetProcessPID.
@@ -1506,22 +1530,22 @@ func tryGetProcessPID(arg0 *ProcessSerialNumber, arg1 int32) (int32, error) {
 // Deprecated: Deprecated since macOS 10.9.
 //
 // See: https://developer.apple.com/documentation/applicationservices/1500992-getprocesspid
-func GetProcessPID(arg0 *ProcessSerialNumber, arg1 int32) int32 {
-	result, callErr := tryGetProcessPID(arg0, arg1)
+func GetProcessPID(psn *ProcessSerialNumber, pid *int32) int32 {
+	result, callErr := tryGetProcessPID(psn, pid)
 	if callErr != nil {
 		panic(callErr)
 	}
 	return result
 }
 
-var _getSpeechInfo func(arg0 *SpeechChannelRecord, arg1 uint32) int16
+var _getSpeechInfo func(chan_ *SpeechChannelRecord, selector uint32, speechInfo unsafe.Pointer) int16
 var _getSpeechInfoErr error
 
-func tryGetSpeechInfo(arg0 *SpeechChannelRecord, arg1 uint32) (int16, error) {
+func tryGetSpeechInfo(chan_ *SpeechChannelRecord, selector uint32, speechInfo unsafe.Pointer) (int16, error) {
 	if _getSpeechInfo == nil {
 		return 0, symbolCallError("GetSpeechInfo", "10.0", _getSpeechInfoErr)
 	}
-	return _getSpeechInfo(arg0, arg1), nil
+	return _getSpeechInfo(chan_, selector, speechInfo), nil
 }
 
 // GetSpeechInfo gets information about a designated speech channel.
@@ -1529,8 +1553,8 @@ func tryGetSpeechInfo(arg0 *SpeechChannelRecord, arg1 uint32) (int16, error) {
 // Deprecated: Deprecated since macOS 10.8.
 //
 // See: https://developer.apple.com/documentation/applicationservices/1552220-getspeechinfo
-func GetSpeechInfo(arg0 *SpeechChannelRecord, arg1 uint32) int16 {
-	result, callErr := tryGetSpeechInfo(arg0, arg1)
+func GetSpeechInfo(chan_ *SpeechChannelRecord, selector uint32, speechInfo unsafe.Pointer) int16 {
+	result, callErr := tryGetSpeechInfo(chan_, selector, speechInfo)
 	if callErr != nil {
 		panic(callErr)
 	}
@@ -2243,14 +2267,14 @@ func HIShapeXor(inShape1 HIShapeRef, inShape2 HIShapeRef, outResult HIMutableSha
 	return result
 }
 
-var _iCAddMapEntry func(arg0 ICInstance, arg1 unsafe.Pointer, arg2 ICMapEntry) int32
+var _iCAddMapEntry func(inst ICInstance, entries kernel.Handle, entry *ICMapEntry) int32
 var _iCAddMapEntryErr error
 
-func tryICAddMapEntry(arg0 ICInstance, arg1 unsafe.Pointer, arg2 ICMapEntry) (int32, error) {
+func tryICAddMapEntry(inst ICInstance, entries kernel.Handle, entry *ICMapEntry) (int32, error) {
 	if _iCAddMapEntry == nil {
 		return 0, symbolCallError("ICAddMapEntry", "10.0", _iCAddMapEntryErr)
 	}
-	return _iCAddMapEntry(arg0, arg1, arg2), nil
+	return _iCAddMapEntry(inst, entries, entry), nil
 }
 
 // ICAddMapEntry.
@@ -2258,22 +2282,22 @@ func tryICAddMapEntry(arg0 ICInstance, arg1 unsafe.Pointer, arg2 ICMapEntry) (in
 // Deprecated: Deprecated since macOS 10.7.
 //
 // See: https://developer.apple.com/documentation/applicationservices/1578495-icaddmapentry
-func ICAddMapEntry(arg0 ICInstance, arg1 unsafe.Pointer, arg2 ICMapEntry) int32 {
-	result, callErr := tryICAddMapEntry(arg0, arg1, arg2)
+func ICAddMapEntry(inst ICInstance, entries kernel.Handle, entry *ICMapEntry) int32 {
+	result, callErr := tryICAddMapEntry(inst, entries, entry)
 	if callErr != nil {
 		panic(callErr)
 	}
 	return result
 }
 
-var _iCAddProfile func(arg0 ICInstance, arg1 ICProfileID, arg2 ICProfileID) int32
+var _iCAddProfile func(inst ICInstance, prototypeID ICProfileID, newID *ICProfileID) int32
 var _iCAddProfileErr error
 
-func tryICAddProfile(arg0 ICInstance, arg1 ICProfileID, arg2 ICProfileID) (int32, error) {
+func tryICAddProfile(inst ICInstance, prototypeID ICProfileID, newID *ICProfileID) (int32, error) {
 	if _iCAddProfile == nil {
 		return 0, symbolCallError("ICAddProfile", "10.0", _iCAddProfileErr)
 	}
-	return _iCAddProfile(arg0, arg1, arg2), nil
+	return _iCAddProfile(inst, prototypeID, newID), nil
 }
 
 // ICAddProfile.
@@ -2281,22 +2305,22 @@ func tryICAddProfile(arg0 ICInstance, arg1 ICProfileID, arg2 ICProfileID) (int32
 // Deprecated: Deprecated since macOS 10.7.
 //
 // See: https://developer.apple.com/documentation/applicationservices/1578498-icaddprofile
-func ICAddProfile(arg0 ICInstance, arg1 ICProfileID, arg2 ICProfileID) int32 {
-	result, callErr := tryICAddProfile(arg0, arg1, arg2)
+func ICAddProfile(inst ICInstance, prototypeID ICProfileID, newID *ICProfileID) int32 {
+	result, callErr := tryICAddProfile(inst, prototypeID, newID)
 	if callErr != nil {
 		panic(callErr)
 	}
 	return result
 }
 
-var _iCBegin func(arg0 ICInstance, arg1 ICPerm) int32
+var _iCBegin func(inst ICInstance, perm ICPerm) int32
 var _iCBeginErr error
 
-func tryICBegin(arg0 ICInstance, arg1 ICPerm) (int32, error) {
+func tryICBegin(inst ICInstance, perm ICPerm) (int32, error) {
 	if _iCBegin == nil {
 		return 0, symbolCallError("ICBegin", "10.0", _iCBeginErr)
 	}
-	return _iCBegin(arg0, arg1), nil
+	return _iCBegin(inst, perm), nil
 }
 
 // ICBegin.
@@ -2304,22 +2328,22 @@ func tryICBegin(arg0 ICInstance, arg1 ICPerm) (int32, error) {
 // Deprecated: Deprecated since macOS 10.7.
 //
 // See: https://developer.apple.com/documentation/applicationservices/1578517-icbegin
-func ICBegin(arg0 ICInstance, arg1 ICPerm) int32 {
-	result, callErr := tryICBegin(arg0, arg1)
+func ICBegin(inst ICInstance, perm ICPerm) int32 {
+	result, callErr := tryICBegin(inst, perm)
 	if callErr != nil {
 		panic(callErr)
 	}
 	return result
 }
 
-var _iCCountMapEntries func(arg0 ICInstance, arg1 unsafe.Pointer, arg2 int) int32
+var _iCCountMapEntries func(inst ICInstance, entries kernel.Handle, count *int) int32
 var _iCCountMapEntriesErr error
 
-func tryICCountMapEntries(arg0 ICInstance, arg1 unsafe.Pointer, arg2 int) (int32, error) {
+func tryICCountMapEntries(inst ICInstance, entries kernel.Handle, count *int) (int32, error) {
 	if _iCCountMapEntries == nil {
 		return 0, symbolCallError("ICCountMapEntries", "10.0", _iCCountMapEntriesErr)
 	}
-	return _iCCountMapEntries(arg0, arg1, arg2), nil
+	return _iCCountMapEntries(inst, entries, count), nil
 }
 
 // ICCountMapEntries.
@@ -2327,22 +2351,22 @@ func tryICCountMapEntries(arg0 ICInstance, arg1 unsafe.Pointer, arg2 int) (int32
 // Deprecated: Deprecated since macOS 10.7.
 //
 // See: https://developer.apple.com/documentation/applicationservices/1578509-iccountmapentries
-func ICCountMapEntries(arg0 ICInstance, arg1 unsafe.Pointer, arg2 int) int32 {
-	result, callErr := tryICCountMapEntries(arg0, arg1, arg2)
+func ICCountMapEntries(inst ICInstance, entries kernel.Handle, count *int) int32 {
+	result, callErr := tryICCountMapEntries(inst, entries, count)
 	if callErr != nil {
 		panic(callErr)
 	}
 	return result
 }
 
-var _iCCountPref func(arg0 ICInstance, arg1 int) int32
+var _iCCountPref func(inst ICInstance, count *int) int32
 var _iCCountPrefErr error
 
-func tryICCountPref(arg0 ICInstance, arg1 int) (int32, error) {
+func tryICCountPref(inst ICInstance, count *int) (int32, error) {
 	if _iCCountPref == nil {
 		return 0, symbolCallError("ICCountPref", "10.0", _iCCountPrefErr)
 	}
-	return _iCCountPref(arg0, arg1), nil
+	return _iCCountPref(inst, count), nil
 }
 
 // ICCountPref.
@@ -2350,22 +2374,22 @@ func tryICCountPref(arg0 ICInstance, arg1 int) (int32, error) {
 // Deprecated: Deprecated since macOS 10.7.
 //
 // See: https://developer.apple.com/documentation/applicationservices/1578542-iccountpref
-func ICCountPref(arg0 ICInstance, arg1 int) int32 {
-	result, callErr := tryICCountPref(arg0, arg1)
+func ICCountPref(inst ICInstance, count *int) int32 {
+	result, callErr := tryICCountPref(inst, count)
 	if callErr != nil {
 		panic(callErr)
 	}
 	return result
 }
 
-var _iCCountProfiles func(arg0 ICInstance, arg1 int) int32
+var _iCCountProfiles func(inst ICInstance, count *int) int32
 var _iCCountProfilesErr error
 
-func tryICCountProfiles(arg0 ICInstance, arg1 int) (int32, error) {
+func tryICCountProfiles(inst ICInstance, count *int) (int32, error) {
 	if _iCCountProfiles == nil {
 		return 0, symbolCallError("ICCountProfiles", "10.0", _iCCountProfilesErr)
 	}
-	return _iCCountProfiles(arg0, arg1), nil
+	return _iCCountProfiles(inst, count), nil
 }
 
 // ICCountProfiles.
@@ -2373,22 +2397,45 @@ func tryICCountProfiles(arg0 ICInstance, arg1 int) (int32, error) {
 // Deprecated: Deprecated since macOS 10.7.
 //
 // See: https://developer.apple.com/documentation/applicationservices/1578494-iccountprofiles
-func ICCountProfiles(arg0 ICInstance, arg1 int) int32 {
-	result, callErr := tryICCountProfiles(arg0, arg1)
+func ICCountProfiles(inst ICInstance, count *int) int32 {
+	result, callErr := tryICCountProfiles(inst, count)
 	if callErr != nil {
 		panic(callErr)
 	}
 	return result
 }
 
-var _iCDeleteMapEntry func(arg0 ICInstance, arg1 unsafe.Pointer, arg2 int) int32
+var _iCCreateGURLEvent func(inst ICInstance, helperCreator uint32, urlH kernel.Handle, theEvent *coreservices.AEDesc) int32
+var _iCCreateGURLEventErr error
+
+func tryICCreateGURLEvent(inst ICInstance, helperCreator uint32, urlH kernel.Handle, theEvent *coreservices.AEDesc) (int32, error) {
+	if _iCCreateGURLEvent == nil {
+		return 0, symbolCallError("ICCreateGURLEvent", "10.0", _iCCreateGURLEventErr)
+	}
+	return _iCCreateGURLEvent(inst, helperCreator, urlH, theEvent), nil
+}
+
+// ICCreateGURLEvent.
+//
+// Deprecated: Deprecated since macOS 10.7.
+//
+// See: https://developer.apple.com/documentation/applicationservices/1578532-iccreategurlevent
+func ICCreateGURLEvent(inst ICInstance, helperCreator uint32, urlH kernel.Handle, theEvent *coreservices.AEDesc) int32 {
+	result, callErr := tryICCreateGURLEvent(inst, helperCreator, urlH, theEvent)
+	if callErr != nil {
+		panic(callErr)
+	}
+	return result
+}
+
+var _iCDeleteMapEntry func(inst ICInstance, entries kernel.Handle, pos int) int32
 var _iCDeleteMapEntryErr error
 
-func tryICDeleteMapEntry(arg0 ICInstance, arg1 unsafe.Pointer, arg2 int) (int32, error) {
+func tryICDeleteMapEntry(inst ICInstance, entries kernel.Handle, pos int) (int32, error) {
 	if _iCDeleteMapEntry == nil {
 		return 0, symbolCallError("ICDeleteMapEntry", "10.0", _iCDeleteMapEntryErr)
 	}
-	return _iCDeleteMapEntry(arg0, arg1, arg2), nil
+	return _iCDeleteMapEntry(inst, entries, pos), nil
 }
 
 // ICDeleteMapEntry.
@@ -2396,22 +2443,22 @@ func tryICDeleteMapEntry(arg0 ICInstance, arg1 unsafe.Pointer, arg2 int) (int32,
 // Deprecated: Deprecated since macOS 10.7.
 //
 // See: https://developer.apple.com/documentation/applicationservices/1578488-icdeletemapentry
-func ICDeleteMapEntry(arg0 ICInstance, arg1 unsafe.Pointer, arg2 int) int32 {
-	result, callErr := tryICDeleteMapEntry(arg0, arg1, arg2)
+func ICDeleteMapEntry(inst ICInstance, entries kernel.Handle, pos int) int32 {
+	result, callErr := tryICDeleteMapEntry(inst, entries, pos)
 	if callErr != nil {
 		panic(callErr)
 	}
 	return result
 }
 
-var _iCDeletePref func(arg0 ICInstance, arg1 unsafe.Pointer) int32
+var _iCDeletePref func(inst ICInstance, key unsafe.Pointer) int32
 var _iCDeletePrefErr error
 
-func tryICDeletePref(arg0 ICInstance, arg1 unsafe.Pointer) (int32, error) {
+func tryICDeletePref(inst ICInstance, key unsafe.Pointer) (int32, error) {
 	if _iCDeletePref == nil {
 		return 0, symbolCallError("ICDeletePref", "10.0", _iCDeletePrefErr)
 	}
-	return _iCDeletePref(arg0, arg1), nil
+	return _iCDeletePref(inst, key), nil
 }
 
 // ICDeletePref.
@@ -2419,22 +2466,22 @@ func tryICDeletePref(arg0 ICInstance, arg1 unsafe.Pointer) (int32, error) {
 // Deprecated: Deprecated since macOS 10.7.
 //
 // See: https://developer.apple.com/documentation/applicationservices/1578534-icdeletepref
-func ICDeletePref(arg0 ICInstance, arg1 unsafe.Pointer) int32 {
-	result, callErr := tryICDeletePref(arg0, arg1)
+func ICDeletePref(inst ICInstance, key unsafe.Pointer) int32 {
+	result, callErr := tryICDeletePref(inst, key)
 	if callErr != nil {
 		panic(callErr)
 	}
 	return result
 }
 
-var _iCDeleteProfile func(arg0 ICInstance, arg1 ICProfileID) int32
+var _iCDeleteProfile func(inst ICInstance, thisID ICProfileID) int32
 var _iCDeleteProfileErr error
 
-func tryICDeleteProfile(arg0 ICInstance, arg1 ICProfileID) (int32, error) {
+func tryICDeleteProfile(inst ICInstance, thisID ICProfileID) (int32, error) {
 	if _iCDeleteProfile == nil {
 		return 0, symbolCallError("ICDeleteProfile", "10.0", _iCDeleteProfileErr)
 	}
-	return _iCDeleteProfile(arg0, arg1), nil
+	return _iCDeleteProfile(inst, thisID), nil
 }
 
 // ICDeleteProfile.
@@ -2442,22 +2489,22 @@ func tryICDeleteProfile(arg0 ICInstance, arg1 ICProfileID) (int32, error) {
 // Deprecated: Deprecated since macOS 10.7.
 //
 // See: https://developer.apple.com/documentation/applicationservices/1578483-icdeleteprofile
-func ICDeleteProfile(arg0 ICInstance, arg1 ICProfileID) int32 {
-	result, callErr := tryICDeleteProfile(arg0, arg1)
+func ICDeleteProfile(inst ICInstance, thisID ICProfileID) int32 {
+	result, callErr := tryICDeleteProfile(inst, thisID)
 	if callErr != nil {
 		panic(callErr)
 	}
 	return result
 }
 
-var _iCEditPreferences func(arg0 ICInstance, arg1 unsafe.Pointer) int32
+var _iCEditPreferences func(inst ICInstance, key unsafe.Pointer) int32
 var _iCEditPreferencesErr error
 
-func tryICEditPreferences(arg0 ICInstance, arg1 unsafe.Pointer) (int32, error) {
+func tryICEditPreferences(inst ICInstance, key unsafe.Pointer) (int32, error) {
 	if _iCEditPreferences == nil {
 		return 0, symbolCallError("ICEditPreferences", "10.0", _iCEditPreferencesErr)
 	}
-	return _iCEditPreferences(arg0, arg1), nil
+	return _iCEditPreferences(inst, key), nil
 }
 
 // ICEditPreferences.
@@ -2465,22 +2512,22 @@ func tryICEditPreferences(arg0 ICInstance, arg1 unsafe.Pointer) (int32, error) {
 // Deprecated: Deprecated since macOS 10.7.
 //
 // See: https://developer.apple.com/documentation/applicationservices/1578512-iceditpreferences
-func ICEditPreferences(arg0 ICInstance, arg1 unsafe.Pointer) int32 {
-	result, callErr := tryICEditPreferences(arg0, arg1)
+func ICEditPreferences(inst ICInstance, key unsafe.Pointer) int32 {
+	result, callErr := tryICEditPreferences(inst, key)
 	if callErr != nil {
 		panic(callErr)
 	}
 	return result
 }
 
-var _iCEnd func(arg0 ICInstance) int32
+var _iCEnd func(inst ICInstance) int32
 var _iCEndErr error
 
-func tryICEnd(arg0 ICInstance) (int32, error) {
+func tryICEnd(inst ICInstance) (int32, error) {
 	if _iCEnd == nil {
 		return 0, symbolCallError("ICEnd", "10.0", _iCEndErr)
 	}
-	return _iCEnd(arg0), nil
+	return _iCEnd(inst), nil
 }
 
 // ICEnd.
@@ -2488,22 +2535,22 @@ func tryICEnd(arg0 ICInstance) (int32, error) {
 // Deprecated: Deprecated since macOS 10.7.
 //
 // See: https://developer.apple.com/documentation/applicationservices/1578544-icend
-func ICEnd(arg0 ICInstance) int32 {
-	result, callErr := tryICEnd(arg0)
+func ICEnd(inst ICInstance) int32 {
+	result, callErr := tryICEnd(inst)
 	if callErr != nil {
 		panic(callErr)
 	}
 	return result
 }
 
-var _iCFindPrefHandle func(arg0 ICInstance, arg1 unsafe.Pointer, arg2 ICAttr, arg3 unsafe.Pointer) int32
+var _iCFindPrefHandle func(inst ICInstance, key unsafe.Pointer, attr *ICAttr, prefh kernel.Handle) int32
 var _iCFindPrefHandleErr error
 
-func tryICFindPrefHandle(arg0 ICInstance, arg1 unsafe.Pointer, arg2 ICAttr, arg3 unsafe.Pointer) (int32, error) {
+func tryICFindPrefHandle(inst ICInstance, key unsafe.Pointer, attr *ICAttr, prefh kernel.Handle) (int32, error) {
 	if _iCFindPrefHandle == nil {
 		return 0, symbolCallError("ICFindPrefHandle", "10.0", _iCFindPrefHandleErr)
 	}
-	return _iCFindPrefHandle(arg0, arg1, arg2, arg3), nil
+	return _iCFindPrefHandle(inst, key, attr, prefh), nil
 }
 
 // ICFindPrefHandle.
@@ -2511,22 +2558,22 @@ func tryICFindPrefHandle(arg0 ICInstance, arg1 unsafe.Pointer, arg2 ICAttr, arg3
 // Deprecated: Deprecated since macOS 10.7.
 //
 // See: https://developer.apple.com/documentation/applicationservices/1578526-icfindprefhandle
-func ICFindPrefHandle(arg0 ICInstance, arg1 unsafe.Pointer, arg2 ICAttr, arg3 unsafe.Pointer) int32 {
-	result, callErr := tryICFindPrefHandle(arg0, arg1, arg2, arg3)
+func ICFindPrefHandle(inst ICInstance, key unsafe.Pointer, attr *ICAttr, prefh kernel.Handle) int32 {
+	result, callErr := tryICFindPrefHandle(inst, key, attr, prefh)
 	if callErr != nil {
 		panic(callErr)
 	}
 	return result
 }
 
-var _iCGetConfigName func(arg0 ICInstance, arg1 bool, arg2 unsafe.Pointer) int32
+var _iCGetConfigName func(inst ICInstance, longname bool, name unsafe.Pointer) int32
 var _iCGetConfigNameErr error
 
-func tryICGetConfigName(arg0 ICInstance, arg1 bool, arg2 unsafe.Pointer) (int32, error) {
+func tryICGetConfigName(inst ICInstance, longname bool, name unsafe.Pointer) (int32, error) {
 	if _iCGetConfigName == nil {
 		return 0, symbolCallError("ICGetConfigName", "10.0", _iCGetConfigNameErr)
 	}
-	return _iCGetConfigName(arg0, arg1, arg2), nil
+	return _iCGetConfigName(inst, longname, name), nil
 }
 
 // ICGetConfigName.
@@ -2534,22 +2581,22 @@ func tryICGetConfigName(arg0 ICInstance, arg1 bool, arg2 unsafe.Pointer) (int32,
 // Deprecated: Deprecated since macOS 10.7.
 //
 // See: https://developer.apple.com/documentation/applicationservices/1578511-icgetconfigname
-func ICGetConfigName(arg0 ICInstance, arg1 bool, arg2 unsafe.Pointer) int32 {
-	result, callErr := tryICGetConfigName(arg0, arg1, arg2)
+func ICGetConfigName(inst ICInstance, longname bool, name unsafe.Pointer) int32 {
+	result, callErr := tryICGetConfigName(inst, longname, name)
 	if callErr != nil {
 		panic(callErr)
 	}
 	return result
 }
 
-var _iCGetCurrentProfile func(arg0 ICInstance, arg1 ICProfileID) int32
+var _iCGetCurrentProfile func(inst ICInstance, currentID *ICProfileID) int32
 var _iCGetCurrentProfileErr error
 
-func tryICGetCurrentProfile(arg0 ICInstance, arg1 ICProfileID) (int32, error) {
+func tryICGetCurrentProfile(inst ICInstance, currentID *ICProfileID) (int32, error) {
 	if _iCGetCurrentProfile == nil {
 		return 0, symbolCallError("ICGetCurrentProfile", "10.0", _iCGetCurrentProfileErr)
 	}
-	return _iCGetCurrentProfile(arg0, arg1), nil
+	return _iCGetCurrentProfile(inst, currentID), nil
 }
 
 // ICGetCurrentProfile.
@@ -2557,22 +2604,22 @@ func tryICGetCurrentProfile(arg0 ICInstance, arg1 ICProfileID) (int32, error) {
 // Deprecated: Deprecated since macOS 10.7.
 //
 // See: https://developer.apple.com/documentation/applicationservices/1578505-icgetcurrentprofile
-func ICGetCurrentProfile(arg0 ICInstance, arg1 ICProfileID) int32 {
-	result, callErr := tryICGetCurrentProfile(arg0, arg1)
+func ICGetCurrentProfile(inst ICInstance, currentID *ICProfileID) int32 {
+	result, callErr := tryICGetCurrentProfile(inst, currentID)
 	if callErr != nil {
 		panic(callErr)
 	}
 	return result
 }
 
-var _iCGetDefaultPref func(arg0 ICInstance, arg1 unsafe.Pointer, arg2 unsafe.Pointer) int32
+var _iCGetDefaultPref func(inst ICInstance, key unsafe.Pointer, prefH kernel.Handle) int32
 var _iCGetDefaultPrefErr error
 
-func tryICGetDefaultPref(arg0 ICInstance, arg1 unsafe.Pointer, arg2 unsafe.Pointer) (int32, error) {
+func tryICGetDefaultPref(inst ICInstance, key unsafe.Pointer, prefH kernel.Handle) (int32, error) {
 	if _iCGetDefaultPref == nil {
 		return 0, symbolCallError("ICGetDefaultPref", "10.0", _iCGetDefaultPrefErr)
 	}
-	return _iCGetDefaultPref(arg0, arg1, arg2), nil
+	return _iCGetDefaultPref(inst, key, prefH), nil
 }
 
 // ICGetDefaultPref.
@@ -2580,22 +2627,22 @@ func tryICGetDefaultPref(arg0 ICInstance, arg1 unsafe.Pointer, arg2 unsafe.Point
 // Deprecated: Deprecated since macOS 10.7.
 //
 // See: https://developer.apple.com/documentation/applicationservices/1578528-icgetdefaultpref
-func ICGetDefaultPref(arg0 ICInstance, arg1 unsafe.Pointer, arg2 unsafe.Pointer) int32 {
-	result, callErr := tryICGetDefaultPref(arg0, arg1, arg2)
+func ICGetDefaultPref(inst ICInstance, key unsafe.Pointer, prefH kernel.Handle) int32 {
+	result, callErr := tryICGetDefaultPref(inst, key, prefH)
 	if callErr != nil {
 		panic(callErr)
 	}
 	return result
 }
 
-var _iCGetIndMapEntry func(arg0 ICInstance, arg1 unsafe.Pointer, arg2 int, arg3 int, arg4 ICMapEntry) int32
+var _iCGetIndMapEntry func(inst ICInstance, entries kernel.Handle, index int, pos *int, entry *ICMapEntry) int32
 var _iCGetIndMapEntryErr error
 
-func tryICGetIndMapEntry(arg0 ICInstance, arg1 unsafe.Pointer, arg2 int, arg3 int, arg4 ICMapEntry) (int32, error) {
+func tryICGetIndMapEntry(inst ICInstance, entries kernel.Handle, index int, pos *int, entry *ICMapEntry) (int32, error) {
 	if _iCGetIndMapEntry == nil {
 		return 0, symbolCallError("ICGetIndMapEntry", "10.0", _iCGetIndMapEntryErr)
 	}
-	return _iCGetIndMapEntry(arg0, arg1, arg2, arg3, arg4), nil
+	return _iCGetIndMapEntry(inst, entries, index, pos, entry), nil
 }
 
 // ICGetIndMapEntry.
@@ -2603,22 +2650,22 @@ func tryICGetIndMapEntry(arg0 ICInstance, arg1 unsafe.Pointer, arg2 int, arg3 in
 // Deprecated: Deprecated since macOS 10.7.
 //
 // See: https://developer.apple.com/documentation/applicationservices/1578493-icgetindmapentry
-func ICGetIndMapEntry(arg0 ICInstance, arg1 unsafe.Pointer, arg2 int, arg3 int, arg4 ICMapEntry) int32 {
-	result, callErr := tryICGetIndMapEntry(arg0, arg1, arg2, arg3, arg4)
+func ICGetIndMapEntry(inst ICInstance, entries kernel.Handle, index int, pos *int, entry *ICMapEntry) int32 {
+	result, callErr := tryICGetIndMapEntry(inst, entries, index, pos, entry)
 	if callErr != nil {
 		panic(callErr)
 	}
 	return result
 }
 
-var _iCGetIndPref func(arg0 ICInstance, arg1 int, arg2 unsafe.Pointer) int32
+var _iCGetIndPref func(inst ICInstance, index int, key unsafe.Pointer) int32
 var _iCGetIndPrefErr error
 
-func tryICGetIndPref(arg0 ICInstance, arg1 int, arg2 unsafe.Pointer) (int32, error) {
+func tryICGetIndPref(inst ICInstance, index int, key unsafe.Pointer) (int32, error) {
 	if _iCGetIndPref == nil {
 		return 0, symbolCallError("ICGetIndPref", "10.0", _iCGetIndPrefErr)
 	}
-	return _iCGetIndPref(arg0, arg1, arg2), nil
+	return _iCGetIndPref(inst, index, key), nil
 }
 
 // ICGetIndPref.
@@ -2626,22 +2673,22 @@ func tryICGetIndPref(arg0 ICInstance, arg1 int, arg2 unsafe.Pointer) (int32, err
 // Deprecated: Deprecated since macOS 10.7.
 //
 // See: https://developer.apple.com/documentation/applicationservices/1578503-icgetindpref
-func ICGetIndPref(arg0 ICInstance, arg1 int, arg2 unsafe.Pointer) int32 {
-	result, callErr := tryICGetIndPref(arg0, arg1, arg2)
+func ICGetIndPref(inst ICInstance, index int, key unsafe.Pointer) int32 {
+	result, callErr := tryICGetIndPref(inst, index, key)
 	if callErr != nil {
 		panic(callErr)
 	}
 	return result
 }
 
-var _iCGetIndProfile func(arg0 ICInstance, arg1 int, arg2 ICProfileID) int32
+var _iCGetIndProfile func(inst ICInstance, index int, thisID *ICProfileID) int32
 var _iCGetIndProfileErr error
 
-func tryICGetIndProfile(arg0 ICInstance, arg1 int, arg2 ICProfileID) (int32, error) {
+func tryICGetIndProfile(inst ICInstance, index int, thisID *ICProfileID) (int32, error) {
 	if _iCGetIndProfile == nil {
 		return 0, symbolCallError("ICGetIndProfile", "10.0", _iCGetIndProfileErr)
 	}
-	return _iCGetIndProfile(arg0, arg1, arg2), nil
+	return _iCGetIndProfile(inst, index, thisID), nil
 }
 
 // ICGetIndProfile.
@@ -2649,22 +2696,22 @@ func tryICGetIndProfile(arg0 ICInstance, arg1 int, arg2 ICProfileID) (int32, err
 // Deprecated: Deprecated since macOS 10.7.
 //
 // See: https://developer.apple.com/documentation/applicationservices/1578519-icgetindprofile
-func ICGetIndProfile(arg0 ICInstance, arg1 int, arg2 ICProfileID) int32 {
-	result, callErr := tryICGetIndProfile(arg0, arg1, arg2)
+func ICGetIndProfile(inst ICInstance, index int, thisID *ICProfileID) int32 {
+	result, callErr := tryICGetIndProfile(inst, index, thisID)
 	if callErr != nil {
 		panic(callErr)
 	}
 	return result
 }
 
-var _iCGetMapEntry func(arg0 ICInstance, arg1 unsafe.Pointer, arg2 int, arg3 ICMapEntry) int32
+var _iCGetMapEntry func(inst ICInstance, entries kernel.Handle, pos int, entry *ICMapEntry) int32
 var _iCGetMapEntryErr error
 
-func tryICGetMapEntry(arg0 ICInstance, arg1 unsafe.Pointer, arg2 int, arg3 ICMapEntry) (int32, error) {
+func tryICGetMapEntry(inst ICInstance, entries kernel.Handle, pos int, entry *ICMapEntry) (int32, error) {
 	if _iCGetMapEntry == nil {
 		return 0, symbolCallError("ICGetMapEntry", "10.0", _iCGetMapEntryErr)
 	}
-	return _iCGetMapEntry(arg0, arg1, arg2, arg3), nil
+	return _iCGetMapEntry(inst, entries, pos, entry), nil
 }
 
 // ICGetMapEntry.
@@ -2672,22 +2719,22 @@ func tryICGetMapEntry(arg0 ICInstance, arg1 unsafe.Pointer, arg2 int, arg3 ICMap
 // Deprecated: Deprecated since macOS 10.7.
 //
 // See: https://developer.apple.com/documentation/applicationservices/1578510-icgetmapentry
-func ICGetMapEntry(arg0 ICInstance, arg1 unsafe.Pointer, arg2 int, arg3 ICMapEntry) int32 {
-	result, callErr := tryICGetMapEntry(arg0, arg1, arg2, arg3)
+func ICGetMapEntry(inst ICInstance, entries kernel.Handle, pos int, entry *ICMapEntry) int32 {
+	result, callErr := tryICGetMapEntry(inst, entries, pos, entry)
 	if callErr != nil {
 		panic(callErr)
 	}
 	return result
 }
 
-var _iCGetPerm func(arg0 ICInstance, arg1 ICPerm) int32
+var _iCGetPerm func(inst ICInstance, perm *ICPerm) int32
 var _iCGetPermErr error
 
-func tryICGetPerm(arg0 ICInstance, arg1 ICPerm) (int32, error) {
+func tryICGetPerm(inst ICInstance, perm *ICPerm) (int32, error) {
 	if _iCGetPerm == nil {
 		return 0, symbolCallError("ICGetPerm", "10.0", _iCGetPermErr)
 	}
-	return _iCGetPerm(arg0, arg1), nil
+	return _iCGetPerm(inst, perm), nil
 }
 
 // ICGetPerm.
@@ -2695,22 +2742,22 @@ func tryICGetPerm(arg0 ICInstance, arg1 ICPerm) (int32, error) {
 // Deprecated: Deprecated since macOS 10.7.
 //
 // See: https://developer.apple.com/documentation/applicationservices/1578492-icgetperm
-func ICGetPerm(arg0 ICInstance, arg1 ICPerm) int32 {
-	result, callErr := tryICGetPerm(arg0, arg1)
+func ICGetPerm(inst ICInstance, perm *ICPerm) int32 {
+	result, callErr := tryICGetPerm(inst, perm)
 	if callErr != nil {
 		panic(callErr)
 	}
 	return result
 }
 
-var _iCGetPref func(arg0 ICInstance, arg1 unsafe.Pointer, arg2 ICAttr, arg3 int) int32
+var _iCGetPref func(inst ICInstance, key unsafe.Pointer, attr *ICAttr, buf unsafe.Pointer, size *int) int32
 var _iCGetPrefErr error
 
-func tryICGetPref(arg0 ICInstance, arg1 unsafe.Pointer, arg2 ICAttr, arg3 int) (int32, error) {
+func tryICGetPref(inst ICInstance, key unsafe.Pointer, attr *ICAttr, buf unsafe.Pointer, size *int) (int32, error) {
 	if _iCGetPref == nil {
 		return 0, symbolCallError("ICGetPref", "10.0", _iCGetPrefErr)
 	}
-	return _iCGetPref(arg0, arg1, arg2, arg3), nil
+	return _iCGetPref(inst, key, attr, buf, size), nil
 }
 
 // ICGetPref.
@@ -2718,22 +2765,22 @@ func tryICGetPref(arg0 ICInstance, arg1 unsafe.Pointer, arg2 ICAttr, arg3 int) (
 // Deprecated: Deprecated since macOS 10.7.
 //
 // See: https://developer.apple.com/documentation/applicationservices/1578522-icgetpref
-func ICGetPref(arg0 ICInstance, arg1 unsafe.Pointer, arg2 ICAttr, arg3 int) int32 {
-	result, callErr := tryICGetPref(arg0, arg1, arg2, arg3)
+func ICGetPref(inst ICInstance, key unsafe.Pointer, attr *ICAttr, buf unsafe.Pointer, size *int) int32 {
+	result, callErr := tryICGetPref(inst, key, attr, buf, size)
 	if callErr != nil {
 		panic(callErr)
 	}
 	return result
 }
 
-var _iCGetPrefHandle func(arg0 ICInstance, arg1 unsafe.Pointer, arg2 ICAttr, arg3 unsafe.Pointer) int32
+var _iCGetPrefHandle func(inst ICInstance, key unsafe.Pointer, attr *ICAttr, prefh *kernel.Handle) int32
 var _iCGetPrefHandleErr error
 
-func tryICGetPrefHandle(arg0 ICInstance, arg1 unsafe.Pointer, arg2 ICAttr, arg3 unsafe.Pointer) (int32, error) {
+func tryICGetPrefHandle(inst ICInstance, key unsafe.Pointer, attr *ICAttr, prefh *kernel.Handle) (int32, error) {
 	if _iCGetPrefHandle == nil {
 		return 0, symbolCallError("ICGetPrefHandle", "10.0", _iCGetPrefHandleErr)
 	}
-	return _iCGetPrefHandle(arg0, arg1, arg2, arg3), nil
+	return _iCGetPrefHandle(inst, key, attr, prefh), nil
 }
 
 // ICGetPrefHandle.
@@ -2741,22 +2788,22 @@ func tryICGetPrefHandle(arg0 ICInstance, arg1 unsafe.Pointer, arg2 ICAttr, arg3 
 // Deprecated: Deprecated since macOS 10.7.
 //
 // See: https://developer.apple.com/documentation/applicationservices/1578489-icgetprefhandle
-func ICGetPrefHandle(arg0 ICInstance, arg1 unsafe.Pointer, arg2 ICAttr, arg3 unsafe.Pointer) int32 {
-	result, callErr := tryICGetPrefHandle(arg0, arg1, arg2, arg3)
+func ICGetPrefHandle(inst ICInstance, key unsafe.Pointer, attr *ICAttr, prefh *kernel.Handle) int32 {
+	result, callErr := tryICGetPrefHandle(inst, key, attr, prefh)
 	if callErr != nil {
 		panic(callErr)
 	}
 	return result
 }
 
-var _iCGetProfileName func(arg0 ICInstance, arg1 ICProfileID, arg2 unsafe.Pointer) int32
+var _iCGetProfileName func(inst ICInstance, thisID ICProfileID, name unsafe.Pointer) int32
 var _iCGetProfileNameErr error
 
-func tryICGetProfileName(arg0 ICInstance, arg1 ICProfileID, arg2 unsafe.Pointer) (int32, error) {
+func tryICGetProfileName(inst ICInstance, thisID ICProfileID, name unsafe.Pointer) (int32, error) {
 	if _iCGetProfileName == nil {
 		return 0, symbolCallError("ICGetProfileName", "10.0", _iCGetProfileNameErr)
 	}
-	return _iCGetProfileName(arg0, arg1, arg2), nil
+	return _iCGetProfileName(inst, thisID, name), nil
 }
 
 // ICGetProfileName.
@@ -2764,22 +2811,22 @@ func tryICGetProfileName(arg0 ICInstance, arg1 ICProfileID, arg2 unsafe.Pointer)
 // Deprecated: Deprecated since macOS 10.7.
 //
 // See: https://developer.apple.com/documentation/applicationservices/1578523-icgetprofilename
-func ICGetProfileName(arg0 ICInstance, arg1 ICProfileID, arg2 unsafe.Pointer) int32 {
-	result, callErr := tryICGetProfileName(arg0, arg1, arg2)
+func ICGetProfileName(inst ICInstance, thisID ICProfileID, name unsafe.Pointer) int32 {
+	result, callErr := tryICGetProfileName(inst, thisID, name)
 	if callErr != nil {
 		panic(callErr)
 	}
 	return result
 }
 
-var _iCGetSeed func(arg0 ICInstance, arg1 int) int32
+var _iCGetSeed func(inst ICInstance, seed *int) int32
 var _iCGetSeedErr error
 
-func tryICGetSeed(arg0 ICInstance, arg1 int) (int32, error) {
+func tryICGetSeed(inst ICInstance, seed *int) (int32, error) {
 	if _iCGetSeed == nil {
 		return 0, symbolCallError("ICGetSeed", "10.0", _iCGetSeedErr)
 	}
-	return _iCGetSeed(arg0, arg1), nil
+	return _iCGetSeed(inst, seed), nil
 }
 
 // ICGetSeed.
@@ -2787,22 +2834,22 @@ func tryICGetSeed(arg0 ICInstance, arg1 int) (int32, error) {
 // Deprecated: Deprecated since macOS 10.7.
 //
 // See: https://developer.apple.com/documentation/applicationservices/1578514-icgetseed
-func ICGetSeed(arg0 ICInstance, arg1 int) int32 {
-	result, callErr := tryICGetSeed(arg0, arg1)
+func ICGetSeed(inst ICInstance, seed *int) int32 {
+	result, callErr := tryICGetSeed(inst, seed)
 	if callErr != nil {
 		panic(callErr)
 	}
 	return result
 }
 
-var _iCGetVersion func(arg0 ICInstance, arg1 int, arg2 uint32) int32
+var _iCGetVersion func(inst ICInstance, whichVersion int, version *uint32) int32
 var _iCGetVersionErr error
 
-func tryICGetVersion(arg0 ICInstance, arg1 int, arg2 uint32) (int32, error) {
+func tryICGetVersion(inst ICInstance, whichVersion int, version *uint32) (int32, error) {
 	if _iCGetVersion == nil {
 		return 0, symbolCallError("ICGetVersion", "10.0", _iCGetVersionErr)
 	}
-	return _iCGetVersion(arg0, arg1, arg2), nil
+	return _iCGetVersion(inst, whichVersion, version), nil
 }
 
 // ICGetVersion.
@@ -2810,22 +2857,22 @@ func tryICGetVersion(arg0 ICInstance, arg1 int, arg2 uint32) (int32, error) {
 // Deprecated: Deprecated since macOS 10.7.
 //
 // See: https://developer.apple.com/documentation/applicationservices/1578536-icgetversion
-func ICGetVersion(arg0 ICInstance, arg1 int, arg2 uint32) int32 {
-	result, callErr := tryICGetVersion(arg0, arg1, arg2)
+func ICGetVersion(inst ICInstance, whichVersion int, version *uint32) int32 {
+	result, callErr := tryICGetVersion(inst, whichVersion, version)
 	if callErr != nil {
 		panic(callErr)
 	}
 	return result
 }
 
-var _iCLaunchURL func(arg0 ICInstance, arg1 unsafe.Pointer, arg2 int, arg3 int, arg4 int) int32
+var _iCLaunchURL func(inst ICInstance, hint unsafe.Pointer, data unsafe.Pointer, len_ int, selStart *int, selEnd *int) int32
 var _iCLaunchURLErr error
 
-func tryICLaunchURL(arg0 ICInstance, arg1 unsafe.Pointer, arg2 int, arg3 int, arg4 int) (int32, error) {
+func tryICLaunchURL(inst ICInstance, hint unsafe.Pointer, data unsafe.Pointer, len_ int, selStart *int, selEnd *int) (int32, error) {
 	if _iCLaunchURL == nil {
 		return 0, symbolCallError("ICLaunchURL", "10.0", _iCLaunchURLErr)
 	}
-	return _iCLaunchURL(arg0, arg1, arg2, arg3, arg4), nil
+	return _iCLaunchURL(inst, hint, data, len_, selStart, selEnd), nil
 }
 
 // ICLaunchURL.
@@ -2833,22 +2880,22 @@ func tryICLaunchURL(arg0 ICInstance, arg1 unsafe.Pointer, arg2 int, arg3 int, ar
 // Deprecated: Deprecated since macOS 10.7.
 //
 // See: https://developer.apple.com/documentation/applicationservices/1578504-iclaunchurl
-func ICLaunchURL(arg0 ICInstance, arg1 unsafe.Pointer, arg2 int, arg3 int, arg4 int) int32 {
-	result, callErr := tryICLaunchURL(arg0, arg1, arg2, arg3, arg4)
+func ICLaunchURL(inst ICInstance, hint unsafe.Pointer, data unsafe.Pointer, len_ int, selStart *int, selEnd *int) int32 {
+	result, callErr := tryICLaunchURL(inst, hint, data, len_, selStart, selEnd)
 	if callErr != nil {
 		panic(callErr)
 	}
 	return result
 }
 
-var _iCMapEntriesFilename func(arg0 ICInstance, arg1 unsafe.Pointer, arg2 unsafe.Pointer, arg3 ICMapEntry) int32
+var _iCMapEntriesFilename func(inst ICInstance, entries kernel.Handle, filename unsafe.Pointer, entry *ICMapEntry) int32
 var _iCMapEntriesFilenameErr error
 
-func tryICMapEntriesFilename(arg0 ICInstance, arg1 unsafe.Pointer, arg2 unsafe.Pointer, arg3 ICMapEntry) (int32, error) {
+func tryICMapEntriesFilename(inst ICInstance, entries kernel.Handle, filename unsafe.Pointer, entry *ICMapEntry) (int32, error) {
 	if _iCMapEntriesFilename == nil {
 		return 0, symbolCallError("ICMapEntriesFilename", "10.0", _iCMapEntriesFilenameErr)
 	}
-	return _iCMapEntriesFilename(arg0, arg1, arg2, arg3), nil
+	return _iCMapEntriesFilename(inst, entries, filename, entry), nil
 }
 
 // ICMapEntriesFilename.
@@ -2856,22 +2903,22 @@ func tryICMapEntriesFilename(arg0 ICInstance, arg1 unsafe.Pointer, arg2 unsafe.P
 // Deprecated: Deprecated since macOS 10.7.
 //
 // See: https://developer.apple.com/documentation/applicationservices/1578539-icmapentriesfilename
-func ICMapEntriesFilename(arg0 ICInstance, arg1 unsafe.Pointer, arg2 unsafe.Pointer, arg3 ICMapEntry) int32 {
-	result, callErr := tryICMapEntriesFilename(arg0, arg1, arg2, arg3)
+func ICMapEntriesFilename(inst ICInstance, entries kernel.Handle, filename unsafe.Pointer, entry *ICMapEntry) int32 {
+	result, callErr := tryICMapEntriesFilename(inst, entries, filename, entry)
 	if callErr != nil {
 		panic(callErr)
 	}
 	return result
 }
 
-var _iCMapEntriesTypeCreator func(arg0 ICInstance, arg1 unsafe.Pointer, arg2 uint32, arg3 uint32, arg4 unsafe.Pointer, arg5 ICMapEntry) int32
+var _iCMapEntriesTypeCreator func(inst ICInstance, entries kernel.Handle, fType uint32, fCreator uint32, filename unsafe.Pointer, entry *ICMapEntry) int32
 var _iCMapEntriesTypeCreatorErr error
 
-func tryICMapEntriesTypeCreator(arg0 ICInstance, arg1 unsafe.Pointer, arg2 uint32, arg3 uint32, arg4 unsafe.Pointer, arg5 ICMapEntry) (int32, error) {
+func tryICMapEntriesTypeCreator(inst ICInstance, entries kernel.Handle, fType uint32, fCreator uint32, filename unsafe.Pointer, entry *ICMapEntry) (int32, error) {
 	if _iCMapEntriesTypeCreator == nil {
 		return 0, symbolCallError("ICMapEntriesTypeCreator", "10.0", _iCMapEntriesTypeCreatorErr)
 	}
-	return _iCMapEntriesTypeCreator(arg0, arg1, arg2, arg3, arg4, arg5), nil
+	return _iCMapEntriesTypeCreator(inst, entries, fType, fCreator, filename, entry), nil
 }
 
 // ICMapEntriesTypeCreator.
@@ -2879,22 +2926,22 @@ func tryICMapEntriesTypeCreator(arg0 ICInstance, arg1 unsafe.Pointer, arg2 uint3
 // Deprecated: Deprecated since macOS 10.7.
 //
 // See: https://developer.apple.com/documentation/applicationservices/1578486-icmapentriestypecreator
-func ICMapEntriesTypeCreator(arg0 ICInstance, arg1 unsafe.Pointer, arg2 uint32, arg3 uint32, arg4 unsafe.Pointer, arg5 ICMapEntry) int32 {
-	result, callErr := tryICMapEntriesTypeCreator(arg0, arg1, arg2, arg3, arg4, arg5)
+func ICMapEntriesTypeCreator(inst ICInstance, entries kernel.Handle, fType uint32, fCreator uint32, filename unsafe.Pointer, entry *ICMapEntry) int32 {
+	result, callErr := tryICMapEntriesTypeCreator(inst, entries, fType, fCreator, filename, entry)
 	if callErr != nil {
 		panic(callErr)
 	}
 	return result
 }
 
-var _iCMapFilename func(arg0 ICInstance, arg1 unsafe.Pointer, arg2 ICMapEntry) int32
+var _iCMapFilename func(inst ICInstance, filename unsafe.Pointer, entry *ICMapEntry) int32
 var _iCMapFilenameErr error
 
-func tryICMapFilename(arg0 ICInstance, arg1 unsafe.Pointer, arg2 ICMapEntry) (int32, error) {
+func tryICMapFilename(inst ICInstance, filename unsafe.Pointer, entry *ICMapEntry) (int32, error) {
 	if _iCMapFilename == nil {
 		return 0, symbolCallError("ICMapFilename", "10.0", _iCMapFilenameErr)
 	}
-	return _iCMapFilename(arg0, arg1, arg2), nil
+	return _iCMapFilename(inst, filename, entry), nil
 }
 
 // ICMapFilename.
@@ -2902,22 +2949,22 @@ func tryICMapFilename(arg0 ICInstance, arg1 unsafe.Pointer, arg2 ICMapEntry) (in
 // Deprecated: Deprecated since macOS 10.7.
 //
 // See: https://developer.apple.com/documentation/applicationservices/1578490-icmapfilename
-func ICMapFilename(arg0 ICInstance, arg1 unsafe.Pointer, arg2 ICMapEntry) int32 {
-	result, callErr := tryICMapFilename(arg0, arg1, arg2)
+func ICMapFilename(inst ICInstance, filename unsafe.Pointer, entry *ICMapEntry) int32 {
+	result, callErr := tryICMapFilename(inst, filename, entry)
 	if callErr != nil {
 		panic(callErr)
 	}
 	return result
 }
 
-var _iCMapTypeCreator func(arg0 ICInstance, arg1 uint32, arg2 uint32, arg3 unsafe.Pointer, arg4 ICMapEntry) int32
+var _iCMapTypeCreator func(inst ICInstance, fType uint32, fCreator uint32, filename unsafe.Pointer, entry *ICMapEntry) int32
 var _iCMapTypeCreatorErr error
 
-func tryICMapTypeCreator(arg0 ICInstance, arg1 uint32, arg2 uint32, arg3 unsafe.Pointer, arg4 ICMapEntry) (int32, error) {
+func tryICMapTypeCreator(inst ICInstance, fType uint32, fCreator uint32, filename unsafe.Pointer, entry *ICMapEntry) (int32, error) {
 	if _iCMapTypeCreator == nil {
 		return 0, symbolCallError("ICMapTypeCreator", "10.0", _iCMapTypeCreatorErr)
 	}
-	return _iCMapTypeCreator(arg0, arg1, arg2, arg3, arg4), nil
+	return _iCMapTypeCreator(inst, fType, fCreator, filename, entry), nil
 }
 
 // ICMapTypeCreator.
@@ -2925,22 +2972,22 @@ func tryICMapTypeCreator(arg0 ICInstance, arg1 uint32, arg2 uint32, arg3 unsafe.
 // Deprecated: Deprecated since macOS 10.7.
 //
 // See: https://developer.apple.com/documentation/applicationservices/1578520-icmaptypecreator
-func ICMapTypeCreator(arg0 ICInstance, arg1 uint32, arg2 uint32, arg3 unsafe.Pointer, arg4 ICMapEntry) int32 {
-	result, callErr := tryICMapTypeCreator(arg0, arg1, arg2, arg3, arg4)
+func ICMapTypeCreator(inst ICInstance, fType uint32, fCreator uint32, filename unsafe.Pointer, entry *ICMapEntry) int32 {
+	result, callErr := tryICMapTypeCreator(inst, fType, fCreator, filename, entry)
 	if callErr != nil {
 		panic(callErr)
 	}
 	return result
 }
 
-var _iCParseURL func(arg0 ICInstance, arg1 unsafe.Pointer, arg2 int, arg3 int, arg4 int, arg5 unsafe.Pointer) int32
+var _iCParseURL func(inst ICInstance, hint unsafe.Pointer, data unsafe.Pointer, len_ int, selStart *int, selEnd *int, url kernel.Handle) int32
 var _iCParseURLErr error
 
-func tryICParseURL(arg0 ICInstance, arg1 unsafe.Pointer, arg2 int, arg3 int, arg4 int, arg5 unsafe.Pointer) (int32, error) {
+func tryICParseURL(inst ICInstance, hint unsafe.Pointer, data unsafe.Pointer, len_ int, selStart *int, selEnd *int, url kernel.Handle) (int32, error) {
 	if _iCParseURL == nil {
 		return 0, symbolCallError("ICParseURL", "10.0", _iCParseURLErr)
 	}
-	return _iCParseURL(arg0, arg1, arg2, arg3, arg4, arg5), nil
+	return _iCParseURL(inst, hint, data, len_, selStart, selEnd, url), nil
 }
 
 // ICParseURL.
@@ -2948,22 +2995,45 @@ func tryICParseURL(arg0 ICInstance, arg1 unsafe.Pointer, arg2 int, arg3 int, arg
 // Deprecated: Deprecated since macOS 10.7.
 //
 // See: https://developer.apple.com/documentation/applicationservices/1578515-icparseurl
-func ICParseURL(arg0 ICInstance, arg1 unsafe.Pointer, arg2 int, arg3 int, arg4 int, arg5 unsafe.Pointer) int32 {
-	result, callErr := tryICParseURL(arg0, arg1, arg2, arg3, arg4, arg5)
+func ICParseURL(inst ICInstance, hint unsafe.Pointer, data unsafe.Pointer, len_ int, selStart *int, selEnd *int, url kernel.Handle) int32 {
+	result, callErr := tryICParseURL(inst, hint, data, len_, selStart, selEnd, url)
 	if callErr != nil {
 		panic(callErr)
 	}
 	return result
 }
 
-var _iCSetCurrentProfile func(arg0 ICInstance, arg1 ICProfileID) int32
+var _iCSendGURLEvent func(inst ICInstance, theEvent *coreservices.AEDesc) int32
+var _iCSendGURLEventErr error
+
+func tryICSendGURLEvent(inst ICInstance, theEvent *coreservices.AEDesc) (int32, error) {
+	if _iCSendGURLEvent == nil {
+		return 0, symbolCallError("ICSendGURLEvent", "10.0", _iCSendGURLEventErr)
+	}
+	return _iCSendGURLEvent(inst, theEvent), nil
+}
+
+// ICSendGURLEvent.
+//
+// Deprecated: Deprecated since macOS 10.7.
+//
+// See: https://developer.apple.com/documentation/applicationservices/1578487-icsendgurlevent
+func ICSendGURLEvent(inst ICInstance, theEvent *coreservices.AEDesc) int32 {
+	result, callErr := tryICSendGURLEvent(inst, theEvent)
+	if callErr != nil {
+		panic(callErr)
+	}
+	return result
+}
+
+var _iCSetCurrentProfile func(inst ICInstance, newID ICProfileID) int32
 var _iCSetCurrentProfileErr error
 
-func tryICSetCurrentProfile(arg0 ICInstance, arg1 ICProfileID) (int32, error) {
+func tryICSetCurrentProfile(inst ICInstance, newID ICProfileID) (int32, error) {
 	if _iCSetCurrentProfile == nil {
 		return 0, symbolCallError("ICSetCurrentProfile", "10.0", _iCSetCurrentProfileErr)
 	}
-	return _iCSetCurrentProfile(arg0, arg1), nil
+	return _iCSetCurrentProfile(inst, newID), nil
 }
 
 // ICSetCurrentProfile.
@@ -2971,22 +3041,22 @@ func tryICSetCurrentProfile(arg0 ICInstance, arg1 ICProfileID) (int32, error) {
 // Deprecated: Deprecated since macOS 10.7.
 //
 // See: https://developer.apple.com/documentation/applicationservices/1578485-icsetcurrentprofile
-func ICSetCurrentProfile(arg0 ICInstance, arg1 ICProfileID) int32 {
-	result, callErr := tryICSetCurrentProfile(arg0, arg1)
+func ICSetCurrentProfile(inst ICInstance, newID ICProfileID) int32 {
+	result, callErr := tryICSetCurrentProfile(inst, newID)
 	if callErr != nil {
 		panic(callErr)
 	}
 	return result
 }
 
-var _iCSetMapEntry func(arg0 ICInstance, arg1 unsafe.Pointer, arg2 int, arg3 ICMapEntry) int32
+var _iCSetMapEntry func(inst ICInstance, entries kernel.Handle, pos int, entry *ICMapEntry) int32
 var _iCSetMapEntryErr error
 
-func tryICSetMapEntry(arg0 ICInstance, arg1 unsafe.Pointer, arg2 int, arg3 ICMapEntry) (int32, error) {
+func tryICSetMapEntry(inst ICInstance, entries kernel.Handle, pos int, entry *ICMapEntry) (int32, error) {
 	if _iCSetMapEntry == nil {
 		return 0, symbolCallError("ICSetMapEntry", "10.0", _iCSetMapEntryErr)
 	}
-	return _iCSetMapEntry(arg0, arg1, arg2, arg3), nil
+	return _iCSetMapEntry(inst, entries, pos, entry), nil
 }
 
 // ICSetMapEntry.
@@ -2994,22 +3064,22 @@ func tryICSetMapEntry(arg0 ICInstance, arg1 unsafe.Pointer, arg2 int, arg3 ICMap
 // Deprecated: Deprecated since macOS 10.7.
 //
 // See: https://developer.apple.com/documentation/applicationservices/1578540-icsetmapentry
-func ICSetMapEntry(arg0 ICInstance, arg1 unsafe.Pointer, arg2 int, arg3 ICMapEntry) int32 {
-	result, callErr := tryICSetMapEntry(arg0, arg1, arg2, arg3)
+func ICSetMapEntry(inst ICInstance, entries kernel.Handle, pos int, entry *ICMapEntry) int32 {
+	result, callErr := tryICSetMapEntry(inst, entries, pos, entry)
 	if callErr != nil {
 		panic(callErr)
 	}
 	return result
 }
 
-var _iCSetPref func(arg0 ICInstance, arg1 unsafe.Pointer, arg2 ICAttr, arg3 int) int32
+var _iCSetPref func(inst ICInstance, key unsafe.Pointer, attr ICAttr, buf unsafe.Pointer, size int) int32
 var _iCSetPrefErr error
 
-func tryICSetPref(arg0 ICInstance, arg1 unsafe.Pointer, arg2 ICAttr, arg3 int) (int32, error) {
+func tryICSetPref(inst ICInstance, key unsafe.Pointer, attr ICAttr, buf unsafe.Pointer, size int) (int32, error) {
 	if _iCSetPref == nil {
 		return 0, symbolCallError("ICSetPref", "10.0", _iCSetPrefErr)
 	}
-	return _iCSetPref(arg0, arg1, arg2, arg3), nil
+	return _iCSetPref(inst, key, attr, buf, size), nil
 }
 
 // ICSetPref.
@@ -3017,22 +3087,22 @@ func tryICSetPref(arg0 ICInstance, arg1 unsafe.Pointer, arg2 ICAttr, arg3 int) (
 // Deprecated: Deprecated since macOS 10.7.
 //
 // See: https://developer.apple.com/documentation/applicationservices/1578533-icsetpref
-func ICSetPref(arg0 ICInstance, arg1 unsafe.Pointer, arg2 ICAttr, arg3 int) int32 {
-	result, callErr := tryICSetPref(arg0, arg1, arg2, arg3)
+func ICSetPref(inst ICInstance, key unsafe.Pointer, attr ICAttr, buf unsafe.Pointer, size int) int32 {
+	result, callErr := tryICSetPref(inst, key, attr, buf, size)
 	if callErr != nil {
 		panic(callErr)
 	}
 	return result
 }
 
-var _iCSetPrefHandle func(arg0 ICInstance, arg1 unsafe.Pointer, arg2 ICAttr, arg3 unsafe.Pointer) int32
+var _iCSetPrefHandle func(inst ICInstance, key unsafe.Pointer, attr ICAttr, prefh kernel.Handle) int32
 var _iCSetPrefHandleErr error
 
-func tryICSetPrefHandle(arg0 ICInstance, arg1 unsafe.Pointer, arg2 ICAttr, arg3 unsafe.Pointer) (int32, error) {
+func tryICSetPrefHandle(inst ICInstance, key unsafe.Pointer, attr ICAttr, prefh kernel.Handle) (int32, error) {
 	if _iCSetPrefHandle == nil {
 		return 0, symbolCallError("ICSetPrefHandle", "10.0", _iCSetPrefHandleErr)
 	}
-	return _iCSetPrefHandle(arg0, arg1, arg2, arg3), nil
+	return _iCSetPrefHandle(inst, key, attr, prefh), nil
 }
 
 // ICSetPrefHandle.
@@ -3040,22 +3110,22 @@ func tryICSetPrefHandle(arg0 ICInstance, arg1 unsafe.Pointer, arg2 ICAttr, arg3 
 // Deprecated: Deprecated since macOS 10.7.
 //
 // See: https://developer.apple.com/documentation/applicationservices/1578545-icsetprefhandle
-func ICSetPrefHandle(arg0 ICInstance, arg1 unsafe.Pointer, arg2 ICAttr, arg3 unsafe.Pointer) int32 {
-	result, callErr := tryICSetPrefHandle(arg0, arg1, arg2, arg3)
+func ICSetPrefHandle(inst ICInstance, key unsafe.Pointer, attr ICAttr, prefh kernel.Handle) int32 {
+	result, callErr := tryICSetPrefHandle(inst, key, attr, prefh)
 	if callErr != nil {
 		panic(callErr)
 	}
 	return result
 }
 
-var _iCSetProfileName func(arg0 ICInstance, arg1 ICProfileID, arg2 unsafe.Pointer) int32
+var _iCSetProfileName func(inst ICInstance, thisID ICProfileID, name unsafe.Pointer) int32
 var _iCSetProfileNameErr error
 
-func tryICSetProfileName(arg0 ICInstance, arg1 ICProfileID, arg2 unsafe.Pointer) (int32, error) {
+func tryICSetProfileName(inst ICInstance, thisID ICProfileID, name unsafe.Pointer) (int32, error) {
 	if _iCSetProfileName == nil {
 		return 0, symbolCallError("ICSetProfileName", "10.0", _iCSetProfileNameErr)
 	}
-	return _iCSetProfileName(arg0, arg1, arg2), nil
+	return _iCSetProfileName(inst, thisID, name), nil
 }
 
 // ICSetProfileName.
@@ -3063,22 +3133,22 @@ func tryICSetProfileName(arg0 ICInstance, arg1 ICProfileID, arg2 unsafe.Pointer)
 // Deprecated: Deprecated since macOS 10.7.
 //
 // See: https://developer.apple.com/documentation/applicationservices/1578501-icsetprofilename
-func ICSetProfileName(arg0 ICInstance, arg1 ICProfileID, arg2 unsafe.Pointer) int32 {
-	result, callErr := tryICSetProfileName(arg0, arg1, arg2)
+func ICSetProfileName(inst ICInstance, thisID ICProfileID, name unsafe.Pointer) int32 {
+	result, callErr := tryICSetProfileName(inst, thisID, name)
 	if callErr != nil {
 		panic(callErr)
 	}
 	return result
 }
 
-var _iCStart func(arg0 ICInstance, arg1 uint32) int32
+var _iCStart func(inst *ICInstance, signature uint32) int32
 var _iCStartErr error
 
-func tryICStart(arg0 ICInstance, arg1 uint32) (int32, error) {
+func tryICStart(inst *ICInstance, signature uint32) (int32, error) {
 	if _iCStart == nil {
 		return 0, symbolCallError("ICStart", "10.0", _iCStartErr)
 	}
-	return _iCStart(arg0, arg1), nil
+	return _iCStart(inst, signature), nil
 }
 
 // ICStart.
@@ -3086,22 +3156,22 @@ func tryICStart(arg0 ICInstance, arg1 uint32) (int32, error) {
 // Deprecated: Deprecated since macOS 10.7.
 //
 // See: https://developer.apple.com/documentation/applicationservices/1578513-icstart
-func ICStart(arg0 ICInstance, arg1 uint32) int32 {
-	result, callErr := tryICStart(arg0, arg1)
+func ICStart(inst *ICInstance, signature uint32) int32 {
+	result, callErr := tryICStart(inst, signature)
 	if callErr != nil {
 		panic(callErr)
 	}
 	return result
 }
 
-var _iCStop func(arg0 ICInstance) int32
+var _iCStop func(inst ICInstance) int32
 var _iCStopErr error
 
-func tryICStop(arg0 ICInstance) (int32, error) {
+func tryICStop(inst ICInstance) (int32, error) {
 	if _iCStop == nil {
 		return 0, symbolCallError("ICStop", "10.0", _iCStopErr)
 	}
-	return _iCStop(arg0), nil
+	return _iCStop(inst), nil
 }
 
 // ICStop.
@@ -3109,18 +3179,18 @@ func tryICStop(arg0 ICInstance) (int32, error) {
 // Deprecated: Deprecated since macOS 10.7.
 //
 // See: https://developer.apple.com/documentation/applicationservices/1578518-icstop
-func ICStop(arg0 ICInstance) int32 {
-	result, callErr := tryICStop(arg0)
+func ICStop(inst ICInstance) int32 {
+	result, callErr := tryICStop(inst)
 	if callErr != nil {
 		panic(callErr)
 	}
 	return result
 }
 
-var _iconRefContainsCGPoint func(testPt unsafe.Pointer, iconRect unsafe.Pointer, align IconAlignmentType, iconServicesUsageFlags unsafe.Pointer, theIconRef unsafe.Pointer) bool
+var _iconRefContainsCGPoint func(testPt unsafe.Pointer, iconRect unsafe.Pointer, align IconAlignmentType, iconServicesUsageFlags uint32, theIconRef unsafe.Pointer) bool
 var _iconRefContainsCGPointErr error
 
-func tryIconRefContainsCGPoint(testPt unsafe.Pointer, iconRect unsafe.Pointer, align IconAlignmentType, iconServicesUsageFlags unsafe.Pointer, theIconRef unsafe.Pointer) (bool, error) {
+func tryIconRefContainsCGPoint(testPt unsafe.Pointer, iconRect unsafe.Pointer, align IconAlignmentType, iconServicesUsageFlags uint32, theIconRef unsafe.Pointer) (bool, error) {
 	if _iconRefContainsCGPoint == nil {
 		return false, symbolCallError("IconRefContainsCGPoint", "10.5", _iconRefContainsCGPointErr)
 	}
@@ -3130,7 +3200,7 @@ func tryIconRefContainsCGPoint(testPt unsafe.Pointer, iconRect unsafe.Pointer, a
 // IconRefContainsCGPoint.
 //
 // See: https://developer.apple.com/documentation/applicationservices/1461049-iconrefcontainscgpoint
-func IconRefContainsCGPoint(testPt unsafe.Pointer, iconRect unsafe.Pointer, align IconAlignmentType, iconServicesUsageFlags unsafe.Pointer, theIconRef unsafe.Pointer) bool {
+func IconRefContainsCGPoint(testPt unsafe.Pointer, iconRect unsafe.Pointer, align IconAlignmentType, iconServicesUsageFlags uint32, theIconRef unsafe.Pointer) bool {
 	result, callErr := tryIconRefContainsCGPoint(testPt, iconRect, align, iconServicesUsageFlags, theIconRef)
 	if callErr != nil {
 		panic(callErr)
@@ -3138,10 +3208,10 @@ func IconRefContainsCGPoint(testPt unsafe.Pointer, iconRect unsafe.Pointer, alig
 	return result
 }
 
-var _iconRefIntersectsCGRect func(testRect unsafe.Pointer, iconRect unsafe.Pointer, align IconAlignmentType, iconServicesUsageFlags unsafe.Pointer, theIconRef unsafe.Pointer) bool
+var _iconRefIntersectsCGRect func(testRect unsafe.Pointer, iconRect unsafe.Pointer, align IconAlignmentType, iconServicesUsageFlags uint32, theIconRef unsafe.Pointer) bool
 var _iconRefIntersectsCGRectErr error
 
-func tryIconRefIntersectsCGRect(testRect unsafe.Pointer, iconRect unsafe.Pointer, align IconAlignmentType, iconServicesUsageFlags unsafe.Pointer, theIconRef unsafe.Pointer) (bool, error) {
+func tryIconRefIntersectsCGRect(testRect unsafe.Pointer, iconRect unsafe.Pointer, align IconAlignmentType, iconServicesUsageFlags uint32, theIconRef unsafe.Pointer) (bool, error) {
 	if _iconRefIntersectsCGRect == nil {
 		return false, symbolCallError("IconRefIntersectsCGRect", "10.5", _iconRefIntersectsCGRectErr)
 	}
@@ -3151,7 +3221,7 @@ func tryIconRefIntersectsCGRect(testRect unsafe.Pointer, iconRect unsafe.Pointer
 // IconRefIntersectsCGRect.
 //
 // See: https://developer.apple.com/documentation/applicationservices/1462553-iconrefintersectscgrect
-func IconRefIntersectsCGRect(testRect unsafe.Pointer, iconRect unsafe.Pointer, align IconAlignmentType, iconServicesUsageFlags unsafe.Pointer, theIconRef unsafe.Pointer) bool {
+func IconRefIntersectsCGRect(testRect unsafe.Pointer, iconRect unsafe.Pointer, align IconAlignmentType, iconServicesUsageFlags uint32, theIconRef unsafe.Pointer) bool {
 	result, callErr := tryIconRefIntersectsCGRect(testRect, iconRect, align, iconServicesUsageFlags, theIconRef)
 	if callErr != nil {
 		panic(callErr)
@@ -3159,10 +3229,10 @@ func IconRefIntersectsCGRect(testRect unsafe.Pointer, iconRect unsafe.Pointer, a
 	return result
 }
 
-var _iconRefToHIShape func(iconRect unsafe.Pointer, align IconAlignmentType, iconServicesUsageFlags unsafe.Pointer, theIconRef unsafe.Pointer) HIShapeRef
+var _iconRefToHIShape func(iconRect unsafe.Pointer, align IconAlignmentType, iconServicesUsageFlags uint32, theIconRef unsafe.Pointer) HIShapeRef
 var _iconRefToHIShapeErr error
 
-func tryIconRefToHIShape(iconRect unsafe.Pointer, align IconAlignmentType, iconServicesUsageFlags unsafe.Pointer, theIconRef unsafe.Pointer) (HIShapeRef, error) {
+func tryIconRefToHIShape(iconRect unsafe.Pointer, align IconAlignmentType, iconServicesUsageFlags uint32, theIconRef unsafe.Pointer) (HIShapeRef, error) {
 	if _iconRefToHIShape == nil {
 		return *new(HIShapeRef), symbolCallError("IconRefToHIShape", "10.5", _iconRefToHIShapeErr)
 	}
@@ -3172,7 +3242,7 @@ func tryIconRefToHIShape(iconRect unsafe.Pointer, align IconAlignmentType, iconS
 // IconRefToHIShape.
 //
 // See: https://developer.apple.com/documentation/applicationservices/1464005-iconreftohishape
-func IconRefToHIShape(iconRect unsafe.Pointer, align IconAlignmentType, iconServicesUsageFlags unsafe.Pointer, theIconRef unsafe.Pointer) HIShapeRef {
+func IconRefToHIShape(iconRect unsafe.Pointer, align IconAlignmentType, iconServicesUsageFlags uint32, theIconRef unsafe.Pointer) HIShapeRef {
 	result, callErr := tryIconRefToHIShape(iconRect, align, iconServicesUsageFlags, theIconRef)
 	if callErr != nil {
 		panic(callErr)
@@ -3180,10 +3250,31 @@ func IconRefToHIShape(iconRect unsafe.Pointer, align IconAlignmentType, iconServ
 	return result
 }
 
-var _invokeIconActionUPP func(theType uint32, theIcon unsafe.Pointer, yourDataPtr unsafe.Pointer, userUPP IconActionUPP) int16
+var _iconRefToIconFamily func(theIconRef unsafe.Pointer, whichIcons IconSelectorValue, iconFamily *coreservices.IconFamilyHandle) int16
+var _iconRefToIconFamilyErr error
+
+func tryIconRefToIconFamily(theIconRef unsafe.Pointer, whichIcons IconSelectorValue, iconFamily *coreservices.IconFamilyHandle) (int16, error) {
+	if _iconRefToIconFamily == nil {
+		return 0, symbolCallError("IconRefToIconFamily", "10.0", _iconRefToIconFamilyErr)
+	}
+	return _iconRefToIconFamily(theIconRef, whichIcons, iconFamily), nil
+}
+
+// IconRefToIconFamily.
+//
+// See: https://developer.apple.com/documentation/applicationservices/1459977-iconreftoiconfamily
+func IconRefToIconFamily(theIconRef unsafe.Pointer, whichIcons IconSelectorValue, iconFamily *coreservices.IconFamilyHandle) int16 {
+	result, callErr := tryIconRefToIconFamily(theIconRef, whichIcons, iconFamily)
+	if callErr != nil {
+		panic(callErr)
+	}
+	return result
+}
+
+var _invokeIconActionUPP func(theType uint32, theIcon *kernel.Handle, yourDataPtr unsafe.Pointer, userUPP IconActionUPP) int16
 var _invokeIconActionUPPErr error
 
-func tryInvokeIconActionUPP(theType uint32, theIcon unsafe.Pointer, yourDataPtr unsafe.Pointer, userUPP IconActionUPP) (int16, error) {
+func tryInvokeIconActionUPP(theType uint32, theIcon *kernel.Handle, yourDataPtr unsafe.Pointer, userUPP IconActionUPP) (int16, error) {
 	if _invokeIconActionUPP == nil {
 		return 0, symbolCallError("InvokeIconActionUPP", "10.0", _invokeIconActionUPPErr)
 	}
@@ -3193,7 +3284,7 @@ func tryInvokeIconActionUPP(theType uint32, theIcon unsafe.Pointer, yourDataPtr 
 // InvokeIconActionUPP.
 //
 // See: https://developer.apple.com/documentation/applicationservices/1464116-invokeiconactionupp
-func InvokeIconActionUPP(theType uint32, theIcon unsafe.Pointer, yourDataPtr unsafe.Pointer, userUPP IconActionUPP) int16 {
+func InvokeIconActionUPP(theType uint32, theIcon *kernel.Handle, yourDataPtr unsafe.Pointer, userUPP IconActionUPP) int16 {
 	result, callErr := tryInvokeIconActionUPP(theType, theIcon, yourDataPtr, userUPP)
 	if callErr != nil {
 		panic(callErr)
@@ -3201,12 +3292,12 @@ func InvokeIconActionUPP(theType uint32, theIcon unsafe.Pointer, yourDataPtr uns
 	return result
 }
 
-var _invokeIconGetterUPP func(theType uint32, yourDataPtr unsafe.Pointer, userUPP IconGetterUPP) unsafe.Pointer
+var _invokeIconGetterUPP func(theType uint32, yourDataPtr unsafe.Pointer, userUPP IconGetterUPP) kernel.Handle
 var _invokeIconGetterUPPErr error
 
-func tryInvokeIconGetterUPP(theType uint32, yourDataPtr unsafe.Pointer, userUPP IconGetterUPP) (unsafe.Pointer, error) {
+func tryInvokeIconGetterUPP(theType uint32, yourDataPtr unsafe.Pointer, userUPP IconGetterUPP) (kernel.Handle, error) {
 	if _invokeIconGetterUPP == nil {
-		return nil, symbolCallError("InvokeIconGetterUPP", "10.0", _invokeIconGetterUPPErr)
+		return *new(kernel.Handle), symbolCallError("InvokeIconGetterUPP", "10.0", _invokeIconGetterUPPErr)
 	}
 	return _invokeIconGetterUPP(theType, yourDataPtr, userUPP), nil
 }
@@ -3214,7 +3305,7 @@ func tryInvokeIconGetterUPP(theType uint32, yourDataPtr unsafe.Pointer, userUPP 
 // InvokeIconGetterUPP.
 //
 // See: https://developer.apple.com/documentation/applicationservices/1460976-invokeicongetterupp
-func InvokeIconGetterUPP(theType uint32, yourDataPtr unsafe.Pointer, userUPP IconGetterUPP) unsafe.Pointer {
+func InvokeIconGetterUPP(theType uint32, yourDataPtr unsafe.Pointer, userUPP IconGetterUPP) kernel.Handle {
 	result, callErr := tryInvokeIconGetterUPP(theType, yourDataPtr, userUPP)
 	if callErr != nil {
 		panic(callErr)
@@ -3222,14 +3313,14 @@ func InvokeIconGetterUPP(theType uint32, yourDataPtr unsafe.Pointer, userUPP Ico
 	return result
 }
 
-var _invokeSpeechDoneUPP func(arg0 *SpeechChannelRecord, arg1 uintptr, arg2 SpeechDoneUPP)
+var _invokeSpeechDoneUPP func(chan_ *SpeechChannelRecord, refCon uintptr, userUPP SpeechDoneUPP)
 var _invokeSpeechDoneUPPErr error
 
-func tryInvokeSpeechDoneUPP(arg0 *SpeechChannelRecord, arg1 uintptr, arg2 SpeechDoneUPP) error {
+func tryInvokeSpeechDoneUPP(chan_ *SpeechChannelRecord, refCon uintptr, userUPP SpeechDoneUPP) error {
 	if _invokeSpeechDoneUPP == nil {
 		return symbolCallError("InvokeSpeechDoneUPP", "10.0", _invokeSpeechDoneUPPErr)
 	}
-	_invokeSpeechDoneUPP(arg0, arg1, arg2)
+	_invokeSpeechDoneUPP(chan_, refCon, userUPP)
 	return nil
 }
 
@@ -3238,20 +3329,20 @@ func tryInvokeSpeechDoneUPP(arg0 *SpeechChannelRecord, arg1 uintptr, arg2 Speech
 // Deprecated: Deprecated since macOS 10.8.
 //
 // See: https://developer.apple.com/documentation/applicationservices/1552215-invokespeechdoneupp
-func InvokeSpeechDoneUPP(arg0 *SpeechChannelRecord, arg1 uintptr, arg2 SpeechDoneUPP) {
-	if callErr := tryInvokeSpeechDoneUPP(arg0, arg1, arg2); callErr != nil {
+func InvokeSpeechDoneUPP(chan_ *SpeechChannelRecord, refCon uintptr, userUPP SpeechDoneUPP) {
+	if callErr := tryInvokeSpeechDoneUPP(chan_, refCon, userUPP); callErr != nil {
 		panic(callErr)
 	}
 }
 
-var _invokeSpeechErrorUPP func(arg0 *SpeechChannelRecord, arg1 uintptr, arg2 int16, arg3 int, arg4 SpeechErrorUPP)
+var _invokeSpeechErrorUPP func(chan_ *SpeechChannelRecord, refCon uintptr, theError int16, bytePos int, userUPP SpeechErrorUPP)
 var _invokeSpeechErrorUPPErr error
 
-func tryInvokeSpeechErrorUPP(arg0 *SpeechChannelRecord, arg1 uintptr, arg2 int16, arg3 int, arg4 SpeechErrorUPP) error {
+func tryInvokeSpeechErrorUPP(chan_ *SpeechChannelRecord, refCon uintptr, theError int16, bytePos int, userUPP SpeechErrorUPP) error {
 	if _invokeSpeechErrorUPP == nil {
 		return symbolCallError("InvokeSpeechErrorUPP", "10.0", _invokeSpeechErrorUPPErr)
 	}
-	_invokeSpeechErrorUPP(arg0, arg1, arg2, arg3, arg4)
+	_invokeSpeechErrorUPP(chan_, refCon, theError, bytePos, userUPP)
 	return nil
 }
 
@@ -3260,20 +3351,20 @@ func tryInvokeSpeechErrorUPP(arg0 *SpeechChannelRecord, arg1 uintptr, arg2 int16
 // Deprecated: Deprecated since macOS 10.8.
 //
 // See: https://developer.apple.com/documentation/applicationservices/1552214-invokespeecherrorupp
-func InvokeSpeechErrorUPP(arg0 *SpeechChannelRecord, arg1 uintptr, arg2 int16, arg3 int, arg4 SpeechErrorUPP) {
-	if callErr := tryInvokeSpeechErrorUPP(arg0, arg1, arg2, arg3, arg4); callErr != nil {
+func InvokeSpeechErrorUPP(chan_ *SpeechChannelRecord, refCon uintptr, theError int16, bytePos int, userUPP SpeechErrorUPP) {
+	if callErr := tryInvokeSpeechErrorUPP(chan_, refCon, theError, bytePos, userUPP); callErr != nil {
 		panic(callErr)
 	}
 }
 
-var _invokeSpeechPhonemeUPP func(arg0 *SpeechChannelRecord, arg1 uintptr, arg2 int16, arg3 SpeechPhonemeUPP)
+var _invokeSpeechPhonemeUPP func(chan_ *SpeechChannelRecord, refCon uintptr, phonemeOpcode int16, userUPP SpeechPhonemeUPP)
 var _invokeSpeechPhonemeUPPErr error
 
-func tryInvokeSpeechPhonemeUPP(arg0 *SpeechChannelRecord, arg1 uintptr, arg2 int16, arg3 SpeechPhonemeUPP) error {
+func tryInvokeSpeechPhonemeUPP(chan_ *SpeechChannelRecord, refCon uintptr, phonemeOpcode int16, userUPP SpeechPhonemeUPP) error {
 	if _invokeSpeechPhonemeUPP == nil {
 		return symbolCallError("InvokeSpeechPhonemeUPP", "10.0", _invokeSpeechPhonemeUPPErr)
 	}
-	_invokeSpeechPhonemeUPP(arg0, arg1, arg2, arg3)
+	_invokeSpeechPhonemeUPP(chan_, refCon, phonemeOpcode, userUPP)
 	return nil
 }
 
@@ -3282,20 +3373,20 @@ func tryInvokeSpeechPhonemeUPP(arg0 *SpeechChannelRecord, arg1 uintptr, arg2 int
 // Deprecated: Deprecated since macOS 10.8.
 //
 // See: https://developer.apple.com/documentation/applicationservices/1552234-invokespeechphonemeupp
-func InvokeSpeechPhonemeUPP(arg0 *SpeechChannelRecord, arg1 uintptr, arg2 int16, arg3 SpeechPhonemeUPP) {
-	if callErr := tryInvokeSpeechPhonemeUPP(arg0, arg1, arg2, arg3); callErr != nil {
+func InvokeSpeechPhonemeUPP(chan_ *SpeechChannelRecord, refCon uintptr, phonemeOpcode int16, userUPP SpeechPhonemeUPP) {
+	if callErr := tryInvokeSpeechPhonemeUPP(chan_, refCon, phonemeOpcode, userUPP); callErr != nil {
 		panic(callErr)
 	}
 }
 
-var _invokeSpeechSyncUPP func(arg0 *SpeechChannelRecord, arg1 uintptr, arg2 uint32, arg3 SpeechSyncUPP)
+var _invokeSpeechSyncUPP func(chan_ *SpeechChannelRecord, refCon uintptr, syncMessage uint32, userUPP SpeechSyncUPP)
 var _invokeSpeechSyncUPPErr error
 
-func tryInvokeSpeechSyncUPP(arg0 *SpeechChannelRecord, arg1 uintptr, arg2 uint32, arg3 SpeechSyncUPP) error {
+func tryInvokeSpeechSyncUPP(chan_ *SpeechChannelRecord, refCon uintptr, syncMessage uint32, userUPP SpeechSyncUPP) error {
 	if _invokeSpeechSyncUPP == nil {
 		return symbolCallError("InvokeSpeechSyncUPP", "10.0", _invokeSpeechSyncUPPErr)
 	}
-	_invokeSpeechSyncUPP(arg0, arg1, arg2, arg3)
+	_invokeSpeechSyncUPP(chan_, refCon, syncMessage, userUPP)
 	return nil
 }
 
@@ -3304,20 +3395,20 @@ func tryInvokeSpeechSyncUPP(arg0 *SpeechChannelRecord, arg1 uintptr, arg2 uint32
 // Deprecated: Deprecated since macOS 10.8.
 //
 // See: https://developer.apple.com/documentation/applicationservices/1552243-invokespeechsyncupp
-func InvokeSpeechSyncUPP(arg0 *SpeechChannelRecord, arg1 uintptr, arg2 uint32, arg3 SpeechSyncUPP) {
-	if callErr := tryInvokeSpeechSyncUPP(arg0, arg1, arg2, arg3); callErr != nil {
+func InvokeSpeechSyncUPP(chan_ *SpeechChannelRecord, refCon uintptr, syncMessage uint32, userUPP SpeechSyncUPP) {
+	if callErr := tryInvokeSpeechSyncUPP(chan_, refCon, syncMessage, userUPP); callErr != nil {
 		panic(callErr)
 	}
 }
 
-var _invokeSpeechTextDoneUPP func(arg0 *SpeechChannelRecord, arg1 uintptr, arg2 unsafe.Pointer, arg3 uint, arg4 int32, arg5 SpeechTextDoneUPP)
+var _invokeSpeechTextDoneUPP func(chan_ *SpeechChannelRecord, refCon uintptr, nextBuf unsafe.Pointer, byteLen *uint, controlFlags *int32, userUPP SpeechTextDoneUPP)
 var _invokeSpeechTextDoneUPPErr error
 
-func tryInvokeSpeechTextDoneUPP(arg0 *SpeechChannelRecord, arg1 uintptr, arg2 unsafe.Pointer, arg3 uint, arg4 int32, arg5 SpeechTextDoneUPP) error {
+func tryInvokeSpeechTextDoneUPP(chan_ *SpeechChannelRecord, refCon uintptr, nextBuf unsafe.Pointer, byteLen *uint, controlFlags *int32, userUPP SpeechTextDoneUPP) error {
 	if _invokeSpeechTextDoneUPP == nil {
 		return symbolCallError("InvokeSpeechTextDoneUPP", "10.0", _invokeSpeechTextDoneUPPErr)
 	}
-	_invokeSpeechTextDoneUPP(arg0, arg1, arg2, arg3, arg4, arg5)
+	_invokeSpeechTextDoneUPP(chan_, refCon, nextBuf, byteLen, controlFlags, userUPP)
 	return nil
 }
 
@@ -3326,20 +3417,20 @@ func tryInvokeSpeechTextDoneUPP(arg0 *SpeechChannelRecord, arg1 uintptr, arg2 un
 // Deprecated: Deprecated since macOS 10.8.
 //
 // See: https://developer.apple.com/documentation/applicationservices/1552249-invokespeechtextdoneupp
-func InvokeSpeechTextDoneUPP(arg0 *SpeechChannelRecord, arg1 uintptr, arg2 unsafe.Pointer, arg3 uint, arg4 int32, arg5 SpeechTextDoneUPP) {
-	if callErr := tryInvokeSpeechTextDoneUPP(arg0, arg1, arg2, arg3, arg4, arg5); callErr != nil {
+func InvokeSpeechTextDoneUPP(chan_ *SpeechChannelRecord, refCon uintptr, nextBuf unsafe.Pointer, byteLen *uint, controlFlags *int32, userUPP SpeechTextDoneUPP) {
+	if callErr := tryInvokeSpeechTextDoneUPP(chan_, refCon, nextBuf, byteLen, controlFlags, userUPP); callErr != nil {
 		panic(callErr)
 	}
 }
 
-var _invokeSpeechWordUPP func(arg0 *SpeechChannelRecord, arg1 uintptr, arg2 uint, arg3 uint16, arg4 SpeechWordUPP)
+var _invokeSpeechWordUPP func(chan_ *SpeechChannelRecord, refCon uintptr, wordPos uint, wordLen uint16, userUPP SpeechWordUPP)
 var _invokeSpeechWordUPPErr error
 
-func tryInvokeSpeechWordUPP(arg0 *SpeechChannelRecord, arg1 uintptr, arg2 uint, arg3 uint16, arg4 SpeechWordUPP) error {
+func tryInvokeSpeechWordUPP(chan_ *SpeechChannelRecord, refCon uintptr, wordPos uint, wordLen uint16, userUPP SpeechWordUPP) error {
 	if _invokeSpeechWordUPP == nil {
 		return symbolCallError("InvokeSpeechWordUPP", "10.0", _invokeSpeechWordUPPErr)
 	}
-	_invokeSpeechWordUPP(arg0, arg1, arg2, arg3, arg4)
+	_invokeSpeechWordUPP(chan_, refCon, wordPos, wordLen, userUPP)
 	return nil
 }
 
@@ -3348,8 +3439,8 @@ func tryInvokeSpeechWordUPP(arg0 *SpeechChannelRecord, arg1 uintptr, arg2 uint, 
 // Deprecated: Deprecated since macOS 10.8.
 //
 // See: https://developer.apple.com/documentation/applicationservices/1552227-invokespeechwordupp
-func InvokeSpeechWordUPP(arg0 *SpeechChannelRecord, arg1 uintptr, arg2 uint, arg3 uint16, arg4 SpeechWordUPP) {
-	if callErr := tryInvokeSpeechWordUPP(arg0, arg1, arg2, arg3, arg4); callErr != nil {
+func InvokeSpeechWordUPP(chan_ *SpeechChannelRecord, refCon uintptr, wordPos uint, wordLen uint16, userUPP SpeechWordUPP) {
+	if callErr := tryInvokeSpeechWordUPP(chan_, refCon, wordPos, wordLen, userUPP); callErr != nil {
 		panic(callErr)
 	}
 }
@@ -3375,14 +3466,14 @@ func IsIconRefMaskEmpty(iconRef unsafe.Pointer) bool {
 	return result
 }
 
-var _isProcessVisible func(arg0 *ProcessSerialNumber) bool
+var _isProcessVisible func(psn *ProcessSerialNumber) bool
 var _isProcessVisibleErr error
 
-func tryIsProcessVisible(arg0 *ProcessSerialNumber) (bool, error) {
+func tryIsProcessVisible(psn *ProcessSerialNumber) (bool, error) {
 	if _isProcessVisible == nil {
 		return false, symbolCallError("IsProcessVisible", "10.1", _isProcessVisibleErr)
 	}
-	return _isProcessVisible(arg0), nil
+	return _isProcessVisible(psn), nil
 }
 
 // IsProcessVisible.
@@ -3390,22 +3481,22 @@ func tryIsProcessVisible(arg0 *ProcessSerialNumber) (bool, error) {
 // Deprecated: Deprecated since macOS 10.9.
 //
 // See: https://developer.apple.com/documentation/applicationservices/1501035-isprocessvisible
-func IsProcessVisible(arg0 *ProcessSerialNumber) bool {
-	result, callErr := tryIsProcessVisible(arg0)
+func IsProcessVisible(psn *ProcessSerialNumber) bool {
+	result, callErr := tryIsProcessVisible(psn)
 	if callErr != nil {
 		panic(callErr)
 	}
 	return result
 }
 
-var _killProcess func(arg0 *ProcessSerialNumber) int16
+var _killProcess func(inProcess *ProcessSerialNumber) int16
 var _killProcessErr error
 
-func tryKillProcess(arg0 *ProcessSerialNumber) (int16, error) {
+func tryKillProcess(inProcess *ProcessSerialNumber) (int16, error) {
 	if _killProcess == nil {
 		return 0, symbolCallError("KillProcess", "10.2", _killProcessErr)
 	}
-	return _killProcess(arg0), nil
+	return _killProcess(inProcess), nil
 }
 
 // KillProcess.
@@ -3413,22 +3504,22 @@ func tryKillProcess(arg0 *ProcessSerialNumber) (int16, error) {
 // Deprecated: Deprecated since macOS 10.9.
 //
 // See: https://developer.apple.com/documentation/applicationservices/1501110-killprocess
-func KillProcess(arg0 *ProcessSerialNumber) int16 {
-	result, callErr := tryKillProcess(arg0)
+func KillProcess(inProcess *ProcessSerialNumber) int16 {
+	result, callErr := tryKillProcess(inProcess)
 	if callErr != nil {
 		panic(callErr)
 	}
 	return result
 }
 
-var _launchApplication func(arg0 LaunchPBPtr) int16
+var _launchApplication func(LaunchParams LaunchPBPtr) int16
 var _launchApplicationErr error
 
-func tryLaunchApplication(arg0 LaunchPBPtr) (int16, error) {
+func tryLaunchApplication(LaunchParams LaunchPBPtr) (int16, error) {
 	if _launchApplication == nil {
 		return 0, symbolCallError("LaunchApplication", "10.0", _launchApplicationErr)
 	}
-	return _launchApplication(arg0), nil
+	return _launchApplication(LaunchParams), nil
 }
 
 // LaunchApplication.
@@ -3436,8 +3527,8 @@ func tryLaunchApplication(arg0 LaunchPBPtr) (int16, error) {
 // Deprecated: Deprecated since macOS 10.9.
 //
 // See: https://developer.apple.com/documentation/applicationservices/1501089-launchapplication
-func LaunchApplication(arg0 LaunchPBPtr) int16 {
-	result, callErr := tryLaunchApplication(arg0)
+func LaunchApplication(LaunchParams LaunchPBPtr) int16 {
+	result, callErr := tryLaunchApplication(LaunchParams)
 	if callErr != nil {
 		panic(callErr)
 	}
@@ -3542,14 +3633,16 @@ func NewSpeechChannel(voice unsafe.Pointer, chan_ **SpeechChannelRecord) int16 {
 	return result
 }
 
-var _newSpeechDoneUPP func(arg0 unsafe.Pointer) SpeechDoneUPP
+var _newSpeechDoneUPP func(userRoutine unsafe.Pointer) SpeechDoneUPP
 var _newSpeechDoneUPPErr error
 
-func tryNewSpeechDoneUPP(arg0 SpeechDoneProcPtr) (SpeechDoneUPP, error) {
+func tryNewSpeechDoneUPP(userRoutine SpeechDoneProcPtr) (SpeechDoneUPP, error) {
 	if _newSpeechDoneUPP == nil {
 		return *new(SpeechDoneUPP), symbolCallError("NewSpeechDoneUPP", "10.0", _newSpeechDoneUPPErr)
 	}
-	_block0Value := objc.NewBlock(func(_ objc.Block, blockArg0 *SpeechChannelRecord, blockArg1 uintptr) { arg0(blockArg0, blockArg1) })
+	_block0Value := objc.NewBlock(func(_ objc.Block, blockArg0 *SpeechChannelRecord, blockArg1 uintptr) {
+		userRoutine(blockArg0, blockArg1)
+	})
 	defer _block0Value.Release()
 	_block0 := unsafe.Pointer(_block0Value)
 	return _newSpeechDoneUPP(_block0), nil
@@ -3560,23 +3653,23 @@ func tryNewSpeechDoneUPP(arg0 SpeechDoneProcPtr) (SpeechDoneUPP, error) {
 // Deprecated: Deprecated since macOS 10.8.
 //
 // See: https://developer.apple.com/documentation/applicationservices/1552218-newspeechdoneupp
-func NewSpeechDoneUPP(arg0 SpeechDoneProcPtr) SpeechDoneUPP {
-	result, callErr := tryNewSpeechDoneUPP(arg0)
+func NewSpeechDoneUPP(userRoutine SpeechDoneProcPtr) SpeechDoneUPP {
+	result, callErr := tryNewSpeechDoneUPP(userRoutine)
 	if callErr != nil {
 		panic(callErr)
 	}
 	return result
 }
 
-var _newSpeechErrorUPP func(arg0 unsafe.Pointer) SpeechErrorUPP
+var _newSpeechErrorUPP func(userRoutine unsafe.Pointer) SpeechErrorUPP
 var _newSpeechErrorUPPErr error
 
-func tryNewSpeechErrorUPP(arg0 SpeechErrorProcPtr) (SpeechErrorUPP, error) {
+func tryNewSpeechErrorUPP(userRoutine SpeechErrorProcPtr) (SpeechErrorUPP, error) {
 	if _newSpeechErrorUPP == nil {
 		return *new(SpeechErrorUPP), symbolCallError("NewSpeechErrorUPP", "10.0", _newSpeechErrorUPPErr)
 	}
-	_block0Value := objc.NewBlock(func(_ objc.Block, blockArg0 *SpeechChannelRecord, blockArg1 uintptr, blockArg2 int16, blockArg3 int) {
-		arg0(blockArg0, blockArg1, blockArg2, blockArg3)
+	_block0Value := objc.NewBlock(func(_ objc.Block, blockArg0 *SpeechChannelRecord, blockArg1 uintptr, blockArg2 int16, blockArg3 int32) {
+		userRoutine(blockArg0, blockArg1, blockArg2, blockArg3)
 	})
 	defer _block0Value.Release()
 	_block0 := unsafe.Pointer(_block0Value)
@@ -3588,23 +3681,23 @@ func tryNewSpeechErrorUPP(arg0 SpeechErrorProcPtr) (SpeechErrorUPP, error) {
 // Deprecated: Deprecated since macOS 10.8.
 //
 // See: https://developer.apple.com/documentation/applicationservices/1552224-newspeecherrorupp
-func NewSpeechErrorUPP(arg0 SpeechErrorProcPtr) SpeechErrorUPP {
-	result, callErr := tryNewSpeechErrorUPP(arg0)
+func NewSpeechErrorUPP(userRoutine SpeechErrorProcPtr) SpeechErrorUPP {
+	result, callErr := tryNewSpeechErrorUPP(userRoutine)
 	if callErr != nil {
 		panic(callErr)
 	}
 	return result
 }
 
-var _newSpeechPhonemeUPP func(arg0 unsafe.Pointer) SpeechPhonemeUPP
+var _newSpeechPhonemeUPP func(userRoutine unsafe.Pointer) SpeechPhonemeUPP
 var _newSpeechPhonemeUPPErr error
 
-func tryNewSpeechPhonemeUPP(arg0 SpeechPhonemeProcPtr) (SpeechPhonemeUPP, error) {
+func tryNewSpeechPhonemeUPP(userRoutine SpeechPhonemeProcPtr) (SpeechPhonemeUPP, error) {
 	if _newSpeechPhonemeUPP == nil {
 		return *new(SpeechPhonemeUPP), symbolCallError("NewSpeechPhonemeUPP", "10.0", _newSpeechPhonemeUPPErr)
 	}
 	_block0Value := objc.NewBlock(func(_ objc.Block, blockArg0 *SpeechChannelRecord, blockArg1 uintptr, blockArg2 int16) {
-		arg0(blockArg0, blockArg1, blockArg2)
+		userRoutine(blockArg0, blockArg1, blockArg2)
 	})
 	defer _block0Value.Release()
 	_block0 := unsafe.Pointer(_block0Value)
@@ -3616,23 +3709,23 @@ func tryNewSpeechPhonemeUPP(arg0 SpeechPhonemeProcPtr) (SpeechPhonemeUPP, error)
 // Deprecated: Deprecated since macOS 10.8.
 //
 // See: https://developer.apple.com/documentation/applicationservices/1552225-newspeechphonemeupp
-func NewSpeechPhonemeUPP(arg0 SpeechPhonemeProcPtr) SpeechPhonemeUPP {
-	result, callErr := tryNewSpeechPhonemeUPP(arg0)
+func NewSpeechPhonemeUPP(userRoutine SpeechPhonemeProcPtr) SpeechPhonemeUPP {
+	result, callErr := tryNewSpeechPhonemeUPP(userRoutine)
 	if callErr != nil {
 		panic(callErr)
 	}
 	return result
 }
 
-var _newSpeechSyncUPP func(arg0 unsafe.Pointer) SpeechSyncUPP
+var _newSpeechSyncUPP func(userRoutine unsafe.Pointer) SpeechSyncUPP
 var _newSpeechSyncUPPErr error
 
-func tryNewSpeechSyncUPP(arg0 SpeechSyncProcPtr) (SpeechSyncUPP, error) {
+func tryNewSpeechSyncUPP(userRoutine SpeechSyncProcPtr) (SpeechSyncUPP, error) {
 	if _newSpeechSyncUPP == nil {
 		return *new(SpeechSyncUPP), symbolCallError("NewSpeechSyncUPP", "10.0", _newSpeechSyncUPPErr)
 	}
 	_block0Value := objc.NewBlock(func(_ objc.Block, blockArg0 *SpeechChannelRecord, blockArg1 uintptr, blockArg2 uint32) {
-		arg0(blockArg0, blockArg1, blockArg2)
+		userRoutine(blockArg0, blockArg1, blockArg2)
 	})
 	defer _block0Value.Release()
 	_block0 := unsafe.Pointer(_block0Value)
@@ -3644,23 +3737,23 @@ func tryNewSpeechSyncUPP(arg0 SpeechSyncProcPtr) (SpeechSyncUPP, error) {
 // Deprecated: Deprecated since macOS 10.8.
 //
 // See: https://developer.apple.com/documentation/applicationservices/1552244-newspeechsyncupp
-func NewSpeechSyncUPP(arg0 SpeechSyncProcPtr) SpeechSyncUPP {
-	result, callErr := tryNewSpeechSyncUPP(arg0)
+func NewSpeechSyncUPP(userRoutine SpeechSyncProcPtr) SpeechSyncUPP {
+	result, callErr := tryNewSpeechSyncUPP(userRoutine)
 	if callErr != nil {
 		panic(callErr)
 	}
 	return result
 }
 
-var _newSpeechTextDoneUPP func(arg0 unsafe.Pointer) SpeechTextDoneUPP
+var _newSpeechTextDoneUPP func(userRoutine unsafe.Pointer) SpeechTextDoneUPP
 var _newSpeechTextDoneUPPErr error
 
-func tryNewSpeechTextDoneUPP(arg0 SpeechTextDoneProcPtr) (SpeechTextDoneUPP, error) {
+func tryNewSpeechTextDoneUPP(userRoutine SpeechTextDoneProcPtr) (SpeechTextDoneUPP, error) {
 	if _newSpeechTextDoneUPP == nil {
 		return *new(SpeechTextDoneUPP), symbolCallError("NewSpeechTextDoneUPP", "10.0", _newSpeechTextDoneUPPErr)
 	}
 	_block0Value := objc.NewBlock(func(_ objc.Block, blockArg0 *SpeechChannelRecord, blockArg1 uintptr, blockArg2 unsafe.Pointer, blockArg3 unsafe.Pointer, blockArg4 unsafe.Pointer) {
-		arg0(blockArg0, blockArg1, blockArg2, blockArg3, blockArg4)
+		userRoutine(blockArg0, blockArg1, blockArg2, blockArg3, blockArg4)
 	})
 	defer _block0Value.Release()
 	_block0 := unsafe.Pointer(_block0Value)
@@ -3672,23 +3765,23 @@ func tryNewSpeechTextDoneUPP(arg0 SpeechTextDoneProcPtr) (SpeechTextDoneUPP, err
 // Deprecated: Deprecated since macOS 10.8.
 //
 // See: https://developer.apple.com/documentation/applicationservices/1552247-newspeechtextdoneupp
-func NewSpeechTextDoneUPP(arg0 SpeechTextDoneProcPtr) SpeechTextDoneUPP {
-	result, callErr := tryNewSpeechTextDoneUPP(arg0)
+func NewSpeechTextDoneUPP(userRoutine SpeechTextDoneProcPtr) SpeechTextDoneUPP {
+	result, callErr := tryNewSpeechTextDoneUPP(userRoutine)
 	if callErr != nil {
 		panic(callErr)
 	}
 	return result
 }
 
-var _newSpeechWordUPP func(arg0 unsafe.Pointer) SpeechWordUPP
+var _newSpeechWordUPP func(userRoutine unsafe.Pointer) SpeechWordUPP
 var _newSpeechWordUPPErr error
 
-func tryNewSpeechWordUPP(arg0 SpeechWordProcPtr) (SpeechWordUPP, error) {
+func tryNewSpeechWordUPP(userRoutine SpeechWordProcPtr) (SpeechWordUPP, error) {
 	if _newSpeechWordUPP == nil {
 		return *new(SpeechWordUPP), symbolCallError("NewSpeechWordUPP", "10.0", _newSpeechWordUPPErr)
 	}
 	_block0Value := objc.NewBlock(func(_ objc.Block, blockArg0 *SpeechChannelRecord, blockArg1 uintptr, blockArg2 uint, blockArg3 uint16) {
-		arg0(blockArg0, blockArg1, blockArg2, blockArg3)
+		userRoutine(blockArg0, blockArg1, blockArg2, blockArg3)
 	})
 	defer _block0Value.Release()
 	_block0 := unsafe.Pointer(_block0Value)
@@ -3700,8 +3793,8 @@ func tryNewSpeechWordUPP(arg0 SpeechWordProcPtr) (SpeechWordUPP, error) {
 // Deprecated: Deprecated since macOS 10.8.
 //
 // See: https://developer.apple.com/documentation/applicationservices/1552230-newspeechwordupp
-func NewSpeechWordUPP(arg0 SpeechWordProcPtr) SpeechWordUPP {
-	result, callErr := tryNewSpeechWordUPP(arg0)
+func NewSpeechWordUPP(userRoutine SpeechWordProcPtr) SpeechWordUPP {
+	result, callErr := tryNewSpeechWordUPP(userRoutine)
 	if callErr != nil {
 		panic(callErr)
 	}
@@ -4926,33 +5019,33 @@ func PMPrinterGetDriverCreator(printer uintptr, creator *uint32) int32 {
 	return result
 }
 
-var _pMPrinterGetDriverReleaseInfo func(arg0 uintptr, arg1 unsafe.Pointer) int32
+var _pMPrinterGetDriverReleaseInfo func(printer uintptr, release *uintptr) int32
 var _pMPrinterGetDriverReleaseInfoErr error
 
-func tryPMPrinterGetDriverReleaseInfo(arg0 uintptr, arg1 unsafe.Pointer) (int32, error) {
+func tryPMPrinterGetDriverReleaseInfo(printer uintptr, release *uintptr) (int32, error) {
 	if _pMPrinterGetDriverReleaseInfo == nil {
 		return 0, symbolCallError("PMPrinterGetDriverReleaseInfo", "10.0", _pMPrinterGetDriverReleaseInfoErr)
 	}
-	return _pMPrinterGetDriverReleaseInfo(arg0, arg1), nil
+	return _pMPrinterGetDriverReleaseInfo(printer, release), nil
 }
 
 // PMPrinterGetDriverReleaseInfo obtains version information for the driver associated with the specified printer.
 //
 // See: https://developer.apple.com/documentation/applicationservices/1464149-pmprintergetdriverreleaseinfo
-func PMPrinterGetDriverReleaseInfo(arg0 uintptr, arg1 unsafe.Pointer) int32 {
-	result, callErr := tryPMPrinterGetDriverReleaseInfo(arg0, arg1)
+func PMPrinterGetDriverReleaseInfo(printer uintptr, release *uintptr) int32 {
+	result, callErr := tryPMPrinterGetDriverReleaseInfo(printer, release)
 	if callErr != nil {
 		panic(callErr)
 	}
 	return result
 }
 
-var _pMPrinterGetID func(printer uintptr) corefoundation.CFString
+var _pMPrinterGetID func(printer uintptr) corefoundation.CFStringRef
 var _pMPrinterGetIDErr error
 
-func tryPMPrinterGetID(printer uintptr) (corefoundation.CFString, error) {
+func tryPMPrinterGetID(printer uintptr) (corefoundation.CFStringRef, error) {
 	if _pMPrinterGetID == nil {
-		return *new(corefoundation.CFString), symbolCallError("PMPrinterGetID", "10.2", _pMPrinterGetIDErr)
+		return *new(corefoundation.CFStringRef), symbolCallError("PMPrinterGetID", "10.2", _pMPrinterGetIDErr)
 	}
 	return _pMPrinterGetID(printer), nil
 }
@@ -4960,7 +5053,7 @@ func tryPMPrinterGetID(printer uintptr) (corefoundation.CFString, error) {
 // PMPrinterGetID returns the unique identifier of a printer.
 //
 // See: https://developer.apple.com/documentation/applicationservices/1459606-pmprintergetid
-func PMPrinterGetID(printer uintptr) corefoundation.CFString {
+func PMPrinterGetID(printer uintptr) corefoundation.CFStringRef {
 	result, callErr := tryPMPrinterGetID(printer)
 	if callErr != nil {
 		panic(callErr)
@@ -4989,33 +5082,33 @@ func PMPrinterGetIndexedPrinterResolution(printer uintptr, index uint32, resolut
 	return result
 }
 
-var _pMPrinterGetLanguageInfo func(arg0 uintptr, arg1 PMLanguageInfo) int32
+var _pMPrinterGetLanguageInfo func(printer uintptr, info *PMLanguageInfo) int32
 var _pMPrinterGetLanguageInfoErr error
 
-func tryPMPrinterGetLanguageInfo(arg0 uintptr, arg1 PMLanguageInfo) (int32, error) {
+func tryPMPrinterGetLanguageInfo(printer uintptr, info *PMLanguageInfo) (int32, error) {
 	if _pMPrinterGetLanguageInfo == nil {
 		return 0, symbolCallError("PMPrinterGetLanguageInfo", "10.0", _pMPrinterGetLanguageInfoErr)
 	}
-	return _pMPrinterGetLanguageInfo(arg0, arg1), nil
+	return _pMPrinterGetLanguageInfo(printer, info), nil
 }
 
 // PMPrinterGetLanguageInfo obtains information about the imaging language for the specified printer.
 //
 // See: https://developer.apple.com/documentation/applicationservices/1458956-pmprintergetlanguageinfo
-func PMPrinterGetLanguageInfo(arg0 uintptr, arg1 PMLanguageInfo) int32 {
-	result, callErr := tryPMPrinterGetLanguageInfo(arg0, arg1)
+func PMPrinterGetLanguageInfo(printer uintptr, info *PMLanguageInfo) int32 {
+	result, callErr := tryPMPrinterGetLanguageInfo(printer, info)
 	if callErr != nil {
 		panic(callErr)
 	}
 	return result
 }
 
-var _pMPrinterGetLocation func(printer uintptr) corefoundation.CFString
+var _pMPrinterGetLocation func(printer uintptr) corefoundation.CFStringRef
 var _pMPrinterGetLocationErr error
 
-func tryPMPrinterGetLocation(printer uintptr) (corefoundation.CFString, error) {
+func tryPMPrinterGetLocation(printer uintptr) (corefoundation.CFStringRef, error) {
 	if _pMPrinterGetLocation == nil {
-		return *new(corefoundation.CFString), symbolCallError("PMPrinterGetLocation", "10.2", _pMPrinterGetLocationErr)
+		return *new(corefoundation.CFStringRef), symbolCallError("PMPrinterGetLocation", "10.2", _pMPrinterGetLocationErr)
 	}
 	return _pMPrinterGetLocation(printer), nil
 }
@@ -5023,7 +5116,7 @@ func tryPMPrinterGetLocation(printer uintptr) (corefoundation.CFString, error) {
 // PMPrinterGetLocation returns the location of a printer.
 //
 // See: https://developer.apple.com/documentation/applicationservices/1461467-pmprintergetlocation
-func PMPrinterGetLocation(printer uintptr) corefoundation.CFString {
+func PMPrinterGetLocation(printer uintptr) corefoundation.CFStringRef {
 	result, callErr := tryPMPrinterGetLocation(printer)
 	if callErr != nil {
 		panic(callErr)
@@ -5073,12 +5166,12 @@ func PMPrinterGetMimeTypes(printer uintptr, settings uintptr, mimeTypes *corefou
 	return result
 }
 
-var _pMPrinterGetName func(printer uintptr) corefoundation.CFString
+var _pMPrinterGetName func(printer uintptr) corefoundation.CFStringRef
 var _pMPrinterGetNameErr error
 
-func tryPMPrinterGetName(printer uintptr) (corefoundation.CFString, error) {
+func tryPMPrinterGetName(printer uintptr) (corefoundation.CFStringRef, error) {
 	if _pMPrinterGetName == nil {
-		return *new(corefoundation.CFString), symbolCallError("PMPrinterGetName", "10.2", _pMPrinterGetNameErr)
+		return *new(corefoundation.CFStringRef), symbolCallError("PMPrinterGetName", "10.2", _pMPrinterGetNameErr)
 	}
 	return _pMPrinterGetName(printer), nil
 }
@@ -5086,7 +5179,7 @@ func tryPMPrinterGetName(printer uintptr) (corefoundation.CFString, error) {
 // PMPrinterGetName returns the human-readable name of a printer.
 //
 // See: https://developer.apple.com/documentation/applicationservices/1459018-pmprintergetname
-func PMPrinterGetName(printer uintptr) corefoundation.CFString {
+func PMPrinterGetName(printer uintptr) corefoundation.CFStringRef {
 	result, callErr := tryPMPrinterGetName(printer)
 	if callErr != nil {
 		panic(callErr)
@@ -6487,7 +6580,7 @@ func tryPasteboardSetPromiseKeeper(inPasteboard PasteboardRef, inPromiseKeeper P
 	if _pasteboardSetPromiseKeeper == nil {
 		return 0, symbolCallError("PasteboardSetPromiseKeeper", "10.3", _pasteboardSetPromiseKeeperErr)
 	}
-	_block0Value := objc.NewBlock(func(_ objc.Block, blockArg0 PasteboardRef, blockArg1 PasteboardItemID, blockArg2 corefoundation.CFString, blockArg3 unsafe.Pointer) int32 {
+	_block0Value := objc.NewBlock(func(_ objc.Block, blockArg0 PasteboardRef, blockArg1 PasteboardItemID, blockArg2 corefoundation.CFStringRef, blockArg3 unsafe.Pointer) int32 {
 		return inPromiseKeeper(blockArg0, blockArg1, blockArg2, blockArg3)
 	})
 	defer _block0Value.Release()
@@ -6527,10 +6620,10 @@ func PasteboardSynchronize(inPasteboard PasteboardRef) PasteboardSyncFlags {
 	return result
 }
 
-var _pauseSpeechAt func(chan_ *SpeechChannelRecord, whereToPause unsafe.Pointer) int16
+var _pauseSpeechAt func(chan_ *SpeechChannelRecord, whereToPause int32) int16
 var _pauseSpeechAtErr error
 
-func tryPauseSpeechAt(chan_ *SpeechChannelRecord, whereToPause unsafe.Pointer) (int16, error) {
+func tryPauseSpeechAt(chan_ *SpeechChannelRecord, whereToPause int32) (int16, error) {
 	if _pauseSpeechAt == nil {
 		return 0, symbolCallError("PauseSpeechAt", "10.0", _pauseSpeechAtErr)
 	}
@@ -6542,7 +6635,7 @@ func tryPauseSpeechAt(chan_ *SpeechChannelRecord, whereToPause unsafe.Pointer) (
 // Deprecated: Deprecated since macOS 13.0.
 //
 // See: https://developer.apple.com/documentation/applicationservices/1461174-pausespeechat
-func PauseSpeechAt(chan_ *SpeechChannelRecord, whereToPause unsafe.Pointer) int16 {
+func PauseSpeechAt(chan_ *SpeechChannelRecord, whereToPause int32) int16 {
 	result, callErr := tryPauseSpeechAt(chan_, whereToPause)
 	if callErr != nil {
 		panic(callErr)
@@ -6571,14 +6664,14 @@ func PlotIconRefInContext(inContext coregraphics.CGContextRef, inRect unsafe.Poi
 	return result
 }
 
-var _processInformationCopyDictionary func(arg0 *ProcessSerialNumber, arg1 uint32) corefoundation.CFDictionaryRef
+var _processInformationCopyDictionary func(PSN *ProcessSerialNumber, infoToReturn uint32) corefoundation.CFDictionaryRef
 var _processInformationCopyDictionaryErr error
 
-func tryProcessInformationCopyDictionary(arg0 *ProcessSerialNumber, arg1 uint32) (corefoundation.CFDictionaryRef, error) {
+func tryProcessInformationCopyDictionary(PSN *ProcessSerialNumber, infoToReturn uint32) (corefoundation.CFDictionaryRef, error) {
 	if _processInformationCopyDictionary == nil {
 		return *new(corefoundation.CFDictionaryRef), symbolCallError("ProcessInformationCopyDictionary", "10.2", _processInformationCopyDictionaryErr)
 	}
-	return _processInformationCopyDictionary(arg0, arg1), nil
+	return _processInformationCopyDictionary(PSN, infoToReturn), nil
 }
 
 // ProcessInformationCopyDictionary.
@@ -6586,22 +6679,22 @@ func tryProcessInformationCopyDictionary(arg0 *ProcessSerialNumber, arg1 uint32)
 // Deprecated: Deprecated since macOS 10.9.
 //
 // See: https://developer.apple.com/documentation/applicationservices/1501104-processinformationcopydictionary
-func ProcessInformationCopyDictionary(arg0 *ProcessSerialNumber, arg1 uint32) corefoundation.CFDictionaryRef {
-	result, callErr := tryProcessInformationCopyDictionary(arg0, arg1)
+func ProcessInformationCopyDictionary(PSN *ProcessSerialNumber, infoToReturn uint32) corefoundation.CFDictionaryRef {
+	result, callErr := tryProcessInformationCopyDictionary(PSN, infoToReturn)
 	if callErr != nil {
 		panic(callErr)
 	}
 	return result
 }
 
-var _sameProcess func(arg0 *ProcessSerialNumber, arg1 *ProcessSerialNumber, arg2 bool) int16
+var _sameProcess func(PSN1 *ProcessSerialNumber, PSN2 *ProcessSerialNumber, result *bool) int16
 var _sameProcessErr error
 
-func trySameProcess(arg0 *ProcessSerialNumber, arg1 *ProcessSerialNumber, arg2 bool) (int16, error) {
+func trySameProcess(PSN1 *ProcessSerialNumber, PSN2 *ProcessSerialNumber, result *bool) (int16, error) {
 	if _sameProcess == nil {
 		return 0, symbolCallError("SameProcess", "10.0", _sameProcessErr)
 	}
-	return _sameProcess(arg0, arg1, arg2), nil
+	return _sameProcess(PSN1, PSN2, result), nil
 }
 
 // SameProcess.
@@ -6609,22 +6702,22 @@ func trySameProcess(arg0 *ProcessSerialNumber, arg1 *ProcessSerialNumber, arg2 b
 // Deprecated: Deprecated since macOS 10.9.
 //
 // See: https://developer.apple.com/documentation/applicationservices/1501087-sameprocess
-func SameProcess(arg0 *ProcessSerialNumber, arg1 *ProcessSerialNumber, arg2 bool) int16 {
-	result, callErr := trySameProcess(arg0, arg1, arg2)
+func SameProcess(PSN1 *ProcessSerialNumber, PSN2 *ProcessSerialNumber, result *bool) int16 {
+	result0, callErr := trySameProcess(PSN1, PSN2, result)
 	if callErr != nil {
 		panic(callErr)
 	}
-	return result
+	return result0
 }
 
-var _setFrontProcess func(arg0 *ProcessSerialNumber) int16
+var _setFrontProcess func(pPSN *ProcessSerialNumber) int16
 var _setFrontProcessErr error
 
-func trySetFrontProcess(arg0 *ProcessSerialNumber) (int16, error) {
+func trySetFrontProcess(pPSN *ProcessSerialNumber) (int16, error) {
 	if _setFrontProcess == nil {
 		return 0, symbolCallError("SetFrontProcess", "10.0", _setFrontProcessErr)
 	}
-	return _setFrontProcess(arg0), nil
+	return _setFrontProcess(pPSN), nil
 }
 
 // SetFrontProcess.
@@ -6632,22 +6725,22 @@ func trySetFrontProcess(arg0 *ProcessSerialNumber) (int16, error) {
 // Deprecated: Deprecated since macOS 10.9.
 //
 // See: https://developer.apple.com/documentation/applicationservices/1501042-setfrontprocess
-func SetFrontProcess(arg0 *ProcessSerialNumber) int16 {
-	result, callErr := trySetFrontProcess(arg0)
+func SetFrontProcess(pPSN *ProcessSerialNumber) int16 {
+	result, callErr := trySetFrontProcess(pPSN)
 	if callErr != nil {
 		panic(callErr)
 	}
 	return result
 }
 
-var _setFrontProcessWithOptions func(arg0 *ProcessSerialNumber, arg1 uint32) int32
+var _setFrontProcessWithOptions func(inProcess *ProcessSerialNumber, inOptions uint32) int32
 var _setFrontProcessWithOptionsErr error
 
-func trySetFrontProcessWithOptions(arg0 *ProcessSerialNumber, arg1 uint32) (int32, error) {
+func trySetFrontProcessWithOptions(inProcess *ProcessSerialNumber, inOptions uint32) (int32, error) {
 	if _setFrontProcessWithOptions == nil {
 		return 0, symbolCallError("SetFrontProcessWithOptions", "10.2", _setFrontProcessWithOptionsErr)
 	}
-	return _setFrontProcessWithOptions(arg0, arg1), nil
+	return _setFrontProcessWithOptions(inProcess, inOptions), nil
 }
 
 // SetFrontProcessWithOptions.
@@ -6655,18 +6748,18 @@ func trySetFrontProcessWithOptions(arg0 *ProcessSerialNumber, arg1 uint32) (int3
 // Deprecated: Deprecated since macOS 10.9.
 //
 // See: https://developer.apple.com/documentation/applicationservices/1501003-setfrontprocesswithoptions
-func SetFrontProcessWithOptions(arg0 *ProcessSerialNumber, arg1 uint32) int32 {
-	result, callErr := trySetFrontProcessWithOptions(arg0, arg1)
+func SetFrontProcessWithOptions(inProcess *ProcessSerialNumber, inOptions uint32) int32 {
+	result, callErr := trySetFrontProcessWithOptions(inProcess, inOptions)
 	if callErr != nil {
 		panic(callErr)
 	}
 	return result
 }
 
-var _setIconFamilyData func(iconFamily unsafe.Pointer, iconType uint32, h unsafe.Pointer) int16
+var _setIconFamilyData func(iconFamily unsafe.Pointer, iconType uint32, h kernel.Handle) int16
 var _setIconFamilyDataErr error
 
-func trySetIconFamilyData(iconFamily unsafe.Pointer, iconType uint32, h unsafe.Pointer) (int16, error) {
+func trySetIconFamilyData(iconFamily unsafe.Pointer, iconType uint32, h kernel.Handle) (int16, error) {
 	if _setIconFamilyData == nil {
 		return 0, symbolCallError("SetIconFamilyData", "10.0", _setIconFamilyDataErr)
 	}
@@ -6676,7 +6769,7 @@ func trySetIconFamilyData(iconFamily unsafe.Pointer, iconType uint32, h unsafe.P
 // SetIconFamilyData.
 //
 // See: https://developer.apple.com/documentation/applicationservices/1462050-seticonfamilydata
-func SetIconFamilyData(iconFamily unsafe.Pointer, iconType uint32, h unsafe.Pointer) int16 {
+func SetIconFamilyData(iconFamily unsafe.Pointer, iconType uint32, h kernel.Handle) int16 {
 	result, callErr := trySetIconFamilyData(iconFamily, iconType, h)
 	if callErr != nil {
 		panic(callErr)
@@ -6684,14 +6777,14 @@ func SetIconFamilyData(iconFamily unsafe.Pointer, iconType uint32, h unsafe.Poin
 	return result
 }
 
-var _setSpeechInfo func(arg0 *SpeechChannelRecord, arg1 uint32) int16
+var _setSpeechInfo func(chan_ *SpeechChannelRecord, selector uint32, speechInfo unsafe.Pointer) int16
 var _setSpeechInfoErr error
 
-func trySetSpeechInfo(arg0 *SpeechChannelRecord, arg1 uint32) (int16, error) {
+func trySetSpeechInfo(chan_ *SpeechChannelRecord, selector uint32, speechInfo unsafe.Pointer) (int16, error) {
 	if _setSpeechInfo == nil {
 		return 0, symbolCallError("SetSpeechInfo", "10.0", _setSpeechInfoErr)
 	}
-	return _setSpeechInfo(arg0, arg1), nil
+	return _setSpeechInfo(chan_, selector, speechInfo), nil
 }
 
 // SetSpeechInfo changes a setting of a particular speech channel.
@@ -6699,8 +6792,8 @@ func trySetSpeechInfo(arg0 *SpeechChannelRecord, arg1 uint32) (int16, error) {
 // Deprecated: Deprecated since macOS 10.8.
 //
 // See: https://developer.apple.com/documentation/applicationservices/1552223-setspeechinfo
-func SetSpeechInfo(arg0 *SpeechChannelRecord, arg1 uint32) int16 {
-	result, callErr := trySetSpeechInfo(arg0, arg1)
+func SetSpeechInfo(chan_ *SpeechChannelRecord, selector uint32, speechInfo unsafe.Pointer) int16 {
+	result, callErr := trySetSpeechInfo(chan_, selector, speechInfo)
 	if callErr != nil {
 		panic(callErr)
 	}
@@ -6776,14 +6869,14 @@ func SetSpeechRate(chan_ *SpeechChannelRecord, rate int32) int16 {
 	return result
 }
 
-var _showHideProcess func(arg0 *ProcessSerialNumber, arg1 bool) int16
+var _showHideProcess func(psn *ProcessSerialNumber, visible bool) int16
 var _showHideProcessErr error
 
-func tryShowHideProcess(arg0 *ProcessSerialNumber, arg1 bool) (int16, error) {
+func tryShowHideProcess(psn *ProcessSerialNumber, visible bool) (int16, error) {
 	if _showHideProcess == nil {
 		return 0, symbolCallError("ShowHideProcess", "10.1", _showHideProcessErr)
 	}
-	return _showHideProcess(arg0, arg1), nil
+	return _showHideProcess(psn, visible), nil
 }
 
 // ShowHideProcess.
@@ -6791,22 +6884,22 @@ func tryShowHideProcess(arg0 *ProcessSerialNumber, arg1 bool) (int16, error) {
 // Deprecated: Deprecated since macOS 10.9.
 //
 // See: https://developer.apple.com/documentation/applicationservices/1501053-showhideprocess
-func ShowHideProcess(arg0 *ProcessSerialNumber, arg1 bool) int16 {
-	result, callErr := tryShowHideProcess(arg0, arg1)
+func ShowHideProcess(psn *ProcessSerialNumber, visible bool) int16 {
+	result, callErr := tryShowHideProcess(psn, visible)
 	if callErr != nil {
 		panic(callErr)
 	}
 	return result
 }
 
-var _speakBuffer func(arg0 *SpeechChannelRecord, arg1 uint, arg2 int32) int16
+var _speakBuffer func(chan_ *SpeechChannelRecord, textBuf unsafe.Pointer, textBytes uint, controlFlags int32) int16
 var _speakBufferErr error
 
-func trySpeakBuffer(arg0 *SpeechChannelRecord, arg1 uint, arg2 int32) (int16, error) {
+func trySpeakBuffer(chan_ *SpeechChannelRecord, textBuf unsafe.Pointer, textBytes uint, controlFlags int32) (int16, error) {
 	if _speakBuffer == nil {
 		return 0, symbolCallError("SpeakBuffer", "10.0", _speakBufferErr)
 	}
-	return _speakBuffer(arg0, arg1, arg2), nil
+	return _speakBuffer(chan_, textBuf, textBytes, controlFlags), nil
 }
 
 // SpeakBuffer speaks a buffer of text, using certain flags to controlspeech behavior.
@@ -6814,8 +6907,8 @@ func trySpeakBuffer(arg0 *SpeechChannelRecord, arg1 uint, arg2 int32) (int16, er
 // Deprecated: Deprecated since macOS 10.8.
 //
 // See: https://developer.apple.com/documentation/applicationservices/1552252-speakbuffer
-func SpeakBuffer(arg0 *SpeechChannelRecord, arg1 uint, arg2 int32) int16 {
-	result, callErr := trySpeakBuffer(arg0, arg1, arg2)
+func SpeakBuffer(chan_ *SpeechChannelRecord, textBuf unsafe.Pointer, textBytes uint, controlFlags int32) int16 {
+	result, callErr := trySpeakBuffer(chan_, textBuf, textBytes, controlFlags)
 	if callErr != nil {
 		panic(callErr)
 	}
@@ -6845,14 +6938,14 @@ func SpeakCFString(chan_ *SpeechChannelRecord, aString corefoundation.CFStringRe
 	return result
 }
 
-var _speakString func(arg0 unsafe.Pointer) int16
+var _speakString func(textToBeSpoken unsafe.Pointer) int16
 var _speakStringErr error
 
-func trySpeakString(arg0 unsafe.Pointer) (int16, error) {
+func trySpeakString(textToBeSpoken unsafe.Pointer) (int16, error) {
 	if _speakString == nil {
 		return 0, symbolCallError("SpeakString", "10.0", _speakStringErr)
 	}
-	return _speakString(arg0), nil
+	return _speakString(textToBeSpoken), nil
 }
 
 // SpeakString begins speaking a text string.
@@ -6860,22 +6953,22 @@ func trySpeakString(arg0 unsafe.Pointer) (int16, error) {
 // Deprecated: Deprecated since macOS 10.8.
 //
 // See: https://developer.apple.com/documentation/applicationservices/1552250-speakstring
-func SpeakString(arg0 unsafe.Pointer) int16 {
-	result, callErr := trySpeakString(arg0)
+func SpeakString(textToBeSpoken unsafe.Pointer) int16 {
+	result, callErr := trySpeakString(textToBeSpoken)
 	if callErr != nil {
 		panic(callErr)
 	}
 	return result
 }
 
-var _speakText func(arg0 *SpeechChannelRecord, arg1 uint) int16
+var _speakText func(chan_ *SpeechChannelRecord, textBuf unsafe.Pointer, textBytes uint) int16
 var _speakTextErr error
 
-func trySpeakText(arg0 *SpeechChannelRecord, arg1 uint) (int16, error) {
+func trySpeakText(chan_ *SpeechChannelRecord, textBuf unsafe.Pointer, textBytes uint) (int16, error) {
 	if _speakText == nil {
 		return 0, symbolCallError("SpeakText", "10.0", _speakTextErr)
 	}
-	return _speakText(arg0, arg1), nil
+	return _speakText(chan_, textBuf, textBytes), nil
 }
 
 // SpeakText begins speaking a buffer of text.
@@ -6883,20 +6976,20 @@ func trySpeakText(arg0 *SpeechChannelRecord, arg1 uint) (int16, error) {
 // Deprecated: Deprecated since macOS 10.8.
 //
 // See: https://developer.apple.com/documentation/applicationservices/1552236-speaktext
-func SpeakText(arg0 *SpeechChannelRecord, arg1 uint) int16 {
-	result, callErr := trySpeakText(arg0, arg1)
+func SpeakText(chan_ *SpeechChannelRecord, textBuf unsafe.Pointer, textBytes uint) int16 {
+	result, callErr := trySpeakText(chan_, textBuf, textBytes)
 	if callErr != nil {
 		panic(callErr)
 	}
 	return result
 }
 
-var _speechBusy func() unsafe.Pointer
+var _speechBusy func() int16
 var _speechBusyErr error
 
-func trySpeechBusy() (unsafe.Pointer, error) {
+func trySpeechBusy() (int16, error) {
 	if _speechBusy == nil {
-		return nil, symbolCallError("SpeechBusy", "10.0", _speechBusyErr)
+		return 0, symbolCallError("SpeechBusy", "10.0", _speechBusyErr)
 	}
 	return _speechBusy(), nil
 }
@@ -6906,7 +6999,7 @@ func trySpeechBusy() (unsafe.Pointer, error) {
 // Deprecated: Deprecated since macOS 13.0.
 //
 // See: https://developer.apple.com/documentation/applicationservices/1464581-speechbusy
-func SpeechBusy() unsafe.Pointer {
+func SpeechBusy() int16 {
 	result, callErr := trySpeechBusy()
 	if callErr != nil {
 		panic(callErr)
@@ -6914,12 +7007,12 @@ func SpeechBusy() unsafe.Pointer {
 	return result
 }
 
-var _speechBusySystemWide func() unsafe.Pointer
+var _speechBusySystemWide func() int16
 var _speechBusySystemWideErr error
 
-func trySpeechBusySystemWide() (unsafe.Pointer, error) {
+func trySpeechBusySystemWide() (int16, error) {
 	if _speechBusySystemWide == nil {
-		return nil, symbolCallError("SpeechBusySystemWide", "10.0", _speechBusySystemWideErr)
+		return 0, symbolCallError("SpeechBusySystemWide", "10.0", _speechBusySystemWideErr)
 	}
 	return _speechBusySystemWide(), nil
 }
@@ -6929,7 +7022,7 @@ func trySpeechBusySystemWide() (unsafe.Pointer, error) {
 // Deprecated: Deprecated since macOS 13.0.
 //
 // See: https://developer.apple.com/documentation/applicationservices/1460113-speechbusysystemwide
-func SpeechBusySystemWide() unsafe.Pointer {
+func SpeechBusySystemWide() int16 {
 	result, callErr := trySpeechBusySystemWide()
 	if callErr != nil {
 		panic(callErr)
@@ -7029,10 +7122,10 @@ func StopSpeech(chan_ *SpeechChannelRecord) int16 {
 	return result
 }
 
-var _stopSpeechAt func(chan_ *SpeechChannelRecord, whereToStop unsafe.Pointer) int16
+var _stopSpeechAt func(chan_ *SpeechChannelRecord, whereToStop int32) int16
 var _stopSpeechAtErr error
 
-func tryStopSpeechAt(chan_ *SpeechChannelRecord, whereToStop unsafe.Pointer) (int16, error) {
+func tryStopSpeechAt(chan_ *SpeechChannelRecord, whereToStop int32) (int16, error) {
 	if _stopSpeechAt == nil {
 		return 0, symbolCallError("StopSpeechAt", "10.0", _stopSpeechAtErr)
 	}
@@ -7044,7 +7137,7 @@ func tryStopSpeechAt(chan_ *SpeechChannelRecord, whereToStop unsafe.Pointer) (in
 // Deprecated: Deprecated since macOS 13.0.
 //
 // See: https://developer.apple.com/documentation/applicationservices/1459780-stopspeechat
-func StopSpeechAt(chan_ *SpeechChannelRecord, whereToStop unsafe.Pointer) int16 {
+func StopSpeechAt(chan_ *SpeechChannelRecord, whereToStop int32) int16 {
 	result, callErr := tryStopSpeechAt(chan_, whereToStop)
 	if callErr != nil {
 		panic(callErr)
@@ -7052,14 +7145,14 @@ func StopSpeechAt(chan_ *SpeechChannelRecord, whereToStop unsafe.Pointer) int16 
 	return result
 }
 
-var _textToPhonemes func(arg0 *SpeechChannelRecord, arg1 uint, arg2 unsafe.Pointer, arg3 int) int16
+var _textToPhonemes func(chan_ *SpeechChannelRecord, textBuf unsafe.Pointer, textBytes uint, phonemeBuf kernel.Handle, phonemeBytes *int) int16
 var _textToPhonemesErr error
 
-func tryTextToPhonemes(arg0 *SpeechChannelRecord, arg1 uint, arg2 unsafe.Pointer, arg3 int) (int16, error) {
+func tryTextToPhonemes(chan_ *SpeechChannelRecord, textBuf unsafe.Pointer, textBytes uint, phonemeBuf kernel.Handle, phonemeBytes *int) (int16, error) {
 	if _textToPhonemes == nil {
 		return 0, symbolCallError("TextToPhonemes", "10.0", _textToPhonemesErr)
 	}
-	return _textToPhonemes(arg0, arg1, arg2, arg3), nil
+	return _textToPhonemes(chan_, textBuf, textBytes, phonemeBuf, phonemeBytes), nil
 }
 
 // TextToPhonemes converts a buffer of textual data into phonemic data.
@@ -7067,8 +7160,8 @@ func tryTextToPhonemes(arg0 *SpeechChannelRecord, arg1 uint, arg2 unsafe.Pointer
 // Deprecated: Deprecated since macOS 10.8.
 //
 // See: https://developer.apple.com/documentation/applicationservices/1552235-texttophonemes
-func TextToPhonemes(arg0 *SpeechChannelRecord, arg1 uint, arg2 unsafe.Pointer, arg3 int) int16 {
-	result, callErr := tryTextToPhonemes(arg0, arg1, arg2, arg3)
+func TextToPhonemes(chan_ *SpeechChannelRecord, textBuf unsafe.Pointer, textBytes uint, phonemeBuf kernel.Handle, phonemeBytes *int) int16 {
+	result, callErr := tryTextToPhonemes(chan_, textBuf, textBytes, phonemeBuf, phonemeBytes)
 	if callErr != nil {
 		panic(callErr)
 	}
@@ -7327,14 +7420,14 @@ func UAZoomEnabled() bool {
 	return result
 }
 
-var _useDictionary func(arg0 *SpeechChannelRecord, arg1 unsafe.Pointer) int16
+var _useDictionary func(chan_ *SpeechChannelRecord, dictionary kernel.Handle) int16
 var _useDictionaryErr error
 
-func tryUseDictionary(arg0 *SpeechChannelRecord, arg1 unsafe.Pointer) (int16, error) {
+func tryUseDictionary(chan_ *SpeechChannelRecord, dictionary kernel.Handle) (int16, error) {
 	if _useDictionary == nil {
 		return 0, symbolCallError("UseDictionary", "10.0", _useDictionaryErr)
 	}
-	return _useDictionary(arg0, arg1), nil
+	return _useDictionary(chan_, dictionary), nil
 }
 
 // UseDictionary installs the designated dictionary into a speech channel.
@@ -7342,8 +7435,8 @@ func tryUseDictionary(arg0 *SpeechChannelRecord, arg1 unsafe.Pointer) (int16, er
 // Deprecated: Deprecated since macOS 10.8.
 //
 // See: https://developer.apple.com/documentation/applicationservices/1552255-usedictionary
-func UseDictionary(arg0 *SpeechChannelRecord, arg1 unsafe.Pointer) int16 {
-	result, callErr := tryUseDictionary(arg0, arg1)
+func UseDictionary(chan_ *SpeechChannelRecord, dictionary kernel.Handle) int16 {
+	result, callErr := tryUseDictionary(chan_, dictionary)
 	if callErr != nil {
 		panic(callErr)
 	}
@@ -7373,14 +7466,14 @@ func UseSpeechDictionary(chan_ *SpeechChannelRecord, speechDictionary corefounda
 	return result
 }
 
-var _wakeUpProcess func(arg0 *ProcessSerialNumber) int16
+var _wakeUpProcess func(PSN *ProcessSerialNumber) int16
 var _wakeUpProcessErr error
 
-func tryWakeUpProcess(arg0 *ProcessSerialNumber) (int16, error) {
+func tryWakeUpProcess(PSN *ProcessSerialNumber) (int16, error) {
 	if _wakeUpProcess == nil {
 		return 0, symbolCallError("WakeUpProcess", "10.0", _wakeUpProcessErr)
 	}
-	return _wakeUpProcess(arg0), nil
+	return _wakeUpProcess(PSN), nil
 }
 
 // WakeUpProcess.
@@ -7388,8 +7481,8 @@ func tryWakeUpProcess(arg0 *ProcessSerialNumber) (int16, error) {
 // Deprecated: Deprecated since macOS 10.9.
 //
 // See: https://developer.apple.com/documentation/applicationservices/1501091-wakeupprocess
-func WakeUpProcess(arg0 *ProcessSerialNumber) int16 {
-	result, callErr := tryWakeUpProcess(arg0)
+func WakeUpProcess(PSN *ProcessSerialNumber) int16 {
+	result, callErr := tryWakeUpProcess(PSN)
 	if callErr != nil {
 		panic(callErr)
 	}
@@ -7446,6 +7539,7 @@ func init() {
 	registerFunc(&_copyPhonemesFromText, &_copyPhonemesFromTextErr, frameworkHandle, "CopyPhonemesFromText", "10.5")
 	registerFunc(&_copyProcessName, &_copyProcessNameErr, frameworkHandle, "CopyProcessName", "10.0")
 	registerFunc(&_copySpeechProperty, &_copySpeechPropertyErr, frameworkHandle, "CopySpeechProperty", "10.5")
+	registerFunc(&_countVoices, &_countVoicesErr, frameworkHandle, "CountVoices", "10.0")
 	registerFunc(&_disposeIconActionUPP, &_disposeIconActionUPPErr, frameworkHandle, "DisposeIconActionUPP", "10.0")
 	registerFunc(&_disposeIconGetterUPP, &_disposeIconGetterUPPErr, frameworkHandle, "DisposeIconGetterUPP", "10.0")
 	registerFunc(&_disposeSpeechChannel, &_disposeSpeechChannelErr, frameworkHandle, "DisposeSpeechChannel", "10.0")
@@ -7506,6 +7600,7 @@ func init() {
 	registerFunc(&_iCCountMapEntries, &_iCCountMapEntriesErr, frameworkHandle, "ICCountMapEntries", "10.0")
 	registerFunc(&_iCCountPref, &_iCCountPrefErr, frameworkHandle, "ICCountPref", "10.0")
 	registerFunc(&_iCCountProfiles, &_iCCountProfilesErr, frameworkHandle, "ICCountProfiles", "10.0")
+	registerFunc(&_iCCreateGURLEvent, &_iCCreateGURLEventErr, frameworkHandle, "ICCreateGURLEvent", "10.0")
 	registerFunc(&_iCDeleteMapEntry, &_iCDeleteMapEntryErr, frameworkHandle, "ICDeleteMapEntry", "10.0")
 	registerFunc(&_iCDeletePref, &_iCDeletePrefErr, frameworkHandle, "ICDeletePref", "10.0")
 	registerFunc(&_iCDeleteProfile, &_iCDeleteProfileErr, frameworkHandle, "ICDeleteProfile", "10.0")
@@ -7531,6 +7626,7 @@ func init() {
 	registerFunc(&_iCMapFilename, &_iCMapFilenameErr, frameworkHandle, "ICMapFilename", "10.0")
 	registerFunc(&_iCMapTypeCreator, &_iCMapTypeCreatorErr, frameworkHandle, "ICMapTypeCreator", "10.0")
 	registerFunc(&_iCParseURL, &_iCParseURLErr, frameworkHandle, "ICParseURL", "10.0")
+	registerFunc(&_iCSendGURLEvent, &_iCSendGURLEventErr, frameworkHandle, "ICSendGURLEvent", "10.0")
 	registerFunc(&_iCSetCurrentProfile, &_iCSetCurrentProfileErr, frameworkHandle, "ICSetCurrentProfile", "10.0")
 	registerFunc(&_iCSetMapEntry, &_iCSetMapEntryErr, frameworkHandle, "ICSetMapEntry", "10.0")
 	registerFunc(&_iCSetPref, &_iCSetPrefErr, frameworkHandle, "ICSetPref", "10.0")
@@ -7541,6 +7637,7 @@ func init() {
 	registerFunc(&_iconRefContainsCGPoint, &_iconRefContainsCGPointErr, frameworkHandle, "IconRefContainsCGPoint", "10.5")
 	registerFunc(&_iconRefIntersectsCGRect, &_iconRefIntersectsCGRectErr, frameworkHandle, "IconRefIntersectsCGRect", "10.5")
 	registerFunc(&_iconRefToHIShape, &_iconRefToHIShapeErr, frameworkHandle, "IconRefToHIShape", "10.5")
+	registerFunc(&_iconRefToIconFamily, &_iconRefToIconFamilyErr, frameworkHandle, "IconRefToIconFamily", "10.0")
 	registerFunc(&_invokeIconActionUPP, &_invokeIconActionUPPErr, frameworkHandle, "InvokeIconActionUPP", "10.0")
 	registerFunc(&_invokeIconGetterUPP, &_invokeIconGetterUPPErr, frameworkHandle, "InvokeIconGetterUPP", "10.0")
 	registerFunc(&_invokeSpeechDoneUPP, &_invokeSpeechDoneUPPErr, frameworkHandle, "InvokeSpeechDoneUPP", "10.0")

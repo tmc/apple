@@ -87,7 +87,7 @@ func (nc NEFilterManagerClass) Alloc() NEFilterManager {
 //
 //   - [NEFilterManager.IsEnabled]: A Boolean used to toggle the enabled state of the filter.
 //   - [NEFilterManager.SetEnabled]
-//   - [NEFilterManager.ProviderConfiguration]: A [NEFilterProviderConfiguration](<doc://com.apple.networkextension/documentation/NetworkExtension/NEFilterProviderConfiguration>) object containing the filter configuration settings.
+//   - [NEFilterManager.ProviderConfiguration]: A [NEFilterProviderConfiguration](<https://developer.apple.com/documentation/NetworkExtension/NEFilterProviderConfiguration>) object containing the filter configuration settings.
 //   - [NEFilterManager.SetProviderConfiguration]
 //   - [NEFilterManager.LocalizedDescription]: A string containing a description of the filter configuration.
 //   - [NEFilterManager.SetLocalizedDescription]
@@ -132,7 +132,7 @@ func NEFilterManagerFromID(id objc.ID) NEFilterManager {
 //
 //   - [INEFilterManager.IsEnabled]: A Boolean used to toggle the enabled state of the filter.
 //   - [INEFilterManager.SetEnabled]
-//   - [INEFilterManager.ProviderConfiguration]: A [NEFilterProviderConfiguration](<doc://com.apple.networkextension/documentation/NetworkExtension/NEFilterProviderConfiguration>) object containing the filter configuration settings.
+//   - [INEFilterManager.ProviderConfiguration]: A [NEFilterProviderConfiguration](<https://developer.apple.com/documentation/NetworkExtension/NEFilterProviderConfiguration>) object containing the filter configuration settings.
 //   - [INEFilterManager.SetProviderConfiguration]
 //   - [INEFilterManager.LocalizedDescription]: A string containing a description of the filter configuration.
 //   - [INEFilterManager.SetLocalizedDescription]
@@ -165,7 +165,7 @@ type INEFilterManager interface {
 	// A Boolean used to toggle the enabled state of the filter.
 	IsEnabled() bool
 	SetEnabled(value bool)
-	// A [NEFilterProviderConfiguration](<doc://com.apple.networkextension/documentation/NetworkExtension/NEFilterProviderConfiguration>) object containing the filter configuration settings.
+	// A [NEFilterProviderConfiguration](<https://developer.apple.com/documentation/NetworkExtension/NEFilterProviderConfiguration>) object containing the filter configuration settings.
 	ProviderConfiguration() INEFilterProviderConfiguration
 	SetProviderConfiguration(value INEFilterProviderConfiguration)
 	// A string containing a description of the filter configuration.

@@ -92,8 +92,8 @@ type IGCKeyboardInput interface {
 	// Topic: Getting Change Information
 
 	// The block that the profile calls when the user presses a key.
-	KeyChangedHandler() GCKeyboardValueChangedHandler
-	SetKeyChangedHandler(value GCKeyboardValueChangedHandler)
+	KeyChangedHandler() GCKeyboardInputGCControllerButtonInputInt64BoolHandler
+	SetKeyChangedHandler(value GCKeyboardInputGCControllerButtonInputInt64BoolHandler)
 
 	// Topic: Accessing Buttons
 
@@ -151,12 +151,15 @@ func (g GCKeyboardInput) ButtonForKeyCode(code GCKeyCode) IGCControllerButtonInp
 // block once for each key that changes.
 //
 // See: https://developer.apple.com/documentation/GameController/GCKeyboardInput/keyChangedHandler
-func (g GCKeyboardInput) KeyChangedHandler() GCKeyboardValueChangedHandler {
-	rv := objc.Send[GCKeyboardValueChangedHandler](g.ID, objc.Sel("keyChangedHandler"))
-	return GCKeyboardValueChangedHandler(rv)
+func (g GCKeyboardInput) KeyChangedHandler() GCKeyboardInputGCControllerButtonInputInt64BoolHandler {
+	rv := objc.Send[objc.ID](g.ID, objc.Sel("keyChangedHandler"))
+	_ = rv
+	return nil
 }
-func (g GCKeyboardInput) SetKeyChangedHandler(value GCKeyboardValueChangedHandler) {
-	objc.Send[struct{}](g.ID, objc.Sel("setKeyChangedHandler:"), value)
+func (g GCKeyboardInput) SetKeyChangedHandler(value GCKeyboardInputGCControllerButtonInputInt64BoolHandler) {
+	block, cleanup := NewGCKeyboardInputGCControllerButtonInputInt64BoolBlock(value)
+	defer cleanup()
+	objc.Send[struct{}](g.ID, objc.Sel("setKeyChangedHandler:"), block)
 }
 
 // A Boolean value that indicates whether the user is pressing any of the

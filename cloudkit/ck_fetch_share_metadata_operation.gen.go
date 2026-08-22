@@ -4,10 +4,8 @@ package cloudkit
 
 import (
 	"sync"
-	"unsafe"
 
 	"github.com/tmc/apple/foundation"
-	"github.com/tmc/apple/kernel"
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -164,8 +162,8 @@ type ICKFetchShareMetadataOperation interface {
 	// Topic: Instance Properties
 
 	// The fields to return when fetching the root record.
-	RootRecordDesiredKeys() unsafe.Pointer
-	SetRootRecordDesiredKeys(value kernel.Pointer)
+	RootRecordDesiredKeys() []CKRecordFieldKey
+	SetRootRecordDesiredKeys(value []CKRecordFieldKey)
 }
 
 // Init initializes the instance.
@@ -268,10 +266,12 @@ func (c CKFetchShareMetadataOperation) SetShouldFetchRootRecord(value bool) {
 // The fields to return when fetching the root record.
 //
 // See: https://developer.apple.com/documentation/cloudkit/ckfetchsharemetadataoperation/rootrecorddesiredkeys-3xrex
-func (c CKFetchShareMetadataOperation) RootRecordDesiredKeys() unsafe.Pointer {
-	rv := objc.Send[unsafe.Pointer](c.ID, objc.Sel("rootRecordDesiredKeys"))
-	return rv
+func (c CKFetchShareMetadataOperation) RootRecordDesiredKeys() []CKRecordFieldKey {
+	rv := objc.Send[[]objc.ID](c.ID, objc.Sel("rootRecordDesiredKeys"))
+	return objc.ConvertSlice(rv, func(id objc.ID) CKRecordFieldKey {
+		return CKRecordFieldKey(foundation.NSStringFromID(id).String())
+	})
 }
-func (c CKFetchShareMetadataOperation) SetRootRecordDesiredKeys(value kernel.Pointer) {
-	objc.Send[struct{}](c.ID, objc.Sel("setRootRecordDesiredKeys:"), value)
+func (c CKFetchShareMetadataOperation) SetRootRecordDesiredKeys(value []CKRecordFieldKey) {
+	objc.Send[struct{}](c.ID, objc.Sel("setRootRecordDesiredKeys:"), objectivec.StringSliceToNSArray(value))
 }

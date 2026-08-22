@@ -74,16 +74,16 @@ func (nc NSAppleEventManagerClass) Alloc() NSAppleEventManager {
 //
 // # Working with events
 //
-//   - [NSAppleEventManager.DispatchRawAppleEventWithRawReplyHandlerRefCon]: Causes the Apple event specified by `theAppleEvent` to be dispatched to the appropriate Apple event handler, if one has been registered by calling [setEventHandler(_:andSelector:forEventClass:andEventID:)](<doc://com.apple.foundation/documentation/Foundation/NSAppleEventManager/setEventHandler(_:andSelector:forEventClass:andEventID:)>).
+//   - [NSAppleEventManager.DispatchRawAppleEventWithRawReplyHandlerRefCon]: Causes the Apple event specified by `theAppleEvent` to be dispatched to the appropriate Apple event handler, if one has been registered by calling [setEventHandler(_:andSelector:forEventClass:andEventID:)](<https://developer.apple.com/documentation/Foundation/NSAppleEventManager/setEventHandler(_:andSelector:forEventClass:andEventID:)>).
 //
 // # Suspending and resuming Apple events
 //
-//   - [NSAppleEventManager.AppleEventForSuspensionID]: Given a nonzero `suspensionID` returned by an invocation of [suspendCurrentAppleEvent()](<doc://com.apple.foundation/documentation/Foundation/NSAppleEventManager/suspendCurrentAppleEvent()>), returns the descriptor for the event whose handling was suspended.
+//   - [NSAppleEventManager.AppleEventForSuspensionID]: Given a nonzero `suspensionID` returned by an invocation of [suspendCurrentAppleEvent()](<https://developer.apple.com/documentation/Foundation/NSAppleEventManager/suspendCurrentAppleEvent()>), returns the descriptor for the event whose handling was suspended.
 //   - [NSAppleEventManager.CurrentAppleEvent]: Returns the descriptor for `currentAppleEvent` if an Apple event is being handled on the current thread.
 //   - [NSAppleEventManager.CurrentReplyAppleEvent]: Returns the corresponding reply event descriptor if an Apple event is being handled on the current thread.
-//   - [NSAppleEventManager.ReplyAppleEventForSuspensionID]: Given a nonzero `suspensionID` returned by an invocation of [suspendCurrentAppleEvent()](<doc://com.apple.foundation/documentation/Foundation/NSAppleEventManager/suspendCurrentAppleEvent()>), returns the corresponding reply event descriptor.
-//   - [NSAppleEventManager.ResumeWithSuspensionID]: Given a nonzero `suspensionID` returned by an invocation of [suspendCurrentAppleEvent()](<doc://com.apple.foundation/documentation/Foundation/NSAppleEventManager/suspendCurrentAppleEvent()>), signal that handling of the suspended event may now continue.
-//   - [NSAppleEventManager.SetCurrentAppleEventAndReplyEventWithSuspensionID]: Given a nonzero `suspensionID` returned by an invocation of [suspendCurrentAppleEvent()](<doc://com.apple.foundation/documentation/Foundation/NSAppleEventManager/suspendCurrentAppleEvent()>), sets the values that will be returned by subsequent invocations of [currentAppleEvent](<doc://com.apple.foundation/documentation/Foundation/NSAppleEventManager/currentAppleEvent>) and [currentReplyAppleEvent](<doc://com.apple.foundation/documentation/Foundation/NSAppleEventManager/currentReplyAppleEvent>) to be the event whose handling was suspended and its corresponding reply event, respectively.
+//   - [NSAppleEventManager.ReplyAppleEventForSuspensionID]: Given a nonzero `suspensionID` returned by an invocation of [suspendCurrentAppleEvent()](<https://developer.apple.com/documentation/Foundation/NSAppleEventManager/suspendCurrentAppleEvent()>), returns the corresponding reply event descriptor.
+//   - [NSAppleEventManager.ResumeWithSuspensionID]: Given a nonzero `suspensionID` returned by an invocation of [suspendCurrentAppleEvent()](<https://developer.apple.com/documentation/Foundation/NSAppleEventManager/suspendCurrentAppleEvent()>), signal that handling of the suspended event may now continue.
+//   - [NSAppleEventManager.SetCurrentAppleEventAndReplyEventWithSuspensionID]: Given a nonzero `suspensionID` returned by an invocation of [suspendCurrentAppleEvent()](<https://developer.apple.com/documentation/Foundation/NSAppleEventManager/suspendCurrentAppleEvent()>), sets the values that will be returned by subsequent invocations of [currentAppleEvent](<https://developer.apple.com/documentation/Foundation/NSAppleEventManager/currentAppleEvent>) and [currentReplyAppleEvent](<https://developer.apple.com/documentation/Foundation/NSAppleEventManager/currentReplyAppleEvent>) to be the event whose handling was suspended and its corresponding reply event, respectively.
 //   - [NSAppleEventManager.SuspendCurrentAppleEvent]: Suspends the handling of the current event and returns an ID that must be used to resume the handling of the event if an Apple event is being handled on the current thread.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSAppleEventManager
@@ -114,16 +114,16 @@ func NSAppleEventManagerFromID(id objc.ID) NSAppleEventManager {
 //
 // # Working with events
 //
-//   - [INSAppleEventManager.DispatchRawAppleEventWithRawReplyHandlerRefCon]: Causes the Apple event specified by `theAppleEvent` to be dispatched to the appropriate Apple event handler, if one has been registered by calling [setEventHandler(_:andSelector:forEventClass:andEventID:)](<doc://com.apple.foundation/documentation/Foundation/NSAppleEventManager/setEventHandler(_:andSelector:forEventClass:andEventID:)>).
+//   - [INSAppleEventManager.DispatchRawAppleEventWithRawReplyHandlerRefCon]: Causes the Apple event specified by `theAppleEvent` to be dispatched to the appropriate Apple event handler, if one has been registered by calling [setEventHandler(_:andSelector:forEventClass:andEventID:)](<https://developer.apple.com/documentation/Foundation/NSAppleEventManager/setEventHandler(_:andSelector:forEventClass:andEventID:)>).
 //
 // # Suspending and resuming Apple events
 //
-//   - [INSAppleEventManager.AppleEventForSuspensionID]: Given a nonzero `suspensionID` returned by an invocation of [suspendCurrentAppleEvent()](<doc://com.apple.foundation/documentation/Foundation/NSAppleEventManager/suspendCurrentAppleEvent()>), returns the descriptor for the event whose handling was suspended.
+//   - [INSAppleEventManager.AppleEventForSuspensionID]: Given a nonzero `suspensionID` returned by an invocation of [suspendCurrentAppleEvent()](<https://developer.apple.com/documentation/Foundation/NSAppleEventManager/suspendCurrentAppleEvent()>), returns the descriptor for the event whose handling was suspended.
 //   - [INSAppleEventManager.CurrentAppleEvent]: Returns the descriptor for `currentAppleEvent` if an Apple event is being handled on the current thread.
 //   - [INSAppleEventManager.CurrentReplyAppleEvent]: Returns the corresponding reply event descriptor if an Apple event is being handled on the current thread.
-//   - [INSAppleEventManager.ReplyAppleEventForSuspensionID]: Given a nonzero `suspensionID` returned by an invocation of [suspendCurrentAppleEvent()](<doc://com.apple.foundation/documentation/Foundation/NSAppleEventManager/suspendCurrentAppleEvent()>), returns the corresponding reply event descriptor.
-//   - [INSAppleEventManager.ResumeWithSuspensionID]: Given a nonzero `suspensionID` returned by an invocation of [suspendCurrentAppleEvent()](<doc://com.apple.foundation/documentation/Foundation/NSAppleEventManager/suspendCurrentAppleEvent()>), signal that handling of the suspended event may now continue.
-//   - [INSAppleEventManager.SetCurrentAppleEventAndReplyEventWithSuspensionID]: Given a nonzero `suspensionID` returned by an invocation of [suspendCurrentAppleEvent()](<doc://com.apple.foundation/documentation/Foundation/NSAppleEventManager/suspendCurrentAppleEvent()>), sets the values that will be returned by subsequent invocations of [currentAppleEvent](<doc://com.apple.foundation/documentation/Foundation/NSAppleEventManager/currentAppleEvent>) and [currentReplyAppleEvent](<doc://com.apple.foundation/documentation/Foundation/NSAppleEventManager/currentReplyAppleEvent>) to be the event whose handling was suspended and its corresponding reply event, respectively.
+//   - [INSAppleEventManager.ReplyAppleEventForSuspensionID]: Given a nonzero `suspensionID` returned by an invocation of [suspendCurrentAppleEvent()](<https://developer.apple.com/documentation/Foundation/NSAppleEventManager/suspendCurrentAppleEvent()>), returns the corresponding reply event descriptor.
+//   - [INSAppleEventManager.ResumeWithSuspensionID]: Given a nonzero `suspensionID` returned by an invocation of [suspendCurrentAppleEvent()](<https://developer.apple.com/documentation/Foundation/NSAppleEventManager/suspendCurrentAppleEvent()>), signal that handling of the suspended event may now continue.
+//   - [INSAppleEventManager.SetCurrentAppleEventAndReplyEventWithSuspensionID]: Given a nonzero `suspensionID` returned by an invocation of [suspendCurrentAppleEvent()](<https://developer.apple.com/documentation/Foundation/NSAppleEventManager/suspendCurrentAppleEvent()>), sets the values that will be returned by subsequent invocations of [currentAppleEvent](<https://developer.apple.com/documentation/Foundation/NSAppleEventManager/currentAppleEvent>) and [currentReplyAppleEvent](<https://developer.apple.com/documentation/Foundation/NSAppleEventManager/currentReplyAppleEvent>) to be the event whose handling was suspended and its corresponding reply event, respectively.
 //   - [INSAppleEventManager.SuspendCurrentAppleEvent]: Suspends the handling of the current event and returns an ID that must be used to resume the handling of the event if an Apple event is being handled on the current thread.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSAppleEventManager
@@ -135,26 +135,26 @@ type INSAppleEventManager interface {
 	// If an Apple event handler has been registered for the event specified by `eventClass` and `eventID`, removes it.
 	RemoveEventHandlerForEventClassAndEventID(eventClass uint32, eventID uint32)
 	// Registers the Apple event handler specified by `handler` for the event specified by `eventClass` and `eventID`.
-	SetEventHandlerAndSelectorForEventClassAndEventID(handler objectivec.IObject, handleEventSelector objectivec.SEL, eventClass uint32, eventID uint32)
+	SetEventHandlerAndSelectorForEventClassAndEventID(handler objectivec.IObject, handleEventSelector objc.SEL, eventClass uint32, eventID uint32)
 
 	// Topic: Working with events
 
-	// Causes the Apple event specified by `theAppleEvent` to be dispatched to the appropriate Apple event handler, if one has been registered by calling [setEventHandler(_:andSelector:forEventClass:andEventID:)](<doc://com.apple.foundation/documentation/Foundation/NSAppleEventManager/setEventHandler(_:andSelector:forEventClass:andEventID:)>).
-	DispatchRawAppleEventWithRawReplyHandlerRefCon(theAppleEvent unsafe.Pointer, theReply unsafe.Pointer, handlerRefCon objectivec.IObject) objectivec.IObject
+	// Causes the Apple event specified by `theAppleEvent` to be dispatched to the appropriate Apple event handler, if one has been registered by calling [setEventHandler(_:andSelector:forEventClass:andEventID:)](<https://developer.apple.com/documentation/Foundation/NSAppleEventManager/setEventHandler(_:andSelector:forEventClass:andEventID:)>).
+	DispatchRawAppleEventWithRawReplyHandlerRefCon(theAppleEvent unsafe.Pointer, theReply unsafe.Pointer, handlerRefCon objectivec.IObject) int16
 
 	// Topic: Suspending and resuming Apple events
 
-	// Given a nonzero `suspensionID` returned by an invocation of [suspendCurrentAppleEvent()](<doc://com.apple.foundation/documentation/Foundation/NSAppleEventManager/suspendCurrentAppleEvent()>), returns the descriptor for the event whose handling was suspended.
+	// Given a nonzero `suspensionID` returned by an invocation of [suspendCurrentAppleEvent()](<https://developer.apple.com/documentation/Foundation/NSAppleEventManager/suspendCurrentAppleEvent()>), returns the descriptor for the event whose handling was suspended.
 	AppleEventForSuspensionID(suspensionID NSAppleEventManagerSuspensionID) INSAppleEventDescriptor
 	// Returns the descriptor for `currentAppleEvent` if an Apple event is being handled on the current thread.
 	CurrentAppleEvent() INSAppleEventDescriptor
 	// Returns the corresponding reply event descriptor if an Apple event is being handled on the current thread.
 	CurrentReplyAppleEvent() INSAppleEventDescriptor
-	// Given a nonzero `suspensionID` returned by an invocation of [suspendCurrentAppleEvent()](<doc://com.apple.foundation/documentation/Foundation/NSAppleEventManager/suspendCurrentAppleEvent()>), returns the corresponding reply event descriptor.
+	// Given a nonzero `suspensionID` returned by an invocation of [suspendCurrentAppleEvent()](<https://developer.apple.com/documentation/Foundation/NSAppleEventManager/suspendCurrentAppleEvent()>), returns the corresponding reply event descriptor.
 	ReplyAppleEventForSuspensionID(suspensionID NSAppleEventManagerSuspensionID) INSAppleEventDescriptor
-	// Given a nonzero `suspensionID` returned by an invocation of [suspendCurrentAppleEvent()](<doc://com.apple.foundation/documentation/Foundation/NSAppleEventManager/suspendCurrentAppleEvent()>), signal that handling of the suspended event may now continue.
+	// Given a nonzero `suspensionID` returned by an invocation of [suspendCurrentAppleEvent()](<https://developer.apple.com/documentation/Foundation/NSAppleEventManager/suspendCurrentAppleEvent()>), signal that handling of the suspended event may now continue.
 	ResumeWithSuspensionID(suspensionID NSAppleEventManagerSuspensionID)
-	// Given a nonzero `suspensionID` returned by an invocation of [suspendCurrentAppleEvent()](<doc://com.apple.foundation/documentation/Foundation/NSAppleEventManager/suspendCurrentAppleEvent()>), sets the values that will be returned by subsequent invocations of [currentAppleEvent](<doc://com.apple.foundation/documentation/Foundation/NSAppleEventManager/currentAppleEvent>) and [currentReplyAppleEvent](<doc://com.apple.foundation/documentation/Foundation/NSAppleEventManager/currentReplyAppleEvent>) to be the event whose handling was suspended and its corresponding reply event, respectively.
+	// Given a nonzero `suspensionID` returned by an invocation of [suspendCurrentAppleEvent()](<https://developer.apple.com/documentation/Foundation/NSAppleEventManager/suspendCurrentAppleEvent()>), sets the values that will be returned by subsequent invocations of [currentAppleEvent](<https://developer.apple.com/documentation/Foundation/NSAppleEventManager/currentAppleEvent>) and [currentReplyAppleEvent](<https://developer.apple.com/documentation/Foundation/NSAppleEventManager/currentReplyAppleEvent>) to be the event whose handling was suspended and its corresponding reply event, respectively.
 	SetCurrentAppleEventAndReplyEventWithSuspensionID(suspensionID NSAppleEventManagerSuspensionID)
 	// Suspends the handling of the current event and returns an ID that must be used to resume the handling of the event if an Apple event is being handled on the current thread.
 	SuspendCurrentAppleEvent() NSAppleEventManagerSuspensionID
@@ -201,13 +201,17 @@ func (a NSAppleEventManager) RemoveEventHandlerForEventClassAndEventID(eventClas
 // following:
 //
 // See: https://developer.apple.com/documentation/Foundation/NSAppleEventManager/setEventHandler(_:andSelector:forEventClass:andEventID:)
-func (a NSAppleEventManager) SetEventHandlerAndSelectorForEventClassAndEventID(handler objectivec.IObject, handleEventSelector objectivec.SEL, eventClass uint32, eventID uint32) {
+func (a NSAppleEventManager) SetEventHandlerAndSelectorForEventClassAndEventID(handler objectivec.IObject, handleEventSelector objc.SEL, eventClass uint32, eventID uint32) {
 	objc.Send[objc.ID](a.ID, objc.Sel("setEventHandler:andSelector:forEventClass:andEventID:"), handler, handleEventSelector, eventClass, eventID)
 }
 
 // Causes the Apple event specified by `theAppleEvent` to be dispatched to the
 // appropriate Apple event handler, if one has been registered by calling
 // [NSAppleEventManager.SetEventHandlerAndSelectorForEventClassAndEventID].
+//
+// theAppleEvent is a [*coreservices.AppleEvent].
+//
+// theReply is a [*coreservices.AppleEvent].
 //
 // # Discussion
 //
@@ -219,14 +223,15 @@ func (a NSAppleEventManager) SetEventHandlerAndSelectorForEventClassAndEventID(h
 // The `handlerRefcon` parameter provides 4 bytes of data to the handler; a
 // common use for this parameter is to pass a pointer to additional data.
 //
-// This method is primarily intended for Cocoa’s internal use. Note that an
-// event means routing an event to an appropriate handler in the current
-// application. You cannot use this method to an event to other applications.
+// This method is primarily intended for Cocoa’s internal use. Note that
+// dispatching an event means routing an event to an appropriate handler in
+// the current application. You cannot use this method to send an event to
+// other applications.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSAppleEventManager/dispatchRawAppleEvent(_:withRawReply:handlerRefCon:)
-func (a NSAppleEventManager) DispatchRawAppleEventWithRawReplyHandlerRefCon(theAppleEvent unsafe.Pointer, theReply unsafe.Pointer, handlerRefCon objectivec.IObject) objectivec.IObject {
-	rv := objc.Send[objc.ID](a.ID, objc.Sel("dispatchRawAppleEvent:withRawReply:handlerRefCon:"), theAppleEvent, theReply, handlerRefCon)
-	return objectivec.Object{ID: rv}
+func (a NSAppleEventManager) DispatchRawAppleEventWithRawReplyHandlerRefCon(theAppleEvent unsafe.Pointer, theReply unsafe.Pointer, handlerRefCon objectivec.IObject) int16 {
+	rv := objc.Send[int16](a.ID, objc.Sel("dispatchRawAppleEvent:withRawReply:handlerRefCon:"), theAppleEvent, theReply, handlerRefCon)
+	return rv
 }
 
 // Given a nonzero `suspensionID` returned by an invocation of

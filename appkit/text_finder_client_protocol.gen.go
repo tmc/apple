@@ -8,21 +8,11 @@ import (
 	"github.com/tmc/apple/objectivec"
 )
 
-// A set of methods implemented by objects that support searching using the [NSTextFinder](<doc://com.apple.appkit/documentation/AppKit/NSTextFinder>) class and the in-window text find bar.
+// A set of methods implemented by objects that support searching using the [NSTextFinder](<https://developer.apple.com/documentation/AppKit/NSTextFinder>) class and the in-window text find bar.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTextFinderClient
 type NSTextFinderClient interface {
 	objectivec.IObject
-
-	// Returns whether the text is selectable.
-	//
-	// See: https://developer.apple.com/documentation/AppKit/NSTextFinderClient/isSelectable
-	IsSelectable() bool
-
-	// Returns whether the text is editable.
-	//
-	// See: https://developer.apple.com/documentation/AppKit/NSTextFinderClient/isEditable
-	IsEditable() bool
 
 	// Allows the client to specify a single string for searching.
 	//
@@ -32,7 +22,7 @@ type NSTextFinderClient interface {
 	// Returns whether the text is selectable.
 	//
 	// See: https://developer.apple.com/documentation/AppKit/NSTextFinderClient/isSelectable
-	Selectable() bool
+	IsSelectable() bool
 
 	// Returns whether multiple items can be selected.
 	//
@@ -53,7 +43,7 @@ type NSTextFinderClient interface {
 	// Returns whether the text is editable.
 	//
 	// See: https://developer.apple.com/documentation/AppKit/NSTextFinderClient/isEditable
-	Editable() bool
+	IsEditable() bool
 
 	// An array of visible character ranges.
 	//
@@ -76,22 +66,6 @@ func NSTextFinderClientObjectFromID(id objc.ID) NSTextFinderClientObject {
 	return NSTextFinderClientObject{
 		Object: objectivec.ObjectFromID(id),
 	}
-}
-
-// Returns whether the text is selectable.
-//
-// See: https://developer.apple.com/documentation/AppKit/NSTextFinderClient/isSelectable
-func (o NSTextFinderClientObject) IsSelectable() bool {
-	rv := objc.Send[bool](o.ID, objc.Sel("isSelectable"))
-	return rv
-}
-
-// Returns whether the text is editable.
-//
-// See: https://developer.apple.com/documentation/AppKit/NSTextFinderClient/isEditable
-func (o NSTextFinderClientObject) IsEditable() bool {
-	rv := objc.Send[bool](o.ID, objc.Sel("isEditable"))
-	return rv
 }
 
 // Returns the found string that is created by conceptually mapping its
@@ -289,7 +263,7 @@ func (o NSTextFinderClientObject) String() string {
 // returned true.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTextFinderClient/isSelectable
-func (o NSTextFinderClientObject) Selectable() bool {
+func (o NSTextFinderClientObject) IsSelectable() bool {
 	rv := objc.Send[bool](o.ID, objc.Sel("isSelectable"))
 	return bool(rv)
 }
@@ -352,7 +326,7 @@ func (o NSTextFinderClientObject) SetSelectedRanges(value []foundation.NSValue) 
 // implemented, the value is assumed to be true .
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTextFinderClient/isEditable
-func (o NSTextFinderClientObject) Editable() bool {
+func (o NSTextFinderClientObject) IsEditable() bool {
 	rv := objc.Send[bool](o.ID, objc.Sel("isEditable"))
 	return bool(rv)
 }

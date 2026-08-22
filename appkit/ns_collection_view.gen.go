@@ -119,12 +119,13 @@ func (nc NSCollectionViewClass) Alloc() NSCollectionView {
 //
 // # Managing the Collection View’s Content
 //
-// Data for the collection view is managed by the —that is an object that
-// adopts the methods of the [NSCollectionViewDataSource] protocol. You are
-// responsible for defining the data source used by your collection view. The
-// data source provides information about the number of sections and items in
-// the collection view and it provides the visual representation of that data.
-// Every data source object is required to implement the following methods:
+// Data for the collection view is managed by the data source object—that is
+// an object that adopts the methods of the [NSCollectionViewDataSource]
+// protocol. You are responsible for defining the data source used by your
+// collection view. The data source provides information about the number of
+// sections and items in the collection view and it provides the visual
+// representation of that data. Every data source object is required to
+// implement the following methods:
 //
 // - [CollectionViewNumberOfItemsInSection] -
 // [CollectionViewItemForRepresentedObjectAtIndexPath]
@@ -661,6 +662,17 @@ type INSCollectionView interface {
 	DraggingImageForItemsAtIndexesWithEventOffset(indexes foundation.NSIndexSet, event INSEvent, dragImageOffset foundation.NSPointPointer) INSImage
 	// Configures the drag operation mask.
 	SetDraggingSourceOperationMaskForLocal(dragOperationMask NSDragOperation, localDestination bool)
+
+	// Invoked when the dragging session has completed.
+	DraggingSessionEndedAtPointOperation(session INSDraggingSession, screenPoint corefoundation.CGPoint, operation NSDragOperation)
+	// Invoked when the drag moves on the screen.
+	DraggingSessionMovedToPoint(session INSDraggingSession, screenPoint corefoundation.CGPoint)
+	// Declares the types of operations the source allows to be performed.
+	DraggingSessionSourceOperationMaskForDraggingContext(session INSDraggingSession, context NSDraggingContext) NSDragOperation
+	// Invoked when the drag will begin.
+	DraggingSessionWillBeginAtPoint(session INSDraggingSession, screenPoint corefoundation.CGPoint)
+	// Returns whether the modifier keys will be ignored for this dragging session.
+	IgnoreModifierKeysForDraggingSession(session INSDraggingSession) bool
 }
 
 // Init initializes the instance.
@@ -1568,7 +1580,8 @@ func (c NSCollectionView) LayoutAttributesForSupplementaryElementOfKindAtIndexPa
 //
 // See: https://developer.apple.com/documentation/AppKit/NSCollectionView/performBatchUpdates(_:completionHandler:)
 func (c NSCollectionView) PerformBatchUpdatesCompletionHandler(updates VoidHandler, completionHandler BoolHandler) {
-	_block0, _ := NewVoidBlock(updates)
+	_block0, _cleanup0 := NewVoidBlock(updates)
+	defer _cleanup0()
 	_block1, _ := NewBoolBlock(completionHandler)
 	objc.Send[objc.ID](c.ID, objc.Sel("performBatchUpdates:completionHandler:"), _block0, _block1)
 }

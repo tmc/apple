@@ -48,11 +48,11 @@ func (mc MTLStencilDescriptorClass) Alloc() MTLStencilDescriptor {
 // # Overview
 //
 // A stencil test is a comparison between a masked reference value and a
-// masked value stored in a stencil attachment. (A value is by performing a
-// logical AND operation on it with the [MTLStencilDescriptor.ReadMask]
-// value.) The [MTLStencilDescriptor] object defines how to update the
-// contents of the stencil attachment, based on the results of the stencil
-// test and the depth test.
+// masked value stored in a stencil attachment. (A value is masked by
+// performing a logical AND operation on it with the
+// [MTLStencilDescriptor.ReadMask] value.) The [MTLStencilDescriptor] object
+// defines how to update the contents of the stencil attachment, based on the
+// results of the stencil test and the depth test.
 //
 // The [MTLStencilDescriptor.StencilCompareFunction] property defines the
 // stencil test. The [MTLStencilDescriptor.StencilFailureOperation],
@@ -240,10 +240,10 @@ func (s MTLStencilDescriptor) SetDepthStencilPassOperation(value MTLStencilOpera
 // [MTLCompareFunctionAlways], which indicates that the stencil test always
 // passes.
 //
-// The stored stencil value and the reference value are both by performing a
-// logical AND operation with the [MTLStencilDescriptor.ReadMask] value before
-// the comparison takes place. For more information on possible values, see
-// [MTLCompareFunction].
+// The stored stencil value and the reference value are both masked by
+// performing a logical AND operation with the [MTLStencilDescriptor.ReadMask]
+// value before the comparison takes place. For more information on possible
+// values, see [MTLCompareFunction].
 //
 // See: https://developer.apple.com/documentation/Metal/MTLStencilDescriptor/stencilCompareFunction
 //

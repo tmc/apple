@@ -93,7 +93,6 @@ func NSMorphologyPronounFromID(id objc.ID) NSMorphologyPronoun {
 // See: https://developer.apple.com/documentation/Foundation/NSMorphologyPronoun
 type INSMorphologyPronoun interface {
 	objectivec.IObject
-	NSSecureCoding
 
 	// Topic: Using pronouns
 

@@ -114,7 +114,7 @@ func (nc NEPacketTunnelProviderClass) Alloc() NEPacketTunnelProvider {
 //
 // # Handling IP packets
 //
-//   - [NEPacketTunnelProvider.PacketFlow]: A [NEPacketTunnelFlow](<doc://com.apple.networkextension/documentation/NetworkExtension/NEPacketTunnelFlow>) object which is used to receive IP packets routed to the tunnel’s virtual interface and inject IP packets into the networking stack via the tunnel’s virtual interface.
+//   - [NEPacketTunnelProvider.PacketFlow]: A [NEPacketTunnelFlow](<https://developer.apple.com/documentation/NetworkExtension/NEPacketTunnelFlow>) object which is used to receive IP packets routed to the tunnel’s virtual interface and inject IP packets into the networking stack via the tunnel’s virtual interface.
 //
 // # Instance Properties
 //
@@ -147,7 +147,7 @@ func NEPacketTunnelProviderFromID(id objc.ID) NEPacketTunnelProvider {
 //
 // # Handling IP packets
 //
-//   - [INEPacketTunnelProvider.PacketFlow]: A [NEPacketTunnelFlow](<doc://com.apple.networkextension/documentation/NetworkExtension/NEPacketTunnelFlow>) object which is used to receive IP packets routed to the tunnel’s virtual interface and inject IP packets into the networking stack via the tunnel’s virtual interface.
+//   - [INEPacketTunnelProvider.PacketFlow]: A [NEPacketTunnelFlow](<https://developer.apple.com/documentation/NetworkExtension/NEPacketTunnelFlow>) object which is used to receive IP packets routed to the tunnel’s virtual interface and inject IP packets into the networking stack via the tunnel’s virtual interface.
 //
 // # Instance Properties
 //
@@ -168,7 +168,7 @@ type INEPacketTunnelProvider interface {
 
 	// Topic: Handling IP packets
 
-	// A [NEPacketTunnelFlow](<doc://com.apple.networkextension/documentation/NetworkExtension/NEPacketTunnelFlow>) object which is used to receive IP packets routed to the tunnel’s virtual interface and inject IP packets into the networking stack via the tunnel’s virtual interface.
+	// A [NEPacketTunnelFlow](<https://developer.apple.com/documentation/NetworkExtension/NEPacketTunnelFlow>) object which is used to receive IP packets routed to the tunnel’s virtual interface and inject IP packets into the networking stack via the tunnel’s virtual interface.
 	PacketFlow() INEPacketTunnelFlow
 
 	// Topic: Instance Properties

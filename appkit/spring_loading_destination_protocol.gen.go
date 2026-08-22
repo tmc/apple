@@ -115,8 +115,8 @@ func (o NSSpringLoadingDestinationObject) SpringLoadingHighlightChanged(dragging
 // This method provides an opportunity to perform work in preparation for
 // spring-loading becoming engaged.
 //
-// Note that you implement either this method or [SpringLoadingUpdated] to
-// enable spring-loading.
+// Note that you must implement either this method or [SpringLoadingUpdated]
+// to enable spring-loading.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSSpringLoadingDestination/springLoadingEntered(_:)
 func (o NSSpringLoadingDestinationObject) SpringLoadingEntered(draggingInfo NSDraggingInfo) NSSpringLoadingOptions {
@@ -146,8 +146,8 @@ func (o NSSpringLoadingDestinationObject) SpringLoadingEntered(draggingInfo NSDr
 // implemented, then spring-loading is enabled or disabled for the destination
 // based on the return value of the “ method.
 //
-// Note that you implement either this method or [SpringLoadingEntered] to
-// enable spring-loading.
+// Note that you must implement either this method or [SpringLoadingEntered]
+// to enable spring-loading.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSSpringLoadingDestination/springLoadingUpdated(_:)
 func (o NSSpringLoadingDestinationObject) SpringLoadingUpdated(draggingInfo NSDraggingInfo) NSSpringLoadingOptions {

@@ -6,546 +6,11 @@ import (
 	"fmt"
 )
 
-type NS uint
-
 const (
-	// NSBackTabCharacter: The back tab character: `0x0019`
-	NSBackTabCharacter NS = 0x19
-	// NSBackspaceCharacter: The backspace character: `0x0008`
-	NSBackspaceCharacter NS = 0x8
-	// NSBacktabTextMovement: The Backtab (Shift-Tab) key was pressed.
-	NSBacktabTextMovement NS = 0x12
-	// NSBeginFunctionKey: The begin key.
-	NSBeginFunctionKey NS = 0xf72a
-	// NSBreakFunctionKey: The break key.
-	NSBreakFunctionKey NS = 0xf732
-	// NSCancelTextMovement: The user cancelled the completion.
-	NSCancelTextMovement NS = 0x17
-	// NSCarriageReturnCharacter: The carriage return character: `0x000d`
-	NSCarriageReturnCharacter NS = 0xd
-	// NSClearDisplayFunctionKey: The clear display key.
-	NSClearDisplayFunctionKey NS = 0xf73a
-	// NSClearLineFunctionKey: The clear or num lock key.
-	NSClearLineFunctionKey NS = 0xf739
-	// NSControlGlyph: The reserved code for a control glyph.
-	NSControlGlyph NS = 0xffffff
-	// NSDeleteCharFunctionKey: The delete character key.
-	NSDeleteCharFunctionKey NS = 0xf73e
-	// NSDeleteCharacter: The delete character: `0x007f`
-	NSDeleteCharacter NS = 0x7f
-	// NSDeleteFunctionKey: The forward delete key.
-	NSDeleteFunctionKey NS = 0xf728
-	// NSDeleteLineFunctionKey: The delete line key.
-	NSDeleteLineFunctionKey NS = 0xf73c
-	// NSDisplayWindowRunLoopOrdering: The priority at which windows are displayed.
-	NSDisplayWindowRunLoopOrdering NS = 600000
-	// NSDownArrowFunctionKey: The down arrow key.
-	NSDownArrowFunctionKey NS = 0xf701
-	// NSDownTextMovement: The down arrow key was pressed.
-	NSDownTextMovement NS = 0x16
-	// NSEndFunctionKey: The end key.
-	NSEndFunctionKey NS = 0xf72b
-	// NSEnterCharacter: The enter character: `0x0003`
-	NSEnterCharacter NS = 0x3
-	// NSExecuteFunctionKey: The execute key.
-	NSExecuteFunctionKey NS = 0xf742
-	// NSF10FunctionKey: The F10 key.
-	NSF10FunctionKey NS = 0xf70d
-	// NSF11FunctionKey: The F11 key.
-	NSF11FunctionKey NS = 0xf70e
-	// NSF12FunctionKey: The F12 key.
-	NSF12FunctionKey NS = 0xf70f
-	// NSF13FunctionKey: The F13 key.
-	NSF13FunctionKey NS = 0xf710
-	// NSF14FunctionKey: The F14 key.
-	NSF14FunctionKey NS = 0xf711
-	// NSF15FunctionKey: The F15 key.
-	NSF15FunctionKey NS = 0xf712
-	// NSF16FunctionKey: The F16 key.
-	NSF16FunctionKey NS = 0xf713
-	// NSF17FunctionKey: The F17 key.
-	NSF17FunctionKey NS = 0xf714
-	// NSF18FunctionKey: The F18 key.
-	NSF18FunctionKey NS = 0xf715
-	// NSF19FunctionKey: The F19 key.
-	NSF19FunctionKey NS = 0xf716
-	// NSF1FunctionKey: The F1 key.
-	NSF1FunctionKey NS = 0xf704
-	// NSF20FunctionKey: The F20 key.
-	NSF20FunctionKey NS = 0xf717
-	// NSF21FunctionKey: The F21 key.
-	NSF21FunctionKey NS = 0xf718
-	// NSF22FunctionKey: The F22 key.
-	NSF22FunctionKey NS = 0xf719
-	// NSF23FunctionKey: The F23 key.
-	NSF23FunctionKey NS = 0xf71a
-	// NSF24FunctionKey: The F24 key.
-	NSF24FunctionKey NS = 0xf71b
-	// NSF25FunctionKey: The F25 key.
-	NSF25FunctionKey NS = 0xf71c
-	// NSF26FunctionKey: The F26 key.
-	NSF26FunctionKey NS = 0xf71d
-	// NSF27FunctionKey: The F27 key.
-	NSF27FunctionKey NS = 0xf71e
-	// NSF28FunctionKey: The F28 key.
-	NSF28FunctionKey NS = 0xf71f
-	// NSF29FunctionKey: The F29 key.
-	NSF29FunctionKey NS = 0xf720
-	// NSF2FunctionKey: The F2 key.
-	NSF2FunctionKey NS = 0xf705
-	// NSF30FunctionKey: The F30 key.
-	NSF30FunctionKey NS = 0xf721
-	// NSF31FunctionKey: The F31 key.
-	NSF31FunctionKey NS = 0xf722
-	// NSF32FunctionKey: The F32 key.
-	NSF32FunctionKey NS = 0xf723
-	// NSF33FunctionKey: The F33 key.
-	NSF33FunctionKey NS = 0xf724
-	// NSF34FunctionKey: The F34 key.
-	NSF34FunctionKey NS = 0xf725
-	// NSF35FunctionKey: The F35 key.
-	NSF35FunctionKey NS = 0xf726
-	// NSF3FunctionKey: The F3 key.
-	NSF3FunctionKey NS = 0xf706
-	// NSF4FunctionKey: The F4 key.
-	NSF4FunctionKey NS = 0xf707
-	// NSF5FunctionKey: The F5 key.
-	NSF5FunctionKey NS = 0xf708
-	// NSF6FunctionKey: The F6 key.
-	NSF6FunctionKey NS = 0xf709
-	// NSF7FunctionKey: The F7 key.
-	NSF7FunctionKey NS = 0xf70a
-	// NSF8FunctionKey: The F8 key.
-	NSF8FunctionKey NS = 0xf70b
-	// NSF9FunctionKey: The F9 key.
-	NSF9FunctionKey NS = 0xf70c
-	// NSFindFunctionKey: The find key.
-	NSFindFunctionKey        NS = 0xf745
-	NSFontAssetDownloadError NS = 66304
-	NSFontErrorMaximum       NS = 66335
-	NSFontErrorMinimum       NS = 66304
-	// NSFormFeedCharacter: The form feed character: `0x000c`
-	NSFormFeedCharacter NS = 0xc
-	// NSHelpFunctionKey: The help key.
-	NSHelpFunctionKey NS = 0xf746
-	// NSHomeFunctionKey: The home key.
-	NSHomeFunctionKey NS = 0xf729
-	// NSIllegalTextMovement: Currently unused.
-	NSIllegalTextMovement NS = 0
-	// NSInsertCharFunctionKey: The insert character key.
-	NSInsertCharFunctionKey NS = 0xf73d
-	// NSInsertFunctionKey: The insert key.
-	NSInsertFunctionKey NS = 0xf727
-	// NSInsertLineFunctionKey: The insert line key.
-	NSInsertLineFunctionKey NS = 0xf73b
-	// NSLeftArrowFunctionKey: The left arrow key.
-	NSLeftArrowFunctionKey NS = 0xf702
-	// NSLeftTextMovement: The left arrow key was pressed.
-	NSLeftTextMovement NS = 0x13
-	// NSLineSeparatorCharacter: The line separator character: `0x2028`
-	NSLineSeparatorCharacter NS = 0x2028
-	// NSMenuFunctionKey: The menu key.
-	NSMenuFunctionKey NS = 0xf735
-	// NSModeSwitchFunctionKey: The mode switch key.
-	NSModeSwitchFunctionKey NS = 0xf747
-	// NSNewlineCharacter: The newline character: `0x000a`
-	NSNewlineCharacter NS = 0xa
-	// NSNextFunctionKey: The next key.
-	NSNextFunctionKey NS = 0xf740
-	// NSNullGlyph: The reserved code for a null glyph.
-	NSNullGlyph NS = 0
-	// NSOtherTextMovement: The user performed some undefined action.
-	NSOtherTextMovement NS = 0
-	// NSPageDownFunctionKey: The page down key.
-	NSPageDownFunctionKey NS = 0xf72d
-	// NSPageUpFunctionKey: The page up key.
-	NSPageUpFunctionKey NS = 0xf72c
-	// NSParagraphSeparatorCharacter: The paragraph separator character: `0x2029`
-	NSParagraphSeparatorCharacter         NS = 0x2029
-	NSPasteboardCommunicationError        NS = 67585
-	NSPasteboardContentsNotAvailableError NS = 67587
-	NSPasteboardErrorMaximum              NS = 67839
-	NSPasteboardErrorMinimum              NS = 67584
-	NSPasteboardInvalidArgumentError      NS = 67586
-	NSPasteboardMiscellaneousError        NS = 67584
-	// NSPauseFunctionKey: The pause key.
-	NSPauseFunctionKey NS = 0xf730
-	// NSPrevFunctionKey: Previous key.
-	NSPrevFunctionKey NS = 0xf73f
-	// NSPrintFunctionKey: The print key.
-	NSPrintFunctionKey NS = 0xf738
-	// NSPrintScreenFunctionKey: The print screen key.
-	NSPrintScreenFunctionKey NS = 0xf72e
-	// NSRedoFunctionKey: The redo key.
-	NSRedoFunctionKey NS = 0xf744
-	// NSResetCursorRectsRunLoopOrdering: The priority at which cursor rects are reset.
-	NSResetCursorRectsRunLoopOrdering NS = 700000
-	// NSResetFunctionKey: The reset key.
-	NSResetFunctionKey NS = 0xf733
-	// NSReturnTextMovement: The Return key was pressed.
-	NSReturnTextMovement NS = 0x10
-	// NSRightArrowFunctionKey: The right arrow key.
-	NSRightArrowFunctionKey NS = 0xf703
-	// NSRightTextMovement: The right arrow key was pressed.
-	NSRightTextMovement NS = 0x14
-	// NSScrollLockFunctionKey: The scroll lock key.
-	NSScrollLockFunctionKey NS = 0xf72f
-	// NSSelectFunctionKey: The select key.
-	NSSelectFunctionKey NS = 0xf741
-	// NSServiceApplicationLaunchFailedError: The service providing application could not be launched.
-	NSServiceApplicationLaunchFailedError NS = 66561
-	// NSServiceApplicationNotFoundError: The service provider could not be found.
-	NSServiceApplicationNotFoundError NS = 66560
-	// NSServiceErrorMaximum: Inclusive service error range, for checking future error codes.
-	NSServiceErrorMaximum NS = 66817
-	// NSServiceErrorMinimum: Inclusive service error range, for checking future error codes.
-	NSServiceErrorMinimum NS = 66560
-	// NSServiceInvalidPasteboardDataError: The service providing app did not return a pasteboard with any of the promised types, or we couldn’t write the data from the pasteboard to the object receiving the returned data.
-	NSServiceInvalidPasteboardDataError NS = 66563
-	// NSServiceMalformedServiceDictionaryError: The service dictionary did not contain the necessary keys.
-	NSServiceMalformedServiceDictionaryError NS = 66564
-	// NSServiceMiscellaneousError: Other errors, representing programmatic mistakes in the service consuming application.
-	NSServiceMiscellaneousError NS = 66800
-	// NSServiceRequestTimedOutError: The service providing application did not open its service listening port in time, or the app didn’t respond to the request in time; see the Console log to figure out which (the errors are typically reported the same way to the user).
-	NSServiceRequestTimedOutError      NS = 66562
-	NSSharingServiceErrorMaximum       NS = 67327
-	NSSharingServiceErrorMinimum       NS = 67072
-	NSSharingServiceNotConfiguredError NS = 67072
-	// NSShowControlGlyphs: Generates displayable glyphs for control characters.
-	NSShowControlGlyphs NS = 1
-	// NSShowInvisibleGlyphs: Generates displayable glyphs for invisible characters.
-	NSShowInvisibleGlyphs NS = 2
-	// NSStopFunctionKey: The stop key.
-	NSStopFunctionKey NS = 0xf734
-	// NSSysReqFunctionKey: The system request key.
-	NSSysReqFunctionKey NS = 0xf731
-	// NSSystemFunctionKey: The system key.
-	NSSystemFunctionKey NS = 0xf737
-	// NSTabCharacter: The tab character: `0x0009`
-	NSTabCharacter NS = 0x9
-	// NSTabTextMovement: The Tab key was pressed.
-	NSTabTextMovement NS = 0x11
-	// NSTextReadInapplicableDocumentTypeError: Indicates a problem reading data with the specified format.
-	NSTextReadInapplicableDocumentTypeError NS = 65806
-	// NSTextReadWriteErrorMaximum: The end of a range of error codes reserved for future use.
-	NSTextReadWriteErrorMaximum NS = 66303
-	// NSTextReadWriteErrorMinimum: The beginning of a range of error codes reserved for future use.
-	NSTextReadWriteErrorMinimum NS = 65792
-	// NSTextWriteInapplicableDocumentTypeError: Indicates a problem writing data of the specified format.
-	NSTextWriteInapplicableDocumentTypeError NS = 66062
-	// NSUndoFunctionKey: The undo key.
-	NSUndoFunctionKey NS = 0xf743
-	// NSUpArrowFunctionKey: The up arrow key.
-	NSUpArrowFunctionKey NS = 0xf700
-	// NSUpTextMovement: The up arrow key was pressed.
-	NSUpTextMovement NS = 0x15
-	// NSUserFunctionKey: The user key.
-	NSUserFunctionKey NS = 0xf736
-	// NSWantsBidiLevels: Generates directional formatting codes for bidirectional text.
-	NSWantsBidiLevels                       NS = 4
-	NSWindowSharingErrorMaximum             NS = 67466
-	NSWindowSharingErrorMinimum             NS = 67456
-	NSWindowSharingRequestAlreadyRequested  NS = 67456
-	NSWindowSharingRequestNoEligibleSession NS = 67457
-	NSWindowSharingRequestUnspecifiedError  NS = 67458
-	// NSWorkspaceAuthorizationInvalidError: The provided workspace authorization credentials expired or are invalid.
-	NSWorkspaceAuthorizationInvalidError NS = 67328
-	NSWorkspaceErrorMaximum              NS = 67455
-	NSWorkspaceErrorMinimum              NS = 67328
-	// Deprecated.
-	NSAnyType NS = 0
-	// Deprecated: use NSApplication.ModalResponse.cancel.
-	NSCancelButton NS = 0
-	// Deprecated.
-	NSDoubleType NS = 6
-	// Deprecated.
-	NSFloatType NS = 3
-	// Deprecated.
-	NSIntType NS = 1
-	// Deprecated.
-	NSMacintoshInterfaceStyle NS = 3
-	// Deprecated.
-	NSNextStepInterfaceStyle NS = 1
-	// Deprecated.
-	NSNoInterfaceStyle NS = 0
-	// Deprecated.
-	NSNoUnderlineStyle NS = 0
-	// Deprecated: use NSApplication.ModalResponse.OK.
-	NSOKButton NS = 0
-	// Deprecated.
-	NSPositiveDoubleType NS = 7
-	// Deprecated.
-	NSPositiveFloatType NS = 4
-	// Deprecated.
-	NSPositiveIntType NS = 2
-	// Deprecated.
-	NSSingleUnderlineStyle NS = 1
-	// Deprecated.
-	NSWindows95InterfaceStyle NS = 2
-)
-
-func (e NS) String() string {
-	switch e {
-	case NSBackTabCharacter:
-		return "NSBackTabCharacter"
-	case NSBackspaceCharacter:
-		return "NSBackspaceCharacter"
-	case NSBacktabTextMovement:
-		return "NSBacktabTextMovement"
-	case NSBeginFunctionKey:
-		return "NSBeginFunctionKey"
-	case NSBreakFunctionKey:
-		return "NSBreakFunctionKey"
-	case NSCancelTextMovement:
-		return "NSCancelTextMovement"
-	case NSCarriageReturnCharacter:
-		return "NSCarriageReturnCharacter"
-	case NSClearDisplayFunctionKey:
-		return "NSClearDisplayFunctionKey"
-	case NSClearLineFunctionKey:
-		return "NSClearLineFunctionKey"
-	case NSControlGlyph:
-		return "NSControlGlyph"
-	case NSDeleteCharFunctionKey:
-		return "NSDeleteCharFunctionKey"
-	case NSDeleteCharacter:
-		return "NSDeleteCharacter"
-	case NSDeleteFunctionKey:
-		return "NSDeleteFunctionKey"
-	case NSDeleteLineFunctionKey:
-		return "NSDeleteLineFunctionKey"
-	case NSDisplayWindowRunLoopOrdering:
-		return "NSDisplayWindowRunLoopOrdering"
-	case NSDownArrowFunctionKey:
-		return "NSDownArrowFunctionKey"
-	case NSDownTextMovement:
-		return "NSDownTextMovement"
-	case NSEndFunctionKey:
-		return "NSEndFunctionKey"
-	case NSEnterCharacter:
-		return "NSEnterCharacter"
-	case NSExecuteFunctionKey:
-		return "NSExecuteFunctionKey"
-	case NSF10FunctionKey:
-		return "NSF10FunctionKey"
-	case NSF11FunctionKey:
-		return "NSF11FunctionKey"
-	case NSF12FunctionKey:
-		return "NSF12FunctionKey"
-	case NSF13FunctionKey:
-		return "NSF13FunctionKey"
-	case NSF14FunctionKey:
-		return "NSF14FunctionKey"
-	case NSF15FunctionKey:
-		return "NSF15FunctionKey"
-	case NSF16FunctionKey:
-		return "NSF16FunctionKey"
-	case NSF17FunctionKey:
-		return "NSF17FunctionKey"
-	case NSF18FunctionKey:
-		return "NSF18FunctionKey"
-	case NSF19FunctionKey:
-		return "NSF19FunctionKey"
-	case NSF1FunctionKey:
-		return "NSF1FunctionKey"
-	case NSF20FunctionKey:
-		return "NSF20FunctionKey"
-	case NSF21FunctionKey:
-		return "NSF21FunctionKey"
-	case NSF22FunctionKey:
-		return "NSF22FunctionKey"
-	case NSF23FunctionKey:
-		return "NSF23FunctionKey"
-	case NSF24FunctionKey:
-		return "NSF24FunctionKey"
-	case NSF25FunctionKey:
-		return "NSF25FunctionKey"
-	case NSF26FunctionKey:
-		return "NSF26FunctionKey"
-	case NSF27FunctionKey:
-		return "NSF27FunctionKey"
-	case NSF28FunctionKey:
-		return "NSF28FunctionKey"
-	case NSF29FunctionKey:
-		return "NSF29FunctionKey"
-	case NSF2FunctionKey:
-		return "NSF2FunctionKey"
-	case NSF30FunctionKey:
-		return "NSF30FunctionKey"
-	case NSF31FunctionKey:
-		return "NSF31FunctionKey"
-	case NSF32FunctionKey:
-		return "NSF32FunctionKey"
-	case NSF33FunctionKey:
-		return "NSF33FunctionKey"
-	case NSF34FunctionKey:
-		return "NSF34FunctionKey"
-	case NSF35FunctionKey:
-		return "NSF35FunctionKey"
-	case NSF3FunctionKey:
-		return "NSF3FunctionKey"
-	case NSF4FunctionKey:
-		return "NSF4FunctionKey"
-	case NSF5FunctionKey:
-		return "NSF5FunctionKey"
-	case NSF6FunctionKey:
-		return "NSF6FunctionKey"
-	case NSF7FunctionKey:
-		return "NSF7FunctionKey"
-	case NSF8FunctionKey:
-		return "NSF8FunctionKey"
-	case NSF9FunctionKey:
-		return "NSF9FunctionKey"
-	case NSFindFunctionKey:
-		return "NSFindFunctionKey"
-	case NSFontAssetDownloadError:
-		return "NSFontAssetDownloadError"
-	case NSFontErrorMaximum:
-		return "NSFontErrorMaximum"
-	case NSFormFeedCharacter:
-		return "NSFormFeedCharacter"
-	case NSHelpFunctionKey:
-		return "NSHelpFunctionKey"
-	case NSHomeFunctionKey:
-		return "NSHomeFunctionKey"
-	case NSIllegalTextMovement:
-		return "NSIllegalTextMovement"
-	case NSInsertCharFunctionKey:
-		return "NSInsertCharFunctionKey"
-	case NSInsertFunctionKey:
-		return "NSInsertFunctionKey"
-	case NSInsertLineFunctionKey:
-		return "NSInsertLineFunctionKey"
-	case NSLeftArrowFunctionKey:
-		return "NSLeftArrowFunctionKey"
-	case NSLeftTextMovement:
-		return "NSLeftTextMovement"
-	case NSLineSeparatorCharacter:
-		return "NSLineSeparatorCharacter"
-	case NSMenuFunctionKey:
-		return "NSMenuFunctionKey"
-	case NSModeSwitchFunctionKey:
-		return "NSModeSwitchFunctionKey"
-	case NSNewlineCharacter:
-		return "NSNewlineCharacter"
-	case NSNextFunctionKey:
-		return "NSNextFunctionKey"
-	case NSPageDownFunctionKey:
-		return "NSPageDownFunctionKey"
-	case NSPageUpFunctionKey:
-		return "NSPageUpFunctionKey"
-	case NSParagraphSeparatorCharacter:
-		return "NSParagraphSeparatorCharacter"
-	case NSPasteboardCommunicationError:
-		return "NSPasteboardCommunicationError"
-	case NSPasteboardContentsNotAvailableError:
-		return "NSPasteboardContentsNotAvailableError"
-	case NSPasteboardErrorMaximum:
-		return "NSPasteboardErrorMaximum"
-	case NSPasteboardErrorMinimum:
-		return "NSPasteboardErrorMinimum"
-	case NSPasteboardInvalidArgumentError:
-		return "NSPasteboardInvalidArgumentError"
-	case NSPauseFunctionKey:
-		return "NSPauseFunctionKey"
-	case NSPrevFunctionKey:
-		return "NSPrevFunctionKey"
-	case NSPrintFunctionKey:
-		return "NSPrintFunctionKey"
-	case NSPrintScreenFunctionKey:
-		return "NSPrintScreenFunctionKey"
-	case NSRedoFunctionKey:
-		return "NSRedoFunctionKey"
-	case NSResetCursorRectsRunLoopOrdering:
-		return "NSResetCursorRectsRunLoopOrdering"
-	case NSResetFunctionKey:
-		return "NSResetFunctionKey"
-	case NSReturnTextMovement:
-		return "NSReturnTextMovement"
-	case NSRightArrowFunctionKey:
-		return "NSRightArrowFunctionKey"
-	case NSRightTextMovement:
-		return "NSRightTextMovement"
-	case NSScrollLockFunctionKey:
-		return "NSScrollLockFunctionKey"
-	case NSSelectFunctionKey:
-		return "NSSelectFunctionKey"
-	case NSServiceApplicationLaunchFailedError:
-		return "NSServiceApplicationLaunchFailedError"
-	case NSServiceApplicationNotFoundError:
-		return "NSServiceApplicationNotFoundError"
-	case NSServiceErrorMaximum:
-		return "NSServiceErrorMaximum"
-	case NSServiceInvalidPasteboardDataError:
-		return "NSServiceInvalidPasteboardDataError"
-	case NSServiceMalformedServiceDictionaryError:
-		return "NSServiceMalformedServiceDictionaryError"
-	case NSServiceMiscellaneousError:
-		return "NSServiceMiscellaneousError"
-	case NSServiceRequestTimedOutError:
-		return "NSServiceRequestTimedOutError"
-	case NSSharingServiceErrorMaximum:
-		return "NSSharingServiceErrorMaximum"
-	case NSSharingServiceErrorMinimum:
-		return "NSSharingServiceErrorMinimum"
-	case NSShowControlGlyphs:
-		return "NSShowControlGlyphs"
-	case NSShowInvisibleGlyphs:
-		return "NSShowInvisibleGlyphs"
-	case NSStopFunctionKey:
-		return "NSStopFunctionKey"
-	case NSSysReqFunctionKey:
-		return "NSSysReqFunctionKey"
-	case NSSystemFunctionKey:
-		return "NSSystemFunctionKey"
-	case NSTabCharacter:
-		return "NSTabCharacter"
-	case NSTabTextMovement:
-		return "NSTabTextMovement"
-	case NSTextReadInapplicableDocumentTypeError:
-		return "NSTextReadInapplicableDocumentTypeError"
-	case NSTextReadWriteErrorMaximum:
-		return "NSTextReadWriteErrorMaximum"
-	case NSTextReadWriteErrorMinimum:
-		return "NSTextReadWriteErrorMinimum"
-	case NSTextWriteInapplicableDocumentTypeError:
-		return "NSTextWriteInapplicableDocumentTypeError"
-	case NSUndoFunctionKey:
-		return "NSUndoFunctionKey"
-	case NSUpArrowFunctionKey:
-		return "NSUpArrowFunctionKey"
-	case NSUpTextMovement:
-		return "NSUpTextMovement"
-	case NSUserFunctionKey:
-		return "NSUserFunctionKey"
-	case NSWantsBidiLevels:
-		return "NSWantsBidiLevels"
-	case NSWindowSharingErrorMaximum:
-		return "NSWindowSharingErrorMaximum"
-	case NSWindowSharingErrorMinimum:
-		return "NSWindowSharingErrorMinimum"
-	case NSWindowSharingRequestNoEligibleSession:
-		return "NSWindowSharingRequestNoEligibleSession"
-	case NSWindowSharingRequestUnspecifiedError:
-		return "NSWindowSharingRequestUnspecifiedError"
-	case NSWorkspaceAuthorizationInvalidError:
-		return "NSWorkspaceAuthorizationInvalidError"
-	case NSWorkspaceErrorMaximum:
-		return "NSWorkspaceErrorMaximum"
-	case NSDoubleType:
-		return "NSDoubleType"
-	case NSPositiveDoubleType:
-		return "NSPositiveDoubleType"
-	default:
-		return fmt.Sprintf("NS(%d)", e)
-	}
-}
-
-const (
-	NSAccessibilityHourMinuteDateTimeComponentsFlag       uint = 0xc
-	NSAccessibilityHourMinuteSecondDateTimeComponentsFlag uint = 0xe
-	NSAccessibilityYearMonthDateTimeComponentsFlag        uint = 0xc0
-	NSAccessibilityYearMonthDayDateTimeComponentsFlag     uint = 0xe0
+	NSAccessibilityHourMinuteDateTimeComponentsFlag       uint32 = 0xc
+	NSAccessibilityHourMinuteSecondDateTimeComponentsFlag uint32 = 0xe
+	NSAccessibilityYearMonthDateTimeComponentsFlag        uint32 = 0xc0
+	NSAccessibilityYearMonthDayDateTimeComponentsFlag     uint32 = 0xe0
 )
 
 // See: https://developer.apple.com/documentation/AppKit/NSAccessibilityAnnotationPosition
@@ -846,13 +311,13 @@ func (e NSAccessibilityUnits) String() string {
 
 const (
 	// Deprecated.
-	NSAlertAlternateReturn int = 0
+	NSAlertAlternateReturn int32 = 0
 	// Deprecated.
-	NSAlertDefaultReturn int = 1
+	NSAlertDefaultReturn int32 = 1
 	// Deprecated.
-	NSAlertErrorReturn int = -2
+	NSAlertErrorReturn int32 = -2
 	// Deprecated.
-	NSAlertOtherReturn int = -1
+	NSAlertOtherReturn int32 = -1
 )
 
 // See: https://developer.apple.com/documentation/AppKit/NSAlert/Style
@@ -952,6 +417,46 @@ func (e NSAnimationEffect) String() string {
 		return "NSAnimationEffectPoof"
 	default:
 		return fmt.Sprintf("NSAnimationEffect(%d)", e)
+	}
+}
+
+type NSAnyTypeConstants uint32
+
+const (
+	// Deprecated.
+	NSAnyType NSAnyTypeConstants = 0
+	// Deprecated.
+	NSDoubleType NSAnyTypeConstants = 6
+	// Deprecated.
+	NSFloatType NSAnyTypeConstants = 3
+	// Deprecated.
+	NSIntType NSAnyTypeConstants = 1
+	// Deprecated.
+	NSPositiveDoubleType NSAnyTypeConstants = 7
+	// Deprecated.
+	NSPositiveFloatType NSAnyTypeConstants = 4
+	// Deprecated.
+	NSPositiveIntType NSAnyTypeConstants = 2
+)
+
+func (e NSAnyTypeConstants) String() string {
+	switch e {
+	case NSAnyType:
+		return "NSAnyType"
+	case NSDoubleType:
+		return "NSDoubleType"
+	case NSFloatType:
+		return "NSFloatType"
+	case NSIntType:
+		return "NSIntType"
+	case NSPositiveDoubleType:
+		return "NSPositiveDoubleType"
+	case NSPositiveFloatType:
+		return "NSPositiveFloatType"
+	case NSPositiveIntType:
+		return "NSPositiveIntType"
+	default:
+		return fmt.Sprintf("NSAnyTypeConstants(%d)", e)
 	}
 }
 
@@ -1166,7 +671,7 @@ func (e NSApplicationTerminateReply) String() string {
 	}
 }
 
-type NSAttachment uint
+type NSAttachment uint32
 
 const (
 	// NSAttachmentCharacter: Specifies a character that denotes an attachment.
@@ -1710,7 +1215,7 @@ func (e NSCellAttribute) String() string {
 }
 
 // See: https://developer.apple.com/documentation/AppKit/NSCell/HitResult
-type NSCellHitResult int
+type NSCellHitResult uint
 
 const (
 	// NSCellHitContentArea: A content area in the cell.
@@ -2617,6 +2122,26 @@ func (e NSControlCharacterAction) String() string {
 	}
 }
 
+type NSControlGlyphConstants uint32
+
+const (
+	// NSControlGlyph: The reserved code for a control glyph.
+	NSControlGlyph NSControlGlyphConstants = 0xffffff
+	// NSNullGlyph: The reserved code for a null glyph.
+	NSNullGlyph NSControlGlyphConstants = 0
+)
+
+func (e NSControlGlyphConstants) String() string {
+	switch e {
+	case NSControlGlyph:
+		return "NSControlGlyph"
+	case NSNullGlyph:
+		return "NSNullGlyph"
+	default:
+		return fmt.Sprintf("NSControlGlyphConstants(%d)", e)
+	}
+}
+
 // See: https://developer.apple.com/documentation/AppKit/NSControl/ControlSize-swift.enum
 type NSControlSize uint
 
@@ -2745,7 +2270,7 @@ type NSCursorFrameResizeDirections uint
 
 const (
 	// NSCursorFrameResizeDirectionsAll: Indicates that the shape can be resized inwards or wards to be either smaller or larger, respectively.
-	NSCursorFrameResizeDirectionsAll NSCursorFrameResizeDirections = 0
+	NSCursorFrameResizeDirectionsAll NSCursorFrameResizeDirections = 3
 	// NSCursorFrameResizeDirectionsInward: Indicates that the shape can be resized inwards to be smaller.
 	NSCursorFrameResizeDirectionsInward NSCursorFrameResizeDirections = 1
 	// NSCursorFrameResizeDirectionsOutward: Indicates that the shape can be resized outwards to be larger.
@@ -2772,9 +2297,9 @@ const (
 	// NSCursorFrameResizePositionBottom: The bottom edge of the frame.
 	NSCursorFrameResizePositionBottom NSCursorFrameResizePosition = 4
 	// NSCursorFrameResizePositionBottomLeft: The bottom left corner of the frame.
-	NSCursorFrameResizePositionBottomLeft NSCursorFrameResizePosition = 0
+	NSCursorFrameResizePositionBottomLeft NSCursorFrameResizePosition = 6
 	// NSCursorFrameResizePositionBottomRight: The bottom right corner of the frame.
-	NSCursorFrameResizePositionBottomRight NSCursorFrameResizePosition = 0
+	NSCursorFrameResizePositionBottomRight NSCursorFrameResizePosition = 12
 	// NSCursorFrameResizePositionLeft: The left edge of the frame.
 	NSCursorFrameResizePositionLeft NSCursorFrameResizePosition = 2
 	// NSCursorFrameResizePositionRight: The right edge of the frame.
@@ -2782,9 +2307,9 @@ const (
 	// NSCursorFrameResizePositionTop: The top edge of the frame.
 	NSCursorFrameResizePositionTop NSCursorFrameResizePosition = 1
 	// NSCursorFrameResizePositionTopLeft: The top left corner of the frame.
-	NSCursorFrameResizePositionTopLeft NSCursorFrameResizePosition = 0
+	NSCursorFrameResizePositionTopLeft NSCursorFrameResizePosition = 3
 	// NSCursorFrameResizePositionTopRight: The top right corner of the frame.
-	NSCursorFrameResizePositionTopRight NSCursorFrameResizePosition = 0
+	NSCursorFrameResizePositionTopRight NSCursorFrameResizePosition = 9
 )
 
 func (e NSCursorFrameResizePosition) String() string {
@@ -2793,12 +2318,18 @@ func (e NSCursorFrameResizePosition) String() string {
 		return "NSCursorFrameResizePositionBottom"
 	case NSCursorFrameResizePositionBottomLeft:
 		return "NSCursorFrameResizePositionBottomLeft"
+	case NSCursorFrameResizePositionBottomRight:
+		return "NSCursorFrameResizePositionBottomRight"
 	case NSCursorFrameResizePositionLeft:
 		return "NSCursorFrameResizePositionLeft"
 	case NSCursorFrameResizePositionRight:
 		return "NSCursorFrameResizePositionRight"
 	case NSCursorFrameResizePositionTop:
 		return "NSCursorFrameResizePositionTop"
+	case NSCursorFrameResizePositionTopLeft:
+		return "NSCursorFrameResizePositionTopLeft"
+	case NSCursorFrameResizePositionTopRight:
+		return "NSCursorFrameResizePositionTopRight"
 	default:
 		return fmt.Sprintf("NSCursorFrameResizePosition(%d)", e)
 	}
@@ -2880,7 +2411,7 @@ func (e NSDatePickerStyle) String() string {
 type NSDirectionalRectEdge uint
 
 const (
-	NSDirectionalRectEdgeAll      NSDirectionalRectEdge = 1
+	NSDirectionalRectEdgeAll      NSDirectionalRectEdge = 15
 	NSDirectionalRectEdgeBottom   NSDirectionalRectEdge = 4
 	NSDirectionalRectEdgeLeading  NSDirectionalRectEdge = 2
 	NSDirectionalRectEdgeNone     NSDirectionalRectEdge = 0
@@ -2898,6 +2429,8 @@ func (e NSDirectionalRectEdge) String() string {
 		return "NSDirectionalRectEdgeLeading"
 	case NSDirectionalRectEdgeNone:
 		return "NSDirectionalRectEdgeNone"
+	case NSDirectionalRectEdgeTop:
+		return "NSDirectionalRectEdgeTop"
 	case NSDirectionalRectEdgeTrailing:
 		return "NSDirectionalRectEdgeTrailing"
 	default:
@@ -2921,6 +2454,26 @@ func (e NSDisplayGamut) String() string {
 		return "NSDisplayGamutSRGB"
 	default:
 		return fmt.Sprintf("NSDisplayGamut(%d)", e)
+	}
+}
+
+type NSDisplayWindowRunLoopOrderingConstants uint32
+
+const (
+	// NSDisplayWindowRunLoopOrdering: The priority at which windows are displayed.
+	NSDisplayWindowRunLoopOrdering NSDisplayWindowRunLoopOrderingConstants = 600000
+	// NSResetCursorRectsRunLoopOrdering: The priority at which cursor rects are reset.
+	NSResetCursorRectsRunLoopOrdering NSDisplayWindowRunLoopOrderingConstants = 700000
+)
+
+func (e NSDisplayWindowRunLoopOrderingConstants) String() string {
+	switch e {
+	case NSDisplayWindowRunLoopOrdering:
+		return "NSDisplayWindowRunLoopOrdering"
+	case NSResetCursorRectsRunLoopOrdering:
+		return "NSResetCursorRectsRunLoopOrdering"
+	default:
+		return fmt.Sprintf("NSDisplayWindowRunLoopOrderingConstants(%d)", e)
 	}
 }
 
@@ -2966,7 +2519,7 @@ func (e NSDocumentChangeType) String() string {
 }
 
 // See: https://developer.apple.com/documentation/AppKit/NSDragOperation
-type NSDragOperation int
+type NSDragOperation uint
 
 const (
 	// NSDragOperationCopy: A constant that indicates the drag can copy the data that the image represents.
@@ -2974,7 +2527,7 @@ const (
 	// NSDragOperationDelete: A constant that indicates the drag can delete the data.
 	NSDragOperationDelete NSDragOperation = 32
 	// NSDragOperationEvery: A constant that indicates that drag can perform all of the drag operations.
-	NSDragOperationEvery NSDragOperation = -1
+	NSDragOperationEvery NSDragOperation = 18446744073709551615
 	// NSDragOperationGeneric: A constant that indicates the destination can define the drag operation.
 	NSDragOperationGeneric NSDragOperation = 4
 	// NSDragOperationLink: A constant that indicates the drag can share the data.
@@ -3120,6 +2673,58 @@ func (e NSDrawerState) String() string {
 	}
 }
 
+type NSEnterCharacterConstants uint32
+
+const (
+	// NSBackTabCharacter: The back tab character: `0x0019`
+	NSBackTabCharacter NSEnterCharacterConstants = 0x19
+	// NSBackspaceCharacter: The backspace character: `0x0008`
+	NSBackspaceCharacter NSEnterCharacterConstants = 0x8
+	// NSCarriageReturnCharacter: The carriage return character: `0x000d`
+	NSCarriageReturnCharacter NSEnterCharacterConstants = 0xd
+	// NSDeleteCharacter: The delete character: `0x007f`
+	NSDeleteCharacter NSEnterCharacterConstants = 0x7f
+	// NSEnterCharacter: The enter character: `0x0003`
+	NSEnterCharacter NSEnterCharacterConstants = 0x3
+	// NSFormFeedCharacter: The form feed character: `0x000c`
+	NSFormFeedCharacter NSEnterCharacterConstants = 0xc
+	// NSLineSeparatorCharacter: The line separator character: `0x2028`
+	NSLineSeparatorCharacter NSEnterCharacterConstants = 0x2028
+	// NSNewlineCharacter: The newline character: `0x000a`
+	NSNewlineCharacter NSEnterCharacterConstants = 0xa
+	// NSParagraphSeparatorCharacter: The paragraph separator character: `0x2029`
+	NSParagraphSeparatorCharacter NSEnterCharacterConstants = 0x2029
+	// NSTabCharacter: The tab character: `0x0009`
+	NSTabCharacter NSEnterCharacterConstants = 0x9
+)
+
+func (e NSEnterCharacterConstants) String() string {
+	switch e {
+	case NSBackTabCharacter:
+		return "NSBackTabCharacter"
+	case NSBackspaceCharacter:
+		return "NSBackspaceCharacter"
+	case NSCarriageReturnCharacter:
+		return "NSCarriageReturnCharacter"
+	case NSDeleteCharacter:
+		return "NSDeleteCharacter"
+	case NSEnterCharacter:
+		return "NSEnterCharacter"
+	case NSFormFeedCharacter:
+		return "NSFormFeedCharacter"
+	case NSLineSeparatorCharacter:
+		return "NSLineSeparatorCharacter"
+	case NSNewlineCharacter:
+		return "NSNewlineCharacter"
+	case NSParagraphSeparatorCharacter:
+		return "NSParagraphSeparatorCharacter"
+	case NSTabCharacter:
+		return "NSTabCharacter"
+	default:
+		return fmt.Sprintf("NSEnterCharacterConstants(%d)", e)
+	}
+}
+
 // See: https://developer.apple.com/documentation/AppKit/NSEvent/ButtonMask-swift.struct
 type NSEventButtonMask uint
 
@@ -3171,11 +2776,11 @@ func (e NSEventGestureAxis) String() string {
 }
 
 // See: https://developer.apple.com/documentation/AppKit/NSEvent/EventTypeMask
-type NSEventMask int
+type NSEventMask uint64
 
 const (
 	// NSEventMaskAny: A mask that matches any type of event.
-	NSEventMaskAny NSEventMask = -1
+	NSEventMaskAny NSEventMask = 18446744073709551615
 	// NSEventMaskAppKitDefined: A mask for AppKit–defined events.
 	NSEventMaskAppKitDefined NSEventMask = 8192
 	// NSEventMaskApplicationDefined: A mask for app-defined events.
@@ -3378,25 +2983,35 @@ const (
 	// NSEventPhaseBegan: An event phase has begun.
 	NSEventPhaseBegan NSEventPhase = 0x1
 	// NSEventPhaseCancelled: The system canceled the event phase.
-	NSEventPhaseCancelled NSEventPhase = 0x1
+	NSEventPhaseCancelled NSEventPhase = 16
 	// NSEventPhaseChanged: An event phase has changed.
-	NSEventPhaseChanged NSEventPhase = 0x1
+	NSEventPhaseChanged NSEventPhase = 4
 	// NSEventPhaseEnded: The event phase ended.
-	NSEventPhaseEnded NSEventPhase = 0x1
+	NSEventPhaseEnded NSEventPhase = 8
 	// NSEventPhaseMayBegin: The system event phase may begin.
-	NSEventPhaseMayBegin NSEventPhase = 0x1
+	NSEventPhaseMayBegin NSEventPhase = 32
 	// NSEventPhaseNone: The event is not associated with a phase.
 	NSEventPhaseNone NSEventPhase = 0
 	// NSEventPhaseStationary: An event phase is in progress but hasn’t moved since the previous event.
-	NSEventPhaseStationary NSEventPhase = 0x1
+	NSEventPhaseStationary NSEventPhase = 2
 )
 
 func (e NSEventPhase) String() string {
 	switch e {
 	case NSEventPhaseBegan:
 		return "NSEventPhaseBegan"
+	case NSEventPhaseCancelled:
+		return "NSEventPhaseCancelled"
+	case NSEventPhaseChanged:
+		return "NSEventPhaseChanged"
+	case NSEventPhaseEnded:
+		return "NSEventPhaseEnded"
+	case NSEventPhaseMayBegin:
+		return "NSEventPhaseMayBegin"
 	case NSEventPhaseNone:
 		return "NSEventPhaseNone"
+	case NSEventPhaseStationary:
+		return "NSEventPhaseStationary"
 	default:
 		return fmt.Sprintf("NSEventPhase(%d)", e)
 	}
@@ -3452,7 +3067,7 @@ type NSEventSwipeTrackingOptions uint
 
 const (
 	// NSEventSwipeTrackingClampGestureAmount: Don’t allow gestureAmount to go beyond +/-1.0
-	NSEventSwipeTrackingClampGestureAmount NSEventSwipeTrackingOptions = 0x1
+	NSEventSwipeTrackingClampGestureAmount NSEventSwipeTrackingOptions = 2
 	// NSEventSwipeTrackingLockDirection: Clamp gestureAmount to 0 if the user starts to swipe in the opposite direction than they started.
 	NSEventSwipeTrackingLockDirection NSEventSwipeTrackingOptions = 0x1
 )
@@ -3461,6 +3076,8 @@ func (e NSEventSwipeTrackingOptions) String() string {
 	switch e {
 	case NSEventSwipeTrackingClampGestureAmount:
 		return "NSEventSwipeTrackingClampGestureAmount"
+	case NSEventSwipeTrackingLockDirection:
+		return "NSEventSwipeTrackingLockDirection"
 	default:
 		return fmt.Sprintf("NSEventSwipeTrackingOptions(%d)", e)
 	}
@@ -3618,19 +3235,21 @@ func (e NSEventType) String() string {
 	}
 }
 
-type NSFileHandlingPanel uint
+type NSFileHandlingPanel uint32
 
 const (
 	// Deprecated: use NSApplication.ModalResponse.cancel.
 	NSFileHandlingPanelCancelButton NSFileHandlingPanel = 0
 	// Deprecated: use NSApplication.ModalResponse.OK.
-	NSFileHandlingPanelOKButton NSFileHandlingPanel = 0
+	NSFileHandlingPanelOKButton NSFileHandlingPanel = 1
 )
 
 func (e NSFileHandlingPanel) String() string {
 	switch e {
 	case NSFileHandlingPanelCancelButton:
 		return "NSFileHandlingPanelCancelButton"
+	case NSFileHandlingPanelOKButton:
+		return "NSFileHandlingPanelOKButton"
 	default:
 		return fmt.Sprintf("NSFileHandlingPanel(%d)", e)
 	}
@@ -3767,45 +3386,6 @@ func (e NSFocusRingType) String() string {
 		return fmt.Sprintf("NSFocusRingType(%d)", e)
 	}
 }
-
-const (
-	// NSFontBoldTrait: The font’s typestyle is boldface.
-	NSFontBoldTrait uint = 2
-	// NSFontClarendonSerifsClass: A font where the style is a variation of the Oldstyle Serifs and the Transitional Serifs.
-	NSFontClarendonSerifsClass uint = 1073741824
-	// NSFontCondensedTrait: The font’s typestyle is condensed.
-	NSFontCondensedTrait uint = 64
-	// NSFontExpandedTrait: The font’s typestyle is expanded.
-	NSFontExpandedTrait uint = 32
-	// NSFontFreeformSerifsClass: A font where the style includes serifs, but it expresses a design freedom that does not generally fit within the other serif design classifications.
-	NSFontFreeformSerifsClass uint = 1879048192
-	// NSFontItalicTrait: The font’s typestyle is italic.
-	NSFontItalicTrait uint = 1
-	// NSFontModernSerifsClass: A font where the style is based on the Latin printing style of the 20th century.
-	NSFontModernSerifsClass uint = 805306368
-	// NSFontMonoSpaceTrait: The font uses fixed-pitch glyphs if available.
-	NSFontMonoSpaceTrait uint = 1024
-	// NSFontOldStyleSerifsClass: A font where the style is based on the Latin printing style of the 15th to 17th century.
-	NSFontOldStyleSerifsClass uint = 268435456
-	// NSFontOrnamentalsClass: A font where the style includes highly decorated or stylized character shapes such as those typically used in headlines.
-	NSFontOrnamentalsClass uint = 2415919104
-	// NSFontSansSerifClass: A font where the style includes most basic letter forms (excluding Scripts and Ornamentals) that do not have serifs on the strokes.
-	NSFontSansSerifClass uint = 2147483648
-	// NSFontScriptsClass: A font where the style is among those typefaces designed to simulate handwriting.
-	NSFontScriptsClass uint = 2684354560
-	// NSFontSlabSerifsClass: A font where the style is characterized by serifs with a square transition between the strokes and the serifs (no brackets).
-	NSFontSlabSerifsClass uint = 1342177280
-	// NSFontSymbolicClass: A font where the style is generally design independent, making it suitable for special characters (icons, dingbats, technical symbols, and so on) that may be used equally well with any font.
-	NSFontSymbolicClass uint = 3221225472
-	// NSFontTransitionalSerifsClass: A font where the style is based on the Latin printing style of the 18th to 19th century.
-	NSFontTransitionalSerifsClass uint = 536870912
-	// NSFontUIOptimizedTrait: The font synthesizes appropriate attributes for user interface rendering, such as control titles, if necessary.
-	NSFontUIOptimizedTrait uint = 4096
-	// NSFontUnknownClass: A font with no design classification.
-	NSFontUnknownClass uint = 0
-	// NSFontVerticalTrait: The font uses vertical glyph variants and metrics.
-	NSFontVerticalTrait uint = 2048
-)
 
 // See: https://developer.apple.com/documentation/AppKit/NSFontAction
 type NSFontAction uint
@@ -4008,7 +3588,7 @@ func (e NSFontDescriptorSymbolicTraits) String() string {
 	}
 }
 
-type NSFontFamilyClass uint
+type NSFontFamilyClass uint32
 
 const (
 	// NSFontFamilyClassMask: Constant you use to access [NSFontFamilyClass] values in the upper four bits of [NSFontSymbolicTraits].
@@ -4024,30 +3604,101 @@ func (e NSFontFamilyClass) String() string {
 	}
 }
 
+type NSFontItalicTraitConstants uint32
+
+const (
+	// NSFontBoldTrait: The font’s typestyle is boldface.
+	NSFontBoldTrait NSFontItalicTraitConstants = 2
+	// NSFontCondensedTrait: The font’s typestyle is condensed.
+	NSFontCondensedTrait NSFontItalicTraitConstants = 64
+	// NSFontExpandedTrait: The font’s typestyle is expanded.
+	NSFontExpandedTrait NSFontItalicTraitConstants = 32
+	// NSFontItalicTrait: The font’s typestyle is italic.
+	NSFontItalicTrait NSFontItalicTraitConstants = 1
+	// NSFontMonoSpaceTrait: The font uses fixed-pitch glyphs if available.
+	NSFontMonoSpaceTrait NSFontItalicTraitConstants = 1024
+	// NSFontUIOptimizedTrait: The font synthesizes appropriate attributes for user interface rendering, such as control titles, if necessary.
+	NSFontUIOptimizedTrait NSFontItalicTraitConstants = 4096
+	// NSFontVerticalTrait: The font uses vertical glyph variants and metrics.
+	NSFontVerticalTrait NSFontItalicTraitConstants = 2048
+)
+
+func (e NSFontItalicTraitConstants) String() string {
+	switch e {
+	case NSFontBoldTrait:
+		return "NSFontBoldTrait"
+	case NSFontCondensedTrait:
+		return "NSFontCondensedTrait"
+	case NSFontExpandedTrait:
+		return "NSFontExpandedTrait"
+	case NSFontItalicTrait:
+		return "NSFontItalicTrait"
+	case NSFontMonoSpaceTrait:
+		return "NSFontMonoSpaceTrait"
+	case NSFontUIOptimizedTrait:
+		return "NSFontUIOptimizedTrait"
+	case NSFontVerticalTrait:
+		return "NSFontVerticalTrait"
+	default:
+		return fmt.Sprintf("NSFontItalicTraitConstants(%d)", e)
+	}
+}
+
+type NSFontPanelFaceModeMaskConstants uint32
+
 const (
 	// NSFontPanelAllEffectsModeMask: Display all the effects user interface items.
-	NSFontPanelAllEffectsModeMask uint = 0xfff00
+	NSFontPanelAllEffectsModeMask NSFontPanelFaceModeMaskConstants = 0xfff00
 	// NSFontPanelAllModesMask: Display all the available adornments.
-	NSFontPanelAllModesMask uint = 0xffffffff
+	NSFontPanelAllModesMask NSFontPanelFaceModeMaskConstants = 0xffffffff
 	// NSFontPanelCollectionModeMask: Display the font collections column.
-	NSFontPanelCollectionModeMask uint = 4
+	NSFontPanelCollectionModeMask NSFontPanelFaceModeMaskConstants = 4
 	// NSFontPanelDocumentColorEffectModeMask: Display the document color button.
-	NSFontPanelDocumentColorEffectModeMask uint = 2048
+	NSFontPanelDocumentColorEffectModeMask NSFontPanelFaceModeMaskConstants = 2048
 	// NSFontPanelFaceModeMask: Display the typeface column.
-	NSFontPanelFaceModeMask uint = 1
+	NSFontPanelFaceModeMask NSFontPanelFaceModeMaskConstants = 1
 	// NSFontPanelShadowEffectModeMask: Display the shadow effects button.
-	NSFontPanelShadowEffectModeMask uint = 4096
+	NSFontPanelShadowEffectModeMask NSFontPanelFaceModeMaskConstants = 4096
 	// NSFontPanelSizeModeMask: Display the font size column.
-	NSFontPanelSizeModeMask uint = 2
+	NSFontPanelSizeModeMask NSFontPanelFaceModeMaskConstants = 2
 	// NSFontPanelStandardModesMask: Display the standard default font panel—that is, including the collections, typeface, and size columns.
-	NSFontPanelStandardModesMask uint = 0xffff
+	NSFontPanelStandardModesMask NSFontPanelFaceModeMaskConstants = 0xffff
 	// NSFontPanelStrikethroughEffectModeMask: Display the strike-through popup menu.
-	NSFontPanelStrikethroughEffectModeMask uint = 512
+	NSFontPanelStrikethroughEffectModeMask NSFontPanelFaceModeMaskConstants = 512
 	// NSFontPanelTextColorEffectModeMask: Display the text color button.
-	NSFontPanelTextColorEffectModeMask uint = 1024
+	NSFontPanelTextColorEffectModeMask NSFontPanelFaceModeMaskConstants = 1024
 	// NSFontPanelUnderlineEffectModeMask: Display the underline popup menu.
-	NSFontPanelUnderlineEffectModeMask uint = 256
+	NSFontPanelUnderlineEffectModeMask NSFontPanelFaceModeMaskConstants = 256
 )
+
+func (e NSFontPanelFaceModeMaskConstants) String() string {
+	switch e {
+	case NSFontPanelAllEffectsModeMask:
+		return "NSFontPanelAllEffectsModeMask"
+	case NSFontPanelAllModesMask:
+		return "NSFontPanelAllModesMask"
+	case NSFontPanelCollectionModeMask:
+		return "NSFontPanelCollectionModeMask"
+	case NSFontPanelDocumentColorEffectModeMask:
+		return "NSFontPanelDocumentColorEffectModeMask"
+	case NSFontPanelFaceModeMask:
+		return "NSFontPanelFaceModeMask"
+	case NSFontPanelShadowEffectModeMask:
+		return "NSFontPanelShadowEffectModeMask"
+	case NSFontPanelSizeModeMask:
+		return "NSFontPanelSizeModeMask"
+	case NSFontPanelStandardModesMask:
+		return "NSFontPanelStandardModesMask"
+	case NSFontPanelStrikethroughEffectModeMask:
+		return "NSFontPanelStrikethroughEffectModeMask"
+	case NSFontPanelTextColorEffectModeMask:
+		return "NSFontPanelTextColorEffectModeMask"
+	case NSFontPanelUnderlineEffectModeMask:
+		return "NSFontPanelUnderlineEffectModeMask"
+	default:
+		return fmt.Sprintf("NSFontPanelFaceModeMaskConstants(%d)", e)
+	}
+}
 
 // See: https://developer.apple.com/documentation/AppKit/NSFontPanel/ModeMask
 type NSFontPanelModeMask uint
@@ -4185,6 +3836,62 @@ func (e NSFontTraitMask) String() string {
 	}
 }
 
+type NSFontUnknownClassConstants int32
+
+const (
+	// NSFontClarendonSerifsClass: A font where the style is a variation of the Oldstyle Serifs and the Transitional Serifs.
+	NSFontClarendonSerifsClass NSFontUnknownClassConstants = 1073741824
+	// NSFontFreeformSerifsClass: A font where the style includes serifs, but it expresses a design freedom that does not generally fit within the other serif design classifications.
+	NSFontFreeformSerifsClass NSFontUnknownClassConstants = 1879048192
+	// NSFontModernSerifsClass: A font where the style is based on the Latin printing style of the 20th century.
+	NSFontModernSerifsClass NSFontUnknownClassConstants = 805306368
+	// NSFontOldStyleSerifsClass: A font where the style is based on the Latin printing style of the 15th to 17th century.
+	NSFontOldStyleSerifsClass NSFontUnknownClassConstants = 268435456
+	// NSFontOrnamentalsClass: A font where the style includes highly decorated or stylized character shapes such as those typically used in headlines.
+	NSFontOrnamentalsClass NSFontUnknownClassConstants = -1879048192
+	// NSFontSansSerifClass: A font where the style includes most basic letter forms (excluding Scripts and Ornamentals) that do not have serifs on the strokes.
+	NSFontSansSerifClass NSFontUnknownClassConstants = -2147483648
+	// NSFontScriptsClass: A font where the style is among those typefaces designed to simulate handwriting.
+	NSFontScriptsClass NSFontUnknownClassConstants = -1610612736
+	// NSFontSlabSerifsClass: A font where the style is characterized by serifs with a square transition between the strokes and the serifs (no brackets).
+	NSFontSlabSerifsClass NSFontUnknownClassConstants = 1342177280
+	// NSFontSymbolicClass: A font where the style is generally design independent, making it suitable for special characters (icons, dingbats, technical symbols, and so on) that may be used equally well with any font.
+	NSFontSymbolicClass NSFontUnknownClassConstants = -1073741824
+	// NSFontTransitionalSerifsClass: A font where the style is based on the Latin printing style of the 18th to 19th century.
+	NSFontTransitionalSerifsClass NSFontUnknownClassConstants = 536870912
+	// NSFontUnknownClass: A font with no design classification.
+	NSFontUnknownClass NSFontUnknownClassConstants = 0
+)
+
+func (e NSFontUnknownClassConstants) String() string {
+	switch e {
+	case NSFontClarendonSerifsClass:
+		return "NSFontClarendonSerifsClass"
+	case NSFontFreeformSerifsClass:
+		return "NSFontFreeformSerifsClass"
+	case NSFontModernSerifsClass:
+		return "NSFontModernSerifsClass"
+	case NSFontOldStyleSerifsClass:
+		return "NSFontOldStyleSerifsClass"
+	case NSFontOrnamentalsClass:
+		return "NSFontOrnamentalsClass"
+	case NSFontSansSerifClass:
+		return "NSFontSansSerifClass"
+	case NSFontScriptsClass:
+		return "NSFontScriptsClass"
+	case NSFontSlabSerifsClass:
+		return "NSFontSlabSerifsClass"
+	case NSFontSymbolicClass:
+		return "NSFontSymbolicClass"
+	case NSFontTransitionalSerifsClass:
+		return "NSFontTransitionalSerifsClass"
+	case NSFontUnknownClass:
+		return "NSFontUnknownClass"
+	default:
+		return fmt.Sprintf("NSFontUnknownClassConstants(%d)", e)
+	}
+}
+
 // See: https://developer.apple.com/documentation/AppKit/NSGestureRecognizer/State-swift.enum
 type NSGestureRecognizerState int
 
@@ -4245,7 +3952,7 @@ func (e NSGlassEffectViewStyle) String() string {
 	}
 }
 
-type NSGlyphAttribute uint
+type NSGlyphAttribute uint32
 
 const (
 	// Deprecated.
@@ -4502,7 +4209,7 @@ type NSHorizontalDirections uint
 
 const (
 	// NSHorizontalDirectionsAll: All horizontal directions (left and right).
-	NSHorizontalDirectionsAll NSHorizontalDirections = 0
+	NSHorizontalDirectionsAll NSHorizontalDirections = 3
 	// NSHorizontalDirectionsLeft: The left direction.
 	NSHorizontalDirectionsLeft NSHorizontalDirections = 1
 	// NSHorizontalDirectionsRight: The right direction.
@@ -4519,6 +4226,56 @@ func (e NSHorizontalDirections) String() string {
 		return "NSHorizontalDirectionsRight"
 	default:
 		return fmt.Sprintf("NSHorizontalDirections(%d)", e)
+	}
+}
+
+type NSIllegalTextMovementConstants uint32
+
+const (
+	// NSBacktabTextMovement: The Backtab (Shift-Tab) key was pressed.
+	NSBacktabTextMovement NSIllegalTextMovementConstants = 0x12
+	// NSCancelTextMovement: The user cancelled the completion.
+	NSCancelTextMovement NSIllegalTextMovementConstants = 0x17
+	// NSDownTextMovement: The down arrow key was pressed.
+	NSDownTextMovement NSIllegalTextMovementConstants = 0x16
+	// NSIllegalTextMovement: Currently unused.
+	NSIllegalTextMovement NSIllegalTextMovementConstants = 0
+	// NSLeftTextMovement: The left arrow key was pressed.
+	NSLeftTextMovement NSIllegalTextMovementConstants = 0x13
+	// NSOtherTextMovement: The user performed some undefined action.
+	NSOtherTextMovement NSIllegalTextMovementConstants = 0
+	// NSReturnTextMovement: The Return key was pressed.
+	NSReturnTextMovement NSIllegalTextMovementConstants = 0x10
+	// NSRightTextMovement: The right arrow key was pressed.
+	NSRightTextMovement NSIllegalTextMovementConstants = 0x14
+	// NSTabTextMovement: The Tab key was pressed.
+	NSTabTextMovement NSIllegalTextMovementConstants = 0x11
+	// NSUpTextMovement: The up arrow key was pressed.
+	NSUpTextMovement NSIllegalTextMovementConstants = 0x15
+)
+
+func (e NSIllegalTextMovementConstants) String() string {
+	switch e {
+	case NSBacktabTextMovement:
+		return "NSBacktabTextMovement"
+	case NSCancelTextMovement:
+		return "NSCancelTextMovement"
+	case NSDownTextMovement:
+		return "NSDownTextMovement"
+	case NSIllegalTextMovement:
+		return "NSIllegalTextMovement"
+	case NSLeftTextMovement:
+		return "NSLeftTextMovement"
+	case NSReturnTextMovement:
+		return "NSReturnTextMovement"
+	case NSRightTextMovement:
+		return "NSRightTextMovement"
+	case NSTabTextMovement:
+		return "NSTabTextMovement"
+	case NSUpTextMovement:
+		return "NSUpTextMovement"
+	default:
+		return fmt.Sprintf("NSIllegalTextMovementConstants(%d)", e)
 	}
 }
 
@@ -4721,7 +4478,7 @@ func (e NSImageLayoutDirection) String() string {
 }
 
 // See: https://developer.apple.com/documentation/AppKit/NSImage/LoadStatus
-type NSImageLoadStatus int
+type NSImageLoadStatus uint
 
 const (
 	// NSImageLoadStatusCancelled: Image loading was canceled.
@@ -4790,7 +4547,7 @@ func (e NSImageRepLoadStatus) String() string {
 	}
 }
 
-type NSImageRepMatches uint
+type NSImageRepMatches uint32
 
 const (
 	// NSImageRepMatchesDevice: A constant indicating that the value of certain attributes, such as the number of colors or bits per sample, will change to match the display device.
@@ -5056,7 +4813,7 @@ const (
 	// NSLayoutFormatDirectionLeftToRight: Arrange objects in order from left to right.
 	NSLayoutFormatDirectionLeftToRight NSLayoutFormatOptions = 65536
 	// NSLayoutFormatDirectionMask: A bit mask that can be combined with an NSLayoutConstraint.FormatOptions variable to yield only the direction portion of the format options.
-	NSLayoutFormatDirectionMask NSLayoutFormatOptions = 0x3
+	NSLayoutFormatDirectionMask NSLayoutFormatOptions = 196608
 	// NSLayoutFormatDirectionRightToLeft: Arrange objects in order from right to left.
 	NSLayoutFormatDirectionRightToLeft NSLayoutFormatOptions = 131072
 )
@@ -5535,36 +5292,104 @@ func (e NSMultibyteGlyphPacking) String() string {
 	}
 }
 
+type NSNoInterfaceStyleConstants uint32
+
+const (
+	// Deprecated.
+	NSMacintoshInterfaceStyle NSNoInterfaceStyleConstants = 3
+	// Deprecated.
+	NSNextStepInterfaceStyle NSNoInterfaceStyleConstants = 1
+	// Deprecated.
+	NSNoInterfaceStyle NSNoInterfaceStyleConstants = 0
+	// Deprecated.
+	NSWindows95InterfaceStyle NSNoInterfaceStyleConstants = 2
+)
+
+func (e NSNoInterfaceStyleConstants) String() string {
+	switch e {
+	case NSMacintoshInterfaceStyle:
+		return "NSMacintoshInterfaceStyle"
+	case NSNextStepInterfaceStyle:
+		return "NSNextStepInterfaceStyle"
+	case NSNoInterfaceStyle:
+		return "NSNoInterfaceStyle"
+	case NSWindows95InterfaceStyle:
+		return "NSWindows95InterfaceStyle"
+	default:
+		return fmt.Sprintf("NSNoInterfaceStyleConstants(%d)", e)
+	}
+}
+
+type NSNoUnderlineStyleConstants uint32
+
+const (
+	// Deprecated.
+	NSNoUnderlineStyle NSNoUnderlineStyleConstants = 0
+	// Deprecated.
+	NSSingleUnderlineStyle NSNoUnderlineStyleConstants = 1
+)
+
+func (e NSNoUnderlineStyleConstants) String() string {
+	switch e {
+	case NSNoUnderlineStyle:
+		return "NSNoUnderlineStyle"
+	case NSSingleUnderlineStyle:
+		return "NSSingleUnderlineStyle"
+	default:
+		return fmt.Sprintf("NSNoUnderlineStyleConstants(%d)", e)
+	}
+}
+
+type NSOKButtonConstants uint32
+
+const (
+	// Deprecated: use NSApplication.ModalResponse.cancel.
+	NSCancelButton NSOKButtonConstants = 0
+	// Deprecated: use NSApplication.ModalResponse.OK.
+	NSOKButton NSOKButtonConstants = 1
+)
+
+func (e NSOKButtonConstants) String() string {
+	switch e {
+	case NSCancelButton:
+		return "NSCancelButton"
+	case NSOKButton:
+		return "NSOKButton"
+	default:
+		return fmt.Sprintf("NSOKButtonConstants(%d)", e)
+	}
+}
+
 // See: https://developer.apple.com/documentation/AppKit/NSOpenGLContext/Parameter
 type NSOpenGLContextParameter int
 
 const (
 	// Deprecated.
-	NSOpenGLContextParameterCurrentRendererID NSOpenGLContextParameter = 5
+	NSOpenGLContextParameterCurrentRendererID NSOpenGLContextParameter = 309
 	// Deprecated.
-	NSOpenGLContextParameterGPUFragmentProcessing NSOpenGLContextParameter = 7
+	NSOpenGLContextParameterGPUFragmentProcessing NSOpenGLContextParameter = 311
 	// Deprecated.
-	NSOpenGLContextParameterGPUVertexProcessing NSOpenGLContextParameter = 6
+	NSOpenGLContextParameterGPUVertexProcessing NSOpenGLContextParameter = 310
 	// Deprecated.
-	NSOpenGLContextParameterHasDrawable NSOpenGLContextParameter = 8
+	NSOpenGLContextParameterHasDrawable NSOpenGLContextParameter = 314
 	// Deprecated.
-	NSOpenGLContextParameterMPSwapsInFlight NSOpenGLContextParameter = 9
+	NSOpenGLContextParameterMPSwapsInFlight NSOpenGLContextParameter = 315
 	// Deprecated.
 	NSOpenGLContextParameterRasterizationEnable NSOpenGLContextParameter = 221
 	// Deprecated.
-	NSOpenGLContextParameterReclaimResources NSOpenGLContextParameter = 4
+	NSOpenGLContextParameterReclaimResources NSOpenGLContextParameter = 308
 	// Deprecated.
 	NSOpenGLContextParameterStateValidation NSOpenGLContextParameter = 301
 	// Deprecated.
-	NSOpenGLContextParameterSurfaceBackingSize NSOpenGLContextParameter = 3
+	NSOpenGLContextParameterSurfaceBackingSize NSOpenGLContextParameter = 304
 	// Deprecated.
-	NSOpenGLContextParameterSurfaceOpacity NSOpenGLContextParameter = 2
+	NSOpenGLContextParameterSurfaceOpacity NSOpenGLContextParameter = 236
 	// Deprecated.
-	NSOpenGLContextParameterSurfaceOrder NSOpenGLContextParameter = 1
+	NSOpenGLContextParameterSurfaceOrder NSOpenGLContextParameter = 235
 	// Deprecated.
 	NSOpenGLContextParameterSurfaceSurfaceVolatile NSOpenGLContextParameter = 306
 	// Deprecated.
-	NSOpenGLContextParameterSwapInterval NSOpenGLContextParameter = 0
+	NSOpenGLContextParameterSwapInterval NSOpenGLContextParameter = 222
 	// Deprecated.
 	NSOpenGLContextParameterSwapRectangle NSOpenGLContextParameter = 200
 	// Deprecated.
@@ -5613,15 +5438,15 @@ type NSOpenGLGlobalOption uint32
 
 const (
 	// Deprecated.
-	NSOpenGLGOClearFormatCache NSOpenGLGlobalOption = 1
+	NSOpenGLGOClearFormatCache NSOpenGLGlobalOption = 502
 	// Deprecated.
-	NSOpenGLGOFormatCacheSize NSOpenGLGlobalOption = 0
+	NSOpenGLGOFormatCacheSize NSOpenGLGlobalOption = 501
 	// Deprecated.
 	NSOpenGLGOResetLibrary NSOpenGLGlobalOption = 504
 	// Deprecated.
-	NSOpenGLGORetainRenderers NSOpenGLGlobalOption = 2
+	NSOpenGLGORetainRenderers NSOpenGLGlobalOption = 503
 	// Deprecated.
-	NSOpenGLGOUseBuildCache NSOpenGLGlobalOption = 3
+	NSOpenGLGOUseBuildCache NSOpenGLGlobalOption = 506
 )
 
 func (e NSOpenGLGlobalOption) String() string {
@@ -5641,85 +5466,85 @@ func (e NSOpenGLGlobalOption) String() string {
 	}
 }
 
-type NSOpenGLPFA uint
+type NSOpenGLPFA uint32
 
 const (
 	// Deprecated.
-	NSOpenGLPFAAccelerated NSOpenGLPFA = 20
+	NSOpenGLPFAAccelerated NSOpenGLPFA = 73
 	// Deprecated.
-	NSOpenGLPFAAcceleratedCompute NSOpenGLPFA = 25
+	NSOpenGLPFAAcceleratedCompute NSOpenGLPFA = 97
 	// Deprecated.
-	NSOpenGLPFAAccumSize NSOpenGLPFA = 8
+	NSOpenGLPFAAccumSize NSOpenGLPFA = 14
 	// Deprecated.
-	NSOpenGLPFAAllRenderers NSOpenGLPFA = 0
+	NSOpenGLPFAAllRenderers NSOpenGLPFA = 1
 	// Deprecated.
-	NSOpenGLPFAAllowOfflineRenderers NSOpenGLPFA = 24
+	NSOpenGLPFAAllowOfflineRenderers NSOpenGLPFA = 96
 	// Deprecated.
-	NSOpenGLPFAAlphaSize NSOpenGLPFA = 5
+	NSOpenGLPFAAlphaSize NSOpenGLPFA = 11
 	// Deprecated.
-	NSOpenGLPFAAuxBuffers NSOpenGLPFA = 3
+	NSOpenGLPFAAuxBuffers NSOpenGLPFA = 7
 	// Deprecated.
-	NSOpenGLPFAAuxDepthStencil NSOpenGLPFA = 13
+	NSOpenGLPFAAuxDepthStencil NSOpenGLPFA = 57
 	// Deprecated.
-	NSOpenGLPFABackingStore NSOpenGLPFA = 22
+	NSOpenGLPFABackingStore NSOpenGLPFA = 76
 	// Deprecated.
-	NSOpenGLPFAClosestPolicy NSOpenGLPFA = 21
+	NSOpenGLPFAClosestPolicy NSOpenGLPFA = 74
 	// Deprecated.
-	NSOpenGLPFAColorFloat NSOpenGLPFA = 14
+	NSOpenGLPFAColorFloat NSOpenGLPFA = 58
 	// Deprecated.
-	NSOpenGLPFAColorSize NSOpenGLPFA = 4
+	NSOpenGLPFAColorSize NSOpenGLPFA = 8
 	// Deprecated.
 	NSOpenGLPFACompliant NSOpenGLPFA = 83
 	// Deprecated.
-	NSOpenGLPFADepthSize NSOpenGLPFA = 6
+	NSOpenGLPFADepthSize NSOpenGLPFA = 12
 	// Deprecated.
-	NSOpenGLPFADoubleBuffer NSOpenGLPFA = 2
+	NSOpenGLPFADoubleBuffer NSOpenGLPFA = 5
 	// Deprecated.
 	NSOpenGLPFAFullScreen NSOpenGLPFA = 54
 	// Deprecated.
 	NSOpenGLPFAMPSafe NSOpenGLPFA = 78
 	// Deprecated.
-	NSOpenGLPFAMaximumPolicy NSOpenGLPFA = 10
+	NSOpenGLPFAMaximumPolicy NSOpenGLPFA = 52
 	// Deprecated.
-	NSOpenGLPFAMinimumPolicy NSOpenGLPFA = 9
+	NSOpenGLPFAMinimumPolicy NSOpenGLPFA = 51
 	// Deprecated.
 	NSOpenGLPFAMultiScreen NSOpenGLPFA = 81
 	// Deprecated.
-	NSOpenGLPFAMultisample NSOpenGLPFA = 15
+	NSOpenGLPFAMultisample NSOpenGLPFA = 59
 	// Deprecated.
-	NSOpenGLPFANoRecovery NSOpenGLPFA = 19
+	NSOpenGLPFANoRecovery NSOpenGLPFA = 72
 	// Deprecated.
 	NSOpenGLPFAOffScreen NSOpenGLPFA = 53
 	// Deprecated.
-	NSOpenGLPFAOpenGLProfile NSOpenGLPFA = 26
+	NSOpenGLPFAOpenGLProfile NSOpenGLPFA = 99
 	// Deprecated.
 	NSOpenGLPFAPixelBuffer NSOpenGLPFA = 90
 	// Deprecated.
 	NSOpenGLPFARemotePixelBuffer NSOpenGLPFA = 91
 	// Deprecated.
-	NSOpenGLPFARendererID NSOpenGLPFA = 18
+	NSOpenGLPFARendererID NSOpenGLPFA = 70
 	// Deprecated.
 	NSOpenGLPFARobust NSOpenGLPFA = 75
 	// Deprecated.
-	NSOpenGLPFASampleAlpha NSOpenGLPFA = 17
+	NSOpenGLPFASampleAlpha NSOpenGLPFA = 61
 	// Deprecated.
-	NSOpenGLPFASampleBuffers NSOpenGLPFA = 11
+	NSOpenGLPFASampleBuffers NSOpenGLPFA = 55
 	// Deprecated.
-	NSOpenGLPFASamples NSOpenGLPFA = 12
+	NSOpenGLPFASamples NSOpenGLPFA = 56
 	// Deprecated.
-	NSOpenGLPFAScreenMask NSOpenGLPFA = 23
+	NSOpenGLPFAScreenMask NSOpenGLPFA = 84
 	// Deprecated.
 	NSOpenGLPFASingleRenderer NSOpenGLPFA = 71
 	// Deprecated.
-	NSOpenGLPFAStencilSize NSOpenGLPFA = 7
+	NSOpenGLPFAStencilSize NSOpenGLPFA = 13
 	// Deprecated.
 	NSOpenGLPFAStereo NSOpenGLPFA = 6
 	// Deprecated.
-	NSOpenGLPFASupersample NSOpenGLPFA = 16
+	NSOpenGLPFASupersample NSOpenGLPFA = 60
 	// Deprecated.
-	NSOpenGLPFATripleBuffer NSOpenGLPFA = 1
+	NSOpenGLPFATripleBuffer NSOpenGLPFA = 3
 	// Deprecated.
-	NSOpenGLPFAVirtualScreenCount NSOpenGLPFA = 27
+	NSOpenGLPFAVirtualScreenCount NSOpenGLPFA = 128
 	// Deprecated.
 	NSOpenGLPFAWindow NSOpenGLPFA = 80
 )
@@ -5794,6 +5619,8 @@ func (e NSOpenGLPFA) String() string {
 		return "NSOpenGLPFASingleRenderer"
 	case NSOpenGLPFAStencilSize:
 		return "NSOpenGLPFAStencilSize"
+	case NSOpenGLPFAStereo:
+		return "NSOpenGLPFAStereo"
 	case NSOpenGLPFASupersample:
 		return "NSOpenGLPFASupersample"
 	case NSOpenGLPFATripleBuffer:
@@ -5807,15 +5634,15 @@ func (e NSOpenGLPFA) String() string {
 	}
 }
 
-type NSOpenGLProfile uint
+type NSOpenGLProfile uint32
 
 const (
 	// Deprecated.
-	NSOpenGLProfileVersion3_2Core NSOpenGLProfile = 1
+	NSOpenGLProfileVersion3_2Core NSOpenGLProfile = 12800
 	// Deprecated.
-	NSOpenGLProfileVersion4_1Core NSOpenGLProfile = 2
+	NSOpenGLProfileVersion4_1Core NSOpenGLProfile = 16640
 	// Deprecated.
-	NSOpenGLProfileVersionLegacy NSOpenGLProfile = 0
+	NSOpenGLProfileVersionLegacy NSOpenGLProfile = 4096
 )
 
 func (e NSOpenGLProfile) String() string {
@@ -5831,7 +5658,7 @@ func (e NSOpenGLProfile) String() string {
 	}
 }
 
-type NSOutlineViewDropOnItem int
+type NSOutlineViewDropOnItem int32
 
 const (
 	// NSOutlineViewDropOnItemIndex: May be used as a valid child index of a drop target item.
@@ -6331,7 +6158,7 @@ func (e NSPrintRenderingQuality) String() string {
 }
 
 // See: https://developer.apple.com/documentation/AppKit/NSPrinter/TableStatus
-type NSPrinterTableStatus int
+type NSPrinterTableStatus uint
 
 const (
 	// NSPrinterTableError: Printer table is not valid.
@@ -6647,7 +6474,7 @@ func (e NSRulerOrientation) String() string {
 	}
 }
 
-type NSRun int
+type NSRun int32
 
 const (
 	// Deprecated.
@@ -7163,6 +6990,30 @@ func (e NSSharingContentScope) String() string {
 	}
 }
 
+type NSShowControlGlyphsConstants uint32
+
+const (
+	// NSShowControlGlyphs: Generates displayable glyphs for control characters.
+	NSShowControlGlyphs NSShowControlGlyphsConstants = 1
+	// NSShowInvisibleGlyphs: Generates displayable glyphs for invisible characters.
+	NSShowInvisibleGlyphs NSShowControlGlyphsConstants = 2
+	// NSWantsBidiLevels: Generates directional formatting codes for bidirectional text.
+	NSWantsBidiLevels NSShowControlGlyphsConstants = 4
+)
+
+func (e NSShowControlGlyphsConstants) String() string {
+	switch e {
+	case NSShowControlGlyphs:
+		return "NSShowControlGlyphs"
+	case NSShowInvisibleGlyphs:
+		return "NSShowInvisibleGlyphs"
+	case NSWantsBidiLevels:
+		return "NSWantsBidiLevels"
+	default:
+		return fmt.Sprintf("NSShowControlGlyphsConstants(%d)", e)
+	}
+}
+
 // See: https://developer.apple.com/documentation/AppKit/NSSlider/SliderType-swift.enum
 type NSSliderType uint
 
@@ -7434,7 +7285,7 @@ func (e NSStackViewGravity) String() string {
 }
 
 // See: https://developer.apple.com/documentation/AppKit/NSStatusItem/Behavior-swift.struct
-type NSStatusItemBehavior int
+type NSStatusItemBehavior uint
 
 const (
 	// NSStatusItemBehaviorRemovalAllowed: A status item that allows interactive removal.
@@ -8585,6 +8436,115 @@ func (e NSTextMovement) String() string {
 	}
 }
 
+type NSTextReadInapplicableDocumentTypeErrorConstants uint32
+
+const (
+	NSFontAssetDownloadError              NSTextReadInapplicableDocumentTypeErrorConstants = 66304
+	NSFontErrorMaximum                    NSTextReadInapplicableDocumentTypeErrorConstants = 66335
+	NSFontErrorMinimum                    NSTextReadInapplicableDocumentTypeErrorConstants = 66304
+	NSPasteboardCommunicationError        NSTextReadInapplicableDocumentTypeErrorConstants = 67585
+	NSPasteboardContentsNotAvailableError NSTextReadInapplicableDocumentTypeErrorConstants = 67587
+	NSPasteboardErrorMaximum              NSTextReadInapplicableDocumentTypeErrorConstants = 67839
+	NSPasteboardErrorMinimum              NSTextReadInapplicableDocumentTypeErrorConstants = 67584
+	NSPasteboardInvalidArgumentError      NSTextReadInapplicableDocumentTypeErrorConstants = 67586
+	NSPasteboardMiscellaneousError        NSTextReadInapplicableDocumentTypeErrorConstants = 67584
+	// NSServiceApplicationLaunchFailedError: The service providing application could not be launched.
+	NSServiceApplicationLaunchFailedError NSTextReadInapplicableDocumentTypeErrorConstants = 66561
+	// NSServiceApplicationNotFoundError: The service provider could not be found.
+	NSServiceApplicationNotFoundError NSTextReadInapplicableDocumentTypeErrorConstants = 66560
+	// NSServiceErrorMaximum: Inclusive service error range, for checking future error codes.
+	NSServiceErrorMaximum NSTextReadInapplicableDocumentTypeErrorConstants = 66817
+	// NSServiceErrorMinimum: Inclusive service error range, for checking future error codes.
+	NSServiceErrorMinimum NSTextReadInapplicableDocumentTypeErrorConstants = 66560
+	// NSServiceInvalidPasteboardDataError: The service providing app did not return a pasteboard with any of the promised types, or we couldn’t write the data from the pasteboard to the object receiving the returned data.
+	NSServiceInvalidPasteboardDataError NSTextReadInapplicableDocumentTypeErrorConstants = 66563
+	// NSServiceMalformedServiceDictionaryError: The service dictionary did not contain the necessary keys.
+	NSServiceMalformedServiceDictionaryError NSTextReadInapplicableDocumentTypeErrorConstants = 66564
+	// NSServiceMiscellaneousError: Other errors, representing programmatic mistakes in the service consuming application.
+	NSServiceMiscellaneousError NSTextReadInapplicableDocumentTypeErrorConstants = 66800
+	// NSServiceRequestTimedOutError: The service providing application did not open its service listening port in time, or the app didn’t respond to the request in time; see the Console log to figure out which (the errors are typically reported the same way to the user).
+	NSServiceRequestTimedOutError      NSTextReadInapplicableDocumentTypeErrorConstants = 66562
+	NSSharingServiceErrorMaximum       NSTextReadInapplicableDocumentTypeErrorConstants = 67327
+	NSSharingServiceErrorMinimum       NSTextReadInapplicableDocumentTypeErrorConstants = 67072
+	NSSharingServiceNotConfiguredError NSTextReadInapplicableDocumentTypeErrorConstants = 67072
+	// NSTextReadInapplicableDocumentTypeError: Indicates a problem reading data with the specified format.
+	NSTextReadInapplicableDocumentTypeError NSTextReadInapplicableDocumentTypeErrorConstants = 65806
+	// NSTextReadWriteErrorMaximum: The end of a range of error codes reserved for future use.
+	NSTextReadWriteErrorMaximum NSTextReadInapplicableDocumentTypeErrorConstants = 66303
+	// NSTextReadWriteErrorMinimum: The beginning of a range of error codes reserved for future use.
+	NSTextReadWriteErrorMinimum NSTextReadInapplicableDocumentTypeErrorConstants = 65792
+	// NSTextWriteInapplicableDocumentTypeError: Indicates a problem writing data of the specified format.
+	NSTextWriteInapplicableDocumentTypeError NSTextReadInapplicableDocumentTypeErrorConstants = 66062
+	NSWindowSharingErrorMaximum              NSTextReadInapplicableDocumentTypeErrorConstants = 67466
+	NSWindowSharingErrorMinimum              NSTextReadInapplicableDocumentTypeErrorConstants = 67456
+	NSWindowSharingRequestAlreadyRequested   NSTextReadInapplicableDocumentTypeErrorConstants = 67456
+	NSWindowSharingRequestNoEligibleSession  NSTextReadInapplicableDocumentTypeErrorConstants = 67457
+	NSWindowSharingRequestUnspecifiedError   NSTextReadInapplicableDocumentTypeErrorConstants = 67458
+	// NSWorkspaceAuthorizationInvalidError: The provided workspace authorization credentials expired or are invalid.
+	NSWorkspaceAuthorizationInvalidError NSTextReadInapplicableDocumentTypeErrorConstants = 67328
+	NSWorkspaceErrorMaximum              NSTextReadInapplicableDocumentTypeErrorConstants = 67455
+	NSWorkspaceErrorMinimum              NSTextReadInapplicableDocumentTypeErrorConstants = 67328
+)
+
+func (e NSTextReadInapplicableDocumentTypeErrorConstants) String() string {
+	switch e {
+	case NSFontAssetDownloadError:
+		return "NSFontAssetDownloadError"
+	case NSFontErrorMaximum:
+		return "NSFontErrorMaximum"
+	case NSPasteboardCommunicationError:
+		return "NSPasteboardCommunicationError"
+	case NSPasteboardContentsNotAvailableError:
+		return "NSPasteboardContentsNotAvailableError"
+	case NSPasteboardErrorMaximum:
+		return "NSPasteboardErrorMaximum"
+	case NSPasteboardErrorMinimum:
+		return "NSPasteboardErrorMinimum"
+	case NSPasteboardInvalidArgumentError:
+		return "NSPasteboardInvalidArgumentError"
+	case NSServiceApplicationLaunchFailedError:
+		return "NSServiceApplicationLaunchFailedError"
+	case NSServiceApplicationNotFoundError:
+		return "NSServiceApplicationNotFoundError"
+	case NSServiceErrorMaximum:
+		return "NSServiceErrorMaximum"
+	case NSServiceInvalidPasteboardDataError:
+		return "NSServiceInvalidPasteboardDataError"
+	case NSServiceMalformedServiceDictionaryError:
+		return "NSServiceMalformedServiceDictionaryError"
+	case NSServiceMiscellaneousError:
+		return "NSServiceMiscellaneousError"
+	case NSServiceRequestTimedOutError:
+		return "NSServiceRequestTimedOutError"
+	case NSSharingServiceErrorMaximum:
+		return "NSSharingServiceErrorMaximum"
+	case NSSharingServiceErrorMinimum:
+		return "NSSharingServiceErrorMinimum"
+	case NSTextReadInapplicableDocumentTypeError:
+		return "NSTextReadInapplicableDocumentTypeError"
+	case NSTextReadWriteErrorMaximum:
+		return "NSTextReadWriteErrorMaximum"
+	case NSTextReadWriteErrorMinimum:
+		return "NSTextReadWriteErrorMinimum"
+	case NSTextWriteInapplicableDocumentTypeError:
+		return "NSTextWriteInapplicableDocumentTypeError"
+	case NSWindowSharingErrorMaximum:
+		return "NSWindowSharingErrorMaximum"
+	case NSWindowSharingErrorMinimum:
+		return "NSWindowSharingErrorMinimum"
+	case NSWindowSharingRequestNoEligibleSession:
+		return "NSWindowSharingRequestNoEligibleSession"
+	case NSWindowSharingRequestUnspecifiedError:
+		return "NSWindowSharingRequestUnspecifiedError"
+	case NSWorkspaceAuthorizationInvalidError:
+		return "NSWorkspaceAuthorizationInvalidError"
+	case NSWorkspaceErrorMaximum:
+		return "NSWorkspaceErrorMaximum"
+	default:
+		return fmt.Sprintf("NSTextReadInapplicableDocumentTypeErrorConstants(%d)", e)
+	}
+}
+
 // See: https://developer.apple.com/documentation/AppKit/NSTextScalingType
 type NSTextScalingType int
 
@@ -8876,7 +8836,7 @@ func (e NSTextTableLayoutAlgorithm) String() string {
 	}
 }
 
-type NSTextWritingDirection uint
+type NSTextWritingDirection uint32
 
 const (
 	// Deprecated.
@@ -9165,11 +9125,11 @@ func (e NSToolbarSizeMode) String() string {
 }
 
 // See: https://developer.apple.com/documentation/AppKit/NSTouch/Phase-swift.struct
-type NSTouchPhase int
+type NSTouchPhase uint
 
 const (
 	// NSTouchPhaseAny: Matches any phase of a touch.
-	NSTouchPhaseAny NSTouchPhase = -1
+	NSTouchPhaseAny NSTouchPhase = 18446744073709551615
 	// NSTouchPhaseBegan: A finger touched the device.
 	NSTouchPhaseBegan NSTouchPhase = 1
 	// NSTouchPhaseCancelled: The system cancelled tracking for the touch, as when (for example) the window associated with the touch resigns key or is deactivated.
@@ -9181,7 +9141,7 @@ const (
 	// NSTouchPhaseStationary: A finger is touching the device, but hasn’t moved since the previous event.
 	NSTouchPhaseStationary NSTouchPhase = 4
 	// NSTouchPhaseTouching: Matches the NSTouchPhaseBegan, NSTouchPhaseMoved, or NSTouchPhaseStationary phases of a touch.
-	NSTouchPhaseTouching NSTouchPhase = 1
+	NSTouchPhaseTouching NSTouchPhase = 7
 )
 
 func (e NSTouchPhase) String() string {
@@ -9198,6 +9158,8 @@ func (e NSTouchPhase) String() string {
 		return "NSTouchPhaseMoved"
 	case NSTouchPhaseStationary:
 		return "NSTouchPhaseStationary"
+	case NSTouchPhaseTouching:
+		return "NSTouchPhaseTouching"
 	default:
 		return fmt.Sprintf("NSTouchPhase(%d)", e)
 	}
@@ -9423,7 +9385,307 @@ func (e NSUnderlineStyle) String() string {
 	}
 }
 
-type NSUpdateWindowsRunLoop uint
+type NSUpArrowFunctionKeyConstants uint32
+
+const (
+	// NSBeginFunctionKey: The begin key.
+	NSBeginFunctionKey NSUpArrowFunctionKeyConstants = 0xf72a
+	// NSBreakFunctionKey: The break key.
+	NSBreakFunctionKey NSUpArrowFunctionKeyConstants = 0xf732
+	// NSClearDisplayFunctionKey: The clear display key.
+	NSClearDisplayFunctionKey NSUpArrowFunctionKeyConstants = 0xf73a
+	// NSClearLineFunctionKey: The clear or num lock key.
+	NSClearLineFunctionKey NSUpArrowFunctionKeyConstants = 0xf739
+	// NSDeleteCharFunctionKey: The delete character key.
+	NSDeleteCharFunctionKey NSUpArrowFunctionKeyConstants = 0xf73e
+	// NSDeleteFunctionKey: The forward delete key.
+	NSDeleteFunctionKey NSUpArrowFunctionKeyConstants = 0xf728
+	// NSDeleteLineFunctionKey: The delete line key.
+	NSDeleteLineFunctionKey NSUpArrowFunctionKeyConstants = 0xf73c
+	// NSDownArrowFunctionKey: The down arrow key.
+	NSDownArrowFunctionKey NSUpArrowFunctionKeyConstants = 0xf701
+	// NSEndFunctionKey: The end key.
+	NSEndFunctionKey NSUpArrowFunctionKeyConstants = 0xf72b
+	// NSExecuteFunctionKey: The execute key.
+	NSExecuteFunctionKey NSUpArrowFunctionKeyConstants = 0xf742
+	// NSF10FunctionKey: The F10 key.
+	NSF10FunctionKey NSUpArrowFunctionKeyConstants = 0xf70d
+	// NSF11FunctionKey: The F11 key.
+	NSF11FunctionKey NSUpArrowFunctionKeyConstants = 0xf70e
+	// NSF12FunctionKey: The F12 key.
+	NSF12FunctionKey NSUpArrowFunctionKeyConstants = 0xf70f
+	// NSF13FunctionKey: The F13 key.
+	NSF13FunctionKey NSUpArrowFunctionKeyConstants = 0xf710
+	// NSF14FunctionKey: The F14 key.
+	NSF14FunctionKey NSUpArrowFunctionKeyConstants = 0xf711
+	// NSF15FunctionKey: The F15 key.
+	NSF15FunctionKey NSUpArrowFunctionKeyConstants = 0xf712
+	// NSF16FunctionKey: The F16 key.
+	NSF16FunctionKey NSUpArrowFunctionKeyConstants = 0xf713
+	// NSF17FunctionKey: The F17 key.
+	NSF17FunctionKey NSUpArrowFunctionKeyConstants = 0xf714
+	// NSF18FunctionKey: The F18 key.
+	NSF18FunctionKey NSUpArrowFunctionKeyConstants = 0xf715
+	// NSF19FunctionKey: The F19 key.
+	NSF19FunctionKey NSUpArrowFunctionKeyConstants = 0xf716
+	// NSF1FunctionKey: The F1 key.
+	NSF1FunctionKey NSUpArrowFunctionKeyConstants = 0xf704
+	// NSF20FunctionKey: The F20 key.
+	NSF20FunctionKey NSUpArrowFunctionKeyConstants = 0xf717
+	// NSF21FunctionKey: The F21 key.
+	NSF21FunctionKey NSUpArrowFunctionKeyConstants = 0xf718
+	// NSF22FunctionKey: The F22 key.
+	NSF22FunctionKey NSUpArrowFunctionKeyConstants = 0xf719
+	// NSF23FunctionKey: The F23 key.
+	NSF23FunctionKey NSUpArrowFunctionKeyConstants = 0xf71a
+	// NSF24FunctionKey: The F24 key.
+	NSF24FunctionKey NSUpArrowFunctionKeyConstants = 0xf71b
+	// NSF25FunctionKey: The F25 key.
+	NSF25FunctionKey NSUpArrowFunctionKeyConstants = 0xf71c
+	// NSF26FunctionKey: The F26 key.
+	NSF26FunctionKey NSUpArrowFunctionKeyConstants = 0xf71d
+	// NSF27FunctionKey: The F27 key.
+	NSF27FunctionKey NSUpArrowFunctionKeyConstants = 0xf71e
+	// NSF28FunctionKey: The F28 key.
+	NSF28FunctionKey NSUpArrowFunctionKeyConstants = 0xf71f
+	// NSF29FunctionKey: The F29 key.
+	NSF29FunctionKey NSUpArrowFunctionKeyConstants = 0xf720
+	// NSF2FunctionKey: The F2 key.
+	NSF2FunctionKey NSUpArrowFunctionKeyConstants = 0xf705
+	// NSF30FunctionKey: The F30 key.
+	NSF30FunctionKey NSUpArrowFunctionKeyConstants = 0xf721
+	// NSF31FunctionKey: The F31 key.
+	NSF31FunctionKey NSUpArrowFunctionKeyConstants = 0xf722
+	// NSF32FunctionKey: The F32 key.
+	NSF32FunctionKey NSUpArrowFunctionKeyConstants = 0xf723
+	// NSF33FunctionKey: The F33 key.
+	NSF33FunctionKey NSUpArrowFunctionKeyConstants = 0xf724
+	// NSF34FunctionKey: The F34 key.
+	NSF34FunctionKey NSUpArrowFunctionKeyConstants = 0xf725
+	// NSF35FunctionKey: The F35 key.
+	NSF35FunctionKey NSUpArrowFunctionKeyConstants = 0xf726
+	// NSF3FunctionKey: The F3 key.
+	NSF3FunctionKey NSUpArrowFunctionKeyConstants = 0xf706
+	// NSF4FunctionKey: The F4 key.
+	NSF4FunctionKey NSUpArrowFunctionKeyConstants = 0xf707
+	// NSF5FunctionKey: The F5 key.
+	NSF5FunctionKey NSUpArrowFunctionKeyConstants = 0xf708
+	// NSF6FunctionKey: The F6 key.
+	NSF6FunctionKey NSUpArrowFunctionKeyConstants = 0xf709
+	// NSF7FunctionKey: The F7 key.
+	NSF7FunctionKey NSUpArrowFunctionKeyConstants = 0xf70a
+	// NSF8FunctionKey: The F8 key.
+	NSF8FunctionKey NSUpArrowFunctionKeyConstants = 0xf70b
+	// NSF9FunctionKey: The F9 key.
+	NSF9FunctionKey NSUpArrowFunctionKeyConstants = 0xf70c
+	// NSFindFunctionKey: The find key.
+	NSFindFunctionKey NSUpArrowFunctionKeyConstants = 0xf745
+	// NSHelpFunctionKey: The help key.
+	NSHelpFunctionKey NSUpArrowFunctionKeyConstants = 0xf746
+	// NSHomeFunctionKey: The home key.
+	NSHomeFunctionKey NSUpArrowFunctionKeyConstants = 0xf729
+	// NSInsertCharFunctionKey: The insert character key.
+	NSInsertCharFunctionKey NSUpArrowFunctionKeyConstants = 0xf73d
+	// NSInsertFunctionKey: The insert key.
+	NSInsertFunctionKey NSUpArrowFunctionKeyConstants = 0xf727
+	// NSInsertLineFunctionKey: The insert line key.
+	NSInsertLineFunctionKey NSUpArrowFunctionKeyConstants = 0xf73b
+	// NSLeftArrowFunctionKey: The left arrow key.
+	NSLeftArrowFunctionKey NSUpArrowFunctionKeyConstants = 0xf702
+	// NSMenuFunctionKey: The menu key.
+	NSMenuFunctionKey NSUpArrowFunctionKeyConstants = 0xf735
+	// NSModeSwitchFunctionKey: The mode switch key.
+	NSModeSwitchFunctionKey NSUpArrowFunctionKeyConstants = 0xf747
+	// NSNextFunctionKey: The next key.
+	NSNextFunctionKey NSUpArrowFunctionKeyConstants = 0xf740
+	// NSPageDownFunctionKey: The page down key.
+	NSPageDownFunctionKey NSUpArrowFunctionKeyConstants = 0xf72d
+	// NSPageUpFunctionKey: The page up key.
+	NSPageUpFunctionKey NSUpArrowFunctionKeyConstants = 0xf72c
+	// NSPauseFunctionKey: The pause key.
+	NSPauseFunctionKey NSUpArrowFunctionKeyConstants = 0xf730
+	// NSPrevFunctionKey: Previous key.
+	NSPrevFunctionKey NSUpArrowFunctionKeyConstants = 0xf73f
+	// NSPrintFunctionKey: The print key.
+	NSPrintFunctionKey NSUpArrowFunctionKeyConstants = 0xf738
+	// NSPrintScreenFunctionKey: The print screen key.
+	NSPrintScreenFunctionKey NSUpArrowFunctionKeyConstants = 0xf72e
+	// NSRedoFunctionKey: The redo key.
+	NSRedoFunctionKey NSUpArrowFunctionKeyConstants = 0xf744
+	// NSResetFunctionKey: The reset key.
+	NSResetFunctionKey NSUpArrowFunctionKeyConstants = 0xf733
+	// NSRightArrowFunctionKey: The right arrow key.
+	NSRightArrowFunctionKey NSUpArrowFunctionKeyConstants = 0xf703
+	// NSScrollLockFunctionKey: The scroll lock key.
+	NSScrollLockFunctionKey NSUpArrowFunctionKeyConstants = 0xf72f
+	// NSSelectFunctionKey: The select key.
+	NSSelectFunctionKey NSUpArrowFunctionKeyConstants = 0xf741
+	// NSStopFunctionKey: The stop key.
+	NSStopFunctionKey NSUpArrowFunctionKeyConstants = 0xf734
+	// NSSysReqFunctionKey: The system request key.
+	NSSysReqFunctionKey NSUpArrowFunctionKeyConstants = 0xf731
+	// NSSystemFunctionKey: The system key.
+	NSSystemFunctionKey NSUpArrowFunctionKeyConstants = 0xf737
+	// NSUndoFunctionKey: The undo key.
+	NSUndoFunctionKey NSUpArrowFunctionKeyConstants = 0xf743
+	// NSUpArrowFunctionKey: The up arrow key.
+	NSUpArrowFunctionKey NSUpArrowFunctionKeyConstants = 0xf700
+	// NSUserFunctionKey: The user key.
+	NSUserFunctionKey NSUpArrowFunctionKeyConstants = 0xf736
+)
+
+func (e NSUpArrowFunctionKeyConstants) String() string {
+	switch e {
+	case NSBeginFunctionKey:
+		return "NSBeginFunctionKey"
+	case NSBreakFunctionKey:
+		return "NSBreakFunctionKey"
+	case NSClearDisplayFunctionKey:
+		return "NSClearDisplayFunctionKey"
+	case NSClearLineFunctionKey:
+		return "NSClearLineFunctionKey"
+	case NSDeleteCharFunctionKey:
+		return "NSDeleteCharFunctionKey"
+	case NSDeleteFunctionKey:
+		return "NSDeleteFunctionKey"
+	case NSDeleteLineFunctionKey:
+		return "NSDeleteLineFunctionKey"
+	case NSDownArrowFunctionKey:
+		return "NSDownArrowFunctionKey"
+	case NSEndFunctionKey:
+		return "NSEndFunctionKey"
+	case NSExecuteFunctionKey:
+		return "NSExecuteFunctionKey"
+	case NSF10FunctionKey:
+		return "NSF10FunctionKey"
+	case NSF11FunctionKey:
+		return "NSF11FunctionKey"
+	case NSF12FunctionKey:
+		return "NSF12FunctionKey"
+	case NSF13FunctionKey:
+		return "NSF13FunctionKey"
+	case NSF14FunctionKey:
+		return "NSF14FunctionKey"
+	case NSF15FunctionKey:
+		return "NSF15FunctionKey"
+	case NSF16FunctionKey:
+		return "NSF16FunctionKey"
+	case NSF17FunctionKey:
+		return "NSF17FunctionKey"
+	case NSF18FunctionKey:
+		return "NSF18FunctionKey"
+	case NSF19FunctionKey:
+		return "NSF19FunctionKey"
+	case NSF1FunctionKey:
+		return "NSF1FunctionKey"
+	case NSF20FunctionKey:
+		return "NSF20FunctionKey"
+	case NSF21FunctionKey:
+		return "NSF21FunctionKey"
+	case NSF22FunctionKey:
+		return "NSF22FunctionKey"
+	case NSF23FunctionKey:
+		return "NSF23FunctionKey"
+	case NSF24FunctionKey:
+		return "NSF24FunctionKey"
+	case NSF25FunctionKey:
+		return "NSF25FunctionKey"
+	case NSF26FunctionKey:
+		return "NSF26FunctionKey"
+	case NSF27FunctionKey:
+		return "NSF27FunctionKey"
+	case NSF28FunctionKey:
+		return "NSF28FunctionKey"
+	case NSF29FunctionKey:
+		return "NSF29FunctionKey"
+	case NSF2FunctionKey:
+		return "NSF2FunctionKey"
+	case NSF30FunctionKey:
+		return "NSF30FunctionKey"
+	case NSF31FunctionKey:
+		return "NSF31FunctionKey"
+	case NSF32FunctionKey:
+		return "NSF32FunctionKey"
+	case NSF33FunctionKey:
+		return "NSF33FunctionKey"
+	case NSF34FunctionKey:
+		return "NSF34FunctionKey"
+	case NSF35FunctionKey:
+		return "NSF35FunctionKey"
+	case NSF3FunctionKey:
+		return "NSF3FunctionKey"
+	case NSF4FunctionKey:
+		return "NSF4FunctionKey"
+	case NSF5FunctionKey:
+		return "NSF5FunctionKey"
+	case NSF6FunctionKey:
+		return "NSF6FunctionKey"
+	case NSF7FunctionKey:
+		return "NSF7FunctionKey"
+	case NSF8FunctionKey:
+		return "NSF8FunctionKey"
+	case NSF9FunctionKey:
+		return "NSF9FunctionKey"
+	case NSFindFunctionKey:
+		return "NSFindFunctionKey"
+	case NSHelpFunctionKey:
+		return "NSHelpFunctionKey"
+	case NSHomeFunctionKey:
+		return "NSHomeFunctionKey"
+	case NSInsertCharFunctionKey:
+		return "NSInsertCharFunctionKey"
+	case NSInsertFunctionKey:
+		return "NSInsertFunctionKey"
+	case NSInsertLineFunctionKey:
+		return "NSInsertLineFunctionKey"
+	case NSLeftArrowFunctionKey:
+		return "NSLeftArrowFunctionKey"
+	case NSMenuFunctionKey:
+		return "NSMenuFunctionKey"
+	case NSModeSwitchFunctionKey:
+		return "NSModeSwitchFunctionKey"
+	case NSNextFunctionKey:
+		return "NSNextFunctionKey"
+	case NSPageDownFunctionKey:
+		return "NSPageDownFunctionKey"
+	case NSPageUpFunctionKey:
+		return "NSPageUpFunctionKey"
+	case NSPauseFunctionKey:
+		return "NSPauseFunctionKey"
+	case NSPrevFunctionKey:
+		return "NSPrevFunctionKey"
+	case NSPrintFunctionKey:
+		return "NSPrintFunctionKey"
+	case NSPrintScreenFunctionKey:
+		return "NSPrintScreenFunctionKey"
+	case NSRedoFunctionKey:
+		return "NSRedoFunctionKey"
+	case NSResetFunctionKey:
+		return "NSResetFunctionKey"
+	case NSRightArrowFunctionKey:
+		return "NSRightArrowFunctionKey"
+	case NSScrollLockFunctionKey:
+		return "NSScrollLockFunctionKey"
+	case NSSelectFunctionKey:
+		return "NSSelectFunctionKey"
+	case NSStopFunctionKey:
+		return "NSStopFunctionKey"
+	case NSSysReqFunctionKey:
+		return "NSSysReqFunctionKey"
+	case NSSystemFunctionKey:
+		return "NSSystemFunctionKey"
+	case NSUndoFunctionKey:
+		return "NSUndoFunctionKey"
+	case NSUpArrowFunctionKey:
+		return "NSUpArrowFunctionKey"
+	case NSUserFunctionKey:
+		return "NSUserFunctionKey"
+	default:
+		return fmt.Sprintf("NSUpArrowFunctionKeyConstants(%d)", e)
+	}
+}
+
+type NSUpdateWindowsRunLoop uint32
 
 const (
 	// NSUpdateWindowsRunLoopOrdering: Run-loop message priority for handling window updates.
@@ -9511,7 +9773,7 @@ type NSVerticalDirections uint
 
 const (
 	// NSVerticalDirectionsAll: All vertical directions (up and down).
-	NSVerticalDirectionsAll NSVerticalDirections = 0
+	NSVerticalDirectionsAll NSVerticalDirections = 3
 	// NSVerticalDirectionsDown: The downward direction.
 	NSVerticalDirectionsDown NSVerticalDirections = 2
 	// NSVerticalDirectionsUp: The upwards direction.
@@ -9577,6 +9839,27 @@ func (e NSViewControllerTransitionOptions) String() string {
 		return "NSViewControllerTransitionSlideUp"
 	default:
 		return fmt.Sprintf("NSViewControllerTransitionOptions(%d)", e)
+	}
+}
+
+// See: https://developer.apple.com/documentation/AppKit/NSView/ExclusiveGestureBehavior-swift.enum
+type NSViewExclusiveGestureBehavior int
+
+const (
+	// NSViewExclusiveGestureBehaviorExclusive: This view and its subviews have exclusive gestures
+	NSViewExclusiveGestureBehaviorExclusive NSViewExclusiveGestureBehavior = 0
+	// NSViewExclusiveGestureBehaviorInherit: Inherit from superview
+	NSViewExclusiveGestureBehaviorInherit NSViewExclusiveGestureBehavior = 0
+	// NSViewExclusiveGestureBehaviorNotExclusive: This view and its subviews do not have exclusive gestures
+	NSViewExclusiveGestureBehaviorNotExclusive NSViewExclusiveGestureBehavior = 0
+)
+
+func (e NSViewExclusiveGestureBehavior) String() string {
+	switch e {
+	case NSViewExclusiveGestureBehaviorExclusive:
+		return "NSViewExclusiveGestureBehaviorExclusive"
+	default:
+		return fmt.Sprintf("NSViewExclusiveGestureBehavior(%d)", e)
 	}
 }
 
@@ -10629,7 +10912,7 @@ func (e NSWritingToolsCoordinatorTextUpdateReason) String() string {
 }
 
 // See: https://developer.apple.com/documentation/AppKit/NSWritingToolsResultOptions
-type NSWritingToolsResultOptions int
+type NSWritingToolsResultOptions uint
 
 const (
 	NSWritingToolsResultDefault NSWritingToolsResultOptions = 0
@@ -10663,7 +10946,7 @@ func (e NSWritingToolsResultOptions) String() string {
 	}
 }
 
-type Nsfp uint
+type Nsfp uint32
 
 const (
 	// Deprecated.

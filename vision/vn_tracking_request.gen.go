@@ -150,9 +150,10 @@ func NewVNTrackingRequest() VNTrackingRequest {
 // [VNImageRequestHandler.PerformRequestsError].
 //
 // See: https://developer.apple.com/documentation/Vision/VNRequest/init(completionHandler:)
-func NewTrackingRequestWithCompletionHandler(completionHandler VNRequestCompletionHandler) VNTrackingRequest {
+func NewTrackingRequestWithCompletionHandler(completionHandler VNRequestErrorHandler) VNTrackingRequest {
+	_block0, _ := NewVNRequestErrorBlock(completionHandler)
 	instance := getVNTrackingRequestClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCompletionHandler:"), completionHandler)
+	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCompletionHandler:"), _block0)
 	return VNTrackingRequestFromID(rv)
 }
 

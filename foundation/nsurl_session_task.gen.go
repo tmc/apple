@@ -410,8 +410,8 @@ func (u URLSessionTask) CountOfBytesReceived() int64 {
 //
 // - From the length of the data object provided as the upload body. - From
 // the length of the file on disk provided as the upload body of an upload
-// task ( a download task). - From the `Content-Length` in the request object,
-// if you explicitly set it.
+// task (not a download task). - From the `Content-Length` in the request
+// object, if you explicitly set it.
 //
 // Otherwise, the value is [NSURLSessionTransferSizeUnknown] (`-1`) if you
 // provided a stream or body data object, or zero (`0`) if you did not.
@@ -429,8 +429,8 @@ func (u URLSessionTask) CountOfBytesExpectedToSend() int64 {
 //
 // # Discussion
 //
-// This byte count includes the length of the request body itself, not the
-// request headers.
+// This byte count includes only the length of the request body itself, not
+// the request headers.
 //
 // To be notified when this value changes, implement the
 // [URLSessionTaskDidSendBodyDataTotalBytesSentTotalBytesExpectedToSend]

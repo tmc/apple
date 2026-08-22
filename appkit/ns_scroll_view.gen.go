@@ -1483,3 +1483,35 @@ func (_NSScrollViewClass NSScrollViewClass) RulerViewClass() objectivec.Class {
 func (_NSScrollViewClass NSScrollViewClass) SetRulerViewClass(value objectivec.Class) {
 	objc.Send[struct{}](objc.ID(_NSScrollViewClass.class), objc.Sel("setRulerViewClass:"), value)
 }
+
+// Protocol methods for NSTextFinderBarContainer
+
+// The view assigned by the text bar as the find bar view for the container.
+//
+// # Discussion
+//
+// This property is managed by [NSTextFinder] and you must not set this
+// property.
+//
+// The container may freely modify the view’s width, but should not modify
+// its height.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSTextFinderBarContainer/findBarView
+func (o NSScrollView) SetFindBarView(value INSView) {
+	objc.Send[struct{}](o.ID, objc.Sel("setFindBarView:"), value)
+}
+
+// Returns whether the container should display its find bar.
+//
+// # Discussion
+//
+// When this property is true and the [FindBarView] property is set, then the
+// find bar is displayed by the container. Otherwise, the find bar is not
+// displayed.
+//
+// The default value should be false.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSTextFinderBarContainer/isFindBarVisible
+func (o NSScrollView) SetFindBarVisible(value bool) {
+	objc.Send[struct{}](o.ID, objc.Sel("setFindBarVisible:"), value)
+}

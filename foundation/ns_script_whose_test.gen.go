@@ -63,6 +63,10 @@ func (nc NSScriptWhoseTestClass) Alloc() NSScriptWhoseTest {
 //
 //   - [NSScriptWhoseTest.IsTrue]: Returns a Boolean value that indicates whether the test represented by the receiver evaluates to true.
 //
+// # Initializers
+//
+//   - [NSScriptWhoseTest.InitWithCoder]
+//
 // See: https://developer.apple.com/documentation/Foundation/NSScriptWhoseTest
 type NSScriptWhoseTest struct {
 	objectivec.Object
@@ -85,6 +89,10 @@ func NSScriptWhoseTestFromID(id objc.ID) NSScriptWhoseTest {
 //
 //   - [INSScriptWhoseTest.IsTrue]: Returns a Boolean value that indicates whether the test represented by the receiver evaluates to true.
 //
+// # Initializers
+//
+//   - [INSScriptWhoseTest.InitWithCoder]
+//
 // See: https://developer.apple.com/documentation/Foundation/NSScriptWhoseTest
 type INSScriptWhoseTest interface {
 	objectivec.IObject
@@ -93,6 +101,13 @@ type INSScriptWhoseTest interface {
 
 	// Returns a Boolean value that indicates whether the test represented by the receiver evaluates to true.
 	IsTrue() bool
+
+	// Topic: Initializers
+
+	InitWithCoder(inCoder INSCoder) NSScriptWhoseTest
+
+	// Encodes the receiver using a given archiver.
+	EncodeWithCoder(coder INSCoder)
 }
 
 // Init initializes the instance.

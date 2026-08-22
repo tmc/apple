@@ -175,6 +175,7 @@ type IUNNotificationSettings interface {
 
 	DirectMessagesSetting() UNNotificationSetting
 
+	InitWithCoder(coder foundation.INSCoder) UNNotificationSettings
 	EncodeWithCoder(coder foundation.INSCoder)
 }
 
@@ -197,6 +198,18 @@ func NewUNNotificationSettings() UNNotificationSettings {
 	return rv
 }
 
+// See: https://developer.apple.com/documentation/UserNotifications/UNNotificationSettings/init(coder:)
+func NewUNNotificationSettingsWithCoder(coder foundation.INSCoder) UNNotificationSettings {
+	instance := getUNNotificationSettingsClass().Alloc()
+	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
+	return UNNotificationSettingsFromID(rv)
+}
+
+// See: https://developer.apple.com/documentation/UserNotifications/UNNotificationSettings/init(coder:)
+func (u UNNotificationSettings) InitWithCoder(coder foundation.INSCoder) UNNotificationSettings {
+	rv := objc.Send[UNNotificationSettings](u.ID, objc.Sel("initWithCoder:"), coder)
+	return rv
+}
 func (u UNNotificationSettings) EncodeWithCoder(coder foundation.INSCoder) {
 	objc.Send[objc.ID](u.ID, objc.Sel("encodeWithCoder:"), coder)
 }

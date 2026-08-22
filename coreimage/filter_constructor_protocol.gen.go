@@ -16,7 +16,7 @@ type CIFilterConstructor interface {
 	// Returns a filter object specified by name.
 	//
 	// See: https://developer.apple.com/documentation/CoreImage/CIFilterConstructor/filter(withName:)
-	FilterWithName(name string) CIFilter
+	FilterWithName(name string) ICIFilter
 }
 
 // CIFilterConstructorObject wraps an existing Objective-C object that conforms to the CIFilterConstructor protocol.
@@ -52,7 +52,7 @@ func CIFilterConstructorObjectFromID(id objc.ID) CIFilterConstructorObject {
 // instance of the [CIFilter] subclass for your custom filter.
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIFilterConstructor/filter(withName:)
-func (o CIFilterConstructorObject) FilterWithName(name string) CIFilter {
+func (o CIFilterConstructorObject) FilterWithName(name string) ICIFilter {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("filterWithName:"), objc.String(name))
 	return CIFilterFromID(rv)
 }

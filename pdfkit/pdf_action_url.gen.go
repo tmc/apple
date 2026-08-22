@@ -125,7 +125,7 @@ func NewPDFActionURL() PDFActionURL {
 // An initialized [PDFActionURL] instance, or [NULL] if the object could not
 // be initialized.
 //
-// See: https://developer.apple.com/documentation/PDFKit/PDFActionURL/init(url:)-5wtb3
+// See: https://developer.apple.com/documentation/PDFKit/PDFActionURL/init(url:)
 func NewPDFActionURLWithURL(url foundation.NSURL) PDFActionURL {
 	instance := getPDFActionURLClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithURL:"), url)
@@ -141,7 +141,7 @@ func NewPDFActionURLWithURL(url foundation.NSURL) PDFActionURL {
 // An initialized [PDFActionURL] instance, or [NULL] if the object could not
 // be initialized.
 //
-// See: https://developer.apple.com/documentation/PDFKit/PDFActionURL/init(url:)-5wtb3
+// See: https://developer.apple.com/documentation/PDFKit/PDFActionURL/init(url:)
 func (p PDFActionURL) InitWithURL(url foundation.NSURL) PDFActionURL {
 	rv := objc.Send[PDFActionURL](p.ID, objc.Sel("initWithURL:"), url)
 	return rv

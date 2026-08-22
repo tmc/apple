@@ -65,7 +65,7 @@ func (nc NSValueClass) Alloc() NSValue {
 //
 // # Methods to Override
 //
-// Any subclass of [NSValue] override the primitive instance methods
+// Any subclass of [NSValue] must override the primitive instance methods
 // [NSValue.GetValue] and [NSValue.ObjCType]. These methods must operate on
 // the storage that you provide for the value.
 //
@@ -132,6 +132,10 @@ func (nc NSValueClass) Alloc() NSValue {
 // # Comparing Value Objects
 //
 //   - [NSValue.IsEqualToValue]: Returns a Boolean value that indicates whether the value object and another value object are equal.
+//
+// # Initializers
+//
+//   - [NSValue.InitWithCoder]
 //
 // # Instance Properties
 //
@@ -209,6 +213,10 @@ func NSValueFromID(id objc.ID) NSValue {
 //
 //   - [INSValue.IsEqualToValue]: Returns a Boolean value that indicates whether the value object and another value object are equal.
 //
+// # Initializers
+//
+//   - [INSValue.InitWithCoder]
+//
 // # Instance Properties
 //
 //   - [INSValue.EdgeInsetsValue]
@@ -222,7 +230,6 @@ func NSValueFromID(id objc.ID) NSValue {
 // See: https://developer.apple.com/documentation/Foundation/NSValue
 type INSValue interface {
 	objectivec.IObject
-	NSSecureCoding
 
 	// Topic: Working with Raw Values
 
@@ -287,6 +294,10 @@ type INSValue interface {
 	// Returns a Boolean value that indicates whether the value object and another value object are equal.
 	IsEqualToValue(value INSValue) bool
 
+	// Topic: Initializers
+
+	InitWithCoder(coder INSCoder) NSValue
+
 	// Topic: Instance Properties
 
 	EdgeInsetsValue() NSEdgeInsets
@@ -296,6 +307,9 @@ type INSValue interface {
 	// Topic: Instance Methods
 
 	GetValueSize(value unsafe.Pointer, size uint)
+
+	// Encodes the receiver using a given archiver.
+	EncodeWithCoder(coder INSCoder)
 }
 
 // Init initializes the instance.
@@ -602,7 +616,7 @@ func NewValueWithObjCType(value unsafe.Pointer, type_ string) NSValue {
 // A new value object that contains the point information.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSValue/init(point:)
-func NewValueWithPoint(point corefoundation.CGPoint) NSValue {
+func NewValueWithPoint(point NSPoint) NSValue {
 	rv := objc.Send[objc.ID](objc.ID(getNSValueClass().class), objc.Sel("valueWithPoint:"), point)
 	return NSValueFromID(rv)
 }
@@ -656,7 +670,7 @@ func NewValueWithRange(range_ NSRange) NSValue {
 // A new value object that contains the data in the `rect` structure.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSValue/init(rect:)
-func NewValueWithRect(rect corefoundation.CGRect) NSValue {
+func NewValueWithRect(rect NSRect) NSValue {
 	rv := objc.Send[objc.ID](objc.ID(getNSValueClass().class), objc.Sel("valueWithRect:"), rect)
 	return NSValueFromID(rv)
 }
@@ -715,7 +729,7 @@ func NewValueWithSCNVector4(v unsafe.Pointer) NSValue {
 // A new value object that contains the size information.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSValue/init(size:)
-func NewValueWithSize(size corefoundation.CGSize) NSValue {
+func NewValueWithSize(size NSSize) NSValue {
 	rv := objc.Send[objc.ID](objc.ID(getNSValueClass().class), objc.Sel("valueWithSize:"), size)
 	return NSValueFromID(rv)
 }

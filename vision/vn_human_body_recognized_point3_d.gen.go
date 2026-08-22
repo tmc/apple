@@ -4,7 +4,6 @@ package vision
 
 import (
 	"sync"
-	"unsafe"
 
 	"github.com/tmc/apple/foundation"
 	"github.com/tmc/apple/objc"
@@ -45,10 +44,6 @@ func (vc VNHumanBodyRecognizedPoint3DClass) Alloc() VNHumanBodyRecognizedPoint3D
 
 // A recognized 3D point that includes a parent joint.
 //
-// # Getting the Position
-//
-//   - [VNHumanBodyRecognizedPoint3D.LocalPosition]: The three-dimensional position.
-//
 // # Getting the Parent Joint
 //
 //   - [VNHumanBodyRecognizedPoint3D.ParentJoint]: The parent joint in the observation.
@@ -70,10 +65,6 @@ func VNHumanBodyRecognizedPoint3DFromID(id objc.ID) VNHumanBodyRecognizedPoint3D
 
 // An interface definition for the [VNHumanBodyRecognizedPoint3D] class.
 //
-// # Getting the Position
-//
-//   - [IVNHumanBodyRecognizedPoint3D.LocalPosition]: The three-dimensional position.
-//
 // # Getting the Parent Joint
 //
 //   - [IVNHumanBodyRecognizedPoint3D.ParentJoint]: The parent joint in the observation.
@@ -81,11 +72,6 @@ func VNHumanBodyRecognizedPoint3DFromID(id objc.ID) VNHumanBodyRecognizedPoint3D
 // See: https://developer.apple.com/documentation/Vision/VNHumanBodyRecognizedPoint3D
 type IVNHumanBodyRecognizedPoint3D interface {
 	IVNRecognizedPoint3D
-
-	// Topic: Getting the Position
-
-	// The three-dimensional position.
-	LocalPosition() unsafe.Pointer
 
 	// Topic: Getting the Parent Joint
 
@@ -124,18 +110,10 @@ func NewHumanBodyRecognizedPoint3DWithCoder(coder foundation.INSCoder) VNHumanBo
 // position: The three-dimensional position.
 //
 // See: https://developer.apple.com/documentation/Vision/VNPoint3D/init(position:)
-func NewHumanBodyRecognizedPoint3DWithPosition(position unsafe.Pointer) VNHumanBodyRecognizedPoint3D {
+func NewHumanBodyRecognizedPoint3DWithPosition(position [4][4]float32) VNHumanBodyRecognizedPoint3D {
 	instance := getVNHumanBodyRecognizedPoint3DClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithPosition:"), position)
 	return VNHumanBodyRecognizedPoint3DFromID(rv)
-}
-
-// The three-dimensional position.
-//
-// See: https://developer.apple.com/documentation/Vision/VNHumanBodyRecognizedPoint3D/localPosition
-func (h VNHumanBodyRecognizedPoint3D) LocalPosition() unsafe.Pointer {
-	rv := objc.Send[unsafe.Pointer](h.ID, objc.Sel("localPosition"))
-	return rv
 }
 
 // The parent joint in the observation.

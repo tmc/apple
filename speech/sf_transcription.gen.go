@@ -49,8 +49,8 @@ func (sc SFTranscriptionClass) Alloc() SFTranscription {
 // # Overview
 //
 // Use [SFTranscription] to obtain all the recognized utterances from your
-// audio content. An is a vocalized word or group of words that represent a
-// single meaning to the speech recognizer ([SFSpeechRecognizer]).
+// audio content. An utterance is a vocalized word or group of words that
+// represent a single meaning to the speech recognizer ([SFSpeechRecognizer]).
 //
 // Use the [SFTranscription.FormattedString] property to retrieve the entire
 // transcription of utterances, or use the [SFTranscription.Segments] property

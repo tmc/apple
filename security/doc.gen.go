@@ -35,7 +35,6 @@
 //   - [Disabling and Enabling System Integrity Protection]: Disable system protections only temporarily during development to test drivers, kernel extensions, and other low-level code.
 //   - [Using the latest code signature format]: Update legacy app code signatures so your app runs on current OS releases.
 //   - [Updating Mac Software]: Implement Mac software updates without causing code-signing crashes.
-//   - TN3125: Inside Code Signing: Provisioning Profiles: Learn how provisioning profiles enable third-party code to run on Apple platforms.
 //
 // # Launch environment constraints
 //
@@ -79,28 +78,6 @@
 //   - [SecIdentityCreate]
 //   - [Sec_protocol_metadata_copy_negotiated_protocol]
 //   - [Sec_protocol_metadata_copy_server_name]
-//
-// # Macros
-//
-//   - CSSMACI
-//   - CSSMAPI
-//   - CSSMCLI
-//   - CSSMCSPI
-//   - CSSMDLI
-//   - CSSMKRI
-//   - CSSMSPI
-//   - CSSMTPI
-//   - SEC_SWIFT_SENDABLE
-//
-// # Enumeration Cases
-//
-//   - CSSM_APPLE_PRIVATE_CSPDL_CODE_28
-//   - TLS_ECDHE_PSK_WITH_CHACHA20_POLY1305_SHA256
-//   - errSecMissingQualifiedCertStatement
-//   - errSecureDownloadInvalidDownload
-//   - errSecureDownloadInvalidTicket
-//   - kAuthorizationCallbacksVersion
-//   - kAuthorizationPluginInterfaceVersion
 //
 // # Enumerations
 //
@@ -146,9 +123,11 @@ import (
 	"github.com/ebitengine/purego"
 )
 
-// frameworkPaths lists paths to try when loading the Security library.
-// The framework bundle path is tried first; a /usr/lib dylib fallback covers
-// C-API frameworks that are not in the dyld shared cache as bundles.
+// frameworkPaths lists paths to try when loading the Security library,
+// in order. Frameworks whose symbols live in a known dylib resolve to that
+// dylib alone; the rest try the framework bundle first and then a /usr/lib
+// dylib fallback, which covers C-API frameworks that are not in the dyld
+// shared cache as bundles.
 var frameworkPaths = []string{
 	"/System/Library/Frameworks/Security.framework/Security",
 	"/usr/lib/libSecurity.dylib",

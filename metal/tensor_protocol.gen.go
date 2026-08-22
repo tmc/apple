@@ -19,15 +19,25 @@ type MTLTensor interface {
 	MTLAllocation
 	MTLResource
 
-	// Copies the data corresponding to a slice of this tensor into a pointer you provide.
+	// Copies data from a slice of the data plane of this tensor into a pointer you provide.
 	//
 	// See: https://developer.apple.com/documentation/Metal/MTLTensor/getBytes(_:strides:sliceOrigin:sliceDimensions:)
 	GetBytesStridesFromSliceOriginSliceDimensions(bytes unsafe.Pointer, strides IMTLTensorExtents, sliceOrigin IMTLTensorExtents, sliceDimensions IMTLTensorExtents)
 
-	// Replaces the contents of a slice of this tensor with data you provide.
+	// Replaces a slice of the data plane of this tensor with data from a pointer you provide.
 	//
 	// See: https://developer.apple.com/documentation/Metal/MTLTensor/replace(sliceOrigin:sliceDimensions:withBytes:strides:)
 	ReplaceSliceOriginSliceDimensionsWithBytesStrides(sliceOrigin IMTLTensorExtents, sliceDimensions IMTLTensorExtents, bytes unsafe.Pointer, strides IMTLTensorExtents)
+
+	// Copies data from a slice of a plane of this tensor into a pointer you provide.
+	//
+	// See: https://developer.apple.com/documentation/Metal/MTLTensor/getBytes(_:strides:sliceOrigin:sliceDimensions:plane:)
+	GetBytesStridesFromSliceOriginSliceDimensionsPlane(bytes unsafe.Pointer, strides IMTLTensorExtents, sliceOrigin IMTLTensorExtents, sliceDimensions IMTLTensorExtents, plane MTLTensorPlaneType)
+
+	// Replaces a slice of a plane of this tensor with data from a pointer you provide.
+	//
+	// See: https://developer.apple.com/documentation/Metal/MTLTensor/replace(sliceOrigin:sliceDimensions:plane:withBytes:strides:)
+	ReplaceSliceOriginSliceDimensionsPlaneWithBytesStrides(sliceOrigin IMTLTensorExtents, sliceDimensions IMTLTensorExtents, plane MTLTensorPlaneType, bytes unsafe.Pointer, strides IMTLTensorExtents)
 
 	// A buffer instance this tensor shares its storage with or nil if this tensor does not wrap an underlying buffer.
 	//
@@ -63,6 +73,11 @@ type MTLTensor interface {
 	//
 	// See: https://developer.apple.com/documentation/Metal/MTLTensor/usage
 	Usage() MTLTensorUsage
+
+	// The auxiliary planes of this tensor.
+	//
+	// See: https://developer.apple.com/documentation/Metal/MTLTensor/auxiliaryPlanes
+	AuxiliaryPlanes() []objectivec.IObject
 }
 
 // MTLTensorObject wraps an existing Objective-C object that conforms to the MTLTensor protocol.
@@ -82,51 +97,156 @@ func MTLTensorObjectFromID(id objc.ID) MTLTensorObject {
 	}
 }
 
-// Copies the data corresponding to a slice of this tensor into a pointer you
-// provide.
+// Copies data from a slice of the data plane of this tensor into a pointer
+// you provide.
 //
-// bytes: A pointer to bytes of data that this method copies into the slice you
-// specify with `sliceOrigin` and `sliceDimensions`.
+// bytes: A pointer to bytes of data that this method copies the slice into.
 //
 // strides: An array of strides, in elements, that describes the layout of the data in
-// `bytes`. You are responsible for ensuring `strides` meets the following
-// requirements:
+// `bytes`.
 //
-// - Elements of `strides`are in monotonically non-decreasing order. - For any
-// `i` larger than zero, `strides[i]` is greater than or equal to
-// `strides[i-1] * dimensions[i-1]`.
+// sliceOrigin: An array of per-dimension offsets that together locate the first element to
+// copy in the tensor. Each element in this array corresponds to the dimension
+// at the same index in `sliceDimensions`. Each offset value represents the
+// number of elements from the start of that dimension.
 //
-// sliceOrigin: An array of offsets, in elements, to the first element of the slice that
-// this method reads data from.
+// sliceDimensions: An array of per-dimension sizes that together define the extent of the
+// slice to copy from the tensor. Each element in this array corresponds to
+// the dimension at the same index in `sliceOrigin`. Each size value
+// represents the number of elements to include along that dimension, starting
+// from the corresponding offset in `sliceOrigin`.
 //
-// sliceDimensions: An array of sizes, in elements, of the slice this method reads data from.
+// # Discussion
+//
+// Create the tensor with [MTLResourceStorageModeShared] for CPU access via
+// this method.
+//
+// Strides need to be monotonically non-decreasing: for any `i > 0`,
+// `strides[i] >= strides[i-1] * dimensions[i-1]`.
+//
+// The first dimension of `sliceOrigin` and `sliceDimensions` needs to be byte
+// aligned.
 //
 // See: https://developer.apple.com/documentation/Metal/MTLTensor/getBytes(_:strides:sliceOrigin:sliceDimensions:)
 func (o MTLTensorObject) GetBytesStridesFromSliceOriginSliceDimensions(bytes unsafe.Pointer, strides IMTLTensorExtents, sliceOrigin IMTLTensorExtents, sliceDimensions IMTLTensorExtents) {
 	objc.Send[struct{}](o.ID, objc.Sel("getBytes:strides:fromSliceOrigin:sliceDimensions:"), bytes, strides, sliceOrigin, sliceDimensions)
 }
 
-// Replaces the contents of a slice of this tensor with data you provide.
+// Replaces a slice of the data plane of this tensor with data from a pointer
+// you provide.
 //
-// sliceOrigin: An array of offsets, in elements, to the first element of the slice that
-// this method writes data to.
+// sliceOrigin: An array of per-dimension offsets that together locate the first element to
+// write to in the tensor. Each element in this array corresponds to the
+// dimension at the same index in `sliceDimensions`. Each offset value
+// represents the number of elements from the start of that dimension.
 //
-// sliceDimensions: An array of sizes, in elements, of the slice this method writes data to.
+// sliceDimensions: An array of per-dimension sizes that together define the extent of the
+// slice to write to in the tensor. Each element in this array corresponds to
+// the dimension at the same index in `sliceOrigin`. Each size value
+// represents the number of elements to include along that dimension, starting
+// from the corresponding offset in `sliceOrigin`.
 //
-// bytes: A pointer to bytes of data that this method copies into the slice you
-// specify with `sliceOrigin` and `sliceDimensions`.
+// bytes: A pointer to bytes of data to copy into the slice.
 //
 // strides: An array of strides, in elements, that describes the layout of the data in
-// `bytes`. You are responsible for ensuring `strides` meets the following
-// requirements:
+// `bytes`.
 //
-// - Elements of `strides`are in monotonically non-decreasing order. - For any
-// `i` larger than zero, `strides[i]` is greater than or equal to
-// `strides[i-1] * dimensions[i-1]`.
+// # Discussion
+//
+// Create the tensor with [MTLResourceStorageModeShared] for CPU access via
+// this method.
+//
+// Strides need to be monotonically non-decreasing: for any `i > 0`,
+// `strides[i] >= strides[i-1] * dimensions[i-1]`.
+//
+// The first dimension of `sliceOrigin` and `sliceDimensions` needs to be byte
+// aligned.
 //
 // See: https://developer.apple.com/documentation/Metal/MTLTensor/replace(sliceOrigin:sliceDimensions:withBytes:strides:)
 func (o MTLTensorObject) ReplaceSliceOriginSliceDimensionsWithBytesStrides(sliceOrigin IMTLTensorExtents, sliceDimensions IMTLTensorExtents, bytes unsafe.Pointer, strides IMTLTensorExtents) {
 	objc.Send[struct{}](o.ID, objc.Sel("replaceSliceOrigin:sliceDimensions:withBytes:strides:"), sliceOrigin, sliceDimensions, bytes, strides)
+}
+
+// Copies data from a slice of a plane of this tensor into a pointer you
+// provide.
+//
+// bytes: A pointer to bytes of data that this method copies the slice into.
+//
+// strides: An array of strides, in elements, that describes the layout of the data in
+// `bytes`.
+//
+// sliceOrigin: An array of per-dimension offsets that together locate the first element to
+// copy in the tensor. Each element in this array corresponds to the dimension
+// at the same index in `sliceDimensions`. Each offset value represents the
+// number of elements from the start of that dimension.
+//
+// sliceDimensions: An array of per-dimension sizes that together define the extent of the
+// slice to copy from the tensor. Each element in this array corresponds to
+// the dimension at the same index in `sliceOrigin`. Each size value
+// represents the number of elements to include along that dimension, starting
+// from the corresponding offset in `sliceOrigin`.
+//
+// plane: The plane the method reads data from.
+//
+// # Discussion
+//
+// When reading from auxiliary planes, specify `sliceOrigin` and
+// `sliceDimensions` in plane coordinates by applying the auxiliary plane’s
+// block factors.
+//
+// Create the tensor with [MTLResourceStorageModeShared] for CPU access via
+// this method.
+//
+// Strides need to be monotonically non-decreasing: for any `i > 0`,
+// `strides[i] >= strides[i-1] * dimensions[i-1]`.
+//
+// The first dimension of `sliceOrigin` and `sliceDimensions` needs to be byte
+// aligned.
+//
+// See: https://developer.apple.com/documentation/Metal/MTLTensor/getBytes(_:strides:sliceOrigin:sliceDimensions:plane:)
+func (o MTLTensorObject) GetBytesStridesFromSliceOriginSliceDimensionsPlane(bytes unsafe.Pointer, strides IMTLTensorExtents, sliceOrigin IMTLTensorExtents, sliceDimensions IMTLTensorExtents, plane MTLTensorPlaneType) {
+	objc.Send[struct{}](o.ID, objc.Sel("getBytes:strides:fromSliceOrigin:sliceDimensions:plane:"), bytes, strides, sliceOrigin, sliceDimensions, plane)
+}
+
+// Replaces a slice of a plane of this tensor with data from a pointer you
+// provide.
+//
+// sliceOrigin: An array of per-dimension offsets that together locate the first element to
+// write to in the tensor. Each element in this array corresponds to the
+// dimension at the same index in `sliceDimensions`. Each offset value
+// represents the number of elements from the start of that dimension.
+//
+// sliceDimensions: An array of per-dimension sizes that together define the extent of the
+// slice to write to in the tensor. Each element in this array corresponds to
+// the dimension at the same index in `sliceOrigin`. Each size value
+// represents the number of elements to include along that dimension, starting
+// from the corresponding offset in `sliceOrigin`.
+//
+// plane: The plane the method writes data to.
+//
+// bytes: A pointer to bytes of data to copy into the slice.
+//
+// strides: An array of strides, in elements, that describes the layout of the data in
+// `bytes`.
+//
+// # Discussion
+//
+// When writing to auxiliary planes, specify `sliceOrigin` and
+// `sliceDimensions` in plane coordinates by applying the auxiliary plane’s
+// block factors.
+//
+// Create the tensor with [MTLResourceStorageModeShared] for CPU access via
+// this method.
+//
+// Strides need to be monotonically non-decreasing: for any `i > 0`,
+// `strides[i] >= strides[i-1] * dimensions[i-1]`.
+//
+// The first dimension of `sliceOrigin` and `sliceDimensions` needs to be byte
+// aligned.
+//
+// See: https://developer.apple.com/documentation/Metal/MTLTensor/replace(sliceOrigin:sliceDimensions:plane:withBytes:strides:)
+func (o MTLTensorObject) ReplaceSliceOriginSliceDimensionsPlaneWithBytesStrides(sliceOrigin IMTLTensorExtents, sliceDimensions IMTLTensorExtents, plane MTLTensorPlaneType, bytes unsafe.Pointer, strides IMTLTensorExtents) {
+	objc.Send[struct{}](o.ID, objc.Sel("replaceSliceOrigin:sliceDimensions:plane:withBytes:strides:"), sliceOrigin, sliceDimensions, plane, bytes, strides)
 }
 
 // The amount of memory, in byes, a resource consumes, such as for a buffer,
@@ -365,6 +485,24 @@ func (o MTLTensorObject) Strides() IMTLTensorExtents {
 func (o MTLTensorObject) Usage() MTLTensorUsage {
 	rv := objc.Send[MTLTensorUsage](o.ID, objc.Sel("usage"))
 	return MTLTensorUsage(rv)
+}
+
+// The auxiliary planes of this tensor.
+//
+// # Discussion
+//
+// Returns an array of [MTLTensorAuxiliaryPlane] objects describing each
+// auxiliary plane configured on this tensor. For single-plane tensors, this
+// array is empty.
+//
+// See: https://developer.apple.com/documentation/Metal/MTLTensor/auxiliaryPlanes
+func (o MTLTensorObject) AuxiliaryPlanes() []objectivec.IObject {
+	rvIDs := objc.Send[[]objc.ID](o.ID, objc.Sel("auxiliaryPlanes"))
+	result := make([]objectivec.IObject, len(rvIDs))
+	for i, id := range rvIDs {
+		result[i] = objectivec.Object{ID: id}
+	}
+	return result
 }
 
 // A string that identifies the resource.

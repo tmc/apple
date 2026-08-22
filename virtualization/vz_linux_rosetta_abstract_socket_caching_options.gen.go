@@ -137,6 +137,9 @@ func NewLinuxRosettaAbstractSocketCachingOptionsWithNameError(name string) (VZLi
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
 		return VZLinuxRosettaAbstractSocketCachingOptions{}, foundation.NSErrorFrom(errorPtr)
 	}
+	if rv == 0 {
+		return VZLinuxRosettaAbstractSocketCachingOptions{}, objc.ErrInitFailed
+	}
 	return VZLinuxRosettaAbstractSocketCachingOptionsFromID(rv), nil
 }
 

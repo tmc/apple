@@ -3,8 +3,6 @@
 package appkit
 
 import (
-	"unsafe"
-
 	"github.com/tmc/apple/foundation"
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
@@ -19,7 +17,12 @@ type NSAnimatablePropertyContainer interface {
 	// Returns a proxy object for the receiver that can be used to initiate implied animation for property changes.
 	//
 	// See: https://developer.apple.com/documentation/AppKit/NSAnimatablePropertyContainer/animator()
-	Animator() unsafe.Pointer
+	Animator() objectivec.IObject
+
+	// Returns the animation that should be performed for the specified key.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSAnimatablePropertyContainer/animation(forKey:)
+	AnimationForKey(key NSAnimatablePropertyKey) objectivec.IObject
 
 	// Sets the option dictionary that maps event trigger keys to animation objects.
 	//
@@ -66,9 +69,9 @@ func NSAnimatablePropertyContainerObjectFromID(id objc.ID) NSAnimatablePropertyC
 // found by the [NSAnimatablePropertyContainer] search mechanism.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSAnimatablePropertyContainer/animator()
-func (o NSAnimatablePropertyContainerObject) Animator() unsafe.Pointer {
-	rv := objc.Send[unsafe.Pointer](o.ID, objc.Sel("animator"))
-	return rv
+func (o NSAnimatablePropertyContainerObject) Animator() objectivec.IObject {
+	rv := objc.Send[objc.ID](o.ID, objc.Sel("animator"))
+	return objectivec.Object{ID: rv}
 }
 
 // Returns the animation that should be performed for the specified key.

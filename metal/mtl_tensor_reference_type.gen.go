@@ -90,6 +90,9 @@ type IMTLTensorReferenceType interface {
 	IndexType() MTLDataType
 	// The underlying data format of the tensor.
 	TensorDataType() MTLTensorDataType
+
+	// The auxiliary planes that this tensor reference requires.
+	AuxiliaryPlanes() []MTLTensorAuxiliaryPlaneType
 }
 
 // Init initializes the instance.
@@ -125,7 +128,8 @@ func (t MTLTensorReferenceType) Access() MTLBindingAccess {
 //
 // Because shader-bound tensors have dynamic extents, the
 // [MTLTensorExtents.Rank] of `dimensions` corresponds to the rank the shader
-// function specifies, and `MTLTensorExtents/` always returns a value of -1.
+// function specifies, and `MTLTensorExtents/extentsAtDimensionIndex:` always
+// returns a value of -1.
 //
 // See: https://developer.apple.com/documentation/Metal/MTLTensorReferenceType/dimensions
 func (t MTLTensorReferenceType) Dimensions() IMTLTensorExtents {
@@ -147,4 +151,20 @@ func (t MTLTensorReferenceType) IndexType() MTLDataType {
 func (t MTLTensorReferenceType) TensorDataType() MTLTensorDataType {
 	rv := objc.Send[MTLTensorDataType](t.ID, objc.Sel("tensorDataType"))
 	return MTLTensorDataType(rv)
+}
+
+// The auxiliary planes that this tensor reference requires.
+//
+// # Discussion
+//
+// Returns an array of [MTLTensorAuxiliaryPlaneType] objects describing each
+// auxiliary plane the shader expects. Empty if the tensor has no auxiliary
+// planes.
+//
+// See: https://developer.apple.com/documentation/Metal/MTLTensorReferenceType/auxiliaryPlanes
+func (t MTLTensorReferenceType) AuxiliaryPlanes() []MTLTensorAuxiliaryPlaneType {
+	rv := objc.Send[[]objc.ID](t.ID, objc.Sel("auxiliaryPlanes"))
+	return objc.ConvertSlice(rv, func(id objc.ID) MTLTensorAuxiliaryPlaneType {
+		return MTLTensorAuxiliaryPlaneTypeFromID(id)
+	})
 }

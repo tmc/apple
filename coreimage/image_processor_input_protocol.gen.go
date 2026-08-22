@@ -95,7 +95,7 @@ func CIImageProcessorInputObjectFromID(id objc.ID) CIImageProcessorInputObject {
 // See: https://developer.apple.com/documentation/CoreImage/CIImageProcessorInput/baseAddress
 func (o CIImageProcessorInputObject) BaseAddress() unsafe.Pointer {
 	rv := objc.Send[unsafe.Pointer](o.ID, objc.Sel("baseAddress"))
-	return rv
+	return unsafe.Pointer(rv)
 }
 
 // A MTLTexture object that can be bound for input using Metal.
@@ -178,7 +178,7 @@ func (o CIImageProcessorInputObject) Digest() uint64 {
 // # Discussion
 //
 // This property is only relevant if your processor implements
-// `/CIImageProcessorKernel/`
+// `/CIImageProcessorKernel/roiTileArrayForInput:arguments:outputRect:`
 //
 // This can be useful if the processor needs to do work
 // [CIImageProcessorOutput] after the last tile is processed.
@@ -195,7 +195,7 @@ func (o CIImageProcessorInputObject) RoiTileCount() uint {
 // # Discussion
 //
 // This property is only relevant if your processor implements
-// `/CIImageProcessorKernel/`
+// `/CIImageProcessorKernel/roiTileArrayForInput:arguments:outputRect:`
 //
 // This can be useful if the processor needs to clear the
 // [CIImageProcessorOutput] before the first tile is processed.

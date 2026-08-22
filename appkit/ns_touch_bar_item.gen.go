@@ -47,9 +47,9 @@ func (nc NSTouchBarItemClass) Alloc() NSTouchBarItem {
 //
 // # Overview
 //
-// An instance of the [NSTouchBarItem] class is called an . It appears to the
-// user on the Touch Bar, typically along with other items, within the
-// (invisible) bounds of the view for an [NSTouchBar] object, called a .
+// An instance of the [NSTouchBarItem] class is called an item. It appears to
+// the user on the Touch Bar, typically along with other items, within the
+// (invisible) bounds of the view for an [NSTouchBar] object, called a bar.
 //
 // You use an item by adding it or its identifier to one or another of a
 // bar’s arrays, depending on your app’s architecture and on the user
@@ -60,18 +60,20 @@ func (nc NSTouchBarItemClass) Alloc() NSTouchBarItem {
 // AppKit provides a rich set of subclasses of [NSTouchBarItem], each of which
 // is described in the corresponding class reference document:
 //
-// - An [NSCandidateListTouchBarItem] object (a ), along with its delegate,
-// provides a list of textual suggestions for the current text view - An
-// [NSColorPickerTouchBarItem] object (a ) provides a system-defined color
-// picker - An [NSCustomTouchBarItem] object (a ) contains a responder of your
-// choice, such as a view, a button, or a scrubber (an instance of the
-// [NSScrubber] class) - An [NSGroupTouchBarItem] object (a ) provides a bar
-// to contain other items - An [NSPopoverTouchBarItem] object (a ) provides a
+// - An [NSCandidateListTouchBarItem] object (a candidate-list item), along
+// with its delegate, provides a list of textual suggestions for the current
+// text view - An [NSColorPickerTouchBarItem] object (a color picker item)
+// provides a system-defined color picker - An [NSCustomTouchBarItem] object
+// (a custom item) contains a responder of your choice, such as a view, a
+// button, or a scrubber (an instance of the [NSScrubber] class) - An
+// [NSGroupTouchBarItem] object (a group item) provides a bar to contain other
+// items - An [NSPopoverTouchBarItem] object (a popover item) provides a
 // two-state control that, when touched or pressed, expands into its second
 // state, showing the contents of a bar it owns - An
-// [NSSharingServicePickerTouchBarItem] object (a ), along with its delegate,
-// provides a list of objects eligible for sharing - An [NSSliderTouchBarItem]
-// object (a ) provides a slider control for choosing a value in a range
+// [NSSharingServicePickerTouchBarItem] object (a sharing service picker
+// item), along with its delegate, provides a list of objects eligible for
+// sharing - An [NSSliderTouchBarItem] object (a slider item) provides a
+// slider control for choosing a value in a range
 //
 // The two most commonly-used item classes are [NSCustomTouchBarItem] and
 // [NSPopoverTouchBarItem].
@@ -84,9 +86,9 @@ func (nc NSTouchBarItemClass) Alloc() NSTouchBarItem {
 //
 // # Custom items
 //
-// You typically use a (an instance of the [NSCustomTouchBarItem] class) to
-// hold a view. For example, to place a button in the Touch Bar, proceed as
-// follows:
+// You typically use a custom item (an instance of the [NSCustomTouchBarItem]
+// class) to hold a view. For example, to place a button in the Touch Bar,
+// proceed as follows:
 //
 // - Use an [NSButton] convenience initializer such as
 // [NSStatusBarButtonClass.ButtonWithTitleImageTargetAction] to create and
@@ -95,10 +97,10 @@ func (nc NSTouchBarItemClass) Alloc() NSTouchBarItem {
 //
 // # Popover items
 //
-// A (an instance of the [NSPopoverTouchBarItem] class) — the second
-// commonly-used type — lets you provide a new bar (an [NSTouchBar] object)
-// when a user taps, or presses-and-holds, on the collapsed representation of
-// the popover item.
+// A popover item (an instance of the [NSPopoverTouchBarItem] class) — the
+// second commonly-used type — lets you provide a new bar (an [NSTouchBar]
+// object) when a user taps, or presses-and-holds, on the collapsed
+// representation of the popover item.
 //
 // In its expanded state, a popover appears as an overlay above other items in
 // the Touch Bar.
@@ -114,7 +116,7 @@ func (nc NSTouchBarItemClass) Alloc() NSTouchBarItem {
 // The system automatically shows a chevron in the popover item under the
 // following conditions: You specify the same [NSTouchBar] object for both
 // [NSPopoverTouchBarItem.PressAndHoldTouchBar] and
-// [NSPopoverTouchBarItem.PopoverTouchBar] properties, you use the default
+// [NSPopoverTouchBarItem.PopoverTouchBar] properties, and you use the default
 // view for the popover item’s
 // [NSPopoverTouchBarItem.CollapsedRepresentation] property.
 //
@@ -127,48 +129,50 @@ func (nc NSTouchBarItemClass) Alloc() NSTouchBarItem {
 // its [DidFinishInteractingWithScrubber] method, to call the popover’s
 // [NSPopoverTouchBarItem.DismissPopover] method.
 //
-// If you place a segmented control in a bar for a popover item, take care to
-// use [NSSegmentSwitchTrackingMomentary] option of the
+// If you place a segmented control in a bar for a popover item, take care not
+// to use [NSSegmentSwitchTrackingMomentary] option of the
 // [NSSegmentedControl.SwitchTracking] enumeration because doing so interferes
 // with the user’s operation of the control.
 //
 // # Other common item types
 //
-// To provide a , always use the [NSSliderTouchBarItem] class, which employs a
-// standard slider but is optimized for user interaction with the Touch Bar.
-// (That is, don’t instead add an [NSSlider] object directly to a custom
-// item.)
+// To provide a slider item, always use the [NSSliderTouchBarItem] class,
+// which employs a standard slider but is optimized for user interaction with
+// the Touch Bar. (That is, don’t instead add an [NSSlider] object directly
+// to a custom item.)
 //
-// A (an instance of the [NSGroupTouchBarItem] class) is a container that
-// provides a bar, in its [NSGroupTouchBarItem.GroupTouchBar] property, with
-// its own array of items. You can enable customization for the items in a
-// group’s contained bar, in the same way you would for items directly
-// within a top-level bar. Using a group item lets you provide different user
-// customization rules for different parts of the Touch Bar. Using a group
-// item also lets you enable centering of the group within the Touch Bar.
+// A group item (an instance of the [NSGroupTouchBarItem] class) is a
+// container that provides a bar, in its [NSGroupTouchBarItem.GroupTouchBar]
+// property, with its own array of items. You can enable customization for the
+// items in a group’s contained bar, in the same way you would for items
+// directly within a top-level bar. Using a group item lets you provide
+// different user customization rules for different parts of the Touch Bar.
+// Using a group item also lets you enable centering of the group within the
+// Touch Bar.
 //
-// A lets you add custom spacing between items in a bar. Specify a spacing
-// item for a bar by assigning the [fixedSpaceSmall], [fixedSpaceLarge], or
-// [flexibleSpace] identifier to an item, and adding that item to the bar’s
-// items array. The system automatically instantiates and configures spacing
-// items based on the identifiers you specify.
+// A spacing item lets you add custom spacing between items in a bar. Specify
+// a spacing item for a bar by assigning the [fixedSpaceSmall],
+// [fixedSpaceLarge], or [flexibleSpace] identifier to an item, and adding
+// that item to the bar’s items array. The system automatically instantiates
+// and configures spacing items based on the identifiers you specify.
 //
 // # Configuration
 //
 // You must configure each item with a unique identifier, and can optionally
 // assign a visibility priority or tag it as a principal item.
 //
-// You must provide a unique identifier for each item in the bar, apart from
-// spacing items. Specify an identifier, of type [NSTouchBarItemIdentifier]
-// (called an ), for each item when you initialize it. The item identifier
-// serves as a persistable weak reference to the item. The system uses item
-// identifiers to populate bars and to track and record changes for user
-// customization.
+// NSTouchBarItem identification. You must provide a unique identifier for
+// each item in the bar, apart from spacing items. Specify an identifier, of
+// type [NSTouchBarItemIdentifier] (called an item identifier), for each item
+// when you initialize it. The item identifier serves as a persistable weak
+// reference to the item. The system uses item identifiers to populate bars
+// and to track and record changes for user customization.
 //
-// If the system is showing a bar in the Touch Bar, but horizontal space is
-// constrained and the bar defines more items than will fit, the system hides
-// some of the items. You influence this hide/show behavior by setting a value
-// for the [NSTouchBarItem.VisibilityPriority] property of each item.
+// NSTouchBarItem priority for visibility. If the system is showing a bar in
+// the Touch Bar, but horizontal space is constrained and the bar defines more
+// items than will fit, the system hides some of the items. You influence this
+// hide/show behavior by setting a value for the
+// [NSTouchBarItem.VisibilityPriority] property of each item.
 //
 // Lower-visibility-priority items get hidden by the system, as needed, before
 // higher-visibility-priority items do.
@@ -188,8 +192,8 @@ func (nc NSTouchBarItemClass) Alloc() NSTouchBarItem {
 // normal-priority items become eligible for display, the system first shows
 // the most recently-hidden of those items.
 //
-// Within a bar, you can optionally specify an item as having special
-// significance by employing the [NSTouchBar.PrincipalItemIdentifier]
+// Principal Items. Within a bar, you can optionally specify an item as having
+// special significance by employing the [NSTouchBar.PrincipalItemIdentifier]
 // property. The system attempts to center a principal item within the Touch
 // Bar. If you want a group of items to appear centered in the Touch Bar,
 // designate the group item (of type [NSTouchBarItem]) as the principal item.

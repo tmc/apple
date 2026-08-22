@@ -15,7 +15,6 @@
 // # Data Processing
 //
 //   - CVBuffer: An abstract base class that defines how to interact with data buffers. ([CVAttachmentMode])
-//   - CVImageBuffer: An interface for managing different types of image data.
 //   - CVPixelBuffer: An image buffer that holds pixels in main memory. ([CVPixelBufferLockFlags], [CVPlanarComponentInfo], [CVPlanarPixelBufferInfo], [CVPlanarPixelBufferInfo_YCbCrPlanar], [CVPlanarPixelBufferInfo_YCbCrBiPlanar])
 //   - CVPixelBufferPool: A utility object for managing a recyclable set of pixel buffer objects. ([CVPixelBufferPoolFlushFlags])
 //   - CVPixelFormatDescription: An API that provides functions and types for defining custom pixel formats. ([CVFillExtendedPixelsCallBackData], [CVFillExtendedPixelsCallBack])
@@ -24,23 +23,6 @@
 //
 //   - [CVTime]: A structure used for storing Core Video time values. ([CVTime], [CVSMPTETime], [CVSMPTETimeType], [CVSMPTETimeFlags], [CVTimeFlags])
 //   - CVDisplayLink: A high-priority thread that notifies your app when a given display will need each frame. ([CVDisplayLinkOutputHandler], [CVOptionFlags], [CVDisplayLinkOutputCallback], [CVDisplayLinkOutputHandler])
-//
-// # Metal
-//
-//   - CVMetalTextureCache: A cache used to create and manage Metal texture objects.
-//   - CVMetalTexture: A texture-based image buffer that supplies source image data for use with the Metal framework.
-//
-// # OpenGL
-//
-//   - CVOpenGLTextureCache: A cache used to create and manage OpenGL texture objects.
-//   - CVOpenGLTexture: A texture-based image buffer that supplies source image data to OpenGL.
-//   - CVOpenGLBuffer: An image buffer used to store image data in video memory.
-//   - CVOpenGLBufferPool: A utility object for managing a set of recyclable OpenGL buffer objects.
-//
-// # OpenGL ES
-//
-//   - CVOpenGLESTextureCache: A cache used to create and manage OpenGL ES texture objects.
-//   - CVOpenGLESTexture: A texture-based image buffer that supplies source image data to OpenGL ES.
 //
 // # Core Video Error Constants
 //
@@ -71,22 +53,6 @@
 //   - [CVPixelBufferIsCompatibleWithAttributes]
 //   - [CVPixelFormatTypeCopyFourCharCodeString]
 //
-// # Macros
-//
-//   - CV_RETURNS_NOT_RETAINED
-//   - CV_SWIFT_NONSENDABLE
-//   - CV_SWIFT_SENDABLE
-//
-// # Enumeration Cases
-//
-//   - kCVPixelFormatType_30RGBLE_8A_BiPlanar
-//   - kCVPixelFormatType_30RGB_r210
-//   - kCVPixelFormatType_96VersatileBayerPacked12
-//   - kCVPixelFormatType_Lossless_30RGBLEPackedWideGamut
-//   - kCVPixelFormatType_Lossless_30RGBLE_8A_BiPlanar
-//   - kCVPixelFormatType_Lossless_420YpCbCr10PackedBiPlanarFullRange
-//   - kCVPixelFormatType_Lossless_64RGBAHalf
-//
 // # Type Aliases
 //
 //   - [CVMetalBufferRef]
@@ -103,9 +69,11 @@ import (
 	"github.com/ebitengine/purego"
 )
 
-// frameworkPaths lists paths to try when loading the CoreVideo library.
-// The framework bundle path is tried first; a /usr/lib dylib fallback covers
-// C-API frameworks that are not in the dyld shared cache as bundles.
+// frameworkPaths lists paths to try when loading the CoreVideo library,
+// in order. Frameworks whose symbols live in a known dylib resolve to that
+// dylib alone; the rest try the framework bundle first and then a /usr/lib
+// dylib fallback, which covers C-API frameworks that are not in the dyld
+// shared cache as bundles.
 var frameworkPaths = []string{
 	"/System/Library/Frameworks/CoreVideo.framework/CoreVideo",
 	"/usr/lib/libCoreVideo.dylib",

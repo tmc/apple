@@ -9,7 +9,7 @@ package javascriptcore
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/JavaScriptCore/JSClassDefinition
 type JSClassDefinition struct {
-	Version           int                               // The version of the class definition structure.
+	Version           int32                             // The version of the class definition structure.
 	Attributes        JSClassAttributes                 // A set of class attributes to give to the class.
 	ClassName         *byte                             // A null-terminated UTF-8 string that contains the class’s name.
 	ParentClass       JSClassRef                        // A JavaScript class to set as the class’s parent class.

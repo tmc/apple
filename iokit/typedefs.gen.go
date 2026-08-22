@@ -14,22 +14,42 @@ import (
 type ATAOperationType = uint32
 
 // See: https://developer.apple.com/documentation/iokit/atasmartdata
-type ATASMARTData = kernel.Pointer
+// ATASMARTData is opaque storage with the size and alignment C gives ATASMARTData:
+// 512 bytes. C declares a record here, not a handle, so a
+// pointer-width rendering would hand the framework eight bytes to write
+// 512 into.
+type ATASMARTData [512]byte
 
 // See: https://developer.apple.com/documentation/iokit/atasmartdatathresholds
-type ATASMARTDataThresholds = kernel.Pointer
+// ATASMARTDataThresholds is opaque storage with the size and alignment C gives ATASMARTDataThresholds:
+// 512 bytes. C declares a record here, not a handle, so a
+// pointer-width rendering would hand the framework eight bytes to write
+// 512 into.
+type ATASMARTDataThresholds [512]byte
 
 // See: https://developer.apple.com/documentation/iokit/atasmartlogdirectory
-type ATASMARTLogDirectory = kernel.Pointer
+// ATASMARTLogDirectory is opaque storage with the size and alignment C gives ATASMARTLogDirectory:
+// 512 bytes. C declares a record here, not a handle, so a
+// pointer-width rendering would hand the framework eight bytes to write
+// 512 into.
+type ATASMARTLogDirectory [512]byte
 
 // See: https://developer.apple.com/documentation/iokit/atasmartlogentry
-type ATASMARTLogEntry = kernel.Pointer
+// ATASMARTLogEntry is opaque storage with the size and alignment C gives ATASMARTLogEntry:
+// 2 bytes. C declares a record here, not a handle, so a
+// pointer-width rendering would hand the framework eight bytes to write
+// 2 into.
+type ATASMARTLogEntry [2]byte
 
 // See: https://developer.apple.com/documentation/iokit/avidtype
 type AVIDType = uint32
 
 // See: https://developer.apple.com/documentation/iokit/bddiscinfo
-type BDDiscInfo = kernel.Pointer
+// BDDiscInfo is opaque storage with the size and alignment C gives BDDiscInfo:
+// 34 bytes. C declares a record here, not a handle, so a
+// pointer-width rendering would hand the framework eight bytes to write
+// 34 into.
+type BDDiscInfo [34]byte
 
 // See: https://developer.apple.com/documentation/iokit/bdfeatures
 type BDFeatures = uint32
@@ -38,19 +58,39 @@ type BDFeatures = uint32
 type BDMediaType = uint32
 
 // See: https://developer.apple.com/documentation/iokit/bdtrackinfo
-type BDTrackInfo = kernel.Pointer
+// BDTrackInfo is opaque storage with the size and alignment C gives BDTrackInfo:
+// 36 bytes. C declares a record here, not a handle, so a
+// pointer-width rendering would hand the framework eight bytes to write
+// 36 into.
+type BDTrackInfo [36]byte
 
 // See: https://developer.apple.com/documentation/iokit/block0
-type Block0 = kernel.Pointer
+// Block0 is opaque storage with the size and alignment C gives Block0:
+// 512 bytes. C declares a record here, not a handle, so a
+// pointer-width rendering would hand the framework eight bytes to write
+// 512 into.
+type Block0 [512]byte
 
 // See: https://developer.apple.com/documentation/iokit/cdatip
-type CDATIP = kernel.Pointer
+// CDATIP is opaque storage with the size and alignment C gives CDATIP:
+// 28 bytes. C declares a record here, not a handle, so a
+// pointer-width rendering would hand the framework eight bytes to write
+// 28 into.
+type CDATIP [28]byte
 
 // See: https://developer.apple.com/documentation/iokit/cdaudiostatus
-type CDAudioStatus = kernel.Pointer
+// CDAudioStatus is opaque storage with the size and alignment C gives CDAudioStatus:
+// 9 bytes. C declares a record here, not a handle, so a
+// pointer-width rendering would hand the framework eight bytes to write
+// 9 into.
+type CDAudioStatus [9]byte
 
 // See: https://developer.apple.com/documentation/iokit/cddiscinfo
-type CDDiscInfo = kernel.Pointer
+// CDDiscInfo is opaque storage with the size and alignment C gives CDDiscInfo:
+// 34 bytes. C declares a record here, not a handle, so a
+// pointer-width rendering would hand the framework eight bytes to write
+// 34 into.
+type CDDiscInfo [34]byte
 
 // See: https://developer.apple.com/documentation/iokit/cdfeatures
 type CDFeatures = uint32
@@ -62,43 +102,75 @@ type CDISRC = int8
 type CDMCN = int8
 
 // See: https://developer.apple.com/documentation/iokit/cdmsf
-type CDMSF = kernel.Pointer
+// CDMSF is opaque storage with the size and alignment C gives CDMSF:
+// 3 bytes. C declares a record here, not a handle, so a
+// pointer-width rendering would hand the framework eight bytes to write
+// 3 into.
+type CDMSF [3]byte
 
 // See: https://developer.apple.com/documentation/iokit/cdmediatype
 type CDMediaType = uint32
 
 // See: https://developer.apple.com/documentation/iokit/cdpma
-type CDPMA = kernel.Pointer
+// CDPMA is opaque storage with the size and alignment C gives CDPMA:
+// 4 bytes. C declares a record here, not a handle, so a
+// pointer-width rendering would hand the framework eight bytes to write
+// 4 into.
+type CDPMA [4]byte
 
 // See: https://developer.apple.com/documentation/iokit/cdpmadescriptor
-type CDPMADescriptor = kernel.Pointer
+// CDPMADescriptor is opaque storage with the size and alignment C gives CDPMADescriptor:
+// 11 bytes. C declares a record here, not a handle, so a
+// pointer-width rendering would hand the framework eight bytes to write
+// 11 into.
+type CDPMADescriptor [11]byte
 
 // See: https://developer.apple.com/documentation/iokit/cdsectorarea
-type CDSectorArea = kernel.Pointer
+type CDSectorArea = uint32
 
 // See: https://developer.apple.com/documentation/iokit/cdsectorsize
-type CDSectorSize = kernel.Pointer
+type CDSectorSize = uint32
 
 // See: https://developer.apple.com/documentation/iokit/cdsectortype
-type CDSectorType = kernel.Pointer
+type CDSectorType = uint32
 
 // See: https://developer.apple.com/documentation/iokit/cdtext
-type CDTEXT = kernel.Pointer
+// CDTEXT is opaque storage with the size and alignment C gives CDTEXT:
+// 4 bytes. C declares a record here, not a handle, so a
+// pointer-width rendering would hand the framework eight bytes to write
+// 4 into.
+type CDTEXT [4]byte
 
 // See: https://developer.apple.com/documentation/iokit/cdtextdescriptor
-type CDTEXTDescriptor = kernel.Pointer
+// CDTEXTDescriptor is opaque storage with the size and alignment C gives CDTEXTDescriptor:
+// 18 bytes. C declares a record here, not a handle, so a
+// pointer-width rendering would hand the framework eight bytes to write
+// 18 into.
+type CDTEXTDescriptor [18]byte
 
 // See: https://developer.apple.com/documentation/iokit/cdtoc
-type CDTOC = kernel.Pointer
+// CDTOC is opaque storage with the size and alignment C gives CDTOC:
+// 4 bytes. C declares a record here, not a handle, so a
+// pointer-width rendering would hand the framework eight bytes to write
+// 4 into.
+type CDTOC [4]byte
 
 // See: https://developer.apple.com/documentation/iokit/cdtocdescriptor
-type CDTOCDescriptor = kernel.Pointer
+// CDTOCDescriptor is opaque storage with the size and alignment C gives CDTOCDescriptor:
+// 11 bytes. C declares a record here, not a handle, so a
+// pointer-width rendering would hand the framework eight bytes to write
+// 11 into.
+type CDTOCDescriptor [11]byte
 
 // See: https://developer.apple.com/documentation/iokit/cdtocformat
 type CDTOCFormat = uint8
 
 // See: https://developer.apple.com/documentation/iokit/cdtrackinfo
-type CDTrackInfo = kernel.Pointer
+// CDTrackInfo is opaque storage with the size and alignment C gives CDTrackInfo:
+// 36 bytes. C declares a record here, not a handle, so a
+// pointer-width rendering would hand the framework eight bytes to write
+// 36 into.
+type CDTrackInfo [36]byte
 
 // See: https://developer.apple.com/documentation/iokit/cdtrackinfoaddresstype
 type CDTrackInfoAddressType = uint8
@@ -107,22 +179,34 @@ type CDTrackInfoAddressType = uint8
 type CSRNodeUniqueID = uint64
 
 // See: https://developer.apple.com/documentation/iokit/colorspec
-type ColorSpec = kernel.Pointer
+// ColorSpec is opaque storage with the size and alignment C gives ColorSpec:
+// 8 bytes. C declares a record here, not a handle, so a
+// pointer-width rendering would hand the framework eight bytes to write
+// 8 into.
+type ColorSpec [4]uint16
 
 // See: https://developer.apple.com/documentation/iokit/colorspecptr
-type ColorSpecPtr = applicationservices.ColorSpec
+type ColorSpecPtr = *applicationservices.ColorSpec
 
 // See: https://developer.apple.com/documentation/iokit/dasdmodeparameterblockdescriptor
-type DASDModeParameterBlockDescriptor = kernel.Pointer
+// DASDModeParameterBlockDescriptor is opaque storage with the size and alignment C gives DASDModeParameterBlockDescriptor:
+// 8 bytes. C declares a record here, not a handle, so a
+// pointer-width rendering would hand the framework eight bytes to write
+// 8 into.
+type DASDModeParameterBlockDescriptor [8]byte
 
 // See: https://developer.apple.com/documentation/iokit/dclcallcommandproc
-type DCLCallCommandProc = kernel.Pointer
+type DCLCallCommandProc = *kernel.ID
 
 // See: https://developer.apple.com/documentation/iokit/dclcallcommandprocptr
-type DCLCallCommandProcPtr = unsafe.Pointer
+type DCLCallCommandProcPtr = *DCLCallCommandProc
 
 // See: https://developer.apple.com/documentation/iokit/dclcallproc
-type DCLCallProc = kernel.Pointer
+// DCLCallProc is opaque storage with the size and alignment C gives DCLCallProc:
+// 32 bytes. C declares a record here, not a handle, so a
+// pointer-width rendering would hand the framework eight bytes to write
+// 32 into.
+type DCLCallProc [4]uint64
 
 // See: https://developer.apple.com/documentation/iokit/dclcallprocdatatype
 type DCLCallProcDataType = unsafe.Pointer
@@ -131,7 +215,11 @@ type DCLCallProcDataType = unsafe.Pointer
 type DCLCallProcPtr = unsafe.Pointer
 
 // See: https://developer.apple.com/documentation/iokit/dclcommand
-type DCLCommand = kernel.Pointer
+// DCLCommand is opaque storage with the size and alignment C gives DCLCommand:
+// 24 bytes. C declares a record here, not a handle, so a
+// pointer-width rendering would hand the framework eight bytes to write
+// 24 into.
+type DCLCommand [3]uint64
 
 // See: https://developer.apple.com/documentation/iokit/dclcommandptr
 type DCLCommandPtr = unsafe.Pointer
@@ -140,67 +228,119 @@ type DCLCommandPtr = unsafe.Pointer
 type DCLCompilerDataType = uint32
 
 // See: https://developer.apple.com/documentation/iokit/dcljump
-type DCLJump = kernel.Pointer
+// DCLJump is opaque storage with the size and alignment C gives DCLJump:
+// 24 bytes. C declares a record here, not a handle, so a
+// pointer-width rendering would hand the framework eight bytes to write
+// 24 into.
+type DCLJump [3]uint64
 
 // See: https://developer.apple.com/documentation/iokit/dcljumpptr
 type DCLJumpPtr = unsafe.Pointer
 
 // See: https://developer.apple.com/documentation/iokit/dcllabel
-type DCLLabel = kernel.Pointer
+// DCLLabel is opaque storage with the size and alignment C gives DCLLabel:
+// 16 bytes. C declares a record here, not a handle, so a
+// pointer-width rendering would hand the framework eight bytes to write
+// 16 into.
+type DCLLabel [2]uint64
 
 // See: https://developer.apple.com/documentation/iokit/dcllabelptr
 type DCLLabelPtr = unsafe.Pointer
 
 // See: https://developer.apple.com/documentation/iokit/dclnudclleader
-type DCLNuDCLLeader = kernel.Pointer
+// DCLNuDCLLeader is opaque storage with the size and alignment C gives DCLNuDCLLeader:
+// 24 bytes. C declares a record here, not a handle, so a
+// pointer-width rendering would hand the framework eight bytes to write
+// 24 into.
+type DCLNuDCLLeader [3]uint64
 
 // See: https://developer.apple.com/documentation/iokit/dclptrtimestamp
-type DCLPtrTimeStamp = kernel.Pointer
+// DCLPtrTimeStamp is opaque storage with the size and alignment C gives DCLPtrTimeStamp:
+// 24 bytes. C declares a record here, not a handle, so a
+// pointer-width rendering would hand the framework eight bytes to write
+// 24 into.
+type DCLPtrTimeStamp [3]uint64
 
 // See: https://developer.apple.com/documentation/iokit/dclptrtimestampptr
 type DCLPtrTimeStampPtr = unsafe.Pointer
 
 // See: https://developer.apple.com/documentation/iokit/dclsettagsyncbits
-type DCLSetTagSyncBits = kernel.Pointer
+// DCLSetTagSyncBits is opaque storage with the size and alignment C gives DCLSetTagSyncBits:
+// 24 bytes. C declares a record here, not a handle, so a
+// pointer-width rendering would hand the framework eight bytes to write
+// 24 into.
+type DCLSetTagSyncBits [3]uint64
 
 // See: https://developer.apple.com/documentation/iokit/dclsettagsyncbitsptr
 type DCLSetTagSyncBitsPtr = unsafe.Pointer
 
 // See: https://developer.apple.com/documentation/iokit/dcltimestamp
-type DCLTimeStamp = kernel.Pointer
+// DCLTimeStamp is opaque storage with the size and alignment C gives DCLTimeStamp:
+// 24 bytes. C declares a record here, not a handle, so a
+// pointer-width rendering would hand the framework eight bytes to write
+// 24 into.
+type DCLTimeStamp [3]uint64
 
 // See: https://developer.apple.com/documentation/iokit/dcltimestampptr
 type DCLTimeStampPtr = unsafe.Pointer
 
 // See: https://developer.apple.com/documentation/iokit/dcltransferbuffer
-type DCLTransferBuffer = kernel.Pointer
+// DCLTransferBuffer is opaque storage with the size and alignment C gives DCLTransferBuffer:
+// 40 bytes. C declares a record here, not a handle, so a
+// pointer-width rendering would hand the framework eight bytes to write
+// 40 into.
+type DCLTransferBuffer [5]uint64
 
 // See: https://developer.apple.com/documentation/iokit/dcltransferbufferptr
 type DCLTransferBufferPtr = unsafe.Pointer
 
 // See: https://developer.apple.com/documentation/iokit/dcltransferpacket
-type DCLTransferPacket = kernel.Pointer
+// DCLTransferPacket is opaque storage with the size and alignment C gives DCLTransferPacket:
+// 32 bytes. C declares a record here, not a handle, so a
+// pointer-width rendering would hand the framework eight bytes to write
+// 32 into.
+type DCLTransferPacket [4]uint64
 
 // See: https://developer.apple.com/documentation/iokit/dcltransferpacketptr
 type DCLTransferPacketPtr = unsafe.Pointer
 
 // See: https://developer.apple.com/documentation/iokit/dclupdatedcllist
-type DCLUpdateDCLList = kernel.Pointer
+// DCLUpdateDCLList is opaque storage with the size and alignment C gives DCLUpdateDCLList:
+// 32 bytes. C declares a record here, not a handle, so a
+// pointer-width rendering would hand the framework eight bytes to write
+// 32 into.
+type DCLUpdateDCLList [4]uint64
 
 // See: https://developer.apple.com/documentation/iokit/dclupdatedcllistptr
 type DCLUpdateDCLListPtr = unsafe.Pointer
 
 // See: https://developer.apple.com/documentation/iokit/ddmap
-type DDMap = kernel.Pointer
+// DDMap is opaque storage with the size and alignment C gives DDMap:
+// 8 bytes. C declares a record here, not a handle, so a
+// pointer-width rendering would hand the framework eight bytes to write
+// 8 into.
+type DDMap [8]byte
 
 // See: https://developer.apple.com/documentation/iokit/dpme
-type DPME = kernel.Pointer
+// DPME is opaque storage with the size and alignment C gives DPME:
+// 512 bytes. C declares a record here, not a handle, so a
+// pointer-width rendering would hand the framework eight bytes to write
+// 512 into.
+type DPME [512]byte
 
 // See: https://developer.apple.com/documentation/iokit/dvdauthenticationgrantidinfo
-type DVDAuthenticationGrantIDInfo = kernel.Pointer
+// DVDAuthenticationGrantIDInfo is opaque storage with the size and alignment C gives DVDAuthenticationGrantIDInfo:
+// 8 bytes. C declares a record here, not a handle, so a
+// pointer-width rendering would hand the framework eight bytes to write
+// 8 into.
+type DVDAuthenticationGrantIDInfo [8]byte
 
 // See: https://developer.apple.com/documentation/iokit/dvdauthenticationsuccessflaginfo
-type DVDAuthenticationSuccessFlagInfo = kernel.Pointer
+// DVDAuthenticationSuccessFlagInfo is opaque storage with the size and alignment C gives DVDAuthenticationSuccessFlagInfo:
+// 8 bytes. C declares a record here, not a handle, so a
+// pointer-width rendering would hand the framework eight bytes to write
+// 8 into.
+type DVDAuthenticationSuccessFlagInfo [8]byte
 
 // See: https://developer.apple.com/documentation/iokit/dvdbooktype
 type DVDBookType = uint8
@@ -209,25 +349,49 @@ type DVDBookType = uint8
 type DVDCPRMRegionCode = uint8
 
 // See: https://developer.apple.com/documentation/iokit/dvdchallengekeyinfo
-type DVDChallengeKeyInfo = kernel.Pointer
+// DVDChallengeKeyInfo is opaque storage with the size and alignment C gives DVDChallengeKeyInfo:
+// 16 bytes. C declares a record here, not a handle, so a
+// pointer-width rendering would hand the framework eight bytes to write
+// 16 into.
+type DVDChallengeKeyInfo [16]byte
 
 // See: https://developer.apple.com/documentation/iokit/dvdcopyrightinfo
-type DVDCopyrightInfo = kernel.Pointer
+// DVDCopyrightInfo is opaque storage with the size and alignment C gives DVDCopyrightInfo:
+// 8 bytes. C declares a record here, not a handle, so a
+// pointer-width rendering would hand the framework eight bytes to write
+// 8 into.
+type DVDCopyrightInfo [8]byte
 
 // See: https://developer.apple.com/documentation/iokit/dvddiscinfo
-type DVDDiscInfo = kernel.Pointer
+// DVDDiscInfo is opaque storage with the size and alignment C gives DVDDiscInfo:
+// 34 bytes. C declares a record here, not a handle, so a
+// pointer-width rendering would hand the framework eight bytes to write
+// 34 into.
+type DVDDiscInfo [34]byte
 
 // See: https://developer.apple.com/documentation/iokit/dvddisckeyinfo
-type DVDDiscKeyInfo = kernel.Pointer
+// DVDDiscKeyInfo is opaque storage with the size and alignment C gives DVDDiscKeyInfo:
+// 2052 bytes. C declares a record here, not a handle, so a
+// pointer-width rendering would hand the framework eight bytes to write
+// 2052 into.
+type DVDDiscKeyInfo [2052]byte
 
 // See: https://developer.apple.com/documentation/iokit/dvdfeatures
 type DVDFeatures = uint32
 
 // See: https://developer.apple.com/documentation/iokit/dvdkey1info
-type DVDKey1Info = kernel.Pointer
+// DVDKey1Info is opaque storage with the size and alignment C gives DVDKey1Info:
+// 12 bytes. C declares a record here, not a handle, so a
+// pointer-width rendering would hand the framework eight bytes to write
+// 12 into.
+type DVDKey1Info [12]byte
 
 // See: https://developer.apple.com/documentation/iokit/dvdkey2info
-type DVDKey2Info = kernel.Pointer
+// DVDKey2Info is opaque storage with the size and alignment C gives DVDKey2Info:
+// 12 bytes. C declares a record here, not a handle, so a
+// pointer-width rendering would hand the framework eight bytes to write
+// 12 into.
+type DVDKey2Info [12]byte
 
 // See: https://developer.apple.com/documentation/iokit/dvdkeyclass
 type DVDKeyClass = uint8
@@ -236,22 +400,38 @@ type DVDKeyClass = uint8
 type DVDKeyFormat = uint8
 
 // See: https://developer.apple.com/documentation/iokit/dvdmanufacturinginfo
-type DVDManufacturingInfo = kernel.Pointer
+// DVDManufacturingInfo is opaque storage with the size and alignment C gives DVDManufacturingInfo:
+// 2052 bytes. C declares a record here, not a handle, so a
+// pointer-width rendering would hand the framework eight bytes to write
+// 2052 into.
+type DVDManufacturingInfo [2052]byte
 
 // See: https://developer.apple.com/documentation/iokit/dvdmediatype
 type DVDMediaType = uint32
 
 // See: https://developer.apple.com/documentation/iokit/dvdphysicalformatinfo
-type DVDPhysicalFormatInfo = kernel.Pointer
+// DVDPhysicalFormatInfo is opaque storage with the size and alignment C gives DVDPhysicalFormatInfo:
+// 2052 bytes. C declares a record here, not a handle, so a
+// pointer-width rendering would hand the framework eight bytes to write
+// 2052 into.
+type DVDPhysicalFormatInfo [2052]byte
 
 // See: https://developer.apple.com/documentation/iokit/dvdrzoneinfo
-type DVDRZoneInfo = kernel.Pointer
+// DVDRZoneInfo is opaque storage with the size and alignment C gives DVDRZoneInfo:
+// 36 bytes. C declares a record here, not a handle, so a
+// pointer-width rendering would hand the framework eight bytes to write
+// 36 into.
+type DVDRZoneInfo [36]byte
 
 // See: https://developer.apple.com/documentation/iokit/dvdrzoneinfoaddresstype
 type DVDRZoneInfoAddressType = uint8
 
 // See: https://developer.apple.com/documentation/iokit/dvdregionplaybackcontrolinfo
-type DVDRegionPlaybackControlInfo = kernel.Pointer
+// DVDRegionPlaybackControlInfo is opaque storage with the size and alignment C gives DVDRegionPlaybackControlInfo:
+// 8 bytes. C declares a record here, not a handle, so a
+// pointer-width rendering would hand the framework eight bytes to write
+// 8 into.
+type DVDRegionPlaybackControlInfo [8]byte
 
 // See: https://developer.apple.com/documentation/iokit/dvdregionalplaybackcontrolscheme
 type DVDRegionalPlaybackControlScheme = uint8
@@ -260,111 +440,187 @@ type DVDRegionalPlaybackControlScheme = uint8
 type DVDStructureFormat = uint8
 
 // See: https://developer.apple.com/documentation/iokit/dvdtitlekeyinfo
-type DVDTitleKeyInfo = kernel.Pointer
+// DVDTitleKeyInfo is opaque storage with the size and alignment C gives DVDTitleKeyInfo:
+// 12 bytes. C declares a record here, not a handle, so a
+// pointer-width rendering would hand the framework eight bytes to write
+// 12 into.
+type DVDTitleKeyInfo [12]byte
 
 // See: https://developer.apple.com/documentation/iokit/depthmode
 type DepthMode = uint16
 
 // See: https://developer.apple.com/documentation/iokit/displayidtype
-type DisplayIDType = unsafe.Pointer
+type DisplayIDType = uint32
 
 // See: https://developer.apple.com/documentation/iokit/displaymodeid
-type DisplayModeID = string
+type DisplayModeID = int32
 
 // See: https://developer.apple.com/documentation/iokit/evcmd
-type EvCmd = kernel.Pointer
+type EvCmd = uint32
 
 // See: https://developer.apple.com/documentation/iokit/evglobals
-type EvGlobals = kernel.Pointer
+// EvGlobals is opaque storage with the size and alignment C gives EvGlobals:
+// 23264 bytes. C declares a record here, not a handle, so a
+// pointer-width rendering would hand the framework eight bytes to write
+// 23264 into.
+type EvGlobals [5816]uint32
 
 // See: https://developer.apple.com/documentation/iokit/evoffsets
-type EvOffsets = kernel.Pointer
+// EvOffsets is opaque storage with the size and alignment C gives EvOffsets:
+// 8 bytes. C declares a record here, not a handle, so a
+// pointer-width rendering would hand the framework eight bytes to write
+// 8 into.
+type EvOffsets [2]uint32
 
 // See: https://developer.apple.com/documentation/iokit/extendedsensecode
 type ExtendedSenseCode = uint8
 
 // See: https://developer.apple.com/documentation/iokit/fwaddress
-type FWAddress = kernel.Pointer
+// FWAddress is opaque storage with the size and alignment C gives FWAddress:
+// 8 bytes. C declares a record here, not a handle, so a
+// pointer-width rendering would hand the framework eight bytes to write
+// 8 into.
+type FWAddress [2]uint32
 
 // See: https://developer.apple.com/documentation/iokit/fwaddressptr
 type FWAddressPtr = uintptr
 
 // See: https://developer.apple.com/documentation/iokit/fwaddressspaceflags
-type FWAddressSpaceFlags = kernel.Pointer
+type FWAddressSpaceFlags = uint32
 
 // See: https://developer.apple.com/documentation/iokit/fwclientcommandid
-type FWClientCommandID = string
+type FWClientCommandID = unsafe.Pointer
 
 // See: https://developer.apple.com/documentation/iokit/fwsbp2logincompleteparams
-type FWSBP2LoginCompleteParams = kernel.Pointer
+// FWSBP2LoginCompleteParams is opaque storage with the size and alignment C gives FWSBP2LoginCompleteParams:
+// 40 bytes. C declares a record here, not a handle, so a
+// pointer-width rendering would hand the framework eight bytes to write
+// 40 into.
+type FWSBP2LoginCompleteParams [5]uint64
 
 // See: https://developer.apple.com/documentation/iokit/fwsbp2loginresponse
-type FWSBP2LoginResponse = kernel.Pointer
+// FWSBP2LoginResponse is opaque storage with the size and alignment C gives FWSBP2LoginResponse:
+// 16 bytes. C declares a record here, not a handle, so a
+// pointer-width rendering would hand the framework eight bytes to write
+// 16 into.
+type FWSBP2LoginResponse [4]uint32
 
 // See: https://developer.apple.com/documentation/iokit/fwsbp2logoutcompleteparams
-type FWSBP2LogoutCompleteParams = kernel.Pointer
+// FWSBP2LogoutCompleteParams is opaque storage with the size and alignment C gives FWSBP2LogoutCompleteParams:
+// 32 bytes. C declares a record here, not a handle, so a
+// pointer-width rendering would hand the framework eight bytes to write
+// 32 into.
+type FWSBP2LogoutCompleteParams [4]uint64
 
 // See: https://developer.apple.com/documentation/iokit/fwsbp2notifyparams
-type FWSBP2NotifyParams = kernel.Pointer
+// FWSBP2NotifyParams is opaque storage with the size and alignment C gives FWSBP2NotifyParams:
+// 32 bytes. C declares a record here, not a handle, so a
+// pointer-width rendering would hand the framework eight bytes to write
+// 32 into.
+type FWSBP2NotifyParams [4]uint64
 
 // See: https://developer.apple.com/documentation/iokit/fwsbp2reconnectparams
-type FWSBP2ReconnectParams = kernel.Pointer
+// FWSBP2ReconnectParams is opaque storage with the size and alignment C gives FWSBP2ReconnectParams:
+// 32 bytes. C declares a record here, not a handle, so a
+// pointer-width rendering would hand the framework eight bytes to write
+// 32 into.
+type FWSBP2ReconnectParams [4]uint64
 
 // See: https://developer.apple.com/documentation/iokit/fwsbp2statusblock
-type FWSBP2StatusBlock = kernel.Pointer
+// FWSBP2StatusBlock is opaque storage with the size and alignment C gives FWSBP2StatusBlock:
+// 32 bytes. C declares a record here, not a handle, so a
+// pointer-width rendering would hand the framework eight bytes to write
+// 32 into.
+type FWSBP2StatusBlock [8]uint32
 
 // See: https://developer.apple.com/documentation/iokit/fwsbp2virtualrange
-type FWSBP2VirtualRange = kernel.Pointer
+// FWSBP2VirtualRange is opaque storage with the size and alignment C gives FWSBP2VirtualRange:
+// 16 bytes. C declares a record here, not a handle, so a
+// pointer-width rendering would hand the framework eight bytes to write
+// 16 into.
+type FWSBP2VirtualRange [2]uint64
 
 // See: https://developer.apple.com/documentation/iokit/gammatableid
 type GammaTableID = uint32
 
 // See: https://developer.apple.com/documentation/iokit/gammatbl
-type GammaTbl = kernel.Pointer
+// GammaTbl is opaque storage with the size and alignment C gives GammaTbl:
+// 14 bytes. C declares a record here, not a handle, so a
+// pointer-width rendering would hand the framework eight bytes to write
+// 14 into.
+type GammaTbl [7]uint16
 
 // See: https://developer.apple.com/documentation/iokit/gammatblptr
 type GammaTblPtr = unsafe.Pointer
 
 // See: https://developer.apple.com/documentation/iokit/hidreportcommandtype
-type HIDReportCommandType = kernel.Pointer
+type HIDReportCommandType = uint32
 
 // IOATASMARTInterface is self-Monitoring, Analysis, and Reporting Technology Interface.
 //
 // See: https://developer.apple.com/documentation/iokit/ioatasmartinterface
-type IOATASMARTInterface = kernel.Pointer
+// IOATASMARTInterface is opaque storage with the size and alignment C gives IOATASMARTInterface:
+// 128 bytes. C declares a record here, not a handle, so a
+// pointer-width rendering would hand the framework eight bytes to write
+// 128 into.
+type IOATASMARTInterface [16]uint64
 
 // See: https://developer.apple.com/documentation/iokit/ioavccommandresponse
-type IOAVCCommandResponse = kernel.Pointer
+type IOAVCCommandResponse = uint32
 
 // See: https://developer.apple.com/documentation/iokit/ioavcframefields
-type IOAVCFrameFields = kernel.Pointer
+type IOAVCFrameFields = uint32
 
 // See: https://developer.apple.com/documentation/iokit/ioavcopcodes
-type IOAVCOpcodes = kernel.Pointer
+type IOAVCOpcodes = uint32
 
 // See: https://developer.apple.com/documentation/iokit/ioavcunittypes
-type IOAVCUnitTypes = kernel.Pointer
+type IOAVCUnitTypes = uint32
 
 // See: https://developer.apple.com/documentation/iokit/ioaccelbounds
-type IOAccelBounds = kernel.Pointer
+// IOAccelBounds is opaque storage with the size and alignment C gives IOAccelBounds:
+// 8 bytes. C declares a record here, not a handle, so a
+// pointer-width rendering would hand the framework eight bytes to write
+// 8 into.
+type IOAccelBounds [4]uint16
 
 // See: https://developer.apple.com/documentation/iokit/ioacceldeviceregion
-type IOAccelDeviceRegion = kernel.Pointer
+// IOAccelDeviceRegion is opaque storage with the size and alignment C gives IOAccelDeviceRegion:
+// 12 bytes. C declares a record here, not a handle, so a
+// pointer-width rendering would hand the framework eight bytes to write
+// 12 into.
+type IOAccelDeviceRegion [3]uint32
 
 // See: https://developer.apple.com/documentation/iokit/ioaccelid
 type IOAccelID = int32
 
 // See: https://developer.apple.com/documentation/iokit/ioaccelsize
-type IOAccelSize = kernel.Pointer
+// IOAccelSize is opaque storage with the size and alignment C gives IOAccelSize:
+// 4 bytes. C declares a record here, not a handle, so a
+// pointer-width rendering would hand the framework eight bytes to write
+// 4 into.
+type IOAccelSize [2]uint16
 
 // See: https://developer.apple.com/documentation/iokit/ioaccelsurfaceinformation
-type IOAccelSurfaceInformation = kernel.Pointer
+// IOAccelSurfaceInformation is opaque storage with the size and alignment C gives IOAccelSurfaceInformation:
+// 88 bytes. C declares a record here, not a handle, so a
+// pointer-width rendering would hand the framework eight bytes to write
+// 88 into.
+type IOAccelSurfaceInformation [11]uint64
 
 // See: https://developer.apple.com/documentation/iokit/ioaccelsurfacereaddata
-type IOAccelSurfaceReadData = kernel.Pointer
+// IOAccelSurfaceReadData is opaque storage with the size and alignment C gives IOAccelSurfaceReadData:
+// 32 bytes. C declares a record here, not a handle, so a
+// pointer-width rendering would hand the framework eight bytes to write
+// 32 into.
+type IOAccelSurfaceReadData [4]uint64
 
 // See: https://developer.apple.com/documentation/iokit/ioaccelsurfacescaling
-type IOAccelSurfaceScaling = kernel.Pointer
+// IOAccelSurfaceScaling is opaque storage with the size and alignment C gives IOAccelSurfaceScaling:
+// 44 bytes. C declares a record here, not a handle, so a
+// pointer-width rendering would hand the framework eight bytes to write
+// 44 into.
+type IOAccelSurfaceScaling [11]uint32
 
 // See: https://developer.apple.com/documentation/iokit/ioaddressrange
 type IOAddressRange = IOVirtualRange
@@ -378,145 +634,233 @@ type IOAppleTimingID = uint32
 // IOAsyncCallback is standard callback function for asynchronous I/O requests with lots of extra arguments beyond a refcon and result code.
 //
 // See: https://developer.apple.com/documentation/iokit/ioasynccallback
-type IOAsyncCallback = func(unsafe.Pointer, int, unsafe.Pointer, uint32)
+type IOAsyncCallback = func(refcon unsafe.Pointer, result int32, args unsafe.Pointer, numArgs uint32)
 
 // IOAsyncCallback0 is standard callback function for asynchronous I/O requests with no extra arguments beyond a refcon and result code.
 //
 // See: https://developer.apple.com/documentation/iokit/ioasynccallback0
-type IOAsyncCallback0 = func(unsafe.Pointer, int)
+type IOAsyncCallback0 = func(refcon unsafe.Pointer, result int32)
 
 // IOAsyncCallback1 is standard callback function for asynchronous I/O requests with one extra argument beyond a refcon and result code. This is often a count of the number of bytes transferred.
 //
 // See: https://developer.apple.com/documentation/iokit/ioasynccallback1
-type IOAsyncCallback1 = func(unsafe.Pointer, int, unsafe.Pointer)
+type IOAsyncCallback1 = func(refcon unsafe.Pointer, result int32, arg0 unsafe.Pointer)
 
 // IOAsyncCallback2 is standard callback function for asynchronous I/O requests with two extra arguments beyond a refcon and result code.
 //
 // See: https://developer.apple.com/documentation/iokit/ioasynccallback2
-type IOAsyncCallback2 = func(unsafe.Pointer, int, unsafe.Pointer, unsafe.Pointer)
+type IOAsyncCallback2 = func(refcon unsafe.Pointer, result int32, arg0 unsafe.Pointer, arg1 unsafe.Pointer)
 
 // See: https://developer.apple.com/documentation/iokit/ioaudiobufferdatadescriptor
-type IOAudioBufferDataDescriptor = kernel.Pointer
+// IOAudioBufferDataDescriptor is opaque storage with the size and alignment C gives IOAudioBufferDataDescriptor:
+// 20 bytes. C declares a record here, not a handle, so a
+// pointer-width rendering would hand the framework eight bytes to write
+// 20 into.
+type IOAudioBufferDataDescriptor [5]uint32
 
 // IOAudioControlCalls is the set of constants passed to IOAudioControlUserClient::getExternalMethodForIndex() when making calls from the IOAudioFamily user client code.
 //
 // See: https://developer.apple.com/documentation/iokit/ioaudiocontrolcalls
-type IOAudioControlCalls = kernel.Pointer
+type IOAudioControlCalls = uint32
 
 // IOAudioControlNotifications is the set of constants passed in the type field of IOAudioControlUserClient::registerNotificaitonPort().
 //
 // See: https://developer.apple.com/documentation/iokit/ioaudiocontrolnotifications
-type IOAudioControlNotifications = kernel.Pointer
+type IOAudioControlNotifications = uint32
 
 // IOAudioEngineCalls is the set of constants passed to IOAudioEngineUserClient::getExternalMethodForIndex() when making calls from the IOAudioFamily user client code.
 //
 // See: https://developer.apple.com/documentation/iokit/ioaudioenginecalls
-type IOAudioEngineCalls = kernel.Pointer
+type IOAudioEngineCalls = uint32
 
 // IOAudioEngineMemory is used to identify the type of memory requested by a client process to be mapped into its process space.
 //
 // See: https://developer.apple.com/documentation/iokit/ioaudioenginememory
-type IOAudioEngineMemory = kernel.Pointer
+type IOAudioEngineMemory = uint32
 
 // See: https://developer.apple.com/documentation/iokit/ioaudioenginenotifications
-type IOAudioEngineNotifications = kernel.Pointer
+type IOAudioEngineNotifications = uint32
 
 // IOAudioEngineState is represents the state of an IOAudioEngine.
 //
 // See: https://developer.apple.com/documentation/iokit/ioaudioenginestate
-type IOAudioEngineState = kernel.Pointer
+type IOAudioEngineState = uint32
 
 // IOAudioEngineStatus is shared-memory structure giving audio engine status.
 //
 // See: https://developer.apple.com/documentation/iokit/ioaudioenginestatus
-type IOAudioEngineStatus = kernel.Pointer
+// IOAudioEngineStatus is opaque storage with the size and alignment C gives IOAudioEngineStatus:
+// 20 bytes. C declares a record here, not a handle, so a
+// pointer-width rendering would hand the framework eight bytes to write
+// 20 into.
+type IOAudioEngineStatus [5]uint32
 
 // See: https://developer.apple.com/documentation/iokit/ioaudioenginetraps
-type IOAudioEngineTraps = kernel.Pointer
+type IOAudioEngineTraps = uint32
 
 // IOAudioNotificationMessage is used in the mach message for IOAudio notifications.
 //
 // See: https://developer.apple.com/documentation/iokit/ioaudionotificationmessage
-type IOAudioNotificationMessage = kernel.Pointer
+// IOAudioNotificationMessage is opaque storage with the size and alignment C gives IOAudioNotificationMessage:
+// 40 bytes. C declares a record here, not a handle, so a
+// pointer-width rendering would hand the framework eight bytes to write
+// 40 into.
+type IOAudioNotificationMessage [5]uint64
 
 // IOAudioSMPTETime is a structure for holding a SMPTE time.
 //
 // See: https://developer.apple.com/documentation/iokit/ioaudiosmptetime
-type IOAudioSMPTETime = kernel.Pointer
+// IOAudioSMPTETime is opaque storage with the size and alignment C gives IOAudioSMPTETime:
+// 24 bytes. C declares a record here, not a handle, so a
+// pointer-width rendering would hand the framework eight bytes to write
+// 24 into.
+type IOAudioSMPTETime [6]uint32
 
 // See: https://developer.apple.com/documentation/iokit/ioaudiosampleintervaldescriptor
-type IOAudioSampleIntervalDescriptor = kernel.Pointer
+// IOAudioSampleIntervalDescriptor is opaque storage with the size and alignment C gives IOAudioSampleIntervalDescriptor:
+// 8 bytes. C declares a record here, not a handle, so a
+// pointer-width rendering would hand the framework eight bytes to write
+// 8 into.
+type IOAudioSampleIntervalDescriptor [2]uint32
 
 // See: https://developer.apple.com/documentation/iokit/ioaudiosamplerate
-type IOAudioSampleRate = kernel.Pointer
+// IOAudioSampleRate is opaque storage with the size and alignment C gives IOAudioSampleRate:
+// 8 bytes. C declares a record here, not a handle, so a
+// pointer-width rendering would hand the framework eight bytes to write
+// 8 into.
+type IOAudioSampleRate [2]uint32
 
 // See: https://developer.apple.com/documentation/iokit/ioaudiostreamdatadescriptor
-type IOAudioStreamDataDescriptor = kernel.Pointer
+// IOAudioStreamDataDescriptor is opaque storage with the size and alignment C gives IOAudioStreamDataDescriptor:
+// 12 bytes. C declares a record here, not a handle, so a
+// pointer-width rendering would hand the framework eight bytes to write
+// 12 into.
+type IOAudioStreamDataDescriptor [3]uint32
 
 // IOAudioStreamDirection is represents the direction of an IOAudioStream.
 //
 // See: https://developer.apple.com/documentation/iokit/ioaudiostreamdirection
-type IOAudioStreamDirection = kernel.Pointer
+type IOAudioStreamDirection = uint32
 
 // See: https://developer.apple.com/documentation/iokit/ioaudiostreamformat
-type IOAudioStreamFormat = kernel.Pointer
+// IOAudioStreamFormat is opaque storage with the size and alignment C gives IOAudioStreamFormat:
+// 24 bytes. C declares a record here, not a handle, so a
+// pointer-width rendering would hand the framework eight bytes to write
+// 24 into.
+type IOAudioStreamFormat [6]uint32
 
 // See: https://developer.apple.com/documentation/iokit/ioaudiostreamformatextension
-type IOAudioStreamFormatExtension = kernel.Pointer
+// IOAudioStreamFormatExtension is opaque storage with the size and alignment C gives IOAudioStreamFormatExtension:
+// 16 bytes. C declares a record here, not a handle, so a
+// pointer-width rendering would hand the framework eight bytes to write
+// 16 into.
+type IOAudioStreamFormatExtension [4]uint32
 
 // See: https://developer.apple.com/documentation/iokit/ioaudiotimestamp
-type IOAudioTimeStamp = kernel.Pointer
+// IOAudioTimeStamp is opaque storage with the size and alignment C gives IOAudioTimeStamp:
+// 64 bytes. C declares a record here, not a handle, so a
+// pointer-width rendering would hand the framework eight bytes to write
+// 64 into.
+type IOAudioTimeStamp [8]uint64
 
 // See: https://developer.apple.com/documentation/iokit/ioblitcompletiontoken
 type IOBlitCompletionToken = int32
 
 // See: https://developer.apple.com/documentation/iokit/ioblitcopyrectangle
-type IOBlitCopyRectangle = kernel.Pointer
+// IOBlitCopyRectangle is opaque storage with the size and alignment C gives IOBlitCopyRectangle:
+// 24 bytes. C declares a record here, not a handle, so a
+// pointer-width rendering would hand the framework eight bytes to write
+// 24 into.
+type IOBlitCopyRectangle [6]uint32
 
 // See: https://developer.apple.com/documentation/iokit/ioblitcopyrectangles
-type IOBlitCopyRectangles = kernel.Pointer
+// IOBlitCopyRectangles is opaque storage with the size and alignment C gives IOBlitCopyRectangles:
+// 116 bytes. C declares a record here, not a handle, so a
+// pointer-width rendering would hand the framework eight bytes to write
+// 116 into.
+type IOBlitCopyRectangles [29]uint32
 
 // See: https://developer.apple.com/documentation/iokit/ioblitcopyregion
-type IOBlitCopyRegion = kernel.Pointer
+// IOBlitCopyRegion is opaque storage with the size and alignment C gives IOBlitCopyRegion:
+// 104 bytes. C declares a record here, not a handle, so a
+// pointer-width rendering would hand the framework eight bytes to write
+// 104 into.
+type IOBlitCopyRegion [13]uint64
 
 // See: https://developer.apple.com/documentation/iokit/ioblitcursor
-type IOBlitCursor = kernel.Pointer
+// IOBlitCursor is opaque storage with the size and alignment C gives IOBlitCursor:
+// 104 bytes. C declares a record here, not a handle, so a
+// pointer-width rendering would hand the framework eight bytes to write
+// 104 into.
+type IOBlitCursor [26]uint32
 
 // See: https://developer.apple.com/documentation/iokit/ioblitmemory
-type IOBlitMemory = unsafe.Pointer
+// IOBlitMemory is opaque storage with the size and alignment C gives IOBlitMemory:
+// 120 bytes. C declares a record here, not a handle, so a
+// pointer-width rendering would hand the framework eight bytes to write
+// 120 into.
+type IOBlitMemory [15]uint64
 
 // See: https://developer.apple.com/documentation/iokit/ioblitmemoryref
 type IOBlitMemoryRef uintptr
 
 // See: https://developer.apple.com/documentation/iokit/ioblitoperation
-type IOBlitOperation = kernel.Pointer
+// IOBlitOperation is opaque storage with the size and alignment C gives IOBlitOperation:
+// 88 bytes. C declares a record here, not a handle, so a
+// pointer-width rendering would hand the framework eight bytes to write
+// 88 into.
+type IOBlitOperation [22]uint32
 
 // See: https://developer.apple.com/documentation/iokit/ioblitrectangle
-type IOBlitRectangle = kernel.Pointer
+// IOBlitRectangle is opaque storage with the size and alignment C gives IOBlitRectangle:
+// 16 bytes. C declares a record here, not a handle, so a
+// pointer-width rendering would hand the framework eight bytes to write
+// 16 into.
+type IOBlitRectangle [4]uint32
 
 // See: https://developer.apple.com/documentation/iokit/ioblitrectangles
-type IOBlitRectangles = kernel.Pointer
+// IOBlitRectangles is opaque storage with the size and alignment C gives IOBlitRectangles:
+// 108 bytes. C declares a record here, not a handle, so a
+// pointer-width rendering would hand the framework eight bytes to write
+// 108 into.
+type IOBlitRectangles [27]uint32
 
 // See: https://developer.apple.com/documentation/iokit/ioblitscanlines
-type IOBlitScanlines = kernel.Pointer
+// IOBlitScanlines is opaque storage with the size and alignment C gives IOBlitScanlines:
+// 108 bytes. C declares a record here, not a handle, so a
+// pointer-width rendering would hand the framework eight bytes to write
+// 108 into.
+type IOBlitScanlines [27]uint32
 
 // See: https://developer.apple.com/documentation/iokit/ioblitsourcedesttype
-type IOBlitSourceDestType = unsafe.Pointer
+type IOBlitSourceDestType = uint32
 
 // See: https://developer.apple.com/documentation/iokit/ioblitsourcetype
 type IOBlitSourceType = uint32
 
 // See: https://developer.apple.com/documentation/iokit/ioblitsurface
-type IOBlitSurface = kernel.Pointer
+// IOBlitSurface is opaque storage with the size and alignment C gives IOBlitSurface:
+// 120 bytes. C declares a record here, not a handle, so a
+// pointer-width rendering would hand the framework eight bytes to write
+// 120 into.
+type IOBlitSurface [15]uint64
 
 // See: https://developer.apple.com/documentation/iokit/ioblittype
 type IOBlitType = uint32
 
 // See: https://developer.apple.com/documentation/iokit/ioblitvertex
-type IOBlitVertex = kernel.Pointer
+// IOBlitVertex is opaque storage with the size and alignment C gives IOBlitVertex:
+// 8 bytes. C declares a record here, not a handle, so a
+// pointer-width rendering would hand the framework eight bytes to write
+// 8 into.
+type IOBlitVertex [2]uint32
 
 // See: https://developer.apple.com/documentation/iokit/ioblitvertices
-type IOBlitVertices = kernel.Pointer
+// IOBlitVertices is opaque storage with the size and alignment C gives IOBlitVertices:
+// 108 bytes. C declares a record here, not a handle, so a
+// pointer-width rendering would hand the framework eight bytes to write
+// 108 into.
+type IOBlitVertices [27]uint32
 
 // See: https://developer.apple.com/documentation/iokit/iobytecount
 type IOByteCount = uint
@@ -528,10 +872,14 @@ type IOByteCount32 = uint32
 type IOByteCount64 = uint64
 
 // See: https://developer.apple.com/documentation/iokit/iocfplugininterfacestruct
-type IOCFPlugInInterface = kernel.Pointer
+// IOCFPlugInInterface is opaque storage with the size and alignment C gives IOCFPlugInInterface:
+// 64 bytes. C declares a record here, not a handle, so a
+// pointer-width rendering would hand the framework eight bytes to write
+// 64 into.
+type IOCFPlugInInterface [8]uint64
 
 // See: https://developer.apple.com/documentation/iokit/iocsrkeytype
-type IOCSRKeyType = kernel.Pointer
+type IOCSRKeyType = uint32
 
 // See: https://developer.apple.com/documentation/iokit/iocachemode
 type IOCacheMode = uint32
@@ -540,166 +888,297 @@ type IOCacheMode = uint32
 type IOColorComponent = uint16
 
 // See: https://developer.apple.com/documentation/iokit/iocolorentry
-type IOColorEntry = kernel.Pointer
+// IOColorEntry is opaque storage with the size and alignment C gives IOColorEntry:
+// 8 bytes. C declares a record here, not a handle, so a
+// pointer-width rendering would hand the framework eight bytes to write
+// 8 into.
+type IOColorEntry [4]uint16
 
 // See: https://developer.apple.com/documentation/iokit/ioconfigkeytype
-type IOConfigKeyType = kernel.Pointer
+type IOConfigKeyType = uint32
 
 // IODataQueueAppendix is a struct mapping to the appendix region of a data queue.
 //
 // See: https://developer.apple.com/documentation/iokit/iodataqueueappendix
-type IODataQueueAppendix = unsafe.Pointer
+// IODataQueueAppendix is opaque storage with the size and alignment C gives IODataQueueAppendix:
+// 28 bytes. C declares a record here, not a handle, so a
+// pointer-width rendering would hand the framework eight bytes to write
+// 28 into.
+type IODataQueueAppendix [7]uint32
 
 // IODataQueueEntry is represents an entry within the data queue.
 //
 // See: https://developer.apple.com/documentation/iokit/iodataqueueentry
-type IODataQueueEntry = unsafe.Pointer
+// IODataQueueEntry is opaque storage with the size and alignment C gives IODataQueueEntry:
+// 8 bytes. C declares a record here, not a handle, so a
+// pointer-width rendering would hand the framework eight bytes to write
+// 8 into.
+type IODataQueueEntry [2]uint32
 
 // IODataQueueMemory is a struct mapping to the header region of a data queue.
 //
 // See: https://developer.apple.com/documentation/iokit/iodataqueuememory
-type IODataQueueMemory = unsafe.Pointer
+// IODataQueueMemory is opaque storage with the size and alignment C gives IODataQueueMemory:
+// 20 bytes. C declares a record here, not a handle, so a
+// pointer-width rendering would hand the framework eight bytes to write
+// 20 into.
+type IODataQueueMemory [5]uint32
 
 // See: https://developer.apple.com/documentation/iokit/iodetailedtiminginformation
 type IODetailedTimingInformation = IODetailedTimingInformationV2
 
 // See: https://developer.apple.com/documentation/iokit/iodetailedtiminginformationv1
-type IODetailedTimingInformationV1 = kernel.Pointer
+// IODetailedTimingInformationV1 is opaque storage with the size and alignment C gives IODetailedTimingInformationV1:
+// 44 bytes. C declares a record here, not a handle, so a
+// pointer-width rendering would hand the framework eight bytes to write
+// 44 into.
+type IODetailedTimingInformationV1 [11]uint32
 
 // See: https://developer.apple.com/documentation/iokit/iodetailedtiminginformationv2
-type IODetailedTimingInformationV2 = kernel.Pointer
+// IODetailedTimingInformationV2 is opaque storage with the size and alignment C gives IODetailedTimingInformationV2:
+// 160 bytes. C declares a record here, not a handle, so a
+// pointer-width rendering would hand the framework eight bytes to write
+// 160 into.
+type IODetailedTimingInformationV2 [20]uint64
 
 // See: https://developer.apple.com/documentation/iokit/iodevicenumber
 type IODeviceNumber = uint32
 
+// See: https://developer.apple.com/documentation/iokit/iodisplaymodeid
+type IODisplayModeID = int32
+
 // See: https://developer.apple.com/documentation/iokit/iodisplaymodeinformation
-type IODisplayModeInformation = kernel.Pointer
+// IODisplayModeInformation is opaque storage with the size and alignment C gives IODisplayModeInformation:
+// 36 bytes. C declares a record here, not a handle, so a
+// pointer-width rendering would hand the framework eight bytes to write
+// 36 into.
+type IODisplayModeInformation [9]uint32
 
 // See: https://developer.apple.com/documentation/iokit/iodisplayproductid
 type IODisplayProductID = uint32
 
 // See: https://developer.apple.com/documentation/iokit/iodisplayscalerinformation
-type IODisplayScalerInformation = kernel.Pointer
+// IODisplayScalerInformation is opaque storage with the size and alignment C gives IODisplayScalerInformation:
+// 48 bytes. C declares a record here, not a handle, so a
+// pointer-width rendering would hand the framework eight bytes to write
+// 48 into.
+type IODisplayScalerInformation [12]uint32
 
 // See: https://developer.apple.com/documentation/iokit/iodisplaytimingrange
 type IODisplayTimingRange = IODisplayTimingRangeV2
 
 // See: https://developer.apple.com/documentation/iokit/iodisplaytimingrangev1
-type IODisplayTimingRangeV1 = kernel.Pointer
+// IODisplayTimingRangeV1 is opaque storage with the size and alignment C gives IODisplayTimingRangeV1:
+// 240 bytes. C declares a record here, not a handle, so a
+// pointer-width rendering would hand the framework eight bytes to write
+// 240 into.
+type IODisplayTimingRangeV1 [30]uint64
 
 // See: https://developer.apple.com/documentation/iokit/iodisplaytimingrangev2
-type IODisplayTimingRangeV2 = kernel.Pointer
+// IODisplayTimingRangeV2 is opaque storage with the size and alignment C gives IODisplayTimingRangeV2:
+// 312 bytes. C declares a record here, not a handle, so a
+// pointer-width rendering would hand the framework eight bytes to write
+// 312 into.
+type IODisplayTimingRangeV2 [39]uint64
 
 // See: https://developer.apple.com/documentation/iokit/iodisplayvendorid
 type IODisplayVendorID = uint32
 
 // See: https://developer.apple.com/documentation/iokit/iodot3collentry
-type IODot3CollEntry = kernel.Pointer
+// IODot3CollEntry is opaque storage with the size and alignment C gives IODot3CollEntry:
+// 1 bytes. C declares a record here, not a handle, so a
+// pointer-width rendering would hand the framework eight bytes to write
+// 1 into.
+type IODot3CollEntry [1]byte
 
 // See: https://developer.apple.com/documentation/iokit/iodot3rxextraentry
-type IODot3RxExtraEntry = kernel.Pointer
+// IODot3RxExtraEntry is opaque storage with the size and alignment C gives IODot3RxExtraEntry:
+// 1 bytes. C declares a record here, not a handle, so a
+// pointer-width rendering would hand the framework eight bytes to write
+// 1 into.
+type IODot3RxExtraEntry [1]byte
 
 // See: https://developer.apple.com/documentation/iokit/iodot3statsentry
-type IODot3StatsEntry = kernel.Pointer
+// IODot3StatsEntry is opaque storage with the size and alignment C gives IODot3StatsEntry:
+// 1 bytes. C declares a record here, not a handle, so a
+// pointer-width rendering would hand the framework eight bytes to write
+// 1 into.
+type IODot3StatsEntry [1]byte
 
 // See: https://developer.apple.com/documentation/iokit/iodot3txextraentry
-type IODot3TxExtraEntry = kernel.Pointer
+// IODot3TxExtraEntry is opaque storage with the size and alignment C gives IODot3TxExtraEntry:
+// 1 bytes. C declares a record here, not a handle, so a
+// pointer-width rendering would hand the framework eight bytes to write
+// 1 into.
+type IODot3TxExtraEntry [1]byte
 
 // See: https://developer.apple.com/documentation/iokit/ioethernetstats
-type IOEthernetStats = kernel.Pointer
+// IOEthernetStats is opaque storage with the size and alignment C gives IOEthernetStats:
+// 1 bytes. C declares a record here, not a handle, so a
+// pointer-width rendering would hand the framework eight bytes to write
+// 1 into.
+type IOEthernetStats [1]byte
 
 // See: https://developer.apple.com/documentation/iokit/iofbdplinkconfig
-type IOFBDPLinkConfig = kernel.Pointer
+// IOFBDPLinkConfig is opaque storage with the size and alignment C gives IOFBDPLinkConfig:
+// 28 bytes. C declares a record here, not a handle, so a
+// pointer-width rendering would hand the framework eight bytes to write
+// 28 into.
+type IOFBDPLinkConfig [14]uint16
 
 // See: https://developer.apple.com/documentation/iokit/iofbdisplaymodedescription
-type IOFBDisplayModeDescription = kernel.Pointer
+// IOFBDisplayModeDescription is opaque storage with the size and alignment C gives IOFBDisplayModeDescription:
+// 204 bytes. C declares a record here, not a handle, so a
+// pointer-width rendering would hand the framework eight bytes to write
+// 204 into.
+type IOFBDisplayModeDescription [51]uint32
 
 // See: https://developer.apple.com/documentation/iokit/iofbhdrmetadatav1
-type IOFBHDRMetaDataV1 = kernel.Pointer
+// IOFBHDRMetaDataV1 is opaque storage with the size and alignment C gives IOFBHDRMetaDataV1:
+// 64 bytes. C declares a record here, not a handle, so a
+// pointer-width rendering would hand the framework eight bytes to write
+// 64 into.
+type IOFBHDRMetaDataV1 [8]uint64
 
 // See: https://developer.apple.com/documentation/iokit/iofwavcasynccommandstate
-type IOFWAVCAsyncCommandState = kernel.Pointer
+type IOFWAVCAsyncCommandState = uint32
 
 // See: https://developer.apple.com/documentation/iokit/iofwavcplugtypes
-type IOFWAVCPlugTypes = kernel.Pointer
+type IOFWAVCPlugTypes = uint32
 
 // See: https://developer.apple.com/documentation/iokit/iofwavcsubunitplugmessages
-type IOFWAVCSubunitPlugMessages = kernel.Pointer
+type IOFWAVCSubunitPlugMessages = uint32
 
 // IOFWAsyncStreamListenerInterface is represents and provides management functions for a asyn stream listener object.
 //
 // See: https://developer.apple.com/documentation/iokit/iofwasyncstreamlistenerinterface
-type IOFWAsyncStreamListenerInterface = kernel.Pointer
+// IOFWAsyncStreamListenerInterface is opaque storage with the size and alignment C gives IOFWAsyncStreamListenerInterface:
+// 120 bytes. C declares a record here, not a handle, so a
+// pointer-width rendering would hand the framework eight bytes to write
+// 120 into.
+type IOFWAsyncStreamListenerInterface [15]uint64
 
 // See: https://developer.apple.com/documentation/iokit/iofwasyncstreamlistenerinterfaceref
 type IOFWAsyncStreamListenerInterfaceRef uintptr
 
 // See: https://developer.apple.com/documentation/iokit/iofwdclnotificationtype
-type IOFWDCLNotificationType = kernel.Pointer
+type IOFWDCLNotificationType = uint32
 
 // See: https://developer.apple.com/documentation/iokit/iofwisochportoptions
-type IOFWIsochPortOptions = kernel.Pointer
+type IOFWIsochPortOptions = uint32
 
 // See: https://developer.apple.com/documentation/iokit/iofwisochresourceflags
-type IOFWIsochResourceFlags = kernel.Pointer
+type IOFWIsochResourceFlags = uint32
 
 // See: https://developer.apple.com/documentation/iokit/iofwspeed
-type IOFWSpeed = kernel.Pointer
+type IOFWSpeed = uint32
 
 // See: https://developer.apple.com/documentation/iokit/iofirewireavclibasynchronouscommand
-type IOFireWireAVCLibAsynchronousCommand = kernel.Pointer
+// IOFireWireAVCLibAsynchronousCommand is opaque storage with the size and alignment C gives IOFireWireAVCLibAsynchronousCommand:
+// 64 bytes. C declares a record here, not a handle, so a
+// pointer-width rendering would hand the framework eight bytes to write
+// 64 into.
+type IOFireWireAVCLibAsynchronousCommand [8]uint64
 
 // IOFireWireAVCLibConsumerInterface is interface for an asynchronous connection consumer.
 //
 // See: https://developer.apple.com/documentation/iokit/iofirewireavclibconsumerinterface
-type IOFireWireAVCLibConsumerInterface = kernel.Pointer
+// IOFireWireAVCLibConsumerInterface is opaque storage with the size and alignment C gives IOFireWireAVCLibConsumerInterface:
+// 152 bytes. C declares a record here, not a handle, so a
+// pointer-width rendering would hand the framework eight bytes to write
+// 152 into.
+type IOFireWireAVCLibConsumerInterface [19]uint64
 
 // IOFireWireAVCLibProtocolInterface is initial interface discovered for all AVC protocol drivers.
 //
 // See: https://developer.apple.com/documentation/iokit/iofirewireavclibprotocolinterface
-type IOFireWireAVCLibProtocolInterface = kernel.Pointer
+// IOFireWireAVCLibProtocolInterface is opaque storage with the size and alignment C gives IOFireWireAVCLibProtocolInterface:
+// 240 bytes. C declares a record here, not a handle, so a
+// pointer-width rendering would hand the framework eight bytes to write
+// 240 into.
+type IOFireWireAVCLibProtocolInterface [30]uint64
 
 // IOFireWireAVCLibUnitInterface is initial interface discovered for all AVC Unit drivers.
 //
 // See: https://developer.apple.com/documentation/iokit/iofirewireavclibunitinterface
-type IOFireWireAVCLibUnitInterface = kernel.Pointer
+// IOFireWireAVCLibUnitInterface is opaque storage with the size and alignment C gives IOFireWireAVCLibUnitInterface:
+// 232 bytes. C declares a record here, not a handle, so a
+// pointer-width rendering would hand the framework eight bytes to write
+// 232 into.
+type IOFireWireAVCLibUnitInterface [29]uint64
 
 // See: https://developer.apple.com/documentation/iokit/iofirewireasyncstreamcommandinterface
-type IOFireWireAsyncStreamCommandInterface = kernel.Pointer
+// IOFireWireAsyncStreamCommandInterface is opaque storage with the size and alignment C gives IOFireWireAsyncStreamCommandInterface:
+// 232 bytes. C declares a record here, not a handle, so a
+// pointer-width rendering would hand the framework eight bytes to write
+// 232 into.
+type IOFireWireAsyncStreamCommandInterface [29]uint64
 
 // IOFireWireCommandInterface is iOFireWireLib command object.
 //
 // See: https://developer.apple.com/documentation/iokit/iofirewirecommandinterface
-type IOFireWireCommandInterface = kernel.Pointer
+// IOFireWireCommandInterface is opaque storage with the size and alignment C gives IOFireWireCommandInterface:
+// 208 bytes. C declares a record here, not a handle, so a
+// pointer-width rendering would hand the framework eight bytes to write
+// 208 into.
+type IOFireWireCommandInterface [26]uint64
 
 // See: https://developer.apple.com/documentation/iokit/iofirewirecompareswapcommandinterface
-type IOFireWireCompareSwapCommandInterface = kernel.Pointer
+// IOFireWireCompareSwapCommandInterface is opaque storage with the size and alignment C gives IOFireWireCompareSwapCommandInterface:
+// 176 bytes. C declares a record here, not a handle, so a
+// pointer-width rendering would hand the framework eight bytes to write
+// 176 into.
+type IOFireWireCompareSwapCommandInterface [22]uint64
 
 // See: https://developer.apple.com/documentation/iokit/iofirewirecompareswapcommandinterface_v3
-type IOFireWireCompareSwapCommandInterface_v3 = kernel.Pointer
+// IOFireWireCompareSwapCommandInterface_v3 is opaque storage with the size and alignment C gives IOFireWireCompareSwapCommandInterface_v3:
+// 248 bytes. C declares a record here, not a handle, so a
+// pointer-width rendering would hand the framework eight bytes to write
+// 248 into.
+type IOFireWireCompareSwapCommandInterface_v3 [31]uint64
 
 // IOFireWireConfigDirectoryInterface is iOFireWireLib device config ROM browsing interface.
 //
 // See: https://developer.apple.com/documentation/iokit/iofirewireconfigdirectoryinterface
-type IOFireWireConfigDirectoryInterface = kernel.Pointer
+// IOFireWireConfigDirectoryInterface is opaque storage with the size and alignment C gives IOFireWireConfigDirectoryInterface:
+// 192 bytes. C declares a record here, not a handle, so a
+// pointer-width rendering would hand the framework eight bytes to write
+// 192 into.
+type IOFireWireConfigDirectoryInterface [24]uint64
 
 // See: https://developer.apple.com/documentation/iokit/iofirewiredclcommandpoolinterface
-type IOFireWireDCLCommandPoolInterface = kernel.Pointer
+// IOFireWireDCLCommandPoolInterface is opaque storage with the size and alignment C gives IOFireWireDCLCommandPoolInterface:
+// 208 bytes. C declares a record here, not a handle, so a
+// pointer-width rendering would hand the framework eight bytes to write
+// 208 into.
+type IOFireWireDCLCommandPoolInterface [26]uint64
 
 // IOFireWireDeviceInterface is iOFireWireDeviceInterface is your primary gateway to the functionality contained in IOFireWireLib.
 //
 // See: https://developer.apple.com/documentation/iokit/iofirewiredeviceinterface
-type IOFireWireDeviceInterface = kernel.Pointer
+// IOFireWireDeviceInterface is opaque storage with the size and alignment C gives IOFireWireDeviceInterface:
+// 632 bytes. C declares a record here, not a handle, so a
+// pointer-width rendering would hand the framework eight bytes to write
+// 632 into.
+type IOFireWireDeviceInterface [79]uint64
 
 // IOFireWireIsochChannelInterface is fireWire user client isochronous channel object.
 //
 // See: https://developer.apple.com/documentation/iokit/iofirewireisochchannelinterface
-type IOFireWireIsochChannelInterface = kernel.Pointer
+// IOFireWireIsochChannelInterface is opaque storage with the size and alignment C gives IOFireWireIsochChannelInterface:
+// 144 bytes. C declares a record here, not a handle, so a
+// pointer-width rendering would hand the framework eight bytes to write
+// 144 into.
+type IOFireWireIsochChannelInterface [18]uint64
 
 // IOFireWireIsochPortInterface is fireWire user client isochronous port interface.
 //
 // See: https://developer.apple.com/documentation/iokit/iofirewireisochportinterface
-type IOFireWireIsochPortInterface = kernel.Pointer
+// IOFireWireIsochPortInterface is opaque storage with the size and alignment C gives IOFireWireIsochPortInterface:
+// 96 bytes. C declares a record here, not a handle, so a
+// pointer-width rendering would hand the framework eight bytes to write
+// 96 into.
+type IOFireWireIsochPortInterface [12]uint64
 
 // See: https://developer.apple.com/documentation/iokit/iofirewirelibasyncstreamcommandref
 type IOFireWireLibAsyncStreamCommandRef uintptr
@@ -723,7 +1202,11 @@ type IOFireWireLibDCLCommandPoolRef uintptr
 type IOFireWireLibDeviceRef uintptr
 
 // See: https://developer.apple.com/documentation/iokit/iofirewirelibirmallocationinterface
-type IOFireWireLibIRMAllocationInterface = kernel.Pointer
+// IOFireWireLibIRMAllocationInterface is opaque storage with the size and alignment C gives IOFireWireLibIRMAllocationInterface:
+// 112 bytes. C declares a record here, not a handle, so a
+// pointer-width rendering would hand the framework eight bytes to write
+// 112 into.
+type IOFireWireLibIRMAllocationInterface [14]uint64
 
 // See: https://developer.apple.com/documentation/iokit/iofirewirelibirmallocationref
 type IOFireWireLibIRMAllocationRef uintptr
@@ -752,7 +1235,11 @@ type IOFireWireLibPHYCommandRef uintptr
 // IOFireWireLibPHYPacketListenerInterface is represents and provides management functions for a phy packet listener object.
 //
 // See: https://developer.apple.com/documentation/iokit/iofirewirelibphypacketlistenerinterface
-type IOFireWireLibPHYPacketListenerInterface = kernel.Pointer
+// IOFireWireLibPHYPacketListenerInterface is opaque storage with the size and alignment C gives IOFireWireLibPHYPacketListenerInterface:
+// 120 bytes. C declares a record here, not a handle, so a
+// pointer-width rendering would hand the framework eight bytes to write
+// 120 into.
+type IOFireWireLibPHYPacketListenerInterface [15]uint64
 
 // See: https://developer.apple.com/documentation/iokit/iofirewirelibphypacketlistenerref
 type IOFireWireLibPHYPacketListenerRef uintptr
@@ -778,7 +1265,11 @@ type IOFireWireLibUnitRef uintptr
 // IOFireWireLibVectorCommandInterface is iOFireWireLib command object for grouping commands execution.
 //
 // See: https://developer.apple.com/documentation/iokit/iofirewirelibvectorcommandinterface
-type IOFireWireLibVectorCommandInterface = kernel.Pointer
+// IOFireWireLibVectorCommandInterface is opaque storage with the size and alignment C gives IOFireWireLibVectorCommandInterface:
+// 176 bytes. C declares a record here, not a handle, so a
+// pointer-width rendering would hand the framework eight bytes to write
+// 176 into.
+type IOFireWireLibVectorCommandInterface [22]uint64
 
 // See: https://developer.apple.com/documentation/iokit/iofirewirelibvectorcommandref
 type IOFireWireLibVectorCommandRef uintptr
@@ -792,78 +1283,146 @@ type IOFireWireLibWriteQuadletCommandRef uintptr
 // IOFireWireLocalIsochPortInterface is fireWire user client local isochronous port object.
 //
 // See: https://developer.apple.com/documentation/iokit/iofirewirelocalisochportinterface
-type IOFireWireLocalIsochPortInterface = kernel.Pointer
+// IOFireWireLocalIsochPortInterface is opaque storage with the size and alignment C gives IOFireWireLocalIsochPortInterface:
+// 160 bytes. C declares a record here, not a handle, so a
+// pointer-width rendering would hand the framework eight bytes to write
+// 160 into.
+type IOFireWireLocalIsochPortInterface [20]uint64
 
 // See: https://developer.apple.com/documentation/iokit/iofirewirelocalunitdirectoryinterface
-type IOFireWireLocalUnitDirectoryInterface = kernel.Pointer
+// IOFireWireLocalUnitDirectoryInterface is opaque storage with the size and alignment C gives IOFireWireLocalUnitDirectoryInterface:
+// 80 bytes. C declares a record here, not a handle, so a
+// pointer-width rendering would hand the framework eight bytes to write
+// 80 into.
+type IOFireWireLocalUnitDirectoryInterface [10]uint64
 
 // IOFireWireNuDCLPoolInterface is use this interface to build NuDCL-based DCL programs.
 //
 // See: https://developer.apple.com/documentation/iokit/iofirewirenudclpoolinterface
-type IOFireWireNuDCLPoolInterface = kernel.Pointer
+// IOFireWireNuDCLPoolInterface is opaque storage with the size and alignment C gives IOFireWireNuDCLPoolInterface:
+// 424 bytes. C declares a record here, not a handle, so a
+// pointer-width rendering would hand the framework eight bytes to write
+// 424 into.
+type IOFireWireNuDCLPoolInterface [53]uint64
 
 // See: https://developer.apple.com/documentation/iokit/iofirewirenubinterface
-type IOFireWireNubInterface = kernel.Pointer
+// IOFireWireNubInterface is opaque storage with the size and alignment C gives IOFireWireNubInterface:
+// 632 bytes. C declares a record here, not a handle, so a
+// pointer-width rendering would hand the framework eight bytes to write
+// 632 into.
+type IOFireWireNubInterface [79]uint64
 
 // See: https://developer.apple.com/documentation/iokit/iofirewirephycommandinterface
-type IOFireWirePHYCommandInterface = kernel.Pointer
+// IOFireWirePHYCommandInterface is opaque storage with the size and alignment C gives IOFireWirePHYCommandInterface:
+// 216 bytes. C declares a record here, not a handle, so a
+// pointer-width rendering would hand the framework eight bytes to write
+// 216 into.
+type IOFireWirePHYCommandInterface [27]uint64
 
 // IOFireWirePhysicalAddressSpaceInterface is iOFireWireLib physical address space object. ( interface name: IOFireWirePhysicalAddressSpaceInterface ).
 //
 // See: https://developer.apple.com/documentation/iokit/iofirewirephysicaladdressspaceinterface
-type IOFireWirePhysicalAddressSpaceInterface = kernel.Pointer
+// IOFireWirePhysicalAddressSpaceInterface is opaque storage with the size and alignment C gives IOFireWirePhysicalAddressSpaceInterface:
+// 88 bytes. C declares a record here, not a handle, so a
+// pointer-width rendering would hand the framework eight bytes to write
+// 88 into.
+type IOFireWirePhysicalAddressSpaceInterface [11]uint64
 
 // See: https://developer.apple.com/documentation/iokit/iofirewirepseudoaddressspaceinterface
-type IOFireWirePseudoAddressSpaceInterface = kernel.Pointer
+// IOFireWirePseudoAddressSpaceInterface is opaque storage with the size and alignment C gives IOFireWirePseudoAddressSpaceInterface:
+// 128 bytes. C declares a record here, not a handle, so a
+// pointer-width rendering would hand the framework eight bytes to write
+// 128 into.
+type IOFireWirePseudoAddressSpaceInterface [16]uint64
 
 // IOFireWireReadCommandInterface is iOFireWireLib block read command object.
 //
 // See: https://developer.apple.com/documentation/iokit/iofirewirereadcommandinterface
-type IOFireWireReadCommandInterface = kernel.Pointer
+// IOFireWireReadCommandInterface is opaque storage with the size and alignment C gives IOFireWireReadCommandInterface:
+// 208 bytes. C declares a record here, not a handle, so a
+// pointer-width rendering would hand the framework eight bytes to write
+// 208 into.
+type IOFireWireReadCommandInterface [26]uint64
 
 // IOFireWireReadQuadletCommandInterface is iOFireWireReadQuadletCommandInterface -- IOFireWireLib quadlet read command object.
 //
 // See: https://developer.apple.com/documentation/iokit/iofirewirereadquadletcommandinterface
-type IOFireWireReadQuadletCommandInterface = kernel.Pointer
+// IOFireWireReadQuadletCommandInterface is opaque storage with the size and alignment C gives IOFireWireReadQuadletCommandInterface:
+// 136 bytes. C declares a record here, not a handle, so a
+// pointer-width rendering would hand the framework eight bytes to write
+// 136 into.
+type IOFireWireReadQuadletCommandInterface [17]uint64
 
 // See: https://developer.apple.com/documentation/iokit/iofirewireremoteisochportinterface
-type IOFireWireRemoteIsochPortInterface = kernel.Pointer
+// IOFireWireRemoteIsochPortInterface is opaque storage with the size and alignment C gives IOFireWireRemoteIsochPortInterface:
+// 136 bytes. C declares a record here, not a handle, so a
+// pointer-width rendering would hand the framework eight bytes to write
+// 136 into.
+type IOFireWireRemoteIsochPortInterface [17]uint64
 
 // IOFireWireSBP2LibLUNInterface is initial interface disovered for all drivers.
 //
 // See: https://developer.apple.com/documentation/iokit/iofirewiresbp2libluninterface
-type IOFireWireSBP2LibLUNInterface = kernel.Pointer
+// IOFireWireSBP2LibLUNInterface is opaque storage with the size and alignment C gives IOFireWireSBP2LibLUNInterface:
+// 128 bytes. C declares a record here, not a handle, so a
+// pointer-width rendering would hand the framework eight bytes to write
+// 128 into.
+type IOFireWireSBP2LibLUNInterface [16]uint64
 
 // IOFireWireSBP2LibLoginInterface is supplies the login maintenance and Normal Command ORB execution portions of the API.
 //
 // See: https://developer.apple.com/documentation/iokit/iofirewiresbp2liblogininterface
-type IOFireWireSBP2LibLoginInterface = kernel.Pointer
+// IOFireWireSBP2LibLoginInterface is opaque storage with the size and alignment C gives IOFireWireSBP2LibLoginInterface:
+// 216 bytes. C declares a record here, not a handle, so a
+// pointer-width rendering would hand the framework eight bytes to write
+// 216 into.
+type IOFireWireSBP2LibLoginInterface [27]uint64
 
 // IOFireWireSBP2LibMgmtORBInterface is supplies non login related management ORBs. Management ORBs can be executed independent of a login, if necessary. Management ORBs are created using the IOFireWireSBP2LibLUNInterface.
 //
 // See: https://developer.apple.com/documentation/iokit/iofirewiresbp2libmgmtorbinterface
-type IOFireWireSBP2LibMgmtORBInterface = kernel.Pointer
+// IOFireWireSBP2LibMgmtORBInterface is opaque storage with the size and alignment C gives IOFireWireSBP2LibMgmtORBInterface:
+// 104 bytes. C declares a record here, not a handle, so a
+// pointer-width rendering would hand the framework eight bytes to write
+// 104 into.
+type IOFireWireSBP2LibMgmtORBInterface [13]uint64
 
 // IOFireWireSBP2LibORBInterface is represents an SBP2 normal command ORB. Supplies the APIs for configuring normal command ORBs. This includes setting the command block and writing the page tables for I/O. The ORBs are executed using the submitORB method in IOFireWireSBP2LibLoginInterface.
 //
 // See: https://developer.apple.com/documentation/iokit/iofirewiresbp2liborbinterface
-type IOFireWireSBP2LibORBInterface = kernel.Pointer
+// IOFireWireSBP2LibORBInterface is opaque storage with the size and alignment C gives IOFireWireSBP2LibORBInterface:
+// 136 bytes. C declares a record here, not a handle, so a
+// pointer-width rendering would hand the framework eight bytes to write
+// 136 into.
+type IOFireWireSBP2LibORBInterface [17]uint64
 
 // See: https://developer.apple.com/documentation/iokit/iofirewiresessionref
 type IOFireWireSessionRef uintptr
 
 // See: https://developer.apple.com/documentation/iokit/iofirewireunitinterface
-type IOFireWireUnitInterface = kernel.Pointer
+// IOFireWireUnitInterface is opaque storage with the size and alignment C gives IOFireWireUnitInterface:
+// 632 bytes. C declares a record here, not a handle, so a
+// pointer-width rendering would hand the framework eight bytes to write
+// 632 into.
+type IOFireWireUnitInterface [79]uint64
 
 // IOFireWireWriteCommandInterface is iOFireWireLib block read command object.
 //
 // See: https://developer.apple.com/documentation/iokit/iofirewirewritecommandinterface
-type IOFireWireWriteCommandInterface = kernel.Pointer
+// IOFireWireWriteCommandInterface is opaque storage with the size and alignment C gives IOFireWireWriteCommandInterface:
+// 208 bytes. C declares a record here, not a handle, so a
+// pointer-width rendering would hand the framework eight bytes to write
+// 208 into.
+type IOFireWireWriteCommandInterface [26]uint64
 
 // IOFireWireWriteQuadletCommandInterface is iOFireWireLib quadlet read command object.
 //
 // See: https://developer.apple.com/documentation/iokit/iofirewirewritequadletcommandinterface
-type IOFireWireWriteQuadletCommandInterface = kernel.Pointer
+// IOFireWireWriteQuadletCommandInterface is opaque storage with the size and alignment C gives IOFireWireWriteQuadletCommandInterface:
+// 136 bytes. C declares a record here, not a handle, so a
+// pointer-width rendering would hand the framework eight bytes to write
+// 136 into.
+type IOFireWireWriteQuadletCommandInterface [17]uint64
 
 // See: https://developer.apple.com/documentation/iokit/iofixed
 type IOFixed = int32
@@ -872,84 +1431,140 @@ type IOFixed = int32
 type IOFixed1616 = uint32
 
 // See: https://developer.apple.com/documentation/iokit/iofixedpoint32
-type IOFixedPoint32 = kernel.Pointer
+// IOFixedPoint32 is opaque storage with the size and alignment C gives IOFixedPoint32:
+// 8 bytes. C declares a record here, not a handle, so a
+// pointer-width rendering would hand the framework eight bytes to write
+// 8 into.
+type IOFixedPoint32 [2]uint32
 
 // See: https://developer.apple.com/documentation/iokit/iofourcharcode
 type IOFourCharCode = uint32
 
 // See: https://developer.apple.com/documentation/iokit/ioframebufferinformation
-type IOFramebufferInformation = kernel.Pointer
+// IOFramebufferInformation is opaque storage with the size and alignment C gives IOFramebufferInformation:
+// 64 bytes. C declares a record here, not a handle, so a
+// pointer-width rendering would hand the framework eight bytes to write
+// 64 into.
+type IOFramebufferInformation [8]uint64
 
 // See: https://developer.apple.com/documentation/iokit/iogbounds
-type IOGBounds = kernel.Pointer
+// IOGBounds is opaque storage with the size and alignment C gives IOGBounds:
+// 8 bytes. C declares a record here, not a handle, so a
+// pointer-width rendering would hand the framework eight bytes to write
+// 8 into.
+type IOGBounds [4]uint16
 
 // See: https://developer.apple.com/documentation/iokit/iogpoint
-type IOGPoint = kernel.Pointer
+// IOGPoint is opaque storage with the size and alignment C gives IOGPoint:
+// 4 bytes. C declares a record here, not a handle, so a
+// pointer-width rendering would hand the framework eight bytes to write
+// 4 into.
+type IOGPoint [2]uint16
 
 // See: https://developer.apple.com/documentation/iokit/iogsize
-type IOGSize = kernel.Pointer
+// IOGSize is opaque storage with the size and alignment C gives IOGSize:
+// 4 bytes. C declares a record here, not a handle, so a
+// pointer-width rendering would hand the framework eight bytes to write
+// 4 into.
+type IOGSize [2]uint16
 
 // See: https://developer.apple.com/documentation/iokit/iographicsacceleratorinterface
-type IOGraphicsAcceleratorInterface = kernel.Pointer
+// IOGraphicsAcceleratorInterface is opaque storage with the size and alignment C gives IOGraphicsAcceleratorInterface:
+// 376 bytes. C declares a record here, not a handle, so a
+// pointer-width rendering would hand the framework eight bytes to write
+// 376 into.
+type IOGraphicsAcceleratorInterface [47]uint64
 
 // See: https://developer.apple.com/documentation/iokit/iohidaccelerationalgorithmtype
 type IOHIDAccelerationAlgorithmType = uint8
 
 // See: https://developer.apple.com/documentation/iokit/iohidaccesstype
-type IOHIDAccessType = kernel.Pointer
+type IOHIDAccessType = uint32
 
 // See: https://developer.apple.com/documentation/iokit/iohidbuttonmodes
-type IOHIDButtonModes = kernel.Pointer
+type IOHIDButtonModes = uint32
 
 // See: https://developer.apple.com/documentation/iokit/iohidcompletion
-type IOHIDCompletion = kernel.Pointer
+// IOHIDCompletion is opaque storage with the size and alignment C gives IOHIDCompletion:
+// 24 bytes. C declares a record here, not a handle, so a
+// pointer-width rendering would hand the framework eight bytes to write
+// 24 into.
+type IOHIDCompletion [3]uint64
 
 // IOHIDDeviceDeviceInterface is the object you use to access HID devices from user space, returned by version 1.5 of the IOHIDFamily.
 //
 // See: https://developer.apple.com/documentation/iokit/iohiddevicedeviceinterface
-type IOHIDDeviceDeviceInterface = kernel.Pointer
+// IOHIDDeviceDeviceInterface is opaque storage with the size and alignment C gives IOHIDDeviceDeviceInterface:
+// 120 bytes. C declares a record here, not a handle, so a
+// pointer-width rendering would hand the framework eight bytes to write
+// 120 into.
+type IOHIDDeviceDeviceInterface [15]uint64
 
 // See: https://developer.apple.com/documentation/iokit/iohiddevicegetvalueoptions
-type IOHIDDeviceGetValueOptions = kernel.Pointer
+type IOHIDDeviceGetValueOptions = uint32
 
 // IOHIDDeviceInterface is cFPlugin object subclass which provides the primary interface to HID devices.
 //
 // See: https://developer.apple.com/documentation/iokit/iohiddeviceinterface
-type IOHIDDeviceInterface = kernel.Pointer
+// IOHIDDeviceInterface is opaque storage with the size and alignment C gives IOHIDDeviceInterface:
+// 160 bytes. C declares a record here, not a handle, so a
+// pointer-width rendering would hand the framework eight bytes to write
+// 160 into.
+type IOHIDDeviceInterface [20]uint64
 
 // IOHIDDeviceInterface121 is cFPlugin object subclass which provides the primary interface to HID devices. This class is a subclass of IOHIDDeviceInterface.
 //
 // See: https://developer.apple.com/documentation/iokit/iohiddeviceinterface121
-type IOHIDDeviceInterface121 = kernel.Pointer
+// IOHIDDeviceInterface121 is opaque storage with the size and alignment C gives IOHIDDeviceInterface121:
+// 160 bytes. C declares a record here, not a handle, so a
+// pointer-width rendering would hand the framework eight bytes to write
+// 160 into.
+type IOHIDDeviceInterface121 [20]uint64
 
 // IOHIDDeviceInterface122 is cFPlugin object subclass which provides the primary interface to HID devices. This class is a subclass of IOHIDDeviceInterface121.
 //
 // See: https://developer.apple.com/documentation/iokit/iohiddeviceinterface122
-type IOHIDDeviceInterface122 = kernel.Pointer
+// IOHIDDeviceInterface122 is opaque storage with the size and alignment C gives IOHIDDeviceInterface122:
+// 176 bytes. C declares a record here, not a handle, so a
+// pointer-width rendering would hand the framework eight bytes to write
+// 176 into.
+type IOHIDDeviceInterface122 [22]uint64
 
 // IOHIDDeviceQueueInterface is the object you use to access a HID queue from user space, returned by version 1.5 of the IOHIDFamily.
 //
 // See: https://developer.apple.com/documentation/iokit/iohiddevicequeueinterface
-type IOHIDDeviceQueueInterface = kernel.Pointer
+// IOHIDDeviceQueueInterface is opaque storage with the size and alignment C gives IOHIDDeviceQueueInterface:
+// 112 bytes. C declares a record here, not a handle, so a
+// pointer-width rendering would hand the framework eight bytes to write
+// 112 into.
+type IOHIDDeviceQueueInterface [14]uint64
 
 // See: https://developer.apple.com/documentation/iokit/iohiddeviceref
-type IOHIDDeviceRef = kernel.Pointer
+type IOHIDDeviceRef uintptr
 
 // See: https://developer.apple.com/documentation/iokit/iohiddevicetimestampeddeviceinterface
-type IOHIDDeviceTimeStampedDeviceInterface = kernel.Pointer
+// IOHIDDeviceTimeStampedDeviceInterface is opaque storage with the size and alignment C gives IOHIDDeviceTimeStampedDeviceInterface:
+// 128 bytes. C declares a record here, not a handle, so a
+// pointer-width rendering would hand the framework eight bytes to write
+// 128 into.
+type IOHIDDeviceTimeStampedDeviceInterface [16]uint64
 
 // IOHIDDeviceTransactionInterface is the object you use to access a HID transaction from user space, returned by version 1.5 of the IOHIDFamily.
 //
 // See: https://developer.apple.com/documentation/iokit/iohiddevicetransactioninterface
-type IOHIDDeviceTransactionInterface = kernel.Pointer
+// IOHIDDeviceTransactionInterface is opaque storage with the size and alignment C gives IOHIDDeviceTransactionInterface:
+// 112 bytes. C declares a record here, not a handle, so a
+// pointer-width rendering would hand the framework eight bytes to write
+// 112 into.
+type IOHIDDeviceTransactionInterface [14]uint64
 
 // IOHIDElementCollectionType is describes different types of HID collections.
 //
 // See: https://developer.apple.com/documentation/iokit/iohidelementcollectiontype
-type IOHIDElementCollectionType = kernel.Pointer
+type IOHIDElementCollectionType = uint32
 
 // See: https://developer.apple.com/documentation/iokit/iohidelementcommitdirection
-type IOHIDElementCommitDirection = kernel.Pointer
+type IOHIDElementCommitDirection = uint32
 
 // IOHIDElementCookie is abstract data type used as a unique identifier for an element.
 //
@@ -960,21 +1575,25 @@ type IOHIDElementCookie = uint32
 type IOHIDElementFlags = uint32
 
 // See: https://developer.apple.com/documentation/iokit/iohidelementref
-type IOHIDElementRef = kernel.Pointer
+type IOHIDElementRef uintptr
 
 // IOHIDElementType is describes different types of HID elements.
 //
 // See: https://developer.apple.com/documentation/iokit/iohidelementtype
-type IOHIDElementType = kernel.Pointer
+type IOHIDElementType = uint32
 
 // See: https://developer.apple.com/documentation/iokit/iohideventstruct
-type IOHIDEventStruct = kernel.Pointer
+// IOHIDEventStruct is opaque storage with the size and alignment C gives IOHIDEventStruct:
+// 32 bytes. C declares a record here, not a handle, so a
+// pointer-width rendering would hand the framework eight bytes to write
+// 32 into.
+type IOHIDEventStruct [4]uint64
 
 // See: https://developer.apple.com/documentation/iokit/iohideventsystemclientref
-type IOHIDEventSystemClientRef = kernel.Pointer
+type IOHIDEventSystemClientRef uintptr
 
 // See: https://developer.apple.com/documentation/iokit/iohidkeyboardeventoptions
-type IOHIDKeyboardEventOptions = kernel.Pointer
+type IOHIDKeyboardEventOptions = uint32
 
 // See: https://developer.apple.com/documentation/iokit/iohidkeyboardphysicallayouttype
 type IOHIDKeyboardPhysicalLayoutType = uint32
@@ -987,7 +1606,7 @@ type IOHIDManagerOptions = uint32
 // IOHIDManagerRef is this is the type of a reference to the IOHIDManager.
 //
 // See: https://developer.apple.com/documentation/iokit/iohidmanagerref
-type IOHIDManagerRef = kernel.Pointer
+type IOHIDManagerRef uintptr
 
 // IOHIDOptionsType is options for opening a device via IOHIDLib.
 //
@@ -997,15 +1616,23 @@ type IOHIDOptionsType = uint32
 // IOHIDOutputTransactionInterface is cFPlugin object subclass which privides interface for output transactions to HID devices. Created by a IOHIDDeviceInterface object.
 //
 // See: https://developer.apple.com/documentation/iokit/iohidoutputtransactioninterface
-type IOHIDOutputTransactionInterface = kernel.Pointer
+// IOHIDOutputTransactionInterface is opaque storage with the size and alignment C gives IOHIDOutputTransactionInterface:
+// 152 bytes. C declares a record here, not a handle, so a
+// pointer-width rendering would hand the framework eight bytes to write
+// 152 into.
+type IOHIDOutputTransactionInterface [19]uint64
 
 // See: https://developer.apple.com/documentation/iokit/iohidpointereventoptions
-type IOHIDPointerEventOptions = kernel.Pointer
+type IOHIDPointerEventOptions = uint32
 
 // IOHIDQueueInterface is cFPlugin object subclass which provides an interface for input queues from HID devices. Created by an IOHIDDeviceInterface object.
 //
 // See: https://developer.apple.com/documentation/iokit/iohidqueueinterface
-type IOHIDQueueInterface = kernel.Pointer
+// IOHIDQueueInterface is opaque storage with the size and alignment C gives IOHIDQueueInterface:
+// 144 bytes. C declares a record here, not a handle, so a
+// pointer-width rendering would hand the framework eight bytes to write
+// 144 into.
+type IOHIDQueueInterface [18]uint64
 
 // IOHIDQueueOptionsType is options for creating a queue via IOHIDLib.
 //
@@ -1013,21 +1640,21 @@ type IOHIDQueueInterface = kernel.Pointer
 type IOHIDQueueOptionsType = uint32
 
 // See: https://developer.apple.com/documentation/iokit/iohidqueueref
-type IOHIDQueueRef = kernel.Pointer
+type IOHIDQueueRef uintptr
 
 // IOHIDReportType is describes different type of HID reports.
 //
 // See: https://developer.apple.com/documentation/iokit/iohidreporttype
-type IOHIDReportType = kernel.Pointer
+type IOHIDReportType = uint32
 
 // See: https://developer.apple.com/documentation/iokit/iohidrequesttype
-type IOHIDRequestType = kernel.Pointer
+type IOHIDRequestType = uint32
 
 // See: https://developer.apple.com/documentation/iokit/iohidscrolleventoptions
-type IOHIDScrollEventOptions = kernel.Pointer
+type IOHIDScrollEventOptions = uint32
 
 // See: https://developer.apple.com/documentation/iokit/iohidserviceclientref
-type IOHIDServiceClientRef = kernel.Pointer
+type IOHIDServiceClientRef uintptr
 
 // IOHIDStandardType is type to define what industrial standard the device is referencing.
 //
@@ -1037,25 +1664,25 @@ type IOHIDStandardType = uint32
 // IOHIDTransactionDirectionType is direction for an IOHIDDeviceTransactionInterface.
 //
 // See: https://developer.apple.com/documentation/iokit/iohidtransactiondirectiontype
-type IOHIDTransactionDirectionType = kernel.Pointer
+type IOHIDTransactionDirectionType = uint32
 
 // See: https://developer.apple.com/documentation/iokit/iohidtransactionoptions
 type IOHIDTransactionOptions = uint32
 
 // See: https://developer.apple.com/documentation/iokit/iohidtransactionref
-type IOHIDTransactionRef = kernel.Pointer
+type IOHIDTransactionRef uintptr
 
 // See: https://developer.apple.com/documentation/iokit/iohiduserdevicegetreportblock
-type IOHIDUserDeviceGetReportBlock = func(IOHIDReportType, uint32, *uint8, *corefoundation.CFIndex) int
+type IOHIDUserDeviceGetReportBlock = func(type_ IOHIDReportType, reportID uint32, report *uint8, reportLength *corefoundation.CFIndex) int32
 
 // See: https://developer.apple.com/documentation/iokit/iohiduserdeviceoptions
-type IOHIDUserDeviceOptions = kernel.Pointer
+type IOHIDUserDeviceOptions = uint
 
 // See: https://developer.apple.com/documentation/iokit/iohiduserdeviceref
-type IOHIDUserDeviceRef = kernel.Pointer
+type IOHIDUserDeviceRef uintptr
 
 // See: https://developer.apple.com/documentation/iokit/iohiduserdevicesetreportblock
-type IOHIDUserDeviceSetReportBlock = func(IOHIDReportType, uint32, *uint8, corefoundation.CFIndex) int
+type IOHIDUserDeviceSetReportBlock = func(type_ IOHIDReportType, reportID uint32, report *uint8, reportLength corefoundation.CFIndex) int32
 
 // IOHIDValueOptions is describes options for gathering element values.
 //
@@ -1063,7 +1690,7 @@ type IOHIDUserDeviceSetReportBlock = func(IOHIDReportType, uint32, *uint8, coref
 type IOHIDValueOptions = uint32
 
 // See: https://developer.apple.com/documentation/iokit/iohidvalueref
-type IOHIDValueRef = kernel.Pointer
+type IOHIDValueRef uintptr
 
 // IOHIDValueScaleType is describes different types of scaling that can be performed on element values.
 //
@@ -1071,22 +1698,39 @@ type IOHIDValueRef = kernel.Pointer
 type IOHIDValueScaleType = uint32
 
 // See: https://developer.apple.com/documentation/iokit/iohardwarecursordescriptor
-type IOHardwareCursorDescriptor = kernel.Pointer
+// IOHardwareCursorDescriptor is opaque storage with the size and alignment C gives IOHardwareCursorDescriptor:
+// 104 bytes. C declares a record here, not a handle, so a
+// pointer-width rendering would hand the framework eight bytes to write
+// 104 into.
+type IOHardwareCursorDescriptor [13]uint64
 
 // See: https://developer.apple.com/documentation/iokit/iohardwarecursorinfo
-type IOHardwareCursorInfo = kernel.Pointer
+// IOHardwareCursorInfo is opaque storage with the size and alignment C gives IOHardwareCursorInfo:
+// 56 bytes. C declares a record here, not a handle, so a
+// pointer-width rendering would hand the framework eight bytes to write
+// 56 into.
+type IOHardwareCursorInfo [7]uint64
 
 // See: https://developer.apple.com/documentation/iokit/ioi2cbuffer
-type IOI2CBuffer = unsafe.Pointer
+// IOI2CBuffer is an unresolved C aggregate typedef.
+type IOI2CBuffer unsafe.Pointer
 
 // See: https://developer.apple.com/documentation/iokit/ioi2cbustiming
-type IOI2CBusTiming = kernel.Pointer
+// IOI2CBusTiming is opaque storage with the size and alignment C gives IOI2CBusTiming:
+// 80 bytes. C declares a record here, not a handle, so a
+// pointer-width rendering would hand the framework eight bytes to write
+// 80 into.
+type IOI2CBusTiming [20]uint32
 
 // See: https://developer.apple.com/documentation/iokit/ioi2cconnectref
 type IOI2CConnectRef uintptr
 
 // See: https://developer.apple.com/documentation/iokit/ioi2crequest
-type IOI2CRequest = kernel.Pointer
+// IOI2CRequest is opaque storage with the size and alignment C gives IOI2CRequest:
+// 124 bytes. C declares a record here, not a handle, so a
+// pointer-width rendering would hand the framework eight bytes to write
+// 124 into.
+type IOI2CRequest [31]uint32
 
 // See: https://developer.apple.com/documentation/iokit/ioindex
 type IOIndex = int32
@@ -1095,7 +1739,7 @@ type IOIndex = int32
 type IOItemCount = uint32
 
 // See: https://developer.apple.com/documentation/iokit/iologicaladdress
-type IOLogicalAddress = unsafe.Pointer
+type IOLogicalAddress = kernel.IOVirtualAddress
 
 // See: https://developer.apple.com/documentation/iokit/iomediaattributemask
 type IOMediaAttributeMask = uint32
@@ -1113,19 +1757,31 @@ type IOMessage = uint32
 type IONDHandle = uint32
 
 // See: https://developer.apple.com/documentation/iokit/ionvmesmartinterface
-type IONVMeSMARTInterface = kernel.Pointer
+// IONVMeSMARTInterface is opaque storage with the size and alignment C gives IONVMeSMARTInterface:
+// 256 bytes. C declares a record here, not a handle, so a
+// pointer-width rendering would hand the framework eight bytes to write
+// 256 into.
+type IONVMeSMARTInterface [32]uint64
 
 // See: https://developer.apple.com/documentation/iokit/ionetworkstats
-type IONetworkStats = kernel.Pointer
+// IONetworkStats is opaque storage with the size and alignment C gives IONetworkStats:
+// 20 bytes. C declares a record here, not a handle, so a
+// pointer-width rendering would hand the framework eight bytes to write
+// 20 into.
+type IONetworkStats [5]uint32
 
 // See: https://developer.apple.com/documentation/iokit/ionotificationportref
-type IONotificationPortRef = kernel.Pointer
+type IONotificationPortRef uintptr
 
 // See: https://developer.apple.com/documentation/iokit/iooptionbits
 type IOOptionBits = uint32
 
 // See: https://developer.apple.com/documentation/iokit/iooutputqueuestats
-type IOOutputQueueStats = kernel.Pointer
+// IOOutputQueueStats is opaque storage with the size and alignment C gives IOOutputQueueStats:
+// 44 bytes. C declares a record here, not a handle, so a
+// pointer-width rendering would hand the framework eight bytes to write
+// 44 into.
+type IOOutputQueueStats [11]uint32
 
 // IOPMAssertionID is type for AssertionID arguments to [IOPMAssertionCreateWithProperties] and [IOPMAssertionRelease].
 //
@@ -1138,7 +1794,11 @@ type IOPMAssertionID = uint32
 type IOPMAssertionLevel = uint32
 
 // See: https://developer.apple.com/documentation/iokit/iopmcalendarstruct
-type IOPMCalendarStruct = kernel.Pointer
+// IOPMCalendarStruct is opaque storage with the size and alignment C gives IOPMCalendarStruct:
+// 12 bytes. C declares a record here, not a handle, so a
+// pointer-width rendering would hand the framework eight bytes to write
+// 12 into.
+type IOPMCalendarStruct [3]uint32
 
 // IOPMPowerFlags is bits are used in defining capabilityFlags, inputPowerRequirements, and outputPowerCharacter in the IOPMPowerState structure.
 //
@@ -1146,15 +1806,15 @@ type IOPMCalendarStruct = kernel.Pointer
 type IOPMPowerFlags = uint
 
 // See: https://developer.apple.com/documentation/iokit/iopmuseractivetype
-type IOPMUserActiveType = kernel.Pointer
+type IOPMUserActiveType = uint32
 
 // IOPSLowBatteryWarningLevel is the battery can provide no more than 10 minutes of runtime.
 //
 // See: https://developer.apple.com/documentation/iokit/iopslowbatterywarninglevel
-type IOPSLowBatteryWarningLevel = kernel.Pointer
+type IOPSLowBatteryWarningLevel = uint32
 
 // See: https://developer.apple.com/documentation/iokit/iophysicaladdress
-type IOPhysicalAddress = unsafe.Pointer
+type IOPhysicalAddress = uint64
 
 // See: https://developer.apple.com/documentation/iokit/iophysicaladdress32
 type IOPhysicalAddress32 = uint32
@@ -1163,7 +1823,7 @@ type IOPhysicalAddress32 = uint32
 type IOPhysicalAddress64 = uint64
 
 // See: https://developer.apple.com/documentation/iokit/iophysicallength
-type IOPhysicalLength = unsafe.Pointer
+type IOPhysicalLength = uint64
 
 // See: https://developer.apple.com/documentation/iokit/iophysicallength32
 type IOPhysicalLength32 = uint32
@@ -1172,19 +1832,27 @@ type IOPhysicalLength32 = uint32
 type IOPhysicalLength64 = uint64
 
 // See: https://developer.apple.com/documentation/iokit/iopixelaperture
-type IOPixelAperture = unsafe.Pointer
+type IOPixelAperture = int32
 
 // See: https://developer.apple.com/documentation/iokit/iopixelencoding
 type IOPixelEncoding = int8
 
 // See: https://developer.apple.com/documentation/iokit/iopixelinformation
-type IOPixelInformation = kernel.Pointer
+// IOPixelInformation is opaque storage with the size and alignment C gives IOPixelInformation:
+// 172 bytes. C declares a record here, not a handle, so a
+// pointer-width rendering would hand the framework eight bytes to write
+// 172 into.
+type IOPixelInformation [43]uint32
 
 // See: https://developer.apple.com/documentation/iokit/iopowerstatechangenotification
-type IOPowerStateChangeNotification = kernel.Pointer
+// IOPowerStateChangeNotification is opaque storage with the size and alignment C gives IOPowerStateChangeNotification:
+// 32 bytes. C declares a record here, not a handle, so a
+// pointer-width rendering would hand the framework eight bytes to write
+// 32 into.
+type IOPowerStateChangeNotification [4]uint64
 
 // See: https://developer.apple.com/documentation/iokit/ioreturn
-type IOReturn = int
+type IOReturn = int32
 
 // See: https://developer.apple.com/documentation/iokit/ioselect
 type IOSelect = uint32
@@ -1192,12 +1860,12 @@ type IOSelect = uint32
 // IOServiceInterestCallback is callback function to be notified of changes in state of an IOService.
 //
 // See: https://developer.apple.com/documentation/iokit/ioserviceinterestcallback
-type IOServiceInterestCallback = func(unsafe.Pointer, uintptr, uint32, unsafe.Pointer)
+type IOServiceInterestCallback = func(refcon unsafe.Pointer, service uint32, messageType uint32, messageArgument unsafe.Pointer)
 
 // IOServiceMatchingCallback is callback function to be notified of IOService publication.
 //
 // See: https://developer.apple.com/documentation/iokit/ioservicematchingcallback
-type IOServiceMatchingCallback = func(unsafe.Pointer, uintptr)
+type IOServiceMatchingCallback = func(refcon unsafe.Pointer, iterator uint32)
 
 // See: https://developer.apple.com/documentation/iokit/iostorageunmapoptions
 type IOStorageUnmapOptions = uint32
@@ -1206,10 +1874,14 @@ type IOStorageUnmapOptions = uint32
 type IOStreamBufferID = uint32
 
 // See: https://developer.apple.com/documentation/iokit/iostreaminterface
-type IOStreamInterface = kernel.Pointer
+// IOStreamInterface is opaque storage with the size and alignment C gives IOStreamInterface:
+// 248 bytes. C declares a record here, not a handle, so a
+// pointer-width rendering would hand the framework eight bytes to write
+// 248 into.
+type IOStreamInterface [31]uint64
 
 // See: https://developer.apple.com/documentation/iokit/iostreammode
-type IOStreamMode = kernel.Pointer
+type IOStreamMode = uint32
 
 // See: https://developer.apple.com/documentation/iokit/iostreamref
 type IOStreamRef uintptr
@@ -1217,90 +1889,170 @@ type IOStreamRef uintptr
 // IOSystemLoadAdvisoryLevel is return type for IOGetSystemLoadAdvisory.
 //
 // See: https://developer.apple.com/documentation/iokit/iosystemloadadvisorylevel
-type IOSystemLoadAdvisoryLevel = int
+type IOSystemLoadAdvisoryLevel = int32
 
 // See: https://developer.apple.com/documentation/iokit/iotiminginformation
-type IOTimingInformation = kernel.Pointer
+// IOTimingInformation is opaque storage with the size and alignment C gives IOTimingInformation:
+// 168 bytes. C declares a record here, not a handle, so a
+// pointer-width rendering would hand the framework eight bytes to write
+// 168 into.
+type IOTimingInformation [21]uint64
 
 // IOUPSPlugInInterface is represents and provides management functions for a UPS device.
 //
 // See: https://developer.apple.com/documentation/iokit/ioupsplugininterface
-type IOUPSPlugInInterface = kernel.Pointer
+// IOUPSPlugInInterface is opaque storage with the size and alignment C gives IOUPSPlugInInterface:
+// 72 bytes. C declares a record here, not a handle, so a
+// pointer-width rendering would hand the framework eight bytes to write
+// 72 into.
+type IOUPSPlugInInterface [9]uint64
 
 // See: https://developer.apple.com/documentation/iokit/ioupsplugininterface_v140
-type IOUPSPlugInInterface_v140 = kernel.Pointer
+// IOUPSPlugInInterface_v140 is opaque storage with the size and alignment C gives IOUPSPlugInInterface_v140:
+// 80 bytes. C declares a record here, not a handle, so a
+// pointer-width rendering would hand the framework eight bytes to write
+// 80 into.
+type IOUPSPlugInInterface_v140 [10]uint64
 
 // See: https://developer.apple.com/documentation/iokit/iousb20hubdescriptor
-type IOUSB20HubDescriptor = kernel.Pointer
+// IOUSB20HubDescriptor is opaque storage with the size and alignment C gives IOUSB20HubDescriptor:
+// 11 bytes. C declares a record here, not a handle, so a
+// pointer-width rendering would hand the framework eight bytes to write
+// 11 into.
+type IOUSB20HubDescriptor [11]byte
 
 // See: https://developer.apple.com/documentation/iokit/iousbbosdescriptor
-type IOUSBBOSDescriptor = kernel.Pointer
+// IOUSBBOSDescriptor is opaque storage with the size and alignment C gives IOUSBBOSDescriptor:
+// 5 bytes. C declares a record here, not a handle, so a
+// pointer-width rendering would hand the framework eight bytes to write
+// 5 into.
+type IOUSBBOSDescriptor [5]byte
 
 // See: https://developer.apple.com/documentation/iokit/iousbbosdescriptorptr
 type IOUSBBOSDescriptorPtr = unsafe.Pointer
 
 // See: https://developer.apple.com/documentation/iokit/iousbbulkpipereq
-type IOUSBBulkPipeReq = kernel.Pointer
+// IOUSBBulkPipeReq is opaque storage with the size and alignment C gives IOUSBBulkPipeReq:
+// 32 bytes. C declares a record here, not a handle, so a
+// pointer-width rendering would hand the framework eight bytes to write
+// 32 into.
+type IOUSBBulkPipeReq [4]uint64
 
 // See: https://developer.apple.com/documentation/iokit/iousbcompletion
-type IOUSBCompletion = kernel.Pointer
+// IOUSBCompletion is opaque storage with the size and alignment C gives IOUSBCompletion:
+// 24 bytes. C declares a record here, not a handle, so a
+// pointer-width rendering would hand the framework eight bytes to write
+// 24 into.
+type IOUSBCompletion [3]uint64
 
 // See: https://developer.apple.com/documentation/iokit/iousbcompletionwithtimestamp
-type IOUSBCompletionWithTimeStamp = kernel.Pointer
+// IOUSBCompletionWithTimeStamp is opaque storage with the size and alignment C gives IOUSBCompletionWithTimeStamp:
+// 24 bytes. C declares a record here, not a handle, so a
+// pointer-width rendering would hand the framework eight bytes to write
+// 24 into.
+type IOUSBCompletionWithTimeStamp [3]uint64
 
 // See: https://developer.apple.com/documentation/iokit/iousbconfigurationdescheader
-type IOUSBConfigurationDescHeader = kernel.Pointer
+// IOUSBConfigurationDescHeader is opaque storage with the size and alignment C gives IOUSBConfigurationDescHeader:
+// 4 bytes. C declares a record here, not a handle, so a
+// pointer-width rendering would hand the framework eight bytes to write
+// 4 into.
+type IOUSBConfigurationDescHeader [4]byte
 
 // See: https://developer.apple.com/documentation/iokit/iousbconfigurationdescheaderptr
 type IOUSBConfigurationDescHeaderPtr = unsafe.Pointer
 
 // See: https://developer.apple.com/documentation/iokit/iousbconfigurationdescriptor
-type IOUSBConfigurationDescriptor = kernel.Pointer
+// IOUSBConfigurationDescriptor is opaque storage with the size and alignment C gives IOUSBConfigurationDescriptor:
+// 9 bytes. C declares a record here, not a handle, so a
+// pointer-width rendering would hand the framework eight bytes to write
+// 9 into.
+type IOUSBConfigurationDescriptor [9]byte
 
 // See: https://developer.apple.com/documentation/iokit/iousbconfigurationdescriptorptr
 type IOUSBConfigurationDescriptorPtr = unsafe.Pointer
 
 // See: https://developer.apple.com/documentation/iokit/iousbdfudescriptor
-type IOUSBDFUDescriptor = kernel.Pointer
+// IOUSBDFUDescriptor is opaque storage with the size and alignment C gives IOUSBDFUDescriptor:
+// 7 bytes. C declares a record here, not a handle, so a
+// pointer-width rendering would hand the framework eight bytes to write
+// 7 into.
+type IOUSBDFUDescriptor [7]byte
 
 // See: https://developer.apple.com/documentation/iokit/iousbdfudescriptorptr
 type IOUSBDFUDescriptorPtr = unsafe.Pointer
 
 // See: https://developer.apple.com/documentation/iokit/iousbdescriptor
-type IOUSBDescriptor = unsafe.Pointer
+// IOUSBDescriptor is opaque storage with the size and alignment C gives IOUSBDescriptor:
+// 2 bytes. C declares a record here, not a handle, so a
+// pointer-width rendering would hand the framework eight bytes to write
+// 2 into.
+type IOUSBDescriptor [2]byte
 
 // See: https://developer.apple.com/documentation/iokit/iousbdescriptorheader
-type IOUSBDescriptorHeader = kernel.Pointer
+// IOUSBDescriptorHeader is opaque storage with the size and alignment C gives IOUSBDescriptorHeader:
+// 2 bytes. C declares a record here, not a handle, so a
+// pointer-width rendering would hand the framework eight bytes to write
+// 2 into.
+type IOUSBDescriptorHeader [2]byte
 
 // See: https://developer.apple.com/documentation/iokit/iousbdescriptorheaderptr
 type IOUSBDescriptorHeaderPtr = unsafe.Pointer
 
 // See: https://developer.apple.com/documentation/iokit/iousbdevreqool
-type IOUSBDevReqOOL = kernel.Pointer
+// IOUSBDevReqOOL is opaque storage with the size and alignment C gives IOUSBDevReqOOL:
+// 24 bytes. C declares a record here, not a handle, so a
+// pointer-width rendering would hand the framework eight bytes to write
+// 24 into.
+type IOUSBDevReqOOL [3]uint64
 
 // See: https://developer.apple.com/documentation/iokit/iousbdevreqoolto
-type IOUSBDevReqOOLTO = kernel.Pointer
+// IOUSBDevReqOOLTO is opaque storage with the size and alignment C gives IOUSBDevReqOOLTO:
+// 32 bytes. C declares a record here, not a handle, so a
+// pointer-width rendering would hand the framework eight bytes to write
+// 32 into.
+type IOUSBDevReqOOLTO [4]uint64
 
 // See: https://developer.apple.com/documentation/iokit/iousbdevrequest
-type IOUSBDevRequest = kernel.Pointer
+// IOUSBDevRequest is opaque storage with the size and alignment C gives IOUSBDevRequest:
+// 24 bytes. C declares a record here, not a handle, so a
+// pointer-width rendering would hand the framework eight bytes to write
+// 24 into.
+type IOUSBDevRequest [3]uint64
 
 // See: https://developer.apple.com/documentation/iokit/iousbdevrequestto
-type IOUSBDevRequestTO = kernel.Pointer
+// IOUSBDevRequestTO is opaque storage with the size and alignment C gives IOUSBDevRequestTO:
+// 32 bytes. C declares a record here, not a handle, so a
+// pointer-width rendering would hand the framework eight bytes to write
+// 32 into.
+type IOUSBDevRequestTO [4]uint64
 
 // See: https://developer.apple.com/documentation/iokit/iousbdevicecapabilitybillboard
-type IOUSBDeviceCapabilityBillboard = kernel.Pointer
+// IOUSBDeviceCapabilityBillboard is opaque storage with the size and alignment C gives IOUSBDeviceCapabilityBillboard:
+// 44 bytes. C declares a record here, not a handle, so a
+// pointer-width rendering would hand the framework eight bytes to write
+// 44 into.
+type IOUSBDeviceCapabilityBillboard [44]byte
 
 // See: https://developer.apple.com/documentation/iokit/iousbdevicecapabilitybillboardaltconfig
-type IOUSBDeviceCapabilityBillboardAltConfig = kernel.Pointer
+// IOUSBDeviceCapabilityBillboardAltConfig is opaque storage with the size and alignment C gives IOUSBDeviceCapabilityBillboardAltConfig:
+// 4 bytes. C declares a record here, not a handle, so a
+// pointer-width rendering would hand the framework eight bytes to write
+// 4 into.
+type IOUSBDeviceCapabilityBillboardAltConfig [4]byte
 
 // See: https://developer.apple.com/documentation/iokit/iousbdevicecapabilitybillboardaltconfigcompatibility
-type IOUSBDeviceCapabilityBillboardAltConfigCompatibility = kernel.Pointer
+// IOUSBDeviceCapabilityBillboardAltConfigCompatibility is opaque storage with the size and alignment C gives IOUSBDeviceCapabilityBillboardAltConfigCompatibility:
+// 7 bytes. C declares a record here, not a handle, so a
+// pointer-width rendering would hand the framework eight bytes to write
+// 7 into.
+type IOUSBDeviceCapabilityBillboardAltConfigCompatibility [7]byte
 
 // See: https://developer.apple.com/documentation/iokit/iousbdevicecapabilitybillboardaltconfigptr
 type IOUSBDeviceCapabilityBillboardAltConfigPtr = unsafe.Pointer
 
 // See: https://developer.apple.com/documentation/iokit/iousbdevicecapabilitybillboardaltmode
-type IOUSBDeviceCapabilityBillboardAltMode = kernel.Pointer
+type IOUSBDeviceCapabilityBillboardAltMode = uint
 
 // See: https://developer.apple.com/documentation/iokit/iousbdevicecapabilitybillboardaltmodeptr
 type IOUSBDeviceCapabilityBillboardAltModePtr = unsafe.Pointer
@@ -1309,37 +2061,61 @@ type IOUSBDeviceCapabilityBillboardAltModePtr = unsafe.Pointer
 type IOUSBDeviceCapabilityBillboardPtr = unsafe.Pointer
 
 // See: https://developer.apple.com/documentation/iokit/iousbdevicecapabilitycontainerid
-type IOUSBDeviceCapabilityContainerID = kernel.Pointer
+// IOUSBDeviceCapabilityContainerID is opaque storage with the size and alignment C gives IOUSBDeviceCapabilityContainerID:
+// 20 bytes. C declares a record here, not a handle, so a
+// pointer-width rendering would hand the framework eight bytes to write
+// 20 into.
+type IOUSBDeviceCapabilityContainerID [20]byte
 
 // See: https://developer.apple.com/documentation/iokit/iousbdevicecapabilitycontaineridptr
 type IOUSBDeviceCapabilityContainerIDPtr = unsafe.Pointer
 
 // See: https://developer.apple.com/documentation/iokit/iousbdevicecapabilitydescriptorheader
-type IOUSBDeviceCapabilityDescriptorHeader = kernel.Pointer
+// IOUSBDeviceCapabilityDescriptorHeader is opaque storage with the size and alignment C gives IOUSBDeviceCapabilityDescriptorHeader:
+// 3 bytes. C declares a record here, not a handle, so a
+// pointer-width rendering would hand the framework eight bytes to write
+// 3 into.
+type IOUSBDeviceCapabilityDescriptorHeader [3]byte
 
 // See: https://developer.apple.com/documentation/iokit/iousbdevicecapabilitydescriptorheaderptr
 type IOUSBDeviceCapabilityDescriptorHeaderPtr = unsafe.Pointer
 
 // See: https://developer.apple.com/documentation/iokit/iousbdevicecapabilitysuperspeedplususb
-type IOUSBDeviceCapabilitySuperSpeedPlusUSB = kernel.Pointer
+// IOUSBDeviceCapabilitySuperSpeedPlusUSB is opaque storage with the size and alignment C gives IOUSBDeviceCapabilitySuperSpeedPlusUSB:
+// 12 bytes. C declares a record here, not a handle, so a
+// pointer-width rendering would hand the framework eight bytes to write
+// 12 into.
+type IOUSBDeviceCapabilitySuperSpeedPlusUSB [12]byte
 
 // See: https://developer.apple.com/documentation/iokit/iousbdevicecapabilitysuperspeedplususbptr
 type IOUSBDeviceCapabilitySuperSpeedPlusUSBPtr = unsafe.Pointer
 
 // See: https://developer.apple.com/documentation/iokit/iousbdevicecapabilitysuperspeedusb
-type IOUSBDeviceCapabilitySuperSpeedUSB = kernel.Pointer
+// IOUSBDeviceCapabilitySuperSpeedUSB is opaque storage with the size and alignment C gives IOUSBDeviceCapabilitySuperSpeedUSB:
+// 10 bytes. C declares a record here, not a handle, so a
+// pointer-width rendering would hand the framework eight bytes to write
+// 10 into.
+type IOUSBDeviceCapabilitySuperSpeedUSB [10]byte
 
 // See: https://developer.apple.com/documentation/iokit/iousbdevicecapabilitysuperspeedusbptr
 type IOUSBDeviceCapabilitySuperSpeedUSBPtr = unsafe.Pointer
 
 // See: https://developer.apple.com/documentation/iokit/iousbdevicecapabilityusb2extension
-type IOUSBDeviceCapabilityUSB2Extension = kernel.Pointer
+// IOUSBDeviceCapabilityUSB2Extension is opaque storage with the size and alignment C gives IOUSBDeviceCapabilityUSB2Extension:
+// 7 bytes. C declares a record here, not a handle, so a
+// pointer-width rendering would hand the framework eight bytes to write
+// 7 into.
+type IOUSBDeviceCapabilityUSB2Extension [7]byte
 
 // See: https://developer.apple.com/documentation/iokit/iousbdevicecapabilityusb2extensionptr
 type IOUSBDeviceCapabilityUSB2ExtensionPtr = unsafe.Pointer
 
 // See: https://developer.apple.com/documentation/iokit/iousbdevicedescriptor
-type IOUSBDeviceDescriptor = kernel.Pointer
+// IOUSBDeviceDescriptor is opaque storage with the size and alignment C gives IOUSBDeviceDescriptor:
+// 18 bytes. C declares a record here, not a handle, so a
+// pointer-width rendering would hand the framework eight bytes to write
+// 18 into.
+type IOUSBDeviceDescriptor [18]byte
 
 // See: https://developer.apple.com/documentation/iokit/iousbdevicedescriptorptr
 type IOUSBDeviceDescriptorPtr = unsafe.Pointer
@@ -1347,114 +2123,210 @@ type IOUSBDeviceDescriptorPtr = unsafe.Pointer
 // IOUSBDeviceInterface is the object you use to access USB devices from user space, returned by all versions of the IOUSBFamily currently shipping.
 //
 // See: https://developer.apple.com/documentation/iokit/iousbdeviceinterface
-type IOUSBDeviceInterface = unsafe.Pointer
+// IOUSBDeviceInterface is opaque storage with the size and alignment C gives IOUSBDeviceInterface:
+// 408 bytes. C declares a record here, not a handle, so a
+// pointer-width rendering would hand the framework eight bytes to write
+// 408 into.
+type IOUSBDeviceInterface [51]uint64
 
 // See: https://developer.apple.com/documentation/iokit/iousbdeviceinterface100
-type IOUSBDeviceInterface100 = kernel.Pointer
+// IOUSBDeviceInterface100 is opaque storage with the size and alignment C gives IOUSBDeviceInterface100:
+// 232 bytes. C declares a record here, not a handle, so a
+// pointer-width rendering would hand the framework eight bytes to write
+// 232 into.
+type IOUSBDeviceInterface100 [29]uint64
 
 // IOUSBDeviceInterface182 is the object you use to access USB devices from user space, returned by the IOUSBFamily version 1.8.2 and above.
 //
 // See: https://developer.apple.com/documentation/iokit/iousbdeviceinterface182
-type IOUSBDeviceInterface182 = kernel.Pointer
+// IOUSBDeviceInterface182 is opaque storage with the size and alignment C gives IOUSBDeviceInterface182:
+// 296 bytes. C declares a record here, not a handle, so a
+// pointer-width rendering would hand the framework eight bytes to write
+// 296 into.
+type IOUSBDeviceInterface182 [37]uint64
 
 // IOUSBDeviceInterface187 is the object you use to access USB devices from user space, returned by the IOUSBFamily version 10.8.7 and above.
 //
 // See: https://developer.apple.com/documentation/iokit/iousbdeviceinterface187
-type IOUSBDeviceInterface187 = kernel.Pointer
+// IOUSBDeviceInterface187 is opaque storage with the size and alignment C gives IOUSBDeviceInterface187:
+// 304 bytes. C declares a record here, not a handle, so a
+// pointer-width rendering would hand the framework eight bytes to write
+// 304 into.
+type IOUSBDeviceInterface187 [38]uint64
 
 // IOUSBDeviceInterface197 is the object you use to access USB devices from user space, returned by the IOUSBFamily version 1.9.7 and above.
 //
 // See: https://developer.apple.com/documentation/iokit/iousbdeviceinterface197
-type IOUSBDeviceInterface197 = kernel.Pointer
+// IOUSBDeviceInterface197 is opaque storage with the size and alignment C gives IOUSBDeviceInterface197:
+// 320 bytes. C declares a record here, not a handle, so a
+// pointer-width rendering would hand the framework eight bytes to write
+// 320 into.
+type IOUSBDeviceInterface197 [40]uint64
 
 // IOUSBDeviceInterface245 is the object you use to access USB devices from user space, returned by the IOUSBFamily version 2.4.5 and above.
 //
 // See: https://developer.apple.com/documentation/iokit/iousbdeviceinterface245
-type IOUSBDeviceInterface245 = kernel.Pointer
+// IOUSBDeviceInterface245 is opaque storage with the size and alignment C gives IOUSBDeviceInterface245:
+// 320 bytes. C declares a record here, not a handle, so a
+// pointer-width rendering would hand the framework eight bytes to write
+// 320 into.
+type IOUSBDeviceInterface245 [40]uint64
 
 // IOUSBDeviceInterface300 is the object you use to access USB devices from user space, returned by the IOUSBFamily version 3.0.0 and above.
 //
 // See: https://developer.apple.com/documentation/iokit/iousbdeviceinterface300
-type IOUSBDeviceInterface300 = kernel.Pointer
+// IOUSBDeviceInterface300 is opaque storage with the size and alignment C gives IOUSBDeviceInterface300:
+// 328 bytes. C declares a record here, not a handle, so a
+// pointer-width rendering would hand the framework eight bytes to write
+// 328 into.
+type IOUSBDeviceInterface300 [41]uint64
 
 // IOUSBDeviceInterface320 is the object you use to access USB devices from user space, returned by the IOUSBFamily version 3.2.0 and above.
 //
 // See: https://developer.apple.com/documentation/iokit/iousbdeviceinterface320
-type IOUSBDeviceInterface320 = kernel.Pointer
+// IOUSBDeviceInterface320 is opaque storage with the size and alignment C gives IOUSBDeviceInterface320:
+// 360 bytes. C declares a record here, not a handle, so a
+// pointer-width rendering would hand the framework eight bytes to write
+// 360 into.
+type IOUSBDeviceInterface320 [45]uint64
 
 // See: https://developer.apple.com/documentation/iokit/iousbdeviceinterface400
-type IOUSBDeviceInterface400 = kernel.Pointer
+// IOUSBDeviceInterface400 is opaque storage with the size and alignment C gives IOUSBDeviceInterface400:
+// 360 bytes. C declares a record here, not a handle, so a
+// pointer-width rendering would hand the framework eight bytes to write
+// 360 into.
+type IOUSBDeviceInterface400 [45]uint64
 
 // IOUSBDeviceInterface500 is the object you use to access USB devices from user space, returned by the IOUSBFamily version 3.2.0 and above.
 //
 // See: https://developer.apple.com/documentation/iokit/iousbdeviceinterface500
-type IOUSBDeviceInterface500 = kernel.Pointer
+// IOUSBDeviceInterface500 is opaque storage with the size and alignment C gives IOUSBDeviceInterface500:
+// 368 bytes. C declares a record here, not a handle, so a
+// pointer-width rendering would hand the framework eight bytes to write
+// 368 into.
+type IOUSBDeviceInterface500 [46]uint64
 
 // See: https://developer.apple.com/documentation/iokit/iousbdeviceinterface650
-type IOUSBDeviceInterface650 = kernel.Pointer
+// IOUSBDeviceInterface650 is opaque storage with the size and alignment C gives IOUSBDeviceInterface650:
+// 400 bytes. C declares a record here, not a handle, so a
+// pointer-width rendering would hand the framework eight bytes to write
+// 400 into.
+type IOUSBDeviceInterface650 [50]uint64
 
 // See: https://developer.apple.com/documentation/iokit/iousbdeviceinterface942
-type IOUSBDeviceInterface942 = kernel.Pointer
+// IOUSBDeviceInterface942 is opaque storage with the size and alignment C gives IOUSBDeviceInterface942:
+// 408 bytes. C declares a record here, not a handle, so a
+// pointer-width rendering would hand the framework eight bytes to write
+// 408 into.
+type IOUSBDeviceInterface942 [51]uint64
 
 // See: https://developer.apple.com/documentation/iokit/iousbdevicequalifierdescriptor
-type IOUSBDeviceQualifierDescriptor = kernel.Pointer
+// IOUSBDeviceQualifierDescriptor is opaque storage with the size and alignment C gives IOUSBDeviceQualifierDescriptor:
+// 10 bytes. C declares a record here, not a handle, so a
+// pointer-width rendering would hand the framework eight bytes to write
+// 10 into.
+type IOUSBDeviceQualifierDescriptor [10]byte
 
 // See: https://developer.apple.com/documentation/iokit/iousbdevicequalifierdescriptorptr
 type IOUSBDeviceQualifierDescriptorPtr = unsafe.Pointer
 
 // See: https://developer.apple.com/documentation/iokit/iousbdevicerequest
-type IOUSBDeviceRequest = kernel.Pointer
+// IOUSBDeviceRequest is opaque storage with the size and alignment C gives IOUSBDeviceRequest:
+// 8 bytes. C declares a record here, not a handle, so a
+// pointer-width rendering would hand the framework eight bytes to write
+// 8 into.
+type IOUSBDeviceRequest [8]byte
 
 // See: https://developer.apple.com/documentation/iokit/iousbdevicerequestptr
 type IOUSBDeviceRequestPtr = unsafe.Pointer
 
 // See: https://developer.apple.com/documentation/iokit/iousbdevicerequestsetseldata
-type IOUSBDeviceRequestSetSELData = kernel.Pointer
+// IOUSBDeviceRequestSetSELData is opaque storage with the size and alignment C gives IOUSBDeviceRequestSetSELData:
+// 6 bytes. C declares a record here, not a handle, so a
+// pointer-width rendering would hand the framework eight bytes to write
+// 6 into.
+type IOUSBDeviceRequestSetSELData [6]byte
 
 // See: https://developer.apple.com/documentation/iokit/iousbendpointdescriptor
-type IOUSBEndpointDescriptor = kernel.Pointer
+// IOUSBEndpointDescriptor is opaque storage with the size and alignment C gives IOUSBEndpointDescriptor:
+// 7 bytes. C declares a record here, not a handle, so a
+// pointer-width rendering would hand the framework eight bytes to write
+// 7 into.
+type IOUSBEndpointDescriptor [7]byte
 
 // See: https://developer.apple.com/documentation/iokit/iousbendpointdescriptorptr
 type IOUSBEndpointDescriptorPtr = unsafe.Pointer
 
 // See: https://developer.apple.com/documentation/iokit/iousbendpointproperties
-type IOUSBEndpointProperties = kernel.Pointer
+// IOUSBEndpointProperties is opaque storage with the size and alignment C gives IOUSBEndpointProperties:
+// 15 bytes. C declares a record here, not a handle, so a
+// pointer-width rendering would hand the framework eight bytes to write
+// 15 into.
+type IOUSBEndpointProperties [15]byte
 
 // See: https://developer.apple.com/documentation/iokit/iousbendpointpropertiesptr
 type IOUSBEndpointPropertiesPtr = unsafe.Pointer
 
 // See: https://developer.apple.com/documentation/iokit/iousbfindendpointrequest
-type IOUSBFindEndpointRequest = kernel.Pointer
+// IOUSBFindEndpointRequest is opaque storage with the size and alignment C gives IOUSBFindEndpointRequest:
+// 6 bytes. C declares a record here, not a handle, so a
+// pointer-width rendering would hand the framework eight bytes to write
+// 6 into.
+type IOUSBFindEndpointRequest [3]uint16
 
 // See: https://developer.apple.com/documentation/iokit/iousbfindinterfacerequest
-type IOUSBFindInterfaceRequest = kernel.Pointer
+// IOUSBFindInterfaceRequest is opaque storage with the size and alignment C gives IOUSBFindInterfaceRequest:
+// 8 bytes. C declares a record here, not a handle, so a
+// pointer-width rendering would hand the framework eight bytes to write
+// 8 into.
+type IOUSBFindInterfaceRequest [4]uint16
 
 // See: https://developer.apple.com/documentation/iokit/iousbgetframestruct
-type IOUSBGetFrameStruct = kernel.Pointer
+// IOUSBGetFrameStruct is opaque storage with the size and alignment C gives IOUSBGetFrameStruct:
+// 16 bytes. C declares a record here, not a handle, so a
+// pointer-width rendering would hand the framework eight bytes to write
+// 16 into.
+type IOUSBGetFrameStruct [2]uint64
 
 // See: https://developer.apple.com/documentation/iokit/iousbhiddataptr
-type IOUSBHIDDataPtr = kernel.Pointer
+type IOUSBHIDDataPtr = *kernel.IOUSBHIDData
 
 // See: https://developer.apple.com/documentation/iokit/iousbhiddescriptor
-type IOUSBHIDDescriptor = kernel.Pointer
+// IOUSBHIDDescriptor is opaque storage with the size and alignment C gives IOUSBHIDDescriptor:
+// 9 bytes. C declares a record here, not a handle, so a
+// pointer-width rendering would hand the framework eight bytes to write
+// 9 into.
+type IOUSBHIDDescriptor [9]byte
 
 // See: https://developer.apple.com/documentation/iokit/iousbhiddescriptorptr
 type IOUSBHIDDescriptorPtr = unsafe.Pointer
 
 // See: https://developer.apple.com/documentation/iokit/iousbhidreportdesc
-type IOUSBHIDReportDesc = kernel.Pointer
+// IOUSBHIDReportDesc is opaque storage with the size and alignment C gives IOUSBHIDReportDesc:
+// 3 bytes. C declares a record here, not a handle, so a
+// pointer-width rendering would hand the framework eight bytes to write
+// 3 into.
+type IOUSBHIDReportDesc [3]byte
 
 // See: https://developer.apple.com/documentation/iokit/iousbhidreportdescptr
 type IOUSBHIDReportDescPtr = unsafe.Pointer
 
 // See: https://developer.apple.com/documentation/iokit/iousbinterfaceassociationdescriptor
-type IOUSBInterfaceAssociationDescriptor = kernel.Pointer
+// IOUSBInterfaceAssociationDescriptor is opaque storage with the size and alignment C gives IOUSBInterfaceAssociationDescriptor:
+// 8 bytes. C declares a record here, not a handle, so a
+// pointer-width rendering would hand the framework eight bytes to write
+// 8 into.
+type IOUSBInterfaceAssociationDescriptor [8]byte
 
 // See: https://developer.apple.com/documentation/iokit/iousbinterfaceassociationdescriptorptr
 type IOUSBInterfaceAssociationDescriptorPtr = unsafe.Pointer
 
 // See: https://developer.apple.com/documentation/iokit/iousbinterfacedescriptor
-type IOUSBInterfaceDescriptor = kernel.Pointer
+// IOUSBInterfaceDescriptor is opaque storage with the size and alignment C gives IOUSBInterfaceDescriptor:
+// 9 bytes. C declares a record here, not a handle, so a
+// pointer-width rendering would hand the framework eight bytes to write
+// 9 into.
+type IOUSBInterfaceDescriptor [9]byte
 
 // See: https://developer.apple.com/documentation/iokit/iousbinterfacedescriptorptr
 type IOUSBInterfaceDescriptorPtr = unsafe.Pointer
@@ -1462,125 +2334,253 @@ type IOUSBInterfaceDescriptorPtr = unsafe.Pointer
 // IOUSBInterfaceInterface is the object you use to access a USB device interface from user space, returned by all versions of the IOUSBFamily currently shipping.
 //
 // See: https://developer.apple.com/documentation/iokit/iousbinterfaceinterface
-type IOUSBInterfaceInterface = unsafe.Pointer
+// IOUSBInterfaceInterface is opaque storage with the size and alignment C gives IOUSBInterfaceInterface:
+// 616 bytes. C declares a record here, not a handle, so a
+// pointer-width rendering would hand the framework eight bytes to write
+// 616 into.
+type IOUSBInterfaceInterface [77]uint64
 
 // See: https://developer.apple.com/documentation/iokit/iousbinterfaceinterface100
-type IOUSBInterfaceInterface100 = kernel.Pointer
+// IOUSBInterfaceInterface100 is opaque storage with the size and alignment C gives IOUSBInterfaceInterface100:
+// 296 bytes. C declares a record here, not a handle, so a
+// pointer-width rendering would hand the framework eight bytes to write
+// 296 into.
+type IOUSBInterfaceInterface100 [37]uint64
 
 // IOUSBInterfaceInterface182 is the object you use to access a USB device interface from user space, returned by the IOUSBFamily version 1.8.2 and above.
 //
 // See: https://developer.apple.com/documentation/iokit/iousbinterfaceinterface182
-type IOUSBInterfaceInterface182 = kernel.Pointer
+// IOUSBInterfaceInterface182 is opaque storage with the size and alignment C gives IOUSBInterfaceInterface182:
+// 352 bytes. C declares a record here, not a handle, so a
+// pointer-width rendering would hand the framework eight bytes to write
+// 352 into.
+type IOUSBInterfaceInterface182 [44]uint64
 
 // IOUSBInterfaceInterface183 is the object you use to access a USB device interface from user space, returned by the IOUSBFamily version 1.8.3 and above.
 //
 // See: https://developer.apple.com/documentation/iokit/iousbinterfaceinterface183
-type IOUSBInterfaceInterface183 = kernel.Pointer
+// IOUSBInterfaceInterface183 is opaque storage with the size and alignment C gives IOUSBInterfaceInterface183:
+// 360 bytes. C declares a record here, not a handle, so a
+// pointer-width rendering would hand the framework eight bytes to write
+// 360 into.
+type IOUSBInterfaceInterface183 [45]uint64
 
 // IOUSBInterfaceInterface190 is the object you use to access a USB device interface from user space, returned by the IOUSBFamily version 1.9 and above.
 //
 // See: https://developer.apple.com/documentation/iokit/iousbinterfaceinterface190
-type IOUSBInterfaceInterface190 = kernel.Pointer
+// IOUSBInterfaceInterface190 is opaque storage with the size and alignment C gives IOUSBInterfaceInterface190:
+// 392 bytes. C declares a record here, not a handle, so a
+// pointer-width rendering would hand the framework eight bytes to write
+// 392 into.
+type IOUSBInterfaceInterface190 [49]uint64
 
 // IOUSBInterfaceInterface192 is the object you use to access a USB device interface from user space, returned by the IOUSBFamily version 1.9.2 and above.
 //
 // See: https://developer.apple.com/documentation/iokit/iousbinterfaceinterface192
-type IOUSBInterfaceInterface192 = kernel.Pointer
+// IOUSBInterfaceInterface192 is opaque storage with the size and alignment C gives IOUSBInterfaceInterface192:
+// 424 bytes. C declares a record here, not a handle, so a
+// pointer-width rendering would hand the framework eight bytes to write
+// 424 into.
+type IOUSBInterfaceInterface192 [53]uint64
 
 // IOUSBInterfaceInterface197 is the object you use to access a USB device interface from user space, returned by the IOUSBFamily version 1.9.7 and above.
 //
 // See: https://developer.apple.com/documentation/iokit/iousbinterfaceinterface197
-type IOUSBInterfaceInterface197 = kernel.Pointer
+// IOUSBInterfaceInterface197 is opaque storage with the size and alignment C gives IOUSBInterfaceInterface197:
+// 448 bytes. C declares a record here, not a handle, so a
+// pointer-width rendering would hand the framework eight bytes to write
+// 448 into.
+type IOUSBInterfaceInterface197 [56]uint64
 
 // See: https://developer.apple.com/documentation/iokit/iousbinterfaceinterface220
-type IOUSBInterfaceInterface220 = kernel.Pointer
+// IOUSBInterfaceInterface220 is opaque storage with the size and alignment C gives IOUSBInterfaceInterface220:
+// 464 bytes. C declares a record here, not a handle, so a
+// pointer-width rendering would hand the framework eight bytes to write
+// 464 into.
+type IOUSBInterfaceInterface220 [58]uint64
 
 // See: https://developer.apple.com/documentation/iokit/iousbinterfaceinterface245
-type IOUSBInterfaceInterface245 = kernel.Pointer
+// IOUSBInterfaceInterface245 is opaque storage with the size and alignment C gives IOUSBInterfaceInterface245:
+// 464 bytes. C declares a record here, not a handle, so a
+// pointer-width rendering would hand the framework eight bytes to write
+// 464 into.
+type IOUSBInterfaceInterface245 [58]uint64
 
 // See: https://developer.apple.com/documentation/iokit/iousbinterfaceinterface300
-type IOUSBInterfaceInterface300 = kernel.Pointer
+// IOUSBInterfaceInterface300 is opaque storage with the size and alignment C gives IOUSBInterfaceInterface300:
+// 472 bytes. C declares a record here, not a handle, so a
+// pointer-width rendering would hand the framework eight bytes to write
+// 472 into.
+type IOUSBInterfaceInterface300 [59]uint64
 
 // See: https://developer.apple.com/documentation/iokit/iousbinterfaceinterface398
-type IOUSBInterfaceInterface398 = kernel.Pointer
+// IOUSBInterfaceInterface398 is opaque storage with the size and alignment C gives IOUSBInterfaceInterface398:
+// 472 bytes. C declares a record here, not a handle, so a
+// pointer-width rendering would hand the framework eight bytes to write
+// 472 into.
+type IOUSBInterfaceInterface398 [59]uint64
 
 // See: https://developer.apple.com/documentation/iokit/iousbinterfaceinterface400
-type IOUSBInterfaceInterface400 = kernel.Pointer
+// IOUSBInterfaceInterface400 is opaque storage with the size and alignment C gives IOUSBInterfaceInterface400:
+// 472 bytes. C declares a record here, not a handle, so a
+// pointer-width rendering would hand the framework eight bytes to write
+// 472 into.
+type IOUSBInterfaceInterface400 [59]uint64
 
 // See: https://developer.apple.com/documentation/iokit/iousbinterfaceinterface500
-type IOUSBInterfaceInterface500 = kernel.Pointer
+// IOUSBInterfaceInterface500 is opaque storage with the size and alignment C gives IOUSBInterfaceInterface500:
+// 480 bytes. C declares a record here, not a handle, so a
+// pointer-width rendering would hand the framework eight bytes to write
+// 480 into.
+type IOUSBInterfaceInterface500 [60]uint64
 
 // See: https://developer.apple.com/documentation/iokit/iousbinterfaceinterface550
-type IOUSBInterfaceInterface550 = kernel.Pointer
+// IOUSBInterfaceInterface550 is opaque storage with the size and alignment C gives IOUSBInterfaceInterface550:
+// 560 bytes. C declares a record here, not a handle, so a
+// pointer-width rendering would hand the framework eight bytes to write
+// 560 into.
+type IOUSBInterfaceInterface550 [70]uint64
 
 // See: https://developer.apple.com/documentation/iokit/iousbinterfaceinterface650
-type IOUSBInterfaceInterface650 = kernel.Pointer
+// IOUSBInterfaceInterface650 is opaque storage with the size and alignment C gives IOUSBInterfaceInterface650:
+// 584 bytes. C declares a record here, not a handle, so a
+// pointer-width rendering would hand the framework eight bytes to write
+// 584 into.
+type IOUSBInterfaceInterface650 [73]uint64
 
 // See: https://developer.apple.com/documentation/iokit/iousbinterfaceinterface700
-type IOUSBInterfaceInterface700 = kernel.Pointer
+// IOUSBInterfaceInterface700 is opaque storage with the size and alignment C gives IOUSBInterfaceInterface700:
+// 592 bytes. C declares a record here, not a handle, so a
+// pointer-width rendering would hand the framework eight bytes to write
+// 592 into.
+type IOUSBInterfaceInterface700 [74]uint64
 
 // See: https://developer.apple.com/documentation/iokit/iousbinterfaceinterface800
-type IOUSBInterfaceInterface800 = kernel.Pointer
+// IOUSBInterfaceInterface800 is opaque storage with the size and alignment C gives IOUSBInterfaceInterface800:
+// 608 bytes. C declares a record here, not a handle, so a
+// pointer-width rendering would hand the framework eight bytes to write
+// 608 into.
+type IOUSBInterfaceInterface800 [76]uint64
 
 // See: https://developer.apple.com/documentation/iokit/iousbinterfaceinterface942
-type IOUSBInterfaceInterface942 = kernel.Pointer
+// IOUSBInterfaceInterface942 is opaque storage with the size and alignment C gives IOUSBInterfaceInterface942:
+// 616 bytes. C declares a record here, not a handle, so a
+// pointer-width rendering would hand the framework eight bytes to write
+// 616 into.
+type IOUSBInterfaceInterface942 [77]uint64
 
 // See: https://developer.apple.com/documentation/iokit/iousbisoccompletion
-type IOUSBIsocCompletion = kernel.Pointer
+// IOUSBIsocCompletion is opaque storage with the size and alignment C gives IOUSBIsocCompletion:
+// 24 bytes. C declares a record here, not a handle, so a
+// pointer-width rendering would hand the framework eight bytes to write
+// 24 into.
+type IOUSBIsocCompletion [3]uint64
 
 // See: https://developer.apple.com/documentation/iokit/iousbisocframe
-type IOUSBIsocFrame = kernel.Pointer
+// IOUSBIsocFrame is opaque storage with the size and alignment C gives IOUSBIsocFrame:
+// 8 bytes. C declares a record here, not a handle, so a
+// pointer-width rendering would hand the framework eight bytes to write
+// 8 into.
+type IOUSBIsocFrame [2]uint32
 
 // See: https://developer.apple.com/documentation/iokit/iousbisocstruct
-type IOUSBIsocStruct = kernel.Pointer
+// IOUSBIsocStruct is opaque storage with the size and alignment C gives IOUSBIsocStruct:
+// 48 bytes. C declares a record here, not a handle, so a
+// pointer-width rendering would hand the framework eight bytes to write
+// 48 into.
+type IOUSBIsocStruct [6]uint64
 
 // See: https://developer.apple.com/documentation/iokit/iousbkeyboarddata
-type IOUSBKeyboardData = kernel.Pointer
+// IOUSBKeyboardData is opaque storage with the size and alignment C gives IOUSBKeyboardData:
+// 66 bytes. C declares a record here, not a handle, so a
+// pointer-width rendering would hand the framework eight bytes to write
+// 66 into.
+type IOUSBKeyboardData [33]uint16
 
 // See: https://developer.apple.com/documentation/iokit/iousbkeyboarddataptr
 type IOUSBKeyboardDataPtr = unsafe.Pointer
 
 // See: https://developer.apple.com/documentation/iokit/iousblowlatencyisoccompletion
-type IOUSBLowLatencyIsocCompletion = kernel.Pointer
+// IOUSBLowLatencyIsocCompletion is opaque storage with the size and alignment C gives IOUSBLowLatencyIsocCompletion:
+// 24 bytes. C declares a record here, not a handle, so a
+// pointer-width rendering would hand the framework eight bytes to write
+// 24 into.
+type IOUSBLowLatencyIsocCompletion [3]uint64
 
 // See: https://developer.apple.com/documentation/iokit/iousblowlatencyisocframe
-type IOUSBLowLatencyIsocFrame = kernel.Pointer
+// IOUSBLowLatencyIsocFrame is opaque storage with the size and alignment C gives IOUSBLowLatencyIsocFrame:
+// 16 bytes. C declares a record here, not a handle, so a
+// pointer-width rendering would hand the framework eight bytes to write
+// 16 into.
+type IOUSBLowLatencyIsocFrame [4]uint32
 
 // See: https://developer.apple.com/documentation/iokit/iousblowlatencyisocstruct
-type IOUSBLowLatencyIsocStruct = kernel.Pointer
+// IOUSBLowLatencyIsocStruct is opaque storage with the size and alignment C gives IOUSBLowLatencyIsocStruct:
+// 40 bytes. C declares a record here, not a handle, so a
+// pointer-width rendering would hand the framework eight bytes to write
+// 40 into.
+type IOUSBLowLatencyIsocStruct [5]uint64
 
 // See: https://developer.apple.com/documentation/iokit/iousbmatch
-type IOUSBMatch = kernel.Pointer
+// IOUSBMatch is opaque storage with the size and alignment C gives IOUSBMatch:
+// 10 bytes. C declares a record here, not a handle, so a
+// pointer-width rendering would hand the framework eight bytes to write
+// 10 into.
+type IOUSBMatch [5]uint16
 
 // See: https://developer.apple.com/documentation/iokit/iousbmousedata
-type IOUSBMouseData = kernel.Pointer
+// IOUSBMouseData is opaque storage with the size and alignment C gives IOUSBMouseData:
+// 6 bytes. C declares a record here, not a handle, so a
+// pointer-width rendering would hand the framework eight bytes to write
+// 6 into.
+type IOUSBMouseData [3]uint16
 
 // See: https://developer.apple.com/documentation/iokit/iousbmousedataptr
 type IOUSBMouseDataPtr = unsafe.Pointer
 
 // See: https://developer.apple.com/documentation/iokit/iousbplatformcapabilitydescriptor
-type IOUSBPlatformCapabilityDescriptor = kernel.Pointer
+// IOUSBPlatformCapabilityDescriptor is opaque storage with the size and alignment C gives IOUSBPlatformCapabilityDescriptor:
+// 20 bytes. C declares a record here, not a handle, so a
+// pointer-width rendering would hand the framework eight bytes to write
+// 20 into.
+type IOUSBPlatformCapabilityDescriptor [20]byte
 
 // See: https://developer.apple.com/documentation/iokit/iousbplatformcapabilitydescriptorptr
 type IOUSBPlatformCapabilityDescriptorPtr = unsafe.Pointer
 
 // See: https://developer.apple.com/documentation/iokit/iousbstringdescriptor
-type IOUSBStringDescriptor = kernel.Pointer
+// IOUSBStringDescriptor is opaque storage with the size and alignment C gives IOUSBStringDescriptor:
+// 3 bytes. C declares a record here, not a handle, so a
+// pointer-width rendering would hand the framework eight bytes to write
+// 3 into.
+type IOUSBStringDescriptor [3]byte
 
 // See: https://developer.apple.com/documentation/iokit/iousbstringdescriptorptr
 type IOUSBStringDescriptorPtr = unsafe.Pointer
 
 // See: https://developer.apple.com/documentation/iokit/iousbsuperspeedendpointcompaniondescriptor
-type IOUSBSuperSpeedEndpointCompanionDescriptor = kernel.Pointer
+// IOUSBSuperSpeedEndpointCompanionDescriptor is opaque storage with the size and alignment C gives IOUSBSuperSpeedEndpointCompanionDescriptor:
+// 6 bytes. C declares a record here, not a handle, so a
+// pointer-width rendering would hand the framework eight bytes to write
+// 6 into.
+type IOUSBSuperSpeedEndpointCompanionDescriptor [6]byte
 
 // See: https://developer.apple.com/documentation/iokit/iousbsuperspeedendpointcompaniondescriptorptr
 type IOUSBSuperSpeedEndpointCompanionDescriptorPtr = unsafe.Pointer
 
 // See: https://developer.apple.com/documentation/iokit/iousbsuperspeedhubdescriptor
-type IOUSBSuperSpeedHubDescriptor = kernel.Pointer
+// IOUSBSuperSpeedHubDescriptor is opaque storage with the size and alignment C gives IOUSBSuperSpeedHubDescriptor:
+// 12 bytes. C declares a record here, not a handle, so a
+// pointer-width rendering would hand the framework eight bytes to write
+// 12 into.
+type IOUSBSuperSpeedHubDescriptor [12]byte
 
 // See: https://developer.apple.com/documentation/iokit/iousbsuperspeedplusisochronousendpointcompaniondescriptor
-type IOUSBSuperSpeedPlusIsochronousEndpointCompanionDescriptor = kernel.Pointer
+// IOUSBSuperSpeedPlusIsochronousEndpointCompanionDescriptor is opaque storage with the size and alignment C gives IOUSBSuperSpeedPlusIsochronousEndpointCompanionDescriptor:
+// 8 bytes. C declares a record here, not a handle, so a
+// pointer-width rendering would hand the framework eight bytes to write
+// 8 into.
+type IOUSBSuperSpeedPlusIsochronousEndpointCompanionDescriptor [8]byte
 
 // See: https://developer.apple.com/documentation/iokit/iousbsuperspeedplusisochronousendpointcompaniondescriptorptr
 type IOUSBSuperSpeedPlusIsochronousEndpointCompanionDescriptorPtr = unsafe.Pointer
@@ -1594,75 +2594,155 @@ type IOVideoDeviceInterface = IOVideoDeviceInterface_v1_t
 // IOVideoDeviceInterface_v1_t is forward declaration of IOVideoDeviceInterface_v1_t.
 //
 // See: https://developer.apple.com/documentation/iokit/iovideodeviceinterface_v1_t
-type IOVideoDeviceInterface_v1_t = kernel.Pointer
+// IOVideoDeviceInterface_v1_t is opaque storage with the size and alignment C gives IOVideoDeviceInterface_v1_t:
+// 128 bytes. C declares a record here, not a handle, so a
+// pointer-width rendering would hand the framework eight bytes to write
+// 128 into.
+type IOVideoDeviceInterface_v1_t [16]uint64
 
 // See: https://developer.apple.com/documentation/iokit/iovideodevicenotification
-type IOVideoDeviceNotification = kernel.Pointer
+// IOVideoDeviceNotification is opaque storage with the size and alignment C gives IOVideoDeviceNotification:
+// 32 bytes. C declares a record here, not a handle, so a
+// pointer-width rendering would hand the framework eight bytes to write
+// 32 into.
+type IOVideoDeviceNotification [4]uint64
 
 // See: https://developer.apple.com/documentation/iokit/iovideodevicenotificationmessage
-type IOVideoDeviceNotificationMessage = kernel.Pointer
+// IOVideoDeviceNotificationMessage is opaque storage with the size and alignment C gives IOVideoDeviceNotificationMessage:
+// 64 bytes. C declares a record here, not a handle, so a
+// pointer-width rendering would hand the framework eight bytes to write
+// 64 into.
+type IOVideoDeviceNotificationMessage [8]uint64
 
 // See: https://developer.apple.com/documentation/iokit/iovideodeviceref
-type IOVideoDeviceRef uintptr
+type IOVideoDeviceRef = unsafe.Pointer
 
 // See: https://developer.apple.com/documentation/iokit/iovideostreamdescription
-type IOVideoStreamDescription = kernel.Pointer
+// IOVideoStreamDescription is opaque storage with the size and alignment C gives IOVideoStreamDescription:
+// 24 bytes. C declares a record here, not a handle, so a
+// pointer-width rendering would hand the framework eight bytes to write
+// 24 into.
+type IOVideoStreamDescription [6]uint32
 
 // See: https://developer.apple.com/documentation/iokit/iovirtualaddress
-type IOVirtualAddress = kernel.MachVmAddress
+type IOVirtualAddress = uint64
 
 // See: https://developer.apple.com/documentation/iokit/longlbamodeparameterblockdescriptor
-type LongLBAModeParameterBlockDescriptor = kernel.Pointer
+// LongLBAModeParameterBlockDescriptor is opaque storage with the size and alignment C gives LongLBAModeParameterBlockDescriptor:
+// 16 bytes. C declares a record here, not a handle, so a
+// pointer-width rendering would hand the framework eight bytes to write
+// 16 into.
+type LongLBAModeParameterBlockDescriptor [16]byte
 
 // See: https://developer.apple.com/documentation/iokit/lowlatencyuserbufferinfo
-type LowLatencyUserBufferInfo = kernel.Pointer
+// LowLatencyUserBufferInfo is opaque storage with the size and alignment C gives LowLatencyUserBufferInfo:
+// 40 bytes. C declares a record here, not a handle, so a
+// pointer-width rendering would hand the framework eight bytes to write
+// 40 into.
+type LowLatencyUserBufferInfo [5]uint64
 
 // See: https://developer.apple.com/documentation/iokit/lowlatencyuserbufferinfov2
-type LowLatencyUserBufferInfoV2 = kernel.Pointer
+// LowLatencyUserBufferInfoV2 is opaque storage with the size and alignment C gives LowLatencyUserBufferInfoV2:
+// 48 bytes. C declares a record here, not a handle, so a
+// pointer-width rendering would hand the framework eight bytes to write
+// 48 into.
+type LowLatencyUserBufferInfoV2 [6]uint64
 
 // See: https://developer.apple.com/documentation/iokit/lowlatencyuserbufferinfov3
-type LowLatencyUserBufferInfoV3 = kernel.Pointer
+// LowLatencyUserBufferInfoV3 is opaque storage with the size and alignment C gives LowLatencyUserBufferInfoV3:
+// 56 bytes. C declares a record here, not a handle, so a
+// pointer-width rendering would hand the framework eight bytes to write
+// 56 into.
+type LowLatencyUserBufferInfoV3 [7]uint64
 
 // MMCDeviceInterface is basic interface for an MMC-2 Compliant Device.
 //
 // See: https://developer.apple.com/documentation/iokit/mmcdeviceinterface
-type MMCDeviceInterface = kernel.Pointer
+// MMCDeviceInterface is opaque storage with the size and alignment C gives MMCDeviceInterface:
+// 200 bytes. C declares a record here, not a handle, so a
+// pointer-width rendering would hand the framework eight bytes to write
+// 200 into.
+type MMCDeviceInterface [25]uint64
 
 // See: https://developer.apple.com/documentation/iokit/modepageformatheader
-type ModePageFormatHeader = kernel.Pointer
+// ModePageFormatHeader is opaque storage with the size and alignment C gives ModePageFormatHeader:
+// 2 bytes. C declares a record here, not a handle, so a
+// pointer-width rendering would hand the framework eight bytes to write
+// 2 into.
+type ModePageFormatHeader [2]byte
 
 // See: https://developer.apple.com/documentation/iokit/modeparameterblockdescriptor
-type ModeParameterBlockDescriptor = kernel.Pointer
+// ModeParameterBlockDescriptor is opaque storage with the size and alignment C gives ModeParameterBlockDescriptor:
+// 8 bytes. C declares a record here, not a handle, so a
+// pointer-width rendering would hand the framework eight bytes to write
+// 8 into.
+type ModeParameterBlockDescriptor [8]byte
 
 // See: https://developer.apple.com/documentation/iokit/nvmeidentifycontrollerstruct
-type NVMeIdentifyControllerStruct = kernel.Pointer
+// NVMeIdentifyControllerStruct is opaque storage with the size and alignment C gives NVMeIdentifyControllerStruct:
+// 4096 bytes. C declares a record here, not a handle, so a
+// pointer-width rendering would hand the framework eight bytes to write
+// 4096 into.
+type NVMeIdentifyControllerStruct [4096]byte
 
 // See: https://developer.apple.com/documentation/iokit/nvmeidentifynamespacestruct
-type NVMeIdentifyNamespaceStruct = kernel.Pointer
+// NVMeIdentifyNamespaceStruct is opaque storage with the size and alignment C gives NVMeIdentifyNamespaceStruct:
+// 4096 bytes. C declares a record here, not a handle, so a
+// pointer-width rendering would hand the framework eight bytes to write
+// 4096 into.
+type NVMeIdentifyNamespaceStruct [4096]byte
 
 // See: https://developer.apple.com/documentation/iokit/nvmelbaformatdatastruct
-type NVMeLBAFormatDataStruct = kernel.Pointer
+// NVMeLBAFormatDataStruct is opaque storage with the size and alignment C gives NVMeLBAFormatDataStruct:
+// 4 bytes. C declares a record here, not a handle, so a
+// pointer-width rendering would hand the framework eight bytes to write
+// 4 into.
+type NVMeLBAFormatDataStruct [4]byte
 
 // See: https://developer.apple.com/documentation/iokit/nvmepowerstatedescriptor
-type NVMePowerStateDescriptor = kernel.Pointer
+// NVMePowerStateDescriptor is opaque storage with the size and alignment C gives NVMePowerStateDescriptor:
+// 32 bytes. C declares a record here, not a handle, so a
+// pointer-width rendering would hand the framework eight bytes to write
+// 32 into.
+type NVMePowerStateDescriptor [32]byte
 
 // See: https://developer.apple.com/documentation/iokit/nvmesmartdata
-type NVMeSMARTData = kernel.Pointer
+// NVMeSMARTData is opaque storage with the size and alignment C gives NVMeSMARTData:
+// 512 bytes. C declares a record here, not a handle, so a
+// pointer-width rendering would hand the framework eight bytes to write
+// 512 into.
+type NVMeSMARTData [512]byte
 
 // See: https://developer.apple.com/documentation/iokit/nxcoord
 type NXCoord = float32
 
 // See: https://developer.apple.com/documentation/iokit/nxeqelement
-type NXEQElement = kernel.Pointer
+// NXEQElement is opaque storage with the size and alignment C gives NXEQElement:
+// 96 bytes. C declares a record here, not a handle, so a
+// pointer-width rendering would hand the framework eight bytes to write
+// 96 into.
+type NXEQElement [24]uint32
 
 // See: https://developer.apple.com/documentation/iokit/nxevent
-type NXEvent = kernel.Pointer
+// NXEvent is opaque storage with the size and alignment C gives NXEvent:
+// 88 bytes. C declares a record here, not a handle, so a
+// pointer-width rendering would hand the framework eight bytes to write
+// 88 into.
+type NXEvent [22]uint32
 
 // See: https://developer.apple.com/documentation/iokit/nxeventext
-type NXEventExt = kernel.Pointer
+// NXEventExt is opaque storage with the size and alignment C gives NXEventExt:
+// 124 bytes. C declares a record here, not a handle, so a
+// pointer-width rendering would hand the framework eight bytes to write
+// 124 into.
+type NXEventExt [31]uint32
 
 // See: https://developer.apple.com/documentation/iokit/nxeventextension
-type NXEventExtension = kernel.Pointer
+// NXEventExtension is opaque storage with the size and alignment C gives NXEventExtension:
+// 36 bytes. C declares a record here, not a handle, so a
+// pointer-width rendering would hand the framework eight bytes to write
+// 36 into.
+type NXEventExtension [9]uint32
 
 // See: https://developer.apple.com/documentation/iokit/nxeventhandle
 type NXEventHandle = uint32
@@ -1671,49 +2751,85 @@ type NXEventHandle = uint32
 type NXEventPtr = uintptr
 
 // See: https://developer.apple.com/documentation/iokit/nxeventsystemdevice
-type NXEventSystemDevice = kernel.Pointer
+// NXEventSystemDevice is opaque storage with the size and alignment C gives NXEventSystemDevice:
+// 16 bytes. C declares a record here, not a handle, so a
+// pointer-width rendering would hand the framework eight bytes to write
+// 16 into.
+type NXEventSystemDevice [4]uint32
 
 // See: https://developer.apple.com/documentation/iokit/nxeventsystemdevicelist
-type NXEventSystemDeviceList = kernel.Pointer
+// NXEventSystemDeviceList is opaque storage with the size and alignment C gives NXEventSystemDeviceList:
+// 256 bytes. C declares a record here, not a handle, so a
+// pointer-width rendering would hand the framework eight bytes to write
+// 256 into.
+type NXEventSystemDeviceList [64]uint32
 
 // See: https://developer.apple.com/documentation/iokit/nxeventsysteminfodata
-type NXEventSystemInfoData = int
+type NXEventSystemInfoData = int32
 
 // See: https://developer.apple.com/documentation/iokit/nxeventsysteminfotype
-type NXEventSystemInfoType = int
+type NXEventSystemInfoType = *int32
 
 // See: https://developer.apple.com/documentation/iokit/nxkeymapping
-type NXKeyMapping = kernel.Pointer
+// NXKeyMapping is opaque storage with the size and alignment C gives NXKeyMapping:
+// 16 bytes. C declares a record here, not a handle, so a
+// pointer-width rendering would hand the framework eight bytes to write
+// 16 into.
+type NXKeyMapping [2]uint64
 
 // See: https://developer.apple.com/documentation/iokit/nxmousebutton
-type NXMouseButton = kernel.Pointer
+type NXMouseButton = uint32
 
 // See: https://developer.apple.com/documentation/iokit/nxmousescaling
-type NXMouseScaling = kernel.Pointer
+// NXMouseScaling is opaque storage with the size and alignment C gives NXMouseScaling:
+// 84 bytes. C declares a record here, not a handle, so a
+// pointer-width rendering would hand the framework eight bytes to write
+// 84 into.
+type NXMouseScaling [21]uint32
 
 // See: https://developer.apple.com/documentation/iokit/nxparsedkeymapping
-type NXParsedKeyMapping = kernel.Pointer
+// NXParsedKeyMapping is opaque storage with the size and alignment C gives NXParsedKeyMapping:
+// 3552 bytes. C declares a record here, not a handle, so a
+// pointer-width rendering would hand the framework eight bytes to write
+// 3552 into.
+type NXParsedKeyMapping [444]uint64
 
 // See: https://developer.apple.com/documentation/iokit/nxpoint
-type NXPoint = kernel.Pointer
+// NXPoint is opaque storage with the size and alignment C gives NXPoint:
+// 8 bytes. C declares a record here, not a handle, so a
+// pointer-width rendering would hand the framework eight bytes to write
+// 8 into.
+type NXPoint [2]uint32
 
 // See: https://developer.apple.com/documentation/iokit/nxsize
-type NXSize = kernel.Pointer
+// NXSize is opaque storage with the size and alignment C gives NXSize:
+// 8 bytes. C declares a record here, not a handle, so a
+// pointer-width rendering would hand the framework eight bytes to write
+// 8 into.
+type NXSize [2]uint32
 
 // See: https://developer.apple.com/documentation/iokit/nxtabletpointdata
-type NXTabletPointData = kernel.Pointer
+// NXTabletPointData is opaque storage with the size and alignment C gives NXTabletPointData:
+// 32 bytes. C declares a record here, not a handle, so a
+// pointer-width rendering would hand the framework eight bytes to write
+// 32 into.
+type NXTabletPointData [8]uint32
 
 // See: https://developer.apple.com/documentation/iokit/nxtabletpointdataptr
 type NXTabletPointDataPtr = uintptr
 
 // See: https://developer.apple.com/documentation/iokit/nxtabletproximitydata
-type NXTabletProximityData = kernel.Pointer
+// NXTabletProximityData is opaque storage with the size and alignment C gives NXTabletProximityData:
+// 32 bytes. C declares a record here, not a handle, so a
+// pointer-width rendering would hand the framework eight bytes to write
+// 32 into.
+type NXTabletProximityData [8]uint32
 
 // See: https://developer.apple.com/documentation/iokit/nxtabletproximitydataptr
 type NXTabletProximityDataPtr = uintptr
 
 // See: https://developer.apple.com/documentation/iokit/nudclflags
-type NuDCLFlags = kernel.Pointer
+type NuDCLFlags = uint32
 
 // See: https://developer.apple.com/documentation/iokit/nudclreceivepacketref
 type NuDCLReceivePacketRef uintptr
@@ -1728,49 +2844,89 @@ type NuDCLSendPacketRef uintptr
 type NuDCLSkipCycleRef uintptr
 
 // See: https://developer.apple.com/documentation/iokit/osasyncreference
-type OSAsyncReference = unsafe.Pointer
+// OSAsyncReference is opaque storage with the size and alignment C gives OSAsyncReference:
+// 32 bytes. C declares a record here, not a handle, so a
+// pointer-width rendering would hand the framework eight bytes to write
+// 32 into.
+type OSAsyncReference [8]uint32
 
 // See: https://developer.apple.com/documentation/iokit/osasyncreference64
-type OSAsyncReference64 = unsafe.Pointer
+// OSAsyncReference64 is opaque storage with the size and alignment C gives OSAsyncReference64:
+// 64 bytes. C declares a record here, not a handle, so a
+// pointer-width rendering would hand the framework eight bytes to write
+// 64 into.
+type OSAsyncReference64 [8]uint64
 
 // See: https://developer.apple.com/documentation/iokit/osobjectref
 type OSObjectRef = uint64
 
 // See: https://developer.apple.com/documentation/iokit/report_luns_logical_unit_addressing
-type REPORT_LUNS_LOGICAL_UNIT_ADDRESSING = kernel.Pointer
+// REPORT_LUNS_LOGICAL_UNIT_ADDRESSING is opaque storage with the size and alignment C gives REPORT_LUNS_LOGICAL_UNIT_ADDRESSING:
+// 2 bytes. C declares a record here, not a handle, so a
+// pointer-width rendering would hand the framework eight bytes to write
+// 2 into.
+type REPORT_LUNS_LOGICAL_UNIT_ADDRESSING [1]uint16
 
 // See: https://developer.apple.com/documentation/iokit/report_luns_peripheral_device_addressing
-type REPORT_LUNS_PERIPHERAL_DEVICE_ADDRESSING = kernel.Pointer
+// REPORT_LUNS_PERIPHERAL_DEVICE_ADDRESSING is opaque storage with the size and alignment C gives REPORT_LUNS_PERIPHERAL_DEVICE_ADDRESSING:
+// 2 bytes. C declares a record here, not a handle, so a
+// pointer-width rendering would hand the framework eight bytes to write
+// 2 into.
+type REPORT_LUNS_PERIPHERAL_DEVICE_ADDRESSING [1]uint16
 
 // See: https://developer.apple.com/documentation/iokit/rgbcolor
-type RGBColor = kernel.Pointer
+// RGBColor is opaque storage with the size and alignment C gives RGBColor:
+// 6 bytes. C declares a record here, not a handle, so a
+// pointer-width rendering would hand the framework eight bytes to write
+// 6 into.
+type RGBColor [3]uint16
 
 // See: https://developer.apple.com/documentation/iokit/rgbcolorhdl
-type RGBColorHdl = unsafe.Pointer
+type RGBColorHdl = *RGBColorPtr
 
 // See: https://developer.apple.com/documentation/iokit/rgbcolorptr
-type RGBColorPtr = applicationservices.RGBColor
+type RGBColorPtr = *applicationservices.RGBColor
 
 // See: https://developer.apple.com/documentation/iokit/rawsensecode
 type RawSenseCode = uint8
 
 // See: https://developer.apple.com/documentation/iokit/regentryid
-type RegEntryID = kernel.Pointer
+// RegEntryID is opaque storage with the size and alignment C gives RegEntryID:
+// 32 bytes. C declares a record here, not a handle, so a
+// pointer-width rendering would hand the framework eight bytes to write
+// 32 into.
+type RegEntryID [4]uint64
 
 // See: https://developer.apple.com/documentation/iokit/regentryidptr
 type RegEntryIDPtr = unsafe.Pointer
 
 // See: https://developer.apple.com/documentation/iokit/sbcmodepagecaching
-type SBCModePageCaching = kernel.Pointer
+// SBCModePageCaching is opaque storage with the size and alignment C gives SBCModePageCaching:
+// 20 bytes. C declares a record here, not a handle, so a
+// pointer-width rendering would hand the framework eight bytes to write
+// 20 into.
+type SBCModePageCaching [20]byte
 
 // See: https://developer.apple.com/documentation/iokit/sbcmodepageflexibledisk
-type SBCModePageFlexibleDisk = kernel.Pointer
+// SBCModePageFlexibleDisk is opaque storage with the size and alignment C gives SBCModePageFlexibleDisk:
+// 32 bytes. C declares a record here, not a handle, so a
+// pointer-width rendering would hand the framework eight bytes to write
+// 32 into.
+type SBCModePageFlexibleDisk [32]byte
 
 // See: https://developer.apple.com/documentation/iokit/sbcmodepageformatdevice
-type SBCModePageFormatDevice = kernel.Pointer
+// SBCModePageFormatDevice is opaque storage with the size and alignment C gives SBCModePageFormatDevice:
+// 24 bytes. C declares a record here, not a handle, so a
+// pointer-width rendering would hand the framework eight bytes to write
+// 24 into.
+type SBCModePageFormatDevice [24]byte
 
 // See: https://developer.apple.com/documentation/iokit/sbcmodepagerigiddiskgeometry
-type SBCModePageRigidDiskGeometry = kernel.Pointer
+// SBCModePageRigidDiskGeometry is opaque storage with the size and alignment C gives SBCModePageRigidDiskGeometry:
+// 24 bytes. C declares a record here, not a handle, so a
+// pointer-width rendering would hand the framework eight bytes to write
+// 24 into.
+type SBCModePageRigidDiskGeometry [24]byte
 
 // See: https://developer.apple.com/documentation/iokit/scsicmdfield10bit
 type SCSICmdField10Bit = uint16
@@ -1965,73 +3121,161 @@ type SCSICmdField8Byte = uint64
 type SCSICmdField9Bit = uint16
 
 // See: https://developer.apple.com/documentation/iokit/scsicmd_inquiry_pagecx_header
-type SCSICmd_INQUIRY_PAGECx_Header = kernel.Pointer
+// SCSICmd_INQUIRY_PAGECx_Header is opaque storage with the size and alignment C gives SCSICmd_INQUIRY_PAGECx_Header:
+// 4 bytes. C declares a record here, not a handle, so a
+// pointer-width rendering would hand the framework eight bytes to write
+// 4 into.
+type SCSICmd_INQUIRY_PAGECx_Header [4]byte
 
 // See: https://developer.apple.com/documentation/iokit/scsicmd_inquiry_page00_header
-type SCSICmd_INQUIRY_Page00_Header = kernel.Pointer
+// SCSICmd_INQUIRY_Page00_Header is opaque storage with the size and alignment C gives SCSICmd_INQUIRY_Page00_Header:
+// 4 bytes. C declares a record here, not a handle, so a
+// pointer-width rendering would hand the framework eight bytes to write
+// 4 into.
+type SCSICmd_INQUIRY_Page00_Header [4]byte
 
 // See: https://developer.apple.com/documentation/iokit/scsicmd_inquiry_page00_header_spc_16
-type SCSICmd_INQUIRY_Page00_Header_SPC_16 = kernel.Pointer
+// SCSICmd_INQUIRY_Page00_Header_SPC_16 is opaque storage with the size and alignment C gives SCSICmd_INQUIRY_Page00_Header_SPC_16:
+// 4 bytes. C declares a record here, not a handle, so a
+// pointer-width rendering would hand the framework eight bytes to write
+// 4 into.
+type SCSICmd_INQUIRY_Page00_Header_SPC_16 [2]uint16
 
 // See: https://developer.apple.com/documentation/iokit/scsicmd_inquiry_page80_header
-type SCSICmd_INQUIRY_Page80_Header = kernel.Pointer
+// SCSICmd_INQUIRY_Page80_Header is opaque storage with the size and alignment C gives SCSICmd_INQUIRY_Page80_Header:
+// 5 bytes. C declares a record here, not a handle, so a
+// pointer-width rendering would hand the framework eight bytes to write
+// 5 into.
+type SCSICmd_INQUIRY_Page80_Header [5]byte
 
 // See: https://developer.apple.com/documentation/iokit/scsicmd_inquiry_page80_header_spc_16
-type SCSICmd_INQUIRY_Page80_Header_SPC_16 = kernel.Pointer
+// SCSICmd_INQUIRY_Page80_Header_SPC_16 is opaque storage with the size and alignment C gives SCSICmd_INQUIRY_Page80_Header_SPC_16:
+// 6 bytes. C declares a record here, not a handle, so a
+// pointer-width rendering would hand the framework eight bytes to write
+// 6 into.
+type SCSICmd_INQUIRY_Page80_Header_SPC_16 [3]uint16
 
 // See: https://developer.apple.com/documentation/iokit/scsicmd_inquiry_page83_header
-type SCSICmd_INQUIRY_Page83_Header = kernel.Pointer
+// SCSICmd_INQUIRY_Page83_Header is opaque storage with the size and alignment C gives SCSICmd_INQUIRY_Page83_Header:
+// 4 bytes. C declares a record here, not a handle, so a
+// pointer-width rendering would hand the framework eight bytes to write
+// 4 into.
+type SCSICmd_INQUIRY_Page83_Header [4]byte
 
 // See: https://developer.apple.com/documentation/iokit/scsicmd_inquiry_page83_header_spc_16
-type SCSICmd_INQUIRY_Page83_Header_SPC_16 = kernel.Pointer
+// SCSICmd_INQUIRY_Page83_Header_SPC_16 is opaque storage with the size and alignment C gives SCSICmd_INQUIRY_Page83_Header_SPC_16:
+// 4 bytes. C declares a record here, not a handle, so a
+// pointer-width rendering would hand the framework eight bytes to write
+// 4 into.
+type SCSICmd_INQUIRY_Page83_Header_SPC_16 [2]uint16
 
 // See: https://developer.apple.com/documentation/iokit/scsicmd_inquiry_page83_identification_descriptor
-type SCSICmd_INQUIRY_Page83_Identification_Descriptor = kernel.Pointer
+// SCSICmd_INQUIRY_Page83_Identification_Descriptor is opaque storage with the size and alignment C gives SCSICmd_INQUIRY_Page83_Identification_Descriptor:
+// 5 bytes. C declares a record here, not a handle, so a
+// pointer-width rendering would hand the framework eight bytes to write
+// 5 into.
+type SCSICmd_INQUIRY_Page83_Identification_Descriptor [5]byte
 
 // See: https://developer.apple.com/documentation/iokit/scsicmd_inquiry_page83_logicalunitgroup_identifier
-type SCSICmd_INQUIRY_Page83_LogicalUnitGroup_Identifier = kernel.Pointer
+// SCSICmd_INQUIRY_Page83_LogicalUnitGroup_Identifier is opaque storage with the size and alignment C gives SCSICmd_INQUIRY_Page83_LogicalUnitGroup_Identifier:
+// 4 bytes. C declares a record here, not a handle, so a
+// pointer-width rendering would hand the framework eight bytes to write
+// 4 into.
+type SCSICmd_INQUIRY_Page83_LogicalUnitGroup_Identifier [2]uint16
 
 // See: https://developer.apple.com/documentation/iokit/scsicmd_inquiry_page83_relativetargetport_identifier
-type SCSICmd_INQUIRY_Page83_RelativeTargetPort_Identifier = kernel.Pointer
+// SCSICmd_INQUIRY_Page83_RelativeTargetPort_Identifier is opaque storage with the size and alignment C gives SCSICmd_INQUIRY_Page83_RelativeTargetPort_Identifier:
+// 4 bytes. C declares a record here, not a handle, so a
+// pointer-width rendering would hand the framework eight bytes to write
+// 4 into.
+type SCSICmd_INQUIRY_Page83_RelativeTargetPort_Identifier [2]uint16
 
 // See: https://developer.apple.com/documentation/iokit/scsicmd_inquiry_page83_targetportgroup_identifier
-type SCSICmd_INQUIRY_Page83_TargetPortGroup_Identifier = kernel.Pointer
+// SCSICmd_INQUIRY_Page83_TargetPortGroup_Identifier is opaque storage with the size and alignment C gives SCSICmd_INQUIRY_Page83_TargetPortGroup_Identifier:
+// 4 bytes. C declares a record here, not a handle, so a
+// pointer-width rendering would hand the framework eight bytes to write
+// 4 into.
+type SCSICmd_INQUIRY_Page83_TargetPortGroup_Identifier [2]uint16
 
 // See: https://developer.apple.com/documentation/iokit/scsicmd_inquiry_page89_data
-type SCSICmd_INQUIRY_Page89_Data = kernel.Pointer
+// SCSICmd_INQUIRY_Page89_Data is opaque storage with the size and alignment C gives SCSICmd_INQUIRY_Page89_Data:
+// 572 bytes. C declares a record here, not a handle, so a
+// pointer-width rendering would hand the framework eight bytes to write
+// 572 into.
+type SCSICmd_INQUIRY_Page89_Data [143]uint32
 
 // See: https://developer.apple.com/documentation/iokit/scsicmd_inquiry_pageb0_data
-type SCSICmd_INQUIRY_PageB0_Data = kernel.Pointer
+// SCSICmd_INQUIRY_PageB0_Data is opaque storage with the size and alignment C gives SCSICmd_INQUIRY_PageB0_Data:
+// 64 bytes. C declares a record here, not a handle, so a
+// pointer-width rendering would hand the framework eight bytes to write
+// 64 into.
+type SCSICmd_INQUIRY_PageB0_Data [64]byte
 
 // See: https://developer.apple.com/documentation/iokit/scsicmd_inquiry_pageb1_data
-type SCSICmd_INQUIRY_PageB1_Data = kernel.Pointer
+// SCSICmd_INQUIRY_PageB1_Data is opaque storage with the size and alignment C gives SCSICmd_INQUIRY_PageB1_Data:
+// 64 bytes. C declares a record here, not a handle, so a
+// pointer-width rendering would hand the framework eight bytes to write
+// 64 into.
+type SCSICmd_INQUIRY_PageB1_Data [32]uint16
 
 // See: https://developer.apple.com/documentation/iokit/scsicmd_inquiry_pageb2_data
-type SCSICmd_INQUIRY_PageB2_Data = kernel.Pointer
+// SCSICmd_INQUIRY_PageB2_Data is opaque storage with the size and alignment C gives SCSICmd_INQUIRY_PageB2_Data:
+// 8 bytes. C declares a record here, not a handle, so a
+// pointer-width rendering would hand the framework eight bytes to write
+// 8 into.
+type SCSICmd_INQUIRY_PageB2_Data [8]byte
 
 // See: https://developer.apple.com/documentation/iokit/scsicmd_inquiry_pageb2_provisioning_group_descriptor
-type SCSICmd_INQUIRY_PageB2_Provisioning_Group_Descriptor = kernel.Pointer
+// SCSICmd_INQUIRY_PageB2_Provisioning_Group_Descriptor is opaque storage with the size and alignment C gives SCSICmd_INQUIRY_PageB2_Provisioning_Group_Descriptor:
+// 38 bytes. C declares a record here, not a handle, so a
+// pointer-width rendering would hand the framework eight bytes to write
+// 38 into.
+type SCSICmd_INQUIRY_PageB2_Provisioning_Group_Descriptor [38]byte
 
 // See: https://developer.apple.com/documentation/iokit/scsicmd_inquiry_pagec0_data
-type SCSICmd_INQUIRY_PageC0_Data = kernel.Pointer
+// SCSICmd_INQUIRY_PageC0_Data is opaque storage with the size and alignment C gives SCSICmd_INQUIRY_PageC0_Data:
+// 116 bytes. C declares a record here, not a handle, so a
+// pointer-width rendering would hand the framework eight bytes to write
+// 116 into.
+type SCSICmd_INQUIRY_PageC0_Data [116]byte
 
 // See: https://developer.apple.com/documentation/iokit/scsicmd_inquiry_pagec1_data
-type SCSICmd_INQUIRY_PageC1_Data = kernel.Pointer
+// SCSICmd_INQUIRY_PageC1_Data is opaque storage with the size and alignment C gives SCSICmd_INQUIRY_PageC1_Data:
+// 12 bytes. C declares a record here, not a handle, so a
+// pointer-width rendering would hand the framework eight bytes to write
+// 12 into.
+type SCSICmd_INQUIRY_PageC1_Data [12]byte
 
 // See: https://developer.apple.com/documentation/iokit/scsicmd_inquiry_standarddata
-type SCSICmd_INQUIRY_StandardData = kernel.Pointer
+// SCSICmd_INQUIRY_StandardData is opaque storage with the size and alignment C gives SCSICmd_INQUIRY_StandardData:
+// 36 bytes. C declares a record here, not a handle, so a
+// pointer-width rendering would hand the framework eight bytes to write
+// 36 into.
+type SCSICmd_INQUIRY_StandardData [36]byte
 
 // See: https://developer.apple.com/documentation/iokit/scsicmd_inquiry_standarddataall
-type SCSICmd_INQUIRY_StandardDataAll = kernel.Pointer
+// SCSICmd_INQUIRY_StandardDataAll is opaque storage with the size and alignment C gives SCSICmd_INQUIRY_StandardDataAll:
+// 256 bytes. C declares a record here, not a handle, so a
+// pointer-width rendering would hand the framework eight bytes to write
+// 256 into.
+type SCSICmd_INQUIRY_StandardDataAll [128]uint16
 
 // See: https://developer.apple.com/documentation/iokit/scsicmd_inquiry_standarddataptr
 type SCSICmd_INQUIRY_StandardDataPtr = unsafe.Pointer
 
 // See: https://developer.apple.com/documentation/iokit/scsicmd_report_luns_header
-type SCSICmd_REPORT_LUNS_Header = kernel.Pointer
+// SCSICmd_REPORT_LUNS_Header is opaque storage with the size and alignment C gives SCSICmd_REPORT_LUNS_Header:
+// 16 bytes. C declares a record here, not a handle, so a
+// pointer-width rendering would hand the framework eight bytes to write
+// 16 into.
+type SCSICmd_REPORT_LUNS_Header [4]uint32
 
 // See: https://developer.apple.com/documentation/iokit/scsicmd_report_luns_lun_entry
-type SCSICmd_REPORT_LUNS_LUN_ENTRY = kernel.Pointer
+// SCSICmd_REPORT_LUNS_LUN_ENTRY is opaque storage with the size and alignment C gives SCSICmd_REPORT_LUNS_LUN_ENTRY:
+// 8 bytes. C declares a record here, not a handle, so a
+// pointer-width rendering would hand the framework eight bytes to write
+// 8 into.
+type SCSICmd_REPORT_LUNS_LUN_ENTRY [4]uint16
 
 // See: https://developer.apple.com/documentation/iokit/scsicommanddescriptorblock
 type SCSICommandDescriptorBlock = uint8
@@ -2044,7 +3288,7 @@ type SCSIDeviceIdentifier = uint64
 // SCSIInitiatorIdentifier is 64-bit number to represent a SCSI Initiator Device.
 //
 // See: https://developer.apple.com/documentation/iokit/scsiinitiatoridentifier
-type SCSIInitiatorIdentifier = string
+type SCSIInitiatorIdentifier = uint64
 
 // See: https://developer.apple.com/documentation/iokit/scsilogicalunitbytes
 type SCSILogicalUnitBytes = uint8
@@ -2055,7 +3299,7 @@ type SCSILogicalUnitNumber = uint64
 // SCSIServiceResponse is attributes for task service response.
 //
 // See: https://developer.apple.com/documentation/iokit/scsiserviceresponse
-type SCSIServiceResponse = kernel.Pointer
+type SCSIServiceResponse = uint32
 
 // SCSITaggedTaskIdentifier is 64-bit number to represent a unique task identifier.
 //
@@ -2065,56 +3309,96 @@ type SCSITaggedTaskIdentifier = uint64
 // SCSITargetIdentifier is 64-bit number to represent a SCSI Target Device.
 //
 // See: https://developer.apple.com/documentation/iokit/scsitargetidentifier
-type SCSITargetIdentifier = string
+type SCSITargetIdentifier = uint64
 
 // SCSITaskAttribute is attributes for task delivery.
 //
 // See: https://developer.apple.com/documentation/iokit/scsitaskattribute
-type SCSITaskAttribute = kernel.Pointer
+type SCSITaskAttribute = uint32
 
 // SCSITaskDeviceInterface is basic interface for a SCSITask Device.
 //
 // See: https://developer.apple.com/documentation/iokit/scsitaskdeviceinterface
-type SCSITaskDeviceInterface = kernel.Pointer
+// SCSITaskDeviceInterface is opaque storage with the size and alignment C gives SCSITaskDeviceInterface:
+// 88 bytes. C declares a record here, not a handle, so a
+// pointer-width rendering would hand the framework eight bytes to write
+// 88 into.
+type SCSITaskDeviceInterface [11]uint64
 
 // SCSITaskInterface is basic interface for a SCSITask.
 //
 // See: https://developer.apple.com/documentation/iokit/scsitaskinterface
-type SCSITaskInterface = kernel.Pointer
+// SCSITaskInterface is opaque storage with the size and alignment C gives SCSITaskInterface:
+// 200 bytes. C declares a record here, not a handle, so a
+// pointer-width rendering would hand the framework eight bytes to write
+// 200 into.
+type SCSITaskInterface [25]uint64
 
 // See: https://developer.apple.com/documentation/iokit/scsitasksgelement
-type SCSITaskSGElement = unsafe.Pointer
+// SCSITaskSGElement is opaque storage with the size and alignment C gives SCSITaskSGElement:
+// 16 bytes. C declares a record here, not a handle, so a
+// pointer-width rendering would hand the framework eight bytes to write
+// 16 into.
+type SCSITaskSGElement [2]uint64
 
 // SCSITaskState is attributes for task state.
 //
 // See: https://developer.apple.com/documentation/iokit/scsitaskstate
-type SCSITaskState = kernel.Pointer
+type SCSITaskState = uint32
 
 // SCSITaskStatus is attributes for task status.
 //
 // See: https://developer.apple.com/documentation/iokit/scsitaskstatus
-type SCSITaskStatus = kernel.Pointer
+type SCSITaskStatus = uint32
 
 // See: https://developer.apple.com/documentation/iokit/scsi_capacity_data
-type SCSI_Capacity_Data = kernel.Pointer
+// SCSI_Capacity_Data is opaque storage with the size and alignment C gives SCSI_Capacity_Data:
+// 8 bytes. C declares a record here, not a handle, so a
+// pointer-width rendering would hand the framework eight bytes to write
+// 8 into.
+type SCSI_Capacity_Data [2]uint32
 
 // See: https://developer.apple.com/documentation/iokit/scsi_capacity_data_long
-type SCSI_Capacity_Data_Long = kernel.Pointer
+// SCSI_Capacity_Data_Long is opaque storage with the size and alignment C gives SCSI_Capacity_Data_Long:
+// 32 bytes. C declares a record here, not a handle, so a
+// pointer-width rendering would hand the framework eight bytes to write
+// 32 into.
+type SCSI_Capacity_Data_Long [4]uint64
 
 // See: https://developer.apple.com/documentation/iokit/scsi_sense_data
-type SCSI_Sense_Data = kernel.Pointer
+// SCSI_Sense_Data is opaque storage with the size and alignment C gives SCSI_Sense_Data:
+// 18 bytes. C declares a record here, not a handle, so a
+// pointer-width rendering would hand the framework eight bytes to write
+// 18 into.
+type SCSI_Sense_Data [18]byte
 
 // See: https://developer.apple.com/documentation/iokit/spcmodepagepowercondition
-type SPCModePagePowerCondition = kernel.Pointer
+// SPCModePagePowerCondition is opaque storage with the size and alignment C gives SPCModePagePowerCondition:
+// 12 bytes. C declares a record here, not a handle, so a
+// pointer-width rendering would hand the framework eight bytes to write
+// 12 into.
+type SPCModePagePowerCondition [12]byte
 
 // See: https://developer.apple.com/documentation/iokit/spcmodeparameterheader10
-type SPCModeParameterHeader10 = kernel.Pointer
+// SPCModeParameterHeader10 is opaque storage with the size and alignment C gives SPCModeParameterHeader10:
+// 8 bytes. C declares a record here, not a handle, so a
+// pointer-width rendering would hand the framework eight bytes to write
+// 8 into.
+type SPCModeParameterHeader10 [8]byte
 
 // See: https://developer.apple.com/documentation/iokit/spcmodeparameterheader6
-type SPCModeParameterHeader6 = kernel.Pointer
+// SPCModeParameterHeader6 is opaque storage with the size and alignment C gives SPCModeParameterHeader6:
+// 4 bytes. C declares a record here, not a handle, so a
+// pointer-width rendering would hand the framework eight bytes to write
+// 4 into.
+type SPCModeParameterHeader6 [4]byte
 
 // See: https://developer.apple.com/documentation/iokit/uaspipedescriptor
-type UASPipeDescriptor = kernel.Pointer
+// UASPipeDescriptor is opaque storage with the size and alignment C gives UASPipeDescriptor:
+// 4 bytes. C declares a record here, not a handle, so a
+// pointer-width rendering would hand the framework eight bytes to write
+// 4 into.
+type UASPipeDescriptor [4]byte
 
 // See: https://developer.apple.com/documentation/iokit/uaspipedescriptorptr
 type UASPipeDescriptorPtr = unsafe.Pointer
@@ -2123,85 +3407,141 @@ type UASPipeDescriptorPtr = unsafe.Pointer
 type USBDeviceAddress = uint16
 
 // See: https://developer.apple.com/documentation/iokit/usbdeviceinformationbits
-type USBDeviceInformationBits = kernel.Pointer
+type USBDeviceInformationBits = uint32
 
 // See: https://developer.apple.com/documentation/iokit/usblowlatencybuffertype
-type USBLowLatencyBufferType = kernel.Pointer
+type USBLowLatencyBufferType = uint32
 
 // See: https://developer.apple.com/documentation/iokit/usbnotificationtypes
-type USBNotificationTypes = kernel.Pointer
+type USBNotificationTypes = uint32
 
 // See: https://developer.apple.com/documentation/iokit/usbphysicaladdress32
 type USBPhysicalAddress32 = uint32
 
 // See: https://developer.apple.com/documentation/iokit/usbpowerrequesttypes
-type USBPowerRequestTypes = kernel.Pointer
+type USBPowerRequestTypes = uint32
 
 // See: https://developer.apple.com/documentation/iokit/usbreenumerateoptions
-type USBReEnumerateOptions = kernel.Pointer
+type USBReEnumerateOptions = int32
 
 // See: https://developer.apple.com/documentation/iokit/usbstatus
 type USBStatus = uint16
 
 // See: https://developer.apple.com/documentation/iokit/usbstatusptr
-type USBStatusPtr = unsafe.Pointer
+type USBStatusPtr = *USBStatus
 
 // See: https://developer.apple.com/documentation/iokit/userexportdclcallcommandproc
-type UserExportDCLCallCommandProc = kernel.Pointer
+type UserExportDCLCallCommandProc = *kernel.ID
 
 // See: https://developer.apple.com/documentation/iokit/userexportdclcallproc
-type UserExportDCLCallProc = kernel.Pointer
+// UserExportDCLCallProc is opaque storage with the size and alignment C gives UserExportDCLCallProc:
+// 44 bytes. C declares a record here, not a handle, so a
+// pointer-width rendering would hand the framework eight bytes to write
+// 44 into.
+type UserExportDCLCallProc [44]byte
 
 // See: https://developer.apple.com/documentation/iokit/userexportdclcommand
-type UserExportDCLCommand = kernel.Pointer
+// UserExportDCLCommand is opaque storage with the size and alignment C gives UserExportDCLCommand:
+// 32 bytes. C declares a record here, not a handle, so a
+// pointer-width rendering would hand the framework eight bytes to write
+// 32 into.
+type UserExportDCLCommand [32]byte
 
 // See: https://developer.apple.com/documentation/iokit/userexportdcljump
-type UserExportDCLJump = kernel.Pointer
+// UserExportDCLJump is opaque storage with the size and alignment C gives UserExportDCLJump:
+// 36 bytes. C declares a record here, not a handle, so a
+// pointer-width rendering would hand the framework eight bytes to write
+// 36 into.
+type UserExportDCLJump [36]byte
 
 // See: https://developer.apple.com/documentation/iokit/userexportdcllabel
-type UserExportDCLLabel = kernel.Pointer
+// UserExportDCLLabel is opaque storage with the size and alignment C gives UserExportDCLLabel:
+// 28 bytes. C declares a record here, not a handle, so a
+// pointer-width rendering would hand the framework eight bytes to write
+// 28 into.
+type UserExportDCLLabel [28]byte
 
 // See: https://developer.apple.com/documentation/iokit/userexportdclnudclleader
-type UserExportDCLNuDCLLeader = kernel.Pointer
+// UserExportDCLNuDCLLeader is opaque storage with the size and alignment C gives UserExportDCLNuDCLLeader:
+// 36 bytes. C declares a record here, not a handle, so a
+// pointer-width rendering would hand the framework eight bytes to write
+// 36 into.
+type UserExportDCLNuDCLLeader [36]byte
 
 // See: https://developer.apple.com/documentation/iokit/userexportdclptrtimestamp
-type UserExportDCLPtrTimeStamp = kernel.Pointer
+// UserExportDCLPtrTimeStamp is opaque storage with the size and alignment C gives UserExportDCLPtrTimeStamp:
+// 36 bytes. C declares a record here, not a handle, so a
+// pointer-width rendering would hand the framework eight bytes to write
+// 36 into.
+type UserExportDCLPtrTimeStamp [36]byte
 
 // See: https://developer.apple.com/documentation/iokit/userexportdclsettagsyncbits
-type UserExportDCLSetTagSyncBits = kernel.Pointer
+// UserExportDCLSetTagSyncBits is opaque storage with the size and alignment C gives UserExportDCLSetTagSyncBits:
+// 32 bytes. C declares a record here, not a handle, so a
+// pointer-width rendering would hand the framework eight bytes to write
+// 32 into.
+type UserExportDCLSetTagSyncBits [32]byte
 
 // See: https://developer.apple.com/documentation/iokit/userexportdcltimestamp
-type UserExportDCLTimeStamp = kernel.Pointer
+// UserExportDCLTimeStamp is opaque storage with the size and alignment C gives UserExportDCLTimeStamp:
+// 32 bytes. C declares a record here, not a handle, so a
+// pointer-width rendering would hand the framework eight bytes to write
+// 32 into.
+type UserExportDCLTimeStamp [32]byte
 
 // See: https://developer.apple.com/documentation/iokit/userexportdcltransferbuffer
-type UserExportDCLTransferBuffer = kernel.Pointer
+// UserExportDCLTransferBuffer is opaque storage with the size and alignment C gives UserExportDCLTransferBuffer:
+// 48 bytes. C declares a record here, not a handle, so a
+// pointer-width rendering would hand the framework eight bytes to write
+// 48 into.
+type UserExportDCLTransferBuffer [48]byte
 
 // See: https://developer.apple.com/documentation/iokit/userexportdcltransferpacket
-type UserExportDCLTransferPacket = kernel.Pointer
+// UserExportDCLTransferPacket is opaque storage with the size and alignment C gives UserExportDCLTransferPacket:
+// 40 bytes. C declares a record here, not a handle, so a
+// pointer-width rendering would hand the framework eight bytes to write
+// 40 into.
+type UserExportDCLTransferPacket [40]byte
 
 // See: https://developer.apple.com/documentation/iokit/userexportdclupdatedcllist
-type UserExportDCLUpdateDCLList = kernel.Pointer
+// UserExportDCLUpdateDCLList is opaque storage with the size and alignment C gives UserExportDCLUpdateDCLList:
+// 40 bytes. C declares a record here, not a handle, so a
+// pointer-width rendering would hand the framework eight bytes to write
+// 40 into.
+type UserExportDCLUpdateDCLList [40]byte
 
 // See: https://developer.apple.com/documentation/iokit/vdclutbehavior
 type VDClutBehavior = uint32
 
 // See: https://developer.apple.com/documentation/iokit/vdclutbehaviorptr
-type VDClutBehaviorPtr = unsafe.Pointer
+type VDClutBehaviorPtr = *VDClutBehavior
 
 // See: https://developer.apple.com/documentation/iokit/vdcommunicationinfoptr
 type VDCommunicationInfoPtr = unsafe.Pointer
 
 // See: https://developer.apple.com/documentation/iokit/vdcommunicationinforec
-type VDCommunicationInfoRec = kernel.Pointer
+// VDCommunicationInfoRec is opaque storage with the size and alignment C gives VDCommunicationInfoRec:
+// 48 bytes. C declares a record here, not a handle, so a
+// pointer-width rendering would hand the framework eight bytes to write
+// 48 into.
+type VDCommunicationInfoRec [12]uint32
 
 // See: https://developer.apple.com/documentation/iokit/vdcommunicationptr
 type VDCommunicationPtr = unsafe.Pointer
 
 // See: https://developer.apple.com/documentation/iokit/vdcommunicationrec
-type VDCommunicationRec = kernel.Pointer
+// VDCommunicationRec is opaque storage with the size and alignment C gives VDCommunicationRec:
+// 80 bytes. C declares a record here, not a handle, so a
+// pointer-width rendering would hand the framework eight bytes to write
+// 80 into.
+type VDCommunicationRec [10]uint64
 
 // See: https://developer.apple.com/documentation/iokit/vdconfigurationfeaturelistrec
-type VDConfigurationFeatureListRec = kernel.Pointer
+// VDConfigurationFeatureListRec is opaque storage with the size and alignment C gives VDConfigurationFeatureListRec:
+// 32 bytes. C declares a record here, not a handle, so a
+// pointer-width rendering would hand the framework eight bytes to write
+// 32 into.
+type VDConfigurationFeatureListRec [4]uint64
 
 // See: https://developer.apple.com/documentation/iokit/vdconfigurationfeaturelistrecptr
 type VDConfigurationFeatureListRecPtr = unsafe.Pointer
@@ -2210,22 +3550,34 @@ type VDConfigurationFeatureListRecPtr = unsafe.Pointer
 type VDConfigurationPtr = unsafe.Pointer
 
 // See: https://developer.apple.com/documentation/iokit/vdconfigurationrec
-type VDConfigurationRec = kernel.Pointer
+// VDConfigurationRec is opaque storage with the size and alignment C gives VDConfigurationRec:
+// 32 bytes. C declares a record here, not a handle, so a
+// pointer-width rendering would hand the framework eight bytes to write
+// 32 into.
+type VDConfigurationRec [4]uint64
 
 // See: https://developer.apple.com/documentation/iokit/vdconvolutioninfoptr
 type VDConvolutionInfoPtr = unsafe.Pointer
 
 // See: https://developer.apple.com/documentation/iokit/vdconvolutioninforec
-type VDConvolutionInfoRec = kernel.Pointer
+// VDConvolutionInfoRec is opaque storage with the size and alignment C gives VDConvolutionInfoRec:
+// 20 bytes. C declares a record here, not a handle, so a
+// pointer-width rendering would hand the framework eight bytes to write
+// 20 into.
+type VDConvolutionInfoRec [5]uint32
 
 // See: https://developer.apple.com/documentation/iokit/vdddcblockptr
 type VDDDCBlockPtr = unsafe.Pointer
 
 // See: https://developer.apple.com/documentation/iokit/vdddcblockrec
-type VDDDCBlockRec = kernel.Pointer
+// VDDDCBlockRec is opaque storage with the size and alignment C gives VDDDCBlockRec:
+// 144 bytes. C declares a record here, not a handle, so a
+// pointer-width rendering would hand the framework eight bytes to write
+// 144 into.
+type VDDDCBlockRec [36]uint32
 
 // See: https://developer.apple.com/documentation/iokit/vddefmode
-type VDDefMode = kernel.Pointer
+type VDDefMode = uint
 
 // See: https://developer.apple.com/documentation/iokit/vddefmodeptr
 type VDDefModePtr = unsafe.Pointer
@@ -2234,84 +3586,140 @@ type VDDefModePtr = unsafe.Pointer
 type VDDetailedTimingPtr = unsafe.Pointer
 
 // See: https://developer.apple.com/documentation/iokit/vddetailedtimingrec
-type VDDetailedTimingRec = kernel.Pointer
+// VDDetailedTimingRec is opaque storage with the size and alignment C gives VDDetailedTimingRec:
+// 160 bytes. C declares a record here, not a handle, so a
+// pointer-width rendering would hand the framework eight bytes to write
+// 160 into.
+type VDDetailedTimingRec [20]uint64
 
 // See: https://developer.apple.com/documentation/iokit/vddisplayconnectinfoptr
 type VDDisplayConnectInfoPtr = unsafe.Pointer
 
 // See: https://developer.apple.com/documentation/iokit/vddisplayconnectinforec
-type VDDisplayConnectInfoRec = kernel.Pointer
+// VDDisplayConnectInfoRec is opaque storage with the size and alignment C gives VDDisplayConnectInfoRec:
+// 24 bytes. C declares a record here, not a handle, so a
+// pointer-width rendering would hand the framework eight bytes to write
+// 24 into.
+type VDDisplayConnectInfoRec [3]uint64
 
 // See: https://developer.apple.com/documentation/iokit/vddisplaytimingrangeptr
 type VDDisplayTimingRangePtr = unsafe.Pointer
 
 // See: https://developer.apple.com/documentation/iokit/vddisplaytimingrangerec
-type VDDisplayTimingRangeRec = kernel.Pointer
+// VDDisplayTimingRangeRec is opaque storage with the size and alignment C gives VDDisplayTimingRangeRec:
+// 240 bytes. C declares a record here, not a handle, so a
+// pointer-width rendering would hand the framework eight bytes to write
+// 240 into.
+type VDDisplayTimingRangeRec [30]uint64
 
 // See: https://developer.apple.com/documentation/iokit/vddrawhardwarecursorptr
 type VDDrawHardwareCursorPtr = unsafe.Pointer
 
 // See: https://developer.apple.com/documentation/iokit/vddrawhardwarecursorrec
-type VDDrawHardwareCursorRec = kernel.Pointer
+// VDDrawHardwareCursorRec is opaque storage with the size and alignment C gives VDDrawHardwareCursorRec:
+// 20 bytes. C declares a record here, not a handle, so a
+// pointer-width rendering would hand the framework eight bytes to write
+// 20 into.
+type VDDrawHardwareCursorRec [5]uint32
 
 // See: https://developer.apple.com/documentation/iokit/vdentrecptr
 type VDEntRecPtr = unsafe.Pointer
 
 // See: https://developer.apple.com/documentation/iokit/vdentryrecord
-type VDEntryRecord = kernel.Pointer
+// VDEntryRecord is opaque storage with the size and alignment C gives VDEntryRecord:
+// 8 bytes. C declares a record here, not a handle, so a
+// pointer-width rendering would hand the framework eight bytes to write
+// 8 into.
+type VDEntryRecord [1]uint64
 
 // See: https://developer.apple.com/documentation/iokit/vdflagrecptr
 type VDFlagRecPtr = unsafe.Pointer
 
 // See: https://developer.apple.com/documentation/iokit/vdflagrecord
-type VDFlagRecord = kernel.Pointer
+// VDFlagRecord is opaque storage with the size and alignment C gives VDFlagRecord:
+// 2 bytes. C declares a record here, not a handle, so a
+// pointer-width rendering would hand the framework eight bytes to write
+// 2 into.
+type VDFlagRecord [2]byte
 
 // VDGamRecPtr is represents a type used by the Video Components API.
 //
 // See: https://developer.apple.com/documentation/iokit/vdgamrecptr
-type VDGamRecPtr = applicationservices.VDGammaRecord
+type VDGamRecPtr = *applicationservices.VDGammaRecord
 
 // See: https://developer.apple.com/documentation/iokit/vdgammainfoptr
 type VDGammaInfoPtr = unsafe.Pointer
 
 // See: https://developer.apple.com/documentation/iokit/vdgammainforec
-type VDGammaInfoRec = kernel.Pointer
+// VDGammaInfoRec is opaque storage with the size and alignment C gives VDGammaInfoRec:
+// 24 bytes. C declares a record here, not a handle, so a
+// pointer-width rendering would hand the framework eight bytes to write
+// 24 into.
+type VDGammaInfoRec [3]uint64
 
 // See: https://developer.apple.com/documentation/iokit/vdgammarecord
-type VDGammaRecord = kernel.Pointer
+// VDGammaRecord is opaque storage with the size and alignment C gives VDGammaRecord:
+// 8 bytes. C declares a record here, not a handle, so a
+// pointer-width rendering would hand the framework eight bytes to write
+// 8 into.
+type VDGammaRecord [1]uint64
 
 // See: https://developer.apple.com/documentation/iokit/vdgetgammalistptr
 type VDGetGammaListPtr = unsafe.Pointer
 
 // See: https://developer.apple.com/documentation/iokit/vdgetgammalistrec
-type VDGetGammaListRec = kernel.Pointer
+// VDGetGammaListRec is opaque storage with the size and alignment C gives VDGetGammaListRec:
+// 24 bytes. C declares a record here, not a handle, so a
+// pointer-width rendering would hand the framework eight bytes to write
+// 24 into.
+type VDGetGammaListRec [3]uint64
 
 // See: https://developer.apple.com/documentation/iokit/vdgrayptr
 type VDGrayPtr = unsafe.Pointer
 
 // See: https://developer.apple.com/documentation/iokit/vdgrayrecord
-type VDGrayRecord = kernel.Pointer
+// VDGrayRecord is opaque storage with the size and alignment C gives VDGrayRecord:
+// 2 bytes. C declares a record here, not a handle, so a
+// pointer-width rendering would hand the framework eight bytes to write
+// 2 into.
+type VDGrayRecord [2]byte
 
 // See: https://developer.apple.com/documentation/iokit/vdhardwarecursordrawstateptr
 type VDHardwareCursorDrawStatePtr = unsafe.Pointer
 
 // See: https://developer.apple.com/documentation/iokit/vdhardwarecursordrawstaterec
-type VDHardwareCursorDrawStateRec = kernel.Pointer
+// VDHardwareCursorDrawStateRec is opaque storage with the size and alignment C gives VDHardwareCursorDrawStateRec:
+// 24 bytes. C declares a record here, not a handle, so a
+// pointer-width rendering would hand the framework eight bytes to write
+// 24 into.
+type VDHardwareCursorDrawStateRec [6]uint32
 
 // See: https://developer.apple.com/documentation/iokit/vdmirrorptr
 type VDMirrorPtr = unsafe.Pointer
 
 // See: https://developer.apple.com/documentation/iokit/vdmirrorrec
-type VDMirrorRec = kernel.Pointer
+// VDMirrorRec is opaque storage with the size and alignment C gives VDMirrorRec:
+// 104 bytes. C declares a record here, not a handle, so a
+// pointer-width rendering would hand the framework eight bytes to write
+// 104 into.
+type VDMirrorRec [13]uint64
 
 // See: https://developer.apple.com/documentation/iokit/vdmulticonnectinfoptr
 type VDMultiConnectInfoPtr = unsafe.Pointer
 
 // See: https://developer.apple.com/documentation/iokit/vdmulticonnectinforec
-type VDMultiConnectInfoRec = kernel.Pointer
+// VDMultiConnectInfoRec is opaque storage with the size and alignment C gives VDMultiConnectInfoRec:
+// 32 bytes. C declares a record here, not a handle, so a
+// pointer-width rendering would hand the framework eight bytes to write
+// 32 into.
+type VDMultiConnectInfoRec [4]uint64
 
 // See: https://developer.apple.com/documentation/iokit/vdpageinfo
-type VDPageInfo = kernel.Pointer
+// VDPageInfo is opaque storage with the size and alignment C gives VDPageInfo:
+// 24 bytes. C declares a record here, not a handle, so a
+// pointer-width rendering would hand the framework eight bytes to write
+// 24 into.
+type VDPageInfo [3]uint64
 
 // See: https://developer.apple.com/documentation/iokit/vdpginfoptr
 type VDPgInfoPtr = unsafe.Pointer
@@ -2320,76 +3728,132 @@ type VDPgInfoPtr = unsafe.Pointer
 type VDPowerStatePtr = unsafe.Pointer
 
 // See: https://developer.apple.com/documentation/iokit/vdpowerstaterec
-type VDPowerStateRec = kernel.Pointer
+// VDPowerStateRec is opaque storage with the size and alignment C gives VDPowerStateRec:
+// 24 bytes. C declares a record here, not a handle, so a
+// pointer-width rendering would hand the framework eight bytes to write
+// 24 into.
+type VDPowerStateRec [3]uint64
 
 // See: https://developer.apple.com/documentation/iokit/vdprivateselectordatarec
-type VDPrivateSelectorDataRec = kernel.Pointer
+// VDPrivateSelectorDataRec is opaque storage with the size and alignment C gives VDPrivateSelectorDataRec:
+// 32 bytes. C declares a record here, not a handle, so a
+// pointer-width rendering would hand the framework eight bytes to write
+// 32 into.
+type VDPrivateSelectorDataRec [4]uint64
 
 // See: https://developer.apple.com/documentation/iokit/vdprivateselectorrec
-type VDPrivateSelectorRec = kernel.Pointer
+// VDPrivateSelectorRec is opaque storage with the size and alignment C gives VDPrivateSelectorRec:
+// 40 bytes. C declares a record here, not a handle, so a
+// pointer-width rendering would hand the framework eight bytes to write
+// 40 into.
+type VDPrivateSelectorRec [5]uint64
 
 // See: https://developer.apple.com/documentation/iokit/vdresolutioninfoptr
 type VDResolutionInfoPtr = unsafe.Pointer
 
 // See: https://developer.apple.com/documentation/iokit/vdresolutioninforec
-type VDResolutionInfoRec = kernel.Pointer
+// VDResolutionInfoRec is opaque storage with the size and alignment C gives VDResolutionInfoRec:
+// 40 bytes. C declares a record here, not a handle, so a
+// pointer-width rendering would hand the framework eight bytes to write
+// 40 into.
+type VDResolutionInfoRec [5]uint64
 
 // See: https://developer.apple.com/documentation/iokit/vdretrievegammaptr
 type VDRetrieveGammaPtr = unsafe.Pointer
 
 // See: https://developer.apple.com/documentation/iokit/vdretrievegammarec
-type VDRetrieveGammaRec = kernel.Pointer
+// VDRetrieveGammaRec is opaque storage with the size and alignment C gives VDRetrieveGammaRec:
+// 16 bytes. C declares a record here, not a handle, so a
+// pointer-width rendering would hand the framework eight bytes to write
+// 16 into.
+type VDRetrieveGammaRec [2]uint64
 
 // See: https://developer.apple.com/documentation/iokit/vdscalerinfoptr
 type VDScalerInfoPtr = unsafe.Pointer
 
 // See: https://developer.apple.com/documentation/iokit/vdscalerinforec
-type VDScalerInfoRec = kernel.Pointer
+// VDScalerInfoRec is opaque storage with the size and alignment C gives VDScalerInfoRec:
+// 48 bytes. C declares a record here, not a handle, so a
+// pointer-width rendering would hand the framework eight bytes to write
+// 48 into.
+type VDScalerInfoRec [12]uint32
 
 // See: https://developer.apple.com/documentation/iokit/vdscalerptr
 type VDScalerPtr = unsafe.Pointer
 
 // See: https://developer.apple.com/documentation/iokit/vdscalerrec
-type VDScalerRec = kernel.Pointer
+// VDScalerRec is opaque storage with the size and alignment C gives VDScalerRec:
+// 64 bytes. C declares a record here, not a handle, so a
+// pointer-width rendering would hand the framework eight bytes to write
+// 64 into.
+type VDScalerRec [16]uint32
 
 // See: https://developer.apple.com/documentation/iokit/vdsetentryptr
 type VDSetEntryPtr = unsafe.Pointer
 
 // See: https://developer.apple.com/documentation/iokit/vdsetentryrecord
-type VDSetEntryRecord = kernel.Pointer
+// VDSetEntryRecord is opaque storage with the size and alignment C gives VDSetEntryRecord:
+// 16 bytes. C declares a record here, not a handle, so a
+// pointer-width rendering would hand the framework eight bytes to write
+// 16 into.
+type VDSetEntryRecord [2]uint64
 
 // See: https://developer.apple.com/documentation/iokit/vdsethardwarecursorptr
 type VDSetHardwareCursorPtr = unsafe.Pointer
 
 // See: https://developer.apple.com/documentation/iokit/vdsethardwarecursorrec
-type VDSetHardwareCursorRec = kernel.Pointer
+// VDSetHardwareCursorRec is opaque storage with the size and alignment C gives VDSetHardwareCursorRec:
+// 16 bytes. C declares a record here, not a handle, so a
+// pointer-width rendering would hand the framework eight bytes to write
+// 16 into.
+type VDSetHardwareCursorRec [2]uint64
 
 // See: https://developer.apple.com/documentation/iokit/vdsettings
-type VDSettings = kernel.Pointer
+// VDSettings is opaque storage with the size and alignment C gives VDSettings:
+// 38 bytes. C declares a record here, not a handle, so a
+// pointer-width rendering would hand the framework eight bytes to write
+// 38 into.
+type VDSettings [19]uint16
 
 // See: https://developer.apple.com/documentation/iokit/vdsettingsptr
 type VDSettingsPtr = unsafe.Pointer
 
 // See: https://developer.apple.com/documentation/iokit/vdsizeinfo
-type VDSizeInfo = kernel.Pointer
+// VDSizeInfo is opaque storage with the size and alignment C gives VDSizeInfo:
+// 8 bytes. C declares a record here, not a handle, so a
+// pointer-width rendering would hand the framework eight bytes to write
+// 8 into.
+type VDSizeInfo [4]uint16
 
 // See: https://developer.apple.com/documentation/iokit/vdsupportshardwarecursorptr
 type VDSupportsHardwareCursorPtr = unsafe.Pointer
 
 // See: https://developer.apple.com/documentation/iokit/vdsupportshardwarecursorrec
-type VDSupportsHardwareCursorRec = kernel.Pointer
+// VDSupportsHardwareCursorRec is opaque storage with the size and alignment C gives VDSupportsHardwareCursorRec:
+// 12 bytes. C declares a record here, not a handle, so a
+// pointer-width rendering would hand the framework eight bytes to write
+// 12 into.
+type VDSupportsHardwareCursorRec [3]uint32
 
 // See: https://developer.apple.com/documentation/iokit/vdswitchinfoptr
 type VDSwitchInfoPtr = unsafe.Pointer
 
 // See: https://developer.apple.com/documentation/iokit/vdswitchinforec
-type VDSwitchInfoRec = kernel.Pointer
+// VDSwitchInfoRec is opaque storage with the size and alignment C gives VDSwitchInfoRec:
+// 32 bytes. C declares a record here, not a handle, so a
+// pointer-width rendering would hand the framework eight bytes to write
+// 32 into.
+type VDSwitchInfoRec [4]uint64
 
 // See: https://developer.apple.com/documentation/iokit/vdsyncinfoptr
 type VDSyncInfoPtr = unsafe.Pointer
 
 // See: https://developer.apple.com/documentation/iokit/vdsyncinforec
-type VDSyncInfoRec = kernel.Pointer
+// VDSyncInfoRec is opaque storage with the size and alignment C gives VDSyncInfoRec:
+// 2 bytes. C declares a record here, not a handle, so a
+// pointer-width rendering would hand the framework eight bytes to write
+// 2 into.
+type VDSyncInfoRec [2]byte
 
 // See: https://developer.apple.com/documentation/iokit/vdszinfoptr
 type VDSzInfoPtr = unsafe.Pointer
@@ -2398,16 +3862,28 @@ type VDSzInfoPtr = unsafe.Pointer
 type VDTimingInfoPtr = unsafe.Pointer
 
 // See: https://developer.apple.com/documentation/iokit/vdtiminginforec
-type VDTimingInfoRec = kernel.Pointer
+// VDTimingInfoRec is opaque storage with the size and alignment C gives VDTimingInfoRec:
+// 32 bytes. C declares a record here, not a handle, so a
+// pointer-width rendering would hand the framework eight bytes to write
+// 32 into.
+type VDTimingInfoRec [4]uint64
 
 // See: https://developer.apple.com/documentation/iokit/vdvideoparametersinfoptr
 type VDVideoParametersInfoPtr = unsafe.Pointer
 
 // See: https://developer.apple.com/documentation/iokit/vdvideoparametersinforec
-type VDVideoParametersInfoRec = kernel.Pointer
+// VDVideoParametersInfoRec is opaque storage with the size and alignment C gives VDVideoParametersInfoRec:
+// 32 bytes. C declares a record here, not a handle, so a
+// pointer-width rendering would hand the framework eight bytes to write
+// 32 into.
+type VDVideoParametersInfoRec [4]uint64
 
 // See: https://developer.apple.com/documentation/iokit/vpblock
-type VPBlock = kernel.Pointer
+// VPBlock is opaque storage with the size and alignment C gives VPBlock:
+// 44 bytes. C declares a record here, not a handle, so a
+// pointer-width rendering would hand the framework eight bytes to write
+// 44 into.
+type VPBlock [11]uint32
 
 // See: https://developer.apple.com/documentation/iokit/vpblockptr
 type VPBlockPtr = unsafe.Pointer
@@ -2416,142 +3892,211 @@ type VPBlockPtr = unsafe.Pointer
 type VideoDeviceType = uint32
 
 // See: https://developer.apple.com/documentation/iokit/dk_bd_read_disc_info_t
-type Dk_bd_read_disc_info_t = kernel.Pointer
+// Dk_bd_read_disc_info_t is opaque storage with the size and alignment C gives dk_bd_read_disc_info_t:
+// 24 bytes. C declares a record here, not a handle, so a
+// pointer-width rendering would hand the framework eight bytes to write
+// 24 into.
+type Dk_bd_read_disc_info_t [3]uint64
 
 // See: https://developer.apple.com/documentation/iokit/dk_bd_read_structure_t
-type Dk_bd_read_structure_t = kernel.Pointer
+// Dk_bd_read_structure_t is opaque storage with the size and alignment C gives dk_bd_read_structure_t:
+// 24 bytes. C declares a record here, not a handle, so a
+// pointer-width rendering would hand the framework eight bytes to write
+// 24 into.
+type Dk_bd_read_structure_t [3]uint64
 
 // See: https://developer.apple.com/documentation/iokit/dk_bd_read_track_info_t
-type Dk_bd_read_track_info_t = kernel.Pointer
+// Dk_bd_read_track_info_t is opaque storage with the size and alignment C gives dk_bd_read_track_info_t:
+// 24 bytes. C declares a record here, not a handle, so a
+// pointer-width rendering would hand the framework eight bytes to write
+// 24 into.
+type Dk_bd_read_track_info_t [3]uint64
 
 // See: https://developer.apple.com/documentation/iokit/dk_bd_report_key_t
-type Dk_bd_report_key_t = kernel.Pointer
+// Dk_bd_report_key_t is opaque storage with the size and alignment C gives dk_bd_report_key_t:
+// 24 bytes. C declares a record here, not a handle, so a
+// pointer-width rendering would hand the framework eight bytes to write
+// 24 into.
+type Dk_bd_report_key_t [3]uint64
 
 // See: https://developer.apple.com/documentation/iokit/dk_bd_send_key_t
-type Dk_bd_send_key_t = kernel.Pointer
+// Dk_bd_send_key_t is opaque storage with the size and alignment C gives dk_bd_send_key_t:
+// 24 bytes. C declares a record here, not a handle, so a
+// pointer-width rendering would hand the framework eight bytes to write
+// 24 into.
+type Dk_bd_send_key_t [3]uint64
 
 // See: https://developer.apple.com/documentation/iokit/dk_cd_read_disc_info_t
-type Dk_cd_read_disc_info_t = kernel.Pointer
+// Dk_cd_read_disc_info_t is opaque storage with the size and alignment C gives dk_cd_read_disc_info_t:
+// 24 bytes. C declares a record here, not a handle, so a
+// pointer-width rendering would hand the framework eight bytes to write
+// 24 into.
+type Dk_cd_read_disc_info_t [3]uint64
 
 // See: https://developer.apple.com/documentation/iokit/dk_cd_read_isrc_t
-type Dk_cd_read_isrc_t = kernel.Pointer
+// Dk_cd_read_isrc_t is opaque storage with the size and alignment C gives dk_cd_read_isrc_t:
+// 16 bytes. C declares a record here, not a handle, so a
+// pointer-width rendering would hand the framework eight bytes to write
+// 16 into.
+type Dk_cd_read_isrc_t [16]byte
 
 // See: https://developer.apple.com/documentation/iokit/dk_cd_read_mcn_t
-type Dk_cd_read_mcn_t = kernel.Pointer
+// Dk_cd_read_mcn_t is opaque storage with the size and alignment C gives dk_cd_read_mcn_t:
+// 16 bytes. C declares a record here, not a handle, so a
+// pointer-width rendering would hand the framework eight bytes to write
+// 16 into.
+type Dk_cd_read_mcn_t [16]byte
 
 // See: https://developer.apple.com/documentation/iokit/dk_cd_read_t
-type Dk_cd_read_t = kernel.Pointer
+// Dk_cd_read_t is opaque storage with the size and alignment C gives dk_cd_read_t:
+// 32 bytes. C declares a record here, not a handle, so a
+// pointer-width rendering would hand the framework eight bytes to write
+// 32 into.
+type Dk_cd_read_t [4]uint64
 
 // See: https://developer.apple.com/documentation/iokit/dk_cd_read_toc_t
-type Dk_cd_read_toc_t = kernel.Pointer
+// Dk_cd_read_toc_t is opaque storage with the size and alignment C gives dk_cd_read_toc_t:
+// 24 bytes. C declares a record here, not a handle, so a
+// pointer-width rendering would hand the framework eight bytes to write
+// 24 into.
+type Dk_cd_read_toc_t [3]uint64
 
 // See: https://developer.apple.com/documentation/iokit/dk_cd_read_track_info_t
-type Dk_cd_read_track_info_t = kernel.Pointer
+// Dk_cd_read_track_info_t is opaque storage with the size and alignment C gives dk_cd_read_track_info_t:
+// 24 bytes. C declares a record here, not a handle, so a
+// pointer-width rendering would hand the framework eight bytes to write
+// 24 into.
+type Dk_cd_read_track_info_t [3]uint64
 
 // See: https://developer.apple.com/documentation/iokit/dk_dvd_read_disc_info_t
-type Dk_dvd_read_disc_info_t = kernel.Pointer
+// Dk_dvd_read_disc_info_t is opaque storage with the size and alignment C gives dk_dvd_read_disc_info_t:
+// 24 bytes. C declares a record here, not a handle, so a
+// pointer-width rendering would hand the framework eight bytes to write
+// 24 into.
+type Dk_dvd_read_disc_info_t [3]uint64
 
 // See: https://developer.apple.com/documentation/iokit/dk_dvd_read_rzone_info_t
-type Dk_dvd_read_rzone_info_t = kernel.Pointer
+// Dk_dvd_read_rzone_info_t is opaque storage with the size and alignment C gives dk_dvd_read_rzone_info_t:
+// 24 bytes. C declares a record here, not a handle, so a
+// pointer-width rendering would hand the framework eight bytes to write
+// 24 into.
+type Dk_dvd_read_rzone_info_t [3]uint64
 
 // See: https://developer.apple.com/documentation/iokit/dk_dvd_read_structure_t
-type Dk_dvd_read_structure_t = kernel.Pointer
+// Dk_dvd_read_structure_t is opaque storage with the size and alignment C gives dk_dvd_read_structure_t:
+// 24 bytes. C declares a record here, not a handle, so a
+// pointer-width rendering would hand the framework eight bytes to write
+// 24 into.
+type Dk_dvd_read_structure_t [3]uint64
 
 // See: https://developer.apple.com/documentation/iokit/dk_dvd_report_key_t
-type Dk_dvd_report_key_t = kernel.Pointer
+// Dk_dvd_report_key_t is opaque storage with the size and alignment C gives dk_dvd_report_key_t:
+// 24 bytes. C declares a record here, not a handle, so a
+// pointer-width rendering would hand the framework eight bytes to write
+// 24 into.
+type Dk_dvd_report_key_t [3]uint64
 
 // See: https://developer.apple.com/documentation/iokit/dk_dvd_send_key_t
-type Dk_dvd_send_key_t = kernel.Pointer
+// Dk_dvd_send_key_t is opaque storage with the size and alignment C gives dk_dvd_send_key_t:
+// 24 bytes. C declares a record here, not a handle, so a
+// pointer-width rendering would hand the framework eight bytes to write
+// 24 into.
+type Dk_dvd_send_key_t [3]uint64
 
 // See: https://developer.apple.com/documentation/iokit/eioaccelsurfacelockbits
-type EIOAccelSurfaceLockBits = kernel.Pointer
+type EIOAccelSurfaceLockBits = uint32
 
 // See: https://developer.apple.com/documentation/iokit/eioaccelsurfacemodebits
-type EIOAccelSurfaceModeBits = kernel.Pointer
+type EIOAccelSurfaceModeBits = uint32
 
 // See: https://developer.apple.com/documentation/iokit/eioaccelsurfacescalebits
-type EIOAccelSurfaceScaleBits = kernel.Pointer
+type EIOAccelSurfaceScaleBits = uint32
 
 // See: https://developer.apple.com/documentation/iokit/eioaccelsurfaceshapebits
-type EIOAccelSurfaceShapeBits = kernel.Pointer
+type EIOAccelSurfaceShapeBits = uint32
 
 // See: https://developer.apple.com/documentation/iokit/eioaccelsurfacestatebits
-type EIOAccelSurfaceStateBits = kernel.Pointer
+type EIOAccelSurfaceStateBits = uint32
 
 // See: https://developer.apple.com/documentation/iokit/eviospecialkeymsg_t
-type EvioSpecialKeyMsg_t = kernel.Pointer
+// EvioSpecialKeyMsg_t is an unresolved C aggregate typedef.
+type EvioSpecialKeyMsg_t unsafe.Pointer
 
 // See: https://developer.apple.com/documentation/iokit/evsioevsioccsindices
-type EvsioEVSIOCCSIndices = kernel.Pointer
+type EvsioEVSIOCCSIndices = uint32
 
 // See: https://developer.apple.com/documentation/iokit/evsioevsioscsindices
-type EvsioEVSIOSCSIndices = kernel.Pointer
+type EvsioEVSIOSCSIndices = uint32
 
 // See: https://developer.apple.com/documentation/iokit/io_connect_t
-type Io_connect_t = uintptr
+type Io_connect_t = uint32
 
 // See: https://developer.apple.com/documentation/iokit/io_enumerator_t
-type Io_enumerator_t = uintptr
+type Io_enumerator_t = uint32
 
 // See: https://developer.apple.com/documentation/iokit/io_ident_t
-type Io_ident_t = uintptr
+type Io_ident_t = uint32
 
 // See: https://developer.apple.com/documentation/iokit/io_iterator_t
-type Io_iterator_t = uintptr
+type Io_iterator_t = uint32
 
 // See: https://developer.apple.com/documentation/iokit/io_object_t
-type Io_object_t = uintptr
+type Io_object_t = uint32
 
 // See: https://developer.apple.com/documentation/iokit/io_registry_entry_t
-type Io_registry_entry_t = uintptr
+type Io_registry_entry_t = uint32
 
 // See: https://developer.apple.com/documentation/iokit/io_service_t
-type Io_service_t = uintptr
+type Io_service_t = uint32
 
 // See: https://developer.apple.com/documentation/iokit/kusbconnectable
-type KUSBConnectable = kernel.Pointer
+type KUSBConnectable = uint32
 
 // See: https://developer.apple.com/documentation/iokit/kusbhostconnectortype
-type KUSBHostConnectorType = kernel.Pointer
+type KUSBHostConnectorType = uint32
 
 // See: https://developer.apple.com/documentation/iokit/sleepwakenote
-type SleepWakeNote = unsafe.Pointer
+// SleepWakeNote is opaque storage with the size and alignment C gives sleepWakeNote:
+// 32 bytes. C declares a record here, not a handle, so a
+// pointer-width rendering would hand the framework eight bytes to write
+// 32 into.
+type SleepWakeNote [4]uint64
 
 // See: https://developer.apple.com/documentation/iokit/tiousbdescriptorsize
-type TIOUSBDescriptorSize = kernel.Pointer
+type TIOUSBDescriptorSize = uint32
 
 // See: https://developer.apple.com/documentation/iokit/tiousbdescriptortype
-type TIOUSBDescriptorType = kernel.Pointer
+type TIOUSBDescriptorType = uint32
 
 // See: https://developer.apple.com/documentation/iokit/tiousbdevicecapabilitytype
-type TIOUSBDeviceCapabilityType = kernel.Pointer
+type TIOUSBDeviceCapabilityType = uint32
 
 // See: https://developer.apple.com/documentation/iokit/tiousbdevicerequestdirectionvalue
-type TIOUSBDeviceRequestDirectionValue = kernel.Pointer
+type TIOUSBDeviceRequestDirectionValue = uint32
 
 // See: https://developer.apple.com/documentation/iokit/tiousbdevicerequestrecipientvalue
-type TIOUSBDeviceRequestRecipientValue = kernel.Pointer
+type TIOUSBDeviceRequestRecipientValue = uint32
 
 // See: https://developer.apple.com/documentation/iokit/tiousbdevicerequesttypevalue
-type TIOUSBDeviceRequestTypeValue = kernel.Pointer
+type TIOUSBDeviceRequestTypeValue = uint32
 
 // See: https://developer.apple.com/documentation/iokit/tiousbendpointdirection
-type TIOUSBEndpointDirection = kernel.Pointer
+type TIOUSBEndpointDirection = uint32
 
 // See: https://developer.apple.com/documentation/iokit/tiousbendpointsynchronizationtype
-type TIOUSBEndpointSynchronizationType = kernel.Pointer
+type TIOUSBEndpointSynchronizationType = uint32
 
 // See: https://developer.apple.com/documentation/iokit/tiousbendpointtype
-type TIOUSBEndpointType = kernel.Pointer
+type TIOUSBEndpointType = uint32
 
 // See: https://developer.apple.com/documentation/iokit/tiousbendpointusagetype
-type TIOUSBEndpointUsageType = kernel.Pointer
+type TIOUSBEndpointUsageType = uint32
 
 // See: https://developer.apple.com/documentation/iokit/tiousblanguageid
-type TIOUSBLanguageID = kernel.Pointer
+type TIOUSBLanguageID = uint32
 
 // See: https://developer.apple.com/documentation/iokit/uext_object_t
-type Uext_object_t = uintptr
+type Uext_object_t = uint32
 
 // See: https://developer.apple.com/documentation/iokit/user_shspeed_t
 type User_shspeed_t = uint32

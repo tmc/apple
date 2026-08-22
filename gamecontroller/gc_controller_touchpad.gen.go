@@ -136,14 +136,14 @@ type IGCControllerTouchpad interface {
 	// Topic: Getting change information
 
 	// The block that the element calls when the user begins touching the touchpad.
-	TouchDown() GCControllerTouchpadHandler
-	SetTouchDown(value GCControllerTouchpadHandler)
+	TouchDown() GCControllerTouchpadFloat32Float32Float32BoolHandler
+	SetTouchDown(value GCControllerTouchpadFloat32Float32Float32BoolHandler)
 	// The block that the element calls when the user continues touching the touchpad, not when the user begins or ends touching the touchpad.
-	TouchMoved() GCControllerTouchpadHandler
-	SetTouchMoved(value GCControllerTouchpadHandler)
+	TouchMoved() GCControllerTouchpadFloat32Float32Float32BoolHandler
+	SetTouchMoved(value GCControllerTouchpadFloat32Float32Float32BoolHandler)
 	// The block that the element calls when the user finishes touching the touchpad.
-	TouchUp() GCControllerTouchpadHandler
-	SetTouchUp(value GCControllerTouchpadHandler)
+	TouchUp() GCControllerTouchpadFloat32Float32Float32BoolHandler
+	SetTouchUp(value GCControllerTouchpadFloat32Float32Float32BoolHandler)
 
 	// Topic: Setting snapshot values
 
@@ -247,24 +247,30 @@ func (g GCControllerTouchpad) SetReportsAbsoluteTouchSurfaceValues(value bool) {
 // touchpad.
 //
 // See: https://developer.apple.com/documentation/GameController/GCControllerTouchpad/touchDown
-func (g GCControllerTouchpad) TouchDown() GCControllerTouchpadHandler {
-	rv := objc.Send[GCControllerTouchpadHandler](g.ID, objc.Sel("touchDown"))
-	return GCControllerTouchpadHandler(rv)
+func (g GCControllerTouchpad) TouchDown() GCControllerTouchpadFloat32Float32Float32BoolHandler {
+	rv := objc.Send[objc.ID](g.ID, objc.Sel("touchDown"))
+	_ = rv
+	return nil
 }
-func (g GCControllerTouchpad) SetTouchDown(value GCControllerTouchpadHandler) {
-	objc.Send[struct{}](g.ID, objc.Sel("setTouchDown:"), value)
+func (g GCControllerTouchpad) SetTouchDown(value GCControllerTouchpadFloat32Float32Float32BoolHandler) {
+	block, cleanup := NewGCControllerTouchpadFloat32Float32Float32BoolBlock(value)
+	defer cleanup()
+	objc.Send[struct{}](g.ID, objc.Sel("setTouchDown:"), block)
 }
 
 // The block that the element calls when the user continues touching the
 // touchpad, not when the user begins or ends touching the touchpad.
 //
 // See: https://developer.apple.com/documentation/GameController/GCControllerTouchpad/touchMoved
-func (g GCControllerTouchpad) TouchMoved() GCControllerTouchpadHandler {
-	rv := objc.Send[GCControllerTouchpadHandler](g.ID, objc.Sel("touchMoved"))
-	return GCControllerTouchpadHandler(rv)
+func (g GCControllerTouchpad) TouchMoved() GCControllerTouchpadFloat32Float32Float32BoolHandler {
+	rv := objc.Send[objc.ID](g.ID, objc.Sel("touchMoved"))
+	_ = rv
+	return nil
 }
-func (g GCControllerTouchpad) SetTouchMoved(value GCControllerTouchpadHandler) {
-	objc.Send[struct{}](g.ID, objc.Sel("setTouchMoved:"), value)
+func (g GCControllerTouchpad) SetTouchMoved(value GCControllerTouchpadFloat32Float32Float32BoolHandler) {
+	block, cleanup := NewGCControllerTouchpadFloat32Float32Float32BoolBlock(value)
+	defer cleanup()
+	objc.Send[struct{}](g.ID, objc.Sel("setTouchMoved:"), block)
 }
 
 // The block that the element calls when the user finishes touching the
@@ -276,10 +282,13 @@ func (g GCControllerTouchpad) SetTouchMoved(value GCControllerTouchpadHandler) {
 // the touchpad.
 //
 // See: https://developer.apple.com/documentation/GameController/GCControllerTouchpad/touchUp
-func (g GCControllerTouchpad) TouchUp() GCControllerTouchpadHandler {
-	rv := objc.Send[GCControllerTouchpadHandler](g.ID, objc.Sel("touchUp"))
-	return GCControllerTouchpadHandler(rv)
+func (g GCControllerTouchpad) TouchUp() GCControllerTouchpadFloat32Float32Float32BoolHandler {
+	rv := objc.Send[objc.ID](g.ID, objc.Sel("touchUp"))
+	_ = rv
+	return nil
 }
-func (g GCControllerTouchpad) SetTouchUp(value GCControllerTouchpadHandler) {
-	objc.Send[struct{}](g.ID, objc.Sel("setTouchUp:"), value)
+func (g GCControllerTouchpad) SetTouchUp(value GCControllerTouchpadFloat32Float32Float32BoolHandler) {
+	block, cleanup := NewGCControllerTouchpadFloat32Float32Float32BoolBlock(value)
+	defer cleanup()
+	objc.Send[struct{}](g.ID, objc.Sel("setTouchUp:"), block)
 }

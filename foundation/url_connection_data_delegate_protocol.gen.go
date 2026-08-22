@@ -238,7 +238,7 @@ func (o NSURLConnectionDataDelegateObject) ConnectionWillCacheResponse(connectio
 // [connection(_:didReceive:)]. In fact, those other methods are not invoked
 // (except on older operating systems, where applicable).
 //
-// In this method,you invoke one of the challenge-responder methods
+// In this method,you must invoke one of the challenge-responder methods
 // ([NSURLAuthenticationChallengeSender] protocol):
 //
 // - [UseCredentialForAuthenticationChallenge] -
@@ -358,9 +358,21 @@ func NewNSURLConnectionDataDelegate(config NSURLConnectionDataDelegateConfig) NS
 		methods = append(methods, objc.MethodDef{
 			Cmd: objc.RegisterName("connection:didReceiveResponse:"),
 			Fn: func(self objc.ID, _cmd objc.SEL, connectionID objc.ID, responseID objc.ID) {
+				// Names which delegate was running if a panic unwinds out of
+				// it. The frames between here and the Objective-C caller are
+				// runtime and purego dispatch, so without this the traceback
+				// never says which selector dispatched. Deliberately no
+				// recover: see [objc.NoteDelegatePanic].
+				_delegateDone := false
+				defer func() {
+					if !_delegateDone {
+						objc.NoteDelegatePanic("NSURLConnectionDataDelegate", "connection:didReceiveResponse:")
+					}
+				}()
 				connection := NSURLConnectionFromID(connectionID)
 				response := NSURLResponseFromID(responseID)
 				fn(connection, response)
+				_delegateDone = true
 			},
 		})
 	}
@@ -370,9 +382,21 @@ func NewNSURLConnectionDataDelegate(config NSURLConnectionDataDelegateConfig) NS
 		methods = append(methods, objc.MethodDef{
 			Cmd: objc.RegisterName("connection:didReceiveData:"),
 			Fn: func(self objc.ID, _cmd objc.SEL, connectionID objc.ID, dataID objc.ID) {
+				// Names which delegate was running if a panic unwinds out of
+				// it. The frames between here and the Objective-C caller are
+				// runtime and purego dispatch, so without this the traceback
+				// never says which selector dispatched. Deliberately no
+				// recover: see [objc.NoteDelegatePanic].
+				_delegateDone := false
+				defer func() {
+					if !_delegateDone {
+						objc.NoteDelegatePanic("NSURLConnectionDataDelegate", "connection:didReceiveData:")
+					}
+				}()
 				connection := NSURLConnectionFromID(connectionID)
 				data := objectivec.ObjectFromID(dataID)
 				fn(connection, data)
+				_delegateDone = true
 			},
 		})
 	}
@@ -382,8 +406,20 @@ func NewNSURLConnectionDataDelegate(config NSURLConnectionDataDelegateConfig) NS
 		methods = append(methods, objc.MethodDef{
 			Cmd: objc.RegisterName("connection:didSendBodyData:totalBytesWritten:totalBytesExpectedToWrite:"),
 			Fn: func(self objc.ID, _cmd objc.SEL, connectionID objc.ID, bytesWritten int, totalBytesWritten int, totalBytesExpectedToWrite int) {
+				// Names which delegate was running if a panic unwinds out of
+				// it. The frames between here and the Objective-C caller are
+				// runtime and purego dispatch, so without this the traceback
+				// never says which selector dispatched. Deliberately no
+				// recover: see [objc.NoteDelegatePanic].
+				_delegateDone := false
+				defer func() {
+					if !_delegateDone {
+						objc.NoteDelegatePanic("NSURLConnectionDataDelegate", "connection:didSendBodyData:totalBytesWritten:totalBytesExpectedToWrite:")
+					}
+				}()
 				connection := NSURLConnectionFromID(connectionID)
 				fn(connection, bytesWritten, totalBytesWritten, totalBytesExpectedToWrite)
+				_delegateDone = true
 			},
 		})
 	}
@@ -393,8 +429,20 @@ func NewNSURLConnectionDataDelegate(config NSURLConnectionDataDelegateConfig) NS
 		methods = append(methods, objc.MethodDef{
 			Cmd: objc.RegisterName("connectionDidFinishLoading:"),
 			Fn: func(self objc.ID, _cmd objc.SEL, connectionID objc.ID) {
+				// Names which delegate was running if a panic unwinds out of
+				// it. The frames between here and the Objective-C caller are
+				// runtime and purego dispatch, so without this the traceback
+				// never says which selector dispatched. Deliberately no
+				// recover: see [objc.NoteDelegatePanic].
+				_delegateDone := false
+				defer func() {
+					if !_delegateDone {
+						objc.NoteDelegatePanic("NSURLConnectionDataDelegate", "connectionDidFinishLoading:")
+					}
+				}()
 				connection := NSURLConnectionFromID(connectionID)
 				fn(connection)
+				_delegateDone = true
 			},
 		})
 	}
@@ -404,10 +452,23 @@ func NewNSURLConnectionDataDelegate(config NSURLConnectionDataDelegateConfig) NS
 		methods = append(methods, objc.MethodDef{
 			Cmd: objc.RegisterName("connection:willSendRequest:redirectResponse:"),
 			Fn: func(self objc.ID, _cmd objc.SEL, connectionID objc.ID, requestID objc.ID, responseID objc.ID) objc.ID {
+				// Names which delegate was running if a panic unwinds out of
+				// it. The frames between here and the Objective-C caller are
+				// runtime and purego dispatch, so without this the traceback
+				// never says which selector dispatched. Deliberately no
+				// recover: see [objc.NoteDelegatePanic].
+				_delegateDone := false
+				defer func() {
+					if !_delegateDone {
+						objc.NoteDelegatePanic("NSURLConnectionDataDelegate", "connection:willSendRequest:redirectResponse:")
+					}
+				}()
 				connection := NSURLConnectionFromID(connectionID)
 				request := NSURLRequestFromID(requestID)
 				response := NSURLResponseFromID(responseID)
-				return fn(connection, request, response).GetID()
+				_delegateResult := fn(connection, request, response).GetID()
+				_delegateDone = true
+				return _delegateResult
 			},
 		})
 	}
@@ -417,9 +478,22 @@ func NewNSURLConnectionDataDelegate(config NSURLConnectionDataDelegateConfig) NS
 		methods = append(methods, objc.MethodDef{
 			Cmd: objc.RegisterName("connection:needNewBodyStream:"),
 			Fn: func(self objc.ID, _cmd objc.SEL, connectionID objc.ID, requestID objc.ID) objc.ID {
+				// Names which delegate was running if a panic unwinds out of
+				// it. The frames between here and the Objective-C caller are
+				// runtime and purego dispatch, so without this the traceback
+				// never says which selector dispatched. Deliberately no
+				// recover: see [objc.NoteDelegatePanic].
+				_delegateDone := false
+				defer func() {
+					if !_delegateDone {
+						objc.NoteDelegatePanic("NSURLConnectionDataDelegate", "connection:needNewBodyStream:")
+					}
+				}()
 				connection := NSURLConnectionFromID(connectionID)
 				request := NSURLRequestFromID(requestID)
-				return fn(connection, request).GetID()
+				_delegateResult := fn(connection, request).GetID()
+				_delegateDone = true
+				return _delegateResult
 			},
 		})
 	}
@@ -429,9 +503,22 @@ func NewNSURLConnectionDataDelegate(config NSURLConnectionDataDelegateConfig) NS
 		methods = append(methods, objc.MethodDef{
 			Cmd: objc.RegisterName("connection:willCacheResponse:"),
 			Fn: func(self objc.ID, _cmd objc.SEL, connectionID objc.ID, cachedResponseID objc.ID) objc.ID {
+				// Names which delegate was running if a panic unwinds out of
+				// it. The frames between here and the Objective-C caller are
+				// runtime and purego dispatch, so without this the traceback
+				// never says which selector dispatched. Deliberately no
+				// recover: see [objc.NoteDelegatePanic].
+				_delegateDone := false
+				defer func() {
+					if !_delegateDone {
+						objc.NoteDelegatePanic("NSURLConnectionDataDelegate", "connection:willCacheResponse:")
+					}
+				}()
 				connection := NSURLConnectionFromID(connectionID)
 				cachedResponse := NSCachedURLResponseFromID(cachedResponseID)
-				return fn(connection, cachedResponse).GetID()
+				_delegateResult := fn(connection, cachedResponse).GetID()
+				_delegateDone = true
+				return _delegateResult
 			},
 		})
 	}

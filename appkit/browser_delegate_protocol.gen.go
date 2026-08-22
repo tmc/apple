@@ -847,8 +847,21 @@ func NewNSBrowserDelegate(config NSBrowserDelegateConfig) NSBrowserDelegateObjec
 		methods = append(methods, objc.MethodDef{
 			Cmd: objc.RegisterName("browser:isColumnValid:"),
 			Fn: func(self objc.ID, _cmd objc.SEL, senderID objc.ID, column int) bool {
+				// Names which delegate was running if a panic unwinds out of
+				// it. The frames between here and the Objective-C caller are
+				// runtime and purego dispatch, so without this the traceback
+				// never says which selector dispatched. Deliberately no
+				// recover: see [objc.NoteDelegatePanic].
+				_delegateDone := false
+				defer func() {
+					if !_delegateDone {
+						objc.NoteDelegatePanic("NSBrowserDelegate", "browser:isColumnValid:")
+					}
+				}()
 				sender := NSBrowserFromID(senderID)
-				return fn(sender, column)
+				_delegateResult := fn(sender, column)
+				_delegateDone = true
+				return _delegateResult
 			},
 		})
 	}
@@ -858,8 +871,21 @@ func NewNSBrowserDelegate(config NSBrowserDelegateConfig) NSBrowserDelegateObjec
 		methods = append(methods, objc.MethodDef{
 			Cmd: objc.RegisterName("browser:numberOfRowsInColumn:"),
 			Fn: func(self objc.ID, _cmd objc.SEL, senderID objc.ID, column int) int {
+				// Names which delegate was running if a panic unwinds out of
+				// it. The frames between here and the Objective-C caller are
+				// runtime and purego dispatch, so without this the traceback
+				// never says which selector dispatched. Deliberately no
+				// recover: see [objc.NoteDelegatePanic].
+				_delegateDone := false
+				defer func() {
+					if !_delegateDone {
+						objc.NoteDelegatePanic("NSBrowserDelegate", "browser:numberOfRowsInColumn:")
+					}
+				}()
 				sender := NSBrowserFromID(senderID)
-				return fn(sender, column)
+				_delegateResult := fn(sender, column)
+				_delegateDone = true
+				return _delegateResult
 			},
 		})
 	}
@@ -869,8 +895,21 @@ func NewNSBrowserDelegate(config NSBrowserDelegateConfig) NSBrowserDelegateObjec
 		methods = append(methods, objc.MethodDef{
 			Cmd: objc.RegisterName("browser:selectRow:inColumn:"),
 			Fn: func(self objc.ID, _cmd objc.SEL, senderID objc.ID, row int, column int) bool {
+				// Names which delegate was running if a panic unwinds out of
+				// it. The frames between here and the Objective-C caller are
+				// runtime and purego dispatch, so without this the traceback
+				// never says which selector dispatched. Deliberately no
+				// recover: see [objc.NoteDelegatePanic].
+				_delegateDone := false
+				defer func() {
+					if !_delegateDone {
+						objc.NoteDelegatePanic("NSBrowserDelegate", "browser:selectRow:inColumn:")
+					}
+				}()
 				sender := NSBrowserFromID(senderID)
-				return fn(sender, row, column)
+				_delegateResult := fn(sender, row, column)
+				_delegateDone = true
+				return _delegateResult
 			},
 		})
 	}
@@ -880,9 +919,22 @@ func NewNSBrowserDelegate(config NSBrowserDelegateConfig) NSBrowserDelegateObjec
 		methods = append(methods, objc.MethodDef{
 			Cmd: objc.RegisterName("browser:selectionIndexesForProposedSelection:inColumn:"),
 			Fn: func(self objc.ID, _cmd objc.SEL, browserID objc.ID, proposedSelectionIndexesID objc.ID, column int) objc.ID {
+				// Names which delegate was running if a panic unwinds out of
+				// it. The frames between here and the Objective-C caller are
+				// runtime and purego dispatch, so without this the traceback
+				// never says which selector dispatched. Deliberately no
+				// recover: see [objc.NoteDelegatePanic].
+				_delegateDone := false
+				defer func() {
+					if !_delegateDone {
+						objc.NoteDelegatePanic("NSBrowserDelegate", "browser:selectionIndexesForProposedSelection:inColumn:")
+					}
+				}()
 				browser := NSBrowserFromID(browserID)
 				proposedSelectionIndexes := foundation.NSIndexSetFromID(proposedSelectionIndexesID)
-				return fn(browser, proposedSelectionIndexes, column).GetID()
+				_delegateResult := fn(browser, proposedSelectionIndexes, column).GetID()
+				_delegateDone = true
+				return _delegateResult
 			},
 		})
 	}
@@ -892,9 +944,21 @@ func NewNSBrowserDelegate(config NSBrowserDelegateConfig) NSBrowserDelegateObjec
 		methods = append(methods, objc.MethodDef{
 			Cmd: objc.RegisterName("browser:createRowsForColumn:inMatrix:"),
 			Fn: func(self objc.ID, _cmd objc.SEL, senderID objc.ID, column int, matrixID objc.ID) {
+				// Names which delegate was running if a panic unwinds out of
+				// it. The frames between here and the Objective-C caller are
+				// runtime and purego dispatch, so without this the traceback
+				// never says which selector dispatched. Deliberately no
+				// recover: see [objc.NoteDelegatePanic].
+				_delegateDone := false
+				defer func() {
+					if !_delegateDone {
+						objc.NoteDelegatePanic("NSBrowserDelegate", "browser:createRowsForColumn:inMatrix:")
+					}
+				}()
 				sender := NSBrowserFromID(senderID)
 				matrix := NSMatrixFromID(matrixID)
 				fn(sender, column, matrix)
+				_delegateDone = true
 			},
 		})
 	}
@@ -904,8 +968,20 @@ func NewNSBrowserDelegate(config NSBrowserDelegateConfig) NSBrowserDelegateObjec
 		methods = append(methods, objc.MethodDef{
 			Cmd: objc.RegisterName("browser:didChangeLastColumn:toColumn:"),
 			Fn: func(self objc.ID, _cmd objc.SEL, browserID objc.ID, oldLastColumn int, column int) {
+				// Names which delegate was running if a panic unwinds out of
+				// it. The frames between here and the Objective-C caller are
+				// runtime and purego dispatch, so without this the traceback
+				// never says which selector dispatched. Deliberately no
+				// recover: see [objc.NoteDelegatePanic].
+				_delegateDone := false
+				defer func() {
+					if !_delegateDone {
+						objc.NoteDelegatePanic("NSBrowserDelegate", "browser:didChangeLastColumn:toColumn:")
+					}
+				}()
 				browser := NSBrowserFromID(browserID)
 				fn(browser, oldLastColumn, column)
+				_delegateDone = true
 			},
 		})
 	}
@@ -915,8 +991,20 @@ func NewNSBrowserDelegate(config NSBrowserDelegateConfig) NSBrowserDelegateObjec
 		methods = append(methods, objc.MethodDef{
 			Cmd: objc.RegisterName("browserWillScroll:"),
 			Fn: func(self objc.ID, _cmd objc.SEL, senderID objc.ID) {
+				// Names which delegate was running if a panic unwinds out of
+				// it. The frames between here and the Objective-C caller are
+				// runtime and purego dispatch, so without this the traceback
+				// never says which selector dispatched. Deliberately no
+				// recover: see [objc.NoteDelegatePanic].
+				_delegateDone := false
+				defer func() {
+					if !_delegateDone {
+						objc.NoteDelegatePanic("NSBrowserDelegate", "browserWillScroll:")
+					}
+				}()
 				sender := NSBrowserFromID(senderID)
 				fn(sender)
+				_delegateDone = true
 			},
 		})
 	}
@@ -926,8 +1014,20 @@ func NewNSBrowserDelegate(config NSBrowserDelegateConfig) NSBrowserDelegateObjec
 		methods = append(methods, objc.MethodDef{
 			Cmd: objc.RegisterName("browserDidScroll:"),
 			Fn: func(self objc.ID, _cmd objc.SEL, senderID objc.ID) {
+				// Names which delegate was running if a panic unwinds out of
+				// it. The frames between here and the Objective-C caller are
+				// runtime and purego dispatch, so without this the traceback
+				// never says which selector dispatched. Deliberately no
+				// recover: see [objc.NoteDelegatePanic].
+				_delegateDone := false
+				defer func() {
+					if !_delegateDone {
+						objc.NoteDelegatePanic("NSBrowserDelegate", "browserDidScroll:")
+					}
+				}()
 				sender := NSBrowserFromID(senderID)
 				fn(sender)
+				_delegateDone = true
 			},
 		})
 	}
@@ -937,10 +1037,23 @@ func NewNSBrowserDelegate(config NSBrowserDelegateConfig) NSBrowserDelegateObjec
 		methods = append(methods, objc.MethodDef{
 			Cmd: objc.RegisterName("browser:canDragRowsWithIndexes:inColumn:withEvent:"),
 			Fn: func(self objc.ID, _cmd objc.SEL, browserID objc.ID, rowIndexesID objc.ID, column int, eventID objc.ID) bool {
+				// Names which delegate was running if a panic unwinds out of
+				// it. The frames between here and the Objective-C caller are
+				// runtime and purego dispatch, so without this the traceback
+				// never says which selector dispatched. Deliberately no
+				// recover: see [objc.NoteDelegatePanic].
+				_delegateDone := false
+				defer func() {
+					if !_delegateDone {
+						objc.NoteDelegatePanic("NSBrowserDelegate", "browser:canDragRowsWithIndexes:inColumn:withEvent:")
+					}
+				}()
 				browser := NSBrowserFromID(browserID)
 				rowIndexes := foundation.NSIndexSetFromID(rowIndexesID)
 				event := NSEventFromID(eventID)
-				return fn(browser, rowIndexes, column, event)
+				_delegateResult := fn(browser, rowIndexes, column, event)
+				_delegateDone = true
+				return _delegateResult
 			},
 		})
 	}
@@ -950,10 +1063,23 @@ func NewNSBrowserDelegate(config NSBrowserDelegateConfig) NSBrowserDelegateObjec
 		methods = append(methods, objc.MethodDef{
 			Cmd: objc.RegisterName("browser:draggingImageForRowsWithIndexes:inColumn:withEvent:offset:"),
 			Fn: func(self objc.ID, _cmd objc.SEL, browserID objc.ID, rowIndexesID objc.ID, column int, eventID objc.ID, dragImageOffset foundation.NSPointPointer) objc.ID {
+				// Names which delegate was running if a panic unwinds out of
+				// it. The frames between here and the Objective-C caller are
+				// runtime and purego dispatch, so without this the traceback
+				// never says which selector dispatched. Deliberately no
+				// recover: see [objc.NoteDelegatePanic].
+				_delegateDone := false
+				defer func() {
+					if !_delegateDone {
+						objc.NoteDelegatePanic("NSBrowserDelegate", "browser:draggingImageForRowsWithIndexes:inColumn:withEvent:offset:")
+					}
+				}()
 				browser := NSBrowserFromID(browserID)
 				rowIndexes := foundation.NSIndexSetFromID(rowIndexesID)
 				event := NSEventFromID(eventID)
-				return fn(browser, rowIndexes, column, event, dragImageOffset).GetID()
+				_delegateResult := fn(browser, rowIndexes, column, event, dragImageOffset).GetID()
+				_delegateDone = true
+				return _delegateResult
 			},
 		})
 	}
@@ -963,10 +1089,23 @@ func NewNSBrowserDelegate(config NSBrowserDelegateConfig) NSBrowserDelegateObjec
 		methods = append(methods, objc.MethodDef{
 			Cmd: objc.RegisterName("browser:writeRowsWithIndexes:inColumn:toPasteboard:"),
 			Fn: func(self objc.ID, _cmd objc.SEL, browserID objc.ID, rowIndexesID objc.ID, column int, pasteboardID objc.ID) bool {
+				// Names which delegate was running if a panic unwinds out of
+				// it. The frames between here and the Objective-C caller are
+				// runtime and purego dispatch, so without this the traceback
+				// never says which selector dispatched. Deliberately no
+				// recover: see [objc.NoteDelegatePanic].
+				_delegateDone := false
+				defer func() {
+					if !_delegateDone {
+						objc.NoteDelegatePanic("NSBrowserDelegate", "browser:writeRowsWithIndexes:inColumn:toPasteboard:")
+					}
+				}()
 				browser := NSBrowserFromID(browserID)
 				rowIndexes := foundation.NSIndexSetFromID(rowIndexesID)
 				pasteboard := NSPasteboardFromID(pasteboardID)
-				return fn(browser, rowIndexes, column, pasteboard)
+				_delegateResult := fn(browser, rowIndexes, column, pasteboard)
+				_delegateDone = true
+				return _delegateResult
 			},
 		})
 	}
@@ -976,8 +1115,21 @@ func NewNSBrowserDelegate(config NSBrowserDelegateConfig) NSBrowserDelegateObjec
 		methods = append(methods, objc.MethodDef{
 			Cmd: objc.RegisterName("browser:shouldSizeColumn:forUserResize:toWidth:"),
 			Fn: func(self objc.ID, _cmd objc.SEL, browserID objc.ID, columnIndex int, forUserResize bool, suggestedWidth float64) float64 {
+				// Names which delegate was running if a panic unwinds out of
+				// it. The frames between here and the Objective-C caller are
+				// runtime and purego dispatch, so without this the traceback
+				// never says which selector dispatched. Deliberately no
+				// recover: see [objc.NoteDelegatePanic].
+				_delegateDone := false
+				defer func() {
+					if !_delegateDone {
+						objc.NoteDelegatePanic("NSBrowserDelegate", "browser:shouldSizeColumn:forUserResize:toWidth:")
+					}
+				}()
 				browser := NSBrowserFromID(browserID)
-				return fn(browser, columnIndex, forUserResize, suggestedWidth)
+				_delegateResult := fn(browser, columnIndex, forUserResize, suggestedWidth)
+				_delegateDone = true
+				return _delegateResult
 			},
 		})
 	}
@@ -987,8 +1139,21 @@ func NewNSBrowserDelegate(config NSBrowserDelegateConfig) NSBrowserDelegateObjec
 		methods = append(methods, objc.MethodDef{
 			Cmd: objc.RegisterName("browser:sizeToFitWidthOfColumn:"),
 			Fn: func(self objc.ID, _cmd objc.SEL, browserID objc.ID, columnIndex int) float64 {
+				// Names which delegate was running if a panic unwinds out of
+				// it. The frames between here and the Objective-C caller are
+				// runtime and purego dispatch, so without this the traceback
+				// never says which selector dispatched. Deliberately no
+				// recover: see [objc.NoteDelegatePanic].
+				_delegateDone := false
+				defer func() {
+					if !_delegateDone {
+						objc.NoteDelegatePanic("NSBrowserDelegate", "browser:sizeToFitWidthOfColumn:")
+					}
+				}()
 				browser := NSBrowserFromID(browserID)
-				return fn(browser, columnIndex)
+				_delegateResult := fn(browser, columnIndex)
+				_delegateDone = true
+				return _delegateResult
 			},
 		})
 	}
@@ -998,8 +1163,20 @@ func NewNSBrowserDelegate(config NSBrowserDelegateConfig) NSBrowserDelegateObjec
 		methods = append(methods, objc.MethodDef{
 			Cmd: objc.RegisterName("browserColumnConfigurationDidChange:"),
 			Fn: func(self objc.ID, _cmd objc.SEL, notificationID objc.ID) {
+				// Names which delegate was running if a panic unwinds out of
+				// it. The frames between here and the Objective-C caller are
+				// runtime and purego dispatch, so without this the traceback
+				// never says which selector dispatched. Deliberately no
+				// recover: see [objc.NoteDelegatePanic].
+				_delegateDone := false
+				defer func() {
+					if !_delegateDone {
+						objc.NoteDelegatePanic("NSBrowserDelegate", "browserColumnConfigurationDidChange:")
+					}
+				}()
 				notification := foundation.NSNotificationFromID(notificationID)
 				fn(notification)
+				_delegateDone = true
 			},
 		})
 	}
@@ -1009,8 +1186,21 @@ func NewNSBrowserDelegate(config NSBrowserDelegateConfig) NSBrowserDelegateObjec
 		methods = append(methods, objc.MethodDef{
 			Cmd: objc.RegisterName("browser:heightOfRow:inColumn:"),
 			Fn: func(self objc.ID, _cmd objc.SEL, browserID objc.ID, row int, columnIndex int) float64 {
+				// Names which delegate was running if a panic unwinds out of
+				// it. The frames between here and the Objective-C caller are
+				// runtime and purego dispatch, so without this the traceback
+				// never says which selector dispatched. Deliberately no
+				// recover: see [objc.NoteDelegatePanic].
+				_delegateDone := false
+				defer func() {
+					if !_delegateDone {
+						objc.NoteDelegatePanic("NSBrowserDelegate", "browser:heightOfRow:inColumn:")
+					}
+				}()
 				browser := NSBrowserFromID(browserID)
-				return fn(browser, row, columnIndex)
+				_delegateResult := fn(browser, row, columnIndex)
+				_delegateDone = true
+				return _delegateResult
 			},
 		})
 	}
@@ -1020,8 +1210,21 @@ func NewNSBrowserDelegate(config NSBrowserDelegateConfig) NSBrowserDelegateObjec
 		methods = append(methods, objc.MethodDef{
 			Cmd: objc.RegisterName("browser:shouldShowCellExpansionForRow:column:"),
 			Fn: func(self objc.ID, _cmd objc.SEL, browserID objc.ID, row int, column int) bool {
+				// Names which delegate was running if a panic unwinds out of
+				// it. The frames between here and the Objective-C caller are
+				// runtime and purego dispatch, so without this the traceback
+				// never says which selector dispatched. Deliberately no
+				// recover: see [objc.NoteDelegatePanic].
+				_delegateDone := false
+				defer func() {
+					if !_delegateDone {
+						objc.NoteDelegatePanic("NSBrowserDelegate", "browser:shouldShowCellExpansionForRow:column:")
+					}
+				}()
 				browser := NSBrowserFromID(browserID)
-				return fn(browser, row, column)
+				_delegateResult := fn(browser, row, column)
+				_delegateDone = true
+				return _delegateResult
 			},
 		})
 	}

@@ -13,7 +13,7 @@ import (
 type CIFilterProtocol interface {
 	objectivec.IObject
 
-	// A [CIImage](<doc://com.apple.coreimage/documentation/CoreImage/CIImage>) object that encapsulates the operations configured in the filter.
+	// A [CIImage](<https://developer.apple.com/documentation/CoreImage/CIImage>) object that encapsulates the operations configured in the filter.
 	//
 	// See: https://developer.apple.com/documentation/CoreImage/CIFilterProtocol/outputImage
 	OutputImage() ICIImage

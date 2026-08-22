@@ -65,8 +65,9 @@ func (nc NSURLClass) Alloc() NSURL {
 // that read data from or write data to a file have methods that accept an
 // [NSURL] object instead of a pathname as the file reference. For example,
 // you can get the contents of a local file URL as an [NSString] object using
-// the `NSString/init()-715fw` initializer, or as an [NSData] object using the
-// `NSData/init()-5abi3` initializer.
+// the `NSString/init(contentsOfURL:encoding:)-715fw` initializer, or as an
+// [NSData] object using the `NSData/init(contentsOfURL:options:)-5abi3`
+// initializer.
 //
 // You can also use URLs for interapplication communication. In macOS, the
 // [NSWorkspace] class provides the [open(_:)] method to open a location
@@ -88,15 +89,15 @@ func (nc NSURLClass) Alloc() NSURL {
 // all other URLs are considered relative.
 //
 // For example, when constructing an [NSURL] object, you might specify
-// `///path/to/user/` as the base URL and `folder/file.Html()` as the string
-// part, as follows:
+// `file:///path/to/user/` as the base URL and `folder/file.html` as the
+// string part, as follows:
 //
 // When fully resolved, the absolute URL is
-// `///path/to/user/folder/file.Html()`.
+// `file:///path/to/user/folder/file.html`.
 //
 // A URL can be also be divided into pieces based on its structure. For
 // example, the URL
-// `//p4ssw0rd@www.Example().443/script.Ext();param=value?query=value#ref`
+// `https://johnny:p4ssw0rd@www.example.com:443/script.ext;param=value?query=value#ref`
 // contains the following URL components:
 //
 // [Table data omitted]
@@ -110,24 +111,24 @@ func (nc NSURLClass) Alloc() NSURL {
 // # Bookmarks and Security Scope
 //
 // Starting with OS X v10.6 and iOS 4.0, the [NSURL] class provides a facility
-// for creating and using bookmark objects. A provides a persistent reference
-// to a file-system resource. When you resolve a bookmark, you obtain a URL to
-// the resource’s current location. A bookmark’s association with a
-// file-system resource (typically a file or folder) usually continues to work
-// if the user moves or renames the resource, or if the user relaunches your
-// app or restarts the system.
+// for creating and using bookmark objects. A bookmark provides a persistent
+// reference to a file-system resource. When you resolve a bookmark, you
+// obtain a URL to the resource’s current location. A bookmark’s
+// association with a file-system resource (typically a file or folder)
+// usually continues to work if the user moves or renames the resource, or if
+// the user relaunches your app or restarts the system.
 //
 // For a general introduction to using bookmarks, read [Locating Files Using
 // Bookmarks] in [File System Programming Guide].
 //
-// In a macOS app that adopts App Sandbox, you can use to gain access to
-// file-system resources outside your app’s sandbox. These bookmarks
-// preserve the user’s intent to give your app access to a resource across
-// app launches. For details on how this works, including information on the
-// entitlements you need in your Xcode project, read [Security-Scoped
-// Bookmarks and Persistent Resource Access] in [App Sandbox Design Guide].
-// The methods for using security-scoped bookmarks are described in this
-// document in Working with Bookmark Data.
+// In a macOS app that adopts App Sandbox, you can use security-scoped
+// bookmarks to gain access to file-system resources outside your app’s
+// sandbox. These bookmarks preserve the user’s intent to give your app
+// access to a resource across app launches. For details on how this works,
+// including information on the entitlements you need in your Xcode project,
+// read [Security-Scoped Bookmarks and Persistent Resource Access] in [App
+// Sandbox Design Guide]. The methods for using security-scoped bookmarks are
+// described in this document in Working with Bookmark Data.
 //
 // When you resolve a security-scoped bookmark, you get a security-scoped URL.
 //
@@ -135,8 +136,8 @@ func (nc NSURLClass) Alloc() NSURL {
 //
 // Security-scoped URLs provide access to resources outside an app’s
 // sandbox. In macOS, you get access to security-scoped URLs when you resolve
-// a security-scoped bookmark. In iOS, apps that or documents using a
-// [UIDocumentPickerViewController] also receive security-scoped URLs.
+// a security-scoped bookmark. In iOS, apps that open or move documents using
+// a [UIDocumentPickerViewController] also receive security-scoped URLs.
 //
 // To gain access to a security-scoped URL, you must call the
 // [NSURL.StartAccessingSecurityScopedResource] method (or its Core Foundation
@@ -164,9 +165,9 @@ func (nc NSURLClass) Alloc() NSURL {
 // If you need a security-scoped URL’s path as a string value (as provided
 // by the [NSURL.Path] method), such as to provide to an API that requires a
 // string value, obtain the path from the URL as needed. Note, however, that a
-// string-based path obtained from a security-scoped URL have security scope
-// and you cannot use that string to obtain access to a security-scoped
-// resource.
+// string-based path obtained from a security-scoped URL does not have
+// security scope and you cannot use that string to obtain access to a
+// security-scoped resource.
 //
 // # iCloud Document Thumbnails
 //
@@ -228,7 +229,6 @@ func (nc NSURLClass) Alloc() NSURL {
 // # Accessing Resource Values
 //
 //   - [NSURL.ResourceValuesForKeysError]: Returns the resource values for the properties identified by specified array of keys.
-//   - [NSURL.GetResourceValueForKeyError]: Returns the value of the resource property for the specified key.
 //   - [NSURL.SetResourceValueForKeyError]: Sets the URL’s resource property for a given key to a given value.
 //   - [NSURL.SetResourceValuesError]: Sets the URL’s resource properties for a given set of keys to a given set of values.
 //   - [NSURL.RemoveAllCachedResourceValues]: Removes all cached resource values and temporary resource values from the URL object.
@@ -259,7 +259,6 @@ func (nc NSURLClass) Alloc() NSURL {
 // # Working with Promised Items
 //
 //   - [NSURL.CheckPromisedItemIsReachableAndReturnError]: Returns whether the promised item can be reached.
-//   - [NSURL.GetPromisedItemResourceValueForKeyError]: Returns the value of the resource property for the specified key.
 //   - [NSURL.PromisedItemResourceValuesForKeysError]: Returns the resource values for the properties identified by specified array of keys.
 //
 // # Working with Pasteboards
@@ -358,7 +357,6 @@ func NSURLFromID(id objc.ID) NSURL {
 // # Accessing Resource Values
 //
 //   - [INSURL.ResourceValuesForKeysError]: Returns the resource values for the properties identified by specified array of keys.
-//   - [INSURL.GetResourceValueForKeyError]: Returns the value of the resource property for the specified key.
 //   - [INSURL.SetResourceValueForKeyError]: Sets the URL’s resource property for a given key to a given value.
 //   - [INSURL.SetResourceValuesError]: Sets the URL’s resource properties for a given set of keys to a given set of values.
 //   - [INSURL.RemoveAllCachedResourceValues]: Removes all cached resource values and temporary resource values from the URL object.
@@ -389,7 +387,6 @@ func NSURLFromID(id objc.ID) NSURL {
 // # Working with Promised Items
 //
 //   - [INSURL.CheckPromisedItemIsReachableAndReturnError]: Returns whether the promised item can be reached.
-//   - [INSURL.GetPromisedItemResourceValueForKeyError]: Returns the value of the resource property for the specified key.
 //   - [INSURL.PromisedItemResourceValuesForKeysError]: Returns the resource values for the properties identified by specified array of keys.
 //
 // # Working with Pasteboards
@@ -403,7 +400,6 @@ func NSURLFromID(id objc.ID) NSURL {
 // See: https://developer.apple.com/documentation/Foundation/NSURL
 type INSURL interface {
 	objectivec.IObject
-	NSSecureCoding
 
 	// Topic: Creating a URL object
 
@@ -483,8 +479,6 @@ type INSURL interface {
 
 	// Returns the resource values for the properties identified by specified array of keys.
 	ResourceValuesForKeysError(keys []string) (INSDictionary, error)
-	// Returns the value of the resource property for the specified key.
-	GetResourceValueForKeyError(value []objectivec.IObject, key NSURLResourceKey) (bool, error)
 	// Sets the URL’s resource property for a given key to a given value.
 	SetResourceValueForKeyError(value objectivec.IObject, key NSURLResourceKey) (bool, error)
 	// Sets the URL’s resource properties for a given set of keys to a given set of values.
@@ -536,8 +530,6 @@ type INSURL interface {
 
 	// Returns whether the promised item can be reached.
 	CheckPromisedItemIsReachableAndReturnError() (bool, error)
-	// Returns the value of the resource property for the specified key.
-	GetPromisedItemResourceValueForKeyError(value []objectivec.IObject, key NSURLResourceKey) (bool, error)
 	// Returns the resource values for the properties identified by specified array of keys.
 	PromisedItemResourceValuesForKeysError(keys []string) (INSDictionary, error)
 
@@ -549,6 +541,16 @@ type INSURL interface {
 	// Topic: Initializers
 
 	InitWithPasteboardPropertyListOfType(propertyList objectivec.IObject, type_ INSString) NSURL
+
+	// Encodes the receiver using a given archiver.
+	EncodeWithCoder(coder INSCoder)
+	InitWithCoder(coder INSCoder) NSURL
+	// Asks the item provider for the representation visibility specification for the given UTI.
+	ItemProviderVisibilityForRepresentationWithTypeIdentifier(typeIdentifier string) NSItemProviderRepresentationVisibility
+	// Loads data of a particular type, identified by the given UTI.
+	LoadDataWithTypeIdentifierForItemProviderCompletionHandler(typeIdentifier string, completionHandler DataErrorHandler) INSProgress
+	// An array of UTI strings representing the types of data that can be loaded for an item provider.
+	WritableTypeIdentifiersForItemProvider() []string
 }
 
 // Init initializes the instance.
@@ -611,6 +613,9 @@ func NewURLByResolvingAliasFileAtURLOptionsError(url INSURL, options NSURLBookma
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
 		return NSURL{}, NSErrorFrom(errorPtr)
 	}
+	if rv == 0 {
+		return NSURL{}, objc.ErrInitFailed
+	}
 	return NSURLFromID(rv), nil
 }
 
@@ -639,6 +644,9 @@ func NewURLByResolvingBookmarkDataOptionsRelativeToURLBookmarkDataIsStaleError(b
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
 		return NSURL{}, NSErrorFrom(errorPtr)
+	}
+	if rv == 0 {
+		return NSURL{}, objc.ErrInitFailed
 	}
 	return NSURLFromID(rv), nil
 }
@@ -1241,47 +1249,6 @@ func (u NSURL) ResourceValuesForKeysError(keys []string) (INSDictionary, error) 
 
 }
 
-// Returns the value of the resource property for the specified key.
-//
-// value: The location where the value for the resource property identified by `key`
-// should be stored.
-//
-// key: The name of one of the URL’s resource properties.
-//
-// # Discussion
-//
-// This method first checks if the URL object already caches the resource
-// value. If so, it returns the cached resource value to the caller. If not,
-// then this method synchronously obtains the resource value from the backing
-// store, adds the resource value to the URL object’s cache, and returns the
-// resource value to the caller.
-//
-// The type of the returned resource value varies by resource property; for
-// details, see the documentation for the key you want to access.
-//
-// If this method returns true and the value is populated with `nil`, it means
-// that the resource property is not available for the specified resource, and
-// that no errors occurred when determining that the resource property was
-// unavailable.
-//
-// If this method returns false, an error occurred. The object pointer
-// referenced by `error` is populated with additional information.
-//
-// See: https://developer.apple.com/documentation/Foundation/NSURL/getResourceValue(_:forKey:)
-func (u NSURL) GetResourceValueForKeyError(value []objectivec.IObject, key NSURLResourceKey) (bool, error) {
-	var errorPtr objc.ID
-	rv := objc.Send[bool](u.ID, objc.Sel("getResourceValue:forKey:error:"), objectivec.IObjectSliceToNSArray(value), objc.String(string(key)), unsafe.Pointer(&errorPtr))
-	if errorPtr != 0 {
-		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
-		return false, NSErrorFrom(errorPtr)
-	}
-	if !rv {
-		return false, errors.New("getResourceValue:forKey:error: returned NO with nil NSError")
-	}
-	return rv, nil
-
-}
-
 // Sets the URL’s resource property for a given key to a given value.
 //
 // value: The value for the resource property defined by `key`.
@@ -1623,8 +1590,8 @@ func (u NSURL) URLByAppendingPathExtensionForType(contentType objectivec.IObject
 // this parameter as follows:
 //
 // - To create an app-scoped bookmark, use a value of `nil`. - To create a
-// document-scoped bookmark, use the path (despite this parameter’s name) to
-// the document file that is to own the new security-scoped bookmark.
+// document-scoped bookmark, use the absolute path (despite this parameter’s
+// name) to the document file that is to own the new security-scoped bookmark.
 //
 // App Sandbox does not restrict which URL values may be passed to this
 // parameter.
@@ -1773,59 +1740,6 @@ func (u NSURL) CheckPromisedItemIsReachableAndReturnError() (bool, error) {
 	}
 	if !rv {
 		return false, errors.New("checkPromisedItemIsReachableAndReturnError: returned NO with nil NSError")
-	}
-	return rv, nil
-
-}
-
-// Returns the value of the resource property for the specified key.
-//
-// value: The location where the value for the resource property identified by `key`
-// should be stored.
-//
-// key: The name of one of the URL’s resource properties.
-//
-// # Discussion
-//
-// This method behaves identically to [NSURL.GetResourceValueForKeyError], but
-// works on promised items. A promised item is not guaranteed to have its
-// contents in the file system until you use a file coordinator to perform a
-// coordinated read on its URL, which causes the contents to be downloaded or
-// otherwise generated. Promised item URLs are returned by various APIs,
-// including:
-//
-// - A metadata query using either the [NSMetadataQueryUbiquitousDataScope] or
-// [NSMetadataQueryUbiquitousDocumentsScope] scopes - The contents of the
-// directory returned by the file manager’s
-// `URLForUbiquitousContainerIdentifier:` - The URL inside the accessor block
-// of a coordinated read or write operation that used the
-// [NSFileCoordinatorReadingImmediatelyAvailableMetadataOnly],
-// [NSFileCoordinatorWritingForDeleting], [NSFileCoordinatorWritingForMoving],
-// or [NSFileCoordinatorWritingContentIndependentMetadataOnly] options
-//
-// You must use this method instead of “ for any URLs returned by these
-// methods.
-//
-// This method works for any resource value that is not tied to the item’s
-// contents. Some keys, like [contentAccessDateKey] or
-// [generationIdentifierKey], do not return valid values. If you use one of
-// these keys, the method returns true, but the value returns `nil`.
-//
-// See: https://developer.apple.com/documentation/Foundation/NSURL/getPromisedItemResourceValue(_:forKey:)
-//
-// [NSMetadataQueryUbiquitousDataScope]: https://developer.apple.com/documentation/Foundation/NSMetadataQueryUbiquitousDataScope
-// [NSMetadataQueryUbiquitousDocumentsScope]: https://developer.apple.com/documentation/Foundation/NSMetadataQueryUbiquitousDocumentsScope
-// [contentAccessDateKey]: https://developer.apple.com/documentation/Foundation/URLResourceKey/contentAccessDateKey
-// [generationIdentifierKey]: https://developer.apple.com/documentation/Foundation/URLResourceKey/generationIdentifierKey
-func (u NSURL) GetPromisedItemResourceValueForKeyError(value []objectivec.IObject, key NSURLResourceKey) (bool, error) {
-	var errorPtr objc.ID
-	rv := objc.Send[bool](u.ID, objc.Sel("getPromisedItemResourceValue:forKey:error:"), objectivec.IObjectSliceToNSArray(value), objc.String(string(key)), unsafe.Pointer(&errorPtr))
-	if errorPtr != 0 {
-		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
-		return false, NSErrorFrom(errorPtr)
-	}
-	if !rv {
-		return false, errors.New("getPromisedItemResourceValue:forKey:error: returned NO with nil NSError")
 	}
 	return rv, nil
 
@@ -2213,8 +2127,8 @@ func (_NSURLClass NSURLClass) ObjectWithItemProviderDataTypeIdentifierError(data
 // URL, use this parameter as follows:
 //
 // - To resolve an app-scoped bookmark, use a value of `nil`. - To resolve a
-// document-scoped bookmark, use the path (despite this parameter’s name) to
-// the document from which you retrieved the bookmark.
+// document-scoped bookmark, use the absolute path (despite this parameter’s
+// name) to the document from which you retrieved the bookmark.
 //
 // App Sandbox does not restrict which URL values may be passed to this
 // parameter.
@@ -2460,8 +2374,8 @@ func (u NSURL) FileSystemRepresentation() string {
 // This property contains the URL’s fragment. Any percent-encoded characters
 // are not unescaped. If the receiver does not conform to RFC 1808, this
 // property contains `nil`. For example, in the URL
-// `//www.ExampleXCUIElementTypeCom()/index.Html()#jumpLocation`, the fragment
-// identifier is `jumpLocation`.
+// `http://www.example.com/index.html#jumpLocation`, the fragment identifier
+// is `jumpLocation`.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSURL/fragment
 func (u NSURL) Fragment() string {
@@ -2476,7 +2390,7 @@ func (u NSURL) Fragment() string {
 // This property contains the host, unescaped using the
 // [replacingPercentEscapes(using:)] method. If the receiver does not conform
 // to RFC 1808, this property contains `nil`. For example, in the URL
-// `//www.ExampleXCUIElementTypeCom()/index.Html()`, the host is
+// `http://www.example.com/index.html`, the host is
 // `www.ExampleXCUIElementTypeCom()`.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSURL/host
@@ -2493,7 +2407,7 @@ func (u NSURL) Host() string {
 //
 // This property contains the last path component, unescaped using the
 // [replacingPercentEscapes(using:)] method. For example, in the URL
-// `///path/to/file`, the last path component is `file`.
+// `file:///path/to/file`, the last path component is `file`.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSURL/lastPathComponent
 //
@@ -2510,7 +2424,7 @@ func (u NSURL) LastPathComponent() string {
 // This property contains the password. Any percent-encoded characters are not
 // unescaped. If the receiver does not conform to RFC 1808, it contains `nil`.
 // For example, in the URL
-// `//password@www.ExampleXCUIElementTypeCom()/index.Html()`, the password is
+// `http://username:password@www.example.com/index.html`, the password is
 // `password`.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSURL/password
@@ -2533,8 +2447,8 @@ func (u NSURL) Password() string {
 // slash, it is stripped.
 //
 // If the receiver contains a file reference URL, this property’s value
-// provides the for the referenced resource, which may be `nil` if the
-// resource no longer exists.
+// provides the current path for the referenced resource, which may be `nil`
+// if the resource no longer exists.
 //
 // If the [parameterString] property contains a non-`nil` value, the path may
 // be incomplete. If the receiver contains an unencoded semicolon, the path
@@ -2546,8 +2460,7 @@ func (u NSURL) Password() string {
 //
 // Per RFC 3986, the leading slash after the authority (host name and port)
 // portion is treated as part of the path. For example, in the URL
-// `//www.ExampleXCUIElementTypeCom()/index.Html()`, the path is
-// `/index.Html()`.
+// `http://www.example.com/index.html`, the path is `/index.html`.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSURL/path
 //
@@ -2564,8 +2477,9 @@ func (u NSURL) Path() string {
 //
 // This property contains an array containing the individual path components
 // of the URL, each unescaped using the [replacingPercentEscapes(using:)]
-// method. For example, in the URL `///directory/directory%202/file`, the path
-// components array would be `@[@"/", @"directory", @"directory 2", @"file"]`.
+// method. For example, in the URL `file:///directory/directory%202/file`, the
+// path components array would be `@[@"/", @"directory", @"directory 2",
+// @"file"]`.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSURL/pathComponents
 //
@@ -2585,7 +2499,7 @@ func (u NSURL) PathComponents() []string {
 //
 // This property contains the path extension, unescaped using the
 // [replacingPercentEscapes(using:)] method. For example, in the URL
-// `///path/to/file.Txt()`, the path extension is `txt`.
+// `file:///path/to/file.txt`, the path extension is `txt`.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSURL/pathExtension
 //
@@ -2601,7 +2515,7 @@ func (u NSURL) PathExtension() string {
 //
 // This property contains the port number. If the receiver does not conform to
 // RFC 1808, this property contains `nil`. For example, in the URL
-// `//www.Example().8080/index.Php()`, the port number is `8080`.
+// `http://www.example.com:8080/index.php`, the port number is `8080`.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSURL/port
 func (u NSURL) Port() INSNumber {
@@ -2616,8 +2530,8 @@ func (u NSURL) Port() INSNumber {
 // This property contains the query string. Any percent-encoded characters are
 // not unescaped. If the receiver does not conform to RFC 1808, this property
 // contains `nil`. For example, in the URL
-// `//www.ExampleXCUIElementTypeCom()/index.Php()?key1=value1&key2=value2`,
-// the query string is `key1=value1&key2=value2`.
+// `http://www.example.com/index.php?key1=value1&key2=value2`, the query
+// string is `key1=value1&key2=value2`.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSURL/query
 func (u NSURL) Query() string {
@@ -2662,9 +2576,8 @@ func (u NSURL) RelativeString() string {
 //
 // This property contains the resource specifier. Any percent-encoded
 // characters are not unescaped. For example, in the URL
-// `//www.ExampleXCUIElementTypeCom()/index.Html()?key1=value1#jumplink`, the
-// resource specifier is
-// `//www.ExampleXCUIElementTypeCom()/index.Html()?key1=value1#jumplink`
+// `http://www.example.com/index.html?key1=value1#jumplink`, the resource
+// specifier is `//www.example.com/index.html?key1=value1#jumplink`
 // (everything after the colon).
 //
 // See: https://developer.apple.com/documentation/Foundation/NSURL/resourceSpecifier
@@ -2678,8 +2591,8 @@ func (u NSURL) ResourceSpecifier() string {
 // # Discussion
 //
 // This property contains the scheme. Any percent-encoded characters are not
-// unescaped. For example, in the URL
-// `//www.ExampleXCUIElementTypeCom()/index.Html()`, the scheme is `http`.
+// unescaped. For example, in the URL `http://www.example.com/index.html`, the
+// scheme is `http`.
 //
 // The full URL is the concatenation of the scheme, a colon (`:`), and the
 // value of [NSURL.ResourceSpecifier].
@@ -2712,7 +2625,7 @@ func (u NSURL) StandardizedURL() INSURL {
 // This property contains the user name, unescaped using the
 // [replacingPercentEscapes(using:)] method. If the receiver’s URL does not
 // conform to RFC 1808, this property returns `nil`. For example, in the URL
-// `//username@www.ExampleXCUIElementTypeCom()/`, the user name is `username`.
+// `ftp://username@www.example.com/`, the user name is `username`.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSURL/user
 //

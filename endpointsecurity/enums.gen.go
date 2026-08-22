@@ -6,6 +6,7 @@ import (
 	"fmt"
 )
 
+// See: https://developer.apple.com/documentation/EndpointSecurity/es_action_type_t
 type EsActionType int32
 
 const (
@@ -26,6 +27,7 @@ func (e EsActionType) String() string {
 	}
 }
 
+// See: https://developer.apple.com/documentation/EndpointSecurity/es_address_type_t
 type EsAddressType int32
 
 const (
@@ -50,6 +52,7 @@ func (e EsAddressType) String() string {
 	}
 }
 
+// See: https://developer.apple.com/documentation/EndpointSecurity/es_auth_result_t
 type EsAuthResult int32
 
 const (
@@ -70,6 +73,7 @@ func (e EsAuthResult) String() string {
 	}
 }
 
+// See: https://developer.apple.com/documentation/EndpointSecurity/es_authentication_type_t
 type EsAuthenticationType int32
 
 const (
@@ -97,6 +101,7 @@ func (e EsAuthenticationType) String() string {
 	}
 }
 
+// See: https://developer.apple.com/documentation/EndpointSecurity/es_authorization_rule_class_t
 type EsAuthorizationRuleClass int32
 
 const (
@@ -130,6 +135,7 @@ func (e EsAuthorizationRuleClass) String() string {
 	}
 }
 
+// See: https://developer.apple.com/documentation/EndpointSecurity/es_auto_unlock_type_t
 type EsAutoUnlockType int32
 
 const (
@@ -148,6 +154,7 @@ func (e EsAutoUnlockType) String() string {
 	}
 }
 
+// See: https://developer.apple.com/documentation/EndpointSecurity/es_btm_item_type_t
 type EsBtmItemType int32
 
 const (
@@ -175,6 +182,7 @@ func (e EsBtmItemType) String() string {
 	}
 }
 
+// See: https://developer.apple.com/documentation/EndpointSecurity/es_clear_cache_result_t
 type EsClearCacheResult int32
 
 const (
@@ -199,6 +207,7 @@ func (e EsClearCacheResult) String() string {
 	}
 }
 
+// See: https://developer.apple.com/documentation/EndpointSecurity/es_cs_validation_category_t
 type EsCsValidationCategory int32
 
 const (
@@ -244,6 +253,7 @@ func (e EsCsValidationCategory) String() string {
 	}
 }
 
+// See: https://developer.apple.com/documentation/EndpointSecurity/es_destination_type_t
 type EsDestinationType int32
 
 const (
@@ -264,6 +274,7 @@ func (e EsDestinationType) String() string {
 	}
 }
 
+// See: https://developer.apple.com/documentation/EndpointSecurity/es_event_type_t
 type EsEventType int32
 
 const (
@@ -862,6 +873,7 @@ func (e EsEventType) String() string {
 	}
 }
 
+// See: https://developer.apple.com/documentation/EndpointSecurity/es_gatekeeper_user_override_file_type_t
 type EsGatekeeperUserOverrideFileType int32
 
 const (
@@ -880,6 +892,7 @@ func (e EsGatekeeperUserOverrideFileType) String() string {
 	}
 }
 
+// See: https://developer.apple.com/documentation/EndpointSecurity/es_get_task_type_t
 type EsGetTaskType int32
 
 const (
@@ -901,6 +914,7 @@ func (e EsGetTaskType) String() string {
 	}
 }
 
+// See: https://developer.apple.com/documentation/EndpointSecurity/es_mount_disposition_t
 type EsMountDisposition int32
 
 const (
@@ -931,6 +945,7 @@ func (e EsMountDisposition) String() string {
 	}
 }
 
+// See: https://developer.apple.com/documentation/EndpointSecurity/es_mute_inversion_type_t
 type EsMuteInversionType int32
 
 const (
@@ -955,6 +970,7 @@ func (e EsMuteInversionType) String() string {
 	}
 }
 
+// See: https://developer.apple.com/documentation/EndpointSecurity/es_mute_inverted_return_t
 type EsMuteInvertedReturn int32
 
 const (
@@ -976,6 +992,7 @@ func (e EsMuteInvertedReturn) String() string {
 	}
 }
 
+// See: https://developer.apple.com/documentation/EndpointSecurity/es_mute_path_type_t
 type EsMutePathType int32
 
 const (
@@ -1002,6 +1019,7 @@ func (e EsMutePathType) String() string {
 	}
 }
 
+// See: https://developer.apple.com/documentation/EndpointSecurity/es_new_client_result_t
 type EsNewClientResult int32
 
 const (
@@ -1042,6 +1060,7 @@ func (e EsNewClientResult) String() string {
 	}
 }
 
+// See: https://developer.apple.com/documentation/EndpointSecurity/es_od_account_type_t
 type EsOdAccountType int32
 
 const (
@@ -1060,6 +1079,7 @@ func (e EsOdAccountType) String() string {
 	}
 }
 
+// See: https://developer.apple.com/documentation/EndpointSecurity/es_od_member_type_t
 type EsOdMemberType int32
 
 const (
@@ -1081,6 +1101,7 @@ func (e EsOdMemberType) String() string {
 	}
 }
 
+// See: https://developer.apple.com/documentation/EndpointSecurity/es_od_record_type_t
 type EsOdRecordType int32
 
 const (
@@ -1099,6 +1120,7 @@ func (e EsOdRecordType) String() string {
 	}
 }
 
+// See: https://developer.apple.com/documentation/EndpointSecurity/es_openssh_login_result_type_t
 type EsOpensshLoginResultType int32
 
 const (
@@ -1141,6 +1163,7 @@ func (e EsOpensshLoginResultType) String() string {
 	}
 }
 
+// See: https://developer.apple.com/documentation/EndpointSecurity/es_proc_check_type_t
 type EsProcCheckType int32
 
 const (
@@ -1193,6 +1216,7 @@ func (e EsProcCheckType) String() string {
 	}
 }
 
+// See: https://developer.apple.com/documentation/EndpointSecurity/es_proc_suspend_resume_type_t
 type EsProcSuspendResumeType int32
 
 const (
@@ -1217,6 +1241,7 @@ func (e EsProcSuspendResumeType) String() string {
 	}
 }
 
+// See: https://developer.apple.com/documentation/EndpointSecurity/es_profile_source_t
 type EsProfileSource int32
 
 const (
@@ -1235,6 +1260,7 @@ func (e EsProfileSource) String() string {
 	}
 }
 
+// See: https://developer.apple.com/documentation/EndpointSecurity/es_respond_result_t
 type EsRespondResult int32
 
 const (
@@ -1271,6 +1297,7 @@ func (e EsRespondResult) String() string {
 	}
 }
 
+// See: https://developer.apple.com/documentation/EndpointSecurity/es_result_type_t
 type EsResultType int32
 
 const (
@@ -1291,6 +1318,7 @@ func (e EsResultType) String() string {
 	}
 }
 
+// See: https://developer.apple.com/documentation/EndpointSecurity/es_return_t
 type EsReturn int32
 
 const (
@@ -1311,6 +1339,7 @@ func (e EsReturn) String() string {
 	}
 }
 
+// See: https://developer.apple.com/documentation/EndpointSecurity/es_set_or_clear_t
 type EsSetOrClear int32
 
 const (
@@ -1331,6 +1360,7 @@ func (e EsSetOrClear) String() string {
 	}
 }
 
+// See: https://developer.apple.com/documentation/EndpointSecurity/es_sudo_plugin_type_t
 type EsSudoPluginType int32
 
 const (
@@ -1361,6 +1391,7 @@ func (e EsSudoPluginType) String() string {
 	}
 }
 
+// See: https://developer.apple.com/documentation/EndpointSecurity/es_tcc_authorization_reason_t
 type EsTccAuthorizationReason int32
 
 const (
@@ -1426,6 +1457,7 @@ func (e EsTccAuthorizationReason) String() string {
 	}
 }
 
+// See: https://developer.apple.com/documentation/EndpointSecurity/es_tcc_authorization_right_t
 type EsTccAuthorizationRight int32
 
 const (
@@ -1459,6 +1491,7 @@ func (e EsTccAuthorizationRight) String() string {
 	}
 }
 
+// See: https://developer.apple.com/documentation/EndpointSecurity/es_tcc_event_type_t
 type EsTccEventType int32
 
 const (
@@ -1483,6 +1516,7 @@ func (e EsTccEventType) String() string {
 	}
 }
 
+// See: https://developer.apple.com/documentation/EndpointSecurity/es_tcc_identity_type_t
 type EsTccIdentityType int32
 
 const (
@@ -1507,6 +1541,7 @@ func (e EsTccIdentityType) String() string {
 	}
 }
 
+// See: https://developer.apple.com/documentation/EndpointSecurity/es_touchid_mode_t
 type EsTouchidMode int32
 
 const (
@@ -1525,6 +1560,7 @@ func (e EsTouchidMode) String() string {
 	}
 }
 
+// See: https://developer.apple.com/documentation/EndpointSecurity/es_xpc_domain_type_t
 type EsXPCDomainType int32
 
 const (
@@ -1560,3 +1596,111 @@ func (e EsXPCDomainType) String() string {
 		return fmt.Sprintf("EsXPCDomainType(%d)", e)
 	}
 }
+
+// Es_action_type_t is a C-name alias for EsActionType.
+type Es_action_type_t = EsActionType
+
+// Es_address_type_t is a C-name alias for EsAddressType.
+type Es_address_type_t = EsAddressType
+
+// Es_auth_result_t is a C-name alias for EsAuthResult.
+type Es_auth_result_t = EsAuthResult
+
+// Es_authentication_type_t is a C-name alias for EsAuthenticationType.
+type Es_authentication_type_t = EsAuthenticationType
+
+// Es_authorization_rule_class_t is a C-name alias for EsAuthorizationRuleClass.
+type Es_authorization_rule_class_t = EsAuthorizationRuleClass
+
+// Es_auto_unlock_type_t is a C-name alias for EsAutoUnlockType.
+type Es_auto_unlock_type_t = EsAutoUnlockType
+
+// Es_btm_item_type_t is a C-name alias for EsBtmItemType.
+type Es_btm_item_type_t = EsBtmItemType
+
+// Es_clear_cache_result_t is a C-name alias for EsClearCacheResult.
+type Es_clear_cache_result_t = EsClearCacheResult
+
+// Es_cs_validation_category_t is a C-name alias for EsCsValidationCategory.
+type Es_cs_validation_category_t = EsCsValidationCategory
+
+// Es_destination_type_t is a C-name alias for EsDestinationType.
+type Es_destination_type_t = EsDestinationType
+
+// Es_event_type_t is a C-name alias for EsEventType.
+type Es_event_type_t = EsEventType
+
+// Es_gatekeeper_user_override_file_type_t is a C-name alias for EsGatekeeperUserOverrideFileType.
+type Es_gatekeeper_user_override_file_type_t = EsGatekeeperUserOverrideFileType
+
+// Es_get_task_type_t is a C-name alias for EsGetTaskType.
+type Es_get_task_type_t = EsGetTaskType
+
+// Es_mount_disposition_t is a C-name alias for EsMountDisposition.
+type Es_mount_disposition_t = EsMountDisposition
+
+// Es_mute_inversion_type_t is a C-name alias for EsMuteInversionType.
+type Es_mute_inversion_type_t = EsMuteInversionType
+
+// Es_mute_inverted_return_t is a C-name alias for EsMuteInvertedReturn.
+type Es_mute_inverted_return_t = EsMuteInvertedReturn
+
+// Es_mute_path_type_t is a C-name alias for EsMutePathType.
+type Es_mute_path_type_t = EsMutePathType
+
+// Es_new_client_result_t is a C-name alias for EsNewClientResult.
+type Es_new_client_result_t = EsNewClientResult
+
+// Es_od_account_type_t is a C-name alias for EsOdAccountType.
+type Es_od_account_type_t = EsOdAccountType
+
+// Es_od_member_type_t is a C-name alias for EsOdMemberType.
+type Es_od_member_type_t = EsOdMemberType
+
+// Es_od_record_type_t is a C-name alias for EsOdRecordType.
+type Es_od_record_type_t = EsOdRecordType
+
+// Es_openssh_login_result_type_t is a C-name alias for EsOpensshLoginResultType.
+type Es_openssh_login_result_type_t = EsOpensshLoginResultType
+
+// Es_proc_check_type_t is a C-name alias for EsProcCheckType.
+type Es_proc_check_type_t = EsProcCheckType
+
+// Es_proc_suspend_resume_type_t is a C-name alias for EsProcSuspendResumeType.
+type Es_proc_suspend_resume_type_t = EsProcSuspendResumeType
+
+// Es_profile_source_t is a C-name alias for EsProfileSource.
+type Es_profile_source_t = EsProfileSource
+
+// Es_respond_result_t is a C-name alias for EsRespondResult.
+type Es_respond_result_t = EsRespondResult
+
+// Es_result_type_t is a C-name alias for EsResultType.
+type Es_result_type_t = EsResultType
+
+// Es_return_t is a C-name alias for EsReturn.
+type Es_return_t = EsReturn
+
+// Es_set_or_clear_t is a C-name alias for EsSetOrClear.
+type Es_set_or_clear_t = EsSetOrClear
+
+// Es_sudo_plugin_type_t is a C-name alias for EsSudoPluginType.
+type Es_sudo_plugin_type_t = EsSudoPluginType
+
+// Es_tcc_authorization_reason_t is a C-name alias for EsTccAuthorizationReason.
+type Es_tcc_authorization_reason_t = EsTccAuthorizationReason
+
+// Es_tcc_authorization_right_t is a C-name alias for EsTccAuthorizationRight.
+type Es_tcc_authorization_right_t = EsTccAuthorizationRight
+
+// Es_tcc_event_type_t is a C-name alias for EsTccEventType.
+type Es_tcc_event_type_t = EsTccEventType
+
+// Es_tcc_identity_type_t is a C-name alias for EsTccIdentityType.
+type Es_tcc_identity_type_t = EsTccIdentityType
+
+// Es_touchid_mode_t is a C-name alias for EsTouchidMode.
+type Es_touchid_mode_t = EsTouchidMode
+
+// Es_xpc_domain_type_t is a C-name alias for EsXPCDomainType.
+type Es_xpc_domain_type_t = EsXPCDomainType

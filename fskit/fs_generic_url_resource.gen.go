@@ -139,7 +139,7 @@ func NewGenericURLResourceWithCoder(coder foundation.INSCoder) FSGenericURLResou
 // represented by the URL and make them available as an [FSVolume] that FSKit
 // can load.
 //
-// See: https://developer.apple.com/documentation/FSKit/FSGenericURLResource/init(url:)-2cmhi
+// See: https://developer.apple.com/documentation/FSKit/FSGenericURLResource/init(url:)
 func NewGenericURLResourceWithURL(url foundation.NSURL) FSGenericURLResource {
 	instance := getFSGenericURLResourceClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithURL:"), url)
@@ -153,7 +153,7 @@ func NewGenericURLResourceWithURL(url foundation.NSURL) FSGenericURLResource {
 // represented by the URL and make them available as an [FSVolume] that FSKit
 // can load.
 //
-// See: https://developer.apple.com/documentation/FSKit/FSGenericURLResource/init(url:)-2cmhi
+// See: https://developer.apple.com/documentation/FSKit/FSGenericURLResource/init(url:)
 func (g FSGenericURLResource) InitWithURL(url foundation.NSURL) FSGenericURLResource {
 	rv := objc.Send[FSGenericURLResource](g.ID, objc.Sel("initWithURL:"), url)
 	return rv

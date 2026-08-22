@@ -6,7 +6,7 @@ import (
 	"fmt"
 )
 
-type DispatchAutoreleaseFrequency uint
+type DispatchAutoreleaseFrequency uintptr
 
 const (
 	// DISPATCH_AUTORELEASE_FREQUENCY_INHERIT: The queue inherits its autorelease frequency from its target queue.
@@ -70,7 +70,7 @@ type DispatchWalltime uint
 
 const (
 	// DISPATCH_WALLTIME_NOW: The current time.
-	DISPATCH_WALLTIME_NOW DispatchWalltime = 0
+	DISPATCH_WALLTIME_NOW DispatchWalltime = 18446744073709551614
 )
 
 func (e DispatchWalltime) String() string {

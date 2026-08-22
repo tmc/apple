@@ -94,7 +94,6 @@ func NSURLQueryItemFromID(id objc.ID) NSURLQueryItem {
 // See: https://developer.apple.com/documentation/Foundation/NSURLQueryItem
 type INSURLQueryItem interface {
 	objectivec.IObject
-	NSSecureCoding
 
 	// Topic: Creating a Query Item
 
@@ -107,6 +106,10 @@ type INSURLQueryItem interface {
 	Name() string
 	// The value for the query item.
 	Value() string
+
+	// Encodes the receiver using a given archiver.
+	EncodeWithCoder(coder INSCoder)
+	InitWithCoder(coder INSCoder) NSURLQueryItem
 }
 
 // Init initializes the instance.
@@ -138,12 +141,10 @@ func NewURLQueryItemWithCoder(coder INSCoder) NSURLQueryItem {
 // Initializes a newly allocated query item with the specified name and value.
 //
 // name: The name of the query item. For example, in the URL
-// `//www.AppleXCUIElementTypeCom()/search/?q=iPad`, the `name` parameter is
-// `q`.
+// `http://www.apple.com/search/?q=iPad`, the `name` parameter is `q`.
 //
 // value: The value for the query item. For example, in the URL
-// `//www.AppleXCUIElementTypeCom()/search/?q=iPad`, the `value` parameter is
-// `iPad`.
+// `http://www.apple.com/search/?q=iPad`, the `value` parameter is `iPad`.
 //
 // # Return Value
 //
@@ -167,12 +168,10 @@ func NewURLQueryItemWithNameValue(name string, value string) NSURLQueryItem {
 // Initializes a newly allocated query item with the specified name and value.
 //
 // name: The name of the query item. For example, in the URL
-// `//www.AppleXCUIElementTypeCom()/search/?q=iPad`, the `name` parameter is
-// `q`.
+// `http://www.apple.com/search/?q=iPad`, the `name` parameter is `q`.
 //
 // value: The value for the query item. For example, in the URL
-// `//www.AppleXCUIElementTypeCom()/search/?q=iPad`, the `value` parameter is
-// `iPad`.
+// `http://www.apple.com/search/?q=iPad`, the `value` parameter is `iPad`.
 //
 // # Return Value
 //
@@ -210,12 +209,10 @@ func (u NSURLQueryItem) InitWithCoder(coder INSCoder) NSURLQueryItem {
 // Creates a new query item with the specified name and value.
 //
 // name: The name of the query item. For example, in the URL
-// `//www.AppleXCUIElementTypeCom()/search/?q=iPad`, the `name` parameter is
-// `q`.
+// `http://www.apple.com/search/?q=iPad`, the `name` parameter is `q`.
 //
 // value: The value for the query item. For example, in the URL
-// `//www.AppleXCUIElementTypeCom()/search/?q=iPad`, the `value` parameter is
-// `iPad`.
+// `http://www.apple.com/search/?q=iPad`, the `value` parameter is `iPad`.
 //
 // # Return Value
 //
@@ -239,8 +236,8 @@ func (_NSURLQueryItemClass NSURLQueryItemClass) QueryItemWithNameValue(name stri
 //
 // # Discussion
 //
-// For example, in the URL `//www.AppleXCUIElementTypeCom()/search/?q=iPad`,
-// the `name` parameter is `q`.
+// For example, in the URL `http://www.apple.com/search/?q=iPad`, the `name`
+// parameter is `q`.
 //
 // This string is not percent-encoded.
 //
@@ -254,8 +251,8 @@ func (u NSURLQueryItem) Name() string {
 //
 // # Discussion
 //
-// For example, in the URL `//www.AppleXCUIElementTypeCom()/search/?q=iPad`,
-// the `value` parameter is `iPad`.
+// For example, in the URL `http://www.apple.com/search/?q=iPad`, the `value`
+// parameter is `iPad`.
 //
 // This string is not percent-encoded.
 //

@@ -57,8 +57,8 @@ func (nc NSTermOfAddressClass) Alloc() NSTermOfAddress {
 // define your own pronoun terms for a specific language when the predefined
 // types are insufficient.
 //
-// For example, to substitute the masculine pronoun , for the neutral pronoun
-// , do the following:
+// For example, to substitute the masculine pronoun He, for the neutral
+// pronoun They, do the following:
 //
 // If the [NSTermOfAddressClass.Masculine], [NSTermOfAddressClass.Feminine],
 // and [NSTermOfAddressClass.Neutral] terms of address are insufficient,
@@ -108,7 +108,6 @@ func NSTermOfAddressFromID(id objc.ID) NSTermOfAddress {
 // See: https://developer.apple.com/documentation/Foundation/NSTermOfAddress
 type INSTermOfAddress interface {
 	objectivec.IObject
-	NSSecureCoding
 
 	// Topic: Defining your own terms of address
 

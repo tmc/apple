@@ -9,6 +9,7 @@ import (
 	"github.com/tmc/apple/corefoundation"
 	"github.com/tmc/apple/corevideo"
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/imageio"
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -112,9 +113,9 @@ type IAVSemanticSegmentationMatte interface {
 	// Returns a semantic segmentation matte instance that wraps the replacement pixel buffer.
 	SemanticSegmentationMatteByReplacingSemanticSegmentationMatteWithPixelBufferError(pixelBuffer corevideo.CVImageBufferRef) (IAVSemanticSegmentationMatte, error)
 	// Returns a new semantic segmentation matte instance with the specified Exif orientation applied.
-	SemanticSegmentationMatteByApplyingExifOrientation(exifOrientation uint) IAVSemanticSegmentationMatte
+	SemanticSegmentationMatteByApplyingExifOrientation(exifOrientation imageio.CGImagePropertyOrientation) IAVSemanticSegmentationMatte
 	// Returns a dictionary of primitive map information to use when writing an image file with a semantic segmentation matte.
-	DictionaryRepresentationForAuxiliaryDataType(outAuxDataType string) foundation.INSDictionary
+	DictionaryRepresentationForAuxiliaryDataType(outAuxDataType *foundation.NSString) foundation.INSDictionary
 
 	// Topic: Inspecting a segmentation matte
 
@@ -168,6 +169,9 @@ func NewSemanticSegmentationMatteFromImageSourceAuxiliaryDataTypeDictionaryRepre
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
 		return AVSemanticSegmentationMatte{}, foundation.NSErrorFrom(errorPtr)
+	}
+	if rv == 0 {
+		return AVSemanticSegmentationMatte{}, objc.ErrInitFailed
 	}
 	return AVSemanticSegmentationMatteFromID(rv), nil
 }
@@ -225,7 +229,7 @@ func (s AVSemanticSegmentationMatte) SemanticSegmentationMatteByReplacingSemanti
 //
 // [CGImagePropertyOrientation]: https://developer.apple.com/documentation/ImageIO/CGImagePropertyOrientation
 // [invalidArgumentException]: https://developer.apple.com/documentation/Foundation/NSExceptionName/invalidArgumentException
-func (s AVSemanticSegmentationMatte) SemanticSegmentationMatteByApplyingExifOrientation(exifOrientation uint) IAVSemanticSegmentationMatte {
+func (s AVSemanticSegmentationMatte) SemanticSegmentationMatteByApplyingExifOrientation(exifOrientation imageio.CGImagePropertyOrientation) IAVSemanticSegmentationMatte {
 	rv := objc.Send[objc.ID](s.ID, objc.Sel("semanticSegmentationMatteByApplyingExifOrientation:"), exifOrientation)
 	return AVSemanticSegmentationMatteFromID(rv)
 }
@@ -246,8 +250,8 @@ func (s AVSemanticSegmentationMatte) SemanticSegmentationMatteByApplyingExifOrie
 // See: https://developer.apple.com/documentation/AVFoundation/AVSemanticSegmentationMatte/dictionaryRepresentation(forAuxiliaryDataType:)
 //
 // [CGImageDestinationAddAuxiliaryDataInfo(_:_:_:)]: https://developer.apple.com/documentation/ImageIO/CGImageDestinationAddAuxiliaryDataInfo(_:_:_:)
-func (s AVSemanticSegmentationMatte) DictionaryRepresentationForAuxiliaryDataType(outAuxDataType string) foundation.INSDictionary {
-	rv := objc.Send[objc.ID](s.ID, objc.Sel("dictionaryRepresentationForAuxiliaryDataType:"), objc.String(outAuxDataType))
+func (s AVSemanticSegmentationMatte) DictionaryRepresentationForAuxiliaryDataType(outAuxDataType *foundation.NSString) foundation.INSDictionary {
+	rv := objc.Send[objc.ID](s.ID, objc.Sel("dictionaryRepresentationForAuxiliaryDataType:"), unsafe.Pointer(outAuxDataType))
 	return foundation.NSDictionaryFromID(rv)
 }
 

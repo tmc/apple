@@ -124,10 +124,10 @@ func NXCopyHashTable(table *NXHashTable) *NXHashTable {
 	return result
 }
 
-var _nXCountHashTable func(table *NXHashTable) uint
+var _nXCountHashTable func(table *NXHashTable) uint32
 var _nXCountHashTableErr error
 
-func tryNXCountHashTable(table *NXHashTable) (uint, error) {
+func tryNXCountHashTable(table *NXHashTable) (uint32, error) {
 	if _nXCountHashTable == nil {
 		return 0, symbolCallError("NXCountHashTable", "10.0", _nXCountHashTableErr)
 	}
@@ -139,7 +139,7 @@ func tryNXCountHashTable(table *NXHashTable) (uint, error) {
 // Deprecated: Deprecated since macOS 10.1.
 //
 // See: https://developer.apple.com/documentation/ObjectiveC/NXCountHashTable
-func NXCountHashTable(table *NXHashTable) uint {
+func NXCountHashTable(table *NXHashTable) uint32 {
 	result, callErr := tryNXCountHashTable(table)
 	if callErr != nil {
 		panic(callErr)
@@ -147,10 +147,10 @@ func NXCountHashTable(table *NXHashTable) uint {
 	return result
 }
 
-var _nXCreateHashTable func(prototype NXHashTablePrototype, capacity uint, info unsafe.Pointer) *NXHashTable
+var _nXCreateHashTable func(prototype NXHashTablePrototype, capacity uint32, info unsafe.Pointer) *NXHashTable
 var _nXCreateHashTableErr error
 
-func tryNXCreateHashTable(prototype NXHashTablePrototype, capacity uint, info unsafe.Pointer) (*NXHashTable, error) {
+func tryNXCreateHashTable(prototype NXHashTablePrototype, capacity uint32, info unsafe.Pointer) (*NXHashTable, error) {
 	if _nXCreateHashTable == nil {
 		return nil, symbolCallError("NXCreateHashTable", "10.0", _nXCreateHashTableErr)
 	}
@@ -162,7 +162,7 @@ func tryNXCreateHashTable(prototype NXHashTablePrototype, capacity uint, info un
 // Deprecated: Deprecated since macOS 10.1.
 //
 // See: https://developer.apple.com/documentation/ObjectiveC/NXCreateHashTable
-func NXCreateHashTable(prototype NXHashTablePrototype, capacity uint, info unsafe.Pointer) *NXHashTable {
+func NXCreateHashTable(prototype NXHashTablePrototype, capacity uint32, info unsafe.Pointer) *NXHashTable {
 	result, callErr := tryNXCreateHashTable(prototype, capacity, info)
 	if callErr != nil {
 		panic(callErr)
@@ -170,10 +170,10 @@ func NXCreateHashTable(prototype NXHashTablePrototype, capacity uint, info unsaf
 	return result
 }
 
-var _nXCreateHashTableFromZone func(prototype NXHashTablePrototype, capacity uint, info unsafe.Pointer, zone unsafe.Pointer) *NXHashTable
+var _nXCreateHashTableFromZone func(prototype NXHashTablePrototype, capacity uint32, info unsafe.Pointer, zone unsafe.Pointer) *NXHashTable
 var _nXCreateHashTableFromZoneErr error
 
-func tryNXCreateHashTableFromZone(prototype NXHashTablePrototype, capacity uint, info unsafe.Pointer, zone unsafe.Pointer) (*NXHashTable, error) {
+func tryNXCreateHashTableFromZone(prototype NXHashTablePrototype, capacity uint32, info unsafe.Pointer, zone unsafe.Pointer) (*NXHashTable, error) {
 	if _nXCreateHashTableFromZone == nil {
 		return nil, symbolCallError("NXCreateHashTableFromZone", "10.0", _nXCreateHashTableFromZoneErr)
 	}
@@ -185,7 +185,7 @@ func tryNXCreateHashTableFromZone(prototype NXHashTablePrototype, capacity uint,
 // Deprecated: Deprecated since macOS 10.1.
 //
 // See: https://developer.apple.com/documentation/ObjectiveC/NXCreateHashTableFromZone
-func NXCreateHashTableFromZone(prototype NXHashTablePrototype, capacity uint, info unsafe.Pointer, zone unsafe.Pointer) *NXHashTable {
+func NXCreateHashTableFromZone(prototype NXHashTablePrototype, capacity uint32, info unsafe.Pointer, zone unsafe.Pointer) *NXHashTable {
 	result, callErr := tryNXCreateHashTableFromZone(prototype, capacity, info, zone)
 	if callErr != nil {
 		panic(callErr)
@@ -306,10 +306,10 @@ func NXHashInsertIfAbsent(table *NXHashTable, data unsafe.Pointer) unsafe.Pointe
 	return result
 }
 
-var _nXHashMember func(table *NXHashTable, data unsafe.Pointer) int
+var _nXHashMember func(table *NXHashTable, data unsafe.Pointer) int32
 var _nXHashMemberErr error
 
-func tryNXHashMember(table *NXHashTable, data unsafe.Pointer) (int, error) {
+func tryNXHashMember(table *NXHashTable, data unsafe.Pointer) (int32, error) {
 	if _nXHashMember == nil {
 		return 0, symbolCallError("NXHashMember", "10.0", _nXHashMemberErr)
 	}
@@ -321,7 +321,7 @@ func tryNXHashMember(table *NXHashTable, data unsafe.Pointer) (int, error) {
 // Deprecated: Deprecated since macOS 10.1.
 //
 // See: https://developer.apple.com/documentation/ObjectiveC/NXHashMember
-func NXHashMember(table *NXHashTable, data unsafe.Pointer) int {
+func NXHashMember(table *NXHashTable, data unsafe.Pointer) int32 {
 	result, callErr := tryNXHashMember(table, data)
 	if callErr != nil {
 		panic(callErr)
@@ -375,10 +375,10 @@ func NXInitHashState(table *NXHashTable) NXHashState {
 	return result
 }
 
-var _nXNextHashState func(table *NXHashTable, state *NXHashState, data unsafe.Pointer) int
+var _nXNextHashState func(table *NXHashTable, state *NXHashState, data unsafe.Pointer) int32
 var _nXNextHashStateErr error
 
-func tryNXNextHashState(table *NXHashTable, state *NXHashState, data unsafe.Pointer) (int, error) {
+func tryNXNextHashState(table *NXHashTable, state *NXHashState, data unsafe.Pointer) (int32, error) {
 	if _nXNextHashState == nil {
 		return 0, symbolCallError("NXNextHashState", "10.0", _nXNextHashStateErr)
 	}
@@ -390,7 +390,7 @@ func tryNXNextHashState(table *NXHashTable, state *NXHashState, data unsafe.Poin
 // Deprecated: Deprecated since macOS 10.1.
 //
 // See: https://developer.apple.com/documentation/ObjectiveC/NXNextHashState
-func NXNextHashState(table *NXHashTable, state *NXHashState, data unsafe.Pointer) int {
+func NXNextHashState(table *NXHashTable, state *NXHashState, data unsafe.Pointer) int32 {
 	result, callErr := tryNXNextHashState(table, state, data)
 	if callErr != nil {
 		panic(callErr)
@@ -443,10 +443,10 @@ func NXPtrHash(info unsafe.Pointer, data unsafe.Pointer) uintptr {
 	return result
 }
 
-var _nXPtrIsEqual func(info unsafe.Pointer, data1 unsafe.Pointer, data2 unsafe.Pointer) int
+var _nXPtrIsEqual func(info unsafe.Pointer, data1 unsafe.Pointer, data2 unsafe.Pointer) int32
 var _nXPtrIsEqualErr error
 
-func tryNXPtrIsEqual(info unsafe.Pointer, data1 unsafe.Pointer, data2 unsafe.Pointer) (int, error) {
+func tryNXPtrIsEqual(info unsafe.Pointer, data1 unsafe.Pointer, data2 unsafe.Pointer) (int32, error) {
 	if _nXPtrIsEqual == nil {
 		return 0, symbolCallError("NXPtrIsEqual", "10.0", _nXPtrIsEqualErr)
 	}
@@ -458,7 +458,7 @@ func tryNXPtrIsEqual(info unsafe.Pointer, data1 unsafe.Pointer, data2 unsafe.Poi
 // Deprecated: Deprecated since macOS 10.1.
 //
 // See: https://developer.apple.com/documentation/ObjectiveC/NXPtrIsEqual
-func NXPtrIsEqual(info unsafe.Pointer, data1 unsafe.Pointer, data2 unsafe.Pointer) int {
+func NXPtrIsEqual(info unsafe.Pointer, data1 unsafe.Pointer, data2 unsafe.Pointer) int32 {
 	result, callErr := tryNXPtrIsEqual(info, data1, data2)
 	if callErr != nil {
 		panic(callErr)
@@ -533,10 +533,10 @@ func NXStrHash(info unsafe.Pointer, data unsafe.Pointer) uintptr {
 	return result
 }
 
-var _nXStrIsEqual func(info unsafe.Pointer, data1 unsafe.Pointer, data2 unsafe.Pointer) int
+var _nXStrIsEqual func(info unsafe.Pointer, data1 unsafe.Pointer, data2 unsafe.Pointer) int32
 var _nXStrIsEqualErr error
 
-func tryNXStrIsEqual(info unsafe.Pointer, data1 unsafe.Pointer, data2 unsafe.Pointer) (int, error) {
+func tryNXStrIsEqual(info unsafe.Pointer, data1 unsafe.Pointer, data2 unsafe.Pointer) (int32, error) {
 	if _nXStrIsEqual == nil {
 		return 0, symbolCallError("NXStrIsEqual", "10.0", _nXStrIsEqualErr)
 	}
@@ -548,7 +548,7 @@ func tryNXStrIsEqual(info unsafe.Pointer, data1 unsafe.Pointer, data2 unsafe.Poi
 // Deprecated: Deprecated since macOS 10.1.
 //
 // See: https://developer.apple.com/documentation/ObjectiveC/NXStrIsEqual
-func NXStrIsEqual(info unsafe.Pointer, data1 unsafe.Pointer, data2 unsafe.Pointer) int {
+func NXStrIsEqual(info unsafe.Pointer, data1 unsafe.Pointer, data2 unsafe.Pointer) int32 {
 	result, callErr := tryNXStrIsEqual(info, data1, data2)
 	if callErr != nil {
 		panic(callErr)
@@ -598,10 +598,10 @@ func Class_addMethod(cls objc.Class, name SEL, imp IMP, types string) bool {
 	return result
 }
 
-var _class_addProperty func(cls objc.Class, name string, attributes *Objc_property_attribute_t, attributeCount uint) bool
+var _class_addProperty func(cls objc.Class, name string, attributes *Objc_property_attribute_t, attributeCount uint32) bool
 var _class_addPropertyErr error
 
-func tryClass_addProperty(cls objc.Class, name string, attributes *Objc_property_attribute_t, attributeCount uint) (bool, error) {
+func tryClass_addProperty(cls objc.Class, name string, attributes *Objc_property_attribute_t, attributeCount uint32) (bool, error) {
 	if _class_addProperty == nil {
 		return false, symbolCallError("class_addProperty", "10.7", _class_addPropertyErr)
 	}
@@ -611,7 +611,7 @@ func tryClass_addProperty(cls objc.Class, name string, attributes *Objc_property
 // Class_addProperty adds a property to a class.
 //
 // See: https://developer.apple.com/documentation/ObjectiveC/class_addProperty(_:_:_:_:)
-func Class_addProperty(cls objc.Class, name string, attributes *Objc_property_attribute_t, attributeCount uint) bool {
+func Class_addProperty(cls objc.Class, name string, attributes *Objc_property_attribute_t, attributeCount uint32) bool {
 	result, callErr := tryClass_addProperty(cls, name, attributes, attributeCount)
 	if callErr != nil {
 		panic(callErr)
@@ -661,10 +661,10 @@ func Class_conformsToProtocol(cls objc.Class, protocol_ **Protocol) bool {
 	return result
 }
 
-var _class_copyIvarList func(cls objc.Class, outCount *uint) Ivar
+var _class_copyIvarList func(cls objc.Class, outCount *uint32) Ivar
 var _class_copyIvarListErr error
 
-func tryClass_copyIvarList(cls objc.Class, outCount *uint) (Ivar, error) {
+func tryClass_copyIvarList(cls objc.Class, outCount *uint32) (Ivar, error) {
 	if _class_copyIvarList == nil {
 		return *new(Ivar), symbolCallError("class_copyIvarList", "10.5", _class_copyIvarListErr)
 	}
@@ -674,7 +674,7 @@ func tryClass_copyIvarList(cls objc.Class, outCount *uint) (Ivar, error) {
 // Class_copyIvarList describes the instance variables declared by a class.
 //
 // See: https://developer.apple.com/documentation/ObjectiveC/class_copyIvarList(_:_:)
-func Class_copyIvarList(cls objc.Class, outCount *uint) Ivar {
+func Class_copyIvarList(cls objc.Class, outCount *uint32) Ivar {
 	result, callErr := tryClass_copyIvarList(cls, outCount)
 	if callErr != nil {
 		panic(callErr)
@@ -682,10 +682,10 @@ func Class_copyIvarList(cls objc.Class, outCount *uint) Ivar {
 	return result
 }
 
-var _class_copyMethodList func(cls objc.Class, outCount *uint) Method
+var _class_copyMethodList func(cls objc.Class, outCount *uint32) Method
 var _class_copyMethodListErr error
 
-func tryClass_copyMethodList(cls objc.Class, outCount *uint) (Method, error) {
+func tryClass_copyMethodList(cls objc.Class, outCount *uint32) (Method, error) {
 	if _class_copyMethodList == nil {
 		return *new(Method), symbolCallError("class_copyMethodList", "10.5", _class_copyMethodListErr)
 	}
@@ -695,7 +695,7 @@ func tryClass_copyMethodList(cls objc.Class, outCount *uint) (Method, error) {
 // Class_copyMethodList describes the instance methods implemented by a class.
 //
 // See: https://developer.apple.com/documentation/ObjectiveC/class_copyMethodList(_:_:)
-func Class_copyMethodList(cls objc.Class, outCount *uint) Method {
+func Class_copyMethodList(cls objc.Class, outCount *uint32) Method {
 	result, callErr := tryClass_copyMethodList(cls, outCount)
 	if callErr != nil {
 		panic(callErr)
@@ -703,10 +703,10 @@ func Class_copyMethodList(cls objc.Class, outCount *uint) Method {
 	return result
 }
 
-var _class_copyPropertyList func(cls objc.Class, outCount *uint) *Objc_property_t
+var _class_copyPropertyList func(cls objc.Class, outCount *uint32) *Objc_property_t
 var _class_copyPropertyListErr error
 
-func tryClass_copyPropertyList(cls objc.Class, outCount *uint) (*Objc_property_t, error) {
+func tryClass_copyPropertyList(cls objc.Class, outCount *uint32) (*Objc_property_t, error) {
 	if _class_copyPropertyList == nil {
 		return nil, symbolCallError("class_copyPropertyList", "10.5", _class_copyPropertyListErr)
 	}
@@ -716,7 +716,7 @@ func tryClass_copyPropertyList(cls objc.Class, outCount *uint) (*Objc_property_t
 // Class_copyPropertyList describes the properties declared by a class.
 //
 // See: https://developer.apple.com/documentation/ObjectiveC/class_copyPropertyList(_:_:)
-func Class_copyPropertyList(cls objc.Class, outCount *uint) *Objc_property_t {
+func Class_copyPropertyList(cls objc.Class, outCount *uint32) *Objc_property_t {
 	result, callErr := tryClass_copyPropertyList(cls, outCount)
 	if callErr != nil {
 		panic(callErr)
@@ -724,10 +724,10 @@ func Class_copyPropertyList(cls objc.Class, outCount *uint) *Objc_property_t {
 	return result
 }
 
-var _class_copyProtocolList func(cls objc.Class, outCount *uint) **Protocol
+var _class_copyProtocolList func(cls objc.Class, outCount *uint32) **Protocol
 var _class_copyProtocolListErr error
 
-func tryClass_copyProtocolList(cls objc.Class, outCount *uint) (**Protocol, error) {
+func tryClass_copyProtocolList(cls objc.Class, outCount *uint32) (**Protocol, error) {
 	if _class_copyProtocolList == nil {
 		return nil, symbolCallError("class_copyProtocolList", "10.5", _class_copyProtocolListErr)
 	}
@@ -737,7 +737,7 @@ func tryClass_copyProtocolList(cls objc.Class, outCount *uint) (**Protocol, erro
 // Class_copyProtocolList describes the protocols adopted by a class.
 //
 // See: https://developer.apple.com/documentation/ObjectiveC/class_copyProtocolList(_:_:)
-func Class_copyProtocolList(cls objc.Class, outCount *uint) **Protocol {
+func Class_copyProtocolList(cls objc.Class, outCount *uint32) **Protocol {
 	result, callErr := tryClass_copyProtocolList(cls, outCount)
 	if callErr != nil {
 		panic(callErr)
@@ -750,7 +750,7 @@ var _class_createInstanceErr error
 
 func tryClass_createInstance(cls objc.Class, extraBytes uintptr) (Object, error) {
 	if _class_createInstance == nil {
-		return Object{}, symbolCallError("class_createInstance", "10.0", _class_createInstanceErr)
+		return *new(Object), symbolCallError("class_createInstance", "10.0", _class_createInstanceErr)
 	}
 	return _class_createInstance(cls, extraBytes), nil
 }
@@ -771,7 +771,7 @@ var _class_createInstanceFromZoneErr error
 
 func tryClass_createInstanceFromZone(arg0 objc.Class, idxIvars uintptr, zone unsafe.Pointer) (Object, error) {
 	if _class_createInstanceFromZone == nil {
-		return Object{}, symbolCallError("class_createInstanceFromZone", "10.0", _class_createInstanceFromZoneErr)
+		return *new(Object), symbolCallError("class_createInstanceFromZone", "10.0", _class_createInstanceFromZoneErr)
 	}
 	return _class_createInstanceFromZone(arg0, idxIvars, zone), nil
 }
@@ -1020,10 +1020,10 @@ func Class_getSuperclass(cls objc.Class) objc.Class {
 	return result
 }
 
-var _class_getVersion func(cls objc.Class) int
+var _class_getVersion func(cls objc.Class) int32
 var _class_getVersionErr error
 
-func tryClass_getVersion(cls objc.Class) (int, error) {
+func tryClass_getVersion(cls objc.Class) (int32, error) {
 	if _class_getVersion == nil {
 		return 0, symbolCallError("class_getVersion", "10.0", _class_getVersionErr)
 	}
@@ -1033,7 +1033,7 @@ func tryClass_getVersion(cls objc.Class) (int, error) {
 // Class_getVersion returns the version number of a class definition.
 //
 // See: https://developer.apple.com/documentation/ObjectiveC/class_getVersion(_:)
-func Class_getVersion(cls objc.Class) int {
+func Class_getVersion(cls objc.Class) int32 {
 	result, callErr := tryClass_getVersion(cls)
 	if callErr != nil {
 		panic(callErr)
@@ -1104,10 +1104,10 @@ func Class_replaceMethod(cls objc.Class, name SEL, imp IMP, types string) IMP {
 	return result
 }
 
-var _class_replaceProperty func(cls objc.Class, name string, attributes *Objc_property_attribute_t, attributeCount uint)
+var _class_replaceProperty func(cls objc.Class, name string, attributes *Objc_property_attribute_t, attributeCount uint32)
 var _class_replacePropertyErr error
 
-func tryClass_replaceProperty(cls objc.Class, name string, attributes *Objc_property_attribute_t, attributeCount uint) error {
+func tryClass_replaceProperty(cls objc.Class, name string, attributes *Objc_property_attribute_t, attributeCount uint32) error {
 	if _class_replaceProperty == nil {
 		return symbolCallError("class_replaceProperty", "10.7", _class_replacePropertyErr)
 	}
@@ -1118,7 +1118,7 @@ func tryClass_replaceProperty(cls objc.Class, name string, attributes *Objc_prop
 // Class_replaceProperty replace a property of a class.
 //
 // See: https://developer.apple.com/documentation/ObjectiveC/class_replaceProperty(_:_:_:_:)
-func Class_replaceProperty(cls objc.Class, name string, attributes *Objc_property_attribute_t, attributeCount uint) {
+func Class_replaceProperty(cls objc.Class, name string, attributes *Objc_property_attribute_t, attributeCount uint32) {
 	if callErr := tryClass_replaceProperty(cls, name, attributes, attributeCount); callErr != nil {
 		panic(callErr)
 	}
@@ -1165,10 +1165,10 @@ func Class_setIvarLayout(cls objc.Class, layout []byte) {
 	}
 }
 
-var _class_setVersion func(cls objc.Class, version int)
+var _class_setVersion func(cls objc.Class, version int32)
 var _class_setVersionErr error
 
-func tryClass_setVersion(cls objc.Class, version int) error {
+func tryClass_setVersion(cls objc.Class, version int32) error {
 	if _class_setVersion == nil {
 		return symbolCallError("class_setVersion", "10.0", _class_setVersionErr)
 	}
@@ -1179,7 +1179,7 @@ func tryClass_setVersion(cls objc.Class, version int) error {
 // Class_setVersion sets the version number of a class definition.
 //
 // See: https://developer.apple.com/documentation/ObjectiveC/class_setVersion(_:_:)
-func Class_setVersion(cls objc.Class, version int) {
+func Class_setVersion(cls objc.Class, version int32) {
 	if callErr := tryClass_setVersion(cls, version); callErr != nil {
 		panic(callErr)
 	}
@@ -1210,7 +1210,7 @@ var _imp_getBlockErr error
 
 func tryImp_getBlock(anImp IMP) (Object, error) {
 	if _imp_getBlock == nil {
-		return Object{}, symbolCallError("imp_getBlock", "10.7", _imp_getBlockErr)
+		return *new(Object), symbolCallError("imp_getBlock", "10.7", _imp_getBlockErr)
 	}
 	return _imp_getBlock(anImp), nil
 }
@@ -1331,10 +1331,10 @@ func Ivar_getTypeEncoding(v Ivar) *byte {
 	return result
 }
 
-var _method_copyArgumentType func(m Method, index uint) *byte
+var _method_copyArgumentType func(m Method, index uint32) *byte
 var _method_copyArgumentTypeErr error
 
-func tryMethod_copyArgumentType(m Method, index uint) (*byte, error) {
+func tryMethod_copyArgumentType(m Method, index uint32) (*byte, error) {
 	if _method_copyArgumentType == nil {
 		return nil, symbolCallError("method_copyArgumentType", "10.5", _method_copyArgumentTypeErr)
 	}
@@ -1344,7 +1344,7 @@ func tryMethod_copyArgumentType(m Method, index uint) (*byte, error) {
 // Method_copyArgumentType returns a string describing a single parameter type of a method.
 //
 // See: https://developer.apple.com/documentation/ObjectiveC/method_copyArgumentType(_:_:)
-func Method_copyArgumentType(m Method, index uint) *byte {
+func Method_copyArgumentType(m Method, index uint32) *byte {
 	result, callErr := tryMethod_copyArgumentType(m, index)
 	if callErr != nil {
 		panic(callErr)
@@ -1393,10 +1393,10 @@ func Method_exchangeImplementations(m1 Method, m2 Method) {
 	}
 }
 
-var _method_getArgumentType func(m Method, index uint, dst *byte, dst_len uintptr)
+var _method_getArgumentType func(m Method, index uint32, dst *byte, dst_len uintptr)
 var _method_getArgumentTypeErr error
 
-func tryMethod_getArgumentType(m Method, index uint, dst *byte, dst_len uintptr) error {
+func tryMethod_getArgumentType(m Method, index uint32, dst *byte, dst_len uintptr) error {
 	if _method_getArgumentType == nil {
 		return symbolCallError("method_getArgumentType", "10.5", _method_getArgumentTypeErr)
 	}
@@ -1407,7 +1407,7 @@ func tryMethod_getArgumentType(m Method, index uint, dst *byte, dst_len uintptr)
 // Method_getArgumentType returns by reference a string describing a single parameter type of a method.
 //
 // See: https://developer.apple.com/documentation/ObjectiveC/method_getArgumentType(_:_:_:_:)
-func Method_getArgumentType(m Method, index uint, dst *byte, dst_len uintptr) {
+func Method_getArgumentType(m Method, index uint32, dst *byte, dst_len uintptr) {
 	if callErr := tryMethod_getArgumentType(m, index, dst, dst_len); callErr != nil {
 		panic(callErr)
 	}
@@ -1476,10 +1476,10 @@ func Method_getName(m Method) SEL {
 	return result
 }
 
-var _method_getNumberOfArguments func(m Method) uint
+var _method_getNumberOfArguments func(m Method) uint32
 var _method_getNumberOfArgumentsErr error
 
-func tryMethod_getNumberOfArguments(m Method) (uint, error) {
+func tryMethod_getNumberOfArguments(m Method) (uint32, error) {
 	if _method_getNumberOfArguments == nil {
 		return 0, symbolCallError("method_getNumberOfArguments", "10.0", _method_getNumberOfArgumentsErr)
 	}
@@ -1489,7 +1489,7 @@ func tryMethod_getNumberOfArguments(m Method) (uint, error) {
 // Method_getNumberOfArguments returns the number of arguments accepted by a method.
 //
 // See: https://developer.apple.com/documentation/ObjectiveC/method_getNumberOfArguments(_:)
-func Method_getNumberOfArguments(m Method) uint {
+func Method_getNumberOfArguments(m Method) uint32 {
 	result, callErr := tryMethod_getNumberOfArguments(m)
 	if callErr != nil {
 		panic(callErr)
@@ -1667,7 +1667,7 @@ var _objc_begin_catchErr error
 
 func tryObjc_begin_catch(exc_buf unsafe.Pointer) (Object, error) {
 	if _objc_begin_catch == nil {
-		return Object{}, symbolCallError("objc_begin_catch", "10.5", _objc_begin_catchErr)
+		return *new(Object), symbolCallError("objc_begin_catch", "10.5", _objc_begin_catchErr)
 	}
 	return _objc_begin_catch(exc_buf), nil
 }
@@ -1688,7 +1688,7 @@ var _objc_constructInstanceErr error
 
 func tryObjc_constructInstance(cls objc.Class, bytes unsafe.Pointer) (Object, error) {
 	if _objc_constructInstance == nil {
-		return Object{}, symbolCallError("objc_constructInstance", "10.6", _objc_constructInstanceErr)
+		return *new(Object), symbolCallError("objc_constructInstance", "10.6", _objc_constructInstanceErr)
 	}
 	return _objc_constructInstance(cls, bytes), nil
 }
@@ -1704,10 +1704,10 @@ func Objc_constructInstance(cls objc.Class, bytes unsafe.Pointer) Object {
 	return result
 }
 
-var _objc_copyClassList func(outCount *uint) objc.Class
+var _objc_copyClassList func(outCount *uint32) objc.Class
 var _objc_copyClassListErr error
 
-func tryObjc_copyClassList(outCount *uint) (objc.Class, error) {
+func tryObjc_copyClassList(outCount *uint32) (objc.Class, error) {
 	if _objc_copyClassList == nil {
 		return 0, symbolCallError("objc_copyClassList", "10.7", _objc_copyClassListErr)
 	}
@@ -1717,7 +1717,7 @@ func tryObjc_copyClassList(outCount *uint) (objc.Class, error) {
 // Objc_copyClassList creates and returns a list of pointers to all registered class definitions.
 //
 // See: https://developer.apple.com/documentation/ObjectiveC/objc_copyClassList(_:)
-func Objc_copyClassList(outCount *uint) objc.Class {
+func Objc_copyClassList(outCount *uint32) objc.Class {
 	result, callErr := tryObjc_copyClassList(outCount)
 	if callErr != nil {
 		panic(callErr)
@@ -1725,10 +1725,10 @@ func Objc_copyClassList(outCount *uint) objc.Class {
 	return result
 }
 
-var _objc_copyClassNamesForImage func(image string, outCount *uint) *byte
+var _objc_copyClassNamesForImage func(image string, outCount *uint32) *byte
 var _objc_copyClassNamesForImageErr error
 
-func tryObjc_copyClassNamesForImage(image string, outCount *uint) (*byte, error) {
+func tryObjc_copyClassNamesForImage(image string, outCount *uint32) (*byte, error) {
 	if _objc_copyClassNamesForImage == nil {
 		return nil, symbolCallError("objc_copyClassNamesForImage", "10.5", _objc_copyClassNamesForImageErr)
 	}
@@ -1738,7 +1738,7 @@ func tryObjc_copyClassNamesForImage(image string, outCount *uint) (*byte, error)
 // Objc_copyClassNamesForImage returns the names of all the classes within a specified library or framework.
 //
 // See: https://developer.apple.com/documentation/ObjectiveC/objc_copyClassNamesForImage(_:_:)
-func Objc_copyClassNamesForImage(image string, outCount *uint) *byte {
+func Objc_copyClassNamesForImage(image string, outCount *uint32) *byte {
 	result, callErr := tryObjc_copyClassNamesForImage(image, outCount)
 	if callErr != nil {
 		panic(callErr)
@@ -1746,10 +1746,10 @@ func Objc_copyClassNamesForImage(image string, outCount *uint) *byte {
 	return result
 }
 
-var _objc_copyImageNames func(outCount *uint) *byte
+var _objc_copyImageNames func(outCount *uint32) *byte
 var _objc_copyImageNamesErr error
 
-func tryObjc_copyImageNames(outCount *uint) (*byte, error) {
+func tryObjc_copyImageNames(outCount *uint32) (*byte, error) {
 	if _objc_copyImageNames == nil {
 		return nil, symbolCallError("objc_copyImageNames", "10.5", _objc_copyImageNamesErr)
 	}
@@ -1759,7 +1759,7 @@ func tryObjc_copyImageNames(outCount *uint) (*byte, error) {
 // Objc_copyImageNames returns the names of all the loaded Objective-C frameworks and dynamic libraries.
 //
 // See: https://developer.apple.com/documentation/ObjectiveC/objc_copyImageNames(_:)
-func Objc_copyImageNames(outCount *uint) *byte {
+func Objc_copyImageNames(outCount *uint32) *byte {
 	result, callErr := tryObjc_copyImageNames(outCount)
 	if callErr != nil {
 		panic(callErr)
@@ -1767,10 +1767,10 @@ func Objc_copyImageNames(outCount *uint) *byte {
 	return result
 }
 
-var _objc_copyProtocolList func(outCount *uint) **Protocol
+var _objc_copyProtocolList func(outCount *uint32) **Protocol
 var _objc_copyProtocolListErr error
 
-func tryObjc_copyProtocolList(outCount *uint) (**Protocol, error) {
+func tryObjc_copyProtocolList(outCount *uint32) (**Protocol, error) {
 	if _objc_copyProtocolList == nil {
 		return nil, symbolCallError("objc_copyProtocolList", "10.5", _objc_copyProtocolListErr)
 	}
@@ -1780,7 +1780,7 @@ func tryObjc_copyProtocolList(outCount *uint) (**Protocol, error) {
 // Objc_copyProtocolList returns an array of all the protocols known to the runtime.
 //
 // See: https://developer.apple.com/documentation/ObjectiveC/objc_copyProtocolList(_:)
-func Objc_copyProtocolList(outCount *uint) **Protocol {
+func Objc_copyProtocolList(outCount *uint32) **Protocol {
 	result, callErr := tryObjc_copyProtocolList(outCount)
 	if callErr != nil {
 		panic(callErr)
@@ -1870,22 +1870,22 @@ func Objc_end_catch() {
 	}
 }
 
-var _objc_enumerateClasses func(image unsafe.Pointer, namePrefix string, conformingTo **Protocol, subclassing objc.Class)
+var _objc_enumerateClasses func(image unsafe.Pointer, namePrefix string, conformingTo **Protocol, subclassing objc.Class, block func(uintptr, *bool))
 var _objc_enumerateClassesErr error
 
-func tryObjc_enumerateClasses(image unsafe.Pointer, namePrefix string, conformingTo **Protocol, subclassing objc.Class) error {
+func tryObjc_enumerateClasses(image unsafe.Pointer, namePrefix string, conformingTo **Protocol, subclassing objc.Class, block func(uintptr, *bool)) error {
 	if _objc_enumerateClasses == nil {
 		return symbolCallError("objc_enumerateClasses", "13.0", _objc_enumerateClassesErr)
 	}
-	_objc_enumerateClasses(image, namePrefix, conformingTo, subclassing)
+	_objc_enumerateClasses(image, namePrefix, conformingTo, subclassing, block)
 	return nil
 }
 
 // Objc_enumerateClasses.
 //
 // See: https://developer.apple.com/documentation/ObjectiveC/objc_enumerateClasses
-func Objc_enumerateClasses(image unsafe.Pointer, namePrefix string, conformingTo **Protocol, subclassing objc.Class) {
-	if callErr := tryObjc_enumerateClasses(image, namePrefix, conformingTo, subclassing); callErr != nil {
+func Objc_enumerateClasses(image unsafe.Pointer, namePrefix string, conformingTo **Protocol, subclassing objc.Class, block func(uintptr, *bool)) {
+	if callErr := tryObjc_enumerateClasses(image, namePrefix, conformingTo, subclassing, block); callErr != nil {
 		panic(callErr)
 	}
 }
@@ -1955,7 +1955,7 @@ var _objc_getAssociatedObjectErr error
 
 func tryObjc_getAssociatedObject(object Object, key unsafe.Pointer) (Object, error) {
 	if _objc_getAssociatedObject == nil {
-		return Object{}, symbolCallError("objc_getAssociatedObject", "10.6", _objc_getAssociatedObjectErr)
+		return *new(Object), symbolCallError("objc_getAssociatedObject", "10.6", _objc_getAssociatedObjectErr)
 	}
 	return _objc_getAssociatedObject(object, key), nil
 }
@@ -1976,7 +1976,7 @@ var _objc_getClassErr error
 
 func tryObjc_getClass(name string) (Object, error) {
 	if _objc_getClass == nil {
-		return Object{}, symbolCallError("objc_getClass", "10.0", _objc_getClassErr)
+		return *new(Object), symbolCallError("objc_getClass", "10.0", _objc_getClassErr)
 	}
 	return _objc_getClass(name), nil
 }
@@ -1992,10 +1992,10 @@ func Objc_getClass(name string) Object {
 	return result
 }
 
-var _objc_getClassList func(buffer objc.Class, bufferCount int) int
+var _objc_getClassList func(buffer objc.Class, bufferCount int32) int32
 var _objc_getClassListErr error
 
-func tryObjc_getClassList(buffer objc.Class, bufferCount int) (int, error) {
+func tryObjc_getClassList(buffer objc.Class, bufferCount int32) (int32, error) {
 	if _objc_getClassList == nil {
 		return 0, symbolCallError("objc_getClassList", "10.0", _objc_getClassListErr)
 	}
@@ -2005,7 +2005,7 @@ func tryObjc_getClassList(buffer objc.Class, bufferCount int) (int, error) {
 // Objc_getClassList obtains the list of registered class definitions.
 //
 // See: https://developer.apple.com/documentation/ObjectiveC/objc_getClassList(_:_:)
-func Objc_getClassList(buffer objc.Class, bufferCount int) int {
+func Objc_getClassList(buffer objc.Class, bufferCount int32) int32 {
 	result, callErr := tryObjc_getClassList(buffer, bufferCount)
 	if callErr != nil {
 		panic(callErr)
@@ -2039,7 +2039,7 @@ var _objc_getMetaClassErr error
 
 func tryObjc_getMetaClass(name string) (Object, error) {
 	if _objc_getMetaClass == nil {
-		return Object{}, symbolCallError("objc_getMetaClass", "10.0", _objc_getMetaClassErr)
+		return *new(Object), symbolCallError("objc_getMetaClass", "10.0", _objc_getMetaClassErr)
 	}
 	return _objc_getMetaClass(name), nil
 }
@@ -2097,12 +2097,12 @@ func Objc_getRequiredClass(name string) objc.Class {
 	return result
 }
 
-var _objc_loadWeak func(location uintptr) Object
+var _objc_loadWeak func(location objc.ID) Object
 var _objc_loadWeakErr error
 
-func tryObjc_loadWeak(location uintptr) (Object, error) {
+func tryObjc_loadWeak(location objc.ID) (Object, error) {
 	if _objc_loadWeak == nil {
-		return Object{}, symbolCallError("objc_loadWeak", "10.7", _objc_loadWeakErr)
+		return *new(Object), symbolCallError("objc_loadWeak", "10.7", _objc_loadWeakErr)
 	}
 	return _objc_loadWeak(location), nil
 }
@@ -2110,7 +2110,7 @@ func tryObjc_loadWeak(location uintptr) (Object, error) {
 // Objc_loadWeak loads the object referenced by a weak pointer and returns it.
 //
 // See: https://developer.apple.com/documentation/ObjectiveC/objc_loadWeak(_:)
-func Objc_loadWeak(location uintptr) Object {
+func Objc_loadWeak(location objc.ID) Object {
 	result, callErr := tryObjc_loadWeak(location)
 	if callErr != nil {
 		panic(callErr)
@@ -2442,12 +2442,12 @@ func Objc_setUncaughtExceptionHandler(fn unsafe.Pointer) unsafe.Pointer {
 	return result
 }
 
-var _objc_storeWeak func(location uintptr, obj Object) Object
+var _objc_storeWeak func(location objc.ID, obj Object) Object
 var _objc_storeWeakErr error
 
-func tryObjc_storeWeak(location uintptr, obj Object) (Object, error) {
+func tryObjc_storeWeak(location objc.ID, obj Object) (Object, error) {
 	if _objc_storeWeak == nil {
-		return Object{}, symbolCallError("objc_storeWeak", "10.7", _objc_storeWeakErr)
+		return *new(Object), symbolCallError("objc_storeWeak", "10.7", _objc_storeWeakErr)
 	}
 	return _objc_storeWeak(location, obj), nil
 }
@@ -2455,7 +2455,7 @@ func tryObjc_storeWeak(location uintptr, obj Object) (Object, error) {
 // Objc_storeWeak stores a new value in a `__weak` variable.
 //
 // See: https://developer.apple.com/documentation/ObjectiveC/objc_storeWeak(_:_:)
-func Objc_storeWeak(location uintptr, obj Object) Object {
+func Objc_storeWeak(location objc.ID, obj Object) Object {
 	result, callErr := tryObjc_storeWeak(location, obj)
 	if callErr != nil {
 		panic(callErr)
@@ -2463,10 +2463,10 @@ func Objc_storeWeak(location uintptr, obj Object) Object {
 	return result
 }
 
-var _objc_sync_enter func(obj Object) int
+var _objc_sync_enter func(obj Object) int32
 var _objc_sync_enterErr error
 
-func tryObjc_sync_enter(obj Object) (int, error) {
+func tryObjc_sync_enter(obj Object) (int32, error) {
 	if _objc_sync_enter == nil {
 		return 0, symbolCallError("objc_sync_enter", "10.3", _objc_sync_enterErr)
 	}
@@ -2476,7 +2476,7 @@ func tryObjc_sync_enter(obj Object) (int, error) {
 // Objc_sync_enter begin synchronizing on ‘obj’.
 //
 // See: https://developer.apple.com/documentation/ObjectiveC/objc_sync_enter
-func Objc_sync_enter(obj Object) int {
+func Objc_sync_enter(obj Object) int32 {
 	result, callErr := tryObjc_sync_enter(obj)
 	if callErr != nil {
 		panic(callErr)
@@ -2484,10 +2484,10 @@ func Objc_sync_enter(obj Object) int {
 	return result
 }
 
-var _objc_sync_exit func(obj Object) int
+var _objc_sync_exit func(obj Object) int32
 var _objc_sync_exitErr error
 
-func tryObjc_sync_exit(obj Object) (int, error) {
+func tryObjc_sync_exit(obj Object) (int32, error) {
 	if _objc_sync_exit == nil {
 		return 0, symbolCallError("objc_sync_exit", "10.3", _objc_sync_exitErr)
 	}
@@ -2497,7 +2497,7 @@ func tryObjc_sync_exit(obj Object) (int, error) {
 // Objc_sync_exit end synchronizing on ‘obj’.
 //
 // See: https://developer.apple.com/documentation/ObjectiveC/objc_sync_exit
-func Objc_sync_exit(obj Object) int {
+func Objc_sync_exit(obj Object) int32 {
 	result, callErr := tryObjc_sync_exit(obj)
 	if callErr != nil {
 		panic(callErr)
@@ -2530,7 +2530,7 @@ var _object_copyErr error
 
 func tryObject_copy(obj Object, size uintptr) (Object, error) {
 	if _object_copy == nil {
-		return Object{}, symbolCallError("object_copy", "10.0", _object_copyErr)
+		return *new(Object), symbolCallError("object_copy", "10.0", _object_copyErr)
 	}
 	return _object_copy(obj, size), nil
 }
@@ -2551,7 +2551,7 @@ var _object_copyFromZoneErr error
 
 func tryObject_copyFromZone(anObject Object, nBytes uintptr, zone unsafe.Pointer) (Object, error) {
 	if _object_copyFromZone == nil {
-		return Object{}, symbolCallError("object_copyFromZone", "10.0", _object_copyFromZoneErr)
+		return *new(Object), symbolCallError("object_copyFromZone", "10.0", _object_copyFromZoneErr)
 	}
 	return _object_copyFromZone(anObject, nBytes, zone), nil
 }
@@ -2574,7 +2574,7 @@ var _object_disposeErr error
 
 func tryObject_dispose(obj Object) (Object, error) {
 	if _object_dispose == nil {
-		return Object{}, symbolCallError("object_dispose", "10.0", _object_disposeErr)
+		return *new(Object), symbolCallError("object_dispose", "10.0", _object_disposeErr)
 	}
 	return _object_dispose(obj), nil
 }
@@ -2679,7 +2679,7 @@ var _object_getIvarErr error
 
 func tryObject_getIvar(obj Object, ivar Ivar) (Object, error) {
 	if _object_getIvar == nil {
-		return Object{}, symbolCallError("object_getIvar", "10.5", _object_getIvarErr)
+		return *new(Object), symbolCallError("object_getIvar", "10.5", _object_getIvarErr)
 	}
 	return _object_getIvar(obj, ivar), nil
 }
@@ -2819,10 +2819,10 @@ func Object_setIvarWithStrongDefault(obj Object, ivar Ivar, value Object) {
 	}
 }
 
-var _property_copyAttributeList func(property unsafe.Pointer, outCount *uint) *Objc_property_attribute_t
+var _property_copyAttributeList func(property unsafe.Pointer, outCount *uint32) *Objc_property_attribute_t
 var _property_copyAttributeListErr error
 
-func tryProperty_copyAttributeList(property unsafe.Pointer, outCount *uint) (*Objc_property_attribute_t, error) {
+func tryProperty_copyAttributeList(property unsafe.Pointer, outCount *uint32) (*Objc_property_attribute_t, error) {
 	if _property_copyAttributeList == nil {
 		return nil, symbolCallError("property_copyAttributeList", "10.7", _property_copyAttributeListErr)
 	}
@@ -2832,7 +2832,7 @@ func tryProperty_copyAttributeList(property unsafe.Pointer, outCount *uint) (*Ob
 // Property_copyAttributeList returns an array of property attributes for a given property.
 //
 // See: https://developer.apple.com/documentation/ObjectiveC/property_copyAttributeList(_:_:)
-func Property_copyAttributeList(property unsafe.Pointer, outCount *uint) *Objc_property_attribute_t {
+func Property_copyAttributeList(property unsafe.Pointer, outCount *uint32) *Objc_property_attribute_t {
 	result, callErr := tryProperty_copyAttributeList(property, outCount)
 	if callErr != nil {
 		panic(callErr)
@@ -2923,10 +2923,10 @@ func Protocol_addMethodDescription(proto **Protocol, name SEL, types string, isR
 	}
 }
 
-var _protocol_addProperty func(proto **Protocol, name string, attributes *Objc_property_attribute_t, attributeCount uint, isRequiredProperty bool, isInstanceProperty bool)
+var _protocol_addProperty func(proto **Protocol, name string, attributes *Objc_property_attribute_t, attributeCount uint32, isRequiredProperty bool, isInstanceProperty bool)
 var _protocol_addPropertyErr error
 
-func tryProtocol_addProperty(proto **Protocol, name string, attributes *Objc_property_attribute_t, attributeCount uint, isRequiredProperty bool, isInstanceProperty bool) error {
+func tryProtocol_addProperty(proto **Protocol, name string, attributes *Objc_property_attribute_t, attributeCount uint32, isRequiredProperty bool, isInstanceProperty bool) error {
 	if _protocol_addProperty == nil {
 		return symbolCallError("protocol_addProperty", "10.7", _protocol_addPropertyErr)
 	}
@@ -2937,7 +2937,7 @@ func tryProtocol_addProperty(proto **Protocol, name string, attributes *Objc_pro
 // Protocol_addProperty adds a property to a protocol that is under construction.
 //
 // See: https://developer.apple.com/documentation/ObjectiveC/protocol_addProperty(_:_:_:_:_:_:)
-func Protocol_addProperty(proto **Protocol, name string, attributes *Objc_property_attribute_t, attributeCount uint, isRequiredProperty bool, isInstanceProperty bool) {
+func Protocol_addProperty(proto **Protocol, name string, attributes *Objc_property_attribute_t, attributeCount uint32, isRequiredProperty bool, isInstanceProperty bool) {
 	if callErr := tryProtocol_addProperty(proto, name, attributes, attributeCount, isRequiredProperty, isInstanceProperty); callErr != nil {
 		panic(callErr)
 	}
@@ -2984,10 +2984,10 @@ func Protocol_conformsToProtocol(proto **Protocol, other **Protocol) bool {
 	return result
 }
 
-var _protocol_copyMethodDescriptionList func(proto **Protocol, isRequiredMethod bool, isInstanceMethod bool, outCount *uint) *Objc_method_description
+var _protocol_copyMethodDescriptionList func(proto **Protocol, isRequiredMethod bool, isInstanceMethod bool, outCount *uint32) *Objc_method_description
 var _protocol_copyMethodDescriptionListErr error
 
-func tryProtocol_copyMethodDescriptionList(proto **Protocol, isRequiredMethod bool, isInstanceMethod bool, outCount *uint) (*Objc_method_description, error) {
+func tryProtocol_copyMethodDescriptionList(proto **Protocol, isRequiredMethod bool, isInstanceMethod bool, outCount *uint32) (*Objc_method_description, error) {
 	if _protocol_copyMethodDescriptionList == nil {
 		return nil, symbolCallError("protocol_copyMethodDescriptionList", "10.5", _protocol_copyMethodDescriptionListErr)
 	}
@@ -2997,7 +2997,7 @@ func tryProtocol_copyMethodDescriptionList(proto **Protocol, isRequiredMethod bo
 // Protocol_copyMethodDescriptionList returns an array of method descriptions of methods meeting a given specification for a given protocol.
 //
 // See: https://developer.apple.com/documentation/ObjectiveC/protocol_copyMethodDescriptionList(_:_:_:_:)
-func Protocol_copyMethodDescriptionList(proto **Protocol, isRequiredMethod bool, isInstanceMethod bool, outCount *uint) *Objc_method_description {
+func Protocol_copyMethodDescriptionList(proto **Protocol, isRequiredMethod bool, isInstanceMethod bool, outCount *uint32) *Objc_method_description {
 	result, callErr := tryProtocol_copyMethodDescriptionList(proto, isRequiredMethod, isInstanceMethod, outCount)
 	if callErr != nil {
 		panic(callErr)
@@ -3005,10 +3005,10 @@ func Protocol_copyMethodDescriptionList(proto **Protocol, isRequiredMethod bool,
 	return result
 }
 
-var _protocol_copyPropertyList func(proto **Protocol, outCount *uint) *Objc_property_t
+var _protocol_copyPropertyList func(proto **Protocol, outCount *uint32) *Objc_property_t
 var _protocol_copyPropertyListErr error
 
-func tryProtocol_copyPropertyList(proto **Protocol, outCount *uint) (*Objc_property_t, error) {
+func tryProtocol_copyPropertyList(proto **Protocol, outCount *uint32) (*Objc_property_t, error) {
 	if _protocol_copyPropertyList == nil {
 		return nil, symbolCallError("protocol_copyPropertyList", "10.5", _protocol_copyPropertyListErr)
 	}
@@ -3018,7 +3018,7 @@ func tryProtocol_copyPropertyList(proto **Protocol, outCount *uint) (*Objc_prope
 // Protocol_copyPropertyList returns an array of the properties declared by a protocol.
 //
 // See: https://developer.apple.com/documentation/ObjectiveC/protocol_copyPropertyList(_:_:)
-func Protocol_copyPropertyList(proto **Protocol, outCount *uint) *Objc_property_t {
+func Protocol_copyPropertyList(proto **Protocol, outCount *uint32) *Objc_property_t {
 	result, callErr := tryProtocol_copyPropertyList(proto, outCount)
 	if callErr != nil {
 		panic(callErr)
@@ -3026,10 +3026,10 @@ func Protocol_copyPropertyList(proto **Protocol, outCount *uint) *Objc_property_
 	return result
 }
 
-var _protocol_copyPropertyList2 func(proto **Protocol, outCount *uint, isRequiredProperty bool, isInstanceProperty bool) *Objc_property_t
+var _protocol_copyPropertyList2 func(proto **Protocol, outCount *uint32, isRequiredProperty bool, isInstanceProperty bool) *Objc_property_t
 var _protocol_copyPropertyList2Err error
 
-func tryProtocol_copyPropertyList2(proto **Protocol, outCount *uint, isRequiredProperty bool, isInstanceProperty bool) (*Objc_property_t, error) {
+func tryProtocol_copyPropertyList2(proto **Protocol, outCount *uint32, isRequiredProperty bool, isInstanceProperty bool) (*Objc_property_t, error) {
 	if _protocol_copyPropertyList2 == nil {
 		return nil, symbolCallError("protocol_copyPropertyList2", "10.12", _protocol_copyPropertyList2Err)
 	}
@@ -3039,7 +3039,7 @@ func tryProtocol_copyPropertyList2(proto **Protocol, outCount *uint, isRequiredP
 // Protocol_copyPropertyList2.
 //
 // See: https://developer.apple.com/documentation/ObjectiveC/protocol_copyPropertyList2(_:_:_:_:)
-func Protocol_copyPropertyList2(proto **Protocol, outCount *uint, isRequiredProperty bool, isInstanceProperty bool) *Objc_property_t {
+func Protocol_copyPropertyList2(proto **Protocol, outCount *uint32, isRequiredProperty bool, isInstanceProperty bool) *Objc_property_t {
 	result, callErr := tryProtocol_copyPropertyList2(proto, outCount, isRequiredProperty, isInstanceProperty)
 	if callErr != nil {
 		panic(callErr)
@@ -3047,10 +3047,10 @@ func Protocol_copyPropertyList2(proto **Protocol, outCount *uint, isRequiredProp
 	return result
 }
 
-var _protocol_copyProtocolList func(proto **Protocol, outCount *uint) **Protocol
+var _protocol_copyProtocolList func(proto **Protocol, outCount *uint32) **Protocol
 var _protocol_copyProtocolListErr error
 
-func tryProtocol_copyProtocolList(proto **Protocol, outCount *uint) (**Protocol, error) {
+func tryProtocol_copyProtocolList(proto **Protocol, outCount *uint32) (**Protocol, error) {
 	if _protocol_copyProtocolList == nil {
 		return nil, symbolCallError("protocol_copyProtocolList", "10.5", _protocol_copyProtocolListErr)
 	}
@@ -3060,7 +3060,7 @@ func tryProtocol_copyProtocolList(proto **Protocol, outCount *uint) (**Protocol,
 // Protocol_copyProtocolList returns an array of the protocols adopted by a protocol.
 //
 // See: https://developer.apple.com/documentation/ObjectiveC/protocol_copyProtocolList(_:_:)
-func Protocol_copyProtocolList(proto **Protocol, outCount *uint) **Protocol {
+func Protocol_copyProtocolList(proto **Protocol, outCount *uint32) **Protocol {
 	result, callErr := tryProtocol_copyProtocolList(proto, outCount)
 	if callErr != nil {
 		panic(callErr)
@@ -3073,7 +3073,7 @@ var _protocol_getMethodDescriptionErr error
 
 func tryProtocol_getMethodDescription(proto **Protocol, aSel SEL, isRequiredMethod bool, isInstanceMethod bool) (Objc_method_description, error) {
 	if _protocol_getMethodDescription == nil {
-		return Objc_method_description{}, symbolCallError("protocol_getMethodDescription", "10.5", _protocol_getMethodDescriptionErr)
+		return *new(Objc_method_description), symbolCallError("protocol_getMethodDescription", "10.5", _protocol_getMethodDescriptionErr)
 	}
 	return _protocol_getMethodDescription(proto, aSel, isRequiredMethod, isInstanceMethod), nil
 }

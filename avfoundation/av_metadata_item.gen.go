@@ -54,19 +54,19 @@ func (ac AVMetadataItemClass) Alloc() AVMetadataItem {
 // [AVFoundation] organizes metadata. To simplify finding and filtering
 // metadata items, the framework groups related metadata into key spaces:
 //
-// - The framework defines several format-specific key spaces. They roughly
-// correlate to a particular container or file format, such as QuickTime
-// (QuickTime metadata and user data) or MP3 (ID3). However, a single asset
-// may contain metadata values across multiple key spaces. To retrieve an
-// asset’s complete collection of format-specific metadata, you use its
-// [metadata] property. - There are several common metadata values, such as a
-// movie’s creation date or description, that can exist across multiple key
-// spaces. To help normalize access to this common metadata, the framework
-// provides a common key space that gives access to a limited set of metadata
-// values common to several key spaces. This makes it easy to retrieve
-// commonly used metadata without concern for the specific format. To retrieve
-// an asset’s collection of common metadata, you use its [commonMetadata]
-// property.
+// - Format-specific key spaces. The framework defines several format-specific
+// key spaces. They roughly correlate to a particular container or file
+// format, such as QuickTime (QuickTime metadata and user data) or MP3 (ID3).
+// However, a single asset may contain metadata values across multiple key
+// spaces. To retrieve an asset’s complete collection of format-specific
+// metadata, you use its [metadata] property. - Common key space. There are
+// several common metadata values, such as a movie’s creation date or
+// description, that can exist across multiple key spaces. To help normalize
+// access to this common metadata, the framework provides a common key space
+// that gives access to a limited set of metadata values common to several key
+// spaces. This makes it easy to retrieve commonly used metadata without
+// concern for the specific format. To retrieve an asset’s collection of
+// common metadata, you use its [commonMetadata] property.
 //
 // Metadata items have keys that accord with the specification of the
 // container format from which they’re drawn. Full details of the metadata

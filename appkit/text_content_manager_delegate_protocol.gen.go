@@ -116,9 +116,22 @@ func NewNSTextContentManagerDelegate(config NSTextContentManagerDelegateConfig) 
 		methods = append(methods, objc.MethodDef{
 			Cmd: objc.RegisterName("textContentManager:shouldEnumerateTextElement:options:"),
 			Fn: func(self objc.ID, _cmd objc.SEL, textContentManagerID objc.ID, textElementID objc.ID, options NSTextContentManagerEnumerationOptions) bool {
+				// Names which delegate was running if a panic unwinds out of
+				// it. The frames between here and the Objective-C caller are
+				// runtime and purego dispatch, so without this the traceback
+				// never says which selector dispatched. Deliberately no
+				// recover: see [objc.NoteDelegatePanic].
+				_delegateDone := false
+				defer func() {
+					if !_delegateDone {
+						objc.NoteDelegatePanic("NSTextContentManagerDelegate", "textContentManager:shouldEnumerateTextElement:options:")
+					}
+				}()
 				textContentManager := NSTextContentManagerFromID(textContentManagerID)
 				textElement := NSTextElementFromID(textElementID)
-				return fn(textContentManager, textElement, options)
+				_delegateResult := fn(textContentManager, textElement, options)
+				_delegateDone = true
+				return _delegateResult
 			},
 		})
 	}

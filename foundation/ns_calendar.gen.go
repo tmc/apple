@@ -56,13 +56,15 @@ func (nc NSCalendarClass) Alloc() NSCalendar {
 // computations such as determining the range of a given calendrical unit and
 // adding units to a given absolute time.
 //
-// [NSCalendar] is with its Core Foundation counterpart, [CFCalendar]. See
-// [Toll-Free Bridging] for more information on toll-free bridging.
+// [NSCalendar] is toll-free bridged with its Core Foundation counterpart,
+// [CFCalendar]. See [Toll-Free Bridging] for more information on toll-free
+// bridging.
 //
 // # Locales and Calendars
 //
-// Most locales use the most widely used civil calendar, called the
-// ([gregorian]), but there remain exceptions to this trend. For example:
+// Most locales use the most widely used civil calendar, called the Gregorian
+// calendar ([gregorian]), but there remain exceptions to this trend. For
+// example:
 //
 // - In Saudi Arabia, some locales use primarily the Islamic Umm al-Qura
 // calendar ([islamicUmmAlQura]). - In Ethiopia, some locales use primarily
@@ -106,10 +108,11 @@ func (nc NSCalendarClass) Alloc() NSCalendar {
 // dates and a different number of skipped days to account for the additional
 // disparity from leap day calculations.
 //
-// [NSCalendar] models the behavior of a Gregorian calendar (), which extends
-// the Gregorian calendar backward in time from the date of its introduction.
-// This behavior should be taken into account when working with dates created
-// before the transition period of the affected locales.
+// [NSCalendar] models the behavior of a proleptic Gregorian calendar (as
+// defined by ISO 8601:2004), which extends the Gregorian calendar backward in
+// time from the date of its introduction. This behavior should be taken into
+// account when working with dates created before the transition period of the
+// affected locales.
 //
 // # Calendar Arithmetic
 //
@@ -380,7 +383,6 @@ func NSCalendarFromID(id objc.ID) NSCalendar {
 // See: https://developer.apple.com/documentation/Foundation/NSCalendar
 type INSCalendar interface {
 	objectivec.IObject
-	NSSecureCoding
 
 	// Topic: Creating and Initializing Calendars
 
@@ -540,6 +542,10 @@ type INSCalendar interface {
 	EraSymbols() []string
 	// A list of long era symbols for this calendar.
 	LongEraSymbols() []string
+
+	// Encodes the receiver using a given archiver.
+	EncodeWithCoder(coder INSCoder)
+	InitWithCoder(coder INSCoder) NSCalendar
 }
 
 // Init initializes the instance.
@@ -1075,7 +1081,7 @@ func (c NSCalendar) StartOfDayForDate(date INSDate) INSDate {
 // Otherwise, the resulting dates will have an integer `seconds` value.
 //
 // opts: Options for the enumeration. For possible values, see [NSCalendar.Options].
-// For usage, see below.
+// For usage, see Discussion below.
 //
 // block: The block to apply to each enumerated date. The block takes three
 // arguments:
@@ -1106,16 +1112,16 @@ func (c NSCalendar) StartOfDayForDate(date INSDate) INSDate {
 // [NSCalendarMatchPreviousTimePreservingSmallerUnits]: If specified, and
 // there is no matching time before the end of the next instance of the next
 // highest unit specified in the given [NSDateComponents] object, this method
-// uses the existing value of the missing unit and preserves the lower
-// units’ values. [NSCalendarMatchNextTimePreservingSmallerUnits]: If
+// uses the previous existing value of the missing unit and preserves the
+// lower units’ values. [NSCalendarMatchNextTimePreservingSmallerUnits]: If
 // specified, and there is no matching time before the end of the next
 // instance of the next highest unit specified in the given [NSDateComponents]
-// object, this method uses the existing value of the missing unit and
+// object, this method uses the next existing value of the missing unit and
 // preserves the lower units’ values. [NSCalendarMatchNextTime]: If
 // specified, and there is no matching time before the end of the next
 // instance of the next highest unit specified in the given [NSDateComponents]
-// object, this method uses the existing value of the missing unit and
-// preserve the lower units’ values.
+// object, this method uses the next existing value of the missing unit and
+// does not preserve the lower units’ values.
 //
 // For example, if the date “February 29th” does not exist for a
 // particular year, a non-strict match would return “February 28th” of
@@ -1142,12 +1148,12 @@ func (c NSCalendar) StartOfDayForDate(date INSDate) INSDate {
 // If you specify a “match first” option ([NSCalendarMatchFirst]) and
 // there are two or more matching times (that is, all components are the same)
 // before the end of the next instance of the next highest unit specified in
-// the given [NSDateComponents] object, this method uses the occurrence.
+// the given [NSDateComponents] object, this method uses the first occurrence.
 //
 // If you specify a “match last” option ([NSCalendarMatchLast]) and there
 // are two or more matching times (that is, all components are the same)
 // before the end of the next instance of the next highest unit specified in
-// the given [NSDateComponents] object, this method uses the occurrence.
+// the given [NSDateComponents] object, this method uses the last occurrence.
 //
 // If neither “match first” or “match last” options are specified or
 // both options are specified, this method behaves as if
@@ -1187,7 +1193,8 @@ func (c NSCalendar) StartOfDayForDate(date INSDate) INSDate {
 //
 // [NSCalendar.Options]: https://developer.apple.com/documentation/Foundation/NSCalendar/Options
 func (c NSCalendar) EnumerateDatesStartingAfterDateMatchingComponentsOptionsUsingBlock(start INSDate, comps INSDateComponents, opts NSCalendarOptions, block DateBoolBoolHandler) {
-	_block3, _ := NewDateBoolBoolBlock(block)
+	_block3, _cleanup3 := NewDateBoolBoolBlock(block)
+	defer _cleanup3()
 	objc.Send[objc.ID](c.ID, objc.Sel("enumerateDatesStartingAfterDate:matchingComponents:options:usingBlock:"), start, comps, opts, _block3)
 }
 

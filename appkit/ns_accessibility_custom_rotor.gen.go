@@ -54,8 +54,8 @@ func (nc NSAccessibilityCustomRotorClass) Alloc() NSAccessibilityCustomRotor {
 // content menus.
 //
 // [NSAccessibilityCustomRotor] provides a way for apps to vend their own
-// content menus. For example, Pages can create a custom rotor that allows
-// assistive apps to search the Pages document for all headings.
+// content menus. For example, Pages can create a Headings custom rotor that
+// allows assistive apps to search the Pages document for all headings.
 //
 // # Creating a Rotor
 //

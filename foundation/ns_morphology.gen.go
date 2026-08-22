@@ -125,7 +125,6 @@ func NSMorphologyFromID(id objc.ID) NSMorphology {
 // See: https://developer.apple.com/documentation/Foundation/NSMorphology
 type INSMorphology interface {
 	objectivec.IObject
-	NSSecureCoding
 
 	// Topic: Accessing Grammatical Properties
 

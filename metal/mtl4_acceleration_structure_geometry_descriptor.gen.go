@@ -61,9 +61,9 @@ func (mc MTL4AccelerationStructureGeometryDescriptorClass) Alloc() MTL4Accelerat
 //   - [MTL4AccelerationStructureGeometryDescriptor.SetOpaque]
 //   - [MTL4AccelerationStructureGeometryDescriptor.PrimitiveDataBuffer]: Assigns optional buffer containing data to associate with each primitive in this geometry.
 //   - [MTL4AccelerationStructureGeometryDescriptor.SetPrimitiveDataBuffer]
-//   - [MTL4AccelerationStructureGeometryDescriptor.PrimitiveDataElementSize]: Sets the size, in bytes, of the data for each primitive in the primitive data buffer [primitiveDataBuffer](<doc://com.apple.metal/documentation/Metal/MTL4AccelerationStructureGeometryDescriptor/primitiveDataBuffer>) references.
+//   - [MTL4AccelerationStructureGeometryDescriptor.PrimitiveDataElementSize]: Sets the size, in bytes, of the data for each primitive in the primitive data buffer [primitiveDataBuffer](<https://developer.apple.com/documentation/Metal/MTL4AccelerationStructureGeometryDescriptor/primitiveDataBuffer>) references.
 //   - [MTL4AccelerationStructureGeometryDescriptor.SetPrimitiveDataElementSize]
-//   - [MTL4AccelerationStructureGeometryDescriptor.PrimitiveDataStride]: Defines the stride, in bytes, between each primitive’s data in the primitive data buffer [primitiveDataBuffer](<doc://com.apple.metal/documentation/Metal/MTL4AccelerationStructureGeometryDescriptor/primitiveDataBuffer>) references.
+//   - [MTL4AccelerationStructureGeometryDescriptor.PrimitiveDataStride]: Defines the stride, in bytes, between each primitive’s data in the primitive data buffer [primitiveDataBuffer](<https://developer.apple.com/documentation/Metal/MTL4AccelerationStructureGeometryDescriptor/primitiveDataBuffer>) references.
 //   - [MTL4AccelerationStructureGeometryDescriptor.SetPrimitiveDataStride]
 //
 // See: https://developer.apple.com/documentation/Metal/MTL4AccelerationStructureGeometryDescriptor
@@ -95,9 +95,9 @@ func MTL4AccelerationStructureGeometryDescriptorFromID(id objc.ID) MTL4Accelerat
 //   - [IMTL4AccelerationStructureGeometryDescriptor.SetOpaque]
 //   - [IMTL4AccelerationStructureGeometryDescriptor.PrimitiveDataBuffer]: Assigns optional buffer containing data to associate with each primitive in this geometry.
 //   - [IMTL4AccelerationStructureGeometryDescriptor.SetPrimitiveDataBuffer]
-//   - [IMTL4AccelerationStructureGeometryDescriptor.PrimitiveDataElementSize]: Sets the size, in bytes, of the data for each primitive in the primitive data buffer [primitiveDataBuffer](<doc://com.apple.metal/documentation/Metal/MTL4AccelerationStructureGeometryDescriptor/primitiveDataBuffer>) references.
+//   - [IMTL4AccelerationStructureGeometryDescriptor.PrimitiveDataElementSize]: Sets the size, in bytes, of the data for each primitive in the primitive data buffer [primitiveDataBuffer](<https://developer.apple.com/documentation/Metal/MTL4AccelerationStructureGeometryDescriptor/primitiveDataBuffer>) references.
 //   - [IMTL4AccelerationStructureGeometryDescriptor.SetPrimitiveDataElementSize]
-//   - [IMTL4AccelerationStructureGeometryDescriptor.PrimitiveDataStride]: Defines the stride, in bytes, between each primitive’s data in the primitive data buffer [primitiveDataBuffer](<doc://com.apple.metal/documentation/Metal/MTL4AccelerationStructureGeometryDescriptor/primitiveDataBuffer>) references.
+//   - [IMTL4AccelerationStructureGeometryDescriptor.PrimitiveDataStride]: Defines the stride, in bytes, between each primitive’s data in the primitive data buffer [primitiveDataBuffer](<https://developer.apple.com/documentation/Metal/MTL4AccelerationStructureGeometryDescriptor/primitiveDataBuffer>) references.
 //   - [IMTL4AccelerationStructureGeometryDescriptor.SetPrimitiveDataStride]
 //
 // See: https://developer.apple.com/documentation/Metal/MTL4AccelerationStructureGeometryDescriptor
@@ -121,10 +121,10 @@ type IMTL4AccelerationStructureGeometryDescriptor interface {
 	// Assigns optional buffer containing data to associate with each primitive in this geometry.
 	PrimitiveDataBuffer() MTL4BufferRange
 	SetPrimitiveDataBuffer(value MTL4BufferRange)
-	// Sets the size, in bytes, of the data for each primitive in the primitive data buffer [primitiveDataBuffer](<doc://com.apple.metal/documentation/Metal/MTL4AccelerationStructureGeometryDescriptor/primitiveDataBuffer>) references.
+	// Sets the size, in bytes, of the data for each primitive in the primitive data buffer [primitiveDataBuffer](<https://developer.apple.com/documentation/Metal/MTL4AccelerationStructureGeometryDescriptor/primitiveDataBuffer>) references.
 	PrimitiveDataElementSize() uint
 	SetPrimitiveDataElementSize(value uint)
-	// Defines the stride, in bytes, between each primitive’s data in the primitive data buffer [primitiveDataBuffer](<doc://com.apple.metal/documentation/Metal/MTL4AccelerationStructureGeometryDescriptor/primitiveDataBuffer>) references.
+	// Defines the stride, in bytes, between each primitive’s data in the primitive data buffer [primitiveDataBuffer](<https://developer.apple.com/documentation/Metal/MTL4AccelerationStructureGeometryDescriptor/primitiveDataBuffer>) references.
 	PrimitiveDataStride() uint
 	SetPrimitiveDataStride(value uint)
 }

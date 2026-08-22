@@ -237,9 +237,21 @@ func NewAVContentKeySessionDelegate(config AVContentKeySessionDelegateConfig) AV
 		methods = append(methods, objc.MethodDef{
 			Cmd: objc.RegisterName("contentKeySession:didProvideContentKeyRequest:"),
 			Fn: func(self objc.ID, _cmd objc.SEL, sessionID objc.ID, keyRequestID objc.ID) {
+				// Names which delegate was running if a panic unwinds out of
+				// it. The frames between here and the Objective-C caller are
+				// runtime and purego dispatch, so without this the traceback
+				// never says which selector dispatched. Deliberately no
+				// recover: see [objc.NoteDelegatePanic].
+				_delegateDone := false
+				defer func() {
+					if !_delegateDone {
+						objc.NoteDelegatePanic("AVContentKeySessionDelegate", "contentKeySession:didProvideContentKeyRequest:")
+					}
+				}()
 				session := AVContentKeySessionFromID(sessionID)
 				keyRequest := AVContentKeyRequestFromID(keyRequestID)
 				fn(session, keyRequest)
+				_delegateDone = true
 			},
 		})
 	}
@@ -249,9 +261,21 @@ func NewAVContentKeySessionDelegate(config AVContentKeySessionDelegateConfig) AV
 		methods = append(methods, objc.MethodDef{
 			Cmd: objc.RegisterName("contentKeySession:didProvideRenewingContentKeyRequest:"),
 			Fn: func(self objc.ID, _cmd objc.SEL, sessionID objc.ID, keyRequestID objc.ID) {
+				// Names which delegate was running if a panic unwinds out of
+				// it. The frames between here and the Objective-C caller are
+				// runtime and purego dispatch, so without this the traceback
+				// never says which selector dispatched. Deliberately no
+				// recover: see [objc.NoteDelegatePanic].
+				_delegateDone := false
+				defer func() {
+					if !_delegateDone {
+						objc.NoteDelegatePanic("AVContentKeySessionDelegate", "contentKeySession:didProvideRenewingContentKeyRequest:")
+					}
+				}()
 				session := AVContentKeySessionFromID(sessionID)
 				keyRequest := AVContentKeyRequestFromID(keyRequestID)
 				fn(session, keyRequest)
+				_delegateDone = true
 			},
 		})
 	}
@@ -261,9 +285,21 @@ func NewAVContentKeySessionDelegate(config AVContentKeySessionDelegateConfig) AV
 		methods = append(methods, objc.MethodDef{
 			Cmd: objc.RegisterName("contentKeySession:didProvidePersistableContentKeyRequest:"),
 			Fn: func(self objc.ID, _cmd objc.SEL, sessionID objc.ID, keyRequestID objc.ID) {
+				// Names which delegate was running if a panic unwinds out of
+				// it. The frames between here and the Objective-C caller are
+				// runtime and purego dispatch, so without this the traceback
+				// never says which selector dispatched. Deliberately no
+				// recover: see [objc.NoteDelegatePanic].
+				_delegateDone := false
+				defer func() {
+					if !_delegateDone {
+						objc.NoteDelegatePanic("AVContentKeySessionDelegate", "contentKeySession:didProvidePersistableContentKeyRequest:")
+					}
+				}()
 				session := AVContentKeySessionFromID(sessionID)
 				keyRequest := AVPersistableContentKeyRequestFromID(keyRequestID)
 				fn(session, keyRequest)
+				_delegateDone = true
 			},
 		})
 	}
@@ -273,9 +309,21 @@ func NewAVContentKeySessionDelegate(config AVContentKeySessionDelegateConfig) AV
 		methods = append(methods, objc.MethodDef{
 			Cmd: objc.RegisterName("contentKeySession:externalProtectionStatusDidChangeForContentKey:"),
 			Fn: func(self objc.ID, _cmd objc.SEL, sessionID objc.ID, contentKeyID objc.ID) {
+				// Names which delegate was running if a panic unwinds out of
+				// it. The frames between here and the Objective-C caller are
+				// runtime and purego dispatch, so without this the traceback
+				// never says which selector dispatched. Deliberately no
+				// recover: see [objc.NoteDelegatePanic].
+				_delegateDone := false
+				defer func() {
+					if !_delegateDone {
+						objc.NoteDelegatePanic("AVContentKeySessionDelegate", "contentKeySession:externalProtectionStatusDidChangeForContentKey:")
+					}
+				}()
 				session := AVContentKeySessionFromID(sessionID)
 				contentKey := AVContentKeyFromID(contentKeyID)
 				fn(session, contentKey)
+				_delegateDone = true
 			},
 		})
 	}
@@ -285,9 +333,22 @@ func NewAVContentKeySessionDelegate(config AVContentKeySessionDelegateConfig) AV
 		methods = append(methods, objc.MethodDef{
 			Cmd: objc.RegisterName("contentKeySession:shouldRetryContentKeyRequest:reason:"),
 			Fn: func(self objc.ID, _cmd objc.SEL, sessionID objc.ID, keyRequestID objc.ID, retryReason AVContentKeyRequestRetryReason) bool {
+				// Names which delegate was running if a panic unwinds out of
+				// it. The frames between here and the Objective-C caller are
+				// runtime and purego dispatch, so without this the traceback
+				// never says which selector dispatched. Deliberately no
+				// recover: see [objc.NoteDelegatePanic].
+				_delegateDone := false
+				defer func() {
+					if !_delegateDone {
+						objc.NoteDelegatePanic("AVContentKeySessionDelegate", "contentKeySession:shouldRetryContentKeyRequest:reason:")
+					}
+				}()
 				session := AVContentKeySessionFromID(sessionID)
 				keyRequest := AVContentKeyRequestFromID(keyRequestID)
-				return fn(session, keyRequest, retryReason)
+				_delegateResult := fn(session, keyRequest, retryReason)
+				_delegateDone = true
+				return _delegateResult
 			},
 		})
 	}
@@ -297,8 +358,20 @@ func NewAVContentKeySessionDelegate(config AVContentKeySessionDelegateConfig) AV
 		methods = append(methods, objc.MethodDef{
 			Cmd: objc.RegisterName("contentKeySessionContentProtectionSessionIdentifierDidChange:"),
 			Fn: func(self objc.ID, _cmd objc.SEL, sessionID objc.ID) {
+				// Names which delegate was running if a panic unwinds out of
+				// it. The frames between here and the Objective-C caller are
+				// runtime and purego dispatch, so without this the traceback
+				// never says which selector dispatched. Deliberately no
+				// recover: see [objc.NoteDelegatePanic].
+				_delegateDone := false
+				defer func() {
+					if !_delegateDone {
+						objc.NoteDelegatePanic("AVContentKeySessionDelegate", "contentKeySessionContentProtectionSessionIdentifierDidChange:")
+					}
+				}()
 				session := AVContentKeySessionFromID(sessionID)
 				fn(session)
+				_delegateDone = true
 			},
 		})
 	}
@@ -308,10 +381,22 @@ func NewAVContentKeySessionDelegate(config AVContentKeySessionDelegateConfig) AV
 		methods = append(methods, objc.MethodDef{
 			Cmd: objc.RegisterName("contentKeySession:contentKeyRequest:didFailWithError:"),
 			Fn: func(self objc.ID, _cmd objc.SEL, sessionID objc.ID, keyRequestID objc.ID, errID objc.ID) {
+				// Names which delegate was running if a panic unwinds out of
+				// it. The frames between here and the Objective-C caller are
+				// runtime and purego dispatch, so without this the traceback
+				// never says which selector dispatched. Deliberately no
+				// recover: see [objc.NoteDelegatePanic].
+				_delegateDone := false
+				defer func() {
+					if !_delegateDone {
+						objc.NoteDelegatePanic("AVContentKeySessionDelegate", "contentKeySession:contentKeyRequest:didFailWithError:")
+					}
+				}()
 				session := AVContentKeySessionFromID(sessionID)
 				keyRequest := AVContentKeyRequestFromID(keyRequestID)
 				err := foundation.NSErrorFromID(errID)
 				fn(session, keyRequest, err)
+				_delegateDone = true
 			},
 		})
 	}
@@ -321,9 +406,21 @@ func NewAVContentKeySessionDelegate(config AVContentKeySessionDelegateConfig) AV
 		methods = append(methods, objc.MethodDef{
 			Cmd: objc.RegisterName("contentKeySession:contentKeyRequestDidSucceed:"),
 			Fn: func(self objc.ID, _cmd objc.SEL, sessionID objc.ID, keyRequestID objc.ID) {
+				// Names which delegate was running if a panic unwinds out of
+				// it. The frames between here and the Objective-C caller are
+				// runtime and purego dispatch, so without this the traceback
+				// never says which selector dispatched. Deliberately no
+				// recover: see [objc.NoteDelegatePanic].
+				_delegateDone := false
+				defer func() {
+					if !_delegateDone {
+						objc.NoteDelegatePanic("AVContentKeySessionDelegate", "contentKeySession:contentKeyRequestDidSucceed:")
+					}
+				}()
 				session := AVContentKeySessionFromID(sessionID)
 				keyRequest := AVContentKeyRequestFromID(keyRequestID)
 				fn(session, keyRequest)
+				_delegateDone = true
 			},
 		})
 	}
@@ -333,8 +430,20 @@ func NewAVContentKeySessionDelegate(config AVContentKeySessionDelegateConfig) AV
 		methods = append(methods, objc.MethodDef{
 			Cmd: objc.RegisterName("contentKeySessionDidGenerateExpiredSessionReport:"),
 			Fn: func(self objc.ID, _cmd objc.SEL, sessionID objc.ID) {
+				// Names which delegate was running if a panic unwinds out of
+				// it. The frames between here and the Objective-C caller are
+				// runtime and purego dispatch, so without this the traceback
+				// never says which selector dispatched. Deliberately no
+				// recover: see [objc.NoteDelegatePanic].
+				_delegateDone := false
+				defer func() {
+					if !_delegateDone {
+						objc.NoteDelegatePanic("AVContentKeySessionDelegate", "contentKeySessionDidGenerateExpiredSessionReport:")
+					}
+				}()
 				session := AVContentKeySessionFromID(sessionID)
 				fn(session)
+				_delegateDone = true
 			},
 		})
 	}

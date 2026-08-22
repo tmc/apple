@@ -6,7 +6,7 @@ import (
 	"fmt"
 )
 
-type AddPacket uint
+type AddPacket uint32
 
 const (
 	AddPacketShift AddPacket = 11
@@ -38,6 +38,158 @@ func (e AtaDeviceType) String() string {
 	}
 }
 
+type AtaEventCode uint
+
+const (
+	KATAEjectRequest   AtaEventCode = 0x6
+	KATANullEvent      AtaEventCode = 0
+	KATAOfflineEvent   AtaEventCode = 0x2
+	KATAOfflineRequest AtaEventCode = 0x5
+	KATAOnlineEvent    AtaEventCode = 0x1
+	KATAPIResetEvent   AtaEventCode = 0x7
+	KATARemovedEvent   AtaEventCode = 0x3
+	KATAReservedEvent  AtaEventCode = 0x80
+	KATAResetEvent     AtaEventCode = 0x4
+)
+
+func (e AtaEventCode) String() string {
+	switch e {
+	case KATAEjectRequest:
+		return "KATAEjectRequest"
+	case KATANullEvent:
+		return "KATANullEvent"
+	case KATAOfflineEvent:
+		return "KATAOfflineEvent"
+	case KATAOfflineRequest:
+		return "KATAOfflineRequest"
+	case KATAOnlineEvent:
+		return "KATAOnlineEvent"
+	case KATAPIResetEvent:
+		return "KATAPIResetEvent"
+	case KATARemovedEvent:
+		return "KATARemovedEvent"
+	case KATAReservedEvent:
+		return "KATAReservedEvent"
+	case KATAResetEvent:
+		return "KATAResetEvent"
+	default:
+		return fmt.Sprintf("AtaEventCode(%d)", e)
+	}
+}
+
+type AtaFlags uint
+
+const (
+	MATAFlag48BitLBA       AtaFlags = 0x40000
+	MATAFlagByteSwap       AtaFlags = 0x4000
+	MATAFlagDMAQueued      AtaFlags = 0x20000
+	MATAFlagIORead         AtaFlags = 0x2000
+	MATAFlagIOWrite        AtaFlags = 0x1000
+	MATAFlagImmediate      AtaFlags = 2
+	MATAFlagOverlapped     AtaFlags = 0x10000
+	MATAFlagProtocolATAPI  AtaFlags = 32
+	MATAFlagQuiesce        AtaFlags = 0x100000
+	MATAFlagTFAccess       AtaFlags = 1
+	MATAFlagTFAccessResult AtaFlags = 256
+	MATAFlagUseConfigSpeed AtaFlags = 0x8000
+	MATAFlagUseDMA         AtaFlags = 128
+	MATAFlagUseNoIRQ       AtaFlags = 0x80000
+)
+
+func (e AtaFlags) String() string {
+	switch e {
+	case MATAFlag48BitLBA:
+		return "MATAFlag48BitLBA"
+	case MATAFlagByteSwap:
+		return "MATAFlagByteSwap"
+	case MATAFlagDMAQueued:
+		return "MATAFlagDMAQueued"
+	case MATAFlagIORead:
+		return "MATAFlagIORead"
+	case MATAFlagIOWrite:
+		return "MATAFlagIOWrite"
+	case MATAFlagImmediate:
+		return "MATAFlagImmediate"
+	case MATAFlagOverlapped:
+		return "MATAFlagOverlapped"
+	case MATAFlagProtocolATAPI:
+		return "MATAFlagProtocolATAPI"
+	case MATAFlagQuiesce:
+		return "MATAFlagQuiesce"
+	case MATAFlagTFAccess:
+		return "MATAFlagTFAccess"
+	case MATAFlagTFAccessResult:
+		return "MATAFlagTFAccessResult"
+	case MATAFlagUseConfigSpeed:
+		return "MATAFlagUseConfigSpeed"
+	case MATAFlagUseDMA:
+		return "MATAFlagUseDMA"
+	case MATAFlagUseNoIRQ:
+		return "MATAFlagUseNoIRQ"
+	default:
+		return fmt.Sprintf("AtaFlags(%d)", e)
+	}
+}
+
+type AtaOpcode uint
+
+const (
+	KATAFnBusReset  AtaOpcode = 0
+	KATAFnExecIO    AtaOpcode = 0
+	KATAFnQFlush    AtaOpcode = 0
+	KATAFnRegAccess AtaOpcode = 0
+	KATANoOp        AtaOpcode = 0
+	KATAPIFnExecIO  AtaOpcode = 0
+)
+
+func (e AtaOpcode) String() string {
+	switch e {
+	case KATAFnBusReset:
+		return "KATAFnBusReset"
+	default:
+		return fmt.Sprintf("AtaOpcode(%d)", e)
+	}
+}
+
+type AtaRegMask uint
+
+const (
+	MATAAltSDevCValid    AtaRegMask = 0x4000
+	MATACylinderHiValid  AtaRegMask = 32
+	MATACylinderLoValid  AtaRegMask = 16
+	MATADataValid        AtaRegMask = 1
+	MATAErrFeaturesValid AtaRegMask = 2
+	MATASDHValid         AtaRegMask = 64
+	MATASectorCntValid   AtaRegMask = 4
+	MATASectorNumValid   AtaRegMask = 8
+	MATAStatusCmdValid   AtaRegMask = 128
+)
+
+func (e AtaRegMask) String() string {
+	switch e {
+	case MATAAltSDevCValid:
+		return "MATAAltSDevCValid"
+	case MATACylinderHiValid:
+		return "MATACylinderHiValid"
+	case MATACylinderLoValid:
+		return "MATACylinderLoValid"
+	case MATADataValid:
+		return "MATADataValid"
+	case MATAErrFeaturesValid:
+		return "MATAErrFeaturesValid"
+	case MATASDHValid:
+		return "MATASDHValid"
+	case MATASectorCntValid:
+		return "MATASectorCntValid"
+	case MATASectorNumValid:
+		return "MATASectorNumValid"
+	case MATAStatusCmdValid:
+		return "MATAStatusCmdValid"
+	default:
+		return fmt.Sprintf("AtaRegMask(%d)", e)
+	}
+}
+
 type AtaSocketType uint
 
 const (
@@ -57,6 +209,27 @@ func (e AtaSocketType) String() string {
 		return "KInternalATASocket"
 	default:
 		return fmt.Sprintf("AtaSocketType(%d)", e)
+	}
+}
+
+type AtaUnitID int
+
+const (
+	KATADevice0DeviceID AtaUnitID = 0
+	KATADevice1DeviceID AtaUnitID = 1
+	KATAInvalidDeviceID AtaUnitID = -1
+)
+
+func (e AtaUnitID) String() string {
+	switch e {
+	case KATADevice0DeviceID:
+		return "KATADevice0DeviceID"
+	case KATADevice1DeviceID:
+		return "KATADevice1DeviceID"
+	case KATAInvalidDeviceID:
+		return "KATAInvalidDeviceID"
+	default:
+		return fmt.Sprintf("AtaUnitID(%d)", e)
 	}
 }
 
@@ -244,7 +417,7 @@ func (e BATAPIuseDMA) String() string {
 	}
 }
 
-type Bidirectional uint
+type Bidirectional uint32
 
 const (
 	BIDIRECTIONAL_ECHO_CANCELING_SPEAKERPHONE   Bidirectional = 0x405
@@ -665,112 +838,96 @@ func (e CsLaunchType) String() string {
 	}
 }
 
-type CsLinkageApplication uint
+type CsLinkageApplicationInvalid uint
 
 const (
-	CS_LINKAGE_APPLICATION_INVALID           CsLinkageApplication = 0
-	CS_LINKAGE_APPLICATION_OOPJIT            CsLinkageApplication = 2
-	CS_LINKAGE_APPLICATION_OOPJIT_INVALID    CsLinkageApplication = 0
-	CS_LINKAGE_APPLICATION_OOPJIT_MLCOMPILER CsLinkageApplication = 2
-	CS_LINKAGE_APPLICATION_OOPJIT_PREVIEWS   CsLinkageApplication = 1
-	CS_LINKAGE_APPLICATION_OOPJIT_TOTAL      CsLinkageApplication = 0
-	CS_LINKAGE_APPLICATION_ROSETTA           CsLinkageApplication = 1
-	CS_LINKAGE_APPLICATION_ROSETTA_AOT       CsLinkageApplication = 0
-	CS_LINKAGE_APPLICATION_XOJIT             CsLinkageApplication = 2
-	CS_LINKAGE_APPLICATION_XOJIT_PREVIEWS    CsLinkageApplication = 1
+	CS_LINKAGE_APPLICATION_INVALID CsLinkageApplicationInvalid = 0
+	CS_LINKAGE_APPLICATION_OOPJIT  CsLinkageApplicationInvalid = 2
+	CS_LINKAGE_APPLICATION_ROSETTA CsLinkageApplicationInvalid = 1
+	CS_LINKAGE_APPLICATION_XOJIT   CsLinkageApplicationInvalid = 2
 )
 
-func (e CsLinkageApplication) String() string {
+func (e CsLinkageApplicationInvalid) String() string {
 	switch e {
 	case CS_LINKAGE_APPLICATION_INVALID:
 		return "CS_LINKAGE_APPLICATION_INVALID"
 	case CS_LINKAGE_APPLICATION_OOPJIT:
 		return "CS_LINKAGE_APPLICATION_OOPJIT"
-	case CS_LINKAGE_APPLICATION_OOPJIT_PREVIEWS:
-		return "CS_LINKAGE_APPLICATION_OOPJIT_PREVIEWS"
+	case CS_LINKAGE_APPLICATION_ROSETTA:
+		return "CS_LINKAGE_APPLICATION_ROSETTA"
 	default:
-		return fmt.Sprintf("CsLinkageApplication(%d)", e)
+		return fmt.Sprintf("CsLinkageApplicationInvalid(%d)", e)
 	}
 }
 
-type Csc uint
+type CsLinkageApplicationRosettaAot uint
 
 const (
-	CscDirectSetEntries           Csc = 8
-	CscDoCommunication            Csc = 33
-	CscDrawHardwareCursor         Csc = 23
-	CscGetBaseAddr                Csc = 5
-	CscGetClutBehavior            Csc = 29
-	CscGetCommunicationInfo       Csc = 32
-	CscGetConnection              Csc = 12
-	CscGetConvolution             Csc = 24
-	CscGetCurMode                 Csc = 10
-	CscGetDDCBlock                Csc = 27
-	CscGetDefaultMode             Csc = 9
-	CscGetDetailedTiming          Csc = 31
-	CscGetEntries                 Csc = 3
-	CscGetFeatureConfiguration    Csc = 38
-	CscGetFeatureList             Csc = 39
-	CscGetGamma                   Csc = 8
-	CscGetGammaInfoList           Csc = 20
-	CscGetGray                    Csc = 6
-	CscGetHardwareCursorDrawState Csc = 23
-	CscGetInterrupt               Csc = 7
-	CscGetMirror                  Csc = 37
-	CscGetMode                    Csc = 2
-	CscGetModeBaseAddress         Csc = 14
-	CscGetModeTiming              Csc = 13
-	CscGetMultiConnect            Csc = 28
-	CscGetNextResolution          Csc = 17
-	CscGetPageBase                Csc = 5
-	CscGetPageCnt                 Csc = 4
-	CscGetPages                   Csc = 4
-	CscGetPowerState              Csc = 25
-	CscGetPreferredConfiguration  Csc = 16
-	CscGetScaler                  Csc = 36
-	CscGetScalerInfo              Csc = 35
-	CscGetScanProc                Csc = 15
-	CscGetSync                    Csc = 11
-	CscGetTimingRanges            Csc = 30
-	CscGetVideoParameters         Csc = 18
-	CscGrayPage                   Csc = 5
-	CscGrayScreen                 Csc = 5
-	CscKillIO                     Csc = 1
-	CscPrivateControlCall         Csc = 26
-	CscPrivateStatusCall          Csc = 26
-	CscProbeConnection            Csc = 34
-	CscReset                      Csc = 0
-	CscRetrieveGammaTable         Csc = 21
-	CscSavePreferredConfiguration Csc = 16
-	CscSetClutBehavior            Csc = 29
-	CscSetConvolution             Csc = 24
-	CscSetDefaultMode             Csc = 9
-	CscSetDetailedTiming          Csc = 31
-	CscSetEntries                 Csc = 3
-	CscSetFeatureConfiguration    Csc = 38
-	CscSetGamma                   Csc = 4
-	CscSetGray                    Csc = 6
-	CscSetHardwareCursor          Csc = 22
-	CscSetInterrupt               Csc = 7
-	CscSetMirror                  Csc = 37
-	CscSetMode                    Csc = 2
-	CscSetMultiConnect            Csc = 28
-	CscSetPowerState              Csc = 25
-	CscSetScaler                  Csc = 36
-	CscSetSync                    Csc = 11
-	CscSupportsHardwareCursor     Csc = 22
-	CscSwitchMode                 Csc = 10
-	CscUnusedCall                 Csc = 127
+	CS_LINKAGE_APPLICATION_OOPJIT_INVALID    CsLinkageApplicationRosettaAot = 0
+	CS_LINKAGE_APPLICATION_OOPJIT_MLCOMPILER CsLinkageApplicationRosettaAot = 2
+	CS_LINKAGE_APPLICATION_OOPJIT_PREVIEWS   CsLinkageApplicationRosettaAot = 1
+	CS_LINKAGE_APPLICATION_OOPJIT_TOTAL      CsLinkageApplicationRosettaAot = 0
+	CS_LINKAGE_APPLICATION_ROSETTA_AOT       CsLinkageApplicationRosettaAot = 0
+	CS_LINKAGE_APPLICATION_XOJIT_PREVIEWS    CsLinkageApplicationRosettaAot = 1
 )
 
-func (e Csc) String() string {
+func (e CsLinkageApplicationRosettaAot) String() string {
 	switch e {
-	case CscDirectSetEntries:
-		return "CscDirectSetEntries"
-	case CscDoCommunication:
-		return "CscDoCommunication"
-	case CscDrawHardwareCursor:
-		return "CscDrawHardwareCursor"
+	case CS_LINKAGE_APPLICATION_OOPJIT_INVALID:
+		return "CS_LINKAGE_APPLICATION_OOPJIT_INVALID"
+	case CS_LINKAGE_APPLICATION_OOPJIT_MLCOMPILER:
+		return "CS_LINKAGE_APPLICATION_OOPJIT_MLCOMPILER"
+	case CS_LINKAGE_APPLICATION_OOPJIT_PREVIEWS:
+		return "CS_LINKAGE_APPLICATION_OOPJIT_PREVIEWS"
+	default:
+		return fmt.Sprintf("CsLinkageApplicationRosettaAot(%d)", e)
+	}
+}
+
+type CscGetMode uint
+
+const (
+	CscGetBaseAddr                CscGetMode = 5
+	CscGetClutBehavior            CscGetMode = 29
+	CscGetCommunicationInfo       CscGetMode = 32
+	CscGetConnection              CscGetMode = 12
+	CscGetConvolution             CscGetMode = 24
+	CscGetCurMode                 CscGetMode = 10
+	CscGetDDCBlock                CscGetMode = 27
+	CscGetDefaultMode             CscGetMode = 9
+	CscGetDetailedTiming          CscGetMode = 31
+	CscGetEntries                 CscGetMode = 3
+	CscGetFeatureConfiguration    CscGetMode = 38
+	CscGetFeatureList             CscGetMode = 39
+	CscGetGamma                   CscGetMode = 8
+	CscGetGammaInfoList           CscGetMode = 20
+	CscGetGray                    CscGetMode = 6
+	CscGetHardwareCursorDrawState CscGetMode = 23
+	CscGetInterrupt               CscGetMode = 7
+	CscGetMirror                  CscGetMode = 37
+	CscGetModeValue               CscGetMode = 2
+	CscGetModeBaseAddress         CscGetMode = 14
+	CscGetModeTiming              CscGetMode = 13
+	CscGetMultiConnect            CscGetMode = 28
+	CscGetNextResolution          CscGetMode = 17
+	CscGetPageBase                CscGetMode = 5
+	CscGetPageCnt                 CscGetMode = 4
+	CscGetPages                   CscGetMode = 4
+	CscGetPowerState              CscGetMode = 25
+	CscGetPreferredConfiguration  CscGetMode = 16
+	CscGetScaler                  CscGetMode = 36
+	CscGetScalerInfo              CscGetMode = 35
+	CscGetScanProc                CscGetMode = 15
+	CscGetSync                    CscGetMode = 11
+	CscGetTimingRanges            CscGetMode = 30
+	CscGetVideoParameters         CscGetMode = 18
+	CscPrivateStatusCall          CscGetMode = 26
+	CscRetrieveGammaTable         CscGetMode = 21
+	CscSupportsHardwareCursor     CscGetMode = 22
+)
+
+func (e CscGetMode) String() string {
+	switch e {
 	case CscGetBaseAddr:
 		return "CscGetBaseAddr"
 	case CscGetClutBehavior:
@@ -795,16 +952,20 @@ func (e Csc) String() string {
 		return "CscGetFeatureConfiguration"
 	case CscGetFeatureList:
 		return "CscGetFeatureList"
+	case CscGetGamma:
+		return "CscGetGamma"
 	case CscGetGammaInfoList:
 		return "CscGetGammaInfoList"
 	case CscGetGray:
 		return "CscGetGray"
+	case CscGetHardwareCursorDrawState:
+		return "CscGetHardwareCursorDrawState"
 	case CscGetInterrupt:
 		return "CscGetInterrupt"
 	case CscGetMirror:
 		return "CscGetMirror"
-	case CscGetMode:
-		return "CscGetMode"
+	case CscGetModeValue:
+		return "CscGetModeValue"
 	case CscGetModeBaseAddress:
 		return "CscGetModeBaseAddress"
 	case CscGetModeTiming:
@@ -831,26 +992,112 @@ func (e Csc) String() string {
 		return "CscGetTimingRanges"
 	case CscGetVideoParameters:
 		return "CscGetVideoParameters"
+	case CscPrivateStatusCall:
+		return "CscPrivateStatusCall"
+	case CscRetrieveGammaTable:
+		return "CscRetrieveGammaTable"
+	case CscSupportsHardwareCursor:
+		return "CscSupportsHardwareCursor"
+	default:
+		return fmt.Sprintf("CscGetMode(%d)", e)
+	}
+}
+
+type CscReset uint
+
+const (
+	CscDirectSetEntries           CscReset = 8
+	CscDoCommunication            CscReset = 33
+	CscDrawHardwareCursor         CscReset = 23
+	CscGrayPage                   CscReset = 5
+	CscGrayScreen                 CscReset = 5
+	CscKillIO                     CscReset = 1
+	CscPrivateControlCall         CscReset = 26
+	CscProbeConnection            CscReset = 34
+	CscResetValue                 CscReset = 0
+	CscSavePreferredConfiguration CscReset = 16
+	CscSetClutBehavior            CscReset = 29
+	CscSetConvolution             CscReset = 24
+	CscSetDefaultMode             CscReset = 9
+	CscSetDetailedTiming          CscReset = 31
+	CscSetEntries                 CscReset = 3
+	CscSetFeatureConfiguration    CscReset = 38
+	CscSetGamma                   CscReset = 4
+	CscSetGray                    CscReset = 6
+	CscSetHardwareCursor          CscReset = 22
+	CscSetInterrupt               CscReset = 7
+	CscSetMirror                  CscReset = 37
+	CscSetMode                    CscReset = 2
+	CscSetMultiConnect            CscReset = 28
+	CscSetPowerState              CscReset = 25
+	CscSetScaler                  CscReset = 36
+	CscSetSync                    CscReset = 11
+	CscSwitchMode                 CscReset = 10
+	CscUnusedCall                 CscReset = 127
+)
+
+func (e CscReset) String() string {
+	switch e {
+	case CscDirectSetEntries:
+		return "CscDirectSetEntries"
+	case CscDoCommunication:
+		return "CscDoCommunication"
+	case CscDrawHardwareCursor:
+		return "CscDrawHardwareCursor"
+	case CscGrayPage:
+		return "CscGrayPage"
 	case CscKillIO:
 		return "CscKillIO"
 	case CscPrivateControlCall:
 		return "CscPrivateControlCall"
 	case CscProbeConnection:
 		return "CscProbeConnection"
-	case CscReset:
-		return "CscReset"
-	case CscRetrieveGammaTable:
-		return "CscRetrieveGammaTable"
+	case CscResetValue:
+		return "CscResetValue"
+	case CscSavePreferredConfiguration:
+		return "CscSavePreferredConfiguration"
+	case CscSetClutBehavior:
+		return "CscSetClutBehavior"
+	case CscSetConvolution:
+		return "CscSetConvolution"
+	case CscSetDefaultMode:
+		return "CscSetDefaultMode"
+	case CscSetDetailedTiming:
+		return "CscSetDetailedTiming"
+	case CscSetEntries:
+		return "CscSetEntries"
+	case CscSetFeatureConfiguration:
+		return "CscSetFeatureConfiguration"
+	case CscSetGamma:
+		return "CscSetGamma"
+	case CscSetGray:
+		return "CscSetGray"
 	case CscSetHardwareCursor:
 		return "CscSetHardwareCursor"
+	case CscSetInterrupt:
+		return "CscSetInterrupt"
+	case CscSetMirror:
+		return "CscSetMirror"
+	case CscSetMode:
+		return "CscSetMode"
+	case CscSetMultiConnect:
+		return "CscSetMultiConnect"
+	case CscSetPowerState:
+		return "CscSetPowerState"
+	case CscSetScaler:
+		return "CscSetScaler"
+	case CscSetSync:
+		return "CscSetSync"
+	case CscSwitchMode:
+		return "CscSwitchMode"
 	case CscUnusedCall:
 		return "CscUnusedCall"
 	default:
-		return fmt.Sprintf("Csc(%d)", e)
+		return fmt.Sprintf("CscReset(%d)", e)
 	}
 }
 
-type DevelopStage uint
+type DevelopStage uint32
 
 const (
 	AlphaStage        DevelopStage = 0x40
@@ -871,30 +1118,6 @@ func (e DevelopStage) String() string {
 		return "FinalStage"
 	default:
 		return fmt.Sprintf("DevelopStage(%d)", e)
-	}
-}
-
-type Dot3ChipSet uint
-
-const (
-	Dot3ChipSetFujitsu86950  Dot3ChipSet = 1
-	Dot3ChipSetIntel82557    Dot3ChipSet = 3
-	Dot3ChipSetIntel82586    Dot3ChipSet = 1
-	Dot3ChipSetIntel82596    Dot3ChipSet = 2
-	Dot3ChipSetNational8390  Dot3ChipSet = 1
-	Dot3ChipSetNationalSonic Dot3ChipSet = 2
-)
-
-func (e Dot3ChipSet) String() string {
-	switch e {
-	case Dot3ChipSetFujitsu86950:
-		return "Dot3ChipSetFujitsu86950"
-	case Dot3ChipSetIntel82557:
-		return "Dot3ChipSetIntel82557"
-	case Dot3ChipSetIntel82596:
-		return "Dot3ChipSetIntel82596"
-	default:
-		return fmt.Sprintf("Dot3ChipSet(%d)", e)
 	}
 }
 
@@ -946,6 +1169,47 @@ func (e Dot3ChipSetDigitalD) String() string {
 	}
 }
 
+const Dot3ChipSetFujitsu86950 uint = 1
+
+type Dot3ChipSetIntel82586 uint
+
+const (
+	Dot3ChipSetIntel82557      Dot3ChipSetIntel82586 = 3
+	Dot3ChipSetIntel82586Value Dot3ChipSetIntel82586 = 1
+	Dot3ChipSetIntel82596      Dot3ChipSetIntel82586 = 2
+)
+
+func (e Dot3ChipSetIntel82586) String() string {
+	switch e {
+	case Dot3ChipSetIntel82557:
+		return "Dot3ChipSetIntel82557"
+	case Dot3ChipSetIntel82586Value:
+		return "Dot3ChipSetIntel82586Value"
+	case Dot3ChipSetIntel82596:
+		return "Dot3ChipSetIntel82596"
+	default:
+		return fmt.Sprintf("Dot3ChipSetIntel82586(%d)", e)
+	}
+}
+
+type Dot3ChipSetNational8390 uint
+
+const (
+	Dot3ChipSetNational8390Value Dot3ChipSetNational8390 = 1
+	Dot3ChipSetNationalSonic     Dot3ChipSetNational8390 = 2
+)
+
+func (e Dot3ChipSetNational8390) String() string {
+	switch e {
+	case Dot3ChipSetNational8390Value:
+		return "Dot3ChipSetNational8390Value"
+	case Dot3ChipSetNationalSonic:
+		return "Dot3ChipSetNationalSonic"
+	default:
+		return fmt.Sprintf("Dot3ChipSetNational8390(%d)", e)
+	}
+}
+
 type Dot3ChipSetWesternDigital83 uint
 
 const (
@@ -994,7 +1258,7 @@ func (e Dot3Vendor) String() string {
 	}
 }
 
-type Duration int
+type Duration int32
 
 const (
 	DurationDay         Duration = 86400000
@@ -1122,11 +1386,63 @@ func (e DyldChainedPtrStart) String() string {
 	}
 }
 
-type ENoteExitReparented uint
+type EIOAccelSurfaceMethods uint
+
+const (
+	KIOAccelNumSurfaceMethods               EIOAccelSurfaceMethods = 0
+	KIOAccelSurfaceControl                  EIOAccelSurfaceMethods = 0
+	KIOAccelSurfaceFlush                    EIOAccelSurfaceMethods = 0
+	KIOAccelSurfaceGetState                 EIOAccelSurfaceMethods = 0
+	KIOAccelSurfaceQueryLock                EIOAccelSurfaceMethods = 0
+	KIOAccelSurfaceRead                     EIOAccelSurfaceMethods = 0
+	KIOAccelSurfaceReadLock                 EIOAccelSurfaceMethods = 0
+	KIOAccelSurfaceReadLockOptions          EIOAccelSurfaceMethods = 0
+	KIOAccelSurfaceReadUnlock               EIOAccelSurfaceMethods = 0
+	KIOAccelSurfaceReadUnlockOptions        EIOAccelSurfaceMethods = 0
+	KIOAccelSurfaceSetIDMode                EIOAccelSurfaceMethods = 0
+	KIOAccelSurfaceSetScale                 EIOAccelSurfaceMethods = 0
+	KIOAccelSurfaceSetShape                 EIOAccelSurfaceMethods = 0
+	KIOAccelSurfaceSetShapeBacking          EIOAccelSurfaceMethods = 0
+	KIOAccelSurfaceSetShapeBackingAndLength EIOAccelSurfaceMethods = 0
+	KIOAccelSurfaceWriteLock                EIOAccelSurfaceMethods = 0
+	KIOAccelSurfaceWriteLockOptions         EIOAccelSurfaceMethods = 0
+	KIOAccelSurfaceWriteUnlock              EIOAccelSurfaceMethods = 0
+	KIOAccelSurfaceWriteUnlockOptions       EIOAccelSurfaceMethods = 0
+)
+
+func (e EIOAccelSurfaceMethods) String() string {
+	switch e {
+	case KIOAccelNumSurfaceMethods:
+		return "KIOAccelNumSurfaceMethods"
+	default:
+		return fmt.Sprintf("EIOAccelSurfaceMethods(%d)", e)
+	}
+}
+
+type EIOAcceleratorClientTypes uint
+
+const (
+	KIOAccelNumClientTypes     EIOAcceleratorClientTypes = 0
+	KIOAccelSurface2ClientType EIOAcceleratorClientTypes = 0x20
+	KIOAccelSurfaceClientType  EIOAcceleratorClientTypes = 0
+)
+
+func (e EIOAcceleratorClientTypes) String() string {
+	switch e {
+	case KIOAccelNumClientTypes:
+		return "KIOAccelNumClientTypes"
+	case KIOAccelSurface2ClientType:
+		return "KIOAccelSurface2ClientType"
+	default:
+		return fmt.Sprintf("EIOAcceleratorClientTypes(%d)", e)
+	}
+}
+
+type ENoteExitReparented uint32
 
 const (
 	// Deprecated.
-	ENoteExitReparentedDeprecated ENoteExitReparented = 0x80000
+	ENoteExitReparentedDeprecated ENoteExitReparented = 524288
 )
 
 func (e ENoteExitReparented) String() string {
@@ -1138,11 +1454,11 @@ func (e ENoteExitReparented) String() string {
 	}
 }
 
-type ENoteReap uint
+type ENoteReap uint32
 
 const (
 	// Deprecated.
-	ENoteReapDeprecated ENoteReap = 0x10000000
+	ENoteReapDeprecated ENoteReap = 268435456
 )
 
 func (e ENoteReap) String() string {
@@ -1220,7 +1536,7 @@ func (e EfiReset) String() string {
 	}
 }
 
-type Embedded uint
+type Embedded uint32
 
 const (
 	EMBEDDED_ANALOG_TAPE                    Embedded = 0x707
@@ -1441,7 +1757,7 @@ func (e ExtPaniclogOptions) String() string {
 	}
 }
 
-type External uint
+type External uint32
 
 const (
 	EXTERNAL_1394_DA_STREAM            External = 0x606
@@ -1486,28 +1802,42 @@ func (e External) String() string {
 	}
 }
 
-type Fft int
+type FftForward int
 
 const (
-	FFT_FORWARD Fft = 1
-	FFT_INVERSE Fft = -1
-	FFT_RADIX2  Fft = 0
-	FFT_RADIX3  Fft = 1
-	FFT_RADIX5  Fft = 2
+	FFT_FORWARD FftForward = 1
+	FFT_INVERSE FftForward = -1
 )
 
-func (e Fft) String() string {
+func (e FftForward) String() string {
 	switch e {
 	case FFT_FORWARD:
 		return "FFT_FORWARD"
 	case FFT_INVERSE:
 		return "FFT_INVERSE"
+	default:
+		return fmt.Sprintf("FftForward(%d)", e)
+	}
+}
+
+type FftRadix2 uint
+
+const (
+	FFT_RADIX2 FftRadix2 = 0
+	FFT_RADIX3 FftRadix2 = 1
+	FFT_RADIX5 FftRadix2 = 2
+)
+
+func (e FftRadix2) String() string {
+	switch e {
 	case FFT_RADIX2:
 		return "FFT_RADIX2"
+	case FFT_RADIX3:
+		return "FFT_RADIX3"
 	case FFT_RADIX5:
 		return "FFT_RADIX5"
 	default:
-		return fmt.Sprintf("Fft(%d)", e)
+		return fmt.Sprintf("FftRadix2(%d)", e)
 	}
 }
 
@@ -1569,36 +1899,50 @@ func (e GraftdmgCryptex) String() string {
 	}
 }
 
-type Gssd int
+type GssdMechtype int
 
 const (
-	GSSD_ANONYMOUS      Gssd = 0
-	GSSD_EXPORT         Gssd = 0
-	GSSD_HOSTBASED      Gssd = 0
-	GSSD_IAKERB_MECH    Gssd = 0
-	GSSD_KRB5_MECH      Gssd = 0
-	GSSD_KRB5_PRINCIPAL Gssd = 0
-	GSSD_KRB5_REFERRAL  Gssd = 0
-	GSSD_MACHINE_UID    Gssd = 0
-	GSSD_NO_MECH        Gssd = -1
-	GSSD_NTLM_BLOB      Gssd = 0
-	GSSD_NTLM_MECH      Gssd = 0
-	GSSD_NTLM_PRINCIPAL Gssd = 0
-	GSSD_SPNEGO_MECH    Gssd = 0
-	GSSD_STRING_NAME    Gssd = 0
-	GSSD_STRING_UID     Gssd = 0
-	GSSD_USER           Gssd = 0
-	GSSD_UUID           Gssd = 0
+	GSSD_IAKERB_MECH GssdMechtype = 0
+	GSSD_KRB5_MECH   GssdMechtype = 0
+	GSSD_NO_MECH     GssdMechtype = -1
+	GSSD_NTLM_MECH   GssdMechtype = 0
+	GSSD_SPNEGO_MECH GssdMechtype = 0
 )
 
-func (e Gssd) String() string {
+func (e GssdMechtype) String() string {
 	switch e {
-	case GSSD_ANONYMOUS:
-		return "GSSD_ANONYMOUS"
+	case GSSD_IAKERB_MECH:
+		return "GSSD_IAKERB_MECH"
 	case GSSD_NO_MECH:
 		return "GSSD_NO_MECH"
 	default:
-		return fmt.Sprintf("Gssd(%d)", e)
+		return fmt.Sprintf("GssdMechtype(%d)", e)
+	}
+}
+
+type GssdNametype uint
+
+const (
+	GSSD_ANONYMOUS      GssdNametype = 0
+	GSSD_EXPORT         GssdNametype = 0
+	GSSD_HOSTBASED      GssdNametype = 0
+	GSSD_KRB5_PRINCIPAL GssdNametype = 0
+	GSSD_KRB5_REFERRAL  GssdNametype = 0
+	GSSD_MACHINE_UID    GssdNametype = 0
+	GSSD_NTLM_BLOB      GssdNametype = 0
+	GSSD_NTLM_PRINCIPAL GssdNametype = 0
+	GSSD_STRING_NAME    GssdNametype = 0
+	GSSD_STRING_UID     GssdNametype = 0
+	GSSD_USER           GssdNametype = 0
+	GSSD_UUID           GssdNametype = 0
+)
+
+func (e GssdNametype) String() string {
+	switch e {
+	case GSSD_ANONYMOUS:
+		return "GSSD_ANONYMOUS"
+	default:
+		return fmt.Sprintf("GssdNametype(%d)", e)
 	}
 }
 
@@ -1635,31 +1979,24 @@ func (e HvT) String() string {
 	}
 }
 
-type HvgHcall uint
+type HvgHcallCode uint
 
 const (
-	HVG_HCALL_ACCESS_DENIED       HvgHcall = 0
-	HVG_HCALL_COUNT               HvgHcall = 0
-	HVG_HCALL_FEAT_DISABLED       HvgHcall = 0
-	HVG_HCALL_GET_BOOTSESSIONUUID HvgHcall = 0
-	HVG_HCALL_GET_MABS_OFFSET     HvgHcall = 0
-	HVG_HCALL_INVALID_CODE        HvgHcall = 0
-	HVG_HCALL_INVALID_PARAMETER   HvgHcall = 0
-	HVG_HCALL_IO_FAILED           HvgHcall = 0
-	HVG_HCALL_SET_COREDUMP_DATA   HvgHcall = 0
-	HVG_HCALL_SUCCESS             HvgHcall = 0
-	HVG_HCALL_TRIGGER_DUMP        HvgHcall = 0
-	HVG_HCALL_UNSUPPORTED         HvgHcall = 0
-	HVG_HCALL_VCPU_KICK           HvgHcall = 0
-	HVG_HCALL_VCPU_WFK            HvgHcall = 0
+	HVG_HCALL_COUNT               HvgHcallCode = 0
+	HVG_HCALL_GET_BOOTSESSIONUUID HvgHcallCode = 0
+	HVG_HCALL_GET_MABS_OFFSET     HvgHcallCode = 0
+	HVG_HCALL_SET_COREDUMP_DATA   HvgHcallCode = 0
+	HVG_HCALL_TRIGGER_DUMP        HvgHcallCode = 0
+	HVG_HCALL_VCPU_KICK           HvgHcallCode = 0
+	HVG_HCALL_VCPU_WFK            HvgHcallCode = 0
 )
 
-func (e HvgHcall) String() string {
+func (e HvgHcallCode) String() string {
 	switch e {
-	case HVG_HCALL_ACCESS_DENIED:
-		return "HVG_HCALL_ACCESS_DENIED"
+	case HVG_HCALL_COUNT:
+		return "HVG_HCALL_COUNT"
 	default:
-		return fmt.Sprintf("HvgHcall(%d)", e)
+		return fmt.Sprintf("HvgHcallCode(%d)", e)
 	}
 }
 
@@ -1678,7 +2015,246 @@ func (e HvgHcallDumpOption) String() string {
 	}
 }
 
-type IOCSRKeyType uint
+type HvgHcallReturn uint
+
+const (
+	HVG_HCALL_ACCESS_DENIED     HvgHcallReturn = 0
+	HVG_HCALL_FEAT_DISABLED     HvgHcallReturn = 0
+	HVG_HCALL_INVALID_CODE      HvgHcallReturn = 0
+	HVG_HCALL_INVALID_PARAMETER HvgHcallReturn = 0
+	HVG_HCALL_IO_FAILED         HvgHcallReturn = 0
+	HVG_HCALL_SUCCESS           HvgHcallReturn = 0
+	HVG_HCALL_UNSUPPORTED       HvgHcallReturn = 0
+)
+
+func (e HvgHcallReturn) String() string {
+	switch e {
+	case HVG_HCALL_ACCESS_DENIED:
+		return "HVG_HCALL_ACCESS_DENIED"
+	default:
+		return fmt.Sprintf("HvgHcallReturn(%d)", e)
+	}
+}
+
+type IOAVCCommandResponse uint
+
+const (
+	KAVCAcceptedStatus         IOAVCCommandResponse = 0x9
+	KAVCChangedStatus          IOAVCCommandResponse = 0xd
+	KAVCControlCommand         IOAVCCommandResponse = 0
+	KAVCGeneralInquiryCommand  IOAVCCommandResponse = 0x4
+	KAVCImplementedStatus      IOAVCCommandResponse = 0xc
+	KAVCInTransitionStatus     IOAVCCommandResponse = 0xb
+	KAVCInterimStatus          IOAVCCommandResponse = 0xf
+	KAVCNotImplementedStatus   IOAVCCommandResponse = 0x8
+	KAVCNotifyCommand          IOAVCCommandResponse = 0x3
+	KAVCRejectedStatus         IOAVCCommandResponse = 0xa
+	KAVCSpecificInquiryCommand IOAVCCommandResponse = 0x2
+	KAVCStatusInquiryCommand   IOAVCCommandResponse = 0x1
+)
+
+func (e IOAVCCommandResponse) String() string {
+	switch e {
+	case KAVCAcceptedStatus:
+		return "KAVCAcceptedStatus"
+	case KAVCChangedStatus:
+		return "KAVCChangedStatus"
+	case KAVCControlCommand:
+		return "KAVCControlCommand"
+	case KAVCGeneralInquiryCommand:
+		return "KAVCGeneralInquiryCommand"
+	case KAVCImplementedStatus:
+		return "KAVCImplementedStatus"
+	case KAVCInTransitionStatus:
+		return "KAVCInTransitionStatus"
+	case KAVCInterimStatus:
+		return "KAVCInterimStatus"
+	case KAVCNotImplementedStatus:
+		return "KAVCNotImplementedStatus"
+	case KAVCNotifyCommand:
+		return "KAVCNotifyCommand"
+	case KAVCRejectedStatus:
+		return "KAVCRejectedStatus"
+	case KAVCSpecificInquiryCommand:
+		return "KAVCSpecificInquiryCommand"
+	case KAVCStatusInquiryCommand:
+		return "KAVCStatusInquiryCommand"
+	default:
+		return fmt.Sprintf("IOAVCCommandResponse(%d)", e)
+	}
+}
+
+type IOAVCFrameFields uint
+
+const (
+	KAVCAddress         IOAVCFrameFields = 1
+	KAVCCommandResponse IOAVCFrameFields = 0
+	KAVCOpcode          IOAVCFrameFields = 2
+	KAVCOperand0        IOAVCFrameFields = 3
+	KAVCOperand1        IOAVCFrameFields = 4
+	KAVCOperand2        IOAVCFrameFields = 5
+	KAVCOperand3        IOAVCFrameFields = 6
+	KAVCOperand4        IOAVCFrameFields = 7
+	KAVCOperand5        IOAVCFrameFields = 8
+	KAVCOperand6        IOAVCFrameFields = 9
+	KAVCOperand7        IOAVCFrameFields = 10
+	KAVCOperand8        IOAVCFrameFields = 11
+)
+
+func (e IOAVCFrameFields) String() string {
+	switch e {
+	case KAVCAddress:
+		return "KAVCAddress"
+	case KAVCCommandResponse:
+		return "KAVCCommandResponse"
+	case KAVCOpcode:
+		return "KAVCOpcode"
+	case KAVCOperand0:
+		return "KAVCOperand0"
+	case KAVCOperand1:
+		return "KAVCOperand1"
+	case KAVCOperand2:
+		return "KAVCOperand2"
+	case KAVCOperand3:
+		return "KAVCOperand3"
+	case KAVCOperand4:
+		return "KAVCOperand4"
+	case KAVCOperand5:
+		return "KAVCOperand5"
+	case KAVCOperand6:
+		return "KAVCOperand6"
+	case KAVCOperand7:
+		return "KAVCOperand7"
+	case KAVCOperand8:
+		return "KAVCOperand8"
+	default:
+		return fmt.Sprintf("IOAVCFrameFields(%d)", e)
+	}
+}
+
+type IOAVCOpcodes uint
+
+const (
+	KAVCConnectOpcode                IOAVCOpcodes = 0x24
+	KAVCConnectionsOpcode            IOAVCOpcodes = 0x22
+	KAVCDisconnectOpcode             IOAVCOpcodes = 0x25
+	KAVCInputPlugSignalFormatOpcode  IOAVCOpcodes = 0x19
+	KAVCInputSignalModeOpcode        IOAVCOpcodes = 0x79
+	KAVCOutputPlugSignalFormatOpcode IOAVCOpcodes = 0x18
+	KAVCOutputSignalModeOpcode       IOAVCOpcodes = 0x78
+	KAVCPlugInfoOpcode               IOAVCOpcodes = 0x2
+	KAVCPowerOpcode                  IOAVCOpcodes = 0xb2
+	KAVCSignalModeDVCPro525_60       IOAVCOpcodes = 0x78
+	KAVCSignalModeDVCPro625_50       IOAVCOpcodes = 0xf8
+	KAVCSignalModeDummyOperand       IOAVCOpcodes = 0xff
+	KAVCSignalModeHD1125_60          IOAVCOpcodes = 0x8
+	KAVCSignalModeHD1250_50          IOAVCOpcodes = 0x88
+	KAVCSignalModeMask_50            IOAVCOpcodes = 0x80
+	KAVCSignalModeMask_DVCPro25      IOAVCOpcodes = 0x78
+	KAVCSignalModeMask_SDL           IOAVCOpcodes = 0x4
+	KAVCSignalModeMask_STYPE         IOAVCOpcodes = 0x7c
+	KAVCSignalModeSD525_60           IOAVCOpcodes = 0
+	KAVCSignalModeSD625_50           IOAVCOpcodes = 0x80
+	KAVCSignalModeSDL525_60          IOAVCOpcodes = 0x4
+	KAVCSignalModeSDL625_50          IOAVCOpcodes = 0x84
+	KAVCSignalSourceOpcode           IOAVCOpcodes = 0x1a
+	KAVCSubunitInfoOpcode            IOAVCOpcodes = 0x31
+	KAVCUnitInfoOpcode               IOAVCOpcodes = 0x30
+	KAVCVendorDependentOpcode        IOAVCOpcodes = 0
+)
+
+func (e IOAVCOpcodes) String() string {
+	switch e {
+	case KAVCConnectOpcode:
+		return "KAVCConnectOpcode"
+	case KAVCConnectionsOpcode:
+		return "KAVCConnectionsOpcode"
+	case KAVCDisconnectOpcode:
+		return "KAVCDisconnectOpcode"
+	case KAVCInputPlugSignalFormatOpcode:
+		return "KAVCInputPlugSignalFormatOpcode"
+	case KAVCInputSignalModeOpcode:
+		return "KAVCInputSignalModeOpcode"
+	case KAVCOutputPlugSignalFormatOpcode:
+		return "KAVCOutputPlugSignalFormatOpcode"
+	case KAVCOutputSignalModeOpcode:
+		return "KAVCOutputSignalModeOpcode"
+	case KAVCPlugInfoOpcode:
+		return "KAVCPlugInfoOpcode"
+	case KAVCPowerOpcode:
+		return "KAVCPowerOpcode"
+	case KAVCSignalModeDVCPro625_50:
+		return "KAVCSignalModeDVCPro625_50"
+	case KAVCSignalModeDummyOperand:
+		return "KAVCSignalModeDummyOperand"
+	case KAVCSignalModeHD1125_60:
+		return "KAVCSignalModeHD1125_60"
+	case KAVCSignalModeHD1250_50:
+		return "KAVCSignalModeHD1250_50"
+	case KAVCSignalModeMask_50:
+		return "KAVCSignalModeMask_50"
+	case KAVCSignalModeMask_SDL:
+		return "KAVCSignalModeMask_SDL"
+	case KAVCSignalModeMask_STYPE:
+		return "KAVCSignalModeMask_STYPE"
+	case KAVCSignalModeSD525_60:
+		return "KAVCSignalModeSD525_60"
+	case KAVCSignalModeSDL625_50:
+		return "KAVCSignalModeSDL625_50"
+	case KAVCSignalSourceOpcode:
+		return "KAVCSignalSourceOpcode"
+	case KAVCSubunitInfoOpcode:
+		return "KAVCSubunitInfoOpcode"
+	case KAVCUnitInfoOpcode:
+		return "KAVCUnitInfoOpcode"
+	default:
+		return fmt.Sprintf("IOAVCOpcodes(%d)", e)
+	}
+}
+
+type IOAVCUnitTypes uint
+
+const (
+	KAVCAudio           IOAVCUnitTypes = 0x1
+	KAVCCameraStorage   IOAVCUnitTypes = 0xb
+	KAVCDiskRecorder    IOAVCUnitTypes = 0x3
+	KAVCNumSubUnitTypes IOAVCUnitTypes = 0x20
+	KAVCPrinter         IOAVCUnitTypes = 0x2
+	KAVCTapeRecorder    IOAVCUnitTypes = 0x4
+	KAVCTuner           IOAVCUnitTypes = 0x5
+	KAVCVendorUnique    IOAVCUnitTypes = 0x1c
+	KAVCVideoCamera     IOAVCUnitTypes = 0x7
+	KAVCVideoMonitor    IOAVCUnitTypes = 0
+)
+
+func (e IOAVCUnitTypes) String() string {
+	switch e {
+	case KAVCAudio:
+		return "KAVCAudio"
+	case KAVCCameraStorage:
+		return "KAVCCameraStorage"
+	case KAVCDiskRecorder:
+		return "KAVCDiskRecorder"
+	case KAVCNumSubUnitTypes:
+		return "KAVCNumSubUnitTypes"
+	case KAVCPrinter:
+		return "KAVCPrinter"
+	case KAVCTapeRecorder:
+		return "KAVCTapeRecorder"
+	case KAVCTuner:
+		return "KAVCTuner"
+	case KAVCVendorUnique:
+		return "KAVCVendorUnique"
+	case KAVCVideoCamera:
+		return "KAVCVideoCamera"
+	case KAVCVideoMonitor:
+		return "KAVCVideoMonitor"
+	default:
+		return fmt.Sprintf("IOAVCUnitTypes(%d)", e)
+	}
+}
+
+type IOCSRKeyType uint32
 
 const (
 	KCSRDirectoryKeyType    IOCSRKeyType = 3
@@ -1705,7 +2281,7 @@ func (e IOCSRKeyType) String() string {
 	}
 }
 
-type IOConfigKeyType uint
+type IOConfigKeyType uint32
 
 const (
 	KConfigDirectoryKeyType    IOConfigKeyType = 3
@@ -1754,6 +2330,229 @@ func (e IOFWAVCPlug) String() string {
 	}
 }
 
+type IOFWAVCProtocolUserClientAsyncCommandCodes uint
+
+const (
+	KIOFWAVCProtocolUserClientAddSubunit               IOFWAVCProtocolUserClientAsyncCommandCodes = 0
+	KIOFWAVCProtocolUserClientAllocateInputPlug        IOFWAVCProtocolUserClientAsyncCommandCodes = 0
+	KIOFWAVCProtocolUserClientAllocateOutputPlug       IOFWAVCProtocolUserClientAsyncCommandCodes = 0
+	KIOFWAVCProtocolUserClientInstallAVCCommandHandler IOFWAVCProtocolUserClientAsyncCommandCodes = 0
+	KIOFWAVCProtocolUserClientNumAsyncCommands         IOFWAVCProtocolUserClientAsyncCommandCodes = 0
+	KIOFWAVCProtocolUserClientSetAVCRequestCallback    IOFWAVCProtocolUserClientAsyncCommandCodes = 18
+)
+
+func (e IOFWAVCProtocolUserClientAsyncCommandCodes) String() string {
+	switch e {
+	case KIOFWAVCProtocolUserClientAddSubunit:
+		return "KIOFWAVCProtocolUserClientAddSubunit"
+	case KIOFWAVCProtocolUserClientSetAVCRequestCallback:
+		return "KIOFWAVCProtocolUserClientSetAVCRequestCallback"
+	default:
+		return fmt.Sprintf("IOFWAVCProtocolUserClientAsyncCommandCodes(%d)", e)
+	}
+}
+
+type IOFWAVCProtocolUserClientCommandCodes uint
+
+const (
+	KIOFWAVCProtocolUserClientAVCRequestNotHandled       IOFWAVCProtocolUserClientCommandCodes = 0
+	KIOFWAVCProtocolUserClientConnectTargetPlugs         IOFWAVCProtocolUserClientCommandCodes = 0
+	KIOFWAVCProtocolUserClientDisconnectTargetPlugs      IOFWAVCProtocolUserClientCommandCodes = 0
+	KIOFWAVCProtocolUserClientFreeInputPlug              IOFWAVCProtocolUserClientCommandCodes = 0
+	KIOFWAVCProtocolUserClientFreeOutputPlug             IOFWAVCProtocolUserClientCommandCodes = 0
+	KIOFWAVCProtocolUserClientGetSubunitPlugSignalFormat IOFWAVCProtocolUserClientCommandCodes = 0
+	KIOFWAVCProtocolUserClientGetTargetPlugConnection    IOFWAVCProtocolUserClientCommandCodes = 0
+	KIOFWAVCProtocolUserClientNumCommands                IOFWAVCProtocolUserClientCommandCodes = 0
+	KIOFWAVCProtocolUserClientPublishAVCUnitDirectory    IOFWAVCProtocolUserClientCommandCodes = 0
+	KIOFWAVCProtocolUserClientReadInputMasterPlug        IOFWAVCProtocolUserClientCommandCodes = 0
+	KIOFWAVCProtocolUserClientReadInputPlug              IOFWAVCProtocolUserClientCommandCodes = 0
+	KIOFWAVCProtocolUserClientReadOutputMasterPlug       IOFWAVCProtocolUserClientCommandCodes = 0
+	KIOFWAVCProtocolUserClientReadOutputPlug             IOFWAVCProtocolUserClientCommandCodes = 0
+	KIOFWAVCProtocolUserClientSendAVCResponse            IOFWAVCProtocolUserClientCommandCodes = 0
+	KIOFWAVCProtocolUserClientSetSubunitPlugSignalFormat IOFWAVCProtocolUserClientCommandCodes = 0
+	KIOFWAVCProtocolUserClientUpdateInputMasterPlug      IOFWAVCProtocolUserClientCommandCodes = 0
+	KIOFWAVCProtocolUserClientUpdateInputPlug            IOFWAVCProtocolUserClientCommandCodes = 0
+	KIOFWAVCProtocolUserClientUpdateOutputMasterPlug     IOFWAVCProtocolUserClientCommandCodes = 0
+	KIOFWAVCProtocolUserClientUpdateOutputPlug           IOFWAVCProtocolUserClientCommandCodes = 0
+)
+
+func (e IOFWAVCProtocolUserClientCommandCodes) String() string {
+	switch e {
+	case KIOFWAVCProtocolUserClientAVCRequestNotHandled:
+		return "KIOFWAVCProtocolUserClientAVCRequestNotHandled"
+	default:
+		return fmt.Sprintf("IOFWAVCProtocolUserClientCommandCodes(%d)", e)
+	}
+}
+
+type IOFWAVCUserClientAsyncCommandCodes uint
+
+const (
+	KIOFWAVCUserClientInstallAsyncAVCCommandCallback IOFWAVCUserClientAsyncCommandCodes = 16
+	KIOFWAVCUserClientNumAsyncCommands               IOFWAVCUserClientAsyncCommandCodes = 0
+)
+
+func (e IOFWAVCUserClientAsyncCommandCodes) String() string {
+	switch e {
+	case KIOFWAVCUserClientInstallAsyncAVCCommandCallback:
+		return "KIOFWAVCUserClientInstallAsyncAVCCommandCallback"
+	case KIOFWAVCUserClientNumAsyncCommands:
+		return "KIOFWAVCUserClientNumAsyncCommands"
+	default:
+		return fmt.Sprintf("IOFWAVCUserClientAsyncCommandCodes(%d)", e)
+	}
+}
+
+type IOFWAVCUserClientCommandCodes uint
+
+const (
+	KIOFWAVCUserClientAVCCommand               IOFWAVCUserClientCommandCodes = 0
+	KIOFWAVCUserClientAVCCommandInGen          IOFWAVCUserClientCommandCodes = 0
+	KIOFWAVCUserClientBreakP2PInputConnection  IOFWAVCUserClientCommandCodes = 0
+	KIOFWAVCUserClientBreakP2POutputConnection IOFWAVCUserClientCommandCodes = 0
+	KIOFWAVCUserClientCancelAsyncAVCCommand    IOFWAVCUserClientCommandCodes = 0
+	KIOFWAVCUserClientClose                    IOFWAVCUserClientCommandCodes = 0
+	KIOFWAVCUserClientCreateAsyncAVCCommand    IOFWAVCUserClientCommandCodes = 0
+	KIOFWAVCUserClientGetSessionRef            IOFWAVCUserClientCommandCodes = 0
+	KIOFWAVCUserClientMakeP2PInputConnection   IOFWAVCUserClientCommandCodes = 0
+	KIOFWAVCUserClientMakeP2POutputConnection  IOFWAVCUserClientCommandCodes = 0
+	KIOFWAVCUserClientNumCommands              IOFWAVCUserClientCommandCodes = 0
+	KIOFWAVCUserClientOpen                     IOFWAVCUserClientCommandCodes = 0
+	KIOFWAVCUserClientOpenWithSessionRef       IOFWAVCUserClientCommandCodes = 0
+	KIOFWAVCUserClientReinitAsyncAVCCommand    IOFWAVCUserClientCommandCodes = 0
+	KIOFWAVCUserClientReleaseAsyncAVCCommand   IOFWAVCUserClientCommandCodes = 0
+	KIOFWAVCUserClientSubmitAsyncAVCCommand    IOFWAVCUserClientCommandCodes = 0
+	KIOFWAVCUserClientUpdateAVCCommandTimeout  IOFWAVCUserClientCommandCodes = 0
+)
+
+func (e IOFWAVCUserClientCommandCodes) String() string {
+	switch e {
+	case KIOFWAVCUserClientAVCCommand:
+		return "KIOFWAVCUserClientAVCCommand"
+	default:
+		return fmt.Sprintf("IOFWAVCUserClientCommandCodes(%d)", e)
+	}
+}
+
+type IOFWDCLNotificationType uint32
+
+const (
+	KFWDCLInvalidNotification      IOFWDCLNotificationType = 0
+	KFWDCLModifyNotification       IOFWDCLNotificationType = 2
+	KFWDCLUpdateNotification       IOFWDCLNotificationType = 1
+	KFWNuDCLModifyJumpNotification IOFWDCLNotificationType = 4
+	KFWNuDCLModifyNotification     IOFWDCLNotificationType = 3
+	KFWNuDCLUpdateNotification     IOFWDCLNotificationType = 5
+)
+
+func (e IOFWDCLNotificationType) String() string {
+	switch e {
+	case KFWDCLInvalidNotification:
+		return "KFWDCLInvalidNotification"
+	case KFWDCLModifyNotification:
+		return "KFWDCLModifyNotification"
+	case KFWDCLUpdateNotification:
+		return "KFWDCLUpdateNotification"
+	case KFWNuDCLModifyJumpNotification:
+		return "KFWNuDCLModifyJumpNotification"
+	case KFWNuDCLModifyNotification:
+		return "KFWNuDCLModifyNotification"
+	case KFWNuDCLUpdateNotification:
+		return "KFWNuDCLUpdateNotification"
+	default:
+		return fmt.Sprintf("IOFWDCLNotificationType(%d)", e)
+	}
+}
+
+type IOFWIsochPortOptions uint32
+
+const (
+	KFWIsochBigEndianUpdates            IOFWIsochPortOptions = 8
+	KFWIsochEnableRobustness            IOFWIsochPortOptions = 4
+	KFWIsochPortDefaultOptions          IOFWIsochPortOptions = 0
+	KFWIsochPortUseSeparateKernelThread IOFWIsochPortOptions = 2
+	KFWIsochRequireLastContext          IOFWIsochPortOptions = 16
+)
+
+func (e IOFWIsochPortOptions) String() string {
+	switch e {
+	case KFWIsochBigEndianUpdates:
+		return "KFWIsochBigEndianUpdates"
+	case KFWIsochEnableRobustness:
+		return "KFWIsochEnableRobustness"
+	case KFWIsochPortDefaultOptions:
+		return "KFWIsochPortDefaultOptions"
+	case KFWIsochPortUseSeparateKernelThread:
+		return "KFWIsochPortUseSeparateKernelThread"
+	case KFWIsochRequireLastContext:
+		return "KFWIsochRequireLastContext"
+	default:
+		return fmt.Sprintf("IOFWIsochPortOptions(%d)", e)
+	}
+}
+
+type IOFWIsochResourceFlags uint32
+
+const (
+	KFWAllowMultiMode            IOFWIsochResourceFlags = 1
+	KFWAlwaysMultiMode           IOFWIsochResourceFlags = 3
+	KFWDefaultIsochResourceFlags IOFWIsochResourceFlags = 0
+	KFWNeverMultiMode            IOFWIsochResourceFlags = 0
+	KFWSuggestMultiMode          IOFWIsochResourceFlags = 2
+)
+
+func (e IOFWIsochResourceFlags) String() string {
+	switch e {
+	case KFWAllowMultiMode:
+		return "KFWAllowMultiMode"
+	case KFWAlwaysMultiMode:
+		return "KFWAlwaysMultiMode"
+	case KFWDefaultIsochResourceFlags:
+		return "KFWDefaultIsochResourceFlags"
+	case KFWSuggestMultiMode:
+		return "KFWSuggestMultiMode"
+	default:
+		return fmt.Sprintf("IOFWIsochResourceFlags(%d)", e)
+	}
+}
+
+type IOFWSpeed uint32
+
+const (
+	KFWSpeed100MBit     IOFWSpeed = 0
+	KFWSpeed200MBit     IOFWSpeed = 1
+	KFWSpeed400MBit     IOFWSpeed = 2
+	KFWSpeed800MBit     IOFWSpeed = 3
+	KFWSpeedInvalid     IOFWSpeed = 0x80000000
+	KFWSpeedMaximum     IOFWSpeed = 0x7fffffff
+	KFWSpeedReserved    IOFWSpeed = 3
+	KFWSpeedReserved1   IOFWSpeed = 7
+	KFWSpeedUnknownMask IOFWSpeed = 0x80
+)
+
+func (e IOFWSpeed) String() string {
+	switch e {
+	case KFWSpeed100MBit:
+		return "KFWSpeed100MBit"
+	case KFWSpeed200MBit:
+		return "KFWSpeed200MBit"
+	case KFWSpeed400MBit:
+		return "KFWSpeed400MBit"
+	case KFWSpeed800MBit:
+		return "KFWSpeed800MBit"
+	case KFWSpeedInvalid:
+		return "KFWSpeedInvalid"
+	case KFWSpeedMaximum:
+		return "KFWSpeedMaximum"
+	case KFWSpeedReserved1:
+		return "KFWSpeedReserved1"
+	case KFWSpeedUnknownMask:
+		return "KFWSpeedUnknownMask"
+	default:
+		return fmt.Sprintf("IOFWSpeed(%d)", e)
+	}
+}
+
 type IOHIDKeyboardEventOptions uint
 
 const (
@@ -1799,7 +2598,76 @@ func (e IOHIDScrollEventOptions) String() string {
 	}
 }
 
-type IOUSBHostCICapabilitiesMessage uint
+type IOPMNextHigherStateConstants uint
+
+const (
+	IOPMHighestState    IOPMNextHigherStateConstants = 2
+	IOPMLowestState     IOPMNextHigherStateConstants = 4
+	IOPMNextHigherState IOPMNextHigherStateConstants = 1
+	IOPMNextLowerState  IOPMNextHigherStateConstants = 3
+)
+
+func (e IOPMNextHigherStateConstants) String() string {
+	switch e {
+	case IOPMHighestState:
+		return "IOPMHighestState"
+	case IOPMLowestState:
+		return "IOPMLowestState"
+	case IOPMNextHigherState:
+		return "IOPMNextHigherState"
+	case IOPMNextLowerState:
+		return "IOPMNextLowerState"
+	default:
+		return fmt.Sprintf("IOPMNextHigherStateConstants(%d)", e)
+	}
+}
+
+type IOPMNotAttainableConstants uint
+
+const (
+	IOPMAuxPowerOn      IOPMNotAttainableConstants = 32
+	IOPMClockNormal     IOPMNotAttainableConstants = 4
+	IOPMClockRunning    IOPMNotAttainableConstants = 8
+	IOPMConfigRetained  IOPMNotAttainableConstants = 4096
+	IOPMContextRetained IOPMNotAttainableConstants = 8192
+	IOPMDeviceUsable    IOPMNotAttainableConstants = 32768
+	IOPMMaxPerformance  IOPMNotAttainableConstants = 16384
+	IOPMNotAttainable   IOPMNotAttainableConstants = 1
+	IOPMNotPowerManaged IOPMNotAttainableConstants = 2048
+	IOPMPowerOn         IOPMNotAttainableConstants = 2
+	IOPMSoftSleep       IOPMNotAttainableConstants = 1024
+)
+
+func (e IOPMNotAttainableConstants) String() string {
+	switch e {
+	case IOPMAuxPowerOn:
+		return "IOPMAuxPowerOn"
+	case IOPMClockNormal:
+		return "IOPMClockNormal"
+	case IOPMClockRunning:
+		return "IOPMClockRunning"
+	case IOPMConfigRetained:
+		return "IOPMConfigRetained"
+	case IOPMContextRetained:
+		return "IOPMContextRetained"
+	case IOPMDeviceUsable:
+		return "IOPMDeviceUsable"
+	case IOPMMaxPerformance:
+		return "IOPMMaxPerformance"
+	case IOPMNotAttainable:
+		return "IOPMNotAttainable"
+	case IOPMNotPowerManaged:
+		return "IOPMNotPowerManaged"
+	case IOPMPowerOn:
+		return "IOPMPowerOn"
+	case IOPMSoftSleep:
+		return "IOPMSoftSleep"
+	default:
+		return fmt.Sprintf("IOPMNotAttainableConstants(%d)", e)
+	}
+}
+
+type IOUSBHostCICapabilitiesMessage uint32
 
 const (
 	IOUSBHostCICapabilitiesMessageControlPortCount                  IOUSBHostCICapabilitiesMessage = 983040
@@ -1829,7 +2697,7 @@ func (e IOUSBHostCICapabilitiesMessage) String() string {
 	}
 }
 
-type IOUSBHostCICommandMessage uint
+type IOUSBHostCICommandMessage uint32
 
 const (
 	IOUSBHostCICommandMessageControlStatus             IOUSBHostCICommandMessage = 3840
@@ -1867,24 +2735,28 @@ func (e IOUSBHostCICommandMessage) String() string {
 	}
 }
 
-type IOUSBHostCIControllerState uint
+type IOUSBHostCIControllerState uint32
 
 const (
-	IOUSBHostCIControllerStateActive IOUSBHostCIControllerState = 0
+	IOUSBHostCIControllerStateActive IOUSBHostCIControllerState = 2
 	IOUSBHostCIControllerStateOff    IOUSBHostCIControllerState = 0
-	IOUSBHostCIControllerStatePaused IOUSBHostCIControllerState = 0
+	IOUSBHostCIControllerStatePaused IOUSBHostCIControllerState = 1
 )
 
 func (e IOUSBHostCIControllerState) String() string {
 	switch e {
 	case IOUSBHostCIControllerStateActive:
 		return "IOUSBHostCIControllerStateActive"
+	case IOUSBHostCIControllerStateOff:
+		return "IOUSBHostCIControllerStateOff"
+	case IOUSBHostCIControllerStatePaused:
+		return "IOUSBHostCIControllerStatePaused"
 	default:
 		return fmt.Sprintf("IOUSBHostCIControllerState(%d)", e)
 	}
 }
 
-type IOUSBHostCIDeviceCreateCommandData0 uint
+type IOUSBHostCIDeviceCreateCommandData0 uint32
 
 const (
 	IOUSBHostCIDeviceCreateCommandData0RootPort      IOUSBHostCIDeviceCreateCommandData0 = 15
@@ -1908,7 +2780,7 @@ func (e IOUSBHostCIDeviceCreateCommandData0) String() string {
 	}
 }
 
-type IOUSBHostCIDeviceCreateCommandData1Device uint
+type IOUSBHostCIDeviceCreateCommandData1Device uint32
 
 const (
 	IOUSBHostCIDeviceCreateCommandData1DeviceAddress      IOUSBHostCIDeviceCreateCommandData1Device = 255
@@ -1926,7 +2798,7 @@ func (e IOUSBHostCIDeviceCreateCommandData1Device) String() string {
 	}
 }
 
-type IOUSBHostCIDeviceSpeed uint
+type IOUSBHostCIDeviceSpeed uint32
 
 const (
 	IOUSBHostCIDeviceSpeedFull         IOUSBHostCIDeviceSpeed = 1
@@ -1959,27 +2831,31 @@ func (e IOUSBHostCIDeviceSpeed) String() string {
 	}
 }
 
-type IOUSBHostCIDeviceState uint
+type IOUSBHostCIDeviceState uint32
 
 const (
-	IOUSBHostCIDeviceStateActive    IOUSBHostCIDeviceState = 0
+	IOUSBHostCIDeviceStateActive    IOUSBHostCIDeviceState = 2
 	IOUSBHostCIDeviceStateDestroyed IOUSBHostCIDeviceState = 0
-	IOUSBHostCIDeviceStatePaused    IOUSBHostCIDeviceState = 0
+	IOUSBHostCIDeviceStatePaused    IOUSBHostCIDeviceState = 1
 )
 
 func (e IOUSBHostCIDeviceState) String() string {
 	switch e {
 	case IOUSBHostCIDeviceStateActive:
 		return "IOUSBHostCIDeviceStateActive"
+	case IOUSBHostCIDeviceStateDestroyed:
+		return "IOUSBHostCIDeviceStateDestroyed"
+	case IOUSBHostCIDeviceStatePaused:
+		return "IOUSBHostCIDeviceStatePaused"
 	default:
 		return fmt.Sprintf("IOUSBHostCIDeviceState(%d)", e)
 	}
 }
 
-type IOUSBHostCIDeviceUpdateCommandData1Descriptor int
+type IOUSBHostCIDeviceUpdateCommandData1Descriptor uint
 
 const (
-	IOUSBHostCIDeviceUpdateCommandData1DescriptorAddress      IOUSBHostCIDeviceUpdateCommandData1Descriptor = -1
+	IOUSBHostCIDeviceUpdateCommandData1DescriptorAddress      IOUSBHostCIDeviceUpdateCommandData1Descriptor = 18446744073709551615
 	IOUSBHostCIDeviceUpdateCommandData1DescriptorAddressPhase IOUSBHostCIDeviceUpdateCommandData1Descriptor = 0
 )
 
@@ -1994,7 +2870,7 @@ func (e IOUSBHostCIDeviceUpdateCommandData1Descriptor) String() string {
 	}
 }
 
-type IOUSBHostCIDoorbell uint
+type IOUSBHostCIDoorbell uint32
 
 const (
 	IOUSBHostCIDoorbellDeviceAddress        IOUSBHostCIDoorbell = 255
@@ -2024,10 +2900,10 @@ func (e IOUSBHostCIDoorbell) String() string {
 	}
 }
 
-type IOUSBHostCIEndpointCreateCommandData1 int
+type IOUSBHostCIEndpointCreateCommandData1 uint
 
 const (
-	IOUSBHostCIEndpointCreateCommandData1Descriptor      IOUSBHostCIEndpointCreateCommandData1 = -1
+	IOUSBHostCIEndpointCreateCommandData1Descriptor      IOUSBHostCIEndpointCreateCommandData1 = 18446744073709551615
 	IOUSBHostCIEndpointCreateCommandData1DescriptorPhase IOUSBHostCIEndpointCreateCommandData1 = 0
 )
 
@@ -2042,7 +2918,7 @@ func (e IOUSBHostCIEndpointCreateCommandData1) String() string {
 	}
 }
 
-type IOUSBHostCIEndpointResetCommandData1Clear uint
+type IOUSBHostCIEndpointResetCommandData1Clear uint32
 
 const (
 	IOUSBHostCIEndpointResetCommandData1ClearState IOUSBHostCIEndpointResetCommandData1Clear = 1
@@ -2057,10 +2933,10 @@ func (e IOUSBHostCIEndpointResetCommandData1Clear) String() string {
 	}
 }
 
-type IOUSBHostCIEndpointSetNextTransferCommandData1 int
+type IOUSBHostCIEndpointSetNextTransferCommandData1 uint
 
 const (
-	IOUSBHostCIEndpointSetNextTransferCommandData1Address      IOUSBHostCIEndpointSetNextTransferCommandData1 = -1
+	IOUSBHostCIEndpointSetNextTransferCommandData1Address      IOUSBHostCIEndpointSetNextTransferCommandData1 = 18446744073709551615
 	IOUSBHostCIEndpointSetNextTransferCommandData1AddressPhase IOUSBHostCIEndpointSetNextTransferCommandData1 = 0
 )
 
@@ -2075,28 +2951,34 @@ func (e IOUSBHostCIEndpointSetNextTransferCommandData1) String() string {
 	}
 }
 
-type IOUSBHostCIEndpointState uint
+type IOUSBHostCIEndpointState uint32
 
 const (
-	IOUSBHostCIEndpointStateActive    IOUSBHostCIEndpointState = 0
+	IOUSBHostCIEndpointStateActive    IOUSBHostCIEndpointState = 3
 	IOUSBHostCIEndpointStateDestroyed IOUSBHostCIEndpointState = 0
-	IOUSBHostCIEndpointStateHalted    IOUSBHostCIEndpointState = 0
-	IOUSBHostCIEndpointStatePaused    IOUSBHostCIEndpointState = 0
+	IOUSBHostCIEndpointStateHalted    IOUSBHostCIEndpointState = 1
+	IOUSBHostCIEndpointStatePaused    IOUSBHostCIEndpointState = 2
 )
 
 func (e IOUSBHostCIEndpointState) String() string {
 	switch e {
 	case IOUSBHostCIEndpointStateActive:
 		return "IOUSBHostCIEndpointStateActive"
+	case IOUSBHostCIEndpointStateDestroyed:
+		return "IOUSBHostCIEndpointStateDestroyed"
+	case IOUSBHostCIEndpointStateHalted:
+		return "IOUSBHostCIEndpointStateHalted"
+	case IOUSBHostCIEndpointStatePaused:
+		return "IOUSBHostCIEndpointStatePaused"
 	default:
 		return fmt.Sprintf("IOUSBHostCIEndpointState(%d)", e)
 	}
 }
 
-type IOUSBHostCIEndpointUpdateCommandData1 int
+type IOUSBHostCIEndpointUpdateCommandData1 uint
 
 const (
-	IOUSBHostCIEndpointUpdateCommandData1Descriptor      IOUSBHostCIEndpointUpdateCommandData1 = -1
+	IOUSBHostCIEndpointUpdateCommandData1Descriptor      IOUSBHostCIEndpointUpdateCommandData1 = 18446744073709551615
 	IOUSBHostCIEndpointUpdateCommandData1DescriptorPhase IOUSBHostCIEndpointUpdateCommandData1 = 0
 )
 
@@ -2111,21 +2993,21 @@ func (e IOUSBHostCIEndpointUpdateCommandData1) String() string {
 	}
 }
 
-type IOUSBHostCIExceptionType uint
+type IOUSBHostCIExceptionType uint32
 
 const (
-	IOUSBHostCIExceptionTypeCapabilitiesInvalid   IOUSBHostCIExceptionType = 0
-	IOUSBHostCIExceptionTypeCommandFailure        IOUSBHostCIExceptionType = 0
-	IOUSBHostCIExceptionTypeCommandReadCollision  IOUSBHostCIExceptionType = 0
-	IOUSBHostCIExceptionTypeCommandTimeout        IOUSBHostCIExceptionType = 0
-	IOUSBHostCIExceptionTypeCommandWriteFailed    IOUSBHostCIExceptionType = 0
-	IOUSBHostCIExceptionTypeDoorbellOverflow      IOUSBHostCIExceptionType = 0
-	IOUSBHostCIExceptionTypeDoorbellReadCollision IOUSBHostCIExceptionType = 0
-	IOUSBHostCIExceptionTypeFrameUpdateError      IOUSBHostCIExceptionType = 0
-	IOUSBHostCIExceptionTypeInterruptInvalid      IOUSBHostCIExceptionType = 0
-	IOUSBHostCIExceptionTypeInterruptOverflow     IOUSBHostCIExceptionType = 0
-	IOUSBHostCIExceptionTypeProtocolError         IOUSBHostCIExceptionType = 0
-	IOUSBHostCIExceptionTypeTerminated            IOUSBHostCIExceptionType = 0
+	IOUSBHostCIExceptionTypeCapabilitiesInvalid   IOUSBHostCIExceptionType = 1
+	IOUSBHostCIExceptionTypeCommandFailure        IOUSBHostCIExceptionType = 6
+	IOUSBHostCIExceptionTypeCommandReadCollision  IOUSBHostCIExceptionType = 3
+	IOUSBHostCIExceptionTypeCommandTimeout        IOUSBHostCIExceptionType = 5
+	IOUSBHostCIExceptionTypeCommandWriteFailed    IOUSBHostCIExceptionType = 4
+	IOUSBHostCIExceptionTypeDoorbellOverflow      IOUSBHostCIExceptionType = 10
+	IOUSBHostCIExceptionTypeDoorbellReadCollision IOUSBHostCIExceptionType = 9
+	IOUSBHostCIExceptionTypeFrameUpdateError      IOUSBHostCIExceptionType = 12
+	IOUSBHostCIExceptionTypeInterruptInvalid      IOUSBHostCIExceptionType = 7
+	IOUSBHostCIExceptionTypeInterruptOverflow     IOUSBHostCIExceptionType = 8
+	IOUSBHostCIExceptionTypeProtocolError         IOUSBHostCIExceptionType = 11
+	IOUSBHostCIExceptionTypeTerminated            IOUSBHostCIExceptionType = 2
 	IOUSBHostCIExceptionTypeUnknown               IOUSBHostCIExceptionType = 0
 )
 
@@ -2133,15 +3015,39 @@ func (e IOUSBHostCIExceptionType) String() string {
 	switch e {
 	case IOUSBHostCIExceptionTypeCapabilitiesInvalid:
 		return "IOUSBHostCIExceptionTypeCapabilitiesInvalid"
+	case IOUSBHostCIExceptionTypeCommandFailure:
+		return "IOUSBHostCIExceptionTypeCommandFailure"
+	case IOUSBHostCIExceptionTypeCommandReadCollision:
+		return "IOUSBHostCIExceptionTypeCommandReadCollision"
+	case IOUSBHostCIExceptionTypeCommandTimeout:
+		return "IOUSBHostCIExceptionTypeCommandTimeout"
+	case IOUSBHostCIExceptionTypeCommandWriteFailed:
+		return "IOUSBHostCIExceptionTypeCommandWriteFailed"
+	case IOUSBHostCIExceptionTypeDoorbellOverflow:
+		return "IOUSBHostCIExceptionTypeDoorbellOverflow"
+	case IOUSBHostCIExceptionTypeDoorbellReadCollision:
+		return "IOUSBHostCIExceptionTypeDoorbellReadCollision"
+	case IOUSBHostCIExceptionTypeFrameUpdateError:
+		return "IOUSBHostCIExceptionTypeFrameUpdateError"
+	case IOUSBHostCIExceptionTypeInterruptInvalid:
+		return "IOUSBHostCIExceptionTypeInterruptInvalid"
+	case IOUSBHostCIExceptionTypeInterruptOverflow:
+		return "IOUSBHostCIExceptionTypeInterruptOverflow"
+	case IOUSBHostCIExceptionTypeProtocolError:
+		return "IOUSBHostCIExceptionTypeProtocolError"
+	case IOUSBHostCIExceptionTypeTerminated:
+		return "IOUSBHostCIExceptionTypeTerminated"
+	case IOUSBHostCIExceptionTypeUnknown:
+		return "IOUSBHostCIExceptionTypeUnknown"
 	default:
 		return fmt.Sprintf("IOUSBHostCIExceptionType(%d)", e)
 	}
 }
 
-type IOUSBHostCIIsochronousTransferControl uint
+type IOUSBHostCIIsochronousTransferControl uint32
 
 const (
-	IOUSBHostCIIsochronousTransferControlASAP             IOUSBHostCIIsochronousTransferControl = 16777216
+	IOUSBHostCIIsochronousTransferControlASAP             IOUSBHostCIIsochronousTransferControl = 0x1000000
 	IOUSBHostCIIsochronousTransferControlFrameNumber      IOUSBHostCIIsochronousTransferControl = 16711680
 	IOUSBHostCIIsochronousTransferControlFrameNumberPhase IOUSBHostCIIsochronousTransferControl = 16
 )
@@ -2159,7 +3065,7 @@ func (e IOUSBHostCIIsochronousTransferControl) String() string {
 	}
 }
 
-type IOUSBHostCIIsochronousTransferData0 uint
+type IOUSBHostCIIsochronousTransferData0 uint32
 
 const (
 	IOUSBHostCIIsochronousTransferData0Length      IOUSBHostCIIsochronousTransferData0 = 268435455
@@ -2177,10 +3083,10 @@ func (e IOUSBHostCIIsochronousTransferData0) String() string {
 	}
 }
 
-type IOUSBHostCIIsochronousTransferData1 int
+type IOUSBHostCIIsochronousTransferData1 uint
 
 const (
-	IOUSBHostCIIsochronousTransferData1Buffer      IOUSBHostCIIsochronousTransferData1 = -1
+	IOUSBHostCIIsochronousTransferData1Buffer      IOUSBHostCIIsochronousTransferData1 = 18446744073709551615
 	IOUSBHostCIIsochronousTransferData1BufferPhase IOUSBHostCIIsochronousTransferData1 = 0
 )
 
@@ -2195,10 +3101,10 @@ func (e IOUSBHostCIIsochronousTransferData1) String() string {
 	}
 }
 
-type IOUSBHostCILinkData1TransferStructure int
+type IOUSBHostCILinkData1TransferStructure uint
 
 const (
-	IOUSBHostCILinkData1TransferStructureAddress      IOUSBHostCILinkData1TransferStructure = -1
+	IOUSBHostCILinkData1TransferStructureAddress      IOUSBHostCILinkData1TransferStructure = 18446744073709551615
 	IOUSBHostCILinkData1TransferStructureAddressPhase IOUSBHostCILinkData1TransferStructure = 0
 )
 
@@ -2213,7 +3119,7 @@ func (e IOUSBHostCILinkData1TransferStructure) String() string {
 	}
 }
 
-type IOUSBHostCILinkState uint
+type IOUSBHostCILinkState uint32
 
 const (
 	IOUSBHostCILinkStateCompliance IOUSBHostCILinkState = 10
@@ -2264,15 +3170,15 @@ func (e IOUSBHostCILinkState) String() string {
 	}
 }
 
-type IOUSBHostCIMessageControl uint
+type IOUSBHostCIMessageControl uint32
 
 const (
-	IOUSBHostCIMessageControlNoResponse  IOUSBHostCIMessageControl = 16384
+	IOUSBHostCIMessageControlNoResponse  IOUSBHostCIMessageControl = 0x4000
 	IOUSBHostCIMessageControlStatus      IOUSBHostCIMessageControl = 3840
 	IOUSBHostCIMessageControlStatusPhase IOUSBHostCIMessageControl = 8
 	IOUSBHostCIMessageControlType        IOUSBHostCIMessageControl = 63
 	IOUSBHostCIMessageControlTypePhase   IOUSBHostCIMessageControl = 0
-	IOUSBHostCIMessageControlValid       IOUSBHostCIMessageControl = 32768
+	IOUSBHostCIMessageControlValid       IOUSBHostCIMessageControl = 0x8000
 )
 
 func (e IOUSBHostCIMessageControl) String() string {
@@ -2294,74 +3200,100 @@ func (e IOUSBHostCIMessageControl) String() string {
 	}
 }
 
-type IOUSBHostCIMessageStatus int
+type IOUSBHostCIMessageStatus uint32
 
 const (
-	IOUSBHostCIMessageStatusBadArgument        IOUSBHostCIMessageStatus = 0
-	IOUSBHostCIMessageStatusEndpointStopped    IOUSBHostCIMessageStatus = 0
-	IOUSBHostCIMessageStatusError              IOUSBHostCIMessageStatus = 0
-	IOUSBHostCIMessageStatusMissedServiceError IOUSBHostCIMessageStatus = 0
-	IOUSBHostCIMessageStatusNoResources        IOUSBHostCIMessageStatus = 0
-	IOUSBHostCIMessageStatusNotPermitted       IOUSBHostCIMessageStatus = 0
-	IOUSBHostCIMessageStatusOffline            IOUSBHostCIMessageStatus = 0
-	IOUSBHostCIMessageStatusOverrunError       IOUSBHostCIMessageStatus = 0
-	IOUSBHostCIMessageStatusProtocolError      IOUSBHostCIMessageStatus = 0
+	IOUSBHostCIMessageStatusBadArgument        IOUSBHostCIMessageStatus = 4
+	IOUSBHostCIMessageStatusEndpointStopped    IOUSBHostCIMessageStatus = 7
+	IOUSBHostCIMessageStatusError              IOUSBHostCIMessageStatus = 13
+	IOUSBHostCIMessageStatusMissedServiceError IOUSBHostCIMessageStatus = 12
+	IOUSBHostCIMessageStatusNoResources        IOUSBHostCIMessageStatus = 6
+	IOUSBHostCIMessageStatusNotPermitted       IOUSBHostCIMessageStatus = 3
+	IOUSBHostCIMessageStatusOffline            IOUSBHostCIMessageStatus = 2
+	IOUSBHostCIMessageStatusOverrunError       IOUSBHostCIMessageStatus = 10
+	IOUSBHostCIMessageStatusProtocolError      IOUSBHostCIMessageStatus = 8
 	IOUSBHostCIMessageStatusReserved           IOUSBHostCIMessageStatus = 0
-	IOUSBHostCIMessageStatusStallError         IOUSBHostCIMessageStatus = 0
-	IOUSBHostCIMessageStatusSuccess            IOUSBHostCIMessageStatus = 0
-	IOUSBHostCIMessageStatusTimeout            IOUSBHostCIMessageStatus = 0
-	IOUSBHostCIMessageStatusTransactionError   IOUSBHostCIMessageStatus = 0
+	IOUSBHostCIMessageStatusStallError         IOUSBHostCIMessageStatus = 11
+	IOUSBHostCIMessageStatusSuccess            IOUSBHostCIMessageStatus = 1
+	IOUSBHostCIMessageStatusTimeout            IOUSBHostCIMessageStatus = 5
+	IOUSBHostCIMessageStatusTransactionError   IOUSBHostCIMessageStatus = 9
 )
 
 func (e IOUSBHostCIMessageStatus) String() string {
 	switch e {
 	case IOUSBHostCIMessageStatusBadArgument:
 		return "IOUSBHostCIMessageStatusBadArgument"
+	case IOUSBHostCIMessageStatusEndpointStopped:
+		return "IOUSBHostCIMessageStatusEndpointStopped"
+	case IOUSBHostCIMessageStatusError:
+		return "IOUSBHostCIMessageStatusError"
+	case IOUSBHostCIMessageStatusMissedServiceError:
+		return "IOUSBHostCIMessageStatusMissedServiceError"
+	case IOUSBHostCIMessageStatusNoResources:
+		return "IOUSBHostCIMessageStatusNoResources"
+	case IOUSBHostCIMessageStatusNotPermitted:
+		return "IOUSBHostCIMessageStatusNotPermitted"
+	case IOUSBHostCIMessageStatusOffline:
+		return "IOUSBHostCIMessageStatusOffline"
+	case IOUSBHostCIMessageStatusOverrunError:
+		return "IOUSBHostCIMessageStatusOverrunError"
+	case IOUSBHostCIMessageStatusProtocolError:
+		return "IOUSBHostCIMessageStatusProtocolError"
+	case IOUSBHostCIMessageStatusReserved:
+		return "IOUSBHostCIMessageStatusReserved"
+	case IOUSBHostCIMessageStatusStallError:
+		return "IOUSBHostCIMessageStatusStallError"
+	case IOUSBHostCIMessageStatusSuccess:
+		return "IOUSBHostCIMessageStatusSuccess"
+	case IOUSBHostCIMessageStatusTimeout:
+		return "IOUSBHostCIMessageStatusTimeout"
+	case IOUSBHostCIMessageStatusTransactionError:
+		return "IOUSBHostCIMessageStatusTransactionError"
 	default:
 		return fmt.Sprintf("IOUSBHostCIMessageStatus(%d)", e)
 	}
 }
 
-type IOUSBHostCIMessageType uint
+type IOUSBHostCIMessageType uint32
 
 const (
 	IOUSBHostCIMessageTypeCommandMax              IOUSBHostCIMessageType = 0x37
 	IOUSBHostCIMessageTypeCommandMin              IOUSBHostCIMessageType = 0x10
 	IOUSBHostCIMessageTypeControllerCapabilities  IOUSBHostCIMessageType = 0
-	IOUSBHostCIMessageTypeControllerFrameNumber   IOUSBHostCIMessageType = 0
-	IOUSBHostCIMessageTypeControllerPause         IOUSBHostCIMessageType = 0
-	IOUSBHostCIMessageTypeControllerPowerOff      IOUSBHostCIMessageType = 0
+	IOUSBHostCIMessageTypeControllerFrameNumber   IOUSBHostCIMessageType = 20
+	IOUSBHostCIMessageTypeControllerPause         IOUSBHostCIMessageType = 19
+	IOUSBHostCIMessageTypeControllerPowerOff      IOUSBHostCIMessageType = 17
 	IOUSBHostCIMessageTypeControllerPowerOn       IOUSBHostCIMessageType = 0x10
-	IOUSBHostCIMessageTypeControllerStart         IOUSBHostCIMessageType = 0
+	IOUSBHostCIMessageTypeControllerStart         IOUSBHostCIMessageType = 18
 	IOUSBHostCIMessageTypeDeviceCreate            IOUSBHostCIMessageType = 0x20
-	IOUSBHostCIMessageTypeDeviceDestroy           IOUSBHostCIMessageType = 0
-	IOUSBHostCIMessageTypeDevicePause             IOUSBHostCIMessageType = 0
-	IOUSBHostCIMessageTypeDeviceStart             IOUSBHostCIMessageType = 0
-	IOUSBHostCIMessageTypeDeviceUpdate            IOUSBHostCIMessageType = 0
+	IOUSBHostCIMessageTypeDeviceDestroy           IOUSBHostCIMessageType = 33
+	IOUSBHostCIMessageTypeDevicePause             IOUSBHostCIMessageType = 35
+	IOUSBHostCIMessageTypeDeviceStart             IOUSBHostCIMessageType = 34
+	IOUSBHostCIMessageTypeDeviceUpdate            IOUSBHostCIMessageType = 36
 	IOUSBHostCIMessageTypeEndpointCreate          IOUSBHostCIMessageType = 0x28
-	IOUSBHostCIMessageTypeEndpointDestroy         IOUSBHostCIMessageType = 0
-	IOUSBHostCIMessageTypeEndpointPause           IOUSBHostCIMessageType = 0
-	IOUSBHostCIMessageTypeEndpointReset           IOUSBHostCIMessageType = 0
-	IOUSBHostCIMessageTypeEndpointSetNextTransfer IOUSBHostCIMessageType = 0
-	IOUSBHostCIMessageTypeEndpointUpdate          IOUSBHostCIMessageType = 0
-	IOUSBHostCIMessageTypeEndpoint_reserved_      IOUSBHostCIMessageType = 0
-	IOUSBHostCIMessageTypeFrameNumberUpdate       IOUSBHostCIMessageType = 0
-	IOUSBHostCIMessageTypeFrameTimestampUpdate    IOUSBHostCIMessageType = 0
-	IOUSBHostCIMessageTypeIsochronousTransfer     IOUSBHostCIMessageType = 0
-	IOUSBHostCIMessageTypeLink                    IOUSBHostCIMessageType = 0
-	IOUSBHostCIMessageTypeNormalTransfer          IOUSBHostCIMessageType = 0
-	IOUSBHostCIMessageTypePortCapabilities        IOUSBHostCIMessageType = 0
-	IOUSBHostCIMessageTypePortDisable             IOUSBHostCIMessageType = 0
+	IOUSBHostCIMessageTypeEndpointDestroy         IOUSBHostCIMessageType = 41
+	IOUSBHostCIMessageTypeEndpointPause           IOUSBHostCIMessageType = 43
+	IOUSBHostCIMessageTypeEndpointReset           IOUSBHostCIMessageType = 45
+	IOUSBHostCIMessageTypeEndpointSetNextTransfer IOUSBHostCIMessageType = 46
+	IOUSBHostCIMessageTypeEndpointUpdate          IOUSBHostCIMessageType = 44
+	IOUSBHostCIMessageTypeEndpoint_reserved_      IOUSBHostCIMessageType = 42
+	IOUSBHostCIMessageTypeFrameNumberUpdate       IOUSBHostCIMessageType = 9
+	IOUSBHostCIMessageTypeFrameTimestampUpdate    IOUSBHostCIMessageType = 10
+	IOUSBHostCIMessageTypeIsochronousTransfer     IOUSBHostCIMessageType = 59
+	IOUSBHostCIMessageTypeLink                    IOUSBHostCIMessageType = 60
+	IOUSBHostCIMessageTypeNormalTransfer          IOUSBHostCIMessageType = 57
+	IOUSBHostCIMessageTypePortCapabilities        IOUSBHostCIMessageType = 1
+	IOUSBHostCIMessageTypePortDisable             IOUSBHostCIMessageType = 29
 	IOUSBHostCIMessageTypePortEvent               IOUSBHostCIMessageType = 0x8
-	IOUSBHostCIMessageTypePortPowerOff            IOUSBHostCIMessageType = 0
+	IOUSBHostCIMessageTypePortPowerOff            IOUSBHostCIMessageType = 25
 	IOUSBHostCIMessageTypePortPowerOn             IOUSBHostCIMessageType = 0x18
-	IOUSBHostCIMessageTypePortReset               IOUSBHostCIMessageType = 0
-	IOUSBHostCIMessageTypePortResume              IOUSBHostCIMessageType = 0
-	IOUSBHostCIMessageTypePortStatus              IOUSBHostCIMessageType = 0
-	IOUSBHostCIMessageTypePortSuspend             IOUSBHostCIMessageType = 0
+	IOUSBHostCIMessageTypePortReset               IOUSBHostCIMessageType = 28
+	IOUSBHostCIMessageTypePortResume              IOUSBHostCIMessageType = 26
+	IOUSBHostCIMessageTypePortStatus              IOUSBHostCIMessageType = 30
+	IOUSBHostCIMessageTypePortSuspend             IOUSBHostCIMessageType = 27
 	IOUSBHostCIMessageTypeSetupTransfer           IOUSBHostCIMessageType = 0x38
-	IOUSBHostCIMessageTypeStatusTransfer          IOUSBHostCIMessageType = 0
-	IOUSBHostCIMessageTypeTransferComplete        IOUSBHostCIMessageType = 0
+	IOUSBHostCIMessageTypeStatusTransfer          IOUSBHostCIMessageType = 58
+	IOUSBHostCIMessageTypeTransferComplete        IOUSBHostCIMessageType = 61
 )
 
 func (e IOUSBHostCIMessageType) String() string {
@@ -2372,22 +3304,78 @@ func (e IOUSBHostCIMessageType) String() string {
 		return "IOUSBHostCIMessageTypeCommandMin"
 	case IOUSBHostCIMessageTypeControllerCapabilities:
 		return "IOUSBHostCIMessageTypeControllerCapabilities"
+	case IOUSBHostCIMessageTypeControllerFrameNumber:
+		return "IOUSBHostCIMessageTypeControllerFrameNumber"
+	case IOUSBHostCIMessageTypeControllerPause:
+		return "IOUSBHostCIMessageTypeControllerPause"
+	case IOUSBHostCIMessageTypeControllerPowerOff:
+		return "IOUSBHostCIMessageTypeControllerPowerOff"
+	case IOUSBHostCIMessageTypeControllerStart:
+		return "IOUSBHostCIMessageTypeControllerStart"
 	case IOUSBHostCIMessageTypeDeviceCreate:
 		return "IOUSBHostCIMessageTypeDeviceCreate"
+	case IOUSBHostCIMessageTypeDeviceDestroy:
+		return "IOUSBHostCIMessageTypeDeviceDestroy"
+	case IOUSBHostCIMessageTypeDevicePause:
+		return "IOUSBHostCIMessageTypeDevicePause"
+	case IOUSBHostCIMessageTypeDeviceStart:
+		return "IOUSBHostCIMessageTypeDeviceStart"
+	case IOUSBHostCIMessageTypeDeviceUpdate:
+		return "IOUSBHostCIMessageTypeDeviceUpdate"
 	case IOUSBHostCIMessageTypeEndpointCreate:
 		return "IOUSBHostCIMessageTypeEndpointCreate"
+	case IOUSBHostCIMessageTypeEndpointDestroy:
+		return "IOUSBHostCIMessageTypeEndpointDestroy"
+	case IOUSBHostCIMessageTypeEndpointPause:
+		return "IOUSBHostCIMessageTypeEndpointPause"
+	case IOUSBHostCIMessageTypeEndpointReset:
+		return "IOUSBHostCIMessageTypeEndpointReset"
+	case IOUSBHostCIMessageTypeEndpointSetNextTransfer:
+		return "IOUSBHostCIMessageTypeEndpointSetNextTransfer"
+	case IOUSBHostCIMessageTypeEndpointUpdate:
+		return "IOUSBHostCIMessageTypeEndpointUpdate"
+	case IOUSBHostCIMessageTypeEndpoint_reserved_:
+		return "IOUSBHostCIMessageTypeEndpoint_reserved_"
+	case IOUSBHostCIMessageTypeFrameNumberUpdate:
+		return "IOUSBHostCIMessageTypeFrameNumberUpdate"
+	case IOUSBHostCIMessageTypeFrameTimestampUpdate:
+		return "IOUSBHostCIMessageTypeFrameTimestampUpdate"
+	case IOUSBHostCIMessageTypeIsochronousTransfer:
+		return "IOUSBHostCIMessageTypeIsochronousTransfer"
+	case IOUSBHostCIMessageTypeLink:
+		return "IOUSBHostCIMessageTypeLink"
+	case IOUSBHostCIMessageTypeNormalTransfer:
+		return "IOUSBHostCIMessageTypeNormalTransfer"
+	case IOUSBHostCIMessageTypePortCapabilities:
+		return "IOUSBHostCIMessageTypePortCapabilities"
+	case IOUSBHostCIMessageTypePortDisable:
+		return "IOUSBHostCIMessageTypePortDisable"
 	case IOUSBHostCIMessageTypePortEvent:
 		return "IOUSBHostCIMessageTypePortEvent"
+	case IOUSBHostCIMessageTypePortPowerOff:
+		return "IOUSBHostCIMessageTypePortPowerOff"
 	case IOUSBHostCIMessageTypePortPowerOn:
 		return "IOUSBHostCIMessageTypePortPowerOn"
+	case IOUSBHostCIMessageTypePortReset:
+		return "IOUSBHostCIMessageTypePortReset"
+	case IOUSBHostCIMessageTypePortResume:
+		return "IOUSBHostCIMessageTypePortResume"
+	case IOUSBHostCIMessageTypePortStatus:
+		return "IOUSBHostCIMessageTypePortStatus"
+	case IOUSBHostCIMessageTypePortSuspend:
+		return "IOUSBHostCIMessageTypePortSuspend"
 	case IOUSBHostCIMessageTypeSetupTransfer:
 		return "IOUSBHostCIMessageTypeSetupTransfer"
+	case IOUSBHostCIMessageTypeStatusTransfer:
+		return "IOUSBHostCIMessageTypeStatusTransfer"
+	case IOUSBHostCIMessageTypeTransferComplete:
+		return "IOUSBHostCIMessageTypeTransferComplete"
 	default:
 		return fmt.Sprintf("IOUSBHostCIMessageType(%d)", e)
 	}
 }
 
-type IOUSBHostCINormalTransferData0 uint
+type IOUSBHostCINormalTransferData0 uint32
 
 const (
 	IOUSBHostCINormalTransferData0Length      IOUSBHostCINormalTransferData0 = 268435455
@@ -2405,10 +3393,10 @@ func (e IOUSBHostCINormalTransferData0) String() string {
 	}
 }
 
-type IOUSBHostCINormalTransferData1 int
+type IOUSBHostCINormalTransferData1 uint
 
 const (
-	IOUSBHostCINormalTransferData1Buffer      IOUSBHostCINormalTransferData1 = -1
+	IOUSBHostCINormalTransferData1Buffer      IOUSBHostCINormalTransferData1 = 18446744073709551615
 	IOUSBHostCINormalTransferData1BufferPhase IOUSBHostCINormalTransferData1 = 0
 )
 
@@ -2423,12 +3411,12 @@ func (e IOUSBHostCINormalTransferData1) String() string {
 	}
 }
 
-type IOUSBHostCIPortCapabilitiesMessage uint
+type IOUSBHostCIPortCapabilitiesMessage uint32
 
 const (
 	IOUSBHostCIPortCapabilitiesMessageControlConnectorType      IOUSBHostCIPortCapabilitiesMessage = 4278190080
 	IOUSBHostCIPortCapabilitiesMessageControlConnectorTypePhase IOUSBHostCIPortCapabilitiesMessage = 24
-	IOUSBHostCIPortCapabilitiesMessageControlInternalConnector  IOUSBHostCIPortCapabilitiesMessage = 8388608
+	IOUSBHostCIPortCapabilitiesMessageControlInternalConnector  IOUSBHostCIPortCapabilitiesMessage = 0x800000
 	IOUSBHostCIPortCapabilitiesMessageControlPortNumber         IOUSBHostCIPortCapabilitiesMessage = 983040
 	IOUSBHostCIPortCapabilitiesMessageControlPortNumberPhase    IOUSBHostCIPortCapabilitiesMessage = 16
 	IOUSBHostCIPortCapabilitiesMessageData0MaxPower             IOUSBHostCIPortCapabilitiesMessage = 255
@@ -2456,7 +3444,7 @@ func (e IOUSBHostCIPortCapabilitiesMessage) String() string {
 	}
 }
 
-type IOUSBHostCIPortEventMessageData0Port uint
+type IOUSBHostCIPortEventMessageData0Port uint32
 
 const (
 	IOUSBHostCIPortEventMessageData0PortNumber      IOUSBHostCIPortEventMessageData0Port = 15
@@ -2474,35 +3462,41 @@ func (e IOUSBHostCIPortEventMessageData0Port) String() string {
 	}
 }
 
-type IOUSBHostCIPortState uint
+type IOUSBHostCIPortState uint32
 
 const (
-	IOUSBHostCIPortStateActive    IOUSBHostCIPortState = 0
+	IOUSBHostCIPortStateActive    IOUSBHostCIPortState = 3
 	IOUSBHostCIPortStateOff       IOUSBHostCIPortState = 0
-	IOUSBHostCIPortStatePowered   IOUSBHostCIPortState = 0
-	IOUSBHostCIPortStateSuspended IOUSBHostCIPortState = 0
+	IOUSBHostCIPortStatePowered   IOUSBHostCIPortState = 1
+	IOUSBHostCIPortStateSuspended IOUSBHostCIPortState = 2
 )
 
 func (e IOUSBHostCIPortState) String() string {
 	switch e {
 	case IOUSBHostCIPortStateActive:
 		return "IOUSBHostCIPortStateActive"
+	case IOUSBHostCIPortStateOff:
+		return "IOUSBHostCIPortStateOff"
+	case IOUSBHostCIPortStatePowered:
+		return "IOUSBHostCIPortStatePowered"
+	case IOUSBHostCIPortStateSuspended:
+		return "IOUSBHostCIPortStateSuspended"
 	default:
 		return fmt.Sprintf("IOUSBHostCIPortState(%d)", e)
 	}
 }
 
-type IOUSBHostCIPortStatus int
+type IOUSBHostCIPortStatus uint32
 
 const (
-	IOUSBHostCIPortStatusChangeMask        IOUSBHostCIPortStatus = 0x160000
-	IOUSBHostCIPortStatusConnectChange     IOUSBHostCIPortStatus = 262144
+	IOUSBHostCIPortStatusChangeMask        IOUSBHostCIPortStatus = 1441792
+	IOUSBHostCIPortStatusConnectChange     IOUSBHostCIPortStatus = 0x40000
 	IOUSBHostCIPortStatusConnected         IOUSBHostCIPortStatus = 4
 	IOUSBHostCIPortStatusLinkState         IOUSBHostCIPortStatus = 240
-	IOUSBHostCIPortStatusLinkStateChange   IOUSBHostCIPortStatus = 1048576
+	IOUSBHostCIPortStatusLinkStateChange   IOUSBHostCIPortStatus = 0x100000
 	IOUSBHostCIPortStatusLinkStatePhase    IOUSBHostCIPortStatus = 4
 	IOUSBHostCIPortStatusOvercurrent       IOUSBHostCIPortStatus = 2
-	IOUSBHostCIPortStatusOvercurrentChange IOUSBHostCIPortStatus = 131072
+	IOUSBHostCIPortStatusOvercurrentChange IOUSBHostCIPortStatus = 0x20000
 	IOUSBHostCIPortStatusPowered           IOUSBHostCIPortStatus = 1
 	IOUSBHostCIPortStatusSpeed             IOUSBHostCIPortStatus = 1792
 	IOUSBHostCIPortStatusSpeedPhase        IOUSBHostCIPortStatus = 8
@@ -2535,7 +3529,7 @@ func (e IOUSBHostCIPortStatus) String() string {
 	}
 }
 
-type IOUSBHostCIPortStatusCommandData1 int
+type IOUSBHostCIPortStatusCommandData1 uint32
 
 const (
 	IOUSBHostCIPortStatusCommandData1ChangeMask        IOUSBHostCIPortStatusCommandData1 = 1441792
@@ -2578,7 +3572,7 @@ func (e IOUSBHostCIPortStatusCommandData1) String() string {
 	}
 }
 
-type IOUSBHostCISetupTransfer int
+type IOUSBHostCISetupTransfer uint
 
 const (
 	IOUSBHostCISetupTransferData1bRequest           IOUSBHostCISetupTransfer = 65280
@@ -2587,7 +3581,7 @@ const (
 	IOUSBHostCISetupTransferData1bmRequestTypePhase IOUSBHostCISetupTransfer = 0
 	IOUSBHostCISetupTransferData1wIndex             IOUSBHostCISetupTransfer = 281470681743360
 	IOUSBHostCISetupTransferData1wIndexPhase        IOUSBHostCISetupTransfer = 32
-	IOUSBHostCISetupTransferData1wLength            IOUSBHostCISetupTransfer = -281474976710656
+	IOUSBHostCISetupTransferData1wLength            IOUSBHostCISetupTransfer = 18446462598732840960
 	IOUSBHostCISetupTransferData1wLengthPhase       IOUSBHostCISetupTransfer = 48
 	IOUSBHostCISetupTransferData1wValue             IOUSBHostCISetupTransfer = 4294901760
 	IOUSBHostCISetupTransferData1wValuePhase        IOUSBHostCISetupTransfer = 16
@@ -2620,7 +3614,7 @@ func (e IOUSBHostCISetupTransfer) String() string {
 	}
 }
 
-type IOUSBHostCITransferCompletionMessageControl uint
+type IOUSBHostCITransferCompletionMessageControl uint32
 
 const (
 	IOUSBHostCITransferCompletionMessageControlDeviceAddress        IOUSBHostCITransferCompletionMessageControl = 16711680
@@ -2650,7 +3644,7 @@ func (e IOUSBHostCITransferCompletionMessageControl) String() string {
 	}
 }
 
-type IOUSBHostCITransferCompletionMessageData0Transfer uint
+type IOUSBHostCITransferCompletionMessageData0Transfer uint32
 
 const (
 	IOUSBHostCITransferCompletionMessageData0TransferLength      IOUSBHostCITransferCompletionMessageData0Transfer = 268435455
@@ -2668,10 +3662,10 @@ func (e IOUSBHostCITransferCompletionMessageData0Transfer) String() string {
 	}
 }
 
-type IOUSBHostCITransferCompletionMessageData1Transfer int
+type IOUSBHostCITransferCompletionMessageData1Transfer uint
 
 const (
-	IOUSBHostCITransferCompletionMessageData1TransferStructure      IOUSBHostCITransferCompletionMessageData1Transfer = -1
+	IOUSBHostCITransferCompletionMessageData1TransferStructure      IOUSBHostCITransferCompletionMessageData1Transfer = 18446744073709551615
 	IOUSBHostCITransferCompletionMessageData1TransferStructurePhase IOUSBHostCITransferCompletionMessageData1Transfer = 0
 )
 
@@ -2686,7 +3680,7 @@ func (e IOUSBHostCITransferCompletionMessageData1Transfer) String() string {
 	}
 }
 
-type IOUSBHostCIUserClient uint
+type IOUSBHostCIUserClient uint32
 
 const (
 	IOUSBHostCIUserClientVersion100 IOUSBHostCIUserClient = 0
@@ -3227,7 +4221,7 @@ func (e Indicator) String() string {
 	}
 }
 
-type Input uint
+type Input uint32
 
 const (
 	INPUT_DESKTOP_MICROPHONE          Input = 0x202
@@ -3263,7 +4257,7 @@ func (e Input) String() string {
 	}
 }
 
-type Ioaudioenginetraps uint
+type Ioaudioenginetraps uint32
 
 const (
 	KIOAudioEngineTrapPerformClientIO Ioaudioenginetraps = 0
@@ -3275,57 +4269,6 @@ func (e Ioaudioenginetraps) String() string {
 		return "KIOAudioEngineTrapPerformClientIO"
 	default:
 		return fmt.Sprintf("Ioaudioenginetraps(%d)", e)
-	}
-}
-
-type Iopm uint
-
-const (
-	IOPMAuxPowerOn      Iopm = 32
-	IOPMClockNormal     Iopm = 4
-	IOPMClockRunning    Iopm = 8
-	IOPMConfigRetained  Iopm = 4096
-	IOPMContextRetained Iopm = 8192
-	IOPMDeviceUsable    Iopm = 32768
-	IOPMHighestState    Iopm = 2
-	IOPMLowestState     Iopm = 4
-	IOPMMaxPerformance  Iopm = 16384
-	IOPMNextHigherState Iopm = 1
-	IOPMNextLowerState  Iopm = 3
-	IOPMNotAttainable   Iopm = 1
-	IOPMNotPowerManaged Iopm = 2048
-	IOPMPowerOn         Iopm = 2
-	IOPMSoftSleep       Iopm = 1024
-)
-
-func (e Iopm) String() string {
-	switch e {
-	case IOPMAuxPowerOn:
-		return "IOPMAuxPowerOn"
-	case IOPMClockNormal:
-		return "IOPMClockNormal"
-	case IOPMClockRunning:
-		return "IOPMClockRunning"
-	case IOPMConfigRetained:
-		return "IOPMConfigRetained"
-	case IOPMContextRetained:
-		return "IOPMContextRetained"
-	case IOPMDeviceUsable:
-		return "IOPMDeviceUsable"
-	case IOPMHighestState:
-		return "IOPMHighestState"
-	case IOPMMaxPerformance:
-		return "IOPMMaxPerformance"
-	case IOPMNextHigherState:
-		return "IOPMNextHigherState"
-	case IOPMNextLowerState:
-		return "IOPMNextLowerState"
-	case IOPMNotPowerManaged:
-		return "IOPMNotPowerManaged"
-	case IOPMSoftSleep:
-		return "IOPMSoftSleep"
-	default:
-		return fmt.Sprintf("Iopm(%d)", e)
 	}
 }
 
@@ -3344,129 +4287,6 @@ func (e IpsecDscpMapping) String() string {
 		return "IPSEC_DSCP_MAPPING_LEGACY"
 	default:
 		return fmt.Sprintf("IpsecDscpMapping(%d)", e)
-	}
-}
-
-type KATA int
-
-const (
-	KATADMAErr                             KATA = 0
-	KATADefaultRetries                     KATA = 4
-	KATADefaultTimeout                     KATA = 30000
-	KATADevIntNoCmd                        KATA = 0
-	KATADevice0DeviceID                    KATA = 0
-	KATADevice1DeviceID                    KATA = 1
-	KATADeviceError                        KATA = 0
-	KATADisableWriteCache                  KATA = 0x82
-	KATAEjectRequest                       KATA = 0x6
-	KATAEnableAPM                          KATA = 0x5
-	KATAEnableReadAhead                    KATA = 0xaa
-	KATAEnableWriteCache                   KATA = 0x2
-	KATAErrDevBusy                         KATA = 0
-	KATAErrUnknownType                     KATA = -1
-	KATAFnBusReset                         KATA = 0
-	KATAFnExecIO                           KATA = 0
-	KATAFnQFlush                           KATA = 0
-	KATAFnRegAccess                        KATA = 0
-	KATAInvalidDevID                       KATA = 0
-	KATAInvalidDeviceID                    KATA = -1
-	KATALogicalSectorAlignmentMask         KATA = 0x3fff
-	KATAModeNotSupported                   KATA = 0
-	KATAMultipleLogicalSectorsBit          KATA = 13
-	KATAMultipleLogicalSectorsMask         KATA = 0x2000
-	KATANoErr                              KATA = 0
-	KATANoOp                               KATA = 0
-	KATANullEvent                          KATA = 0
-	KATAOfflineEvent                       KATA = 0x2
-	KATAOfflineRequest                     KATA = 0x5
-	KATAOnlineEvent                        KATA = 0x1
-	KATAPIFnExecIO                         KATA = 0
-	KATAPIResetEvent                       KATA = 0x7
-	KATAPhysicalLogicalEnabledBit0         KATA = 15
-	KATAPhysicalLogicalEnabledBit1         KATA = 14
-	KATAPhysicalLogicalEnabledMask         KATA = 0xc000
-	KATAPhysicalLogicalEnabledValue        KATA = 0x4000
-	KATAPhysicalSectorSizeMask             KATA = 0xf
-	KATAQueueEmpty                         KATA = 1
-	KATARemovedEvent                       KATA = 0x3
-	KATAReservedEvent                      KATA = 0x80
-	KATAResetEvent                         KATA = 0x4
-	KATASetPIOMode                         KATA = 0x8
-	KATASetTransferMode                    KATA = 0x3
-	KATASupports48BitAddressingBit         KATA = 10
-	KATASupportsAdvancedPowerManagementBit KATA = 3
-	KATASupportsCompactFlashBit            KATA = 2
-	KATASupportsFlushCacheBit              KATA = 12
-	KATASupportsFlushCacheExtendedBit      KATA = 13
-	KATATimeout10Seconds                   KATA = 10000
-	KATATimeout1Minute                     KATA = 60000
-	KATATimeout30Seconds                   KATA = 30000
-	KATATimeout45Seconds                   KATA = 45000
-	KATATimeoutErr                         KATA = 0
-	KATAUnknownOpcode                      KATA = 0
-	KATAValidLogicalSectorSizeBit          KATA = 12
-	KATAValidLogicalSectorSizeMask         KATA = 0x1000
-	KATAZeroRetries                        KATA = 0
-)
-
-func (e KATA) String() string {
-	switch e {
-	case KATADMAErr:
-		return "KATADMAErr"
-	case KATADefaultRetries:
-		return "KATADefaultRetries"
-	case KATADefaultTimeout:
-		return "KATADefaultTimeout"
-	case KATADevice1DeviceID:
-		return "KATADevice1DeviceID"
-	case KATADisableWriteCache:
-		return "KATADisableWriteCache"
-	case KATAEjectRequest:
-		return "KATAEjectRequest"
-	case KATAEnableAPM:
-		return "KATAEnableAPM"
-	case KATAEnableReadAhead:
-		return "KATAEnableReadAhead"
-	case KATAEnableWriteCache:
-		return "KATAEnableWriteCache"
-	case KATAErrUnknownType:
-		return "KATAErrUnknownType"
-	case KATALogicalSectorAlignmentMask:
-		return "KATALogicalSectorAlignmentMask"
-	case KATAMultipleLogicalSectorsBit:
-		return "KATAMultipleLogicalSectorsBit"
-	case KATAMultipleLogicalSectorsMask:
-		return "KATAMultipleLogicalSectorsMask"
-	case KATAPIResetEvent:
-		return "KATAPIResetEvent"
-	case KATAPhysicalLogicalEnabledBit0:
-		return "KATAPhysicalLogicalEnabledBit0"
-	case KATAPhysicalLogicalEnabledBit1:
-		return "KATAPhysicalLogicalEnabledBit1"
-	case KATAPhysicalLogicalEnabledMask:
-		return "KATAPhysicalLogicalEnabledMask"
-	case KATAPhysicalLogicalEnabledValue:
-		return "KATAPhysicalLogicalEnabledValue"
-	case KATARemovedEvent:
-		return "KATARemovedEvent"
-	case KATAReservedEvent:
-		return "KATAReservedEvent"
-	case KATASetPIOMode:
-		return "KATASetPIOMode"
-	case KATASupports48BitAddressingBit:
-		return "KATASupports48BitAddressingBit"
-	case KATASupportsFlushCacheBit:
-		return "KATASupportsFlushCacheBit"
-	case KATATimeout10Seconds:
-		return "KATATimeout10Seconds"
-	case KATATimeout1Minute:
-		return "KATATimeout1Minute"
-	case KATATimeout45Seconds:
-		return "KATATimeout45Seconds"
-	case KATAValidLogicalSectorSizeMask:
-		return "KATAValidLogicalSectorSizeMask"
-	default:
-		return fmt.Sprintf("KATA(%d)", e)
 	}
 }
 
@@ -3506,23 +4326,68 @@ func (e KATAEnable) String() string {
 	}
 }
 
-type KATAForceUnitAccessFeature uint
+type KATAEnableWriteCache uint
 
 const (
-	KATAForceUnitAccessFeatureBit  KATAForceUnitAccessFeature = 6
-	KATAForceUnitAccessFeatureMask KATAForceUnitAccessFeature = 64
+	KATADisableWriteCache     KATAEnableWriteCache = 0x82
+	KATAEnableAPM             KATAEnableWriteCache = 0x5
+	KATAEnableReadAhead       KATAEnableWriteCache = 0xaa
+	KATAEnableWriteCacheValue KATAEnableWriteCache = 0x2
+	KATASetPIOMode            KATAEnableWriteCache = 0x8
+	KATASetTransferMode       KATAEnableWriteCache = 0x3
 )
 
-func (e KATAForceUnitAccessFeature) String() string {
+func (e KATAEnableWriteCache) String() string {
 	switch e {
-	case KATAForceUnitAccessFeatureBit:
-		return "KATAForceUnitAccessFeatureBit"
-	case KATAForceUnitAccessFeatureMask:
-		return "KATAForceUnitAccessFeatureMask"
+	case KATADisableWriteCache:
+		return "KATADisableWriteCache"
+	case KATAEnableAPM:
+		return "KATAEnableAPM"
+	case KATAEnableReadAhead:
+		return "KATAEnableReadAhead"
+	case KATAEnableWriteCacheValue:
+		return "KATAEnableWriteCacheValue"
+	case KATASetPIOMode:
+		return "KATASetPIOMode"
+	case KATASetTransferMode:
+		return "KATASetTransferMode"
 	default:
-		return fmt.Sprintf("KATAForceUnitAccessFeature(%d)", e)
+		return fmt.Sprintf("KATAEnableWriteCache(%d)", e)
 	}
 }
+
+type KATAErrUnknownType int
+
+const (
+	KATADMAErr              KATAErrUnknownType = 0
+	KATADevIntNoCmd         KATAErrUnknownType = 0
+	KATADeviceError         KATAErrUnknownType = 0
+	KATAErrDevBusy          KATAErrUnknownType = 0
+	KATAErrUnknownTypeValue KATAErrUnknownType = -1
+	KATAInvalidDevID        KATAErrUnknownType = 0
+	KATAModeNotSupported    KATAErrUnknownType = 0
+	KATANoErr               KATAErrUnknownType = 0
+	KATAQueueEmpty          KATAErrUnknownType = 1
+	KATATimeoutErr          KATAErrUnknownType = 0
+	KATAUnknownOpcode       KATAErrUnknownType = 0
+)
+
+func (e KATAErrUnknownType) String() string {
+	switch e {
+	case KATADMAErr:
+		return "KATADMAErr"
+	case KATAErrUnknownTypeValue:
+		return "KATAErrUnknownTypeValue"
+	case KATAQueueEmpty:
+		return "KATAQueueEmpty"
+	default:
+		return fmt.Sprintf("KATAErrUnknownType(%d)", e)
+	}
+}
+
+const KATAForceUnitAccessFeatureBit uint = 6
+
+const KATAForceUnitAccessFeatureMask uint = 64
 
 type KATAIdentify uint
 
@@ -3713,33 +4578,84 @@ func (e KATAPI) String() string {
 	}
 }
 
-type KATASupports uint
+type KATAPhysicalLogicalEnabledBit0 uint
 
 const (
-	KATASupportsPowerManagementBit  KATASupports = 3
-	KATASupportsPowerManagementMask KATASupports = 8
-	KATASupportsSMARTBit            KATASupports = 0
-	KATASupportsSMARTMask           KATASupports = 1
-	KATASupportsWriteCacheBit       KATASupports = 5
-	KATASupportsWriteCacheMask      KATASupports = 32
+	KATAMultipleLogicalSectorsBit       KATAPhysicalLogicalEnabledBit0 = 13
+	KATAPhysicalLogicalEnabledBit0Value KATAPhysicalLogicalEnabledBit0 = 15
+	KATAPhysicalLogicalEnabledBit1      KATAPhysicalLogicalEnabledBit0 = 14
+	KATAValidLogicalSectorSizeBit       KATAPhysicalLogicalEnabledBit0 = 12
 )
 
-func (e KATASupports) String() string {
+func (e KATAPhysicalLogicalEnabledBit0) String() string {
 	switch e {
-	case KATASupportsPowerManagementBit:
-		return "KATASupportsPowerManagementBit"
-	case KATASupportsPowerManagementMask:
-		return "KATASupportsPowerManagementMask"
-	case KATASupportsSMARTBit:
-		return "KATASupportsSMARTBit"
-	case KATASupportsSMARTMask:
-		return "KATASupportsSMARTMask"
-	case KATASupportsWriteCacheBit:
-		return "KATASupportsWriteCacheBit"
-	case KATASupportsWriteCacheMask:
-		return "KATASupportsWriteCacheMask"
+	case KATAMultipleLogicalSectorsBit:
+		return "KATAMultipleLogicalSectorsBit"
+	case KATAPhysicalLogicalEnabledBit0Value:
+		return "KATAPhysicalLogicalEnabledBit0Value"
+	case KATAPhysicalLogicalEnabledBit1:
+		return "KATAPhysicalLogicalEnabledBit1"
+	case KATAValidLogicalSectorSizeBit:
+		return "KATAValidLogicalSectorSizeBit"
 	default:
-		return fmt.Sprintf("KATASupports(%d)", e)
+		return fmt.Sprintf("KATAPhysicalLogicalEnabledBit0(%d)", e)
+	}
+}
+
+type KATAPhysicalLogicalEnabledMask uint
+
+const (
+	KATALogicalSectorAlignmentMask      KATAPhysicalLogicalEnabledMask = 0x3fff
+	KATAMultipleLogicalSectorsMask      KATAPhysicalLogicalEnabledMask = 0x2000
+	KATAPhysicalLogicalEnabledMaskValue KATAPhysicalLogicalEnabledMask = 0xc000
+	KATAPhysicalLogicalEnabledValue     KATAPhysicalLogicalEnabledMask = 0x4000
+	KATAPhysicalSectorSizeMask          KATAPhysicalLogicalEnabledMask = 0xf
+	KATAValidLogicalSectorSizeMask      KATAPhysicalLogicalEnabledMask = 0x1000
+)
+
+func (e KATAPhysicalLogicalEnabledMask) String() string {
+	switch e {
+	case KATALogicalSectorAlignmentMask:
+		return "KATALogicalSectorAlignmentMask"
+	case KATAMultipleLogicalSectorsMask:
+		return "KATAMultipleLogicalSectorsMask"
+	case KATAPhysicalLogicalEnabledMaskValue:
+		return "KATAPhysicalLogicalEnabledMaskValue"
+	case KATAPhysicalLogicalEnabledValue:
+		return "KATAPhysicalLogicalEnabledValue"
+	case KATAPhysicalSectorSizeMask:
+		return "KATAPhysicalSectorSizeMask"
+	case KATAValidLogicalSectorSizeMask:
+		return "KATAValidLogicalSectorSizeMask"
+	default:
+		return fmt.Sprintf("KATAPhysicalLogicalEnabledMask(%d)", e)
+	}
+}
+
+type KATASupportsCompactFlashBit uint
+
+const (
+	KATASupports48BitAddressingBit         KATASupportsCompactFlashBit = 10
+	KATASupportsAdvancedPowerManagementBit KATASupportsCompactFlashBit = 3
+	KATASupportsCompactFlashBitValue       KATASupportsCompactFlashBit = 2
+	KATASupportsFlushCacheBit              KATASupportsCompactFlashBit = 12
+	KATASupportsFlushCacheExtendedBit      KATASupportsCompactFlashBit = 13
+)
+
+func (e KATASupportsCompactFlashBit) String() string {
+	switch e {
+	case KATASupports48BitAddressingBit:
+		return "KATASupports48BitAddressingBit"
+	case KATASupportsAdvancedPowerManagementBit:
+		return "KATASupportsAdvancedPowerManagementBit"
+	case KATASupportsCompactFlashBitValue:
+		return "KATASupportsCompactFlashBitValue"
+	case KATASupportsFlushCacheBit:
+		return "KATASupportsFlushCacheBit"
+	case KATASupportsFlushCacheExtendedBit:
+		return "KATASupportsFlushCacheExtendedBit"
+	default:
+		return fmt.Sprintf("KATASupportsCompactFlashBit(%d)", e)
 	}
 }
 
@@ -3776,21 +4692,92 @@ func (e KATASupportsCompactFlashMask) String() string {
 	}
 }
 
-type KATAWriteCacheEnabled uint
+type KATASupportsSMARTBit uint
 
 const (
-	KATAWriteCacheEnabledBit  KATAWriteCacheEnabled = 5
-	KATAWriteCacheEnabledMask KATAWriteCacheEnabled = 32
+	KATASupportsPowerManagementBit KATASupportsSMARTBit = 3
+	KATASupportsSMARTBitValue      KATASupportsSMARTBit = 0
+	KATASupportsWriteCacheBit      KATASupportsSMARTBit = 5
 )
 
-func (e KATAWriteCacheEnabled) String() string {
+func (e KATASupportsSMARTBit) String() string {
 	switch e {
-	case KATAWriteCacheEnabledBit:
-		return "KATAWriteCacheEnabledBit"
-	case KATAWriteCacheEnabledMask:
-		return "KATAWriteCacheEnabledMask"
+	case KATASupportsPowerManagementBit:
+		return "KATASupportsPowerManagementBit"
+	case KATASupportsSMARTBitValue:
+		return "KATASupportsSMARTBitValue"
+	case KATASupportsWriteCacheBit:
+		return "KATASupportsWriteCacheBit"
 	default:
-		return fmt.Sprintf("KATAWriteCacheEnabled(%d)", e)
+		return fmt.Sprintf("KATASupportsSMARTBit(%d)", e)
+	}
+}
+
+type KATASupportsSMARTMask uint
+
+const (
+	KATASupportsPowerManagementMask KATASupportsSMARTMask = 8
+	KATASupportsSMARTMaskValue      KATASupportsSMARTMask = 1
+	KATASupportsWriteCacheMask      KATASupportsSMARTMask = 32
+)
+
+func (e KATASupportsSMARTMask) String() string {
+	switch e {
+	case KATASupportsPowerManagementMask:
+		return "KATASupportsPowerManagementMask"
+	case KATASupportsSMARTMaskValue:
+		return "KATASupportsSMARTMaskValue"
+	case KATASupportsWriteCacheMask:
+		return "KATASupportsWriteCacheMask"
+	default:
+		return fmt.Sprintf("KATASupportsSMARTMask(%d)", e)
+	}
+}
+
+type KATATimeout10Seconds uint
+
+const (
+	KATADefaultTimeout        KATATimeout10Seconds = 30000
+	KATATimeout10SecondsValue KATATimeout10Seconds = 10000
+	KATATimeout1Minute        KATATimeout10Seconds = 60000
+	KATATimeout30Seconds      KATATimeout10Seconds = 30000
+	KATATimeout45Seconds      KATATimeout10Seconds = 45000
+)
+
+func (e KATATimeout10Seconds) String() string {
+	switch e {
+	case KATADefaultTimeout:
+		return "KATADefaultTimeout"
+	case KATATimeout10SecondsValue:
+		return "KATATimeout10SecondsValue"
+	case KATATimeout1Minute:
+		return "KATATimeout1Minute"
+	case KATATimeout45Seconds:
+		return "KATATimeout45Seconds"
+	default:
+		return fmt.Sprintf("KATATimeout10Seconds(%d)", e)
+	}
+}
+
+const KATAWriteCacheEnabledBit uint = 5
+
+const KATAWriteCacheEnabledMask uint = 32
+
+type KATAZeroRetries uint
+
+const (
+	KATADefaultRetries   KATAZeroRetries = 4
+	KATAZeroRetriesValue KATAZeroRetries = 0
+)
+
+func (e KATAZeroRetries) String() string {
+	switch e {
+	case KATADefaultRetries:
+		return "KATADefaultRetries"
+	case KATAZeroRetriesValue:
+		return "KATAZeroRetriesValue"
+	default:
+		return fmt.Sprintf("KATAZeroRetries(%d)", e)
 	}
 }
 
@@ -3920,146 +4907,6 @@ func (e KATAcmd) String() string {
 		return "KATAcmdWriteVerify"
 	default:
 		return fmt.Sprintf("KATAcmd(%d)", e)
-	}
-}
-
-type KAVC uint
-
-const (
-	KAVCAcceptedStatus               KAVC = 0x9
-	KAVCAddress                      KAVC = 1
-	KAVCAudio                        KAVC = 0x1
-	KAVCCameraStorage                KAVC = 0xb
-	KAVCChangedStatus                KAVC = 0xd
-	KAVCCommandResponse              KAVC = 0
-	KAVCConnectOpcode                KAVC = 0x24
-	KAVCConnectionsOpcode            KAVC = 0x22
-	KAVCControlCommand               KAVC = 0
-	KAVCDisconnectOpcode             KAVC = 0x25
-	KAVCDiskRecorder                 KAVC = 0x3
-	KAVCGeneralInquiryCommand        KAVC = 0x4
-	KAVCImplementedStatus            KAVC = 0xc
-	KAVCInTransitionStatus           KAVC = 0xb
-	KAVCInputPlugSignalFormatOpcode  KAVC = 0x19
-	KAVCInputSignalModeOpcode        KAVC = 0x79
-	KAVCInterimStatus                KAVC = 0xf
-	KAVCNotImplementedStatus         KAVC = 0x8
-	KAVCNotifyCommand                KAVC = 0x3
-	KAVCNumSubUnitTypes              KAVC = 0x20
-	KAVCOpcode                       KAVC = 2
-	KAVCOperand0                     KAVC = 3
-	KAVCOperand1                     KAVC = 4
-	KAVCOperand2                     KAVC = 5
-	KAVCOperand3                     KAVC = 6
-	KAVCOperand4                     KAVC = 7
-	KAVCOperand5                     KAVC = 8
-	KAVCOperand6                     KAVC = 9
-	KAVCOperand7                     KAVC = 10
-	KAVCOperand8                     KAVC = 11
-	KAVCOutputPlugSignalFormatOpcode KAVC = 0x18
-	KAVCOutputSignalModeOpcode       KAVC = 0x78
-	KAVCPlugInfoOpcode               KAVC = 0x2
-	KAVCPowerOpcode                  KAVC = 0xb2
-	KAVCPrinter                      KAVC = 0x2
-	KAVCRejectedStatus               KAVC = 0xa
-	KAVCSignalModeDVCPro525_60       KAVC = 0x78
-	KAVCSignalModeDVCPro625_50       KAVC = 0xf8
-	KAVCSignalModeDummyOperand       KAVC = 0xff
-	KAVCSignalModeHD1125_60          KAVC = 0x8
-	KAVCSignalModeHD1250_50          KAVC = 0x88
-	KAVCSignalModeMask_50            KAVC = 0x80
-	KAVCSignalModeMask_DVCPro25      KAVC = 0x78
-	KAVCSignalModeMask_SDL           KAVC = 0x4
-	KAVCSignalModeMask_STYPE         KAVC = 0x7c
-	KAVCSignalModeSD525_60           KAVC = 0
-	KAVCSignalModeSD625_50           KAVC = 0x80
-	KAVCSignalModeSDL525_60          KAVC = 0x4
-	KAVCSignalModeSDL625_50          KAVC = 0x84
-	KAVCSignalSourceOpcode           KAVC = 0x1a
-	KAVCSpecificInquiryCommand       KAVC = 0x2
-	KAVCStatusInquiryCommand         KAVC = 0x1
-	KAVCSubunitInfoOpcode            KAVC = 0x31
-	KAVCTapeRecorder                 KAVC = 0x4
-	KAVCTuner                        KAVC = 0x5
-	KAVCUnitInfoOpcode               KAVC = 0x30
-	KAVCVendorDependentOpcode        KAVC = 0
-	KAVCVendorUnique                 KAVC = 0x1c
-	KAVCVideoCamera                  KAVC = 0x7
-	KAVCVideoMonitor                 KAVC = 0
-)
-
-func (e KAVC) String() string {
-	switch e {
-	case KAVCAcceptedStatus:
-		return "KAVCAcceptedStatus"
-	case KAVCAddress:
-		return "KAVCAddress"
-	case KAVCCameraStorage:
-		return "KAVCCameraStorage"
-	case KAVCChangedStatus:
-		return "KAVCChangedStatus"
-	case KAVCCommandResponse:
-		return "KAVCCommandResponse"
-	case KAVCConnectOpcode:
-		return "KAVCConnectOpcode"
-	case KAVCConnectionsOpcode:
-		return "KAVCConnectionsOpcode"
-	case KAVCDisconnectOpcode:
-		return "KAVCDisconnectOpcode"
-	case KAVCDiskRecorder:
-		return "KAVCDiskRecorder"
-	case KAVCGeneralInquiryCommand:
-		return "KAVCGeneralInquiryCommand"
-	case KAVCImplementedStatus:
-		return "KAVCImplementedStatus"
-	case KAVCInputPlugSignalFormatOpcode:
-		return "KAVCInputPlugSignalFormatOpcode"
-	case KAVCInputSignalModeOpcode:
-		return "KAVCInputSignalModeOpcode"
-	case KAVCInterimStatus:
-		return "KAVCInterimStatus"
-	case KAVCNotImplementedStatus:
-		return "KAVCNotImplementedStatus"
-	case KAVCNumSubUnitTypes:
-		return "KAVCNumSubUnitTypes"
-	case KAVCOpcode:
-		return "KAVCOpcode"
-	case KAVCOperand2:
-		return "KAVCOperand2"
-	case KAVCOperand3:
-		return "KAVCOperand3"
-	case KAVCOperand4:
-		return "KAVCOperand4"
-	case KAVCOperand7:
-		return "KAVCOperand7"
-	case KAVCOutputPlugSignalFormatOpcode:
-		return "KAVCOutputPlugSignalFormatOpcode"
-	case KAVCOutputSignalModeOpcode:
-		return "KAVCOutputSignalModeOpcode"
-	case KAVCPowerOpcode:
-		return "KAVCPowerOpcode"
-	case KAVCSignalModeDVCPro625_50:
-		return "KAVCSignalModeDVCPro625_50"
-	case KAVCSignalModeDummyOperand:
-		return "KAVCSignalModeDummyOperand"
-	case KAVCSignalModeHD1250_50:
-		return "KAVCSignalModeHD1250_50"
-	case KAVCSignalModeMask_50:
-		return "KAVCSignalModeMask_50"
-	case KAVCSignalModeMask_STYPE:
-		return "KAVCSignalModeMask_STYPE"
-	case KAVCSignalModeSDL625_50:
-		return "KAVCSignalModeSDL625_50"
-	case KAVCSignalSourceOpcode:
-		return "KAVCSignalSourceOpcode"
-	case KAVCSubunitInfoOpcode:
-		return "KAVCSubunitInfoOpcode"
-	case KAVCUnitInfoOpcode:
-		return "KAVCUnitInfoOpcode"
-	case KAVCVendorUnique:
-		return "KAVCVendorUnique"
-	default:
-		return fmt.Sprintf("KAVC(%d)", e)
 	}
 }
 
@@ -4234,7 +5081,7 @@ func (e KAppleBasebandBridgeUserRequest) String() string {
 	}
 }
 
-type KAppleVendorI uint
+type KAppleVendorI uint32
 
 const (
 	KAppleVendorID KAppleVendorI = 1452
@@ -4249,25 +5096,39 @@ func (e KAppleVendorI) String() string {
 	}
 }
 
-type KBDFeatures uint
+type KBDFeaturesReadBit uint
 
 const (
-	KBDFeaturesReadBit   KBDFeatures = 0
-	KBDFeaturesReadMask  KBDFeatures = 1
-	KBDFeaturesWriteBit  KBDFeatures = 1
-	KBDFeaturesWriteMask KBDFeatures = 2
+	KBDFeaturesReadBitValue KBDFeaturesReadBit = 0
+	KBDFeaturesWriteBit     KBDFeaturesReadBit = 1
 )
 
-func (e KBDFeatures) String() string {
+func (e KBDFeaturesReadBit) String() string {
 	switch e {
-	case KBDFeaturesReadBit:
-		return "KBDFeaturesReadBit"
-	case KBDFeaturesReadMask:
-		return "KBDFeaturesReadMask"
+	case KBDFeaturesReadBitValue:
+		return "KBDFeaturesReadBitValue"
+	case KBDFeaturesWriteBit:
+		return "KBDFeaturesWriteBit"
+	default:
+		return fmt.Sprintf("KBDFeaturesReadBit(%d)", e)
+	}
+}
+
+type KBDFeaturesReadMask uint
+
+const (
+	KBDFeaturesReadMaskValue KBDFeaturesReadMask = 1
+	KBDFeaturesWriteMask     KBDFeaturesReadMask = 2
+)
+
+func (e KBDFeaturesReadMask) String() string {
+	switch e {
+	case KBDFeaturesReadMaskValue:
+		return "KBDFeaturesReadMaskValue"
 	case KBDFeaturesWriteMask:
 		return "KBDFeaturesWriteMask"
 	default:
-		return fmt.Sprintf("KBDFeatures(%d)", e)
+		return fmt.Sprintf("KBDFeaturesReadMask(%d)", e)
 	}
 }
 
@@ -4299,74 +5160,52 @@ func (e KBDMediaType) String() string {
 	}
 }
 
-type KBT int
+type KBTBadCloseMask uint32
 
 const (
-	KBTBadCloseMask          KBT = 0x1
-	KBTBigKeysMask           KBT = 0x2
-	KBTHeaderNode            KBT = 1
-	KBTIndexNode             KBT = 0
-	KBTLeafNode              KBT = -1
-	KBTMapNode               KBT = 2
-	KBTVariableIndexKeysMask KBT = 0x4
+	KBTBadCloseMaskValue     KBTBadCloseMask = 0x1
+	KBTBigKeysMask           KBTBadCloseMask = 0x2
+	KBTVariableIndexKeysMask KBTBadCloseMask = 0x4
 )
 
-func (e KBT) String() string {
+func (e KBTBadCloseMask) String() string {
 	switch e {
-	case KBTBadCloseMask:
-		return "KBTBadCloseMask"
+	case KBTBadCloseMaskValue:
+		return "KBTBadCloseMaskValue"
 	case KBTBigKeysMask:
 		return "KBTBigKeysMask"
-	case KBTIndexNode:
-		return "KBTIndexNode"
-	case KBTLeafNode:
-		return "KBTLeafNode"
 	case KBTVariableIndexKeysMask:
 		return "KBTVariableIndexKeysMask"
 	default:
-		return fmt.Sprintf("KBT(%d)", e)
+		return fmt.Sprintf("KBTBadCloseMask(%d)", e)
 	}
 }
 
-type KBluetooth uint
+type KBTLeafNode int32
 
 const (
-	KBluetoothACLLogicalChannelL2CAPContinue   KBluetooth = 1
-	KBluetoothACLLogicalChannelL2CAPStart      KBluetooth = 2
-	KBluetoothACLLogicalChannelLMP             KBluetooth = 3
-	KBluetoothACLLogicalChannelReserved        KBluetooth = 0
-	KBluetoothAllowRoleSwitch                  KBluetooth = 0x1
-	KBluetoothDontAllowRoleSwitch              KBluetooth = 0
-	KBluetoothGeneralInquiryAccessCodeIndex    KBluetooth = 0
-	KBluetoothGeneralInquiryAccessCodeLAPValue KBluetooth = 0x9e8b33
-	KBluetoothL2CAPMaxPacketSize               KBluetooth = 65535
-	KBluetoothLimitedInquiryAccessCodeEnd      KBluetooth = 0
-	KBluetoothLimitedInquiryAccessCodeIndex    KBluetooth = 1
-	KBluetoothLimitedInquiryAccessCodeLAPValue KBluetooth = 0x9e8b00
+	KBTHeaderNode    KBTLeafNode = 1
+	KBTIndexNode     KBTLeafNode = 0
+	KBTLeafNodeValue KBTLeafNode = -1
+	KBTMapNode       KBTLeafNode = 2
 )
 
-func (e KBluetooth) String() string {
+func (e KBTLeafNode) String() string {
 	switch e {
-	case KBluetoothACLLogicalChannelL2CAPContinue:
-		return "KBluetoothACLLogicalChannelL2CAPContinue"
-	case KBluetoothACLLogicalChannelL2CAPStart:
-		return "KBluetoothACLLogicalChannelL2CAPStart"
-	case KBluetoothACLLogicalChannelLMP:
-		return "KBluetoothACLLogicalChannelLMP"
-	case KBluetoothACLLogicalChannelReserved:
-		return "KBluetoothACLLogicalChannelReserved"
-	case KBluetoothGeneralInquiryAccessCodeLAPValue:
-		return "KBluetoothGeneralInquiryAccessCodeLAPValue"
-	case KBluetoothL2CAPMaxPacketSize:
-		return "KBluetoothL2CAPMaxPacketSize"
-	case KBluetoothLimitedInquiryAccessCodeLAPValue:
-		return "KBluetoothLimitedInquiryAccessCodeLAPValue"
+	case KBTHeaderNode:
+		return "KBTHeaderNode"
+	case KBTIndexNode:
+		return "KBTIndexNode"
+	case KBTLeafNodeValue:
+		return "KBTLeafNodeValue"
+	case KBTMapNode:
+		return "KBTMapNode"
 	default:
-		return fmt.Sprintf("KBluetooth(%d)", e)
+		return fmt.Sprintf("KBTLeafNode(%d)", e)
 	}
 }
 
-type KBluetoothAirMode uint
+type KBluetoothAirMode uint32
 
 const (
 	KBluetoothAirModeALawLog         KBluetoothAirMode = 0x1
@@ -4390,7 +5229,7 @@ func (e KBluetoothAirMode) String() string {
 	}
 }
 
-type KBluetoothConnectionHandle uint
+type KBluetoothConnectionHandle uint32
 
 const (
 	KBluetoothConnectionHandleNone KBluetoothConnectionHandle = 0xffff
@@ -4405,13 +5244,13 @@ func (e KBluetoothConnectionHandle) String() string {
 	}
 }
 
-type KBluetoothDeviceClassMajor uint
+type KBluetoothDeviceClassMajor uint32
 
 const (
 	KBluetoothDeviceClassMajorAny            KBluetoothDeviceClassMajor = '*'<<24 | '*'<<16 | '*'<<8 | '*' // '****'
 	KBluetoothDeviceClassMajorAudio          KBluetoothDeviceClassMajor = 0x4
 	KBluetoothDeviceClassMajorComputer       KBluetoothDeviceClassMajor = 0x1
-	KBluetoothDeviceClassMajorEnd            KBluetoothDeviceClassMajor = 0
+	KBluetoothDeviceClassMajorEnd            KBluetoothDeviceClassMajor = 'n'<<24 | 'o'<<16 | 'n'<<8 | 'f' // 'nonf'
 	KBluetoothDeviceClassMajorHealth         KBluetoothDeviceClassMajor = 0x9
 	KBluetoothDeviceClassMajorImaging        KBluetoothDeviceClassMajor = 0x6
 	KBluetoothDeviceClassMajorLANAccessPoint KBluetoothDeviceClassMajor = 0x3
@@ -4440,6 +5279,8 @@ func (e KBluetoothDeviceClassMajor) String() string {
 		return "KBluetoothDeviceClassMajorImaging"
 	case KBluetoothDeviceClassMajorLANAccessPoint:
 		return "KBluetoothDeviceClassMajorLANAccessPoint"
+	case KBluetoothDeviceClassMajorMiscellaneous:
+		return "KBluetoothDeviceClassMajorMiscellaneous"
 	case KBluetoothDeviceClassMajorNone:
 		return "KBluetoothDeviceClassMajorNone"
 	case KBluetoothDeviceClassMajorPeripheral:
@@ -4457,7 +5298,7 @@ func (e KBluetoothDeviceClassMajor) String() string {
 	}
 }
 
-type KBluetoothDeviceClassMinor uint
+type KBluetoothDeviceClassMinor uint32
 
 const (
 	KBluetoothDeviceClassMinorAny                             KBluetoothDeviceClassMinor = '*'<<24 | '*'<<16 | '*'<<8 | '*' // '****'
@@ -4487,7 +5328,7 @@ const (
 	KBluetoothDeviceClassMinorComputerServer                  KBluetoothDeviceClassMinor = 0x2
 	KBluetoothDeviceClassMinorComputerUnclassified            KBluetoothDeviceClassMinor = 0
 	KBluetoothDeviceClassMinorComputerWearable                KBluetoothDeviceClassMinor = 0x6
-	KBluetoothDeviceClassMinorEnd                             KBluetoothDeviceClassMinor = 0
+	KBluetoothDeviceClassMinorEnd                             KBluetoothDeviceClassMinor = 'n'<<24 | 'o'<<16 | 'n'<<8 | 'f' // 'nonf'
 	KBluetoothDeviceClassMinorHealthBloodPressureMonitor      KBluetoothDeviceClassMinor = 0x1
 	KBluetoothDeviceClassMinorHealthDataDisplay               KBluetoothDeviceClassMinor = 0x7
 	KBluetoothDeviceClassMinorHealthGlucoseMeter              KBluetoothDeviceClassMinor = 0x4
@@ -4576,6 +5417,8 @@ func (e KBluetoothDeviceClassMinor) String() string {
 		return "KBluetoothDeviceClassMinorAudioVideoDisplayAndLoudspeaker"
 	case KBluetoothDeviceClassMinorAudioVideoMonitor:
 		return "KBluetoothDeviceClassMinorAudioVideoMonitor"
+	case KBluetoothDeviceClassMinorEnd:
+		return "KBluetoothDeviceClassMinorEnd"
 	case KBluetoothDeviceClassMinorImaging1Printer:
 		return "KBluetoothDeviceClassMinorImaging1Printer"
 	case KBluetoothDeviceClassMinorNone:
@@ -4589,7 +5432,7 @@ func (e KBluetoothDeviceClassMinor) String() string {
 	}
 }
 
-type KBluetoothDeviceNameMax uint
+type KBluetoothDeviceNameMax uint32
 
 const (
 	KBluetoothDeviceNameMaxLength KBluetoothDeviceNameMax = 248
@@ -4604,7 +5447,25 @@ func (e KBluetoothDeviceNameMax) String() string {
 	}
 }
 
-type KBluetoothEncryptionEnable uint
+type KBluetoothDontAllowRoleSwitch uint32
+
+const (
+	KBluetoothAllowRoleSwitch          KBluetoothDontAllowRoleSwitch = 0x1
+	KBluetoothDontAllowRoleSwitchValue KBluetoothDontAllowRoleSwitch = 0
+)
+
+func (e KBluetoothDontAllowRoleSwitch) String() string {
+	switch e {
+	case KBluetoothAllowRoleSwitch:
+		return "KBluetoothAllowRoleSwitch"
+	case KBluetoothDontAllowRoleSwitchValue:
+		return "KBluetoothDontAllowRoleSwitchValue"
+	default:
+		return fmt.Sprintf("KBluetoothDontAllowRoleSwitch(%d)", e)
+	}
+}
+
+type KBluetoothEncryptionEnable uint32
 
 const (
 	KBluetoothEncryptionEnableBREDRAESCCM KBluetoothEncryptionEnable = 0x2
@@ -4627,7 +5488,7 @@ func (e KBluetoothEncryptionEnable) String() string {
 	}
 }
 
-type KBluetoothGAPAppearance uint
+type KBluetoothGAPAppearance uint32
 
 const (
 	KBluetoothGAPAppearanceGenericBarcodeScanner               KBluetoothGAPAppearance = 704
@@ -4720,658 +5581,59 @@ func (e KBluetoothGAPAppearance) String() string {
 	}
 }
 
-type KBluetoothHCI uint
+type KBluetoothGeneralInquiryAccessCodeIndex uint32
 
 const (
-	KBluetoothHCICommandAMPTest                                         KBluetoothHCI = 0x9
-	KBluetoothHCICommandAMPTestEnd                                      KBluetoothHCI = 0x8
-	KBluetoothHCICommandAcceptConnectionRequest                         KBluetoothHCI = 0x9
-	KBluetoothHCICommandAcceptSniffRequest                              KBluetoothHCI = 0x31
-	KBluetoothHCICommandAcceptSynchronousConnectionRequest              KBluetoothHCI = 0x29
-	KBluetoothHCICommandAddSCOConnection                                KBluetoothHCI = 0x7
-	KBluetoothHCICommandAuthenticationRequested                         KBluetoothHCI = 0x11
-	KBluetoothHCICommandChangeConnectionLinkKey                         KBluetoothHCI = 0x15
-	KBluetoothHCICommandChangeConnectionPacketType                      KBluetoothHCI = 0xf
-	KBluetoothHCICommandChangeLocalName                                 KBluetoothHCI = 0x13
-	KBluetoothHCICommandCreateConnection                                KBluetoothHCI = 0x5
-	KBluetoothHCICommandCreateConnectionCancel                          KBluetoothHCI = 0x8
-	KBluetoothHCICommandCreateNewUnitKey                                KBluetoothHCI = 0xb
-	KBluetoothHCICommandDeleteReservedLTADDR                            KBluetoothHCI = 0x75
-	KBluetoothHCICommandDeleteStoredLinkKey                             KBluetoothHCI = 0x12
-	KBluetoothHCICommandDisconnect                                      KBluetoothHCI = 0x6
-	KBluetoothHCICommandEnableAMPReceiverReports                        KBluetoothHCI = 0x7
-	KBluetoothHCICommandEnableDeviceUnderTestMode                       KBluetoothHCI = 0x3
-	KBluetoothHCICommandEnhancedAcceptSynchronousConnectionRequest      KBluetoothHCI = 0x3e
-	KBluetoothHCICommandEnhancedFlush                                   KBluetoothHCI = 0x5f
-	KBluetoothHCICommandEnhancedSetupSynchronousConnection              KBluetoothHCI = 0x3d
-	KBluetoothHCICommandExitParkMode                                    KBluetoothHCI = 0x6
-	KBluetoothHCICommandExitPeriodicInquiryMode                         KBluetoothHCI = 0x4
-	KBluetoothHCICommandExitSniffMode                                   KBluetoothHCI = 0x4
-	KBluetoothHCICommandFlowSpecification                               KBluetoothHCI = 0x10
-	KBluetoothHCICommandFlush                                           KBluetoothHCI = 0x8
-	KBluetoothHCICommandGetLinkQuality                                  KBluetoothHCI = 0x3
-	KBluetoothHCICommandGetMWSTransportLayerConfiguration               KBluetoothHCI = 0xc
-	KBluetoothHCICommandGroupHostController                             KBluetoothHCI = 0x3
-	KBluetoothHCICommandGroupInformational                              KBluetoothHCI = 0x4
-	KBluetoothHCICommandGroupLinkControl                                KBluetoothHCI = 0x1
-	KBluetoothHCICommandGroupLinkPolicy                                 KBluetoothHCI = 0x2
-	KBluetoothHCICommandGroupLogoTesting                                KBluetoothHCI = 0x3e
-	KBluetoothHCICommandGroupLowEnergy                                  KBluetoothHCI = 0x8
-	KBluetoothHCICommandGroupMax                                        KBluetoothHCI = 0x40
-	KBluetoothHCICommandGroupNoOp                                       KBluetoothHCI = 0
-	KBluetoothHCICommandGroupStatus                                     KBluetoothHCI = 0x5
-	KBluetoothHCICommandGroupTesting                                    KBluetoothHCI = 0x6
-	KBluetoothHCICommandGroupVendorSpecific                             KBluetoothHCI = 0x3f
-	KBluetoothHCICommandHoldMode                                        KBluetoothHCI = 0x1
-	KBluetoothHCICommandHostBufferSize                                  KBluetoothHCI = 0x33
-	KBluetoothHCICommandHostNumberOfCompletedPackets                    KBluetoothHCI = 0x35
-	KBluetoothHCICommandIOCapabilityRequestNegativeReply                KBluetoothHCI = 0x34
-	KBluetoothHCICommandIOCapabilityRequestReply                        KBluetoothHCI = 0x2b
-	KBluetoothHCICommandInquiry                                         KBluetoothHCI = 0x1
-	KBluetoothHCICommandInquiryCancel                                   KBluetoothHCI = 0x2
-	KBluetoothHCICommandLEAddDeviceToPeriodicAdvertiserList             KBluetoothHCI = 0x47
-	KBluetoothHCICommandLEAddDeviceToResolvingList                      KBluetoothHCI = 0x27
-	KBluetoothHCICommandLEAddDeviceToWhiteList                          KBluetoothHCI = 0x11
-	KBluetoothHCICommandLEClearAdvertisingSets                          KBluetoothHCI = 0x3d
-	KBluetoothHCICommandLEClearPeriodicAdvertiserList                   KBluetoothHCI = 0x49
-	KBluetoothHCICommandLEClearResolvingList                            KBluetoothHCI = 0x29
-	KBluetoothHCICommandLEClearWhiteList                                KBluetoothHCI = 0x10
-	KBluetoothHCICommandLEConnectionUpdate                              KBluetoothHCI = 0x13
-	KBluetoothHCICommandLECreateConnection                              KBluetoothHCI = 0xd
-	KBluetoothHCICommandLECreateConnectionCancel                        KBluetoothHCI = 0xe
-	KBluetoothHCICommandLEEncrypt                                       KBluetoothHCI = 0x17
-	KBluetoothHCICommandLEEnhancedReceiverTest                          KBluetoothHCI = 0x33
-	KBluetoothHCICommandLEEnhancedTransmitterTest                       KBluetoothHCI = 0x34
-	KBluetoothHCICommandLEExtendedCreateConnection                      KBluetoothHCI = 0x43
-	KBluetoothHCICommandLEGenerateDHKey                                 KBluetoothHCI = 0x26
-	KBluetoothHCICommandLELongTermKeyRequestNegativeReply               KBluetoothHCI = 0x1b
-	KBluetoothHCICommandLELongTermKeyRequestReply                       KBluetoothHCI = 0x1a
-	KBluetoothHCICommandLEPeriodicAdvertisingCreateSync                 KBluetoothHCI = 0x44
-	KBluetoothHCICommandLEPeriodicAdvertisingCreateSyncCancel           KBluetoothHCI = 0x45
-	KBluetoothHCICommandLEPeriodicAdvertisingTerminateSync              KBluetoothHCI = 0x46
-	KBluetoothHCICommandLERand                                          KBluetoothHCI = 0x18
-	KBluetoothHCICommandLEReadAdvertisingChannelTxPower                 KBluetoothHCI = 0x7
-	KBluetoothHCICommandLEReadBufferSize                                KBluetoothHCI = 0x2
-	KBluetoothHCICommandLEReadChannelMap                                KBluetoothHCI = 0x15
-	KBluetoothHCICommandLEReadLocalP256PublicKey                        KBluetoothHCI = 0x25
-	KBluetoothHCICommandLEReadLocalResolvableAddress                    KBluetoothHCI = 0x2c
-	KBluetoothHCICommandLEReadLocalSupportedFeatures                    KBluetoothHCI = 0x3
-	KBluetoothHCICommandLEReadMaximumAdvertisingDataLength              KBluetoothHCI = 0x3a
-	KBluetoothHCICommandLEReadMaximumDataLength                         KBluetoothHCI = 0x2f
-	KBluetoothHCICommandLEReadNumberofSupportedAdvertisingSets          KBluetoothHCI = 0x3b
-	KBluetoothHCICommandLEReadPeerResolvableAddress                     KBluetoothHCI = 0x2b
-	KBluetoothHCICommandLEReadPeriodicAdvertiserListSize                KBluetoothHCI = 0x4a
-	KBluetoothHCICommandLEReadPhy                                       KBluetoothHCI = 0x30
-	KBluetoothHCICommandLEReadRFPathCompensation                        KBluetoothHCI = 0x4c
-	KBluetoothHCICommandLEReadRemoteUsedFeatures                        KBluetoothHCI = 0x16
-	KBluetoothHCICommandLEReadResolvingListSize                         KBluetoothHCI = 0x2a
-	KBluetoothHCICommandLEReadSuggestedDefaultDataLength                KBluetoothHCI = 0x23
-	KBluetoothHCICommandLEReadSupportedStates                           KBluetoothHCI = 0x1c
-	KBluetoothHCICommandLEReadTransmitPower                             KBluetoothHCI = 0x4b
-	KBluetoothHCICommandLEReadWhiteListSize                             KBluetoothHCI = 0xf
-	KBluetoothHCICommandLEReceiverTest                                  KBluetoothHCI = 0x1d
-	KBluetoothHCICommandLERemoteConnectionParameterRequestNegativeReply KBluetoothHCI = 0x21
-	KBluetoothHCICommandLERemoteConnectionParameterRequestReply         KBluetoothHCI = 0x20
-	KBluetoothHCICommandLERemoveAdvertisingSet                          KBluetoothHCI = 0x3c
-	KBluetoothHCICommandLERemoveDeviceFromPeriodicAdvertiserList        KBluetoothHCI = 0x48
-	KBluetoothHCICommandLERemoveDeviceFromResolvingList                 KBluetoothHCI = 0x28
-	KBluetoothHCICommandLERemoveDeviceFromWhiteList                     KBluetoothHCI = 0x12
-	KBluetoothHCICommandLESetAddressResolutionEnable                    KBluetoothHCI = 0x2d
-	KBluetoothHCICommandLESetAdvertiseEnable                            KBluetoothHCI = 0xa
-	KBluetoothHCICommandLESetAdvertisingData                            KBluetoothHCI = 0x8
-	KBluetoothHCICommandLESetAdvertisingParameters                      KBluetoothHCI = 0x6
-	KBluetoothHCICommandLESetAdvertisingSetRandomAddress                KBluetoothHCI = 0x35
-	KBluetoothHCICommandLESetDataLength                                 KBluetoothHCI = 0x22
-	KBluetoothHCICommandLESetDefaultPhy                                 KBluetoothHCI = 0x31
-	KBluetoothHCICommandLESetEventMask                                  KBluetoothHCI = 0x1
-	KBluetoothHCICommandLESetExtendedAdvertisingData                    KBluetoothHCI = 0x37
-	KBluetoothHCICommandLESetExtendedAdvertisingEnableCommand           KBluetoothHCI = 0x39
-	KBluetoothHCICommandLESetExtendedAdvertisingParameters              KBluetoothHCI = 0x36
-	KBluetoothHCICommandLESetExtendedScanEnable                         KBluetoothHCI = 0x42
-	KBluetoothHCICommandLESetExtendedScanParameters                     KBluetoothHCI = 0x41
-	KBluetoothHCICommandLESetExtendedScanResponseData                   KBluetoothHCI = 0x38
-	KBluetoothHCICommandLESetHostChannelClassification                  KBluetoothHCI = 0x14
-	KBluetoothHCICommandLESetPeriodicAdvertisingData                    KBluetoothHCI = 0x3f
-	KBluetoothHCICommandLESetPeriodicAdvertisingEnable                  KBluetoothHCI = 0x40
-	KBluetoothHCICommandLESetPeriodicAdvertisingParameters              KBluetoothHCI = 0x3e
-	KBluetoothHCICommandLESetPhy                                        KBluetoothHCI = 0x32
-	KBluetoothHCICommandLESetPrivacyMode                                KBluetoothHCI = 0x4e
-	KBluetoothHCICommandLESetRandomAddress                              KBluetoothHCI = 0x5
-	KBluetoothHCICommandLESetResolvablePrivateAddressTimeout            KBluetoothHCI = 0x2e
-	KBluetoothHCICommandLESetScanEnable                                 KBluetoothHCI = 0xc
-	KBluetoothHCICommandLESetScanParameters                             KBluetoothHCI = 0xb
-	KBluetoothHCICommandLESetScanResponseData                           KBluetoothHCI = 0x9
-	KBluetoothHCICommandLEStartEncryption                               KBluetoothHCI = 0x19
-	KBluetoothHCICommandLETestEnd                                       KBluetoothHCI = 0x1f
-	KBluetoothHCICommandLETransmitterTest                               KBluetoothHCI = 0x1e
-	KBluetoothHCICommandLEWriteRFPathCompensation                       KBluetoothHCI = 0x4d
-	KBluetoothHCICommandLEWriteSuggestedDefaultDataLength               KBluetoothHCI = 0x24
-	KBluetoothHCICommandLinkKeyRequestNegativeReply                     KBluetoothHCI = 0xc
-	KBluetoothHCICommandLinkKeyRequestReply                             KBluetoothHCI = 0xb
-	KBluetoothHCICommandMasterLinkKey                                   KBluetoothHCI = 0x17
-	KBluetoothHCICommandMax                                             KBluetoothHCI = 0x3ff
-	KBluetoothHCICommandNoOp                                            KBluetoothHCI = 0
-	KBluetoothHCICommandPINCodeRequestNegativeReply                     KBluetoothHCI = 0xe
-	KBluetoothHCICommandPINCodeRequestReply                             KBluetoothHCI = 0xd
-	KBluetoothHCICommandPacketHeaderSize                                KBluetoothHCI = 3
-	KBluetoothHCICommandPacketMaxDataSize                               KBluetoothHCI = 255
-	KBluetoothHCICommandParkMode                                        KBluetoothHCI = 0x5
-	KBluetoothHCICommandPeriodicInquiryMode                             KBluetoothHCI = 0x3
-	KBluetoothHCICommandQoSSetup                                        KBluetoothHCI = 0x7
-	KBluetoothHCICommandReadAFHChannelAssessmentMode                    KBluetoothHCI = 0x48
-	KBluetoothHCICommandReadAFHMappings                                 KBluetoothHCI = 0x6
-	KBluetoothHCICommandReadAuthenticatedPayloadTimeout                 KBluetoothHCI = 0x7b
-	KBluetoothHCICommandReadAuthenticationEnable                        KBluetoothHCI = 0x1f
-	KBluetoothHCICommandReadAutomaticFlushTimeout                       KBluetoothHCI = 0x27
-	KBluetoothHCICommandReadBestEffortFlushTimeout                      KBluetoothHCI = 0x69
-	KBluetoothHCICommandReadBufferSize                                  KBluetoothHCI = 0x5
-	KBluetoothHCICommandReadClassOfDevice                               KBluetoothHCI = 0x23
-	KBluetoothHCICommandReadClock                                       KBluetoothHCI = 0x7
-	KBluetoothHCICommandReadClockOffset                                 KBluetoothHCI = 0x1f
-	KBluetoothHCICommandReadConnectionAcceptTimeout                     KBluetoothHCI = 0x15
-	KBluetoothHCICommandReadCountryCode                                 KBluetoothHCI = 0x7
-	KBluetoothHCICommandReadCurrentIACLAP                               KBluetoothHCI = 0x39
-	KBluetoothHCICommandReadDataBlockSize                               KBluetoothHCI = 0xa
-	KBluetoothHCICommandReadDefaultErroneousDataReporting               KBluetoothHCI = 0x5a
-	KBluetoothHCICommandReadDefaultLinkPolicySettings                   KBluetoothHCI = 0xe
-	KBluetoothHCICommandReadDeviceAddress                               KBluetoothHCI = 0x9
-	KBluetoothHCICommandReadEncryptionKeySize                           KBluetoothHCI = 0x8
-	KBluetoothHCICommandReadEncryptionMode                              KBluetoothHCI = 0x21
-	KBluetoothHCICommandReadEnhancedTransmitPowerLevel                  KBluetoothHCI = 0x68
-	KBluetoothHCICommandReadExtendedInquiryLength                       KBluetoothHCI = 0x80
-	KBluetoothHCICommandReadExtendedInquiryResponse                     KBluetoothHCI = 0x51
-	KBluetoothHCICommandReadExtendedPageTimeout                         KBluetoothHCI = 0x7e
-	KBluetoothHCICommandReadFailedContactCounter                        KBluetoothHCI = 0x1
-	KBluetoothHCICommandReadFlowControlMode                             KBluetoothHCI = 0x66
-	KBluetoothHCICommandReadHoldModeActivity                            KBluetoothHCI = 0x2b
-	KBluetoothHCICommandReadInquiryMode                                 KBluetoothHCI = 0x44
-	KBluetoothHCICommandReadInquiryResponseTransmitPower                KBluetoothHCI = 0x58
-	KBluetoothHCICommandReadInquiryScanActivity                         KBluetoothHCI = 0x1d
-	KBluetoothHCICommandReadInquiryScanType                             KBluetoothHCI = 0x42
-	KBluetoothHCICommandReadLEHostSupported                             KBluetoothHCI = 0x6c
-	KBluetoothHCICommandReadLMPHandle                                   KBluetoothHCI = 0x20
-	KBluetoothHCICommandReadLinkPolicySettings                          KBluetoothHCI = 0xc
-	KBluetoothHCICommandReadLinkSupervisionTimeout                      KBluetoothHCI = 0x36
-	KBluetoothHCICommandReadLocalAMPASSOC                               KBluetoothHCI = 0xa
-	KBluetoothHCICommandReadLocalAMPInfo                                KBluetoothHCI = 0x9
-	KBluetoothHCICommandReadLocalExtendedFeatures                       KBluetoothHCI = 0x4
-	KBluetoothHCICommandReadLocalName                                   KBluetoothHCI = 0x14
-	KBluetoothHCICommandReadLocalOOBData                                KBluetoothHCI = 0x57
-	KBluetoothHCICommandReadLocalOOBExtendedData                        KBluetoothHCI = 0x7d
-	KBluetoothHCICommandReadLocalSupportedCodecs                        KBluetoothHCI = 0xb
-	KBluetoothHCICommandReadLocalSupportedCommands                      KBluetoothHCI = 0x2
-	KBluetoothHCICommandReadLocalSupportedFeatures                      KBluetoothHCI = 0x3
-	KBluetoothHCICommandReadLocalVersionInformation                     KBluetoothHCI = 0x1
-	KBluetoothHCICommandReadLocationData                                KBluetoothHCI = 0x64
-	KBluetoothHCICommandReadLogicalLinkAcceptTimeout                    KBluetoothHCI = 0x61
-	KBluetoothHCICommandReadLoopbackMode                                KBluetoothHCI = 0x1
-	KBluetoothHCICommandReadNumberOfBroadcastRetransmissions            KBluetoothHCI = 0x29
-	KBluetoothHCICommandReadNumberOfSupportedIAC                        KBluetoothHCI = 0x38
-	KBluetoothHCICommandReadPINType                                     KBluetoothHCI = 0x9
-	KBluetoothHCICommandReadPageScanActivity                            KBluetoothHCI = 0x1b
-	KBluetoothHCICommandReadPageScanMode                                KBluetoothHCI = 0x3d
-	KBluetoothHCICommandReadPageScanPeriodMode                          KBluetoothHCI = 0x3b
-	KBluetoothHCICommandReadPageScanType                                KBluetoothHCI = 0x46
-	KBluetoothHCICommandReadPageTimeout                                 KBluetoothHCI = 0x17
-	KBluetoothHCICommandReadRSSI                                        KBluetoothHCI = 0x5
-	KBluetoothHCICommandReadRemoteExtendedFeatures                      KBluetoothHCI = 0x1c
-	KBluetoothHCICommandReadRemoteSupportedFeatures                     KBluetoothHCI = 0x1b
-	KBluetoothHCICommandReadRemoteVersionInformation                    KBluetoothHCI = 0x1d
-	KBluetoothHCICommandReadSCOFlowControlEnable                        KBluetoothHCI = 0x2e
-	KBluetoothHCICommandReadScanEnable                                  KBluetoothHCI = 0x19
-	KBluetoothHCICommandReadSecureConnectionsHostSupport                KBluetoothHCI = 0x79
-	KBluetoothHCICommandReadSimplePairingMode                           KBluetoothHCI = 0x55
-	KBluetoothHCICommandReadStoredLinkKey                               KBluetoothHCI = 0xd
-	KBluetoothHCICommandReadSynchronizationTrainParameters              KBluetoothHCI = 0x77
-	KBluetoothHCICommandReadTransmitPowerLevel                          KBluetoothHCI = 0x2d
-	KBluetoothHCICommandReadVoiceSetting                                KBluetoothHCI = 0x25
-	KBluetoothHCICommandReceiveSynchronizationTrain                     KBluetoothHCI = 0x44
-	KBluetoothHCICommandRefreshEncryptionKey                            KBluetoothHCI = 0x53
-	KBluetoothHCICommandRejectConnectionRequest                         KBluetoothHCI = 0xa
-	KBluetoothHCICommandRejectSniffRequest                              KBluetoothHCI = 0x32
-	KBluetoothHCICommandRejectSynchronousConnectionRequest              KBluetoothHCI = 0x2a
-	KBluetoothHCICommandRemoteNameRequest                               KBluetoothHCI = 0x19
-	KBluetoothHCICommandRemoteNameRequestCancel                         KBluetoothHCI = 0x1a
-	KBluetoothHCICommandRemoteOOBDataRequestNegativeReply               KBluetoothHCI = 0x33
-	KBluetoothHCICommandRemoteOOBDataRequestReply                       KBluetoothHCI = 0x30
-	KBluetoothHCICommandRemoteOOBExtendedDataRequestReply               KBluetoothHCI = 0x45
-	KBluetoothHCICommandReset                                           KBluetoothHCI = 0x3
-	KBluetoothHCICommandResetFailedContactCounter                       KBluetoothHCI = 0x2
-	KBluetoothHCICommandRoleDiscovery                                   KBluetoothHCI = 0x9
-	KBluetoothHCICommandSendKeypressNotification                        KBluetoothHCI = 0x60
-	KBluetoothHCICommandSetAFHClassification                            KBluetoothHCI = 0x3f
-	KBluetoothHCICommandSetConnectionEncryption                         KBluetoothHCI = 0x13
-	KBluetoothHCICommandSetConnectionlessPeripheralBroadcast            KBluetoothHCI = 0x41
-	KBluetoothHCICommandSetConnectionlessPeripheralBroadcastData        KBluetoothHCI = 0x76
-	KBluetoothHCICommandSetConnectionlessPeripheralBroadcastReceive     KBluetoothHCI = 0x42
-	KBluetoothHCICommandSetEventFilter                                  KBluetoothHCI = 0x5
-	KBluetoothHCICommandSetEventMask                                    KBluetoothHCI = 0x1
-	KBluetoothHCICommandSetEventMaskPageTwo                             KBluetoothHCI = 0x63
-	KBluetoothHCICommandSetExternalFrameConfiguration                   KBluetoothHCI = 0x6f
-	KBluetoothHCICommandSetHostControllerToHostFlowControl              KBluetoothHCI = 0x31
-	KBluetoothHCICommandSetMWSChannelParameters                         KBluetoothHCI = 0x6e
-	KBluetoothHCICommandSetMWSPATTERNConfiguration                      KBluetoothHCI = 0x73
-	KBluetoothHCICommandSetMWSScanFrequencyTable                        KBluetoothHCI = 0x72
-	KBluetoothHCICommandSetMWSSignaling                                 KBluetoothHCI = 0x70
-	KBluetoothHCICommandSetMWSTransportLayer                            KBluetoothHCI = 0x71
-	KBluetoothHCICommandSetReservedLTADDR                               KBluetoothHCI = 0x74
-	KBluetoothHCICommandSetTriggeredClockCapture                        KBluetoothHCI = 0xd
-	KBluetoothHCICommandSetupSynchronousConnection                      KBluetoothHCI = 0x28
-	KBluetoothHCICommandShortRangeMode                                  KBluetoothHCI = 0x6b
-	KBluetoothHCICommandSniffMode                                       KBluetoothHCI = 0x3
-	KBluetoothHCICommandSniffSubrating                                  KBluetoothHCI = 0x11
-	KBluetoothHCICommandStartSynchronizationTrain                       KBluetoothHCI = 0x43
-	KBluetoothHCICommandSwitchRole                                      KBluetoothHCI = 0xb
-	KBluetoothHCICommandTruncatedPage                                   KBluetoothHCI = 0x3f
-	KBluetoothHCICommandTruncatedPageCancel                             KBluetoothHCI = 0x40
-	KBluetoothHCICommandUserConfirmationRequestNegativeReply            KBluetoothHCI = 0x2d
-	KBluetoothHCICommandUserConfirmationRequestReply                    KBluetoothHCI = 0x2c
-	KBluetoothHCICommandUserPasskeyRequestNegativeReply                 KBluetoothHCI = 0x2f
-	KBluetoothHCICommandUserPasskeyRequestReply                         KBluetoothHCI = 0x2e
-	KBluetoothHCICommandWriteAFHChannelAssessmentMode                   KBluetoothHCI = 0x49
-	KBluetoothHCICommandWriteAuthenticatedPayloadTimeout                KBluetoothHCI = 0x7c
-	KBluetoothHCICommandWriteAuthenticationEnable                       KBluetoothHCI = 0x20
-	KBluetoothHCICommandWriteAutomaticFlushTimeout                      KBluetoothHCI = 0x28
-	KBluetoothHCICommandWriteBestEffortFlushTimeout                     KBluetoothHCI = 0x6a
-	KBluetoothHCICommandWriteClassOfDevice                              KBluetoothHCI = 0x24
-	KBluetoothHCICommandWriteConnectionAcceptTimeout                    KBluetoothHCI = 0x16
-	KBluetoothHCICommandWriteCurrentIACLAP                              KBluetoothHCI = 0x3a
-	KBluetoothHCICommandWriteDefaultErroneousDataReporting              KBluetoothHCI = 0x5b
-	KBluetoothHCICommandWriteDefaultLinkPolicySettings                  KBluetoothHCI = 0xf
-	KBluetoothHCICommandWriteEncryptionMode                             KBluetoothHCI = 0x22
-	KBluetoothHCICommandWriteExtendedInquiryLength                      KBluetoothHCI = 0x81
-	KBluetoothHCICommandWriteExtendedInquiryResponse                    KBluetoothHCI = 0x52
-	KBluetoothHCICommandWriteExtendedPageTimeout                        KBluetoothHCI = 0x7f
-	KBluetoothHCICommandWriteFlowControlMode                            KBluetoothHCI = 0x67
-	KBluetoothHCICommandWriteHoldModeActivity                           KBluetoothHCI = 0x2c
-	KBluetoothHCICommandWriteInquiryMode                                KBluetoothHCI = 0x45
-	KBluetoothHCICommandWriteInquiryResponseTransmitPower               KBluetoothHCI = 0x59
-	KBluetoothHCICommandWriteInquiryScanActivity                        KBluetoothHCI = 0x1e
-	KBluetoothHCICommandWriteInquiryScanType                            KBluetoothHCI = 0x43
-	KBluetoothHCICommandWriteLEHostSupported                            KBluetoothHCI = 0x6d
-	KBluetoothHCICommandWriteLinkPolicySettings                         KBluetoothHCI = 0xd
-	KBluetoothHCICommandWriteLinkSupervisionTimeout                     KBluetoothHCI = 0x37
-	KBluetoothHCICommandWriteLocationData                               KBluetoothHCI = 0x65
-	KBluetoothHCICommandWriteLogicalLinkAcceptTimeout                   KBluetoothHCI = 0x62
-	KBluetoothHCICommandWriteLoopbackMode                               KBluetoothHCI = 0x2
-	KBluetoothHCICommandWriteNumberOfBroadcastRetransmissions           KBluetoothHCI = 0x2a
-	KBluetoothHCICommandWritePINType                                    KBluetoothHCI = 0xa
-	KBluetoothHCICommandWritePageScanActivity                           KBluetoothHCI = 0x1c
-	KBluetoothHCICommandWritePageScanMode                               KBluetoothHCI = 0x3e
-	KBluetoothHCICommandWritePageScanPeriodMode                         KBluetoothHCI = 0x3c
-	KBluetoothHCICommandWritePageScanType                               KBluetoothHCI = 0x47
-	KBluetoothHCICommandWritePageTimeout                                KBluetoothHCI = 0x18
-	KBluetoothHCICommandWriteRemoteAMPASSOC                             KBluetoothHCI = 0xb
-	KBluetoothHCICommandWriteSCOFlowControlEnable                       KBluetoothHCI = 0x2f
-	KBluetoothHCICommandWriteScanEnable                                 KBluetoothHCI = 0x1a
-	KBluetoothHCICommandWriteSecureConnectionsHostSupport               KBluetoothHCI = 0x7a
-	KBluetoothHCICommandWriteSimplePairingDebugMode                     KBluetoothHCI = 0x4
-	KBluetoothHCICommandWriteSimplePairingMode                          KBluetoothHCI = 0x56
-	KBluetoothHCICommandWriteStoredLinkKey                              KBluetoothHCI = 0x11
-	KBluetoothHCICommandWriteSynchronizationTrainParameters             KBluetoothHCI = 0x78
-	KBluetoothHCICommandWriteVoiceSetting                               KBluetoothHCI = 0x26
-	KBluetoothHCIDataPacketHeaderSize                                   KBluetoothHCI = 4
-	KBluetoothHCIDataPacketMaxDataSize                                  KBluetoothHCI = 65535
-	KBluetoothHCIEventAMPReceiverReport                                 KBluetoothHCI = 0x4b
-	KBluetoothHCIEventAMPStartTest                                      KBluetoothHCI = 0x49
-	KBluetoothHCIEventAMPStatusChange                                   KBluetoothHCI = 0x4d
-	KBluetoothHCIEventAMPTestEnd                                        KBluetoothHCI = 0x4a
-	KBluetoothHCIEventAuthenticationComplete                            KBluetoothHCI = 0x6
-	KBluetoothHCIEventChangeConnectionLinkKeyComplete                   KBluetoothHCI = 0x9
-	KBluetoothHCIEventChannelSelected                                   KBluetoothHCI = 0x41
-	KBluetoothHCIEventCommandComplete                                   KBluetoothHCI = 0xe
-	KBluetoothHCIEventCommandStatus                                     KBluetoothHCI = 0xf
-	KBluetoothHCIEventConnectionComplete                                KBluetoothHCI = 0x3
-	KBluetoothHCIEventConnectionPacketType                              KBluetoothHCI = 0x1d
-	KBluetoothHCIEventConnectionRequest                                 KBluetoothHCI = 0x4
-	KBluetoothHCIEventDataBufferOverflow                                KBluetoothHCI = 0x1a
-	KBluetoothHCIEventDisconnectionComplete                             KBluetoothHCI = 0x5
-	KBluetoothHCIEventDisconnectionLogicalLinkComplete                  KBluetoothHCI = 0x46
-	KBluetoothHCIEventDisconnectionPhysicalLinkComplete                 KBluetoothHCI = 0x42
-	KBluetoothHCIEventEncryptionChange                                  KBluetoothHCI = 0x8
-	KBluetoothHCIEventEncryptionKeyRefreshComplete                      KBluetoothHCI = 0x30
-	KBluetoothHCIEventEnhancedFlushComplete                             KBluetoothHCI = 0x39
-	KBluetoothHCIEventExtendedInquiryResult                             KBluetoothHCI = 0x2f
-	KBluetoothHCIEventFlowSpecModifyComplete                            KBluetoothHCI = 0x47
-	KBluetoothHCIEventFlowSpecificationComplete                         KBluetoothHCI = 0x21
-	KBluetoothHCIEventFlushOccurred                                     KBluetoothHCI = 0x11
-	KBluetoothHCIEventHardwareError                                     KBluetoothHCI = 0x10
-	KBluetoothHCIEventIOCapabilityRequest                               KBluetoothHCI = 0x31
-	KBluetoothHCIEventIOCapabilityResponse                              KBluetoothHCI = 0x32
-	KBluetoothHCIEventInquiryComplete                                   KBluetoothHCI = 0x1
-	KBluetoothHCIEventInquiryResult                                     KBluetoothHCI = 0x2
-	KBluetoothHCIEventInquiryResultWithRSSI                             KBluetoothHCI = 0x22
-	KBluetoothHCIEventKeypressNotification                              KBluetoothHCI = 0x3c
-	KBluetoothHCIEventLEMetaEvent                                       KBluetoothHCI = 0x3e
-	KBluetoothHCIEventLinkKeyNotification                               KBluetoothHCI = 0x18
-	KBluetoothHCIEventLinkKeyRequest                                    KBluetoothHCI = 0x17
-	KBluetoothHCIEventLinkSupervisionTimeoutChanged                     KBluetoothHCI = 0x38
-	KBluetoothHCIEventLogicalLinkComplete                               KBluetoothHCI = 0x45
-	KBluetoothHCIEventLogoTesting                                       KBluetoothHCI = 0xfe
-	KBluetoothHCIEventLoopbackCommand                                   KBluetoothHCI = 0x19
-	KBluetoothHCIEventMasterLinkKeyComplete                             KBluetoothHCI = 0xa
-	KBluetoothHCIEventMaxSlotsChange                                    KBluetoothHCI = 0x1b
-	KBluetoothHCIEventModeChange                                        KBluetoothHCI = 0x14
-	KBluetoothHCIEventNumberOfCompletedDataBlocks                       KBluetoothHCI = 0x48
-	KBluetoothHCIEventNumberOfCompletedPackets                          KBluetoothHCI = 0x13
-	KBluetoothHCIEventPINCodeRequest                                    KBluetoothHCI = 0x16
-	KBluetoothHCIEventPacketHeaderSize                                  KBluetoothHCI = 2
-	KBluetoothHCIEventPacketMaxDataSize                                 KBluetoothHCI = 255
-	KBluetoothHCIEventPageScanModeChange                                KBluetoothHCI = 0x1f
-	KBluetoothHCIEventPageScanRepetitionModeChange                      KBluetoothHCI = 0x20
-	KBluetoothHCIEventPhysicalLinkComplete                              KBluetoothHCI = 0x40
-	KBluetoothHCIEventPhysicalLinkLossEarlyWarning                      KBluetoothHCI = 0x43
-	KBluetoothHCIEventPhysicalLinkRecovery                              KBluetoothHCI = 0x44
-	KBluetoothHCIEventQoSSetupComplete                                  KBluetoothHCI = 0xd
-	KBluetoothHCIEventQoSViolation                                      KBluetoothHCI = 0x1e
-	KBluetoothHCIEventReadClockOffsetComplete                           KBluetoothHCI = 0x1c
-	KBluetoothHCIEventReadRemoteExtendedFeaturesComplete                KBluetoothHCI = 0x23
-	KBluetoothHCIEventReadRemoteSupportedFeaturesComplete               KBluetoothHCI = 0xb
-	KBluetoothHCIEventReadRemoteVersionInformationComplete              KBluetoothHCI = 0xc
-	KBluetoothHCIEventRemoteHostSupportedFeaturesNotification           KBluetoothHCI = 0x3d
-	KBluetoothHCIEventRemoteNameRequestComplete                         KBluetoothHCI = 0x7
-	KBluetoothHCIEventRemoteOOBDataRequest                              KBluetoothHCI = 0x35
-	KBluetoothHCIEventReturnLinkKeys                                    KBluetoothHCI = 0x15
-	KBluetoothHCIEventRoleChange                                        KBluetoothHCI = 0x12
-	KBluetoothHCIEventShortRangeModeChangeComplete                      KBluetoothHCI = 0x4c
-	KBluetoothHCIEventSimplePairingComplete                             KBluetoothHCI = 0x36
-	KBluetoothHCIEventSniffSubrating                                    KBluetoothHCI = 0x2e
-	KBluetoothHCIEventSynchronousConnectionChanged                      KBluetoothHCI = 0x2d
-	KBluetoothHCIEventSynchronousConnectionComplete                     KBluetoothHCI = 0x2c
-	KBluetoothHCIEventUserConfirmationRequest                           KBluetoothHCI = 0x33
-	KBluetoothHCIEventUserPasskeyNotification                           KBluetoothHCI = 0x3b
-	KBluetoothHCIEventUserPasskeyRequest                                KBluetoothHCI = 0x34
-	KBluetoothHCIEventVendorSpecific                                    KBluetoothHCI = 0xff
-	KBluetoothHCIMaxCommandPacketSize                                   KBluetoothHCI = 258
-	KBluetoothHCIMaxDataPacketSize                                      KBluetoothHCI = 65539
-	KBluetoothHCIMaxEventPacketSize                                     KBluetoothHCI = 257
-	KBluetoothHCIOpCodeNoOp                                             KBluetoothHCI = 0
-	KBluetoothHCISubEventLEAdvertisingReport                            KBluetoothHCI = 0x2
-	KBluetoothHCISubEventLEAdvertisingSetTerminated                     KBluetoothHCI = 0x12
-	KBluetoothHCISubEventLEChannelSelectionAlgorithm                    KBluetoothHCI = 0x14
-	KBluetoothHCISubEventLEConnectionComplete                           KBluetoothHCI = 0x1
-	KBluetoothHCISubEventLEConnectionUpdateComplete                     KBluetoothHCI = 0x3
-	KBluetoothHCISubEventLEDataLengthChange                             KBluetoothHCI = 0x7
-	KBluetoothHCISubEventLEDirectAdvertisingReport                      KBluetoothHCI = 0xb
-	KBluetoothHCISubEventLEEnhancedConnectionComplete                   KBluetoothHCI = 0xa
-	KBluetoothHCISubEventLEExtendedAdvertising                          KBluetoothHCI = 0xd
-	KBluetoothHCISubEventLEGenerateDHKeyComplete                        KBluetoothHCI = 0x9
-	KBluetoothHCISubEventLELongTermKeyRequest                           KBluetoothHCI = 0x5
-	KBluetoothHCISubEventLEPeriodicAdvertisingReport                    KBluetoothHCI = 0xf
-	KBluetoothHCISubEventLEPeriodicAdvertisingSyncEstablished           KBluetoothHCI = 0xe
-	KBluetoothHCISubEventLEPeriodicAdvertisingSyncLost                  KBluetoothHCI = 0x10
-	KBluetoothHCISubEventLEPhyUpdateComplete                            KBluetoothHCI = 0xc
-	KBluetoothHCISubEventLEReadLocalP256PublicKeyComplete               KBluetoothHCI = 0x8
-	KBluetoothHCISubEventLEReadRemoteUsedFeaturesComplete               KBluetoothHCI = 0x4
-	KBluetoothHCISubEventLERemoteConnectionParameterRequest             KBluetoothHCI = 0x6
-	KBluetoothHCISubEventLEScanRequestReceived                          KBluetoothHCI = 0x13
-	KBluetoothHCISubEventLEScanTimeout                                  KBluetoothHCI = 0x11
-	// Deprecated.
-	KBluetoothHCICommandSetConnectionlessSlaveBroadcast KBluetoothHCI = 65
-	// Deprecated.
-	KBluetoothHCICommandSetConnectionlessSlaveBroadcastData KBluetoothHCI = 118
-	// Deprecated.
-	KBluetoothHCICommandSetConnectionlessSlaveBroadcastReceive KBluetoothHCI = 66
+	KBluetoothGeneralInquiryAccessCodeIndexValue KBluetoothGeneralInquiryAccessCodeIndex = 0
+	KBluetoothGeneralInquiryAccessCodeLAPValue   KBluetoothGeneralInquiryAccessCodeIndex = 0x9e8b33
+	KBluetoothLimitedInquiryAccessCodeEnd        KBluetoothGeneralInquiryAccessCodeIndex = 10390273
+	KBluetoothLimitedInquiryAccessCodeIndex      KBluetoothGeneralInquiryAccessCodeIndex = 1
+	KBluetoothLimitedInquiryAccessCodeLAPValue   KBluetoothGeneralInquiryAccessCodeIndex = 0x9e8b00
 )
 
-func (e KBluetoothHCI) String() string {
+func (e KBluetoothGeneralInquiryAccessCodeIndex) String() string {
 	switch e {
-	case KBluetoothHCICommandAMPTest:
-		return "KBluetoothHCICommandAMPTest"
-	case KBluetoothHCICommandAMPTestEnd:
-		return "KBluetoothHCICommandAMPTestEnd"
-	case KBluetoothHCICommandAcceptSniffRequest:
-		return "KBluetoothHCICommandAcceptSniffRequest"
-	case KBluetoothHCICommandAcceptSynchronousConnectionRequest:
-		return "KBluetoothHCICommandAcceptSynchronousConnectionRequest"
-	case KBluetoothHCICommandAddSCOConnection:
-		return "KBluetoothHCICommandAddSCOConnection"
-	case KBluetoothHCICommandAuthenticationRequested:
-		return "KBluetoothHCICommandAuthenticationRequested"
-	case KBluetoothHCICommandChangeConnectionLinkKey:
-		return "KBluetoothHCICommandChangeConnectionLinkKey"
-	case KBluetoothHCICommandChangeConnectionPacketType:
-		return "KBluetoothHCICommandChangeConnectionPacketType"
-	case KBluetoothHCICommandChangeLocalName:
-		return "KBluetoothHCICommandChangeLocalName"
-	case KBluetoothHCICommandCreateConnection:
-		return "KBluetoothHCICommandCreateConnection"
-	case KBluetoothHCICommandCreateNewUnitKey:
-		return "KBluetoothHCICommandCreateNewUnitKey"
-	case KBluetoothHCICommandDeleteReservedLTADDR:
-		return "KBluetoothHCICommandDeleteReservedLTADDR"
-	case KBluetoothHCICommandDeleteStoredLinkKey:
-		return "KBluetoothHCICommandDeleteStoredLinkKey"
-	case KBluetoothHCICommandDisconnect:
-		return "KBluetoothHCICommandDisconnect"
-	case KBluetoothHCICommandEnableDeviceUnderTestMode:
-		return "KBluetoothHCICommandEnableDeviceUnderTestMode"
-	case KBluetoothHCICommandEnhancedAcceptSynchronousConnectionRequest:
-		return "KBluetoothHCICommandEnhancedAcceptSynchronousConnectionRequest"
-	case KBluetoothHCICommandEnhancedFlush:
-		return "KBluetoothHCICommandEnhancedFlush"
-	case KBluetoothHCICommandEnhancedSetupSynchronousConnection:
-		return "KBluetoothHCICommandEnhancedSetupSynchronousConnection"
-	case KBluetoothHCICommandExitPeriodicInquiryMode:
-		return "KBluetoothHCICommandExitPeriodicInquiryMode"
-	case KBluetoothHCICommandFlowSpecification:
-		return "KBluetoothHCICommandFlowSpecification"
-	case KBluetoothHCICommandGetMWSTransportLayerConfiguration:
-		return "KBluetoothHCICommandGetMWSTransportLayerConfiguration"
-	case KBluetoothHCICommandGroupLinkControl:
-		return "KBluetoothHCICommandGroupLinkControl"
-	case KBluetoothHCICommandGroupLinkPolicy:
-		return "KBluetoothHCICommandGroupLinkPolicy"
-	case KBluetoothHCICommandGroupMax:
-		return "KBluetoothHCICommandGroupMax"
-	case KBluetoothHCICommandGroupNoOp:
-		return "KBluetoothHCICommandGroupNoOp"
-	case KBluetoothHCICommandGroupVendorSpecific:
-		return "KBluetoothHCICommandGroupVendorSpecific"
-	case KBluetoothHCICommandHostBufferSize:
-		return "KBluetoothHCICommandHostBufferSize"
-	case KBluetoothHCICommandHostNumberOfCompletedPackets:
-		return "KBluetoothHCICommandHostNumberOfCompletedPackets"
-	case KBluetoothHCICommandIOCapabilityRequestNegativeReply:
-		return "KBluetoothHCICommandIOCapabilityRequestNegativeReply"
-	case KBluetoothHCICommandIOCapabilityRequestReply:
-		return "KBluetoothHCICommandIOCapabilityRequestReply"
-	case KBluetoothHCICommandLEAddDeviceToPeriodicAdvertiserList:
-		return "KBluetoothHCICommandLEAddDeviceToPeriodicAdvertiserList"
-	case KBluetoothHCICommandLEAddDeviceToResolvingList:
-		return "KBluetoothHCICommandLEAddDeviceToResolvingList"
-	case KBluetoothHCICommandLEClearPeriodicAdvertiserList:
-		return "KBluetoothHCICommandLEClearPeriodicAdvertiserList"
-	case KBluetoothHCICommandLECreateConnection:
-		return "KBluetoothHCICommandLECreateConnection"
-	case KBluetoothHCICommandLECreateConnectionCancel:
-		return "KBluetoothHCICommandLECreateConnectionCancel"
-	case KBluetoothHCICommandLEEncrypt:
-		return "KBluetoothHCICommandLEEncrypt"
-	case KBluetoothHCICommandLEExtendedCreateConnection:
-		return "KBluetoothHCICommandLEExtendedCreateConnection"
-	case KBluetoothHCICommandLEGenerateDHKey:
-		return "KBluetoothHCICommandLEGenerateDHKey"
-	case KBluetoothHCICommandLELongTermKeyRequestNegativeReply:
-		return "KBluetoothHCICommandLELongTermKeyRequestNegativeReply"
-	case KBluetoothHCICommandLELongTermKeyRequestReply:
-		return "KBluetoothHCICommandLELongTermKeyRequestReply"
-	case KBluetoothHCICommandLEPeriodicAdvertisingCreateSync:
-		return "KBluetoothHCICommandLEPeriodicAdvertisingCreateSync"
-	case KBluetoothHCICommandLEPeriodicAdvertisingCreateSyncCancel:
-		return "KBluetoothHCICommandLEPeriodicAdvertisingCreateSyncCancel"
-	case KBluetoothHCICommandLEPeriodicAdvertisingTerminateSync:
-		return "KBluetoothHCICommandLEPeriodicAdvertisingTerminateSync"
-	case KBluetoothHCICommandLERand:
-		return "KBluetoothHCICommandLERand"
-	case KBluetoothHCICommandLEReadLocalP256PublicKey:
-		return "KBluetoothHCICommandLEReadLocalP256PublicKey"
-	case KBluetoothHCICommandLEReadLocalResolvableAddress:
-		return "KBluetoothHCICommandLEReadLocalResolvableAddress"
-	case KBluetoothHCICommandLEReadMaximumAdvertisingDataLength:
-		return "KBluetoothHCICommandLEReadMaximumAdvertisingDataLength"
-	case KBluetoothHCICommandLEReadMaximumDataLength:
-		return "KBluetoothHCICommandLEReadMaximumDataLength"
-	case KBluetoothHCICommandLEReadNumberofSupportedAdvertisingSets:
-		return "KBluetoothHCICommandLEReadNumberofSupportedAdvertisingSets"
-	case KBluetoothHCICommandLEReadPeriodicAdvertiserListSize:
-		return "KBluetoothHCICommandLEReadPeriodicAdvertiserListSize"
-	case KBluetoothHCICommandLEReadPhy:
-		return "KBluetoothHCICommandLEReadPhy"
-	case KBluetoothHCICommandLEReadRFPathCompensation:
-		return "KBluetoothHCICommandLEReadRFPathCompensation"
-	case KBluetoothHCICommandLEReadRemoteUsedFeatures:
-		return "KBluetoothHCICommandLEReadRemoteUsedFeatures"
-	case KBluetoothHCICommandLEReadResolvingListSize:
-		return "KBluetoothHCICommandLEReadResolvingListSize"
-	case KBluetoothHCICommandLEReadSuggestedDefaultDataLength:
-		return "KBluetoothHCICommandLEReadSuggestedDefaultDataLength"
-	case KBluetoothHCICommandLEReadSupportedStates:
-		return "KBluetoothHCICommandLEReadSupportedStates"
-	case KBluetoothHCICommandLEReadTransmitPower:
-		return "KBluetoothHCICommandLEReadTransmitPower"
-	case KBluetoothHCICommandLEReceiverTest:
-		return "KBluetoothHCICommandLEReceiverTest"
-	case KBluetoothHCICommandLERemoteConnectionParameterRequestNegativeReply:
-		return "KBluetoothHCICommandLERemoteConnectionParameterRequestNegativeReply"
-	case KBluetoothHCICommandLERemoteConnectionParameterRequestReply:
-		return "KBluetoothHCICommandLERemoteConnectionParameterRequestReply"
-	case KBluetoothHCICommandLERemoveAdvertisingSet:
-		return "KBluetoothHCICommandLERemoveAdvertisingSet"
-	case KBluetoothHCICommandLERemoveDeviceFromPeriodicAdvertiserList:
-		return "KBluetoothHCICommandLERemoveDeviceFromPeriodicAdvertiserList"
-	case KBluetoothHCICommandLERemoveDeviceFromResolvingList:
-		return "KBluetoothHCICommandLERemoveDeviceFromResolvingList"
-	case KBluetoothHCICommandLESetAddressResolutionEnable:
-		return "KBluetoothHCICommandLESetAddressResolutionEnable"
-	case KBluetoothHCICommandLESetAdvertiseEnable:
-		return "KBluetoothHCICommandLESetAdvertiseEnable"
-	case KBluetoothHCICommandLESetDataLength:
-		return "KBluetoothHCICommandLESetDataLength"
-	case KBluetoothHCICommandLESetExtendedAdvertisingData:
-		return "KBluetoothHCICommandLESetExtendedAdvertisingData"
-	case KBluetoothHCICommandLESetExtendedAdvertisingEnableCommand:
-		return "KBluetoothHCICommandLESetExtendedAdvertisingEnableCommand"
-	case KBluetoothHCICommandLESetExtendedAdvertisingParameters:
-		return "KBluetoothHCICommandLESetExtendedAdvertisingParameters"
-	case KBluetoothHCICommandLESetExtendedScanEnable:
-		return "KBluetoothHCICommandLESetExtendedScanEnable"
-	case KBluetoothHCICommandLESetExtendedScanParameters:
-		return "KBluetoothHCICommandLESetExtendedScanParameters"
-	case KBluetoothHCICommandLESetExtendedScanResponseData:
-		return "KBluetoothHCICommandLESetExtendedScanResponseData"
-	case KBluetoothHCICommandLESetHostChannelClassification:
-		return "KBluetoothHCICommandLESetHostChannelClassification"
-	case KBluetoothHCICommandLESetPhy:
-		return "KBluetoothHCICommandLESetPhy"
-	case KBluetoothHCICommandLESetPrivacyMode:
-		return "KBluetoothHCICommandLESetPrivacyMode"
-	case KBluetoothHCICommandLESetResolvablePrivateAddressTimeout:
-		return "KBluetoothHCICommandLESetResolvablePrivateAddressTimeout"
-	case KBluetoothHCICommandLEStartEncryption:
-		return "KBluetoothHCICommandLEStartEncryption"
-	case KBluetoothHCICommandLETestEnd:
-		return "KBluetoothHCICommandLETestEnd"
-	case KBluetoothHCICommandLETransmitterTest:
-		return "KBluetoothHCICommandLETransmitterTest"
-	case KBluetoothHCICommandLEWriteRFPathCompensation:
-		return "KBluetoothHCICommandLEWriteRFPathCompensation"
-	case KBluetoothHCICommandLEWriteSuggestedDefaultDataLength:
-		return "KBluetoothHCICommandLEWriteSuggestedDefaultDataLength"
-	case KBluetoothHCICommandMax:
-		return "KBluetoothHCICommandMax"
+	case KBluetoothGeneralInquiryAccessCodeIndexValue:
+		return "KBluetoothGeneralInquiryAccessCodeIndexValue"
+	case KBluetoothGeneralInquiryAccessCodeLAPValue:
+		return "KBluetoothGeneralInquiryAccessCodeLAPValue"
+	case KBluetoothLimitedInquiryAccessCodeEnd:
+		return "KBluetoothLimitedInquiryAccessCodeEnd"
+	case KBluetoothLimitedInquiryAccessCodeIndex:
+		return "KBluetoothLimitedInquiryAccessCodeIndex"
+	case KBluetoothLimitedInquiryAccessCodeLAPValue:
+		return "KBluetoothLimitedInquiryAccessCodeLAPValue"
+	default:
+		return fmt.Sprintf("KBluetoothGeneralInquiryAccessCodeIndex(%d)", e)
+	}
+}
+
+type KBluetoothHCICommandPacketHeaderSize uint32
+
+const (
+	KBluetoothHCICommandPacketHeaderSizeValue KBluetoothHCICommandPacketHeaderSize = 3
+	KBluetoothHCICommandPacketMaxDataSize     KBluetoothHCICommandPacketHeaderSize = 255
+	KBluetoothHCIDataPacketHeaderSize         KBluetoothHCICommandPacketHeaderSize = 4
+	KBluetoothHCIDataPacketMaxDataSize        KBluetoothHCICommandPacketHeaderSize = 65535
+	KBluetoothHCIEventPacketHeaderSize        KBluetoothHCICommandPacketHeaderSize = 2
+	KBluetoothHCIEventPacketMaxDataSize       KBluetoothHCICommandPacketHeaderSize = 255
+	KBluetoothHCIMaxCommandPacketSize         KBluetoothHCICommandPacketHeaderSize = 258
+	KBluetoothHCIMaxDataPacketSize            KBluetoothHCICommandPacketHeaderSize = 65539
+	KBluetoothHCIMaxEventPacketSize           KBluetoothHCICommandPacketHeaderSize = 257
+)
+
+func (e KBluetoothHCICommandPacketHeaderSize) String() string {
+	switch e {
+	case KBluetoothHCICommandPacketHeaderSizeValue:
+		return "KBluetoothHCICommandPacketHeaderSizeValue"
 	case KBluetoothHCICommandPacketMaxDataSize:
 		return "KBluetoothHCICommandPacketMaxDataSize"
-	case KBluetoothHCICommandReadAuthenticatedPayloadTimeout:
-		return "KBluetoothHCICommandReadAuthenticatedPayloadTimeout"
-	case KBluetoothHCICommandReadBestEffortFlushTimeout:
-		return "KBluetoothHCICommandReadBestEffortFlushTimeout"
-	case KBluetoothHCICommandReadDefaultErroneousDataReporting:
-		return "KBluetoothHCICommandReadDefaultErroneousDataReporting"
-	case KBluetoothHCICommandReadEnhancedTransmitPowerLevel:
-		return "KBluetoothHCICommandReadEnhancedTransmitPowerLevel"
-	case KBluetoothHCICommandReadExtendedInquiryLength:
-		return "KBluetoothHCICommandReadExtendedInquiryLength"
-	case KBluetoothHCICommandReadExtendedInquiryResponse:
-		return "KBluetoothHCICommandReadExtendedInquiryResponse"
-	case KBluetoothHCICommandReadExtendedPageTimeout:
-		return "KBluetoothHCICommandReadExtendedPageTimeout"
-	case KBluetoothHCICommandReadFlowControlMode:
-		return "KBluetoothHCICommandReadFlowControlMode"
-	case KBluetoothHCICommandReadInquiryResponseTransmitPower:
-		return "KBluetoothHCICommandReadInquiryResponseTransmitPower"
-	case KBluetoothHCICommandReadLEHostSupported:
-		return "KBluetoothHCICommandReadLEHostSupported"
-	case KBluetoothHCICommandReadLocalOOBData:
-		return "KBluetoothHCICommandReadLocalOOBData"
-	case KBluetoothHCICommandReadLocalOOBExtendedData:
-		return "KBluetoothHCICommandReadLocalOOBExtendedData"
-	case KBluetoothHCICommandReadLocationData:
-		return "KBluetoothHCICommandReadLocationData"
-	case KBluetoothHCICommandReadLogicalLinkAcceptTimeout:
-		return "KBluetoothHCICommandReadLogicalLinkAcceptTimeout"
-	case KBluetoothHCICommandReadSecureConnectionsHostSupport:
-		return "KBluetoothHCICommandReadSecureConnectionsHostSupport"
-	case KBluetoothHCICommandReadSimplePairingMode:
-		return "KBluetoothHCICommandReadSimplePairingMode"
-	case KBluetoothHCICommandReadSynchronizationTrainParameters:
-		return "KBluetoothHCICommandReadSynchronizationTrainParameters"
-	case KBluetoothHCICommandRefreshEncryptionKey:
-		return "KBluetoothHCICommandRefreshEncryptionKey"
-	case KBluetoothHCICommandSendKeypressNotification:
-		return "KBluetoothHCICommandSendKeypressNotification"
-	case KBluetoothHCICommandSetConnectionlessPeripheralBroadcastData:
-		return "KBluetoothHCICommandSetConnectionlessPeripheralBroadcastData"
-	case KBluetoothHCICommandSetEventMaskPageTwo:
-		return "KBluetoothHCICommandSetEventMaskPageTwo"
-	case KBluetoothHCICommandSetExternalFrameConfiguration:
-		return "KBluetoothHCICommandSetExternalFrameConfiguration"
-	case KBluetoothHCICommandSetMWSChannelParameters:
-		return "KBluetoothHCICommandSetMWSChannelParameters"
-	case KBluetoothHCICommandSetMWSPATTERNConfiguration:
-		return "KBluetoothHCICommandSetMWSPATTERNConfiguration"
-	case KBluetoothHCICommandSetMWSScanFrequencyTable:
-		return "KBluetoothHCICommandSetMWSScanFrequencyTable"
-	case KBluetoothHCICommandSetMWSSignaling:
-		return "KBluetoothHCICommandSetMWSSignaling"
-	case KBluetoothHCICommandSetMWSTransportLayer:
-		return "KBluetoothHCICommandSetMWSTransportLayer"
-	case KBluetoothHCICommandSetReservedLTADDR:
-		return "KBluetoothHCICommandSetReservedLTADDR"
-	case KBluetoothHCICommandShortRangeMode:
-		return "KBluetoothHCICommandShortRangeMode"
-	case KBluetoothHCICommandWriteAuthenticatedPayloadTimeout:
-		return "KBluetoothHCICommandWriteAuthenticatedPayloadTimeout"
-	case KBluetoothHCICommandWriteBestEffortFlushTimeout:
-		return "KBluetoothHCICommandWriteBestEffortFlushTimeout"
-	case KBluetoothHCICommandWriteDefaultErroneousDataReporting:
-		return "KBluetoothHCICommandWriteDefaultErroneousDataReporting"
-	case KBluetoothHCICommandWriteExtendedInquiryLength:
-		return "KBluetoothHCICommandWriteExtendedInquiryLength"
-	case KBluetoothHCICommandWriteExtendedInquiryResponse:
-		return "KBluetoothHCICommandWriteExtendedInquiryResponse"
-	case KBluetoothHCICommandWriteExtendedPageTimeout:
-		return "KBluetoothHCICommandWriteExtendedPageTimeout"
-	case KBluetoothHCICommandWriteFlowControlMode:
-		return "KBluetoothHCICommandWriteFlowControlMode"
-	case KBluetoothHCICommandWriteInquiryResponseTransmitPower:
-		return "KBluetoothHCICommandWriteInquiryResponseTransmitPower"
-	case KBluetoothHCICommandWriteLEHostSupported:
-		return "KBluetoothHCICommandWriteLEHostSupported"
-	case KBluetoothHCICommandWriteLocationData:
-		return "KBluetoothHCICommandWriteLocationData"
-	case KBluetoothHCICommandWriteLogicalLinkAcceptTimeout:
-		return "KBluetoothHCICommandWriteLogicalLinkAcceptTimeout"
-	case KBluetoothHCICommandWriteSecureConnectionsHostSupport:
-		return "KBluetoothHCICommandWriteSecureConnectionsHostSupport"
-	case KBluetoothHCICommandWriteSimplePairingMode:
-		return "KBluetoothHCICommandWriteSimplePairingMode"
-	case KBluetoothHCICommandWriteSynchronizationTrainParameters:
-		return "KBluetoothHCICommandWriteSynchronizationTrainParameters"
+	case KBluetoothHCIDataPacketHeaderSize:
+		return "KBluetoothHCIDataPacketHeaderSize"
 	case KBluetoothHCIDataPacketMaxDataSize:
 		return "KBluetoothHCIDataPacketMaxDataSize"
-	case KBluetoothHCIEventLogoTesting:
-		return "KBluetoothHCIEventLogoTesting"
+	case KBluetoothHCIEventPacketHeaderSize:
+		return "KBluetoothHCIEventPacketHeaderSize"
 	case KBluetoothHCIMaxCommandPacketSize:
 		return "KBluetoothHCIMaxCommandPacketSize"
 	case KBluetoothHCIMaxDataPacketSize:
@@ -5379,11 +5641,11 @@ func (e KBluetoothHCI) String() string {
 	case KBluetoothHCIMaxEventPacketSize:
 		return "KBluetoothHCIMaxEventPacketSize"
 	default:
-		return fmt.Sprintf("KBluetoothHCI(%d)", e)
+		return fmt.Sprintf("KBluetoothHCICommandPacketHeaderSize(%d)", e)
 	}
 }
 
-type KBluetoothHCIErroneousDataReporting int
+type KBluetoothHCIErroneousDataReporting uint32
 
 const (
 	KBluetoothHCIErroneousDataReportingDisabled      KBluetoothHCIErroneousDataReporting = 0
@@ -5407,7 +5669,7 @@ func (e KBluetoothHCIErroneousDataReporting) String() string {
 	}
 }
 
-type KBluetoothHCIError int
+type KBluetoothHCIError uint32
 
 const (
 	KBluetoothHCIErrorACLConnectionAlreadyExists                    KBluetoothHCIError = 0xb
@@ -5607,7 +5869,7 @@ func (e KBluetoothHCIError) String() string {
 	}
 }
 
-type KBluetoothHCIErrorPowerIsOF int
+type KBluetoothHCIErrorPowerIsOF uint32
 
 const (
 	KBluetoothHCIErrorPowerIsOFF KBluetoothHCIErrorPowerIsOF = 65
@@ -5622,7 +5884,243 @@ func (e KBluetoothHCIErrorPowerIsOF) String() string {
 	}
 }
 
-type KBluetoothHCIEventMask uint
+type KBluetoothHCIEventInquiryComplete uint32
+
+const (
+	KBluetoothHCIEventAMPReceiverReport                       KBluetoothHCIEventInquiryComplete = 0x4b
+	KBluetoothHCIEventAMPStartTest                            KBluetoothHCIEventInquiryComplete = 0x49
+	KBluetoothHCIEventAMPStatusChange                         KBluetoothHCIEventInquiryComplete = 0x4d
+	KBluetoothHCIEventAMPTestEnd                              KBluetoothHCIEventInquiryComplete = 0x4a
+	KBluetoothHCIEventAuthenticationComplete                  KBluetoothHCIEventInquiryComplete = 0x6
+	KBluetoothHCIEventChangeConnectionLinkKeyComplete         KBluetoothHCIEventInquiryComplete = 0x9
+	KBluetoothHCIEventChannelSelected                         KBluetoothHCIEventInquiryComplete = 0x41
+	KBluetoothHCIEventCommandComplete                         KBluetoothHCIEventInquiryComplete = 0xe
+	KBluetoothHCIEventCommandStatus                           KBluetoothHCIEventInquiryComplete = 0xf
+	KBluetoothHCIEventConnectionComplete                      KBluetoothHCIEventInquiryComplete = 0x3
+	KBluetoothHCIEventConnectionPacketType                    KBluetoothHCIEventInquiryComplete = 0x1d
+	KBluetoothHCIEventConnectionRequest                       KBluetoothHCIEventInquiryComplete = 0x4
+	KBluetoothHCIEventDataBufferOverflow                      KBluetoothHCIEventInquiryComplete = 0x1a
+	KBluetoothHCIEventDisconnectionComplete                   KBluetoothHCIEventInquiryComplete = 0x5
+	KBluetoothHCIEventDisconnectionLogicalLinkComplete        KBluetoothHCIEventInquiryComplete = 0x46
+	KBluetoothHCIEventDisconnectionPhysicalLinkComplete       KBluetoothHCIEventInquiryComplete = 0x42
+	KBluetoothHCIEventEncryptionChange                        KBluetoothHCIEventInquiryComplete = 0x8
+	KBluetoothHCIEventEncryptionKeyRefreshComplete            KBluetoothHCIEventInquiryComplete = 0x30
+	KBluetoothHCIEventEnhancedFlushComplete                   KBluetoothHCIEventInquiryComplete = 0x39
+	KBluetoothHCIEventExtendedInquiryResult                   KBluetoothHCIEventInquiryComplete = 0x2f
+	KBluetoothHCIEventFlowSpecModifyComplete                  KBluetoothHCIEventInquiryComplete = 0x47
+	KBluetoothHCIEventFlowSpecificationComplete               KBluetoothHCIEventInquiryComplete = 0x21
+	KBluetoothHCIEventFlushOccurred                           KBluetoothHCIEventInquiryComplete = 0x11
+	KBluetoothHCIEventHardwareError                           KBluetoothHCIEventInquiryComplete = 0x10
+	KBluetoothHCIEventIOCapabilityRequest                     KBluetoothHCIEventInquiryComplete = 0x31
+	KBluetoothHCIEventIOCapabilityResponse                    KBluetoothHCIEventInquiryComplete = 0x32
+	KBluetoothHCIEventInquiryCompleteValue                    KBluetoothHCIEventInquiryComplete = 0x1
+	KBluetoothHCIEventInquiryResult                           KBluetoothHCIEventInquiryComplete = 0x2
+	KBluetoothHCIEventInquiryResultWithRSSI                   KBluetoothHCIEventInquiryComplete = 0x22
+	KBluetoothHCIEventKeypressNotification                    KBluetoothHCIEventInquiryComplete = 0x3c
+	KBluetoothHCIEventLEMetaEvent                             KBluetoothHCIEventInquiryComplete = 0x3e
+	KBluetoothHCIEventLinkKeyNotification                     KBluetoothHCIEventInquiryComplete = 0x18
+	KBluetoothHCIEventLinkKeyRequest                          KBluetoothHCIEventInquiryComplete = 0x17
+	KBluetoothHCIEventLinkSupervisionTimeoutChanged           KBluetoothHCIEventInquiryComplete = 0x38
+	KBluetoothHCIEventLogicalLinkComplete                     KBluetoothHCIEventInquiryComplete = 0x45
+	KBluetoothHCIEventLogoTesting                             KBluetoothHCIEventInquiryComplete = 0xfe
+	KBluetoothHCIEventLoopbackCommand                         KBluetoothHCIEventInquiryComplete = 0x19
+	KBluetoothHCIEventMasterLinkKeyComplete                   KBluetoothHCIEventInquiryComplete = 0xa
+	KBluetoothHCIEventMaxSlotsChange                          KBluetoothHCIEventInquiryComplete = 0x1b
+	KBluetoothHCIEventModeChange                              KBluetoothHCIEventInquiryComplete = 0x14
+	KBluetoothHCIEventNumberOfCompletedDataBlocks             KBluetoothHCIEventInquiryComplete = 0x48
+	KBluetoothHCIEventNumberOfCompletedPackets                KBluetoothHCIEventInquiryComplete = 0x13
+	KBluetoothHCIEventPINCodeRequest                          KBluetoothHCIEventInquiryComplete = 0x16
+	KBluetoothHCIEventPageScanModeChange                      KBluetoothHCIEventInquiryComplete = 0x1f
+	KBluetoothHCIEventPageScanRepetitionModeChange            KBluetoothHCIEventInquiryComplete = 0x20
+	KBluetoothHCIEventPhysicalLinkComplete                    KBluetoothHCIEventInquiryComplete = 0x40
+	KBluetoothHCIEventPhysicalLinkLossEarlyWarning            KBluetoothHCIEventInquiryComplete = 0x43
+	KBluetoothHCIEventPhysicalLinkRecovery                    KBluetoothHCIEventInquiryComplete = 0x44
+	KBluetoothHCIEventQoSSetupComplete                        KBluetoothHCIEventInquiryComplete = 0xd
+	KBluetoothHCIEventQoSViolation                            KBluetoothHCIEventInquiryComplete = 0x1e
+	KBluetoothHCIEventReadClockOffsetComplete                 KBluetoothHCIEventInquiryComplete = 0x1c
+	KBluetoothHCIEventReadRemoteExtendedFeaturesComplete      KBluetoothHCIEventInquiryComplete = 0x23
+	KBluetoothHCIEventReadRemoteSupportedFeaturesComplete     KBluetoothHCIEventInquiryComplete = 0xb
+	KBluetoothHCIEventReadRemoteVersionInformationComplete    KBluetoothHCIEventInquiryComplete = 0xc
+	KBluetoothHCIEventRemoteHostSupportedFeaturesNotification KBluetoothHCIEventInquiryComplete = 0x3d
+	KBluetoothHCIEventRemoteNameRequestComplete               KBluetoothHCIEventInquiryComplete = 0x7
+	KBluetoothHCIEventRemoteOOBDataRequest                    KBluetoothHCIEventInquiryComplete = 0x35
+	KBluetoothHCIEventReturnLinkKeys                          KBluetoothHCIEventInquiryComplete = 0x15
+	KBluetoothHCIEventRoleChange                              KBluetoothHCIEventInquiryComplete = 0x12
+	KBluetoothHCIEventShortRangeModeChangeComplete            KBluetoothHCIEventInquiryComplete = 0x4c
+	KBluetoothHCIEventSimplePairingComplete                   KBluetoothHCIEventInquiryComplete = 0x36
+	KBluetoothHCIEventSniffSubrating                          KBluetoothHCIEventInquiryComplete = 0x2e
+	KBluetoothHCIEventSynchronousConnectionChanged            KBluetoothHCIEventInquiryComplete = 0x2d
+	KBluetoothHCIEventSynchronousConnectionComplete           KBluetoothHCIEventInquiryComplete = 0x2c
+	KBluetoothHCIEventUserConfirmationRequest                 KBluetoothHCIEventInquiryComplete = 0x33
+	KBluetoothHCIEventUserPasskeyNotification                 KBluetoothHCIEventInquiryComplete = 0x3b
+	KBluetoothHCIEventUserPasskeyRequest                      KBluetoothHCIEventInquiryComplete = 0x34
+	KBluetoothHCIEventVendorSpecific                          KBluetoothHCIEventInquiryComplete = 0xff
+	KBluetoothHCISubEventLEAdvertisingReport                  KBluetoothHCIEventInquiryComplete = 0x2
+	KBluetoothHCISubEventLEAdvertisingSetTerminated           KBluetoothHCIEventInquiryComplete = 0x12
+	KBluetoothHCISubEventLEChannelSelectionAlgorithm          KBluetoothHCIEventInquiryComplete = 0x14
+	KBluetoothHCISubEventLEConnectionComplete                 KBluetoothHCIEventInquiryComplete = 0x1
+	KBluetoothHCISubEventLEConnectionUpdateComplete           KBluetoothHCIEventInquiryComplete = 0x3
+	KBluetoothHCISubEventLEDataLengthChange                   KBluetoothHCIEventInquiryComplete = 0x7
+	KBluetoothHCISubEventLEDirectAdvertisingReport            KBluetoothHCIEventInquiryComplete = 0xb
+	KBluetoothHCISubEventLEEnhancedConnectionComplete         KBluetoothHCIEventInquiryComplete = 0xa
+	KBluetoothHCISubEventLEExtendedAdvertising                KBluetoothHCIEventInquiryComplete = 0xd
+	KBluetoothHCISubEventLEGenerateDHKeyComplete              KBluetoothHCIEventInquiryComplete = 0x9
+	KBluetoothHCISubEventLELongTermKeyRequest                 KBluetoothHCIEventInquiryComplete = 0x5
+	KBluetoothHCISubEventLEPeriodicAdvertisingReport          KBluetoothHCIEventInquiryComplete = 0xf
+	KBluetoothHCISubEventLEPeriodicAdvertisingSyncEstablished KBluetoothHCIEventInquiryComplete = 0xe
+	KBluetoothHCISubEventLEPeriodicAdvertisingSyncLost        KBluetoothHCIEventInquiryComplete = 0x10
+	KBluetoothHCISubEventLEPhyUpdateComplete                  KBluetoothHCIEventInquiryComplete = 0xc
+	KBluetoothHCISubEventLEReadLocalP256PublicKeyComplete     KBluetoothHCIEventInquiryComplete = 0x8
+	KBluetoothHCISubEventLEReadRemoteUsedFeaturesComplete     KBluetoothHCIEventInquiryComplete = 0x4
+	KBluetoothHCISubEventLERemoteConnectionParameterRequest   KBluetoothHCIEventInquiryComplete = 0x6
+	KBluetoothHCISubEventLEScanRequestReceived                KBluetoothHCIEventInquiryComplete = 0x13
+	KBluetoothHCISubEventLEScanTimeout                        KBluetoothHCIEventInquiryComplete = 0x11
+)
+
+func (e KBluetoothHCIEventInquiryComplete) String() string {
+	switch e {
+	case KBluetoothHCIEventAMPReceiverReport:
+		return "KBluetoothHCIEventAMPReceiverReport"
+	case KBluetoothHCIEventAMPStartTest:
+		return "KBluetoothHCIEventAMPStartTest"
+	case KBluetoothHCIEventAMPStatusChange:
+		return "KBluetoothHCIEventAMPStatusChange"
+	case KBluetoothHCIEventAMPTestEnd:
+		return "KBluetoothHCIEventAMPTestEnd"
+	case KBluetoothHCIEventAuthenticationComplete:
+		return "KBluetoothHCIEventAuthenticationComplete"
+	case KBluetoothHCIEventChangeConnectionLinkKeyComplete:
+		return "KBluetoothHCIEventChangeConnectionLinkKeyComplete"
+	case KBluetoothHCIEventChannelSelected:
+		return "KBluetoothHCIEventChannelSelected"
+	case KBluetoothHCIEventCommandComplete:
+		return "KBluetoothHCIEventCommandComplete"
+	case KBluetoothHCIEventCommandStatus:
+		return "KBluetoothHCIEventCommandStatus"
+	case KBluetoothHCIEventConnectionComplete:
+		return "KBluetoothHCIEventConnectionComplete"
+	case KBluetoothHCIEventConnectionPacketType:
+		return "KBluetoothHCIEventConnectionPacketType"
+	case KBluetoothHCIEventConnectionRequest:
+		return "KBluetoothHCIEventConnectionRequest"
+	case KBluetoothHCIEventDataBufferOverflow:
+		return "KBluetoothHCIEventDataBufferOverflow"
+	case KBluetoothHCIEventDisconnectionComplete:
+		return "KBluetoothHCIEventDisconnectionComplete"
+	case KBluetoothHCIEventDisconnectionLogicalLinkComplete:
+		return "KBluetoothHCIEventDisconnectionLogicalLinkComplete"
+	case KBluetoothHCIEventDisconnectionPhysicalLinkComplete:
+		return "KBluetoothHCIEventDisconnectionPhysicalLinkComplete"
+	case KBluetoothHCIEventEncryptionChange:
+		return "KBluetoothHCIEventEncryptionChange"
+	case KBluetoothHCIEventEncryptionKeyRefreshComplete:
+		return "KBluetoothHCIEventEncryptionKeyRefreshComplete"
+	case KBluetoothHCIEventEnhancedFlushComplete:
+		return "KBluetoothHCIEventEnhancedFlushComplete"
+	case KBluetoothHCIEventExtendedInquiryResult:
+		return "KBluetoothHCIEventExtendedInquiryResult"
+	case KBluetoothHCIEventFlowSpecModifyComplete:
+		return "KBluetoothHCIEventFlowSpecModifyComplete"
+	case KBluetoothHCIEventFlowSpecificationComplete:
+		return "KBluetoothHCIEventFlowSpecificationComplete"
+	case KBluetoothHCIEventFlushOccurred:
+		return "KBluetoothHCIEventFlushOccurred"
+	case KBluetoothHCIEventHardwareError:
+		return "KBluetoothHCIEventHardwareError"
+	case KBluetoothHCIEventIOCapabilityRequest:
+		return "KBluetoothHCIEventIOCapabilityRequest"
+	case KBluetoothHCIEventIOCapabilityResponse:
+		return "KBluetoothHCIEventIOCapabilityResponse"
+	case KBluetoothHCIEventInquiryCompleteValue:
+		return "KBluetoothHCIEventInquiryCompleteValue"
+	case KBluetoothHCIEventInquiryResult:
+		return "KBluetoothHCIEventInquiryResult"
+	case KBluetoothHCIEventInquiryResultWithRSSI:
+		return "KBluetoothHCIEventInquiryResultWithRSSI"
+	case KBluetoothHCIEventKeypressNotification:
+		return "KBluetoothHCIEventKeypressNotification"
+	case KBluetoothHCIEventLEMetaEvent:
+		return "KBluetoothHCIEventLEMetaEvent"
+	case KBluetoothHCIEventLinkKeyNotification:
+		return "KBluetoothHCIEventLinkKeyNotification"
+	case KBluetoothHCIEventLinkKeyRequest:
+		return "KBluetoothHCIEventLinkKeyRequest"
+	case KBluetoothHCIEventLinkSupervisionTimeoutChanged:
+		return "KBluetoothHCIEventLinkSupervisionTimeoutChanged"
+	case KBluetoothHCIEventLogicalLinkComplete:
+		return "KBluetoothHCIEventLogicalLinkComplete"
+	case KBluetoothHCIEventLogoTesting:
+		return "KBluetoothHCIEventLogoTesting"
+	case KBluetoothHCIEventLoopbackCommand:
+		return "KBluetoothHCIEventLoopbackCommand"
+	case KBluetoothHCIEventMasterLinkKeyComplete:
+		return "KBluetoothHCIEventMasterLinkKeyComplete"
+	case KBluetoothHCIEventMaxSlotsChange:
+		return "KBluetoothHCIEventMaxSlotsChange"
+	case KBluetoothHCIEventModeChange:
+		return "KBluetoothHCIEventModeChange"
+	case KBluetoothHCIEventNumberOfCompletedDataBlocks:
+		return "KBluetoothHCIEventNumberOfCompletedDataBlocks"
+	case KBluetoothHCIEventNumberOfCompletedPackets:
+		return "KBluetoothHCIEventNumberOfCompletedPackets"
+	case KBluetoothHCIEventPINCodeRequest:
+		return "KBluetoothHCIEventPINCodeRequest"
+	case KBluetoothHCIEventPageScanModeChange:
+		return "KBluetoothHCIEventPageScanModeChange"
+	case KBluetoothHCIEventPageScanRepetitionModeChange:
+		return "KBluetoothHCIEventPageScanRepetitionModeChange"
+	case KBluetoothHCIEventPhysicalLinkComplete:
+		return "KBluetoothHCIEventPhysicalLinkComplete"
+	case KBluetoothHCIEventPhysicalLinkLossEarlyWarning:
+		return "KBluetoothHCIEventPhysicalLinkLossEarlyWarning"
+	case KBluetoothHCIEventPhysicalLinkRecovery:
+		return "KBluetoothHCIEventPhysicalLinkRecovery"
+	case KBluetoothHCIEventQoSSetupComplete:
+		return "KBluetoothHCIEventQoSSetupComplete"
+	case KBluetoothHCIEventQoSViolation:
+		return "KBluetoothHCIEventQoSViolation"
+	case KBluetoothHCIEventReadClockOffsetComplete:
+		return "KBluetoothHCIEventReadClockOffsetComplete"
+	case KBluetoothHCIEventReadRemoteExtendedFeaturesComplete:
+		return "KBluetoothHCIEventReadRemoteExtendedFeaturesComplete"
+	case KBluetoothHCIEventReadRemoteSupportedFeaturesComplete:
+		return "KBluetoothHCIEventReadRemoteSupportedFeaturesComplete"
+	case KBluetoothHCIEventReadRemoteVersionInformationComplete:
+		return "KBluetoothHCIEventReadRemoteVersionInformationComplete"
+	case KBluetoothHCIEventRemoteHostSupportedFeaturesNotification:
+		return "KBluetoothHCIEventRemoteHostSupportedFeaturesNotification"
+	case KBluetoothHCIEventRemoteNameRequestComplete:
+		return "KBluetoothHCIEventRemoteNameRequestComplete"
+	case KBluetoothHCIEventRemoteOOBDataRequest:
+		return "KBluetoothHCIEventRemoteOOBDataRequest"
+	case KBluetoothHCIEventReturnLinkKeys:
+		return "KBluetoothHCIEventReturnLinkKeys"
+	case KBluetoothHCIEventRoleChange:
+		return "KBluetoothHCIEventRoleChange"
+	case KBluetoothHCIEventShortRangeModeChangeComplete:
+		return "KBluetoothHCIEventShortRangeModeChangeComplete"
+	case KBluetoothHCIEventSimplePairingComplete:
+		return "KBluetoothHCIEventSimplePairingComplete"
+	case KBluetoothHCIEventSniffSubrating:
+		return "KBluetoothHCIEventSniffSubrating"
+	case KBluetoothHCIEventSynchronousConnectionChanged:
+		return "KBluetoothHCIEventSynchronousConnectionChanged"
+	case KBluetoothHCIEventSynchronousConnectionComplete:
+		return "KBluetoothHCIEventSynchronousConnectionComplete"
+	case KBluetoothHCIEventUserConfirmationRequest:
+		return "KBluetoothHCIEventUserConfirmationRequest"
+	case KBluetoothHCIEventUserPasskeyNotification:
+		return "KBluetoothHCIEventUserPasskeyNotification"
+	case KBluetoothHCIEventUserPasskeyRequest:
+		return "KBluetoothHCIEventUserPasskeyRequest"
+	case KBluetoothHCIEventVendorSpecific:
+		return "KBluetoothHCIEventVendorSpecific"
+	default:
+		return fmt.Sprintf("KBluetoothHCIEventInquiryComplete(%d)", e)
+	}
+}
+
+type KBluetoothHCIEventMask uint32
 
 const (
 	KBluetoothHCIEventMaskAll                                  KBluetoothHCIEventMask = 0xffffffff
@@ -5737,7 +6235,7 @@ func (e KBluetoothHCIEventMask) String() string {
 	}
 }
 
-type KBluetoothHCILoopbackMode uint
+type KBluetoothHCILoopbackMode uint32
 
 const (
 	KBluetoothHCILoopbackModeLocal  KBluetoothHCILoopbackMode = 0x1
@@ -5758,7 +6256,561 @@ func (e KBluetoothHCILoopbackMode) String() string {
 	}
 }
 
-type KBluetoothHCITransportUSB uint
+type KBluetoothHCIOpCodeNoOp uint32
+
+const (
+	KBluetoothHCICommandAMPTest                                         KBluetoothHCIOpCodeNoOp = 0x9
+	KBluetoothHCICommandAMPTestEnd                                      KBluetoothHCIOpCodeNoOp = 0x8
+	KBluetoothHCICommandAcceptConnectionRequest                         KBluetoothHCIOpCodeNoOp = 0x9
+	KBluetoothHCICommandAcceptSniffRequest                              KBluetoothHCIOpCodeNoOp = 0x31
+	KBluetoothHCICommandAcceptSynchronousConnectionRequest              KBluetoothHCIOpCodeNoOp = 0x29
+	KBluetoothHCICommandAddSCOConnection                                KBluetoothHCIOpCodeNoOp = 0x7
+	KBluetoothHCICommandAuthenticationRequested                         KBluetoothHCIOpCodeNoOp = 0x11
+	KBluetoothHCICommandChangeConnectionLinkKey                         KBluetoothHCIOpCodeNoOp = 0x15
+	KBluetoothHCICommandChangeConnectionPacketType                      KBluetoothHCIOpCodeNoOp = 0xf
+	KBluetoothHCICommandChangeLocalName                                 KBluetoothHCIOpCodeNoOp = 0x13
+	KBluetoothHCICommandCreateConnection                                KBluetoothHCIOpCodeNoOp = 0x5
+	KBluetoothHCICommandCreateConnectionCancel                          KBluetoothHCIOpCodeNoOp = 0x8
+	KBluetoothHCICommandCreateNewUnitKey                                KBluetoothHCIOpCodeNoOp = 0xb
+	KBluetoothHCICommandDeleteReservedLTADDR                            KBluetoothHCIOpCodeNoOp = 0x75
+	KBluetoothHCICommandDeleteStoredLinkKey                             KBluetoothHCIOpCodeNoOp = 0x12
+	KBluetoothHCICommandDisconnect                                      KBluetoothHCIOpCodeNoOp = 0x6
+	KBluetoothHCICommandEnableAMPReceiverReports                        KBluetoothHCIOpCodeNoOp = 0x7
+	KBluetoothHCICommandEnableDeviceUnderTestMode                       KBluetoothHCIOpCodeNoOp = 0x3
+	KBluetoothHCICommandEnhancedAcceptSynchronousConnectionRequest      KBluetoothHCIOpCodeNoOp = 0x3e
+	KBluetoothHCICommandEnhancedFlush                                   KBluetoothHCIOpCodeNoOp = 0x5f
+	KBluetoothHCICommandEnhancedSetupSynchronousConnection              KBluetoothHCIOpCodeNoOp = 0x3d
+	KBluetoothHCICommandExitParkMode                                    KBluetoothHCIOpCodeNoOp = 0x6
+	KBluetoothHCICommandExitPeriodicInquiryMode                         KBluetoothHCIOpCodeNoOp = 0x4
+	KBluetoothHCICommandExitSniffMode                                   KBluetoothHCIOpCodeNoOp = 0x4
+	KBluetoothHCICommandFlowSpecification                               KBluetoothHCIOpCodeNoOp = 0x10
+	KBluetoothHCICommandFlush                                           KBluetoothHCIOpCodeNoOp = 0x8
+	KBluetoothHCICommandGetLinkQuality                                  KBluetoothHCIOpCodeNoOp = 0x3
+	KBluetoothHCICommandGetMWSTransportLayerConfiguration               KBluetoothHCIOpCodeNoOp = 0xc
+	KBluetoothHCICommandGroupHostController                             KBluetoothHCIOpCodeNoOp = 0x3
+	KBluetoothHCICommandGroupInformational                              KBluetoothHCIOpCodeNoOp = 0x4
+	KBluetoothHCICommandGroupLinkControl                                KBluetoothHCIOpCodeNoOp = 0x1
+	KBluetoothHCICommandGroupLinkPolicy                                 KBluetoothHCIOpCodeNoOp = 0x2
+	KBluetoothHCICommandGroupLogoTesting                                KBluetoothHCIOpCodeNoOp = 0x3e
+	KBluetoothHCICommandGroupLowEnergy                                  KBluetoothHCIOpCodeNoOp = 0x8
+	KBluetoothHCICommandGroupMax                                        KBluetoothHCIOpCodeNoOp = 0x40
+	KBluetoothHCICommandGroupNoOp                                       KBluetoothHCIOpCodeNoOp = 0
+	KBluetoothHCICommandGroupStatus                                     KBluetoothHCIOpCodeNoOp = 0x5
+	KBluetoothHCICommandGroupTesting                                    KBluetoothHCIOpCodeNoOp = 0x6
+	KBluetoothHCICommandGroupVendorSpecific                             KBluetoothHCIOpCodeNoOp = 0x3f
+	KBluetoothHCICommandHoldMode                                        KBluetoothHCIOpCodeNoOp = 0x1
+	KBluetoothHCICommandHostBufferSize                                  KBluetoothHCIOpCodeNoOp = 0x33
+	KBluetoothHCICommandHostNumberOfCompletedPackets                    KBluetoothHCIOpCodeNoOp = 0x35
+	KBluetoothHCICommandIOCapabilityRequestNegativeReply                KBluetoothHCIOpCodeNoOp = 0x34
+	KBluetoothHCICommandIOCapabilityRequestReply                        KBluetoothHCIOpCodeNoOp = 0x2b
+	KBluetoothHCICommandInquiry                                         KBluetoothHCIOpCodeNoOp = 0x1
+	KBluetoothHCICommandInquiryCancel                                   KBluetoothHCIOpCodeNoOp = 0x2
+	KBluetoothHCICommandLEAddDeviceToPeriodicAdvertiserList             KBluetoothHCIOpCodeNoOp = 0x47
+	KBluetoothHCICommandLEAddDeviceToResolvingList                      KBluetoothHCIOpCodeNoOp = 0x27
+	KBluetoothHCICommandLEAddDeviceToWhiteList                          KBluetoothHCIOpCodeNoOp = 0x11
+	KBluetoothHCICommandLEClearAdvertisingSets                          KBluetoothHCIOpCodeNoOp = 0x3d
+	KBluetoothHCICommandLEClearPeriodicAdvertiserList                   KBluetoothHCIOpCodeNoOp = 0x49
+	KBluetoothHCICommandLEClearResolvingList                            KBluetoothHCIOpCodeNoOp = 0x29
+	KBluetoothHCICommandLEClearWhiteList                                KBluetoothHCIOpCodeNoOp = 0x10
+	KBluetoothHCICommandLEConnectionUpdate                              KBluetoothHCIOpCodeNoOp = 0x13
+	KBluetoothHCICommandLECreateConnection                              KBluetoothHCIOpCodeNoOp = 0xd
+	KBluetoothHCICommandLECreateConnectionCancel                        KBluetoothHCIOpCodeNoOp = 0xe
+	KBluetoothHCICommandLEEncrypt                                       KBluetoothHCIOpCodeNoOp = 0x17
+	KBluetoothHCICommandLEEnhancedReceiverTest                          KBluetoothHCIOpCodeNoOp = 0x33
+	KBluetoothHCICommandLEEnhancedTransmitterTest                       KBluetoothHCIOpCodeNoOp = 0x34
+	KBluetoothHCICommandLEExtendedCreateConnection                      KBluetoothHCIOpCodeNoOp = 0x43
+	KBluetoothHCICommandLEGenerateDHKey                                 KBluetoothHCIOpCodeNoOp = 0x26
+	KBluetoothHCICommandLELongTermKeyRequestNegativeReply               KBluetoothHCIOpCodeNoOp = 0x1b
+	KBluetoothHCICommandLELongTermKeyRequestReply                       KBluetoothHCIOpCodeNoOp = 0x1a
+	KBluetoothHCICommandLEPeriodicAdvertisingCreateSync                 KBluetoothHCIOpCodeNoOp = 0x44
+	KBluetoothHCICommandLEPeriodicAdvertisingCreateSyncCancel           KBluetoothHCIOpCodeNoOp = 0x45
+	KBluetoothHCICommandLEPeriodicAdvertisingTerminateSync              KBluetoothHCIOpCodeNoOp = 0x46
+	KBluetoothHCICommandLERand                                          KBluetoothHCIOpCodeNoOp = 0x18
+	KBluetoothHCICommandLEReadAdvertisingChannelTxPower                 KBluetoothHCIOpCodeNoOp = 0x7
+	KBluetoothHCICommandLEReadBufferSize                                KBluetoothHCIOpCodeNoOp = 0x2
+	KBluetoothHCICommandLEReadChannelMap                                KBluetoothHCIOpCodeNoOp = 0x15
+	KBluetoothHCICommandLEReadLocalP256PublicKey                        KBluetoothHCIOpCodeNoOp = 0x25
+	KBluetoothHCICommandLEReadLocalResolvableAddress                    KBluetoothHCIOpCodeNoOp = 0x2c
+	KBluetoothHCICommandLEReadLocalSupportedFeatures                    KBluetoothHCIOpCodeNoOp = 0x3
+	KBluetoothHCICommandLEReadMaximumAdvertisingDataLength              KBluetoothHCIOpCodeNoOp = 0x3a
+	KBluetoothHCICommandLEReadMaximumDataLength                         KBluetoothHCIOpCodeNoOp = 0x2f
+	KBluetoothHCICommandLEReadNumberofSupportedAdvertisingSets          KBluetoothHCIOpCodeNoOp = 0x3b
+	KBluetoothHCICommandLEReadPeerResolvableAddress                     KBluetoothHCIOpCodeNoOp = 0x2b
+	KBluetoothHCICommandLEReadPeriodicAdvertiserListSize                KBluetoothHCIOpCodeNoOp = 0x4a
+	KBluetoothHCICommandLEReadPhy                                       KBluetoothHCIOpCodeNoOp = 0x30
+	KBluetoothHCICommandLEReadRFPathCompensation                        KBluetoothHCIOpCodeNoOp = 0x4c
+	KBluetoothHCICommandLEReadRemoteUsedFeatures                        KBluetoothHCIOpCodeNoOp = 0x16
+	KBluetoothHCICommandLEReadResolvingListSize                         KBluetoothHCIOpCodeNoOp = 0x2a
+	KBluetoothHCICommandLEReadSuggestedDefaultDataLength                KBluetoothHCIOpCodeNoOp = 0x23
+	KBluetoothHCICommandLEReadSupportedStates                           KBluetoothHCIOpCodeNoOp = 0x1c
+	KBluetoothHCICommandLEReadTransmitPower                             KBluetoothHCIOpCodeNoOp = 0x4b
+	KBluetoothHCICommandLEReadWhiteListSize                             KBluetoothHCIOpCodeNoOp = 0xf
+	KBluetoothHCICommandLEReceiverTest                                  KBluetoothHCIOpCodeNoOp = 0x1d
+	KBluetoothHCICommandLERemoteConnectionParameterRequestNegativeReply KBluetoothHCIOpCodeNoOp = 0x21
+	KBluetoothHCICommandLERemoteConnectionParameterRequestReply         KBluetoothHCIOpCodeNoOp = 0x20
+	KBluetoothHCICommandLERemoveAdvertisingSet                          KBluetoothHCIOpCodeNoOp = 0x3c
+	KBluetoothHCICommandLERemoveDeviceFromPeriodicAdvertiserList        KBluetoothHCIOpCodeNoOp = 0x48
+	KBluetoothHCICommandLERemoveDeviceFromResolvingList                 KBluetoothHCIOpCodeNoOp = 0x28
+	KBluetoothHCICommandLERemoveDeviceFromWhiteList                     KBluetoothHCIOpCodeNoOp = 0x12
+	KBluetoothHCICommandLESetAddressResolutionEnable                    KBluetoothHCIOpCodeNoOp = 0x2d
+	KBluetoothHCICommandLESetAdvertiseEnable                            KBluetoothHCIOpCodeNoOp = 0xa
+	KBluetoothHCICommandLESetAdvertisingData                            KBluetoothHCIOpCodeNoOp = 0x8
+	KBluetoothHCICommandLESetAdvertisingParameters                      KBluetoothHCIOpCodeNoOp = 0x6
+	KBluetoothHCICommandLESetAdvertisingSetRandomAddress                KBluetoothHCIOpCodeNoOp = 0x35
+	KBluetoothHCICommandLESetDataLength                                 KBluetoothHCIOpCodeNoOp = 0x22
+	KBluetoothHCICommandLESetDefaultPhy                                 KBluetoothHCIOpCodeNoOp = 0x31
+	KBluetoothHCICommandLESetEventMask                                  KBluetoothHCIOpCodeNoOp = 0x1
+	KBluetoothHCICommandLESetExtendedAdvertisingData                    KBluetoothHCIOpCodeNoOp = 0x37
+	KBluetoothHCICommandLESetExtendedAdvertisingEnableCommand           KBluetoothHCIOpCodeNoOp = 0x39
+	KBluetoothHCICommandLESetExtendedAdvertisingParameters              KBluetoothHCIOpCodeNoOp = 0x36
+	KBluetoothHCICommandLESetExtendedScanEnable                         KBluetoothHCIOpCodeNoOp = 0x42
+	KBluetoothHCICommandLESetExtendedScanParameters                     KBluetoothHCIOpCodeNoOp = 0x41
+	KBluetoothHCICommandLESetExtendedScanResponseData                   KBluetoothHCIOpCodeNoOp = 0x38
+	KBluetoothHCICommandLESetHostChannelClassification                  KBluetoothHCIOpCodeNoOp = 0x14
+	KBluetoothHCICommandLESetPeriodicAdvertisingData                    KBluetoothHCIOpCodeNoOp = 0x3f
+	KBluetoothHCICommandLESetPeriodicAdvertisingEnable                  KBluetoothHCIOpCodeNoOp = 0x40
+	KBluetoothHCICommandLESetPeriodicAdvertisingParameters              KBluetoothHCIOpCodeNoOp = 0x3e
+	KBluetoothHCICommandLESetPhy                                        KBluetoothHCIOpCodeNoOp = 0x32
+	KBluetoothHCICommandLESetPrivacyMode                                KBluetoothHCIOpCodeNoOp = 0x4e
+	KBluetoothHCICommandLESetRandomAddress                              KBluetoothHCIOpCodeNoOp = 0x5
+	KBluetoothHCICommandLESetResolvablePrivateAddressTimeout            KBluetoothHCIOpCodeNoOp = 0x2e
+	KBluetoothHCICommandLESetScanEnable                                 KBluetoothHCIOpCodeNoOp = 0xc
+	KBluetoothHCICommandLESetScanParameters                             KBluetoothHCIOpCodeNoOp = 0xb
+	KBluetoothHCICommandLESetScanResponseData                           KBluetoothHCIOpCodeNoOp = 0x9
+	KBluetoothHCICommandLEStartEncryption                               KBluetoothHCIOpCodeNoOp = 0x19
+	KBluetoothHCICommandLETestEnd                                       KBluetoothHCIOpCodeNoOp = 0x1f
+	KBluetoothHCICommandLETransmitterTest                               KBluetoothHCIOpCodeNoOp = 0x1e
+	KBluetoothHCICommandLEWriteRFPathCompensation                       KBluetoothHCIOpCodeNoOp = 0x4d
+	KBluetoothHCICommandLEWriteSuggestedDefaultDataLength               KBluetoothHCIOpCodeNoOp = 0x24
+	KBluetoothHCICommandLinkKeyRequestNegativeReply                     KBluetoothHCIOpCodeNoOp = 0xc
+	KBluetoothHCICommandLinkKeyRequestReply                             KBluetoothHCIOpCodeNoOp = 0xb
+	KBluetoothHCICommandMasterLinkKey                                   KBluetoothHCIOpCodeNoOp = 0x17
+	KBluetoothHCICommandMax                                             KBluetoothHCIOpCodeNoOp = 0x3ff
+	KBluetoothHCICommandNoOp                                            KBluetoothHCIOpCodeNoOp = 0
+	KBluetoothHCICommandPINCodeRequestNegativeReply                     KBluetoothHCIOpCodeNoOp = 0xe
+	KBluetoothHCICommandPINCodeRequestReply                             KBluetoothHCIOpCodeNoOp = 0xd
+	KBluetoothHCICommandParkMode                                        KBluetoothHCIOpCodeNoOp = 0x5
+	KBluetoothHCICommandPeriodicInquiryMode                             KBluetoothHCIOpCodeNoOp = 0x3
+	KBluetoothHCICommandQoSSetup                                        KBluetoothHCIOpCodeNoOp = 0x7
+	KBluetoothHCICommandReadAFHChannelAssessmentMode                    KBluetoothHCIOpCodeNoOp = 0x48
+	KBluetoothHCICommandReadAFHMappings                                 KBluetoothHCIOpCodeNoOp = 0x6
+	KBluetoothHCICommandReadAuthenticatedPayloadTimeout                 KBluetoothHCIOpCodeNoOp = 0x7b
+	KBluetoothHCICommandReadAuthenticationEnable                        KBluetoothHCIOpCodeNoOp = 0x1f
+	KBluetoothHCICommandReadAutomaticFlushTimeout                       KBluetoothHCIOpCodeNoOp = 0x27
+	KBluetoothHCICommandReadBestEffortFlushTimeout                      KBluetoothHCIOpCodeNoOp = 0x69
+	KBluetoothHCICommandReadBufferSize                                  KBluetoothHCIOpCodeNoOp = 0x5
+	KBluetoothHCICommandReadClassOfDevice                               KBluetoothHCIOpCodeNoOp = 0x23
+	KBluetoothHCICommandReadClock                                       KBluetoothHCIOpCodeNoOp = 0x7
+	KBluetoothHCICommandReadClockOffset                                 KBluetoothHCIOpCodeNoOp = 0x1f
+	KBluetoothHCICommandReadConnectionAcceptTimeout                     KBluetoothHCIOpCodeNoOp = 0x15
+	KBluetoothHCICommandReadCountryCode                                 KBluetoothHCIOpCodeNoOp = 0x7
+	KBluetoothHCICommandReadCurrentIACLAP                               KBluetoothHCIOpCodeNoOp = 0x39
+	KBluetoothHCICommandReadDataBlockSize                               KBluetoothHCIOpCodeNoOp = 0xa
+	KBluetoothHCICommandReadDefaultErroneousDataReporting               KBluetoothHCIOpCodeNoOp = 0x5a
+	KBluetoothHCICommandReadDefaultLinkPolicySettings                   KBluetoothHCIOpCodeNoOp = 0xe
+	KBluetoothHCICommandReadDeviceAddress                               KBluetoothHCIOpCodeNoOp = 0x9
+	KBluetoothHCICommandReadEncryptionKeySize                           KBluetoothHCIOpCodeNoOp = 0x8
+	KBluetoothHCICommandReadEncryptionMode                              KBluetoothHCIOpCodeNoOp = 0x21
+	KBluetoothHCICommandReadEnhancedTransmitPowerLevel                  KBluetoothHCIOpCodeNoOp = 0x68
+	KBluetoothHCICommandReadExtendedInquiryLength                       KBluetoothHCIOpCodeNoOp = 0x80
+	KBluetoothHCICommandReadExtendedInquiryResponse                     KBluetoothHCIOpCodeNoOp = 0x51
+	KBluetoothHCICommandReadExtendedPageTimeout                         KBluetoothHCIOpCodeNoOp = 0x7e
+	KBluetoothHCICommandReadFailedContactCounter                        KBluetoothHCIOpCodeNoOp = 0x1
+	KBluetoothHCICommandReadFlowControlMode                             KBluetoothHCIOpCodeNoOp = 0x66
+	KBluetoothHCICommandReadHoldModeActivity                            KBluetoothHCIOpCodeNoOp = 0x2b
+	KBluetoothHCICommandReadInquiryMode                                 KBluetoothHCIOpCodeNoOp = 0x44
+	KBluetoothHCICommandReadInquiryResponseTransmitPower                KBluetoothHCIOpCodeNoOp = 0x58
+	KBluetoothHCICommandReadInquiryScanActivity                         KBluetoothHCIOpCodeNoOp = 0x1d
+	KBluetoothHCICommandReadInquiryScanType                             KBluetoothHCIOpCodeNoOp = 0x42
+	KBluetoothHCICommandReadLEHostSupported                             KBluetoothHCIOpCodeNoOp = 0x6c
+	KBluetoothHCICommandReadLMPHandle                                   KBluetoothHCIOpCodeNoOp = 0x20
+	KBluetoothHCICommandReadLinkPolicySettings                          KBluetoothHCIOpCodeNoOp = 0xc
+	KBluetoothHCICommandReadLinkSupervisionTimeout                      KBluetoothHCIOpCodeNoOp = 0x36
+	KBluetoothHCICommandReadLocalAMPASSOC                               KBluetoothHCIOpCodeNoOp = 0xa
+	KBluetoothHCICommandReadLocalAMPInfo                                KBluetoothHCIOpCodeNoOp = 0x9
+	KBluetoothHCICommandReadLocalExtendedFeatures                       KBluetoothHCIOpCodeNoOp = 0x4
+	KBluetoothHCICommandReadLocalName                                   KBluetoothHCIOpCodeNoOp = 0x14
+	KBluetoothHCICommandReadLocalOOBData                                KBluetoothHCIOpCodeNoOp = 0x57
+	KBluetoothHCICommandReadLocalOOBExtendedData                        KBluetoothHCIOpCodeNoOp = 0x7d
+	KBluetoothHCICommandReadLocalSupportedCodecs                        KBluetoothHCIOpCodeNoOp = 0xb
+	KBluetoothHCICommandReadLocalSupportedCommands                      KBluetoothHCIOpCodeNoOp = 0x2
+	KBluetoothHCICommandReadLocalSupportedFeatures                      KBluetoothHCIOpCodeNoOp = 0x3
+	KBluetoothHCICommandReadLocalVersionInformation                     KBluetoothHCIOpCodeNoOp = 0x1
+	KBluetoothHCICommandReadLocationData                                KBluetoothHCIOpCodeNoOp = 0x64
+	KBluetoothHCICommandReadLogicalLinkAcceptTimeout                    KBluetoothHCIOpCodeNoOp = 0x61
+	KBluetoothHCICommandReadLoopbackMode                                KBluetoothHCIOpCodeNoOp = 0x1
+	KBluetoothHCICommandReadNumberOfBroadcastRetransmissions            KBluetoothHCIOpCodeNoOp = 0x29
+	KBluetoothHCICommandReadNumberOfSupportedIAC                        KBluetoothHCIOpCodeNoOp = 0x38
+	KBluetoothHCICommandReadPINType                                     KBluetoothHCIOpCodeNoOp = 0x9
+	KBluetoothHCICommandReadPageScanActivity                            KBluetoothHCIOpCodeNoOp = 0x1b
+	KBluetoothHCICommandReadPageScanMode                                KBluetoothHCIOpCodeNoOp = 0x3d
+	KBluetoothHCICommandReadPageScanPeriodMode                          KBluetoothHCIOpCodeNoOp = 0x3b
+	KBluetoothHCICommandReadPageScanType                                KBluetoothHCIOpCodeNoOp = 0x46
+	KBluetoothHCICommandReadPageTimeout                                 KBluetoothHCIOpCodeNoOp = 0x17
+	KBluetoothHCICommandReadRSSI                                        KBluetoothHCIOpCodeNoOp = 0x5
+	KBluetoothHCICommandReadRemoteExtendedFeatures                      KBluetoothHCIOpCodeNoOp = 0x1c
+	KBluetoothHCICommandReadRemoteSupportedFeatures                     KBluetoothHCIOpCodeNoOp = 0x1b
+	KBluetoothHCICommandReadRemoteVersionInformation                    KBluetoothHCIOpCodeNoOp = 0x1d
+	KBluetoothHCICommandReadSCOFlowControlEnable                        KBluetoothHCIOpCodeNoOp = 0x2e
+	KBluetoothHCICommandReadScanEnable                                  KBluetoothHCIOpCodeNoOp = 0x19
+	KBluetoothHCICommandReadSecureConnectionsHostSupport                KBluetoothHCIOpCodeNoOp = 0x79
+	KBluetoothHCICommandReadSimplePairingMode                           KBluetoothHCIOpCodeNoOp = 0x55
+	KBluetoothHCICommandReadStoredLinkKey                               KBluetoothHCIOpCodeNoOp = 0xd
+	KBluetoothHCICommandReadSynchronizationTrainParameters              KBluetoothHCIOpCodeNoOp = 0x77
+	KBluetoothHCICommandReadTransmitPowerLevel                          KBluetoothHCIOpCodeNoOp = 0x2d
+	KBluetoothHCICommandReadVoiceSetting                                KBluetoothHCIOpCodeNoOp = 0x25
+	KBluetoothHCICommandReceiveSynchronizationTrain                     KBluetoothHCIOpCodeNoOp = 0x44
+	KBluetoothHCICommandRefreshEncryptionKey                            KBluetoothHCIOpCodeNoOp = 0x53
+	KBluetoothHCICommandRejectConnectionRequest                         KBluetoothHCIOpCodeNoOp = 0xa
+	KBluetoothHCICommandRejectSniffRequest                              KBluetoothHCIOpCodeNoOp = 0x32
+	KBluetoothHCICommandRejectSynchronousConnectionRequest              KBluetoothHCIOpCodeNoOp = 0x2a
+	KBluetoothHCICommandRemoteNameRequest                               KBluetoothHCIOpCodeNoOp = 0x19
+	KBluetoothHCICommandRemoteNameRequestCancel                         KBluetoothHCIOpCodeNoOp = 0x1a
+	KBluetoothHCICommandRemoteOOBDataRequestNegativeReply               KBluetoothHCIOpCodeNoOp = 0x33
+	KBluetoothHCICommandRemoteOOBDataRequestReply                       KBluetoothHCIOpCodeNoOp = 0x30
+	KBluetoothHCICommandRemoteOOBExtendedDataRequestReply               KBluetoothHCIOpCodeNoOp = 0x45
+	KBluetoothHCICommandReset                                           KBluetoothHCIOpCodeNoOp = 0x3
+	KBluetoothHCICommandResetFailedContactCounter                       KBluetoothHCIOpCodeNoOp = 0x2
+	KBluetoothHCICommandRoleDiscovery                                   KBluetoothHCIOpCodeNoOp = 0x9
+	KBluetoothHCICommandSendKeypressNotification                        KBluetoothHCIOpCodeNoOp = 0x60
+	KBluetoothHCICommandSetAFHClassification                            KBluetoothHCIOpCodeNoOp = 0x3f
+	KBluetoothHCICommandSetConnectionEncryption                         KBluetoothHCIOpCodeNoOp = 0x13
+	KBluetoothHCICommandSetConnectionlessPeripheralBroadcast            KBluetoothHCIOpCodeNoOp = 0x41
+	KBluetoothHCICommandSetConnectionlessPeripheralBroadcastData        KBluetoothHCIOpCodeNoOp = 0x76
+	KBluetoothHCICommandSetConnectionlessPeripheralBroadcastReceive     KBluetoothHCIOpCodeNoOp = 0x42
+	KBluetoothHCICommandSetEventFilter                                  KBluetoothHCIOpCodeNoOp = 0x5
+	KBluetoothHCICommandSetEventMask                                    KBluetoothHCIOpCodeNoOp = 0x1
+	KBluetoothHCICommandSetEventMaskPageTwo                             KBluetoothHCIOpCodeNoOp = 0x63
+	KBluetoothHCICommandSetExternalFrameConfiguration                   KBluetoothHCIOpCodeNoOp = 0x6f
+	KBluetoothHCICommandSetHostControllerToHostFlowControl              KBluetoothHCIOpCodeNoOp = 0x31
+	KBluetoothHCICommandSetMWSChannelParameters                         KBluetoothHCIOpCodeNoOp = 0x6e
+	KBluetoothHCICommandSetMWSPATTERNConfiguration                      KBluetoothHCIOpCodeNoOp = 0x73
+	KBluetoothHCICommandSetMWSScanFrequencyTable                        KBluetoothHCIOpCodeNoOp = 0x72
+	KBluetoothHCICommandSetMWSSignaling                                 KBluetoothHCIOpCodeNoOp = 0x70
+	KBluetoothHCICommandSetMWSTransportLayer                            KBluetoothHCIOpCodeNoOp = 0x71
+	KBluetoothHCICommandSetReservedLTADDR                               KBluetoothHCIOpCodeNoOp = 0x74
+	KBluetoothHCICommandSetTriggeredClockCapture                        KBluetoothHCIOpCodeNoOp = 0xd
+	KBluetoothHCICommandSetupSynchronousConnection                      KBluetoothHCIOpCodeNoOp = 0x28
+	KBluetoothHCICommandShortRangeMode                                  KBluetoothHCIOpCodeNoOp = 0x6b
+	KBluetoothHCICommandSniffMode                                       KBluetoothHCIOpCodeNoOp = 0x3
+	KBluetoothHCICommandSniffSubrating                                  KBluetoothHCIOpCodeNoOp = 0x11
+	KBluetoothHCICommandStartSynchronizationTrain                       KBluetoothHCIOpCodeNoOp = 0x43
+	KBluetoothHCICommandSwitchRole                                      KBluetoothHCIOpCodeNoOp = 0xb
+	KBluetoothHCICommandTruncatedPage                                   KBluetoothHCIOpCodeNoOp = 0x3f
+	KBluetoothHCICommandTruncatedPageCancel                             KBluetoothHCIOpCodeNoOp = 0x40
+	KBluetoothHCICommandUserConfirmationRequestNegativeReply            KBluetoothHCIOpCodeNoOp = 0x2d
+	KBluetoothHCICommandUserConfirmationRequestReply                    KBluetoothHCIOpCodeNoOp = 0x2c
+	KBluetoothHCICommandUserPasskeyRequestNegativeReply                 KBluetoothHCIOpCodeNoOp = 0x2f
+	KBluetoothHCICommandUserPasskeyRequestReply                         KBluetoothHCIOpCodeNoOp = 0x2e
+	KBluetoothHCICommandWriteAFHChannelAssessmentMode                   KBluetoothHCIOpCodeNoOp = 0x49
+	KBluetoothHCICommandWriteAuthenticatedPayloadTimeout                KBluetoothHCIOpCodeNoOp = 0x7c
+	KBluetoothHCICommandWriteAuthenticationEnable                       KBluetoothHCIOpCodeNoOp = 0x20
+	KBluetoothHCICommandWriteAutomaticFlushTimeout                      KBluetoothHCIOpCodeNoOp = 0x28
+	KBluetoothHCICommandWriteBestEffortFlushTimeout                     KBluetoothHCIOpCodeNoOp = 0x6a
+	KBluetoothHCICommandWriteClassOfDevice                              KBluetoothHCIOpCodeNoOp = 0x24
+	KBluetoothHCICommandWriteConnectionAcceptTimeout                    KBluetoothHCIOpCodeNoOp = 0x16
+	KBluetoothHCICommandWriteCurrentIACLAP                              KBluetoothHCIOpCodeNoOp = 0x3a
+	KBluetoothHCICommandWriteDefaultErroneousDataReporting              KBluetoothHCIOpCodeNoOp = 0x5b
+	KBluetoothHCICommandWriteDefaultLinkPolicySettings                  KBluetoothHCIOpCodeNoOp = 0xf
+	KBluetoothHCICommandWriteEncryptionMode                             KBluetoothHCIOpCodeNoOp = 0x22
+	KBluetoothHCICommandWriteExtendedInquiryLength                      KBluetoothHCIOpCodeNoOp = 0x81
+	KBluetoothHCICommandWriteExtendedInquiryResponse                    KBluetoothHCIOpCodeNoOp = 0x52
+	KBluetoothHCICommandWriteExtendedPageTimeout                        KBluetoothHCIOpCodeNoOp = 0x7f
+	KBluetoothHCICommandWriteFlowControlMode                            KBluetoothHCIOpCodeNoOp = 0x67
+	KBluetoothHCICommandWriteHoldModeActivity                           KBluetoothHCIOpCodeNoOp = 0x2c
+	KBluetoothHCICommandWriteInquiryMode                                KBluetoothHCIOpCodeNoOp = 0x45
+	KBluetoothHCICommandWriteInquiryResponseTransmitPower               KBluetoothHCIOpCodeNoOp = 0x59
+	KBluetoothHCICommandWriteInquiryScanActivity                        KBluetoothHCIOpCodeNoOp = 0x1e
+	KBluetoothHCICommandWriteInquiryScanType                            KBluetoothHCIOpCodeNoOp = 0x43
+	KBluetoothHCICommandWriteLEHostSupported                            KBluetoothHCIOpCodeNoOp = 0x6d
+	KBluetoothHCICommandWriteLinkPolicySettings                         KBluetoothHCIOpCodeNoOp = 0xd
+	KBluetoothHCICommandWriteLinkSupervisionTimeout                     KBluetoothHCIOpCodeNoOp = 0x37
+	KBluetoothHCICommandWriteLocationData                               KBluetoothHCIOpCodeNoOp = 0x65
+	KBluetoothHCICommandWriteLogicalLinkAcceptTimeout                   KBluetoothHCIOpCodeNoOp = 0x62
+	KBluetoothHCICommandWriteLoopbackMode                               KBluetoothHCIOpCodeNoOp = 0x2
+	KBluetoothHCICommandWriteNumberOfBroadcastRetransmissions           KBluetoothHCIOpCodeNoOp = 0x2a
+	KBluetoothHCICommandWritePINType                                    KBluetoothHCIOpCodeNoOp = 0xa
+	KBluetoothHCICommandWritePageScanActivity                           KBluetoothHCIOpCodeNoOp = 0x1c
+	KBluetoothHCICommandWritePageScanMode                               KBluetoothHCIOpCodeNoOp = 0x3e
+	KBluetoothHCICommandWritePageScanPeriodMode                         KBluetoothHCIOpCodeNoOp = 0x3c
+	KBluetoothHCICommandWritePageScanType                               KBluetoothHCIOpCodeNoOp = 0x47
+	KBluetoothHCICommandWritePageTimeout                                KBluetoothHCIOpCodeNoOp = 0x18
+	KBluetoothHCICommandWriteRemoteAMPASSOC                             KBluetoothHCIOpCodeNoOp = 0xb
+	KBluetoothHCICommandWriteSCOFlowControlEnable                       KBluetoothHCIOpCodeNoOp = 0x2f
+	KBluetoothHCICommandWriteScanEnable                                 KBluetoothHCIOpCodeNoOp = 0x1a
+	KBluetoothHCICommandWriteSecureConnectionsHostSupport               KBluetoothHCIOpCodeNoOp = 0x7a
+	KBluetoothHCICommandWriteSimplePairingDebugMode                     KBluetoothHCIOpCodeNoOp = 0x4
+	KBluetoothHCICommandWriteSimplePairingMode                          KBluetoothHCIOpCodeNoOp = 0x56
+	KBluetoothHCICommandWriteStoredLinkKey                              KBluetoothHCIOpCodeNoOp = 0x11
+	KBluetoothHCICommandWriteSynchronizationTrainParameters             KBluetoothHCIOpCodeNoOp = 0x78
+	KBluetoothHCICommandWriteVoiceSetting                               KBluetoothHCIOpCodeNoOp = 0x26
+	KBluetoothHCIOpCodeNoOpValue                                        KBluetoothHCIOpCodeNoOp = 0
+	// Deprecated.
+	KBluetoothHCICommandSetConnectionlessSlaveBroadcast KBluetoothHCIOpCodeNoOp = 65
+	// Deprecated.
+	KBluetoothHCICommandSetConnectionlessSlaveBroadcastData KBluetoothHCIOpCodeNoOp = 118
+	// Deprecated.
+	KBluetoothHCICommandSetConnectionlessSlaveBroadcastReceive KBluetoothHCIOpCodeNoOp = 66
+)
+
+func (e KBluetoothHCIOpCodeNoOp) String() string {
+	switch e {
+	case KBluetoothHCICommandAMPTest:
+		return "KBluetoothHCICommandAMPTest"
+	case KBluetoothHCICommandAMPTestEnd:
+		return "KBluetoothHCICommandAMPTestEnd"
+	case KBluetoothHCICommandAcceptSniffRequest:
+		return "KBluetoothHCICommandAcceptSniffRequest"
+	case KBluetoothHCICommandAcceptSynchronousConnectionRequest:
+		return "KBluetoothHCICommandAcceptSynchronousConnectionRequest"
+	case KBluetoothHCICommandAddSCOConnection:
+		return "KBluetoothHCICommandAddSCOConnection"
+	case KBluetoothHCICommandAuthenticationRequested:
+		return "KBluetoothHCICommandAuthenticationRequested"
+	case KBluetoothHCICommandChangeConnectionLinkKey:
+		return "KBluetoothHCICommandChangeConnectionLinkKey"
+	case KBluetoothHCICommandChangeConnectionPacketType:
+		return "KBluetoothHCICommandChangeConnectionPacketType"
+	case KBluetoothHCICommandChangeLocalName:
+		return "KBluetoothHCICommandChangeLocalName"
+	case KBluetoothHCICommandCreateConnection:
+		return "KBluetoothHCICommandCreateConnection"
+	case KBluetoothHCICommandCreateNewUnitKey:
+		return "KBluetoothHCICommandCreateNewUnitKey"
+	case KBluetoothHCICommandDeleteReservedLTADDR:
+		return "KBluetoothHCICommandDeleteReservedLTADDR"
+	case KBluetoothHCICommandDeleteStoredLinkKey:
+		return "KBluetoothHCICommandDeleteStoredLinkKey"
+	case KBluetoothHCICommandDisconnect:
+		return "KBluetoothHCICommandDisconnect"
+	case KBluetoothHCICommandEnableDeviceUnderTestMode:
+		return "KBluetoothHCICommandEnableDeviceUnderTestMode"
+	case KBluetoothHCICommandEnhancedAcceptSynchronousConnectionRequest:
+		return "KBluetoothHCICommandEnhancedAcceptSynchronousConnectionRequest"
+	case KBluetoothHCICommandEnhancedFlush:
+		return "KBluetoothHCICommandEnhancedFlush"
+	case KBluetoothHCICommandEnhancedSetupSynchronousConnection:
+		return "KBluetoothHCICommandEnhancedSetupSynchronousConnection"
+	case KBluetoothHCICommandExitPeriodicInquiryMode:
+		return "KBluetoothHCICommandExitPeriodicInquiryMode"
+	case KBluetoothHCICommandFlowSpecification:
+		return "KBluetoothHCICommandFlowSpecification"
+	case KBluetoothHCICommandGetMWSTransportLayerConfiguration:
+		return "KBluetoothHCICommandGetMWSTransportLayerConfiguration"
+	case KBluetoothHCICommandGroupLinkControl:
+		return "KBluetoothHCICommandGroupLinkControl"
+	case KBluetoothHCICommandGroupLinkPolicy:
+		return "KBluetoothHCICommandGroupLinkPolicy"
+	case KBluetoothHCICommandGroupMax:
+		return "KBluetoothHCICommandGroupMax"
+	case KBluetoothHCICommandGroupNoOp:
+		return "KBluetoothHCICommandGroupNoOp"
+	case KBluetoothHCICommandGroupVendorSpecific:
+		return "KBluetoothHCICommandGroupVendorSpecific"
+	case KBluetoothHCICommandHostBufferSize:
+		return "KBluetoothHCICommandHostBufferSize"
+	case KBluetoothHCICommandHostNumberOfCompletedPackets:
+		return "KBluetoothHCICommandHostNumberOfCompletedPackets"
+	case KBluetoothHCICommandIOCapabilityRequestNegativeReply:
+		return "KBluetoothHCICommandIOCapabilityRequestNegativeReply"
+	case KBluetoothHCICommandIOCapabilityRequestReply:
+		return "KBluetoothHCICommandIOCapabilityRequestReply"
+	case KBluetoothHCICommandLEAddDeviceToPeriodicAdvertiserList:
+		return "KBluetoothHCICommandLEAddDeviceToPeriodicAdvertiserList"
+	case KBluetoothHCICommandLEAddDeviceToResolvingList:
+		return "KBluetoothHCICommandLEAddDeviceToResolvingList"
+	case KBluetoothHCICommandLEClearPeriodicAdvertiserList:
+		return "KBluetoothHCICommandLEClearPeriodicAdvertiserList"
+	case KBluetoothHCICommandLECreateConnection:
+		return "KBluetoothHCICommandLECreateConnection"
+	case KBluetoothHCICommandLECreateConnectionCancel:
+		return "KBluetoothHCICommandLECreateConnectionCancel"
+	case KBluetoothHCICommandLEEncrypt:
+		return "KBluetoothHCICommandLEEncrypt"
+	case KBluetoothHCICommandLEExtendedCreateConnection:
+		return "KBluetoothHCICommandLEExtendedCreateConnection"
+	case KBluetoothHCICommandLEGenerateDHKey:
+		return "KBluetoothHCICommandLEGenerateDHKey"
+	case KBluetoothHCICommandLELongTermKeyRequestNegativeReply:
+		return "KBluetoothHCICommandLELongTermKeyRequestNegativeReply"
+	case KBluetoothHCICommandLELongTermKeyRequestReply:
+		return "KBluetoothHCICommandLELongTermKeyRequestReply"
+	case KBluetoothHCICommandLEPeriodicAdvertisingCreateSync:
+		return "KBluetoothHCICommandLEPeriodicAdvertisingCreateSync"
+	case KBluetoothHCICommandLEPeriodicAdvertisingCreateSyncCancel:
+		return "KBluetoothHCICommandLEPeriodicAdvertisingCreateSyncCancel"
+	case KBluetoothHCICommandLEPeriodicAdvertisingTerminateSync:
+		return "KBluetoothHCICommandLEPeriodicAdvertisingTerminateSync"
+	case KBluetoothHCICommandLERand:
+		return "KBluetoothHCICommandLERand"
+	case KBluetoothHCICommandLEReadLocalP256PublicKey:
+		return "KBluetoothHCICommandLEReadLocalP256PublicKey"
+	case KBluetoothHCICommandLEReadLocalResolvableAddress:
+		return "KBluetoothHCICommandLEReadLocalResolvableAddress"
+	case KBluetoothHCICommandLEReadMaximumAdvertisingDataLength:
+		return "KBluetoothHCICommandLEReadMaximumAdvertisingDataLength"
+	case KBluetoothHCICommandLEReadMaximumDataLength:
+		return "KBluetoothHCICommandLEReadMaximumDataLength"
+	case KBluetoothHCICommandLEReadNumberofSupportedAdvertisingSets:
+		return "KBluetoothHCICommandLEReadNumberofSupportedAdvertisingSets"
+	case KBluetoothHCICommandLEReadPeriodicAdvertiserListSize:
+		return "KBluetoothHCICommandLEReadPeriodicAdvertiserListSize"
+	case KBluetoothHCICommandLEReadPhy:
+		return "KBluetoothHCICommandLEReadPhy"
+	case KBluetoothHCICommandLEReadRFPathCompensation:
+		return "KBluetoothHCICommandLEReadRFPathCompensation"
+	case KBluetoothHCICommandLEReadRemoteUsedFeatures:
+		return "KBluetoothHCICommandLEReadRemoteUsedFeatures"
+	case KBluetoothHCICommandLEReadResolvingListSize:
+		return "KBluetoothHCICommandLEReadResolvingListSize"
+	case KBluetoothHCICommandLEReadSuggestedDefaultDataLength:
+		return "KBluetoothHCICommandLEReadSuggestedDefaultDataLength"
+	case KBluetoothHCICommandLEReadSupportedStates:
+		return "KBluetoothHCICommandLEReadSupportedStates"
+	case KBluetoothHCICommandLEReadTransmitPower:
+		return "KBluetoothHCICommandLEReadTransmitPower"
+	case KBluetoothHCICommandLEReceiverTest:
+		return "KBluetoothHCICommandLEReceiverTest"
+	case KBluetoothHCICommandLERemoteConnectionParameterRequestNegativeReply:
+		return "KBluetoothHCICommandLERemoteConnectionParameterRequestNegativeReply"
+	case KBluetoothHCICommandLERemoteConnectionParameterRequestReply:
+		return "KBluetoothHCICommandLERemoteConnectionParameterRequestReply"
+	case KBluetoothHCICommandLERemoveAdvertisingSet:
+		return "KBluetoothHCICommandLERemoveAdvertisingSet"
+	case KBluetoothHCICommandLERemoveDeviceFromPeriodicAdvertiserList:
+		return "KBluetoothHCICommandLERemoveDeviceFromPeriodicAdvertiserList"
+	case KBluetoothHCICommandLERemoveDeviceFromResolvingList:
+		return "KBluetoothHCICommandLERemoveDeviceFromResolvingList"
+	case KBluetoothHCICommandLESetAddressResolutionEnable:
+		return "KBluetoothHCICommandLESetAddressResolutionEnable"
+	case KBluetoothHCICommandLESetAdvertiseEnable:
+		return "KBluetoothHCICommandLESetAdvertiseEnable"
+	case KBluetoothHCICommandLESetDataLength:
+		return "KBluetoothHCICommandLESetDataLength"
+	case KBluetoothHCICommandLESetExtendedAdvertisingData:
+		return "KBluetoothHCICommandLESetExtendedAdvertisingData"
+	case KBluetoothHCICommandLESetExtendedAdvertisingEnableCommand:
+		return "KBluetoothHCICommandLESetExtendedAdvertisingEnableCommand"
+	case KBluetoothHCICommandLESetExtendedAdvertisingParameters:
+		return "KBluetoothHCICommandLESetExtendedAdvertisingParameters"
+	case KBluetoothHCICommandLESetExtendedScanEnable:
+		return "KBluetoothHCICommandLESetExtendedScanEnable"
+	case KBluetoothHCICommandLESetExtendedScanParameters:
+		return "KBluetoothHCICommandLESetExtendedScanParameters"
+	case KBluetoothHCICommandLESetExtendedScanResponseData:
+		return "KBluetoothHCICommandLESetExtendedScanResponseData"
+	case KBluetoothHCICommandLESetHostChannelClassification:
+		return "KBluetoothHCICommandLESetHostChannelClassification"
+	case KBluetoothHCICommandLESetPhy:
+		return "KBluetoothHCICommandLESetPhy"
+	case KBluetoothHCICommandLESetPrivacyMode:
+		return "KBluetoothHCICommandLESetPrivacyMode"
+	case KBluetoothHCICommandLESetResolvablePrivateAddressTimeout:
+		return "KBluetoothHCICommandLESetResolvablePrivateAddressTimeout"
+	case KBluetoothHCICommandLEStartEncryption:
+		return "KBluetoothHCICommandLEStartEncryption"
+	case KBluetoothHCICommandLETestEnd:
+		return "KBluetoothHCICommandLETestEnd"
+	case KBluetoothHCICommandLETransmitterTest:
+		return "KBluetoothHCICommandLETransmitterTest"
+	case KBluetoothHCICommandLEWriteRFPathCompensation:
+		return "KBluetoothHCICommandLEWriteRFPathCompensation"
+	case KBluetoothHCICommandLEWriteSuggestedDefaultDataLength:
+		return "KBluetoothHCICommandLEWriteSuggestedDefaultDataLength"
+	case KBluetoothHCICommandMax:
+		return "KBluetoothHCICommandMax"
+	case KBluetoothHCICommandReadAuthenticatedPayloadTimeout:
+		return "KBluetoothHCICommandReadAuthenticatedPayloadTimeout"
+	case KBluetoothHCICommandReadBestEffortFlushTimeout:
+		return "KBluetoothHCICommandReadBestEffortFlushTimeout"
+	case KBluetoothHCICommandReadDefaultErroneousDataReporting:
+		return "KBluetoothHCICommandReadDefaultErroneousDataReporting"
+	case KBluetoothHCICommandReadEnhancedTransmitPowerLevel:
+		return "KBluetoothHCICommandReadEnhancedTransmitPowerLevel"
+	case KBluetoothHCICommandReadExtendedInquiryLength:
+		return "KBluetoothHCICommandReadExtendedInquiryLength"
+	case KBluetoothHCICommandReadExtendedInquiryResponse:
+		return "KBluetoothHCICommandReadExtendedInquiryResponse"
+	case KBluetoothHCICommandReadExtendedPageTimeout:
+		return "KBluetoothHCICommandReadExtendedPageTimeout"
+	case KBluetoothHCICommandReadFlowControlMode:
+		return "KBluetoothHCICommandReadFlowControlMode"
+	case KBluetoothHCICommandReadInquiryResponseTransmitPower:
+		return "KBluetoothHCICommandReadInquiryResponseTransmitPower"
+	case KBluetoothHCICommandReadLEHostSupported:
+		return "KBluetoothHCICommandReadLEHostSupported"
+	case KBluetoothHCICommandReadLocalOOBData:
+		return "KBluetoothHCICommandReadLocalOOBData"
+	case KBluetoothHCICommandReadLocalOOBExtendedData:
+		return "KBluetoothHCICommandReadLocalOOBExtendedData"
+	case KBluetoothHCICommandReadLocationData:
+		return "KBluetoothHCICommandReadLocationData"
+	case KBluetoothHCICommandReadLogicalLinkAcceptTimeout:
+		return "KBluetoothHCICommandReadLogicalLinkAcceptTimeout"
+	case KBluetoothHCICommandReadSecureConnectionsHostSupport:
+		return "KBluetoothHCICommandReadSecureConnectionsHostSupport"
+	case KBluetoothHCICommandReadSimplePairingMode:
+		return "KBluetoothHCICommandReadSimplePairingMode"
+	case KBluetoothHCICommandReadSynchronizationTrainParameters:
+		return "KBluetoothHCICommandReadSynchronizationTrainParameters"
+	case KBluetoothHCICommandRefreshEncryptionKey:
+		return "KBluetoothHCICommandRefreshEncryptionKey"
+	case KBluetoothHCICommandSendKeypressNotification:
+		return "KBluetoothHCICommandSendKeypressNotification"
+	case KBluetoothHCICommandSetConnectionlessPeripheralBroadcastData:
+		return "KBluetoothHCICommandSetConnectionlessPeripheralBroadcastData"
+	case KBluetoothHCICommandSetEventMaskPageTwo:
+		return "KBluetoothHCICommandSetEventMaskPageTwo"
+	case KBluetoothHCICommandSetExternalFrameConfiguration:
+		return "KBluetoothHCICommandSetExternalFrameConfiguration"
+	case KBluetoothHCICommandSetMWSChannelParameters:
+		return "KBluetoothHCICommandSetMWSChannelParameters"
+	case KBluetoothHCICommandSetMWSPATTERNConfiguration:
+		return "KBluetoothHCICommandSetMWSPATTERNConfiguration"
+	case KBluetoothHCICommandSetMWSScanFrequencyTable:
+		return "KBluetoothHCICommandSetMWSScanFrequencyTable"
+	case KBluetoothHCICommandSetMWSSignaling:
+		return "KBluetoothHCICommandSetMWSSignaling"
+	case KBluetoothHCICommandSetMWSTransportLayer:
+		return "KBluetoothHCICommandSetMWSTransportLayer"
+	case KBluetoothHCICommandSetReservedLTADDR:
+		return "KBluetoothHCICommandSetReservedLTADDR"
+	case KBluetoothHCICommandShortRangeMode:
+		return "KBluetoothHCICommandShortRangeMode"
+	case KBluetoothHCICommandWriteAuthenticatedPayloadTimeout:
+		return "KBluetoothHCICommandWriteAuthenticatedPayloadTimeout"
+	case KBluetoothHCICommandWriteBestEffortFlushTimeout:
+		return "KBluetoothHCICommandWriteBestEffortFlushTimeout"
+	case KBluetoothHCICommandWriteDefaultErroneousDataReporting:
+		return "KBluetoothHCICommandWriteDefaultErroneousDataReporting"
+	case KBluetoothHCICommandWriteExtendedInquiryLength:
+		return "KBluetoothHCICommandWriteExtendedInquiryLength"
+	case KBluetoothHCICommandWriteExtendedInquiryResponse:
+		return "KBluetoothHCICommandWriteExtendedInquiryResponse"
+	case KBluetoothHCICommandWriteExtendedPageTimeout:
+		return "KBluetoothHCICommandWriteExtendedPageTimeout"
+	case KBluetoothHCICommandWriteFlowControlMode:
+		return "KBluetoothHCICommandWriteFlowControlMode"
+	case KBluetoothHCICommandWriteInquiryResponseTransmitPower:
+		return "KBluetoothHCICommandWriteInquiryResponseTransmitPower"
+	case KBluetoothHCICommandWriteLEHostSupported:
+		return "KBluetoothHCICommandWriteLEHostSupported"
+	case KBluetoothHCICommandWriteLocationData:
+		return "KBluetoothHCICommandWriteLocationData"
+	case KBluetoothHCICommandWriteLogicalLinkAcceptTimeout:
+		return "KBluetoothHCICommandWriteLogicalLinkAcceptTimeout"
+	case KBluetoothHCICommandWriteSecureConnectionsHostSupport:
+		return "KBluetoothHCICommandWriteSecureConnectionsHostSupport"
+	case KBluetoothHCICommandWriteSimplePairingMode:
+		return "KBluetoothHCICommandWriteSimplePairingMode"
+	case KBluetoothHCICommandWriteSynchronizationTrainParameters:
+		return "KBluetoothHCICommandWriteSynchronizationTrainParameters"
+	default:
+		return fmt.Sprintf("KBluetoothHCIOpCodeNoOp(%d)", e)
+	}
+}
+
+type KBluetoothHCITransportUSB uint32
 
 const (
 	// KBluetoothHCITransportUSBClassCode: # Discussion
@@ -5780,7 +6832,7 @@ func (e KBluetoothHCITransportUSB) String() string {
 	}
 }
 
-type KBluetoothKeyFlag uint
+type KBluetoothKeyFlag uint32
 
 const (
 	KBluetoothKeyFlagSemiPermanent KBluetoothKeyFlag = 0
@@ -5798,7 +6850,7 @@ func (e KBluetoothKeyFlag) String() string {
 	}
 }
 
-type KBluetoothKeyType uint
+type KBluetoothKeyType uint32
 
 const (
 	KBluetoothKeyTypeAuthenticatedCombination       KBluetoothKeyType = 0x5
@@ -5837,7 +6889,7 @@ func (e KBluetoothKeyType) String() string {
 	}
 }
 
-type KBluetoothL2CAP uint
+type KBluetoothL2CAP uint32
 
 const (
 	KBluetoothL2CAPFlushTimeoutDefault       KBluetoothL2CAP = 65535
@@ -5854,7 +6906,7 @@ const (
 	KBluetoothL2CAPQoSPeakBandwidthDefault   KBluetoothL2CAP = 0
 	KBluetoothL2CAPQoSTokenBucketSizeDefault KBluetoothL2CAP = 0
 	KBluetoothL2CAPQoSTokenRateDefault       KBluetoothL2CAP = 0
-	KBluetoothL2CAPQoSTypeDefault            KBluetoothL2CAP = (1)
+	KBluetoothL2CAPQoSTypeDefault            KBluetoothL2CAP = 1
 )
 
 func (e KBluetoothL2CAP) String() string {
@@ -5882,7 +6934,7 @@ func (e KBluetoothL2CAP) String() string {
 	}
 }
 
-type KBluetoothL2CAPChannel uint
+type KBluetoothL2CAPChannel uint32
 
 const (
 	KBluetoothL2CAPChannelAMPManagerProtocol   KBluetoothL2CAPChannel = 0x3
@@ -5946,7 +6998,7 @@ func (e KBluetoothL2CAPChannel) String() string {
 	}
 }
 
-type KBluetoothL2CAPConfigurationOption uint
+type KBluetoothL2CAPConfigurationOption uint32
 
 const (
 	KBluetoothL2CAPConfigurationOptionFlushTimeoutLength                 KBluetoothL2CAPConfigurationOption = 2
@@ -5968,10 +7020,10 @@ func (e KBluetoothL2CAPConfigurationOption) String() string {
 	}
 }
 
-type KBluetoothL2CAPFlushTimeout uint
+type KBluetoothL2CAPFlushTimeout uint32
 
 const (
-	KBluetoothL2CAPFlushTimeoutEnd         KBluetoothL2CAPFlushTimeout = 0
+	KBluetoothL2CAPFlushTimeoutEnd         KBluetoothL2CAPFlushTimeout = 65536
 	KBluetoothL2CAPFlushTimeoutForever     KBluetoothL2CAPFlushTimeout = 0xffff
 	KBluetoothL2CAPFlushTimeoutImmediate   KBluetoothL2CAPFlushTimeout = 0x1
 	KBluetoothL2CAPFlushTimeoutUseExisting KBluetoothL2CAPFlushTimeout = 0
@@ -5985,12 +7037,14 @@ func (e KBluetoothL2CAPFlushTimeout) String() string {
 		return "KBluetoothL2CAPFlushTimeoutForever"
 	case KBluetoothL2CAPFlushTimeoutImmediate:
 		return "KBluetoothL2CAPFlushTimeoutImmediate"
+	case KBluetoothL2CAPFlushTimeoutUseExisting:
+		return "KBluetoothL2CAPFlushTimeoutUseExisting"
 	default:
 		return fmt.Sprintf("KBluetoothL2CAPFlushTimeout(%d)", e)
 	}
 }
 
-type KBluetoothL2CAPInfoTypeMaxConnectionlessMTU uint
+type KBluetoothL2CAPInfoTypeMaxConnectionlessMTU uint32
 
 const (
 	KBluetoothL2CAPInfoTypeMaxConnectionlessMTUSize KBluetoothL2CAPInfoTypeMaxConnectionlessMTU = 0x1
@@ -6005,7 +7059,34 @@ func (e KBluetoothL2CAPInfoTypeMaxConnectionlessMTU) String() string {
 	}
 }
 
-type KBluetoothL2CAPPSM uint
+type KBluetoothL2CAPMaxPacketSize uint32
+
+const (
+	KBluetoothACLLogicalChannelL2CAPContinue KBluetoothL2CAPMaxPacketSize = 1
+	KBluetoothACLLogicalChannelL2CAPStart    KBluetoothL2CAPMaxPacketSize = 2
+	KBluetoothACLLogicalChannelLMP           KBluetoothL2CAPMaxPacketSize = 3
+	KBluetoothACLLogicalChannelReserved      KBluetoothL2CAPMaxPacketSize = 0
+	KBluetoothL2CAPMaxPacketSizeValue        KBluetoothL2CAPMaxPacketSize = 65535
+)
+
+func (e KBluetoothL2CAPMaxPacketSize) String() string {
+	switch e {
+	case KBluetoothACLLogicalChannelL2CAPContinue:
+		return "KBluetoothACLLogicalChannelL2CAPContinue"
+	case KBluetoothACLLogicalChannelL2CAPStart:
+		return "KBluetoothACLLogicalChannelL2CAPStart"
+	case KBluetoothACLLogicalChannelLMP:
+		return "KBluetoothACLLogicalChannelLMP"
+	case KBluetoothACLLogicalChannelReserved:
+		return "KBluetoothACLLogicalChannelReserved"
+	case KBluetoothL2CAPMaxPacketSizeValue:
+		return "KBluetoothL2CAPMaxPacketSizeValue"
+	default:
+		return fmt.Sprintf("KBluetoothL2CAPMaxPacketSize(%d)", e)
+	}
+}
+
+type KBluetoothL2CAPPSM uint32
 
 const (
 	KBluetoothL2CAPPSMAACP             KBluetoothL2CAPPSM = 0x1001
@@ -6070,7 +7151,7 @@ func (e KBluetoothL2CAPPSM) String() string {
 	}
 }
 
-type KBluetoothL2CAPPacketHeader uint
+type KBluetoothL2CAPPacketHeader uint32
 
 const (
 	KBluetoothL2CAPPacketHeaderSize KBluetoothL2CAPPacketHeader = 4
@@ -6085,7 +7166,7 @@ func (e KBluetoothL2CAPPacketHeader) String() string {
 	}
 }
 
-type KBluetoothL2CAPTCICommand uint
+type KBluetoothL2CAPTCICommand uint32
 
 const (
 	KBluetoothL2CAPTCICommandL2CA_ConfigReq         KBluetoothL2CAPTCICommand = 0x3
@@ -6157,7 +7238,7 @@ func (e KBluetoothL2CAPTCICommand) String() string {
 	}
 }
 
-type KBluetoothL2CAPTCIEventID uint
+type KBluetoothL2CAPTCIEventID uint32
 
 const (
 	KBluetoothL2CAPTCIEventIDL2CA_ConfigInd       KBluetoothL2CAPTCIEventID = 0x2
@@ -6187,7 +7268,7 @@ func (e KBluetoothL2CAPTCIEventID) String() string {
 	}
 }
 
-type KBluetoothLEMaxTX uint
+type KBluetoothLEMaxTX uint32
 
 const (
 	KBluetoothLEMaxTXOctetsDefault KBluetoothLEMaxTX = 0x80
@@ -6215,7 +7296,7 @@ func (e KBluetoothLEMaxTX) String() string {
 	}
 }
 
-type KBluetoothLESecurityManager uint
+type KBluetoothLESecurityManager uint32
 
 const (
 	KBluetoothLESecurityManagerBonding       KBluetoothLESecurityManager = 1
@@ -6239,7 +7320,7 @@ func (e KBluetoothLESecurityManager) String() string {
 	}
 }
 
-type KBluetoothLETX uint
+type KBluetoothLETX uint32
 
 const (
 	KBluetoothLETXOctetsDefault KBluetoothLETX = 0x1b
@@ -6265,7 +7346,7 @@ func (e KBluetoothLETX) String() string {
 	}
 }
 
-type KBluetoothPacket uint
+type KBluetoothPacket uint32
 
 const (
 	KBluetoothPacketType2DH1Omit  KBluetoothPacket = 0x2
@@ -6282,7 +7363,7 @@ const (
 	KBluetoothPacketTypeDM3       KBluetoothPacket = 0x400
 	KBluetoothPacketTypeDM5       KBluetoothPacket = 0x4000
 	KBluetoothPacketTypeDV        KBluetoothPacket = 0x100
-	KBluetoothPacketTypeEnd       KBluetoothPacket = 0
+	KBluetoothPacketTypeEnd       KBluetoothPacket = 32769
 	KBluetoothPacketTypeHV1       KBluetoothPacket = 0x20
 	KBluetoothPacketTypeHV2       KBluetoothPacket = 0x40
 	KBluetoothPacketTypeHV3       KBluetoothPacket = 0x80
@@ -6330,7 +7411,7 @@ func (e KBluetoothPacket) String() string {
 	}
 }
 
-type KBluetoothPageScanMode uint
+type KBluetoothPageScanMode uint32
 
 const (
 	KBluetoothPageScanModeMandatory KBluetoothPageScanMode = 0
@@ -6354,7 +7435,7 @@ func (e KBluetoothPageScanMode) String() string {
 	}
 }
 
-type KBluetoothPageScanPeriodMode uint
+type KBluetoothPageScanPeriodMode uint32
 
 const (
 	KBluetoothPageScanPeriodModeP0 KBluetoothPageScanPeriodMode = 0
@@ -6375,7 +7456,7 @@ func (e KBluetoothPageScanPeriodMode) String() string {
 	}
 }
 
-type KBluetoothPageScanRepetitionMode uint
+type KBluetoothPageScanRepetitionMode uint32
 
 const (
 	KBluetoothPageScanRepetitionModeR0 KBluetoothPageScanRepetitionMode = 0
@@ -6396,7 +7477,7 @@ func (e KBluetoothPageScanRepetitionMode) String() string {
 	}
 }
 
-type KBluetoothRole uint
+type KBluetoothRole uint32
 
 const (
 	KBluetoothRoleBecomeCentral    KBluetoothRole = 0
@@ -6418,7 +7499,7 @@ func (e KBluetoothRole) String() string {
 	}
 }
 
-type KBluetoothSDPAttributeDeviceIdentifier uint
+type KBluetoothSDPAttributeDeviceIdentifier uint32
 
 const (
 	KBluetoothSDPAttributeDeviceIdentifierClientExecutableURL KBluetoothSDPAttributeDeviceIdentifier = 0xb
@@ -6463,7 +7544,7 @@ func (e KBluetoothSDPAttributeDeviceIdentifier) String() string {
 	}
 }
 
-type KBluetoothSDPAttributeIdentifier uint
+type KBluetoothSDPAttributeIdentifier uint32
 
 const (
 	KBluetoothSDPAttributeIdentifierAdditionalProtocolsDescriptorList KBluetoothSDPAttributeIdentifier = 0xd
@@ -6630,7 +7711,7 @@ func (e KBluetoothSDPAttributeIdentifier) String() string {
 	}
 }
 
-type KBluetoothSDPDataElementType uint
+type KBluetoothSDPDataElementType uint32
 
 const (
 	KBluetoothSDPDataElementTypeBoolean                KBluetoothSDPDataElementType = 5
@@ -6675,7 +7756,7 @@ func (e KBluetoothSDPDataElementType) String() string {
 	}
 }
 
-type KBluetoothSDPErrorCode int
+type KBluetoothSDPErrorCode uint32
 
 const (
 	KBluetoothSDPErrorCodeInsufficientResources      KBluetoothSDPErrorCode = 0x6
@@ -6715,7 +7796,7 @@ func (e KBluetoothSDPErrorCode) String() string {
 	}
 }
 
-type KBluetoothSDPPDUID uint
+type KBluetoothSDPPDUID uint32
 
 const (
 	KBluetoothSDPPDUIDErrorResponse                  KBluetoothSDPPDUID = 1
@@ -6751,7 +7832,7 @@ func (e KBluetoothSDPPDUID) String() string {
 	}
 }
 
-type KBluetoothSDPProtocolParameter uint
+type KBluetoothSDPProtocolParameter uint32
 
 const (
 	KBluetoothSDPProtocolParameterBNEPSupportedNetworkPacketTypeList KBluetoothSDPProtocolParameter = 2
@@ -6773,7 +7854,7 @@ func (e KBluetoothSDPProtocolParameter) String() string {
 	}
 }
 
-type KBluetoothSDPUUID16 uint
+type KBluetoothSDPUUID16 uint32
 
 const (
 	KBluetoothSDPUUID16ATT                    KBluetoothSDPUUID16 = 0x7
@@ -6863,7 +7944,7 @@ func (e KBluetoothSDPUUID16) String() string {
 	}
 }
 
-type KBluetoothSDPUUID16ServiceClass uint
+type KBluetoothSDPUUID16ServiceClass uint32
 
 const (
 	KBluetoothSDPUUID16ServiceClassAVRemoteControl                       KBluetoothSDPUUID16ServiceClass = 0x110e
@@ -6917,13 +7998,13 @@ func (e KBluetoothSDPUUID16ServiceClass) String() string {
 	}
 }
 
-type KBluetoothServiceClassMajor uint
+type KBluetoothServiceClassMajor uint32
 
 const (
 	KBluetoothServiceClassMajorAny                     KBluetoothServiceClassMajor = '*'<<24 | '*'<<16 | '*'<<8 | '*' // '****'
 	KBluetoothServiceClassMajorAudio                   KBluetoothServiceClassMajor = 0x100
 	KBluetoothServiceClassMajorCapturing               KBluetoothServiceClassMajor = 0x40
-	KBluetoothServiceClassMajorEnd                     KBluetoothServiceClassMajor = 0
+	KBluetoothServiceClassMajorEnd                     KBluetoothServiceClassMajor = 'n'<<24 | 'o'<<16 | 'n'<<8 | 'f' // 'nonf'
 	KBluetoothServiceClassMajorInformation             KBluetoothServiceClassMajor = 0x400
 	KBluetoothServiceClassMajorLimitedDiscoverableMode KBluetoothServiceClassMajor = 0x1
 	KBluetoothServiceClassMajorNetworking              KBluetoothServiceClassMajor = 0x10
@@ -6971,7 +8052,7 @@ func (e KBluetoothServiceClassMajor) String() string {
 	}
 }
 
-type KBluetoothSynchronousConnectionPacket uint
+type KBluetoothSynchronousConnectionPacket uint32
 
 const (
 	KBluetoothSynchronousConnectionPacketType2EV3Omit  KBluetoothSynchronousConnectionPacket = 0x40
@@ -6982,7 +8063,7 @@ const (
 	KBluetoothSynchronousConnectionPacketTypeEV3       KBluetoothSynchronousConnectionPacket = 0x8
 	KBluetoothSynchronousConnectionPacketTypeEV4       KBluetoothSynchronousConnectionPacket = 0x10
 	KBluetoothSynchronousConnectionPacketTypeEV5       KBluetoothSynchronousConnectionPacket = 0x20
-	KBluetoothSynchronousConnectionPacketTypeEnd       KBluetoothSynchronousConnectionPacket = 0
+	KBluetoothSynchronousConnectionPacketTypeEnd       KBluetoothSynchronousConnectionPacket = 65536
 	KBluetoothSynchronousConnectionPacketTypeFutureUse KBluetoothSynchronousConnectionPacket = 0xfc00
 	KBluetoothSynchronousConnectionPacketTypeHV1       KBluetoothSynchronousConnectionPacket = 0x1
 	KBluetoothSynchronousConnectionPacketTypeHV2       KBluetoothSynchronousConnectionPacket = 0x2
@@ -7018,12 +8099,14 @@ func (e KBluetoothSynchronousConnectionPacket) String() string {
 		return "KBluetoothSynchronousConnectionPacketTypeHV2"
 	case KBluetoothSynchronousConnectionPacketTypeHV3:
 		return "KBluetoothSynchronousConnectionPacketTypeHV3"
+	case KBluetoothSynchronousConnectionPacketTypeNone:
+		return "KBluetoothSynchronousConnectionPacketTypeNone"
 	default:
 		return fmt.Sprintf("KBluetoothSynchronousConnectionPacket(%d)", e)
 	}
 }
 
-type KBluetoothVoiceSettingAirCodingFormat uint
+type KBluetoothVoiceSettingAirCodingFormat uint32
 
 const (
 	KBluetoothVoiceSettingAirCodingFormatALaw            KBluetoothVoiceSettingAirCodingFormat = 0x2
@@ -7048,7 +8131,7 @@ func (e KBluetoothVoiceSettingAirCodingFormat) String() string {
 	}
 }
 
-type KBluetoothVoiceSettingInputCoding uint
+type KBluetoothVoiceSettingInputCoding uint32
 
 const (
 	KBluetoothVoiceSettingInputCodingALawInputCoding   KBluetoothVoiceSettingInputCoding = 0x200
@@ -7072,7 +8155,7 @@ func (e KBluetoothVoiceSettingInputCoding) String() string {
 	}
 }
 
-type KBluetoothVoiceSettingInputData uint
+type KBluetoothVoiceSettingInputData uint32
 
 const (
 	KBluetoothVoiceSettingInputDataFormat1sComplement  KBluetoothVoiceSettingInputData = 0
@@ -7097,7 +8180,7 @@ func (e KBluetoothVoiceSettingInputData) String() string {
 	}
 }
 
-type KBluetoothVoiceSettingInputSample uint
+type KBluetoothVoiceSettingInputSample uint32
 
 const (
 	KBluetoothVoiceSettingInputSampleSize16Bit KBluetoothVoiceSettingInputSample = 0x20
@@ -7116,7 +8199,7 @@ func (e KBluetoothVoiceSettingInputSample) String() string {
 	}
 }
 
-type KBluetoothVoiceSettingPCMBitPosition uint
+type KBluetoothVoiceSettingPCMBitPosition uint32
 
 const (
 	KBluetoothVoiceSettingPCMBitPositionMask KBluetoothVoiceSettingPCMBitPosition = 0x1c
@@ -7183,73 +8266,93 @@ func (e KC0DataMaxString) String() string {
 	}
 }
 
-type KCDFeatures uint
+type KCDFeaturesAnalogAudioBit uint
 
 const (
-	KCDFeaturesAnalogAudioBit         KCDFeatures = 0
-	KCDFeaturesAnalogAudioMask        KCDFeatures = 1
-	KCDFeaturesBUFWriteBit            KCDFeatures = 10
-	KCDFeaturesBUFWriteMask           KCDFeatures = 1024
-	KCDFeaturesCDDAStreamAccurateBit  KCDFeatures = 4
-	KCDFeaturesCDDAStreamAccurateMask KCDFeatures = 16
-	KCDFeaturesPacketWriteBit         KCDFeatures = 5
-	KCDFeaturesPacketWriteMask        KCDFeatures = 32
-	KCDFeaturesRawWriteBit            KCDFeatures = 8
-	KCDFeaturesRawWriteMask           KCDFeatures = 256
-	KCDFeaturesReWriteableBit         KCDFeatures = 3
-	KCDFeaturesReWriteableMask        KCDFeatures = 8
-	KCDFeaturesReadStructuresBit      KCDFeatures = 1
-	KCDFeaturesReadStructuresMask     KCDFeatures = 2
-	KCDFeaturesSAOWriteBit            KCDFeatures = 7
-	KCDFeaturesSAOWriteMask           KCDFeatures = 128
-	KCDFeaturesTAOWriteBit            KCDFeatures = 6
-	KCDFeaturesTAOWriteMask           KCDFeatures = 64
-	KCDFeaturesTestWriteBit           KCDFeatures = 9
-	KCDFeaturesTestWriteMask          KCDFeatures = 512
-	KCDFeaturesWriteOnceBit           KCDFeatures = 2
-	KCDFeaturesWriteOnceMask          KCDFeatures = 4
+	KCDFeaturesAnalogAudioBitValue   KCDFeaturesAnalogAudioBit = 0
+	KCDFeaturesBUFWriteBit           KCDFeaturesAnalogAudioBit = 10
+	KCDFeaturesCDDAStreamAccurateBit KCDFeaturesAnalogAudioBit = 4
+	KCDFeaturesPacketWriteBit        KCDFeaturesAnalogAudioBit = 5
+	KCDFeaturesRawWriteBit           KCDFeaturesAnalogAudioBit = 8
+	KCDFeaturesReWriteableBit        KCDFeaturesAnalogAudioBit = 3
+	KCDFeaturesReadStructuresBit     KCDFeaturesAnalogAudioBit = 1
+	KCDFeaturesSAOWriteBit           KCDFeaturesAnalogAudioBit = 7
+	KCDFeaturesTAOWriteBit           KCDFeaturesAnalogAudioBit = 6
+	KCDFeaturesTestWriteBit          KCDFeaturesAnalogAudioBit = 9
+	KCDFeaturesWriteOnceBit          KCDFeaturesAnalogAudioBit = 2
 )
 
-func (e KCDFeatures) String() string {
+func (e KCDFeaturesAnalogAudioBit) String() string {
 	switch e {
-	case KCDFeaturesAnalogAudioBit:
-		return "KCDFeaturesAnalogAudioBit"
-	case KCDFeaturesAnalogAudioMask:
-		return "KCDFeaturesAnalogAudioMask"
+	case KCDFeaturesAnalogAudioBitValue:
+		return "KCDFeaturesAnalogAudioBitValue"
 	case KCDFeaturesBUFWriteBit:
 		return "KCDFeaturesBUFWriteBit"
-	case KCDFeaturesBUFWriteMask:
-		return "KCDFeaturesBUFWriteMask"
 	case KCDFeaturesCDDAStreamAccurateBit:
 		return "KCDFeaturesCDDAStreamAccurateBit"
-	case KCDFeaturesCDDAStreamAccurateMask:
-		return "KCDFeaturesCDDAStreamAccurateMask"
 	case KCDFeaturesPacketWriteBit:
 		return "KCDFeaturesPacketWriteBit"
-	case KCDFeaturesPacketWriteMask:
-		return "KCDFeaturesPacketWriteMask"
 	case KCDFeaturesRawWriteBit:
 		return "KCDFeaturesRawWriteBit"
-	case KCDFeaturesRawWriteMask:
-		return "KCDFeaturesRawWriteMask"
 	case KCDFeaturesReWriteableBit:
 		return "KCDFeaturesReWriteableBit"
-	case KCDFeaturesReadStructuresMask:
-		return "KCDFeaturesReadStructuresMask"
+	case KCDFeaturesReadStructuresBit:
+		return "KCDFeaturesReadStructuresBit"
 	case KCDFeaturesSAOWriteBit:
 		return "KCDFeaturesSAOWriteBit"
-	case KCDFeaturesSAOWriteMask:
-		return "KCDFeaturesSAOWriteMask"
 	case KCDFeaturesTAOWriteBit:
 		return "KCDFeaturesTAOWriteBit"
-	case KCDFeaturesTAOWriteMask:
-		return "KCDFeaturesTAOWriteMask"
 	case KCDFeaturesTestWriteBit:
 		return "KCDFeaturesTestWriteBit"
+	case KCDFeaturesWriteOnceBit:
+		return "KCDFeaturesWriteOnceBit"
+	default:
+		return fmt.Sprintf("KCDFeaturesAnalogAudioBit(%d)", e)
+	}
+}
+
+type KCDFeaturesAnalogAudioMask uint
+
+const (
+	KCDFeaturesAnalogAudioMaskValue   KCDFeaturesAnalogAudioMask = 1
+	KCDFeaturesBUFWriteMask           KCDFeaturesAnalogAudioMask = 1024
+	KCDFeaturesCDDAStreamAccurateMask KCDFeaturesAnalogAudioMask = 16
+	KCDFeaturesPacketWriteMask        KCDFeaturesAnalogAudioMask = 32
+	KCDFeaturesRawWriteMask           KCDFeaturesAnalogAudioMask = 256
+	KCDFeaturesReWriteableMask        KCDFeaturesAnalogAudioMask = 8
+	KCDFeaturesReadStructuresMask     KCDFeaturesAnalogAudioMask = 2
+	KCDFeaturesSAOWriteMask           KCDFeaturesAnalogAudioMask = 128
+	KCDFeaturesTAOWriteMask           KCDFeaturesAnalogAudioMask = 64
+	KCDFeaturesTestWriteMask          KCDFeaturesAnalogAudioMask = 512
+	KCDFeaturesWriteOnceMask          KCDFeaturesAnalogAudioMask = 4
+)
+
+func (e KCDFeaturesAnalogAudioMask) String() string {
+	switch e {
+	case KCDFeaturesAnalogAudioMaskValue:
+		return "KCDFeaturesAnalogAudioMaskValue"
+	case KCDFeaturesBUFWriteMask:
+		return "KCDFeaturesBUFWriteMask"
+	case KCDFeaturesCDDAStreamAccurateMask:
+		return "KCDFeaturesCDDAStreamAccurateMask"
+	case KCDFeaturesPacketWriteMask:
+		return "KCDFeaturesPacketWriteMask"
+	case KCDFeaturesRawWriteMask:
+		return "KCDFeaturesRawWriteMask"
+	case KCDFeaturesReWriteableMask:
+		return "KCDFeaturesReWriteableMask"
+	case KCDFeaturesReadStructuresMask:
+		return "KCDFeaturesReadStructuresMask"
+	case KCDFeaturesSAOWriteMask:
+		return "KCDFeaturesSAOWriteMask"
+	case KCDFeaturesTAOWriteMask:
+		return "KCDFeaturesTAOWriteMask"
 	case KCDFeaturesTestWriteMask:
 		return "KCDFeaturesTestWriteMask"
+	case KCDFeaturesWriteOnceMask:
+		return "KCDFeaturesWriteOnceMask"
 	default:
-		return fmt.Sprintf("KCDFeatures(%d)", e)
+		return fmt.Sprintf("KCDFeaturesAnalogAudioMask(%d)", e)
 	}
 }
 
@@ -7448,66 +8551,66 @@ func (e KCFormat) String() string {
 	}
 }
 
-type KCSRNodeID uint
+type KCSRNodeID uint32
 
 const (
-	KCSRArgumentHiAddress                KCSRNodeID = 0xf0000020
-	KCSRArgumentLoAddress                KCSRNodeID = 0xf0000024
-	KCSRBandwidthAvailable               KCSRNodeID = 0xf0000220
-	KCSRBroadcastChannel                 KCSRNodeID = 0xf0000234
-	KCSRBusDependentRegistersBaseAddress KCSRNodeID = 0xf0000200
-	KCSRBusManagerID                     KCSRNodeID = 0xf000021c
-	KCSRBusyTimeout                      KCSRNodeID = 0xf0000210
-	KCSRChannelsAvailable31_0            KCSRNodeID = 0xf0000224
-	KCSRChannelsAvailable63_32           KCSRNodeID = 0xf0000228
-	KCSRClockInfo0Address                KCSRNodeID = 0xf0000070
-	KCSRClockInfo1Address                KCSRNodeID = 0xf0000074
-	KCSRClockInfo2Address                KCSRNodeID = 0xf0000078
-	KCSRClockInfo3Address                KCSRNodeID = 0xf000007c
-	KCSRClockStrobeArrivedHiAddress      KCSRNodeID = 0xf0000068
-	KCSRClockStrobeArrivedMidAddress     KCSRNodeID = 0xf000006c
-	KCSRClockTickPeriodLoAddress         KCSRNodeID = 0xf0000064
-	KCSRClockTickPeriodMidAddress        KCSRNodeID = 0xf0000060
-	KCSRClockValueHiAddress              KCSRNodeID = 0xf0000058
-	KCSRClockValueMidAddress             KCSRNodeID = 0xf000005c
+	KCSRArgumentHiAddress                KCSRNodeID = 4026531872
+	KCSRArgumentLoAddress                KCSRNodeID = 4026531876
+	KCSRBandwidthAvailable               KCSRNodeID = 4026532384
+	KCSRBroadcastChannel                 KCSRNodeID = 4026532404
+	KCSRBusDependentRegistersBaseAddress KCSRNodeID = 4026532352
+	KCSRBusManagerID                     KCSRNodeID = 4026532380
+	KCSRBusyTimeout                      KCSRNodeID = 4026532368
+	KCSRChannelsAvailable31_0            KCSRNodeID = 4026532388
+	KCSRChannelsAvailable63_32           KCSRNodeID = 4026532392
+	KCSRClockInfo0Address                KCSRNodeID = 4026531952
+	KCSRClockInfo1Address                KCSRNodeID = 4026531956
+	KCSRClockInfo2Address                KCSRNodeID = 4026531960
+	KCSRClockInfo3Address                KCSRNodeID = 4026531964
+	KCSRClockStrobeArrivedHiAddress      KCSRNodeID = 4026531944
+	KCSRClockStrobeArrivedMidAddress     KCSRNodeID = 4026531948
+	KCSRClockTickPeriodLoAddress         KCSRNodeID = 4026531940
+	KCSRClockTickPeriodMidAddress        KCSRNodeID = 4026531936
+	KCSRClockValueHiAddress              KCSRNodeID = 4026531928
+	KCSRClockValueMidAddress             KCSRNodeID = 4026531932
 	KCSRCoreRegistersBaseAddress         KCSRNodeID = 4026531840
-	KCSRErrorLogBufferAddress            KCSRNodeID = 0xf0000180
-	KCSRIndirectAddressAddress           KCSRNodeID = 0xf0000010
-	KCSRIndirectDataAddress              KCSRNodeID = 0xf0000014
+	KCSRErrorLogBufferAddress            KCSRNodeID = 4026532224
+	KCSRIndirectAddressAddress           KCSRNodeID = 4026531856
+	KCSRIndirectDataAddress              KCSRNodeID = 4026531860
 	KCSRInitialMemorySpaceBaseAddressHi  KCSRNodeID = 0
 	KCSRInitialMemorySpaceBaseAddressLo  KCSRNodeID = 0
-	KCSRInterruptMaskAddress             KCSRNodeID = 0xf0000054
-	KCSRInterruptTargetAddress           KCSRNodeID = 0xf0000050
-	KCSRMemoryBaseHiAddress              KCSRNodeID = 0xf0000040
-	KCSRMemoryBaseLoAddress              KCSRNodeID = 0xf0000044
-	KCSRMemoryBoundHiAddress             KCSRNodeID = 0xf0000048
-	KCSRMemoryBoundLoAddress             KCSRNodeID = 0xf000004c
-	KCSRMessageRequestAddress            KCSRNodeID = 0xf0000080
-	KCSRMessageResponseAddress           KCSRNodeID = 0xf00000c0
-	KCSRNodeIDValue                      KCSRNodeID = 65535
-	KCSRNodeIDPhase                      KCSRNodeID = (31 - (15))
-	KCSRNodeIDsAddress                   KCSRNodeID = 0xf0000008
+	KCSRInterruptMaskAddress             KCSRNodeID = 4026531924
+	KCSRInterruptTargetAddress           KCSRNodeID = 4026531920
+	KCSRMemoryBaseHiAddress              KCSRNodeID = 4026531904
+	KCSRMemoryBaseLoAddress              KCSRNodeID = 4026531908
+	KCSRMemoryBoundHiAddress             KCSRNodeID = 4026531912
+	KCSRMemoryBoundLoAddress             KCSRNodeID = 4026531916
+	KCSRMessageRequestAddress            KCSRNodeID = 4026531968
+	KCSRMessageResponseAddress           KCSRNodeID = 4026532032
+	KCSRNodeIDValue                      KCSRNodeID = 0xffff0000
+	KCSRNodeIDPhase                      KCSRNodeID = 16
+	KCSRNodeIDsAddress                   KCSRNodeID = 4026531848
 	KCSRPrivateSpaceBaseAddressHi        KCSRNodeID = 0xffff
 	KCSRPrivateSpaceBaseAddressLo        KCSRNodeID = 0xe0000000
 	KCSRRegisterSpaceBaseAddressHi       KCSRNodeID = 0xffff
 	KCSRRegisterSpaceBaseAddressLo       KCSRNodeID = 0xf0000000
-	KCSRResetStartAddress                KCSRNodeID = 0xf000000c
-	KCSRSplitTimeoutHiAddress            KCSRNodeID = 0xf0000018
-	KCSRSplitTimeoutLoAddress            KCSRNodeID = 0xf000001c
-	KCSRStateClearAddress                KCSRNodeID = 0xf0000000
-	KCSRStateSetAddress                  KCSRNodeID = 0xf0000004
-	KCSRTestStartAddress                 KCSRNodeID = 0xf0000028
-	KCSRTestStatusAddress                KCSRNodeID = 0xf000002c
-	KCSRUnitsBaseHiAddress               KCSRNodeID = 0xf0000030
-	KCSRUnitsBaseLoAddress               KCSRNodeID = 0xf0000034
-	KCSRUnitsBoundHiAddress              KCSRNodeID = 0xf0000038
-	KCSRUnitsBoundLoAddress              KCSRNodeID = 0xf000003c
+	KCSRResetStartAddress                KCSRNodeID = 4026531852
+	KCSRSplitTimeoutHiAddress            KCSRNodeID = 4026531864
+	KCSRSplitTimeoutLoAddress            KCSRNodeID = 4026531868
+	KCSRStateClearAddress                KCSRNodeID = 4026531840
+	KCSRStateSetAddress                  KCSRNodeID = 4026531844
+	KCSRTestStartAddress                 KCSRNodeID = 4026531880
+	KCSRTestStatusAddress                KCSRNodeID = 4026531884
+	KCSRUnitsBaseHiAddress               KCSRNodeID = 4026531888
+	KCSRUnitsBaseLoAddress               KCSRNodeID = 4026531892
+	KCSRUnitsBoundHiAddress              KCSRNodeID = 4026531896
+	KCSRUnitsBoundLoAddress              KCSRNodeID = 4026531900
 	KConfigBIBBusNameAddress             KCSRNodeID = 4026532868
 	KConfigBIBHeaderAddress              KCSRNodeID = 4026532864
-	KConfigROMBaseAddress                KCSRNodeID = 0xf0000400
-	KFCPCommandAddress                   KCSRNodeID = 0xf0000b00
-	KFCPResponseAddress                  KCSRNodeID = 0xf0000d00
-	KPCRBaseAddress                      KCSRNodeID = 0xf0000900
+	KConfigROMBaseAddress                KCSRNodeID = 4026532864
+	KFCPCommandAddress                   KCSRNodeID = 4026534656
+	KFCPResponseAddress                  KCSRNodeID = 4026535168
+	KPCRBaseAddress                      KCSRNodeID = 4026534144
 )
 
 func (e KCSRNodeID) String() string {
@@ -7582,6 +8685,8 @@ func (e KCSRNodeID) String() string {
 		return "KCSRNodeIDPhase"
 	case KCSRNodeIDsAddress:
 		return "KCSRNodeIDsAddress"
+	case KCSRPrivateSpaceBaseAddressHi:
+		return "KCSRPrivateSpaceBaseAddressHi"
 	case KCSRPrivateSpaceBaseAddressLo:
 		return "KCSRPrivateSpaceBaseAddressLo"
 	case KCSRResetStartAddress:
@@ -7619,24 +8724,24 @@ func (e KCSRNodeID) String() string {
 	}
 }
 
-type KCSRState uint
+type KCSRState uint32
 
 const (
-	KCSRStateAtn               KCSRState = 268435456
-	KCSRStateBusDepend         KCSRState = 16711680
-	KCSRStateBusDependPhase    KCSRState = (31 - (23))
-	KCSRStateDReq              KCSRState = 33554432
-	KCSRStateELog              KCSRState = 134217728
-	KCSRStateLost              KCSRState = 16777216
-	KCSRStateOff               KCSRState = 536870912
-	KCSRStateState             KCSRState = 3221225472
+	KCSRStateAtn               KCSRState = 8
+	KCSRStateBusDepend         KCSRState = 65280
+	KCSRStateBusDependPhase    KCSRState = 8
+	KCSRStateDReq              KCSRState = 64
+	KCSRStateELog              KCSRState = 16
+	KCSRStateLost              KCSRState = 128
+	KCSRStateOff               KCSRState = 4
+	KCSRStateState             KCSRState = 3
 	KCSRStateStateDead         KCSRState = 3
 	KCSRStateStateInitializing KCSRState = 1
-	KCSRStateStatePhase        KCSRState = (31 - (31))
+	KCSRStateStatePhase        KCSRState = 0
 	KCSRStateStateRunning      KCSRState = 0
 	KCSRStateStateTesting      KCSRState = 2
-	KCSRStateUnitDepend        KCSRState = 65535
-	KCSRStateUnitDependPhase   KCSRState = (31 - (15))
+	KCSRStateUnitDepend        KCSRState = 0xffff0000
+	KCSRStateUnitDependPhase   KCSRState = 16
 )
 
 func (e KCSRState) String() string {
@@ -7645,8 +8750,6 @@ func (e KCSRState) String() string {
 		return "KCSRStateAtn"
 	case KCSRStateBusDepend:
 		return "KCSRStateBusDepend"
-	case KCSRStateBusDependPhase:
-		return "KCSRStateBusDependPhase"
 	case KCSRStateDReq:
 		return "KCSRStateDReq"
 	case KCSRStateELog:
@@ -7657,8 +8760,6 @@ func (e KCSRState) String() string {
 		return "KCSRStateOff"
 	case KCSRStateState:
 		return "KCSRStateState"
-	case KCSRStateStateDead:
-		return "KCSRStateStateDead"
 	case KCSRStateStateInitializing:
 		return "KCSRStateStateInitializing"
 	case KCSRStateStatePhase:
@@ -7667,8 +8768,6 @@ func (e KCSRState) String() string {
 		return "KCSRStateStateTesting"
 	case KCSRStateUnitDepend:
 		return "KCSRStateUnitDepend"
-	case KCSRStateUnitDependPhase:
-		return "KCSRStateUnitDependPhase"
 	default:
 		return fmt.Sprintf("KCSRState(%d)", e)
 	}
@@ -7712,7 +8811,7 @@ func (e KClamshell) String() string {
 	}
 }
 
-type KClearDeviceFeature uint
+type KClearDeviceFeature uint32
 
 const (
 	KClearDeviceFeatureValue KClearDeviceFeature = 256
@@ -7833,58 +8932,31 @@ func (e KCoalition) String() string {
 	}
 }
 
-type KConfig uint
+type KConfigBusInfoBlockLength uint32
 
 const (
-	KConfigBusDependentInfoKey     KConfig = 0x2
-	KConfigBusInfoBlockLength      KConfig = 255
-	KConfigBusInfoBlockLengthPhase KConfig = (31 - (7))
-	KConfigEntryKeyType            KConfig = 3
-	KConfigEntryKeyTypePhase       KConfig = (31 - (1))
-	KConfigEntryKeyValue           KConfig = 252
-	KConfigEntryKeyValuePhase      KConfig = (31 - (7))
-	KConfigEntryValue              KConfig = 4294967040
-	KConfigEntryValuePhase         KConfig = (31 - (31))
-	KConfigGenerationKey           KConfig = 0x38
-	KConfigLeafDirCRC              KConfig = 4294901760
-	KConfigLeafDirCRCPhase         KConfig = (31 - (31))
-	KConfigLeafDirLength           KConfig = 65535
-	KConfigLeafDirLengthPhase      KConfig = (31 - (15))
-	KConfigModelIdKey              KConfig = 0x17
-	KConfigModuleDependentInfoKey  KConfig = 0x7
-	KConfigModuleHwVersionKey      KConfig = 0x4
-	KConfigModuleSpecIdKey         KConfig = 0x5
-	KConfigModuleSwVersionKey      KConfig = 0x6
-	KConfigModuleVendorIdKey       KConfig = 0x3
-	KConfigNodeCapabilitiesKey     KConfig = 0xc
-	KConfigNodeDependentInfoKey    KConfig = 0x10
-	KConfigNodeHwVersionKey        KConfig = 0x9
-	KConfigNodeMemoryExtentKey     KConfig = 0xf
-	KConfigNodeSpecIdKey           KConfig = 0xa
-	KConfigNodeSwVersionKey        KConfig = 0xb
-	KConfigNodeUniqueIdKey         KConfig = 0xd
-	KConfigNodeUnitsExtentKey      KConfig = 0xe
-	KConfigNodeVendorIdKey         KConfig = 0x8
-	KConfigROMCRCLength            KConfig = 65280
-	KConfigROMCRCLengthPhase       KConfig = (31 - (15))
-	KConfigROMCRCValue             KConfig = 4294901760
-	KConfigROMCRCValuePhase        KConfig = (31 - (31))
-	KConfigRootDirectoryKey        KConfig = 0xffff
-	KConfigTextualDescriptorKey    KConfig = 0x1
-	KConfigUnitDependentInfoKey    KConfig = 0x14
-	KConfigUnitDirectoryKey        KConfig = 0x11
-	KConfigUnitLocationKey         KConfig = 0x15
-	KConfigUnitPollMaskKey         KConfig = 0x16
-	KConfigUnitSpecIdKey           KConfig = 0x12
-	KConfigUnitSwVersionKey        KConfig = 0x13
+	KConfigBusInfoBlockLengthValue KConfigBusInfoBlockLength = 0xff000000
+	KConfigBusInfoBlockLengthPhase KConfigBusInfoBlockLength = 24
+	KConfigEntryKeyType            KConfigBusInfoBlockLength = 0xc0000000
+	KConfigEntryKeyTypePhase       KConfigBusInfoBlockLength = 30
+	KConfigEntryKeyValue           KConfigBusInfoBlockLength = 1056964608
+	KConfigEntryKeyValuePhase      KConfigBusInfoBlockLength = 24
+	KConfigEntryValue              KConfigBusInfoBlockLength = 16777215
+	KConfigEntryValuePhase         KConfigBusInfoBlockLength = 0
+	KConfigLeafDirCRC              KConfigBusInfoBlockLength = 65535
+	KConfigLeafDirCRCPhase         KConfigBusInfoBlockLength = 0
+	KConfigLeafDirLength           KConfigBusInfoBlockLength = 0xffff0000
+	KConfigLeafDirLengthPhase      KConfigBusInfoBlockLength = 16
+	KConfigROMCRCLength            KConfigBusInfoBlockLength = 16711680
+	KConfigROMCRCLengthPhase       KConfigBusInfoBlockLength = 16
+	KConfigROMCRCValue             KConfigBusInfoBlockLength = 65535
+	KConfigROMCRCValuePhase        KConfigBusInfoBlockLength = 0
 )
 
-func (e KConfig) String() string {
+func (e KConfigBusInfoBlockLength) String() string {
 	switch e {
-	case KConfigBusDependentInfoKey:
-		return "KConfigBusDependentInfoKey"
-	case KConfigBusInfoBlockLength:
-		return "KConfigBusInfoBlockLength"
+	case KConfigBusInfoBlockLengthValue:
+		return "KConfigBusInfoBlockLengthValue"
 	case KConfigBusInfoBlockLengthPhase:
 		return "KConfigBusInfoBlockLengthPhase"
 	case KConfigEntryKeyType:
@@ -7897,62 +8969,20 @@ func (e KConfig) String() string {
 		return "KConfigEntryValue"
 	case KConfigEntryValuePhase:
 		return "KConfigEntryValuePhase"
-	case KConfigGenerationKey:
-		return "KConfigGenerationKey"
 	case KConfigLeafDirCRC:
 		return "KConfigLeafDirCRC"
 	case KConfigLeafDirLength:
 		return "KConfigLeafDirLength"
 	case KConfigLeafDirLengthPhase:
 		return "KConfigLeafDirLengthPhase"
-	case KConfigModelIdKey:
-		return "KConfigModelIdKey"
-	case KConfigModuleDependentInfoKey:
-		return "KConfigModuleDependentInfoKey"
-	case KConfigModuleHwVersionKey:
-		return "KConfigModuleHwVersionKey"
-	case KConfigModuleSpecIdKey:
-		return "KConfigModuleSpecIdKey"
-	case KConfigModuleSwVersionKey:
-		return "KConfigModuleSwVersionKey"
-	case KConfigNodeCapabilitiesKey:
-		return "KConfigNodeCapabilitiesKey"
-	case KConfigNodeHwVersionKey:
-		return "KConfigNodeHwVersionKey"
-	case KConfigNodeMemoryExtentKey:
-		return "KConfigNodeMemoryExtentKey"
-	case KConfigNodeSpecIdKey:
-		return "KConfigNodeSpecIdKey"
-	case KConfigNodeSwVersionKey:
-		return "KConfigNodeSwVersionKey"
-	case KConfigNodeUniqueIdKey:
-		return "KConfigNodeUniqueIdKey"
-	case KConfigNodeUnitsExtentKey:
-		return "KConfigNodeUnitsExtentKey"
-	case KConfigNodeVendorIdKey:
-		return "KConfigNodeVendorIdKey"
 	case KConfigROMCRCLength:
 		return "KConfigROMCRCLength"
-	case KConfigTextualDescriptorKey:
-		return "KConfigTextualDescriptorKey"
-	case KConfigUnitDependentInfoKey:
-		return "KConfigUnitDependentInfoKey"
-	case KConfigUnitDirectoryKey:
-		return "KConfigUnitDirectoryKey"
-	case KConfigUnitLocationKey:
-		return "KConfigUnitLocationKey"
-	case KConfigUnitPollMaskKey:
-		return "KConfigUnitPollMaskKey"
-	case KConfigUnitSpecIdKey:
-		return "KConfigUnitSpecIdKey"
-	case KConfigUnitSwVersionKey:
-		return "KConfigUnitSwVersionKey"
 	default:
-		return fmt.Sprintf("KConfig(%d)", e)
+		return fmt.Sprintf("KConfigBusInfoBlockLength(%d)", e)
 	}
 }
 
-type KConfigSBP2 uint
+type KConfigSBP2 uint32
 
 const (
 	KConfigSBP2LUN      KConfigSBP2 = 0x14
@@ -7973,7 +9003,94 @@ func (e KConfigSBP2) String() string {
 	}
 }
 
-type KConfigUnit uint
+type KConfigTextualDescriptorKey uint32
+
+const (
+	KConfigBusDependentInfoKey       KConfigTextualDescriptorKey = 0x2
+	KConfigGenerationKey             KConfigTextualDescriptorKey = 0x38
+	KConfigModelIdKey                KConfigTextualDescriptorKey = 0x17
+	KConfigModuleDependentInfoKey    KConfigTextualDescriptorKey = 0x7
+	KConfigModuleHwVersionKey        KConfigTextualDescriptorKey = 0x4
+	KConfigModuleSpecIdKey           KConfigTextualDescriptorKey = 0x5
+	KConfigModuleSwVersionKey        KConfigTextualDescriptorKey = 0x6
+	KConfigModuleVendorIdKey         KConfigTextualDescriptorKey = 0x3
+	KConfigNodeCapabilitiesKey       KConfigTextualDescriptorKey = 0xc
+	KConfigNodeDependentInfoKey      KConfigTextualDescriptorKey = 0x10
+	KConfigNodeHwVersionKey          KConfigTextualDescriptorKey = 0x9
+	KConfigNodeMemoryExtentKey       KConfigTextualDescriptorKey = 0xf
+	KConfigNodeSpecIdKey             KConfigTextualDescriptorKey = 0xa
+	KConfigNodeSwVersionKey          KConfigTextualDescriptorKey = 0xb
+	KConfigNodeUniqueIdKey           KConfigTextualDescriptorKey = 0xd
+	KConfigNodeUnitsExtentKey        KConfigTextualDescriptorKey = 0xe
+	KConfigNodeVendorIdKey           KConfigTextualDescriptorKey = 0x8
+	KConfigRootDirectoryKey          KConfigTextualDescriptorKey = 0xffff
+	KConfigTextualDescriptorKeyValue KConfigTextualDescriptorKey = 0x1
+	KConfigUnitDependentInfoKey      KConfigTextualDescriptorKey = 0x14
+	KConfigUnitDirectoryKey          KConfigTextualDescriptorKey = 0x11
+	KConfigUnitLocationKey           KConfigTextualDescriptorKey = 0x15
+	KConfigUnitPollMaskKey           KConfigTextualDescriptorKey = 0x16
+	KConfigUnitSpecIdKey             KConfigTextualDescriptorKey = 0x12
+	KConfigUnitSwVersionKey          KConfigTextualDescriptorKey = 0x13
+)
+
+func (e KConfigTextualDescriptorKey) String() string {
+	switch e {
+	case KConfigBusDependentInfoKey:
+		return "KConfigBusDependentInfoKey"
+	case KConfigGenerationKey:
+		return "KConfigGenerationKey"
+	case KConfigModelIdKey:
+		return "KConfigModelIdKey"
+	case KConfigModuleDependentInfoKey:
+		return "KConfigModuleDependentInfoKey"
+	case KConfigModuleHwVersionKey:
+		return "KConfigModuleHwVersionKey"
+	case KConfigModuleSpecIdKey:
+		return "KConfigModuleSpecIdKey"
+	case KConfigModuleSwVersionKey:
+		return "KConfigModuleSwVersionKey"
+	case KConfigModuleVendorIdKey:
+		return "KConfigModuleVendorIdKey"
+	case KConfigNodeCapabilitiesKey:
+		return "KConfigNodeCapabilitiesKey"
+	case KConfigNodeDependentInfoKey:
+		return "KConfigNodeDependentInfoKey"
+	case KConfigNodeHwVersionKey:
+		return "KConfigNodeHwVersionKey"
+	case KConfigNodeMemoryExtentKey:
+		return "KConfigNodeMemoryExtentKey"
+	case KConfigNodeSpecIdKey:
+		return "KConfigNodeSpecIdKey"
+	case KConfigNodeSwVersionKey:
+		return "KConfigNodeSwVersionKey"
+	case KConfigNodeUniqueIdKey:
+		return "KConfigNodeUniqueIdKey"
+	case KConfigNodeUnitsExtentKey:
+		return "KConfigNodeUnitsExtentKey"
+	case KConfigNodeVendorIdKey:
+		return "KConfigNodeVendorIdKey"
+	case KConfigRootDirectoryKey:
+		return "KConfigRootDirectoryKey"
+	case KConfigTextualDescriptorKeyValue:
+		return "KConfigTextualDescriptorKeyValue"
+	case KConfigUnitDependentInfoKey:
+		return "KConfigUnitDependentInfoKey"
+	case KConfigUnitDirectoryKey:
+		return "KConfigUnitDirectoryKey"
+	case KConfigUnitLocationKey:
+		return "KConfigUnitLocationKey"
+	case KConfigUnitPollMaskKey:
+		return "KConfigUnitPollMaskKey"
+	case KConfigUnitSpecIdKey:
+		return "KConfigUnitSpecIdKey"
+	case KConfigUnitSwVersionKey:
+		return "KConfigUnitSwVersionKey"
+	default:
+		return fmt.Sprintf("KConfigTextualDescriptorKey(%d)", e)
+	}
+}
+
+type KConfigUnit uint32
 
 const (
 	KConfigUnitSWVersIIDC100     KConfigUnit = 0x100
@@ -8163,7 +9280,7 @@ func (e KCoprocessor) String() string {
 	}
 }
 
-type KDCL uint
+type KDCL uint32
 
 const (
 	KDCLCallProcOp           KDCL = 8
@@ -8439,85 +9556,105 @@ func (e KDVDCPRM) String() string {
 	}
 }
 
-type KDVDFeatures uint
+type KDVDFeaturesCSSBit uint
 
 const (
-	KDVDFeaturesBUFWriteBit         KDVDFeatures = 6
-	KDVDFeaturesBUFWriteMask        KDVDFeatures = 64
-	KDVDFeaturesCSSBit              KDVDFeatures = 0
-	KDVDFeaturesCSSMask             KDVDFeatures = 1
-	KDVDFeaturesHDRAMBit            KDVDFeatures = 11
-	KDVDFeaturesHDRAMMask           KDVDFeatures = 2048
-	KDVDFeaturesHDRBit              KDVDFeatures = 10
-	KDVDFeaturesHDRMask             KDVDFeatures = 1024
-	KDVDFeaturesHDRWBit             KDVDFeatures = 12
-	KDVDFeaturesHDRWMask            KDVDFeatures = 0x1000
-	KDVDFeaturesHDReadBit           KDVDFeatures = 9
-	KDVDFeaturesHDReadMask          KDVDFeatures = 512
-	KDVDFeaturesPlusRBit            KDVDFeatures = 7
-	KDVDFeaturesPlusRMask           KDVDFeatures = 128
-	KDVDFeaturesPlusRWBit           KDVDFeatures = 8
-	KDVDFeaturesPlusRWMask          KDVDFeatures = 256
-	KDVDFeaturesRandomWriteableBit  KDVDFeatures = 3
-	KDVDFeaturesRandomWriteableMask KDVDFeatures = 8
-	KDVDFeaturesReWriteableBit      KDVDFeatures = 4
-	KDVDFeaturesReWriteableMask     KDVDFeatures = 16
-	KDVDFeaturesReadStructuresBit   KDVDFeatures = 1
-	KDVDFeaturesReadStructuresMask  KDVDFeatures = 2
-	KDVDFeaturesTestWriteBit        KDVDFeatures = 5
-	KDVDFeaturesTestWriteMask       KDVDFeatures = 32
-	KDVDFeaturesWriteOnceBit        KDVDFeatures = 2
-	KDVDFeaturesWriteOnceMask       KDVDFeatures = 4
+	KDVDFeaturesBUFWriteBit        KDVDFeaturesCSSBit = 6
+	KDVDFeaturesCSSBitValue        KDVDFeaturesCSSBit = 0
+	KDVDFeaturesHDRAMBit           KDVDFeaturesCSSBit = 11
+	KDVDFeaturesHDRBit             KDVDFeaturesCSSBit = 10
+	KDVDFeaturesHDRWBit            KDVDFeaturesCSSBit = 12
+	KDVDFeaturesHDReadBit          KDVDFeaturesCSSBit = 9
+	KDVDFeaturesPlusRBit           KDVDFeaturesCSSBit = 7
+	KDVDFeaturesPlusRWBit          KDVDFeaturesCSSBit = 8
+	KDVDFeaturesRandomWriteableBit KDVDFeaturesCSSBit = 3
+	KDVDFeaturesReWriteableBit     KDVDFeaturesCSSBit = 4
+	KDVDFeaturesReadStructuresBit  KDVDFeaturesCSSBit = 1
+	KDVDFeaturesTestWriteBit       KDVDFeaturesCSSBit = 5
+	KDVDFeaturesWriteOnceBit       KDVDFeaturesCSSBit = 2
 )
 
-func (e KDVDFeatures) String() string {
+func (e KDVDFeaturesCSSBit) String() string {
 	switch e {
 	case KDVDFeaturesBUFWriteBit:
 		return "KDVDFeaturesBUFWriteBit"
-	case KDVDFeaturesBUFWriteMask:
-		return "KDVDFeaturesBUFWriteMask"
-	case KDVDFeaturesCSSBit:
-		return "KDVDFeaturesCSSBit"
-	case KDVDFeaturesCSSMask:
-		return "KDVDFeaturesCSSMask"
+	case KDVDFeaturesCSSBitValue:
+		return "KDVDFeaturesCSSBitValue"
 	case KDVDFeaturesHDRAMBit:
 		return "KDVDFeaturesHDRAMBit"
-	case KDVDFeaturesHDRAMMask:
-		return "KDVDFeaturesHDRAMMask"
 	case KDVDFeaturesHDRBit:
 		return "KDVDFeaturesHDRBit"
-	case KDVDFeaturesHDRMask:
-		return "KDVDFeaturesHDRMask"
 	case KDVDFeaturesHDRWBit:
 		return "KDVDFeaturesHDRWBit"
-	case KDVDFeaturesHDRWMask:
-		return "KDVDFeaturesHDRWMask"
 	case KDVDFeaturesHDReadBit:
 		return "KDVDFeaturesHDReadBit"
-	case KDVDFeaturesHDReadMask:
-		return "KDVDFeaturesHDReadMask"
 	case KDVDFeaturesPlusRBit:
 		return "KDVDFeaturesPlusRBit"
-	case KDVDFeaturesPlusRMask:
-		return "KDVDFeaturesPlusRMask"
 	case KDVDFeaturesPlusRWBit:
 		return "KDVDFeaturesPlusRWBit"
-	case KDVDFeaturesPlusRWMask:
-		return "KDVDFeaturesPlusRWMask"
 	case KDVDFeaturesRandomWriteableBit:
 		return "KDVDFeaturesRandomWriteableBit"
 	case KDVDFeaturesReWriteableBit:
 		return "KDVDFeaturesReWriteableBit"
+	case KDVDFeaturesReadStructuresBit:
+		return "KDVDFeaturesReadStructuresBit"
+	case KDVDFeaturesTestWriteBit:
+		return "KDVDFeaturesTestWriteBit"
+	case KDVDFeaturesWriteOnceBit:
+		return "KDVDFeaturesWriteOnceBit"
+	default:
+		return fmt.Sprintf("KDVDFeaturesCSSBit(%d)", e)
+	}
+}
+
+type KDVDFeaturesCSSMask uint
+
+const (
+	KDVDFeaturesBUFWriteMask        KDVDFeaturesCSSMask = 64
+	KDVDFeaturesCSSMaskValue        KDVDFeaturesCSSMask = 1
+	KDVDFeaturesHDRAMMask           KDVDFeaturesCSSMask = 2048
+	KDVDFeaturesHDRMask             KDVDFeaturesCSSMask = 1024
+	KDVDFeaturesHDRWMask            KDVDFeaturesCSSMask = 0x1000
+	KDVDFeaturesHDReadMask          KDVDFeaturesCSSMask = 512
+	KDVDFeaturesPlusRMask           KDVDFeaturesCSSMask = 128
+	KDVDFeaturesPlusRWMask          KDVDFeaturesCSSMask = 256
+	KDVDFeaturesRandomWriteableMask KDVDFeaturesCSSMask = 8
+	KDVDFeaturesReWriteableMask     KDVDFeaturesCSSMask = 16
+	KDVDFeaturesReadStructuresMask  KDVDFeaturesCSSMask = 2
+	KDVDFeaturesTestWriteMask       KDVDFeaturesCSSMask = 32
+	KDVDFeaturesWriteOnceMask       KDVDFeaturesCSSMask = 4
+)
+
+func (e KDVDFeaturesCSSMask) String() string {
+	switch e {
+	case KDVDFeaturesBUFWriteMask:
+		return "KDVDFeaturesBUFWriteMask"
+	case KDVDFeaturesCSSMaskValue:
+		return "KDVDFeaturesCSSMaskValue"
+	case KDVDFeaturesHDRAMMask:
+		return "KDVDFeaturesHDRAMMask"
+	case KDVDFeaturesHDRMask:
+		return "KDVDFeaturesHDRMask"
+	case KDVDFeaturesHDRWMask:
+		return "KDVDFeaturesHDRWMask"
+	case KDVDFeaturesHDReadMask:
+		return "KDVDFeaturesHDReadMask"
+	case KDVDFeaturesPlusRMask:
+		return "KDVDFeaturesPlusRMask"
+	case KDVDFeaturesPlusRWMask:
+		return "KDVDFeaturesPlusRWMask"
+	case KDVDFeaturesRandomWriteableMask:
+		return "KDVDFeaturesRandomWriteableMask"
 	case KDVDFeaturesReWriteableMask:
 		return "KDVDFeaturesReWriteableMask"
 	case KDVDFeaturesReadStructuresMask:
 		return "KDVDFeaturesReadStructuresMask"
-	case KDVDFeaturesTestWriteBit:
-		return "KDVDFeaturesTestWriteBit"
 	case KDVDFeaturesTestWriteMask:
 		return "KDVDFeaturesTestWriteMask"
+	case KDVDFeaturesWriteOnceMask:
+		return "KDVDFeaturesWriteOnceMask"
 	default:
-		return fmt.Sprintf("KDVDFeatures(%d)", e)
+		return fmt.Sprintf("KDVDFeaturesCSSMask(%d)", e)
 	}
 }
 
@@ -8776,27 +9913,39 @@ func (e KDeclROMtables) String() string {
 	}
 }
 
-type KDepth uint
+type KDepthDependent uint
 
 const (
-	KDepthDependent     KDepth = 0
-	KDepthDependentMask KDepth = 1
-	KDepthMode1         KDepth = 128
-	KDepthMode2         KDepth = 129
-	KDepthMode3         KDepth = 130
-	KDepthMode4         KDepth = 131
-	KDepthMode5         KDepth = 132
-	KDepthMode6         KDepth = 133
+	KDepthDependentValue KDepthDependent = 0
+	KDepthDependentMask  KDepthDependent = 1
 )
 
-func (e KDepth) String() string {
+func (e KDepthDependent) String() string {
 	switch e {
-	case KDepthDependent:
-		return "KDepthDependent"
+	case KDepthDependentValue:
+		return "KDepthDependentValue"
 	case KDepthDependentMask:
 		return "KDepthDependentMask"
-	case KDepthMode1:
-		return "KDepthMode1"
+	default:
+		return fmt.Sprintf("KDepthDependent(%d)", e)
+	}
+}
+
+type KDepthMode1 uint
+
+const (
+	KDepthMode1Value KDepthMode1 = 128
+	KDepthMode2      KDepthMode1 = 129
+	KDepthMode3      KDepthMode1 = 130
+	KDepthMode4      KDepthMode1 = 131
+	KDepthMode5      KDepthMode1 = 132
+	KDepthMode6      KDepthMode1 = 133
+)
+
+func (e KDepthMode1) String() string {
+	switch e {
+	case KDepthMode1Value:
+		return "KDepthMode1Value"
 	case KDepthMode2:
 		return "KDepthMode2"
 	case KDepthMode3:
@@ -8808,7 +9957,7 @@ func (e KDepth) String() string {
 	case KDepthMode6:
 		return "KDepthMode6"
 	default:
-		return fmt.Sprintf("KDepth(%d)", e)
+		return fmt.Sprintf("KDepthMode1(%d)", e)
 	}
 }
 
@@ -8911,7 +10060,7 @@ func (e KDisabledInterruptState) String() string {
 	}
 }
 
-type KDiscStatus int
+type KDiscStatus uint
 
 const (
 	KDiscStatusComplete     KDiscStatus = 2
@@ -8957,81 +10106,6 @@ func (e KDisplay) String() string {
 	}
 }
 
-type KDisplayMode uint
-
-const (
-	KDisplayModeAcceleratorBackedFlag  KDisplayMode = 0x400000
-	KDisplayModeAlwaysShowFlag         KDisplayMode = 0x8
-	KDisplayModeBuiltInFlag            KDisplayMode = 0x400
-	KDisplayModeDefaultFlag            KDisplayMode = 0x4
-	KDisplayModeInterlacedFlag         KDisplayMode = 0x40
-	KDisplayModeNativeFlag             KDisplayMode = 0x2000000
-	KDisplayModeNeverShowFlag          KDisplayMode = 0x80
-	KDisplayModeNotGraphicsQualityFlag KDisplayMode = 0x1000
-	KDisplayModeNotPresetFlag          KDisplayMode = 0x200
-	KDisplayModeNotResizeFlag          KDisplayMode = 0x10
-	KDisplayModeRequiresPanFlag        KDisplayMode = 0x20
-	KDisplayModeSafeFlag               KDisplayMode = 0x2
-	KDisplayModeSafetyFlags            KDisplayMode = 0x7
-	KDisplayModeSimulscanFlag          KDisplayMode = 0x100
-	KDisplayModeStretchedFlag          KDisplayMode = 0x800
-	KDisplayModeTelevisionFlag         KDisplayMode = 0x100000
-	KDisplayModeValidFlag              KDisplayMode = 0x1
-	KDisplayModeValidForAirPlayFlag    KDisplayMode = 0x1000000
-	KDisplayModeValidForHiResFlag      KDisplayMode = 0x800000
-	KDisplayModeValidForMirroringFlag  KDisplayMode = 0x200000
-	KDisplayModeValidateAgainstDisplay KDisplayMode = 0x2000
-)
-
-func (e KDisplayMode) String() string {
-	switch e {
-	case KDisplayModeAcceleratorBackedFlag:
-		return "KDisplayModeAcceleratorBackedFlag"
-	case KDisplayModeAlwaysShowFlag:
-		return "KDisplayModeAlwaysShowFlag"
-	case KDisplayModeBuiltInFlag:
-		return "KDisplayModeBuiltInFlag"
-	case KDisplayModeDefaultFlag:
-		return "KDisplayModeDefaultFlag"
-	case KDisplayModeInterlacedFlag:
-		return "KDisplayModeInterlacedFlag"
-	case KDisplayModeNativeFlag:
-		return "KDisplayModeNativeFlag"
-	case KDisplayModeNeverShowFlag:
-		return "KDisplayModeNeverShowFlag"
-	case KDisplayModeNotGraphicsQualityFlag:
-		return "KDisplayModeNotGraphicsQualityFlag"
-	case KDisplayModeNotPresetFlag:
-		return "KDisplayModeNotPresetFlag"
-	case KDisplayModeNotResizeFlag:
-		return "KDisplayModeNotResizeFlag"
-	case KDisplayModeRequiresPanFlag:
-		return "KDisplayModeRequiresPanFlag"
-	case KDisplayModeSafeFlag:
-		return "KDisplayModeSafeFlag"
-	case KDisplayModeSafetyFlags:
-		return "KDisplayModeSafetyFlags"
-	case KDisplayModeSimulscanFlag:
-		return "KDisplayModeSimulscanFlag"
-	case KDisplayModeStretchedFlag:
-		return "KDisplayModeStretchedFlag"
-	case KDisplayModeTelevisionFlag:
-		return "KDisplayModeTelevisionFlag"
-	case KDisplayModeValidFlag:
-		return "KDisplayModeValidFlag"
-	case KDisplayModeValidForAirPlayFlag:
-		return "KDisplayModeValidForAirPlayFlag"
-	case KDisplayModeValidForHiResFlag:
-		return "KDisplayModeValidForHiResFlag"
-	case KDisplayModeValidForMirroringFlag:
-		return "KDisplayModeValidForMirroringFlag"
-	case KDisplayModeValidateAgainstDisplay:
-		return "KDisplayModeValidateAgainstDisplay"
-	default:
-		return fmt.Sprintf("KDisplayMode(%d)", e)
-	}
-}
-
 type KDisplayModeID uint
 
 const (
@@ -9062,6 +10136,93 @@ func (e KDisplayModeID) String() string {
 		return "KDisplayModeIDReservedBase"
 	default:
 		return fmt.Sprintf("KDisplayModeID(%d)", e)
+	}
+}
+
+type KDisplayModeSafetyFlags uint
+
+const (
+	KDisplayModeAcceleratorBackedFlag  KDisplayModeSafetyFlags = 0x400000
+	KDisplayModeAlwaysShowFlag         KDisplayModeSafetyFlags = 0x8
+	KDisplayModeBuiltInFlag            KDisplayModeSafetyFlags = 0x400
+	KDisplayModeInterlacedFlag         KDisplayModeSafetyFlags = 0x40
+	KDisplayModeNativeFlag             KDisplayModeSafetyFlags = 0x2000000
+	KDisplayModeNeverShowFlag          KDisplayModeSafetyFlags = 0x80
+	KDisplayModeNotGraphicsQualityFlag KDisplayModeSafetyFlags = 0x1000
+	KDisplayModeNotPresetFlag          KDisplayModeSafetyFlags = 0x200
+	KDisplayModeNotResizeFlag          KDisplayModeSafetyFlags = 0x10
+	KDisplayModeRequiresPanFlag        KDisplayModeSafetyFlags = 0x20
+	KDisplayModeSafetyFlagsValue       KDisplayModeSafetyFlags = 0x7
+	KDisplayModeSimulscanFlag          KDisplayModeSafetyFlags = 0x100
+	KDisplayModeStretchedFlag          KDisplayModeSafetyFlags = 0x800
+	KDisplayModeTelevisionFlag         KDisplayModeSafetyFlags = 0x100000
+	KDisplayModeValidForAirPlayFlag    KDisplayModeSafetyFlags = 0x1000000
+	KDisplayModeValidForHiResFlag      KDisplayModeSafetyFlags = 0x800000
+	KDisplayModeValidForMirroringFlag  KDisplayModeSafetyFlags = 0x200000
+	KDisplayModeValidateAgainstDisplay KDisplayModeSafetyFlags = 0x2000
+)
+
+func (e KDisplayModeSafetyFlags) String() string {
+	switch e {
+	case KDisplayModeAcceleratorBackedFlag:
+		return "KDisplayModeAcceleratorBackedFlag"
+	case KDisplayModeAlwaysShowFlag:
+		return "KDisplayModeAlwaysShowFlag"
+	case KDisplayModeBuiltInFlag:
+		return "KDisplayModeBuiltInFlag"
+	case KDisplayModeInterlacedFlag:
+		return "KDisplayModeInterlacedFlag"
+	case KDisplayModeNativeFlag:
+		return "KDisplayModeNativeFlag"
+	case KDisplayModeNeverShowFlag:
+		return "KDisplayModeNeverShowFlag"
+	case KDisplayModeNotGraphicsQualityFlag:
+		return "KDisplayModeNotGraphicsQualityFlag"
+	case KDisplayModeNotPresetFlag:
+		return "KDisplayModeNotPresetFlag"
+	case KDisplayModeNotResizeFlag:
+		return "KDisplayModeNotResizeFlag"
+	case KDisplayModeRequiresPanFlag:
+		return "KDisplayModeRequiresPanFlag"
+	case KDisplayModeSafetyFlagsValue:
+		return "KDisplayModeSafetyFlagsValue"
+	case KDisplayModeSimulscanFlag:
+		return "KDisplayModeSimulscanFlag"
+	case KDisplayModeStretchedFlag:
+		return "KDisplayModeStretchedFlag"
+	case KDisplayModeTelevisionFlag:
+		return "KDisplayModeTelevisionFlag"
+	case KDisplayModeValidForAirPlayFlag:
+		return "KDisplayModeValidForAirPlayFlag"
+	case KDisplayModeValidForHiResFlag:
+		return "KDisplayModeValidForHiResFlag"
+	case KDisplayModeValidForMirroringFlag:
+		return "KDisplayModeValidForMirroringFlag"
+	case KDisplayModeValidateAgainstDisplay:
+		return "KDisplayModeValidateAgainstDisplay"
+	default:
+		return fmt.Sprintf("KDisplayModeSafetyFlags(%d)", e)
+	}
+}
+
+type KDisplayModeValidFlag uint
+
+const (
+	KDisplayModeDefaultFlag    KDisplayModeValidFlag = 0x4
+	KDisplayModeSafeFlag       KDisplayModeValidFlag = 0x2
+	KDisplayModeValidFlagValue KDisplayModeValidFlag = 0x1
+)
+
+func (e KDisplayModeValidFlag) String() string {
+	switch e {
+	case KDisplayModeDefaultFlag:
+		return "KDisplayModeDefaultFlag"
+	case KDisplayModeSafeFlag:
+		return "KDisplayModeSafeFlag"
+	case KDisplayModeValidFlagValue:
+		return "KDisplayModeValidFlagValue"
+	default:
+		return fmt.Sprintf("KDisplayModeValidFlag(%d)", e)
 	}
 }
 
@@ -9269,8 +10430,8 @@ func (e KEfi) String() string {
 type KEndpointDirection uint
 
 const (
-	KEndpointDirectionIn      KEndpointDirection = ((128) >> (7))
-	KEndpointDirectionOut     KEndpointDirection = ((0) >> (7))
+	KEndpointDirectionIn      KEndpointDirection = 1
+	KEndpointDirectionOut     KEndpointDirection = 0
 	KEndpointDirectionUnknown KEndpointDirection = 2
 )
 
@@ -9314,10 +10475,10 @@ func (e KEndpointSynchronizationType) String() string {
 type KEndpointType uint
 
 const (
-	KEndpointTypeBulk        KEndpointType = ((2) >> (0))
-	KEndpointTypeControl     KEndpointType = ((0) >> (0))
-	KEndpointTypeInterrupt   KEndpointType = ((3) >> (0))
-	KEndpointTypeIsochronous KEndpointType = ((1) >> (0))
+	KEndpointTypeBulk        KEndpointType = 2
+	KEndpointTypeControl     KEndpointType = 0
+	KEndpointTypeInterrupt   KEndpointType = 3
+	KEndpointTypeIsochronous KEndpointType = 1
 )
 
 func (e KEndpointType) String() string {
@@ -9530,88 +10691,6 @@ func (e KFFTDirection) String() string {
 	}
 }
 
-type KFW uint
-
-const (
-	KFWAddressBusID                KFW = 0xffffffc00000
-	KFWAddressBusIDPhase           KFW = (31 - (25)) + (31 - (15))
-	KFWAddressNodeID               KFW = 0xffffffff0000
-	KFWAddressNodeIDPhase          KFW = (31 - (31)) + (31 - (15))
-	KFWAllowMultiMode              KFW = 0
-	KFWAlwaysMultiMode             KFW = 0
-	KFWBadNodeID                   KFW = 0xffff
-	KFWBroadcastAddress            KFW = (63) << ((31 - (31)) + (31 - (15)))
-	KFWBroadcastNodeID             KFW = 63
-	KFWConfigurationPacketID       KFW = 0
-	KFWDCLInvalidNotification      KFW = 0
-	KFWDCLModifyNotification       KFW = 2
-	KFWDCLUpdateNotification       KFW = 1
-	KFWDefaultIsochResourceFlags   KFW = 0
-	KFWLinkOnPacketID              KFW = 1
-	KFWLocalBusAddress             KFW = (1023) << ((31 - (25)) + (31 - (15)))
-	KFWLocalBusID                  KFW = 1023
-	KFWNeverMultiMode              KFW = 0
-	KFWNuDCLModifyJumpNotification KFW = 4
-	KFWNuDCLModifyNotification     KFW = 3
-	KFWNuDCLUpdateNotification     KFW = 5
-	KFWSelfIDPacketID              KFW = 2
-	KFWSpeed100MBit                KFW = 0
-	KFWSpeed200MBit                KFW = 1
-	KFWSpeed400MBit                KFW = 2
-	KFWSpeed800MBit                KFW = 3
-	KFWSpeedInvalid                KFW = 0x80000000
-	KFWSpeedMaximum                KFW = 0x7fffffff
-	KFWSpeedReserved               KFW = 3
-	KFWSpeedReserved1              KFW = 7
-	KFWSpeedUnknownMask            KFW = 0x80
-	KFWSuggestMultiMode            KFW = 0
-)
-
-func (e KFW) String() string {
-	switch e {
-	case KFWAddressBusID:
-		return "KFWAddressBusID"
-	case KFWAddressBusIDPhase:
-		return "KFWAddressBusIDPhase"
-	case KFWAddressNodeID:
-		return "KFWAddressNodeID"
-	case KFWAddressNodeIDPhase:
-		return "KFWAddressNodeIDPhase"
-	case KFWAllowMultiMode:
-		return "KFWAllowMultiMode"
-	case KFWBadNodeID:
-		return "KFWBadNodeID"
-	case KFWBroadcastAddress:
-		return "KFWBroadcastAddress"
-	case KFWBroadcastNodeID:
-		return "KFWBroadcastNodeID"
-	case KFWDCLModifyNotification:
-		return "KFWDCLModifyNotification"
-	case KFWDCLUpdateNotification:
-		return "KFWDCLUpdateNotification"
-	case KFWLocalBusAddress:
-		return "KFWLocalBusAddress"
-	case KFWLocalBusID:
-		return "KFWLocalBusID"
-	case KFWNuDCLModifyJumpNotification:
-		return "KFWNuDCLModifyJumpNotification"
-	case KFWNuDCLModifyNotification:
-		return "KFWNuDCLModifyNotification"
-	case KFWNuDCLUpdateNotification:
-		return "KFWNuDCLUpdateNotification"
-	case KFWSpeedInvalid:
-		return "KFWSpeedInvalid"
-	case KFWSpeedMaximum:
-		return "KFWSpeedMaximum"
-	case KFWSpeedReserved1:
-		return "KFWSpeedReserved1"
-	case KFWSpeedUnknownMask:
-		return "KFWSpeedUnknownMask"
-	default:
-		return fmt.Sprintf("KFW(%d)", e)
-	}
-}
-
 type KFWAVCAsync uint
 
 const (
@@ -9790,7 +10869,7 @@ func (e KFWAVCState) String() string {
 	}
 }
 
-type KFWAck int
+type KFWAck int32
 
 const (
 	KFWAckBusyA     KFWAck = 5
@@ -9823,6 +10902,43 @@ func (e KFWAck) String() string {
 		return "KFWAckTypeError"
 	default:
 		return fmt.Sprintf("KFWAck(%d)", e)
+	}
+}
+
+type KFWAddressBusID int64
+
+const (
+	KFWAddressBusIDValue  KFWAddressBusID = 4290772992
+	KFWAddressBusIDPhase  KFWAddressBusID = 22
+	KFWAddressNodeID      KFWAddressBusID = 4128768
+	KFWAddressNodeIDPhase KFWAddressBusID = 16
+	KFWBadNodeID          KFWAddressBusID = 0xffff
+	KFWBroadcastAddress   KFWAddressBusID = 4128768
+	KFWBroadcastNodeID    KFWAddressBusID = 63
+	KFWLocalBusAddress    KFWAddressBusID = -4194304
+	KFWLocalBusID         KFWAddressBusID = 1023
+)
+
+func (e KFWAddressBusID) String() string {
+	switch e {
+	case KFWAddressBusIDValue:
+		return "KFWAddressBusIDValue"
+	case KFWAddressBusIDPhase:
+		return "KFWAddressBusIDPhase"
+	case KFWAddressNodeID:
+		return "KFWAddressNodeID"
+	case KFWAddressNodeIDPhase:
+		return "KFWAddressNodeIDPhase"
+	case KFWBadNodeID:
+		return "KFWBadNodeID"
+	case KFWBroadcastNodeID:
+		return "KFWBroadcastNodeID"
+	case KFWLocalBusAddress:
+		return "KFWLocalBusAddress"
+	case KFWLocalBusID:
+		return "KFWLocalBusID"
+	default:
+		return fmt.Sprintf("KFWAddressBusID(%d)", e)
 	}
 }
 
@@ -9898,20 +11014,20 @@ func (e KFWAsynchSpd) String() string {
 	}
 }
 
-type KFWBIB uint
+type KFWBIB int64
 
 const (
-	KFWBIBBmc                     KFWBIB = 268435456
+	KFWBIBBmc                     KFWBIB = 0x10000000
 	KFWBIBBusName                 KFWBIB = 0x31333934
 	KFWBIBBusNameAddress          KFWBIB = 4026532868
-	KFWBIBCmc                     KFWBIB = 1073741824
+	KFWBIBCmc                     KFWBIB = 0x40000000
 	KFWBIBCycClkAcc               KFWBIB = 16711680
 	KFWBIBCycClkAccPhase          KFWBIB = 16
 	KFWBIBGeneration              KFWBIB = 240
 	KFWBIBGenerationPhase         KFWBIB = 4
 	KFWBIBHeaderAddress           KFWBIB = 4026532864
-	KFWBIBIrmc                    KFWBIB = 2147483648
-	KFWBIBIsc                     KFWBIB = 536870912
+	KFWBIBIrmc                    KFWBIB = -2147483648
+	KFWBIBIsc                     KFWBIB = 0x20000000
 	KFWBIBLinkSpeed               KFWBIB = 7
 	KFWBIBLinkSpeedPhase          KFWBIB = 0
 	KFWBIBMaxROM                  KFWBIB = 3072
@@ -9970,7 +11086,7 @@ func (e KFWBIB) String() string {
 	}
 }
 
-type KFWBusManagerArbitrationTimeout uint
+type KFWBusManagerArbitrationTimeout uint32
 
 const (
 	KFWBusManagerArbitrationTimeoutDuration KFWBusManagerArbitrationTimeout = 625
@@ -9985,11 +11101,11 @@ func (e KFWBusManagerArbitrationTimeout) String() string {
 	}
 }
 
-type KFWCSRState uint
+type KFWCSRState uint32
 
 const (
 	KFWCSRStateCMstr   KFWCSRState = 256
-	KFWCSRStateGone    KFWCSRState = 32768
+	KFWCSRStateGone    KFWCSRState = 0x8000
 	KFWCSRStateLinkOff KFWCSRState = 512
 )
 
@@ -10006,7 +11122,28 @@ func (e KFWCSRState) String() string {
 	}
 }
 
-type KFWDCL uint
+type KFWConfigurationPacketID uint
+
+const (
+	KFWConfigurationPacketIDValue KFWConfigurationPacketID = 0
+	KFWLinkOnPacketID             KFWConfigurationPacketID = 1
+	KFWSelfIDPacketID             KFWConfigurationPacketID = 2
+)
+
+func (e KFWConfigurationPacketID) String() string {
+	switch e {
+	case KFWConfigurationPacketIDValue:
+		return "KFWConfigurationPacketIDValue"
+	case KFWLinkOnPacketID:
+		return "KFWLinkOnPacketID"
+	case KFWSelfIDPacketID:
+		return "KFWSelfIDPacketID"
+	default:
+		return fmt.Sprintf("KFWConfigurationPacketID(%d)", e)
+	}
+}
+
+type KFWDCL uint32
 
 const (
 	KFWDCLCycleEvent     KFWDCL = 1
@@ -10027,13 +11164,13 @@ func (e KFWDCL) String() string {
 	}
 }
 
-type KFWDCLOp uint
+type KFWDCLOp uint32
 
 const (
-	KFWDCLOpDynamicFlag       KFWDCLOp = 65536
-	KFWDCLOpFlagMask          KFWDCLOp = 4294901760
+	KFWDCLOpDynamicFlag       KFWDCLOp = 0x10000
+	KFWDCLOpFlagMask          KFWDCLOp = 0xffff0000
 	KFWDCLOpFlagPhase         KFWDCLOp = 16
-	KFWDCLOpVendorDefinedFlag KFWDCLOp = 131072
+	KFWDCLOpVendorDefinedFlag KFWDCLOp = 0x20000
 )
 
 func (e KFWDCLOp) String() string {
@@ -10099,79 +11236,88 @@ func (e KFWExtendedTCode) String() string {
 	}
 }
 
-type KFWIsoch uint
+type KFWIsochChannelDefaultFlags uint32
 
 const (
-	KFWIsochBigEndianUpdates            KFWIsoch = 8
-	KFWIsochChanNum                     KFWIsoch = 16128
-	KFWIsochChanNumPhase                KFWIsoch = 8
-	KFWIsochDataLength                  KFWIsoch = 4294901760
-	KFWIsochDataLengthPhase             KFWIsoch = 16
-	KFWIsochEnableRobustness            KFWIsoch = 4
-	KFWIsochPortDefaultOptions          KFWIsoch = 0
-	KFWIsochPortUseSeparateKernelThread KFWIsoch = 2
-	KFWIsochRequireLastContext          KFWIsoch = 16
-	KFWIsochSy                          KFWIsoch = 15
-	KFWIsochSyPhase                     KFWIsoch = 0
-	KFWIsochTCode                       KFWIsoch = 240
-	KFWIsochTCodePhase                  KFWIsoch = 4
-	KFWIsochTag                         KFWIsoch = 49152
-	KFWIsochTagPhase                    KFWIsoch = 14
+	KFWIsochChannelDefaultFlagsValue KFWIsochChannelDefaultFlags = 0
+	KFWIsochChannelDoNotResumeOnWake KFWIsochChannelDefaultFlags = 2
 )
 
-func (e KFWIsoch) String() string {
+func (e KFWIsochChannelDefaultFlags) String() string {
 	switch e {
-	case KFWIsochBigEndianUpdates:
-		return "KFWIsochBigEndianUpdates"
+	case KFWIsochChannelDefaultFlagsValue:
+		return "KFWIsochChannelDefaultFlagsValue"
+	case KFWIsochChannelDoNotResumeOnWake:
+		return "KFWIsochChannelDoNotResumeOnWake"
+	default:
+		return fmt.Sprintf("KFWIsochChannelDefaultFlags(%d)", e)
+	}
+}
+
+type KFWIsochChannelUnknownCondition uint
+
+const (
+	KFWIsochChannelChannelNotAvailable   KFWIsochChannelUnknownCondition = 2
+	KFWIsochChannelNotEnoughBandwidth    KFWIsochChannelUnknownCondition = 1
+	KFWIsochChannelUnknownConditionValue KFWIsochChannelUnknownCondition = 0
+)
+
+func (e KFWIsochChannelUnknownCondition) String() string {
+	switch e {
+	case KFWIsochChannelChannelNotAvailable:
+		return "KFWIsochChannelChannelNotAvailable"
+	case KFWIsochChannelNotEnoughBandwidth:
+		return "KFWIsochChannelNotEnoughBandwidth"
+	case KFWIsochChannelUnknownConditionValue:
+		return "KFWIsochChannelUnknownConditionValue"
+	default:
+		return fmt.Sprintf("KFWIsochChannelUnknownCondition(%d)", e)
+	}
+}
+
+type KFWIsochDataLength uint32
+
+const (
+	KFWIsochChanNum         KFWIsochDataLength = 16128
+	KFWIsochChanNumPhase    KFWIsochDataLength = 8
+	KFWIsochDataLengthValue KFWIsochDataLength = 0xffff0000
+	KFWIsochDataLengthPhase KFWIsochDataLength = 16
+	KFWIsochSy              KFWIsochDataLength = 15
+	KFWIsochSyPhase         KFWIsochDataLength = 0
+	KFWIsochTCode           KFWIsochDataLength = 240
+	KFWIsochTCodePhase      KFWIsochDataLength = 4
+	KFWIsochTag             KFWIsochDataLength = 49152
+	KFWIsochTagPhase        KFWIsochDataLength = 14
+)
+
+func (e KFWIsochDataLength) String() string {
+	switch e {
 	case KFWIsochChanNum:
 		return "KFWIsochChanNum"
-	case KFWIsochDataLength:
-		return "KFWIsochDataLength"
+	case KFWIsochChanNumPhase:
+		return "KFWIsochChanNumPhase"
+	case KFWIsochDataLengthValue:
+		return "KFWIsochDataLengthValue"
 	case KFWIsochDataLengthPhase:
 		return "KFWIsochDataLengthPhase"
-	case KFWIsochEnableRobustness:
-		return "KFWIsochEnableRobustness"
-	case KFWIsochPortDefaultOptions:
-		return "KFWIsochPortDefaultOptions"
-	case KFWIsochPortUseSeparateKernelThread:
-		return "KFWIsochPortUseSeparateKernelThread"
 	case KFWIsochSy:
 		return "KFWIsochSy"
+	case KFWIsochSyPhase:
+		return "KFWIsochSyPhase"
 	case KFWIsochTCode:
 		return "KFWIsochTCode"
+	case KFWIsochTCodePhase:
+		return "KFWIsochTCodePhase"
 	case KFWIsochTag:
 		return "KFWIsochTag"
 	case KFWIsochTagPhase:
 		return "KFWIsochTagPhase"
 	default:
-		return fmt.Sprintf("KFWIsoch(%d)", e)
+		return fmt.Sprintf("KFWIsochDataLength(%d)", e)
 	}
 }
 
-type KFWIsochChannel uint
-
-const (
-	KFWIsochChannelChannelNotAvailable KFWIsochChannel = 2
-	KFWIsochChannelDefaultFlags        KFWIsochChannel = 0
-	KFWIsochChannelDoNotResumeOnWake   KFWIsochChannel = 2
-	KFWIsochChannelNotEnoughBandwidth  KFWIsochChannel = 1
-	KFWIsochChannelUnknownCondition    KFWIsochChannel = 0
-)
-
-func (e KFWIsochChannel) String() string {
-	switch e {
-	case KFWIsochChannelChannelNotAvailable:
-		return "KFWIsochChannelChannelNotAvailable"
-	case KFWIsochChannelDefaultFlags:
-		return "KFWIsochChannelDefaultFlags"
-	case KFWIsochChannelNotEnoughBandwidth:
-		return "KFWIsochChannelNotEnoughBandwidth"
-	default:
-		return fmt.Sprintf("KFWIsochChannel(%d)", e)
-	}
-}
-
-type KFWMax uint
+type KFWMax uint32
 
 const (
 	KFWMaxBusses      KFWMax = 1023
@@ -10258,7 +11404,7 @@ func (e KFWPhyPacket) String() string {
 	}
 }
 
-type KFWResponse uint
+type KFWResponse uint32
 
 const (
 	KFWResponseAddressError  KFWResponse = 7
@@ -10288,49 +11434,6 @@ func (e KFWResponse) String() string {
 		return "KFWResponseTypeError"
 	default:
 		return fmt.Sprintf("KFWResponse(%d)", e)
-	}
-}
-
-type KFWSBP2 uint
-
-const (
-	KFWSBP2AbortTask                KFWSBP2 = 0xb
-	KFWSBP2AbortTaskSet             KFWSBP2 = 0xc
-	KFWSBP2DontSynchronizeMgmtAgent KFWSBP2 = 1
-	KFWSBP2ExclusiveLogin           KFWSBP2 = 32
-	KFWSBP2LogicalUnitReset         KFWSBP2 = 0xe
-	KFWSBP2NormalCommandReset       KFWSBP2 = 9
-	KFWSBP2NormalCommandStatus      KFWSBP2 = 6
-	KFWSBP2NormalCommandTimeout     KFWSBP2 = 7
-	KFWSBP2QueryLogins              KFWSBP2 = 1
-	KFWSBP2TargetReset              KFWSBP2 = 0xf
-	KFWSBP2UnsolicitedStatus        KFWSBP2 = 8
-)
-
-func (e KFWSBP2) String() string {
-	switch e {
-	case KFWSBP2AbortTask:
-		return "KFWSBP2AbortTask"
-	case KFWSBP2AbortTaskSet:
-		return "KFWSBP2AbortTaskSet"
-	case KFWSBP2DontSynchronizeMgmtAgent:
-		return "KFWSBP2DontSynchronizeMgmtAgent"
-	case KFWSBP2ExclusiveLogin:
-		return "KFWSBP2ExclusiveLogin"
-	case KFWSBP2LogicalUnitReset:
-		return "KFWSBP2LogicalUnitReset"
-	case KFWSBP2NormalCommandReset:
-		return "KFWSBP2NormalCommandReset"
-	case KFWSBP2NormalCommandStatus:
-		return "KFWSBP2NormalCommandStatus"
-	case KFWSBP2NormalCommandTimeout:
-		return "KFWSBP2NormalCommandTimeout"
-	case KFWSBP2TargetReset:
-		return "KFWSBP2TargetReset"
-	case KFWSBP2UnsolicitedStatus:
-		return "KFWSBP2UnsolicitedStatus"
-	default:
-		return fmt.Sprintf("KFWSBP2(%d)", e)
 	}
 }
 
@@ -10391,6 +11494,24 @@ func (e KFWSBP2ConstraintForceDouble) String() string {
 	}
 }
 
+type KFWSBP2DontSynchronizeMgmtAgent uint
+
+const (
+	KFWSBP2DontSynchronizeMgmtAgentValue KFWSBP2DontSynchronizeMgmtAgent = 1
+	KFWSBP2ExclusiveLogin                KFWSBP2DontSynchronizeMgmtAgent = 32
+)
+
+func (e KFWSBP2DontSynchronizeMgmtAgent) String() string {
+	switch e {
+	case KFWSBP2DontSynchronizeMgmtAgentValue:
+		return "KFWSBP2DontSynchronizeMgmtAgentValue"
+	case KFWSBP2ExclusiveLogin:
+		return "KFWSBP2ExclusiveLogin"
+	default:
+		return fmt.Sprintf("KFWSBP2DontSynchronizeMgmtAgent(%d)", e)
+	}
+}
+
 type KFWSBP2MaxPageCluster uint
 
 const (
@@ -10403,6 +11524,57 @@ func (e KFWSBP2MaxPageCluster) String() string {
 		return "KFWSBP2MaxPageClusterSize"
 	default:
 		return fmt.Sprintf("KFWSBP2MaxPageCluster(%d)", e)
+	}
+}
+
+type KFWSBP2NormalCommandStatus uint
+
+const (
+	KFWSBP2NormalCommandReset       KFWSBP2NormalCommandStatus = 9
+	KFWSBP2NormalCommandStatusValue KFWSBP2NormalCommandStatus = 6
+	KFWSBP2NormalCommandTimeout     KFWSBP2NormalCommandStatus = 7
+	KFWSBP2UnsolicitedStatus        KFWSBP2NormalCommandStatus = 8
+)
+
+func (e KFWSBP2NormalCommandStatus) String() string {
+	switch e {
+	case KFWSBP2NormalCommandReset:
+		return "KFWSBP2NormalCommandReset"
+	case KFWSBP2NormalCommandStatusValue:
+		return "KFWSBP2NormalCommandStatusValue"
+	case KFWSBP2NormalCommandTimeout:
+		return "KFWSBP2NormalCommandTimeout"
+	case KFWSBP2UnsolicitedStatus:
+		return "KFWSBP2UnsolicitedStatus"
+	default:
+		return fmt.Sprintf("KFWSBP2NormalCommandStatus(%d)", e)
+	}
+}
+
+type KFWSBP2QueryLogins uint
+
+const (
+	KFWSBP2AbortTask        KFWSBP2QueryLogins = 0xb
+	KFWSBP2AbortTaskSet     KFWSBP2QueryLogins = 0xc
+	KFWSBP2LogicalUnitReset KFWSBP2QueryLogins = 0xe
+	KFWSBP2QueryLoginsValue KFWSBP2QueryLogins = 1
+	KFWSBP2TargetReset      KFWSBP2QueryLogins = 0xf
+)
+
+func (e KFWSBP2QueryLogins) String() string {
+	switch e {
+	case KFWSBP2AbortTask:
+		return "KFWSBP2AbortTask"
+	case KFWSBP2AbortTaskSet:
+		return "KFWSBP2AbortTaskSet"
+	case KFWSBP2LogicalUnitReset:
+		return "KFWSBP2LogicalUnitReset"
+	case KFWSBP2QueryLoginsValue:
+		return "KFWSBP2QueryLoginsValue"
+	case KFWSBP2TargetReset:
+		return "KFWSBP2TargetReset"
+	default:
+		return fmt.Sprintf("KFWSBP2QueryLogins(%d)", e)
 	}
 }
 
@@ -10606,7 +11778,7 @@ func (e KFirstDepthMode) String() string {
 	}
 }
 
-type KFirstIOKitNotificationType uint
+type KFirstIOKitNotificationType uint32
 
 const (
 	KFirstIOKitNotificationTypeValue     KFirstIOKitNotificationType = 100
@@ -10787,190 +11959,161 @@ func (e KGetConnectionCount) String() string {
 	}
 }
 
-type KHFS uint
+type KHFSCaseFolding uint32
 
 const (
-	KHFSAllocationFileID            KHFS = 6
-	KHFSAttributeDataFileID         KHFS = 13
-	KHFSAttributesFileID            KHFS = 8
-	KHFSAutoCandidateBit            KHFS = 0xb
-	KHFSAutoCandidateMask           KHFS = 0x800
-	KHFSBadBlockFileID              KHFS = 5
-	KHFSBinaryCompare               KHFS = 0xbc
-	KHFSBogusExtentFileID           KHFS = 15
-	KHFSBootVolumeInconsistentBit   KHFS = 11
-	KHFSBootVolumeInconsistentMask  KHFS = 0x800
-	KHFSCaseFolding                 KHFS = 0xcf
-	KHFSCatExpandedTimesBit         KHFS = 0xc
-	KHFSCatExpandedTimesMask        KHFS = 0x1000
-	KHFSCatalogFileID               KHFS = 4
-	KHFSCatalogKeyMaximumLength     KHFS = 38 - 1
-	KHFSCatalogKeyMinimumLength     KHFS = (38 - 1) - ((31) + 1) + 1
-	KHFSCatalogNodeIDsReusedBit     KHFS = 12
-	KHFSCatalogNodeIDsReusedMask    KHFS = 0x1000
-	KHFSContentProtectionBit        KHFS = 30
-	KHFSContentProtectionMask       KHFS = 0x40000000
-	KHFSDoNotFastDevPinBit          KHFS = 0x9
-	KHFSDoNotFastDevPinMask         KHFS = 0x200
-	KHFSExpandedTimesBit            KHFS = 29
-	KHFSExpandedTimesMask           KHFS = 0x20000000
-	KHFSExtentDensity               KHFS = 3
-	KHFSExtentKeyMaximumLength      KHFS = 8 - 1
-	KHFSExtentsFileID               KHFS = 3
-	KHFSFastDevCandidateBit         KHFS = 0xa
-	KHFSFastDevCandidateMask        KHFS = 0x400
-	KHFSFastDevPinnedBit            KHFS = 0x8
-	KHFSFastDevPinnedMask           KHFS = 0x100
-	KHFSFileLockedBit               KHFS = 0
-	KHFSFileLockedMask              KHFS = 0x1
-	KHFSFileRecord                  KHFS = 0x200
-	KHFSFileThreadRecord            KHFS = 0x400
-	KHFSFirstUserCatalogNodeID      KHFS = 16
-	KHFSFolderRecord                KHFS = 0x100
-	KHFSFolderThreadRecord          KHFS = 0x300
-	KHFSHasAttributesBit            KHFS = 0x2
-	KHFSHasAttributesMask           KHFS = 0x4
-	KHFSHasChildLinkBit             KHFS = 0x6
-	KHFSHasChildLinkMask            KHFS = 0x40
-	KHFSHasDateAddedBit             KHFS = 0x7
-	KHFSHasDateAddedMask            KHFS = 0x80
-	KHFSHasFolderCountBit           KHFS = 0x4
-	KHFSHasFolderCountMask          KHFS = 0x10
-	KHFSHasLinkChainBit             KHFS = 0x5
-	KHFSHasLinkChainMask            KHFS = 0x20
-	KHFSHasSecurityBit              KHFS = 0x3
-	KHFSHasSecurityMask             KHFS = 0x8
-	KHFSMDBAttributesMask           KHFS = 0x8380
-	KHFSMaxFileNameChars            KHFS = 31
-	KHFSMaxVolumeNameChars          KHFS = 27
-	KHFSPlusAttrMinNodeSize         KHFS = 4096
-	KHFSPlusCatalogKeyMaximumLength KHFS = 518 - 2
-	KHFSPlusCatalogKeyMinimumLength KHFS = (518 - 2) - 512 + 2
-	KHFSPlusCatalogMinNodeSize      KHFS = 4096
-	KHFSPlusExtentDensity           KHFS = 8
-	KHFSPlusExtentKeyMaximumLength  KHFS = 12 - 2
-	KHFSPlusExtentMinNodeSize       KHFS = 512
-	KHFSPlusFileRecord              KHFS = 2
-	KHFSPlusFileThreadRecord        KHFS = 4
-	KHFSPlusFolderRecord            KHFS = 1
-	KHFSPlusFolderThreadRecord      KHFS = 3
-	KHFSPlusMaxFileNameChars        KHFS = 255
-	KHFSRepairCatalogFileID         KHFS = 14
-	KHFSRootFolderID                KHFS = 2
-	KHFSRootParentID                KHFS = 1
-	KHFSStartupFileID               KHFS = 7
-	KHFSThreadExistsBit             KHFS = 0x1
-	KHFSThreadExistsMask            KHFS = 0x2
-	KHFSUnusedNodeFixBit            KHFS = 31
-	KHFSUnusedNodeFixMask           KHFS = 0x80000000
-	KHFSVolumeHardwareLockBit       KHFS = 7
-	KHFSVolumeHardwareLockMask      KHFS = 0x80
-	KHFSVolumeInconsistentBit       KHFS = 14
-	KHFSVolumeInconsistentMask      KHFS = 0x4000
-	KHFSVolumeJournaledBit          KHFS = 13
-	KHFSVolumeJournaledMask         KHFS = 0x2000
-	KHFSVolumeNoCacheRequiredBit    KHFS = 10
-	KHFSVolumeNoCacheRequiredMask   KHFS = 0x400
-	KHFSVolumeSoftwareLockBit       KHFS = 15
-	KHFSVolumeSoftwareLockMask      KHFS = 0x8000
-	KHFSVolumeSparedBlocksBit       KHFS = 9
-	KHFSVolumeSparedBlocksMask      KHFS = 0x200
-	KHFSVolumeUnmountedBit          KHFS = 8
-	KHFSVolumeUnmountedMask         KHFS = 0x100
+	KHFSBinaryCompare    KHFSCaseFolding = 0xbc
+	KHFSCaseFoldingValue KHFSCaseFolding = 0xcf
 )
 
-func (e KHFS) String() string {
+func (e KHFSCaseFolding) String() string {
 	switch e {
-	case KHFSAllocationFileID:
-		return "KHFSAllocationFileID"
-	case KHFSAttributeDataFileID:
-		return "KHFSAttributeDataFileID"
-	case KHFSAttributesFileID:
-		return "KHFSAttributesFileID"
+	case KHFSBinaryCompare:
+		return "KHFSBinaryCompare"
+	case KHFSCaseFoldingValue:
+		return "KHFSCaseFoldingValue"
+	default:
+		return fmt.Sprintf("KHFSCaseFolding(%d)", e)
+	}
+}
+
+type KHFSExtentDensity uint32
+
+const (
+	KHFSExtentDensityValue KHFSExtentDensity = 3
+	KHFSPlusExtentDensity  KHFSExtentDensity = 8
+)
+
+func (e KHFSExtentDensity) String() string {
+	switch e {
+	case KHFSExtentDensityValue:
+		return "KHFSExtentDensityValue"
+	case KHFSPlusExtentDensity:
+		return "KHFSPlusExtentDensity"
+	default:
+		return fmt.Sprintf("KHFSExtentDensity(%d)", e)
+	}
+}
+
+type KHFSFileLockedBit uint32
+
+const (
+	KHFSAutoCandidateBit     KHFSFileLockedBit = 0xb
+	KHFSAutoCandidateMask    KHFSFileLockedBit = 0x800
+	KHFSCatExpandedTimesBit  KHFSFileLockedBit = 0xc
+	KHFSCatExpandedTimesMask KHFSFileLockedBit = 0x1000
+	KHFSDoNotFastDevPinBit   KHFSFileLockedBit = 0x9
+	KHFSDoNotFastDevPinMask  KHFSFileLockedBit = 0x200
+	KHFSFastDevCandidateBit  KHFSFileLockedBit = 0xa
+	KHFSFastDevCandidateMask KHFSFileLockedBit = 0x400
+	KHFSFastDevPinnedBit     KHFSFileLockedBit = 0x8
+	KHFSFastDevPinnedMask    KHFSFileLockedBit = 0x100
+	KHFSFileLockedBitValue   KHFSFileLockedBit = 0
+	KHFSFileLockedMask       KHFSFileLockedBit = 0x1
+	KHFSHasAttributesBit     KHFSFileLockedBit = 0x2
+	KHFSHasAttributesMask    KHFSFileLockedBit = 0x4
+	KHFSHasChildLinkBit      KHFSFileLockedBit = 0x6
+	KHFSHasChildLinkMask     KHFSFileLockedBit = 0x40
+	KHFSHasDateAddedBit      KHFSFileLockedBit = 0x7
+	KHFSHasDateAddedMask     KHFSFileLockedBit = 0x80
+	KHFSHasFolderCountBit    KHFSFileLockedBit = 0x4
+	KHFSHasFolderCountMask   KHFSFileLockedBit = 0x10
+	KHFSHasLinkChainBit      KHFSFileLockedBit = 0x5
+	KHFSHasLinkChainMask     KHFSFileLockedBit = 0x20
+	KHFSHasSecurityBit       KHFSFileLockedBit = 0x3
+	KHFSHasSecurityMask      KHFSFileLockedBit = 0x8
+	KHFSThreadExistsBit      KHFSFileLockedBit = 0x1
+	KHFSThreadExistsMask     KHFSFileLockedBit = 0x2
+)
+
+func (e KHFSFileLockedBit) String() string {
+	switch e {
 	case KHFSAutoCandidateBit:
 		return "KHFSAutoCandidateBit"
 	case KHFSAutoCandidateMask:
 		return "KHFSAutoCandidateMask"
-	case KHFSBadBlockFileID:
-		return "KHFSBadBlockFileID"
-	case KHFSBinaryCompare:
-		return "KHFSBinaryCompare"
-	case KHFSBogusExtentFileID:
-		return "KHFSBogusExtentFileID"
-	case KHFSCaseFolding:
-		return "KHFSCaseFolding"
 	case KHFSCatExpandedTimesBit:
 		return "KHFSCatExpandedTimesBit"
 	case KHFSCatExpandedTimesMask:
 		return "KHFSCatExpandedTimesMask"
-	case KHFSCatalogFileID:
-		return "KHFSCatalogFileID"
-	case KHFSCatalogKeyMaximumLength:
-		return "KHFSCatalogKeyMaximumLength"
-	case KHFSContentProtectionBit:
-		return "KHFSContentProtectionBit"
-	case KHFSContentProtectionMask:
-		return "KHFSContentProtectionMask"
 	case KHFSDoNotFastDevPinBit:
 		return "KHFSDoNotFastDevPinBit"
 	case KHFSDoNotFastDevPinMask:
 		return "KHFSDoNotFastDevPinMask"
-	case KHFSExpandedTimesBit:
-		return "KHFSExpandedTimesBit"
-	case KHFSExpandedTimesMask:
-		return "KHFSExpandedTimesMask"
-	case KHFSExtentDensity:
-		return "KHFSExtentDensity"
-	case KHFSExtentKeyMaximumLength:
-		return "KHFSExtentKeyMaximumLength"
 	case KHFSFastDevCandidateBit:
 		return "KHFSFastDevCandidateBit"
 	case KHFSFastDevCandidateMask:
 		return "KHFSFastDevCandidateMask"
+	case KHFSFastDevPinnedBit:
+		return "KHFSFastDevPinnedBit"
 	case KHFSFastDevPinnedMask:
 		return "KHFSFastDevPinnedMask"
-	case KHFSFileLockedBit:
-		return "KHFSFileLockedBit"
+	case KHFSFileLockedBitValue:
+		return "KHFSFileLockedBitValue"
 	case KHFSFileLockedMask:
 		return "KHFSFileLockedMask"
-	case KHFSFirstUserCatalogNodeID:
-		return "KHFSFirstUserCatalogNodeID"
-	case KHFSFolderThreadRecord:
-		return "KHFSFolderThreadRecord"
 	case KHFSHasAttributesBit:
 		return "KHFSHasAttributesBit"
+	case KHFSHasAttributesMask:
+		return "KHFSHasAttributesMask"
+	case KHFSHasChildLinkBit:
+		return "KHFSHasChildLinkBit"
 	case KHFSHasChildLinkMask:
 		return "KHFSHasChildLinkMask"
+	case KHFSHasDateAddedBit:
+		return "KHFSHasDateAddedBit"
 	case KHFSHasDateAddedMask:
 		return "KHFSHasDateAddedMask"
+	case KHFSHasFolderCountMask:
+		return "KHFSHasFolderCountMask"
+	case KHFSHasLinkChainBit:
+		return "KHFSHasLinkChainBit"
 	case KHFSHasLinkChainMask:
 		return "KHFSHasLinkChainMask"
-	case KHFSMDBAttributesMask:
-		return "KHFSMDBAttributesMask"
-	case KHFSMaxFileNameChars:
-		return "KHFSMaxFileNameChars"
-	case KHFSMaxVolumeNameChars:
-		return "KHFSMaxVolumeNameChars"
-	case KHFSPlusCatalogKeyMaximumLength:
-		return "KHFSPlusCatalogKeyMaximumLength"
-	case KHFSPlusMaxFileNameChars:
-		return "KHFSPlusMaxFileNameChars"
-	case KHFSRepairCatalogFileID:
-		return "KHFSRepairCatalogFileID"
-	case KHFSUnusedNodeFixMask:
-		return "KHFSUnusedNodeFixMask"
-	case KHFSVolumeInconsistentMask:
-		return "KHFSVolumeInconsistentMask"
-	case KHFSVolumeJournaledMask:
-		return "KHFSVolumeJournaledMask"
-	case KHFSVolumeSoftwareLockMask:
-		return "KHFSVolumeSoftwareLockMask"
+	case KHFSHasSecurityBit:
+		return "KHFSHasSecurityBit"
 	default:
-		return fmt.Sprintf("KHFS(%d)", e)
+		return fmt.Sprintf("KHFSFileLockedBit(%d)", e)
 	}
 }
 
-type KHFSMaxAttrName uint
+type KHFSFolderRecord uint32
+
+const (
+	KHFSFileRecord             KHFSFolderRecord = 0x200
+	KHFSFileThreadRecord       KHFSFolderRecord = 0x400
+	KHFSFolderRecordValue      KHFSFolderRecord = 0x100
+	KHFSFolderThreadRecord     KHFSFolderRecord = 0x300
+	KHFSPlusFileRecord         KHFSFolderRecord = 2
+	KHFSPlusFileThreadRecord   KHFSFolderRecord = 4
+	KHFSPlusFolderRecord       KHFSFolderRecord = 1
+	KHFSPlusFolderThreadRecord KHFSFolderRecord = 3
+)
+
+func (e KHFSFolderRecord) String() string {
+	switch e {
+	case KHFSFileRecord:
+		return "KHFSFileRecord"
+	case KHFSFileThreadRecord:
+		return "KHFSFileThreadRecord"
+	case KHFSFolderRecordValue:
+		return "KHFSFolderRecordValue"
+	case KHFSFolderThreadRecord:
+		return "KHFSFolderThreadRecord"
+	case KHFSPlusFileRecord:
+		return "KHFSPlusFileRecord"
+	case KHFSPlusFileThreadRecord:
+		return "KHFSPlusFileThreadRecord"
+	case KHFSPlusFolderRecord:
+		return "KHFSPlusFolderRecord"
+	case KHFSPlusFolderThreadRecord:
+		return "KHFSPlusFolderThreadRecord"
+	default:
+		return fmt.Sprintf("KHFSFolderRecord(%d)", e)
+	}
+}
+
+type KHFSMaxAttrName uint32
 
 const (
 	KHFSMaxAttrNameLen KHFSMaxAttrName = 127
@@ -10985,7 +12128,28 @@ func (e KHFSMaxAttrName) String() string {
 	}
 }
 
-type KHFSPlusAttr uint
+type KHFSMaxVolumeNameChars uint32
+
+const (
+	KHFSMaxFileNameChars        KHFSMaxVolumeNameChars = 31
+	KHFSMaxVolumeNameCharsValue KHFSMaxVolumeNameChars = 27
+	KHFSPlusMaxFileNameChars    KHFSMaxVolumeNameChars = 255
+)
+
+func (e KHFSMaxVolumeNameChars) String() string {
+	switch e {
+	case KHFSMaxFileNameChars:
+		return "KHFSMaxFileNameChars"
+	case KHFSMaxVolumeNameCharsValue:
+		return "KHFSMaxVolumeNameCharsValue"
+	case KHFSPlusMaxFileNameChars:
+		return "KHFSPlusMaxFileNameChars"
+	default:
+		return fmt.Sprintf("KHFSMaxVolumeNameChars(%d)", e)
+	}
+}
+
+type KHFSPlusAttr uint32
 
 const (
 	KHFSPlusAttrExtents    KHFSPlusAttr = 0x30
@@ -11006,7 +12170,90 @@ func (e KHFSPlusAttr) String() string {
 	}
 }
 
-type KHFSSigWord uint
+type KHFSPlusExtentKeyMaximumLength uint32
+
+const (
+	KHFSCatalogKeyMaximumLength         KHFSPlusExtentKeyMaximumLength = 37
+	KHFSCatalogKeyMinimumLength         KHFSPlusExtentKeyMaximumLength = 6
+	KHFSExtentKeyMaximumLength          KHFSPlusExtentKeyMaximumLength = 7
+	KHFSPlusAttrMinNodeSize             KHFSPlusExtentKeyMaximumLength = 4096
+	KHFSPlusCatalogKeyMaximumLength     KHFSPlusExtentKeyMaximumLength = 516
+	KHFSPlusCatalogKeyMinimumLength     KHFSPlusExtentKeyMaximumLength = 6
+	KHFSPlusCatalogMinNodeSize          KHFSPlusExtentKeyMaximumLength = 4096
+	KHFSPlusExtentKeyMaximumLengthValue KHFSPlusExtentKeyMaximumLength = 10
+	KHFSPlusExtentMinNodeSize           KHFSPlusExtentKeyMaximumLength = 512
+)
+
+func (e KHFSPlusExtentKeyMaximumLength) String() string {
+	switch e {
+	case KHFSCatalogKeyMaximumLength:
+		return "KHFSCatalogKeyMaximumLength"
+	case KHFSCatalogKeyMinimumLength:
+		return "KHFSCatalogKeyMinimumLength"
+	case KHFSExtentKeyMaximumLength:
+		return "KHFSExtentKeyMaximumLength"
+	case KHFSPlusAttrMinNodeSize:
+		return "KHFSPlusAttrMinNodeSize"
+	case KHFSPlusCatalogKeyMaximumLength:
+		return "KHFSPlusCatalogKeyMaximumLength"
+	case KHFSPlusExtentKeyMaximumLengthValue:
+		return "KHFSPlusExtentKeyMaximumLengthValue"
+	case KHFSPlusExtentMinNodeSize:
+		return "KHFSPlusExtentMinNodeSize"
+	default:
+		return fmt.Sprintf("KHFSPlusExtentKeyMaximumLength(%d)", e)
+	}
+}
+
+type KHFSRootParentID uint32
+
+const (
+	KHFSAllocationFileID       KHFSRootParentID = 6
+	KHFSAttributeDataFileID    KHFSRootParentID = 13
+	KHFSAttributesFileID       KHFSRootParentID = 8
+	KHFSBadBlockFileID         KHFSRootParentID = 5
+	KHFSBogusExtentFileID      KHFSRootParentID = 15
+	KHFSCatalogFileID          KHFSRootParentID = 4
+	KHFSExtentsFileID          KHFSRootParentID = 3
+	KHFSFirstUserCatalogNodeID KHFSRootParentID = 16
+	KHFSRepairCatalogFileID    KHFSRootParentID = 14
+	KHFSRootFolderID           KHFSRootParentID = 2
+	KHFSRootParentIDValue      KHFSRootParentID = 1
+	KHFSStartupFileID          KHFSRootParentID = 7
+)
+
+func (e KHFSRootParentID) String() string {
+	switch e {
+	case KHFSAllocationFileID:
+		return "KHFSAllocationFileID"
+	case KHFSAttributeDataFileID:
+		return "KHFSAttributeDataFileID"
+	case KHFSAttributesFileID:
+		return "KHFSAttributesFileID"
+	case KHFSBadBlockFileID:
+		return "KHFSBadBlockFileID"
+	case KHFSBogusExtentFileID:
+		return "KHFSBogusExtentFileID"
+	case KHFSCatalogFileID:
+		return "KHFSCatalogFileID"
+	case KHFSExtentsFileID:
+		return "KHFSExtentsFileID"
+	case KHFSFirstUserCatalogNodeID:
+		return "KHFSFirstUserCatalogNodeID"
+	case KHFSRepairCatalogFileID:
+		return "KHFSRepairCatalogFileID"
+	case KHFSRootFolderID:
+		return "KHFSRootFolderID"
+	case KHFSRootParentIDValue:
+		return "KHFSRootParentIDValue"
+	case KHFSStartupFileID:
+		return "KHFSStartupFileID"
+	default:
+		return fmt.Sprintf("KHFSRootParentID(%d)", e)
+	}
+}
+
+type KHFSSigWord uint32
 
 const (
 	KFSKMountVersion     KHFSSigWord = 0x46534b21
@@ -11042,7 +12289,7 @@ func (e KHFSSigWord) String() string {
 	}
 }
 
-type KHFSUnusedNodesFix uint
+type KHFSUnusedNodesFix uint32
 
 const (
 	KHFSUnusedNodesFixDate         KHFSUnusedNodesFix = 0xc5ef2480
@@ -11057,6 +12304,93 @@ func (e KHFSUnusedNodesFix) String() string {
 		return "KHFSUnusedNodesFixExpandedDate"
 	default:
 		return fmt.Sprintf("KHFSUnusedNodesFix(%d)", e)
+	}
+}
+
+type KHFSVolumeHardwareLockBit uint32
+
+const (
+	KHFSBootVolumeInconsistentBit  KHFSVolumeHardwareLockBit = 11
+	KHFSBootVolumeInconsistentMask KHFSVolumeHardwareLockBit = 0x800
+	KHFSCatalogNodeIDsReusedBit    KHFSVolumeHardwareLockBit = 12
+	KHFSCatalogNodeIDsReusedMask   KHFSVolumeHardwareLockBit = 0x1000
+	KHFSContentProtectionBit       KHFSVolumeHardwareLockBit = 30
+	KHFSContentProtectionMask      KHFSVolumeHardwareLockBit = 0x40000000
+	KHFSExpandedTimesBit           KHFSVolumeHardwareLockBit = 29
+	KHFSExpandedTimesMask          KHFSVolumeHardwareLockBit = 0x20000000
+	KHFSMDBAttributesMask          KHFSVolumeHardwareLockBit = 0x8380
+	KHFSUnusedNodeFixBit           KHFSVolumeHardwareLockBit = 31
+	KHFSUnusedNodeFixMask          KHFSVolumeHardwareLockBit = 0x80000000
+	KHFSVolumeHardwareLockBitValue KHFSVolumeHardwareLockBit = 7
+	KHFSVolumeHardwareLockMask     KHFSVolumeHardwareLockBit = 0x80
+	KHFSVolumeInconsistentBit      KHFSVolumeHardwareLockBit = 14
+	KHFSVolumeInconsistentMask     KHFSVolumeHardwareLockBit = 0x4000
+	KHFSVolumeJournaledBit         KHFSVolumeHardwareLockBit = 13
+	KHFSVolumeJournaledMask        KHFSVolumeHardwareLockBit = 0x2000
+	KHFSVolumeNoCacheRequiredBit   KHFSVolumeHardwareLockBit = 10
+	KHFSVolumeNoCacheRequiredMask  KHFSVolumeHardwareLockBit = 0x400
+	KHFSVolumeSoftwareLockBit      KHFSVolumeHardwareLockBit = 15
+	KHFSVolumeSoftwareLockMask     KHFSVolumeHardwareLockBit = 0x8000
+	KHFSVolumeSparedBlocksBit      KHFSVolumeHardwareLockBit = 9
+	KHFSVolumeSparedBlocksMask     KHFSVolumeHardwareLockBit = 0x200
+	KHFSVolumeUnmountedBit         KHFSVolumeHardwareLockBit = 8
+	KHFSVolumeUnmountedMask        KHFSVolumeHardwareLockBit = 0x100
+)
+
+func (e KHFSVolumeHardwareLockBit) String() string {
+	switch e {
+	case KHFSBootVolumeInconsistentBit:
+		return "KHFSBootVolumeInconsistentBit"
+	case KHFSBootVolumeInconsistentMask:
+		return "KHFSBootVolumeInconsistentMask"
+	case KHFSCatalogNodeIDsReusedBit:
+		return "KHFSCatalogNodeIDsReusedBit"
+	case KHFSCatalogNodeIDsReusedMask:
+		return "KHFSCatalogNodeIDsReusedMask"
+	case KHFSContentProtectionBit:
+		return "KHFSContentProtectionBit"
+	case KHFSContentProtectionMask:
+		return "KHFSContentProtectionMask"
+	case KHFSExpandedTimesBit:
+		return "KHFSExpandedTimesBit"
+	case KHFSExpandedTimesMask:
+		return "KHFSExpandedTimesMask"
+	case KHFSMDBAttributesMask:
+		return "KHFSMDBAttributesMask"
+	case KHFSUnusedNodeFixBit:
+		return "KHFSUnusedNodeFixBit"
+	case KHFSUnusedNodeFixMask:
+		return "KHFSUnusedNodeFixMask"
+	case KHFSVolumeHardwareLockBitValue:
+		return "KHFSVolumeHardwareLockBitValue"
+	case KHFSVolumeHardwareLockMask:
+		return "KHFSVolumeHardwareLockMask"
+	case KHFSVolumeInconsistentBit:
+		return "KHFSVolumeInconsistentBit"
+	case KHFSVolumeInconsistentMask:
+		return "KHFSVolumeInconsistentMask"
+	case KHFSVolumeJournaledBit:
+		return "KHFSVolumeJournaledBit"
+	case KHFSVolumeJournaledMask:
+		return "KHFSVolumeJournaledMask"
+	case KHFSVolumeNoCacheRequiredBit:
+		return "KHFSVolumeNoCacheRequiredBit"
+	case KHFSVolumeNoCacheRequiredMask:
+		return "KHFSVolumeNoCacheRequiredMask"
+	case KHFSVolumeSoftwareLockBit:
+		return "KHFSVolumeSoftwareLockBit"
+	case KHFSVolumeSoftwareLockMask:
+		return "KHFSVolumeSoftwareLockMask"
+	case KHFSVolumeSparedBlocksBit:
+		return "KHFSVolumeSparedBlocksBit"
+	case KHFSVolumeSparedBlocksMask:
+		return "KHFSVolumeSparedBlocksMask"
+	case KHFSVolumeUnmountedBit:
+		return "KHFSVolumeUnmountedBit"
+	case KHFSVolumeUnmountedMask:
+		return "KHFSVolumeUnmountedMask"
+	default:
+		return fmt.Sprintf("KHFSVolumeHardwareLockBit(%d)", e)
 	}
 }
 
@@ -11081,7 +12415,7 @@ func (e KHI) String() string {
 	}
 }
 
-type KHID uint
+type KHID uint32
 
 const (
 	KHIDBootProtocolValue   KHID = 0
@@ -11299,7 +12633,7 @@ func (e KHIDPage) String() string {
 	}
 }
 
-type KHIDRq uint
+type KHIDRq uint32
 
 const (
 	KHIDRqGetIdle     KHIDRq = 2
@@ -11329,7 +12663,7 @@ func (e KHIDRq) String() string {
 	}
 }
 
-type KHIDRt uint
+type KHIDRt uint32
 
 const (
 	KHIDRtFeatureReport KHIDRt = 3
@@ -11350,637 +12684,7 @@ func (e KHIDRt) String() string {
 	}
 }
 
-type KHIDUsage uint
-
-const (
-	KHIDUsage_Keyboard0                   KHIDUsage = 0x27
-	KHIDUsage_Keyboard1                   KHIDUsage = 0x1e
-	KHIDUsage_Keyboard2                   KHIDUsage = 0x1f
-	KHIDUsage_Keyboard3                   KHIDUsage = 0x20
-	KHIDUsage_Keyboard4                   KHIDUsage = 0x21
-	KHIDUsage_Keyboard5                   KHIDUsage = 0x22
-	KHIDUsage_Keyboard6                   KHIDUsage = 0x23
-	KHIDUsage_Keyboard7                   KHIDUsage = 0x24
-	KHIDUsage_Keyboard8                   KHIDUsage = 0x25
-	KHIDUsage_Keyboard9                   KHIDUsage = 0x26
-	KHIDUsage_KeyboardA                   KHIDUsage = 0x4
-	KHIDUsage_KeyboardAgain               KHIDUsage = 0x79
-	KHIDUsage_KeyboardAlternateErase      KHIDUsage = 0x99
-	KHIDUsage_KeyboardApplication         KHIDUsage = 0x65
-	KHIDUsage_KeyboardB                   KHIDUsage = 0x5
-	KHIDUsage_KeyboardBackslash           KHIDUsage = 0x31
-	KHIDUsage_KeyboardC                   KHIDUsage = 0x6
-	KHIDUsage_KeyboardCancel              KHIDUsage = 0x9b
-	KHIDUsage_KeyboardCapsLock            KHIDUsage = 0x39
-	KHIDUsage_KeyboardClear               KHIDUsage = 0x9c
-	KHIDUsage_KeyboardClearOrAgain        KHIDUsage = 0xa2
-	KHIDUsage_KeyboardCloseBracket        KHIDUsage = 0x30
-	KHIDUsage_KeyboardComma               KHIDUsage = 0x36
-	KHIDUsage_KeyboardCopy                KHIDUsage = 0x7c
-	KHIDUsage_KeyboardCrSelOrProps        KHIDUsage = 0xa3
-	KHIDUsage_KeyboardCut                 KHIDUsage = 0x7b
-	KHIDUsage_KeyboardD                   KHIDUsage = 0x7
-	KHIDUsage_KeyboardDeleteForward       KHIDUsage = 0x4c
-	KHIDUsage_KeyboardDeleteOrBackspace   KHIDUsage = 0x2a
-	KHIDUsage_KeyboardDownArrow           KHIDUsage = 0x51
-	KHIDUsage_KeyboardE                   KHIDUsage = 0x8
-	KHIDUsage_KeyboardEnd                 KHIDUsage = 0x4d
-	KHIDUsage_KeyboardEqualSign           KHIDUsage = 0x2e
-	KHIDUsage_KeyboardErrorRollOver       KHIDUsage = 0x1
-	KHIDUsage_KeyboardErrorUndefined      KHIDUsage = 0x3
-	KHIDUsage_KeyboardEscape              KHIDUsage = 0x29
-	KHIDUsage_KeyboardExSel               KHIDUsage = 0xa4
-	KHIDUsage_KeyboardExecute             KHIDUsage = 0x74
-	KHIDUsage_KeyboardF                   KHIDUsage = 0x9
-	KHIDUsage_KeyboardF1                  KHIDUsage = 0x3a
-	KHIDUsage_KeyboardF10                 KHIDUsage = 0x43
-	KHIDUsage_KeyboardF11                 KHIDUsage = 0x44
-	KHIDUsage_KeyboardF12                 KHIDUsage = 0x45
-	KHIDUsage_KeyboardF13                 KHIDUsage = 0x68
-	KHIDUsage_KeyboardF14                 KHIDUsage = 0x69
-	KHIDUsage_KeyboardF15                 KHIDUsage = 0x6a
-	KHIDUsage_KeyboardF16                 KHIDUsage = 0x6b
-	KHIDUsage_KeyboardF17                 KHIDUsage = 0x6c
-	KHIDUsage_KeyboardF18                 KHIDUsage = 0x6d
-	KHIDUsage_KeyboardF19                 KHIDUsage = 0x6e
-	KHIDUsage_KeyboardF2                  KHIDUsage = 0x3b
-	KHIDUsage_KeyboardF20                 KHIDUsage = 0x6f
-	KHIDUsage_KeyboardF21                 KHIDUsage = 0x70
-	KHIDUsage_KeyboardF22                 KHIDUsage = 0x71
-	KHIDUsage_KeyboardF23                 KHIDUsage = 0x72
-	KHIDUsage_KeyboardF24                 KHIDUsage = 0x73
-	KHIDUsage_KeyboardF3                  KHIDUsage = 0x3c
-	KHIDUsage_KeyboardF4                  KHIDUsage = 0x3d
-	KHIDUsage_KeyboardF5                  KHIDUsage = 0x3e
-	KHIDUsage_KeyboardF6                  KHIDUsage = 0x3f
-	KHIDUsage_KeyboardF7                  KHIDUsage = 0x40
-	KHIDUsage_KeyboardF8                  KHIDUsage = 0x41
-	KHIDUsage_KeyboardF9                  KHIDUsage = 0x42
-	KHIDUsage_KeyboardFind                KHIDUsage = 0x7e
-	KHIDUsage_KeyboardG                   KHIDUsage = 0xa
-	KHIDUsage_KeyboardGraveAccentAndTilde KHIDUsage = 0x35
-	KHIDUsage_KeyboardH                   KHIDUsage = 0xb
-	KHIDUsage_KeyboardHelp                KHIDUsage = 0x75
-	KHIDUsage_KeyboardHome                KHIDUsage = 0x4a
-	KHIDUsage_KeyboardHyphen              KHIDUsage = 0x2d
-	KHIDUsage_KeyboardI                   KHIDUsage = 0xc
-	KHIDUsage_KeyboardInsert              KHIDUsage = 0x49
-	KHIDUsage_KeyboardInternational1      KHIDUsage = 0x87
-	KHIDUsage_KeyboardInternational2      KHIDUsage = 0x88
-	KHIDUsage_KeyboardInternational3      KHIDUsage = 0x89
-	KHIDUsage_KeyboardInternational4      KHIDUsage = 0x8a
-	KHIDUsage_KeyboardInternational5      KHIDUsage = 0x8b
-	KHIDUsage_KeyboardInternational6      KHIDUsage = 0x8c
-	KHIDUsage_KeyboardInternational7      KHIDUsage = 0x8d
-	KHIDUsage_KeyboardInternational8      KHIDUsage = 0x8e
-	KHIDUsage_KeyboardInternational9      KHIDUsage = 0x8f
-	KHIDUsage_KeyboardJ                   KHIDUsage = 0xd
-	KHIDUsage_KeyboardK                   KHIDUsage = 0xe
-	KHIDUsage_KeyboardL                   KHIDUsage = 0xf
-	KHIDUsage_KeyboardLANG1               KHIDUsage = 0x90
-	KHIDUsage_KeyboardLANG2               KHIDUsage = 0x91
-	KHIDUsage_KeyboardLANG3               KHIDUsage = 0x92
-	KHIDUsage_KeyboardLANG4               KHIDUsage = 0x93
-	KHIDUsage_KeyboardLANG5               KHIDUsage = 0x94
-	KHIDUsage_KeyboardLANG6               KHIDUsage = 0x95
-	KHIDUsage_KeyboardLANG7               KHIDUsage = 0x96
-	KHIDUsage_KeyboardLANG8               KHIDUsage = 0x97
-	KHIDUsage_KeyboardLANG9               KHIDUsage = 0x98
-	KHIDUsage_KeyboardLeftAlt             KHIDUsage = 0xe2
-	KHIDUsage_KeyboardLeftArrow           KHIDUsage = 0x50
-	KHIDUsage_KeyboardLeftControl         KHIDUsage = 0xe0
-	KHIDUsage_KeyboardLeftGUI             KHIDUsage = 0xe3
-	KHIDUsage_KeyboardLeftShift           KHIDUsage = 0xe1
-	KHIDUsage_KeyboardLockingCapsLock     KHIDUsage = 0x82
-	KHIDUsage_KeyboardLockingNumLock      KHIDUsage = 0x83
-	KHIDUsage_KeyboardLockingScrollLock   KHIDUsage = 0x84
-	KHIDUsage_KeyboardM                   KHIDUsage = 0x10
-	KHIDUsage_KeyboardMenu                KHIDUsage = 0x76
-	KHIDUsage_KeyboardMute                KHIDUsage = 0x7f
-	KHIDUsage_KeyboardN                   KHIDUsage = 0x11
-	KHIDUsage_KeyboardNonUSBackslash      KHIDUsage = 0x64
-	KHIDUsage_KeyboardNonUSPound          KHIDUsage = 0x32
-	KHIDUsage_KeyboardO                   KHIDUsage = 0x12
-	KHIDUsage_KeyboardOpenBracket         KHIDUsage = 0x2f
-	KHIDUsage_KeyboardOper                KHIDUsage = 0xa1
-	KHIDUsage_KeyboardOut                 KHIDUsage = 0xa0
-	KHIDUsage_KeyboardP                   KHIDUsage = 0x13
-	KHIDUsage_KeyboardPOSTFail            KHIDUsage = 0x2
-	KHIDUsage_KeyboardPageDown            KHIDUsage = 0x4e
-	KHIDUsage_KeyboardPageUp              KHIDUsage = 0x4b
-	KHIDUsage_KeyboardPaste               KHIDUsage = 0x7d
-	KHIDUsage_KeyboardPause               KHIDUsage = 0x48
-	KHIDUsage_KeyboardPeriod              KHIDUsage = 0x37
-	KHIDUsage_KeyboardPower               KHIDUsage = 0x66
-	KHIDUsage_KeyboardPrintScreen         KHIDUsage = 0x46
-	KHIDUsage_KeyboardPrior               KHIDUsage = 0x9d
-	KHIDUsage_KeyboardQ                   KHIDUsage = 0x14
-	KHIDUsage_KeyboardQuote               KHIDUsage = 0x34
-	KHIDUsage_KeyboardR                   KHIDUsage = 0x15
-	KHIDUsage_KeyboardReturn              KHIDUsage = 0x9e
-	KHIDUsage_KeyboardReturnOrEnter       KHIDUsage = 0x28
-	KHIDUsage_KeyboardRightAlt            KHIDUsage = 0xe6
-	KHIDUsage_KeyboardRightArrow          KHIDUsage = 0x4f
-	KHIDUsage_KeyboardRightControl        KHIDUsage = 0xe4
-	KHIDUsage_KeyboardRightGUI            KHIDUsage = 0xe7
-	KHIDUsage_KeyboardRightShift          KHIDUsage = 0xe5
-	KHIDUsage_KeyboardS                   KHIDUsage = 0x16
-	KHIDUsage_KeyboardScrollLock          KHIDUsage = 0x47
-	KHIDUsage_KeyboardSelect              KHIDUsage = 0x77
-	KHIDUsage_KeyboardSemicolon           KHIDUsage = 0x33
-	KHIDUsage_KeyboardSeparator           KHIDUsage = 0x9f
-	KHIDUsage_KeyboardSlash               KHIDUsage = 0x38
-	KHIDUsage_KeyboardSpacebar            KHIDUsage = 0x2c
-	KHIDUsage_KeyboardStop                KHIDUsage = 0x78
-	KHIDUsage_KeyboardSysReqOrAttention   KHIDUsage = 0x9a
-	KHIDUsage_KeyboardT                   KHIDUsage = 0x17
-	KHIDUsage_KeyboardTab                 KHIDUsage = 0x2b
-	KHIDUsage_KeyboardU                   KHIDUsage = 0x18
-	KHIDUsage_KeyboardUndo                KHIDUsage = 0x7a
-	KHIDUsage_KeyboardUpArrow             KHIDUsage = 0x52
-	KHIDUsage_KeyboardV                   KHIDUsage = 0x19
-	KHIDUsage_KeyboardVolumeDown          KHIDUsage = 0x81
-	KHIDUsage_KeyboardVolumeUp            KHIDUsage = 0x80
-	KHIDUsage_KeyboardW                   KHIDUsage = 0x1a
-	KHIDUsage_KeyboardX                   KHIDUsage = 0x1b
-	KHIDUsage_KeyboardY                   KHIDUsage = 0x1c
-	KHIDUsage_KeyboardZ                   KHIDUsage = 0x1d
-	KHIDUsage_Keyboard_Reserved           KHIDUsage = 0xffff
-	KHIDUsage_Keypad0                     KHIDUsage = 0x62
-	KHIDUsage_Keypad1                     KHIDUsage = 0x59
-	KHIDUsage_Keypad2                     KHIDUsage = 0x5a
-	KHIDUsage_Keypad3                     KHIDUsage = 0x5b
-	KHIDUsage_Keypad4                     KHIDUsage = 0x5c
-	KHIDUsage_Keypad5                     KHIDUsage = 0x5d
-	KHIDUsage_Keypad6                     KHIDUsage = 0x5e
-	KHIDUsage_Keypad7                     KHIDUsage = 0x5f
-	KHIDUsage_Keypad8                     KHIDUsage = 0x60
-	KHIDUsage_Keypad9                     KHIDUsage = 0x61
-	KHIDUsage_KeypadAsterisk              KHIDUsage = 0x55
-	KHIDUsage_KeypadComma                 KHIDUsage = 0x85
-	KHIDUsage_KeypadEnter                 KHIDUsage = 0x58
-	KHIDUsage_KeypadEqualSign             KHIDUsage = 0x67
-	KHIDUsage_KeypadEqualSignAS400        KHIDUsage = 0x86
-	KHIDUsage_KeypadHyphen                KHIDUsage = 0x56
-	KHIDUsage_KeypadNumLock               KHIDUsage = 0x53
-	KHIDUsage_KeypadPeriod                KHIDUsage = 0x63
-	KHIDUsage_KeypadPlus                  KHIDUsage = 0x57
-	KHIDUsage_KeypadSlash                 KHIDUsage = 0x54
-	KHIDUsage_TFon_Reserved               KHIDUsage = 0xffff
-	KHIDUsage_Tfon_AlternateFunction      KHIDUsage = 0x29
-	KHIDUsage_Tfon_AnswerOnOrOff          KHIDUsage = 0x74
-	KHIDUsage_Tfon_AnsweringMachine       KHIDUsage = 0x2
-	KHIDUsage_Tfon_CallWaitingTone        KHIDUsage = 0x99
-	KHIDUsage_Tfon_CallerID               KHIDUsage = 0x30
-	KHIDUsage_Tfon_Conference             KHIDUsage = 0x2c
-	KHIDUsage_Tfon_ConfirmationTone1      KHIDUsage = 0x9a
-	KHIDUsage_Tfon_ConfirmationTone2      KHIDUsage = 0x9b
-	KHIDUsage_Tfon_DoNotDisturb           KHIDUsage = 0x72
-	KHIDUsage_Tfon_Drop                   KHIDUsage = 0x26
-	KHIDUsage_Tfon_Feature                KHIDUsage = 0x22
-	KHIDUsage_Tfon_Flash                  KHIDUsage = 0x21
-	KHIDUsage_Tfon_ForwardCalls           KHIDUsage = 0x28
-	KHIDUsage_Tfon_Handset                KHIDUsage = 0x4
-	KHIDUsage_Tfon_Headset                KHIDUsage = 0x5
-	KHIDUsage_Tfon_Hold                   KHIDUsage = 0x23
-	KHIDUsage_Tfon_HookSwitch             KHIDUsage = 0x20
-	KHIDUsage_Tfon_InsideDialTone         KHIDUsage = 0x90
-	KHIDUsage_Tfon_InsideRingTone         KHIDUsage = 0x92
-	KHIDUsage_Tfon_InsideRingback         KHIDUsage = 0x95
-	KHIDUsage_Tfon_Line                   KHIDUsage = 0x2a
-	KHIDUsage_Tfon_LineBusyTone           KHIDUsage = 0x97
-	KHIDUsage_Tfon_Message                KHIDUsage = 0x73
-	KHIDUsage_Tfon_MessageControls        KHIDUsage = 0x3
-	KHIDUsage_Tfon_OutsideDialTone        KHIDUsage = 0x91
-	KHIDUsage_Tfon_OutsideRingTone        KHIDUsage = 0x93
-	KHIDUsage_Tfon_OutsideRingback        KHIDUsage = 0x9d
-	KHIDUsage_Tfon_Park                   KHIDUsage = 0x27
-	KHIDUsage_Tfon_Phone                  KHIDUsage = 0x1
-	KHIDUsage_Tfon_PhoneDirectory         KHIDUsage = 0x53
-	KHIDUsage_Tfon_PhoneKey0              KHIDUsage = 0xb0
-	KHIDUsage_Tfon_PhoneKey1              KHIDUsage = 0xb1
-	KHIDUsage_Tfon_PhoneKey2              KHIDUsage = 0xb2
-	KHIDUsage_Tfon_PhoneKey3              KHIDUsage = 0xb3
-	KHIDUsage_Tfon_PhoneKey4              KHIDUsage = 0xb4
-	KHIDUsage_Tfon_PhoneKey5              KHIDUsage = 0xb5
-	KHIDUsage_Tfon_PhoneKey6              KHIDUsage = 0xb6
-	KHIDUsage_Tfon_PhoneKey7              KHIDUsage = 0xb7
-	KHIDUsage_Tfon_PhoneKey8              KHIDUsage = 0xb8
-	KHIDUsage_Tfon_PhoneKey9              KHIDUsage = 0xb9
-	KHIDUsage_Tfon_PhoneKeyA              KHIDUsage = 0xbc
-	KHIDUsage_Tfon_PhoneKeyB              KHIDUsage = 0xbd
-	KHIDUsage_Tfon_PhoneKeyC              KHIDUsage = 0xbe
-	KHIDUsage_Tfon_PhoneKeyD              KHIDUsage = 0xbf
-	KHIDUsage_Tfon_PhoneKeyPound          KHIDUsage = 0xbb
-	KHIDUsage_Tfon_PhoneKeyStar           KHIDUsage = 0xba
-	KHIDUsage_Tfon_PhoneMute              KHIDUsage = 0x2f
-	KHIDUsage_Tfon_PriorityRingTone       KHIDUsage = 0x94
-	KHIDUsage_Tfon_PriorityRingback       KHIDUsage = 0x96
-	KHIDUsage_Tfon_ProgrammableButton     KHIDUsage = 0x7
-	KHIDUsage_Tfon_RecallNumber           KHIDUsage = 0x52
-	KHIDUsage_Tfon_Redial                 KHIDUsage = 0x24
-	KHIDUsage_Tfon_ReorderTone            KHIDUsage = 0x98
-	KHIDUsage_Tfon_Ring                   KHIDUsage = 0x2e
-	KHIDUsage_Tfon_RingEnable             KHIDUsage = 0x2d
-	KHIDUsage_Tfon_ScreenCalls            KHIDUsage = 0x71
-	KHIDUsage_Tfon_SpeakerPhone           KHIDUsage = 0x2b
-	KHIDUsage_Tfon_SpeedDial              KHIDUsage = 0x50
-	KHIDUsage_Tfon_StoreNumber            KHIDUsage = 0x51
-	KHIDUsage_Tfon_TelephonyKeyPad        KHIDUsage = 0x6
-	KHIDUsage_Tfon_TonesOff               KHIDUsage = 0x9c
-	KHIDUsage_Tfon_Transfer               KHIDUsage = 0x25
-	KHIDUsage_Tfon_VoiceMail              KHIDUsage = 0x70
-	KHIDUsage_Undefined                   KHIDUsage = 0
-)
-
-func (e KHIDUsage) String() string {
-	switch e {
-	case KHIDUsage_Keyboard0:
-		return "KHIDUsage_Keyboard0"
-	case KHIDUsage_Keyboard1:
-		return "KHIDUsage_Keyboard1"
-	case KHIDUsage_Keyboard2:
-		return "KHIDUsage_Keyboard2"
-	case KHIDUsage_Keyboard3:
-		return "KHIDUsage_Keyboard3"
-	case KHIDUsage_Keyboard4:
-		return "KHIDUsage_Keyboard4"
-	case KHIDUsage_Keyboard5:
-		return "KHIDUsage_Keyboard5"
-	case KHIDUsage_Keyboard6:
-		return "KHIDUsage_Keyboard6"
-	case KHIDUsage_Keyboard7:
-		return "KHIDUsage_Keyboard7"
-	case KHIDUsage_Keyboard8:
-		return "KHIDUsage_Keyboard8"
-	case KHIDUsage_Keyboard9:
-		return "KHIDUsage_Keyboard9"
-	case KHIDUsage_KeyboardA:
-		return "KHIDUsage_KeyboardA"
-	case KHIDUsage_KeyboardAgain:
-		return "KHIDUsage_KeyboardAgain"
-	case KHIDUsage_KeyboardAlternateErase:
-		return "KHIDUsage_KeyboardAlternateErase"
-	case KHIDUsage_KeyboardApplication:
-		return "KHIDUsage_KeyboardApplication"
-	case KHIDUsage_KeyboardB:
-		return "KHIDUsage_KeyboardB"
-	case KHIDUsage_KeyboardBackslash:
-		return "KHIDUsage_KeyboardBackslash"
-	case KHIDUsage_KeyboardC:
-		return "KHIDUsage_KeyboardC"
-	case KHIDUsage_KeyboardCancel:
-		return "KHIDUsage_KeyboardCancel"
-	case KHIDUsage_KeyboardCapsLock:
-		return "KHIDUsage_KeyboardCapsLock"
-	case KHIDUsage_KeyboardClear:
-		return "KHIDUsage_KeyboardClear"
-	case KHIDUsage_KeyboardClearOrAgain:
-		return "KHIDUsage_KeyboardClearOrAgain"
-	case KHIDUsage_KeyboardCloseBracket:
-		return "KHIDUsage_KeyboardCloseBracket"
-	case KHIDUsage_KeyboardComma:
-		return "KHIDUsage_KeyboardComma"
-	case KHIDUsage_KeyboardCopy:
-		return "KHIDUsage_KeyboardCopy"
-	case KHIDUsage_KeyboardCrSelOrProps:
-		return "KHIDUsage_KeyboardCrSelOrProps"
-	case KHIDUsage_KeyboardCut:
-		return "KHIDUsage_KeyboardCut"
-	case KHIDUsage_KeyboardD:
-		return "KHIDUsage_KeyboardD"
-	case KHIDUsage_KeyboardDeleteForward:
-		return "KHIDUsage_KeyboardDeleteForward"
-	case KHIDUsage_KeyboardDeleteOrBackspace:
-		return "KHIDUsage_KeyboardDeleteOrBackspace"
-	case KHIDUsage_KeyboardDownArrow:
-		return "KHIDUsage_KeyboardDownArrow"
-	case KHIDUsage_KeyboardE:
-		return "KHIDUsage_KeyboardE"
-	case KHIDUsage_KeyboardEnd:
-		return "KHIDUsage_KeyboardEnd"
-	case KHIDUsage_KeyboardEqualSign:
-		return "KHIDUsage_KeyboardEqualSign"
-	case KHIDUsage_KeyboardErrorRollOver:
-		return "KHIDUsage_KeyboardErrorRollOver"
-	case KHIDUsage_KeyboardErrorUndefined:
-		return "KHIDUsage_KeyboardErrorUndefined"
-	case KHIDUsage_KeyboardEscape:
-		return "KHIDUsage_KeyboardEscape"
-	case KHIDUsage_KeyboardExSel:
-		return "KHIDUsage_KeyboardExSel"
-	case KHIDUsage_KeyboardExecute:
-		return "KHIDUsage_KeyboardExecute"
-	case KHIDUsage_KeyboardF:
-		return "KHIDUsage_KeyboardF"
-	case KHIDUsage_KeyboardF1:
-		return "KHIDUsage_KeyboardF1"
-	case KHIDUsage_KeyboardF10:
-		return "KHIDUsage_KeyboardF10"
-	case KHIDUsage_KeyboardF11:
-		return "KHIDUsage_KeyboardF11"
-	case KHIDUsage_KeyboardF12:
-		return "KHIDUsage_KeyboardF12"
-	case KHIDUsage_KeyboardF13:
-		return "KHIDUsage_KeyboardF13"
-	case KHIDUsage_KeyboardF14:
-		return "KHIDUsage_KeyboardF14"
-	case KHIDUsage_KeyboardF15:
-		return "KHIDUsage_KeyboardF15"
-	case KHIDUsage_KeyboardF16:
-		return "KHIDUsage_KeyboardF16"
-	case KHIDUsage_KeyboardF17:
-		return "KHIDUsage_KeyboardF17"
-	case KHIDUsage_KeyboardF18:
-		return "KHIDUsage_KeyboardF18"
-	case KHIDUsage_KeyboardF19:
-		return "KHIDUsage_KeyboardF19"
-	case KHIDUsage_KeyboardF2:
-		return "KHIDUsage_KeyboardF2"
-	case KHIDUsage_KeyboardF20:
-		return "KHIDUsage_KeyboardF20"
-	case KHIDUsage_KeyboardF21:
-		return "KHIDUsage_KeyboardF21"
-	case KHIDUsage_KeyboardF22:
-		return "KHIDUsage_KeyboardF22"
-	case KHIDUsage_KeyboardF23:
-		return "KHIDUsage_KeyboardF23"
-	case KHIDUsage_KeyboardF24:
-		return "KHIDUsage_KeyboardF24"
-	case KHIDUsage_KeyboardF3:
-		return "KHIDUsage_KeyboardF3"
-	case KHIDUsage_KeyboardF4:
-		return "KHIDUsage_KeyboardF4"
-	case KHIDUsage_KeyboardF5:
-		return "KHIDUsage_KeyboardF5"
-	case KHIDUsage_KeyboardF6:
-		return "KHIDUsage_KeyboardF6"
-	case KHIDUsage_KeyboardF7:
-		return "KHIDUsage_KeyboardF7"
-	case KHIDUsage_KeyboardF8:
-		return "KHIDUsage_KeyboardF8"
-	case KHIDUsage_KeyboardF9:
-		return "KHIDUsage_KeyboardF9"
-	case KHIDUsage_KeyboardFind:
-		return "KHIDUsage_KeyboardFind"
-	case KHIDUsage_KeyboardG:
-		return "KHIDUsage_KeyboardG"
-	case KHIDUsage_KeyboardGraveAccentAndTilde:
-		return "KHIDUsage_KeyboardGraveAccentAndTilde"
-	case KHIDUsage_KeyboardH:
-		return "KHIDUsage_KeyboardH"
-	case KHIDUsage_KeyboardHelp:
-		return "KHIDUsage_KeyboardHelp"
-	case KHIDUsage_KeyboardHome:
-		return "KHIDUsage_KeyboardHome"
-	case KHIDUsage_KeyboardHyphen:
-		return "KHIDUsage_KeyboardHyphen"
-	case KHIDUsage_KeyboardI:
-		return "KHIDUsage_KeyboardI"
-	case KHIDUsage_KeyboardInsert:
-		return "KHIDUsage_KeyboardInsert"
-	case KHIDUsage_KeyboardInternational1:
-		return "KHIDUsage_KeyboardInternational1"
-	case KHIDUsage_KeyboardInternational2:
-		return "KHIDUsage_KeyboardInternational2"
-	case KHIDUsage_KeyboardInternational3:
-		return "KHIDUsage_KeyboardInternational3"
-	case KHIDUsage_KeyboardInternational4:
-		return "KHIDUsage_KeyboardInternational4"
-	case KHIDUsage_KeyboardInternational5:
-		return "KHIDUsage_KeyboardInternational5"
-	case KHIDUsage_KeyboardInternational6:
-		return "KHIDUsage_KeyboardInternational6"
-	case KHIDUsage_KeyboardInternational7:
-		return "KHIDUsage_KeyboardInternational7"
-	case KHIDUsage_KeyboardInternational8:
-		return "KHIDUsage_KeyboardInternational8"
-	case KHIDUsage_KeyboardInternational9:
-		return "KHIDUsage_KeyboardInternational9"
-	case KHIDUsage_KeyboardJ:
-		return "KHIDUsage_KeyboardJ"
-	case KHIDUsage_KeyboardK:
-		return "KHIDUsage_KeyboardK"
-	case KHIDUsage_KeyboardL:
-		return "KHIDUsage_KeyboardL"
-	case KHIDUsage_KeyboardLANG1:
-		return "KHIDUsage_KeyboardLANG1"
-	case KHIDUsage_KeyboardLANG2:
-		return "KHIDUsage_KeyboardLANG2"
-	case KHIDUsage_KeyboardLANG3:
-		return "KHIDUsage_KeyboardLANG3"
-	case KHIDUsage_KeyboardLANG4:
-		return "KHIDUsage_KeyboardLANG4"
-	case KHIDUsage_KeyboardLANG5:
-		return "KHIDUsage_KeyboardLANG5"
-	case KHIDUsage_KeyboardLANG6:
-		return "KHIDUsage_KeyboardLANG6"
-	case KHIDUsage_KeyboardLANG7:
-		return "KHIDUsage_KeyboardLANG7"
-	case KHIDUsage_KeyboardLANG8:
-		return "KHIDUsage_KeyboardLANG8"
-	case KHIDUsage_KeyboardLANG9:
-		return "KHIDUsage_KeyboardLANG9"
-	case KHIDUsage_KeyboardLeftAlt:
-		return "KHIDUsage_KeyboardLeftAlt"
-	case KHIDUsage_KeyboardLeftArrow:
-		return "KHIDUsage_KeyboardLeftArrow"
-	case KHIDUsage_KeyboardLeftControl:
-		return "KHIDUsage_KeyboardLeftControl"
-	case KHIDUsage_KeyboardLeftGUI:
-		return "KHIDUsage_KeyboardLeftGUI"
-	case KHIDUsage_KeyboardLeftShift:
-		return "KHIDUsage_KeyboardLeftShift"
-	case KHIDUsage_KeyboardLockingCapsLock:
-		return "KHIDUsage_KeyboardLockingCapsLock"
-	case KHIDUsage_KeyboardLockingNumLock:
-		return "KHIDUsage_KeyboardLockingNumLock"
-	case KHIDUsage_KeyboardLockingScrollLock:
-		return "KHIDUsage_KeyboardLockingScrollLock"
-	case KHIDUsage_KeyboardM:
-		return "KHIDUsage_KeyboardM"
-	case KHIDUsage_KeyboardMenu:
-		return "KHIDUsage_KeyboardMenu"
-	case KHIDUsage_KeyboardMute:
-		return "KHIDUsage_KeyboardMute"
-	case KHIDUsage_KeyboardN:
-		return "KHIDUsage_KeyboardN"
-	case KHIDUsage_KeyboardNonUSBackslash:
-		return "KHIDUsage_KeyboardNonUSBackslash"
-	case KHIDUsage_KeyboardNonUSPound:
-		return "KHIDUsage_KeyboardNonUSPound"
-	case KHIDUsage_KeyboardO:
-		return "KHIDUsage_KeyboardO"
-	case KHIDUsage_KeyboardOpenBracket:
-		return "KHIDUsage_KeyboardOpenBracket"
-	case KHIDUsage_KeyboardOper:
-		return "KHIDUsage_KeyboardOper"
-	case KHIDUsage_KeyboardOut:
-		return "KHIDUsage_KeyboardOut"
-	case KHIDUsage_KeyboardP:
-		return "KHIDUsage_KeyboardP"
-	case KHIDUsage_KeyboardPOSTFail:
-		return "KHIDUsage_KeyboardPOSTFail"
-	case KHIDUsage_KeyboardPageDown:
-		return "KHIDUsage_KeyboardPageDown"
-	case KHIDUsage_KeyboardPageUp:
-		return "KHIDUsage_KeyboardPageUp"
-	case KHIDUsage_KeyboardPaste:
-		return "KHIDUsage_KeyboardPaste"
-	case KHIDUsage_KeyboardPause:
-		return "KHIDUsage_KeyboardPause"
-	case KHIDUsage_KeyboardPeriod:
-		return "KHIDUsage_KeyboardPeriod"
-	case KHIDUsage_KeyboardPower:
-		return "KHIDUsage_KeyboardPower"
-	case KHIDUsage_KeyboardPrintScreen:
-		return "KHIDUsage_KeyboardPrintScreen"
-	case KHIDUsage_KeyboardPrior:
-		return "KHIDUsage_KeyboardPrior"
-	case KHIDUsage_KeyboardQ:
-		return "KHIDUsage_KeyboardQ"
-	case KHIDUsage_KeyboardQuote:
-		return "KHIDUsage_KeyboardQuote"
-	case KHIDUsage_KeyboardR:
-		return "KHIDUsage_KeyboardR"
-	case KHIDUsage_KeyboardReturn:
-		return "KHIDUsage_KeyboardReturn"
-	case KHIDUsage_KeyboardReturnOrEnter:
-		return "KHIDUsage_KeyboardReturnOrEnter"
-	case KHIDUsage_KeyboardRightAlt:
-		return "KHIDUsage_KeyboardRightAlt"
-	case KHIDUsage_KeyboardRightArrow:
-		return "KHIDUsage_KeyboardRightArrow"
-	case KHIDUsage_KeyboardRightControl:
-		return "KHIDUsage_KeyboardRightControl"
-	case KHIDUsage_KeyboardRightGUI:
-		return "KHIDUsage_KeyboardRightGUI"
-	case KHIDUsage_KeyboardRightShift:
-		return "KHIDUsage_KeyboardRightShift"
-	case KHIDUsage_KeyboardS:
-		return "KHIDUsage_KeyboardS"
-	case KHIDUsage_KeyboardScrollLock:
-		return "KHIDUsage_KeyboardScrollLock"
-	case KHIDUsage_KeyboardSelect:
-		return "KHIDUsage_KeyboardSelect"
-	case KHIDUsage_KeyboardSemicolon:
-		return "KHIDUsage_KeyboardSemicolon"
-	case KHIDUsage_KeyboardSeparator:
-		return "KHIDUsage_KeyboardSeparator"
-	case KHIDUsage_KeyboardSlash:
-		return "KHIDUsage_KeyboardSlash"
-	case KHIDUsage_KeyboardSpacebar:
-		return "KHIDUsage_KeyboardSpacebar"
-	case KHIDUsage_KeyboardStop:
-		return "KHIDUsage_KeyboardStop"
-	case KHIDUsage_KeyboardSysReqOrAttention:
-		return "KHIDUsage_KeyboardSysReqOrAttention"
-	case KHIDUsage_KeyboardT:
-		return "KHIDUsage_KeyboardT"
-	case KHIDUsage_KeyboardTab:
-		return "KHIDUsage_KeyboardTab"
-	case KHIDUsage_KeyboardU:
-		return "KHIDUsage_KeyboardU"
-	case KHIDUsage_KeyboardUndo:
-		return "KHIDUsage_KeyboardUndo"
-	case KHIDUsage_KeyboardUpArrow:
-		return "KHIDUsage_KeyboardUpArrow"
-	case KHIDUsage_KeyboardV:
-		return "KHIDUsage_KeyboardV"
-	case KHIDUsage_KeyboardVolumeDown:
-		return "KHIDUsage_KeyboardVolumeDown"
-	case KHIDUsage_KeyboardVolumeUp:
-		return "KHIDUsage_KeyboardVolumeUp"
-	case KHIDUsage_KeyboardW:
-		return "KHIDUsage_KeyboardW"
-	case KHIDUsage_KeyboardX:
-		return "KHIDUsage_KeyboardX"
-	case KHIDUsage_KeyboardY:
-		return "KHIDUsage_KeyboardY"
-	case KHIDUsage_KeyboardZ:
-		return "KHIDUsage_KeyboardZ"
-	case KHIDUsage_Keyboard_Reserved:
-		return "KHIDUsage_Keyboard_Reserved"
-	case KHIDUsage_Keypad0:
-		return "KHIDUsage_Keypad0"
-	case KHIDUsage_Keypad1:
-		return "KHIDUsage_Keypad1"
-	case KHIDUsage_Keypad2:
-		return "KHIDUsage_Keypad2"
-	case KHIDUsage_Keypad3:
-		return "KHIDUsage_Keypad3"
-	case KHIDUsage_Keypad4:
-		return "KHIDUsage_Keypad4"
-	case KHIDUsage_Keypad5:
-		return "KHIDUsage_Keypad5"
-	case KHIDUsage_Keypad6:
-		return "KHIDUsage_Keypad6"
-	case KHIDUsage_Keypad7:
-		return "KHIDUsage_Keypad7"
-	case KHIDUsage_Keypad8:
-		return "KHIDUsage_Keypad8"
-	case KHIDUsage_Keypad9:
-		return "KHIDUsage_Keypad9"
-	case KHIDUsage_KeypadAsterisk:
-		return "KHIDUsage_KeypadAsterisk"
-	case KHIDUsage_KeypadComma:
-		return "KHIDUsage_KeypadComma"
-	case KHIDUsage_KeypadEnter:
-		return "KHIDUsage_KeypadEnter"
-	case KHIDUsage_KeypadEqualSign:
-		return "KHIDUsage_KeypadEqualSign"
-	case KHIDUsage_KeypadEqualSignAS400:
-		return "KHIDUsage_KeypadEqualSignAS400"
-	case KHIDUsage_KeypadHyphen:
-		return "KHIDUsage_KeypadHyphen"
-	case KHIDUsage_KeypadNumLock:
-		return "KHIDUsage_KeypadNumLock"
-	case KHIDUsage_KeypadPeriod:
-		return "KHIDUsage_KeypadPeriod"
-	case KHIDUsage_KeypadPlus:
-		return "KHIDUsage_KeypadPlus"
-	case KHIDUsage_KeypadSlash:
-		return "KHIDUsage_KeypadSlash"
-	case KHIDUsage_Tfon_PhoneKey0:
-		return "KHIDUsage_Tfon_PhoneKey0"
-	case KHIDUsage_Tfon_PhoneKey1:
-		return "KHIDUsage_Tfon_PhoneKey1"
-	case KHIDUsage_Tfon_PhoneKey2:
-		return "KHIDUsage_Tfon_PhoneKey2"
-	case KHIDUsage_Tfon_PhoneKey3:
-		return "KHIDUsage_Tfon_PhoneKey3"
-	case KHIDUsage_Tfon_PhoneKey4:
-		return "KHIDUsage_Tfon_PhoneKey4"
-	case KHIDUsage_Tfon_PhoneKey5:
-		return "KHIDUsage_Tfon_PhoneKey5"
-	case KHIDUsage_Tfon_PhoneKey6:
-		return "KHIDUsage_Tfon_PhoneKey6"
-	case KHIDUsage_Tfon_PhoneKey7:
-		return "KHIDUsage_Tfon_PhoneKey7"
-	case KHIDUsage_Tfon_PhoneKey8:
-		return "KHIDUsage_Tfon_PhoneKey8"
-	case KHIDUsage_Tfon_PhoneKey9:
-		return "KHIDUsage_Tfon_PhoneKey9"
-	case KHIDUsage_Tfon_PhoneKeyA:
-		return "KHIDUsage_Tfon_PhoneKeyA"
-	case KHIDUsage_Tfon_PhoneKeyB:
-		return "KHIDUsage_Tfon_PhoneKeyB"
-	case KHIDUsage_Tfon_PhoneKeyC:
-		return "KHIDUsage_Tfon_PhoneKeyC"
-	case KHIDUsage_Tfon_PhoneKeyD:
-		return "KHIDUsage_Tfon_PhoneKeyD"
-	case KHIDUsage_Tfon_PhoneKeyPound:
-		return "KHIDUsage_Tfon_PhoneKeyPound"
-	case KHIDUsage_Tfon_PhoneKeyStar:
-		return "KHIDUsage_Tfon_PhoneKeyStar"
-	case KHIDUsage_Undefined:
-		return "KHIDUsage_Undefined"
-	default:
-		return fmt.Sprintf("KHIDUsage(%d)", e)
-	}
-}
-
-type KHardLinkFileType uint
+type KHardLinkFileType uint32
 
 const (
 	KHFSPlusCreator        KHardLinkFileType = 0x6866732b
@@ -12034,29 +12738,23 @@ func (e KHardwareCursorInfo) String() string {
 	}
 }
 
-type KHub uint
+type KHubLocalPowerStatus uint
 
 const (
-	KHubLocalPowerStatus            KHub = 1
-	KHubLocalPowerStatusChange      KHub = 1
-	KHubOverCurrentIndicator        KHub = 2
-	KHubOverCurrentIndicatorChange  KHub = 2
-	KHubPortSetPowerOff             KHub = 0
-	KHubPortSetPowerOn              KHub = 1
-	KHubSupportsGangPower           KHub = 0
-	KHubSupportsIndividualPortPower KHub = 1
+	KHubLocalPowerStatusValue      KHubLocalPowerStatus = 1
+	KHubLocalPowerStatusChange     KHubLocalPowerStatus = 1
+	KHubOverCurrentIndicator       KHubLocalPowerStatus = 2
+	KHubOverCurrentIndicatorChange KHubLocalPowerStatus = 2
 )
 
-func (e KHub) String() string {
+func (e KHubLocalPowerStatus) String() string {
 	switch e {
-	case KHubLocalPowerStatus:
-		return "KHubLocalPowerStatus"
+	case KHubLocalPowerStatusValue:
+		return "KHubLocalPowerStatusValue"
 	case KHubOverCurrentIndicator:
 		return "KHubOverCurrentIndicator"
-	case KHubPortSetPowerOff:
-		return "KHubPortSetPowerOff"
 	default:
-		return fmt.Sprintf("KHub(%d)", e)
+		return fmt.Sprintf("KHubLocalPowerStatus(%d)", e)
 	}
 }
 
@@ -12078,7 +12776,7 @@ func (e KHubPortIndicator) String() string {
 	}
 }
 
-type KHubSuperSpeedProtocol uint
+type KHubSuperSpeedProtocol uint32
 
 const (
 	KHIDKeyboardInterfaceProtocol              KHubSuperSpeedProtocol = 1
@@ -12091,7 +12789,7 @@ const (
 	KMSCProtocolUSBAttachedSCSI                KHubSuperSpeedProtocol = 0x62
 	KUSB2ComplianceDeviceProtocol              KHubSuperSpeedProtocol = 0x1
 	KUSBBluetoothProgrammingInterfaceProtocol  KHubSuperSpeedProtocol = 0x1
-	KUSBInterfaceAssociationDescriptorProtocol KHubSuperSpeedProtocol = 1
+	KUSBInterfaceAssociationDescriptorProtocol KHubSuperSpeedProtocol = 0x1
 	KUSBVendorSpecificProtocol                 KHubSuperSpeedProtocol = 0xff
 )
 
@@ -12116,104 +12814,94 @@ func (e KHubSuperSpeedProtocol) String() string {
 	}
 }
 
-type KI uint
+type KHubSupportsGangPower uint
 
 const (
-	KIO128RGBAFloatPixelFormat KI = 0x42333246
-	KIO16BE4444PixelFormat     KI = 0x42343434
-	KIO16BE555PixelFormat      KI = 0x10
-	KIO16BE565PixelFormat      KI = 0x42353635
-	KIO16LE4444PixelFormat     KI = 0x4c343434
-	KIO16LE5551PixelFormat     KI = 0x35353531
-	KIO16LE555PixelFormat      KI = 0x4c353535
-	KIO16LE565PixelFormat      KI = 0x4c353635
-	KIO1IndexedGrayPixelFormat KI = 0x21
-	KIO1MonochromePixelFormat  KI = 0x1
-	KIO24BGRPixelFormat        KI = 0x32344247
-	KIO24RGBPixelFormat        KI = 0x18
-	KIO2IndexedGrayPixelFormat KI = 0x22
-	KIO2IndexedPixelFormat     KI = 0x2
-	KIO2vuyPixelFormat         KI = 0x32767579
-	KIO32ABGRPixelFormat       KI = 0x41424752
-	KIO32ARGBPixelFormat       KI = 0x20
-	KIO32BGRAPixelFormat       KI = 0x42475241
-	KIO32RGBAPixelFormat       KI = 0x52474241
-	KIO4IndexedGrayPixelFormat KI = 0x24
-	KIO4IndexedPixelFormat     KI = 0x4
-	KIO64BGRAPixelFormat       KI = 0x42313649
-	KIO64RGBAFloatPixelFormat  KI = 0x42313646
-	KIO8IndexedGrayPixelFormat KI = 0x28
-	KIO8IndexedPixelFormat     KI = 0x8
-	KIOMemoryLedgerTagDefault  KI = (1)
-	KIOMemoryLedgerTagGraphics KI = (4)
-	KIOMemoryLedgerTagMedia    KI = (3)
-	KIOMemoryLedgerTagNeural   KI = (5)
-	KIOUYVY422PixelFormat      KI = 0x55595659
-	KIOYUV211PixelFormat       KI = 0x59323131
-	KIOYUV411PixelFormat       KI = 0x59343131
-	KIOYUVSPixelFormat         KI = 0x79757673
-	KIOYUVUPixelFormat         KI = 0x79757675
-	KIOYVU9PixelFormat         KI = 0x59565539
-	KIOYVYU422PixelFormat      KI = 0x59565955
-	KIOmemoryLedgerTagNetwork  KI = (2)
+	KHubPortSetPowerOff             KHubSupportsGangPower = 0
+	KHubPortSetPowerOn              KHubSupportsGangPower = 1
+	KHubSupportsGangPowerValue      KHubSupportsGangPower = 0
+	KHubSupportsIndividualPortPower KHubSupportsGangPower = 1
 )
 
-func (e KI) String() string {
+func (e KHubSupportsGangPower) String() string {
+	switch e {
+	case KHubPortSetPowerOff:
+		return "KHubPortSetPowerOff"
+	case KHubPortSetPowerOn:
+		return "KHubPortSetPowerOn"
+	default:
+		return fmt.Sprintf("KHubSupportsGangPower(%d)", e)
+	}
+}
+
+type KIO16LE4444PixelFormat uint
+
+const (
+	KIO128RGBAFloatPixelFormat  KIO16LE4444PixelFormat = 0x42333246
+	KIO16BE4444PixelFormat      KIO16LE4444PixelFormat = 0x42343434
+	KIO16LE4444PixelFormatValue KIO16LE4444PixelFormat = 0x4c343434
+	KIO64BGRAPixelFormat        KIO16LE4444PixelFormat = 0x42313649
+	KIO64RGBAFloatPixelFormat   KIO16LE4444PixelFormat = 0x42313646
+)
+
+func (e KIO16LE4444PixelFormat) String() string {
 	switch e {
 	case KIO128RGBAFloatPixelFormat:
 		return "KIO128RGBAFloatPixelFormat"
 	case KIO16BE4444PixelFormat:
 		return "KIO16BE4444PixelFormat"
-	case KIO16BE555PixelFormat:
-		return "KIO16BE555PixelFormat"
-	case KIO16BE565PixelFormat:
-		return "KIO16BE565PixelFormat"
-	case KIO16LE4444PixelFormat:
-		return "KIO16LE4444PixelFormat"
-	case KIO16LE5551PixelFormat:
-		return "KIO16LE5551PixelFormat"
-	case KIO16LE555PixelFormat:
-		return "KIO16LE555PixelFormat"
-	case KIO16LE565PixelFormat:
-		return "KIO16LE565PixelFormat"
-	case KIO1IndexedGrayPixelFormat:
-		return "KIO1IndexedGrayPixelFormat"
-	case KIO1MonochromePixelFormat:
-		return "KIO1MonochromePixelFormat"
-	case KIO24BGRPixelFormat:
-		return "KIO24BGRPixelFormat"
-	case KIO24RGBPixelFormat:
-		return "KIO24RGBPixelFormat"
-	case KIO2IndexedGrayPixelFormat:
-		return "KIO2IndexedGrayPixelFormat"
-	case KIO2IndexedPixelFormat:
-		return "KIO2IndexedPixelFormat"
-	case KIO2vuyPixelFormat:
-		return "KIO2vuyPixelFormat"
-	case KIO32ABGRPixelFormat:
-		return "KIO32ABGRPixelFormat"
-	case KIO32ARGBPixelFormat:
-		return "KIO32ARGBPixelFormat"
-	case KIO32BGRAPixelFormat:
-		return "KIO32BGRAPixelFormat"
-	case KIO32RGBAPixelFormat:
-		return "KIO32RGBAPixelFormat"
-	case KIO4IndexedGrayPixelFormat:
-		return "KIO4IndexedGrayPixelFormat"
-	case KIO4IndexedPixelFormat:
-		return "KIO4IndexedPixelFormat"
+	case KIO16LE4444PixelFormatValue:
+		return "KIO16LE4444PixelFormatValue"
 	case KIO64BGRAPixelFormat:
 		return "KIO64BGRAPixelFormat"
 	case KIO64RGBAFloatPixelFormat:
 		return "KIO64RGBAFloatPixelFormat"
-	case KIO8IndexedGrayPixelFormat:
-		return "KIO8IndexedGrayPixelFormat"
-	case KIO8IndexedPixelFormat:
-		return "KIO8IndexedPixelFormat"
-	case KIOMemoryLedgerTagMedia:
-		return "KIOMemoryLedgerTagMedia"
-	case KIOMemoryLedgerTagNeural:
-		return "KIOMemoryLedgerTagNeural"
+	default:
+		return fmt.Sprintf("KIO16LE4444PixelFormat(%d)", e)
+	}
+}
+
+type KIO16LE555PixelFormat uint
+
+const (
+	KIO16BE565PixelFormat      KIO16LE555PixelFormat = 0x42353635
+	KIO16LE5551PixelFormat     KIO16LE555PixelFormat = 0x35353531
+	KIO16LE555PixelFormatValue KIO16LE555PixelFormat = 0x4c353535
+	KIO16LE565PixelFormat      KIO16LE555PixelFormat = 0x4c353635
+	KIO24BGRPixelFormat        KIO16LE555PixelFormat = 0x32344247
+	KIO2vuyPixelFormat         KIO16LE555PixelFormat = 0x32767579
+	KIO32ABGRPixelFormat       KIO16LE555PixelFormat = 0x41424752
+	KIO32BGRAPixelFormat       KIO16LE555PixelFormat = 0x42475241
+	KIO32RGBAPixelFormat       KIO16LE555PixelFormat = 0x52474241
+	KIOUYVY422PixelFormat      KIO16LE555PixelFormat = 0x55595659
+	KIOYUV211PixelFormat       KIO16LE555PixelFormat = 0x59323131
+	KIOYUV411PixelFormat       KIO16LE555PixelFormat = 0x59343131
+	KIOYUVSPixelFormat         KIO16LE555PixelFormat = 0x79757673
+	KIOYUVUPixelFormat         KIO16LE555PixelFormat = 0x79757675
+	KIOYVU9PixelFormat         KIO16LE555PixelFormat = 0x59565539
+	KIOYVYU422PixelFormat      KIO16LE555PixelFormat = 0x59565955
+)
+
+func (e KIO16LE555PixelFormat) String() string {
+	switch e {
+	case KIO16BE565PixelFormat:
+		return "KIO16BE565PixelFormat"
+	case KIO16LE5551PixelFormat:
+		return "KIO16LE5551PixelFormat"
+	case KIO16LE555PixelFormatValue:
+		return "KIO16LE555PixelFormatValue"
+	case KIO16LE565PixelFormat:
+		return "KIO16LE565PixelFormat"
+	case KIO24BGRPixelFormat:
+		return "KIO24BGRPixelFormat"
+	case KIO2vuyPixelFormat:
+		return "KIO2vuyPixelFormat"
+	case KIO32ABGRPixelFormat:
+		return "KIO32ABGRPixelFormat"
+	case KIO32BGRAPixelFormat:
+		return "KIO32BGRAPixelFormat"
+	case KIO32RGBAPixelFormat:
+		return "KIO32RGBAPixelFormat"
 	case KIOUYVY422PixelFormat:
 		return "KIOUYVY422PixelFormat"
 	case KIOYUV211PixelFormat:
@@ -12229,292 +12917,52 @@ func (e KI) String() string {
 	case KIOYVYU422PixelFormat:
 		return "KIOYVYU422PixelFormat"
 	default:
-		return fmt.Sprintf("KI(%d)", e)
+		return fmt.Sprintf("KIO16LE555PixelFormat(%d)", e)
 	}
 }
 
-type KINQUIRY uint
+type KIO1MonochromePixelFormat uint
 
 const (
-	// KINQUIRY_Byte3_AERC_Bit: # Discussion
-	KINQUIRY_Byte3_AERC_Bit KINQUIRY = 7
-	// KINQUIRY_Byte3_AERC_Mask: # Discussion
-	KINQUIRY_Byte3_AERC_Mask KINQUIRY = 128
-	// KINQUIRY_Byte3_HISUP_Bit: # Discussion
-	KINQUIRY_Byte3_HISUP_Bit KINQUIRY = 4
-	// KINQUIRY_Byte3_HISUP_Mask: # Discussion
-	KINQUIRY_Byte3_HISUP_Mask KINQUIRY = 16
-	// KINQUIRY_Byte3_NORMACA_Bit: # Discussion
-	KINQUIRY_Byte3_NORMACA_Bit KINQUIRY = 5
-	// KINQUIRY_Byte3_NORMACA_Mask: # Discussion
-	KINQUIRY_Byte3_NORMACA_Mask KINQUIRY = 32
-	// KINQUIRY_MaximumDataSize: # Discussion
-	KINQUIRY_MaximumDataSize KINQUIRY = 255
-	// KINQUIRY_PRODUCT_IDENTIFICATION_Length: # Discussion
-	KINQUIRY_PRODUCT_IDENTIFICATION_Length KINQUIRY = 16
-	// KINQUIRY_PRODUCT_REVISION_LEVEL_Length: # Discussion
-	KINQUIRY_PRODUCT_REVISION_LEVEL_Length KINQUIRY = 4
-	// KINQUIRY_Page00_PageCode: # Discussion
-	KINQUIRY_Page00_PageCode KINQUIRY = 0
-	// KINQUIRY_Page80_PageCode: # Discussion
-	KINQUIRY_Page80_PageCode KINQUIRY = 0x80
-	// KINQUIRY_Page83_PageCode: # Discussion
-	KINQUIRY_Page83_PageCode KINQUIRY = 0x83
-	// KINQUIRY_Page89_PageCode: # Discussion
-	KINQUIRY_Page89_PageCode KINQUIRY = 0x89
-	KINQUIRY_PageB0_PageCode KINQUIRY = 0xb0
-	KINQUIRY_PageB1_PageCode KINQUIRY = 0xb1
-	KINQUIRY_PageB2_PageCode KINQUIRY = 0xb2
-	KINQUIRY_PageC0_PageCode KINQUIRY = 0xc0
-	KINQUIRY_PageC1_PageCode KINQUIRY = 0xc1
-	// KINQUIRY_RESPONSE_DATA_FORMAT_Mask: # Discussion
-	KINQUIRY_RESPONSE_DATA_FORMAT_Mask KINQUIRY = 0xf
-	// KINQUIRY_StandardDataHeaderSize: # Discussion
-	KINQUIRY_StandardDataHeaderSize KINQUIRY = 5
-	// KINQUIRY_VENDOR_IDENTIFICATION_Length: # Discussion
-	KINQUIRY_VENDOR_IDENTIFICATION_Length KINQUIRY = 8
+	KIO16BE555PixelFormat          KIO1MonochromePixelFormat = 0x10
+	KIO1IndexedGrayPixelFormat     KIO1MonochromePixelFormat = 0x21
+	KIO1MonochromePixelFormatValue KIO1MonochromePixelFormat = 0x1
+	KIO24RGBPixelFormat            KIO1MonochromePixelFormat = 0x18
+	KIO2IndexedGrayPixelFormat     KIO1MonochromePixelFormat = 0x22
+	KIO2IndexedPixelFormat         KIO1MonochromePixelFormat = 0x2
+	KIO32ARGBPixelFormat           KIO1MonochromePixelFormat = 0x20
+	KIO4IndexedGrayPixelFormat     KIO1MonochromePixelFormat = 0x24
+	KIO4IndexedPixelFormat         KIO1MonochromePixelFormat = 0x4
+	KIO8IndexedGrayPixelFormat     KIO1MonochromePixelFormat = 0x28
+	KIO8IndexedPixelFormat         KIO1MonochromePixelFormat = 0x8
 )
 
-func (e KINQUIRY) String() string {
+func (e KIO1MonochromePixelFormat) String() string {
 	switch e {
-	case KINQUIRY_Byte3_AERC_Bit:
-		return "KINQUIRY_Byte3_AERC_Bit"
-	case KINQUIRY_Byte3_AERC_Mask:
-		return "KINQUIRY_Byte3_AERC_Mask"
-	case KINQUIRY_Byte3_HISUP_Bit:
-		return "KINQUIRY_Byte3_HISUP_Bit"
-	case KINQUIRY_Byte3_HISUP_Mask:
-		return "KINQUIRY_Byte3_HISUP_Mask"
-	case KINQUIRY_Byte3_NORMACA_Bit:
-		return "KINQUIRY_Byte3_NORMACA_Bit"
-	case KINQUIRY_Byte3_NORMACA_Mask:
-		return "KINQUIRY_Byte3_NORMACA_Mask"
-	case KINQUIRY_MaximumDataSize:
-		return "KINQUIRY_MaximumDataSize"
-	case KINQUIRY_Page00_PageCode:
-		return "KINQUIRY_Page00_PageCode"
-	case KINQUIRY_Page83_PageCode:
-		return "KINQUIRY_Page83_PageCode"
-	case KINQUIRY_Page89_PageCode:
-		return "KINQUIRY_Page89_PageCode"
-	case KINQUIRY_PageB0_PageCode:
-		return "KINQUIRY_PageB0_PageCode"
-	case KINQUIRY_PageB1_PageCode:
-		return "KINQUIRY_PageB1_PageCode"
-	case KINQUIRY_PageB2_PageCode:
-		return "KINQUIRY_PageB2_PageCode"
-	case KINQUIRY_PageC0_PageCode:
-		return "KINQUIRY_PageC0_PageCode"
-	case KINQUIRY_PageC1_PageCode:
-		return "KINQUIRY_PageC1_PageCode"
-	case KINQUIRY_RESPONSE_DATA_FORMAT_Mask:
-		return "KINQUIRY_RESPONSE_DATA_FORMAT_Mask"
-	case KINQUIRY_VENDOR_IDENTIFICATION_Length:
-		return "KINQUIRY_VENDOR_IDENTIFICATION_Length"
+	case KIO16BE555PixelFormat:
+		return "KIO16BE555PixelFormat"
+	case KIO1IndexedGrayPixelFormat:
+		return "KIO1IndexedGrayPixelFormat"
+	case KIO1MonochromePixelFormatValue:
+		return "KIO1MonochromePixelFormatValue"
+	case KIO24RGBPixelFormat:
+		return "KIO24RGBPixelFormat"
+	case KIO2IndexedGrayPixelFormat:
+		return "KIO2IndexedGrayPixelFormat"
+	case KIO2IndexedPixelFormat:
+		return "KIO2IndexedPixelFormat"
+	case KIO32ARGBPixelFormat:
+		return "KIO32ARGBPixelFormat"
+	case KIO4IndexedGrayPixelFormat:
+		return "KIO4IndexedGrayPixelFormat"
+	case KIO4IndexedPixelFormat:
+		return "KIO4IndexedPixelFormat"
+	case KIO8IndexedGrayPixelFormat:
+		return "KIO8IndexedGrayPixelFormat"
+	case KIO8IndexedPixelFormat:
+		return "KIO8IndexedPixelFormat"
 	default:
-		return fmt.Sprintf("KINQUIRY(%d)", e)
-	}
-}
-
-type KIO uint
-
-const (
-	KIOAnalogSetupExpected            KIO = 0x2
-	KIOAsyncCalloutCount              KIO = 3
-	KIOAsyncCalloutFuncIndex          KIO = 1
-	KIOAsyncCalloutRefconIndex        KIO = 2
-	KIOAsyncReservedCount             KIO = 1
-	KIOAsyncReservedIndex             KIO = 0
-	KIOBufferDescriptorMemoryFlags    KIO = 0xb00807
-	KIOBuiltinPanelPowerAttribute     KIO = 0x706e6c70
-	KIOCLUTPixels                     KIO = 0
-	KIOCSyncDisable                   KIO = 0x4
-	KIOCapturedAttribute              KIO = 0x63617064
-	KIOClamshellStateAttribute        KIO = 0x636c616d
-	KIOColorimetryAdobeRGB            KIO = 0x8
-	KIOColorimetryBT2020              KIO = 0x100
-	KIOColorimetryBT2100              KIO = 0x200
-	KIOColorimetryBT601               KIO = 0x40
-	KIOColorimetryBT709               KIO = 0x80
-	KIOColorimetryDCIP3               KIO = 0x4
-	KIOColorimetryNativeRGB           KIO = 0x1
-	KIOColorimetryNotSupported        KIO = 0
-	KIOColorimetryWGRGB               KIO = 0x20
-	KIOColorimetrysRGB                KIO = 0x2
-	KIOColorimetryxvYCC               KIO = 0x10
-	KIOCopybackCache                  KIO = 3
-	KIOCopybackInnerCache             KIO = 5
-	KIOCursorControlAttribute         KIO = 0x63727363
-	KIODSCBlockPredEnable             KIO = 0x20
-	KIODefaultCache                   KIO = 0
-	KIODeferCLUTSetAttribute          KIO = 0x76636c74
-	KIODetailedTimingValid            KIO = 0x80000000
-	KIODigitalSignal                  KIO = 0x1
-	KIODisplayAssertionConnectType    KIO = 61074
-	KIODriverPowerAttribute           KIO = 0x64706f77
-	KIOFBBlueGammaScaleAttribute      KIO = 0x67736c62
-	KIOFBDisplayPortTrainingAttribute KIO = 0x64707461
-	KIOFBDisplayStateValue            KIO = 0x64737474
-	KIOFBGreenGammaScaleAttribute     KIO = 0x67736c67
-	KIOFBHDRMetaDataAttribute         KIO = 0x6864726d
-	KIOFBLimitHDCPAttribute           KIO = 0x68646370
-	KIOFBLimitHDCPStateAttribute      KIO = 0x73484443
-	KIOFBRedGammaScaleAttribute       KIO = 0x67736c72
-	KIOFBServerConnectType            KIO = 0
-	KIOFBSharedConnectType            KIO = 1
-	KIOFBStop                         KIO = 0x73746f70
-	KIOFBVariableRefreshRate          KIO = 0x7672723f
-	KIOFixedCLUTPixels                KIO = 1
-	KIOGDiagnoseConnectType           KIO = 38744
-	KIOGDiagnoseGTraceType            KIO = 11452
-	KIOHSyncDisable                   KIO = 0x1
-	KIOHardwareCursorAttribute        KIO = 0x63727372
-	KIOInhibitCache                   KIO = 1
-	KIOInterestCalloutCount           KIO = 4
-	KIOInterestCalloutFuncIndex       KIO = 1
-	KIOInterestCalloutRefconIndex     KIO = 2
-	KIOInterestCalloutServiceIndex    KIO = 3
-	KIOInterlacedCEATiming            KIO = 0x4
-	KIOMatchingCalloutCount           KIO = 3
-	KIOMatchingCalloutFuncIndex       KIO = 1
-	KIOMatchingCalloutRefconIndex     KIO = 2
-	KIOMemoryHostPhysicallyContiguous KIO = 0x80
-	KIOMemoryKernelUserShared         KIO = 0x10000
-	KIOMemoryPageable                 KIO = 0x20
-	KIOMemoryPhysicallyContiguous     KIO = 0x10
-	KIOMemoryPurgeableValue           KIO = 0x40
-	KIOMemorySharingTypeMask          KIO = 0xf0000
-	KIOMemoryUnshared                 KIO = 0
-	KIOMirrorAttribute                KIO = 0x6d697272
-	KIOMirrorDefaultAttribute         KIO = 0x6d726466
-	KIOMonoDirectPixels               KIO = 3
-	KIOMonoInverseDirectPixels        KIO = 4
-	KIOMultiAlignedTiming             KIO = 0x40
-	KIONTSCTiming                     KIO = 0x8
-	KIONoSeparateSyncControl          KIO = 0x40
-	KIOPALTiming                      KIO = 0x10
-	KIOPostedCombinedReordered        KIO = 9
-	KIOPostedReordered                KIO = 8
-	KIOPostedWrite                    KIO = 6
-	KIOPowerAttribute                 KIO = 0x706f7772
-	KIOPowerStateAttribute            KIO = 0x70777273
-	KIORGBDirectPixels                KIO = 2
-	KIORGBSignedDirectPixels          KIO = 5
-	KIORGBSignedFloatingPointPixels   KIO = 6
-	KIORealTimeCache                  KIO = 7
-	KIOScalingInfoValid               KIO = 0x40000000
-	KIOSyncOnBlue                     KIO = 0x8
-	KIOSyncOnGreen                    KIO = 0x10
-	KIOSyncOnRed                      KIO = 0x20
-	KIOSystemPowerAttribute           KIO = 0x73707772
-	KIOTriStateSyncs                  KIO = 0x80
-	KIOVRAMSaveAttribute              KIO = 0x76727376
-	KIOVSyncDisable                   KIO = 0x2
-	KIOWindowServerActiveAttribute    KIO = 0x77737276
-	KIOWriteCombineCache              KIO = 4
-	KIOWriteThruCache                 KIO = 2
-)
-
-func (e KIO) String() string {
-	switch e {
-	case KIOAnalogSetupExpected:
-		return "KIOAnalogSetupExpected"
-	case KIOAsyncCalloutCount:
-		return "KIOAsyncCalloutCount"
-	case KIOAsyncCalloutFuncIndex:
-		return "KIOAsyncCalloutFuncIndex"
-	case KIOAsyncReservedIndex:
-		return "KIOAsyncReservedIndex"
-	case KIOBufferDescriptorMemoryFlags:
-		return "KIOBufferDescriptorMemoryFlags"
-	case KIOBuiltinPanelPowerAttribute:
-		return "KIOBuiltinPanelPowerAttribute"
-	case KIOCSyncDisable:
-		return "KIOCSyncDisable"
-	case KIOCapturedAttribute:
-		return "KIOCapturedAttribute"
-	case KIOClamshellStateAttribute:
-		return "KIOClamshellStateAttribute"
-	case KIOColorimetryAdobeRGB:
-		return "KIOColorimetryAdobeRGB"
-	case KIOColorimetryBT2020:
-		return "KIOColorimetryBT2020"
-	case KIOColorimetryBT2100:
-		return "KIOColorimetryBT2100"
-	case KIOColorimetryBT601:
-		return "KIOColorimetryBT601"
-	case KIOColorimetryBT709:
-		return "KIOColorimetryBT709"
-	case KIOColorimetryWGRGB:
-		return "KIOColorimetryWGRGB"
-	case KIOColorimetryxvYCC:
-		return "KIOColorimetryxvYCC"
-	case KIOCopybackInnerCache:
-		return "KIOCopybackInnerCache"
-	case KIOCursorControlAttribute:
-		return "KIOCursorControlAttribute"
-	case KIODeferCLUTSetAttribute:
-		return "KIODeferCLUTSetAttribute"
-	case KIODetailedTimingValid:
-		return "KIODetailedTimingValid"
-	case KIODisplayAssertionConnectType:
-		return "KIODisplayAssertionConnectType"
-	case KIODriverPowerAttribute:
-		return "KIODriverPowerAttribute"
-	case KIOFBBlueGammaScaleAttribute:
-		return "KIOFBBlueGammaScaleAttribute"
-	case KIOFBDisplayPortTrainingAttribute:
-		return "KIOFBDisplayPortTrainingAttribute"
-	case KIOFBDisplayStateValue:
-		return "KIOFBDisplayStateValue"
-	case KIOFBGreenGammaScaleAttribute:
-		return "KIOFBGreenGammaScaleAttribute"
-	case KIOFBHDRMetaDataAttribute:
-		return "KIOFBHDRMetaDataAttribute"
-	case KIOFBLimitHDCPAttribute:
-		return "KIOFBLimitHDCPAttribute"
-	case KIOFBLimitHDCPStateAttribute:
-		return "KIOFBLimitHDCPStateAttribute"
-	case KIOFBRedGammaScaleAttribute:
-		return "KIOFBRedGammaScaleAttribute"
-	case KIOFBStop:
-		return "KIOFBStop"
-	case KIOFBVariableRefreshRate:
-		return "KIOFBVariableRefreshRate"
-	case KIOGDiagnoseConnectType:
-		return "KIOGDiagnoseConnectType"
-	case KIOGDiagnoseGTraceType:
-		return "KIOGDiagnoseGTraceType"
-	case KIOHardwareCursorAttribute:
-		return "KIOHardwareCursorAttribute"
-	case KIOMemoryKernelUserShared:
-		return "KIOMemoryKernelUserShared"
-	case KIOMemorySharingTypeMask:
-		return "KIOMemorySharingTypeMask"
-	case KIOMirrorAttribute:
-		return "KIOMirrorAttribute"
-	case KIOMirrorDefaultAttribute:
-		return "KIOMirrorDefaultAttribute"
-	case KIOPostedCombinedReordered:
-		return "KIOPostedCombinedReordered"
-	case KIOPostedWrite:
-		return "KIOPostedWrite"
-	case KIOPowerAttribute:
-		return "KIOPowerAttribute"
-	case KIOPowerStateAttribute:
-		return "KIOPowerStateAttribute"
-	case KIORealTimeCache:
-		return "KIORealTimeCache"
-	case KIOScalingInfoValid:
-		return "KIOScalingInfoValid"
-	case KIOSystemPowerAttribute:
-		return "KIOSystemPowerAttribute"
-	case KIOVRAMSaveAttribute:
-		return "KIOVRAMSaveAttribute"
-	case KIOWindowServerActiveAttribute:
-		return "KIOWindowServerActiveAttribute"
-	default:
-		return fmt.Sprintf("KIO(%d)", e)
+		return fmt.Sprintf("KIO1MonochromePixelFormat(%d)", e)
 	}
 }
 
@@ -12671,51 +13119,6 @@ func (e KIOAG) String() string {
 	}
 }
 
-type KIOAGP uint
-
-const (
-	KIOAGPAccessOutOfRange   KIOAGP = 0x4
-	KIOAGPDisableAGPWrites   KIOAGP = 0x4
-	KIOAGPDisableFeature6    KIOAGP = 0x40
-	KIOAGPDisableFeature7    KIOAGP = 0x80
-	KIOAGPDisableFeature8    KIOAGP = 0x100
-	KIOAGPDisableFeature9    KIOAGP = 0x200
-	KIOAGPDisablePCIReads    KIOAGP = 0x8
-	KIOAGPDisablePCIWrites   KIOAGP = 0x10
-	KIOAGPDisablePageSpans   KIOAGP = 0x2
-	KIOAGPDisableUnaligned   KIOAGP = 0x20
-	KIOAGPGartIdleInvalidate KIOAGP = 0x1
-	KIOAGPIdle               KIOAGP = 0x1
-	KIOAGPInvalidGARTEntry   KIOAGP = 0x2
-)
-
-func (e KIOAGP) String() string {
-	switch e {
-	case KIOAGPAccessOutOfRange:
-		return "KIOAGPAccessOutOfRange"
-	case KIOAGPDisableFeature6:
-		return "KIOAGPDisableFeature6"
-	case KIOAGPDisableFeature7:
-		return "KIOAGPDisableFeature7"
-	case KIOAGPDisableFeature8:
-		return "KIOAGPDisableFeature8"
-	case KIOAGPDisableFeature9:
-		return "KIOAGPDisableFeature9"
-	case KIOAGPDisablePCIReads:
-		return "KIOAGPDisablePCIReads"
-	case KIOAGPDisablePCIWrites:
-		return "KIOAGPDisablePCIWrites"
-	case KIOAGPDisablePageSpans:
-		return "KIOAGPDisablePageSpans"
-	case KIOAGPDisableUnaligned:
-		return "KIOAGPDisableUnaligned"
-	case KIOAGPGartIdleInvalidate:
-		return "KIOAGPGartIdleInvalidate"
-	default:
-		return fmt.Sprintf("KIOAGP(%d)", e)
-	}
-}
-
 type KIOAGPDefault uint
 
 const (
@@ -12746,6 +13149,69 @@ func (e KIOAGPGart) String() string {
 	}
 }
 
+type KIOAGPGartIdleInvalidate uint
+
+const (
+	KIOAGPDisableAGPWrites        KIOAGPGartIdleInvalidate = 0x4
+	KIOAGPDisableFeature6         KIOAGPGartIdleInvalidate = 0x40
+	KIOAGPDisableFeature7         KIOAGPGartIdleInvalidate = 0x80
+	KIOAGPDisableFeature8         KIOAGPGartIdleInvalidate = 0x100
+	KIOAGPDisableFeature9         KIOAGPGartIdleInvalidate = 0x200
+	KIOAGPDisablePCIReads         KIOAGPGartIdleInvalidate = 0x8
+	KIOAGPDisablePCIWrites        KIOAGPGartIdleInvalidate = 0x10
+	KIOAGPDisablePageSpans        KIOAGPGartIdleInvalidate = 0x2
+	KIOAGPDisableUnaligned        KIOAGPGartIdleInvalidate = 0x20
+	KIOAGPGartIdleInvalidateValue KIOAGPGartIdleInvalidate = 0x1
+)
+
+func (e KIOAGPGartIdleInvalidate) String() string {
+	switch e {
+	case KIOAGPDisableAGPWrites:
+		return "KIOAGPDisableAGPWrites"
+	case KIOAGPDisableFeature6:
+		return "KIOAGPDisableFeature6"
+	case KIOAGPDisableFeature7:
+		return "KIOAGPDisableFeature7"
+	case KIOAGPDisableFeature8:
+		return "KIOAGPDisableFeature8"
+	case KIOAGPDisableFeature9:
+		return "KIOAGPDisableFeature9"
+	case KIOAGPDisablePCIReads:
+		return "KIOAGPDisablePCIReads"
+	case KIOAGPDisablePCIWrites:
+		return "KIOAGPDisablePCIWrites"
+	case KIOAGPDisablePageSpans:
+		return "KIOAGPDisablePageSpans"
+	case KIOAGPDisableUnaligned:
+		return "KIOAGPDisableUnaligned"
+	case KIOAGPGartIdleInvalidateValue:
+		return "KIOAGPGartIdleInvalidateValue"
+	default:
+		return fmt.Sprintf("KIOAGPGartIdleInvalidate(%d)", e)
+	}
+}
+
+type KIOAGPIdle uint
+
+const (
+	KIOAGPAccessOutOfRange KIOAGPIdle = 0x4
+	KIOAGPIdleValue        KIOAGPIdle = 0x1
+	KIOAGPInvalidGARTEntry KIOAGPIdle = 0x2
+)
+
+func (e KIOAGPIdle) String() string {
+	switch e {
+	case KIOAGPAccessOutOfRange:
+		return "KIOAGPAccessOutOfRange"
+	case KIOAGPIdleValue:
+		return "KIOAGPIdleValue"
+	case KIOAGPInvalidGARTEntry:
+		return "KIOAGPInvalidGARTEntry"
+	default:
+		return fmt.Sprintf("KIOAGPIdle(%d)", e)
+	}
+}
+
 type KIOAGPState uint
 
 const (
@@ -12764,47 +13230,73 @@ func (e KIOAGPState) String() string {
 	}
 }
 
-type KIOATA uint
+type KIOATAFeaturePowerManagement uint
 
 const (
-	KIOATADefaultPerformance             KIOATA = 0x80
-	KIOATAFeature48BitLBA                KIOATA = 0x10
-	KIOATAFeatureAdvancedPowerManagement KIOATA = 0x4
-	KIOATAFeatureCompactFlash            KIOATA = 0x8
-	KIOATAFeaturePowerManagement         KIOATA = 0x1
-	KIOATAFeatureSMART                   KIOATA = 0x20
-	KIOATAFeatureWriteCache              KIOATA = 0x2
-	KIOATAMaxBlocksPerXfer               KIOATA = 256
-	KIOATAMaxPerformance                 KIOATA = 0xfe
-	KIOATAMaxPowerSavings                KIOATA = 0x1
-	KIOATAMaximumBlockCount16Bit         KIOATA = 0x10000
-	KIOATAMaximumBlockCount8Bit          KIOATA = 256
+	KIOATAFeature48BitLBA                KIOATAFeaturePowerManagement = 0x10
+	KIOATAFeatureAdvancedPowerManagement KIOATAFeaturePowerManagement = 0x4
+	KIOATAFeatureCompactFlash            KIOATAFeaturePowerManagement = 0x8
+	KIOATAFeaturePowerManagementValue    KIOATAFeaturePowerManagement = 0x1
+	KIOATAFeatureSMART                   KIOATAFeaturePowerManagement = 0x20
+	KIOATAFeatureWriteCache              KIOATAFeaturePowerManagement = 0x2
 )
 
-func (e KIOATA) String() string {
+func (e KIOATAFeaturePowerManagement) String() string {
 	switch e {
-	case KIOATADefaultPerformance:
-		return "KIOATADefaultPerformance"
 	case KIOATAFeature48BitLBA:
 		return "KIOATAFeature48BitLBA"
 	case KIOATAFeatureAdvancedPowerManagement:
 		return "KIOATAFeatureAdvancedPowerManagement"
 	case KIOATAFeatureCompactFlash:
 		return "KIOATAFeatureCompactFlash"
-	case KIOATAFeaturePowerManagement:
-		return "KIOATAFeaturePowerManagement"
+	case KIOATAFeaturePowerManagementValue:
+		return "KIOATAFeaturePowerManagementValue"
 	case KIOATAFeatureSMART:
 		return "KIOATAFeatureSMART"
 	case KIOATAFeatureWriteCache:
 		return "KIOATAFeatureWriteCache"
+	default:
+		return fmt.Sprintf("KIOATAFeaturePowerManagement(%d)", e)
+	}
+}
+
+type KIOATAMaxPerformance uint
+
+const (
+	KIOATADefaultPerformance  KIOATAMaxPerformance = 0x80
+	KIOATAMaxPerformanceValue KIOATAMaxPerformance = 0xfe
+	KIOATAMaxPowerSavings     KIOATAMaxPerformance = 0x1
+)
+
+func (e KIOATAMaxPerformance) String() string {
+	switch e {
+	case KIOATADefaultPerformance:
+		return "KIOATADefaultPerformance"
+	case KIOATAMaxPerformanceValue:
+		return "KIOATAMaxPerformanceValue"
+	case KIOATAMaxPowerSavings:
+		return "KIOATAMaxPowerSavings"
+	default:
+		return fmt.Sprintf("KIOATAMaxPerformance(%d)", e)
+	}
+}
+
+type KIOATAMaximumBlockCount8Bit uint
+
+const (
+	KIOATAMaxBlocksPerXfer           KIOATAMaximumBlockCount8Bit = 256
+	KIOATAMaximumBlockCount16Bit     KIOATAMaximumBlockCount8Bit = 0x10000
+	KIOATAMaximumBlockCount8BitValue KIOATAMaximumBlockCount8Bit = 256
+)
+
+func (e KIOATAMaximumBlockCount8Bit) String() string {
+	switch e {
 	case KIOATAMaxBlocksPerXfer:
 		return "KIOATAMaxBlocksPerXfer"
-	case KIOATAMaxPerformance:
-		return "KIOATAMaxPerformance"
 	case KIOATAMaximumBlockCount16Bit:
 		return "KIOATAMaximumBlockCount16Bit"
 	default:
-		return fmt.Sprintf("KIOATA(%d)", e)
+		return fmt.Sprintf("KIOATAMaximumBlockCount8Bit(%d)", e)
 	}
 }
 
@@ -12823,44 +13315,6 @@ func (e KIOATASector) String() string {
 		return "KIOATASectorCount8Bit"
 	default:
 		return fmt.Sprintf("KIOATASector(%d)", e)
-	}
-}
-
-type KIOAccel uint
-
-const (
-	KIOAccelNumClientTypes                  KIOAccel = 0
-	KIOAccelNumSurfaceMethods               KIOAccel = 0
-	KIOAccelSurface2ClientType              KIOAccel = 0x20
-	KIOAccelSurfaceClientType               KIOAccel = 0
-	KIOAccelSurfaceControl                  KIOAccel = 0
-	KIOAccelSurfaceFlush                    KIOAccel = 0
-	KIOAccelSurfaceGetState                 KIOAccel = 0
-	KIOAccelSurfaceQueryLock                KIOAccel = 0
-	KIOAccelSurfaceRead                     KIOAccel = 0
-	KIOAccelSurfaceReadLock                 KIOAccel = 0
-	KIOAccelSurfaceReadLockOptions          KIOAccel = 0
-	KIOAccelSurfaceReadUnlock               KIOAccel = 0
-	KIOAccelSurfaceReadUnlockOptions        KIOAccel = 0
-	KIOAccelSurfaceSetIDMode                KIOAccel = 0
-	KIOAccelSurfaceSetScale                 KIOAccel = 0
-	KIOAccelSurfaceSetShape                 KIOAccel = 0
-	KIOAccelSurfaceSetShapeBacking          KIOAccel = 0
-	KIOAccelSurfaceSetShapeBackingAndLength KIOAccel = 0
-	KIOAccelSurfaceWriteLock                KIOAccel = 0
-	KIOAccelSurfaceWriteLockOptions         KIOAccel = 0
-	KIOAccelSurfaceWriteUnlock              KIOAccel = 0
-	KIOAccelSurfaceWriteUnlockOptions       KIOAccel = 0
-)
-
-func (e KIOAccel) String() string {
-	switch e {
-	case KIOAccelNumClientTypes:
-		return "KIOAccelNumClientTypes"
-	case KIOAccelSurface2ClientType:
-		return "KIOAccelSurface2ClientType"
-	default:
-		return fmt.Sprintf("KIOAccel(%d)", e)
 	}
 }
 
@@ -13094,111 +13548,59 @@ func (e KIOAnalogSignalLevel) String() string {
 	}
 }
 
-type KIOAudio uint
+type KIOAsyncReservedIndex uint32
 
 const (
-	KIOAudioBuiltInSystemClockDomain                          KIOAudio = 0x737973
-	KIOAudioInputPortSubTypeCD                                KIOAudio = 'c'<<24 | 'd'<<16 | ' '<<8 | ' ' // 'cd  '
-	KIOAudioInputPortSubTypeExternalMicrophone                KIOAudio = 'e'<<24 | 'm'<<16 | 'i'<<8 | 'c' // 'emic'
-	KIOAudioInputPortSubTypeInternalMicrophone                KIOAudio = 'i'<<24 | 'm'<<16 | 'i'<<8 | 'c' // 'imic'
-	KIOAudioInputPortSubTypeLine                              KIOAudio = 'l'<<24 | 'i'<<16 | 'n'<<8 | 'e' // 'line'
-	KIOAudioInputPortSubTypeSPDIF                             KIOAudio = 's'<<24 | 'p'<<16 | 'd'<<8 | 'f' // 'spdf'
-	KIOAudioLevelControlSubTypeLFEVolume                      KIOAudio = 's'<<24 | 'u'<<16 | 'b'<<8 | 'v' // 'subv'
-	KIOAudioLevelControlSubTypePRAMVolume                     KIOAudio = 'p'<<24 | 'r'<<16 | 'a'<<8 | 'm' // 'pram'
-	KIOAudioLevelControlSubTypeVolume                         KIOAudio = 'v'<<24 | 'l'<<16 | 'm'<<8 | 'e' // 'vlme'
-	KIOAudioNewClockDomain                                    KIOAudio = 0xffffffff
-	KIOAudioOutputPortSubTypeExternalSpeaker                  KIOAudio = 'e'<<24 | 's'<<16 | 'p'<<8 | 'k' // 'espk'
-	KIOAudioOutputPortSubTypeHeadphones                       KIOAudio = 'h'<<24 | 'd'<<16 | 'p'<<8 | 'n' // 'hdpn'
-	KIOAudioOutputPortSubTypeInternalSpeaker                  KIOAudio = 'i'<<24 | 's'<<16 | 'p'<<8 | 'k' // 'ispk'
-	KIOAudioOutputPortSubTypeLine                             KIOAudio = 'l'<<24 | 'i'<<16 | 'n'<<8 | 'e' // 'line'
-	KIOAudioOutputPortSubTypeSPDIF                            KIOAudio = 's'<<24 | 'p'<<16 | 'd'<<8 | 'f' // 'spdf'
-	KIOAudioSelectorControlSubTypeChannelHighPassFilter       KIOAudio = 'h'<<24 | 'i'<<16 | 'p'<<8 | 'f' // 'hipf'
-	KIOAudioSelectorControlSubTypeChannelLevelInstrumentLevel KIOAudio = 'i'<<24 | 's'<<16 | 't'<<8 | 'l' // 'istl'
-	KIOAudioSelectorControlSubTypeChannelLevelMicLevel        KIOAudio = 'm'<<24 | 'i'<<16 | 'c'<<8 | 'l' // 'micl'
-	KIOAudioSelectorControlSubTypeChannelLevelMinus10dBV      KIOAudio = '1'<<24 | '0'<<16 | 'd'<<8 | 'b' // '10db'
-	KIOAudioSelectorControlSubTypeChannelLevelMinus20dBV      KIOAudio = '2'<<24 | '0'<<16 | 'd'<<8 | 'b' // '20db'
-	KIOAudioSelectorControlSubTypeChannelLevelPlus4dBu        KIOAudio = '4'<<24 | 'd'<<16 | 'b'<<8 | 'u' // '4dbu'
-	KIOAudioSelectorControlSubTypeChannelNominalLineLevel     KIOAudio = 'n'<<24 | 'l'<<16 | 'e'<<8 | 'v' // 'nlev'
-	KIOAudioSelectorControlSubTypeClockSource                 KIOAudio = 'c'<<24 | 'l'<<16 | 'c'<<8 | 'k' // 'clck'
-	KIOAudioSelectorControlSubTypeDestination                 KIOAudio = 'd'<<24 | 'e'<<16 | 's'<<8 | 't' // 'dest'
-	KIOAudioSelectorControlSubTypeInput                       KIOAudio = 'i'<<24 | 'n'<<16 | 'p'<<8 | 't' // 'inpt'
-	KIOAudioSelectorControlSubTypeOutput                      KIOAudio = 'o'<<24 | 'u'<<16 | 't'<<8 | 'p' // 'outp'
-	KIOAudioToggleControlSubTypeLFEMute                       KIOAudio = 's'<<24 | 'u'<<16 | 'b'<<8 | 'm' // 'subm'
-	KIOAudioToggleControlSubTypeMute                          KIOAudio = 'm'<<24 | 'u'<<16 | 't'<<8 | 'e' // 'mute'
-	KIOAudioToggleControlSubTypePhantomPower                  KIOAudio = 'p'<<24 | 'h'<<16 | 'a'<<8 | 'n' // 'phan'
-	KIOAudioToggleControlSubTypePhaseInvert                   KIOAudio = 'p'<<24 | 'h'<<16 | 's'<<8 | 'i' // 'phsi'
-	KIOAudioToggleControlSubTypeSolo                          KIOAudio = 's'<<24 | 'o'<<16 | 'l'<<8 | 'o' // 'solo'
-	KIOAudioToggleControlSubTypeiSubAttach                    KIOAudio = 'a'<<24 | 't'<<16 | 'c'<<8 | 'h' // 'atch'
+	KIOAsyncCalloutCount           KIOAsyncReservedIndex = 3
+	KIOAsyncCalloutFuncIndex       KIOAsyncReservedIndex = 1
+	KIOAsyncCalloutRefconIndex     KIOAsyncReservedIndex = 2
+	KIOAsyncReservedCount          KIOAsyncReservedIndex = 1
+	KIOAsyncReservedIndexValue     KIOAsyncReservedIndex = 0
+	KIOInterestCalloutCount        KIOAsyncReservedIndex = 4
+	KIOInterestCalloutFuncIndex    KIOAsyncReservedIndex = 1
+	KIOInterestCalloutRefconIndex  KIOAsyncReservedIndex = 2
+	KIOInterestCalloutServiceIndex KIOAsyncReservedIndex = 3
+	KIOMatchingCalloutCount        KIOAsyncReservedIndex = 3
+	KIOMatchingCalloutFuncIndex    KIOAsyncReservedIndex = 1
+	KIOMatchingCalloutRefconIndex  KIOAsyncReservedIndex = 2
 )
 
-func (e KIOAudio) String() string {
+func (e KIOAsyncReservedIndex) String() string {
 	switch e {
-	case KIOAudioBuiltInSystemClockDomain:
-		return "KIOAudioBuiltInSystemClockDomain"
-	case KIOAudioInputPortSubTypeCD:
-		return "KIOAudioInputPortSubTypeCD"
-	case KIOAudioInputPortSubTypeExternalMicrophone:
-		return "KIOAudioInputPortSubTypeExternalMicrophone"
-	case KIOAudioInputPortSubTypeInternalMicrophone:
-		return "KIOAudioInputPortSubTypeInternalMicrophone"
-	case KIOAudioInputPortSubTypeLine:
-		return "KIOAudioInputPortSubTypeLine"
-	case KIOAudioInputPortSubTypeSPDIF:
-		return "KIOAudioInputPortSubTypeSPDIF"
-	case KIOAudioLevelControlSubTypeLFEVolume:
-		return "KIOAudioLevelControlSubTypeLFEVolume"
-	case KIOAudioLevelControlSubTypePRAMVolume:
-		return "KIOAudioLevelControlSubTypePRAMVolume"
-	case KIOAudioLevelControlSubTypeVolume:
-		return "KIOAudioLevelControlSubTypeVolume"
-	case KIOAudioNewClockDomain:
-		return "KIOAudioNewClockDomain"
-	case KIOAudioOutputPortSubTypeExternalSpeaker:
-		return "KIOAudioOutputPortSubTypeExternalSpeaker"
-	case KIOAudioOutputPortSubTypeHeadphones:
-		return "KIOAudioOutputPortSubTypeHeadphones"
-	case KIOAudioOutputPortSubTypeInternalSpeaker:
-		return "KIOAudioOutputPortSubTypeInternalSpeaker"
-	case KIOAudioSelectorControlSubTypeChannelHighPassFilter:
-		return "KIOAudioSelectorControlSubTypeChannelHighPassFilter"
-	case KIOAudioSelectorControlSubTypeChannelLevelInstrumentLevel:
-		return "KIOAudioSelectorControlSubTypeChannelLevelInstrumentLevel"
-	case KIOAudioSelectorControlSubTypeChannelLevelMicLevel:
-		return "KIOAudioSelectorControlSubTypeChannelLevelMicLevel"
-	case KIOAudioSelectorControlSubTypeChannelLevelMinus10dBV:
-		return "KIOAudioSelectorControlSubTypeChannelLevelMinus10dBV"
-	case KIOAudioSelectorControlSubTypeChannelLevelMinus20dBV:
-		return "KIOAudioSelectorControlSubTypeChannelLevelMinus20dBV"
-	case KIOAudioSelectorControlSubTypeChannelLevelPlus4dBu:
-		return "KIOAudioSelectorControlSubTypeChannelLevelPlus4dBu"
-	case KIOAudioSelectorControlSubTypeChannelNominalLineLevel:
-		return "KIOAudioSelectorControlSubTypeChannelNominalLineLevel"
-	case KIOAudioSelectorControlSubTypeClockSource:
-		return "KIOAudioSelectorControlSubTypeClockSource"
-	case KIOAudioSelectorControlSubTypeDestination:
-		return "KIOAudioSelectorControlSubTypeDestination"
-	case KIOAudioSelectorControlSubTypeInput:
-		return "KIOAudioSelectorControlSubTypeInput"
-	case KIOAudioSelectorControlSubTypeOutput:
-		return "KIOAudioSelectorControlSubTypeOutput"
-	case KIOAudioToggleControlSubTypeLFEMute:
-		return "KIOAudioToggleControlSubTypeLFEMute"
-	case KIOAudioToggleControlSubTypeMute:
-		return "KIOAudioToggleControlSubTypeMute"
-	case KIOAudioToggleControlSubTypePhantomPower:
-		return "KIOAudioToggleControlSubTypePhantomPower"
-	case KIOAudioToggleControlSubTypePhaseInvert:
-		return "KIOAudioToggleControlSubTypePhaseInvert"
-	case KIOAudioToggleControlSubTypeSolo:
-		return "KIOAudioToggleControlSubTypeSolo"
-	case KIOAudioToggleControlSubTypeiSubAttach:
-		return "KIOAudioToggleControlSubTypeiSubAttach"
+	case KIOAsyncCalloutCount:
+		return "KIOAsyncCalloutCount"
+	case KIOAsyncCalloutFuncIndex:
+		return "KIOAsyncCalloutFuncIndex"
+	case KIOAsyncCalloutRefconIndex:
+		return "KIOAsyncCalloutRefconIndex"
+	case KIOAsyncReservedIndexValue:
+		return "KIOAsyncReservedIndexValue"
+	case KIOInterestCalloutCount:
+		return "KIOInterestCalloutCount"
 	default:
-		return fmt.Sprintf("KIOAudio(%d)", e)
+		return fmt.Sprintf("KIOAsyncReservedIndex(%d)", e)
 	}
 }
 
-type KIOAudioChannelLabel uint
+type KIOAudioBuiltInSystemClockDomain uint32
+
+const (
+	KIOAudioBuiltInSystemClockDomainValue KIOAudioBuiltInSystemClockDomain = 0x737973
+	KIOAudioNewClockDomain                KIOAudioBuiltInSystemClockDomain = 0xffffffff
+)
+
+func (e KIOAudioBuiltInSystemClockDomain) String() string {
+	switch e {
+	case KIOAudioBuiltInSystemClockDomainValue:
+		return "KIOAudioBuiltInSystemClockDomainValue"
+	case KIOAudioNewClockDomain:
+		return "KIOAudioNewClockDomain"
+	default:
+		return fmt.Sprintf("KIOAudioBuiltInSystemClockDomain(%d)", e)
+	}
+}
+
+type KIOAudioChannelLabel uint32
 
 const (
 	KIOAudioChannelLabel_Ambisonic_W          KIOAudioChannelLabel = 200
@@ -13215,22 +13617,22 @@ const (
 	KIOAudioChannelLabel_DialogCentricMix     KIOAudioChannelLabel = 43
 	KIOAudioChannelLabel_Discrete             KIOAudioChannelLabel = 400
 	KIOAudioChannelLabel_Discrete_0           KIOAudioChannelLabel = 65536
-	KIOAudioChannelLabel_Discrete_1           KIOAudioChannelLabel = 65536
-	KIOAudioChannelLabel_Discrete_10          KIOAudioChannelLabel = 65536
-	KIOAudioChannelLabel_Discrete_11          KIOAudioChannelLabel = 65536
-	KIOAudioChannelLabel_Discrete_12          KIOAudioChannelLabel = 65536
-	KIOAudioChannelLabel_Discrete_13          KIOAudioChannelLabel = 65536
-	KIOAudioChannelLabel_Discrete_14          KIOAudioChannelLabel = 65536
-	KIOAudioChannelLabel_Discrete_15          KIOAudioChannelLabel = 65536
-	KIOAudioChannelLabel_Discrete_2           KIOAudioChannelLabel = 65536
-	KIOAudioChannelLabel_Discrete_3           KIOAudioChannelLabel = 65536
-	KIOAudioChannelLabel_Discrete_4           KIOAudioChannelLabel = 65536
-	KIOAudioChannelLabel_Discrete_5           KIOAudioChannelLabel = 65536
-	KIOAudioChannelLabel_Discrete_6           KIOAudioChannelLabel = 65536
-	KIOAudioChannelLabel_Discrete_65535       KIOAudioChannelLabel = 65536
-	KIOAudioChannelLabel_Discrete_7           KIOAudioChannelLabel = 65536
-	KIOAudioChannelLabel_Discrete_8           KIOAudioChannelLabel = 65536
-	KIOAudioChannelLabel_Discrete_9           KIOAudioChannelLabel = 65536
+	KIOAudioChannelLabel_Discrete_1           KIOAudioChannelLabel = 65537
+	KIOAudioChannelLabel_Discrete_10          KIOAudioChannelLabel = 65546
+	KIOAudioChannelLabel_Discrete_11          KIOAudioChannelLabel = 65547
+	KIOAudioChannelLabel_Discrete_12          KIOAudioChannelLabel = 65548
+	KIOAudioChannelLabel_Discrete_13          KIOAudioChannelLabel = 65549
+	KIOAudioChannelLabel_Discrete_14          KIOAudioChannelLabel = 65550
+	KIOAudioChannelLabel_Discrete_15          KIOAudioChannelLabel = 65551
+	KIOAudioChannelLabel_Discrete_2           KIOAudioChannelLabel = 65538
+	KIOAudioChannelLabel_Discrete_3           KIOAudioChannelLabel = 65539
+	KIOAudioChannelLabel_Discrete_4           KIOAudioChannelLabel = 65540
+	KIOAudioChannelLabel_Discrete_5           KIOAudioChannelLabel = 65541
+	KIOAudioChannelLabel_Discrete_6           KIOAudioChannelLabel = 65542
+	KIOAudioChannelLabel_Discrete_65535       KIOAudioChannelLabel = 131071
+	KIOAudioChannelLabel_Discrete_7           KIOAudioChannelLabel = 65543
+	KIOAudioChannelLabel_Discrete_8           KIOAudioChannelLabel = 65544
+	KIOAudioChannelLabel_Discrete_9           KIOAudioChannelLabel = 65545
 	KIOAudioChannelLabel_ForeignLanguage      KIOAudioChannelLabel = 305
 	KIOAudioChannelLabel_Haptic               KIOAudioChannelLabel = 45
 	KIOAudioChannelLabel_HeadphonesLeft       KIOAudioChannelLabel = 301
@@ -13306,6 +13708,38 @@ func (e KIOAudioChannelLabel) String() string {
 		return "KIOAudioChannelLabel_Discrete"
 	case KIOAudioChannelLabel_Discrete_0:
 		return "KIOAudioChannelLabel_Discrete_0"
+	case KIOAudioChannelLabel_Discrete_1:
+		return "KIOAudioChannelLabel_Discrete_1"
+	case KIOAudioChannelLabel_Discrete_10:
+		return "KIOAudioChannelLabel_Discrete_10"
+	case KIOAudioChannelLabel_Discrete_11:
+		return "KIOAudioChannelLabel_Discrete_11"
+	case KIOAudioChannelLabel_Discrete_12:
+		return "KIOAudioChannelLabel_Discrete_12"
+	case KIOAudioChannelLabel_Discrete_13:
+		return "KIOAudioChannelLabel_Discrete_13"
+	case KIOAudioChannelLabel_Discrete_14:
+		return "KIOAudioChannelLabel_Discrete_14"
+	case KIOAudioChannelLabel_Discrete_15:
+		return "KIOAudioChannelLabel_Discrete_15"
+	case KIOAudioChannelLabel_Discrete_2:
+		return "KIOAudioChannelLabel_Discrete_2"
+	case KIOAudioChannelLabel_Discrete_3:
+		return "KIOAudioChannelLabel_Discrete_3"
+	case KIOAudioChannelLabel_Discrete_4:
+		return "KIOAudioChannelLabel_Discrete_4"
+	case KIOAudioChannelLabel_Discrete_5:
+		return "KIOAudioChannelLabel_Discrete_5"
+	case KIOAudioChannelLabel_Discrete_6:
+		return "KIOAudioChannelLabel_Discrete_6"
+	case KIOAudioChannelLabel_Discrete_65535:
+		return "KIOAudioChannelLabel_Discrete_65535"
+	case KIOAudioChannelLabel_Discrete_7:
+		return "KIOAudioChannelLabel_Discrete_7"
+	case KIOAudioChannelLabel_Discrete_8:
+		return "KIOAudioChannelLabel_Discrete_8"
+	case KIOAudioChannelLabel_Discrete_9:
+		return "KIOAudioChannelLabel_Discrete_9"
 	case KIOAudioChannelLabel_ForeignLanguage:
 		return "KIOAudioChannelLabel_ForeignLanguage"
 	case KIOAudioChannelLabel_Haptic:
@@ -13389,7 +13823,7 @@ func (e KIOAudioChannelLabel) String() string {
 	}
 }
 
-type KIOAudioClockSelectorType uint
+type KIOAudioClockSelectorType uint32
 
 const (
 	KIOAudioClockSelectorTypeADAT9Pin    KIOAudioClockSelectorType = 'a'<<24 | 'd'<<16 | 't'<<8 | '9' // 'adt9'
@@ -13434,7 +13868,7 @@ func (e KIOAudioClockSelectorType) String() string {
 	}
 }
 
-type KIOAudioControlChannel int
+type KIOAudioControlChannel int32
 
 const (
 	KIOAudioControlChannelIDAll                     KIOAudioControlChannel = 0
@@ -13485,7 +13919,7 @@ func (e KIOAudioControlChannel) String() string {
 	}
 }
 
-type KIOAudioControlType uint
+type KIOAudioControlType uint32
 
 const (
 	KIOAudioControlTypeJack     KIOAudioControlType = 'j'<<24 | 'a'<<16 | 'c'<<8 | 'k' // 'jack'
@@ -13509,7 +13943,7 @@ func (e KIOAudioControlType) String() string {
 	}
 }
 
-type KIOAudioControlUsage uint
+type KIOAudioControlUsage uint32
 
 const (
 	KIOAudioControlUsageCoreAudioProperty KIOAudioControlUsage = 'p'<<24 | 'r'<<16 | 'o'<<8 | 'p' // 'prop'
@@ -13557,7 +13991,7 @@ func (e KIOAudioDevice) String() string {
 	}
 }
 
-type KIOAudioDeviceCanBe uint
+type KIOAudioDeviceCanBe uint32
 
 const (
 	KIOAudioDeviceCanBeDefaultInput   KIOAudioDeviceCanBe = 1
@@ -13581,7 +14015,7 @@ func (e KIOAudioDeviceCanBe) String() string {
 	}
 }
 
-type KIOAudioDeviceTransportType uint
+type KIOAudioDeviceTransportType uint32
 
 const (
 	KIOAudioDeviceTransportTypeAVB         KIOAudioDeviceTransportType = 'e'<<24 | 'a'<<16 | 'v'<<8 | 'b' // 'eavb'
@@ -13632,7 +14066,7 @@ func (e KIOAudioDeviceTransportType) String() string {
 	}
 }
 
-type KIOAudioEngine uint
+type KIOAudioEngine uint32
 
 const (
 	KIOAudioEngineAllNotifications               KIOAudioEngine = 0
@@ -13665,7 +14099,7 @@ func (e KIOAudioEngine) String() string {
 	}
 }
 
-type KIOAudioLevelControlNegative uint
+type KIOAudioLevelControlNegative uint32
 
 const (
 	KIOAudioLevelControlNegativeInfinity KIOAudioLevelControlNegative = 0xffffffff
@@ -13680,7 +14114,117 @@ func (e KIOAudioLevelControlNegative) String() string {
 	}
 }
 
-type KIOAudioPortType uint
+type KIOAudioLevelControlSubTypeVolume uint32
+
+const (
+	KIOAudioLevelControlSubTypeLFEVolume                      KIOAudioLevelControlSubTypeVolume = 's'<<24 | 'u'<<16 | 'b'<<8 | 'v' // 'subv'
+	KIOAudioLevelControlSubTypePRAMVolume                     KIOAudioLevelControlSubTypeVolume = 'p'<<24 | 'r'<<16 | 'a'<<8 | 'm' // 'pram'
+	KIOAudioLevelControlSubTypeVolumeValue                    KIOAudioLevelControlSubTypeVolume = 'v'<<24 | 'l'<<16 | 'm'<<8 | 'e' // 'vlme'
+	KIOAudioSelectorControlSubTypeChannelHighPassFilter       KIOAudioLevelControlSubTypeVolume = 'h'<<24 | 'i'<<16 | 'p'<<8 | 'f' // 'hipf'
+	KIOAudioSelectorControlSubTypeChannelLevelInstrumentLevel KIOAudioLevelControlSubTypeVolume = 'i'<<24 | 's'<<16 | 't'<<8 | 'l' // 'istl'
+	KIOAudioSelectorControlSubTypeChannelLevelMicLevel        KIOAudioLevelControlSubTypeVolume = 'm'<<24 | 'i'<<16 | 'c'<<8 | 'l' // 'micl'
+	KIOAudioSelectorControlSubTypeChannelLevelMinus10dBV      KIOAudioLevelControlSubTypeVolume = '1'<<24 | '0'<<16 | 'd'<<8 | 'b' // '10db'
+	KIOAudioSelectorControlSubTypeChannelLevelMinus20dBV      KIOAudioLevelControlSubTypeVolume = '2'<<24 | '0'<<16 | 'd'<<8 | 'b' // '20db'
+	KIOAudioSelectorControlSubTypeChannelLevelPlus4dBu        KIOAudioLevelControlSubTypeVolume = '4'<<24 | 'd'<<16 | 'b'<<8 | 'u' // '4dbu'
+	KIOAudioSelectorControlSubTypeChannelNominalLineLevel     KIOAudioLevelControlSubTypeVolume = 'n'<<24 | 'l'<<16 | 'e'<<8 | 'v' // 'nlev'
+	KIOAudioSelectorControlSubTypeClockSource                 KIOAudioLevelControlSubTypeVolume = 'c'<<24 | 'l'<<16 | 'c'<<8 | 'k' // 'clck'
+	KIOAudioSelectorControlSubTypeDestination                 KIOAudioLevelControlSubTypeVolume = 'd'<<24 | 'e'<<16 | 's'<<8 | 't' // 'dest'
+	KIOAudioSelectorControlSubTypeInput                       KIOAudioLevelControlSubTypeVolume = 'i'<<24 | 'n'<<16 | 'p'<<8 | 't' // 'inpt'
+	KIOAudioSelectorControlSubTypeOutput                      KIOAudioLevelControlSubTypeVolume = 'o'<<24 | 'u'<<16 | 't'<<8 | 'p' // 'outp'
+	KIOAudioToggleControlSubTypeLFEMute                       KIOAudioLevelControlSubTypeVolume = 's'<<24 | 'u'<<16 | 'b'<<8 | 'm' // 'subm'
+	KIOAudioToggleControlSubTypeMute                          KIOAudioLevelControlSubTypeVolume = 'm'<<24 | 'u'<<16 | 't'<<8 | 'e' // 'mute'
+	KIOAudioToggleControlSubTypePhantomPower                  KIOAudioLevelControlSubTypeVolume = 'p'<<24 | 'h'<<16 | 'a'<<8 | 'n' // 'phan'
+	KIOAudioToggleControlSubTypePhaseInvert                   KIOAudioLevelControlSubTypeVolume = 'p'<<24 | 'h'<<16 | 's'<<8 | 'i' // 'phsi'
+	KIOAudioToggleControlSubTypeSolo                          KIOAudioLevelControlSubTypeVolume = 's'<<24 | 'o'<<16 | 'l'<<8 | 'o' // 'solo'
+	KIOAudioToggleControlSubTypeiSubAttach                    KIOAudioLevelControlSubTypeVolume = 'a'<<24 | 't'<<16 | 'c'<<8 | 'h' // 'atch'
+)
+
+func (e KIOAudioLevelControlSubTypeVolume) String() string {
+	switch e {
+	case KIOAudioLevelControlSubTypeLFEVolume:
+		return "KIOAudioLevelControlSubTypeLFEVolume"
+	case KIOAudioLevelControlSubTypePRAMVolume:
+		return "KIOAudioLevelControlSubTypePRAMVolume"
+	case KIOAudioLevelControlSubTypeVolumeValue:
+		return "KIOAudioLevelControlSubTypeVolumeValue"
+	case KIOAudioSelectorControlSubTypeChannelHighPassFilter:
+		return "KIOAudioSelectorControlSubTypeChannelHighPassFilter"
+	case KIOAudioSelectorControlSubTypeChannelLevelInstrumentLevel:
+		return "KIOAudioSelectorControlSubTypeChannelLevelInstrumentLevel"
+	case KIOAudioSelectorControlSubTypeChannelLevelMicLevel:
+		return "KIOAudioSelectorControlSubTypeChannelLevelMicLevel"
+	case KIOAudioSelectorControlSubTypeChannelLevelMinus10dBV:
+		return "KIOAudioSelectorControlSubTypeChannelLevelMinus10dBV"
+	case KIOAudioSelectorControlSubTypeChannelLevelMinus20dBV:
+		return "KIOAudioSelectorControlSubTypeChannelLevelMinus20dBV"
+	case KIOAudioSelectorControlSubTypeChannelLevelPlus4dBu:
+		return "KIOAudioSelectorControlSubTypeChannelLevelPlus4dBu"
+	case KIOAudioSelectorControlSubTypeChannelNominalLineLevel:
+		return "KIOAudioSelectorControlSubTypeChannelNominalLineLevel"
+	case KIOAudioSelectorControlSubTypeClockSource:
+		return "KIOAudioSelectorControlSubTypeClockSource"
+	case KIOAudioSelectorControlSubTypeDestination:
+		return "KIOAudioSelectorControlSubTypeDestination"
+	case KIOAudioSelectorControlSubTypeInput:
+		return "KIOAudioSelectorControlSubTypeInput"
+	case KIOAudioSelectorControlSubTypeOutput:
+		return "KIOAudioSelectorControlSubTypeOutput"
+	case KIOAudioToggleControlSubTypeLFEMute:
+		return "KIOAudioToggleControlSubTypeLFEMute"
+	case KIOAudioToggleControlSubTypeMute:
+		return "KIOAudioToggleControlSubTypeMute"
+	case KIOAudioToggleControlSubTypePhantomPower:
+		return "KIOAudioToggleControlSubTypePhantomPower"
+	case KIOAudioToggleControlSubTypePhaseInvert:
+		return "KIOAudioToggleControlSubTypePhaseInvert"
+	case KIOAudioToggleControlSubTypeSolo:
+		return "KIOAudioToggleControlSubTypeSolo"
+	case KIOAudioToggleControlSubTypeiSubAttach:
+		return "KIOAudioToggleControlSubTypeiSubAttach"
+	default:
+		return fmt.Sprintf("KIOAudioLevelControlSubTypeVolume(%d)", e)
+	}
+}
+
+type KIOAudioOutputPortSubTypeInternalSpeaker uint32
+
+const (
+	KIOAudioInputPortSubTypeCD                    KIOAudioOutputPortSubTypeInternalSpeaker = 'c'<<24 | 'd'<<16 | ' '<<8 | ' ' // 'cd  '
+	KIOAudioInputPortSubTypeExternalMicrophone    KIOAudioOutputPortSubTypeInternalSpeaker = 'e'<<24 | 'm'<<16 | 'i'<<8 | 'c' // 'emic'
+	KIOAudioInputPortSubTypeInternalMicrophone    KIOAudioOutputPortSubTypeInternalSpeaker = 'i'<<24 | 'm'<<16 | 'i'<<8 | 'c' // 'imic'
+	KIOAudioInputPortSubTypeLine                  KIOAudioOutputPortSubTypeInternalSpeaker = 'l'<<24 | 'i'<<16 | 'n'<<8 | 'e' // 'line'
+	KIOAudioInputPortSubTypeSPDIF                 KIOAudioOutputPortSubTypeInternalSpeaker = 's'<<24 | 'p'<<16 | 'd'<<8 | 'f' // 'spdf'
+	KIOAudioOutputPortSubTypeExternalSpeaker      KIOAudioOutputPortSubTypeInternalSpeaker = 'e'<<24 | 's'<<16 | 'p'<<8 | 'k' // 'espk'
+	KIOAudioOutputPortSubTypeHeadphones           KIOAudioOutputPortSubTypeInternalSpeaker = 'h'<<24 | 'd'<<16 | 'p'<<8 | 'n' // 'hdpn'
+	KIOAudioOutputPortSubTypeInternalSpeakerValue KIOAudioOutputPortSubTypeInternalSpeaker = 'i'<<24 | 's'<<16 | 'p'<<8 | 'k' // 'ispk'
+	KIOAudioOutputPortSubTypeLine                 KIOAudioOutputPortSubTypeInternalSpeaker = 'l'<<24 | 'i'<<16 | 'n'<<8 | 'e' // 'line'
+	KIOAudioOutputPortSubTypeSPDIF                KIOAudioOutputPortSubTypeInternalSpeaker = 's'<<24 | 'p'<<16 | 'd'<<8 | 'f' // 'spdf'
+)
+
+func (e KIOAudioOutputPortSubTypeInternalSpeaker) String() string {
+	switch e {
+	case KIOAudioInputPortSubTypeCD:
+		return "KIOAudioInputPortSubTypeCD"
+	case KIOAudioInputPortSubTypeExternalMicrophone:
+		return "KIOAudioInputPortSubTypeExternalMicrophone"
+	case KIOAudioInputPortSubTypeInternalMicrophone:
+		return "KIOAudioInputPortSubTypeInternalMicrophone"
+	case KIOAudioInputPortSubTypeLine:
+		return "KIOAudioInputPortSubTypeLine"
+	case KIOAudioInputPortSubTypeSPDIF:
+		return "KIOAudioInputPortSubTypeSPDIF"
+	case KIOAudioOutputPortSubTypeExternalSpeaker:
+		return "KIOAudioOutputPortSubTypeExternalSpeaker"
+	case KIOAudioOutputPortSubTypeHeadphones:
+		return "KIOAudioOutputPortSubTypeHeadphones"
+	case KIOAudioOutputPortSubTypeInternalSpeakerValue:
+		return "KIOAudioOutputPortSubTypeInternalSpeakerValue"
+	default:
+		return fmt.Sprintf("KIOAudioOutputPortSubTypeInternalSpeaker(%d)", e)
+	}
+}
+
+type KIOAudioPortType uint32
 
 const (
 	KIOAudioPortTypeInput      KIOAudioPortType = 'i'<<24 | 'n'<<16 | 'p'<<8 | 't' // 'inpt'
@@ -13707,33 +14251,29 @@ func (e KIOAudioPortType) String() string {
 	}
 }
 
-type KIOAudioSMPTETime uint
+type KIOAudioSMPTETimeType24 uint32
 
 const (
-	KIOAudioSMPTETimeRunning      KIOAudioSMPTETime = 2
-	KIOAudioSMPTETimeType2398     KIOAudioSMPTETime = 11
-	KIOAudioSMPTETimeType24       KIOAudioSMPTETime = 0
-	KIOAudioSMPTETimeType25       KIOAudioSMPTETime = 1
-	KIOAudioSMPTETimeType2997     KIOAudioSMPTETime = 4
-	KIOAudioSMPTETimeType2997Drop KIOAudioSMPTETime = 5
-	KIOAudioSMPTETimeType30       KIOAudioSMPTETime = 3
-	KIOAudioSMPTETimeType30Drop   KIOAudioSMPTETime = 2
-	KIOAudioSMPTETimeType50       KIOAudioSMPTETime = 10
-	KIOAudioSMPTETimeType5994     KIOAudioSMPTETime = 7
-	KIOAudioSMPTETimeType5994Drop KIOAudioSMPTETime = 9
-	KIOAudioSMPTETimeType60       KIOAudioSMPTETime = 6
-	KIOAudioSMPTETimeType60Drop   KIOAudioSMPTETime = 8
-	KIOAudioSMPTETimeValid        KIOAudioSMPTETime = 1
+	KIOAudioSMPTETimeType2398     KIOAudioSMPTETimeType24 = 11
+	KIOAudioSMPTETimeType24Value  KIOAudioSMPTETimeType24 = 0
+	KIOAudioSMPTETimeType25       KIOAudioSMPTETimeType24 = 1
+	KIOAudioSMPTETimeType2997     KIOAudioSMPTETimeType24 = 4
+	KIOAudioSMPTETimeType2997Drop KIOAudioSMPTETimeType24 = 5
+	KIOAudioSMPTETimeType30       KIOAudioSMPTETimeType24 = 3
+	KIOAudioSMPTETimeType30Drop   KIOAudioSMPTETimeType24 = 2
+	KIOAudioSMPTETimeType50       KIOAudioSMPTETimeType24 = 10
+	KIOAudioSMPTETimeType5994     KIOAudioSMPTETimeType24 = 7
+	KIOAudioSMPTETimeType5994Drop KIOAudioSMPTETimeType24 = 9
+	KIOAudioSMPTETimeType60       KIOAudioSMPTETimeType24 = 6
+	KIOAudioSMPTETimeType60Drop   KIOAudioSMPTETimeType24 = 8
 )
 
-func (e KIOAudioSMPTETime) String() string {
+func (e KIOAudioSMPTETimeType24) String() string {
 	switch e {
-	case KIOAudioSMPTETimeRunning:
-		return "KIOAudioSMPTETimeRunning"
 	case KIOAudioSMPTETimeType2398:
 		return "KIOAudioSMPTETimeType2398"
-	case KIOAudioSMPTETimeType24:
-		return "KIOAudioSMPTETimeType24"
+	case KIOAudioSMPTETimeType24Value:
+		return "KIOAudioSMPTETimeType24Value"
 	case KIOAudioSMPTETimeType25:
 		return "KIOAudioSMPTETimeType25"
 	case KIOAudioSMPTETimeType2997:
@@ -13742,6 +14282,8 @@ func (e KIOAudioSMPTETime) String() string {
 		return "KIOAudioSMPTETimeType2997Drop"
 	case KIOAudioSMPTETimeType30:
 		return "KIOAudioSMPTETimeType30"
+	case KIOAudioSMPTETimeType30Drop:
+		return "KIOAudioSMPTETimeType30Drop"
 	case KIOAudioSMPTETimeType50:
 		return "KIOAudioSMPTETimeType50"
 	case KIOAudioSMPTETimeType5994:
@@ -13753,11 +14295,29 @@ func (e KIOAudioSMPTETime) String() string {
 	case KIOAudioSMPTETimeType60Drop:
 		return "KIOAudioSMPTETimeType60Drop"
 	default:
-		return fmt.Sprintf("KIOAudioSMPTETime(%d)", e)
+		return fmt.Sprintf("KIOAudioSMPTETimeType24(%d)", e)
 	}
 }
 
-type KIOAudioSelectorControlSelectionValue uint
+type KIOAudioSMPTETimeValid uint32
+
+const (
+	KIOAudioSMPTETimeRunning    KIOAudioSMPTETimeValid = 2
+	KIOAudioSMPTETimeValidValue KIOAudioSMPTETimeValid = 1
+)
+
+func (e KIOAudioSMPTETimeValid) String() string {
+	switch e {
+	case KIOAudioSMPTETimeRunning:
+		return "KIOAudioSMPTETimeRunning"
+	case KIOAudioSMPTETimeValidValue:
+		return "KIOAudioSMPTETimeValidValue"
+	default:
+		return fmt.Sprintf("KIOAudioSMPTETimeValid(%d)", e)
+	}
+}
+
+type KIOAudioSelectorControlSelectionValue uint32
 
 const (
 	KIOAudioSelectorControlSelectionValueCD                 KIOAudioSelectorControlSelectionValue = 'c'<<24 | 'd'<<16 | ' '<<8 | ' ' // 'cd  '
@@ -13796,7 +14356,7 @@ func (e KIOAudioSelectorControlSelectionValue) String() string {
 	}
 }
 
-type KIOAudioStreamAlignment uint
+type KIOAudioStreamAlignment uint32
 
 const (
 	KIOAudioStreamAlignmentHighByte KIOAudioStreamAlignment = 1
@@ -13814,7 +14374,7 @@ func (e KIOAudioStreamAlignment) String() string {
 	}
 }
 
-type KIOAudioStreamByteOrder uint
+type KIOAudioStreamByteOrder uint32
 
 const (
 	KIOAudioStreamByteOrderBigEndian    KIOAudioStreamByteOrder = 0
@@ -13832,7 +14392,7 @@ func (e KIOAudioStreamByteOrder) String() string {
 	}
 }
 
-type KIOAudioStreamNumericRepresentation uint
+type KIOAudioStreamNumericRepresentation uint32
 
 const (
 	KIOAudioStreamNumericRepresentationIEEE754Float KIOAudioStreamNumericRepresentation = 'f'<<24 | 'l'<<16 | 'o'<<8 | 't' // 'flot'
@@ -13853,7 +14413,7 @@ func (e KIOAudioStreamNumericRepresentation) String() string {
 	}
 }
 
-type KIOAudioStreamSample uint
+type KIOAudioStreamSample uint32
 
 const (
 	KIOAudioStreamSampleFormat1937AC3   KIOAudioStreamSample = 'c'<<24 | 'a'<<16 | 'c'<<8 | '3' // 'cac3'
@@ -13895,7 +14455,7 @@ func (e KIOAudioStreamSample) String() string {
 	}
 }
 
-type KIOAudioTimeStamp uint
+type KIOAudioTimeStamp uint32
 
 const (
 	KIOAudioTimeStampHostTimeValid      KIOAudioTimeStamp = 2
@@ -13922,7 +14482,7 @@ func (e KIOAudioTimeStamp) String() string {
 	}
 }
 
-type KIOAudioTimeStampSampleHostTime uint
+type KIOAudioTimeStampSampleHostTime uint32
 
 const (
 	KIOAudioTimeStampSampleHostTimeValid KIOAudioTimeStampSampleHostTime = 3
@@ -13988,106 +14548,27 @@ func (e KIOBitsPerColor) String() string {
 	}
 }
 
-type KIOBlit uint
+type KIOBlitBeamSync uint
 
 const (
-	KIOBlitAllOptions                 KIOBlit = 0xffffffff
-	KIOBlitBeamSync                   KIOBlit = 0x1
-	KIOBlitBeamSyncAlways             KIOBlit = 0x2
-	KIOBlitBeamSyncSpin               KIOBlit = 0x4
-	KIOBlitBeamSyncSwaps              KIOBlit = 0x4
-	KIOBlitBlendOperation             KIOBlit = 0x30000
-	KIOBlitCopyOperation              KIOBlit = 0
-	KIOBlitFixedSource                KIOBlit = 0x2
-	KIOBlitFlushWithSwap              KIOBlit = 0x10000
-	KIOBlitFramebufferDestination     KIOBlit = 0
-	KIOBlitHasCGSSurface              KIOBlit = 0x1
-	KIOBlitHighlightOperation         KIOBlit = 0x40000
-	KIOBlitOrOperation                KIOBlit = 0x10000
-	KIOBlitReferenceSource            KIOBlit = 0x8
-	KIOBlitSurfaceDestination         KIOBlit = 0x1
-	KIOBlitTypeColorSpaceConvert      KIOBlit = 0x200
-	KIOBlitTypeCopyRects              KIOBlit = 0
-	KIOBlitTypeCopyRegion             KIOBlit = 0
-	KIOBlitTypeDestKeyColorEqual      KIOBlit = 0x4000
-	KIOBlitTypeDestKeyColorModeMask   KIOBlit = 0xc000
-	KIOBlitTypeDestKeyColorNotEqual   KIOBlit = 0x8000
-	KIOBlitTypeHideCursor             KIOBlit = 0
-	KIOBlitTypeLines                  KIOBlit = 0
-	KIOBlitTypeMonoExpand             KIOBlit = 0x100
-	KIOBlitTypeMoveCursor             KIOBlit = 0
-	KIOBlitTypeOperationMask          KIOBlit = 0xfff0000
-	KIOBlitTypeOperationShift         KIOBlit = 16
-	KIOBlitTypeOperationType0         KIOBlit = 0
-	KIOBlitTypeOperationTypeMask      KIOBlit = 0xf000000
-	KIOBlitTypeRects                  KIOBlit = 0
-	KIOBlitTypeScale                  KIOBlit = 0x400
-	KIOBlitTypeScanlines              KIOBlit = 0
-	KIOBlitTypeShowCursor             KIOBlit = 0
-	KIOBlitTypeSourceKeyColorEqual    KIOBlit = 0x1000
-	KIOBlitTypeSourceKeyColorModeMask KIOBlit = 0x3000
-	KIOBlitTypeSourceKeyColorNotEqual KIOBlit = 0x2000
-	KIOBlitTypeVerbMask               KIOBlit = 0xff
-	KIOBlitWaitAll                    KIOBlit = 0x2
-	KIOBlitWaitAll2D                  KIOBlit = 0x1
-	KIOBlitWaitCheck                  KIOBlit = 0x80
-	KIOBlitWaitContext                KIOBlit = 0
-	KIOBlitWaitGlobal                 KIOBlit = 0x1
-	KIOBlitXorOperation               KIOBlit = 0x20000
+	KIOBlitAllOptions     KIOBlitBeamSync = 0xffffffff
+	KIOBlitBeamSyncValue  KIOBlitBeamSync = 0x1
+	KIOBlitBeamSyncAlways KIOBlitBeamSync = 0x2
+	KIOBlitBeamSyncSpin   KIOBlitBeamSync = 0x4
 )
 
-func (e KIOBlit) String() string {
+func (e KIOBlitBeamSync) String() string {
 	switch e {
 	case KIOBlitAllOptions:
 		return "KIOBlitAllOptions"
-	case KIOBlitBeamSync:
-		return "KIOBlitBeamSync"
+	case KIOBlitBeamSyncValue:
+		return "KIOBlitBeamSyncValue"
 	case KIOBlitBeamSyncAlways:
 		return "KIOBlitBeamSyncAlways"
 	case KIOBlitBeamSyncSpin:
 		return "KIOBlitBeamSyncSpin"
-	case KIOBlitBlendOperation:
-		return "KIOBlitBlendOperation"
-	case KIOBlitCopyOperation:
-		return "KIOBlitCopyOperation"
-	case KIOBlitFlushWithSwap:
-		return "KIOBlitFlushWithSwap"
-	case KIOBlitHighlightOperation:
-		return "KIOBlitHighlightOperation"
-	case KIOBlitReferenceSource:
-		return "KIOBlitReferenceSource"
-	case KIOBlitTypeColorSpaceConvert:
-		return "KIOBlitTypeColorSpaceConvert"
-	case KIOBlitTypeDestKeyColorEqual:
-		return "KIOBlitTypeDestKeyColorEqual"
-	case KIOBlitTypeDestKeyColorModeMask:
-		return "KIOBlitTypeDestKeyColorModeMask"
-	case KIOBlitTypeDestKeyColorNotEqual:
-		return "KIOBlitTypeDestKeyColorNotEqual"
-	case KIOBlitTypeMonoExpand:
-		return "KIOBlitTypeMonoExpand"
-	case KIOBlitTypeOperationMask:
-		return "KIOBlitTypeOperationMask"
-	case KIOBlitTypeOperationShift:
-		return "KIOBlitTypeOperationShift"
-	case KIOBlitTypeOperationTypeMask:
-		return "KIOBlitTypeOperationTypeMask"
-	case KIOBlitTypeScale:
-		return "KIOBlitTypeScale"
-	case KIOBlitTypeSourceKeyColorEqual:
-		return "KIOBlitTypeSourceKeyColorEqual"
-	case KIOBlitTypeSourceKeyColorModeMask:
-		return "KIOBlitTypeSourceKeyColorModeMask"
-	case KIOBlitTypeSourceKeyColorNotEqual:
-		return "KIOBlitTypeSourceKeyColorNotEqual"
-	case KIOBlitTypeVerbMask:
-		return "KIOBlitTypeVerbMask"
-	case KIOBlitWaitCheck:
-		return "KIOBlitWaitCheck"
-	case KIOBlitXorOperation:
-		return "KIOBlitXorOperation"
 	default:
-		return fmt.Sprintf("KIOBlit(%d)", e)
+		return fmt.Sprintf("KIOBlitBeamSync(%d)", e)
 	}
 }
 
@@ -14103,6 +14584,48 @@ func (e KIOBlitColorSpace) String() string {
 		return "KIOBlitColorSpaceTypes"
 	default:
 		return fmt.Sprintf("KIOBlitColorSpace(%d)", e)
+	}
+}
+
+type KIOBlitFramebufferDestination uint
+
+const (
+	KIOBlitFramebufferDestinationValue KIOBlitFramebufferDestination = 0
+	KIOBlitSurfaceDestination          KIOBlitFramebufferDestination = 0x1
+)
+
+func (e KIOBlitFramebufferDestination) String() string {
+	switch e {
+	case KIOBlitFramebufferDestinationValue:
+		return "KIOBlitFramebufferDestinationValue"
+	case KIOBlitSurfaceDestination:
+		return "KIOBlitSurfaceDestination"
+	default:
+		return fmt.Sprintf("KIOBlitFramebufferDestination(%d)", e)
+	}
+}
+
+type KIOBlitHasCGSSurface uint
+
+const (
+	KIOBlitBeamSyncSwaps      KIOBlitHasCGSSurface = 0x4
+	KIOBlitFixedSource        KIOBlitHasCGSSurface = 0x2
+	KIOBlitHasCGSSurfaceValue KIOBlitHasCGSSurface = 0x1
+	KIOBlitReferenceSource    KIOBlitHasCGSSurface = 0x8
+)
+
+func (e KIOBlitHasCGSSurface) String() string {
+	switch e {
+	case KIOBlitBeamSyncSwaps:
+		return "KIOBlitBeamSyncSwaps"
+	case KIOBlitFixedSource:
+		return "KIOBlitFixedSource"
+	case KIOBlitHasCGSSurfaceValue:
+		return "KIOBlitHasCGSSurfaceValue"
+	case KIOBlitReferenceSource:
+		return "KIOBlitReferenceSource"
+	default:
+		return fmt.Sprintf("KIOBlitHasCGSSurface(%d)", e)
 	}
 }
 
@@ -14178,6 +14701,81 @@ func (e KIOBlitSynchronize) String() string {
 	}
 }
 
+type KIOBlitTypeVerbMask uint
+
+const (
+	KIOBlitBlendOperation             KIOBlitTypeVerbMask = 0x30000
+	KIOBlitCopyOperation              KIOBlitTypeVerbMask = 0
+	KIOBlitHighlightOperation         KIOBlitTypeVerbMask = 0x40000
+	KIOBlitOrOperation                KIOBlitTypeVerbMask = 0x10000
+	KIOBlitTypeColorSpaceConvert      KIOBlitTypeVerbMask = 0x200
+	KIOBlitTypeCopyRects              KIOBlitTypeVerbMask = 0
+	KIOBlitTypeCopyRegion             KIOBlitTypeVerbMask = 0
+	KIOBlitTypeDestKeyColorEqual      KIOBlitTypeVerbMask = 0x4000
+	KIOBlitTypeDestKeyColorModeMask   KIOBlitTypeVerbMask = 0xc000
+	KIOBlitTypeDestKeyColorNotEqual   KIOBlitTypeVerbMask = 0x8000
+	KIOBlitTypeHideCursor             KIOBlitTypeVerbMask = 0
+	KIOBlitTypeLines                  KIOBlitTypeVerbMask = 0
+	KIOBlitTypeMonoExpand             KIOBlitTypeVerbMask = 0x100
+	KIOBlitTypeMoveCursor             KIOBlitTypeVerbMask = 0
+	KIOBlitTypeOperationMask          KIOBlitTypeVerbMask = 0xfff0000
+	KIOBlitTypeOperationShift         KIOBlitTypeVerbMask = 16
+	KIOBlitTypeOperationType0         KIOBlitTypeVerbMask = 0
+	KIOBlitTypeOperationTypeMask      KIOBlitTypeVerbMask = 0xf000000
+	KIOBlitTypeRects                  KIOBlitTypeVerbMask = 0
+	KIOBlitTypeScale                  KIOBlitTypeVerbMask = 0x400
+	KIOBlitTypeScanlines              KIOBlitTypeVerbMask = 0
+	KIOBlitTypeShowCursor             KIOBlitTypeVerbMask = 0
+	KIOBlitTypeSourceKeyColorEqual    KIOBlitTypeVerbMask = 0x1000
+	KIOBlitTypeSourceKeyColorModeMask KIOBlitTypeVerbMask = 0x3000
+	KIOBlitTypeSourceKeyColorNotEqual KIOBlitTypeVerbMask = 0x2000
+	KIOBlitTypeVerbMaskValue          KIOBlitTypeVerbMask = 0xff
+	KIOBlitXorOperation               KIOBlitTypeVerbMask = 0x20000
+)
+
+func (e KIOBlitTypeVerbMask) String() string {
+	switch e {
+	case KIOBlitBlendOperation:
+		return "KIOBlitBlendOperation"
+	case KIOBlitCopyOperation:
+		return "KIOBlitCopyOperation"
+	case KIOBlitHighlightOperation:
+		return "KIOBlitHighlightOperation"
+	case KIOBlitOrOperation:
+		return "KIOBlitOrOperation"
+	case KIOBlitTypeColorSpaceConvert:
+		return "KIOBlitTypeColorSpaceConvert"
+	case KIOBlitTypeDestKeyColorEqual:
+		return "KIOBlitTypeDestKeyColorEqual"
+	case KIOBlitTypeDestKeyColorModeMask:
+		return "KIOBlitTypeDestKeyColorModeMask"
+	case KIOBlitTypeDestKeyColorNotEqual:
+		return "KIOBlitTypeDestKeyColorNotEqual"
+	case KIOBlitTypeMonoExpand:
+		return "KIOBlitTypeMonoExpand"
+	case KIOBlitTypeOperationMask:
+		return "KIOBlitTypeOperationMask"
+	case KIOBlitTypeOperationShift:
+		return "KIOBlitTypeOperationShift"
+	case KIOBlitTypeOperationTypeMask:
+		return "KIOBlitTypeOperationTypeMask"
+	case KIOBlitTypeScale:
+		return "KIOBlitTypeScale"
+	case KIOBlitTypeSourceKeyColorEqual:
+		return "KIOBlitTypeSourceKeyColorEqual"
+	case KIOBlitTypeSourceKeyColorModeMask:
+		return "KIOBlitTypeSourceKeyColorModeMask"
+	case KIOBlitTypeSourceKeyColorNotEqual:
+		return "KIOBlitTypeSourceKeyColorNotEqual"
+	case KIOBlitTypeVerbMaskValue:
+		return "KIOBlitTypeVerbMaskValue"
+	case KIOBlitXorOperation:
+		return "KIOBlitXorOperation"
+	default:
+		return fmt.Sprintf("KIOBlitTypeVerbMask(%d)", e)
+	}
+}
+
 type KIOBlitUnlockWith uint
 
 const (
@@ -14193,43 +14791,98 @@ func (e KIOBlitUnlockWith) String() string {
 	}
 }
 
-type KIOCatalog uint
+type KIOBlitWaitContext uint
 
 const (
-	// KIOCatalogAddDrivers: # Discussion
-	KIOCatalogAddDrivers KIOCatalog = 1
-	// KIOCatalogAddDriversNoMatch: # Discussion
-	KIOCatalogAddDriversNoMatch KIOCatalog = 0
-	// KIOCatalogKextdActive: # Discussion
-	KIOCatalogKextdActive KIOCatalog = 0
-	// KIOCatalogKextdFinishedLaunching: # Discussion
-	KIOCatalogKextdFinishedLaunching KIOCatalog = 0
-	// KIOCatalogModuleTerminate: # Discussion
-	KIOCatalogModuleTerminate KIOCatalog = 0
-	// KIOCatalogModuleUnload: # Discussion
-	KIOCatalogModuleUnload KIOCatalog = 1
-	// KIOCatalogRemoveDrivers: # Discussion
-	KIOCatalogRemoveDrivers KIOCatalog = 0
-	// KIOCatalogRemoveDriversNoMatch: # Discussion
-	KIOCatalogRemoveDriversNoMatch        KIOCatalog = 0
-	KIOCatalogRemoveKernelLinker__Removed KIOCatalog = 0
-	// KIOCatalogResetDrivers: # Discussion
-	KIOCatalogResetDrivers KIOCatalog = 0
-	// KIOCatalogResetDriversNoMatch: # Discussion
-	KIOCatalogResetDriversNoMatch KIOCatalog = 0
-	// KIOCatalogServiceTerminate: # Discussion
-	KIOCatalogServiceTerminate       KIOCatalog = 0
-	KIOCatalogStartMatching__Removed KIOCatalog = 0
+	KIOBlitFlushWithSwap    KIOBlitWaitContext = 0x10000
+	KIOBlitWaitAll          KIOBlitWaitContext = 0x2
+	KIOBlitWaitAll2D        KIOBlitWaitContext = 0x1
+	KIOBlitWaitCheck        KIOBlitWaitContext = 0x80
+	KIOBlitWaitContextValue KIOBlitWaitContext = 0
+	KIOBlitWaitGlobal       KIOBlitWaitContext = 0x1
 )
 
-func (e KIOCatalog) String() string {
+func (e KIOBlitWaitContext) String() string {
 	switch e {
-	case KIOCatalogAddDrivers:
-		return "KIOCatalogAddDrivers"
+	case KIOBlitFlushWithSwap:
+		return "KIOBlitFlushWithSwap"
+	case KIOBlitWaitAll:
+		return "KIOBlitWaitAll"
+	case KIOBlitWaitAll2D:
+		return "KIOBlitWaitAll2D"
+	case KIOBlitWaitCheck:
+		return "KIOBlitWaitCheck"
+	case KIOBlitWaitContextValue:
+		return "KIOBlitWaitContextValue"
+	default:
+		return fmt.Sprintf("KIOBlitWaitContext(%d)", e)
+	}
+}
+
+type KIOCLUTPixels uint
+
+const (
+	KIOCLUTPixelsValue              KIOCLUTPixels = 0
+	KIOFixedCLUTPixels              KIOCLUTPixels = 1
+	KIOMonoDirectPixels             KIOCLUTPixels = 3
+	KIOMonoInverseDirectPixels      KIOCLUTPixels = 4
+	KIORGBDirectPixels              KIOCLUTPixels = 2
+	KIORGBSignedDirectPixels        KIOCLUTPixels = 5
+	KIORGBSignedFloatingPointPixels KIOCLUTPixels = 6
+)
+
+func (e KIOCLUTPixels) String() string {
+	switch e {
+	case KIOCLUTPixelsValue:
+		return "KIOCLUTPixelsValue"
+	case KIOFixedCLUTPixels:
+		return "KIOFixedCLUTPixels"
+	case KIOMonoDirectPixels:
+		return "KIOMonoDirectPixels"
+	case KIOMonoInverseDirectPixels:
+		return "KIOMonoInverseDirectPixels"
+	case KIORGBDirectPixels:
+		return "KIORGBDirectPixels"
+	case KIORGBSignedDirectPixels:
+		return "KIORGBSignedDirectPixels"
+	case KIORGBSignedFloatingPointPixels:
+		return "KIORGBSignedFloatingPointPixels"
+	default:
+		return fmt.Sprintf("KIOCLUTPixels(%d)", e)
+	}
+}
+
+type KIOCatalogAddDrivers uint
+
+const (
+	// KIOCatalogAddDriversValue: # Discussion
+	KIOCatalogAddDriversValue KIOCatalogAddDrivers = 1
+	// KIOCatalogAddDriversNoMatch: # Discussion
+	KIOCatalogAddDriversNoMatch KIOCatalogAddDrivers = 0
+	// KIOCatalogKextdActive: # Discussion
+	KIOCatalogKextdActive KIOCatalogAddDrivers = 0
+	// KIOCatalogKextdFinishedLaunching: # Discussion
+	KIOCatalogKextdFinishedLaunching KIOCatalogAddDrivers = 0
+	// KIOCatalogRemoveDrivers: # Discussion
+	KIOCatalogRemoveDrivers KIOCatalogAddDrivers = 0
+	// KIOCatalogRemoveDriversNoMatch: # Discussion
+	KIOCatalogRemoveDriversNoMatch        KIOCatalogAddDrivers = 0
+	KIOCatalogRemoveKernelLinker__Removed KIOCatalogAddDrivers = 0
+	// KIOCatalogResetDrivers: # Discussion
+	KIOCatalogResetDrivers KIOCatalogAddDrivers = 0
+	// KIOCatalogResetDriversNoMatch: # Discussion
+	KIOCatalogResetDriversNoMatch    KIOCatalogAddDrivers = 0
+	KIOCatalogStartMatching__Removed KIOCatalogAddDrivers = 0
+)
+
+func (e KIOCatalogAddDrivers) String() string {
+	switch e {
+	case KIOCatalogAddDriversValue:
+		return "KIOCatalogAddDriversValue"
 	case KIOCatalogAddDriversNoMatch:
 		return "KIOCatalogAddDriversNoMatch"
 	default:
-		return fmt.Sprintf("KIOCatalog(%d)", e)
+		return fmt.Sprintf("KIOCatalogAddDrivers(%d)", e)
 	}
 }
 
@@ -14258,6 +14911,28 @@ func (e KIOCatalogGet) String() string {
 	}
 }
 
+type KIOCatalogModuleUnload uint
+
+const (
+	// KIOCatalogModuleTerminate: # Discussion
+	KIOCatalogModuleTerminate KIOCatalogModuleUnload = 0
+	// KIOCatalogModuleUnloadValue: # Discussion
+	KIOCatalogModuleUnloadValue KIOCatalogModuleUnload = 1
+	// KIOCatalogServiceTerminate: # Discussion
+	KIOCatalogServiceTerminate KIOCatalogModuleUnload = 0
+)
+
+func (e KIOCatalogModuleUnload) String() string {
+	switch e {
+	case KIOCatalogModuleTerminate:
+		return "KIOCatalogModuleTerminate"
+	case KIOCatalogModuleUnloadValue:
+		return "KIOCatalogModuleUnloadValue"
+	default:
+		return fmt.Sprintf("KIOCatalogModuleUnload(%d)", e)
+	}
+}
+
 type KIOCatalogReset uint
 
 const (
@@ -14274,7 +14949,52 @@ func (e KIOCatalogReset) String() string {
 	}
 }
 
-type KIOConnectMethodVarOutput int
+type KIOColorimetryNotSupported uint
+
+const (
+	KIOColorimetryAdobeRGB          KIOColorimetryNotSupported = 0x8
+	KIOColorimetryBT2020            KIOColorimetryNotSupported = 0x100
+	KIOColorimetryBT2100            KIOColorimetryNotSupported = 0x200
+	KIOColorimetryBT601             KIOColorimetryNotSupported = 0x40
+	KIOColorimetryBT709             KIOColorimetryNotSupported = 0x80
+	KIOColorimetryDCIP3             KIOColorimetryNotSupported = 0x4
+	KIOColorimetryNativeRGB         KIOColorimetryNotSupported = 0x1
+	KIOColorimetryNotSupportedValue KIOColorimetryNotSupported = 0
+	KIOColorimetryWGRGB             KIOColorimetryNotSupported = 0x20
+	KIOColorimetrysRGB              KIOColorimetryNotSupported = 0x2
+	KIOColorimetryxvYCC             KIOColorimetryNotSupported = 0x10
+)
+
+func (e KIOColorimetryNotSupported) String() string {
+	switch e {
+	case KIOColorimetryAdobeRGB:
+		return "KIOColorimetryAdobeRGB"
+	case KIOColorimetryBT2020:
+		return "KIOColorimetryBT2020"
+	case KIOColorimetryBT2100:
+		return "KIOColorimetryBT2100"
+	case KIOColorimetryBT601:
+		return "KIOColorimetryBT601"
+	case KIOColorimetryBT709:
+		return "KIOColorimetryBT709"
+	case KIOColorimetryDCIP3:
+		return "KIOColorimetryDCIP3"
+	case KIOColorimetryNativeRGB:
+		return "KIOColorimetryNativeRGB"
+	case KIOColorimetryNotSupportedValue:
+		return "KIOColorimetryNotSupportedValue"
+	case KIOColorimetryWGRGB:
+		return "KIOColorimetryWGRGB"
+	case KIOColorimetrysRGB:
+		return "KIOColorimetrysRGB"
+	case KIOColorimetryxvYCC:
+		return "KIOColorimetryxvYCC"
+	default:
+		return fmt.Sprintf("KIOColorimetryNotSupported(%d)", e)
+	}
+}
+
+type KIOConnectMethodVarOutput int32
 
 const (
 	KIOConnectMethodVarOutputSize KIOConnectMethodVarOutput = -3
@@ -14644,7 +15364,49 @@ func (e KIODebuggerLock) String() string {
 	}
 }
 
-type KIODefaultMemory uint
+type KIODefaultCache uint32
+
+const (
+	KIOCopybackCache           KIODefaultCache = 3
+	KIOCopybackInnerCache      KIODefaultCache = 5
+	KIODefaultCacheValue       KIODefaultCache = 0
+	KIOInhibitCache            KIODefaultCache = 1
+	KIOPostedCombinedReordered KIODefaultCache = 9
+	KIOPostedReordered         KIODefaultCache = 8
+	KIOPostedWrite             KIODefaultCache = 6
+	KIORealTimeCache           KIODefaultCache = 7
+	KIOWriteCombineCache       KIODefaultCache = 4
+	KIOWriteThruCache          KIODefaultCache = 2
+)
+
+func (e KIODefaultCache) String() string {
+	switch e {
+	case KIOCopybackCache:
+		return "KIOCopybackCache"
+	case KIOCopybackInnerCache:
+		return "KIOCopybackInnerCache"
+	case KIODefaultCacheValue:
+		return "KIODefaultCacheValue"
+	case KIOInhibitCache:
+		return "KIOInhibitCache"
+	case KIOPostedCombinedReordered:
+		return "KIOPostedCombinedReordered"
+	case KIOPostedReordered:
+		return "KIOPostedReordered"
+	case KIOPostedWrite:
+		return "KIOPostedWrite"
+	case KIORealTimeCache:
+		return "KIORealTimeCache"
+	case KIOWriteCombineCache:
+		return "KIOWriteCombineCache"
+	case KIOWriteThruCache:
+		return "KIOWriteThruCache"
+	default:
+		return fmt.Sprintf("KIODefaultCache(%d)", e)
+	}
+}
+
+type KIODefaultMemory uint32
 
 const (
 	KIODefaultMemoryType KIODefaultMemory = 0
@@ -14671,6 +15433,57 @@ func (e KIODefaultProbe) String() string {
 		return "KIODefaultProbeScore"
 	default:
 		return fmt.Sprintf("KIODefaultProbe(%d)", e)
+	}
+}
+
+type KIODetailedTimingValid uint
+
+const (
+	KIODetailedTimingValidValue KIODetailedTimingValid = 0x80000000
+	KIOScalingInfoValid         KIODetailedTimingValid = 0x40000000
+)
+
+func (e KIODetailedTimingValid) String() string {
+	switch e {
+	case KIODetailedTimingValidValue:
+		return "KIODetailedTimingValidValue"
+	case KIOScalingInfoValid:
+		return "KIOScalingInfoValid"
+	default:
+		return fmt.Sprintf("KIODetailedTimingValid(%d)", e)
+	}
+}
+
+type KIODigitalSignal uint
+
+const (
+	KIOAnalogSetupExpected KIODigitalSignal = 0x2
+	KIODSCBlockPredEnable  KIODigitalSignal = 0x20
+	KIODigitalSignalValue  KIODigitalSignal = 0x1
+	KIOInterlacedCEATiming KIODigitalSignal = 0x4
+	KIOMultiAlignedTiming  KIODigitalSignal = 0x40
+	KIONTSCTiming          KIODigitalSignal = 0x8
+	KIOPALTiming           KIODigitalSignal = 0x10
+)
+
+func (e KIODigitalSignal) String() string {
+	switch e {
+	case KIOAnalogSetupExpected:
+		return "KIOAnalogSetupExpected"
+	case KIODSCBlockPredEnable:
+		return "KIODSCBlockPredEnable"
+	case KIODigitalSignalValue:
+		return "KIODigitalSignalValue"
+	case KIOInterlacedCEATiming:
+		return "KIOInterlacedCEATiming"
+	case KIOMultiAlignedTiming:
+		return "KIOMultiAlignedTiming"
+	case KIONTSCTiming:
+		return "KIONTSCTiming"
+	case KIOPALTiming:
+		return "KIOPALTiming"
+	default:
+		return fmt.Sprintf("KIODigitalSignal(%d)", e)
 	}
 }
 
@@ -14765,81 +15578,6 @@ func (e KIODispatchQueueWakeup) String() string {
 	}
 }
 
-type KIODisplay uint
-
-const (
-	KIODisplayMaxPowerState                     KIODisplay = 3
-	KIODisplayNumPowerStates                    KIODisplay = 4
-	KIODisplayRGBColorComponentBits10           KIODisplay = 0x4
-	KIODisplayRGBColorComponentBits12           KIODisplay = 0x8
-	KIODisplayRGBColorComponentBits14           KIODisplay = 0x10
-	KIODisplayRGBColorComponentBits16           KIODisplay = 0x20
-	KIODisplayRGBColorComponentBits6            KIODisplay = 0x1
-	KIODisplayRGBColorComponentBits8            KIODisplay = 0x2
-	KIODisplayRGBColorComponentBitsUnknown      KIODisplay = 0
-	KIODisplayYCbCr422ColorComponentBits10      KIODisplay = 0x40000
-	KIODisplayYCbCr422ColorComponentBits12      KIODisplay = 0x80000
-	KIODisplayYCbCr422ColorComponentBits14      KIODisplay = 0x100000
-	KIODisplayYCbCr422ColorComponentBits16      KIODisplay = 0x200000
-	KIODisplayYCbCr422ColorComponentBits6       KIODisplay = 0x10000
-	KIODisplayYCbCr422ColorComponentBits8       KIODisplay = 0x20000
-	KIODisplayYCbCr422ColorComponentBitsUnknown KIODisplay = 0
-	KIODisplayYCbCr444ColorComponentBits10      KIODisplay = 0x400
-	KIODisplayYCbCr444ColorComponentBits12      KIODisplay = 0x800
-	KIODisplayYCbCr444ColorComponentBits14      KIODisplay = 0x1000
-	KIODisplayYCbCr444ColorComponentBits16      KIODisplay = 0x2000
-	KIODisplayYCbCr444ColorComponentBits6       KIODisplay = 0x100
-	KIODisplayYCbCr444ColorComponentBits8       KIODisplay = 0x200
-	KIODisplayYCbCr444ColorComponentBitsUnknown KIODisplay = 0
-)
-
-func (e KIODisplay) String() string {
-	switch e {
-	case KIODisplayMaxPowerState:
-		return "KIODisplayMaxPowerState"
-	case KIODisplayNumPowerStates:
-		return "KIODisplayNumPowerStates"
-	case KIODisplayRGBColorComponentBits12:
-		return "KIODisplayRGBColorComponentBits12"
-	case KIODisplayRGBColorComponentBits14:
-		return "KIODisplayRGBColorComponentBits14"
-	case KIODisplayRGBColorComponentBits16:
-		return "KIODisplayRGBColorComponentBits16"
-	case KIODisplayRGBColorComponentBits6:
-		return "KIODisplayRGBColorComponentBits6"
-	case KIODisplayRGBColorComponentBits8:
-		return "KIODisplayRGBColorComponentBits8"
-	case KIODisplayRGBColorComponentBitsUnknown:
-		return "KIODisplayRGBColorComponentBitsUnknown"
-	case KIODisplayYCbCr422ColorComponentBits10:
-		return "KIODisplayYCbCr422ColorComponentBits10"
-	case KIODisplayYCbCr422ColorComponentBits12:
-		return "KIODisplayYCbCr422ColorComponentBits12"
-	case KIODisplayYCbCr422ColorComponentBits14:
-		return "KIODisplayYCbCr422ColorComponentBits14"
-	case KIODisplayYCbCr422ColorComponentBits16:
-		return "KIODisplayYCbCr422ColorComponentBits16"
-	case KIODisplayYCbCr422ColorComponentBits6:
-		return "KIODisplayYCbCr422ColorComponentBits6"
-	case KIODisplayYCbCr422ColorComponentBits8:
-		return "KIODisplayYCbCr422ColorComponentBits8"
-	case KIODisplayYCbCr444ColorComponentBits10:
-		return "KIODisplayYCbCr444ColorComponentBits10"
-	case KIODisplayYCbCr444ColorComponentBits12:
-		return "KIODisplayYCbCr444ColorComponentBits12"
-	case KIODisplayYCbCr444ColorComponentBits14:
-		return "KIODisplayYCbCr444ColorComponentBits14"
-	case KIODisplayYCbCr444ColorComponentBits16:
-		return "KIODisplayYCbCr444ColorComponentBits16"
-	case KIODisplayYCbCr444ColorComponentBits6:
-		return "KIODisplayYCbCr444ColorComponentBits6"
-	case KIODisplayYCbCr444ColorComponentBits8:
-		return "KIODisplayYCbCr444ColorComponentBits8"
-	default:
-		return fmt.Sprintf("KIODisplay(%d)", e)
-	}
-}
-
 type KIODisplayColor uint
 
 const (
@@ -14925,6 +15663,24 @@ func (e KIODisplayNeedsCEA) String() string {
 	}
 }
 
+type KIODisplayNumPowerStates uint
+
+const (
+	KIODisplayMaxPowerState       KIODisplayNumPowerStates = 3
+	KIODisplayNumPowerStatesValue KIODisplayNumPowerStates = 4
+)
+
+func (e KIODisplayNumPowerStates) String() string {
+	switch e {
+	case KIODisplayMaxPowerState:
+		return "KIODisplayMaxPowerState"
+	case KIODisplayNumPowerStatesValue:
+		return "KIODisplayNumPowerStatesValue"
+	default:
+		return fmt.Sprintf("KIODisplayNumPowerStates(%d)", e)
+	}
+}
+
 type KIODisplayPowerState uint
 
 const (
@@ -14943,6 +15699,77 @@ func (e KIODisplayPowerState) String() string {
 		return "KIODisplayPowerStateOn"
 	default:
 		return fmt.Sprintf("KIODisplayPowerState(%d)", e)
+	}
+}
+
+type KIODisplayRGBColorComponentBitsUnknown uint
+
+const (
+	KIODisplayRGBColorComponentBits10           KIODisplayRGBColorComponentBitsUnknown = 0x4
+	KIODisplayRGBColorComponentBits12           KIODisplayRGBColorComponentBitsUnknown = 0x8
+	KIODisplayRGBColorComponentBits14           KIODisplayRGBColorComponentBitsUnknown = 0x10
+	KIODisplayRGBColorComponentBits16           KIODisplayRGBColorComponentBitsUnknown = 0x20
+	KIODisplayRGBColorComponentBits6            KIODisplayRGBColorComponentBitsUnknown = 0x1
+	KIODisplayRGBColorComponentBits8            KIODisplayRGBColorComponentBitsUnknown = 0x2
+	KIODisplayRGBColorComponentBitsUnknownValue KIODisplayRGBColorComponentBitsUnknown = 0
+	KIODisplayYCbCr422ColorComponentBits10      KIODisplayRGBColorComponentBitsUnknown = 0x40000
+	KIODisplayYCbCr422ColorComponentBits12      KIODisplayRGBColorComponentBitsUnknown = 0x80000
+	KIODisplayYCbCr422ColorComponentBits14      KIODisplayRGBColorComponentBitsUnknown = 0x100000
+	KIODisplayYCbCr422ColorComponentBits16      KIODisplayRGBColorComponentBitsUnknown = 0x200000
+	KIODisplayYCbCr422ColorComponentBits6       KIODisplayRGBColorComponentBitsUnknown = 0x10000
+	KIODisplayYCbCr422ColorComponentBits8       KIODisplayRGBColorComponentBitsUnknown = 0x20000
+	KIODisplayYCbCr422ColorComponentBitsUnknown KIODisplayRGBColorComponentBitsUnknown = 0
+	KIODisplayYCbCr444ColorComponentBits10      KIODisplayRGBColorComponentBitsUnknown = 0x400
+	KIODisplayYCbCr444ColorComponentBits12      KIODisplayRGBColorComponentBitsUnknown = 0x800
+	KIODisplayYCbCr444ColorComponentBits14      KIODisplayRGBColorComponentBitsUnknown = 0x1000
+	KIODisplayYCbCr444ColorComponentBits16      KIODisplayRGBColorComponentBitsUnknown = 0x2000
+	KIODisplayYCbCr444ColorComponentBits6       KIODisplayRGBColorComponentBitsUnknown = 0x100
+	KIODisplayYCbCr444ColorComponentBits8       KIODisplayRGBColorComponentBitsUnknown = 0x200
+	KIODisplayYCbCr444ColorComponentBitsUnknown KIODisplayRGBColorComponentBitsUnknown = 0
+)
+
+func (e KIODisplayRGBColorComponentBitsUnknown) String() string {
+	switch e {
+	case KIODisplayRGBColorComponentBits10:
+		return "KIODisplayRGBColorComponentBits10"
+	case KIODisplayRGBColorComponentBits12:
+		return "KIODisplayRGBColorComponentBits12"
+	case KIODisplayRGBColorComponentBits14:
+		return "KIODisplayRGBColorComponentBits14"
+	case KIODisplayRGBColorComponentBits16:
+		return "KIODisplayRGBColorComponentBits16"
+	case KIODisplayRGBColorComponentBits6:
+		return "KIODisplayRGBColorComponentBits6"
+	case KIODisplayRGBColorComponentBits8:
+		return "KIODisplayRGBColorComponentBits8"
+	case KIODisplayRGBColorComponentBitsUnknownValue:
+		return "KIODisplayRGBColorComponentBitsUnknownValue"
+	case KIODisplayYCbCr422ColorComponentBits10:
+		return "KIODisplayYCbCr422ColorComponentBits10"
+	case KIODisplayYCbCr422ColorComponentBits12:
+		return "KIODisplayYCbCr422ColorComponentBits12"
+	case KIODisplayYCbCr422ColorComponentBits14:
+		return "KIODisplayYCbCr422ColorComponentBits14"
+	case KIODisplayYCbCr422ColorComponentBits16:
+		return "KIODisplayYCbCr422ColorComponentBits16"
+	case KIODisplayYCbCr422ColorComponentBits6:
+		return "KIODisplayYCbCr422ColorComponentBits6"
+	case KIODisplayYCbCr422ColorComponentBits8:
+		return "KIODisplayYCbCr422ColorComponentBits8"
+	case KIODisplayYCbCr444ColorComponentBits10:
+		return "KIODisplayYCbCr444ColorComponentBits10"
+	case KIODisplayYCbCr444ColorComponentBits12:
+		return "KIODisplayYCbCr444ColorComponentBits12"
+	case KIODisplayYCbCr444ColorComponentBits14:
+		return "KIODisplayYCbCr444ColorComponentBits14"
+	case KIODisplayYCbCr444ColorComponentBits16:
+		return "KIODisplayYCbCr444ColorComponentBits16"
+	case KIODisplayYCbCr444ColorComponentBits6:
+		return "KIODisplayYCbCr444ColorComponentBits6"
+	case KIODisplayYCbCr444ColorComponentBits8:
+		return "KIODisplayYCbCr444ColorComponentBits8"
+	default:
+		return fmt.Sprintf("KIODisplayRGBColorComponentBitsUnknown(%d)", e)
 	}
 }
 
@@ -15127,7 +15954,7 @@ func (e KIOEventLinkMaxName) String() string {
 type KIOExternalMethodArgumentsCurrent uint
 
 const (
-	KIOExternalMethodArgumentsCurrentVersion KIOExternalMethodArgumentsCurrent = (2)
+	KIOExternalMethodArgumentsCurrentVersion KIOExternalMethodArgumentsCurrent = 2
 )
 
 func (e KIOExternalMethodArgumentsCurrent) String() string {
@@ -15154,87 +15981,6 @@ func (e KIOExternalMethodScalar) String() string {
 		return "KIOExternalMethodScalarInputCountMax"
 	default:
 		return fmt.Sprintf("KIOExternalMethodScalar(%d)", e)
-	}
-}
-
-type KIOFB uint
-
-const (
-	KIOFBChangedInterruptType KIOFB = 0x63686e67
-	KIOFBConnectInterruptType KIOFB = 0x64636920
-	// KIOFBCurrentShmemVersion: # Discussion
-	KIOFBCurrentShmemVersion                KIOFB = 2
-	KIOFBCursorMemory                       KIOFB = 100
-	KIOFBDisplayPortInterruptType           KIOFB = 0x64706972
-	KIOFBDisplayPortLinkChangeInterruptType KIOFB = 0x64706c6b
-	KIOFBFrameInterruptType                 KIOFB = 0x6672616d
-	KIOFBHBLInterruptType                   KIOFB = 0x68626c20
-	KIOFBMCCSInterruptType                  KIOFB = 0x6d636373
-	KIOFBMainCursorIndex                    KIOFB = 0
-	KIOFBMaxCursorDepth                     KIOFB = 32
-	KIOFBMaxCursorFrames                    KIOFB = 32
-	KIOFBMaxCursorWidth                     KIOFB = 256
-	KIOFBNumCursorIndex                     KIOFB = 4
-	KIOFBOfflineInterruptType               KIOFB = 0x72656d76
-	KIOFBOnlineInterruptType                KIOFB = 0x61646420
-	KIOFBShmemCursorNumFramesMask           KIOFB = 0xff0000
-	KIOFBShmemCursorNumFramesShift          KIOFB = 16
-	KIOFBShmemVersionMask                   KIOFB = 0xff
-	KIOFBTenPtOneShmemVersion               KIOFB = 2
-	KIOFBTenPtTwoShmemVersion               KIOFB = 3
-	KIOFBVBLInterruptType                   KIOFB = 0x76626c20
-	KIOFBWaitCursorIndex                    KIOFB = 1
-	KIOFBWakeInterruptType                  KIOFB = 0x7677616b
-)
-
-func (e KIOFB) String() string {
-	switch e {
-	case KIOFBChangedInterruptType:
-		return "KIOFBChangedInterruptType"
-	case KIOFBConnectInterruptType:
-		return "KIOFBConnectInterruptType"
-	case KIOFBCurrentShmemVersion:
-		return "KIOFBCurrentShmemVersion"
-	case KIOFBCursorMemory:
-		return "KIOFBCursorMemory"
-	case KIOFBDisplayPortInterruptType:
-		return "KIOFBDisplayPortInterruptType"
-	case KIOFBDisplayPortLinkChangeInterruptType:
-		return "KIOFBDisplayPortLinkChangeInterruptType"
-	case KIOFBFrameInterruptType:
-		return "KIOFBFrameInterruptType"
-	case KIOFBHBLInterruptType:
-		return "KIOFBHBLInterruptType"
-	case KIOFBMCCSInterruptType:
-		return "KIOFBMCCSInterruptType"
-	case KIOFBMainCursorIndex:
-		return "KIOFBMainCursorIndex"
-	case KIOFBMaxCursorDepth:
-		return "KIOFBMaxCursorDepth"
-	case KIOFBMaxCursorWidth:
-		return "KIOFBMaxCursorWidth"
-	case KIOFBNumCursorIndex:
-		return "KIOFBNumCursorIndex"
-	case KIOFBOfflineInterruptType:
-		return "KIOFBOfflineInterruptType"
-	case KIOFBOnlineInterruptType:
-		return "KIOFBOnlineInterruptType"
-	case KIOFBShmemCursorNumFramesMask:
-		return "KIOFBShmemCursorNumFramesMask"
-	case KIOFBShmemCursorNumFramesShift:
-		return "KIOFBShmemCursorNumFramesShift"
-	case KIOFBShmemVersionMask:
-		return "KIOFBShmemVersionMask"
-	case KIOFBTenPtTwoShmemVersion:
-		return "KIOFBTenPtTwoShmemVersion"
-	case KIOFBVBLInterruptType:
-		return "KIOFBVBLInterruptType"
-	case KIOFBWaitCursorIndex:
-		return "KIOFBWaitCursorIndex"
-	case KIOFBWakeInterruptType:
-		return "KIOFBWakeInterruptType"
-	default:
-		return fmt.Sprintf("KIOFB(%d)", e)
 	}
 }
 
@@ -15451,6 +16197,34 @@ func (e KIOFBLinkVoltage) String() string {
 		return "KIOFBLinkVoltageLevel3"
 	default:
 		return fmt.Sprintf("KIOFBLinkVoltage(%d)", e)
+	}
+}
+
+type KIOFBMainCursorIndex uint
+
+const (
+	KIOFBMainCursorIndexValue KIOFBMainCursorIndex = 0
+	KIOFBMaxCursorDepth       KIOFBMainCursorIndex = 32
+	KIOFBMaxCursorFrames      KIOFBMainCursorIndex = 32
+	KIOFBMaxCursorWidth       KIOFBMainCursorIndex = 256
+	KIOFBNumCursorIndex       KIOFBMainCursorIndex = 4
+	KIOFBWaitCursorIndex      KIOFBMainCursorIndex = 1
+)
+
+func (e KIOFBMainCursorIndex) String() string {
+	switch e {
+	case KIOFBMainCursorIndexValue:
+		return "KIOFBMainCursorIndexValue"
+	case KIOFBMaxCursorDepth:
+		return "KIOFBMaxCursorDepth"
+	case KIOFBMaxCursorWidth:
+		return "KIOFBMaxCursorWidth"
+	case KIOFBNumCursorIndex:
+		return "KIOFBNumCursorIndex"
+	case KIOFBWaitCursorIndex:
+		return "KIOFBWaitCursorIndex"
+	default:
+		return fmt.Sprintf("KIOFBMainCursorIndex(%d)", e)
 	}
 }
 
@@ -15737,6 +16511,65 @@ func (e KIOFBNotifyPriority) String() string {
 	}
 }
 
+type KIOFBServerConnectType uint
+
+const (
+	KIODisplayAssertionConnectType KIOFBServerConnectType = 61074
+	KIOFBServerConnectTypeValue    KIOFBServerConnectType = 0
+	KIOFBSharedConnectType         KIOFBServerConnectType = 1
+	KIOGDiagnoseConnectType        KIOFBServerConnectType = 38744
+	KIOGDiagnoseGTraceType         KIOFBServerConnectType = 11452
+)
+
+func (e KIOFBServerConnectType) String() string {
+	switch e {
+	case KIODisplayAssertionConnectType:
+		return "KIODisplayAssertionConnectType"
+	case KIOFBServerConnectTypeValue:
+		return "KIOFBServerConnectTypeValue"
+	case KIOFBSharedConnectType:
+		return "KIOFBSharedConnectType"
+	case KIOGDiagnoseConnectType:
+		return "KIOGDiagnoseConnectType"
+	case KIOGDiagnoseGTraceType:
+		return "KIOGDiagnoseGTraceType"
+	default:
+		return fmt.Sprintf("KIOFBServerConnectType(%d)", e)
+	}
+}
+
+type KIOFBShmemVersionMask uint
+
+const (
+	// KIOFBCurrentShmemVersion: # Discussion
+	KIOFBCurrentShmemVersion       KIOFBShmemVersionMask = 2
+	KIOFBCursorMemory              KIOFBShmemVersionMask = 100
+	KIOFBShmemCursorNumFramesMask  KIOFBShmemVersionMask = 0xff0000
+	KIOFBShmemCursorNumFramesShift KIOFBShmemVersionMask = 16
+	KIOFBShmemVersionMaskValue     KIOFBShmemVersionMask = 0xff
+	KIOFBTenPtOneShmemVersion      KIOFBShmemVersionMask = 2
+	KIOFBTenPtTwoShmemVersion      KIOFBShmemVersionMask = 3
+)
+
+func (e KIOFBShmemVersionMask) String() string {
+	switch e {
+	case KIOFBCurrentShmemVersion:
+		return "KIOFBCurrentShmemVersion"
+	case KIOFBCursorMemory:
+		return "KIOFBCursorMemory"
+	case KIOFBShmemCursorNumFramesMask:
+		return "KIOFBShmemCursorNumFramesMask"
+	case KIOFBShmemCursorNumFramesShift:
+		return "KIOFBShmemCursorNumFramesShift"
+	case KIOFBShmemVersionMaskValue:
+		return "KIOFBShmemVersionMaskValue"
+	case KIOFBTenPtTwoShmemVersion:
+		return "KIOFBTenPtTwoShmemVersion"
+	default:
+		return fmt.Sprintf("KIOFBShmemVersionMask(%d)", e)
+	}
+}
+
 type KIOFBSystem uint
 
 const (
@@ -15767,92 +16600,48 @@ func (e KIOFBUserRequest) String() string {
 	}
 }
 
-type KIOFW uint
+type KIOFBVBLInterruptType uint
 
 const (
-	// KIOFWDisableAllPhysicalAccess: # Discussion
-	KIOFWDisableAllPhysicalAccess KIOFW = 2
-	// KIOFWDisablePhyOnSleep: # Discussion
-	KIOFWDisablePhyOnSleep KIOFW = 16
-	// KIOFWDisablePhysicalAccess: # Discussion
-	KIOFWDisablePhysicalAccess KIOFW = 1
-	// KIOFWEnableRetryOnAckD: # Discussion
-	KIOFWEnableRetryOnAckD KIOFW = 4
-	// KIOFWLimitAsyncPacketSize: # Discussion
-	KIOFWLimitAsyncPacketSize KIOFW = 8
-	// KIOFWMustBeRoot: # Discussion
-	KIOFWMustBeRoot KIOFW = 32
-	// KIOFWMustHaveGap63: # Discussion
-	KIOFWMustHaveGap63 KIOFW = 128
-	// KIOFWMustNotBeRoot: # Discussion
-	KIOFWMustNotBeRoot KIOFW = 64
-	KIOFWSWVers_KPF    KIOFW = 0x40
-	KIOFWSpecID_AAPL   KIOFW = 0xa27
+	KIOFBChangedInterruptType               KIOFBVBLInterruptType = 0x63686e67
+	KIOFBConnectInterruptType               KIOFBVBLInterruptType = 0x64636920
+	KIOFBDisplayPortInterruptType           KIOFBVBLInterruptType = 0x64706972
+	KIOFBDisplayPortLinkChangeInterruptType KIOFBVBLInterruptType = 0x64706c6b
+	KIOFBFrameInterruptType                 KIOFBVBLInterruptType = 0x6672616d
+	KIOFBHBLInterruptType                   KIOFBVBLInterruptType = 0x68626c20
+	KIOFBMCCSInterruptType                  KIOFBVBLInterruptType = 0x6d636373
+	KIOFBOfflineInterruptType               KIOFBVBLInterruptType = 0x72656d76
+	KIOFBOnlineInterruptType                KIOFBVBLInterruptType = 0x61646420
+	KIOFBVBLInterruptTypeValue              KIOFBVBLInterruptType = 0x76626c20
+	KIOFBWakeInterruptType                  KIOFBVBLInterruptType = 0x7677616b
 )
 
-func (e KIOFW) String() string {
+func (e KIOFBVBLInterruptType) String() string {
 	switch e {
-	case KIOFWDisableAllPhysicalAccess:
-		return "KIOFWDisableAllPhysicalAccess"
-	case KIOFWDisablePhyOnSleep:
-		return "KIOFWDisablePhyOnSleep"
-	case KIOFWDisablePhysicalAccess:
-		return "KIOFWDisablePhysicalAccess"
-	case KIOFWEnableRetryOnAckD:
-		return "KIOFWEnableRetryOnAckD"
-	case KIOFWLimitAsyncPacketSize:
-		return "KIOFWLimitAsyncPacketSize"
-	case KIOFWMustBeRoot:
-		return "KIOFWMustBeRoot"
-	case KIOFWMustHaveGap63:
-		return "KIOFWMustHaveGap63"
-	case KIOFWMustNotBeRoot:
-		return "KIOFWMustNotBeRoot"
-	case KIOFWSpecID_AAPL:
-		return "KIOFWSpecID_AAPL"
+	case KIOFBChangedInterruptType:
+		return "KIOFBChangedInterruptType"
+	case KIOFBConnectInterruptType:
+		return "KIOFBConnectInterruptType"
+	case KIOFBDisplayPortInterruptType:
+		return "KIOFBDisplayPortInterruptType"
+	case KIOFBDisplayPortLinkChangeInterruptType:
+		return "KIOFBDisplayPortLinkChangeInterruptType"
+	case KIOFBFrameInterruptType:
+		return "KIOFBFrameInterruptType"
+	case KIOFBHBLInterruptType:
+		return "KIOFBHBLInterruptType"
+	case KIOFBMCCSInterruptType:
+		return "KIOFBMCCSInterruptType"
+	case KIOFBOfflineInterruptType:
+		return "KIOFBOfflineInterruptType"
+	case KIOFBOnlineInterruptType:
+		return "KIOFBOnlineInterruptType"
+	case KIOFBVBLInterruptTypeValue:
+		return "KIOFBVBLInterruptTypeValue"
+	case KIOFBWakeInterruptType:
+		return "KIOFBWakeInterruptType"
 	default:
-		return fmt.Sprintf("KIOFW(%d)", e)
-	}
-}
-
-type KIOFWAVCProtocolUserClient uint
-
-const (
-	KIOFWAVCProtocolUserClientAVCRequestNotHandled       KIOFWAVCProtocolUserClient = 0
-	KIOFWAVCProtocolUserClientAddSubunit                 KIOFWAVCProtocolUserClient = 0
-	KIOFWAVCProtocolUserClientAllocateInputPlug          KIOFWAVCProtocolUserClient = 0
-	KIOFWAVCProtocolUserClientAllocateOutputPlug         KIOFWAVCProtocolUserClient = 0
-	KIOFWAVCProtocolUserClientConnectTargetPlugs         KIOFWAVCProtocolUserClient = 0
-	KIOFWAVCProtocolUserClientDisconnectTargetPlugs      KIOFWAVCProtocolUserClient = 0
-	KIOFWAVCProtocolUserClientFreeInputPlug              KIOFWAVCProtocolUserClient = 0
-	KIOFWAVCProtocolUserClientFreeOutputPlug             KIOFWAVCProtocolUserClient = 0
-	KIOFWAVCProtocolUserClientGetSubunitPlugSignalFormat KIOFWAVCProtocolUserClient = 0
-	KIOFWAVCProtocolUserClientGetTargetPlugConnection    KIOFWAVCProtocolUserClient = 0
-	KIOFWAVCProtocolUserClientInstallAVCCommandHandler   KIOFWAVCProtocolUserClient = 0
-	KIOFWAVCProtocolUserClientNumAsyncCommands           KIOFWAVCProtocolUserClient = 0
-	KIOFWAVCProtocolUserClientNumCommands                KIOFWAVCProtocolUserClient = 0
-	KIOFWAVCProtocolUserClientPublishAVCUnitDirectory    KIOFWAVCProtocolUserClient = 0
-	KIOFWAVCProtocolUserClientReadInputMasterPlug        KIOFWAVCProtocolUserClient = 0
-	KIOFWAVCProtocolUserClientReadInputPlug              KIOFWAVCProtocolUserClient = 0
-	KIOFWAVCProtocolUserClientReadOutputMasterPlug       KIOFWAVCProtocolUserClient = 0
-	KIOFWAVCProtocolUserClientReadOutputPlug             KIOFWAVCProtocolUserClient = 0
-	KIOFWAVCProtocolUserClientSendAVCResponse            KIOFWAVCProtocolUserClient = 0
-	KIOFWAVCProtocolUserClientSetAVCRequestCallback      KIOFWAVCProtocolUserClient = (18)
-	KIOFWAVCProtocolUserClientSetSubunitPlugSignalFormat KIOFWAVCProtocolUserClient = 0
-	KIOFWAVCProtocolUserClientUpdateInputMasterPlug      KIOFWAVCProtocolUserClient = 0
-	KIOFWAVCProtocolUserClientUpdateInputPlug            KIOFWAVCProtocolUserClient = 0
-	KIOFWAVCProtocolUserClientUpdateOutputMasterPlug     KIOFWAVCProtocolUserClient = 0
-	KIOFWAVCProtocolUserClientUpdateOutputPlug           KIOFWAVCProtocolUserClient = 0
-)
-
-func (e KIOFWAVCProtocolUserClient) String() string {
-	switch e {
-	case KIOFWAVCProtocolUserClientAVCRequestNotHandled:
-		return "KIOFWAVCProtocolUserClientAVCRequestNotHandled"
-	case KIOFWAVCProtocolUserClientSetAVCRequestCallback:
-		return "KIOFWAVCProtocolUserClientSetAVCRequestCallback"
-	default:
-		return fmt.Sprintf("KIOFWAVCProtocolUserClient(%d)", e)
+		return fmt.Sprintf("KIOFBVBLInterruptType(%d)", e)
 	}
 }
 
@@ -15874,42 +16663,51 @@ func (e KIOFWAVCSubunitPlugMsg) String() string {
 	}
 }
 
-type KIOFWAVCUserClient uint
+type KIOFWDisablePhysicalAccess uint32
 
 const (
-	KIOFWAVCUserClientAVCCommand                     KIOFWAVCUserClient = 0
-	KIOFWAVCUserClientAVCCommandInGen                KIOFWAVCUserClient = 0
-	KIOFWAVCUserClientBreakP2PInputConnection        KIOFWAVCUserClient = 0
-	KIOFWAVCUserClientBreakP2POutputConnection       KIOFWAVCUserClient = 0
-	KIOFWAVCUserClientCancelAsyncAVCCommand          KIOFWAVCUserClient = 0
-	KIOFWAVCUserClientClose                          KIOFWAVCUserClient = 0
-	KIOFWAVCUserClientCreateAsyncAVCCommand          KIOFWAVCUserClient = 0
-	KIOFWAVCUserClientGetSessionRef                  KIOFWAVCUserClient = 0
-	KIOFWAVCUserClientInstallAsyncAVCCommandCallback KIOFWAVCUserClient = (16)
-	KIOFWAVCUserClientMakeP2PInputConnection         KIOFWAVCUserClient = 0
-	KIOFWAVCUserClientMakeP2POutputConnection        KIOFWAVCUserClient = 0
-	KIOFWAVCUserClientNumAsyncCommands               KIOFWAVCUserClient = 0
-	KIOFWAVCUserClientNumCommands                    KIOFWAVCUserClient = 0
-	KIOFWAVCUserClientOpen                           KIOFWAVCUserClient = 0
-	KIOFWAVCUserClientOpenWithSessionRef             KIOFWAVCUserClient = 0
-	KIOFWAVCUserClientReinitAsyncAVCCommand          KIOFWAVCUserClient = 0
-	KIOFWAVCUserClientReleaseAsyncAVCCommand         KIOFWAVCUserClient = 0
-	KIOFWAVCUserClientSubmitAsyncAVCCommand          KIOFWAVCUserClient = 0
-	KIOFWAVCUserClientUpdateAVCCommandTimeout        KIOFWAVCUserClient = 0
+	// KIOFWDisableAllPhysicalAccess: # Discussion
+	KIOFWDisableAllPhysicalAccess KIOFWDisablePhysicalAccess = 2
+	// KIOFWDisablePhyOnSleep: # Discussion
+	KIOFWDisablePhyOnSleep KIOFWDisablePhysicalAccess = 16
+	// KIOFWDisablePhysicalAccessValue: # Discussion
+	KIOFWDisablePhysicalAccessValue KIOFWDisablePhysicalAccess = 1
+	// KIOFWEnableRetryOnAckD: # Discussion
+	KIOFWEnableRetryOnAckD KIOFWDisablePhysicalAccess = 4
+	// KIOFWLimitAsyncPacketSize: # Discussion
+	KIOFWLimitAsyncPacketSize KIOFWDisablePhysicalAccess = 8
+	// KIOFWMustBeRoot: # Discussion
+	KIOFWMustBeRoot KIOFWDisablePhysicalAccess = 32
+	// KIOFWMustHaveGap63: # Discussion
+	KIOFWMustHaveGap63 KIOFWDisablePhysicalAccess = 128
+	// KIOFWMustNotBeRoot: # Discussion
+	KIOFWMustNotBeRoot KIOFWDisablePhysicalAccess = 64
 )
 
-func (e KIOFWAVCUserClient) String() string {
+func (e KIOFWDisablePhysicalAccess) String() string {
 	switch e {
-	case KIOFWAVCUserClientAVCCommand:
-		return "KIOFWAVCUserClientAVCCommand"
-	case KIOFWAVCUserClientInstallAsyncAVCCommandCallback:
-		return "KIOFWAVCUserClientInstallAsyncAVCCommandCallback"
+	case KIOFWDisableAllPhysicalAccess:
+		return "KIOFWDisableAllPhysicalAccess"
+	case KIOFWDisablePhyOnSleep:
+		return "KIOFWDisablePhyOnSleep"
+	case KIOFWDisablePhysicalAccessValue:
+		return "KIOFWDisablePhysicalAccessValue"
+	case KIOFWEnableRetryOnAckD:
+		return "KIOFWEnableRetryOnAckD"
+	case KIOFWLimitAsyncPacketSize:
+		return "KIOFWLimitAsyncPacketSize"
+	case KIOFWMustBeRoot:
+		return "KIOFWMustBeRoot"
+	case KIOFWMustHaveGap63:
+		return "KIOFWMustHaveGap63"
+	case KIOFWMustNotBeRoot:
+		return "KIOFWMustNotBeRoot"
 	default:
-		return fmt.Sprintf("KIOFWAVCUserClient(%d)", e)
+		return fmt.Sprintf("KIOFWDisablePhysicalAccess(%d)", e)
 	}
 }
 
-type KIOFWPhysicalAccess uint
+type KIOFWPhysicalAccess uint32
 
 const (
 	KIOFWPhysicalAccessDisabled              KIOFWPhysicalAccess = 1
@@ -15930,7 +16728,7 @@ func (e KIOFWPhysicalAccess) String() string {
 	}
 }
 
-type KIOFWRead uint
+type KIOFWRead uint32
 
 const (
 	KIOFWReadBlockRequest KIOFWRead = 0x4
@@ -16034,7 +16832,7 @@ func (e KIOFWSBP2UserClient) String() string {
 	}
 }
 
-type KIOFWSecurityMode uint
+type KIOFWSecurityMode uint32
 
 const (
 	KIOFWSecurityModeNormal          KIOFWSecurityMode = 0
@@ -16055,7 +16853,7 @@ func (e KIOFWSecurityMode) String() string {
 	}
 }
 
-type KIOFWWrite uint
+type KIOFWWrite uint32
 
 const (
 	KIOFWWriteBlockRequest        KIOFWWrite = 0x4
@@ -16076,35 +16874,6 @@ func (e KIOFWWrite) String() string {
 		return "KIOFWWriteFlagsNone"
 	default:
 		return fmt.Sprintf("KIOFWWrite(%d)", e)
-	}
-}
-
-type KIOHID uint
-
-const (
-	KIOHIDActivityDisplayOn      KIOHID = 0x4
-	KIOHIDActivityUserIdle       KIOHID = 0x3
-	KIOHIDCapsLockState          KIOHID = 0x1
-	KIOHIDEventSystemConnectType KIOHID = 3
-	KIOHIDNumLockState           KIOHID = 0x2
-	KIOHIDParamConnectType       KIOHID = 1
-	KIOHIDServerConnectType      KIOHID = 0
-)
-
-func (e KIOHID) String() string {
-	switch e {
-	case KIOHIDActivityDisplayOn:
-		return "KIOHIDActivityDisplayOn"
-	case KIOHIDActivityUserIdle:
-		return "KIOHIDActivityUserIdle"
-	case KIOHIDCapsLockState:
-		return "KIOHIDCapsLockState"
-	case KIOHIDNumLockState:
-		return "KIOHIDNumLockState"
-	case KIOHIDServerConnectType:
-		return "KIOHIDServerConnectType"
-	default:
-		return fmt.Sprintf("KIOHID(%d)", e)
 	}
 }
 
@@ -16143,6 +16912,30 @@ func (e KIOHIDButtonMode) String() string {
 		return "KIOHIDButtonMode_ReverseLeftRightClicks"
 	default:
 		return fmt.Sprintf("KIOHIDButtonMode(%d)", e)
+	}
+}
+
+type KIOHIDCapsLockState uint
+
+const (
+	KIOHIDActivityDisplayOn  KIOHIDCapsLockState = 0x4
+	KIOHIDActivityUserIdle   KIOHIDCapsLockState = 0x3
+	KIOHIDCapsLockStateValue KIOHIDCapsLockState = 0x1
+	KIOHIDNumLockState       KIOHIDCapsLockState = 0x2
+)
+
+func (e KIOHIDCapsLockState) String() string {
+	switch e {
+	case KIOHIDActivityDisplayOn:
+		return "KIOHIDActivityDisplayOn"
+	case KIOHIDActivityUserIdle:
+		return "KIOHIDActivityUserIdle"
+	case KIOHIDCapsLockStateValue:
+		return "KIOHIDCapsLockStateValue"
+	case KIOHIDNumLockState:
+		return "KIOHIDNumLockState"
+	default:
+		return fmt.Sprintf("KIOHIDCapsLockState(%d)", e)
 	}
 }
 
@@ -16327,6 +17120,27 @@ func (e KIOHIDQueueOptionsType) String() string {
 	}
 }
 
+type KIOHIDServerConnectType uint
+
+const (
+	KIOHIDEventSystemConnectType KIOHIDServerConnectType = 3
+	KIOHIDParamConnectType       KIOHIDServerConnectType = 1
+	KIOHIDServerConnectTypeValue KIOHIDServerConnectType = 0
+)
+
+func (e KIOHIDServerConnectType) String() string {
+	switch e {
+	case KIOHIDEventSystemConnectType:
+		return "KIOHIDEventSystemConnectType"
+	case KIOHIDParamConnectType:
+		return "KIOHIDParamConnectType"
+	case KIOHIDServerConnectTypeValue:
+		return "KIOHIDServerConnectTypeValue"
+	default:
+		return fmt.Sprintf("KIOHIDServerConnectType(%d)", e)
+	}
+}
+
 type KIOHIDStandardType uint
 
 const (
@@ -16391,6 +17205,42 @@ func (e KIOHIDValueScaleType) String() string {
 		return "KIOHIDValueScaleTypeCalibrated"
 	default:
 		return fmt.Sprintf("KIOHIDValueScaleType(%d)", e)
+	}
+}
+
+type KIOHSyncDisable uint
+
+const (
+	KIOCSyncDisable          KIOHSyncDisable = 0x4
+	KIOHSyncDisableValue     KIOHSyncDisable = 0x1
+	KIONoSeparateSyncControl KIOHSyncDisable = 0x40
+	KIOSyncOnBlue            KIOHSyncDisable = 0x8
+	KIOSyncOnGreen           KIOHSyncDisable = 0x10
+	KIOSyncOnRed             KIOHSyncDisable = 0x20
+	KIOTriStateSyncs         KIOHSyncDisable = 0x80
+	KIOVSyncDisable          KIOHSyncDisable = 0x2
+)
+
+func (e KIOHSyncDisable) String() string {
+	switch e {
+	case KIOCSyncDisable:
+		return "KIOCSyncDisable"
+	case KIOHSyncDisableValue:
+		return "KIOHSyncDisableValue"
+	case KIONoSeparateSyncControl:
+		return "KIONoSeparateSyncControl"
+	case KIOSyncOnBlue:
+		return "KIOSyncOnBlue"
+	case KIOSyncOnGreen:
+		return "KIOSyncOnGreen"
+	case KIOSyncOnRed:
+		return "KIOSyncOnRed"
+	case KIOTriStateSyncs:
+		return "KIOTriStateSyncs"
+	case KIOVSyncDisable:
+		return "KIOVSyncDisable"
+	default:
+		return fmt.Sprintf("KIOHSyncDisable(%d)", e)
 	}
 }
 
@@ -16596,32 +17446,32 @@ func (e KIOLogAttach) String() string {
 	}
 }
 
-type KIOMap uint
+type KIOMap uint32
 
 const (
 	KIOMapAnywhere                KIOMap = 0x1
 	KIOMapCacheMask               KIOMap = 0xf00
 	KIOMapCacheShift              KIOMap = 8
-	KIOMapCopybackCache           KIOMap = 3
-	KIOMapCopybackInnerCache      KIOMap = 5
+	KIOMapCopybackCache           KIOMap = 768
+	KIOMapCopybackInnerCache      KIOMap = 1280
 	KIOMapDefaultCache            KIOMap = 0
 	KIOMapGuardedLarge            KIOMap = 0x80000000
 	KIOMapGuardedMask             KIOMap = 0xc0000000
 	KIOMapGuardedSmall            KIOMap = 0x40000000
-	KIOMapInhibitCache            KIOMap = 1
+	KIOMapInhibitCache            KIOMap = 256
 	KIOMapOverwrite               KIOMap = 0x20000000
-	KIOMapPostedCombinedReordered KIOMap = 9
-	KIOMapPostedReordered         KIOMap = 8
-	KIOMapPostedWrite             KIOMap = 6
+	KIOMapPostedCombinedReordered KIOMap = 2304
+	KIOMapPostedReordered         KIOMap = 2048
+	KIOMapPostedWrite             KIOMap = 1536
 	KIOMapPrefault                KIOMap = 0x10000000
 	KIOMapReadOnly                KIOMap = 0x1000
-	KIOMapRealTimeCache           KIOMap = 7
+	KIOMapRealTimeCache           KIOMap = 1792
 	KIOMapReference               KIOMap = 0x2000000
 	KIOMapStatic                  KIOMap = 0x1000000
 	KIOMapUnique                  KIOMap = 0x4000000
 	KIOMapUserOptionsMask         KIOMap = 0xfff
-	KIOMapWriteCombineCache       KIOMap = 4
-	KIOMapWriteThruCache          KIOMap = 2
+	KIOMapWriteCombineCache       KIOMap = 1024
+	KIOMapWriteThruCache          KIOMap = 512
 )
 
 func (e KIOMap) String() string {
@@ -16644,10 +17494,14 @@ func (e KIOMap) String() string {
 		return "KIOMapGuardedMask"
 	case KIOMapGuardedSmall:
 		return "KIOMapGuardedSmall"
+	case KIOMapInhibitCache:
+		return "KIOMapInhibitCache"
 	case KIOMapOverwrite:
 		return "KIOMapOverwrite"
 	case KIOMapPostedCombinedReordered:
 		return "KIOMapPostedCombinedReordered"
+	case KIOMapPostedReordered:
+		return "KIOMapPostedReordered"
 	case KIOMapPostedWrite:
 		return "KIOMapPostedWrite"
 	case KIOMapPrefault:
@@ -16688,7 +17542,7 @@ func (e KIOMapper) String() string {
 	}
 }
 
-type KIOMaxBus uint
+type KIOMaxBus uint32
 
 const (
 	KIOMaxBusStall10usec KIOMaxBus = 10000
@@ -16783,7 +17637,7 @@ func (e KIOMediaState) String() string {
 	}
 }
 
-type KIOMedium uint
+type KIOMedium uint32
 
 const (
 	KIOMediumEthernet           KIOMedium = 0x20
@@ -16869,7 +17723,7 @@ func (e KIOMedium) String() string {
 	}
 }
 
-type KIOMediumIEE uint
+type KIOMediumIEE uint32
 
 const (
 	KIOMediumIEEE80211            KIOMediumIEE = 0x80
@@ -16912,7 +17766,7 @@ func (e KIOMediumIEE) String() string {
 	}
 }
 
-type KIOMediumOption uint
+type KIOMediumOption uint32
 
 const (
 	KIOMediumOptionEEE         KIOMediumOption = 0x800000
@@ -16948,41 +17802,31 @@ func (e KIOMediumOption) String() string {
 	}
 }
 
-type KIOMemory uint
+type KIOMemoryDirectionMask uint
 
 const (
-	KIOMemoryAsReference        KIOMemory = 0x100
-	KIOMemoryBufferPageable     KIOMemory = 0x400
-	KIOMemoryClearEncrypt       KIOMemory = 0x200000
-	KIOMemoryClearEncrypted     KIOMemory = 50
-	KIOMemoryDirectionIn        KIOMemory = 0x1
-	KIOMemoryDirectionInOut     KIOMemory = 3
-	KIOMemoryDirectionMask      KIOMemory = 0x7
-	KIOMemoryDirectionNone      KIOMemory = 0
-	KIOMemoryDirectionOut       KIOMemory = 0x2
-	KIOMemoryDirectionOutIn     KIOMemory = 3
-	KIOMemoryDisableCopyOnWrite KIOMemory = 0x10
-	KIOMemoryHostOnly           KIOMemory = 0x1000
-	KIOMemoryIncoherentIOFlush  KIOMemory = 1
-	KIOMemoryIncoherentIOStore  KIOMemory = 2
-	KIOMemoryMapCopyOnWrite     KIOMemory = 0x20000
-	KIOMemoryMapperNone         KIOMemory = 0x800
-	KIOMemoryPersistent         KIOMemory = 0x10000
-	KIOMemoryRemote             KIOMemory = 0x40000
-	KIOMemorySetEncrypted       KIOMemory = 51
-	KIOMemoryThreadSafe         KIOMemory = 0x100000
-	KIOMemoryTypeMask           KIOMemory = 0xf0
-	KIOMemoryTypePersistentMD   KIOMemory = 0x40
-	KIOMemoryTypePhysical       KIOMemory = 0x20
-	KIOMemoryTypePhysical64     KIOMemory = 32
-	KIOMemoryTypeUIO            KIOMemory = 0x50
-	KIOMemoryTypeUPL            KIOMemory = 0x30
-	KIOMemoryTypeVirtual        KIOMemory = 0x10
-	KIOMemoryTypeVirtual64      KIOMemory = 16
-	KIOMemoryUseReserve         KIOMemory = 0x800000
+	KIOMemoryAsReference        KIOMemoryDirectionMask = 0x100
+	KIOMemoryBufferPageable     KIOMemoryDirectionMask = 0x400
+	KIOMemoryClearEncrypt       KIOMemoryDirectionMask = 0x200000
+	KIOMemoryDirectionMaskValue KIOMemoryDirectionMask = 0x7
+	KIOMemoryHostOnly           KIOMemoryDirectionMask = 0x1000
+	KIOMemoryMapCopyOnWrite     KIOMemoryDirectionMask = 0x20000
+	KIOMemoryMapperNone         KIOMemoryDirectionMask = 0x800
+	KIOMemoryPersistent         KIOMemoryDirectionMask = 0x10000
+	KIOMemoryRemote             KIOMemoryDirectionMask = 0x40000
+	KIOMemoryThreadSafe         KIOMemoryDirectionMask = 0x100000
+	KIOMemoryTypeMask           KIOMemoryDirectionMask = 0xf0
+	KIOMemoryTypePersistentMD   KIOMemoryDirectionMask = 0x40
+	KIOMemoryTypePhysical       KIOMemoryDirectionMask = 0x20
+	KIOMemoryTypePhysical64     KIOMemoryDirectionMask = 32
+	KIOMemoryTypeUIO            KIOMemoryDirectionMask = 0x50
+	KIOMemoryTypeUPL            KIOMemoryDirectionMask = 0x30
+	KIOMemoryTypeVirtual        KIOMemoryDirectionMask = 0x10
+	KIOMemoryTypeVirtual64      KIOMemoryDirectionMask = 16
+	KIOMemoryUseReserve         KIOMemoryDirectionMask = 0x800000
 )
 
-func (e KIOMemory) String() string {
+func (e KIOMemoryDirectionMask) String() string {
 	switch e {
 	case KIOMemoryAsReference:
 		return "KIOMemoryAsReference"
@@ -16990,20 +17834,8 @@ func (e KIOMemory) String() string {
 		return "KIOMemoryBufferPageable"
 	case KIOMemoryClearEncrypt:
 		return "KIOMemoryClearEncrypt"
-	case KIOMemoryClearEncrypted:
-		return "KIOMemoryClearEncrypted"
-	case KIOMemoryDirectionIn:
-		return "KIOMemoryDirectionIn"
-	case KIOMemoryDirectionInOut:
-		return "KIOMemoryDirectionInOut"
-	case KIOMemoryDirectionMask:
-		return "KIOMemoryDirectionMask"
-	case KIOMemoryDirectionNone:
-		return "KIOMemoryDirectionNone"
-	case KIOMemoryDirectionOut:
-		return "KIOMemoryDirectionOut"
-	case KIOMemoryDisableCopyOnWrite:
-		return "KIOMemoryDisableCopyOnWrite"
+	case KIOMemoryDirectionMaskValue:
+		return "KIOMemoryDirectionMaskValue"
 	case KIOMemoryHostOnly:
 		return "KIOMemoryHostOnly"
 	case KIOMemoryMapCopyOnWrite:
@@ -17014,8 +17846,6 @@ func (e KIOMemory) String() string {
 		return "KIOMemoryPersistent"
 	case KIOMemoryRemote:
 		return "KIOMemoryRemote"
-	case KIOMemorySetEncrypted:
-		return "KIOMemorySetEncrypted"
 	case KIOMemoryThreadSafe:
 		return "KIOMemoryThreadSafe"
 	case KIOMemoryTypeMask:
@@ -17028,17 +17858,71 @@ func (e KIOMemory) String() string {
 		return "KIOMemoryTypeUIO"
 	case KIOMemoryTypeUPL:
 		return "KIOMemoryTypeUPL"
+	case KIOMemoryTypeVirtual:
+		return "KIOMemoryTypeVirtual"
 	case KIOMemoryUseReserve:
 		return "KIOMemoryUseReserve"
 	default:
-		return fmt.Sprintf("KIOMemory(%d)", e)
+		return fmt.Sprintf("KIOMemoryDirectionMask(%d)", e)
+	}
+}
+
+type KIOMemoryDirectionNone uint
+
+const (
+	KIOMemoryDirectionIn        KIOMemoryDirectionNone = 0x1
+	KIOMemoryDirectionInOut     KIOMemoryDirectionNone = 3
+	KIOMemoryDirectionNoneValue KIOMemoryDirectionNone = 0
+	KIOMemoryDirectionOut       KIOMemoryDirectionNone = 0x2
+	KIOMemoryDirectionOutIn     KIOMemoryDirectionNone = 3
+	KIOMemoryDisableCopyOnWrite KIOMemoryDirectionNone = 0x10
+)
+
+func (e KIOMemoryDirectionNone) String() string {
+	switch e {
+	case KIOMemoryDirectionIn:
+		return "KIOMemoryDirectionIn"
+	case KIOMemoryDirectionInOut:
+		return "KIOMemoryDirectionInOut"
+	case KIOMemoryDirectionNoneValue:
+		return "KIOMemoryDirectionNoneValue"
+	case KIOMemoryDirectionOut:
+		return "KIOMemoryDirectionOut"
+	case KIOMemoryDisableCopyOnWrite:
+		return "KIOMemoryDisableCopyOnWrite"
+	default:
+		return fmt.Sprintf("KIOMemoryDirectionNone(%d)", e)
+	}
+}
+
+type KIOMemoryIncoherentIOFlush uint
+
+const (
+	KIOMemoryClearEncrypted         KIOMemoryIncoherentIOFlush = 50
+	KIOMemoryIncoherentIOFlushValue KIOMemoryIncoherentIOFlush = 1
+	KIOMemoryIncoherentIOStore      KIOMemoryIncoherentIOFlush = 2
+	KIOMemorySetEncrypted           KIOMemoryIncoherentIOFlush = 51
+)
+
+func (e KIOMemoryIncoherentIOFlush) String() string {
+	switch e {
+	case KIOMemoryClearEncrypted:
+		return "KIOMemoryClearEncrypted"
+	case KIOMemoryIncoherentIOFlushValue:
+		return "KIOMemoryIncoherentIOFlushValue"
+	case KIOMemoryIncoherentIOStore:
+		return "KIOMemoryIncoherentIOStore"
+	case KIOMemorySetEncrypted:
+		return "KIOMemorySetEncrypted"
+	default:
+		return fmt.Sprintf("KIOMemoryIncoherentIOFlush(%d)", e)
 	}
 }
 
 type KIOMemoryLedgerFlagNo uint
 
 const (
-	KIOMemoryLedgerFlagNoFootprint KIOMemoryLedgerFlagNo = (1)
+	KIOMemoryLedgerFlagNoFootprint KIOMemoryLedgerFlagNo = 1
 )
 
 func (e KIOMemoryLedgerFlagNo) String() string {
@@ -17047,6 +17931,33 @@ func (e KIOMemoryLedgerFlagNo) String() string {
 		return "KIOMemoryLedgerFlagNoFootprint"
 	default:
 		return fmt.Sprintf("KIOMemoryLedgerFlagNo(%d)", e)
+	}
+}
+
+type KIOMemoryLedgerTagDefault uint
+
+const (
+	KIOMemoryLedgerTagDefaultValue KIOMemoryLedgerTagDefault = 1
+	KIOMemoryLedgerTagGraphics     KIOMemoryLedgerTagDefault = 4
+	KIOMemoryLedgerTagMedia        KIOMemoryLedgerTagDefault = 3
+	KIOMemoryLedgerTagNeural       KIOMemoryLedgerTagDefault = 5
+	KIOmemoryLedgerTagNetwork      KIOMemoryLedgerTagDefault = 2
+)
+
+func (e KIOMemoryLedgerTagDefault) String() string {
+	switch e {
+	case KIOMemoryLedgerTagDefaultValue:
+		return "KIOMemoryLedgerTagDefaultValue"
+	case KIOMemoryLedgerTagGraphics:
+		return "KIOMemoryLedgerTagGraphics"
+	case KIOMemoryLedgerTagMedia:
+		return "KIOMemoryLedgerTagMedia"
+	case KIOMemoryLedgerTagNeural:
+		return "KIOMemoryLedgerTagNeural"
+	case KIOmemoryLedgerTagNetwork:
+		return "KIOmemoryLedgerTagNetwork"
+	default:
+		return fmt.Sprintf("KIOMemoryLedgerTagDefault(%d)", e)
 	}
 }
 
@@ -17096,26 +18007,62 @@ func (e KIOMemoryMap) String() string {
 	}
 }
 
+type KIOMemoryPhysicallyContiguous uint
+
+const (
+	KIOBufferDescriptorMemoryFlags     KIOMemoryPhysicallyContiguous = 0xb00807
+	KIOMemoryHostPhysicallyContiguous  KIOMemoryPhysicallyContiguous = 0x80
+	KIOMemoryKernelUserShared          KIOMemoryPhysicallyContiguous = 0x10000
+	KIOMemoryPageable                  KIOMemoryPhysicallyContiguous = 0x20
+	KIOMemoryPhysicallyContiguousValue KIOMemoryPhysicallyContiguous = 0x10
+	KIOMemoryPurgeableValue            KIOMemoryPhysicallyContiguous = 0x40
+	KIOMemorySharingTypeMask           KIOMemoryPhysicallyContiguous = 0xf0000
+	KIOMemoryUnshared                  KIOMemoryPhysicallyContiguous = 0
+)
+
+func (e KIOMemoryPhysicallyContiguous) String() string {
+	switch e {
+	case KIOBufferDescriptorMemoryFlags:
+		return "KIOBufferDescriptorMemoryFlags"
+	case KIOMemoryHostPhysicallyContiguous:
+		return "KIOMemoryHostPhysicallyContiguous"
+	case KIOMemoryKernelUserShared:
+		return "KIOMemoryKernelUserShared"
+	case KIOMemoryPageable:
+		return "KIOMemoryPageable"
+	case KIOMemoryPhysicallyContiguousValue:
+		return "KIOMemoryPhysicallyContiguousValue"
+	case KIOMemoryPurgeableValue:
+		return "KIOMemoryPurgeableValue"
+	case KIOMemorySharingTypeMask:
+		return "KIOMemorySharingTypeMask"
+	case KIOMemoryUnshared:
+		return "KIOMemoryUnshared"
+	default:
+		return fmt.Sprintf("KIOMemoryPhysicallyContiguous(%d)", e)
+	}
+}
+
 type KIOMemoryPurgeable uint
 
 const (
 	KIOMemoryPurgeableEmpty                    KIOMemoryPurgeable = 4
-	KIOMemoryPurgeableFaultOnAccess            KIOMemoryPurgeable = (8192)
+	KIOMemoryPurgeableFaultOnAccess            KIOMemoryPurgeable = 8192
 	KIOMemoryPurgeableKeepCurrent              KIOMemoryPurgeable = 1
 	KIOMemoryPurgeableNonVolatile              KIOMemoryPurgeable = 2
 	KIOMemoryPurgeableVolatile                 KIOMemoryPurgeable = 3
-	KIOMemoryPurgeableVolatileBehaviorFifo     KIOMemoryPurgeable = (0)
-	KIOMemoryPurgeableVolatileBehaviorLifo     KIOMemoryPurgeable = (64)
-	KIOMemoryPurgeableVolatileGroup0           KIOMemoryPurgeable = (0)
-	KIOMemoryPurgeableVolatileGroup1           KIOMemoryPurgeable = (256)
-	KIOMemoryPurgeableVolatileGroup2           KIOMemoryPurgeable = (512)
-	KIOMemoryPurgeableVolatileGroup3           KIOMemoryPurgeable = (768)
-	KIOMemoryPurgeableVolatileGroup4           KIOMemoryPurgeable = (1024)
-	KIOMemoryPurgeableVolatileGroup5           KIOMemoryPurgeable = (1280)
-	KIOMemoryPurgeableVolatileGroup6           KIOMemoryPurgeable = (1536)
-	KIOMemoryPurgeableVolatileGroup7           KIOMemoryPurgeable = (1792)
-	KIOMemoryPurgeableVolatileOrderingNormal   KIOMemoryPurgeable = (0)
-	KIOMemoryPurgeableVolatileOrderingObsolete KIOMemoryPurgeable = (32)
+	KIOMemoryPurgeableVolatileBehaviorFifo     KIOMemoryPurgeable = 0
+	KIOMemoryPurgeableVolatileBehaviorLifo     KIOMemoryPurgeable = 64
+	KIOMemoryPurgeableVolatileGroup0           KIOMemoryPurgeable = 0
+	KIOMemoryPurgeableVolatileGroup1           KIOMemoryPurgeable = 256
+	KIOMemoryPurgeableVolatileGroup2           KIOMemoryPurgeable = 512
+	KIOMemoryPurgeableVolatileGroup3           KIOMemoryPurgeable = 768
+	KIOMemoryPurgeableVolatileGroup4           KIOMemoryPurgeable = 1024
+	KIOMemoryPurgeableVolatileGroup5           KIOMemoryPurgeable = 1280
+	KIOMemoryPurgeableVolatileGroup6           KIOMemoryPurgeable = 1536
+	KIOMemoryPurgeableVolatileGroup7           KIOMemoryPurgeable = 1792
+	KIOMemoryPurgeableVolatileOrderingNormal   KIOMemoryPurgeable = 0
+	KIOMemoryPurgeableVolatileOrderingObsolete KIOMemoryPurgeable = 32
 )
 
 func (e KIOMemoryPurgeable) String() string {
@@ -17155,70 +18102,75 @@ func (e KIOMemoryPurgeable) String() string {
 	}
 }
 
-type KIOMirror uint
+type KIOMirrorDefault uint
 
 const (
-	KIOMirrorDefault    KIOMirror = 0x1
-	KIOMirrorForced     KIOMirror = 0x2
-	KIOMirrorHWClipped  KIOMirror = 0x40000000
-	KIOMirrorIsMirrored KIOMirror = 0x20000000
-	KIOMirrorIsPrimary  KIOMirror = 0x80000000
+	KIOMirrorDefaultValue KIOMirrorDefault = 0x1
+	KIOMirrorForced       KIOMirrorDefault = 0x2
 )
 
-func (e KIOMirror) String() string {
+func (e KIOMirrorDefault) String() string {
 	switch e {
-	case KIOMirrorDefault:
-		return "KIOMirrorDefault"
+	case KIOMirrorDefaultValue:
+		return "KIOMirrorDefaultValue"
 	case KIOMirrorForced:
 		return "KIOMirrorForced"
+	default:
+		return fmt.Sprintf("KIOMirrorDefault(%d)", e)
+	}
+}
+
+type KIOMirrorIsPrimary uint
+
+const (
+	KIOMirrorHWClipped      KIOMirrorIsPrimary = 0x40000000
+	KIOMirrorIsMirrored     KIOMirrorIsPrimary = 0x20000000
+	KIOMirrorIsPrimaryValue KIOMirrorIsPrimary = 0x80000000
+)
+
+func (e KIOMirrorIsPrimary) String() string {
+	switch e {
 	case KIOMirrorHWClipped:
 		return "KIOMirrorHWClipped"
 	case KIOMirrorIsMirrored:
 		return "KIOMirrorIsMirrored"
-	case KIOMirrorIsPrimary:
-		return "KIOMirrorIsPrimary"
+	case KIOMirrorIsPrimaryValue:
+		return "KIOMirrorIsPrimaryValue"
 	default:
-		return fmt.Sprintf("KIOMirror(%d)", e)
+		return fmt.Sprintf("KIOMirrorIsPrimary(%d)", e)
 	}
 }
 
-type KIONDRV uint
+type KIONDRVOpenCommand uint
 
 const (
-	KIONDRVAsynchronousIOCommandKind KIONDRV = 0x2
-	KIONDRVCloseCommand              KIONDRV = 129
-	KIONDRVControlCommand            KIONDRV = 132
-	KIONDRVFinalizeCommand           KIONDRV = 136
-	KIONDRVImmediateIOCommandKind    KIONDRV = 0x4
-	KIONDRVInitializeCommand         KIONDRV = 135
-	KIONDRVKillIOCommand             KIONDRV = 134
-	KIONDRVOpenCommand               KIONDRV = 128
-	KIONDRVReadCommand               KIONDRV = 130
-	KIONDRVReplaceCommand            KIONDRV = 137
-	KIONDRVStatusCommand             KIONDRV = 133
-	KIONDRVSupersededCommand         KIONDRV = 138
-	KIONDRVSynchronousIOCommandKind  KIONDRV = 0x1
-	KIONDRVWriteCommand              KIONDRV = 131
+	KIONDRVCloseCommand      KIONDRVOpenCommand = 129
+	KIONDRVControlCommand    KIONDRVOpenCommand = 132
+	KIONDRVFinalizeCommand   KIONDRVOpenCommand = 136
+	KIONDRVInitializeCommand KIONDRVOpenCommand = 135
+	KIONDRVKillIOCommand     KIONDRVOpenCommand = 134
+	KIONDRVOpenCommandValue  KIONDRVOpenCommand = 128
+	KIONDRVReadCommand       KIONDRVOpenCommand = 130
+	KIONDRVReplaceCommand    KIONDRVOpenCommand = 137
+	KIONDRVStatusCommand     KIONDRVOpenCommand = 133
+	KIONDRVSupersededCommand KIONDRVOpenCommand = 138
+	KIONDRVWriteCommand      KIONDRVOpenCommand = 131
 )
 
-func (e KIONDRV) String() string {
+func (e KIONDRVOpenCommand) String() string {
 	switch e {
-	case KIONDRVAsynchronousIOCommandKind:
-		return "KIONDRVAsynchronousIOCommandKind"
 	case KIONDRVCloseCommand:
 		return "KIONDRVCloseCommand"
 	case KIONDRVControlCommand:
 		return "KIONDRVControlCommand"
 	case KIONDRVFinalizeCommand:
 		return "KIONDRVFinalizeCommand"
-	case KIONDRVImmediateIOCommandKind:
-		return "KIONDRVImmediateIOCommandKind"
 	case KIONDRVInitializeCommand:
 		return "KIONDRVInitializeCommand"
 	case KIONDRVKillIOCommand:
 		return "KIONDRVKillIOCommand"
-	case KIONDRVOpenCommand:
-		return "KIONDRVOpenCommand"
+	case KIONDRVOpenCommandValue:
+		return "KIONDRVOpenCommandValue"
 	case KIONDRVReadCommand:
 		return "KIONDRVReadCommand"
 	case KIONDRVReplaceCommand:
@@ -17227,12 +18179,31 @@ func (e KIONDRV) String() string {
 		return "KIONDRVStatusCommand"
 	case KIONDRVSupersededCommand:
 		return "KIONDRVSupersededCommand"
-	case KIONDRVSynchronousIOCommandKind:
-		return "KIONDRVSynchronousIOCommandKind"
 	case KIONDRVWriteCommand:
 		return "KIONDRVWriteCommand"
 	default:
-		return fmt.Sprintf("KIONDRV(%d)", e)
+		return fmt.Sprintf("KIONDRVOpenCommand(%d)", e)
+	}
+}
+
+type KIONDRVSynchronousIOCommandKind uint
+
+const (
+	KIONDRVAsynchronousIOCommandKind     KIONDRVSynchronousIOCommandKind = 0x2
+	KIONDRVImmediateIOCommandKind        KIONDRVSynchronousIOCommandKind = 0x4
+	KIONDRVSynchronousIOCommandKindValue KIONDRVSynchronousIOCommandKind = 0x1
+)
+
+func (e KIONDRVSynchronousIOCommandKind) String() string {
+	switch e {
+	case KIONDRVAsynchronousIOCommandKind:
+		return "KIONDRVAsynchronousIOCommandKind"
+	case KIONDRVImmediateIOCommandKind:
+		return "KIONDRVImmediateIOCommandKind"
+	case KIONDRVSynchronousIOCommandKindValue:
+		return "KIONDRVSynchronousIOCommandKindValue"
+	default:
+		return fmt.Sprintf("KIONDRVSynchronousIOCommandKind(%d)", e)
 	}
 }
 
@@ -17423,7 +18394,7 @@ func (e KIONetworkInterface) String() string {
 	}
 }
 
-type KIONetworkLink uint
+type KIONetworkLink uint32
 
 const (
 	KIONetworkLinkActive          KIONetworkLink = 0x2
@@ -17468,7 +18439,7 @@ func (e KIOOutputCommand) String() string {
 	}
 }
 
-type KIOOutputStatus int
+type KIOOutputStatus uint
 
 const (
 	KIOOutputStatusAccepted KIOOutputStatus = 0
@@ -17519,95 +18490,25 @@ func (e KIOPC) String() string {
 	}
 }
 
-type KIOPCI int
+type KIOPCICapabilityIDOffset uint32
 
 const (
-	KIOPCIAGP8Capability                             KIOPCI = (14)
-	KIOPCIAGPCapability                              KIOPCI = (2)
-	KIOPCICPCIHotswapCapability                      KIOPCI = (6)
-	KIOPCICPCIResourceControlCapability              KIOPCI = (11)
-	KIOPCICapabilityIDOffset                         KIOPCI = 0
-	KIOPCIDebugPortCapability                        KIOPCI = (10)
-	KIOPCIExpressAccessControlServicesCapability     KIOPCI = (-13)
-	KIOPCIExpressDeviceSerialNumberCapability        KIOPCI = (-3)
-	KIOPCIExpressErrorReportingCapability            KIOPCI = (-1)
-	KIOPCIExpressL1PMSubstatesCapability             KIOPCI = (-30)
-	KIOPCIExpressLatencyTolerenceReportingCapability KIOPCI = (-24)
-	KIOPCIExpressPowerBudgetCapability               KIOPCI = (-4)
-	KIOPCIExpressVirtualChannelCapability            KIOPCI = (-2)
-	KIOPCIFPBCapability                              KIOPCI = (21)
-	KIOPCIHotplugCapability                          KIOPCI = (12)
-	KIOPCILDTCapability                              KIOPCI = (8)
-	KIOPCIMSICapability                              KIOPCI = (5)
-	KIOPCIMSIXCapability                             KIOPCI = (17)
-	KIOPCINextCapabilityOffset                       KIOPCI = 0x1
-	KIOPCIPCIExpressCapability                       KIOPCI = (16)
-	KIOPCIPCIXCapability                             KIOPCI = (7)
-	KIOPCIPowerManagementCapability                  KIOPCI = (1)
-	KIOPCISecureCapability                           KIOPCI = (15)
-	KIOPCISlotIDCapability                           KIOPCI = (4)
-	KIOPCIVendorSpecificCapability                   KIOPCI = (9)
-	KIOPCIVitalProductDataCapability                 KIOPCI = (3)
+	KIOPCICapabilityIDOffsetValue KIOPCICapabilityIDOffset = 0
+	KIOPCINextCapabilityOffset    KIOPCICapabilityIDOffset = 0x1
 )
 
-func (e KIOPCI) String() string {
+func (e KIOPCICapabilityIDOffset) String() string {
 	switch e {
-	case KIOPCIAGP8Capability:
-		return "KIOPCIAGP8Capability"
-	case KIOPCIAGPCapability:
-		return "KIOPCIAGPCapability"
-	case KIOPCICPCIHotswapCapability:
-		return "KIOPCICPCIHotswapCapability"
-	case KIOPCICPCIResourceControlCapability:
-		return "KIOPCICPCIResourceControlCapability"
-	case KIOPCICapabilityIDOffset:
-		return "KIOPCICapabilityIDOffset"
-	case KIOPCIDebugPortCapability:
-		return "KIOPCIDebugPortCapability"
-	case KIOPCIExpressAccessControlServicesCapability:
-		return "KIOPCIExpressAccessControlServicesCapability"
-	case KIOPCIExpressDeviceSerialNumberCapability:
-		return "KIOPCIExpressDeviceSerialNumberCapability"
-	case KIOPCIExpressErrorReportingCapability:
-		return "KIOPCIExpressErrorReportingCapability"
-	case KIOPCIExpressL1PMSubstatesCapability:
-		return "KIOPCIExpressL1PMSubstatesCapability"
-	case KIOPCIExpressLatencyTolerenceReportingCapability:
-		return "KIOPCIExpressLatencyTolerenceReportingCapability"
-	case KIOPCIExpressPowerBudgetCapability:
-		return "KIOPCIExpressPowerBudgetCapability"
-	case KIOPCIExpressVirtualChannelCapability:
-		return "KIOPCIExpressVirtualChannelCapability"
-	case KIOPCIFPBCapability:
-		return "KIOPCIFPBCapability"
-	case KIOPCIHotplugCapability:
-		return "KIOPCIHotplugCapability"
-	case KIOPCILDTCapability:
-		return "KIOPCILDTCapability"
-	case KIOPCIMSICapability:
-		return "KIOPCIMSICapability"
-	case KIOPCIMSIXCapability:
-		return "KIOPCIMSIXCapability"
+	case KIOPCICapabilityIDOffsetValue:
+		return "KIOPCICapabilityIDOffsetValue"
 	case KIOPCINextCapabilityOffset:
 		return "KIOPCINextCapabilityOffset"
-	case KIOPCIPCIExpressCapability:
-		return "KIOPCIPCIExpressCapability"
-	case KIOPCIPCIXCapability:
-		return "KIOPCIPCIXCapability"
-	case KIOPCISecureCapability:
-		return "KIOPCISecureCapability"
-	case KIOPCISlotIDCapability:
-		return "KIOPCISlotIDCapability"
-	case KIOPCIVendorSpecificCapability:
-		return "KIOPCIVendorSpecificCapability"
-	case KIOPCIVitalProductDataCapability:
-		return "KIOPCIVitalProductDataCapability"
 	default:
-		return fmt.Sprintf("KIOPCI(%d)", e)
+		return fmt.Sprintf("KIOPCICapabilityIDOffset(%d)", e)
 	}
 }
 
-type KIOPCICommand uint
+type KIOPCICommand uint32
 
 const (
 	KIOPCICommandAddressStepping  KIOPCICommand = 0x80
@@ -17621,7 +18522,7 @@ const (
 	KIOPCICommandSERR             KIOPCICommand = 0x100
 	KIOPCICommandSpecialCycles    KIOPCICommand = 0x8
 	// Deprecated.
-	KIOPCICommandBusMaster KIOPCICommand = (4)
+	KIOPCICommandBusMaster KIOPCICommand = 4
 )
 
 func (e KIOPCICommand) String() string {
@@ -17656,31 +18557,31 @@ func (e KIOPCICommand) String() string {
 type KIOPCIConfig uint
 
 const (
-	KIOPCIConfigBIST              KIOPCIConfig = (15)
-	KIOPCIConfigBaseAddress0      KIOPCIConfig = (16)
-	KIOPCIConfigBaseAddress1      KIOPCIConfig = (20)
-	KIOPCIConfigBaseAddress2      KIOPCIConfig = (24)
-	KIOPCIConfigBaseAddress3      KIOPCIConfig = (28)
-	KIOPCIConfigBaseAddress4      KIOPCIConfig = (32)
-	KIOPCIConfigBaseAddress5      KIOPCIConfig = (36)
-	KIOPCIConfigCacheLineSize     KIOPCIConfig = (12)
-	KIOPCIConfigCapabilitiesPtr   KIOPCIConfig = (52)
-	KIOPCIConfigCardBusCISPtr     KIOPCIConfig = (40)
-	KIOPCIConfigClassCode         KIOPCIConfig = (9)
-	KIOPCIConfigCommand           KIOPCIConfig = (4)
-	KIOPCIConfigDeviceID          KIOPCIConfig = (2)
-	KIOPCIConfigExpansionROMBase  KIOPCIConfig = (48)
-	KIOPCIConfigHeaderType        KIOPCIConfig = (14)
-	KIOPCIConfigInterruptLine     KIOPCIConfig = (60)
-	KIOPCIConfigInterruptPin      KIOPCIConfig = (61)
-	KIOPCIConfigLatencyTimer      KIOPCIConfig = (13)
-	KIOPCIConfigMaximumLatency    KIOPCIConfig = (63)
-	KIOPCIConfigMinimumGrant      KIOPCIConfig = (62)
-	KIOPCIConfigRevisionID        KIOPCIConfig = (8)
-	KIOPCIConfigStatus            KIOPCIConfig = (6)
-	KIOPCIConfigSubSystemID       KIOPCIConfig = (46)
-	KIOPCIConfigSubSystemVendorID KIOPCIConfig = (44)
-	KIOPCIConfigVendorID          KIOPCIConfig = (0)
+	KIOPCIConfigBIST              KIOPCIConfig = 15
+	KIOPCIConfigBaseAddress0      KIOPCIConfig = 16
+	KIOPCIConfigBaseAddress1      KIOPCIConfig = 20
+	KIOPCIConfigBaseAddress2      KIOPCIConfig = 24
+	KIOPCIConfigBaseAddress3      KIOPCIConfig = 28
+	KIOPCIConfigBaseAddress4      KIOPCIConfig = 32
+	KIOPCIConfigBaseAddress5      KIOPCIConfig = 36
+	KIOPCIConfigCacheLineSize     KIOPCIConfig = 12
+	KIOPCIConfigCapabilitiesPtr   KIOPCIConfig = 52
+	KIOPCIConfigCardBusCISPtr     KIOPCIConfig = 40
+	KIOPCIConfigClassCode         KIOPCIConfig = 9
+	KIOPCIConfigCommand           KIOPCIConfig = 4
+	KIOPCIConfigDeviceID          KIOPCIConfig = 2
+	KIOPCIConfigExpansionROMBase  KIOPCIConfig = 48
+	KIOPCIConfigHeaderType        KIOPCIConfig = 14
+	KIOPCIConfigInterruptLine     KIOPCIConfig = 60
+	KIOPCIConfigInterruptPin      KIOPCIConfig = 61
+	KIOPCIConfigLatencyTimer      KIOPCIConfig = 13
+	KIOPCIConfigMaximumLatency    KIOPCIConfig = 63
+	KIOPCIConfigMinimumGrant      KIOPCIConfig = 62
+	KIOPCIConfigRevisionID        KIOPCIConfig = 8
+	KIOPCIConfigStatus            KIOPCIConfig = 6
+	KIOPCIConfigSubSystemID       KIOPCIConfig = 46
+	KIOPCIConfigSubSystemVendorID KIOPCIConfig = 44
+	KIOPCIConfigVendorID          KIOPCIConfig = 0
 )
 
 func (e KIOPCIConfig) String() string {
@@ -17773,7 +18674,7 @@ func (e KIOPCIConfigShadow) String() string {
 	}
 }
 
-type KIOPCICorrectableErrorBit int
+type KIOPCICorrectableErrorBit uint32
 
 const (
 	KIOPCICorrectableErrorBitAdvisoryNonFatal   KIOPCICorrectableErrorBit = 13
@@ -17836,7 +18737,7 @@ func (e KIOPCIDevice) String() string {
 	}
 }
 
-type KIOPCIDeviceResetOption uint
+type KIOPCIDeviceResetOption uint32
 
 const (
 	KIOPCIDeviceResetOptionNone      KIOPCIDeviceResetOption = 0
@@ -17854,7 +18755,7 @@ func (e KIOPCIDeviceResetOption) String() string {
 	}
 }
 
-type KIOPCIDeviceResetType uint
+type KIOPCIDeviceResetType uint32
 
 const (
 	KIOPCIDeviceResetTypeFunctionReset    KIOPCIDeviceResetType = 0x10
@@ -17923,14 +18824,14 @@ func (e KIOPCILatency) String() string {
 	}
 }
 
-type KIOPCILinkSpeed uint
+type KIOPCILinkSpeed uint32
 
 const (
-	KIOPCILinkSpeed_16_GTs  KIOPCILinkSpeed = 0
+	KIOPCILinkSpeed_16_GTs  KIOPCILinkSpeed = 4
 	KIOPCILinkSpeed_2_5_GTs KIOPCILinkSpeed = 1
-	KIOPCILinkSpeed_32_GTs  KIOPCILinkSpeed = 0
-	KIOPCILinkSpeed_5_GTs   KIOPCILinkSpeed = 0
-	KIOPCILinkSpeed_8_GTs   KIOPCILinkSpeed = 0
+	KIOPCILinkSpeed_32_GTs  KIOPCILinkSpeed = 5
+	KIOPCILinkSpeed_5_GTs   KIOPCILinkSpeed = 2
+	KIOPCILinkSpeed_8_GTs   KIOPCILinkSpeed = 3
 )
 
 func (e KIOPCILinkSpeed) String() string {
@@ -17939,8 +18840,98 @@ func (e KIOPCILinkSpeed) String() string {
 		return "KIOPCILinkSpeed_16_GTs"
 	case KIOPCILinkSpeed_2_5_GTs:
 		return "KIOPCILinkSpeed_2_5_GTs"
+	case KIOPCILinkSpeed_32_GTs:
+		return "KIOPCILinkSpeed_32_GTs"
+	case KIOPCILinkSpeed_5_GTs:
+		return "KIOPCILinkSpeed_5_GTs"
+	case KIOPCILinkSpeed_8_GTs:
+		return "KIOPCILinkSpeed_8_GTs"
 	default:
 		return fmt.Sprintf("KIOPCILinkSpeed(%d)", e)
+	}
+}
+
+type KIOPCIPowerManagementCapability int
+
+const (
+	KIOPCIAGP8Capability                             KIOPCIPowerManagementCapability = 14
+	KIOPCIAGPCapability                              KIOPCIPowerManagementCapability = 2
+	KIOPCICPCIHotswapCapability                      KIOPCIPowerManagementCapability = 6
+	KIOPCICPCIResourceControlCapability              KIOPCIPowerManagementCapability = 11
+	KIOPCIDebugPortCapability                        KIOPCIPowerManagementCapability = 10
+	KIOPCIExpressAccessControlServicesCapability     KIOPCIPowerManagementCapability = -13
+	KIOPCIExpressDeviceSerialNumberCapability        KIOPCIPowerManagementCapability = -3
+	KIOPCIExpressErrorReportingCapability            KIOPCIPowerManagementCapability = -1
+	KIOPCIExpressL1PMSubstatesCapability             KIOPCIPowerManagementCapability = -30
+	KIOPCIExpressLatencyTolerenceReportingCapability KIOPCIPowerManagementCapability = -24
+	KIOPCIExpressPowerBudgetCapability               KIOPCIPowerManagementCapability = -4
+	KIOPCIExpressVirtualChannelCapability            KIOPCIPowerManagementCapability = -2
+	KIOPCIFPBCapability                              KIOPCIPowerManagementCapability = 21
+	KIOPCIHotplugCapability                          KIOPCIPowerManagementCapability = 12
+	KIOPCILDTCapability                              KIOPCIPowerManagementCapability = 8
+	KIOPCIMSICapability                              KIOPCIPowerManagementCapability = 5
+	KIOPCIMSIXCapability                             KIOPCIPowerManagementCapability = 17
+	KIOPCIPCIExpressCapability                       KIOPCIPowerManagementCapability = 16
+	KIOPCIPCIXCapability                             KIOPCIPowerManagementCapability = 7
+	KIOPCIPowerManagementCapabilityValue             KIOPCIPowerManagementCapability = 1
+	KIOPCISecureCapability                           KIOPCIPowerManagementCapability = 15
+	KIOPCISlotIDCapability                           KIOPCIPowerManagementCapability = 4
+	KIOPCIVendorSpecificCapability                   KIOPCIPowerManagementCapability = 9
+	KIOPCIVitalProductDataCapability                 KIOPCIPowerManagementCapability = 3
+)
+
+func (e KIOPCIPowerManagementCapability) String() string {
+	switch e {
+	case KIOPCIAGP8Capability:
+		return "KIOPCIAGP8Capability"
+	case KIOPCIAGPCapability:
+		return "KIOPCIAGPCapability"
+	case KIOPCICPCIHotswapCapability:
+		return "KIOPCICPCIHotswapCapability"
+	case KIOPCICPCIResourceControlCapability:
+		return "KIOPCICPCIResourceControlCapability"
+	case KIOPCIDebugPortCapability:
+		return "KIOPCIDebugPortCapability"
+	case KIOPCIExpressAccessControlServicesCapability:
+		return "KIOPCIExpressAccessControlServicesCapability"
+	case KIOPCIExpressDeviceSerialNumberCapability:
+		return "KIOPCIExpressDeviceSerialNumberCapability"
+	case KIOPCIExpressErrorReportingCapability:
+		return "KIOPCIExpressErrorReportingCapability"
+	case KIOPCIExpressL1PMSubstatesCapability:
+		return "KIOPCIExpressL1PMSubstatesCapability"
+	case KIOPCIExpressLatencyTolerenceReportingCapability:
+		return "KIOPCIExpressLatencyTolerenceReportingCapability"
+	case KIOPCIExpressPowerBudgetCapability:
+		return "KIOPCIExpressPowerBudgetCapability"
+	case KIOPCIExpressVirtualChannelCapability:
+		return "KIOPCIExpressVirtualChannelCapability"
+	case KIOPCIFPBCapability:
+		return "KIOPCIFPBCapability"
+	case KIOPCIHotplugCapability:
+		return "KIOPCIHotplugCapability"
+	case KIOPCILDTCapability:
+		return "KIOPCILDTCapability"
+	case KIOPCIMSICapability:
+		return "KIOPCIMSICapability"
+	case KIOPCIMSIXCapability:
+		return "KIOPCIMSIXCapability"
+	case KIOPCIPCIExpressCapability:
+		return "KIOPCIPCIExpressCapability"
+	case KIOPCIPCIXCapability:
+		return "KIOPCIPCIXCapability"
+	case KIOPCIPowerManagementCapabilityValue:
+		return "KIOPCIPowerManagementCapabilityValue"
+	case KIOPCISecureCapability:
+		return "KIOPCISecureCapability"
+	case KIOPCISlotIDCapability:
+		return "KIOPCISlotIDCapability"
+	case KIOPCIVendorSpecificCapability:
+		return "KIOPCIVendorSpecificCapability"
+	case KIOPCIVitalProductDataCapability:
+		return "KIOPCIVitalProductDataCapability"
+	default:
+		return fmt.Sprintf("KIOPCIPowerManagementCapability(%d)", e)
 	}
 }
 
@@ -17981,7 +18972,7 @@ func (e KIOPCIReset) String() string {
 	}
 }
 
-type KIOPCIStatus int
+type KIOPCIStatus uint32
 
 const (
 	KIOPCIStatusCapabilities       KIOPCIStatus = 0x10
@@ -17998,7 +18989,7 @@ const (
 	KIOPCIStatusTargetAbortCapable KIOPCIStatus = 0x800
 	KIOPCIStatusUDF                KIOPCIStatus = 0x40
 	// Deprecated.
-	KIOPCIStatusMasterAbortActive KIOPCIStatus = (8192)
+	KIOPCIStatusMasterAbortActive KIOPCIStatus = 8192
 )
 
 func (e KIOPCIStatus) String() string {
@@ -18036,7 +19027,7 @@ func (e KIOPCIStatus) String() string {
 	}
 }
 
-type KIOPCIUncorrectableErrorBit int
+type KIOPCIUncorrectableErrorBit uint32
 
 const (
 	KIOPCIUncorrectableErrorBitACSViolation          KIOPCIUncorrectableErrorBit = 21
@@ -18096,132 +19087,99 @@ func (e KIOPCIUncorrectableErrorBit) String() string {
 	}
 }
 
-type KIOPM uint
+type KIOPMACInstalled uint
 
 const (
-	KIOPMACInstalled             KIOPM = 1
-	KIOPMACnoChargeCapability    KIOPM = 64
-	KIOPMAllowSleep              KIOPM = 2
-	KIOPMAuxPowerOn              KIOPM = 0x20
-	KIOPMBatteryAtWarn           KIOPM = 16
-	KIOPMBatteryCharging         KIOPM = 2
-	KIOPMBatteryDepleted         KIOPM = 32
-	KIOPMBatteryInstalled        KIOPM = 4
-	KIOPMBroadcastAggressiveness KIOPM = 1
-	KIOPMCapabilitiesMask        KIOPM = 0xf086
-	KIOPMChildClamp              KIOPM = 0x80
-	KIOPMChildClamp2             KIOPM = 0x200
-	KIOPMClamshellClosed         KIOPM = 16
-	KIOPMClamshellOpened         KIOPM = 1024
-	KIOPMClamshellStateOnWake    KIOPM = 1024
-	KIOPMClockNormal             KIOPM = 0x4
-	KIOPMClockRunning            KIOPM = 0x8
-	KIOPMClosedClamshell         KIOPM = 512
-	KIOPMConfigRetained          KIOPM = 0x1000
-	KIOPMContextRetained         KIOPM = 0x2000
-	KIOPMDWOverTemp              KIOPM = 2048
-	// KIOPMDeviceUsable: # Discussion
-	KIOPMDeviceUsable     KIOPM = 0x8000
-	KIOPMDisableClamshell KIOPM = 64
-	KIOPMDoze             KIOPM = 0x400
-	KIOPMEnableClamshell  KIOPM = 128
-	KIOPMExternalPower    KIOPM = 0
-	KIOPMFairValue        KIOPM = 2
-	KIOPMForceLowSpeed    KIOPM = 256
-	KIOPMGoodValue        KIOPM = 3
-	KIOPMHighestState     KIOPM = 2
-	// KIOPMInitialDeviceState: # Discussion
-	KIOPMInitialDeviceState KIOPM = 0x100
-	KIOPMInternalPower      KIOPM = 1
-	// KIOPMLowPower: # Discussion
-	KIOPMLowPower        KIOPM = 0x10000
-	KIOPMLowestState     KIOPM = 4
-	KIOPMMaxPerformance  KIOPM = 0x4000
-	KIOPMNextHigherState KIOPM = 1
-	KIOPMNextLowerState  KIOPM = 3
-	KIOPMNotAttainable   KIOPM = 0x1
-	KIOPMNotPowerManaged KIOPM = 0x800
-	KIOPMOverTemp        KIOPM = 512
-	KIOPMPassThrough     KIOPM = 0x100
-	KIOPMPoorValue       KIOPM = 1
-	KIOPMPowerButton     KIOPM = 8
-	KIOPMPowerButtonUp   KIOPM = 0x1000
-	KIOPMPowerEmergency  KIOPM = 32
-	// KIOPMPowerOn: # Discussion
-	KIOPMPowerOn KIOPM = 0x2
-	// KIOPMPreventIdleSleep: # Discussion
-	KIOPMPreventIdleSleep     KIOPM = 0x40
-	KIOPMPreventSleep         KIOPM = 4
-	KIOPMPreventSystemSleep   KIOPM = 0x10
-	KIOPMProModeDisengaged    KIOPM = 0x4000
-	KIOPMProModeEngaged       KIOPM = 0x2000
-	KIOPMProcessorSpeedChange KIOPM = 256
-	KIOPMRawLowBattery        KIOPM = 128
-	// KIOPMRestart: # Discussion
-	KIOPMRestart KIOPM = 0x80
-	// KIOPMRestartCapability: # Discussion
-	KIOPMRestartCapability KIOPM = 0x80
-	// KIOPMRootDomainState: # Discussion
-	KIOPMRootDomainState KIOPM = 0x200
-	// KIOPMSleep: # Discussion
-	KIOPMSleep KIOPM = 0x1
-	// KIOPMSleepCapability: # Discussion
-	KIOPMSleepCapability  KIOPM = 0x4
-	KIOPMSleepNow         KIOPM = 1
-	KIOPMSoftSleep        KIOPM = 0x400
-	KIOPMStaticPowerValid KIOPM = 0x800
-	KIOPMUPSInstalled     KIOPM = 8
-	KIOPMUndefinedValue   KIOPM = 0
-	KIOPMUnidleDevice     KIOPM = 0
-	KIOPMUnknown          KIOPM = 0xffff
+	KIOPMACInstalledValue     KIOPMACInstalled = 1
+	KIOPMACnoChargeCapability KIOPMACInstalled = 64
+	KIOPMBatteryAtWarn        KIOPMACInstalled = 16
+	KIOPMBatteryCharging      KIOPMACInstalled = 2
+	KIOPMBatteryDepleted      KIOPMACInstalled = 32
+	KIOPMBatteryInstalled     KIOPMACInstalled = 4
+	KIOPMClamshellStateOnWake KIOPMACInstalled = 1024
+	KIOPMClosedClamshell      KIOPMACInstalled = 512
+	KIOPMForceLowSpeed        KIOPMACInstalled = 256
+	KIOPMRawLowBattery        KIOPMACInstalled = 128
+	KIOPMUPSInstalled         KIOPMACInstalled = 8
 )
 
-func (e KIOPM) String() string {
+func (e KIOPMACInstalled) String() string {
 	switch e {
-	case KIOPMACInstalled:
-		return "KIOPMACInstalled"
+	case KIOPMACInstalledValue:
+		return "KIOPMACInstalledValue"
 	case KIOPMACnoChargeCapability:
 		return "KIOPMACnoChargeCapability"
-	case KIOPMAllowSleep:
-		return "KIOPMAllowSleep"
-	case KIOPMAuxPowerOn:
-		return "KIOPMAuxPowerOn"
 	case KIOPMBatteryAtWarn:
 		return "KIOPMBatteryAtWarn"
+	case KIOPMBatteryCharging:
+		return "KIOPMBatteryCharging"
+	case KIOPMBatteryDepleted:
+		return "KIOPMBatteryDepleted"
 	case KIOPMBatteryInstalled:
 		return "KIOPMBatteryInstalled"
-	case KIOPMCapabilitiesMask:
-		return "KIOPMCapabilitiesMask"
+	case KIOPMClamshellStateOnWake:
+		return "KIOPMClamshellStateOnWake"
+	case KIOPMClosedClamshell:
+		return "KIOPMClosedClamshell"
+	case KIOPMForceLowSpeed:
+		return "KIOPMForceLowSpeed"
+	case KIOPMRawLowBattery:
+		return "KIOPMRawLowBattery"
+	case KIOPMUPSInstalled:
+		return "KIOPMUPSInstalled"
+	default:
+		return fmt.Sprintf("KIOPMACInstalled(%d)", e)
+	}
+}
+
+type KIOPMBroadcastAggressiveness uint
+
+const (
+	KIOPMBroadcastAggressivenessValue KIOPMBroadcastAggressiveness = 1
+	KIOPMUnidleDevice                 KIOPMBroadcastAggressiveness = 0
+)
+
+func (e KIOPMBroadcastAggressiveness) String() string {
+	switch e {
+	case KIOPMBroadcastAggressivenessValue:
+		return "KIOPMBroadcastAggressivenessValue"
+	case KIOPMUnidleDevice:
+		return "KIOPMUnidleDevice"
+	default:
+		return fmt.Sprintf("KIOPMBroadcastAggressiveness(%d)", e)
+	}
+}
+
+type KIOPMClockNormal uint
+
+const (
+	KIOPMChildClamp         KIOPMClockNormal = 0x80
+	KIOPMChildClamp2        KIOPMClockNormal = 0x200
+	KIOPMClockNormalValue   KIOPMClockNormal = 0x4
+	KIOPMClockRunning       KIOPMClockNormal = 0x8
+	KIOPMDoze               KIOPMClockNormal = 0x400
+	KIOPMNotPowerManaged    KIOPMClockNormal = 0x800
+	KIOPMPreventSystemSleep KIOPMClockNormal = 0x10
+)
+
+func (e KIOPMClockNormal) String() string {
+	switch e {
 	case KIOPMChildClamp:
 		return "KIOPMChildClamp"
 	case KIOPMChildClamp2:
 		return "KIOPMChildClamp2"
-	case KIOPMClamshellOpened:
-		return "KIOPMClamshellOpened"
+	case KIOPMClockNormalValue:
+		return "KIOPMClockNormalValue"
 	case KIOPMClockRunning:
 		return "KIOPMClockRunning"
-	case KIOPMConfigRetained:
-		return "KIOPMConfigRetained"
-	case KIOPMContextRetained:
-		return "KIOPMContextRetained"
-	case KIOPMDWOverTemp:
-		return "KIOPMDWOverTemp"
-	case KIOPMDeviceUsable:
-		return "KIOPMDeviceUsable"
-	case KIOPMExternalPower:
-		return "KIOPMExternalPower"
-	case KIOPMForceLowSpeed:
-		return "KIOPMForceLowSpeed"
-	case KIOPMGoodValue:
-		return "KIOPMGoodValue"
-	case KIOPMLowPower:
-		return "KIOPMLowPower"
-	case KIOPMMaxPerformance:
-		return "KIOPMMaxPerformance"
-	case KIOPMUnknown:
-		return "KIOPMUnknown"
+	case KIOPMDoze:
+		return "KIOPMDoze"
+	case KIOPMNotPowerManaged:
+		return "KIOPMNotPowerManaged"
+	case KIOPMPreventSystemSleep:
+		return "KIOPMPreventSystemSleep"
 	default:
-		return fmt.Sprintf("KIOPM(%d)", e)
+		return fmt.Sprintf("KIOPMClockNormal(%d)", e)
 	}
 }
 
@@ -18267,6 +19225,63 @@ func (e KIOPMDriverAssertion) String() string {
 	}
 }
 
+type KIOPMInternalPower uint
+
+const (
+	KIOPMExternalPower      KIOPMInternalPower = 0
+	KIOPMInternalPowerValue KIOPMInternalPower = 1
+)
+
+func (e KIOPMInternalPower) String() string {
+	switch e {
+	case KIOPMExternalPower:
+		return "KIOPMExternalPower"
+	case KIOPMInternalPowerValue:
+		return "KIOPMInternalPowerValue"
+	default:
+		return fmt.Sprintf("KIOPMInternalPower(%d)", e)
+	}
+}
+
+type KIOPMMaxPerformance uint
+
+const (
+	KIOPMAuxPowerOn          KIOPMMaxPerformance = 0x20
+	KIOPMCapabilitiesMask    KIOPMMaxPerformance = 0xf086
+	KIOPMConfigRetained      KIOPMMaxPerformance = 0x1000
+	KIOPMContextRetained     KIOPMMaxPerformance = 0x2000
+	KIOPMMaxPerformanceValue KIOPMMaxPerformance = 0x4000
+	KIOPMNotAttainable       KIOPMMaxPerformance = 0x1
+	KIOPMPassThrough         KIOPMMaxPerformance = 0x100
+	KIOPMSoftSleep           KIOPMMaxPerformance = 0x400
+	KIOPMStaticPowerValid    KIOPMMaxPerformance = 0x800
+)
+
+func (e KIOPMMaxPerformance) String() string {
+	switch e {
+	case KIOPMAuxPowerOn:
+		return "KIOPMAuxPowerOn"
+	case KIOPMCapabilitiesMask:
+		return "KIOPMCapabilitiesMask"
+	case KIOPMConfigRetained:
+		return "KIOPMConfigRetained"
+	case KIOPMContextRetained:
+		return "KIOPMContextRetained"
+	case KIOPMMaxPerformanceValue:
+		return "KIOPMMaxPerformanceValue"
+	case KIOPMNotAttainable:
+		return "KIOPMNotAttainable"
+	case KIOPMPassThrough:
+		return "KIOPMPassThrough"
+	case KIOPMSoftSleep:
+		return "KIOPMSoftSleep"
+	case KIOPMStaticPowerValid:
+		return "KIOPMStaticPowerValid"
+	default:
+		return fmt.Sprintf("KIOPMMaxPerformance(%d)", e)
+	}
+}
+
 type KIOPMMaxPowerStates uint
 
 const (
@@ -18283,7 +19298,31 @@ func (e KIOPMMaxPowerStates) String() string {
 	}
 }
 
-type KIOPMNoErr int
+type KIOPMNextHigherState uint
+
+const (
+	KIOPMHighestState         KIOPMNextHigherState = 2
+	KIOPMLowestState          KIOPMNextHigherState = 4
+	KIOPMNextHigherStateValue KIOPMNextHigherState = 1
+	KIOPMNextLowerState       KIOPMNextHigherState = 3
+)
+
+func (e KIOPMNextHigherState) String() string {
+	switch e {
+	case KIOPMHighestState:
+		return "KIOPMHighestState"
+	case KIOPMLowestState:
+		return "KIOPMLowestState"
+	case KIOPMNextHigherStateValue:
+		return "KIOPMNextHigherStateValue"
+	case KIOPMNextLowerState:
+		return "KIOPMNextLowerState"
+	default:
+		return fmt.Sprintf("KIOPMNextHigherState(%d)", e)
+	}
+}
+
+type KIOPMNoErr uint
 
 const (
 	IOPMAckImplied         KIOPMNoErr = 0
@@ -18343,6 +19382,56 @@ func (e KIOPMPSLocation) String() string {
 	}
 }
 
+type KIOPMPowerOn uint
+
+const (
+	// KIOPMDeviceUsable: # Discussion
+	KIOPMDeviceUsable KIOPMPowerOn = 0x8000
+	// KIOPMInitialDeviceState: # Discussion
+	KIOPMInitialDeviceState KIOPMPowerOn = 0x100
+	// KIOPMLowPower: # Discussion
+	KIOPMLowPower KIOPMPowerOn = 0x10000
+	// KIOPMPowerOnValue: # Discussion
+	KIOPMPowerOnValue KIOPMPowerOn = 0x2
+	// KIOPMPreventIdleSleep: # Discussion
+	KIOPMPreventIdleSleep KIOPMPowerOn = 0x40
+	// KIOPMRestart: # Discussion
+	KIOPMRestart KIOPMPowerOn = 0x80
+	// KIOPMRestartCapability: # Discussion
+	KIOPMRestartCapability KIOPMPowerOn = 0x80
+	// KIOPMRootDomainState: # Discussion
+	KIOPMRootDomainState KIOPMPowerOn = 0x200
+	// KIOPMSleep: # Discussion
+	KIOPMSleep KIOPMPowerOn = 0x1
+	// KIOPMSleepCapability: # Discussion
+	KIOPMSleepCapability KIOPMPowerOn = 0x4
+)
+
+func (e KIOPMPowerOn) String() string {
+	switch e {
+	case KIOPMDeviceUsable:
+		return "KIOPMDeviceUsable"
+	case KIOPMInitialDeviceState:
+		return "KIOPMInitialDeviceState"
+	case KIOPMLowPower:
+		return "KIOPMLowPower"
+	case KIOPMPowerOnValue:
+		return "KIOPMPowerOnValue"
+	case KIOPMPreventIdleSleep:
+		return "KIOPMPreventIdleSleep"
+	case KIOPMRestart:
+		return "KIOPMRestart"
+	case KIOPMRootDomainState:
+		return "KIOPMRootDomainState"
+	case KIOPMSleep:
+		return "KIOPMSleep"
+	case KIOPMSleepCapability:
+		return "KIOPMSleepCapability"
+	default:
+		return fmt.Sprintf("KIOPMPowerOn(%d)", e)
+	}
+}
+
 type KIOPMPowerState uint
 
 const (
@@ -18358,6 +19447,63 @@ func (e KIOPMPowerState) String() string {
 		return "KIOPMPowerStateVersion2"
 	default:
 		return fmt.Sprintf("KIOPMPowerState(%d)", e)
+	}
+}
+
+type KIOPMSleepNow uint
+
+const (
+	KIOPMAllowSleep           KIOPMSleepNow = 2
+	KIOPMClamshellClosed      KIOPMSleepNow = 16
+	KIOPMClamshellOpened      KIOPMSleepNow = 1024
+	KIOPMDWOverTemp           KIOPMSleepNow = 2048
+	KIOPMDisableClamshell     KIOPMSleepNow = 64
+	KIOPMEnableClamshell      KIOPMSleepNow = 128
+	KIOPMOverTemp             KIOPMSleepNow = 512
+	KIOPMPowerButton          KIOPMSleepNow = 8
+	KIOPMPowerButtonUp        KIOPMSleepNow = 0x1000
+	KIOPMPowerEmergency       KIOPMSleepNow = 32
+	KIOPMPreventSleep         KIOPMSleepNow = 4
+	KIOPMProModeDisengaged    KIOPMSleepNow = 0x4000
+	KIOPMProModeEngaged       KIOPMSleepNow = 0x2000
+	KIOPMProcessorSpeedChange KIOPMSleepNow = 256
+	KIOPMSleepNowValue        KIOPMSleepNow = 1
+)
+
+func (e KIOPMSleepNow) String() string {
+	switch e {
+	case KIOPMAllowSleep:
+		return "KIOPMAllowSleep"
+	case KIOPMClamshellClosed:
+		return "KIOPMClamshellClosed"
+	case KIOPMClamshellOpened:
+		return "KIOPMClamshellOpened"
+	case KIOPMDWOverTemp:
+		return "KIOPMDWOverTemp"
+	case KIOPMDisableClamshell:
+		return "KIOPMDisableClamshell"
+	case KIOPMEnableClamshell:
+		return "KIOPMEnableClamshell"
+	case KIOPMOverTemp:
+		return "KIOPMOverTemp"
+	case KIOPMPowerButton:
+		return "KIOPMPowerButton"
+	case KIOPMPowerButtonUp:
+		return "KIOPMPowerButtonUp"
+	case KIOPMPowerEmergency:
+		return "KIOPMPowerEmergency"
+	case KIOPMPreventSleep:
+		return "KIOPMPreventSleep"
+	case KIOPMProModeDisengaged:
+		return "KIOPMProModeDisengaged"
+	case KIOPMProModeEngaged:
+		return "KIOPMProModeEngaged"
+	case KIOPMProcessorSpeedChange:
+		return "KIOPMProcessorSpeedChange"
+	case KIOPMSleepNowValue:
+		return "KIOPMSleepNowValue"
+	default:
+		return fmt.Sprintf("KIOPMSleepNow(%d)", e)
 	}
 }
 
@@ -18382,31 +19528,47 @@ func (e KIOPMSupportedOn) String() string {
 	}
 }
 
-type KIOPMSystemCapability uint
+type KIOPMSystemCapabilityCPU uint
 
 const (
-	KIOPMSystemCapabilityAudio KIOPMSystemCapability = 0x4
-	KIOPMSystemCapabilityCPU   KIOPMSystemCapability = 0x1
-	// KIOPMSystemCapabilityDidChange: # Discussion
-	KIOPMSystemCapabilityDidChange KIOPMSystemCapability = 0x2
-	KIOPMSystemCapabilityGraphics  KIOPMSystemCapability = 0x2
-	KIOPMSystemCapabilityNetwork   KIOPMSystemCapability = 0x8
-	// KIOPMSystemCapabilityWillChange: # Discussion
-	KIOPMSystemCapabilityWillChange KIOPMSystemCapability = 0x1
+	KIOPMSystemCapabilityAudio    KIOPMSystemCapabilityCPU = 0x4
+	KIOPMSystemCapabilityCPUValue KIOPMSystemCapabilityCPU = 0x1
+	KIOPMSystemCapabilityGraphics KIOPMSystemCapabilityCPU = 0x2
+	KIOPMSystemCapabilityNetwork  KIOPMSystemCapabilityCPU = 0x8
 )
 
-func (e KIOPMSystemCapability) String() string {
+func (e KIOPMSystemCapabilityCPU) String() string {
 	switch e {
 	case KIOPMSystemCapabilityAudio:
 		return "KIOPMSystemCapabilityAudio"
-	case KIOPMSystemCapabilityCPU:
-		return "KIOPMSystemCapabilityCPU"
-	case KIOPMSystemCapabilityDidChange:
-		return "KIOPMSystemCapabilityDidChange"
+	case KIOPMSystemCapabilityCPUValue:
+		return "KIOPMSystemCapabilityCPUValue"
+	case KIOPMSystemCapabilityGraphics:
+		return "KIOPMSystemCapabilityGraphics"
 	case KIOPMSystemCapabilityNetwork:
 		return "KIOPMSystemCapabilityNetwork"
 	default:
-		return fmt.Sprintf("KIOPMSystemCapability(%d)", e)
+		return fmt.Sprintf("KIOPMSystemCapabilityCPU(%d)", e)
+	}
+}
+
+type KIOPMSystemCapabilityWillChange uint
+
+const (
+	// KIOPMSystemCapabilityDidChange: # Discussion
+	KIOPMSystemCapabilityDidChange KIOPMSystemCapabilityWillChange = 0x2
+	// KIOPMSystemCapabilityWillChangeValue: # Discussion
+	KIOPMSystemCapabilityWillChangeValue KIOPMSystemCapabilityWillChange = 0x1
+)
+
+func (e KIOPMSystemCapabilityWillChange) String() string {
+	switch e {
+	case KIOPMSystemCapabilityDidChange:
+		return "KIOPMSystemCapabilityDidChange"
+	case KIOPMSystemCapabilityWillChangeValue:
+		return "KIOPMSystemCapabilityWillChangeValue"
+	default:
+		return fmt.Sprintf("KIOPMSystemCapabilityWillChange(%d)", e)
 	}
 }
 
@@ -18440,7 +19602,33 @@ func (e KIOPMThermalLevel) String() string {
 	}
 }
 
-type KIOPSAdapterErrorFlag int
+type KIOPMUndefinedValue uint
+
+const (
+	KIOPMFairValue           KIOPMUndefinedValue = 2
+	KIOPMGoodValue           KIOPMUndefinedValue = 3
+	KIOPMPoorValue           KIOPMUndefinedValue = 1
+	KIOPMUndefinedValueValue KIOPMUndefinedValue = 0
+)
+
+func (e KIOPMUndefinedValue) String() string {
+	switch e {
+	case KIOPMFairValue:
+		return "KIOPMFairValue"
+	case KIOPMGoodValue:
+		return "KIOPMGoodValue"
+	case KIOPMPoorValue:
+		return "KIOPMPoorValue"
+	case KIOPMUndefinedValueValue:
+		return "KIOPMUndefinedValueValue"
+	default:
+		return fmt.Sprintf("KIOPMUndefinedValue(%d)", e)
+	}
+}
+
+const KIOPMUnknown uint = 0xffff
+
+type KIOPSAdapterErrorFlag uint
 
 const (
 	KIOPSAdapterErrorFlagDeviceNeedsToBeRepositioned KIOPSAdapterErrorFlag = 8
@@ -18467,30 +19655,30 @@ func (e KIOPSAdapterErrorFlag) String() string {
 type KIOPSFamilyCode uint
 
 const (
-	KIOPSFamilyCodeAC                        KIOPSFamilyCode = ((3758096384) | (147456) | (0))
+	KIOPSFamilyCodeAC                        KIOPSFamilyCode = 0xe0024000
 	KIOPSFamilyCodeDisconnected              KIOPSFamilyCode = 0
-	KIOPSFamilyCodeExternal                  KIOPSFamilyCode = ((3758096384) | (147456) | (1))
-	KIOPSFamilyCodeExternal2                 KIOPSFamilyCode = ((3758096384) | (147456) | (2))
-	KIOPSFamilyCodeExternal3                 KIOPSFamilyCode = ((3758096384) | (147456) | (3))
-	KIOPSFamilyCodeExternal4                 KIOPSFamilyCode = ((3758096384) | (147456) | (4))
-	KIOPSFamilyCodeExternal5                 KIOPSFamilyCode = ((3758096384) | (147456) | (5))
-	KIOPSFamilyCodeExternal6                 KIOPSFamilyCode = ((3758096384) | (147456) | (6))
-	KIOPSFamilyCodeExternal7                 KIOPSFamilyCode = ((3758096384) | (147456) | (7))
-	KIOPSFamilyCodeExternal8                 KIOPSFamilyCode = ((3758096384) | (147456) | (8))
-	KIOPSFamilyCodeFirewire                  KIOPSFamilyCode = ((3758096384) | (32768) | (0))
-	KIOPSFamilyCodeUSBAdapter                KIOPSFamilyCode = ((3758096384) | (16384) | (3))
-	KIOPSFamilyCodeUSBCBrick                 KIOPSFamilyCode = ((3758096384) | (16384) | (8))
-	KIOPSFamilyCodeUSBCPD                    KIOPSFamilyCode = ((3758096384) | (16384) | (10))
-	KIOPSFamilyCodeUSBCTypeC                 KIOPSFamilyCode = ((3758096384) | (16384) | (9))
-	KIOPSFamilyCodeUSBChargingPort           KIOPSFamilyCode = ((3758096384) | (16384) | (6))
-	KIOPSFamilyCodeUSBChargingPortDedicated  KIOPSFamilyCode = ((3758096384) | (16384) | (4))
-	KIOPSFamilyCodeUSBChargingPortDownstream KIOPSFamilyCode = ((3758096384) | (16384) | (5))
-	KIOPSFamilyCodeUSBDevice                 KIOPSFamilyCode = ((3758096384) | (16384) | (2))
-	KIOPSFamilyCodeUSBHost                   KIOPSFamilyCode = ((3758096384) | (16384) | (0))
-	KIOPSFamilyCodeUSBHostSuspended          KIOPSFamilyCode = ((3758096384) | (16384) | (1))
-	KIOPSFamilyCodeUSBUnknown                KIOPSFamilyCode = ((3758096384) | (16384) | (7))
-	KIOPSFamilyCodeUnsupported               KIOPSFamilyCode = (3758097095)
-	KIOPSFamilyCodeUnsupportedRegion         KIOPSFamilyCode = ((3758096384) | (147456) | (9))
+	KIOPSFamilyCodeExternal                  KIOPSFamilyCode = 0xe0024001
+	KIOPSFamilyCodeExternal2                 KIOPSFamilyCode = 0xe0024002
+	KIOPSFamilyCodeExternal3                 KIOPSFamilyCode = 0xe0024003
+	KIOPSFamilyCodeExternal4                 KIOPSFamilyCode = 0xe0024004
+	KIOPSFamilyCodeExternal5                 KIOPSFamilyCode = 0xe0024005
+	KIOPSFamilyCodeExternal6                 KIOPSFamilyCode = 0xe0024006
+	KIOPSFamilyCodeExternal7                 KIOPSFamilyCode = 0xe0024007
+	KIOPSFamilyCodeExternal8                 KIOPSFamilyCode = 0xe0024008
+	KIOPSFamilyCodeFirewire                  KIOPSFamilyCode = 0xe0008000
+	KIOPSFamilyCodeUSBAdapter                KIOPSFamilyCode = 0xe0004003
+	KIOPSFamilyCodeUSBCBrick                 KIOPSFamilyCode = 0xe0004008
+	KIOPSFamilyCodeUSBCPD                    KIOPSFamilyCode = 0xe000400a
+	KIOPSFamilyCodeUSBCTypeC                 KIOPSFamilyCode = 0xe0004009
+	KIOPSFamilyCodeUSBChargingPort           KIOPSFamilyCode = 0xe0004006
+	KIOPSFamilyCodeUSBChargingPortDedicated  KIOPSFamilyCode = 0xe0004004
+	KIOPSFamilyCodeUSBChargingPortDownstream KIOPSFamilyCode = 0xe0004005
+	KIOPSFamilyCodeUSBDevice                 KIOPSFamilyCode = 0xe0004002
+	KIOPSFamilyCodeUSBHost                   KIOPSFamilyCode = 0xe0004000
+	KIOPSFamilyCodeUSBHostSuspended          KIOPSFamilyCode = 0xe0004001
+	KIOPSFamilyCodeUSBUnknown                KIOPSFamilyCode = 0xe0004007
+	KIOPSFamilyCodeUnsupported               KIOPSFamilyCode = 3758097095
+	KIOPSFamilyCodeUnsupportedRegion         KIOPSFamilyCode = 0xe0024009
 )
 
 func (e KIOPSFamilyCode) String() string {
@@ -18641,6 +19829,90 @@ func (e KIOPixelEncoding) String() string {
 	}
 }
 
+type KIOPowerStateAttribute uint
+
+const (
+	KIOBuiltinPanelPowerAttribute     KIOPowerStateAttribute = 0x706e6c70
+	KIOCapturedAttribute              KIOPowerStateAttribute = 0x63617064
+	KIOClamshellStateAttribute        KIOPowerStateAttribute = 0x636c616d
+	KIOCursorControlAttribute         KIOPowerStateAttribute = 0x63727363
+	KIODeferCLUTSetAttribute          KIOPowerStateAttribute = 0x76636c74
+	KIODriverPowerAttribute           KIOPowerStateAttribute = 0x64706f77
+	KIOFBBlueGammaScaleAttribute      KIOPowerStateAttribute = 0x67736c62
+	KIOFBDisplayPortTrainingAttribute KIOPowerStateAttribute = 0x64707461
+	KIOFBDisplayStateValue            KIOPowerStateAttribute = 0x64737474
+	KIOFBGreenGammaScaleAttribute     KIOPowerStateAttribute = 0x67736c67
+	KIOFBHDRMetaDataAttribute         KIOPowerStateAttribute = 0x6864726d
+	KIOFBLimitHDCPAttribute           KIOPowerStateAttribute = 0x68646370
+	KIOFBLimitHDCPStateAttribute      KIOPowerStateAttribute = 0x73484443
+	KIOFBRedGammaScaleAttribute       KIOPowerStateAttribute = 0x67736c72
+	KIOFBStop                         KIOPowerStateAttribute = 0x73746f70
+	KIOFBVariableRefreshRate          KIOPowerStateAttribute = 0x7672723f
+	KIOHardwareCursorAttribute        KIOPowerStateAttribute = 0x63727372
+	KIOMirrorAttribute                KIOPowerStateAttribute = 0x6d697272
+	KIOMirrorDefaultAttribute         KIOPowerStateAttribute = 0x6d726466
+	KIOPowerAttribute                 KIOPowerStateAttribute = 0x706f7772
+	KIOPowerStateAttributeValue       KIOPowerStateAttribute = 0x70777273
+	KIOSystemPowerAttribute           KIOPowerStateAttribute = 0x73707772
+	KIOVRAMSaveAttribute              KIOPowerStateAttribute = 0x76727376
+	KIOWindowServerActiveAttribute    KIOPowerStateAttribute = 0x77737276
+)
+
+func (e KIOPowerStateAttribute) String() string {
+	switch e {
+	case KIOBuiltinPanelPowerAttribute:
+		return "KIOBuiltinPanelPowerAttribute"
+	case KIOCapturedAttribute:
+		return "KIOCapturedAttribute"
+	case KIOClamshellStateAttribute:
+		return "KIOClamshellStateAttribute"
+	case KIOCursorControlAttribute:
+		return "KIOCursorControlAttribute"
+	case KIODeferCLUTSetAttribute:
+		return "KIODeferCLUTSetAttribute"
+	case KIODriverPowerAttribute:
+		return "KIODriverPowerAttribute"
+	case KIOFBBlueGammaScaleAttribute:
+		return "KIOFBBlueGammaScaleAttribute"
+	case KIOFBDisplayPortTrainingAttribute:
+		return "KIOFBDisplayPortTrainingAttribute"
+	case KIOFBDisplayStateValue:
+		return "KIOFBDisplayStateValue"
+	case KIOFBGreenGammaScaleAttribute:
+		return "KIOFBGreenGammaScaleAttribute"
+	case KIOFBHDRMetaDataAttribute:
+		return "KIOFBHDRMetaDataAttribute"
+	case KIOFBLimitHDCPAttribute:
+		return "KIOFBLimitHDCPAttribute"
+	case KIOFBLimitHDCPStateAttribute:
+		return "KIOFBLimitHDCPStateAttribute"
+	case KIOFBRedGammaScaleAttribute:
+		return "KIOFBRedGammaScaleAttribute"
+	case KIOFBStop:
+		return "KIOFBStop"
+	case KIOFBVariableRefreshRate:
+		return "KIOFBVariableRefreshRate"
+	case KIOHardwareCursorAttribute:
+		return "KIOHardwareCursorAttribute"
+	case KIOMirrorAttribute:
+		return "KIOMirrorAttribute"
+	case KIOMirrorDefaultAttribute:
+		return "KIOMirrorDefaultAttribute"
+	case KIOPowerAttribute:
+		return "KIOPowerAttribute"
+	case KIOPowerStateAttributeValue:
+		return "KIOPowerStateAttributeValue"
+	case KIOSystemPowerAttribute:
+		return "KIOSystemPowerAttribute"
+	case KIOVRAMSaveAttribute:
+		return "KIOVRAMSaveAttribute"
+	case KIOWindowServerActiveAttribute:
+		return "KIOWindowServerActiveAttribute"
+	default:
+		return fmt.Sprintf("KIOPowerStateAttribute(%d)", e)
+	}
+}
+
 type KIOPreparationID uint
 
 const (
@@ -18716,7 +19988,7 @@ func (e KIORPCMessage) String() string {
 	}
 }
 
-type KIORPCMessageID int
+type KIORPCMessageID int64
 
 const (
 	KIORPCMessageIDKernel KIORPCMessageID = -9223372036854775808
@@ -18866,35 +20138,51 @@ func (e KIORangePixelEncoding) String() string {
 	}
 }
 
-type KIORangeSupports uint
+type KIORangeSupportsInterlacedCEATiming uint
 
 const (
-	KIORangeSupportsCompositeSync                  KIORangeSupports = 0x4
-	KIORangeSupportsInterlacedCEATiming            KIORangeSupports = 0x4
-	KIORangeSupportsInterlacedCEATimingWithConfirm KIORangeSupports = 0x8
-	KIORangeSupportsMultiAlignedTiming             KIORangeSupports = 0x40
-	KIORangeSupportsSeparateSyncs                  KIORangeSupports = 0x1
-	KIORangeSupportsSyncOnGreen                    KIORangeSupports = 0x2
-	KIORangeSupportsVRR                            KIORangeSupports = 0x10
-	KIORangeSupportsVSyncSerration                 KIORangeSupports = 0x8
+	KIORangeSupportsInterlacedCEATimingValue       KIORangeSupportsInterlacedCEATiming = 0x4
+	KIORangeSupportsInterlacedCEATimingWithConfirm KIORangeSupportsInterlacedCEATiming = 0x8
+	KIORangeSupportsMultiAlignedTiming             KIORangeSupportsInterlacedCEATiming = 0x40
 )
 
-func (e KIORangeSupports) String() string {
+func (e KIORangeSupportsInterlacedCEATiming) String() string {
 	switch e {
-	case KIORangeSupportsCompositeSync:
-		return "KIORangeSupportsCompositeSync"
+	case KIORangeSupportsInterlacedCEATimingValue:
+		return "KIORangeSupportsInterlacedCEATimingValue"
 	case KIORangeSupportsInterlacedCEATimingWithConfirm:
 		return "KIORangeSupportsInterlacedCEATimingWithConfirm"
 	case KIORangeSupportsMultiAlignedTiming:
 		return "KIORangeSupportsMultiAlignedTiming"
-	case KIORangeSupportsSeparateSyncs:
-		return "KIORangeSupportsSeparateSyncs"
+	default:
+		return fmt.Sprintf("KIORangeSupportsInterlacedCEATiming(%d)", e)
+	}
+}
+
+type KIORangeSupportsSeparateSyncs uint
+
+const (
+	KIORangeSupportsCompositeSync      KIORangeSupportsSeparateSyncs = 0x4
+	KIORangeSupportsSeparateSyncsValue KIORangeSupportsSeparateSyncs = 0x1
+	KIORangeSupportsSyncOnGreen        KIORangeSupportsSeparateSyncs = 0x2
+	KIORangeSupportsVRR                KIORangeSupportsSeparateSyncs = 0x10
+	KIORangeSupportsVSyncSerration     KIORangeSupportsSeparateSyncs = 0x8
+)
+
+func (e KIORangeSupportsSeparateSyncs) String() string {
+	switch e {
+	case KIORangeSupportsCompositeSync:
+		return "KIORangeSupportsCompositeSync"
+	case KIORangeSupportsSeparateSyncsValue:
+		return "KIORangeSupportsSeparateSyncsValue"
 	case KIORangeSupportsSyncOnGreen:
 		return "KIORangeSupportsSyncOnGreen"
 	case KIORangeSupportsVRR:
 		return "KIORangeSupportsVRR"
+	case KIORangeSupportsVSyncSerration:
+		return "KIORangeSupportsVSyncSerration"
 	default:
-		return fmt.Sprintf("KIORangeSupports(%d)", e)
+		return fmt.Sprintf("KIORangeSupportsSeparateSyncs(%d)", e)
 	}
 }
 
@@ -18922,7 +20210,7 @@ func (e KIORangeSupportsSignal) String() string {
 	}
 }
 
-type KIORegistryIterate uint
+type KIORegistryIterate uint32
 
 const (
 	KIORegistryIterateParents     KIORegistryIterate = 0x2
@@ -18940,41 +20228,75 @@ func (e KIORegistryIterate) String() string {
 	}
 }
 
-type KIOReport uint
+type KIOReportCopyChannelData uint
 
 const (
-	KIOReportCopyChannelData   KIOReport = 1
-	KIOReportDisable           KIOReport = 0
-	KIOReportEnable            KIOReport = 0x1
-	KIOReportFormatHistogram   KIOReport = 3
-	KIOReportFormatSimple      KIOReport = 1
-	KIOReportFormatSimpleArray KIOReport = 4
-	KIOReportFormatState       KIOReport = 2
-	KIOReportGetDimensions     KIOReport = 0x2
-	KIOReportInvalidFormat     KIOReport = 0
-	KIOReportNotifyHubOnChange KIOReport = 0x10
-	KIOReportTraceChannelData  KIOReport = 2
-	KIOReportTraceOnChange     KIOReport = 0x20
+	KIOReportCopyChannelDataValue KIOReportCopyChannelData = 1
+	KIOReportTraceChannelData     KIOReportCopyChannelData = 2
 )
 
-func (e KIOReport) String() string {
+func (e KIOReportCopyChannelData) String() string {
 	switch e {
-	case KIOReportCopyChannelData:
-		return "KIOReportCopyChannelData"
+	case KIOReportCopyChannelDataValue:
+		return "KIOReportCopyChannelDataValue"
+	case KIOReportTraceChannelData:
+		return "KIOReportTraceChannelData"
+	default:
+		return fmt.Sprintf("KIOReportCopyChannelData(%d)", e)
+	}
+}
+
+type KIOReportEnable uint
+
+const (
+	KIOReportDisable           KIOReportEnable = 0
+	KIOReportEnableValue       KIOReportEnable = 0x1
+	KIOReportGetDimensions     KIOReportEnable = 0x2
+	KIOReportNotifyHubOnChange KIOReportEnable = 0x10
+	KIOReportTraceOnChange     KIOReportEnable = 0x20
+)
+
+func (e KIOReportEnable) String() string {
+	switch e {
 	case KIOReportDisable:
 		return "KIOReportDisable"
-	case KIOReportFormatHistogram:
-		return "KIOReportFormatHistogram"
-	case KIOReportFormatSimpleArray:
-		return "KIOReportFormatSimpleArray"
-	case KIOReportFormatState:
-		return "KIOReportFormatState"
+	case KIOReportEnableValue:
+		return "KIOReportEnableValue"
+	case KIOReportGetDimensions:
+		return "KIOReportGetDimensions"
 	case KIOReportNotifyHubOnChange:
 		return "KIOReportNotifyHubOnChange"
 	case KIOReportTraceOnChange:
 		return "KIOReportTraceOnChange"
 	default:
-		return fmt.Sprintf("KIOReport(%d)", e)
+		return fmt.Sprintf("KIOReportEnable(%d)", e)
+	}
+}
+
+type KIOReportInvalidFormat uint
+
+const (
+	KIOReportFormatHistogram    KIOReportInvalidFormat = 3
+	KIOReportFormatSimple       KIOReportInvalidFormat = 1
+	KIOReportFormatSimpleArray  KIOReportInvalidFormat = 4
+	KIOReportFormatState        KIOReportInvalidFormat = 2
+	KIOReportInvalidFormatValue KIOReportInvalidFormat = 0
+)
+
+func (e KIOReportInvalidFormat) String() string {
+	switch e {
+	case KIOReportFormatHistogram:
+		return "KIOReportFormatHistogram"
+	case KIOReportFormatSimple:
+		return "KIOReportFormatSimple"
+	case KIOReportFormatSimpleArray:
+		return "KIOReportFormatSimpleArray"
+	case KIOReportFormatState:
+		return "KIOReportFormatState"
+	case KIOReportInvalidFormatValue:
+		return "KIOReportInvalidFormatValue"
+	default:
+		return fmt.Sprintf("KIOReportInvalidFormat(%d)", e)
 	}
 }
 
@@ -19056,28 +20378,19 @@ func (e KIOReturnOutput) String() string {
 	}
 }
 
-type KIOScale uint
+type KIOScaleStretchOnly uint
 
 const (
-	KIOScaleCanBorderInsetOnly  KIOScale = 0x40
-	KIOScaleCanDownSamplePixels KIOScale = 0x4
-	KIOScaleCanRotate           KIOScale = 0x20
-	KIOScaleCanScaleInterlaced  KIOScale = 0x8
-	KIOScaleCanSupportInset     KIOScale = 0x10
-	KIOScaleCanUpSamplePixels   KIOScale = 0x2
-	KIOScaleInvertX             KIOScale = 0x20
-	KIOScaleInvertY             KIOScale = 0x40
-	KIOScaleRotate0             KIOScale = 0
-	KIOScaleRotate180           KIOScale = 96
-	KIOScaleRotate270           KIOScale = 80
-	KIOScaleRotate90            KIOScale = 48
-	KIOScaleRotateFlags         KIOScale = 0xf0
-	KIOScaleStretchOnly         KIOScale = 0x1
-	KIOScaleStretchToFit        KIOScale = 0x1
-	KIOScaleSwapAxes            KIOScale = 0x10
+	KIOScaleCanBorderInsetOnly  KIOScaleStretchOnly = 0x40
+	KIOScaleCanDownSamplePixels KIOScaleStretchOnly = 0x4
+	KIOScaleCanRotate           KIOScaleStretchOnly = 0x20
+	KIOScaleCanScaleInterlaced  KIOScaleStretchOnly = 0x8
+	KIOScaleCanSupportInset     KIOScaleStretchOnly = 0x10
+	KIOScaleCanUpSamplePixels   KIOScaleStretchOnly = 0x2
+	KIOScaleStretchOnlyValue    KIOScaleStretchOnly = 0x1
 )
 
-func (e KIOScale) String() string {
+func (e KIOScaleStretchOnly) String() string {
 	switch e {
 	case KIOScaleCanBorderInsetOnly:
 		return "KIOScaleCanBorderInsetOnly"
@@ -19091,6 +20404,33 @@ func (e KIOScale) String() string {
 		return "KIOScaleCanSupportInset"
 	case KIOScaleCanUpSamplePixels:
 		return "KIOScaleCanUpSamplePixels"
+	case KIOScaleStretchOnlyValue:
+		return "KIOScaleStretchOnlyValue"
+	default:
+		return fmt.Sprintf("KIOScaleStretchOnly(%d)", e)
+	}
+}
+
+type KIOScaleStretchToFit uint
+
+const (
+	KIOScaleInvertX           KIOScaleStretchToFit = 0x20
+	KIOScaleInvertY           KIOScaleStretchToFit = 0x40
+	KIOScaleRotate0           KIOScaleStretchToFit = 0
+	KIOScaleRotate180         KIOScaleStretchToFit = 96
+	KIOScaleRotate270         KIOScaleStretchToFit = 80
+	KIOScaleRotate90          KIOScaleStretchToFit = 48
+	KIOScaleRotateFlags       KIOScaleStretchToFit = 0xf0
+	KIOScaleStretchToFitValue KIOScaleStretchToFit = 0x1
+	KIOScaleSwapAxes          KIOScaleStretchToFit = 0x10
+)
+
+func (e KIOScaleStretchToFit) String() string {
+	switch e {
+	case KIOScaleInvertX:
+		return "KIOScaleInvertX"
+	case KIOScaleInvertY:
+		return "KIOScaleInvertY"
 	case KIOScaleRotate0:
 		return "KIOScaleRotate0"
 	case KIOScaleRotate180:
@@ -19101,54 +20441,44 @@ func (e KIOScale) String() string {
 		return "KIOScaleRotate90"
 	case KIOScaleRotateFlags:
 		return "KIOScaleRotateFlags"
-	case KIOScaleStretchOnly:
-		return "KIOScaleStretchOnly"
+	case KIOScaleStretchToFitValue:
+		return "KIOScaleStretchToFitValue"
+	case KIOScaleSwapAxes:
+		return "KIOScaleSwapAxes"
 	default:
-		return fmt.Sprintf("KIOScale(%d)", e)
+		return fmt.Sprintf("KIOScaleStretchToFit(%d)", e)
 	}
 }
 
-type KIOService uint
+type KIOServiceExclusive uint
 
 const (
-	KIOServiceAsynchronous                    KIOService = 0x8
-	KIOServiceDextRequirePowerForMatching     KIOService = 0x10
-	KIOServiceExclusive                       KIOService = 0x1
-	KIOServiceFamilyOpenOptions               KIOService = 0xffff0000
-	KIOServiceFirstMatchState                 KIOService = 0x10
-	KIOServiceFirstPublishState               KIOService = 0x8
-	KIOServiceInactiveState                   KIOService = 0x1
-	KIOServiceMatchedState                    KIOService = 0x4
-	KIOServiceRegisteredState                 KIOService = 0x2
-	KIOServiceRequired                        KIOService = 0x1
-	KIOServiceReservedMatchState              KIOService = 0x80000000
-	KIOServiceSeize                           KIOService = 0x1
-	KIOServiceSynchronous                     KIOService = 0x2
-	KIOServiceTerminate                       KIOService = 0x4
-	KIOServiceTerminateWithRematch            KIOService = 0x10
-	KIOServiceTerminateWithRematchCurrentDext KIOService = 0x20
+	KIOServiceAsynchronous                    KIOServiceExclusive = 0x8
+	KIOServiceDextRequirePowerForMatching     KIOServiceExclusive = 0x10
+	KIOServiceExclusiveValue                  KIOServiceExclusive = 0x1
+	KIOServiceRequired                        KIOServiceExclusive = 0x1
+	KIOServiceSynchronous                     KIOServiceExclusive = 0x2
+	KIOServiceTerminate                       KIOServiceExclusive = 0x4
+	KIOServiceTerminateWithRematch            KIOServiceExclusive = 0x10
+	KIOServiceTerminateWithRematchCurrentDext KIOServiceExclusive = 0x20
 )
 
-func (e KIOService) String() string {
+func (e KIOServiceExclusive) String() string {
 	switch e {
 	case KIOServiceAsynchronous:
 		return "KIOServiceAsynchronous"
 	case KIOServiceDextRequirePowerForMatching:
 		return "KIOServiceDextRequirePowerForMatching"
-	case KIOServiceExclusive:
-		return "KIOServiceExclusive"
-	case KIOServiceFamilyOpenOptions:
-		return "KIOServiceFamilyOpenOptions"
-	case KIOServiceMatchedState:
-		return "KIOServiceMatchedState"
-	case KIOServiceRegisteredState:
-		return "KIOServiceRegisteredState"
-	case KIOServiceReservedMatchState:
-		return "KIOServiceReservedMatchState"
+	case KIOServiceExclusiveValue:
+		return "KIOServiceExclusiveValue"
+	case KIOServiceSynchronous:
+		return "KIOServiceSynchronous"
+	case KIOServiceTerminate:
+		return "KIOServiceTerminate"
 	case KIOServiceTerminateWithRematchCurrentDext:
 		return "KIOServiceTerminateWithRematchCurrentDext"
 	default:
-		return fmt.Sprintf("KIOService(%d)", e)
+		return fmt.Sprintf("KIOServiceExclusive(%d)", e)
 	}
 }
 
@@ -19182,6 +20512,36 @@ func (e KIOServiceHaltState) String() string {
 		return "KIOServiceHaltStateRestart"
 	default:
 		return fmt.Sprintf("KIOServiceHaltState(%d)", e)
+	}
+}
+
+type KIOServiceInactiveState uint
+
+const (
+	KIOServiceFirstMatchState    KIOServiceInactiveState = 0x10
+	KIOServiceFirstPublishState  KIOServiceInactiveState = 0x8
+	KIOServiceInactiveStateValue KIOServiceInactiveState = 0x1
+	KIOServiceMatchedState       KIOServiceInactiveState = 0x4
+	KIOServiceRegisteredState    KIOServiceInactiveState = 0x2
+	KIOServiceReservedMatchState KIOServiceInactiveState = 0x80000000
+)
+
+func (e KIOServiceInactiveState) String() string {
+	switch e {
+	case KIOServiceFirstMatchState:
+		return "KIOServiceFirstMatchState"
+	case KIOServiceFirstPublishState:
+		return "KIOServiceFirstPublishState"
+	case KIOServiceInactiveStateValue:
+		return "KIOServiceInactiveStateValue"
+	case KIOServiceMatchedState:
+		return "KIOServiceMatchedState"
+	case KIOServiceRegisteredState:
+		return "KIOServiceRegisteredState"
+	case KIOServiceReservedMatchState:
+		return "KIOServiceReservedMatchState"
+	default:
+		return fmt.Sprintf("KIOServiceInactiveState(%d)", e)
 	}
 }
 
@@ -19240,6 +20600,24 @@ func (e KIOServiceSearchProperty) String() string {
 		return "KIOServiceSearchPropertyParents"
 	default:
 		return fmt.Sprintf("KIOServiceSearchProperty(%d)", e)
+	}
+}
+
+type KIOServiceSeize uint
+
+const (
+	KIOServiceFamilyOpenOptions KIOServiceSeize = 0xffff0000
+	KIOServiceSeizeValue        KIOServiceSeize = 0x1
+)
+
+func (e KIOServiceSeize) String() string {
+	switch e {
+	case KIOServiceFamilyOpenOptions:
+		return "KIOServiceFamilyOpenOptions"
+	case KIOServiceSeizeValue:
+		return "KIOServiceSeizeValue"
+	default:
+		return fmt.Sprintf("KIOServiceSeize(%d)", e)
 	}
 }
 
@@ -19532,7 +20910,7 @@ func (e KIOSyncPositive) String() string {
 	}
 }
 
-type KIOSystemStateSleepDescriptionHibernateState uint
+type KIOSystemStateSleepDescriptionHibernateState uint32
 
 const (
 	KIOSystemStateSleepDescriptionHibernateStateHibernating         KIOSystemStateSleepDescriptionHibernateState = 1
@@ -19988,7 +21366,7 @@ func (e KIOUCVariableStructure) String() string {
 	}
 }
 
-type KIOUSB uint
+type KIOUSB uint32
 
 const (
 	// KIOUSBDecriptorTypeHID: The type for a human interaction device descriptor.
@@ -20063,7 +21441,7 @@ func (e KIOUSB) String() string {
 	}
 }
 
-type KIOUSB20BusCurrent uint
+type KIOUSB20BusCurrent uint32
 
 const (
 	// KIOUSB20BusCurrentDefault: The default bus current.
@@ -20087,7 +21465,7 @@ func (e KIOUSB20BusCurrent) String() string {
 	}
 }
 
-type KIOUSB30 uint
+type KIOUSB30 uint32
 
 const (
 	// KIOUSB30LinKStateU2RxDetectDelay: The USB 2.0 receive detect delay.
@@ -20172,7 +21550,7 @@ func (e KIOUSB30) String() string {
 	}
 }
 
-type KIOUSB30BusCurrent uint
+type KIOUSB30BusCurrent uint32
 
 const (
 	// KIOUSB30BusCurrentDefault: The default bus current.
@@ -20196,7 +21574,7 @@ func (e KIOUSB30BusCurrent) String() string {
 	}
 }
 
-type KIOUSB30DeviceNotificationType uint
+type KIOUSB30DeviceNotificationType uint32
 
 const (
 	// KIOUSB30DeviceNotificationTypeBusIntervalAdjustment: The bus interval adjustment.
@@ -20228,7 +21606,7 @@ func (e KIOUSB30DeviceNotificationType) String() string {
 	}
 }
 
-type KIOUSB30HubExtStatus int
+type KIOUSB30HubExtStatus uint32
 
 const (
 	// KIOUSB30HubExtStatusRxLaneCount: The receive lane count.
@@ -20272,7 +21650,7 @@ func (e KIOUSB30HubExtStatus) String() string {
 	}
 }
 
-type KIOUSB30HubPortStatusCode int
+type KIOUSB30HubPortStatusCode uint32
 
 const (
 	// KIOUSB30HubPortStatusCodeCount: The port status code count.
@@ -20300,7 +21678,7 @@ func (e KIOUSB30HubPortStatusCode) String() string {
 	}
 }
 
-type KIOUSB30Reset uint
+type KIOUSB30Reset uint32
 
 const (
 	// KIOUSB30ResetMaximumTimeout: The maximum reset timeout.
@@ -20328,7 +21706,7 @@ func (e KIOUSB30Reset) String() string {
 	}
 }
 
-type KIOUSB30TimingParameterBELT uint
+type KIOUSB30TimingParameterBELT uint32
 
 const (
 	// KIOUSB30TimingParameterBELTDefaultNs: The BELT default in nanoseconds.
@@ -20348,7 +21726,7 @@ func (e KIOUSB30TimingParameterBELT) String() string {
 	}
 }
 
-type KIOUSBAny uint
+type KIOUSBAny uint32
 
 const (
 	KIOUSBAnyClass    KIOUSBAny = 0xffff
@@ -20367,7 +21745,7 @@ func (e KIOUSBAny) String() string {
 	}
 }
 
-type KIOUSBAppleVendorI uint
+type KIOUSBAppleVendorI uint32
 
 const (
 	KIOUSBAppleVendorID KIOUSBAppleVendorI = 0x5ac
@@ -20382,7 +21760,7 @@ func (e KIOUSBAppleVendorI) String() string {
 	}
 }
 
-type KIOUSBBusVoltage uint
+type KIOUSBBusVoltage uint32
 
 const (
 	// KIOUSBBusVoltageDefault: The default bus voltage.
@@ -20398,7 +21776,7 @@ func (e KIOUSBBusVoltage) String() string {
 	}
 }
 
-type KIOUSBConfigurationDescriptorAttribute uint
+type KIOUSBConfigurationDescriptorAttribute uint32
 
 const (
 	KIOUSBConfigurationDescriptorAttributeRemoteWakeCapable KIOUSBConfigurationDescriptorAttribute = 32
@@ -20416,7 +21794,7 @@ func (e KIOUSBConfigurationDescriptorAttribute) String() string {
 	}
 }
 
-type KIOUSBDescriptor uint
+type KIOUSBDescriptor uint32
 
 const (
 	KIOUSBDescriptorHeaderSize                                     KIOUSBDescriptor = 2
@@ -20483,7 +21861,7 @@ func (e KIOUSBDescriptor) String() string {
 	}
 }
 
-type KIOUSBDeviceCapabilityDescriptor uint
+type KIOUSBDeviceCapabilityDescriptor uint32
 
 const (
 	KIOUSBDeviceCapabilityDescriptorLengthMin KIOUSBDeviceCapabilityDescriptor = 3
@@ -20501,7 +21879,7 @@ func (e KIOUSBDeviceCapabilityDescriptor) String() string {
 	}
 }
 
-type KIOUSBDeviceCapabilityType uint
+type KIOUSBDeviceCapabilityType uint32
 
 const (
 	KIOUSBDeviceCapabilityTypeBatteryInfo          KIOUSBDeviceCapabilityType = 7
@@ -20555,7 +21933,7 @@ func (e KIOUSBDeviceCapabilityType) String() string {
 	}
 }
 
-type KIOUSBDeviceFeatureSelectorRemoteWakeup uint
+type KIOUSBDeviceFeatureSelectorRemoteWakeup uint32
 
 const (
 	IOUSBEndpointFeatureSelectorStall            KIOUSBDeviceFeatureSelectorRemoteWakeup = 0
@@ -20586,103 +21964,7 @@ func (e KIOUSBDeviceFeatureSelectorRemoteWakeup) String() string {
 	}
 }
 
-type KIOUSBDeviceRequest uint
-
-const (
-	KIOUSBDeviceRequestClearFeature KIOUSBDeviceRequest = 1
-	// KIOUSBDeviceRequestDirectionIn: The incoming direction.
-	KIOUSBDeviceRequestDirectionIn KIOUSBDeviceRequest = 128
-	// KIOUSBDeviceRequestDirectionMask: The direction mask.
-	KIOUSBDeviceRequestDirectionMask KIOUSBDeviceRequest = 128
-	// KIOUSBDeviceRequestDirectionOut: The outgoing direction.
-	KIOUSBDeviceRequestDirectionOut KIOUSBDeviceRequest = 0
-	// KIOUSBDeviceRequestDirectionPhase: The direction phase.
-	KIOUSBDeviceRequestDirectionPhase   KIOUSBDeviceRequest = 7
-	KIOUSBDeviceRequestGetConfiguration KIOUSBDeviceRequest = 8
-	KIOUSBDeviceRequestGetDescriptor    KIOUSBDeviceRequest = 6
-	KIOUSBDeviceRequestGetInterface     KIOUSBDeviceRequest = 10
-	KIOUSBDeviceRequestGetState         KIOUSBDeviceRequest = 2
-	KIOUSBDeviceRequestGetStatus        KIOUSBDeviceRequest = 0
-	// KIOUSBDeviceRequestRecipientDevice: The recipient device.
-	KIOUSBDeviceRequestRecipientDevice KIOUSBDeviceRequest = 0
-	// KIOUSBDeviceRequestRecipientEndpoint: The recipient endpoint.
-	KIOUSBDeviceRequestRecipientEndpoint KIOUSBDeviceRequest = 2
-	// KIOUSBDeviceRequestRecipientInterface: The recipient interface.
-	KIOUSBDeviceRequestRecipientInterface KIOUSBDeviceRequest = 1
-	// KIOUSBDeviceRequestRecipientMask: The recipient mask.
-	KIOUSBDeviceRequestRecipientMask KIOUSBDeviceRequest = 31
-	// KIOUSBDeviceRequestRecipientOther: The other recipient.
-	KIOUSBDeviceRequestRecipientOther KIOUSBDeviceRequest = 3
-	// KIOUSBDeviceRequestRecipientPhase: The recipient phase.
-	KIOUSBDeviceRequestRecipientPhase      KIOUSBDeviceRequest = 0
-	KIOUSBDeviceRequestSetAddress          KIOUSBDeviceRequest = 5
-	KIOUSBDeviceRequestSetConfiguration    KIOUSBDeviceRequest = 9
-	KIOUSBDeviceRequestSetDescriptor       KIOUSBDeviceRequest = 7
-	KIOUSBDeviceRequestSetFeature          KIOUSBDeviceRequest = 3
-	KIOUSBDeviceRequestSetInterface        KIOUSBDeviceRequest = 11
-	KIOUSBDeviceRequestSetIsochronousDelay KIOUSBDeviceRequest = 49
-	KIOUSBDeviceRequestSetSel              KIOUSBDeviceRequest = 48
-	// KIOUSBDeviceRequestSize: The request size.
-	KIOUSBDeviceRequestSize       KIOUSBDeviceRequest = 8
-	KIOUSBDeviceRequestSynchFrame KIOUSBDeviceRequest = 12
-	// KIOUSBDeviceRequestTypeClass: The type class.
-	KIOUSBDeviceRequestTypeClass KIOUSBDeviceRequest = 32
-	// KIOUSBDeviceRequestTypeMask: The type mask.
-	KIOUSBDeviceRequestTypeMask KIOUSBDeviceRequest = 96
-	// KIOUSBDeviceRequestTypePhase: The type phase.
-	KIOUSBDeviceRequestTypePhase KIOUSBDeviceRequest = 5
-	// KIOUSBDeviceRequestTypeStandard: The type standard.
-	KIOUSBDeviceRequestTypeStandard KIOUSBDeviceRequest = 0
-	// KIOUSBDeviceRequestTypeVendor: The type vendor.
-	KIOUSBDeviceRequestTypeVendor KIOUSBDeviceRequest = 64
-)
-
-func (e KIOUSBDeviceRequest) String() string {
-	switch e {
-	case KIOUSBDeviceRequestClearFeature:
-		return "KIOUSBDeviceRequestClearFeature"
-	case KIOUSBDeviceRequestDirectionIn:
-		return "KIOUSBDeviceRequestDirectionIn"
-	case KIOUSBDeviceRequestDirectionOut:
-		return "KIOUSBDeviceRequestDirectionOut"
-	case KIOUSBDeviceRequestDirectionPhase:
-		return "KIOUSBDeviceRequestDirectionPhase"
-	case KIOUSBDeviceRequestGetConfiguration:
-		return "KIOUSBDeviceRequestGetConfiguration"
-	case KIOUSBDeviceRequestGetDescriptor:
-		return "KIOUSBDeviceRequestGetDescriptor"
-	case KIOUSBDeviceRequestGetInterface:
-		return "KIOUSBDeviceRequestGetInterface"
-	case KIOUSBDeviceRequestGetState:
-		return "KIOUSBDeviceRequestGetState"
-	case KIOUSBDeviceRequestRecipientMask:
-		return "KIOUSBDeviceRequestRecipientMask"
-	case KIOUSBDeviceRequestRecipientOther:
-		return "KIOUSBDeviceRequestRecipientOther"
-	case KIOUSBDeviceRequestSetAddress:
-		return "KIOUSBDeviceRequestSetAddress"
-	case KIOUSBDeviceRequestSetConfiguration:
-		return "KIOUSBDeviceRequestSetConfiguration"
-	case KIOUSBDeviceRequestSetInterface:
-		return "KIOUSBDeviceRequestSetInterface"
-	case KIOUSBDeviceRequestSetIsochronousDelay:
-		return "KIOUSBDeviceRequestSetIsochronousDelay"
-	case KIOUSBDeviceRequestSetSel:
-		return "KIOUSBDeviceRequestSetSel"
-	case KIOUSBDeviceRequestSynchFrame:
-		return "KIOUSBDeviceRequestSynchFrame"
-	case KIOUSBDeviceRequestTypeClass:
-		return "KIOUSBDeviceRequestTypeClass"
-	case KIOUSBDeviceRequestTypeMask:
-		return "KIOUSBDeviceRequestTypeMask"
-	case KIOUSBDeviceRequestTypeVendor:
-		return "KIOUSBDeviceRequestTypeVendor"
-	default:
-		return fmt.Sprintf("KIOUSBDeviceRequest(%d)", e)
-	}
-}
-
-type KIOUSBDeviceRequestDirectionValue uint
+type KIOUSBDeviceRequestDirectionValue uint32
 
 const (
 	// KIOUSBDeviceRequestDirectionValueIn: The input direction value.
@@ -20702,7 +21984,61 @@ func (e KIOUSBDeviceRequestDirectionValue) String() string {
 	}
 }
 
-type KIOUSBDeviceRequestRecipientValue uint
+type KIOUSBDeviceRequestGetStatus uint32
+
+const (
+	KIOUSBDeviceRequestClearFeature        KIOUSBDeviceRequestGetStatus = 1
+	KIOUSBDeviceRequestGetConfiguration    KIOUSBDeviceRequestGetStatus = 8
+	KIOUSBDeviceRequestGetDescriptor       KIOUSBDeviceRequestGetStatus = 6
+	KIOUSBDeviceRequestGetInterface        KIOUSBDeviceRequestGetStatus = 10
+	KIOUSBDeviceRequestGetState            KIOUSBDeviceRequestGetStatus = 2
+	KIOUSBDeviceRequestGetStatusValue      KIOUSBDeviceRequestGetStatus = 0
+	KIOUSBDeviceRequestSetAddress          KIOUSBDeviceRequestGetStatus = 5
+	KIOUSBDeviceRequestSetConfiguration    KIOUSBDeviceRequestGetStatus = 9
+	KIOUSBDeviceRequestSetDescriptor       KIOUSBDeviceRequestGetStatus = 7
+	KIOUSBDeviceRequestSetFeature          KIOUSBDeviceRequestGetStatus = 3
+	KIOUSBDeviceRequestSetInterface        KIOUSBDeviceRequestGetStatus = 11
+	KIOUSBDeviceRequestSetIsochronousDelay KIOUSBDeviceRequestGetStatus = 49
+	KIOUSBDeviceRequestSetSel              KIOUSBDeviceRequestGetStatus = 48
+	KIOUSBDeviceRequestSynchFrame          KIOUSBDeviceRequestGetStatus = 12
+)
+
+func (e KIOUSBDeviceRequestGetStatus) String() string {
+	switch e {
+	case KIOUSBDeviceRequestClearFeature:
+		return "KIOUSBDeviceRequestClearFeature"
+	case KIOUSBDeviceRequestGetConfiguration:
+		return "KIOUSBDeviceRequestGetConfiguration"
+	case KIOUSBDeviceRequestGetDescriptor:
+		return "KIOUSBDeviceRequestGetDescriptor"
+	case KIOUSBDeviceRequestGetInterface:
+		return "KIOUSBDeviceRequestGetInterface"
+	case KIOUSBDeviceRequestGetState:
+		return "KIOUSBDeviceRequestGetState"
+	case KIOUSBDeviceRequestGetStatusValue:
+		return "KIOUSBDeviceRequestGetStatusValue"
+	case KIOUSBDeviceRequestSetAddress:
+		return "KIOUSBDeviceRequestSetAddress"
+	case KIOUSBDeviceRequestSetConfiguration:
+		return "KIOUSBDeviceRequestSetConfiguration"
+	case KIOUSBDeviceRequestSetDescriptor:
+		return "KIOUSBDeviceRequestSetDescriptor"
+	case KIOUSBDeviceRequestSetFeature:
+		return "KIOUSBDeviceRequestSetFeature"
+	case KIOUSBDeviceRequestSetInterface:
+		return "KIOUSBDeviceRequestSetInterface"
+	case KIOUSBDeviceRequestSetIsochronousDelay:
+		return "KIOUSBDeviceRequestSetIsochronousDelay"
+	case KIOUSBDeviceRequestSetSel:
+		return "KIOUSBDeviceRequestSetSel"
+	case KIOUSBDeviceRequestSynchFrame:
+		return "KIOUSBDeviceRequestSynchFrame"
+	default:
+		return fmt.Sprintf("KIOUSBDeviceRequestGetStatus(%d)", e)
+	}
+}
+
+type KIOUSBDeviceRequestRecipientValue uint32
 
 const (
 	// KIOUSBDeviceRequestRecipientValueDevice: The recipient device value.
@@ -20730,7 +22066,7 @@ func (e KIOUSBDeviceRequestRecipientValue) String() string {
 	}
 }
 
-type KIOUSBDeviceRequestTypeValue uint
+type KIOUSBDeviceRequestTypeValue uint32
 
 const (
 	// KIOUSBDeviceRequestTypeValueClass: The class type value.
@@ -20754,7 +22090,7 @@ func (e KIOUSBDeviceRequestTypeValue) String() string {
 	}
 }
 
-type KIOUSBDeviceStatusSelfPowered int
+type KIOUSBDeviceStatusSelfPowered uint32
 
 const (
 	IOUSBEndpointStatusHalt                KIOUSBDeviceStatusSelfPowered = 1
@@ -20784,7 +22120,7 @@ func (e KIOUSBDeviceStatusSelfPowered) String() string {
 	}
 }
 
-type KIOUSBEndpointDescriptor uint
+type KIOUSBEndpointDescriptor uint32
 
 const (
 	KIOUSBEndpointDescriptorDirection                       KIOUSBEndpointDescriptor = 128
@@ -20869,7 +22205,7 @@ func (e KIOUSBEndpointDescriptor) String() string {
 	}
 }
 
-type KIOUSBEndpointDirection uint
+type KIOUSBEndpointDirection uint32
 
 const (
 	KIOUSBEndpointDirectionIn      KIOUSBEndpointDirection = 1
@@ -20890,7 +22226,7 @@ func (e KIOUSBEndpointDirection) String() string {
 	}
 }
 
-type KIOUSBEndpointSynchronizationType uint
+type KIOUSBEndpointSynchronizationType uint32
 
 const (
 	// KIOUSBEndpointSynchronizationTypeAdaptive: The adaptive type.
@@ -20918,7 +22254,7 @@ func (e KIOUSBEndpointSynchronizationType) String() string {
 	}
 }
 
-type KIOUSBEndpointType uint
+type KIOUSBEndpointType uint32
 
 const (
 	KIOUSBEndpointTypeBulk        KIOUSBEndpointType = 2
@@ -20942,7 +22278,7 @@ func (e KIOUSBEndpointType) String() string {
 	}
 }
 
-type KIOUSBEndpointUsageTypeIsoc uint
+type KIOUSBEndpointUsageTypeIsoc uint32
 
 const (
 	// KIOUSBEndpointUsageTypeIsocData: The isochronous data type.
@@ -20966,7 +22302,7 @@ func (e KIOUSBEndpointUsageTypeIsoc) String() string {
 	}
 }
 
-type KIOUSBFindInterfaceDont uint
+type KIOUSBFindInterfaceDont uint32
 
 const (
 	KIOUSBFindInterfaceDontCare KIOUSBFindInterfaceDont = 0xffff
@@ -20999,11 +22335,11 @@ func (e KIOUSBGetEndpointDescriptor) String() string {
 	}
 }
 
-type KIOUSBHostConnectionSpeed uint
+type KIOUSBHostConnectionSpeed uint32
 
 const (
 	// KIOUSBHostConnectionSpeedCount: The speed count.
-	KIOUSBHostConnectionSpeedCount KIOUSBHostConnectionSpeed = 7
+	KIOUSBHostConnectionSpeedCount KIOUSBHostConnectionSpeed = 8
 	// KIOUSBHostConnectionSpeedFull: The full speed value.
 	KIOUSBHostConnectionSpeedFull KIOUSBHostConnectionSpeed = 1
 	// KIOUSBHostConnectionSpeedHigh: The high speed value.
@@ -21058,7 +22394,7 @@ func (e KIOUSBHostPipeBundling) String() string {
 	}
 }
 
-type KIOUSBHostPortStatus int
+type KIOUSBHostPortStatus uint32
 
 const (
 	// KIOUSBHostPortStatusConnectedSpeedFull: The full connected speed.
@@ -21084,11 +22420,11 @@ const (
 	// KIOUSBHostPortStatusOvercurrent: The port status overcurrent.
 	KIOUSBHostPortStatusOvercurrent KIOUSBHostPortStatus = 16384
 	// KIOUSBHostPortStatusPortTypeAccessory: The accessory port type.
-	KIOUSBHostPortStatusPortTypeAccessory KIOUSBHostPortStatus = ((3) << (0))
+	KIOUSBHostPortStatusPortTypeAccessory KIOUSBHostPortStatus = 3
 	// KIOUSBHostPortStatusPortTypeCaptive: The captive port type.
-	KIOUSBHostPortStatusPortTypeCaptive KIOUSBHostPortStatus = ((1) << (0))
+	KIOUSBHostPortStatusPortTypeCaptive KIOUSBHostPortStatus = 1
 	// KIOUSBHostPortStatusPortTypeInternal: The internal port type.
-	KIOUSBHostPortStatusPortTypeInternal KIOUSBHostPortStatus = ((2) << (0))
+	KIOUSBHostPortStatusPortTypeInternal KIOUSBHostPortStatus = 2
 	// KIOUSBHostPortStatusPortTypeMask: The port type mask.
 	KIOUSBHostPortStatusPortTypeMask KIOUSBHostPortStatus = 15
 	// KIOUSBHostPortStatusPortTypePhase: The port type phase.
@@ -21150,19 +22486,19 @@ func (e KIOUSBHostPortStatus) String() string {
 	}
 }
 
-type KIOUSBHostPortType uint
+type KIOUSBHostPortType uint32
 
 const (
 	// KIOUSBHostPortTypeAccessory: The accessory type.
-	KIOUSBHostPortTypeAccessory KIOUSBHostPortType = 0
+	KIOUSBHostPortTypeAccessory KIOUSBHostPortType = 3
 	// KIOUSBHostPortTypeCaptive: The captive type.
-	KIOUSBHostPortTypeCaptive KIOUSBHostPortType = 0
+	KIOUSBHostPortTypeCaptive KIOUSBHostPortType = 1
 	// KIOUSBHostPortTypeCount: The type count.
 	KIOUSBHostPortTypeCount KIOUSBHostPortType = 0
 	// KIOUSBHostPortTypeExpressCard: The express card type.
-	KIOUSBHostPortTypeExpressCard KIOUSBHostPortType = 0
+	KIOUSBHostPortTypeExpressCard KIOUSBHostPortType = 4
 	// KIOUSBHostPortTypeInternal: The internal type.
-	KIOUSBHostPortTypeInternal KIOUSBHostPortType = 0
+	KIOUSBHostPortTypeInternal KIOUSBHostPortType = 2
 	// KIOUSBHostPortTypeStandard: The standard type.
 	KIOUSBHostPortTypeStandard KIOUSBHostPortType = 0
 )
@@ -21171,12 +22507,20 @@ func (e KIOUSBHostPortType) String() string {
 	switch e {
 	case KIOUSBHostPortTypeAccessory:
 		return "KIOUSBHostPortTypeAccessory"
+	case KIOUSBHostPortTypeCaptive:
+		return "KIOUSBHostPortTypeCaptive"
+	case KIOUSBHostPortTypeCount:
+		return "KIOUSBHostPortTypeCount"
+	case KIOUSBHostPortTypeExpressCard:
+		return "KIOUSBHostPortTypeExpressCard"
+	case KIOUSBHostPortTypeInternal:
+		return "KIOUSBHostPortTypeInternal"
 	default:
 		return fmt.Sprintf("KIOUSBHostPortType(%d)", e)
 	}
 }
 
-type KIOUSBHub uint
+type KIOUSBHub uint32
 
 const (
 	KIOUSBHubDelayNs                KIOUSBHub = 400
@@ -21221,7 +22565,7 @@ func (e KIOUSBInterfaceOpenAlt) String() string {
 	}
 }
 
-type KIOUSBInterfaceSuspend uint
+type KIOUSBInterfaceSuspend uint32
 
 const (
 	KIOUSBInterfaceSuspendLowPower         KIOUSBInterfaceSuspend = 1
@@ -21239,7 +22583,7 @@ func (e KIOUSBInterfaceSuspend) String() string {
 	}
 }
 
-type KIOUSBLanguageIDEnglishU uint
+type KIOUSBLanguageIDEnglishU uint32
 
 const (
 	KIOUSBLanguageIDEnglishUS KIOUSBLanguageIDEnglishU = 0x409
@@ -21254,7 +22598,7 @@ func (e KIOUSBLanguageIDEnglishU) String() string {
 	}
 }
 
-type KIOUSBPingResponseTime uint
+type KIOUSBPingResponseTime uint32
 
 const (
 	KIOUSBPingResponseTimeNs KIOUSBPingResponseTime = 400
@@ -21269,7 +22613,7 @@ func (e KIOUSBPingResponseTime) String() string {
 	}
 }
 
-type KIOUSBSuperSpeedDevice uint
+type KIOUSBSuperSpeedDevice uint32
 
 const (
 	KIOUSBSuperSpeedDeviceCapability5Gb              KIOUSBSuperSpeedDevice = 8
@@ -21308,7 +22652,7 @@ func (e KIOUSBSuperSpeedDevice) String() string {
 	}
 }
 
-type KIOUSBSuperSpeedEndpointCompanionDescriptor uint
+type KIOUSBSuperSpeedEndpointCompanionDescriptor uint32
 
 const (
 	KIOUSBSuperSpeedEndpointCompanionDescriptorBulkMaxStreams      KIOUSBSuperSpeedEndpointCompanionDescriptor = 31
@@ -21319,7 +22663,7 @@ const (
 	KIOUSBSuperSpeedEndpointCompanionDescriptorIsocMultPhase       KIOUSBSuperSpeedEndpointCompanionDescriptor = 0
 	KIOUSBSuperSpeedEndpointCompanionDescriptorIsocReserved        KIOUSBSuperSpeedEndpointCompanionDescriptor = 124
 	KIOUSBSuperSpeedEndpointCompanionDescriptorIsocReservedPhase   KIOUSBSuperSpeedEndpointCompanionDescriptor = 2
-	KIOUSBSuperSpeedEndpointCompanionDescriptorMaxBurst            KIOUSBSuperSpeedEndpointCompanionDescriptor = 31
+	KIOUSBSuperSpeedEndpointCompanionDescriptorMaxBurst            KIOUSBSuperSpeedEndpointCompanionDescriptor = 255
 	KIOUSBSuperSpeedEndpointCompanionDescriptorMaxBurstPhase       KIOUSBSuperSpeedEndpointCompanionDescriptor = 0
 	KIOUSBSuperSpeedEndpointCompanionDescriptorSSPIsocCompanion    KIOUSBSuperSpeedEndpointCompanionDescriptor = 128
 )
@@ -21340,6 +22684,8 @@ func (e KIOUSBSuperSpeedEndpointCompanionDescriptor) String() string {
 		return "KIOUSBSuperSpeedEndpointCompanionDescriptorIsocReserved"
 	case KIOUSBSuperSpeedEndpointCompanionDescriptorIsocReservedPhase:
 		return "KIOUSBSuperSpeedEndpointCompanionDescriptorIsocReservedPhase"
+	case KIOUSBSuperSpeedEndpointCompanionDescriptorMaxBurst:
+		return "KIOUSBSuperSpeedEndpointCompanionDescriptorMaxBurst"
 	case KIOUSBSuperSpeedEndpointCompanionDescriptorSSPIsocCompanion:
 		return "KIOUSBSuperSpeedEndpointCompanionDescriptorSSPIsocCompanion"
 	default:
@@ -21347,7 +22693,7 @@ func (e KIOUSBSuperSpeedEndpointCompanionDescriptor) String() string {
 	}
 }
 
-type KIOUSBSuperSpeedHub uint
+type KIOUSBSuperSpeedHub uint32
 
 const (
 	KIOUSBSuperSpeedHubCharacteristicsCompoundDevice           KIOUSBSuperSpeedHub = 4
@@ -21387,7 +22733,7 @@ func (e KIOUSBSuperSpeedHub) String() string {
 	}
 }
 
-type KIOUSBSuperSpeedPlusDeviceCapability uint
+type KIOUSBSuperSpeedPlusDeviceCapability uint32
 
 const (
 	KIOUSBSuperSpeedPlusDeviceCapabilityMinRxLaneCount             KIOUSBSuperSpeedPlusDeviceCapability = 3840
@@ -21481,7 +22827,7 @@ func (e KIOUSBSuperSpeedPlusDeviceCapability) String() string {
 	}
 }
 
-type KIOUSBUSB20ExtensionCapability uint
+type KIOUSBUSB20ExtensionCapability uint32
 
 const (
 	KIOUSBUSB20ExtensionCapabilityBESL        KIOUSBUSB20ExtensionCapability = 3840
@@ -21515,7 +22861,7 @@ func (e KIOUSBUSB20ExtensionCapability) String() string {
 	}
 }
 
-type KIOUSBVendorID uint
+type KIOUSBVendorID uint32
 
 const (
 	KIOUSBVendorIDApple         KIOUSBVendorID = 1452
@@ -21579,7 +22925,7 @@ func (e KIOUserClientMemoryRead) String() string {
 type KIOUserClientMethodArgumentsCurrent uint
 
 const (
-	KIOUserClientMethodArgumentsCurrentVersion KIOUserClientMethodArgumentsCurrent = (2)
+	KIOUserClientMethodArgumentsCurrentVersion KIOUserClientMethodArgumentsCurrent = 2
 )
 
 func (e KIOUserClientMethodArgumentsCurrent) String() string {
@@ -22020,7 +23366,7 @@ func (e KIsochronousTransferOptions) String() string {
 	}
 }
 
-type KJIJournal uint
+type KJIJournal uint32
 
 const (
 	KJIJournalInFSMask          KJIJournal = 0x1
@@ -22475,7 +23821,7 @@ func (e KMachineType) String() string {
 	}
 }
 
-type KMaxKey uint
+type KMaxKey uint32
 
 const (
 	KMaxKeyLength KMaxKey = 520
@@ -22490,7 +23836,7 @@ func (e KMaxKey) String() string {
 	}
 }
 
-type KMaximumNumberOfInquiryAccess uint
+type KMaximumNumberOfInquiryAccess uint32
 
 const (
 	KMaximumNumberOfInquiryAccessCodes KMaximumNumberOfInquiryAccess = 0x40
@@ -22562,24 +23908,20 @@ func (e KMessageTrayStateChangeRequest) String() string {
 	}
 }
 
-type KMirror uint
+type KMirrorCanMirrorMask uint
 
 const (
-	KMirrorAreMirroredMask          KMirror = 2
-	KMirrorCanChangePixelFormatMask KMirror = 32
-	KMirrorCanChangeTimingMask      KMirror = 64
-	KMirrorCanMirrorMask            KMirror = 1
-	KMirrorClippedMirrorMask        KMirror = 128
-	KMirrorCommonGammaMask          KMirror = 8
-	KMirrorHAlignCenterMirrorMask   KMirror = 8
-	KMirrorSameDepthOnlyMirrorMask  KMirror = 1
-	KMirrorSameSizeOnlyMirrorMask   KMirror = 2
-	KMirrorSameTimingOnlyMirrorMask KMirror = 4
-	KMirrorUnclippedMirrorMask      KMirror = 4
-	KMirrorVAlignCenterMirrorMask   KMirror = 16
+	KMirrorAreMirroredMask          KMirrorCanMirrorMask = 2
+	KMirrorCanChangePixelFormatMask KMirrorCanMirrorMask = 32
+	KMirrorCanChangeTimingMask      KMirrorCanMirrorMask = 64
+	KMirrorCanMirrorMaskValue       KMirrorCanMirrorMask = 1
+	KMirrorClippedMirrorMask        KMirrorCanMirrorMask = 128
+	KMirrorHAlignCenterMirrorMask   KMirrorCanMirrorMask = 8
+	KMirrorUnclippedMirrorMask      KMirrorCanMirrorMask = 4
+	KMirrorVAlignCenterMirrorMask   KMirrorCanMirrorMask = 16
 )
 
-func (e KMirror) String() string {
+func (e KMirrorCanMirrorMask) String() string {
 	switch e {
 	case KMirrorAreMirroredMask:
 		return "KMirrorAreMirroredMask"
@@ -22587,18 +23929,42 @@ func (e KMirror) String() string {
 		return "KMirrorCanChangePixelFormatMask"
 	case KMirrorCanChangeTimingMask:
 		return "KMirrorCanChangeTimingMask"
-	case KMirrorCanMirrorMask:
-		return "KMirrorCanMirrorMask"
+	case KMirrorCanMirrorMaskValue:
+		return "KMirrorCanMirrorMaskValue"
 	case KMirrorClippedMirrorMask:
 		return "KMirrorClippedMirrorMask"
-	case KMirrorCommonGammaMask:
-		return "KMirrorCommonGammaMask"
-	case KMirrorSameTimingOnlyMirrorMask:
-		return "KMirrorSameTimingOnlyMirrorMask"
+	case KMirrorHAlignCenterMirrorMask:
+		return "KMirrorHAlignCenterMirrorMask"
+	case KMirrorUnclippedMirrorMask:
+		return "KMirrorUnclippedMirrorMask"
 	case KMirrorVAlignCenterMirrorMask:
 		return "KMirrorVAlignCenterMirrorMask"
 	default:
-		return fmt.Sprintf("KMirror(%d)", e)
+		return fmt.Sprintf("KMirrorCanMirrorMask(%d)", e)
+	}
+}
+
+type KMirrorSameDepthOnlyMirrorMask uint
+
+const (
+	KMirrorCommonGammaMask              KMirrorSameDepthOnlyMirrorMask = 8
+	KMirrorSameDepthOnlyMirrorMaskValue KMirrorSameDepthOnlyMirrorMask = 1
+	KMirrorSameSizeOnlyMirrorMask       KMirrorSameDepthOnlyMirrorMask = 2
+	KMirrorSameTimingOnlyMirrorMask     KMirrorSameDepthOnlyMirrorMask = 4
+)
+
+func (e KMirrorSameDepthOnlyMirrorMask) String() string {
+	switch e {
+	case KMirrorCommonGammaMask:
+		return "KMirrorCommonGammaMask"
+	case KMirrorSameDepthOnlyMirrorMaskValue:
+		return "KMirrorSameDepthOnlyMirrorMaskValue"
+	case KMirrorSameSizeOnlyMirrorMask:
+		return "KMirrorSameSizeOnlyMirrorMask"
+	case KMirrorSameTimingOnlyMirrorMask:
+		return "KMirrorSameTimingOnlyMirrorMask"
+	default:
+		return fmt.Sprintf("KMirrorSameDepthOnlyMirrorMask(%d)", e)
 	}
 }
 
@@ -22744,7 +24110,7 @@ func (e KNVRAM) String() string {
 	}
 }
 
-type KNanosecondScale uint
+type KNanosecondScale uint32
 
 const (
 	// KMicrosecondScale: # Discussion
@@ -22812,7 +24178,7 @@ func (e KNdrvTypeIs) String() string {
 	}
 }
 
-type KNil uint
+type KNil uint32
 
 const (
 	KNilOptions KNil = 0
@@ -22827,7 +24193,7 @@ func (e KNil) String() string {
 	}
 }
 
-type KNuDCL uint
+type KNuDCL uint32
 
 const (
 	KNuDCLDynamic              KNuDCL = 2
@@ -22898,7 +24264,7 @@ func (e KOFVariableType) String() string {
 	}
 }
 
-type KOSAsyncRef uint
+type KOSAsyncRef uint32
 
 const (
 	KOSAsyncRefCount KOSAsyncRef = 8
@@ -22916,17 +24282,19 @@ func (e KOSAsyncRef) String() string {
 	}
 }
 
-type KOSAsyncRef64 uint
+type KOSAsyncRef64 uint32
 
 const (
 	KOSAsyncRef64Count KOSAsyncRef64 = 8
-	KOSAsyncRef64Size  KOSAsyncRef64 = 8
+	KOSAsyncRef64Size  KOSAsyncRef64 = 64
 )
 
 func (e KOSAsyncRef64) String() string {
 	switch e {
 	case KOSAsyncRef64Count:
 		return "KOSAsyncRef64Count"
+	case KOSAsyncRef64Size:
+		return "KOSAsyncRef64Size"
 	default:
 		return fmt.Sprintf("KOSAsyncRef64(%d)", e)
 	}
@@ -22947,7 +24315,7 @@ func (e KOSClassCan) String() string {
 	}
 }
 
-type KOSNotificationMessageID uint
+type KOSNotificationMessageID uint32
 
 const (
 	KMaxAsyncArgs                 KOSNotificationMessageID = 16
@@ -23073,7 +24441,7 @@ func (e KPCI2PCI) String() string {
 	}
 }
 
-type KPCIPMC uint
+type KPCIPMC uint32
 
 const (
 	KPCIPMCD1Support            KPCIPMC = 0x200
@@ -23109,10 +24477,10 @@ func (e KPCIPMC) String() string {
 	}
 }
 
-type KPCIPMCS uint
+type KPCIPMCS uint32
 
 const (
-	KPCIPMCSDefaultEnableBits KPCIPMCS = ^KPCIPMCS(0)
+	KPCIPMCSDefaultEnableBits KPCIPMCS = 4294967295
 	KPCIPMCSPMEDisableInS3    KPCIPMCS = 0x10000
 	KPCIPMCSPMEEnable         KPCIPMCS = 0x100
 	KPCIPMCSPMEStatus         KPCIPMCS = 0x8000
@@ -23136,6 +24504,8 @@ func (e KPCIPMCS) String() string {
 		return "KPCIPMCSPMEStatus"
 	case KPCIPMCSPMEWakeReason:
 		return "KPCIPMCSPMEWakeReason"
+	case KPCIPMCSPowerStateD0:
+		return "KPCIPMCSPowerStateD0"
 	case KPCIPMCSPowerStateD1:
 		return "KPCIPMCSPowerStateD1"
 	case KPCIPMCSPowerStateD2:
@@ -23147,49 +24517,69 @@ func (e KPCIPMCS) String() string {
 	}
 }
 
-type KPE uint
+type KPEHaltCPU uint
 
 const (
-	KPECommandKey                 KPE = 0x37
-	KPEControlKey                 KPE = 0x36
-	KPEHaltCPU                    KPE = 0
-	KPEHangCPU                    KPE = 0
-	KPEOptionKey                  KPE = 0x3a
-	KPEPagingOff                  KPE = 0
-	KPEPanicBegin                 KPE = 0
-	KPEPanicDiagnosticsDone       KPE = 0
-	KPEPanicDiagnosticsInProgress KPE = 0
-	KPEPanicEnd                   KPE = 0
-	KPEPanicRestartCPU            KPE = 0
-	KPEPanicRestartCPUNoCallouts  KPE = 0
-	KPEPanicSync                  KPE = 0
-	KPERawInput                   KPE = 0x2
-	KPEReadTOD                    KPE = 0
-	KPERestartCPU                 KPE = 0
-	KPEShiftKey                   KPE = 0x38
-	KPEUPSDelayHaltCPU            KPE = 0
-	KPEWaitForInput               KPE = 0x1
-	KPEWriteTOD                   KPE = 0
+	KPEHaltCPUValue               KPEHaltCPU = 0
+	KPEHangCPU                    KPEHaltCPU = 0
+	KPEPagingOff                  KPEHaltCPU = 0
+	KPEPanicBegin                 KPEHaltCPU = 0
+	KPEPanicDiagnosticsDone       KPEHaltCPU = 0
+	KPEPanicDiagnosticsInProgress KPEHaltCPU = 0
+	KPEPanicEnd                   KPEHaltCPU = 0
+	KPEPanicRestartCPU            KPEHaltCPU = 0
+	KPEPanicRestartCPUNoCallouts  KPEHaltCPU = 0
+	KPEPanicSync                  KPEHaltCPU = 0
+	KPERestartCPU                 KPEHaltCPU = 0
+	KPEUPSDelayHaltCPU            KPEHaltCPU = 0
 )
 
-func (e KPE) String() string {
+func (e KPEHaltCPU) String() string {
+	switch e {
+	case KPEHaltCPUValue:
+		return "KPEHaltCPUValue"
+	default:
+		return fmt.Sprintf("KPEHaltCPU(%d)", e)
+	}
+}
+
+type KPEOptionKey uint
+
+const (
+	KPECommandKey     KPEOptionKey = 0x37
+	KPEControlKey     KPEOptionKey = 0x36
+	KPEOptionKeyValue KPEOptionKey = 0x3a
+	KPEShiftKey       KPEOptionKey = 0x38
+)
+
+func (e KPEOptionKey) String() string {
 	switch e {
 	case KPECommandKey:
 		return "KPECommandKey"
 	case KPEControlKey:
 		return "KPEControlKey"
-	case KPEHaltCPU:
-		return "KPEHaltCPU"
-	case KPEOptionKey:
-		return "KPEOptionKey"
-	case KPERawInput:
-		return "KPERawInput"
+	case KPEOptionKeyValue:
+		return "KPEOptionKeyValue"
 	case KPEShiftKey:
 		return "KPEShiftKey"
-	case KPEWaitForInput:
-		return "KPEWaitForInput"
 	default:
-		return fmt.Sprintf("KPE(%d)", e)
+		return fmt.Sprintf("KPEOptionKey(%d)", e)
+	}
+}
+
+type KPEReadTOD uint
+
+const (
+	KPEReadTODValue KPEReadTOD = 0
+	KPEWriteTOD     KPEReadTOD = 0
+)
+
+func (e KPEReadTOD) String() string {
+	switch e {
+	case KPEReadTODValue:
+		return "KPEReadTODValue"
+	default:
+		return fmt.Sprintf("KPEReadTOD(%d)", e)
 	}
 }
 
@@ -23211,6 +24601,24 @@ func (e KPEScale) String() string {
 		return "KPEScaleFactorUnknown"
 	default:
 		return fmt.Sprintf("KPEScale(%d)", e)
+	}
+}
+
+type KPEWaitForInput uint
+
+const (
+	KPERawInput          KPEWaitForInput = 0x2
+	KPEWaitForInputValue KPEWaitForInput = 0x1
+)
+
+func (e KPEWaitForInput) String() string {
+	switch e {
+	case KPERawInput:
+		return "KPERawInput"
+	case KPEWaitForInputValue:
+		return "KPEWaitForInputValue"
+	default:
+		return fmt.Sprintf("KPEWaitForInput(%d)", e)
 	}
 }
 
@@ -23309,48 +24717,37 @@ func (e KPeripheralDeviceTypeNoMatch) String() string {
 	}
 }
 
-type KPowerState uint
+type KPowerStateNeedsRefresh uint
 
 const (
-	KPowerStateFullPower                    KPowerState = 0
-	KPowerStateNeedsRefresh                 KPowerState = 0
-	KPowerStateNeedsRefreshMask             KPowerState = 1
-	KPowerStateReducedPower1                KPowerState = 0x100
-	KPowerStateReducedPower2                KPowerState = 0x200
-	KPowerStateReducedPower3                KPowerState = 0x300
-	KPowerStateReducedPowerMask             KPowerState = 0x300
-	KPowerStateSleepAwareBit                KPowerState = 1
-	KPowerStateSleepAwareMask               KPowerState = 2
-	KPowerStateSleepCanPowerOffBit          KPowerState = 3
-	KPowerStateSleepCanPowerOffMask         KPowerState = 8
-	KPowerStateSleepForbiddenBit            KPowerState = 2
-	KPowerStateSleepForbiddenMask           KPowerState = 4
-	KPowerStateSleepNoDPMSBit               KPowerState = 4
-	KPowerStateSleepNoDPMSMask              KPowerState = 16
-	KPowerStateSleepWakeNeedsProbeBit       KPowerState = 6
-	KPowerStateSleepWakeNeedsProbeMask      KPowerState = 64
-	KPowerStateSleepWaketoDozeBit           KPowerState = 5
-	KPowerStateSleepWaketoDozeMask          KPowerState = 32
-	KPowerStateSupportsReducedPower1Bit     KPowerState = 10
-	KPowerStateSupportsReducedPower1BitMask KPowerState = 1024
-	KPowerStateSupportsReducedPower2Bit     KPowerState = 11
-	KPowerStateSupportsReducedPower2BitMask KPowerState = 2048
-	KPowerStateSupportsReducedPower3Bit     KPowerState = 12
-	KPowerStateSupportsReducedPower3BitMask KPowerState = 0x1000
+	KPowerStateNeedsRefreshValue            KPowerStateNeedsRefresh = 0
+	KPowerStateNeedsRefreshMask             KPowerStateNeedsRefresh = 1
+	KPowerStateSleepAwareBit                KPowerStateNeedsRefresh = 1
+	KPowerStateSleepAwareMask               KPowerStateNeedsRefresh = 2
+	KPowerStateSleepCanPowerOffBit          KPowerStateNeedsRefresh = 3
+	KPowerStateSleepCanPowerOffMask         KPowerStateNeedsRefresh = 8
+	KPowerStateSleepForbiddenBit            KPowerStateNeedsRefresh = 2
+	KPowerStateSleepForbiddenMask           KPowerStateNeedsRefresh = 4
+	KPowerStateSleepNoDPMSBit               KPowerStateNeedsRefresh = 4
+	KPowerStateSleepNoDPMSMask              KPowerStateNeedsRefresh = 16
+	KPowerStateSleepWakeNeedsProbeBit       KPowerStateNeedsRefresh = 6
+	KPowerStateSleepWakeNeedsProbeMask      KPowerStateNeedsRefresh = 64
+	KPowerStateSleepWaketoDozeBit           KPowerStateNeedsRefresh = 5
+	KPowerStateSleepWaketoDozeMask          KPowerStateNeedsRefresh = 32
+	KPowerStateSupportsReducedPower1Bit     KPowerStateNeedsRefresh = 10
+	KPowerStateSupportsReducedPower1BitMask KPowerStateNeedsRefresh = 1024
+	KPowerStateSupportsReducedPower2Bit     KPowerStateNeedsRefresh = 11
+	KPowerStateSupportsReducedPower2BitMask KPowerStateNeedsRefresh = 2048
+	KPowerStateSupportsReducedPower3Bit     KPowerStateNeedsRefresh = 12
+	KPowerStateSupportsReducedPower3BitMask KPowerStateNeedsRefresh = 0x1000
 )
 
-func (e KPowerState) String() string {
+func (e KPowerStateNeedsRefresh) String() string {
 	switch e {
-	case KPowerStateFullPower:
-		return "KPowerStateFullPower"
+	case KPowerStateNeedsRefreshValue:
+		return "KPowerStateNeedsRefreshValue"
 	case KPowerStateNeedsRefreshMask:
 		return "KPowerStateNeedsRefreshMask"
-	case KPowerStateReducedPower1:
-		return "KPowerStateReducedPower1"
-	case KPowerStateReducedPower2:
-		return "KPowerStateReducedPower2"
-	case KPowerStateReducedPower3:
-		return "KPowerStateReducedPower3"
 	case KPowerStateSleepAwareMask:
 		return "KPowerStateSleepAwareMask"
 	case KPowerStateSleepCanPowerOffBit:
@@ -23382,7 +24779,32 @@ func (e KPowerState) String() string {
 	case KPowerStateSupportsReducedPower3BitMask:
 		return "KPowerStateSupportsReducedPower3BitMask"
 	default:
-		return fmt.Sprintf("KPowerState(%d)", e)
+		return fmt.Sprintf("KPowerStateNeedsRefresh(%d)", e)
+	}
+}
+
+type KPowerStateReducedPowerMask uint
+
+const (
+	KPowerStateFullPower             KPowerStateReducedPowerMask = 0
+	KPowerStateReducedPower1         KPowerStateReducedPowerMask = 0x100
+	KPowerStateReducedPower2         KPowerStateReducedPowerMask = 0x200
+	KPowerStateReducedPower3         KPowerStateReducedPowerMask = 0x300
+	KPowerStateReducedPowerMaskValue KPowerStateReducedPowerMask = 0x300
+)
+
+func (e KPowerStateReducedPowerMask) String() string {
+	switch e {
+	case KPowerStateFullPower:
+		return "KPowerStateFullPower"
+	case KPowerStateReducedPower1:
+		return "KPowerStateReducedPower1"
+	case KPowerStateReducedPower2:
+		return "KPowerStateReducedPower2"
+	case KPowerStateReducedPower3:
+		return "KPowerStateReducedPower3"
+	default:
+		return fmt.Sprintf("KPowerStateReducedPowerMask(%d)", e)
 	}
 }
 
@@ -23576,37 +24998,6 @@ func (e KRangeSupportsSignal) String() string {
 	}
 }
 
-type KReg uint
-
-const (
-	KRegEntryNameTerminator       KReg = 0
-	KRegMaximumPropertyNameLength KReg = 31
-	KRegModifierMask              KReg = 0xff000000
-	KRegNameSpaceModifierMask     KReg = 0xff0000
-	KRegNoModifiers               KReg = 0
-	KRegPathNameSeparator         KReg = ':'
-	KRegPathNameTerminator        KReg = 0
-	KRegPropertyNameTerminator    KReg = 0
-	KRegUniversalModifierMask     KReg = 0xffff
-)
-
-func (e KReg) String() string {
-	switch e {
-	case KRegEntryNameTerminator:
-		return "KRegEntryNameTerminator"
-	case KRegMaximumPropertyNameLength:
-		return "KRegMaximumPropertyNameLength"
-	case KRegModifierMask:
-		return "KRegModifierMask"
-	case KRegNameSpaceModifierMask:
-		return "KRegNameSpaceModifierMask"
-	case KRegUniversalModifierMask:
-		return "KRegUniversalModifierMask"
-	default:
-		return fmt.Sprintf("KReg(%d)", e)
-	}
-}
-
 type KRegCStrMaxEntryName uint
 
 const (
@@ -23668,6 +25059,65 @@ func (e KRegMaxPropertyName) String() string {
 	}
 }
 
+type KRegMaximumPropertyNameLength uint
+
+const (
+	KRegMaximumPropertyNameLengthValue KRegMaximumPropertyNameLength = 31
+	KRegPropertyNameTerminator         KRegMaximumPropertyNameLength = 0
+)
+
+func (e KRegMaximumPropertyNameLength) String() string {
+	switch e {
+	case KRegMaximumPropertyNameLengthValue:
+		return "KRegMaximumPropertyNameLengthValue"
+	case KRegPropertyNameTerminator:
+		return "KRegPropertyNameTerminator"
+	default:
+		return fmt.Sprintf("KRegMaximumPropertyNameLength(%d)", e)
+	}
+}
+
+type KRegNoModifiers uint
+
+const (
+	KRegModifierMask          KRegNoModifiers = 0xff000000
+	KRegNameSpaceModifierMask KRegNoModifiers = 0xff0000
+	KRegNoModifiersValue      KRegNoModifiers = 0
+	KRegUniversalModifierMask KRegNoModifiers = 0xffff
+)
+
+func (e KRegNoModifiers) String() string {
+	switch e {
+	case KRegModifierMask:
+		return "KRegModifierMask"
+	case KRegNameSpaceModifierMask:
+		return "KRegNameSpaceModifierMask"
+	case KRegNoModifiersValue:
+		return "KRegNoModifiersValue"
+	case KRegUniversalModifierMask:
+		return "KRegUniversalModifierMask"
+	default:
+		return fmt.Sprintf("KRegNoModifiers(%d)", e)
+	}
+}
+
+type KRegPathNameSeparator uint
+
+const (
+	KRegEntryNameTerminator    KRegPathNameSeparator = 0
+	KRegPathNameSeparatorValue KRegPathNameSeparator = ':'
+	KRegPathNameTerminator     KRegPathNameSeparator = 0
+)
+
+func (e KRegPathNameSeparator) String() string {
+	switch e {
+	case KRegEntryNameTerminator:
+		return "KRegEntryNameTerminator"
+	default:
+		return fmt.Sprintf("KRegPathNameSeparator(%d)", e)
+	}
+}
+
 type KRegPropertyValueIsSavedTo uint
 
 const (
@@ -23689,8 +25139,8 @@ func (e KRegPropertyValueIsSavedTo) String() string {
 type KRequestDirection uint
 
 const (
-	KRequestDirectionIn  KRequestDirection = ((128) >> (7))
-	KRequestDirectionOut KRequestDirection = ((0) >> (7))
+	KRequestDirectionIn  KRequestDirection = 1
+	KRequestDirectionOut KRequestDirection = 0
 )
 
 func (e KRequestDirection) String() string {
@@ -23707,10 +25157,10 @@ func (e KRequestDirection) String() string {
 type KRequestRecipient uint
 
 const (
-	KRequestRecipientDevice    KRequestRecipient = ((0) >> (0))
-	KRequestRecipientEndpoint  KRequestRecipient = ((2) >> (0))
-	KRequestRecipientInterface KRequestRecipient = ((1) >> (0))
-	KRequestRecipientOther     KRequestRecipient = ((3) >> (0))
+	KRequestRecipientDevice    KRequestRecipient = 0
+	KRequestRecipientEndpoint  KRequestRecipient = 2
+	KRequestRecipientInterface KRequestRecipient = 1
+	KRequestRecipientOther     KRequestRecipient = 3
 )
 
 func (e KRequestRecipient) String() string {
@@ -23731,9 +25181,9 @@ func (e KRequestRecipient) String() string {
 type KRequestType uint
 
 const (
-	KRequestTypeClass    KRequestType = ((32) >> (5))
-	KRequestTypeStandard KRequestType = ((0) >> (5))
-	KRequestTypeVendor   KRequestType = ((64) >> (5))
+	KRequestTypeClass    KRequestType = 1
+	KRequestTypeStandard KRequestType = 0
+	KRequestTypeVendor   KRequestType = 2
 )
 
 func (e KRequestType) String() string {
@@ -24050,96 +25500,6 @@ func (e KSBCModePage) String() string {
 		return "KSBCModePageRigidDiskGeometryCode"
 	default:
 		return fmt.Sprintf("KSBCModePage(%d)", e)
-	}
-}
-
-type KSBCModePageCaching uint
-
-const (
-	// KSBCModePageCaching_ABPF_Bit: # Discussion
-	KSBCModePageCaching_ABPF_Bit KSBCModePageCaching = 6
-	// KSBCModePageCaching_ABPF_Mask: # Discussion
-	KSBCModePageCaching_ABPF_Mask KSBCModePageCaching = 64
-	// KSBCModePageCaching_CAP_Bit: # Discussion
-	KSBCModePageCaching_CAP_Bit KSBCModePageCaching = 5
-	// KSBCModePageCaching_CAP_Mask: # Discussion
-	KSBCModePageCaching_CAP_Mask KSBCModePageCaching = 32
-	// KSBCModePageCaching_DISC_Bit: # Discussion
-	KSBCModePageCaching_DISC_Bit KSBCModePageCaching = 4
-	// KSBCModePageCaching_DISC_Mask: # Discussion
-	KSBCModePageCaching_DISC_Mask KSBCModePageCaching = 16
-	// KSBCModePageCaching_DRA_Bit: # Discussion
-	KSBCModePageCaching_DRA_Bit KSBCModePageCaching = 5
-	// KSBCModePageCaching_DRA_Mask: # Discussion
-	KSBCModePageCaching_DRA_Mask KSBCModePageCaching = 32
-	// KSBCModePageCaching_FSW_Bit: # Discussion
-	KSBCModePageCaching_FSW_Bit KSBCModePageCaching = 7
-	// KSBCModePageCaching_FSW_Mask: # Discussion
-	KSBCModePageCaching_FSW_Mask KSBCModePageCaching = 128
-	// KSBCModePageCaching_IC_Bit: # Discussion
-	KSBCModePageCaching_IC_Bit KSBCModePageCaching = 7
-	// KSBCModePageCaching_IC_Mask: # Discussion
-	KSBCModePageCaching_IC_Mask KSBCModePageCaching = 128
-	// KSBCModePageCaching_LBCSS_Bit: # Discussion
-	KSBCModePageCaching_LBCSS_Bit KSBCModePageCaching = 6
-	// KSBCModePageCaching_LBCSS_Mask: # Discussion
-	KSBCModePageCaching_LBCSS_Mask KSBCModePageCaching = 64
-	// KSBCModePageCaching_MF_Bit: # Discussion
-	KSBCModePageCaching_MF_Bit KSBCModePageCaching = 1
-	// KSBCModePageCaching_MF_Mask: # Discussion
-	KSBCModePageCaching_MF_Mask KSBCModePageCaching = 2
-	// KSBCModePageCaching_RCD_Bit: # Discussion
-	KSBCModePageCaching_RCD_Bit KSBCModePageCaching = 0
-	// KSBCModePageCaching_RCD_Mask: # Discussion
-	KSBCModePageCaching_RCD_Mask KSBCModePageCaching = 1
-	// KSBCModePageCaching_SIZE_Bit: # Discussion
-	KSBCModePageCaching_SIZE_Bit KSBCModePageCaching = 3
-	// KSBCModePageCaching_SIZE_Mask: # Discussion
-	KSBCModePageCaching_SIZE_Mask KSBCModePageCaching = 8
-	// KSBCModePageCaching_VS1_Bit: # Discussion
-	KSBCModePageCaching_VS1_Bit KSBCModePageCaching = 3
-	// KSBCModePageCaching_VS1_Mask: # Discussion
-	KSBCModePageCaching_VS1_Mask KSBCModePageCaching = 8
-	// KSBCModePageCaching_VS2_Bit: # Discussion
-	KSBCModePageCaching_VS2_Bit KSBCModePageCaching = 4
-	// KSBCModePageCaching_VS2_Mask: # Discussion
-	KSBCModePageCaching_VS2_Mask KSBCModePageCaching = 16
-	// KSBCModePageCaching_WCE_Bit: # Discussion
-	KSBCModePageCaching_WCE_Bit KSBCModePageCaching = 2
-	// KSBCModePageCaching_WCE_Mask: # Discussion
-	KSBCModePageCaching_WCE_Mask KSBCModePageCaching = 4
-)
-
-func (e KSBCModePageCaching) String() string {
-	switch e {
-	case KSBCModePageCaching_ABPF_Bit:
-		return "KSBCModePageCaching_ABPF_Bit"
-	case KSBCModePageCaching_ABPF_Mask:
-		return "KSBCModePageCaching_ABPF_Mask"
-	case KSBCModePageCaching_CAP_Bit:
-		return "KSBCModePageCaching_CAP_Bit"
-	case KSBCModePageCaching_CAP_Mask:
-		return "KSBCModePageCaching_CAP_Mask"
-	case KSBCModePageCaching_DISC_Bit:
-		return "KSBCModePageCaching_DISC_Bit"
-	case KSBCModePageCaching_DISC_Mask:
-		return "KSBCModePageCaching_DISC_Mask"
-	case KSBCModePageCaching_FSW_Bit:
-		return "KSBCModePageCaching_FSW_Bit"
-	case KSBCModePageCaching_FSW_Mask:
-		return "KSBCModePageCaching_FSW_Mask"
-	case KSBCModePageCaching_MF_Bit:
-		return "KSBCModePageCaching_MF_Bit"
-	case KSBCModePageCaching_MF_Mask:
-		return "KSBCModePageCaching_MF_Mask"
-	case KSBCModePageCaching_RCD_Bit:
-		return "KSBCModePageCaching_RCD_Bit"
-	case KSBCModePageCaching_SIZE_Bit:
-		return "KSBCModePageCaching_SIZE_Bit"
-	case KSBCModePageCaching_SIZE_Mask:
-		return "KSBCModePageCaching_SIZE_Mask"
-	default:
-		return fmt.Sprintf("KSBCModePageCaching(%d)", e)
 	}
 }
 
@@ -25226,60 +26586,6 @@ func (e KSCSIProtocolPowerState) String() string {
 	}
 }
 
-type KSCSIServiceAction uint
-
-const (
-	KSCSIServiceAction_CHANGE_ALIASES         KSCSIServiceAction = 0xb
-	KSCSIServiceAction_GET_LBA_STATUS         KSCSIServiceAction = 0x12
-	KSCSIServiceAction_READ_32                KSCSIServiceAction = 0x9
-	KSCSIServiceAction_READ_CAPACITY_16       KSCSIServiceAction = 0x10
-	KSCSIServiceAction_READ_LONG_16           KSCSIServiceAction = 0x11
-	KSCSIServiceAction_SET_DEVICE_IDENTIFIER  KSCSIServiceAction = 0x6
-	KSCSIServiceAction_SET_PRIORITY           KSCSIServiceAction = 0xe
-	KSCSIServiceAction_SET_TARGET_PORT_GROUPS KSCSIServiceAction = 0xa
-	KSCSIServiceAction_VERIFY_32              KSCSIServiceAction = 0xa
-	KSCSIServiceAction_WRITE_32               KSCSIServiceAction = 0xb
-	KSCSIServiceAction_WRITE_AND_VERIFY_32    KSCSIServiceAction = 0xc
-	KSCSIServiceAction_WRITE_SAME_32          KSCSIServiceAction = 0xd
-	KSCSIServiceAction_XDREAD_32              KSCSIServiceAction = 0x3
-	KSCSIServiceAction_XDWRITEREAD_32         KSCSIServiceAction = 0x7
-	KSCSIServiceAction_XDWRITE_32             KSCSIServiceAction = 0x4
-	KSCSIServiceAction_XPWRITE_32             KSCSIServiceAction = 0x6
-)
-
-func (e KSCSIServiceAction) String() string {
-	switch e {
-	case KSCSIServiceAction_CHANGE_ALIASES:
-		return "KSCSIServiceAction_CHANGE_ALIASES"
-	case KSCSIServiceAction_GET_LBA_STATUS:
-		return "KSCSIServiceAction_GET_LBA_STATUS"
-	case KSCSIServiceAction_READ_32:
-		return "KSCSIServiceAction_READ_32"
-	case KSCSIServiceAction_READ_CAPACITY_16:
-		return "KSCSIServiceAction_READ_CAPACITY_16"
-	case KSCSIServiceAction_READ_LONG_16:
-		return "KSCSIServiceAction_READ_LONG_16"
-	case KSCSIServiceAction_SET_DEVICE_IDENTIFIER:
-		return "KSCSIServiceAction_SET_DEVICE_IDENTIFIER"
-	case KSCSIServiceAction_SET_PRIORITY:
-		return "KSCSIServiceAction_SET_PRIORITY"
-	case KSCSIServiceAction_SET_TARGET_PORT_GROUPS:
-		return "KSCSIServiceAction_SET_TARGET_PORT_GROUPS"
-	case KSCSIServiceAction_WRITE_AND_VERIFY_32:
-		return "KSCSIServiceAction_WRITE_AND_VERIFY_32"
-	case KSCSIServiceAction_WRITE_SAME_32:
-		return "KSCSIServiceAction_WRITE_SAME_32"
-	case KSCSIServiceAction_XDREAD_32:
-		return "KSCSIServiceAction_XDREAD_32"
-	case KSCSIServiceAction_XDWRITEREAD_32:
-		return "KSCSIServiceAction_XDWRITEREAD_32"
-	case KSCSIServiceAction_XDWRITE_32:
-		return "KSCSIServiceAction_XDWRITE_32"
-	default:
-		return fmt.Sprintf("KSCSIServiceAction(%d)", e)
-	}
-}
-
 type KSCSIServiceResponse uint
 
 const (
@@ -25412,7 +26718,7 @@ func (e KSCSITaskState) String() string {
 	}
 }
 
-type KSCSITaskStatus int
+type KSCSITaskStatus uint
 
 const (
 	// KSCSITaskStatus_ACA_ACTIVE: # Discussion
@@ -26242,7 +27548,7 @@ func (e KSSHubPort) String() string {
 	}
 }
 
-type KSSHubPortStatusConnectionBit int
+type KSSHubPortStatusConnectionBit uint
 
 const (
 	KHubPortBeingReset                 KSSHubPortStatusConnectionBit = 0x10
@@ -26343,28 +27649,19 @@ func (e KSSHubPortStatusConnectionBit) String() string {
 	}
 }
 
-type KScale uint
+type KScaleStretchOnlyMask uint
 
 const (
-	KScaleCanBorderInsetOnlyMask  KScale = 64
-	KScaleCanDownSamplePixelsMask KScale = 4
-	KScaleCanRotateMask           KScale = 32
-	KScaleCanScaleInterlacedMask  KScale = 8
-	KScaleCanSupportInsetMask     KScale = 16
-	KScaleCanUpSamplePixelsMask   KScale = 2
-	KScaleInvertXMask             KScale = 0x20
-	KScaleInvertYMask             KScale = 0x40
-	KScaleRotate0Mask             KScale = 0
-	KScaleRotate180Mask           KScale = 96
-	KScaleRotate270Mask           KScale = 80
-	KScaleRotate90Mask            KScale = 48
-	KScaleRotateFlagsMask         KScale = 0xf0
-	KScaleStretchOnlyMask         KScale = 1
-	KScaleStretchToFitMask        KScale = 0x1
-	KScaleSwapAxesMask            KScale = 0x10
+	KScaleCanBorderInsetOnlyMask  KScaleStretchOnlyMask = 64
+	KScaleCanDownSamplePixelsMask KScaleStretchOnlyMask = 4
+	KScaleCanRotateMask           KScaleStretchOnlyMask = 32
+	KScaleCanScaleInterlacedMask  KScaleStretchOnlyMask = 8
+	KScaleCanSupportInsetMask     KScaleStretchOnlyMask = 16
+	KScaleCanUpSamplePixelsMask   KScaleStretchOnlyMask = 2
+	KScaleStretchOnlyMaskValue    KScaleStretchOnlyMask = 1
 )
 
-func (e KScale) String() string {
+func (e KScaleStretchOnlyMask) String() string {
 	switch e {
 	case KScaleCanBorderInsetOnlyMask:
 		return "KScaleCanBorderInsetOnlyMask"
@@ -26378,6 +27675,33 @@ func (e KScale) String() string {
 		return "KScaleCanSupportInsetMask"
 	case KScaleCanUpSamplePixelsMask:
 		return "KScaleCanUpSamplePixelsMask"
+	case KScaleStretchOnlyMaskValue:
+		return "KScaleStretchOnlyMaskValue"
+	default:
+		return fmt.Sprintf("KScaleStretchOnlyMask(%d)", e)
+	}
+}
+
+type KScaleStretchToFitMask uint
+
+const (
+	KScaleInvertXMask           KScaleStretchToFitMask = 0x20
+	KScaleInvertYMask           KScaleStretchToFitMask = 0x40
+	KScaleRotate0Mask           KScaleStretchToFitMask = 0
+	KScaleRotate180Mask         KScaleStretchToFitMask = 96
+	KScaleRotate270Mask         KScaleStretchToFitMask = 80
+	KScaleRotate90Mask          KScaleStretchToFitMask = 48
+	KScaleRotateFlagsMask       KScaleStretchToFitMask = 0xf0
+	KScaleStretchToFitMaskValue KScaleStretchToFitMask = 0x1
+	KScaleSwapAxesMask          KScaleStretchToFitMask = 0x10
+)
+
+func (e KScaleStretchToFitMask) String() string {
+	switch e {
+	case KScaleInvertXMask:
+		return "KScaleInvertXMask"
+	case KScaleInvertYMask:
+		return "KScaleInvertYMask"
 	case KScaleRotate0Mask:
 		return "KScaleRotate0Mask"
 	case KScaleRotate180Mask:
@@ -26388,10 +27712,12 @@ func (e KScale) String() string {
 		return "KScaleRotate90Mask"
 	case KScaleRotateFlagsMask:
 		return "KScaleRotateFlagsMask"
-	case KScaleStretchOnlyMask:
-		return "KScaleStretchOnlyMask"
+	case KScaleStretchToFitMaskValue:
+		return "KScaleStretchToFitMaskValue"
+	case KScaleSwapAxesMask:
+		return "KScaleSwapAxesMask"
 	default:
-		return fmt.Sprintf("KScale(%d)", e)
+		return fmt.Sprintf("KScaleStretchToFitMask(%d)", e)
 	}
 }
 
@@ -26653,7 +27979,7 @@ func (e KState) String() string {
 	}
 }
 
-type KSymLink uint
+type KSymLink uint32
 
 const (
 	KSymLinkCreator  KSymLink = 0x72686170
@@ -26956,7 +28282,7 @@ type KTransparentEncodingShift uint
 
 const (
 	KInvertingEncodedPixel         KTransparentEncodingShift = 0x4
-	KInvertingEncodingShift        KTransparentEncodingShift = ((1) << 1)
+	KInvertingEncodingShift        KTransparentEncodingShift = 2
 	KTransparentEncodedPixel       KTransparentEncodingShift = 0x1
 	KTransparentEncodingShiftValue KTransparentEncodingShift = 0
 )
@@ -26976,121 +28302,96 @@ func (e KTransparentEncodingShift) String() string {
 	}
 }
 
-type KUS uint
+type KUSB100mAAvailable uint32
 
 const (
-	KUSB100mA                                        KUS = 50
-	KUSB100mAAvailable                               KUS = 50
-	KUSB150mA                                        KUS = 75
-	KUSB150mAAvailable                               KUS = 75
-	KUSB20ExtensionLPMSupported                      KUS = 1
-	KUSB2LPMMaxL1Timeout                             KUS = 0xff00
-	KUSB2MaxPowerPerPort                             KUS = 500
-	KUSB3HUBDesc                                     KUS = 42
-	KUSB3HubDescriptorType                           KUS = 0x2a
-	KUSB3LPMExtraDeviceEL                            KUS = 4000
-	KUSB3LPMMaxHostSchDelay                          KUS = 1000
-	KUSB3LPMMaxT3SEL                                 KUS = 100
-	KUSB3LPMMaxU1PEL                                 KUS = 0xff
-	KUSB3LPMMaxU1SEL                                 KUS = 0xff
-	KUSB3LPMMaxU1Timeout                             KUS = 0x7f
-	KUSB3LPMMaxU2PEL                                 KUS = 0xffff
-	KUSB3LPMMaxU2SEL                                 KUS = 0xffff
-	KUSB3LPMMaxU2Timeout                             KUS = 0xfe00
-	KUSB3LPMU1AcceptOnly                             KUS = 0xff
-	KUSB3LPMU1Disabled                               KUS = 0
-	KUSB3LPMU2AcceptOnly                             KUS = 0xff00
-	KUSB3LPMU2Disabled                               KUS = 0
-	KUSB3MaxPowerPerPort                             KUS = 900
-	KUSB3TypeMicroABConnector                        KUS = 0x6
-	KUSB3TypeMicroBConnector                         KUS = 0x5
-	KUSB3TypePowerBConnector                         KUS = 0x7
-	KUSB3TypeStdAConnector                           KUS = 0x3
-	KUSB3TypeStdBConnector                           KUS = 0x4
-	KUSB500mAAvailable                               KUS = 250
-	KUSB900mAAvailable                               KUS = 450
-	KUSBAdaptiveIsocSyncType                         KUS = 2
-	KUSBAnyDesc                                      KUS = 0
-	KUSBAsynchronousIsocSyncType                     KUS = 1
-	KUSBAtrBusPowered                                KUS = 0x80
-	KUSBAtrRemoteWakeup                              KUS = 0x20
-	KUSBAtrSelfPowered                               KUS = 0x40
-	KUSBBOSDescriptor                                KUS = 15
-	KUSBCTBNotEnoughPowerNotificationType            KUS = 11
-	KUSBCTBUnsupportedNotificationType               KUS = 12
-	KUSBCUnsupportedTBCableNotificationType          KUS = 14
-	KUSBCUnsupportedTBPortNotificationType           KUS = 13
-	KUSBConfDesc                                     KUS = 2
-	KUSBDataIsocUsageType                            KUS = 0
-	KUSBDeviceCapabilityValue                        KUS = 16
-	KUSBDeviceCountExceededNotificationType          KUS = 6
-	KUSBDeviceDesc                                   KUS = 1
-	KUSBDeviceQualifierDesc                          KUS = 6
-	KUSBEndpointCountExceededNotificationType        KUS = 7
-	KUSBEndpointDesc                                 KUS = 5
-	KUSBEndpointDirectionIn                          KUS = 128
-	KUSBEndpointDirectionOut                         KUS = 0
-	KUSBEndpointbmAttributesSynchronizationTypeMask  KUS = 12
-	KUSBEndpointbmAttributesSynchronizationTypeShift KUS = 2
-	KUSBEndpointbmAttributesTransferTypeMask         KUS = 3
-	KUSBEndpointbmAttributesUsageTypeMask            KUS = 48
-	KUSBEndpointbmAttributesUsageTypeShift           KUS = 4
-	KUSBFeedbackIsocUsageType                        KUS = 1
-	KUSBGangOverCurrentNotificationType              KUS = 3
-	KUSBHIDDesc                                      KUS = 33
-	KUSBHUBDesc                                      KUS = 41
-	KUSBHubCountExceededNotificationType             KUS = 9
-	KUSBHubDescriptorType                            KUS = 0x29
-	KUSBImplicitFeedbackDataIsocUsageType            KUS = 2
-	KUSBIndividualOverCurrentNotificationType        KUS = 2
-	KUSBInterfaceAssociationDesc                     KUS = 11
-	KUSBInterfaceDesc                                KUS = 4
-	KUSBInterfacePowerDesc                           KUS = 8
-	KUSBNoSynchronizationIsocSyncType                KUS = 0
-	KUSBNoUserNotificationType                       KUS = 0
-	KUSBNotEnoughPowerNoACNotificationType           KUS = 5
-	KUSBNotEnoughPowerNotificationType               KUS = 1
-	KUSBNotificationInterruptUsageType               KUS = 1
-	KUSBOnTheGoDesc                                  KUS = 9
-	KUSBOtherSpeedConfDesc                           KUS = 7
-	KUSBPeriodicInterruptUsageType                   KUS = 0
-	KUSBPhysicalDesc                                 KUS = 0x23
-	KUSBProprietaryConnector                         KUS = 0xff
-	KUSBReportDesc                                   KUS = 34
-	KUSBStringDesc                                   KUS = 3
-	KUSBSuperSpeedEndpointCompanion                  KUS = 48
-	KUSBSuperSpeedLTMCapable                         KUS = 1
-	KUSBSuperSpeedSupportsFS                         KUS = 1
-	KUSBSuperSpeedSupportsHS                         KUS = 2
-	KUSBSuperSpeedSupportsLS                         KUS = 0
-	KUSBSuperSpeedSupportsSS                         KUS = 3
-	KUSBSynchronousIsocSyncType                      KUS = 3
-	KUSBTDMLowBatteryType                            KUS = 10
-	KUSBTypeAConnector                               KUS = 0
-	KUSBTypeExpressCard                              KUS = 0x2
-	KUSBTypeMiniABConnector                          KUS = 0x1
-	KUSBUnsupportedNotificationType                  KUS = 8
-	KUSBbEndpointAddressMask                         KUS = 0xf
-	KUSBbEndpointDirectionBit                        KUS = 7
-	KUSBbEndpointDirectionMask                       KUS = 128
-	KUSBiOSDeviceNotEnoughPowerNotificationType      KUS = 4
-	KUSDebugDesc                                     KUS = 10
+	KUSB100mA               KUSB100mAAvailable = 50
+	KUSB100mAAvailableValue KUSB100mAAvailable = 50
+	KUSB150mA               KUSB100mAAvailable = 75
+	KUSB150mAAvailable      KUSB100mAAvailable = 75
+	KUSB2MaxPowerPerPort    KUSB100mAAvailable = 500
+	KUSB3MaxPowerPerPort    KUSB100mAAvailable = 900
+	KUSB500mAAvailable      KUSB100mAAvailable = 250
+	KUSB900mAAvailable      KUSB100mAAvailable = 450
+	KUSBAtrBusPowered       KUSB100mAAvailable = 0x80
+	KUSBAtrRemoteWakeup     KUSB100mAAvailable = 0x20
+	KUSBAtrSelfPowered      KUSB100mAAvailable = 0x40
 )
 
-func (e KUS) String() string {
+func (e KUSB100mAAvailable) String() string {
 	switch e {
 	case KUSB100mA:
 		return "KUSB100mA"
 	case KUSB150mA:
 		return "KUSB150mA"
-	case KUSB20ExtensionLPMSupported:
-		return "KUSB20ExtensionLPMSupported"
-	case KUSB2LPMMaxL1Timeout:
-		return "KUSB2LPMMaxL1Timeout"
 	case KUSB2MaxPowerPerPort:
 		return "KUSB2MaxPowerPerPort"
-	case KUSB3HUBDesc:
-		return "KUSB3HUBDesc"
+	case KUSB3MaxPowerPerPort:
+		return "KUSB3MaxPowerPerPort"
+	case KUSB500mAAvailable:
+		return "KUSB500mAAvailable"
+	case KUSB900mAAvailable:
+		return "KUSB900mAAvailable"
+	case KUSBAtrBusPowered:
+		return "KUSBAtrBusPowered"
+	case KUSBAtrRemoteWakeup:
+		return "KUSBAtrRemoteWakeup"
+	case KUSBAtrSelfPowered:
+		return "KUSBAtrSelfPowered"
+	default:
+		return fmt.Sprintf("KUSB100mAAvailable(%d)", e)
+	}
+}
+
+type KUSB20ExtensionLPMSupported uint32
+
+const (
+	KUSB20ExtensionLPMSupportedValue KUSB20ExtensionLPMSupported = 1
+	KUSBSuperSpeedLTMCapable         KUSB20ExtensionLPMSupported = 1
+	KUSBSuperSpeedSupportsFS         KUSB20ExtensionLPMSupported = 1
+	KUSBSuperSpeedSupportsHS         KUSB20ExtensionLPMSupported = 2
+	KUSBSuperSpeedSupportsLS         KUSB20ExtensionLPMSupported = 0
+	KUSBSuperSpeedSupportsSS         KUSB20ExtensionLPMSupported = 3
+)
+
+func (e KUSB20ExtensionLPMSupported) String() string {
+	switch e {
+	case KUSB20ExtensionLPMSupportedValue:
+		return "KUSB20ExtensionLPMSupportedValue"
+	case KUSBSuperSpeedSupportsHS:
+		return "KUSBSuperSpeedSupportsHS"
+	case KUSBSuperSpeedSupportsLS:
+		return "KUSBSuperSpeedSupportsLS"
+	case KUSBSuperSpeedSupportsSS:
+		return "KUSBSuperSpeedSupportsSS"
+	default:
+		return fmt.Sprintf("KUSB20ExtensionLPMSupported(%d)", e)
+	}
+}
+
+type KUSB3LPMMaxU1SEL uint
+
+const (
+	KUSB2LPMMaxL1Timeout    KUSB3LPMMaxU1SEL = 0xff00
+	KUSB3LPMExtraDeviceEL   KUSB3LPMMaxU1SEL = 4000
+	KUSB3LPMMaxHostSchDelay KUSB3LPMMaxU1SEL = 1000
+	KUSB3LPMMaxT3SEL        KUSB3LPMMaxU1SEL = 100
+	KUSB3LPMMaxU1PEL        KUSB3LPMMaxU1SEL = 0xff
+	KUSB3LPMMaxU1SELValue   KUSB3LPMMaxU1SEL = 0xff
+	KUSB3LPMMaxU1Timeout    KUSB3LPMMaxU1SEL = 0x7f
+	KUSB3LPMMaxU2PEL        KUSB3LPMMaxU1SEL = 0xffff
+	KUSB3LPMMaxU2SEL        KUSB3LPMMaxU1SEL = 0xffff
+	KUSB3LPMMaxU2Timeout    KUSB3LPMMaxU1SEL = 0xfe00
+	KUSB3LPMU1AcceptOnly    KUSB3LPMMaxU1SEL = 0xff
+	KUSB3LPMU1Disabled      KUSB3LPMMaxU1SEL = 0
+	KUSB3LPMU2AcceptOnly    KUSB3LPMMaxU1SEL = 0xff00
+	KUSB3LPMU2Disabled      KUSB3LPMMaxU1SEL = 0
+)
+
+func (e KUSB3LPMMaxU1SEL) String() string {
+	switch e {
+	case KUSB2LPMMaxL1Timeout:
+		return "KUSB2LPMMaxL1Timeout"
 	case KUSB3LPMExtraDeviceEL:
 		return "KUSB3LPMExtraDeviceEL"
 	case KUSB3LPMMaxHostSchDelay:
@@ -27107,333 +28408,148 @@ func (e KUS) String() string {
 		return "KUSB3LPMMaxU2Timeout"
 	case KUSB3LPMU1Disabled:
 		return "KUSB3LPMU1Disabled"
-	case KUSB3MaxPowerPerPort:
-		return "KUSB3MaxPowerPerPort"
-	case KUSB3TypeMicroABConnector:
-		return "KUSB3TypeMicroABConnector"
-	case KUSB3TypeMicroBConnector:
-		return "KUSB3TypeMicroBConnector"
-	case KUSB3TypePowerBConnector:
-		return "KUSB3TypePowerBConnector"
-	case KUSB3TypeStdAConnector:
-		return "KUSB3TypeStdAConnector"
-	case KUSB3TypeStdBConnector:
-		return "KUSB3TypeStdBConnector"
-	case KUSB500mAAvailable:
-		return "KUSB500mAAvailable"
-	case KUSB900mAAvailable:
-		return "KUSB900mAAvailable"
-	case KUSBAdaptiveIsocSyncType:
-		return "KUSBAdaptiveIsocSyncType"
-	case KUSBAtrBusPowered:
-		return "KUSBAtrBusPowered"
-	case KUSBAtrRemoteWakeup:
-		return "KUSBAtrRemoteWakeup"
-	case KUSBAtrSelfPowered:
-		return "KUSBAtrSelfPowered"
+	default:
+		return fmt.Sprintf("KUSB3LPMMaxU1SEL(%d)", e)
+	}
+}
+
+type KUSBAnyDesc uint32
+
+const (
+	KUSB3HUBDesc                    KUSBAnyDesc = 42
+	KUSBAnyDescValue                KUSBAnyDesc = 0
+	KUSBBOSDescriptor               KUSBAnyDesc = 15
+	KUSBConfDesc                    KUSBAnyDesc = 2
+	KUSBDeviceCapabilityValue       KUSBAnyDesc = 16
+	KUSBDeviceDesc                  KUSBAnyDesc = 1
+	KUSBDeviceQualifierDesc         KUSBAnyDesc = 6
+	KUSBEndpointDesc                KUSBAnyDesc = 5
+	KUSBHIDDesc                     KUSBAnyDesc = 33
+	KUSBHUBDesc                     KUSBAnyDesc = 41
+	KUSBInterfaceAssociationDesc    KUSBAnyDesc = 11
+	KUSBInterfaceDesc               KUSBAnyDesc = 4
+	KUSBInterfacePowerDesc          KUSBAnyDesc = 8
+	KUSBOnTheGoDesc                 KUSBAnyDesc = 9
+	KUSBOtherSpeedConfDesc          KUSBAnyDesc = 7
+	KUSBPhysicalDesc                KUSBAnyDesc = 0x23
+	KUSBReportDesc                  KUSBAnyDesc = 34
+	KUSBStringDesc                  KUSBAnyDesc = 3
+	KUSBSuperSpeedEndpointCompanion KUSBAnyDesc = 48
+	KUSDebugDesc                    KUSBAnyDesc = 10
+)
+
+func (e KUSBAnyDesc) String() string {
+	switch e {
+	case KUSB3HUBDesc:
+		return "KUSB3HUBDesc"
+	case KUSBAnyDescValue:
+		return "KUSBAnyDescValue"
 	case KUSBBOSDescriptor:
 		return "KUSBBOSDescriptor"
-	case KUSBCTBNotEnoughPowerNotificationType:
-		return "KUSBCTBNotEnoughPowerNotificationType"
-	case KUSBCTBUnsupportedNotificationType:
-		return "KUSBCTBUnsupportedNotificationType"
-	case KUSBCUnsupportedTBCableNotificationType:
-		return "KUSBCUnsupportedTBCableNotificationType"
-	case KUSBCUnsupportedTBPortNotificationType:
-		return "KUSBCUnsupportedTBPortNotificationType"
+	case KUSBConfDesc:
+		return "KUSBConfDesc"
 	case KUSBDeviceCapabilityValue:
 		return "KUSBDeviceCapabilityValue"
-	case KUSBEndpointbmAttributesUsageTypeMask:
-		return "KUSBEndpointbmAttributesUsageTypeMask"
+	case KUSBDeviceDesc:
+		return "KUSBDeviceDesc"
+	case KUSBDeviceQualifierDesc:
+		return "KUSBDeviceQualifierDesc"
+	case KUSBEndpointDesc:
+		return "KUSBEndpointDesc"
 	case KUSBHIDDesc:
 		return "KUSBHIDDesc"
 	case KUSBHUBDesc:
 		return "KUSBHUBDesc"
-	case KUSBHubCountExceededNotificationType:
-		return "KUSBHubCountExceededNotificationType"
+	case KUSBInterfaceAssociationDesc:
+		return "KUSBInterfaceAssociationDesc"
+	case KUSBInterfaceDesc:
+		return "KUSBInterfaceDesc"
 	case KUSBInterfacePowerDesc:
 		return "KUSBInterfacePowerDesc"
+	case KUSBOnTheGoDesc:
+		return "KUSBOnTheGoDesc"
+	case KUSBOtherSpeedConfDesc:
+		return "KUSBOtherSpeedConfDesc"
 	case KUSBPhysicalDesc:
 		return "KUSBPhysicalDesc"
 	case KUSBReportDesc:
 		return "KUSBReportDesc"
-	case KUSBTDMLowBatteryType:
-		return "KUSBTDMLowBatteryType"
+	case KUSBStringDesc:
+		return "KUSBStringDesc"
+	case KUSBSuperSpeedEndpointCompanion:
+		return "KUSBSuperSpeedEndpointCompanion"
+	case KUSDebugDesc:
+		return "KUSDebugDesc"
 	default:
-		return fmt.Sprintf("KUS(%d)", e)
+		return fmt.Sprintf("KUSBAnyDesc(%d)", e)
 	}
 }
 
-type KUSB int
+type KUSBAudioClass uint32
 
 const (
-	KUSBATMNetworkingSubClass KUSB = 0x7
-	// KUSBAddExtraResetTimeBit: Request extra time after reset.
-	KUSBAddExtraResetTimeBit KUSB = 31
-	// KUSBAddExtraResetTimeMask: The mask to request extra time after reset.
-	KUSBAddExtraResetTimeMask              KUSB = 0x80000000
-	KUSBAddress_Mask                       KUSB = 65280
-	KUSBAddress_Shift                      KUSB = 8
-	KUSBAllStreams                         KUSB = 0xffffffff
-	KUSBAnyDirn                            KUSB = 3
-	KUSBAnyType                            KUSB = 0xff
-	KUSBApplicationSpecificClass           KUSB = 254
-	KUSBApplicationSpecificInterfaceClass  KUSB = 254
-	KUSBAudioClass                         KUSB = 1
-	KUSBAudioControlSubClass               KUSB = 0x1
-	KUSBAudioInterfaceClass                KUSB = 1
-	KUSBAudioStreamingSubClass             KUSB = 0x2
-	KUSBBillBoardClass                     KUSB = 17
-	KUSBBulk                               KUSB = 2
-	KUSBCapsLockKey                        KUSB = 0x39
-	KUSBChipSmartCardInterfaceClass        KUSB = 11
-	KUSBClass                              KUSB = 1
-	KUSBCommAbstractSubClass               KUSB = 0x2
-	KUSBCommCAPISubClass                   KUSB = 0x5
-	KUSBCommClass                          KUSB = 2
-	KUSBCommDirectLineSubClass             KUSB = 0x1
-	KUSBCommEthernetNetworkingSubClass     KUSB = 0x6
-	KUSBCommMultiChannelSubClass           KUSB = 0x4
-	KUSBCommTelephoneSubClass              KUSB = 0x3
-	KUSBCommonClassSubClass                KUSB = 0x2
-	KUSBCommunicationClass                 KUSB = 2
-	KUSBCommunicationControlInterfaceClass KUSB = 2
-	KUSBCommunicationDataInterfaceClass    KUSB = 10
-	KUSBCompositeClass                     KUSB = 0
-	KUSBCompositeSubClass                  KUSB = 0
-	KUSBContentSecurityInterfaceClass      KUSB = 13
-	KUSBControl                            KUSB = 0
-	KUSBDFUSubClass                        KUSB = 0x1
-	KUSBDataClass                          KUSB = 10
-	KUSBDevice                             KUSB = 0
-	KUSBDeviceIDMask                       KUSB = 0x7f
-	KUSBDeviceIDShift                      KUSB = 7
-	KUSBDeviceMask                         KUSB = 127
-	KUSBDiagnosticClass                    KUSB = 220
-	KUSBDiagnosticDeviceInterfaceClass     KUSB = 220
-	KUSBEndPtShift                         KUSB = 7
-	KUSBEndpoint                           KUSB = 2
-	KUSBEndpointTransferTypeUCMask         KUSB = 128
-	// KUSBFullSpeedMicrosecondsInFrame: # Discussion
-	KUSBFullSpeedMicrosecondsInFrame KUSB = 1000
-	KUSBFunctionRemoteWakeCapableBit KUSB = 1
-	KUSBFunctionRemoteWakeEnableBit  KUSB = 2
-	KUSBFunctionRemoteWakeupBit      KUSB = 2
-	KUSBHIDBootInterfaceSubClass     KUSB = 0x1
-	KUSBHIDClass                     KUSB = 3
-	KUSBHIDInterfaceClass            KUSB = 3
-	// KUSBHighSpeedMicrosecondsInFrame: # Discussion
-	KUSBHighSpeedMicrosecondsInFrame     KUSB = 125
-	KUSBHubClass                         KUSB = 9
-	KUSBHubSubClass                      KUSB = 0
-	KUSBImageInterfaceClass              KUSB = 6
-	KUSBIn                               KUSB = 1
-	KUSBInterface                        KUSB = 1
-	KUSBInterfaceIDMask                  KUSB = 255
-	KUSBInterfaceIDShift                 KUSB = 8
-	KUSBInterrupt                        KUSB = 3
-	KUSBIrDABridgeSubClass               KUSB = 0x2
-	KUSBIsoc                             KUSB = 1
-	KUSBLowPowerSuspendStateBit          KUSB = 1
-	KUSBMIDIStreamingSubClass            KUSB = 0x3
-	KUSBMassStorageATAPISubClass         KUSB = 0x2
-	KUSBMassStorageClass                 KUSB = 8
-	KUSBMassStorageInterfaceClass        KUSB = 8
-	KUSBMassStorageQIC157SubClass        KUSB = 0x3
-	KUSBMassStorageRBCSubClass           KUSB = 0x1
-	KUSBMassStorageSCSISubClass          KUSB = 0x6
-	KUSBMassStorageSFF8070iSubClass      KUSB = 0x5
-	KUSBMassStorageUFISubClass           KUSB = 0x4
-	KUSBMaxDevice                        KUSB = 127
-	KUSBMaxDevices                       KUSB = 128
-	KUSBMaxInterfaces                    KUSB = 256
-	KUSBMaxPipes                         KUSB = 32
-	KUSBMaxStream                        KUSB = 65533
-	KUSBMiscellaneousClass               KUSB = 239
-	KUSBNoPipeIdx                        KUSB = -1
-	KUSBNoStream                         KUSB = 0xffff
-	KUSBNone                             KUSB = 2
-	KUSBNumLockKey                       KUSB = 0x53
-	KUSBOther                            KUSB = 3
-	KUSBOut                              KUSB = 0
-	KUSBPRimeStream                      KUSB = 0xfffe
-	KUSBPersonalHealthcareClass          KUSB = 15
-	KUSBPersonalHealthcareInterfaceClass KUSB = 15
-	KUSBPhysicalInterfaceClass           KUSB = 5
-	KUSBPipeIDMask                       KUSB = 0xf
-	KUSBPrintingClass                    KUSB = 7
-	KUSBPrintingInterfaceClass           KUSB = 7
-	KUSBRFControllerSubClass             KUSB = 0x1
-	// KUSBReEnumerateCaptureDeviceBit: The bit to capture the device.
-	KUSBReEnumerateCaptureDeviceBit KUSB = 30
-	// KUSBReEnumerateCaptureDeviceMask: The mask to capture the device.
-	KUSBReEnumerateCaptureDeviceMask KUSB = 0x40000000
-	// KUSBReEnumerateReleaseDeviceBit: The bit to release the device.
-	KUSBReEnumerateReleaseDeviceBit KUSB = 29
-	// KUSBReEnumerateReleaseDeviceMask: The mask to release the device.
-	KUSBReEnumerateReleaseDeviceMask          KUSB = 0x20000000
-	KUSBRel10                                 KUSB = 0x100
-	KUSBRel11                                 KUSB = 0x110
-	KUSBRel20                                 KUSB = 0x200
-	KUSBRel30                                 KUSB = 0x300
-	KUSBReprogrammableDiagnosticSubClass      KUSB = 0x1
-	KUSBRqClearFeature                        KUSB = 1
-	KUSBRqGetConfig                           KUSB = 8
-	KUSBRqGetDescriptor                       KUSB = 6
-	KUSBRqGetInterface                        KUSB = 10
-	KUSBRqGetState                            KUSB = 2
-	KUSBRqGetStatus                           KUSB = 0
-	KUSBRqReserved2                           KUSB = 4
-	KUSBRqSetAddress                          KUSB = 5
-	KUSBRqSetConfig                           KUSB = 9
-	KUSBRqSetDescriptor                       KUSB = 7
-	KUSBRqSetFeature                          KUSB = 3
-	KUSBRqSetInterface                        KUSB = 11
-	KUSBRqSyncFrame                           KUSB = 12
-	KUSBScrollLockKey                         KUSB = 0x47
-	KUSBSetIsochDelay                         KUSB = 49
-	KUSBSetSel                                KUSB = 48
-	KUSBSpeed_Mask                            KUSB = 3
-	KUSBSpeed_Shift                           KUSB = 0
-	KUSBStandard                              KUSB = 0
-	KUSBStream0                               KUSB = 0
-	KUSBStreamIDAllStreamsMask                KUSB = 0x80000000
-	KUSBStreamIDMask                          KUSB = 0xffff
-	KUSBTestMeasurementSubClass               KUSB = 0x3
-	KUSBTooManyDevicesAddress                 KUSB = 0xfffe
-	KUSBUCRequestWithoutUSBNotificationMask   KUSB = 0x40000000
-	KUSBVendor                                KUSB = 2
-	KUSBVendorSpecificClass                   KUSB = 255
-	KUSBVendorSpecificInterfaceClass          KUSB = 255
-	KUSBVideoControlSubClass                  KUSB = 0x1
-	KUSBVideoInterfaceClass                   KUSB = 14
-	KUSBVideoInterfaceCollectionSubClass      KUSB = 0x3
-	KUSBVideoStreamingSubClass                KUSB = 0x2
-	KUSBWirelessControllerClass               KUSB = 224
-	KUSBWirelessControllerInterfaceClass      KUSB = 224
-	KUSB_EPDesc_MaxMPS                        KUSB = 1024
-	KUSB_EPDesc_bmAttributes_SyncType_Mask    KUSB = 12
-	KUSB_EPDesc_bmAttributes_SyncType_Shift   KUSB = 2
-	KUSB_EPDesc_bmAttributes_TranType_Mask    KUSB = 3
-	KUSB_EPDesc_bmAttributes_TranType_Shift   KUSB = 0
-	KUSB_EPDesc_bmAttributes_UsageType_Mask   KUSB = 48
-	KUSB_EPDesc_bmAttributes_UsageType_Shift  KUSB = 4
-	KUSB_EPDesc_wMaxPacketSize_MPS_Mask       KUSB = 2047
-	KUSB_EPDesc_wMaxPacketSize_MPS_Shift      KUSB = 0
-	KUSB_HSFSEPDesc_wMaxPacketSize_Mult_Mask  KUSB = 6144
-	KUSB_HSFSEPDesc_wMaxPacketSize_Mult_Shift KUSB = 11
+	KUSBApplicationSpecificInterfaceClass  KUSBAudioClass = 254
+	KUSBAudioClassValue                    KUSBAudioClass = 1
+	KUSBAudioInterfaceClass                KUSBAudioClass = 1
+	KUSBChipSmartCardInterfaceClass        KUSBAudioClass = 11
+	KUSBCommunicationControlInterfaceClass KUSBAudioClass = 2
+	KUSBCommunicationDataInterfaceClass    KUSBAudioClass = 10
+	KUSBContentSecurityInterfaceClass      KUSBAudioClass = 13
+	KUSBDiagnosticDeviceInterfaceClass     KUSBAudioClass = 220
+	KUSBHIDClass                           KUSBAudioClass = 3
+	KUSBHIDInterfaceClass                  KUSBAudioClass = 3
+	KUSBImageInterfaceClass                KUSBAudioClass = 6
+	KUSBMassStorageClass                   KUSBAudioClass = 8
+	KUSBMassStorageInterfaceClass          KUSBAudioClass = 8
+	KUSBPersonalHealthcareInterfaceClass   KUSBAudioClass = 15
+	KUSBPhysicalInterfaceClass             KUSBAudioClass = 5
+	KUSBPrintingClass                      KUSBAudioClass = 7
+	KUSBPrintingInterfaceClass             KUSBAudioClass = 7
+	KUSBVendorSpecificInterfaceClass       KUSBAudioClass = 255
+	KUSBVideoInterfaceClass                KUSBAudioClass = 14
+	KUSBWirelessControllerInterfaceClass   KUSBAudioClass = 224
 )
 
-func (e KUSB) String() string {
+func (e KUSBAudioClass) String() string {
 	switch e {
-	case KUSBATMNetworkingSubClass:
-		return "KUSBATMNetworkingSubClass"
-	case KUSBAddExtraResetTimeBit:
-		return "KUSBAddExtraResetTimeBit"
-	case KUSBAddExtraResetTimeMask:
-		return "KUSBAddExtraResetTimeMask"
-	case KUSBAddress_Mask:
-		return "KUSBAddress_Mask"
-	case KUSBAddress_Shift:
-		return "KUSBAddress_Shift"
-	case KUSBAllStreams:
-		return "KUSBAllStreams"
-	case KUSBAnyDirn:
-		return "KUSBAnyDirn"
-	case KUSBAnyType:
-		return "KUSBAnyType"
-	case KUSBApplicationSpecificClass:
-		return "KUSBApplicationSpecificClass"
-	case KUSBAudioClass:
-		return "KUSBAudioClass"
-	case KUSBAudioStreamingSubClass:
-		return "KUSBAudioStreamingSubClass"
-	case KUSBBillBoardClass:
-		return "KUSBBillBoardClass"
-	case KUSBCapsLockKey:
-		return "KUSBCapsLockKey"
+	case KUSBApplicationSpecificInterfaceClass:
+		return "KUSBApplicationSpecificInterfaceClass"
+	case KUSBAudioClassValue:
+		return "KUSBAudioClassValue"
 	case KUSBChipSmartCardInterfaceClass:
 		return "KUSBChipSmartCardInterfaceClass"
-	case KUSBCommCAPISubClass:
-		return "KUSBCommCAPISubClass"
-	case KUSBCommEthernetNetworkingSubClass:
-		return "KUSBCommEthernetNetworkingSubClass"
-	case KUSBCommMultiChannelSubClass:
-		return "KUSBCommMultiChannelSubClass"
+	case KUSBCommunicationControlInterfaceClass:
+		return "KUSBCommunicationControlInterfaceClass"
 	case KUSBCommunicationDataInterfaceClass:
 		return "KUSBCommunicationDataInterfaceClass"
-	case KUSBCompositeClass:
-		return "KUSBCompositeClass"
 	case KUSBContentSecurityInterfaceClass:
 		return "KUSBContentSecurityInterfaceClass"
-	case KUSBDeviceIDMask:
-		return "KUSBDeviceIDMask"
-	case KUSBDiagnosticClass:
-		return "KUSBDiagnosticClass"
-	case KUSBEndpointTransferTypeUCMask:
-		return "KUSBEndpointTransferTypeUCMask"
-	case KUSBFullSpeedMicrosecondsInFrame:
-		return "KUSBFullSpeedMicrosecondsInFrame"
-	case KUSBHighSpeedMicrosecondsInFrame:
-		return "KUSBHighSpeedMicrosecondsInFrame"
-	case KUSBHubClass:
-		return "KUSBHubClass"
-	case KUSBMaxInterfaces:
-		return "KUSBMaxInterfaces"
-	case KUSBMaxPipes:
-		return "KUSBMaxPipes"
-	case KUSBMaxStream:
-		return "KUSBMaxStream"
-	case KUSBMiscellaneousClass:
-		return "KUSBMiscellaneousClass"
-	case KUSBNoPipeIdx:
-		return "KUSBNoPipeIdx"
-	case KUSBNoStream:
-		return "KUSBNoStream"
-	case KUSBNumLockKey:
-		return "KUSBNumLockKey"
-	case KUSBPRimeStream:
-		return "KUSBPRimeStream"
-	case KUSBPersonalHealthcareClass:
-		return "KUSBPersonalHealthcareClass"
-	case KUSBReEnumerateCaptureDeviceBit:
-		return "KUSBReEnumerateCaptureDeviceBit"
-	case KUSBReEnumerateCaptureDeviceMask:
-		return "KUSBReEnumerateCaptureDeviceMask"
-	case KUSBReEnumerateReleaseDeviceBit:
-		return "KUSBReEnumerateReleaseDeviceBit"
-	case KUSBReEnumerateReleaseDeviceMask:
-		return "KUSBReEnumerateReleaseDeviceMask"
-	case KUSBRel11:
-		return "KUSBRel11"
-	case KUSBRel20:
-		return "KUSBRel20"
-	case KUSBRel30:
-		return "KUSBRel30"
-	case KUSBRqSyncFrame:
-		return "KUSBRqSyncFrame"
-	case KUSBScrollLockKey:
-		return "KUSBScrollLockKey"
-	case KUSBSetIsochDelay:
-		return "KUSBSetIsochDelay"
-	case KUSBSetSel:
-		return "KUSBSetSel"
+	case KUSBDiagnosticDeviceInterfaceClass:
+		return "KUSBDiagnosticDeviceInterfaceClass"
+	case KUSBHIDClass:
+		return "KUSBHIDClass"
+	case KUSBImageInterfaceClass:
+		return "KUSBImageInterfaceClass"
+	case KUSBMassStorageClass:
+		return "KUSBMassStorageClass"
+	case KUSBPersonalHealthcareInterfaceClass:
+		return "KUSBPersonalHealthcareInterfaceClass"
+	case KUSBPhysicalInterfaceClass:
+		return "KUSBPhysicalInterfaceClass"
+	case KUSBPrintingClass:
+		return "KUSBPrintingClass"
+	case KUSBVendorSpecificInterfaceClass:
+		return "KUSBVendorSpecificInterfaceClass"
 	case KUSBVideoInterfaceClass:
 		return "KUSBVideoInterfaceClass"
-	case KUSBWirelessControllerClass:
-		return "KUSBWirelessControllerClass"
-	case KUSB_EPDesc_MaxMPS:
-		return "KUSB_EPDesc_MaxMPS"
-	case KUSB_EPDesc_wMaxPacketSize_MPS_Mask:
-		return "KUSB_EPDesc_wMaxPacketSize_MPS_Mask"
-	case KUSB_HSFSEPDesc_wMaxPacketSize_Mult_Mask:
-		return "KUSB_HSFSEPDesc_wMaxPacketSize_Mult_Mask"
+	case KUSBWirelessControllerInterfaceClass:
+		return "KUSBWirelessControllerInterfaceClass"
 	default:
-		return fmt.Sprintf("KUSB(%d)", e)
+		return fmt.Sprintf("KUSBAudioClass(%d)", e)
 	}
 }
 
-type KUSBBillboard uint
+type KUSBBillboard uint32
 
 const (
 	KUSBBillboardAltModeConfigSuccess KUSBBillboard = 3
@@ -27457,7 +28573,7 @@ func (e KUSBBillboard) String() string {
 	}
 }
 
-type KUSBBillboardAdditinalInfoNo uint
+type KUSBBillboardAdditinalInfoNo uint32
 
 const (
 	KUSBBillboardAdditinalInfoNoPower KUSBBillboardAdditinalInfoNo = 1
@@ -27475,7 +28591,7 @@ func (e KUSBBillboardAdditinalInfoNo) String() string {
 	}
 }
 
-type KUSBBillboardV uint
+type KUSBBillboardV uint32
 
 const (
 	KUSBBillboardVConn1P5Watt  KUSBBillboardV = 1
@@ -27511,7 +28627,28 @@ func (e KUSBBillboardV) String() string {
 	}
 }
 
-type KUSBClassSpecific uint
+type KUSBCapsLockKey uint32
+
+const (
+	KUSBCapsLockKeyValue KUSBCapsLockKey = 0x39
+	KUSBNumLockKey       KUSBCapsLockKey = 0x53
+	KUSBScrollLockKey    KUSBCapsLockKey = 0x47
+)
+
+func (e KUSBCapsLockKey) String() string {
+	switch e {
+	case KUSBCapsLockKeyValue:
+		return "KUSBCapsLockKeyValue"
+	case KUSBNumLockKey:
+		return "KUSBNumLockKey"
+	case KUSBScrollLockKey:
+		return "KUSBScrollLockKey"
+	default:
+		return fmt.Sprintf("KUSBCapsLockKey(%d)", e)
+	}
+}
+
+type KUSBClassSpecific uint32
 
 const (
 	// KUSBClassSpecificDescriptor: The class-specific descriptor value.
@@ -27527,7 +28664,136 @@ func (e KUSBClassSpecific) String() string {
 	}
 }
 
-type KUSBDFU uint
+type KUSBCompositeClass uint32
+
+const (
+	KUSBApplicationSpecificClass KUSBCompositeClass = 254
+	KUSBBillBoardClass           KUSBCompositeClass = 17
+	KUSBCommClass                KUSBCompositeClass = 2
+	KUSBCommunicationClass       KUSBCompositeClass = 2
+	KUSBCompositeClassValue      KUSBCompositeClass = 0
+	KUSBDataClass                KUSBCompositeClass = 10
+	KUSBDiagnosticClass          KUSBCompositeClass = 220
+	KUSBHubClass                 KUSBCompositeClass = 9
+	KUSBMiscellaneousClass       KUSBCompositeClass = 239
+	KUSBPersonalHealthcareClass  KUSBCompositeClass = 15
+	KUSBVendorSpecificClass      KUSBCompositeClass = 255
+	KUSBWirelessControllerClass  KUSBCompositeClass = 224
+)
+
+func (e KUSBCompositeClass) String() string {
+	switch e {
+	case KUSBApplicationSpecificClass:
+		return "KUSBApplicationSpecificClass"
+	case KUSBBillBoardClass:
+		return "KUSBBillBoardClass"
+	case KUSBCommClass:
+		return "KUSBCommClass"
+	case KUSBCompositeClassValue:
+		return "KUSBCompositeClassValue"
+	case KUSBDataClass:
+		return "KUSBDataClass"
+	case KUSBDiagnosticClass:
+		return "KUSBDiagnosticClass"
+	case KUSBHubClass:
+		return "KUSBHubClass"
+	case KUSBMiscellaneousClass:
+		return "KUSBMiscellaneousClass"
+	case KUSBPersonalHealthcareClass:
+		return "KUSBPersonalHealthcareClass"
+	case KUSBVendorSpecificClass:
+		return "KUSBVendorSpecificClass"
+	case KUSBWirelessControllerClass:
+		return "KUSBWirelessControllerClass"
+	default:
+		return fmt.Sprintf("KUSBCompositeClass(%d)", e)
+	}
+}
+
+type KUSBCompositeSubClass uint32
+
+const (
+	KUSBATMNetworkingSubClass            KUSBCompositeSubClass = 0x7
+	KUSBAudioControlSubClass             KUSBCompositeSubClass = 0x1
+	KUSBAudioStreamingSubClass           KUSBCompositeSubClass = 0x2
+	KUSBCommAbstractSubClass             KUSBCompositeSubClass = 0x2
+	KUSBCommCAPISubClass                 KUSBCompositeSubClass = 0x5
+	KUSBCommDirectLineSubClass           KUSBCompositeSubClass = 0x1
+	KUSBCommEthernetNetworkingSubClass   KUSBCompositeSubClass = 0x6
+	KUSBCommMultiChannelSubClass         KUSBCompositeSubClass = 0x4
+	KUSBCommTelephoneSubClass            KUSBCompositeSubClass = 0x3
+	KUSBCommonClassSubClass              KUSBCompositeSubClass = 0x2
+	KUSBCompositeSubClassValue           KUSBCompositeSubClass = 0
+	KUSBDFUSubClass                      KUSBCompositeSubClass = 0x1
+	KUSBHIDBootInterfaceSubClass         KUSBCompositeSubClass = 0x1
+	KUSBHubSubClass                      KUSBCompositeSubClass = 0
+	KUSBIrDABridgeSubClass               KUSBCompositeSubClass = 0x2
+	KUSBMIDIStreamingSubClass            KUSBCompositeSubClass = 0x3
+	KUSBMassStorageATAPISubClass         KUSBCompositeSubClass = 0x2
+	KUSBMassStorageQIC157SubClass        KUSBCompositeSubClass = 0x3
+	KUSBMassStorageRBCSubClass           KUSBCompositeSubClass = 0x1
+	KUSBMassStorageSCSISubClass          KUSBCompositeSubClass = 0x6
+	KUSBMassStorageSFF8070iSubClass      KUSBCompositeSubClass = 0x5
+	KUSBMassStorageUFISubClass           KUSBCompositeSubClass = 0x4
+	KUSBRFControllerSubClass             KUSBCompositeSubClass = 0x1
+	KUSBReprogrammableDiagnosticSubClass KUSBCompositeSubClass = 0x1
+	KUSBTestMeasurementSubClass          KUSBCompositeSubClass = 0x3
+	KUSBVideoControlSubClass             KUSBCompositeSubClass = 0x1
+	KUSBVideoInterfaceCollectionSubClass KUSBCompositeSubClass = 0x3
+	KUSBVideoStreamingSubClass           KUSBCompositeSubClass = 0x2
+)
+
+func (e KUSBCompositeSubClass) String() string {
+	switch e {
+	case KUSBATMNetworkingSubClass:
+		return "KUSBATMNetworkingSubClass"
+	case KUSBAudioControlSubClass:
+		return "KUSBAudioControlSubClass"
+	case KUSBAudioStreamingSubClass:
+		return "KUSBAudioStreamingSubClass"
+	case KUSBCommCAPISubClass:
+		return "KUSBCommCAPISubClass"
+	case KUSBCommEthernetNetworkingSubClass:
+		return "KUSBCommEthernetNetworkingSubClass"
+	case KUSBCommMultiChannelSubClass:
+		return "KUSBCommMultiChannelSubClass"
+	case KUSBCommTelephoneSubClass:
+		return "KUSBCommTelephoneSubClass"
+	case KUSBCompositeSubClassValue:
+		return "KUSBCompositeSubClassValue"
+	default:
+		return fmt.Sprintf("KUSBCompositeSubClass(%d)", e)
+	}
+}
+
+type KUSBControl uint32
+
+const (
+	KUSBAnyType      KUSBControl = 0xff
+	KUSBBulk         KUSBControl = 2
+	KUSBControlValue KUSBControl = 0
+	KUSBInterrupt    KUSBControl = 3
+	KUSBIsoc         KUSBControl = 1
+)
+
+func (e KUSBControl) String() string {
+	switch e {
+	case KUSBAnyType:
+		return "KUSBAnyType"
+	case KUSBBulk:
+		return "KUSBBulk"
+	case KUSBControlValue:
+		return "KUSBControlValue"
+	case KUSBInterrupt:
+		return "KUSBInterrupt"
+	case KUSBIsoc:
+		return "KUSBIsoc"
+	default:
+		return fmt.Sprintf("KUSBControl(%d)", e)
+	}
+}
+
+type KUSBDFU uint32
 
 const (
 	KUSBDFUAttributesMask           KUSBDFU = 0x7
@@ -27551,7 +28817,7 @@ func (e KUSBDFU) String() string {
 	}
 }
 
-type KUSBDefaultControl uint
+type KUSBDefaultControl uint32
 
 const (
 	KUSBDefaultControlCompletionTimeoutMS KUSBDefaultControl = 0
@@ -27569,7 +28835,31 @@ func (e KUSBDefaultControl) String() string {
 	}
 }
 
-type KUSBDeviceCapability uint
+type KUSBDevice uint32
+
+const (
+	KUSBDeviceValue KUSBDevice = 0
+	KUSBEndpoint    KUSBDevice = 2
+	KUSBInterface   KUSBDevice = 1
+	KUSBOther       KUSBDevice = 3
+)
+
+func (e KUSBDevice) String() string {
+	switch e {
+	case KUSBDeviceValue:
+		return "KUSBDeviceValue"
+	case KUSBEndpoint:
+		return "KUSBEndpoint"
+	case KUSBInterface:
+		return "KUSBInterface"
+	case KUSBOther:
+		return "KUSBOther"
+	default:
+		return fmt.Sprintf("KUSBDevice(%d)", e)
+	}
+}
+
+type KUSBDeviceCapability uint32
 
 const (
 	KUSBDeviceCapabilityBillboard        KUSBDeviceCapability = 13
@@ -27599,7 +28889,73 @@ func (e KUSBDeviceCapability) String() string {
 	}
 }
 
-type KUSBDeviceLPMStatus int
+type KUSBDeviceIDShift int64
+
+const (
+	KUSBAllStreams                          KUSBDeviceIDShift = 0xffffffff
+	KUSBDeviceIDMask                        KUSBDeviceIDShift = 0x7f
+	KUSBDeviceIDShiftValue                  KUSBDeviceIDShift = 7
+	KUSBDeviceMask                          KUSBDeviceIDShift = 127
+	KUSBEndPtShift                          KUSBDeviceIDShift = 7
+	KUSBEndpointTransferTypeUCMask          KUSBDeviceIDShift = 128
+	KUSBInterfaceIDMask                     KUSBDeviceIDShift = 255
+	KUSBInterfaceIDShift                    KUSBDeviceIDShift = 8
+	KUSBMaxDevice                           KUSBDeviceIDShift = 127
+	KUSBMaxDevices                          KUSBDeviceIDShift = 128
+	KUSBMaxInterfaces                       KUSBDeviceIDShift = 256
+	KUSBMaxPipes                            KUSBDeviceIDShift = 32
+	KUSBMaxStream                           KUSBDeviceIDShift = 65533
+	KUSBNoPipeIdx                           KUSBDeviceIDShift = -1
+	KUSBNoStream                            KUSBDeviceIDShift = 0xffff
+	KUSBPRimeStream                         KUSBDeviceIDShift = 0xfffe
+	KUSBPipeIDMask                          KUSBDeviceIDShift = 0xf
+	KUSBStream0                             KUSBDeviceIDShift = 0
+	KUSBStreamIDAllStreamsMask              KUSBDeviceIDShift = -2147483648
+	KUSBStreamIDMask                        KUSBDeviceIDShift = 0xffff
+	KUSBTooManyDevicesAddress               KUSBDeviceIDShift = 0xfffe
+	KUSBUCRequestWithoutUSBNotificationMask KUSBDeviceIDShift = 1073741824
+)
+
+func (e KUSBDeviceIDShift) String() string {
+	switch e {
+	case KUSBAllStreams:
+		return "KUSBAllStreams"
+	case KUSBDeviceIDMask:
+		return "KUSBDeviceIDMask"
+	case KUSBDeviceIDShiftValue:
+		return "KUSBDeviceIDShiftValue"
+	case KUSBEndpointTransferTypeUCMask:
+		return "KUSBEndpointTransferTypeUCMask"
+	case KUSBInterfaceIDMask:
+		return "KUSBInterfaceIDMask"
+	case KUSBInterfaceIDShift:
+		return "KUSBInterfaceIDShift"
+	case KUSBMaxInterfaces:
+		return "KUSBMaxInterfaces"
+	case KUSBMaxPipes:
+		return "KUSBMaxPipes"
+	case KUSBMaxStream:
+		return "KUSBMaxStream"
+	case KUSBNoPipeIdx:
+		return "KUSBNoPipeIdx"
+	case KUSBNoStream:
+		return "KUSBNoStream"
+	case KUSBPRimeStream:
+		return "KUSBPRimeStream"
+	case KUSBPipeIDMask:
+		return "KUSBPipeIDMask"
+	case KUSBStream0:
+		return "KUSBStream0"
+	case KUSBStreamIDAllStreamsMask:
+		return "KUSBStreamIDAllStreamsMask"
+	case KUSBUCRequestWithoutUSBNotificationMask:
+		return "KUSBUCRequestWithoutUSBNotificationMask"
+	default:
+		return fmt.Sprintf("KUSBDeviceIDShift(%d)", e)
+	}
+}
+
+type KUSBDeviceLPMStatus uint
 
 const (
 	KUSBDeviceLPMStatusDefault  KUSBDeviceLPMStatus = 0
@@ -27620,7 +28976,7 @@ func (e KUSBDeviceLPMStatus) String() string {
 	}
 }
 
-type KUSBDeviceSpeed uint
+type KUSBDeviceSpeed uint32
 
 const (
 	// KUSBDeviceSpeedFull: # Discussion
@@ -27654,7 +29010,7 @@ func (e KUSBDeviceSpeed) String() string {
 	}
 }
 
-type KUSBDisplay uint
+type KUSBDisplay uint32
 
 const (
 	KUSBDisplayClass KUSBDisplay = 4
@@ -27669,7 +29025,7 @@ func (e KUSBDisplay) String() string {
 	}
 }
 
-type KUSBEndpointProperties uint
+type KUSBEndpointProperties uint32
 
 const (
 	// KUSBEndpointPropertiesVersion3: # Discussion
@@ -27685,7 +29041,7 @@ func (e KUSBEndpointProperties) String() string {
 	}
 }
 
-type KUSBFeature uint
+type KUSBFeature uint32
 
 const (
 	KUSBFeatureDeviceRemoteWakeup KUSBFeature = 1
@@ -27716,6 +29072,46 @@ func (e KUSBFeature) String() string {
 	}
 }
 
+type KUSBFullSpeedMicrosecondsInFrame uint32
+
+const (
+	// KUSBFullSpeedMicrosecondsInFrameValue: # Discussion
+	KUSBFullSpeedMicrosecondsInFrameValue KUSBFullSpeedMicrosecondsInFrame = 1000
+	// KUSBHighSpeedMicrosecondsInFrame: # Discussion
+	KUSBHighSpeedMicrosecondsInFrame KUSBFullSpeedMicrosecondsInFrame = 125
+)
+
+func (e KUSBFullSpeedMicrosecondsInFrame) String() string {
+	switch e {
+	case KUSBFullSpeedMicrosecondsInFrameValue:
+		return "KUSBFullSpeedMicrosecondsInFrameValue"
+	case KUSBHighSpeedMicrosecondsInFrame:
+		return "KUSBHighSpeedMicrosecondsInFrame"
+	default:
+		return fmt.Sprintf("KUSBFullSpeedMicrosecondsInFrame(%d)", e)
+	}
+}
+
+type KUSBFunctionRemoteWakeCapableBit uint32
+
+const (
+	KUSBFunctionRemoteWakeCapableBitValue KUSBFunctionRemoteWakeCapableBit = 1
+	KUSBFunctionRemoteWakeEnableBit       KUSBFunctionRemoteWakeCapableBit = 2
+	KUSBFunctionRemoteWakeupBit           KUSBFunctionRemoteWakeCapableBit = 2
+	KUSBLowPowerSuspendStateBit           KUSBFunctionRemoteWakeCapableBit = 1
+)
+
+func (e KUSBFunctionRemoteWakeCapableBit) String() string {
+	switch e {
+	case KUSBFunctionRemoteWakeCapableBitValue:
+		return "KUSBFunctionRemoteWakeCapableBitValue"
+	case KUSBFunctionRemoteWakeEnableBit:
+		return "KUSBFunctionRemoteWakeEnableBit"
+	default:
+		return fmt.Sprintf("KUSBFunctionRemoteWakeCapableBit(%d)", e)
+	}
+}
+
 type KUSBHSHub uint
 
 const (
@@ -27743,52 +29139,6 @@ func (e KUSBHSHub) String() string {
 		return "KUSBHSHubFlagsTTThinkTimeMask"
 	default:
 		return fmt.Sprintf("KUSBHSHub(%d)", e)
-	}
-}
-
-type KUSBHost uint
-
-const (
-	KUSBHostClassRequestCompletionTimeout          KUSBHost = 5000
-	KUSBHostClassRequestNoDataTimeout              KUSBHost = 0
-	KUSBHostDefaultControlCompletionTimeoutMS      KUSBHost = 5000
-	KUSBHostDefaultControlNoDataTimeoutMS          KUSBHost = 0
-	KUSBHostHubClass                               KUSBHost = 9
-	KUSBHostMaxCountFullSpeedIsochronous           KUSBHost = 1023
-	KUSBHostMaxDevices                             KUSBHost = 128
-	KUSBHostMaxPipes                               KUSBHost = 32
-	KUSBHostSetAddressTimeout                      KUSBHost = 1000
-	KUSBHostStandardRequestCompletionTimeout       KUSBHost = 5000
-	KUSBHostStandardRequestNoDataTimeout           KUSBHost = 0
-	KUSBHostStandardRequestSimpleCompletionTimeout KUSBHost = 1000
-	KUSBHostVendorIDAppleComputer                  KUSBHost = 0x5ac
-	KUSBHostVendorRequestCompletionTimeout         KUSBHost = 5000
-	KUSBHostVendorRequestNoDataTimeout             KUSBHost = 0
-	KUSBHostVendorSpecificClass                    KUSBHost = 255
-)
-
-func (e KUSBHost) String() string {
-	switch e {
-	case KUSBHostClassRequestCompletionTimeout:
-		return "KUSBHostClassRequestCompletionTimeout"
-	case KUSBHostClassRequestNoDataTimeout:
-		return "KUSBHostClassRequestNoDataTimeout"
-	case KUSBHostHubClass:
-		return "KUSBHostHubClass"
-	case KUSBHostMaxCountFullSpeedIsochronous:
-		return "KUSBHostMaxCountFullSpeedIsochronous"
-	case KUSBHostMaxDevices:
-		return "KUSBHostMaxDevices"
-	case KUSBHostMaxPipes:
-		return "KUSBHostMaxPipes"
-	case KUSBHostSetAddressTimeout:
-		return "KUSBHostSetAddressTimeout"
-	case KUSBHostVendorIDAppleComputer:
-		return "KUSBHostVendorIDAppleComputer"
-	case KUSBHostVendorSpecificClass:
-		return "KUSBHostVendorSpecificClass"
-	default:
-		return fmt.Sprintf("KUSBHost(%d)", e)
 	}
 }
 
@@ -27877,11 +29227,50 @@ func (e KUSBHostConnectorType) String() string {
 	}
 }
 
+type KUSBHostConnectorTypeEnum uint32
+
+const (
+	KUSB3TypeMicroABConnector KUSBHostConnectorTypeEnum = 0x6
+	KUSB3TypeMicroBConnector  KUSBHostConnectorTypeEnum = 0x5
+	KUSB3TypePowerBConnector  KUSBHostConnectorTypeEnum = 0x7
+	KUSB3TypeStdAConnector    KUSBHostConnectorTypeEnum = 0x3
+	KUSB3TypeStdBConnector    KUSBHostConnectorTypeEnum = 0x4
+	KUSBProprietaryConnector  KUSBHostConnectorTypeEnum = 0xff
+	KUSBTypeAConnector        KUSBHostConnectorTypeEnum = 0
+	KUSBTypeExpressCard       KUSBHostConnectorTypeEnum = 0x2
+	KUSBTypeMiniABConnector   KUSBHostConnectorTypeEnum = 0x1
+)
+
+func (e KUSBHostConnectorTypeEnum) String() string {
+	switch e {
+	case KUSB3TypeMicroABConnector:
+		return "KUSB3TypeMicroABConnector"
+	case KUSB3TypeMicroBConnector:
+		return "KUSB3TypeMicroBConnector"
+	case KUSB3TypePowerBConnector:
+		return "KUSB3TypePowerBConnector"
+	case KUSB3TypeStdAConnector:
+		return "KUSB3TypeStdAConnector"
+	case KUSB3TypeStdBConnector:
+		return "KUSB3TypeStdBConnector"
+	case KUSBProprietaryConnector:
+		return "KUSBProprietaryConnector"
+	case KUSBTypeAConnector:
+		return "KUSBTypeAConnector"
+	case KUSBTypeExpressCard:
+		return "KUSBTypeExpressCard"
+	case KUSBTypeMiniABConnector:
+		return "KUSBTypeMiniABConnector"
+	default:
+		return fmt.Sprintf("KUSBHostConnectorTypeEnum(%d)", e)
+	}
+}
+
 type KUSBHostOpenOption uint
 
 const (
-	KUSBHostOpenOptionSelectAlternateSetting KUSBHostOpenOption = ((1) << (16))
-	KUSBHostOpenOptionUserClientSession      KUSBHostOpenOption = ((1) << (17))
+	KUSBHostOpenOptionSelectAlternateSetting KUSBHostOpenOption = 0x10000
+	KUSBHostOpenOptionUserClientSession      KUSBHostOpenOption = 0x20000
 )
 
 func (e KUSBHostOpenOption) String() string {
@@ -27917,7 +29306,7 @@ type KUSBHostPortConnectionSpeed uint
 
 const (
 	// KUSBHostPortConnectionSpeedCount: The speed count.
-	KUSBHostPortConnectionSpeedCount KUSBHostPortConnectionSpeed = 7
+	KUSBHostPortConnectionSpeedCount KUSBHostPortConnectionSpeed = 8
 	// KUSBHostPortConnectionSpeedFull: The full speed connection.
 	KUSBHostPortConnectionSpeedFull KUSBHostPortConnectionSpeed = 1
 	// KUSBHostPortConnectionSpeedHigh: The high speed connection.
@@ -27957,7 +29346,7 @@ func (e KUSBHostPortConnectionSpeed) String() string {
 	}
 }
 
-type KUSBHostPortStatus int
+type KUSBHostPortStatus uint
 
 const (
 	// KUSBHostPortStatusConnectedSpeedFull: The full connected speed.
@@ -27983,11 +29372,11 @@ const (
 	// KUSBHostPortStatusOvercurrent: The port status overcurrent.
 	KUSBHostPortStatusOvercurrent KUSBHostPortStatus = 16384
 	// KUSBHostPortStatusPortTypeAccessory: The accessory port type.
-	KUSBHostPortStatusPortTypeAccessory KUSBHostPortStatus = ((3) << (0))
+	KUSBHostPortStatusPortTypeAccessory KUSBHostPortStatus = 3
 	// KUSBHostPortStatusPortTypeCaptive: The captive port type.
-	KUSBHostPortStatusPortTypeCaptive KUSBHostPortStatus = ((1) << (0))
+	KUSBHostPortStatusPortTypeCaptive KUSBHostPortStatus = 1
 	// KUSBHostPortStatusPortTypeInternal: The internal port type.
-	KUSBHostPortStatusPortTypeInternal KUSBHostPortStatus = ((2) << (0))
+	KUSBHostPortStatusPortTypeInternal KUSBHostPortStatus = 2
 	// KUSBHostPortStatusPortTypeMask: The port type mask.
 	KUSBHostPortStatusPortTypeMask KUSBHostPortStatus = 15
 	// KUSBHostPortStatusPortTypePhase: The port type phase.
@@ -28053,15 +29442,15 @@ type KUSBHostPortType uint
 
 const (
 	// KUSBHostPortTypeAccessory: The accessory port type.
-	KUSBHostPortTypeAccessory KUSBHostPortType = (3)
+	KUSBHostPortTypeAccessory KUSBHostPortType = 3
 	// KUSBHostPortTypeCaptive: The captive port type.
-	KUSBHostPortTypeCaptive KUSBHostPortType = (1)
+	KUSBHostPortTypeCaptive KUSBHostPortType = 1
 	// KUSBHostPortTypeCount: The port type count.
 	KUSBHostPortTypeCount KUSBHostPortType = KUSBHostPortType(KIOUSBHostPortTypeCount)
 	// KUSBHostPortTypeExpressCard: The express card port type.
-	KUSBHostPortTypeExpressCard KUSBHostPortType = (4)
+	KUSBHostPortTypeExpressCard KUSBHostPortType = 4
 	// KUSBHostPortTypeInternal: The internal port type.
-	KUSBHostPortTypeInternal KUSBHostPortType = (2)
+	KUSBHostPortTypeInternal KUSBHostPortType = 2
 	// KUSBHostPortTypeStandard: The standard port type.
 	KUSBHostPortTypeStandard KUSBHostPortType = 0
 )
@@ -28097,6 +29486,64 @@ func (e KUSBHostPowerSourceType) String() string {
 		return "KUSBHostPowerSourceTypeHardware"
 	default:
 		return fmt.Sprintf("KUSBHostPowerSourceType(%d)", e)
+	}
+}
+
+type KUSBHostSetAddressTimeout uint
+
+const (
+	KUSBHostClassRequestCompletionTimeout          KUSBHostSetAddressTimeout = 5000
+	KUSBHostClassRequestNoDataTimeout              KUSBHostSetAddressTimeout = 0
+	KUSBHostDefaultControlCompletionTimeoutMS      KUSBHostSetAddressTimeout = 5000
+	KUSBHostDefaultControlNoDataTimeoutMS          KUSBHostSetAddressTimeout = 0
+	KUSBHostSetAddressTimeoutValue                 KUSBHostSetAddressTimeout = 1000
+	KUSBHostStandardRequestCompletionTimeout       KUSBHostSetAddressTimeout = 5000
+	KUSBHostStandardRequestNoDataTimeout           KUSBHostSetAddressTimeout = 0
+	KUSBHostStandardRequestSimpleCompletionTimeout KUSBHostSetAddressTimeout = 1000
+	KUSBHostVendorRequestCompletionTimeout         KUSBHostSetAddressTimeout = 5000
+	KUSBHostVendorRequestNoDataTimeout             KUSBHostSetAddressTimeout = 0
+)
+
+func (e KUSBHostSetAddressTimeout) String() string {
+	switch e {
+	case KUSBHostClassRequestCompletionTimeout:
+		return "KUSBHostClassRequestCompletionTimeout"
+	case KUSBHostClassRequestNoDataTimeout:
+		return "KUSBHostClassRequestNoDataTimeout"
+	case KUSBHostSetAddressTimeoutValue:
+		return "KUSBHostSetAddressTimeoutValue"
+	default:
+		return fmt.Sprintf("KUSBHostSetAddressTimeout(%d)", e)
+	}
+}
+
+type KUSBHostVendorSpecificClass uint
+
+const (
+	KUSBHostHubClass                     KUSBHostVendorSpecificClass = 9
+	KUSBHostMaxCountFullSpeedIsochronous KUSBHostVendorSpecificClass = 1023
+	KUSBHostMaxDevices                   KUSBHostVendorSpecificClass = 128
+	KUSBHostMaxPipes                     KUSBHostVendorSpecificClass = 32
+	KUSBHostVendorIDAppleComputer        KUSBHostVendorSpecificClass = 0x5ac
+	KUSBHostVendorSpecificClassValue     KUSBHostVendorSpecificClass = 255
+)
+
+func (e KUSBHostVendorSpecificClass) String() string {
+	switch e {
+	case KUSBHostHubClass:
+		return "KUSBHostHubClass"
+	case KUSBHostMaxCountFullSpeedIsochronous:
+		return "KUSBHostMaxCountFullSpeedIsochronous"
+	case KUSBHostMaxDevices:
+		return "KUSBHostMaxDevices"
+	case KUSBHostMaxPipes:
+		return "KUSBHostMaxPipes"
+	case KUSBHostVendorIDAppleComputer:
+		return "KUSBHostVendorIDAppleComputer"
+	case KUSBHostVendorSpecificClassValue:
+		return "KUSBHostVendorSpecificClassValue"
+	default:
+		return fmt.Sprintf("KUSBHostVendorSpecificClass(%d)", e)
 	}
 }
 
@@ -28183,79 +29630,49 @@ func (e KUSBHub) String() string {
 	}
 }
 
-type KUSBHubRq uint
+type KUSBHubDescriptorType uint
 
 const (
-	// KUSBHubRqClearFeature: A request to clear a feature.
-	KUSBHubRqClearFeature KUSBHubRq = 1
-	// KUSBHubRqGetConfig: A request to get a configuration.
-	KUSBHubRqGetConfig KUSBHubRq = 8
-	// KUSBHubRqGetDescriptor: A request to obtain a descriptor.
-	KUSBHubRqGetDescriptor KUSBHubRq = 6
-	// KUSBHubRqGetInterface: A request to get an interface.
-	KUSBHubRqGetInterface      KUSBHubRq = 10
-	KUSBHubRqGetPortErrorCount KUSBHubRq = 13
-	// KUSBHubRqGetState: A request to get state.
-	KUSBHubRqGetState KUSBHubRq = 2
-	// KUSBHubRqGetStatus: A request to get status.
-	KUSBHubRqGetStatus KUSBHubRq = 0
-	// KUSBHubRqReserved2: A reserved request.
-	KUSBHubRqReserved2 KUSBHubRq = 4
-	// KUSBHubRqSetAddress: A request to set an address.
-	KUSBHubRqSetAddress KUSBHubRq = 5
-	// KUSBHubRqSetConfig: A request to set a configuration.
-	KUSBHubRqSetConfig KUSBHubRq = 9
-	// KUSBHubRqSetDescriptor: A request to set a descriptor.
-	KUSBHubRqSetDescriptor KUSBHubRq = 7
-	// KUSBHubRqSetFeature: A request to set a feature.
-	KUSBHubRqSetFeature  KUSBHubRq = 3
-	KUSBHubRqSetHubDepth KUSBHubRq = 12
-	// KUSBHubRqSetInterface: A request to set an interface.
-	KUSBHubRqSetInterface KUSBHubRq = 11
+	KUSB3HubDescriptorType     KUSBHubDescriptorType = 0x2a
+	KUSBHubDescriptorTypeValue KUSBHubDescriptorType = 0x29
 )
 
-func (e KUSBHubRq) String() string {
+func (e KUSBHubDescriptorType) String() string {
 	switch e {
-	case KUSBHubRqClearFeature:
-		return "KUSBHubRqClearFeature"
-	case KUSBHubRqGetConfig:
-		return "KUSBHubRqGetConfig"
-	case KUSBHubRqGetDescriptor:
-		return "KUSBHubRqGetDescriptor"
-	case KUSBHubRqGetInterface:
-		return "KUSBHubRqGetInterface"
-	case KUSBHubRqGetPortErrorCount:
-		return "KUSBHubRqGetPortErrorCount"
-	case KUSBHubRqGetState:
-		return "KUSBHubRqGetState"
-	case KUSBHubRqGetStatus:
-		return "KUSBHubRqGetStatus"
-	case KUSBHubRqReserved2:
-		return "KUSBHubRqReserved2"
-	case KUSBHubRqSetAddress:
-		return "KUSBHubRqSetAddress"
-	case KUSBHubRqSetConfig:
-		return "KUSBHubRqSetConfig"
-	case KUSBHubRqSetDescriptor:
-		return "KUSBHubRqSetDescriptor"
-	case KUSBHubRqSetFeature:
-		return "KUSBHubRqSetFeature"
-	case KUSBHubRqSetHubDepth:
-		return "KUSBHubRqSetHubDepth"
-	case KUSBHubRqSetInterface:
-		return "KUSBHubRqSetInterface"
+	case KUSB3HubDescriptorType:
+		return "KUSB3HubDescriptorType"
+	case KUSBHubDescriptorTypeValue:
+		return "KUSBHubDescriptorTypeValue"
 	default:
-		return fmt.Sprintf("KUSBHubRq(%d)", e)
+		return fmt.Sprintf("KUSBHubDescriptorType(%d)", e)
 	}
 }
 
-type KUSBInformation uint
+type KUSBHubRqSetHubDepth uint
+
+const (
+	KUSBHubRqGetPortErrorCount KUSBHubRqSetHubDepth = 13
+	KUSBHubRqSetHubDepthValue  KUSBHubRqSetHubDepth = 12
+)
+
+func (e KUSBHubRqSetHubDepth) String() string {
+	switch e {
+	case KUSBHubRqGetPortErrorCount:
+		return "KUSBHubRqGetPortErrorCount"
+	case KUSBHubRqSetHubDepthValue:
+		return "KUSBHubRqSetHubDepthValue"
+	default:
+		return fmt.Sprintf("KUSBHubRqSetHubDepth(%d)", e)
+	}
+}
+
+type KUSBInformation uint32
 
 const (
 	// KUSBInformationDeviceIsAttachedToEnclosure: The hub port that the USB device connects to has a USB connector on the enclosure.
 	KUSBInformationDeviceIsAttachedToEnclosure KUSBInformation = 12
 	// KUSBInformationDeviceIsAttachedToEnclosureMask: The mask indicating that the USB device has attached to an enclosure.
-	KUSBInformationDeviceIsAttachedToEnclosureMask KUSBInformation = 0x1000
+	KUSBInformationDeviceIsAttachedToEnclosureMask KUSBInformation = 4096
 	// KUSBInformationDeviceIsAttachedToRootHubBit: The USB device has directly attached to the root hub.
 	KUSBInformationDeviceIsAttachedToRootHubBit KUSBInformation = 1
 	// KUSBInformationDeviceIsAttachedToRootHubMask: The mask indicating that the USB device has attached to a root hub.
@@ -28283,7 +29700,7 @@ const (
 	// KUSBInformationDeviceIsOnThunderboltBit: The bit indicating that the USB device is on a Thunderbolt port.
 	KUSBInformationDeviceIsOnThunderboltBit KUSBInformation = 13
 	// KUSBInformationDeviceIsOnThunderboltMask: The mask indicating that the USB device is on a Thunderbolt port.
-	KUSBInformationDeviceIsOnThunderboltMask KUSBInformation = 0x2000
+	KUSBInformationDeviceIsOnThunderboltMask KUSBInformation = 8192
 	// KUSBInformationDeviceIsRemote: This device attaches to the controller through a remote connection.
 	KUSBInformationDeviceIsRemote KUSBInformation = 11
 	// KUSBInformationDeviceIsRemoteMask: The mask indicating that the USB device is remote.
@@ -28369,7 +29786,7 @@ func (e KUSBInformation) String() string {
 	}
 }
 
-type KUSBLowLatency uint
+type KUSBLowLatency uint32
 
 const (
 	// KUSBLowLatencyFrameListBuffer: A low-latency frame list buffer.
@@ -28393,7 +29810,7 @@ func (e KUSBLowLatency) String() string {
 	}
 }
 
-type KUSBLowLatencyIsochTransfer uint
+type KUSBLowLatencyIsochTransfer uint32
 
 const (
 	KUSBLowLatencyIsochTransferKey KUSBLowLatencyIsochTransfer = 'l'<<24 | 'l'<<16 | 'i'<<8 | 't' // 'llit'
@@ -28408,7 +29825,7 @@ func (e KUSBLowLatencyIsochTransfer) String() string {
 	}
 }
 
-type KUSBMax uint
+type KUSBMax uint32
 
 const (
 	KUSBMaxFSIsocEndpointReqCount KUSBMax = 1023
@@ -28429,43 +29846,112 @@ func (e KUSBMax) String() string {
 	}
 }
 
-type KUSBNotification uint
+type KUSBNoUserNotificationType uint32
 
 const (
-	// KUSBNotificationPostForcedResume: The system sends a notification after a resume, which occurs after a forced suspend.
-	KUSBNotificationPostForcedResume    KUSBNotification = 8
-	KUSBNotificationPostForcedResumeBit KUSBNotification = 3
-	// KUSBNotificationPostForcedSuspend: The system sends a notification after a forced suspend completes.
-	KUSBNotificationPostForcedSuspend    KUSBNotification = 2
-	KUSBNotificationPostForcedSuspendBit KUSBNotification = 1
-	// KUSBNotificationPreForcedResume: The system sends a notification before a resume, which occurs after a forced suspend.
-	KUSBNotificationPreForcedResume    KUSBNotification = 4
-	KUSBNotificationPreForcedResumeBit KUSBNotification = 2
-	// KUSBNotificationPreForcedSuspend: The system sends a notification prior to a forced suspend.
-	KUSBNotificationPreForcedSuspend    KUSBNotification = 1
-	KUSBNotificationPreForcedSuspendBit KUSBNotification = 0
+	KUSBCTBNotEnoughPowerNotificationType       KUSBNoUserNotificationType = 11
+	KUSBCTBUnsupportedNotificationType          KUSBNoUserNotificationType = 12
+	KUSBCUnsupportedTBCableNotificationType     KUSBNoUserNotificationType = 14
+	KUSBCUnsupportedTBPortNotificationType      KUSBNoUserNotificationType = 13
+	KUSBDeviceCountExceededNotificationType     KUSBNoUserNotificationType = 6
+	KUSBEndpointCountExceededNotificationType   KUSBNoUserNotificationType = 7
+	KUSBGangOverCurrentNotificationType         KUSBNoUserNotificationType = 3
+	KUSBHubCountExceededNotificationType        KUSBNoUserNotificationType = 9
+	KUSBIndividualOverCurrentNotificationType   KUSBNoUserNotificationType = 2
+	KUSBNoUserNotificationTypeValue             KUSBNoUserNotificationType = 0
+	KUSBNotEnoughPowerNoACNotificationType      KUSBNoUserNotificationType = 5
+	KUSBNotEnoughPowerNotificationType          KUSBNoUserNotificationType = 1
+	KUSBTDMLowBatteryType                       KUSBNoUserNotificationType = 10
+	KUSBUnsupportedNotificationType             KUSBNoUserNotificationType = 8
+	KUSBiOSDeviceNotEnoughPowerNotificationType KUSBNoUserNotificationType = 4
 )
 
-func (e KUSBNotification) String() string {
+func (e KUSBNoUserNotificationType) String() string {
 	switch e {
-	case KUSBNotificationPostForcedResume:
-		return "KUSBNotificationPostForcedResume"
-	case KUSBNotificationPostForcedResumeBit:
-		return "KUSBNotificationPostForcedResumeBit"
-	case KUSBNotificationPostForcedSuspend:
-		return "KUSBNotificationPostForcedSuspend"
-	case KUSBNotificationPostForcedSuspendBit:
-		return "KUSBNotificationPostForcedSuspendBit"
-	case KUSBNotificationPreForcedResume:
-		return "KUSBNotificationPreForcedResume"
-	case KUSBNotificationPreForcedSuspendBit:
-		return "KUSBNotificationPreForcedSuspendBit"
+	case KUSBCTBNotEnoughPowerNotificationType:
+		return "KUSBCTBNotEnoughPowerNotificationType"
+	case KUSBCTBUnsupportedNotificationType:
+		return "KUSBCTBUnsupportedNotificationType"
+	case KUSBCUnsupportedTBCableNotificationType:
+		return "KUSBCUnsupportedTBCableNotificationType"
+	case KUSBCUnsupportedTBPortNotificationType:
+		return "KUSBCUnsupportedTBPortNotificationType"
+	case KUSBDeviceCountExceededNotificationType:
+		return "KUSBDeviceCountExceededNotificationType"
+	case KUSBEndpointCountExceededNotificationType:
+		return "KUSBEndpointCountExceededNotificationType"
+	case KUSBGangOverCurrentNotificationType:
+		return "KUSBGangOverCurrentNotificationType"
+	case KUSBHubCountExceededNotificationType:
+		return "KUSBHubCountExceededNotificationType"
+	case KUSBIndividualOverCurrentNotificationType:
+		return "KUSBIndividualOverCurrentNotificationType"
+	case KUSBNoUserNotificationTypeValue:
+		return "KUSBNoUserNotificationTypeValue"
+	case KUSBNotEnoughPowerNoACNotificationType:
+		return "KUSBNotEnoughPowerNoACNotificationType"
+	case KUSBNotEnoughPowerNotificationType:
+		return "KUSBNotEnoughPowerNotificationType"
+	case KUSBTDMLowBatteryType:
+		return "KUSBTDMLowBatteryType"
+	case KUSBUnsupportedNotificationType:
+		return "KUSBUnsupportedNotificationType"
+	case KUSBiOSDeviceNotEnoughPowerNotificationType:
+		return "KUSBiOSDeviceNotEnoughPowerNotificationType"
 	default:
-		return fmt.Sprintf("KUSBNotification(%d)", e)
+		return fmt.Sprintf("KUSBNoUserNotificationType(%d)", e)
 	}
 }
 
-type KUSBPort uint
+type KUSBNotificationPreForcedSuspendBit uint32
+
+const (
+	KUSBNotificationPostForcedResumeBit      KUSBNotificationPreForcedSuspendBit = 3
+	KUSBNotificationPostForcedSuspendBit     KUSBNotificationPreForcedSuspendBit = 1
+	KUSBNotificationPreForcedResumeBit       KUSBNotificationPreForcedSuspendBit = 2
+	KUSBNotificationPreForcedSuspendBitValue KUSBNotificationPreForcedSuspendBit = 0
+)
+
+func (e KUSBNotificationPreForcedSuspendBit) String() string {
+	switch e {
+	case KUSBNotificationPostForcedResumeBit:
+		return "KUSBNotificationPostForcedResumeBit"
+	case KUSBNotificationPostForcedSuspendBit:
+		return "KUSBNotificationPostForcedSuspendBit"
+	case KUSBNotificationPreForcedResumeBit:
+		return "KUSBNotificationPreForcedResumeBit"
+	case KUSBNotificationPreForcedSuspendBitValue:
+		return "KUSBNotificationPreForcedSuspendBitValue"
+	default:
+		return fmt.Sprintf("KUSBNotificationPreForcedSuspendBit(%d)", e)
+	}
+}
+
+type KUSBOut uint32
+
+const (
+	KUSBAnyDirn  KUSBOut = 3
+	KUSBIn       KUSBOut = 1
+	KUSBNone     KUSBOut = 2
+	KUSBOutValue KUSBOut = 0
+)
+
+func (e KUSBOut) String() string {
+	switch e {
+	case KUSBAnyDirn:
+		return "KUSBAnyDirn"
+	case KUSBIn:
+		return "KUSBIn"
+	case KUSBNone:
+		return "KUSBNone"
+	case KUSBOutValue:
+		return "KUSBOutValue"
+	default:
+		return fmt.Sprintf("KUSBOut(%d)", e)
+	}
+}
+
+type KUSBPort uint32
 
 const (
 	KUSBPortConnectable    KUSBPort = 1
@@ -28483,7 +29969,7 @@ func (e KUSBPort) String() string {
 	}
 }
 
-type KUSBPower uint
+type KUSBPower uint32
 
 const (
 	// KUSBPowerDuringSleep: The system uses the power during sleep.
@@ -28527,7 +30013,31 @@ func (e KUSBPower) String() string {
 	}
 }
 
-type KUSBRq uint
+type KUSBRel10 uint32
+
+const (
+	KUSBRel10Value KUSBRel10 = 0x100
+	KUSBRel11      KUSBRel10 = 0x110
+	KUSBRel20      KUSBRel10 = 0x200
+	KUSBRel30      KUSBRel10 = 0x300
+)
+
+func (e KUSBRel10) String() string {
+	switch e {
+	case KUSBRel10Value:
+		return "KUSBRel10Value"
+	case KUSBRel11:
+		return "KUSBRel11"
+	case KUSBRel20:
+		return "KUSBRel20"
+	case KUSBRel30:
+		return "KUSBRel30"
+	default:
+		return fmt.Sprintf("KUSBRel10(%d)", e)
+	}
+}
+
+type KUSBRq uint32
 
 const (
 	KUSBRqDirnMask      KUSBRq = 1
@@ -28554,6 +30064,84 @@ func (e KUSBRq) String() string {
 	}
 }
 
+type KUSBRqGetStatus uint32
+
+const (
+	KUSBRqClearFeature   KUSBRqGetStatus = 1
+	KUSBRqGetConfig      KUSBRqGetStatus = 8
+	KUSBRqGetDescriptor  KUSBRqGetStatus = 6
+	KUSBRqGetInterface   KUSBRqGetStatus = 10
+	KUSBRqGetState       KUSBRqGetStatus = 2
+	KUSBRqGetStatusValue KUSBRqGetStatus = 0
+	KUSBRqReserved2      KUSBRqGetStatus = 4
+	KUSBRqSetAddress     KUSBRqGetStatus = 5
+	KUSBRqSetConfig      KUSBRqGetStatus = 9
+	KUSBRqSetDescriptor  KUSBRqGetStatus = 7
+	KUSBRqSetFeature     KUSBRqGetStatus = 3
+	KUSBRqSetInterface   KUSBRqGetStatus = 11
+	KUSBRqSyncFrame      KUSBRqGetStatus = 12
+	KUSBSetIsochDelay    KUSBRqGetStatus = 49
+	KUSBSetSel           KUSBRqGetStatus = 48
+)
+
+func (e KUSBRqGetStatus) String() string {
+	switch e {
+	case KUSBRqClearFeature:
+		return "KUSBRqClearFeature"
+	case KUSBRqGetConfig:
+		return "KUSBRqGetConfig"
+	case KUSBRqGetDescriptor:
+		return "KUSBRqGetDescriptor"
+	case KUSBRqGetInterface:
+		return "KUSBRqGetInterface"
+	case KUSBRqGetState:
+		return "KUSBRqGetState"
+	case KUSBRqGetStatusValue:
+		return "KUSBRqGetStatusValue"
+	case KUSBRqReserved2:
+		return "KUSBRqReserved2"
+	case KUSBRqSetAddress:
+		return "KUSBRqSetAddress"
+	case KUSBRqSetConfig:
+		return "KUSBRqSetConfig"
+	case KUSBRqSetDescriptor:
+		return "KUSBRqSetDescriptor"
+	case KUSBRqSetFeature:
+		return "KUSBRqSetFeature"
+	case KUSBRqSetInterface:
+		return "KUSBRqSetInterface"
+	case KUSBRqSyncFrame:
+		return "KUSBRqSyncFrame"
+	case KUSBSetIsochDelay:
+		return "KUSBSetIsochDelay"
+	case KUSBSetSel:
+		return "KUSBSetSel"
+	default:
+		return fmt.Sprintf("KUSBRqGetStatus(%d)", e)
+	}
+}
+
+type KUSBStandard uint32
+
+const (
+	KUSBClass         KUSBStandard = 1
+	KUSBStandardValue KUSBStandard = 0
+	KUSBVendor        KUSBStandard = 2
+)
+
+func (e KUSBStandard) String() string {
+	switch e {
+	case KUSBClass:
+		return "KUSBClass"
+	case KUSBStandardValue:
+		return "KUSBStandardValue"
+	case KUSBVendor:
+		return "KUSBVendor"
+	default:
+		return fmt.Sprintf("KUSBStandard(%d)", e)
+	}
+}
+
 type KUSBTypeCCableType uint
 
 const (
@@ -28572,7 +30160,58 @@ func (e KUSBTypeCCableType) String() string {
 	}
 }
 
-type KUSPrintingClass uint
+type KUSBbEndpointAddressMask uint32
+
+const (
+	KUSBAdaptiveIsocSyncType                         KUSBbEndpointAddressMask = 2
+	KUSBAsynchronousIsocSyncType                     KUSBbEndpointAddressMask = 1
+	KUSBDataIsocUsageType                            KUSBbEndpointAddressMask = 0
+	KUSBEndpointDirectionIn                          KUSBbEndpointAddressMask = 128
+	KUSBEndpointDirectionOut                         KUSBbEndpointAddressMask = 0
+	KUSBEndpointbmAttributesSynchronizationTypeMask  KUSBbEndpointAddressMask = 12
+	KUSBEndpointbmAttributesSynchronizationTypeShift KUSBbEndpointAddressMask = 2
+	KUSBEndpointbmAttributesTransferTypeMask         KUSBbEndpointAddressMask = 3
+	KUSBEndpointbmAttributesUsageTypeMask            KUSBbEndpointAddressMask = 48
+	KUSBEndpointbmAttributesUsageTypeShift           KUSBbEndpointAddressMask = 4
+	KUSBFeedbackIsocUsageType                        KUSBbEndpointAddressMask = 1
+	KUSBImplicitFeedbackDataIsocUsageType            KUSBbEndpointAddressMask = 2
+	KUSBNoSynchronizationIsocSyncType                KUSBbEndpointAddressMask = 0
+	KUSBNotificationInterruptUsageType               KUSBbEndpointAddressMask = 1
+	KUSBPeriodicInterruptUsageType                   KUSBbEndpointAddressMask = 0
+	KUSBSynchronousIsocSyncType                      KUSBbEndpointAddressMask = 3
+	KUSBbEndpointAddressMaskValue                    KUSBbEndpointAddressMask = 0xf
+	KUSBbEndpointDirectionBit                        KUSBbEndpointAddressMask = 7
+	KUSBbEndpointDirectionMask                       KUSBbEndpointAddressMask = 128
+)
+
+func (e KUSBbEndpointAddressMask) String() string {
+	switch e {
+	case KUSBAdaptiveIsocSyncType:
+		return "KUSBAdaptiveIsocSyncType"
+	case KUSBAsynchronousIsocSyncType:
+		return "KUSBAsynchronousIsocSyncType"
+	case KUSBDataIsocUsageType:
+		return "KUSBDataIsocUsageType"
+	case KUSBEndpointDirectionIn:
+		return "KUSBEndpointDirectionIn"
+	case KUSBEndpointbmAttributesSynchronizationTypeMask:
+		return "KUSBEndpointbmAttributesSynchronizationTypeMask"
+	case KUSBEndpointbmAttributesTransferTypeMask:
+		return "KUSBEndpointbmAttributesTransferTypeMask"
+	case KUSBEndpointbmAttributesUsageTypeMask:
+		return "KUSBEndpointbmAttributesUsageTypeMask"
+	case KUSBEndpointbmAttributesUsageTypeShift:
+		return "KUSBEndpointbmAttributesUsageTypeShift"
+	case KUSBbEndpointAddressMaskValue:
+		return "KUSBbEndpointAddressMaskValue"
+	case KUSBbEndpointDirectionBit:
+		return "KUSBbEndpointDirectionBit"
+	default:
+		return fmt.Sprintf("KUSBbEndpointAddressMask(%d)", e)
+	}
+}
+
+type KUSPrintingClass uint32
 
 const (
 	KUSPrintingClassGePortStatus KUSPrintingClass = 1
@@ -28748,10 +30387,10 @@ func (e KVSLClamshellStateGestalt) String() string {
 	}
 }
 
-type KVariableLength uint
+type KVariableLength uint32
 
 const (
-	KVariableLengthArray KVariableLength = 0
+	KVariableLengthArray KVariableLength = 1
 )
 
 func (e KVariableLength) String() string {
@@ -28760,46 +30399,6 @@ func (e KVariableLength) String() string {
 		return "KVariableLengthArray"
 	default:
 		return fmt.Sprintf("KVariableLength(%d)", e)
-	}
-}
-
-type KVideo uint
-
-const (
-	KVideoCombinedI2CType           KVideo = 3
-	KVideoCombinedI2CTypeMask       KVideo = 8
-	KVideoDDCciReplyType            KVideo = 2
-	KVideoDDCciReplyTypeMask        KVideo = 4
-	KVideoDisplayPortNativeType     KVideo = 4
-	KVideoDisplayPortNativeTypeMask KVideo = 16
-	KVideoNoTransactionType         KVideo = 0
-	KVideoNoTransactionTypeMask     KVideo = 1
-	KVideoReplyMicroSecDelayBit     KVideo = 0
-	KVideoReplyMicroSecDelayMask    KVideo = 1
-	KVideoSimpleI2CType             KVideo = 1
-	KVideoSimpleI2CTypeMask         KVideo = 2
-	KVideoUsageAddrSubAddrBit       KVideo = 1
-	KVideoUsageAddrSubAddrMask      KVideo = 2
-)
-
-func (e KVideo) String() string {
-	switch e {
-	case KVideoCombinedI2CType:
-		return "KVideoCombinedI2CType"
-	case KVideoCombinedI2CTypeMask:
-		return "KVideoCombinedI2CTypeMask"
-	case KVideoDDCciReplyType:
-		return "KVideoDDCciReplyType"
-	case KVideoDDCciReplyTypeMask:
-		return "KVideoDDCciReplyTypeMask"
-	case KVideoDisplayPortNativeTypeMask:
-		return "KVideoDisplayPortNativeTypeMask"
-	case KVideoNoTransactionType:
-		return "KVideoNoTransactionType"
-	case KVideoNoTransactionTypeMask:
-		return "KVideoNoTransactionTypeMask"
-	default:
-		return fmt.Sprintf("KVideo(%d)", e)
 	}
 }
 
@@ -28839,7 +30438,65 @@ func (e KVideoDefault) String() string {
 	}
 }
 
-type KXHCISSRootHubAddress uint
+type KVideoNoTransactionType uint
+
+const (
+	KVideoCombinedI2CType           KVideoNoTransactionType = 3
+	KVideoCombinedI2CTypeMask       KVideoNoTransactionType = 8
+	KVideoDDCciReplyType            KVideoNoTransactionType = 2
+	KVideoDDCciReplyTypeMask        KVideoNoTransactionType = 4
+	KVideoDisplayPortNativeType     KVideoNoTransactionType = 4
+	KVideoDisplayPortNativeTypeMask KVideoNoTransactionType = 16
+	KVideoNoTransactionTypeValue    KVideoNoTransactionType = 0
+	KVideoNoTransactionTypeMask     KVideoNoTransactionType = 1
+	KVideoSimpleI2CType             KVideoNoTransactionType = 1
+	KVideoSimpleI2CTypeMask         KVideoNoTransactionType = 2
+)
+
+func (e KVideoNoTransactionType) String() string {
+	switch e {
+	case KVideoCombinedI2CType:
+		return "KVideoCombinedI2CType"
+	case KVideoCombinedI2CTypeMask:
+		return "KVideoCombinedI2CTypeMask"
+	case KVideoDDCciReplyType:
+		return "KVideoDDCciReplyType"
+	case KVideoDDCciReplyTypeMask:
+		return "KVideoDDCciReplyTypeMask"
+	case KVideoDisplayPortNativeTypeMask:
+		return "KVideoDisplayPortNativeTypeMask"
+	case KVideoNoTransactionTypeValue:
+		return "KVideoNoTransactionTypeValue"
+	case KVideoNoTransactionTypeMask:
+		return "KVideoNoTransactionTypeMask"
+	default:
+		return fmt.Sprintf("KVideoNoTransactionType(%d)", e)
+	}
+}
+
+type KVideoReplyMicroSecDelayBit uint
+
+const (
+	KVideoReplyMicroSecDelayBitValue KVideoReplyMicroSecDelayBit = 0
+	KVideoReplyMicroSecDelayMask     KVideoReplyMicroSecDelayBit = 1
+	KVideoUsageAddrSubAddrBit        KVideoReplyMicroSecDelayBit = 1
+	KVideoUsageAddrSubAddrMask       KVideoReplyMicroSecDelayBit = 2
+)
+
+func (e KVideoReplyMicroSecDelayBit) String() string {
+	switch e {
+	case KVideoReplyMicroSecDelayBitValue:
+		return "KVideoReplyMicroSecDelayBitValue"
+	case KVideoReplyMicroSecDelayMask:
+		return "KVideoReplyMicroSecDelayMask"
+	case KVideoUsageAddrSubAddrMask:
+		return "KVideoUsageAddrSubAddrMask"
+	default:
+		return fmt.Sprintf("KVideoReplyMicroSecDelayBit(%d)", e)
+	}
+}
+
+type KXHCISSRootHubAddress uint32
 
 const (
 	KSuperSpeedBusBitMask      KXHCISSRootHubAddress = 0x1000000
@@ -28950,32 +30607,6 @@ func (e KdCallback) String() string {
 	}
 }
 
-type Kdbg uint
-
-const (
-	KDBG_BUFINIT          Kdbg = 0
-	KDBG_CONTINUOUS_TIME  Kdbg = 0
-	KDBG_DEBUGID_64       Kdbg = 0
-	KDBG_DISABLE_COPROCS  Kdbg = 0
-	KDBG_LP64             Kdbg = 0
-	KDBG_MAPINIT          Kdbg = 0
-	KDBG_MATCH_DISABLE    Kdbg = 0
-	KDBG_NOWRAP           Kdbg = 0
-	KDBG_PIDCHECK         Kdbg = 0
-	KDBG_PIDEXCLUDE       Kdbg = 0
-	KDBG_TYPEFILTER_CHECK Kdbg = 0
-	KDBG_WRAPPED          Kdbg = 0
-)
-
-func (e Kdbg) String() string {
-	switch e {
-	case KDBG_BUFINIT:
-		return "KDBG_BUFINIT"
-	default:
-		return fmt.Sprintf("Kdbg(%d)", e)
-	}
-}
-
 type KdcpContinuous uint
 
 const (
@@ -28988,6 +30619,46 @@ func (e KdcpContinuous) String() string {
 		return "KDCP_CONTINUOUS_TIME"
 	default:
 		return fmt.Sprintf("KdcpContinuous(%d)", e)
+	}
+}
+
+type KdebugFlags uint
+
+const (
+	KDBG_BUFINIT          KdebugFlags = 0
+	KDBG_CONTINUOUS_TIME  KdebugFlags = 0
+	KDBG_DEBUGID_64       KdebugFlags = 0
+	KDBG_DISABLE_COPROCS  KdebugFlags = 0
+	KDBG_LP64             KdebugFlags = 0
+	KDBG_MAPINIT          KdebugFlags = 0
+	KDBG_MATCH_DISABLE    KdebugFlags = 0
+	KDBG_PIDCHECK         KdebugFlags = 0
+	KDBG_PIDEXCLUDE       KdebugFlags = 0
+	KDBG_TYPEFILTER_CHECK KdebugFlags = 0
+)
+
+func (e KdebugFlags) String() string {
+	switch e {
+	case KDBG_BUFINIT:
+		return "KDBG_BUFINIT"
+	default:
+		return fmt.Sprintf("KdebugFlags(%d)", e)
+	}
+}
+
+type KdebugLiveFlags uint
+
+const (
+	KDBG_NOWRAP  KdebugLiveFlags = 0
+	KDBG_WRAPPED KdebugLiveFlags = 0
+)
+
+func (e KdebugLiveFlags) String() string {
+	switch e {
+	case KDBG_NOWRAP:
+		return "KDBG_NOWRAP"
+	default:
+		return fmt.Sprintf("KdebugLiveFlags(%d)", e)
 	}
 }
 
@@ -29079,128 +30750,6 @@ func (e Kf) String() string {
 		return "KF_COMPRSV_OVRD"
 	default:
 		return fmt.Sprintf("Kf(%d)", e)
-	}
-}
-
-type KguardExc uint
-
-const (
-	KGUARD_EXC_DEALLOC_GAP                      KguardExc = 1
-	KGUARD_EXC_DESTROY                          KguardExc = 1
-	KGUARD_EXC_EXCEPTION_BEHAVIOR_ENFORCE       KguardExc = 6
-	KGUARD_EXC_IMMOVABLE                        KguardExc = 32
-	KGUARD_EXC_IMMOVABLE_NON_FATAL              KguardExc = 0x400000
-	KGUARD_EXC_INCORRECT_GUARD                  KguardExc = 16
-	KGUARD_EXC_INVALID_ARGUMENT                 KguardExc = 2048
-	KGUARD_EXC_INVALID_NAME                     KguardExc = 512
-	KGUARD_EXC_INVALID_OPTIONS                  KguardExc = 3
-	KGUARD_EXC_INVALID_RIGHT                    KguardExc = 256
-	KGUARD_EXC_INVALID_VALUE                    KguardExc = 1024
-	KGUARD_EXC_KERN_FAILURE                     KguardExc = 0x4000
-	KGUARD_EXC_KERN_NO_SPACE                    KguardExc = 0x2000
-	KGUARD_EXC_KERN_RESOURCE                    KguardExc = 0x8000
-	KGUARD_EXC_MOD_REFS                         KguardExc = 2
-	KGUARD_EXC_MOD_REFS_NON_FATAL               KguardExc = 0x200000
-	KGUARD_EXC_MSG_FILTERED                     KguardExc = 128
-	KGUARD_EXC_PROVISIONAL_REPLY_PORT           KguardExc = 0x100002
-	KGUARD_EXC_RCV_GUARDED_DESC                 KguardExc = 0x100000
-	KGUARD_EXC_RCV_INVALID_NAME                 KguardExc = 0x80000
-	KGUARD_EXC_RECLAIM_COPYIO_FAILURE           KguardExc = 2
-	KGUARD_EXC_RECLAIM_DEALLOCATE_FAILURE       KguardExc = 8
-	KGUARD_EXC_RECLAIM_INDEX_FAILURE            KguardExc = 4
-	KGUARD_EXC_REQUIRE_REPLY_PORT_SEMANTICS     KguardExc = 0x800000
-	KGUARD_EXC_RIGHT_EXISTS                     KguardExc = 0x1000
-	KGUARD_EXC_SEC_ACCESS_FAULT                 KguardExc = 98
-	KGUARD_EXC_SEC_ASYNC_ACCESS_FAULT           KguardExc = 99
-	KGUARD_EXC_SEC_COPY_DENIED                  KguardExc = 100
-	KGUARD_EXC_SEC_LOOKUP_DENIED                KguardExc = 0
-	KGUARD_EXC_SEC_RANGE_DENIED                 KguardExc = 0
-	KGUARD_EXC_SEC_SHARING_DENIED               KguardExc = 101
-	KGUARD_EXC_SEND_INVALID_REPLY               KguardExc = 0x10000
-	KGUARD_EXC_SEND_INVALID_RIGHT               KguardExc = 0x40000
-	KGUARD_EXC_SEND_INVALID_VOUCHER             KguardExc = 0x20000
-	KGUARD_EXC_SERVICE_PORT_VIOLATION_FATAL     KguardExc = 7
-	KGUARD_EXC_SERVICE_PORT_VIOLATION_NON_FATAL KguardExc = 0x100001
-	KGUARD_EXC_SET_CONTEXT                      KguardExc = 4
-	KGUARD_EXC_STRICT_REPLY                     KguardExc = 64
-	KGUARD_EXC_THREAD_SET_STATE                 KguardExc = 5
-	KGUARD_EXC_UNGUARDED                        KguardExc = 8
-)
-
-func (e KguardExc) String() string {
-	switch e {
-	case KGUARD_EXC_DEALLOC_GAP:
-		return "KGUARD_EXC_DEALLOC_GAP"
-	case KGUARD_EXC_EXCEPTION_BEHAVIOR_ENFORCE:
-		return "KGUARD_EXC_EXCEPTION_BEHAVIOR_ENFORCE"
-	case KGUARD_EXC_IMMOVABLE:
-		return "KGUARD_EXC_IMMOVABLE"
-	case KGUARD_EXC_IMMOVABLE_NON_FATAL:
-		return "KGUARD_EXC_IMMOVABLE_NON_FATAL"
-	case KGUARD_EXC_INCORRECT_GUARD:
-		return "KGUARD_EXC_INCORRECT_GUARD"
-	case KGUARD_EXC_INVALID_ARGUMENT:
-		return "KGUARD_EXC_INVALID_ARGUMENT"
-	case KGUARD_EXC_INVALID_NAME:
-		return "KGUARD_EXC_INVALID_NAME"
-	case KGUARD_EXC_INVALID_OPTIONS:
-		return "KGUARD_EXC_INVALID_OPTIONS"
-	case KGUARD_EXC_INVALID_RIGHT:
-		return "KGUARD_EXC_INVALID_RIGHT"
-	case KGUARD_EXC_INVALID_VALUE:
-		return "KGUARD_EXC_INVALID_VALUE"
-	case KGUARD_EXC_KERN_FAILURE:
-		return "KGUARD_EXC_KERN_FAILURE"
-	case KGUARD_EXC_KERN_NO_SPACE:
-		return "KGUARD_EXC_KERN_NO_SPACE"
-	case KGUARD_EXC_KERN_RESOURCE:
-		return "KGUARD_EXC_KERN_RESOURCE"
-	case KGUARD_EXC_MOD_REFS:
-		return "KGUARD_EXC_MOD_REFS"
-	case KGUARD_EXC_MOD_REFS_NON_FATAL:
-		return "KGUARD_EXC_MOD_REFS_NON_FATAL"
-	case KGUARD_EXC_MSG_FILTERED:
-		return "KGUARD_EXC_MSG_FILTERED"
-	case KGUARD_EXC_PROVISIONAL_REPLY_PORT:
-		return "KGUARD_EXC_PROVISIONAL_REPLY_PORT"
-	case KGUARD_EXC_RCV_GUARDED_DESC:
-		return "KGUARD_EXC_RCV_GUARDED_DESC"
-	case KGUARD_EXC_RCV_INVALID_NAME:
-		return "KGUARD_EXC_RCV_INVALID_NAME"
-	case KGUARD_EXC_RECLAIM_DEALLOCATE_FAILURE:
-		return "KGUARD_EXC_RECLAIM_DEALLOCATE_FAILURE"
-	case KGUARD_EXC_RECLAIM_INDEX_FAILURE:
-		return "KGUARD_EXC_RECLAIM_INDEX_FAILURE"
-	case KGUARD_EXC_REQUIRE_REPLY_PORT_SEMANTICS:
-		return "KGUARD_EXC_REQUIRE_REPLY_PORT_SEMANTICS"
-	case KGUARD_EXC_RIGHT_EXISTS:
-		return "KGUARD_EXC_RIGHT_EXISTS"
-	case KGUARD_EXC_SEC_ACCESS_FAULT:
-		return "KGUARD_EXC_SEC_ACCESS_FAULT"
-	case KGUARD_EXC_SEC_ASYNC_ACCESS_FAULT:
-		return "KGUARD_EXC_SEC_ASYNC_ACCESS_FAULT"
-	case KGUARD_EXC_SEC_COPY_DENIED:
-		return "KGUARD_EXC_SEC_COPY_DENIED"
-	case KGUARD_EXC_SEC_LOOKUP_DENIED:
-		return "KGUARD_EXC_SEC_LOOKUP_DENIED"
-	case KGUARD_EXC_SEC_SHARING_DENIED:
-		return "KGUARD_EXC_SEC_SHARING_DENIED"
-	case KGUARD_EXC_SEND_INVALID_REPLY:
-		return "KGUARD_EXC_SEND_INVALID_REPLY"
-	case KGUARD_EXC_SEND_INVALID_RIGHT:
-		return "KGUARD_EXC_SEND_INVALID_RIGHT"
-	case KGUARD_EXC_SEND_INVALID_VOUCHER:
-		return "KGUARD_EXC_SEND_INVALID_VOUCHER"
-	case KGUARD_EXC_SERVICE_PORT_VIOLATION_FATAL:
-		return "KGUARD_EXC_SERVICE_PORT_VIOLATION_FATAL"
-	case KGUARD_EXC_SERVICE_PORT_VIOLATION_NON_FATAL:
-		return "KGUARD_EXC_SERVICE_PORT_VIOLATION_NON_FATAL"
-	case KGUARD_EXC_STRICT_REPLY:
-		return "KGUARD_EXC_STRICT_REPLY"
-	case KGUARD_EXC_THREAD_SET_STATE:
-		return "KGUARD_EXC_THREAD_SET_STATE"
-	default:
-		return fmt.Sprintf("KguardExc(%d)", e)
 	}
 }
 
@@ -32950,6 +34499,537 @@ func (e KhidusageGendevcontrols) String() string {
 	}
 }
 
+type KhidusageKeyboarderrorrollover uint
+
+const (
+	KHIDUsage_Keyboard0                   KhidusageKeyboarderrorrollover = 0x27
+	KHIDUsage_Keyboard1                   KhidusageKeyboarderrorrollover = 0x1e
+	KHIDUsage_Keyboard2                   KhidusageKeyboarderrorrollover = 0x1f
+	KHIDUsage_Keyboard3                   KhidusageKeyboarderrorrollover = 0x20
+	KHIDUsage_Keyboard4                   KhidusageKeyboarderrorrollover = 0x21
+	KHIDUsage_Keyboard5                   KhidusageKeyboarderrorrollover = 0x22
+	KHIDUsage_Keyboard6                   KhidusageKeyboarderrorrollover = 0x23
+	KHIDUsage_Keyboard7                   KhidusageKeyboarderrorrollover = 0x24
+	KHIDUsage_Keyboard8                   KhidusageKeyboarderrorrollover = 0x25
+	KHIDUsage_Keyboard9                   KhidusageKeyboarderrorrollover = 0x26
+	KHIDUsage_KeyboardA                   KhidusageKeyboarderrorrollover = 0x4
+	KHIDUsage_KeyboardAgain               KhidusageKeyboarderrorrollover = 0x79
+	KHIDUsage_KeyboardAlternateErase      KhidusageKeyboarderrorrollover = 0x99
+	KHIDUsage_KeyboardApplication         KhidusageKeyboarderrorrollover = 0x65
+	KHIDUsage_KeyboardB                   KhidusageKeyboarderrorrollover = 0x5
+	KHIDUsage_KeyboardBackslash           KhidusageKeyboarderrorrollover = 0x31
+	KHIDUsage_KeyboardC                   KhidusageKeyboarderrorrollover = 0x6
+	KHIDUsage_KeyboardCancel              KhidusageKeyboarderrorrollover = 0x9b
+	KHIDUsage_KeyboardCapsLock            KhidusageKeyboarderrorrollover = 0x39
+	KHIDUsage_KeyboardClear               KhidusageKeyboarderrorrollover = 0x9c
+	KHIDUsage_KeyboardClearOrAgain        KhidusageKeyboarderrorrollover = 0xa2
+	KHIDUsage_KeyboardCloseBracket        KhidusageKeyboarderrorrollover = 0x30
+	KHIDUsage_KeyboardComma               KhidusageKeyboarderrorrollover = 0x36
+	KHIDUsage_KeyboardCopy                KhidusageKeyboarderrorrollover = 0x7c
+	KHIDUsage_KeyboardCrSelOrProps        KhidusageKeyboarderrorrollover = 0xa3
+	KHIDUsage_KeyboardCut                 KhidusageKeyboarderrorrollover = 0x7b
+	KHIDUsage_KeyboardD                   KhidusageKeyboarderrorrollover = 0x7
+	KHIDUsage_KeyboardDeleteForward       KhidusageKeyboarderrorrollover = 0x4c
+	KHIDUsage_KeyboardDeleteOrBackspace   KhidusageKeyboarderrorrollover = 0x2a
+	KHIDUsage_KeyboardDownArrow           KhidusageKeyboarderrorrollover = 0x51
+	KHIDUsage_KeyboardE                   KhidusageKeyboarderrorrollover = 0x8
+	KHIDUsage_KeyboardEnd                 KhidusageKeyboarderrorrollover = 0x4d
+	KHIDUsage_KeyboardEqualSign           KhidusageKeyboarderrorrollover = 0x2e
+	KHIDUsage_KeyboardErrorRollOver       KhidusageKeyboarderrorrollover = 0x1
+	KHIDUsage_KeyboardErrorUndefined      KhidusageKeyboarderrorrollover = 0x3
+	KHIDUsage_KeyboardEscape              KhidusageKeyboarderrorrollover = 0x29
+	KHIDUsage_KeyboardExSel               KhidusageKeyboarderrorrollover = 0xa4
+	KHIDUsage_KeyboardExecute             KhidusageKeyboarderrorrollover = 0x74
+	KHIDUsage_KeyboardF                   KhidusageKeyboarderrorrollover = 0x9
+	KHIDUsage_KeyboardF1                  KhidusageKeyboarderrorrollover = 0x3a
+	KHIDUsage_KeyboardF10                 KhidusageKeyboarderrorrollover = 0x43
+	KHIDUsage_KeyboardF11                 KhidusageKeyboarderrorrollover = 0x44
+	KHIDUsage_KeyboardF12                 KhidusageKeyboarderrorrollover = 0x45
+	KHIDUsage_KeyboardF13                 KhidusageKeyboarderrorrollover = 0x68
+	KHIDUsage_KeyboardF14                 KhidusageKeyboarderrorrollover = 0x69
+	KHIDUsage_KeyboardF15                 KhidusageKeyboarderrorrollover = 0x6a
+	KHIDUsage_KeyboardF16                 KhidusageKeyboarderrorrollover = 0x6b
+	KHIDUsage_KeyboardF17                 KhidusageKeyboarderrorrollover = 0x6c
+	KHIDUsage_KeyboardF18                 KhidusageKeyboarderrorrollover = 0x6d
+	KHIDUsage_KeyboardF19                 KhidusageKeyboarderrorrollover = 0x6e
+	KHIDUsage_KeyboardF2                  KhidusageKeyboarderrorrollover = 0x3b
+	KHIDUsage_KeyboardF20                 KhidusageKeyboarderrorrollover = 0x6f
+	KHIDUsage_KeyboardF21                 KhidusageKeyboarderrorrollover = 0x70
+	KHIDUsage_KeyboardF22                 KhidusageKeyboarderrorrollover = 0x71
+	KHIDUsage_KeyboardF23                 KhidusageKeyboarderrorrollover = 0x72
+	KHIDUsage_KeyboardF24                 KhidusageKeyboarderrorrollover = 0x73
+	KHIDUsage_KeyboardF3                  KhidusageKeyboarderrorrollover = 0x3c
+	KHIDUsage_KeyboardF4                  KhidusageKeyboarderrorrollover = 0x3d
+	KHIDUsage_KeyboardF5                  KhidusageKeyboarderrorrollover = 0x3e
+	KHIDUsage_KeyboardF6                  KhidusageKeyboarderrorrollover = 0x3f
+	KHIDUsage_KeyboardF7                  KhidusageKeyboarderrorrollover = 0x40
+	KHIDUsage_KeyboardF8                  KhidusageKeyboarderrorrollover = 0x41
+	KHIDUsage_KeyboardF9                  KhidusageKeyboarderrorrollover = 0x42
+	KHIDUsage_KeyboardFind                KhidusageKeyboarderrorrollover = 0x7e
+	KHIDUsage_KeyboardG                   KhidusageKeyboarderrorrollover = 0xa
+	KHIDUsage_KeyboardGraveAccentAndTilde KhidusageKeyboarderrorrollover = 0x35
+	KHIDUsage_KeyboardH                   KhidusageKeyboarderrorrollover = 0xb
+	KHIDUsage_KeyboardHelp                KhidusageKeyboarderrorrollover = 0x75
+	KHIDUsage_KeyboardHome                KhidusageKeyboarderrorrollover = 0x4a
+	KHIDUsage_KeyboardHyphen              KhidusageKeyboarderrorrollover = 0x2d
+	KHIDUsage_KeyboardI                   KhidusageKeyboarderrorrollover = 0xc
+	KHIDUsage_KeyboardInsert              KhidusageKeyboarderrorrollover = 0x49
+	KHIDUsage_KeyboardInternational1      KhidusageKeyboarderrorrollover = 0x87
+	KHIDUsage_KeyboardInternational2      KhidusageKeyboarderrorrollover = 0x88
+	KHIDUsage_KeyboardInternational3      KhidusageKeyboarderrorrollover = 0x89
+	KHIDUsage_KeyboardInternational4      KhidusageKeyboarderrorrollover = 0x8a
+	KHIDUsage_KeyboardInternational5      KhidusageKeyboarderrorrollover = 0x8b
+	KHIDUsage_KeyboardInternational6      KhidusageKeyboarderrorrollover = 0x8c
+	KHIDUsage_KeyboardInternational7      KhidusageKeyboarderrorrollover = 0x8d
+	KHIDUsage_KeyboardInternational8      KhidusageKeyboarderrorrollover = 0x8e
+	KHIDUsage_KeyboardInternational9      KhidusageKeyboarderrorrollover = 0x8f
+	KHIDUsage_KeyboardJ                   KhidusageKeyboarderrorrollover = 0xd
+	KHIDUsage_KeyboardK                   KhidusageKeyboarderrorrollover = 0xe
+	KHIDUsage_KeyboardL                   KhidusageKeyboarderrorrollover = 0xf
+	KHIDUsage_KeyboardLANG1               KhidusageKeyboarderrorrollover = 0x90
+	KHIDUsage_KeyboardLANG2               KhidusageKeyboarderrorrollover = 0x91
+	KHIDUsage_KeyboardLANG3               KhidusageKeyboarderrorrollover = 0x92
+	KHIDUsage_KeyboardLANG4               KhidusageKeyboarderrorrollover = 0x93
+	KHIDUsage_KeyboardLANG5               KhidusageKeyboarderrorrollover = 0x94
+	KHIDUsage_KeyboardLANG6               KhidusageKeyboarderrorrollover = 0x95
+	KHIDUsage_KeyboardLANG7               KhidusageKeyboarderrorrollover = 0x96
+	KHIDUsage_KeyboardLANG8               KhidusageKeyboarderrorrollover = 0x97
+	KHIDUsage_KeyboardLANG9               KhidusageKeyboarderrorrollover = 0x98
+	KHIDUsage_KeyboardLeftAlt             KhidusageKeyboarderrorrollover = 0xe2
+	KHIDUsage_KeyboardLeftArrow           KhidusageKeyboarderrorrollover = 0x50
+	KHIDUsage_KeyboardLeftControl         KhidusageKeyboarderrorrollover = 0xe0
+	KHIDUsage_KeyboardLeftGUI             KhidusageKeyboarderrorrollover = 0xe3
+	KHIDUsage_KeyboardLeftShift           KhidusageKeyboarderrorrollover = 0xe1
+	KHIDUsage_KeyboardLockingCapsLock     KhidusageKeyboarderrorrollover = 0x82
+	KHIDUsage_KeyboardLockingNumLock      KhidusageKeyboarderrorrollover = 0x83
+	KHIDUsage_KeyboardLockingScrollLock   KhidusageKeyboarderrorrollover = 0x84
+	KHIDUsage_KeyboardM                   KhidusageKeyboarderrorrollover = 0x10
+	KHIDUsage_KeyboardMenu                KhidusageKeyboarderrorrollover = 0x76
+	KHIDUsage_KeyboardMute                KhidusageKeyboarderrorrollover = 0x7f
+	KHIDUsage_KeyboardN                   KhidusageKeyboarderrorrollover = 0x11
+	KHIDUsage_KeyboardNonUSBackslash      KhidusageKeyboarderrorrollover = 0x64
+	KHIDUsage_KeyboardNonUSPound          KhidusageKeyboarderrorrollover = 0x32
+	KHIDUsage_KeyboardO                   KhidusageKeyboarderrorrollover = 0x12
+	KHIDUsage_KeyboardOpenBracket         KhidusageKeyboarderrorrollover = 0x2f
+	KHIDUsage_KeyboardOper                KhidusageKeyboarderrorrollover = 0xa1
+	KHIDUsage_KeyboardOut                 KhidusageKeyboarderrorrollover = 0xa0
+	KHIDUsage_KeyboardP                   KhidusageKeyboarderrorrollover = 0x13
+	KHIDUsage_KeyboardPOSTFail            KhidusageKeyboarderrorrollover = 0x2
+	KHIDUsage_KeyboardPageDown            KhidusageKeyboarderrorrollover = 0x4e
+	KHIDUsage_KeyboardPageUp              KhidusageKeyboarderrorrollover = 0x4b
+	KHIDUsage_KeyboardPaste               KhidusageKeyboarderrorrollover = 0x7d
+	KHIDUsage_KeyboardPause               KhidusageKeyboarderrorrollover = 0x48
+	KHIDUsage_KeyboardPeriod              KhidusageKeyboarderrorrollover = 0x37
+	KHIDUsage_KeyboardPower               KhidusageKeyboarderrorrollover = 0x66
+	KHIDUsage_KeyboardPrintScreen         KhidusageKeyboarderrorrollover = 0x46
+	KHIDUsage_KeyboardPrior               KhidusageKeyboarderrorrollover = 0x9d
+	KHIDUsage_KeyboardQ                   KhidusageKeyboarderrorrollover = 0x14
+	KHIDUsage_KeyboardQuote               KhidusageKeyboarderrorrollover = 0x34
+	KHIDUsage_KeyboardR                   KhidusageKeyboarderrorrollover = 0x15
+	KHIDUsage_KeyboardReturn              KhidusageKeyboarderrorrollover = 0x9e
+	KHIDUsage_KeyboardReturnOrEnter       KhidusageKeyboarderrorrollover = 0x28
+	KHIDUsage_KeyboardRightAlt            KhidusageKeyboarderrorrollover = 0xe6
+	KHIDUsage_KeyboardRightArrow          KhidusageKeyboarderrorrollover = 0x4f
+	KHIDUsage_KeyboardRightControl        KhidusageKeyboarderrorrollover = 0xe4
+	KHIDUsage_KeyboardRightGUI            KhidusageKeyboarderrorrollover = 0xe7
+	KHIDUsage_KeyboardRightShift          KhidusageKeyboarderrorrollover = 0xe5
+	KHIDUsage_KeyboardS                   KhidusageKeyboarderrorrollover = 0x16
+	KHIDUsage_KeyboardScrollLock          KhidusageKeyboarderrorrollover = 0x47
+	KHIDUsage_KeyboardSelect              KhidusageKeyboarderrorrollover = 0x77
+	KHIDUsage_KeyboardSemicolon           KhidusageKeyboarderrorrollover = 0x33
+	KHIDUsage_KeyboardSeparator           KhidusageKeyboarderrorrollover = 0x9f
+	KHIDUsage_KeyboardSlash               KhidusageKeyboarderrorrollover = 0x38
+	KHIDUsage_KeyboardSpacebar            KhidusageKeyboarderrorrollover = 0x2c
+	KHIDUsage_KeyboardStop                KhidusageKeyboarderrorrollover = 0x78
+	KHIDUsage_KeyboardSysReqOrAttention   KhidusageKeyboarderrorrollover = 0x9a
+	KHIDUsage_KeyboardT                   KhidusageKeyboarderrorrollover = 0x17
+	KHIDUsage_KeyboardTab                 KhidusageKeyboarderrorrollover = 0x2b
+	KHIDUsage_KeyboardU                   KhidusageKeyboarderrorrollover = 0x18
+	KHIDUsage_KeyboardUndo                KhidusageKeyboarderrorrollover = 0x7a
+	KHIDUsage_KeyboardUpArrow             KhidusageKeyboarderrorrollover = 0x52
+	KHIDUsage_KeyboardV                   KhidusageKeyboarderrorrollover = 0x19
+	KHIDUsage_KeyboardVolumeDown          KhidusageKeyboarderrorrollover = 0x81
+	KHIDUsage_KeyboardVolumeUp            KhidusageKeyboarderrorrollover = 0x80
+	KHIDUsage_KeyboardW                   KhidusageKeyboarderrorrollover = 0x1a
+	KHIDUsage_KeyboardX                   KhidusageKeyboarderrorrollover = 0x1b
+	KHIDUsage_KeyboardY                   KhidusageKeyboarderrorrollover = 0x1c
+	KHIDUsage_KeyboardZ                   KhidusageKeyboarderrorrollover = 0x1d
+	KHIDUsage_Keyboard_Reserved           KhidusageKeyboarderrorrollover = 0xffff
+	KHIDUsage_Keypad0                     KhidusageKeyboarderrorrollover = 0x62
+	KHIDUsage_Keypad1                     KhidusageKeyboarderrorrollover = 0x59
+	KHIDUsage_Keypad2                     KhidusageKeyboarderrorrollover = 0x5a
+	KHIDUsage_Keypad3                     KhidusageKeyboarderrorrollover = 0x5b
+	KHIDUsage_Keypad4                     KhidusageKeyboarderrorrollover = 0x5c
+	KHIDUsage_Keypad5                     KhidusageKeyboarderrorrollover = 0x5d
+	KHIDUsage_Keypad6                     KhidusageKeyboarderrorrollover = 0x5e
+	KHIDUsage_Keypad7                     KhidusageKeyboarderrorrollover = 0x5f
+	KHIDUsage_Keypad8                     KhidusageKeyboarderrorrollover = 0x60
+	KHIDUsage_Keypad9                     KhidusageKeyboarderrorrollover = 0x61
+	KHIDUsage_KeypadAsterisk              KhidusageKeyboarderrorrollover = 0x55
+	KHIDUsage_KeypadComma                 KhidusageKeyboarderrorrollover = 0x85
+	KHIDUsage_KeypadEnter                 KhidusageKeyboarderrorrollover = 0x58
+	KHIDUsage_KeypadEqualSign             KhidusageKeyboarderrorrollover = 0x67
+	KHIDUsage_KeypadEqualSignAS400        KhidusageKeyboarderrorrollover = 0x86
+	KHIDUsage_KeypadHyphen                KhidusageKeyboarderrorrollover = 0x56
+	KHIDUsage_KeypadNumLock               KhidusageKeyboarderrorrollover = 0x53
+	KHIDUsage_KeypadPeriod                KhidusageKeyboarderrorrollover = 0x63
+	KHIDUsage_KeypadPlus                  KhidusageKeyboarderrorrollover = 0x57
+	KHIDUsage_KeypadSlash                 KhidusageKeyboarderrorrollover = 0x54
+)
+
+func (e KhidusageKeyboarderrorrollover) String() string {
+	switch e {
+	case KHIDUsage_Keyboard0:
+		return "KHIDUsage_Keyboard0"
+	case KHIDUsage_Keyboard1:
+		return "KHIDUsage_Keyboard1"
+	case KHIDUsage_Keyboard2:
+		return "KHIDUsage_Keyboard2"
+	case KHIDUsage_Keyboard3:
+		return "KHIDUsage_Keyboard3"
+	case KHIDUsage_Keyboard4:
+		return "KHIDUsage_Keyboard4"
+	case KHIDUsage_Keyboard5:
+		return "KHIDUsage_Keyboard5"
+	case KHIDUsage_Keyboard6:
+		return "KHIDUsage_Keyboard6"
+	case KHIDUsage_Keyboard7:
+		return "KHIDUsage_Keyboard7"
+	case KHIDUsage_Keyboard8:
+		return "KHIDUsage_Keyboard8"
+	case KHIDUsage_Keyboard9:
+		return "KHIDUsage_Keyboard9"
+	case KHIDUsage_KeyboardA:
+		return "KHIDUsage_KeyboardA"
+	case KHIDUsage_KeyboardAgain:
+		return "KHIDUsage_KeyboardAgain"
+	case KHIDUsage_KeyboardAlternateErase:
+		return "KHIDUsage_KeyboardAlternateErase"
+	case KHIDUsage_KeyboardApplication:
+		return "KHIDUsage_KeyboardApplication"
+	case KHIDUsage_KeyboardB:
+		return "KHIDUsage_KeyboardB"
+	case KHIDUsage_KeyboardBackslash:
+		return "KHIDUsage_KeyboardBackslash"
+	case KHIDUsage_KeyboardC:
+		return "KHIDUsage_KeyboardC"
+	case KHIDUsage_KeyboardCancel:
+		return "KHIDUsage_KeyboardCancel"
+	case KHIDUsage_KeyboardCapsLock:
+		return "KHIDUsage_KeyboardCapsLock"
+	case KHIDUsage_KeyboardClear:
+		return "KHIDUsage_KeyboardClear"
+	case KHIDUsage_KeyboardClearOrAgain:
+		return "KHIDUsage_KeyboardClearOrAgain"
+	case KHIDUsage_KeyboardCloseBracket:
+		return "KHIDUsage_KeyboardCloseBracket"
+	case KHIDUsage_KeyboardComma:
+		return "KHIDUsage_KeyboardComma"
+	case KHIDUsage_KeyboardCopy:
+		return "KHIDUsage_KeyboardCopy"
+	case KHIDUsage_KeyboardCrSelOrProps:
+		return "KHIDUsage_KeyboardCrSelOrProps"
+	case KHIDUsage_KeyboardCut:
+		return "KHIDUsage_KeyboardCut"
+	case KHIDUsage_KeyboardD:
+		return "KHIDUsage_KeyboardD"
+	case KHIDUsage_KeyboardDeleteForward:
+		return "KHIDUsage_KeyboardDeleteForward"
+	case KHIDUsage_KeyboardDeleteOrBackspace:
+		return "KHIDUsage_KeyboardDeleteOrBackspace"
+	case KHIDUsage_KeyboardDownArrow:
+		return "KHIDUsage_KeyboardDownArrow"
+	case KHIDUsage_KeyboardE:
+		return "KHIDUsage_KeyboardE"
+	case KHIDUsage_KeyboardEnd:
+		return "KHIDUsage_KeyboardEnd"
+	case KHIDUsage_KeyboardEqualSign:
+		return "KHIDUsage_KeyboardEqualSign"
+	case KHIDUsage_KeyboardErrorRollOver:
+		return "KHIDUsage_KeyboardErrorRollOver"
+	case KHIDUsage_KeyboardErrorUndefined:
+		return "KHIDUsage_KeyboardErrorUndefined"
+	case KHIDUsage_KeyboardEscape:
+		return "KHIDUsage_KeyboardEscape"
+	case KHIDUsage_KeyboardExSel:
+		return "KHIDUsage_KeyboardExSel"
+	case KHIDUsage_KeyboardExecute:
+		return "KHIDUsage_KeyboardExecute"
+	case KHIDUsage_KeyboardF:
+		return "KHIDUsage_KeyboardF"
+	case KHIDUsage_KeyboardF1:
+		return "KHIDUsage_KeyboardF1"
+	case KHIDUsage_KeyboardF10:
+		return "KHIDUsage_KeyboardF10"
+	case KHIDUsage_KeyboardF11:
+		return "KHIDUsage_KeyboardF11"
+	case KHIDUsage_KeyboardF12:
+		return "KHIDUsage_KeyboardF12"
+	case KHIDUsage_KeyboardF13:
+		return "KHIDUsage_KeyboardF13"
+	case KHIDUsage_KeyboardF14:
+		return "KHIDUsage_KeyboardF14"
+	case KHIDUsage_KeyboardF15:
+		return "KHIDUsage_KeyboardF15"
+	case KHIDUsage_KeyboardF16:
+		return "KHIDUsage_KeyboardF16"
+	case KHIDUsage_KeyboardF17:
+		return "KHIDUsage_KeyboardF17"
+	case KHIDUsage_KeyboardF18:
+		return "KHIDUsage_KeyboardF18"
+	case KHIDUsage_KeyboardF19:
+		return "KHIDUsage_KeyboardF19"
+	case KHIDUsage_KeyboardF2:
+		return "KHIDUsage_KeyboardF2"
+	case KHIDUsage_KeyboardF20:
+		return "KHIDUsage_KeyboardF20"
+	case KHIDUsage_KeyboardF21:
+		return "KHIDUsage_KeyboardF21"
+	case KHIDUsage_KeyboardF22:
+		return "KHIDUsage_KeyboardF22"
+	case KHIDUsage_KeyboardF23:
+		return "KHIDUsage_KeyboardF23"
+	case KHIDUsage_KeyboardF24:
+		return "KHIDUsage_KeyboardF24"
+	case KHIDUsage_KeyboardF3:
+		return "KHIDUsage_KeyboardF3"
+	case KHIDUsage_KeyboardF4:
+		return "KHIDUsage_KeyboardF4"
+	case KHIDUsage_KeyboardF5:
+		return "KHIDUsage_KeyboardF5"
+	case KHIDUsage_KeyboardF6:
+		return "KHIDUsage_KeyboardF6"
+	case KHIDUsage_KeyboardF7:
+		return "KHIDUsage_KeyboardF7"
+	case KHIDUsage_KeyboardF8:
+		return "KHIDUsage_KeyboardF8"
+	case KHIDUsage_KeyboardF9:
+		return "KHIDUsage_KeyboardF9"
+	case KHIDUsage_KeyboardFind:
+		return "KHIDUsage_KeyboardFind"
+	case KHIDUsage_KeyboardG:
+		return "KHIDUsage_KeyboardG"
+	case KHIDUsage_KeyboardGraveAccentAndTilde:
+		return "KHIDUsage_KeyboardGraveAccentAndTilde"
+	case KHIDUsage_KeyboardH:
+		return "KHIDUsage_KeyboardH"
+	case KHIDUsage_KeyboardHelp:
+		return "KHIDUsage_KeyboardHelp"
+	case KHIDUsage_KeyboardHome:
+		return "KHIDUsage_KeyboardHome"
+	case KHIDUsage_KeyboardHyphen:
+		return "KHIDUsage_KeyboardHyphen"
+	case KHIDUsage_KeyboardI:
+		return "KHIDUsage_KeyboardI"
+	case KHIDUsage_KeyboardInsert:
+		return "KHIDUsage_KeyboardInsert"
+	case KHIDUsage_KeyboardInternational1:
+		return "KHIDUsage_KeyboardInternational1"
+	case KHIDUsage_KeyboardInternational2:
+		return "KHIDUsage_KeyboardInternational2"
+	case KHIDUsage_KeyboardInternational3:
+		return "KHIDUsage_KeyboardInternational3"
+	case KHIDUsage_KeyboardInternational4:
+		return "KHIDUsage_KeyboardInternational4"
+	case KHIDUsage_KeyboardInternational5:
+		return "KHIDUsage_KeyboardInternational5"
+	case KHIDUsage_KeyboardInternational6:
+		return "KHIDUsage_KeyboardInternational6"
+	case KHIDUsage_KeyboardInternational7:
+		return "KHIDUsage_KeyboardInternational7"
+	case KHIDUsage_KeyboardInternational8:
+		return "KHIDUsage_KeyboardInternational8"
+	case KHIDUsage_KeyboardInternational9:
+		return "KHIDUsage_KeyboardInternational9"
+	case KHIDUsage_KeyboardJ:
+		return "KHIDUsage_KeyboardJ"
+	case KHIDUsage_KeyboardK:
+		return "KHIDUsage_KeyboardK"
+	case KHIDUsage_KeyboardL:
+		return "KHIDUsage_KeyboardL"
+	case KHIDUsage_KeyboardLANG1:
+		return "KHIDUsage_KeyboardLANG1"
+	case KHIDUsage_KeyboardLANG2:
+		return "KHIDUsage_KeyboardLANG2"
+	case KHIDUsage_KeyboardLANG3:
+		return "KHIDUsage_KeyboardLANG3"
+	case KHIDUsage_KeyboardLANG4:
+		return "KHIDUsage_KeyboardLANG4"
+	case KHIDUsage_KeyboardLANG5:
+		return "KHIDUsage_KeyboardLANG5"
+	case KHIDUsage_KeyboardLANG6:
+		return "KHIDUsage_KeyboardLANG6"
+	case KHIDUsage_KeyboardLANG7:
+		return "KHIDUsage_KeyboardLANG7"
+	case KHIDUsage_KeyboardLANG8:
+		return "KHIDUsage_KeyboardLANG8"
+	case KHIDUsage_KeyboardLANG9:
+		return "KHIDUsage_KeyboardLANG9"
+	case KHIDUsage_KeyboardLeftAlt:
+		return "KHIDUsage_KeyboardLeftAlt"
+	case KHIDUsage_KeyboardLeftArrow:
+		return "KHIDUsage_KeyboardLeftArrow"
+	case KHIDUsage_KeyboardLeftControl:
+		return "KHIDUsage_KeyboardLeftControl"
+	case KHIDUsage_KeyboardLeftGUI:
+		return "KHIDUsage_KeyboardLeftGUI"
+	case KHIDUsage_KeyboardLeftShift:
+		return "KHIDUsage_KeyboardLeftShift"
+	case KHIDUsage_KeyboardLockingCapsLock:
+		return "KHIDUsage_KeyboardLockingCapsLock"
+	case KHIDUsage_KeyboardLockingNumLock:
+		return "KHIDUsage_KeyboardLockingNumLock"
+	case KHIDUsage_KeyboardLockingScrollLock:
+		return "KHIDUsage_KeyboardLockingScrollLock"
+	case KHIDUsage_KeyboardM:
+		return "KHIDUsage_KeyboardM"
+	case KHIDUsage_KeyboardMenu:
+		return "KHIDUsage_KeyboardMenu"
+	case KHIDUsage_KeyboardMute:
+		return "KHIDUsage_KeyboardMute"
+	case KHIDUsage_KeyboardN:
+		return "KHIDUsage_KeyboardN"
+	case KHIDUsage_KeyboardNonUSBackslash:
+		return "KHIDUsage_KeyboardNonUSBackslash"
+	case KHIDUsage_KeyboardNonUSPound:
+		return "KHIDUsage_KeyboardNonUSPound"
+	case KHIDUsage_KeyboardO:
+		return "KHIDUsage_KeyboardO"
+	case KHIDUsage_KeyboardOpenBracket:
+		return "KHIDUsage_KeyboardOpenBracket"
+	case KHIDUsage_KeyboardOper:
+		return "KHIDUsage_KeyboardOper"
+	case KHIDUsage_KeyboardOut:
+		return "KHIDUsage_KeyboardOut"
+	case KHIDUsage_KeyboardP:
+		return "KHIDUsage_KeyboardP"
+	case KHIDUsage_KeyboardPOSTFail:
+		return "KHIDUsage_KeyboardPOSTFail"
+	case KHIDUsage_KeyboardPageDown:
+		return "KHIDUsage_KeyboardPageDown"
+	case KHIDUsage_KeyboardPageUp:
+		return "KHIDUsage_KeyboardPageUp"
+	case KHIDUsage_KeyboardPaste:
+		return "KHIDUsage_KeyboardPaste"
+	case KHIDUsage_KeyboardPause:
+		return "KHIDUsage_KeyboardPause"
+	case KHIDUsage_KeyboardPeriod:
+		return "KHIDUsage_KeyboardPeriod"
+	case KHIDUsage_KeyboardPower:
+		return "KHIDUsage_KeyboardPower"
+	case KHIDUsage_KeyboardPrintScreen:
+		return "KHIDUsage_KeyboardPrintScreen"
+	case KHIDUsage_KeyboardPrior:
+		return "KHIDUsage_KeyboardPrior"
+	case KHIDUsage_KeyboardQ:
+		return "KHIDUsage_KeyboardQ"
+	case KHIDUsage_KeyboardQuote:
+		return "KHIDUsage_KeyboardQuote"
+	case KHIDUsage_KeyboardR:
+		return "KHIDUsage_KeyboardR"
+	case KHIDUsage_KeyboardReturn:
+		return "KHIDUsage_KeyboardReturn"
+	case KHIDUsage_KeyboardReturnOrEnter:
+		return "KHIDUsage_KeyboardReturnOrEnter"
+	case KHIDUsage_KeyboardRightAlt:
+		return "KHIDUsage_KeyboardRightAlt"
+	case KHIDUsage_KeyboardRightArrow:
+		return "KHIDUsage_KeyboardRightArrow"
+	case KHIDUsage_KeyboardRightControl:
+		return "KHIDUsage_KeyboardRightControl"
+	case KHIDUsage_KeyboardRightGUI:
+		return "KHIDUsage_KeyboardRightGUI"
+	case KHIDUsage_KeyboardRightShift:
+		return "KHIDUsage_KeyboardRightShift"
+	case KHIDUsage_KeyboardS:
+		return "KHIDUsage_KeyboardS"
+	case KHIDUsage_KeyboardScrollLock:
+		return "KHIDUsage_KeyboardScrollLock"
+	case KHIDUsage_KeyboardSelect:
+		return "KHIDUsage_KeyboardSelect"
+	case KHIDUsage_KeyboardSemicolon:
+		return "KHIDUsage_KeyboardSemicolon"
+	case KHIDUsage_KeyboardSeparator:
+		return "KHIDUsage_KeyboardSeparator"
+	case KHIDUsage_KeyboardSlash:
+		return "KHIDUsage_KeyboardSlash"
+	case KHIDUsage_KeyboardSpacebar:
+		return "KHIDUsage_KeyboardSpacebar"
+	case KHIDUsage_KeyboardStop:
+		return "KHIDUsage_KeyboardStop"
+	case KHIDUsage_KeyboardSysReqOrAttention:
+		return "KHIDUsage_KeyboardSysReqOrAttention"
+	case KHIDUsage_KeyboardT:
+		return "KHIDUsage_KeyboardT"
+	case KHIDUsage_KeyboardTab:
+		return "KHIDUsage_KeyboardTab"
+	case KHIDUsage_KeyboardU:
+		return "KHIDUsage_KeyboardU"
+	case KHIDUsage_KeyboardUndo:
+		return "KHIDUsage_KeyboardUndo"
+	case KHIDUsage_KeyboardUpArrow:
+		return "KHIDUsage_KeyboardUpArrow"
+	case KHIDUsage_KeyboardV:
+		return "KHIDUsage_KeyboardV"
+	case KHIDUsage_KeyboardVolumeDown:
+		return "KHIDUsage_KeyboardVolumeDown"
+	case KHIDUsage_KeyboardVolumeUp:
+		return "KHIDUsage_KeyboardVolumeUp"
+	case KHIDUsage_KeyboardW:
+		return "KHIDUsage_KeyboardW"
+	case KHIDUsage_KeyboardX:
+		return "KHIDUsage_KeyboardX"
+	case KHIDUsage_KeyboardY:
+		return "KHIDUsage_KeyboardY"
+	case KHIDUsage_KeyboardZ:
+		return "KHIDUsage_KeyboardZ"
+	case KHIDUsage_Keyboard_Reserved:
+		return "KHIDUsage_Keyboard_Reserved"
+	case KHIDUsage_Keypad0:
+		return "KHIDUsage_Keypad0"
+	case KHIDUsage_Keypad1:
+		return "KHIDUsage_Keypad1"
+	case KHIDUsage_Keypad2:
+		return "KHIDUsage_Keypad2"
+	case KHIDUsage_Keypad3:
+		return "KHIDUsage_Keypad3"
+	case KHIDUsage_Keypad4:
+		return "KHIDUsage_Keypad4"
+	case KHIDUsage_Keypad5:
+		return "KHIDUsage_Keypad5"
+	case KHIDUsage_Keypad6:
+		return "KHIDUsage_Keypad6"
+	case KHIDUsage_Keypad7:
+		return "KHIDUsage_Keypad7"
+	case KHIDUsage_Keypad8:
+		return "KHIDUsage_Keypad8"
+	case KHIDUsage_Keypad9:
+		return "KHIDUsage_Keypad9"
+	case KHIDUsage_KeypadAsterisk:
+		return "KHIDUsage_KeypadAsterisk"
+	case KHIDUsage_KeypadComma:
+		return "KHIDUsage_KeypadComma"
+	case KHIDUsage_KeypadEnter:
+		return "KHIDUsage_KeypadEnter"
+	case KHIDUsage_KeypadEqualSign:
+		return "KHIDUsage_KeypadEqualSign"
+	case KHIDUsage_KeypadEqualSignAS400:
+		return "KHIDUsage_KeypadEqualSignAS400"
+	case KHIDUsage_KeypadHyphen:
+		return "KHIDUsage_KeypadHyphen"
+	case KHIDUsage_KeypadNumLock:
+		return "KHIDUsage_KeypadNumLock"
+	case KHIDUsage_KeypadPeriod:
+		return "KHIDUsage_KeypadPeriod"
+	case KHIDUsage_KeypadPlus:
+		return "KHIDUsage_KeypadPlus"
+	case KHIDUsage_KeypadSlash:
+		return "KHIDUsage_KeypadSlash"
+	default:
+		return fmt.Sprintf("KhidusageKeyboarderrorrollover(%d)", e)
+	}
+}
+
 type KhidusageLed uint
 
 const (
@@ -35236,6 +37316,225 @@ func (e KhidusageSprt) String() string {
 	}
 }
 
+type KhidusageTfonPhone uint
+
+const (
+	KHIDUsage_TFon_Reserved           KhidusageTfonPhone = 0xffff
+	KHIDUsage_Tfon_AlternateFunction  KhidusageTfonPhone = 0x29
+	KHIDUsage_Tfon_AnswerOnOrOff      KhidusageTfonPhone = 0x74
+	KHIDUsage_Tfon_AnsweringMachine   KhidusageTfonPhone = 0x2
+	KHIDUsage_Tfon_CallWaitingTone    KhidusageTfonPhone = 0x99
+	KHIDUsage_Tfon_CallerID           KhidusageTfonPhone = 0x30
+	KHIDUsage_Tfon_Conference         KhidusageTfonPhone = 0x2c
+	KHIDUsage_Tfon_ConfirmationTone1  KhidusageTfonPhone = 0x9a
+	KHIDUsage_Tfon_ConfirmationTone2  KhidusageTfonPhone = 0x9b
+	KHIDUsage_Tfon_DoNotDisturb       KhidusageTfonPhone = 0x72
+	KHIDUsage_Tfon_Drop               KhidusageTfonPhone = 0x26
+	KHIDUsage_Tfon_Feature            KhidusageTfonPhone = 0x22
+	KHIDUsage_Tfon_Flash              KhidusageTfonPhone = 0x21
+	KHIDUsage_Tfon_ForwardCalls       KhidusageTfonPhone = 0x28
+	KHIDUsage_Tfon_Handset            KhidusageTfonPhone = 0x4
+	KHIDUsage_Tfon_Headset            KhidusageTfonPhone = 0x5
+	KHIDUsage_Tfon_Hold               KhidusageTfonPhone = 0x23
+	KHIDUsage_Tfon_HookSwitch         KhidusageTfonPhone = 0x20
+	KHIDUsage_Tfon_InsideDialTone     KhidusageTfonPhone = 0x90
+	KHIDUsage_Tfon_InsideRingTone     KhidusageTfonPhone = 0x92
+	KHIDUsage_Tfon_InsideRingback     KhidusageTfonPhone = 0x95
+	KHIDUsage_Tfon_Line               KhidusageTfonPhone = 0x2a
+	KHIDUsage_Tfon_LineBusyTone       KhidusageTfonPhone = 0x97
+	KHIDUsage_Tfon_Message            KhidusageTfonPhone = 0x73
+	KHIDUsage_Tfon_MessageControls    KhidusageTfonPhone = 0x3
+	KHIDUsage_Tfon_OutsideDialTone    KhidusageTfonPhone = 0x91
+	KHIDUsage_Tfon_OutsideRingTone    KhidusageTfonPhone = 0x93
+	KHIDUsage_Tfon_OutsideRingback    KhidusageTfonPhone = 0x9d
+	KHIDUsage_Tfon_Park               KhidusageTfonPhone = 0x27
+	KHIDUsage_Tfon_Phone              KhidusageTfonPhone = 0x1
+	KHIDUsage_Tfon_PhoneDirectory     KhidusageTfonPhone = 0x53
+	KHIDUsage_Tfon_PhoneKey0          KhidusageTfonPhone = 0xb0
+	KHIDUsage_Tfon_PhoneKey1          KhidusageTfonPhone = 0xb1
+	KHIDUsage_Tfon_PhoneKey2          KhidusageTfonPhone = 0xb2
+	KHIDUsage_Tfon_PhoneKey3          KhidusageTfonPhone = 0xb3
+	KHIDUsage_Tfon_PhoneKey4          KhidusageTfonPhone = 0xb4
+	KHIDUsage_Tfon_PhoneKey5          KhidusageTfonPhone = 0xb5
+	KHIDUsage_Tfon_PhoneKey6          KhidusageTfonPhone = 0xb6
+	KHIDUsage_Tfon_PhoneKey7          KhidusageTfonPhone = 0xb7
+	KHIDUsage_Tfon_PhoneKey8          KhidusageTfonPhone = 0xb8
+	KHIDUsage_Tfon_PhoneKey9          KhidusageTfonPhone = 0xb9
+	KHIDUsage_Tfon_PhoneKeyA          KhidusageTfonPhone = 0xbc
+	KHIDUsage_Tfon_PhoneKeyB          KhidusageTfonPhone = 0xbd
+	KHIDUsage_Tfon_PhoneKeyC          KhidusageTfonPhone = 0xbe
+	KHIDUsage_Tfon_PhoneKeyD          KhidusageTfonPhone = 0xbf
+	KHIDUsage_Tfon_PhoneKeyPound      KhidusageTfonPhone = 0xbb
+	KHIDUsage_Tfon_PhoneKeyStar       KhidusageTfonPhone = 0xba
+	KHIDUsage_Tfon_PhoneMute          KhidusageTfonPhone = 0x2f
+	KHIDUsage_Tfon_PriorityRingTone   KhidusageTfonPhone = 0x94
+	KHIDUsage_Tfon_PriorityRingback   KhidusageTfonPhone = 0x96
+	KHIDUsage_Tfon_ProgrammableButton KhidusageTfonPhone = 0x7
+	KHIDUsage_Tfon_RecallNumber       KhidusageTfonPhone = 0x52
+	KHIDUsage_Tfon_Redial             KhidusageTfonPhone = 0x24
+	KHIDUsage_Tfon_ReorderTone        KhidusageTfonPhone = 0x98
+	KHIDUsage_Tfon_Ring               KhidusageTfonPhone = 0x2e
+	KHIDUsage_Tfon_RingEnable         KhidusageTfonPhone = 0x2d
+	KHIDUsage_Tfon_ScreenCalls        KhidusageTfonPhone = 0x71
+	KHIDUsage_Tfon_SpeakerPhone       KhidusageTfonPhone = 0x2b
+	KHIDUsage_Tfon_SpeedDial          KhidusageTfonPhone = 0x50
+	KHIDUsage_Tfon_StoreNumber        KhidusageTfonPhone = 0x51
+	KHIDUsage_Tfon_TelephonyKeyPad    KhidusageTfonPhone = 0x6
+	KHIDUsage_Tfon_TonesOff           KhidusageTfonPhone = 0x9c
+	KHIDUsage_Tfon_Transfer           KhidusageTfonPhone = 0x25
+	KHIDUsage_Tfon_VoiceMail          KhidusageTfonPhone = 0x70
+)
+
+func (e KhidusageTfonPhone) String() string {
+	switch e {
+	case KHIDUsage_TFon_Reserved:
+		return "KHIDUsage_TFon_Reserved"
+	case KHIDUsage_Tfon_AlternateFunction:
+		return "KHIDUsage_Tfon_AlternateFunction"
+	case KHIDUsage_Tfon_AnswerOnOrOff:
+		return "KHIDUsage_Tfon_AnswerOnOrOff"
+	case KHIDUsage_Tfon_AnsweringMachine:
+		return "KHIDUsage_Tfon_AnsweringMachine"
+	case KHIDUsage_Tfon_CallWaitingTone:
+		return "KHIDUsage_Tfon_CallWaitingTone"
+	case KHIDUsage_Tfon_CallerID:
+		return "KHIDUsage_Tfon_CallerID"
+	case KHIDUsage_Tfon_Conference:
+		return "KHIDUsage_Tfon_Conference"
+	case KHIDUsage_Tfon_ConfirmationTone1:
+		return "KHIDUsage_Tfon_ConfirmationTone1"
+	case KHIDUsage_Tfon_ConfirmationTone2:
+		return "KHIDUsage_Tfon_ConfirmationTone2"
+	case KHIDUsage_Tfon_DoNotDisturb:
+		return "KHIDUsage_Tfon_DoNotDisturb"
+	case KHIDUsage_Tfon_Drop:
+		return "KHIDUsage_Tfon_Drop"
+	case KHIDUsage_Tfon_Feature:
+		return "KHIDUsage_Tfon_Feature"
+	case KHIDUsage_Tfon_Flash:
+		return "KHIDUsage_Tfon_Flash"
+	case KHIDUsage_Tfon_ForwardCalls:
+		return "KHIDUsage_Tfon_ForwardCalls"
+	case KHIDUsage_Tfon_Handset:
+		return "KHIDUsage_Tfon_Handset"
+	case KHIDUsage_Tfon_Headset:
+		return "KHIDUsage_Tfon_Headset"
+	case KHIDUsage_Tfon_Hold:
+		return "KHIDUsage_Tfon_Hold"
+	case KHIDUsage_Tfon_HookSwitch:
+		return "KHIDUsage_Tfon_HookSwitch"
+	case KHIDUsage_Tfon_InsideDialTone:
+		return "KHIDUsage_Tfon_InsideDialTone"
+	case KHIDUsage_Tfon_InsideRingTone:
+		return "KHIDUsage_Tfon_InsideRingTone"
+	case KHIDUsage_Tfon_InsideRingback:
+		return "KHIDUsage_Tfon_InsideRingback"
+	case KHIDUsage_Tfon_Line:
+		return "KHIDUsage_Tfon_Line"
+	case KHIDUsage_Tfon_LineBusyTone:
+		return "KHIDUsage_Tfon_LineBusyTone"
+	case KHIDUsage_Tfon_Message:
+		return "KHIDUsage_Tfon_Message"
+	case KHIDUsage_Tfon_MessageControls:
+		return "KHIDUsage_Tfon_MessageControls"
+	case KHIDUsage_Tfon_OutsideDialTone:
+		return "KHIDUsage_Tfon_OutsideDialTone"
+	case KHIDUsage_Tfon_OutsideRingTone:
+		return "KHIDUsage_Tfon_OutsideRingTone"
+	case KHIDUsage_Tfon_OutsideRingback:
+		return "KHIDUsage_Tfon_OutsideRingback"
+	case KHIDUsage_Tfon_Park:
+		return "KHIDUsage_Tfon_Park"
+	case KHIDUsage_Tfon_Phone:
+		return "KHIDUsage_Tfon_Phone"
+	case KHIDUsage_Tfon_PhoneDirectory:
+		return "KHIDUsage_Tfon_PhoneDirectory"
+	case KHIDUsage_Tfon_PhoneKey0:
+		return "KHIDUsage_Tfon_PhoneKey0"
+	case KHIDUsage_Tfon_PhoneKey1:
+		return "KHIDUsage_Tfon_PhoneKey1"
+	case KHIDUsage_Tfon_PhoneKey2:
+		return "KHIDUsage_Tfon_PhoneKey2"
+	case KHIDUsage_Tfon_PhoneKey3:
+		return "KHIDUsage_Tfon_PhoneKey3"
+	case KHIDUsage_Tfon_PhoneKey4:
+		return "KHIDUsage_Tfon_PhoneKey4"
+	case KHIDUsage_Tfon_PhoneKey5:
+		return "KHIDUsage_Tfon_PhoneKey5"
+	case KHIDUsage_Tfon_PhoneKey6:
+		return "KHIDUsage_Tfon_PhoneKey6"
+	case KHIDUsage_Tfon_PhoneKey7:
+		return "KHIDUsage_Tfon_PhoneKey7"
+	case KHIDUsage_Tfon_PhoneKey8:
+		return "KHIDUsage_Tfon_PhoneKey8"
+	case KHIDUsage_Tfon_PhoneKey9:
+		return "KHIDUsage_Tfon_PhoneKey9"
+	case KHIDUsage_Tfon_PhoneKeyA:
+		return "KHIDUsage_Tfon_PhoneKeyA"
+	case KHIDUsage_Tfon_PhoneKeyB:
+		return "KHIDUsage_Tfon_PhoneKeyB"
+	case KHIDUsage_Tfon_PhoneKeyC:
+		return "KHIDUsage_Tfon_PhoneKeyC"
+	case KHIDUsage_Tfon_PhoneKeyD:
+		return "KHIDUsage_Tfon_PhoneKeyD"
+	case KHIDUsage_Tfon_PhoneKeyPound:
+		return "KHIDUsage_Tfon_PhoneKeyPound"
+	case KHIDUsage_Tfon_PhoneKeyStar:
+		return "KHIDUsage_Tfon_PhoneKeyStar"
+	case KHIDUsage_Tfon_PhoneMute:
+		return "KHIDUsage_Tfon_PhoneMute"
+	case KHIDUsage_Tfon_PriorityRingTone:
+		return "KHIDUsage_Tfon_PriorityRingTone"
+	case KHIDUsage_Tfon_PriorityRingback:
+		return "KHIDUsage_Tfon_PriorityRingback"
+	case KHIDUsage_Tfon_ProgrammableButton:
+		return "KHIDUsage_Tfon_ProgrammableButton"
+	case KHIDUsage_Tfon_RecallNumber:
+		return "KHIDUsage_Tfon_RecallNumber"
+	case KHIDUsage_Tfon_Redial:
+		return "KHIDUsage_Tfon_Redial"
+	case KHIDUsage_Tfon_ReorderTone:
+		return "KHIDUsage_Tfon_ReorderTone"
+	case KHIDUsage_Tfon_Ring:
+		return "KHIDUsage_Tfon_Ring"
+	case KHIDUsage_Tfon_RingEnable:
+		return "KHIDUsage_Tfon_RingEnable"
+	case KHIDUsage_Tfon_ScreenCalls:
+		return "KHIDUsage_Tfon_ScreenCalls"
+	case KHIDUsage_Tfon_SpeakerPhone:
+		return "KHIDUsage_Tfon_SpeakerPhone"
+	case KHIDUsage_Tfon_SpeedDial:
+		return "KHIDUsage_Tfon_SpeedDial"
+	case KHIDUsage_Tfon_StoreNumber:
+		return "KHIDUsage_Tfon_StoreNumber"
+	case KHIDUsage_Tfon_TelephonyKeyPad:
+		return "KHIDUsage_Tfon_TelephonyKeyPad"
+	case KHIDUsage_Tfon_TonesOff:
+		return "KHIDUsage_Tfon_TonesOff"
+	case KHIDUsage_Tfon_Transfer:
+		return "KHIDUsage_Tfon_Transfer"
+	case KHIDUsage_Tfon_VoiceMail:
+		return "KHIDUsage_Tfon_VoiceMail"
+	default:
+		return fmt.Sprintf("KhidusageTfonPhone(%d)", e)
+	}
+}
+
+type KhidusageUndefined uint
+
+const (
+	KHIDUsage_Undefined KhidusageUndefined = 0
+)
+
+func (e KhidusageUndefined) String() string {
+	switch e {
+	case KHIDUsage_Undefined:
+		return "KHIDUsage_Undefined"
+	default:
+		return fmt.Sprintf("KhidusageUndefined(%d)", e)
+	}
+}
+
 type KhidusageVr uint
 
 const (
@@ -35464,6 +37763,46 @@ func (e KhvIon) String() string {
 	}
 }
 
+type KinquiryByte3HisupBit uint
+
+const (
+	// KINQUIRY_Byte3_AERC_Bit: # Discussion
+	KINQUIRY_Byte3_AERC_Bit KinquiryByte3HisupBit = 7
+	// KINQUIRY_Byte3_AERC_Mask: # Discussion
+	KINQUIRY_Byte3_AERC_Mask KinquiryByte3HisupBit = 128
+	// KINQUIRY_Byte3_HISUP_Bit: # Discussion
+	KINQUIRY_Byte3_HISUP_Bit KinquiryByte3HisupBit = 4
+	// KINQUIRY_Byte3_HISUP_Mask: # Discussion
+	KINQUIRY_Byte3_HISUP_Mask KinquiryByte3HisupBit = 16
+	// KINQUIRY_Byte3_NORMACA_Bit: # Discussion
+	KINQUIRY_Byte3_NORMACA_Bit KinquiryByte3HisupBit = 5
+	// KINQUIRY_Byte3_NORMACA_Mask: # Discussion
+	KINQUIRY_Byte3_NORMACA_Mask KinquiryByte3HisupBit = 32
+	// KINQUIRY_RESPONSE_DATA_FORMAT_Mask: # Discussion
+	KINQUIRY_RESPONSE_DATA_FORMAT_Mask KinquiryByte3HisupBit = 0xf
+)
+
+func (e KinquiryByte3HisupBit) String() string {
+	switch e {
+	case KINQUIRY_Byte3_AERC_Bit:
+		return "KINQUIRY_Byte3_AERC_Bit"
+	case KINQUIRY_Byte3_AERC_Mask:
+		return "KINQUIRY_Byte3_AERC_Mask"
+	case KINQUIRY_Byte3_HISUP_Bit:
+		return "KINQUIRY_Byte3_HISUP_Bit"
+	case KINQUIRY_Byte3_HISUP_Mask:
+		return "KINQUIRY_Byte3_HISUP_Mask"
+	case KINQUIRY_Byte3_NORMACA_Bit:
+		return "KINQUIRY_Byte3_NORMACA_Bit"
+	case KINQUIRY_Byte3_NORMACA_Mask:
+		return "KINQUIRY_Byte3_NORMACA_Mask"
+	case KINQUIRY_RESPONSE_DATA_FORMAT_Mask:
+		return "KINQUIRY_RESPONSE_DATA_FORMAT_Mask"
+	default:
+		return fmt.Sprintf("KinquiryByte3HisupBit(%d)", e)
+	}
+}
+
 type KinquiryByte5 uint
 
 const (
@@ -35686,6 +38025,49 @@ func (e KinquiryByte7) String() string {
 		return "KINQUIRY_Byte7_WBUS16_Mask"
 	default:
 		return fmt.Sprintf("KinquiryByte7(%d)", e)
+	}
+}
+
+type KinquiryPage00Pagecode uint
+
+const (
+	// KINQUIRY_Page00_PageCode: # Discussion
+	KINQUIRY_Page00_PageCode KinquiryPage00Pagecode = 0
+	// KINQUIRY_Page80_PageCode: # Discussion
+	KINQUIRY_Page80_PageCode KinquiryPage00Pagecode = 0x80
+	// KINQUIRY_Page83_PageCode: # Discussion
+	KINQUIRY_Page83_PageCode KinquiryPage00Pagecode = 0x83
+	// KINQUIRY_Page89_PageCode: # Discussion
+	KINQUIRY_Page89_PageCode KinquiryPage00Pagecode = 0x89
+	KINQUIRY_PageB0_PageCode KinquiryPage00Pagecode = 0xb0
+	KINQUIRY_PageB1_PageCode KinquiryPage00Pagecode = 0xb1
+	KINQUIRY_PageB2_PageCode KinquiryPage00Pagecode = 0xb2
+	KINQUIRY_PageC0_PageCode KinquiryPage00Pagecode = 0xc0
+	KINQUIRY_PageC1_PageCode KinquiryPage00Pagecode = 0xc1
+)
+
+func (e KinquiryPage00Pagecode) String() string {
+	switch e {
+	case KINQUIRY_Page00_PageCode:
+		return "KINQUIRY_Page00_PageCode"
+	case KINQUIRY_Page80_PageCode:
+		return "KINQUIRY_Page80_PageCode"
+	case KINQUIRY_Page83_PageCode:
+		return "KINQUIRY_Page83_PageCode"
+	case KINQUIRY_Page89_PageCode:
+		return "KINQUIRY_Page89_PageCode"
+	case KINQUIRY_PageB0_PageCode:
+		return "KINQUIRY_PageB0_PageCode"
+	case KINQUIRY_PageB1_PageCode:
+		return "KINQUIRY_PageB1_PageCode"
+	case KINQUIRY_PageB2_PageCode:
+		return "KINQUIRY_PageB2_PageCode"
+	case KINQUIRY_PageC0_PageCode:
+		return "KINQUIRY_PageC0_PageCode"
+	case KINQUIRY_PageC1_PageCode:
+		return "KINQUIRY_PageC1_PageCode"
+	default:
+		return fmt.Sprintf("KinquiryPage00Pagecode(%d)", e)
 	}
 }
 
@@ -35976,6 +38358,68 @@ func (e KinquiryPeripheralType) String() string {
 	}
 }
 
+type KinquiryStandarddataheadersize uint
+
+const (
+	// KINQUIRY_MaximumDataSize: # Discussion
+	KINQUIRY_MaximumDataSize KinquiryStandarddataheadersize = 255
+	// KINQUIRY_StandardDataHeaderSize: # Discussion
+	KINQUIRY_StandardDataHeaderSize KinquiryStandarddataheadersize = 5
+)
+
+func (e KinquiryStandarddataheadersize) String() string {
+	switch e {
+	case KINQUIRY_MaximumDataSize:
+		return "KINQUIRY_MaximumDataSize"
+	case KINQUIRY_StandardDataHeaderSize:
+		return "KINQUIRY_StandardDataHeaderSize"
+	default:
+		return fmt.Sprintf("KinquiryStandarddataheadersize(%d)", e)
+	}
+}
+
+type KinquiryVendorIdentificationLength uint
+
+const (
+	// KINQUIRY_PRODUCT_IDENTIFICATION_Length: # Discussion
+	KINQUIRY_PRODUCT_IDENTIFICATION_Length KinquiryVendorIdentificationLength = 16
+	// KINQUIRY_PRODUCT_REVISION_LEVEL_Length: # Discussion
+	KINQUIRY_PRODUCT_REVISION_LEVEL_Length KinquiryVendorIdentificationLength = 4
+	// KINQUIRY_VENDOR_IDENTIFICATION_Length: # Discussion
+	KINQUIRY_VENDOR_IDENTIFICATION_Length KinquiryVendorIdentificationLength = 8
+)
+
+func (e KinquiryVendorIdentificationLength) String() string {
+	switch e {
+	case KINQUIRY_PRODUCT_IDENTIFICATION_Length:
+		return "KINQUIRY_PRODUCT_IDENTIFICATION_Length"
+	case KINQUIRY_PRODUCT_REVISION_LEVEL_Length:
+		return "KINQUIRY_PRODUCT_REVISION_LEVEL_Length"
+	case KINQUIRY_VENDOR_IDENTIFICATION_Length:
+		return "KINQUIRY_VENDOR_IDENTIFICATION_Length"
+	default:
+		return fmt.Sprintf("KinquiryVendorIdentificationLength(%d)", e)
+	}
+}
+
+type KiofwspecidAapl uint32
+
+const (
+	KIOFWSWVers_KPF  KiofwspecidAapl = 0x40
+	KIOFWSpecID_AAPL KiofwspecidAapl = 0xa27
+)
+
+func (e KiofwspecidAapl) String() string {
+	switch e {
+	case KIOFWSWVers_KPF:
+		return "KIOFWSWVers_KPF"
+	case KIOFWSpecID_AAPL:
+		return "KIOFWSpecID_AAPL"
+	default:
+		return fmt.Sprintf("KiofwspecidAapl(%d)", e)
+	}
+}
+
 type KiovideodevicenotificationidControl uint
 
 const (
@@ -36171,27 +38615,165 @@ func (e KsbcmodepagecachingDemand) String() string {
 	}
 }
 
-type KsbcmodepageflexiblediskPin uint
+type KsbcmodepagecachingRcdBit uint
+
+const (
+	// KSBCModePageCaching_ABPF_Bit: # Discussion
+	KSBCModePageCaching_ABPF_Bit KsbcmodepagecachingRcdBit = 6
+	// KSBCModePageCaching_ABPF_Mask: # Discussion
+	KSBCModePageCaching_ABPF_Mask KsbcmodepagecachingRcdBit = 64
+	// KSBCModePageCaching_CAP_Bit: # Discussion
+	KSBCModePageCaching_CAP_Bit KsbcmodepagecachingRcdBit = 5
+	// KSBCModePageCaching_CAP_Mask: # Discussion
+	KSBCModePageCaching_CAP_Mask KsbcmodepagecachingRcdBit = 32
+	// KSBCModePageCaching_DISC_Bit: # Discussion
+	KSBCModePageCaching_DISC_Bit KsbcmodepagecachingRcdBit = 4
+	// KSBCModePageCaching_DISC_Mask: # Discussion
+	KSBCModePageCaching_DISC_Mask KsbcmodepagecachingRcdBit = 16
+	// KSBCModePageCaching_IC_Bit: # Discussion
+	KSBCModePageCaching_IC_Bit KsbcmodepagecachingRcdBit = 7
+	// KSBCModePageCaching_IC_Mask: # Discussion
+	KSBCModePageCaching_IC_Mask KsbcmodepagecachingRcdBit = 128
+	// KSBCModePageCaching_MF_Bit: # Discussion
+	KSBCModePageCaching_MF_Bit KsbcmodepagecachingRcdBit = 1
+	// KSBCModePageCaching_MF_Mask: # Discussion
+	KSBCModePageCaching_MF_Mask KsbcmodepagecachingRcdBit = 2
+	// KSBCModePageCaching_RCD_Bit: # Discussion
+	KSBCModePageCaching_RCD_Bit KsbcmodepagecachingRcdBit = 0
+	// KSBCModePageCaching_RCD_Mask: # Discussion
+	KSBCModePageCaching_RCD_Mask KsbcmodepagecachingRcdBit = 1
+	// KSBCModePageCaching_SIZE_Bit: # Discussion
+	KSBCModePageCaching_SIZE_Bit KsbcmodepagecachingRcdBit = 3
+	// KSBCModePageCaching_SIZE_Mask: # Discussion
+	KSBCModePageCaching_SIZE_Mask KsbcmodepagecachingRcdBit = 8
+	// KSBCModePageCaching_WCE_Bit: # Discussion
+	KSBCModePageCaching_WCE_Bit KsbcmodepagecachingRcdBit = 2
+	// KSBCModePageCaching_WCE_Mask: # Discussion
+	KSBCModePageCaching_WCE_Mask KsbcmodepagecachingRcdBit = 4
+)
+
+func (e KsbcmodepagecachingRcdBit) String() string {
+	switch e {
+	case KSBCModePageCaching_ABPF_Bit:
+		return "KSBCModePageCaching_ABPF_Bit"
+	case KSBCModePageCaching_ABPF_Mask:
+		return "KSBCModePageCaching_ABPF_Mask"
+	case KSBCModePageCaching_CAP_Bit:
+		return "KSBCModePageCaching_CAP_Bit"
+	case KSBCModePageCaching_CAP_Mask:
+		return "KSBCModePageCaching_CAP_Mask"
+	case KSBCModePageCaching_DISC_Bit:
+		return "KSBCModePageCaching_DISC_Bit"
+	case KSBCModePageCaching_DISC_Mask:
+		return "KSBCModePageCaching_DISC_Mask"
+	case KSBCModePageCaching_IC_Bit:
+		return "KSBCModePageCaching_IC_Bit"
+	case KSBCModePageCaching_IC_Mask:
+		return "KSBCModePageCaching_IC_Mask"
+	case KSBCModePageCaching_MF_Bit:
+		return "KSBCModePageCaching_MF_Bit"
+	case KSBCModePageCaching_MF_Mask:
+		return "KSBCModePageCaching_MF_Mask"
+	case KSBCModePageCaching_RCD_Bit:
+		return "KSBCModePageCaching_RCD_Bit"
+	case KSBCModePageCaching_SIZE_Bit:
+		return "KSBCModePageCaching_SIZE_Bit"
+	case KSBCModePageCaching_SIZE_Mask:
+		return "KSBCModePageCaching_SIZE_Mask"
+	default:
+		return fmt.Sprintf("KsbcmodepagecachingRcdBit(%d)", e)
+	}
+}
+
+type KsbcmodepagecachingVs1Bit uint
+
+const (
+	// KSBCModePageCaching_DRA_Bit: # Discussion
+	KSBCModePageCaching_DRA_Bit KsbcmodepagecachingVs1Bit = 5
+	// KSBCModePageCaching_DRA_Mask: # Discussion
+	KSBCModePageCaching_DRA_Mask KsbcmodepagecachingVs1Bit = 32
+	// KSBCModePageCaching_FSW_Bit: # Discussion
+	KSBCModePageCaching_FSW_Bit KsbcmodepagecachingVs1Bit = 7
+	// KSBCModePageCaching_FSW_Mask: # Discussion
+	KSBCModePageCaching_FSW_Mask KsbcmodepagecachingVs1Bit = 128
+	// KSBCModePageCaching_LBCSS_Bit: # Discussion
+	KSBCModePageCaching_LBCSS_Bit KsbcmodepagecachingVs1Bit = 6
+	// KSBCModePageCaching_LBCSS_Mask: # Discussion
+	KSBCModePageCaching_LBCSS_Mask KsbcmodepagecachingVs1Bit = 64
+	// KSBCModePageCaching_VS1_Bit: # Discussion
+	KSBCModePageCaching_VS1_Bit KsbcmodepagecachingVs1Bit = 3
+	// KSBCModePageCaching_VS1_Mask: # Discussion
+	KSBCModePageCaching_VS1_Mask KsbcmodepagecachingVs1Bit = 8
+	// KSBCModePageCaching_VS2_Bit: # Discussion
+	KSBCModePageCaching_VS2_Bit KsbcmodepagecachingVs1Bit = 4
+	// KSBCModePageCaching_VS2_Mask: # Discussion
+	KSBCModePageCaching_VS2_Mask KsbcmodepagecachingVs1Bit = 16
+)
+
+func (e KsbcmodepagecachingVs1Bit) String() string {
+	switch e {
+	case KSBCModePageCaching_DRA_Bit:
+		return "KSBCModePageCaching_DRA_Bit"
+	case KSBCModePageCaching_DRA_Mask:
+		return "KSBCModePageCaching_DRA_Mask"
+	case KSBCModePageCaching_FSW_Bit:
+		return "KSBCModePageCaching_FSW_Bit"
+	case KSBCModePageCaching_FSW_Mask:
+		return "KSBCModePageCaching_FSW_Mask"
+	case KSBCModePageCaching_LBCSS_Bit:
+		return "KSBCModePageCaching_LBCSS_Bit"
+	case KSBCModePageCaching_LBCSS_Mask:
+		return "KSBCModePageCaching_LBCSS_Mask"
+	case KSBCModePageCaching_VS1_Bit:
+		return "KSBCModePageCaching_VS1_Bit"
+	case KSBCModePageCaching_VS1_Mask:
+		return "KSBCModePageCaching_VS1_Mask"
+	case KSBCModePageCaching_VS2_Bit:
+		return "KSBCModePageCaching_VS2_Bit"
+	case KSBCModePageCaching_VS2_Mask:
+		return "KSBCModePageCaching_VS2_Mask"
+	default:
+		return fmt.Sprintf("KsbcmodepagecachingVs1Bit(%d)", e)
+	}
+}
+
+type KsbcmodepageflexiblediskPin1Mask uint
 
 const (
 	// KSBCModePageFlexibleDisk_PIN_1_Mask: # Discussion
-	KSBCModePageFlexibleDisk_PIN_1_Mask KsbcmodepageflexiblediskPin = 0xf
-	// KSBCModePageFlexibleDisk_PIN_2_Mask: # Discussion
-	KSBCModePageFlexibleDisk_PIN_2_Mask KsbcmodepageflexiblediskPin = 0xf
-	// KSBCModePageFlexibleDisk_PIN_34_Mask: # Discussion
-	KSBCModePageFlexibleDisk_PIN_34_Mask KsbcmodepageflexiblediskPin = 0xf0
+	KSBCModePageFlexibleDisk_PIN_1_Mask KsbcmodepageflexiblediskPin1Mask = 0xf
 	// KSBCModePageFlexibleDisk_PIN_4_Mask: # Discussion
-	KSBCModePageFlexibleDisk_PIN_4_Mask KsbcmodepageflexiblediskPin = 0xf0
+	KSBCModePageFlexibleDisk_PIN_4_Mask KsbcmodepageflexiblediskPin1Mask = 0xf0
 )
 
-func (e KsbcmodepageflexiblediskPin) String() string {
+func (e KsbcmodepageflexiblediskPin1Mask) String() string {
 	switch e {
 	case KSBCModePageFlexibleDisk_PIN_1_Mask:
 		return "KSBCModePageFlexibleDisk_PIN_1_Mask"
+	case KSBCModePageFlexibleDisk_PIN_4_Mask:
+		return "KSBCModePageFlexibleDisk_PIN_4_Mask"
+	default:
+		return fmt.Sprintf("KsbcmodepageflexiblediskPin1Mask(%d)", e)
+	}
+}
+
+type KsbcmodepageflexiblediskPin2Mask uint
+
+const (
+	// KSBCModePageFlexibleDisk_PIN_2_Mask: # Discussion
+	KSBCModePageFlexibleDisk_PIN_2_Mask KsbcmodepageflexiblediskPin2Mask = 0xf
+	// KSBCModePageFlexibleDisk_PIN_34_Mask: # Discussion
+	KSBCModePageFlexibleDisk_PIN_34_Mask KsbcmodepageflexiblediskPin2Mask = 0xf0
+)
+
+func (e KsbcmodepageflexiblediskPin2Mask) String() string {
+	switch e {
+	case KSBCModePageFlexibleDisk_PIN_2_Mask:
+		return "KSBCModePageFlexibleDisk_PIN_2_Mask"
 	case KSBCModePageFlexibleDisk_PIN_34_Mask:
 		return "KSBCModePageFlexibleDisk_PIN_34_Mask"
 	default:
-		return fmt.Sprintf("KsbcmodepageflexiblediskPin(%d)", e)
+		return fmt.Sprintf("KsbcmodepageflexiblediskPin2Mask(%d)", e)
 	}
 }
 
@@ -36227,7 +38809,7 @@ func (e KsbcmodepagerigiddiskgeometryRpl) String() string {
 	}
 }
 
-type KscsiportStatus int
+type KscsiportStatus uint
 
 const (
 	// KSCSIPort_StatusFailure: # Discussion
@@ -36248,6 +38830,90 @@ func (e KscsiportStatus) String() string {
 		return "KSCSIPort_StatusOnline"
 	default:
 		return fmt.Sprintf("KscsiportStatus(%d)", e)
+	}
+}
+
+type KscsiserviceactionChangeAliases uint
+
+const (
+	KSCSIServiceAction_CHANGE_ALIASES         KscsiserviceactionChangeAliases = 0xb
+	KSCSIServiceAction_SET_DEVICE_IDENTIFIER  KscsiserviceactionChangeAliases = 0x6
+	KSCSIServiceAction_SET_PRIORITY           KscsiserviceactionChangeAliases = 0xe
+	KSCSIServiceAction_SET_TARGET_PORT_GROUPS KscsiserviceactionChangeAliases = 0xa
+)
+
+func (e KscsiserviceactionChangeAliases) String() string {
+	switch e {
+	case KSCSIServiceAction_CHANGE_ALIASES:
+		return "KSCSIServiceAction_CHANGE_ALIASES"
+	case KSCSIServiceAction_SET_DEVICE_IDENTIFIER:
+		return "KSCSIServiceAction_SET_DEVICE_IDENTIFIER"
+	case KSCSIServiceAction_SET_PRIORITY:
+		return "KSCSIServiceAction_SET_PRIORITY"
+	case KSCSIServiceAction_SET_TARGET_PORT_GROUPS:
+		return "KSCSIServiceAction_SET_TARGET_PORT_GROUPS"
+	default:
+		return fmt.Sprintf("KscsiserviceactionChangeAliases(%d)", e)
+	}
+}
+
+type KscsiserviceactionGetLbaStatus uint
+
+const (
+	KSCSIServiceAction_GET_LBA_STATUS   KscsiserviceactionGetLbaStatus = 0x12
+	KSCSIServiceAction_READ_CAPACITY_16 KscsiserviceactionGetLbaStatus = 0x10
+	KSCSIServiceAction_READ_LONG_16     KscsiserviceactionGetLbaStatus = 0x11
+)
+
+func (e KscsiserviceactionGetLbaStatus) String() string {
+	switch e {
+	case KSCSIServiceAction_GET_LBA_STATUS:
+		return "KSCSIServiceAction_GET_LBA_STATUS"
+	case KSCSIServiceAction_READ_CAPACITY_16:
+		return "KSCSIServiceAction_READ_CAPACITY_16"
+	case KSCSIServiceAction_READ_LONG_16:
+		return "KSCSIServiceAction_READ_LONG_16"
+	default:
+		return fmt.Sprintf("KscsiserviceactionGetLbaStatus(%d)", e)
+	}
+}
+
+type KscsiserviceactionRead32 uint
+
+const (
+	KSCSIServiceAction_READ_32             KscsiserviceactionRead32 = 0x9
+	KSCSIServiceAction_VERIFY_32           KscsiserviceactionRead32 = 0xa
+	KSCSIServiceAction_WRITE_32            KscsiserviceactionRead32 = 0xb
+	KSCSIServiceAction_WRITE_AND_VERIFY_32 KscsiserviceactionRead32 = 0xc
+	KSCSIServiceAction_WRITE_SAME_32       KscsiserviceactionRead32 = 0xd
+	KSCSIServiceAction_XDREAD_32           KscsiserviceactionRead32 = 0x3
+	KSCSIServiceAction_XDWRITEREAD_32      KscsiserviceactionRead32 = 0x7
+	KSCSIServiceAction_XDWRITE_32          KscsiserviceactionRead32 = 0x4
+	KSCSIServiceAction_XPWRITE_32          KscsiserviceactionRead32 = 0x6
+)
+
+func (e KscsiserviceactionRead32) String() string {
+	switch e {
+	case KSCSIServiceAction_READ_32:
+		return "KSCSIServiceAction_READ_32"
+	case KSCSIServiceAction_VERIFY_32:
+		return "KSCSIServiceAction_VERIFY_32"
+	case KSCSIServiceAction_WRITE_32:
+		return "KSCSIServiceAction_WRITE_32"
+	case KSCSIServiceAction_WRITE_AND_VERIFY_32:
+		return "KSCSIServiceAction_WRITE_AND_VERIFY_32"
+	case KSCSIServiceAction_WRITE_SAME_32:
+		return "KSCSIServiceAction_WRITE_SAME_32"
+	case KSCSIServiceAction_XDREAD_32:
+		return "KSCSIServiceAction_XDREAD_32"
+	case KSCSIServiceAction_XDWRITEREAD_32:
+		return "KSCSIServiceAction_XDWRITEREAD_32"
+	case KSCSIServiceAction_XDWRITE_32:
+		return "KSCSIServiceAction_XDWRITE_32"
+	case KSCSIServiceAction_XPWRITE_32:
+		return "KSCSIServiceAction_XPWRITE_32"
+	default:
+		return fmt.Sprintf("KscsiserviceactionRead32(%d)", e)
 	}
 }
 
@@ -36461,7 +39127,50 @@ func (e KsenseResponseCode) String() string {
 	}
 }
 
-type KusbSscompdesc uint
+type KusbEpdescBmattributesTrantypeMask uint32
+
+const (
+	KUSB_EPDesc_MaxMPS                        KusbEpdescBmattributesTrantypeMask = 1024
+	KUSB_EPDesc_bmAttributes_SyncType_Mask    KusbEpdescBmattributesTrantypeMask = 12
+	KUSB_EPDesc_bmAttributes_SyncType_Shift   KusbEpdescBmattributesTrantypeMask = 2
+	KUSB_EPDesc_bmAttributes_TranType_Mask    KusbEpdescBmattributesTrantypeMask = 3
+	KUSB_EPDesc_bmAttributes_TranType_Shift   KusbEpdescBmattributesTrantypeMask = 0
+	KUSB_EPDesc_bmAttributes_UsageType_Mask   KusbEpdescBmattributesTrantypeMask = 48
+	KUSB_EPDesc_bmAttributes_UsageType_Shift  KusbEpdescBmattributesTrantypeMask = 4
+	KUSB_EPDesc_wMaxPacketSize_MPS_Mask       KusbEpdescBmattributesTrantypeMask = 2047
+	KUSB_EPDesc_wMaxPacketSize_MPS_Shift      KusbEpdescBmattributesTrantypeMask = 0
+	KUSB_HSFSEPDesc_wMaxPacketSize_Mult_Mask  KusbEpdescBmattributesTrantypeMask = 6144
+	KUSB_HSFSEPDesc_wMaxPacketSize_Mult_Shift KusbEpdescBmattributesTrantypeMask = 11
+)
+
+func (e KusbEpdescBmattributesTrantypeMask) String() string {
+	switch e {
+	case KUSB_EPDesc_MaxMPS:
+		return "KUSB_EPDesc_MaxMPS"
+	case KUSB_EPDesc_bmAttributes_SyncType_Mask:
+		return "KUSB_EPDesc_bmAttributes_SyncType_Mask"
+	case KUSB_EPDesc_bmAttributes_SyncType_Shift:
+		return "KUSB_EPDesc_bmAttributes_SyncType_Shift"
+	case KUSB_EPDesc_bmAttributes_TranType_Mask:
+		return "KUSB_EPDesc_bmAttributes_TranType_Mask"
+	case KUSB_EPDesc_bmAttributes_TranType_Shift:
+		return "KUSB_EPDesc_bmAttributes_TranType_Shift"
+	case KUSB_EPDesc_bmAttributes_UsageType_Mask:
+		return "KUSB_EPDesc_bmAttributes_UsageType_Mask"
+	case KUSB_EPDesc_bmAttributes_UsageType_Shift:
+		return "KUSB_EPDesc_bmAttributes_UsageType_Shift"
+	case KUSB_EPDesc_wMaxPacketSize_MPS_Mask:
+		return "KUSB_EPDesc_wMaxPacketSize_MPS_Mask"
+	case KUSB_HSFSEPDesc_wMaxPacketSize_Mult_Mask:
+		return "KUSB_HSFSEPDesc_wMaxPacketSize_Mult_Mask"
+	case KUSB_HSFSEPDesc_wMaxPacketSize_Mult_Shift:
+		return "KUSB_HSFSEPDesc_wMaxPacketSize_Mult_Shift"
+	default:
+		return fmt.Sprintf("KusbEpdescBmattributesTrantypeMask(%d)", e)
+	}
+}
+
+type KusbSscompdesc uint32
 
 const (
 	KUSB_SSCompDesc_Bulk_MaxStreams_Mask  KusbSscompdesc = 31
@@ -36483,15 +39192,39 @@ func (e KusbSscompdesc) String() string {
 	}
 }
 
-type LatencyQosTier uint
+type KusbspeedMask uint32
 
 const (
-	LATENCY_QOS_TIER_0           LatencyQosTier = 0xff0001
-	LATENCY_QOS_TIER_1           LatencyQosTier = 0xff0002
-	LATENCY_QOS_TIER_2           LatencyQosTier = 0xff0003
-	LATENCY_QOS_TIER_3           LatencyQosTier = 0xff0004
-	LATENCY_QOS_TIER_4           LatencyQosTier = 0xff0005
-	LATENCY_QOS_TIER_5           LatencyQosTier = 0xff0006
+	KUSBAddress_Mask  KusbspeedMask = 65280
+	KUSBAddress_Shift KusbspeedMask = 8
+	KUSBSpeed_Mask    KusbspeedMask = 3
+	KUSBSpeed_Shift   KusbspeedMask = 0
+)
+
+func (e KusbspeedMask) String() string {
+	switch e {
+	case KUSBAddress_Mask:
+		return "KUSBAddress_Mask"
+	case KUSBAddress_Shift:
+		return "KUSBAddress_Shift"
+	case KUSBSpeed_Mask:
+		return "KUSBSpeed_Mask"
+	case KUSBSpeed_Shift:
+		return "KUSBSpeed_Shift"
+	default:
+		return fmt.Sprintf("KusbspeedMask(%d)", e)
+	}
+}
+
+type LatencyQosTier uint32
+
+const (
+	LATENCY_QOS_TIER_0           LatencyQosTier = 16711681
+	LATENCY_QOS_TIER_1           LatencyQosTier = 16711682
+	LATENCY_QOS_TIER_2           LatencyQosTier = 16711683
+	LATENCY_QOS_TIER_3           LatencyQosTier = 16711684
+	LATENCY_QOS_TIER_4           LatencyQosTier = 16711685
+	LATENCY_QOS_TIER_5           LatencyQosTier = 16711686
 	LATENCY_QOS_TIER_UNSPECIFIED LatencyQosTier = 0
 )
 
@@ -36572,82 +39305,27 @@ func (e Libsptm) String() string {
 	}
 }
 
-type MATA uint
+type MATAHeadNumber uint
 
 const (
-	MATAAltSDevCValid      MATA = 1 << (14)
-	MATACylinderHiValid    MATA = 1 << (5)
-	MATACylinderLoValid    MATA = 1 << (4)
-	MATADataValid          MATA = 1 << (0)
-	MATADriveSelect        MATA = 0x10
-	MATAErrFeaturesValid   MATA = 1 << (1)
-	MATAFlag48BitLBA       MATA = 1 << (18)
-	MATAFlagByteSwap       MATA = 1 << (14)
-	MATAFlagDMAQueued      MATA = 1 << (17)
-	MATAFlagIORead         MATA = 1 << (13)
-	MATAFlagIOWrite        MATA = 1 << (12)
-	MATAFlagImmediate      MATA = 1 << (1)
-	MATAFlagOverlapped     MATA = 1 << (16)
-	MATAFlagProtocolATAPI  MATA = 1 << (5)
-	MATAFlagQuiesce        MATA = 1 << (20)
-	MATAFlagTFAccess       MATA = 1 << (0)
-	MATAFlagTFAccessResult MATA = 1 << (8)
-	MATAFlagUseConfigSpeed MATA = 1 << (15)
-	MATAFlagUseDMA         MATA = 1 << (7)
-	MATAFlagUseNoIRQ       MATA = 1 << (19)
-	MATAHeadNumber         MATA = 0xf
-	MATALBASelect          MATA = 0x40
-	MATASDHValid           MATA = 1 << (6)
-	MATASectorCntValid     MATA = 1 << (2)
-	MATASectorNumValid     MATA = 1 << (3)
-	MATASectorSize         MATA = 0xa0
-	MATAStatusCmdValid     MATA = 1 << (7)
+	MATADriveSelect     MATAHeadNumber = 0x10
+	MATAHeadNumberValue MATAHeadNumber = 0xf
+	MATALBASelect       MATAHeadNumber = 0x40
+	MATASectorSize      MATAHeadNumber = 0xa0
 )
 
-func (e MATA) String() string {
+func (e MATAHeadNumber) String() string {
 	switch e {
-	case MATAAltSDevCValid:
-		return "MATAAltSDevCValid"
-	case MATACylinderHiValid:
-		return "MATACylinderHiValid"
-	case MATACylinderLoValid:
-		return "MATACylinderLoValid"
-	case MATADataValid:
-		return "MATADataValid"
-	case MATAErrFeaturesValid:
-		return "MATAErrFeaturesValid"
-	case MATAFlag48BitLBA:
-		return "MATAFlag48BitLBA"
-	case MATAFlagDMAQueued:
-		return "MATAFlagDMAQueued"
-	case MATAFlagIORead:
-		return "MATAFlagIORead"
-	case MATAFlagIOWrite:
-		return "MATAFlagIOWrite"
-	case MATAFlagOverlapped:
-		return "MATAFlagOverlapped"
-	case MATAFlagQuiesce:
-		return "MATAFlagQuiesce"
-	case MATAFlagTFAccessResult:
-		return "MATAFlagTFAccessResult"
-	case MATAFlagUseConfigSpeed:
-		return "MATAFlagUseConfigSpeed"
-	case MATAFlagUseDMA:
-		return "MATAFlagUseDMA"
-	case MATAFlagUseNoIRQ:
-		return "MATAFlagUseNoIRQ"
-	case MATAHeadNumber:
-		return "MATAHeadNumber"
+	case MATADriveSelect:
+		return "MATADriveSelect"
+	case MATAHeadNumberValue:
+		return "MATAHeadNumberValue"
 	case MATALBASelect:
 		return "MATALBASelect"
-	case MATASectorCntValid:
-		return "MATASectorCntValid"
-	case MATASectorNumValid:
-		return "MATASectorNumValid"
 	case MATASectorSize:
 		return "MATASectorSize"
 	default:
-		return fmt.Sprintf("MATA(%d)", e)
+		return fmt.Sprintf("MATAHeadNumber(%d)", e)
 	}
 }
 
@@ -36733,29 +39411,124 @@ func (e MachAssert) String() string {
 	}
 }
 
-type MachVmRange uint
+type MachPortGuardExceptionCodes uint32
 
 const (
-	MACH_VM_RANGE_DATA    MachVmRange = 1
-	MACH_VM_RANGE_DEFAULT MachVmRange = 0
-	MACH_VM_RANGE_FIXED   MachVmRange = 2
-	MACH_VM_RANGE_NONE    MachVmRange = 0
+	KGUARD_EXC_DESTROY                          MachPortGuardExceptionCodes = 1
+	KGUARD_EXC_EXCEPTION_BEHAVIOR_ENFORCE       MachPortGuardExceptionCodes = 6
+	KGUARD_EXC_IMMOVABLE                        MachPortGuardExceptionCodes = 32
+	KGUARD_EXC_IMMOVABLE_NON_FATAL              MachPortGuardExceptionCodes = 4194304
+	KGUARD_EXC_INCORRECT_GUARD                  MachPortGuardExceptionCodes = 16
+	KGUARD_EXC_INVALID_ARGUMENT                 MachPortGuardExceptionCodes = 2048
+	KGUARD_EXC_INVALID_NAME                     MachPortGuardExceptionCodes = 512
+	KGUARD_EXC_INVALID_OPTIONS                  MachPortGuardExceptionCodes = 3
+	KGUARD_EXC_INVALID_RIGHT                    MachPortGuardExceptionCodes = 256
+	KGUARD_EXC_INVALID_VALUE                    MachPortGuardExceptionCodes = 1024
+	KGUARD_EXC_KERN_FAILURE                     MachPortGuardExceptionCodes = 16384
+	KGUARD_EXC_KERN_NO_SPACE                    MachPortGuardExceptionCodes = 8192
+	KGUARD_EXC_KERN_RESOURCE                    MachPortGuardExceptionCodes = 32768
+	KGUARD_EXC_MOD_REFS                         MachPortGuardExceptionCodes = 2
+	KGUARD_EXC_MOD_REFS_NON_FATAL               MachPortGuardExceptionCodes = 2097152
+	KGUARD_EXC_MSG_FILTERED                     MachPortGuardExceptionCodes = 128
+	KGUARD_EXC_PROVISIONAL_REPLY_PORT           MachPortGuardExceptionCodes = 0x100002
+	KGUARD_EXC_RCV_GUARDED_DESC                 MachPortGuardExceptionCodes = 0x100000
+	KGUARD_EXC_RCV_INVALID_NAME                 MachPortGuardExceptionCodes = 524288
+	KGUARD_EXC_REQUIRE_REPLY_PORT_SEMANTICS     MachPortGuardExceptionCodes = 10
+	KGUARD_EXC_RIGHT_EXISTS                     MachPortGuardExceptionCodes = 4096
+	KGUARD_EXC_SEND_INVALID_REPLY               MachPortGuardExceptionCodes = 65536
+	KGUARD_EXC_SEND_INVALID_RIGHT               MachPortGuardExceptionCodes = 262144
+	KGUARD_EXC_SEND_INVALID_VOUCHER             MachPortGuardExceptionCodes = 131072
+	KGUARD_EXC_SERVICE_PORT_VIOLATION_FATAL     MachPortGuardExceptionCodes = 7
+	KGUARD_EXC_SERVICE_PORT_VIOLATION_NON_FATAL MachPortGuardExceptionCodes = 0x100001
+	KGUARD_EXC_SET_CONTEXT                      MachPortGuardExceptionCodes = 4
+	KGUARD_EXC_STRICT_REPLY                     MachPortGuardExceptionCodes = 64
+	KGUARD_EXC_THREAD_SET_STATE                 MachPortGuardExceptionCodes = 5
+	KGUARD_EXC_UNGUARDED                        MachPortGuardExceptionCodes = 8
 )
 
-func (e MachVmRange) String() string {
+func (e MachPortGuardExceptionCodes) String() string {
 	switch e {
-	case MACH_VM_RANGE_DATA:
-		return "MACH_VM_RANGE_DATA"
-	case MACH_VM_RANGE_DEFAULT:
-		return "MACH_VM_RANGE_DEFAULT"
-	case MACH_VM_RANGE_FIXED:
-		return "MACH_VM_RANGE_FIXED"
+	case KGUARD_EXC_DESTROY:
+		return "KGUARD_EXC_DESTROY"
+	case KGUARD_EXC_EXCEPTION_BEHAVIOR_ENFORCE:
+		return "KGUARD_EXC_EXCEPTION_BEHAVIOR_ENFORCE"
+	case KGUARD_EXC_IMMOVABLE:
+		return "KGUARD_EXC_IMMOVABLE"
+	case KGUARD_EXC_IMMOVABLE_NON_FATAL:
+		return "KGUARD_EXC_IMMOVABLE_NON_FATAL"
+	case KGUARD_EXC_INCORRECT_GUARD:
+		return "KGUARD_EXC_INCORRECT_GUARD"
+	case KGUARD_EXC_INVALID_ARGUMENT:
+		return "KGUARD_EXC_INVALID_ARGUMENT"
+	case KGUARD_EXC_INVALID_NAME:
+		return "KGUARD_EXC_INVALID_NAME"
+	case KGUARD_EXC_INVALID_OPTIONS:
+		return "KGUARD_EXC_INVALID_OPTIONS"
+	case KGUARD_EXC_INVALID_RIGHT:
+		return "KGUARD_EXC_INVALID_RIGHT"
+	case KGUARD_EXC_INVALID_VALUE:
+		return "KGUARD_EXC_INVALID_VALUE"
+	case KGUARD_EXC_KERN_FAILURE:
+		return "KGUARD_EXC_KERN_FAILURE"
+	case KGUARD_EXC_KERN_NO_SPACE:
+		return "KGUARD_EXC_KERN_NO_SPACE"
+	case KGUARD_EXC_KERN_RESOURCE:
+		return "KGUARD_EXC_KERN_RESOURCE"
+	case KGUARD_EXC_MOD_REFS:
+		return "KGUARD_EXC_MOD_REFS"
+	case KGUARD_EXC_MOD_REFS_NON_FATAL:
+		return "KGUARD_EXC_MOD_REFS_NON_FATAL"
+	case KGUARD_EXC_MSG_FILTERED:
+		return "KGUARD_EXC_MSG_FILTERED"
+	case KGUARD_EXC_PROVISIONAL_REPLY_PORT:
+		return "KGUARD_EXC_PROVISIONAL_REPLY_PORT"
+	case KGUARD_EXC_RCV_GUARDED_DESC:
+		return "KGUARD_EXC_RCV_GUARDED_DESC"
+	case KGUARD_EXC_RCV_INVALID_NAME:
+		return "KGUARD_EXC_RCV_INVALID_NAME"
+	case KGUARD_EXC_REQUIRE_REPLY_PORT_SEMANTICS:
+		return "KGUARD_EXC_REQUIRE_REPLY_PORT_SEMANTICS"
+	case KGUARD_EXC_RIGHT_EXISTS:
+		return "KGUARD_EXC_RIGHT_EXISTS"
+	case KGUARD_EXC_SEND_INVALID_REPLY:
+		return "KGUARD_EXC_SEND_INVALID_REPLY"
+	case KGUARD_EXC_SEND_INVALID_RIGHT:
+		return "KGUARD_EXC_SEND_INVALID_RIGHT"
+	case KGUARD_EXC_SEND_INVALID_VOUCHER:
+		return "KGUARD_EXC_SEND_INVALID_VOUCHER"
+	case KGUARD_EXC_SERVICE_PORT_VIOLATION_FATAL:
+		return "KGUARD_EXC_SERVICE_PORT_VIOLATION_FATAL"
+	case KGUARD_EXC_SERVICE_PORT_VIOLATION_NON_FATAL:
+		return "KGUARD_EXC_SERVICE_PORT_VIOLATION_NON_FATAL"
+	case KGUARD_EXC_SET_CONTEXT:
+		return "KGUARD_EXC_SET_CONTEXT"
+	case KGUARD_EXC_STRICT_REPLY:
+		return "KGUARD_EXC_STRICT_REPLY"
+	case KGUARD_EXC_THREAD_SET_STATE:
+		return "KGUARD_EXC_THREAD_SET_STATE"
+	case KGUARD_EXC_UNGUARDED:
+		return "KGUARD_EXC_UNGUARDED"
 	default:
-		return fmt.Sprintf("MachVmRange(%d)", e)
+		return fmt.Sprintf("MachPortGuardExceptionCodes(%d)", e)
 	}
 }
 
-type MachVmRangeFlavor uint
+type MachVmRangeFlags uint64
+
+const (
+	MACH_VM_RANGE_NONE MachVmRangeFlags = 0
+)
+
+func (e MachVmRangeFlags) String() string {
+	switch e {
+	case MACH_VM_RANGE_NONE:
+		return "MACH_VM_RANGE_NONE"
+	default:
+		return fmt.Sprintf("MachVmRangeFlags(%d)", e)
+	}
+}
+
+type MachVmRangeFlavor uint32
 
 const (
 	MACH_VM_RANGE_FLAVOR_INVALID MachVmRangeFlavor = 0
@@ -36770,6 +39543,27 @@ func (e MachVmRangeFlavor) String() string {
 		return "MACH_VM_RANGE_FLAVOR_V1"
 	default:
 		return fmt.Sprintf("MachVmRangeFlavor(%d)", e)
+	}
+}
+
+type MachVmRangeTag uint16
+
+const (
+	MACH_VM_RANGE_DATA    MachVmRangeTag = 1
+	MACH_VM_RANGE_DEFAULT MachVmRangeTag = 0
+	MACH_VM_RANGE_FIXED   MachVmRangeTag = 2
+)
+
+func (e MachVmRangeTag) String() string {
+	switch e {
+	case MACH_VM_RANGE_DATA:
+		return "MACH_VM_RANGE_DATA"
+	case MACH_VM_RANGE_DEFAULT:
+		return "MACH_VM_RANGE_DEFAULT"
+	case MACH_VM_RANGE_FIXED:
+		return "MACH_VM_RANGE_FIXED"
+	default:
+		return fmt.Sprintf("MachVmRangeTag(%d)", e)
 	}
 }
 
@@ -36802,67 +39596,6 @@ func (e MacosPanicHeaderFlag) String() string {
 		return "MACOS_PANIC_HEADER_FLAG_COMPANION_PROC_INITIATED_PANIC"
 	default:
 		return fmt.Sprintf("MacosPanicHeaderFlag(%d)", e)
-	}
-}
-
-type Mbuf uint
-
-const (
-	// MBUF_BCAST: # Discussion
-	MBUF_BCAST Mbuf = 0x100
-	// MBUF_DONTWAIT: # Discussion
-	MBUF_DONTWAIT Mbuf = 1
-	// MBUF_EOR: # Discussion
-	MBUF_EOR Mbuf = 0x4
-	// MBUF_EXT: # Discussion
-	MBUF_EXT Mbuf = 0x1
-	// MBUF_FIRSTFRAG: # Discussion
-	MBUF_FIRSTFRAG Mbuf = 0x800
-	// MBUF_FRAG: # Discussion
-	MBUF_FRAG   Mbuf = 0x400
-	MBUF_HASFCS Mbuf = 0x4000
-	// MBUF_LASTFRAG: # Discussion
-	MBUF_LASTFRAG Mbuf = 0x1000
-	// MBUF_LOOP: # Discussion
-	MBUF_LOOP Mbuf = 0x40
-	// MBUF_MCAST: # Discussion
-	MBUF_MCAST Mbuf = 0x200
-	// MBUF_PKTHDR: # Discussion
-	MBUF_PKTHDR Mbuf = 0x2
-	// MBUF_PROMISC: # Discussion
-	MBUF_PROMISC Mbuf = 0x2000
-	// MBUF_WAITOK: # Discussion
-	MBUF_WAITOK Mbuf = 0
-)
-
-func (e Mbuf) String() string {
-	switch e {
-	case MBUF_BCAST:
-		return "MBUF_BCAST"
-	case MBUF_DONTWAIT:
-		return "MBUF_DONTWAIT"
-	case MBUF_EOR:
-		return "MBUF_EOR"
-	case MBUF_FIRSTFRAG:
-		return "MBUF_FIRSTFRAG"
-	case MBUF_FRAG:
-		return "MBUF_FRAG"
-	case MBUF_HASFCS:
-		return "MBUF_HASFCS"
-	case MBUF_LASTFRAG:
-		return "MBUF_LASTFRAG"
-	case MBUF_LOOP:
-		return "MBUF_LOOP"
-	case MBUF_MCAST:
-		return "MBUF_MCAST"
-	case MBUF_PKTHDR:
-		return "MBUF_PKTHDR"
-	case MBUF_PROMISC:
-		return "MBUF_PROMISC"
-	case MBUF_WAITOK:
-		return "MBUF_WAITOK"
-	default:
-		return fmt.Sprintf("Mbuf(%d)", e)
 	}
 }
 
@@ -36923,6 +39656,61 @@ func (e MbufCsumReq) String() string {
 		return "MBUF_CSUM_REQ_UDPIPV6"
 	default:
 		return fmt.Sprintf("MbufCsumReq(%d)", e)
+	}
+}
+
+type MbufExt uint
+
+const (
+	// MBUF_BCAST: # Discussion
+	MBUF_BCAST MbufExt = 0x100
+	// MBUF_EOR: # Discussion
+	MBUF_EOR MbufExt = 0x4
+	// MBUF_EXT: # Discussion
+	MBUF_EXT MbufExt = 0x1
+	// MBUF_FIRSTFRAG: # Discussion
+	MBUF_FIRSTFRAG MbufExt = 0x800
+	// MBUF_FRAG: # Discussion
+	MBUF_FRAG   MbufExt = 0x400
+	MBUF_HASFCS MbufExt = 0x4000
+	// MBUF_LASTFRAG: # Discussion
+	MBUF_LASTFRAG MbufExt = 0x1000
+	// MBUF_LOOP: # Discussion
+	MBUF_LOOP MbufExt = 0x40
+	// MBUF_MCAST: # Discussion
+	MBUF_MCAST MbufExt = 0x200
+	// MBUF_PKTHDR: # Discussion
+	MBUF_PKTHDR MbufExt = 0x2
+	// MBUF_PROMISC: # Discussion
+	MBUF_PROMISC MbufExt = 0x2000
+)
+
+func (e MbufExt) String() string {
+	switch e {
+	case MBUF_BCAST:
+		return "MBUF_BCAST"
+	case MBUF_EOR:
+		return "MBUF_EOR"
+	case MBUF_EXT:
+		return "MBUF_EXT"
+	case MBUF_FIRSTFRAG:
+		return "MBUF_FIRSTFRAG"
+	case MBUF_FRAG:
+		return "MBUF_FRAG"
+	case MBUF_HASFCS:
+		return "MBUF_HASFCS"
+	case MBUF_LASTFRAG:
+		return "MBUF_LASTFRAG"
+	case MBUF_LOOP:
+		return "MBUF_LOOP"
+	case MBUF_MCAST:
+		return "MBUF_MCAST"
+	case MBUF_PKTHDR:
+		return "MBUF_PKTHDR"
+	case MBUF_PROMISC:
+		return "MBUF_PROMISC"
+	default:
+		return fmt.Sprintf("MbufExt(%d)", e)
 	}
 }
 
@@ -37029,6 +39817,26 @@ func (e MbufType) String() string {
 	}
 }
 
+type MbufWaitok uint
+
+const (
+	// MBUF_DONTWAIT: # Discussion
+	MBUF_DONTWAIT MbufWaitok = 1
+	// MBUF_WAITOK: # Discussion
+	MBUF_WAITOK MbufWaitok = 0
+)
+
+func (e MbufWaitok) String() string {
+	switch e {
+	case MBUF_DONTWAIT:
+		return "MBUF_DONTWAIT"
+	case MBUF_WAITOK:
+		return "MBUF_WAITOK"
+	default:
+		return fmt.Sprintf("MbufWaitok(%d)", e)
+	}
+}
+
 type Mcc uint
 
 const (
@@ -37079,25 +39887,44 @@ func (e MicroSnapshotFlags) String() string {
 	}
 }
 
+type MicrostackshotFlags uint
+
+const (
+	STACKSHOT_GET_KERNEL_MICROSTACKSHOT     MicrostackshotFlags = 0
+	STACKSHOT_GET_MICROSTACKSHOT            MicrostackshotFlags = 0
+	STACKSHOT_GLOBAL_MICROSTACKSHOT_DISABLE MicrostackshotFlags = 0
+	STACKSHOT_GLOBAL_MICROSTACKSHOT_ENABLE  MicrostackshotFlags = 0
+	STACKSHOT_SET_MICROSTACKSHOT_MARK       MicrostackshotFlags = 0
+)
+
+func (e MicrostackshotFlags) String() string {
+	switch e {
+	case STACKSHOT_GET_KERNEL_MICROSTACKSHOT:
+		return "STACKSHOT_GET_KERNEL_MICROSTACKSHOT"
+	default:
+		return fmt.Sprintf("MicrostackshotFlags(%d)", e)
+	}
+}
+
 type Mtf uint
 
 const (
-	MTF_ATABLE  Mtf = (1 << (7))
-	MTF_CONTROL Mtf = (1 << (14))
-	MTF_DATA    Mtf = (1 << (1))
-	MTF_FREE    Mtf = (1 << (0))
-	MTF_FTABLE  Mtf = (1 << (11))
-	MTF_HEADER  Mtf = (1 << (2))
-	MTF_HTABLE  Mtf = (1 << (6))
-	MTF_IFADDR  Mtf = (1 << (13))
-	MTF_OOBDATA Mtf = (1 << (15))
-	MTF_PCB     Mtf = (1 << (4))
-	MTF_RIGHTS  Mtf = (1 << (12))
-	MTF_RTABLE  Mtf = (1 << (5))
-	MTF_SOCKET  Mtf = (1 << (3))
-	MTF_SONAME  Mtf = (1 << (8))
-	MTF_SOOPTS  Mtf = (1 << (10))
-	MTF_TAG     Mtf = (1 << (16))
+	MTF_ATABLE  Mtf = 128
+	MTF_CONTROL Mtf = 0x4000
+	MTF_DATA    Mtf = 2
+	MTF_FREE    Mtf = 1
+	MTF_FTABLE  Mtf = 2048
+	MTF_HEADER  Mtf = 4
+	MTF_HTABLE  Mtf = 64
+	MTF_IFADDR  Mtf = 0x2000
+	MTF_OOBDATA Mtf = 0x8000
+	MTF_PCB     Mtf = 16
+	MTF_RIGHTS  Mtf = 0x1000
+	MTF_RTABLE  Mtf = 32
+	MTF_SOCKET  Mtf = 8
+	MTF_SONAME  Mtf = 256
+	MTF_SOOPTS  Mtf = 1024
+	MTF_TAG     Mtf = 0x10000
 )
 
 func (e Mtf) String() string {
@@ -37136,6 +39963,40 @@ func (e Mtf) String() string {
 		return "MTF_TAG"
 	default:
 		return fmt.Sprintf("Mtf(%d)", e)
+	}
+}
+
+type NXByteOrder uint
+
+const (
+	NX_BigEndian        NXByteOrder = 0
+	NX_LittleEndian     NXByteOrder = 0
+	NX_UnknownByteOrder NXByteOrder = 0
+)
+
+func (e NXByteOrder) String() string {
+	switch e {
+	case NX_BigEndian:
+		return "NX_BigEndian"
+	default:
+		return fmt.Sprintf("NXByteOrder(%d)", e)
+	}
+}
+
+type NXMouseButton uint
+
+const (
+	NX_LeftButton  NXMouseButton = 0
+	NX_OneButton   NXMouseButton = 0
+	NX_RightButton NXMouseButton = 0
+)
+
+func (e NXMouseButton) String() string {
+	switch e {
+	case NX_LeftButton:
+		return "NX_LeftButton"
+	default:
+		return fmt.Sprintf("NXMouseButton(%d)", e)
 	}
 }
 
@@ -37202,7 +40063,7 @@ func (e Nfs) String() string {
 	}
 }
 
-type No uint
+type No uint32
 
 const (
 	// NoErr: No error
@@ -37296,26 +40157,6 @@ func (e NrLockedErr) String() string {
 	}
 }
 
-type Nx uint
-
-const (
-	NX_BigEndian        Nx = 0
-	NX_LeftButton       Nx = 0
-	NX_LittleEndian     Nx = 0
-	NX_OneButton        Nx = 0
-	NX_RightButton      Nx = 0
-	NX_UnknownByteOrder Nx = 0
-)
-
-func (e Nx) String() string {
-	switch e {
-	case NX_BigEndian:
-		return "NX_BigEndian"
-	default:
-		return fmt.Sprintf("Nx(%d)", e)
-	}
-}
-
 type Op uint
 
 const (
@@ -37337,7 +40178,7 @@ func (e Op) String() string {
 	}
 }
 
-type Os uint
+type Os uint32
 
 const (
 	OSBigEndian        Os = 2
@@ -37374,31 +40215,39 @@ func (e OsLogCoprocRegister) String() string {
 	}
 }
 
-type OsLogType uint
+type OsLogType uint8
 
 const (
 	// OS_LOG_TYPE_DEBUG: Debug-level messages are only captured in memory when debug logging is enabled through a configuration change.
-	OS_LOG_TYPE_DEBUG OsLogType = 0
+	OS_LOG_TYPE_DEBUG OsLogType = 2
 	// OS_LOG_TYPE_DEFAULT: Default-level messages are initially stored in memory buffers.
 	OS_LOG_TYPE_DEFAULT OsLogType = 0
 	// OS_LOG_TYPE_ERROR: Error-level messages are always saved in the data store.
-	OS_LOG_TYPE_ERROR OsLogType = 0
+	OS_LOG_TYPE_ERROR OsLogType = 16
 	// OS_LOG_TYPE_FAULT: Fault-level messages are always saved in the data store.
-	OS_LOG_TYPE_FAULT OsLogType = 0
+	OS_LOG_TYPE_FAULT OsLogType = 17
 	// OS_LOG_TYPE_INFO: Info-level messages are initially stored in memory buffers.
-	OS_LOG_TYPE_INFO OsLogType = 0
+	OS_LOG_TYPE_INFO OsLogType = 1
 )
 
 func (e OsLogType) String() string {
 	switch e {
 	case OS_LOG_TYPE_DEBUG:
 		return "OS_LOG_TYPE_DEBUG"
+	case OS_LOG_TYPE_DEFAULT:
+		return "OS_LOG_TYPE_DEFAULT"
+	case OS_LOG_TYPE_ERROR:
+		return "OS_LOG_TYPE_ERROR"
+	case OS_LOG_TYPE_FAULT:
+		return "OS_LOG_TYPE_FAULT"
+	case OS_LOG_TYPE_INFO:
+		return "OS_LOG_TYPE_INFO"
 	default:
 		return fmt.Sprintf("OsLogType(%d)", e)
 	}
 }
 
-type Output uint
+type Output uint32
 
 const (
 	OUTPUT_COMMUNICATION_SPEAKER         Output = 0x306
@@ -37434,7 +40283,7 @@ func (e Output) String() string {
 	}
 }
 
-type OutputNull uint
+type OutputNull uint32
 
 const (
 	INPUT_NULL  OutputNull = 0x101
@@ -37452,7 +40301,7 @@ func (e OutputNull) String() string {
 	}
 }
 
-type P uint
+type P uint32
 
 const (
 	P_ALL  P = 0
@@ -37564,7 +40413,7 @@ func (e PriorityQueueEntry) String() string {
 	}
 }
 
-type Processor uint
+type Processor uint32
 
 const (
 	PROCESSOR_GENERAL   Processor = 0x801
@@ -37853,51 +40702,114 @@ func (e SptmRefcount) String() string {
 	}
 }
 
-type Stackshot uint
+type StackshotFlags uint
 
 const (
-	STACKSHOT_ACTIVE_KERNEL_THREADS_ONLY       Stackshot = 0
-	STACKSHOT_ASID                             Stackshot = 0
-	STACKSHOT_COLLECT_DELTA_SNAPSHOT           Stackshot = 0
-	STACKSHOT_COLLECT_SHAREDCACHE_LAYOUT       Stackshot = 0
-	STACKSHOT_DISABLE_LATENCY_INFO             Stackshot = 0
-	STACKSHOT_DO_COMPRESS                      Stackshot = 0
-	STACKSHOT_ENABLE_BT_FAULTING               Stackshot = 0
-	STACKSHOT_ENABLE_UUID_FAULTING             Stackshot = 0
-	STACKSHOT_EXCLAVES                         Stackshot = 0
-	STACKSHOT_FROM_PANIC                       Stackshot = 0
-	STACKSHOT_GET_BOOT_PROFILE                 Stackshot = 0
-	STACKSHOT_GET_DQ                           Stackshot = 0
-	STACKSHOT_GET_GLOBAL_MEM_STATS             Stackshot = 0
-	STACKSHOT_GET_KERNEL_MICROSTACKSHOT        Stackshot = 0
-	STACKSHOT_GET_MICROSTACKSHOT               Stackshot = 0
-	STACKSHOT_GLOBAL_MICROSTACKSHOT_DISABLE    Stackshot = 0
-	STACKSHOT_GLOBAL_MICROSTACKSHOT_ENABLE     Stackshot = 0
-	STACKSHOT_INCLUDE_DRIVER_THREADS_IN_KERNEL Stackshot = 0
-	STACKSHOT_INSTRS_CYCLES                    Stackshot = 0
-	STACKSHOT_KCDATA_FORMAT                    Stackshot = 0
-	STACKSHOT_NO_IO_STATS                      Stackshot = 0
-	STACKSHOT_PAGE_TABLES                      Stackshot = 0
-	STACKSHOT_RETRIEVE_EXISTING_BUFFER         Stackshot = 0
-	STACKSHOT_SAVE_DYLD_COMPACTINFO            Stackshot = 0
-	STACKSHOT_SAVE_IMP_DONATION_PIDS           Stackshot = 0
-	STACKSHOT_SAVE_IN_KERNEL_BUFFER            Stackshot = 0
-	STACKSHOT_SAVE_JETSAM_COALITIONS           Stackshot = 0
-	STACKSHOT_SAVE_KEXT_LOADINFO               Stackshot = 0
-	STACKSHOT_SAVE_LOADINFO                    Stackshot = 0
-	STACKSHOT_SET_MICROSTACKSHOT_MARK          Stackshot = 0
-	STACKSHOT_SKIP_EXCLAVES                    Stackshot = 0
-	STACKSHOT_THREAD_GROUP                     Stackshot = 0
-	STACKSHOT_THREAD_WAITINFO                  Stackshot = 0
-	STACKSHOT_TRYLOCK                          Stackshot = 0
+	STACKSHOT_ACTIVE_KERNEL_THREADS_ONLY       StackshotFlags = 0
+	STACKSHOT_ASID                             StackshotFlags = 0
+	STACKSHOT_COLLECT_DELTA_SNAPSHOT           StackshotFlags = 0
+	STACKSHOT_COLLECT_SHAREDCACHE_LAYOUT       StackshotFlags = 0
+	STACKSHOT_DISABLE_LATENCY_INFO             StackshotFlags = 0
+	STACKSHOT_DO_COMPRESS                      StackshotFlags = 0
+	STACKSHOT_ENABLE_BT_FAULTING               StackshotFlags = 0
+	STACKSHOT_ENABLE_UUID_FAULTING             StackshotFlags = 0
+	STACKSHOT_EXCLAVES                         StackshotFlags = 0
+	STACKSHOT_FROM_PANIC                       StackshotFlags = 0
+	STACKSHOT_GET_BOOT_PROFILE                 StackshotFlags = 0
+	STACKSHOT_GET_DQ                           StackshotFlags = 0
+	STACKSHOT_GET_GLOBAL_MEM_STATS             StackshotFlags = 0
+	STACKSHOT_INCLUDE_DRIVER_THREADS_IN_KERNEL StackshotFlags = 0
+	STACKSHOT_INSTRS_CYCLES                    StackshotFlags = 0
+	STACKSHOT_KCDATA_FORMAT                    StackshotFlags = 0
+	STACKSHOT_NO_IO_STATS                      StackshotFlags = 0
+	STACKSHOT_PAGE_TABLES                      StackshotFlags = 0
+	STACKSHOT_RETRIEVE_EXISTING_BUFFER         StackshotFlags = 0
+	STACKSHOT_SAVE_DYLD_COMPACTINFO            StackshotFlags = 0
+	STACKSHOT_SAVE_IMP_DONATION_PIDS           StackshotFlags = 0
+	STACKSHOT_SAVE_IN_KERNEL_BUFFER            StackshotFlags = 0
+	STACKSHOT_SAVE_JETSAM_COALITIONS           StackshotFlags = 0
+	STACKSHOT_SAVE_KEXT_LOADINFO               StackshotFlags = 0
+	STACKSHOT_SAVE_LOADINFO                    StackshotFlags = 0
+	STACKSHOT_SKIP_EXCLAVES                    StackshotFlags = 0
+	STACKSHOT_THREAD_GROUP                     StackshotFlags = 0
+	STACKSHOT_THREAD_WAITINFO                  StackshotFlags = 0
+	STACKSHOT_TRYLOCK                          StackshotFlags = 0
 )
 
-func (e Stackshot) String() string {
+func (e StackshotFlags) String() string {
 	switch e {
 	case STACKSHOT_ACTIVE_KERNEL_THREADS_ONLY:
 		return "STACKSHOT_ACTIVE_KERNEL_THREADS_ONLY"
 	default:
-		return fmt.Sprintf("Stackshot(%d)", e)
+		return fmt.Sprintf("StackshotFlags(%d)", e)
+	}
+}
+
+type TIOUSBDeviceRequest uint32
+
+const (
+	// KIOUSBDeviceRequestDirectionIn: The incoming direction.
+	KIOUSBDeviceRequestDirectionIn TIOUSBDeviceRequest = 128
+	// KIOUSBDeviceRequestDirectionMask: The direction mask.
+	KIOUSBDeviceRequestDirectionMask TIOUSBDeviceRequest = 128
+	// KIOUSBDeviceRequestDirectionOut: The outgoing direction.
+	KIOUSBDeviceRequestDirectionOut TIOUSBDeviceRequest = 0
+	// KIOUSBDeviceRequestDirectionPhase: The direction phase.
+	KIOUSBDeviceRequestDirectionPhase TIOUSBDeviceRequest = 7
+	// KIOUSBDeviceRequestRecipientDevice: The recipient device.
+	KIOUSBDeviceRequestRecipientDevice TIOUSBDeviceRequest = 0
+	// KIOUSBDeviceRequestRecipientEndpoint: The recipient endpoint.
+	KIOUSBDeviceRequestRecipientEndpoint TIOUSBDeviceRequest = 2
+	// KIOUSBDeviceRequestRecipientInterface: The recipient interface.
+	KIOUSBDeviceRequestRecipientInterface TIOUSBDeviceRequest = 1
+	// KIOUSBDeviceRequestRecipientMask: The recipient mask.
+	KIOUSBDeviceRequestRecipientMask TIOUSBDeviceRequest = 31
+	// KIOUSBDeviceRequestRecipientOther: The other recipient.
+	KIOUSBDeviceRequestRecipientOther TIOUSBDeviceRequest = 3
+	// KIOUSBDeviceRequestRecipientPhase: The recipient phase.
+	KIOUSBDeviceRequestRecipientPhase TIOUSBDeviceRequest = 0
+	// KIOUSBDeviceRequestSize: The request size.
+	KIOUSBDeviceRequestSize TIOUSBDeviceRequest = 8
+	// KIOUSBDeviceRequestTypeClass: The type class.
+	KIOUSBDeviceRequestTypeClass TIOUSBDeviceRequest = 32
+	// KIOUSBDeviceRequestTypeMask: The type mask.
+	KIOUSBDeviceRequestTypeMask TIOUSBDeviceRequest = 96
+	// KIOUSBDeviceRequestTypePhase: The type phase.
+	KIOUSBDeviceRequestTypePhase TIOUSBDeviceRequest = 5
+	// KIOUSBDeviceRequestTypeStandard: The type standard.
+	KIOUSBDeviceRequestTypeStandard TIOUSBDeviceRequest = 0
+	// KIOUSBDeviceRequestTypeVendor: The type vendor.
+	KIOUSBDeviceRequestTypeVendor TIOUSBDeviceRequest = 64
+)
+
+func (e TIOUSBDeviceRequest) String() string {
+	switch e {
+	case KIOUSBDeviceRequestDirectionIn:
+		return "KIOUSBDeviceRequestDirectionIn"
+	case KIOUSBDeviceRequestDirectionOut:
+		return "KIOUSBDeviceRequestDirectionOut"
+	case KIOUSBDeviceRequestDirectionPhase:
+		return "KIOUSBDeviceRequestDirectionPhase"
+	case KIOUSBDeviceRequestRecipientEndpoint:
+		return "KIOUSBDeviceRequestRecipientEndpoint"
+	case KIOUSBDeviceRequestRecipientInterface:
+		return "KIOUSBDeviceRequestRecipientInterface"
+	case KIOUSBDeviceRequestRecipientMask:
+		return "KIOUSBDeviceRequestRecipientMask"
+	case KIOUSBDeviceRequestRecipientOther:
+		return "KIOUSBDeviceRequestRecipientOther"
+	case KIOUSBDeviceRequestSize:
+		return "KIOUSBDeviceRequestSize"
+	case KIOUSBDeviceRequestTypeClass:
+		return "KIOUSBDeviceRequestTypeClass"
+	case KIOUSBDeviceRequestTypeMask:
+		return "KIOUSBDeviceRequestTypeMask"
+	case KIOUSBDeviceRequestTypePhase:
+		return "KIOUSBDeviceRequestTypePhase"
+	case KIOUSBDeviceRequestTypeVendor:
+		return "KIOUSBDeviceRequestTypeVendor"
+	default:
+		return fmt.Sprintf("TIOUSBDeviceRequest(%d)", e)
 	}
 }
 
@@ -37925,7 +40837,7 @@ func (e TUSBLPMExitLatency) String() string {
 	}
 }
 
-type Task int
+type Task int32
 
 const (
 	TASK_BACKGROUND_APPLICATION Task = 2
@@ -37967,7 +40879,7 @@ func (e Task) String() string {
 	}
 }
 
-type TaskInspectBasic uint
+type TaskInspectBasic uint32
 
 const (
 	TASK_INSPECT_BASIC_COUNTS TaskInspectBasic = 1
@@ -38222,7 +41134,7 @@ func (e TelemetryPmi) String() string {
 	}
 }
 
-type Telephony uint
+type Telephony uint32
 
 const (
 	TELEPHONY_DOWN_LINE_PHONE Telephony = 0x503
@@ -38263,7 +41175,7 @@ func (e TerminationState) String() string {
 	}
 }
 
-type ThreadCallOptions uint
+type ThreadCallOptions uint32
 
 const (
 	THREAD_CALL_OPTIONS_ONCE ThreadCallOptions = 0x1
@@ -38366,15 +41278,15 @@ func (e ThreadSnapshotFlags) String() string {
 	}
 }
 
-type ThroughputQosTier uint
+type ThroughputQosTier uint32
 
 const (
-	THROUGHPUT_QOS_TIER_0           ThroughputQosTier = 0xfe0001
-	THROUGHPUT_QOS_TIER_1           ThroughputQosTier = 0xfe0002
-	THROUGHPUT_QOS_TIER_2           ThroughputQosTier = 0xfe0003
-	THROUGHPUT_QOS_TIER_3           ThroughputQosTier = 0xfe0004
-	THROUGHPUT_QOS_TIER_4           ThroughputQosTier = 0xfe0005
-	THROUGHPUT_QOS_TIER_5           ThroughputQosTier = 0xfe0006
+	THROUGHPUT_QOS_TIER_0           ThroughputQosTier = 16646145
+	THROUGHPUT_QOS_TIER_1           ThroughputQosTier = 16646146
+	THROUGHPUT_QOS_TIER_2           ThroughputQosTier = 16646147
+	THROUGHPUT_QOS_TIER_3           ThroughputQosTier = 16646148
+	THROUGHPUT_QOS_TIER_4           ThroughputQosTier = 16646149
+	THROUGHPUT_QOS_TIER_5           ThroughputQosTier = 16646150
 	THROUGHPUT_QOS_TIER_UNSPECIFIED ThroughputQosTier = 0
 )
 
@@ -38419,89 +41331,30 @@ func (e Thsc) String() string {
 	}
 }
 
-type Timing uint
+type TimingApple12 uint
 
 const (
-	TimingApple12               Timing = 130
-	TimingApple12x              Timing = 0x87
-	TimingApple13               Timing = 0x8c
-	TimingApple13x              Timing = 0x91
-	TimingApple15               Timing = 0xa0
-	TimingApple15x              Timing = 0xa5
-	TimingApple16               Timing = 170
-	TimingApple19               Timing = 210
-	TimingApple1Ka              Timing = 190
-	TimingApple1Kb              Timing = 200
-	TimingApple21               Timing = 220
-	TimingAppleNTSC_FF          Timing = 232
-	TimingAppleNTSC_FFconv      Timing = 236
-	TimingAppleNTSC_ST          Timing = 230
-	TimingAppleNTSC_STconv      Timing = 234
-	TimingApplePAL_FF           Timing = 240
-	TimingApplePAL_FFconv       Timing = 244
-	TimingApplePAL_ST           Timing = 238
-	TimingApplePAL_STconv       Timing = 242
-	TimingAppleSVGA             Timing = 0xb4
-	TimingAppleVGA              Timing = 0x96
-	TimingApple_0x0_0hz_Offline Timing = 550
-	TimingApple_1024x768_75hz   Timing = 210
-	TimingApple_1152x870_75hz   Timing = 220
-	TimingApple_512x384_60hz    Timing = 130
-	TimingApple_560x384_60hz    Timing = 135
-	TimingApple_640x400_67hz    Timing = 145
-	TimingApple_640x480_67hz    Timing = 140
-	TimingApple_640x818_75hz    Timing = 165
-	TimingApple_640x870_75hz    Timing = 160
-	TimingApple_832x624_75hz    Timing = 170
-	TimingApple_FixedRateLCD    Timing = 42
-	TimingFilmRate_48hz         Timing = 410
-	TimingGTF_640x480_120hz     Timing = 159
-	TimingInvalid               Timing = 0
-	TimingInvalid_SM_T24        Timing = 8
-	TimingSMPTE240M_60hz        Timing = 400
-	TimingSony_1600x1024_76hz   Timing = 500
-	TimingSony_1900x1200_74hz   Timing = 530
-	TimingSony_1900x1200_76hz   Timing = 0x21c
-	TimingSony_1920x1080_60hz   Timing = 510
-	TimingSony_1920x1080_72hz   Timing = 520
-	TimingSony_1920x1200_76hz   Timing = 540
-	TimingVESA_1024x768_60hz    Timing = 190
-	TimingVESA_1024x768_70hz    Timing = 200
-	TimingVESA_1024x768_75hz    Timing = 204
-	TimingVESA_1024x768_85hz    Timing = 208
-	TimingVESA_1280x1024_60hz   Timing = 260
-	TimingVESA_1280x1024_75hz   Timing = 262
-	TimingVESA_1280x1024_85hz   Timing = 268
-	TimingVESA_1280x960_60hz    Timing = 252
-	TimingVESA_1280x960_75hz    Timing = 250
-	TimingVESA_1280x960_85hz    Timing = 254
-	TimingVESA_1600x1200_60hz   Timing = 280
-	TimingVESA_1600x1200_65hz   Timing = 282
-	TimingVESA_1600x1200_70hz   Timing = 284
-	TimingVESA_1600x1200_75hz   Timing = 286
-	TimingVESA_1600x1200_80hz   Timing = 288
-	TimingVESA_1600x1200_85hz   Timing = 289
-	TimingVESA_1792x1344_60hz   Timing = 296
-	TimingVESA_1792x1344_75hz   Timing = 298
-	TimingVESA_1856x1392_60hz   Timing = 300
-	TimingVESA_1856x1392_75hz   Timing = 302
-	TimingVESA_1920x1440_60hz   Timing = 304
-	TimingVESA_1920x1440_75hz   Timing = 306
-	TimingVESA_640x480_60hz     Timing = 150
-	TimingVESA_640x480_72hz     Timing = 152
-	TimingVESA_640x480_75hz     Timing = 154
-	TimingVESA_640x480_85hz     Timing = 158
-	TimingVESA_800x600_56hz     Timing = 180
-	TimingVESA_800x600_60hz     Timing = 182
-	TimingVESA_800x600_72hz     Timing = 184
-	TimingVESA_800x600_75hz     Timing = 186
-	TimingVESA_800x600_85hz     Timing = 188
+	TimingApple12Value        TimingApple12 = 130
+	TimingApple12x            TimingApple12 = 0x87
+	TimingApple13             TimingApple12 = 0x8c
+	TimingApple13x            TimingApple12 = 0x91
+	TimingApple15             TimingApple12 = 0xa0
+	TimingApple15x            TimingApple12 = 0xa5
+	TimingApple16             TimingApple12 = 170
+	TimingApple19             TimingApple12 = 210
+	TimingApple1Ka            TimingApple12 = 190
+	TimingApple1Kb            TimingApple12 = 200
+	TimingApple21             TimingApple12 = 220
+	TimingAppleSVGA           TimingApple12 = 0xb4
+	TimingAppleVGA            TimingApple12 = 0x96
+	TimingSony_1900x1200_74hz TimingApple12 = 530
+	TimingSony_1900x1200_76hz TimingApple12 = 0x21c
 )
 
-func (e Timing) String() string {
+func (e TimingApple12) String() string {
 	switch e {
-	case TimingApple12:
-		return "TimingApple12"
+	case TimingApple12Value:
+		return "TimingApple12Value"
 	case TimingApple12x:
 		return "TimingApple12x"
 	case TimingApple13:
@@ -38522,6 +41375,85 @@ func (e Timing) String() string {
 		return "TimingApple1Kb"
 	case TimingApple21:
 		return "TimingApple21"
+	case TimingAppleSVGA:
+		return "TimingAppleSVGA"
+	case TimingAppleVGA:
+		return "TimingAppleVGA"
+	case TimingSony_1900x1200_74hz:
+		return "TimingSony_1900x1200_74hz"
+	case TimingSony_1900x1200_76hz:
+		return "TimingSony_1900x1200_76hz"
+	default:
+		return fmt.Sprintf("TimingApple12(%d)", e)
+	}
+}
+
+type TimingInvalid uint
+
+const (
+	TimingAppleNTSC_FF          TimingInvalid = 232
+	TimingAppleNTSC_FFconv      TimingInvalid = 236
+	TimingAppleNTSC_ST          TimingInvalid = 230
+	TimingAppleNTSC_STconv      TimingInvalid = 234
+	TimingApplePAL_FF           TimingInvalid = 240
+	TimingApplePAL_FFconv       TimingInvalid = 244
+	TimingApplePAL_ST           TimingInvalid = 238
+	TimingApplePAL_STconv       TimingInvalid = 242
+	TimingApple_0x0_0hz_Offline TimingInvalid = 550
+	TimingApple_1024x768_75hz   TimingInvalid = 210
+	TimingApple_1152x870_75hz   TimingInvalid = 220
+	TimingApple_512x384_60hz    TimingInvalid = 130
+	TimingApple_560x384_60hz    TimingInvalid = 135
+	TimingApple_640x400_67hz    TimingInvalid = 145
+	TimingApple_640x480_67hz    TimingInvalid = 140
+	TimingApple_640x818_75hz    TimingInvalid = 165
+	TimingApple_640x870_75hz    TimingInvalid = 160
+	TimingApple_832x624_75hz    TimingInvalid = 170
+	TimingApple_FixedRateLCD    TimingInvalid = 42
+	TimingFilmRate_48hz         TimingInvalid = 410
+	TimingGTF_640x480_120hz     TimingInvalid = 159
+	TimingInvalidValue          TimingInvalid = 0
+	TimingInvalid_SM_T24        TimingInvalid = 8
+	TimingSMPTE240M_60hz        TimingInvalid = 400
+	TimingSony_1600x1024_76hz   TimingInvalid = 500
+	TimingSony_1920x1080_60hz   TimingInvalid = 510
+	TimingSony_1920x1080_72hz   TimingInvalid = 520
+	TimingSony_1920x1200_76hz   TimingInvalid = 540
+	TimingVESA_1024x768_60hz    TimingInvalid = 190
+	TimingVESA_1024x768_70hz    TimingInvalid = 200
+	TimingVESA_1024x768_75hz    TimingInvalid = 204
+	TimingVESA_1024x768_85hz    TimingInvalid = 208
+	TimingVESA_1280x1024_60hz   TimingInvalid = 260
+	TimingVESA_1280x1024_75hz   TimingInvalid = 262
+	TimingVESA_1280x1024_85hz   TimingInvalid = 268
+	TimingVESA_1280x960_60hz    TimingInvalid = 252
+	TimingVESA_1280x960_75hz    TimingInvalid = 250
+	TimingVESA_1280x960_85hz    TimingInvalid = 254
+	TimingVESA_1600x1200_60hz   TimingInvalid = 280
+	TimingVESA_1600x1200_65hz   TimingInvalid = 282
+	TimingVESA_1600x1200_70hz   TimingInvalid = 284
+	TimingVESA_1600x1200_75hz   TimingInvalid = 286
+	TimingVESA_1600x1200_80hz   TimingInvalid = 288
+	TimingVESA_1600x1200_85hz   TimingInvalid = 289
+	TimingVESA_1792x1344_60hz   TimingInvalid = 296
+	TimingVESA_1792x1344_75hz   TimingInvalid = 298
+	TimingVESA_1856x1392_60hz   TimingInvalid = 300
+	TimingVESA_1856x1392_75hz   TimingInvalid = 302
+	TimingVESA_1920x1440_60hz   TimingInvalid = 304
+	TimingVESA_1920x1440_75hz   TimingInvalid = 306
+	TimingVESA_640x480_60hz     TimingInvalid = 150
+	TimingVESA_640x480_72hz     TimingInvalid = 152
+	TimingVESA_640x480_75hz     TimingInvalid = 154
+	TimingVESA_640x480_85hz     TimingInvalid = 158
+	TimingVESA_800x600_56hz     TimingInvalid = 180
+	TimingVESA_800x600_60hz     TimingInvalid = 182
+	TimingVESA_800x600_72hz     TimingInvalid = 184
+	TimingVESA_800x600_75hz     TimingInvalid = 186
+	TimingVESA_800x600_85hz     TimingInvalid = 188
+)
+
+func (e TimingInvalid) String() string {
+	switch e {
 	case TimingAppleNTSC_FF:
 		return "TimingAppleNTSC_FF"
 	case TimingAppleNTSC_FFconv:
@@ -38538,34 +41470,50 @@ func (e Timing) String() string {
 		return "TimingApplePAL_ST"
 	case TimingApplePAL_STconv:
 		return "TimingApplePAL_STconv"
-	case TimingAppleSVGA:
-		return "TimingAppleSVGA"
-	case TimingAppleVGA:
-		return "TimingAppleVGA"
 	case TimingApple_0x0_0hz_Offline:
 		return "TimingApple_0x0_0hz_Offline"
+	case TimingApple_1024x768_75hz:
+		return "TimingApple_1024x768_75hz"
+	case TimingApple_1152x870_75hz:
+		return "TimingApple_1152x870_75hz"
+	case TimingApple_512x384_60hz:
+		return "TimingApple_512x384_60hz"
+	case TimingApple_560x384_60hz:
+		return "TimingApple_560x384_60hz"
+	case TimingApple_640x400_67hz:
+		return "TimingApple_640x400_67hz"
+	case TimingApple_640x480_67hz:
+		return "TimingApple_640x480_67hz"
+	case TimingApple_640x818_75hz:
+		return "TimingApple_640x818_75hz"
+	case TimingApple_640x870_75hz:
+		return "TimingApple_640x870_75hz"
+	case TimingApple_832x624_75hz:
+		return "TimingApple_832x624_75hz"
 	case TimingApple_FixedRateLCD:
 		return "TimingApple_FixedRateLCD"
 	case TimingFilmRate_48hz:
 		return "TimingFilmRate_48hz"
 	case TimingGTF_640x480_120hz:
 		return "TimingGTF_640x480_120hz"
-	case TimingInvalid:
-		return "TimingInvalid"
+	case TimingInvalidValue:
+		return "TimingInvalidValue"
 	case TimingInvalid_SM_T24:
 		return "TimingInvalid_SM_T24"
 	case TimingSMPTE240M_60hz:
 		return "TimingSMPTE240M_60hz"
 	case TimingSony_1600x1024_76hz:
 		return "TimingSony_1600x1024_76hz"
-	case TimingSony_1900x1200_74hz:
-		return "TimingSony_1900x1200_74hz"
-	case TimingSony_1900x1200_76hz:
-		return "TimingSony_1900x1200_76hz"
 	case TimingSony_1920x1080_60hz:
 		return "TimingSony_1920x1080_60hz"
 	case TimingSony_1920x1080_72hz:
 		return "TimingSony_1920x1080_72hz"
+	case TimingSony_1920x1200_76hz:
+		return "TimingSony_1920x1200_76hz"
+	case TimingVESA_1024x768_60hz:
+		return "TimingVESA_1024x768_60hz"
+	case TimingVESA_1024x768_70hz:
+		return "TimingVESA_1024x768_70hz"
 	case TimingVESA_1024x768_75hz:
 		return "TimingVESA_1024x768_75hz"
 	case TimingVESA_1024x768_85hz:
@@ -38606,12 +41554,16 @@ func (e Timing) String() string {
 		return "TimingVESA_1920x1440_60hz"
 	case TimingVESA_1920x1440_75hz:
 		return "TimingVESA_1920x1440_75hz"
+	case TimingVESA_640x480_60hz:
+		return "TimingVESA_640x480_60hz"
 	case TimingVESA_640x480_72hz:
 		return "TimingVESA_640x480_72hz"
 	case TimingVESA_640x480_75hz:
 		return "TimingVESA_640x480_75hz"
 	case TimingVESA_640x480_85hz:
 		return "TimingVESA_640x480_85hz"
+	case TimingVESA_800x600_56hz:
+		return "TimingVESA_800x600_56hz"
 	case TimingVESA_800x600_60hz:
 		return "TimingVESA_800x600_60hz"
 	case TimingVESA_800x600_72hz:
@@ -38621,36 +41573,174 @@ func (e Timing) String() string {
 	case TimingVESA_800x600_85hz:
 		return "TimingVESA_800x600_85hz"
 	default:
-		return fmt.Sprintf("Timing(%d)", e)
+		return fmt.Sprintf("TimingInvalid(%d)", e)
 	}
 }
 
-type Uio uint
+type USBHubClassRequest uint
 
 const (
-	UIO_READ        Uio = 0
-	UIO_SYSSPACE    Uio = 2
-	UIO_SYSSPACE32  Uio = 11
-	UIO_USERSPACE   Uio = 0
-	UIO_USERSPACE32 Uio = 5
-	UIO_USERSPACE64 Uio = 8
-	UIO_WRITE       Uio = 0
+	// KUSBHubRqClearFeature: A request to clear a feature.
+	KUSBHubRqClearFeature USBHubClassRequest = 1
+	// KUSBHubRqGetConfig: A request to get a configuration.
+	KUSBHubRqGetConfig USBHubClassRequest = 8
+	// KUSBHubRqGetDescriptor: A request to obtain a descriptor.
+	KUSBHubRqGetDescriptor USBHubClassRequest = 6
+	// KUSBHubRqGetInterface: A request to get an interface.
+	KUSBHubRqGetInterface USBHubClassRequest = 10
+	// KUSBHubRqGetState: A request to get state.
+	KUSBHubRqGetState USBHubClassRequest = 2
+	// KUSBHubRqGetStatus: A request to get status.
+	KUSBHubRqGetStatus USBHubClassRequest = 0
+	// KUSBHubRqReserved2: A reserved request.
+	KUSBHubRqReserved2 USBHubClassRequest = 4
+	// KUSBHubRqSetAddress: A request to set an address.
+	KUSBHubRqSetAddress USBHubClassRequest = 5
+	// KUSBHubRqSetConfig: A request to set a configuration.
+	KUSBHubRqSetConfig USBHubClassRequest = 9
+	// KUSBHubRqSetDescriptor: A request to set a descriptor.
+	KUSBHubRqSetDescriptor USBHubClassRequest = 7
+	// KUSBHubRqSetFeature: A request to set a feature.
+	KUSBHubRqSetFeature USBHubClassRequest = 3
+	// KUSBHubRqSetInterface: A request to set an interface.
+	KUSBHubRqSetInterface USBHubClassRequest = 11
 )
 
-func (e Uio) String() string {
+func (e USBHubClassRequest) String() string {
+	switch e {
+	case KUSBHubRqClearFeature:
+		return "KUSBHubRqClearFeature"
+	case KUSBHubRqGetConfig:
+		return "KUSBHubRqGetConfig"
+	case KUSBHubRqGetDescriptor:
+		return "KUSBHubRqGetDescriptor"
+	case KUSBHubRqGetInterface:
+		return "KUSBHubRqGetInterface"
+	case KUSBHubRqGetState:
+		return "KUSBHubRqGetState"
+	case KUSBHubRqGetStatus:
+		return "KUSBHubRqGetStatus"
+	case KUSBHubRqReserved2:
+		return "KUSBHubRqReserved2"
+	case KUSBHubRqSetAddress:
+		return "KUSBHubRqSetAddress"
+	case KUSBHubRqSetConfig:
+		return "KUSBHubRqSetConfig"
+	case KUSBHubRqSetDescriptor:
+		return "KUSBHubRqSetDescriptor"
+	case KUSBHubRqSetFeature:
+		return "KUSBHubRqSetFeature"
+	case KUSBHubRqSetInterface:
+		return "KUSBHubRqSetInterface"
+	default:
+		return fmt.Sprintf("USBHubClassRequest(%d)", e)
+	}
+}
+
+type USBNotificationTypes uint32
+
+const (
+	// KUSBNotificationPostForcedResume: The system sends a notification after a resume, which occurs after a forced suspend.
+	KUSBNotificationPostForcedResume USBNotificationTypes = 8
+	// KUSBNotificationPostForcedSuspend: The system sends a notification after a forced suspend completes.
+	KUSBNotificationPostForcedSuspend USBNotificationTypes = 2
+	// KUSBNotificationPreForcedResume: The system sends a notification before a resume, which occurs after a forced suspend.
+	KUSBNotificationPreForcedResume USBNotificationTypes = 4
+	// KUSBNotificationPreForcedSuspend: The system sends a notification prior to a forced suspend.
+	KUSBNotificationPreForcedSuspend USBNotificationTypes = 1
+)
+
+func (e USBNotificationTypes) String() string {
+	switch e {
+	case KUSBNotificationPostForcedResume:
+		return "KUSBNotificationPostForcedResume"
+	case KUSBNotificationPostForcedSuspend:
+		return "KUSBNotificationPostForcedSuspend"
+	case KUSBNotificationPreForcedResume:
+		return "KUSBNotificationPreForcedResume"
+	case KUSBNotificationPreForcedSuspend:
+		return "KUSBNotificationPreForcedSuspend"
+	default:
+		return fmt.Sprintf("USBNotificationTypes(%d)", e)
+	}
+}
+
+type USBReEnumerateOptions int32
+
+const (
+	// KUSBAddExtraResetTimeBit: Request extra time after reset.
+	KUSBAddExtraResetTimeBit USBReEnumerateOptions = 31
+	// KUSBAddExtraResetTimeMask: The mask to request extra time after reset.
+	KUSBAddExtraResetTimeMask USBReEnumerateOptions = -2147483648
+	// KUSBReEnumerateCaptureDeviceBit: The bit to capture the device.
+	KUSBReEnumerateCaptureDeviceBit USBReEnumerateOptions = 30
+	// KUSBReEnumerateCaptureDeviceMask: The mask to capture the device.
+	KUSBReEnumerateCaptureDeviceMask USBReEnumerateOptions = 1073741824
+	// KUSBReEnumerateReleaseDeviceBit: The bit to release the device.
+	KUSBReEnumerateReleaseDeviceBit USBReEnumerateOptions = 29
+	// KUSBReEnumerateReleaseDeviceMask: The mask to release the device.
+	KUSBReEnumerateReleaseDeviceMask USBReEnumerateOptions = 536870912
+)
+
+func (e USBReEnumerateOptions) String() string {
+	switch e {
+	case KUSBAddExtraResetTimeBit:
+		return "KUSBAddExtraResetTimeBit"
+	case KUSBAddExtraResetTimeMask:
+		return "KUSBAddExtraResetTimeMask"
+	case KUSBReEnumerateCaptureDeviceBit:
+		return "KUSBReEnumerateCaptureDeviceBit"
+	case KUSBReEnumerateCaptureDeviceMask:
+		return "KUSBReEnumerateCaptureDeviceMask"
+	case KUSBReEnumerateReleaseDeviceBit:
+		return "KUSBReEnumerateReleaseDeviceBit"
+	case KUSBReEnumerateReleaseDeviceMask:
+		return "KUSBReEnumerateReleaseDeviceMask"
+	default:
+		return fmt.Sprintf("USBReEnumerateOptions(%d)", e)
+	}
+}
+
+type UioRw uint
+
+const (
+	UIO_READ  UioRw = 0
+	UIO_WRITE UioRw = 0
+)
+
+func (e UioRw) String() string {
 	switch e {
 	case UIO_READ:
 		return "UIO_READ"
+	default:
+		return fmt.Sprintf("UioRw(%d)", e)
+	}
+}
+
+type UioSeg uint
+
+const (
+	UIO_SYSSPACE    UioSeg = 2
+	UIO_SYSSPACE32  UioSeg = 11
+	UIO_USERSPACE   UioSeg = 0
+	UIO_USERSPACE32 UioSeg = 5
+	UIO_USERSPACE64 UioSeg = 8
+)
+
+func (e UioSeg) String() string {
+	switch e {
 	case UIO_SYSSPACE:
 		return "UIO_SYSSPACE"
 	case UIO_SYSSPACE32:
 		return "UIO_SYSSPACE32"
+	case UIO_USERSPACE:
+		return "UIO_USERSPACE"
 	case UIO_USERSPACE32:
 		return "UIO_USERSPACE32"
 	case UIO_USERSPACE64:
 		return "UIO_USERSPACE64"
 	default:
-		return fmt.Sprintf("Uio(%d)", e)
+		return fmt.Sprintf("UioSeg(%d)", e)
 	}
 }
 
@@ -38779,7 +41869,7 @@ type ViolationInvalidIOPaddr uint
 const (
 	SPTM_N_PUBLIC_VIOLATIONS              ViolationInvalidIOPaddr = 0
 	VIOLATION_INVALID_DT_RANGE            ViolationInvalidIOPaddr = 0
-	VIOLATION_INVALID_IO_PADDR            ViolationInvalidIOPaddr = (4278190080)
+	VIOLATION_INVALID_IO_PADDR            ViolationInvalidIOPaddr = 4278190080
 	VIOLATION_INVALID_RESTRICTED_IO_PADDR ViolationInvalidIOPaddr = 0
 )
 
@@ -38791,6 +41881,46 @@ func (e ViolationInvalidIOPaddr) String() string {
 		return "VIOLATION_INVALID_IO_PADDR"
 	default:
 		return fmt.Sprintf("ViolationInvalidIOPaddr(%d)", e)
+	}
+}
+
+type VirtualMemoryGuardExceptionCode uint32
+
+const (
+	KGUARD_EXC_DEALLOC_GAP                VirtualMemoryGuardExceptionCode = 1
+	KGUARD_EXC_RECLAIM_COPYIO_FAILURE     VirtualMemoryGuardExceptionCode = 2
+	KGUARD_EXC_RECLAIM_DEALLOCATE_FAILURE VirtualMemoryGuardExceptionCode = 8
+	KGUARD_EXC_RECLAIM_INDEX_FAILURE      VirtualMemoryGuardExceptionCode = 4
+	KGUARD_EXC_SEC_ACCESS_FAULT           VirtualMemoryGuardExceptionCode = 98
+	KGUARD_EXC_SEC_ASYNC_ACCESS_FAULT     VirtualMemoryGuardExceptionCode = 99
+	KGUARD_EXC_SEC_COPY_DENIED            VirtualMemoryGuardExceptionCode = 100
+	KGUARD_EXC_SEC_LOOKUP_DENIED          VirtualMemoryGuardExceptionCode = 0
+	KGUARD_EXC_SEC_RANGE_DENIED           VirtualMemoryGuardExceptionCode = 0
+	KGUARD_EXC_SEC_SHARING_DENIED         VirtualMemoryGuardExceptionCode = 101
+)
+
+func (e VirtualMemoryGuardExceptionCode) String() string {
+	switch e {
+	case KGUARD_EXC_DEALLOC_GAP:
+		return "KGUARD_EXC_DEALLOC_GAP"
+	case KGUARD_EXC_RECLAIM_COPYIO_FAILURE:
+		return "KGUARD_EXC_RECLAIM_COPYIO_FAILURE"
+	case KGUARD_EXC_RECLAIM_DEALLOCATE_FAILURE:
+		return "KGUARD_EXC_RECLAIM_DEALLOCATE_FAILURE"
+	case KGUARD_EXC_RECLAIM_INDEX_FAILURE:
+		return "KGUARD_EXC_RECLAIM_INDEX_FAILURE"
+	case KGUARD_EXC_SEC_ACCESS_FAULT:
+		return "KGUARD_EXC_SEC_ACCESS_FAULT"
+	case KGUARD_EXC_SEC_ASYNC_ACCESS_FAULT:
+		return "KGUARD_EXC_SEC_ASYNC_ACCESS_FAULT"
+	case KGUARD_EXC_SEC_COPY_DENIED:
+		return "KGUARD_EXC_SEC_COPY_DENIED"
+	case KGUARD_EXC_SEC_LOOKUP_DENIED:
+		return "KGUARD_EXC_SEC_LOOKUP_DENIED"
+	case KGUARD_EXC_SEC_SHARING_DENIED:
+		return "KGUARD_EXC_SEC_SHARING_DENIED"
+	default:
+		return fmt.Sprintf("VirtualMemoryGuardExceptionCode(%d)", e)
 	}
 }
 

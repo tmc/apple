@@ -29,6 +29,11 @@ type MTLTensorBinding interface {
 	//
 	// See: https://developer.apple.com/documentation/Metal/MTLTensorBinding/tensorDataType
 	TensorDataType() MTLTensorDataType
+
+	// An array of the tensor’s auxiliary planes.
+	//
+	// See: https://developer.apple.com/documentation/Metal/MTLTensorBinding/auxiliaryPlanes
+	AuxiliaryPlanes() []MTLTensorAuxiliaryPlaneType
 }
 
 // MTLTensorBindingObject wraps an existing Objective-C object that conforms to the MTLTensorBinding protocol.
@@ -90,10 +95,11 @@ func (o MTLTensorBindingObject) Type() MTLBindingType {
 //
 // Because shader-bound tensors have dynamic extents, if this tensor is shader
 // bound, the [MTLTensorExtents.Rank] of `dimensions` corresponds to the rank
-// the shader function specifies, and `MTLTensorExtents/` always returns a
-// value of -1. In the case of functions used with machine learning pipelines,
-// `dimensions` corresponds to the default shape, if you provide one.
-// Otherwise, it’s `nil` in the case of an undefined shape.
+// the shader function specifies, and
+// `MTLTensorExtents/extentsAtDimensionIndex:` always returns a value of -1.
+// In the case of functions used with machine learning pipelines, `dimensions`
+// corresponds to the default shape, if you provide one. Otherwise, it’s
+// `nil` in the case of an undefined shape.
 //
 // See: https://developer.apple.com/documentation/Metal/MTLTensorBinding/dimensions
 func (o MTLTensorBindingObject) Dimensions() IMTLTensorExtents {
@@ -117,14 +123,14 @@ func (o MTLTensorBindingObject) TensorDataType() MTLTensorDataType {
 	return MTLTensorDataType(rv)
 }
 
-// See: https://developer.apple.com/documentation/Metal/MTLBinding/isArgument
-func (o MTLTensorBindingObject) Argument() bool {
-	rv := objc.Send[bool](o.ID, objc.Sel("isArgument"))
-	return bool(rv)
-}
-
-// See: https://developer.apple.com/documentation/Metal/MTLBinding/isUsed
-func (o MTLTensorBindingObject) Used() bool {
-	rv := objc.Send[bool](o.ID, objc.Sel("isUsed"))
-	return bool(rv)
+// An array of the tensor’s auxiliary planes.
+//
+// See: https://developer.apple.com/documentation/Metal/MTLTensorBinding/auxiliaryPlanes
+func (o MTLTensorBindingObject) AuxiliaryPlanes() []MTLTensorAuxiliaryPlaneType {
+	rvIDs := objc.Send[[]objc.ID](o.ID, objc.Sel("auxiliaryPlanes"))
+	result := make([]MTLTensorAuxiliaryPlaneType, len(rvIDs))
+	for i, id := range rvIDs {
+		result[i] = MTLTensorAuxiliaryPlaneTypeFromID(id)
+	}
+	return result
 }

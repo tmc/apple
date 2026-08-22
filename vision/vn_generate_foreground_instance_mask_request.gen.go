@@ -97,8 +97,9 @@ func NewVNGenerateForegroundInstanceMaskRequest() VNGenerateForegroundInstanceMa
 // [VNImageRequestHandler.PerformRequestsError].
 //
 // See: https://developer.apple.com/documentation/Vision/VNRequest/init(completionHandler:)
-func NewGenerateForegroundInstanceMaskRequestWithCompletionHandler(completionHandler VNRequestCompletionHandler) VNGenerateForegroundInstanceMaskRequest {
+func NewGenerateForegroundInstanceMaskRequestWithCompletionHandler(completionHandler VNRequestErrorHandler) VNGenerateForegroundInstanceMaskRequest {
+	_block0, _ := NewVNRequestErrorBlock(completionHandler)
 	instance := getVNGenerateForegroundInstanceMaskRequestClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCompletionHandler:"), completionHandler)
+	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCompletionHandler:"), _block0)
 	return VNGenerateForegroundInstanceMaskRequestFromID(rv)
 }

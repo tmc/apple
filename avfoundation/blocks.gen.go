@@ -10,6 +10,8 @@ import (
 	"github.com/tmc/apple/objectivec"
 )
 
+// AVAssetImageGeneratorCompletionHandler handles A type alias for a closure that provides the result of an image generation request.
+
 // AVAssetTrackArrayErrorHandler handles A callback that the system invokes after it finishes the loading operation.
 //   - tracks: An array of tracks, which may be empty if no tracks with the specified media type exist. The value is `nil` if an error occurs.
 //   - error: An error object if the request fails; otherwise, `nil`.
@@ -116,7 +118,7 @@ func NewAVAssetTrackSegmentErrorBlock(handler AVAssetTrackSegmentErrorHandler) (
 }
 
 // AVAsynchronousCIImageFilteringRequestHandler handles A block that AVFoundation calls when processing each video frame.
-//   - request: An [AVAsynchronousCIImageFilteringRequest](<doc://com.apple.avfoundation/documentation/AVFoundation/AVAsynchronousCIImageFilteringRequest>) object representing the frame to be processed.
+//   - request: An [AVAsynchronousCIImageFilteringRequest](<https://developer.apple.com/documentation/AVFoundation/AVAsynchronousCIImageFilteringRequest>) object representing the frame to be processed.
 //
 // Used by:
 //   - [AVMutableVideoComposition.VideoCompositionWithAssetApplyingCIFiltersWithHandlerCompletionHandler]
@@ -898,26 +900,10 @@ func NewBoolBlock(handler BoolHandler) (objc.ID, func()) {
 }
 
 // CGImageRefCMTimeErrorHandler handles A callback that the image generator invokes with the result of the request.
-// The error can be type-asserted to *foundation.NSError for Domain, Code, and UserInfo.
 //
 // Used by:
 //   - [AVAssetImageGenerator.GenerateCGImageAsynchronouslyForTimeCompletionHandler]
-type CGImageRefCMTimeErrorHandler = func(coregraphics.CGImageRef, coremedia.CMTime, error)
-
-// NewCGImageRefCMTimeErrorBlock wraps a Go [CGImageRefCMTimeErrorHandler] as an Objective-C block.
-// The caller must defer the returned cleanup function.
-//
-// Used by:
-//   - [AVAssetImageGenerator.GenerateCGImageAsynchronouslyForTimeCompletionHandler]
-func NewCGImageRefCMTimeErrorBlock(handler CGImageRefCMTimeErrorHandler) (objc.ID, func()) {
-	if handler == nil {
-		return 0, func() {}
-	}
-	block := objc.NewBlock(func(b objc.Block, primitive coregraphics.CGImageRef, extra0 coremedia.CMTime, errID objc.ID) {
-		handler(primitive, extra0, foundation.SafeErrorFrom(errID))
-	})
-	return objc.ID(block), func() { block.Release() }
-}
+type CGImageRefCMTimeErrorHandler = func(coremedia.CMTime, error)
 
 // CMPersistentTrackIDErrorHandler handles A completion handler the system calls after it finishes the request.
 // The error can be type-asserted to *foundation.NSError for Domain, Code, and UserInfo.
@@ -941,34 +927,21 @@ func NewCMPersistentTrackIDErrorBlock(handler CMPersistentTrackIDErrorHandler) (
 	return objc.ID(block), func() { block.Release() }
 }
 
+// CMTimeCGImageRefCMTimeIntErrorHandler handles A callback that the image generator invokes for each requested image time.
+//
+// Used by:
+//   - [AVAssetImageGenerator.GenerateCGImagesAsynchronouslyForTimesCompletionHandler]
+type CMTimeCGImageRefCMTimeIntErrorHandler = func(*coregraphics.CGImageRef, coremedia.CMTime, int, error)
+
 // CMTimeErrorHandler handles A callback the system invokes when it finishes its estimation.
-//   - time: A [CMTime](<doc://com.apple.documentation/documentation/CoreMedia/CMTime>) value, which is [invalid](<doc://com.apple.documentation/documentation/CoreMedia/CMTime/invalid>) if the track time is out of range or if an error occurs.
+//   - time: A [CMTime](<https://developer.apple.com/documentation/CoreMedia/CMTime>) value, which is [invalid](<https://developer.apple.com/documentation/CoreMedia/CMTime/invalid>) if the track time is out of range or if an error occurs.
 //   - error: An error object if the request fails; otherwise, `nil`.
 //
-// The error can be type-asserted to *foundation.NSError for Domain, Code, and UserInfo.
-//
 // Used by:
 //   - [AVAssetExportSession.EstimateMaximumDurationWithCompletionHandler]
 //   - [AVAssetTrack.LoadSamplePresentationTimeForTrackTimeCompletionHandler]
 //   - [AVCaptureDevice.SetDynamicAspectRatioCompletionHandler]
-type CMTimeErrorHandler = func(coremedia.CMTime, error)
-
-// NewCMTimeErrorBlock wraps a Go [CMTimeErrorHandler] as an Objective-C block.
-// The caller must defer the returned cleanup function.
-//
-// Used by:
-//   - [AVAssetExportSession.EstimateMaximumDurationWithCompletionHandler]
-//   - [AVAssetTrack.LoadSamplePresentationTimeForTrackTimeCompletionHandler]
-//   - [AVCaptureDevice.SetDynamicAspectRatioCompletionHandler]
-func NewCMTimeErrorBlock(handler CMTimeErrorHandler) (objc.ID, func()) {
-	if handler == nil {
-		return 0, func() {}
-	}
-	block := objc.NewBlock(func(b objc.Block, primitiveVal coremedia.CMTime, errID objc.ID) {
-		handler(primitiveVal, foundation.SafeErrorFrom(errID))
-	})
-	return objc.ID(block), func() { block.Release() }
-}
+type CMTimeErrorHandler = func(error)
 
 // CMTimeHandler handles A callback the system invokes when the adjustment to the exposure duration and ISO is complete.
 //   - time: The time at which the system invokes the block.
@@ -982,29 +955,7 @@ func NewCMTimeErrorBlock(handler CMTimeErrorHandler) (objc.ID, func()) {
 //   - [AVPlayer.AddPeriodicTimeObserverForIntervalQueueUsingBlock]
 //   - [AVPlayerItemIntegratedTimeline.AddPeriodicTimeObserverForIntervalQueueUsingBlock]
 //   - [AVSampleBufferRenderSynchronizer.AddPeriodicTimeObserverForIntervalQueueUsingBlock]
-type CMTimeHandler = func(coremedia.CMTime)
-
-// NewCMTimeBlock wraps a Go [CMTimeHandler] as an Objective-C block.
-// The caller must defer the returned cleanup function.
-//
-// Used by:
-//   - [AVCaptureDevice.SetExposureModeCustomWithDurationISOCompletionHandler]
-//   - [AVCaptureDevice.SetExposureTargetBiasCompletionHandler]
-//   - [AVCaptureDevice.SetFocusModeLockedWithLensPositionCompletionHandler]
-//   - [AVCaptureDevice.SetWhiteBalanceModeLockedWithDeviceWhiteBalanceGainsCompletionHandler]
-//   - [AVCaptureDevice.SetWhiteBalanceModeLockedWithDeviceWhiteBalanceTemperatureAndTintValuesCompletionHandler]
-//   - [AVPlayer.AddPeriodicTimeObserverForIntervalQueueUsingBlock]
-//   - [AVPlayerItemIntegratedTimeline.AddPeriodicTimeObserverForIntervalQueueUsingBlock]
-//   - [AVSampleBufferRenderSynchronizer.AddPeriodicTimeObserverForIntervalQueueUsingBlock]
-func NewCMTimeBlock(handler CMTimeHandler) (objc.ID, func()) {
-	if handler == nil {
-		return 0, func() {}
-	}
-	block := objc.NewBlock(func(b objc.Block, primitiveVal coremedia.CMTime) {
-		handler(primitiveVal)
-	})
-	return objc.ID(block), func() { block.Release() }
-}
+type CMTimeHandler = func()
 
 // DataErrorHandler handles A block called after the streaming content key request has been prepared.
 //   - contentKeyRequestData: The streaming content key request data.
@@ -1047,7 +998,6 @@ func NewDataErrorBlock(handler DataErrorHandler) (objc.ID, func()) {
 // The error can be type-asserted to *foundation.NSError for Domain, Code, and UserInfo.
 //
 // Used by:
-//   - [AVAssetImageGenerator.GenerateCGImagesAsynchronouslyForTimesCompletionHandler]
 //   - [AVCaptureDeskViewApplication.PresentWithCompletionHandler]
 //   - [AVCaptureDeskViewApplication.PresentWithLaunchConfigurationCompletionHandler]
 //   - [AVMutableComposition.InsertTimeRangeOfAssetAtTimeCompletionHandler]
@@ -1058,7 +1008,6 @@ type ErrorHandler = func(error)
 // The caller must defer the returned cleanup function.
 //
 // Used by:
-//   - [AVAssetImageGenerator.GenerateCGImagesAsynchronouslyForTimesCompletionHandler]
 //   - [AVCaptureDeskViewApplication.PresentWithCompletionHandler]
 //   - [AVCaptureDeskViewApplication.PresentWithLaunchConfigurationCompletionHandler]
 //   - [AVMutableComposition.InsertTimeRangeOfAssetAtTimeCompletionHandler]
@@ -1118,6 +1067,28 @@ func NewFloat64Block(handler Float64Handler) (objc.ID, func()) {
 	return objc.ID(block), func() { block.Release() }
 }
 
+// IntErrorHandler handles The completion handler is called on an arbitrary dispatch queue when the replenish operation finishes.
+// The error can be type-asserted to *foundation.NSError for Domain, Code, and UserInfo.
+//
+// Used by:
+//   - [AVProVideoStorage.ReplenishCapacityWithCompletionHandler]
+type IntErrorHandler = func(int, error)
+
+// NewIntErrorBlock wraps a Go [IntErrorHandler] as an Objective-C block.
+// The caller must defer the returned cleanup function.
+//
+// Used by:
+//   - [AVProVideoStorage.ReplenishCapacityWithCompletionHandler]
+func NewIntErrorBlock(handler IntErrorHandler) (objc.ID, func()) {
+	if handler == nil {
+		return 0, func() {}
+	}
+	block := objc.NewBlock(func(b objc.Block, primitiveVal int, errID objc.ID) {
+		handler(primitiveVal, foundation.SafeErrorFrom(errID))
+	})
+	return objc.ID(block), func() { block.Release() }
+}
+
 // IntHandler handles The action to perform in response to changes to the control’s value.
 //
 // Used by:
@@ -1160,12 +1131,10 @@ func NewStringIntBlock(handler StringIntHandler) (objc.ID, func()) {
 	return objc.ID(block), func() { block.Release() }
 }
 
-// VoidHandler handles A callback the system passes an array of AVFileType structures when it determines the compatible file types.
+// VoidHandler handles A callback the system invokes when it finishes successfully, or in the event of writing failure.
 //
 // Used by:
-//   - [AVAssetExportSession.DetermineCompatibleFileTypesWithCompletionHandler]
 //   - [AVAssetExportSession.ExportAsynchronouslyWithCompletionHandler]
-//   - [AVAssetPlaybackAssistant.LoadPlaybackConfigurationOptionsWithCompletionHandler]
 //   - [AVAssetWriter.FinishWritingWithCompletionHandler]
 //   - [AVMetadataItem.LoadValuesAsynchronouslyForKeysCompletionHandler]
 //   - [AVPlaybackCoordinatorPlaybackControlDelegate.PlaybackCoordinatorDidIssueBufferingCommandCompletionHandler]
@@ -1186,9 +1155,7 @@ type VoidHandler = func()
 // The caller must defer the returned cleanup function.
 //
 // Used by:
-//   - [AVAssetExportSession.DetermineCompatibleFileTypesWithCompletionHandler]
 //   - [AVAssetExportSession.ExportAsynchronouslyWithCompletionHandler]
-//   - [AVAssetPlaybackAssistant.LoadPlaybackConfigurationOptionsWithCompletionHandler]
 //   - [AVAssetWriter.FinishWritingWithCompletionHandler]
 //   - [AVMetadataItem.LoadValuesAsynchronouslyForKeysCompletionHandler]
 //   - [AVPlaybackCoordinatorPlaybackControlDelegate.PlaybackCoordinatorDidIssueBufferingCommandCompletionHandler]
@@ -1231,6 +1198,41 @@ func Newint64_tErrorBlock(handler int64_tErrorHandler) (objc.ID, func()) {
 	}
 	block := objc.NewBlock(func(b objc.Block, primitiveVal int64, errID objc.ID) {
 		handler(primitiveVal, foundation.SafeErrorFrom(errID))
+	})
+	return objc.ID(block), func() { block.Release() }
+}
+
+// stringArrayHandler handles A callback the system passes an array of AVFileType structures when it determines the compatible file types.
+//
+// Used by:
+//   - [AVAssetExportSession.DetermineCompatibleFileTypesWithCompletionHandler]
+//   - [AVAssetPlaybackAssistant.LoadPlaybackConfigurationOptionsWithCompletionHandler]
+type stringArrayHandler = func(*[]string)
+
+// NewstringArrayBlock wraps a Go [stringArrayHandler] as an Objective-C block.
+// The caller must defer the returned cleanup function.
+//
+// Used by:
+//   - [AVAssetExportSession.DetermineCompatibleFileTypesWithCompletionHandler]
+//   - [AVAssetPlaybackAssistant.LoadPlaybackConfigurationOptionsWithCompletionHandler]
+func NewstringArrayBlock(handler stringArrayHandler) (objc.ID, func()) {
+	if handler == nil {
+		return 0, func() {}
+	}
+	block := objc.NewBlock(func(b objc.Block, resultID objc.ID) {
+		var result *[]string
+		if resultID != 0 {
+			objc.Send[objc.ID](resultID, objc.Sel("retain"))
+			obj := foundation.NSArrayFromID(resultID)
+			count := obj.Count()
+			res := make([]string, count)
+			for i := uint(0); i < count; i++ {
+				item := obj.ObjectAtIndex(i)
+				res[i] = objc.IDToString(item.GetID())
+			}
+			result = &res
+		}
+		handler(result)
 	})
 	return objc.ID(block), func() { block.Release() }
 }

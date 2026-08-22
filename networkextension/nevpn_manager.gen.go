@@ -9,6 +9,7 @@ import (
 	"github.com/tmc/apple/foundation"
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
+	"github.com/tmc/apple/security"
 )
 
 // The class instance for the [NEVPNManager] class.
@@ -58,13 +59,14 @@ func (nc NEVPNManagerClass) Alloc() NEVPNManager {
 //
 //   - [NEVPNManager.LoadFromPreferencesWithCompletionHandler]: Load the VPN configuration from the Network Extension preferences.
 //   - [NEVPNManager.SaveToPreferencesWithCompletionHandler]: Save the VPN configuration in the Network Extension preferences.
+//   - [NEVPNManager.SetAuthorization]
 //   - [NEVPNManager.RemoveFromPreferencesWithCompletionHandler]: Remove the VPN configuration from the Network Extension preferences.
 //
 // # Accessing VPN configuration properties
 //
 //   - [NEVPNManager.IsEnabled]: A Boolean used to toggle the enabled state of the VPN configuration.
 //   - [NEVPNManager.SetEnabled]
-//   - [NEVPNManager.ProtocolConfiguration]: An [NEVPNProtocol](<doc://com.apple.networkextension/documentation/NetworkExtension/NEVPNProtocol>) object containing the configuration settings of the VPN tunneling protocol.
+//   - [NEVPNManager.ProtocolConfiguration]: An [NEVPNProtocol](<https://developer.apple.com/documentation/NetworkExtension/NEVPNProtocol>) object containing the configuration settings of the VPN tunneling protocol.
 //   - [NEVPNManager.SetProtocolConfiguration]
 //   - [NEVPNManager.LocalizedDescription]: A string containing the display name of the VPN configuration.
 //   - [NEVPNManager.SetLocalizedDescription]
@@ -75,7 +77,7 @@ func (nc NEVPNManagerClass) Alloc() NEVPNManager {
 //
 // # Connecting and disconnecting VPN
 //
-//   - [NEVPNManager.Connection]: An [NEVPNConnection](<doc://com.apple.networkextension/documentation/NetworkExtension/NEVPNConnection>) object that is used to control the VPN tunnel specified by the VPN configuration.
+//   - [NEVPNManager.Connection]: An [NEVPNConnection](<https://developer.apple.com/documentation/NetworkExtension/NEVPNConnection>) object that is used to control the VPN tunnel specified by the VPN configuration.
 //
 // See: https://developer.apple.com/documentation/NetworkExtension/NEVPNManager
 type NEVPNManager struct {
@@ -98,13 +100,14 @@ func NEVPNManagerFromID(id objc.ID) NEVPNManager {
 //
 //   - [INEVPNManager.LoadFromPreferencesWithCompletionHandler]: Load the VPN configuration from the Network Extension preferences.
 //   - [INEVPNManager.SaveToPreferencesWithCompletionHandler]: Save the VPN configuration in the Network Extension preferences.
+//   - [INEVPNManager.SetAuthorization]
 //   - [INEVPNManager.RemoveFromPreferencesWithCompletionHandler]: Remove the VPN configuration from the Network Extension preferences.
 //
 // # Accessing VPN configuration properties
 //
 //   - [INEVPNManager.IsEnabled]: A Boolean used to toggle the enabled state of the VPN configuration.
 //   - [INEVPNManager.SetEnabled]
-//   - [INEVPNManager.ProtocolConfiguration]: An [NEVPNProtocol](<doc://com.apple.networkextension/documentation/NetworkExtension/NEVPNProtocol>) object containing the configuration settings of the VPN tunneling protocol.
+//   - [INEVPNManager.ProtocolConfiguration]: An [NEVPNProtocol](<https://developer.apple.com/documentation/NetworkExtension/NEVPNProtocol>) object containing the configuration settings of the VPN tunneling protocol.
 //   - [INEVPNManager.SetProtocolConfiguration]
 //   - [INEVPNManager.LocalizedDescription]: A string containing the display name of the VPN configuration.
 //   - [INEVPNManager.SetLocalizedDescription]
@@ -115,7 +118,7 @@ func NEVPNManagerFromID(id objc.ID) NEVPNManager {
 //
 // # Connecting and disconnecting VPN
 //
-//   - [INEVPNManager.Connection]: An [NEVPNConnection](<doc://com.apple.networkextension/documentation/NetworkExtension/NEVPNConnection>) object that is used to control the VPN tunnel specified by the VPN configuration.
+//   - [INEVPNManager.Connection]: An [NEVPNConnection](<https://developer.apple.com/documentation/NetworkExtension/NEVPNConnection>) object that is used to control the VPN tunnel specified by the VPN configuration.
 //
 // See: https://developer.apple.com/documentation/NetworkExtension/NEVPNManager
 type INEVPNManager interface {
@@ -127,6 +130,7 @@ type INEVPNManager interface {
 	LoadFromPreferencesWithCompletionHandler(completionHandler ErrorHandler)
 	// Save the VPN configuration in the Network Extension preferences.
 	SaveToPreferencesWithCompletionHandler(completionHandler ErrorHandler)
+	SetAuthorization(authorization security.AuthorizationRef)
 	// Remove the VPN configuration from the Network Extension preferences.
 	RemoveFromPreferencesWithCompletionHandler(completionHandler ErrorHandler)
 
@@ -135,7 +139,7 @@ type INEVPNManager interface {
 	// A Boolean used to toggle the enabled state of the VPN configuration.
 	IsEnabled() bool
 	SetEnabled(value bool)
-	// An [NEVPNProtocol](<doc://com.apple.networkextension/documentation/NetworkExtension/NEVPNProtocol>) object containing the configuration settings of the VPN tunneling protocol.
+	// An [NEVPNProtocol](<https://developer.apple.com/documentation/NetworkExtension/NEVPNProtocol>) object containing the configuration settings of the VPN tunneling protocol.
 	ProtocolConfiguration() INEVPNProtocol
 	SetProtocolConfiguration(value INEVPNProtocol)
 	// A string containing the display name of the VPN configuration.
@@ -150,7 +154,7 @@ type INEVPNManager interface {
 
 	// Topic: Connecting and disconnecting VPN
 
-	// An [NEVPNConnection](<doc://com.apple.networkextension/documentation/NetworkExtension/NEVPNConnection>) object that is used to control the VPN tunnel specified by the VPN configuration.
+	// An [NEVPNConnection](<https://developer.apple.com/documentation/NetworkExtension/NEVPNConnection>) object that is used to control the VPN tunnel specified by the VPN configuration.
 	Connection() INEVPNConnection
 }
 
@@ -218,6 +222,11 @@ func (v NEVPNManager) LoadFromPreferencesWithCompletionHandler(completionHandler
 func (v NEVPNManager) SaveToPreferencesWithCompletionHandler(completionHandler ErrorHandler) {
 	_block0, _ := NewErrorBlock(completionHandler)
 	objc.Send[objc.ID](v.ID, objc.Sel("saveToPreferencesWithCompletionHandler:"), _block0)
+}
+
+// See: https://developer.apple.com/documentation/NetworkExtension/NEVPNManager/setAuthorization(_:)
+func (v NEVPNManager) SetAuthorization(authorization security.AuthorizationRef) {
+	objc.Send[objc.ID](v.ID, objc.Sel("setAuthorization:"), authorization)
 }
 
 // Remove the VPN configuration from the Network Extension preferences.

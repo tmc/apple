@@ -19,7 +19,7 @@ type CIDynamicRangeOption = string
 // CIFormat is pixel data formats for image input, output, and processing.
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIFormat
-type CIFormat = int
+type CIFormat = int32
 
 // See: https://developer.apple.com/documentation/CoreImage/CIImageAutoAdjustmentOption
 type CIImageAutoAdjustmentOption = string
@@ -33,7 +33,7 @@ type CIImageRepresentationOption = string
 // CIKernelROICallback is the signature for a block that computes the region of interest (ROI) for a given area of destination image pixels. Core Image calls this block when applying the kernel. You specify this block when using the [apply(extent:roiCallback:arguments:)] method.
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIKernelROICallback
-type CIKernelROICallback = func(int, corefoundation.CGRect) corefoundation.CGRect
+type CIKernelROICallback = func(int32, corefoundation.CGRect) corefoundation.CGRect
 
 // See: https://developer.apple.com/documentation/CoreImage/CIRAWDecoderVersion
 type CIRAWDecoderVersion = string

@@ -539,8 +539,9 @@ func (u URLSession) DataTaskWithURL(url INSURL) INSURLSessionDataTask {
 // handler. Delegate methods for handling authentication challenges, however,
 // are still called.
 //
-// You should pass a `nil` completion handler when creating tasks in sessions
-// whose delegates include a [URLSessionDataTaskDidReceiveData] method.
+// You should pass a `nil` completion handler only when creating tasks in
+// sessions whose delegates include a [URLSessionDataTaskDidReceiveData]
+// method.
 //
 // If the request completes successfully, the `data` parameter of the
 // completion handler block contains the resource data, and the `error`
@@ -616,8 +617,9 @@ func (u URLSession) DataTaskWithRequest(request INSURLRequest) INSURLSessionData
 // handler. Delegate methods for handling authentication challenges, however,
 // are still called.
 //
-// You should pass a `nil` completion handler when creating tasks in sessions
-// whose delegates include a [URLSessionDataTaskDidReceiveData] method.
+// You should pass a `nil` completion handler only when creating tasks in
+// sessions whose delegates include a [URLSessionDataTaskDidReceiveData]
+// method.
 //
 // After you create the task, you must start it by calling its
 // [NSURLSessionTask.Resume] method.
@@ -691,9 +693,9 @@ func (u URLSession) DownloadTaskWithURL(url INSURL) INSURLSessionDownloadTask {
 // handler. Delegate methods for handling authentication challenges, however,
 // are still called.
 //
-// You should pass a `nil` completion handler when creating tasks in sessions
-// whose delegates include a [URLSessionDownloadTaskDidFinishDownloadingToURL]
-// method.
+// You should pass a `nil` completion handler only when creating tasks in
+// sessions whose delegates include a
+// [URLSessionDownloadTaskDidFinishDownloadingToURL] method.
 //
 // After you create the task, you must start it by calling its
 // [NSURLSessionTask.Resume] method.
@@ -779,9 +781,9 @@ func (u URLSession) DownloadTaskWithRequest(request INSURLRequest) INSURLSession
 // Delegate methods for handling authentication challenges, however, are still
 // called.
 //
-// You should pass a `nil` completion handler when creating tasks in sessions
-// whose delegates include a [URLSessionDownloadTaskDidFinishDownloadingToURL]
-// method.
+// You should pass a `nil` completion handler only when creating tasks in
+// sessions whose delegates include a
+// [URLSessionDownloadTaskDidFinishDownloadingToURL] method.
 //
 // After you create the task, you must start it by calling its
 // [NSURLSessionTask.Resume] method.
@@ -857,9 +859,9 @@ func (u URLSession) DownloadTaskWithResumeData(resumeData INSData) INSURLSession
 // response, or error inside the completion handler. Delegate methods for
 // handling authentication challenges, however, are still called.
 //
-// You should pass a `nil` completion handler when creating tasks in sessions
-// whose delegates include a [URLSessionDownloadTaskDidFinishDownloadingToURL]
-// method.
+// You should pass a `nil` completion handler only when creating tasks in
+// sessions whose delegates include a
+// [URLSessionDownloadTaskDidFinishDownloadingToURL] method.
 //
 // Your app can obtain a `resumeData` object in two ways:
 //
@@ -1421,9 +1423,9 @@ func (u URLSession) SetSessionDescription(value string) {
 // you’ll have to rewrite all of those customizations to work with your
 // custom URL sessions.
 //
-// In other words, if you’re doing with caches, cookies, authentication, or
-// custom networking protocols, you should probably be using a default session
-// instead of the shared session.
+// In other words, if you’re doing anything with caches, cookies,
+// authentication, or custom networking protocols, you should probably be
+// using a default session instead of the shared session.
 //
 // See: https://developer.apple.com/documentation/Foundation/URLSession/shared
 func (_URLSessionClass URLSessionClass) SharedSession() NSURLSession {

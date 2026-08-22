@@ -9,6 +9,7 @@ import (
 	"github.com/ebitengine/purego"
 	"github.com/tmc/apple/corefoundation"
 	"github.com/tmc/apple/kernel"
+	"github.com/tmc/apple/xpc"
 )
 
 type unavailableSymbolError struct {
@@ -205,12 +206,12 @@ func IOSurfaceCreateMachPort(buffer IOSurfaceRef) uint32 {
 	return result
 }
 
-var _iOSurfaceCreateXPCObject func(aSurface IOSurfaceRef) unsafe.Pointer
+var _iOSurfaceCreateXPCObject func(aSurface IOSurfaceRef) xpc.Xpc_object_t
 var _iOSurfaceCreateXPCObjectErr error
 
-func tryIOSurfaceCreateXPCObject(aSurface IOSurfaceRef) (unsafe.Pointer, error) {
+func tryIOSurfaceCreateXPCObject(aSurface IOSurfaceRef) (xpc.Xpc_object_t, error) {
 	if _iOSurfaceCreateXPCObject == nil {
-		return nil, symbolCallError("IOSurfaceCreateXPCObject", "10.7", _iOSurfaceCreateXPCObjectErr)
+		return *new(xpc.Xpc_object_t), symbolCallError("IOSurfaceCreateXPCObject", "10.7", _iOSurfaceCreateXPCObjectErr)
 	}
 	return _iOSurfaceCreateXPCObject(aSurface), nil
 }
@@ -218,7 +219,7 @@ func tryIOSurfaceCreateXPCObject(aSurface IOSurfaceRef) (unsafe.Pointer, error) 
 // IOSurfaceCreateXPCObject returns an xpc_object_t that holds a reference to the IOSurface.
 //
 // See: https://developer.apple.com/documentation/IOSurface/IOSurfaceCreateXPCObject(_:)
-func IOSurfaceCreateXPCObject(aSurface IOSurfaceRef) unsafe.Pointer {
+func IOSurfaceCreateXPCObject(aSurface IOSurfaceRef) xpc.Xpc_object_t {
 	result, callErr := tryIOSurfaceCreateXPCObject(aSurface)
 	if callErr != nil {
 		panic(callErr)
@@ -980,10 +981,10 @@ func IOSurfaceLookupFromMachPort(port uint32) IOSurfaceRef {
 	return result
 }
 
-var _iOSurfaceLookupFromXPCObject func(xobj unsafe.Pointer) IOSurfaceRef
+var _iOSurfaceLookupFromXPCObject func(xobj xpc.Xpc_object_t) IOSurfaceRef
 var _iOSurfaceLookupFromXPCObjectErr error
 
-func tryIOSurfaceLookupFromXPCObject(xobj unsafe.Pointer) (IOSurfaceRef, error) {
+func tryIOSurfaceLookupFromXPCObject(xobj xpc.Xpc_object_t) (IOSurfaceRef, error) {
 	if _iOSurfaceLookupFromXPCObject == nil {
 		return *new(IOSurfaceRef), symbolCallError("IOSurfaceLookupFromXPCObject", "10.7", _iOSurfaceLookupFromXPCObjectErr)
 	}
@@ -993,7 +994,7 @@ func tryIOSurfaceLookupFromXPCObject(xobj unsafe.Pointer) (IOSurfaceRef, error) 
 // IOSurfaceLookupFromXPCObject.
 //
 // See: https://developer.apple.com/documentation/IOSurface/IOSurfaceLookupFromXPCObject(_:)
-func IOSurfaceLookupFromXPCObject(xobj unsafe.Pointer) IOSurfaceRef {
+func IOSurfaceLookupFromXPCObject(xobj xpc.Xpc_object_t) IOSurfaceRef {
 	result, callErr := tryIOSurfaceLookupFromXPCObject(xobj)
 	if callErr != nil {
 		panic(callErr)
@@ -1041,10 +1042,10 @@ func IOSurfaceRemoveValue(buffer IOSurfaceRef, key corefoundation.CFStringRef) {
 	}
 }
 
-var _iOSurfaceSetOwnershipIdentity func(buffer IOSurfaceRef, task_id_token kernel.Task_id_token_t, newLedgerTag int, newLedgerOptions uint32) int32
+var _iOSurfaceSetOwnershipIdentity func(buffer IOSurfaceRef, task_id_token kernel.Task_id_token_t, newLedgerTag int32, newLedgerOptions uint32) int32
 var _iOSurfaceSetOwnershipIdentityErr error
 
-func tryIOSurfaceSetOwnershipIdentity(buffer IOSurfaceRef, task_id_token kernel.Task_id_token_t, newLedgerTag int, newLedgerOptions uint32) (int32, error) {
+func tryIOSurfaceSetOwnershipIdentity(buffer IOSurfaceRef, task_id_token kernel.Task_id_token_t, newLedgerTag int32, newLedgerOptions uint32) (int32, error) {
 	if _iOSurfaceSetOwnershipIdentity == nil {
 		return 0, symbolCallError("IOSurfaceSetOwnershipIdentity", "14.4", _iOSurfaceSetOwnershipIdentityErr)
 	}
@@ -1054,7 +1055,7 @@ func tryIOSurfaceSetOwnershipIdentity(buffer IOSurfaceRef, task_id_token kernel.
 // IOSurfaceSetOwnershipIdentity.
 //
 // See: https://developer.apple.com/documentation/IOSurface/IOSurfaceSetOwnershipIdentity(_:_:_:_:)
-func IOSurfaceSetOwnershipIdentity(buffer IOSurfaceRef, task_id_token kernel.Task_id_token_t, newLedgerTag int, newLedgerOptions uint32) int32 {
+func IOSurfaceSetOwnershipIdentity(buffer IOSurfaceRef, task_id_token kernel.Task_id_token_t, newLedgerTag int32, newLedgerOptions uint32) int32 {
 	result, callErr := tryIOSurfaceSetOwnershipIdentity(buffer, task_id_token, newLedgerTag, newLedgerOptions)
 	if callErr != nil {
 		panic(callErr)

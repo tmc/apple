@@ -3,7 +3,7 @@
 package diskarbitration
 
 import (
-	"github.com/tmc/apple/kernel"
+	"unsafe"
 )
 
 // See: https://developer.apple.com/documentation/DiskArbitration/DAApprovalSessionRef
@@ -12,12 +12,12 @@ type DAApprovalSessionRef uintptr
 // DADiskAppearedCallback is type of the callback function used by DARegisterDiskAppearedCallback().
 //
 // See: https://developer.apple.com/documentation/DiskArbitration/DADiskAppearedCallback
-type DADiskAppearedCallback = func(uintptr, kernel.Pointer)
+type DADiskAppearedCallback = func(disk DADiskRef, context unsafe.Pointer)
 
 // DADiskClaimCallback is type of the callback function used by DADiskClaim().
 //
 // See: https://developer.apple.com/documentation/DiskArbitration/DADiskClaimCallback
-type DADiskClaimCallback = func(uintptr, uintptr, kernel.Pointer)
+type DADiskClaimCallback = func(disk DADiskRef, dissenter DADissenterRef, context unsafe.Pointer)
 
 // DADiskClaimOptions is options for DADiskClaim().
 //
@@ -27,27 +27,27 @@ type DADiskClaimOptions = uint32
 // DADiskClaimReleaseCallback is type of the callback function used by DADiskClaim().
 //
 // See: https://developer.apple.com/documentation/DiskArbitration/DADiskClaimReleaseCallback
-type DADiskClaimReleaseCallback = func(uintptr, kernel.Pointer) uintptr
+type DADiskClaimReleaseCallback = func(disk DADiskRef, context unsafe.Pointer) DADissenterRef
 
 // DADiskDescriptionChangedCallback is type of the callback function used by DARegisterDiskDescriptionChangedCallback().
 //
 // See: https://developer.apple.com/documentation/DiskArbitration/DADiskDescriptionChangedCallback
-type DADiskDescriptionChangedCallback = func(uintptr, uintptr, kernel.Pointer)
+type DADiskDescriptionChangedCallback = func(disk DADiskRef, keys uintptr, context unsafe.Pointer)
 
 // DADiskDisappearedCallback is type of the callback function used by DARegisterDiskDisappearedCallback().
 //
 // See: https://developer.apple.com/documentation/DiskArbitration/DADiskDisappearedCallback
-type DADiskDisappearedCallback = func(uintptr, kernel.Pointer)
+type DADiskDisappearedCallback = func(disk DADiskRef, context unsafe.Pointer)
 
 // DADiskEjectApprovalCallback is type of the callback function used by DARegisterDiskEjectApprovalCallback().
 //
 // See: https://developer.apple.com/documentation/DiskArbitration/DADiskEjectApprovalCallback
-type DADiskEjectApprovalCallback = func(uintptr, kernel.Pointer) uintptr
+type DADiskEjectApprovalCallback = func(disk DADiskRef, context unsafe.Pointer) DADissenterRef
 
 // DADiskEjectCallback is type of the callback function used by DADiskEject().
 //
 // See: https://developer.apple.com/documentation/DiskArbitration/DADiskEjectCallback
-type DADiskEjectCallback = func(uintptr, uintptr, kernel.Pointer)
+type DADiskEjectCallback = func(disk DADiskRef, dissenter DADissenterRef, context unsafe.Pointer)
 
 // DADiskEjectOptions is options for DADiskEject().
 //
@@ -57,12 +57,12 @@ type DADiskEjectOptions = uint32
 // DADiskMountApprovalCallback is type of the callback function used by DARegisterDiskMountApprovalCallback().
 //
 // See: https://developer.apple.com/documentation/DiskArbitration/DADiskMountApprovalCallback
-type DADiskMountApprovalCallback = func(uintptr, kernel.Pointer) uintptr
+type DADiskMountApprovalCallback = func(disk DADiskRef, context unsafe.Pointer) DADissenterRef
 
 // DADiskMountCallback is type of the callback function used by DADiskMount().
 //
 // See: https://developer.apple.com/documentation/DiskArbitration/DADiskMountCallback
-type DADiskMountCallback = func(uintptr, uintptr, kernel.Pointer)
+type DADiskMountCallback = func(disk DADiskRef, dissenter DADissenterRef, context unsafe.Pointer)
 
 // DADiskMountOptions is options for DADiskMount().
 //
@@ -77,7 +77,7 @@ type DADiskOptions = uint32
 // DADiskPeekCallback is type of the callback function used by DARegisterDiskPeekCallback().
 //
 // See: https://developer.apple.com/documentation/DiskArbitration/DADiskPeekCallback
-type DADiskPeekCallback = func(uintptr, kernel.Pointer)
+type DADiskPeekCallback = func(disk DADiskRef, context unsafe.Pointer)
 
 // DADiskRef is type of a reference to DADisk instances.
 //
@@ -87,7 +87,7 @@ type DADiskRef uintptr
 // DADiskRenameCallback is type of the callback function used by DADiskRename().
 //
 // See: https://developer.apple.com/documentation/DiskArbitration/DADiskRenameCallback
-type DADiskRenameCallback = func(uintptr, uintptr, kernel.Pointer)
+type DADiskRenameCallback = func(disk DADiskRef, dissenter DADissenterRef, context unsafe.Pointer)
 
 // DADiskRenameOptions is options for DADiskRename().
 //
@@ -97,12 +97,12 @@ type DADiskRenameOptions = uint32
 // DADiskUnmountApprovalCallback is type of the callback function used by DARegisterDiskUnmountApprovalCallback().
 //
 // See: https://developer.apple.com/documentation/DiskArbitration/DADiskUnmountApprovalCallback
-type DADiskUnmountApprovalCallback = func(uintptr, kernel.Pointer) uintptr
+type DADiskUnmountApprovalCallback = func(disk DADiskRef, context unsafe.Pointer) DADissenterRef
 
 // DADiskUnmountCallback is type of the callback function used by DADiskUnmount().
 //
 // See: https://developer.apple.com/documentation/DiskArbitration/DADiskUnmountCallback
-type DADiskUnmountCallback = func(uintptr, uintptr, kernel.Pointer)
+type DADiskUnmountCallback = func(disk DADiskRef, dissenter DADissenterRef, context unsafe.Pointer)
 
 // DADiskUnmountOptions is options for DADiskUnmount().
 //
@@ -117,7 +117,7 @@ type DADissenterRef uintptr
 // DAReturn is a return code.
 //
 // See: https://developer.apple.com/documentation/DiskArbitration/DAReturn
-type DAReturn = kernel.MachError
+type DAReturn = int32
 
 // DASessionRef is type of a reference to DASession instances.
 //

@@ -93,7 +93,8 @@ func (o WKUIDelegateObject) WebViewDidClose(webView IWKWebView) {
 //
 // See: https://developer.apple.com/documentation/WebKit/WKUIDelegate/webView(_:runJavaScriptAlertPanelWithMessage:initiatedByFrame:completionHandler:)
 func (o WKUIDelegateObject) WebViewRunJavaScriptAlertPanelWithMessageInitiatedByFrameCompletionHandler(webView IWKWebView, message string, frame IWKFrameInfo, completionHandler VoidHandler) {
-	objc.Send[struct{}](o.ID, objc.Sel("webView:runJavaScriptAlertPanelWithMessage:initiatedByFrame:completionHandler:"), webView, objc.String(message), frame, completionHandler)
+	_block3, _ := NewVoidBlock(completionHandler)
+	objc.Send[struct{}](o.ID, objc.Sel("webView:runJavaScriptAlertPanelWithMessage:initiatedByFrame:completionHandler:"), webView, objc.String(message), frame, _block3)
 }
 
 // Displays a JavaScript confirm panel.
@@ -117,7 +118,35 @@ func (o WKUIDelegateObject) WebViewRunJavaScriptAlertPanelWithMessageInitiatedBy
 //
 // See: https://developer.apple.com/documentation/WebKit/WKUIDelegate/webView(_:runJavaScriptConfirmPanelWithMessage:initiatedByFrame:completionHandler:)
 func (o WKUIDelegateObject) WebViewRunJavaScriptConfirmPanelWithMessageInitiatedByFrameCompletionHandler(webView IWKWebView, message string, frame IWKFrameInfo, completionHandler BoolHandler) {
-	objc.Send[struct{}](o.ID, objc.Sel("webView:runJavaScriptConfirmPanelWithMessage:initiatedByFrame:completionHandler:"), webView, objc.String(message), frame, completionHandler)
+	_block3, _ := NewBoolBlock(completionHandler)
+	objc.Send[struct{}](o.ID, objc.Sel("webView:runJavaScriptConfirmPanelWithMessage:initiatedByFrame:completionHandler:"), webView, objc.String(message), frame, _block3)
+}
+
+// Displays a JavaScript text input panel.
+//
+// webView: The web view invoking the delegate method.
+//
+// prompt: The message to be displayed.
+//
+// defaultText: The initial text to display in the text entry field.
+//
+// frame: Information about the frame whose JavaScript process initiated this call.
+//
+// completionHandler: The completion handler to call after the text input panel has been
+// dismissed. Pass the entered text if the user chose OK, otherwise `nil`.
+//
+// # Discussion
+//
+// For user security, implementations of this method should call attention to
+// the fact that a specific website controls the content in this panel. A
+// simple formula for identifying the controlling website is
+// `frame.Request().URL.Host()`. The panel should have two buttons (typically
+// OK and Cancel) and a field in which to enter text.
+//
+// See: https://developer.apple.com/documentation/WebKit/WKUIDelegate/webView(_:runJavaScriptTextInputPanelWithPrompt:defaultText:initiatedByFrame:completionHandler:)
+func (o WKUIDelegateObject) WebViewRunJavaScriptTextInputPanelWithPromptDefaultTextInitiatedByFrameCompletionHandler(webView IWKWebView, prompt string, defaultText string, frame IWKFrameInfo, completionHandler StringHandler) {
+	_block4, _ := NewStringBlock(completionHandler)
+	objc.Send[struct{}](o.ID, objc.Sel("webView:runJavaScriptTextInputPanelWithPrompt:defaultText:initiatedByFrame:completionHandler:"), webView, objc.String(prompt), objc.String(defaultText), frame, _block4)
 }
 
 // Displays a custom Lockdown Mode first use message.
@@ -151,7 +180,8 @@ func (o WKUIDelegateObject) WebViewRunJavaScriptConfirmPanelWithMessageInitiated
 // [About Lockdown Mode]: https://support.apple.com/en-us/HT212650
 // [WKDialogResult]: https://developer.apple.com/documentation/WebKit/WKDialogResult
 func (o WKUIDelegateObject) WebViewShowLockdownModeFirstUseMessageCompletionHandler(webView IWKWebView, message string, completionHandler WKDialogResultHandler) {
-	objc.Send[struct{}](o.ID, objc.Sel("webView:showLockdownModeFirstUseMessage:completionHandler:"), webView, objc.String(message), completionHandler)
+	_block2, _ := NewWKDialogResultBlock(completionHandler)
+	objc.Send[struct{}](o.ID, objc.Sel("webView:showLockdownModeFirstUseMessage:completionHandler:"), webView, objc.String(message), _block2)
 }
 
 // Displays a file upload panel.
@@ -177,7 +207,8 @@ func (o WKUIDelegateObject) WebViewShowLockdownModeFirstUseMessageCompletionHand
 //
 // See: https://developer.apple.com/documentation/WebKit/WKUIDelegate/webView(_:runOpenPanelWith:initiatedByFrame:completionHandler:)
 func (o WKUIDelegateObject) WebViewRunOpenPanelWithParametersInitiatedByFrameCompletionHandler(webView IWKWebView, parameters IWKOpenPanelParameters, frame IWKFrameInfo, completionHandler NSURLArrayHandler) {
-	objc.Send[struct{}](o.ID, objc.Sel("webView:runOpenPanelWithParameters:initiatedByFrame:completionHandler:"), webView, parameters, frame, completionHandler)
+	_block3, _ := NewNSURLArrayBlock(completionHandler)
+	objc.Send[struct{}](o.ID, objc.Sel("webView:runOpenPanelWithParameters:initiatedByFrame:completionHandler:"), webView, parameters, frame, _block3)
 }
 
 // Tells the delegate that a contextual menu interaction began.
@@ -199,7 +230,8 @@ func (o WKUIDelegateObject) WebViewRunOpenPanelWithParametersInitiatedByFrameCom
 //
 // [UIContextMenuConfiguration]: https://developer.apple.com/documentation/UIKit/UIContextMenuConfiguration
 func (o WKUIDelegateObject) WebViewContextMenuConfigurationForElementCompletionHandler(webView IWKWebView, elementInfo *uintptr, completionHandler UIContextMenuConfigurationHandler) {
-	objc.Send[struct{}](o.ID, objc.Sel("webView:contextMenuConfigurationForElement:completionHandler:"), webView, elementInfo, completionHandler)
+	_block2, _ := NewUIContextMenuConfigurationBlock(completionHandler)
+	objc.Send[struct{}](o.ID, objc.Sel("webView:contextMenuConfigurationForElement:completionHandler:"), webView, elementInfo, _block2)
 }
 
 // Provides the delegate with the animator object that the web view uses to
@@ -278,7 +310,8 @@ func (o WKUIDelegateObject) WebViewWillPresentEditMenuWithAnimator(webView IWKWe
 //
 // See: https://developer.apple.com/documentation/WebKit/WKUIDelegate/webView(_:requestDeviceOrientationAndMotionPermissionFor:initiatedByFrame:decisionHandler:)
 func (o WKUIDelegateObject) WebViewRequestDeviceOrientationAndMotionPermissionForOriginInitiatedByFrameDecisionHandler(webView IWKWebView, origin IWKSecurityOrigin, frame IWKFrameInfo, decisionHandler WKPermissionDecisionHandler) {
-	objc.Send[struct{}](o.ID, objc.Sel("webView:requestDeviceOrientationAndMotionPermissionForOrigin:initiatedByFrame:decisionHandler:"), webView, origin, frame, decisionHandler)
+	_block3, _ := NewWKPermissionDecisionBlock(decisionHandler)
+	objc.Send[struct{}](o.ID, objc.Sel("webView:requestDeviceOrientationAndMotionPermissionForOrigin:initiatedByFrame:decisionHandler:"), webView, origin, frame, _block3)
 }
 
 // Determines whether a web resource, which the security origin object
@@ -304,7 +337,71 @@ func (o WKUIDelegateObject) WebViewRequestDeviceOrientationAndMotionPermissionFo
 //
 // See: https://developer.apple.com/documentation/WebKit/WKUIDelegate/webView(_:requestMediaCapturePermissionFor:initiatedByFrame:type:decisionHandler:)
 func (o WKUIDelegateObject) WebViewRequestMediaCapturePermissionForOriginInitiatedByFrameTypeDecisionHandler(webView IWKWebView, origin IWKSecurityOrigin, frame IWKFrameInfo, type_ WKMediaCaptureType, decisionHandler WKPermissionDecisionHandler) {
-	objc.Send[struct{}](o.ID, objc.Sel("webView:requestMediaCapturePermissionForOrigin:initiatedByFrame:type:decisionHandler:"), webView, origin, frame, type_, decisionHandler)
+	_block4, _ := NewWKPermissionDecisionBlock(decisionHandler)
+	objc.Send[struct{}](o.ID, objc.Sel("webView:requestMediaCapturePermissionForOrigin:initiatedByFrame:type:decisionHandler:"), webView, origin, frame, type_, _block4)
+}
+
+// Called when the user performs a pop action on the preview.
+//
+// webView: The web view invoking the delegate method.
+//
+// previewingViewController: The view controller that is popped.
+//
+// # Discussion
+//
+// You must display the previewed view controller inside of your app.
+//
+// See: https://developer.apple.com/documentation/WebKit/WKUIDelegate/webView(_:commitPreviewingViewController:)
+func (o WKUIDelegateObject) WebViewCommitPreviewingViewController(webView IWKWebView, previewingViewController objectivec.IObject) {
+	objc.Send[struct{}](o.ID, objc.Sel("webView:commitPreviewingViewController:"), webView, previewingViewController)
+}
+
+// Called when the user performs a peek action.
+//
+// webView: The web view invoking the delegate method.
+//
+// elementInfo: The information associated with the element.
+//
+// previewActions: An array of default actions used by the element.
+//
+// # Return Value
+//
+// Return `nil` to use Webkit’s default preview behavior. Returning a view
+// controller allows [WebViewCommitPreviewingViewController] to be invoked
+// when the user performs a pop action.
+//
+// # Discussion
+//
+// To use the default actions, your app must return the actions to be run in
+// your view controller’s implementation of [previewActionItems].
+//
+// See: https://developer.apple.com/documentation/WebKit/WKUIDelegate/webView(_:previewingViewControllerForElement:defaultActions:)
+//
+// [previewActionItems]: https://developer.apple.com/documentation/UIKit/UIViewController/previewActionItems
+func (o WKUIDelegateObject) WebViewPreviewingViewControllerForElementDefaultActions(webView IWKWebView, elementInfo *uintptr, previewActions []objectivec.IObject) objectivec.IObject {
+	rv := objc.Send[objc.ID](o.ID, objc.Sel("webView:previewingViewControllerForElement:defaultActions:"), webView, elementInfo, objectivec.IObjectSliceToNSArray(previewActions))
+	return objectivec.Object{ID: rv}
+}
+
+// Determines whether the given element should show a preview.
+//
+// webView: The web view invoking the delegate method.
+//
+// elementInfo: The information associated with the element.
+//
+// # Return Value
+//
+// Return [NO] to disable previews for the given element.
+//
+// # Discussion
+//
+// This method is only invoked for elements that have a default preview in
+// WebKit.
+//
+// See: https://developer.apple.com/documentation/WebKit/WKUIDelegate/webView(_:shouldPreviewElement:)
+func (o WKUIDelegateObject) WebViewShouldPreviewElement(webView IWKWebView, elementInfo *uintptr) bool {
+	rv := objc.Send[bool](o.ID, objc.Sel("webView:shouldPreviewElement:"), webView, elementInfo)
+	return rv
 }
 
 // WKUIDelegateConfig holds optional typed callbacks for [WKUIDelegate] methods.
@@ -349,11 +446,24 @@ func NewWKUIDelegate(config WKUIDelegateConfig) WKUIDelegateObject {
 		methods = append(methods, objc.MethodDef{
 			Cmd: objc.RegisterName("webView:createWebViewWithConfiguration:forNavigationAction:windowFeatures:"),
 			Fn: func(self objc.ID, _cmd objc.SEL, webViewID objc.ID, configurationID objc.ID, navigationActionID objc.ID, windowFeaturesID objc.ID) objc.ID {
+				// Names which delegate was running if a panic unwinds out of
+				// it. The frames between here and the Objective-C caller are
+				// runtime and purego dispatch, so without this the traceback
+				// never says which selector dispatched. Deliberately no
+				// recover: see [objc.NoteDelegatePanic].
+				_delegateDone := false
+				defer func() {
+					if !_delegateDone {
+						objc.NoteDelegatePanic("WKUIDelegate", "webView:createWebViewWithConfiguration:forNavigationAction:windowFeatures:")
+					}
+				}()
 				webView := WKWebViewFromID(webViewID)
 				configuration := WKWebViewConfigurationFromID(configurationID)
 				navigationAction := WKNavigationActionFromID(navigationActionID)
 				windowFeatures := WKWindowFeaturesFromID(windowFeaturesID)
-				return fn(webView, configuration, navigationAction, windowFeatures).GetID()
+				_delegateResult := fn(webView, configuration, navigationAction, windowFeatures).GetID()
+				_delegateDone = true
+				return _delegateResult
 			},
 		})
 	}
@@ -363,8 +473,20 @@ func NewWKUIDelegate(config WKUIDelegateConfig) WKUIDelegateObject {
 		methods = append(methods, objc.MethodDef{
 			Cmd: objc.RegisterName("webViewDidClose:"),
 			Fn: func(self objc.ID, _cmd objc.SEL, webViewID objc.ID) {
+				// Names which delegate was running if a panic unwinds out of
+				// it. The frames between here and the Objective-C caller are
+				// runtime and purego dispatch, so without this the traceback
+				// never says which selector dispatched. Deliberately no
+				// recover: see [objc.NoteDelegatePanic].
+				_delegateDone := false
+				defer func() {
+					if !_delegateDone {
+						objc.NoteDelegatePanic("WKUIDelegate", "webViewDidClose:")
+					}
+				}()
 				webView := WKWebViewFromID(webViewID)
 				fn(webView)
+				_delegateDone = true
 			},
 		})
 	}

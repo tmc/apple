@@ -386,7 +386,7 @@ func NewXMLElementWithNameStringValue(name string, string_ string) XMLElement {
 // using [NSXMLElement.ResolvePrefixForNamespaceURI]. This method is the
 // primary initializer for the [NSXMLElement] class.
 //
-// See: https://developer.apple.com/documentation/Foundation/XMLElement/init(name:uri:)-1r286
+// See: https://developer.apple.com/documentation/Foundation/XMLElement/init(name:uri:)
 func NewXMLElementWithNameURI(name string, URI string) XMLElement {
 	instance := getXMLElementClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithName:URI:"), objc.String(name), objc.String(URI))
@@ -405,7 +405,7 @@ func NewXMLElementWithNameURI(name string, URI string) XMLElement {
 //
 // # Discussion
 //
-// See: https://developer.apple.com/documentation/Foundation/XMLElement/init(xmlString:)-7vkg7
+// See: https://developer.apple.com/documentation/Foundation/XMLElement/init(xmlString:)
 func NewXMLElementWithXMLStringError(string_ string) (XMLElement, error) {
 	var errorPtr objc.ID
 	instance := getXMLElementClass().Alloc()
@@ -413,6 +413,9 @@ func NewXMLElementWithXMLStringError(string_ string) (XMLElement, error) {
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
 		return XMLElement{}, NSErrorFrom(errorPtr)
+	}
+	if rv == 0 {
+		return XMLElement{}, objc.ErrInitFailed
 	}
 	return XMLElementFromID(rv), nil
 }
@@ -477,7 +480,7 @@ func (x XMLElement) InitWithNameStringValue(name string, string_ string) XMLElem
 // using [NSXMLElement.ResolvePrefixForNamespaceURI]. This method is the
 // primary initializer for the [NSXMLElement] class.
 //
-// See: https://developer.apple.com/documentation/Foundation/XMLElement/init(name:uri:)-1r286
+// See: https://developer.apple.com/documentation/Foundation/XMLElement/init(name:uri:)
 func (x XMLElement) InitWithNameURI(name string, URI string) XMLElement {
 	rv := objc.Send[XMLElement](x.ID, objc.Sel("initWithName:URI:"), objc.String(name), objc.String(URI))
 	return rv
@@ -495,13 +498,13 @@ func (x XMLElement) InitWithNameURI(name string, URI string) XMLElement {
 //
 // # Discussion
 //
-// See: https://developer.apple.com/documentation/Foundation/XMLElement/init(xmlString:)-7vkg7
+// See: https://developer.apple.com/documentation/Foundation/XMLElement/init(xmlString:)
 func (x XMLElement) InitWithXMLStringError(string_ string) (XMLElement, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](x.ID, objc.Sel("initWithXMLString:error:"), objc.String(string_), unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
-		return XMLElement{}, NSErrorFrom(errorPtr)
+		return *new(XMLElement), NSErrorFrom(errorPtr)
 	}
 	return NSXMLElementFromID(rv), nil
 

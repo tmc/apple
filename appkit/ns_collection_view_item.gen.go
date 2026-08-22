@@ -201,7 +201,6 @@ func NSCollectionViewItemFromID(id objc.ID) NSCollectionViewItem {
 // See: https://developer.apple.com/documentation/AppKit/NSCollectionViewItem
 type INSCollectionViewItem interface {
 	INSViewController
-	NSCollectionViewElement
 
 	// Topic: Getting and Setting Image and Text Fields
 
@@ -230,6 +229,17 @@ type INSCollectionViewItem interface {
 
 	// Dragging images for multi-image drag and drop support.
 	DraggingImageComponents() []NSDraggingImageComponent
+
+	// Applies the specified layout attributes to the element.
+	ApplyLayoutAttributes(layoutAttributes INSCollectionViewLayoutAttributes)
+	// Tells the element that the layout object of the collection view changed.
+	DidTransitionFromLayoutToLayout(oldLayout INSCollectionViewLayout, newLayout INSCollectionViewLayout)
+	// Asks your element if it wants to modify any layout attributes before they are applied.
+	PreferredLayoutAttributesFittingAttributes(layoutAttributes INSCollectionViewLayoutAttributes) INSCollectionViewLayoutAttributes
+	// Performs any necessary cleanup to prepare the element for use again.
+	PrepareForReuse()
+	// Tells the element that the layout object of the collection view is about to change.
+	WillTransitionFromLayoutToLayout(oldLayout INSCollectionViewLayout, newLayout INSCollectionViewLayout)
 }
 
 // Init initializes the instance.

@@ -108,9 +108,10 @@ func NewVNDetectHumanBodyPose3DRequest() VNDetectHumanBodyPose3DRequest {
 // completionHandler: The block to invoke after the request finishes processing.
 //
 // See: https://developer.apple.com/documentation/Vision/VNDetectHumanBodyPose3DRequest/init(completionHandler:)
-func NewDetectHumanBodyPose3DRequestWithCompletionHandler(completionHandler VNRequestCompletionHandler) VNDetectHumanBodyPose3DRequest {
+func NewDetectHumanBodyPose3DRequestWithCompletionHandler(completionHandler VNRequestErrorHandler) VNDetectHumanBodyPose3DRequest {
+	_block0, _ := NewVNRequestErrorBlock(completionHandler)
 	instance := getVNDetectHumanBodyPose3DRequestClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCompletionHandler:"), completionHandler)
+	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCompletionHandler:"), _block0)
 	return VNDetectHumanBodyPose3DRequestFromID(rv)
 }
 
@@ -128,9 +129,10 @@ func NewDetectHumanBodyPose3DRequestWithCompletionHandler(completionHandler VNRe
 //
 // [CMTime]: https://developer.apple.com/documentation/CoreMedia/CMTime
 // [zero]: https://developer.apple.com/documentation/CoreMedia/CMTime/zero
-func NewDetectHumanBodyPose3DRequestWithFrameAnalysisSpacingCompletionHandler(frameAnalysisSpacing coremedia.CMTime, completionHandler VNRequestCompletionHandler) VNDetectHumanBodyPose3DRequest {
+func NewDetectHumanBodyPose3DRequestWithFrameAnalysisSpacingCompletionHandler(frameAnalysisSpacing coremedia.CMTime, completionHandler VNRequestErrorHandler) VNDetectHumanBodyPose3DRequest {
+	_block1, _ := NewVNRequestErrorBlock(completionHandler)
 	instance := getVNDetectHumanBodyPose3DRequestClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithFrameAnalysisSpacing:completionHandler:"), frameAnalysisSpacing, completionHandler)
+	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithFrameAnalysisSpacing:completionHandler:"), frameAnalysisSpacing, _block1)
 	return VNDetectHumanBodyPose3DRequestFromID(rv)
 }
 

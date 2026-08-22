@@ -3,6 +3,7 @@
 package vision
 
 import (
+	"context"
 	"sync"
 
 	"github.com/tmc/apple/objc"
@@ -87,7 +88,7 @@ type IVNTrackRectangleRequest interface {
 	// Creates a new rectangle tracking request with a rectangle observation.
 	InitWithRectangleObservation(observation IVNRectangleObservation) VNTrackRectangleRequest
 	// Creates a new rectangle tracking request with a rectangle observation.
-	InitWithRectangleObservationCompletionHandler(observation IVNRectangleObservation, completionHandler ErrorHandler) VNTrackRectangleRequest
+	InitWithRectangleObservationCompletionHandler(observation IVNRectangleObservation, completionHandler VNRequestErrorHandler) VNTrackRectangleRequest
 }
 
 // Init initializes the instance.
@@ -120,9 +121,10 @@ func NewVNTrackRectangleRequest() VNTrackRectangleRequest {
 // [VNImageRequestHandler.PerformRequestsError].
 //
 // See: https://developer.apple.com/documentation/Vision/VNRequest/init(completionHandler:)
-func NewTrackRectangleRequestWithCompletionHandler(completionHandler VNRequestCompletionHandler) VNTrackRectangleRequest {
+func NewTrackRectangleRequestWithCompletionHandler(completionHandler VNRequestErrorHandler) VNTrackRectangleRequest {
+	_block0, _ := NewVNRequestErrorBlock(completionHandler)
 	instance := getVNTrackRectangleRequestClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCompletionHandler:"), completionHandler)
+	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCompletionHandler:"), _block0)
 	return VNTrackRectangleRequestFromID(rv)
 }
 
@@ -144,9 +146,10 @@ func NewTrackRectangleRequestWithRectangleObservation(observation IVNRectangleOb
 // completionHandler: The block to invoke after performing the request.
 //
 // See: https://developer.apple.com/documentation/Vision/VNTrackRectangleRequest/init(rectangleObservation:completionHandler:)
-func NewTrackRectangleRequestWithRectangleObservationCompletionHandler(observation IVNRectangleObservation, completionHandler VNRequestCompletionHandler) VNTrackRectangleRequest {
+func NewTrackRectangleRequestWithRectangleObservationCompletionHandler(observation IVNRectangleObservation, completionHandler VNRequestErrorHandler) VNTrackRectangleRequest {
+	_block1, _ := NewVNRequestErrorBlock(completionHandler)
 	instance := getVNTrackRectangleRequestClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithRectangleObservation:completionHandler:"), observation, completionHandler)
+	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithRectangleObservation:completionHandler:"), observation, _block1)
 	return VNTrackRectangleRequestFromID(rv)
 }
 
@@ -167,8 +170,27 @@ func (t VNTrackRectangleRequest) InitWithRectangleObservation(observation IVNRec
 // completionHandler: The block to invoke after performing the request.
 //
 // See: https://developer.apple.com/documentation/Vision/VNTrackRectangleRequest/init(rectangleObservation:completionHandler:)
-func (t VNTrackRectangleRequest) InitWithRectangleObservationCompletionHandler(observation IVNRectangleObservation, completionHandler ErrorHandler) VNTrackRectangleRequest {
-	_block1, _ := NewErrorBlock(completionHandler)
+func (t VNTrackRectangleRequest) InitWithRectangleObservationCompletionHandler(observation IVNRectangleObservation, completionHandler VNRequestErrorHandler) VNTrackRectangleRequest {
+	_block1, _ := NewVNRequestErrorBlock(completionHandler)
 	rv := objc.Send[VNTrackRectangleRequest](t.ID, objc.Sel("initWithRectangleObservation:completionHandler:"), observation, _block1)
 	return rv
+}
+
+// InitWithRectangleObservationSync is a synchronous wrapper around [VNTrackRectangleRequest.InitWithRectangleObservationCompletionHandler].
+// It blocks until the completion handler fires or the context is cancelled.
+func (t VNTrackRectangleRequest) InitWithRectangleObservationSync(ctx context.Context, observation IVNRectangleObservation) (*VNRequest, error) {
+	type result struct {
+		val *VNRequest
+		err error
+	}
+	done := make(chan result, 1)
+	t.InitWithRectangleObservationCompletionHandler(observation, func(val *VNRequest, err error) {
+		done <- result{val, err}
+	})
+	select {
+	case r := <-done:
+		return r.val, r.err
+	case <-ctx.Done():
+		return nil, ctx.Err()
+	}
 }

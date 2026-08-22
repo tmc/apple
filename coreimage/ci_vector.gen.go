@@ -210,7 +210,7 @@ func NewCIVector() CIVector {
 // The [CGAffineTransform] structure’s `a`, `b`, `c`, `c`, `tx` and `ty`
 // values are stored in the vector’s six values.
 //
-// See: https://developer.apple.com/documentation/CoreImage/CIVector/init(cgAffineTransform:)-6o8gl
+// See: https://developer.apple.com/documentation/CoreImage/CIVector/init(cgAffineTransform:)
 func NewVectorWithCGAffineTransform(t corefoundation.CGAffineTransform) CIVector {
 	instance := getCIVectorClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCGAffineTransform:"), t)
@@ -231,7 +231,7 @@ func NewVectorWithCGAffineTransform(t corefoundation.CGAffineTransform) CIVector
 // The [CGRect] structure’s `y` and `y` values are stored in the vector’s
 // two values.
 //
-// See: https://developer.apple.com/documentation/CoreImage/CIVector/init(cgPoint:)-8cf9j
+// See: https://developer.apple.com/documentation/CoreImage/CIVector/init(cgPoint:)
 func NewVectorWithCGPoint(p corefoundation.CGPoint) CIVector {
 	instance := getCIVectorClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCGPoint:"), p)
@@ -252,7 +252,7 @@ func NewVectorWithCGPoint(p corefoundation.CGPoint) CIVector {
 // The [CGRect] structure’s `x`, `y`, `height` and `width` values are stored
 // in the vector’s four values.
 //
-// See: https://developer.apple.com/documentation/CoreImage/CIVector/init(cgRect:)-6bolw
+// See: https://developer.apple.com/documentation/CoreImage/CIVector/init(cgRect:)
 func NewVectorWithCGRect(r corefoundation.CGRect) CIVector {
 	instance := getCIVectorClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCGRect:"), r)
@@ -325,7 +325,7 @@ func NewVectorWithX(x float64) CIVector {
 //
 // An initialized [CIVector] object of length 2.
 //
-// See: https://developer.apple.com/documentation/CoreImage/CIVector/init(x:y:)-4grr
+// See: https://developer.apple.com/documentation/CoreImage/CIVector/init(x:y:)
 func NewVectorWithXY(x float64, y float64) CIVector {
 	instance := getCIVectorClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithX:Y:"), x, y)
@@ -344,7 +344,7 @@ func NewVectorWithXY(x float64, y float64) CIVector {
 //
 // An initialized [CIVector] object of length 3.
 //
-// See: https://developer.apple.com/documentation/CoreImage/CIVector/init(x:y:z:)-zais
+// See: https://developer.apple.com/documentation/CoreImage/CIVector/init(x:y:z:)
 func NewVectorWithXYZ(x float64, y float64, z float64) CIVector {
 	instance := getCIVectorClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithX:Y:Z:"), x, y, z)
@@ -365,7 +365,7 @@ func NewVectorWithXYZ(x float64, y float64, z float64) CIVector {
 //
 // An initialized [CIVector] object of length 4.
 //
-// See: https://developer.apple.com/documentation/CoreImage/CIVector/init(x:y:z:w:)-75emo
+// See: https://developer.apple.com/documentation/CoreImage/CIVector/init(x:y:z:w:)
 func NewVectorWithXYZW(x float64, y float64, z float64, w float64) CIVector {
 	instance := getCIVectorClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithX:Y:Z:W:"), x, y, z, w)
@@ -412,7 +412,7 @@ func (v CIVector) InitWithX(x float64) CIVector {
 //
 // An initialized [CIVector] object of length 2.
 //
-// See: https://developer.apple.com/documentation/CoreImage/CIVector/init(x:y:)-4grr
+// See: https://developer.apple.com/documentation/CoreImage/CIVector/init(x:y:)
 func (v CIVector) InitWithXY(x float64, y float64) CIVector {
 	rv := objc.Send[CIVector](v.ID, objc.Sel("initWithX:Y:"), x, y)
 	return rv
@@ -430,7 +430,7 @@ func (v CIVector) InitWithXY(x float64, y float64) CIVector {
 //
 // An initialized [CIVector] object of length 3.
 //
-// See: https://developer.apple.com/documentation/CoreImage/CIVector/init(x:y:z:)-zais
+// See: https://developer.apple.com/documentation/CoreImage/CIVector/init(x:y:z:)
 func (v CIVector) InitWithXYZ(x float64, y float64, z float64) CIVector {
 	rv := objc.Send[CIVector](v.ID, objc.Sel("initWithX:Y:Z:"), x, y, z)
 	return rv
@@ -450,7 +450,7 @@ func (v CIVector) InitWithXYZ(x float64, y float64, z float64) CIVector {
 //
 // An initialized [CIVector] object of length 4.
 //
-// See: https://developer.apple.com/documentation/CoreImage/CIVector/init(x:y:z:w:)-75emo
+// See: https://developer.apple.com/documentation/CoreImage/CIVector/init(x:y:z:w:)
 func (v CIVector) InitWithXYZW(x float64, y float64, z float64, w float64) CIVector {
 	rv := objc.Send[CIVector](v.ID, objc.Sel("initWithX:Y:Z:W:"), x, y, z, w)
 	return rv
@@ -486,7 +486,7 @@ func (v CIVector) InitWithString(representation string) CIVector {
 // The [CGAffineTransform] structure’s `a`, `b`, `c`, `c`, `tx` and `ty`
 // values are stored in the vector’s six values.
 //
-// See: https://developer.apple.com/documentation/CoreImage/CIVector/init(cgAffineTransform:)-6o8gl
+// See: https://developer.apple.com/documentation/CoreImage/CIVector/init(cgAffineTransform:)
 func (v CIVector) InitWithCGAffineTransform(t corefoundation.CGAffineTransform) CIVector {
 	rv := objc.Send[CIVector](v.ID, objc.Sel("initWithCGAffineTransform:"), t)
 	return rv
@@ -506,7 +506,7 @@ func (v CIVector) InitWithCGAffineTransform(t corefoundation.CGAffineTransform) 
 // The [CGRect] structure’s `y` and `y` values are stored in the vector’s
 // two values.
 //
-// See: https://developer.apple.com/documentation/CoreImage/CIVector/init(cgPoint:)-8cf9j
+// See: https://developer.apple.com/documentation/CoreImage/CIVector/init(cgPoint:)
 func (v CIVector) InitWithCGPoint(p corefoundation.CGPoint) CIVector {
 	rv := objc.Send[CIVector](v.ID, objc.Sel("initWithCGPoint:"), p)
 	return rv
@@ -526,7 +526,7 @@ func (v CIVector) InitWithCGPoint(p corefoundation.CGPoint) CIVector {
 // The [CGRect] structure’s `x`, `y`, `height` and `width` values are stored
 // in the vector’s four values.
 //
-// See: https://developer.apple.com/documentation/CoreImage/CIVector/init(cgRect:)-6bolw
+// See: https://developer.apple.com/documentation/CoreImage/CIVector/init(cgRect:)
 func (v CIVector) InitWithCGRect(r corefoundation.CGRect) CIVector {
 	rv := objc.Send[CIVector](v.ID, objc.Sel("initWithCGRect:"), r)
 	return rv

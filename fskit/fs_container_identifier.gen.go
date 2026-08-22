@@ -119,7 +119,7 @@ func NewContainerIdentifierWithCoder(coder foundation.INSCoder) FSContainerIdent
 //
 // uuid: The UUID to use for this identifier.
 //
-// See: https://developer.apple.com/documentation/FSKit/FSEntityIdentifier/init(uuid:)-9e20k
+// See: https://developer.apple.com/documentation/FSKit/FSEntityIdentifier/init(uuid:)
 func NewContainerIdentifierWithUUID(uuid foundation.NSUUID) FSContainerIdentifier {
 	instance := getFSContainerIdentifierClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithUUID:"), uuid)
@@ -132,7 +132,7 @@ func NewContainerIdentifierWithUUID(uuid foundation.NSUUID) FSContainerIdentifie
 //
 // qualifierData: The data to distinguish entities that otherwise share the same UUID.
 //
-// See: https://developer.apple.com/documentation/FSKit/FSEntityIdentifier/init(uuid:data:)-8dixs
+// See: https://developer.apple.com/documentation/FSKit/FSEntityIdentifier/init(uuid:data:)
 func NewContainerIdentifierWithUUIDData(uuid foundation.NSUUID, qualifierData foundation.NSData) FSContainerIdentifier {
 	instance := getFSContainerIdentifierClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithUUID:data:"), uuid, qualifierData)
@@ -146,7 +146,7 @@ func NewContainerIdentifierWithUUIDData(uuid foundation.NSUUID, qualifierData fo
 //
 // qualifier: The data to distinguish entities that otherwise share the same UUID.
 //
-// See: https://developer.apple.com/documentation/FSKit/FSEntityIdentifier/init(uuid:qualifier:)-9ty70
+// See: https://developer.apple.com/documentation/FSKit/FSEntityIdentifier/init(uuid:qualifier:)
 func NewContainerIdentifierWithUUIDQualifier(uuid foundation.NSUUID, qualifier uint64) FSContainerIdentifier {
 	instance := getFSContainerIdentifierClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithUUID:qualifier:"), uuid, qualifier)

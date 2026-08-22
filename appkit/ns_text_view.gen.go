@@ -4,6 +4,7 @@ package appkit
 
 import (
 	"sync"
+	"unsafe"
 
 	"github.com/tmc/apple/corefoundation"
 	"github.com/tmc/apple/foundation"
@@ -920,7 +921,7 @@ type INSTextView interface {
 	// Returns any whitespace that needs to be added before the string to preserve proper spacing and punctuation when the string replaces the characters in the specified range.
 	SmartInsertBeforeStringForStringReplacingRange(pasteString string, charRangeToReplace foundation.NSRange) string
 	// Determines whether whitespace needs to be added around the string to preserve proper spacing and punctuation when it replaces the characters in the specified range.
-	SmartInsertForStringReplacingRangeBeforeStringAfterString(pasteString string, charRangeToReplace foundation.NSRange, beforeString string, afterString string)
+	SmartInsertForStringReplacingRangeBeforeStringAfterString(pasteString string, charRangeToReplace foundation.NSRange, beforeString *foundation.NSString, afterString *foundation.NSString)
 	// Changes the state of smart insert and delete from enabled to disabled and vice versa.
 	ToggleSmartInsertDelete(sender objectivec.IObject)
 
@@ -1083,6 +1084,60 @@ type INSTextView interface {
 	DrawTextHighlightBackgroundForTextRangeOrigin(textRange INSTextRange, origin corefoundation.CGPoint)
 	// An action for toggling [NSTextHighlightStyleAttributeName] in the receiver’s selected range. The sender should be a menu item with a `representedObject` of type ([NSTextHighlightColorScheme]).
 	Highlight(sender objectivec.IObject)
+
+	// Returns an attributed string representing the receiver’s text storage.
+	AttributedString() foundation.NSAttributedString
+	// Returns an attributed string derived from the given range in the receiver’s text storage.
+	AttributedSubstringForProposedRangeActualRange(range_ foundation.NSRange, actualRange foundation.NSRangePointer) foundation.NSAttributedString
+	// Returns the baseline position of a given character relative to the origin of rectangle returned by [firstRect(forCharacterRange:actualRange:)](<https://developer.apple.com/documentation/AppKit/NSTextInputClient/firstRect(forCharacterRange:actualRange:)>).
+	BaselineDeltaForCharacterAtIndex(anIndex uint) float64
+	// The semantic meaning for a text input area.
+	ContentType() NSTextContentType
+	DocumentVisibleRect() corefoundation.CGRect
+	// Invoked when the dragging session has completed.
+	DraggingSessionEndedAtPointOperation(session INSDraggingSession, screenPoint corefoundation.CGPoint, operation NSDragOperation)
+	// Invoked when the drag moves on the screen.
+	DraggingSessionMovedToPoint(session INSDraggingSession, screenPoint corefoundation.CGPoint)
+	// Declares the types of operations the source allows to be performed.
+	DraggingSessionSourceOperationMaskForDraggingContext(session INSDraggingSession, context NSDraggingContext) NSDragOperation
+	// Invoked when the drag will begin.
+	DraggingSessionWillBeginAtPoint(session INSDraggingSession, screenPoint corefoundation.CGPoint)
+	// Informs the text input management system whether the protocol-conforming client renders the character at the given index vertically.
+	DrawsVerticallyForCharacterAtIndex(charIndex uint) bool
+	// Returns the first logical boundary rectangle for characters in the given range.
+	FirstRectForCharacterRangeActualRange(range_ foundation.NSRange, actualRange foundation.NSRangePointer) corefoundation.CGRect
+	// Returns the fraction of the distance from the left side of the character to the right side that a given point lies.
+	FractionOfDistanceThroughGlyphForPoint(point corefoundation.CGPoint) float64
+	// Returns whether the modifier keys will be ignored for this dragging session.
+	IgnoreModifierKeysForDraggingSession(session INSDraggingSession) bool
+	// Inserts an adaptive image into the text at the specifed location.
+	InsertAdaptiveImageGlyphReplacementRange(adaptiveImageGlyph INSAdaptiveImageGlyph, replacementRange foundation.NSRange)
+	// Inserts the given string into the receiver, replacing the specified content.
+	InsertTextReplacementRange(string_ objectivec.IObject, replacementRange foundation.NSRange)
+	// The default layout orientation.
+	LayoutOrientation() NSTextLayoutOrientation
+	PreferredTextAccessoryPlacement() NSTextCursorAccessoryPlacement
+	// Replaces a specified range in the receiver’s text storage with the given string and sets the selection.
+	SetMarkedTextSelectedRangeReplacementRange(string_ objectivec.IObject, selectedRange foundation.NSRange, replacementRange foundation.NSRange)
+	// A Boolean value that indicates whether the document supports adaptive images in the input.
+	SupportsAdaptiveImageGlyph() bool
+	UnionRectInVisibleSelectedRange() corefoundation.CGRect
+	// Implemented to override the default action of enabling or disabling a specific menu item.
+	ValidateMenuItem(menuItem INSMenuItem) bool
+	// Returns a Boolean value that indicates whether the sender should be enabled.
+	ValidateUserInterfaceItem(item NSValidatedUserInterfaceItem) bool
+	// Returns the window level of the receiver.
+	WindowLevel() int
+	// Returns a Boolean value indicating whether the receiver has marked text.
+	HasMarkedText() bool
+	// Returns the range of the marked text.
+	MarkedRange() foundation.NSRange
+	// Unmarks the marked text.
+	UnmarkText()
+	// Returns an array of attribute names recognized by the receiver.
+	ValidAttributesForMarkedText() []string
+	// Returns the index of the character whose bounding rectangle includes the given point.
+	CharacterIndexForPoint(point corefoundation.CGPoint) uint
 }
 
 // Init initializes the instance.
@@ -2228,8 +2283,8 @@ func (t NSTextView) SmartInsertBeforeStringForStringReplacingRange(pasteString s
 // and `afterString` in order over `charRange`.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTextView/smartInsert(for:replacing:before:after:)
-func (t NSTextView) SmartInsertForStringReplacingRangeBeforeStringAfterString(pasteString string, charRangeToReplace foundation.NSRange, beforeString string, afterString string) {
-	objc.Send[objc.ID](t.ID, objc.Sel("smartInsertForString:replacingRange:beforeString:afterString:"), objc.String(pasteString), charRangeToReplace, objc.String(beforeString), objc.String(afterString))
+func (t NSTextView) SmartInsertForStringReplacingRangeBeforeStringAfterString(pasteString string, charRangeToReplace foundation.NSRange, beforeString *foundation.NSString, afterString *foundation.NSString) {
+	objc.Send[objc.ID](t.ID, objc.Sel("smartInsertForString:replacingRange:beforeString:afterString:"), objc.String(pasteString), charRangeToReplace, unsafe.Pointer(beforeString), unsafe.Pointer(afterString))
 }
 
 // Changes the state of smart insert and delete from enabled to disabled and
@@ -2521,10 +2576,10 @@ func (t NSTextView) CompletionsForPartialWordRangeIndexOfSelectedItem(charRange 
 //
 // - It replaces the text between `charRange.Start()` and the current
 // insertion point with `word`. - If `flag` is false it changes the selection
-// to be the last characters of `word` where is equal to `[word length]` minus
-// `charRange.Length()`, that is, the potential completion. - If `flag` is
-// true it makes the selection empty and puts the insertion point just after
-// `word`.
+// to be the last n characters of `word` where n is equal to `[word length]`
+// minus `charRange.Length()`, that is, the potential completion. - If `flag`
+// is true it makes the selection empty and puts the insertion point just
+// after `word`.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTextView/insertCompletion(_:forPartialWordRange:movement:isFinal:)
 func (t NSTextView) InsertCompletionForPartialWordRangeMovementIsFinal(word string, charRange foundation.NSRange, movement int, flag bool) {
@@ -2805,123 +2860,6 @@ func (t NSTextView) DrawTextHighlightBackgroundForTextRangeOrigin(textRange INST
 // See: https://developer.apple.com/documentation/AppKit/NSTextView/highlight(_:)
 func (t NSTextView) Highlight(sender objectivec.IObject) {
 	objc.Send[objc.ID](t.ID, objc.Sel("highlight:"), sender)
-}
-
-// Returns the attributed substring for the specified range of characters.
-//
-// range: The range of characters.
-//
-// # Return Value
-//
-// An attributed string representing the specified characters.
-//
-// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityStaticText/accessibilityAttributedString(for:)
-func (t NSTextView) AccessibilityAttributedStringForRange(range_ foundation.NSRange) foundation.NSAttributedString {
-	rv := objc.Send[objc.ID](t.ID, objc.Sel("accessibilityAttributedStringForRange:"), range_)
-	return foundation.NSAttributedStringFromID(rv)
-}
-
-// Returns the rectangle that encloses the specified range of characters.
-//
-// range: The range of characters.
-//
-// # Return Value
-//
-// The rectangle that encloses the specified characters.
-//
-// # Discussion
-//
-// If the range crosses a line boundary, the returned rectangle will fully
-// enclose all the lines of characters.
-//
-// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityNavigableStaticText/accessibilityFrame(for:)
-func (t NSTextView) AccessibilityFrameForRange(range_ foundation.NSRange) corefoundation.CGRect {
-	rv := objc.Send[corefoundation.CGRect](t.ID, objc.Sel("accessibilityFrameForRange:"), range_)
-	return corefoundation.CGRect(rv)
-}
-
-// Returns the line number for the line that contains the specified character
-// index.
-//
-// index: The index for a character.
-//
-// # Return Value
-//
-// The line number for the line holding the specified character index.
-//
-// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityNavigableStaticText/accessibilityLine(for:)
-func (t NSTextView) AccessibilityLineForIndex(index int) int {
-	rv := objc.Send[int](t.ID, objc.Sel("accessibilityLineForIndex:"), index)
-	return rv
-}
-
-// Returns the range of characters in the specified line.
-//
-// lineNumber: The line number to be examined.
-//
-// # Return Value
-//
-// The range of characters for the specified line number. If the line ends
-// with a newline character, including the newline is preferred.
-//
-// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityNavigableStaticText/accessibilityRange(forLine:)
-func (t NSTextView) AccessibilityRangeForLine(lineNumber int) foundation.NSRange {
-	rv := objc.Send[foundation.NSRange](t.ID, objc.Sel("accessibilityRangeForLine:"), lineNumber)
-	return foundation.NSRange(rv)
-}
-
-// Returns the substring for the specified range.
-//
-// range: A range of characters contained by this element.
-//
-// # Return Value
-//
-// The substring specified by the given range.
-//
-// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityNavigableStaticText/accessibilityString(for:)
-func (t NSTextView) AccessibilityStringForRange(range_ foundation.NSRange) string {
-	rv := objc.Send[objc.ID](t.ID, objc.Sel("accessibilityStringForRange:"), range_)
-	return foundation.NSStringFromID(rv).String()
-}
-
-// Returns the text that the accessibility element displays.
-//
-// # Return Value
-//
-// The text displayed by the element.
-//
-// # Discussion
-//
-// This method is the getter for the [NSAccessibilityProtocol] protocol’s
-// [accessibilityValue] property.
-//
-// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityStaticText/accessibilityValue()
-//
-// [accessibilityValue]: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityValue
-func (t NSTextView) AccessibilityValue() string {
-	rv := objc.Send[objc.ID](t.ID, objc.Sel("accessibilityValue"))
-	return foundation.NSStringFromID(rv).String()
-}
-
-// Returns the range of visible characters in the document.
-//
-// # Return Value
-//
-// The range of the visible characters in the document. This method should
-// return the range for entire lines. Characters that are horizontally clipped
-// are included in this range.
-//
-// # Discussion
-//
-// This method is the getter for the [NSAccessibilityProtocol] protocol’s
-// [accessibilityVisibleCharacterRange] property.
-//
-// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityStaticText/accessibilityVisibleCharacterRange()
-//
-// [accessibilityVisibleCharacterRange]: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityVisibleCharacterRange
-func (t NSTextView) AccessibilityVisibleCharacterRange() foundation.NSRange {
-	rv := objc.Send[foundation.NSRange](t.ID, objc.Sel("accessibilityVisibleCharacterRange"))
-	return foundation.NSRange(rv)
 }
 
 // Returns an attributed string representing the receiver’s text storage.
@@ -4415,89 +4353,9 @@ func (_NSTextViewClass NSTextViewClass) StronglyReferencesTextStorage() bool {
 
 // Protocol methods for NSAccessibilityNavigableStaticText
 
-// Returns the accessibility element’s frame in screen coordinates.
-//
-// # Return Value
-//
-// The element’s frame in screen coordinates.
-//
-// # Discussion
-//
-// This method is the getter for the [NSAccessibilityProtocol] protocol’s
-// [accessibilityFrame] property. This method is called whenever accessibility
-// clients request the [size] or [position] attributes.
-//
-// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityElementProtocol/accessibilityFrame()
-//
-// [accessibilityFrame]: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityFrame
-// [position]: https://developer.apple.com/documentation/AppKit/NSAccessibility-swift.struct/Attribute/position
-// [size]: https://developer.apple.com/documentation/AppKit/NSAccessibility-swift.struct/Attribute/size
-func (o NSTextView) AccessibilityFrame() corefoundation.CGRect {
-	rv := objc.Send[corefoundation.CGRect](o.ID, objc.Sel("accessibilityFrame"))
-	return rv
-}
-
-// Returns the accessibility element’s parent in the accessibility
-// hierarchy.
-//
-// # Return Value
-//
-// The element’s parent in the accessibility hierarchy.
-//
-// # Discussion
-//
-// This method is the getter for the [NSAccessibilityProtocol] protocol’s
-// [accessibilityParent] property.
-//
-// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityElementProtocol/accessibilityParent()
-//
-// [accessibilityParent]: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityParent
-func (o NSTextView) AccessibilityParent() objectivec.IObject {
-	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilityParent"))
-	return objectivec.Object{ID: rv}
-}
-
-// Returns the accessibility element’s identity.
-//
-// # Return Value
-//
-// Returns the unique ID for the accessibility element. It is often used in
-// automated testing.
-//
-// # Discussion
-//
-// This method is the getter for the [NSAccessibilityProtocol] protocol’s
-// [accessibilityIdentifier] property.
-//
-// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityElementProtocol/accessibilityIdentifier()
-//
-// [accessibilityIdentifier]: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityIdentifier
-func (o NSTextView) AccessibilityIdentifier() string {
-	rv := objc.Send[objc.ID](o.ID, objc.Sel("accessibilityIdentifier"))
-	return foundation.NSStringFromID(rv).String()
-}
-
-// Returns a Boolean value that indicates whether the accessibility element
-// has the keyboard focus.
-//
-// # Return Value
-//
-// true if this element has the keyboard focus; otherwise, false.
-//
-// # Discussion
-//
-// This method is the getter for the [NSAccessibilityProtocol] protocol’s
-// [accessibilityFocused] property.
-//
-// See: https://developer.apple.com/documentation/AppKit/NSAccessibilityElementProtocol/isAccessibilityFocused()
-//
-// [accessibilityFocused]: https://developer.apple.com/documentation/AppKit/NSAccessibility-c.protocol/accessibilityFocused
-func (o NSTextView) IsAccessibilityFocused() bool {
-	rv := objc.Send[bool](o.ID, objc.Sel("isAccessibilityFocused"))
-	return rv
-}
-
 // Protocol methods for NSCandidateListTouchBarItemDelegate
+
+// Protocol methods for NSColorChanging
 
 // Protocol methods for NSDraggingSource
 

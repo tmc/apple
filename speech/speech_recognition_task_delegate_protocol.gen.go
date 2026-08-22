@@ -187,8 +187,20 @@ func NewSFSpeechRecognitionTaskDelegate(config SFSpeechRecognitionTaskDelegateCo
 		methods = append(methods, objc.MethodDef{
 			Cmd: objc.RegisterName("speechRecognitionDidDetectSpeech:"),
 			Fn: func(self objc.ID, _cmd objc.SEL, taskID objc.ID) {
+				// Names which delegate was running if a panic unwinds out of
+				// it. The frames between here and the Objective-C caller are
+				// runtime and purego dispatch, so without this the traceback
+				// never says which selector dispatched. Deliberately no
+				// recover: see [objc.NoteDelegatePanic].
+				_delegateDone := false
+				defer func() {
+					if !_delegateDone {
+						objc.NoteDelegatePanic("SFSpeechRecognitionTaskDelegate", "speechRecognitionDidDetectSpeech:")
+					}
+				}()
 				task := SFSpeechRecognitionTaskFromID(taskID)
 				fn(task)
+				_delegateDone = true
 			},
 		})
 	}
@@ -198,8 +210,20 @@ func NewSFSpeechRecognitionTaskDelegate(config SFSpeechRecognitionTaskDelegateCo
 		methods = append(methods, objc.MethodDef{
 			Cmd: objc.RegisterName("speechRecognitionTaskFinishedReadingAudio:"),
 			Fn: func(self objc.ID, _cmd objc.SEL, taskID objc.ID) {
+				// Names which delegate was running if a panic unwinds out of
+				// it. The frames between here and the Objective-C caller are
+				// runtime and purego dispatch, so without this the traceback
+				// never says which selector dispatched. Deliberately no
+				// recover: see [objc.NoteDelegatePanic].
+				_delegateDone := false
+				defer func() {
+					if !_delegateDone {
+						objc.NoteDelegatePanic("SFSpeechRecognitionTaskDelegate", "speechRecognitionTaskFinishedReadingAudio:")
+					}
+				}()
 				task := SFSpeechRecognitionTaskFromID(taskID)
 				fn(task)
+				_delegateDone = true
 			},
 		})
 	}
@@ -209,9 +233,21 @@ func NewSFSpeechRecognitionTaskDelegate(config SFSpeechRecognitionTaskDelegateCo
 		methods = append(methods, objc.MethodDef{
 			Cmd: objc.RegisterName("speechRecognitionTask:didHypothesizeTranscription:"),
 			Fn: func(self objc.ID, _cmd objc.SEL, taskID objc.ID, transcriptionID objc.ID) {
+				// Names which delegate was running if a panic unwinds out of
+				// it. The frames between here and the Objective-C caller are
+				// runtime and purego dispatch, so without this the traceback
+				// never says which selector dispatched. Deliberately no
+				// recover: see [objc.NoteDelegatePanic].
+				_delegateDone := false
+				defer func() {
+					if !_delegateDone {
+						objc.NoteDelegatePanic("SFSpeechRecognitionTaskDelegate", "speechRecognitionTask:didHypothesizeTranscription:")
+					}
+				}()
 				task := SFSpeechRecognitionTaskFromID(taskID)
 				transcription := SFTranscriptionFromID(transcriptionID)
 				fn(task, transcription)
+				_delegateDone = true
 			},
 		})
 	}
@@ -221,9 +257,21 @@ func NewSFSpeechRecognitionTaskDelegate(config SFSpeechRecognitionTaskDelegateCo
 		methods = append(methods, objc.MethodDef{
 			Cmd: objc.RegisterName("speechRecognitionTask:didFinishRecognition:"),
 			Fn: func(self objc.ID, _cmd objc.SEL, taskID objc.ID, recognitionResultID objc.ID) {
+				// Names which delegate was running if a panic unwinds out of
+				// it. The frames between here and the Objective-C caller are
+				// runtime and purego dispatch, so without this the traceback
+				// never says which selector dispatched. Deliberately no
+				// recover: see [objc.NoteDelegatePanic].
+				_delegateDone := false
+				defer func() {
+					if !_delegateDone {
+						objc.NoteDelegatePanic("SFSpeechRecognitionTaskDelegate", "speechRecognitionTask:didFinishRecognition:")
+					}
+				}()
 				task := SFSpeechRecognitionTaskFromID(taskID)
 				recognitionResult := SFSpeechRecognitionResultFromID(recognitionResultID)
 				fn(task, recognitionResult)
+				_delegateDone = true
 			},
 		})
 	}
@@ -233,8 +281,20 @@ func NewSFSpeechRecognitionTaskDelegate(config SFSpeechRecognitionTaskDelegateCo
 		methods = append(methods, objc.MethodDef{
 			Cmd: objc.RegisterName("speechRecognitionTask:didFinishSuccessfully:"),
 			Fn: func(self objc.ID, _cmd objc.SEL, taskID objc.ID, successfully bool) {
+				// Names which delegate was running if a panic unwinds out of
+				// it. The frames between here and the Objective-C caller are
+				// runtime and purego dispatch, so without this the traceback
+				// never says which selector dispatched. Deliberately no
+				// recover: see [objc.NoteDelegatePanic].
+				_delegateDone := false
+				defer func() {
+					if !_delegateDone {
+						objc.NoteDelegatePanic("SFSpeechRecognitionTaskDelegate", "speechRecognitionTask:didFinishSuccessfully:")
+					}
+				}()
 				task := SFSpeechRecognitionTaskFromID(taskID)
 				fn(task, successfully)
+				_delegateDone = true
 			},
 		})
 	}
@@ -244,8 +304,20 @@ func NewSFSpeechRecognitionTaskDelegate(config SFSpeechRecognitionTaskDelegateCo
 		methods = append(methods, objc.MethodDef{
 			Cmd: objc.RegisterName("speechRecognitionTask:didProcessAudioDuration:"),
 			Fn: func(self objc.ID, _cmd objc.SEL, taskID objc.ID, duration foundation.NSTimeInterval) {
+				// Names which delegate was running if a panic unwinds out of
+				// it. The frames between here and the Objective-C caller are
+				// runtime and purego dispatch, so without this the traceback
+				// never says which selector dispatched. Deliberately no
+				// recover: see [objc.NoteDelegatePanic].
+				_delegateDone := false
+				defer func() {
+					if !_delegateDone {
+						objc.NoteDelegatePanic("SFSpeechRecognitionTaskDelegate", "speechRecognitionTask:didProcessAudioDuration:")
+					}
+				}()
 				task := SFSpeechRecognitionTaskFromID(taskID)
 				fn(task, duration)
+				_delegateDone = true
 			},
 		})
 	}
@@ -255,8 +327,20 @@ func NewSFSpeechRecognitionTaskDelegate(config SFSpeechRecognitionTaskDelegateCo
 		methods = append(methods, objc.MethodDef{
 			Cmd: objc.RegisterName("speechRecognitionTaskWasCancelled:"),
 			Fn: func(self objc.ID, _cmd objc.SEL, taskID objc.ID) {
+				// Names which delegate was running if a panic unwinds out of
+				// it. The frames between here and the Objective-C caller are
+				// runtime and purego dispatch, so without this the traceback
+				// never says which selector dispatched. Deliberately no
+				// recover: see [objc.NoteDelegatePanic].
+				_delegateDone := false
+				defer func() {
+					if !_delegateDone {
+						objc.NoteDelegatePanic("SFSpeechRecognitionTaskDelegate", "speechRecognitionTaskWasCancelled:")
+					}
+				}()
 				task := SFSpeechRecognitionTaskFromID(taskID)
 				fn(task)
+				_delegateDone = true
 			},
 		})
 	}

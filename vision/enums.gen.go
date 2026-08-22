@@ -282,11 +282,11 @@ const (
 	// VNImageCropAndScaleOptionScaleFill: An option that scales the image to fill the input dimensions, resizing it if necessary.
 	VNImageCropAndScaleOptionScaleFill VNImageCropAndScaleOption = 2
 	// VNImageCropAndScaleOptionScaleFillRotate90CCW: An option that rotates the image 90 degrees counterclockwise and then scales it to fill the input dimensions.
-	VNImageCropAndScaleOptionScaleFillRotate90CCW VNImageCropAndScaleOption = 256
+	VNImageCropAndScaleOptionScaleFillRotate90CCW VNImageCropAndScaleOption = 258
 	// VNImageCropAndScaleOptionScaleFit: An option that scales the image to fit its longer side within the input dimensions, while preserving its aspect ratio, and center-crops the image.
 	VNImageCropAndScaleOptionScaleFit VNImageCropAndScaleOption = 1
 	// VNImageCropAndScaleOptionScaleFitRotate90CCW: An option that rotates the image 90 degrees counterclockwise and then scales it, while preserving its aspect ratio, to fit on the long side.
-	VNImageCropAndScaleOptionScaleFitRotate90CCW VNImageCropAndScaleOption = 256
+	VNImageCropAndScaleOptionScaleFitRotate90CCW VNImageCropAndScaleOption = 257
 )
 
 func (e VNImageCropAndScaleOption) String() string {
@@ -299,6 +299,8 @@ func (e VNImageCropAndScaleOption) String() string {
 		return "VNImageCropAndScaleOptionScaleFillRotate90CCW"
 	case VNImageCropAndScaleOptionScaleFit:
 		return "VNImageCropAndScaleOptionScaleFit"
+	case VNImageCropAndScaleOptionScaleFitRotate90CCW:
+		return "VNImageCropAndScaleOptionScaleFitRotate90CCW"
 	default:
 		return fmt.Sprintf("VNImageCropAndScaleOption(%d)", e)
 	}

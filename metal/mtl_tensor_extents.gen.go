@@ -84,9 +84,9 @@ type IMTLTensorExtents interface {
 	// Obtains the rank of the tensor.
 	Rank() uint
 
-	// Returns the extent at an index.
+	// Returns the value at the specified dimension index.
 	ExtentAtDimensionIndex(dimensionIndex uint) int
-	// Creates a new tensor extents with the rank and extent values you provide.
+	// Creates an extents object with the rank and values you provide.
 	InitWithRankValues(rank uint, values *int) MTLTensorExtents
 }
 
@@ -109,23 +109,23 @@ func NewMTLTensorExtents() MTLTensorExtents {
 	return rv
 }
 
-// Creates a new tensor extents with the rank and extent values you provide.
+// Creates an extents object with the rank and values you provide.
 //
-// rank: The number of dimensions.
+// rank: The number of values in the extents. Pass `0` to create a scalar
+// (rank-zero) extents.
 //
-// values: An array of length `rank` that specifies the size of each dimension. The
-// first dimension is the innermost dimension.
+// values: A C array of `rank` integer values, or `nil` when `rank` is `0`. The first
+// element corresponds to the innermost dimension.
 //
 // # Return Value
 //
-// Tensor extents with the rank and extent values you provide. Returns `nil`
-// if `rank` exceeds 0 and `values` is nil or if `rank` exceeds
-// [MTL_TENSOR_MAX_RANK].
+// A new extents instance, or `nil` if `rank` exceeds 0 and `values` is `nil`,
+// or if `rank` exceeds [MTL_TENSOR_MAX_RANK].
 //
 // # Discussion
 //
-// Zero rank extents represent scalars. `values` can only be `nil`if `rank` is
-// 0.
+// Zero rank extents represent scalars. `values` can only be `nil` if `rank`
+// is 0.
 //
 // See: https://developer.apple.com/documentation/Metal/MTLTensorExtents/initWithRank:values:
 //
@@ -136,14 +136,15 @@ func NewTensorExtentsWithRankValues(rank uint, values *int) MTLTensorExtents {
 	return MTLTensorExtentsFromID(rv)
 }
 
-// Returns the extent at an index.
+// Returns the value at the specified dimension index.
 //
-// dimensionIndex: The index of the dimension. The first dimension is the innermost dimension.
+// dimensionIndex: The index of the value to retrieve. The first index corresponds to the
+// innermost dimension.
 //
 // # Return Value
 //
-// The extent at `dimensionIndex`. This method returns -1 if `dimensionIndex`
-// is greater than or equal to `rank`.
+// The value at `dimensionIndex`, or `-1` if `dimensionIndex` is greater than
+// or equal to [MTLTensorExtents.Rank].
 //
 // See: https://developer.apple.com/documentation/Metal/MTLTensorExtents/extentAtDimensionIndex:
 func (t MTLTensorExtents) ExtentAtDimensionIndex(dimensionIndex uint) int {
@@ -151,23 +152,23 @@ func (t MTLTensorExtents) ExtentAtDimensionIndex(dimensionIndex uint) int {
 	return rv
 }
 
-// Creates a new tensor extents with the rank and extent values you provide.
+// Creates an extents object with the rank and values you provide.
 //
-// rank: The number of dimensions.
+// rank: The number of values in the extents. Pass `0` to create a scalar
+// (rank-zero) extents.
 //
-// values: An array of length `rank` that specifies the size of each dimension. The
-// first dimension is the innermost dimension.
+// values: A C array of `rank` integer values, or `nil` when `rank` is `0`. The first
+// element corresponds to the innermost dimension.
 //
 // # Return Value
 //
-// Tensor extents with the rank and extent values you provide. Returns `nil`
-// if `rank` exceeds 0 and `values` is nil or if `rank` exceeds
-// [MTL_TENSOR_MAX_RANK].
+// A new extents instance, or `nil` if `rank` exceeds 0 and `values` is `nil`,
+// or if `rank` exceeds [MTL_TENSOR_MAX_RANK].
 //
 // # Discussion
 //
-// Zero rank extents represent scalars. `values` can only be `nil`if `rank` is
-// 0.
+// Zero rank extents represent scalars. `values` can only be `nil` if `rank`
+// is 0.
 //
 // See: https://developer.apple.com/documentation/Metal/MTLTensorExtents/initWithRank:values:
 //

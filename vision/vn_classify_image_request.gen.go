@@ -118,9 +118,10 @@ func NewVNClassifyImageRequest() VNClassifyImageRequest {
 // [VNImageRequestHandler.PerformRequestsError].
 //
 // See: https://developer.apple.com/documentation/Vision/VNRequest/init(completionHandler:)
-func NewClassifyImageRequestWithCompletionHandler(completionHandler VNRequestCompletionHandler) VNClassifyImageRequest {
+func NewClassifyImageRequestWithCompletionHandler(completionHandler VNRequestErrorHandler) VNClassifyImageRequest {
+	_block0, _ := NewVNRequestErrorBlock(completionHandler)
 	instance := getVNClassifyImageRequestClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCompletionHandler:"), completionHandler)
+	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCompletionHandler:"), _block0)
 	return VNClassifyImageRequestFromID(rv)
 }
 

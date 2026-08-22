@@ -4,9 +4,8 @@ package cloudkit
 
 import (
 	"sync"
-	"unsafe"
 
-	"github.com/tmc/apple/kernel"
+	"github.com/tmc/apple/foundation"
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -148,8 +147,8 @@ type ICKFetchRecordsOperation interface {
 	RecordIDs() []CKRecordID
 	SetRecordIDs(value []CKRecordID)
 	// The fields of the records to fetch.
-	DesiredKeys() unsafe.Pointer
-	SetDesiredKeys(value kernel.Pointer)
+	DesiredKeys() []CKRecordFieldKey
+	SetDesiredKeys(value []CKRecordFieldKey)
 
 	// Topic: Processing Record Fetch Results
 
@@ -276,12 +275,14 @@ func (c CKFetchRecordsOperation) SetRecordIDs(value []CKRecordID) {
 // The fields of the records to fetch.
 //
 // See: https://developer.apple.com/documentation/cloudkit/ckfetchrecordsoperation/desiredkeys-31bbq
-func (c CKFetchRecordsOperation) DesiredKeys() unsafe.Pointer {
-	rv := objc.Send[unsafe.Pointer](c.ID, objc.Sel("desiredKeys"))
-	return rv
+func (c CKFetchRecordsOperation) DesiredKeys() []CKRecordFieldKey {
+	rv := objc.Send[[]objc.ID](c.ID, objc.Sel("desiredKeys"))
+	return objc.ConvertSlice(rv, func(id objc.ID) CKRecordFieldKey {
+		return CKRecordFieldKey(foundation.NSStringFromID(id).String())
+	})
 }
-func (c CKFetchRecordsOperation) SetDesiredKeys(value kernel.Pointer) {
-	objc.Send[struct{}](c.ID, objc.Sel("setDesiredKeys:"), value)
+func (c CKFetchRecordsOperation) SetDesiredKeys(value []CKRecordFieldKey) {
+	objc.Send[struct{}](c.ID, objc.Sel("setDesiredKeys:"), objectivec.StringSliceToNSArray(value))
 }
 
 // The closure to execute with progress information for individual records.

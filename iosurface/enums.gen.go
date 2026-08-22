@@ -214,25 +214,25 @@ func (e IOSurfaceSubsampling) String() string {
 	}
 }
 
-type KIOSurface uint
+type KIOSurfaceDefaultCache uint32
 
 const (
-	KIOSurfaceCopybackCache      KIOSurface = 3
-	KIOSurfaceCopybackInnerCache KIOSurface = 5
-	KIOSurfaceDefaultCache       KIOSurface = 0
-	KIOSurfaceInhibitCache       KIOSurface = 1
-	KIOSurfaceWriteCombineCache  KIOSurface = 4
-	KIOSurfaceWriteThruCache     KIOSurface = 2
+	KIOSurfaceCopybackCache      KIOSurfaceDefaultCache = 3
+	KIOSurfaceCopybackInnerCache KIOSurfaceDefaultCache = 5
+	KIOSurfaceDefaultCacheValue  KIOSurfaceDefaultCache = 0
+	KIOSurfaceInhibitCache       KIOSurfaceDefaultCache = 1
+	KIOSurfaceWriteCombineCache  KIOSurfaceDefaultCache = 4
+	KIOSurfaceWriteThruCache     KIOSurfaceDefaultCache = 2
 )
 
-func (e KIOSurface) String() string {
+func (e KIOSurfaceDefaultCache) String() string {
 	switch e {
 	case KIOSurfaceCopybackCache:
 		return "KIOSurfaceCopybackCache"
 	case KIOSurfaceCopybackInnerCache:
 		return "KIOSurfaceCopybackInnerCache"
-	case KIOSurfaceDefaultCache:
-		return "KIOSurfaceDefaultCache"
+	case KIOSurfaceDefaultCacheValue:
+		return "KIOSurfaceDefaultCacheValue"
 	case KIOSurfaceInhibitCache:
 		return "KIOSurfaceInhibitCache"
 	case KIOSurfaceWriteCombineCache:
@@ -240,20 +240,20 @@ func (e KIOSurface) String() string {
 	case KIOSurfaceWriteThruCache:
 		return "KIOSurfaceWriteThruCache"
 	default:
-		return fmt.Sprintf("KIOSurface(%d)", e)
+		return fmt.Sprintf("KIOSurfaceDefaultCache(%d)", e)
 	}
 }
 
-type KIOSurfaceMap uint
+type KIOSurfaceMap uint32
 
 const (
 	KIOSurfaceMapCacheShift         KIOSurfaceMap = 8
-	KIOSurfaceMapCopybackCache      KIOSurfaceMap = 3
-	KIOSurfaceMapCopybackInnerCache KIOSurfaceMap = 5
+	KIOSurfaceMapCopybackCache      KIOSurfaceMap = 768
+	KIOSurfaceMapCopybackInnerCache KIOSurfaceMap = 1280
 	KIOSurfaceMapDefaultCache       KIOSurfaceMap = 0
-	KIOSurfaceMapInhibitCache       KIOSurfaceMap = 1
-	KIOSurfaceMapWriteCombineCache  KIOSurfaceMap = 4
-	KIOSurfaceMapWriteThruCache     KIOSurfaceMap = 2
+	KIOSurfaceMapInhibitCache       KIOSurfaceMap = 256
+	KIOSurfaceMapWriteCombineCache  KIOSurfaceMap = 1024
+	KIOSurfaceMapWriteThruCache     KIOSurfaceMap = 512
 )
 
 func (e KIOSurfaceMap) String() string {

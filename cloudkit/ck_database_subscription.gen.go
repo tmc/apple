@@ -4,10 +4,8 @@ package cloudkit
 
 import (
 	"sync"
-	"unsafe"
 
 	"github.com/tmc/apple/foundation"
-	"github.com/tmc/apple/kernel"
 	"github.com/tmc/apple/objc"
 )
 
@@ -129,8 +127,10 @@ type ICKDatabaseSubscription interface {
 	// Topic: Accessing the Subscription Metadata
 
 	// The type of record that the subscription queries.
-	RecordType() unsafe.Pointer
-	SetRecordType(value kernel.Pointer)
+	RecordType() CKRecordType
+	SetRecordType(value CKRecordType)
+
+	InitWithSubscriptionID(subscriptionID CKSubscriptionID) CKDatabaseSubscription
 }
 
 // Init initializes the instance.
@@ -163,13 +163,18 @@ func NewCKDatabaseSubscriptionWithCoder(aDecoder foundation.INSCoder) CKDatabase
 	return CKDatabaseSubscriptionFromID(rv)
 }
 
+func (c CKDatabaseSubscription) InitWithSubscriptionID(subscriptionID CKSubscriptionID) CKDatabaseSubscription {
+	rv := objc.Send[CKDatabaseSubscription](c.ID, objc.Sel("initWithSubscriptionID:"), objc.String(string(subscriptionID)))
+	return rv
+}
+
 // The type of record that the subscription queries.
 //
 // See: https://developer.apple.com/documentation/cloudkit/ckdatabasesubscription/recordtype-46v7a
-func (c CKDatabaseSubscription) RecordType() unsafe.Pointer {
-	rv := objc.Send[unsafe.Pointer](c.ID, objc.Sel("recordType"))
-	return rv
+func (c CKDatabaseSubscription) RecordType() CKRecordType {
+	rv := objc.Send[objc.ID](c.ID, objc.Sel("recordType"))
+	return CKRecordType(foundation.NSStringFromID(rv).String())
 }
-func (c CKDatabaseSubscription) SetRecordType(value kernel.Pointer) {
-	objc.Send[struct{}](c.ID, objc.Sel("setRecordType:"), value)
+func (c CKDatabaseSubscription) SetRecordType(value CKRecordType) {
+	objc.Send[struct{}](c.ID, objc.Sel("setRecordType:"), objc.String(string(value)))
 }

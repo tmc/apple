@@ -4,8 +4,8 @@ package avfaudio
 
 import (
 	"sync"
-	"unsafe"
 
+	"github.com/tmc/apple/audiotoolbox"
 	"github.com/tmc/apple/objc"
 )
 
@@ -95,7 +95,7 @@ type IAVAudioUnitEffect interface {
 	// Topic: Creating an audio effect
 
 	// Creates an audio unit effect object with the specified description.
-	InitWithAudioComponentDescription(audioComponentDescription unsafe.Pointer) AVAudioUnitEffect
+	InitWithAudioComponentDescription(audioComponentDescription audiotoolbox.AudioComponentDescription) AVAudioUnitEffect
 
 	// Topic: Getting the bypass state
 
@@ -137,7 +137,7 @@ func NewAVAudioUnitEffect() AVAudioUnitEffect {
 // A new [AVAudioUnitEffect] instance.
 //
 // See: https://developer.apple.com/documentation/AVFAudio/AVAudioUnitEffect/init(audioComponentDescription:)
-func NewAudioUnitEffectWithAudioComponentDescription(audioComponentDescription unsafe.Pointer) AVAudioUnitEffect {
+func NewAudioUnitEffectWithAudioComponentDescription(audioComponentDescription audiotoolbox.AudioComponentDescription) AVAudioUnitEffect {
 	instance := getAVAudioUnitEffectClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithAudioComponentDescription:"), audioComponentDescription)
 	return AVAudioUnitEffectFromID(rv)
@@ -152,14 +152,12 @@ func NewAudioUnitEffectWithAudioComponentDescription(audioComponentDescription u
 // `kAudioUnitType_Panner`, `kAudioUnitType_RemoteEffect`, or
 // `kAudioUnitType_RemoteMusicEffect`.
 //
-// audioComponentDescription is a [audiotoolbox.AudioComponentDescription].
-//
 // # Return Value
 //
 // A new [AVAudioUnitEffect] instance.
 //
 // See: https://developer.apple.com/documentation/AVFAudio/AVAudioUnitEffect/init(audioComponentDescription:)
-func (a AVAudioUnitEffect) InitWithAudioComponentDescription(audioComponentDescription unsafe.Pointer) AVAudioUnitEffect {
+func (a AVAudioUnitEffect) InitWithAudioComponentDescription(audioComponentDescription audiotoolbox.AudioComponentDescription) AVAudioUnitEffect {
 	rv := objc.Send[AVAudioUnitEffect](a.ID, objc.Sel("initWithAudioComponentDescription:"), audioComponentDescription)
 	return rv
 }

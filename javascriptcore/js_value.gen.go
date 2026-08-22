@@ -107,7 +107,7 @@ func (jc JSValueClass) Alloc() JSValue {
 //   - [JSValue.ToDouble]: Converts the JavaScript value to a native floating-point value.
 //   - [JSValue.ToInt32]: Converts the JavaScript value to a native signed integer value.
 //   - [JSValue.ToUInt32]: Converts the JavaScript value to a native unsigned integer value.
-//   - [JSValue.ToNumber]: Converts the JavaScript value to a [NSNumber](<doc://com.apple.documentation/documentation/Foundation/NSNumber>) object.
+//   - [JSValue.ToNumber]: Converts the JavaScript value to a [NSNumber](<https://developer.apple.com/documentation/Foundation/NSNumber>) object.
 //   - [JSValue.ToString]: Converts the JavaScript value to a native string.
 //   - [JSValue.ToDate]: Converts the JavaScript value to a date object.
 //   - [JSValue.ToArray]: Converts the JavaScript value to an array.
@@ -207,7 +207,7 @@ func JSValueFromID(id objc.ID) JSValue {
 //   - [IJSValue.ToDouble]: Converts the JavaScript value to a native floating-point value.
 //   - [IJSValue.ToInt32]: Converts the JavaScript value to a native signed integer value.
 //   - [IJSValue.ToUInt32]: Converts the JavaScript value to a native unsigned integer value.
-//   - [IJSValue.ToNumber]: Converts the JavaScript value to a [NSNumber](<doc://com.apple.documentation/documentation/Foundation/NSNumber>) object.
+//   - [IJSValue.ToNumber]: Converts the JavaScript value to a [NSNumber](<https://developer.apple.com/documentation/Foundation/NSNumber>) object.
 //   - [IJSValue.ToString]: Converts the JavaScript value to a native string.
 //   - [IJSValue.ToDate]: Converts the JavaScript value to a date object.
 //   - [IJSValue.ToArray]: Converts the JavaScript value to an array.
@@ -297,7 +297,7 @@ type IJSValue interface {
 	ToInt32() int32
 	// Converts the JavaScript value to a native unsigned integer value.
 	ToUInt32() uint32
-	// Converts the JavaScript value to a [NSNumber](<doc://com.apple.documentation/documentation/Foundation/NSNumber>) object.
+	// Converts the JavaScript value to a [NSNumber](<https://developer.apple.com/documentation/Foundation/NSNumber>) object.
 	ToNumber() foundation.NSNumber
 	// Converts the JavaScript value to a native string.
 	ToString() string
@@ -1001,7 +1001,7 @@ func (j JSValue) ToUInt32() uint32 {
 //
 // If the value represents a Boolean value, the resulting [NSNumber] object is
 // created as with the
-// doc://com.apple.documentation/documentation/foundation/nsnumber/1551475-numberwithbool
+// https://developer.apple.com/documentation/foundation/nsnumber/1551475-numberwithbool
 // method. Otherwise, this method uses JavaScript type coercion to convert the
 // value to a JavaScript numeric value and creates a [NSNumber] object
 // wrapping the result.
@@ -1048,7 +1048,7 @@ func (j JSValue) ToString() string {
 // equivalent [NSDate] representation. Otherwise, this method uses JavaScript
 // type coercion to interpret the value as a number of seconds and creates an
 // [NSDate] object with the
-// doc://com.apple.documentation/documentation/foundation/nsdate/1591576-datewithtimeintervalsince1970
+// https://developer.apple.com/documentation/foundation/nsdate/1591576-datewithtimeintervalsince1970
 // method.
 //
 // See: https://developer.apple.com/documentation/JavaScriptCore/JSValue/toDate()

@@ -12,6 +12,11 @@ import (
 // See: https://developer.apple.com/documentation/AppKit/NSUserInterfaceItemSearching
 type NSUserInterfaceItemSearching interface {
 	objectivec.IObject
+
+	// Returns an array of localized strings that will form the help menu item.
+	//
+	// See: https://developer.apple.com/documentation/AppKit/NSUserInterfaceItemSearching/localizedTitles(forItem:)
+	LocalizedTitlesForItem(item objectivec.IObject) []string
 }
 
 // NSUserInterfaceItemSearchingObject wraps an existing Objective-C object that conforms to the NSUserInterfaceItemSearching protocol.

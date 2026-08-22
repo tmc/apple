@@ -57,11 +57,7 @@
 //   - [Text Display]: Display text and check spelling. ([NSTextField], [NSTextFieldDelegate], [NSTextView], [NSTextViewDelegate], [NSTextDelegate])
 //   - TextKit: Manage text storage and perform custom layout of text-based content in your app’s views. ([NSTextContentStorage], [NSTextContentManager], [NSParagraphStyle], [NSMutableParagraphStyle], [NSTextTab])
 //   - Fonts: Manage the fonts used to display text. ([NSFont], [NSFontDescriptor], [NSFontTraitMask], [NSFontFamilyClass], [NSFontAssetRequest])
-//   - [Writing Tools]: Add support for Writing Tools to your app’s text views. ([NSWritingToolsBehavior], [NSWritingToolsResultOptions], [NSWritingToolsCoordinator], [NSTextPreview])
-//
-// # Enumeration Cases
-//
-//   - NSAttachmentCharacter//
+//   - [Writing Tools]: Add support for Writing Tools to your app’s text views. ([NSWritingToolsBehavior], [NSWritingToolsResultOptions], [NSWritingToolsCoordinator], [NSTextPreview])//
 //
 // # Key Types
 //
@@ -70,9 +66,9 @@
 //   - [NSTextView] - A view that draws text and handles user interactions with that text.
 //   - [NSTableView] - A set of related records, displayed in rows that represent individual records and columns that represent the attributes of those records.
 //   - [NSBrowser] - An interface that displays a hierarchically organized list of data items that can be navigated and selected.
-//   - [NSOutlineView] - A view that uses a row-and-column format to display hierarchical data like directories and files that can be expanded and collapsed.
 //   - [NSApplication] - An object that manages an app’s main event loop and resources used by all of that app’s objects.
 //   - [NSMatrix] - A legacy interface for grouping radio buttons or other types of cells together.
+//   - [NSOutlineView] - A view that uses a row-and-column format to display hierarchical data like directories and files that can be expanded and collapsed.
 //   - [NSCollectionView] - An ordered collection of data items displayed in a customizable layout.
 //   - [NSScrollView] - A view that displays a portion of a document view and provides scroll bars that allow the user to move the document view within the scroll view.
 //
@@ -109,9 +105,11 @@ import (
 	"github.com/ebitengine/purego"
 )
 
-// frameworkPaths lists paths to try when loading the AppKit library.
-// The framework bundle path is tried first; a /usr/lib dylib fallback covers
-// C-API frameworks that are not in the dyld shared cache as bundles.
+// frameworkPaths lists paths to try when loading the AppKit library,
+// in order. Frameworks whose symbols live in a known dylib resolve to that
+// dylib alone; the rest try the framework bundle first and then a /usr/lib
+// dylib fallback, which covers C-API frameworks that are not in the dyld
+// shared cache as bundles.
 var frameworkPaths = []string{
 	"/System/Library/Frameworks/AppKit.framework/AppKit",
 	"/usr/lib/libAppKit.dylib",

@@ -54,8 +54,8 @@ func (nc NSGradientClass) Alloc() NSGradient {
 // fill. A gradient consists of two or more color changes over the range of
 // the gradient shape. When creating a gradient object, you specify the colors
 // and their locations relative to the start and end of the gradient. This
-// combination of color and location is known as a . During drawing, the
-// [NSGradient] object uses the color stop information to compute color
+// combination of color and location is known as a color stop. During drawing,
+// the [NSGradient] object uses the color stop information to compute color
 // changes for you and passes that information to the Quartz shading
 // functions.
 //

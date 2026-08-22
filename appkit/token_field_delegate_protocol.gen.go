@@ -12,7 +12,7 @@ import (
 
 var _ = fmt.Sprintf
 
-// A set of optional methods implemented by delegates of [NSTokenField](<doc://com.apple.appkit/documentation/AppKit/NSTokenField>) objects.
+// A set of optional methods implemented by delegates of [NSTokenField](<https://developer.apple.com/documentation/AppKit/NSTokenField>) objects.
 //
 // See: https://developer.apple.com/documentation/AppKit/NSTokenFieldDelegate
 type NSTokenFieldDelegate interface {
@@ -605,9 +605,22 @@ func NewNSTokenFieldDelegate(config NSTokenFieldDelegateConfig) NSTokenFieldDele
 		methods = append(methods, objc.MethodDef{
 			Cmd: objc.RegisterName("tokenField:shouldAddObjects:atIndex:"),
 			Fn: func(self objc.ID, _cmd objc.SEL, tokenFieldID objc.ID, tokensID objc.ID, index uint) objc.ID {
+				// Names which delegate was running if a panic unwinds out of
+				// it. The frames between here and the Objective-C caller are
+				// runtime and purego dispatch, so without this the traceback
+				// never says which selector dispatched. Deliberately no
+				// recover: see [objc.NoteDelegatePanic].
+				_delegateDone := false
+				defer func() {
+					if !_delegateDone {
+						objc.NoteDelegatePanic("NSTokenFieldDelegate", "tokenField:shouldAddObjects:atIndex:")
+					}
+				}()
 				tokenField := NSTokenFieldFromID(tokenFieldID)
 				tokens := foundation.NSArrayFromID(tokensID)
-				return fn(tokenField, tokens, index).GetID()
+				_delegateResult := fn(tokenField, tokens, index).GetID()
+				_delegateDone = true
+				return _delegateResult
 			},
 		})
 	}
@@ -617,9 +630,22 @@ func NewNSTokenFieldDelegate(config NSTokenFieldDelegateConfig) NSTokenFieldDele
 		methods = append(methods, objc.MethodDef{
 			Cmd: objc.RegisterName("tokenField:readFromPasteboard:"),
 			Fn: func(self objc.ID, _cmd objc.SEL, tokenFieldID objc.ID, pboardID objc.ID) objc.ID {
+				// Names which delegate was running if a panic unwinds out of
+				// it. The frames between here and the Objective-C caller are
+				// runtime and purego dispatch, so without this the traceback
+				// never says which selector dispatched. Deliberately no
+				// recover: see [objc.NoteDelegatePanic].
+				_delegateDone := false
+				defer func() {
+					if !_delegateDone {
+						objc.NoteDelegatePanic("NSTokenFieldDelegate", "tokenField:readFromPasteboard:")
+					}
+				}()
 				tokenField := NSTokenFieldFromID(tokenFieldID)
 				pboard := NSPasteboardFromID(pboardID)
-				return fn(tokenField, pboard).GetID()
+				_delegateResult := fn(tokenField, pboard).GetID()
+				_delegateDone = true
+				return _delegateResult
 			},
 		})
 	}
@@ -629,10 +655,23 @@ func NewNSTokenFieldDelegate(config NSTokenFieldDelegateConfig) NSTokenFieldDele
 		methods = append(methods, objc.MethodDef{
 			Cmd: objc.RegisterName("tokenField:writeRepresentedObjects:toPasteboard:"),
 			Fn: func(self objc.ID, _cmd objc.SEL, tokenFieldID objc.ID, objectsID objc.ID, pboardID objc.ID) bool {
+				// Names which delegate was running if a panic unwinds out of
+				// it. The frames between here and the Objective-C caller are
+				// runtime and purego dispatch, so without this the traceback
+				// never says which selector dispatched. Deliberately no
+				// recover: see [objc.NoteDelegatePanic].
+				_delegateDone := false
+				defer func() {
+					if !_delegateDone {
+						objc.NoteDelegatePanic("NSTokenFieldDelegate", "tokenField:writeRepresentedObjects:toPasteboard:")
+					}
+				}()
 				tokenField := NSTokenFieldFromID(tokenFieldID)
 				objects := foundation.NSArrayFromID(objectsID)
 				pboard := NSPasteboardFromID(pboardID)
-				return fn(tokenField, objects, pboard)
+				_delegateResult := fn(tokenField, objects, pboard)
+				_delegateDone = true
+				return _delegateResult
 			},
 		})
 	}

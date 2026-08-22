@@ -3,6 +3,8 @@
 package foundation
 
 import (
+	"unsafe"
+
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -125,8 +127,8 @@ func (o NSSpellServerDelegateObject) SpellServerSuggestGuessesForWordInLanguage(
 // Location of the first flagged grammatical unit within `string`.
 //
 // See: https://developer.apple.com/documentation/Foundation/NSSpellServerDelegate/spellServer(_:checkGrammarIn:language:details:)
-func (o NSSpellServerDelegateObject) SpellServerCheckGrammarInStringLanguageDetails(sender INSSpellServer, stringToCheck string, language string, details INSDictionary) NSRange {
-	rv := objc.Send[NSRange](o.ID, objc.Sel("spellServer:checkGrammarInString:language:details:"), sender, objc.String(stringToCheck), objc.String(language), details)
+func (o NSSpellServerDelegateObject) SpellServerCheckGrammarInStringLanguageDetails(sender INSSpellServer, stringToCheck string, language string, details *NSArray) NSRange {
+	rv := objc.Send[NSRange](o.ID, objc.Sel("spellServer:checkGrammarInString:language:details:"), sender, objc.String(stringToCheck), objc.String(language), unsafe.Pointer(details))
 	return rv
 }
 

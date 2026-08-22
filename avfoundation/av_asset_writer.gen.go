@@ -381,6 +381,9 @@ func NewAssetWriterWithURLFileTypeError(outputURL foundation.NSURL, outputFileTy
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
 		return AVAssetWriter{}, foundation.NSErrorFrom(errorPtr)
 	}
+	if rv == 0 {
+		return AVAssetWriter{}, objc.ErrInitFailed
+	}
 	return AVAssetWriterFromID(rv), nil
 }
 
@@ -637,7 +640,7 @@ func (a AVAssetWriter) FlushSegment() {
 //
 // Writing fails if a file already exists at the output URL.
 //
-// See: https://developer.apple.com/documentation/AVFoundation/AVAssetWriter/init(url:fileType:)-xt34
+// See: https://developer.apple.com/documentation/AVFoundation/AVAssetWriter/init(url:fileType:)
 func (_AVAssetWriterClass AVAssetWriterClass) AssetWriterWithURLFileTypeError(outputURL foundation.NSURL, outputFileType AVFileType) (AVAssetWriter, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](objc.ID(_AVAssetWriterClass.class), objc.Sel("assetWriterWithURL:fileType:error:"), outputURL, objc.String(string(outputFileType)), unsafe.Pointer(&errorPtr))

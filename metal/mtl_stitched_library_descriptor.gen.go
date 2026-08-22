@@ -47,8 +47,8 @@ func (mc MTLStitchedLibraryDescriptorClass) Alloc() MTLStitchedLibraryDescriptor
 // # Overview
 //
 // An [MTLStitchedLibraryDescriptor] describes a library of new stitched
-// functions. A is a visible function you create by composing other Metal
-// shader functions together in a function graph.
+// functions. A stitched function is a visible function you create by
+// composing other Metal shader functions together in a function graph.
 //
 // Configure a stitched library descriptor by assigning an array of one or
 // more [MTLFunctionStitchingGraph] instances, each describing a stitched

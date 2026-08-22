@@ -319,11 +319,11 @@ func (e FSItemAttribute) String() string {
 }
 
 // See: https://developer.apple.com/documentation/FSKit/FSVolume/ItemDeactivationOptions
-type FSItemDeactivationOptions int
+type FSItemDeactivationOptions uint
 
 const (
 	// FSItemDeactivationAlways: An option to always perform deactivation calls.
-	FSItemDeactivationAlways FSItemDeactivationOptions = -1
+	FSItemDeactivationAlways FSItemDeactivationOptions = 18446744073709551615
 	// FSItemDeactivationForPreallocatedItems: An option to process deactivation for for files with preallocated space.
 	FSItemDeactivationForPreallocatedItems FSItemDeactivationOptions = 2
 	// FSItemDeactivationForRemovedItems: An option to process deactivation for open-unlinked items at the moment of last close.

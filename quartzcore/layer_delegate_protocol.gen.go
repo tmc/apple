@@ -201,8 +201,20 @@ func NewCALayerDelegate(config CALayerDelegateConfig) CALayerDelegateObject {
 		methods = append(methods, objc.MethodDef{
 			Cmd: objc.RegisterName("displayLayer:"),
 			Fn: func(self objc.ID, _cmd objc.SEL, layerID objc.ID) {
+				// Names which delegate was running if a panic unwinds out of
+				// it. The frames between here and the Objective-C caller are
+				// runtime and purego dispatch, so without this the traceback
+				// never says which selector dispatched. Deliberately no
+				// recover: see [objc.NoteDelegatePanic].
+				_delegateDone := false
+				defer func() {
+					if !_delegateDone {
+						objc.NoteDelegatePanic("CALayerDelegate", "displayLayer:")
+					}
+				}()
 				layer := CALayerFromID(layerID)
 				fn(layer)
+				_delegateDone = true
 			},
 		})
 	}
@@ -212,8 +224,20 @@ func NewCALayerDelegate(config CALayerDelegateConfig) CALayerDelegateObject {
 		methods = append(methods, objc.MethodDef{
 			Cmd: objc.RegisterName("layerWillDraw:"),
 			Fn: func(self objc.ID, _cmd objc.SEL, layerID objc.ID) {
+				// Names which delegate was running if a panic unwinds out of
+				// it. The frames between here and the Objective-C caller are
+				// runtime and purego dispatch, so without this the traceback
+				// never says which selector dispatched. Deliberately no
+				// recover: see [objc.NoteDelegatePanic].
+				_delegateDone := false
+				defer func() {
+					if !_delegateDone {
+						objc.NoteDelegatePanic("CALayerDelegate", "layerWillDraw:")
+					}
+				}()
 				layer := CALayerFromID(layerID)
 				fn(layer)
+				_delegateDone = true
 			},
 		})
 	}
@@ -223,8 +247,20 @@ func NewCALayerDelegate(config CALayerDelegateConfig) CALayerDelegateObject {
 		methods = append(methods, objc.MethodDef{
 			Cmd: objc.RegisterName("layoutSublayersOfLayer:"),
 			Fn: func(self objc.ID, _cmd objc.SEL, layerID objc.ID) {
+				// Names which delegate was running if a panic unwinds out of
+				// it. The frames between here and the Objective-C caller are
+				// runtime and purego dispatch, so without this the traceback
+				// never says which selector dispatched. Deliberately no
+				// recover: see [objc.NoteDelegatePanic].
+				_delegateDone := false
+				defer func() {
+					if !_delegateDone {
+						objc.NoteDelegatePanic("CALayerDelegate", "layoutSublayersOfLayer:")
+					}
+				}()
 				layer := CALayerFromID(layerID)
 				fn(layer)
+				_delegateDone = true
 			},
 		})
 	}

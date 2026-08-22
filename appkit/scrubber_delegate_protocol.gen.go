@@ -150,8 +150,20 @@ func NewNSScrubberDelegate(config NSScrubberDelegateConfig) NSScrubberDelegateOb
 		methods = append(methods, objc.MethodDef{
 			Cmd: objc.RegisterName("scrubber:didSelectItemAtIndex:"),
 			Fn: func(self objc.ID, _cmd objc.SEL, scrubberID objc.ID, selectedIndex int) {
+				// Names which delegate was running if a panic unwinds out of
+				// it. The frames between here and the Objective-C caller are
+				// runtime and purego dispatch, so without this the traceback
+				// never says which selector dispatched. Deliberately no
+				// recover: see [objc.NoteDelegatePanic].
+				_delegateDone := false
+				defer func() {
+					if !_delegateDone {
+						objc.NoteDelegatePanic("NSScrubberDelegate", "scrubber:didSelectItemAtIndex:")
+					}
+				}()
 				scrubber := NSScrubberFromID(scrubberID)
 				fn(scrubber, selectedIndex)
+				_delegateDone = true
 			},
 		})
 	}
@@ -161,8 +173,20 @@ func NewNSScrubberDelegate(config NSScrubberDelegateConfig) NSScrubberDelegateOb
 		methods = append(methods, objc.MethodDef{
 			Cmd: objc.RegisterName("scrubber:didHighlightItemAtIndex:"),
 			Fn: func(self objc.ID, _cmd objc.SEL, scrubberID objc.ID, highlightedIndex int) {
+				// Names which delegate was running if a panic unwinds out of
+				// it. The frames between here and the Objective-C caller are
+				// runtime and purego dispatch, so without this the traceback
+				// never says which selector dispatched. Deliberately no
+				// recover: see [objc.NoteDelegatePanic].
+				_delegateDone := false
+				defer func() {
+					if !_delegateDone {
+						objc.NoteDelegatePanic("NSScrubberDelegate", "scrubber:didHighlightItemAtIndex:")
+					}
+				}()
 				scrubber := NSScrubberFromID(scrubberID)
 				fn(scrubber, highlightedIndex)
+				_delegateDone = true
 			},
 		})
 	}
@@ -172,8 +196,20 @@ func NewNSScrubberDelegate(config NSScrubberDelegateConfig) NSScrubberDelegateOb
 		methods = append(methods, objc.MethodDef{
 			Cmd: objc.RegisterName("scrubber:didChangeVisibleRange:"),
 			Fn: func(self objc.ID, _cmd objc.SEL, scrubberID objc.ID, visibleRange foundation.NSRange) {
+				// Names which delegate was running if a panic unwinds out of
+				// it. The frames between here and the Objective-C caller are
+				// runtime and purego dispatch, so without this the traceback
+				// never says which selector dispatched. Deliberately no
+				// recover: see [objc.NoteDelegatePanic].
+				_delegateDone := false
+				defer func() {
+					if !_delegateDone {
+						objc.NoteDelegatePanic("NSScrubberDelegate", "scrubber:didChangeVisibleRange:")
+					}
+				}()
 				scrubber := NSScrubberFromID(scrubberID)
 				fn(scrubber, visibleRange)
+				_delegateDone = true
 			},
 		})
 	}
@@ -183,8 +219,20 @@ func NewNSScrubberDelegate(config NSScrubberDelegateConfig) NSScrubberDelegateOb
 		methods = append(methods, objc.MethodDef{
 			Cmd: objc.RegisterName("didBeginInteractingWithScrubber:"),
 			Fn: func(self objc.ID, _cmd objc.SEL, scrubberID objc.ID) {
+				// Names which delegate was running if a panic unwinds out of
+				// it. The frames between here and the Objective-C caller are
+				// runtime and purego dispatch, so without this the traceback
+				// never says which selector dispatched. Deliberately no
+				// recover: see [objc.NoteDelegatePanic].
+				_delegateDone := false
+				defer func() {
+					if !_delegateDone {
+						objc.NoteDelegatePanic("NSScrubberDelegate", "didBeginInteractingWithScrubber:")
+					}
+				}()
 				scrubber := NSScrubberFromID(scrubberID)
 				fn(scrubber)
+				_delegateDone = true
 			},
 		})
 	}
@@ -194,8 +242,20 @@ func NewNSScrubberDelegate(config NSScrubberDelegateConfig) NSScrubberDelegateOb
 		methods = append(methods, objc.MethodDef{
 			Cmd: objc.RegisterName("didFinishInteractingWithScrubber:"),
 			Fn: func(self objc.ID, _cmd objc.SEL, scrubberID objc.ID) {
+				// Names which delegate was running if a panic unwinds out of
+				// it. The frames between here and the Objective-C caller are
+				// runtime and purego dispatch, so without this the traceback
+				// never says which selector dispatched. Deliberately no
+				// recover: see [objc.NoteDelegatePanic].
+				_delegateDone := false
+				defer func() {
+					if !_delegateDone {
+						objc.NoteDelegatePanic("NSScrubberDelegate", "didFinishInteractingWithScrubber:")
+					}
+				}()
 				scrubber := NSScrubberFromID(scrubberID)
 				fn(scrubber)
+				_delegateDone = true
 			},
 		})
 	}
@@ -205,8 +265,20 @@ func NewNSScrubberDelegate(config NSScrubberDelegateConfig) NSScrubberDelegateOb
 		methods = append(methods, objc.MethodDef{
 			Cmd: objc.RegisterName("didCancelInteractingWithScrubber:"),
 			Fn: func(self objc.ID, _cmd objc.SEL, scrubberID objc.ID) {
+				// Names which delegate was running if a panic unwinds out of
+				// it. The frames between here and the Objective-C caller are
+				// runtime and purego dispatch, so without this the traceback
+				// never says which selector dispatched. Deliberately no
+				// recover: see [objc.NoteDelegatePanic].
+				_delegateDone := false
+				defer func() {
+					if !_delegateDone {
+						objc.NoteDelegatePanic("NSScrubberDelegate", "didCancelInteractingWithScrubber:")
+					}
+				}()
 				scrubber := NSScrubberFromID(scrubberID)
 				fn(scrubber)
+				_delegateDone = true
 			},
 		})
 	}

@@ -217,6 +217,23 @@ func (e AVAssetWriterStatus) String() string {
 	}
 }
 
+// See: https://developer.apple.com/documentation/AVFoundation/AVAudioMixInputParametersTrackID
+type AVAudioMixInputParametersTrackID int
+
+const (
+	// AVAudioMixInputParametersTrackMixID: Indicates that the specified input parameters should be applied to the mix of all audio tracks rather than to a single specific audio track.
+	AVAudioMixInputParametersTrackMixID AVAudioMixInputParametersTrackID = 0
+)
+
+func (e AVAudioMixInputParametersTrackID) String() string {
+	switch e {
+	case AVAudioMixInputParametersTrackMixID:
+		return "AVAudioMixInputParametersTrackMixID"
+	default:
+		return fmt.Sprintf("AVAudioMixInputParametersTrackID(%d)", e)
+	}
+}
+
 // See: https://developer.apple.com/documentation/AVFoundation/AVAudioSpatializationFormats
 type AVAudioSpatializationFormats uint
 
@@ -657,6 +674,25 @@ func (e AVCaptureAutoFocusSystem) String() string {
 		return "AVCaptureAutoFocusSystemPhaseDetection"
 	default:
 		return fmt.Sprintf("AVCaptureAutoFocusSystem(%d)", e)
+	}
+}
+
+// See: https://developer.apple.com/documentation/AVFoundation/AVCaptureBroadcastVideoOutput/DroppedFrameReplacementPolicy-swift.enum
+type AVCaptureBroadcastVideoOutputDroppedFrameReplacementPolicy int
+
+const (
+	// AVCaptureBroadcastVideoOutputDroppedFrameReplacementPolicyBlackFrame: Insert a black frame as replacement.
+	AVCaptureBroadcastVideoOutputDroppedFrameReplacementPolicyBlackFrame AVCaptureBroadcastVideoOutputDroppedFrameReplacementPolicy = 0
+	// AVCaptureBroadcastVideoOutputDroppedFrameReplacementPolicyRepeatPreviousFrame: Repeat the previous frame as replacement.
+	AVCaptureBroadcastVideoOutputDroppedFrameReplacementPolicyRepeatPreviousFrame AVCaptureBroadcastVideoOutputDroppedFrameReplacementPolicy = 0
+)
+
+func (e AVCaptureBroadcastVideoOutputDroppedFrameReplacementPolicy) String() string {
+	switch e {
+	case AVCaptureBroadcastVideoOutputDroppedFrameReplacementPolicyBlackFrame:
+		return "AVCaptureBroadcastVideoOutputDroppedFrameReplacementPolicyBlackFrame"
+	default:
+		return fmt.Sprintf("AVCaptureBroadcastVideoOutputDroppedFrameReplacementPolicy(%d)", e)
 	}
 }
 
@@ -1676,8 +1712,6 @@ const (
 	AVErrorMediaDiscontinuity     AVError = -11812
 	AVErrorMediaExtensionConflict AVError = -11887
 	AVErrorMediaExtensionDisabled AVError = -11886
-	// AVErrorMediaServicesWereReset: The system couldn’t perform the operation because media services were unavailable.
-	AVErrorMediaServicesWereReset AVError = 0
 	// AVErrorNoCompatibleAlternatesForExternalDisplay: The system found no compatible external displays.
 	AVErrorNoCompatibleAlternatesForExternalDisplay AVError = -11868
 	// AVErrorNoDataCaptured: The recording failed because the system received no data.
@@ -1691,8 +1725,6 @@ const (
 	AVErrorNoSourceTrack AVError = -11869
 	// AVErrorOperationCancelled: The asset handled a request to cancel loading a property value asynchronously.
 	AVErrorOperationCancelled AVError = -11878
-	// AVErrorOperationInterrupted: An interruption occurred while performing a reading or writing operation.
-	AVErrorOperationInterrupted AVError = 0
 	// AVErrorOperationNotAllowed: The requested operation isn’t allowed.
 	AVErrorOperationNotAllowed AVError = -11862
 	// AVErrorOperationNotSupportedForAsset: Your app attempted to perform an unsupported operation with the asset.
@@ -1721,8 +1753,6 @@ const (
 	AVErrorSessionHardwareCostOverage AVError = -11872
 	// AVErrorSessionNotRunning: The recording couldn’t start because the session isn’t running.
 	AVErrorSessionNotRunning AVError = -11803
-	// AVErrorSessionWasInterrupted: The recording stopped because the system interrupted the audio session.
-	AVErrorSessionWasInterrupted AVError = 0
 	// AVErrorToneMappingFailed: The requested tone mapping failed.
 	AVErrorToneMappingFailed AVError = -11885
 	// AVErrorTorchLevelUnavailable: The specified torch level is valid but currently unavailable, possibly due to overheating.
@@ -1737,8 +1767,6 @@ const (
 	AVErrorUnsupportedOutputSettings AVError = -11861
 	// AVErrorVideoCompositorFailed: The compositor couldn’t composite video frames.
 	AVErrorVideoCompositorFailed AVError = -11858
-	// Deprecated.
-	AVErrorDeviceIsNotAvailableInBackground AVError = 0
 )
 
 func (e AVError) String() string {
@@ -1857,8 +1885,6 @@ func (e AVError) String() string {
 		return "AVErrorMediaExtensionConflict"
 	case AVErrorMediaExtensionDisabled:
 		return "AVErrorMediaExtensionDisabled"
-	case AVErrorMediaServicesWereReset:
-		return "AVErrorMediaServicesWereReset"
 	case AVErrorNoCompatibleAlternatesForExternalDisplay:
 		return "AVErrorNoCompatibleAlternatesForExternalDisplay"
 	case AVErrorNoDataCaptured:
@@ -2008,6 +2034,25 @@ func (e AVKeyValueStatus) String() string {
 		return "AVKeyValueStatusUnknown"
 	default:
 		return fmt.Sprintf("AVKeyValueStatus(%d)", e)
+	}
+}
+
+// See: https://developer.apple.com/documentation/AVFoundation/AVMetricPlaybackMode
+type AVMetricPlaybackMode int
+
+const (
+	// AVMetricPlaybackModeAirPlayVideo: Indicates that playback is via AirPlay Video.
+	AVMetricPlaybackModeAirPlayVideo AVMetricPlaybackMode = 0
+	// AVMetricPlaybackModeLocal: Indicates that playback is local.
+	AVMetricPlaybackModeLocal AVMetricPlaybackMode = 0
+)
+
+func (e AVMetricPlaybackMode) String() string {
+	switch e {
+	case AVMetricPlaybackModeAirPlayVideo:
+		return "AVMetricPlaybackModeAirPlayVideo"
+	default:
+		return fmt.Sprintf("AVMetricPlaybackMode(%d)", e)
 	}
 }
 

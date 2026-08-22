@@ -3,6 +3,7 @@
 package vision
 
 import (
+	"context"
 	"sync"
 
 	"github.com/tmc/apple/coremedia"
@@ -104,7 +105,7 @@ type IVNDetectTrajectoriesRequest interface {
 	// Topic: Creating a Request
 
 	// Creates a new request to detect trajectories.
-	InitWithFrameAnalysisSpacingTrajectoryLengthCompletionHandler(frameAnalysisSpacing coremedia.CMTime, trajectoryLength int, completionHandler ErrorHandler) VNDetectTrajectoriesRequest
+	InitWithFrameAnalysisSpacingTrajectoryLengthCompletionHandler(frameAnalysisSpacing coremedia.CMTime, trajectoryLength int, completionHandler VNRequestErrorHandler) VNDetectTrajectoriesRequest
 
 	// Topic: Configuring the Request
 
@@ -151,9 +152,10 @@ func NewVNDetectTrajectoriesRequest() VNDetectTrajectoriesRequest {
 // [VNImageRequestHandler.PerformRequestsError].
 //
 // See: https://developer.apple.com/documentation/Vision/VNRequest/init(completionHandler:)
-func NewDetectTrajectoriesRequestWithCompletionHandler(completionHandler VNRequestCompletionHandler) VNDetectTrajectoriesRequest {
+func NewDetectTrajectoriesRequestWithCompletionHandler(completionHandler VNRequestErrorHandler) VNDetectTrajectoriesRequest {
+	_block0, _ := NewVNRequestErrorBlock(completionHandler)
 	instance := getVNDetectTrajectoriesRequestClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCompletionHandler:"), completionHandler)
+	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCompletionHandler:"), _block0)
 	return VNDetectTrajectoriesRequestFromID(rv)
 }
 
@@ -171,9 +173,10 @@ func NewDetectTrajectoriesRequestWithCompletionHandler(completionHandler VNReque
 //
 // [CMTime]: https://developer.apple.com/documentation/CoreMedia/CMTime
 // [zero]: https://developer.apple.com/documentation/CoreMedia/CMTime/zero
-func NewDetectTrajectoriesRequestWithFrameAnalysisSpacingCompletionHandler(frameAnalysisSpacing coremedia.CMTime, completionHandler VNRequestCompletionHandler) VNDetectTrajectoriesRequest {
+func NewDetectTrajectoriesRequestWithFrameAnalysisSpacingCompletionHandler(frameAnalysisSpacing coremedia.CMTime, completionHandler VNRequestErrorHandler) VNDetectTrajectoriesRequest {
+	_block1, _ := NewVNRequestErrorBlock(completionHandler)
 	instance := getVNDetectTrajectoriesRequestClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithFrameAnalysisSpacing:completionHandler:"), frameAnalysisSpacing, completionHandler)
+	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithFrameAnalysisSpacing:completionHandler:"), frameAnalysisSpacing, _block1)
 	return VNDetectTrajectoriesRequestFromID(rv)
 }
 
@@ -194,9 +197,10 @@ func NewDetectTrajectoriesRequestWithFrameAnalysisSpacingCompletionHandler(frame
 //
 // [CMTime]: https://developer.apple.com/documentation/CoreMedia/CMTime
 // [zero]: https://developer.apple.com/documentation/CoreMedia/CMTime/zero
-func NewDetectTrajectoriesRequestWithFrameAnalysisSpacingTrajectoryLengthCompletionHandler(frameAnalysisSpacing coremedia.CMTime, trajectoryLength int, completionHandler VNRequestCompletionHandler) VNDetectTrajectoriesRequest {
+func NewDetectTrajectoriesRequestWithFrameAnalysisSpacingTrajectoryLengthCompletionHandler(frameAnalysisSpacing coremedia.CMTime, trajectoryLength int, completionHandler VNRequestErrorHandler) VNDetectTrajectoriesRequest {
+	_block2, _ := NewVNRequestErrorBlock(completionHandler)
 	instance := getVNDetectTrajectoriesRequestClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithFrameAnalysisSpacing:trajectoryLength:completionHandler:"), frameAnalysisSpacing, trajectoryLength, completionHandler)
+	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithFrameAnalysisSpacing:trajectoryLength:completionHandler:"), frameAnalysisSpacing, trajectoryLength, _block2)
 	return VNDetectTrajectoriesRequestFromID(rv)
 }
 
@@ -217,8 +221,8 @@ func NewDetectTrajectoriesRequestWithFrameAnalysisSpacingTrajectoryLengthComplet
 //
 // [CMTime]: https://developer.apple.com/documentation/CoreMedia/CMTime
 // [zero]: https://developer.apple.com/documentation/CoreMedia/CMTime/zero
-func (d VNDetectTrajectoriesRequest) InitWithFrameAnalysisSpacingTrajectoryLengthCompletionHandler(frameAnalysisSpacing coremedia.CMTime, trajectoryLength int, completionHandler ErrorHandler) VNDetectTrajectoriesRequest {
-	_block2, _ := NewErrorBlock(completionHandler)
+func (d VNDetectTrajectoriesRequest) InitWithFrameAnalysisSpacingTrajectoryLengthCompletionHandler(frameAnalysisSpacing coremedia.CMTime, trajectoryLength int, completionHandler VNRequestErrorHandler) VNDetectTrajectoriesRequest {
+	_block2, _ := NewVNRequestErrorBlock(completionHandler)
 	rv := objc.Send[VNDetectTrajectoriesRequest](d.ID, objc.Sel("initWithFrameAnalysisSpacing:trajectoryLength:completionHandler:"), frameAnalysisSpacing, trajectoryLength, _block2)
 	return rv
 }
@@ -277,4 +281,23 @@ func (d VNDetectTrajectoriesRequest) ObjectMaximumNormalizedRadius() float32 {
 }
 func (d VNDetectTrajectoriesRequest) SetObjectMaximumNormalizedRadius(value float32) {
 	objc.Send[struct{}](d.ID, objc.Sel("setObjectMaximumNormalizedRadius:"), value)
+}
+
+// InitWithFrameAnalysisSpacingTrajectoryLength is a synchronous wrapper around [VNDetectTrajectoriesRequest.InitWithFrameAnalysisSpacingTrajectoryLengthCompletionHandler].
+// It blocks until the completion handler fires or the context is cancelled.
+func (d VNDetectTrajectoriesRequest) InitWithFrameAnalysisSpacingTrajectoryLength(ctx context.Context, frameAnalysisSpacing coremedia.CMTime, trajectoryLength int) (*VNRequest, error) {
+	type result struct {
+		val *VNRequest
+		err error
+	}
+	done := make(chan result, 1)
+	d.InitWithFrameAnalysisSpacingTrajectoryLengthCompletionHandler(frameAnalysisSpacing, trajectoryLength, func(val *VNRequest, err error) {
+		done <- result{val, err}
+	})
+	select {
+	case r := <-done:
+		return r.val, r.err
+	case <-ctx.Done():
+		return nil, ctx.Err()
+	}
 }

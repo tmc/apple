@@ -18,7 +18,7 @@ type MTLSharedEvent interface {
 	// Schedules a notification handler to be called after the shareable event’s signal value equals or exceeds a given value.
 	//
 	// See: https://developer.apple.com/documentation/Metal/MTLSharedEvent/notify(_:atValue:block:)
-	NotifyListenerAtValueBlock(listener IMTLSharedEventListener, value uint64, block MTLSharedEventNotificationBlock)
+	NotifyListenerAtValueBlock(listener IMTLSharedEventListener, value uint64, block MTLSharedEventUint64Handler)
 
 	// Creates a new shareable event handle.
 	//
@@ -65,9 +65,9 @@ func MTLSharedEventObjectFromID(id objc.ID) MTLSharedEventObject {
 // block: The notification handler to call.
 //
 // See: https://developer.apple.com/documentation/Metal/MTLSharedEvent/notify(_:atValue:block:)
-func (o MTLSharedEventObject) NotifyListenerAtValueBlock(listener IMTLSharedEventListener, value uint64, block MTLSharedEventNotificationBlock) {
-	_block2 := objc.NewBlock(func(_ objc.Block, arg0 objc.ID, arg1 uint64) { block(MTLSharedEventObjectFromID(arg0), arg1) })
-	// _block2 intentionally not released: "notifyListener:atValue:block:" retains the block past return.
+func (o MTLSharedEventObject) NotifyListenerAtValueBlock(listener IMTLSharedEventListener, value uint64, block MTLSharedEventUint64Handler) {
+	_block2, _cleanup2 := NewMTLSharedEventUint64Block(block)
+	defer _cleanup2()
 	objc.Send[struct{}](o.ID, objc.Sel("notifyListener:atValue:block:"), listener, value, objc.ID(_block2))
 }
 

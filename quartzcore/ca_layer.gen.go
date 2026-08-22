@@ -876,6 +876,22 @@ type ICALayer interface {
 	ToneMapMode() CAToneMapMode
 	SetToneMapMode(value CAToneMapMode)
 
+	// Determines if the receiver plays in the reverse upon completion.
+	Autoreverses() bool
+	// Specifies the begin time of the receiver in relation to its parent object, if applicable.
+	BeginTime() corefoundation.CFTimeInterval
+	// Specifies the basic duration of the animation, in seconds.
+	Duration() corefoundation.CFTimeInterval
+	// Determines if the receiver’s presentation is frozen or removed once its active duration has completed.
+	FillMode() CAMediaTimingFillMode
+	// Determines the number of times the animation will repeat.
+	RepeatCount() float32
+	// Determines how many seconds the animation will repeat for.
+	RepeatDuration() corefoundation.CFTimeInterval
+	// Specifies how time is mapped to receiver’s time space from the parent time space.
+	Speed() float32
+	// Specifies an additional time offset in active local time.
+	TimeOffset() corefoundation.CFTimeInterval
 	EncodeWithCoder(coder foundation.INSCoder)
 	// Sets the value of the property identified by the given key.
 	SetValueForKey(value objectivec.IObject, key string)
@@ -2024,8 +2040,8 @@ func (_CALayerClass CALayerClass) Layer() CALayer {
 // implement one or more of the methods of the [CALayerDelegate] informal
 // protocol. For more information about that protocol, see [CALayerDelegate]
 //
-// In iOS, if the layer is associated with a [UIView] object, this property be
-// set to the view that owns the layer.
+// In iOS, if the layer is associated with a [UIView] object, this property
+// must be set to the view that owns the layer.
 //
 // See: https://developer.apple.com/documentation/QuartzCore/CALayer/delegate
 //
@@ -2472,13 +2488,13 @@ func (l CALayer) SetShadowColor(value coregraphics.CGColorRef) {
 // simulating the shadows available in [Pages].
 //
 // The following code shows the code required to add an elliptical shadow to
-// the bottom of a layer to simulate the Pages effect.
+// the bottom of a layer to simulate the Pages Contact Shadow effect.
 //
 // [media-2851604]
 //
-// The following code shows how to create a path to simulate the Pages . The
-// left, top and right sides of the path are straight lines, and the bottom is
-// a concave curve as illustrated in the following figure.
+// The following code shows how to create a path to simulate the Pages Curved
+// Shadow. The left, top and right sides of the path are straight lines, and
+// the bottom is a concave curve as illustrated in the following figure.
 //
 // [media-2851608]
 //

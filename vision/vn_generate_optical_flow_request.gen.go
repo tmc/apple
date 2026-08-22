@@ -6,11 +6,12 @@ import (
 	"sync"
 
 	"github.com/tmc/apple/coregraphics"
+	"github.com/tmc/apple/coreimage"
 	"github.com/tmc/apple/coremedia"
 	"github.com/tmc/apple/corevideo"
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/imageio"
 	"github.com/tmc/apple/objc"
-	"github.com/tmc/apple/objectivec"
 )
 
 // The class instance for the [VNGenerateOpticalFlowRequest] class.
@@ -142,9 +143,10 @@ func NewVNGenerateOpticalFlowRequest() VNGenerateOpticalFlowRequest {
 // [VNImageRequestHandler.PerformRequestsError].
 //
 // See: https://developer.apple.com/documentation/Vision/VNRequest/init(completionHandler:)
-func NewGenerateOpticalFlowRequestWithCompletionHandler(completionHandler VNRequestCompletionHandler) VNGenerateOpticalFlowRequest {
+func NewGenerateOpticalFlowRequestWithCompletionHandler(completionHandler VNRequestErrorHandler) VNGenerateOpticalFlowRequest {
+	_block0, _ := NewVNRequestErrorBlock(completionHandler)
 	instance := getVNGenerateOpticalFlowRequestClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCompletionHandler:"), completionHandler)
+	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithCompletionHandler:"), _block0)
 	return VNGenerateOpticalFlowRequestFromID(rv)
 }
 
@@ -171,9 +173,10 @@ func NewGenerateOpticalFlowRequestWithTargetedCGImageOptions(cgImage coregraphic
 // completionHandler: The block to invoke when the request has finished executing.
 //
 // See: https://developer.apple.com/documentation/Vision/VNTargetedImageRequest/init(targetedCGImage:options:completionHandler:)
-func NewGenerateOpticalFlowRequestWithTargetedCGImageOptionsCompletionHandler(cgImage coregraphics.CGImageRef, options foundation.INSDictionary, completionHandler VNRequestCompletionHandler) VNGenerateOpticalFlowRequest {
+func NewGenerateOpticalFlowRequestWithTargetedCGImageOptionsCompletionHandler(cgImage coregraphics.CGImageRef, options foundation.INSDictionary, completionHandler VNRequestErrorHandler) VNGenerateOpticalFlowRequest {
+	_block2, _ := NewVNRequestErrorBlock(completionHandler)
 	instance := getVNGenerateOpticalFlowRequestClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithTargetedCGImage:options:completionHandler:"), cgImage, options, completionHandler)
+	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithTargetedCGImage:options:completionHandler:"), cgImage, options, _block2)
 	return VNGenerateOpticalFlowRequestFromID(rv)
 }
 
@@ -190,7 +193,7 @@ func NewGenerateOpticalFlowRequestWithTargetedCGImageOptionsCompletionHandler(cg
 // See: https://developer.apple.com/documentation/Vision/VNTargetedImageRequest/initWithTargetedCGImage:orientation:options:
 //
 // [kCGImagePropertyOrientation]: https://developer.apple.com/documentation/ImageIO/kCGImagePropertyOrientation
-func NewGenerateOpticalFlowRequestWithTargetedCGImageOrientationOptions(cgImage coregraphics.CGImageRef, orientation uint, options foundation.INSDictionary) VNGenerateOpticalFlowRequest {
+func NewGenerateOpticalFlowRequestWithTargetedCGImageOrientationOptions(cgImage coregraphics.CGImageRef, orientation imageio.CGImagePropertyOrientation, options foundation.INSDictionary) VNGenerateOpticalFlowRequest {
 	instance := getVNGenerateOpticalFlowRequestClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithTargetedCGImage:orientation:options:"), cgImage, orientation, options)
 	return VNGenerateOpticalFlowRequestFromID(rv)
@@ -212,9 +215,10 @@ func NewGenerateOpticalFlowRequestWithTargetedCGImageOrientationOptions(cgImage 
 // See: https://developer.apple.com/documentation/Vision/VNTargetedImageRequest/init(targetedCGImage:orientation:options:completionHandler:)
 //
 // [kCGImagePropertyOrientation]: https://developer.apple.com/documentation/ImageIO/kCGImagePropertyOrientation
-func NewGenerateOpticalFlowRequestWithTargetedCGImageOrientationOptionsCompletionHandler(cgImage coregraphics.CGImageRef, orientation uint, options foundation.INSDictionary, completionHandler VNRequestCompletionHandler) VNGenerateOpticalFlowRequest {
+func NewGenerateOpticalFlowRequestWithTargetedCGImageOrientationOptionsCompletionHandler(cgImage coregraphics.CGImageRef, orientation imageio.CGImagePropertyOrientation, options foundation.INSDictionary, completionHandler VNRequestErrorHandler) VNGenerateOpticalFlowRequest {
+	_block3, _ := NewVNRequestErrorBlock(completionHandler)
 	instance := getVNGenerateOpticalFlowRequestClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithTargetedCGImage:orientation:options:completionHandler:"), cgImage, orientation, options, completionHandler)
+	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithTargetedCGImage:orientation:options:completionHandler:"), cgImage, orientation, options, _block3)
 	return VNGenerateOpticalFlowRequestFromID(rv)
 }
 
@@ -227,9 +231,9 @@ func NewGenerateOpticalFlowRequestWithTargetedCGImageOrientationOptionsCompletio
 // See: https://developer.apple.com/documentation/Vision/VNTargetedImageRequest/initWithTargetedCIImage:options:
 //
 // [CIImage]: https://developer.apple.com/documentation/CoreImage/CIImage
-func NewGenerateOpticalFlowRequestWithTargetedCIImageOptions(ciImage objectivec.IObject, options foundation.INSDictionary) VNGenerateOpticalFlowRequest {
+func NewGenerateOpticalFlowRequestWithTargetedCIImageOptions(ciImage *coreimage.CIImage, options foundation.INSDictionary) VNGenerateOpticalFlowRequest {
 	instance := getVNGenerateOpticalFlowRequestClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithTargetedCIImage:options:"), ciImage, options)
+	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithTargetedCIImage:options:"), ciImage.ID, options)
 	return VNGenerateOpticalFlowRequestFromID(rv)
 }
 
@@ -244,9 +248,10 @@ func NewGenerateOpticalFlowRequestWithTargetedCIImageOptions(ciImage objectivec.
 // See: https://developer.apple.com/documentation/Vision/VNTargetedImageRequest/init(targetedCIImage:options:completionHandler:)
 //
 // [CIImage]: https://developer.apple.com/documentation/CoreImage/CIImage
-func NewGenerateOpticalFlowRequestWithTargetedCIImageOptionsCompletionHandler(ciImage objectivec.IObject, options foundation.INSDictionary, completionHandler VNRequestCompletionHandler) VNGenerateOpticalFlowRequest {
+func NewGenerateOpticalFlowRequestWithTargetedCIImageOptionsCompletionHandler(ciImage *coreimage.CIImage, options foundation.INSDictionary, completionHandler VNRequestErrorHandler) VNGenerateOpticalFlowRequest {
+	_block2, _ := NewVNRequestErrorBlock(completionHandler)
 	instance := getVNGenerateOpticalFlowRequestClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithTargetedCIImage:options:completionHandler:"), ciImage, options, completionHandler)
+	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithTargetedCIImage:options:completionHandler:"), ciImage, options, _block2)
 	return VNGenerateOpticalFlowRequestFromID(rv)
 }
 
@@ -264,9 +269,9 @@ func NewGenerateOpticalFlowRequestWithTargetedCIImageOptionsCompletionHandler(ci
 //
 // [CIImage]: https://developer.apple.com/documentation/CoreImage/CIImage
 // [kCGImagePropertyOrientation]: https://developer.apple.com/documentation/ImageIO/kCGImagePropertyOrientation
-func NewGenerateOpticalFlowRequestWithTargetedCIImageOrientationOptions(ciImage objectivec.IObject, orientation uint, options foundation.INSDictionary) VNGenerateOpticalFlowRequest {
+func NewGenerateOpticalFlowRequestWithTargetedCIImageOrientationOptions(ciImage *coreimage.CIImage, orientation imageio.CGImagePropertyOrientation, options foundation.INSDictionary) VNGenerateOpticalFlowRequest {
 	instance := getVNGenerateOpticalFlowRequestClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithTargetedCIImage:orientation:options:"), ciImage, orientation, options)
+	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithTargetedCIImage:orientation:options:"), ciImage.ID, orientation, options)
 	return VNGenerateOpticalFlowRequestFromID(rv)
 }
 
@@ -287,9 +292,10 @@ func NewGenerateOpticalFlowRequestWithTargetedCIImageOrientationOptions(ciImage 
 //
 // [CIImage]: https://developer.apple.com/documentation/CoreImage/CIImage
 // [kCGImagePropertyOrientation]: https://developer.apple.com/documentation/ImageIO/kCGImagePropertyOrientation
-func NewGenerateOpticalFlowRequestWithTargetedCIImageOrientationOptionsCompletionHandler(ciImage objectivec.IObject, orientation uint, options foundation.INSDictionary, completionHandler VNRequestCompletionHandler) VNGenerateOpticalFlowRequest {
+func NewGenerateOpticalFlowRequestWithTargetedCIImageOrientationOptionsCompletionHandler(ciImage *coreimage.CIImage, orientation imageio.CGImagePropertyOrientation, options foundation.INSDictionary, completionHandler VNRequestErrorHandler) VNGenerateOpticalFlowRequest {
+	_block3, _ := NewVNRequestErrorBlock(completionHandler)
 	instance := getVNGenerateOpticalFlowRequestClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithTargetedCIImage:orientation:options:completionHandler:"), ciImage, orientation, options, completionHandler)
+	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithTargetedCIImage:orientation:options:completionHandler:"), ciImage, orientation, options, _block3)
 	return VNGenerateOpticalFlowRequestFromID(rv)
 }
 
@@ -320,9 +326,10 @@ func NewGenerateOpticalFlowRequestWithTargetedCMSampleBufferOptions(sampleBuffer
 // See: https://developer.apple.com/documentation/Vision/VNTargetedImageRequest/init(targetedCMSampleBuffer:options:completionHandler:)
 //
 // [imageBuffer]: https://developer.apple.com/documentation/CoreMedia/CMSampleBuffer/imageBuffer
-func NewGenerateOpticalFlowRequestWithTargetedCMSampleBufferOptionsCompletionHandler(sampleBuffer coremedia.CMSampleBufferRef, options foundation.INSDictionary, completionHandler VNRequestCompletionHandler) VNGenerateOpticalFlowRequest {
+func NewGenerateOpticalFlowRequestWithTargetedCMSampleBufferOptionsCompletionHandler(sampleBuffer coremedia.CMSampleBufferRef, options foundation.INSDictionary, completionHandler VNRequestErrorHandler) VNGenerateOpticalFlowRequest {
+	_block2, _ := NewVNRequestErrorBlock(completionHandler)
 	instance := getVNGenerateOpticalFlowRequestClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithTargetedCMSampleBuffer:options:completionHandler:"), sampleBuffer, options, completionHandler)
+	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithTargetedCMSampleBuffer:options:completionHandler:"), sampleBuffer, options, _block2)
 	return VNGenerateOpticalFlowRequestFromID(rv)
 }
 
@@ -340,7 +347,7 @@ func NewGenerateOpticalFlowRequestWithTargetedCMSampleBufferOptionsCompletionHan
 //
 // [imageBuffer]: https://developer.apple.com/documentation/CoreMedia/CMSampleBuffer/imageBuffer
 // [CGImagePropertyOrientation]: https://developer.apple.com/documentation/ImageIO/CGImagePropertyOrientation
-func NewGenerateOpticalFlowRequestWithTargetedCMSampleBufferOrientationOptions(sampleBuffer coremedia.CMSampleBufferRef, orientation uint, options foundation.INSDictionary) VNGenerateOpticalFlowRequest {
+func NewGenerateOpticalFlowRequestWithTargetedCMSampleBufferOrientationOptions(sampleBuffer coremedia.CMSampleBufferRef, orientation imageio.CGImagePropertyOrientation, options foundation.INSDictionary) VNGenerateOpticalFlowRequest {
 	instance := getVNGenerateOpticalFlowRequestClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithTargetedCMSampleBuffer:orientation:options:"), sampleBuffer, orientation, options)
 	return VNGenerateOpticalFlowRequestFromID(rv)
@@ -362,9 +369,10 @@ func NewGenerateOpticalFlowRequestWithTargetedCMSampleBufferOrientationOptions(s
 //
 // [imageBuffer]: https://developer.apple.com/documentation/CoreMedia/CMSampleBuffer/imageBuffer
 // [CGImagePropertyOrientation]: https://developer.apple.com/documentation/ImageIO/CGImagePropertyOrientation
-func NewGenerateOpticalFlowRequestWithTargetedCMSampleBufferOrientationOptionsCompletionHandler(sampleBuffer coremedia.CMSampleBufferRef, orientation uint, options foundation.INSDictionary, completionHandler VNRequestCompletionHandler) VNGenerateOpticalFlowRequest {
+func NewGenerateOpticalFlowRequestWithTargetedCMSampleBufferOrientationOptionsCompletionHandler(sampleBuffer coremedia.CMSampleBufferRef, orientation imageio.CGImagePropertyOrientation, options foundation.INSDictionary, completionHandler VNRequestErrorHandler) VNGenerateOpticalFlowRequest {
+	_block3, _ := NewVNRequestErrorBlock(completionHandler)
 	instance := getVNGenerateOpticalFlowRequestClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithTargetedCMSampleBuffer:orientation:options:completionHandler:"), sampleBuffer, orientation, options, completionHandler)
+	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithTargetedCMSampleBuffer:orientation:options:completionHandler:"), sampleBuffer, orientation, options, _block3)
 	return VNGenerateOpticalFlowRequestFromID(rv)
 }
 
@@ -390,9 +398,10 @@ func NewGenerateOpticalFlowRequestWithTargetedCVPixelBufferOptions(pixelBuffer c
 // completionHandler: The block to invoke when the request has finished executing.
 //
 // See: https://developer.apple.com/documentation/Vision/VNTargetedImageRequest/init(targetedCVPixelBuffer:options:completionHandler:)
-func NewGenerateOpticalFlowRequestWithTargetedCVPixelBufferOptionsCompletionHandler(pixelBuffer corevideo.CVImageBufferRef, options foundation.INSDictionary, completionHandler VNRequestCompletionHandler) VNGenerateOpticalFlowRequest {
+func NewGenerateOpticalFlowRequestWithTargetedCVPixelBufferOptionsCompletionHandler(pixelBuffer corevideo.CVImageBufferRef, options foundation.INSDictionary, completionHandler VNRequestErrorHandler) VNGenerateOpticalFlowRequest {
+	_block2, _ := NewVNRequestErrorBlock(completionHandler)
 	instance := getVNGenerateOpticalFlowRequestClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithTargetedCVPixelBuffer:options:completionHandler:"), pixelBuffer, options, completionHandler)
+	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithTargetedCVPixelBuffer:options:completionHandler:"), pixelBuffer, options, _block2)
 	return VNGenerateOpticalFlowRequestFromID(rv)
 }
 
@@ -410,7 +419,7 @@ func NewGenerateOpticalFlowRequestWithTargetedCVPixelBufferOptionsCompletionHand
 // See: https://developer.apple.com/documentation/Vision/VNTargetedImageRequest/initWithTargetedCVPixelBuffer:orientation:options:
 //
 // [kCGImagePropertyOrientation]: https://developer.apple.com/documentation/ImageIO/kCGImagePropertyOrientation
-func NewGenerateOpticalFlowRequestWithTargetedCVPixelBufferOrientationOptions(pixelBuffer corevideo.CVImageBufferRef, orientation uint, options foundation.INSDictionary) VNGenerateOpticalFlowRequest {
+func NewGenerateOpticalFlowRequestWithTargetedCVPixelBufferOrientationOptions(pixelBuffer corevideo.CVImageBufferRef, orientation imageio.CGImagePropertyOrientation, options foundation.INSDictionary) VNGenerateOpticalFlowRequest {
 	instance := getVNGenerateOpticalFlowRequestClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithTargetedCVPixelBuffer:orientation:options:"), pixelBuffer, orientation, options)
 	return VNGenerateOpticalFlowRequestFromID(rv)
@@ -432,9 +441,10 @@ func NewGenerateOpticalFlowRequestWithTargetedCVPixelBufferOrientationOptions(pi
 // See: https://developer.apple.com/documentation/Vision/VNTargetedImageRequest/init(targetedCVPixelBuffer:orientation:options:completionHandler:)
 //
 // [kCGImagePropertyOrientation]: https://developer.apple.com/documentation/ImageIO/kCGImagePropertyOrientation
-func NewGenerateOpticalFlowRequestWithTargetedCVPixelBufferOrientationOptionsCompletionHandler(pixelBuffer corevideo.CVImageBufferRef, orientation uint, options foundation.INSDictionary, completionHandler VNRequestCompletionHandler) VNGenerateOpticalFlowRequest {
+func NewGenerateOpticalFlowRequestWithTargetedCVPixelBufferOrientationOptionsCompletionHandler(pixelBuffer corevideo.CVImageBufferRef, orientation imageio.CGImagePropertyOrientation, options foundation.INSDictionary, completionHandler VNRequestErrorHandler) VNGenerateOpticalFlowRequest {
+	_block3, _ := NewVNRequestErrorBlock(completionHandler)
 	instance := getVNGenerateOpticalFlowRequestClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithTargetedCVPixelBuffer:orientation:options:completionHandler:"), pixelBuffer, orientation, options, completionHandler)
+	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithTargetedCVPixelBuffer:orientation:options:completionHandler:"), pixelBuffer, orientation, options, _block3)
 	return VNGenerateOpticalFlowRequestFromID(rv)
 }
 
@@ -461,9 +471,10 @@ func NewGenerateOpticalFlowRequestWithTargetedImageDataOptions(imageData foundat
 // completionHandler: The block to invoke when the request has finished executing.
 //
 // See: https://developer.apple.com/documentation/Vision/VNTargetedImageRequest/init(targetedImageData:options:completionHandler:)
-func NewGenerateOpticalFlowRequestWithTargetedImageDataOptionsCompletionHandler(imageData foundation.NSData, options foundation.INSDictionary, completionHandler VNRequestCompletionHandler) VNGenerateOpticalFlowRequest {
+func NewGenerateOpticalFlowRequestWithTargetedImageDataOptionsCompletionHandler(imageData foundation.NSData, options foundation.INSDictionary, completionHandler VNRequestErrorHandler) VNGenerateOpticalFlowRequest {
+	_block2, _ := NewVNRequestErrorBlock(completionHandler)
 	instance := getVNGenerateOpticalFlowRequestClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithTargetedImageData:options:completionHandler:"), imageData, options, completionHandler)
+	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithTargetedImageData:options:completionHandler:"), imageData, options, _block2)
 	return VNGenerateOpticalFlowRequestFromID(rv)
 }
 
@@ -480,7 +491,7 @@ func NewGenerateOpticalFlowRequestWithTargetedImageDataOptionsCompletionHandler(
 // See: https://developer.apple.com/documentation/Vision/VNTargetedImageRequest/initWithTargetedImageData:orientation:options:
 //
 // [kCGImagePropertyOrientation]: https://developer.apple.com/documentation/ImageIO/kCGImagePropertyOrientation
-func NewGenerateOpticalFlowRequestWithTargetedImageDataOrientationOptions(imageData foundation.NSData, orientation uint, options foundation.INSDictionary) VNGenerateOpticalFlowRequest {
+func NewGenerateOpticalFlowRequestWithTargetedImageDataOrientationOptions(imageData foundation.NSData, orientation imageio.CGImagePropertyOrientation, options foundation.INSDictionary) VNGenerateOpticalFlowRequest {
 	instance := getVNGenerateOpticalFlowRequestClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithTargetedImageData:orientation:options:"), imageData, orientation, options)
 	return VNGenerateOpticalFlowRequestFromID(rv)
@@ -502,9 +513,10 @@ func NewGenerateOpticalFlowRequestWithTargetedImageDataOrientationOptions(imageD
 // See: https://developer.apple.com/documentation/Vision/VNTargetedImageRequest/init(targetedImageData:orientation:options:completionHandler:)
 //
 // [kCGImagePropertyOrientation]: https://developer.apple.com/documentation/ImageIO/kCGImagePropertyOrientation
-func NewGenerateOpticalFlowRequestWithTargetedImageDataOrientationOptionsCompletionHandler(imageData foundation.NSData, orientation uint, options foundation.INSDictionary, completionHandler VNRequestCompletionHandler) VNGenerateOpticalFlowRequest {
+func NewGenerateOpticalFlowRequestWithTargetedImageDataOrientationOptionsCompletionHandler(imageData foundation.NSData, orientation imageio.CGImagePropertyOrientation, options foundation.INSDictionary, completionHandler VNRequestErrorHandler) VNGenerateOpticalFlowRequest {
+	_block3, _ := NewVNRequestErrorBlock(completionHandler)
 	instance := getVNGenerateOpticalFlowRequestClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithTargetedImageData:orientation:options:completionHandler:"), imageData, orientation, options, completionHandler)
+	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithTargetedImageData:orientation:options:completionHandler:"), imageData, orientation, options, _block3)
 	return VNGenerateOpticalFlowRequestFromID(rv)
 }
 
@@ -531,9 +543,10 @@ func NewGenerateOpticalFlowRequestWithTargetedImageURLOptions(imageURL foundatio
 // completionHandler: The block to invoke when the request has finished executing.
 //
 // See: https://developer.apple.com/documentation/Vision/VNTargetedImageRequest/init(targetedImageURL:options:completionHandler:)
-func NewGenerateOpticalFlowRequestWithTargetedImageURLOptionsCompletionHandler(imageURL foundation.NSURL, options foundation.INSDictionary, completionHandler VNRequestCompletionHandler) VNGenerateOpticalFlowRequest {
+func NewGenerateOpticalFlowRequestWithTargetedImageURLOptionsCompletionHandler(imageURL foundation.NSURL, options foundation.INSDictionary, completionHandler VNRequestErrorHandler) VNGenerateOpticalFlowRequest {
+	_block2, _ := NewVNRequestErrorBlock(completionHandler)
 	instance := getVNGenerateOpticalFlowRequestClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithTargetedImageURL:options:completionHandler:"), imageURL, options, completionHandler)
+	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithTargetedImageURL:options:completionHandler:"), imageURL, options, _block2)
 	return VNGenerateOpticalFlowRequestFromID(rv)
 }
 
@@ -551,7 +564,7 @@ func NewGenerateOpticalFlowRequestWithTargetedImageURLOptionsCompletionHandler(i
 // See: https://developer.apple.com/documentation/Vision/VNTargetedImageRequest/initWithTargetedImageURL:orientation:options:
 //
 // [kCGImagePropertyOrientation]: https://developer.apple.com/documentation/ImageIO/kCGImagePropertyOrientation
-func NewGenerateOpticalFlowRequestWithTargetedImageURLOrientationOptions(imageURL foundation.NSURL, orientation uint, options foundation.INSDictionary) VNGenerateOpticalFlowRequest {
+func NewGenerateOpticalFlowRequestWithTargetedImageURLOrientationOptions(imageURL foundation.NSURL, orientation imageio.CGImagePropertyOrientation, options foundation.INSDictionary) VNGenerateOpticalFlowRequest {
 	instance := getVNGenerateOpticalFlowRequestClass().Alloc()
 	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithTargetedImageURL:orientation:options:"), imageURL, orientation, options)
 	return VNGenerateOpticalFlowRequestFromID(rv)
@@ -573,9 +586,10 @@ func NewGenerateOpticalFlowRequestWithTargetedImageURLOrientationOptions(imageUR
 // See: https://developer.apple.com/documentation/Vision/VNTargetedImageRequest/init(targetedImageURL:orientation:options:completionHandler:)
 //
 // [kCGImagePropertyOrientation]: https://developer.apple.com/documentation/ImageIO/kCGImagePropertyOrientation
-func NewGenerateOpticalFlowRequestWithTargetedImageURLOrientationOptionsCompletionHandler(imageURL foundation.NSURL, orientation uint, options foundation.INSDictionary, completionHandler VNRequestCompletionHandler) VNGenerateOpticalFlowRequest {
+func NewGenerateOpticalFlowRequestWithTargetedImageURLOrientationOptionsCompletionHandler(imageURL foundation.NSURL, orientation imageio.CGImagePropertyOrientation, options foundation.INSDictionary, completionHandler VNRequestErrorHandler) VNGenerateOpticalFlowRequest {
+	_block3, _ := NewVNRequestErrorBlock(completionHandler)
 	instance := getVNGenerateOpticalFlowRequestClass().Alloc()
-	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithTargetedImageURL:orientation:options:completionHandler:"), imageURL, orientation, options, completionHandler)
+	rv := objc.Send[objc.ID](instance.ID, objc.Sel("initWithTargetedImageURL:orientation:options:completionHandler:"), imageURL, orientation, options, _block3)
 	return VNGenerateOpticalFlowRequestFromID(rv)
 }
 

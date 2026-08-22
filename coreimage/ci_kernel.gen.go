@@ -128,12 +128,12 @@ type ICIKernel interface {
 	// Topic: Identifying the Region of Interest for the Kernel
 
 	// Sets the selector Core Image uses to query the region of interest for image processing with the kernel.
-	SetROISelector(method objectivec.SEL)
+	SetROISelector(method objc.SEL)
 
 	// Topic: Applying a Kernel to Filter an Image
 
 	// Creates a new image using the kernel and specified arguments.
-	ApplyWithExtentRoiCallbackArguments(extent corefoundation.CGRect, callback CIKernelROICallback, args []objectivec.IObject) ICIImage
+	ApplyWithExtentRoiCallbackArguments(extent corefoundation.CGRect, callback CGRectInt32Handler, args []objectivec.IObject) ICIImage
 }
 
 // Init initializes the instance.
@@ -178,10 +178,10 @@ func NewCIKernel() CIKernel {
 // # Specifying Compiler and Linker Options
 //
 // To use MSL as the shader language for a [CIKernel], you must specify some
-// options in Xcode under the tab of your project’s target. The first option
-// you need to specify is an `-fcikernel` flag in the Other Metal Compiler
-// Flags option. The second is to add a user-defined setting with a key called
-// `MTLLINKER_FLAGS` with a value of `-`
+// options in Xcode under the Build Settings tab of your project’s target.
+// The first option you need to specify is an `-fcikernel` flag in the Other
+// Metal Compiler Flags option. The second is to add a user-defined setting
+// with a key called `MTLLINKER_FLAGS` with a value of `-`
 //
 // [media-2929842]
 //
@@ -228,6 +228,9 @@ func NewKernelWithFunctionNameFromMetalLibraryDataError(name string, data founda
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
 		return CIKernel{}, foundation.NSErrorFrom(errorPtr)
 	}
+	if rv == 0 {
+		return CIKernel{}, objc.ErrInitFailed
+	}
 	return CIKernelFromID(rv), nil
 }
 
@@ -253,12 +256,15 @@ func NewKernelWithFunctionNameFromMetalLibraryDataError(name string, data founda
 // the same filter graph as traditional CIKL kernels.
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIKernel/init(functionName:fromMetalLibraryData:outputPixelFormat:)
-func NewKernelWithFunctionNameFromMetalLibraryDataOutputPixelFormatError(name string, data foundation.NSData, format int) (CIKernel, error) {
+func NewKernelWithFunctionNameFromMetalLibraryDataOutputPixelFormatError(name string, data foundation.NSData, format CIFormat) (CIKernel, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](objc.ID(getCIKernelClass().class), objc.Sel("kernelWithFunctionName:fromMetalLibraryData:outputPixelFormat:error:"), objc.String(name), data, format, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
 		return CIKernel{}, foundation.NSErrorFrom(errorPtr)
+	}
+	if rv == 0 {
+		return CIKernel{}, objc.ErrInitFailed
 	}
 	return CIKernelFromID(rv), nil
 }
@@ -311,7 +317,7 @@ func NewKernelWithFunctionNameFromMetalLibraryDataOutputPixelFormatError(name st
 //
 // [CGRectNull]: https://developer.apple.com/documentation/CoreGraphics/CGRectNull
 // [The Region of Interest]: https://developer.apple.com/library/archive/documentation/GraphicsImaging/Conceptual/CoreImaging/ci_advanced_concepts/ci.advanced_concepts.html#//apple_ref/doc/uid/TP30001185-CH9-SW12
-func (k CIKernel) SetROISelector(method objectivec.SEL) {
+func (k CIKernel) SetROISelector(method objc.SEL) {
 	objc.Send[objc.ID](k.ID, objc.Sel("setROISelector:"), method)
 }
 
@@ -353,12 +359,9 @@ func (k CIKernel) SetROISelector(method objectivec.SEL) {
 //
 // [Core Image Kernel Language Reference]: https://developer.apple.com/library/archive/documentation/GraphicsImaging/Reference/CIKernelLangRef/Introduction/Introduction.html#//apple_ref/doc/uid/TP40004397
 // [The Region of Interest]: https://developer.apple.com/library/archive/documentation/GraphicsImaging/Conceptual/CoreImaging/ci_advanced_concepts/ci.advanced_concepts.html#//apple_ref/doc/uid/TP30001185-CH9-SW12
-func (k CIKernel) ApplyWithExtentRoiCallbackArguments(extent corefoundation.CGRect, callback CIKernelROICallback, args []objectivec.IObject) ICIImage {
-	_block1 := objc.NewBlock(func(_ objc.Block, arg0 int, arg1 corefoundation.CGRect) corefoundation.CGRect {
-		return callback(arg0, arg1)
-	})
-	// _block1 intentionally not released: "applyWithExtent:roiCallback:arguments:" retains the block past return.
-	rv := objc.Send[objc.ID](k.ID, objc.Sel("applyWithExtent:roiCallback:arguments:"), extent, objc.ID(_block1), objectivec.IObjectSliceToNSArray(args))
+func (k CIKernel) ApplyWithExtentRoiCallbackArguments(extent corefoundation.CGRect, callback CGRectInt32Handler, args []objectivec.IObject) ICIImage {
+	_block1, _ := NewCGRectInt32Block(callback)
+	rv := objc.Send[objc.ID](k.ID, objc.Sel("applyWithExtent:roiCallback:arguments:"), extent, _block1, args)
 	return CIImageFromID(rv)
 }
 

@@ -140,10 +140,22 @@ func NewAVAssetDownloadDelegate(config AVAssetDownloadDelegateConfig) AVAssetDow
 		methods = append(methods, objc.MethodDef{
 			Cmd: objc.RegisterName("URLSession:assetDownloadTask:didResolveMediaSelection:"),
 			Fn: func(self objc.ID, _cmd objc.SEL, sessionID objc.ID, assetDownloadTaskID objc.ID, resolvedMediaSelectionID objc.ID) {
+				// Names which delegate was running if a panic unwinds out of
+				// it. The frames between here and the Objective-C caller are
+				// runtime and purego dispatch, so without this the traceback
+				// never says which selector dispatched. Deliberately no
+				// recover: see [objc.NoteDelegatePanic].
+				_delegateDone := false
+				defer func() {
+					if !_delegateDone {
+						objc.NoteDelegatePanic("AVAssetDownloadDelegate", "URLSession:assetDownloadTask:didResolveMediaSelection:")
+					}
+				}()
 				session := foundation.NSURLSessionFromID(sessionID)
 				assetDownloadTask := AVAssetDownloadTaskFromID(assetDownloadTaskID)
 				resolvedMediaSelection := AVMediaSelectionFromID(resolvedMediaSelectionID)
 				fn(session, assetDownloadTask, resolvedMediaSelection)
+				_delegateDone = true
 			},
 		})
 	}
@@ -153,10 +165,22 @@ func NewAVAssetDownloadDelegate(config AVAssetDownloadDelegateConfig) AVAssetDow
 		methods = append(methods, objc.MethodDef{
 			Cmd: objc.RegisterName("URLSession:assetDownloadTask:willDownloadToURL:"),
 			Fn: func(self objc.ID, _cmd objc.SEL, sessionID objc.ID, assetDownloadTaskID objc.ID, locationID objc.ID) {
+				// Names which delegate was running if a panic unwinds out of
+				// it. The frames between here and the Objective-C caller are
+				// runtime and purego dispatch, so without this the traceback
+				// never says which selector dispatched. Deliberately no
+				// recover: see [objc.NoteDelegatePanic].
+				_delegateDone := false
+				defer func() {
+					if !_delegateDone {
+						objc.NoteDelegatePanic("AVAssetDownloadDelegate", "URLSession:assetDownloadTask:willDownloadToURL:")
+					}
+				}()
 				session := foundation.NSURLSessionFromID(sessionID)
 				assetDownloadTask := AVAssetDownloadTaskFromID(assetDownloadTaskID)
 				location := foundation.NSURLFromID(locationID)
 				fn(session, assetDownloadTask, location)
+				_delegateDone = true
 			},
 		})
 	}
@@ -166,10 +190,22 @@ func NewAVAssetDownloadDelegate(config AVAssetDownloadDelegateConfig) AVAssetDow
 		methods = append(methods, objc.MethodDef{
 			Cmd: objc.RegisterName("URLSession:assetDownloadTask:didReceiveMetricEvent:"),
 			Fn: func(self objc.ID, _cmd objc.SEL, sessionID objc.ID, assetDownloadTaskID objc.ID, metricEventID objc.ID) {
+				// Names which delegate was running if a panic unwinds out of
+				// it. The frames between here and the Objective-C caller are
+				// runtime and purego dispatch, so without this the traceback
+				// never says which selector dispatched. Deliberately no
+				// recover: see [objc.NoteDelegatePanic].
+				_delegateDone := false
+				defer func() {
+					if !_delegateDone {
+						objc.NoteDelegatePanic("AVAssetDownloadDelegate", "URLSession:assetDownloadTask:didReceiveMetricEvent:")
+					}
+				}()
 				session := foundation.NSURLSessionFromID(sessionID)
 				assetDownloadTask := AVAssetDownloadTaskFromID(assetDownloadTaskID)
 				metricEvent := AVMetricEventFromID(metricEventID)
 				fn(session, assetDownloadTask, metricEvent)
+				_delegateDone = true
 			},
 		})
 	}

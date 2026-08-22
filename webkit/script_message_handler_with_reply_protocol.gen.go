@@ -16,7 +16,7 @@ type WKScriptMessageHandlerWithReply interface {
 	// Tells the handler that a webpage sent a script message that included a reply.
 	//
 	// See: https://developer.apple.com/documentation/WebKit/WKScriptMessageHandlerWithReply/userContentController(_:didReceive:replyHandler:)
-	UserContentControllerDidReceiveScriptMessageReplyHandler(userContentController IWKUserContentController, message IWKScriptMessage, replyHandler ObjectHandler)
+	UserContentControllerDidReceiveScriptMessageReplyHandler(userContentController IWKUserContentController, message IWKScriptMessage, replyHandler IObjectStringHandler)
 }
 
 // WKScriptMessageHandlerWithReplyObject wraps an existing Objective-C object that conforms to the WKScriptMessageHandlerWithReply protocol.
@@ -65,6 +65,7 @@ func WKScriptMessageHandlerWithReplyObjectFromID(id objc.ID) WKScriptMessageHand
 // [NSNull]: https://developer.apple.com/documentation/Foundation/NSNull
 // [NSNumber]: https://developer.apple.com/documentation/Foundation/NSNumber
 // [NSString]: https://developer.apple.com/documentation/Foundation/NSString
-func (o WKScriptMessageHandlerWithReplyObject) UserContentControllerDidReceiveScriptMessageReplyHandler(userContentController IWKUserContentController, message IWKScriptMessage, replyHandler ObjectHandler) {
-	objc.Send[struct{}](o.ID, objc.Sel("userContentController:didReceiveScriptMessage:replyHandler:"), userContentController, message, replyHandler)
+func (o WKScriptMessageHandlerWithReplyObject) UserContentControllerDidReceiveScriptMessageReplyHandler(userContentController IWKUserContentController, message IWKScriptMessage, replyHandler IObjectStringHandler) {
+	_block2, _ := NewIObjectStringBlock(replyHandler)
+	objc.Send[struct{}](o.ID, objc.Sel("userContentController:didReceiveScriptMessage:replyHandler:"), userContentController, message, _block2)
 }

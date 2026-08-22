@@ -588,10 +588,23 @@ func NewNSFileManagerDelegate(config NSFileManagerDelegateConfig) NSFileManagerD
 		methods = append(methods, objc.MethodDef{
 			Cmd: objc.RegisterName("fileManager:shouldMoveItemAtURL:toURL:"),
 			Fn: func(self objc.ID, _cmd objc.SEL, fileManagerID objc.ID, srcURLID objc.ID, dstURLID objc.ID) bool {
+				// Names which delegate was running if a panic unwinds out of
+				// it. The frames between here and the Objective-C caller are
+				// runtime and purego dispatch, so without this the traceback
+				// never says which selector dispatched. Deliberately no
+				// recover: see [objc.NoteDelegatePanic].
+				_delegateDone := false
+				defer func() {
+					if !_delegateDone {
+						objc.NoteDelegatePanic("NSFileManagerDelegate", "fileManager:shouldMoveItemAtURL:toURL:")
+					}
+				}()
 				fileManager := NSFileManagerFromID(fileManagerID)
 				srcURL := objectivec.ObjectFromID(srcURLID)
 				dstURL := objectivec.ObjectFromID(dstURLID)
-				return fn(fileManager, srcURL, dstURL)
+				_delegateResult := fn(fileManager, srcURL, dstURL)
+				_delegateDone = true
+				return _delegateResult
 			},
 		})
 	}
@@ -601,11 +614,24 @@ func NewNSFileManagerDelegate(config NSFileManagerDelegateConfig) NSFileManagerD
 		methods = append(methods, objc.MethodDef{
 			Cmd: objc.RegisterName("fileManager:shouldProceedAfterError:movingItemAtURL:toURL:"),
 			Fn: func(self objc.ID, _cmd objc.SEL, fileManagerID objc.ID, error_ID objc.ID, srcURLID objc.ID, dstURLID objc.ID) bool {
+				// Names which delegate was running if a panic unwinds out of
+				// it. The frames between here and the Objective-C caller are
+				// runtime and purego dispatch, so without this the traceback
+				// never says which selector dispatched. Deliberately no
+				// recover: see [objc.NoteDelegatePanic].
+				_delegateDone := false
+				defer func() {
+					if !_delegateDone {
+						objc.NoteDelegatePanic("NSFileManagerDelegate", "fileManager:shouldProceedAfterError:movingItemAtURL:toURL:")
+					}
+				}()
 				fileManager := NSFileManagerFromID(fileManagerID)
 				error_ := objectivec.ObjectFromID(error_ID)
 				srcURL := objectivec.ObjectFromID(srcURLID)
 				dstURL := objectivec.ObjectFromID(dstURLID)
-				return fn(fileManager, error_, srcURL, dstURL)
+				_delegateResult := fn(fileManager, error_, srcURL, dstURL)
+				_delegateDone = true
+				return _delegateResult
 			},
 		})
 	}
@@ -615,10 +641,23 @@ func NewNSFileManagerDelegate(config NSFileManagerDelegateConfig) NSFileManagerD
 		methods = append(methods, objc.MethodDef{
 			Cmd: objc.RegisterName("fileManager:shouldCopyItemAtURL:toURL:"),
 			Fn: func(self objc.ID, _cmd objc.SEL, fileManagerID objc.ID, srcURLID objc.ID, dstURLID objc.ID) bool {
+				// Names which delegate was running if a panic unwinds out of
+				// it. The frames between here and the Objective-C caller are
+				// runtime and purego dispatch, so without this the traceback
+				// never says which selector dispatched. Deliberately no
+				// recover: see [objc.NoteDelegatePanic].
+				_delegateDone := false
+				defer func() {
+					if !_delegateDone {
+						objc.NoteDelegatePanic("NSFileManagerDelegate", "fileManager:shouldCopyItemAtURL:toURL:")
+					}
+				}()
 				fileManager := NSFileManagerFromID(fileManagerID)
 				srcURL := objectivec.ObjectFromID(srcURLID)
 				dstURL := objectivec.ObjectFromID(dstURLID)
-				return fn(fileManager, srcURL, dstURL)
+				_delegateResult := fn(fileManager, srcURL, dstURL)
+				_delegateDone = true
+				return _delegateResult
 			},
 		})
 	}
@@ -628,11 +667,24 @@ func NewNSFileManagerDelegate(config NSFileManagerDelegateConfig) NSFileManagerD
 		methods = append(methods, objc.MethodDef{
 			Cmd: objc.RegisterName("fileManager:shouldProceedAfterError:copyingItemAtURL:toURL:"),
 			Fn: func(self objc.ID, _cmd objc.SEL, fileManagerID objc.ID, error_ID objc.ID, srcURLID objc.ID, dstURLID objc.ID) bool {
+				// Names which delegate was running if a panic unwinds out of
+				// it. The frames between here and the Objective-C caller are
+				// runtime and purego dispatch, so without this the traceback
+				// never says which selector dispatched. Deliberately no
+				// recover: see [objc.NoteDelegatePanic].
+				_delegateDone := false
+				defer func() {
+					if !_delegateDone {
+						objc.NoteDelegatePanic("NSFileManagerDelegate", "fileManager:shouldProceedAfterError:copyingItemAtURL:toURL:")
+					}
+				}()
 				fileManager := NSFileManagerFromID(fileManagerID)
 				error_ := objectivec.ObjectFromID(error_ID)
 				srcURL := objectivec.ObjectFromID(srcURLID)
 				dstURL := objectivec.ObjectFromID(dstURLID)
-				return fn(fileManager, error_, srcURL, dstURL)
+				_delegateResult := fn(fileManager, error_, srcURL, dstURL)
+				_delegateDone = true
+				return _delegateResult
 			},
 		})
 	}
@@ -642,9 +694,22 @@ func NewNSFileManagerDelegate(config NSFileManagerDelegateConfig) NSFileManagerD
 		methods = append(methods, objc.MethodDef{
 			Cmd: objc.RegisterName("fileManager:shouldRemoveItemAtURL:"),
 			Fn: func(self objc.ID, _cmd objc.SEL, fileManagerID objc.ID, URLID objc.ID) bool {
+				// Names which delegate was running if a panic unwinds out of
+				// it. The frames between here and the Objective-C caller are
+				// runtime and purego dispatch, so without this the traceback
+				// never says which selector dispatched. Deliberately no
+				// recover: see [objc.NoteDelegatePanic].
+				_delegateDone := false
+				defer func() {
+					if !_delegateDone {
+						objc.NoteDelegatePanic("NSFileManagerDelegate", "fileManager:shouldRemoveItemAtURL:")
+					}
+				}()
 				fileManager := NSFileManagerFromID(fileManagerID)
 				URL := objectivec.ObjectFromID(URLID)
-				return fn(fileManager, URL)
+				_delegateResult := fn(fileManager, URL)
+				_delegateDone = true
+				return _delegateResult
 			},
 		})
 	}
@@ -654,10 +719,23 @@ func NewNSFileManagerDelegate(config NSFileManagerDelegateConfig) NSFileManagerD
 		methods = append(methods, objc.MethodDef{
 			Cmd: objc.RegisterName("fileManager:shouldProceedAfterError:removingItemAtURL:"),
 			Fn: func(self objc.ID, _cmd objc.SEL, fileManagerID objc.ID, error_ID objc.ID, URLID objc.ID) bool {
+				// Names which delegate was running if a panic unwinds out of
+				// it. The frames between here and the Objective-C caller are
+				// runtime and purego dispatch, so without this the traceback
+				// never says which selector dispatched. Deliberately no
+				// recover: see [objc.NoteDelegatePanic].
+				_delegateDone := false
+				defer func() {
+					if !_delegateDone {
+						objc.NoteDelegatePanic("NSFileManagerDelegate", "fileManager:shouldProceedAfterError:removingItemAtURL:")
+					}
+				}()
 				fileManager := NSFileManagerFromID(fileManagerID)
 				error_ := objectivec.ObjectFromID(error_ID)
 				URL := objectivec.ObjectFromID(URLID)
-				return fn(fileManager, error_, URL)
+				_delegateResult := fn(fileManager, error_, URL)
+				_delegateDone = true
+				return _delegateResult
 			},
 		})
 	}
@@ -667,10 +745,23 @@ func NewNSFileManagerDelegate(config NSFileManagerDelegateConfig) NSFileManagerD
 		methods = append(methods, objc.MethodDef{
 			Cmd: objc.RegisterName("fileManager:shouldLinkItemAtURL:toURL:"),
 			Fn: func(self objc.ID, _cmd objc.SEL, fileManagerID objc.ID, srcURLID objc.ID, dstURLID objc.ID) bool {
+				// Names which delegate was running if a panic unwinds out of
+				// it. The frames between here and the Objective-C caller are
+				// runtime and purego dispatch, so without this the traceback
+				// never says which selector dispatched. Deliberately no
+				// recover: see [objc.NoteDelegatePanic].
+				_delegateDone := false
+				defer func() {
+					if !_delegateDone {
+						objc.NoteDelegatePanic("NSFileManagerDelegate", "fileManager:shouldLinkItemAtURL:toURL:")
+					}
+				}()
 				fileManager := NSFileManagerFromID(fileManagerID)
 				srcURL := objectivec.ObjectFromID(srcURLID)
 				dstURL := objectivec.ObjectFromID(dstURLID)
-				return fn(fileManager, srcURL, dstURL)
+				_delegateResult := fn(fileManager, srcURL, dstURL)
+				_delegateDone = true
+				return _delegateResult
 			},
 		})
 	}
@@ -680,11 +771,24 @@ func NewNSFileManagerDelegate(config NSFileManagerDelegateConfig) NSFileManagerD
 		methods = append(methods, objc.MethodDef{
 			Cmd: objc.RegisterName("fileManager:shouldProceedAfterError:linkingItemAtURL:toURL:"),
 			Fn: func(self objc.ID, _cmd objc.SEL, fileManagerID objc.ID, error_ID objc.ID, srcURLID objc.ID, dstURLID objc.ID) bool {
+				// Names which delegate was running if a panic unwinds out of
+				// it. The frames between here and the Objective-C caller are
+				// runtime and purego dispatch, so without this the traceback
+				// never says which selector dispatched. Deliberately no
+				// recover: see [objc.NoteDelegatePanic].
+				_delegateDone := false
+				defer func() {
+					if !_delegateDone {
+						objc.NoteDelegatePanic("NSFileManagerDelegate", "fileManager:shouldProceedAfterError:linkingItemAtURL:toURL:")
+					}
+				}()
 				fileManager := NSFileManagerFromID(fileManagerID)
 				error_ := objectivec.ObjectFromID(error_ID)
 				srcURL := objectivec.ObjectFromID(srcURLID)
 				dstURL := objectivec.ObjectFromID(dstURLID)
-				return fn(fileManager, error_, srcURL, dstURL)
+				_delegateResult := fn(fileManager, error_, srcURL, dstURL)
+				_delegateDone = true
+				return _delegateResult
 			},
 		})
 	}

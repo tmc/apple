@@ -74,17 +74,17 @@ type BNNSArithmeticUnary struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/Accelerate/BNNSConvolutionLayerParameters
 type BNNSConvolutionLayerParameters struct {
-	Activation   BNNSActivation // The layer activation function.
-	Bias         BNNSLayerData  // Layer bias, one for each output channel.
-	In_channels  uintptr        // The number of input channels.
-	K_height     uintptr        // The height of the convolution kernel.
+	X_stride     uintptr        // The X increment in the input image.
+	Y_stride     uintptr        // The Y increment in the input image.
+	X_padding    uintptr        // The X padding.
+	Y_padding    uintptr        // The Y padding.
 	K_width      uintptr        // The width of the convolution kernel.
+	K_height     uintptr        // The height of the convolution kernel.
+	In_channels  uintptr        // The number of input channels.
 	Out_channels uintptr        // The number of output channels.
 	Weights      BNNSLayerData  // Convolution weights.
-	X_padding    uintptr        // The X padding.
-	X_stride     uintptr        // The X increment in the input image.
-	Y_padding    uintptr        // The Y padding.
-	Y_stride     uintptr        // The Y increment in the input image.
+	Bias         BNNSLayerData  // Layer bias, one for each output channel.
+	Activation   BNNSActivation // The layer activation function.
 
 }
 
@@ -105,11 +105,11 @@ type BNNSFilterParameters struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/Accelerate/BNNSFullyConnectedLayerParameters
 type BNNSFullyConnectedLayerParameters struct {
-	Activation BNNSActivation // The layer activation function.
-	Bias       BNNSLayerData  // Layer bias, one for each output component.
 	In_size    uintptr        // The size of the input vector.
 	Out_size   uintptr        // The size of the output vector.
 	Weights    BNNSLayerData  // Matrix coefficients.
+	Bias       BNNSLayerData  // Layer bias, one for each output component.
+	Activation BNNSActivation // The layer activation function.
 
 }
 
@@ -118,14 +118,14 @@ type BNNSFullyConnectedLayerParameters struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/Accelerate/BNNSImageStackDescriptor
 type BNNSImageStackDescriptor struct {
-	Channels     uintptr
-	Data_bias    float32
-	Data_scale   float32
-	Data_type    BNNSDataType
-	Height       uintptr
-	Image_stride uintptr
-	Row_stride   uintptr
 	Width        uintptr
+	Height       uintptr
+	Channels     uintptr
+	Row_stride   uintptr
+	Image_stride uintptr
+	Data_type    BNNSDataType
+	Data_scale   float32
+	Data_bias    float32
 }
 
 // BNNSLSTMDataDescriptor - A structure that contains the input-output, hidden, and cell state n-dimensional array descriptors for a long short-term memory (LSTM) layer.
@@ -144,11 +144,11 @@ type BNNSLSTMDataDescriptor struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/Accelerate/BNNSLSTMGateDescriptor
 type BNNSLSTMGateDescriptor struct {
-	Iw_desc    BNNSNDArrayDescriptor // The descriptor of the input weights.
-	Hw_desc    BNNSNDArrayDescriptor // The descriptor of the hidden weights.
-	Cw_desc    BNNSNDArrayDescriptor // The descriptor of the cell weights.
-	B_desc     BNNSNDArrayDescriptor // The descriptor of the bias.
-	Activation BNNSActivation        // The activation function that the layer applies to the output.
+	Iw_desc    [2]BNNSNDArrayDescriptor // The descriptor of the input weights.
+	Hw_desc    BNNSNDArrayDescriptor    // The descriptor of the hidden weights.
+	Cw_desc    BNNSNDArrayDescriptor    // The descriptor of the cell weights.
+	B_desc     BNNSNDArrayDescriptor    // The descriptor of the bias.
+	Activation BNNSActivation           // The activation function that the layer applies to the output.
 
 }
 
@@ -158,10 +158,10 @@ type BNNSLSTMGateDescriptor struct {
 // [Full Topic]: https://developer.apple.com/documentation/Accelerate/BNNSLayerData
 type BNNSLayerData struct {
 	Data       unsafe.Pointer // Pointer to layer values (weights, bias), layout and size are specific to each layer.
-	Data_bias  float32        // Conversion bias for values, used for integer data types only, ignored for indexed and float data types.
-	Data_scale float32        // Conversion scale for values, used for integer data types only, ignored for indexed and float data types.
-	Data_table []float32      // Conversion table (256 values) for indexed floating point data, used for indexed data types only.
 	Data_type  BNNSDataType   // Storage data type for the values stored in data.
+	Data_scale float32        // Conversion scale for values, used for integer data types only, ignored for indexed and float data types.
+	Data_bias  float32        // Conversion bias for values, used for integer data types only, ignored for indexed and float data types.
+	Data_table *float32       // Conversion table (256 values) for indexed floating point data, used for indexed data types only.
 
 }
 
@@ -195,13 +195,13 @@ type BNNSLayerParametersArithmetic struct {
 type BNNSLayerParametersBroadcastMatMul struct {
 	Alpha        float32               // A value to scale the result.
 	Beta         float32               // A value, that must be either 0.0 or 1.0, you use to scale the existing output before the operation adds it to the result.
-	TransA       bool                  // A Boolean value that transposes the last two dimensions of matrix .
-	TransB       bool                  // A Boolean value that transposes the last two dimensions of matrix .
-	Quadratic    bool                  // A Boolean value that determines whether the operation multiplies matrix  by itself.
-	A_is_weights bool                  // A Boolean value that determines whether to treat matrix  as weights.
-	B_is_weights bool                  // A Boolean value that determines whether to treat matrix  as weights.
-	IA_desc      BNNSNDArrayDescriptor // The descriptor of matrix .
-	IB_desc      BNNSNDArrayDescriptor // The descriptor of matrix .
+	TransA       bool                  // A Boolean value that transposes the last two dimensions of matrix A.
+	TransB       bool                  // A Boolean value that transposes the last two dimensions of matrix B.
+	Quadratic    bool                  // A Boolean value that determines whether the operation multiplies matrix A by itself.
+	A_is_weights bool                  // A Boolean value that determines whether to treat matrix A as weights.
+	B_is_weights bool                  // A Boolean value that determines whether to treat matrix B as weights.
+	IA_desc      BNNSNDArrayDescriptor // The descriptor of matrix A.
+	IB_desc      BNNSNDArrayDescriptor // The descriptor of matrix B.
 	O_desc       BNNSNDArrayDescriptor // The descriptor of the output.
 
 }
@@ -223,7 +223,7 @@ type BNNSLayerParametersConvolution struct {
 	X_padding         uintptr               // The width padding, which is the number of virtual zeros added to the left and right of each channel.
 	Y_padding         uintptr               // The height padding, which is the number of virtual zeros added to the top and bottom of each channel.
 	Groups            uintptr               // Convolution group size.
-	Pad               uintptr               // Padding which is asymmetric and ignored if the width or height padding values are greater than zero.
+	Pad               [4]uintptr            // Padding which is asymmetric and ignored if the width or height padding values are greater than zero.
 
 }
 
@@ -386,10 +386,10 @@ type BNNSLayerParametersLossYolo struct {
 	Scale_wh               float32                   // A Boolean value that determines whether to rescore confidence according to prediction verus ground truth Intersection Over Union (IOU).
 	Scale_object           float32                   // The value that specifies the object confidence loss-scaling factor.
 	Scale_no_object        float32                   // The value that specifies the no-object confidence scaling factor.
+	Scale_classification   float32                   // The value that specifies the classification scaling factor.
 	Object_minimum_iou     float32                   // The value that specifies intersection over union (IOU) that’s the minimum the function treats as an object.
 	No_object_maximum_iou  float32                   // The value that specifies intersection over union (IOU) that’s the maximum the function treats as not an object.
-	Scale_classification   float32                   // The value that specifies the classification scaling factor.
-	Anchors_data           []float32                 // Maximum IOU for treating as no object.
+	Anchors_data           *float32                  // Maximum IOU for treating as no object.
 
 }
 
@@ -401,7 +401,7 @@ type BNNSLayerParametersMultiheadAttention struct {
 	Query           BNNSMHAProjectionParameters // A projection parameter structure that describes the query-related input parameters and projection.
 	Key             BNNSMHAProjectionParameters // A projection parameter structure that describes the key-related input parameters and projection.
 	Value           BNNSMHAProjectionParameters // A projection parameter structure that describes the value-related input parameters and projection.
-	Add_zero_attn   bool                        // A Boolean value that, if true, adds a row of zeroes to the projected  and  inputs to the calculation.
+	Add_zero_attn   bool                        // A Boolean value that, if true, adds a row of zeroes to the projected K and V inputs to the calculation.
 	Key_attn_bias   BNNSNDArrayDescriptor       // A 2D tensor that’s added to the value as part of the attention calculation.
 	Value_attn_bias BNNSNDArrayDescriptor       // An optional `d_value` x `num_heads` 2D tensor that’s added as part of the attention calculation.
 	Output          BNNSMHAProjectionParameters // A projection parameter structure that describes the output tensor and associated projection.
@@ -436,7 +436,7 @@ type BNNSLayerParametersNormalization struct {
 type BNNSLayerParametersPadding struct {
 	I_desc        BNNSNDArrayDescriptor // The descriptor of the input.
 	O_desc        BNNSNDArrayDescriptor // The descriptor of the output.
-	Padding_size  uintptr               // The number of padding elements to add before and after the original data.
+	Padding_size  [8][2]uintptr         // The number of padding elements to add before and after the original data.
 	Padding_mode  BNNSPaddingMode       // The mode the operation uses to pad.
 	Padding_value uint32                // The value the operation uses to fill the padding area when the mode is constant.
 
@@ -449,7 +449,7 @@ type BNNSLayerParametersPadding struct {
 type BNNSLayerParametersPermute struct {
 	I_desc      BNNSNDArrayDescriptor // The descriptor of the input.
 	O_desc      BNNSNDArrayDescriptor // The descriptor of the output.
-	Permutation uintptr               // The tuple that defines the permutation.
+	Permutation [8]uintptr            // The tuple that defines the permutation.
 
 }
 
@@ -471,7 +471,7 @@ type BNNSLayerParametersPooling struct {
 	Y_dilation_stride uintptr               // The height increment between elements in the input image during convolution.
 	X_padding         uintptr               // The width padding, which is the number of virtual zeros added to the left and right of each channel.
 	Y_padding         uintptr               // The height padding, which is the number of virtual zeros added to the top and bottom of each channel.
-	Pad               uintptr               // Asymmetric padding, ignored if `x_padding` or `y_padding` are greater than zero.
+	Pad               [4]uintptr            // Asymmetric padding, ignored if `x_padding` or `y_padding` are greater than zero.
 
 }
 
@@ -522,8 +522,8 @@ type BNNSLayerParametersTensorContraction struct {
 	Operation *byte                 // The string that describes the operation.
 	Alpha     float32               // Scaling that the operation applies to the result.
 	Beta      float32               // A value, that must be either 0.0 or 1.0, you use to scale the existing output before the operation adds it to the result.
-	IA_desc   BNNSNDArrayDescriptor // The descriptor of input matrix .
-	IB_desc   BNNSNDArrayDescriptor // The descriptor of input matrix .
+	IA_desc   BNNSNDArrayDescriptor // The descriptor of input matrix A.
+	IB_desc   BNNSNDArrayDescriptor // The descriptor of input matrix B.
 	O_desc    BNNSNDArrayDescriptor // The descriptor of the output.
 
 }
@@ -546,14 +546,14 @@ type BNNSMHAProjectionParameters struct {
 type BNNSNDArrayDescriptor struct {
 	Flags           BNNSNDArrayFlags // Flags that control some behaviors of the n-dimensional array.
 	Layout          BNNSDataLayout   // The dimension of the n-dimensional array.
+	Size            [8]uintptr       // The number of values in each dimension.
+	Stride          [8]uintptr       // The increment, in values, between consecutive elements in each dimension.
 	Data            unsafe.Pointer   // A pointer that is optional and points to the underlying data.
 	Data_type       BNNSDataType     // The data type of the n-dimensional array.
 	Table_data      unsafe.Pointer   // The lookup table for indexed data types.
 	Table_data_type BNNSDataType     // The data type of the lookup table.
 	Data_scale      float32          // The scale you use to convert integer and unsigned integer data to floating point.
 	Data_bias       float32          // The bias you use to convert integer and unsigned integer data to floating point.
-	Size            uintptr          // The number of values in each dimension.
-	Stride          uintptr          // The increment, in values, between consecutive elements in each dimension.
 
 }
 
@@ -680,17 +680,17 @@ type BNNSOptimizerSGDMomentumWithClippingFields struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/Accelerate/BNNSPoolingLayerParameters
 type BNNSPoolingLayerParameters struct {
-	Activation       BNNSActivation      // The layer activation function.
-	Bias             BNNSLayerData       // Layer bias, one for each output channel.
-	In_channels      uintptr             // The number of input channels.
-	K_height         uintptr             // The height of the convolution kernel.
+	X_stride         uintptr             // The X increment in the input image.
+	Y_stride         uintptr             // The Y increment in the input image.
+	X_padding        uintptr             // The X padding.
+	Y_padding        uintptr             // The Y padding.
 	K_width          uintptr             // The width of the convolution kernel.
+	K_height         uintptr             // The height of the convolution kernel.
+	In_channels      uintptr             // The number of input channels.
 	Out_channels     uintptr             // The number of output channels.
 	Pooling_function BNNSPoolingFunction // The pooling function to apply to each sample.
-	X_padding        uintptr             // The X padding.
-	X_stride         uintptr             // The X increment in the input image.
-	Y_padding        uintptr             // The Y padding.
-	Y_stride         uintptr             // The Y increment in the input image.
+	Bias             BNNSLayerData       // Layer bias, one for each output channel.
+	Activation       BNNSActivation      // The layer activation function.
 
 }
 
@@ -700,7 +700,7 @@ type BNNSPoolingLayerParameters struct {
 // [Full Topic]: https://developer.apple.com/documentation/Accelerate/BNNSSparsityParameters
 type BNNSSparsityParameters struct {
 	Flags          uint64
-	Sparsity_ratio uint32
+	Sparsity_ratio [2]uint32
 	Sparsity_type  BNNSSparsityType
 	Target_system  BNNSTargetSystem
 }
@@ -712,11 +712,11 @@ type BNNSSparsityParameters struct {
 type BNNSTensor struct {
 	Data_type          BNNSDataType   // The data type of the tensor.
 	Rank               uint8          // The rank of the tensor.
+	Shape              [8]int         // A tuple of unsigned-integer elements that specify the size of the tensor.
+	Stride             [8]int         // A tuple of unsigned-integer elements that specify the stride of the tensor.
 	Data               unsafe.Pointer // A pointer to the memory that contains the tensor values.
 	Data_size_in_bytes uintptr        // The size, in bytes, of the memory that contains the tensor values.
 	Name               *byte          // An optional name for the tensor that you can use for debugging.
-	Shape              int            // A tuple of unsigned-integer elements that specify the size of the tensor.
-	Stride             int            // A tuple of unsigned-integer elements that specify the stride of the tensor.
 
 }
 
@@ -725,10 +725,10 @@ type BNNSTensor struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/Accelerate/BNNSVectorDescriptor
 type BNNSVectorDescriptor struct {
-	Data_bias  float32
-	Data_scale float32
-	Data_type  BNNSDataType
 	Size       uintptr
+	Data_type  BNNSDataType
+	Data_scale float32
+	Data_bias  float32
 }
 
 // DSPComplex - A structure that represents a single-precision complex value.
@@ -756,8 +756,8 @@ type DSPDoubleComplex struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/Accelerate/DSPDoubleSplitComplex
 type DSPDoubleSplitComplex struct {
-	Realp []float64 // An array of real parts of the complex numbers.
-	Imagp []float64 // An array of imaginary parts of the complex numbers.
+	Realp *float64 // An array of real parts of the complex numbers.
+	Imagp *float64 // An array of imaginary parts of the complex numbers.
 
 }
 
@@ -766,8 +766,8 @@ type DSPDoubleSplitComplex struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/Accelerate/DSPSplitComplex
 type DSPSplitComplex struct {
-	Realp []float32 // An array of real parts of the complex numbers.
-	Imagp []float32 // An array of imaginary parts of the complex numbers.
+	Realp *float32 // An array of real parts of the complex numbers.
+	Imagp *float32 // An array of imaginary parts of the complex numbers.
 
 }
 
@@ -776,9 +776,9 @@ type DSPSplitComplex struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/Accelerate/DenseMatrix_Complex_Double
 type DenseMatrix_Complex_Double struct {
-	RowCount     int
-	ColumnCount  int
-	ColumnStride int
+	RowCount     int32
+	ColumnCount  int32
+	ColumnStride int32
 	Attributes   SparseAttributesComplex_t // A type representing the attributes of a matrix.
 	Data         unsafe.Pointer
 }
@@ -788,9 +788,9 @@ type DenseMatrix_Complex_Double struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/Accelerate/DenseMatrix_Complex_Float
 type DenseMatrix_Complex_Float struct {
-	RowCount     int
-	ColumnCount  int
-	ColumnStride int
+	RowCount     int32
+	ColumnCount  int32
+	ColumnStride int32
 	Attributes   SparseAttributesComplex_t // A type representing the attributes of a matrix.
 	Data         unsafe.Pointer
 }
@@ -800,11 +800,11 @@ type DenseMatrix_Complex_Float struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/Accelerate/DenseMatrix_Double
 type DenseMatrix_Double struct {
-	RowCount     int                // The number of rows in the matrix.
-	ColumnCount  int                // The number of columns in the matrix.
-	ColumnStride int                // The stride between matrix columns, in elements.
+	RowCount     int32              // The number of rows in the matrix.
+	ColumnCount  int32              // The number of columns in the matrix.
+	ColumnStride int32              // The stride between matrix columns, in elements.
 	Attributes   SparseAttributes_t // The attributes of the matrix, such as whether it’s symmetrical or triangular.
-	Data         []float64          // The array of double-precision, floating-point values in column-major order.
+	Data         *float64           // The array of double-precision, floating-point values in column-major order.
 
 }
 
@@ -813,11 +813,11 @@ type DenseMatrix_Double struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/Accelerate/DenseMatrix_Float
 type DenseMatrix_Float struct {
-	RowCount     int                // The number of rows in the matrix.
-	ColumnCount  int                // The number of columns in the matrix.
-	ColumnStride int                // The stride between matrix columns, in elements.
+	RowCount     int32              // The number of rows in the matrix.
+	ColumnCount  int32              // The number of columns in the matrix.
+	ColumnStride int32              // The stride between matrix columns, in elements.
 	Attributes   SparseAttributes_t // The attributes of the matrix, such as whether it’s symmetrical or triangular.
-	Data         []float32          // The array of single-precision, floating-point values in column-major order.
+	Data         *float32           // The array of single-precision, floating-point values in column-major order.
 
 }
 
@@ -826,7 +826,7 @@ type DenseMatrix_Float struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/Accelerate/DenseVector_Complex_Double
 type DenseVector_Complex_Double struct {
-	Count int
+	Count int32
 	Data  unsafe.Pointer
 }
 
@@ -835,7 +835,7 @@ type DenseVector_Complex_Double struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/Accelerate/DenseVector_Complex_Float
 type DenseVector_Complex_Float struct {
-	Count int
+	Count int32
 	Data  unsafe.Pointer
 }
 
@@ -844,8 +844,8 @@ type DenseVector_Complex_Float struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/Accelerate/DenseVector_Double
 type DenseVector_Double struct {
-	Count int       // The number of items in the vector.
-	Data  []float64 // The array of double-precision, floating-point values.
+	Count int32    // The number of items in the vector.
+	Data  *float64 // The array of double-precision, floating-point values.
 
 }
 
@@ -854,8 +854,8 @@ type DenseVector_Double struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/Accelerate/DenseVector_Float
 type DenseVector_Float struct {
-	Count int       // The number of items in the vector.
-	Data  []float32 // The array of single-precision, floating-point values.
+	Count int32    // The number of items in the vector.
+	Data  *float32 // The array of single-precision, floating-point values.
 
 }
 
@@ -864,11 +864,73 @@ type DenseVector_Float struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/Accelerate/SparseAttributesComplex_t
 type SparseAttributesComplex_t struct {
-	Conjugate_transpose bool
-	Kind                SparseKind_t // A flag to describe the type of matrix represented.
-	Transpose           bool
-	Triangle            SparseTriangle_t // A flag to indicate which triangle of a matrix is used.
+	bitfield0 uint32
+}
 
+// Transpose returns the Transpose bitfield.
+func (s *SparseAttributesComplex_t) Transpose() uint32 {
+	return (s.bitfield0 >> 0) & ((1 << 1) - 1)
+}
+
+// SetTranspose updates the Transpose bitfield.
+func (s *SparseAttributesComplex_t) SetTranspose(v uint32) {
+	const mask uint32 = (1 << 1) - 1
+	s.bitfield0 = (s.bitfield0 &^ (mask << 0)) | ((v & mask) << 0)
+}
+
+// Triangle returns the Triangle bitfield.
+func (s *SparseAttributesComplex_t) Triangle() uint32 {
+	return (s.bitfield0 >> 1) & ((1 << 1) - 1)
+}
+
+// SetTriangle updates the Triangle bitfield.
+func (s *SparseAttributesComplex_t) SetTriangle(v uint32) {
+	const mask uint32 = (1 << 1) - 1
+	s.bitfield0 = (s.bitfield0 &^ (mask << 1)) | ((v & mask) << 1)
+}
+
+// Kind returns the Kind bitfield.
+func (s *SparseAttributesComplex_t) Kind() uint32 {
+	return (s.bitfield0 >> 2) & ((1 << 3) - 1)
+}
+
+// SetKind updates the Kind bitfield.
+func (s *SparseAttributesComplex_t) SetKind(v uint32) {
+	const mask uint32 = (1 << 3) - 1
+	s.bitfield0 = (s.bitfield0 &^ (mask << 2)) | ((v & mask) << 2)
+}
+
+// Conjugate_transpose returns the Conjugate_transpose bitfield.
+func (s *SparseAttributesComplex_t) Conjugate_transpose() uint32 {
+	return (s.bitfield0 >> 5) & ((1 << 1) - 1)
+}
+
+// SetConjugate_transpose updates the Conjugate_transpose bitfield.
+func (s *SparseAttributesComplex_t) SetConjugate_transpose(v uint32) {
+	const mask uint32 = (1 << 1) - 1
+	s.bitfield0 = (s.bitfield0 &^ (mask << 5)) | ((v & mask) << 5)
+}
+
+// _reserved returns the _reserved bitfield.
+func (s *SparseAttributesComplex_t) _reserved() uint32 {
+	return (s.bitfield0 >> 6) & ((1 << 9) - 1)
+}
+
+// Set_reserved updates the _reserved bitfield.
+func (s *SparseAttributesComplex_t) Set_reserved(v uint32) {
+	const mask uint32 = (1 << 9) - 1
+	s.bitfield0 = (s.bitfield0 &^ (mask << 6)) | ((v & mask) << 6)
+}
+
+// _allocatedBySparse returns the _allocatedBySparse bitfield.
+func (s *SparseAttributesComplex_t) _allocatedBySparse() uint32 {
+	return (s.bitfield0 >> 15) & ((1 << 1) - 1)
+}
+
+// Set_allocatedBySparse updates the _allocatedBySparse bitfield.
+func (s *SparseAttributesComplex_t) Set_allocatedBySparse(v uint32) {
+	const mask uint32 = (1 << 1) - 1
+	s.bitfield0 = (s.bitfield0 &^ (mask << 15)) | ((v & mask) << 15)
 }
 
 // SparseAttributes_t - A structure that represents the attributes of a matrix.
@@ -876,10 +938,62 @@ type SparseAttributesComplex_t struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/Accelerate/SparseAttributes_t
 type SparseAttributes_t struct {
-	Transpose bool             // A Boolean value that specifies whether to implicitly transpose the matrix.
-	Triangle  SparseTriangle_t // An enumeration that specifies which triangle unit-triangular, triangular, and symmetric matrices need to use.
-	Kind      SparseKind_t     // An eumeration that specifies whether the matrix is ordinary, unit-triangular, triangular, or symmetric.
+	bitfield0 uint32
+}
 
+// Transpose returns the Transpose bitfield.
+func (s *SparseAttributes_t) Transpose() uint32 {
+	return (s.bitfield0 >> 0) & ((1 << 1) - 1)
+}
+
+// SetTranspose updates the Transpose bitfield.
+func (s *SparseAttributes_t) SetTranspose(v uint32) {
+	const mask uint32 = (1 << 1) - 1
+	s.bitfield0 = (s.bitfield0 &^ (mask << 0)) | ((v & mask) << 0)
+}
+
+// Triangle returns the Triangle bitfield.
+func (s *SparseAttributes_t) Triangle() uint32 {
+	return (s.bitfield0 >> 1) & ((1 << 1) - 1)
+}
+
+// SetTriangle updates the Triangle bitfield.
+func (s *SparseAttributes_t) SetTriangle(v uint32) {
+	const mask uint32 = (1 << 1) - 1
+	s.bitfield0 = (s.bitfield0 &^ (mask << 1)) | ((v & mask) << 1)
+}
+
+// Kind returns the Kind bitfield.
+func (s *SparseAttributes_t) Kind() uint32 {
+	return (s.bitfield0 >> 2) & ((1 << 2) - 1)
+}
+
+// SetKind updates the Kind bitfield.
+func (s *SparseAttributes_t) SetKind(v uint32) {
+	const mask uint32 = (1 << 2) - 1
+	s.bitfield0 = (s.bitfield0 &^ (mask << 2)) | ((v & mask) << 2)
+}
+
+// _reserved returns the _reserved bitfield.
+func (s *SparseAttributes_t) _reserved() uint32 {
+	return (s.bitfield0 >> 4) & ((1 << 11) - 1)
+}
+
+// Set_reserved updates the _reserved bitfield.
+func (s *SparseAttributes_t) Set_reserved(v uint32) {
+	const mask uint32 = (1 << 11) - 1
+	s.bitfield0 = (s.bitfield0 &^ (mask << 4)) | ((v & mask) << 4)
+}
+
+// _allocatedBySparse returns the _allocatedBySparse bitfield.
+func (s *SparseAttributes_t) _allocatedBySparse() uint32 {
+	return (s.bitfield0 >> 15) & ((1 << 1) - 1)
+}
+
+// Set_allocatedBySparse updates the _allocatedBySparse bitfield.
+func (s *SparseAttributes_t) Set_allocatedBySparse(v uint32) {
+	const mask uint32 = (1 << 1) - 1
+	s.bitfield0 = (s.bitfield0 &^ (mask << 15)) | ((v & mask) << 15)
 }
 
 // SparseCGOptions - Options for creating a conjugate gradient (CG) method.
@@ -887,10 +1001,10 @@ type SparseAttributes_t struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/Accelerate/SparseCGOptions
 type SparseCGOptions struct {
-	MaxIterations int         // The maximum number of iterations to perform.
+	ReportError   func(*byte) // An optional error-reporting routine.
+	MaxIterations int32       // The maximum number of iterations to perform.
 	Atol          float64     // The absolute convergence tolerance.
 	Rtol          float64     // The relative convergence tolerance.
-	ReportError   func(*byte) // An optional error-reporting routine.
 	ReportStatus  func(*byte) // The function to report status.
 
 }
@@ -900,12 +1014,12 @@ type SparseCGOptions struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/Accelerate/SparseGMRESOptions
 type SparseGMRESOptions struct {
+	ReportError   func(*byte)          // An optional error-reporting routine.
 	Variant       SparseGMRESVariant_t // The exact variant of GMRES to implement.
-	Nvec          int                  // The number of orthogonal vectors the operation maintains.
-	MaxIterations int                  // The maximum number of iterations to perform.
+	Nvec          int32                // The number of orthogonal vectors the operation maintains.
+	MaxIterations int32                // The maximum number of iterations to perform.
 	Atol          float64              // The absolute convergence tolerance.
 	Rtol          float64              // The relative convergence tolerance.
-	ReportError   func(*byte)          // An optional error-reporting routine.
 	ReportStatus  func(*byte)          // The function to report status.
 
 }
@@ -915,8 +1029,8 @@ type SparseGMRESOptions struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/Accelerate/SparseIterativeMethod
 type SparseIterativeMethod struct {
-	Method  int       // The iterative method this structure represents.
-	Options [256]byte // The options for the method.
+	Method  int32      // The iterative method this structure represents.
+	Options [32]uint64 // The options for the method.
 
 }
 
@@ -925,15 +1039,15 @@ type SparseIterativeMethod struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/Accelerate/SparseLSMROptions
 type SparseLSMROptions struct {
-	Lambda          float64                     // The damping parameter lambda for regularized least squares.
-	Nvec            int                         // The number of vectors to use for local reorthogonalization.
-	ConvergenceTest SparseLSMRConvergenceTest_t // The convergence test to use for iterative solve methods.
-	Atol            float64                     // The absolute tolerance (default test) or  tolerance (Fong-Saunders test).
-	Rtol            float64                     // The relative convergence tolerance (default test only).
-	Btol            float64                     // The  tolerance (Fong-Saunders test only).
-	ConditionLimit  float64                     // The condition number limit (Fong-Saunders test only).
-	MaxIterations   int                         // The maximum number of iterations.
 	ReportError     func(*byte)                 // An optional error-reporting routine.
+	Lambda          float64                     // The damping parameter lambda for regularized least squares.
+	Nvec            int32                       // The number of vectors to use for local reorthogonalization.
+	ConvergenceTest SparseLSMRConvergenceTest_t // The convergence test to use for iterative solve methods.
+	Atol            float64                     // The absolute tolerance (default test) or A tolerance (Fong-Saunders test).
+	Rtol            float64                     // The relative convergence tolerance (default test only).
+	Btol            float64                     // The B tolerance (Fong-Saunders test only).
+	ConditionLimit  float64                     // The condition number limit (Fong-Saunders test only).
+	MaxIterations   int32                       // The maximum number of iterations.
 	ReportStatus    func(*byte)                 // An optional status-reporting routine.
 
 }
@@ -943,12 +1057,12 @@ type SparseLSMROptions struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/Accelerate/SparseMatrixStructure
 type SparseMatrixStructure struct {
-	RowCount     int                // The number of rows in the matrix.
-	ColumnCount  int                // The number of columns in the matrix.
+	RowCount     int32              // The number of rows in the matrix.
+	ColumnCount  int32              // The number of columns in the matrix.
+	ColumnStarts *int               // The starting index for each column in the row indices array.
+	RowIndices   *int32             // The row indices of the matrix.
 	Attributes   SparseAttributes_t // The attributes of the matrix, such as whether it’s symmetrical or triangular.
 	BlockSize    uint8              // The block size of the matrix.
-	ColumnStarts *int               // The starting index for each column in the row indices array.
-	RowIndices   []int              // The row indices of the matrix.
 
 }
 
@@ -957,12 +1071,12 @@ type SparseMatrixStructure struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/Accelerate/SparseMatrixStructureComplex
 type SparseMatrixStructureComplex struct {
-	RowCount     int
-	ColumnCount  int
+	RowCount     int32
+	ColumnCount  int32
+	ColumnStarts *int
+	RowIndices   *int32
 	Attributes   SparseAttributesComplex_t // A type representing the attributes of a matrix.
 	BlockSize    uint8
-	ColumnStarts *int
-	RowIndices   []int
 }
 
 // SparseMatrix_Complex_Double - A type representing a sparse complex matrix.
@@ -989,7 +1103,7 @@ type SparseMatrix_Complex_Float struct {
 // [Full Topic]: https://developer.apple.com/documentation/Accelerate/SparseMatrix_Double
 type SparseMatrix_Double struct {
 	Structure SparseMatrixStructure // The sparsity structure of the matrix.
-	Data      []float64             // The array of contiguous values in the nonzero blocks of the matrix.
+	Data      *float64              // The array of contiguous values in the nonzero blocks of the matrix.
 
 }
 
@@ -999,7 +1113,7 @@ type SparseMatrix_Double struct {
 // [Full Topic]: https://developer.apple.com/documentation/Accelerate/SparseMatrix_Float
 type SparseMatrix_Float struct {
 	Structure SparseMatrixStructure // The sparsity structure of the matrix.
-	Data      []float32             // The array of contiguous values in the nonzero blocks of the matrix.
+	Data      *float32              // The array of contiguous values in the nonzero blocks of the matrix.
 
 }
 
@@ -1009,7 +1123,7 @@ type SparseMatrix_Float struct {
 // [Full Topic]: https://developer.apple.com/documentation/Accelerate/SparseNumericFactorOptions
 type SparseNumericFactorOptions struct {
 	Control        SparseControl_t // The flags that control the computation.
-	ScalingMethod  SparseScaling   // The scaling method.
+	ScalingMethod  SparseScaling_t // The scaling method.
 	Scaling        unsafe.Pointer  // An array that scales the matrix before factorization.
 	PivotTolerance float64         // The pivot tolerance that threshold partial pivoting uses.
 	ZeroTolerance  float64         // The zero tolerance that some pivoting modes use.
@@ -1079,9 +1193,9 @@ type SparseOpaqueFactorization_Float struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/Accelerate/SparseOpaquePreconditioner_Complex_Double
 type SparseOpaquePreconditioner_Complex_Double struct {
-	Type  SparsePreconditioner // Types of preconditioner.
-	Apply func(unsafe.Pointer, CBLAS_TRANSPOSE, DenseMatrix_Complex_Double, DenseMatrix_Complex_Double)
+	Type  SparsePreconditioner_t // Types of preconditioner.
 	Mem   unsafe.Pointer
+	Apply func(unsafe.Pointer, CBLAS_TRANSPOSE, DenseMatrix_Complex_Double, DenseMatrix_Complex_Double)
 }
 
 // SparseOpaquePreconditioner_Complex_Float - Represents a preconditioner for matrices of complex float values .
@@ -1089,9 +1203,9 @@ type SparseOpaquePreconditioner_Complex_Double struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/Accelerate/SparseOpaquePreconditioner_Complex_Float
 type SparseOpaquePreconditioner_Complex_Float struct {
-	Type  SparsePreconditioner // Types of preconditioner.
-	Apply func(unsafe.Pointer, CBLAS_TRANSPOSE, DenseMatrix_Complex_Float, DenseMatrix_Complex_Float)
+	Type  SparsePreconditioner_t // Types of preconditioner.
 	Mem   unsafe.Pointer
+	Apply func(unsafe.Pointer, CBLAS_TRANSPOSE, DenseMatrix_Complex_Float, DenseMatrix_Complex_Float)
 }
 
 // SparseOpaquePreconditioner_Double - A structure that represents a double-precision preconditioner.
@@ -1099,9 +1213,9 @@ type SparseOpaquePreconditioner_Complex_Float struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/Accelerate/SparseOpaquePreconditioner_Double
 type SparseOpaquePreconditioner_Double struct {
-	Type  SparsePreconditioner                                                          // The preconditioner type.
-	Apply func(unsafe.Pointer, CBLAS_TRANSPOSE, DenseMatrix_Double, DenseMatrix_Double) // A function that calculates , where  is the preconditioner.
+	Type  SparsePreconditioner_t                                                        // The preconditioner type.
 	Mem   unsafe.Pointer                                                                // The unaltered memory pointer that passes as the first parameter of the apply function.
+	Apply func(unsafe.Pointer, CBLAS_TRANSPOSE, DenseMatrix_Double, DenseMatrix_Double) // A function that calculates Y = PX, where P is the preconditioner.
 
 }
 
@@ -1110,9 +1224,9 @@ type SparseOpaquePreconditioner_Double struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/Accelerate/SparseOpaquePreconditioner_Float
 type SparseOpaquePreconditioner_Float struct {
-	Type  SparsePreconditioner                                                        // The preconditioner type.
-	Apply func(unsafe.Pointer, CBLAS_TRANSPOSE, DenseMatrix_Float, DenseMatrix_Float) // A function that calculates , where  is the preconditioner.
+	Type  SparsePreconditioner_t                                                      // The preconditioner type.
 	Mem   unsafe.Pointer                                                              // The unaltered memory pointer that passes as the first parameter of the apply function.
+	Apply func(unsafe.Pointer, CBLAS_TRANSPOSE, DenseMatrix_Float, DenseMatrix_Float) // A function that calculates Y = PX, where P is the preconditioner.
 
 }
 
@@ -1122,7 +1236,7 @@ type SparseOpaquePreconditioner_Float struct {
 // [Full Topic]: https://developer.apple.com/documentation/Accelerate/SparseOpaqueSubfactor_Complex_Double
 type SparseOpaqueSubfactor_Complex_Double struct {
 	Attributes              SparseAttributesComplex_t                // A type representing the attributes of a matrix.
-	Contents                SparseSubfactor                          // Types of sub-factor object.
+	Contents                SparseSubfactor_t                        // Types of sub-factor object.
 	Factor                  SparseOpaqueFactorization_Complex_Double // A semi-opaque type representing a matrix factorization in complex double.
 	WorkspaceRequiredStatic uintptr
 	WorkspaceRequiredPerRHS uintptr
@@ -1134,7 +1248,7 @@ type SparseOpaqueSubfactor_Complex_Double struct {
 // [Full Topic]: https://developer.apple.com/documentation/Accelerate/SparseOpaqueSubfactor_Complex_Float
 type SparseOpaqueSubfactor_Complex_Float struct {
 	Attributes              SparseAttributesComplex_t               // A type representing the attributes of a matrix.
-	Contents                SparseSubfactor                         // Types of sub-factor object.
+	Contents                SparseSubfactor_t                       // Types of sub-factor object.
 	Factor                  SparseOpaqueFactorization_Complex_Float // A semi-opaque type representing a matrix factorization in complex float.
 	WorkspaceRequiredStatic uintptr
 	WorkspaceRequiredPerRHS uintptr
@@ -1146,7 +1260,7 @@ type SparseOpaqueSubfactor_Complex_Float struct {
 // [Full Topic]: https://developer.apple.com/documentation/Accelerate/SparseOpaqueSubfactor_Double
 type SparseOpaqueSubfactor_Double struct {
 	Attributes              SparseAttributes_t               // A type representing the attributes of a matrix.
-	Contents                SparseSubfactor                  // Types of sub-factor object.
+	Contents                SparseSubfactor_t                // Types of sub-factor object.
 	Factor                  SparseOpaqueFactorization_Double // A semi-opaque type representing a matrix factorization in double.
 	WorkspaceRequiredStatic uintptr
 	WorkspaceRequiredPerRHS uintptr
@@ -1158,7 +1272,7 @@ type SparseOpaqueSubfactor_Double struct {
 // [Full Topic]: https://developer.apple.com/documentation/Accelerate/SparseOpaqueSubfactor_Float
 type SparseOpaqueSubfactor_Float struct {
 	Attributes              SparseAttributes_t              // A type representing the attributes of a matrix.
-	Contents                SparseSubfactor                 // Types of sub-factor object.
+	Contents                SparseSubfactor_t               // Types of sub-factor object.
 	Factor                  SparseOpaqueFactorization_Float // A semi-opaque type representing a matrix factorization in float.
 	WorkspaceRequiredStatic uintptr
 	WorkspaceRequiredPerRHS uintptr
@@ -1169,17 +1283,17 @@ type SparseOpaqueSubfactor_Float struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/Accelerate/SparseOpaqueSymbolicFactorization
 type SparseOpaqueSymbolicFactorization struct {
-	Status               SparseStatus_t      // The status of the factorization.
-	RowCount             int                 // The number of rows.
-	ColumnCount          int                 // The number of columns.
-	Attributes           SparseAttributes_t  // The attributes of the factorization.
-	BlockSize            uint8               // The block size.
-	Type                 SparseFactorization // The factorization type.
-	Factorization        unsafe.Pointer      // A pointer to a private internal representation of the symbolic factor.
-	WorkspaceSize_Float  uintptr             // Size, in bytes, of workspace required to perform numerical factorization in floats.
-	WorkspaceSize_Double uintptr             // Size, in bytes, of workspace required to perform numerical factorization in doubles.
-	FactorSize_Float     uintptr             // Minimum size, in bytes, required to store numerical factors in float.
-	FactorSize_Double    uintptr             // Minimum size, in bytes, required to store numerical factors in doubles.
+	Status               SparseStatus_t        // The status of the factorization.
+	RowCount             int32                 // The number of rows.
+	ColumnCount          int32                 // The number of columns.
+	Attributes           SparseAttributes_t    // The attributes of the factorization.
+	BlockSize            uint8                 // The block size.
+	Type                 SparseFactorization_t // The factorization type.
+	Factorization        unsafe.Pointer        // A pointer to a private internal representation of the symbolic factor.
+	WorkspaceSize_Float  uintptr               // Size, in bytes, of workspace required to perform numerical factorization in floats.
+	WorkspaceSize_Double uintptr               // Size, in bytes, of workspace required to perform numerical factorization in doubles.
+	FactorSize_Float     uintptr               // Minimum size, in bytes, required to store numerical factors in float.
+	FactorSize_Double    uintptr               // Minimum size, in bytes, required to store numerical factors in doubles.
 
 }
 
@@ -1188,13 +1302,13 @@ type SparseOpaqueSymbolicFactorization struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/Accelerate/SparseSymbolicFactorOptions
 type SparseSymbolicFactorOptions struct {
-	Control              SparseControl_t           // The flags that control the computation.
-	OrderMethod          SparseOrder               // The ordering algorithm.
-	Order                []int                     // The user-supplied array for ordering.
-	IgnoreRowsAndColumns []int                     // An array that contains row and column indices to ignore.
-	Malloc               func(uint) unsafe.Pointer // The function for allocating any necessary storage.
-	Free                 func(unsafe.Pointer)      // The function for freeing allocated storage.
-	ReportError          func(*byte)               // The function for reporting parameter errors.
+	Control              SparseControl_t       // The flags that control the computation.
+	OrderMethod          SparseOrder_t         // The ordering algorithm.
+	Order                *int32                // The user-supplied array for ordering.
+	IgnoreRowsAndColumns *int32                // An array that contains row and column indices to ignore.
+	Malloc               func(uint) BNNSFilter // The function for allocating any necessary storage.
+	Free                 func(unsafe.Pointer)  // The function for freeing allocated storage.
+	ReportError          func(*byte)           // The function for reporting parameter errors.
 
 }
 
@@ -1203,10 +1317,8 @@ type SparseSymbolicFactorOptions struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/Accelerate/bnns_graph_argument_t
 type Bnns_graph_argument_t struct {
-	Data_ptr_size uintptr                // size in bytes of `data_ptr`, if set
-	Data_ptr      unsafe.Pointer         // Direct pointer to numerical data
-	Descriptor    *BNNSNDArrayDescriptor // Pointer to BNNSNDArrayDescriptor (deprecated, use BNNSTensor instead)
-	Tensor        *BNNSTensor            // Pointer to BNNSTensor
+	Tensor        *BNNSTensor // Pointer to BNNSTensor
+	Data_ptr_size uintptr     // size in bytes of `data_ptr`, if set
 
 }
 
@@ -1255,8 +1367,8 @@ type Bnns_graph_t struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/Accelerate/bnns_user_message_data_t
 type Bnns_user_message_data_t struct {
-	Data unsafe.Pointer // A pointer to the additional logging data.
 	Size uintptr        // The size of the additional logging data.
+	Data unsafe.Pointer // A pointer to the additional logging data.
 
 }
 
@@ -1281,289 +1393,12 @@ type Quadrature_integrate_options struct {
 	Max_intervals           uintptr
 }
 
-// Simd_double2x2 - A matrix of two columns and two rows that contains double-precision values.
-//
-// [Full Topic]
-// [Full Topic]: https://developer.apple.com/documentation/simd/simd_double2x2
-type Simd_double2x2 struct {
-	Determinant float64      // The determinant of the matrix.
-	Columns     Simd_double2 // The columns of the matrix.
-
-}
-
-// Simd_double2x3 - A matrix of two columns and three rows that contains double-precision values.
-//
-// [Full Topic]
-// [Full Topic]: https://developer.apple.com/documentation/simd/simd_double2x3
-type Simd_double2x3 struct {
-	Columns Simd_double3 // The columns of the matrix.
-
-}
-
-// Simd_double2x4 - A matrix of two columns and four rows that contains double-precision values.
-//
-// [Full Topic]
-// [Full Topic]: https://developer.apple.com/documentation/simd/simd_double2x4
-type Simd_double2x4 struct {
-	Columns Simd_double4 // The columns of the matrix.
-
-}
-
-// Simd_double3x2 - A matrix of three columns and two rows that contains double-precision values.
-//
-// [Full Topic]
-// [Full Topic]: https://developer.apple.com/documentation/simd/simd_double3x2
-type Simd_double3x2 struct {
-	Columns Simd_double2 // The columns of the matrix.
-
-}
-
-// Simd_double3x3 - A matrix of three columns and three rows that contains double-precision values.
-//
-// [Full Topic]
-// [Full Topic]: https://developer.apple.com/documentation/simd/simd_double3x3
-type Simd_double3x3 struct {
-	Determinant float64      // The determinant of the matrix.
-	Columns     Simd_double3 // The columns of the matrix.
-
-}
-
-// Simd_double3x4 - A matrix of three columns and four rows that contains double-precision values.
-//
-// [Full Topic]
-// [Full Topic]: https://developer.apple.com/documentation/simd/simd_double3x4
-type Simd_double3x4 struct {
-	Columns Simd_double4 // The columns of the matrix.
-
-}
-
-// Simd_double4x2 - A matrix of four columns and two rows that contains double-precision values.
-//
-// [Full Topic]
-// [Full Topic]: https://developer.apple.com/documentation/simd/simd_double4x2
-type Simd_double4x2 struct {
-	Columns Simd_double2 // The columns of the matrix.
-
-}
-
-// Simd_double4x3 - A matrix of four columns and three rows that contains double-precision values.
-//
-// [Full Topic]
-// [Full Topic]: https://developer.apple.com/documentation/simd/simd_double4x3
-type Simd_double4x3 struct {
-	Columns Simd_double3 // The columns of the matrix.
-
-}
-
-// Simd_double4x4 - A matrix of four columns and four rows that contains double-precision values.
-//
-// [Full Topic]
-// [Full Topic]: https://developer.apple.com/documentation/simd/simd_double4x4
-type Simd_double4x4 struct {
-	Determinant float64      // The determinant of the matrix.
-	Columns     Simd_double4 // The columns of the matrix.
-
-}
-
-// Simd_float2x2 - A matrix of two columns and two rows that contains single-precision values.
-//
-// [Full Topic]
-// [Full Topic]: https://developer.apple.com/documentation/simd/simd_float2x2
-type Simd_float2x2 struct {
-	Determinant float32     // The determinant of the matrix.
-	Columns     Simd_float2 // The columns of the matrix.
-
-}
-
-// Simd_float2x3 - A matrix of two columns and three rows that contains single-precision values.
-//
-// [Full Topic]
-// [Full Topic]: https://developer.apple.com/documentation/simd/simd_float2x3
-type Simd_float2x3 struct {
-	Columns Simd_float3 // The columns of the matrix.
-
-}
-
-// Simd_float2x4 - A matrix of two columns and four rows that contains single-precision values.
-//
-// [Full Topic]
-// [Full Topic]: https://developer.apple.com/documentation/simd/simd_float2x4
-type Simd_float2x4 struct {
-	Columns Simd_float4 // The columns of the matrix.
-
-}
-
-// Simd_float3x2 - A matrix of three columns and two rows that contains single-precision values.
-//
-// [Full Topic]
-// [Full Topic]: https://developer.apple.com/documentation/simd/simd_float3x2
-type Simd_float3x2 struct {
-	Columns Simd_float2 // The columns of the matrix.
-
-}
-
-// Simd_float3x3 - A matrix of three columns and three rows that contains single-precision values.
-//
-// [Full Topic]
-// [Full Topic]: https://developer.apple.com/documentation/simd/simd_float3x3
-type Simd_float3x3 struct {
-	Determinant float32     // The determinant of the matrix.
-	Columns     Simd_float3 // The columns of the matrix.
-
-}
-
-// Simd_float3x4 - A matrix of three columns and four rows that contains single-precision values.
-//
-// [Full Topic]
-// [Full Topic]: https://developer.apple.com/documentation/simd/simd_float3x4
-type Simd_float3x4 struct {
-	Columns Simd_float4 // The columns of the matrix.
-
-}
-
-// Simd_float4x2 - A matrix of four columns and two rows that contains single-precision values.
-//
-// [Full Topic]
-// [Full Topic]: https://developer.apple.com/documentation/simd/simd_float4x2
-type Simd_float4x2 struct {
-	Columns Simd_float2 // The columns of the matrix.
-
-}
-
-// Simd_float4x3 - A matrix of four columns and three rows that contains single-precision values.
-//
-// [Full Topic]
-// [Full Topic]: https://developer.apple.com/documentation/simd/simd_float4x3
-type Simd_float4x3 struct {
-	Columns Simd_float3 // The columns of the matrix.
-
-}
-
-// Simd_float4x4 - A matrix of four columns and four rows that contains single-precision values.
-//
-// [Full Topic]
-// [Full Topic]: https://developer.apple.com/documentation/simd/simd_float4x4
-type Simd_float4x4 struct {
-	Determinant float32     // The determinant of the matrix.
-	Columns     Simd_float4 // The columns of the matrix.
-
-}
-
-// Simd_half2x2 - A matrix of two columns and two rows that contains half-precision values.
-//
-// [Full Topic]
-// [Full Topic]: https://developer.apple.com/documentation/simd/simd_half2x2
-type Simd_half2x2 struct {
-	Columns Simd_half2 // The columns of the matrix.
-
-}
-
-// Simd_half2x3 - A matrix of two columns and three rows that contains half-precision values.
-//
-// [Full Topic]
-// [Full Topic]: https://developer.apple.com/documentation/simd/simd_half2x3
-type Simd_half2x3 struct {
-	Columns Simd_half3 // The columns of the matrix.
-
-}
-
-// Simd_half2x4 - A matrix of two columns and four rows that contains half-precision values.
-//
-// [Full Topic]
-// [Full Topic]: https://developer.apple.com/documentation/simd/simd_half2x4
-type Simd_half2x4 struct {
-	Columns Simd_half4 // The columns of the matrix.
-
-}
-
-// Simd_half3x2 - A matrix of three columns and two rows that contains half-precision values.
-//
-// [Full Topic]
-// [Full Topic]: https://developer.apple.com/documentation/simd/simd_half3x2
-type Simd_half3x2 struct {
-	Columns Simd_half2 // The columns of the matrix.
-
-}
-
-// Simd_half3x3 - A matrix of three columns and three rows that contains half-precision values.
-//
-// [Full Topic]
-// [Full Topic]: https://developer.apple.com/documentation/simd/simd_half3x3
-type Simd_half3x3 struct {
-	Columns Simd_half3 // The columns of the matrix.
-
-}
-
-// Simd_half3x4 - A matrix of three columns and four rows that contains half-precision values.
-//
-// [Full Topic]
-// [Full Topic]: https://developer.apple.com/documentation/simd/simd_half3x4
-type Simd_half3x4 struct {
-	Columns Simd_half4 // The columns of the matrix.
-
-}
-
-// Simd_half4x2 - A matrix of four columns and two rows that contains half-precision values.
-//
-// [Full Topic]
-// [Full Topic]: https://developer.apple.com/documentation/simd/simd_half4x2
-type Simd_half4x2 struct {
-	Columns Simd_half2 // The columns of the matrix.
-
-}
-
-// Simd_half4x3 - A matrix of four columns and three rows that contains half-precision values.
-//
-// [Full Topic]
-// [Full Topic]: https://developer.apple.com/documentation/simd/simd_half4x3
-type Simd_half4x3 struct {
-	Columns Simd_half3 // The columns of the matrix.
-
-}
-
-// Simd_half4x4 - A matrix of four columns and four rows that contains half-precision values.
-//
-// [Full Topic]
-// [Full Topic]: https://developer.apple.com/documentation/simd/simd_half4x4
-type Simd_half4x4 struct {
-	Columns Simd_half4 // The columns of the matrix.
-
-}
-
-// Simd_quatd - A double-precision quaternion.
-//
-// [Full Topic]
-// [Full Topic]: https://developer.apple.com/documentation/simd/simd_quatd
-type Simd_quatd struct {
-	Angle  float64      // The angle, in radians, by which the quaternion’s action rotates.
-	Axis   float64      // The normalized axis about which the quaternion’s action rotates.
-	Imag   float64      // The imaginary part of the quaternion.
-	Real   float64      // The real part of the quaternion.
-	Length float64      // The length of the quaternion.
-	Vector Simd_double4 // The underlying vector of the quaternion.
-
-}
-
-// Simd_quatf - A single-precision quaternion.
-//
-// [Full Topic]
-// [Full Topic]: https://developer.apple.com/documentation/simd/simd_quatf
-type Simd_quatf struct {
-	Angle  float32     // The angle, in radians, by which the quaternion’s action rotates.
-	Axis   float32     // The normalized axis about which the quaternion’s action rotates.
-	Imag   float32     // The imaginary part of the quaternion.
-	Real   float32     // The real part of the quaternion.
-	Length float32     // The length of the quaternion.
-	Vector Simd_float4 // The underlying vector of the quaternion.
-
-}
-
 // VDSP_int24 - A data structure that holds a 24-bit signed integer value.
 //
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/Accelerate/vDSP_int24
 type VDSP_int24 struct {
-	Bytes uint8 // The bytes that represent the value.
+	Bytes [3]uint8 // The bytes that represent the value.
 
 }
 
@@ -1572,7 +1407,7 @@ type VDSP_int24 struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/Accelerate/vDSP_uint24
 type VDSP_uint24 struct {
-	Bytes uint8 // The bytes that represent the value.
+	Bytes [3]uint8 // The bytes that represent the value.
 
 }
 
@@ -1609,12 +1444,12 @@ type VImageRGBPrimaries struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/Accelerate/vImageTransferFunction
 type VImageTransferFunction struct {
-	Cutoff float64 // The `cutoff` in the transfer function.
 	C0     float64 // The `c0` in the transfer function.
 	C1     float64 // The `c1` in the transfer function.
 	C2     float64 // The `c2` in the transfer function.
 	C3     float64 // The `c3` in the transfer function.
 	Gamma  float64 // The `gamma` in the transfer function.
+	Cutoff float64 // The `cutoff` in the transfer function.
 	C4     float64 // The `c4` in the transfer function.
 	C5     float64 // The `c5` in the transfer function.
 
@@ -1635,7 +1470,7 @@ type VImageWhitePoint struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/Accelerate/vImage_ARGBToYpCbCr
 type VImage_ARGBToYpCbCr struct {
-	Opaque uint8
+	Opaque [128]uint8
 }
 
 // VImage_ARGBToYpCbCrMatrix - The 3 x 3 matrix that the vImage library uses to convert from RGB to YpCbCr.
@@ -1643,14 +1478,14 @@ type VImage_ARGBToYpCbCr struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/Accelerate/vImage_ARGBToYpCbCrMatrix
 type VImage_ARGBToYpCbCrMatrix struct {
-	R_Yp      float32 // The  value in the conversion matrix.
-	G_Yp      float32 // The  value in the conversion matrix.
-	B_Yp      float32 // The  value in the conversion matrix.
-	R_Cb      float32 // The  value in the conversion matrix.
-	G_Cb      float32 // The  value in the conversion matrix.
-	B_Cb_R_Cr float32 // The  value in the conversion matrix.
-	G_Cr      float32 // The  value in the conversion matrix.
-	B_Cr      float32 // The  value in the conversion matrix.
+	R_Yp      float32 // The R_Yp value in the conversion matrix.
+	G_Yp      float32 // The G_Yp value in the conversion matrix.
+	B_Yp      float32 // The B_Yp value in the conversion matrix.
+	R_Cb      float32 // The R_Cb value in the conversion matrix.
+	G_Cb      float32 // The G_Cb value in the conversion matrix.
+	B_Cb_R_Cr float32 // The B_Cb_R_Cr value in the conversion matrix.
+	G_Cr      float32 // The G_Cr value in the conversion matrix.
+	B_Cr      float32 // The B_Cr value in the conversion matrix.
 
 }
 
@@ -1687,10 +1522,10 @@ type VImage_AffineTransform_Double struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/Accelerate/vImage_Buffer
 type VImage_Buffer struct {
-	Height   uint           // The height of the image, in pixels.
-	Width    uint           // The width of the image, in pixels.
-	RowBytes uintptr        // The distance, in bytes, between the start of one pixel row and the next in an image, including any unused space between them.
-	Data     unsafe.Pointer // A pointer to the top-left pixel of the image.
+	Data     unsafe.Pointer   // A pointer to the top-left pixel of the image.
+	Height   VImagePixelCount // The height of the image, in pixels.
+	Width    VImagePixelCount // The width of the image, in pixels.
+	RowBytes uintptr          // The distance, in bytes, between the start of one pixel row and the next in an image, including any unused space between them.
 
 }
 
@@ -1747,7 +1582,7 @@ type VImage_YpCbCrPixelRange struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/Accelerate/vImage_YpCbCrToARGB
 type VImage_YpCbCrToARGB struct {
-	Opaque uint8 // The bytes of the opaque representation.
+	Opaque [128]uint8 // The bytes of the opaque representation.
 
 }
 
@@ -1756,10 +1591,200 @@ type VImage_YpCbCrToARGB struct {
 // [Full Topic]
 // [Full Topic]: https://developer.apple.com/documentation/Accelerate/vImage_YpCbCrToARGBMatrix
 type VImage_YpCbCrToARGBMatrix struct {
-	Yp   float32 // The  value in the conversion matrix.
-	Cr_R float32 // The  value in the conversion matrix.
-	Cr_G float32 // The  value in the conversion matrix.
-	Cb_G float32 // The  value in the conversion matrix.
-	Cb_B float32 // The  value in the conversion matrix.
+	Yp   float32 // The Yp value in the conversion matrix.
+	Cr_R float32 // The Cr_R value in the conversion matrix.
+	Cr_G float32 // The Cr_G value in the conversion matrix.
+	Cb_G float32 // The Cb_G value in the conversion matrix.
+	Cb_B float32 // The Cb_B value in the conversion matrix.
 
+}
+
+// VS1024
+type VS1024 struct {
+	V   [8]VUInt32
+	V8  VUInt32
+	V7  VUInt32
+	V6  VUInt32
+	V5  VUInt32
+	V4  VUInt32
+	V3  VUInt32
+	V2  VUInt32
+	V1  VUInt32
+	LSW int32
+	D31 uint32
+	D30 uint32
+	D29 uint32
+	D28 uint32
+	D27 uint32
+	D26 uint32
+	D25 uint32
+	D24 uint32
+	D23 uint32
+	D22 uint32
+	D21 uint32
+	D20 uint32
+	D19 uint32
+	D18 uint32
+	D17 uint32
+	D16 uint32
+	D15 uint32
+	D14 uint32
+	D13 uint32
+	D12 uint32
+	D11 uint32
+	D10 uint32
+	D9  uint32
+	D8  uint32
+	D7  uint32
+	D6  uint32
+	D5  uint32
+	D4  uint32
+	D3  uint32
+	D2  uint32
+	MSW uint32
+}
+
+// VS128
+type VS128 struct {
+	V   VUInt32
+	V1  VUInt32
+	LSW int32
+	D3  uint32
+	D2  uint32
+	MSW uint32
+}
+
+// VS256
+type VS256 struct {
+	V   [2]VUInt32
+	V2  VUInt32
+	V1  VUInt32
+	LSW int32
+	D7  uint32
+	D6  uint32
+	D5  uint32
+	D4  uint32
+	D3  uint32
+	D2  uint32
+	MSW uint32
+}
+
+// VS512
+type VS512 struct {
+	V   [4]VUInt32
+	V4  VUInt32
+	V3  VUInt32
+	V2  VUInt32
+	V1  VUInt32
+	LSW int32
+	D15 uint32
+	D14 uint32
+	D13 uint32
+	D12 uint32
+	D11 uint32
+	D10 uint32
+	D9  uint32
+	D8  uint32
+	D7  uint32
+	D6  uint32
+	D5  uint32
+	D4  uint32
+	D3  uint32
+	D2  uint32
+	MSW uint32
+}
+
+// VU1024
+type VU1024 struct {
+	V   [8]VUInt32
+	V8  VUInt32
+	V7  VUInt32
+	V6  VUInt32
+	V5  VUInt32
+	V4  VUInt32
+	V3  VUInt32
+	V2  VUInt32
+	V1  VUInt32
+	LSW uint32
+	D31 uint32
+	D30 uint32
+	D29 uint32
+	D28 uint32
+	D27 uint32
+	D26 uint32
+	D25 uint32
+	D24 uint32
+	D23 uint32
+	D22 uint32
+	D21 uint32
+	D20 uint32
+	D19 uint32
+	D18 uint32
+	D17 uint32
+	D16 uint32
+	D15 uint32
+	D14 uint32
+	D13 uint32
+	D12 uint32
+	D11 uint32
+	D10 uint32
+	D9  uint32
+	D8  uint32
+	D7  uint32
+	D6  uint32
+	D5  uint32
+	D4  uint32
+	D3  uint32
+	D2  uint32
+	MSW uint32
+}
+
+// VU128
+type VU128 struct {
+	V   VUInt32
+	V1  VUInt32
+	LSW uint32
+	D3  uint32
+	D2  uint32
+	MSW uint32
+}
+
+// VU256
+type VU256 struct {
+	V   [2]VUInt32
+	V2  VUInt32
+	V1  VUInt32
+	LSW uint32
+	D7  uint32
+	D6  uint32
+	D5  uint32
+	D4  uint32
+	D3  uint32
+	D2  uint32
+	MSW uint32
+}
+
+// VU512
+type VU512 struct {
+	V   [4]VUInt32
+	V4  VUInt32
+	V3  VUInt32
+	V2  VUInt32
+	V1  VUInt32
+	LSW uint32
+	D15 uint32
+	D14 uint32
+	D13 uint32
+	D12 uint32
+	D11 uint32
+	D10 uint32
+	D9  uint32
+	D8  uint32
+	D7  uint32
+	D6  uint32
+	D5  uint32
+	D4  uint32
+	D3  uint32
+	D2  uint32
+	MSW uint32
 }

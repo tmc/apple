@@ -6,7 +6,6 @@ import (
 	"sync"
 	"unsafe"
 
-	"github.com/tmc/apple/kernel"
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -123,10 +122,10 @@ type ICKModifyRecordZonesOperation interface {
 
 	// The closure to execute when CloudKit deletes a record zone.
 	PerRecordZoneDeleteBlock() unsafe.Pointer
-	SetPerRecordZoneDeleteBlock(value kernel.Pointer)
+	SetPerRecordZoneDeleteBlock(value unsafe.Pointer)
 	// The closure to execute when CloudKit saves a record zone.
 	PerRecordZoneSaveBlock() unsafe.Pointer
-	SetPerRecordZoneSaveBlock(value kernel.Pointer)
+	SetPerRecordZoneSaveBlock(value unsafe.Pointer)
 }
 
 // Init initializes the instance.
@@ -207,7 +206,7 @@ func (c CKModifyRecordZonesOperation) PerRecordZoneDeleteBlock() unsafe.Pointer 
 	rv := objc.Send[unsafe.Pointer](c.ID, objc.Sel("perRecordZoneDeleteBlock"))
 	return rv
 }
-func (c CKModifyRecordZonesOperation) SetPerRecordZoneDeleteBlock(value kernel.Pointer) {
+func (c CKModifyRecordZonesOperation) SetPerRecordZoneDeleteBlock(value unsafe.Pointer) {
 	objc.Send[struct{}](c.ID, objc.Sel("setPerRecordZoneDeleteBlock:"), value)
 }
 
@@ -218,6 +217,6 @@ func (c CKModifyRecordZonesOperation) PerRecordZoneSaveBlock() unsafe.Pointer {
 	rv := objc.Send[unsafe.Pointer](c.ID, objc.Sel("perRecordZoneSaveBlock"))
 	return rv
 }
-func (c CKModifyRecordZonesOperation) SetPerRecordZoneSaveBlock(value kernel.Pointer) {
+func (c CKModifyRecordZonesOperation) SetPerRecordZoneSaveBlock(value unsafe.Pointer) {
 	objc.Send[struct{}](c.ID, objc.Sel("setPerRecordZoneSaveBlock:"), value)
 }

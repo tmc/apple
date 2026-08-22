@@ -8,7 +8,9 @@ import (
 	"github.com/tmc/apple/corefoundation"
 	"github.com/tmc/apple/corevideo"
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/imageio"
 	"github.com/tmc/apple/objc"
+	"github.com/tmc/apple/objectivec"
 )
 
 // The class instance for the [CIRAWFilter] class.
@@ -235,7 +237,7 @@ func CIRAWFilterFromID(id objc.ID) CIRAWFilter {
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIRAWFilter
 type ICIRAWFilter interface {
-	ICIFilter
+	objectivec.IObject
 
 	// Topic: Inspecting supported camera models, decoders, and filters
 
@@ -299,8 +301,8 @@ type ICIRAWFilter interface {
 	IsLensCorrectionEnabled() bool
 	SetLensCorrectionEnabled(value bool)
 	// An optional filter you can apply to the RAW image while it’s in linear space.
-	LinearSpaceFilter() CIFilter
-	SetLinearSpaceFilter(value CIFilter)
+	LinearSpaceFilter() ICIFilter
+	SetLinearSpaceFilter(value ICIFilter)
 	// A value that indicates the amount of local tone curve to apply to the image.
 	LocalToneMapAmount() float32
 	SetLocalToneMapAmount(value float32)
@@ -323,8 +325,8 @@ type ICIRAWFilter interface {
 	NeutralTint() float32
 	SetNeutralTint(value float32)
 	// A value that indicates the orientation of the image.
-	Orientation() uint
-	SetOrientation(value uint)
+	Orientation() imageio.CGImagePropertyOrientation
+	SetOrientation(value imageio.CGImagePropertyOrientation)
 	// An optional auxiliary image that represents the portrait effects matte of the image.
 	PortraitEffectsMatte() ICIImage
 	// An optional auxiliary image that represents a preview of the original image.
@@ -384,7 +386,7 @@ func NewCIRAWFilter() CIRAWFilter {
 //
 // properties: A dictionary that defines the properties of the pixel buffer.
 //
-// See: https://developer.apple.com/documentation/CoreImage/CIRAWFilter/init(cvPixelBuffer:properties:)-6209q
+// See: https://developer.apple.com/documentation/CoreImage/CIRAWFilter/init(cvPixelBuffer:properties:)
 func NewRAWFilterWithCVPixelBufferProperties(buffer corevideo.CVImageBufferRef, properties foundation.INSDictionary) CIRAWFilter {
 	rv := objc.Send[objc.ID](objc.ID(getCIRAWFilterClass().class), objc.Sel("filterWithCVPixelBuffer:properties:"), buffer, properties)
 	return CIRAWFilterFromID(rv)
@@ -773,11 +775,11 @@ func (r CIRAWFilter) SetLensCorrectionEnabled(value bool) {
 // space.
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIRAWFilter/linearSpaceFilter
-func (r CIRAWFilter) LinearSpaceFilter() CIFilter {
+func (r CIRAWFilter) LinearSpaceFilter() ICIFilter {
 	rv := objc.Send[objc.ID](r.ID, objc.Sel("linearSpaceFilter"))
 	return CIFilterFromID(objc.ID(rv))
 }
-func (r CIRAWFilter) SetLinearSpaceFilter(value CIFilter) {
+func (r CIRAWFilter) SetLinearSpaceFilter(value ICIFilter) {
 	objc.Send[struct{}](r.ID, objc.Sel("setLinearSpaceFilter:"), value)
 }
 
@@ -908,11 +910,11 @@ func (r CIRAWFilter) SetNeutralTint(value float32) {
 // specification.
 //
 // See: https://developer.apple.com/documentation/CoreImage/CIRAWFilter/orientation
-func (r CIRAWFilter) Orientation() uint {
-	rv := objc.Send[uint](r.ID, objc.Sel("orientation"))
-	return rv
+func (r CIRAWFilter) Orientation() imageio.CGImagePropertyOrientation {
+	rv := objc.Send[imageio.CGImagePropertyOrientation](r.ID, objc.Sel("orientation"))
+	return imageio.CGImagePropertyOrientation(rv)
 }
-func (r CIRAWFilter) SetOrientation(value uint) {
+func (r CIRAWFilter) SetOrientation(value imageio.CGImagePropertyOrientation) {
 	objc.Send[struct{}](r.ID, objc.Sel("setOrientation:"), value)
 }
 

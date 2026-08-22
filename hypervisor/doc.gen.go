@@ -14,8 +14,8 @@
 //
 // # Platforms
 //
-//   - [Apple Silicon]: Create and run virtual machines on Apple silicon. ([OSHVVmConfig], [HVVmConfig], [HVReturn])
-//   - [Intel-based Mac]: Create and run virtual machines on Intel-based Mac computers. ([HVVmOptions], [HVCapability], [HVIonMessage], [HVIonFlags], [HVReturn])
+//   - [Apple Silicon]: Create and run virtual machines on Apple silicon. ([HVReturn])
+//   - [Intel-based Mac]: Create and run virtual machines on Intel-based Mac computers. ([HVReturn])
 //
 // # Entitlements
 //
@@ -47,9 +47,11 @@ import (
 	"github.com/ebitengine/purego"
 )
 
-// frameworkPaths lists paths to try when loading the Hypervisor library.
-// The framework bundle path is tried first; a /usr/lib dylib fallback covers
-// C-API frameworks that are not in the dyld shared cache as bundles.
+// frameworkPaths lists paths to try when loading the Hypervisor library,
+// in order. Frameworks whose symbols live in a known dylib resolve to that
+// dylib alone; the rest try the framework bundle first and then a /usr/lib
+// dylib fallback, which covers C-API frameworks that are not in the dyld
+// shared cache as bundles.
 var frameworkPaths = []string{
 	"/System/Library/Frameworks/Hypervisor.framework/Hypervisor",
 	"/usr/lib/libHypervisor.dylib",

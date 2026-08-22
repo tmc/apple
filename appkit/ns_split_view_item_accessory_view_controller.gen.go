@@ -317,3 +317,13 @@ func (s NSSplitViewItemAccessoryViewController) IsHidden() bool {
 func (s NSSplitViewItemAccessoryViewController) SetHidden(value bool) {
 	objc.Send[struct{}](s.ID, objc.Sel("setHidden:"), value)
 }
+
+// Protocol methods for NSAnimatablePropertyContainer
+
+// Sets the option dictionary that maps event trigger keys to animation
+// objects.
+//
+// See: https://developer.apple.com/documentation/AppKit/NSAnimatablePropertyContainer/animations
+func (o NSSplitViewItemAccessoryViewController) SetAnimations(value foundation.INSDictionary) {
+	objc.Send[struct{}](o.ID, objc.Sel("setAnimations:"), value)
+}

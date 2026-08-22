@@ -98,8 +98,8 @@ func (ac AVCaptureDeviceFormatClass) Alloc() AVCaptureDeviceFormat {
 //   - [AVCaptureDeviceFormat.DefaultSimulatedAperture]: Default shallow depth of field simulated aperture.
 //   - [AVCaptureDeviceFormat.MinSimulatedAperture]: Minimum supported shallow depth of field simulated aperture.
 //   - [AVCaptureDeviceFormat.MaxSimulatedAperture]: Maximum supported shallow depth of field simulated aperture.
-//   - [AVCaptureDeviceFormat.VideoMaxZoomFactorForCinematicVideo]: Indicates the maximum zoom factor available for the [videoZoomFactor](<doc://com.apple.avfoundation/documentation/AVFoundation/AVCaptureDevice/videoZoomFactor>) property when Cinematic Video capture is enabled on the device input.
-//   - [AVCaptureDeviceFormat.VideoMinZoomFactorForCinematicVideo]: Indicates the minimum zoom factor available for the [videoZoomFactor](<doc://com.apple.avfoundation/documentation/AVFoundation/AVCaptureDevice/videoZoomFactor>) property when Cinematic Video capture is enabled on the device input.
+//   - [AVCaptureDeviceFormat.VideoMaxZoomFactorForCinematicVideo]: Indicates the maximum zoom factor available for the [videoZoomFactor](<https://developer.apple.com/documentation/AVFoundation/AVCaptureDevice/videoZoomFactor>) property when Cinematic Video capture is enabled on the device input.
+//   - [AVCaptureDeviceFormat.VideoMinZoomFactorForCinematicVideo]: Indicates the minimum zoom factor available for the [videoZoomFactor](<https://developer.apple.com/documentation/AVFoundation/AVCaptureDevice/videoZoomFactor>) property when Cinematic Video capture is enabled on the device input.
 //   - [AVCaptureDeviceFormat.VideoFrameRateRangeForCinematicVideo]: Indicates the minimum / maximum frame rates available when Cinematic Video capture is enabled on the device input.
 //
 // # Determining lens smudge detection support
@@ -189,8 +189,8 @@ func AVCaptureDeviceFormatFromID(id objc.ID) AVCaptureDeviceFormat {
 //   - [IAVCaptureDeviceFormat.DefaultSimulatedAperture]: Default shallow depth of field simulated aperture.
 //   - [IAVCaptureDeviceFormat.MinSimulatedAperture]: Minimum supported shallow depth of field simulated aperture.
 //   - [IAVCaptureDeviceFormat.MaxSimulatedAperture]: Maximum supported shallow depth of field simulated aperture.
-//   - [IAVCaptureDeviceFormat.VideoMaxZoomFactorForCinematicVideo]: Indicates the maximum zoom factor available for the [videoZoomFactor](<doc://com.apple.avfoundation/documentation/AVFoundation/AVCaptureDevice/videoZoomFactor>) property when Cinematic Video capture is enabled on the device input.
-//   - [IAVCaptureDeviceFormat.VideoMinZoomFactorForCinematicVideo]: Indicates the minimum zoom factor available for the [videoZoomFactor](<doc://com.apple.avfoundation/documentation/AVFoundation/AVCaptureDevice/videoZoomFactor>) property when Cinematic Video capture is enabled on the device input.
+//   - [IAVCaptureDeviceFormat.VideoMaxZoomFactorForCinematicVideo]: Indicates the maximum zoom factor available for the [videoZoomFactor](<https://developer.apple.com/documentation/AVFoundation/AVCaptureDevice/videoZoomFactor>) property when Cinematic Video capture is enabled on the device input.
+//   - [IAVCaptureDeviceFormat.VideoMinZoomFactorForCinematicVideo]: Indicates the minimum zoom factor available for the [videoZoomFactor](<https://developer.apple.com/documentation/AVFoundation/AVCaptureDevice/videoZoomFactor>) property when Cinematic Video capture is enabled on the device input.
 //   - [IAVCaptureDeviceFormat.VideoFrameRateRangeForCinematicVideo]: Indicates the minimum / maximum frame rates available when Cinematic Video capture is enabled on the device input.
 //
 // # Determining lens smudge detection support
@@ -280,9 +280,9 @@ type IAVCaptureDeviceFormat interface {
 	MinSimulatedAperture() float32
 	// Maximum supported shallow depth of field simulated aperture.
 	MaxSimulatedAperture() float32
-	// Indicates the maximum zoom factor available for the [videoZoomFactor](<doc://com.apple.avfoundation/documentation/AVFoundation/AVCaptureDevice/videoZoomFactor>) property when Cinematic Video capture is enabled on the device input.
+	// Indicates the maximum zoom factor available for the [videoZoomFactor](<https://developer.apple.com/documentation/AVFoundation/AVCaptureDevice/videoZoomFactor>) property when Cinematic Video capture is enabled on the device input.
 	VideoMaxZoomFactorForCinematicVideo() float64
-	// Indicates the minimum zoom factor available for the [videoZoomFactor](<doc://com.apple.avfoundation/documentation/AVFoundation/AVCaptureDevice/videoZoomFactor>) property when Cinematic Video capture is enabled on the device input.
+	// Indicates the minimum zoom factor available for the [videoZoomFactor](<https://developer.apple.com/documentation/AVFoundation/AVCaptureDevice/videoZoomFactor>) property when Cinematic Video capture is enabled on the device input.
 	VideoMinZoomFactorForCinematicVideo() float64
 	// Indicates the minimum / maximum frame rates available when Cinematic Video capture is enabled on the device input.
 	VideoFrameRateRangeForCinematicVideo() IAVFrameRateRange

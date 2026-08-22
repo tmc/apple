@@ -76,6 +76,7 @@ func (w WKWebViewConfiguration) SetAllowsPictureInPictureMediaPlayback(value boo
 //
 // See: https://developer.apple.com/documentation/WebKit/WKWebViewConfiguration/dataDetectorTypes
 //
+// [WKDataDetectorTypeNone]: https://developer.apple.com/documentation/WebKit/WKDataDetectorTypes/WKDataDetectorTypeNone
 // [WKDataDetectorTypes]: https://developer.apple.com/documentation/WebKit/WKDataDetectorTypes
 func (w WKWebViewConfiguration) DataDetectorTypes() WKDataDetectorTypes {
 	rv := objc.Send[WKDataDetectorTypes](w.ID, objc.Sel("dataDetectorTypes"))
@@ -92,10 +93,11 @@ func (w WKWebViewConfiguration) SetDataDetectorTypes(value WKDataDetectorTypes) 
 //
 // The value is one of the constants of the enumerated type
 // [WKSelectionGranularity]. The default value is
-// [WKSelectionGranularityDynamic].
+// [WKSelectionGranularity.dynamic].
 //
 // See: https://developer.apple.com/documentation/WebKit/WKWebViewConfiguration/selectionGranularity
 //
+// [WKSelectionGranularity.dynamic]: https://developer.apple.com/documentation/WebKit/WKSelectionGranularity/dynamic
 // [WKSelectionGranularity]: https://developer.apple.com/documentation/WebKit/WKSelectionGranularity
 func (w WKWebViewConfiguration) SelectionGranularity() WKSelectionGranularity {
 	rv := objc.Send[WKSelectionGranularity](w.ID, objc.Sel("selectionGranularity"))

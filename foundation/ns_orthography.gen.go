@@ -87,6 +87,10 @@ func (nc NSOrthographyClass) Alloc() NSOrthography {
 //   - [NSOrthography.AllScripts]: The scripts appearing as keys in the language map.
 //   - [NSOrthography.AllLanguages]: The languages appearing in values of the language map.
 //
+// # Initializers
+//
+//   - [NSOrthography.InitWithCoder]
+//
 // See: https://developer.apple.com/documentation/Foundation/NSOrthography
 //
 // [Internationalization and Localization Guide]: https://developer.apple.com/library/archive/documentation/MacOSX/Conceptual/BPInternational/Introduction/Introduction.html#//apple_ref/doc/uid/10000171i
@@ -122,10 +126,13 @@ func NSOrthographyFromID(id objc.ID) NSOrthography {
 //   - [INSOrthography.AllScripts]: The scripts appearing as keys in the language map.
 //   - [INSOrthography.AllLanguages]: The languages appearing in values of the language map.
 //
+// # Initializers
+//
+//   - [INSOrthography.InitWithCoder]
+//
 // See: https://developer.apple.com/documentation/Foundation/NSOrthography
 type INSOrthography interface {
 	objectivec.IObject
-	NSSecureCoding
 
 	// Topic: Creating Orthography Objects
 
@@ -148,6 +155,13 @@ type INSOrthography interface {
 	AllScripts() []string
 	// The languages appearing in values of the language map.
 	AllLanguages() []string
+
+	// Topic: Initializers
+
+	InitWithCoder(coder INSCoder) NSOrthography
+
+	// Encodes the receiver using a given archiver.
+	EncodeWithCoder(coder INSCoder)
 }
 
 // Init initializes the instance.

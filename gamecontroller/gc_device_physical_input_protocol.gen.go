@@ -19,7 +19,10 @@ type GCDevicePhysicalInput interface {
 	// Returns the next input state from the queue.
 	//
 	// See: https://developer.apple.com/documentation/GameController/GCDevicePhysicalInput/nextInputState()
-	NextInputState() objectivec.IObject
+	NextInputState() interface {
+		GCDevicePhysicalInputState
+		GCDevicePhysicalInputStateDiff
+	}
 
 	// Returns a snapshot of the physical device inputs.
 	//
@@ -72,9 +75,20 @@ func GCDevicePhysicalInputObjectFromID(id objc.ID) GCDevicePhysicalInputObject {
 // This method removes the next input state from the queue.
 //
 // See: https://developer.apple.com/documentation/GameController/GCDevicePhysicalInput/nextInputState()
-func (o GCDevicePhysicalInputObject) NextInputState() objectivec.IObject {
+func (o GCDevicePhysicalInputObject) NextInputState() interface {
+	GCDevicePhysicalInputState
+	GCDevicePhysicalInputStateDiff
+} {
 	rv := objc.Send[objc.ID](o.ID, objc.Sel("nextInputState"))
-	return objectivec.Object{ID: rv}
+	return struct {
+		objectivec.Object
+		GCDevicePhysicalInputStateObject
+		GCDevicePhysicalInputStateDiffObject
+	}{
+		Object:                               objectivec.ObjectFromID(rv),
+		GCDevicePhysicalInputStateObject:     GCDevicePhysicalInputStateObjectFromID(rv),
+		GCDevicePhysicalInputStateDiffObject: GCDevicePhysicalInputStateDiffObjectFromID(rv),
+	}
 }
 
 // Returns a snapshot of the physical device inputs.

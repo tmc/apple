@@ -3,9 +3,7 @@
 package foundation
 
 import (
-	"errors"
 	"sync"
-	"unsafe"
 
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
@@ -111,7 +109,6 @@ func (dc DateFormatterClass) Alloc() DateFormatter {
 //
 //   - [DateFormatter.DateFromString]: Returns a date representation of a specified string that the system interprets using the receiver’s current settings.
 //   - [DateFormatter.StringFromDate]: Returns a string representation of a specified date that the system formats using the receiver’s current settings.
-//   - [DateFormatter.GetObjectValueForStringRangeError]: Returns by reference a date representation of a specified string and its date range, as well as a Boolean value that indicates whether the system can parse the string.
 //
 // # Managing Formats and Styles
 //
@@ -238,7 +235,6 @@ func NSDateFormatterFromID(id objc.ID) DateFormatter { return DateFormatterFromI
 //
 //   - [IDateFormatter.DateFromString]: Returns a date representation of a specified string that the system interprets using the receiver’s current settings.
 //   - [IDateFormatter.StringFromDate]: Returns a string representation of a specified date that the system formats using the receiver’s current settings.
-//   - [IDateFormatter.GetObjectValueForStringRangeError]: Returns by reference a date representation of a specified string and its date range, as well as a Boolean value that indicates whether the system can parse the string.
 //
 // # Managing Formats and Styles
 //
@@ -349,8 +345,6 @@ type IDateFormatter interface {
 	DateFromString(string_ string) INSDate
 	// Returns a string representation of a specified date that the system formats using the receiver’s current settings.
 	StringFromDate(date INSDate) string
-	// Returns by reference a date representation of a specified string and its date range, as well as a Boolean value that indicates whether the system can parse the string.
-	GetObjectValueForStringRangeError(obj []objectivec.IObject, string_ string, rangep NSRange) (bool, error)
 
 	// Topic: Managing Formats and Styles
 
@@ -558,35 +552,6 @@ func (d DateFormatter) DateFromString(string_ string) INSDate {
 func (d DateFormatter) StringFromDate(date INSDate) string {
 	rv := objc.Send[objc.ID](d.ID, objc.Sel("stringFromDate:"), date)
 	return NSStringFromID(rv).String()
-}
-
-// Returns by reference a date representation of a specified string and its
-// date range, as well as a Boolean value that indicates whether the system
-// can parse the string.
-//
-// obj: If the receiver is able to parse `string`, upon return contains a date
-// representation of `string`.
-//
-// string: The string to parse.
-//
-// rangep: If the receiver is able to parse `string`, upon return contains the range
-// of `string` used to create the date.
-//
-// # Discussion
-//
-// See: https://developer.apple.com/documentation/Foundation/DateFormatter/getObjectValue(_:for:range:)
-func (d DateFormatter) GetObjectValueForStringRangeError(obj []objectivec.IObject, string_ string, rangep NSRange) (bool, error) {
-	var errorPtr objc.ID
-	rv := objc.Send[bool](d.ID, objc.Sel("getObjectValue:forString:range:error:"), objectivec.IObjectSliceToNSArray(obj), objc.String(string_), rangep, unsafe.Pointer(&errorPtr))
-	if errorPtr != 0 {
-		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
-		return false, NSErrorFrom(errorPtr)
-	}
-	if !rv {
-		return false, errors.New("getObjectValue:forString:range:error: returned NO with nil NSError")
-	}
-	return rv, nil
-
 }
 
 // Sets the date format from a template using the specified locale for the

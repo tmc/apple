@@ -147,7 +147,7 @@ func (p NEPacketTunnelFlow) WritePacketObjects(packets []NEPacket) bool {
 // are passed to this block in the `protocols` array. Each packet has a
 // protocol number in the corresponding index in the `protocols` array. The
 // protocol numbers are given in host byte order. Valid protocol numbers
-// include `AF_INET` and `AF_INET6`. See `/usr/include/sys/socket.H()`.
+// include `AF_INET` and `AF_INET6`. See `/usr/include/sys/socket.h`.
 //
 // # Discussion
 //
