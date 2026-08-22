@@ -1,0 +1,332 @@
+package e5rt
+
+import (
+	"errors"
+	"fmt"
+	"os"
+	"sync"
+	"unsafe"
+)
+
+// A Port describes one externally bound program port.
+//
+// Size is the number of bytes the program reads or writes. The caller is
+// responsible for using the representation the MIL program declares.
+type Port struct {
+	Name string
+	Size int
+}
+
+// ProgramOptions describes a single-function E5RT program.
+//
+// ModelPath names the MIL program to compile. CacheDir receives the compiler's
+// bundles. Inputs and Outputs name the function's externally bound ports.
+// FunctionName defaults to "main", DeviceMask defaults to [ComputeDeviceANE],
+// and Segmenter defaults to "graph".
+//
+// A Program has one encoded operation. It deliberately does not expose E5RT's
+// reset, prepare, events, or multi-operation interfaces: their useful behavior
+// has not been established by this package.
+type ProgramOptions struct {
+	ModelPath string
+	CacheDir  string
+
+	FunctionName string
+	DeviceMask   uint64
+	Segmenter    string
+
+	ForceRecompilation bool
+	Inputs             []Port
+	Outputs            []Port
+}
+
+// A Buffer is the host-visible storage bound to one [Program] port.
+//
+// Bytes remains valid until the Program is closed. Execute serializes with
+// Close, but callers must not read or write Bytes while another goroutine calls
+// Execute.
+type Buffer struct {
+	data []byte
+}
+
+// Bytes returns the storage bound to the port.
+func (b *Buffer) Bytes() []byte {
+	if b == nil {
+		return nil
+	}
+	return b.data
+}
+
+// A Program is a compiled, bound, and encoded E5RT function.
+//
+// The zero value is not usable. Programs are not safe for concurrent use.
+// Call [Program.Close] when finished.
+type Program struct {
+	mu     sync.Mutex
+	lib    *Lib
+	closed bool
+
+	config    uintptr
+	compiler  uintptr
+	options   uintptr
+	library   uintptr
+	function  uintptr
+	opOptions uintptr
+	op        uintptr
+	stream    uintptr
+
+	inputs  map[string]*programPort
+	outputs map[string]*programPort
+}
+
+type programPort struct {
+	port   uintptr
+	buffer uintptr
+	data   Buffer
+}
+
+// Compile compiles, binds, and encodes one E5RT function.
+//
+// Execute may then be called repeatedly after changing the input buffers. The
+// result is a single encoded operation; Compile does not add an operation to an
+// existing stream or plan a multi-function graph.
+func Compile(opts ProgramOptions) (_ *Program, err error) {
+	if err := validateProgramOptions(&opts); err != nil {
+		return nil, err
+	}
+	if err := os.MkdirAll(opts.CacheDir, 0o755); err != nil {
+		return nil, fmt.Errorf("create cache directory: %w", err)
+	}
+
+	lib, err := Open()
+	if err != nil {
+		return nil, fmt.Errorf("open e5rt: %w", err)
+	}
+	p := &Program{
+		lib:     lib,
+		inputs:  make(map[string]*programPort, len(opts.Inputs)),
+		outputs: make(map[string]*programPort, len(opts.Outputs)),
+	}
+	defer func() {
+		if err != nil {
+			err = errors.Join(err, p.Close())
+		}
+	}()
+
+	if p.config, err = lib.CompilerConfigOptionsCreate(); err != nil {
+		return nil, fmt.Errorf("create compiler config: %w", err)
+	}
+	if err := lib.CompilerConfigOptionsSetCacheBundleLocation(p.config, opts.CacheDir); err != nil {
+		return nil, fmt.Errorf("set cache location: %w", err)
+	}
+	if p.compiler, err = lib.CompilerCreateWithConfig(p.config); err != nil {
+		return nil, fmt.Errorf("create compiler: %w", err)
+	}
+	if p.options, err = lib.CompilerOptionsCreate(); err != nil {
+		return nil, fmt.Errorf("create compiler options: %w", err)
+	}
+	if err := lib.CompilerOptionsSetComputeDeviceTypesMask(p.options, opts.DeviceMask); err != nil {
+		return nil, fmt.Errorf("set device mask: %w", err)
+	}
+	if err := lib.CompilerOptionsSetForceRecompilation(p.options, opts.ForceRecompilation); err != nil {
+		return nil, fmt.Errorf("set force recompilation: %w", err)
+	}
+	if err := lib.CompilerOptionsSetSegmenter(p.options, opts.Segmenter); err != nil {
+		return nil, fmt.Errorf("set segmenter: %w", err)
+	}
+	if p.library, err = lib.CompilerCompile(p.compiler, opts.ModelPath, p.options); err != nil {
+		return nil, fmt.Errorf("compile model: %w", err)
+	}
+	if p.function, err = lib.ProgramLibraryRetainProgramFunction(p.library, opts.FunctionName); err != nil {
+		return nil, fmt.Errorf("retain function %q: %w", opts.FunctionName, err)
+	}
+	if p.opOptions, err = lib.PrecompiledComputeOpOptionsCreate(p.function); err != nil {
+		return nil, fmt.Errorf("create operation options: %w", err)
+	}
+	if err := lib.PrecompiledComputeOpOptionsSetOperationName(p.opOptions, opts.FunctionName); err != nil {
+		return nil, fmt.Errorf("set operation name: %w", err)
+	}
+	if err := lib.PrecompiledComputeOpOptionsSetAllocateIntermediateBuffers(p.opOptions, true); err != nil {
+		return nil, fmt.Errorf("allocate intermediate buffers: %w", err)
+	}
+	if p.op, err = lib.OperationCreatePrecompiled(p.opOptions); err != nil {
+		return nil, fmt.Errorf("create operation: %w", err)
+	}
+	for _, spec := range opts.Inputs {
+		port, err := p.bind(spec, true)
+		if err != nil {
+			return nil, err
+		}
+		p.inputs[spec.Name] = port
+	}
+	for _, spec := range opts.Outputs {
+		port, err := p.bind(spec, false)
+		if err != nil {
+			return nil, err
+		}
+		p.outputs[spec.Name] = port
+	}
+	if p.stream, err = lib.ExecutionStreamCreate(); err != nil {
+		return nil, fmt.Errorf("create execution stream: %w", err)
+	}
+	if err := lib.EncodeOperation(p.stream, p.op); err != nil {
+		return nil, fmt.Errorf("encode operation: %w", err)
+	}
+	return p, nil
+}
+
+func validateProgramOptions(opts *ProgramOptions) error {
+	if opts.ModelPath == "" {
+		return errors.New("e5rt: empty model path")
+	}
+	if opts.CacheDir == "" {
+		return errors.New("e5rt: empty cache directory")
+	}
+	if opts.FunctionName == "" {
+		opts.FunctionName = "main"
+	}
+	if opts.DeviceMask == 0 {
+		opts.DeviceMask = ComputeDeviceANE
+	}
+	if opts.Segmenter == "" {
+		opts.Segmenter = "graph"
+	}
+	seen := make(map[string]bool, len(opts.Inputs)+len(opts.Outputs))
+	for _, ports := range [][]Port{opts.Inputs, opts.Outputs} {
+		for _, port := range ports {
+			if port.Name == "" {
+				return errors.New("e5rt: empty port name")
+			}
+			if port.Size <= 0 {
+				return fmt.Errorf("e5rt: port %q has non-positive size", port.Name)
+			}
+			if seen[port.Name] {
+				return fmt.Errorf("e5rt: duplicate port %q", port.Name)
+			}
+			seen[port.Name] = true
+		}
+	}
+	return nil
+}
+
+func (p *Program) bind(spec Port, input bool) (*programPort, error) {
+	var (
+		port uintptr
+		err  error
+	)
+	if input {
+		port, err = p.lib.OperationRetainInputPort(p.op, spec.Name)
+	} else {
+		port, err = p.lib.OperationRetainOutputPort(p.op, spec.Name)
+	}
+	if err != nil {
+		return nil, fmt.Errorf("retain port %q: %w", spec.Name, err)
+	}
+	result := &programPort{port: port}
+	size := max((spec.Size+63)&^63, 64)
+	if result.buffer, err = p.lib.BufferObjectAlloc(uintptr(size), 0); err != nil {
+		_ = p.lib.IOPortRelease(result.port)
+		return nil, fmt.Errorf("allocate buffer for port %q: %w", spec.Name, err)
+	}
+	ptr, err := p.lib.BufferObjectGetDataPtr(result.buffer)
+	if err != nil {
+		_ = p.lib.BufferObjectRelease(result.buffer)
+		_ = p.lib.IOPortRelease(result.port)
+		return nil, fmt.Errorf("get buffer address for port %q: %w", spec.Name, err)
+	}
+	if err := p.lib.IOPortBindBufferObject(result.port, result.buffer); err != nil {
+		_ = p.lib.BufferObjectRelease(result.buffer)
+		_ = p.lib.IOPortRelease(result.port)
+		return nil, fmt.Errorf("bind buffer for port %q: %w", spec.Name, err)
+	}
+	result.data.data = unsafe.Slice((*byte)(pointerAt(ptr)), spec.Size)
+	return result, nil
+}
+
+// Input returns the buffer bound to the named input port.
+func (p *Program) Input(name string) (*Buffer, error) {
+	p.mu.Lock()
+	defer p.mu.Unlock()
+	if p.closed {
+		return nil, errors.New("e5rt: program is closed")
+	}
+	port, ok := p.inputs[name]
+	if !ok {
+		return nil, fmt.Errorf("e5rt: input port %q not found", name)
+	}
+	return &port.data, nil
+}
+
+// Output returns the buffer bound to the named output port.
+func (p *Program) Output(name string) (*Buffer, error) {
+	p.mu.Lock()
+	defer p.mu.Unlock()
+	if p.closed {
+		return nil, errors.New("e5rt: program is closed")
+	}
+	port, ok := p.outputs[name]
+	if !ok {
+		return nil, fmt.Errorf("e5rt: output port %q not found", name)
+	}
+	return &port.data, nil
+}
+
+// Execute synchronously runs the encoded operation.
+func (p *Program) Execute() error {
+	p.mu.Lock()
+	defer p.mu.Unlock()
+	if p.closed {
+		return errors.New("e5rt: program is closed")
+	}
+	if err := p.lib.ExecuteSync(p.stream); err != nil {
+		return fmt.Errorf("execute program: %w", err)
+	}
+	return nil
+}
+
+// Close releases the E5RT objects owned by p. It is safe to call Close more
+// than once. Any buffers returned by Input or Output become invalid on return.
+func (p *Program) Close() error {
+	if p == nil {
+		return nil
+	}
+	p.mu.Lock()
+	defer p.mu.Unlock()
+	if p.closed {
+		return nil
+	}
+	p.closed = true
+	var errs []error
+	release := func(name string, handle *uintptr, f func(uintptr) error) {
+		if *handle == 0 {
+			return
+		}
+		if err := f(*handle); err != nil {
+			errs = append(errs, fmt.Errorf("release %s: %w", name, err))
+		}
+		*handle = 0
+	}
+	release("stream", &p.stream, p.lib.ExecutionStreamRelease)
+	for _, port := range p.inputs {
+		release("input port", &port.port, p.lib.IOPortRelease)
+		release("input buffer", &port.buffer, p.lib.BufferObjectRelease)
+		port.data.data = nil
+	}
+	for _, port := range p.outputs {
+		release("output port", &port.port, p.lib.IOPortRelease)
+		release("output buffer", &port.buffer, p.lib.BufferObjectRelease)
+		port.data.data = nil
+	}
+	release("operation", &p.op, p.lib.OperationRelease)
+	release("operation options", &p.opOptions, p.lib.PrecompiledComputeOpOptionsRelease)
+	release("function", &p.function, p.lib.ProgramFunctionRelease)
+	release("library", &p.library, p.lib.ProgramLibraryRelease)
+	release("compiler options", &p.options, p.lib.CompilerOptionsRelease)
+	release("compiler", &p.compiler, p.lib.CompilerRelease)
+	release("compiler config", &p.config, p.lib.CompilerConfigOptionsRelease)
+	return errors.Join(errs...)
+}
+
+func pointerAt(addr uintptr) unsafe.Pointer {
+	return *(*unsafe.Pointer)(unsafe.Pointer(&addr))
+}

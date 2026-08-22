@@ -6,6 +6,8 @@
 // program, bind a buffer object to each named I/O port, then encode the loaded
 // program into an execution stream and submit it. Compile and load run once;
 // bind and dispatch run in the hot loop.
+// [Compile] packages that established single-function route for callers that
+// need host-visible input and output buffers.
 //
 // # Status of this binding
 //
@@ -47,6 +49,12 @@
 // returns immediately on an unreached event and is not a barrier. Completion
 // events under submit_async are probed separately; use [Lib.SubmitAsync]'s
 // completion function for blocking completion.
+//
+// A zero status means only that an E5RT entry point accepted the call. It is
+// not, by itself, evidence that the operation had its apparent effect:
+// [Lib.PrepareOpForEncode] and [Lib.AsyncEventSetActiveFutureValue] both return
+// zero while failing to do so. Treat an effect as established only where the
+// wrapper documentation names a control that observed it.
 //
 // Every name in [Symbols] now has a wrapper that has been called, save
 // e5rt_e5_compiler_is_new_compile_required, which is listed so the probe reports

@@ -207,8 +207,9 @@ func (l *Lib) Resolved() []string {
 	return names
 }
 
-// Status is the int64 error code every e5rt_* entry point returns. Zero is
-// success. The meaning of nonzero values is not documented and has not been
+// Status is the int64 code every e5rt_* entry point returns. A zero code means
+// the entry point accepted the call, not necessarily that it had its apparent
+// effect. The meaning of nonzero values is not documented and has not been
 // recovered; [Status.Err] reports the raw code.
 type Status int64
 
