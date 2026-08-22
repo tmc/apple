@@ -38,8 +38,25 @@
 //   - [Lib.SubmitAsync] works. It needs a real Objective-C block, which
 //     [objc.NewBlock] supplies, and the completion block runs.
 //
-// Only the event calls have still never been called from Go. A wrapper's doc
-// comment names the evidence behind it; where it cites only ANEForge, that is
+// The event family has since been wrapped and driven too, and the result is
+// mostly negative. Building the graph works: a completion event binds to an
+// operation, that event binds as a second operation's dependency, and the pair
+// encodes and dispatches correctly, while an operation given its own event is
+// refused. Observing progress does not work. No call reachable from here moves
+// an event's value, and [Lib.AsyncEventSyncWait] returns immediately on an event
+// whose work was deliberately never submitted, so the value staying at zero is
+// an inert reader rather than a silent engine. ANEForge's report that events
+// advance under submit_async is not reproduced, and this package does not claim
+// the opposite either; see [Lib.AsyncEventLastSignaledValue]. Use
+// [Lib.SubmitAsync]'s completion function for completion.
+//
+// Every name in [Symbols] now has a wrapper that has been called, save
+// e5rt_e5_compiler_is_new_compile_required, which is listed so the probe reports
+// on it but has no argument list anywhere consulted. Being called is not the
+// same as being understood: [Lib.CompilerOptionsSetCustomANECompilerOptions]
+// runs and returns zero without any observable effect, and the event family is
+// as described above. A wrapper's doc comment names the evidence behind it and
+// says where that evidence runs out; where it cites only ANEForge, that is
 // outside evidence and nothing more.
 //
 // Every argument list here comes from one of two outside sources, and each doc

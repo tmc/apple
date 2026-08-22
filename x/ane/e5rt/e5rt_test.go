@@ -49,7 +49,9 @@ func TestLookupReachesOutsideSymbols(t *testing.T) {
 	if lib == nil {
 		t.Skipf("Espresso unavailable: %v", err)
 	}
-	const name = "e5rt_async_event_create"
+	// The older submit entry point, which [Lib.SubmitAsync] supersedes: exported
+	// by Espresso, used by nothing here, and deliberately absent from Symbols.
+	const name = "e5rt_execution_stream_async_submit"
 	if _, err := lib.Sym(name); err == nil {
 		t.Fatalf("Sym(%q) resolved; the test needs a name outside Symbols", name)
 	}
@@ -65,6 +67,112 @@ func TestLookupReachesOutsideSymbols(t *testing.T) {
 	}
 	if _, err := lib.Lookup("e5rt_this_symbol_does_not_exist"); err == nil {
 		t.Error("Lookup of a nonexistent name succeeded, want an error")
+	}
+}
+
+// TestAsyncEventCreate drives the parts of the event family that need no model
+// and no Neural Engine work. It records two things the recovered header does not
+// say.
+//
+// The third argument of e5rt_async_event_create, which ANEForge always passes as
+// 0 and calls an initial value, accepts only 0. Every nonzero value is tried
+// under a fresh name, so a rejection is not a name collision, and the names are
+// then reused deliberately to show they are labels rather than keys.
+func TestAsyncEventCreate(t *testing.T) {
+	lib, err := Open()
+	if lib == nil {
+		t.Skipf("Espresso unavailable: %v", err)
+	}
+	event, err := lib.AsyncEventCreate("test")
+	if err != nil {
+		t.Fatalf("AsyncEventCreate: %v", err)
+	}
+	if event == 0 {
+		t.Fatal("AsyncEventCreate returned a null handle with no error")
+	}
+	defer lib.AsyncEventRelease(event)
+
+	if v, err := lib.AsyncEventLastSignaledValue(event); err != nil || v != 0 {
+		t.Errorf("a fresh event reports %d, %v, want 0, nil", v, err)
+	}
+
+	// Two live events sharing a name are two events, so the name is not a key.
+	second, err := lib.AsyncEventCreate("test")
+	if err != nil {
+		t.Fatalf("a second event with the same name: %v", err)
+	}
+	defer lib.AsyncEventRelease(second)
+	if second == event {
+		t.Errorf("two live events named %q share the handle %#x", "test", event)
+	}
+
+	if _, err := lib.AsyncEventCreate(""); err == nil {
+		t.Error("AsyncEventCreate with an empty name succeeded, want an error")
+	}
+}
+
+// TestAsyncEventDoesNotAdvance is the standalone half of the finding recorded on
+// [Lib.AsyncEventLastSignaledValue]: nothing this package can call moves an
+// event's value. It asserts the current behavior rather than the intended one,
+// so it fails loudly if a future macOS makes the family work — which is the
+// point of keeping it.
+func TestAsyncEventDoesNotAdvance(t *testing.T) {
+	lib, err := Open()
+	if lib == nil {
+		t.Skipf("Espresso unavailable: %v", err)
+	}
+	event, err := lib.AsyncEventCreate("test")
+	if err != nil {
+		t.Fatalf("AsyncEventCreate: %v", err)
+	}
+	defer lib.AsyncEventRelease(event)
+
+	if err := lib.AsyncEventSignal(event); err == nil {
+		t.Error("AsyncEventSignal succeeded; the documented behavior is status 2")
+	}
+	// Accepted, and observed to change nothing.
+	if err := lib.AsyncEventSetActiveFutureValue(event, 1); err != nil {
+		t.Errorf("AsyncEventSetActiveFutureValue: %v", err)
+	}
+	if v, err := lib.AsyncEventLastSignaledValue(event); err != nil || v != 0 {
+		t.Errorf("after setting an active future value the event reports %d, %v, want 0, nil", v, err)
+	}
+}
+
+// TestComputeDeviceMaskRoundTrips reads back each mask it writes. The getter
+// and the setter are checked against each other, so this is evidence that the
+// setter stores the value it is given and that both take the mask in the
+// position this package passes it — a wrong argument order would not round-trip.
+//
+// The distinct readings are what make it discriminating: a getter that returned
+// a constant, or a setter that ignored its argument, would collapse them.
+func TestComputeDeviceMaskRoundTrips(t *testing.T) {
+	lib, err := Open()
+	if lib == nil {
+		t.Skipf("Espresso unavailable: %v", err)
+	}
+	options, err := lib.CompilerOptionsCreate()
+	if err != nil {
+		t.Fatalf("CompilerOptionsCreate: %v", err)
+	}
+	defer lib.CompilerOptionsRelease(options)
+
+	seen := make(map[uint64]bool)
+	for _, mask := range []uint64{ComputeDeviceANE, ComputeDeviceCPU, ComputeDeviceGPU, ComputeDeviceCPU | ComputeDeviceANE} {
+		if err := lib.CompilerOptionsSetComputeDeviceTypesMask(options, mask); err != nil {
+			t.Fatalf("set mask %#x: %v", mask, err)
+		}
+		got, err := lib.CompilerOptionsGetComputeDeviceTypesMask(options)
+		if err != nil {
+			t.Fatalf("get mask after setting %#x: %v", mask, err)
+		}
+		if got != mask {
+			t.Errorf("set %#x, read back %#x", mask, got)
+		}
+		seen[got] = true
+	}
+	if len(seen) < 2 {
+		t.Errorf("every mask read back as the same value; the getter cannot discriminate")
 	}
 }
 

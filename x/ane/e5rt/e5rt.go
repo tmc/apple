@@ -68,6 +68,18 @@ var Symbols = []string{
 	"e5rt_execution_stream_submit_async",
 	"e5rt_execution_stream_reset",
 	"e5rt_execution_stream_release",
+	"e5rt_execution_stream_set_quality_of_service",
+	"e5rt_execution_stream_set_ane_execution_priority",
+
+	// Events.
+	"e5rt_async_event_create",
+	"e5rt_async_event_release",
+	"e5rt_async_event_signal",
+	"e5rt_async_event_sync_wait",
+	"e5rt_async_event_get_last_signaled_value",
+	"e5rt_async_event_set_active_future_value",
+	"e5rt_execution_stream_operation_bind_completion_event",
+	"e5rt_execution_stream_operation_bind_dependent_events",
 }
 
 // Compute device bits for [Lib.CompilerOptionsSetComputeDeviceTypesMask]. More
@@ -394,8 +406,17 @@ func (l *Lib) CompilerOptionsSetSegmenter(options uintptr, segmenter string) err
 
 // CompilerOptionsSetCustomANECompilerOptions passes a string through to the
 // Neural Engine compiler. ANEForge uses it for cross-target compile checks
-// (ane_e5rt_dispatch.mm:441); the accepted syntax is not documented anywhere
-// consulted here.
+// (ane_e5rt_dispatch.mm:441) and its Python side gives the syntax as
+// TargetArchitecture=h13 (_runtime.py:102).
+//
+// No effect has been observed here. The call returns zero for every string
+// tried, and the compile that follows succeeds either way: with the documented
+// spelling, with an architecture that does not exist, with an option name that
+// does not exist, and with a string that is not an assignment at all, each
+// against its own cache directory so no result is a previous compile's. Since
+// the negative controls do not fail, nothing separates this call reaching the
+// Neural Engine compiler from it being ignored, and a caller should not treat a
+// successful compile as evidence the option took effect.
 func (l *Lib) CompilerOptionsSetCustomANECompilerOptions(options uintptr, custom string) error {
 	s, p := cstring(custom)
 	err := l.callErr("e5rt_e5_compiler_options_set_custom_ane_compiler_options", options, p)
@@ -775,19 +796,188 @@ func (l *Lib) SubmitAsync(stream uintptr, completion func() Status) (release fun
 	return func() { block.Release() }, nil
 }
 
+// ExecutionStreamSetQualityOfService sets the stream's dispatch quality of
+// service.
+//
+// The signature int64_t(stream, uint64_t) is ANEForge's (e5rt_api.h:116). It
+// has no call site there, so the meaning of the value is outside evidence;
+// what is observed here is only that the call returns zero. Passing a value
+// changes nothing measurable in this package's tests.
+func (l *Lib) ExecutionStreamSetQualityOfService(stream uintptr, qos uint64) error {
+	return l.callErr("e5rt_execution_stream_set_quality_of_service", stream, uintptr(qos))
+}
+
+// ExecutionStreamSetANEExecutionPriority sets the stream's priority on the
+// Neural Engine.
+//
+// The signature int64_t(stream, uint64_t) is ANEForge's (e5rt_api.h:117), with
+// the same caveat as [Lib.ExecutionStreamSetQualityOfService]: no call site,
+// and the value's meaning is unrecovered.
+func (l *Lib) ExecutionStreamSetANEExecutionPriority(stream uintptr, priority uint64) error {
+	return l.callErr("e5rt_execution_stream_set_ane_execution_priority", stream, uintptr(priority))
+}
+
+// AsyncEventCreate creates an async event with the given name, which must not
+// be empty; the callee reports a NULL name as an error. The event starts at
+// zero, and [Lib.AsyncEventLastSignaledValue] counts up from there.
+//
+// The name is a label, not a key. Two events created with the same name while
+// both are live are two distinct events with distinct handles.
+//
+// ANEForge CALL SITE (ane_e5rt_dispatch.mm:584): out-parameter first, then the
+// name, then a third argument it always passes as 0 and describes as an initial
+// value. That description is not confirmed here and this wrapper does not expose
+// it: on macOS 26.x every nonzero third argument tried (1, 2, 7, each with a
+// fresh name, so a name collision is ruled out) is rejected with status 1, and 0
+// succeeds. Since no value that would distinguish an initial count from a flags
+// word is accepted, the parameter's meaning is unrecovered and only its one
+// working value is passed.
+func (l *Lib) AsyncEventCreate(name string) (uintptr, error) {
+	if name == "" {
+		return 0, fmt.Errorf("e5rt: async event requires a name")
+	}
+	out := newOut()
+	buf, p := cstring(name)
+	err := l.callErr("e5rt_async_event_create", uintptr(unsafe.Pointer(out)), p, 0)
+	event := *out
+	runtime.KeepAlive(out)
+	runtime.KeepAlive(buf)
+	return event, err
+}
+
+// AsyncEventRelease releases an async event (ane_e5rt_dispatch.mm:326). Like
+// the other release entry points it takes the address of the handle.
+func (l *Lib) AsyncEventRelease(event uintptr) error {
+	return l.release("e5rt_async_event_release", event)
+}
+
+// AsyncEventSignal would signal an event from the host. It does not work on
+// macOS 26.x and is wrapped only so that the finding has somewhere to live.
+//
+// The signature int64_t(event) is ANEForge's (e5rt_api.h:124). ANEForge
+// declares it but never resolves or calls it. It does resolve here, and it
+// returns status 2 in every position tried: on a fresh event, on one whose
+// active future value was just set, and on one bound to an encoded operation.
+// See [Lib.AsyncEventLastSignaledValue] for what that means for the family as a
+// whole.
+func (l *Lib) AsyncEventSignal(event uintptr) error {
+	return l.callErr("e5rt_async_event_signal", event)
+}
+
+// AsyncEventSyncWait is documented by ANEForge as blocking until the event is
+// signaled. It does not block on macOS 26.x. Do not use it as a barrier.
+//
+// The signature int64_t(event) is ANEForge's (e5rt_api.h:125, call site
+// ane_e5rt_dispatch.mm:974). What is observed here is that it returns zero
+// immediately even when it must not: bound to an operation that is encoded and
+// deliberately never submitted, it returns at once rather than waiting the three
+// seconds the probe allows. See [Lib.AsyncEventLastSignaledValue].
+func (l *Lib) AsyncEventSyncWait(event uintptr) error {
+	return l.callErr("e5rt_async_event_sync_wait", event)
+}
+
+// AsyncEventLastSignaledValue reports how many times the event has been
+// signaled. It has never been observed to report anything but zero.
+//
+// The signature int64_t(event, uint64_t *out) is ANEForge's (e5rt_api.h:126,
+// call site ane_e5rt_dispatch.mm:876): object first, out-parameter last, which
+// is this package's rule for a method on an existing object.
+//
+// # The event family does nothing observable here
+//
+// ANEForge reports that a completion event advances only under submit_async
+// (docs/e5rt-dispatch-reference.md:311-317). On macOS 26.x it does not advance
+// there either. With the event created and bound before the stream exists,
+// which is ANEForge's own ordering, and with the two paths differing in nothing
+// but the submit call, the value reads zero after [Lib.ExecuteSync] and zero
+// after [Lib.SubmitAsync] — the latter read taken after the completion block has
+// run and after a wait.
+//
+// A zero from a reader that has never returned anything else is not a
+// measurement, so that pair is reported as what it is. There is no way from here
+// to make the value move: [Lib.AsyncEventSignal] is refused, and
+// [Lib.AsyncEventSetActiveFutureValue] returns success and changes nothing. What
+// settles it is [Lib.AsyncEventSyncWait], which returns immediately on an event
+// bound to an operation that is encoded and never submitted. A live event would
+// have to block there. So the reading is inert rather than the engine being
+// silent, and this package makes no claim about whether the engine signals.
+//
+// What does work is the shape of the graph rather than its progress:
+// [Lib.OperationBindCompletionEvent] and [Lib.OperationBindDependentEvents]
+// accept a chain across two operations, which then encodes and dispatches
+// correctly, and the latter rejects a cycle with status 2. That rejection is the
+// control proving those calls inspect their arguments rather than accepting
+// anything.
+func (l *Lib) AsyncEventLastSignaledValue(event uintptr) (uint64, error) {
+	out := newOut()
+	err := l.callErr("e5rt_async_event_get_last_signaled_value", event, uintptr(unsafe.Pointer(out)))
+	v := uint64(*out)
+	runtime.KeepAlive(out)
+	return v, err
+}
+
+// AsyncEventSetActiveFutureValue sets the value the event is expected to reach.
+//
+// The signature int64_t(event, uint64_t) is ANEForge's (e5rt_api.h:127). It is
+// resolved and declared there but never called, so its effect is unrecovered.
+func (l *Lib) AsyncEventSetActiveFutureValue(event uintptr, value uint64) error {
+	return l.callErr("e5rt_async_event_set_active_future_value", event, uintptr(value))
+}
+
+// OperationBindCompletionEvent binds an event that the operation signals when
+// it finishes. Bind it before encoding the operation.
+//
+// The signature int64_t(operation, event) is ANEForge's (e5rt_api.h:90, call
+// site ane_e5rt_dispatch.mm:586).
+//
+// Binding succeeds and the operation then encodes and dispatches normally. The
+// event it signals, however, has never been seen to advance on either submit
+// path; see [Lib.AsyncEventLastSignaledValue] before relying on one. Use
+// [Lib.SubmitAsync]'s completion function to learn that work finished.
+func (l *Lib) OperationBindCompletionEvent(op, event uintptr) error {
+	return l.callErr("e5rt_execution_stream_operation_bind_completion_event", op, event)
+}
+
+// OperationBindDependentEvents makes the operation wait for each of the given
+// events before it runs. Bind them before encoding the operation. Chaining two
+// operations means binding a completion event to the first with
+// [Lib.OperationBindCompletionEvent] and passing that same event here to the
+// second.
+//
+// The signature int64_t(operation, void **events, uint64_t count) is ANEForge's
+// (e5rt_api.h:91, call site ane_e5rt_dispatch.mm:865).
+//
+// A chain across two operations over the same compiled function is accepted
+// here, and the stream then encodes both and dispatches correctly. An operation
+// given its own completion event is rejected with status 2, which is the control
+// showing the call inspects what it is passed.
+//
+// That the call accepts a chain is not evidence that it enforces one. ANEForge
+// reports that [Lib.ExecuteSync] serializes a stream's operations in submission
+// order regardless of what is bound here, so on that path a dependency cannot be
+// distinguished from the ordering that would happen anyway; it says the ordering
+// has been confirmed only on the asynchronous path. Nothing here separates the
+// two, since the events this would work through do not advance.
+func (l *Lib) OperationBindDependentEvents(op uintptr, events []uintptr) error {
+	if len(events) == 0 {
+		return fmt.Errorf("e5rt: bind_dependent_events requires at least one event")
+	}
+	buf := append([]uintptr(nil), events...)
+	err := l.callErr("e5rt_execution_stream_operation_bind_dependent_events",
+		op, uintptr(unsafe.Pointer(&buf[0])), uintptr(len(buf)))
+	runtime.KeepAlive(buf)
+	return err
+}
+
 // Deliberately unwrapped:
 //
 //   - e5rt_e5_compiler_is_new_compile_required is named only in the paper's
 //     phase table, with no call site and no argument list anywhere in the text,
 //     and does not appear in ANEForge at all.
 //
-// The following are exported by Espresso and used by ANEForge but not listed in
-// [Symbols]; reach them with [Lib.Lookup] and supply your own convention:
-// the async event family (e5rt_async_event_create and friends), the operation
-// event bindings (e5rt_execution_stream_operation_bind_completion_event,
-// _bind_dependent_events), and the stream scheduling setters
-// (e5rt_execution_stream_set_quality_of_service,
-// _set_ane_execution_priority). The events are omitted because ANEForge reports
-// they advance only under submit_async
-// (docs/e5rt-dispatch-reference.md:313-317), which this package does not wrap,
-// so wrapping them would ship an inert API.
+//   - e5rt_execution_stream_async_submit answers "Use submit_async" and is
+//     superseded by [Lib.SubmitAsync].
+//
+// Espresso exports on the order of two hundred e5rt_* names and [Symbols] lists
+// only the ones documented here; reach the rest with [Lib.Lookup] and supply
+// your own convention.

@@ -108,15 +108,24 @@ fatal and `recover` cannot see it, so a crash here would be a real result.
 This example is what took the package from "every symbol resolves" to "the route
 runs". The calls it does not make are covered by `TestUnverifiedCalls` in
 `x/ane/e5rt`, which runs each in its own process because two of them abort.
-Only asynchronous submission and the event calls have still never been called.
+Every wrapper in the package has now been called from Go.
 
-Three disagreements with ANEForge came out of that, each recorded at its
+Four disagreements with ANEForge came out of that, each recorded at its
 wrapper. `ExecutionStreamReset` is said to reject a never-executed stream and
 does not. `PrepareOpForEncode` is said to reject a never-encoded operation and
 returns zero instead — its error really exists, but it surfaces as an uncaught
 C++ exception when the stream is later released, which no Go code can catch.
 And `ProgramFunctionLoadForExecution`, whose place in the sequence was an open
 question, turns out to have been removed from the runtime altogether.
+
+The fourth came from the event family, which is wrapped now that
+`SubmitAsync` exists. Building the dependency graph works — a completion event
+binds, a second operation takes it as a dependency, the pair dispatches, and a
+cycle is refused — but nothing here makes an event's value move, on either
+submit path. ANEForge reports that events advance under `submit_async`; that is
+not reproduced. Nor is the opposite claimed, because `AsyncEventSyncWait`
+returns immediately on an event whose work was deliberately never submitted, so
+the reader is inert and a zero from it measures nothing.
 
 For symbol resolution reporting without calling anything, see
 [`e5rtprobe`](../e5rtprobe).
