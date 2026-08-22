@@ -157,6 +157,99 @@ func TestOpenBundle(t *testing.T) {
 	}
 }
 
+func TestPipelineLinksStages(t *testing.T) {
+	dir := t.TempDir()
+	first, err := writeIdentityModel(filepath.Join(dir, "first"))
+	if err != nil {
+		t.Fatal(err)
+	}
+	second, err := writeIdentityModel(filepath.Join(dir, "second"))
+	if err != nil {
+		t.Fatal(err)
+	}
+	p, err := e5rt.CompilePipeline(e5rt.PipelineOptions{
+		CacheDir: filepath.Join(dir, "cache"),
+		Stages: []e5rt.PipelineStage{
+			{ModelPath: first, Inputs: []e5rt.Port{{Name: "x", Size: 2}}, Outputs: []e5rt.Port{{Name: "y", Size: 2}}},
+			{ModelPath: second, Inputs: []e5rt.Port{{Name: "x", Size: 2}}, Outputs: []e5rt.Port{{Name: "y", Size: 2}}},
+		},
+		Links: []e5rt.PipelineLink{{
+			From: e5rt.PipelinePort{Stage: 0, Name: "y"},
+			To:   e5rt.PipelinePort{Stage: 1, Name: "x"},
+		}},
+	})
+	if err != nil {
+		t.Fatal(err)
+	}
+	defer p.Close()
+	in, err := p.Input(0, "x")
+	if err != nil {
+		t.Fatal(err)
+	}
+	intermediate, err := p.Output(0, "y")
+	if err != nil {
+		t.Fatal(err)
+	}
+	linked, err := p.Input(1, "x")
+	if err != nil {
+		t.Fatal(err)
+	}
+	if &intermediate.Bytes()[0] != &linked.Bytes()[0] {
+		t.Fatal("linked ports do not share storage")
+	}
+	out, err := p.Output(1, "y")
+	if err != nil {
+		t.Fatal(err)
+	}
+	for _, want := range []float32{1.5, 2.5} {
+		if err := in.WriteFP16([]float32{want}); err != nil {
+			t.Fatal(err)
+		}
+		if err := p.Execute(); err != nil {
+			t.Fatal(err)
+		}
+		got := make([]float32, 1)
+		if err := out.ReadFP16(got); err != nil {
+			t.Fatal(err)
+		}
+		if got[0] != want {
+			t.Errorf("output = %v, want %v", got[0], want)
+		}
+	}
+}
+
+func TestPipelineRejectsBadOptions(t *testing.T) {
+	stage := func(inputSize, outputSize int) e5rt.PipelineStage {
+		return e5rt.PipelineStage{
+			ModelPath: "model",
+			Inputs:    []e5rt.Port{{Name: "x", Size: inputSize}},
+			Outputs:   []e5rt.Port{{Name: "y", Size: outputSize}},
+		}
+	}
+	tooMany := make([]e5rt.PipelineStage, e5rt.MaxPipelineStages+1)
+	for i := range tooMany {
+		tooMany[i] = stage(2, 2)
+	}
+	for _, test := range []struct {
+		name string
+		opts e5rt.PipelineOptions
+	}{
+		{"empty", e5rt.PipelineOptions{CacheDir: "cache"}},
+		{"too many", e5rt.PipelineOptions{CacheDir: "cache", Stages: tooMany}},
+		{"backward", e5rt.PipelineOptions{CacheDir: "cache", Stages: []e5rt.PipelineStage{stage(2, 2), stage(2, 2)}, Links: []e5rt.PipelineLink{{From: e5rt.PipelinePort{Stage: 1, Name: "y"}, To: e5rt.PipelinePort{Stage: 0, Name: "x"}}}}},
+		{"mismatched", e5rt.PipelineOptions{CacheDir: "cache", Stages: []e5rt.PipelineStage{stage(2, 2), stage(4, 2)}, Links: []e5rt.PipelineLink{{From: e5rt.PipelinePort{Stage: 0, Name: "y"}, To: e5rt.PipelinePort{Stage: 1, Name: "x"}}}}},
+	} {
+		t.Run(test.name, func(t *testing.T) {
+			if p, err := e5rt.CompilePipeline(test.opts); err == nil {
+				if p != nil {
+					p.Close()
+				}
+				t.Fatal("CompilePipeline succeeded, want an error")
+			}
+		})
+	}
+}
+
 func writeIdentityModel(dir string) (string, error) {
 	if err := os.MkdirAll(filepath.Join(dir, "weights"), 0o755); err != nil {
 		return "", err

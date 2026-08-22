@@ -305,10 +305,11 @@ func normalizeProgramPorts(functionName *string, inputs, outputs []Port) error {
 }
 
 func (p *Program) bind(spec Port, input bool) (*programPort, error) {
-	var (
-		port uintptr
-		err  error
-	)
+	size, err := bufferAllocationSize(spec.Size)
+	if err != nil {
+		return nil, fmt.Errorf("allocate buffer for port %q: %w", spec.Name, err)
+	}
+	var port uintptr
 	if input {
 		port, err = p.lib.OperationRetainInputPort(p.op, spec.Name)
 	} else {
@@ -318,7 +319,6 @@ func (p *Program) bind(spec Port, input bool) (*programPort, error) {
 		return nil, fmt.Errorf("retain port %q: %w", spec.Name, err)
 	}
 	result := &programPort{port: port}
-	size := max((spec.Size+63)&^63, 64)
 	if result.buffer, err = p.lib.BufferObjectAlloc(uintptr(size), 0); err != nil {
 		_ = p.lib.IOPortRelease(result.port)
 		return nil, fmt.Errorf("allocate buffer for port %q: %w", spec.Name, err)
@@ -336,6 +336,14 @@ func (p *Program) bind(spec Port, input bool) (*programPort, error) {
 	}
 	result.data.data = unsafe.Slice((*byte)(pointerAt(ptr)), spec.Size)
 	return result, nil
+}
+
+func bufferAllocationSize(n int) (int, error) {
+	maxInt := int(^uint(0) >> 1)
+	if n > maxInt-63 {
+		return 0, fmt.Errorf("buffer size %d overflows 64-byte alignment", n)
+	}
+	return max((n+63)&^63, 64), nil
 }
 
 // Input returns the buffer bound to the named input port.
