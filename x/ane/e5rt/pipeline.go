@@ -424,45 +424,92 @@ func (p *Pipeline) Close() error {
 		p.stream = 0
 	}
 	for _, stage := range p.stages {
-		errs = append(errs, releasePipelineStage(p.lib, stage))
+		errs = append(errs, releasePipelinePorts(p.lib, stage))
+	}
+	for _, stage := range p.stages {
+		errs = append(errs, releasePipelineBuffers(p.lib, stage))
+	}
+	for _, stage := range p.stages {
+		errs = append(errs, releasePipelineStageHandles(p.lib, stage))
 	}
 	return errors.Join(errs...)
 }
 
 func releasePipelineStage(lib *Lib, stage *pipelineStage) error {
+	return errors.Join(
+		releasePipelinePorts(lib, stage),
+		releasePipelineBuffers(lib, stage),
+		releasePipelineStageHandles(lib, stage),
+	)
+}
+
+func releasePipelinePorts(lib *Lib, stage *pipelineStage) error {
 	if stage == nil {
 		return nil
 	}
 	var errs []error
-	release := func(name string, handle *uintptr, f func(uintptr) error) {
-		if *handle == 0 {
-			return
-		}
-		if err := f(*handle); err != nil {
-			errs = append(errs, fmt.Errorf("release %s: %w", name, err))
-		}
-		*handle = 0
-	}
 	for _, port := range stage.inputs {
-		release("input port", &port.port, lib.IOPortRelease)
-		if port.buffer != 0 {
-			release("input buffer", &port.buffer, lib.BufferObjectRelease)
-			port.data.data = nil
+		if err := releasePipelineHandle("input port", &port.port, lib.IOPortRelease); err != nil {
+			errs = append(errs, err)
 		}
 	}
 	for _, port := range stage.outputs {
-		release("output port", &port.port, lib.IOPortRelease)
-		if port.buffer != 0 {
-			release("output buffer", &port.buffer, lib.BufferObjectRelease)
-			port.data.data = nil
+		if err := releasePipelineHandle("output port", &port.port, lib.IOPortRelease); err != nil {
+			errs = append(errs, err)
 		}
 	}
-	release("operation", &stage.op, lib.OperationRelease)
-	release("operation options", &stage.opOptions, lib.PrecompiledComputeOpOptionsRelease)
-	release("function", &stage.function, lib.ProgramFunctionRelease)
-	release("library", &stage.library, lib.ProgramLibraryRelease)
-	release("compiler options", &stage.options, lib.CompilerOptionsRelease)
-	release("compiler", &stage.compiler, lib.CompilerRelease)
-	release("compiler config", &stage.config, lib.CompilerConfigOptionsRelease)
 	return errors.Join(errs...)
+}
+
+func releasePipelineBuffers(lib *Lib, stage *pipelineStage) error {
+	if stage == nil {
+		return nil
+	}
+	var errs []error
+	for _, port := range stage.inputs {
+		if port.buffer == 0 {
+			continue
+		}
+		if err := releasePipelineHandle("input buffer", &port.buffer, lib.BufferObjectRelease); err != nil {
+			errs = append(errs, err)
+		}
+		port.data.data = nil
+	}
+	for _, port := range stage.outputs {
+		if port.buffer == 0 {
+			continue
+		}
+		if err := releasePipelineHandle("output buffer", &port.buffer, lib.BufferObjectRelease); err != nil {
+			errs = append(errs, err)
+		}
+		port.data.data = nil
+	}
+	return errors.Join(errs...)
+}
+
+func releasePipelineStageHandles(lib *Lib, stage *pipelineStage) error {
+	if stage == nil {
+		return nil
+	}
+	return errors.Join(
+		releasePipelineHandle("operation", &stage.op, lib.OperationRelease),
+		releasePipelineHandle("operation options", &stage.opOptions, lib.PrecompiledComputeOpOptionsRelease),
+		releasePipelineHandle("function", &stage.function, lib.ProgramFunctionRelease),
+		releasePipelineHandle("library", &stage.library, lib.ProgramLibraryRelease),
+		releasePipelineHandle("compiler options", &stage.options, lib.CompilerOptionsRelease),
+		releasePipelineHandle("compiler", &stage.compiler, lib.CompilerRelease),
+		releasePipelineHandle("compiler config", &stage.config, lib.CompilerConfigOptionsRelease),
+	)
+}
+
+func releasePipelineHandle(name string, handle *uintptr, release func(uintptr) error) error {
+	if *handle == 0 {
+		return nil
+	}
+	err := release(*handle)
+	*handle = 0
+	if err != nil {
+		return fmt.Errorf("release %s: %w", name, err)
+	}
+	return nil
 }
