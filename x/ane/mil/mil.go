@@ -347,11 +347,7 @@ func GenReadState(name string, shape [4]int) string {
 // an ANE-compiled bundle. The e5rt subprocess probe reads the updated buffer
 // through a separately compiled [GenReadState] program.
 //
-// The ordering here — write before read — is also the only one the compiler
-// survives. Emitting the read first, which is what a cache that returns the
-// previous step's value would need, faults inside the compiler rather than
-// returning an error, and folding the two together as
-// write_state(add(read_state(s), v)) fails to compile with status 11.
+// For an in-place read-modify-write cache operation, use [GenAccumulateState].
 func GenUpdateState(name string, shape [4]int) string {
 	return fmt.Sprintf(`program(1.3)
 %s
@@ -367,6 +363,34 @@ func GenUpdateState(name string, shape [4]int) string {
 		name, name, // write_state
 		shape[0], shape[1], shape[2], shape[3], // output shape
 		name, name,
+	)
+}
+
+// GenAccumulateState generates a stateful MIL program that adds value to the
+// current contents of name, writes the sum back, and returns it.
+//
+// This is the read-modify-write form needed by an in-place cache. The e5rt
+// state probe compiles it for ANE and executes two distinct updates through one
+// retained inout buffer, then reads the accumulated values through a separately
+// compiled [GenReadState] program.
+func GenAccumulateState(name string, shape [4]int) string {
+	return fmt.Sprintf(`program(1.3)
+%s
+{
+    func main<ios18>(state<tensor<fp16, [%d, %d, %d, %d]>> %s, tensor<fp16, [%d, %d, %d, %d]> value) {
+        tensor<fp16, [%d, %d, %d, %d]> old = read_state(input = %s)[name = string("accumulate_%s_read")];
+        tensor<fp16, [%d, %d, %d, %d]> sum = add(x = old, y = value)[name = string("accumulate_%s_add")];
+        write_state(input = %s, data = sum)[name = string("accumulate_%s_write")];
+        tensor<fp16, [%d, %d, %d, %d]> y = read_state(input = %s)[name = string("accumulate_%s_out")];
+    } -> (y);
+}
+`, buildInfo,
+		shape[0], shape[1], shape[2], shape[3], name,
+		shape[0], shape[1], shape[2], shape[3],
+		shape[0], shape[1], shape[2], shape[3], name, name,
+		shape[0], shape[1], shape[2], shape[3], name,
+		name, name,
+		shape[0], shape[1], shape[2], shape[3], name, name,
 	)
 }
 

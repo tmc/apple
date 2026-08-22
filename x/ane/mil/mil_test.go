@@ -235,4 +235,15 @@ func TestGenStateOps(t *testing.T) {
 	if strings.Contains(update, "coreml_update_state") {
 		t.Errorf("GenUpdateState emits an undecomposed dialect op\n%s", update)
 	}
+
+	accumulate := GenAccumulateState("kv", shape)
+	for _, want := range []string{
+		"read_state(input = kv)",
+		"add(x = old, y = value)",
+		"write_state(input = kv, data = sum)",
+	} {
+		if !strings.Contains(accumulate, want) {
+			t.Errorf("GenAccumulateState missing %q\n%s", want, accumulate)
+		}
+	}
 }

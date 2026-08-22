@@ -53,13 +53,13 @@ func buildExampleModel(t *testing.T, channels, spatial int) string {
 	return dir
 }
 
-// buildStateModel writes the smallest program that writes a state tensor and
-// returns it. It is deliberately separate from buildExampleModel: a state
-// experiment must not silently fall back to the ordinary tensor-only route.
+// buildStateModel writes a stateful read-modify-write program. It is deliberately
+// separate from buildExampleModel: a state experiment must not silently fall
+// back to the ordinary tensor-only route.
 func buildStateModel(t *testing.T) string {
 	t.Helper()
 	dir := t.TempDir()
-	if err := os.WriteFile(filepath.Join(dir, "model.mil"), []byte(mil.GenUpdateState("kv", [4]int{1, 4, 1, 4})), 0o644); err != nil {
+	if err := os.WriteFile(filepath.Join(dir, "model.mil"), []byte(mil.GenAccumulateState("kv", [4]int{1, 4, 1, 4})), 0o644); err != nil {
 		t.Fatal(err)
 	}
 	return dir
@@ -606,6 +606,10 @@ var probes = map[string]func(t *testing.T){
 		// already-encoded programs so this observes the same retained state
 		// buffer rather than a fresh binding or compilation.
 		second := []float32{16, 15, 14, 13, 12, 11, 10, 9, 8, 7, 6, 5, 4, 3, 2, 1}
+		wantSecond := make([]float32, len(first))
+		for i := range wantSecond {
+			wantSecond[i] = first[i] + second[i]
+		}
 		writeExampleFP16(valuePtr, second)
 		if err := lib.ExecuteSync(stream); err != nil {
 			t.Fatal(err)
@@ -613,10 +617,10 @@ var probes = map[string]func(t *testing.T){
 		if err := lib.ExecuteSync(readStream); err != nil {
 			t.Fatal(err)
 		}
-		read = readExampleFP16(readPtr, len(second))
-		for i := range second {
-			if read[i] != second[i] {
-				t.Fatalf("state reader after second update returned %v, want %v", read, second)
+		read = readExampleFP16(readPtr, len(wantSecond))
+		for i := range wantSecond {
+			if read[i] != wantSecond[i] {
+				t.Fatalf("state reader after second update returned %v, want %v", read, wantSecond)
 			}
 		}
 		fmt.Printf("RESULT state reader after second update: %v\n", read)
