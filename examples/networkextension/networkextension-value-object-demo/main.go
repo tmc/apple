@@ -116,7 +116,7 @@ func checkIKEv2PostQuantumValues() error {
 	securityAssociation.SetDiffieHellmanGroup(networkextension.NEVPNIKEv2DiffieHellmanGroup20)
 	securityAssociation.SetLifetimeMinutes(60)
 	securityAssociation.SetPostQuantumKeyExchangeMethods([]foundation.NSNumber{
-		foundation.NewNumberWithInt(int(networkextension.NEVPNIKEv2PostQuantumKeyExchangeMethod36)),
+		foundation.NewNumberWithInt(int32(networkextension.NEVPNIKEv2PostQuantumKeyExchangeMethod36)),
 	})
 	if got := securityAssociation.EncryptionAlgorithm(); got != networkextension.NEVPNIKEv2EncryptionAlgorithmAES256GCM {
 		return fmt.Errorf("ikev2 encryption algorithm = %v", got)
@@ -134,7 +134,7 @@ func checkIKEv2PostQuantumValues() error {
 	if len(methods) != 1 {
 		return fmt.Errorf("post-quantum methods = %d, want 1", len(methods))
 	}
-	if got := methods[0].IntValue(); got != int(networkextension.NEVPNIKEv2PostQuantumKeyExchangeMethod36) {
+	if got := methods[0].IntValue(); got != int32(networkextension.NEVPNIKEv2PostQuantumKeyExchangeMethod36) {
 		return fmt.Errorf("post-quantum method = %d", got)
 	}
 

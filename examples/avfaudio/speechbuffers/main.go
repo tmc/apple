@@ -25,9 +25,9 @@ func main() {
 
 	synth := avfaudio.NewAVSpeechSynthesizer()
 	utterance := avfaudio.NewSpeechUtteranceWithString(text)
-	done := make(chan avfaudio.AVAudioBuffer, 1)
+	done := make(chan *avfaudio.AVAudioBuffer, 1)
 
-	synth.WriteUtteranceToBufferCallback(utterance, func(buffer avfaudio.AVAudioBuffer) {
+	synth.WriteUtteranceToBufferCallback(utterance, func(buffer *avfaudio.AVAudioBuffer) {
 		select {
 		case done <- buffer:
 		default:

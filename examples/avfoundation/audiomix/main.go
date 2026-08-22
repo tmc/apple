@@ -35,8 +35,6 @@ import (
 	"github.com/tmc/apple/objectivec"
 )
 
-const kCMTimeFlagsValid uint32 = 1
-
 func main() {
 	runtime.LockOSThread()
 	defer runtime.UnlockOSThread()
@@ -176,8 +174,7 @@ func bake(inputPath, outputPath string, fadeIn, fadeOut float64) error {
 	reader.StartReading()
 	writer.StartWriting()
 
-	zero := coremedia.CMTime{Value: 0, Timescale: 1, Flags: kCMTimeFlagsValid}
-	writer.StartSessionAtSourceTime(zero)
+	writer.StartSessionAtSourceTime(coremedia.CMTimeMake(0, 1))
 
 	samples := 0
 	for {
@@ -218,10 +215,11 @@ func loadFirstAudioTrack(asset avfoundation.AVURLAsset) (avfoundation.AVAssetTra
 func loadTrackDuration(track avfoundation.AVAssetTrack) float64 {
 	// AVAssetTrack.timeRange is deprecated and not generated; use objc.Send.
 	tr := objc.Send[coremedia.CMTimeRange](track.ID, objc.Sel("timeRange"))
-	if tr.Duration.Timescale == 0 {
+	d := tr.Duration()
+	if d.Timescale() == 0 {
 		return 0
 	}
-	return float64(tr.Duration.Value) / float64(tr.Duration.Timescale)
+	return float64(d.Value()) / float64(d.Timescale())
 }
 
 // buildFadeMix creates an AVMutableAudioMix with optional fade-in and fade-out
@@ -250,18 +248,10 @@ func buildFadeMix(track avfoundation.AVAssetTrack, fadeIn, fadeOut, totalDuratio
 
 func newCMTimeRange(startSeconds, durationSeconds float64) coremedia.CMTimeRange {
 	const timescale int32 = 600
-	return coremedia.CMTimeRange{
-		Start: coremedia.CMTime{
-			Value:     int64(startSeconds * float64(timescale)),
-			Timescale: timescale,
-			Flags:     kCMTimeFlagsValid,
-		},
-		Duration: coremedia.CMTime{
-			Value:     int64(durationSeconds * float64(timescale)),
-			Timescale: timescale,
-			Flags:     kCMTimeFlagsValid,
-		},
-	}
+	return coremedia.CMTimeRangeMake(
+		coremedia.CMTimeMake(int64(startSeconds*float64(timescale)), timescale),
+		coremedia.CMTimeMake(int64(durationSeconds*float64(timescale)), timescale),
+	)
 }
 
 // cfRelease calls CFRelease on a Core Foundation object.

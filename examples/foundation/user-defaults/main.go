@@ -23,7 +23,7 @@ func main() {
 	defaults.SetIntegerForKey(42, keyCount)
 
 	// Store a string via NSString (implements objectivec.IObject).
-	str := foundation.GetNSStringClass().Alloc().InitWithString("hello from Go")
+	str := foundation.NewStringWithString("hello from Go")
 	defaults.SetObjectForKey(str, keyGreeting)
 
 	// Read values back.

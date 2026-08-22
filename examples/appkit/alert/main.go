@@ -70,7 +70,7 @@ func main() {
 	}
 
 	appkit.RunApp(func(app appkit.NSApplication, delegate appkit.NSApplicationDelegateObject) {
-		alert := appkit.GetNSAlertClass().Alloc().Init()
+		alert := appkit.NewNSAlert()
 		alert.SetMessageText(message)
 		alert.SetAlertStyle(alertStyle)
 		if msg != "" {
@@ -95,7 +95,7 @@ func main() {
 		}
 
 		exitCode = buttonIndex
-		app.Terminate(app)
+		app.Terminate(nil)
 		os.Exit(exitCode)
 	})
 }

@@ -98,7 +98,7 @@ func main() {
 				fmt.Fprintln(os.Stderr, "usage: nsdefaults write <key> <value>")
 				os.Exit(2)
 			}
-			nsStr := foundation.GetNSStringClass().Alloc().InitWithString(args[1])
+			nsStr := foundation.NewStringWithString(args[1])
 			ud.SetObjectForKey(nsStr, args[0])
 		}
 		ud.Synchronize()

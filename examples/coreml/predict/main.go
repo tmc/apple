@@ -119,7 +119,7 @@ func describeFeatures(dict foundation.NSDictionary) []featureInfo {
 			c := fd.MultiArrayConstraint().(coreml.MLMultiArrayConstraint)
 			if c.ID != 0 {
 				for _, n := range c.Shape() {
-					fi.Shape = append(fi.Shape, n.IntValue())
+					fi.Shape = append(fi.Shape, int(n.IntValue()))
 				}
 				fi.DataType = c.DataType().String()
 			}

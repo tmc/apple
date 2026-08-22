@@ -2,7 +2,6 @@
 package main
 
 import (
-	"runtime"
 	"time"
 
 	"github.com/tmc/apple/appkit"
@@ -11,31 +10,32 @@ import (
 )
 
 func main() {
-	appkit.RunApp(func(app appkit.NSApplication, delegate appkit.NSApplicationDelegateObject) {
+	appkit.RunApp(func(app appkit.NSApplication, _ appkit.NSApplicationDelegateObject) {
 		app.SetActivationPolicy(appkit.NSApplicationActivationPolicyAccessory)
-
-		statusBar := appkit.GetNSStatusBarClass().SystemStatusBar()
-		item := statusBar.StatusItemWithLength(appkit.VariableStatusItemLength)
-		runtime.KeepAlive(item)
-
+		item := appkit.GetNSStatusBarClass().SystemStatusBar().StatusItemWithLength(appkit.VariableStatusItemLength)
+		// NSStatusBar does not retain the item. Keep one native reference until Quit.
+		itemObject := objectivec.Object{ID: item.GetID()}
+		itemObject.Retain()
 		button := item.Button()
 		button.SetTitle(time.Now().Format("15:04:05"))
 
-		menu := appkit.GetNSMenuClass().Alloc().Init()
-		quit := appkit.GetNSMenuItemClass().Alloc().Init()
-		quit.SetTitle("Quit")
+		menu := appkit.NewNSMenu()
+		// The 0 action selector means none; SetActionHandler attaches a Go
+		// closure immediately below.
+		quit := appkit.NewMenuItemWithTitleActionKeyEquivalent("Quit", 0, "q")
 		quit.SetActionHandler(func() {
-			app.Terminate(objectivec.Object{})
+			itemObject.Release()
+			app.Terminate(nil)
 		})
 		menu.AddItem(quit)
-		item.(appkit.NSStatusItem).SetMenu(menu)
+		item.SetMenu(menu)
 
-		mainQ := dispatch.MainQueue()
+		mainQueue := dispatch.MainQueue()
 		go func() {
 			ticker := time.NewTicker(time.Second)
 			defer ticker.Stop()
 			for range ticker.C {
-				mainQ.Async(func() {
+				mainQueue.Async(func() {
 					button.SetTitle(time.Now().Format("15:04:05"))
 				})
 			}

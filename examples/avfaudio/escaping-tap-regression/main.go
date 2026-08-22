@@ -54,7 +54,7 @@ func main() {
 	format := input.InputFormatForBus(bus)
 
 	var callbackCount atomic.Int64
-	tap := func(buf avfaudio.AVAudioPCMBuffer, _ avfaudio.AVAudioTime) {
+	tap := func(buf *avfaudio.AVAudioPCMBuffer, _ *avfaudio.AVAudioTime) {
 		callbackCount.Add(int64(buf.FrameLength()))
 	}
 

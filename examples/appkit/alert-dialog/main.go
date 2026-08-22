@@ -9,7 +9,7 @@ import (
 
 func main() {
 	appkit.RunApp(func(app appkit.NSApplication, delegate appkit.NSApplicationDelegateObject) {
-		alert := appkit.GetNSAlertClass().Alloc().Init()
+		alert := appkit.NewNSAlert()
 		alert.SetMessageText("Hello from Go")
 		alert.SetInformativeText("This alert was created using Apple framework bindings for Go.")
 		alert.AddButtonWithTitle("OK")
@@ -25,6 +25,6 @@ func main() {
 			fmt.Printf("Clicked: button %d\n", response)
 		}
 
-		app.Terminate(app)
+		app.Terminate(nil)
 	})
 }

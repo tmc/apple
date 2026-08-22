@@ -27,6 +27,6 @@ func main() {
 			fmt.Println("Cancelled")
 		}
 
-		app.Terminate(app)
+		app.Terminate(nil)
 	})
 }

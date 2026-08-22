@@ -90,7 +90,7 @@ func buildMainWindow() {
 	mainWindow.SetTitlebarSeparatorStyle(appkit.NSTitlebarSeparatorStyleLine)
 	mainWindow.Center()
 
-	contentView := mainWindow.ContentView().(appkit.NSView)
+	contentView := mainWindow.ContentView()
 	colors := appkit.GetNSColorClass()
 	font := appkit.GetNSFontClass()
 
@@ -108,7 +108,7 @@ func buildMainWindow() {
 	addBtn.SetTranslatesAutoresizingMaskIntoConstraints(false)
 	addBtn.WidthAnchor().ConstraintEqualToConstant(70).SetActive(true)
 
-	inputStack := appkit.GetNSStackViewClass().Alloc().Init()
+	inputStack := appkit.NewNSStackView()
 	inputStack.SetOrientation(appkit.NSUserInterfaceLayoutOrientationHorizontal)
 	inputStack.SetSpacing(8)
 	inputStack.AddArrangedSubview(todoInput)
@@ -118,18 +118,18 @@ func buildMainWindow() {
 	todoInput.SetContentHuggingPriorityForOrientation(appkit.NSLayoutPriority(200), appkit.NSLayoutConstraintOrientationHorizontal)
 
 	// --- Separator below input ---
-	separator := appkit.GetNSBoxClass().Alloc().Init()
+	separator := appkit.NewNSBox()
 	separator.SetBoxType(appkit.NSBoxSeparator)
 	separator.SetTranslatesAutoresizingMaskIntoConstraints(false)
 
 	// --- Scroll view for the list ---
-	scrollView = appkit.GetNSScrollViewClass().Alloc().Init()
+	scrollView = appkit.NewNSScrollView()
 	scrollView.SetHasVerticalScroller(true)
 	scrollView.SetBorderType(appkit.NSNoBorder)
 	scrollView.SetDrawsBackground(false)
 	scrollView.SetTranslatesAutoresizingMaskIntoConstraints(false)
 
-	todoListView = appkit.GetNSViewClass().Alloc().Init()
+	todoListView = appkit.NewNSView()
 	todoListView.SetFrame(corefoundation.CGRect{
 		Origin: corefoundation.CGPoint{X: 0, Y: 0},
 		Size:   corefoundation.CGSize{Width: 440, Height: 400},
@@ -144,7 +144,7 @@ func buildMainWindow() {
 	emptyLabel.SetTranslatesAutoresizingMaskIntoConstraints(false)
 
 	// --- Bottom separator ---
-	bottomSep := appkit.GetNSBoxClass().Alloc().Init()
+	bottomSep := appkit.NewNSBox()
 	bottomSep.SetBoxType(appkit.NSBoxSeparator)
 	bottomSep.SetTranslatesAutoresizingMaskIntoConstraints(false)
 
@@ -175,7 +175,7 @@ func buildMainWindow() {
 	clearBtn.SetTranslatesAutoresizingMaskIntoConstraints(false)
 	clearBtn.SetActionHandler(confirmClearAll)
 
-	bottomStack := appkit.GetNSStackViewClass().Alloc().Init()
+	bottomStack := appkit.NewNSStackView()
 	bottomStack.SetOrientation(appkit.NSUserInterfaceLayoutOrientationHorizontal)
 	bottomStack.SetSpacing(8)
 	bottomStack.AddArrangedSubview(statusLabel)
@@ -261,7 +261,7 @@ func buildPreferencesWindow() {
 	})
 	prefsWindow.SetDelegate(prefsDelegate)
 
-	contentView := prefsWindow.ContentView().(appkit.NSView)
+	contentView := prefsWindow.ContentView()
 	font := appkit.GetNSFontClass()
 
 	// Settings row: label + field + range hint.
@@ -277,7 +277,7 @@ func buildPreferencesWindow() {
 	rangeLabel.SetFont(font.SystemFontOfSize(11))
 	rangeLabel.SetTextColor(appkit.GetNSColorClass().SecondaryLabelColor())
 
-	settingsRow := appkit.GetNSStackViewClass().Alloc().Init()
+	settingsRow := appkit.NewNSStackView()
 	settingsRow.SetOrientation(appkit.NSUserInterfaceLayoutOrientationHorizontal)
 	settingsRow.SetSpacing(8)
 	settingsRow.AddArrangedSubview(maxLabel)
@@ -285,7 +285,7 @@ func buildPreferencesWindow() {
 	settingsRow.AddArrangedSubview(rangeLabel)
 
 	// Separator.
-	sep := appkit.GetNSBoxClass().Alloc().Init()
+	sep := appkit.NewNSBox()
 	sep.SetBoxType(appkit.NSBoxSeparator)
 
 	// Button row: Cancel + Save.
@@ -312,11 +312,11 @@ func buildPreferencesWindow() {
 	})
 
 	// Spacer pushes buttons to the right.
-	spacer := appkit.GetNSViewClass().Alloc().Init()
+	spacer := appkit.NewNSView()
 	spacer.SetTranslatesAutoresizingMaskIntoConstraints(false)
 	spacer.SetContentHuggingPriorityForOrientation(appkit.NSLayoutPriority(1), appkit.NSLayoutConstraintOrientationHorizontal)
 
-	buttonRow := appkit.GetNSStackViewClass().Alloc().Init()
+	buttonRow := appkit.NewNSStackView()
 	buttonRow.SetOrientation(appkit.NSUserInterfaceLayoutOrientationHorizontal)
 	buttonRow.SetSpacing(8)
 	buttonRow.AddArrangedSubview(spacer)
@@ -324,7 +324,7 @@ func buildPreferencesWindow() {
 	buttonRow.AddArrangedSubview(saveBtn)
 
 	// Vertical stack: settings + separator + buttons.
-	outer := appkit.GetNSStackViewClass().Alloc().Init()
+	outer := appkit.NewNSStackView()
 	outer.SetOrientation(appkit.NSUserInterfaceLayoutOrientationVertical)
 	outer.SetSpacing(16)
 	outer.SetEdgeInsets(foundation.NSEdgeInsets{Top: 20, Left: 20, Bottom: 16, Right: 20})
@@ -375,7 +375,7 @@ func refreshTodoList() {
 		idx := i
 		text := todos[i]
 
-		row := appkit.GetNSViewClass().Alloc().Init()
+		row := appkit.NewNSView()
 		row.SetFrame(corefoundation.CGRect{
 			Origin: corefoundation.CGPoint{X: 0, Y: y},
 			Size:   corefoundation.CGSize{Width: contentWidth, Height: rowHeight},
@@ -383,7 +383,7 @@ func refreshTodoList() {
 
 		// Alternating row background.
 		if i%2 == 0 {
-			bg := appkit.GetNSBoxClass().Alloc().Init()
+			bg := appkit.NewNSBox()
 			bg.SetFrame(corefoundation.CGRect{
 				Origin: corefoundation.CGPoint{X: 0, Y: 0},
 				Size:   corefoundation.CGSize{Width: contentWidth, Height: rowHeight},

@@ -9,7 +9,7 @@ import (
 func main() {
 	var maxVCPU uint32
 	if ok := call("hv_vm_get_max_vcpu_count", func() int32 {
-		return hypervisor.HVVmGetMaxVCPUCount(&maxVCPU)
+		return int32(hypervisor.HVVmGetMaxVCPUCount(&maxVCPU))
 	}); !ok {
 		return
 	}
@@ -17,7 +17,7 @@ func main() {
 
 	var maxIPA uint32
 	if call("hv_vm_config_get_max_ipa_size", func() int32 {
-		return hypervisor.HVVmConfigGetMaxIPASize(&maxIPA)
+		return int32(hypervisor.HVVmConfigGetMaxIPASize(&maxIPA))
 	}) {
 		fmt.Printf("max IPA size: %d bits\n", maxIPA)
 	}

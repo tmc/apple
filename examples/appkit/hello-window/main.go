@@ -9,17 +9,17 @@ import (
 )
 
 func main() {
-	appkit.RunApp(func(app appkit.NSApplication, delegate appkit.NSApplicationDelegateObject) {
-		window := appkit.GetNSWindowClass().Alloc().InitWithContentRectStyleMaskBackingDefer(
+	appkit.RunApp(func(app appkit.NSApplication, _ appkit.NSApplicationDelegateObject) {
+		window := appkit.NewWindowWithContentRectStyleMaskBackingDefer(
 			corefoundation.CGRect{Origin: corefoundation.CGPoint{X: 200, Y: 200}, Size: corefoundation.CGSize{Width: 400, Height: 200}},
 			appkit.NSWindowStyleMaskTitled|appkit.NSWindowStyleMaskClosable|appkit.NSWindowStyleMaskMiniaturizable|appkit.NSWindowStyleMaskResizable,
-			appkit.NSBackingStoreBuffered,
-			false,
+			appkit.NSBackingStoreBuffered, // standard double-buffered drawing
+			false,                         // create the window immediately
 		)
 		window.SetTitle("Hello")
 		window.SetMinSize(corefoundation.CGSize{Width: 200, Height: 100})
 
-		contentView := window.ContentView().(appkit.NSView)
+		contentView := window.ContentView()
 
 		label := appkit.NewTextFieldLabelWithString("Hello from Go!")
 		label.SetFont(appkit.GetNSFontClass().SystemFontOfSize(24))
@@ -32,7 +32,7 @@ func main() {
 		label.CenterYAnchor().ConstraintEqualToAnchor(contentView.CenterYAnchor()).SetActive(true)
 
 		window.Center()
-		window.MakeKeyAndOrderFront(nil)
-		app.Activate()
+		window.MakeKeyAndOrderFront(nil) // show the window and give it keyboard focus
+		app.Activate()                   // bring the Terminal-launched app to the front
 	})
 }

@@ -30,11 +30,11 @@ func main() {
 }
 
 func buildWindow(app appkit.NSApplication) {
-	window := appkit.GetNSWindowClass().Alloc().InitWithContentRectStyleMaskBackingDefer(
+	window := appkit.NewWindowWithContentRectStyleMaskBackingDefer(
 		corefoundation.CGRect{Origin: corefoundation.CGPoint{X: 200, Y: 200}, Size: corefoundation.CGSize{Width: 300, Height: 200}},
 		appkit.NSWindowStyleMaskTitled|appkit.NSWindowStyleMaskClosable|appkit.NSWindowStyleMaskMiniaturizable|appkit.NSWindowStyleMaskResizable,
-		appkit.NSBackingStoreBuffered,
-		false,
+		appkit.NSBackingStoreBuffered, // standard double-buffered drawing
+		false,                         // create the window immediately
 	)
 	window.SetTitle("Counter")
 	window.SetMinSize(corefoundation.CGSize{Width: 200, Height: 150})
@@ -48,6 +48,7 @@ func buildWindow(app appkit.NSApplication) {
 		label.SetStringValue(strconv.Itoa(count))
 	}
 
+	// No Objective-C target or action selector: SetActionHandler supplies both.
 	increment := appkit.NewButtonWithTitleTargetAction("+1", nil, 0)
 	increment.SetBezelStyle(appkit.NSBezelStyleAutomatic)
 	increment.SetActionHandler(func() {
@@ -62,7 +63,7 @@ func buildWindow(app appkit.NSApplication) {
 		updateCount()
 	})
 
-	stack := appkit.GetNSStackViewClass().Alloc().Init()
+	stack := appkit.NewNSStackView()
 	stack.SetOrientation(appkit.NSUserInterfaceLayoutOrientationVertical)
 	stack.SetAlignment(appkit.NSLayoutAttributeCenterX)
 	stack.SetSpacing(12)
@@ -72,7 +73,7 @@ func buildWindow(app appkit.NSApplication) {
 	stack.AddArrangedSubview(reset)
 	stack.SetTranslatesAutoresizingMaskIntoConstraints(false)
 
-	contentView := window.ContentView().(appkit.NSView)
+	contentView := window.ContentView()
 	contentView.AddSubview(stack)
 
 	stack.LeadingAnchor().ConstraintEqualToAnchor(contentView.LeadingAnchor()).SetActive(true)
@@ -81,6 +82,6 @@ func buildWindow(app appkit.NSApplication) {
 	stack.BottomAnchor().ConstraintEqualToAnchor(contentView.BottomAnchor()).SetActive(true)
 
 	window.Center()
-	window.MakeKeyAndOrderFront(nil)
-	app.Activate()
+	window.MakeKeyAndOrderFront(nil) // show the window and give it keyboard focus
+	app.Activate()                   // bring the Terminal-launched app to the front
 }

@@ -66,7 +66,7 @@ func buildWindow(app appkit.NSApplication) {
 	window.SetTitle("SF Symbols")
 	window.SetMinSize(corefoundation.CGSize{Width: 360, Height: 320})
 
-	contentView := window.ContentView().(appkit.NSView)
+	contentView := window.ContentView()
 	font := appkit.GetNSFontClass()
 	colors := appkit.GetNSColorClass()
 
@@ -96,7 +96,7 @@ func buildWindow(app appkit.NSApplication) {
 		colors.SystemPinkColor(),
 	}
 
-	layout := appkit.GetNSStackViewClass().Alloc().Init()
+	layout := appkit.NewNSStackView()
 	layout.SetOrientation(appkit.NSUserInterfaceLayoutOrientationVertical)
 	layout.SetSpacing(16)
 	layout.SetEdgeInsets(foundation.NSEdgeInsets{Top: 20, Left: 20, Bottom: 20, Right: 20})
@@ -104,14 +104,14 @@ func buildWindow(app appkit.NSApplication) {
 	layout.AddArrangedSubview(title)
 	layout.AddArrangedSubview(subtitle)
 
-	grid := appkit.GetNSStackViewClass().Alloc().Init()
+	grid := appkit.NewNSStackView()
 	grid.SetOrientation(appkit.NSUserInterfaceLayoutOrientationVertical)
 	grid.SetSpacing(8)
 	layout.AddArrangedSubview(grid)
 
 	cols := 4
 	for row := 0; row < len(symbols); row += cols {
-		rowStack := appkit.GetNSStackViewClass().Alloc().Init()
+		rowStack := appkit.NewNSStackView()
 		rowStack.SetOrientation(appkit.NSUserInterfaceLayoutOrientationHorizontal)
 		rowStack.SetDistribution(appkit.NSStackViewDistributionFillEqually)
 		rowStack.SetSpacing(8)
@@ -149,7 +149,7 @@ func buildWindow(app appkit.NSApplication) {
 			label.SetTextColor(colors.SecondaryLabelColor())
 			label.SetAlignment(appkit.NSTextAlignmentCenter)
 
-			cell := appkit.GetNSStackViewClass().Alloc().Init()
+			cell := appkit.NewNSStackView()
 			cell.SetOrientation(appkit.NSUserInterfaceLayoutOrientationVertical)
 			cell.SetAlignment(appkit.NSLayoutAttributeCenterX)
 			cell.SetSpacing(6)

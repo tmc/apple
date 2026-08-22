@@ -7,6 +7,20 @@ import (
 	"unsafe"
 )
 
+func TestRequireResourceLifecycleAllowed(t *testing.T) {
+	t.Setenv(resourceLifecycleConfirmEnv, "")
+	if err := requireResourceLifecycleAllowed(false); err == nil {
+		t.Fatal("requireResourceLifecycleAllowed(false) = nil, want error")
+	}
+	if err := requireResourceLifecycleAllowed(true); err == nil {
+		t.Fatal("requireResourceLifecycleAllowed(true) without confirmation = nil, want error")
+	}
+	t.Setenv(resourceLifecycleConfirmEnv, resourceLifecycleConfirmValue)
+	if err := requireResourceLifecycleAllowed(true); err != nil {
+		t.Fatalf("requireResourceLifecycleAllowed(true) = %v", err)
+	}
+}
+
 func TestParsePorts(t *testing.T) {
 	got := parsePorts("1, 2,255")
 	want := []uint8{1, 2, 255}
@@ -41,6 +55,29 @@ func TestQueryStepPreview(t *testing.T) {
 	}
 }
 
+func TestDeviceAttrFieldsIncludesProviderLimits(t *testing.T) {
+	buf := make([]byte, unsafe.Sizeof(ibvDeviceAttr{}))
+	attr := (*ibvDeviceAttr)(unsafe.Pointer(unsafe.SliceData(buf)))
+	attr.MaxPD = 11
+	attr.MaxMR = 12
+	attr.MaxQP = 13
+	attr.MaxCQ = 14
+	attr.MaxCQE = 15
+
+	fields := deviceAttrFields(buf)
+	for name, want := range map[string]any{
+		"max_pd":  int32(11),
+		"max_mr":  int32(12),
+		"max_qp":  int32(13),
+		"max_cq":  int32(14),
+		"max_cqe": int32(15),
+	} {
+		if got := fields[name]; got != want {
+			t.Errorf("deviceAttrFields()[%q] = %v, want %v", name, got, want)
+		}
+	}
+}
+
 func TestRDMAReadinessNames(t *testing.T) {
 	if got := rdmaNetInterface("rdma_en3"); got != "en3" {
 		t.Fatalf("rdmaNetInterface = %q, want en3", got)
@@ -61,7 +98,7 @@ func TestErrnoNamePreservesEvidenceCodes(t *testing.T) {
 		errno int
 		want  string
 	}{
-		{22, "EINVAL"},
+		{22, "errno 22 (EINVAL)"},
 		{60, "errno 60 (ETIMEDOUT)"},
 		{96, "errno 96 (EPROTONOSUPPORT)"},
 	}

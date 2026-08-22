@@ -35,7 +35,7 @@ func main() {
 	fmt.Printf("bytes=%d\n", data.Length())
 
 	// Decode a prefix of the response as a string.
-	str := foundation.GetNSStringClass().Alloc().InitWithDataEncoding(data, uint(foundation.NSUTF8StringEncoding))
+	str := foundation.NewStringWithDataEncoding(data, foundation.NSStringEncoding(foundation.NSUTF8StringEncoding))
 	full := str.UTF8String()
 	preview := full
 	if len(preview) > 80 {

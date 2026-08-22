@@ -461,8 +461,8 @@ func callURLVerdict(id objc.ID) error {
 
 func callIdentity(id objc.ID) error {
 	var completed uint64
-	block, cleanup := networkextension.NewSecIdentityRefArrayBlock(func(identity security.SecIdentity, certificateChain *foundation.NSArray) {
-		if identity.GetID() != 0 {
+	block, cleanup := networkextension.NewSecIdentityRefArrayBlock(func(identity security.SecIdentityRef, certificateChain *foundation.NSArray) {
+		if identity != 0 {
 			panic("unexpected identity")
 		}
 		if certificateChain != nil {

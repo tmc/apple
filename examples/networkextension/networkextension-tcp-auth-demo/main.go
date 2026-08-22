@@ -90,8 +90,8 @@ func runSmoke() error {
 	}
 
 	var completed uint64
-	block, cleanup := networkextension.NewSecTrustRefBlock(func(trust security.SecTrust) {
-		if trust.GetID() != 0 {
+	block, cleanup := networkextension.NewSecTrustRefBlock(func(trust security.SecTrustRef) {
+		if trust != 0 {
 			panic("unexpected trust object")
 		}
 		atomic.AddUint64(&completed, 1)
