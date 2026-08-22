@@ -2,12 +2,10 @@
 // binding of Espresso's e5rt_* direct-dispatch route can be shown to do, and
 // refuses to report anything else.
 //
-// This tool was written when one property of that package had been
-// established — every name in e5rt.Symbols resolves with dlsym — and the
-// argument lists, from Bryngelson, arXiv:2606.22283 chapter 6, had never
-// been exercised. That is no longer the state: the whole route runs, and
-// the direct dispatch route has been called through the generated binding
-// under a CPU reference. See espressoe5rtdispatch and espressoe5rtblock.
+// The normal compile, load, bind, and synchronous-dispatch route has been
+// called through manifest-verified generated signatures under a CPU reference.
+// See espressoe5rtdispatch and espressoe5rtblock. Resolving the remaining
+// names with dlsym does not establish their calling conventions.
 //
 // The tool keeps its shape anyway, because the hazard it was built around
 // has not changed. Calling a wrong signature through purego faults in C,
@@ -156,28 +154,45 @@ type symbolReport struct {
 	Unwrapped     []string `json:"unwrapped,omitempty"`
 }
 
-// wrapped lists the names this example reaches through a typed wrapper. The
-// remainder of e5rt.Symbols it does not call at all: the source paper gives
-// their argument lists inconsistently or not at all, so a caller must supply
-// a convention through Lib.Sym. This is a statement about what the example
-// does, not about how the package is built; if e5rt later grows or is
-// regenerated with more wrappers, the report says the example did not use
-// them, which stays true.
+// wrapped lists the names for which espressoe5rt has a typed method backed by
+// a manifest-verified signature. The remainder of e5rt.Symbols is resolved
+// only; a raw caller through Lib.Sym must supply its own convention and run in
+// an isolated child process. This list records the adapter's boundary, not a
+// claim about every generated Espresso declaration.
 var wrapped = map[string]bool{
-	"e5rt_e5_compiler_create_with_config":                   true,
-	"e5rt_e5_compiler_compile":                              true,
-	"e5rt_program_library_retain_program_function":          true,
-	"e5rt_program_function_load_for_execution":              true,
-	"e5rt_buffer_object_alloc":                              true,
-	"e5rt_buffer_object_get_data_ptr":                       true,
-	"e5rt_io_port_bind_buffer_object":                       true,
-	"e5rt_execution_stream_operation_retain_input_port":     true,
-	"e5rt_execution_stream_operation_retain_output_port":    true,
-	"e5rt_execution_stream_create":                          true,
-	"e5rt_execution_stream_operation_prepare_op_for_encode": true,
-	"e5rt_execution_stream_encode_operation":                true,
-	"e5rt_execution_stream_execute_sync":                    true,
-	"e5rt_execution_stream_reset":                           true,
+	"e5rt_e5_compiler_config_options_create":                                            true,
+	"e5rt_e5_compiler_config_options_set_cache_bundle_location":                         true,
+	"e5rt_e5_compiler_config_options_release":                                           true,
+	"e5rt_e5_compiler_create_with_config":                                               true,
+	"e5rt_e5_compiler_release":                                                          true,
+	"e5rt_e5_compiler_options_create":                                                   true,
+	"e5rt_e5_compiler_options_set_compute_device_types_mask":                            true,
+	"e5rt_e5_compiler_options_set_force_recompilation":                                  true,
+	"e5rt_e5_compiler_options_set_segmenter":                                            true,
+	"e5rt_e5_compiler_options_release":                                                  true,
+	"e5rt_e5_compiler_compile":                                                          true,
+	"e5rt_program_library_release":                                                      true,
+	"e5rt_program_library_retain_program_function":                                      true,
+	"e5rt_program_function_load_for_execution":                                          true,
+	"e5rt_program_function_release":                                                     true,
+	"e5rt_precompiled_compute_op_create_options_create_with_program_function":           true,
+	"e5rt_precompiled_compute_op_create_options_set_operation_name":                     true,
+	"e5rt_precompiled_compute_op_create_options_set_allocate_intermediate_buffers":      true,
+	"e5rt_precompiled_compute_op_create_options_release":                                true,
+	"e5rt_execution_stream_operation_create_precompiled_compute_operation_with_options": true,
+	"e5rt_execution_stream_operation_release":                                           true,
+	"e5rt_buffer_object_alloc":                                                          true,
+	"e5rt_buffer_object_get_data_ptr":                                                   true,
+	"e5rt_buffer_object_release":                                                        true,
+	"e5rt_io_port_bind_buffer_object":                                                   true,
+	"e5rt_io_port_release":                                                              true,
+	"e5rt_execution_stream_operation_retain_input_port":                                 true,
+	"e5rt_execution_stream_operation_retain_output_port":                                true,
+	"e5rt_execution_stream_create":                                                      true,
+	"e5rt_execution_stream_encode_operation":                                            true,
+	"e5rt_execution_stream_execute_sync":                                                true,
+	"e5rt_execution_stream_reset":                                                       true,
+	"e5rt_execution_stream_release":                                                     true,
 }
 
 func symbols(args []string) {

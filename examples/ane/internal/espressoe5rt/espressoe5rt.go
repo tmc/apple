@@ -23,7 +23,11 @@ const (
 	ComputeDeviceANE uint64 = 0x4
 )
 
-// Symbols is the direct-dispatch subset exercised by the dispatch examples.
+// Symbols is the direct-dispatch symbol set reported by the examples.
+//
+// Resolving a name establishes only that Espresso exports it. The typed methods
+// in this package use the manifest's verified signatures; the remaining names
+// are retained for the probe's explicitly raw experiments.
 var Symbols = []string{
 	"e5rt_e5_compiler_config_options_create",
 	"e5rt_e5_compiler_config_options_set_cache_bundle_location",
@@ -41,6 +45,9 @@ var Symbols = []string{
 	"e5rt_e5_compiler_is_new_compile_required",
 	"e5rt_program_library_create",
 	"e5rt_program_library_retain_program_function",
+	"e5rt_program_library_release",
+	"e5rt_program_function_load_for_execution",
+	"e5rt_program_function_release",
 	"e5rt_precompiled_compute_op_create_options_create_with_program_function",
 	"e5rt_precompiled_compute_op_create_options_set_operation_name",
 	"e5rt_precompiled_compute_op_create_options_set_allocate_intermediate_buffers",
@@ -54,6 +61,7 @@ var Symbols = []string{
 	"e5rt_io_port_release",
 	"e5rt_execution_stream_operation_retain_input_port",
 	"e5rt_execution_stream_operation_retain_output_port",
+	"e5rt_execution_stream_operation_retain_inout_port",
 	"e5rt_execution_stream_create",
 	"e5rt_execution_stream_operation_prepare_op_for_encode",
 	"e5rt_execution_stream_encode_operation",
@@ -77,8 +85,8 @@ var Symbols = []string{
 // use. Its zero value is not usable.
 type Lib struct{ resolved map[string]bool }
 
-// Open verifies that the generated binding can resolve every entry point used
-// by these examples.
+// Open verifies that Espresso exports every name in Symbols. It does not verify
+// a calling convention or promote a raw symbol to a supported binding.
 func Open() (*Lib, error) {
 	l := &Lib{resolved: make(map[string]bool, len(Symbols))}
 	for _, name := range Symbols {
@@ -90,7 +98,7 @@ func Open() (*Lib, error) {
 	return l, nil
 }
 
-// Resolved returns the verified generated entry points in Symbols order.
+// Resolved returns the names in Symbols that Open resolved, in Symbols order.
 func (l *Lib) Resolved() []string {
 	var out []string
 	for _, name := range Symbols {
