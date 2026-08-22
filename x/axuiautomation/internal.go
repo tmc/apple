@@ -193,7 +193,7 @@ var (
 	cgEventSetIntegerValueField func(event uintptr, field uint32, value int64)
 	cgEventCreate               func(source uintptr) uintptr
 	cgEventGetDoubleValueField  func(event uintptr, field uint32) float64
-	cgWarpMouseCursorPosition func(x, y float64) int32
+	cgWarpMouseCursorPosition   func(x, y float64) int32
 
 	cgEventsInitialized bool
 	cgEventsInitOnce    sync.Once
@@ -911,4 +911,3 @@ func cgScrollWheel(x, y int, direction ScrollDirection, amount int) error {
 	cgWarpMouseCursorPosition(oldX, oldY)
 	return nil
 }
-

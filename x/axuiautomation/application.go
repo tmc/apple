@@ -362,10 +362,28 @@ func (a *Application) WaitForWindow(title string, timeout time.Duration) (*Eleme
 }
 
 // ClickMenuItem clicks a menu item by its path (e.g., ["File", "Export..."]).
-func (a *Application) ClickMenuItem(path []string) error {
+//
+// Clicking a path opens each menu along the way. If the path cannot be
+// resolved, the menus opened so far are closed before returning: an open menu
+// left behind keeps raising and focusing its owning window, which on a
+// multi-display setup pulls focus to another screen on every retry.
+func (a *Application) ClickMenuItem(path []string) (err error) {
 	if len(path) == 0 {
 		return ErrElementNotFound
 	}
+
+	// opened records the menu bar item whose menu this call opened, so a failure
+	// partway down the path does not leak it.
+	var opened *Element
+	defer func() {
+		if opened == nil {
+			return
+		}
+		if err != nil {
+			opened.PerformAction("AXCancel")
+		}
+		opened.Release()
+	}()
 
 	menuBar := a.MenuBar()
 	if menuBar == nil {
@@ -391,9 +409,15 @@ func (a *Application) ClickMenuItem(path []string) error {
 			return fmt.Errorf("menu item %q not found", itemName)
 		}
 
-		if err := menuItem.Click(); err != nil {
+		if clickErr := menuItem.Click(); clickErr != nil {
 			menuItem.Release()
-			return fmt.Errorf("failed to click menu item %q: %w", itemName, err)
+			return fmt.Errorf("failed to click menu item %q: %w", itemName, clickErr)
+		}
+
+		// Clicking the first path element opens its menu. Hold on to it so the
+		// deferred cleanup can close it if a later element fails to resolve.
+		if i == 0 {
+			opened = menuItem
 		}
 
 		if i < len(path)-1 {
@@ -408,11 +432,13 @@ func (a *Application) ClickMenuItem(path []string) error {
 					child.Release()
 				}
 			}
-			menuItem.Release()
+			if i != 0 {
+				menuItem.Release()
+			}
 			if submenu != nil {
 				current = submenu
 			}
-		} else {
+		} else if i != 0 {
 			menuItem.Release()
 		}
 	}

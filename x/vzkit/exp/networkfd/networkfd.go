@@ -70,7 +70,7 @@ func ConfigureDatagramSocketBuffers(fd int, mtu int) error {
 
 // NewFileHandleFromFD wraps fd in an NSFileHandle that closes on dealloc.
 func NewFileHandleFromFD(fd int) foundation.NSFileHandle {
-	handle := foundation.NewFileHandleWithFileDescriptorCloseOnDealloc(fd, true)
+	handle := foundation.NewFileHandleWithFileDescriptorCloseOnDealloc(int32(fd), true)
 	handle.Retain()
 	return handle
 }

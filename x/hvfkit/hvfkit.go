@@ -41,24 +41,24 @@ type GICConfig struct {
 
 // VCPU is a Hypervisor.framework vCPU and its HVF-owned exit area.
 type VCPU struct {
-	ID   uint64
+	ID   hypervisor.HVVCPU
 	Exit *hypervisor.HVVCPUExit
 }
 
 // QueryCapabilities returns host Hypervisor.framework capabilities.
 func QueryCapabilities() (Capabilities, error) {
 	var caps Capabilities
-	if err := call("hv_vm_get_max_vcpu_count", func() int32 {
+	if err := call("hv_vm_get_max_vcpu_count", func() hypervisor.HVReturn {
 		return hypervisor.HVVmGetMaxVCPUCount(&caps.MaxVCPUCount)
 	}); err != nil {
 		return Capabilities{}, err
 	}
-	if err := call("hv_vm_config_get_max_ipa_size", func() int32 {
+	if err := call("hv_vm_config_get_max_ipa_size", func() hypervisor.HVReturn {
 		return hypervisor.HVVmConfigGetMaxIPASize(&caps.MaxIPABits)
 	}); err != nil {
 		return Capabilities{}, err
 	}
-	if err := call("hv_vm_config_get_el2_supported", func() int32 {
+	if err := call("hv_vm_config_get_el2_supported", func() hypervisor.HVReturn {
 		return hypervisor.HVVmConfigGetEl2Supported(&caps.EL2Supported)
 	}); err != nil {
 		return Capabilities{}, err
@@ -123,7 +123,7 @@ func WithEL2(enabled bool) ConfigOption {
 // DefaultIPASize returns the default IPA size for new VM configurations.
 func DefaultIPASize() (uint32, error) {
 	var bits uint32
-	err := call("hv_vm_config_get_default_ipa_size", func() int32 {
+	err := call("hv_vm_config_get_default_ipa_size", func() hypervisor.HVReturn {
 		return hypervisor.HVVmConfigGetDefaultIPASize(&bits)
 	})
 	return bits, err
@@ -132,7 +132,7 @@ func DefaultIPASize() (uint32, error) {
 // DefaultIPAGranule returns the default IPA granule for new VM configurations.
 func DefaultIPAGranule() (hypervisor.HVIPAGranule, error) {
 	var granule hypervisor.HVIPAGranule
-	err := call("hv_vm_config_get_default_ipa_granule", func() int32 {
+	err := call("hv_vm_config_get_default_ipa_granule", func() hypervisor.HVReturn {
 		return hypervisor.HVVmConfigGetDefaultIPAGranule(&granule)
 	})
 	return granule, err
@@ -141,7 +141,7 @@ func DefaultIPAGranule() (hypervisor.HVIPAGranule, error) {
 // GetIPAGranule reads a VM configuration's IPA granule.
 func (c *Config) GetIPAGranule() (hypervisor.HVIPAGranule, error) {
 	var granule hypervisor.HVIPAGranule
-	err := call("hv_vm_config_get_ipa_granule", func() int32 {
+	err := call("hv_vm_config_get_ipa_granule", func() hypervisor.HVReturn {
 		return hypervisor.HVVmConfigGetIPAGranule(c.handle, &granule)
 	})
 	return granule, err
@@ -149,14 +149,14 @@ func (c *Config) GetIPAGranule() (hypervisor.HVIPAGranule, error) {
 
 // SetIPAGranule writes a VM configuration's IPA granule.
 func (c *Config) SetIPAGranule(granule hypervisor.HVIPAGranule) error {
-	return call("hv_vm_config_set_ipa_granule", func() int32 {
+	return call("hv_vm_config_set_ipa_granule", func() hypervisor.HVReturn {
 		return hypervisor.HVVmConfigSetIPAGranule(c.handle, granule)
 	})
 }
 
 // CreateVM creates a process VM with config.
 func (c *Config) CreateVM() error {
-	if err := call("hv_vm_create", func() int32 {
+	if err := call("hv_vm_create", func() hypervisor.HVReturn {
 		return hypervisor.HVVmCreate(c.handle)
 	}); err != nil {
 		return err
@@ -169,29 +169,29 @@ func (c *Config) setIPASize(bits uint32) error {
 	if bits == 0 {
 		return nil
 	}
-	return call("hv_vm_config_set_ipa_size", func() int32 {
+	return call("hv_vm_config_set_ipa_size", func() hypervisor.HVReturn {
 		return hypervisor.HVVmConfigSetIPASize(c.handle, bits)
 	})
 }
 
 func (c *Config) setEL2(enabled bool) error {
-	return call("hv_vm_config_set_el2_enabled", func() int32 {
+	return call("hv_vm_config_set_el2_enabled", func() hypervisor.HVReturn {
 		return hypervisor.HVVmConfigSetEl2Enabled(c.handle, enabled)
 	})
 }
 
 func (c *Config) refresh() error {
-	if err := call("hv_vm_config_get_ipa_size", func() int32 {
+	if err := call("hv_vm_config_get_ipa_size", func() hypervisor.HVReturn {
 		return hypervisor.HVVmConfigGetIPASize(c.handle, &c.IPABits)
 	}); err != nil {
 		return err
 	}
-	if err := call("hv_vm_config_get_ipa_granule", func() int32 {
+	if err := call("hv_vm_config_get_ipa_granule", func() hypervisor.HVReturn {
 		return hypervisor.HVVmConfigGetIPAGranule(c.handle, &c.IPAGranule)
 	}); err != nil {
 		return err
 	}
-	return call("hv_vm_config_get_el2_enabled", func() int32 {
+	return call("hv_vm_config_get_el2_enabled", func() hypervisor.HVReturn {
 		return hypervisor.HVVmConfigGetEl2Enabled(c.handle, &c.EL2Enabled)
 	})
 }
@@ -229,14 +229,14 @@ func DestroyVM() error {
 
 // MapMemory maps host memory into guest physical memory.
 func MapMemory(addr unsafe.Pointer, ipa uint64, size uintptr, flags uint64) error {
-	return call("hv_vm_map", func() int32 {
+	return call("hv_vm_map", func() hypervisor.HVReturn {
 		return hypervisor.HVVmMap(addr, ipa, size, flags)
 	})
 }
 
 // UnmapMemory removes a guest physical memory mapping.
 func UnmapMemory(ipa uint64, size uintptr) error {
-	return call("hv_vm_unmap", func() int32 {
+	return call("hv_vm_unmap", func() hypervisor.HVReturn {
 		return hypervisor.HVVmUnmap(ipa, size)
 	})
 }
@@ -244,7 +244,7 @@ func UnmapMemory(ipa uint64, size uintptr) error {
 // AllocateMemory allocates Hypervisor.framework-owned memory.
 func AllocateMemory(size uintptr, flags uint64) (unsafe.Pointer, error) {
 	var addr unsafe.Pointer
-	err := call("hv_vm_allocate", func() int32 {
+	err := call("hv_vm_allocate", func() hypervisor.HVReturn {
 		return hypervisor.HVVmAllocate(unsafe.Pointer(&addr), size, flags)
 	})
 	return addr, err
@@ -252,14 +252,14 @@ func AllocateMemory(size uintptr, flags uint64) (unsafe.Pointer, error) {
 
 // DeallocateMemory releases Hypervisor.framework-owned memory.
 func DeallocateMemory(addr unsafe.Pointer, size uintptr) error {
-	return call("hv_vm_deallocate", func() int32 {
+	return call("hv_vm_deallocate", func() hypervisor.HVReturn {
 		return hypervisor.HVVmDeallocate(addr, size)
 	})
 }
 
 // ProtectMemory changes guest physical memory permissions.
 func ProtectMemory(ipa uint64, size uintptr, flags uint64) error {
-	return call("hv_vm_protect", func() int32 {
+	return call("hv_vm_protect", func() hypervisor.HVReturn {
 		return hypervisor.HVVmProtect(ipa, size, flags)
 	})
 }
@@ -292,7 +292,7 @@ func (c *VCPUConfig) Release() error {
 // FeatureReg reads a feature register from a vCPU configuration.
 func (c *VCPUConfig) FeatureReg(reg hypervisor.HVFeatureReg) (uint64, error) {
 	var value uint64
-	err := call("hv_vcpu_config_get_feature_reg", func() int32 {
+	err := call("hv_vcpu_config_get_feature_reg", func() hypervisor.HVReturn {
 		return hypervisor.HVVCPUConfigGetFeatureReg(c.handle, reg, &value)
 	})
 	return value, err
@@ -300,13 +300,13 @@ func (c *VCPUConfig) FeatureReg(reg hypervisor.HVFeatureReg) (uint64, error) {
 
 // CreateVCPU creates a vCPU and returns the HVF-owned exit area.
 func CreateVCPU(config *VCPUConfig) (*VCPU, error) {
-	var id uint64
+	var id hypervisor.HVVCPU
 	var exit *hypervisor.HVVCPUExit
 	var handle hypervisor.HVVCPUConfig
 	if config != nil {
 		handle = config.handle
 	}
-	err := call("hv_vcpu_create", func() int32 {
+	err := call("hv_vcpu_create", func() hypervisor.HVReturn {
 		return hypervisor.HVVCPUCreate(&id, &exit, handle)
 	})
 	if err != nil {
@@ -316,22 +316,22 @@ func CreateVCPU(config *VCPUConfig) (*VCPU, error) {
 }
 
 // DestroyVCPU destroys a vCPU.
-func DestroyVCPU(id uint64) error {
-	return call("hv_vcpu_destroy", func() int32 {
+func DestroyVCPU(id hypervisor.HVVCPU) error {
+	return call("hv_vcpu_destroy", func() hypervisor.HVReturn {
 		return hypervisor.HVVCPUDestroy(id)
 	})
 }
 
 // RunVCPU enters a vCPU until the next exit.
-func RunVCPU(id uint64) error {
-	return call("hv_vcpu_run", func() int32 {
+func RunVCPU(id hypervisor.HVVCPU) error {
+	return call("hv_vcpu_run", func() hypervisor.HVReturn {
 		return hypervisor.HVVCPURun(id)
 	})
 }
 
 // ExitVCPUs requests exits from the supplied vCPUs.
-func ExitVCPUs(ids []uint64) error {
-	return call("hv_vcpus_exit", func() int32 {
+func ExitVCPUs(ids []hypervisor.HVVCPU) error {
+	return call("hv_vcpus_exit", func() hypervisor.HVReturn {
 		if len(ids) == 0 {
 			return hypervisor.HVVcpusExit(nil, 0)
 		}
@@ -340,138 +340,138 @@ func ExitVCPUs(ids []uint64) error {
 }
 
 // GetExecTime returns the time a vCPU has spent executing.
-func GetExecTime(vcpu uint64) (uint64, error) {
+func GetExecTime(vcpu hypervisor.HVVCPU) (uint64, error) {
 	var tm uint64
-	err := call("hv_vcpu_get_exec_time", func() int32 {
+	err := call("hv_vcpu_get_exec_time", func() hypervisor.HVReturn {
 		return hypervisor.HVVCPUGetExecTime(vcpu, &tm)
 	})
 	return tm, err
 }
 
 // GetPendingInterrupt reports whether an interrupt type is pending.
-func GetPendingInterrupt(vcpu uint64, typ hypervisor.HVInterruptType) (bool, error) {
+func GetPendingInterrupt(vcpu hypervisor.HVVCPU, typ hypervisor.HVInterruptType) (bool, error) {
 	var pending bool
-	err := call("hv_vcpu_get_pending_interrupt", func() int32 {
+	err := call("hv_vcpu_get_pending_interrupt", func() hypervisor.HVReturn {
 		return hypervisor.HVVCPUGetPendingInterrupt(vcpu, typ, &pending)
 	})
 	return pending, err
 }
 
 // SetPendingInterrupt changes whether an interrupt type is pending.
-func SetPendingInterrupt(vcpu uint64, typ hypervisor.HVInterruptType, pending bool) error {
-	return call("hv_vcpu_set_pending_interrupt", func() int32 {
+func SetPendingInterrupt(vcpu hypervisor.HVVCPU, typ hypervisor.HVInterruptType, pending bool) error {
+	return call("hv_vcpu_set_pending_interrupt", func() hypervisor.HVReturn {
 		return hypervisor.HVVCPUSetPendingInterrupt(vcpu, typ, pending)
 	})
 }
 
 // GetReg reads a general-purpose vCPU register.
-func GetReg(vcpu uint64, reg hypervisor.HVReg) (uint64, error) {
+func GetReg(vcpu hypervisor.HVVCPU, reg hypervisor.HVReg) (uint64, error) {
 	var value uint64
-	err := call("hv_vcpu_get_reg", func() int32 {
+	err := call("hv_vcpu_get_reg", func() hypervisor.HVReturn {
 		return hypervisor.HVVCPUGetReg(vcpu, reg, &value)
 	})
 	return value, err
 }
 
 // SetReg writes a general-purpose vCPU register.
-func SetReg(vcpu uint64, reg hypervisor.HVReg, value uint64) error {
-	return call("hv_vcpu_set_reg", func() int32 {
+func SetReg(vcpu hypervisor.HVVCPU, reg hypervisor.HVReg, value uint64) error {
+	return call("hv_vcpu_set_reg", func() hypervisor.HVReturn {
 		return hypervisor.HVVCPUSetReg(vcpu, reg, value)
 	})
 }
 
 // GetSysReg reads a vCPU system register.
-func GetSysReg(vcpu uint64, reg hypervisor.HVSysReg) (uint64, error) {
+func GetSysReg(vcpu hypervisor.HVVCPU, reg hypervisor.HVSysReg) (uint64, error) {
 	var value uint64
-	err := call("hv_vcpu_get_sys_reg", func() int32 {
+	err := call("hv_vcpu_get_sys_reg", func() hypervisor.HVReturn {
 		return hypervisor.HVVCPUGetSysReg(vcpu, reg, &value)
 	})
 	return value, err
 }
 
 // SetSysReg writes a vCPU system register.
-func SetSysReg(vcpu uint64, reg hypervisor.HVSysReg, value uint64) error {
-	return call("hv_vcpu_set_sys_reg", func() int32 {
+func SetSysReg(vcpu hypervisor.HVVCPU, reg hypervisor.HVSysReg, value uint64) error {
+	return call("hv_vcpu_set_sys_reg", func() hypervisor.HVReturn {
 		return hypervisor.HVVCPUSetSysReg(vcpu, reg, value)
 	})
 }
 
 // GetSIMDFPReg reads a SIMD/FP register.
-func GetSIMDFPReg(vcpu uint64, reg hypervisor.HVSIMDFPReg) ([16]byte, error) {
+func GetSIMDFPReg(vcpu hypervisor.HVVCPU, reg hypervisor.HVSIMDFPReg) ([16]byte, error) {
 	var value [16]byte
-	err := call("hv_vcpu_get_simd_fp_reg", func() int32 {
+	err := call("hv_vcpu_get_simd_fp_reg", func() hypervisor.HVReturn {
 		return hypervisor.HVVCPUGetSIMDFPReg(vcpu, reg, &value)
 	})
 	return value, err
 }
 
 // SetSIMDFPReg writes a SIMD/FP register.
-func SetSIMDFPReg(vcpu uint64, reg hypervisor.HVSIMDFPReg, value [16]byte) error {
-	return call("hv_vcpu_set_simd_fp_reg", func() int32 {
+func SetSIMDFPReg(vcpu hypervisor.HVVCPU, reg hypervisor.HVSIMDFPReg, value [16]byte) error {
+	return call("hv_vcpu_set_simd_fp_reg", func() hypervisor.HVReturn {
 		return hypervisor.HVVCPUSetSIMDFPReg(vcpu, reg, value)
 	})
 }
 
 // GetVtimerMask reports whether the virtual timer is masked.
-func GetVtimerMask(vcpu uint64) (bool, error) {
+func GetVtimerMask(vcpu hypervisor.HVVCPU) (bool, error) {
 	var masked bool
-	err := call("hv_vcpu_get_vtimer_mask", func() int32 {
+	err := call("hv_vcpu_get_vtimer_mask", func() hypervisor.HVReturn {
 		return hypervisor.HVVCPUGetVtimerMask(vcpu, &masked)
 	})
 	return masked, err
 }
 
 // GetVtimerOffset reads the virtual timer offset.
-func GetVtimerOffset(vcpu uint64) (uint64, error) {
+func GetVtimerOffset(vcpu hypervisor.HVVCPU) (uint64, error) {
 	var offset uint64
-	err := call("hv_vcpu_get_vtimer_offset", func() int32 {
+	err := call("hv_vcpu_get_vtimer_offset", func() hypervisor.HVReturn {
 		return hypervisor.HVVCPUGetVtimerOffset(vcpu, &offset)
 	})
 	return offset, err
 }
 
 // SetVtimerMask masks or unmasks the virtual timer.
-func SetVtimerMask(vcpu uint64, masked bool) error {
-	return call("hv_vcpu_set_vtimer_mask", func() int32 {
+func SetVtimerMask(vcpu hypervisor.HVVCPU, masked bool) error {
+	return call("hv_vcpu_set_vtimer_mask", func() hypervisor.HVReturn {
 		return hypervisor.HVVCPUSetVtimerMask(vcpu, masked)
 	})
 }
 
 // SetVtimerOffset writes the virtual timer offset.
-func SetVtimerOffset(vcpu uint64, offset uint64) error {
-	return call("hv_vcpu_set_vtimer_offset", func() int32 {
+func SetVtimerOffset(vcpu hypervisor.HVVCPU, offset uint64) error {
+	return call("hv_vcpu_set_vtimer_offset", func() hypervisor.HVReturn {
 		return hypervisor.HVVCPUSetVtimerOffset(vcpu, offset)
 	})
 }
 
 // GetTrapDebugExceptions reports whether debug exceptions trap to the host.
-func GetTrapDebugExceptions(vcpu uint64) (bool, error) {
+func GetTrapDebugExceptions(vcpu hypervisor.HVVCPU) (bool, error) {
 	var enabled bool
-	err := call("hv_vcpu_get_trap_debug_exceptions", func() int32 {
+	err := call("hv_vcpu_get_trap_debug_exceptions", func() hypervisor.HVReturn {
 		return hypervisor.HVVCPUGetTrapDebugExceptions(vcpu, &enabled)
 	})
 	return enabled, err
 }
 
 // SetTrapDebugExceptions configures whether debug exceptions trap to the host.
-func SetTrapDebugExceptions(vcpu uint64, enabled bool) error {
-	return call("hv_vcpu_set_trap_debug_exceptions", func() int32 {
+func SetTrapDebugExceptions(vcpu hypervisor.HVVCPU, enabled bool) error {
+	return call("hv_vcpu_set_trap_debug_exceptions", func() hypervisor.HVReturn {
 		return hypervisor.HVVCPUSetTrapDebugExceptions(vcpu, enabled)
 	})
 }
 
 // GetTrapDebugRegAccesses reports whether debug register accesses trap to the host.
-func GetTrapDebugRegAccesses(vcpu uint64) (bool, error) {
+func GetTrapDebugRegAccesses(vcpu hypervisor.HVVCPU) (bool, error) {
 	var enabled bool
-	err := call("hv_vcpu_get_trap_debug_reg_accesses", func() int32 {
+	err := call("hv_vcpu_get_trap_debug_reg_accesses", func() hypervisor.HVReturn {
 		return hypervisor.HVVCPUGetTrapDebugRegAccesses(vcpu, &enabled)
 	})
 	return enabled, err
 }
 
 // SetTrapDebugRegAccesses configures whether debug register accesses trap to the host.
-func SetTrapDebugRegAccesses(vcpu uint64, enabled bool) error {
-	return call("hv_vcpu_set_trap_debug_reg_accesses", func() int32 {
+func SetTrapDebugRegAccesses(vcpu hypervisor.HVVCPU, enabled bool) error {
+	return call("hv_vcpu_set_trap_debug_reg_accesses", func() hypervisor.HVReturn {
 		return hypervisor.HVVCPUSetTrapDebugRegAccesses(vcpu, enabled)
 	})
 }
@@ -502,12 +502,12 @@ func NewGICConfig(distributorBase, redistributorBase uint64) (cfg *GICConfig, er
 			cfg = nil
 		}
 	}()
-	if err := call("hv_gic_config_set_distributor_base", func() int32 {
+	if err := call("hv_gic_config_set_distributor_base", func() hypervisor.HVReturn {
 		return hypervisor.HVGICConfigSetDistributorBase(cfg.handle, distributorBase)
 	}); err != nil {
 		return nil, err
 	}
-	if err := call("hv_gic_config_set_redistributor_base", func() int32 {
+	if err := call("hv_gic_config_set_redistributor_base", func() hypervisor.HVReturn {
 		return hypervisor.HVGICConfigSetRedistributorBase(cfg.handle, redistributorBase)
 	}); err != nil {
 		return nil, err
@@ -517,21 +517,21 @@ func NewGICConfig(distributorBase, redistributorBase uint64) (cfg *GICConfig, er
 
 // SetMSIInterruptRange configures the GIC MSI interrupt range.
 func (c *GICConfig) SetMSIInterruptRange(base, count uint32) error {
-	return call("hv_gic_config_set_msi_interrupt_range", func() int32 {
+	return call("hv_gic_config_set_msi_interrupt_range", func() hypervisor.HVReturn {
 		return hypervisor.HVGICConfigSetMsiInterruptRange(c.handle, base, count)
 	})
 }
 
 // SetMSIRegionBase configures the GIC MSI region base.
 func (c *GICConfig) SetMSIRegionBase(base uint64) error {
-	return call("hv_gic_config_set_msi_region_base", func() int32 {
+	return call("hv_gic_config_set_msi_region_base", func() hypervisor.HVReturn {
 		return hypervisor.HVGICConfigSetMsiRegionBase(c.handle, base)
 	})
 }
 
 // Create creates a GICv3 device from config.
 func (c *GICConfig) Create() error {
-	return call("hv_gic_create", func() int32 {
+	return call("hv_gic_create", func() hypervisor.HVReturn {
 		return hypervisor.HVGICCreate(c.handle)
 	})
 }
@@ -552,7 +552,7 @@ func (c *GICConfig) Release() error {
 // GetGICDistributorBaseAlignment returns the required distributor base alignment.
 func GetGICDistributorBaseAlignment() (uintptr, error) {
 	var alignment uintptr
-	err := call("hv_gic_get_distributor_base_alignment", func() int32 {
+	err := call("hv_gic_get_distributor_base_alignment", func() hypervisor.HVReturn {
 		return hypervisor.HVGICGetDistributorBaseAlignment(&alignment)
 	})
 	return alignment, err
@@ -561,7 +561,7 @@ func GetGICDistributorBaseAlignment() (uintptr, error) {
 // GetGICDistributorSize returns the GIC distributor region size.
 func GetGICDistributorSize() (uintptr, error) {
 	var size uintptr
-	err := call("hv_gic_get_distributor_size", func() int32 {
+	err := call("hv_gic_get_distributor_size", func() hypervisor.HVReturn {
 		return hypervisor.HVGICGetDistributorSize(&size)
 	})
 	return size, err
@@ -570,7 +570,7 @@ func GetGICDistributorSize() (uintptr, error) {
 // GetGICRedistributorBaseAlignment returns the required redistributor base alignment.
 func GetGICRedistributorBaseAlignment() (uintptr, error) {
 	var alignment uintptr
-	err := call("hv_gic_get_redistributor_base_alignment", func() int32 {
+	err := call("hv_gic_get_redistributor_base_alignment", func() hypervisor.HVReturn {
 		return hypervisor.HVGICGetRedistributorBaseAlignment(&alignment)
 	})
 	return alignment, err
@@ -579,7 +579,7 @@ func GetGICRedistributorBaseAlignment() (uintptr, error) {
 // GetGICRedistributorSize returns one GIC redistributor region size.
 func GetGICRedistributorSize() (uintptr, error) {
 	var size uintptr
-	err := call("hv_gic_get_redistributor_size", func() int32 {
+	err := call("hv_gic_get_redistributor_size", func() hypervisor.HVReturn {
 		return hypervisor.HVGICGetRedistributorSize(&size)
 	})
 	return size, err
@@ -588,16 +588,16 @@ func GetGICRedistributorSize() (uintptr, error) {
 // GetGICRedistributorRegionSize returns the full redistributor region size.
 func GetGICRedistributorRegionSize() (uintptr, error) {
 	var size uintptr
-	err := call("hv_gic_get_redistributor_region_size", func() int32 {
+	err := call("hv_gic_get_redistributor_region_size", func() hypervisor.HVReturn {
 		return hypervisor.HVGICGetRedistributorRegionSize(&size)
 	})
 	return size, err
 }
 
 // GetGICRedistributorBase returns a vCPU redistributor base address.
-func GetGICRedistributorBase(vcpu uint64) (uint64, error) {
+func GetGICRedistributorBase(vcpu hypervisor.HVVCPU) (uint64, error) {
 	var base uint64
-	err := call("hv_gic_get_redistributor_base", func() int32 {
+	err := call("hv_gic_get_redistributor_base", func() hypervisor.HVReturn {
 		return hypervisor.HVGICGetRedistributorBase(vcpu, &base)
 	})
 	return base, err
@@ -610,7 +610,7 @@ func ResetGIC() error {
 
 // SetSPI sets a shared peripheral interrupt level.
 func SetSPI(intid uint32, level bool) error {
-	return call("hv_gic_set_spi", func() int32 {
+	return call("hv_gic_set_spi", func() hypervisor.HVReturn {
 		return hypervisor.HVGICSetSpi(intid, level)
 	})
 }
@@ -618,7 +618,7 @@ func SetSPI(intid uint32, level bool) error {
 // GetGICIntID returns the concrete GIC interrupt ID for a reserved interrupt.
 func GetGICIntID(interrupt hypervisor.HVGICIntid) (uint32, error) {
 	var intid uint32
-	err := call("hv_gic_get_intid", func() int32 {
+	err := call("hv_gic_get_intid", func() hypervisor.HVReturn {
 		return hypervisor.HVGICGetIntid(interrupt, &intid)
 	})
 	return intid, err
@@ -627,7 +627,7 @@ func GetGICIntID(interrupt hypervisor.HVGICIntid) (uint32, error) {
 // GetGICDistributorReg reads a GIC distributor register.
 func GetGICDistributorReg(reg hypervisor.HVGICDistributorReg) (uint64, error) {
 	var value uint64
-	err := call("hv_gic_get_distributor_reg", func() int32 {
+	err := call("hv_gic_get_distributor_reg", func() hypervisor.HVReturn {
 		return hypervisor.HVGICGetDistributorReg(reg, &value)
 	})
 	return value, err
@@ -635,71 +635,71 @@ func GetGICDistributorReg(reg hypervisor.HVGICDistributorReg) (uint64, error) {
 
 // SetGICDistributorReg writes a GIC distributor register.
 func SetGICDistributorReg(reg hypervisor.HVGICDistributorReg, value uint64) error {
-	return call("hv_gic_set_distributor_reg", func() int32 {
+	return call("hv_gic_set_distributor_reg", func() hypervisor.HVReturn {
 		return hypervisor.HVGICSetDistributorReg(reg, value)
 	})
 }
 
 // GetGICRedistributorReg reads a GIC redistributor register.
-func GetGICRedistributorReg(vcpu uint64, reg hypervisor.HVGICRedistributorReg) (uint64, error) {
+func GetGICRedistributorReg(vcpu hypervisor.HVVCPU, reg hypervisor.HVGICRedistributorReg) (uint64, error) {
 	var value uint64
-	err := call("hv_gic_get_redistributor_reg", func() int32 {
+	err := call("hv_gic_get_redistributor_reg", func() hypervisor.HVReturn {
 		return hypervisor.HVGICGetRedistributorReg(vcpu, reg, &value)
 	})
 	return value, err
 }
 
 // SetGICRedistributorReg writes a GIC redistributor register.
-func SetGICRedistributorReg(vcpu uint64, reg hypervisor.HVGICRedistributorReg, value uint64) error {
-	return call("hv_gic_set_redistributor_reg", func() int32 {
+func SetGICRedistributorReg(vcpu hypervisor.HVVCPU, reg hypervisor.HVGICRedistributorReg, value uint64) error {
+	return call("hv_gic_set_redistributor_reg", func() hypervisor.HVReturn {
 		return hypervisor.HVGICSetRedistributorReg(vcpu, reg, value)
 	})
 }
 
 // GetGICICCReg reads a GIC CPU-interface register.
-func GetGICICCReg(vcpu uint64, reg hypervisor.HVGICIccReg) (uint64, error) {
+func GetGICICCReg(vcpu hypervisor.HVVCPU, reg hypervisor.HVGICIccReg) (uint64, error) {
 	var value uint64
-	err := call("hv_gic_get_icc_reg", func() int32 {
+	err := call("hv_gic_get_icc_reg", func() hypervisor.HVReturn {
 		return hypervisor.HVGICGetIccReg(vcpu, reg, &value)
 	})
 	return value, err
 }
 
 // SetGICICCReg writes a GIC CPU-interface register.
-func SetGICICCReg(vcpu uint64, reg hypervisor.HVGICIccReg, value uint64) error {
-	return call("hv_gic_set_icc_reg", func() int32 {
+func SetGICICCReg(vcpu hypervisor.HVVCPU, reg hypervisor.HVGICIccReg, value uint64) error {
+	return call("hv_gic_set_icc_reg", func() hypervisor.HVReturn {
 		return hypervisor.HVGICSetIccReg(vcpu, reg, value)
 	})
 }
 
 // GetGICICHReg reads a GIC hypervisor-control register.
-func GetGICICHReg(vcpu uint64, reg hypervisor.HVGICIchReg) (uint64, error) {
+func GetGICICHReg(vcpu hypervisor.HVVCPU, reg hypervisor.HVGICIchReg) (uint64, error) {
 	var value uint64
-	err := call("hv_gic_get_ich_reg", func() int32 {
+	err := call("hv_gic_get_ich_reg", func() hypervisor.HVReturn {
 		return hypervisor.HVGICGetIchReg(vcpu, reg, &value)
 	})
 	return value, err
 }
 
 // SetGICICHReg writes a GIC hypervisor-control register.
-func SetGICICHReg(vcpu uint64, reg hypervisor.HVGICIchReg, value uint64) error {
-	return call("hv_gic_set_ich_reg", func() int32 {
+func SetGICICHReg(vcpu hypervisor.HVVCPU, reg hypervisor.HVGICIchReg, value uint64) error {
+	return call("hv_gic_set_ich_reg", func() hypervisor.HVReturn {
 		return hypervisor.HVGICSetIchReg(vcpu, reg, value)
 	})
 }
 
 // GetGICICVReg reads a GIC virtual CPU-interface register.
-func GetGICICVReg(vcpu uint64, reg hypervisor.HVGICIcvReg) (uint64, error) {
+func GetGICICVReg(vcpu hypervisor.HVVCPU, reg hypervisor.HVGICIcvReg) (uint64, error) {
 	var value uint64
-	err := call("hv_gic_get_icv_reg", func() int32 {
+	err := call("hv_gic_get_icv_reg", func() hypervisor.HVReturn {
 		return hypervisor.HVGICGetIcvReg(vcpu, reg, &value)
 	})
 	return value, err
 }
 
 // SetGICICVReg writes a GIC virtual CPU-interface register.
-func SetGICICVReg(vcpu uint64, reg hypervisor.HVGICIcvReg, value uint64) error {
-	return call("hv_gic_set_icv_reg", func() int32 {
+func SetGICICVReg(vcpu hypervisor.HVVCPU, reg hypervisor.HVGICIcvReg, value uint64) error {
+	return call("hv_gic_set_icv_reg", func() hypervisor.HVReturn {
 		return hypervisor.HVGICSetIcvReg(vcpu, reg, value)
 	})
 }
@@ -707,7 +707,7 @@ func SetGICICVReg(vcpu uint64, reg hypervisor.HVGICIcvReg, value uint64) error {
 // GetGICMSIReg reads a GIC MSI register.
 func GetGICMSIReg(reg hypervisor.HVGICMsiReg) (uint64, error) {
 	var value uint64
-	err := call("hv_gic_get_msi_reg", func() int32 {
+	err := call("hv_gic_get_msi_reg", func() hypervisor.HVReturn {
 		return hypervisor.HVGICGetMsiReg(reg, &value)
 	})
 	return value, err
@@ -715,7 +715,7 @@ func GetGICMSIReg(reg hypervisor.HVGICMsiReg) (uint64, error) {
 
 // SetGICMSIReg writes a GIC MSI register.
 func SetGICMSIReg(reg hypervisor.HVGICMsiReg, value uint64) error {
-	return call("hv_gic_set_msi_reg", func() int32 {
+	return call("hv_gic_set_msi_reg", func() hypervisor.HVReturn {
 		return hypervisor.HVGICSetMsiReg(reg, value)
 	})
 }
@@ -723,7 +723,7 @@ func SetGICMSIReg(reg hypervisor.HVGICMsiReg, value uint64) error {
 // GetGICMSIRegionBaseAlignment returns the required MSI region base alignment.
 func GetGICMSIRegionBaseAlignment() (uintptr, error) {
 	var alignment uintptr
-	err := call("hv_gic_get_msi_region_base_alignment", func() int32 {
+	err := call("hv_gic_get_msi_region_base_alignment", func() hypervisor.HVReturn {
 		return hypervisor.HVGICGetMsiRegionBaseAlignment(&alignment)
 	})
 	return alignment, err
@@ -732,7 +732,7 @@ func GetGICMSIRegionBaseAlignment() (uintptr, error) {
 // GetGICMSIRegionSize returns the GIC MSI region size.
 func GetGICMSIRegionSize() (uintptr, error) {
 	var size uintptr
-	err := call("hv_gic_get_msi_region_size", func() int32 {
+	err := call("hv_gic_get_msi_region_size", func() hypervisor.HVReturn {
 		return hypervisor.HVGICGetMsiRegionSize(&size)
 	})
 	return size, err
@@ -740,7 +740,7 @@ func GetGICMSIRegionSize() (uintptr, error) {
 
 // GetGICSPIInterruptRange returns the available shared peripheral interrupt range.
 func GetGICSPIInterruptRange() (base, count uint32, err error) {
-	err = call("hv_gic_get_spi_interrupt_range", func() int32 {
+	err = call("hv_gic_get_spi_interrupt_range", func() hypervisor.HVReturn {
 		return hypervisor.HVGICGetSpiInterruptRange(&base, &count)
 	})
 	return base, count, err
@@ -748,7 +748,7 @@ func GetGICSPIInterruptRange() (base, count uint32, err error) {
 
 // SendGICMSI sends a GIC MSI interrupt.
 func SendGICMSI(address uint64, intid uint32) error {
-	return call("hv_gic_send_msi", func() int32 {
+	return call("hv_gic_send_msi", func() hypervisor.HVReturn {
 		return hypervisor.HVGICSendMsi(address, intid)
 	})
 }
@@ -766,7 +766,7 @@ func GetGICStateData() (data []byte, err error) {
 		err = joinReleaseError(err, osRelease(state))
 	}()
 	var size uintptr
-	if err := call("hv_gic_state_get_size", func() int32 {
+	if err := call("hv_gic_state_get_size", func() hypervisor.HVReturn {
 		return hypervisor.HVGICStateGetSize(state, &size)
 	}); err != nil {
 		return nil, err
@@ -775,7 +775,7 @@ func GetGICStateData() (data []byte, err error) {
 		return nil, nil
 	}
 	data = make([]byte, size)
-	if err := call("hv_gic_state_get_data", func() int32 {
+	if err := call("hv_gic_state_get_data", func() hypervisor.HVReturn {
 		return hypervisor.HVGICStateGetData(state, unsafe.Pointer(&data[0]))
 	}); err != nil {
 		return nil, err
@@ -788,21 +788,21 @@ func SetGICStateData(data []byte) error {
 	if len(data) == 0 {
 		return nil
 	}
-	return call("hv_gic_set_state", func() int32 {
+	return call("hv_gic_set_state", func() hypervisor.HVReturn {
 		return hypervisor.HVGICSetState(unsafe.Pointer(&data[0]), uintptr(len(data)))
 	})
 }
 
 // call wraps a Hypervisor.framework return-code function.
-func call(name string, fn func() int32) (err error) {
+func call(name string, fn func() hypervisor.HVReturn) (err error) {
 	defer func() {
 		if r := recover(); r != nil {
 			err = recoveredError(name, r)
 		}
 	}()
 	ret := fn()
-	if ret != int32(hypervisor.HVSuccess) {
-		return fmt.Errorf("%s failed: %s (%d)", name, hypervisor.HVReturn(ret), ret)
+	if ret != hypervisor.HVSuccess {
+		return fmt.Errorf("%s failed: %s (%d)", name, ret, int32(ret))
 	}
 	return nil
 }

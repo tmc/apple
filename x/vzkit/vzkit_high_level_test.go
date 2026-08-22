@@ -15,17 +15,17 @@ func TestParseDisplaySpec(t *testing.T) {
 		want    DisplayConfig
 		wantErr bool
 	}{
-		{"4k preset", "4k", DisplayConfig{3840, 2160, 144}, false},
-		{"uhd alias", "UHD", DisplayConfig{3840, 2160, 144}, false},
-		{"1080p preset", "1080p", DisplayConfig{1920, 1080, 144}, false},
-		{"fhd alias", "fhd", DisplayConfig{1920, 1080, 144}, false},
-		{"720p preset", "720p", DisplayConfig{1280, 720, 144}, false},
-		{"hd alias", "hd", DisplayConfig{1280, 720, 144}, false},
-		{"retina preset", "retina", DisplayConfig{2560, 1600, 227}, false},
-		{"custom WxH", "2560x1440", DisplayConfig{2560, 1440, 144}, false},
-		{"custom WxH@PPI", "1920x1080@72", DisplayConfig{1920, 1080, 72}, false},
-		{"minimum valid", "640x480", DisplayConfig{640, 480, 144}, false},
-		{"maximum valid", "7680x4320", DisplayConfig{7680, 4320, 144}, false},
+		{"4k preset", "4k", DisplayConfig{Width: 3840, Height: 2160, PPI: 144}, false},
+		{"uhd alias", "UHD", DisplayConfig{Width: 3840, Height: 2160, PPI: 144}, false},
+		{"1080p preset", "1080p", DisplayConfig{Width: 1920, Height: 1080, PPI: 144}, false},
+		{"fhd alias", "fhd", DisplayConfig{Width: 1920, Height: 1080, PPI: 144}, false},
+		{"720p preset", "720p", DisplayConfig{Width: 1280, Height: 720, PPI: 144}, false},
+		{"hd alias", "hd", DisplayConfig{Width: 1280, Height: 720, PPI: 144}, false},
+		{"retina preset", "retina", DisplayConfig{Width: 2560, Height: 1600, PPI: 227}, false},
+		{"custom WxH", "2560x1440", DisplayConfig{Width: 2560, Height: 1440, PPI: 144}, false},
+		{"custom WxH@PPI", "1920x1080@72", DisplayConfig{Width: 1920, Height: 1080, PPI: 72}, false},
+		{"minimum valid", "640x480", DisplayConfig{Width: 640, Height: 480, PPI: 144}, false},
+		{"maximum valid", "7680x4320", DisplayConfig{Width: 7680, Height: 4320, PPI: 144}, false},
 		{"width too small", "320x480", DisplayConfig{}, true},
 		{"height too small", "640x200", DisplayConfig{}, true},
 		{"width too large", "8000x1080", DisplayConfig{}, true},
@@ -80,10 +80,10 @@ func TestDisplaySlice(t *testing.T) {
 	if len(s) != 2 {
 		t.Fatalf("len = %d, want 2", len(s))
 	}
-	if s[0] != (DisplayConfig{1920, 1080, 144}) {
+	if s[0] != (DisplayConfig{Width: 1920, Height: 1080, PPI: 144}) {
 		t.Errorf("s[0] = %+v", s[0])
 	}
-	if s[1] != (DisplayConfig{3840, 2160, 144}) {
+	if s[1] != (DisplayConfig{Width: 3840, Height: 2160, PPI: 144}) {
 		t.Errorf("s[1] = %+v", s[1])
 	}
 

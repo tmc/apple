@@ -31,7 +31,7 @@ func NewConn(vzConn vz.VZVirtioSocketConnection) (*Conn, error) {
 	if vzConn.ID != 0 {
 		objc.Send[objc.ID](vzConn.ID, objc.Sel("retain"))
 	}
-	dupFd, err := syscall.Dup(fd)
+	dupFd, err := syscall.Dup(int(fd))
 	if err != nil {
 		releaseConn(vzConn)
 		return nil, fmt.Errorf("dup vsock fd: %w", err)

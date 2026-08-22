@@ -50,8 +50,9 @@
 // Note: [Context.LoadNetwork] wraps EspressoNetwork.initWithJSFile, which
 // is an internal CoreML entry point that requires the full CoreML model
 // loading context. It cannot be called standalone with raw Espresso IR.
-// Use [CompileAndLoadEspresso] (via _ANEClient.compileModel) to load
-// models from IR instead.
+// Use [CompileAndLoadPackage] to load a package-backed model through the ANE
+// client. Raw Espresso IR loading remains dependent on the full CoreML
+// loading context.
 //
 // # Profiling
 //

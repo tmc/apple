@@ -71,9 +71,9 @@ func CreateDiskImage(path string, sizeGB uint64) error {
 
 // CreateSerialConsole creates a serial console wired to readFd and writeFd.
 func CreateSerialConsole(readFd, writeFd int) (vz.VZVirtioConsoleDeviceSerialPortConfiguration, error) {
-	readHandle := foundation.NewFileHandleWithFileDescriptor(readFd)
+	readHandle := foundation.NewFileHandleWithFileDescriptor(int32(readFd))
 	readHandle.Retain()
-	writeHandle := foundation.NewFileHandleWithFileDescriptor(writeFd)
+	writeHandle := foundation.NewFileHandleWithFileDescriptor(int32(writeFd))
 	writeHandle.Retain()
 
 	attachment := vz.NewFileHandleSerialPortAttachmentWithFileHandleForReadingFileHandleForWriting(readHandle, writeHandle)

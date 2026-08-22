@@ -191,11 +191,6 @@ func (t *Trainer) SaveWeightsInferenceMode(path string) {
 	t.task.SaveNetworkRevertToInferenceMode(nsPath, true)
 }
 
-// ReinitializeVariables reinitializes all trainable variables.
-func (t *Trainer) ReinitializeVariables() {
-	t.task.ReinitializeVariables()
-}
-
 // DumpData enables or disables data dumping for debugging.
 func (t *Trainer) SetDumpData(enabled bool) {
 	t.task.SetDumpData(enabled)

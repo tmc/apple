@@ -7,11 +7,13 @@ import (
 	"strings"
 	"testing"
 	"unsafe"
+
+	"github.com/tmc/apple/hypervisor"
 )
 
 func TestCallAndCreateRecoverPanics(t *testing.T) {
 	want := errors.New("missing symbol")
-	err := call("hv_test", func() int32 {
+	err := call("hv_test", func() hypervisor.HVReturn {
 		panic(want)
 	})
 	if !errors.Is(err, want) {

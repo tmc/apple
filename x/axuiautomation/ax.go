@@ -17,24 +17,24 @@ type AXObserverCallback = uintptr
 
 // AX function pointers
 var (
-	axUIElementCreateApplication      func(pid int32) AXUIElementRef
-	axUIElementCopyAttributeValue     func(element AXUIElementRef, attribute uintptr, value *uintptr) AXError
-	axUIElementSetAttributeValue      func(element AXUIElementRef, attribute uintptr, value uintptr) AXError
-	axUIElementGetAttributeValueCount func(element AXUIElementRef, attribute uintptr, count *int) AXError
-	axUIElementPerformAction          func(element AXUIElementRef, action uintptr) AXError
-	axUIElementGetPid                 func(element AXUIElementRef, pid *int32) AXError
-	axValueCreate                     func(valueType AXValueType, valuePtr unsafe.Pointer) AXValueRef
-	axValueGetValue                   func(value AXValueRef, valueType AXValueType, valuePtr unsafe.Pointer) bool
-	axObserverCreate                  func(pid int32, callback AXObserverCallback, observer *AXObserverRef) AXError
-	axObserverGetRunLoopSource        func(observer AXObserverRef) uintptr
-	axObserverAddNotification         func(observer AXObserverRef, element AXUIElementRef, notification uintptr, refcon unsafe.Pointer) AXError
-	axIsProcessTrusted                    func() bool
-	axUIElementSetMessagingTimeout        func(element AXUIElementRef, timeoutInSeconds float32) AXError
-	axIsProcessTrustedWithOptions         func(options uintptr) bool
+	axUIElementCreateApplication           func(pid int32) AXUIElementRef
+	axUIElementCopyAttributeValue          func(element AXUIElementRef, attribute uintptr, value *uintptr) AXError
+	axUIElementSetAttributeValue           func(element AXUIElementRef, attribute uintptr, value uintptr) AXError
+	axUIElementGetAttributeValueCount      func(element AXUIElementRef, attribute uintptr, count *int) AXError
+	axUIElementPerformAction               func(element AXUIElementRef, action uintptr) AXError
+	axUIElementGetPid                      func(element AXUIElementRef, pid *int32) AXError
+	axValueCreate                          func(valueType AXValueType, valuePtr unsafe.Pointer) AXValueRef
+	axValueGetValue                        func(value AXValueRef, valueType AXValueType, valuePtr unsafe.Pointer) bool
+	axObserverCreate                       func(pid int32, callback AXObserverCallback, observer *AXObserverRef) AXError
+	axObserverGetRunLoopSource             func(observer AXObserverRef) uintptr
+	axObserverAddNotification              func(observer AXObserverRef, element AXUIElementRef, notification uintptr, refcon unsafe.Pointer) AXError
+	axIsProcessTrusted                     func() bool
+	axUIElementSetMessagingTimeout         func(element AXUIElementRef, timeoutInSeconds float32) AXError
+	axIsProcessTrustedWithOptions          func(options uintptr) bool
 	axUIElementCopyMultipleAttributeValues func(element AXUIElementRef, attributes uintptr, options int, values *uintptr) AXError
-	axUIElementIsAttributeSettable        func(element AXUIElementRef, attribute uintptr, settable *bool) AXError
-	axUIElementGetWindow                  func(element AXUIElementRef, window *uint32) AXError
-	axUIElementCopyActionNames            func(element AXUIElementRef, names *uintptr) AXError
+	axUIElementIsAttributeSettable         func(element AXUIElementRef, attribute uintptr, settable *bool) AXError
+	axUIElementGetWindow                   func(element AXUIElementRef, window *uint32) AXError
+	axUIElementCopyActionNames             func(element AXUIElementRef, names *uintptr) AXError
 
 	axInitOnce sync.Once
 	axLoaded   bool

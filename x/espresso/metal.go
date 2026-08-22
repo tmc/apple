@@ -98,7 +98,7 @@ func NewANESurfaceFromLayout(layout SurfaceLayout) *ANESurface {
 	props := foundation.NewNSMutableDictionary()
 	setIntKey := func(key string, val int) {
 		props.SetObjectForKey(
-			foundation.GetNSNumberClass().NumberWithInt(val),
+			foundation.GetNSNumberClass().NumberWithInt(int32(val)),
 			foundation.NSCopyingObject{Object: objectivec.Object{ID: objc.String(key)}},
 		)
 	}
@@ -148,12 +148,12 @@ func (a *ANESurface) IOSurfaceForFrame(frame uint64) (coregraphics.IOSurfaceRef,
 	if ref == 0 {
 		return 0, fmt.Errorf("espresso: no IOSurface for frame %d", frame)
 	}
-	return ref, nil
+	return coregraphics.IOSurfaceRef(ref), nil
 }
 
 // SetExternalStorage replaces the IOSurface backing a storage slot with an external one.
 func (a *ANESurface) SetExternalStorage(storage uint64, surface coregraphics.IOSurfaceRef) {
-	a.s.SetExternalStorageIoSurface(storage, surface)
+	a.s.SetExternalStorageIoSurface(storage, iosurface.IOSurfaceRef(surface))
 }
 
 // RestoreInternalStorage restores internal storage for a single slot.
@@ -168,7 +168,7 @@ func (a *ANESurface) RestoreAllInternalStorage() {
 
 // CreateIOSurface creates a new IOSurface with optional extra properties.
 func (a *ANESurface) CreateIOSurface(extraProperties objectivec.IObject) coregraphics.IOSurfaceRef {
-	return a.s.CreateIOSurfaceWithExtraProperties(extraProperties)
+	return coregraphics.IOSurfaceRef(a.s.CreateIOSurfaceWithExtraProperties(extraProperties))
 }
 
 // LazilyAllocFrame lazily allocates an IOSurface for the given frame.
@@ -188,7 +188,7 @@ func (a *ANESurface) MatchesCVImageBuffer(buf corevideo.CVImageBufferRef) bool {
 
 // MatchesIOSurface returns whether the surface matches an IOSurfaceRef.
 func (a *ANESurface) MatchesIOSurface(ref coregraphics.IOSurfaceRef) bool {
-	return a.s.CheckIfMatchesIOSurface(ref)
+	return a.s.CheckIfMatchesIOSurface(iosurface.IOSurfaceRef(ref))
 }
 
 // AliasingMem returns the external storage blob used for aliasing memory.
@@ -202,7 +202,7 @@ func (a *ANESurface) AliasingMem() objectivec.IObject {
 
 // SetAliasingMem sets the external storage blob for aliasing memory.
 func (a *ANESurface) SetAliasingMem(blob objectivec.IObject) {
-	a.s.SetExternal_storage_blob_for_aliasing_mem(objectKernelPointer(blob))
+	a.s.SetExternal_storage_blob_for_aliasing_mem(objectPointer(blob))
 }
 
 // WriteFrame writes raw bytes to the IOSurface backing the given frame.

@@ -61,8 +61,8 @@ func WithBinSerializerID(id []byte) NetworkOption {
 // Note: The underlying EspressoNetwork.initWithJSFile:context:computePath: method
 // is an internal CoreML framework entry point that requires the full CoreML model
 // loading context (coremldata.bin, metadata.json, etc.). It cannot be called
-// standalone with raw Espresso IR JSON. Use CompileAndLoadEspresso (via
-// _ANEClient.compileModel) for loading models from IR instead.
+// standalone with raw Espresso IR JSON. Use CompileAndLoadPackage for a
+// package-backed model instead.
 func (c *Context) LoadNetwork(ir []byte, opts ...NetworkOption) (*Network, error) {
 	if c.isClosed() {
 		return nil, ErrClosed

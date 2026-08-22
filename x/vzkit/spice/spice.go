@@ -113,7 +113,7 @@ func NewCore(pasteboard objectivec.IObject, queue *vm.Queue, caps Capabilities, 
 		dq = queue.Queue()
 	}
 	core := pvz.NewVZSpiceAgentCoreWithPasteboardQueueCapabilitiesInputOutput(
-		pasteboard, dq, caps.Raw(), input, output,
+		pasteboard, dq, caps.Raw(), &input, &output,
 	)
 	return Core{raw: core}
 }

@@ -1,3 +1,5 @@
+//go:build darwin
+
 package espresso_test
 
 import (
@@ -51,4 +53,24 @@ func Example_topK() {
 	fmt.Println(top3)
 	// Output:
 	// [1 3 4]
+}
+
+func ExampleBuilder() {
+	b := espresso.NewBuilder()
+	b.InnerProduct("fc1", 128, espresso.WithBottom("data"))
+	b.Activation("relu1", "relu")
+	b.InnerProduct("fc2", 10)
+	b.Softmax("softmax")
+
+	netJSON, shapeJSON, err := b.Build()
+	if err != nil {
+		fmt.Println("build error:", err)
+		return
+	}
+	fmt.Println("net JSON generated:", len(netJSON) > 0)
+	fmt.Println("shape JSON generated:", len(shapeJSON) > 0)
+
+	// Output:
+	// net JSON generated: true
+	// shape JSON generated: true
 }
