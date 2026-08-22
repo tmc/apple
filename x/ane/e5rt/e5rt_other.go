@@ -1,11 +1,17 @@
 //go:build !darwin
 
 // This file is the non-darwin stub. Its doc comments are deliberately terse and
-// carry no behavioral claims: pkg.go.dev renders linux/amd64 by default, so this
-// is the published documentation, and every statement about what an e5rt_* entry
-// point does is an UNVERIFIED reading of Bryngelson, arXiv 2606.22283 ch. 6
-// rather than something observed. The darwin build of this package carries those
-// caveats per function; read e5rt.go for what is and is not established.
+// carry no behavioral claims, because pkg.go.dev renders linux/amd64 by default
+// and so this is the published documentation. When these comments were written
+// nothing here had been called and every description was a reading of the source
+// paper; most of them are now backed by direct observation on darwin instead.
+// Either way the evidence lives next to the darwin implementation, which states
+// per function what is established, what rests on ANEForge, and what has been
+// contradicted. Read e5rt.go before relying on any of it.
+//
+// Every exported method and every name in [Symbols] must appear in both builds.
+// Nothing about a separate stub implementation enforces that, so
+// TestBuildsAgree parses the two files and compares them.
 
 package e5rt
 
@@ -61,6 +67,16 @@ var Symbols = []string{
 	"e5rt_execution_stream_submit_async",
 	"e5rt_execution_stream_reset",
 	"e5rt_execution_stream_release",
+	"e5rt_execution_stream_set_quality_of_service",
+	"e5rt_execution_stream_set_ane_execution_priority",
+	"e5rt_async_event_create",
+	"e5rt_async_event_release",
+	"e5rt_async_event_signal",
+	"e5rt_async_event_sync_wait",
+	"e5rt_async_event_get_last_signaled_value",
+	"e5rt_async_event_set_active_future_value",
+	"e5rt_execution_stream_operation_bind_completion_event",
+	"e5rt_execution_stream_operation_bind_dependent_events",
 }
 
 // Compute device bits for [Lib.CompilerOptionsSetComputeDeviceTypesMask].
@@ -224,3 +240,39 @@ func (l *Lib) ExecutionStreamReset(uintptr) error { return ErrUnsupported }
 
 // ExecutionStreamRelease releases an execution stream.
 func (l *Lib) ExecutionStreamRelease(uintptr) error { return ErrUnsupported }
+
+// SubmitAsync submits an encoded stream without blocking and returns a function
+// that releases the completion block.
+func (l *Lib) SubmitAsync(uintptr, func() Status) (func(), error) { return nil, ErrUnsupported }
+
+// ExecutionStreamSetQualityOfService sets a stream's dispatch quality of service.
+func (l *Lib) ExecutionStreamSetQualityOfService(uintptr, uint64) error { return ErrUnsupported }
+
+// ExecutionStreamSetANEExecutionPriority sets a stream's Neural Engine priority.
+func (l *Lib) ExecutionStreamSetANEExecutionPriority(uintptr, uint64) error {
+	return ErrUnsupported
+}
+
+// AsyncEventCreate creates a named async event.
+func (l *Lib) AsyncEventCreate(string) (uintptr, error) { return 0, ErrUnsupported }
+
+// AsyncEventRelease releases an async event.
+func (l *Lib) AsyncEventRelease(uintptr) error { return ErrUnsupported }
+
+// AsyncEventSignal signals an async event from the host.
+func (l *Lib) AsyncEventSignal(uintptr) error { return ErrUnsupported }
+
+// AsyncEventSyncWait waits for an async event to be signaled.
+func (l *Lib) AsyncEventSyncWait(uintptr) error { return ErrUnsupported }
+
+// AsyncEventLastSignaledValue reports how many times an event has been signaled.
+func (l *Lib) AsyncEventLastSignaledValue(uintptr) (uint64, error) { return 0, ErrUnsupported }
+
+// AsyncEventSetActiveFutureValue sets the value an event is expected to reach.
+func (l *Lib) AsyncEventSetActiveFutureValue(uintptr, uint64) error { return ErrUnsupported }
+
+// OperationBindCompletionEvent binds the event an operation signals when it finishes.
+func (l *Lib) OperationBindCompletionEvent(uintptr, uintptr) error { return ErrUnsupported }
+
+// OperationBindDependentEvents makes an operation wait for the given events.
+func (l *Lib) OperationBindDependentEvents(uintptr, []uintptr) error { return ErrUnsupported }
