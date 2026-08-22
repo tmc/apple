@@ -1,0 +1,2 @@
+flag	bool	true
+inner	xpc.goldenTagged	{in 6}
