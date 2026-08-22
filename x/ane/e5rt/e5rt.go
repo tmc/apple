@@ -482,9 +482,23 @@ func (l *Lib) CompilerCompile(compiler uintptr, modelPath string, options uintpt
 //
 // Confirmed here on macOS 26.x. Given the .bundle directory the compiler leaves
 // under its cache location, this returns a library handle from which "main" can
-// be retained, with no compiler involved. That makes a compiled bundle reusable
-// across processes: compile once, then open the bundle directly.
-// See TestUnverifiedCalls.
+// be retained, with no compiler involved. See TestUnverifiedCalls.
+//
+// The reuse is across processes too, which contradicts the report above. One
+// process compiles and exits; a second, started afterwards, opens the bundle,
+// creates the operation, encodes and dispatches, and the output matches the
+// reference. Three controls make that a measurement rather than a coincidence.
+// The compiler emitted only main_ane, so the program being reused is an engine
+// program and not a BNNS fallback that would return the same correct answer from
+// the CPU. The model.mil and its weights are deleted after the compile and
+// before the second process runs, so no silent recompile can explain it. And the
+// same sequence inside a single process is run as a control, because a failure
+// there would mean the cross-process arm had measured nothing.
+//
+// Note what this does not say. It was measured on macOS 26.x with both processes
+// sharing a code-signing identity and a parent, which is the case ANEForge says
+// needs posix_spawn'd children. Whether a bundle survives an aned restart, a
+// reboot, or an unrelated process is untested. See TestCompiledBundleAcrossProcesses.
 func (l *Lib) ProgramLibraryCreate(bundlePath string) (uintptr, error) {
 	path, p := cstring(bundlePath)
 	out := newOut()
