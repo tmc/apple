@@ -43,6 +43,23 @@ type ProgramOptions struct {
 	Outputs            []Port
 }
 
+// BundleOptions describes an already-compiled E5RT program bundle.
+//
+// BundlePath names the bundle returned by the compiler. FunctionName defaults
+// to "main". Inputs and Outputs name the function's externally bound ports.
+//
+// A bundle is not a portable artifact: E5RT bundle reuse has been observed
+// across processes that share a code-signing identity and a parent on macOS
+// 26.x. Reuse after an aned restart, a reboot, or from an unrelated process is
+// unmeasured.
+type BundleOptions struct {
+	BundlePath string
+
+	FunctionName string
+	Inputs       []Port
+	Outputs      []Port
+}
+
 // A Buffer is the host-visible storage bound to one [Program] port.
 //
 // Bytes remains valid until the Program is closed. Execute serializes with
@@ -168,42 +185,82 @@ func Compile(opts ProgramOptions) (_ *Program, err error) {
 	if p.library, err = lib.CompilerCompile(p.compiler, opts.ModelPath, p.options); err != nil {
 		return nil, fmt.Errorf("compile model: %w", err)
 	}
-	if p.function, err = lib.ProgramLibraryRetainProgramFunction(p.library, opts.FunctionName); err != nil {
-		return nil, fmt.Errorf("retain function %q: %w", opts.FunctionName, err)
+	if err := p.prepare(opts.FunctionName, opts.Inputs, opts.Outputs); err != nil {
+		return nil, err
 	}
-	if p.opOptions, err = lib.PrecompiledComputeOpOptionsCreate(p.function); err != nil {
-		return nil, fmt.Errorf("create operation options: %w", err)
+	return p, nil
+}
+
+// OpenBundle opens, binds, and encodes a function from an existing compiled
+// E5RT bundle.
+func OpenBundle(opts BundleOptions) (_ *Program, err error) {
+	if opts.BundlePath == "" {
+		return nil, errors.New("e5rt: empty bundle path")
 	}
-	if err := lib.PrecompiledComputeOpOptionsSetOperationName(p.opOptions, opts.FunctionName); err != nil {
-		return nil, fmt.Errorf("set operation name: %w", err)
+	if err := normalizeProgramPorts(&opts.FunctionName, opts.Inputs, opts.Outputs); err != nil {
+		return nil, err
 	}
-	if err := lib.PrecompiledComputeOpOptionsSetAllocateIntermediateBuffers(p.opOptions, true); err != nil {
-		return nil, fmt.Errorf("allocate intermediate buffers: %w", err)
+	lib, err := Open()
+	if err != nil {
+		return nil, fmt.Errorf("open e5rt: %w", err)
 	}
-	if p.op, err = lib.OperationCreatePrecompiled(p.opOptions); err != nil {
-		return nil, fmt.Errorf("create operation: %w", err)
+	p := &Program{
+		lib:     lib,
+		inputs:  make(map[string]*programPort, len(opts.Inputs)),
+		outputs: make(map[string]*programPort, len(opts.Outputs)),
 	}
-	for _, spec := range opts.Inputs {
+	defer func() {
+		if err != nil {
+			err = errors.Join(err, p.Close())
+		}
+	}()
+	if p.library, err = lib.ProgramLibraryCreate(opts.BundlePath); err != nil {
+		return nil, fmt.Errorf("open program bundle: %w", err)
+	}
+	if err := p.prepare(opts.FunctionName, opts.Inputs, opts.Outputs); err != nil {
+		return nil, err
+	}
+	return p, nil
+}
+
+func (p *Program) prepare(functionName string, inputs, outputs []Port) error {
+	var err error
+	if p.function, err = p.lib.ProgramLibraryRetainProgramFunction(p.library, functionName); err != nil {
+		return fmt.Errorf("retain function %q: %w", functionName, err)
+	}
+	if p.opOptions, err = p.lib.PrecompiledComputeOpOptionsCreate(p.function); err != nil {
+		return fmt.Errorf("create operation options: %w", err)
+	}
+	if err := p.lib.PrecompiledComputeOpOptionsSetOperationName(p.opOptions, functionName); err != nil {
+		return fmt.Errorf("set operation name: %w", err)
+	}
+	if err := p.lib.PrecompiledComputeOpOptionsSetAllocateIntermediateBuffers(p.opOptions, true); err != nil {
+		return fmt.Errorf("allocate intermediate buffers: %w", err)
+	}
+	if p.op, err = p.lib.OperationCreatePrecompiled(p.opOptions); err != nil {
+		return fmt.Errorf("create operation: %w", err)
+	}
+	for _, spec := range inputs {
 		port, err := p.bind(spec, true)
 		if err != nil {
-			return nil, err
+			return err
 		}
 		p.inputs[spec.Name] = port
 	}
-	for _, spec := range opts.Outputs {
+	for _, spec := range outputs {
 		port, err := p.bind(spec, false)
 		if err != nil {
-			return nil, err
+			return err
 		}
 		p.outputs[spec.Name] = port
 	}
-	if p.stream, err = lib.ExecutionStreamCreate(); err != nil {
-		return nil, fmt.Errorf("create execution stream: %w", err)
+	if p.stream, err = p.lib.ExecutionStreamCreate(); err != nil {
+		return fmt.Errorf("create execution stream: %w", err)
 	}
-	if err := lib.EncodeOperation(p.stream, p.op); err != nil {
-		return nil, fmt.Errorf("encode operation: %w", err)
+	if err := p.lib.EncodeOperation(p.stream, p.op); err != nil {
+		return fmt.Errorf("encode operation: %w", err)
 	}
-	return p, nil
+	return nil
 }
 
 func validateProgramOptions(opts *ProgramOptions) error {
@@ -213,8 +270,8 @@ func validateProgramOptions(opts *ProgramOptions) error {
 	if opts.CacheDir == "" {
 		return errors.New("e5rt: empty cache directory")
 	}
-	if opts.FunctionName == "" {
-		opts.FunctionName = "main"
+	if err := normalizeProgramPorts(&opts.FunctionName, opts.Inputs, opts.Outputs); err != nil {
+		return err
 	}
 	if opts.DeviceMask == 0 {
 		opts.DeviceMask = ComputeDeviceANE
@@ -222,8 +279,15 @@ func validateProgramOptions(opts *ProgramOptions) error {
 	if opts.Segmenter == "" {
 		opts.Segmenter = "graph"
 	}
-	seen := make(map[string]bool, len(opts.Inputs)+len(opts.Outputs))
-	for _, ports := range [][]Port{opts.Inputs, opts.Outputs} {
+	return nil
+}
+
+func normalizeProgramPorts(functionName *string, inputs, outputs []Port) error {
+	if *functionName == "" {
+		*functionName = "main"
+	}
+	seen := make(map[string]bool, len(inputs)+len(outputs))
+	for _, ports := range [][]Port{inputs, outputs} {
 		for _, port := range ports {
 			if port.Name == "" {
 				return errors.New("e5rt: empty port name")

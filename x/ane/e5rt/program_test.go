@@ -7,6 +7,7 @@ import (
 	"log"
 	"os"
 	"path/filepath"
+	"strings"
 	"testing"
 
 	"github.com/tmc/apple/x/ane/e5rt"
@@ -100,6 +101,62 @@ func ExampleCompile() {
 	// [1.5]
 }
 
+func TestOpenBundle(t *testing.T) {
+	dir := t.TempDir()
+	modelPath, err := writeIdentityModel(dir)
+	if err != nil {
+		t.Fatal(err)
+	}
+	cacheDir := filepath.Join(dir, "cache")
+	p, err := e5rt.Compile(e5rt.ProgramOptions{
+		ModelPath:          modelPath,
+		CacheDir:           cacheDir,
+		ForceRecompilation: true,
+		Inputs:             []e5rt.Port{{Name: "x", Size: 2}},
+		Outputs:            []e5rt.Port{{Name: "y", Size: 2}},
+	})
+	if err != nil {
+		t.Fatal(err)
+	}
+	if err := p.Close(); err != nil {
+		t.Fatal(err)
+	}
+	bundlePath, err := compiledBundle(cacheDir)
+	if err != nil {
+		t.Fatal(err)
+	}
+	p, err = e5rt.OpenBundle(e5rt.BundleOptions{
+		BundlePath: bundlePath,
+		Inputs:     []e5rt.Port{{Name: "x", Size: 2}},
+		Outputs:    []e5rt.Port{{Name: "y", Size: 2}},
+	})
+	if err != nil {
+		t.Fatal(err)
+	}
+	defer p.Close()
+	in, err := p.Input("x")
+	if err != nil {
+		t.Fatal(err)
+	}
+	out, err := p.Output("y")
+	if err != nil {
+		t.Fatal(err)
+	}
+	if err := in.WriteFP16([]float32{3.5}); err != nil {
+		t.Fatal(err)
+	}
+	if err := p.Execute(); err != nil {
+		t.Fatal(err)
+	}
+	got := make([]float32, 1)
+	if err := out.ReadFP16(got); err != nil {
+		t.Fatal(err)
+	}
+	if got[0] != 3.5 {
+		t.Errorf("output = %v, want 3.5", got[0])
+	}
+}
+
 func writeIdentityModel(dir string) (string, error) {
 	if err := os.MkdirAll(filepath.Join(dir, "weights"), 0o755); err != nil {
 		return "", err
@@ -116,6 +173,27 @@ func writeIdentityModel(dir string) (string, error) {
 		return "", err
 	}
 	return modelPath, nil
+}
+
+func compiledBundle(cacheDir string) (string, error) {
+	var bundle string
+	err := filepath.WalkDir(cacheDir, func(path string, entry os.DirEntry, err error) error {
+		if err != nil {
+			return err
+		}
+		if entry.IsDir() && strings.HasSuffix(entry.Name(), ".bundle") {
+			bundle = path
+			return filepath.SkipDir
+		}
+		return nil
+	})
+	if err != nil {
+		return "", err
+	}
+	if bundle == "" {
+		return "", fmt.Errorf("no program bundle under %s", cacheDir)
+	}
+	return bundle, nil
 }
 
 func TestProgramRejectsBadOptions(t *testing.T) {
