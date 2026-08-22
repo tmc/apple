@@ -30,21 +30,26 @@ var rawReachAllowed = map[string]string{
 	// The handler bodies moved out of Set{Incoming,Cancellation}Handler and
 	// into the two shared block trampolines when session blocks stopped being
 	// registered per session; the edges are the same four, at their new home.
-	"xpcCancelTrampoline|handler(...)":        "caller-supplied CancellationHandler; not package code",
-	"xpcIncomingTrampoline|handler(...)":      "caller-supplied MessageHandler; not package code",
-	"xpcIncomingTrampoline|err.Error(...)":    "error interface method; RichError.Error reaches no raw_ call",
-	"xpcIncomingTrampoline|encErr.Error(...)": "error interface method on encodeMessage's error; reaches no raw_ call",
-	"(RichError).Error|e.cause.Error(...)":    "wrapped error's Error method; not package code",
-	"newListener|incoming(...)":               "caller-supplied incoming handler; not package code",
-	"newRequirement|create(...)":              "the create closure is supplied by each New*Requirement constructor and its raw call is recorded at the constructor",
-	"targetQueuePointer|queue.Handle(...)":    "dispatch.Queue.Handle lives in another package and cannot reach an xpc raw_ call",
-	"decodeJSONPayload|dec.Decode(...)":       "encoding/json's Decoder.Decode; it decodes bytes into an any and reaches no xpc raw_ call",
+	"xpcCancelTrampoline|handler(...)":           "caller-supplied CancellationHandler; not package code",
+	"xpcIncomingTrampoline|handler(...)":         "caller-supplied MessageHandler; not package code",
+	"xpcIncomingTrampoline|err.Error(...)":       "error interface method; RichError.Error reaches no raw_ call",
+	"xpcIncomingTrampoline|encErr.Error(...)":    "error interface method on encodeMessage's error; reaches no raw_ call",
+	"(RichError).Error|e.cause.Error(...)":       "wrapped error's Error method; not package code",
+	"newListener|incoming(...)":                  "caller-supplied incoming handler; not package code",
+	"newRequirement|create(...)":                 "the create closure is supplied by each New*Requirement constructor and its raw call is recorded at the constructor",
+	"targetQueuePointer|queue.Handle(...)":       "dispatch.Queue.Handle lives in another package and cannot reach an xpc raw_ call",
+	"SetEventStreamHandler|handler(...)":         "caller-supplied EventHandler; package code only decodes the inbound dictionary before invoking it",
+	"encodeMessage|iter.Key(...).String(...)":    "reflect.Value.String is a standard-library method and cannot reach an xpc raw_ call",
+	"entitlementValueToRawObject|rv.String(...)": "reflect.Value.String is a standard-library method and cannot reach an xpc raw_ call",
+	"jsonNumbersToWire|x.String(...)":            "json.Number.String is a standard-library method and cannot reach an xpc raw_ call",
+	"decodeJSONPayload|dec.Decode(...)":          "encoding/json's Decoder.Decode; it decodes bytes into an any and reaches no xpc raw_ call",
 	// mmap and munmap are bound from libxpc's dependency chain rather than
 	// generated, so they carry no raw_ prefix and the analysis cannot follow
 	// the call. Neither reaches an xpc raw_ call: both are the C library
 	// entry points of the same name.
 	"mapShared|libcfn_mmap(...)":      "libc mmap bound through the framework handle; it is not an xpc symbol and reaches no raw_ call",
 	"munmapRegion|libcfn_munmap(...)": "libc munmap bound through the framework handle; it is not an xpc symbol and reaches no raw_ call",
+	"freeMemory|libcfn_free(...)":   "libc free bound through the framework handle; it is not an xpc symbol and reaches no raw_ call",
 	// Mapping.Close is a method on a concrete type the analysis did not
 	// resolve at this site. It reaches munmapRegion and nothing else.
 	"NewSharedMemory|m.Close(...)": "Mapping.Close unmaps the region through munmapRegion; it reaches no xpc raw_ call",
@@ -162,6 +167,29 @@ var canaries = []canaryRow{
 		}
 		return s.Close()
 	}},
+	{"CopyValue", "xpc_copy", func(t *testing.T) error {
+		_, err := CopyValue("canary")
+		return err
+	}},
+	{"Equal", "xpc_equal", func(t *testing.T) error {
+		_, err := Equal("canary", "canary")
+		return err
+	}},
+	{"Hash", "xpc_hash", func(t *testing.T) error {
+		_, err := Hash("canary")
+		return err
+	}},
+	{"CurrentDate", "xpc_date_create_from_current", func(t *testing.T) error {
+		_, err := CurrentDate()
+		return err
+	}},
+	{"Transaction", "xpc_transaction_begin", func(t *testing.T) error {
+		end, err := Transaction()
+		if end != nil {
+			end()
+		}
+		return err
+	}},
 }
 
 // canaryFD returns a descriptor that is certainly valid. It is a temp file
@@ -207,24 +235,30 @@ func closeRequirement(t *testing.T, r *PeerRequirement) {
 // non-nil. TestRawReachEveryEntryPointHasACanary fails if a newly emitted
 // entry point appears in neither table.
 var canaryUnmeasured = map[string]string{
-	"(*Listener).Activate":                 "needs a live listener; the guard sits behind l.raw != nil and the negative control would activate a real listener",
-	"(*Listener).Cancel":                   "needs a live listener; returns nothing, so a poisoned run has no observable error either",
-	"(*Session).Activate":                  "needs a live session",
-	"(*Session).Cancel":                    "nonreporting: Cancel returns nothing, and the negative control would cancel a real session",
-	"(*Session).Notify":                    "needs a live session",
-	"(*Session).NotifyDictionary":          "needs a live session",
-	"(*Session).Call":                      "needs a live session; the negative control would block on a real peer",
-	"(*Session).CallDictionary":            "needs a live session; see above",
-	"(*Session).SetCancellationHandler":    "needs a live session",
-	"(*Session).SetIncomingMessageHandler": "needs a live session",
-	"(*Session).SetPeerRequirement":        "needs a live inactive session",
-	"(*Session).SetTargetQueue":            "needs a live inactive session",
-	"(ReceivedMessage).Decode":             "decodeMessage reaches raw calls only through (ReceivedMessage).Dictionary, whose guard is itself UNMEASURED for the same reason: it needs a received message from a live peer",
-	"(ReceivedMessage).Dictionary":         "needs a received message from a live peer",
-	"(ReceivedMessage).SenderSatisfies":    "needs a received message from a live peer",
-	"DialMachService":                      "touches launchd; belongs to the xpclive suite, not the default one",
-	"DialXPCService":                       "touches launchd; belongs to the xpclive suite, not the default one",
-	"NewAnonymousListener":                 "the negative control would create and activate a real listener",
-	"NewServiceListener":                   "the negative control would register a real service listener",
-	"PeerRequirementFromHandle":            "nonreporting: returns nil on guard failure, and the negative control would retain a fabricated handle",
+	"(*Listener).Activate":                      "needs a live listener; the guard sits behind l.raw != nil and the negative control would activate a real listener",
+	"(*Listener).Cancel":                        "needs a live listener; returns nothing, so a poisoned run has no observable error either",
+	"(*Session).Activate":                       "needs a live session",
+	"(*Session).Cancel":                         "nonreporting: Cancel returns nothing, and the negative control would cancel a real session",
+	"(*Session).Notify":                         "needs a live session",
+	"(*Session).NotifyDictionary":               "needs a live session",
+	"(*Session).Call":                           "needs a live session; the negative control would block on a real peer",
+	"(*Session).CallDictionary":                 "needs a live session; see above",
+	"(*Session).SetCancellationHandler":         "needs a live session",
+	"(*Session).SetIncomingMessageHandler":      "needs a live session",
+	"(*Session).SetPeerRequirement":             "needs a live inactive session",
+	"(*Session).SetTargetQueue":                 "needs a live inactive session",
+	"(ReceivedMessage).Decode":                  "decodeMessage reaches raw calls only through (ReceivedMessage).Dictionary, whose guard is itself UNMEASURED for the same reason: it needs a received message from a live peer",
+	"(ReceivedMessage).Dictionary":              "needs a received message from a live peer",
+	"(ReceivedMessage).SenderSatisfies":         "needs a received message from a live peer",
+	"DialMachService":                           "touches launchd; belongs to the xpclive suite, not the default one",
+	"DialXPCService":                            "touches launchd; belongs to the xpclive suite, not the default one",
+	"NewAnonymousListener":                      "the negative control would create and activate a real listener",
+	"NewServiceListener":                        "the negative control would register a real service listener",
+	"PeerRequirementFromHandle":                 "nonreporting: returns nil on guard failure, and the negative control would retain a fabricated handle",
+	"(*Listener).SetPeerCodeSigningRequirement": "needs a live inactive listener; the negative control would create a real listener",
+	"(*Listener).String":                        "needs a live listener; String intentionally hides availability errors",
+	"(*Session).SetPeerCodeSigningRequirement":  "needs a live inactive session",
+	"(*Session).String":                         "needs a live session; String intentionally hides availability errors",
+	"SetEventStreamHandler":                     "process-global and cannot be safely repeated by a negative control",
+	"ActivateSocket":                             "touches launchd and can be called only once per socket name; belongs to the xpclive suite",
 }

@@ -207,6 +207,11 @@ var newXPCBlockLedger = []blockSite{
 		perMessage: false,
 		why:        "one block per listener, registered before the listener is activated; a process creates a bounded number of listeners",
 	},
+	{
+		fn:         "SetEventStreamHandler",
+		perMessage: false,
+		why:        "one block per process-wide event stream registration; handlers are not installed on the event delivery path",
+	},
 }
 
 // wantPerMessageSites is the number of ledgered per-message registrations. It

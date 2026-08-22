@@ -13,6 +13,7 @@ import (
 	"runtime"
 	"strconv"
 	"sync"
+	"syscall"
 	"time"
 	"unsafe"
 
@@ -279,10 +280,12 @@ func (e RichError) CanRetry() bool {
 }
 
 type Listener struct {
-	raw         unsafe.Pointer
-	incoming    func(IncomingSessionRequest) IncomingDecision
-	createErr   error
-	incomingBlk unsafe.Pointer
+	raw            unsafe.Pointer
+	incoming       func(IncomingSessionRequest) IncomingDecision
+	createErr      error
+	incomingBlk    unsafe.Pointer
+	active         bool
+	requirementSet bool
 }
 
 type Session struct {
@@ -308,6 +311,11 @@ type Session struct {
 	fromHandle     bool
 	requirementSet bool
 }
+
+// EventHandler receives one event from an XPC event stream. The dictionary is
+// valid for the duration of the call and is copied into Go values before the
+// handler runs.
+type EventHandler func(Dictionary)
 
 type ReceivedMessage struct {
 	raw     unsafe.Pointer
@@ -436,6 +444,145 @@ func pointerFromHandle(handle uintptr) unsafe.Pointer {
 // is not an accepted construction path.
 func targetQueuePointer(queue dispatch.Queue) unsafe.Pointer {
 	return pointerFromHandle(queue.Handle())
+}
+
+// CopyValue makes an independent XPC copy of value and decodes it back into a
+// Go value. It is useful when the XPC copy semantics matter; ordinary Go
+// values should normally be copied with ordinary Go code instead.
+func CopyValue(value any) (any, error) {
+	if err := requireRawSymbols(rawSyms_CopyValue...); err != nil {
+		return nil, err
+	}
+	raw, err := scalarToRawObject(value)
+	if err != nil {
+		return nil, err
+	}
+	defer releaseRaw(raw)
+	copy := raw_xpc_copy(raw)
+	if copy == nil {
+		return nil, errors.New("xpc: xpc_copy failed")
+	}
+	defer releaseRaw(copy)
+	return rawObjectToValue(copy), nil
+}
+
+// Equal reports whether two XPC values compare equal. File descriptor objects
+// compare by pointer identity, so separate objects for the same descriptor do
+// not compare equal.
+func Equal(a, b any) (bool, error) {
+	if err := requireRawSymbols(rawSyms_Equal...); err != nil {
+		return false, err
+	}
+	left, err := scalarToRawObject(a)
+	if err != nil {
+		return false, err
+	}
+	defer releaseRaw(left)
+	right, err := scalarToRawObject(b)
+	if err != nil {
+		return false, err
+	}
+	defer releaseRaw(right)
+	return raw_xpc_equal(left, right), nil
+}
+
+// Hash returns XPC's hash for value. It is intended for equality-compatible
+// lookup, not as a stable value across processes or releases.
+func Hash(value any) (uintptr, error) {
+	if err := requireRawSymbols(rawSyms_Hash...); err != nil {
+		return 0, err
+	}
+	raw, err := scalarToRawObject(value)
+	if err != nil {
+		return 0, err
+	}
+	defer releaseRaw(raw)
+	return raw_xpc_hash(raw), nil
+}
+
+// CurrentDate returns XPC's current date, decoded as a time.Time.
+func CurrentDate() (time.Time, error) {
+	if err := requireRawSymbols(rawSyms_CurrentDate...); err != nil {
+		return time.Time{}, err
+	}
+	raw := raw_xpc_date_create_from_current()
+	if raw == nil {
+		return time.Time{}, errors.New("xpc: xpc_date_create_from_current failed")
+	}
+	defer releaseRaw(raw)
+	date, ok := rawObjectToValue(raw).(time.Time)
+	if !ok {
+		return time.Time{}, errors.New("xpc: current date has unexpected type")
+	}
+	return date, nil
+}
+
+// Transaction begins an XPC service transaction and returns its matching end
+// function. The end function is safe to call more than once. Leaving a
+// transaction open keeps an XPC service alive indefinitely.
+func Transaction() (func(), error) {
+	if err := requireRawSymbols(rawSyms_Transaction...); err != nil {
+		return nil, err
+	}
+	raw_xpc_transaction_begin()
+	var once sync.Once
+	return func() { once.Do(raw_xpc_transaction_end) }, nil
+}
+
+// ActivateSocket returns the file descriptors launchd activated for name. The
+// caller owns and must close every returned descriptor. Each socket name may
+// be activated only once by a launchd-managed process.
+func ActivateSocket(name string) ([]int, error) {
+	if name == "" {
+		return nil, errors.New("xpc: socket name is empty")
+	}
+	if err := requireRawSymbols(rawSyms_ActivateSocket...); err != nil {
+		return nil, err
+	}
+	var fds *int32
+	var count uintptr
+	if code := raw_launch_activate_socket(name, &fds, &count); code != 0 {
+		return nil, syscall.Errno(code)
+	}
+	if fds == nil {
+		if count != 0 {
+			return nil, errors.New("xpc: launch_activate_socket returned nil descriptors")
+		}
+		return nil, nil
+	}
+	defer freeMemory(unsafe.Pointer(fds))
+	rawFDs := unsafe.Slice(fds, count)
+	out := make([]int, len(rawFDs))
+	for i, fd := range rawFDs {
+		out[i] = int(fd)
+	}
+	return out, nil
+}
+
+// SetEventStreamHandler installs handler for stream. A process may install at
+// most one handler for a stream; calling the native API twice for the same
+// stream is undefined. The handler is retained for the process lifetime.
+func SetEventStreamHandler(stream string, queue dispatch.Queue, handler EventHandler) error {
+	if stream == "" {
+		return errors.New("xpc: event stream is empty")
+	}
+	if handler == nil {
+		return errors.New("xpc: event handler is nil")
+	}
+	if err := requireRawSymbols(rawSyms_SetEventStreamHandler...); err != nil {
+		return err
+	}
+	block, err := newXPCBlock(func(_ uintptr, event unsafe.Pointer) {
+		d, err := rawObjectToDictionary(event)
+		if err == nil {
+			handler(d)
+		}
+	})
+	if err != nil {
+		return err
+	}
+	raw_xpc_set_event_stream_handler(stream, targetQueuePointer(queue), block)
+	return nil
 }
 
 // Handle returns the underlying XPC endpoint handle.
@@ -1034,6 +1181,7 @@ func newListener(service string, opts ListenerOptions, incoming func(IncomingSes
 			return nil, err
 		}
 		raw_xpc_listener_set_peer_requirement(l.raw, opts.Requirement.raw)
+		l.requirementSet = true
 		if !opts.Inactive {
 			if err := l.Activate(); err != nil {
 				releaseRaw(raw)
@@ -1064,6 +1212,7 @@ func (l *Listener) Activate() error {
 		}
 		return errors.New("xpc: listener activation failed")
 	}
+	l.active = true
 	return nil
 }
 
@@ -1072,6 +1221,42 @@ func (l *Listener) Cancel() {
 		return
 	}
 	raw_xpc_listener_cancel(l.raw)
+}
+
+// String returns XPC's description of the listener. It is intended for
+// diagnostics; an unavailable or uninitialized listener is described without
+// calling into XPC.
+func (l *Listener) String() string {
+	if l == nil || l.raw == nil {
+		return "xpc.Listener(nil)"
+	}
+	if err := requireRawSymbols(rawSyms_Listener_String...); err != nil {
+		return "xpc.Listener(unavailable)"
+	}
+	return ownedString(raw_xpc_listener_copy_description(l.raw))
+}
+
+// SetPeerCodeSigningRequirement installs requirement while the listener is
+// inactive. XPC retains its own copy of the string. The requirement may be
+// installed only once; native XPC treats a repeated installation as misuse.
+func (l *Listener) SetPeerCodeSigningRequirement(requirement string) error {
+	if l == nil || l.raw == nil {
+		return errors.New("xpc: listener is not initialized")
+	}
+	if requirement == "" {
+		return errors.New("xpc: code signing requirement is empty")
+	}
+	if l.active || l.requirementSet {
+		return errors.New("xpc: code signing requirement can only be set once on an inactive listener")
+	}
+	if err := requireRawSymbols(rawSyms_Listener_SetPeerCodeSigningRequirement...); err != nil {
+		return err
+	}
+	if raw_xpc_listener_set_peer_code_signing_requirement(l.raw, requirement) != 0 {
+		return errors.New("xpc: failed to set listener peer code signing requirement")
+	}
+	l.requirementSet = true
+	return nil
 }
 
 func (r IncomingSessionRequest) Accept(handler MessageHandler, onCancel CancellationHandler) IncomingDecision {
@@ -1232,6 +1417,42 @@ func (s *Session) Cancel() {
 		return
 	}
 	raw_xpc_session_cancel(s.raw)
+}
+
+// String returns XPC's description of the session. It is intended for
+// diagnostics; an unavailable or uninitialized session is described without
+// calling into XPC.
+func (s *Session) String() string {
+	if s == nil || s.raw == nil {
+		return "xpc.Session(nil)"
+	}
+	if err := requireRawSymbols(rawSyms_Session_String...); err != nil {
+		return "xpc.Session(unavailable)"
+	}
+	return ownedString(raw_xpc_session_copy_description(s.raw))
+}
+
+// SetPeerCodeSigningRequirement installs requirement while the session is
+// inactive. XPC retains its own copy of the string. The requirement may be
+// installed only once; native XPC treats a repeated installation as misuse.
+func (s *Session) SetPeerCodeSigningRequirement(requirement string) error {
+	if s == nil || s.raw == nil {
+		return errors.New("xpc: session is not initialized")
+	}
+	if requirement == "" {
+		return errors.New("xpc: code signing requirement is empty")
+	}
+	if s.fromHandle || s.active || s.requirementSet {
+		return errors.New("xpc: code signing requirement can only be set once on an inactive session")
+	}
+	if err := requireRawSymbols(rawSyms_Session_SetPeerCodeSigningRequirement...); err != nil {
+		return err
+	}
+	if raw_xpc_session_set_peer_code_signing_requirement(s.raw, requirement) != 0 {
+		return errors.New("xpc: failed to set session peer code signing requirement")
+	}
+	s.requirementSet = true
+	return nil
 }
 
 func (s *Session) SetIncomingMessageHandler(handler MessageHandler) error {
@@ -1592,7 +1813,7 @@ func richErrorFromRaw(raw unsafe.Pointer) RichError {
 	if raw == nil {
 		return RichError{}
 	}
-	msg := goString(raw_xpc_rich_error_copy_description(raw))
+	msg := ownedString(raw_xpc_rich_error_copy_description(raw))
 	canRetry := raw_xpc_rich_error_can_retry(raw)
 	return RichError{
 		raw:      raw,
@@ -2045,7 +2266,7 @@ func rawObjectToValue(raw unsafe.Pointer) any {
 	// with no error and nothing to test. Unsupported is that distinction.
 	return Unsupported{
 		Type:        goString(raw_xpc_type_get_name(typ)),
-		Description: goString(raw_xpc_copy_description(raw)),
+		Description: ownedString(raw_xpc_copy_description(raw)),
 	}
 }
 
@@ -2061,6 +2282,7 @@ func rawObjectToValue(raw unsafe.Pointer) any {
 var (
 	libcfn_mmap   func(addr unsafe.Pointer, length uintptr, prot, flags, fd int32, offset int64) unsafe.Pointer
 	libcfn_munmap func(addr unsafe.Pointer, length uintptr) int32
+	libcfn_free   func(unsafe.Pointer)
 )
 
 func init() {
@@ -2069,6 +2291,7 @@ func init() {
 	}
 	registerRawFunc(&libcfn_mmap, frameworkHandle, "mmap")
 	registerRawFunc(&libcfn_munmap, frameworkHandle, "munmap")
+	registerRawFunc(&libcfn_free, frameworkHandle, "free")
 }
 
 // mapSharedFailed is what mmap returns on failure. It is -1 as a pointer,
@@ -2106,6 +2329,20 @@ func munmapRegion(addr unsafe.Pointer, length uintptr) error {
 		return errors.New("xpc: munmap failed")
 	}
 	return nil
+}
+
+func freeMemory(p unsafe.Pointer) {
+	if p != nil && libcfn_free != nil {
+		libcfn_free(p)
+	}
+}
+
+func ownedString(p *byte) string {
+	if p == nil {
+		return ""
+	}
+	defer freeMemory(unsafe.Pointer(p))
+	return goString(p)
 }
 
 func copyRawData(raw unsafe.Pointer) []byte {
