@@ -3,7 +3,6 @@
 package mil
 
 import (
-	"encoding/binary"
 	"fmt"
 	"math"
 )
@@ -131,45 +130,14 @@ func GenScaleFP16IO(spatial int) string {
 
 // BuildWeightBlob constructs the binary weight blob for MIL compilation.
 //
-// The blob layout matches the ANE's expected format:
-//   - Bytes 0-63:   File header (0x01 at offset 0, 0x02 at offset 4)
-//   - Bytes 64-127: Chunk header (0xDEADBEEF magic, data size, data offset)
-//   - Bytes 128+:   FP16 weight data
-//
-// weights must have exactly outCh*inCh elements (OIHW layout, H=W=1).
+// weights must have exactly outCh*inCh elements (OIHW layout, H=W=1). The
+// result is a one-entry MIL Blob Storage v2 file whose BLOBFILE offset is 64.
 func BuildWeightBlob(weights []float32, outCh, inCh int) ([]byte, error) {
 	expected := outCh * inCh
 	if len(weights) != expected {
 		return nil, fmt.Errorf("mil: weight count %d != outCh*inCh (%d*%d = %d)", len(weights), outCh, inCh, expected)
 	}
-
-	fp16Data := make([]byte, len(weights)*2)
-	for i, w := range weights {
-		binary.LittleEndian.PutUint16(fp16Data[i*2:], float32ToFP16(w))
-	}
-
-	const fileHeaderSize = 64
-	const chunkHeaderSize = 64
-	dataOffset := fileHeaderSize + chunkHeaderSize
-	totalSize := dataOffset + len(fp16Data)
-
-	buf := make([]byte, totalSize)
-
-	// File header (64 bytes).
-	buf[0] = 0x01 // file magic byte 1
-	buf[4] = 0x02 // file magic byte 2
-
-	// Chunk header at offset 64.
-	off := fileHeaderSize
-	binary.LittleEndian.PutUint32(buf[off:], 0xDEADBEEF)              // chunk magic
-	buf[off+4] = 0x01                                                 // chunk version
-	binary.LittleEndian.PutUint32(buf[off+8:], uint32(len(fp16Data))) // data size
-	binary.LittleEndian.PutUint32(buf[off+16:], uint32(dataOffset))   // absolute data offset
-
-	// FP16 weight data at offset 128.
-	copy(buf[dataOffset:], fp16Data)
-
-	return buf, nil
+	return fp16Blob(fp16Bytes(weights)), nil
 }
 
 // BuildIdentityWeightBlob builds weights for an identity convolution (I matrix).
@@ -288,34 +256,7 @@ func BuildWeightBlobV1(data []float32) ([]byte, error) {
 	if len(data) == 0 {
 		return nil, fmt.Errorf("mil: empty weight data")
 	}
-
-	fp16Data := make([]byte, len(data)*2)
-	for i, w := range data {
-		binary.LittleEndian.PutUint16(fp16Data[i*2:], float32ToFP16(w))
-	}
-
-	const fileHeaderSize = 64
-	const chunkHeaderSize = 64
-	dataOffset := fileHeaderSize + chunkHeaderSize
-	totalSize := dataOffset + len(fp16Data)
-
-	buf := make([]byte, totalSize)
-
-	// File header (64 bytes).
-	buf[0] = 0x01
-	buf[4] = 0x02
-
-	// Chunk header at offset 64.
-	off := fileHeaderSize
-	binary.LittleEndian.PutUint32(buf[off:], 0xDEADBEEF)
-	buf[off+4] = 0x01
-	binary.LittleEndian.PutUint32(buf[off+8:], uint32(len(fp16Data)))
-	binary.LittleEndian.PutUint32(buf[off+16:], uint32(dataOffset))
-
-	// FP16 weight data at offset 128.
-	copy(buf[dataOffset:], fp16Data)
-
-	return buf, nil
+	return fp16Blob(fp16Bytes(data)), nil
 }
 
 // GenSDPA generates a MIL text for scaled dot-product attention.

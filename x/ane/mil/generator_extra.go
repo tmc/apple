@@ -3,7 +3,6 @@
 package mil
 
 import (
-	"encoding/binary"
 	"fmt"
 	"math"
 	"strings"
@@ -726,11 +725,7 @@ func BuildVectorWeightBlob(weights []float32) ([]byte, error) {
 
 // BuildFP16Blob builds a generic fp16 MIL BLOBFILE payload from row-major data.
 func BuildFP16Blob(data []float32) ([]byte, error) {
-	fp16Data := make([]byte, len(data)*2)
-	for i, v := range data {
-		binary.LittleEndian.PutUint16(fp16Data[i*2:], float32ToFP16(v))
-	}
-	return buildMILBlob(fp16Data), nil
+	return fp16Blob(fp16Bytes(data)), nil
 }
 
 // BuildCausalMaskBlob builds the upper-triangular fp16 causal mask used by SDPA.
@@ -810,25 +805,6 @@ func BuildTransposedWeightBlob(weights []float32, rows, cols int) ([]byte, error
 		}
 	}
 	return BuildWeightBlob(transposed, cols, rows)
-}
-
-func buildMILBlob(fp16Data []byte) []byte {
-	const fileHeaderSize = 64
-	const chunkHeaderSize = 64
-	dataOffset := fileHeaderSize + chunkHeaderSize
-	totalSize := dataOffset + len(fp16Data)
-
-	buf := make([]byte, totalSize)
-	buf[0] = 0x01
-	buf[4] = 0x02
-
-	off := fileHeaderSize
-	binary.LittleEndian.PutUint32(buf[off:], 0xDEADBEEF)
-	buf[off+4] = 0x01
-	binary.LittleEndian.PutUint32(buf[off+8:], uint32(len(fp16Data)))
-	binary.LittleEndian.PutUint32(buf[off+16:], uint32(dataOffset))
-	copy(buf[dataOffset:], fp16Data)
-	return buf
 }
 
 // GenSDPAForward generates the fused attention forward block and returns x2 only.
