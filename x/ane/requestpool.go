@@ -6,7 +6,6 @@ import (
 	"fmt"
 	"sync/atomic"
 
-	"github.com/tmc/apple/coregraphics"
 	"github.com/tmc/apple/foundation"
 	"github.com/tmc/apple/iosurface"
 	"github.com/tmc/apple/objectivec"
@@ -104,24 +103,12 @@ func NewRequestPool(m *Model, depth int) (*RequestPool, error) {
 	}, nil
 }
 
-// createRequestFromSurfaces builds an ANERequest referencing existing IOSurfaces.
-func createRequestFromSurfaces(inputs, outputs []coregraphics.IOSurfaceRef) (appleneuralengine.ANERequest, error) {
-	req, _, err := createRequestFromSurfacesWithSharedEvents(inputs, outputs, nil)
-	return req, err
-}
-
-func createRequestFromSurfacesWithSharedEvents(inputs, outputs []coregraphics.IOSurfaceRef, sharedEvents objectivec.IObject) (appleneuralengine.ANERequest, []objectivec.IObject, error) {
-	inputBindings := make([]SurfaceBinding, len(inputs))
-	for i, ref := range inputs {
-		inputBindings[i] = SurfaceBinding{Surface: ref, SymbolIndex: i}
-	}
-	outputBindings := make([]SurfaceBinding, len(outputs))
-	for i, ref := range outputs {
-		outputBindings[i] = SurfaceBinding{Surface: ref, SymbolIndex: i}
-	}
-	return createRequestFromBindingsWithSharedEvents(inputBindings, outputBindings, 0, sharedEvents)
-}
-
+// createRequestFromBindingsWithSharedEvents builds an ANERequest from explicit
+// surface bindings. Callers must supply each binding's compiled symbol index;
+// a surface's position in the input or output list is not usable as its symbol
+// index, because the ANE numbers symbols by their position in the compiled
+// model's symbol array, not by argument order. See [Model.inputBindings], which
+// carries the indices parsed from the model attributes.
 func createRequestFromBindingsWithSharedEvents(inputs, outputs []SurfaceBinding, procedureIndex int, sharedEvents objectivec.IObject) (appleneuralengine.ANERequest, []objectivec.IObject, error) {
 	ioClass := appleneuralengine.GetANEIOSurfaceObjectClass()
 
