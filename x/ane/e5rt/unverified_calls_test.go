@@ -549,7 +549,11 @@ var probes = map[string]func(t *testing.T){
 			return
 		}
 
-		first := []float32{1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16}
+		// Two disjoint regions model two token positions in a cache. If the
+		// second update replaces rather than accumulates the state, the first
+		// half disappears; if it writes the wrong offset, the expected split
+		// below catches it.
+		first := []float32{1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0}
 		writeExampleFP16(valuePtr, first)
 		if err := lib.ExecuteSync(stream); err != nil {
 			fmt.Printf("RESULT state alias first execution: %v\n", err)
@@ -605,7 +609,7 @@ var probes = map[string]func(t *testing.T){
 		// A second, distinct write is the mutation control. Re-execute both
 		// already-encoded programs so this observes the same retained state
 		// buffer rather than a fresh binding or compilation.
-		second := []float32{16, 15, 14, 13, 12, 11, 10, 9, 8, 7, 6, 5, 4, 3, 2, 1}
+		second := []float32{0, 0, 0, 0, 0, 0, 0, 0, 2, 2, 2, 2, 2, 2, 2, 2}
 		wantSecond := make([]float32, len(first))
 		for i := range wantSecond {
 			wantSecond[i] = first[i] + second[i]
