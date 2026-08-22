@@ -53,6 +53,14 @@ func (c *Client) Compile(opts CompileOptions) (*Model, error) {
 }
 
 func compileMIL(c *Client, opts CompileOptions) (*Model, error) {
+	// Objects from +classWith... factories are autoreleased, and a Go process
+	// has no pool of its own, so without this one they would live until exit
+	// and the model would hold its program instance even after unload. The
+	// device permits about fifteen live program instances, so leaking them
+	// makes the sixteenth compile in a process fail with 0x50004.
+	// retainObjects claims what the returned Model keeps.
+	defer drainPool(newPool())
+
 	// Build the network text as NSData.
 	networkText := foundation.NewDataFromBytes(opts.MILText)
 
@@ -167,6 +175,7 @@ func compileMIL(c *Client, opts CompileOptions) (*Model, error) {
 		outputLayouts: outputLayouts,
 		mapped:        true,
 	}
+	m.retainObjects()
 	runtime.SetFinalizer(m, (*Model).Close)
 	return m, nil
 }
@@ -230,6 +239,14 @@ func cleanWeightPath(p string) (string, error) {
 }
 
 func compilePackage(c *Client, opts CompileOptions) (*Model, error) {
+	// Objects from +classWith... factories are autoreleased, and a Go process
+	// has no pool of its own, so without this one they would live until exit
+	// and the model would hold its program instance even after unload. The
+	// device permits about fifteen live program instances, so leaking them
+	// makes the sixteenth compile in a process fail with 0x50004.
+	// retainObjects claims what the returned Model keeps.
+	defer drainPool(newPool())
+
 	if opts.PackagePath == "" {
 		return nil, &ANEError{Op: "compile", Err: fmt.Errorf("PackagePath is required for ModelTypePackage")}
 	}
@@ -323,6 +340,7 @@ func compilePackage(c *Client, opts CompileOptions) (*Model, error) {
 		outputLayouts: outputLayouts,
 		mapped:        true,
 	}
+	m.retainObjects()
 	runtime.SetFinalizer(m, (*Model).Close)
 	return m, nil
 }
@@ -679,6 +697,14 @@ func (c *Client) CompileWithStats(opts CompileOptions) (*Model, CompileStats, er
 }
 
 func compileMILWithStats(c *Client, opts CompileOptions, cs *CompileStats) (*Model, error) {
+	// Objects from +classWith... factories are autoreleased, and a Go process
+	// has no pool of its own, so without this one they would live until exit
+	// and the model would hold its program instance even after unload. The
+	// device permits about fifteen live program instances, so leaking them
+	// makes the sixteenth compile in a process fail with 0x50004.
+	// retainObjects claims what the returned Model keeps.
+	defer drainPool(newPool())
+
 	networkText := foundation.NewDataFromBytes(opts.MILText)
 
 	weightFiles, err := compileWeightFiles(opts)
@@ -784,11 +810,20 @@ func compileMILWithStats(c *Client, opts CompileOptions, cs *CompileStats) (*Mod
 		outputLayouts: outputLayouts,
 		mapped:        true,
 	}
+	m.retainObjects()
 	runtime.SetFinalizer(m, (*Model).Close)
 	return m, nil
 }
 
 func compilePackageWithStats(c *Client, opts CompileOptions, cs *CompileStats) (*Model, error) {
+	// Objects from +classWith... factories are autoreleased, and a Go process
+	// has no pool of its own, so without this one they would live until exit
+	// and the model would hold its program instance even after unload. The
+	// device permits about fifteen live program instances, so leaking them
+	// makes the sixteenth compile in a process fail with 0x50004.
+	// retainObjects claims what the returned Model keeps.
+	defer drainPool(newPool())
+
 	if opts.PackagePath == "" {
 		return nil, &ANEError{Op: "compile", Err: fmt.Errorf("PackagePath is required for ModelTypePackage")}
 	}
@@ -882,6 +917,7 @@ func compilePackageWithStats(c *Client, opts CompileOptions, cs *CompileStats) (
 		outputLayouts: outputLayouts,
 		mapped:        true,
 	}
+	m.retainObjects()
 	runtime.SetFinalizer(m, (*Model).Close)
 	return m, nil
 }
@@ -908,4 +944,22 @@ func buildWeightsDict(files []WeightFile) objectivec.IObject {
 	}
 
 	return outer
+}
+
+// newPool opens an autorelease pool. A Go process has none of its own, so the
+// objects the ANE factory methods hand back would otherwise live until exit.
+//
+// A pool belongs to the thread that pushed it, and draining one from another
+// thread walks a stack that thread does not own; the goroutine is pinned until
+// drainPool so the compile in between cannot migrate.
+func newPool() foundation.NSAutoreleasePool {
+	runtime.LockOSThread()
+	return foundation.GetNSAutoreleasePoolClass().Alloc().Init()
+}
+
+// drainPool closes a pool opened by newPool and unpins the goroutine. The pair
+// exists so callers can write defer drainPool(newPool()) on one line.
+func drainPool(p foundation.NSAutoreleasePool) {
+	p.Drain()
+	runtime.UnlockOSThread()
 }

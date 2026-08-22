@@ -7,9 +7,12 @@ import (
 	"runtime"
 	"sync"
 
+	"github.com/ebitengine/purego/objc"
 	"github.com/tmc/apple/corefoundation"
 	"github.com/tmc/apple/coregraphics"
+
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objectivec"
 	"github.com/tmc/apple/private/appleneuralengine"
 )
 
@@ -40,6 +43,36 @@ type Model struct {
 	mapped          bool // IOSurfaces are mapped
 	closed          bool
 	sharedEventUsed bool
+	objsRetained    bool // retainObjects has claimed the ObjC objects below
+}
+
+// retainObjects claims the ObjC objects the Model keeps. They arrive from
+// +classWith... factories and are autoreleased, so the compile-time pool's
+// drain would otherwise free them out from under the Model. Close balances it.
+func (m *Model) retainObjects() {
+	for _, id := range m.objcRefs() {
+		objectivec.ObjectFromID(id).Retain()
+	}
+	m.objsRetained = true
+}
+
+// objcRefs lists the retained ObjC objects for this model type, skipping nils.
+func (m *Model) objcRefs() []objc.ID {
+	var ids []objc.ID
+	switch m.modelType {
+	case ModelTypeMIL:
+		ids = []objc.ID{m.inMemModel.ID}
+	case ModelTypePackage:
+		ids = []objc.ID{m.aneModel.ID, m.aneClient.ID}
+	}
+	ids = append(ids, m.request.ID)
+	out := ids[:0]
+	for _, id := range ids {
+		if id != 0 {
+			out = append(out, id)
+		}
+	}
+	return out
 }
 
 // InputSurface returns the i-th input IOSurfaceRef.
@@ -381,6 +414,15 @@ func (m *Model) Close() error {
 	}
 	m.inputs = nil
 	m.outputs = nil
+
+	// Balance retainObjects. Skipped after a shared-event eval for the same
+	// reason the unload above is: dealloc reaches the code that crashes.
+	if m.objsRetained && !m.sharedEventUsed {
+		for _, id := range m.objcRefs() {
+			objectivec.ObjectFromID(id).Release()
+		}
+	}
+	m.objsRetained = false
 
 	return nil
 }
