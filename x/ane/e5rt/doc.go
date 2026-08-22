@@ -35,10 +35,12 @@
 //   - [Lib.PrepareOpForEncode] returns zero everywhere and leaves the stream
 //     unusable and unreleasable. Do not call it.
 //   - [Lib.ExecutionStreamReset] works on a fresh stream, contradicting ANEForge.
+//   - [Lib.SubmitAsync] works. It needs a real Objective-C block, which
+//     [objc.NewBlock] supplies, and the completion block runs.
 //
-// Only the asynchronous submission and event calls have still never been called
-// from Go. A wrapper's doc comment names the evidence behind it; where it cites
-// only ANEForge, that is outside evidence and nothing more.
+// Only the event calls have still never been called from Go. A wrapper's doc
+// comment names the evidence behind it; where it cites only ANEForge, that is
+// outside evidence and nothing more.
 //
 // Every argument list here comes from one of two outside sources, and each doc
 // comment says which:

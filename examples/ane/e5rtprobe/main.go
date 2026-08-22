@@ -406,16 +406,20 @@ type blockedStep struct {
 	Reason string `json:"reason"`
 }
 
-// Three of the entries this list used to carry — program_library_create and
-// the two operation-creation symbols — have since been wrapped, once ANEForge
-// settled the argument order the paper left ambiguous, and the route they
-// blocked is now driven end to end by the e5rtdispatch example. What remains
-// is genuinely unreachable from a typed wrapper.
+// Entries this list used to carry have left it one at a time. First
+// program_library_create and the two operation-creation symbols, once ANEForge
+// settled the argument order the paper left ambiguous; the route they blocked is
+// now driven end to end by the e5rtdispatch example. Then submit_async, which
+// was listed as unreachable on the grounds that the package had no way to build
+// an Objective-C block. It did: objc.NewBlock builds a real __NSMallocBlock__,
+// and Lib.SubmitAsync now uses it. The reason given was about this repository
+// rather than about e5rt, and it was not true.
+//
+// Only one name is left, and it is missing an argument list rather than a
+// calling convention.
 var blocked = []blockedStep{
 	{"e5rt_e5_compiler_is_new_compile_required",
 		"named only in the paper's phase table; no call site, no argument list, and ANEForge does not use it either"},
-	{"e5rt_execution_stream_submit_async",
-		"not a plain (stream) call: ANEForge gives (void *stream, id block) with an ObjC block of type e5rt_error_code_t(^)(void), which the callee retains unconditionally. A raw purego callback where a block is expected is a segfault, so this stays unwrapped by choice, not for want of a signature. The similarly named e5rt_execution_stream_async_submit is an older entry point that answers \"Use submit_async\"; both spellings are separate exports"},
 }
 
 // A sequence is a run of calls made in one child process. Steps are declared

@@ -9,6 +9,8 @@ import (
 	"unsafe"
 
 	"github.com/ebitengine/purego"
+
+	"github.com/tmc/apple/objc"
 )
 
 // FrameworkPath is the Espresso framework the e5rt_* symbols are exported from.
@@ -732,20 +734,48 @@ func (l *Lib) ExecutionStreamRelease(stream uintptr) error {
 	return l.release("e5rt_execution_stream_release", stream)
 }
 
-// Deliberately unwrapped:
+// SubmitAsync submits an encoded stream without blocking and returns a function
+// that releases the completion block.
 //
-//   - e5rt_execution_stream_submit_async takes two arguments, the second an
-//     Objective-C block of type e5rt_error_code_t (^)(void) that the callee
-//     retains unconditionally, so a null second argument crashes inside
-//     objc_retain. ANEForge settles this from the disassembly and drives it with
-//     a real block (ane_e5rt_dispatch.mm:88-92, :891-897, :933-949;
-//     docs/e5rt-dispatch-reference.md:232-234). It is listed in [Symbols] and
-//     reachable through [Lib.Sym], but not wrapped: a raw purego callback where
-//     the callee expects a block is a segfault, and this package has no way to
-//     build an Objective-C block. Wrap it only alongside a real block
-//     constructor. ANEForge also notes that the similarly named
-//     e5rt_execution_stream_async_submit is the older entry point, which answers
-//     with "Use submit_async".
+// completion runs on a thread E5RT owns once the work finishes, and the Status
+// it returns is handed back to the runtime; return 0 unless there is a reason
+// not to. It must not block, and it runs after SubmitAsync has returned,
+// so a caller that needs the result waits on something the closure signals.
+//
+// Call the returned release function only after completion has run. The callee
+// retains the block, so releasing early does not free it, but nothing else keeps
+// the Go closure reachable.
+//
+// The two-argument signature, the second an Objective-C block of type
+// e5rt_error_code_t (^)(void), comes from ANEForge, which settles it from the
+// disassembly and drives it with a real block (ane_e5rt_dispatch.mm:88-92,
+// :891-897, :933-949). A null second argument crashes inside objc_retain,
+// because the callee retains unconditionally, and a raw purego callback where a
+// block is expected is a segfault. [objc.NewBlock] builds a real
+// __NSMallocBlock__ with copy and dispose helpers, which is what makes this
+// wrappable; an unconditional retain is safe against it, and the Go closure
+// stays reachable until dispose.
+//
+// ANEForge notes that the similarly named e5rt_execution_stream_async_submit is
+// an older entry point that answers "Use submit_async".
+func (l *Lib) SubmitAsync(stream uintptr, completion func() Status) (release func(), err error) {
+	if completion == nil {
+		return nil, fmt.Errorf("e5rt: submit_async requires a completion function")
+	}
+	block := objc.NewBlock(func(objc.Block) int64 {
+		return int64(completion())
+	})
+	if block == 0 {
+		return nil, fmt.Errorf("e5rt: could not build the completion block")
+	}
+	if err := l.callErr("e5rt_execution_stream_submit_async", stream, uintptr(block)); err != nil {
+		block.Release()
+		return nil, err
+	}
+	return func() { block.Release() }, nil
+}
+
+// Deliberately unwrapped:
 //
 //   - e5rt_e5_compiler_is_new_compile_required is named only in the paper's
 //     phase table, with no call site and no argument list anywhere in the text,

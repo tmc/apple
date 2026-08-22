@@ -10,6 +10,7 @@ import (
 	"path/filepath"
 	"strings"
 	"testing"
+	"time"
 
 	"github.com/tmc/apple/x/ane/e5rt"
 	"github.com/tmc/apple/x/ane/mil"
@@ -247,6 +248,42 @@ var probes = map[string]func(t *testing.T){
 		fmt.Println("RESULT reached the stream release")
 		err := r.lib.ExecutionStreamRelease(r.stream)
 		fmt.Printf("RESULT stream release after prepare: %v\n", err)
+	},
+
+	// Asynchronous submission with a real Objective-C block. The callee retains
+	// the block unconditionally, so a wrong second argument faults inside
+	// objc_retain.
+	"submitAsync": func(t *testing.T) {
+		r := openRoute(t)
+		if err := r.lib.EncodeOperation(r.stream, r.op); err != nil {
+			t.Fatal(err)
+		}
+		in := []float32{1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16}
+		writeExampleFP16(r.inPtr, in)
+
+		done := make(chan struct{})
+		release, err := r.lib.SubmitAsync(r.stream, func() e5rt.Status {
+			close(done)
+			return 0
+		})
+		if err != nil {
+			t.Fatalf("SubmitAsync: %v", err)
+		}
+		select {
+		case <-done:
+			fmt.Println("RESULT SubmitAsync: the completion block ran")
+		case <-time.After(10 * time.Second):
+			t.Fatal("the completion block never ran")
+		}
+		release()
+
+		got := readExampleFP16(r.outPtr, len(in))
+		for i := range in {
+			if got[i] != in[i] {
+				t.Fatalf("async dispatch returned %v, want %v", got, in)
+			}
+		}
+		fmt.Println("RESULT SubmitAsync: the output matches the reference")
 	},
 
 	// Opening a compiled bundle directly, without the compiler.
