@@ -34,8 +34,10 @@
 //     directly, with no compiler.
 //   - [Lib.ProgramFunctionLoadForExecution] is gone, returning status 2 and
 //     saying so.
-//   - [Lib.PrepareOpForEncode] returns zero everywhere and leaves the stream
-//     unusable and unreleasable. Do not call it.
+//   - [Lib.PrepareOpForEncode] returns zero on this package's self-created
+//     streams and leaves them unusable and unreleasable. A separate
+//     engine-borrowed, post-reset route reports it works; that route is not
+//     reproduced here.
 //   - [Lib.ExecutionStreamReset] works on a fresh stream, contradicting ANEForge.
 //   - [Lib.SubmitAsync] works. It needs a real Objective-C block, which
 //     [objc.NewBlock] supplies, and the completion block runs.
@@ -53,9 +55,9 @@
 //
 // A zero status means only that an E5RT entry point accepted the call. It is
 // not, by itself, evidence that the operation had its apparent effect:
-// [Lib.PrepareOpForEncode] returns zero while making its stream unusable. Treat
-// an effect as established only where the wrapper documentation names a control
-// that observed it.
+// [Lib.PrepareOpForEncode] returns zero while making this package's
+// self-created stream unusable. Treat an effect as established only where the
+// wrapper documentation names a control that observed it.
 //
 // Every name in [Symbols] now has a wrapper that has been called, save
 // e5rt_e5_compiler_is_new_compile_required, which is listed so the probe reports

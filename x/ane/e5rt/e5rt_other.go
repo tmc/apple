@@ -116,6 +116,9 @@ func (s Status) Err(op string) error {
 	return fmt.Errorf("e5rt: %s: status %d", op, int64(s))
 }
 
+// ErrorString returns Espresso's static description of status.
+func (l *Lib) ErrorString(Status) (string, error) { return "", ErrUnsupported }
+
 // CompilerConfigOptionsCreate creates a compiler configuration.
 func (l *Lib) CompilerConfigOptionsCreate() (uintptr, error) { return 0, ErrUnsupported }
 
@@ -226,7 +229,7 @@ func (l *Lib) OperationRetainOutputPort(uintptr, string) (uintptr, error) { retu
 // IOPortBindBufferObject binds a buffer object to a retained I/O port.
 func (l *Lib) IOPortBindBufferObject(uintptr, uintptr) error { return ErrUnsupported }
 
-// IOPortRelease releases a retained I/O port.
+// IOPortRelease releases a retained I/O port from the standalone direct route.
 func (l *Lib) IOPortRelease(uintptr) error { return ErrUnsupported }
 
 // ExecutionStreamCreate creates an execution stream.

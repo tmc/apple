@@ -107,6 +107,10 @@ type Lib struct {
 
 	mu    sync.RWMutex
 	extra map[string]uintptr // names resolved on demand by Lookup
+
+	errorStringOnce sync.Once
+	errorString     func(int64) uintptr
+	errorStringErr  error
 }
 
 var (
@@ -220,6 +224,45 @@ func (s Status) Err(op string) error {
 		return nil
 	}
 	return fmt.Errorf("e5rt: %s: status %d", op, int64(s))
+}
+
+// ErrorString returns Espresso's static description of status.
+//
+// The recovered ane_bridge declaration says e5rt_error_code_get_string takes
+// an int64 status and returns const char *. Its tests read static descriptions
+// for status values 0 through 6. This method reads the returned C string; it
+// does not retain it.
+func (l *Lib) ErrorString(status Status) (string, error) {
+	if l == nil {
+		return "", fmt.Errorf("e5rt: library not open")
+	}
+	l.errorStringOnce.Do(func() {
+		address, err := l.Lookup("e5rt_error_code_get_string")
+		if err != nil {
+			l.errorStringErr = err
+			return
+		}
+		purego.RegisterFunc(&l.errorString, address)
+	})
+	if l.errorStringErr != nil {
+		return "", l.errorStringErr
+	}
+	ptr := l.errorString(int64(status))
+	if ptr == 0 {
+		return "", fmt.Errorf("e5rt: no description for status %d", status)
+	}
+	return staticCString(ptr), nil
+}
+
+func staticCString(ptr uintptr) string {
+	const maxLength = 4 << 10
+	data := unsafe.Slice((*byte)(pointerAt(ptr)), maxLength)
+	for n, b := range data {
+		if b == 0 {
+			return string(data[:n])
+		}
+	}
+	return string(data)
 }
 
 // call invokes a resolved entry point and returns its int64 status.
@@ -664,7 +707,8 @@ func (l *Lib) BufferObjectRelease(buf uintptr) error {
 //
 // The signature int64_t(op, const char *port_name, void **port_out) is the
 // paper's, consistent across every listing in which it appears, and agrees with
-// ANEForge (e5rt_api.h:87, call site ane_e5rt_dispatch.mm:267).
+// ANEForge (e5rt_api.h:87, call site ane_e5rt_dispatch.mm:267). A retained
+// port from an engine-borrowed operation is engine-co-owned; do not release it.
 func (l *Lib) OperationRetainInputPort(op uintptr, portName string) (uintptr, error) {
 	name, p := cstring(portName)
 	out := newOut()
@@ -695,7 +739,8 @@ func (l *Lib) OperationRetainInoutPort(op uintptr, portName string) (uintptr, er
 //
 // Same shape as [Lib.OperationRetainInputPort]. The paper never calls it inside
 // a chapter 6 listing; ANEForge does (e5rt_api.h:88, call site
-// ane_e5rt_dispatch.mm:269).
+// ane_e5rt_dispatch.mm:269). A retained port from an engine-borrowed operation
+// is engine-co-owned; do not release it.
 func (l *Lib) OperationRetainOutputPort(op uintptr, portName string) (uintptr, error) {
 	name, p := cstring(portName)
 	out := newOut()
@@ -718,7 +763,13 @@ func (l *Lib) IOPortBindBufferObject(port, buf uintptr) error {
 	return l.callErr("e5rt_io_port_bind_buffer_object", port, buf)
 }
 
-// IOPortRelease releases a retained I/O port (ane_e5rt_dispatch.mm:313).
+// IOPortRelease releases a retained I/O port from this package's standalone
+// direct route.
+//
+// [Compile] and [CompilePipeline] create their own operation and stream, so
+// their Close methods release their ports. Do not call IOPortRelease for a port
+// retained from an engine-borrowed operation: that flow co-owns the port and
+// requires callers to reuse it without releasing it.
 func (l *Lib) IOPortRelease(port uintptr) error {
 	return l.release("e5rt_io_port_release", port)
 }
@@ -742,13 +793,13 @@ func (l *Lib) ExecutionStreamCreate() (uintptr, error) {
 // been encoded once, and so calls it only when re-encoding a used stream
 // (ane_e5rt_dispatch.mm:460-464, call site :483).
 //
-// Do not call this. On macOS 26.x it returns zero in every position tried and
-// leaves nothing usable behind. Called on an operation that has never been
-// encoded, it returns zero and the ordinary encode and dispatch still work, so
-// ANEForge's rejection claim does not hold as a status. Called on an encoded
-// operation it also returns zero, and afterwards re-encoding it on the same
-// stream fails with status 2, resetting that stream fails with status 2, and
-// releasing that stream terminates the process:
+// On this package's self-created direct stream, it returns zero in every
+// position tried and leaves nothing usable behind. Called on an operation that
+// has never been encoded, it returns zero and the ordinary encode and dispatch
+// still work, so ANEForge's rejection claim does not hold as a status. Called
+// on an encoded operation it also returns zero, and afterwards re-encoding it
+// on the same stream fails with status 2, resetting that stream fails with
+// status 2, and releasing that stream terminates the process:
 //
 //	libc++abi: terminating due to uncaught exception of type E5RT::E5RTError:
 //	Op has not been encoded and hence cannot be reset to "ReadyForEncode" state
@@ -757,8 +808,13 @@ func (l *Lib) ExecutionStreamCreate() (uintptr, error) {
 // release time rather than as a status from this call. An exception thrown
 // through a purego call cannot be caught in Go, which is why this wrapper
 // reports success for a call that has already made the stream unreleasable.
-// There is no known sequence in which this call is useful; encode each
-// operation once. See TestUnverifiedCalls.
+// Do not use this wrapper with a self-created direct stream; encode each
+// operation once.
+//
+// A separate engine-borrowed route reports this call works after resetting the
+// borrowed stream, then retaining and binding its engine-co-owned I/O ports.
+// That route is not reproduced here and has different port ownership, so it is
+// intentionally not exposed through [Program] or [Pipeline].
 func (l *Lib) PrepareOpForEncode(op uintptr) error {
 	return l.callErr("e5rt_execution_stream_operation_prepare_op_for_encode", op)
 }
@@ -792,11 +848,12 @@ func (l *Lib) ExecuteSync(stream uintptr) error {
 // ANEForge reports that this call rejects a stream that has not been executed
 // yet (:464). That is NOT reproduced here: on macOS 26.x a freshly created
 // stream is reset successfully, twice in a row, both returning zero. The
-// neighbouring claim in the same comment, about [Lib.PrepareOpForEncode], is
-// also not reproduced; see that wrapper.
+// neighbouring claim in the same comment, about [Lib.PrepareOpForEncode] on a
+// self-created stream, is also not reproduced; see that wrapper.
 //
 // This does fail with status 2 on a stream whose operation has been passed to
-// [Lib.PrepareOpForEncode], which is one of several reasons not to call that.
+// [Lib.PrepareOpForEncode] on a self-created stream, which is one reason not
+// to call it in that route.
 func (l *Lib) ExecutionStreamReset(stream uintptr) error {
 	return l.callErr("e5rt_execution_stream_reset", stream)
 }

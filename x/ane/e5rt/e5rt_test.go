@@ -191,3 +191,20 @@ func TestStatusErr(t *testing.T) {
 		t.Error("Status(-1).Err = nil, want an error")
 	}
 }
+
+func TestErrorString(t *testing.T) {
+	lib, err := Open()
+	if lib == nil {
+		t.Skipf("Espresso unavailable: %v", err)
+	}
+	for status := Status(0); status <= 6; status++ {
+		text, err := lib.ErrorString(status)
+		if err != nil {
+			t.Errorf("ErrorString(%d): %v", status, err)
+			continue
+		}
+		if text == "" {
+			t.Errorf("ErrorString(%d) = empty string", status)
+		}
+	}
+}
