@@ -528,42 +528,60 @@ func createRequestAndSurfaces(inputLayouts, outputLayouts []TensorLayout) (apple
 		return appleneuralengine.ANERequest{}, nil, nil, &ANEError{Op: "map", Err: fmt.Errorf("input and output layouts must be specified")}
 	}
 
-	ioClass := appleneuralengine.GetANEIOSurfaceObjectClass()
-
 	// Create input IOSurfaces.
 	inputs := make([]coregraphics.IOSurfaceRef, len(inputLayouts))
-	inputArr := foundation.NewNSMutableArray()
-	inputIdxArr := foundation.NewNSMutableArray()
 	for i, layout := range inputLayouts {
 		ref, err := createSurfaceForLayout(layout)
 		if err != nil {
 			return appleneuralengine.ANERequest{}, nil, nil, &ANEError{Op: "map", Err: err}
 		}
 		inputs[i] = ref
-		wrapped := ioClass.ObjectWithIOSurface(iosurface.IOSurfaceRef(ref))
-		inputArr.AddObject(wrapped)
-		symbolIndex := i
-		if layout.SymbolIndex >= 0 {
-			symbolIndex = layout.SymbolIndex
-		}
-		inputIdxArr.AddObject(foundation.GetNSNumberClass().NumberWithInt(int32(symbolIndex)))
 	}
 
 	// Create output IOSurfaces.
 	outputs := make([]coregraphics.IOSurfaceRef, len(outputLayouts))
-	outputArr := foundation.NewNSMutableArray()
-	outputIdxArr := foundation.NewNSMutableArray()
 	for i, layout := range outputLayouts {
 		ref, err := createSurfaceForLayout(layout)
 		if err != nil {
 			return appleneuralengine.ANERequest{}, nil, nil, &ANEError{Op: "map", Err: err}
 		}
 		outputs[i] = ref
-		wrapped := ioClass.ObjectWithIOSurface(iosurface.IOSurfaceRef(ref))
-		outputArr.AddObject(wrapped)
+	}
+
+	request, err := buildRequest(inputs, outputs, inputLayouts, outputLayouts)
+	if err != nil {
+		return appleneuralengine.ANERequest{}, nil, nil, err
+	}
+	return request, inputs, outputs, nil
+}
+
+// buildRequest wraps existing IOSurfaces in an ANERequest.
+//
+// The request holds ANEIOSurfaceObject wrappers built here, not the Go slices,
+// so it is a snapshot: changing which surface a Model names does not reach an
+// already-built request. Rebinding a surface after compilation therefore means
+// building a new request, which is what [ShareSurface] does.
+func buildRequest(inputs, outputs []coregraphics.IOSurfaceRef, inputLayouts, outputLayouts []TensorLayout) (appleneuralengine.ANERequest, error) {
+	ioClass := appleneuralengine.GetANEIOSurfaceObjectClass()
+
+	inputArr := foundation.NewNSMutableArray()
+	inputIdxArr := foundation.NewNSMutableArray()
+	for i, ref := range inputs {
+		inputArr.AddObject(ioClass.ObjectWithIOSurface(iosurface.IOSurfaceRef(ref)))
 		symbolIndex := i
-		if layout.SymbolIndex >= 0 {
-			symbolIndex = layout.SymbolIndex
+		if inputLayouts[i].SymbolIndex >= 0 {
+			symbolIndex = inputLayouts[i].SymbolIndex
+		}
+		inputIdxArr.AddObject(foundation.GetNSNumberClass().NumberWithInt(int32(symbolIndex)))
+	}
+
+	outputArr := foundation.NewNSMutableArray()
+	outputIdxArr := foundation.NewNSMutableArray()
+	for i, ref := range outputs {
+		outputArr.AddObject(ioClass.ObjectWithIOSurface(iosurface.IOSurfaceRef(ref)))
+		symbolIndex := i
+		if outputLayouts[i].SymbolIndex >= 0 {
+			symbolIndex = outputLayouts[i].SymbolIndex
 		}
 		outputIdxArr.AddObject(foundation.GetNSNumberClass().NumberWithInt(int32(symbolIndex)))
 	}
@@ -596,14 +614,14 @@ func createRequestAndSurfaces(inputLayouts, outputLayouts []TensorLayout) (apple
 		)
 	}
 	if reqObj == nil || reqObj.GetID() == 0 {
-		return appleneuralengine.ANERequest{}, nil, nil, &ANEError{Op: "map", Err: fmt.Errorf("failed to create request")}
+		return appleneuralengine.ANERequest{}, &ANEError{Op: "map", Err: fmt.Errorf("failed to create request")}
 	}
 	request := appleneuralengine.ANERequestFromID(reqObj.GetID())
 	if request.TransactionHandle().GetID() == 0 {
 		request.SetTransactionHandle(txnHandle)
 	}
 
-	return request, inputs, outputs, nil
+	return request, nil
 }
 
 // prepopulateTempDir writes the MIL text and weight blobs to the temp directory

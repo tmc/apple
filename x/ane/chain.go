@@ -7,12 +7,19 @@ import (
 
 	"github.com/tmc/apple/foundation"
 	"github.com/tmc/apple/iosurface"
+	"github.com/tmc/apple/objectivec"
 	"github.com/tmc/apple/private/appleneuralengine"
 )
 
 // ShareSurface binds dst's input[dstInput] to src's output[srcOutput],
 // sharing the same IOSurface for zero-copy handoff between models.
 // Both models must have compatible tensor layouts at the given indices.
+//
+// Rebinding the surface is not enough on its own. A Model's ANERequest holds
+// ANEIOSurfaceObject wrappers built when the model was compiled, and Eval runs
+// that request, so a surface swapped into the Go slice afterwards is visible to
+// WriteInput and ReadOutput but not to the engine. This rebuilds dst's request
+// so that the next Eval reads the surface named here.
 func ShareSurface(src *Model, srcOutput int, dst *Model, dstInput int) error {
 	if srcOutput < 0 || srcOutput >= len(src.outputs) {
 		return fmt.Errorf("ane: src output index %d out of range [0,%d)", srcOutput, len(src.outputs))
@@ -20,7 +27,22 @@ func ShareSurface(src *Model, srcOutput int, dst *Model, dstInput int) error {
 	if dstInput < 0 || dstInput >= len(dst.inputs) {
 		return fmt.Errorf("ane: dst input index %d out of range [0,%d)", dstInput, len(dst.inputs))
 	}
+
+	previous := dst.inputs[dstInput]
 	dst.inputs[dstInput] = src.outputs[srcOutput]
+	request, err := buildRequest(dst.inputs, dst.outputs, dst.inputLayouts, dst.outputLayouts)
+	if err != nil {
+		dst.inputs[dstInput] = previous
+		return fmt.Errorf("ane: rebuild request after sharing surface: %w", err)
+	}
+	// The previous request is left to the autorelease pool rather than
+	// released here: Close balances one retain per object it holds, and
+	// over-releasing a request that an in-flight eval still references is the
+	// worse failure of the two.
+	dst.request = request
+	if dst.objsRetained {
+		objectivec.ObjectFromID(request.ID).Retain()
+	}
 	return nil
 }
 

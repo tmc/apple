@@ -29,7 +29,7 @@ import (
 // dylib fallback, which covers C-API frameworks that are not in the dyld
 // shared cache as bundles.
 var frameworkPaths = []string{
-	"/System/Library/PrivateFrameworks/Espresso.framework/Espresso",
+	"/System/Library/PrivateFrameworks/Espresso.framework/Versions/A/Espresso",
 }
 
 // frameworkHandle is the handle to the loaded framework.
