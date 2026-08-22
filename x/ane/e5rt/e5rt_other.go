@@ -264,7 +264,7 @@ func (l *Lib) AsyncEventCreate(string) (uintptr, error) { return 0, ErrUnsupport
 func (l *Lib) AsyncEventRelease(uintptr) error { return ErrUnsupported }
 
 // AsyncEventSignal signals an async event from the host.
-func (l *Lib) AsyncEventSignal(uintptr) error { return ErrUnsupported }
+func (l *Lib) AsyncEventSignal(uintptr, uint64) error { return ErrUnsupported }
 
 // AsyncEventSyncWait waits for an async event to be signaled.
 func (l *Lib) AsyncEventSyncWait(uintptr) error { return ErrUnsupported }

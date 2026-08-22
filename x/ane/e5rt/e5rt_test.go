@@ -111,12 +111,8 @@ func TestAsyncEventCreate(t *testing.T) {
 	}
 }
 
-// TestAsyncEventDoesNotAdvance is the standalone half of the finding recorded on
-// [Lib.AsyncEventLastSignaledValue]: nothing this package can call moves an
-// event's value. It asserts the current behavior rather than the intended one,
-// so it fails loudly if a future macOS makes the family work — which is the
-// point of keeping it.
-func TestAsyncEventDoesNotAdvance(t *testing.T) {
+// TestAsyncEventSignalValue verifies the standalone signal and reader pair.
+func TestAsyncEventSignalValue(t *testing.T) {
 	lib, err := Open()
 	if lib == nil {
 		t.Skipf("Espresso unavailable: %v", err)
@@ -127,15 +123,18 @@ func TestAsyncEventDoesNotAdvance(t *testing.T) {
 	}
 	defer lib.AsyncEventRelease(event)
 
-	if err := lib.AsyncEventSignal(event); err == nil {
-		t.Error("AsyncEventSignal succeeded; the documented behavior is status 2")
+	if err := lib.AsyncEventSignal(event, 7); err != nil {
+		t.Fatalf("AsyncEventSignal: %v", err)
+	}
+	if v, err := lib.AsyncEventLastSignaledValue(event); err != nil || v != 7 {
+		t.Errorf("after signal the event reports %d, %v, want 7, nil", v, err)
 	}
 	// Accepted, and observed to change nothing.
-	if err := lib.AsyncEventSetActiveFutureValue(event, 1); err != nil {
+	if err := lib.AsyncEventSetActiveFutureValue(event, 8); err != nil {
 		t.Errorf("AsyncEventSetActiveFutureValue: %v", err)
 	}
-	if v, err := lib.AsyncEventLastSignaledValue(event); err != nil || v != 0 {
-		t.Errorf("after setting an active future value the event reports %d, %v, want 0, nil", v, err)
+	if v, err := lib.AsyncEventLastSignaledValue(event); err != nil || v != 7 {
+		t.Errorf("after setting an active future value the event reports %d, %v, want 7, nil", v, err)
 	}
 }
 

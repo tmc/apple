@@ -901,17 +901,13 @@ func (l *Lib) AsyncEventRelease(event uintptr) error {
 	return l.release("e5rt_async_event_release", event)
 }
 
-// AsyncEventSignal would signal an event from the host. It does not work on
-// macOS 26.x and is wrapped only so that the finding has somewhere to live.
+// AsyncEventSignal signals event with value.
 //
-// The signature int64_t(event) is ANEForge's (e5rt_api.h:124). ANEForge
-// declares it but never resolves or calls it. It does resolve here, and it
-// returns status 2 in every position tried: on a fresh event, on one whose
-// active future value was just set, and on one bound to an encoded operation.
-// See [Lib.AsyncEventLastSignaledValue] for what that means for the family as a
-// whole.
-func (l *Lib) AsyncEventSignal(event uintptr) error {
-	return l.callErr("e5rt_async_event_signal", event)
+// The signature is int64_t(event, uint64_t value). A child-process probe
+// signals fresh events with 7 and 31 and reads those exact values back. The
+// old one-argument wrapper returned status 2 and did not signal anything.
+func (l *Lib) AsyncEventSignal(event uintptr, value uint64) error {
+	return l.callErr("e5rt_async_event_signal", event, uintptr(value))
 }
 
 // AsyncEventSyncWait is documented by ANEForge as blocking until the event is
@@ -926,31 +922,16 @@ func (l *Lib) AsyncEventSyncWait(event uintptr) error {
 	return l.callErr("e5rt_async_event_sync_wait", event)
 }
 
-// AsyncEventLastSignaledValue reports how many times the event has been
-// signaled. It has never been observed to report anything but zero.
+// AsyncEventLastSignaledValue reports the event's last signaled value.
 //
 // The signature int64_t(event, uint64_t *out) is ANEForge's (e5rt_api.h:126,
 // call site ane_e5rt_dispatch.mm:876): object first, out-parameter last, which
 // is this package's rule for a method on an existing object.
 //
-// # The event family does nothing observable here
-//
-// ANEForge reports that a completion event advances only under submit_async
-// (docs/e5rt-dispatch-reference.md:313-317). On macOS 26.x it does not advance
-// there either. With the event created and bound before the stream exists,
-// which is ANEForge's own ordering, and with the two paths differing in nothing
-// but the submit call, the value reads zero after [Lib.ExecuteSync] and zero
-// after [Lib.SubmitAsync] — the latter read taken after the completion block has
-// run and after a wait.
-//
-// A zero from a reader that has never returned anything else is not a
-// measurement, so that pair is reported as what it is. There is no way from here
-// to make the value move: [Lib.AsyncEventSignal] is refused, and
-// [Lib.AsyncEventSetActiveFutureValue] returns success and changes nothing. What
-// settles it is [Lib.AsyncEventSyncWait], which returns immediately on an event
-// bound to an operation that is encoded and never submitted. A live event would
-// have to block there. So the reading is inert rather than the engine being
-// silent, and this package makes no claim about whether the engine signals.
+// A child-process probe verifies that [Lib.AsyncEventSignal] moves this value.
+// It separately checks whether an operation's completion event advances under
+// [Lib.SubmitAsync]. [Lib.AsyncEventSyncWait] returns immediately even for an
+// unreached future value, so it is not a completion barrier.
 //
 // What does work is the shape of the graph rather than its progress:
 // [Lib.OperationBindCompletionEvent] and [Lib.OperationBindDependentEvents]
@@ -981,9 +962,8 @@ func (l *Lib) AsyncEventSetActiveFutureValue(event uintptr, value uint64) error 
 // site ane_e5rt_dispatch.mm:586).
 //
 // Binding succeeds and the operation then encodes and dispatches normally. The
-// event it signals, however, has never been seen to advance on either submit
-// path; see [Lib.AsyncEventLastSignaledValue] before relying on one. Use
-// [Lib.SubmitAsync]'s completion function to learn that work finished.
+// completion-event behavior under [Lib.SubmitAsync] is separately probed; use
+// [Lib.SubmitAsync]'s completion function as the blocking completion signal.
 func (l *Lib) OperationBindCompletionEvent(op, event uintptr) error {
 	return l.callErr("e5rt_execution_stream_operation_bind_completion_event", op, event)
 }
@@ -1006,8 +986,8 @@ func (l *Lib) OperationBindCompletionEvent(op, event uintptr) error {
 // reports that [Lib.ExecuteSync] serializes a stream's operations in submission
 // order regardless of what is bound here, so on that path a dependency cannot be
 // distinguished from the ordering that would happen anyway; it says the ordering
-// has been confirmed only on the asynchronous path. Nothing here separates the
-// two, since the events this would work through do not advance.
+// has been confirmed only on the asynchronous path. The completion-event probe
+// has not observed an engine-generated signal, so it cannot separate the two.
 func (l *Lib) OperationBindDependentEvents(op uintptr, events []uintptr) error {
 	if len(events) == 0 {
 		return fmt.Errorf("e5rt: bind_dependent_events requires at least one event")

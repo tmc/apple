@@ -644,12 +644,35 @@ var probes = map[string]func(t *testing.T){
 		case <-time.After(10 * time.Second):
 			t.Fatal("the completion block never ran")
 		}
-		// The block having run does not by itself mean the event advanced, so
-		// wait on the event too and report both.
-		waitErr := r.lib.AsyncEventSyncWait(event)
 		v, err := r.lib.AsyncEventLastSignaledValue(event)
-		fmt.Printf("RESULT completion event after submit_async: value=%d wait=%v err=%v\n", v, waitErr, err)
+		fmt.Printf("RESULT completion event after submit_async: value=%d err=%v\n", v, err)
 		release()
+	},
+
+	// The arity control for AsyncEventSignal. A status alone is insufficient on
+	// this surface, so read each distinct value back from a fresh event.
+	"signalValues": func(t *testing.T) {
+		lib, err := e5rt.Open()
+		if err != nil {
+			t.Fatal(err)
+		}
+		for _, value := range []uint64{7, 31} {
+			event, err := lib.AsyncEventCreate(fmt.Sprintf("signal-%d", value))
+			if err != nil {
+				t.Fatal(err)
+			}
+			if err := lib.AsyncEventSignal(event, value); err != nil {
+				t.Fatalf("signal(%d): %v", value, err)
+			}
+			got, err := lib.AsyncEventLastSignaledValue(event)
+			if err != nil {
+				t.Fatal(err)
+			}
+			if got != value {
+				t.Fatalf("signal(%d) read %d", value, got)
+			}
+			fmt.Printf("RESULT signal value: %d\n", got)
+		}
 	},
 
 	// The control the two probes above need. Both read zero, and zero is also
@@ -685,7 +708,7 @@ var probes = map[string]func(t *testing.T){
 		if err := r.lib.EncodeOperation(r.stream, r.op); err != nil {
 			t.Fatal(err)
 		}
-		fmt.Printf("RESULT signal a bound event: %v\n", r.lib.AsyncEventSignal(event))
+		fmt.Printf("RESULT signal a bound event: %v\n", r.lib.AsyncEventSignal(event, 7))
 	},
 
 	// Binding one operation's completion event as a second operation's

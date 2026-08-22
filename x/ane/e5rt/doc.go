@@ -38,17 +38,15 @@
 //   - [Lib.SubmitAsync] works. It needs a real Objective-C block, which
 //     [objc.NewBlock] supplies, and the completion block runs.
 //
-// The event family has since been wrapped and driven too, and the result is
-// mostly negative. Building the graph works: a completion event binds to an
+// The event family has since been wrapped and driven too. Building the graph
+// works: a completion event binds to an
 // operation, that event binds as a second operation's dependency, and the pair
 // encodes and dispatches correctly, while an operation given its own event is
-// refused. Observing progress does not work. No call reachable from here moves
-// an event's value, and [Lib.AsyncEventSyncWait] returns immediately on an event
-// whose work was deliberately never submitted, so the value staying at zero is
-// an inert reader rather than a silent engine. ANEForge's report that events
-// advance under submit_async is not reproduced, and this package does not claim
-// the opposite either; see [Lib.AsyncEventLastSignaledValue]. Use
-// [Lib.SubmitAsync]'s completion function for completion.
+// refused. [Lib.AsyncEventSignal] moves an event to a caller-supplied value;
+// its one-argument predecessor was wrong. [Lib.AsyncEventSyncWait] still
+// returns immediately on an unreached event and is not a barrier. Completion
+// events under submit_async are probed separately; use [Lib.SubmitAsync]'s
+// completion function for blocking completion.
 //
 // Every name in [Symbols] now has a wrapper that has been called, save
 // e5rt_e5_compiler_is_new_compile_required, which is listed so the probe reports
