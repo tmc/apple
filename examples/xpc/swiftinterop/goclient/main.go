@@ -3,7 +3,10 @@
 //
 // The interesting output is -op typezoo, which asks the Swift service to send
 // one value of every XPC type and prints what the Go codec turned each into.
-// Types the Go codec has no case for arrive as their copy_description string.
+// Descriptors and shared pages are read through rather than printed, because a
+// resource that decodes is not yet a resource that works. Anything the codec
+// does not model would arrive as an xpc.Unsupported; the zoo sends no such
+// value, so that path is not exercised here.
 //
 // See ../README.md for how it is run.
 package main
@@ -13,6 +16,7 @@ import (
 	"errors"
 	"flag"
 	"fmt"
+	"io"
 	"log"
 	"os"
 	"sort"
@@ -85,6 +89,28 @@ func call(name, op string) error {
 		msg["null"] = nil
 		msg["array"] = []any{int64(1), "two", false}
 		msg["dict"] = xpc.Dictionary{"nested": int64(7)}
+		msg["date"] = time.Unix(1699999999, 0)
+		msg["uuid"] = xpc.UUID{0x01, 0x23, 0x45, 0x67, 0x89, 0xab, 0xcd, 0xef,
+			0xfe, 0xdc, 0xba, 0x98, 0x76, 0x54, 0x32, 0x10}
+
+		// The two resource types. Go originates both here, which is the
+		// direction that could not be attempted at all until the codec grew
+		// cases for them: the Swift side reports whether what arrived is a
+		// usable descriptor and a mapped page, or merely something shaped
+		// like one.
+		if fd, err := goFileDescriptor(); err != nil {
+			log.Printf("cannot build a descriptor to send: %v", err)
+		} else {
+			defer fd.Close()
+			msg["fd"] = fd
+		}
+		if shm, mapping, err := goSharedMemory(); err != nil {
+			log.Printf("cannot build a shared region to send: %v", err)
+		} else {
+			defer shm.Close()
+			defer mapping.Close()
+			msg["shmem"] = shm
+		}
 	}
 
 	if op == "silent" {
@@ -148,9 +174,78 @@ func describeValue(v any) string {
 			parts[i] = strings.ReplaceAll(describeValue(e), "\t", " ")
 		}
 		return fmt.Sprintf("[]any\t[%s]", strings.Join(parts, ", "))
+	case *xpc.FileDescriptor:
+		return describeFD(t)
+	case *xpc.SharedMemory:
+		return describeShmem(t)
 	case xpc.Endpoint:
 		return fmt.Sprintf("xpc.Endpoint\thandle=%#x", t.Handle())
 	default:
 		return fmt.Sprintf("%T\t%v", v, v)
 	}
+}
+
+// describeFD proves the descriptor is usable rather than merely present: it
+// duplicates it and reads what is on the other end. A description string
+// cannot be read from.
+func describeFD(f *xpc.FileDescriptor) string {
+	fd, err := f.Dup()
+	if err != nil {
+		return fmt.Sprintf("*xpc.FileDescriptor\tDup failed: %v", err)
+	}
+	// os.NewFile takes ownership of fd, so Close here closes the dup and
+	// nothing else; the boxed descriptor is unaffected.
+	file := os.NewFile(uintptr(fd), "xpc-fd")
+	defer file.Close()
+	b, err := io.ReadAll(file)
+	if err != nil {
+		return fmt.Sprintf("*xpc.FileDescriptor\tdup=%d read failed: %v", fd, err)
+	}
+	return fmt.Sprintf("*xpc.FileDescriptor\tdup=%d contents=%q", fd, string(b))
+}
+
+// describeShmem maps the region and reads its prefix, for the same reason.
+func describeShmem(s *xpc.SharedMemory) string {
+	m, err := s.Map()
+	if err != nil {
+		return fmt.Sprintf("*xpc.SharedMemory\tMap failed: %v", err)
+	}
+	defer m.Close()
+	prefix := m.Bytes
+	if len(prefix) > 16 {
+		prefix = prefix[:16]
+	}
+	return fmt.Sprintf("*xpc.SharedMemory\t%d bytes mapped, prefix=%q", len(m.Bytes), string(prefix))
+}
+
+// goFileDescriptor boxes a descriptor open on a file with known contents, so
+// the receiver can prove it got something it can read.
+func goFileDescriptor() (*xpc.FileDescriptor, error) {
+	f, err := os.CreateTemp("", "goclient-fd-probe")
+	if err != nil {
+		return nil, err
+	}
+	// xpc_fd_create duplicates, so this process's own descriptor can go as
+	// soon as it is boxed.
+	defer os.Remove(f.Name())
+	defer f.Close()
+	if _, err := f.WriteString("GO FD PAYLOAD\n"); err != nil {
+		return nil, err
+	}
+	if _, err := f.Seek(0, 0); err != nil {
+		return nil, err
+	}
+	return xpc.NewFileDescriptor(int(f.Fd()))
+}
+
+// goSharedMemory allocates a page, writes a recognisable prefix and boxes it.
+// The mapping is the sender's own view and is returned so the caller can
+// unmap it after the message has gone.
+func goSharedMemory() (*xpc.SharedMemory, *xpc.Mapping, error) {
+	shm, m, err := xpc.NewSharedMemory(os.Getpagesize())
+	if err != nil {
+		return nil, nil, err
+	}
+	copy(m.Bytes, "GO SHMEM PAYLOAD")
+	return shm, m, nil
 }

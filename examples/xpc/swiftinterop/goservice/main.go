@@ -16,6 +16,7 @@ package main
 import (
 	"flag"
 	"fmt"
+	"io"
 	"log"
 	"os"
 	"sort"
@@ -128,6 +129,10 @@ func describeValue(v any) string {
 			parts[i] = strings.ReplaceAll(describeValue(e), "\t", " ")
 		}
 		return fmt.Sprintf("[]any\t[%s]", strings.Join(parts, ", "))
+	case *xpc.FileDescriptor:
+		return describeFD(t)
+	case *xpc.SharedMemory:
+		return describeShmem(t)
 	case xpc.Endpoint:
 		return fmt.Sprintf("xpc.Endpoint\thandle=%#x", t.Handle())
 	default:
@@ -158,4 +163,37 @@ func TypeZoo() xpc.Dictionary {
 			0xFE, 0xDC, 0xBA, 0x98, 0x76, 0x54, 0x32, 0x10,
 		},
 	}
+}
+
+// describeFD proves the descriptor is usable rather than merely present: it
+// duplicates it and reads what is on the other end. A description string
+// cannot be read from.
+func describeFD(f *xpc.FileDescriptor) string {
+	fd, err := f.Dup()
+	if err != nil {
+		return fmt.Sprintf("*xpc.FileDescriptor\tDup failed: %v", err)
+	}
+	// os.NewFile takes ownership of fd, so Close here closes the dup and
+	// nothing else; the boxed descriptor is unaffected.
+	file := os.NewFile(uintptr(fd), "xpc-fd")
+	defer file.Close()
+	b, err := io.ReadAll(file)
+	if err != nil {
+		return fmt.Sprintf("*xpc.FileDescriptor\tdup=%d read failed: %v", fd, err)
+	}
+	return fmt.Sprintf("*xpc.FileDescriptor\tdup=%d contents=%q", fd, string(b))
+}
+
+// describeShmem maps the region and reads its prefix, for the same reason.
+func describeShmem(s *xpc.SharedMemory) string {
+	m, err := s.Map()
+	if err != nil {
+		return fmt.Sprintf("*xpc.SharedMemory\tMap failed: %v", err)
+	}
+	defer m.Close()
+	prefix := m.Bytes
+	if len(prefix) > 16 {
+		prefix = prefix[:16]
+	}
+	return fmt.Sprintf("*xpc.SharedMemory\t%d bytes mapped, prefix=%q", len(m.Bytes), string(prefix))
 }

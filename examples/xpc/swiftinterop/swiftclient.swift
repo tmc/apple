@@ -52,6 +52,27 @@ let op = flagValue("-op", "describe")!
         var hex = ""
         for k in 0..<16 { hex += String(format: "%02x", p[k]) }
         return "\(name)\t\(hex)"
+    case XPC_TYPE_FD:
+        // Read what is on the other end. A descriptor that dup'd is not yet
+        // a descriptor that works, and the number alone cannot tell them
+        // apart.
+        let fd = xpc_fd_dup(value)
+        if fd < 0 { return "\(name)\tdup failed" }
+        defer { close(fd) }
+        var buf = [UInt8](repeating: 0, count: 256)
+        let n = read(fd, &buf, buf.count)
+        if n < 0 { return "\(name)\tdup'd to fd \(fd), read failed" }
+        let s = String(decoding: buf[0..<n], as: UTF8.self)
+        return "\(name)\tdup'd to fd \(fd), contents=\"\(s.replacingOccurrences(of: "\n", with: "\\n"))\""
+    case XPC_TYPE_SHMEM:
+        var region: UnsafeMutableRawPointer?
+        let len = xpc_shmem_map(value, &region)
+        guard len > 0, let region else { return "\(name)\tmap failed" }
+        defer { munmap(region, len) }
+        let b = region.assumingMemoryBound(to: UInt8.self)
+        var prefix = ""
+        for k in 0..<min(16, Int(len)) { prefix += String(format: "%c", b[k] == 0 ? 46 : Int32(b[k])) }
+        return "\(name)\t\(len) bytes mapped, prefix=\"\(prefix)\""
     case XPC_TYPE_ARRAY:
         var parts: [String] = []
         xpc_array_apply(value) { _, element in

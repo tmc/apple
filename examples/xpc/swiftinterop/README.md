@@ -42,35 +42,53 @@ direction.
 
 Measured on macOS 26.6.1 (25G76), Swift 6.3.3, SDK 26.5.
 
-**Everything the Go codec can build survives in both directions.** bool,
-int64, uint64, double, string, data, null, array, and dictionary all arrive
-with the same type and value. `uint64(1) << 63` arrives as
+**Every XPC value type round-trips in both directions.** bool, int64, uint64,
+double, string, data, null, array, dictionary, date, and uuid all arrive with
+the same type and value whichever side sent them. `uint64(1) << 63` arrives as
 `9223372036854775808`, so the signed/unsigned split is preserved rather than
 collapsed.
 
-**Five XPC types travel only one way, and lossily.** Swift can put a date,
-uuid, fd, or shmem in a message; the Go codec has no case for any of them, so
-`rawObjectToValue` falls through to `xpc_copy_description` and Go receives a
-Go `string` such as
+**Descriptors and shared pages round-trip as resources, not descriptions.**
+A `fd` decodes to an `*xpc.FileDescriptor` and a `shmem` to an
+`*xpc.SharedMemory`, and each probe proves the result is usable by reading
+through it rather than by printing its type. Both directions carry a known
+payload:
 
-    date   "<date: 0x102b83770> Tue Nov 14 14:13:20 2023 PST (approx)"
-    uuid   "<uuid: 0x102b837c0> 01234567-89AB-CDEF-FEDC-BA9876543210"
-    fd     "<fd: 0x102b82a50> { type = (invalid descriptor), path = /private/tmp/swiftinterop-fd-probe.txt }"
-    shmem  "<shmem: 0x102b83450>: 16384 bytes (1 page)"
+    Go   -> Swift   fd     dup'd to fd 3, contents="GO FD PAYLOAD\n"
+                    shmem  16384 bytes mapped, prefix="GO SHMEM PAYLOAD"
+    Swift -> Go     fd     *xpc.FileDescriptor   dup=3 contents="FD PAYLOAD\n"
+                    shmem  *xpc.SharedMemory     16384 bytes mapped, prefix="SHMEM PAYLOAD"
 
-Go cannot build any of them, so the reverse direction cannot even be
-attempted. A descriptor and a shared page are *resources*, and a description
-of one is not one: this is where the binding stops being usable, not merely
-inconvenient.
+Reading the bytes is the point. A descriptor that duplicates is not yet a
+descriptor that works, and the number alone cannot tell the two apart.
 
-**Endpoints are the exception, and they round-trip.** `xpc_type_endpoint` has
-a case in `rawObjectToValue`, and `Endpoint` has a case on the encoding side,
-so Go receives a real `xpc.Endpoint` and can put it back in a dictionary.
-`endpointrelay` proves the copy is live: Swift builds an `XPCSession` from the
-endpoint that made the round trip through Go and gets a reply through it. Go
-is a working endpoint *courier*. What Go cannot do is originate one (no
-listener endpoint accessor) or consume one (no session-from-endpoint
-initializer); both are recorded as omissions in `xpc/xpc.omissions.gen.go`.
+Both are handles rather than values, because that is what XPC makes them.
+`xpc_fd_dup` returns a *different* descriptor on every call, so there is no
+one descriptor for the Go value to be; `FileDescriptor.Dup` performs the
+duplication and the caller closes the result. `SharedMemory.Map` places the
+region in this process and the caller closes the `Mapping`. Both retain the
+boxed object on decode, so they outlive the handler that received them, and
+both have an idempotent `Close`.
+
+**Endpoints round-trip too, but Go is only a courier.** `endpointrelay`
+proves the copy is live: Swift builds an `XPCSession` from the endpoint that
+made the round trip through Go and gets a reply through it. What Go cannot do
+is originate one (no listener endpoint accessor) or consume one (no
+session-from-endpoint initializer); both are recorded as omissions in
+`xpc/xpc.omissions.gen.go`.
+
+**Anything still unmodelled decodes to `xpc.Unsupported`.** That type exists
+so decoding is never silently lossy: an earlier version of the codec returned
+the description *string* for anything it did not model, which made a file
+descriptor arrive as ordinary Go data with no error and nothing to test.
+`Unsupported` is that distinction, and encoding one is an error rather than a
+re-send of the description.
+
+Which types those are is UNMEASURED here. `xpc_type_connection` is the
+obvious candidate and the fallthrough in `rawObjectToValue` would catch it,
+but `typeZoo` does not put a connection in the message, so this harness has
+never exercised the path and cannot report on it. An earlier version of this
+file listed connection among the types the zoo sends; it never did.
 
 **Declining to reply cancels the connection, on both sides.** A handler that
 returns no reply to a message that asked for one is observed by the peer as
@@ -85,14 +103,17 @@ returning an error and a Go handler returning `Dictionary{"error": ...}` as
 real data produce dictionaries a Swift client cannot tell apart; `errorkey`
 and `fail` are the same probe run twice to show it.
 
-See `~/tmp/agent-collab/apple/20260815-xpcinterop-gaps.md` for the full
-findings with literal output.
-
 ## A note on shmem
 
 An early version of these examples built the shared region with
 `posix_memalign`. `xpc_shmem_create` treats malloc memory as API misuse and
 `SIGTRAP`s the *sending* process, which reaches the peer as a connection
-interruption with no indication of the cause. The region must be `mmap`ed. That
-is a Swift-side authoring hazard, not a finding about the Go binding, and it is
-recorded here so the next reader does not rediscover it as one.
+interruption with no indication of the cause. The region must be `mmap`ed with
+`MAP_SHARED`.
+
+This is why `xpc.NewSharedMemory` allocates the region itself and hands back
+the mapping, rather than taking a caller's buffer. Go memory and malloc memory
+are owned by an allocator rather than by the caller, so an API that accepted
+either would be one that traps on correct-looking code. The hazard is real on
+the Swift side, where the region is the author's to get right; on the Go side
+it is closed by construction.

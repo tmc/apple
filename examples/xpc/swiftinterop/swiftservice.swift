@@ -2,9 +2,9 @@
 // service that a Go xpc.Session talks to.
 //
 // It answers the same ops as goservice, plus "typezoo", which sends one value
-// of *every* XPC type — including the ones the Go codec has no case for (fd,
-// shmem, uuid, date, endpoint, connection) — so the Go client can report what
-// it received for each.
+// of every XPC type the zoo builds, so the Go client can report what it
+// received for each. All of them now decode to a Go value. The zoo does not
+// build a connection, so nothing here exercises the Unsupported fallthrough.
 //
 // Build:  swiftc -O -o swiftservice swiftservice.swift
 // Run:    launchd starts it with -service <name>; see README.md.
@@ -60,9 +60,26 @@ func log(_ s: String) {
         for k in 0..<16 { hex += String(format: "%02x", p[k]) }
         return "\(name)\t\(hex)"
     case XPC_TYPE_FD:
+        // Read what is on the other end. A descriptor that dup'd is not yet
+        // a descriptor that works, and the number alone cannot tell them
+        // apart.
         let fd = xpc_fd_dup(value)
-        defer { if fd >= 0 { close(fd) } }
-        return "\(name)\tdup'd to fd \(fd)"
+        if fd < 0 { return "\(name)\tdup failed" }
+        defer { close(fd) }
+        var buf = [UInt8](repeating: 0, count: 256)
+        let n = read(fd, &buf, buf.count)
+        if n < 0 { return "\(name)\tdup'd to fd \(fd), read failed" }
+        let s = String(decoding: buf[0..<n], as: UTF8.self)
+        return "\(name)\tdup'd to fd \(fd), contents=\"\(s.replacingOccurrences(of: "\n", with: "\\n"))\""
+    case XPC_TYPE_SHMEM:
+        var region: UnsafeMutableRawPointer?
+        let len = xpc_shmem_map(value, &region)
+        guard len > 0, let region else { return "\(name)\tmap failed" }
+        defer { munmap(region, len) }
+        let b = region.assumingMemoryBound(to: UInt8.self)
+        var prefix = ""
+        for k in 0..<min(16, Int(len)) { prefix += String(format: "%c", b[k] == 0 ? 46 : Int32(b[k])) }
+        return "\(name)\t\(len) bytes mapped, prefix=\"\(prefix)\""
     case XPC_TYPE_ARRAY:
         var parts: [String] = []
         xpc_array_apply(value) { _, element in
@@ -79,8 +96,10 @@ func log(_ s: String) {
     }
 }
 
-// typeZoo builds one value of every XPC type. The types after "dict" are the
-// ones the Go high-level codec cannot produce and, on receipt, cannot decode.
+// typeZoo builds one value of every XPC type it can construct. The types after
+// "dict" are the ones that were once beyond the Go codec; all of them now
+// decode. Note that it builds no connection, despite what an earlier version of
+// this comment claimed.
 // only == nil means every key. Otherwise only the base scalars plus the one
 // named exotic key are sent, which is how a crashing key is isolated.
 @Sendable func typeZoo(endpoint: XPCEndpoint?, only: String? = nil) -> xpc_object_t {
