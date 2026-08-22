@@ -22,7 +22,8 @@ stack: 4 layers, dim 64, heads 4, seq 16, hidden 128
   backend for feed forward: the compiler emitted [ane]
   backend for residual add: the compiler emitted [ane]
   compiled 12 programs in 828ms
-  12 operations fit under the limit of 15, so the whole stack is one stream and one execute
+  all 12 functions took an operation, so this run never reached the limit; it is usually 15
+  12 functions fit within the 12 this process can hold, so the whole stack is one stream and one execute
   first dispatch 53.208ms for 4 layers, including the encode
   residual peak by layer: 1:0.80 2:1.05 3:1.08 4:1.16
   stack output matches the float64 reference over 1024 values: worst |diff| 0.0016, tolerance 0.0449, reference peak |1.1650|
@@ -43,37 +44,59 @@ Nothing is copied between layers. One buffer object is bound to the attention
 program's output port and to the feed forward program's input port, and the host
 never sees an intermediate activation.
 
-## What this found: fifteen live operations
+## What this found: fifteen live *functions*
 
-**A process can hold fifteen precompiled compute operations at once. The
-sixteenth fails with status 13.**
+**A process can hold a live precompiled compute operation on at most fifteen
+distinct compiled functions at once. The first operation on a sixteenth function
+fails with status 13.**
 
-This is not the known weight-file ceiling. It counts operations, not weights: a
-trivial weightless `add` program hits it identically, while compiling that same
-program and retaining its function forty times over raises no complaint. Only
-`e5rt_execution_stream_operation_create_precompiled_compute_operation_with_options`
-is limited.
+An earlier version of this document said fifteen *operations*, and that is
+wrong. The distinction was not visible in the original measurements because
+every one of them used a fresh function for each operation, so the two readings
+predicted the same number. Varying them independently separates them:
 
-Three follow-up measurements pin down the shape of it:
+| operations | distinct functions | result |
+| --- | --- | --- |
+| 512 | 1 | all succeed |
+| 512 | 15 | all succeed |
+| 16 | 16 | fails on the first operation of the 16th function |
+| 0 | 40 (compiled and retained) | all succeed |
+
+The 512 is where the probe stopped counting, not where the engine objected. The
+limited call is
+`e5rt_execution_stream_operation_create_precompiled_compute_operation_with_options`,
+and what it is counting is the functions currently in use, not the operations
+and not the weights — a trivial weightless `add` program hits the same wall as
+an attention block, and it is a different limit from the weight-file compile
+ceiling.
+
+Two further measurements pin down when a slot is returned:
 
 | action | result |
 | --- | --- |
-| create 40 operations | fails at the 16th |
-| compile + retain 40 functions, create none | all 40 succeed |
-| create, release, repeat 40 times | all 40 succeed |
-| create, **encode**, release, repeat | fails at the 16th |
+| create, release, repeat over 40 functions | all 40 succeed |
 | execute and release the stream every 12 | all 40 succeed |
 
-So the slot belongs to the live operation, releasing an operation returns it,
-and an encoded operation is held by its stream — which makes releasing the
-stream the only way to get the slots back.
+So the slot belongs to a function that has a live operation, and releasing that
+operation returns it. The phased path below rests on the stronger claim that an
+*encoded* operation is held by its stream, so that releasing the operation alone
+is not enough — that was measured when the ceiling was still thought to count
+operations, and it has **not** been re-measured in terms of functions. What is
+directly demonstrated here is only that releasing the operations and the stream
+together frees the slots, which is what the eight-layer run does on every phase
+boundary.
 
 The pool is shared between processes rather than reserved per process. Two
-copies of this program running concurrently reproducibly get 15 and 7.
+copies of this program running concurrently reproducibly get 15 and 7, so the
+program **measures its own budget at startup** (`probeFunctionBudget`) rather
+than trusting the 15, and narrows its phases further if a phase will not encode.
+A stack with fewer than fifteen functions cannot observe the ceiling at all, and
+the program says so rather than reporting the constant as though it had been
+confirmed.
 
 ### Going deeper than five layers
 
-Each layer is three operations, so fifteen caps a single stream at five layers.
+Each layer uses three functions, so fifteen caps a single stream at five layers.
 Deeper stacks run in phases: encode what fits, execute, release the stream,
 encode the next group. Buffers are allocated once and stay bound across the
 boundary, so phases hand activations to each other in place. **A phase boundary
@@ -82,9 +105,9 @@ way, matching the reference to a worst difference of 0.0051 against a peak of
 2.21.
 
 The cost of the boundary is visible in the timings: a stack that fits in one
-phase keeps its stream encoded and re-executes in 413µs per layer, while the
-first dispatch — which includes the encode — takes 53ms for the same four
-layers.
+phase keeps its stream encoded and re-executes in 367µs per layer, while an
+eight-layer stack that must re-encode both phases on every dispatch spends
+10.7ms per layer.
 
 ### Encode order is execution order
 

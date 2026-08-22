@@ -23,25 +23,33 @@
 // dependency, so encoding a layer's residual add before the feed forward it
 // reads yields a stale result rather than an error.
 //
-// # Fifteen operations, and how to go deeper
+// # Fifteen functions, and how to go deeper
 //
-// A process can hold fifteen precompiled compute operations at once. The
-// sixteenth fails with status 13. That limit is not the weight file ceiling —
-// it counts operations, not weights, and a trivial weightless program hits it
-// just the same — and it caps this design at five layers, since each layer is
-// three operations.
+// A process can hold a live precompiled compute operation on at most fifteen
+// distinct functions at once. The first operation on a sixteenth function fails
+// with status 13, which caps this design at five layers, since each layer is
+// three functions.
 //
-// Releasing an operation frees its slot, but releasing one that has already
-// been encoded does not, because the stream holds it. Releasing the stream
-// frees them all. So a stack deeper than five layers runs in phases: encode
-// what fits, execute, release the stream, encode the next group. Every buffer
-// is allocated once and stays bound across the boundary, so the phases hand
-// activations to each other in place — what a phase boundary costs is the
+// The limit counts functions, not operations and not weights. Five hundred
+// operations on one function are accepted, and so are forty compiled functions
+// that carry no operations; what is refused is the operation that would bring
+// one more function into use. It is a different limit from the weight file
+// ceiling. The program measures it on every run rather than assuming it, by
+// taking an operation on each compiled function in turn until one is refused —
+// see probeFunctionBudget.
+//
+// Releasing an operation frees its function's slot, but releasing one that has
+// already been encoded does not, because the stream holds it. Releasing the
+// stream frees them all. So a stack deeper than five layers runs in phases:
+// encode what fits, execute, release the stream, encode the next group. Every
+// buffer is allocated once and stays bound across the boundary, so the phases
+// hand activations to each other in place — what a phase boundary costs is the
 // encode, not a copy or a host round trip. Sixteen layers run this way here.
 //
-// The pool is shared between processes rather than reserved per process. Two
-// copies of this program running at once reproducibly get fifteen operations
-// and seven, so a process cannot assume all fifteen will be available.
+// The pool is shared between processes rather than reserved per process, so a
+// second copy of this program running at the same time gets whatever is left.
+// That is why the budget is measured rather than assumed, and why execute
+// narrows its phases further if a phase will not encode.
 //
 // # The weight file ceiling is per compile
 //
@@ -187,27 +195,71 @@ type layerFunctions struct {
 	attn, ffn, add uintptr
 }
 
-// maxLiveOps is how many precompiled compute operations e5rt will let a process
-// hold at once. Creating the next one fails with status 13.
+// expectedLiveFunctions is how many distinct compiled functions e5rt was
+// measured to let one otherwise-idle process hold a live operation on at once.
+// The first operation on the sixteenth function fails with status 13.
 //
-// Measured, not documented anywhere: a trivial weightless program can be
-// compiled and its function retained forty times over without complaint, but
-// the sixteenth live operation is refused. This is a different limit from the
-// weight file ceiling — it counts operations, and it does not care how many
-// weights they carry.
+// Measured, not documented anywhere, and it is a limit on functions rather than
+// on operations: five hundred operations on one function are fine, and so are
+// forty compiled functions with no operations on them. What is refused is the
+// operation that would bring a sixteenth function into use. It is also a
+// different limit from the weight file ceiling — it does not care how many
+// weights a function carries.
 //
-// Releasing an operation frees its slot, but releasing one that has already
-// been encoded does not: the execution stream holds it. Releasing the stream
-// frees them all, which is what makes phasing work — see runner.execute.
+// Releasing an operation frees its function's slot, but releasing one that has
+// already been encoded does not: the execution stream holds it. Releasing the
+// stream frees them all, which is what makes phasing work — see runner.execute.
 //
-// The pool is shared between processes. Two of these programs running at once
-// reproducibly get fifteen and seven, so a process cannot assume fifteen will
-// be there.
-const maxLiveOps = 15
+// This is only what to expect, never what to plan against. The pool is shared
+// between processes, so a second copy of this program running at the same time
+// gets whatever is left. probeFunctionBudget measures what this process
+// actually has, and execute narrows further if it shrinks mid-run.
+const expectedLiveFunctions = 15
 
-// opsPerLayer is how many operations one transformer block encodes: attention,
-// feed forward, and the residual add.
+// opsPerLayer is how many operations one transformer block encodes, each on its
+// own function: attention, feed forward, and the residual add.
 const opsPerLayer = 3
+
+// probeFunctionBudget measures how many distinct compiled functions this
+// process can hold a live operation on at once, by taking one operation on each
+// of fns in turn until one is refused and then releasing every one it took.
+//
+// What is limited is distinct functions, not operations. This program can
+// create five hundred operations on a single function without complaint, and
+// can do so while eighteen functions sit compiled and retained; what it cannot
+// do is hold an operation on a sixteenth function. The refusal is status 13 on
+// the first operation of that function, and releasing the operations gives the
+// slots back.
+//
+// The count is measured rather than assumed. The pool is shared between
+// processes, so what an idle machine offers is not what this process will get,
+// and a stack shallow enough to fit would otherwise never exercise the limit it
+// documents. When fns holds no more functions than the limit the probe returns
+// their count, which is a floor rather than the ceiling — a four-layer stack
+// has twelve functions and so can only report that twelve is enough.
+func probeFunctionBudget(lib *e5rt.Lib, fns []layerFunctions) (int, bool, error) {
+	var all []uintptr
+	for _, f := range fns {
+		all = append(all, f.attn, f.ffn, f.add)
+	}
+	var held []uintptr
+	defer func() {
+		for _, op := range held {
+			lib.OperationRelease(op)
+		}
+	}()
+	for _, function := range all {
+		op, err := newOperation(lib, function)
+		if err != nil {
+			break
+		}
+		held = append(held, op)
+	}
+	if len(held) < opsPerLayer {
+		return 0, false, fmt.Errorf("this process can hold operations on only %d functions, fewer than the %d one layer needs; another process is probably holding the pool", len(held), opsPerLayer)
+	}
+	return len(held), len(held) < len(all), nil
+}
 
 func run(layers, dim, heads, seq, hidden int) error {
 	lib, err := e5rt.Open()
@@ -277,9 +329,23 @@ func run(layers, dim, heads, seq, hidden int) error {
 	// intermediates. They outlive the operations that read them, which is what
 	// lets a phased run hand data from one phase to the next without copying.
 	acts := dim * seq
+	budget, refused, err := probeFunctionBudget(lib, fns)
+	if err != nil {
+		return err
+	}
+	switch {
+	case !refused:
+		fmt.Printf("  all %d functions took an operation, so this run never reached the limit; it is usually %d\n",
+			budget, expectedLiveFunctions)
+	case budget == expectedLiveFunctions:
+		fmt.Printf("  this process can hold operations on %d functions, the usual limit\n", budget)
+	default:
+		fmt.Printf("  this process can hold operations on %d functions rather than the usual %d; the pool is shared\n",
+			budget, expectedLiveFunctions)
+	}
 	r := &runner{
 		lib: lib, fns: fns, layers: layers, acts: acts,
-		layersPerPhase: maxLiveOps / opsPerLayer,
+		layersPerPhase: budget / opsPerLayer,
 	}
 	r.x = make([]uintptr, layers+1)
 	r.xPtr = make([]uintptr, layers+1)
@@ -301,11 +367,11 @@ func run(layers, dim, heads, seq, hidden int) error {
 
 	phases := (layers + r.layersPerPhase - 1) / r.layersPerPhase
 	if phases == 1 {
-		fmt.Printf("  %d operations fit under the limit of %d, so the whole stack is one stream and one execute\n",
-			opsPerLayer*layers, maxLiveOps)
+		fmt.Printf("  %d functions fit within the %d this process can hold, so the whole stack is one stream and one execute\n",
+			opsPerLayer*layers, budget)
 	} else {
-		fmt.Printf("  %d operations exceed the limit of %d live at once, so the stack runs in %d phases of at most %d layers\n",
-			opsPerLayer*layers, maxLiveOps, phases, r.layersPerPhase)
+		fmt.Printf("  %d functions exceed the %d this process can hold operations on at once, so the stack runs in %d phases of at most %d layers\n",
+			opsPerLayer*layers, budget, phases, r.layersPerPhase)
 	}
 
 	got, elapsed, err := r.dispatch(input)
@@ -406,8 +472,20 @@ func (r *runner) execute() error {
 	for lo := 0; lo < r.layers; lo += r.layersPerPhase {
 		hi := min(lo+r.layersPerPhase, r.layers)
 		stream, ops, err := r.encodePhase(lo, hi)
+		// The budget measured at startup can shrink underneath a run: another
+		// process may take part of the shared pool between the probe and here.
+		// A phase that cannot be built is not a failed run while there is still
+		// a smaller phase to try, so narrow and retry rather than give up.
+		for err != nil && hi-lo > 1 {
+			tried := hi - lo
+			r.layersPerPhase = tried / 2
+			hi = lo + r.layersPerPhase
+			fmt.Printf("  could not encode %d layers at once (%v); narrowing to %d layers per phase\n",
+				tried, err, r.layersPerPhase)
+			stream, ops, err = r.encodePhase(lo, hi)
+		}
 		if err != nil {
-			return err
+			return fmt.Errorf("even one layer would not encode, so the operation pool is exhausted: %w", err)
 		}
 		if err := r.lib.ExecuteSync(stream); err != nil {
 			return fmt.Errorf("execute layers %d-%d: %w", lo, hi-1, err)
@@ -432,24 +510,35 @@ func (r *runner) execute() error {
 // encoded and does not reorder them to satisfy a dependency: encoding a layer's
 // residual add before the feed forward it reads produces a stale result rather
 // than an error.
-func (r *runner) encodePhase(lo, hi int) (uintptr, []uintptr, error) {
-	stream, err := r.lib.ExecutionStreamCreate()
+func (r *runner) encodePhase(lo, hi int) (stream uintptr, ops []uintptr, err error) {
+	stream, err = r.lib.ExecutionStreamCreate()
 	if err != nil {
 		return 0, nil, err
 	}
-	var ops []uintptr
+	// Give the slots back on the way out of a failure. Without this a phase
+	// that ran out of operations part way would keep the ones it did take, and
+	// the narrower phase execute retries would have even less to work with.
+	defer func() {
+		if err != nil {
+			for _, op := range ops {
+				r.lib.OperationRelease(op)
+			}
+			r.lib.ExecutionStreamRelease(stream)
+			stream, ops = 0, nil
+		}
+	}()
 	for l := lo; l < hi; l++ {
 		attn, err := newOperation(r.lib, r.fns[l].attn)
 		if err != nil {
-			return 0, nil, fmt.Errorf("layer %d attention operation: %w", l, err)
+			return stream, ops, fmt.Errorf("layer %d attention operation: %w", l, err)
 		}
 		ffn, err := newOperation(r.lib, r.fns[l].ffn)
 		if err != nil {
-			return 0, nil, fmt.Errorf("layer %d feed forward operation: %w", l, err)
+			return stream, ops, fmt.Errorf("layer %d feed forward operation: %w", l, err)
 		}
 		add, err := newOperation(r.lib, r.fns[l].add)
 		if err != nil {
-			return 0, nil, fmt.Errorf("layer %d residual operation: %w", l, err)
+			return stream, ops, fmt.Errorf("layer %d residual operation: %w", l, err)
 		}
 		ops = append(ops, attn, ffn, add)
 
@@ -472,12 +561,12 @@ func (r *runner) encodePhase(lo, hi int) (uintptr, []uintptr, error) {
 		}
 		for _, b := range binds {
 			if err := bind(r.lib, b.op, b.port, b.buf, b.input); err != nil {
-				return 0, nil, fmt.Errorf("layer %d bind %s: %w", l, b.port, err)
+				return stream, ops, fmt.Errorf("layer %d bind %s: %w", l, b.port, err)
 			}
 		}
 		for _, op := range []uintptr{attn, ffn, add} {
 			if err := r.lib.EncodeOperation(stream, op); err != nil {
-				return 0, nil, fmt.Errorf("layer %d encode: %w", l, err)
+				return stream, ops, fmt.Errorf("layer %d encode: %w", l, err)
 			}
 		}
 	}

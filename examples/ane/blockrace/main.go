@@ -18,9 +18,13 @@
 // engine is its own concurrent rate against its own solo rate, which is a ratio
 // of like to like and is what answers the contention question.
 //
-// The aggregate line is the sum of the two concurrent rates against the faster
-// solo rate. Above 1.0 means the two engines together did more work per second
-// than the better of them alone — that they add capacity rather than divide it.
+// The aggregate line is the median over rounds of the two concurrent rates
+// summed within each round, against the faster solo rate. Above 1.0 means the
+// two engines together did more work per second than the better of them alone —
+// that they add capacity rather than divide it. It is a throughput result for
+// this machine, this block shape, and these two precisions; it is not a claim
+// that the engines do not contend for anything, and the per-engine lines above
+// it, which do show a cost, are the evidence on that question.
 //
 // # Placement
 //
@@ -183,8 +187,19 @@ func run(dim, hidden, seq int, window time.Duration, rounds int) error {
 		}
 	}
 
+	// Aggregate from the paired rounds, not from the two medians.
+	//
+	// concANE and concGPU are each a median over rounds, and the round that
+	// supplies one is not generally the round that supplies the other, so
+	// adding them totals two rates that were never observed together. Summing
+	// within each round first and taking the median of those sums keeps the
+	// aggregate a number the machine actually produced.
+	combined := make([]float64, len(concA))
+	for i := range concA {
+		combined[i] = concA[i] + concG[i]
+	}
 	best := math.Max(soloANE, soloGPU)
-	total := concANE + concGPU
+	total := median(combined)
 	fmt.Printf("\n  together %.1f runs/s against %.1f for the faster engine alone: %.2fx\n",
 		total, best, total/best)
 	if total > best {
