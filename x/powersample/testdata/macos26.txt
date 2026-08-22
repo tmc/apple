@@ -1,0 +1,50 @@
+Machine model: Mac14,13
+OS version: 25G76
+Boot arguments:
+Boot time: Tue Aug 11 08:00:00 2026
+
+
+
+*** Sampled system activity (Tue Aug 12 10:00:00 2026 -0700) (502.45ms elapsed) ***
+
+
+**** Processor usage ****
+
+E-Cluster HW active frequency: 1187 MHz
+E-Cluster HW active residency:  44.51% (912 MHz: .5% 1187 MHz:  62%)
+P0-Cluster HW active frequency: 1338 MHz
+P0-Cluster HW active residency:  10.68% (660 MHz:  55% 1338 MHz: 3.2%)
+CPU Power: 458 mW
+GPU Power: 61 mW
+ANE Power: 0 mW
+Combined Power (CPU + GPU + ANE): 519 mW
+
+**** GPU usage ****
+
+GPU HW active frequency: 444 MHz
+GPU HW active residency:   4.85% (444 MHz: 4.9%)
+GPU idle residency:  95.15%
+GPU Power: 61 mW
+
+**** ANE usage ****
+
+ANE Power: 0 mW
+
+*** Sampled system activity (Tue Aug 12 10:00:00 2026 -0700) (500.11ms elapsed) ***
+
+
+**** Processor usage ****
+
+E-Cluster HW active frequency: 2000 MHz
+CPU Power: 1000 mW
+GPU Power: 4.5 W
+ANE Power: 2000 mW
+Combined Power (CPU + GPU + ANE): 7500 mW
+
+**** GPU usage ****
+
+GPU Power: 4501 mW
+
+**** ANE usage ****
+
+ANE Power: 2001 mW
