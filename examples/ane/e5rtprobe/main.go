@@ -2,12 +2,20 @@
 // e5rt_* direct-dispatch route can be shown to do, and refuses to report
 // anything else.
 //
-// Only one property of that package has been established: every name in
-// e5rt.Symbols resolves with dlsym. The argument lists come from
-// Bryngelson, arXiv:2606.22283 chapter 6, no function has ever been called,
-// and calling a wrong signature through purego faults in C, where the fault
-// is fatal and unrecoverable — a Go recover cannot see it. The tool is
-// built around that hazard.
+// This tool was written when one property of that package had been
+// established — every name in e5rt.Symbols resolves with dlsym — and the
+// argument lists, from Bryngelson, arXiv:2606.22283 chapter 6, had never
+// been exercised. That is no longer the state: the whole route runs, and
+// every wrapper the package exports has since been called, most of them
+// under a CPU reference. See the x/ane/e5rt package documentation.
+//
+// The tool keeps its shape anyway, because the hazard it was built around
+// has not changed. Calling a wrong signature through purego faults in C,
+// where the fault is fatal and unrecoverable — a Go recover cannot see it —
+// and E5RT reports at least one failure by throwing a C++ exception, which a
+// purego caller cannot catch either, so the wrapper returns success and the
+// process dies later in an unrelated frame. Anything that reaches a private
+// entry point belongs in a child process whatever the current confidence.
 //
 // # Commands
 //
@@ -240,9 +248,10 @@ func printSymbolReport(rep symbolReport) {
 	for _, name := range rep.Unresolved {
 		fmt.Printf("  %-9s %s\n", outcomeMissing, name)
 	}
-	fmt.Printf("\n%d RESOLVED, %d MISSING. Resolution is the only property of\n", len(rep.Resolved), len(rep.Unresolved))
-	fmt.Printf("this package that has been verified; it says an address exists,\n")
-	fmt.Printf("not that the argument list the wrapper passes is right.\n\n")
+	fmt.Printf("\n%d RESOLVED, %d MISSING. Resolution says an address exists, not\n", len(rep.Resolved), len(rep.Unresolved))
+	fmt.Printf("that the argument list the wrapper passes is right. What establishes\n")
+	fmt.Printf("that is the route running: see the e5rtdispatch example and\n")
+	fmt.Printf("TestUnverifiedCalls in x/ane/e5rt, not this command.\n\n")
 
 	fmt.Printf("called through a typed wrapper by this example: %d of %d listed names.\n", len(rep.Wrapped), rep.Listed)
 	fmt.Printf("listed but not called here at all. Some the package wraps and this\n")

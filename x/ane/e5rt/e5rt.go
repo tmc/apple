@@ -295,6 +295,21 @@ func (l *Lib) release(name string, handle uintptr) error {
 	return err
 }
 
+// What the citations below do and do not establish. Most wrappers name an
+// ANEForge call site or typedef and say nothing else. That is provenance: it
+// records where the argument list came from, not that it is right. What makes
+// most of them right is that the compile, load, bind and dispatch wrappers are
+// driven end to end by the e5rtdispatch example, whose output matches a float64
+// CPU reference and moves when an input moves, and the rest by
+// TestUnverifiedCalls. An argument list that were wrong in position or width
+// would fault in C or return a nonzero status well before that.
+//
+// So a bare citation on a wrapper on that route is corroborated by the route
+// running. A citation is the only evidence when the comment says so, and several
+// do: the two scheduling setters, the custom Neural Engine compiler options, and
+// the event family's progress calls are each exercised without any observable
+// effect, which is not the same as being understood.
+//
 // Argument order across this family follows one rule, taken from the call sites
 // in ANEForge's ane_e5rt_dispatch.mm: an entry point that creates or allocates
 // an object takes the out-parameter FIRST, and every other entry point takes the
@@ -381,7 +396,10 @@ func (l *Lib) CompilerOptionsSetComputeDeviceTypesMask(options uintptr, mask uin
 // CompilerOptionsGetComputeDeviceTypesMask reports the mask set on options.
 //
 // ANEForge TYPEDEF (e5rt_api.h:55): (options, uint64_t *out). ANEForge does not
-// call it, so the out-last placement rests on the typedef alone.
+// call it, so the typedef was all the placement rested on. It no longer is: the
+// mask round-trips through [Lib.CompilerOptionsSetComputeDeviceTypesMask] for
+// four distinct values, which a wrong out-parameter position would not do. See
+// TestComputeDeviceMaskRoundTrips.
 func (l *Lib) CompilerOptionsGetComputeDeviceTypesMask(options uintptr) (uint64, error) {
 	out := newOut()
 	err := l.callErr("e5rt_e5_compiler_options_get_compute_device_types_mask", options, uintptr(unsafe.Pointer(out)))
@@ -886,7 +904,7 @@ func (l *Lib) AsyncEventSyncWait(event uintptr) error {
 // # The event family does nothing observable here
 //
 // ANEForge reports that a completion event advances only under submit_async
-// (docs/e5rt-dispatch-reference.md:311-317). On macOS 26.x it does not advance
+// (docs/e5rt-dispatch-reference.md:313-317). On macOS 26.x it does not advance
 // there either. With the event created and bound before the stream exists,
 // which is ANEForge's own ordering, and with the two paths differing in nothing
 // but the submit call, the value reads zero after [Lib.ExecuteSync] and zero

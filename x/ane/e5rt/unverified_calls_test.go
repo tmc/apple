@@ -388,7 +388,7 @@ var probes = map[string]func(t *testing.T){
 		fmt.Println("RESULT SubmitAsync: the output matches the reference")
 	},
 
-	// ANEForge (docs/e5rt-dispatch-reference.md:311-317) says a completion event
+	// ANEForge (docs/e5rt-dispatch-reference.md:313-317) says a completion event
 	// accepts its parameters but never advances under execute_sync. These two
 	// probes are the same program, the same bound event and the same read,
 	// differing only in which submit call runs, so a difference between them is

@@ -3,14 +3,20 @@
 `e5rtprobe` reports what `x/ane/e5rt` — the binding of Espresso's `e5rt_*`
 direct-dispatch route to the Neural Engine — can be shown to do.
 
-The package's own documentation is the reason this tool has the shape it has:
-every symbol has been observed to resolve with `dlsym`, and that is all that
-has been verified. The argument lists come from Bryngelson, arXiv:2606.22283
-chapter 6, and no function had ever been called. A call made with a wrong
-signature faults in C, where the fault is fatal — `recover` cannot see it.
+The tool has the shape it has because of where the package started: every
+symbol resolved with `dlsym`, that was all that had been verified, the argument
+lists came from Bryngelson, arXiv:2606.22283 chapter 6, and no function had
+ever been called.
 
-So the tool never reports success it did not observe, and it puts every
-unverified call in a child process.
+That has since changed — the route runs end to end and every wrapper the
+package exports has been called — but the tool's discipline still holds,
+because the hazard does. A call made with a wrong signature faults in C, where
+the fault is fatal and `recover` cannot see it, and E5RT reports at least one
+failure by throwing a C++ exception that a `purego` caller cannot catch either,
+so the wrapper returns success and the process dies later somewhere else.
+
+So the tool never reports success it did not observe, and it puts every call
+into a child process regardless of how well established the signature is.
 
 ## Commands
 

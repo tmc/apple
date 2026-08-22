@@ -59,7 +59,7 @@
 // says where that evidence runs out; where it cites only ANEForge, that is
 // outside evidence and nothing more.
 //
-// Every argument list here comes from one of two outside sources, and each doc
+// Every argument list here came from one of two outside sources, and each doc
 // comment says which:
 //
 //   - The paper cited below.
@@ -68,9 +68,16 @@
 //     signatures and aneforge/_lib/ane_e5rt_dispatch.mm drives the whole route.
 //     A call site there outranks a declaration, and both outrank the paper.
 //
-// A signature confirmed by ANEForge is strong outside evidence, not local
-// verification. Symbols this package will not guess at have no typed wrapper;
-// reach them through [Lib.Sym] or [Lib.Lookup] and supply your own convention.
+// Where a citation survives it records provenance, which is not the same as
+// evidence. A signature this package has since driven is confirmed by that run,
+// and the doc comment says so; the citation stays only to record where the
+// argument list came from. A signature that has never been exercised, and every
+// claim about behavior that no test here reproduces, has nothing behind it but
+// the citation, and those comments say that too. Read a bare ANEForge reference
+// as the second case unless the comment states an observation.
+//
+// Symbols this package will not guess at have no typed wrapper; reach them
+// through [Lib.Sym] or [Lib.Lookup] and supply your own convention.
 //
 // # Stability
 //
