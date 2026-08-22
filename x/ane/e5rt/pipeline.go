@@ -35,7 +35,11 @@ type PipelineLink struct {
 
 // A PipelineStage describes one function in a [Pipeline].
 type PipelineStage struct {
-	ModelPath    string
+	// Exactly one of ModelPath and BundlePath must be set.
+	// ModelPath is compiled into CacheDir. BundlePath opens an existing bundle.
+	ModelPath  string
+	BundlePath string
+
 	FunctionName string
 	Inputs       []Port
 	Outputs      []Port
@@ -43,10 +47,12 @@ type PipelineStage struct {
 
 // PipelineOptions describes one encoded multi-stage E5RT stream.
 //
-// Each stage is compiled independently under CacheDir and then encoded in the
+// Model-backed stages are compiled independently under CacheDir; bundle-backed
+// stages open an existing compiled bundle. Every stage is then encoded in the
 // order listed. Links must flow from an earlier stage to a later one. Unlinked
 // inputs and outputs remain host-visible through [Pipeline.Input] and
-// [Pipeline.Output].
+// [Pipeline.Output]. CacheDir is required only when at least one stage has a
+// ModelPath.
 type PipelineOptions struct {
 	CacheDir string
 
@@ -98,9 +104,6 @@ func CompilePipeline(opts PipelineOptions) (_ *Pipeline, err error) {
 	if err := validatePipelineOptions(&opts); err != nil {
 		return nil, err
 	}
-	if err := os.MkdirAll(opts.CacheDir, 0o755); err != nil {
-		return nil, fmt.Errorf("create cache directory: %w", err)
-	}
 	lib, err := Open()
 	if err != nil {
 		return nil, fmt.Errorf("open e5rt: %w", err)
@@ -133,9 +136,6 @@ func CompilePipeline(opts PipelineOptions) (_ *Pipeline, err error) {
 }
 
 func validatePipelineOptions(opts *PipelineOptions) error {
-	if opts.CacheDir == "" {
-		return errors.New("e5rt: empty cache directory")
-	}
 	if len(opts.Stages) == 0 {
 		return errors.New("e5rt: pipeline has no stages")
 	}
@@ -144,12 +144,15 @@ func validatePipelineOptions(opts *PipelineOptions) error {
 	}
 	for i := range opts.Stages {
 		stage := &opts.Stages[i]
-		if stage.ModelPath == "" {
-			return fmt.Errorf("e5rt: stage %d has empty model path", i)
+		if (stage.ModelPath == "") == (stage.BundlePath == "") {
+			return fmt.Errorf("e5rt: stage %d must set exactly one of model path or bundle path", i)
 		}
 		if err := normalizeProgramPorts(&stage.FunctionName, stage.Inputs, stage.Outputs); err != nil {
 			return fmt.Errorf("e5rt: stage %d: %w", i, err)
 		}
+	}
+	if opts.CacheDir == "" && pipelineNeedsCompile(opts.Stages) {
+		return errors.New("e5rt: empty cache directory for model-backed stage")
 	}
 	if opts.DeviceMask == 0 {
 		opts.DeviceMask = ComputeDeviceANE
@@ -182,6 +185,15 @@ func validatePipelineOptions(opts *PipelineOptions) error {
 	return nil
 }
 
+func pipelineNeedsCompile(stages []PipelineStage) bool {
+	for _, stage := range stages {
+		if stage.ModelPath != "" {
+			return true
+		}
+	}
+	return false
+}
+
 func validatePipelinePort(port PipelinePort, stages []PipelineStage, kind string) error {
 	if port.Stage < 0 || port.Stage >= len(stages) {
 		return fmt.Errorf("e5rt: %s stage %d is out of range", kind, port.Stage)
@@ -209,9 +221,6 @@ func pipelinePortSize(port PipelinePort, stages []PipelineStage, input bool) (in
 }
 
 func compilePipelineStage(lib *Lib, cacheDir string, spec PipelineStage, opts PipelineOptions) (_ *pipelineStage, err error) {
-	if err := os.MkdirAll(cacheDir, 0o755); err != nil {
-		return nil, fmt.Errorf("create cache directory: %w", err)
-	}
 	stage := &pipelineStage{
 		inputs:      make(map[string]*pipelinePort, len(spec.Inputs)),
 		outputs:     make(map[string]*pipelinePort, len(spec.Outputs)),
@@ -223,29 +232,38 @@ func compilePipelineStage(lib *Lib, cacheDir string, spec PipelineStage, opts Pi
 			err = errors.Join(err, releasePipelineStage(lib, stage))
 		}
 	}()
-	if stage.config, err = lib.CompilerConfigOptionsCreate(); err != nil {
-		return nil, err
-	}
-	if err := lib.CompilerConfigOptionsSetCacheBundleLocation(stage.config, cacheDir); err != nil {
-		return nil, err
-	}
-	if stage.compiler, err = lib.CompilerCreateWithConfig(stage.config); err != nil {
-		return nil, err
-	}
-	if stage.options, err = lib.CompilerOptionsCreate(); err != nil {
-		return nil, err
-	}
-	if err := lib.CompilerOptionsSetComputeDeviceTypesMask(stage.options, opts.DeviceMask); err != nil {
-		return nil, err
-	}
-	if err := lib.CompilerOptionsSetForceRecompilation(stage.options, opts.ForceRecompilation); err != nil {
-		return nil, err
-	}
-	if err := lib.CompilerOptionsSetSegmenter(stage.options, opts.Segmenter); err != nil {
-		return nil, err
-	}
-	if stage.library, err = lib.CompilerCompile(stage.compiler, spec.ModelPath, stage.options); err != nil {
-		return nil, err
+	if spec.BundlePath != "" {
+		if stage.library, err = lib.ProgramLibraryCreate(spec.BundlePath); err != nil {
+			return nil, fmt.Errorf("open program bundle: %w", err)
+		}
+	} else {
+		if err := os.MkdirAll(cacheDir, 0o755); err != nil {
+			return nil, fmt.Errorf("create cache directory: %w", err)
+		}
+		if stage.config, err = lib.CompilerConfigOptionsCreate(); err != nil {
+			return nil, err
+		}
+		if err := lib.CompilerConfigOptionsSetCacheBundleLocation(stage.config, cacheDir); err != nil {
+			return nil, err
+		}
+		if stage.compiler, err = lib.CompilerCreateWithConfig(stage.config); err != nil {
+			return nil, err
+		}
+		if stage.options, err = lib.CompilerOptionsCreate(); err != nil {
+			return nil, err
+		}
+		if err := lib.CompilerOptionsSetComputeDeviceTypesMask(stage.options, opts.DeviceMask); err != nil {
+			return nil, err
+		}
+		if err := lib.CompilerOptionsSetForceRecompilation(stage.options, opts.ForceRecompilation); err != nil {
+			return nil, err
+		}
+		if err := lib.CompilerOptionsSetSegmenter(stage.options, opts.Segmenter); err != nil {
+			return nil, err
+		}
+		if stage.library, err = lib.CompilerCompile(stage.compiler, spec.ModelPath, stage.options); err != nil {
+			return nil, err
+		}
 	}
 	if stage.function, err = lib.ProgramLibraryRetainProgramFunction(stage.library, spec.FunctionName); err != nil {
 		return nil, err

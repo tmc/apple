@@ -226,6 +226,67 @@ func TestPipelineLinksStages(t *testing.T) {
 	}
 }
 
+func TestPipelineOpensBundleStages(t *testing.T) {
+	dir := t.TempDir()
+	model, err := writeIdentityModel(filepath.Join(dir, "model"))
+	if err != nil {
+		t.Fatal(err)
+	}
+	cache := filepath.Join(dir, "cache")
+	p, err := e5rt.Compile(e5rt.ProgramOptions{
+		ModelPath: model,
+		CacheDir:  cache,
+		Inputs:    []e5rt.Port{{Name: "x", Size: 2}},
+		Outputs:   []e5rt.Port{{Name: "y", Size: 2}},
+	})
+	if err != nil {
+		t.Fatal(err)
+	}
+	if err := p.Close(); err != nil {
+		t.Fatal(err)
+	}
+	bundle, err := compiledBundle(cache)
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	pipeline, err := e5rt.CompilePipeline(e5rt.PipelineOptions{
+		Stages: []e5rt.PipelineStage{
+			{BundlePath: bundle, Inputs: []e5rt.Port{{Name: "x", Size: 2}}, Outputs: []e5rt.Port{{Name: "y", Size: 2}}},
+			{BundlePath: bundle, Inputs: []e5rt.Port{{Name: "x", Size: 2}}, Outputs: []e5rt.Port{{Name: "y", Size: 2}}},
+		},
+		Links: []e5rt.PipelineLink{{
+			From: e5rt.PipelinePort{Stage: 0, Name: "y"},
+			To:   e5rt.PipelinePort{Stage: 1, Name: "x"},
+		}},
+	})
+	if err != nil {
+		t.Fatal(err)
+	}
+	defer pipeline.Close()
+	in, err := pipeline.Input(0, "x")
+	if err != nil {
+		t.Fatal(err)
+	}
+	out, err := pipeline.Output(1, "y")
+	if err != nil {
+		t.Fatal(err)
+	}
+	if err := in.WriteFP16([]float32{2.5}); err != nil {
+		t.Fatal(err)
+	}
+	if err := pipeline.Execute(); err != nil {
+		t.Fatal(err)
+	}
+	got := make([]float32, 1)
+	if err := out.ReadFP16(got); err != nil {
+		t.Fatal(err)
+	}
+	if got[0] != 2.5 {
+		t.Errorf("output = %v, want 2.5", got[0])
+	}
+}
+
 func ExampleCompilePipeline() {
 	dir, err := os.MkdirTemp("", "e5rt-pipeline-")
 	if err != nil {
@@ -299,6 +360,9 @@ func TestPipelineRejectsBadOptions(t *testing.T) {
 		{"too many", e5rt.PipelineOptions{CacheDir: "cache", Stages: tooMany}},
 		{"backward", e5rt.PipelineOptions{CacheDir: "cache", Stages: []e5rt.PipelineStage{stage(2, 2), stage(2, 2)}, Links: []e5rt.PipelineLink{{From: e5rt.PipelinePort{Stage: 1, Name: "y"}, To: e5rt.PipelinePort{Stage: 0, Name: "x"}}}}},
 		{"mismatched", e5rt.PipelineOptions{CacheDir: "cache", Stages: []e5rt.PipelineStage{stage(2, 2), stage(4, 2)}, Links: []e5rt.PipelineLink{{From: e5rt.PipelinePort{Stage: 0, Name: "y"}, To: e5rt.PipelinePort{Stage: 1, Name: "x"}}}}},
+		{"no source", e5rt.PipelineOptions{Stages: []e5rt.PipelineStage{{Inputs: []e5rt.Port{{Name: "x", Size: 2}}, Outputs: []e5rt.Port{{Name: "y", Size: 2}}}}}},
+		{"two sources", e5rt.PipelineOptions{Stages: []e5rt.PipelineStage{{ModelPath: "model", BundlePath: "bundle", Inputs: []e5rt.Port{{Name: "x", Size: 2}}, Outputs: []e5rt.Port{{Name: "y", Size: 2}}}}}},
+		{"no cache for model", e5rt.PipelineOptions{Stages: []e5rt.PipelineStage{stage(2, 2)}}},
 	} {
 		t.Run(test.name, func(t *testing.T) {
 			if p, err := e5rt.CompilePipeline(test.opts); err == nil {
