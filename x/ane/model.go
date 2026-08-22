@@ -11,7 +11,6 @@ import (
 	"github.com/ebitengine/purego/objc"
 	"github.com/tmc/apple/corefoundation"
 	"github.com/tmc/apple/coregraphics"
-
 	"github.com/tmc/apple/foundation"
 	"github.com/tmc/apple/objectivec"
 	"github.com/tmc/apple/private/appleneuralengine"
@@ -375,7 +374,8 @@ func (m *Model) evalPackage() error {
 	return m.evaluateRequestWithOptions(m.request, nil, true)
 }
 
-// Close releases the model's resources.
+// Close releases the model's resources. It reports a failed unload, but
+// releases the surfaces, staging directory and ObjC objects either way.
 func (m *Model) Close() error {
 	m.mu.Lock()
 	defer m.mu.Unlock()
@@ -385,12 +385,14 @@ func (m *Model) Close() error {
 	m.closed = true
 	runtime.SetFinalizer(m, nil)
 
+	var unloadErr error
 	switch m.modelType {
 	case ModelTypeMIL:
 		if m.mapped {
 			m.inMemModel.UnmapIOSurfacesWithRequest(m.request)
 		}
-		m.inMemModel.UnloadWithQoSError(m.qos)
+		ok, err := m.inMemModel.UnloadWithQoSError(m.qos)
+		unloadErr = boolNSError("unload failed", ok, err)
 	case ModelTypePackage:
 		if m.mapped && !m.sharedEventUsed {
 			m.aneClient.UnmapIOSurfacesWithModelRequest(m.aneModel, m.request)
@@ -399,7 +401,8 @@ func (m *Model) Close() error {
 			// Package-model unload after a shared-event eval still crashes inside
 			// AppleNeuralEngine on this host. Skip unload but still release IOSurfaces below.
 		} else {
-			m.aneClient.UnloadModelOptionsQosError(m.aneModel, nil, m.qos)
+			ok, err := m.aneClient.UnloadModelOptionsQosError(m.aneModel, nil, m.qos)
+			unloadErr = boolNSError("unload failed", ok, err)
 		}
 	}
 
@@ -431,6 +434,9 @@ func (m *Model) Close() error {
 	}
 	m.objsRetained = false
 
+	if unloadErr != nil {
+		return &ANEError{Op: "unload", Err: unloadErr}
+	}
 	return nil
 }
 
