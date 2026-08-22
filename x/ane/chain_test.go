@@ -94,6 +94,28 @@ func TestShareSurfaceReachesEval(t *testing.T) {
 	if !equalFP16(got, input) {
 		t.Errorf("after ShareSurface the second model did not read the first model's output\ngot  %v\nwant %v", got, input)
 	}
+
+	// Rebinding repeatedly must stay correct. Each call builds a fresh request
+	// and hands the Model's single retain over to it; an implementation that
+	// only retained would leak every request but the last, and one that
+	// released the wrong one would fault here rather than merely leak.
+	for i := range 8 {
+		if err := ShareSurface(src, 0, dst, 0); err != nil {
+			t.Fatalf("rebind %d: %v", i, err)
+		}
+		if err := src.Eval(); err != nil {
+			t.Fatalf("rebind %d: eval src: %v", i, err)
+		}
+		if err := dst.Eval(); err != nil {
+			t.Fatalf("rebind %d: eval dst: %v", i, err)
+		}
+	}
+	if err := dst.ReadOutputFP16(0, got); err != nil {
+		t.Fatal(err)
+	}
+	if !equalFP16(got, input) {
+		t.Errorf("after repeated ShareSurface calls the second model no longer reads the first model's output\ngot  %v\nwant %v", got, input)
+	}
 }
 
 // equalFP16 reports whether two activations agree to fp16 precision. Both

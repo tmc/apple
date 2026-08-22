@@ -35,13 +35,23 @@ func ShareSurface(src *Model, srcOutput int, dst *Model, dstInput int) error {
 		dst.inputs[dstInput] = previous
 		return fmt.Errorf("ane: rebuild request after sharing surface: %w", err)
 	}
-	// The previous request is left to the autorelease pool rather than
-	// released here: Close balances one retain per object it holds, and
-	// over-releasing a request that an in-flight eval still references is the
-	// worse failure of the two.
+	// Hand the retain over to the new request rather than adding one.
+	//
+	// While objsRetained is set the Model owns exactly one retain on its
+	// request, and Close releases exactly one — so retaining the new request
+	// without releasing the old leaks every request but the last, which is what
+	// an earlier version of this did. The order matters only in that the new
+	// request is retained before the old one is released.
+	//
+	// Calling this while an evaluation is in flight is not supported, here or
+	// anywhere else in the type: Eval reads m.request without holding m.mu.
+	previousRequest := dst.request
 	dst.request = request
 	if dst.objsRetained {
 		objectivec.ObjectFromID(request.ID).Retain()
+		if previousRequest.ID != 0 {
+			objectivec.ObjectFromID(previousRequest.ID).Release()
+		}
 	}
 	return nil
 }
