@@ -40,9 +40,12 @@ type mlpackageItemInfo struct {
 // Manifest paths use "com.apple.CoreML/..." (without Data/ prefix);
 // the Data/ directory is implicit when resolving paths on disk.
 //
-// If weightSrc is non-empty and is a directory, its contents are copied
-// into the package's CoreML directory preserving relative paths.
-// If weightSrc is a single file, it is copied as weights/weight.bin.
+// If weightSrc is a directory, it is treated as the weights directory
+// itself: its contents are copied under weights/ preserving relative
+// paths, so a weightSrc containing weight.bin produces
+// weights/weight.bin and BLOBFILE references of the form
+// @model_path/weights/... resolve. If weightSrc is a single file, it is
+// copied as weights/weight.bin.
 func WriteMLPackage(dir string, modelProto []byte, weightSrc string) error {
 	coremlDir := filepath.Join(dir, "Data", "com.apple.CoreML")
 	if err := os.MkdirAll(coremlDir, 0o755); err != nil {
@@ -108,7 +111,9 @@ func WriteMLPackage(dir string, modelProto []byte, weightSrc string) error {
 		return fmt.Errorf("coremlcompiler: stat weight source: %w", err)
 	}
 	if info.IsDir() {
-		return copyWeightDir(weightSrc, coremlDir)
+		// Copy the directory's contents under weights/ so BLOBFILE
+		// references of the form @model_path/weights/... resolve.
+		return copyWeightDir(weightSrc, filepath.Join(coremlDir, "weights"))
 	}
 	// Single file -> weights/weight.bin.
 	weightsDir := filepath.Join(coremlDir, "weights")

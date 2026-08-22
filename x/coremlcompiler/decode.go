@@ -1,12 +1,16 @@
 package coremlcompiler
 
-import "fmt"
+import (
+	"fmt"
+	"math"
+)
 
 // decodeModel reads a CoreML Model from protobuf bytes.
 func decodeModel(data []byte) (*Model, error) {
 	m := &Model{}
 	r := newProtoReader(data)
 	for !r.done() {
+		start := r.pos
 		field, wire, err := r.readTag()
 		if err != nil {
 			return nil, fmt.Errorf("decode model: %w", err)
@@ -40,9 +44,11 @@ func decodeModel(data []byte) (*Model, error) {
 			}
 			m.MLProgram = prog
 		default:
-			if err := r.skip(wire); err != nil {
+			raw, err := r.skipUnknown(start, wire)
+			if err != nil {
 				return nil, fmt.Errorf("decode model: skip field %d: %w", field, err)
 			}
+			m.unknown = append(m.unknown, raw...)
 		}
 	}
 	return m, nil
@@ -52,11 +58,27 @@ func decodeModelDescription(data []byte) (*ModelDescription, error) {
 	d := &ModelDescription{}
 	r := newProtoReader(data)
 	for !r.done() {
+		start := r.pos
 		field, wire, err := r.readTag()
 		if err != nil {
 			return nil, err
 		}
 		switch field {
+		case 20: // functions: repeated FunctionDescription
+			raw, err := r.readBytes()
+			if err != nil {
+				return nil, err
+			}
+			fn, err := decodeFunctionDescription(raw)
+			if err != nil {
+				return nil, err
+			}
+			d.Functions = append(d.Functions, *fn)
+		case 21: // defaultFunctionName: string
+			d.DefaultFunctionName, err = r.readString()
+			if err != nil {
+				return nil, err
+			}
 		case 1: // input: repeated FeatureDescription
 			raw, err := r.readBytes()
 			if err != nil {
@@ -87,19 +109,126 @@ func decodeModelDescription(data []byte) (*ModelDescription, error) {
 				return nil, err
 			}
 			d.States = append(d.States, *fd)
+		case 100: // metadata: Metadata
+			raw, err := r.readBytes()
+			if err != nil {
+				return nil, err
+			}
+			md, err := decodeModelMetadata(raw)
+			if err != nil {
+				return nil, err
+			}
+			d.Metadata = md
+		default:
+			raw, err := r.skipUnknown(start, wire)
+			if err != nil {
+				return nil, err
+			}
+			d.unknown = append(d.unknown, raw...)
+		}
+	}
+	return d, nil
+}
+
+func decodeModelMetadata(data []byte) (*ModelMetadata, error) {
+	md := &ModelMetadata{}
+	r := newProtoReader(data)
+	for !r.done() {
+		field, wire, err := r.readTag()
+		if err != nil {
+			return nil, err
+		}
+		switch field {
+		case 1: // shortDescription: string
+			md.ShortDescription, err = r.readString()
+			if err != nil {
+				return nil, err
+			}
+		case 2: // versionString: string
+			md.VersionString, err = r.readString()
+			if err != nil {
+				return nil, err
+			}
+		case 3: // author: string
+			md.Author, err = r.readString()
+			if err != nil {
+				return nil, err
+			}
+		case 4: // license: string
+			md.License, err = r.readString()
+			if err != nil {
+				return nil, err
+			}
+		case 100: // userDefined: map<string, string>
+			raw, err := r.readBytes()
+			if err != nil {
+				return nil, err
+			}
+			key, val, err := decodeMapEntry(raw, func(b []byte) (string, error) { return string(b), nil })
+			if err != nil {
+				return nil, err
+			}
+			if md.UserDefined == nil {
+				md.UserDefined = make(map[string]string)
+			}
+			md.UserDefined[key] = val
 		default:
 			if err := r.skip(wire); err != nil {
 				return nil, err
 			}
 		}
 	}
-	return d, nil
+	return md, nil
+}
+
+func decodeFunctionDescription(data []byte) (*FunctionDescription, error) {
+	fn := &FunctionDescription{}
+	r := newProtoReader(data)
+	for !r.done() {
+		start := r.pos
+		field, wire, err := r.readTag()
+		if err != nil {
+			return nil, err
+		}
+		switch field {
+		case 1: // name: string
+			fn.Name, err = r.readString()
+			if err != nil {
+				return nil, err
+			}
+		case 2, 3, 6: // input, output, state: repeated FeatureDescription
+			raw, err := r.readBytes()
+			if err != nil {
+				return nil, err
+			}
+			fd, err := decodeFeatureDescription(raw)
+			if err != nil {
+				return nil, err
+			}
+			switch field {
+			case 2:
+				fn.Inputs = append(fn.Inputs, *fd)
+			case 3:
+				fn.Outputs = append(fn.Outputs, *fd)
+			case 6:
+				fn.States = append(fn.States, *fd)
+			}
+		default:
+			raw, err := r.skipUnknown(start, wire)
+			if err != nil {
+				return nil, err
+			}
+			fn.unknown = append(fn.unknown, raw...)
+		}
+	}
+	return fn, nil
 }
 
 func decodeFeatureDescription(data []byte) (*FeatureDescription, error) {
 	fd := &FeatureDescription{}
 	r := newProtoReader(data)
 	for !r.done() {
+		start := r.pos
 		field, wire, err := r.readTag()
 		if err != nil {
 			return nil, err
@@ -121,9 +250,11 @@ func decodeFeatureDescription(data []byte) (*FeatureDescription, error) {
 			}
 			fd.Type = ft
 		default:
-			if err := r.skip(wire); err != nil {
+			raw, err := r.skipUnknown(start, wire)
+			if err != nil {
 				return nil, err
 			}
+			fd.unknown = append(fd.unknown, raw...)
 		}
 	}
 	return fd, nil
@@ -133,11 +264,37 @@ func decodeFeatureType(data []byte) (*FeatureType, error) {
 	ft := &FeatureType{}
 	r := newProtoReader(data)
 	for !r.done() {
+		start := r.pos
 		field, wire, err := r.readTag()
 		if err != nil {
 			return nil, err
 		}
 		switch field {
+		case 1: // int64Type
+			if err := r.skip(wire); err != nil {
+				return nil, err
+			}
+			ft.Int64Type = true
+		case 2: // doubleType
+			if err := r.skip(wire); err != nil {
+				return nil, err
+			}
+			ft.DoubleType = true
+		case 3: // stringType
+			if err := r.skip(wire); err != nil {
+				return nil, err
+			}
+			ft.StringType = true
+		case 4: // imageType
+			raw, err := r.readBytes()
+			if err != nil {
+				return nil, err
+			}
+			img, err := decodeImageFeatureType(raw)
+			if err != nil {
+				return nil, err
+			}
+			ft.ImageType = img
 		case 5: // multiArrayType
 			raw, err := r.readBytes()
 			if err != nil {
@@ -148,6 +305,26 @@ func decodeFeatureType(data []byte) (*FeatureType, error) {
 				return nil, err
 			}
 			ft.MultiArrayType = mat
+		case 6: // dictionaryType
+			raw, err := r.readBytes()
+			if err != nil {
+				return nil, err
+			}
+			dict, err := decodeDictionaryFeatureType(raw)
+			if err != nil {
+				return nil, err
+			}
+			ft.DictionaryType = dict
+		case 7: // sequenceType
+			raw, err := r.readBytes()
+			if err != nil {
+				return nil, err
+			}
+			seq, err := decodeSequenceFeatureType(raw)
+			if err != nil {
+				return nil, err
+			}
+			ft.SequenceType = seq
 		case 8: // stateFeatureType (wraps ArrayFeatureType at field 1)
 			raw, err := r.readBytes()
 			if err != nil {
@@ -157,7 +334,7 @@ func decodeFeatureType(data []byte) (*FeatureType, error) {
 			if err != nil {
 				return nil, err
 			}
-			ft.MultiArrayType = mat
+			ft.StateArrayType = mat
 		case 1000: // isOptional
 			v, err := r.readVarint()
 			if err != nil {
@@ -165,12 +342,110 @@ func decodeFeatureType(data []byte) (*FeatureType, error) {
 			}
 			ft.IsOptional = v != 0
 		default:
+			raw, err := r.skipUnknown(start, wire)
+			if err != nil {
+				return nil, err
+			}
+			ft.unknown = append(ft.unknown, raw...)
+		}
+	}
+	return ft, nil
+}
+
+func decodeImageFeatureType(data []byte) (*ImageFeatureType, error) {
+	img := &ImageFeatureType{}
+	r := newProtoReader(data)
+	for !r.done() {
+		start := r.pos
+		field, wire, err := r.readTag()
+		if err != nil {
+			return nil, err
+		}
+		switch field {
+		case 1: // width
+			v, err := r.readVarint()
+			if err != nil {
+				return nil, err
+			}
+			img.Width = int64(v)
+		case 2: // height
+			v, err := r.readVarint()
+			if err != nil {
+				return nil, err
+			}
+			img.Height = int64(v)
+		case 3: // colorSpace
+			v, err := r.readVarint()
+			if err != nil {
+				return nil, err
+			}
+			img.ColorSpace = ColorSpace(v)
+		default:
+			raw, err := r.skipUnknown(start, wire)
+			if err != nil {
+				return nil, err
+			}
+			img.unknown = append(img.unknown, raw...)
+		}
+	}
+	return img, nil
+}
+
+func decodeDictionaryFeatureType(data []byte) (*DictionaryFeatureType, error) {
+	dict := &DictionaryFeatureType{}
+	r := newProtoReader(data)
+	for !r.done() {
+		field, wire, err := r.readTag()
+		if err != nil {
+			return nil, err
+		}
+		switch field {
+		case 1: // int64KeyType
+			if err := r.skip(wire); err != nil {
+				return nil, err
+			}
+			dict.KeyType = "int64"
+		case 2: // stringKeyType
+			if err := r.skip(wire); err != nil {
+				return nil, err
+			}
+			dict.KeyType = "string"
+		default:
 			if err := r.skip(wire); err != nil {
 				return nil, err
 			}
 		}
 	}
-	return ft, nil
+	return dict, nil
+}
+
+func decodeSequenceFeatureType(data []byte) (*SequenceFeatureType, error) {
+	seq := &SequenceFeatureType{}
+	r := newProtoReader(data)
+	for !r.done() {
+		field, wire, err := r.readTag()
+		if err != nil {
+			return nil, err
+		}
+		switch field {
+		// The oneof members are empty messages selected by field number.
+		case 1: // int64Type
+			if err := r.skip(wire); err != nil {
+				return nil, err
+			}
+			seq.ElementType = &FeatureType{Int64Type: true}
+		case 3: // stringType
+			if err := r.skip(wire); err != nil {
+				return nil, err
+			}
+			seq.ElementType = &FeatureType{StringType: true}
+		default:
+			if err := r.skip(wire); err != nil {
+				return nil, err
+			}
+		}
+	}
+	return seq, nil
 }
 
 func decodeStateFeatureType(data []byte) (*ArrayFeatureType, error) {
@@ -198,6 +473,7 @@ func decodeArrayFeatureType(data []byte) (*ArrayFeatureType, error) {
 	aft := &ArrayFeatureType{}
 	r := newProtoReader(data)
 	for !r.done() {
+		start := r.pos
 		field, wire, err := r.readTag()
 		if err != nil {
 			return nil, err
@@ -231,9 +507,11 @@ func decodeArrayFeatureType(data []byte) (*ArrayFeatureType, error) {
 			}
 			aft.DataType = ArrayDataType(v)
 		default:
-			if err := r.skip(wire); err != nil {
+			raw, err := r.skipUnknown(start, wire)
+			if err != nil {
 				return nil, err
 			}
+			aft.unknown = append(aft.unknown, raw...)
 		}
 	}
 	return aft, nil
@@ -504,6 +782,36 @@ func decodeValueType(data []byte) (*ValueType, error) {
 				return nil, err
 			}
 			vt.TensorType = tt
+		case 2: // ListType: ListType
+			raw, err := r.readBytes()
+			if err != nil {
+				return nil, err
+			}
+			lt, err := decodeListType(raw)
+			if err != nil {
+				return nil, err
+			}
+			vt.ListType = lt
+		case 3: // TupleType: TupleType
+			raw, err := r.readBytes()
+			if err != nil {
+				return nil, err
+			}
+			tup, err := decodeTupleType(raw)
+			if err != nil {
+				return nil, err
+			}
+			vt.TupleType = tup
+		case 4: // DictionaryType: DictionaryType
+			raw, err := r.readBytes()
+			if err != nil {
+				return nil, err
+			}
+			dt, err := decodeDictionaryType(raw)
+			if err != nil {
+				return nil, err
+			}
+			vt.DictionaryType = dt
 		case 5: // StateType: StateType
 			raw, err := r.readBytes()
 			if err != nil {
@@ -521,6 +829,110 @@ func decodeValueType(data []byte) (*ValueType, error) {
 		}
 	}
 	return vt, nil
+}
+
+func decodeListType(data []byte) (*ListType, error) {
+	lt := &ListType{}
+	r := newProtoReader(data)
+	for !r.done() {
+		field, wire, err := r.readTag()
+		if err != nil {
+			return nil, err
+		}
+		switch field {
+		case 1: // elementType: ValueType
+			raw, err := r.readBytes()
+			if err != nil {
+				return nil, err
+			}
+			et, err := decodeValueType(raw)
+			if err != nil {
+				return nil, err
+			}
+			lt.ElementType = et
+		case 2: // length: Dimension
+			raw, err := r.readBytes()
+			if err != nil {
+				return nil, err
+			}
+			d, err := decodeDimension(raw)
+			if err != nil {
+				return nil, err
+			}
+			lt.Length = int64(d.Constant)
+		default:
+			if err := r.skip(wire); err != nil {
+				return nil, err
+			}
+		}
+	}
+	return lt, nil
+}
+
+func decodeTupleType(data []byte) (*TupleType, error) {
+	tt := &TupleType{}
+	r := newProtoReader(data)
+	for !r.done() {
+		field, wire, err := r.readTag()
+		if err != nil {
+			return nil, err
+		}
+		switch field {
+		case 1: // types: repeated ValueType
+			raw, err := r.readBytes()
+			if err != nil {
+				return nil, err
+			}
+			vt, err := decodeValueType(raw)
+			if err != nil {
+				return nil, err
+			}
+			tt.Types = append(tt.Types, vt)
+		default:
+			if err := r.skip(wire); err != nil {
+				return nil, err
+			}
+		}
+	}
+	return tt, nil
+}
+
+func decodeDictionaryType(data []byte) (*DictionaryType, error) {
+	dt := &DictionaryType{}
+	r := newProtoReader(data)
+	for !r.done() {
+		field, wire, err := r.readTag()
+		if err != nil {
+			return nil, err
+		}
+		switch field {
+		case 1: // keyType: ValueType
+			raw, err := r.readBytes()
+			if err != nil {
+				return nil, err
+			}
+			vt, err := decodeValueType(raw)
+			if err != nil {
+				return nil, err
+			}
+			dt.KeyType = vt
+		case 2: // valueType: ValueType
+			raw, err := r.readBytes()
+			if err != nil {
+				return nil, err
+			}
+			vt, err := decodeValueType(raw)
+			if err != nil {
+				return nil, err
+			}
+			dt.ValueType = vt
+		default:
+			if err := r.skip(wire); err != nil {
+				return nil, err
+			}
+		}
+	}
+	return dt, nil
 }
 
 func decodeTensorType(data []byte) (*TensorType, error) {
@@ -626,8 +1038,27 @@ func decodeDimension(data []byte) (*Dimension, error) {
 		case 2: // unknown: UnknownDimension
 			d.Unknown = true
 			if wire == wireBytes {
-				if _, err := r.readBytes(); err != nil {
+				raw, err := r.readBytes()
+				if err != nil {
 					return nil, err
+				}
+				ur := newProtoReader(raw)
+				for !ur.done() {
+					uf, uw, err := ur.readTag()
+					if err != nil {
+						return nil, err
+					}
+					if uf == 1 { // variadic: bool
+						v, err := ur.readVarint()
+						if err != nil {
+							return nil, err
+						}
+						d.Variadic = v != 0
+					} else {
+						if err := ur.skip(uw); err != nil {
+							return nil, err
+						}
+					}
 				}
 			} else {
 				if err := r.skip(wire); err != nil {
@@ -710,6 +1141,36 @@ func decodeImmediateValue(data []byte) (*ImmediateValue, error) {
 				return nil, err
 			}
 			iv.Tensor = tv
+		case 2: // tuple: TupleValue
+			raw, err := r.readBytes()
+			if err != nil {
+				return nil, err
+			}
+			tup, err := decodeTupleValue(raw)
+			if err != nil {
+				return nil, err
+			}
+			iv.Tuple = tup
+		case 3: // list: ListValue
+			raw, err := r.readBytes()
+			if err != nil {
+				return nil, err
+			}
+			lv, err := decodeListValue(raw)
+			if err != nil {
+				return nil, err
+			}
+			iv.List = lv
+		case 4: // dictionary: DictionaryValue
+			raw, err := r.readBytes()
+			if err != nil {
+				return nil, err
+			}
+			dv, err := decodeDictionaryValue(raw)
+			if err != nil {
+				return nil, err
+			}
+			iv.Dictionary = dv
 		default:
 			if err := r.skip(wire); err != nil {
 				return nil, err
@@ -717,6 +1178,128 @@ func decodeImmediateValue(data []byte) (*ImmediateValue, error) {
 		}
 	}
 	return iv, nil
+}
+
+func decodeTupleValue(data []byte) (*TupleValue, error) {
+	tv := &TupleValue{}
+	r := newProtoReader(data)
+	for !r.done() {
+		field, wire, err := r.readTag()
+		if err != nil {
+			return nil, err
+		}
+		switch field {
+		case 1: // values: repeated Value
+			raw, err := r.readBytes()
+			if err != nil {
+				return nil, err
+			}
+			v, err := decodeValue(raw)
+			if err != nil {
+				return nil, err
+			}
+			tv.Values = append(tv.Values, v)
+		default:
+			if err := r.skip(wire); err != nil {
+				return nil, err
+			}
+		}
+	}
+	return tv, nil
+}
+
+func decodeListValue(data []byte) (*ListValue, error) {
+	lv := &ListValue{}
+	r := newProtoReader(data)
+	for !r.done() {
+		field, wire, err := r.readTag()
+		if err != nil {
+			return nil, err
+		}
+		switch field {
+		case 1: // values: repeated Value
+			raw, err := r.readBytes()
+			if err != nil {
+				return nil, err
+			}
+			v, err := decodeValue(raw)
+			if err != nil {
+				return nil, err
+			}
+			lv.Values = append(lv.Values, v)
+		default:
+			if err := r.skip(wire); err != nil {
+				return nil, err
+			}
+		}
+	}
+	return lv, nil
+}
+
+func decodeDictionaryValue(data []byte) (*DictionaryValue, error) {
+	dv := &DictionaryValue{}
+	r := newProtoReader(data)
+	for !r.done() {
+		field, wire, err := r.readTag()
+		if err != nil {
+			return nil, err
+		}
+		switch field {
+		case 1: // values: map<Value, Value> represented as entries
+			raw, err := r.readBytes()
+			if err != nil {
+				return nil, err
+			}
+			entry, err := decodeDictionaryMapEntry(raw)
+			if err != nil {
+				return nil, err
+			}
+			dv.Entries = append(dv.Entries, entry)
+		default:
+			if err := r.skip(wire); err != nil {
+				return nil, err
+			}
+		}
+	}
+	return dv, nil
+}
+
+func decodeDictionaryMapEntry(data []byte) (DictionaryMapEntry, error) {
+	var entry DictionaryMapEntry
+	r := newProtoReader(data)
+	for !r.done() {
+		field, wire, err := r.readTag()
+		if err != nil {
+			return entry, err
+		}
+		switch field {
+		case 1:
+			raw, err := r.readBytes()
+			if err != nil {
+				return entry, err
+			}
+			k, err := decodeValue(raw)
+			if err != nil {
+				return entry, err
+			}
+			entry.Key = k
+		case 2:
+			raw, err := r.readBytes()
+			if err != nil {
+				return entry, err
+			}
+			v, err := decodeValue(raw)
+			if err != nil {
+				return entry, err
+			}
+			entry.Value = v
+		default:
+			if err := r.skip(wire); err != nil {
+				return entry, err
+			}
+		}
+	}
+	return entry, nil
 }
 
 func decodeTensorValue(data []byte) (*TensorValue, error) {
@@ -814,101 +1397,164 @@ func decodeTensorValue(data []byte) (*TensorValue, error) {
 	return tv, nil
 }
 
-// decodeRepeatedFloats decodes a RepeatedFloats submessage (field 1: packed float).
+// The repeated scalar fields inside RepeatedFloats/Ints/... are declared
+// packed, but a conforming proto3 parser must also accept the unpacked form
+// (one tag per element) and a packed field split across several chunks, which
+// are concatenated. These helpers accept all three forms; the caller only
+// invokes them when the submessage is present, so an empty-but-non-nil result
+// distinguishes a present, empty tensor from an absent field.
+
+// decodeRepeatedFloats decodes a RepeatedFloats submessage (field 1: float).
 func decodeRepeatedFloats(data []byte) ([]float32, error) {
 	r := newProtoReader(data)
+	out := []float32{}
 	for !r.done() {
 		field, wire, err := r.readTag()
 		if err != nil {
 			return nil, err
 		}
-		if field == 1 {
-			return r.readPackedFloat32()
+		if field == 1 && wire == wireBytes {
+			vals, err := r.readPackedFloat32()
+			if err != nil {
+				return nil, err
+			}
+			out = append(out, vals...)
+			continue
+		}
+		if field == 1 && wire == wireFixed32 {
+			v, err := r.readFixed32()
+			if err != nil {
+				return nil, err
+			}
+			out = append(out, math.Float32frombits(v))
+			continue
 		}
 		if err := r.skip(wire); err != nil {
 			return nil, err
 		}
 	}
-	return nil, nil
+	return out, nil
 }
 
 // decodeRepeatedDoubles decodes a RepeatedDoubles submessage.
 func decodeRepeatedDoubles(data []byte) ([]float64, error) {
 	r := newProtoReader(data)
+	out := []float64{}
 	for !r.done() {
 		field, wire, err := r.readTag()
 		if err != nil {
 			return nil, err
 		}
-		if field == 1 {
-			return r.readPackedFloat64()
+		if field == 1 && wire == wireBytes {
+			vals, err := r.readPackedFloat64()
+			if err != nil {
+				return nil, err
+			}
+			out = append(out, vals...)
+			continue
+		}
+		if field == 1 && wire == wireFixed64 {
+			v, err := r.readFixed64()
+			if err != nil {
+				return nil, err
+			}
+			out = append(out, math.Float64frombits(v))
+			continue
 		}
 		if err := r.skip(wire); err != nil {
 			return nil, err
 		}
 	}
-	return nil, nil
+	return out, nil
 }
 
-// decodeRepeatedInts decodes a RepeatedInts submessage (field 1: packed int32 varint).
+// decodeRepeatedInts decodes a RepeatedInts submessage (field 1: int32 varint).
 func decodeRepeatedInts(data []byte) ([]int32, error) {
 	r := newProtoReader(data)
+	out := []int32{}
 	for !r.done() {
 		field, wire, err := r.readTag()
 		if err != nil {
 			return nil, err
 		}
-		if field == 1 {
+		if field == 1 && wire == wireBytes {
 			raw, err := r.readBytes()
 			if err != nil {
 				return nil, err
 			}
-			return readPackedInt32(raw)
+			vals, err := readPackedInt32(raw)
+			if err != nil {
+				return nil, err
+			}
+			out = append(out, vals...)
+			continue
+		}
+		if field == 1 && wire == wireVarint {
+			v, err := r.readVarint()
+			if err != nil {
+				return nil, err
+			}
+			out = append(out, int32(v))
+			continue
 		}
 		if err := r.skip(wire); err != nil {
 			return nil, err
 		}
 	}
-	return nil, nil
+	return out, nil
 }
 
 // decodeRepeatedLongs decodes a RepeatedLongInts submessage.
 func decodeRepeatedLongs(data []byte) ([]int64, error) {
 	r := newProtoReader(data)
+	out := []int64{}
 	for !r.done() {
 		field, wire, err := r.readTag()
 		if err != nil {
 			return nil, err
 		}
-		if field == 1 {
+		if field == 1 && wire == wireBytes {
 			raw, err := r.readBytes()
 			if err != nil {
 				return nil, err
 			}
-			return readPackedInt64(raw)
+			vals, err := readPackedInt64(raw)
+			if err != nil {
+				return nil, err
+			}
+			out = append(out, vals...)
+			continue
+		}
+		if field == 1 && wire == wireVarint {
+			v, err := r.readVarint()
+			if err != nil {
+				return nil, err
+			}
+			out = append(out, int64(v))
+			continue
 		}
 		if err := r.skip(wire); err != nil {
 			return nil, err
 		}
 	}
-	return nil, nil
+	return out, nil
 }
 
-// decodeRepeatedBools decodes a RepeatedBools submessage (field 1: packed bool varint).
+// decodeRepeatedBools decodes a RepeatedBools submessage (field 1: bool varint).
 func decodeRepeatedBools(data []byte) ([]bool, error) {
 	r := newProtoReader(data)
+	out := []bool{}
 	for !r.done() {
 		field, wire, err := r.readTag()
 		if err != nil {
 			return nil, err
 		}
-		if field == 1 {
+		if field == 1 && wire == wireBytes {
 			raw, err := r.readBytes()
 			if err != nil {
 				return nil, err
 			}
 			pr := newProtoReader(raw)
-			var out []bool
 			for !pr.done() {
 				v, err := pr.readVarint()
 				if err != nil {
@@ -916,13 +1562,21 @@ func decodeRepeatedBools(data []byte) ([]bool, error) {
 				}
 				out = append(out, v != 0)
 			}
-			return out, nil
+			continue
+		}
+		if field == 1 && wire == wireVarint {
+			v, err := r.readVarint()
+			if err != nil {
+				return nil, err
+			}
+			out = append(out, v != 0)
+			continue
 		}
 		if err := r.skip(wire); err != nil {
 			return nil, err
 		}
 	}
-	return nil, nil
+	return out, nil
 }
 
 // decodeRepeatedStrings decodes a RepeatedStrings submessage (field 1: repeated string).

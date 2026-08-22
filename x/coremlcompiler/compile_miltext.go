@@ -7,7 +7,7 @@ import (
 	"path/filepath"
 )
 
-const defaultMILSpecVersion = 8
+const defaultMILSpecVersion = 9 // iOS18/CoreML8, the opset our emitters produce
 
 // CompileMILText compiles an already-emitted mlprogram MIL text into a
 // compiled bundle at outputPath.
@@ -69,13 +69,27 @@ func compileMILTextModel(model *Model, milText, weightRoot, outputPath string) e
 	return nil
 }
 
+// copyDirContents copies the contents of srcRoot into dstRoot.
+//
+// dstRoot may sit inside srcRoot, which happens whenever a caller writes
+// the bundle into the same directory that holds the weights. The walk
+// skips dstRoot in that case; without it the walk descends into the
+// output it is creating and recurses until the path is too long for the
+// filesystem.
 func copyDirContents(srcRoot, dstRoot string) error {
+	dstAbs, err := filepath.Abs(dstRoot)
+	if err != nil {
+		return err
+	}
 	return filepath.WalkDir(srcRoot, func(path string, d os.DirEntry, err error) error {
 		if err != nil {
 			return err
 		}
 		if path == srcRoot {
 			return nil
+		}
+		if abs, err := filepath.Abs(path); err == nil && abs == dstAbs {
+			return filepath.SkipDir
 		}
 		rel, err := filepath.Rel(srcRoot, path)
 		if err != nil {

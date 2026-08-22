@@ -2,6 +2,7 @@ package coremlcompiler
 
 import (
 	"encoding/binary"
+	"fmt"
 	"os"
 	"path/filepath"
 	"strings"
@@ -45,8 +46,8 @@ func TestProtoRoundTrip(t *testing.T) {
 	if fn.Inputs[0].Name != "x" {
 		t.Errorf("Function input name = %q, want %q", fn.Inputs[0].Name, "x")
 	}
-	if fn.OpSet != "ios18" {
-		t.Errorf("opset = %q, want %q", fn.OpSet, "ios18")
+	if fn.OpSet != "CoreML8" {
+		t.Errorf("opset = %q, want %q", fn.OpSet, "CoreML8")
 	}
 
 	Block, ok := fn.BlockSpecializations["CoreML8"]
@@ -70,7 +71,7 @@ func TestMILTextEmit(t *testing.T) {
 		Version: 1,
 		Functions: map[string]*Function{
 			"main": {
-				OpSet: "ios18",
+				OpSet: "CoreML8",
 				Inputs: []NamedValueType{
 					{
 						Name: "x",
@@ -291,7 +292,7 @@ func TestCompileMILText(t *testing.T) {
 	milText := strings.TrimSpace(`
 Program(1.3) {
     func main<ios18>(tensor<fp16, [1, 64]> x, state<tensor<fp16, [1, 1, 4, 64]>> k_state) {
-        tensor<fp16, [1, 1, 4, 64]> cached = read_state(state = k_state)[name = tensor<string, []>("read_k")];
+        tensor<fp16, [1, 1, 4, 64]> cached = read_state(input = k_state)[name = tensor<string, []>("read_k")];
     } -> (cached);
 }
 `)
@@ -437,11 +438,11 @@ func buildTestModelProto() []byte {
 		encodeBytes(2, Block),
 	)
 
-	// Function { inputs=[x], opset="ios18", block_specializations={CoreML8: Block} }
+	// Function { inputs=[x], opset="CoreML8", block_specializations={CoreML8: Block} }
 	Function := concatBytes(
-		encodeBytes(1, nvtX),            // inputs
-		encodeBytes(2, []byte("ios18")), // opset
-		encodeBytes(3, blockMapEntry),   // block_specializations
+		encodeBytes(1, nvtX),              // inputs
+		encodeBytes(2, []byte("CoreML8")), // opset
+		encodeBytes(3, blockMapEntry),     // block_specializations
 	)
 
 	// Program functions map entry: key="main", value=Function
@@ -456,11 +457,30 @@ func buildTestModelProto() []byte {
 		encodeBytes(2, funcMapEntry),                      // functions
 	)
 
-	// FeatureDescription { name="x" }
-	featureDesc := encodeBytes(1, []byte("x"))
+	// FeatureType { multiArrayType = ArrayFeatureType{shape=[1,64], FLOAT16} }
+	arrayFeatureType := concatBytes(
+		encodeBytes(1, concatBytes(encodeVarintVal(1), encodeVarintVal(64))), // shape
+		encodeVarint(2<<3|wireVarint, encodeVarintVal(65552)),                // FLOAT16
+	)
+	featureType := encodeBytes(5, arrayFeatureType)
 
-	// ModelDescription { input=[featureDesc] }
-	modelDesc := encodeBytes(1, featureDesc)
+	// FeatureDescription { name="x", type=featureType }
+	featureDesc := concatBytes(
+		encodeBytes(1, []byte("x")),
+		encodeBytes(3, featureType),
+	)
+
+	// FeatureDescription { name="y", type=featureType }
+	outputDesc := concatBytes(
+		encodeBytes(1, []byte("y")),
+		encodeBytes(3, featureType),
+	)
+
+	// ModelDescription { input=[featureDesc], output=[outputDesc] }
+	modelDesc := concatBytes(
+		encodeBytes(1, featureDesc),
+		encodeBytes(10, outputDesc),
+	)
 
 	// Model { specificationVersion=8, description=modelDesc, mlProgram=Program }
 	model := concatBytes(
@@ -478,7 +498,7 @@ func TestMILTextWithState(t *testing.T) {
 		Version: 1,
 		Functions: map[string]*Function{
 			"main": {
-				OpSet: "ios18",
+				OpSet: "CoreML8",
 				Inputs: []NamedValueType{
 					{
 						Name: "x",
@@ -520,7 +540,7 @@ func TestMILTextWithState(t *testing.T) {
 									},
 								},
 								Inputs: map[string]*Argument{
-									"state": {
+									"input": {
 										Bindings: []Binding{{Name: "state_k"}},
 									},
 								},
@@ -542,7 +562,7 @@ func TestMILTextWithState(t *testing.T) {
 		"program(1.0)",
 		"state<tensor<fp16, [1, 1, 128, 64]>>",
 		"read_state(",
-		"state = state_k",
+		"input = state_k",
 	}
 	for _, check := range checks {
 		if !strings.Contains(text, check) {
@@ -618,5 +638,230 @@ func TestFormatTensorType(t *testing.T) {
 				t.Errorf("got %q, want %q", got, tt.want)
 			}
 		})
+	}
+}
+
+func TestGap1ManifestPathConfinement(t *testing.T) {
+	base := t.TempDir()
+	pkg := filepath.Join(base, "model.mlpackage")
+	if err := os.MkdirAll(pkg, 0o755); err != nil {
+		t.Fatal(err)
+	}
+	outside := filepath.Join(base, "outside.mlmodel")
+	if err := os.WriteFile(outside, []byte("outside model"), 0o644); err != nil {
+		t.Fatal(err)
+	}
+	manifest := `{"rootModelIdentifier":"root","itemInfoEntries":{"root":{"path":"../../outside.mlmodel","name":"model.mlmodel","author":"com.apple.CoreML"}}}`
+	if err := os.WriteFile(filepath.Join(pkg, "Manifest.json"), []byte(manifest), 0o644); err != nil {
+		t.Fatal(err)
+	}
+	_, _, err := readMLPackage(pkg)
+	if err == nil {
+		t.Fatal("expected error reading manifest with relative path traversal")
+	}
+}
+
+func TestGap2BlobPathConfinement(t *testing.T) {
+	base := t.TempDir()
+	src := filepath.Join(base, "source")
+	dst := filepath.Join(base, "output", "bundle.mlmodelc")
+	if err := os.MkdirAll(src, 0o755); err != nil {
+		t.Fatal(err)
+	}
+	secret := filepath.Join(base, "secret.bin")
+	if err := os.WriteFile(secret, []byte("outside"), 0o644); err != nil {
+		t.Fatal(err)
+	}
+	prog := &Program{Functions: map[string]*Function{
+		"main": {
+			OpSet: "CoreML8",
+			BlockSpecializations: map[string]*Block{
+				"CoreML8": {Operations: []*Operation{{
+					Type:    "const",
+					Outputs: []NamedValueType{{Name: "o", Type: &ValueType{TensorType: &TensorType{DataType: DataTypeFloat32}}}},
+					Attributes: map[string]*Value{
+						"val": {BlobFile: &BlobFileValue{FileName: "@model_path/../secret.bin"}},
+					},
+				}}},
+			},
+		},
+	}}
+	err := copyWeights(src, dst, prog)
+	if err == nil {
+		t.Fatal("expected error for blob path traversal")
+	}
+}
+
+func TestGap3MissingBlobReturnsError(t *testing.T) {
+	base := t.TempDir()
+	src := filepath.Join(base, "source")
+	dst := filepath.Join(base, "output")
+	_ = os.MkdirAll(src, 0o755)
+	prog := &Program{Functions: map[string]*Function{
+		"main": {
+			OpSet: "CoreML8",
+			BlockSpecializations: map[string]*Block{
+				"CoreML8": {Operations: []*Operation{{
+					Type:    "const",
+					Outputs: []NamedValueType{{Name: "o", Type: &ValueType{TensorType: &TensorType{DataType: DataTypeFloat32}}}},
+					Attributes: map[string]*Value{
+						"val": {BlobFile: &BlobFileValue{FileName: "@model_path/weights/missing.bin"}},
+					},
+				}}},
+			},
+		},
+	}}
+	err := copyWeights(src, dst, prog)
+	if err == nil {
+		t.Fatal("expected error for missing weight file")
+	}
+}
+
+func TestGap4CompileToTempCaching(t *testing.T) {
+	input := t.TempDir()
+	info, err := os.Stat(input)
+	if err != nil {
+		t.Fatal(err)
+	}
+	abs, err := filepath.Abs(input)
+	if err != nil {
+		t.Fatal(err)
+	}
+	key := fmt.Sprintf("%s;len:0;weights:", abs)
+	h := fnv32a(key)
+	var dataHash uint32 = 2166136261
+	partialCache := filepath.Join(os.TempDir(), fmt.Sprintf("coremlcompiler-%08x%08x.mlmodelc", h, dataHash))
+	if err := os.MkdirAll(partialCache, 0o755); err != nil {
+		t.Fatal(err)
+	}
+	t.Cleanup(func() { os.RemoveAll(partialCache) })
+	_ = os.WriteFile(filepath.Join(partialCache, "coremldata.bin"), []byte("partial"), 0o644)
+	// Without completion marker, CompileToTemp will not accept partial cache
+	_, err = CompileToTemp(input)
+	if err == nil {
+		t.Fatal("expected error reading invalid empty input package rather than trusting incomplete cache")
+	}
+	_ = info
+}
+
+func TestGap5ImmediateByteDecoding(t *testing.T) {
+	val := &Value{
+		Type: &ValueType{
+			TensorType: &TensorType{
+				DataType:   DataTypeFloat16,
+				Dimensions: []Dimension{{Constant: 2}},
+			},
+		},
+		Immediate: &ImmediateValue{
+			Tensor: &TensorValue{
+				// 1.0 in FP16 = 0x3C00 (0x00, 0x3C), 2.0 in FP16 = 0x4000 (0x00, 0x40)
+				Bytes: []byte{0x00, 0x3c, 0x00, 0x40},
+			},
+		},
+	}
+	got := formatImmediateTensor(val)
+	want := "tensor<fp16, [2]>([1, 2])"
+	if got != want {
+		t.Errorf("got %q, want %q", got, want)
+	}
+}
+
+func TestGap6And7StructuredTypesAndImmediates(t *testing.T) {
+	vt := &ValueType{
+		TupleType: &TupleType{
+			Types: []*ValueType{
+				{TensorType: &TensorType{DataType: DataTypeFloat32}},
+				{ListType: &ListType{ElementType: &ValueType{TensorType: &TensorType{DataType: DataTypeInt32}}}},
+			},
+		},
+	}
+	raw := encodeValueType(vt)
+	decoded, err := decodeValueType(raw)
+	if err != nil {
+		t.Fatalf("decodeValueType failed: %v", err)
+	}
+	if decoded.TupleType == nil || len(decoded.TupleType.Types) != 2 {
+		t.Fatalf("unexpected decoded tuple type: %+v", decoded)
+	}
+
+	val := &Value{
+		Type: vt,
+		Immediate: &ImmediateValue{
+			Tuple: &TupleValue{
+				Values: []*Value{
+					{Type: &ValueType{TensorType: &TensorType{DataType: DataTypeFloat32}}, Immediate: &ImmediateValue{Tensor: &TensorValue{Floats: []float32{1.5}}}},
+					{Type: &ValueType{TensorType: &TensorType{DataType: DataTypeInt32}}, Immediate: &ImmediateValue{Tensor: &TensorValue{Ints: []int32{42}}}},
+				},
+			},
+		},
+	}
+	formatted := formatValue(val)
+	if !strings.Contains(formatted, "tuple<tensor<fp32, []>, list<tensor<int32, []>>>") {
+		t.Errorf("unexpected formatted tuple value: %s", formatted)
+	}
+}
+
+func TestGap8VariadicDimension(t *testing.T) {
+	dim := Dimension{Unknown: true, Variadic: true}
+	raw := encodeDimension(dim)
+	decoded, err := decodeDimension(raw)
+	if err != nil {
+		t.Fatalf("decodeDimension failed: %v", err)
+	}
+	if !decoded.Unknown || !decoded.Variadic {
+		t.Errorf("decoded dimension = %+v, want Unknown and Variadic", decoded)
+	}
+}
+
+func TestGap9ModernDataTypes(t *testing.T) {
+	for _, dt := range []DataType{DataTypeUInt1, DataTypeUInt2, DataTypeUInt3, DataTypeUInt4, DataTypeUInt6, DataTypeFloat8E4M3FN, DataTypeFloat8E5M2} {
+		if _, err := DataTypeToBlobDataType(dt); err != nil {
+			t.Errorf("DataTypeToBlobDataType(%v) failed: %v", dt, err)
+		}
+		if strings.HasPrefix(dt.String(), "unknown") {
+			t.Errorf("DataType(%d).String() returned unknown: %s", int(dt), dt.String())
+		}
+	}
+}
+
+func TestGap10NonMultiArrayFeatureType(t *testing.T) {
+	ft := &FeatureType{
+		ImageType: &ImageFeatureType{Width: 1920, Height: 1080},
+	}
+	raw := encodeFeatureType(ft, false)
+	decoded, err := decodeFeatureType(raw)
+	if err != nil {
+		t.Fatalf("decodeFeatureType failed: %v", err)
+	}
+	if decoded.ImageType == nil || decoded.ImageType.Width != 1920 || decoded.ImageType.Height != 1080 {
+		t.Errorf("decoded FeatureType = %+v", decoded)
+	}
+}
+
+func TestGap11ProgramAttributeDeterministicOrdering(t *testing.T) {
+	prog := &Program{Attributes: map[string]*Value{
+		"z": stringVal("1"), "a": stringVal("2"), "m": stringVal("3"),
+	}}
+	first := emitMILText(prog)
+	for i := 0; i < 50; i++ {
+		if got := emitMILText(prog); got != first {
+			t.Fatalf("emitMILText produced non-deterministic attribute ordering: got %q, want %q", got, first)
+		}
+	}
+}
+
+func TestGap12ProgramValidation(t *testing.T) {
+	prog := &Program{
+		Functions: map[string]*Function{
+			"main": {
+				OpSet: "CoreML8",
+				BlockSpecializations: map[string]*Block{
+					"CoreML7": {Operations: []*Operation{}},
+				},
+			},
+		},
+	}
+	if err := ValidateProgram(prog); err == nil {
+		t.Fatal("expected error validating program with mismatched OpSet specialization")
 	}
 }

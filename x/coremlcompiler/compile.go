@@ -49,10 +49,51 @@ func CompileMLProgram(modelProto []byte, weightDir, outputPath string) error {
 	return compileMLProgram(model, weightDir, outputPath)
 }
 
+// validateFunctionDescriptions checks that a program with more than one MIL
+// function carries the ModelDescription fields Core ML needs to address the
+// extra entry points. Without them only the default function is reachable.
+func validateFunctionDescriptions(model *Model) error {
+	desc := model.Description
+	if len(model.MLProgram.Functions) > 1 && len(desc.Functions) == 0 {
+		return fmt.Errorf("multi-function program requires function descriptions")
+	}
+	if len(desc.Functions) > 0 && desc.DefaultFunctionName == "" {
+		return fmt.Errorf("function descriptions require a default function name")
+	}
+	for _, fn := range desc.Functions {
+		if _, ok := model.MLProgram.Functions[fn.Name]; !ok {
+			return fmt.Errorf("function description %q has no matching mil function", fn.Name)
+		}
+	}
+	if name := desc.DefaultFunctionName; name != "" {
+		if _, ok := model.MLProgram.Functions[name]; !ok {
+			return fmt.Errorf("default function %q has no matching mil function", name)
+		}
+	}
+	return nil
+}
+
 func compileMLProgram(model *Model, weightDir, outputPath string) error {
 	// Create output directory.
 	if err := os.MkdirAll(outputPath, 0o755); err != nil {
 		return fmt.Errorf("coremlcompiler: mkdir output: %w", err)
+	}
+
+	// Validate program structure.
+	if err := ValidateProgram(model.MLProgram); err != nil {
+		return fmt.Errorf("coremlcompiler: validate program: %w", err)
+	}
+	if err := validateFunctionDescriptions(model); err != nil {
+		return fmt.Errorf("coremlcompiler: %w", err)
+	}
+	if err := validateModelProgram(model); err != nil {
+		return fmt.Errorf("coremlcompiler: %w", err)
+	}
+	if err := validateModelInterface(model); err != nil {
+		return fmt.Errorf("coremlcompiler: %w", err)
+	}
+	if err := validateDescriptionSignature(model); err != nil {
+		return fmt.Errorf("coremlcompiler: %w", err)
 	}
 
 	// 1. Emit MIL text with correct dialect for the spec version.
@@ -94,29 +135,85 @@ func compileMLProgram(model *Model, weightDir, outputPath string) error {
 
 // CompileToTemp compiles a model to a temporary directory, returning the
 // path to the compiled .mlmodelc bundle. The directory is placed under
-// os.TempDir() and named by a hash of the input path for implicit caching.
+// os.TempDir() and named by a hash of the input path and content for implicit caching.
 func CompileToTemp(inputPath string) (string, error) {
-	// Use a hash of the absolute path + modification time for cache key.
-	info, err := os.Stat(inputPath)
+	modelData, weightDir, err := readModelInput(inputPath)
 	if err != nil {
-		return "", fmt.Errorf("coremlcompiler: stat input: %w", err)
+		return "", fmt.Errorf("coremlcompiler: read input for temp compile: %w", err)
 	}
+
 	absPath, err := filepath.Abs(inputPath)
 	if err != nil {
 		return "", fmt.Errorf("coremlcompiler: resolve path: %w", err)
 	}
-	key := fmt.Sprintf("%s:%d", absPath, info.ModTime().UnixNano())
-	h := fnv32a(key)
-	outputPath := filepath.Join(os.TempDir(), fmt.Sprintf("coremlcompiler-%08x.mlmodelc", h))
 
-	// Check if already compiled.
-	if _, err := os.Stat(filepath.Join(outputPath, "coremldata.bin")); err == nil {
-		return outputPath, nil
+	// Compute a hash of path + model bytes + optional weight info
+	var weightHash string
+	if weightDir != "" {
+		if entries, err := os.ReadDir(weightDir); err == nil {
+			for _, e := range entries {
+				if info, err := e.Info(); err == nil {
+					weightHash += fmt.Sprintf(";%s:%d:%d", e.Name(), info.Size(), info.ModTime().UnixNano())
+				}
+			}
+		}
+	}
+	key := fmt.Sprintf("%s;len:%d;weights:%s", absPath, len(modelData), weightHash)
+	h := fnv32a(key)
+	// Add digest of actual model bytes to avoid collision
+	var dataHash uint32 = 2166136261
+	for _, b := range modelData {
+		dataHash ^= uint32(b)
+		dataHash *= 16777619
 	}
 
-	if err := Compile(inputPath, outputPath); err != nil {
+	outputPath := filepath.Join(os.TempDir(), fmt.Sprintf("coremlcompiler-%08x%08x.mlmodelc", h, dataHash))
+	completionMarker := filepath.Join(outputPath, ".compile_complete")
+
+	// Check if already compiled and complete.
+	if _, err := os.Stat(completionMarker); err == nil {
+		if _, err := os.Stat(filepath.Join(outputPath, "coremldata.bin")); err == nil {
+			if _, err := os.Stat(filepath.Join(outputPath, "metadata.json")); err == nil {
+				return outputPath, nil
+			}
+		}
+	}
+
+	// Compile into a temporary directory first.
+	tmpOut, err := os.MkdirTemp(os.TempDir(), "coremlcompiler-build-*")
+	if err != nil {
+		return "", fmt.Errorf("coremlcompiler: create temp build dir: %w", err)
+	}
+	defer os.RemoveAll(tmpOut)
+
+	model, err := decodeModel(modelData)
+	if err != nil {
+		return "", fmt.Errorf("coremlcompiler: decode: %w", err)
+	}
+	if model.MLProgram == nil {
+		return "", fmt.Errorf("coremlcompiler: unsupported model type")
+	}
+
+	if err := compileMLProgram(model, weightDir, tmpOut); err != nil {
 		return "", err
 	}
+
+	// Write completion marker inside temp build directory before atomic move.
+	if err := os.WriteFile(filepath.Join(tmpOut, ".compile_complete"), []byte("ok"), 0o644); err != nil {
+		return "", fmt.Errorf("coremlcompiler: write completion marker: %w", err)
+	}
+
+	// Atomically rename or accept existing complete directory if raced.
+	if err := os.Rename(tmpOut, outputPath); err != nil {
+		if _, statErr := os.Stat(completionMarker); statErr == nil {
+			return outputPath, nil
+		}
+		// Fallback for cross-device or non-atomic file systems: directory replace if absent
+		if _, statErr := os.Stat(outputPath); os.IsNotExist(statErr) {
+			_ = os.Rename(tmpOut, outputPath)
+		}
+	}
+
 	return outputPath, nil
 }
 
@@ -208,38 +305,66 @@ func resolveManifest(manifestPath, packageDir string) (modelPath, weightDir stri
 
 	// Manifest paths are relative (e.g. "com.apple.CoreML/model.mlmodel").
 	// On disk they live under the Data/ subdirectory.
-	resolveEntry := func(entryPath string) (string, string) {
+	// Helper to resolve an entry path cleanly and check it stays within packageDir.
+	resolveEntry := func(entryPath string) (string, string, error) {
+		// Clean and reject absolute or directory-traversing paths.
+		if filepath.IsAbs(entryPath) {
+			return "", "", fmt.Errorf("manifest path %q is absolute", entryPath)
+		}
+		rel := filepath.Clean(filepath.ToSlash(entryPath))
+		if rel == ".." || strings.HasPrefix(rel, "../") || strings.Contains(rel, "/../") {
+			return "", "", fmt.Errorf("manifest path %q attempts path traversal", entryPath)
+		}
+
+		cleanPkg, err := filepath.Abs(packageDir)
+		if err != nil {
+			return "", "", err
+		}
+
 		// Try Data/ prefix first (standard coremltools layout).
-		candidate := filepath.Join(packageDir, "Data", entryPath)
+		candidate := filepath.Join(cleanPkg, "Data", filepath.FromSlash(rel))
 		if _, err := os.Stat(candidate); err == nil {
-			return candidate, filepath.Dir(candidate)
+			candidateAbs, err := filepath.Abs(candidate)
+			if err != nil {
+				return "", "", err
+			}
+			relToPkg, err := filepath.Rel(cleanPkg, candidateAbs)
+			if err != nil || strings.HasPrefix(relToPkg, "..") {
+				return "", "", fmt.Errorf("manifest path %q escapes package root", entryPath)
+			}
+			return candidateAbs, filepath.Dir(candidateAbs), nil
 		}
 		// Fall back to path as-is (non-standard layout).
-		candidate = filepath.Join(packageDir, entryPath)
-		return candidate, filepath.Dir(candidate)
+		candidate = filepath.Join(cleanPkg, filepath.FromSlash(rel))
+		candidateAbs, err := filepath.Abs(candidate)
+		if err != nil {
+			return "", "", err
+		}
+		relToPkg, err := filepath.Rel(cleanPkg, candidateAbs)
+		if err != nil || strings.HasPrefix(relToPkg, "..") {
+			return "", "", fmt.Errorf("manifest path %q escapes package root", entryPath)
+		}
+		return candidateAbs, filepath.Dir(candidateAbs), nil
 	}
 
 	// Prefer rootModelIdentifier to find the model entry.
 	if manifest.RootModelIdentifier != "" {
 		if entry, ok := manifest.ItemInfoEntries[manifest.RootModelIdentifier]; ok {
-			modelPath, weightDir = resolveEntry(entry.Path)
-			return modelPath, weightDir, nil
+			return resolveEntry(entry.Path)
 		}
 	}
 
 	// Fallback: find an entry whose name is "model.mlmodel".
 	for _, entry := range manifest.ItemInfoEntries {
 		if entry.Name == "model.mlmodel" {
-			modelPath, weightDir = resolveEntry(entry.Path)
-			return modelPath, weightDir, nil
+			return resolveEntry(entry.Path)
 		}
 	}
 
 	// Legacy fallback: find by author.
 	for _, entry := range manifest.ItemInfoEntries {
 		if entry.Author == "com.apple.CoreML" {
-			modelPath, weightDir = resolveEntry(entry.Path)
-			return modelPath, weightDir, nil
+			return resolveEntry(entry.Path)
 		}
 	}
 
@@ -255,16 +380,48 @@ func copyWeights(srcDir, dstDir string, prog *Program) error {
 		return nil
 	}
 
+	cleanSrc, err := filepath.Abs(srcDir)
+	if err != nil {
+		return fmt.Errorf("resolve weight srcDir: %w", err)
+	}
+	cleanDst, err := filepath.Abs(dstDir)
+	if err != nil {
+		return fmt.Errorf("resolve weight dstDir: %w", err)
+	}
+
 	for _, ref := range refs {
+		if !strings.HasPrefix(ref, "@model_path/") {
+			return fmt.Errorf("invalid weight reference %q: must start with @model_path/", ref)
+		}
 		// Resolve the path relative to the source directory.
 		relPath := strings.TrimPrefix(ref, "@model_path/")
+		if filepath.IsAbs(relPath) {
+			return fmt.Errorf("invalid weight reference %q: absolute path not allowed", ref)
+		}
+		cleanRel := filepath.Clean(filepath.ToSlash(relPath))
+		if cleanRel == ".." || strings.HasPrefix(cleanRel, "../") || strings.Contains(cleanRel, "/../") {
+			return fmt.Errorf("invalid weight reference %q: path traversal forbidden", ref)
+		}
 
-		srcPath := filepath.Join(srcDir, relPath)
-		dstPath := filepath.Join(dstDir, relPath)
+		srcPath := filepath.Join(cleanSrc, filepath.FromSlash(cleanRel))
+		dstPath := filepath.Join(cleanDst, filepath.FromSlash(cleanRel))
 
-		// Skip if source doesn't exist.
-		if _, err := os.Stat(srcPath); os.IsNotExist(err) {
-			continue
+		// Ensure srcPath and dstPath do not escape cleanSrc / cleanDst
+		relSrc, err := filepath.Rel(cleanSrc, srcPath)
+		if err != nil || strings.HasPrefix(relSrc, "..") {
+			return fmt.Errorf("weight source %q escapes source root %q", srcPath, cleanSrc)
+		}
+		relDst, err := filepath.Rel(cleanDst, dstPath)
+		if err != nil || strings.HasPrefix(relDst, "..") {
+			return fmt.Errorf("weight destination %q escapes output root %q", dstPath, cleanDst)
+		}
+
+		fi, err := os.Stat(srcPath)
+		if err != nil {
+			return fmt.Errorf("weight source file missing for ref %q (%s): %w", ref, srcPath, err)
+		}
+		if fi.IsDir() {
+			return fmt.Errorf("weight source %q is a directory, expected file", srcPath)
 		}
 
 		// Create destination directory.
@@ -274,7 +431,7 @@ func copyWeights(srcDir, dstDir string, prog *Program) error {
 
 		// Copy the file.
 		if err := copyFile(srcPath, dstPath); err != nil {
-			return fmt.Errorf("copy %s: %w", relPath, err)
+			return fmt.Errorf("copy %s: %w", cleanRel, err)
 		}
 	}
 

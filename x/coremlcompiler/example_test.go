@@ -1,7 +1,10 @@
+//go:build darwin
+
 package coremlcompiler_test
 
 import (
 	"fmt"
+	"log"
 	"os"
 	"path/filepath"
 
@@ -9,26 +12,18 @@ import (
 )
 
 func Example() {
-	// Compile a CoreML model package to a compiled bundle.
-	err := coremlcompiler.Compile("model.mlpackage", "model.mlmodelc")
-	if err != nil {
-		fmt.Println(err)
-	}
+	// Compile a non-existent package to test error handling.
+	err := coremlcompiler.Compile("nonexistent.mlpackage", "model.mlmodelc")
+	fmt.Println("compilation failed as expected:", err != nil)
 
-	// The compiled bundle can be loaded by CoreML or x/ane:
-	//
-	//   rt, _ := ane.Open()
-	//   k, _ := rt.Compile(ane.CompileOptions{
-	//       ModelType:   ane.ModelTypePackage,
-	//       PackagePath: "model.mlmodelc",
-	//   })
+	// Output:
+	// compilation failed as expected: true
 }
 
 func ExampleCompileMILText() {
 	tmpDir, err := os.MkdirTemp("", "coremlcompiler-example-*")
 	if err != nil {
-		fmt.Println(err)
-		return
+		log.Fatal(err)
 	}
 	defer os.RemoveAll(tmpDir)
 
@@ -40,8 +35,18 @@ func ExampleCompileMILText() {
 		Inputs:  []coremlcompiler.FeatureDescription{{Name: "x"}},
 		Outputs: []coremlcompiler.FeatureDescription{{Name: "x"}},
 	}
-	err = coremlcompiler.CompileMILText(milText, 8, desc, "", filepath.Join(tmpDir, "model.mlmodelc"))
+	outputDir := filepath.Join(tmpDir, "model.mlmodelc")
+	err = coremlcompiler.CompileMILText(milText, 9, desc, "", outputDir)
 	if err != nil {
-		fmt.Println(err)
+		log.Fatal(err)
 	}
+
+	_, errMil := os.Stat(filepath.Join(outputDir, "model.mil"))
+	fmt.Println("model.mil compiled:", errMil == nil)
+	_, errData := os.Stat(filepath.Join(outputDir, "coremldata.bin"))
+	fmt.Println("coremldata.bin compiled:", errData == nil)
+
+	// Output:
+	// model.mil compiled: true
+	// coremldata.bin compiled: true
 }

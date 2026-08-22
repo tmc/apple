@@ -24,6 +24,13 @@ func buildMetadataJSON(m *Model) ([]byte, error) {
 		states[i] = metadataFeatureSchema(state, true)
 	}
 
+	userDefined := map[string]string{}
+	if md := m.Description.Metadata; md != nil {
+		for k, v := range md.UserDefined {
+			userDefined[k] = v
+		}
+	}
+
 	modelType := "mlProgram"
 	if m.MLProgram == nil {
 		modelType = "neuralNetwork"
@@ -39,7 +46,7 @@ func buildMetadataJSON(m *Model) ([]byte, error) {
 			"outputSchema":          outputs,
 			"stateSchema":           states,
 			"modelParameters":       []any{},
-			"userDefinedMetadata":   map[string]string{},
+			"userDefinedMetadata":   userDefined,
 			"generatorVersion":      "github.com/tmc/apple/x/coremlcompiler",
 		},
 	}

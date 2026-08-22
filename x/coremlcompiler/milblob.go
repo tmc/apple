@@ -16,11 +16,11 @@ import (
 // offset of the raw data.
 
 const (
-	milBlobAlignment     = 64
-	milBlobVersion       = 2
-	milBlobSentinel      = 0xDEADBEEF
-	milBlobHeaderSize    = 64
-	milBlobMetadataSize  = 64
+	milBlobAlignment    = 64
+	milBlobVersion      = 2
+	milBlobSentinel     = 0xDEADBEEF
+	milBlobHeaderSize   = 64
+	milBlobMetadataSize = 64
 )
 
 // BlobDataType identifies element types in MIL blob storage.
@@ -69,15 +69,121 @@ func DataTypeToBlobDataType(dt DataType) (BlobDataType, error) {
 		return BlobDataTypeUInt32, nil
 	case DataTypeInt4:
 		return BlobDataTypeInt4, nil
+	case DataTypeUInt1:
+		return BlobDataTypeUInt1, nil
+	case DataTypeUInt2:
+		return BlobDataTypeUInt2, nil
+	case DataTypeUInt3:
+		return BlobDataTypeUInt3, nil
+	case DataTypeUInt4:
+		return BlobDataTypeUInt4, nil
+	case DataTypeUInt6:
+		return BlobDataTypeUInt6, nil
+	case DataTypeFloat8E4M3FN:
+		return BlobDataTypeFloat8E4M3, nil
+	case DataTypeFloat8E5M2:
+		return BlobDataTypeFloat8E5M2, nil
 	default:
 		return 0, fmt.Errorf("unsupported data type for MILBlob: %v", dt)
 	}
+}
+
+// specVersionIOS18 is the model specification version introduced with iOS 18,
+// from which integer weights wider than 8 bits may live in the weight file.
+const specVersionIOS18 = 9
+
+// ShouldUseWeightFile reports whether a constant of the given element type and
+// element count belongs in the weight file rather than inline in MIL text.
+// It mirrors coremltools' should_use_weight_file: at least 10 elements and an
+// element type the target specification version stores in a blob.
+func ShouldUseWeightFile(dt DataType, numElements int, specVersion int32) bool {
+	if numElements < 10 {
+		return false
+	}
+	switch dt {
+	case DataTypeFloat16, DataTypeFloat32, DataTypeUInt8, DataTypeInt8:
+		return true
+	case DataTypeUInt16, DataTypeInt16, DataTypeInt32, DataTypeUInt32:
+		return specVersion >= specVersionIOS18
+	}
+	return false
+}
+
+// subByteBits reports the bit width of a sub-byte blob element type, or 0 for
+// byte-sized types. The runtime derives a sub-byte blob's element count from
+// sizeInBytes and padding_size_in_bits, so these widths are part of the format.
+func subByteBits(dt BlobDataType) int {
+	switch dt {
+	case BlobDataTypeUInt1:
+		return 1
+	case BlobDataTypeUInt2:
+		return 2
+	case BlobDataTypeUInt3:
+		return 3
+	case BlobDataTypeInt4, BlobDataTypeUInt4:
+		return 4
+	case BlobDataTypeUInt6:
+		return 6
+	}
+	return 0
+}
+
+// subByteRange reports the inclusive value range of a sub-byte element type.
+func subByteRange(dt BlobDataType) (min, max int8) {
+	switch dt {
+	case BlobDataTypeInt4:
+		return -8, 7
+	case BlobDataTypeUInt1:
+		return 0, 1
+	case BlobDataTypeUInt2:
+		return 0, 3
+	case BlobDataTypeUInt3:
+		return 0, 7
+	case BlobDataTypeUInt4:
+		return 0, 15
+	case BlobDataTypeUInt6:
+		return 0, 63
+	}
+	return 0, 0
+}
+
+// PackSubByte packs values of a sub-byte blob element type into the byte
+// payload MILBlob stores. Element i occupies bits [i*bits, (i+1)*bits) of the
+// stream, little-endian within each byte; for widths that do not divide 8 an
+// element straddling a byte boundary continues in the low bits of the next
+// byte. This mirrors MILBlob's PackSubByteVec.
+func PackSubByte(dt BlobDataType, values []int8) ([]byte, error) {
+	bits := subByteBits(dt)
+	if bits == 0 {
+		return nil, fmt.Errorf("not a sub-byte MILBlob data type: %v", dt)
+	}
+	min, max := subByteRange(dt)
+	out := make([]byte, (len(values)*bits+7)/8)
+	for i, v := range values {
+		if v < min || v > max {
+			return nil, fmt.Errorf("value %d is outside allowed subbyte datatype range [%d, %d]", v, min, max)
+		}
+		startBit := i * bits
+		idx, off := startBit/8, startBit%8
+		masked := uint8(v) & uint8((1<<bits)-1)
+		out[idx] |= masked << off
+		if off > 8-bits {
+			// The element spills over into the next byte.
+			out[idx+1] |= masked >> (8 - off)
+		}
+	}
+	return out, nil
 }
 
 // BlobEntry describes a single tensor to write into a MILBlob weight file.
 type BlobEntry struct {
 	DType BlobDataType
 	Data  []byte
+
+	// NumElements is the logical element count. It is required for sub-byte
+	// element types, where the trailing partial byte must be reported in the
+	// metadata's padding_size_in_bits; it is ignored for byte-sized types.
+	NumElements int
 }
 
 // WriteMILBlob builds a MIL Blob Storage v2 weight file from the given
@@ -106,7 +212,15 @@ func WriteMILBlob(entries []BlobEntry) (data []byte, offsets []uint64) {
 		binary.LittleEndian.PutUint32(meta[4:], uint32(entry.DType))
 		binary.LittleEndian.PutUint64(meta[8:], uint64(len(entry.Data)))
 		binary.LittleEndian.PutUint64(meta[16:], dataOffset)
-		// remaining fields are zero (reserved + padding_size_in_bits)
+		// Sub-byte payloads end in a partial byte whose unused high bits the
+		// reader must be told about; without it it derives a wrong element
+		// count or rejects the blob outright.
+		if bits := subByteBits(entry.DType); bits != 0 {
+			if rem := (entry.NumElements * bits) % 8; rem != 0 {
+				binary.LittleEndian.PutUint64(meta[24:], uint64(8-rem))
+			}
+		}
+		// remaining fields are zero (reserved)
 		data = append(data, meta...)
 
 		// Raw tensor data.

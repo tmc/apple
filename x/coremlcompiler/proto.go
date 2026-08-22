@@ -62,7 +62,9 @@ func (r *protoReader) readBytes() ([]byte, error) {
 	if err != nil {
 		return nil, err
 	}
-	if int(n) > r.remaining() {
+	// Compare as uint64: a length >= 2^63 converted to int is negative and
+	// would pass a signed bounds check, then panic in the slice expression.
+	if n > uint64(r.remaining()) {
 		return nil, fmt.Errorf("proto: bytes length %d exceeds remaining %d", n, r.remaining())
 	}
 	data := r.data[r.pos : r.pos+int(n)]
@@ -179,4 +181,14 @@ func readPackedInt64(data []byte) ([]int64, error) {
 		out = append(out, int64(v))
 	}
 	return out, nil
+}
+
+// skipUnknown skips the value of the field whose tag was just read and returns
+// the field's original tag and value bytes. tagStart is the reader position
+// recorded before readTag.
+func (r *protoReader) skipUnknown(tagStart, wire int) ([]byte, error) {
+	if err := r.skip(wire); err != nil {
+		return nil, err
+	}
+	return r.data[tagStart:r.pos], nil
 }

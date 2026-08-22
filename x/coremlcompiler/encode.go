@@ -35,6 +35,12 @@ func concatBytes(parts ...[]byte) []byte {
 
 func encodeModelDescription(desc ModelDescription) []byte {
 	var fields [][]byte
+	for _, fn := range desc.Functions {
+		fields = append(fields, encodeBytes(20, encodeFunctionDescription(fn)))
+	}
+	if desc.DefaultFunctionName != "" {
+		fields = append(fields, encodeBytes(21, []byte(desc.DefaultFunctionName)))
+	}
 	for _, in := range desc.Inputs {
 		fields = append(fields, encodeBytes(1, encodeFeatureDescription(in, false)))
 	}
@@ -44,7 +50,47 @@ func encodeModelDescription(desc ModelDescription) []byte {
 	for _, state := range desc.States {
 		fields = append(fields, encodeBytes(13, encodeFeatureDescription(state, true)))
 	}
+	if desc.Metadata != nil {
+		fields = append(fields, encodeBytes(100, encodeModelMetadata(desc.Metadata)))
+	}
+	fields = append(fields, desc.unknown)
 	return concatBytes(fields...)
+}
+
+func encodeModelMetadata(md *ModelMetadata) []byte {
+	var parts [][]byte
+	if md.ShortDescription != "" {
+		parts = append(parts, encodeBytes(1, []byte(md.ShortDescription)))
+	}
+	if md.VersionString != "" {
+		parts = append(parts, encodeBytes(2, []byte(md.VersionString)))
+	}
+	if md.Author != "" {
+		parts = append(parts, encodeBytes(3, []byte(md.Author)))
+	}
+	if md.License != "" {
+		parts = append(parts, encodeBytes(4, []byte(md.License)))
+	}
+	// Sorted keys keep encoding deterministic, as elsewhere for proto maps.
+	for _, key := range sortedKeys(md.UserDefined) {
+		parts = append(parts, encodeBytes(100, encodeMapEntry(key, []byte(md.UserDefined[key]))))
+	}
+	return concatBytes(parts...)
+}
+
+func encodeFunctionDescription(fn FunctionDescription) []byte {
+	parts := [][]byte{encodeBytes(1, []byte(fn.Name))}
+	for _, in := range fn.Inputs {
+		parts = append(parts, encodeBytes(2, encodeFeatureDescription(in, false)))
+	}
+	for _, out := range fn.Outputs {
+		parts = append(parts, encodeBytes(3, encodeFeatureDescription(out, false)))
+	}
+	for _, state := range fn.States {
+		parts = append(parts, encodeBytes(6, encodeFeatureDescription(state, true)))
+	}
+	parts = append(parts, fn.unknown)
+	return concatBytes(parts...)
 }
 
 func encodeFeatureDescription(fd FeatureDescription, isState bool) []byte {
@@ -52,11 +98,36 @@ func encodeFeatureDescription(fd FeatureDescription, isState bool) []byte {
 	if fd.Type != nil {
 		parts = append(parts, encodeBytes(3, encodeFeatureType(fd.Type, isState)))
 	}
+	parts = append(parts, fd.unknown)
 	return concatBytes(parts...)
 }
 
 func encodeFeatureType(ft *FeatureType, isState bool) []byte {
 	var parts [][]byte
+	if ft.Int64Type {
+		parts = append(parts, encodeBytes(1, nil))
+	}
+	if ft.DoubleType {
+		parts = append(parts, encodeBytes(2, nil))
+	}
+	if ft.StringType {
+		parts = append(parts, encodeBytes(3, nil))
+	}
+	if ft.ImageType != nil {
+		var imgParts [][]byte
+		if ft.ImageType.Width != 0 {
+			imgParts = append(imgParts, encodeVarint(uint64(1)<<3|wireVarint, encodeVarintVal(uint64(ft.ImageType.Width))))
+		}
+		if ft.ImageType.Height != 0 {
+			imgParts = append(imgParts, encodeVarint(uint64(2)<<3|wireVarint, encodeVarintVal(uint64(ft.ImageType.Height))))
+		}
+		// colorSpace is field 3; Core ML rejects INVALID_COLOR_SPACE (0).
+		if ft.ImageType.ColorSpace != 0 {
+			imgParts = append(imgParts, encodeVarint(uint64(3)<<3|wireVarint, encodeVarintVal(uint64(ft.ImageType.ColorSpace))))
+		}
+		imgParts = append(imgParts, ft.ImageType.unknown)
+		parts = append(parts, encodeBytes(4, concatBytes(imgParts...)))
+	}
 	if ft.MultiArrayType != nil {
 		if isState {
 			parts = append(parts, encodeBytes(8, encodeStateFeatureType(ft.MultiArrayType)))
@@ -64,9 +135,35 @@ func encodeFeatureType(ft *FeatureType, isState bool) []byte {
 			parts = append(parts, encodeBytes(5, encodeArrayFeatureType(ft.MultiArrayType)))
 		}
 	}
+	if ft.DictionaryType != nil {
+		// DictionaryFeatureType.KeyType: int64KeyType = 1, stringKeyType = 2.
+		var dictParts [][]byte
+		if ft.DictionaryType.KeyType == "int64" {
+			dictParts = append(dictParts, encodeBytes(1, nil))
+		} else if ft.DictionaryType.KeyType == "string" {
+			dictParts = append(dictParts, encodeBytes(2, nil))
+		}
+		parts = append(parts, encodeBytes(6, concatBytes(dictParts...)))
+	}
+	if ft.SequenceType != nil {
+		// SequenceFeatureType.Type selects an empty message by field number:
+		// int64Type = 1, stringType = 3. The element type is not nested.
+		if et := ft.SequenceType.ElementType; et != nil {
+			switch {
+			case et.Int64Type:
+				parts = append(parts, encodeBytes(7, encodeBytes(1, nil)))
+			case et.StringType:
+				parts = append(parts, encodeBytes(7, encodeBytes(3, nil)))
+			}
+		}
+	}
+	if ft.StateArrayType != nil {
+		parts = append(parts, encodeBytes(8, encodeStateFeatureType(ft.StateArrayType)))
+	}
 	if ft.IsOptional {
 		parts = append(parts, encodeVarint(uint64(1000)<<3|wireVarint, encodeVarintVal(1)))
 	}
+	parts = append(parts, ft.unknown)
 	return concatBytes(parts...)
 }
 
@@ -82,6 +179,7 @@ func encodeArrayFeatureType(arr *ArrayFeatureType) []byte {
 	if arr.DataType != 0 {
 		parts = append(parts, encodeVarint(uint64(2)<<3|wireVarint, encodeVarintVal(uint64(arr.DataType))))
 	}
+	parts = append(parts, arr.unknown)
 	return concatBytes(parts...)
 }
 
@@ -90,6 +188,11 @@ func encodeStateFeatureType(arr *ArrayFeatureType) []byte {
 }
 
 // EncodeModel encodes a Model to protobuf wire format.
+//
+// The Model type models the mlprogram subset of the CoreML spec. Fields
+// outside that subset cannot be built from Go, but are preserved verbatim on a
+// model that was decoded from wire bytes and are re-emitted after the modeled
+// fields of the message they belong to.
 func EncodeModel(m *Model) []byte {
 	var parts [][]byte
 	if m.SpecVersion != 0 {
@@ -102,6 +205,7 @@ func EncodeModel(m *Model) []byte {
 	if m.MLProgram != nil {
 		parts = append(parts, encodeBytes(502, encodeProgram(m.MLProgram)))
 	}
+	parts = append(parts, m.unknown)
 	return concatBytes(parts...)
 }
 
@@ -188,12 +292,50 @@ func encodeNamedValueType(nvt NamedValueType) []byte {
 }
 
 func encodeValueType(vt *ValueType) []byte {
-	var parts [][]byte
-	if vt.TensorType != nil {
-		parts = append(parts, encodeBytes(1, encodeTensorType(vt.TensorType)))
+	// ValueType.type is a oneof: emit at most one member, lowest proto
+	// field number first.
+	switch {
+	case vt.TensorType != nil:
+		return encodeBytes(1, encodeTensorType(vt.TensorType))
+	case vt.ListType != nil:
+		return encodeBytes(2, encodeListType(vt.ListType))
+	case vt.TupleType != nil:
+		return encodeBytes(3, encodeTupleType(vt.TupleType))
+	case vt.DictionaryType != nil:
+		return encodeBytes(4, encodeDictionaryType(vt.DictionaryType))
+	case vt.StateType != nil:
+		return encodeBytes(5, encodeStateType(vt.StateType))
 	}
-	if vt.StateType != nil {
-		parts = append(parts, encodeBytes(5, encodeStateType(vt.StateType)))
+	return nil
+}
+
+func encodeListType(lt *ListType) []byte {
+	var parts [][]byte
+	if lt.ElementType != nil {
+		parts = append(parts, encodeBytes(1, encodeValueType(lt.ElementType)))
+	}
+	// ListType.length is a Dimension message, not an integer.
+	if lt.Length != 0 {
+		parts = append(parts, encodeBytes(2, encodeDimension(Dimension{Constant: uint64(lt.Length)})))
+	}
+	return concatBytes(parts...)
+}
+
+func encodeTupleType(tt *TupleType) []byte {
+	var parts [][]byte
+	for _, vt := range tt.Types {
+		parts = append(parts, encodeBytes(1, encodeValueType(vt)))
+	}
+	return concatBytes(parts...)
+}
+
+func encodeDictionaryType(dt *DictionaryType) []byte {
+	var parts [][]byte
+	if dt.KeyType != nil {
+		parts = append(parts, encodeBytes(1, encodeValueType(dt.KeyType)))
+	}
+	if dt.ValueType != nil {
+		parts = append(parts, encodeBytes(2, encodeValueType(dt.ValueType)))
 	}
 	return concatBytes(parts...)
 }
@@ -222,7 +364,11 @@ func encodeStateType(st *StateType) []byte {
 
 func encodeDimension(d Dimension) []byte {
 	if d.Unknown {
-		// Dimension { field 2 = UnknownDimension {} }
+		// Dimension { field 2 = UnknownDimension { field 1 = variadic } }
+		if d.Variadic {
+			inner := encodeVarint(uint64(1)<<3|wireVarint, encodeVarintVal(1))
+			return encodeBytes(2, inner)
+		}
 		return encodeBytes(2, nil)
 	}
 	// Dimension { field 1 = ConstantDimension { field 1 = size } }
@@ -235,10 +381,12 @@ func encodeValue(v *Value) []byte {
 	if v.Type != nil {
 		parts = append(parts, encodeBytes(2, encodeValueType(v.Type)))
 	}
-	if v.Immediate != nil {
+	// Value.value is a oneof over immediateValue and blobFileValue; type is
+	// outside it.
+	switch {
+	case v.Immediate != nil:
 		parts = append(parts, encodeBytes(3, encodeImmediateValue(v.Immediate)))
-	}
-	if v.BlobFile != nil {
+	case v.BlobFile != nil:
 		parts = append(parts, encodeBytes(5, encodeBlobFileValue(v.BlobFile)))
 	}
 	return concatBytes(parts...)
@@ -246,51 +394,78 @@ func encodeValue(v *Value) []byte {
 
 func encodeImmediateValue(iv *ImmediateValue) []byte {
 	var parts [][]byte
-	if iv.Tensor != nil {
+	// ImmediateValue.value is a oneof: emit at most one member.
+	switch {
+	case iv.Tensor != nil:
 		parts = append(parts, encodeBytes(1, encodeTensorValue(iv.Tensor)))
+	case iv.Tuple != nil:
+		var tupleParts [][]byte
+		for _, v := range iv.Tuple.Values {
+			tupleParts = append(tupleParts, encodeBytes(1, encodeValue(v)))
+		}
+		parts = append(parts, encodeBytes(2, concatBytes(tupleParts...)))
+	case iv.List != nil:
+		var listParts [][]byte
+		for _, v := range iv.List.Values {
+			listParts = append(listParts, encodeBytes(1, encodeValue(v)))
+		}
+		parts = append(parts, encodeBytes(3, concatBytes(listParts...)))
+	case iv.Dictionary != nil:
+		var dictParts [][]byte
+		for _, entry := range iv.Dictionary.Entries {
+			var entryParts [][]byte
+			if entry.Key != nil {
+				entryParts = append(entryParts, encodeBytes(1, encodeValue(entry.Key)))
+			}
+			if entry.Value != nil {
+				entryParts = append(entryParts, encodeBytes(2, encodeValue(entry.Value)))
+			}
+			dictParts = append(dictParts, encodeBytes(1, concatBytes(entryParts...)))
+		}
+		parts = append(parts, encodeBytes(4, concatBytes(dictParts...)))
 	}
 	return concatBytes(parts...)
 }
 
 func encodeTensorValue(tv *TensorValue) []byte {
 	var parts [][]byte
-	if len(tv.Floats) > 0 {
+	// Presence, not length, selects the field: an empty tensor const (a
+	// dimension of size 0) must still set its oneof field so the reader can
+	// tell which field was intended. coremltools does this via SetInParent.
+	emit := func(field int, inner []byte) {
+		if len(inner) == 0 {
+			// Empty submessage: field present, no values.
+			parts = append(parts, encodeBytes(field, nil))
+			return
+		}
+		parts = append(parts, encodeBytes(field, encodeBytes(1, inner)))
+	}
+	switch {
+	case tv.Floats != nil:
 		// RepeatedFloats { field 1 = packed float32 }
-		inner := encodeBytes(1, encodePackedFloat32(tv.Floats))
-		parts = append(parts, encodeBytes(1, inner))
-	}
-	if len(tv.Ints) > 0 {
+		emit(1, encodePackedFloat32(tv.Floats))
+	case tv.Ints != nil:
 		// RepeatedInts { field 1 = packed varint int32 }
-		inner := encodeBytes(1, encodePackedVarintInt32(tv.Ints))
-		parts = append(parts, encodeBytes(2, inner))
-	}
-	if len(tv.Bools) > 0 {
+		emit(2, encodePackedVarintInt32(tv.Ints))
+	case tv.Bools != nil:
 		// RepeatedBools { field 1 = packed varint bool }
-		inner := encodeBytes(1, encodePackedVarintBool(tv.Bools))
-		parts = append(parts, encodeBytes(3, inner))
-	}
-	if len(tv.Strings) > 0 {
+		emit(3, encodePackedVarintBool(tv.Bools))
+	case tv.Strings != nil:
 		// RepeatedStrings { field 1 = repeated string (NOT packed) }
 		var innerParts [][]byte
 		for _, s := range tv.Strings {
 			innerParts = append(innerParts, encodeBytes(1, []byte(s)))
 		}
 		parts = append(parts, encodeBytes(4, concatBytes(innerParts...)))
-	}
-	if len(tv.Longs) > 0 {
+	case tv.Longs != nil:
 		// RepeatedLongInts { field 1 = packed varint int64 }
-		inner := encodeBytes(1, encodePackedVarintInt64(tv.Longs))
-		parts = append(parts, encodeBytes(5, inner))
-	}
-	if len(tv.Doubles) > 0 {
+		emit(5, encodePackedVarintInt64(tv.Longs))
+	case tv.Doubles != nil:
 		// RepeatedDoubles { field 1 = packed float64 }
-		inner := encodeBytes(1, encodePackedFloat64(tv.Doubles))
-		parts = append(parts, encodeBytes(6, inner))
-	}
-	if len(tv.Bytes) > 0 {
+		emit(6, encodePackedFloat64(tv.Doubles))
+	case tv.Bytes != nil:
 		// RepeatedBytes { field 1 = bytes }
-		inner := encodeBytes(1, tv.Bytes)
-		parts = append(parts, encodeBytes(7, inner))
+		emit(7, tv.Bytes)
 	}
 	return concatBytes(parts...)
 }
@@ -315,14 +490,15 @@ func encodeArgument(a *Argument) []byte {
 }
 
 func encodeBinding(b Binding) []byte {
-	var parts [][]byte
-	if b.Name != "" {
-		parts = append(parts, encodeBytes(1, []byte(b.Name)))
+	// Binding.binding is a oneof: an inline value wins over a name, since a
+	// non-nil Value is unambiguous intent while Name has no presence bit.
+	switch {
+	case b.Value != nil:
+		return encodeBytes(2, encodeValue(b.Value))
+	case b.Name != "":
+		return encodeBytes(1, []byte(b.Name))
 	}
-	if b.Value != nil {
-		parts = append(parts, encodeBytes(2, encodeValue(b.Value)))
-	}
-	return concatBytes(parts...)
+	return nil
 }
 
 func encodeMapEntry(key string, val []byte) []byte {

@@ -372,13 +372,14 @@ func TestWriteMLPackage(t *testing.T) {
 
 	modelProto := buildTestModelProto()
 
-	// Create weight directory with a test file.
+	// weightSrc is the weights directory itself; its contents land under
+	// the package's weights/ so @model_path/weights/... references resolve.
 	weightDir := filepath.Join(dir, "weights-src")
-	if err := os.MkdirAll(filepath.Join(weightDir, "weights"), 0o755); err != nil {
+	if err := os.MkdirAll(weightDir, 0o755); err != nil {
 		t.Fatal(err)
 	}
 	weightData := []byte("test-weight-data-1234567890")
-	if err := os.WriteFile(filepath.Join(weightDir, "weights", "weight.bin"), weightData, 0o644); err != nil {
+	if err := os.WriteFile(filepath.Join(weightDir, "weight.bin"), weightData, 0o644); err != nil {
 		t.Fatal(err)
 	}
 
@@ -701,5 +702,114 @@ func compareValueMaps(t *testing.T, prefix string, got, want map[string]*Value) 
 			continue
 		}
 		compareValues(t, fmt.Sprintf("%s[%s]", prefix, key), gotVal, wantVal)
+	}
+}
+
+// TestEncodeMultiFunctionDescription checks that a multi-function
+// ModelDescription round-trips its functions and default function name; without
+// them the extra entry points of a multi-function program are unaddressable.
+func TestEncodeMultiFunctionDescription(t *testing.T) {
+	original := &Model{
+		SpecVersion: 9,
+		Description: ModelDescription{
+			DefaultFunctionName: "prefill",
+			Functions: []FunctionDescription{
+				{
+					Name:    "prefill",
+					Inputs:  []FeatureDescription{{Name: "x", Type: &FeatureType{MultiArrayType: &ArrayFeatureType{Shape: []int64{1, 128}, DataType: ArrayDataTypeFloat16}}}},
+					Outputs: []FeatureDescription{{Name: "y", Type: &FeatureType{MultiArrayType: &ArrayFeatureType{Shape: []int64{1, 128}, DataType: ArrayDataTypeFloat16}}}},
+					States:  []FeatureDescription{{Name: "k_cache", Type: &FeatureType{MultiArrayType: &ArrayFeatureType{Shape: []int64{1, 8}, DataType: ArrayDataTypeFloat16}}}},
+				},
+				{
+					Name:    "extend",
+					Inputs:  []FeatureDescription{{Name: "x", Type: &FeatureType{MultiArrayType: &ArrayFeatureType{Shape: []int64{1, 1}, DataType: ArrayDataTypeFloat16}}}},
+					Outputs: []FeatureDescription{{Name: "y", Type: &FeatureType{MultiArrayType: &ArrayFeatureType{Shape: []int64{1, 1}, DataType: ArrayDataTypeFloat16}}}},
+				},
+			},
+		},
+	}
+
+	encoded := EncodeModel(original)
+	decoded, err := decodeModel(encoded)
+	if err != nil {
+		t.Fatalf("decode: %v", err)
+	}
+	got := decoded.Description
+	if got.DefaultFunctionName != "prefill" {
+		t.Errorf("DefaultFunctionName = %q, want %q", got.DefaultFunctionName, "prefill")
+	}
+	if len(got.Functions) != 2 {
+		t.Fatalf("len(Functions) = %d, want 2", len(got.Functions))
+	}
+	for i, want := range original.Description.Functions {
+		if got.Functions[i].Name != want.Name {
+			t.Errorf("Functions[%d].Name = %q, want %q", i, got.Functions[i].Name, want.Name)
+		}
+		compareFeatureList(t, fmt.Sprintf("Functions[%d].Inputs", i), got.Functions[i].Inputs, want.Inputs)
+		compareFeatureList(t, fmt.Sprintf("Functions[%d].Outputs", i), got.Functions[i].Outputs, want.Outputs)
+		compareFeatureList(t, fmt.Sprintf("Functions[%d].States", i), got.Functions[i].States, want.States)
+	}
+}
+
+func TestValidateFunctionDescriptions(t *testing.T) {
+	twoFn := &Program{Functions: map[string]*Function{"prefill": {}, "extend": {}}}
+	tests := []struct {
+		name    string
+		model   *Model
+		wantErr string
+	}{
+		{
+			name:    "multi function without descriptions",
+			model:   &Model{MLProgram: twoFn},
+			wantErr: "multi-function program requires function descriptions",
+		},
+		{
+			name: "descriptions without default",
+			model: &Model{MLProgram: twoFn, Description: ModelDescription{
+				Functions: []FunctionDescription{{Name: "prefill"}, {Name: "extend"}},
+			}},
+			wantErr: "function descriptions require a default function name",
+		},
+		{
+			name: "default names unknown function",
+			model: &Model{MLProgram: twoFn, Description: ModelDescription{
+				Functions:           []FunctionDescription{{Name: "prefill"}, {Name: "extend"}},
+				DefaultFunctionName: "decode",
+			}},
+			wantErr: `default function "decode" has no matching mil function`,
+		},
+		{
+			name: "description names unknown function",
+			model: &Model{MLProgram: twoFn, Description: ModelDescription{
+				Functions:           []FunctionDescription{{Name: "prefill"}, {Name: "decode"}},
+				DefaultFunctionName: "prefill",
+			}},
+			wantErr: `function description "decode" has no matching mil function`,
+		},
+		{
+			name: "valid multi function",
+			model: &Model{MLProgram: twoFn, Description: ModelDescription{
+				Functions:           []FunctionDescription{{Name: "prefill"}, {Name: "extend"}},
+				DefaultFunctionName: "prefill",
+			}},
+		},
+		{
+			name:  "single function needs nothing",
+			model: &Model{MLProgram: &Program{Functions: map[string]*Function{"main": {}}}},
+		},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			err := validateFunctionDescriptions(tt.model)
+			if tt.wantErr == "" {
+				if err != nil {
+					t.Fatalf("got error %v, want nil", err)
+				}
+				return
+			}
+			if err == nil || err.Error() != tt.wantErr {
+				t.Fatalf("got error %v, want %q", err, tt.wantErr)
+			}
+		})
 	}
 }

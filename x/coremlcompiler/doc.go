@@ -31,4 +31,9 @@
 // text programmatically rather than decoding it from a protobuf:
 //
 //	err := coremlcompiler.CompileMILText(milText, 8, desc, weightRoot, "model.mlmodelc")
+//
+// The Go types in this package model the mlprogram subset of the CoreML
+// specification. Fields outside that subset, such as Model.isUpdatable or an
+// input's shape flexibility, cannot be constructed from Go, but a model
+// decoded from wire bytes keeps them and re-encodes them verbatim.
 package coremlcompiler
