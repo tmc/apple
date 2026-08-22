@@ -601,6 +601,25 @@ var probes = map[string]func(t *testing.T){
 			}
 		}
 		fmt.Printf("RESULT state reader after update: %v\n", read)
+
+		// A second, distinct write is the mutation control. Re-execute both
+		// already-encoded programs so this observes the same retained state
+		// buffer rather than a fresh binding or compilation.
+		second := []float32{16, 15, 14, 13, 12, 11, 10, 9, 8, 7, 6, 5, 4, 3, 2, 1}
+		writeExampleFP16(valuePtr, second)
+		if err := lib.ExecuteSync(stream); err != nil {
+			t.Fatal(err)
+		}
+		if err := lib.ExecuteSync(readStream); err != nil {
+			t.Fatal(err)
+		}
+		read = readExampleFP16(readPtr, len(second))
+		for i := range second {
+			if read[i] != second[i] {
+				t.Fatalf("state reader after second update returned %v, want %v", read, second)
+			}
+		}
+		fmt.Printf("RESULT state reader after second update: %v\n", read)
 	},
 
 	// ANEForge (docs/e5rt-dispatch-reference.md:313-317) says a completion event
