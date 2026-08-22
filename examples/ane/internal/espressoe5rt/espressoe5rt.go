@@ -26,8 +26,10 @@ const (
 // Symbols is the direct-dispatch symbol set reported by the examples.
 //
 // Resolving a name establishes only that Espresso exports it. The typed methods
-// in this package use the manifest's verified signatures; the remaining names
-// are retained for the probe's explicitly raw experiments.
+// in this package use signatures with the manifest's strongest grade, but that
+// grade comes from the handwritten e5rt adapter's own call sites. It records
+// that route being exercised; it is not independent confirmation. The
+// remaining names are retained for the probe's explicitly raw experiments.
 var Symbols = []string{
 	"e5rt_e5_compiler_config_options_create",
 	"e5rt_e5_compiler_config_options_set_cache_bundle_location",

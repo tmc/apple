@@ -3,9 +3,13 @@
 // refuses to report anything else.
 //
 // The normal compile, load, bind, and synchronous-dispatch route has been
-// called through manifest-verified generated signatures under a CPU reference.
-// See espressoe5rtdispatch and espressoe5rtblock. Resolving the remaining
-// names with dlsym does not establish their calling conventions.
+// called through generated signatures under a CPU reference. Those 33
+// signatures carry the manifest's strongest grade, but it was earned from the
+// handwritten e5rt adapter's own call sites: a record that the route is
+// exercised, not independent confirmation of it. The independent evidence is
+// the end-to-end CPU-reference and mutation-control examples,
+// espressoe5rtdispatch and espressoe5rtblock. Resolving the remaining names
+// with dlsym does not establish their calling conventions.
 //
 // The tool keeps its shape anyway, because the hazard it was built around
 // has not changed. Calling a wrong signature through purego faults in C,
@@ -154,11 +158,13 @@ type symbolReport struct {
 	Unwrapped     []string `json:"unwrapped,omitempty"`
 }
 
-// wrapped lists the names for which espressoe5rt has a typed method backed by
-// a manifest-verified signature. The remainder of e5rt.Symbols is resolved
-// only; a raw caller through Lib.Sym must supply its own convention and run in
-// an isolated child process. This list records the adapter's boundary, not a
-// claim about every generated Espresso declaration.
+// wrapped lists the names for which espressoe5rt has a typed method using a
+// signature with the manifest's strongest grade. That grade is not independent:
+// it is derived from the handwritten e5rt adapter's call sites. The remainder
+// of e5rt.Symbols is resolved only; a raw caller through Lib.Sym must supply
+// its own convention and run in an isolated child process. This list records
+// the adapter's boundary, not a claim about every generated Espresso
+// declaration.
 var wrapped = map[string]bool{
 	"e5rt_e5_compiler_config_options_create":                                            true,
 	"e5rt_e5_compiler_config_options_set_cache_bundle_location":                         true,
