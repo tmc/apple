@@ -439,9 +439,9 @@ func raw_xpc_connection_copy_invalidation_reason(connection unsafe.Pointer) *byt
 	return rawfn_xpc_connection_copy_invalidation_reason(connection)
 }
 
-var rawfn_xpc_connection_create func(name string, targetq unsafe.Pointer) unsafe.Pointer
+var rawfn_xpc_connection_create func(name *byte, targetq unsafe.Pointer) unsafe.Pointer
 
-func raw_xpc_connection_create(name string, targetq unsafe.Pointer) unsafe.Pointer {
+func raw_xpc_connection_create(name *byte, targetq unsafe.Pointer) unsafe.Pointer {
 	if rawfn_xpc_connection_create == nil {
 		var zero unsafe.Pointer
 		return zero

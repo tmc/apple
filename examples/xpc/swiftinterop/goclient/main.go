@@ -64,7 +64,22 @@ func call(name, op string) error {
 		if !ok {
 			return fmt.Errorf("endpoint key decoded as %T, not xpc.Endpoint", got.Dictionary()["endpoint"])
 		}
-		fmt.Printf("Go holds an xpc.Endpoint (handle=%#x) and has no API to dial it\n", ep.Handle())
+		peer, err := xpc.NewConnectionFromEndpoint(ep, func(xpc.Dictionary) {})
+		if err != nil {
+			return fmt.Errorf("dial endpoint: %w", err)
+		}
+		defer peer.Cancel()
+		if err := peer.Activate(); err != nil {
+			return fmt.Errorf("activate endpoint connection: %w", err)
+		}
+		through, err := peer.CallDictionary(context.Background(), xpc.Dictionary{"op": "ping"})
+		if err != nil {
+			return fmt.Errorf("call endpoint: %w", err)
+		}
+		if got, _ := through["pong"].(string); got != "reached through a relayed endpoint" {
+			return fmt.Errorf("endpoint reply = %#v, want pong", through)
+		}
+		fmt.Printf("Go dialed xpc.Endpoint (handle=%#x) and received a reply\n", ep.Handle())
 		back, err := session.CallDictionary(context.Background(), xpc.Dictionary{"op": "echoendpoint", "endpoint": ep})
 		if err != nil {
 			return fmt.Errorf("relay endpoint: %w", err)

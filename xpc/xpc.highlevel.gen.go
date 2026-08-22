@@ -317,6 +317,18 @@ type Session struct {
 // handler runs.
 type EventHandler func(Dictionary)
 
+// ConnectionHandler receives a message or an XPC error dictionary from a
+// classic connection. It runs on the connection's target queue.
+type ConnectionHandler func(Dictionary)
+
+// Connection is a peer on XPC's classic connection API.
+type Connection struct {
+	raw      unsafe.Pointer
+	handler  ConnectionHandler
+	eventBlk unsafe.Pointer
+	active   bool
+}
+
 type ReceivedMessage struct {
 	raw     unsafe.Pointer
 	session *Session
@@ -444,6 +456,326 @@ func pointerFromHandle(handle uintptr) unsafe.Pointer {
 // is not an accepted construction path.
 func targetQueuePointer(queue dispatch.Queue) unsafe.Pointer {
 	return pointerFromHandle(queue.Handle())
+}
+
+// NewAnonymousConnection creates an inactive anonymous listener connection.
+// handler is installed before the connection can be activated.
+func NewAnonymousConnection(queue dispatch.Queue, handler ConnectionHandler) (*Connection, error) {
+	if err := requireRawSymbols(rawSyms_NewAnonymousConnection...); err != nil {
+		return nil, err
+	}
+	return newConnection(raw_xpc_connection_create(nil, targetQueuePointer(queue)), handler)
+}
+
+// NewConnectionFromEndpoint creates an inactive peer connection to endpoint.
+// handler is installed before the connection can be activated.
+func NewConnectionFromEndpoint(endpoint Endpoint, handler ConnectionHandler) (*Connection, error) {
+	if endpoint.raw == nil {
+		return nil, errors.New("xpc: endpoint is zero")
+	}
+	if err := requireRawSymbols(rawSyms_NewConnectionFromEndpoint...); err != nil {
+		return nil, err
+	}
+	return newConnection(raw_xpc_connection_create_from_endpoint(endpoint.raw), handler)
+}
+
+// ConnectionMachServiceListener and ConnectionMachServicePrivileged are the
+// flags accepted by NewMachServiceConnection.
+const (
+	ConnectionMachServiceListener   uint64 = 1 << 0
+	ConnectionMachServicePrivileged uint64 = 1 << 1
+)
+
+// NewMachServiceConnection creates an inactive connection to name.
+func NewMachServiceConnection(name string, queue dispatch.Queue, flags uint64, handler ConnectionHandler) (*Connection, error) {
+	if name == "" {
+		return nil, errors.New("xpc: mach service name is empty")
+	}
+	if flags&^(ConnectionMachServiceListener|ConnectionMachServicePrivileged) != 0 {
+		return nil, errors.New("xpc: unknown mach service connection flags")
+	}
+	if err := requireRawSymbols(rawSyms_NewMachServiceConnection...); err != nil {
+		return nil, err
+	}
+	return newConnection(raw_xpc_connection_create_mach_service(name, targetQueuePointer(queue), flags), handler)
+}
+
+func newConnection(raw unsafe.Pointer, handler ConnectionHandler) (*Connection, error) {
+	if handler == nil {
+		return nil, errors.New("xpc: connection handler is nil")
+	}
+	if raw == nil {
+		return nil, errors.New("xpc: failed to create connection")
+	}
+	c := &Connection{raw: raw, handler: handler}
+	block, err := newXPCBlock(func(_ uintptr, message unsafe.Pointer) {
+		d, err := rawObjectToDictionary(message)
+		if err == nil {
+			handler(d)
+		}
+	})
+	if err != nil {
+		releaseRaw(raw)
+		return nil, err
+	}
+	c.eventBlk = block
+	raw_xpc_connection_set_event_handler(raw, block)
+	return c, nil
+}
+
+// Activate activates c. A connection is created suspended and must have an
+// event handler before activation.
+func (c *Connection) Activate() error {
+	if c == nil || c.raw == nil {
+		return errors.New("xpc: connection is not initialized")
+	}
+	if c.eventBlk == nil {
+		return errors.New("xpc: connection has no event handler")
+	}
+	if err := requireRawSymbols(rawSyms_Connection_Activate...); err != nil {
+		return err
+	}
+	raw_xpc_connection_activate(c.raw)
+	c.active = true
+	return nil
+}
+
+// Cancel terminates c. It is safe to call more than once.
+func (c *Connection) Cancel() error {
+	if c == nil || c.raw == nil {
+		return nil
+	}
+	if err := requireRawSymbols(rawSyms_Connection_Cancel...); err != nil {
+		return err
+	}
+	raw_xpc_connection_cancel(c.raw)
+	return nil
+}
+
+// Endpoint returns an endpoint that can create peer connections to c.
+func (c *Connection) Endpoint() (Endpoint, error) {
+	if c == nil || c.raw == nil {
+		return Endpoint{}, errors.New("xpc: connection is not initialized")
+	}
+	if err := requireRawSymbols(rawSyms_Connection_Endpoint...); err != nil {
+		return Endpoint{}, err
+	}
+	raw := raw_xpc_endpoint_create(c.raw)
+	if raw == nil {
+		return Endpoint{}, errors.New("xpc: failed to create endpoint")
+	}
+	return Endpoint{raw: raw}, nil
+}
+
+// CallDictionary sends msg and waits for its reply. ctx is caller-side only:
+// classic XPC has no per-message deadline.
+func (c *Connection) CallDictionary(ctx context.Context, msg Dictionary) (Dictionary, error) {
+	if c == nil || c.raw == nil {
+		return nil, errors.New("xpc: connection is not initialized")
+	}
+	if err := ctx.Err(); err != nil {
+		return nil, err
+	}
+	if err := requireRawSymbols(rawSyms_Connection_CallDictionary...); err != nil {
+		return nil, err
+	}
+	raw, err := dictionaryToRawObject(msg)
+	if err != nil {
+		return nil, err
+	}
+	defer releaseRaw(raw)
+	reply := raw_xpc_connection_send_message_with_reply_sync(c.raw, raw)
+	if reply == nil {
+		return nil, errNoReply
+	}
+	defer releaseRaw(reply)
+	return rawObjectToDictionary(reply)
+}
+
+// SendDictionary queues msg without waiting for delivery or a reply.
+func (c *Connection) SendDictionary(msg Dictionary) error {
+	if c == nil || c.raw == nil {
+		return errors.New("xpc: connection is not initialized")
+	}
+	if err := requireRawSymbols(rawSyms_Connection_SendDictionary...); err != nil {
+		return err
+	}
+	raw, err := dictionaryToRawObject(msg)
+	if err != nil {
+		return err
+	}
+	defer releaseRaw(raw)
+	raw_xpc_connection_send_message(c.raw, raw)
+	return nil
+}
+
+// Suspend increments c's suspension count. Resume decrements it.
+func (c *Connection) Suspend() error {
+	if c == nil || c.raw == nil {
+		return errors.New("xpc: connection is not initialized")
+	}
+	if err := requireRawSymbols(rawSyms_Connection_Suspend...); err != nil {
+		return err
+	}
+	raw_xpc_connection_suspend(c.raw)
+	return nil
+}
+
+// Resume decrements c's suspension count.
+func (c *Connection) Resume() error {
+	if c == nil || c.raw == nil {
+		return errors.New("xpc: connection is not initialized")
+	}
+	if err := requireRawSymbols(rawSyms_Connection_Resume...); err != nil {
+		return err
+	}
+	raw_xpc_connection_resume(c.raw)
+	return nil
+}
+
+// PID returns the peer process ID. PID, EUID, and EGID are racy for
+// authorization because a peer can exec between check and use; use
+// PeerRequirement for authorization decisions.
+func (c *Connection) PID() (int32, error) {
+	if c == nil || c.raw == nil {
+		return 0, errors.New("xpc: connection is not initialized")
+	}
+	if err := requireRawSymbols(rawSyms_Connection_PID...); err != nil {
+		return 0, err
+	}
+	return raw_xpc_connection_get_pid(c.raw), nil
+}
+
+// EUID returns the peer effective user ID. See PID's authorization warning.
+func (c *Connection) EUID() (uint32, error) {
+	if c == nil || c.raw == nil {
+		return 0, errors.New("xpc: connection is not initialized")
+	}
+	if err := requireRawSymbols(rawSyms_Connection_EUID...); err != nil {
+		return 0, err
+	}
+	return raw_xpc_connection_get_euid(c.raw), nil
+}
+
+// EGID returns the peer effective group ID. See PID's authorization warning.
+func (c *Connection) EGID() (uint32, error) {
+	if c == nil || c.raw == nil {
+		return 0, errors.New("xpc: connection is not initialized")
+	}
+	if err := requireRawSymbols(rawSyms_Connection_EGID...); err != nil {
+		return 0, err
+	}
+	return raw_xpc_connection_get_egid(c.raw), nil
+}
+
+// AuditSessionID returns the peer audit-session ID.
+func (c *Connection) AuditSessionID() (int32, error) {
+	if c == nil || c.raw == nil {
+		return 0, errors.New("xpc: connection is not initialized")
+	}
+	if err := requireRawSymbols(rawSyms_Connection_AuditSessionID...); err != nil {
+		return 0, err
+	}
+	return raw_xpc_connection_get_asid(c.raw), nil
+}
+
+// Name returns c's borrowed service name.
+func (c *Connection) Name() (string, error) {
+	if c == nil || c.raw == nil {
+		return "", errors.New("xpc: connection is not initialized")
+	}
+	if err := requireRawSymbols(rawSyms_Connection_Name...); err != nil {
+		return "", err
+	}
+	return goString(raw_xpc_connection_get_name(c.raw)), nil
+}
+
+// InvalidationReason returns XPC's owned invalidation description.
+func (c *Connection) InvalidationReason() (string, error) {
+	if c == nil || c.raw == nil {
+		return "", errors.New("xpc: connection is not initialized")
+	}
+	if err := requireRawSymbols(rawSyms_Connection_InvalidationReason...); err != nil {
+		return "", err
+	}
+	return ownedString(raw_xpc_connection_copy_invalidation_reason(c.raw)), nil
+}
+
+// SetTargetQueue replaces the target queue before c is activated.
+func (c *Connection) SetTargetQueue(queue dispatch.Queue) error {
+	if c == nil || c.raw == nil || c.active {
+		return errors.New("xpc: target queue requires an inactive connection")
+	}
+	if err := requireRawSymbols(rawSyms_Connection_SetTargetQueue...); err != nil {
+		return err
+	}
+	raw_xpc_connection_set_target_queue(c.raw, targetQueuePointer(queue))
+	return nil
+}
+
+// SetPeerRequirement installs req before c is activated.
+func (c *Connection) SetPeerRequirement(req *PeerRequirement) error {
+	if c == nil || c.raw == nil || c.active || req == nil || req.raw == nil {
+		return errors.New("xpc: peer requirement requires an inactive connection")
+	}
+	if err := requireRawSymbols(rawSyms_Connection_SetPeerRequirement...); err != nil {
+		return err
+	}
+	raw_xpc_connection_set_peer_requirement(c.raw, req.raw)
+	return nil
+}
+
+// SetPeerCodeSigningRequirement installs requirement before c is activated.
+func (c *Connection) SetPeerCodeSigningRequirement(requirement string) error {
+	if c == nil || c.raw == nil || c.active || requirement == "" {
+		return errors.New("xpc: code signing requirement requires an inactive connection")
+	}
+	if err := requireRawSymbols(rawSyms_Connection_SetPeerCodeSigningRequirement...); err != nil {
+		return err
+	}
+	if raw_xpc_connection_set_peer_code_signing_requirement(c.raw, requirement) != 0 {
+		return errors.New("xpc: failed to set peer code signing requirement")
+	}
+	return nil
+}
+
+func (c *Connection) SetPeerEntitlementExistsRequirement(entitlement string) error {
+	if c == nil || c.raw == nil || c.active || entitlement == "" {
+		return errors.New("xpc: entitlement requirement requires an inactive connection")
+	}
+	if err := requireRawSymbols(rawSyms_Connection_SetPeerEntitlementExistsRequirement...); err != nil {
+		return err
+	}
+	if raw_xpc_connection_set_peer_entitlement_exists_requirement(c.raw, entitlement) != 0 {
+		return errors.New("xpc: failed to set entitlement requirement")
+	}
+	return nil
+}
+
+func (c *Connection) SetPeerPlatformIdentityRequirement(identifier string) error {
+	if c == nil || c.raw == nil || c.active || identifier == "" {
+		return errors.New("xpc: platform identity requirement requires an inactive connection")
+	}
+	if err := requireRawSymbols(rawSyms_Connection_SetPeerPlatformIdentityRequirement...); err != nil {
+		return err
+	}
+	if raw_xpc_connection_set_peer_platform_identity_requirement(c.raw, identifier) != 0 {
+		return errors.New("xpc: failed to set platform identity requirement")
+	}
+	return nil
+}
+
+func (c *Connection) SetPeerTeamIdentityRequirement(identifier string) error {
+	if c == nil || c.raw == nil || c.active || identifier == "" {
+		return errors.New("xpc: team identity requirement requires an inactive connection")
+	}
+	if err := requireRawSymbols(rawSyms_Connection_SetPeerTeamIdentityRequirement...); err != nil {
+		return err
+	}
+	if raw_xpc_connection_set_peer_team_identity_requirement(c.raw, identifier) != 0 {
+		return errors.New("xpc: failed to set team identity requirement")
+	}
+	return nil
 }
 
 // CopyValue makes an independent XPC copy of value and decodes it back into a

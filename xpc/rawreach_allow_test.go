@@ -4,6 +4,8 @@ import (
 	"os"
 	"syscall"
 	"testing"
+
+	"github.com/tmc/apple/dispatch"
 )
 
 // This file is hand-maintained. It is deliberately NOT generated: it is where
@@ -39,6 +41,7 @@ var rawReachAllowed = map[string]string{
 	"newRequirement|create(...)":                 "the create closure is supplied by each New*Requirement constructor and its raw call is recorded at the constructor",
 	"targetQueuePointer|queue.Handle(...)":       "dispatch.Queue.Handle lives in another package and cannot reach an xpc raw_ call",
 	"SetEventStreamHandler|handler(...)":         "caller-supplied EventHandler; package code only decodes the inbound dictionary before invoking it",
+	"newConnection|handler(...)":                 "caller-supplied ConnectionHandler; package code only decodes the inbound dictionary before invoking it",
 	"encodeMessage|iter.Key(...).String(...)":    "reflect.Value.String is a standard-library method and cannot reach an xpc raw_ call",
 	"entitlementValueToRawObject|rv.String(...)": "reflect.Value.String is a standard-library method and cannot reach an xpc raw_ call",
 	"jsonNumbersToWire|x.String(...)":            "json.Number.String is a standard-library method and cannot reach an xpc raw_ call",
@@ -49,7 +52,7 @@ var rawReachAllowed = map[string]string{
 	// entry points of the same name.
 	"mapShared|libcfn_mmap(...)":      "libc mmap bound through the framework handle; it is not an xpc symbol and reaches no raw_ call",
 	"munmapRegion|libcfn_munmap(...)": "libc munmap bound through the framework handle; it is not an xpc symbol and reaches no raw_ call",
-	"freeMemory|libcfn_free(...)":   "libc free bound through the framework handle; it is not an xpc symbol and reaches no raw_ call",
+	"freeMemory|libcfn_free(...)":     "libc free bound through the framework handle; it is not an xpc symbol and reaches no raw_ call",
 	// Mapping.Close is a method on a concrete type the analysis did not
 	// resolve at this site. It reaches munmapRegion and nothing else.
 	"NewSharedMemory|m.Close(...)": "Mapping.Close unmaps the region through munmapRegion; it reaches no xpc raw_ call",
@@ -69,6 +72,93 @@ type canaryRow struct {
 // session, listener or received message, and running its negative control with
 // a fabricated pointer would call native XPC on a bogus address.
 var canaries = []canaryRow{
+	{"NewAnonymousConnection", "xpc_connection_create", func(t *testing.T) error {
+		c, err := connectionCanary(t)
+		if c != nil {
+			c.Cancel()
+		}
+		return err
+	}},
+	{"(*Connection).Activate", "xpc_connection_activate", func(t *testing.T) error {
+		c, err := connectionCanary(t)
+		if err != nil {
+			return err
+		}
+		defer c.Cancel()
+		return c.Activate()
+	}},
+	{"(*Connection).Cancel", "xpc_connection_cancel", func(t *testing.T) error {
+		c, err := connectionCanary(t)
+		if err != nil {
+			return err
+		}
+		return c.Cancel()
+	}},
+	{"(*Connection).Endpoint", "xpc_endpoint_create", func(t *testing.T) error {
+		c, err := connectionCanary(t)
+		if err != nil {
+			return err
+		}
+		defer c.Cancel()
+		if err := c.Activate(); err != nil {
+			return err
+		}
+		_, err = c.Endpoint()
+		return err
+	}},
+	{"(*Connection).SetTargetQueue", "xpc_connection_set_target_queue", func(t *testing.T) error {
+		c, err := connectionCanary(t)
+		if err != nil {
+			return err
+		}
+		defer c.Cancel()
+		return c.SetTargetQueue(dispatch.QueueCreate("xpc-canary"))
+	}},
+	{"(*Connection).SetPeerRequirement", "xpc_connection_set_peer_requirement", func(t *testing.T) error {
+		c, err := connectionCanary(t)
+		if err != nil {
+			return err
+		}
+		defer c.Cancel()
+		r, err := NewSameTeamRequirement()
+		if err != nil {
+			return err
+		}
+		defer r.Close()
+		return c.SetPeerRequirement(r)
+	}},
+	{"(*Connection).SetPeerCodeSigningRequirement", "xpc_connection_set_peer_code_signing_requirement", func(t *testing.T) error {
+		c, err := connectionCanary(t)
+		if err != nil {
+			return err
+		}
+		defer c.Cancel()
+		return c.SetPeerCodeSigningRequirement("identifier \"com.example\"")
+	}},
+	{"(*Connection).SetPeerEntitlementExistsRequirement", "xpc_connection_set_peer_entitlement_exists_requirement", func(t *testing.T) error {
+		c, err := connectionCanary(t)
+		if err != nil {
+			return err
+		}
+		defer c.Cancel()
+		return c.SetPeerEntitlementExistsRequirement("com.example.entitlement")
+	}},
+	{"(*Connection).SetPeerPlatformIdentityRequirement", "xpc_connection_set_peer_platform_identity_requirement", func(t *testing.T) error {
+		c, err := connectionCanary(t)
+		if err != nil {
+			return err
+		}
+		defer c.Cancel()
+		return c.SetPeerPlatformIdentityRequirement("com.example")
+	}},
+	{"(*Connection).SetPeerTeamIdentityRequirement", "xpc_connection_set_peer_team_identity_requirement", func(t *testing.T) error {
+		c, err := connectionCanary(t)
+		if err != nil {
+			return err
+		}
+		defer c.Cancel()
+		return c.SetPeerTeamIdentityRequirement("com.example")
+	}},
 	{"NewSameTeamRequirement", "xpc_peer_requirement_create_team_identity", func(t *testing.T) error {
 		r, err := NewSameTeamRequirement()
 		closeRequirement(t, r)
@@ -229,36 +319,65 @@ func closeRequirement(t *testing.T, r *PeerRequirement) {
 	}
 }
 
+func connectionCanary(t *testing.T) (*Connection, error) {
+	t.Helper()
+	return NewAnonymousConnection(dispatch.QueueCreate("xpc-canary"), func(Dictionary) {})
+}
+
 // canaryUnmeasured records entry points whose guard is not proven to fire, and
 // why. These are UNMEASURED, not clean: the guard exists in the source and is
 // derived from the emitted symbol set, but no test has forced it to return
 // non-nil. TestRawReachEveryEntryPointHasACanary fails if a newly emitted
 // entry point appears in neither table.
 var canaryUnmeasured = map[string]string{
-	"(*Listener).Activate":                      "needs a live listener; the guard sits behind l.raw != nil and the negative control would activate a real listener",
-	"(*Listener).Cancel":                        "needs a live listener; returns nothing, so a poisoned run has no observable error either",
-	"(*Session).Activate":                       "needs a live session",
-	"(*Session).Cancel":                         "nonreporting: Cancel returns nothing, and the negative control would cancel a real session",
-	"(*Session).Notify":                         "needs a live session",
-	"(*Session).NotifyDictionary":               "needs a live session",
-	"(*Session).Call":                           "needs a live session; the negative control would block on a real peer",
-	"(*Session).CallDictionary":                 "needs a live session; see above",
-	"(*Session).SetCancellationHandler":         "needs a live session",
-	"(*Session).SetIncomingMessageHandler":      "needs a live session",
-	"(*Session).SetPeerRequirement":             "needs a live inactive session",
-	"(*Session).SetTargetQueue":                 "needs a live inactive session",
-	"(ReceivedMessage).Decode":                  "decodeMessage reaches raw calls only through (ReceivedMessage).Dictionary, whose guard is itself UNMEASURED for the same reason: it needs a received message from a live peer",
-	"(ReceivedMessage).Dictionary":              "needs a received message from a live peer",
-	"(ReceivedMessage).SenderSatisfies":         "needs a received message from a live peer",
-	"DialMachService":                           "touches launchd; belongs to the xpclive suite, not the default one",
-	"DialXPCService":                            "touches launchd; belongs to the xpclive suite, not the default one",
-	"NewAnonymousListener":                      "the negative control would create and activate a real listener",
-	"NewServiceListener":                        "the negative control would register a real service listener",
-	"PeerRequirementFromHandle":                 "nonreporting: returns nil on guard failure, and the negative control would retain a fabricated handle",
-	"(*Listener).SetPeerCodeSigningRequirement": "needs a live inactive listener; the negative control would create a real listener",
-	"(*Listener).String":                        "needs a live listener; String intentionally hides availability errors",
-	"(*Session).SetPeerCodeSigningRequirement":  "needs a live inactive session",
-	"(*Session).String":                         "needs a live session; String intentionally hides availability errors",
-	"SetEventStreamHandler":                     "process-global and cannot be safely repeated by a negative control",
-	"ActivateSocket":                             "touches launchd and can be called only once per socket name; belongs to the xpclive suite",
+	"(*Listener).Activate":                              "needs a live listener; the guard sits behind l.raw != nil and the negative control would activate a real listener",
+	"(*Listener).Cancel":                                "needs a live listener; returns nothing, so a poisoned run has no observable error either",
+	"(*Session).Activate":                               "needs a live session",
+	"(*Session).Cancel":                                 "nonreporting: Cancel returns nothing, and the negative control would cancel a real session",
+	"(*Session).Notify":                                 "needs a live session",
+	"(*Session).NotifyDictionary":                       "needs a live session",
+	"(*Session).Call":                                   "needs a live session; the negative control would block on a real peer",
+	"(*Session).CallDictionary":                         "needs a live session; see above",
+	"(*Session).SetCancellationHandler":                 "needs a live session",
+	"(*Session).SetIncomingMessageHandler":              "needs a live session",
+	"(*Session).SetPeerRequirement":                     "needs a live inactive session",
+	"(*Session).SetTargetQueue":                         "needs a live inactive session",
+	"(ReceivedMessage).Decode":                          "decodeMessage reaches raw calls only through (ReceivedMessage).Dictionary, whose guard is itself UNMEASURED for the same reason: it needs a received message from a live peer",
+	"(ReceivedMessage).Dictionary":                      "needs a received message from a live peer",
+	"(ReceivedMessage).SenderSatisfies":                 "needs a received message from a live peer",
+	"DialMachService":                                   "touches launchd; belongs to the xpclive suite, not the default one",
+	"DialXPCService":                                    "touches launchd; belongs to the xpclive suite, not the default one",
+	"NewAnonymousListener":                              "the negative control would create and activate a real listener",
+	"NewServiceListener":                                "the negative control would register a real service listener",
+	"PeerRequirementFromHandle":                         "nonreporting: returns nil on guard failure, and the negative control would retain a fabricated handle",
+	"(*Listener).SetPeerCodeSigningRequirement":         "needs a live inactive listener; the negative control would create a real listener",
+	"(*Listener).String":                                "needs a live listener; String intentionally hides availability errors",
+	"(*Session).SetPeerCodeSigningRequirement":          "needs a live inactive session",
+	"(*Session).String":                                 "needs a live session; String intentionally hides availability errors",
+	"SetEventStreamHandler":                             "process-global and cannot be safely repeated by a negative control",
+	"ActivateSocket":                                    "touches launchd and can be called only once per socket name; belongs to the xpclive suite",
+	"NewAnonymousConnection":                            "creates an anonymous listener and needs an active endpoint-transfer rig",
+	"NewConnectionFromEndpoint":                         "needs a live endpoint from another process",
+	"(*Connection).Activate":                            "needs a live connection",
+	"(*Connection).Cancel":                              "nonreporting and needs a live connection",
+	"(*Connection).Endpoint":                            "needs an active anonymous listener connection",
+	"(*Connection).CallDictionary":                      "needs a live peer and may block",
+	"(*Connection).SendDictionary":                      "needs a live peer",
+	"(*Connection).Suspend":                             "needs a live connection",
+	"(*Connection).Resume":                              "needs a live connection",
+	"(*Connection).PID":                                 "peer credentials require a connected peer",
+	"(*Connection).EUID":                                "peer credentials require a connected peer",
+	"(*Connection).EGID":                                "peer credentials require a connected peer",
+	"(*Connection).AuditSessionID":                       "peer credentials require a connected peer",
+	"(*Connection).Name":                                "needs a live connection",
+	"(*Connection).InvalidationReason":                  "needs a live invalidated connection",
+	"(*Connection).SetTargetQueue":                      "needs a live inactive connection",
+	"(*Connection).SetPeerRequirement":                  "needs a live inactive connection",
+	"(*Connection).SetPeerCodeSigningRequirement":       "needs a live inactive connection",
+	"NewMachServiceConnection":                          "touches launchd and needs a registered Mach service",
+	"(*Connection).SetPeerEntitlementExistsRequirement": "needs a live inactive connection",
+	"(*Connection).SetPeerPlatformIdentityRequirement":  "needs a live inactive connection",
+	"(*Connection).SetPeerTeamIdentityRequirement":      "needs a live inactive connection",
+	"RegisterActivity":                                  "process-global registration needs a unique system activity environment",
+	"UnregisterActivity":                                "process-global registration needs a matching registration",
 }

@@ -9,6 +9,21 @@ type swiftMemberOmission struct {
 	Reason     string
 }
 
+// rawSymbolOmission records a deliberate decision not to expose one raw C
+// surface. Symbols may name a family when one Go codec operation supersedes
+// every member of that family.
+type rawSymbolOmission struct {
+	Symbols []string
+	Reason  string
+}
+
+var xpcRawOmissions = []rawSymbolOmission{
+	{
+		Symbols: []string{"xpc_(array|dictionary)_(get|set)_(bool|int64|uint64|double|string|data|date|uuid|array|dictionary|value|count)"},
+		Reason:  "the Dictionary codec exposes these dynamic values as ordinary Go map and slice operations; parallel typed accessors would duplicate and potentially disagree with the codec",
+	},
+}
+
 var xpcSwiftOmissions = []swiftMemberOmission{
 	{
 		Identifier: "doc://com.apple.xpc/documentation/XPC/XPCListener/InitializationOptions",
