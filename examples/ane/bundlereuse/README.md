@@ -16,19 +16,20 @@ go run ./examples/ane/bundlereuse -inch 128 -outch 128 -spatial 32
 ```
 bundle reuse: inch=32 outch=32 spatial=8
 
-  compiled in 120ms
+  compiled in 268ms
   backend: the compiler emitted [ane]
   freshly compiled vs float64 CPU reference: max diff 0.000431 (tolerance 0.05)
 
   source MIL and weights deleted
-  reopened in 5.573ms, 22x faster than compiling
+  reopened in 3.912ms, 68x faster than compiling
   reopened vs freshly compiled: identical
-  mutation control: negating the input moved the output by 0.555
-  second process vs freshly compiled: identical
+  mutation control: one opened program, second execution with a negated input moved the output by 0.555 and still matches its own reference
+  second process vs freshly compiled: identical over all 256 values
+  parser controls: a well-formed result parses, and 6 malformed ones are refused
 
   refused, as it must be: a function name the bundle does not contain
     retain function "no_such_function": e5rt: e5rt_program_library_retain_program_function: status 1
-  refused, as it must be: a bundle with a truncated file
+  refused, as it must be: a bundle with H16C.bundle/H16C.e5 truncated from 3880 bytes to 0
     open program bundle: e5rt: e5rt_program_library_create: status 1
 
 OK
@@ -39,8 +40,12 @@ OK
 A program that reopened a bundle and silently recompiled from source would look
 identical to one that reused it — same answer, same call from the caller's side.
 Deleting the model directory between compiling and reopening removes that
-reading: anything that still runs cannot have recompiled, because there is
-nothing left to compile from.
+reading.
+
+The claim is narrower than "no recompilation happened": it is that neither
+`OpenBundle` nor the second process fell back to the caller-side MIL and
+weights, because those no longer exist. What `aned` does internally when it
+materializes a compiled bundle is not observed here.
 
 ## What each check would catch
 
@@ -48,13 +53,29 @@ nothing left to compile from.
 | --- | --- |
 | every arm against a float64 CPU evaluation | an arm that loaded a different or stale program |
 | reopened arms against the freshly compiled arm, requiring *exact* agreement | a subtly different program; same fp16 code on same hardware should not merely agree closely |
-| negating the input | a bundle returning a constant, or replaying the previous output buffer |
+| negating the input, through **one** opened program on its second execution, requiring the result to match its own reference | a stale output buffer, a rebinding bug, and a program that reacts but reacts wrongly |
+| a declared value count from the second process, re-checked here | a truncated or empty child result compared over its prefix and called identical |
 | a function name not in the bundle | an open that succeeds without resolving anything |
-| a bundle with its largest file truncated | an open that does not validate what it loaded |
+| a bundle with a selected retained file truncated, named and sized in the output | an open that does not validate what it loaded |
 
-The two refusals fail at different points — `retain_program_function` and
-`program_library_create` — which is what makes them two controls rather than one
-repeated.
+The two refusals fail at different native entry points —
+`retain_program_function` and `program_library_create` — which is what makes them
+two controls rather than one repeated. They establish that a wrong function name
+and a damaged selected file are refused, not that every file in the bundle is
+validated.
+
+The comparator rejects NaN and unequal lengths. It previously did neither, so a
+second process that printed one of its 256 values was compared over that one
+element and reported **identical** — a false accept on the cross-process claim,
+which is the entire point of that arm. An all-NaN result was worse: `NaN > max`
+is false, so it reported a maximum difference of zero. Six malformed child
+results are now fed to the parser on every run to prove it still refuses them.
+
+The corruption control reports which file it truncated and how large it was
+(`H16C.bundle/H16C.e5`, 3880 bytes) rather than assuming the largest file is the
+program payload. Bundle selection also fails closed: the compiler nests a
+per-hardware `H16C.bundle` inside the digest-named bundle, so "the first
+`.bundle` found" was right only by directory-walk ordering.
 
 ## Scope of the cross-process claim
 
@@ -64,5 +85,8 @@ parent. That is the case in which E5RT bundle reuse has been observed on macOS
 process is **UNMEASURED**, and this example does not claim it.
 
 The timing ratio is a single measurement on one small program, not a benchmark.
+Compile time varies substantially run to run (93–268ms observed), so the ratio
+has been seen anywhere from 22x to 68x on the same machine. Treat it as
+"reopening is orders of magnitude cheaper", not as a figure.
 It is printed because it is the number that motivates the interface, not as a
 performance claim.

@@ -14,8 +14,11 @@
 // A program that reopened a bundle and silently recompiled from the source
 // would look exactly like one that reused it — same answer, same code path from
 // the caller's side. So this example deletes the model directory, weights and
-// all, between compiling and reopening. Anything that still runs afterwards
-// cannot have recompiled, because there is nothing left to compile.
+// all, between compiling and reopening. What that establishes is narrower than
+// "no recompilation happened": it establishes that neither OpenBundle nor the
+// second process fell back to the caller-side MIL and weights, because those no
+// longer exist. What aned does internally when it materializes a compiled
+// bundle is not observed here.
 //
 // The second process is a genuinely separate one, spawned after the source is
 // gone. It shares this program's code-signing identity and has it as a parent.
@@ -32,21 +35,31 @@
 //     which is a tighter bar than the reference: both run the same fp16 program
 //     on the same hardware, so they should agree exactly, not merely closely.
 //
-//   - A mutation control feeds the reopened program a different input and
-//     requires the output to move. Without it, a bundle that returned a
-//     constant, or replayed the previous run's output buffer, would pass every
-//     comparison above.
+//   - A mutation control runs two inputs through one opened program and
+//     requires the second execution both to move and to match its own
+//     recomputed reference. Two fresh opens would show only that two opens
+//     react to two inputs; running twice through one program is what a stale
+//     output or rebinding bug would fail, and it is what a decode loop needs.
 //
-//   - A wrong function name and a corrupted bundle are both required to be
-//     refused. Without them, "the bundle opened" would be evidence only that
-//     OpenBundle returns non-nil.
+//   - The second process declares how many values it returns, and the parent
+//     re-checks that count. Six malformed child results are fed to the parser
+//     on every run to prove it still refuses them. Without this, a truncated
+//     result compared over its prefix was reported identical.
+//
+//   - A wrong function name and a damaged bundle file are both required to be
+//     refused, and they fail at different native entry points. Without them,
+//     "the bundle opened" would be evidence only that OpenBundle returns
+//     non-nil.
 //
 // Compile and open are timed separately, so the number that motivates the whole
-// interface is visible rather than asserted.
+// interface is visible rather than asserted. Compile time varies substantially
+// between runs, so the printed ratio is a diagnostic showing the order of
+// magnitude, not a benchmark figure.
 package main
 
 import (
 	"bufio"
+	"errors"
 	"flag"
 	"fmt"
 	"io"
@@ -91,6 +104,17 @@ func run() error {
 	if *inCh <= 0 || *outCh <= 0 || *spatial <= 0 {
 		return fmt.Errorf("inch, outch and spatial must all be positive")
 	}
+	if !(*tol > 0) || math.IsInf(*tol, 0) {
+		return fmt.Errorf("tol must be a positive finite number, have %v", *tol)
+	}
+	for _, p := range []struct {
+		name string
+		a, b int
+	}{{"inch*spatial", *inCh, *spatial}, {"outch*spatial", *outCh, *spatial}, {"outch*inch", *outCh, *inCh}} {
+		if p.a > math.MaxInt32/2/p.b {
+			return fmt.Errorf("%s overflows a sensible buffer size", p.name)
+		}
+	}
 	fmt.Printf("bundle reuse: inch=%d outch=%d spatial=%d\n", *inCh, *outCh, *spatial)
 
 	dir, err := os.MkdirTemp("", "bundlereuse-")
@@ -117,14 +141,18 @@ func run() error {
 	fmt.Printf("\n  compiled in %v\n", compileTime.Round(time.Millisecond))
 	reportBackend(cacheDir)
 
-	if d := compare(compiled, want); d > *tol {
-		return fmt.Errorf("the freshly compiled program disagrees with the CPU reference by %.3g", d)
+	baseDiff, err := compare(compiled, want)
+	if err != nil {
+		return fmt.Errorf("freshly compiled vs CPU reference: %w", err)
 	}
-	fmt.Printf("  freshly compiled vs float64 CPU reference: max diff %.3g (tolerance %.3g)\n",
-		compare(compiled, want), *tol)
+	if baseDiff > *tol {
+		return fmt.Errorf("the freshly compiled program disagrees with the CPU reference by %.3g", baseDiff)
+	}
+	fmt.Printf("  freshly compiled vs float64 CPU reference: max diff %.3g (tolerance %.3g)\n", baseDiff, *tol)
 
-	// Delete the source. Everything after this point cannot be a recompile,
-	// because there is nothing left to compile from.
+	// Delete the source. Nothing after this point can fall back to the
+	// caller-side MIL and weights, because they no longer exist. That is the
+	// claim; what aned does internally is not observed here.
 	if err := os.RemoveAll(modelDir); err != nil {
 		return fmt.Errorf("remove model source: %w", err)
 	}
@@ -140,26 +168,42 @@ func run() error {
 	}
 	fmt.Printf("  reopened in %v, %.0fx faster than compiling\n",
 		openTime.Round(time.Microsecond), float64(compileTime)/float64(openTime))
-	if d := compare(reopened, compiled); d != 0 {
-		return fmt.Errorf("the reopened program differs from the compiled one by %.3g; the same fp16 program on the same hardware should agree exactly", d)
+	reopenDiff, err := compare(reopened, compiled)
+	if err != nil {
+		return fmt.Errorf("reopened vs freshly compiled: %w", err)
+	}
+	// Exact equality is required because both arms are the same fp16 program on
+	// the same binary and host. That is an observation about this run, not a
+	// portability contract: a compiler or runtime revision could legitimately
+	// change rounding, and the float64 reference above is the arithmetic oracle.
+	if reopenDiff != 0 {
+		return fmt.Errorf("the reopened program differs from the compiled one by %.3g", reopenDiff)
 	}
 	fmt.Println("  reopened vs freshly compiled: identical")
 
-	// Mutation control on the reopened program: a bundle that replayed a
-	// buffer would pass every comparison above.
+	// Mutation control, both inputs through ONE opened program: a bundle that
+	// replayed a buffer would pass every comparison above.
 	perturbed := make([]float32, len(x))
-	copy(perturbed, x)
-	for i := range perturbed {
-		perturbed[i] = -perturbed[i]
+	for i := range x {
+		perturbed[i] = -x[i]
 	}
-	moved, _, err := openArm(bundlePath, perturbed)
+	firstOut, secondOut, err := reopenTwice(bundlePath, x, perturbed)
 	if err != nil {
 		return fmt.Errorf("mutation control: %w", err)
 	}
-	movedBy := compare(moved, reopened)
-	fmt.Printf("  mutation control: negating the input moved the output by %.3g\n", movedBy)
+	// The second execution must be right, not merely different: negating the
+	// input negates the output of a linear map.
+	wantPerturbed := cpuReference(perturbed, weights)
+	if d, err := compare(secondOut, wantPerturbed); err != nil || d > *tol {
+		return fmt.Errorf("the second execution of one reopened program disagrees with its own reference (diff %.3g, err %v)", d, err)
+	}
+	movedBy, err := compare(secondOut, firstOut)
+	if err != nil {
+		return fmt.Errorf("mutation control: %w", err)
+	}
+	fmt.Printf("  mutation control: one opened program, second execution with a negated input moved the output by %.3g and still matches its own reference\n", movedBy)
 	if movedBy <= *tol {
-		return fmt.Errorf("negating the input moved the output by only %.3g; the reopened bundle is not reading its input", movedBy)
+		return fmt.Errorf("the second execution moved the output by only %.3g; the reopened program is not reading its input on re-execution", movedBy)
 	}
 
 	// Arm 3: a second process, started after the source was deleted.
@@ -167,10 +211,18 @@ func run() error {
 	if err != nil {
 		return fmt.Errorf("second-process arm: %w", err)
 	}
-	if d := compare(crossed, compiled); d != 0 {
-		return fmt.Errorf("the second process differs from the compiled arm by %.3g", d)
+	crossDiff, err := compare(crossed, compiled)
+	if err != nil {
+		return fmt.Errorf("second process vs freshly compiled: %w", err)
 	}
-	fmt.Println("  second process vs freshly compiled: identical")
+	if crossDiff != 0 {
+		return fmt.Errorf("the second process differs from the compiled arm by %.3g", crossDiff)
+	}
+	fmt.Printf("  second process vs freshly compiled: identical over all %d values\n", len(crossed))
+
+	if err := parserControls(); err != nil {
+		return err
+	}
 
 	if err := refusalControls(dir, bundlePath); err != nil {
 		return err
@@ -208,6 +260,35 @@ func compileArm(modelDir, cacheDir string, x []float32) ([]float32, string, time
 		return nil, "", 0, err
 	}
 	return out, bundle, elapsed, nil
+}
+
+// reopenTwice opens the bundle once and runs two different inputs through that
+// single program, returning both results.
+//
+// Running each input through its own fresh open would show only that two opens
+// react to two inputs. It would not show that a reopened program reacts on its
+// second execution, which is the case a stale-output or rebinding bug actually
+// lives in — and it is the case a decode loop depends on.
+func reopenTwice(bundlePath string, first, second []float32) ([]float32, []float32, error) {
+	p, err := e5rt.OpenBundle(e5rt.BundleOptions{
+		BundlePath: bundlePath,
+		Inputs:     []e5rt.Port{{Name: "x", Size: *inCh * *spatial * 2}},
+		Outputs:    []e5rt.Port{{Name: "y", Size: *outCh * *spatial * 2}},
+	})
+	if err != nil {
+		return nil, nil, err
+	}
+	defer p.Close()
+
+	a, err := evalProgram(p, first)
+	if err != nil {
+		return nil, nil, err
+	}
+	b, err := evalProgram(p, second)
+	if err != nil {
+		return nil, nil, err
+	}
+	return a, b, nil
 }
 
 // openArm opens an existing bundle and runs it.
@@ -250,7 +331,33 @@ func childArm(bundlePath string) ([]float32, error) {
 	if err != nil {
 		return nil, fmt.Errorf("second process: %w", err)
 	}
-	return parseResult(string(out))
+	return parseResult(string(out), *outCh**spatial)
+}
+
+// parserControls prove the result parser refuses the shapes that used to slip
+// through it. Without these, the parser's strictness is asserted rather than
+// demonstrated, and a later edit could quietly restore the false accept.
+func parserControls() error {
+	n := *outCh * *spatial
+	full := "RESULT " + strconv.Itoa(n) + strings.Repeat(" 1", n)
+	if _, err := parseResult(full, n); err != nil {
+		return fmt.Errorf("parser control: a well-formed result was refused: %w", err)
+	}
+	bad := []struct{ name, text string }{
+		{"no result line", "nothing here\n"},
+		{"empty result line", "RESULT \n"},
+		{"zero values declared and none printed", "RESULT 0\n"},
+		{"one value where the program returns many", "RESULT 1 1\n"},
+		{"a declared count that does not match", "RESULT 99 1 2 3\n"},
+		{"two result lines", full + "\n" + full + "\n"},
+	}
+	for _, c := range bad {
+		if _, err := parseResult(c.text, n); err == nil {
+			return fmt.Errorf("parser control: %s was accepted", c.name)
+		}
+	}
+	fmt.Printf("  parser controls: a well-formed result parses, and %d malformed ones are refused\n", len(bad))
+	return nil
 }
 
 // runChild is the second process: it opens the bundle it is given, runs the
@@ -266,7 +373,9 @@ func runChild() error {
 	}
 	w := bufio.NewWriter(os.Stdout)
 	defer w.Flush()
-	fmt.Fprint(w, "RESULT")
+	// The count leads the line so the parent can tell a truncated result from
+	// a short one, rather than comparing whatever prefix arrived.
+	fmt.Fprintf(w, "RESULT %d", len(out))
 	for _, v := range out {
 		fmt.Fprintf(w, " %v", v)
 	}
@@ -274,24 +383,51 @@ func runChild() error {
 	return nil
 }
 
-func parseResult(s string) ([]float32, error) {
+// parseResult reads the second process's output, requiring exactly one result
+// line carrying exactly the expected number of values.
+//
+// The count is declared by the child and re-checked here against what this
+// process expects. Without that, a child that printed a truncated line — or a
+// bare "RESULT" with no values at all — parsed cleanly, and the comparison then
+// ran over the short prefix and called it identical. That was a false accept on
+// the cross-process claim, which is the whole point of the arm.
+func parseResult(s string, wantCount int) ([]float32, error) {
+	var found []string
 	for _, line := range strings.Split(s, "\n") {
-		rest, ok := strings.CutPrefix(strings.TrimSpace(line), "RESULT ")
-		if !ok {
-			continue
+		if rest, ok := strings.CutPrefix(strings.TrimSpace(line), "RESULT "); ok {
+			found = append(found, rest)
 		}
-		fields := strings.Fields(rest)
-		out := make([]float32, len(fields))
-		for i, f := range fields {
-			v, err := strconv.ParseFloat(f, 32)
-			if err != nil {
-				return nil, fmt.Errorf("parse %q: %w", f, err)
-			}
-			out[i] = float32(v)
-		}
-		return out, nil
 	}
-	return nil, fmt.Errorf("the second process printed no result")
+	if len(found) == 0 {
+		return nil, errors.New("the second process printed no result line")
+	}
+	if len(found) > 1 {
+		return nil, fmt.Errorf("the second process printed %d result lines, expected exactly one", len(found))
+	}
+	fields := strings.Fields(found[0])
+	if len(fields) < 1 {
+		return nil, errors.New("the second process printed an empty result line")
+	}
+	declared, err := strconv.Atoi(fields[0])
+	if err != nil {
+		return nil, fmt.Errorf("the second process did not declare a value count: %w", err)
+	}
+	values := fields[1:]
+	if declared != len(values) {
+		return nil, fmt.Errorf("the second process declared %d values and printed %d", declared, len(values))
+	}
+	if declared != wantCount {
+		return nil, fmt.Errorf("the second process returned %d values, expected %d", declared, wantCount)
+	}
+	out := make([]float32, len(values))
+	for i, f := range values {
+		v, err := strconv.ParseFloat(f, 32)
+		if err != nil {
+			return nil, fmt.Errorf("parse %q: %w", f, err)
+		}
+		out[i] = float32(v)
+	}
+	return out, nil
 }
 
 // refusalControls require a wrong function name and a corrupted bundle to be
@@ -316,7 +452,8 @@ func refusalControls(dir, bundlePath string) error {
 	if err := copyTree(bundlePath, corrupt); err != nil {
 		return fmt.Errorf("copy bundle: %w", err)
 	}
-	if err := truncateOneFile(corrupt); err != nil {
+	damaged, wasSize, err := truncateOneFile(corrupt)
+	if err != nil {
 		return fmt.Errorf("corrupt bundle: %w", err)
 	}
 	p, err = e5rt.OpenBundle(e5rt.BundleOptions{
@@ -326,9 +463,9 @@ func refusalControls(dir, bundlePath string) error {
 	})
 	if err == nil {
 		p.Close()
-		return fmt.Errorf("refusal control: a bundle with a truncated file was accepted")
+		return fmt.Errorf("refusal control: a bundle with %s truncated from %d bytes was accepted", damaged, wasSize)
 	}
-	fmt.Printf("  refused, as it must be: a bundle with a truncated file\n    %v\n", err)
+	fmt.Printf("  refused, as it must be: a bundle with %s truncated from %d bytes to 0\n    %v\n", damaged, wasSize, err)
 	return nil
 }
 
@@ -360,9 +497,15 @@ func copyTree(src, dst string) error {
 	})
 }
 
-// truncateOneFile empties the largest regular file in the tree, which is the
-// compiled program rather than a manifest.
-func truncateOneFile(dir string) error {
+// truncateOneFile empties the largest regular file in the tree and reports
+// which file it was and how large.
+//
+// It reports rather than assumes: an earlier comment here called the largest
+// file "the compiled program rather than a manifest", which is an inference
+// about bundle layout that can change with format or model size. What the
+// control establishes is that damaging a selected retained bundle file causes a
+// refusal — not that every file in the bundle is validated.
+func truncateOneFile(dir string) (string, int64, error) {
 	var biggest string
 	var size int64
 	err := filepath.WalkDir(dir, func(path string, d os.DirEntry, err error) error {
@@ -379,32 +522,58 @@ func truncateOneFile(dir string) error {
 		return nil
 	})
 	if err != nil {
-		return err
+		return "", 0, err
 	}
 	if biggest == "" {
-		return fmt.Errorf("no file found in %s", dir)
+		return "", 0, fmt.Errorf("no file found in %s", dir)
 	}
-	return os.Truncate(biggest, 0)
+	if err := os.Truncate(biggest, 0); err != nil {
+		return "", 0, err
+	}
+	rel, relErr := filepath.Rel(dir, biggest)
+	if relErr != nil {
+		rel = biggest
+	}
+	return rel, size, nil
 }
 
+// findBundle returns the outermost compiled bundle, failing closed unless there
+// is exactly one.
+//
+// The compiler nests: it emits <digest>.bundle containing a per-hardware
+// <generation>.bundle, so a naive search finds two. Taking the first one
+// encountered gets the right answer only because WalkDir happens to visit a
+// parent before its children — an ordering accident, not a selection rule.
+// Selecting the bundle that has no .bundle ancestor states the intent, and
+// requiring exactly one such bundle means a cache holding two compiled models
+// fails rather than silently picking one.
 func findBundle(cacheDir string) (string, error) {
-	var bundle string
+	var top []string
 	err := filepath.WalkDir(cacheDir, func(path string, d os.DirEntry, err error) error {
 		if err != nil {
 			return err
 		}
-		if d.IsDir() && strings.HasSuffix(d.Name(), ".bundle") && bundle == "" {
-			bundle = path
+		if !d.IsDir() || !strings.HasSuffix(d.Name(), ".bundle") {
+			return nil
 		}
+		// Nested bundles belong to the enclosing one; skip them.
+		if strings.Contains(filepath.Dir(path), ".bundle") {
+			return nil
+		}
+		top = append(top, path)
 		return nil
 	})
 	if err != nil {
 		return "", err
 	}
-	if bundle == "" {
-		return "", fmt.Errorf("no .bundle directory under %s", cacheDir)
+	switch len(top) {
+	case 0:
+		return "", fmt.Errorf("no top-level .bundle directory under %s", cacheDir)
+	case 1:
+		return top[0], nil
+	default:
+		return "", fmt.Errorf("expected exactly one top-level bundle under %s, found %d: %v", cacheDir, len(top), top)
 	}
-	return bundle, nil
 }
 
 func evalProgram(p *e5rt.Program, x []float32) ([]float32, error) {
@@ -461,17 +630,36 @@ func cpuReference(x, weights []float32) []float32 {
 	return out
 }
 
-func compare(got, want []float32) float64 {
+// compare returns the largest absolute difference between got and want, and
+// refuses the two ways this check can pass while measuring nothing.
+//
+// The earlier version iterated over got and stopped at want's length, so a
+// second process that printed one of its values compared one element and was
+// reported identical. A NaN is the other hole: it compares false against every
+// threshold, so `d > max` never fires and an all-NaN result reports a maximum
+// difference of zero. An infinity at least survives and fails loudly; NaN is the
+// silent one, and NaN is what an fp16 overflow produces.
+func compare(got, want []float32) (float64, error) {
+	if len(got) != len(want) {
+		return 0, fmt.Errorf("comparing %d values against %d", len(got), len(want))
+	}
+	if len(got) == 0 {
+		return 0, errors.New("nothing to compare")
+	}
 	var max float64
 	for i := range got {
-		if i >= len(want) {
-			break
+		g, w := float64(got[i]), float64(want[i])
+		if math.IsNaN(g) || math.IsInf(g, 0) {
+			return 0, fmt.Errorf("result element %d is %v", i, g)
 		}
-		if d := math.Abs(float64(got[i]) - float64(want[i])); d > max {
+		if math.IsNaN(w) || math.IsInf(w, 0) {
+			return 0, fmt.Errorf("reference element %d is %v", i, w)
+		}
+		if d := math.Abs(g - w); d > max {
 			max = d
 		}
 	}
-	return max
+	return max, nil
 }
 
 // sampleInput and sampleWeights are deterministic, so the parent and the second
