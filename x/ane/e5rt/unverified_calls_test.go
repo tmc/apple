@@ -513,7 +513,17 @@ var probes = map[string]func(t *testing.T){
 			statePort = stateIn
 			stateOutputPort = stateOut
 		}
-		state, err := lib.BufferObjectAlloc(32, 0)
+		// A bound state buffer is not packed: each channel of a
+		// [1, channels, 1, dim] fp16 state starts on a 64-byte boundary, so
+		// this [1, 4, 1, 4] state occupies 4*64 bytes and not the 4*4*2 its
+		// element count suggests. The engine reads and writes those padded
+		// offsets whatever size the buffer is, so the 32 bytes this used to
+		// allocate had the accumulate program writing 224 bytes past the end.
+		// It round-tripped anyway, because the same padded offsets were read
+		// back, which is why the checks below never noticed.
+		//
+		// examples/ane/statecache -layout measures the layout directly.
+		state, err := lib.BufferObjectAlloc(4*64, 0)
 		if err != nil {
 			t.Fatal(err)
 		}
