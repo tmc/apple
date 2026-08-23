@@ -50,8 +50,9 @@ type ProgramOptions struct {
 //
 // A bundle is not a portable artifact: E5RT bundle reuse has been observed
 // across processes that share a code-signing identity and a parent on macOS
-// 26.x. Reuse after an aned restart, a reboot, or from an unrelated process is
-// unmeasured.
+// 26.x, and across a restart of the aned daemon. Reuse after a reboot or from an
+// unrelated process is unmeasured, and a bundle roughly a day old has been seen
+// to stop opening; see examples/ane/internal/anedrestart.
 type BundleOptions struct {
 	BundlePath string
 

@@ -23,7 +23,7 @@
 // The second process is a genuinely separate one, spawned after the source is
 // gone. It shares this program's code-signing identity and has it as a parent.
 // That is the case E5RT bundle reuse has been observed in; reuse after an aned
-// restart, after a reboot, or from an unrelated process is not measured here
+// reboot or from an unrelated process is not measured here
 // and this program does not claim it.
 //
 // # What each check would catch
@@ -230,8 +230,10 @@ func run() error {
 
 	fmt.Println("\nOK")
 	fmt.Println("\nMeasured here: reuse in a second process that shares this one's code-signing")
-	fmt.Println("identity and has it as a parent. Reuse after an aned restart, after a reboot,")
-	fmt.Println("or from an unrelated process is UNMEASURED.")
+	fmt.Println("identity and has it as a parent. Reuse across an aned restart is MEASURED")
+	fmt.Println("separately, in examples/ane/internal/anedrestart, and survives. Reuse after a")
+	fmt.Println("reboot or from an unrelated process is UNMEASURED. Bundles are not durable:")
+	fmt.Println("two roughly day-old bundles stopped opening; the expiry boundary is UNMEASURED.")
 	return nil
 }
 

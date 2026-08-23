@@ -81,8 +81,19 @@ per-hardware `H16C.bundle` inside the digest-named bundle, so "the first
 
 The second process shares this one's code-signing identity and has it as a
 parent. That is the case in which E5RT bundle reuse has been observed on macOS
-26.x. Reuse after an `aned` restart, after a reboot, or from an unrelated
-process is **UNMEASURED**, and this example does not claim it.
+26.x. Reuse across an `aned` restart is measured separately, in
+`examples/ane/internal/anedrestart`, and **survives**: a bundle compiled under
+one daemon instance reopens and computes correctly under the next, with the
+compiling instance provably gone.
+
+Reuse after a reboot or from an unrelated process is **UNMEASURED**, and this
+example does not claim it.
+
+Bundles are also **not durable**. Two bundles roughly a day old failed to create
+an operation at all (`status 13`), while bundles minutes old succeeded in the
+same processes. Whatever bounds a bundle's life, it is not the daemon's
+lifetime. The boundary is UNMEASURED, so treat reuse as a within-session
+optimisation rather than a persistent artifact cache.
 
 The timing ratio is a single measurement on one small program, not a benchmark.
 Compile time varies substantially run to run (93–268ms observed), so the ratio
