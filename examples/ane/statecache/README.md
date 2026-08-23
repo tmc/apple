@@ -67,6 +67,14 @@ the allocation — 224 bytes past, at `dim=4`. The first version of this example
 did exactly that; the symptom was that channel 0 round-tripped and every other
 channel came back zero.
 
+`e5rt.StateLayout` owns this arithmetic now, and `Lib.BindStatePort` is a bind
+that asks the runtime how large a buffer is — via `e5rt_buffer_object_get_size`,
+which the library exports and which had no binding — and refuses one too small
+for the shape. The raw retain-and-bind pair accepts an undersized buffer without
+complaint; the package test asserts that as a mutation control, so if the raw
+path ever started checking, the new one would be flagged as redundant rather
+than quietly duplicated.
+
 `-layout` measures it instead of citing it. It binds an oversized state buffer,
 fills every 2-byte slot with its own index, and prints the slot each tensor
 element was read from:

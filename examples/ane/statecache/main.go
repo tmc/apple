@@ -30,6 +30,12 @@
 // mode binds an oversized state buffer, fills every 2-byte slot with its own
 // index, and prints the slot each tensor element was read from.
 //
+// [e5rt.StateLayout] now owns the arithmetic, and [e5rt.Lib.BindStatePort] is a
+// bind that asks the runtime how large the buffer is and refuses one too small
+// for the shape. This example uses both, so it doubles as their exercise: the
+// raw retain-and-bind pair accepts an undersized buffer without complaint,
+// which is why the checked path exists.
+//
 // The ordinary input and output ports are packed. Only the state carries the
 // padding, and the -layout mode plus the exact recurrence below are what
 // establish that asymmetry.
@@ -139,7 +145,7 @@ func run() error {
 	}
 	n := *channels * *dim
 	shape := [4]int{1, *channels, 1, *dim}
-	lay := layout{channels: *channels, dim: *dim}
+	lay := e5rt.StateLayout{Channels: *channels, Dim: *dim}
 	bytes := n * 2
 
 	fmt.Printf("retained state: chan=%d dim=%d (%d values) steps=%d\n\n", *channels, *dim, n, *steps)
@@ -166,7 +172,7 @@ func run() error {
 	// It is sized by the layout rather than by the packed element count. The
 	// two differ whenever a channel row does not fill a whole 64-byte line,
 	// and the packed size is the smaller one.
-	state, err := allocBuffer(lib, lay.size())
+	state, err := allocBuffer(lib, lay.Size())
 	if err != nil {
 		return fmt.Errorf("allocate state buffer: %w", err)
 	}
@@ -175,7 +181,7 @@ func run() error {
 	reportInitialContents(state, lay)
 
 	update, err := openStateOp(lib, filepath.Join(root, "update"),
-		mil.GenAccumulateState(stateName, shape), state,
+		mil.GenAccumulateState(stateName, shape), state, lay,
 		[]e5rt.Port{{Name: "value", Size: bytes}},
 		[]e5rt.Port{{Name: "y", Size: bytes}})
 	if err != nil {
@@ -184,7 +190,7 @@ func run() error {
 	defer update.close()
 
 	reader, err := openStateOp(lib, filepath.Join(root, "reader"),
-		mil.GenReadState(stateName, shape), state,
+		mil.GenReadState(stateName, shape), state, lay,
 		nil, []e5rt.Port{{Name: "y", Size: bytes}})
 	if err != nil {
 		return fmt.Errorf("open reader program: %w", err)
@@ -273,8 +279,13 @@ func layoutProbe(lib *e5rt.Lib, root string, shape [4]int) error {
 	if err := buf.writeSlots(marks); err != nil {
 		return err
 	}
+	// The probe's buffer is deliberately four times any plausible layout, so
+	// the size check in BindStatePort cannot refuse it whatever the real
+	// stride turns out to be. Passing the computed layout here is a lower
+	// bound for that check, not an input to the measurement.
+	probeLay := e5rt.StateLayout{Channels: shape[1], Dim: shape[3]}
 	reader, err := openStateOp(lib, filepath.Join(root, "layout"),
-		mil.GenReadState(stateName, shape), buf,
+		mil.GenReadState(stateName, shape), buf, probeLay,
 		nil, []e5rt.Port{{Name: "y", Size: n * 2}})
 	if err != nil {
 		return fmt.Errorf("open the layout reader: %w", err)
@@ -313,8 +324,8 @@ func layoutProbe(lib *e5rt.Lib, root string, shape [4]int) error {
 //
 // The probe writes a distinctive pattern rather than zeros: zeros would also be
 // consistent with the engine reading an untouched allocation.
-func hostVisibility(reader *stateOp, state *buffer, lay layout) error {
-	n := lay.values()
+func hostVisibility(reader *stateOp, state *buffer, lay e5rt.StateLayout) error {
+	n := lay.Values()
 	pattern := make([]float32, n)
 	for i := range pattern {
 		pattern[i] = float32(i%7) - 3
@@ -343,8 +354,8 @@ func hostVisibility(reader *stateOp, state *buffer, lay layout) error {
 // each against a float64 running sum. Checking every step rather than only the
 // last one is what distinguishes a correct recurrence from one that happens to
 // arrive at the right total.
-func recurrenceArm(update *stateOp, state *buffer, lay layout) ([]float32, error) {
-	n := lay.values()
+func recurrenceArm(update *stateOp, state *buffer, lay e5rt.StateLayout) ([]float32, error) {
+	n := lay.Values()
 	if err := state.zero(); err != nil {
 		return nil, err
 	}
@@ -399,7 +410,7 @@ func recurrenceArm(update *stateOp, state *buffer, lay layout) ([]float32, error
 // against a buffer it has never touched. The pair is the point: the first alone
 // would be consistent with the reader obtaining the right answer by some route
 // that has nothing to do with the buffer being shared.
-func readerArms(lib *e5rt.Lib, root string, shape [4]int, lay layout, reader *stateOp, want []float32) error {
+func readerArms(lib *e5rt.Lib, root string, shape [4]int, lay e5rt.StateLayout, reader *stateOp, want []float32) error {
 	got, err := reader.run("y", len(want))
 	if err != nil {
 		return fmt.Errorf("read the shared state: %w", err)
@@ -414,7 +425,7 @@ func readerArms(lib *e5rt.Lib, root string, shape [4]int, lay layout, reader *st
 	fmt.Println("  a separately compiled reader on the same buffer returns the accumulated state")
 
 	// The control: same program text, same compiled shape, different buffer.
-	other, err := allocBuffer(lib, lay.size())
+	other, err := allocBuffer(lib, lay.Size())
 	if err != nil {
 		return err
 	}
@@ -423,7 +434,7 @@ func readerArms(lib *e5rt.Lib, root string, shape [4]int, lay layout, reader *st
 		return err
 	}
 	control, err := openStateOp(lib, filepath.Join(root, "reader-control"),
-		mil.GenReadState(stateName, shape), other,
+		mil.GenReadState(stateName, shape), other, lay,
 		nil, []e5rt.Port{{Name: "y", Size: len(want) * 2}})
 	if err != nil {
 		return fmt.Errorf("open the fresh-buffer reader: %w", err)
@@ -486,8 +497,8 @@ func disjointArm(update *stateOp, state *buffer, n int) error {
 // above uses one state, and a single process-wide buffer behind the inout port
 // would satisfy all of them. Two states with different values, updated in
 // alternation and each required to follow its own recurrence, would not.
-func independenceArm(lib *e5rt.Lib, root string, shape [4]int, lay layout, a *stateOp, stateA *buffer, n int) error {
-	stateB, err := allocBuffer(lib, lay.size())
+func independenceArm(lib *e5rt.Lib, root string, shape [4]int, lay e5rt.StateLayout, a *stateOp, stateA *buffer, n int) error {
+	stateB, err := allocBuffer(lib, lay.Size())
 	if err != nil {
 		return err
 	}
@@ -496,7 +507,7 @@ func independenceArm(lib *e5rt.Lib, root string, shape [4]int, lay layout, a *st
 		return err
 	}
 	b, err := openStateOp(lib, filepath.Join(root, "update-b"),
-		mil.GenAccumulateState(stateName, shape), stateB,
+		mil.GenAccumulateState(stateName, shape), stateB, lay,
 		[]e5rt.Port{{Name: "value", Size: n * 2}},
 		[]e5rt.Port{{Name: "y", Size: n * 2}})
 	if err != nil {
@@ -599,49 +610,19 @@ func pointerAt(addr uintptr) unsafe.Pointer {
 	return *(*unsafe.Pointer)(unsafe.Pointer(&addr))
 }
 
-// A layout describes how a [1, channels, 1, dim] fp16 tensor is arranged in a
-// bound buffer.
-//
-// It is not packed. Each channel begins on a 64-byte boundary, so a row of dim
-// fp16 values occupies rowBytes and the remainder up to the next boundary is
-// padding the engine does not read. The -layout mode measures this; the rule is
-// stated here so the marshalling has a name, not so it can be taken on trust.
-//
-// This matters more than it looks. A caller that sizes a state buffer at
-// channels*dim*2 bytes gets one that the engine indexes past the end of: with
-// dim=4 the packed size is 32 bytes and the engine addresses 256. The read
-// comes back mostly zeros, which is exactly the failure a first attempt at this
-// example produced.
-type layout struct {
-	channels, dim int
-}
-
-// rowBytes is the distance between the starts of consecutive channels.
-func (l layout) rowBytes() int { return max((l.dim*2+63)&^63, 64) }
-
-// size is the number of bytes a bound buffer must have.
-func (l layout) size() int { return l.channels * l.rowBytes() }
-
-// values is the number of logical elements.
-func (l layout) values() int { return l.channels * l.dim }
-
-// packed reports whether the layout happens to leave no padding, which occurs
-// when a row exactly fills a whole number of 64-byte lines.
-func (l layout) packed() bool { return l.dim*2 == l.rowBytes() }
-
 // writeTensor stores v, one channel row at a time, at the layout's offsets.
-func (b *buffer) writeTensor(l layout, v []float32) error {
-	if len(v) != l.values() {
-		return fmt.Errorf("writing %d values to a [1, %d, 1, %d] tensor", len(v), l.channels, l.dim)
+func (b *buffer) writeTensor(l e5rt.StateLayout, v []float32) error {
+	if len(v) != l.Values() {
+		return fmt.Errorf("writing %d values to a [1, %d, 1, %d] tensor", len(v), l.Channels, l.Dim)
 	}
-	if len(b.data) < l.size() {
-		return fmt.Errorf("writing a %d-byte tensor to a %d-byte buffer", l.size(), len(b.data))
+	if len(b.data) < l.Size() {
+		return fmt.Errorf("writing a %d-byte tensor to a %d-byte buffer", l.Size(), len(b.data))
 	}
 	clear(b.data)
-	for c := range l.channels {
-		row := b.data[c*l.rowBytes():]
-		for i := range l.dim {
-			bits := ane.Float32ToFP16(v[c*l.dim+i])
+	for c := range l.Channels {
+		row := b.data[c*l.RowBytes():]
+		for i := range l.Dim {
+			bits := ane.Float32ToFP16(v[c*l.Dim+i])
 			row[2*i] = byte(bits)
 			row[2*i+1] = byte(bits >> 8)
 		}
@@ -650,15 +631,15 @@ func (b *buffer) writeTensor(l layout, v []float32) error {
 }
 
 // readTensor loads the layout's offsets into a packed slice.
-func (b *buffer) readTensor(l layout) ([]float32, error) {
-	if len(b.data) < l.size() {
-		return nil, fmt.Errorf("reading a %d-byte tensor from a %d-byte buffer", l.size(), len(b.data))
+func (b *buffer) readTensor(l e5rt.StateLayout) ([]float32, error) {
+	if len(b.data) < l.Size() {
+		return nil, fmt.Errorf("reading a %d-byte tensor from a %d-byte buffer", l.Size(), len(b.data))
 	}
-	out := make([]float32, l.values())
-	for c := range l.channels {
-		row := b.data[c*l.rowBytes():]
-		for i := range l.dim {
-			out[c*l.dim+i] = ane.FP16ToFloat32(uint16(row[2*i]) | uint16(row[2*i+1])<<8)
+	out := make([]float32, l.Values())
+	for c := range l.Channels {
+		row := b.data[c*l.RowBytes():]
+		for i := range l.Dim {
+			out[c*l.Dim+i] = ane.FP16ToFloat32(uint16(row[2*i]) | uint16(row[2*i+1])<<8)
 		}
 	}
 	return out, nil
@@ -716,7 +697,7 @@ type stateOp struct {
 	releases []func() error
 }
 
-func openStateOp(lib *e5rt.Lib, dir, text string, state *buffer, inputs, outputs []e5rt.Port) (_ *stateOp, err error) {
+func openStateOp(lib *e5rt.Lib, dir, text string, state *buffer, lay e5rt.StateLayout, inputs, outputs []e5rt.Port) (_ *stateOp, err error) {
 	if err := os.MkdirAll(dir, 0o755); err != nil {
 		return nil, err
 	}
@@ -785,14 +766,16 @@ func openStateOp(lib *e5rt.Lib, dir, text string, state *buffer, inputs, outputs
 	keep(func() error { return lib.OperationRelease(o.op) })
 
 	// The state port takes the caller's buffer. Everything else gets its own.
-	statePort, err := lib.OperationRetainInoutPort(o.op, stateName)
+	//
+	// BindStatePort is the checked bind: it asks the runtime how large the
+	// buffer is and refuses one too small for the layout. The raw pair of
+	// calls accepts an undersized buffer without complaint, which is how the
+	// padding went unnoticed until this example ran.
+	statePort, err := lib.BindStatePort(o.op, stateName, state.obj, lay)
 	if err != nil {
-		return nil, fmt.Errorf("retain inout port %q: %w", stateName, err)
+		return nil, err
 	}
 	keep(func() error { return lib.IOPortRelease(statePort) })
-	if err := lib.IOPortBindBufferObject(statePort, state.obj); err != nil {
-		return nil, fmt.Errorf("bind the shared state buffer: %w", err)
-	}
 
 	bind := func(spec e5rt.Port, input bool) error {
 		var port uintptr
@@ -904,20 +887,20 @@ func requireANE(cacheDir string) error {
 
 // reportLayout states the state buffer's shape in bytes, because it is the one
 // thing a caller has to get right that the MIL text does not tell them.
-func reportLayout(l layout) {
-	if l.packed() {
+func reportLayout(l e5rt.StateLayout) {
+	if l.Packed() {
 		fmt.Printf("  state buffer: %d bytes, %d channels of %d bytes — packed at this shape\n",
-			l.size(), l.channels, l.rowBytes())
+			l.Size(), l.Channels, l.RowBytes())
 		return
 	}
 	fmt.Printf("  state buffer: %d bytes, %d channels of %d bytes — a packed %d would be too small by %d\n",
-		l.size(), l.channels, l.rowBytes(), l.values()*2, l.size()-l.values()*2)
+		l.Size(), l.Channels, l.RowBytes(), l.Values()*2, l.Size()-l.Values()*2)
 }
 
 // reportInitialContents says what a fresh buffer object held. Nothing here
 // depends on it — every arm zeroes the state explicitly — but an allocator that
 // returns dirty memory is worth knowing about, and reporting it is free.
-func reportInitialContents(b *buffer, lay layout) {
+func reportInitialContents(b *buffer, lay e5rt.StateLayout) {
 	v, err := b.readTensor(lay)
 	if err != nil {
 		fmt.Printf("  freshly allocated buffer: UNREAD (%v)\n", err)
