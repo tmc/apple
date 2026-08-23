@@ -55,6 +55,7 @@ var Symbols = []string{
 	"e5rt_execution_stream_operation_release",
 	"e5rt_buffer_object_alloc",
 	"e5rt_buffer_object_get_data_ptr",
+	"e5rt_buffer_object_get_size",
 	"e5rt_buffer_object_release",
 	"e5rt_io_port_bind_buffer_object",
 	"e5rt_io_port_release",
@@ -213,6 +214,9 @@ func (l *Lib) BufferObjectAlloc(uintptr, int) (uintptr, error) { return 0, ErrUn
 
 // BufferObjectGetDataPtr returns the host address of a buffer object's storage.
 func (l *Lib) BufferObjectGetDataPtr(uintptr) (uintptr, error) { return 0, ErrUnsupported }
+
+// BufferObjectGetSize returns the number of bytes a buffer object holds.
+func (l *Lib) BufferObjectGetSize(uintptr) (uintptr, error) { return 0, ErrUnsupported }
 
 // BufferObjectRelease releases a buffer object.
 func (l *Lib) BufferObjectRelease(uintptr) error { return ErrUnsupported }

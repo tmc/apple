@@ -54,6 +54,7 @@ var Symbols = []string{
 	// Bind.
 	"e5rt_buffer_object_alloc",
 	"e5rt_buffer_object_get_data_ptr",
+	"e5rt_buffer_object_get_size",
 	"e5rt_buffer_object_release",
 	"e5rt_io_port_bind_buffer_object",
 	"e5rt_io_port_release",
@@ -699,6 +700,24 @@ func (l *Lib) BufferObjectAlloc(nbytes uintptr, typ int) (uintptr, error) {
 func (l *Lib) BufferObjectGetDataPtr(buf uintptr) (uintptr, error) {
 	out := newOut()
 	err := l.callErr("e5rt_buffer_object_get_data_ptr", buf, uintptr(unsafe.Pointer(out)))
+	runtime.KeepAlive(out)
+	return *out, err
+}
+
+// BufferObjectGetSize returns the number of bytes a buffer object holds.
+//
+// LOCAL OBSERVATION: this symbol is exported by the runtime and had no binding
+// here. Called on macOS 26.x it returns the size passed to [Lib.BufferObjectAlloc]
+// unrounded, so the runtime records the request rather than the allocation
+// granule. Neither the paper nor ANEForge mentions it; the two-argument shape
+// (buf, &size) matches every other getter on this type and is confirmed by the
+// round-trip test in this package rather than by a citation.
+//
+// It is what makes a size-checked bind possible: a caller can ask the runtime
+// how large a buffer is instead of tracking it alongside.
+func (l *Lib) BufferObjectGetSize(buf uintptr) (uintptr, error) {
+	out := newOut()
+	err := l.callErr("e5rt_buffer_object_get_size", buf, uintptr(unsafe.Pointer(out)))
 	runtime.KeepAlive(out)
 	return *out, err
 }
