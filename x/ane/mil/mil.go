@@ -10,6 +10,11 @@ import (
 // buildInfo matches the format expected by the ANE MIL parser.
 const buildInfo = `[buildInfo = dict<string, string>({{"coremlc-component-MIL", "3510.2.1"}, {"coremlc-version", "3505.4.1"}, {"coremltools-component-milinternal", ""}, {"coremltools-version", "9.0"}})]`
 
+// BuildInfo is the build-information line every generated MIL program carries.
+// It is exported for callers that emit their own MIL text, so hand-written
+// programs do not drift from the generated ones on parser metadata.
+const BuildInfo = buildInfo
+
 // GenConv generates a MIL text for a 1×1 convolution kernel with fp16 internal computation.
 // inCh and outCh are channel counts; spatial is the spatial dimension (1 for vectors).
 func GenConv(inCh, outCh, spatial int) string {
