@@ -46,6 +46,14 @@
 //     on every run to prove it still refuses them. Without this, a truncated
 //     result compared over its prefix was reported identical.
 //
+//   - An unrelated-process arm opens the bundle from a process that started
+//     before the model existed, runs in its own session and process group,
+//     shares no file descriptors with the compiler, and touches nothing until
+//     after the source MIL and weights are gone. It is compared against the
+//     freshly compiled arm exactly like the second-process arm. What remains
+//     outside the claim: the opener still runs as the same user as whoever ran
+//     this program, so reuse across a uid change stays unmeasured.
+//
 //   - A wrong function name and a damaged bundle file are both required to be
 //     refused, and they fail at different native entry points. Without them,
 //     "the bundle opened" would be evidence only that OpenBundle returns
@@ -70,6 +78,7 @@ import (
 	"path/filepath"
 	"strconv"
 	"strings"
+	"syscall"
 	"time"
 
 	"github.com/tmc/apple/x/ane/e5rt"
@@ -84,11 +93,23 @@ var (
 
 	child      = flag.Bool("child", false, "internal: run as the second process")
 	childBundl = flag.String("child-bundle", "", "internal: bundle for the second process to open")
+	// The unrelated child is spawned before any model exists and blocks on a
+	// request file, so at open time it has inherited nothing from a compiler
+	// that had not even started when the process came up.
+	unrelatedChild = flag.Bool("unrelated-child", false, "internal: run as the unrelated opener process")
+	unrelatedReq   = flag.String("unrelated-request", "", "internal: request file carrying the bundle path")
+	unrelatedRes   = flag.String("unrelated-result", "", "internal: file the result line is written to")
 )
 
 func main() {
 	log.SetFlags(0)
 	flag.Parse()
+	if *unrelatedChild {
+		if err := runUnrelatedChild(); err != nil {
+			log.Fatal(err)
+		}
+		return
+	}
 	if *child {
 		if err := runChild(); err != nil {
 			log.Fatal(err)
@@ -220,6 +241,22 @@ func run() error {
 	}
 	fmt.Printf("  second process vs freshly compiled: identical over all %d values\n", len(crossed))
 
+	// Arm 4: an unrelated process — spawned before anything was compiled,
+	// in its own session, waiting on a request file that names a bundle which
+	// does not exist yet.
+	unrel, err := unrelatedArm(bundlePath)
+	if err != nil {
+		return fmt.Errorf("unrelated-process arm: %w", err)
+	}
+	unrelDiff, err := compare(unrel, compiled)
+	if err != nil {
+		return fmt.Errorf("unrelated process vs freshly compiled: %w", err)
+	}
+	if unrelDiff != 0 {
+		return fmt.Errorf("the unrelated process differs from the compiled arm by %.3g", unrelDiff)
+	}
+	fmt.Printf("  unrelated process vs freshly compiled: identical over all %d values\n", len(unrel))
+
 	if err := parserControls(); err != nil {
 		return err
 	}
@@ -230,10 +267,12 @@ func run() error {
 
 	fmt.Println("\nOK")
 	fmt.Println("\nMeasured here: reuse in a second process that shares this one's code-signing")
-	fmt.Println("identity and has it as a parent. Reuse across an aned restart is MEASURED")
-	fmt.Println("separately, in examples/ane/internal/anedrestart, and survives. Reuse after a")
-	fmt.Println("reboot or from an unrelated process is UNMEASURED. Bundles are not durable:")
-	fmt.Println("two roughly day-old bundles stopped opening; the expiry boundary is UNMEASURED.")
+	fmt.Println("identity and has it as a parent; reuse from an unrelated process spawned before")
+	fmt.Println("the model existed, in its own session, opening only after the source was gone")
+	fmt.Println("(same user — cross-uid reuse stays unmeasured); and reuse across an aned restart,")
+	fmt.Println("measured separately in examples/ane/internal/anedrestart, which survives. Reuse")
+	fmt.Println("after a reboot is UNMEASURED. Bundles are not durable: two roughly day-old bundles")
+	fmt.Println("stopped opening; the expiry boundary is UNMEASURED.")
 	return nil
 }
 
@@ -334,6 +373,115 @@ func childArm(bundlePath string) ([]float32, error) {
 		return nil, fmt.Errorf("second process: %w", err)
 	}
 	return parseResult(string(out), *outCh**spatial)
+}
+
+// unrelatedArm opens the bundle from a process that cannot have inherited any
+// compiler state: it is spawned BEFORE this function runs — before the model
+// directory even exists — it starts its own session and process group via
+// setsid, exec.Command passes it no extra file descriptors, and it blocks on a
+// request file until after the source MIL and weights are deleted.
+//
+// The claim this arm establishes is deliberately narrower than the word
+// "unrelated" suggests. The opener still runs as the same user; reuse across a
+// uid change or a different code-signing identity remains unmeasured here.
+func unrelatedArm(bundlePath string) ([]float32, error) {
+	self, err := os.Executable()
+	if err != nil {
+		return nil, err
+	}
+	dir, err := os.MkdirTemp("", "bundlereuse-unrelated-")
+	if err != nil {
+		return nil, err
+	}
+	defer os.RemoveAll(dir)
+	req := filepath.Join(dir, "request")
+	res := filepath.Join(dir, "result")
+
+	cmd := exec.Command(self,
+		"-unrelated-child",
+		"-unrelated-request", req,
+		"-unrelated-result", res,
+		"-inch", strconv.Itoa(*inCh),
+		"-outch", strconv.Itoa(*outCh),
+		"-spatial", strconv.Itoa(*spatial),
+	)
+	// A new session detaches the opener from this one's process group and
+	// controlling terminal. It does not change the uid, which is exactly why
+	// the doc comment bounds the claim the way it does.
+	cmd.SysProcAttr = &syscall.SysProcAttr{Setsid: true}
+	cmd.Stderr = os.Stderr
+	if err := cmd.Start(); err != nil {
+		return nil, fmt.Errorf("spawn unrelated opener: %w", err)
+	}
+	defer func() {
+		// If anything above failed before the result appeared, stop the waiter.
+		os.Remove(req)
+		_, statErr := os.Stat(res)
+		if statErr != nil {
+			_ = cmd.Process.Kill()
+		}
+		_ = cmd.Wait()
+	}()
+
+	// The request file is written only after compileArm has run and the source
+	// has been deleted, so from the opener's point of view the bundle simply
+	// appears, already final, with nothing about its provenance observable.
+	if err := os.WriteFile(req, []byte(bundlePath+"\n"), 0o644); err != nil {
+		return nil, fmt.Errorf("write request file: %w", err)
+	}
+	deadline := time.Now().Add(5 * time.Minute)
+	for {
+		data, err := os.ReadFile(res)
+		if err == nil {
+			return parseResult(string(data), *outCh**spatial)
+		}
+		if time.Now().After(deadline) {
+			return nil, errors.New("the unrelated opener produced no result within 5 minutes")
+		}
+		time.Sleep(20 * time.Millisecond)
+	}
+}
+
+// runUnrelatedChild waits for a request naming a bundle that did not exist
+// when this process started, then opens it and writes the result line.
+func runUnrelatedChild() error {
+	if *unrelatedReq == "" || *unrelatedRes == "" {
+		return fmt.Errorf("unrelated-child mode needs -unrelated-request and -unrelated-result")
+	}
+	deadline := time.Now().Add(10 * time.Minute)
+	var data []byte
+	for {
+		d, err := os.ReadFile(*unrelatedReq)
+		if err == nil && len(d) > 0 {
+			data = d
+			break
+		}
+		if !os.IsNotExist(err) && err != nil {
+			return fmt.Errorf("read request: %w", err)
+		}
+		if time.Now().After(deadline) {
+			return errors.New("no request arrived within 10 minutes")
+		}
+		time.Sleep(20 * time.Millisecond)
+	}
+	bundlePath := strings.TrimSpace(string(data))
+	if bundlePath == "" {
+		return errors.New("empty request")
+	}
+	x := sampleInput(*inCh * *spatial)
+	out, _, err := openArm(bundlePath, x)
+	if err != nil {
+		return err
+	}
+	w := bufio.NewWriter(os.Stdout)
+	defer w.Flush()
+	var b strings.Builder
+	fmt.Fprintf(&b, "RESULT %d", len(out))
+	for _, v := range out {
+		fmt.Fprintf(&b, " %v", v)
+	}
+	fmt.Fprintln(w, b.String())
+	return os.WriteFile(*unrelatedRes, []byte(b.String()+"\n"), 0o644)
 }
 
 // parserControls prove the result parser refuses the shapes that used to slip
