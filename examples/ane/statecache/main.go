@@ -105,13 +105,17 @@
 package main
 
 import (
+	"encoding/json"
 	"errors"
 	"flag"
 	"fmt"
 	"math"
 	"os"
 	"path/filepath"
+	"runtime"
 	"strings"
+	"syscall"
+	"time"
 	"unsafe"
 
 	"github.com/tmc/apple/x/ane"
@@ -124,6 +128,7 @@ var (
 	dim       = flag.Int("dim", 4, "trailing extent of the state tensor")
 	steps     = flag.Int("steps", 6, "number of updates to apply (2..8, to keep the recurrence exact in fp16)")
 	mapLayout = flag.Bool("layout", false, "map which host offsets the engine reads the state from, then exit")
+	report    = flag.Bool("report", false, "print a machine-readable JSON layout report for mailing back (implies -layout)")
 )
 
 // stateName is the MIL state parameter these programs share. Both the update
@@ -161,7 +166,7 @@ func run() error {
 	}
 	defer os.RemoveAll(root)
 
-	if *mapLayout {
+	if *mapLayout || *report {
 		return layoutProbe(lib, root, shape)
 	}
 
@@ -313,7 +318,76 @@ func layoutProbe(lib *e5rt.Lib, root string, shape [4]int) error {
 	} else {
 		fmt.Println("  the state tensor is NOT host-packed; a caller must write through the layout above")
 	}
+	if *report {
+		printLayoutReport(shape, slots, packed, got)
+	}
 	return nil
+}
+
+// layoutReport is what -report mails back. Slot maps are raw observations; the
+// prediction fields restate what e5rt.StateLayout computes for this shape so a
+// recipient can check agreement without importing anything.
+type layoutReport struct {
+	Date              string  `json:"date"`
+	GOOS              string  `json:"goos"`
+	GOArch            string  `json:"goarch"`
+	OSVersion         string  `json:"os_version"`
+	HWModel           string  `json:"hw_model"`
+	Channels          int     `json:"channels"`
+	Dim               int     `json:"dim"`
+	RowBytes          int     `json:"predicted_row_bytes"`
+	SizeBytes         int     `json:"predicted_size_bytes"`
+	BufferSlots       int     `json:"buffer_slots"`
+	Packed            bool    `json:"host_packed"`
+	MatchesPrediction bool    `json:"matches_state_layout_prediction"`
+	SlotMap           [][]int `json:"slot_map"`
+}
+
+func printLayoutReport(shape [4]int, slots int, packed bool, got []float32) {
+	rep := layoutReport{
+		Date:        time.Now().UTC().Format(time.RFC3339),
+		GOOS:        runtime.GOOS,
+		GOArch:      runtime.GOARCH,
+		OSVersion:   sysctlString("kern.osproductversion"),
+		HWModel:     sysctlString("hw.model"),
+		Channels:    shape[1],
+		Dim:         shape[3],
+		BufferSlots: slots,
+		Packed:      packed,
+	}
+	lay := e5rt.StateLayout{Channels: shape[1], Dim: shape[3]}
+	rep.RowBytes = lay.RowBytes()
+	rep.SizeBytes = lay.Size()
+	mismatch := false
+	for c := range shape[1] {
+		row := make([]int, shape[3])
+		for i := range row {
+			v := int(got[c*shape[3]+i])
+			row[i] = v
+			if v != lay.Offset(c, i)/2 {
+				mismatch = true
+			}
+		}
+		rep.SlotMap = append(rep.SlotMap, row)
+	}
+	rep.MatchesPrediction = !mismatch
+	blob, err := json.Marshal(rep)
+	if err != nil {
+		fmt.Printf("REPORT %v\n", err)
+		return
+	}
+	fmt.Println("REPORT " + string(blob))
+}
+
+// sysctlString reads one string-valued sysctl, returning "" rather than failing:
+// a mailed-back report should degrade gracefully, not refuse to exist because
+// one identifier is unavailable.
+func sysctlString(name string) string {
+	v, err := syscall.Sysctl(name)
+	if err != nil {
+		return ""
+	}
+	return v
 }
 
 // hostVisibility establishes that a host write to the bound state buffer is
