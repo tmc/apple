@@ -127,6 +127,15 @@ type ConvolutionUniforms struct {
 // Convolution_uniforms is a type alias for ConvolutionUniforms for use in objc.Send[T] calls.
 type Convolution_uniforms = ConvolutionUniforms
 
+// EspressoNetworkCStruct
+type EspressoNetworkCStruct struct {
+	Field0 uintptr
+	Field1 int32
+}
+
+// Espresso_network_t is a type alias for EspressoNetworkCStruct for use in objc.Send[T] calls.
+type Espresso_network_t = EspressoNetworkCStruct
+
 // FastPyramidResizer
 type FastPyramidResizer struct {
 }

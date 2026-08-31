@@ -2,4 +2,8 @@
 
 package espresso
 
-type EspressoPlan = uintptr
+type EspressoContextRef uintptr
+
+type EspressoNetworkRef uintptr
+
+type EspressoPlanRef uintptr

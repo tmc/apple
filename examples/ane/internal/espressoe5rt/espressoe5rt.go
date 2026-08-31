@@ -136,13 +136,6 @@ func cstring(s string) ([]byte, *byte) {
 	return b, (*byte)(unsafe.Pointer(&b[0]))
 }
 
-func boolInt32(v bool) int32 {
-	if v {
-		return 1
-	}
-	return 0
-}
-
 func release(name string, f func(*uintptr) (int32, error), handle uintptr) error {
 	p := new(uintptr)
 	*p = handle
@@ -198,7 +191,7 @@ func (l *Lib) CompilerOptionsSetComputeDeviceTypesMask(options uintptr, mask uin
 }
 
 func (l *Lib) CompilerOptionsSetForceRecompilation(options uintptr, force bool) error {
-	status, err := espresso.E5rtE5CompilerOptionsSetForceRecompilation(options, boolInt32(force))
+	status, err := espresso.E5rtE5CompilerOptionsSetForceRecompilation(options, force)
 	return check("compiler_options_set_force_recompilation", status, err)
 }
 
@@ -264,7 +257,7 @@ func (l *Lib) PrecompiledComputeOpOptionsSetOperationName(options uintptr, name 
 }
 
 func (l *Lib) PrecompiledComputeOpOptionsSetAllocateIntermediateBuffers(options uintptr, allocate bool) error {
-	status, err := espresso.E5rtPrecompiledComputeOpCreateOptionsSetAllocateIntermediateBuffers(options, boolInt32(allocate))
+	status, err := espresso.E5rtPrecompiledComputeOpCreateOptionsSetAllocateIntermediateBuffers(options, allocate)
 	return check("precompiled_compute_op_create_options_set_allocate_intermediate_buffers", status, err)
 }
 
