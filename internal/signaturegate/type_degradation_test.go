@@ -46,34 +46,53 @@ import (
 //
 // Set APPLE_GATE_BASE to compare against something else for a one-off.
 
-// baselineRev is the v0.7.0 tip. It answers, going forward, "what has degraded
-// since v0.7.0 shipped".
+// baselineRev is v0.6.17. It answers, going forward, "what has degraded since
+// v0.6.17".
 //
-// It was 77eeb3409, a mid-branch commit, and that is a failure mode worth
-// recording rather than quietly correcting. A revision inside a branch that
-// may be rewritten is a pin that dangles: the history reconstruction of
-// 2026-08-22 collapsed 233 commits to 19 and left 77eeb3409 unreachable. The
-// object survives locally as an unreachable commit, so rev-parse keeps
-// resolving it and this gate keeps passing on the machine that did the
-// rewrite -- and hard-fails on a fresh clone, or here after a gc. A gate that
-// works only where it was written is worse than one that is merely absent.
+// A pin MUST satisfy `git merge-base --is-ancestor <pin> HEAD`. This is the
+// rule, not an observation about the current value: a revision that is not an
+// ancestor makes the gate diff across a fork, so it reports the difference
+// between two lines of history and calls it degradation. v0.6.17 is the newest
+// tag that satisfies it. Both previous pins failed it, one at 16 commits of
+// divergence, and neither failure was visible from the constant.
 //
-// It also asked a question nobody wanted. Pinned mid-branch, the gate reported
-// what changed since an arbitrary Thursday in August. Pinned at a release, it
-// reports what changed since a release.
+// Two superseded values, described rather than spelled, because a hash written
+// in prose gets read as the value -- that misreading has already cost a
+// reviewer half a session:
 //
-// Two things this pin still does NOT fix, both tracked for v0.7.1:
+//   - The first was mid-branch, and a revision inside a branch that may be
+//     rewritten is a pin that dangles. The history reconstruction of
+//     2026-08-22 collapsed 233 commits to 19 and left it unreachable. The
+//     object survives locally, so rev-parse keeps resolving it and the gate
+//     keeps passing on the machine that did the rewrite -- while hard-failing
+//     on a fresh clone, or here after a gc. A gate that works only where it
+//     was written is worse than one that is merely absent.
+//   - The second claimed to be "the v0.7.0 tip". No v0.7* tag exists, so that
+//     intent named a revision that could not exist, and the pin fell back to
+//     19 commits past v0.6.15 -- the same mid-branch failure, relocated. An
+//     aspiration in a comment does not become true by being pinned to
+//     something.
 //
-//   - Moving it laundered the applicationservices/QD.framework damage into the
-//     baseline: CMDeviceInfo, CMMultiFunctLutType, CMDeviceProfileArray and
-//     CMDeviceScope render every field as unsafe.Pointer at this revision, and
-//     comparing against it can no longer see that. They are held by
-//     TestNoAllOpaqueRecords instead, which takes no baseline at all.
+// Three things this pin does NOT fix:
+//
+//   - It is blind to a symbol introduced AND removed between the pin and HEAD.
+//     Any single-revision comparison is: the symbol is absent at both edges,
+//     so nothing changed as far as the diff can tell. Worked example:
+//     E5rtTensorUtilsDequantizeFromS8ToFp32 was bound on 2026-08-22 and
+//     dropped on 2026-08-31, and reads as absent at every baseline considered
+//     here. Choosing a better pin does not narrow this; a second arm against
+//     HEAD~ or the golden manifest below is what closes it.
+//   - The applicationservices/QD.framework damage predates every usable
+//     baseline. CMDeviceInfo, CMMultiFunctLutType, CMDeviceProfileArray and
+//     CMDeviceScope render every field as unsafe.Pointer at v0.6.17 and at
+//     HEAD alike -- 9 of 9 for CMDeviceInfo, measured at both -- so no
+//     baseline arm can see it. TestNoAllOpaqueRecords holds it instead, taking
+//     no baseline at all. Moving the pin neither caused this nor recovers it.
 //   - A revision pin is still a pin. The replacement is an in-tree golden
 //     manifest: regenerating a file shows the damage as a reviewable diff,
 //     where moving a hash is a one-line change that reveals nothing. Today the
 //     most consequential act is the least visible one.
-const baselineRev = "62547ebc14a6217ff3144ff94f1fefaee8cf342d"
+const baselineRev = "7b66b9767d1b39c5565beaed0c06361b586a8103"
 
 // knownFindings are the degradations the tree carried when the baseline was
 // pinned, each recorded exactly as the gate reports it — never a pattern, so
@@ -82,8 +101,9 @@ const baselineRev = "62547ebc14a6217ff3144ff94f1fefaee8cf342d"
 // An entry that no longer reproduces is a failure, not a pass. An allowlist
 // that only ever suppresses becomes permanent; one that goes red when a
 // finding is fixed forces its own cleanup.
-// It is empty at v0.7.0, and that is a consequence of moving the pin rather
-// than a claim that the tree is clean. Every entry it held was a constant that
+// It is empty at v0.6.17, and that is a consequence of where the pin sits
+// rather than a claim that the tree is clean. Every entry it held was a
+// constant that
 // collapsed to zero BEFORE this revision, so against this baseline the value
 // reads 0 on both sides and the comparison can no longer see it. Emptying the
 // map is forced -- the stale-entry rule below would fail on all three.
@@ -129,6 +149,25 @@ func TestNoTypeDegradationAgainstBaseline(t *testing.T) {
 	// A baseline that does not resolve is a broken gate, not an empty one.
 	if _, err := git(root, "rev-parse", "--verify", base+"^{commit}"); err != nil {
 		t.Fatalf("baseline %q does not resolve: %v", base, err)
+	}
+	// Resolving is not enough. A revision that is not an ancestor of HEAD makes
+	// this gate diff across a fork and report the difference between two lines
+	// of history as degradation. Both earlier pins resolved cleanly and neither
+	// was an ancestor, which is precisely why the defect survived two reviews:
+	// nothing here asked the question, so the constant looked fine.
+	//
+	// Only the committed constant is enforced. APPLE_GATE_BASE exists to
+	// compare against an arbitrary revision for a one-off, and requiring
+	// ancestry there would defeat it.
+	if os.Getenv("APPLE_GATE_BASE") == "" {
+		if _, err := git(root, "merge-base", "--is-ancestor", base, "HEAD"); err != nil {
+			left, _ := git(root, "rev-list", "--count", base+"..HEAD")
+			right, _ := git(root, "rev-list", "--count", "HEAD.."+base)
+			t.Fatalf("baselineRev %s is not an ancestor of HEAD: %s commit(s) on HEAD are not in it "+
+				"and %s commit(s) in it are not on HEAD, so every comparison crosses a fork. "+
+				"Pin a revision on this line of history -- preferably a tag.",
+				base, strings.TrimSpace(string(left)), strings.TrimSpace(string(right)))
+		}
 	}
 
 	files := generatedFiles(t, root)
