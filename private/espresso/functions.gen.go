@@ -4339,21 +4339,20 @@ func EspressoCompileMilToEir(a0 uintptr, a1 uintptr) (uintptr, error) {
 	return tryEspressoCompileMilToEir(a0, a1)
 }
 
-var _espressoContextDestroySymbol uintptr
+var _espressoContextDestroy func(ctx EspressoContextRef)
 var _espressoContextDestroyErr error
 
-// EspressoContextDestroy has no safely lowerable C signature in discovered metadata.
-// Call EspressoContextDestroySymbol to get the raw symbol address.
-func EspressoContextDestroy() {
-	panic("espresso: symbol espresso_context_destroy has no safely lowerable signature; use EspressoContextDestroySymbol() and a typed manual wrapper")
+func tryEspressoContextDestroy(ctx EspressoContextRef) error {
+	if _espressoContextDestroy == nil {
+		return symbolCallError("espresso_context_destroy", "", _espressoContextDestroyErr)
+	}
+	_espressoContextDestroy(ctx)
+	return nil
 }
 
-// EspressoContextDestroySymbol returns the raw symbol address for espresso_context_destroy.
-func EspressoContextDestroySymbol() uintptr {
-	if _espressoContextDestroySymbol == 0 {
-		return 0
-	}
-	return _espressoContextDestroySymbol
+// EspressoContextDestroy signature constrained, not determined, by the shim prologue and 34 of 34 compiled call sites in AVConference, AXMediaUtilities, AppleCVA and 13 more independently say 1; return type override justified by espresso entry points do not share one return convention; reviewed headers refine known results; argument 0 binding shape uintptr/general/64/1 is independently agreed by a typed Objective-C caller and a recovered C declaration; this establishes binding semantics, not Apple's canonical typedef spelling; the parameter types and the return type are hand-written, not measured -- the evidence covers the argument count.
+func EspressoContextDestroy(ctx EspressoContextRef) error {
+	return tryEspressoContextDestroy(ctx)
 }
 
 var _espressoContextReportBench func(a0 uintptr, a1 uintptr)
@@ -5032,21 +5031,19 @@ func EspressoPlanAutoProfile(a0 uintptr) (uintptr, error) {
 	return tryEspressoPlanAutoProfile(a0)
 }
 
-var _espressoPlanBuildSymbol uintptr
+var _espressoPlanBuild func(plan EspressoPlanRef) int32
 var _espressoPlanBuildErr error
 
-// EspressoPlanBuild has no safely lowerable C signature in discovered metadata.
-// Call EspressoPlanBuildSymbol to get the raw symbol address.
-func EspressoPlanBuild() {
-	panic("espresso: symbol espresso_plan_build has no safely lowerable signature; use EspressoPlanBuildSymbol() and a typed manual wrapper")
+func tryEspressoPlanBuild(plan EspressoPlanRef) (int32, error) {
+	if _espressoPlanBuild == nil {
+		return 0, symbolCallError("espresso_plan_build", "", _espressoPlanBuildErr)
+	}
+	return _espressoPlanBuild(plan), nil
 }
 
-// EspressoPlanBuildSymbol returns the raw symbol address for espresso_plan_build.
-func EspressoPlanBuildSymbol() uintptr {
-	if _espressoPlanBuildSymbol == 0 {
-		return 0
-	}
-	return _espressoPlanBuildSymbol
+// EspressoPlanBuild signature constrained, not determined, by the shim prologue and 37 of 37 compiled call sites in ANECompilerService, AVConference, AXMediaUtilities and 14 more independently say 1; return type override justified by espresso entry points do not share one return convention; reviewed headers refine known results; argument 0 binding shape uintptr/general/64/1 is independently agreed by a typed Objective-C caller and a recovered C declaration; this establishes binding semantics, not Apple's canonical typedef spelling; the parameter types and the return type are hand-written, not measured -- the evidence covers the argument count.
+func EspressoPlanBuild(plan EspressoPlanRef) (int32, error) {
+	return tryEspressoPlanBuild(plan)
 }
 
 var _espressoPlanBuildClean func(a0 uintptr) int32
@@ -5094,38 +5091,35 @@ func EspressoPlanCanUseSubmit(a0 uintptr) (int32, error) {
 	return tryEspressoPlanCanUseSubmit(a0)
 }
 
-var _espressoPlanDestroySymbol uintptr
+var _espressoPlanDestroy func(plan EspressoPlanRef)
 var _espressoPlanDestroyErr error
 
-// EspressoPlanDestroy has no safely lowerable C signature in discovered metadata.
-// Call EspressoPlanDestroySymbol to get the raw symbol address.
-func EspressoPlanDestroy() {
-	panic("espresso: symbol espresso_plan_destroy has no safely lowerable signature; use EspressoPlanDestroySymbol() and a typed manual wrapper")
-}
-
-// EspressoPlanDestroySymbol returns the raw symbol address for espresso_plan_destroy.
-func EspressoPlanDestroySymbol() uintptr {
-	if _espressoPlanDestroySymbol == 0 {
-		return 0
+func tryEspressoPlanDestroy(plan EspressoPlanRef) error {
+	if _espressoPlanDestroy == nil {
+		return symbolCallError("espresso_plan_destroy", "", _espressoPlanDestroyErr)
 	}
-	return _espressoPlanDestroySymbol
+	_espressoPlanDestroy(plan)
+	return nil
 }
 
-var _espressoPlanExecuteSyncSymbol uintptr
+// EspressoPlanDestroy signature constrained, not determined, by the shim prologue and 31 of 31 compiled call sites in ANECompilerService, AVConference, AXMediaUtilities and 14 more independently say 1; return type override justified by espresso entry points do not share one return convention; reviewed headers refine known results; argument 0 binding shape uintptr/general/64/1 is independently agreed by a typed Objective-C caller and a recovered C declaration; this establishes binding semantics, not Apple's canonical typedef spelling; the parameter types and the return type are hand-written, not measured -- the evidence covers the argument count.
+func EspressoPlanDestroy(plan EspressoPlanRef) error {
+	return tryEspressoPlanDestroy(plan)
+}
+
+var _espressoPlanExecuteSync func(plan EspressoPlanRef) int32
 var _espressoPlanExecuteSyncErr error
 
-// EspressoPlanExecuteSync has no safely lowerable C signature in discovered metadata.
-// Call EspressoPlanExecuteSyncSymbol to get the raw symbol address.
-func EspressoPlanExecuteSync() {
-	panic("espresso: symbol espresso_plan_execute_sync has no safely lowerable signature; use EspressoPlanExecuteSyncSymbol() and a typed manual wrapper")
+func tryEspressoPlanExecuteSync(plan EspressoPlanRef) (int32, error) {
+	if _espressoPlanExecuteSync == nil {
+		return 0, symbolCallError("espresso_plan_execute_sync", "", _espressoPlanExecuteSyncErr)
+	}
+	return _espressoPlanExecuteSync(plan), nil
 }
 
-// EspressoPlanExecuteSyncSymbol returns the raw symbol address for espresso_plan_execute_sync.
-func EspressoPlanExecuteSyncSymbol() uintptr {
-	if _espressoPlanExecuteSyncSymbol == 0 {
-		return 0
-	}
-	return _espressoPlanExecuteSyncSymbol
+// EspressoPlanExecuteSync signature constrained, not determined, by the shim prologue and 38 of 38 compiled call sites in AVConference, AXMediaUtilities, AppleCVA and 13 more independently say 1; return type override justified by espresso entry points do not share one return convention; reviewed headers refine known results; return type int32 constrained by a negative W-register status written at espresso_plan_execute_sync#entry+0x8c reaching the normal return at espresso_plan_execute_sync#entry+0xa8, corroborated by the independent C declaration at /Users/tmc/go/src/github.com/electricapp/ane-bridge-rs/c/include/espresso.h:85 function result; argument 0 binding shape uintptr/general/64/1 is independently agreed by a typed Objective-C caller and a recovered C declaration; this establishes binding semantics, not Apple's canonical typedef spelling; the parameter types and the return type are hand-written, not measured -- the evidence covers the argument count.
+func EspressoPlanExecuteSync(plan EspressoPlanRef) (int32, error) {
+	return tryEspressoPlanExecuteSync(plan)
 }
 
 var _espressoPlanFinishProfiling func(a0 uintptr) uintptr
@@ -5744,7 +5738,7 @@ func init() {
 	registerFunc(&_espressoBufferSetRank, &_espressoBufferSetRankErr, frameworkHandle, "espresso_buffer_set_rank", "")
 	registerFunc(&_espressoBufferUnpackTensorShape, &_espressoBufferUnpackTensorShapeErr, frameworkHandle, "espresso_buffer_unpack_tensor_shape", "")
 	registerFunc(&_espressoCompileMilToEir, &_espressoCompileMilToEirErr, frameworkHandle, "espresso_compile_mil_to_eir", "")
-	registerSymbol(&_espressoContextDestroySymbol, &_espressoContextDestroyErr, frameworkHandle, "espresso_context_destroy", "")
+	registerFunc(&_espressoContextDestroy, &_espressoContextDestroyErr, frameworkHandle, "espresso_context_destroy", "")
 	registerFunc(&_espressoContextReportBench, &_espressoContextReportBenchErr, frameworkHandle, "espresso_context_report_bench", "")
 	registerFunc(&_espressoContextSetIntOption, &_espressoContextSetIntOptionErr, frameworkHandle, "espresso_context_set_int_option", "")
 	registerFunc(&_espressoContextSetLowPrecisionAccumulation, &_espressoContextSetLowPrecisionAccumulationErr, frameworkHandle, "espresso_context_set_low_precision_accumulation", "")
@@ -5790,12 +5784,12 @@ func init() {
 	registerFunc(&_espressoNetworkUnbindBuffer, &_espressoNetworkUnbindBufferErr, frameworkHandle, "espresso_network_unbind_buffer", "")
 	registerFunc(&_espressoPlanAddNetwork, &_espressoPlanAddNetworkErr, frameworkHandle, "espresso_plan_add_network", "")
 	registerFunc(&_espressoPlanAutoProfile, &_espressoPlanAutoProfileErr, frameworkHandle, "espresso_plan_auto_profile", "")
-	registerSymbol(&_espressoPlanBuildSymbol, &_espressoPlanBuildErr, frameworkHandle, "espresso_plan_build", "")
+	registerFunc(&_espressoPlanBuild, &_espressoPlanBuildErr, frameworkHandle, "espresso_plan_build", "")
 	registerFunc(&_espressoPlanBuildClean, &_espressoPlanBuildCleanErr, frameworkHandle, "espresso_plan_build_clean", "")
 	registerFunc(&_espressoPlanBuildWithOptions, &_espressoPlanBuildWithOptionsErr, frameworkHandle, "espresso_plan_build_with_options", "")
 	registerFunc(&_espressoPlanCanUseSubmit, &_espressoPlanCanUseSubmitErr, frameworkHandle, "espresso_plan_can_use_submit", "")
-	registerSymbol(&_espressoPlanDestroySymbol, &_espressoPlanDestroyErr, frameworkHandle, "espresso_plan_destroy", "")
-	registerSymbol(&_espressoPlanExecuteSyncSymbol, &_espressoPlanExecuteSyncErr, frameworkHandle, "espresso_plan_execute_sync", "")
+	registerFunc(&_espressoPlanDestroy, &_espressoPlanDestroyErr, frameworkHandle, "espresso_plan_destroy", "")
+	registerFunc(&_espressoPlanExecuteSync, &_espressoPlanExecuteSyncErr, frameworkHandle, "espresso_plan_execute_sync", "")
 	registerFunc(&_espressoPlanFinishProfiling, &_espressoPlanFinishProfilingErr, frameworkHandle, "espresso_plan_finish_profiling", "")
 	registerFunc(&_espressoPlanGetErrorInfo, &_espressoPlanGetErrorInfoErr, frameworkHandle, "espresso_plan_get_error_info", "")
 	registerFunc(&_espressoPlanGetPhase, &_espressoPlanGetPhaseErr, frameworkHandle, "espresso_plan_get_phase", "")
