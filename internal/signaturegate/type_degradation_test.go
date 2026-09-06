@@ -130,7 +130,18 @@ const baselineRev = "7b66b9767d1b39c5565beaed0c06361b586a8103"
 // constant, and that population is UNMEASURED: it is not known how many are
 // benign (a legitimate zero plus a genuinely absent symbol) and how many are
 // collisions like the metal one. Sizing it is v0.7.1 work.
-var knownFindings = map[string]string{}
+// The gtshaderprofiler entries below are a second, distinct category:
+// corrections made after the baseline, not degradations carried at it. An
+// arity change is the shape a signature fix takes when the old declaration
+// passed too few arguments, so the gate cannot tell the two apart and each
+// one has to be adjudicated by reading the evidence. All four were read out
+// of GTShaderProfiler's own disassembly; the reason strings name the address.
+var knownFindings = map[string]string{
+	"private/xcode/gtshaderprofiler/functions.gen.go: AgxpsGPUCreate(arity): 3 params, 2 results -> 4 params, 2 results (signature arity changed)":         "correction, not degradation: 0x49b528 reads a fourth argument into x23 and 0x49b5a8 tests its bit 0. Three parameters left x3 holding whatever the previous call put there, so the revision fallback ran at random",
+	"private/xcode/gtshaderprofiler/functions.gen.go: tryAgxpsGPUCreate(arity): 3 params, 2 results -> 4 params, 2 results (signature arity changed)":      "the unexported binder for AgxpsGPUCreate; same correction",
+	"private/xcode/gtshaderprofiler/functions.gen.go: AgxpsApsParserParse(arity): 4 params, 2 results -> 5 params, 2 results (signature arity changed)":    "correction, not degradation: 0x4ea634 preserves x0..x4 and stores the error through x4. The four-parameter form passed profileDataOut in x3, which the callee reads as flags, and left x4 wild",
+	"private/xcode/gtshaderprofiler/functions.gen.go: tryAgxpsApsParserParse(arity): 4 params, 2 results -> 5 params, 2 results (signature arity changed)": "the unexported binder for AgxpsApsParserParse; same correction",
+}
 
 func TestNoTypeDegradationAgainstBaseline(t *testing.T) {
 	// This gate reads every generated file at two revisions and runs about
