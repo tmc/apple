@@ -72,6 +72,8 @@ func TestAppleHeaderABI(t *testing.T) {
 		"IBV_ACCESS_REMOTE_WRITE":              2,
 		"IBV_ACCESS_REMOTE_READ":               4,
 		"IBV_WC_SUCCESS":                       0,
+		"IBV_WC_SEND":                          0,
+		"IBV_WC_RECV":                          128,
 		"IBV_WC_LOC_PROT_ERR":                  4,
 		"IBV_WC_LOC_ACCESS_ERR":                8,
 		"IBV_WC_REM_ACCESS_ERR":                10,

@@ -3,6 +3,11 @@ package rdma
 // Work-completion statuses used to classify provider errors. These values are
 // part of the verbs ABI; they do not imply that an unsupported verb is usable.
 const (
+	// IBV_WC_SEND identifies a completed send work request.
+	IBV_WC_SEND = 0
+	// IBV_WC_RECV identifies a completed receive work request.
+	IBV_WC_RECV = 1 << 7
+
 	IBV_WC_LOC_PROT_ERR   = 4
 	IBV_WC_LOC_ACCESS_ERR = 8
 	IBV_WC_REM_ACCESS_ERR = 10

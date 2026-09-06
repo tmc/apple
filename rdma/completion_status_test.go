@@ -22,3 +22,12 @@ func TestClassifyCompletionStatus(t *testing.T) {
 		})
 	}
 }
+
+func TestCompletionOpcodes(t *testing.T) {
+	if IBV_WC_SEND != 0 {
+		t.Fatalf("IBV_WC_SEND = %d, want 0", IBV_WC_SEND)
+	}
+	if IBV_WC_RECV != 128 {
+		t.Fatalf("IBV_WC_RECV = %d, want 128", IBV_WC_RECV)
+	}
+}
