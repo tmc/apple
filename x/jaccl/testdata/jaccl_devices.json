@@ -1,0 +1,5 @@
+[
+  [null, "rdma0", "rdma0"],
+  ["rdma0", null, "rdma0"],
+  ["rdma0", "rdma0", null]
+]
