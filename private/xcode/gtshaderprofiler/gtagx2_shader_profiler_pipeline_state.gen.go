@@ -130,11 +130,11 @@ type IGTAGX2ShaderProfilerPipelineState interface {
 	AddFunctionForType(function objectivec.IObject, type_ uint32)
 	AllBinaryKeys() foundation.INSDictionary
 	BinaryKeys() foundation.INSDictionary
-	ComputeTiming() IGTAGX2ShaderProfilerTiming
-	SetComputeTiming(value IGTAGX2ShaderProfilerTiming)
+	ComputeTiming() GTAGX2ShaderProfilerTiming
+	SetComputeTiming(value GTAGX2ShaderProfilerTiming)
 	EncodeWithCoder(coder foundation.INSCoder)
-	FragmentTiming() IGTAGX2ShaderProfilerTiming
-	SetFragmentTiming(value IGTAGX2ShaderProfilerTiming)
+	FragmentTiming() GTAGX2ShaderProfilerTiming
+	SetFragmentTiming(value GTAGX2ShaderProfilerTiming)
 	FunctionIndex() uint64
 	SetFunctionIndex(value uint64)
 	Index() uint32
@@ -146,11 +146,11 @@ type IGTAGX2ShaderProfilerPipelineState interface {
 	PointerId() uint64
 	SetPointerId(value uint64)
 	ShaderFunctions() foundation.INSDictionary
-	Timing() IGTAGX2ShaderProfilerTiming
-	SetTiming(value IGTAGX2ShaderProfilerTiming)
+	Timing() GTAGX2ShaderProfilerTiming
+	SetTiming(value GTAGX2ShaderProfilerTiming)
 	TimingInfo() IGTShaderProfilerTimingInfo
-	VertexTiming() IGTAGX2ShaderProfilerTiming
-	SetVertexTiming(value IGTAGX2ShaderProfilerTiming)
+	VertexTiming() GTAGX2ShaderProfilerTiming
+	SetVertexTiming(value GTAGX2ShaderProfilerTiming)
 	InitWithCoder(coder foundation.INSCoder) GTAGX2ShaderProfilerPipelineState
 	DebugDescription() string
 	Description() string
@@ -210,11 +210,11 @@ func (g GTAGX2ShaderProfilerPipelineState) BinaryKeys() foundation.INSDictionary
 	rv := objc.SendIfResponds[objc.ID](g.ID, objc.Sel("binaryKeys"))
 	return foundation.NSDictionaryFromID(objc.ID(rv))
 }
-func (g GTAGX2ShaderProfilerPipelineState) ComputeTiming() IGTAGX2ShaderProfilerTiming {
+func (g GTAGX2ShaderProfilerPipelineState) ComputeTiming() GTAGX2ShaderProfilerTiming {
 	rv := objc.SendIfResponds[objc.ID](g.ID, objc.Sel("computeTiming"))
 	return GTAGX2ShaderProfilerTimingFromID(objc.ID(rv))
 }
-func (g GTAGX2ShaderProfilerPipelineState) SetComputeTiming(value IGTAGX2ShaderProfilerTiming) {
+func (g GTAGX2ShaderProfilerPipelineState) SetComputeTiming(value GTAGX2ShaderProfilerTiming) {
 	objc.SendIfResponds[struct{}](g.ID, objc.Sel("setComputeTiming:"), value)
 }
 func (g GTAGX2ShaderProfilerPipelineState) DebugDescription() string {
@@ -225,11 +225,11 @@ func (g GTAGX2ShaderProfilerPipelineState) Description() string {
 	rv := objc.SendIfResponds[objc.ID](g.ID, objc.Sel("description"))
 	return foundation.NSStringFromID(rv).String()
 }
-func (g GTAGX2ShaderProfilerPipelineState) FragmentTiming() IGTAGX2ShaderProfilerTiming {
+func (g GTAGX2ShaderProfilerPipelineState) FragmentTiming() GTAGX2ShaderProfilerTiming {
 	rv := objc.SendIfResponds[objc.ID](g.ID, objc.Sel("fragmentTiming"))
 	return GTAGX2ShaderProfilerTimingFromID(objc.ID(rv))
 }
-func (g GTAGX2ShaderProfilerPipelineState) SetFragmentTiming(value IGTAGX2ShaderProfilerTiming) {
+func (g GTAGX2ShaderProfilerPipelineState) SetFragmentTiming(value GTAGX2ShaderProfilerTiming) {
 	objc.SendIfResponds[struct{}](g.ID, objc.Sel("setFragmentTiming:"), value)
 }
 func (g GTAGX2ShaderProfilerPipelineState) FunctionIndex() uint64 {
@@ -279,21 +279,21 @@ func (g GTAGX2ShaderProfilerPipelineState) Superclass() objectivec.Class {
 	rv := objc.SendIfResponds[objectivec.Class](g.ID, objc.Sel("superclass"))
 	return objectivec.Class(rv)
 }
-func (g GTAGX2ShaderProfilerPipelineState) Timing() IGTAGX2ShaderProfilerTiming {
+func (g GTAGX2ShaderProfilerPipelineState) Timing() GTAGX2ShaderProfilerTiming {
 	rv := objc.SendIfResponds[objc.ID](g.ID, objc.Sel("timing"))
 	return GTAGX2ShaderProfilerTimingFromID(objc.ID(rv))
 }
-func (g GTAGX2ShaderProfilerPipelineState) SetTiming(value IGTAGX2ShaderProfilerTiming) {
+func (g GTAGX2ShaderProfilerPipelineState) SetTiming(value GTAGX2ShaderProfilerTiming) {
 	objc.SendIfResponds[struct{}](g.ID, objc.Sel("setTiming:"), value)
 }
 func (g GTAGX2ShaderProfilerPipelineState) TimingInfo() IGTShaderProfilerTimingInfo {
 	rv := objc.SendIfResponds[objc.ID](g.ID, objc.Sel("timingInfo"))
 	return GTShaderProfilerTimingInfoFromID(objc.ID(rv))
 }
-func (g GTAGX2ShaderProfilerPipelineState) VertexTiming() IGTAGX2ShaderProfilerTiming {
+func (g GTAGX2ShaderProfilerPipelineState) VertexTiming() GTAGX2ShaderProfilerTiming {
 	rv := objc.SendIfResponds[objc.ID](g.ID, objc.Sel("vertexTiming"))
 	return GTAGX2ShaderProfilerTimingFromID(objc.ID(rv))
 }
-func (g GTAGX2ShaderProfilerPipelineState) SetVertexTiming(value IGTAGX2ShaderProfilerTiming) {
+func (g GTAGX2ShaderProfilerPipelineState) SetVertexTiming(value GTAGX2ShaderProfilerTiming) {
 	objc.SendIfResponds[struct{}](g.ID, objc.Sel("setVertexTiming:"), value)
 }

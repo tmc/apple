@@ -47,6 +47,9 @@ func (xc XRGPUAPSDataProcessorClass) Alloc() XRGPUAPSDataProcessor {
 
 // # Methods
 //
+//   - [XRGPUAPSDataProcessor.DeriveAPSCountersNumCoresCounterSet]
+//   - [XRGPUAPSDataProcessor.CounterConfigForGRCCounterSet]
+//   - [XRGPUAPSDataProcessor.LoadCounterGraphConfig]
 //   - [XRGPUAPSDataProcessor._loadCSVShaderMap]
 //   - [XRGPUAPSDataProcessor._loadJSONShaderMap]
 //   - [XRGPUAPSDataProcessor._loadOSLogShaderMap]
@@ -66,11 +69,9 @@ func (xc XRGPUAPSDataProcessorClass) Alloc() XRGPUAPSDataProcessor {
 //   - [XRGPUAPSDataProcessor.Config]
 //   - [XRGPUAPSDataProcessor.ConvertTimestampToTraceBeginMachAbsoluteBegin]
 //   - [XRGPUAPSDataProcessor.CountPeriod]
-//   - [XRGPUAPSDataProcessor.CounterConfigForGRCCounterSet]
 //   - [XRGPUAPSDataProcessor.CounterTypeFromGroupNameCounterName]
 //   - [XRGPUAPSDataProcessor.Delegate]
 //   - [XRGPUAPSDataProcessor.SetDelegate]
-//   - [XRGPUAPSDataProcessor.DeriveAPSCountersNumCoresCounterSet]
 //   - [XRGPUAPSDataProcessor.DeriveRDECountersCounterIndexesRawCounterIdsDerivedCounterIdsDeltaSecondsIndex]
 //   - [XRGPUAPSDataProcessor.DeriveRDESourceBuffer]
 //   - [XRGPUAPSDataProcessor.EnableUSCEnable]
@@ -102,7 +103,6 @@ func (xc XRGPUAPSDataProcessorClass) Alloc() XRGPUAPSDataProcessor {
 //   - [XRGPUAPSDataProcessor.LastAPSTimestamp]
 //   - [XRGPUAPSDataProcessor.LastRDETimestamp]
 //   - [XRGPUAPSDataProcessor.LoadAPSCountersCounterSet]
-//   - [XRGPUAPSDataProcessor.LoadCounterGraphConfig]
 //   - [XRGPUAPSDataProcessor.LoadCounters]
 //   - [XRGPUAPSDataProcessor.LoadRDECounters]
 //   - [XRGPUAPSDataProcessor.LoadShaders]
@@ -141,6 +141,9 @@ var _ IXRGPUAPSDataProcessor = XRGPUAPSDataProcessor{}
 //
 // # Methods
 //
+//   - [IXRGPUAPSDataProcessor.DeriveAPSCountersNumCoresCounterSet]
+//   - [IXRGPUAPSDataProcessor.CounterConfigForGRCCounterSet]
+//   - [IXRGPUAPSDataProcessor.LoadCounterGraphConfig]
 //   - [IXRGPUAPSDataProcessor._loadCSVShaderMap]
 //   - [IXRGPUAPSDataProcessor._loadJSONShaderMap]
 //   - [IXRGPUAPSDataProcessor._loadOSLogShaderMap]
@@ -160,11 +163,9 @@ var _ IXRGPUAPSDataProcessor = XRGPUAPSDataProcessor{}
 //   - [IXRGPUAPSDataProcessor.Config]
 //   - [IXRGPUAPSDataProcessor.ConvertTimestampToTraceBeginMachAbsoluteBegin]
 //   - [IXRGPUAPSDataProcessor.CountPeriod]
-//   - [IXRGPUAPSDataProcessor.CounterConfigForGRCCounterSet]
 //   - [IXRGPUAPSDataProcessor.CounterTypeFromGroupNameCounterName]
 //   - [IXRGPUAPSDataProcessor.Delegate]
 //   - [IXRGPUAPSDataProcessor.SetDelegate]
-//   - [IXRGPUAPSDataProcessor.DeriveAPSCountersNumCoresCounterSet]
 //   - [IXRGPUAPSDataProcessor.DeriveRDECountersCounterIndexesRawCounterIdsDerivedCounterIdsDeltaSecondsIndex]
 //   - [IXRGPUAPSDataProcessor.DeriveRDESourceBuffer]
 //   - [IXRGPUAPSDataProcessor.EnableUSCEnable]
@@ -196,7 +197,6 @@ var _ IXRGPUAPSDataProcessor = XRGPUAPSDataProcessor{}
 //   - [IXRGPUAPSDataProcessor.LastAPSTimestamp]
 //   - [IXRGPUAPSDataProcessor.LastRDETimestamp]
 //   - [IXRGPUAPSDataProcessor.LoadAPSCountersCounterSet]
-//   - [IXRGPUAPSDataProcessor.LoadCounterGraphConfig]
 //   - [IXRGPUAPSDataProcessor.LoadCounters]
 //   - [IXRGPUAPSDataProcessor.LoadRDECounters]
 //   - [IXRGPUAPSDataProcessor.LoadShaders]
@@ -224,6 +224,9 @@ type IXRGPUAPSDataProcessor interface {
 
 	// Topic: Methods
 
+	DeriveAPSCountersNumCoresCounterSet(apsCounters unsafe.Pointer, numCores uint32, counterSet uint64) bool
+	CounterConfigForGRCCounterSet(grc bool, counterSet uint64) objectivec.IObject
+	LoadCounterGraphConfig() objectivec.IObject
 	_loadCSVShaderMap(map_ objectivec.IObject)
 	_loadJSONShaderMap(map_ objectivec.IObject)
 	_loadOSLogShaderMap(map_ objectivec.IObject)
@@ -243,11 +246,9 @@ type IXRGPUAPSDataProcessor interface {
 	Config() foundation.INSDictionary
 	ConvertTimestampToTraceBeginMachAbsoluteBegin(begin uint64, begin2 uint64)
 	CountPeriod() uint64
-	CounterConfigForGRCCounterSet(grc bool, set uint64) objectivec.IObject
 	CounterTypeFromGroupNameCounterName(name string, name2 string) uint32
 	Delegate() unsafe.Pointer
 	SetDelegate(value unsafe.Pointer)
-	DeriveAPSCountersNumCoresCounterSet(aPSCounters unsafe.Pointer, cores uint32, set uint64) bool
 	DeriveRDECountersCounterIndexesRawCounterIdsDerivedCounterIdsDeltaSecondsIndex(rDECounters unsafe.Pointer, indexes unsafe.Pointer, ids unsafe.Pointer, ids2 unsafe.Pointer, index uint64) bool
 	DeriveRDESourceBuffer(buffer unsafe.Pointer) bool
 	EnableUSCEnable(usc uint32, enable bool)
@@ -279,7 +280,6 @@ type IXRGPUAPSDataProcessor interface {
 	LastAPSTimestamp() uint64
 	LastRDETimestamp() uint64
 	LoadAPSCountersCounterSet(aPSCounters unsafe.Pointer, set uint64) bool
-	LoadCounterGraphConfig() objectivec.IObject
 	LoadCounters(counters uint64) bool
 	LoadRDECounters(rDECounters unsafe.Pointer) bool
 	LoadShaders() bool
@@ -301,7 +301,7 @@ type IXRGPUAPSDataProcessor interface {
 	ShaderFromPCPidTimeUscIndex(pc uint64, pid int, time uint64, index uint32) objectivec.IObject
 	TimestampRefToNsUscTimeIndexUscIndex(ns uint64, index uint64, index2 uint32) uint64
 	TimestampRefsToNsCountResultUscIndex(ns unsafe.Pointer, count uint64, result *uint64, index uint32)
-	InitWithGPUGenerationVariantRevConfigOptions(gPUGeneration uint32, variant uint32, rev uint32, config objectivec.IObject, options uint32) XRGPUAPSDataProcessor
+	InitWithGPUGenerationVariantRevConfigOptions(gPUGeneration uint32, variant uint32, rev uint32, config foundation.INSDictionary, options uint32) XRGPUAPSDataProcessor
 }
 
 // Init initializes the instance.
@@ -323,12 +323,24 @@ func NewXRGPUAPSDataProcessor() XRGPUAPSDataProcessor {
 	return rv
 }
 
-func NewXRGPUAPSDataProcessorWithGPUGenerationVariantRevConfigOptions(gPUGeneration uint32, variant uint32, rev uint32, config objectivec.IObject, options uint32) XRGPUAPSDataProcessor {
+func NewXRGPUAPSDataProcessorWithGPUGenerationVariantRevConfigOptions(gPUGeneration uint32, variant uint32, rev uint32, config foundation.INSDictionary, options uint32) XRGPUAPSDataProcessor {
 	instance := getXRGPUAPSDataProcessorClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithGPUGeneration:variant:rev:config:options:"), gPUGeneration, variant, rev, config, options)
 	return XRGPUAPSDataProcessorFromID(rv)
 }
 
+func (x XRGPUAPSDataProcessor) DeriveAPSCountersNumCoresCounterSet(apsCounters unsafe.Pointer, numCores uint32, counterSet uint64) bool {
+	rv := objc.SendIfResponds[bool](x.ID, objc.Sel("deriveAPSCounters:numCores:counterSet:"), apsCounters, numCores, counterSet)
+	return rv
+}
+func (x XRGPUAPSDataProcessor) CounterConfigForGRCCounterSet(grc bool, counterSet uint64) objectivec.IObject {
+	rv := objc.SendIfResponds[objc.ID](x.ID, objc.Sel("counterConfigForGRC:counterSet:"), grc, counterSet)
+	return objectivec.Object{ID: rv}
+}
+func (x XRGPUAPSDataProcessor) LoadCounterGraphConfig() objectivec.IObject {
+	rv := objc.SendIfResponds[objc.ID](x.ID, objc.Sel("loadCounterGraphConfig"))
+	return objectivec.Object{ID: rv}
+}
 func (x XRGPUAPSDataProcessor) _loadCSVShaderMap(map_ objectivec.IObject) {
 	objc.SendIfResponds[objc.ID](x.ID, objc.Sel("_loadCSVShaderMap:"), map_)
 }
@@ -427,16 +439,8 @@ func (x XRGPUAPSDataProcessor) AggregateShaders() {
 func (x XRGPUAPSDataProcessor) ConvertTimestampToTraceBeginMachAbsoluteBegin(begin uint64, begin2 uint64) {
 	objc.SendIfResponds[objc.ID](x.ID, objc.Sel("convertTimestampToTraceBegin:machAbsoluteBegin:"), begin, begin2)
 }
-func (x XRGPUAPSDataProcessor) CounterConfigForGRCCounterSet(grc bool, set uint64) objectivec.IObject {
-	rv := objc.SendIfResponds[objc.ID](x.ID, objc.Sel("counterConfigForGRC:counterSet:"), grc, set)
-	return objectivec.Object{ID: rv}
-}
 func (x XRGPUAPSDataProcessor) CounterTypeFromGroupNameCounterName(name string, name2 string) uint32 {
 	rv := objc.SendIfResponds[uint32](x.ID, objc.Sel("counterTypeFromGroupName:counterName:"), unsafe.Pointer(unsafe.StringData(name+"\x00")), unsafe.Pointer(unsafe.StringData(name2+"\x00")))
-	return rv
-}
-func (x XRGPUAPSDataProcessor) DeriveAPSCountersNumCoresCounterSet(aPSCounters unsafe.Pointer, cores uint32, set uint64) bool {
-	rv := objc.SendIfResponds[bool](x.ID, objc.Sel("deriveAPSCounters:numCores:counterSet:"), aPSCounters, cores, set)
 	return rv
 }
 func (x XRGPUAPSDataProcessor) DeriveRDECountersCounterIndexesRawCounterIdsDerivedCounterIdsDeltaSecondsIndex(rDECounters unsafe.Pointer, indexes unsafe.Pointer, ids unsafe.Pointer, ids2 unsafe.Pointer, index uint64) bool {
@@ -564,10 +568,6 @@ func (x XRGPUAPSDataProcessor) LoadAPSCountersCounterSet(aPSCounters unsafe.Poin
 	rv := objc.SendIfResponds[bool](x.ID, objc.Sel("loadAPSCounters:counterSet:"), aPSCounters, set)
 	return rv
 }
-func (x XRGPUAPSDataProcessor) LoadCounterGraphConfig() objectivec.IObject {
-	rv := objc.SendIfResponds[objc.ID](x.ID, objc.Sel("loadCounterGraphConfig"))
-	return objectivec.Object{ID: rv}
-}
 func (x XRGPUAPSDataProcessor) LoadCounters(counters uint64) bool {
 	rv := objc.SendIfResponds[bool](x.ID, objc.Sel("loadCounters:"), counters)
 	return rv
@@ -623,14 +623,14 @@ func (x XRGPUAPSDataProcessor) TimestampRefToNsUscTimeIndexUscIndex(ns uint64, i
 func (x XRGPUAPSDataProcessor) TimestampRefsToNsCountResultUscIndex(ns unsafe.Pointer, count uint64, result *uint64, index uint32) {
 	objc.SendIfResponds[objc.ID](x.ID, objc.Sel("timestampRefsToNs:count:result:uscIndex:"), objc.CArray(ns), count, unsafe.Pointer(result), index)
 }
-func (x XRGPUAPSDataProcessor) InitWithGPUGenerationVariantRevConfigOptions(gPUGeneration uint32, variant uint32, rev uint32, config objectivec.IObject, options uint32) XRGPUAPSDataProcessor {
+func (x XRGPUAPSDataProcessor) InitWithGPUGenerationVariantRevConfigOptions(gPUGeneration uint32, variant uint32, rev uint32, config foundation.INSDictionary, options uint32) XRGPUAPSDataProcessor {
 	rv := objc.SendIfResponds[XRGPUAPSDataProcessor](x.ID, objc.Sel("initWithGPUGeneration:variant:rev:config:options:"), gPUGeneration, variant, rev, config, options)
 	return rv
 }
 
-func (_XRGPUAPSDataProcessorClass XRGPUAPSDataProcessorClass) ProcessorFromConfigOptions(config objectivec.IObject, options uint32) objectivec.IObject {
+func (_XRGPUAPSDataProcessorClass XRGPUAPSDataProcessorClass) ProcessorFromConfigOptions(config foundation.INSDictionary, options uint32) XRGPUAPSDataProcessor {
 	rv := objc.SendIfResponds[objc.ID](objc.ID(_XRGPUAPSDataProcessorClass.class), objc.Sel("processorFromConfig:options:"), config, options)
-	return objectivec.Object{ID: rv}
+	return XRGPUAPSDataProcessorFromID(rv)
 }
 func (_XRGPUAPSDataProcessorClass XRGPUAPSDataProcessorClass) ProcessorFromDataContainerOptions(container objectivec.IObject, options uint32) objectivec.IObject {
 	rv := objc.SendIfResponds[objc.ID](objc.ID(_XRGPUAPSDataProcessorClass.class), objc.Sel("processorFromDataContainer:options:"), container, options)
@@ -640,6 +640,10 @@ func (_XRGPUAPSDataProcessorClass XRGPUAPSDataProcessorClass) ProcessorFromDataC
 func (x XRGPUAPSDataProcessor) AcceleratorID() uint64 {
 	rv := objc.SendIfResponds[uint64](x.ID, objc.Sel("acceleratorID"))
 	return rv
+}
+func (x XRGPUAPSDataProcessor) Config() foundation.INSDictionary {
+	rv := objc.SendIfResponds[objc.ID](x.ID, objc.Sel("config"))
+	return foundation.NSDictionaryFromID(objc.ID(rv))
 }
 func (x XRGPUAPSDataProcessor) AgxpsGPU() uint64 {
 	rv := objc.SendIfResponds[uint64](x.ID, objc.Sel("agxpsGPU"))
@@ -656,10 +660,6 @@ func (x XRGPUAPSDataProcessor) ApsDerivedCounters() foundation.INSArray {
 func (x XRGPUAPSDataProcessor) ApsRawCounterNames() foundation.INSArray {
 	rv := objc.SendIfResponds[objc.ID](x.ID, objc.Sel("apsRawCounterNames"))
 	return foundation.NSArrayFromID(objc.ID(rv))
-}
-func (x XRGPUAPSDataProcessor) Config() foundation.INSDictionary {
-	rv := objc.SendIfResponds[objc.ID](x.ID, objc.Sel("config"))
-	return foundation.NSDictionaryFromID(objc.ID(rv))
 }
 func (x XRGPUAPSDataProcessor) CountPeriod() uint64 {
 	rv := objc.SendIfResponds[uint64](x.ID, objc.Sel("countPeriod"))

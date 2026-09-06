@@ -63,6 +63,14 @@ type GTAGX2ShaderProfilerProgramAddress struct {
 	Field2 unsafe.Pointer
 }
 
+// GTAGX2ShaderProfilerTimingCStruct
+type GTAGX2ShaderProfilerTimingCStruct struct {
+	Field1 Statistics
+	Field2 Statistics
+	Field3 Statistics
+	Field4 float64
+}
+
 // GTAPSBinaryInfo
 type GTAPSBinaryInfo struct {
 	Field1  [3]uint64

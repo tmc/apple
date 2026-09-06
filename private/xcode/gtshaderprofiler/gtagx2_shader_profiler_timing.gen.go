@@ -85,7 +85,7 @@ type IGTAGX2ShaderProfilerTiming interface {
 	MinCycles() float64
 	MinTime() float64
 	Time() float64
-	InitWithTiming(timing IGTAGX2ShaderProfilerTiming) GTAGX2ShaderProfilerTiming
+	InitWithTiming(timing GTAGX2ShaderProfilerTiming) GTAGX2ShaderProfilerTiming
 }
 
 // Init initializes the instance.
@@ -107,7 +107,7 @@ func NewGTAGX2ShaderProfilerTiming() GTAGX2ShaderProfilerTiming {
 	return rv
 }
 
-func NewGTAGX2ShaderProfilerTimingWithTiming(timing IGTAGX2ShaderProfilerTiming) GTAGX2ShaderProfilerTiming {
+func NewGTAGX2ShaderProfilerTimingWithTiming(timing GTAGX2ShaderProfilerTiming) GTAGX2ShaderProfilerTiming {
 	instance := getGTAGX2ShaderProfilerTimingClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithTiming:"), timing)
 	return GTAGX2ShaderProfilerTimingFromID(rv)
@@ -137,7 +137,7 @@ func (g GTAGX2ShaderProfilerTiming) Time() float64 {
 	rv := objc.SendIfResponds[float64](g.ID, objc.Sel("time"))
 	return rv
 }
-func (g GTAGX2ShaderProfilerTiming) InitWithTiming(timing IGTAGX2ShaderProfilerTiming) GTAGX2ShaderProfilerTiming {
+func (g GTAGX2ShaderProfilerTiming) InitWithTiming(timing GTAGX2ShaderProfilerTiming) GTAGX2ShaderProfilerTiming {
 	rv := objc.SendIfResponds[GTAGX2ShaderProfilerTiming](g.ID, objc.Sel("initWithTiming:"), timing)
 	return rv
 }
