@@ -52,13 +52,13 @@ func (d *DataSource) WithCache() *DataSource {
 // Count returns the number of data points.
 func (d *DataSource) Count() int {
 	if d.buf.GetID() != 0 {
-		return d.buf.NumberOfDataPoints()
+		return int(d.buf.NumberOfDataPoints())
 	}
 	if d.folder.GetID() != 0 {
-		return d.folder.NumberOfDataPoints()
+		return int(d.folder.NumberOfDataPoints())
 	}
 	if d.cached.GetID() != 0 {
-		return d.cached.NumberOfDataPoints()
+		return int(d.cached.NumberOfDataPoints())
 	}
 	return 0
 }
@@ -66,7 +66,7 @@ func (d *DataSource) Count() int {
 // NumClasses returns the number of classes (folder data sources only).
 func (d *DataSource) NumClasses() int {
 	if d.folder.GetID() != 0 {
-		return d.folder.NumberOfClasses()
+		return int(d.folder.NumberOfClasses())
 	}
 	return 0
 }

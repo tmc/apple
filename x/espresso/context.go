@@ -62,7 +62,7 @@ func Open(opts ...ContextOption) (*Context, error) {
 	case PlatformAuto:
 		ctx = espresso.NewEspressoContext()
 	default:
-		ctx = espresso.NewEspressoContextWithPlatform(int(cfg.platform))
+		ctx = espresso.NewEspressoContextWithPlatform(int32(cfg.platform))
 	}
 
 	if ctx.GetID() == 0 {
@@ -102,5 +102,5 @@ func (c *Context) isClosed() bool {
 
 // Platform returns the platform this context was created with.
 func (c *Context) Platform() int {
-	return c.ctx.Platform()
+	return int(c.ctx.Platform())
 }

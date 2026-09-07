@@ -66,9 +66,9 @@ func NewMLP(cfg MLPConfig) (*ModelDef, error) {
 	if mlp.GetID() == 0 {
 		return nil, fmt.Errorf("espresso modeldef: failed to allocate ETModelDefMLP")
 	}
-	mlp.SetInput_size(cfg.InputSize)
-	mlp.SetHidden_size(cfg.HiddenSize)
-	mlp.SetOutput_size(cfg.OutputSize)
+	mlp.SetInput_size(int32(cfg.InputSize))
+	mlp.SetHidden_size(int32(cfg.HiddenSize))
+	mlp.SetOutput_size(int32(cfg.OutputSize))
 	// BuildNetwork is deferred — it requires the IR platform and is called
 	// internally when the model is used in a training task. Calling it
 	// eagerly causes an Espresso::invalid_state_error.

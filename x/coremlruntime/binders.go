@@ -62,7 +62,7 @@ func (p PixelBufferPool) Cache() foundation.INSDictionary {
 
 // NewInputPortBinder constructs an input-port binder for a port/feature pair.
 func NewInputPortBinder(port privatecoreml.E5rtIOPortRef, featureDescription objectivec.IObject) InputPortBinder {
-	return InputPortBinder{raw: privatecoreml.NewE5InputPortBinderWithPortFeatureDescription(port, featureDescription)}
+	return InputPortBinder{raw: privatecoreml.NewMLE5InputPortBinderWithPortFeatureDescription(port, featureDescription)}
 }
 
 // Raw returns the underlying private input-port binder object.
@@ -105,7 +105,7 @@ func (b InputPortBinder) ReusableForFeatureValue(value coreml.MLFeatureValue) (r
 
 // NewOutputPortBinder constructs an output-port binder for a port/feature pair.
 func NewOutputPortBinder(port privatecoreml.E5rtIOPortRef, featureDescription objectivec.IObject) OutputPortBinder {
-	return OutputPortBinder{raw: privatecoreml.NewE5OutputPortBinderWithPortFeatureDescription(port, featureDescription)}
+	return OutputPortBinder{raw: privatecoreml.NewMLE5OutputPortBinderWithPortFeatureDescription(port, featureDescription)}
 }
 
 // Raw returns the underlying private output-port binder object.
@@ -171,7 +171,7 @@ func (b OutputPortBinder) ReusableForOutputBacking(backing objectivec.IObject) (
 
 // NewOutputBackingsVerifier constructs a verifier for a model's output descriptions.
 func NewOutputBackingsVerifier(descriptions objectivec.IObject) OutputBackingsVerifier {
-	return OutputBackingsVerifier{raw: privatecoreml.NewOutputBackingsVerifierWithOutputDescriptions(descriptions)}
+	return OutputBackingsVerifier{raw: privatecoreml.NewMLOutputBackingsVerifierWithOutputDescriptions(descriptions)}
 }
 
 // VerifyOutputBackings verifies a dictionary of output backings against the descriptions.

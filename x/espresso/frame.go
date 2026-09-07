@@ -126,7 +126,7 @@ func (f *Frame) SetInputCVPixelBuffer(name string, buf corevideo.CVImageBufferRe
 // SetInputImage attaches a named image input with raw pixel data and channel count.
 func (f *Frame) SetInputImage(name string, data []byte, nChannels int) error {
 	att := espresso.NewEspressoDataFrameImageAttachment()
-	att.SetNChannels(nChannels)
+	att.SetNChannels(int32(nChannels))
 	raw := unsafe.Pointer(unsafe.SliceData(data))
 	att.SetRawPointer(raw)
 	att.SetSize(uint64(len(data)))

@@ -64,7 +64,7 @@ func EvalWithStats(m *ane.Model) (EvalStats, error) {
 		defer func() { recover() }()
 		const scanCap = 256
 		for i := range scanCap {
-			obj := perfStats.StringForPerfCounter(i)
+			obj := perfStats.StringForPerfCounter(int32(i))
 			if obj == nil || obj.GetID() == 0 {
 				break
 			}

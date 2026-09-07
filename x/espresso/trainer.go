@@ -95,7 +95,7 @@ func (t *Trainer) Fit(epochs int, data *DataSource, callback func()) error {
 
 	ok := t.task.FitNumberOfEpochsOutputNamesBatchCallback(
 		data.obj,
-		epochs,
+		int32(epochs),
 		nil, // all output names
 		cb,
 	)
