@@ -220,8 +220,14 @@ func (c *Conn) Close() error {
 // Control performs one USB control transfer. For an IN request, data receives the
 // bytes. For an OUT request, data is transmitted. Errors do not imply no mutation.
 func (c *Conn) Control(ctx context.Context, kind, request uint8, value, index uint16, data []byte) (int, error) {
-	c.mu.Lock()
+	if err := c.lock(ctx); err != nil {
+		return 0, err
+	}
 	defer c.mu.Unlock()
+	return c.control(ctx, kind, request, value, index, data)
+}
+
+func (c *Conn) control(ctx context.Context, kind, request uint8, value, index uint16, data []byte) (int, error) {
 	timeout, err := transferTimeout(ctx)
 	if err != nil {
 		return 0, err
@@ -244,8 +250,14 @@ func (c *Conn) Control(ctx context.Context, kind, request uint8, value, index ui
 
 // BulkWrite performs one bulk OUT transfer, returning any partial byte count.
 func (c *Conn) BulkWrite(ctx context.Context, endpoint uint8, data []byte) (int, error) {
-	c.mu.Lock()
+	if err := c.lock(ctx); err != nil {
+		return 0, err
+	}
 	defer c.mu.Unlock()
+	return c.bulkWrite(ctx, endpoint, data)
+}
+
+func (c *Conn) bulkWrite(ctx context.Context, endpoint uint8, data []byte) (int, error) {
 	timeout, err := transferTimeout(ctx)
 	if err != nil {
 		return 0, err
@@ -306,4 +318,24 @@ func parseSerial(serial string) (Device, error) {
 		}
 	}
 	return d, nil
+}
+
+// Upload holds the mutex across multiple transfers; waiters must remain
+// cancellable instead of waiting for the entire upload to finish.
+func (c *Conn) lock(ctx context.Context) error {
+	for {
+		if err := ctx.Err(); err != nil {
+			return err
+		}
+		if c.mu.TryLock() {
+			return nil
+		}
+		timer := time.NewTimer(5 * time.Millisecond)
+		select {
+		case <-ctx.Done():
+			timer.Stop()
+			return ctx.Err()
+		case <-timer.C:
+		}
+	}
 }
