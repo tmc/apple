@@ -10,6 +10,46 @@ import (
 
 // C struct types
 
+// AnalyticsData
+type AnalyticsData struct {
+	Field1 uint32
+	Field2 uint32
+	Field3 unsafe.Pointer
+}
+
+// AnalyticsGroupInfo
+type AnalyticsGroupInfo struct {
+	Field1 uint32
+	Field2 uint64
+	Field3 uint32
+	Field4 uint64
+}
+
+// AnalyticsLayerInfo
+type AnalyticsLayerInfo struct {
+	Field1 [64]int8
+	Field2 [64]int8
+	Field3 float32
+}
+
+// AnalyticsProcedureInfo
+type AnalyticsProcedureInfo struct {
+	Field1 uint32
+	Field2 uint32
+	Field3 uint32
+	Field4 uint32
+	Field5 uint32
+	Field6 uint64
+	Field7 uint32
+	Field8 uint64
+}
+
+// AnalyticsTaskInfo
+type AnalyticsTaskInfo struct {
+	Field1 uint32
+	Field2 uint64
+}
+
 // CGColorSpace
 type CGColorSpace struct {
 }

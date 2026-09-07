@@ -52,12 +52,12 @@ func (pc PKGSystemStatusIndicatorsShimClass) Alloc() PKGSystemStatusIndicatorsSh
 //   - [PKGSystemStatusIndicatorsShim.HasIndicatorWindows]
 //   - [PKGSystemStatusIndicatorsShim.OverrideIndicatorSize]
 //   - [PKGSystemStatusIndicatorsShim.RebuildDisplays]
-//   - [PKGSystemStatusIndicatorsShim.RebuildIndicators]
 //   - [PKGSystemStatusIndicatorsShim.RebuildLayers]
 //   - [PKGSystemStatusIndicatorsShim.RebuildOcclusionMetadata]
 //   - [PKGSystemStatusIndicatorsShim.SetDisplayNeedsSecureIndicatorFlush]
 //   - [PKGSystemStatusIndicatorsShim.SuspendUpdates]
 //   - [PKGSystemStatusIndicatorsShim.SetSuspendUpdates]
+//   - [PKGSystemStatusIndicatorsShim.UpdateForIndicators]
 //   - [PKGSystemStatusIndicatorsShim.InitWithWindowSize]
 type PKGSystemStatusIndicatorsShim struct {
 	objectivec.Object
@@ -81,12 +81,12 @@ var _ IPKGSystemStatusIndicatorsShim = PKGSystemStatusIndicatorsShim{}
 //   - [IPKGSystemStatusIndicatorsShim.HasIndicatorWindows]
 //   - [IPKGSystemStatusIndicatorsShim.OverrideIndicatorSize]
 //   - [IPKGSystemStatusIndicatorsShim.RebuildDisplays]
-//   - [IPKGSystemStatusIndicatorsShim.RebuildIndicators]
 //   - [IPKGSystemStatusIndicatorsShim.RebuildLayers]
 //   - [IPKGSystemStatusIndicatorsShim.RebuildOcclusionMetadata]
 //   - [IPKGSystemStatusIndicatorsShim.SetDisplayNeedsSecureIndicatorFlush]
 //   - [IPKGSystemStatusIndicatorsShim.SuspendUpdates]
 //   - [IPKGSystemStatusIndicatorsShim.SetSuspendUpdates]
+//   - [IPKGSystemStatusIndicatorsShim.UpdateForIndicators]
 //   - [IPKGSystemStatusIndicatorsShim.InitWithWindowSize]
 type IPKGSystemStatusIndicatorsShim interface {
 	objectivec.IObject
@@ -99,12 +99,12 @@ type IPKGSystemStatusIndicatorsShim interface {
 	HasIndicatorWindows() bool
 	OverrideIndicatorSize(size float32)
 	RebuildDisplays(displays bool)
-	RebuildIndicators(indicators objectivec.IObject)
 	RebuildLayers()
 	RebuildOcclusionMetadata() uint32
 	SetDisplayNeedsSecureIndicatorFlush(display unsafe.Pointer, flush bool)
 	SuspendUpdates() bool
 	SetSuspendUpdates(value bool)
+	UpdateForIndicators(indicators uint32)
 	InitWithWindowSize(size corefoundation.CGSize) PKGSystemStatusIndicatorsShim
 }
 
@@ -147,9 +147,6 @@ func (p PKGSystemStatusIndicatorsShim) OverrideIndicatorSize(size float32) {
 func (p PKGSystemStatusIndicatorsShim) RebuildDisplays(displays bool) {
 	objc.SendIfResponds[objc.ID](p.ID, objc.Sel("rebuildDisplays:"), displays)
 }
-func (p PKGSystemStatusIndicatorsShim) RebuildIndicators(indicators objectivec.IObject) {
-	objc.SendIfResponds[objc.ID](p.ID, objc.Sel("rebuildIndicators:"), indicators)
-}
 func (p PKGSystemStatusIndicatorsShim) RebuildLayers() {
 	objc.SendIfResponds[objc.ID](p.ID, objc.Sel("rebuildLayers"))
 }
@@ -159,6 +156,9 @@ func (p PKGSystemStatusIndicatorsShim) RebuildOcclusionMetadata() uint32 {
 }
 func (p PKGSystemStatusIndicatorsShim) SetDisplayNeedsSecureIndicatorFlush(display unsafe.Pointer, flush bool) {
 	objc.SendIfResponds[objc.ID](p.ID, objc.Sel("setDisplay:needsSecureIndicatorFlush:"), display, flush)
+}
+func (p PKGSystemStatusIndicatorsShim) UpdateForIndicators(indicators uint32) {
+	objc.SendIfResponds[objc.ID](p.ID, objc.Sel("updateForIndicators:"), indicators)
 }
 func (p PKGSystemStatusIndicatorsShim) InitWithWindowSize(size corefoundation.CGSize) PKGSystemStatusIndicatorsShim {
 	rv := objc.SendIfResponds[PKGSystemStatusIndicatorsShim](p.ID, objc.Sel("initWithWindowSize:"), size)

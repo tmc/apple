@@ -4,6 +4,7 @@ package skylight
 
 import (
 	"sync"
+	"unsafe"
 
 	"github.com/tmc/apple/objc"
 )
@@ -42,12 +43,12 @@ func (wc WSMouseEventProcessorClass) Alloc() WSMouseEventProcessor {
 }
 
 type WSMouseEventProcessor struct {
-	WSLegacyEventProcessor
+	WSEventProcessor
 }
 
 // WSMouseEventProcessorFromID constructs a [WSMouseEventProcessor] from an objc.ID.
 func WSMouseEventProcessorFromID(id objc.ID) WSMouseEventProcessor {
-	return WSMouseEventProcessor{WSLegacyEventProcessor: WSLegacyEventProcessorFromID(id)}
+	return WSMouseEventProcessor{WSEventProcessor: WSEventProcessorFromID(id)}
 }
 
 // Ensure WSMouseEventProcessor implements IWSMouseEventProcessor.
@@ -55,7 +56,7 @@ var _ IWSMouseEventProcessor = WSMouseEventProcessor{}
 
 // An interface definition for the [WSMouseEventProcessor] class.
 type IWSMouseEventProcessor interface {
-	IWSLegacyEventProcessor
+	IWSEventProcessor
 }
 
 // Init initializes the instance.
@@ -75,4 +76,10 @@ func NewWSMouseEventProcessor() WSMouseEventProcessor {
 	class := getWSMouseEventProcessorClass()
 	rv := objc.SendIfResponds[WSMouseEventProcessor](objc.ID(class.class), objc.Sel("new"))
 	return rv
+}
+
+func NewWSMouseEventProcessorWithSession(session *CGXSession) WSMouseEventProcessor {
+	instance := getWSMouseEventProcessorClass().Alloc()
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithSession:"), unsafe.Pointer(session))
+	return WSMouseEventProcessorFromID(rv)
 }

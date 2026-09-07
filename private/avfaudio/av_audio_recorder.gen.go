@@ -1,4 +1,4 @@
-// Code generated from Apple documentation for avfaudio. DO NOT EDIT.
+// Code generated from Apple documentation for AVFAudio. DO NOT EDIT.
 
 package avfaudio
 
@@ -45,7 +45,6 @@ func (ac AVAudioRecorderClass) Alloc() AVAudioRecorder {
 
 // # Methods
 //
-//   - [AVAudioRecorder.AutoreleaseDelegate]
 //   - [AVAudioRecorder.BaseInit]
 //   - [AVAudioRecorder.FinishedRecording]
 //   - [AVAudioRecorder.InstantaneousMetering]
@@ -73,7 +72,6 @@ var _ IAVAudioRecorder = AVAudioRecorder{}
 //
 // # Methods
 //
-//   - [IAVAudioRecorder.AutoreleaseDelegate]
 //   - [IAVAudioRecorder.BaseInit]
 //   - [IAVAudioRecorder.FinishedRecording]
 //   - [IAVAudioRecorder.InstantaneousMetering]
@@ -90,7 +88,6 @@ type IAVAudioRecorder interface {
 
 	// Topic: Methods
 
-	AutoreleaseDelegate() objectivec.IObject
 	BaseInit() objectivec.IObject
 	FinishedRecording(recording objectivec.IObject)
 	InstantaneousMetering() bool
@@ -123,10 +120,6 @@ func NewAVAudioRecorder() AVAudioRecorder {
 	return rv
 }
 
-func (a AVAudioRecorder) AutoreleaseDelegate() objectivec.IObject {
-	rv := objc.SendIfResponds[objc.ID](a.ID, objc.Sel("autoreleaseDelegate"))
-	return objectivec.Object{ID: rv}
-}
 func (a AVAudioRecorder) BaseInit() objectivec.IObject {
 	rv := objc.SendIfResponds[objc.ID](a.ID, objc.Sel("baseInit"))
 	return objectivec.Object{ID: rv}

@@ -97,8 +97,8 @@ type IIOGPUMetalAccelerationStructure interface {
 	Buffer() IIOGPUMetalBuffer
 	BufferOffset() uint64
 	CopyPropertiesFromBuffer(buffer objectivec.IObject)
-	Descriptor() *metal.MTLAccelerationStructureDescriptor
-	SetDescriptor(value *metal.MTLAccelerationStructureDescriptor)
+	Descriptor() metal.MTLAccelerationStructureDescriptor
+	SetDescriptor(value metal.MTLAccelerationStructureDescriptor)
 	GpuHandle() uint64
 	GpuResourceID() metal.MTLResourceID
 	ResourceIndex() uint64
@@ -193,15 +193,11 @@ func (i IOGPUMetalAccelerationStructure) BufferOffset() uint64 {
 	rv := objc.SendIfResponds[uint64](i.ID, objc.Sel("bufferOffset"))
 	return rv
 }
-func (i IOGPUMetalAccelerationStructure) Descriptor() *metal.MTLAccelerationStructureDescriptor {
+func (i IOGPUMetalAccelerationStructure) Descriptor() metal.MTLAccelerationStructureDescriptor {
 	rv := objc.SendIfResponds[objc.ID](i.ID, objc.Sel("descriptor"))
-	if rv == 0 {
-		return nil
-	}
-	val := metal.MTLAccelerationStructureDescriptorFromID(objc.ID(rv))
-	return &val
+	return metal.MTLAccelerationStructureDescriptorFromID(objc.ID(rv))
 }
-func (i IOGPUMetalAccelerationStructure) SetDescriptor(value *metal.MTLAccelerationStructureDescriptor) {
+func (i IOGPUMetalAccelerationStructure) SetDescriptor(value metal.MTLAccelerationStructureDescriptor) {
 	objc.SendIfResponds[struct{}](i.ID, objc.Sel("setDescriptor:"), value)
 }
 func (i IOGPUMetalAccelerationStructure) GpuHandle() uint64 {

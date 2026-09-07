@@ -1,4 +1,4 @@
-// Code generated from Apple documentation for virtualization. DO NOT EDIT.
+// Code generated from Apple documentation for Virtualization. DO NOT EDIT.
 
 package virtualization
 
@@ -49,20 +49,17 @@ func (vc VZVirtualMachineClass) Alloc() VZVirtualMachine {
 // # Methods
 //
 //   - [VZVirtualMachine._audioDevices]
-//   - [VZVirtualMachine._bootIdentifier]
 //   - [VZVirtualMachine._canCreateCore]
 //   - [VZVirtualMachine._coprocessors]
 //   - [VZVirtualMachine._crashContextMessage]
 //   - [VZVirtualMachine.Set_crashContextMessage]
-//   - [VZVirtualMachine._createAccessorEndpointWithOptions]
-//   - [VZVirtualMachine._createAccessorFromAccessorManagerForTestingWithOptions]
 //   - [VZVirtualMachine._createCoreWithCompletionHandler]
 //   - [VZVirtualMachine._createCoresWithCompletionHandler]
 //   - [VZVirtualMachine._createSharedMemoryCoresWithOptionsCompletionHandler]
+//   - [VZVirtualMachine._createViewEndpointWithOptions]
 //   - [VZVirtualMachine._currentConfiguration]
 //   - [VZVirtualMachine._debugStub]
 //   - [VZVirtualMachine._enterRestrictedModeWithCompletionHandler]
-//   - [VZVirtualMachine._getSealedRegisterHistoryWithCompletionHandler]
 //   - [VZVirtualMachine._getUSBControllerLocationIDWithCompletionHandler]
 //   - [VZVirtualMachine._hidDevices]
 //   - [VZVirtualMachine._hidEventMonitor]
@@ -70,22 +67,19 @@ func (vc VZVirtualMachineClass) Alloc() VZVirtualMachine {
 //   - [VZVirtualMachine._multiTouchDevices]
 //   - [VZVirtualMachine._name]
 //   - [VZVirtualMachine.Set_name]
+//   - [VZVirtualMachine._overrideConnectionForTesting]
 //   - [VZVirtualMachine._pointingDevices]
 //   - [VZVirtualMachine._powerSourceDevices]
 //   - [VZVirtualMachine._processHIDReportsForDeviceDeviceType]
-//   - [VZVirtualMachine._remoteDeviceMatchingDictionary]
 //   - [VZVirtualMachine._resetWithTypeCompletionHandler]
 //   - [VZVirtualMachine._saveMachineStateToURLOptionsCompletionHandler]
 //   - [VZVirtualMachine._serialPorts]
 //   - [VZVirtualMachine._serviceProcessIdentifier]
 //   - [VZVirtualMachine._setCrashContextMessage]
 //   - [VZVirtualMachine._setName]
-//   - [VZVirtualMachine._setSupportsReconfigurationForTestingGraphicsDeviceIndexFramebufferIndex]
-//   - [VZVirtualMachine._setWatchdogHeartbeatInterval]
 //   - [VZVirtualMachine._shouldSendHIDReports]
 //   - [VZVirtualMachine._stateDescription]
 //   - [VZVirtualMachine._storageDevices]
-//   - [VZVirtualMachine._triggerWatchdogForTesting]
 //   - [VZVirtualMachine._validateRestrictedModeSupportWithError]
 //   - [VZVirtualMachine.SendDigitizerEventsPointingDeviceIndex]
 //   - [VZVirtualMachine.SendIOHIDEventsHidDeviceIndex]
@@ -117,20 +111,17 @@ var _ IVZVirtualMachine = VZVirtualMachine{}
 // # Methods
 //
 //   - [IVZVirtualMachine._audioDevices]
-//   - [IVZVirtualMachine._bootIdentifier]
 //   - [IVZVirtualMachine._canCreateCore]
 //   - [IVZVirtualMachine._coprocessors]
 //   - [IVZVirtualMachine._crashContextMessage]
 //   - [IVZVirtualMachine.Set_crashContextMessage]
-//   - [IVZVirtualMachine._createAccessorEndpointWithOptions]
-//   - [IVZVirtualMachine._createAccessorFromAccessorManagerForTestingWithOptions]
 //   - [IVZVirtualMachine._createCoreWithCompletionHandler]
 //   - [IVZVirtualMachine._createCoresWithCompletionHandler]
 //   - [IVZVirtualMachine._createSharedMemoryCoresWithOptionsCompletionHandler]
+//   - [IVZVirtualMachine._createViewEndpointWithOptions]
 //   - [IVZVirtualMachine._currentConfiguration]
 //   - [IVZVirtualMachine._debugStub]
 //   - [IVZVirtualMachine._enterRestrictedModeWithCompletionHandler]
-//   - [IVZVirtualMachine._getSealedRegisterHistoryWithCompletionHandler]
 //   - [IVZVirtualMachine._getUSBControllerLocationIDWithCompletionHandler]
 //   - [IVZVirtualMachine._hidDevices]
 //   - [IVZVirtualMachine._hidEventMonitor]
@@ -138,22 +129,19 @@ var _ IVZVirtualMachine = VZVirtualMachine{}
 //   - [IVZVirtualMachine._multiTouchDevices]
 //   - [IVZVirtualMachine._name]
 //   - [IVZVirtualMachine.Set_name]
+//   - [IVZVirtualMachine._overrideConnectionForTesting]
 //   - [IVZVirtualMachine._pointingDevices]
 //   - [IVZVirtualMachine._powerSourceDevices]
 //   - [IVZVirtualMachine._processHIDReportsForDeviceDeviceType]
-//   - [IVZVirtualMachine._remoteDeviceMatchingDictionary]
 //   - [IVZVirtualMachine._resetWithTypeCompletionHandler]
 //   - [IVZVirtualMachine._saveMachineStateToURLOptionsCompletionHandler]
 //   - [IVZVirtualMachine._serialPorts]
 //   - [IVZVirtualMachine._serviceProcessIdentifier]
 //   - [IVZVirtualMachine._setCrashContextMessage]
 //   - [IVZVirtualMachine._setName]
-//   - [IVZVirtualMachine._setSupportsReconfigurationForTestingGraphicsDeviceIndexFramebufferIndex]
-//   - [IVZVirtualMachine._setWatchdogHeartbeatInterval]
 //   - [IVZVirtualMachine._shouldSendHIDReports]
 //   - [IVZVirtualMachine._stateDescription]
 //   - [IVZVirtualMachine._storageDevices]
-//   - [IVZVirtualMachine._triggerWatchdogForTesting]
 //   - [IVZVirtualMachine._validateRestrictedModeSupportWithError]
 //   - [IVZVirtualMachine.SendDigitizerEventsPointingDeviceIndex]
 //   - [IVZVirtualMachine.SendIOHIDEventsHidDeviceIndex]
@@ -174,20 +162,17 @@ type IVZVirtualMachine interface {
 	// Topic: Methods
 
 	_audioDevices() foundation.INSArray
-	_bootIdentifier() foundation.NSUUID
 	_canCreateCore() bool
 	_coprocessors() foundation.INSArray
 	_crashContextMessage() string
 	Set_crashContextMessage(value string)
-	_createAccessorEndpointWithOptions(options uint64) objectivec.IObject
-	_createAccessorFromAccessorManagerForTestingWithOptions(options uint64) objectivec.IObject
 	_createCoreWithCompletionHandler(handler ErrorHandler)
 	_createCoresWithCompletionHandler(handler ErrorHandler)
 	_createSharedMemoryCoresWithOptionsCompletionHandler(options unsafe.Pointer, handler ErrorHandler)
+	_createViewEndpointWithOptions(options uint64) objectivec.IObject
 	_currentConfiguration() IVZVirtualMachineConfiguration
 	_debugStub() IVZDebugStub
 	_enterRestrictedModeWithCompletionHandler(handler ErrorHandler)
-	_getSealedRegisterHistoryWithCompletionHandler(handler ErrorHandler)
 	_getUSBControllerLocationIDWithCompletionHandler(handler ErrorHandler)
 	_hidDevices() foundation.INSArray
 	_hidEventMonitor() IVZHIDEventMonitor
@@ -195,22 +180,19 @@ type IVZVirtualMachine interface {
 	_multiTouchDevices() foundation.INSArray
 	_name() string
 	Set_name(value string)
+	_overrideConnectionForTesting(testing objectivec.IObject)
 	_pointingDevices() foundation.INSArray
 	_powerSourceDevices() foundation.INSArray
 	_processHIDReportsForDeviceDeviceType(hIDReports VZOpaqueHIDReports, device uint32, type_ int32)
-	_remoteDeviceMatchingDictionary() objectivec.Object
 	_resetWithTypeCompletionHandler(type_ int64, handler ErrorHandler)
 	_saveMachineStateToURLOptionsCompletionHandler(url foundation.NSURL, options objectivec.IObject, handler ErrorHandler)
 	_serialPorts() foundation.INSArray
 	_serviceProcessIdentifier() int32
 	_setCrashContextMessage(message objectivec.IObject)
 	_setName(name objectivec.IObject)
-	_setSupportsReconfigurationForTestingGraphicsDeviceIndexFramebufferIndex(testing bool, index uint32, index2 uint32)
-	_setWatchdogHeartbeatInterval(interval float64)
 	_shouldSendHIDReports() bool
 	_stateDescription() string
 	_storageDevices() foundation.INSArray
-	_triggerWatchdogForTesting()
 	_validateRestrictedModeSupportWithError() (bool, error)
 	SendDigitizerEventsPointingDeviceIndex(events unsafe.Pointer, index uint32)
 	SendIOHIDEventsHidDeviceIndex(iOHIDEvents VZOpaqueIOHIDEvents, index uint32)
@@ -246,42 +228,6 @@ func NewVZVirtualMachine() VZVirtualMachine {
 	return rv
 }
 
-func (v VZVirtualMachine) _createAccessorEndpointWithOptions(options uint64) objectivec.IObject {
-	rv := objc.SendIfResponds[objc.ID](v.ID, objc.Sel("_createAccessorEndpointWithOptions:"), options)
-	return objectivec.Object{ID: rv}
-}
-
-// CreateAccessorEndpointWithOptions is an exported wrapper for the private method _createAccessorEndpointWithOptions.
-func (v VZVirtualMachine) CreateAccessorEndpointWithOptions(options uint64) (objectivec.IObject, error) {
-	if !objc.RespondsToSelector(v.ID, objc.Sel("_createAccessorEndpointWithOptions:")) {
-		err := &objc.UnrecognizedSelectorError{Selector: "_createAccessorEndpointWithOptions:"}
-		return nil, err
-	}
-	return v._createAccessorEndpointWithOptions(options), nil
-}
-
-// CanCreateAccessorEndpointWithOptions reports whether the receiver responds to the private selector _createAccessorEndpointWithOptions:.
-func (v VZVirtualMachine) CanCreateAccessorEndpointWithOptions() bool {
-	return objc.RespondsToSelector(v.ID, objc.Sel("_createAccessorEndpointWithOptions:"))
-}
-func (v VZVirtualMachine) _createAccessorFromAccessorManagerForTestingWithOptions(options uint64) objectivec.IObject {
-	rv := objc.SendIfResponds[objc.ID](v.ID, objc.Sel("_createAccessorFromAccessorManagerForTestingWithOptions:"), options)
-	return objectivec.Object{ID: rv}
-}
-
-// CreateAccessorFromAccessorManagerForTestingWithOptions is an exported wrapper for the private method _createAccessorFromAccessorManagerForTestingWithOptions.
-func (v VZVirtualMachine) CreateAccessorFromAccessorManagerForTestingWithOptions(options uint64) (objectivec.IObject, error) {
-	if !objc.RespondsToSelector(v.ID, objc.Sel("_createAccessorFromAccessorManagerForTestingWithOptions:")) {
-		err := &objc.UnrecognizedSelectorError{Selector: "_createAccessorFromAccessorManagerForTestingWithOptions:"}
-		return nil, err
-	}
-	return v._createAccessorFromAccessorManagerForTestingWithOptions(options), nil
-}
-
-// CanCreateAccessorFromAccessorManagerForTestingWithOptions reports whether the receiver responds to the private selector _createAccessorFromAccessorManagerForTestingWithOptions:.
-func (v VZVirtualMachine) CanCreateAccessorFromAccessorManagerForTestingWithOptions() bool {
-	return objc.RespondsToSelector(v.ID, objc.Sel("_createAccessorFromAccessorManagerForTestingWithOptions:"))
-}
 func (v VZVirtualMachine) _createCoreWithCompletionHandler(handler ErrorHandler) {
 	_block0, _ := NewErrorBlock(handler)
 	objc.SendIfResponds[objc.ID](v.ID, objc.Sel("_createCoreWithCompletionHandler:"), _block0)
@@ -339,6 +285,24 @@ func (v VZVirtualMachine) CreateSharedMemoryCoresWithOptionsCompletionHandler(op
 func (v VZVirtualMachine) CanCreateSharedMemoryCoresWithOptionsCompletionHandler() bool {
 	return objc.RespondsToSelector(v.ID, objc.Sel("_createSharedMemoryCoresWithOptions:completionHandler:"))
 }
+func (v VZVirtualMachine) _createViewEndpointWithOptions(options uint64) objectivec.IObject {
+	rv := objc.SendIfResponds[objc.ID](v.ID, objc.Sel("_createViewEndpointWithOptions:"), options)
+	return objectivec.Object{ID: rv}
+}
+
+// CreateViewEndpointWithOptions is an exported wrapper for the private method _createViewEndpointWithOptions.
+func (v VZVirtualMachine) CreateViewEndpointWithOptions(options uint64) (objectivec.IObject, error) {
+	if !objc.RespondsToSelector(v.ID, objc.Sel("_createViewEndpointWithOptions:")) {
+		err := &objc.UnrecognizedSelectorError{Selector: "_createViewEndpointWithOptions:"}
+		return nil, err
+	}
+	return v._createViewEndpointWithOptions(options), nil
+}
+
+// CanCreateViewEndpointWithOptions reports whether the receiver responds to the private selector _createViewEndpointWithOptions:.
+func (v VZVirtualMachine) CanCreateViewEndpointWithOptions() bool {
+	return objc.RespondsToSelector(v.ID, objc.Sel("_createViewEndpointWithOptions:"))
+}
 func (v VZVirtualMachine) _enterRestrictedModeWithCompletionHandler(handler ErrorHandler) {
 	_block0, _ := NewErrorBlock(handler)
 	objc.SendIfResponds[objc.ID](v.ID, objc.Sel("_enterRestrictedModeWithCompletionHandler:"), _block0)
@@ -358,25 +322,6 @@ func (v VZVirtualMachine) EnterRestrictedModeWithCompletionHandler(handler Error
 func (v VZVirtualMachine) CanEnterRestrictedModeWithCompletionHandler() bool {
 	return objc.RespondsToSelector(v.ID, objc.Sel("_enterRestrictedModeWithCompletionHandler:"))
 }
-func (v VZVirtualMachine) _getSealedRegisterHistoryWithCompletionHandler(handler ErrorHandler) {
-	_block0, _ := NewErrorBlock(handler)
-	objc.SendIfResponds[objc.ID](v.ID, objc.Sel("_getSealedRegisterHistoryWithCompletionHandler:"), _block0)
-}
-
-// GetSealedRegisterHistoryWithCompletionHandler is an exported wrapper for the private method _getSealedRegisterHistoryWithCompletionHandler.
-func (v VZVirtualMachine) GetSealedRegisterHistoryWithCompletionHandler(handler ErrorHandler) error {
-	if !objc.RespondsToSelector(v.ID, objc.Sel("_getSealedRegisterHistoryWithCompletionHandler:")) {
-		err := &objc.UnrecognizedSelectorError{Selector: "_getSealedRegisterHistoryWithCompletionHandler:"}
-		return err
-	}
-	v._getSealedRegisterHistoryWithCompletionHandler(handler)
-	return nil
-}
-
-// CanGetSealedRegisterHistoryWithCompletionHandler reports whether the receiver responds to the private selector _getSealedRegisterHistoryWithCompletionHandler:.
-func (v VZVirtualMachine) CanGetSealedRegisterHistoryWithCompletionHandler() bool {
-	return objc.RespondsToSelector(v.ID, objc.Sel("_getSealedRegisterHistoryWithCompletionHandler:"))
-}
 func (v VZVirtualMachine) _getUSBControllerLocationIDWithCompletionHandler(handler ErrorHandler) {
 	_block0, _ := NewErrorBlock(handler)
 	objc.SendIfResponds[objc.ID](v.ID, objc.Sel("_getUSBControllerLocationIDWithCompletionHandler:"), _block0)
@@ -395,6 +340,24 @@ func (v VZVirtualMachine) GetUSBControllerLocationIDWithCompletionHandler(handle
 // CanGetUSBControllerLocationIDWithCompletionHandler reports whether the receiver responds to the private selector _getUSBControllerLocationIDWithCompletionHandler:.
 func (v VZVirtualMachine) CanGetUSBControllerLocationIDWithCompletionHandler() bool {
 	return objc.RespondsToSelector(v.ID, objc.Sel("_getUSBControllerLocationIDWithCompletionHandler:"))
+}
+func (v VZVirtualMachine) _overrideConnectionForTesting(testing objectivec.IObject) {
+	objc.SendIfResponds[objc.ID](v.ID, objc.Sel("_overrideConnectionForTesting:"), testing)
+}
+
+// OverrideConnectionForTesting is an exported wrapper for the private method _overrideConnectionForTesting.
+func (v VZVirtualMachine) OverrideConnectionForTesting(testing objectivec.IObject) error {
+	if !objc.RespondsToSelector(v.ID, objc.Sel("_overrideConnectionForTesting:")) {
+		err := &objc.UnrecognizedSelectorError{Selector: "_overrideConnectionForTesting:"}
+		return err
+	}
+	v._overrideConnectionForTesting(testing)
+	return nil
+}
+
+// CanOverrideConnectionForTesting reports whether the receiver responds to the private selector _overrideConnectionForTesting:.
+func (v VZVirtualMachine) CanOverrideConnectionForTesting() bool {
+	return objc.RespondsToSelector(v.ID, objc.Sel("_overrideConnectionForTesting:"))
 }
 func (v VZVirtualMachine) _processHIDReportsForDeviceDeviceType(hIDReports VZOpaqueHIDReports, device uint32, type_ int32) {
 	objc.SendIfResponds[objc.ID](v.ID, objc.Sel("_processHIDReports:forDevice:deviceType:"), hIDReports.UnsafePointer(), device, type_)
@@ -488,42 +451,6 @@ func (v VZVirtualMachine) SetName(name objectivec.IObject) error {
 func (v VZVirtualMachine) CanSetName() bool {
 	return objc.RespondsToSelector(v.ID, objc.Sel("_setName:"))
 }
-func (v VZVirtualMachine) _setSupportsReconfigurationForTestingGraphicsDeviceIndexFramebufferIndex(testing bool, index uint32, index2 uint32) {
-	objc.SendIfResponds[objc.ID](v.ID, objc.Sel("_setSupportsReconfigurationForTesting:graphicsDeviceIndex:framebufferIndex:"), testing, index, index2)
-}
-
-// SetSupportsReconfigurationForTestingGraphicsDeviceIndexFramebufferIndex is an exported wrapper for the private method _setSupportsReconfigurationForTestingGraphicsDeviceIndexFramebufferIndex.
-func (v VZVirtualMachine) SetSupportsReconfigurationForTestingGraphicsDeviceIndexFramebufferIndex(testing bool, index uint32, index2 uint32) error {
-	if !objc.RespondsToSelector(v.ID, objc.Sel("_setSupportsReconfigurationForTesting:graphicsDeviceIndex:framebufferIndex:")) {
-		err := &objc.UnrecognizedSelectorError{Selector: "_setSupportsReconfigurationForTesting:graphicsDeviceIndex:framebufferIndex:"}
-		return err
-	}
-	v._setSupportsReconfigurationForTestingGraphicsDeviceIndexFramebufferIndex(testing, index, index2)
-	return nil
-}
-
-// CanSetSupportsReconfigurationForTestingGraphicsDeviceIndexFramebufferIndex reports whether the receiver responds to the private selector _setSupportsReconfigurationForTesting:graphicsDeviceIndex:framebufferIndex:.
-func (v VZVirtualMachine) CanSetSupportsReconfigurationForTestingGraphicsDeviceIndexFramebufferIndex() bool {
-	return objc.RespondsToSelector(v.ID, objc.Sel("_setSupportsReconfigurationForTesting:graphicsDeviceIndex:framebufferIndex:"))
-}
-func (v VZVirtualMachine) _setWatchdogHeartbeatInterval(interval float64) {
-	objc.SendIfResponds[objc.ID](v.ID, objc.Sel("_setWatchdogHeartbeatInterval:"), interval)
-}
-
-// SetWatchdogHeartbeatInterval is an exported wrapper for the private method _setWatchdogHeartbeatInterval.
-func (v VZVirtualMachine) SetWatchdogHeartbeatInterval(interval float64) error {
-	if !objc.RespondsToSelector(v.ID, objc.Sel("_setWatchdogHeartbeatInterval:")) {
-		err := &objc.UnrecognizedSelectorError{Selector: "_setWatchdogHeartbeatInterval:"}
-		return err
-	}
-	v._setWatchdogHeartbeatInterval(interval)
-	return nil
-}
-
-// CanSetWatchdogHeartbeatInterval reports whether the receiver responds to the private selector _setWatchdogHeartbeatInterval:.
-func (v VZVirtualMachine) CanSetWatchdogHeartbeatInterval() bool {
-	return objc.RespondsToSelector(v.ID, objc.Sel("_setWatchdogHeartbeatInterval:"))
-}
 func (v VZVirtualMachine) _shouldSendHIDReports() bool {
 	rv := objc.SendIfResponds[bool](v.ID, objc.Sel("_shouldSendHIDReports"))
 	return rv
@@ -541,24 +468,6 @@ func (v VZVirtualMachine) ShouldSendHIDReports() (bool, error) {
 // CanShouldSendHIDReports reports whether the receiver responds to the private selector _shouldSendHIDReports.
 func (v VZVirtualMachine) CanShouldSendHIDReports() bool {
 	return objc.RespondsToSelector(v.ID, objc.Sel("_shouldSendHIDReports"))
-}
-func (v VZVirtualMachine) _triggerWatchdogForTesting() {
-	objc.SendIfResponds[objc.ID](v.ID, objc.Sel("_triggerWatchdogForTesting"))
-}
-
-// TriggerWatchdogForTesting is an exported wrapper for the private method _triggerWatchdogForTesting.
-func (v VZVirtualMachine) TriggerWatchdogForTesting() error {
-	if !objc.RespondsToSelector(v.ID, objc.Sel("_triggerWatchdogForTesting")) {
-		err := &objc.UnrecognizedSelectorError{Selector: "_triggerWatchdogForTesting"}
-		return err
-	}
-	v._triggerWatchdogForTesting()
-	return nil
-}
-
-// CanTriggerWatchdogForTesting reports whether the receiver responds to the private selector _triggerWatchdogForTesting.
-func (v VZVirtualMachine) CanTriggerWatchdogForTesting() bool {
-	return objc.RespondsToSelector(v.ID, objc.Sel("_triggerWatchdogForTesting"))
 }
 func (v VZVirtualMachine) _validateRestrictedModeSupportWithError() (bool, error) {
 	var errorPtr objc.ID
@@ -637,23 +546,6 @@ func (v VZVirtualMachine) AudioDevices() (foundation.INSArray, error) {
 		return nil, &objc.UnrecognizedSelectorError{Selector: "_audioDevices"}
 	}
 	return v._audioDevices(), nil
-}
-func (v VZVirtualMachine) _bootIdentifier() foundation.NSUUID {
-	rv := objc.SendIfResponds[foundation.NSUUID](v.ID, objc.Sel("_bootIdentifier"))
-	return foundation.NSUUID(rv)
-}
-
-// CanBootIdentifier reports whether the receiver responds to the private selector _bootIdentifier.
-func (v VZVirtualMachine) CanBootIdentifier() bool {
-	return objc.RespondsToSelector(v.ID, objc.Sel("_bootIdentifier"))
-}
-
-// BootIdentifier is an exported wrapper for the private property _bootIdentifier.
-func (v VZVirtualMachine) BootIdentifier() (foundation.NSUUID, error) {
-	if !objc.RespondsToSelector(v.ID, objc.Sel("_bootIdentifier")) {
-		return foundation.NSUUID{}, &objc.UnrecognizedSelectorError{Selector: "_bootIdentifier"}
-	}
-	return v._bootIdentifier(), nil
 }
 func (v VZVirtualMachine) _canCreateCore() bool {
 	rv := objc.SendIfResponds[bool](v.ID, objc.Sel("_canCreateCore"))
@@ -865,23 +757,6 @@ func (v VZVirtualMachine) PowerSourceDevices() (foundation.INSArray, error) {
 	}
 	return v._powerSourceDevices(), nil
 }
-func (v VZVirtualMachine) _remoteDeviceMatchingDictionary() objectivec.Object {
-	rv := objc.SendIfResponds[objc.ID](v.ID, objc.Sel("_remoteDeviceMatchingDictionary"))
-	return objectivec.ObjectFromID(objc.ID(rv))
-}
-
-// CanRemoteDeviceMatchingDictionary reports whether the receiver responds to the private selector _remoteDeviceMatchingDictionary.
-func (v VZVirtualMachine) CanRemoteDeviceMatchingDictionary() bool {
-	return objc.RespondsToSelector(v.ID, objc.Sel("_remoteDeviceMatchingDictionary"))
-}
-
-// RemoteDeviceMatchingDictionary is an exported wrapper for the private property _remoteDeviceMatchingDictionary.
-func (v VZVirtualMachine) RemoteDeviceMatchingDictionary() (objectivec.Object, error) {
-	if !objc.RespondsToSelector(v.ID, objc.Sel("_remoteDeviceMatchingDictionary")) {
-		return objectivec.Object{}, &objc.UnrecognizedSelectorError{Selector: "_remoteDeviceMatchingDictionary"}
-	}
-	return v._remoteDeviceMatchingDictionary(), nil
-}
 func (v VZVirtualMachine) _serialPorts() foundation.INSArray {
 	rv := objc.SendIfResponds[objc.ID](v.ID, objc.Sel("_serialPorts"))
 	return foundation.NSArrayFromID(objc.ID(rv))
@@ -1008,21 +883,6 @@ func (v VZVirtualMachine) _createSharedMemoryCoresWithOptions(ctx context.Contex
 func (v VZVirtualMachine) _enterRestrictedMode(ctx context.Context) error {
 	done := make(chan error, 1)
 	v._enterRestrictedModeWithCompletionHandler(func(err error) {
-		done <- err
-	})
-	select {
-	case err := <-done:
-		return err
-	case <-ctx.Done():
-		return ctx.Err()
-	}
-}
-
-// _getSealedRegisterHistory is a synchronous wrapper around [VZVirtualMachine._getSealedRegisterHistoryWithCompletionHandler].
-// It blocks until the completion handler fires or the context is cancelled.
-func (v VZVirtualMachine) _getSealedRegisterHistory(ctx context.Context) error {
-	done := make(chan error, 1)
-	v._getSealedRegisterHistoryWithCompletionHandler(func(err error) {
 		done <- err
 	})
 	select {

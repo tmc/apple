@@ -5,7 +5,6 @@ package skylight
 import (
 	"sync"
 
-	"github.com/tmc/apple/foundation"
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -46,18 +45,15 @@ func (wc WSHIDIncomingServiceConnectionManagerClass) Alloc() WSHIDIncomingServic
 // # Methods
 //
 //   - [WSHIDIncomingServiceConnectionManager._init]
+//   - [WSHIDIncomingServiceConnectionManager._queue_appendDescriptionToStream]
+//   - [WSHIDIncomingServiceConnectionManager._queue_deliveryManagerForAuditToken]
+//   - [WSHIDIncomingServiceConnectionManager._queue_description]
+//   - [WSHIDIncomingServiceConnectionManager._queue_eventDeliveryObserverServiceForAuditToken]
+//   - [WSHIDIncomingServiceConnectionManager.AppendDescriptionToStream]
 //   - [WSHIDIncomingServiceConnectionManager.DidUpdateEventDeliveryManagerForSession]
-//   - [WSHIDIncomingServiceConnectionManager.DidUpdateModernSidecarEventProcessorForSession]
 //   - [WSHIDIncomingServiceConnectionManager.HandleIncomingDeliveryManagerConnection]
 //   - [WSHIDIncomingServiceConnectionManager.HandleIncomingDeliveryObserverConnection]
-//   - [WSHIDIncomingServiceConnectionManager.HandleIncomingTouchDeliveryObservationConnection]
-//   - [WSHIDIncomingServiceConnectionManager.HandleIncomingTouchEventConnection]
-//   - [WSHIDIncomingServiceConnectionManager.HandleIncomingTouchStreamConnection]
 //   - [WSHIDIncomingServiceConnectionManager.IncomingServiceConnectionDidRevoke]
-//   - [WSHIDIncomingServiceConnectionManager.DebugDescription]
-//   - [WSHIDIncomingServiceConnectionManager.Description]
-//   - [WSHIDIncomingServiceConnectionManager.Hash]
-//   - [WSHIDIncomingServiceConnectionManager.Superclass]
 type WSHIDIncomingServiceConnectionManager struct {
 	objectivec.Object
 }
@@ -75,36 +71,30 @@ var _ IWSHIDIncomingServiceConnectionManager = WSHIDIncomingServiceConnectionMan
 // # Methods
 //
 //   - [IWSHIDIncomingServiceConnectionManager._init]
+//   - [IWSHIDIncomingServiceConnectionManager._queue_appendDescriptionToStream]
+//   - [IWSHIDIncomingServiceConnectionManager._queue_deliveryManagerForAuditToken]
+//   - [IWSHIDIncomingServiceConnectionManager._queue_description]
+//   - [IWSHIDIncomingServiceConnectionManager._queue_eventDeliveryObserverServiceForAuditToken]
+//   - [IWSHIDIncomingServiceConnectionManager.AppendDescriptionToStream]
 //   - [IWSHIDIncomingServiceConnectionManager.DidUpdateEventDeliveryManagerForSession]
-//   - [IWSHIDIncomingServiceConnectionManager.DidUpdateModernSidecarEventProcessorForSession]
 //   - [IWSHIDIncomingServiceConnectionManager.HandleIncomingDeliveryManagerConnection]
 //   - [IWSHIDIncomingServiceConnectionManager.HandleIncomingDeliveryObserverConnection]
-//   - [IWSHIDIncomingServiceConnectionManager.HandleIncomingTouchDeliveryObservationConnection]
-//   - [IWSHIDIncomingServiceConnectionManager.HandleIncomingTouchEventConnection]
-//   - [IWSHIDIncomingServiceConnectionManager.HandleIncomingTouchStreamConnection]
 //   - [IWSHIDIncomingServiceConnectionManager.IncomingServiceConnectionDidRevoke]
-//   - [IWSHIDIncomingServiceConnectionManager.DebugDescription]
-//   - [IWSHIDIncomingServiceConnectionManager.Description]
-//   - [IWSHIDIncomingServiceConnectionManager.Hash]
-//   - [IWSHIDIncomingServiceConnectionManager.Superclass]
 type IWSHIDIncomingServiceConnectionManager interface {
 	objectivec.IObject
 
 	// Topic: Methods
 
 	_init() objectivec.IObject
+	_queue_appendDescriptionToStream(stream objectivec.IObject)
+	_queue_deliveryManagerForAuditToken(token objectivec.IObject) objectivec.IObject
+	_queue_description() objectivec.IObject
+	_queue_eventDeliveryObserverServiceForAuditToken(token objectivec.IObject) objectivec.IObject
+	AppendDescriptionToStream(stream objectivec.IObject)
 	DidUpdateEventDeliveryManagerForSession()
-	DidUpdateModernSidecarEventProcessorForSession()
 	HandleIncomingDeliveryManagerConnection(connection objectivec.IObject)
 	HandleIncomingDeliveryObserverConnection(connection objectivec.IObject)
-	HandleIncomingTouchDeliveryObservationConnection(connection objectivec.IObject)
-	HandleIncomingTouchEventConnection(connection objectivec.IObject)
-	HandleIncomingTouchStreamConnection(connection objectivec.IObject)
 	IncomingServiceConnectionDidRevoke(revoke objectivec.IObject)
-	DebugDescription() string
-	Description() string
-	Hash() uint64
-	Superclass() objectivec.Class
 }
 
 // Init initializes the instance.
@@ -130,26 +120,89 @@ func (w WSHIDIncomingServiceConnectionManager) _init() objectivec.IObject {
 	rv := objc.SendIfResponds[objc.ID](w.ID, objc.Sel("_init"))
 	return objectivec.Object{ID: rv}
 }
+func (w WSHIDIncomingServiceConnectionManager) _queue_appendDescriptionToStream(stream objectivec.IObject) {
+	objc.SendIfResponds[objc.ID](w.ID, objc.Sel("_queue_appendDescriptionToStream:"), stream)
+}
+
+// Queue_appendDescriptionToStream is an exported wrapper for the private method _queue_appendDescriptionToStream.
+func (w WSHIDIncomingServiceConnectionManager) Queue_appendDescriptionToStream(stream objectivec.IObject) error {
+	if !objc.RespondsToSelector(w.ID, objc.Sel("_queue_appendDescriptionToStream:")) {
+		err := &objc.UnrecognizedSelectorError{Selector: "_queue_appendDescriptionToStream:"}
+		return err
+	}
+	w._queue_appendDescriptionToStream(stream)
+	return nil
+}
+
+// CanQueue_appendDescriptionToStream reports whether the receiver responds to the private selector _queue_appendDescriptionToStream:.
+func (w WSHIDIncomingServiceConnectionManager) CanQueue_appendDescriptionToStream() bool {
+	return objc.RespondsToSelector(w.ID, objc.Sel("_queue_appendDescriptionToStream:"))
+}
+func (w WSHIDIncomingServiceConnectionManager) _queue_deliveryManagerForAuditToken(token objectivec.IObject) objectivec.IObject {
+	rv := objc.SendIfResponds[objc.ID](w.ID, objc.Sel("_queue_deliveryManagerForAuditToken:"), token)
+	return objectivec.Object{ID: rv}
+}
+
+// Queue_deliveryManagerForAuditToken is an exported wrapper for the private method _queue_deliveryManagerForAuditToken.
+func (w WSHIDIncomingServiceConnectionManager) Queue_deliveryManagerForAuditToken(token objectivec.IObject) (objectivec.IObject, error) {
+	if !objc.RespondsToSelector(w.ID, objc.Sel("_queue_deliveryManagerForAuditToken:")) {
+		err := &objc.UnrecognizedSelectorError{Selector: "_queue_deliveryManagerForAuditToken:"}
+		return nil, err
+	}
+	return w._queue_deliveryManagerForAuditToken(token), nil
+}
+
+// CanQueue_deliveryManagerForAuditToken reports whether the receiver responds to the private selector _queue_deliveryManagerForAuditToken:.
+func (w WSHIDIncomingServiceConnectionManager) CanQueue_deliveryManagerForAuditToken() bool {
+	return objc.RespondsToSelector(w.ID, objc.Sel("_queue_deliveryManagerForAuditToken:"))
+}
+func (w WSHIDIncomingServiceConnectionManager) _queue_description() objectivec.IObject {
+	rv := objc.SendIfResponds[objc.ID](w.ID, objc.Sel("_queue_description"))
+	return objectivec.Object{ID: rv}
+}
+
+// Queue_description is an exported wrapper for the private method _queue_description.
+func (w WSHIDIncomingServiceConnectionManager) Queue_description() (objectivec.IObject, error) {
+	if !objc.RespondsToSelector(w.ID, objc.Sel("_queue_description")) {
+		err := &objc.UnrecognizedSelectorError{Selector: "_queue_description"}
+		return nil, err
+	}
+	return w._queue_description(), nil
+}
+
+// CanQueue_description reports whether the receiver responds to the private selector _queue_description.
+func (w WSHIDIncomingServiceConnectionManager) CanQueue_description() bool {
+	return objc.RespondsToSelector(w.ID, objc.Sel("_queue_description"))
+}
+func (w WSHIDIncomingServiceConnectionManager) _queue_eventDeliveryObserverServiceForAuditToken(token objectivec.IObject) objectivec.IObject {
+	rv := objc.SendIfResponds[objc.ID](w.ID, objc.Sel("_queue_eventDeliveryObserverServiceForAuditToken:"), token)
+	return objectivec.Object{ID: rv}
+}
+
+// Queue_eventDeliveryObserverServiceForAuditToken is an exported wrapper for the private method _queue_eventDeliveryObserverServiceForAuditToken.
+func (w WSHIDIncomingServiceConnectionManager) Queue_eventDeliveryObserverServiceForAuditToken(token objectivec.IObject) (objectivec.IObject, error) {
+	if !objc.RespondsToSelector(w.ID, objc.Sel("_queue_eventDeliveryObserverServiceForAuditToken:")) {
+		err := &objc.UnrecognizedSelectorError{Selector: "_queue_eventDeliveryObserverServiceForAuditToken:"}
+		return nil, err
+	}
+	return w._queue_eventDeliveryObserverServiceForAuditToken(token), nil
+}
+
+// CanQueue_eventDeliveryObserverServiceForAuditToken reports whether the receiver responds to the private selector _queue_eventDeliveryObserverServiceForAuditToken:.
+func (w WSHIDIncomingServiceConnectionManager) CanQueue_eventDeliveryObserverServiceForAuditToken() bool {
+	return objc.RespondsToSelector(w.ID, objc.Sel("_queue_eventDeliveryObserverServiceForAuditToken:"))
+}
+func (w WSHIDIncomingServiceConnectionManager) AppendDescriptionToStream(stream objectivec.IObject) {
+	objc.SendIfResponds[objc.ID](w.ID, objc.Sel("appendDescriptionToStream:"), stream)
+}
 func (w WSHIDIncomingServiceConnectionManager) DidUpdateEventDeliveryManagerForSession() {
 	objc.SendIfResponds[objc.ID](w.ID, objc.Sel("didUpdateEventDeliveryManagerForSession"))
-}
-func (w WSHIDIncomingServiceConnectionManager) DidUpdateModernSidecarEventProcessorForSession() {
-	objc.SendIfResponds[objc.ID](w.ID, objc.Sel("didUpdateModernSidecarEventProcessorForSession"))
 }
 func (w WSHIDIncomingServiceConnectionManager) HandleIncomingDeliveryManagerConnection(connection objectivec.IObject) {
 	objc.SendIfResponds[objc.ID](w.ID, objc.Sel("handleIncomingDeliveryManagerConnection:"), connection)
 }
 func (w WSHIDIncomingServiceConnectionManager) HandleIncomingDeliveryObserverConnection(connection objectivec.IObject) {
 	objc.SendIfResponds[objc.ID](w.ID, objc.Sel("handleIncomingDeliveryObserverConnection:"), connection)
-}
-func (w WSHIDIncomingServiceConnectionManager) HandleIncomingTouchDeliveryObservationConnection(connection objectivec.IObject) {
-	objc.SendIfResponds[objc.ID](w.ID, objc.Sel("handleIncomingTouchDeliveryObservationConnection:"), connection)
-}
-func (w WSHIDIncomingServiceConnectionManager) HandleIncomingTouchEventConnection(connection objectivec.IObject) {
-	objc.SendIfResponds[objc.ID](w.ID, objc.Sel("handleIncomingTouchEventConnection:"), connection)
-}
-func (w WSHIDIncomingServiceConnectionManager) HandleIncomingTouchStreamConnection(connection objectivec.IObject) {
-	objc.SendIfResponds[objc.ID](w.ID, objc.Sel("handleIncomingTouchStreamConnection:"), connection)
 }
 func (w WSHIDIncomingServiceConnectionManager) IncomingServiceConnectionDidRevoke(revoke objectivec.IObject) {
 	objc.SendIfResponds[objc.ID](w.ID, objc.Sel("incomingServiceConnectionDidRevoke:"), revoke)
@@ -158,21 +211,4 @@ func (w WSHIDIncomingServiceConnectionManager) IncomingServiceConnectionDidRevok
 func (_WSHIDIncomingServiceConnectionManagerClass WSHIDIncomingServiceConnectionManagerClass) SharedInstance() WSHIDIncomingServiceConnectionManager {
 	rv := objc.SendIfResponds[objc.ID](objc.ID(_WSHIDIncomingServiceConnectionManagerClass.class), objc.Sel("sharedInstance"))
 	return WSHIDIncomingServiceConnectionManagerFromID(rv)
-}
-
-func (w WSHIDIncomingServiceConnectionManager) DebugDescription() string {
-	rv := objc.SendIfResponds[objc.ID](w.ID, objc.Sel("debugDescription"))
-	return foundation.NSStringFromID(rv).String()
-}
-func (w WSHIDIncomingServiceConnectionManager) Description() string {
-	rv := objc.SendIfResponds[objc.ID](w.ID, objc.Sel("description"))
-	return foundation.NSStringFromID(rv).String()
-}
-func (w WSHIDIncomingServiceConnectionManager) Hash() uint64 {
-	rv := objc.SendIfResponds[uint64](w.ID, objc.Sel("hash"))
-	return rv
-}
-func (w WSHIDIncomingServiceConnectionManager) Superclass() objectivec.Class {
-	rv := objc.SendIfResponds[objectivec.Class](w.ID, objc.Sel("superclass"))
-	return objectivec.Class(rv)
 }

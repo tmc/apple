@@ -14,7 +14,6 @@ import (
 //
 // Used by:
 //   - [SLSBrightnessControl.RegisterForNotificationsWithBlock]
-//   - [SLSDisplaySyncSessionControl.RegisterForNotificationsWithQueueBlock]
 type IObjectINSDictionaryHandler = func(objectivec.IObject, foundation.INSDictionary)
 
 // NewIObjectINSDictionaryBlock wraps a Go [IObjectINSDictionaryHandler] as an Objective-C block.
@@ -22,7 +21,6 @@ type IObjectINSDictionaryHandler = func(objectivec.IObject, foundation.INSDictio
 //
 // Used by:
 //   - [SLSBrightnessControl.RegisterForNotificationsWithBlock]
-//   - [SLSDisplaySyncSessionControl.RegisterForNotificationsWithQueueBlock]
 func NewIObjectINSDictionaryBlock(handler IObjectINSDictionaryHandler) (objc.ID, func()) {
 	if handler == nil {
 		return 0, func() {}
@@ -86,7 +84,6 @@ type SLDataTimelineSessionHandler = func(*unsafe.Pointer)
 // UnsafePointerHandler handles completion with a primitive value.
 //
 // Used by:
-//   - [SLSBrightnessControl.RegisterForFrameInfoUpdatesError]
 //   - [SLSDisplayControlClientProtocol.RegisterDaemonClientWithAutoreconnectErrorNotifyQueueNotificationTypeNotificationBlock]
 //   - [SLSDisplayControlClientProtocol.RegisterGUIClientConnectionPortErrorNotifyQueueNotificationTypeNotificationBlock]
 //   - [SLSDisplayPowerControlClientProtocol.InitAsyncPowerControlClientNotifyQueueNotificationTypeNotificationBlock]
@@ -100,7 +97,6 @@ type UnsafePointerHandler = func(unsafe.Pointer)
 // The caller must defer the returned cleanup function.
 //
 // Used by:
-//   - [SLSBrightnessControl.RegisterForFrameInfoUpdatesError]
 //   - [SLSDisplayControlClientProtocol.RegisterDaemonClientWithAutoreconnectErrorNotifyQueueNotificationTypeNotificationBlock]
 //   - [SLSDisplayControlClientProtocol.RegisterGUIClientConnectionPortErrorNotifyQueueNotificationTypeNotificationBlock]
 //   - [SLSDisplayPowerControlClientProtocol.InitAsyncPowerControlClientNotifyQueueNotificationTypeNotificationBlock]
@@ -121,10 +117,6 @@ func NewUnsafePointerBlock(handler UnsafePointerHandler) (objc.ID, func()) {
 // VoidHandler is the signature for a completion handler block.
 //
 // Used by:
-//   - [BKIOHIDServiceMatcherDataProviding.HoistOnThreadForSessionID]
-//   - [BKIOHIDServiceMatcherDataProviding.HoistOnThread]
-//   - [BKIOHIDServiceMatcherDataProviding.RegisterIOHIDServicesCallbackMatchingDictionaryTargetRefCon]
-//   - [BKIOHIDServiceMatcherDataProviding.UnregisterIOHIDServicesCallbackMatchingDictionaryTargetRefCon]
 //   - [CPXEventDeferringPolicy.Build]
 //   - [CPXRemoteViewEventManager.PassEventUpstreamToHostFullDispatchReply]
 //   - [CPXRemoteViewEventManager.SendEventToHostPidFullDispatchReply]
@@ -154,12 +146,10 @@ func NewUnsafePointerBlock(handler UnsafePointerHandler) (objc.ID, func()) {
 //   - [SLSDisplayControlClient.RegisterDaemonClientWithAutoreconnectErrorNotifyQueueNotificationTypeNotificationBlock]
 //   - [SLSDisplayControlClient.RegisterGUIClientConnectionPortErrorNotifyQueueNotificationTypeNotificationBlock]
 //   - [SLSDisplayControlClient.SetNotification]
-//   - [SLSDisplayController.RegisterForFrameInfoUpdatesError]
 //   - [SLSDisplayController.RegisterForNotificationsWithBlock]
 //   - [SLSDisplayManager.RegisterPowerStateNotificationRegistrationIDSendInitialStateQueueRefconNotificationOptionNotificationBlockNotificationPayloadBlock]
 //   - [SLSDisplayPowerControlClient.InitAsyncPowerControlClientNotifyQueueNotificationTypeNotificationBlock]
 //   - [SLSDisplayPowerControlClient.InitPowerControlClientNotifyQueueNotificationTypeNotificationBlock]
-//   - [SLSDisplaySyncSessionController.RegisterForNotificationsWithQueueBlock]
 //   - [SLSEventAuthenticationMessage.ValidateWithOptionsAndResultBlock]
 //   - [SLSFullScreenPidReporter.ReportFullScreenStatusWithFilterAndHandler]
 //   - [SLSFullScreenPidReporter.SetDisconnectHandler]
@@ -184,27 +174,12 @@ func NewUnsafePointerBlock(handler UnsafePointerHandler) (objc.ID, func()) {
 //   - [SLScreenTelemetryConnection.ConnectionWithZoneWidthZoneHeightZoneRowsZoneColumnsSamplingIntervalQueueAndUpdateBlock]
 //   - [SLScreenTelemetryConnection.InitWithZoneWidthZoneHeightZoneRowsZoneColumnsSamplingIntervalQueueAndUpdateBlock]
 //   - [SLSharingSessionManager.SetDelegateBlock]
-//   - [SkyLightWSSystemGestureWindowTerminationDefaultNotifier.SubscribeForWindowTermination]
-//   - [WSHIDIncomingServiceConnectionManager._handleIncomingConnectionQueuePendingConnectionsMappedObjectGetter]
-//   - [WSHIDIncomingServiceConnectionManager._queue_handleIncomingConnectionQueuePendingConnectionsMappedObjectGetter]
-//   - [WSHIDIncomingServiceConnectionManager._queue_handlePendingConnectionsMappedObjectGetter]
-//   - [WSHIDIncomingServiceConnectionManagerLegacy._queue_acceptIncomingConnectionsMappedObjectFetcher]
-//   - [WSHIDSystem.HoistOnThreadForSessionID]
-//   - [WSHIDSystem.HoistOnThread]
-//   - [WSHIDSystem.RegisterIOHIDServicesCallbackMatchingDictionaryTargetRefCon]
-//   - [WSHIDSystem.UnregisterIOHIDServicesCallbackMatchingDictionaryTargetRefCon]
-//   - [WSSystemGestureEventProcessor.InitWithGestureEventCollectorHidEventSenderCacheCoordinateSpaceConverterTouchCancellationHandler]
-//   - [WSSystemGestureEventProcessor.InitWithGestureEventCollectorHidEventSenderCacheCoordinateSpaceConverterWindowTerminationNotifierTouchCancellationHandler]
 type VoidHandler = func()
 
 // NewVoidBlock wraps a Go [VoidHandler] as an Objective-C block.
 // The caller must defer the returned cleanup function.
 //
 // Used by:
-//   - [BKIOHIDServiceMatcherDataProviding.HoistOnThreadForSessionID]
-//   - [BKIOHIDServiceMatcherDataProviding.HoistOnThread]
-//   - [BKIOHIDServiceMatcherDataProviding.RegisterIOHIDServicesCallbackMatchingDictionaryTargetRefCon]
-//   - [BKIOHIDServiceMatcherDataProviding.UnregisterIOHIDServicesCallbackMatchingDictionaryTargetRefCon]
 //   - [CPXEventDeferringPolicy.Build]
 //   - [CPXRemoteViewEventManager.PassEventUpstreamToHostFullDispatchReply]
 //   - [CPXRemoteViewEventManager.SendEventToHostPidFullDispatchReply]
@@ -234,12 +209,10 @@ type VoidHandler = func()
 //   - [SLSDisplayControlClient.RegisterDaemonClientWithAutoreconnectErrorNotifyQueueNotificationTypeNotificationBlock]
 //   - [SLSDisplayControlClient.RegisterGUIClientConnectionPortErrorNotifyQueueNotificationTypeNotificationBlock]
 //   - [SLSDisplayControlClient.SetNotification]
-//   - [SLSDisplayController.RegisterForFrameInfoUpdatesError]
 //   - [SLSDisplayController.RegisterForNotificationsWithBlock]
 //   - [SLSDisplayManager.RegisterPowerStateNotificationRegistrationIDSendInitialStateQueueRefconNotificationOptionNotificationBlockNotificationPayloadBlock]
 //   - [SLSDisplayPowerControlClient.InitAsyncPowerControlClientNotifyQueueNotificationTypeNotificationBlock]
 //   - [SLSDisplayPowerControlClient.InitPowerControlClientNotifyQueueNotificationTypeNotificationBlock]
-//   - [SLSDisplaySyncSessionController.RegisterForNotificationsWithQueueBlock]
 //   - [SLSEventAuthenticationMessage.ValidateWithOptionsAndResultBlock]
 //   - [SLSFullScreenPidReporter.ReportFullScreenStatusWithFilterAndHandler]
 //   - [SLSFullScreenPidReporter.SetDisconnectHandler]
@@ -264,44 +237,12 @@ type VoidHandler = func()
 //   - [SLScreenTelemetryConnection.ConnectionWithZoneWidthZoneHeightZoneRowsZoneColumnsSamplingIntervalQueueAndUpdateBlock]
 //   - [SLScreenTelemetryConnection.InitWithZoneWidthZoneHeightZoneRowsZoneColumnsSamplingIntervalQueueAndUpdateBlock]
 //   - [SLSharingSessionManager.SetDelegateBlock]
-//   - [SkyLightWSSystemGestureWindowTerminationDefaultNotifier.SubscribeForWindowTermination]
-//   - [WSHIDIncomingServiceConnectionManager._handleIncomingConnectionQueuePendingConnectionsMappedObjectGetter]
-//   - [WSHIDIncomingServiceConnectionManager._queue_handleIncomingConnectionQueuePendingConnectionsMappedObjectGetter]
-//   - [WSHIDIncomingServiceConnectionManager._queue_handlePendingConnectionsMappedObjectGetter]
-//   - [WSHIDIncomingServiceConnectionManagerLegacy._queue_acceptIncomingConnectionsMappedObjectFetcher]
-//   - [WSHIDSystem.HoistOnThreadForSessionID]
-//   - [WSHIDSystem.HoistOnThread]
-//   - [WSHIDSystem.RegisterIOHIDServicesCallbackMatchingDictionaryTargetRefCon]
-//   - [WSHIDSystem.UnregisterIOHIDServicesCallbackMatchingDictionaryTargetRefCon]
-//   - [WSSystemGestureEventProcessor.InitWithGestureEventCollectorHidEventSenderCacheCoordinateSpaceConverterTouchCancellationHandler]
-//   - [WSSystemGestureEventProcessor.InitWithGestureEventCollectorHidEventSenderCacheCoordinateSpaceConverterWindowTerminationNotifierTouchCancellationHandler]
 func NewVoidBlock(handler VoidHandler) (objc.ID, func()) {
 	if handler == nil {
 		return 0, func() {}
 	}
 	block := objc.NewBlock(func(b objc.Block) {
 		handler()
-	})
-	return objc.ID(block), func() { block.Release() }
-}
-
-// structHandler handles completion with a primitive value.
-//
-// Used by:
-//   - [WSSystemGestureWindowTerminationNotifying.SubscribeForWindowTermination]
-type structHandler = func(unsafe.Pointer)
-
-// NewstructBlock wraps a Go [structHandler] as an Objective-C block.
-// The caller must defer the returned cleanup function.
-//
-// Used by:
-//   - [WSSystemGestureWindowTerminationNotifying.SubscribeForWindowTermination]
-func NewstructBlock(handler structHandler) (objc.ID, func()) {
-	if handler == nil {
-		return 0, func() {}
-	}
-	block := objc.NewBlock(func(b objc.Block, primitiveVal unsafe.Pointer) {
-		handler(primitiveVal)
 	})
 	return objc.ID(block), func() { block.Release() }
 }

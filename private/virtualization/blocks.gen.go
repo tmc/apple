@@ -23,13 +23,10 @@ import (
 //   - [VZStorageDevice._setAttachmentCompletionHandler]
 //   - [VZTemporaryRAMStorageDeviceAttachment._getAttachmentWithQueueCompletionHandler]
 //   - [VZUSBOpticalDriveDeviceConfiguration._getStorageDeviceWithQueueSessionCompletionHandler]
-//   - [VZVirtioSharedMemoryRegion.MapMemoryAtOffsetSizeCompletionHandler]
-//   - [VZVirtioSharedMemoryRegion.UnmapMemoryAtOffsetSizeCompletionHandler]
 //   - [VZVirtualMachine._createCoreWithCompletionHandler]
 //   - [VZVirtualMachine._createCoresWithCompletionHandler]
 //   - [VZVirtualMachine._createSharedMemoryCoresWithOptionsCompletionHandler]
 //   - [VZVirtualMachine._enterRestrictedModeWithCompletionHandler]
-//   - [VZVirtualMachine._getSealedRegisterHistoryWithCompletionHandler]
 //   - [VZVirtualMachine._getUSBControllerLocationIDWithCompletionHandler]
 //   - [VZVirtualMachine._resetWithTypeCompletionHandler]
 //   - [VZVirtualMachine._saveMachineStateToURLOptionsCompletionHandler]
@@ -54,13 +51,10 @@ type ErrorHandler = func(error)
 //   - [VZStorageDevice._setAttachmentCompletionHandler]
 //   - [VZTemporaryRAMStorageDeviceAttachment._getAttachmentWithQueueCompletionHandler]
 //   - [VZUSBOpticalDriveDeviceConfiguration._getStorageDeviceWithQueueSessionCompletionHandler]
-//   - [VZVirtioSharedMemoryRegion.MapMemoryAtOffsetSizeCompletionHandler]
-//   - [VZVirtioSharedMemoryRegion.UnmapMemoryAtOffsetSizeCompletionHandler]
 //   - [VZVirtualMachine._createCoreWithCompletionHandler]
 //   - [VZVirtualMachine._createCoresWithCompletionHandler]
 //   - [VZVirtualMachine._createSharedMemoryCoresWithOptionsCompletionHandler]
 //   - [VZVirtualMachine._enterRestrictedModeWithCompletionHandler]
-//   - [VZVirtualMachine._getSealedRegisterHistoryWithCompletionHandler]
 //   - [VZVirtualMachine._getUSBControllerLocationIDWithCompletionHandler]
 //   - [VZVirtualMachine._resetWithTypeCompletionHandler]
 //   - [VZVirtualMachine._saveMachineStateToURLOptionsCompletionHandler]
@@ -74,5 +68,26 @@ func NewErrorBlock(handler ErrorHandler) (objc.ID, func()) {
 		handler(foundation.SafeErrorFrom(errID))
 	})
 	objc.SetNSErrorBlockSignature(block)
+	return objc.ID(block), func() { block.Release() }
+}
+
+// VoidHandler is the signature for a completion handler block.
+//
+// Used by:
+//   - [VZFramebuffer._takeScreenshotWithCompletionHandlerImageConversionBlock]
+type VoidHandler = func()
+
+// NewVoidBlock wraps a Go [VoidHandler] as an Objective-C block.
+// The caller must defer the returned cleanup function.
+//
+// Used by:
+//   - [VZFramebuffer._takeScreenshotWithCompletionHandlerImageConversionBlock]
+func NewVoidBlock(handler VoidHandler) (objc.ID, func()) {
+	if handler == nil {
+		return 0, func() {}
+	}
+	block := objc.NewBlock(func(b objc.Block) {
+		handler()
+	})
 	return objc.ID(block), func() { block.Release() }
 }

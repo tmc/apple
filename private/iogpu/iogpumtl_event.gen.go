@@ -48,7 +48,7 @@ func (ic IOGPUMTLEventClass) Alloc() IOGPUMTLEvent {
 //   - [IOGPUMTLEvent._encodeIOGPUKernelConditionalEventAbortCommandArgs]
 //   - [IOGPUMTLEvent._encodeIOGPUKernelSignalEventAgentCommandArgsValueAgentMask]
 //   - [IOGPUMTLEvent._encodeIOGPUKernelSignalEventCommandArgsValue]
-//   - [IOGPUMTLEvent._encodeIOGPUKernelSignalEventScheduledCommandArgsValue]
+//   - [IOGPUMTLEvent._encodeIOGPUKernelSignalEventScheduledCommandArgs]
 //   - [IOGPUMTLEvent._encodeIOGPUKernelWaitEventCommandArgsValueTimeout]
 //   - [IOGPUMTLEvent._isSharedEvent]
 //   - [IOGPUMTLEvent.EnableBarrier]
@@ -76,7 +76,7 @@ var _ IIOGPUMTLEvent = IOGPUMTLEvent{}
 //   - [IIOGPUMTLEvent._encodeIOGPUKernelConditionalEventAbortCommandArgs]
 //   - [IIOGPUMTLEvent._encodeIOGPUKernelSignalEventAgentCommandArgsValueAgentMask]
 //   - [IIOGPUMTLEvent._encodeIOGPUKernelSignalEventCommandArgsValue]
-//   - [IIOGPUMTLEvent._encodeIOGPUKernelSignalEventScheduledCommandArgsValue]
+//   - [IIOGPUMTLEvent._encodeIOGPUKernelSignalEventScheduledCommandArgs]
 //   - [IIOGPUMTLEvent._encodeIOGPUKernelWaitEventCommandArgsValueTimeout]
 //   - [IIOGPUMTLEvent._isSharedEvent]
 //   - [IIOGPUMTLEvent.EnableBarrier]
@@ -93,7 +93,7 @@ type IIOGPUMTLEvent interface {
 	_encodeIOGPUKernelConditionalEventAbortCommandArgs(args *IOGPUKernelCommandSignalOrWaitEventArgs) uint32
 	_encodeIOGPUKernelSignalEventAgentCommandArgsValueAgentMask(args *IOGPUKernelCommandSignalEventAgentArgs, value uint64, mask uint64) uint32
 	_encodeIOGPUKernelSignalEventCommandArgsValue(args *IOGPUKernelCommandSignalOrWaitEventArgs, value uint64) uint32
-	_encodeIOGPUKernelSignalEventScheduledCommandArgsValue(args *IOGPUKernelCommandSignalOrWaitEventArgs, value uint64) uint32
+	_encodeIOGPUKernelSignalEventScheduledCommandArgs(args *IOGPUKernelCommandSignalOrWaitEventArgs) uint32
 	_encodeIOGPUKernelWaitEventCommandArgsValueTimeout(args *IOGPUKernelCommandSignalOrWaitEventArgs, value uint64, timeout uint32) uint32
 	_isSharedEvent() bool
 	EnableBarrier() bool
@@ -189,23 +189,23 @@ func (i IOGPUMTLEvent) EncodeIOGPUKernelSignalEventCommandArgsValue(args *IOGPUK
 func (i IOGPUMTLEvent) CanEncodeIOGPUKernelSignalEventCommandArgsValue() bool {
 	return objc.RespondsToSelector(i.ID, objc.Sel("_encodeIOGPUKernelSignalEventCommandArgs:value:"))
 }
-func (i IOGPUMTLEvent) _encodeIOGPUKernelSignalEventScheduledCommandArgsValue(args *IOGPUKernelCommandSignalOrWaitEventArgs, value uint64) uint32 {
-	rv := objc.SendIfResponds[uint32](i.ID, objc.Sel("_encodeIOGPUKernelSignalEventScheduledCommandArgs:value:"), unsafe.Pointer(args), value)
+func (i IOGPUMTLEvent) _encodeIOGPUKernelSignalEventScheduledCommandArgs(args *IOGPUKernelCommandSignalOrWaitEventArgs) uint32 {
+	rv := objc.SendIfResponds[uint32](i.ID, objc.Sel("_encodeIOGPUKernelSignalEventScheduledCommandArgs:"), unsafe.Pointer(args))
 	return rv
 }
 
-// EncodeIOGPUKernelSignalEventScheduledCommandArgsValue is an exported wrapper for the private method _encodeIOGPUKernelSignalEventScheduledCommandArgsValue.
-func (i IOGPUMTLEvent) EncodeIOGPUKernelSignalEventScheduledCommandArgsValue(args *IOGPUKernelCommandSignalOrWaitEventArgs, value uint64) (uint32, error) {
-	if !objc.RespondsToSelector(i.ID, objc.Sel("_encodeIOGPUKernelSignalEventScheduledCommandArgs:value:")) {
-		err := &objc.UnrecognizedSelectorError{Selector: "_encodeIOGPUKernelSignalEventScheduledCommandArgs:value:"}
+// EncodeIOGPUKernelSignalEventScheduledCommandArgs is an exported wrapper for the private method _encodeIOGPUKernelSignalEventScheduledCommandArgs.
+func (i IOGPUMTLEvent) EncodeIOGPUKernelSignalEventScheduledCommandArgs(args *IOGPUKernelCommandSignalOrWaitEventArgs) (uint32, error) {
+	if !objc.RespondsToSelector(i.ID, objc.Sel("_encodeIOGPUKernelSignalEventScheduledCommandArgs:")) {
+		err := &objc.UnrecognizedSelectorError{Selector: "_encodeIOGPUKernelSignalEventScheduledCommandArgs:"}
 		return 0, err
 	}
-	return i._encodeIOGPUKernelSignalEventScheduledCommandArgsValue(args, value), nil
+	return i._encodeIOGPUKernelSignalEventScheduledCommandArgs(args), nil
 }
 
-// CanEncodeIOGPUKernelSignalEventScheduledCommandArgsValue reports whether the receiver responds to the private selector _encodeIOGPUKernelSignalEventScheduledCommandArgs:value:.
-func (i IOGPUMTLEvent) CanEncodeIOGPUKernelSignalEventScheduledCommandArgsValue() bool {
-	return objc.RespondsToSelector(i.ID, objc.Sel("_encodeIOGPUKernelSignalEventScheduledCommandArgs:value:"))
+// CanEncodeIOGPUKernelSignalEventScheduledCommandArgs reports whether the receiver responds to the private selector _encodeIOGPUKernelSignalEventScheduledCommandArgs:.
+func (i IOGPUMTLEvent) CanEncodeIOGPUKernelSignalEventScheduledCommandArgs() bool {
+	return objc.RespondsToSelector(i.ID, objc.Sel("_encodeIOGPUKernelSignalEventScheduledCommandArgs:"))
 }
 func (i IOGPUMTLEvent) _encodeIOGPUKernelWaitEventCommandArgsValueTimeout(args *IOGPUKernelCommandSignalOrWaitEventArgs, value uint64, timeout uint32) uint32 {
 	rv := objc.SendIfResponds[uint32](i.ID, objc.Sel("_encodeIOGPUKernelWaitEventCommandArgs:value:timeout:"), unsafe.Pointer(args), value, timeout)

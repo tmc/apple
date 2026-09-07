@@ -4,8 +4,6 @@ package virtualization
 
 type DiskImageFormatRef uintptr
 
-type ElementRef uintptr
-
 type OpaqueIdRef uintptr
 
 type VmnetNetworkRef uintptr

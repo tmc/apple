@@ -54,6 +54,7 @@ func (tc TTSSpeechManagerClass) Alloc() TTSSpeechManager {
 //   - [TTSSpeechManager._didEndInterruption]
 //   - [TTSSpeechManager._dispatchSpeechAction]
 //   - [TTSSpeechManager._enqueueSelectorOnSpeechThreadObjectWaitUntilDone]
+//   - [TTSSpeechManager._handleAudioInterruption]
 //   - [TTSSpeechManager._handleMediaServicesWereLost]
 //   - [TTSSpeechManager._handleMediaServicesWereReset]
 //   - [TTSSpeechManager._initialize]
@@ -103,8 +104,7 @@ func (tc TTSSpeechManagerClass) Alloc() TTSSpeechManager {
 //   - [TTSSpeechManager.SetDidRequestStartSpeakingDuringAudioInterruption]
 //   - [TTSSpeechManager.DispatchSpeechAction]
 //   - [TTSSpeechManager.ExternalVoiceIdentifierUsedForLanguage]
-//   - [TTSSpeechManager.HandleAudioInterruptionBegan]
-//   - [TTSSpeechManager.HandleAudioInterruptionEnded]
+//   - [TTSSpeechManager.HandleAudioInterruption]
 //   - [TTSSpeechManager.HandleAudioSessionObservers]
 //   - [TTSSpeechManager.HandleMediaServicesWereLost]
 //   - [TTSSpeechManager.HandleMediaServicesWereReset]
@@ -170,6 +170,7 @@ var _ ITTSSpeechManager = TTSSpeechManager{}
 //   - [ITTSSpeechManager._didEndInterruption]
 //   - [ITTSSpeechManager._dispatchSpeechAction]
 //   - [ITTSSpeechManager._enqueueSelectorOnSpeechThreadObjectWaitUntilDone]
+//   - [ITTSSpeechManager._handleAudioInterruption]
 //   - [ITTSSpeechManager._handleMediaServicesWereLost]
 //   - [ITTSSpeechManager._handleMediaServicesWereReset]
 //   - [ITTSSpeechManager._initialize]
@@ -219,8 +220,7 @@ var _ ITTSSpeechManager = TTSSpeechManager{}
 //   - [ITTSSpeechManager.SetDidRequestStartSpeakingDuringAudioInterruption]
 //   - [ITTSSpeechManager.DispatchSpeechAction]
 //   - [ITTSSpeechManager.ExternalVoiceIdentifierUsedForLanguage]
-//   - [ITTSSpeechManager.HandleAudioInterruptionBegan]
-//   - [ITTSSpeechManager.HandleAudioInterruptionEnded]
+//   - [ITTSSpeechManager.HandleAudioInterruption]
 //   - [ITTSSpeechManager.HandleAudioSessionObservers]
 //   - [ITTSSpeechManager.HandleMediaServicesWereLost]
 //   - [ITTSSpeechManager.HandleMediaServicesWereReset]
@@ -275,6 +275,7 @@ type ITTSSpeechManager interface {
 	_didEndInterruption()
 	_dispatchSpeechAction(action objectivec.IObject)
 	_enqueueSelectorOnSpeechThreadObjectWaitUntilDone(thread objc.SEL, object objectivec.IObject, done bool) bool
+	_handleAudioInterruption(interruption objectivec.IObject)
 	_handleMediaServicesWereLost(lost objectivec.IObject)
 	_handleMediaServicesWereReset(reset objectivec.IObject)
 	_initialize()
@@ -324,8 +325,7 @@ type ITTSSpeechManager interface {
 	SetDidRequestStartSpeakingDuringAudioInterruption(value bool)
 	DispatchSpeechAction(action objectivec.IObject)
 	ExternalVoiceIdentifierUsedForLanguage(language objectivec.IObject) objectivec.IObject
-	HandleAudioInterruptionBegan(began objectivec.IObject)
-	HandleAudioInterruptionEnded(ended objectivec.IObject)
+	HandleAudioInterruption(interruption objectivec.IObject)
 	HandleAudioSessionObservers(observers bool)
 	HandleMediaServicesWereLost(lost objectivec.IObject)
 	HandleMediaServicesWereReset(reset objectivec.IObject)
@@ -469,6 +469,9 @@ func (t TTSSpeechManager) EnqueueSelectorOnSpeechThreadObjectWaitUntilDone(threa
 // CanEnqueueSelectorOnSpeechThreadObjectWaitUntilDone reports whether the receiver responds to the private selector _enqueueSelectorOnSpeechThread:object:waitUntilDone:.
 func (t TTSSpeechManager) CanEnqueueSelectorOnSpeechThreadObjectWaitUntilDone() bool {
 	return objc.RespondsToSelector(t.ID, objc.Sel("_enqueueSelectorOnSpeechThread:object:waitUntilDone:"))
+}
+func (t TTSSpeechManager) _handleAudioInterruption(interruption objectivec.IObject) {
+	objc.SendIfResponds[objc.ID](t.ID, objc.Sel("_handleAudioInterruption:"), interruption)
 }
 func (t TTSSpeechManager) _handleMediaServicesWereLost(lost objectivec.IObject) {
 	objc.SendIfResponds[objc.ID](t.ID, objc.Sel("_handleMediaServicesWereLost:"), lost)
@@ -771,11 +774,8 @@ func (t TTSSpeechManager) ExternalVoiceIdentifierUsedForLanguage(language object
 	rv := objc.SendIfResponds[objc.ID](t.ID, objc.Sel("externalVoiceIdentifierUsedForLanguage:"), language)
 	return objectivec.Object{ID: rv}
 }
-func (t TTSSpeechManager) HandleAudioInterruptionBegan(began objectivec.IObject) {
-	objc.SendIfResponds[objc.ID](t.ID, objc.Sel("handleAudioInterruptionBegan:"), began)
-}
-func (t TTSSpeechManager) HandleAudioInterruptionEnded(ended objectivec.IObject) {
-	objc.SendIfResponds[objc.ID](t.ID, objc.Sel("handleAudioInterruptionEnded:"), ended)
+func (t TTSSpeechManager) HandleAudioInterruption(interruption objectivec.IObject) {
+	objc.SendIfResponds[objc.ID](t.ID, objc.Sel("handleAudioInterruption:"), interruption)
 }
 func (t TTSSpeechManager) HandleAudioSessionObservers(observers bool) {
 	objc.SendIfResponds[objc.ID](t.ID, objc.Sel("handleAudioSessionObservers:"), observers)

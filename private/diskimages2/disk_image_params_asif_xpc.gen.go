@@ -6,7 +6,6 @@ import (
 	"sync"
 	"unsafe"
 
-	"github.com/tmc/apple/foundation"
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -44,12 +43,6 @@ func (dc DiskImageParamsASIFXPCClass) Alloc() DiskImageParamsASIFXPC {
 	return rv
 }
 
-// # Methods
-//
-//   - [DiskImageParamsASIFXPC.CacheImage]
-//   - [DiskImageParamsASIFXPC.SetCacheImage]
-//   - [DiskImageParamsASIFXPC.ParentUUID]
-//   - [DiskImageParamsASIFXPC.SetParentUUID]
 type DiskImageParamsASIFXPC struct {
 	DiskImageParamsXPC
 }
@@ -68,22 +61,8 @@ func DiskImageParamsASIF_XPCFromID(id objc.ID) DiskImageParamsASIFXPC {
 var _ IDiskImageParamsASIFXPC = DiskImageParamsASIFXPC{}
 
 // An interface definition for the [DiskImageParamsASIFXPC] class.
-//
-// # Methods
-//
-//   - [IDiskImageParamsASIFXPC.CacheImage]
-//   - [IDiskImageParamsASIFXPC.SetCacheImage]
-//   - [IDiskImageParamsASIFXPC.ParentUUID]
-//   - [IDiskImageParamsASIFXPC.SetParentUUID]
 type IDiskImageParamsASIFXPC interface {
 	IDiskImageParamsXPC
-
-	// Topic: Methods
-
-	CacheImage() bool
-	SetCacheImage(value bool)
-	ParentUUID() foundation.NSUUID
-	SetParentUUID(value foundation.NSUUID)
 }
 
 // Init initializes the instance.
@@ -127,19 +106,4 @@ func NewDiskImageParamsASIFXPCWithCoder(coder objectivec.IObject) DiskImageParam
 	instance := getDiskImageParamsASIFXPCClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
 	return DiskImageParamsASIFXPCFromID(rv)
-}
-
-func (d DiskImageParamsASIFXPC) CacheImage() bool {
-	rv := objc.SendIfResponds[bool](d.ID, objc.Sel("cacheImage"))
-	return rv
-}
-func (d DiskImageParamsASIFXPC) SetCacheImage(value bool) {
-	objc.SendIfResponds[struct{}](d.ID, objc.Sel("setCacheImage:"), value)
-}
-func (d DiskImageParamsASIFXPC) ParentUUID() foundation.NSUUID {
-	rv := objc.SendIfResponds[foundation.NSUUID](d.ID, objc.Sel("parentUUID"))
-	return foundation.NSUUID(rv)
-}
-func (d DiskImageParamsASIFXPC) SetParentUUID(value foundation.NSUUID) {
-	objc.SendIfResponds[struct{}](d.ID, objc.Sel("setParentUUID:"), value)
 }

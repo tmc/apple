@@ -1,4 +1,4 @@
-// Code generated from Apple documentation for virtualization. DO NOT EDIT.
+// Code generated from Apple documentation for Virtualization. DO NOT EDIT.
 
 package virtualization
 
@@ -41,6 +41,9 @@ func (vc VZSEPCoprocessorClass) Alloc() VZSEPCoprocessor {
 	return rv
 }
 
+// # Methods
+//
+//   - [VZSEPCoprocessor.DebugStub]
 type VZSEPCoprocessor struct {
 	VZCoprocessor
 }
@@ -54,8 +57,16 @@ func VZSEPCoprocessorFromID(id objc.ID) VZSEPCoprocessor {
 var _ IVZSEPCoprocessor = VZSEPCoprocessor{}
 
 // An interface definition for the [VZSEPCoprocessor] class.
+//
+// # Methods
+//
+//   - [IVZSEPCoprocessor.DebugStub]
 type IVZSEPCoprocessor interface {
 	IVZCoprocessor
+
+	// Topic: Methods
+
+	DebugStub() IVZDebugStub
 }
 
 // Init initializes the instance.
@@ -75,4 +86,9 @@ func NewVZSEPCoprocessor() VZSEPCoprocessor {
 	class := getVZSEPCoprocessorClass()
 	rv := objc.SendIfResponds[VZSEPCoprocessor](objc.ID(class.class), objc.Sel("new"))
 	return rv
+}
+
+func (v VZSEPCoprocessor) DebugStub() IVZDebugStub {
+	rv := objc.SendIfResponds[objc.ID](v.ID, objc.Sel("debugStub"))
+	return VZDebugStubFromID(objc.ID(rv))
 }

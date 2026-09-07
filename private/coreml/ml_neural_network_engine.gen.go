@@ -1,4 +1,4 @@
-// Code generated from Apple documentation for coreml. DO NOT EDIT.
+// Code generated from Apple documentation for CoreML. DO NOT EDIT.
 
 package coreml
 
@@ -12,7 +12,6 @@ import (
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 	"github.com/tmc/apple/private/appleneuralengine"
-	"github.com/tmc/apple/private/espresso"
 )
 
 // The class instance for the [MLNeuralNetworkEngine] class.
@@ -416,8 +415,8 @@ type IMLNeuralNetworkEngine interface {
 	SetEspressoInputShapes(value foundation.INSDictionary)
 	EspressoInputStrides() foundation.INSDictionary
 	SetEspressoInputStrides(value foundation.INSDictionary)
-	EspressoProfileInfo() espresso.EspressoProfilingNetworkInfo
-	SetEspressoProfileInfo(value espresso.EspressoProfilingNetworkInfo)
+	EspressoProfileInfo() unsafe.Pointer
+	SetEspressoProfileInfo(value unsafe.Pointer)
 	EspressoQueue() objectivec.Object
 	SetEspressoQueue(value objectivec.Object)
 	EvaluateError(evaluate objectivec.IObject) (objectivec.IObject, error)
@@ -1578,11 +1577,11 @@ func (m MLNeuralNetworkEngine) EspressoInputStrides() foundation.INSDictionary {
 func (m MLNeuralNetworkEngine) SetEspressoInputStrides(value foundation.INSDictionary) {
 	objc.SendIfResponds[struct{}](m.ID, objc.Sel("setEspressoInputStrides:"), value)
 }
-func (m MLNeuralNetworkEngine) EspressoProfileInfo() espresso.EspressoProfilingNetworkInfo {
-	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("espressoProfileInfo"))
-	return espresso.EspressoProfilingNetworkInfoFromID(objc.ID(rv))
+func (m MLNeuralNetworkEngine) EspressoProfileInfo() unsafe.Pointer {
+	rv := objc.SendIfResponds[unsafe.Pointer](m.ID, objc.Sel("espressoProfileInfo"))
+	return rv
 }
-func (m MLNeuralNetworkEngine) SetEspressoProfileInfo(value espresso.EspressoProfilingNetworkInfo) {
+func (m MLNeuralNetworkEngine) SetEspressoProfileInfo(value unsafe.Pointer) {
 	objc.SendIfResponds[struct{}](m.ID, objc.Sel("setEspressoProfileInfo:"), value)
 }
 func (m MLNeuralNetworkEngine) EspressoQueue() objectivec.Object {

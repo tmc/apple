@@ -1,4 +1,4 @@
-// Code generated from Apple documentation for virtualization. DO NOT EDIT.
+// Code generated from Apple documentation for Virtualization. DO NOT EDIT.
 
 package virtualization
 
@@ -20,11 +20,6 @@ type ApConfiguration struct {
 	Field1 uint64
 	Field2 uint32
 	Field3 bool
-}
-
-// AuditToken
-type AuditToken struct {
-	Field1 unsafe.Pointer
 }
 
 // Avp
@@ -97,15 +92,16 @@ type CGContext struct {
 
 // Coprocessor
 type Coprocessor struct {
-	Field1 unsafe.Pointer
-	Field2 [2]uint32
-	Field3 [2]uint32
-	Field4 [2]uint32
-	Field5 [3]uint32
-	Field6 unsafe.Pointer
-	Field7 [3]uint64
-	Field8 [3]uint64
-	Field9 ApConfiguration
+	Field1  int32
+	Field2  [2]uint32
+	Field3  [2]uint32
+	Field4  [2]uint32
+	Field5  [2]uint32
+	Field6  FileDescriptor
+	Field7  [3]uint32
+	Field8  [3]uint64
+	Field9  [3]uint64
+	Field10 ApConfiguration
 }
 
 // CoprocessorMailbox
@@ -129,7 +125,7 @@ type CpuExitContextMessenger struct {
 // CpuExitInfo
 type CpuExitInfo struct {
 	Cpu_index uint32
-	Cpu_exit  unsafe.Pointer
+	Cpu_exit  [4]uint64
 }
 
 // CursorUpdate
@@ -160,7 +156,6 @@ type Descriptor struct {
 	Cache_mode       int32
 	Parameters       [3]uint64
 	Per_io_encrypted bool
-	Is_layer_based   bool
 }
 
 // DeviceSpecificConfiguration
@@ -225,9 +220,13 @@ type FileDescriptors struct {
 type FrameUpdate struct {
 }
 
+// FramebufferObserver
+type FramebufferObserver struct {
+}
+
 // GuestDescriptors
 type GuestDescriptors struct {
-	_elements [27]uint64
+	_elements [3]uint64
 }
 
 // Handle
@@ -237,20 +236,8 @@ type Handle struct {
 	Field3 unsafe.Pointer
 }
 
-// HostDisplayUpdate
-type HostDisplayUpdate struct {
-	Field1 uint32
-	Field2 int32
-}
-
 // HostOnly
 type HostOnly struct {
-}
-
-// InlineBuffer
-type InlineBuffer struct {
-	Ptr           ElementRef
-	Inline_buffer Type
 }
 
 // IoService
@@ -262,11 +249,6 @@ type IoService struct {
 type IoVector struct {
 	_size    uint64
 	_buffers [3]uint64
-}
-
-// IopConfiguration
-type IopConfiguration struct {
-	Field1 Binary
 }
 
 // KeyboardEventTapMessenger
@@ -338,10 +320,6 @@ type MmapedMemory struct {
 	Field2 uint64
 }
 
-// MultiTouchDeviceProperties
-type MultiTouchDeviceProperties struct {
-}
-
 // Mutex
 type Mutex struct {
 	_unfair_lock OSUnfairLockS
@@ -358,10 +336,6 @@ type Nat struct {
 
 // NoSecurity
 type NoSecurity struct {
-}
-
-// ObserverProperties
-type ObserverProperties struct {
 }
 
 // OpaqueId
@@ -386,7 +360,6 @@ type ParavirtualizedGraphics struct {
 	Field4 uint32
 	Field5 [3]uint64
 	Field6 int32
-	Field7 Path
 }
 
 // PassthroughDevice
@@ -446,12 +419,6 @@ type Scanout struct {
 
 // Segment
 type Segment struct {
-}
-
-// SepConfiguration
-type SepConfiguration struct {
-	Field1 FileDescriptor
-	Field2 [2]uint32
 }
 
 // SerialPort
@@ -517,10 +484,6 @@ type Usb struct {
 	Field1 uint32
 }
 
-// UsbHubPortConfiguration
-type UsbHubPortConfiguration struct {
-}
-
 // UsbTouchScreen
 type UsbTouchScreen struct {
 }
@@ -545,17 +508,16 @@ type VZVirtualMachineAccessorMessenger struct {
 // VZVirtualMachineProperties
 type VZVirtualMachineProperties struct {
 	Keyboard_properties                   [3]uint64
-	Multi_touch_devices                   [3]uint64
+	Multi_touch_device_id                 [2]uint32
 	Pointing_device_properties            [3]uint64
 	State                                 int64
 	Usb_passthrough_pointing_device_count uint32
-	Allow_display_reconfiguration         bool
 	Graphics_devices                      [3]uint64
 }
 
 // VariableStore
 type VariableStore struct {
-	Field1 FileDescriptor
+	Field1 [2]uint64
 }
 
 // VhostUser
@@ -575,14 +537,13 @@ type Virtio struct {
 	Field2 int32
 }
 
-// VirtioQueueCStruct
-type VirtioQueueCStruct struct {
+// VirtioQueue
+type VirtioQueue struct {
 }
 
 // Vmnet
 type Vmnet struct {
 	Field1 [1]uint64
-	Field2 [9]uint32
 }
 
 // VncAuthentication
@@ -633,10 +594,6 @@ type IOHIDEvent struct {
 type IOHIDEventSystemClient struct {
 }
 
-// SecCertificate
-type SecCertificate struct {
-}
-
 // SecKey
 type SecKey struct {
 }
@@ -661,7 +618,7 @@ type Rep struct {
 
 // Repr
 type Repr struct {
-	Field1 [1]uint64
+	Field1 unsafe.Pointer
 	Field2 bool
 }
 
@@ -678,7 +635,7 @@ type Short struct {
 
 // Union
 type Union struct {
-	Field1 objectivec.Object
+	Field1 SerialPort
 	Field2 objectivec.Object
 }
 
@@ -723,11 +680,6 @@ type SockaddrUn struct {
 
 // Sockaddr_un is a type alias for SockaddrUn for use in objc.Send[T] calls.
 type Sockaddr_un = SockaddrUn
-
-// Type
-type Type struct {
-	__data [192]uint8
-}
 
 // VmnetNetwork
 type VmnetNetwork struct {

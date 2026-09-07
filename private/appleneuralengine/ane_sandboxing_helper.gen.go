@@ -142,6 +142,3 @@ func (_ANESandboxingHelperClass ANESandboxingHelperClass) SandboxExtensionPathFo
 	rv := objc.SendIfResponds[objc.ID](objc.ID(_ANESandboxingHelperClass.class), objc.Sel("sandboxExtensionPathForModelURL:"), url)
 	return objectivec.Object{ID: rv}
 }
-func (_ANESandboxingHelperClass ANESandboxingHelperClass) IssueSandboxExtensionForWeights(weights objectivec.IObject) {
-	objc.SendIfResponds[objc.ID](objc.ID(_ANESandboxingHelperClass.class), objc.Sel("issueSandboxExtensionForWeights:"), weights)
-}

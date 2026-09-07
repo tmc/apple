@@ -1,4 +1,4 @@
-// Code generated from Apple documentation for virtualization. DO NOT EDIT.
+// Code generated from Apple documentation for Virtualization. DO NOT EDIT.
 
 package virtualization
 
@@ -46,7 +46,6 @@ func (vc VZUSBControllerClass) Alloc() VZUSBController {
 // # Methods
 //
 //   - [VZUSBController._capturePassthroughDevicesWithCompletionHandler]
-//   - [VZUSBController._cleanupVZUSBPassthroughDevices]
 //   - [VZUSBController._initWithVirtualMachineUsbControllerIndexUsbDevices]
 //   - [VZUSBController._releasePassthroughDevices]
 //   - [VZUSBController.Delegate]
@@ -68,7 +67,6 @@ var _ IVZUSBController = VZUSBController{}
 // # Methods
 //
 //   - [IVZUSBController._capturePassthroughDevicesWithCompletionHandler]
-//   - [IVZUSBController._cleanupVZUSBPassthroughDevices]
 //   - [IVZUSBController._initWithVirtualMachineUsbControllerIndexUsbDevices]
 //   - [IVZUSBController._releasePassthroughDevices]
 //   - [IVZUSBController.Delegate]
@@ -79,7 +77,6 @@ type IVZUSBController interface {
 	// Topic: Methods
 
 	_capturePassthroughDevicesWithCompletionHandler(handler unsafe.Pointer)
-	_cleanupVZUSBPassthroughDevices()
 	_initWithVirtualMachineUsbControllerIndexUsbDevices(machine objectivec.IObject, index uint64, devices objectivec.IObject) objectivec.IObject
 	_releasePassthroughDevices()
 	Delegate() unsafe.Pointer
@@ -123,24 +120,6 @@ func (v VZUSBController) CapturePassthroughDevicesWithCompletionHandler(handler 
 func (v VZUSBController) CanCapturePassthroughDevicesWithCompletionHandler() bool {
 	return objc.RespondsToSelector(v.ID, objc.Sel("_capturePassthroughDevicesWithCompletionHandler:"))
 }
-func (v VZUSBController) _cleanupVZUSBPassthroughDevices() {
-	objc.SendIfResponds[objc.ID](v.ID, objc.Sel("_cleanupVZUSBPassthroughDevices"))
-}
-
-// CleanupVZUSBPassthroughDevices is an exported wrapper for the private method _cleanupVZUSBPassthroughDevices.
-func (v VZUSBController) CleanupVZUSBPassthroughDevices() error {
-	if !objc.RespondsToSelector(v.ID, objc.Sel("_cleanupVZUSBPassthroughDevices")) {
-		err := &objc.UnrecognizedSelectorError{Selector: "_cleanupVZUSBPassthroughDevices"}
-		return err
-	}
-	v._cleanupVZUSBPassthroughDevices()
-	return nil
-}
-
-// CanCleanupVZUSBPassthroughDevices reports whether the receiver responds to the private selector _cleanupVZUSBPassthroughDevices.
-func (v VZUSBController) CanCleanupVZUSBPassthroughDevices() bool {
-	return objc.RespondsToSelector(v.ID, objc.Sel("_cleanupVZUSBPassthroughDevices"))
-}
 func (v VZUSBController) _initWithVirtualMachineUsbControllerIndexUsbDevices(machine objectivec.IObject, index uint64, devices objectivec.IObject) objectivec.IObject {
 	rv := objc.SendIfResponds[objc.ID](v.ID, objc.Sel("_initWithVirtualMachine:usbControllerIndex:usbDevices:"), machine, index, devices)
 	return objectivec.Object{ID: rv}
@@ -176,11 +155,6 @@ func (v VZUSBController) ReleasePassthroughDevices() error {
 // CanReleasePassthroughDevices reports whether the receiver responds to the private selector _releasePassthroughDevices.
 func (v VZUSBController) CanReleasePassthroughDevices() bool {
 	return objc.RespondsToSelector(v.ID, objc.Sel("_releasePassthroughDevices"))
-}
-
-func (_VZUSBControllerClass VZUSBControllerClass) AutomaticallyNotifiesObserversOfUsbDevices() bool {
-	rv := objc.SendIfResponds[bool](objc.ID(_VZUSBControllerClass.class), objc.Sel("automaticallyNotifiesObserversOfUsbDevices"))
-	return rv
 }
 
 func (v VZUSBController) Delegate() unsafe.Pointer {

@@ -46,9 +46,6 @@ func (tc TextToSpeechTTSMagicFirstPartyAudioUnitClass) Alloc() TextToSpeechTTSMa
 
 // # Methods
 //
-//   - [TextToSpeechTTSMagicFirstPartyAudioUnit._hostAuditToken]
-//   - [TextToSpeechTTSMagicFirstPartyAudioUnit.Set_hostAuditToken]
-//   - [TextToSpeechTTSMagicFirstPartyAudioUnit.Reset]
 //   - [TextToSpeechTTSMagicFirstPartyAudioUnit.InitWithComponentDescriptionOptionsError]
 type TextToSpeechTTSMagicFirstPartyAudioUnit struct {
 	TTSFirstPartyAudioUnit
@@ -66,18 +63,12 @@ var _ ITextToSpeechTTSMagicFirstPartyAudioUnit = TextToSpeechTTSMagicFirstPartyA
 //
 // # Methods
 //
-//   - [ITextToSpeechTTSMagicFirstPartyAudioUnit._hostAuditToken]
-//   - [ITextToSpeechTTSMagicFirstPartyAudioUnit.Set_hostAuditToken]
-//   - [ITextToSpeechTTSMagicFirstPartyAudioUnit.Reset]
 //   - [ITextToSpeechTTSMagicFirstPartyAudioUnit.InitWithComponentDescriptionOptionsError]
 type ITextToSpeechTTSMagicFirstPartyAudioUnit interface {
 	ITTSFirstPartyAudioUnit
 
 	// Topic: Methods
 
-	_hostAuditToken() unsafe.Pointer
-	Set_hostAuditToken(value unsafe.Pointer)
-	Reset()
 	InitWithComponentDescriptionOptionsError(description audiotoolbox.AudioComponentDescription, options uint32) (TextToSpeechTTSMagicFirstPartyAudioUnit, error)
 }
 
@@ -114,9 +105,6 @@ func NewTextToSpeechTTSMagicFirstPartyAudioUnitWithComponentDescriptionOptionsEr
 	return TextToSpeechTTSMagicFirstPartyAudioUnitFromID(rv), nil
 }
 
-func (t TextToSpeechTTSMagicFirstPartyAudioUnit) Reset() {
-	objc.SendIfResponds[objc.ID](t.ID, objc.Sel("reset"))
-}
 func (t TextToSpeechTTSMagicFirstPartyAudioUnit) InitWithComponentDescriptionOptionsError(description audiotoolbox.AudioComponentDescription, options uint32) (TextToSpeechTTSMagicFirstPartyAudioUnit, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](t.ID, objc.Sel("initWithComponentDescription:options:error:"), description, options, unsafe.Pointer(&errorPtr))
@@ -126,25 +114,4 @@ func (t TextToSpeechTTSMagicFirstPartyAudioUnit) InitWithComponentDescriptionOpt
 	}
 	return TextToSpeechTTSMagicFirstPartyAudioUnitFromID(rv), nil
 
-}
-
-func (t TextToSpeechTTSMagicFirstPartyAudioUnit) _hostAuditToken() unsafe.Pointer {
-	rv := objc.SendIfResponds[unsafe.Pointer](t.ID, objc.Sel("_hostAuditToken"))
-	return rv
-}
-
-// CanHostAuditToken reports whether the receiver responds to the private selector _hostAuditToken.
-func (t TextToSpeechTTSMagicFirstPartyAudioUnit) CanHostAuditToken() bool {
-	return objc.RespondsToSelector(t.ID, objc.Sel("_hostAuditToken"))
-}
-
-// HostAuditToken is an exported wrapper for the private property _hostAuditToken.
-func (t TextToSpeechTTSMagicFirstPartyAudioUnit) HostAuditToken() (unsafe.Pointer, error) {
-	if !objc.RespondsToSelector(t.ID, objc.Sel("_hostAuditToken")) {
-		return nil, &objc.UnrecognizedSelectorError{Selector: "_hostAuditToken"}
-	}
-	return t._hostAuditToken(), nil
-}
-func (t TextToSpeechTTSMagicFirstPartyAudioUnit) Set_hostAuditToken(value unsafe.Pointer) {
-	objc.SendIfResponds[struct{}](t.ID, objc.Sel("set_hostAuditToken:"), value)
 }

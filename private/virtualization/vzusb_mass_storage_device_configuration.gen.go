@@ -1,13 +1,10 @@
-// Code generated from Apple documentation for virtualization. DO NOT EDIT.
+// Code generated from Apple documentation for Virtualization. DO NOT EDIT.
 
 package virtualization
 
 import (
-	"errors"
 	"sync"
-	"unsafe"
 
-	"github.com/tmc/apple/foundation"
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -49,7 +46,6 @@ func (vc VZUSBMassStorageDeviceConfigurationClass) Alloc() VZUSBMassStorageDevic
 //
 //   - [VZUSBMassStorageDeviceConfiguration.IsDuplicateConfiguration]
 //   - [VZUSBMassStorageDeviceConfiguration.MakeUSBDeviceWithVirtualMachine]
-//   - [VZUSBMassStorageDeviceConfiguration.ValidateWithError]
 type VZUSBMassStorageDeviceConfiguration struct {
 	VZStorageDeviceConfiguration
 }
@@ -68,7 +64,6 @@ var _ IVZUSBMassStorageDeviceConfiguration = VZUSBMassStorageDeviceConfiguration
 //
 //   - [IVZUSBMassStorageDeviceConfiguration.IsDuplicateConfiguration]
 //   - [IVZUSBMassStorageDeviceConfiguration.MakeUSBDeviceWithVirtualMachine]
-//   - [IVZUSBMassStorageDeviceConfiguration.ValidateWithError]
 type IVZUSBMassStorageDeviceConfiguration interface {
 	IVZStorageDeviceConfiguration
 
@@ -76,7 +71,6 @@ type IVZUSBMassStorageDeviceConfiguration interface {
 
 	IsDuplicateConfiguration(configuration objectivec.IObject) bool
 	MakeUSBDeviceWithVirtualMachine(machine objectivec.IObject) objectivec.IObject
-	ValidateWithError() (bool, error)
 }
 
 // Init initializes the instance.
@@ -105,17 +99,4 @@ func (v VZUSBMassStorageDeviceConfiguration) IsDuplicateConfiguration(configurat
 func (v VZUSBMassStorageDeviceConfiguration) MakeUSBDeviceWithVirtualMachine(machine objectivec.IObject) objectivec.IObject {
 	rv := objc.SendIfResponds[objc.ID](v.ID, objc.Sel("makeUSBDeviceWithVirtualMachine:"), machine)
 	return objectivec.Object{ID: rv}
-}
-func (v VZUSBMassStorageDeviceConfiguration) ValidateWithError() (bool, error) {
-	var errorPtr objc.ID
-	rv := objc.Send[bool](v.ID, objc.Sel("validateWithError:"), unsafe.Pointer(&errorPtr))
-	if errorPtr != 0 {
-		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
-		return false, foundation.NSErrorFrom(errorPtr)
-	}
-	if !rv {
-		return false, errors.New("validateWithError: returned NO with nil NSError")
-	}
-	return rv, nil
-
 }

@@ -55,9 +55,6 @@ func (sc SLSSpaceWindowManagerClass) Alloc() SLSSpaceWindowManager {
 //   - [SLSSpaceWindowManager._fullRebuildSpaceChange]
 //   - [SLSSpaceWindowManager._fullRebuildSpacesChanged]
 //   - [SLSSpaceWindowManager._getDisplayUUIDForSpace]
-//   - [SLSSpaceWindowManager._loadFullscreenTilesForSpaceWithID]
-//   - [SLSSpaceWindowManager._loadFullscreenTilesFromTilingData]
-//   - [SLSSpaceWindowManager._loadTileWindowIDForSubspace]
 //   - [SLSSpaceWindowManager._performBatchingCallouts]
 //   - [SLSSpaceWindowManager._postActiveDisplayChange]
 //   - [SLSSpaceWindowManager._removeSpace]
@@ -66,7 +63,6 @@ func (sc SLSSpaceWindowManagerClass) Alloc() SLSSpaceWindowManager {
 //   - [SLSSpaceWindowManager._spaceChangedDisplay]
 //   - [SLSSpaceWindowManager._spaceWithIDCreateIfNeeded]
 //   - [SLSSpaceWindowManager._updateSpaceWithData]
-//   - [SLSSpaceWindowManager._updateSpaceWithTilingData]
 //   - [SLSSpaceWindowManager.Activate]
 //   - [SLSSpaceWindowManager.AddWindowsToSpacesRemovingFromTransaction]
 //   - [SLSSpaceWindowManager.BatchedDelegate]
@@ -122,9 +118,6 @@ var _ ISLSSpaceWindowManager = SLSSpaceWindowManager{}
 //   - [ISLSSpaceWindowManager._fullRebuildSpaceChange]
 //   - [ISLSSpaceWindowManager._fullRebuildSpacesChanged]
 //   - [ISLSSpaceWindowManager._getDisplayUUIDForSpace]
-//   - [ISLSSpaceWindowManager._loadFullscreenTilesForSpaceWithID]
-//   - [ISLSSpaceWindowManager._loadFullscreenTilesFromTilingData]
-//   - [ISLSSpaceWindowManager._loadTileWindowIDForSubspace]
 //   - [ISLSSpaceWindowManager._performBatchingCallouts]
 //   - [ISLSSpaceWindowManager._postActiveDisplayChange]
 //   - [ISLSSpaceWindowManager._removeSpace]
@@ -133,7 +126,6 @@ var _ ISLSSpaceWindowManager = SLSSpaceWindowManager{}
 //   - [ISLSSpaceWindowManager._spaceChangedDisplay]
 //   - [ISLSSpaceWindowManager._spaceWithIDCreateIfNeeded]
 //   - [ISLSSpaceWindowManager._updateSpaceWithData]
-//   - [ISLSSpaceWindowManager._updateSpaceWithTilingData]
 //   - [ISLSSpaceWindowManager.Activate]
 //   - [ISLSSpaceWindowManager.AddWindowsToSpacesRemovingFromTransaction]
 //   - [ISLSSpaceWindowManager.BatchedDelegate]
@@ -178,9 +170,6 @@ type ISLSSpaceWindowManager interface {
 	_fullRebuildSpaceChange(change uint64)
 	_fullRebuildSpacesChanged()
 	_getDisplayUUIDForSpace(space uint64) objectivec.IObject
-	_loadFullscreenTilesForSpaceWithID(id uint64) objectivec.IObject
-	_loadFullscreenTilesFromTilingData(data unsafe.Pointer) objectivec.IObject
-	_loadTileWindowIDForSubspace(subspace uint64) uint32
 	_performBatchingCallouts(callouts VoidHandler)
 	_postActiveDisplayChange()
 	_removeSpace(space uint64)
@@ -189,7 +178,6 @@ type ISLSSpaceWindowManager interface {
 	_spaceChangedDisplay(display uint64)
 	_spaceWithIDCreateIfNeeded(id uint64, needed bool) objectivec.IObject
 	_updateSpaceWithData(data unsafe.Pointer)
-	_updateSpaceWithTilingData(data unsafe.Pointer)
 	Activate()
 	AddWindowsToSpacesRemovingFromTransaction(windows objectivec.IObject, spaces objectivec.IObject, from uint32, transaction SLSTransactionRef)
 	BatchedDelegate() objectivec.IObject
@@ -375,60 +363,6 @@ func (s SLSSpaceWindowManager) GetDisplayUUIDForSpace(space uint64) (objectivec.
 func (s SLSSpaceWindowManager) CanGetDisplayUUIDForSpace() bool {
 	return objc.RespondsToSelector(s.ID, objc.Sel("_getDisplayUUIDForSpace:"))
 }
-func (s SLSSpaceWindowManager) _loadFullscreenTilesForSpaceWithID(id uint64) objectivec.IObject {
-	rv := objc.SendIfResponds[objc.ID](s.ID, objc.Sel("_loadFullscreenTilesForSpaceWithID:"), id)
-	return objectivec.Object{ID: rv}
-}
-
-// LoadFullscreenTilesForSpaceWithID is an exported wrapper for the private method _loadFullscreenTilesForSpaceWithID.
-func (s SLSSpaceWindowManager) LoadFullscreenTilesForSpaceWithID(id uint64) (objectivec.IObject, error) {
-	if !objc.RespondsToSelector(s.ID, objc.Sel("_loadFullscreenTilesForSpaceWithID:")) {
-		err := &objc.UnrecognizedSelectorError{Selector: "_loadFullscreenTilesForSpaceWithID:"}
-		return nil, err
-	}
-	return s._loadFullscreenTilesForSpaceWithID(id), nil
-}
-
-// CanLoadFullscreenTilesForSpaceWithID reports whether the receiver responds to the private selector _loadFullscreenTilesForSpaceWithID:.
-func (s SLSSpaceWindowManager) CanLoadFullscreenTilesForSpaceWithID() bool {
-	return objc.RespondsToSelector(s.ID, objc.Sel("_loadFullscreenTilesForSpaceWithID:"))
-}
-func (s SLSSpaceWindowManager) _loadFullscreenTilesFromTilingData(data unsafe.Pointer) objectivec.IObject {
-	rv := objc.SendIfResponds[objc.ID](s.ID, objc.Sel("_loadFullscreenTilesFromTilingData:"), data)
-	return objectivec.Object{ID: rv}
-}
-
-// LoadFullscreenTilesFromTilingData is an exported wrapper for the private method _loadFullscreenTilesFromTilingData.
-func (s SLSSpaceWindowManager) LoadFullscreenTilesFromTilingData(data unsafe.Pointer) (objectivec.IObject, error) {
-	if !objc.RespondsToSelector(s.ID, objc.Sel("_loadFullscreenTilesFromTilingData:")) {
-		err := &objc.UnrecognizedSelectorError{Selector: "_loadFullscreenTilesFromTilingData:"}
-		return nil, err
-	}
-	return s._loadFullscreenTilesFromTilingData(data), nil
-}
-
-// CanLoadFullscreenTilesFromTilingData reports whether the receiver responds to the private selector _loadFullscreenTilesFromTilingData:.
-func (s SLSSpaceWindowManager) CanLoadFullscreenTilesFromTilingData() bool {
-	return objc.RespondsToSelector(s.ID, objc.Sel("_loadFullscreenTilesFromTilingData:"))
-}
-func (s SLSSpaceWindowManager) _loadTileWindowIDForSubspace(subspace uint64) uint32 {
-	rv := objc.SendIfResponds[uint32](s.ID, objc.Sel("_loadTileWindowIDForSubspace:"), subspace)
-	return rv
-}
-
-// LoadTileWindowIDForSubspace is an exported wrapper for the private method _loadTileWindowIDForSubspace.
-func (s SLSSpaceWindowManager) LoadTileWindowIDForSubspace(subspace uint64) (uint32, error) {
-	if !objc.RespondsToSelector(s.ID, objc.Sel("_loadTileWindowIDForSubspace:")) {
-		err := &objc.UnrecognizedSelectorError{Selector: "_loadTileWindowIDForSubspace:"}
-		return 0, err
-	}
-	return s._loadTileWindowIDForSubspace(subspace), nil
-}
-
-// CanLoadTileWindowIDForSubspace reports whether the receiver responds to the private selector _loadTileWindowIDForSubspace:.
-func (s SLSSpaceWindowManager) CanLoadTileWindowIDForSubspace() bool {
-	return objc.RespondsToSelector(s.ID, objc.Sel("_loadTileWindowIDForSubspace:"))
-}
 func (s SLSSpaceWindowManager) _performBatchingCallouts(callouts VoidHandler) {
 	_block0, _ := NewVoidBlock(callouts)
 	objc.SendIfResponds[objc.ID](s.ID, objc.Sel("_performBatchingCallouts:"), _block0)
@@ -573,24 +507,6 @@ func (s SLSSpaceWindowManager) UpdateSpaceWithData(data unsafe.Pointer) error {
 // CanUpdateSpaceWithData reports whether the receiver responds to the private selector _updateSpaceWithData:.
 func (s SLSSpaceWindowManager) CanUpdateSpaceWithData() bool {
 	return objc.RespondsToSelector(s.ID, objc.Sel("_updateSpaceWithData:"))
-}
-func (s SLSSpaceWindowManager) _updateSpaceWithTilingData(data unsafe.Pointer) {
-	objc.SendIfResponds[objc.ID](s.ID, objc.Sel("_updateSpaceWithTilingData:"), data)
-}
-
-// UpdateSpaceWithTilingData is an exported wrapper for the private method _updateSpaceWithTilingData.
-func (s SLSSpaceWindowManager) UpdateSpaceWithTilingData(data unsafe.Pointer) error {
-	if !objc.RespondsToSelector(s.ID, objc.Sel("_updateSpaceWithTilingData:")) {
-		err := &objc.UnrecognizedSelectorError{Selector: "_updateSpaceWithTilingData:"}
-		return err
-	}
-	s._updateSpaceWithTilingData(data)
-	return nil
-}
-
-// CanUpdateSpaceWithTilingData reports whether the receiver responds to the private selector _updateSpaceWithTilingData:.
-func (s SLSSpaceWindowManager) CanUpdateSpaceWithTilingData() bool {
-	return objc.RespondsToSelector(s.ID, objc.Sel("_updateSpaceWithTilingData:"))
 }
 func (s SLSSpaceWindowManager) Activate() {
 	objc.SendIfResponds[objc.ID](s.ID, objc.Sel("activate"))

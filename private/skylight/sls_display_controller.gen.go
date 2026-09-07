@@ -65,7 +65,6 @@ func (sc SLSDisplayControllerClass) Alloc() SLSDisplayController {
 //   - [SLSDisplayController.DisplayInfo]
 //   - [SLSDisplayController.DisplayType]
 //   - [SLSDisplayController.SetDisplayType]
-//   - [SLSDisplayController.FillErrorWithCGError]
 //   - [SLSDisplayController.GetLinearBrightnessError]
 //   - [SLSDisplayController.GetNitsError]
 //   - [SLSDisplayController.IsOnline]
@@ -77,9 +76,7 @@ func (sc SLSDisplayControllerClass) Alloc() SLSDisplayController {
 //   - [SLSDisplayController.PostNotificationPayload]
 //   - [SLSDisplayController.ProductId]
 //   - [SLSDisplayController.SetProductId]
-//   - [SLSDisplayController.RegisterForFrameInfoUpdatesError]
 //   - [SLSDisplayController.RegisterForNotificationsWithBlock]
-//   - [SLSDisplayController.ResolveControlClient]
 //   - [SLSDisplayController.SerialNumber]
 //   - [SLSDisplayController.SetSerialNumber]
 //   - [SLSDisplayController.SetAmbient]
@@ -103,7 +100,6 @@ func (sc SLSDisplayControllerClass) Alloc() SLSDisplayController {
 //   - [SLSDisplayController.SetShieldingTimeout]
 //   - [SLSDisplayController.SetSleepMessagingTimeout]
 //   - [SLSDisplayController.SetWhitePointRampDurationError]
-//   - [SLSDisplayController.UnregisterFromFrameInfoUpdates]
 //   - [SLSDisplayController.UnregisterNotificationBlocks]
 //   - [SLSDisplayController.Uuid]
 //   - [SLSDisplayController.SetUuid]
@@ -153,7 +149,6 @@ var _ ISLSDisplayController = SLSDisplayController{}
 //   - [ISLSDisplayController.DisplayInfo]
 //   - [ISLSDisplayController.DisplayType]
 //   - [ISLSDisplayController.SetDisplayType]
-//   - [ISLSDisplayController.FillErrorWithCGError]
 //   - [ISLSDisplayController.GetLinearBrightnessError]
 //   - [ISLSDisplayController.GetNitsError]
 //   - [ISLSDisplayController.IsOnline]
@@ -165,9 +160,7 @@ var _ ISLSDisplayController = SLSDisplayController{}
 //   - [ISLSDisplayController.PostNotificationPayload]
 //   - [ISLSDisplayController.ProductId]
 //   - [ISLSDisplayController.SetProductId]
-//   - [ISLSDisplayController.RegisterForFrameInfoUpdatesError]
 //   - [ISLSDisplayController.RegisterForNotificationsWithBlock]
-//   - [ISLSDisplayController.ResolveControlClient]
 //   - [ISLSDisplayController.SerialNumber]
 //   - [ISLSDisplayController.SetSerialNumber]
 //   - [ISLSDisplayController.SetAmbient]
@@ -191,7 +184,6 @@ var _ ISLSDisplayController = SLSDisplayController{}
 //   - [ISLSDisplayController.SetShieldingTimeout]
 //   - [ISLSDisplayController.SetSleepMessagingTimeout]
 //   - [ISLSDisplayController.SetWhitePointRampDurationError]
-//   - [ISLSDisplayController.UnregisterFromFrameInfoUpdates]
 //   - [ISLSDisplayController.UnregisterNotificationBlocks]
 //   - [ISLSDisplayController.Uuid]
 //   - [ISLSDisplayController.SetUuid]
@@ -230,7 +222,6 @@ type ISLSDisplayController interface {
 	DisplayInfo() objectivec.IObject
 	DisplayType() uint32
 	SetDisplayType(value uint32)
-	FillErrorWithCGError(error_ []objectivec.IObject, cGError int32)
 	GetLinearBrightnessError() (float32, error)
 	GetNitsError() (float32, error)
 	IsOnline() bool
@@ -242,9 +233,7 @@ type ISLSDisplayController interface {
 	PostNotificationPayload(notification objectivec.IObject, payload objectivec.IObject)
 	ProductId() uint64
 	SetProductId(value uint64)
-	RegisterForFrameInfoUpdatesError(updates func()) (bool, error)
 	RegisterForNotificationsWithBlock(notifications objectivec.IObject, block VoidHandler)
-	ResolveControlClient(client []objectivec.IObject) objectivec.IObject
 	SerialNumber() uint64
 	SetSerialNumber(value uint64)
 	SetAmbient(ambient float32)
@@ -268,7 +257,6 @@ type ISLSDisplayController interface {
 	SetShieldingTimeout(timeout float64)
 	SetSleepMessagingTimeout(timeout float64)
 	SetWhitePointRampDurationError(point unsafe.Pointer, duration float64) (bool, error)
-	UnregisterFromFrameInfoUpdates()
 	UnregisterNotificationBlocks()
 	Uuid() foundation.NSUUID
 	SetUuid(value foundation.NSUUID)
@@ -350,9 +338,6 @@ func (s SLSDisplayController) DisplayInfo() objectivec.IObject {
 	rv := objc.SendIfResponds[objc.ID](s.ID, objc.Sel("displayInfo"))
 	return objectivec.Object{ID: rv}
 }
-func (s SLSDisplayController) FillErrorWithCGError(error_ []objectivec.IObject, cGError int32) {
-	objc.SendIfResponds[objc.ID](s.ID, objc.Sel("fillError:withCGError:"), objectivec.IObjectSliceToNSArray(error_), cGError)
-}
 func (s SLSDisplayController) GetLinearBrightnessError() (float32, error) {
 	var brightness float32
 	var errorPtr objc.ID
@@ -390,28 +375,9 @@ func (s SLSDisplayController) NotificationQueue() objectivec.IObject {
 func (s SLSDisplayController) PostNotificationPayload(notification objectivec.IObject, payload objectivec.IObject) {
 	objc.SendIfResponds[objc.ID](s.ID, objc.Sel("postNotification:payload:"), notification, payload)
 }
-func (s SLSDisplayController) RegisterForFrameInfoUpdatesError(updates func()) (bool, error) {
-	_block0, _cleanup0 := NewVoidBlock(updates)
-	defer _cleanup0()
-	var errorPtr objc.ID
-	rv := objc.Send[bool](s.ID, objc.Sel("registerForFrameInfoUpdates:error:"), objc.ID(_block0), unsafe.Pointer(&errorPtr))
-	if errorPtr != 0 {
-		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
-		return false, foundation.NSErrorFrom(errorPtr)
-	}
-	if !rv {
-		return false, errors.New("registerForFrameInfoUpdates:error: returned NO with nil NSError")
-	}
-	return rv, nil
-
-}
 func (s SLSDisplayController) RegisterForNotificationsWithBlock(notifications objectivec.IObject, block VoidHandler) {
 	_block1, _ := NewVoidBlock(block)
 	objc.SendIfResponds[objc.ID](s.ID, objc.Sel("registerForNotifications:withBlock:"), notifications, _block1)
-}
-func (s SLSDisplayController) ResolveControlClient(client []objectivec.IObject) objectivec.IObject {
-	rv := objc.SendIfResponds[objc.ID](s.ID, objc.Sel("resolveControlClient:"), objectivec.IObjectSliceToNSArray(client))
-	return objectivec.Object{ID: rv}
 }
 func (s SLSDisplayController) SetAmbient(ambient float32) {
 	objc.SendIfResponds[objc.ID](s.ID, objc.Sel("setAmbient:"), ambient)
@@ -505,9 +471,6 @@ func (s SLSDisplayController) SetWhitePointRampDurationError(point unsafe.Pointe
 	}
 	return rv, nil
 
-}
-func (s SLSDisplayController) UnregisterFromFrameInfoUpdates() {
-	objc.SendIfResponds[objc.ID](s.ID, objc.Sel("unregisterFromFrameInfoUpdates"))
 }
 func (s SLSDisplayController) UnregisterNotificationBlocks() {
 	objc.SendIfResponds[objc.ID](s.ID, objc.Sel("unregisterNotificationBlocks"))

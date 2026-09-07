@@ -1,4 +1,4 @@
-// Code generated from Apple documentation for virtualization. DO NOT EDIT.
+// Code generated from Apple documentation for Virtualization. DO NOT EDIT.
 
 package virtualization
 
@@ -107,12 +107,6 @@ func NewVZVirtioGraphicsScanoutWithConfigurationError(configuration objectivec.I
 		return VZVirtioGraphicsScanout{}, objc.ErrInitFailed
 	}
 	return VZVirtioGraphicsScanoutFromID(rv), nil
-}
-
-func NewVZVirtioGraphicsScanoutWithVirtualMachineAccessorGraphicsDeviceIndexFramebufferIndexUuid(accessor objectivec.IObject, index uint64, index2 uint64, uuid objectivec.IObject) VZVirtioGraphicsScanout {
-	instance := getVZVirtioGraphicsScanoutClass().Alloc()
-	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithVirtualMachineAccessor:graphicsDeviceIndex:framebufferIndex:uuid:"), accessor, index, index2, uuid)
-	return VZVirtioGraphicsScanoutFromID(rv)
 }
 
 func NewVZVirtioGraphicsScanoutWithVirtualMachineGraphicsDeviceIndexFramebufferIndexUuid(machine objectivec.IObject, index uint64, index2 uint64, uuid objectivec.IObject) VZVirtioGraphicsScanout {

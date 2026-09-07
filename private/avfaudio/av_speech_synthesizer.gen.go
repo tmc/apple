@@ -1,11 +1,11 @@
-// Code generated from Apple documentation for avfaudio. DO NOT EDIT.
+// Code generated from Apple documentation for AVFAudio. DO NOT EDIT.
 
 package avfaudio
 
 import (
 	"sync"
-	"unsafe"
 
+	"github.com/tmc/apple/foundation"
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -45,17 +45,37 @@ func (ac AVSpeechSynthesizerClass) Alloc() AVSpeechSynthesizer {
 
 // # Methods
 //
-//   - [AVSpeechSynthesizer._configureCoreSynthesizer]
+//   - [AVSpeechSynthesizer._applyWebKitBehaviors]
+//   - [AVSpeechSynthesizer._convertBoundary]
+//   - [AVSpeechSynthesizer._enqueueNextJob]
+//   - [AVSpeechSynthesizer._handleSpeechDoneSuccessful]
+//   - [AVSpeechSynthesizer._speakUtterance]
 //   - [AVSpeechSynthesizer.AudioDeviceId]
 //   - [AVSpeechSynthesizer.SetAudioDeviceId]
 //   - [AVSpeechSynthesizer.AudioQueueFlags]
-//   - [AVSpeechSynthesizer.CoreSynthesizer]
-//   - [AVSpeechSynthesizer.ExistingCoreSynthesizer]
+//   - [AVSpeechSynthesizer.CoreSynth]
+//   - [AVSpeechSynthesizer.DetectSSMLAndModifyUtterances]
+//   - [AVSpeechSynthesizer.SetDetectSSMLAndModifyUtterances]
+//   - [AVSpeechSynthesizer.InflightUtterance]
+//   - [AVSpeechSynthesizer.SetInflightUtterance]
+//   - [AVSpeechSynthesizer.InitializedWebKitUsage]
+//   - [AVSpeechSynthesizer.SetInitializedWebKitUsage]
+//   - [AVSpeechSynthesizer.IsInAudioInterruption]
 //   - [AVSpeechSynthesizer.IsInternalSynth]
 //   - [AVSpeechSynthesizer.SetIsInternalSynth]
+//   - [AVSpeechSynthesizer.ProcessSpeechJobFinishedSuccessful]
 //   - [AVSpeechSynthesizer.SetActiveOptions]
 //   - [AVSpeechSynthesizer.SetAudioQueueFlags]
+//   - [AVSpeechSynthesizer.SetAudioSessionInactiveTimeout]
 //   - [AVSpeechSynthesizer.SetSetActiveOptions]
+//   - [AVSpeechSynthesizer.SetSkipLuthorRules]
+//   - [AVSpeechSynthesizer.SetSupportsAccurateWordCallbacks]
+//   - [AVSpeechSynthesizer.SkipLuthorRules]
+//   - [AVSpeechSynthesizer.SpeechManager]
+//   - [AVSpeechSynthesizer.SpeechQueue]
+//   - [AVSpeechSynthesizer.SpeechSource]
+//   - [AVSpeechSynthesizer.SetSpeechSource]
+//   - [AVSpeechSynthesizer.SupportsAccurateWordCallbacks]
 //   - [AVSpeechSynthesizer.Paused]
 //   - [AVSpeechSynthesizer.Speaking]
 type AVSpeechSynthesizer struct {
@@ -74,17 +94,37 @@ var _ IAVSpeechSynthesizer = AVSpeechSynthesizer{}
 //
 // # Methods
 //
-//   - [IAVSpeechSynthesizer._configureCoreSynthesizer]
+//   - [IAVSpeechSynthesizer._applyWebKitBehaviors]
+//   - [IAVSpeechSynthesizer._convertBoundary]
+//   - [IAVSpeechSynthesizer._enqueueNextJob]
+//   - [IAVSpeechSynthesizer._handleSpeechDoneSuccessful]
+//   - [IAVSpeechSynthesizer._speakUtterance]
 //   - [IAVSpeechSynthesizer.AudioDeviceId]
 //   - [IAVSpeechSynthesizer.SetAudioDeviceId]
 //   - [IAVSpeechSynthesizer.AudioQueueFlags]
-//   - [IAVSpeechSynthesizer.CoreSynthesizer]
-//   - [IAVSpeechSynthesizer.ExistingCoreSynthesizer]
+//   - [IAVSpeechSynthesizer.CoreSynth]
+//   - [IAVSpeechSynthesizer.DetectSSMLAndModifyUtterances]
+//   - [IAVSpeechSynthesizer.SetDetectSSMLAndModifyUtterances]
+//   - [IAVSpeechSynthesizer.InflightUtterance]
+//   - [IAVSpeechSynthesizer.SetInflightUtterance]
+//   - [IAVSpeechSynthesizer.InitializedWebKitUsage]
+//   - [IAVSpeechSynthesizer.SetInitializedWebKitUsage]
+//   - [IAVSpeechSynthesizer.IsInAudioInterruption]
 //   - [IAVSpeechSynthesizer.IsInternalSynth]
 //   - [IAVSpeechSynthesizer.SetIsInternalSynth]
+//   - [IAVSpeechSynthesizer.ProcessSpeechJobFinishedSuccessful]
 //   - [IAVSpeechSynthesizer.SetActiveOptions]
 //   - [IAVSpeechSynthesizer.SetAudioQueueFlags]
+//   - [IAVSpeechSynthesizer.SetAudioSessionInactiveTimeout]
 //   - [IAVSpeechSynthesizer.SetSetActiveOptions]
+//   - [IAVSpeechSynthesizer.SetSkipLuthorRules]
+//   - [IAVSpeechSynthesizer.SetSupportsAccurateWordCallbacks]
+//   - [IAVSpeechSynthesizer.SkipLuthorRules]
+//   - [IAVSpeechSynthesizer.SpeechManager]
+//   - [IAVSpeechSynthesizer.SpeechQueue]
+//   - [IAVSpeechSynthesizer.SpeechSource]
+//   - [IAVSpeechSynthesizer.SetSpeechSource]
+//   - [IAVSpeechSynthesizer.SupportsAccurateWordCallbacks]
 //   - [IAVSpeechSynthesizer.Paused]
 //   - [IAVSpeechSynthesizer.Speaking]
 type IAVSpeechSynthesizer interface {
@@ -92,17 +132,37 @@ type IAVSpeechSynthesizer interface {
 
 	// Topic: Methods
 
-	_configureCoreSynthesizer(synthesizer objectivec.IObject)
+	_applyWebKitBehaviors()
+	_convertBoundary(boundary int64) int64
+	_enqueueNextJob()
+	_handleSpeechDoneSuccessful(done objectivec.IObject, successful bool)
+	_speakUtterance(utterance objectivec.IObject)
 	AudioDeviceId() uint32
 	SetAudioDeviceId(value uint32)
 	AudioQueueFlags() uint32
-	CoreSynthesizer() unsafe.Pointer
-	ExistingCoreSynthesizer() unsafe.Pointer
+	CoreSynth() objectivec.IObject
+	DetectSSMLAndModifyUtterances() bool
+	SetDetectSSMLAndModifyUtterances(value bool)
+	InflightUtterance() IAVSpeechUtterance
+	SetInflightUtterance(value IAVSpeechUtterance)
+	InitializedWebKitUsage() bool
+	SetInitializedWebKitUsage(value bool)
+	IsInAudioInterruption() bool
 	IsInternalSynth() bool
 	SetIsInternalSynth(value bool)
+	ProcessSpeechJobFinishedSuccessful(finished objectivec.IObject, successful bool)
 	SetActiveOptions() uint64
 	SetAudioQueueFlags(flags uint32)
+	SetAudioSessionInactiveTimeout(timeout float64)
 	SetSetActiveOptions(options uint64)
+	SetSkipLuthorRules(rules objectivec.IObject)
+	SetSupportsAccurateWordCallbacks(callbacks objectivec.IObject)
+	SkipLuthorRules() objectivec.IObject
+	SpeechManager() objectivec.IObject
+	SpeechQueue() objectivec.IObject
+	SpeechSource() string
+	SetSpeechSource(value string)
+	SupportsAccurateWordCallbacks() objectivec.IObject
 	Paused() bool
 	Speaking() bool
 }
@@ -126,27 +186,110 @@ func NewAVSpeechSynthesizer() AVSpeechSynthesizer {
 	return rv
 }
 
-func (a AVSpeechSynthesizer) _configureCoreSynthesizer(synthesizer objectivec.IObject) {
-	objc.SendIfResponds[objc.ID](a.ID, objc.Sel("_configureCoreSynthesizer:"), synthesizer)
+func (a AVSpeechSynthesizer) _applyWebKitBehaviors() {
+	objc.SendIfResponds[objc.ID](a.ID, objc.Sel("_applyWebKitBehaviors"))
 }
 
-// ConfigureCoreSynthesizer is an exported wrapper for the private method _configureCoreSynthesizer.
-func (a AVSpeechSynthesizer) ConfigureCoreSynthesizer(synthesizer objectivec.IObject) error {
-	if !objc.RespondsToSelector(a.ID, objc.Sel("_configureCoreSynthesizer:")) {
-		err := &objc.UnrecognizedSelectorError{Selector: "_configureCoreSynthesizer:"}
+// ApplyWebKitBehaviors is an exported wrapper for the private method _applyWebKitBehaviors.
+func (a AVSpeechSynthesizer) ApplyWebKitBehaviors() error {
+	if !objc.RespondsToSelector(a.ID, objc.Sel("_applyWebKitBehaviors")) {
+		err := &objc.UnrecognizedSelectorError{Selector: "_applyWebKitBehaviors"}
 		return err
 	}
-	a._configureCoreSynthesizer(synthesizer)
+	a._applyWebKitBehaviors()
 	return nil
 }
 
-// CanConfigureCoreSynthesizer reports whether the receiver responds to the private selector _configureCoreSynthesizer:.
-func (a AVSpeechSynthesizer) CanConfigureCoreSynthesizer() bool {
-	return objc.RespondsToSelector(a.ID, objc.Sel("_configureCoreSynthesizer:"))
+// CanApplyWebKitBehaviors reports whether the receiver responds to the private selector _applyWebKitBehaviors.
+func (a AVSpeechSynthesizer) CanApplyWebKitBehaviors() bool {
+	return objc.RespondsToSelector(a.ID, objc.Sel("_applyWebKitBehaviors"))
+}
+func (a AVSpeechSynthesizer) _convertBoundary(boundary int64) int64 {
+	rv := objc.SendIfResponds[int64](a.ID, objc.Sel("_convertBoundary:"), boundary)
+	return rv
+}
+
+// ConvertBoundary is an exported wrapper for the private method _convertBoundary.
+func (a AVSpeechSynthesizer) ConvertBoundary(boundary int64) (int64, error) {
+	if !objc.RespondsToSelector(a.ID, objc.Sel("_convertBoundary:")) {
+		err := &objc.UnrecognizedSelectorError{Selector: "_convertBoundary:"}
+		return 0, err
+	}
+	return a._convertBoundary(boundary), nil
+}
+
+// CanConvertBoundary reports whether the receiver responds to the private selector _convertBoundary:.
+func (a AVSpeechSynthesizer) CanConvertBoundary() bool {
+	return objc.RespondsToSelector(a.ID, objc.Sel("_convertBoundary:"))
+}
+func (a AVSpeechSynthesizer) _enqueueNextJob() {
+	objc.SendIfResponds[objc.ID](a.ID, objc.Sel("_enqueueNextJob"))
+}
+
+// EnqueueNextJob is an exported wrapper for the private method _enqueueNextJob.
+func (a AVSpeechSynthesizer) EnqueueNextJob() error {
+	if !objc.RespondsToSelector(a.ID, objc.Sel("_enqueueNextJob")) {
+		err := &objc.UnrecognizedSelectorError{Selector: "_enqueueNextJob"}
+		return err
+	}
+	a._enqueueNextJob()
+	return nil
+}
+
+// CanEnqueueNextJob reports whether the receiver responds to the private selector _enqueueNextJob.
+func (a AVSpeechSynthesizer) CanEnqueueNextJob() bool {
+	return objc.RespondsToSelector(a.ID, objc.Sel("_enqueueNextJob"))
+}
+func (a AVSpeechSynthesizer) _handleSpeechDoneSuccessful(done objectivec.IObject, successful bool) {
+	objc.SendIfResponds[objc.ID](a.ID, objc.Sel("_handleSpeechDone:successful:"), done, successful)
+}
+
+// HandleSpeechDoneSuccessful is an exported wrapper for the private method _handleSpeechDoneSuccessful.
+func (a AVSpeechSynthesizer) HandleSpeechDoneSuccessful(done objectivec.IObject, successful bool) error {
+	if !objc.RespondsToSelector(a.ID, objc.Sel("_handleSpeechDone:successful:")) {
+		err := &objc.UnrecognizedSelectorError{Selector: "_handleSpeechDone:successful:"}
+		return err
+	}
+	a._handleSpeechDoneSuccessful(done, successful)
+	return nil
+}
+
+// CanHandleSpeechDoneSuccessful reports whether the receiver responds to the private selector _handleSpeechDone:successful:.
+func (a AVSpeechSynthesizer) CanHandleSpeechDoneSuccessful() bool {
+	return objc.RespondsToSelector(a.ID, objc.Sel("_handleSpeechDone:successful:"))
+}
+func (a AVSpeechSynthesizer) _speakUtterance(utterance objectivec.IObject) {
+	objc.SendIfResponds[objc.ID](a.ID, objc.Sel("_speakUtterance:"), utterance)
+}
+
+// SpeakUtterance is an exported wrapper for the private method _speakUtterance.
+func (a AVSpeechSynthesizer) SpeakUtterance(utterance objectivec.IObject) error {
+	if !objc.RespondsToSelector(a.ID, objc.Sel("_speakUtterance:")) {
+		err := &objc.UnrecognizedSelectorError{Selector: "_speakUtterance:"}
+		return err
+	}
+	a._speakUtterance(utterance)
+	return nil
+}
+
+// CanSpeakUtterance reports whether the receiver responds to the private selector _speakUtterance:.
+func (a AVSpeechSynthesizer) CanSpeakUtterance() bool {
+	return objc.RespondsToSelector(a.ID, objc.Sel("_speakUtterance:"))
 }
 func (a AVSpeechSynthesizer) AudioQueueFlags() uint32 {
 	rv := objc.SendIfResponds[uint32](a.ID, objc.Sel("audioQueueFlags"))
 	return rv
+}
+func (a AVSpeechSynthesizer) CoreSynth() objectivec.IObject {
+	rv := objc.SendIfResponds[objc.ID](a.ID, objc.Sel("coreSynth"))
+	return objectivec.Object{ID: rv}
+}
+func (a AVSpeechSynthesizer) IsInAudioInterruption() bool {
+	rv := objc.SendIfResponds[bool](a.ID, objc.Sel("isInAudioInterruption"))
+	return rv
+}
+func (a AVSpeechSynthesizer) ProcessSpeechJobFinishedSuccessful(finished objectivec.IObject, successful bool) {
+	objc.SendIfResponds[objc.ID](a.ID, objc.Sel("processSpeechJobFinished:successful:"), finished, successful)
 }
 func (a AVSpeechSynthesizer) SetActiveOptions() uint64 {
 	rv := objc.SendIfResponds[uint64](a.ID, objc.Sel("setActiveOptions"))
@@ -155,8 +298,33 @@ func (a AVSpeechSynthesizer) SetActiveOptions() uint64 {
 func (a AVSpeechSynthesizer) SetAudioQueueFlags(flags uint32) {
 	objc.SendIfResponds[objc.ID](a.ID, objc.Sel("setAudioQueueFlags:"), flags)
 }
+func (a AVSpeechSynthesizer) SetAudioSessionInactiveTimeout(timeout float64) {
+	objc.SendIfResponds[objc.ID](a.ID, objc.Sel("setAudioSessionInactiveTimeout:"), timeout)
+}
 func (a AVSpeechSynthesizer) SetSetActiveOptions(options uint64) {
 	objc.SendIfResponds[objc.ID](a.ID, objc.Sel("setSetActiveOptions:"), options)
+}
+func (a AVSpeechSynthesizer) SetSkipLuthorRules(rules objectivec.IObject) {
+	objc.SendIfResponds[objc.ID](a.ID, objc.Sel("setSkipLuthorRules:"), rules)
+}
+func (a AVSpeechSynthesizer) SetSupportsAccurateWordCallbacks(callbacks objectivec.IObject) {
+	objc.SendIfResponds[objc.ID](a.ID, objc.Sel("setSupportsAccurateWordCallbacks:"), callbacks)
+}
+func (a AVSpeechSynthesizer) SkipLuthorRules() objectivec.IObject {
+	rv := objc.SendIfResponds[objc.ID](a.ID, objc.Sel("skipLuthorRules"))
+	return objectivec.Object{ID: rv}
+}
+func (a AVSpeechSynthesizer) SpeechManager() objectivec.IObject {
+	rv := objc.SendIfResponds[objc.ID](a.ID, objc.Sel("speechManager"))
+	return objectivec.Object{ID: rv}
+}
+func (a AVSpeechSynthesizer) SpeechQueue() objectivec.IObject {
+	rv := objc.SendIfResponds[objc.ID](a.ID, objc.Sel("speechQueue"))
+	return objectivec.Object{ID: rv}
+}
+func (a AVSpeechSynthesizer) SupportsAccurateWordCallbacks() objectivec.IObject {
+	rv := objc.SendIfResponds[objc.ID](a.ID, objc.Sel("supportsAccurateWordCallbacks"))
+	return objectivec.Object{ID: rv}
 }
 
 func (_AVSpeechSynthesizerClass AVSpeechSynthesizerClass) _supportsSpeakingWithPersonalVoices() bool {
@@ -189,13 +357,26 @@ func (a AVSpeechSynthesizer) AudioDeviceId() uint32 {
 func (a AVSpeechSynthesizer) SetAudioDeviceId(value uint32) {
 	objc.SendIfResponds[struct{}](a.ID, objc.Sel("setAudioDeviceId:"), value)
 }
-func (a AVSpeechSynthesizer) CoreSynthesizer() unsafe.Pointer {
-	rv := objc.SendIfResponds[unsafe.Pointer](a.ID, objc.Sel("coreSynthesizer"))
+func (a AVSpeechSynthesizer) DetectSSMLAndModifyUtterances() bool {
+	rv := objc.SendIfResponds[bool](a.ID, objc.Sel("detectSSMLAndModifyUtterances"))
 	return rv
 }
-func (a AVSpeechSynthesizer) ExistingCoreSynthesizer() unsafe.Pointer {
-	rv := objc.SendIfResponds[unsafe.Pointer](a.ID, objc.Sel("existingCoreSynthesizer"))
+func (a AVSpeechSynthesizer) SetDetectSSMLAndModifyUtterances(value bool) {
+	objc.SendIfResponds[struct{}](a.ID, objc.Sel("setDetectSSMLAndModifyUtterances:"), value)
+}
+func (a AVSpeechSynthesizer) InflightUtterance() IAVSpeechUtterance {
+	rv := objc.SendIfResponds[objc.ID](a.ID, objc.Sel("inflightUtterance"))
+	return AVSpeechUtteranceFromID(objc.ID(rv))
+}
+func (a AVSpeechSynthesizer) SetInflightUtterance(value IAVSpeechUtterance) {
+	objc.SendIfResponds[struct{}](a.ID, objc.Sel("setInflightUtterance:"), value)
+}
+func (a AVSpeechSynthesizer) InitializedWebKitUsage() bool {
+	rv := objc.SendIfResponds[bool](a.ID, objc.Sel("initializedWebKitUsage"))
 	return rv
+}
+func (a AVSpeechSynthesizer) SetInitializedWebKitUsage(value bool) {
+	objc.SendIfResponds[struct{}](a.ID, objc.Sel("setInitializedWebKitUsage:"), value)
 }
 func (a AVSpeechSynthesizer) IsInternalSynth() bool {
 	rv := objc.SendIfResponds[bool](a.ID, objc.Sel("isInternalSynth"))
@@ -211,4 +392,11 @@ func (a AVSpeechSynthesizer) Paused() bool {
 func (a AVSpeechSynthesizer) Speaking() bool {
 	rv := objc.SendIfResponds[bool](a.ID, objc.Sel("speaking"))
 	return rv
+}
+func (a AVSpeechSynthesizer) SpeechSource() string {
+	rv := objc.SendIfResponds[objc.ID](a.ID, objc.Sel("speechSource"))
+	return foundation.NSStringFromID(rv).String()
+}
+func (a AVSpeechSynthesizer) SetSpeechSource(value string) {
+	objc.SendIfResponds[struct{}](a.ID, objc.Sel("setSpeechSource:"), objc.String(value))
 }

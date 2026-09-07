@@ -1,6 +1,6 @@
-// Code generated from Apple documentation for network. DO NOT EDIT.
+// Code generated from Apple documentation for Network. DO NOT EDIT.
 
-// Package network provides Go bindings for the network framework.
+// Package network provides Go bindings for the Network framework.
 //
 // # Key Types
 //
@@ -21,7 +21,7 @@ import (
 	"github.com/ebitengine/purego"
 )
 
-// frameworkPaths lists paths to try when loading the network library,
+// frameworkPaths lists paths to try when loading the Network library,
 // in order. Frameworks whose symbols live in a known dylib resolve to that
 // dylib alone; the rest try the framework bundle first and then a /usr/lib
 // dylib fallback, which covers C-API frameworks that are not in the dyld
@@ -45,6 +45,6 @@ func init() {
 	// framework is harmless unless one of its symbols is actually called. Set
 	// APPLE_FRAMEWORK_LOAD_DEBUG to surface load failures while diagnosing.
 	if os.Getenv("APPLE_FRAMEWORK_LOAD_DEBUG") != "" {
-		fmt.Fprintf(os.Stderr, "warning: network: failed to load framework from any known path\n")
+		fmt.Fprintf(os.Stderr, "warning: Network: failed to load framework from any known path\n")
 	}
 }

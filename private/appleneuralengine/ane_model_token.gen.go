@@ -147,14 +147,6 @@ func (_ANEModelTokenClass ANEModelTokenClass) TokenWithCsIdentityTeamIdentityMod
 	rv := objc.SendIfResponds[objc.ID](objc.ID(_ANEModelTokenClass.class), objc.Sel("tokenWithCsIdentity:teamIdentity:modelIdentifier:processIdentifier:"), identity, identity2, identifier, identifier2)
 	return objectivec.Object{ID: rv}
 }
-func (_ANEModelTokenClass ANEModelTokenClass) AppGroupIdentifiersForProcessIdentifier(for_ unsafe.Pointer, identifier int32) objectivec.IObject {
-	rv := objc.SendIfResponds[objc.ID](objc.ID(_ANEModelTokenClass.class), objc.Sel("appGroupIdentifiersFor:processIdentifier:"), for_, identifier)
-	return objectivec.Object{ID: rv}
-}
-func (_ANEModelTokenClass ANEModelTokenClass) TeamScopedCodeSigningIDForProcessIdentifier(iDFor unsafe.Pointer, identifier int32) objectivec.IObject {
-	rv := objc.SendIfResponds[objc.ID](objc.ID(_ANEModelTokenClass.class), objc.Sel("teamScopedCodeSigningIDFor:processIdentifier:"), iDFor, identifier)
-	return objectivec.Object{ID: rv}
-}
 
 func (a ANEModelToken) CsIdentity() string {
 	rv := objc.SendIfResponds[objc.ID](a.ID, objc.Sel("csIdentity"))

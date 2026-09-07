@@ -2,7 +2,11 @@
 
 package texttospeech
 
-type OpaqueExtAudioFileRef uintptr
+type AudioStreamPacketDescriptionRef uintptr
+
+type OpaqueATAudioProcessingNodeRef uintptr
+
+type OpaqueAudioQueueRef uintptr
 
 type URegularExpressionRef uintptr
 

@@ -1,4 +1,4 @@
-// Code generated from Apple documentation for virtualization. DO NOT EDIT.
+// Code generated from Apple documentation for Virtualization. DO NOT EDIT.
 
 package virtualization
 
@@ -20,12 +20,12 @@ var (
 
 func getVZCustomVirtioDeviceClass() VZCustomVirtioDeviceClass {
 	_VZCustomVirtioDeviceClassOnce.Do(func() {
-		_VZCustomVirtioDeviceClass = VZCustomVirtioDeviceClass{class: objc.GetClass("VZCustomVirtioDevice")}
+		_VZCustomVirtioDeviceClass = VZCustomVirtioDeviceClass{class: objc.GetClass("_VZCustomVirtioDevice")}
 	})
 	return _VZCustomVirtioDeviceClass
 }
 
-// GetVZCustomVirtioDeviceClass returns the class object for VZCustomVirtioDevice.
+// GetVZCustomVirtioDeviceClass returns the class object for _VZCustomVirtioDevice.
 func GetVZCustomVirtioDeviceClass() VZCustomVirtioDeviceClass {
 	return getVZCustomVirtioDeviceClass()
 }
@@ -52,11 +52,8 @@ func (vc VZCustomVirtioDeviceClass) Alloc() VZCustomVirtioDevice {
 //   - [VZCustomVirtioDevice.DeviceQueue]
 //   - [VZCustomVirtioDevice.DriverFeaturesAtError]
 //   - [VZCustomVirtioDevice.GuestMemoryAtPhysicalAddressLength]
-//   - [VZCustomVirtioDevice.GuestMemoryMappingAtPhysicalAddressLength]
-//   - [VZCustomVirtioDevice.NegotiatedFeatures]
 //   - [VZCustomVirtioDevice.QueueAtIndex]
 //   - [VZCustomVirtioDevice.RequestDeviceReset]
-//   - [VZCustomVirtioDevice.SharedMemoryRegions]
 //   - [VZCustomVirtioDevice.UpdateDeviceSpecificConfigurationCompletionHandler]
 type VZCustomVirtioDevice struct {
 	objectivec.Object
@@ -79,11 +76,8 @@ var _ IVZCustomVirtioDevice = VZCustomVirtioDevice{}
 //   - [IVZCustomVirtioDevice.DeviceQueue]
 //   - [IVZCustomVirtioDevice.DriverFeaturesAtError]
 //   - [IVZCustomVirtioDevice.GuestMemoryAtPhysicalAddressLength]
-//   - [IVZCustomVirtioDevice.GuestMemoryMappingAtPhysicalAddressLength]
-//   - [IVZCustomVirtioDevice.NegotiatedFeatures]
 //   - [IVZCustomVirtioDevice.QueueAtIndex]
 //   - [IVZCustomVirtioDevice.RequestDeviceReset]
-//   - [IVZCustomVirtioDevice.SharedMemoryRegions]
 //   - [IVZCustomVirtioDevice.UpdateDeviceSpecificConfigurationCompletionHandler]
 type IVZCustomVirtioDevice interface {
 	objectivec.IObject
@@ -95,11 +89,8 @@ type IVZCustomVirtioDevice interface {
 	DeviceQueue() objectivec.Object
 	DriverFeaturesAtError(at uint32) (uint32, error)
 	GuestMemoryAtPhysicalAddressLength(address uint64, length uint64) objectivec.IObject
-	GuestMemoryMappingAtPhysicalAddressLength(address uint64, length uint64) objectivec.IObject
-	NegotiatedFeatures() IVZNegotiatedVirtioFeatureSet
 	QueueAtIndex(index uint16) objectivec.IObject
 	RequestDeviceReset()
-	SharedMemoryRegions() foundation.INSArray
 	UpdateDeviceSpecificConfigurationCompletionHandler(configuration objectivec.IObject, handler ErrorHandler)
 }
 
@@ -136,10 +127,6 @@ func (v VZCustomVirtioDevice) GuestMemoryAtPhysicalAddressLength(address uint64,
 	rv := objc.SendIfResponds[objc.ID](v.ID, objc.Sel("guestMemoryAtPhysicalAddress:length:"), address, length)
 	return objectivec.Object{ID: rv}
 }
-func (v VZCustomVirtioDevice) GuestMemoryMappingAtPhysicalAddressLength(address uint64, length uint64) objectivec.IObject {
-	rv := objc.SendIfResponds[objc.ID](v.ID, objc.Sel("guestMemoryMappingAtPhysicalAddress:length:"), address, length)
-	return objectivec.Object{ID: rv}
-}
 func (v VZCustomVirtioDevice) QueueAtIndex(index uint16) objectivec.IObject {
 	rv := objc.SendIfResponds[objc.ID](v.ID, objc.Sel("queueAtIndex:"), index)
 	return objectivec.Object{ID: rv}
@@ -162,14 +149,6 @@ func (v VZCustomVirtioDevice) SetDelegate(value unsafe.Pointer) {
 func (v VZCustomVirtioDevice) DeviceQueue() objectivec.Object {
 	rv := objc.SendIfResponds[objc.ID](v.ID, objc.Sel("deviceQueue"))
 	return objectivec.ObjectFromID(objc.ID(rv))
-}
-func (v VZCustomVirtioDevice) NegotiatedFeatures() IVZNegotiatedVirtioFeatureSet {
-	rv := objc.SendIfResponds[objc.ID](v.ID, objc.Sel("negotiatedFeatures"))
-	return VZNegotiatedVirtioFeatureSetFromID(objc.ID(rv))
-}
-func (v VZCustomVirtioDevice) SharedMemoryRegions() foundation.INSArray {
-	rv := objc.SendIfResponds[objc.ID](v.ID, objc.Sel("sharedMemoryRegions"))
-	return foundation.NSArrayFromID(objc.ID(rv))
 }
 
 // UpdateDeviceSpecificConfiguration is a synchronous wrapper around [VZCustomVirtioDevice.UpdateDeviceSpecificConfigurationCompletionHandler].

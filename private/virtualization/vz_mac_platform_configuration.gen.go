@@ -1,10 +1,9 @@
-// Code generated from Apple documentation for virtualization. DO NOT EDIT.
+// Code generated from Apple documentation for Virtualization. DO NOT EDIT.
 
 package virtualization
 
 import (
 	"sync"
-	"unsafe"
 
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
@@ -45,7 +44,6 @@ func (vc VZMacPlatformConfigurationClass) Alloc() VZMacPlatformConfiguration {
 
 // # Methods
 //
-//   - [VZMacPlatformConfiguration._details]
 //   - [VZMacPlatformConfiguration._guestEncryptionWrappingKey]
 //   - [VZMacPlatformConfiguration.Set_guestEncryptionWrappingKey]
 //   - [VZMacPlatformConfiguration._hostAttributeShareOptions]
@@ -91,7 +89,6 @@ var _ IVZMacPlatformConfiguration = VZMacPlatformConfiguration{}
 //
 // # Methods
 //
-//   - [IVZMacPlatformConfiguration._details]
 //   - [IVZMacPlatformConfiguration._guestEncryptionWrappingKey]
 //   - [IVZMacPlatformConfiguration.Set_guestEncryptionWrappingKey]
 //   - [IVZMacPlatformConfiguration._hostAttributeShareOptions]
@@ -126,7 +123,6 @@ type IVZMacPlatformConfiguration interface {
 
 	// Topic: Methods
 
-	_details() unsafe.Pointer
 	_guestEncryptionWrappingKey() IVZWrappingKey
 	Set_guestEncryptionWrappingKey(value IVZWrappingKey)
 	_hostAttributeShareOptions() uint64
@@ -412,23 +408,6 @@ func (v VZMacPlatformConfiguration) CanSetStrongIdentityEnabled() bool {
 	return objc.RespondsToSelector(v.ID, objc.Sel("_setStrongIdentityEnabled:"))
 }
 
-func (v VZMacPlatformConfiguration) _details() unsafe.Pointer {
-	rv := objc.SendIfResponds[unsafe.Pointer](v.ID, objc.Sel("_details"))
-	return rv
-}
-
-// CanDetails reports whether the receiver responds to the private selector _details.
-func (v VZMacPlatformConfiguration) CanDetails() bool {
-	return objc.RespondsToSelector(v.ID, objc.Sel("_details"))
-}
-
-// Details is an exported wrapper for the private property _details.
-func (v VZMacPlatformConfiguration) Details() (unsafe.Pointer, error) {
-	if !objc.RespondsToSelector(v.ID, objc.Sel("_details")) {
-		return nil, &objc.UnrecognizedSelectorError{Selector: "_details"}
-	}
-	return v._details(), nil
-}
 func (v VZMacPlatformConfiguration) _fairPlayEnabled() bool {
 	rv := objc.SendIfResponds[bool](v.ID, objc.Sel("_fairPlayEnabled"))
 	return rv

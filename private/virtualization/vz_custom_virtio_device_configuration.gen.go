@@ -1,4 +1,4 @@
-// Code generated from Apple documentation for virtualization. DO NOT EDIT.
+// Code generated from Apple documentation for Virtualization. DO NOT EDIT.
 
 package virtualization
 
@@ -18,12 +18,12 @@ var (
 
 func getVZCustomVirtioDeviceConfigurationClass() VZCustomVirtioDeviceConfigurationClass {
 	_VZCustomVirtioDeviceConfigurationClassOnce.Do(func() {
-		_VZCustomVirtioDeviceConfigurationClass = VZCustomVirtioDeviceConfigurationClass{class: objc.GetClass("VZCustomVirtioDeviceConfiguration")}
+		_VZCustomVirtioDeviceConfigurationClass = VZCustomVirtioDeviceConfigurationClass{class: objc.GetClass("_VZCustomVirtioDeviceConfiguration")}
 	})
 	return _VZCustomVirtioDeviceConfigurationClass
 }
 
-// GetVZCustomVirtioDeviceConfigurationClass returns the class object for VZCustomVirtioDeviceConfiguration.
+// GetVZCustomVirtioDeviceConfigurationClass returns the class object for _VZCustomVirtioDeviceConfiguration.
 func GetVZCustomVirtioDeviceConfigurationClass() VZCustomVirtioDeviceConfigurationClass {
 	return getVZCustomVirtioDeviceConfigurationClass()
 }
@@ -69,18 +69,12 @@ func (vc VZCustomVirtioDeviceConfigurationClass) Alloc() VZCustomVirtioDeviceCon
 //   - [VZCustomVirtioDeviceConfiguration.SetDeviceID]
 //   - [VZCustomVirtioDeviceConfiguration.DeviceSpecificConfiguration]
 //   - [VZCustomVirtioDeviceConfiguration.SetDeviceSpecificConfiguration]
-//   - [VZCustomVirtioDeviceConfiguration.MandatoryFeatures]
 //   - [VZCustomVirtioDeviceConfiguration.MandatoryFeaturesAtIndex]
-//   - [VZCustomVirtioDeviceConfiguration.OptionalFeatures]
 //   - [VZCustomVirtioDeviceConfiguration.OptionalFeaturesAtIndex]
 //   - [VZCustomVirtioDeviceConfiguration.Provider]
 //   - [VZCustomVirtioDeviceConfiguration.SetProvider]
 //   - [VZCustomVirtioDeviceConfiguration.SetMandatoryFeaturesAtIndex]
 //   - [VZCustomVirtioDeviceConfiguration.SetOptionalFeaturesAtIndex]
-//   - [VZCustomVirtioDeviceConfiguration.SharedMemoryRegions]
-//   - [VZCustomVirtioDeviceConfiguration.SetSharedMemoryRegions]
-//   - [VZCustomVirtioDeviceConfiguration.SupportsSaveRestore]
-//   - [VZCustomVirtioDeviceConfiguration.SetSupportsSaveRestore]
 //   - [VZCustomVirtioDeviceConfiguration.VirtioQueueCount]
 //   - [VZCustomVirtioDeviceConfiguration.SetVirtioQueueCount]
 type VZCustomVirtioDeviceConfiguration struct {
@@ -123,18 +117,12 @@ var _ IVZCustomVirtioDeviceConfiguration = VZCustomVirtioDeviceConfiguration{}
 //   - [IVZCustomVirtioDeviceConfiguration.SetDeviceID]
 //   - [IVZCustomVirtioDeviceConfiguration.DeviceSpecificConfiguration]
 //   - [IVZCustomVirtioDeviceConfiguration.SetDeviceSpecificConfiguration]
-//   - [IVZCustomVirtioDeviceConfiguration.MandatoryFeatures]
 //   - [IVZCustomVirtioDeviceConfiguration.MandatoryFeaturesAtIndex]
-//   - [IVZCustomVirtioDeviceConfiguration.OptionalFeatures]
 //   - [IVZCustomVirtioDeviceConfiguration.OptionalFeaturesAtIndex]
 //   - [IVZCustomVirtioDeviceConfiguration.Provider]
 //   - [IVZCustomVirtioDeviceConfiguration.SetProvider]
 //   - [IVZCustomVirtioDeviceConfiguration.SetMandatoryFeaturesAtIndex]
 //   - [IVZCustomVirtioDeviceConfiguration.SetOptionalFeaturesAtIndex]
-//   - [IVZCustomVirtioDeviceConfiguration.SharedMemoryRegions]
-//   - [IVZCustomVirtioDeviceConfiguration.SetSharedMemoryRegions]
-//   - [IVZCustomVirtioDeviceConfiguration.SupportsSaveRestore]
-//   - [IVZCustomVirtioDeviceConfiguration.SetSupportsSaveRestore]
 //   - [IVZCustomVirtioDeviceConfiguration.VirtioQueueCount]
 //   - [IVZCustomVirtioDeviceConfiguration.SetVirtioQueueCount]
 type IVZCustomVirtioDeviceConfiguration interface {
@@ -166,18 +154,12 @@ type IVZCustomVirtioDeviceConfiguration interface {
 	SetDeviceID(value uint16)
 	DeviceSpecificConfiguration() IVZVirtioDeviceSpecificConfiguration
 	SetDeviceSpecificConfiguration(value IVZVirtioDeviceSpecificConfiguration)
-	MandatoryFeatures() IVZVirtioFeatureSet
 	MandatoryFeaturesAtIndex(index uint64) uint32
-	OptionalFeatures() IVZVirtioFeatureSet
 	OptionalFeaturesAtIndex(index uint64) uint32
 	Provider() IVZCustomVirtioDeviceProvider
 	SetProvider(value IVZCustomVirtioDeviceProvider)
 	SetMandatoryFeaturesAtIndex(features uint32, index uint64)
 	SetOptionalFeaturesAtIndex(features uint32, index uint64)
-	SharedMemoryRegions() foundation.INSArray
-	SetSharedMemoryRegions(value foundation.INSArray)
-	SupportsSaveRestore() bool
-	SetSupportsSaveRestore(value bool)
 	VirtioQueueCount() uint16
 	SetVirtioQueueCount(value uint16)
 }
@@ -384,9 +366,38 @@ func (v VZCustomVirtioDeviceConfiguration) CanSetPluginPersonality() bool {
 func (v VZCustomVirtioDeviceConfiguration) _setSupportsSaveRestore(restore bool) {
 	objc.SendIfResponds[objc.ID](v.ID, objc.Sel("_setSupportsSaveRestore:"), restore)
 }
+
+// SetSupportsSaveRestore is an exported wrapper for the private method _setSupportsSaveRestore.
+func (v VZCustomVirtioDeviceConfiguration) SetSupportsSaveRestore(restore bool) error {
+	if !objc.RespondsToSelector(v.ID, objc.Sel("_setSupportsSaveRestore:")) {
+		err := &objc.UnrecognizedSelectorError{Selector: "_setSupportsSaveRestore:"}
+		return err
+	}
+	v._setSupportsSaveRestore(restore)
+	return nil
+}
+
+// CanSetSupportsSaveRestore reports whether the receiver responds to the private selector _setSupportsSaveRestore:.
+func (v VZCustomVirtioDeviceConfiguration) CanSetSupportsSaveRestore() bool {
+	return objc.RespondsToSelector(v.ID, objc.Sel("_setSupportsSaveRestore:"))
+}
 func (v VZCustomVirtioDeviceConfiguration) _supportsSaveRestore() bool {
 	rv := objc.SendIfResponds[bool](v.ID, objc.Sel("_supportsSaveRestore"))
 	return rv
+}
+
+// SupportsSaveRestore is an exported wrapper for the private method _supportsSaveRestore.
+func (v VZCustomVirtioDeviceConfiguration) SupportsSaveRestore() (bool, error) {
+	if !objc.RespondsToSelector(v.ID, objc.Sel("_supportsSaveRestore")) {
+		err := &objc.UnrecognizedSelectorError{Selector: "_supportsSaveRestore"}
+		return false, err
+	}
+	return v._supportsSaveRestore(), nil
+}
+
+// CanSupportsSaveRestore reports whether the receiver responds to the private selector _supportsSaveRestore.
+func (v VZCustomVirtioDeviceConfiguration) CanSupportsSaveRestore() bool {
+	return objc.RespondsToSelector(v.ID, objc.Sel("_supportsSaveRestore"))
 }
 func (v VZCustomVirtioDeviceConfiguration) MandatoryFeaturesAtIndex(index uint64) uint32 {
 	rv := objc.SendIfResponds[uint32](v.ID, objc.Sel("mandatoryFeaturesAtIndex:"), index)
@@ -401,11 +412,6 @@ func (v VZCustomVirtioDeviceConfiguration) SetMandatoryFeaturesAtIndex(features 
 }
 func (v VZCustomVirtioDeviceConfiguration) SetOptionalFeaturesAtIndex(features uint32, index uint64) {
 	objc.SendIfResponds[objc.ID](v.ID, objc.Sel("setOptionalFeatures:atIndex:"), features, index)
-}
-
-func (_VZCustomVirtioDeviceConfigurationClass VZCustomVirtioDeviceConfigurationClass) MaximumAllowedSharedMemoryRegionCount() uint64 {
-	rv := objc.SendIfResponds[uint64](objc.ID(_VZCustomVirtioDeviceConfigurationClass.class), objc.Sel("maximumAllowedSharedMemoryRegionCount"))
-	return rv
 }
 
 func (v VZCustomVirtioDeviceConfiguration) PCIClassID() byte {
@@ -476,34 +482,12 @@ func (v VZCustomVirtioDeviceConfiguration) DeviceSpecificConfiguration() IVZVirt
 func (v VZCustomVirtioDeviceConfiguration) SetDeviceSpecificConfiguration(value IVZVirtioDeviceSpecificConfiguration) {
 	objc.SendIfResponds[struct{}](v.ID, objc.Sel("setDeviceSpecificConfiguration:"), value)
 }
-func (v VZCustomVirtioDeviceConfiguration) MandatoryFeatures() IVZVirtioFeatureSet {
-	rv := objc.SendIfResponds[objc.ID](v.ID, objc.Sel("mandatoryFeatures"))
-	return VZVirtioFeatureSetFromID(objc.ID(rv))
-}
-func (v VZCustomVirtioDeviceConfiguration) OptionalFeatures() IVZVirtioFeatureSet {
-	rv := objc.SendIfResponds[objc.ID](v.ID, objc.Sel("optionalFeatures"))
-	return VZVirtioFeatureSetFromID(objc.ID(rv))
-}
 func (v VZCustomVirtioDeviceConfiguration) Provider() IVZCustomVirtioDeviceProvider {
 	rv := objc.SendIfResponds[objc.ID](v.ID, objc.Sel("provider"))
 	return VZCustomVirtioDeviceProviderFromID(objc.ID(rv))
 }
 func (v VZCustomVirtioDeviceConfiguration) SetProvider(value IVZCustomVirtioDeviceProvider) {
 	objc.SendIfResponds[struct{}](v.ID, objc.Sel("setProvider:"), value)
-}
-func (v VZCustomVirtioDeviceConfiguration) SharedMemoryRegions() foundation.INSArray {
-	rv := objc.SendIfResponds[objc.ID](v.ID, objc.Sel("sharedMemoryRegions"))
-	return foundation.NSArrayFromID(objc.ID(rv))
-}
-func (v VZCustomVirtioDeviceConfiguration) SetSharedMemoryRegions(value foundation.INSArray) {
-	objc.SendIfResponds[struct{}](v.ID, objc.Sel("setSharedMemoryRegions:"), value)
-}
-func (v VZCustomVirtioDeviceConfiguration) SupportsSaveRestore() bool {
-	rv := objc.SendIfResponds[bool](v.ID, objc.Sel("supportsSaveRestore"))
-	return rv
-}
-func (v VZCustomVirtioDeviceConfiguration) SetSupportsSaveRestore(value bool) {
-	objc.SendIfResponds[struct{}](v.ID, objc.Sel("setSupportsSaveRestore:"), value)
 }
 func (v VZCustomVirtioDeviceConfiguration) VirtioQueueCount() uint16 {
 	rv := objc.SendIfResponds[uint16](v.ID, objc.Sel("virtioQueueCount"))

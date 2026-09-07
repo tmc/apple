@@ -1,0 +1,188 @@
+// Code generated from Apple documentation for gtshaderprofiler. DO NOT EDIT.
+
+package gtshaderprofiler
+
+import (
+	"sync"
+	"unsafe"
+
+	"github.com/tmc/apple/corefoundation"
+	"github.com/tmc/apple/coregraphics"
+	"github.com/tmc/apple/objc"
+	"github.com/tmc/apple/objectivec"
+)
+
+// The class instance for the [GTMioHeatmapHistogram] class.
+var (
+	_GTMioHeatmapHistogramClass     GTMioHeatmapHistogramClass
+	_GTMioHeatmapHistogramClassOnce sync.Once
+)
+
+func getGTMioHeatmapHistogramClass() GTMioHeatmapHistogramClass {
+	_GTMioHeatmapHistogramClassOnce.Do(func() {
+		_GTMioHeatmapHistogramClass = GTMioHeatmapHistogramClass{class: objc.GetClass("GTMioHeatmapHistogram")}
+	})
+	return _GTMioHeatmapHistogramClass
+}
+
+// GetGTMioHeatmapHistogramClass returns the class object for GTMioHeatmapHistogram.
+func GetGTMioHeatmapHistogramClass() GTMioHeatmapHistogramClass {
+	return getGTMioHeatmapHistogramClass()
+}
+
+type GTMioHeatmapHistogramClass struct {
+	class objc.Class
+}
+
+// Class returns the underlying Objective-C class pointer.
+func (gc GTMioHeatmapHistogramClass) Class() objc.Class {
+	return gc.class
+}
+
+// Alloc allocates memory for a new instance of the class.
+func (gc GTMioHeatmapHistogramClass) Alloc() GTMioHeatmapHistogram {
+	rv := objc.SendIfResponds[GTMioHeatmapHistogram](objc.ID(gc.class), objc.Sel("alloc"))
+	return rv
+}
+
+// # Methods
+//
+//   - [GTMioHeatmapHistogram._generate]
+//   - [GTMioHeatmapHistogram.GenerateImageColor]
+//   - [GTMioHeatmapHistogram.MaxCount]
+//   - [GTMioHeatmapHistogram.MaxValue]
+//   - [GTMioHeatmapHistogram.MinCount]
+//   - [GTMioHeatmapHistogram.MinValue]
+//   - [GTMioHeatmapHistogram.NumBuckets]
+//   - [GTMioHeatmapHistogram.Values]
+//   - [GTMioHeatmapHistogram.InitWithHeatmapMinValueMaxValueNumBuckets]
+//   - [GTMioHeatmapHistogram.InitWithHeatmapNumBuckets]
+type GTMioHeatmapHistogram struct {
+	objectivec.Object
+}
+
+// GTMioHeatmapHistogramFromID constructs a [GTMioHeatmapHistogram] from an objc.ID.
+func GTMioHeatmapHistogramFromID(id objc.ID) GTMioHeatmapHistogram {
+	return GTMioHeatmapHistogram{objectivec.Object{ID: id}}
+}
+
+// Ensure GTMioHeatmapHistogram implements IGTMioHeatmapHistogram.
+var _ IGTMioHeatmapHistogram = GTMioHeatmapHistogram{}
+
+// An interface definition for the [GTMioHeatmapHistogram] class.
+//
+// # Methods
+//
+//   - [IGTMioHeatmapHistogram._generate]
+//   - [IGTMioHeatmapHistogram.GenerateImageColor]
+//   - [IGTMioHeatmapHistogram.MaxCount]
+//   - [IGTMioHeatmapHistogram.MaxValue]
+//   - [IGTMioHeatmapHistogram.MinCount]
+//   - [IGTMioHeatmapHistogram.MinValue]
+//   - [IGTMioHeatmapHistogram.NumBuckets]
+//   - [IGTMioHeatmapHistogram.Values]
+//   - [IGTMioHeatmapHistogram.InitWithHeatmapMinValueMaxValueNumBuckets]
+//   - [IGTMioHeatmapHistogram.InitWithHeatmapNumBuckets]
+type IGTMioHeatmapHistogram interface {
+	objectivec.IObject
+
+	// Topic: Methods
+
+	_generate()
+	GenerateImageColor(image corefoundation.CGSize, color coregraphics.CGColorRef) coregraphics.CGImageRef
+	MaxCount() uint64
+	MaxValue() uint64
+	MinCount() uint64
+	MinValue() uint64
+	NumBuckets() uint32
+	Values() unsafe.Pointer
+	InitWithHeatmapMinValueMaxValueNumBuckets(heatmap objectivec.IObject, value uint64, value2 uint64, buckets uint32) GTMioHeatmapHistogram
+	InitWithHeatmapNumBuckets(heatmap objectivec.IObject, buckets uint32) GTMioHeatmapHistogram
+}
+
+// Init initializes the instance.
+func (g GTMioHeatmapHistogram) Init() GTMioHeatmapHistogram {
+	rv := objc.SendIfResponds[GTMioHeatmapHistogram](g.ID, objc.Sel("init"))
+	return rv
+}
+
+// Autorelease adds the receiver to the current autorelease pool.
+func (g GTMioHeatmapHistogram) Autorelease() GTMioHeatmapHistogram {
+	rv := objc.SendIfResponds[GTMioHeatmapHistogram](g.ID, objc.Sel("autorelease"))
+	return rv
+}
+
+// NewGTMioHeatmapHistogram creates a new GTMioHeatmapHistogram instance.
+func NewGTMioHeatmapHistogram() GTMioHeatmapHistogram {
+	class := getGTMioHeatmapHistogramClass()
+	rv := objc.SendIfResponds[GTMioHeatmapHistogram](objc.ID(class.class), objc.Sel("new"))
+	return rv
+}
+
+func NewGTMioHeatmapHistogramWithHeatmapMinValueMaxValueNumBuckets(heatmap objectivec.IObject, value uint64, value2 uint64, buckets uint32) GTMioHeatmapHistogram {
+	instance := getGTMioHeatmapHistogramClass().Alloc()
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithHeatmap:minValue:maxValue:numBuckets:"), heatmap, value, value2, buckets)
+	return GTMioHeatmapHistogramFromID(rv)
+}
+
+func NewGTMioHeatmapHistogramWithHeatmapNumBuckets(heatmap objectivec.IObject, buckets uint32) GTMioHeatmapHistogram {
+	instance := getGTMioHeatmapHistogramClass().Alloc()
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithHeatmap:numBuckets:"), heatmap, buckets)
+	return GTMioHeatmapHistogramFromID(rv)
+}
+
+func (g GTMioHeatmapHistogram) _generate() {
+	objc.SendIfResponds[objc.ID](g.ID, objc.Sel("_generate"))
+}
+
+// Generate is an exported wrapper for the private method _generate.
+func (g GTMioHeatmapHistogram) Generate() error {
+	if !objc.RespondsToSelector(g.ID, objc.Sel("_generate")) {
+		err := &objc.UnrecognizedSelectorError{Selector: "_generate"}
+		return err
+	}
+	g._generate()
+	return nil
+}
+
+// CanGenerate reports whether the receiver responds to the private selector _generate.
+func (g GTMioHeatmapHistogram) CanGenerate() bool {
+	return objc.RespondsToSelector(g.ID, objc.Sel("_generate"))
+}
+func (g GTMioHeatmapHistogram) GenerateImageColor(image corefoundation.CGSize, color coregraphics.CGColorRef) coregraphics.CGImageRef {
+	rv := objc.SendIfResponds[coregraphics.CGImageRef](g.ID, objc.Sel("generateImage:color:"), image, color)
+	return coregraphics.CGImageRef(rv)
+}
+func (g GTMioHeatmapHistogram) InitWithHeatmapMinValueMaxValueNumBuckets(heatmap objectivec.IObject, value uint64, value2 uint64, buckets uint32) GTMioHeatmapHistogram {
+	rv := objc.SendIfResponds[GTMioHeatmapHistogram](g.ID, objc.Sel("initWithHeatmap:minValue:maxValue:numBuckets:"), heatmap, value, value2, buckets)
+	return rv
+}
+func (g GTMioHeatmapHistogram) InitWithHeatmapNumBuckets(heatmap objectivec.IObject, buckets uint32) GTMioHeatmapHistogram {
+	rv := objc.SendIfResponds[GTMioHeatmapHistogram](g.ID, objc.Sel("initWithHeatmap:numBuckets:"), heatmap, buckets)
+	return rv
+}
+
+func (g GTMioHeatmapHistogram) MaxCount() uint64 {
+	rv := objc.SendIfResponds[uint64](g.ID, objc.Sel("maxCount"))
+	return rv
+}
+func (g GTMioHeatmapHistogram) MaxValue() uint64 {
+	rv := objc.SendIfResponds[uint64](g.ID, objc.Sel("maxValue"))
+	return rv
+}
+func (g GTMioHeatmapHistogram) MinCount() uint64 {
+	rv := objc.SendIfResponds[uint64](g.ID, objc.Sel("minCount"))
+	return rv
+}
+func (g GTMioHeatmapHistogram) MinValue() uint64 {
+	rv := objc.SendIfResponds[uint64](g.ID, objc.Sel("minValue"))
+	return rv
+}
+func (g GTMioHeatmapHistogram) NumBuckets() uint32 {
+	rv := objc.SendIfResponds[uint32](g.ID, objc.Sel("numBuckets"))
+	return rv
+}
+func (g GTMioHeatmapHistogram) Values() unsafe.Pointer {
+	rv := objc.SendIfResponds[unsafe.Pointer](g.ID, objc.Sel("values"))
+	return rv
+}

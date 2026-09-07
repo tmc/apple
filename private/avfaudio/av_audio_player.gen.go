@@ -1,4 +1,4 @@
-// Code generated from Apple documentation for avfaudio. DO NOT EDIT.
+// Code generated from Apple documentation for AVFAudio. DO NOT EDIT.
 
 package avfaudio
 
@@ -46,7 +46,6 @@ func (ac AVAudioPlayerClass) Alloc() AVAudioPlayer {
 // # Methods
 //
 //   - [AVAudioPlayer.STSLabel]
-//   - [AVAudioPlayer.AutoreleaseDelegate]
 //   - [AVAudioPlayer.DecodeError]
 //   - [AVAudioPlayer.FinishedPlaying]
 //   - [AVAudioPlayer.Impl]
@@ -78,7 +77,6 @@ var _ IAVAudioPlayer = AVAudioPlayer{}
 // # Methods
 //
 //   - [IAVAudioPlayer.STSLabel]
-//   - [IAVAudioPlayer.AutoreleaseDelegate]
 //   - [IAVAudioPlayer.DecodeError]
 //   - [IAVAudioPlayer.FinishedPlaying]
 //   - [IAVAudioPlayer.Impl]
@@ -99,7 +97,6 @@ type IAVAudioPlayer interface {
 	// Topic: Methods
 
 	STSLabel() objectivec.IObject
-	AutoreleaseDelegate() objectivec.IObject
 	DecodeError(error_ objectivec.IObject)
 	FinishedPlaying(playing objectivec.IObject)
 	Impl() objectivec.IObject
@@ -143,10 +140,6 @@ func NewAVAudioPlayerBase() AVAudioPlayer {
 
 func (a AVAudioPlayer) STSLabel() objectivec.IObject {
 	rv := objc.SendIfResponds[objc.ID](a.ID, objc.Sel("STSLabel"))
-	return objectivec.Object{ID: rv}
-}
-func (a AVAudioPlayer) AutoreleaseDelegate() objectivec.IObject {
-	rv := objc.SendIfResponds[objc.ID](a.ID, objc.Sel("autoreleaseDelegate"))
 	return objectivec.Object{ID: rv}
 }
 func (a AVAudioPlayer) DecodeError(error_ objectivec.IObject) {

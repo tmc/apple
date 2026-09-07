@@ -189,8 +189,8 @@ func (s SLContentStreamUpdate) DropCount() uint64 {
 	return rv
 }
 func (s SLContentStreamUpdate) FrameSurface() iosurface.IOSurface {
-	rv := objc.SendIfResponds[iosurface.IOSurface](s.ID, objc.Sel("frameSurface"))
-	return iosurface.IOSurface(rv)
+	rv := objc.SendIfResponds[objc.ID](s.ID, objc.Sel("frameSurface"))
+	return iosurface.IOSurfaceFromID(objc.ID(rv))
 }
 func (s SLContentStreamUpdate) MetaData() foundation.INSDictionary {
 	rv := objc.SendIfResponds[objc.ID](s.ID, objc.Sel("metaData"))

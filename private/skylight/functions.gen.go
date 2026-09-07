@@ -129,10 +129,10 @@ func BindFunc(fptr any, name string) (err error) {
 	return nil
 }
 
-var _cGEventSetWindowLocation func(event coregraphics.CGEventRef, point corefoundation.CGPoint)
+var _cGEventSetWindowLocation func(event coregraphics.CGEvent, point corefoundation.CGPoint)
 var _cGEventSetWindowLocationErr error
 
-func tryCGEventSetWindowLocation(event coregraphics.CGEventRef, point corefoundation.CGPoint) error {
+func tryCGEventSetWindowLocation(event coregraphics.CGEvent, point corefoundation.CGPoint) error {
 	if _cGEventSetWindowLocation == nil {
 		return symbolCallError("CGEventSetWindowLocation", "", _cGEventSetWindowLocationErr)
 	}
@@ -141,7 +141,7 @@ func tryCGEventSetWindowLocation(event coregraphics.CGEventRef, point corefounda
 }
 
 // CGEventSetWindowLocation.
-func CGEventSetWindowLocation(event coregraphics.CGEventRef, point corefoundation.CGPoint) error {
+func CGEventSetWindowLocation(event coregraphics.CGEvent, point corefoundation.CGPoint) error {
 	return tryCGEventSetWindowLocation(event, point)
 }
 
@@ -160,10 +160,10 @@ func CGSMainConnectionID() (CGSConnectionID, error) {
 	return tryCGSMainConnectionID()
 }
 
-var _sLEventPostToPSN func(psn *applicationservices.ProcessSerialNumber, event coregraphics.CGEventRef) int32
+var _sLEventPostToPSN func(psn *applicationservices.ProcessSerialNumber, event coregraphics.CGEvent) int32
 var _sLEventPostToPSNErr error
 
-func trySLEventPostToPSN(psn *applicationservices.ProcessSerialNumber, event coregraphics.CGEventRef) (int32, error) {
+func trySLEventPostToPSN(psn *applicationservices.ProcessSerialNumber, event coregraphics.CGEvent) (int32, error) {
 	if _sLEventPostToPSN == nil {
 		return 0, symbolCallError("SLEventPostToPSN", "", _sLEventPostToPSNErr)
 	}
@@ -171,14 +171,14 @@ func trySLEventPostToPSN(psn *applicationservices.ProcessSerialNumber, event cor
 }
 
 // SLEventPostToPSN.
-func SLEventPostToPSN(psn *applicationservices.ProcessSerialNumber, event coregraphics.CGEventRef) (int32, error) {
+func SLEventPostToPSN(psn *applicationservices.ProcessSerialNumber, event coregraphics.CGEvent) (int32, error) {
 	return trySLEventPostToPSN(psn, event)
 }
 
-var _sLEventPostToPid func(pid int32, event coregraphics.CGEventRef) int32
+var _sLEventPostToPid func(pid int32, event coregraphics.CGEvent) int32
 var _sLEventPostToPidErr error
 
-func trySLEventPostToPid(pid int32, event coregraphics.CGEventRef) (int32, error) {
+func trySLEventPostToPid(pid int32, event coregraphics.CGEvent) (int32, error) {
 	if _sLEventPostToPid == nil {
 		return 0, symbolCallError("SLEventPostToPid", "", _sLEventPostToPidErr)
 	}
@@ -186,14 +186,14 @@ func trySLEventPostToPid(pid int32, event coregraphics.CGEventRef) (int32, error
 }
 
 // SLEventPostToPid.
-func SLEventPostToPid(pid int32, event coregraphics.CGEventRef) (int32, error) {
+func SLEventPostToPid(pid int32, event coregraphics.CGEvent) (int32, error) {
 	return trySLEventPostToPid(pid, event)
 }
 
-var _sLEventSetAuthenticationMessage func(event coregraphics.CGEventRef, message objectivec.Object)
+var _sLEventSetAuthenticationMessage func(event coregraphics.CGEvent, message objectivec.Object)
 var _sLEventSetAuthenticationMessageErr error
 
-func trySLEventSetAuthenticationMessage(event coregraphics.CGEventRef, message objectivec.Object) error {
+func trySLEventSetAuthenticationMessage(event coregraphics.CGEvent, message objectivec.Object) error {
 	if _sLEventSetAuthenticationMessage == nil {
 		return symbolCallError("SLEventSetAuthenticationMessage", "", _sLEventSetAuthenticationMessageErr)
 	}
@@ -202,14 +202,14 @@ func trySLEventSetAuthenticationMessage(event coregraphics.CGEventRef, message o
 }
 
 // SLEventSetAuthenticationMessage.
-func SLEventSetAuthenticationMessage(event coregraphics.CGEventRef, message objectivec.Object) error {
+func SLEventSetAuthenticationMessage(event coregraphics.CGEvent, message objectivec.Object) error {
 	return trySLEventSetAuthenticationMessage(event, message)
 }
 
-var _sLEventSetIntegerValueField func(event coregraphics.CGEventRef, field coregraphics.CGEventField, value int64)
+var _sLEventSetIntegerValueField func(event coregraphics.CGEvent, field coregraphics.CGEventField, value int64)
 var _sLEventSetIntegerValueFieldErr error
 
-func trySLEventSetIntegerValueField(event coregraphics.CGEventRef, field coregraphics.CGEventField, value int64) error {
+func trySLEventSetIntegerValueField(event coregraphics.CGEvent, field coregraphics.CGEventField, value int64) error {
 	if _sLEventSetIntegerValueField == nil {
 		return symbolCallError("SLEventSetIntegerValueField", "", _sLEventSetIntegerValueFieldErr)
 	}
@@ -218,7 +218,7 @@ func trySLEventSetIntegerValueField(event coregraphics.CGEventRef, field coregra
 }
 
 // SLEventSetIntegerValueField.
-func SLEventSetIntegerValueField(event coregraphics.CGEventRef, field coregraphics.CGEventField, value int64) error {
+func SLEventSetIntegerValueField(event coregraphics.CGEvent, field coregraphics.CGEventField, value int64) error {
 	return trySLEventSetIntegerValueField(event, field, value)
 }
 

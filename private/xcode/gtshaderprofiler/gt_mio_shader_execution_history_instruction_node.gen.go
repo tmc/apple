@@ -1,0 +1,159 @@
+// Code generated from Apple documentation for gtshaderprofiler. DO NOT EDIT.
+
+package gtshaderprofiler
+
+import (
+	"sync"
+	"unsafe"
+
+	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
+	"github.com/tmc/apple/objectivec"
+)
+
+// The class instance for the [GTMioShaderExecutionHistoryInstructionNode] class.
+var (
+	_GTMioShaderExecutionHistoryInstructionNodeClass     GTMioShaderExecutionHistoryInstructionNodeClass
+	_GTMioShaderExecutionHistoryInstructionNodeClassOnce sync.Once
+)
+
+func getGTMioShaderExecutionHistoryInstructionNodeClass() GTMioShaderExecutionHistoryInstructionNodeClass {
+	_GTMioShaderExecutionHistoryInstructionNodeClassOnce.Do(func() {
+		_GTMioShaderExecutionHistoryInstructionNodeClass = GTMioShaderExecutionHistoryInstructionNodeClass{class: objc.GetClass("GTMioShaderExecutionHistoryInstructionNode")}
+	})
+	return _GTMioShaderExecutionHistoryInstructionNodeClass
+}
+
+// GetGTMioShaderExecutionHistoryInstructionNodeClass returns the class object for GTMioShaderExecutionHistoryInstructionNode.
+func GetGTMioShaderExecutionHistoryInstructionNodeClass() GTMioShaderExecutionHistoryInstructionNodeClass {
+	return getGTMioShaderExecutionHistoryInstructionNodeClass()
+}
+
+type GTMioShaderExecutionHistoryInstructionNodeClass struct {
+	class objc.Class
+}
+
+// Class returns the underlying Objective-C class pointer.
+func (gc GTMioShaderExecutionHistoryInstructionNodeClass) Class() objc.Class {
+	return gc.class
+}
+
+// Alloc allocates memory for a new instance of the class.
+func (gc GTMioShaderExecutionHistoryInstructionNodeClass) Alloc() GTMioShaderExecutionHistoryInstructionNode {
+	rv := objc.SendIfResponds[GTMioShaderExecutionHistoryInstructionNode](objc.ID(gc.class), objc.Sel("alloc"))
+	return rv
+}
+
+// # Methods
+//
+//   - [GTMioShaderExecutionHistoryInstructionNode.Binary]
+//   - [GTMioShaderExecutionHistoryInstructionNode.DebugFilePath]
+//   - [GTMioShaderExecutionHistoryInstructionNode.DebugFunctionName]
+//   - [GTMioShaderExecutionHistoryInstructionNode.InstructionIndex]
+//   - [GTMioShaderExecutionHistoryInstructionNode.InstructionInfo]
+//   - [GTMioShaderExecutionHistoryInstructionNode.Isa]
+//   - [GTMioShaderExecutionHistoryInstructionNode.Location]
+//   - [GTMioShaderExecutionHistoryInstructionNode.InitWithInstructionIndexLocationBinaryParent]
+type GTMioShaderExecutionHistoryInstructionNode struct {
+	GTMioShaderExecutionHistoryNode
+}
+
+// GTMioShaderExecutionHistoryInstructionNodeFromID constructs a [GTMioShaderExecutionHistoryInstructionNode] from an objc.ID.
+func GTMioShaderExecutionHistoryInstructionNodeFromID(id objc.ID) GTMioShaderExecutionHistoryInstructionNode {
+	return GTMioShaderExecutionHistoryInstructionNode{GTMioShaderExecutionHistoryNode: GTMioShaderExecutionHistoryNodeFromID(id)}
+}
+
+// Ensure GTMioShaderExecutionHistoryInstructionNode implements IGTMioShaderExecutionHistoryInstructionNode.
+var _ IGTMioShaderExecutionHistoryInstructionNode = GTMioShaderExecutionHistoryInstructionNode{}
+
+// An interface definition for the [GTMioShaderExecutionHistoryInstructionNode] class.
+//
+// # Methods
+//
+//   - [IGTMioShaderExecutionHistoryInstructionNode.Binary]
+//   - [IGTMioShaderExecutionHistoryInstructionNode.DebugFilePath]
+//   - [IGTMioShaderExecutionHistoryInstructionNode.DebugFunctionName]
+//   - [IGTMioShaderExecutionHistoryInstructionNode.InstructionIndex]
+//   - [IGTMioShaderExecutionHistoryInstructionNode.InstructionInfo]
+//   - [IGTMioShaderExecutionHistoryInstructionNode.Isa]
+//   - [IGTMioShaderExecutionHistoryInstructionNode.Location]
+//   - [IGTMioShaderExecutionHistoryInstructionNode.InitWithInstructionIndexLocationBinaryParent]
+type IGTMioShaderExecutionHistoryInstructionNode interface {
+	IGTMioShaderExecutionHistoryNode
+
+	// Topic: Methods
+
+	Binary() IGTMioShaderBinaryData
+	DebugFilePath() string
+	DebugFunctionName() string
+	InstructionIndex() uint32
+	InstructionInfo() *GTMioShaderInstructionInfo
+	Isa() string
+	Location() *GTMioShaderBinaryDebugLocation
+	InitWithInstructionIndexLocationBinaryParent(index uint32, location *GTMioShaderBinaryDebugLocation, binary objectivec.IObject, parent objectivec.IObject) GTMioShaderExecutionHistoryInstructionNode
+}
+
+// Init initializes the instance.
+func (g GTMioShaderExecutionHistoryInstructionNode) Init() GTMioShaderExecutionHistoryInstructionNode {
+	rv := objc.SendIfResponds[GTMioShaderExecutionHistoryInstructionNode](g.ID, objc.Sel("init"))
+	return rv
+}
+
+// Autorelease adds the receiver to the current autorelease pool.
+func (g GTMioShaderExecutionHistoryInstructionNode) Autorelease() GTMioShaderExecutionHistoryInstructionNode {
+	rv := objc.SendIfResponds[GTMioShaderExecutionHistoryInstructionNode](g.ID, objc.Sel("autorelease"))
+	return rv
+}
+
+// NewGTMioShaderExecutionHistoryInstructionNode creates a new GTMioShaderExecutionHistoryInstructionNode instance.
+func NewGTMioShaderExecutionHistoryInstructionNode() GTMioShaderExecutionHistoryInstructionNode {
+	class := getGTMioShaderExecutionHistoryInstructionNodeClass()
+	rv := objc.SendIfResponds[GTMioShaderExecutionHistoryInstructionNode](objc.ID(class.class), objc.Sel("new"))
+	return rv
+}
+
+func NewGTMioShaderExecutionHistoryInstructionNodeWithInstructionIndexLocationBinaryParent(index uint32, location *GTMioShaderBinaryDebugLocation, binary objectivec.IObject, parent objectivec.IObject) GTMioShaderExecutionHistoryInstructionNode {
+	instance := getGTMioShaderExecutionHistoryInstructionNodeClass().Alloc()
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithInstructionIndex:location:binary:parent:"), index, unsafe.Pointer(location), binary, parent)
+	return GTMioShaderExecutionHistoryInstructionNodeFromID(rv)
+}
+
+func NewGTMioShaderExecutionHistoryInstructionNodeWithTypeParent(type_ uint32, parent objectivec.IObject) GTMioShaderExecutionHistoryInstructionNode {
+	instance := getGTMioShaderExecutionHistoryInstructionNodeClass().Alloc()
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithType:parent:"), type_, parent)
+	return GTMioShaderExecutionHistoryInstructionNodeFromID(rv)
+}
+
+func (g GTMioShaderExecutionHistoryInstructionNode) InitWithInstructionIndexLocationBinaryParent(index uint32, location *GTMioShaderBinaryDebugLocation, binary objectivec.IObject, parent objectivec.IObject) GTMioShaderExecutionHistoryInstructionNode {
+	rv := objc.SendIfResponds[GTMioShaderExecutionHistoryInstructionNode](g.ID, objc.Sel("initWithInstructionIndex:location:binary:parent:"), index, unsafe.Pointer(location), binary, parent)
+	return rv
+}
+
+func (g GTMioShaderExecutionHistoryInstructionNode) Binary() IGTMioShaderBinaryData {
+	rv := objc.SendIfResponds[objc.ID](g.ID, objc.Sel("binary"))
+	return GTMioShaderBinaryDataFromID(objc.ID(rv))
+}
+func (g GTMioShaderExecutionHistoryInstructionNode) DebugFilePath() string {
+	rv := objc.SendIfResponds[objc.ID](g.ID, objc.Sel("debugFilePath"))
+	return foundation.NSStringFromID(rv).String()
+}
+func (g GTMioShaderExecutionHistoryInstructionNode) DebugFunctionName() string {
+	rv := objc.SendIfResponds[objc.ID](g.ID, objc.Sel("debugFunctionName"))
+	return foundation.NSStringFromID(rv).String()
+}
+func (g GTMioShaderExecutionHistoryInstructionNode) InstructionIndex() uint32 {
+	rv := objc.SendIfResponds[uint32](g.ID, objc.Sel("instructionIndex"))
+	return rv
+}
+func (g GTMioShaderExecutionHistoryInstructionNode) InstructionInfo() *GTMioShaderInstructionInfo {
+	rv := objc.SendIfResponds[unsafe.Pointer](g.ID, objc.Sel("instructionInfo"))
+	return (*GTMioShaderInstructionInfo)(rv)
+}
+func (g GTMioShaderExecutionHistoryInstructionNode) Isa() string {
+	rv := objc.SendIfResponds[objc.ID](g.ID, objc.Sel("isa"))
+	return foundation.NSStringFromID(rv).String()
+}
+func (g GTMioShaderExecutionHistoryInstructionNode) Location() *GTMioShaderBinaryDebugLocation {
+	rv := objc.SendIfResponds[unsafe.Pointer](g.ID, objc.Sel("location"))
+	return (*GTMioShaderBinaryDebugLocation)(rv)
+}

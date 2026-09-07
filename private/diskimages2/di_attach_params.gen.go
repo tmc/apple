@@ -80,8 +80,6 @@ func (dc DIAttachParamsClass) Alloc() DIAttachParams {
 //   - [DIAttachParams.SetInputStatFS]
 //   - [DIAttachParams.IsDeviceHighThroughputWithRegistryEntryID]
 //   - [DIAttachParams.IsDeviceSolidStateWithRegistryEntryID]
-//   - [DIAttachParams.PersistentAttach]
-//   - [DIAttachParams.SetPersistentAttach]
 //   - [DIAttachParams.ReOpenIfWritableWithError]
 //   - [DIAttachParams.ToDI1ParamsWithError]
 //   - [DIAttachParams.UpdateStatFSWithError]
@@ -136,8 +134,6 @@ var _ IDIAttachParams = DIAttachParams{}
 //   - [IDIAttachParams.SetInputStatFS]
 //   - [IDIAttachParams.IsDeviceHighThroughputWithRegistryEntryID]
 //   - [IDIAttachParams.IsDeviceSolidStateWithRegistryEntryID]
-//   - [IDIAttachParams.PersistentAttach]
-//   - [IDIAttachParams.SetPersistentAttach]
 //   - [IDIAttachParams.ReOpenIfWritableWithError]
 //   - [IDIAttachParams.ToDI1ParamsWithError]
 //   - [IDIAttachParams.UpdateStatFSWithError]
@@ -181,8 +177,6 @@ type IDIAttachParams interface {
 	SetInputStatFS(value IDIStatFS)
 	IsDeviceHighThroughputWithRegistryEntryID(id uint64) bool
 	IsDeviceSolidStateWithRegistryEntryID(id uint64) bool
-	PersistentAttach() bool
-	SetPersistentAttach(value bool)
 	ReOpenIfWritableWithError() (bool, error)
 	ToDI1ParamsWithError() (objectivec.IObject, error)
 	UpdateStatFSWithError() (bool, error)
@@ -459,11 +453,4 @@ func (d DIAttachParams) InputStatFS() IDIStatFS {
 }
 func (d DIAttachParams) SetInputStatFS(value IDIStatFS) {
 	objc.SendIfResponds[struct{}](d.ID, objc.Sel("setInputStatFS:"), value)
-}
-func (d DIAttachParams) PersistentAttach() bool {
-	rv := objc.SendIfResponds[bool](d.ID, objc.Sel("persistentAttach"))
-	return rv
-}
-func (d DIAttachParams) SetPersistentAttach(value bool) {
-	objc.SendIfResponds[struct{}](d.ID, objc.Sel("setPersistentAttach:"), value)
 }

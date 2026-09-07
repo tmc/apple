@@ -1,14 +1,12 @@
-// Code generated from Apple documentation for avfaudio. DO NOT EDIT.
+// Code generated from Apple documentation for AVFAudio. DO NOT EDIT.
 
 package avfaudio
 
 import (
 	"context"
-	"errors"
 	"sync"
 	"unsafe"
 
-	"github.com/tmc/apple/foundation"
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -48,15 +46,9 @@ func (ac AVAudioEngineClass) Alloc() AVAudioEngine {
 
 // # Methods
 //
-//   - [AVAudioEngine.ConnectToFormatError]
-//   - [AVAudioEngine.ConnectToFromBusToBusFormatError]
-//   - [AVAudioEngine.ConnectToConnectionPointsFromBusFormatError]
 //   - [AVAudioEngine.ConnectMIDIToFormatBlock]
-//   - [AVAudioEngine.ConnectMIDIToFormatEventListProvider]
 //   - [AVAudioEngine.ConnectMIDIToNodesFormatBlock]
-//   - [AVAudioEngine.ConnectMIDIToNodesFormatEventListProvider]
 //   - [AVAudioEngine.Implementation]
-//   - [AVAudioEngine.Lock]
 //   - [AVAudioEngine.AutoShutdownEnabled]
 //   - [AVAudioEngine.SetAutoShutdownEnabled]
 //   - [AVAudioEngine.Running]
@@ -76,15 +68,9 @@ var _ IAVAudioEngine = AVAudioEngine{}
 //
 // # Methods
 //
-//   - [IAVAudioEngine.ConnectToFormatError]
-//   - [IAVAudioEngine.ConnectToFromBusToBusFormatError]
-//   - [IAVAudioEngine.ConnectToConnectionPointsFromBusFormatError]
 //   - [IAVAudioEngine.ConnectMIDIToFormatBlock]
-//   - [IAVAudioEngine.ConnectMIDIToFormatEventListProvider]
 //   - [IAVAudioEngine.ConnectMIDIToNodesFormatBlock]
-//   - [IAVAudioEngine.ConnectMIDIToNodesFormatEventListProvider]
 //   - [IAVAudioEngine.Implementation]
-//   - [IAVAudioEngine.Lock]
 //   - [IAVAudioEngine.AutoShutdownEnabled]
 //   - [IAVAudioEngine.SetAutoShutdownEnabled]
 //   - [IAVAudioEngine.Running]
@@ -93,15 +79,9 @@ type IAVAudioEngine interface {
 
 	// Topic: Methods
 
-	ConnectToFormatError(connect objectivec.IObject, to objectivec.IObject, format objectivec.IObject) (bool, error)
-	ConnectToFromBusToBusFormatError(connect objectivec.IObject, to objectivec.IObject, bus uint64, bus2 uint64, format objectivec.IObject) (bool, error)
-	ConnectToConnectionPointsFromBusFormatError(connect objectivec.IObject, points objectivec.IObject, bus uint64, format objectivec.IObject) (bool, error)
 	ConnectMIDIToFormatBlock(midi objectivec.IObject, to objectivec.IObject, format objectivec.IObject, block VoidHandler)
-	ConnectMIDIToFormatEventListProvider(midi objectivec.IObject, to objectivec.IObject, format objectivec.IObject, provider VoidHandler)
 	ConnectMIDIToNodesFormatBlock(midi objectivec.IObject, nodes objectivec.IObject, format objectivec.IObject, block VoidHandler)
-	ConnectMIDIToNodesFormatEventListProvider(midi objectivec.IObject, nodes objectivec.IObject, format objectivec.IObject, provider VoidHandler)
 	Implementation() unsafe.Pointer
-	Lock() objectivec.IObject
 	AutoShutdownEnabled() bool
 	SetAutoShutdownEnabled(value bool)
 	Running() bool
@@ -126,68 +106,17 @@ func NewAVAudioEngine() AVAudioEngine {
 	return rv
 }
 
-func (a AVAudioEngine) ConnectToFormatError(connect objectivec.IObject, to objectivec.IObject, format objectivec.IObject) (bool, error) {
-	var errorPtr objc.ID
-	rv := objc.Send[bool](a.ID, objc.Sel("connect:to:format:error:"), connect, to, format, unsafe.Pointer(&errorPtr))
-	if errorPtr != 0 {
-		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
-		return false, foundation.NSErrorFrom(errorPtr)
-	}
-	if !rv {
-		return false, errors.New("connect:to:format:error: returned NO with nil NSError")
-	}
-	return rv, nil
-
-}
-func (a AVAudioEngine) ConnectToFromBusToBusFormatError(connect objectivec.IObject, to objectivec.IObject, bus uint64, bus2 uint64, format objectivec.IObject) (bool, error) {
-	var errorPtr objc.ID
-	rv := objc.Send[bool](a.ID, objc.Sel("connect:to:fromBus:toBus:format:error:"), connect, to, bus, bus2, format, unsafe.Pointer(&errorPtr))
-	if errorPtr != 0 {
-		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
-		return false, foundation.NSErrorFrom(errorPtr)
-	}
-	if !rv {
-		return false, errors.New("connect:to:fromBus:toBus:format:error: returned NO with nil NSError")
-	}
-	return rv, nil
-
-}
-func (a AVAudioEngine) ConnectToConnectionPointsFromBusFormatError(connect objectivec.IObject, points objectivec.IObject, bus uint64, format objectivec.IObject) (bool, error) {
-	var errorPtr objc.ID
-	rv := objc.Send[bool](a.ID, objc.Sel("connect:toConnectionPoints:fromBus:format:error:"), connect, points, bus, format, unsafe.Pointer(&errorPtr))
-	if errorPtr != 0 {
-		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
-		return false, foundation.NSErrorFrom(errorPtr)
-	}
-	if !rv {
-		return false, errors.New("connect:toConnectionPoints:fromBus:format:error: returned NO with nil NSError")
-	}
-	return rv, nil
-
-}
 func (a AVAudioEngine) ConnectMIDIToFormatBlock(midi objectivec.IObject, to objectivec.IObject, format objectivec.IObject, block VoidHandler) {
 	_block3, _ := NewVoidBlock(block)
 	objc.SendIfResponds[objc.ID](a.ID, objc.Sel("connectMIDI:to:format:block:"), midi, to, format, _block3)
-}
-func (a AVAudioEngine) ConnectMIDIToFormatEventListProvider(midi objectivec.IObject, to objectivec.IObject, format objectivec.IObject, provider VoidHandler) {
-	_block3, _ := NewVoidBlock(provider)
-	objc.SendIfResponds[objc.ID](a.ID, objc.Sel("connectMIDI:to:format:eventListProvider:"), midi, to, format, _block3)
 }
 func (a AVAudioEngine) ConnectMIDIToNodesFormatBlock(midi objectivec.IObject, nodes objectivec.IObject, format objectivec.IObject, block VoidHandler) {
 	_block3, _ := NewVoidBlock(block)
 	objc.SendIfResponds[objc.ID](a.ID, objc.Sel("connectMIDI:toNodes:format:block:"), midi, nodes, format, _block3)
 }
-func (a AVAudioEngine) ConnectMIDIToNodesFormatEventListProvider(midi objectivec.IObject, nodes objectivec.IObject, format objectivec.IObject, provider VoidHandler) {
-	_block3, _ := NewVoidBlock(provider)
-	objc.SendIfResponds[objc.ID](a.ID, objc.Sel("connectMIDI:toNodes:format:eventListProvider:"), midi, nodes, format, _block3)
-}
 func (a AVAudioEngine) Implementation() unsafe.Pointer {
 	rv := objc.SendIfResponds[unsafe.Pointer](a.ID, objc.Sel("implementation"))
 	return rv
-}
-func (a AVAudioEngine) Lock() objectivec.IObject {
-	rv := objc.SendIfResponds[objc.ID](a.ID, objc.Sel("lock"))
-	return objectivec.Object{ID: rv}
 }
 
 func (a AVAudioEngine) AutoShutdownEnabled() bool {
@@ -217,41 +146,11 @@ func (a AVAudioEngine) ConnectMIDIToFormatBlockSync(ctx context.Context, midi ob
 	}
 }
 
-// ConnectMIDIToFormatEventListProviderSync is a synchronous wrapper around [AVAudioEngine.ConnectMIDIToFormatEventListProvider].
-// It blocks until the completion handler fires or the context is cancelled.
-func (a AVAudioEngine) ConnectMIDIToFormatEventListProviderSync(ctx context.Context, midi objectivec.IObject, to objectivec.IObject, format objectivec.IObject) error {
-	done := make(chan struct{}, 1)
-	a.ConnectMIDIToFormatEventListProvider(midi, to, format, func() {
-		done <- struct{}{}
-	})
-	select {
-	case <-done:
-		return nil
-	case <-ctx.Done():
-		return ctx.Err()
-	}
-}
-
 // ConnectMIDIToNodesFormatBlockSync is a synchronous wrapper around [AVAudioEngine.ConnectMIDIToNodesFormatBlock].
 // It blocks until the completion handler fires or the context is cancelled.
 func (a AVAudioEngine) ConnectMIDIToNodesFormatBlockSync(ctx context.Context, midi objectivec.IObject, nodes objectivec.IObject, format objectivec.IObject) error {
 	done := make(chan struct{}, 1)
 	a.ConnectMIDIToNodesFormatBlock(midi, nodes, format, func() {
-		done <- struct{}{}
-	})
-	select {
-	case <-done:
-		return nil
-	case <-ctx.Done():
-		return ctx.Err()
-	}
-}
-
-// ConnectMIDIToNodesFormatEventListProviderSync is a synchronous wrapper around [AVAudioEngine.ConnectMIDIToNodesFormatEventListProvider].
-// It blocks until the completion handler fires or the context is cancelled.
-func (a AVAudioEngine) ConnectMIDIToNodesFormatEventListProviderSync(ctx context.Context, midi objectivec.IObject, nodes objectivec.IObject, format objectivec.IObject) error {
-	done := make(chan struct{}, 1)
-	a.ConnectMIDIToNodesFormatEventListProvider(midi, nodes, format, func() {
 		done <- struct{}{}
 	})
 	select {

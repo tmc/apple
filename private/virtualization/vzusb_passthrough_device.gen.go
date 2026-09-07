@@ -1,4 +1,4 @@
-// Code generated from Apple documentation for virtualization. DO NOT EDIT.
+// Code generated from Apple documentation for Virtualization. DO NOT EDIT.
 
 package virtualization
 
@@ -19,12 +19,12 @@ var (
 
 func getVZUSBPassthroughDeviceClass() VZUSBPassthroughDeviceClass {
 	_VZUSBPassthroughDeviceClassOnce.Do(func() {
-		_VZUSBPassthroughDeviceClass = VZUSBPassthroughDeviceClass{class: objc.GetClass("VZUSBPassthroughDevice")}
+		_VZUSBPassthroughDeviceClass = VZUSBPassthroughDeviceClass{class: objc.GetClass("_VZUSBPassthroughDevice")}
 	})
 	return _VZUSBPassthroughDeviceClass
 }
 
-// GetVZUSBPassthroughDeviceClass returns the class object for VZUSBPassthroughDevice.
+// GetVZUSBPassthroughDeviceClass returns the class object for _VZUSBPassthroughDevice.
 func GetVZUSBPassthroughDeviceClass() VZUSBPassthroughDeviceClass {
 	return getVZUSBPassthroughDeviceClass()
 }
@@ -49,6 +49,7 @@ func (vc VZUSBPassthroughDeviceClass) Alloc() VZUSBPassthroughDevice {
 //   - [VZUSBPassthroughDevice.Configuration]
 //   - [VZUSBPassthroughDevice.SetConfiguration]
 //   - [VZUSBPassthroughDevice.IsPointingDevice]
+//   - [VZUSBPassthroughDevice.Signature]
 //   - [VZUSBPassthroughDevice.UsbController]
 //   - [VZUSBPassthroughDevice.SetUsbController]
 //   - [VZUSBPassthroughDevice.Uuid]
@@ -78,6 +79,7 @@ var _ IVZUSBPassthroughDevice = VZUSBPassthroughDevice{}
 //   - [IVZUSBPassthroughDevice.Configuration]
 //   - [IVZUSBPassthroughDevice.SetConfiguration]
 //   - [IVZUSBPassthroughDevice.IsPointingDevice]
+//   - [IVZUSBPassthroughDevice.Signature]
 //   - [IVZUSBPassthroughDevice.UsbController]
 //   - [IVZUSBPassthroughDevice.SetUsbController]
 //   - [IVZUSBPassthroughDevice.Uuid]
@@ -96,6 +98,7 @@ type IVZUSBPassthroughDevice interface {
 	Configuration() IVZUSBPassthroughDeviceConfiguration
 	SetConfiguration(value IVZUSBPassthroughDeviceConfiguration)
 	IsPointingDevice() bool
+	Signature() objectivec.IObject
 	UsbController() IVZUSBController
 	SetUsbController(value IVZUSBController)
 	Uuid() foundation.NSUUID
@@ -141,12 +144,16 @@ func NewVZUSBPassthroughDeviceWithConfigurationError(configuration objectivec.IO
 	return VZUSBPassthroughDeviceFromID(rv), nil
 }
 
+func (v VZUSBPassthroughDevice) Signature() objectivec.IObject {
+	rv := objc.SendIfResponds[objc.ID](v.ID, objc.Sel("signature"))
+	return objectivec.Object{ID: rv}
+}
 func (v VZUSBPassthroughDevice) InitWithConfigurationError(configuration objectivec.IObject) (VZUSBPassthroughDevice, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("initWithConfiguration:error:"), configuration, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
-		return VZUSBPassthroughDevice{}, foundation.NSErrorFrom(errorPtr)
+		return *new(VZUSBPassthroughDevice), foundation.NSErrorFrom(errorPtr)
 	}
 	return VZUSBPassthroughDeviceFromID(rv), nil
 

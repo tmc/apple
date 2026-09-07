@@ -135,7 +135,7 @@ func tryANEGetValidateNetworkSupportedVersion() (uint32, error) {
 	return _aNEGetValidateNetworkSupportedVersion(), nil
 }
 
-// ANEGetValidateNetworkSupportedVersion.
+// ANEGetValidateNetworkSupportedVersion signature evidence: disassembly, macOS 26.6 arm64e: reads no argument register before its first call, consistent with taking no parameters.
 func ANEGetValidateNetworkSupportedVersion() (uint32, error) {
 	return tryANEGetValidateNetworkSupportedVersion()
 }
@@ -150,7 +150,7 @@ func tryANEValidateNetworkCreate(arg0 objectivec.Object, arg1 objectivec.Object)
 	return _aNEValidateNetworkCreate(arg0, arg1), nil
 }
 
-// ANEValidateNetworkCreate.
+// ANEValidateNetworkCreate signature evidence: disassembly, macOS 26.6 arm64e, binary extracted from the dyld shared cache with ipsw: arity from both the prologue and the call site in ANEValidateNetworkCreateVMHost; both parameters shown to be Objective-C objects by objc_release and by objc_msgSend receiver use.
 func ANEValidateNetworkCreate(arg0 objectivec.Object, arg1 objectivec.Object) (int32, error) {
 	return tryANEValidateNetworkCreate(arg0, arg1)
 }
@@ -165,7 +165,7 @@ func tryANEValidateNetworkCreateVMHost(arg0 objectivec.Object, arg1 objectivec.O
 	return _aNEValidateNetworkCreateVMHost(arg0, arg1, arg2, arg3, arg4), nil
 }
 
-// ANEValidateNetworkCreateVMHost.
+// ANEValidateNetworkCreateVMHost signature evidence: disassembly, macOS 26.6 arm64e, binary extracted from the dyld shared cache with ipsw: arity from the prologue; four parameters classified by objc_msgSend receiver use and objc_retain; arg4 shown to be a pointer by an authenticated load, kind unmeasured.
 func ANEValidateNetworkCreateVMHost(arg0 objectivec.Object, arg1 objectivec.Object, arg2 objectivec.Object, arg3 objectivec.Object, arg4 uintptr) (int32, error) {
 	return tryANEValidateNetworkCreateVMHost(arg0, arg1, arg2, arg3, arg4)
 }

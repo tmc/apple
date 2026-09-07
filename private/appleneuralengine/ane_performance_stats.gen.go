@@ -173,25 +173,6 @@ func (_ANEPerformanceStatsClass ANEPerformanceStatsClass) StatsWithRequestPerfor
 	rv := objc.SendIfResponds[objc.ID](objc.ID(_ANEPerformanceStatsClass.class), objc.Sel("statsWithRequestPerformanceBuffer:statsBufferSize:"), buffer, size)
 	return objectivec.Object{ID: rv}
 }
-func (_ANEPerformanceStatsClass ANEPerformanceStatsClass) DecodeDescriptorPerTdPerfCounters(descriptor *ANEHwDebugEventDescriptorStruct, counters *ANEStatsPerTdPerfCountersStruct) objectivec.IObject {
-	rv := objc.SendIfResponds[objc.ID](objc.ID(_ANEPerformanceStatsClass.class), objc.Sel("decodeDescriptor:perTdPerfCounters:"), unsafe.Pointer(descriptor), unsafe.Pointer(counters))
-	return objectivec.Object{ID: rv}
-}
-func (_ANEPerformanceStatsClass ANEPerformanceStatsClass) DecodePerformanceStatsWithOptions(stats objectivec.IObject, options objectivec.IObject) objectivec.IObject {
-	rv := objc.SendIfResponds[objc.ID](objc.ID(_ANEPerformanceStatsClass.class), objc.Sel("decodePerformanceStats:withOptions:"), stats, options)
-	return objectivec.Object{ID: rv}
-}
-func (_ANEPerformanceStatsClass ANEPerformanceStatsClass) DecodeRawStatsData(data objectivec.IObject) objectivec.IObject {
-	rv := objc.SendIfResponds[objc.ID](objc.ID(_ANEPerformanceStatsClass.class), objc.Sel("decodeRawStatsData:"), data)
-	return objectivec.Object{ID: rv}
-}
-func (_ANEPerformanceStatsClass ANEPerformanceStatsClass) DumpPerformanceStatsRawData(data objectivec.IObject) {
-	objc.SendIfResponds[objc.ID](objc.ID(_ANEPerformanceStatsClass.class), objc.Sel("dumpPerformanceStatsRawData:"), data)
-}
-func (_ANEPerformanceStatsClass ANEPerformanceStatsClass) StringForEventType(type_ uint16) objectivec.IObject {
-	rv := objc.SendIfResponds[objc.ID](objc.ID(_ANEPerformanceStatsClass.class), objc.Sel("stringForEventType:"), type_)
-	return objectivec.Object{ID: rv}
-}
 
 func (a ANEPerformanceStats) HwExecutionTime() uint64 {
 	rv := objc.SendIfResponds[uint64](a.ID, objc.Sel("hwExecutionTime"))

@@ -86,11 +86,3 @@ func (_ANECloneHelperClass ANECloneHelperClass) ShouldSkipCloneForIsEncryptedMod
 	rv := objc.SendIfResponds[bool](objc.ID(_ANECloneHelperClass.class), objc.Sel("shouldSkipCloneFor:isEncryptedModel:"), for_, model)
 	return rv
 }
-func (_ANECloneHelperClass ANECloneHelperClass) BundleContainsSymlinkAtPath(path objectivec.IObject) bool {
-	rv := objc.SendIfResponds[bool](objc.ID(_ANECloneHelperClass.class), objc.Sel("bundleContainsSymlinkAtPath:"), path)
-	return rv
-}
-func (_ANECloneHelperClass ANECloneHelperClass) StageInBundleFileConstantsForModelSrcDirDstDirCloneDirectory(model objectivec.IObject, dir objectivec.IObject, dir2 objectivec.IObject, directory objectivec.IObject) bool {
-	rv := objc.SendIfResponds[bool](objc.ID(_ANECloneHelperClass.class), objc.Sel("stageInBundleFileConstantsForModel:srcDir:dstDir:cloneDirectory:"), model, dir, dir2, directory)
-	return rv
-}

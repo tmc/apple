@@ -103,6 +103,8 @@ func (tc TTSSpeechSynthesizerClass) Alloc() TTSSpeechSynthesizer {
 //   - [TTSSpeechSynthesizer.ResolvedVoiceIdentifierForLanguageCode]
 //   - [TTSSpeechSynthesizer.SetAudioBufferCallback]
 //   - [TTSSpeechSynthesizer.SetFootprint]
+//   - [TTSSpeechSynthesizer.SkipLuthorRules]
+//   - [TTSSpeechSynthesizer.SetSkipLuthorRules]
 //   - [TTSSpeechSynthesizer.SpeakingRequestClientContext]
 //   - [TTSSpeechSynthesizer.SetSpeakingRequestClientContext]
 //   - [TTSSpeechSynthesizer.SpeechRequestDidStopWithSuccessPhonemesSpokenError]
@@ -141,6 +143,8 @@ func (tc TTSSpeechSynthesizerClass) Alloc() TTSSpeechSynthesizer {
 //   - [TTSSpeechSynthesizer.VoiceResolver]
 //   - [TTSSpeechSynthesizer.Volume]
 //   - [TTSSpeechSynthesizer.SetVolume]
+//   - [TTSSpeechSynthesizer.Voucher]
+//   - [TTSSpeechSynthesizer.SetVoucher]
 type TTSSpeechSynthesizer struct {
 	objectivec.Object
 }
@@ -212,6 +216,8 @@ var _ ITTSSpeechSynthesizer = TTSSpeechSynthesizer{}
 //   - [ITTSSpeechSynthesizer.ResolvedVoiceIdentifierForLanguageCode]
 //   - [ITTSSpeechSynthesizer.SetAudioBufferCallback]
 //   - [ITTSSpeechSynthesizer.SetFootprint]
+//   - [ITTSSpeechSynthesizer.SkipLuthorRules]
+//   - [ITTSSpeechSynthesizer.SetSkipLuthorRules]
 //   - [ITTSSpeechSynthesizer.SpeakingRequestClientContext]
 //   - [ITTSSpeechSynthesizer.SetSpeakingRequestClientContext]
 //   - [ITTSSpeechSynthesizer.SpeechRequestDidStopWithSuccessPhonemesSpokenError]
@@ -250,6 +256,8 @@ var _ ITTSSpeechSynthesizer = TTSSpeechSynthesizer{}
 //   - [ITTSSpeechSynthesizer.VoiceResolver]
 //   - [ITTSSpeechSynthesizer.Volume]
 //   - [ITTSSpeechSynthesizer.SetVolume]
+//   - [ITTSSpeechSynthesizer.Voucher]
+//   - [ITTSSpeechSynthesizer.SetVoucher]
 type ITTSSpeechSynthesizer interface {
 	objectivec.IObject
 
@@ -310,6 +318,8 @@ type ITTSSpeechSynthesizer interface {
 	ResolvedVoiceIdentifierForLanguageCode(code objectivec.IObject) objectivec.IObject
 	SetAudioBufferCallback(callback VoidHandler)
 	SetFootprint(footprint int64)
+	SkipLuthorRules() bool
+	SetSkipLuthorRules(value bool)
 	SpeakingRequestClientContext() unsafe.Pointer
 	SetSpeakingRequestClientContext(value unsafe.Pointer)
 	SpeechRequestDidStopWithSuccessPhonemesSpokenError(request objectivec.IObject, success bool, spoken objectivec.IObject, error_ objectivec.IObject)
@@ -348,6 +358,8 @@ type ITTSSpeechSynthesizer interface {
 	VoiceResolver() objectivec.IObject
 	Volume() float32
 	SetVolume(value float32)
+	Voucher() objectivec.Object
+	SetVoucher(value objectivec.Object)
 }
 
 // Init initializes the instance.
@@ -1018,6 +1030,13 @@ func (t TTSSpeechSynthesizer) ResolvedVoiceIdentifier() string {
 	rv := objc.SendIfResponds[objc.ID](t.ID, objc.Sel("resolvedVoiceIdentifier"))
 	return foundation.NSStringFromID(rv).String()
 }
+func (t TTSSpeechSynthesizer) SkipLuthorRules() bool {
+	rv := objc.SendIfResponds[bool](t.ID, objc.Sel("skipLuthorRules"))
+	return rv
+}
+func (t TTSSpeechSynthesizer) SetSkipLuthorRules(value bool) {
+	objc.SendIfResponds[struct{}](t.ID, objc.Sel("setSkipLuthorRules:"), value)
+}
 func (t TTSSpeechSynthesizer) SpeakingRequestClientContext() unsafe.Pointer {
 	rv := objc.SendIfResponds[unsafe.Pointer](t.ID, objc.Sel("speakingRequestClientContext"))
 	return rv
@@ -1066,6 +1085,13 @@ func (t TTSSpeechSynthesizer) Volume() float32 {
 }
 func (t TTSSpeechSynthesizer) SetVolume(value float32) {
 	objc.SendIfResponds[struct{}](t.ID, objc.Sel("setVolume:"), value)
+}
+func (t TTSSpeechSynthesizer) Voucher() objectivec.Object {
+	rv := objc.SendIfResponds[objc.ID](t.ID, objc.Sel("voucher"))
+	return objectivec.ObjectFromID(objc.ID(rv))
+}
+func (t TTSSpeechSynthesizer) SetVoucher(value objectivec.Object) {
+	objc.SendIfResponds[struct{}](t.ID, objc.Sel("setVoucher:"), value)
 }
 
 // SetAudioBufferCallbackSync is a synchronous wrapper around [TTSSpeechSynthesizer.SetAudioBufferCallback].

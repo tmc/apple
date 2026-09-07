@@ -1,15 +1,15 @@
-// Code generated from Apple documentation for avfaudio. DO NOT EDIT.
+// Code generated from Apple documentation for AVFAudio. DO NOT EDIT.
 
 package avfaudio
 
 import (
 	"context"
 	"sync"
+	"unsafe"
 
 	"github.com/tmc/apple/foundation"
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
-	"github.com/tmc/apple/private/texttospeech"
 )
 
 // The class instance for the [AVSpeechUtterance] class.
@@ -104,8 +104,8 @@ type IAVSpeechUtterance interface {
 
 	// Topic: Methods
 
-	Action() texttospeech.TTSSpeechAction
-	SetAction(value texttospeech.TTSSpeechAction)
+	Action() unsafe.Pointer
+	SetAction(value unsafe.Pointer)
 	AudioBufferCallback()
 	MarkerCallback()
 	PrefersAssistiveTechnologyExceptions() objectivec.IObject
@@ -200,11 +200,11 @@ func (_AVSpeechUtteranceClass AVSpeechUtteranceClass) TransformUtteranceBasedOnS
 	objc.SendIfResponds[objc.ID](objc.ID(_AVSpeechUtteranceClass.class), objc.Sel("transformUtteranceBasedOnSSMLIfDetected:"), detected)
 }
 
-func (a AVSpeechUtterance) Action() texttospeech.TTSSpeechAction {
-	rv := objc.SendIfResponds[objc.ID](a.ID, objc.Sel("action"))
-	return texttospeech.TTSSpeechActionFromID(objc.ID(rv))
+func (a AVSpeechUtterance) Action() unsafe.Pointer {
+	rv := objc.SendIfResponds[unsafe.Pointer](a.ID, objc.Sel("action"))
+	return rv
 }
-func (a AVSpeechUtterance) SetAction(value texttospeech.TTSSpeechAction) {
+func (a AVSpeechUtterance) SetAction(value unsafe.Pointer) {
 	objc.SendIfResponds[struct{}](a.ID, objc.Sel("setAction:"), value)
 }
 func (a AVSpeechUtterance) AttributedSpeechString() foundation.NSAttributedString {

@@ -1,3 +1,3 @@
 package network
 
-//go:generate go run github.com/tmc/appledocs/cmd/applegen generate --output .. --framework network --module github.com/tmc/apple --private-companion --go-names
+//go:generate go run github.com/tmc/appledocs/cmd/applegen generate --output .. --framework Network --module github.com/tmc/apple --private-companion --go-names

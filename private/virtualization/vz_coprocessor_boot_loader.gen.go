@@ -1,4 +1,4 @@
-// Code generated from Apple documentation for virtualization. DO NOT EDIT.
+// Code generated from Apple documentation for Virtualization. DO NOT EDIT.
 
 package virtualization
 
@@ -44,8 +44,6 @@ func (vc VZCoprocessorBootLoaderClass) Alloc() VZCoprocessorBootLoader {
 
 // # Methods
 //
-//   - [VZCoprocessorBootLoader._binaryBootLoader]
-//   - [VZCoprocessorBootLoader.Set_binaryBootLoader]
 //   - [VZCoprocessorBootLoader._romFileDescriptor]
 //   - [VZCoprocessorBootLoader.Set_romFileDescriptor]
 type VZCoprocessorBootLoader struct {
@@ -64,8 +62,6 @@ var _ IVZCoprocessorBootLoader = VZCoprocessorBootLoader{}
 //
 // # Methods
 //
-//   - [IVZCoprocessorBootLoader._binaryBootLoader]
-//   - [IVZCoprocessorBootLoader.Set_binaryBootLoader]
 //   - [IVZCoprocessorBootLoader._romFileDescriptor]
 //   - [IVZCoprocessorBootLoader.Set_romFileDescriptor]
 type IVZCoprocessorBootLoader interface {
@@ -73,8 +69,6 @@ type IVZCoprocessorBootLoader interface {
 
 	// Topic: Methods
 
-	_binaryBootLoader() unsafe.Pointer
-	Set_binaryBootLoader(value unsafe.Pointer)
 	_romFileDescriptor() unsafe.Pointer
 	Set_romFileDescriptor(value unsafe.Pointer)
 }
@@ -98,26 +92,6 @@ func NewVZCoprocessorBootLoader() VZCoprocessorBootLoader {
 	return rv
 }
 
-func (v VZCoprocessorBootLoader) _binaryBootLoader() unsafe.Pointer {
-	rv := objc.SendIfResponds[unsafe.Pointer](v.ID, objc.Sel("_binaryBootLoader"))
-	return rv
-}
-
-// CanBinaryBootLoader reports whether the receiver responds to the private selector _binaryBootLoader.
-func (v VZCoprocessorBootLoader) CanBinaryBootLoader() bool {
-	return objc.RespondsToSelector(v.ID, objc.Sel("_binaryBootLoader"))
-}
-
-// BinaryBootLoader is an exported wrapper for the private property _binaryBootLoader.
-func (v VZCoprocessorBootLoader) BinaryBootLoader() (unsafe.Pointer, error) {
-	if !objc.RespondsToSelector(v.ID, objc.Sel("_binaryBootLoader")) {
-		return nil, &objc.UnrecognizedSelectorError{Selector: "_binaryBootLoader"}
-	}
-	return v._binaryBootLoader(), nil
-}
-func (v VZCoprocessorBootLoader) Set_binaryBootLoader(value unsafe.Pointer) {
-	objc.SendIfResponds[struct{}](v.ID, objc.Sel("set_binaryBootLoader:"), value)
-}
 func (v VZCoprocessorBootLoader) _romFileDescriptor() unsafe.Pointer {
 	rv := objc.SendIfResponds[unsafe.Pointer](v.ID, objc.Sel("_romFileDescriptor"))
 	return rv

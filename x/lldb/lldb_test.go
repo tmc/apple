@@ -3,6 +3,9 @@
 package lldb_test
 
 import (
+	"os"
+	"os/exec"
+	"path/filepath"
 	"strings"
 	"testing"
 	"time"
@@ -34,14 +37,15 @@ func TestLaunchAndInspect(t *testing.T) {
 	}
 	d.SetAsync(false)
 
-	tgt := d.CreateTargetWithArch("/bin/sleep", "")
-	if bp := tgt.BreakpointCreateByName("nanosleep"); !bp.IsValid() {
-		t.Skip("could not set breakpoint on nanosleep")
+	child := buildChild(t)
+	tgt := d.CreateTargetWithArch(child, "")
+	if bp := tgt.BreakpointCreateByName("breakpoint_target"); !bp.IsValid() {
+		t.Skip("could not set breakpoint on breakpoint_target")
 	}
 
-	proc := tgt.LaunchSimple([]string{"30"}, nil, "/tmp")
+	proc := tgt.LaunchSimple(nil, nil, filepath.Dir(child))
 	if !proc.IsValid() {
-		t.Skip("could not launch /bin/sleep")
+		t.Skip("could not launch child")
 	}
 	defer proc.Kill()
 
@@ -57,8 +61,8 @@ func TestLaunchAndInspect(t *testing.T) {
 		}
 		hit = true
 		fr := th.FrameAtIndex(0)
-		if name := fr.FunctionName(); !strings.Contains(name, "nanosleep") {
-			t.Errorf("function name = %q, want to contain nanosleep", name)
+		if name := fr.FunctionName(); !strings.Contains(name, "breakpoint_target") {
+			t.Errorf("function name = %q, want to contain breakpoint_target", name)
 		}
 		reg := fr.FindRegister(selfRegister(tgt.Triple()))
 		if v := reg.Value(); v == "" {
@@ -84,9 +88,10 @@ func TestStopAndDetach(t *testing.T) {
 		t.Fatal(err)
 	}
 	d.SetAsync(false)
-	tgt := d.CreateTargetWithArch("/bin/sleep", "")
-	tgt.BreakpointCreateByName("nanosleep")
-	proc := tgt.LaunchSimple([]string{"1"}, nil, "/tmp")
+	child := buildChild(t)
+	tgt := d.CreateTargetWithArch(child, "")
+	tgt.BreakpointCreateByName("breakpoint_target")
+	proc := tgt.LaunchSimple(nil, nil, filepath.Dir(child))
 	if !proc.IsValid() || proc.State() != lldb.StateStopped {
 		t.Fatal("child did not stop at breakpoint")
 	}
@@ -127,4 +132,18 @@ wait:
 	}
 	// The detached child exits after its one-second sleep.
 	time.Sleep(1100 * time.Millisecond)
+}
+
+func buildChild(t *testing.T) string {
+	t.Helper()
+	dir := t.TempDir()
+	src := filepath.Join(dir, "child.c")
+	if err := os.WriteFile(src, []byte("#include <unistd.h>\n__attribute__((noinline)) void breakpoint_target(void) { sleep(1); }\nint main(void) { breakpoint_target(); return 0; }\n"), 0600); err != nil {
+		t.Fatal(err)
+	}
+	child := filepath.Join(dir, "child")
+	if out, err := exec.Command("clang", "-g", "-O0", "-o", child, src).CombinedOutput(); err != nil {
+		t.Fatalf("build child: %v\n%s", err, out)
+	}
+	return child
 }

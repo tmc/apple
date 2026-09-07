@@ -1,4 +1,4 @@
-// Code generated from Apple documentation for coreml. DO NOT EDIT.
+// Code generated from Apple documentation for CoreML. DO NOT EDIT.
 
 package coreml
 
@@ -42,14 +42,14 @@ func (pc PBRequestClass) Alloc() PBRequest {
 	return rv
 }
 
-// A parent class referenced by other coreml classes. [Full Topic]
+// A parent class referenced by other CoreML classes. [Full Topic]
 type PBRequest struct {
 	objectivec.Object
 }
 
 // PBRequestFromID constructs a [PBRequest] from an objc.ID.
 //
-// A parent class referenced by other coreml classes.
+// A parent class referenced by other CoreML classes.
 func PBRequestFromID(id objc.ID) PBRequest {
 	return PBRequest{objectivec.Object{ID: id}}
 }

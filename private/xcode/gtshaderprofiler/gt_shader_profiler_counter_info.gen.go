@@ -1,0 +1,262 @@
+// Code generated from Apple documentation for gtshaderprofiler. DO NOT EDIT.
+
+package gtshaderprofiler
+
+import (
+	"sync"
+
+	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
+	"github.com/tmc/apple/objectivec"
+)
+
+// The class instance for the [GTShaderProfilerCounterInfo] class.
+var (
+	_GTShaderProfilerCounterInfoClass     GTShaderProfilerCounterInfoClass
+	_GTShaderProfilerCounterInfoClassOnce sync.Once
+)
+
+func getGTShaderProfilerCounterInfoClass() GTShaderProfilerCounterInfoClass {
+	_GTShaderProfilerCounterInfoClassOnce.Do(func() {
+		_GTShaderProfilerCounterInfoClass = GTShaderProfilerCounterInfoClass{class: objc.GetClass("GTShaderProfilerCounterInfo")}
+	})
+	return _GTShaderProfilerCounterInfoClass
+}
+
+// GetGTShaderProfilerCounterInfoClass returns the class object for GTShaderProfilerCounterInfo.
+func GetGTShaderProfilerCounterInfoClass() GTShaderProfilerCounterInfoClass {
+	return getGTShaderProfilerCounterInfoClass()
+}
+
+type GTShaderProfilerCounterInfoClass struct {
+	class objc.Class
+}
+
+// Class returns the underlying Objective-C class pointer.
+func (gc GTShaderProfilerCounterInfoClass) Class() objc.Class {
+	return gc.class
+}
+
+// Alloc allocates memory for a new instance of the class.
+func (gc GTShaderProfilerCounterInfoClass) Alloc() GTShaderProfilerCounterInfo {
+	rv := objc.SendIfResponds[GTShaderProfilerCounterInfo](objc.ID(gc.class), objc.Sel("alloc"))
+	return rv
+}
+
+// # Methods
+//
+//   - [GTShaderProfilerCounterInfo.BatchIdFilterable]
+//   - [GTShaderProfilerCounterInfo.DataType]
+//   - [GTShaderProfilerCounterInfo.SetDataType]
+//   - [GTShaderProfilerCounterInfo.DisplayStyle]
+//   - [GTShaderProfilerCounterInfo.ExternallyVisible]
+//   - [GTShaderProfilerCounterInfo.FormatTimeValueUnitValue]
+//   - [GTShaderProfilerCounterInfo.FormatValueContainsUnit]
+//   - [GTShaderProfilerCounterInfo.GroupTag]
+//   - [GTShaderProfilerCounterInfo.MaskInCompute]
+//   - [GTShaderProfilerCounterInfo.MaskInDraw]
+//   - [GTShaderProfilerCounterInfo.Name]
+//   - [GTShaderProfilerCounterInfo.NonOverlappingEncoderDataIndex]
+//   - [GTShaderProfilerCounterInfo.SetNonOverlappingEncoderDataIndex]
+//   - [GTShaderProfilerCounterInfo.NonOverlappingGPUCommandDataIndex]
+//   - [GTShaderProfilerCounterInfo.SetNonOverlappingGPUCommandDataIndex]
+//   - [GTShaderProfilerCounterInfo.RequiresBatchIDFiltering]
+//   - [GTShaderProfilerCounterInfo.SetRequiresBatchIDFiltering]
+//   - [GTShaderProfilerCounterInfo.StringFromMemoryByteCount]
+//   - [GTShaderProfilerCounterInfo.ToolsCounterName]
+//   - [GTShaderProfilerCounterInfo.Unit]
+//   - [GTShaderProfilerCounterInfo.VendorCounterNames]
+//   - [GTShaderProfilerCounterInfo.InitWithSpecParent]
+//   - [GTShaderProfilerCounterInfo.Description]
+type GTShaderProfilerCounterInfo struct {
+	objectivec.Object
+}
+
+// GTShaderProfilerCounterInfoFromID constructs a [GTShaderProfilerCounterInfo] from an objc.ID.
+func GTShaderProfilerCounterInfoFromID(id objc.ID) GTShaderProfilerCounterInfo {
+	return GTShaderProfilerCounterInfo{objectivec.Object{ID: id}}
+}
+
+// Ensure GTShaderProfilerCounterInfo implements IGTShaderProfilerCounterInfo.
+var _ IGTShaderProfilerCounterInfo = GTShaderProfilerCounterInfo{}
+
+// An interface definition for the [GTShaderProfilerCounterInfo] class.
+//
+// # Methods
+//
+//   - [IGTShaderProfilerCounterInfo.BatchIdFilterable]
+//   - [IGTShaderProfilerCounterInfo.DataType]
+//   - [IGTShaderProfilerCounterInfo.SetDataType]
+//   - [IGTShaderProfilerCounterInfo.DisplayStyle]
+//   - [IGTShaderProfilerCounterInfo.ExternallyVisible]
+//   - [IGTShaderProfilerCounterInfo.FormatTimeValueUnitValue]
+//   - [IGTShaderProfilerCounterInfo.FormatValueContainsUnit]
+//   - [IGTShaderProfilerCounterInfo.GroupTag]
+//   - [IGTShaderProfilerCounterInfo.MaskInCompute]
+//   - [IGTShaderProfilerCounterInfo.MaskInDraw]
+//   - [IGTShaderProfilerCounterInfo.Name]
+//   - [IGTShaderProfilerCounterInfo.NonOverlappingEncoderDataIndex]
+//   - [IGTShaderProfilerCounterInfo.SetNonOverlappingEncoderDataIndex]
+//   - [IGTShaderProfilerCounterInfo.NonOverlappingGPUCommandDataIndex]
+//   - [IGTShaderProfilerCounterInfo.SetNonOverlappingGPUCommandDataIndex]
+//   - [IGTShaderProfilerCounterInfo.RequiresBatchIDFiltering]
+//   - [IGTShaderProfilerCounterInfo.SetRequiresBatchIDFiltering]
+//   - [IGTShaderProfilerCounterInfo.StringFromMemoryByteCount]
+//   - [IGTShaderProfilerCounterInfo.ToolsCounterName]
+//   - [IGTShaderProfilerCounterInfo.Unit]
+//   - [IGTShaderProfilerCounterInfo.VendorCounterNames]
+//   - [IGTShaderProfilerCounterInfo.InitWithSpecParent]
+//   - [IGTShaderProfilerCounterInfo.Description]
+type IGTShaderProfilerCounterInfo interface {
+	objectivec.IObject
+
+	// Topic: Methods
+
+	BatchIdFilterable() bool
+	DataType() uint64
+	SetDataType(value uint64)
+	DisplayStyle() uint64
+	ExternallyVisible() bool
+	FormatTimeValueUnitValue(value int64, value2 int64) objectivec.IObject
+	FormatValueContainsUnit(value float32, unit *bool) objectivec.IObject
+	GroupTag() string
+	MaskInCompute() bool
+	MaskInDraw() bool
+	Name() string
+	NonOverlappingEncoderDataIndex() int32
+	SetNonOverlappingEncoderDataIndex(value int32)
+	NonOverlappingGPUCommandDataIndex() int32
+	SetNonOverlappingGPUCommandDataIndex(value int32)
+	RequiresBatchIDFiltering() bool
+	SetRequiresBatchIDFiltering(value bool)
+	StringFromMemoryByteCount(count uint64) objectivec.IObject
+	ToolsCounterName() string
+	Unit() string
+	VendorCounterNames() foundation.INSArray
+	InitWithSpecParent(spec objectivec.IObject, parent objectivec.IObject) GTShaderProfilerCounterInfo
+	Description() string
+}
+
+// Init initializes the instance.
+func (g GTShaderProfilerCounterInfo) Init() GTShaderProfilerCounterInfo {
+	rv := objc.SendIfResponds[GTShaderProfilerCounterInfo](g.ID, objc.Sel("init"))
+	return rv
+}
+
+// Autorelease adds the receiver to the current autorelease pool.
+func (g GTShaderProfilerCounterInfo) Autorelease() GTShaderProfilerCounterInfo {
+	rv := objc.SendIfResponds[GTShaderProfilerCounterInfo](g.ID, objc.Sel("autorelease"))
+	return rv
+}
+
+// NewGTShaderProfilerCounterInfo creates a new GTShaderProfilerCounterInfo instance.
+func NewGTShaderProfilerCounterInfo() GTShaderProfilerCounterInfo {
+	class := getGTShaderProfilerCounterInfoClass()
+	rv := objc.SendIfResponds[GTShaderProfilerCounterInfo](objc.ID(class.class), objc.Sel("new"))
+	return rv
+}
+
+func NewGTShaderProfilerCounterInfoWithSpecParent(spec objectivec.IObject, parent objectivec.IObject) GTShaderProfilerCounterInfo {
+	instance := getGTShaderProfilerCounterInfoClass().Alloc()
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithSpec:parent:"), spec, parent)
+	return GTShaderProfilerCounterInfoFromID(rv)
+}
+
+func (g GTShaderProfilerCounterInfo) FormatTimeValueUnitValue(value int64, value2 int64) objectivec.IObject {
+	rv := objc.SendIfResponds[objc.ID](g.ID, objc.Sel("formatTimeValue:unitValue:"), value, value2)
+	return objectivec.Object{ID: rv}
+}
+func (g GTShaderProfilerCounterInfo) FormatValueContainsUnit(value float32, unit *bool) objectivec.IObject {
+	rv := objc.SendIfResponds[objc.ID](g.ID, objc.Sel("formatValue:containsUnit:"), value, unit)
+	return objectivec.Object{ID: rv}
+}
+func (g GTShaderProfilerCounterInfo) StringFromMemoryByteCount(count uint64) objectivec.IObject {
+	rv := objc.SendIfResponds[objc.ID](g.ID, objc.Sel("stringFromMemoryByteCount:"), count)
+	return objectivec.Object{ID: rv}
+}
+func (g GTShaderProfilerCounterInfo) InitWithSpecParent(spec objectivec.IObject, parent objectivec.IObject) GTShaderProfilerCounterInfo {
+	rv := objc.SendIfResponds[GTShaderProfilerCounterInfo](g.ID, objc.Sel("initWithSpec:parent:"), spec, parent)
+	return rv
+}
+
+func (_GTShaderProfilerCounterInfoClass GTShaderProfilerCounterInfoClass) StringToDataType(type_ objectivec.IObject) uint64 {
+	rv := objc.SendIfResponds[uint64](objc.ID(_GTShaderProfilerCounterInfoClass.class), objc.Sel("stringToDataType:"), type_)
+	return rv
+}
+func (_GTShaderProfilerCounterInfoClass GTShaderProfilerCounterInfoClass) StringToDisplayStyle(style objectivec.IObject) uint64 {
+	rv := objc.SendIfResponds[uint64](objc.ID(_GTShaderProfilerCounterInfoClass.class), objc.Sel("stringToDisplayStyle:"), style)
+	return rv
+}
+
+func (g GTShaderProfilerCounterInfo) BatchIdFilterable() bool {
+	rv := objc.SendIfResponds[bool](g.ID, objc.Sel("batchIdFilterable"))
+	return rv
+}
+func (g GTShaderProfilerCounterInfo) DataType() uint64 {
+	rv := objc.SendIfResponds[uint64](g.ID, objc.Sel("dataType"))
+	return rv
+}
+func (g GTShaderProfilerCounterInfo) SetDataType(value uint64) {
+	objc.SendIfResponds[struct{}](g.ID, objc.Sel("setDataType:"), value)
+}
+func (g GTShaderProfilerCounterInfo) Description() string {
+	rv := objc.SendIfResponds[objc.ID](g.ID, objc.Sel("description"))
+	return foundation.NSStringFromID(rv).String()
+}
+func (g GTShaderProfilerCounterInfo) DisplayStyle() uint64 {
+	rv := objc.SendIfResponds[uint64](g.ID, objc.Sel("displayStyle"))
+	return rv
+}
+func (g GTShaderProfilerCounterInfo) ExternallyVisible() bool {
+	rv := objc.SendIfResponds[bool](g.ID, objc.Sel("externallyVisible"))
+	return rv
+}
+func (g GTShaderProfilerCounterInfo) GroupTag() string {
+	rv := objc.SendIfResponds[objc.ID](g.ID, objc.Sel("groupTag"))
+	return foundation.NSStringFromID(rv).String()
+}
+func (g GTShaderProfilerCounterInfo) MaskInCompute() bool {
+	rv := objc.SendIfResponds[bool](g.ID, objc.Sel("maskInCompute"))
+	return rv
+}
+func (g GTShaderProfilerCounterInfo) MaskInDraw() bool {
+	rv := objc.SendIfResponds[bool](g.ID, objc.Sel("maskInDraw"))
+	return rv
+}
+func (g GTShaderProfilerCounterInfo) Name() string {
+	rv := objc.SendIfResponds[objc.ID](g.ID, objc.Sel("name"))
+	return foundation.NSStringFromID(rv).String()
+}
+func (g GTShaderProfilerCounterInfo) NonOverlappingEncoderDataIndex() int32 {
+	rv := objc.SendIfResponds[int32](g.ID, objc.Sel("nonOverlappingEncoderDataIndex"))
+	return rv
+}
+func (g GTShaderProfilerCounterInfo) SetNonOverlappingEncoderDataIndex(value int32) {
+	objc.SendIfResponds[struct{}](g.ID, objc.Sel("setNonOverlappingEncoderDataIndex:"), value)
+}
+func (g GTShaderProfilerCounterInfo) NonOverlappingGPUCommandDataIndex() int32 {
+	rv := objc.SendIfResponds[int32](g.ID, objc.Sel("nonOverlappingGPUCommandDataIndex"))
+	return rv
+}
+func (g GTShaderProfilerCounterInfo) SetNonOverlappingGPUCommandDataIndex(value int32) {
+	objc.SendIfResponds[struct{}](g.ID, objc.Sel("setNonOverlappingGPUCommandDataIndex:"), value)
+}
+func (g GTShaderProfilerCounterInfo) RequiresBatchIDFiltering() bool {
+	rv := objc.SendIfResponds[bool](g.ID, objc.Sel("requiresBatchIDFiltering"))
+	return rv
+}
+func (g GTShaderProfilerCounterInfo) SetRequiresBatchIDFiltering(value bool) {
+	objc.SendIfResponds[struct{}](g.ID, objc.Sel("setRequiresBatchIDFiltering:"), value)
+}
+func (g GTShaderProfilerCounterInfo) ToolsCounterName() string {
+	rv := objc.SendIfResponds[objc.ID](g.ID, objc.Sel("toolsCounterName"))
+	return foundation.NSStringFromID(rv).String()
+}
+func (g GTShaderProfilerCounterInfo) Unit() string {
+	rv := objc.SendIfResponds[objc.ID](g.ID, objc.Sel("unit"))
+	return foundation.NSStringFromID(rv).String()
+}
+func (g GTShaderProfilerCounterInfo) VendorCounterNames() foundation.INSArray {
+	rv := objc.SendIfResponds[objc.ID](g.ID, objc.Sel("vendorCounterNames"))
+	return foundation.NSArrayFromID(objc.ID(rv))
+}

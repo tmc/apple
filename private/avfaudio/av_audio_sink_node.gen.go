@@ -1,4 +1,4 @@
-// Code generated from Apple documentation for avfaudio. DO NOT EDIT.
+// Code generated from Apple documentation for AVFAudio. DO NOT EDIT.
 
 package avfaudio
 
@@ -43,9 +43,6 @@ func (ac AVAudioSinkNodeClass) Alloc() AVAudioSinkNode {
 	return rv
 }
 
-// # Methods
-//
-//   - [AVAudioSinkNode.InitWithRealtimeSafeReceiverBlock]
 type AVAudioSinkNode struct {
 	AVAudioNode
 }
@@ -59,16 +56,8 @@ func AVAudioSinkNodeFromID(id objc.ID) AVAudioSinkNode {
 var _ IAVAudioSinkNode = AVAudioSinkNode{}
 
 // An interface definition for the [AVAudioSinkNode] class.
-//
-// # Methods
-//
-//   - [IAVAudioSinkNode.InitWithRealtimeSafeReceiverBlock]
 type IAVAudioSinkNode interface {
 	IAVAudioNode
-
-	// Topic: Methods
-
-	InitWithRealtimeSafeReceiverBlock(block VoidHandler) AVAudioSinkNode
 }
 
 // Init initializes the instance.
@@ -96,51 +85,9 @@ func NewAVAudioSinkNodeWithImpl(impl unsafe.Pointer) AVAudioSinkNode {
 	return AVAudioSinkNodeFromID(rv)
 }
 
-var _avaudiosinknode_initwithrealtimesafereceiverblock_p0_key byte
-
-func (a AVAudioSinkNode) InitWithRealtimeSafeReceiverBlock(block VoidHandler) AVAudioSinkNode {
-	_block0, _ := NewVoidBlock(block)
-	rv := objc.SendIfResponds[AVAudioSinkNode](a.ID, objc.Sel("initWithRealtimeSafeReceiverBlock:"), _block0)
-	return rv
-}
-
-func (_AVAudioSinkNodeClass AVAudioSinkNodeClass) PullInputBlockFromRealtimeSafeReceiverBlock(block VoidHandler) {
-	_block0, _ := NewVoidBlock(block)
-	objc.SendIfResponds[objc.ID](objc.ID(_AVAudioSinkNodeClass.class), objc.Sel("pullInputBlockFromRealtimeSafeReceiverBlock:"), _block0)
-}
 func (_AVAudioSinkNodeClass AVAudioSinkNodeClass) PullInputBlockFromReceiverBlock(block VoidHandler) {
 	_block0, _ := NewVoidBlock(block)
 	objc.SendIfResponds[objc.ID](objc.ID(_AVAudioSinkNodeClass.class), objc.Sel("pullInputBlockFromReceiverBlock:"), _block0)
-}
-
-// InitWithRealtimeSafeReceiverBlockSync is a synchronous wrapper around [AVAudioSinkNode.InitWithRealtimeSafeReceiverBlock].
-// It blocks until the completion handler fires or the context is cancelled.
-func (a AVAudioSinkNode) InitWithRealtimeSafeReceiverBlockSync(ctx context.Context) error {
-	done := make(chan struct{}, 1)
-	a.InitWithRealtimeSafeReceiverBlock(func() {
-		done <- struct{}{}
-	})
-	select {
-	case <-done:
-		return nil
-	case <-ctx.Done():
-		return ctx.Err()
-	}
-}
-
-// PullInputBlockFromRealtimeSafeReceiverBlockSync is a synchronous wrapper around [AVAudioSinkNode.PullInputBlockFromRealtimeSafeReceiverBlock].
-// It blocks until the completion handler fires or the context is cancelled.
-func (ac AVAudioSinkNodeClass) PullInputBlockFromRealtimeSafeReceiverBlockSync(ctx context.Context) error {
-	done := make(chan struct{}, 1)
-	ac.PullInputBlockFromRealtimeSafeReceiverBlock(func() {
-		done <- struct{}{}
-	})
-	select {
-	case <-done:
-		return nil
-	case <-ctx.Done():
-		return ctx.Err()
-	}
 }
 
 // PullInputBlockFromReceiverBlockSync is a synchronous wrapper around [AVAudioSinkNode.PullInputBlockFromReceiverBlock].

@@ -49,6 +49,7 @@ func (wc WSHIDEventDeliveryManagerServerClass) Alloc() WSHIDEventDeliveryManager
 //   - [WSHIDEventDeliveryManagerServer._init]
 //   - [WSHIDEventDeliveryManagerServer.Activate]
 //   - [WSHIDEventDeliveryManagerServer.AppendDescriptionToStream]
+//   - [WSHIDEventDeliveryManagerServer.DeliveryManagerForAuditToken]
 //   - [WSHIDEventDeliveryManagerServer.PermittedRuleChangeMaskForAuditToken]
 //   - [WSHIDEventDeliveryManagerServer.Server]
 //   - [WSHIDEventDeliveryManagerServer.DebugDescription]
@@ -74,6 +75,7 @@ var _ IWSHIDEventDeliveryManagerServer = WSHIDEventDeliveryManagerServer{}
 //   - [IWSHIDEventDeliveryManagerServer._init]
 //   - [IWSHIDEventDeliveryManagerServer.Activate]
 //   - [IWSHIDEventDeliveryManagerServer.AppendDescriptionToStream]
+//   - [IWSHIDEventDeliveryManagerServer.DeliveryManagerForAuditToken]
 //   - [IWSHIDEventDeliveryManagerServer.PermittedRuleChangeMaskForAuditToken]
 //   - [IWSHIDEventDeliveryManagerServer.Server]
 //   - [IWSHIDEventDeliveryManagerServer.DebugDescription]
@@ -88,6 +90,7 @@ type IWSHIDEventDeliveryManagerServer interface {
 	_init() objectivec.IObject
 	Activate()
 	AppendDescriptionToStream(stream objectivec.IObject)
+	DeliveryManagerForAuditToken(token objectivec.IObject) objectivec.IObject
 	PermittedRuleChangeMaskForAuditToken(token objectivec.IObject) uint64
 	Server() unsafe.Pointer
 	DebugDescription() string
@@ -124,6 +127,10 @@ func (w WSHIDEventDeliveryManagerServer) Activate() {
 }
 func (w WSHIDEventDeliveryManagerServer) AppendDescriptionToStream(stream objectivec.IObject) {
 	objc.SendIfResponds[objc.ID](w.ID, objc.Sel("appendDescriptionToStream:"), stream)
+}
+func (w WSHIDEventDeliveryManagerServer) DeliveryManagerForAuditToken(token objectivec.IObject) objectivec.IObject {
+	rv := objc.SendIfResponds[objc.ID](w.ID, objc.Sel("deliveryManagerForAuditToken:"), token)
+	return objectivec.Object{ID: rv}
 }
 func (w WSHIDEventDeliveryManagerServer) PermittedRuleChangeMaskForAuditToken(token objectivec.IObject) uint64 {
 	rv := objc.SendIfResponds[uint64](w.ID, objc.Sel("permittedRuleChangeMaskForAuditToken:"), token)

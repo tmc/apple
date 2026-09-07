@@ -44,12 +44,12 @@ func (wc WSGestureEventProcessorClass) Alloc() WSGestureEventProcessor {
 }
 
 type WSGestureEventProcessor struct {
-	WSLegacyEventProcessor
+	WSEventProcessor
 }
 
 // WSGestureEventProcessorFromID constructs a [WSGestureEventProcessor] from an objc.ID.
 func WSGestureEventProcessorFromID(id objc.ID) WSGestureEventProcessor {
-	return WSGestureEventProcessor{WSLegacyEventProcessor: WSLegacyEventProcessorFromID(id)}
+	return WSGestureEventProcessor{WSEventProcessor: WSEventProcessorFromID(id)}
 }
 
 // Ensure WSGestureEventProcessor implements IWSGestureEventProcessor.
@@ -57,7 +57,7 @@ var _ IWSGestureEventProcessor = WSGestureEventProcessor{}
 
 // An interface definition for the [WSGestureEventProcessor] class.
 type IWSGestureEventProcessor interface {
-	IWSLegacyEventProcessor
+	IWSEventProcessor
 }
 
 // Init initializes the instance.
@@ -77,6 +77,12 @@ func NewWSGestureEventProcessor() WSGestureEventProcessor {
 	class := getWSGestureEventProcessorClass()
 	rv := objc.SendIfResponds[WSGestureEventProcessor](objc.ID(class.class), objc.Sel("new"))
 	return rv
+}
+
+func NewWSGestureEventProcessorWithSession(session *CGXSession) WSGestureEventProcessor {
+	instance := getWSGestureEventProcessorClass().Alloc()
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithSession:"), unsafe.Pointer(session))
+	return WSGestureEventProcessorFromID(rv)
 }
 
 func (_WSGestureEventProcessorClass WSGestureEventProcessorClass) Annotate_scroll_zoom_eventWindowConnEventRegionIDIsCapturedAnnotationParams(annotate_scroll_zoom_event *SLSEventRecord, conn uint32, id *uint64, captured bool, params objectivec.IObject) int32 {

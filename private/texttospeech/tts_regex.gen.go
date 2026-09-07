@@ -7,7 +7,6 @@ import (
 	"sync"
 	"unsafe"
 
-	"github.com/tmc/apple/foundation"
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -48,25 +47,17 @@ func (tc TTSRegexClass) Alloc() TTSRegex {
 // # Methods
 //
 //   - [TTSRegex._matchFromOvectorMatchesStringLength]
-//   - [TTSRegex._populatePrefilterInfo]
 //   - [TTSRegex.CompiledPCRERegex]
 //   - [TTSRegex.SetCompiledPCRERegex]
 //   - [TTSRegex.EnumerateMatchesInCStringLengthUsingBlock]
 //   - [TTSRegex.EnumerateMatchesInCStringRangesUsingBlock]
 //   - [TTSRegex.EnumerateMatchesInCStringStartOffsetLengthUsingBlock]
-//   - [TTSRegex.FirstByteBitmapData]
 //   - [TTSRegex.MatchesInCStringLength]
-//   - [TTSRegex.MightMatchSubjectWithBitmapLength]
-//   - [TTSRegex.MinSubjectLength]
-//   - [TTSRegex.SerializedRepresentation]
-//   - [TTSRegex.UsesPooledMatchData]
-//   - [TTSRegex.SetUsesPooledMatchData]
 //   - [TTSRegex.InitWithCStringPattern]
 //   - [TTSRegex.InitWithCStringPatternOptions]
 //   - [TTSRegex.InitWithPattern]
 //   - [TTSRegex.InitWithPatternOptions]
 //   - [TTSRegex.InitWithPerlPattern]
-//   - [TTSRegex.InitWithSerializedRepresentation]
 type TTSRegex struct {
 	objectivec.Object
 }
@@ -84,50 +75,34 @@ var _ ITTSRegex = TTSRegex{}
 // # Methods
 //
 //   - [ITTSRegex._matchFromOvectorMatchesStringLength]
-//   - [ITTSRegex._populatePrefilterInfo]
 //   - [ITTSRegex.CompiledPCRERegex]
 //   - [ITTSRegex.SetCompiledPCRERegex]
 //   - [ITTSRegex.EnumerateMatchesInCStringLengthUsingBlock]
 //   - [ITTSRegex.EnumerateMatchesInCStringRangesUsingBlock]
 //   - [ITTSRegex.EnumerateMatchesInCStringStartOffsetLengthUsingBlock]
-//   - [ITTSRegex.FirstByteBitmapData]
 //   - [ITTSRegex.MatchesInCStringLength]
-//   - [ITTSRegex.MightMatchSubjectWithBitmapLength]
-//   - [ITTSRegex.MinSubjectLength]
-//   - [ITTSRegex.SerializedRepresentation]
-//   - [ITTSRegex.UsesPooledMatchData]
-//   - [ITTSRegex.SetUsesPooledMatchData]
 //   - [ITTSRegex.InitWithCStringPattern]
 //   - [ITTSRegex.InitWithCStringPatternOptions]
 //   - [ITTSRegex.InitWithPattern]
 //   - [ITTSRegex.InitWithPatternOptions]
 //   - [ITTSRegex.InitWithPerlPattern]
-//   - [ITTSRegex.InitWithSerializedRepresentation]
 type ITTSRegex interface {
 	objectivec.IObject
 
 	// Topic: Methods
 
 	_matchFromOvectorMatchesStringLength(ovector *uint64, matches int32, string_ string, length uint64) objectivec.IObject
-	_populatePrefilterInfo()
 	CompiledPCRERegex() Pcre2RealCode8Ref
 	SetCompiledPCRERegex(value Pcre2RealCode8Ref)
 	EnumerateMatchesInCStringLengthUsingBlock(cString string, length uint64, block VoidHandler)
 	EnumerateMatchesInCStringRangesUsingBlock(cString string, ranges objectivec.IObject, block VoidHandler)
 	EnumerateMatchesInCStringStartOffsetLengthUsingBlock(cString string, offset uint64, length uint64, block VoidHandler)
-	FirstByteBitmapData() foundation.NSData
 	MatchesInCStringLength(cString string, length uint64) objectivec.IObject
-	MightMatchSubjectWithBitmapLength(bitmap string, length uint64) bool
-	MinSubjectLength() uint64
-	SerializedRepresentation() string
-	UsesPooledMatchData() bool
-	SetUsesPooledMatchData(value bool)
 	InitWithCStringPattern(pattern string) TTSRegex
 	InitWithCStringPatternOptions(pattern string, options uint64) TTSRegex
 	InitWithPattern(pattern objectivec.IObject) TTSRegex
 	InitWithPatternOptions(pattern objectivec.IObject, options uint64) TTSRegex
 	InitWithPerlPattern(pattern objectivec.IObject) TTSRegex
-	InitWithSerializedRepresentation(representation objectivec.IObject) TTSRegex
 }
 
 // Init initializes the instance.
@@ -179,12 +154,6 @@ func NewTTSRegexWithPerlPattern(pattern objectivec.IObject) TTSRegex {
 	return TTSRegexFromID(rv)
 }
 
-func NewTTSRegexWithSerializedRepresentation(representation objectivec.IObject) TTSRegex {
-	instance := getTTSRegexClass().Alloc()
-	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithSerializedRepresentation:"), representation)
-	return TTSRegexFromID(rv)
-}
-
 func (t TTSRegex) _matchFromOvectorMatchesStringLength(ovector *uint64, matches int32, string_ string, length uint64) objectivec.IObject {
 	rv := objc.SendIfResponds[objc.ID](t.ID, objc.Sel("_matchFromOvector:matches:string:length:"), ovector, matches, unsafe.Pointer(unsafe.StringData(string_+"\x00")), length)
 	return objectivec.Object{ID: rv}
@@ -203,24 +172,6 @@ func (t TTSRegex) MatchFromOvectorMatchesStringLength(ovector *uint64, matches i
 func (t TTSRegex) CanMatchFromOvectorMatchesStringLength() bool {
 	return objc.RespondsToSelector(t.ID, objc.Sel("_matchFromOvector:matches:string:length:"))
 }
-func (t TTSRegex) _populatePrefilterInfo() {
-	objc.SendIfResponds[objc.ID](t.ID, objc.Sel("_populatePrefilterInfo"))
-}
-
-// PopulatePrefilterInfo is an exported wrapper for the private method _populatePrefilterInfo.
-func (t TTSRegex) PopulatePrefilterInfo() error {
-	if !objc.RespondsToSelector(t.ID, objc.Sel("_populatePrefilterInfo")) {
-		err := &objc.UnrecognizedSelectorError{Selector: "_populatePrefilterInfo"}
-		return err
-	}
-	t._populatePrefilterInfo()
-	return nil
-}
-
-// CanPopulatePrefilterInfo reports whether the receiver responds to the private selector _populatePrefilterInfo.
-func (t TTSRegex) CanPopulatePrefilterInfo() bool {
-	return objc.RespondsToSelector(t.ID, objc.Sel("_populatePrefilterInfo"))
-}
 func (t TTSRegex) EnumerateMatchesInCStringLengthUsingBlock(cString string, length uint64, block VoidHandler) {
 	_block2, _ := NewVoidBlock(block)
 	objc.SendIfResponds[objc.ID](t.ID, objc.Sel("enumerateMatchesInCString:length:usingBlock:"), unsafe.Pointer(unsafe.StringData(cString+"\x00")), length, _block2)
@@ -236,10 +187,6 @@ func (t TTSRegex) EnumerateMatchesInCStringStartOffsetLengthUsingBlock(cString s
 func (t TTSRegex) MatchesInCStringLength(cString string, length uint64) objectivec.IObject {
 	rv := objc.SendIfResponds[objc.ID](t.ID, objc.Sel("matchesInCString:length:"), unsafe.Pointer(unsafe.StringData(cString+"\x00")), length)
 	return objectivec.Object{ID: rv}
-}
-func (t TTSRegex) MightMatchSubjectWithBitmapLength(bitmap string, length uint64) bool {
-	rv := objc.SendIfResponds[bool](t.ID, objc.Sel("mightMatchSubjectWithBitmap:length:"), unsafe.Pointer(unsafe.StringData(bitmap+"\x00")), length)
-	return rv
 }
 func (t TTSRegex) InitWithCStringPattern(pattern string) TTSRegex {
 	rv := objc.SendIfResponds[TTSRegex](t.ID, objc.Sel("initWithCStringPattern:"), unsafe.Pointer(unsafe.StringData(pattern+"\x00")))
@@ -261,10 +208,6 @@ func (t TTSRegex) InitWithPerlPattern(pattern objectivec.IObject) TTSRegex {
 	rv := objc.SendIfResponds[TTSRegex](t.ID, objc.Sel("initWithPerlPattern:"), pattern)
 	return rv
 }
-func (t TTSRegex) InitWithSerializedRepresentation(representation objectivec.IObject) TTSRegex {
-	rv := objc.SendIfResponds[TTSRegex](t.ID, objc.Sel("initWithSerializedRepresentation:"), representation)
-	return rv
-}
 
 func (t TTSRegex) CompiledPCRERegex() Pcre2RealCode8Ref {
 	rv := objc.SendIfResponds[objc.ID](t.ID, objc.Sel("compiledPCRERegex"))
@@ -272,25 +215,6 @@ func (t TTSRegex) CompiledPCRERegex() Pcre2RealCode8Ref {
 }
 func (t TTSRegex) SetCompiledPCRERegex(value Pcre2RealCode8Ref) {
 	objc.SendIfResponds[struct{}](t.ID, objc.Sel("setCompiledPCRERegex:"), value)
-}
-func (t TTSRegex) FirstByteBitmapData() foundation.NSData {
-	rv := objc.SendIfResponds[foundation.NSData](t.ID, objc.Sel("firstByteBitmapData"))
-	return foundation.NSData(rv)
-}
-func (t TTSRegex) MinSubjectLength() uint64 {
-	rv := objc.SendIfResponds[uint64](t.ID, objc.Sel("minSubjectLength"))
-	return rv
-}
-func (t TTSRegex) SerializedRepresentation() string {
-	rv := objc.SendIfResponds[objc.ID](t.ID, objc.Sel("serializedRepresentation"))
-	return foundation.NSStringFromID(rv).String()
-}
-func (t TTSRegex) UsesPooledMatchData() bool {
-	rv := objc.SendIfResponds[bool](t.ID, objc.Sel("usesPooledMatchData"))
-	return rv
-}
-func (t TTSRegex) SetUsesPooledMatchData(value bool) {
-	objc.SendIfResponds[struct{}](t.ID, objc.Sel("setUsesPooledMatchData:"), value)
 }
 
 // EnumerateMatchesInCStringLengthUsingBlockSync is a synchronous wrapper around [TTSRegex.EnumerateMatchesInCStringLengthUsingBlock].

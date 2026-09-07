@@ -1,11 +1,13 @@
-// Code generated from Apple documentation for virtualization. DO NOT EDIT.
+// Code generated from Apple documentation for Virtualization. DO NOT EDIT.
 
 package virtualization
 
 import (
 	"sync"
+	"unsafe"
 
 	"github.com/tmc/apple/objc"
+	"github.com/tmc/apple/objectivec"
 )
 
 // The class instance for the [VZMemory] class.
@@ -41,21 +43,38 @@ func (vc VZMemoryClass) Alloc() VZMemory {
 	return rv
 }
 
+// # Methods
+//
+//   - [VZMemory.Length]
+//   - [VZMemory.MutableBytes]
+//   - [VZMemory.PhysicalAddress]
 type VZMemory struct {
-	VZGuestMemoryMapping
+	objectivec.Object
 }
 
 // VZMemoryFromID constructs a [VZMemory] from an objc.ID.
 func VZMemoryFromID(id objc.ID) VZMemory {
-	return VZMemory{VZGuestMemoryMapping: VZGuestMemoryMappingFromID(id)}
+	return VZMemory{objectivec.Object{ID: id}}
 }
 
 // Ensure VZMemory implements IVZMemory.
 var _ IVZMemory = VZMemory{}
 
 // An interface definition for the [VZMemory] class.
+//
+// # Methods
+//
+//   - [IVZMemory.Length]
+//   - [IVZMemory.MutableBytes]
+//   - [IVZMemory.PhysicalAddress]
 type IVZMemory interface {
-	IVZGuestMemoryMapping
+	objectivec.IObject
+
+	// Topic: Methods
+
+	Length() uint64
+	MutableBytes() unsafe.Pointer
+	PhysicalAddress() uint64
 }
 
 // Init initializes the instance.
@@ -74,5 +93,18 @@ func (v VZMemory) Autorelease() VZMemory {
 func NewVZMemory() VZMemory {
 	class := getVZMemoryClass()
 	rv := objc.SendIfResponds[VZMemory](objc.ID(class.class), objc.Sel("new"))
+	return rv
+}
+
+func (v VZMemory) Length() uint64 {
+	rv := objc.SendIfResponds[uint64](v.ID, objc.Sel("length"))
+	return rv
+}
+func (v VZMemory) MutableBytes() unsafe.Pointer {
+	rv := objc.SendIfResponds[unsafe.Pointer](v.ID, objc.Sel("mutableBytes"))
+	return rv
+}
+func (v VZMemory) PhysicalAddress() uint64 {
+	rv := objc.SendIfResponds[uint64](v.ID, objc.Sel("physicalAddress"))
 	return rv
 }

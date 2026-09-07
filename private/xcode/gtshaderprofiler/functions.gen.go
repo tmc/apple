@@ -135,7 +135,7 @@ func tryAgxpsApsCliqueInstructionTraceGetExecutionEvents(trace AGXPSCliqueInstru
 	return _agxpsApsCliqueInstructionTraceGetExecutionEvents(trace), nil
 }
 
-// AgxpsApsCliqueInstructionTraceGetExecutionEvents.
+// AgxpsApsCliqueInstructionTraceGetExecutionEvents signature evidence: none recorded; the argument count, order, and types are unverified and may all be wrong.
 func AgxpsApsCliqueInstructionTraceGetExecutionEvents(trace AGXPSCliqueInstructionTraceRef) (unsafe.Pointer, error) {
 	return tryAgxpsApsCliqueInstructionTraceGetExecutionEvents(trace)
 }
@@ -150,7 +150,7 @@ func tryAgxpsApsCliqueInstructionTraceGetExecutionEventsNum(trace AGXPSCliqueIns
 	return _agxpsApsCliqueInstructionTraceGetExecutionEventsNum(trace), nil
 }
 
-// AgxpsApsCliqueInstructionTraceGetExecutionEventsNum.
+// AgxpsApsCliqueInstructionTraceGetExecutionEventsNum signature evidence: none recorded; the argument count, order, and types are unverified and may all be wrong.
 func AgxpsApsCliqueInstructionTraceGetExecutionEventsNum(trace AGXPSCliqueInstructionTraceRef) (uint64, error) {
 	return tryAgxpsApsCliqueInstructionTraceGetExecutionEventsNum(trace)
 }
@@ -165,7 +165,7 @@ func tryAgxpsApsCliqueInstructionTraceGetInstructionStats(trace AGXPSCliqueInstr
 	return _agxpsApsCliqueInstructionTraceGetInstructionStats(trace), nil
 }
 
-// AgxpsApsCliqueInstructionTraceGetInstructionStats.
+// AgxpsApsCliqueInstructionTraceGetInstructionStats signature evidence: none recorded; the argument count, order, and types are unverified and may all be wrong.
 func AgxpsApsCliqueInstructionTraceGetInstructionStats(trace AGXPSCliqueInstructionTraceRef) (unsafe.Pointer, error) {
 	return tryAgxpsApsCliqueInstructionTraceGetInstructionStats(trace)
 }
@@ -180,7 +180,7 @@ func tryAgxpsApsCliqueInstructionTraceGetPCAdvances(trace AGXPSCliqueInstruction
 	return _agxpsApsCliqueInstructionTraceGetPCAdvances(trace), nil
 }
 
-// AgxpsApsCliqueInstructionTraceGetPCAdvances.
+// AgxpsApsCliqueInstructionTraceGetPCAdvances signature evidence: none recorded; the argument count, order, and types are unverified and may all be wrong.
 func AgxpsApsCliqueInstructionTraceGetPCAdvances(trace AGXPSCliqueInstructionTraceRef) (unsafe.Pointer, error) {
 	return tryAgxpsApsCliqueInstructionTraceGetPCAdvances(trace)
 }
@@ -195,7 +195,7 @@ func tryAgxpsApsCliqueInstructionTraceGetPCAdvancesNum(trace AGXPSCliqueInstruct
 	return _agxpsApsCliqueInstructionTraceGetPCAdvancesNum(trace), nil
 }
 
-// AgxpsApsCliqueInstructionTraceGetPCAdvancesNum.
+// AgxpsApsCliqueInstructionTraceGetPCAdvancesNum signature evidence: none recorded; the argument count, order, and types are unverified and may all be wrong.
 func AgxpsApsCliqueInstructionTraceGetPCAdvancesNum(trace AGXPSCliqueInstructionTraceRef) (uint64, error) {
 	return tryAgxpsApsCliqueInstructionTraceGetPCAdvancesNum(trace)
 }
@@ -210,7 +210,7 @@ func tryAgxpsApsCliqueInstructionTraceGetTimestampReferences(trace AGXPSCliqueIn
 	return _agxpsApsCliqueInstructionTraceGetTimestampReferences(trace), nil
 }
 
-// AgxpsApsCliqueInstructionTraceGetTimestampReferences.
+// AgxpsApsCliqueInstructionTraceGetTimestampReferences signature evidence: none recorded; the argument count, order, and types are unverified and may all be wrong.
 func AgxpsApsCliqueInstructionTraceGetTimestampReferences(trace AGXPSCliqueInstructionTraceRef) (unsafe.Pointer, error) {
 	return tryAgxpsApsCliqueInstructionTraceGetTimestampReferences(trace)
 }
@@ -225,7 +225,7 @@ func tryAgxpsApsCliqueInstructionTraceGetTimestampReferencesNum(trace AGXPSCliqu
 	return _agxpsApsCliqueInstructionTraceGetTimestampReferencesNum(trace), nil
 }
 
-// AgxpsApsCliqueInstructionTraceGetTimestampReferencesNum.
+// AgxpsApsCliqueInstructionTraceGetTimestampReferencesNum signature evidence: none recorded; the argument count, order, and types are unverified and may all be wrong.
 func AgxpsApsCliqueInstructionTraceGetTimestampReferencesNum(trace AGXPSCliqueInstructionTraceRef) (uint64, error) {
 	return tryAgxpsApsCliqueInstructionTraceGetTimestampReferencesNum(trace)
 }
@@ -240,7 +240,7 @@ func tryAgxpsApsCliqueTimeStatsCreate(profileData AGXPSProfileData, cliqueIndex 
 	return _agxpsApsCliqueTimeStatsCreate(profileData, cliqueIndex), nil
 }
 
-// AgxpsApsCliqueTimeStatsCreate.
+// AgxpsApsCliqueTimeStatsCreate signature evidence: none recorded; the argument count, order, and types are unverified and may all be wrong.
 func AgxpsApsCliqueTimeStatsCreate(profileData AGXPSProfileData, cliqueIndex uint64) (AGXPSCliqueTimeStatsRef, error) {
 	return tryAgxpsApsCliqueTimeStatsCreate(profileData, cliqueIndex)
 }
@@ -255,7 +255,7 @@ func tryAgxpsApsGPUIsSupported(gpu AGXPSGPU) (bool, error) {
 	return _agxpsApsGPUIsSupported(gpu), nil
 }
 
-// AgxpsApsGPUIsSupported.
+// AgxpsApsGPUIsSupported signature evidence: none recorded; the argument count, order, and types are unverified and may all be wrong.
 func AgxpsApsGPUIsSupported(gpu AGXPSGPU) (bool, error) {
 	return tryAgxpsApsGPUIsSupported(gpu)
 }
@@ -270,7 +270,7 @@ func tryAgxpsApsParserCreate(descriptor AGXPSDescriptorRef) (AGXPSParserHandle, 
 	return _agxpsApsParserCreate(descriptor), nil
 }
 
-// AgxpsApsParserCreate.
+// AgxpsApsParserCreate signature evidence: none recorded; the argument count, order, and types are unverified and may all be wrong.
 func AgxpsApsParserCreate(descriptor AGXPSDescriptorRef) (AGXPSParserHandle, error) {
 	return tryAgxpsApsParserCreate(descriptor)
 }
@@ -286,7 +286,7 @@ func tryAgxpsApsParserDestroy(parser AGXPSParserHandle) error {
 	return nil
 }
 
-// AgxpsApsParserDestroy.
+// AgxpsApsParserDestroy signature evidence: none recorded; the argument count, order, and types are unverified and may all be wrong.
 func AgxpsApsParserDestroy(parser AGXPSParserHandle) error {
 	return tryAgxpsApsParserDestroy(parser)
 }
@@ -301,7 +301,7 @@ func tryAgxpsApsParserIsValid(parser AGXPSParserHandle) (bool, error) {
 	return _agxpsApsParserIsValid(parser), nil
 }
 
-// AgxpsApsParserIsValid.
+// AgxpsApsParserIsValid signature evidence: none recorded; the argument count, order, and types are unverified and may all be wrong.
 func AgxpsApsParserIsValid(parser AGXPSParserHandle) (bool, error) {
 	return tryAgxpsApsParserIsValid(parser)
 }
@@ -316,7 +316,7 @@ func tryAgxpsApsParserParse(parser AGXPSParserHandle, data unsafe.Pointer, size 
 	return _agxpsApsParserParse(parser, data, size, flags, parseErrorOut), nil
 }
 
-// AgxpsApsParserParse.
+// AgxpsApsParserParse signature evidence: otool -arch arm64 -tvV GTShaderProfiler at 0x4ea634 (Xcode 26.4): tail call preserves x0..x4, null branch stores error through x4; gputrace decoded all 40 Counters_f_*.raw shards of parity-asymmetric-perfdata.gputrace with this shape.
 func AgxpsApsParserParse(parser AGXPSParserHandle, data unsafe.Pointer, size uint64, flags uint32, parseErrorOut *uint32) (AGXPSProfileData, error) {
 	return tryAgxpsApsParserParse(parser, data, size, flags, parseErrorOut)
 }
@@ -332,7 +332,7 @@ func tryAgxpsApsProfileDataDestroy(profileData AGXPSProfileData) error {
 	return nil
 }
 
-// AgxpsApsProfileDataDestroy.
+// AgxpsApsProfileDataDestroy signature evidence: none recorded; the argument count, order, and types are unverified and may all be wrong.
 func AgxpsApsProfileDataDestroy(profileData AGXPSProfileData) error {
 	return tryAgxpsApsProfileDataDestroy(profileData)
 }
@@ -347,7 +347,7 @@ func tryAgxpsApsProfileDataGetCounterGroupID(profileData AGXPSProfileData, out [
 	return _agxpsApsProfileDataGetCounterGroupID(profileData, unsafe.SliceData(out), first, count), nil
 }
 
-// AgxpsApsProfileDataGetCounterGroupID.
+// AgxpsApsProfileDataGetCounterGroupID signature evidence: gputrace internal/agxps/counterprobe_manual_test.go, live capture.
 func AgxpsApsProfileDataGetCounterGroupID(profileData AGXPSProfileData, out []byte, first uint64, count uint64) (bool, error) {
 	return tryAgxpsApsProfileDataGetCounterGroupID(profileData, out, first, count)
 }
@@ -362,7 +362,7 @@ func tryAgxpsApsProfileDataGetCounterGroupMetadata(profileData AGXPSProfileData,
 	return _agxpsApsProfileDataGetCounterGroupMetadata(profileData, out, first, count), nil
 }
 
-// AgxpsApsProfileDataGetCounterGroupMetadata.
+// AgxpsApsProfileDataGetCounterGroupMetadata signature evidence: gputrace internal/agxps/counterprobe_manual_test.go, live capture.
 func AgxpsApsProfileDataGetCounterGroupMetadata(profileData AGXPSProfileData, out *uint64, first uint64, count uint64) (bool, error) {
 	return tryAgxpsApsProfileDataGetCounterGroupMetadata(profileData, out, first, count)
 }
@@ -377,7 +377,7 @@ func tryAgxpsApsProfileDataGetCounterNames(profileData AGXPSProfileData, out *ui
 	return _agxpsApsProfileDataGetCounterNames(profileData, out, first, count), nil
 }
 
-// AgxpsApsProfileDataGetCounterNames.
+// AgxpsApsProfileDataGetCounterNames signature evidence: gputrace internal/agxps/counterprobe_manual_test.go, live capture.
 func AgxpsApsProfileDataGetCounterNames(profileData AGXPSProfileData, out *uint64, first uint64, count uint64) (bool, error) {
 	return tryAgxpsApsProfileDataGetCounterNames(profileData, out, first, count)
 }
@@ -392,7 +392,7 @@ func tryAgxpsApsProfileDataGetCounterNum(profileData AGXPSProfileData) (uint64, 
 	return _agxpsApsProfileDataGetCounterNum(profileData), nil
 }
 
-// AgxpsApsProfileDataGetCounterNum.
+// AgxpsApsProfileDataGetCounterNum signature evidence: otool -arch arm64 -tvV GTShaderProfiler at 0x4ed7b4 (Xcode 26.4): (end-begin)>>3 over the counter-ID vector at +0x371b8/+0x371c0.
 func AgxpsApsProfileDataGetCounterNum(profileData AGXPSProfileData) (uint64, error) {
 	return tryAgxpsApsProfileDataGetCounterNum(profileData)
 }
@@ -407,7 +407,7 @@ func tryAgxpsApsProfileDataGetCounterValues(profileData AGXPSProfileData, beginP
 	return _agxpsApsProfileDataGetCounterValues(profileData, beginPointersOut, first, count), nil
 }
 
-// AgxpsApsProfileDataGetCounterValues.
+// AgxpsApsProfileDataGetCounterValues signature evidence: otool -arch arm64 -tvV GTShaderProfiler at 0x4edce4 (Xcode 26.4): stores one begin() pointer per counter from the 24-byte record table at +0x30f48; get_counter_values_num stores (end-begin)>>3 from the same record.
 func AgxpsApsProfileDataGetCounterValues(profileData AGXPSProfileData, beginPointersOut *uint64, first uint64, count uint64) (bool, error) {
 	return tryAgxpsApsProfileDataGetCounterValues(profileData, beginPointersOut, first, count)
 }
@@ -422,7 +422,7 @@ func tryAgxpsApsProfileDataGetCounterValuesNum(profileData AGXPSProfileData, out
 	return _agxpsApsProfileDataGetCounterValuesNum(profileData, out, first, count), nil
 }
 
-// AgxpsApsProfileDataGetCounterValuesNum.
+// AgxpsApsProfileDataGetCounterValuesNum signature evidence: gputrace internal/agxps/counterprobe_manual_test.go, live capture.
 func AgxpsApsProfileDataGetCounterValuesNum(profileData AGXPSProfileData, out *uint64, first uint64, count uint64) (bool, error) {
 	return tryAgxpsApsProfileDataGetCounterValuesNum(profileData, out, first, count)
 }
@@ -437,7 +437,7 @@ func tryAgxpsApsProfileDataGetEslCliqueCliqueID(profileData AGXPSProfileData, ou
 	return _agxpsApsProfileDataGetEslCliqueCliqueID(profileData, unsafe.SliceData(out), first, count), nil
 }
 
-// AgxpsApsProfileDataGetEslCliqueCliqueID.
+// AgxpsApsProfileDataGetEslCliqueCliqueID signature evidence: IPSW disassembly, GTShaderProfiler arm64 UUID 4115D609-CBAF-3394-8F8E-564F03F8588E: 0x4ecba0 ldr x10, 0x4ecba4 strb w10,[x1],#1 -- 1-byte store.
 func AgxpsApsProfileDataGetEslCliqueCliqueID(profileData AGXPSProfileData, out []byte, first uint64, count uint64) (bool, error) {
 	return tryAgxpsApsProfileDataGetEslCliqueCliqueID(profileData, out, first, count)
 }
@@ -452,7 +452,7 @@ func tryAgxpsApsProfileDataGetEslCliqueEnd(profileData AGXPSProfileData, out *ui
 	return _agxpsApsProfileDataGetEslCliqueEnd(profileData, out, first, count), nil
 }
 
-// AgxpsApsProfileDataGetEslCliqueEnd.
+// AgxpsApsProfileDataGetEslCliqueEnd signature evidence: gputrace internal/agxps/rawprobe_manual_test.go, live capture; bulk range shape confirmed.
 func AgxpsApsProfileDataGetEslCliqueEnd(profileData AGXPSProfileData, out *uint64, first uint64, count uint64) (bool, error) {
 	return tryAgxpsApsProfileDataGetEslCliqueEnd(profileData, out, first, count)
 }
@@ -467,7 +467,7 @@ func tryAgxpsApsProfileDataGetEslCliqueEslID(profileData AGXPSProfileData, out *
 	return _agxpsApsProfileDataGetEslCliqueEslID(profileData, out, first, count), nil
 }
 
-// AgxpsApsProfileDataGetEslCliqueEslID.
+// AgxpsApsProfileDataGetEslCliqueEslID signature evidence: IPSW disassembly, GTShaderProfiler arm64 UUID 4115D609-CBAF-3394-8F8E-564F03F8588E: 0x4ec9bc ldr x12, 0x4ec9c8 str x12,[x1],#8.
 func AgxpsApsProfileDataGetEslCliqueEslID(profileData AGXPSProfileData, out *uint64, first uint64, count uint64) (bool, error) {
 	return tryAgxpsApsProfileDataGetEslCliqueEslID(profileData, out, first, count)
 }
@@ -482,7 +482,7 @@ func tryAgxpsApsProfileDataGetEslCliqueInstructionTrace(profileData AGXPSProfile
 	return _agxpsApsProfileDataGetEslCliqueInstructionTrace(profileData, out, first, count), nil
 }
 
-// AgxpsApsProfileDataGetEslCliqueInstructionTrace.
+// AgxpsApsProfileDataGetEslCliqueInstructionTrace signature evidence: gputrace internal/agxps/rawprobe_manual_test.go, live capture; bulk range shape confirmed.
 func AgxpsApsProfileDataGetEslCliqueInstructionTrace(profileData AGXPSProfileData, out *uint64, first uint64, count uint64) (bool, error) {
 	return tryAgxpsApsProfileDataGetEslCliqueInstructionTrace(profileData, out, first, count)
 }
@@ -497,7 +497,7 @@ func tryAgxpsApsProfileDataGetEslCliqueKickID(profileData AGXPSProfileData, out 
 	return _agxpsApsProfileDataGetEslCliqueKickID(profileData, out, first, count), nil
 }
 
-// AgxpsApsProfileDataGetEslCliqueKickID.
+// AgxpsApsProfileDataGetEslCliqueKickID signature evidence: IPSW disassembly, GTShaderProfiler arm64 UUID 4115D609-CBAF-3394-8F8E-564F03F8588E: 0x4eca74 ldr w12, 0x4eca80 str w12,[x1],#4 -- 4-byte store.
 func AgxpsApsProfileDataGetEslCliqueKickID(profileData AGXPSProfileData, out *uint32, first uint64, count uint64) (bool, error) {
 	return tryAgxpsApsProfileDataGetEslCliqueKickID(profileData, out, first, count)
 }
@@ -512,7 +512,7 @@ func tryAgxpsApsProfileDataGetEslCliqueMissingEnd(profileData AGXPSProfileData, 
 	return _agxpsApsProfileDataGetEslCliqueMissingEnd(profileData, unsafe.SliceData(out), first, count), nil
 }
 
-// AgxpsApsProfileDataGetEslCliqueMissingEnd.
+// AgxpsApsProfileDataGetEslCliqueMissingEnd signature evidence: IPSW disassembly, GTShaderProfiler arm64 UUID 4115D609-CBAF-3394-8F8E-564F03F8588E: 0x4ecb24 computes bit, 0x4ecb30 strb w12,[x1],#1.
 func AgxpsApsProfileDataGetEslCliqueMissingEnd(profileData AGXPSProfileData, out []byte, first uint64, count uint64) (bool, error) {
 	return tryAgxpsApsProfileDataGetEslCliqueMissingEnd(profileData, out, first, count)
 }
@@ -527,7 +527,7 @@ func tryAgxpsApsProfileDataGetEslCliqueStart(profileData AGXPSProfileData, out *
 	return _agxpsApsProfileDataGetEslCliqueStart(profileData, out, first, count), nil
 }
 
-// AgxpsApsProfileDataGetEslCliqueStart.
+// AgxpsApsProfileDataGetEslCliqueStart signature evidence: gputrace internal/agxps/rawprobe_manual_test.go, live capture; bulk range shape confirmed.
 func AgxpsApsProfileDataGetEslCliqueStart(profileData AGXPSProfileData, out *uint64, first uint64, count uint64) (bool, error) {
 	return tryAgxpsApsProfileDataGetEslCliqueStart(profileData, out, first, count)
 }
@@ -542,7 +542,7 @@ func tryAgxpsApsProfileDataGetEslCliquesNum(profileData AGXPSProfileData) (uint6
 	return _agxpsApsProfileDataGetEslCliquesNum(profileData), nil
 }
 
-// AgxpsApsProfileDataGetEslCliquesNum.
+// AgxpsApsProfileDataGetEslCliquesNum signature evidence: none recorded; the argument count, order, and types are unverified and may all be wrong.
 func AgxpsApsProfileDataGetEslCliquesNum(profileData AGXPSProfileData) (uint64, error) {
 	return tryAgxpsApsProfileDataGetEslCliquesNum(profileData)
 }
@@ -557,7 +557,7 @@ func tryAgxpsApsProfileDataGetKickEnd(profileData AGXPSProfileData, out *uint64,
 	return _agxpsApsProfileDataGetKickEnd(profileData, out, first, count), nil
 }
 
-// AgxpsApsProfileDataGetKickEnd.
+// AgxpsApsProfileDataGetKickEnd signature evidence: gputrace internal/agxps/rawprobe_manual_test.go, live capture; bulk range shape confirmed.
 func AgxpsApsProfileDataGetKickEnd(profileData AGXPSProfileData, out *uint64, first uint64, count uint64) (bool, error) {
 	return tryAgxpsApsProfileDataGetKickEnd(profileData, out, first, count)
 }
@@ -572,7 +572,7 @@ func tryAgxpsApsProfileDataGetKickID(profileData AGXPSProfileData, out *uint32, 
 	return _agxpsApsProfileDataGetKickID(profileData, out, first, count), nil
 }
 
-// AgxpsApsProfileDataGetKickID.
+// AgxpsApsProfileDataGetKickID signature evidence: gputrace poisoned-buffer probe on Counters_f_0.raw: nk=3792, first unwritten index 1896 = nk/2, so 4 bytes/element; gputrace docs/research/agxps-signatures.yaml bytes:4 verified:runtime.
 func AgxpsApsProfileDataGetKickID(profileData AGXPSProfileData, out *uint32, first uint64, count uint64) (bool, error) {
 	return tryAgxpsApsProfileDataGetKickID(profileData, out, first, count)
 }
@@ -587,7 +587,7 @@ func tryAgxpsApsProfileDataGetKickKickSlot(profileData AGXPSProfileData, out *ui
 	return _agxpsApsProfileDataGetKickKickSlot(profileData, out, first, count), nil
 }
 
-// AgxpsApsProfileDataGetKickKickSlot.
+// AgxpsApsProfileDataGetKickKickSlot signature evidence: gputrace internal/agxps/counterprobe_manual_test.go, live capture.
 func AgxpsApsProfileDataGetKickKickSlot(profileData AGXPSProfileData, out *uint16, first uint64, count uint64) (bool, error) {
 	return tryAgxpsApsProfileDataGetKickKickSlot(profileData, out, first, count)
 }
@@ -602,7 +602,7 @@ func tryAgxpsApsProfileDataGetKickSoftwareID(profileData AGXPSProfileData, out *
 	return _agxpsApsProfileDataGetKickSoftwareID(profileData, out, first, count), nil
 }
 
-// AgxpsApsProfileDataGetKickSoftwareID.
+// AgxpsApsProfileDataGetKickSoftwareID signature evidence: gputrace internal/agxps/counterprobe_manual_test.go, live capture.
 func AgxpsApsProfileDataGetKickSoftwareID(profileData AGXPSProfileData, out *uint64, first uint64, count uint64) (bool, error) {
 	return tryAgxpsApsProfileDataGetKickSoftwareID(profileData, out, first, count)
 }
@@ -617,7 +617,7 @@ func tryAgxpsApsProfileDataGetKickStart(profileData AGXPSProfileData, out *uint6
 	return _agxpsApsProfileDataGetKickStart(profileData, out, first, count), nil
 }
 
-// AgxpsApsProfileDataGetKickStart.
+// AgxpsApsProfileDataGetKickStart signature evidence: gputrace internal/agxps/rawprobe_manual_test.go, live capture; bulk range shape confirmed.
 func AgxpsApsProfileDataGetKickStart(profileData AGXPSProfileData, out *uint64, first uint64, count uint64) (bool, error) {
 	return tryAgxpsApsProfileDataGetKickStart(profileData, out, first, count)
 }
@@ -632,7 +632,7 @@ func tryAgxpsApsProfileDataGetKicksNum(profileData AGXPSProfileData) (uint64, er
 	return _agxpsApsProfileDataGetKicksNum(profileData), nil
 }
 
-// AgxpsApsProfileDataGetKicksNum.
+// AgxpsApsProfileDataGetKicksNum signature evidence: none recorded; the argument count, order, and types are unverified and may all be wrong.
 func AgxpsApsProfileDataGetKicksNum(profileData AGXPSProfileData) (uint64, error) {
 	return tryAgxpsApsProfileDataGetKicksNum(profileData)
 }
@@ -647,7 +647,7 @@ func tryAgxpsApsProfileDataGetSystemTimestamps(profileData AGXPSProfileData, out
 	return _agxpsApsProfileDataGetSystemTimestamps(profileData, out, first, count), nil
 }
 
-// AgxpsApsProfileDataGetSystemTimestamps.
+// AgxpsApsProfileDataGetSystemTimestamps signature evidence: gputrace internal/agxps/counterprobe_manual_test.go, live capture.
 func AgxpsApsProfileDataGetSystemTimestamps(profileData AGXPSProfileData, out *uint64, first uint64, count uint64) (bool, error) {
 	return tryAgxpsApsProfileDataGetSystemTimestamps(profileData, out, first, count)
 }
@@ -662,7 +662,7 @@ func tryAgxpsApsProfileDataGetWorkCliqueEnd(profileData AGXPSProfileData, out *u
 	return _agxpsApsProfileDataGetWorkCliqueEnd(profileData, out, first, count), nil
 }
 
-// AgxpsApsProfileDataGetWorkCliqueEnd.
+// AgxpsApsProfileDataGetWorkCliqueEnd signature evidence: IPSW disassembly, GTShaderProfiler arm64 UUID 4115D609-CBAF-3394-8F8E-564F03F8588E: 0x4ec204 ldr x12, 0x4ec210 str x12,[x1],#8.
 func AgxpsApsProfileDataGetWorkCliqueEnd(profileData AGXPSProfileData, out *uint64, first uint64, count uint64) (bool, error) {
 	return tryAgxpsApsProfileDataGetWorkCliqueEnd(profileData, out, first, count)
 }
@@ -677,7 +677,7 @@ func tryAgxpsApsProfileDataGetWorkCliqueInstructionTrace(profileData AGXPSProfil
 	return _agxpsApsProfileDataGetWorkCliqueInstructionTrace(profileData, out, first, count), nil
 }
 
-// AgxpsApsProfileDataGetWorkCliqueInstructionTrace.
+// AgxpsApsProfileDataGetWorkCliqueInstructionTrace signature evidence: IPSW disassembly, GTShaderProfiler arm64 UUID 4115D609-CBAF-3394-8F8E-564F03F8588E: 0x4ec6d0 ldr x10, 0x4ec6d4 str x10,[x1],#8.
 func AgxpsApsProfileDataGetWorkCliqueInstructionTrace(profileData AGXPSProfileData, out *uint64, first uint64, count uint64) (bool, error) {
 	return tryAgxpsApsProfileDataGetWorkCliqueInstructionTrace(profileData, out, first, count)
 }
@@ -692,7 +692,7 @@ func tryAgxpsApsProfileDataGetWorkCliqueStart(profileData AGXPSProfileData, out 
 	return _agxpsApsProfileDataGetWorkCliqueStart(profileData, out, first, count), nil
 }
 
-// AgxpsApsProfileDataGetWorkCliqueStart.
+// AgxpsApsProfileDataGetWorkCliqueStart signature evidence: IPSW disassembly, GTShaderProfiler arm64 UUID 4115D609-CBAF-3394-8F8E-564F03F8588E: 0x4ec14c ldr x12, 0x4ec158 str x12,[x1],#8.
 func AgxpsApsProfileDataGetWorkCliqueStart(profileData AGXPSProfileData, out *uint64, first uint64, count uint64) (bool, error) {
 	return tryAgxpsApsProfileDataGetWorkCliqueStart(profileData, out, first, count)
 }
@@ -707,7 +707,7 @@ func tryAgxpsApsProfileDataGetWorkCliquesNum(profileData AGXPSProfileData) (uint
 	return _agxpsApsProfileDataGetWorkCliquesNum(profileData), nil
 }
 
-// AgxpsApsProfileDataGetWorkCliquesNum.
+// AgxpsApsProfileDataGetWorkCliquesNum signature evidence: none recorded; the argument count, order, and types are unverified and may all be wrong.
 func AgxpsApsProfileDataGetWorkCliquesNum(profileData AGXPSProfileData) (uint64, error) {
 	return tryAgxpsApsProfileDataGetWorkCliquesNum(profileData)
 }
@@ -722,7 +722,7 @@ func tryAgxpsApsProfileDataIsValid(profileData AGXPSProfileData) (bool, error) {
 	return _agxpsApsProfileDataIsValid(profileData), nil
 }
 
-// AgxpsApsProfileDataIsValid.
+// AgxpsApsProfileDataIsValid signature evidence: none recorded; the argument count, order, and types are unverified and may all be wrong.
 func AgxpsApsProfileDataIsValid(profileData AGXPSProfileData) (bool, error) {
 	return tryAgxpsApsProfileDataIsValid(profileData)
 }
@@ -737,7 +737,7 @@ func tryAgxpsApsSystemTimestampToNanoseconds(timestamp uint64) (float64, error) 
 	return _agxpsApsSystemTimestampToNanoseconds(timestamp), nil
 }
 
-// AgxpsApsSystemTimestampToNanoseconds.
+// AgxpsApsSystemTimestampToNanoseconds signature evidence: IPSW disassembly 0x4ee29c, floating-point return; gputrace internal/agxps/counterprobe_manual_test.go, live capture.
 func AgxpsApsSystemTimestampToNanoseconds(timestamp uint64) (float64, error) {
 	return tryAgxpsApsSystemTimestampToNanoseconds(timestamp)
 }
@@ -752,7 +752,7 @@ func tryAgxpsApsTimingAnalyzerGetNumCommands(analyzer uintptr) (uint64, error) {
 	return _agxpsApsTimingAnalyzerGetNumCommands(analyzer), nil
 }
 
-// AgxpsApsTimingAnalyzerGetNumCommands.
+// AgxpsApsTimingAnalyzerGetNumCommands signature evidence: none recorded; the argument count, order, and types are unverified and may all be wrong.
 func AgxpsApsTimingAnalyzerGetNumCommands(analyzer uintptr) (uint64, error) {
 	return tryAgxpsApsTimingAnalyzerGetNumCommands(analyzer)
 }
@@ -767,7 +767,7 @@ func tryAgxpsApsTimingAnalyzerGetNumWorkCliques(analyzer uintptr) (uint64, error
 	return _agxpsApsTimingAnalyzerGetNumWorkCliques(analyzer), nil
 }
 
-// AgxpsApsTimingAnalyzerGetNumWorkCliques.
+// AgxpsApsTimingAnalyzerGetNumWorkCliques signature evidence: none recorded; the argument count, order, and types are unverified and may all be wrong.
 func AgxpsApsTimingAnalyzerGetNumWorkCliques(analyzer uintptr) (uint64, error) {
 	return tryAgxpsApsTimingAnalyzerGetNumWorkCliques(analyzer)
 }
@@ -782,7 +782,7 @@ func tryAgxpsApsTimingAnalyzerGetWorkCliquesAverageDuration(analyzer uintptr) (f
 	return _agxpsApsTimingAnalyzerGetWorkCliquesAverageDuration(analyzer), nil
 }
 
-// AgxpsApsTimingAnalyzerGetWorkCliquesAverageDuration.
+// AgxpsApsTimingAnalyzerGetWorkCliquesAverageDuration signature evidence: none recorded; the argument count, order, and types are unverified and may all be wrong.
 func AgxpsApsTimingAnalyzerGetWorkCliquesAverageDuration(analyzer uintptr) (float64, error) {
 	return tryAgxpsApsTimingAnalyzerGetWorkCliquesAverageDuration(analyzer)
 }
@@ -797,7 +797,7 @@ func tryAgxpsApsTimingAnalyzerGetWorkCliquesMaxDuration(analyzer uintptr) (float
 	return _agxpsApsTimingAnalyzerGetWorkCliquesMaxDuration(analyzer), nil
 }
 
-// AgxpsApsTimingAnalyzerGetWorkCliquesMaxDuration.
+// AgxpsApsTimingAnalyzerGetWorkCliquesMaxDuration signature evidence: none recorded; the argument count, order, and types are unverified and may all be wrong.
 func AgxpsApsTimingAnalyzerGetWorkCliquesMaxDuration(analyzer uintptr) (float64, error) {
 	return tryAgxpsApsTimingAnalyzerGetWorkCliquesMaxDuration(analyzer)
 }
@@ -812,7 +812,7 @@ func tryAgxpsApsTimingAnalyzerGetWorkCliquesMinDuration(analyzer uintptr) (float
 	return _agxpsApsTimingAnalyzerGetWorkCliquesMinDuration(analyzer), nil
 }
 
-// AgxpsApsTimingAnalyzerGetWorkCliquesMinDuration.
+// AgxpsApsTimingAnalyzerGetWorkCliquesMinDuration signature evidence: none recorded; the argument count, order, and types are unverified and may all be wrong.
 func AgxpsApsTimingAnalyzerGetWorkCliquesMinDuration(analyzer uintptr) (float64, error) {
 	return tryAgxpsApsTimingAnalyzerGetWorkCliquesMinDuration(analyzer)
 }
@@ -827,7 +827,7 @@ func tryAgxpsCounterComputeDerivedCounters(gpu AGXPSGPU, desc unsafe.Pointer, ra
 	return _agxpsCounterComputeDerivedCounters(gpu, desc, rawInput, rawCount, constants, constCount, unsafe.SliceData(output), outCount), nil
 }
 
-// AgxpsCounterComputeDerivedCounters.
+// AgxpsCounterComputeDerivedCounters signature evidence: GTShaderProfiler.framework symbol @ 0x558f6c; evaluates 174 derived limiters from raw counters and constants.
 func AgxpsCounterComputeDerivedCounters(gpu AGXPSGPU, desc unsafe.Pointer, rawInput unsafe.Pointer, rawCount uint32, constants unsafe.Pointer, constCount uint32, output []float64, outCount uint32) (int32, error) {
 	return tryAgxpsCounterComputeDerivedCounters(gpu, desc, rawInput, rawCount, constants, constCount, output, outCount)
 }
@@ -842,7 +842,7 @@ func tryAgxpsCounterObfuscatedName(name string) (*byte, error) {
 	return _agxpsCounterObfuscatedName(name), nil
 }
 
-// AgxpsCounterObfuscatedName.
+// AgxpsCounterObfuscatedName signature evidence: otool -arch arm64 -tvV GTShaderProfiler (Xcode 26.4): 0x4adcd8 null-checks x0 and hands it straight to the std::string(const char *) constructor, so the argument is a name string and not a counter ident.
 func AgxpsCounterObfuscatedName(name string) (*byte, error) {
 	return tryAgxpsCounterObfuscatedName(name)
 }
@@ -857,7 +857,7 @@ func tryAgxpsGPUCreate(gen uint32, variant uint32, rev uint32, exact bool) (AGXP
 	return _agxpsGPUCreate(gen, variant, rev, exact), nil
 }
 
-// AgxpsGPUCreate.
+// AgxpsGPUCreate signature evidence: otool -arch arm64 -tvV GTShaderProfiler (Xcode 26.4): 0x49b528 "mov x23, x3" reads a fourth argument and 0x49b5a8 "tbnz w23, #0x0" tests only its bit 0, so it is a bool gating the revision fallback.
 func AgxpsGPUCreate(gen uint32, variant uint32, rev uint32, exact bool) (AGXPSGPU, error) {
 	return tryAgxpsGPUCreate(gen, variant, rev, exact)
 }
@@ -873,7 +873,7 @@ func tryAgxpsGPUDestroy(gpu AGXPSGPU) error {
 	return nil
 }
 
-// AgxpsGPUDestroy.
+// AgxpsGPUDestroy signature evidence: none recorded; the argument count, order, and types are unverified and may all be wrong.
 func AgxpsGPUDestroy(gpu AGXPSGPU) error {
 	return tryAgxpsGPUDestroy(gpu)
 }
@@ -888,7 +888,7 @@ func tryAgxpsGPUFormatName(gpu AGXPSGPU, buf *byte, size uint64) (int32, error) 
 	return _agxpsGPUFormatName(gpu, buf, size), nil
 }
 
-// AgxpsGPUFormatName.
+// AgxpsGPUFormatName signature evidence: none recorded; the argument count, order, and types are unverified and may all be wrong.
 func AgxpsGPUFormatName(gpu AGXPSGPU, buf *byte, size uint64) (int32, error) {
 	return tryAgxpsGPUFormatName(gpu, buf, size)
 }
@@ -903,7 +903,7 @@ func tryAgxpsGPUGetGen(gpu AGXPSGPU) (uint32, error) {
 	return _agxpsGPUGetGen(gpu), nil
 }
 
-// AgxpsGPUGetGen.
+// AgxpsGPUGetGen signature evidence: none recorded; the argument count, order, and types are unverified and may all be wrong.
 func AgxpsGPUGetGen(gpu AGXPSGPU) (uint32, error) {
 	return tryAgxpsGPUGetGen(gpu)
 }
@@ -918,7 +918,7 @@ func tryAgxpsGPUGetRev(gpu AGXPSGPU) (uint32, error) {
 	return _agxpsGPUGetRev(gpu), nil
 }
 
-// AgxpsGPUGetRev.
+// AgxpsGPUGetRev signature evidence: none recorded; the argument count, order, and types are unverified and may all be wrong.
 func AgxpsGPUGetRev(gpu AGXPSGPU) (uint32, error) {
 	return tryAgxpsGPUGetRev(gpu)
 }
@@ -933,7 +933,7 @@ func tryAgxpsGPUGetVariant(gpu AGXPSGPU) (uint32, error) {
 	return _agxpsGPUGetVariant(gpu), nil
 }
 
-// AgxpsGPUGetVariant.
+// AgxpsGPUGetVariant signature evidence: none recorded; the argument count, order, and types are unverified and may all be wrong.
 func AgxpsGPUGetVariant(gpu AGXPSGPU) (uint32, error) {
 	return tryAgxpsGPUGetVariant(gpu)
 }
@@ -948,7 +948,7 @@ func tryAgxpsGPUIsValid(gpu AGXPSGPU) (bool, error) {
 	return _agxpsGPUIsValid(gpu), nil
 }
 
-// AgxpsGPUIsValid.
+// AgxpsGPUIsValid signature evidence: none recorded; the argument count, order, and types are unverified and may all be wrong.
 func AgxpsGPUIsValid(gpu AGXPSGPU) (bool, error) {
 	return tryAgxpsGPUIsValid(gpu)
 }
@@ -963,7 +963,7 @@ func tryAgxpsInitialize() (int32, error) {
 	return _agxpsInitialize(), nil
 }
 
-// AgxpsInitialize.
+// AgxpsInitialize signature evidence: none recorded; the argument count, order, and types are unverified and may all be wrong.
 func AgxpsInitialize() (int32, error) {
 	return tryAgxpsInitialize()
 }

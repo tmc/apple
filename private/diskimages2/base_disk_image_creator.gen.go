@@ -149,8 +149,8 @@ type IBaseDiskImageCreator interface {
 	// Topic: Methods
 
 	URL() foundation.NSURL
-	BlockSize() uint64
-	SetBlockSize(value uint64)
+	BlockSize() uint32
+	SetBlockSize(value uint32)
 	Certificate() string
 	SetCertificate(value string)
 	CreateEmptyImageWithError() (objectivec.IObject, error)
@@ -322,11 +322,11 @@ func (b BaseDiskImageCreator) URL() foundation.NSURL {
 	rv := objc.SendIfResponds[foundation.NSURL](b.ID, objc.Sel("URL"))
 	return foundation.NSURL(rv)
 }
-func (b BaseDiskImageCreator) BlockSize() uint64 {
-	rv := objc.SendIfResponds[uint64](b.ID, objc.Sel("blockSize"))
+func (b BaseDiskImageCreator) BlockSize() uint32 {
+	rv := objc.SendIfResponds[uint32](b.ID, objc.Sel("blockSize"))
 	return rv
 }
-func (b BaseDiskImageCreator) SetBlockSize(value uint64) {
+func (b BaseDiskImageCreator) SetBlockSize(value uint32) {
 	objc.SendIfResponds[struct{}](b.ID, objc.Sel("setBlockSize:"), value)
 }
 func (b BaseDiskImageCreator) Certificate() string {

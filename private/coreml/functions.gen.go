@@ -1,4 +1,4 @@
-// Code generated from Apple documentation for coreml. DO NOT EDIT.
+// Code generated from Apple documentation for CoreML. DO NOT EDIT.
 
 package coreml
 
@@ -19,9 +19,9 @@ func (e *unavailableSymbolError) Error() string {
 		return ""
 	}
 	if e.introduced != "" {
-		return fmt.Sprintf("coreml: symbol %s unavailable on this system (introduced in macOS %s)", e.symbol, e.introduced)
+		return fmt.Sprintf("CoreML: symbol %s unavailable on this system (introduced in macOS %s)", e.symbol, e.introduced)
 	}
-	return fmt.Sprintf("coreml: symbol %s unavailable on this system", e.symbol)
+	return fmt.Sprintf("CoreML: symbol %s unavailable on this system", e.symbol)
 }
 
 func (e *unavailableSymbolError) Unwrap() error {
@@ -44,7 +44,7 @@ func symbolCallError(name, introduced string, err error) error {
 		return err
 	}
 	if frameworkHandle == 0 {
-		return fmt.Errorf("coreml: symbol %s unavailable because the framework could not be loaded", name)
+		return fmt.Errorf("CoreML: symbol %s unavailable because the framework could not be loaded", name)
 	}
 	return missingSymbolError(name, introduced, nil)
 }
@@ -58,7 +58,7 @@ func registerFunc(fptr any, errDst *error, handle uintptr, name, introduced stri
 	}
 	defer func() {
 		if r := recover(); r != nil {
-			*errDst = fmt.Errorf("coreml: register symbol %s: %v", name, r)
+			*errDst = fmt.Errorf("CoreML: register symbol %s: %v", name, r)
 		}
 	}()
 	purego.RegisterFunc(fptr, sym)
@@ -76,7 +76,7 @@ func registerSymbol(dst *uintptr, errDst *error, handle uintptr, name, introduce
 	*errDst = nil
 }
 
-// SymbolAddress returns the address of name in coreml, whether or not
+// SymbolAddress returns the address of name in CoreML, whether or not
 // this package generated a binding for it.
 //
 // What is generated is bounded by what is documented, and for a private
@@ -89,7 +89,7 @@ func registerSymbol(dst *uintptr, errDst *error, handle uintptr, name, introduce
 // symbol some other loaded image exports is not reported as this one's.
 func SymbolAddress(name string) (uintptr, error) {
 	if frameworkHandle == 0 {
-		return 0, fmt.Errorf("coreml: symbol %s unavailable because the framework could not be loaded", name)
+		return 0, fmt.Errorf("CoreML: symbol %s unavailable because the framework could not be loaded", name)
 	}
 	sym, err := purego.Dlsym(frameworkHandle, name)
 	if err != nil || sym == 0 {
@@ -98,7 +98,7 @@ func SymbolAddress(name string) (uintptr, error) {
 	return sym, nil
 }
 
-// BindFunc binds the coreml symbol name into fptr, which must be a
+// BindFunc binds the CoreML symbol name into fptr, which must be a
 // pointer to a func variable.
 //
 // The caller supplies the signature, and nothing checks it. A dylib records no
@@ -117,7 +117,7 @@ func BindFunc(fptr any, name string) (err error) {
 	}
 	defer func() {
 		if r := recover(); r != nil {
-			err = fmt.Errorf("coreml: bind symbol %s: %v", name, r)
+			err = fmt.Errorf("CoreML: bind symbol %s: %v", name, r)
 		}
 	}()
 	purego.RegisterFunc(fptr, sym)

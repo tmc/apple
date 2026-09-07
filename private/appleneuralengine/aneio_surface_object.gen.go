@@ -127,11 +127,11 @@ func (a ANEIOSurfaceObject) InitWithIOSurfaceStartOffsetShouldRetain(iOSurface i
 	return rv
 }
 
-func (_ANEIOSurfaceObjectClass ANEIOSurfaceObjectClass) CreateIOSurfaceWithWidthPixel_sizeHeight(width uint32, pixel_size uint32, height uint32) iosurface.IOSurfaceRef {
+func (_ANEIOSurfaceObjectClass ANEIOSurfaceObjectClass) CreateIOSurfaceWithWidthPixel_sizeHeight(width int32, pixel_size int32, height int32) iosurface.IOSurfaceRef {
 	rv := objc.SendIfResponds[iosurface.IOSurfaceRef](objc.ID(_ANEIOSurfaceObjectClass.class), objc.Sel("createIOSurfaceWithWidth:pixel_size:height:"), width, pixel_size, height)
 	return iosurface.IOSurfaceRef(rv)
 }
-func (_ANEIOSurfaceObjectClass ANEIOSurfaceObjectClass) CreateIOSurfaceWithWidthPixel_sizeHeightBytesPerElement(width uint32, pixel_size uint32, height uint32, element uint32) iosurface.IOSurfaceRef {
+func (_ANEIOSurfaceObjectClass ANEIOSurfaceObjectClass) CreateIOSurfaceWithWidthPixel_sizeHeightBytesPerElement(width int32, pixel_size int32, height int32, element int32) iosurface.IOSurfaceRef {
 	rv := objc.SendIfResponds[iosurface.IOSurfaceRef](objc.ID(_ANEIOSurfaceObjectClass.class), objc.Sel("createIOSurfaceWithWidth:pixel_size:height:bytesPerElement:"), width, pixel_size, height, element)
 	return iosurface.IOSurfaceRef(rv)
 }

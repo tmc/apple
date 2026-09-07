@@ -140,8 +140,8 @@ type IDIBaseParams interface {
 
 	RAMdisk() bool
 	Backend() unsafe.Pointer
-	BlockSize() uint64
-	SetBlockSize(value uint64)
+	BlockSize() uint32
+	SetBlockSize(value uint32)
 	CryptoHeader() unsafe.Pointer
 	DeserializationError() foundation.NSError
 	SetDeserializationError(value foundation.NSError)
@@ -334,11 +334,11 @@ func (d DIBaseParams) Backend() unsafe.Pointer {
 	rv := objc.SendIfResponds[unsafe.Pointer](d.ID, objc.Sel("backend"))
 	return rv
 }
-func (d DIBaseParams) BlockSize() uint64 {
-	rv := objc.SendIfResponds[uint64](d.ID, objc.Sel("blockSize"))
+func (d DIBaseParams) BlockSize() uint32 {
+	rv := objc.SendIfResponds[uint32](d.ID, objc.Sel("blockSize"))
 	return rv
 }
-func (d DIBaseParams) SetBlockSize(value uint64) {
+func (d DIBaseParams) SetBlockSize(value uint32) {
 	objc.SendIfResponds[struct{}](d.ID, objc.Sel("setBlockSize:"), value)
 }
 func (d DIBaseParams) CryptoHeader() unsafe.Pointer {

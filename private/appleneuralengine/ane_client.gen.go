@@ -89,14 +89,6 @@ func (ac ANEClientClass) Alloc() ANEClient {
 //   - [ANEClient.UnloadRealTimeModelOptionsQosError]
 //   - [ANEClient.UnmapIOSurfacesWithModelRequest]
 //   - [ANEClient.VirtualClient]
-//   - [ANEClient.CompiledModelExistsInCacheFor]
-//   - [ANEClient.CompiledModelExistsInCacheForLimitToCurrentProcess]
-//   - [ANEClient.MapMutableWeightsForModelAndProcedureMappedWeightsBufferSizeError]
-//   - [ANEClient.SyncMutableWeightsForModelAndProcedureFromOffsetWithSizeError]
-//   - [ANEClient.UnmapMutableWeightsForModelAndProcedure]
-//   - [ANEClient.UpdateCachedModelLocationForModelTrackedByHashToAppGroupError]
-//   - [ANEClient.UpdatePurgeabilityLevelForModelTrackedByHashTo]
-//   - [ANEClient.UpdateSourcePathForModelTrackedByHashToError]
 //   - [ANEClient.InitWithRestrictedAccessAllowed]
 type ANEClient struct {
 	objectivec.Object
@@ -156,14 +148,6 @@ var _ IANEClient = ANEClient{}
 //   - [IANEClient.UnloadRealTimeModelOptionsQosError]
 //   - [IANEClient.UnmapIOSurfacesWithModelRequest]
 //   - [IANEClient.VirtualClient]
-//   - [IANEClient.CompiledModelExistsInCacheFor]
-//   - [IANEClient.CompiledModelExistsInCacheForLimitToCurrentProcess]
-//   - [IANEClient.MapMutableWeightsForModelAndProcedureMappedWeightsBufferSizeError]
-//   - [IANEClient.SyncMutableWeightsForModelAndProcedureFromOffsetWithSizeError]
-//   - [IANEClient.UnmapMutableWeightsForModelAndProcedure]
-//   - [IANEClient.UpdateCachedModelLocationForModelTrackedByHashToAppGroupError]
-//   - [IANEClient.UpdatePurgeabilityLevelForModelTrackedByHashTo]
-//   - [IANEClient.UpdateSourcePathForModelTrackedByHashToError]
 //   - [IANEClient.InitWithRestrictedAccessAllowed]
 type IANEClient interface {
 	objectivec.IObject
@@ -212,14 +196,6 @@ type IANEClient interface {
 	UnloadRealTimeModelOptionsQosError(model objectivec.IObject, options objectivec.IObject, qos uint32) (bool, error)
 	UnmapIOSurfacesWithModelRequest(model objectivec.IObject, request objectivec.IObject)
 	VirtualClient() IANEVirtualClient
-	CompiledModelExistsInCacheFor(for_ objectivec.IObject) bool
-	CompiledModelExistsInCacheForLimitToCurrentProcess(for_ objectivec.IObject, process bool) bool
-	MapMutableWeightsForModelAndProcedureMappedWeightsBufferSizeError(model objectivec.IObject, procedure objectivec.IObject, buffer unsafe.Pointer) (uint64, error)
-	SyncMutableWeightsForModelAndProcedureFromOffsetWithSizeError(model objectivec.IObject, procedure objectivec.IObject, offset uint64, size uint64) (bool, error)
-	UnmapMutableWeightsForModelAndProcedure(model objectivec.IObject, procedure objectivec.IObject) bool
-	UpdateCachedModelLocationForModelTrackedByHashToAppGroupError(hash objectivec.IObject, group objectivec.IObject) (bool, error)
-	UpdatePurgeabilityLevelForModelTrackedByHashTo(hash objectivec.IObject, to uint64)
-	UpdateSourcePathForModelTrackedByHashToError(hash objectivec.IObject, to objectivec.IObject) (bool, error)
 	InitWithRestrictedAccessAllowed(allowed bool) ANEClient
 }
 
@@ -559,73 +535,6 @@ func (a ANEClient) UnloadRealTimeModelOptionsQosError(model objectivec.IObject, 
 }
 func (a ANEClient) UnmapIOSurfacesWithModelRequest(model objectivec.IObject, request objectivec.IObject) {
 	objc.SendIfResponds[objc.ID](a.ID, objc.Sel("unmapIOSurfacesWithModel:request:"), model, request)
-}
-func (a ANEClient) CompiledModelExistsInCacheFor(for_ objectivec.IObject) bool {
-	rv := objc.SendIfResponds[bool](a.ID, objc.Sel("compiledModelExistsInCacheFor:"), for_)
-	return rv
-}
-func (a ANEClient) CompiledModelExistsInCacheForLimitToCurrentProcess(for_ objectivec.IObject, process bool) bool {
-	rv := objc.SendIfResponds[bool](a.ID, objc.Sel("compiledModelExistsInCacheFor:limitToCurrentProcess:"), for_, process)
-	return rv
-}
-func (a ANEClient) MapMutableWeightsForModelAndProcedureMappedWeightsBufferSizeError(model objectivec.IObject, procedure objectivec.IObject, buffer unsafe.Pointer) (uint64, error) {
-	var size uint64
-	var errorPtr objc.ID
-	rv := objc.Send[bool](a.ID, objc.Sel("mapMutableWeightsForModel:andProcedure:mappedWeightsBuffer:size:error:"), model, procedure, buffer, unsafe.Pointer(&size), unsafe.Pointer(&errorPtr))
-	if errorPtr != 0 {
-		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
-		return 0, foundation.NSErrorFrom(errorPtr)
-	}
-	if !rv {
-		return 0, errors.New("mapMutableWeightsForModel:andProcedure:mappedWeightsBuffer:size:error: returned NO with nil NSError")
-	}
-	return size, nil
-}
-func (a ANEClient) SyncMutableWeightsForModelAndProcedureFromOffsetWithSizeError(model objectivec.IObject, procedure objectivec.IObject, offset uint64, size uint64) (bool, error) {
-	var errorPtr objc.ID
-	rv := objc.Send[bool](a.ID, objc.Sel("syncMutableWeightsForModel:andProcedure:fromOffset:withSize:error:"), model, procedure, offset, size, unsafe.Pointer(&errorPtr))
-	if errorPtr != 0 {
-		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
-		return false, foundation.NSErrorFrom(errorPtr)
-	}
-	if !rv {
-		return false, errors.New("syncMutableWeightsForModel:andProcedure:fromOffset:withSize:error: returned NO with nil NSError")
-	}
-	return rv, nil
-
-}
-func (a ANEClient) UnmapMutableWeightsForModelAndProcedure(model objectivec.IObject, procedure objectivec.IObject) bool {
-	rv := objc.SendIfResponds[bool](a.ID, objc.Sel("unmapMutableWeightsForModel:andProcedure:"), model, procedure)
-	return rv
-}
-func (a ANEClient) UpdateCachedModelLocationForModelTrackedByHashToAppGroupError(hash objectivec.IObject, group objectivec.IObject) (bool, error) {
-	var errorPtr objc.ID
-	rv := objc.Send[bool](a.ID, objc.Sel("updateCachedModelLocationForModelTrackedByHash:toAppGroup:error:"), hash, group, unsafe.Pointer(&errorPtr))
-	if errorPtr != 0 {
-		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
-		return false, foundation.NSErrorFrom(errorPtr)
-	}
-	if !rv {
-		return false, errors.New("updateCachedModelLocationForModelTrackedByHash:toAppGroup:error: returned NO with nil NSError")
-	}
-	return rv, nil
-
-}
-func (a ANEClient) UpdatePurgeabilityLevelForModelTrackedByHashTo(hash objectivec.IObject, to uint64) {
-	objc.SendIfResponds[objc.ID](a.ID, objc.Sel("updatePurgeabilityLevelForModelTrackedByHash:to:"), hash, to)
-}
-func (a ANEClient) UpdateSourcePathForModelTrackedByHashToError(hash objectivec.IObject, to objectivec.IObject) (bool, error) {
-	var errorPtr objc.ID
-	rv := objc.Send[bool](a.ID, objc.Sel("updateSourcePathForModelTrackedByHash:to:error:"), hash, to, unsafe.Pointer(&errorPtr))
-	if errorPtr != 0 {
-		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
-		return false, foundation.NSErrorFrom(errorPtr)
-	}
-	if !rv {
-		return false, errors.New("updateSourcePathForModelTrackedByHash:to:error: returned NO with nil NSError")
-	}
-	return rv, nil
-
 }
 func (a ANEClient) InitWithRestrictedAccessAllowed(allowed bool) ANEClient {
 	rv := objc.SendIfResponds[ANEClient](a.ID, objc.Sel("initWithRestrictedAccessAllowed:"), allowed)

@@ -1,4 +1,4 @@
-// Code generated from Apple documentation for virtualization. DO NOT EDIT.
+// Code generated from Apple documentation for Virtualization. DO NOT EDIT.
 
 package virtualization
 
@@ -87,6 +87,12 @@ func NewVZMouse() VZMouse {
 	class := getVZMouseClass()
 	rv := objc.SendIfResponds[VZMouse](objc.ID(class.class), objc.Sel("new"))
 	return rv
+}
+
+func NewVZMouseWithTypeVirtualMachinePointingDeviceIndex(type_ int64, machine objectivec.IObject, index uint64) VZMouse {
+	instance := getVZMouseClass().Alloc()
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithType:virtualMachine:pointingDeviceIndex:"), type_, machine, index)
+	return VZMouseFromID(rv)
 }
 
 func (v VZMouse) SendMouseEvents(events objectivec.IObject) {

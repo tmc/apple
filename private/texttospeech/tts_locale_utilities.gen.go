@@ -48,6 +48,7 @@ func (tc TTSLocaleUtilitiesClass) Alloc() TTSLocaleUtilities {
 //   - [TTSLocaleUtilities.CanonicalLanguageCodeVoiceNamesData]
 //   - [TTSLocaleUtilities.SetCanonicalLanguageCodeVoiceNamesData]
 //   - [TTSLocaleUtilities.DefaultVoiceIdentifierForGeneralLanguageCode]
+//   - [TTSLocaleUtilities.DefaultVoiceIdentifierForVoiceName]
 //   - [TTSLocaleUtilities.FallbackSampleStringCache]
 //   - [TTSLocaleUtilities.SetFallbackSampleStringCache]
 //   - [TTSLocaleUtilities.GeneralLanguageCodeData]
@@ -75,6 +76,7 @@ var _ ITTSLocaleUtilities = TTSLocaleUtilities{}
 //   - [ITTSLocaleUtilities.CanonicalLanguageCodeVoiceNamesData]
 //   - [ITTSLocaleUtilities.SetCanonicalLanguageCodeVoiceNamesData]
 //   - [ITTSLocaleUtilities.DefaultVoiceIdentifierForGeneralLanguageCode]
+//   - [ITTSLocaleUtilities.DefaultVoiceIdentifierForVoiceName]
 //   - [ITTSLocaleUtilities.FallbackSampleStringCache]
 //   - [ITTSLocaleUtilities.SetFallbackSampleStringCache]
 //   - [ITTSLocaleUtilities.GeneralLanguageCodeData]
@@ -91,6 +93,7 @@ type ITTSLocaleUtilities interface {
 	CanonicalLanguageCodeVoiceNamesData() foundation.INSDictionary
 	SetCanonicalLanguageCodeVoiceNamesData(value foundation.INSDictionary)
 	DefaultVoiceIdentifierForGeneralLanguageCode(code objectivec.IObject) objectivec.IObject
+	DefaultVoiceIdentifierForVoiceName(name objectivec.IObject) objectivec.IObject
 	FallbackSampleStringCache() foundation.INSDictionary
 	SetFallbackSampleStringCache(value foundation.INSDictionary)
 	GeneralLanguageCodeData() foundation.INSDictionary
@@ -122,6 +125,10 @@ func NewTTSLocaleUtilities() TTSLocaleUtilities {
 
 func (t TTSLocaleUtilities) DefaultVoiceIdentifierForGeneralLanguageCode(code objectivec.IObject) objectivec.IObject {
 	rv := objc.SendIfResponds[objc.ID](t.ID, objc.Sel("defaultVoiceIdentifierForGeneralLanguageCode:"), code)
+	return objectivec.Object{ID: rv}
+}
+func (t TTSLocaleUtilities) DefaultVoiceIdentifierForVoiceName(name objectivec.IObject) objectivec.IObject {
+	rv := objc.SendIfResponds[objc.ID](t.ID, objc.Sel("defaultVoiceIdentifierForVoiceName:"), name)
 	return objectivec.Object{ID: rv}
 }
 func (t TTSLocaleUtilities) SampleStringForVoiceIdentifier(identifier objectivec.IObject) objectivec.IObject {

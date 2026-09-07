@@ -6,14 +6,14 @@
 //
 //   - [SLSDisplayController]
 //   - [SLSSpaceWindowManager]
-//   - [WSPrebootUpdateManager]
 //   - [SLDisplayPresetDevice]
 //   - [SLSXPCService]
-//   - [SLSBrightnessControlClient]
-//   - [WSDisplayRenderSpace]
 //   - [SLContentStream]
+//   - [SLSBrightnessControlClient]
 //   - [SLContentFilter]
 //   - [SLSEventAuthenticationMessage]
+//   - [SLSSkyLightGestureEventAuthenticationMessage]
+//   - [SLSSkyLightKeyEventAuthenticationMessage]
 package skylight
 
 import (

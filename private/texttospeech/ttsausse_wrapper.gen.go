@@ -125,8 +125,8 @@ func (_TTSAUSSEWrapperClass TTSAUSSEWrapperClass) MakeAU(au objectivec.IObject) 
 }
 
 func (t TTSAUSSEWrapper) AudioUnit() audiotoolbox.AUAudioUnit {
-	rv := objc.SendIfResponds[audiotoolbox.AUAudioUnit](t.ID, objc.Sel("audioUnit"))
-	return audiotoolbox.AUAudioUnit(rv)
+	rv := objc.SendIfResponds[objc.ID](t.ID, objc.Sel("audioUnit"))
+	return audiotoolbox.AUAudioUnitFromID(objc.ID(rv))
 }
 func (t TTSAUSSEWrapper) SetAudioUnit(value audiotoolbox.AUAudioUnit) {
 	objc.SendIfResponds[struct{}](t.ID, objc.Sel("setAudioUnit:"), value)

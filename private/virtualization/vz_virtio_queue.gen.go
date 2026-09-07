@@ -1,4 +1,4 @@
-// Code generated from Apple documentation for virtualization. DO NOT EDIT.
+// Code generated from Apple documentation for Virtualization. DO NOT EDIT.
 
 package virtualization
 
@@ -17,12 +17,12 @@ var (
 
 func getVZVirtioQueueClass() VZVirtioQueueClass {
 	_VZVirtioQueueClassOnce.Do(func() {
-		_VZVirtioQueueClass = VZVirtioQueueClass{class: objc.GetClass("VZVirtioQueue")}
+		_VZVirtioQueueClass = VZVirtioQueueClass{class: objc.GetClass("_VZVirtioQueue")}
 	})
 	return _VZVirtioQueueClass
 }
 
-// GetVZVirtioQueueClass returns the class object for VZVirtioQueue.
+// GetVZVirtioQueueClass returns the class object for _VZVirtioQueue.
 func GetVZVirtioQueueClass() VZVirtioQueueClass {
 	return getVZVirtioQueueClass()
 }
@@ -46,7 +46,6 @@ func (vc VZVirtioQueueClass) Alloc() VZVirtioQueue {
 //
 //   - [VZVirtioQueue.NextElement]
 //   - [VZVirtioQueue.QueueIndex]
-//   - [VZVirtioQueue.QueueSize]
 type VZVirtioQueue struct {
 	objectivec.Object
 }
@@ -65,7 +64,6 @@ var _ IVZVirtioQueue = VZVirtioQueue{}
 //
 //   - [IVZVirtioQueue.NextElement]
 //   - [IVZVirtioQueue.QueueIndex]
-//   - [IVZVirtioQueue.QueueSize]
 type IVZVirtioQueue interface {
 	objectivec.IObject
 
@@ -73,7 +71,6 @@ type IVZVirtioQueue interface {
 
 	NextElement() objectivec.IObject
 	QueueIndex() uint16
-	QueueSize() uint16
 }
 
 // Init initializes the instance.
@@ -102,9 +99,5 @@ func (v VZVirtioQueue) NextElement() objectivec.IObject {
 
 func (v VZVirtioQueue) QueueIndex() uint16 {
 	rv := objc.SendIfResponds[uint16](v.ID, objc.Sel("queueIndex"))
-	return rv
-}
-func (v VZVirtioQueue) QueueSize() uint16 {
-	rv := objc.SendIfResponds[uint16](v.ID, objc.Sel("queueSize"))
 	return rv
 }

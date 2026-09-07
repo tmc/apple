@@ -1,4 +1,4 @@
-// Code generated from Apple documentation for virtualization. DO NOT EDIT.
+// Code generated from Apple documentation for Virtualization. DO NOT EDIT.
 
 package virtualization
 
@@ -97,12 +97,6 @@ func NewVZLinearFramebufferGraphicsDisplay() VZLinearFramebufferGraphicsDisplay 
 	class := getVZLinearFramebufferGraphicsDisplayClass()
 	rv := objc.SendIfResponds[VZLinearFramebufferGraphicsDisplay](objc.ID(class.class), objc.Sel("new"))
 	return rv
-}
-
-func NewVZLinearFramebufferGraphicsDisplayWithVirtualMachineAccessorGraphicsDeviceIndexFramebufferIndexUuid(accessor objectivec.IObject, index uint64, index2 uint64, uuid objectivec.IObject) VZLinearFramebufferGraphicsDisplay {
-	instance := getVZLinearFramebufferGraphicsDisplayClass().Alloc()
-	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithVirtualMachineAccessor:graphicsDeviceIndex:framebufferIndex:uuid:"), accessor, index, index2, uuid)
-	return VZLinearFramebufferGraphicsDisplayFromID(rv)
 }
 
 func NewVZLinearFramebufferGraphicsDisplayWithVirtualMachineGraphicsDeviceIndexFramebufferIndexUuid(machine objectivec.IObject, index uint64, index2 uint64, uuid objectivec.IObject) VZLinearFramebufferGraphicsDisplay {

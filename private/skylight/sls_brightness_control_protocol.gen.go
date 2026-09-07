@@ -54,9 +54,6 @@ type SLSBrightnessControl interface {
 	// ProductId protocol.
 	ProductId() uint64
 
-	// RegisterForFrameInfoUpdatesError protocol.
-	RegisterForFrameInfoUpdatesError(updates func(unsafe.Pointer)) (bool, error)
-
 	// RegisterForNotificationsWithBlock protocol.
 	RegisterForNotificationsWithBlock(notifications objectivec.IObject, block IObjectINSDictionaryHandler)
 
@@ -74,9 +71,6 @@ type SLSBrightnessControl interface {
 
 	// SetWhitePointRampDurationError protocol.
 	SetWhitePointRampDurationError(point unsafe.Pointer, duration float64) (bool, error)
-
-	// UnregisterFromFrameInfoUpdates protocol.
-	UnregisterFromFrameInfoUpdates()
 
 	// UnregisterNotificationBlocks protocol.
 	UnregisterNotificationBlocks()
@@ -193,14 +187,6 @@ func (o SLSBrightnessControlObject) ProductId() uint64 {
 	rv := objc.SendIfResponds[uint64](o.ID, objc.Sel("productId"))
 	return rv
 }
-func (o SLSBrightnessControlObject) RegisterForFrameInfoUpdatesError(updates func(unsafe.Pointer)) (bool, error) {
-	_block0, _ := NewUnsafePointerBlock(updates)
-	rv, err := objc.SendWithError[bool](o.ID, objc.Sel("registerForFrameInfoUpdates:error:"), _block0)
-	if err != nil {
-		return false, err
-	}
-	return rv, nil
-}
 func (o SLSBrightnessControlObject) RegisterForNotificationsWithBlock(notifications objectivec.IObject, block IObjectINSDictionaryHandler) {
 	_block1, _cleanup1 := NewIObjectINSDictionaryBlock(block)
 	defer _cleanup1()
@@ -233,9 +219,6 @@ func (o SLSBrightnessControlObject) SetWhitePointRampDurationError(point unsafe.
 		return false, err
 	}
 	return rv, nil
-}
-func (o SLSBrightnessControlObject) UnregisterFromFrameInfoUpdates() {
-	objc.SendIfResponds[struct{}](o.ID, objc.Sel("unregisterFromFrameInfoUpdates"))
 }
 func (o SLSBrightnessControlObject) UnregisterNotificationBlocks() {
 	objc.SendIfResponds[struct{}](o.ID, objc.Sel("unregisterNotificationBlocks"))

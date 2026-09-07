@@ -4,16 +4,16 @@
 //
 // # Key Types
 //
-//   - [ANEVirtualClient]
 //   - [ANEStrings]
+//   - [ANEVirtualClient]
 //   - [ANEModel]
 //   - [ANEClient]
-//   - [ANEErrors]
 //   - [ANEInMemoryModel]
+//   - [ANEErrors]
 //   - [ANERequest]
 //   - [ANEDaemonConnection]
-//   - [ANEProgramForEvaluation]
 //   - [ANEDeviceInfo]
+//   - [ANEProgramForEvaluation]
 package appleneuralengine
 
 import (

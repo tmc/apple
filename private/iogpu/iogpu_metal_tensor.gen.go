@@ -53,10 +53,8 @@ func (ic IOGPUMetalTensorClass) Alloc() IOGPUMetalTensor {
 //   - [IOGPUMetalTensor.Dimensions]
 //   - [IOGPUMetalTensor.GetBytesStridesFromSlice]
 //   - [IOGPUMetalTensor.GetBytesStridesFromSliceOriginSliceDimensions]
-//   - [IOGPUMetalTensor.GetBytesStridesFromSliceOriginSliceDimensionsPlane]
 //   - [IOGPUMetalTensor.GpuResourceID]
 //   - [IOGPUMetalTensor.InternalMTLBuffer]
-//   - [IOGPUMetalTensor.InternalScalesMTLBuffer]
 //   - [IOGPUMetalTensor.Iosurface]
 //   - [IOGPUMetalTensor.IsTensorViewableWithReshapedDescriptor]
 //   - [IOGPUMetalTensor.NewTensorViewWithReshapedDescriptorError]
@@ -65,13 +63,11 @@ func (ic IOGPUMetalTensorClass) Alloc() IOGPUMetalTensor {
 //   - [IOGPUMetalTensor.ParentTensor]
 //   - [IOGPUMetalTensor.Plane]
 //   - [IOGPUMetalTensor.ReplaceSliceWithBytesStrides]
-//   - [IOGPUMetalTensor.ReplaceSliceOriginSliceDimensionsPlaneWithBytesStrides]
 //   - [IOGPUMetalTensor.ReplaceSliceOriginSliceDimensionsWithBytesStrides]
 //   - [IOGPUMetalTensor.ResourceIndex]
 //   - [IOGPUMetalTensor.Strides]
 //   - [IOGPUMetalTensor.Usage]
 //   - [IOGPUMetalTensor.InitWithBuffer]
-//   - [IOGPUMetalTensor.AuxiliaryPlanes]
 //   - [IOGPUMetalTensor.BufferOffset]
 type IOGPUMetalTensor struct {
 	IOGPUMetalResource
@@ -94,10 +90,8 @@ var _ IIOGPUMetalTensor = IOGPUMetalTensor{}
 //   - [IIOGPUMetalTensor.Dimensions]
 //   - [IIOGPUMetalTensor.GetBytesStridesFromSlice]
 //   - [IIOGPUMetalTensor.GetBytesStridesFromSliceOriginSliceDimensions]
-//   - [IIOGPUMetalTensor.GetBytesStridesFromSliceOriginSliceDimensionsPlane]
 //   - [IIOGPUMetalTensor.GpuResourceID]
 //   - [IIOGPUMetalTensor.InternalMTLBuffer]
-//   - [IIOGPUMetalTensor.InternalScalesMTLBuffer]
 //   - [IIOGPUMetalTensor.Iosurface]
 //   - [IIOGPUMetalTensor.IsTensorViewableWithReshapedDescriptor]
 //   - [IIOGPUMetalTensor.NewTensorViewWithReshapedDescriptorError]
@@ -106,13 +100,11 @@ var _ IIOGPUMetalTensor = IOGPUMetalTensor{}
 //   - [IIOGPUMetalTensor.ParentTensor]
 //   - [IIOGPUMetalTensor.Plane]
 //   - [IIOGPUMetalTensor.ReplaceSliceWithBytesStrides]
-//   - [IIOGPUMetalTensor.ReplaceSliceOriginSliceDimensionsPlaneWithBytesStrides]
 //   - [IIOGPUMetalTensor.ReplaceSliceOriginSliceDimensionsWithBytesStrides]
 //   - [IIOGPUMetalTensor.ResourceIndex]
 //   - [IIOGPUMetalTensor.Strides]
 //   - [IIOGPUMetalTensor.Usage]
 //   - [IIOGPUMetalTensor.InitWithBuffer]
-//   - [IIOGPUMetalTensor.AuxiliaryPlanes]
 //   - [IIOGPUMetalTensor.BufferOffset]
 type IIOGPUMetalTensor interface {
 	IIOGPUMetalResource
@@ -121,13 +113,11 @@ type IIOGPUMetalTensor interface {
 
 	Buffer() unsafe.Pointer
 	DataType() int64
-	Dimensions() *metal.MTLTensorExtents
+	Dimensions() metal.MTLTensorExtents
 	GetBytesStridesFromSlice(bytes unsafe.Pointer, strides objectivec.IObject, slice MTLTensorSlice)
 	GetBytesStridesFromSliceOriginSliceDimensions(bytes unsafe.Pointer, strides objectivec.IObject, origin objectivec.IObject, dimensions objectivec.IObject)
-	GetBytesStridesFromSliceOriginSliceDimensionsPlane(bytes unsafe.Pointer, strides objectivec.IObject, origin objectivec.IObject, dimensions objectivec.IObject, plane int64)
 	GpuResourceID() metal.MTLResourceID
 	InternalMTLBuffer() objectivec.IObject
-	InternalScalesMTLBuffer() objectivec.IObject
 	Iosurface() iosurface.IOSurfaceRef
 	IsTensorViewableWithReshapedDescriptor(descriptor objectivec.IObject) bool
 	NewTensorViewWithReshapedDescriptorError(descriptor objectivec.IObject) (objectivec.IObject, error)
@@ -136,13 +126,11 @@ type IIOGPUMetalTensor interface {
 	ParentTensor() unsafe.Pointer
 	Plane() uint64
 	ReplaceSliceWithBytesStrides(slice MTLTensorSlice, bytes unsafe.Pointer, strides objectivec.IObject)
-	ReplaceSliceOriginSliceDimensionsPlaneWithBytesStrides(origin objectivec.IObject, dimensions objectivec.IObject, plane int64, bytes unsafe.Pointer, strides objectivec.IObject)
 	ReplaceSliceOriginSliceDimensionsWithBytesStrides(origin objectivec.IObject, dimensions objectivec.IObject, bytes unsafe.Pointer, strides objectivec.IObject)
 	ResourceIndex() uint64
-	Strides() *metal.MTLTensorExtents
+	Strides() metal.MTLTensorExtents
 	Usage() uint64
 	InitWithBuffer(buffer objectivec.IObject) IOGPUMetalTensor
-	AuxiliaryPlanes() foundation.INSArray
 	BufferOffset() uint64
 }
 
@@ -207,15 +195,8 @@ func (i IOGPUMetalTensor) GetBytesStridesFromSlice(bytes unsafe.Pointer, strides
 func (i IOGPUMetalTensor) GetBytesStridesFromSliceOriginSliceDimensions(bytes unsafe.Pointer, strides objectivec.IObject, origin objectivec.IObject, dimensions objectivec.IObject) {
 	objc.SendIfResponds[objc.ID](i.ID, objc.Sel("getBytes:strides:fromSliceOrigin:sliceDimensions:"), bytes, strides, origin, dimensions)
 }
-func (i IOGPUMetalTensor) GetBytesStridesFromSliceOriginSliceDimensionsPlane(bytes unsafe.Pointer, strides objectivec.IObject, origin objectivec.IObject, dimensions objectivec.IObject, plane int64) {
-	objc.SendIfResponds[objc.ID](i.ID, objc.Sel("getBytes:strides:fromSliceOrigin:sliceDimensions:plane:"), bytes, strides, origin, dimensions, plane)
-}
 func (i IOGPUMetalTensor) InternalMTLBuffer() objectivec.IObject {
 	rv := objc.SendIfResponds[objc.ID](i.ID, objc.Sel("internalMTLBuffer"))
-	return objectivec.Object{ID: rv}
-}
-func (i IOGPUMetalTensor) InternalScalesMTLBuffer() objectivec.IObject {
-	rv := objc.SendIfResponds[objc.ID](i.ID, objc.Sel("internalScalesMTLBuffer"))
 	return objectivec.Object{ID: rv}
 }
 func (i IOGPUMetalTensor) Iosurface() iosurface.IOSurfaceRef {
@@ -249,9 +230,6 @@ func (i IOGPUMetalTensor) NewTensorViewWithSliceError(slice MTLTensorSlice) (obj
 func (i IOGPUMetalTensor) ReplaceSliceWithBytesStrides(slice MTLTensorSlice, bytes unsafe.Pointer, strides objectivec.IObject) {
 	objc.SendIfResponds[objc.ID](i.ID, objc.Sel("replaceSlice:withBytes:strides:"), slice, bytes, strides)
 }
-func (i IOGPUMetalTensor) ReplaceSliceOriginSliceDimensionsPlaneWithBytesStrides(origin objectivec.IObject, dimensions objectivec.IObject, plane int64, bytes unsafe.Pointer, strides objectivec.IObject) {
-	objc.SendIfResponds[objc.ID](i.ID, objc.Sel("replaceSliceOrigin:sliceDimensions:plane:withBytes:strides:"), origin, dimensions, plane, bytes, strides)
-}
 func (i IOGPUMetalTensor) ReplaceSliceOriginSliceDimensionsWithBytesStrides(origin objectivec.IObject, dimensions objectivec.IObject, bytes unsafe.Pointer, strides objectivec.IObject) {
 	objc.SendIfResponds[objc.ID](i.ID, objc.Sel("replaceSliceOrigin:sliceDimensions:withBytes:strides:"), origin, dimensions, bytes, strides)
 }
@@ -260,10 +238,6 @@ func (i IOGPUMetalTensor) InitWithBuffer(buffer objectivec.IObject) IOGPUMetalTe
 	return rv
 }
 
-func (i IOGPUMetalTensor) AuxiliaryPlanes() foundation.INSArray {
-	rv := objc.SendIfResponds[objc.ID](i.ID, objc.Sel("auxiliaryPlanes"))
-	return foundation.NSArrayFromID(objc.ID(rv))
-}
 func (i IOGPUMetalTensor) Buffer() unsafe.Pointer {
 	rv := objc.SendIfResponds[unsafe.Pointer](i.ID, objc.Sel("buffer"))
 	return rv
@@ -276,13 +250,9 @@ func (i IOGPUMetalTensor) DataType() int64 {
 	rv := objc.SendIfResponds[int64](i.ID, objc.Sel("dataType"))
 	return rv
 }
-func (i IOGPUMetalTensor) Dimensions() *metal.MTLTensorExtents {
+func (i IOGPUMetalTensor) Dimensions() metal.MTLTensorExtents {
 	rv := objc.SendIfResponds[objc.ID](i.ID, objc.Sel("dimensions"))
-	if rv == 0 {
-		return nil
-	}
-	val := metal.MTLTensorExtentsFromID(objc.ID(rv))
-	return &val
+	return metal.MTLTensorExtentsFromID(objc.ID(rv))
 }
 func (i IOGPUMetalTensor) GpuResourceID() metal.MTLResourceID {
 	rv := objc.SendIfResponds[metal.MTLResourceID](i.ID, objc.Sel("gpuResourceID"))
@@ -304,13 +274,9 @@ func (i IOGPUMetalTensor) ResourceIndex() uint64 {
 	rv := objc.SendIfResponds[uint64](i.ID, objc.Sel("resourceIndex"))
 	return rv
 }
-func (i IOGPUMetalTensor) Strides() *metal.MTLTensorExtents {
+func (i IOGPUMetalTensor) Strides() metal.MTLTensorExtents {
 	rv := objc.SendIfResponds[objc.ID](i.ID, objc.Sel("strides"))
-	if rv == 0 {
-		return nil
-	}
-	val := metal.MTLTensorExtentsFromID(objc.ID(rv))
-	return &val
+	return metal.MTLTensorExtentsFromID(objc.ID(rv))
 }
 func (i IOGPUMetalTensor) Usage() uint64 {
 	rv := objc.SendIfResponds[uint64](i.ID, objc.Sel("usage"))

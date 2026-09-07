@@ -1,10 +1,9 @@
-// Code generated from Apple documentation for virtualization. DO NOT EDIT.
+// Code generated from Apple documentation for Virtualization. DO NOT EDIT.
 
 package virtualization
 
 import (
 	"sync"
-	"unsafe"
 
 	"github.com/tmc/apple/objc"
 )
@@ -42,10 +41,6 @@ func (vc VZVmnetNetworkDeviceAttachmentClass) Alloc() VZVmnetNetworkDeviceAttach
 	return rv
 }
 
-// # Methods
-//
-//   - [VZVmnetNetworkDeviceAttachment._clientAuditToken]
-//   - [VZVmnetNetworkDeviceAttachment._setClientAuditToken]
 type VZVmnetNetworkDeviceAttachment struct {
 	VZNetworkDeviceAttachment
 }
@@ -59,18 +54,8 @@ func VZVmnetNetworkDeviceAttachmentFromID(id objc.ID) VZVmnetNetworkDeviceAttach
 var _ IVZVmnetNetworkDeviceAttachment = VZVmnetNetworkDeviceAttachment{}
 
 // An interface definition for the [VZVmnetNetworkDeviceAttachment] class.
-//
-// # Methods
-//
-//   - [IVZVmnetNetworkDeviceAttachment._clientAuditToken]
-//   - [IVZVmnetNetworkDeviceAttachment._setClientAuditToken]
 type IVZVmnetNetworkDeviceAttachment interface {
 	IVZNetworkDeviceAttachment
-
-	// Topic: Methods
-
-	_clientAuditToken() unsafe.Pointer
-	_setClientAuditToken(token unsafe.Pointer)
 }
 
 // Init initializes the instance.
@@ -90,41 +75,4 @@ func NewVZVmnetNetworkDeviceAttachment() VZVmnetNetworkDeviceAttachment {
 	class := getVZVmnetNetworkDeviceAttachmentClass()
 	rv := objc.SendIfResponds[VZVmnetNetworkDeviceAttachment](objc.ID(class.class), objc.Sel("new"))
 	return rv
-}
-
-func (v VZVmnetNetworkDeviceAttachment) _clientAuditToken() unsafe.Pointer {
-	rv := objc.SendIfResponds[unsafe.Pointer](v.ID, objc.Sel("_clientAuditToken"))
-	return rv
-}
-
-// ClientAuditToken is an exported wrapper for the private method _clientAuditToken.
-func (v VZVmnetNetworkDeviceAttachment) ClientAuditToken() (unsafe.Pointer, error) {
-	if !objc.RespondsToSelector(v.ID, objc.Sel("_clientAuditToken")) {
-		err := &objc.UnrecognizedSelectorError{Selector: "_clientAuditToken"}
-		return nil, err
-	}
-	return v._clientAuditToken(), nil
-}
-
-// CanClientAuditToken reports whether the receiver responds to the private selector _clientAuditToken.
-func (v VZVmnetNetworkDeviceAttachment) CanClientAuditToken() bool {
-	return objc.RespondsToSelector(v.ID, objc.Sel("_clientAuditToken"))
-}
-func (v VZVmnetNetworkDeviceAttachment) _setClientAuditToken(token unsafe.Pointer) {
-	objc.SendIfResponds[objc.ID](v.ID, objc.Sel("_setClientAuditToken:"), token)
-}
-
-// SetClientAuditToken is an exported wrapper for the private method _setClientAuditToken.
-func (v VZVmnetNetworkDeviceAttachment) SetClientAuditToken(token unsafe.Pointer) error {
-	if !objc.RespondsToSelector(v.ID, objc.Sel("_setClientAuditToken:")) {
-		err := &objc.UnrecognizedSelectorError{Selector: "_setClientAuditToken:"}
-		return err
-	}
-	v._setClientAuditToken(token)
-	return nil
-}
-
-// CanSetClientAuditToken reports whether the receiver responds to the private selector _setClientAuditToken:.
-func (v VZVmnetNetworkDeviceAttachment) CanSetClientAuditToken() bool {
-	return objc.RespondsToSelector(v.ID, objc.Sel("_setClientAuditToken:"))
 }

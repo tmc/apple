@@ -8,8 +8,12 @@ package texttospeech
 type NSZone struct {
 }
 
-// OpaqueExtAudioFile
-type OpaqueExtAudioFile struct {
+// OpaqueATAudioProcessingNode
+type OpaqueATAudioProcessingNode struct {
+}
+
+// OpaqueAudioQueue
+type OpaqueAudioQueue struct {
 }
 
 // URegularExpression

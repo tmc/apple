@@ -1,10 +1,9 @@
-// Code generated from Apple documentation for avfaudio. DO NOT EDIT.
+// Code generated from Apple documentation for AVFAudio. DO NOT EDIT.
 
 package avfaudio
 
 import (
 	"context"
-	"errors"
 	"sync"
 	"unsafe"
 
@@ -49,8 +48,6 @@ func (ac AVAudioPlayerNodeClass) Alloc() AVAudioPlayerNode {
 // # Methods
 //
 //   - [AVAudioPlayerNode.CallLegacyCompletionHandlerForTypeLegacyHandler]
-//   - [AVAudioPlayerNode.PlayAndReturnError]
-//   - [AVAudioPlayerNode.PlayAtTimeError]
 //   - [AVAudioPlayerNode.DebugDescription]
 //   - [AVAudioPlayerNode.Description]
 //   - [AVAudioPlayerNode.Hash]
@@ -73,8 +70,6 @@ var _ IAVAudioPlayerNode = AVAudioPlayerNode{}
 // # Methods
 //
 //   - [IAVAudioPlayerNode.CallLegacyCompletionHandlerForTypeLegacyHandler]
-//   - [IAVAudioPlayerNode.PlayAndReturnError]
-//   - [IAVAudioPlayerNode.PlayAtTimeError]
 //   - [IAVAudioPlayerNode.DebugDescription]
 //   - [IAVAudioPlayerNode.Description]
 //   - [IAVAudioPlayerNode.Hash]
@@ -86,8 +81,6 @@ type IAVAudioPlayerNode interface {
 	// Topic: Methods
 
 	CallLegacyCompletionHandlerForTypeLegacyHandler(type_ int64, handler VoidHandler)
-	PlayAndReturnError() (bool, error)
-	PlayAtTimeError(time objectivec.IObject) (bool, error)
 	DebugDescription() string
 	Description() string
 	Hash() uint64
@@ -123,32 +116,6 @@ func NewAVAudioPlayerNodeWithImpl(impl unsafe.Pointer) AVAudioPlayerNode {
 func (a AVAudioPlayerNode) CallLegacyCompletionHandlerForTypeLegacyHandler(type_ int64, handler VoidHandler) {
 	_block1, _ := NewVoidBlock(handler)
 	objc.SendIfResponds[objc.ID](a.ID, objc.Sel("callLegacyCompletionHandlerForType:legacyHandler:"), type_, _block1)
-}
-func (a AVAudioPlayerNode) PlayAndReturnError() (bool, error) {
-	var errorPtr objc.ID
-	rv := objc.Send[bool](a.ID, objc.Sel("playAndReturnError:"), unsafe.Pointer(&errorPtr))
-	if errorPtr != 0 {
-		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
-		return false, foundation.NSErrorFrom(errorPtr)
-	}
-	if !rv {
-		return false, errors.New("playAndReturnError: returned NO with nil NSError")
-	}
-	return rv, nil
-
-}
-func (a AVAudioPlayerNode) PlayAtTimeError(time objectivec.IObject) (bool, error) {
-	var errorPtr objc.ID
-	rv := objc.Send[bool](a.ID, objc.Sel("playAtTime:error:"), time, unsafe.Pointer(&errorPtr))
-	if errorPtr != 0 {
-		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
-		return false, foundation.NSErrorFrom(errorPtr)
-	}
-	if !rv {
-		return false, errors.New("playAtTime:error: returned NO with nil NSError")
-	}
-	return rv, nil
-
 }
 
 func (a AVAudioPlayerNode) DebugDescription() string {

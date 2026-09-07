@@ -4,9 +4,7 @@ package skylight
 
 import (
 	"sync"
-	"unsafe"
 
-	"github.com/tmc/apple/foundation"
 	"github.com/tmc/apple/objc"
 )
 
@@ -47,10 +45,6 @@ func (wc WSGestureEventAnnotationParamsClass) Alloc() WSGestureEventAnnotationPa
 //
 //   - [WSGestureEventAnnotationParams.GestureStreamState]
 //   - [WSGestureEventAnnotationParams.SetGestureStreamState]
-//   - [WSGestureEventAnnotationParams.HitTestTarget]
-//   - [WSGestureEventAnnotationParams.SetHitTestTarget]
-//   - [WSGestureEventAnnotationParams.PassthroughTargets]
-//   - [WSGestureEventAnnotationParams.SetPassthroughTargets]
 type WSGestureEventAnnotationParams struct {
 	WSEventAnnotationParams
 }
@@ -69,10 +63,6 @@ var _ IWSGestureEventAnnotationParams = WSGestureEventAnnotationParams{}
 //
 //   - [IWSGestureEventAnnotationParams.GestureStreamState]
 //   - [IWSGestureEventAnnotationParams.SetGestureStreamState]
-//   - [IWSGestureEventAnnotationParams.HitTestTarget]
-//   - [IWSGestureEventAnnotationParams.SetHitTestTarget]
-//   - [IWSGestureEventAnnotationParams.PassthroughTargets]
-//   - [IWSGestureEventAnnotationParams.SetPassthroughTargets]
 type IWSGestureEventAnnotationParams interface {
 	IWSEventAnnotationParams
 
@@ -80,10 +70,6 @@ type IWSGestureEventAnnotationParams interface {
 
 	GestureStreamState() int32
 	SetGestureStreamState(value int32)
-	HitTestTarget() unsafe.Pointer
-	SetHitTestTarget(value unsafe.Pointer)
-	PassthroughTargets() foundation.INSArray
-	SetPassthroughTargets(value foundation.INSArray)
 }
 
 // Init initializes the instance.
@@ -111,18 +97,4 @@ func (w WSGestureEventAnnotationParams) GestureStreamState() int32 {
 }
 func (w WSGestureEventAnnotationParams) SetGestureStreamState(value int32) {
 	objc.SendIfResponds[struct{}](w.ID, objc.Sel("setGestureStreamState:"), value)
-}
-func (w WSGestureEventAnnotationParams) HitTestTarget() unsafe.Pointer {
-	rv := objc.SendIfResponds[unsafe.Pointer](w.ID, objc.Sel("hitTestTarget"))
-	return rv
-}
-func (w WSGestureEventAnnotationParams) SetHitTestTarget(value unsafe.Pointer) {
-	objc.SendIfResponds[struct{}](w.ID, objc.Sel("setHitTestTarget:"), value)
-}
-func (w WSGestureEventAnnotationParams) PassthroughTargets() foundation.INSArray {
-	rv := objc.SendIfResponds[objc.ID](w.ID, objc.Sel("passthroughTargets"))
-	return foundation.NSArrayFromID(objc.ID(rv))
-}
-func (w WSGestureEventAnnotationParams) SetPassthroughTargets(value foundation.INSArray) {
-	objc.SendIfResponds[struct{}](w.ID, objc.Sel("setPassthroughTargets:"), value)
 }

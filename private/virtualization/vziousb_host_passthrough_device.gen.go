@@ -1,4 +1,4 @@
-// Code generated from Apple documentation for virtualization. DO NOT EDIT.
+// Code generated from Apple documentation for Virtualization. DO NOT EDIT.
 
 package virtualization
 
@@ -46,9 +46,13 @@ func (vc VZIOUSBHostPassthroughDeviceClass) Alloc() VZIOUSBHostPassthroughDevice
 
 // # Methods
 //
+//   - [VZIOUSBHostPassthroughDevice._processIOUSBHostDeviceMessageMessageArgumentVirtualMachine]
+//   - [VZIOUSBHostPassthroughDevice._releaseDevice]
 //   - [VZIOUSBHostPassthroughDevice.Configuration]
 //   - [VZIOUSBHostPassthroughDevice.SetConfiguration]
+//   - [VZIOUSBHostPassthroughDevice.IoUSBHostDeviceConfiguration]
 //   - [VZIOUSBHostPassthroughDevice.IsPointingDevice]
+//   - [VZIOUSBHostPassthroughDevice.Signature]
 //   - [VZIOUSBHostPassthroughDevice.UsbController]
 //   - [VZIOUSBHostPassthroughDevice.SetUsbController]
 //   - [VZIOUSBHostPassthroughDevice.Uuid]
@@ -75,9 +79,13 @@ var _ IVZIOUSBHostPassthroughDevice = VZIOUSBHostPassthroughDevice{}
 //
 // # Methods
 //
+//   - [IVZIOUSBHostPassthroughDevice._processIOUSBHostDeviceMessageMessageArgumentVirtualMachine]
+//   - [IVZIOUSBHostPassthroughDevice._releaseDevice]
 //   - [IVZIOUSBHostPassthroughDevice.Configuration]
 //   - [IVZIOUSBHostPassthroughDevice.SetConfiguration]
+//   - [IVZIOUSBHostPassthroughDevice.IoUSBHostDeviceConfiguration]
 //   - [IVZIOUSBHostPassthroughDevice.IsPointingDevice]
+//   - [IVZIOUSBHostPassthroughDevice.Signature]
 //   - [IVZIOUSBHostPassthroughDevice.UsbController]
 //   - [IVZIOUSBHostPassthroughDevice.SetUsbController]
 //   - [IVZIOUSBHostPassthroughDevice.Uuid]
@@ -93,9 +101,13 @@ type IVZIOUSBHostPassthroughDevice interface {
 
 	// Topic: Methods
 
+	_processIOUSBHostDeviceMessageMessageArgumentVirtualMachine(message uint32, argument unsafe.Pointer, machine objectivec.IObject)
+	_releaseDevice()
 	Configuration() IVZIOUSBHostPassthroughDeviceConfiguration
 	SetConfiguration(value IVZIOUSBHostPassthroughDeviceConfiguration)
+	IoUSBHostDeviceConfiguration() IVZIOUSBHostPassthroughDeviceConfiguration
 	IsPointingDevice() bool
+	Signature() objectivec.IObject
 	UsbController() IVZUSBController
 	SetUsbController(value IVZUSBController)
 	Uuid() foundation.NSUUID
@@ -141,6 +153,46 @@ func NewVZIOUSBHostPassthroughDeviceWithConfigurationError(configuration objecti
 	return VZIOUSBHostPassthroughDeviceFromID(rv), nil
 }
 
+func (v VZIOUSBHostPassthroughDevice) _processIOUSBHostDeviceMessageMessageArgumentVirtualMachine(message uint32, argument unsafe.Pointer, machine objectivec.IObject) {
+	objc.SendIfResponds[objc.ID](v.ID, objc.Sel("_processIOUSBHostDeviceMessage:messageArgument:virtualMachine:"), message, argument, machine)
+}
+
+// ProcessIOUSBHostDeviceMessageMessageArgumentVirtualMachine is an exported wrapper for the private method _processIOUSBHostDeviceMessageMessageArgumentVirtualMachine.
+func (v VZIOUSBHostPassthroughDevice) ProcessIOUSBHostDeviceMessageMessageArgumentVirtualMachine(message uint32, argument unsafe.Pointer, machine objectivec.IObject) error {
+	if !objc.RespondsToSelector(v.ID, objc.Sel("_processIOUSBHostDeviceMessage:messageArgument:virtualMachine:")) {
+		err := &objc.UnrecognizedSelectorError{Selector: "_processIOUSBHostDeviceMessage:messageArgument:virtualMachine:"}
+		return err
+	}
+	v._processIOUSBHostDeviceMessageMessageArgumentVirtualMachine(message, argument, machine)
+	return nil
+}
+
+// CanProcessIOUSBHostDeviceMessageMessageArgumentVirtualMachine reports whether the receiver responds to the private selector _processIOUSBHostDeviceMessage:messageArgument:virtualMachine:.
+func (v VZIOUSBHostPassthroughDevice) CanProcessIOUSBHostDeviceMessageMessageArgumentVirtualMachine() bool {
+	return objc.RespondsToSelector(v.ID, objc.Sel("_processIOUSBHostDeviceMessage:messageArgument:virtualMachine:"))
+}
+func (v VZIOUSBHostPassthroughDevice) _releaseDevice() {
+	objc.SendIfResponds[objc.ID](v.ID, objc.Sel("_releaseDevice"))
+}
+
+// ReleaseDevice is an exported wrapper for the private method _releaseDevice.
+func (v VZIOUSBHostPassthroughDevice) ReleaseDevice() error {
+	if !objc.RespondsToSelector(v.ID, objc.Sel("_releaseDevice")) {
+		err := &objc.UnrecognizedSelectorError{Selector: "_releaseDevice"}
+		return err
+	}
+	v._releaseDevice()
+	return nil
+}
+
+// CanReleaseDevice reports whether the receiver responds to the private selector _releaseDevice.
+func (v VZIOUSBHostPassthroughDevice) CanReleaseDevice() bool {
+	return objc.RespondsToSelector(v.ID, objc.Sel("_releaseDevice"))
+}
+func (v VZIOUSBHostPassthroughDevice) Signature() objectivec.IObject {
+	rv := objc.SendIfResponds[objc.ID](v.ID, objc.Sel("signature"))
+	return objectivec.Object{ID: rv}
+}
 func (v VZIOUSBHostPassthroughDevice) InitWithConfigurationError(configuration objectivec.IObject) (VZIOUSBHostPassthroughDevice, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("initWithConfiguration:error:"), configuration, unsafe.Pointer(&errorPtr))
@@ -170,6 +222,10 @@ func (v VZIOUSBHostPassthroughDevice) Description() string {
 func (v VZIOUSBHostPassthroughDevice) Hash() uint64 {
 	rv := objc.SendIfResponds[uint64](v.ID, objc.Sel("hash"))
 	return rv
+}
+func (v VZIOUSBHostPassthroughDevice) IoUSBHostDeviceConfiguration() IVZIOUSBHostPassthroughDeviceConfiguration {
+	rv := objc.SendIfResponds[objc.ID](v.ID, objc.Sel("ioUSBHostDeviceConfiguration"))
+	return VZIOUSBHostPassthroughDeviceConfigurationFromID(objc.ID(rv))
 }
 func (v VZIOUSBHostPassthroughDevice) IsPointingDevice() bool {
 	rv := objc.SendIfResponds[bool](v.ID, objc.Sel("isPointingDevice"))

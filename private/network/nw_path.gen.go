@@ -1,4 +1,4 @@
-// Code generated from Apple documentation for network. DO NOT EDIT.
+// Code generated from Apple documentation for Network. DO NOT EDIT.
 
 package network
 
@@ -70,7 +70,6 @@ func (nc NWPathClass) Alloc() NWPath {
 //   - [NWPath.FallbackEligible]
 //   - [NWPath.FallbackInterface]
 //   - [NWPath.FallbackInterfaceIndex]
-//   - [NWPath.FallbackIsOpportunistic]
 //   - [NWPath.FallbackIsPreferred]
 //   - [NWPath.FallbackIsWeak]
 //   - [NWPath.FilterControlUnit]
@@ -183,7 +182,6 @@ var _ INWPath = NWPath{}
 //   - [INWPath.FallbackEligible]
 //   - [INWPath.FallbackInterface]
 //   - [INWPath.FallbackInterfaceIndex]
-//   - [INWPath.FallbackIsOpportunistic]
 //   - [INWPath.FallbackIsPreferred]
 //   - [INWPath.FallbackIsWeak]
 //   - [INWPath.FilterControlUnit]
@@ -285,7 +283,6 @@ type INWPath interface {
 	FallbackEligible() bool
 	FallbackInterface() INWInterface
 	FallbackInterfaceIndex() uint32
-	FallbackIsOpportunistic() bool
 	FallbackIsPreferred() bool
 	FallbackIsWeak() bool
 	FilterControlUnit() uint32
@@ -622,10 +619,6 @@ func (n NWPath) FallbackInterface() INWInterface {
 }
 func (n NWPath) FallbackInterfaceIndex() uint32 {
 	rv := objc.SendIfResponds[uint32](n.ID, objc.Sel("fallbackInterfaceIndex"))
-	return rv
-}
-func (n NWPath) FallbackIsOpportunistic() bool {
-	rv := objc.SendIfResponds[bool](n.ID, objc.Sel("fallbackIsOpportunistic"))
 	return rv
 }
 func (n NWPath) FallbackIsPreferred() bool {

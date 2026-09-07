@@ -1,11 +1,10 @@
-// Code generated from Apple documentation for virtualization. DO NOT EDIT.
+// Code generated from Apple documentation for Virtualization. DO NOT EDIT.
 
 package virtualization
 
 import (
 	"sync"
 
-	"github.com/tmc/apple/foundation"
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -43,13 +42,6 @@ func (vc VZDisplayPresenterClass) Alloc() VZDisplayPresenter {
 	return rv
 }
 
-// # Methods
-//
-//   - [VZDisplayPresenter.DidDetectRemoteSessionEvent]
-//   - [VZDisplayPresenter.DebugDescription]
-//   - [VZDisplayPresenter.Description]
-//   - [VZDisplayPresenter.Hash]
-//   - [VZDisplayPresenter.Superclass]
 type VZDisplayPresenter struct {
 	objectivec.Object
 }
@@ -63,24 +55,8 @@ func VZDisplayPresenterFromID(id objc.ID) VZDisplayPresenter {
 var _ IVZDisplayPresenter = VZDisplayPresenter{}
 
 // An interface definition for the [VZDisplayPresenter] class.
-//
-// # Methods
-//
-//   - [IVZDisplayPresenter.DidDetectRemoteSessionEvent]
-//   - [IVZDisplayPresenter.DebugDescription]
-//   - [IVZDisplayPresenter.Description]
-//   - [IVZDisplayPresenter.Hash]
-//   - [IVZDisplayPresenter.Superclass]
 type IVZDisplayPresenter interface {
 	objectivec.IObject
-
-	// Topic: Methods
-
-	DidDetectRemoteSessionEvent()
-	DebugDescription() string
-	Description() string
-	Hash() uint64
-	Superclass() objectivec.Class
 }
 
 // Init initializes the instance.
@@ -100,25 +76,4 @@ func NewVZDisplayPresenter() VZDisplayPresenter {
 	class := getVZDisplayPresenterClass()
 	rv := objc.SendIfResponds[VZDisplayPresenter](objc.ID(class.class), objc.Sel("new"))
 	return rv
-}
-
-func (v VZDisplayPresenter) DidDetectRemoteSessionEvent() {
-	objc.SendIfResponds[objc.ID](v.ID, objc.Sel("didDetectRemoteSessionEvent"))
-}
-
-func (v VZDisplayPresenter) DebugDescription() string {
-	rv := objc.SendIfResponds[objc.ID](v.ID, objc.Sel("debugDescription"))
-	return foundation.NSStringFromID(rv).String()
-}
-func (v VZDisplayPresenter) Description() string {
-	rv := objc.SendIfResponds[objc.ID](v.ID, objc.Sel("description"))
-	return foundation.NSStringFromID(rv).String()
-}
-func (v VZDisplayPresenter) Hash() uint64 {
-	rv := objc.SendIfResponds[uint64](v.ID, objc.Sel("hash"))
-	return rv
-}
-func (v VZDisplayPresenter) Superclass() objectivec.Class {
-	rv := objc.SendIfResponds[objectivec.Class](v.ID, objc.Sel("superclass"))
-	return objectivec.Class(rv)
 }

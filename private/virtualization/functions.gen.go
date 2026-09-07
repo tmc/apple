@@ -1,4 +1,4 @@
-// Code generated from Apple documentation for virtualization. DO NOT EDIT.
+// Code generated from Apple documentation for Virtualization. DO NOT EDIT.
 
 package virtualization
 
@@ -19,9 +19,9 @@ func (e *unavailableSymbolError) Error() string {
 		return ""
 	}
 	if e.introduced != "" {
-		return fmt.Sprintf("virtualization: symbol %s unavailable on this system (introduced in macOS %s)", e.symbol, e.introduced)
+		return fmt.Sprintf("Virtualization: symbol %s unavailable on this system (introduced in macOS %s)", e.symbol, e.introduced)
 	}
-	return fmt.Sprintf("virtualization: symbol %s unavailable on this system", e.symbol)
+	return fmt.Sprintf("Virtualization: symbol %s unavailable on this system", e.symbol)
 }
 
 func (e *unavailableSymbolError) Unwrap() error {
@@ -44,7 +44,7 @@ func symbolCallError(name, introduced string, err error) error {
 		return err
 	}
 	if frameworkHandle == 0 {
-		return fmt.Errorf("virtualization: symbol %s unavailable because the framework could not be loaded", name)
+		return fmt.Errorf("Virtualization: symbol %s unavailable because the framework could not be loaded", name)
 	}
 	return missingSymbolError(name, introduced, nil)
 }
@@ -58,7 +58,7 @@ func registerFunc(fptr any, errDst *error, handle uintptr, name, introduced stri
 	}
 	defer func() {
 		if r := recover(); r != nil {
-			*errDst = fmt.Errorf("virtualization: register symbol %s: %v", name, r)
+			*errDst = fmt.Errorf("Virtualization: register symbol %s: %v", name, r)
 		}
 	}()
 	purego.RegisterFunc(fptr, sym)
@@ -76,7 +76,7 @@ func registerSymbol(dst *uintptr, errDst *error, handle uintptr, name, introduce
 	*errDst = nil
 }
 
-// SymbolAddress returns the address of name in virtualization, whether or not
+// SymbolAddress returns the address of name in Virtualization, whether or not
 // this package generated a binding for it.
 //
 // What is generated is bounded by what is documented, and for a private
@@ -89,7 +89,7 @@ func registerSymbol(dst *uintptr, errDst *error, handle uintptr, name, introduce
 // symbol some other loaded image exports is not reported as this one's.
 func SymbolAddress(name string) (uintptr, error) {
 	if frameworkHandle == 0 {
-		return 0, fmt.Errorf("virtualization: symbol %s unavailable because the framework could not be loaded", name)
+		return 0, fmt.Errorf("Virtualization: symbol %s unavailable because the framework could not be loaded", name)
 	}
 	sym, err := purego.Dlsym(frameworkHandle, name)
 	if err != nil || sym == 0 {
@@ -98,7 +98,7 @@ func SymbolAddress(name string) (uintptr, error) {
 	return sym, nil
 }
 
-// BindFunc binds the virtualization symbol name into fptr, which must be a
+// BindFunc binds the Virtualization symbol name into fptr, which must be a
 // pointer to a func variable.
 //
 // The caller supplies the signature, and nothing checks it. A dylib records no
@@ -117,7 +117,7 @@ func BindFunc(fptr any, name string) (err error) {
 	}
 	defer func() {
 		if r := recover(); r != nil {
-			err = fmt.Errorf("virtualization: bind symbol %s: %v", name, r)
+			err = fmt.Errorf("Virtualization: bind symbol %s: %v", name, r)
 		}
 	}()
 	purego.RegisterFunc(fptr, sym)

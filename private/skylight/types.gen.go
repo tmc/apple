@@ -8,7 +8,6 @@ import (
 	"github.com/tmc/apple/corefoundation"
 	"github.com/tmc/apple/objectivec"
 	"github.com/tmc/apple/private/virtualization"
-	"github.com/tmc/apple/quartzcore"
 )
 
 // C struct types
@@ -60,7 +59,7 @@ type CGSTabletPointData struct {
 	Field3  int32
 	Field4  uint16
 	Field5  uint16
-	Field6  unsafe.Pointer
+	Field6  [2]uint16
 	Field7  uint16
 	Field8  int16
 	Field9  uint16
@@ -127,36 +126,36 @@ type CGXConnection struct {
 	Field34  objectivec.Object
 	Field35  objectivec.Object
 	Field36  objectivec.Object
-	Field37  unsafe.Pointer
-	Field38  uint32
-	Field39  corefoundation.CFDictionaryRef
-	Field40  CGSRegionObjectRef
+	Field37  objectivec.Object
+	Field38  objectivec.Object
+	Field39  objectivec.Object
+	Field40  unsafe.Pointer
 	Field41  uint32
-	Field42  uint32
-	Field43  uint32
-	Field44  float64
-	Field45  float64
-	Field46  *uint64
-	Field47  uint64
-	Field48  uint64
-	Field49  uint32
-	Field50  uint32
-	Field51  CGSRegionObjectRef
-	Field52  CGXCursorRef
-	Field53  corefoundation.CFDictionaryRef
-	Field54  unsafe.Pointer
-	Field55  uint32
-	Field56  uint32
-	Field57  uint32
-	Field58  int32
+	Field42  corefoundation.CFDictionaryRef
+	Field43  CGSRegionObjectRef
+	Field44  uint32
+	Field45  uint32
+	Field46  uint32
+	Field47  float64
+	Field48  float64
+	Field49  *uint64
+	Field50  uint64
+	Field51  uint64
+	Field52  uint32
+	Field53  uint32
+	Field54  CGSRegionObjectRef
+	Field55  CGXCursorRef
+	Field56  corefoundation.CFDictionaryRef
+	Field57  unsafe.Pointer
+	Field58  uint32
 	Field59  uint32
-	Field60  CPSProcessSerNum
-	Field61  uint32
+	Field60  uint32
+	Field61  int32
 	Field62  uint32
-	Field63  uint32
-	Field64  objectivec.Object
-	Field65  objectivec.Object
-	Field66  objectivec.Object
+	Field63  CPSProcessSerNum
+	Field64  uint32
+	Field65  uint32
+	Field66  uint32
 	Field67  objectivec.Object
 	Field68  objectivec.Object
 	Field69  objectivec.Object
@@ -167,62 +166,62 @@ type CGXConnection struct {
 	Field74  objectivec.Object
 	Field75  objectivec.Object
 	Field76  objectivec.Object
-	Field77  CGXEventTapRef
-	Field78  CGXCaptureStateRef
-	Field79  uint32
-	Field80  unsafe.Pointer
-	Field81  unsafe.Pointer
-	Field82  float64
-	Field83  float64
-	Field84  float64
+	Field77  objectivec.Object
+	Field78  objectivec.Object
+	Field79  objectivec.Object
+	Field80  CGXEventTapRef
+	Field81  CGXCaptureStateRef
+	Field82  uint32
+	Field83  unsafe.Pointer
+	Field84  unsafe.Pointer
 	Field85  float64
 	Field86  float64
-	Field87  uint32
-	Field88  CGXDirtyScreenStateRef
-	Field89  uint32
-	Field90  bool
-	Field91  PKGSpaceRef
-	Field92  WSSymbolicHotKeyBitMask
-	Field93  int32
-	Field94  uint64
-	Field95  XListStructRef
-	Field96  objectivec.Object
-	Field97  objectivec.Object
-	Field98  objectivec.Object
-	Field99  uint32
-	Field100 float64
-	Field101 uint32
-	Field102 float64
-	Field103 SLSStructuralRegionIDRangeRef
-	Field104 unsafe.Pointer
-	Field105 XListStructRef
-	Field106 CGSRegionObjectRef
-	Field107 objectivec.Object
-	Field108 objectivec.Object
-	Field109 uint32
-	Field110 bool
-	Field111 bool
-	Field112 uint64
-	Field113 objectivec.Object
-	Field114 CGSRegionObjectRef
-	Field115 bool
-	Field116 CGSRegionObjectRef
-	Field117 objectivec.Object
-	Field118 objectivec.Object
-	Field119 objectivec.Object
-	Field120 uint64
+	Field87  float64
+	Field88  float64
+	Field89  float64
+	Field90  uint32
+	Field91  CGXDirtyScreenStateRef
+	Field92  uint32
+	Field93  bool
+	Field94  PKGSpaceRef
+	Field95  WSSymbolicHotKeyBitMask
+	Field96  int32
+	Field97  uint64
+	Field98  XListStructRef
+	Field99  objectivec.Object
+	Field100 objectivec.Object
+	Field101 objectivec.Object
+	Field102 uint32
+	Field103 float64
+	Field104 uint32
+	Field105 float64
+	Field106 SLSStructuralRegionIDRangeRef
+	Field107 [13]uint32
+	Field108 XListStructRef
+	Field109 CGSRegionObjectRef
+	Field110 objectivec.Object
+	Field111 objectivec.Object
+	Field112 uint32
+	Field113 bool
+	Field114 bool
+	Field115 uint64
+	Field116 [8]uint32
+	Field117 CGSRegionObjectRef
+	Field118 bool
+	Field119 CGSRegionObjectRef
+	Field120 objectivec.Object
 	Field121 objectivec.Object
 	Field122 objectivec.Object
-	Field123 int32
-	Field124 int32
-	Field125 CGXConnectionCAContextTrackingStateRef
-	Field126 CGXConnectionBoxRef
-	Field127 uint32
-	Field128 uint32
-	Field129 bool
-	Field130 float64
-	Field131 corefoundation.CFStringRef
-	Field132 objectivec.Object
+	Field123 uint64
+	Field124 objectivec.Object
+	Field125 objectivec.Object
+	Field126 int32
+	Field127 int32
+	Field128 CGXConnectionCAContextTrackingStateRef
+	Field129 CGXConnectionBoxRef
+	Field130 bool
+	Field131 float64
+	Field132 corefoundation.CFStringRef
 	Field133 objectivec.Object
 	Field134 objectivec.Object
 	Field135 objectivec.Object
@@ -236,14 +235,13 @@ type CGXConnection struct {
 	Field143 objectivec.Object
 	Field144 objectivec.Object
 	Field145 objectivec.Object
-	Field146 objectivec.Object
-	Field147 unsafe.Pointer
-	Field148 uint64
-	Field149 XListStructRef
-	Field150 uint32
-	Field151 objectivec.Object
-	Field152 int32
-	Field153 objectivec.Object
+	Field146 unsafe.Pointer
+	Field147 uint64
+	Field148 XListStructRef
+	Field149 uint32
+	Field150 objectivec.Object
+	Field151 int32
+	Field152 objectivec.Object
 }
 
 // CGXConnectionCAContextTrackingState
@@ -332,27 +330,26 @@ type CGXSession struct {
 	Field49 WSSessionDisplayUpdateDataRef
 	Field50 DesktopEffectsSessionDataRef
 	Field51 SchedulerSessionDataRef
-	Field52 ThrottlingSessionDataRef
-	Field53 unsafe.Pointer
-	Field54 uint64
-	Field55 WSSessionCaptureDataRef
+	Field52 unsafe.Pointer
+	Field53 uint64
+	Field54 WSSessionCaptureDataRef
+	Field55 int32
 	Field56 int32
-	Field57 int32
-	Field58 bool
+	Field57 bool
+	Field58 CGXWindowRef
 	Field59 CGXWindowRef
 	Field60 CGXWindowRef
-	Field61 CGXWindowRef
-	Field62 uint32
-	Field63 bool
-	Field64 uint32
-	Field65 float64
+	Field61 uint32
+	Field62 bool
+	Field63 uint32
+	Field64 float64
+	Field65 bool
 	Field66 bool
-	Field67 bool
-	Field68 CGXSessionWindowOverrideResolutionDataRef
-	Field69 CGXSessionWindowPixelDimensionsHintDataRef
-	Field70 CGXSessionUtilityDisplayControllerDataRef
+	Field67 CGXSessionWindowOverrideResolutionDataRef
+	Field68 CGXSessionWindowPixelDimensionsHintDataRef
+	Field69 CGXSessionUtilityDisplayControllerDataRef
+	Field70 int32
 	Field71 int32
-	Field72 int32
 }
 
 // CGXSessionConfigurationData
@@ -400,17 +397,19 @@ type CGXSessionProcessData struct {
 	Field5  objectivec.Object
 	Field6  objectivec.Object
 	Field7  objectivec.Object
-	Field8  CPSProcessRecRef
-	Field9  [32]CPSProcessRecRef
+	Field8  objectivec.Object
+	Field9  objectivec.Object
 	Field10 CPSProcessRecRef
-	Field11 CPSProcessSerNum
-	Field12 CPSKeyFocusInfoRecRef
-	Field13 int32
-	Field14 uint32
-	Field15 bool
-	Field16 unsafe.Pointer
-	Field17 uint32
+	Field11 [32]CPSProcessRecRef
+	Field12 CPSProcessRecRef
+	Field13 CPSProcessSerNum
+	Field14 CPSKeyFocusInfoRecRef
+	Field15 int32
+	Field16 uint32
+	Field17 bool
 	Field18 unsafe.Pointer
+	Field19 uint32
+	Field20 unsafe.Pointer
 }
 
 // CGXSessionUtilityDisplayControllerData
@@ -475,24 +474,12 @@ type CPXEventProcessorContext struct {
 	Field3 CPSProcessRecRef
 }
 
-// ConnectionMap
-type ConnectionMap struct {
-	Connection uint32
-	Pid        int32
-}
-
 // DesktopEffectsSessionData
 type DesktopEffectsSessionData struct {
 }
 
 // Digester
 type Digester struct {
-}
-
-// FrameInfoCircularBuffer
-type FrameInfoCircularBuffer struct {
-	_shmem      [2]uint64
-	_read_index uint64
 }
 
 // IONotificationPort
@@ -619,16 +606,6 @@ type SLSEventRecord248 struct {
 	Pad0xe8         [16]uint8
 }
 
-// SLSFrameInfoCallbackState
-type SLSFrameInfoCallbackState struct {
-	_frameInfoCallback   func()
-	_frameInfoThread     [2]uint64
-	_frameInfoShouldStop [1]uint8
-	_frameInfoBuffer     [4]uint64
-	_frameInfoSemaphore  uint32
-	_frameInfoRegistered bool
-}
-
 // SLSScreenTelemetryResultsSnapshotData
 type SLSScreenTelemetryResultsSnapshotData struct {
 }
@@ -661,18 +638,8 @@ type SLSeedResolver struct {
 type SchedulerSessionData struct {
 }
 
-// SenderMap
-type SenderMap struct {
-	Sender   uint64
-	Is_valid bool
-}
-
 // SessionData
 type SessionData struct {
-}
-
-// Shmem
-type Shmem struct {
 }
 
 // SpecialKeyState
@@ -682,10 +649,6 @@ type SpecialKeyState struct {
 	Registrant  CPSProcessRecRef
 	ConnID      uint32
 	KeysPending uint32
-}
-
-// ThrottlingSessionData
-type ThrottlingSessionData struct {
 }
 
 // WSConnectionDatagramInfo
@@ -760,11 +723,6 @@ type WSSymbolicHotKeyBitMask struct {
 	Field1 [9]uint32
 }
 
-// WSWindowTransform
-type WSWindowTransform struct {
-	Field1 quartzcore.CATransform3D
-}
-
 // ZoomManager
 type ZoomManager struct {
 }
@@ -820,16 +778,8 @@ type CGSEventAppendix struct {
 type CGXConnectionBoxCStruct struct {
 }
 
-// DADisk
-type DADisk struct {
-}
-
 // IOHIDEvent
 type IOHIDEvent struct {
-}
-
-// IOHIDService
-type IOHIDService struct {
 }
 
 // Lsasn
@@ -843,13 +793,6 @@ type SLSSigningKeyCStruct struct {
 // SharedWeakCount
 type SharedWeakCount struct {
 }
-
-// OpaquePthread
-type OpaquePthread struct {
-}
-
-// Opaque_pthread_t is a type alias for OpaquePthread for use in objc.Send[T] calls.
-type Opaque_pthread_t = OpaquePthread
 
 // OSUnfairLockS
 type OSUnfairLockS struct {

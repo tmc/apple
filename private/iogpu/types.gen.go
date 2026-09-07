@@ -125,7 +125,7 @@ type IOGPUMetalCommandBufferSidebandBuffer struct {
 type IOGPUMetalCommandBufferStorage struct {
 	Field1  objectivec.Object
 	Field2  IOGPUMetalCommandBufferStoragePoolRef
-	Field3  unsafe.Pointer
+	Field3  [2]uint64
 	Field4  objectivec.Object
 	Field5  *byte
 	Field6  *byte
@@ -191,7 +191,7 @@ type IOGPUMetalDeviceShmemPoolPrivate struct {
 // IOGPUMetalDeviceShmemPrivate
 type IOGPUMetalDeviceShmemPrivate struct {
 	Pool               *IOGPUMetalDeviceShmemPool
-	Entry              unsafe.Pointer
+	Entry              [2]uint64
 	Time_added         uint64
 	Trim_level         int64
 	Used_history       [8]int64
@@ -239,7 +239,7 @@ type IOGPUMetalResourcePoolPrivate struct {
 // IOGPUMetalResourcePrivate
 type IOGPUMetalResourcePrivate struct {
 	Pool            *IOGPUMetalResourcePool
-	Entry           unsafe.Pointer
+	Entry           [2]uint64
 	Time_added      uint64
 	Pool_generation uint32
 }

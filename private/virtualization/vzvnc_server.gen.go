@@ -1,4 +1,4 @@
-// Code generated from Apple documentation for virtualization. DO NOT EDIT.
+// Code generated from Apple documentation for Virtualization. DO NOT EDIT.
 
 package virtualization
 
@@ -48,11 +48,12 @@ func (vc VZVNCServerClass) Alloc() VZVNCServer {
 //
 //   - [VZVNCServer.Delegate]
 //   - [VZVNCServer.SetDelegate]
+//   - [VZVNCServer.FramebufferDidUpdateGraphicsOrientation]
+//   - [VZVNCServer.FramebufferDidUpdateColorSpace]
+//   - [VZVNCServer.GetDisplayProtectionOptions]
 //   - [VZVNCServer.GraphicsDisplay]
 //   - [VZVNCServer.SetGraphicsDisplay]
 //   - [VZVNCServer.Port]
-//   - [VZVNCServer.PresenterDidUpdateContentHeadroom]
-//   - [VZVNCServer.PresenterDidUpdateHostDisplay]
 //   - [VZVNCServer.Queue]
 //   - [VZVNCServer.SecurityConfiguration]
 //   - [VZVNCServer.Start]
@@ -61,7 +62,6 @@ func (vc VZVNCServerClass) Alloc() VZVNCServer {
 //   - [VZVNCServer.Stop]
 //   - [VZVNCServer.VirtualMachine]
 //   - [VZVNCServer.SetVirtualMachine]
-//   - [VZVNCServer.VirtualMachineAccessorAssociateWithDisplayPresenter]
 //   - [VZVNCServer.InitWithBonjourServiceName]
 //   - [VZVNCServer.InitWithBonjourServiceNameQueue]
 //   - [VZVNCServer.InitWithBonjourServiceNameQueueSecurityConfiguration]
@@ -90,11 +90,12 @@ var _ IVZVNCServer = VZVNCServer{}
 //
 //   - [IVZVNCServer.Delegate]
 //   - [IVZVNCServer.SetDelegate]
+//   - [IVZVNCServer.FramebufferDidUpdateGraphicsOrientation]
+//   - [IVZVNCServer.FramebufferDidUpdateColorSpace]
+//   - [IVZVNCServer.GetDisplayProtectionOptions]
 //   - [IVZVNCServer.GraphicsDisplay]
 //   - [IVZVNCServer.SetGraphicsDisplay]
 //   - [IVZVNCServer.Port]
-//   - [IVZVNCServer.PresenterDidUpdateContentHeadroom]
-//   - [IVZVNCServer.PresenterDidUpdateHostDisplay]
 //   - [IVZVNCServer.Queue]
 //   - [IVZVNCServer.SecurityConfiguration]
 //   - [IVZVNCServer.Start]
@@ -103,7 +104,6 @@ var _ IVZVNCServer = VZVNCServer{}
 //   - [IVZVNCServer.Stop]
 //   - [IVZVNCServer.VirtualMachine]
 //   - [IVZVNCServer.SetVirtualMachine]
-//   - [IVZVNCServer.VirtualMachineAccessorAssociateWithDisplayPresenter]
 //   - [IVZVNCServer.InitWithBonjourServiceName]
 //   - [IVZVNCServer.InitWithBonjourServiceNameQueue]
 //   - [IVZVNCServer.InitWithBonjourServiceNameQueueSecurityConfiguration]
@@ -121,11 +121,12 @@ type IVZVNCServer interface {
 
 	Delegate() unsafe.Pointer
 	SetDelegate(value unsafe.Pointer)
+	FramebufferDidUpdateGraphicsOrientation(framebuffer objectivec.IObject, orientation int64)
+	FramebufferDidUpdateColorSpace(space objectivec.IObject)
+	GetDisplayProtectionOptions() unsafe.Pointer
 	GraphicsDisplay() IVZGraphicsDisplay
 	SetGraphicsDisplay(value IVZGraphicsDisplay)
 	Port() uint16
-	PresenterDidUpdateContentHeadroom(presenter objectivec.IObject, headroom float64)
-	PresenterDidUpdateHostDisplay(presenter objectivec.IObject, display HostDisplayUpdate)
 	Queue() objectivec.Object
 	SecurityConfiguration() IVZVNCSecurityConfiguration
 	Start()
@@ -134,7 +135,6 @@ type IVZVNCServer interface {
 	Stop()
 	VirtualMachine() IVZVirtualMachine
 	SetVirtualMachine(value IVZVirtualMachine)
-	VirtualMachineAccessorAssociateWithDisplayPresenter(accessor objectivec.IObject, presenter objectivec.IObject)
 	InitWithBonjourServiceName(name objectivec.IObject) VZVNCServer
 	InitWithBonjourServiceNameQueue(name objectivec.IObject, queue objectivec.IObject) VZVNCServer
 	InitWithBonjourServiceNameQueueSecurityConfiguration(name objectivec.IObject, queue objectivec.IObject, configuration objectivec.IObject) VZVNCServer
@@ -202,20 +202,21 @@ func NewVZVNCServerWithPortQueueSecurityConfiguration(port uint16, queue objecti
 	return VZVNCServerFromID(rv)
 }
 
-func (v VZVNCServer) PresenterDidUpdateContentHeadroom(presenter objectivec.IObject, headroom float64) {
-	objc.SendIfResponds[objc.ID](v.ID, objc.Sel("presenter:didUpdateContentHeadroom:"), presenter, headroom)
+func (v VZVNCServer) FramebufferDidUpdateGraphicsOrientation(framebuffer objectivec.IObject, orientation int64) {
+	objc.SendIfResponds[objc.ID](v.ID, objc.Sel("framebuffer:didUpdateGraphicsOrientation:"), framebuffer, orientation)
 }
-func (v VZVNCServer) PresenterDidUpdateHostDisplay(presenter objectivec.IObject, display HostDisplayUpdate) {
-	objc.SendIfResponds[objc.ID](v.ID, objc.Sel("presenter:didUpdateHostDisplay:"), presenter, display)
+func (v VZVNCServer) FramebufferDidUpdateColorSpace(space objectivec.IObject) {
+	objc.SendIfResponds[objc.ID](v.ID, objc.Sel("framebufferDidUpdateColorSpace:"), space)
+}
+func (v VZVNCServer) GetDisplayProtectionOptions() unsafe.Pointer {
+	rv := objc.SendIfResponds[unsafe.Pointer](v.ID, objc.Sel("getDisplayProtectionOptions"))
+	return rv
 }
 func (v VZVNCServer) Start() {
 	objc.SendIfResponds[objc.ID](v.ID, objc.Sel("start"))
 }
 func (v VZVNCServer) Stop() {
 	objc.SendIfResponds[objc.ID](v.ID, objc.Sel("stop"))
-}
-func (v VZVNCServer) VirtualMachineAccessorAssociateWithDisplayPresenter(accessor objectivec.IObject, presenter objectivec.IObject) {
-	objc.SendIfResponds[objc.ID](v.ID, objc.Sel("virtualMachineAccessor:associateWithDisplayPresenter:"), accessor, presenter)
 }
 func (v VZVNCServer) InitWithBonjourServiceName(name objectivec.IObject) VZVNCServer {
 	rv := objc.SendIfResponds[VZVNCServer](v.ID, objc.Sel("initWithBonjourServiceName:"), name)

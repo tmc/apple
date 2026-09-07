@@ -55,24 +55,18 @@ func (dc DIDiskArbClass) Alloc() DIDiskArb {
 //   - [DIDiskArb.SetDaSession]
 //   - [DIDiskArb.Delegate]
 //   - [DIDiskArb.SetDelegate]
-//   - [DIDiskArb.DiskTracker]
-//   - [DIDiskArb.SetDiskTracker]
 //   - [DIDiskArb.EjectWithBSDNameError]
 //   - [DIDiskArb.InputMountedOnURL]
 //   - [DIDiskArb.SetInputMountedOnURL]
-//   - [DIDiskArb.IsMountCompleteWithExpectedCountDiskTracker]
 //   - [DIDiskArb.MountWithDeviceNameArgsFilesystemMountURLError]
 //   - [DIDiskArb.OnDiskDisappearedWithDisk]
 //   - [DIDiskArb.OperationError]
 //   - [DIDiskArb.SetOperationError]
-//   - [DIDiskArb.RegisterDiskTrackingCallbacksWithDiskTracker]
 //   - [DIDiskArb.ShadowMountedOnURLs]
 //   - [DIDiskArb.SetShadowMountedOnURLs]
 //   - [DIDiskArb.Stop]
 //   - [DIDiskArb.UnmountWithMountPointError]
-//   - [DIDiskArb.UnregisterDiskTrackingCallbacks]
 //   - [DIDiskArb.WaitForDAIdleWithError]
-//   - [DIDiskArb.WaitForDAMountWithExpectedCountDiskTracker]
 //   - [DIDiskArb.InitWithError]
 type DIDiskArb struct {
 	objectivec.Object
@@ -98,24 +92,18 @@ var _ IDIDiskArb = DIDiskArb{}
 //   - [IDIDiskArb.SetDaSession]
 //   - [IDIDiskArb.Delegate]
 //   - [IDIDiskArb.SetDelegate]
-//   - [IDIDiskArb.DiskTracker]
-//   - [IDIDiskArb.SetDiskTracker]
 //   - [IDIDiskArb.EjectWithBSDNameError]
 //   - [IDIDiskArb.InputMountedOnURL]
 //   - [IDIDiskArb.SetInputMountedOnURL]
-//   - [IDIDiskArb.IsMountCompleteWithExpectedCountDiskTracker]
 //   - [IDIDiskArb.MountWithDeviceNameArgsFilesystemMountURLError]
 //   - [IDIDiskArb.OnDiskDisappearedWithDisk]
 //   - [IDIDiskArb.OperationError]
 //   - [IDIDiskArb.SetOperationError]
-//   - [IDIDiskArb.RegisterDiskTrackingCallbacksWithDiskTracker]
 //   - [IDIDiskArb.ShadowMountedOnURLs]
 //   - [IDIDiskArb.SetShadowMountedOnURLs]
 //   - [IDIDiskArb.Stop]
 //   - [IDIDiskArb.UnmountWithMountPointError]
-//   - [IDIDiskArb.UnregisterDiskTrackingCallbacks]
 //   - [IDIDiskArb.WaitForDAIdleWithError]
-//   - [IDIDiskArb.WaitForDAMountWithExpectedCountDiskTracker]
 //   - [IDIDiskArb.InitWithError]
 type IDIDiskArb interface {
 	objectivec.IObject
@@ -130,24 +118,18 @@ type IDIDiskArb interface {
 	SetDaSession(value DASessionRef)
 	Delegate() unsafe.Pointer
 	SetDelegate(value unsafe.Pointer)
-	DiskTracker() IDIDiskMountTracker
-	SetDiskTracker(value IDIDiskMountTracker)
 	EjectWithBSDNameError(bSDName objectivec.IObject) (bool, error)
 	InputMountedOnURL() foundation.NSURL
 	SetInputMountedOnURL(value foundation.NSURL)
-	IsMountCompleteWithExpectedCountDiskTracker(count objectivec.IObject, tracker objectivec.IObject) bool
 	MountWithDeviceNameArgsFilesystemMountURLError(name objectivec.IObject, args objectivec.IObject, filesystem objectivec.IObject, url foundation.NSURL) (bool, error)
 	OnDiskDisappearedWithDisk(disk DADiskRef)
 	OperationError() foundation.NSError
 	SetOperationError(value foundation.NSError)
-	RegisterDiskTrackingCallbacksWithDiskTracker(tracker objectivec.IObject)
 	ShadowMountedOnURLs() foundation.INSArray
 	SetShadowMountedOnURLs(value foundation.INSArray)
 	Stop()
 	UnmountWithMountPointError(point objectivec.IObject) (bool, error)
-	UnregisterDiskTrackingCallbacks()
 	WaitForDAIdleWithError() (bool, error)
-	WaitForDAMountWithExpectedCountDiskTracker(count objectivec.IObject, tracker objectivec.IObject)
 	InitWithError() (DIDiskArb, error)
 }
 
@@ -204,10 +186,6 @@ func (d DIDiskArb) EjectWithBSDNameError(bSDName objectivec.IObject) (bool, erro
 	return rv, nil
 
 }
-func (d DIDiskArb) IsMountCompleteWithExpectedCountDiskTracker(count objectivec.IObject, tracker objectivec.IObject) bool {
-	rv := objc.SendIfResponds[bool](d.ID, objc.Sel("isMountCompleteWithExpectedCount:diskTracker:"), count, tracker)
-	return rv
-}
 func (d DIDiskArb) MountWithDeviceNameArgsFilesystemMountURLError(name objectivec.IObject, args objectivec.IObject, filesystem objectivec.IObject, url foundation.NSURL) (bool, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[bool](d.ID, objc.Sel("mountWithDeviceName:args:filesystem:mountURL:error:"), name, args, filesystem, url, unsafe.Pointer(&errorPtr))
@@ -223,9 +201,6 @@ func (d DIDiskArb) MountWithDeviceNameArgsFilesystemMountURLError(name objective
 }
 func (d DIDiskArb) OnDiskDisappearedWithDisk(disk DADiskRef) {
 	objc.SendIfResponds[objc.ID](d.ID, objc.Sel("onDiskDisappearedWithDisk:"), disk)
-}
-func (d DIDiskArb) RegisterDiskTrackingCallbacksWithDiskTracker(tracker objectivec.IObject) {
-	objc.SendIfResponds[objc.ID](d.ID, objc.Sel("registerDiskTrackingCallbacksWithDiskTracker:"), tracker)
 }
 func (d DIDiskArb) Stop() {
 	objc.SendIfResponds[objc.ID](d.ID, objc.Sel("stop"))
@@ -243,9 +218,6 @@ func (d DIDiskArb) UnmountWithMountPointError(point objectivec.IObject) (bool, e
 	return rv, nil
 
 }
-func (d DIDiskArb) UnregisterDiskTrackingCallbacks() {
-	objc.SendIfResponds[objc.ID](d.ID, objc.Sel("unregisterDiskTrackingCallbacks"))
-}
 func (d DIDiskArb) WaitForDAIdleWithError() (bool, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[bool](d.ID, objc.Sel("waitForDAIdleWithError:"), unsafe.Pointer(&errorPtr))
@@ -258,9 +230,6 @@ func (d DIDiskArb) WaitForDAIdleWithError() (bool, error) {
 	}
 	return rv, nil
 
-}
-func (d DIDiskArb) WaitForDAMountWithExpectedCountDiskTracker(count objectivec.IObject, tracker objectivec.IObject) {
-	objc.SendIfResponds[objc.ID](d.ID, objc.Sel("waitForDAMountWithExpectedCount:diskTracker:"), count, tracker)
 }
 func (d DIDiskArb) InitWithError() (DIDiskArb, error) {
 	var errorPtr objc.ID
@@ -304,13 +273,6 @@ func (d DIDiskArb) Delegate() unsafe.Pointer {
 }
 func (d DIDiskArb) SetDelegate(value unsafe.Pointer) {
 	objc.SendIfResponds[struct{}](d.ID, objc.Sel("setDelegate:"), value)
-}
-func (d DIDiskArb) DiskTracker() IDIDiskMountTracker {
-	rv := objc.SendIfResponds[objc.ID](d.ID, objc.Sel("diskTracker"))
-	return DIDiskMountTrackerFromID(objc.ID(rv))
-}
-func (d DIDiskArb) SetDiskTracker(value IDIDiskMountTracker) {
-	objc.SendIfResponds[struct{}](d.ID, objc.Sel("setDiskTracker:"), value)
 }
 func (d DIDiskArb) InputMountedOnURL() foundation.NSURL {
 	rv := objc.SendIfResponds[foundation.NSURL](d.ID, objc.Sel("inputMountedOnURL"))

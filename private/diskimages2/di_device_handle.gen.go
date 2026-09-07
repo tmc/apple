@@ -61,8 +61,6 @@ func (dc DIDeviceHandleClass) Alloc() DIDeviceHandle {
 //   - [DIDeviceHandle.Client2IOhandler]
 //   - [DIDeviceHandle.SetClient2IOhandler]
 //   - [DIDeviceHandle.EncodeWithCoder]
-//   - [DIDeviceHandle.SlaText]
-//   - [DIDeviceHandle.SetSlaText]
 //   - [DIDeviceHandle.InitWithRegEntryID]
 //   - [DIDeviceHandle.InitWithRegEntryIDXpcEndpoint]
 //   - [DIDeviceHandle.InitWithCoder]
@@ -96,8 +94,6 @@ var _ IDIDeviceHandle = DIDeviceHandle{}
 //   - [IDIDeviceHandle.Client2IOhandler]
 //   - [IDIDeviceHandle.SetClient2IOhandler]
 //   - [IDIDeviceHandle.EncodeWithCoder]
-//   - [IDIDeviceHandle.SlaText]
-//   - [IDIDeviceHandle.SetSlaText]
 //   - [IDIDeviceHandle.InitWithRegEntryID]
 //   - [IDIDeviceHandle.InitWithRegEntryIDXpcEndpoint]
 //   - [IDIDeviceHandle.InitWithCoder]
@@ -120,8 +116,6 @@ type IDIDeviceHandle interface {
 	Client2IOhandler() IDIClient2IODaemonXPCHandler
 	SetClient2IOhandler(value IDIClient2IODaemonXPCHandler)
 	EncodeWithCoder(coder foundation.INSCoder)
-	SlaText() string
-	SetSlaText(value string)
 	InitWithRegEntryID(regEntryID uint64) DIDeviceHandle
 	InitWithRegEntryIDXpcEndpoint(regEntryID uint64, xpcEndpoint foundation.NSXPCListenerEndpoint) DIDeviceHandle
 	InitWithCoder(coder foundation.INSCoder) DIDeviceHandle
@@ -268,11 +262,4 @@ func (d DIDeviceHandle) Client2IOhandler() IDIClient2IODaemonXPCHandler {
 }
 func (d DIDeviceHandle) SetClient2IOhandler(value IDIClient2IODaemonXPCHandler) {
 	objc.SendIfResponds[struct{}](d.ID, objc.Sel("setClient2IOhandler:"), value)
-}
-func (d DIDeviceHandle) SlaText() string {
-	rv := objc.SendIfResponds[objc.ID](d.ID, objc.Sel("slaText"))
-	return foundation.NSStringFromID(rv).String()
-}
-func (d DIDeviceHandle) SetSlaText(value string) {
-	objc.SendIfResponds[struct{}](d.ID, objc.Sel("setSlaText:"), objc.String(value))
 }

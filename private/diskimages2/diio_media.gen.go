@@ -48,7 +48,6 @@ func (dc DIIOMediaClass) Alloc() DIIOMedia {
 //
 //   - [DIIOMedia.BSDName]
 //   - [DIIOMedia.CopyBlockDeviceWithError]
-//   - [DIIOMedia.InitWithDevName]
 //   - [DIIOMedia.InitWithDevNameError]
 type DIIOMedia struct {
 	DIIOObject
@@ -68,7 +67,6 @@ var _ IDIIOMedia = DIIOMedia{}
 //
 //   - [IDIIOMedia.BSDName]
 //   - [IDIIOMedia.CopyBlockDeviceWithError]
-//   - [IDIIOMedia.InitWithDevName]
 //   - [IDIIOMedia.InitWithDevNameError]
 type IDIIOMedia interface {
 	IDIIOObject
@@ -77,7 +75,6 @@ type IDIIOMedia interface {
 
 	BSDName() string
 	CopyBlockDeviceWithError() (objectivec.IObject, error)
-	InitWithDevName(name objectivec.IObject) DIIOMedia
 	InitWithDevNameError(name objectivec.IObject) (DIIOMedia, error)
 }
 
@@ -117,12 +114,6 @@ func NewDIIOMediaWithClassNameError(name objectivec.IObject) (DIIOMedia, error) 
 func NewDIIOMediaWithDIIOObject(dIIOObject objectivec.IObject) DIIOMedia {
 	instance := getDIIOMediaClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithDIIOObject:"), dIIOObject)
-	return DIIOMediaFromID(rv)
-}
-
-func NewDIIOMediaWithDevName(name objectivec.IObject) DIIOMedia {
-	instance := getDIIOMediaClass().Alloc()
-	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithDevName:"), name)
 	return DIIOMediaFromID(rv)
 }
 
@@ -181,10 +172,6 @@ func (d DIIOMedia) CopyBlockDeviceWithError() (objectivec.IObject, error) {
 	}
 	return objectivec.Object{ID: rv}, nil
 
-}
-func (d DIIOMedia) InitWithDevName(name objectivec.IObject) DIIOMedia {
-	rv := objc.SendIfResponds[DIIOMedia](d.ID, objc.Sel("initWithDevName:"), name)
-	return rv
 }
 func (d DIIOMedia) InitWithDevNameError(name objectivec.IObject) (DIIOMedia, error) {
 	var errorPtr objc.ID

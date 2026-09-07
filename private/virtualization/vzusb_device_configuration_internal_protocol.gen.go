@@ -1,4 +1,4 @@
-// Code generated from Apple documentation for virtualization. DO NOT EDIT.
+// Code generated from Apple documentation for Virtualization. DO NOT EDIT.
 
 package virtualization
 
@@ -16,9 +16,6 @@ type VZUSBDeviceConfigurationInternal interface {
 
 	// MakeUSBDeviceWithVirtualMachine protocol.
 	MakeUSBDeviceWithVirtualMachine(machine objectivec.IObject) objectivec.IObject
-
-	// ValidateWithError protocol.
-	ValidateWithError() (bool, error)
 }
 
 // VZUSBDeviceConfigurationInternalObject wraps an existing Objective-C object that conforms to the VZUSBDeviceConfigurationInternal protocol.
@@ -45,11 +42,4 @@ func (o VZUSBDeviceConfigurationInternalObject) IsDuplicateConfiguration(configu
 func (o VZUSBDeviceConfigurationInternalObject) MakeUSBDeviceWithVirtualMachine(machine objectivec.IObject) objectivec.IObject {
 	rv := objc.SendIfResponds[objc.ID](o.ID, objc.Sel("makeUSBDeviceWithVirtualMachine:"), machine)
 	return objectivec.Object{ID: rv}
-}
-func (o VZUSBDeviceConfigurationInternalObject) ValidateWithError() (bool, error) {
-	rv, err := objc.SendWithError[bool](o.ID, objc.Sel("validateWithError:"))
-	if err != nil {
-		return false, err
-	}
-	return rv, nil
 }

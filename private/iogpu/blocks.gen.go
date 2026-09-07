@@ -10,7 +10,6 @@ import (
 //
 // Used by:
 //   - [IOGPUMemoryInfo.AddDataSource]
-//   - [IOGPUMetal4CommandQueue.CommitBlock]
 //   - [IOGPUMetal4CommandQueue.SetScheduledHandler]
 //   - [IOGPUMetalBuffer.InitStandinWithDeviceBytesNoCopyLengthDeallocator]
 //   - [IOGPUMetalBuffer.InitWithDevicePointerLengthAlignmentOptionsSysMemSizeGpuAddressArgsArgsSizeDeallocator]
@@ -37,7 +36,6 @@ type VoidHandler = func()
 //
 // Used by:
 //   - [IOGPUMemoryInfo.AddDataSource]
-//   - [IOGPUMetal4CommandQueue.CommitBlock]
 //   - [IOGPUMetal4CommandQueue.SetScheduledHandler]
 //   - [IOGPUMetalBuffer.InitStandinWithDeviceBytesNoCopyLengthDeallocator]
 //   - [IOGPUMetalBuffer.InitWithDevicePointerLengthAlignmentOptionsSysMemSizeGpuAddressArgsArgsSizeDeallocator]

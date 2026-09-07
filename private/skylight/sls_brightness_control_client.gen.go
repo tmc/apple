@@ -60,10 +60,8 @@ func (sc SLSBrightnessControlClientClass) Alloc() SLSBrightnessControlClient {
 //   - [SLSBrightnessControlClient.RequestBrightnessTimeoutsError]
 //   - [SLSBrightnessControlClient.RequestBulkBrightnessChangeError]
 //   - [SLSBrightnessControlClient.RequestGetValueCommandDisplayError]
-//   - [SLSBrightnessControlClient.RequestRegisterFrameInfoSizeSemaphoreDisplayError]
 //   - [SLSBrightnessControlClient.RequestSetContrastEnhancerDurationDisplayError]
 //   - [SLSBrightnessControlClient.RequestSetWhitePointDurationDisplayError]
-//   - [SLSBrightnessControlClient.RequestUnregisterFrameInfo]
 //   - [SLSBrightnessControlClient.SendRequestCommandError]
 //   - [SLSBrightnessControlClient.SendSynchronousRequestCommandError]
 //   - [SLSBrightnessControlClient.Service]
@@ -103,10 +101,8 @@ var _ ISLSBrightnessControlClient = SLSBrightnessControlClient{}
 //   - [ISLSBrightnessControlClient.RequestBrightnessTimeoutsError]
 //   - [ISLSBrightnessControlClient.RequestBulkBrightnessChangeError]
 //   - [ISLSBrightnessControlClient.RequestGetValueCommandDisplayError]
-//   - [ISLSBrightnessControlClient.RequestRegisterFrameInfoSizeSemaphoreDisplayError]
 //   - [ISLSBrightnessControlClient.RequestSetContrastEnhancerDurationDisplayError]
 //   - [ISLSBrightnessControlClient.RequestSetWhitePointDurationDisplayError]
-//   - [ISLSBrightnessControlClient.RequestUnregisterFrameInfo]
 //   - [ISLSBrightnessControlClient.SendRequestCommandError]
 //   - [ISLSBrightnessControlClient.SendSynchronousRequestCommandError]
 //   - [ISLSBrightnessControlClient.Service]
@@ -135,10 +131,8 @@ type ISLSBrightnessControlClient interface {
 	RequestBrightnessTimeoutsError(timeouts objectivec.IObject) (uint64, error)
 	RequestBulkBrightnessChangeError(change objectivec.IObject) (uint64, error)
 	RequestGetValueCommandDisplayError(value unsafe.Pointer, command uint64, display int) (int32, error)
-	RequestRegisterFrameInfoSizeSemaphoreDisplayError(info *uint32, size *uint64, semaphore *uint32, display int) (int32, error)
 	RequestSetContrastEnhancerDurationDisplayError(enhancer float32, duration float64, display int) (uint64, error)
 	RequestSetWhitePointDurationDisplayError(point unsafe.Pointer, duration float64, display int) (uint64, error)
-	RequestUnregisterFrameInfo(info int32)
 	SendRequestCommandError(request objectivec.IObject, command uint64) (uint64, error)
 	SendSynchronousRequestCommandError(request objectivec.IObject, command uint64) (objectivec.IObject, error)
 	Service() ISLSXPCService
@@ -244,16 +238,6 @@ func (s SLSBrightnessControlClient) RequestGetValueCommandDisplayError(value uns
 	return rv, nil
 
 }
-func (s SLSBrightnessControlClient) RequestRegisterFrameInfoSizeSemaphoreDisplayError(info *uint32, size *uint64, semaphore *uint32, display int) (int32, error) {
-	var errorPtr objc.ID
-	rv := objc.Send[int32](s.ID, objc.Sel("requestRegisterFrameInfo:size:semaphore:display:error:"), info, size, semaphore, display, unsafe.Pointer(&errorPtr))
-	if errorPtr != 0 {
-		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
-		return 0, foundation.NSErrorFrom(errorPtr)
-	}
-	return rv, nil
-
-}
 func (s SLSBrightnessControlClient) RequestSetContrastEnhancerDurationDisplayError(enhancer float32, duration float64, display int) (uint64, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[uint64](s.ID, objc.Sel("requestSetContrastEnhancer:duration:display:error:"), enhancer, duration, display, unsafe.Pointer(&errorPtr))
@@ -273,9 +257,6 @@ func (s SLSBrightnessControlClient) RequestSetWhitePointDurationDisplayError(poi
 	}
 	return rv, nil
 
-}
-func (s SLSBrightnessControlClient) RequestUnregisterFrameInfo(info int32) {
-	objc.SendIfResponds[objc.ID](s.ID, objc.Sel("requestUnregisterFrameInfo:"), info)
 }
 func (s SLSBrightnessControlClient) SendRequestCommandError(request objectivec.IObject, command uint64) (uint64, error) {
 	var errorPtr objc.ID

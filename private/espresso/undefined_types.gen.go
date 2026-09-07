@@ -1,9 +1,5 @@
 // Code generated from Apple documentation. DO NOT EDIT.
 package espresso
 
-// _undefined is the base type for types referenced but not declared in the documentation archive.
+// _undefined is the base type for all undefined types referenced in documentation.
 type _undefined = int
-
-type (
-	Espresso = _undefined
-)

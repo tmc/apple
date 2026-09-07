@@ -5,6 +5,7 @@ package texttospeech
 import (
 	"sync"
 
+	"github.com/tmc/apple/applicationservices"
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -44,6 +45,9 @@ func (tc TTSAXResourceMigrationUtilitiesClass) Alloc() TTSAXResourceMigrationUti
 
 // # Methods
 //
+//   - [TTSAXResourceMigrationUtilities._ttsAssetForSpec]
+//   - [TTSAXResourceMigrationUtilities.AttributesForLegacyVoiceSpec]
+//   - [TTSAXResourceMigrationUtilities.GetIdentifierForLegacyVoiceSpec]
 //   - [TTSAXResourceMigrationUtilities.TtsIdentifierForLegacyMacIdentifier]
 //   - [TTSAXResourceMigrationUtilities.UpdatedIdentifierForLegacyIdentifierWithLanguageCode]
 type TTSAXResourceMigrationUtilities struct {
@@ -62,6 +66,9 @@ var _ ITTSAXResourceMigrationUtilities = TTSAXResourceMigrationUtilities{}
 //
 // # Methods
 //
+//   - [ITTSAXResourceMigrationUtilities._ttsAssetForSpec]
+//   - [ITTSAXResourceMigrationUtilities.AttributesForLegacyVoiceSpec]
+//   - [ITTSAXResourceMigrationUtilities.GetIdentifierForLegacyVoiceSpec]
 //   - [ITTSAXResourceMigrationUtilities.TtsIdentifierForLegacyMacIdentifier]
 //   - [ITTSAXResourceMigrationUtilities.UpdatedIdentifierForLegacyIdentifierWithLanguageCode]
 type ITTSAXResourceMigrationUtilities interface {
@@ -69,6 +76,9 @@ type ITTSAXResourceMigrationUtilities interface {
 
 	// Topic: Methods
 
+	_ttsAssetForSpec(spec applicationservices.VoiceSpec) objectivec.IObject
+	AttributesForLegacyVoiceSpec(spec applicationservices.VoiceSpec) objectivec.IObject
+	GetIdentifierForLegacyVoiceSpec(spec applicationservices.VoiceSpec) objectivec.IObject
 	TtsIdentifierForLegacyMacIdentifier(identifier objectivec.IObject) objectivec.IObject
 	UpdatedIdentifierForLegacyIdentifierWithLanguageCode(identifier objectivec.IObject, code objectivec.IObject) objectivec.IObject
 }
@@ -92,6 +102,32 @@ func NewTTSAXResourceMigrationUtilities() TTSAXResourceMigrationUtilities {
 	return rv
 }
 
+func (t TTSAXResourceMigrationUtilities) _ttsAssetForSpec(spec applicationservices.VoiceSpec) objectivec.IObject {
+	rv := objc.SendIfResponds[objc.ID](t.ID, objc.Sel("_ttsAssetForSpec:"), spec)
+	return objectivec.Object{ID: rv}
+}
+
+// TtsAssetForSpec is an exported wrapper for the private method _ttsAssetForSpec.
+func (t TTSAXResourceMigrationUtilities) TtsAssetForSpec(spec applicationservices.VoiceSpec) (objectivec.IObject, error) {
+	if !objc.RespondsToSelector(t.ID, objc.Sel("_ttsAssetForSpec:")) {
+		err := &objc.UnrecognizedSelectorError{Selector: "_ttsAssetForSpec:"}
+		return nil, err
+	}
+	return t._ttsAssetForSpec(spec), nil
+}
+
+// CanTtsAssetForSpec reports whether the receiver responds to the private selector _ttsAssetForSpec:.
+func (t TTSAXResourceMigrationUtilities) CanTtsAssetForSpec() bool {
+	return objc.RespondsToSelector(t.ID, objc.Sel("_ttsAssetForSpec:"))
+}
+func (t TTSAXResourceMigrationUtilities) AttributesForLegacyVoiceSpec(spec applicationservices.VoiceSpec) objectivec.IObject {
+	rv := objc.SendIfResponds[objc.ID](t.ID, objc.Sel("attributesForLegacyVoiceSpec:"), spec)
+	return objectivec.Object{ID: rv}
+}
+func (t TTSAXResourceMigrationUtilities) GetIdentifierForLegacyVoiceSpec(spec applicationservices.VoiceSpec) objectivec.IObject {
+	rv := objc.SendIfResponds[objc.ID](t.ID, objc.Sel("getIdentifierForLegacyVoiceSpec:"), spec)
+	return objectivec.Object{ID: rv}
+}
 func (t TTSAXResourceMigrationUtilities) TtsIdentifierForLegacyMacIdentifier(identifier objectivec.IObject) objectivec.IObject {
 	rv := objc.SendIfResponds[objc.ID](t.ID, objc.Sel("ttsIdentifierForLegacyMacIdentifier:"), identifier)
 	return objectivec.Object{ID: rv}

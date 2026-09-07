@@ -1,12 +1,10 @@
-// Code generated from Apple documentation for virtualization. DO NOT EDIT.
+// Code generated from Apple documentation for Virtualization. DO NOT EDIT.
 
 package virtualization
 
 import (
 	"sync"
-	"unsafe"
 
-	"github.com/tmc/apple/foundation"
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -47,7 +45,6 @@ func (vc VZDiskImageStorageDeviceAttachmentClass) Alloc() VZDiskImageStorageDevi
 // # Methods
 //
 //   - [VZDiskImageStorageDeviceAttachment._updateDiskSize]
-//   - [VZDiskImageStorageDeviceAttachment.InitWithDiskImageCachingModeSynchronizationModeError]
 //   - [VZDiskImageStorageDeviceAttachment.ReadOnly]
 type VZDiskImageStorageDeviceAttachment struct {
 	VZStorageDeviceAttachment
@@ -66,7 +63,6 @@ var _ IVZDiskImageStorageDeviceAttachment = VZDiskImageStorageDeviceAttachment{}
 // # Methods
 //
 //   - [IVZDiskImageStorageDeviceAttachment._updateDiskSize]
-//   - [IVZDiskImageStorageDeviceAttachment.InitWithDiskImageCachingModeSynchronizationModeError]
 //   - [IVZDiskImageStorageDeviceAttachment.ReadOnly]
 type IVZDiskImageStorageDeviceAttachment interface {
 	IVZStorageDeviceAttachment
@@ -74,7 +70,6 @@ type IVZDiskImageStorageDeviceAttachment interface {
 	// Topic: Methods
 
 	_updateDiskSize(size uint64)
-	InitWithDiskImageCachingModeSynchronizationModeError(image objectivec.IObject, mode int64, mode2 int64) (VZDiskImageStorageDeviceAttachment, error)
 	ReadOnly() bool
 }
 
@@ -97,20 +92,6 @@ func NewVZDiskImageStorageDeviceAttachment() VZDiskImageStorageDeviceAttachment 
 	return rv
 }
 
-func NewVZDiskImageStorageDeviceAttachmentWithDiskImageCachingModeSynchronizationModeError(image objectivec.IObject, mode int64, mode2 int64) (VZDiskImageStorageDeviceAttachment, error) {
-	var errorPtr objc.ID
-	instance := getVZDiskImageStorageDeviceAttachmentClass().Alloc()
-	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithDiskImage:cachingMode:synchronizationMode:error:"), image, mode, mode2, unsafe.Pointer(&errorPtr))
-	if errorPtr != 0 {
-		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
-		return VZDiskImageStorageDeviceAttachment{}, foundation.NSErrorFrom(errorPtr)
-	}
-	if rv == 0 {
-		return VZDiskImageStorageDeviceAttachment{}, objc.ErrInitFailed
-	}
-	return VZDiskImageStorageDeviceAttachmentFromID(rv), nil
-}
-
 func (v VZDiskImageStorageDeviceAttachment) _updateDiskSize(size uint64) {
 	objc.SendIfResponds[objc.ID](v.ID, objc.Sel("_updateDiskSize:"), size)
 }
@@ -128,16 +109,6 @@ func (v VZDiskImageStorageDeviceAttachment) UpdateDiskSize(size uint64) error {
 // CanUpdateDiskSize reports whether the receiver responds to the private selector _updateDiskSize:.
 func (v VZDiskImageStorageDeviceAttachment) CanUpdateDiskSize() bool {
 	return objc.RespondsToSelector(v.ID, objc.Sel("_updateDiskSize:"))
-}
-func (v VZDiskImageStorageDeviceAttachment) InitWithDiskImageCachingModeSynchronizationModeError(image objectivec.IObject, mode int64, mode2 int64) (VZDiskImageStorageDeviceAttachment, error) {
-	var errorPtr objc.ID
-	rv := objc.Send[objc.ID](v.ID, objc.Sel("initWithDiskImage:cachingMode:synchronizationMode:error:"), image, mode, mode2, unsafe.Pointer(&errorPtr))
-	if errorPtr != 0 {
-		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
-		return VZDiskImageStorageDeviceAttachment{}, foundation.NSErrorFrom(errorPtr)
-	}
-	return VZDiskImageStorageDeviceAttachmentFromID(rv), nil
-
 }
 
 func (_VZDiskImageStorageDeviceAttachmentClass VZDiskImageStorageDeviceAttachmentClass) _diskImageStorageDeviceAttachmentWithDiskImage(image objectivec.IObject) objectivec.IObject {

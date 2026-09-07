@@ -111,12 +111,12 @@ func (s SLSScreenshotResult) InitWithStatusFrameSurfaceSDRFrameSurfaceHDR(status
 }
 
 func (s SLSScreenshotResult) FrameSurfaceHDR() iosurface.IOSurface {
-	rv := objc.SendIfResponds[iosurface.IOSurface](s.ID, objc.Sel("frameSurfaceHDR"))
-	return iosurface.IOSurface(rv)
+	rv := objc.SendIfResponds[objc.ID](s.ID, objc.Sel("frameSurfaceHDR"))
+	return iosurface.IOSurfaceFromID(objc.ID(rv))
 }
 func (s SLSScreenshotResult) FrameSurfaceSDR() iosurface.IOSurface {
-	rv := objc.SendIfResponds[iosurface.IOSurface](s.ID, objc.Sel("frameSurfaceSDR"))
-	return iosurface.IOSurface(rv)
+	rv := objc.SendIfResponds[objc.ID](s.ID, objc.Sel("frameSurfaceSDR"))
+	return iosurface.IOSurfaceFromID(objc.ID(rv))
 }
 func (s SLSScreenshotResult) Status() int32 {
 	rv := objc.SendIfResponds[int32](s.ID, objc.Sel("status"))

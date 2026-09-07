@@ -1,4 +1,4 @@
-// Code generated from Apple documentation for virtualization. DO NOT EDIT.
+// Code generated from Apple documentation for Virtualization. DO NOT EDIT.
 
 package virtualization
 
@@ -50,7 +50,6 @@ func (vc VZMacGraphicsDisplayClass) Alloc() VZMacGraphicsDisplay {
 //   - [VZMacGraphicsDisplay._connectionType]
 //   - [VZMacGraphicsDisplay._displayIdentifier]
 //   - [VZMacGraphicsDisplay._displayMode]
-//   - [VZMacGraphicsDisplay._isHDREnabled]
 //   - [VZMacGraphicsDisplay.ReconfigureWithConfigurationError]
 //   - [VZMacGraphicsDisplay.InitWithConfigurationError]
 type VZMacGraphicsDisplay struct {
@@ -72,7 +71,6 @@ var _ IVZMacGraphicsDisplay = VZMacGraphicsDisplay{}
 //   - [IVZMacGraphicsDisplay._connectionType]
 //   - [IVZMacGraphicsDisplay._displayIdentifier]
 //   - [IVZMacGraphicsDisplay._displayMode]
-//   - [IVZMacGraphicsDisplay._isHDREnabled]
 //   - [IVZMacGraphicsDisplay.ReconfigureWithConfigurationError]
 //   - [IVZMacGraphicsDisplay.InitWithConfigurationError]
 type IVZMacGraphicsDisplay interface {
@@ -83,7 +81,6 @@ type IVZMacGraphicsDisplay interface {
 	_connectionType() int64
 	_displayIdentifier() objectivec.IObject
 	_displayMode() int64
-	_isHDREnabled() bool
 	ReconfigureWithConfigurationError(configuration objectivec.IObject) (bool, error)
 	InitWithConfigurationError(configuration objectivec.IObject) (VZMacGraphicsDisplay, error)
 }
@@ -119,12 +116,6 @@ func NewVZMacGraphicsDisplayWithConfigurationError(configuration objectivec.IObj
 		return VZMacGraphicsDisplay{}, objc.ErrInitFailed
 	}
 	return VZMacGraphicsDisplayFromID(rv), nil
-}
-
-func NewVZMacGraphicsDisplayWithVirtualMachineAccessorGraphicsDeviceIndexFramebufferIndexUuid(accessor objectivec.IObject, index uint64, index2 uint64, uuid objectivec.IObject) VZMacGraphicsDisplay {
-	instance := getVZMacGraphicsDisplayClass().Alloc()
-	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithVirtualMachineAccessor:graphicsDeviceIndex:framebufferIndex:uuid:"), accessor, index, index2, uuid)
-	return VZMacGraphicsDisplayFromID(rv)
 }
 
 func NewVZMacGraphicsDisplayWithVirtualMachineGraphicsDeviceIndexFramebufferIndexUuid(machine objectivec.IObject, index uint64, index2 uint64, uuid objectivec.IObject) VZMacGraphicsDisplay {
@@ -186,24 +177,6 @@ func (v VZMacGraphicsDisplay) DisplayMode() (int64, error) {
 // CanDisplayMode reports whether the receiver responds to the private selector _displayMode.
 func (v VZMacGraphicsDisplay) CanDisplayMode() bool {
 	return objc.RespondsToSelector(v.ID, objc.Sel("_displayMode"))
-}
-func (v VZMacGraphicsDisplay) _isHDREnabled() bool {
-	rv := objc.SendIfResponds[bool](v.ID, objc.Sel("_isHDREnabled"))
-	return rv
-}
-
-// IsHDREnabled is an exported wrapper for the private method _isHDREnabled.
-func (v VZMacGraphicsDisplay) IsHDREnabled() (bool, error) {
-	if !objc.RespondsToSelector(v.ID, objc.Sel("_isHDREnabled")) {
-		err := &objc.UnrecognizedSelectorError{Selector: "_isHDREnabled"}
-		return false, err
-	}
-	return v._isHDREnabled(), nil
-}
-
-// CanIsHDREnabled reports whether the receiver responds to the private selector _isHDREnabled.
-func (v VZMacGraphicsDisplay) CanIsHDREnabled() bool {
-	return objc.RespondsToSelector(v.ID, objc.Sel("_isHDREnabled"))
 }
 func (v VZMacGraphicsDisplay) ReconfigureWithConfigurationError(configuration objectivec.IObject) (bool, error) {
 	var errorPtr objc.ID

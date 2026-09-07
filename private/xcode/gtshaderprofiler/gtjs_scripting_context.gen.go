@@ -1,0 +1,275 @@
+// Code generated from Apple documentation for gtshaderprofiler. DO NOT EDIT.
+
+package gtshaderprofiler
+
+import (
+	"context"
+	"sync"
+	"unsafe"
+
+	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/javascriptcore"
+	"github.com/tmc/apple/objc"
+	"github.com/tmc/apple/objectivec"
+)
+
+// The class instance for the [GTJSScriptingContext] class.
+var (
+	_GTJSScriptingContextClass     GTJSScriptingContextClass
+	_GTJSScriptingContextClassOnce sync.Once
+)
+
+func getGTJSScriptingContextClass() GTJSScriptingContextClass {
+	_GTJSScriptingContextClassOnce.Do(func() {
+		_GTJSScriptingContextClass = GTJSScriptingContextClass{class: objc.GetClass("GTJSScriptingContext")}
+	})
+	return _GTJSScriptingContextClass
+}
+
+// GetGTJSScriptingContextClass returns the class object for GTJSScriptingContext.
+func GetGTJSScriptingContextClass() GTJSScriptingContextClass {
+	return getGTJSScriptingContextClass()
+}
+
+type GTJSScriptingContextClass struct {
+	class objc.Class
+}
+
+// Class returns the underlying Objective-C class pointer.
+func (gc GTJSScriptingContextClass) Class() objc.Class {
+	return gc.class
+}
+
+// Alloc allocates memory for a new instance of the class.
+func (gc GTJSScriptingContextClass) Alloc() GTJSScriptingContext {
+	rv := objc.SendIfResponds[GTJSScriptingContext](objc.ID(gc.class), objc.Sel("alloc"))
+	return rv
+}
+
+// # Methods
+//
+//   - [GTJSScriptingContext._cachedStringFromString]
+//   - [GTJSScriptingContext._clearCache]
+//   - [GTJSScriptingContext.AllocNewContext]
+//   - [GTJSScriptingContext.CallFunctionWithArguments]
+//   - [GTJSScriptingContext.CallGlobalFunction]
+//   - [GTJSScriptingContext.Context]
+//   - [GTJSScriptingContext.CreateArrayRef]
+//   - [GTJSScriptingContext.EvaluteScriptScriptURL]
+//   - [GTJSScriptingContext.GetGlobalDouble]
+//   - [GTJSScriptingContext.GetGlobalJSONObject]
+//   - [GTJSScriptingContext.GetValue]
+//   - [GTJSScriptingContext.SetExceptionHandler]
+//   - [GTJSScriptingContext.SetGlobalDoubleValue]
+//   - [GTJSScriptingContext.SetGlobalJSONObjectValue]
+//   - [GTJSScriptingContext.SetRawArrayValuesWithDoubleValuesAndNumCounters]
+//   - [GTJSScriptingContext.SetRawArrayValuesWithUint32ValuesAndNumCounters]
+//   - [GTJSScriptingContext.SetRawArrayValuesWithUint64ValuesAndNumCounters]
+//   - [GTJSScriptingContext.SetValueValue]
+//   - [GTJSScriptingContext.SetValues]
+//   - [GTJSScriptingContext.VirtualMachine]
+type GTJSScriptingContext struct {
+	objectivec.Object
+}
+
+// GTJSScriptingContextFromID constructs a [GTJSScriptingContext] from an objc.ID.
+func GTJSScriptingContextFromID(id objc.ID) GTJSScriptingContext {
+	return GTJSScriptingContext{objectivec.Object{ID: id}}
+}
+
+// Ensure GTJSScriptingContext implements IGTJSScriptingContext.
+var _ IGTJSScriptingContext = GTJSScriptingContext{}
+
+// An interface definition for the [GTJSScriptingContext] class.
+//
+// # Methods
+//
+//   - [IGTJSScriptingContext._cachedStringFromString]
+//   - [IGTJSScriptingContext._clearCache]
+//   - [IGTJSScriptingContext.AllocNewContext]
+//   - [IGTJSScriptingContext.CallFunctionWithArguments]
+//   - [IGTJSScriptingContext.CallGlobalFunction]
+//   - [IGTJSScriptingContext.Context]
+//   - [IGTJSScriptingContext.CreateArrayRef]
+//   - [IGTJSScriptingContext.EvaluteScriptScriptURL]
+//   - [IGTJSScriptingContext.GetGlobalDouble]
+//   - [IGTJSScriptingContext.GetGlobalJSONObject]
+//   - [IGTJSScriptingContext.GetValue]
+//   - [IGTJSScriptingContext.SetExceptionHandler]
+//   - [IGTJSScriptingContext.SetGlobalDoubleValue]
+//   - [IGTJSScriptingContext.SetGlobalJSONObjectValue]
+//   - [IGTJSScriptingContext.SetRawArrayValuesWithDoubleValuesAndNumCounters]
+//   - [IGTJSScriptingContext.SetRawArrayValuesWithUint32ValuesAndNumCounters]
+//   - [IGTJSScriptingContext.SetRawArrayValuesWithUint64ValuesAndNumCounters]
+//   - [IGTJSScriptingContext.SetValueValue]
+//   - [IGTJSScriptingContext.SetValues]
+//   - [IGTJSScriptingContext.VirtualMachine]
+type IGTJSScriptingContext interface {
+	objectivec.IObject
+
+	// Topic: Methods
+
+	_cachedStringFromString(string_ string) OpaqueJSStringRef
+	_clearCache()
+	AllocNewContext()
+	CallFunctionWithArguments(function objectivec.IObject, arguments objectivec.IObject) float64
+	CallGlobalFunction(function string) float64
+	Context() javascriptcore.JSContext
+	CreateArrayRef(ref objectivec.IObject) OpaqueJSValueRef
+	EvaluteScriptScriptURL(script objectivec.IObject, url foundation.NSURL) bool
+	GetGlobalDouble(double string) float64
+	GetGlobalJSONObject(jSONObject string) objectivec.IObject
+	GetValue(value objectivec.IObject) objectivec.IObject
+	SetExceptionHandler(handler VoidHandler)
+	SetGlobalDoubleValue(double string, value float64)
+	SetGlobalJSONObjectValue(jSONObject string, value objectivec.IObject) bool
+	SetRawArrayValuesWithDoubleValuesAndNumCounters(values objectivec.IObject, values2 []float64, counters uint64)
+	SetRawArrayValuesWithUint32ValuesAndNumCounters(values objectivec.IObject, uint32Values *uint32, counters uint64)
+	SetRawArrayValuesWithUint64ValuesAndNumCounters(values objectivec.IObject, uint64Values *uint64, counters uint64)
+	SetValueValue(value objectivec.IObject, value2 objectivec.IObject) objectivec.IObject
+	SetValues(values objectivec.IObject)
+	VirtualMachine() javascriptcore.JSVirtualMachine
+}
+
+// Init initializes the instance.
+func (g GTJSScriptingContext) Init() GTJSScriptingContext {
+	rv := objc.SendIfResponds[GTJSScriptingContext](g.ID, objc.Sel("init"))
+	return rv
+}
+
+// Autorelease adds the receiver to the current autorelease pool.
+func (g GTJSScriptingContext) Autorelease() GTJSScriptingContext {
+	rv := objc.SendIfResponds[GTJSScriptingContext](g.ID, objc.Sel("autorelease"))
+	return rv
+}
+
+// NewGTJSScriptingContext creates a new GTJSScriptingContext instance.
+func NewGTJSScriptingContext() GTJSScriptingContext {
+	class := getGTJSScriptingContextClass()
+	rv := objc.SendIfResponds[GTJSScriptingContext](objc.ID(class.class), objc.Sel("new"))
+	return rv
+}
+
+func (g GTJSScriptingContext) _cachedStringFromString(string_ string) OpaqueJSStringRef {
+	rv := objc.SendIfResponds[OpaqueJSStringRef](g.ID, objc.Sel("_cachedStringFromString:"), unsafe.Pointer(unsafe.StringData(string_+"\x00")))
+	return OpaqueJSStringRef(rv)
+}
+
+// CachedStringFromString is an exported wrapper for the private method _cachedStringFromString.
+func (g GTJSScriptingContext) CachedStringFromString(string_ string) (OpaqueJSStringRef, error) {
+	if !objc.RespondsToSelector(g.ID, objc.Sel("_cachedStringFromString:")) {
+		err := &objc.UnrecognizedSelectorError{Selector: "_cachedStringFromString:"}
+		return *new(OpaqueJSStringRef), err
+	}
+	return g._cachedStringFromString(string_), nil
+}
+
+// CanCachedStringFromString reports whether the receiver responds to the private selector _cachedStringFromString:.
+func (g GTJSScriptingContext) CanCachedStringFromString() bool {
+	return objc.RespondsToSelector(g.ID, objc.Sel("_cachedStringFromString:"))
+}
+func (g GTJSScriptingContext) _clearCache() {
+	objc.SendIfResponds[objc.ID](g.ID, objc.Sel("_clearCache"))
+}
+
+// ClearCache is an exported wrapper for the private method _clearCache.
+func (g GTJSScriptingContext) ClearCache() error {
+	if !objc.RespondsToSelector(g.ID, objc.Sel("_clearCache")) {
+		err := &objc.UnrecognizedSelectorError{Selector: "_clearCache"}
+		return err
+	}
+	g._clearCache()
+	return nil
+}
+
+// CanClearCache reports whether the receiver responds to the private selector _clearCache.
+func (g GTJSScriptingContext) CanClearCache() bool {
+	return objc.RespondsToSelector(g.ID, objc.Sel("_clearCache"))
+}
+func (g GTJSScriptingContext) AllocNewContext() {
+	objc.SendIfResponds[objc.ID](g.ID, objc.Sel("allocNewContext"))
+}
+func (g GTJSScriptingContext) CallFunctionWithArguments(function objectivec.IObject, arguments objectivec.IObject) float64 {
+	rv := objc.SendIfResponds[float64](g.ID, objc.Sel("callFunction:withArguments:"), function, arguments)
+	return rv
+}
+func (g GTJSScriptingContext) CallGlobalFunction(function string) float64 {
+	rv := objc.SendIfResponds[float64](g.ID, objc.Sel("callGlobalFunction:"), unsafe.Pointer(unsafe.StringData(function+"\x00")))
+	return rv
+}
+func (g GTJSScriptingContext) CreateArrayRef(ref objectivec.IObject) OpaqueJSValueRef {
+	rv := objc.SendIfResponds[OpaqueJSValueRef](g.ID, objc.Sel("createArrayRef:"), ref)
+	return OpaqueJSValueRef(rv)
+}
+func (g GTJSScriptingContext) EvaluteScriptScriptURL(script objectivec.IObject, url foundation.NSURL) bool {
+	rv := objc.SendIfResponds[bool](g.ID, objc.Sel("evaluteScript:scriptURL:"), script, url)
+	return rv
+}
+func (g GTJSScriptingContext) GetGlobalDouble(double string) float64 {
+	rv := objc.SendIfResponds[float64](g.ID, objc.Sel("getGlobalDouble:"), unsafe.Pointer(unsafe.StringData(double+"\x00")))
+	return rv
+}
+func (g GTJSScriptingContext) GetGlobalJSONObject(jSONObject string) objectivec.IObject {
+	rv := objc.SendIfResponds[objc.ID](g.ID, objc.Sel("getGlobalJSONObject:"), unsafe.Pointer(unsafe.StringData(jSONObject+"\x00")))
+	return objectivec.Object{ID: rv}
+}
+func (g GTJSScriptingContext) GetValue(value objectivec.IObject) objectivec.IObject {
+	rv := objc.SendIfResponds[objc.ID](g.ID, objc.Sel("getValue:"), value)
+	return objectivec.Object{ID: rv}
+}
+func (g GTJSScriptingContext) SetExceptionHandler(handler VoidHandler) {
+	_block0, _ := NewVoidBlock(handler)
+	objc.SendIfResponds[objc.ID](g.ID, objc.Sel("setExceptionHandler:"), _block0)
+}
+func (g GTJSScriptingContext) SetGlobalDoubleValue(double string, value float64) {
+	objc.SendIfResponds[objc.ID](g.ID, objc.Sel("setGlobalDouble:value:"), unsafe.Pointer(unsafe.StringData(double+"\x00")), value)
+}
+func (g GTJSScriptingContext) SetGlobalJSONObjectValue(jSONObject string, value objectivec.IObject) bool {
+	rv := objc.SendIfResponds[bool](g.ID, objc.Sel("setGlobalJSONObject:value:"), unsafe.Pointer(unsafe.StringData(jSONObject+"\x00")), value)
+	return rv
+}
+func (g GTJSScriptingContext) SetRawArrayValuesWithDoubleValuesAndNumCounters(values objectivec.IObject, values2 []float64, counters uint64) {
+	objc.SendIfResponds[objc.ID](g.ID, objc.Sel("setRawArrayValues:withDoubleValues:andNumCounters:"), values, values2, counters)
+}
+func (g GTJSScriptingContext) SetRawArrayValuesWithUint32ValuesAndNumCounters(values objectivec.IObject, uint32Values *uint32, counters uint64) {
+	objc.SendIfResponds[objc.ID](g.ID, objc.Sel("setRawArrayValues:withUint32Values:andNumCounters:"), values, uint32Values, counters)
+}
+func (g GTJSScriptingContext) SetRawArrayValuesWithUint64ValuesAndNumCounters(values objectivec.IObject, uint64Values *uint64, counters uint64) {
+	objc.SendIfResponds[objc.ID](g.ID, objc.Sel("setRawArrayValues:withUint64Values:andNumCounters:"), values, uint64Values, counters)
+}
+func (g GTJSScriptingContext) SetValueValue(value objectivec.IObject, value2 objectivec.IObject) objectivec.IObject {
+	rv := objc.SendIfResponds[objc.ID](g.ID, objc.Sel("setValue:value:"), value, value2)
+	return objectivec.Object{ID: rv}
+}
+func (g GTJSScriptingContext) SetValues(values objectivec.IObject) {
+	objc.SendIfResponds[objc.ID](g.ID, objc.Sel("setValues:"), values)
+}
+
+func (_GTJSScriptingContextClass GTJSScriptingContextClass) SharedContext() GTJSScriptingContext {
+	rv := objc.SendIfResponds[objc.ID](objc.ID(_GTJSScriptingContextClass.class), objc.Sel("sharedContext"))
+	return GTJSScriptingContextFromID(rv)
+}
+
+func (g GTJSScriptingContext) Context() javascriptcore.JSContext {
+	rv := objc.SendIfResponds[javascriptcore.JSContext](g.ID, objc.Sel("context"))
+	return javascriptcore.JSContext(rv)
+}
+func (g GTJSScriptingContext) VirtualMachine() javascriptcore.JSVirtualMachine {
+	rv := objc.SendIfResponds[javascriptcore.JSVirtualMachine](g.ID, objc.Sel("virtualMachine"))
+	return javascriptcore.JSVirtualMachine(rv)
+}
+
+// SetExceptionHandlerSync is a synchronous wrapper around [GTJSScriptingContext.SetExceptionHandler].
+// It blocks until the completion handler fires or the context is cancelled.
+func (g GTJSScriptingContext) SetExceptionHandlerSync(ctx context.Context) error {
+	done := make(chan struct{}, 1)
+	g.SetExceptionHandler(func() {
+		done <- struct{}{}
+	})
+	select {
+	case <-done:
+		return nil
+	case <-ctx.Done():
+		return ctx.Err()
+	}
+}

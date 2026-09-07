@@ -49,6 +49,7 @@ func (tc TTSAXResourceManagerClass) Alloc() TTSAXResourceManager {
 //   - [TTSAXResourceManager._observers]
 //   - [TTSAXResourceManager.Set_observers]
 //   - [TTSAXResourceManager._performBlockOnObservers]
+//   - [TTSAXResourceManager._resourceWithVoiceIdAssetId]
 //   - [TTSAXResourceManager._resourcesWithTypeSubTypeLanguageCode]
 //   - [TTSAXResourceManager.AddObserver]
 //   - [TTSAXResourceManager.AllAvailableLanguages]
@@ -85,6 +86,7 @@ var _ ITTSAXResourceManager = TTSAXResourceManager{}
 //   - [ITTSAXResourceManager._observers]
 //   - [ITTSAXResourceManager.Set_observers]
 //   - [ITTSAXResourceManager._performBlockOnObservers]
+//   - [ITTSAXResourceManager._resourceWithVoiceIdAssetId]
 //   - [ITTSAXResourceManager._resourcesWithTypeSubTypeLanguageCode]
 //   - [ITTSAXResourceManager.AddObserver]
 //   - [ITTSAXResourceManager.AllAvailableLanguages]
@@ -110,6 +112,7 @@ type ITTSAXResourceManager interface {
 	_observers() foundation.NSHashTable
 	Set_observers(value foundation.NSHashTable)
 	_performBlockOnObservers(observers VoidHandler)
+	_resourceWithVoiceIdAssetId(id objectivec.IObject, id2 objectivec.IObject) objectivec.IObject
 	_resourcesWithTypeSubTypeLanguageCode(type_ uint64, type_2 uint64, code objectivec.IObject) objectivec.IObject
 	AddObserver(observer objectivec.IObject)
 	AllAvailableLanguages() foundation.INSSet
@@ -166,6 +169,24 @@ func (t TTSAXResourceManager) PerformBlockOnObservers(observers VoidHandler) err
 // CanPerformBlockOnObservers reports whether the receiver responds to the private selector _performBlockOnObservers:.
 func (t TTSAXResourceManager) CanPerformBlockOnObservers() bool {
 	return objc.RespondsToSelector(t.ID, objc.Sel("_performBlockOnObservers:"))
+}
+func (t TTSAXResourceManager) _resourceWithVoiceIdAssetId(id objectivec.IObject, id2 objectivec.IObject) objectivec.IObject {
+	rv := objc.SendIfResponds[objc.ID](t.ID, objc.Sel("_resourceWithVoiceId:assetId:"), id, id2)
+	return objectivec.Object{ID: rv}
+}
+
+// ResourceWithVoiceIdAssetId is an exported wrapper for the private method _resourceWithVoiceIdAssetId.
+func (t TTSAXResourceManager) ResourceWithVoiceIdAssetId(id objectivec.IObject, id2 objectivec.IObject) (objectivec.IObject, error) {
+	if !objc.RespondsToSelector(t.ID, objc.Sel("_resourceWithVoiceId:assetId:")) {
+		err := &objc.UnrecognizedSelectorError{Selector: "_resourceWithVoiceId:assetId:"}
+		return nil, err
+	}
+	return t._resourceWithVoiceIdAssetId(id, id2), nil
+}
+
+// CanResourceWithVoiceIdAssetId reports whether the receiver responds to the private selector _resourceWithVoiceId:assetId:.
+func (t TTSAXResourceManager) CanResourceWithVoiceIdAssetId() bool {
+	return objc.RespondsToSelector(t.ID, objc.Sel("_resourceWithVoiceId:assetId:"))
 }
 func (t TTSAXResourceManager) _resourcesWithTypeSubTypeLanguageCode(type_ uint64, type_2 uint64, code objectivec.IObject) objectivec.IObject {
 	rv := objc.SendIfResponds[objc.ID](t.ID, objc.Sel("_resourcesWithType:subType:languageCode:"), type_, type_2, code)

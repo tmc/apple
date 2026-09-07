@@ -4,6 +4,7 @@ package skylight
 
 import (
 	"sync"
+	"unsafe"
 
 	"github.com/tmc/apple/objc"
 )
@@ -42,12 +43,12 @@ func (wc WSKeyEventProcessorClass) Alloc() WSKeyEventProcessor {
 }
 
 type WSKeyEventProcessor struct {
-	WSLegacyEventProcessor
+	WSEventProcessor
 }
 
 // WSKeyEventProcessorFromID constructs a [WSKeyEventProcessor] from an objc.ID.
 func WSKeyEventProcessorFromID(id objc.ID) WSKeyEventProcessor {
-	return WSKeyEventProcessor{WSLegacyEventProcessor: WSLegacyEventProcessorFromID(id)}
+	return WSKeyEventProcessor{WSEventProcessor: WSEventProcessorFromID(id)}
 }
 
 // Ensure WSKeyEventProcessor implements IWSKeyEventProcessor.
@@ -55,7 +56,7 @@ var _ IWSKeyEventProcessor = WSKeyEventProcessor{}
 
 // An interface definition for the [WSKeyEventProcessor] class.
 type IWSKeyEventProcessor interface {
-	IWSLegacyEventProcessor
+	IWSEventProcessor
 }
 
 // Init initializes the instance.
@@ -75,4 +76,10 @@ func NewWSKeyEventProcessor() WSKeyEventProcessor {
 	class := getWSKeyEventProcessorClass()
 	rv := objc.SendIfResponds[WSKeyEventProcessor](objc.ID(class.class), objc.Sel("new"))
 	return rv
+}
+
+func NewWSKeyEventProcessorWithSession(session *CGXSession) WSKeyEventProcessor {
+	instance := getWSKeyEventProcessorClass().Alloc()
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithSession:"), unsafe.Pointer(session))
+	return WSKeyEventProcessorFromID(rv)
 }

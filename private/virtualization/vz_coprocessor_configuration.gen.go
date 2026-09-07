@@ -1,4 +1,4 @@
-// Code generated from Apple documentation for virtualization. DO NOT EDIT.
+// Code generated from Apple documentation for Virtualization. DO NOT EDIT.
 
 package virtualization
 
@@ -46,11 +46,7 @@ func (vc VZCoprocessorConfigurationClass) Alloc() VZCoprocessorConfiguration {
 // # Methods
 //
 //   - [VZCoprocessorConfiguration._init]
-//   - [VZCoprocessorConfiguration.DebugStub]
-//   - [VZCoprocessorConfiguration.SetDebugStub]
 //   - [VZCoprocessorConfiguration.MakeCoprocessorForVirtualMachineCoprocessorIndex]
-//   - [VZCoprocessorConfiguration.SerialPortAttachment]
-//   - [VZCoprocessorConfiguration.SetSerialPortAttachment]
 //   - [VZCoprocessorConfiguration.DebugDescription]
 //   - [VZCoprocessorConfiguration.Description]
 //   - [VZCoprocessorConfiguration.Hash]
@@ -72,11 +68,7 @@ var _ IVZCoprocessorConfiguration = VZCoprocessorConfiguration{}
 // # Methods
 //
 //   - [IVZCoprocessorConfiguration._init]
-//   - [IVZCoprocessorConfiguration.DebugStub]
-//   - [IVZCoprocessorConfiguration.SetDebugStub]
 //   - [IVZCoprocessorConfiguration.MakeCoprocessorForVirtualMachineCoprocessorIndex]
-//   - [IVZCoprocessorConfiguration.SerialPortAttachment]
-//   - [IVZCoprocessorConfiguration.SetSerialPortAttachment]
 //   - [IVZCoprocessorConfiguration.DebugDescription]
 //   - [IVZCoprocessorConfiguration.Description]
 //   - [IVZCoprocessorConfiguration.Hash]
@@ -87,11 +79,7 @@ type IVZCoprocessorConfiguration interface {
 	// Topic: Methods
 
 	_init() objectivec.IObject
-	DebugStub() IVZDebugStubConfiguration
-	SetDebugStub(value IVZDebugStubConfiguration)
 	MakeCoprocessorForVirtualMachineCoprocessorIndex(machine objectivec.IObject, index uint64) objectivec.IObject
-	SerialPortAttachment() IVZSerialPortAttachment
-	SetSerialPortAttachment(value IVZSerialPortAttachment)
 	DebugDescription() string
 	Description() string
 	Hash() uint64
@@ -130,13 +118,6 @@ func (v VZCoprocessorConfiguration) DebugDescription() string {
 	rv := objc.SendIfResponds[objc.ID](v.ID, objc.Sel("debugDescription"))
 	return foundation.NSStringFromID(rv).String()
 }
-func (v VZCoprocessorConfiguration) DebugStub() IVZDebugStubConfiguration {
-	rv := objc.SendIfResponds[objc.ID](v.ID, objc.Sel("debugStub"))
-	return VZDebugStubConfigurationFromID(objc.ID(rv))
-}
-func (v VZCoprocessorConfiguration) SetDebugStub(value IVZDebugStubConfiguration) {
-	objc.SendIfResponds[struct{}](v.ID, objc.Sel("setDebugStub:"), value)
-}
 func (v VZCoprocessorConfiguration) Description() string {
 	rv := objc.SendIfResponds[objc.ID](v.ID, objc.Sel("description"))
 	return foundation.NSStringFromID(rv).String()
@@ -144,13 +125,6 @@ func (v VZCoprocessorConfiguration) Description() string {
 func (v VZCoprocessorConfiguration) Hash() uint64 {
 	rv := objc.SendIfResponds[uint64](v.ID, objc.Sel("hash"))
 	return rv
-}
-func (v VZCoprocessorConfiguration) SerialPortAttachment() IVZSerialPortAttachment {
-	rv := objc.SendIfResponds[objc.ID](v.ID, objc.Sel("serialPortAttachment"))
-	return VZSerialPortAttachmentFromID(objc.ID(rv))
-}
-func (v VZCoprocessorConfiguration) SetSerialPortAttachment(value IVZSerialPortAttachment) {
-	objc.SendIfResponds[struct{}](v.ID, objc.Sel("setSerialPortAttachment:"), value)
 }
 func (v VZCoprocessorConfiguration) Superclass() objectivec.Class {
 	rv := objc.SendIfResponds[objectivec.Class](v.ID, objc.Sel("superclass"))

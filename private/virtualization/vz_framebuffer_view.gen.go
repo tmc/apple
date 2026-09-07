@@ -1,9 +1,10 @@
-// Code generated from Apple documentation for virtualization. DO NOT EDIT.
+// Code generated from Apple documentation for Virtualization. DO NOT EDIT.
 
 package virtualization
 
 import (
 	"sync"
+	"unsafe"
 
 	"github.com/tmc/apple/appkit"
 	"github.com/tmc/apple/corefoundation"
@@ -51,9 +52,12 @@ func (vc VZFramebufferViewClass) Alloc() VZFramebufferView {
 //   - [VZFramebufferView.Cursor]
 //   - [VZFramebufferView.SetCursor]
 //   - [VZFramebufferView.DisplayProtectionOptions]
+//   - [VZFramebufferView.Framebuffer]
+//   - [VZFramebufferView.SetFramebuffer]
+//   - [VZFramebufferView.FramebufferDidUpdateGraphicsOrientation]
+//   - [VZFramebufferView.FramebufferDidUpdateColorSpace]
 //   - [VZFramebufferView.FramebufferSize]
-//   - [VZFramebufferView.PresenterDidUpdateContentHeadroom]
-//   - [VZFramebufferView.PresenterDidUpdateHostDisplay]
+//   - [VZFramebufferView.GetDisplayProtectionOptions]
 //   - [VZFramebufferView.ShowsCursor]
 //   - [VZFramebufferView.SetShowsCursor]
 //   - [VZFramebufferView.SuppressFrameUpdates]
@@ -82,9 +86,12 @@ var _ IVZFramebufferView = VZFramebufferView{}
 //   - [IVZFramebufferView.Cursor]
 //   - [IVZFramebufferView.SetCursor]
 //   - [IVZFramebufferView.DisplayProtectionOptions]
+//   - [IVZFramebufferView.Framebuffer]
+//   - [IVZFramebufferView.SetFramebuffer]
+//   - [IVZFramebufferView.FramebufferDidUpdateGraphicsOrientation]
+//   - [IVZFramebufferView.FramebufferDidUpdateColorSpace]
 //   - [IVZFramebufferView.FramebufferSize]
-//   - [IVZFramebufferView.PresenterDidUpdateContentHeadroom]
-//   - [IVZFramebufferView.PresenterDidUpdateHostDisplay]
+//   - [IVZFramebufferView.GetDisplayProtectionOptions]
 //   - [IVZFramebufferView.ShowsCursor]
 //   - [IVZFramebufferView.SetShowsCursor]
 //   - [IVZFramebufferView.SuppressFrameUpdates]
@@ -102,9 +109,12 @@ type IVZFramebufferView interface {
 	Cursor() appkit.NSCursor
 	SetCursor(value appkit.NSCursor)
 	DisplayProtectionOptions() foundation.NSNumber
+	Framebuffer() IVZFramebuffer
+	SetFramebuffer(value IVZFramebuffer)
+	FramebufferDidUpdateGraphicsOrientation(framebuffer objectivec.IObject, orientation int64)
+	FramebufferDidUpdateColorSpace(space objectivec.IObject)
 	FramebufferSize() corefoundation.CGSize
-	PresenterDidUpdateContentHeadroom(presenter objectivec.IObject, headroom float64)
-	PresenterDidUpdateHostDisplay(presenter objectivec.IObject, display HostDisplayUpdate)
+	GetDisplayProtectionOptions() unsafe.Pointer
 	ShowsCursor() bool
 	SetShowsCursor(value bool)
 	SuppressFrameUpdates() bool
@@ -150,11 +160,15 @@ func (v VZFramebufferView) ActionForLayerForKey(layer objectivec.IObject, key ob
 	rv := objc.SendIfResponds[objc.ID](v.ID, objc.Sel("actionForLayer:forKey:"), layer, key)
 	return objectivec.Object{ID: rv}
 }
-func (v VZFramebufferView) PresenterDidUpdateContentHeadroom(presenter objectivec.IObject, headroom float64) {
-	objc.SendIfResponds[objc.ID](v.ID, objc.Sel("presenter:didUpdateContentHeadroom:"), presenter, headroom)
+func (v VZFramebufferView) FramebufferDidUpdateGraphicsOrientation(framebuffer objectivec.IObject, orientation int64) {
+	objc.SendIfResponds[objc.ID](v.ID, objc.Sel("framebuffer:didUpdateGraphicsOrientation:"), framebuffer, orientation)
 }
-func (v VZFramebufferView) PresenterDidUpdateHostDisplay(presenter objectivec.IObject, display HostDisplayUpdate) {
-	objc.SendIfResponds[objc.ID](v.ID, objc.Sel("presenter:didUpdateHostDisplay:"), presenter, display)
+func (v VZFramebufferView) FramebufferDidUpdateColorSpace(space objectivec.IObject) {
+	objc.SendIfResponds[objc.ID](v.ID, objc.Sel("framebufferDidUpdateColorSpace:"), space)
+}
+func (v VZFramebufferView) GetDisplayProtectionOptions() unsafe.Pointer {
+	rv := objc.SendIfResponds[unsafe.Pointer](v.ID, objc.Sel("getDisplayProtectionOptions"))
+	return rv
 }
 
 func (v VZFramebufferView) Cursor() appkit.NSCursor {
@@ -175,6 +189,13 @@ func (v VZFramebufferView) Description() string {
 func (v VZFramebufferView) DisplayProtectionOptions() foundation.NSNumber {
 	rv := objc.SendIfResponds[foundation.NSNumber](v.ID, objc.Sel("displayProtectionOptions"))
 	return foundation.NSNumber(rv)
+}
+func (v VZFramebufferView) Framebuffer() IVZFramebuffer {
+	rv := objc.SendIfResponds[objc.ID](v.ID, objc.Sel("framebuffer"))
+	return VZFramebufferFromID(objc.ID(rv))
+}
+func (v VZFramebufferView) SetFramebuffer(value IVZFramebuffer) {
+	objc.SendIfResponds[struct{}](v.ID, objc.Sel("setFramebuffer:"), value)
 }
 func (v VZFramebufferView) FramebufferSize() corefoundation.CGSize {
 	rv := objc.SendIfResponds[corefoundation.CGSize](v.ID, objc.Sel("framebufferSize"))

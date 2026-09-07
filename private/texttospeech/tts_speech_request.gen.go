@@ -99,6 +99,8 @@ func (tc TTSSpeechRequestClass) Alloc() TTSSpeechRequest {
 //   - [TTSSpeechRequest.SetVoiceSettings]
 //   - [TTSSpeechRequest.Volume]
 //   - [TTSSpeechRequest.SetVolume]
+//   - [TTSSpeechRequest.Voucher]
+//   - [TTSSpeechRequest.SetVoucher]
 //   - [TTSSpeechRequest.InitWithCoder]
 type TTSSpeechRequest struct {
 	objectivec.Object
@@ -167,6 +169,8 @@ var _ ITTSSpeechRequest = TTSSpeechRequest{}
 //   - [ITTSSpeechRequest.SetVoiceSettings]
 //   - [ITTSSpeechRequest.Volume]
 //   - [ITTSSpeechRequest.SetVolume]
+//   - [ITTSSpeechRequest.Voucher]
+//   - [ITTSSpeechRequest.SetVoucher]
 //   - [ITTSSpeechRequest.InitWithCoder]
 type ITTSSpeechRequest interface {
 	objectivec.IObject
@@ -224,6 +228,8 @@ type ITTSSpeechRequest interface {
 	SetVoiceSettings(value foundation.INSDictionary)
 	Volume() float64
 	SetVolume(value float64)
+	Voucher() objectivec.Object
+	SetVoucher(value objectivec.Object)
 	InitWithCoder(coder foundation.INSCoder) TTSSpeechRequest
 }
 
@@ -446,6 +452,13 @@ func (t TTSSpeechRequest) Volume() float64 {
 }
 func (t TTSSpeechRequest) SetVolume(value float64) {
 	objc.SendIfResponds[struct{}](t.ID, objc.Sel("setVolume:"), value)
+}
+func (t TTSSpeechRequest) Voucher() objectivec.Object {
+	rv := objc.SendIfResponds[objc.ID](t.ID, objc.Sel("voucher"))
+	return objectivec.ObjectFromID(objc.ID(rv))
+}
+func (t TTSSpeechRequest) SetVoucher(value objectivec.Object) {
+	objc.SendIfResponds[struct{}](t.ID, objc.Sel("setVoucher:"), value)
 }
 
 // SetAudioBufferCallbackSync is a synchronous wrapper around [TTSSpeechRequest.SetAudioBufferCallback].

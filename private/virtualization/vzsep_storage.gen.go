@@ -1,4 +1,4 @@
-// Code generated from Apple documentation for virtualization. DO NOT EDIT.
+// Code generated from Apple documentation for Virtualization. DO NOT EDIT.
 
 package virtualization
 
@@ -8,6 +8,7 @@ import (
 
 	"github.com/tmc/apple/foundation"
 	"github.com/tmc/apple/objc"
+	"github.com/tmc/apple/objectivec"
 )
 
 // The class instance for the [VZSEPStorage] class.
@@ -43,21 +44,38 @@ func (vc VZSEPStorageClass) Alloc() VZSEPStorage {
 	return rv
 }
 
+// # Methods
+//
+//   - [VZSEPStorage.URL]
+//   - [VZSEPStorage.InitCreatingStorageAtURLError]
+//   - [VZSEPStorage.InitWithURL]
 type VZSEPStorage struct {
-	VZCoprocessorStorage
+	objectivec.Object
 }
 
 // VZSEPStorageFromID constructs a [VZSEPStorage] from an objc.ID.
 func VZSEPStorageFromID(id objc.ID) VZSEPStorage {
-	return VZSEPStorage{VZCoprocessorStorage: VZCoprocessorStorageFromID(id)}
+	return VZSEPStorage{objectivec.Object{ID: id}}
 }
 
 // Ensure VZSEPStorage implements IVZSEPStorage.
 var _ IVZSEPStorage = VZSEPStorage{}
 
 // An interface definition for the [VZSEPStorage] class.
+//
+// # Methods
+//
+//   - [IVZSEPStorage.URL]
+//   - [IVZSEPStorage.InitCreatingStorageAtURLError]
+//   - [IVZSEPStorage.InitWithURL]
 type IVZSEPStorage interface {
-	IVZCoprocessorStorage
+	objectivec.IObject
+
+	// Topic: Methods
+
+	URL() foundation.NSURL
+	InitCreatingStorageAtURLError(url foundation.NSURL) (VZSEPStorage, error)
+	InitWithURL(url foundation.NSURL) VZSEPStorage
 }
 
 // Init initializes the instance.
@@ -97,4 +115,24 @@ func NewVZSEPStorageWithURL(url foundation.NSURL) VZSEPStorage {
 	instance := getVZSEPStorageClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithURL:"), url)
 	return VZSEPStorageFromID(rv)
+}
+
+func (v VZSEPStorage) InitCreatingStorageAtURLError(url foundation.NSURL) (VZSEPStorage, error) {
+	var errorPtr objc.ID
+	rv := objc.Send[objc.ID](v.ID, objc.Sel("initCreatingStorageAtURL:error:"), url, unsafe.Pointer(&errorPtr))
+	if errorPtr != 0 {
+		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
+		return *new(VZSEPStorage), foundation.NSErrorFrom(errorPtr)
+	}
+	return VZSEPStorageFromID(rv), nil
+
+}
+func (v VZSEPStorage) InitWithURL(url foundation.NSURL) VZSEPStorage {
+	rv := objc.SendIfResponds[VZSEPStorage](v.ID, objc.Sel("initWithURL:"), url)
+	return rv
+}
+
+func (v VZSEPStorage) URL() foundation.NSURL {
+	rv := objc.SendIfResponds[foundation.NSURL](v.ID, objc.Sel("URL"))
+	return foundation.NSURL(rv)
 }

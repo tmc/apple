@@ -1,4 +1,4 @@
-// Code generated from Apple documentation for coreml. DO NOT EDIT.
+// Code generated from Apple documentation for CoreML. DO NOT EDIT.
 
 package coreml
 
@@ -42,14 +42,14 @@ func (mc MLClassifierClass) Alloc() MLClassifier {
 	return rv
 }
 
-// A parent class referenced by other coreml classes. [Full Topic]
+// A parent class referenced by other CoreML classes. [Full Topic]
 type MLClassifier struct {
 	objectivec.Object
 }
 
 // MLClassifierFromID constructs a [MLClassifier] from an objc.ID.
 //
-// A parent class referenced by other coreml classes.
+// A parent class referenced by other CoreML classes.
 func MLClassifierFromID(id objc.ID) MLClassifier {
 	return MLClassifier{objectivec.Object{ID: id}}
 }

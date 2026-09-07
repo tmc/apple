@@ -1,4 +1,4 @@
-// Code generated from Apple documentation for coreml. DO NOT EDIT.
+// Code generated from Apple documentation for CoreML. DO NOT EDIT.
 
 package coreml
 
@@ -10,7 +10,6 @@ import (
 	"github.com/tmc/apple/foundation"
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
-	"github.com/tmc/apple/private/espresso"
 )
 
 // The class instance for the [MLNeuralNetworkUpdateEngine] class.
@@ -180,11 +179,11 @@ type IMLNeuralNetworkUpdateEngine interface {
 	SetWeightsOrBiasesForLayerLayerTypeValueError(layer objectivec.IObject, type_ uint64, value objectivec.IObject) (bool, error)
 	ShuffableTrainingData() IMLShufflingBatchProvider
 	SetShuffableTrainingData(value IMLShufflingBatchProvider)
-	Snapshot() espresso.ETTaskState
-	SetSnapshot(value espresso.ETTaskState)
+	Snapshot() unsafe.Pointer
+	SetSnapshot(value unsafe.Pointer)
 	StringForDataType(type_ uint64) objectivec.IObject
-	Task() espresso.ETTaskDefinition
-	SetTask(value espresso.ETTaskDefinition)
+	Task() unsafe.Pointer
+	SetTask(value unsafe.Pointer)
 	UpdateLearningRateWithTaskContextIsInCallBackError(context objectivec.IObject, back bool) (bool, error)
 	UpdateModelWithData(data objectivec.IObject)
 	UpdateParameters() objectivec.IObject
@@ -482,17 +481,17 @@ func (m MLNeuralNetworkUpdateEngine) ShuffableTrainingData() IMLShufflingBatchPr
 func (m MLNeuralNetworkUpdateEngine) SetShuffableTrainingData(value IMLShufflingBatchProvider) {
 	objc.SendIfResponds[struct{}](m.ID, objc.Sel("setShuffableTrainingData:"), value)
 }
-func (m MLNeuralNetworkUpdateEngine) Snapshot() espresso.ETTaskState {
-	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("snapshot"))
-	return espresso.ETTaskStateFromID(objc.ID(rv))
+func (m MLNeuralNetworkUpdateEngine) Snapshot() unsafe.Pointer {
+	rv := objc.SendIfResponds[unsafe.Pointer](m.ID, objc.Sel("snapshot"))
+	return rv
 }
-func (m MLNeuralNetworkUpdateEngine) SetSnapshot(value espresso.ETTaskState) {
+func (m MLNeuralNetworkUpdateEngine) SetSnapshot(value unsafe.Pointer) {
 	objc.SendIfResponds[struct{}](m.ID, objc.Sel("setSnapshot:"), value)
 }
-func (m MLNeuralNetworkUpdateEngine) Task() espresso.ETTaskDefinition {
-	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("task"))
-	return espresso.ETTaskDefinitionFromID(objc.ID(rv))
+func (m MLNeuralNetworkUpdateEngine) Task() unsafe.Pointer {
+	rv := objc.SendIfResponds[unsafe.Pointer](m.ID, objc.Sel("task"))
+	return rv
 }
-func (m MLNeuralNetworkUpdateEngine) SetTask(value espresso.ETTaskDefinition) {
+func (m MLNeuralNetworkUpdateEngine) SetTask(value unsafe.Pointer) {
 	objc.SendIfResponds[struct{}](m.ID, objc.Sel("setTask:"), value)
 }

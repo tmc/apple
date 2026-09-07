@@ -60,8 +60,6 @@ type CPSKeyFocusInfoRecRef uintptr
 
 type CPSProcessRecRef uintptr
 
-type DADiskRef uintptr
-
 type DesktopEffectsSessionDataRef uintptr
 
 type LSASNRef uintptr
@@ -83,8 +81,6 @@ type SLSTransactionRef uintptr
 type SchedulerSessionDataRef uintptr
 
 type SessionDataRef uintptr
-
-type ThrottlingSessionDataRef uintptr
 
 type WSCursorDataRef uintptr
 

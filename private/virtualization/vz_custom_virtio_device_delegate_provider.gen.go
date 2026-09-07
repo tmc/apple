@@ -1,4 +1,4 @@
-// Code generated from Apple documentation for virtualization. DO NOT EDIT.
+// Code generated from Apple documentation for Virtualization. DO NOT EDIT.
 
 package virtualization
 
@@ -18,12 +18,12 @@ var (
 
 func getVZCustomVirtioDeviceDelegateProviderClass() VZCustomVirtioDeviceDelegateProviderClass {
 	_VZCustomVirtioDeviceDelegateProviderClassOnce.Do(func() {
-		_VZCustomVirtioDeviceDelegateProviderClass = VZCustomVirtioDeviceDelegateProviderClass{class: objc.GetClass("VZCustomVirtioDeviceDelegateProvider")}
+		_VZCustomVirtioDeviceDelegateProviderClass = VZCustomVirtioDeviceDelegateProviderClass{class: objc.GetClass("_VZCustomVirtioDeviceDelegateProvider")}
 	})
 	return _VZCustomVirtioDeviceDelegateProviderClass
 }
 
-// GetVZCustomVirtioDeviceDelegateProviderClass returns the class object for VZCustomVirtioDeviceDelegateProvider.
+// GetVZCustomVirtioDeviceDelegateProviderClass returns the class object for _VZCustomVirtioDeviceDelegateProvider.
 func GetVZCustomVirtioDeviceDelegateProviderClass() VZCustomVirtioDeviceDelegateProviderClass {
 	return getVZCustomVirtioDeviceDelegateProviderClass()
 }

@@ -47,7 +47,6 @@ func (dc DIBaseXPCHandlerClass) Alloc() DIBaseXPCHandler {
 
 // # Methods
 //
-//   - [DIBaseXPCHandler.ClearConnectionLostHandlers]
 //   - [DIBaseXPCHandler.CloseConnection]
 //   - [DIBaseXPCHandler.CompleteCommandWithError]
 //   - [DIBaseXPCHandler.ConnectWithError]
@@ -55,7 +54,6 @@ func (dc DIBaseXPCHandlerClass) Alloc() DIBaseXPCHandler {
 //   - [DIBaseXPCHandler.SetConnection]
 //   - [DIBaseXPCHandler.CreateConnection]
 //   - [DIBaseXPCHandler.DupStderrWithError]
-//   - [DIBaseXPCHandler.InstallConnectionLostHandlers]
 //   - [DIBaseXPCHandler.IsPrivileged]
 //   - [DIBaseXPCHandler.SetIsPrivileged]
 //   - [DIBaseXPCHandler.RemoteObjectInterface]
@@ -83,7 +81,6 @@ var _ IDIBaseXPCHandler = DIBaseXPCHandler{}
 //
 // # Methods
 //
-//   - [IDIBaseXPCHandler.ClearConnectionLostHandlers]
 //   - [IDIBaseXPCHandler.CloseConnection]
 //   - [IDIBaseXPCHandler.CompleteCommandWithError]
 //   - [IDIBaseXPCHandler.ConnectWithError]
@@ -91,7 +88,6 @@ var _ IDIBaseXPCHandler = DIBaseXPCHandler{}
 //   - [IDIBaseXPCHandler.SetConnection]
 //   - [IDIBaseXPCHandler.CreateConnection]
 //   - [IDIBaseXPCHandler.DupStderrWithError]
-//   - [IDIBaseXPCHandler.InstallConnectionLostHandlers]
 //   - [IDIBaseXPCHandler.IsPrivileged]
 //   - [IDIBaseXPCHandler.SetIsPrivileged]
 //   - [IDIBaseXPCHandler.RemoteObjectInterface]
@@ -108,7 +104,6 @@ type IDIBaseXPCHandler interface {
 
 	// Topic: Methods
 
-	ClearConnectionLostHandlers()
 	CloseConnection()
 	CompleteCommandWithError() (bool, error)
 	ConnectWithError() (bool, error)
@@ -116,7 +111,6 @@ type IDIBaseXPCHandler interface {
 	SetConnection(value foundation.NSXPCConnection)
 	CreateConnection()
 	DupStderrWithError() (bool, error)
-	InstallConnectionLostHandlers()
 	IsPrivileged() bool
 	SetIsPrivileged(value bool)
 	RemoteObjectInterface() objectivec.IObject
@@ -149,9 +143,6 @@ func NewDIBaseXPCHandler() DIBaseXPCHandler {
 	return rv
 }
 
-func (d DIBaseXPCHandler) ClearConnectionLostHandlers() {
-	objc.SendIfResponds[objc.ID](d.ID, objc.Sel("clearConnectionLostHandlers"))
-}
 func (d DIBaseXPCHandler) CloseConnection() {
 	objc.SendIfResponds[objc.ID](d.ID, objc.Sel("closeConnection"))
 }
@@ -196,9 +187,6 @@ func (d DIBaseXPCHandler) DupStderrWithError() (bool, error) {
 	}
 	return rv, nil
 
-}
-func (d DIBaseXPCHandler) InstallConnectionLostHandlers() {
-	objc.SendIfResponds[objc.ID](d.ID, objc.Sel("installConnectionLostHandlers"))
 }
 func (d DIBaseXPCHandler) RemoteObjectInterface() objectivec.IObject {
 	rv := objc.SendIfResponds[objc.ID](d.ID, objc.Sel("remoteObjectInterface"))

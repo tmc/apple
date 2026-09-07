@@ -93,7 +93,7 @@ type IIOGPUMetalIndirectCommandBuffer interface {
 	// Topic: Methods
 
 	CommandBufferType() uint64
-	Descriptor() *metal.MTLIndirectCommandBufferDescriptor
+	Descriptor() metal.MTLIndirectCommandBufferDescriptor
 	GetHeaderHeaderSize(header unsafe.Pointer, size *uint64)
 	GpuHandle() uint64
 	GpuResourceID() metal.MTLResourceID
@@ -188,13 +188,9 @@ func (i IOGPUMetalIndirectCommandBuffer) CommandBufferType() uint64 {
 	rv := objc.SendIfResponds[uint64](i.ID, objc.Sel("commandBufferType"))
 	return rv
 }
-func (i IOGPUMetalIndirectCommandBuffer) Descriptor() *metal.MTLIndirectCommandBufferDescriptor {
+func (i IOGPUMetalIndirectCommandBuffer) Descriptor() metal.MTLIndirectCommandBufferDescriptor {
 	rv := objc.SendIfResponds[objc.ID](i.ID, objc.Sel("descriptor"))
-	if rv == 0 {
-		return nil
-	}
-	val := metal.MTLIndirectCommandBufferDescriptorFromID(objc.ID(rv))
-	return &val
+	return metal.MTLIndirectCommandBufferDescriptorFromID(objc.ID(rv))
 }
 func (i IOGPUMetalIndirectCommandBuffer) GpuHandle() uint64 {
 	rv := objc.SendIfResponds[uint64](i.ID, objc.Sel("gpuHandle"))

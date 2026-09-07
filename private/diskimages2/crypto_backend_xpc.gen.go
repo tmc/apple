@@ -6,7 +6,6 @@ import (
 	"sync"
 	"unsafe"
 
-	"github.com/tmc/apple/foundation"
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -47,12 +46,7 @@ func (cc CryptoBackendXPCClass) Alloc() CryptoBackendXPC {
 // # Methods
 //
 //   - [CryptoBackendXPC.BaseBackendXPC]
-//   - [CryptoBackendXPC.SandboxExtensionTokenWithError]
 //   - [CryptoBackendXPC.InitWithFormatBaseBackendXPC]
-//   - [CryptoBackendXPC.DebugDescription]
-//   - [CryptoBackendXPC.Description]
-//   - [CryptoBackendXPC.Hash]
-//   - [CryptoBackendXPC.Superclass]
 type CryptoBackendXPC struct {
 	BackendXPC
 }
@@ -70,24 +64,14 @@ var _ ICryptoBackendXPC = CryptoBackendXPC{}
 // # Methods
 //
 //   - [ICryptoBackendXPC.BaseBackendXPC]
-//   - [ICryptoBackendXPC.SandboxExtensionTokenWithError]
 //   - [ICryptoBackendXPC.InitWithFormatBaseBackendXPC]
-//   - [ICryptoBackendXPC.DebugDescription]
-//   - [ICryptoBackendXPC.Description]
-//   - [ICryptoBackendXPC.Hash]
-//   - [ICryptoBackendXPC.Superclass]
 type ICryptoBackendXPC interface {
 	IBackendXPC
 
 	// Topic: Methods
 
 	BaseBackendXPC() IBackendXPC
-	SandboxExtensionTokenWithError() (objectivec.IObject, error)
 	InitWithFormatBaseBackendXPC(format unsafe.Pointer, xpc objectivec.IObject) CryptoBackendXPC
-	DebugDescription() string
-	Description() string
-	Hash() uint64
-	Superclass() objectivec.Class
 }
 
 // Init initializes the instance.
@@ -121,16 +105,6 @@ func NewCryptoBackendXPCWithFormatBaseBackendXPC(format unsafe.Pointer, xpc obje
 	return CryptoBackendXPCFromID(rv)
 }
 
-func (c CryptoBackendXPC) SandboxExtensionTokenWithError() (objectivec.IObject, error) {
-	var errorPtr objc.ID
-	rv := objc.Send[objc.ID](c.ID, objc.Sel("sandboxExtensionTokenWithError:"), unsafe.Pointer(&errorPtr))
-	if errorPtr != 0 {
-		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
-		return nil, foundation.NSErrorFrom(errorPtr)
-	}
-	return objectivec.Object{ID: rv}, nil
-
-}
 func (c CryptoBackendXPC) InitWithFormatBaseBackendXPC(format unsafe.Pointer, xpc objectivec.IObject) CryptoBackendXPC {
 	rv := objc.SendIfResponds[CryptoBackendXPC](c.ID, objc.Sel("initWithFormat:baseBackendXPC:"), format, xpc)
 	return rv
@@ -139,20 +113,4 @@ func (c CryptoBackendXPC) InitWithFormatBaseBackendXPC(format unsafe.Pointer, xp
 func (c CryptoBackendXPC) BaseBackendXPC() IBackendXPC {
 	rv := objc.SendIfResponds[objc.ID](c.ID, objc.Sel("baseBackendXPC"))
 	return BackendXPCFromID(objc.ID(rv))
-}
-func (c CryptoBackendXPC) DebugDescription() string {
-	rv := objc.SendIfResponds[objc.ID](c.ID, objc.Sel("debugDescription"))
-	return foundation.NSStringFromID(rv).String()
-}
-func (c CryptoBackendXPC) Description() string {
-	rv := objc.SendIfResponds[objc.ID](c.ID, objc.Sel("description"))
-	return foundation.NSStringFromID(rv).String()
-}
-func (c CryptoBackendXPC) Hash() uint64 {
-	rv := objc.SendIfResponds[uint64](c.ID, objc.Sel("hash"))
-	return rv
-}
-func (c CryptoBackendXPC) Superclass() objectivec.Class {
-	rv := objc.SendIfResponds[objectivec.Class](c.ID, objc.Sel("superclass"))
-	return objectivec.Class(rv)
 }
