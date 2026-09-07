@@ -19,10 +19,16 @@
 //
 // # Lifetime
 //
-// SB values wrap reference-counted smart pointers. This binding moves them by raw
-// copy and never runs their C++ destructors, so native memory usage can grow
-// with each API call. Go garbage collection does not release these native
-// objects. Long-running programs must account for this limitation.
+// Each returned SB wrapper owns a native object and must be closed, including
+// invalid results and Error values. Copies of a wrapper share ownership: closing
+// any copy invalidates them all. Close is safe on zero values and repeated calls.
+// Other methods require an open handle; Close must not race with those methods.
+// There is no finalizer: Go garbage collection does not release native objects.
+//
+// Close transient handles at the end of each operation. Detach or kill processes
+// before closing their handles, and close the debugger last. Debugger.Close also
+// removes LLDB's global debugger registration. Closing a target or breakpoint
+// handle does not remove the target or breakpoint from its debugger.
 //
 // # Usage
 //
@@ -30,14 +36,10 @@
 //	if err != nil {
 //		log.Fatal(err)
 //	}
-//	d.SetAsync(false)
+//	defer d.Close()
 //	t := d.CreateTargetWithArch("/bin/sleep", "")
-//	t.BreakpointCreateByName("nanosleep")
-//	proc := t.LaunchSimple([]string{"30"}, nil, "")
-//	for i := uint32(0); i < proc.NumThreads(); i++ {
-//		th := proc.ThreadAtIndex(i)
-//		if th.StopReason() == lldb.StopReasonBreakpoint {
-//			fmt.Println(th.FrameAtIndex(0).FunctionName())
-//		}
-//	}
+//	defer t.Close()
+//	bp := t.BreakpointCreateByName("nanosleep")
+//	defer bp.Close()
+//	fmt.Println(bp.IsValid())
 package lldb
