@@ -296,7 +296,7 @@ func (c *Conn) control(ctx context.Context, kind, request uint8, value, index ui
 		if ctx.Err() != nil {
 			return 0, ctx.Err()
 		}
-		return 0, fmt.Errorf("USB control transfer: %d", n)
+		return 0, usbError("USB control transfer", n)
 	}
 	return int(n), nil
 }
@@ -398,5 +398,12 @@ func usbError(action string, code int32) error {
 	if code == -4 {
 		return fmt.Errorf("%s: %w", action, ErrNotFound)
 	}
-	return fmt.Errorf("%s: %d", action, code)
+	return &usbFailure{action: action, code: code}
 }
+
+type usbFailure struct {
+	action string
+	code   int32
+}
+
+func (e *usbFailure) Error() string { return fmt.Sprintf("%s: %d", e.action, e.code) }

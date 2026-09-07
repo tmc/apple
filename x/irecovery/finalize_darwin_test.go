@@ -88,7 +88,7 @@ func TestFinalizeFailures(t *testing.T) {
 		status    byte
 		wantError bool
 	}{
-		{"success", 0, 0, false}, {"rediscover", -5, 0, false}, {"io error", -1, 0, true}, {"no device", -4, 0, true}, {"status error", 0, 7, true},
+		{"success", 0, 0, false}, {"rediscover", -5, 0, false}, {"io error", -1, 0, true}, {"no device", -4, 0, false}, {"status error", 0, 7, true},
 	} {
 		t.Run(tt.name, func(t *testing.T) {
 			var events []string

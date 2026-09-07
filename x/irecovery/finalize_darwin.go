@@ -97,9 +97,9 @@ func (c *Conn) finishDFU(ctx context.Context, blocks uint16) error {
 		return err
 	}
 	code := c.library.reset(c.handle)
-	// libusb documents NOT_FOUND as requiring handle retirement and rediscovery.
-	// Other reset failures are preserved; a disconnect alone is not boot evidence.
-	if code != 0 && code != -5 {
+	// Both removal and the documented rediscovery result retire this handle.
+	// Neither proves boot; callers must rediscover and check the target identity.
+	if code != 0 && code != -4 && code != -5 {
 		return fmt.Errorf("reset recovery device: %d", code)
 	}
 	return nil
