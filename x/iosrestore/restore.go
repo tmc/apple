@@ -19,7 +19,18 @@ const maxMessage = 16 << 20
 // Send writes a length-prefixed plist dictionary to a restored service stream.
 // The caller serializes writes and configures transport deadlines.
 func Send(w io.Writer, message map[string]any) error {
-	data, err := plist.Marshal(message, plist.FormatXML)
+	return send(w, message, plist.FormatXML)
+}
+
+// SendBinary writes a length-prefixed binary plist dictionary, bounded to
+// 16 MiB, for services such as restored's URLAsset handler. The caller serializes
+// writes and configures transport deadlines.
+func SendBinary(w io.Writer, message map[string]any) error {
+	return send(w, message, plist.FormatBinary)
+}
+
+func send(w io.Writer, message map[string]any, format plist.Format) error {
+	data, err := plist.Marshal(message, format)
 	if err != nil {
 		return err
 	}

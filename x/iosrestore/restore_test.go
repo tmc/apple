@@ -3,6 +3,7 @@ package iosrestore
 import (
 	"bytes"
 	"context"
+	"encoding/binary"
 	"fmt"
 	"net/http"
 	"net/http/httptest"
@@ -53,6 +54,31 @@ func ExampleSend() {
 	err := Send(&stream, map[string]any{"Request": "QueryType"})
 	fmt.Println(err, stream.Len() > 4)
 	// Output: <nil> true
+}
+
+func TestSendBinary(t *testing.T) {
+	var stream bytes.Buffer
+	if err := SendBinary(&stream, map[string]any{"ResponseBody": []byte("asset"), "ResponseStatus": 200, "ECID": uint64(1 << 63)}); err != nil {
+		t.Fatal(err)
+	}
+	data := stream.Bytes()
+	if binary.BigEndian.Uint32(data[:4]) != uint32(len(data)-4) || string(data[4:12]) != "bplist00" {
+		t.Fatal("wrong binary plist framing")
+	}
+	message, err := Receive(&stream)
+	if err != nil || message["ECID"] != uint64(1<<63) || !bytes.Equal(message["ResponseBody"].([]byte), []byte("asset")) {
+		t.Fatalf("response = %v, error = %v", message, err)
+	}
+	if err := SendBinary(&stream, map[string]any{"ResponseBody": make([]byte, maxMessage)}); err == nil || stream.Len() != 0 {
+		t.Fatal("wrote oversized message")
+	}
+}
+
+func ExampleSendBinary() {
+	var stream bytes.Buffer
+	err := SendBinary(&stream, map[string]any{"ResponseBodyDone": true})
+	fmt.Println(err, string(stream.Bytes()[4:12]))
+	// Output: <nil> bplist00
 }
 func ExampleReceive() {
 	var stream bytes.Buffer
