@@ -10,6 +10,7 @@ import (
 
 	"github.com/tmc/apple/corefoundation"
 	"github.com/tmc/apple/foundation"
+	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/vision"
 )
 
@@ -46,7 +47,13 @@ func (s *Service) RecognizeText(img image.Image) ([]TextObservation, error) {
 		return nil, fmt.Errorf("create NSData from image bytes")
 	}
 
-	return s.recognizeTextInData(data, img.Bounds().Dx(), img.Bounds().Dy())
+	defer data.Release()
+	var observations []TextObservation
+	var err error
+	objc.AutoreleasePool(func() {
+		observations, err = s.recognizeTextInData(data, img.Bounds().Dx(), img.Bounds().Dy())
+	})
+	return observations, err
 }
 
 // FindText searches for text on screen and returns its center pixel coordinates.
@@ -156,14 +163,25 @@ func BestMatch(observations []TextObservation, needle string, opts SearchOptions
 
 func (s *Service) recognizeTextInData(data foundation.INSData, width, height int) ([]TextObservation, error) {
 	handler := vision.NewImageRequestHandlerWithDataOptions(foundation.NSDataFromID(data.GetID()), nil)
+	defer handler.Release()
 
 	request := vision.NewVNRecognizeTextRequest()
+	defer request.Release()
 	request.SetRecognitionLevel(vision.VNRequestTextRecognitionLevelAccurate)
 	request.SetUsesLanguageCorrection(true)
 
 	ok, err := handler.PerformRequestsError([]vision.VNRequest{
 		vision.VNRequestFromID(request.ID),
 	})
+	if err != nil || !ok {
+		// The accurate recognizer can fail after repeated requests on macOS 27.
+		// Retry with the fast recognizer, which uses a different model.
+		request.SetRecognitionLevel(vision.VNRequestTextRecognitionLevelFast)
+		request.SetMinimumTextHeight(0)
+		ok, err = handler.PerformRequestsError([]vision.VNRequest{
+			vision.VNRequestFromID(request.ID),
+		})
+	}
 	if err != nil {
 		return nil, fmt.Errorf("perform requests: %w", err)
 	}
