@@ -136,7 +136,7 @@ func constexprArm(t *testing.T, label string, prog *Program, files []WeightFile,
 		DType:   coreml.MLMultiArrayDataTypeFloat32,
 	}}, "y")
 	if err != nil {
-		return true, 0, fmt.Sprintf("loaded but prediction failed: %v", scrubTemp(err.Error(), dir))
+		return true, math.Inf(1), fmt.Sprintf("loaded but prediction failed: %v", scrubTemp(err.Error(), dir))
 	}
 	vals := make([]float64, constexprOut)
 	for i := range vals {
@@ -146,7 +146,7 @@ func constexprArm(t *testing.T, label string, prog *Program, files []WeightFile,
 		case coreml.MLMultiArrayDataTypeFloat16:
 			vals[i] = float64(Float16frombits(binary.LittleEndian.Uint16(got.Bytes[i*2:])))
 		default:
-			return true, 0, fmt.Sprintf("unexpected output dtype %v", got.DType)
+			return true, math.Inf(1), fmt.Sprintf("unexpected output dtype %v", got.DType)
 		}
 	}
 	want := constexprReference(stored, x)
