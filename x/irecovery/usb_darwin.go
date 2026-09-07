@@ -19,11 +19,12 @@ import (
 // Device identifies an Apple USB DFU or recovery endpoint. Unknown serial fields
 // remain zero; Open refuses to select an endpoint without an exact nonzero ECID.
 type Device struct {
-	ECID      uint64
-	CPID      uint32
-	ProductID uint16
-	Serial    string
-	Mode      string
+	ECID        uint64
+	CPID        uint32
+	ProductID   uint16
+	Serial      string
+	Mode        string
+	serialIndex uint8
 }
 
 type library struct {
@@ -145,6 +146,7 @@ func (l *library) each(ctx context.Context, visit func(Device, uintptr) (bool, e
 		}
 		d.ProductID = pid
 		d.Mode = mode
+		d.serialIndex = desc[16]
 		if err := ctx.Err(); err != nil {
 			l.close(h)
 			return err
