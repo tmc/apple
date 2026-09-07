@@ -388,3 +388,16 @@ func TestQuantizedShapeOverflow(t *testing.T) {
 		t.Fatal("QuantizeAffinePerChannel accepted overflowing shape")
 	}
 }
+
+func TestQuantizedScaleMustFitOutput(t *testing.T) {
+	for _, scale := range []float32{1e-10, 1e10} {
+		q := AffineDequantization{Shape: []int64{1}, QuantizedType: DataTypeInt8, OutputType: DataTypeFloat16, Scale: []float32{scale}, ZeroPoint: []int64{0}}
+		if err := q.Validate(); err == nil {
+			t.Fatalf("accepted fp16 scale %g", scale)
+		}
+		q.OutputType = DataTypeFloat32
+		if err := q.Validate(); err != nil {
+			t.Fatalf("rejected fp32 scale %g: %v", scale, err)
+		}
+	}
+}

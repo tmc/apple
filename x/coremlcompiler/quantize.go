@@ -66,6 +66,12 @@ func (q AffineDequantization) Validate() error {
 		if s == 0 || math.IsNaN(float64(s)) || math.IsInf(float64(s), 0) {
 			return fmt.Errorf("coremlcompiler: scale %d is %v, which does not describe a recoverable tensor", i, s)
 		}
+		if q.OutputType == DataTypeFloat16 {
+			h := Float16bits(s)
+			if h&0x7fff == 0 || h&0x7c00 == 0x7c00 {
+				return fmt.Errorf("coremlcompiler: scale %d is %v, which fp16 cannot hold as a finite nonzero value", i, s)
+			}
+		}
 	}
 	min, max := quantizedRange(q.QuantizedType)
 	for i, z := range q.ZeroPoint {
@@ -94,12 +100,13 @@ func quantizedRange(dt DataType) (min, max int64) {
 }
 
 // NumElements returns the number of elements the quantized tensor holds.
+// It returns zero if the shape is invalid or its element count overflows int.
 func (q AffineDequantization) NumElements() int {
-	n := int64(1)
-	for _, d := range q.Shape {
-		n *= d
+	if len(q.Shape) == 0 {
+		return 0
 	}
-	return int(n)
+	n, _ := quantizedElementCount(q.Shape)
+	return n
 }
 
 func quantizedElementCount(shape []int64) (int, error) {
