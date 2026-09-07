@@ -84,7 +84,7 @@ func (d HostDevice) Release() {
 	if d.raw.ID == 0 {
 		return
 	}
-	d.raw.ReleaseDevice()
+	objc.SendIfResponds[objc.ID](d.raw.ID, objc.Sel("_releaseDevice"))
 }
 
 // DeviceSignature returns the opaque signature bytes for a host passthrough configuration.
