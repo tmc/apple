@@ -154,6 +154,15 @@ func writeScalar(buf *bytes.Buffer, v any) error {
 		} else {
 			buf.WriteByte(0x08)
 		}
+	case uint64:
+		if val <= math.MaxInt64 {
+			writeInt(buf, int64(val))
+		} else {
+			buf.WriteByte(0x14)
+			var b [16]byte
+			binary.BigEndian.PutUint64(b[8:], val)
+			buf.Write(b[:])
+		}
 	case int64:
 		writeInt(buf, val)
 	case int:

@@ -188,7 +188,14 @@ func parseXMLValue(decoder *xml.Decoder) (any, error) {
 				if err != nil {
 					return nil, err
 				}
-				return strconv.ParseInt(text, 10, 64)
+				n, err := strconv.ParseInt(text, 10, 64)
+				if err == nil {
+					return n, nil
+				}
+				if !strings.HasPrefix(text, "-") {
+					return strconv.ParseUint(text, 10, 64)
+				}
+				return nil, err
 			case "real":
 				text, err := parseXMLText(decoder, "real")
 				if err != nil {
@@ -382,6 +389,15 @@ func (bp *binaryParser) parseObject(index int) (any, error) {
 		}
 	case 0x1: // int
 		size := 1 << objInfo
+		if size == 16 {
+			if offset+17 > len(bp.data) {
+				return nil, fmt.Errorf("plist: truncated 128-bit integer")
+			}
+			if binary.BigEndian.Uint64(bp.data[offset+1:offset+9]) != 0 {
+				return nil, fmt.Errorf("plist: integer exceeds uint64")
+			}
+			return binary.BigEndian.Uint64(bp.data[offset+9 : offset+17]), nil
+		}
 		return bp.parseInt(offset+1, size)
 	case 0x2: // real
 		size := 1 << objInfo
@@ -627,7 +643,7 @@ func writeXMLValue(w io.Writer, v any, indent int) error {
 	case string:
 		fmt.Fprintf(w, "%s<string>%s</string>", prefix, xmlEscape(val))
 
-	case int64:
+	case int64, uint64:
 		fmt.Fprintf(w, "%s<integer>%d</integer>", prefix, val)
 
 	case int:
@@ -735,7 +751,7 @@ func TypeOf(v any) string {
 	switch v.(type) {
 	case string:
 		return "string"
-	case int64, int:
+	case int64, int, uint64:
 		return "integer"
 	case float64:
 		return "float"

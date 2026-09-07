@@ -3,6 +3,7 @@ package plist
 import (
 	"bytes"
 	"fmt"
+	"math"
 	"reflect"
 	"strings"
 	"time"
@@ -88,7 +89,11 @@ func marshalValue(v reflect.Value) (any, error) {
 		return v.Int(), nil
 
 	case reflect.Uint, reflect.Uint8, reflect.Uint16, reflect.Uint32, reflect.Uint64:
-		return int64(v.Uint()), nil
+		n := v.Uint()
+		if n <= math.MaxInt64 {
+			return int64(n), nil
+		}
+		return n, nil
 
 	case reflect.Float32, reflect.Float64:
 		return v.Float(), nil
@@ -314,10 +319,23 @@ func unmarshalValue(src any, dst reflect.Value) error {
 		}
 
 	case reflect.Int, reflect.Int8, reflect.Int16, reflect.Int32, reflect.Int64:
+		if n, ok := src.(uint64); ok {
+			if n > math.MaxInt64 || dst.OverflowInt(int64(n)) {
+				return fmt.Errorf("integer overflows %s", dst.Type())
+			}
+			dst.SetInt(int64(n))
+			return nil
+		}
 		switch n := src.(type) {
 		case int64:
+			if dst.OverflowInt(n) {
+				return fmt.Errorf("integer overflows %s", dst.Type())
+			}
 			dst.SetInt(n)
 		case int:
+			if dst.OverflowInt(int64(n)) {
+				return fmt.Errorf("integer overflows %s", dst.Type())
+			}
 			dst.SetInt(int64(n))
 		case float64:
 			dst.SetInt(int64(n))
@@ -325,9 +343,20 @@ func unmarshalValue(src any, dst reflect.Value) error {
 
 	case reflect.Uint, reflect.Uint8, reflect.Uint16, reflect.Uint32, reflect.Uint64:
 		switch n := src.(type) {
+		case uint64:
+			if dst.OverflowUint(n) {
+				return fmt.Errorf("integer overflows %s", dst.Type())
+			}
+			dst.SetUint(n)
 		case int64:
+			if n < 0 || dst.OverflowUint(uint64(n)) {
+				return fmt.Errorf("integer overflows %s", dst.Type())
+			}
 			dst.SetUint(uint64(n))
 		case int:
+			if n < 0 || dst.OverflowUint(uint64(n)) {
+				return fmt.Errorf("integer overflows %s", dst.Type())
+			}
 			dst.SetUint(uint64(n))
 		case float64:
 			dst.SetUint(uint64(n))
