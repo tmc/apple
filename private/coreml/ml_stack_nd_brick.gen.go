@@ -1,4 +1,4 @@
-// Code generated from Apple documentation for CoreML. DO NOT EDIT.
+// Code generated from Apple documentation for coreml. DO NOT EDIT.
 
 package coreml
 
@@ -129,7 +129,7 @@ func NewMLStackNDBrick() MLStackNDBrick {
 	return rv
 }
 
-func NewStackNDBrickWithParameters(parameters objectivec.IObject) MLStackNDBrick {
+func NewMLStackNDBrickWithParameters(parameters objectivec.IObject) MLStackNDBrick {
 	instance := getMLStackNDBrickClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithParameters:"), parameters)
 	return MLStackNDBrickFromID(rv)
@@ -152,8 +152,8 @@ func (m MLStackNDBrick) InitWithParameters(parameters objectivec.IObject) MLStac
 }
 
 func (m MLStackNDBrick) Axis() foundation.NSNumber {
-	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("axis"))
-	return foundation.NSNumberFromID(objc.ID(rv))
+	rv := objc.SendIfResponds[foundation.NSNumber](m.ID, objc.Sel("axis"))
+	return foundation.NSNumber(rv)
 }
 func (m MLStackNDBrick) DebugDescription() string {
 	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("debugDescription"))

@@ -225,8 +225,8 @@ func (s SOUtteranceResultsFile) InitWithContentsOfFile(file objectivec.IObject) 
 }
 
 func (s SOUtteranceResultsFile) AudioFileData() foundation.NSData {
-	rv := objc.SendIfResponds[objc.ID](s.ID, objc.Sel("audioFileData"))
-	return foundation.NSDataFromID(objc.ID(rv))
+	rv := objc.SendIfResponds[foundation.NSData](s.ID, objc.Sel("audioFileData"))
+	return foundation.NSData(rv)
 }
 func (s SOUtteranceResultsFile) SetAudioFileData(value foundation.NSData) {
 	objc.SendIfResponds[struct{}](s.ID, objc.Sel("setAudioFileData:"), value)

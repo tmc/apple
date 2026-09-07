@@ -1,4 +1,4 @@
-// Code generated from Apple documentation for CoreML. DO NOT EDIT.
+// Code generated from Apple documentation for coreml. DO NOT EDIT.
 
 package coreml
 
@@ -89,7 +89,7 @@ func NewMLModelStructureProgramBlock() MLModelStructureProgramBlock {
 	return rv
 }
 
-func NewModelStructureProgramBlockWithInputsOutputNamesOperations(inputs objectivec.IObject, names objectivec.IObject, operations objectivec.IObject) MLModelStructureProgramBlock {
+func NewMLModelStructureProgramBlockWithInputsOutputNamesOperations(inputs objectivec.IObject, names objectivec.IObject, operations objectivec.IObject) MLModelStructureProgramBlock {
 	instance := getMLModelStructureProgramBlockClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithInputs:outputNames:operations:"), inputs, names, operations)
 	return MLModelStructureProgramBlockFromID(rv)

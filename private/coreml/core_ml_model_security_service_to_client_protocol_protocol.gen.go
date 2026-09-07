@@ -1,4 +1,4 @@
-// Code generated from Apple documentation for CoreML. DO NOT EDIT.
+// Code generated from Apple documentation for coreml. DO NOT EDIT.
 
 package coreml
 
@@ -10,6 +10,9 @@ import (
 // CoreMLModelSecurityServiceToClientProtocol protocol.
 type CoreMLModelSecurityServiceToClientProtocol interface {
 	objectivec.IObject
+
+	// ClientFeatureNamesWithReply protocol.
+	ClientFeatureNamesWithReply(names objectivec.IObject, reply SetErrorHandler)
 
 	// ClientFeatureValueForNameUniqueKeyForProviderWithReply protocol.
 	ClientFeatureValueForNameUniqueKeyForProviderWithReply(name objectivec.IObject, provider objectivec.IObject, reply MLFeatureValueErrorHandler)
@@ -32,6 +35,11 @@ func CoreMLModelSecurityServiceToClientProtocolObjectFromID(id objc.ID) CoreMLMo
 	}
 }
 
+func (o CoreMLModelSecurityServiceToClientProtocolObject) ClientFeatureNamesWithReply(names objectivec.IObject, reply SetErrorHandler) {
+	_block1, _cleanup1 := NewSetErrorBlock(reply)
+	defer _cleanup1()
+	objc.SendIfResponds[struct{}](o.ID, objc.Sel("clientFeatureNames:withReply:"), names, objc.ID(_block1))
+}
 func (o CoreMLModelSecurityServiceToClientProtocolObject) ClientFeatureValueForNameUniqueKeyForProviderWithReply(name objectivec.IObject, provider objectivec.IObject, reply MLFeatureValueErrorHandler) {
 	_block2, _cleanup2 := NewMLFeatureValueErrorBlock(reply)
 	defer _cleanup2()

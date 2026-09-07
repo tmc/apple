@@ -1,10 +1,9 @@
-// Code generated from Apple documentation for Virtualization. DO NOT EDIT.
+// Code generated from Apple documentation for virtualization. DO NOT EDIT.
 
 package virtualization
 
 import (
 	"sync"
-	"unsafe"
 
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
@@ -110,7 +109,7 @@ func NewVZSocketSerialPortAttachmentWithModeAddress(mode int64, address *Sockadd
 
 func NewVZSocketSerialPortAttachmentWithModeUnixSocketAddress(mode int64, address *SockaddrUn) VZSocketSerialPortAttachment {
 	instance := getVZSocketSerialPortAttachmentClass().Alloc()
-	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithMode:unixSocketAddress:"), mode, unsafe.Pointer(address))
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithMode:unixSocketAddress:"), mode, address)
 	return VZSocketSerialPortAttachmentFromID(rv)
 }
 
@@ -119,7 +118,7 @@ func (v VZSocketSerialPortAttachment) InitWithModeAddress(mode int64, address *S
 	return rv
 }
 func (v VZSocketSerialPortAttachment) InitWithModeUnixSocketAddress(mode int64, address *SockaddrUn) VZSocketSerialPortAttachment {
-	rv := objc.SendIfResponds[VZSocketSerialPortAttachment](v.ID, objc.Sel("initWithMode:unixSocketAddress:"), mode, unsafe.Pointer(address))
+	rv := objc.SendIfResponds[VZSocketSerialPortAttachment](v.ID, objc.Sel("initWithMode:unixSocketAddress:"), mode, address)
 	return rv
 }
 

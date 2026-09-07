@@ -145,7 +145,7 @@ type ISLDisplayPresetDevice interface {
 
 	ActivePresetIndex() uint32
 	ContainerId() objectivec.IObject
-	CopyCFContainerId() corefoundation.CFUUID
+	CopyCFContainerId() corefoundation.CFUUIDRef
 	CopyCalibrationInfo() objectivec.IObject
 	CopyCustomPresetInfo() objectivec.IObject
 	CopyPresetAtIndex(index uint32) objectivec.IObject
@@ -216,9 +216,9 @@ func (s SLDisplayPresetDevice) ContainerId() objectivec.IObject {
 	rv := objc.SendIfResponds[objc.ID](s.ID, objc.Sel("containerId"))
 	return objectivec.Object{ID: rv}
 }
-func (s SLDisplayPresetDevice) CopyCFContainerId() corefoundation.CFUUID {
+func (s SLDisplayPresetDevice) CopyCFContainerId() corefoundation.CFUUIDRef {
 	rv := objc.SendIfResponds[corefoundation.CFUUIDRef](s.ID, objc.Sel("copyCFContainerId"))
-	return corefoundation.CFUUID(rv)
+	return corefoundation.CFUUIDRef(rv)
 }
 func (s SLDisplayPresetDevice) CopyCalibrationInfo() objectivec.IObject {
 	rv := objc.SendIfResponds[objc.ID](s.ID, objc.Sel("copyCalibrationInfo"))

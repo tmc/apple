@@ -193,7 +193,7 @@ func NewIOGPUMetal4CommandBuffer() IOGPUMetal4CommandBuffer {
 	return rv
 }
 
-func NewGPUMetal4CommandBufferWithDevice(device objectivec.IObject) IOGPUMetal4CommandBuffer {
+func NewIOGPUMetal4CommandBufferWithDevice(device objectivec.IObject) IOGPUMetal4CommandBuffer {
 	instance := getIOGPUMetal4CommandBufferClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithDevice:"), device)
 	return IOGPUMetal4CommandBufferFromID(rv)

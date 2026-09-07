@@ -1,4 +1,4 @@
-// Code generated from Apple documentation for CoreML. DO NOT EDIT.
+// Code generated from Apple documentation for coreml. DO NOT EDIT.
 
 package coreml
 
@@ -105,7 +105,7 @@ func NewMLModelAssetModelStructureVendor() MLModelAssetModelStructureVendor {
 	return rv
 }
 
-func NewModelAssetModelStructureVendorWithResourceFactory(factory objectivec.IObject) MLModelAssetModelStructureVendor {
+func NewMLModelAssetModelStructureVendorWithResourceFactory(factory objectivec.IObject) MLModelAssetModelStructureVendor {
 	instance := getMLModelAssetModelStructureVendorClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithResourceFactory:"), factory)
 	return MLModelAssetModelStructureVendorFromID(rv)

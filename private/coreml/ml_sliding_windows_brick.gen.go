@@ -1,4 +1,4 @@
-// Code generated from Apple documentation for CoreML. DO NOT EDIT.
+// Code generated from Apple documentation for coreml. DO NOT EDIT.
 
 package coreml
 
@@ -135,7 +135,7 @@ func NewMLSlidingWindowsBrick() MLSlidingWindowsBrick {
 	return rv
 }
 
-func NewSlidingWindowsBrickWithParameters(parameters objectivec.IObject) MLSlidingWindowsBrick {
+func NewMLSlidingWindowsBrickWithParameters(parameters objectivec.IObject) MLSlidingWindowsBrick {
 	instance := getMLSlidingWindowsBrickClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithParameters:"), parameters)
 	return MLSlidingWindowsBrickFromID(rv)
@@ -158,8 +158,8 @@ func (m MLSlidingWindowsBrick) InitWithParameters(parameters objectivec.IObject)
 }
 
 func (m MLSlidingWindowsBrick) Axis() foundation.NSNumber {
-	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("axis"))
-	return foundation.NSNumberFromID(objc.ID(rv))
+	rv := objc.SendIfResponds[foundation.NSNumber](m.ID, objc.Sel("axis"))
+	return foundation.NSNumber(rv)
 }
 func (m MLSlidingWindowsBrick) DebugDescription() string {
 	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("debugDescription"))
@@ -194,12 +194,12 @@ func (m MLSlidingWindowsBrick) ShapeInfoNeeded() bool {
 	return rv
 }
 func (m MLSlidingWindowsBrick) Size() foundation.NSNumber {
-	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("size"))
-	return foundation.NSNumberFromID(objc.ID(rv))
+	rv := objc.SendIfResponds[foundation.NSNumber](m.ID, objc.Sel("size"))
+	return foundation.NSNumber(rv)
 }
 func (m MLSlidingWindowsBrick) Step() foundation.NSNumber {
-	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("step"))
-	return foundation.NSNumberFromID(objc.ID(rv))
+	rv := objc.SendIfResponds[foundation.NSNumber](m.ID, objc.Sel("step"))
+	return foundation.NSNumber(rv)
 }
 func (m MLSlidingWindowsBrick) Superclass() objectivec.Class {
 	rv := objc.SendIfResponds[objectivec.Class](m.ID, objc.Sel("superclass"))

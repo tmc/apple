@@ -103,7 +103,7 @@ type IETModelDef interface {
 
 	All_variables() foundation.INSArray
 	SetAll_variables(value foundation.INSArray)
-	ConfigureLayersToTrainReinitializeVariables(train objectivec.IObject, variables bool) int
+	ConfigureLayersToTrainReinitializeVariables(train objectivec.IObject, variables bool) int32
 	Gb() unsafe.Pointer
 	SetGb(value unsafe.Pointer)
 	LayerForName(name objectivec.IObject) unsafe.Pointer
@@ -145,8 +145,8 @@ func NewETModelDefWithNetwork(network objectivec.IObject) ETModelDef {
 	return ETModelDefFromID(rv)
 }
 
-func (e ETModelDef) ConfigureLayersToTrainReinitializeVariables(train objectivec.IObject, variables bool) int {
-	rv := objc.SendIfResponds[int](e.ID, objc.Sel("configureLayersToTrain:reinitializeVariables:"), train, variables)
+func (e ETModelDef) ConfigureLayersToTrainReinitializeVariables(train objectivec.IObject, variables bool) int32 {
+	rv := objc.SendIfResponds[int32](e.ID, objc.Sel("configureLayersToTrain:reinitializeVariables:"), train, variables)
 	return rv
 }
 func (e ETModelDef) LayerForName(name objectivec.IObject) unsafe.Pointer {

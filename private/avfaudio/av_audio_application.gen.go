@@ -1,4 +1,4 @@
-// Code generated from Apple documentation for AVFAudio. DO NOT EDIT.
+// Code generated from Apple documentation for avfaudio. DO NOT EDIT.
 
 package avfaudio
 
@@ -133,14 +133,14 @@ type IAVAudioApplication interface {
 	PrivateHandlePing()
 	PrivateOptInToStemClickMuting()
 	PrivateRecreateAudioApplicationInServer() bool
-	PrivateSetAppPropertyValue(property objectivec.IObject, value objectivec.IObject) int
-	PrivateSetAppPropertyValueGuard(property objectivec.IObject, value objectivec.IObject, guard unsafe.Pointer) int
+	PrivateSetAppPropertyValue(property objectivec.IObject, value objectivec.IObject) int32
+	PrivateSetAppPropertyValueGuard(property objectivec.IObject, value objectivec.IObject, guard unsafe.Pointer) int32
 	PrivateSetInputMuteStateChangeHandlerError(handler func()) (bool, error)
 	PrivateSetInputMutedContextError(muted bool, context objectivec.IObject) (bool, error)
 	PrivateSetInputMutedPrimaryOrDelegateContextError(delegate bool, context objectivec.IObject) (bool, error)
 	PrivateSetInputMutedProxyError(proxy bool) (bool, error)
-	PrivateSetMXPropertyOnAllSessionsValue(sessions objectivec.IObject, value objectivec.IObject) int
-	PrivateUpdateAppPropertyValueContext(property objectivec.IObject, value objectivec.IObject, context objectivec.IObject) int
+	PrivateSetMXPropertyOnAllSessionsValue(sessions objectivec.IObject, value objectivec.IObject) int32
+	PrivateUpdateAppPropertyValueContext(property objectivec.IObject, value objectivec.IObject, context objectivec.IObject) int32
 	RequestRecordPermissionWithCompletionHandler(handler ErrorHandler)
 	SessionIDs() objectivec.IObject
 	SetInputMutedContextError(muted bool, context objectivec.IObject) (bool, error)
@@ -171,25 +171,25 @@ func NewAVAudioApplication() AVAudioApplication {
 	return rv
 }
 
-func NewAudioApplicationDelegateForProcessProcessAttribution(process unsafe.Pointer, attribution objectivec.IObject) AVAudioApplication {
+func NewAVAudioApplicationDelegateForProcessProcessAttribution(process unsafe.Pointer, attribution objectivec.IObject) AVAudioApplication {
 	instance := getAVAudioApplicationClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initDelegateForProcess:processAttribution:"), process, attribution)
 	return AVAudioApplicationFromID(rv)
 }
 
-func NewAudioApplicationPrivate(private objectivec.IObject) AVAudioApplication {
+func NewAVAudioApplicationPrivate(private objectivec.IObject) AVAudioApplication {
 	instance := getAVAudioApplicationClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initPrivate:"), private)
 	return AVAudioApplicationFromID(rv)
 }
 
-func NewAudioApplicationProxyForProcess(process unsafe.Pointer) AVAudioApplication {
+func NewAVAudioApplicationProxyForProcess(process unsafe.Pointer) AVAudioApplication {
 	instance := getAVAudioApplicationClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initProxyForProcess:"), process)
 	return AVAudioApplicationFromID(rv)
 }
 
-func NewAudioApplicationWithSpecification(specification objectivec.IObject) AVAudioApplication {
+func NewAVAudioApplicationWithSpecification(specification objectivec.IObject) AVAudioApplication {
 	instance := getAVAudioApplicationClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithSpecification:"), specification)
 	return AVAudioApplicationFromID(rv)
@@ -228,12 +228,12 @@ func (a AVAudioApplication) PrivateRecreateAudioApplicationInServer() bool {
 	rv := objc.SendIfResponds[bool](a.ID, objc.Sel("privateRecreateAudioApplicationInServer"))
 	return rv
 }
-func (a AVAudioApplication) PrivateSetAppPropertyValue(property objectivec.IObject, value objectivec.IObject) int {
-	rv := objc.SendIfResponds[int](a.ID, objc.Sel("privateSetAppProperty:value:"), property, value)
+func (a AVAudioApplication) PrivateSetAppPropertyValue(property objectivec.IObject, value objectivec.IObject) int32 {
+	rv := objc.SendIfResponds[int32](a.ID, objc.Sel("privateSetAppProperty:value:"), property, value)
 	return rv
 }
-func (a AVAudioApplication) PrivateSetAppPropertyValueGuard(property objectivec.IObject, value objectivec.IObject, guard unsafe.Pointer) int {
-	rv := objc.SendIfResponds[int](a.ID, objc.Sel("privateSetAppProperty:value:guard:"), property, value, guard)
+func (a AVAudioApplication) PrivateSetAppPropertyValueGuard(property objectivec.IObject, value objectivec.IObject, guard unsafe.Pointer) int32 {
+	rv := objc.SendIfResponds[int32](a.ID, objc.Sel("privateSetAppProperty:value:guard:"), property, value, guard)
 	return rv
 }
 func (a AVAudioApplication) PrivateSetInputMuteStateChangeHandlerError(handler func()) (bool, error) {
@@ -289,12 +289,12 @@ func (a AVAudioApplication) PrivateSetInputMutedProxyError(proxy bool) (bool, er
 	return rv, nil
 
 }
-func (a AVAudioApplication) PrivateSetMXPropertyOnAllSessionsValue(sessions objectivec.IObject, value objectivec.IObject) int {
-	rv := objc.SendIfResponds[int](a.ID, objc.Sel("privateSetMXPropertyOnAllSessions:value:"), sessions, value)
+func (a AVAudioApplication) PrivateSetMXPropertyOnAllSessionsValue(sessions objectivec.IObject, value objectivec.IObject) int32 {
+	rv := objc.SendIfResponds[int32](a.ID, objc.Sel("privateSetMXPropertyOnAllSessions:value:"), sessions, value)
 	return rv
 }
-func (a AVAudioApplication) PrivateUpdateAppPropertyValueContext(property objectivec.IObject, value objectivec.IObject, context objectivec.IObject) int {
-	rv := objc.SendIfResponds[int](a.ID, objc.Sel("privateUpdateAppProperty:value:context:"), property, value, context)
+func (a AVAudioApplication) PrivateUpdateAppPropertyValueContext(property objectivec.IObject, value objectivec.IObject, context objectivec.IObject) int32 {
+	rv := objc.SendIfResponds[int32](a.ID, objc.Sel("privateUpdateAppProperty:value:context:"), property, value, context)
 	return rv
 }
 func (a AVAudioApplication) RequestRecordPermissionWithCompletionHandler(handler ErrorHandler) {

@@ -1,4 +1,4 @@
-// Code generated from Apple documentation for CoreML. DO NOT EDIT.
+// Code generated from Apple documentation for coreml. DO NOT EDIT.
 
 package coreml
 
@@ -112,7 +112,7 @@ func NewMLLazyUnionFeatureProvider() MLLazyUnionFeatureProvider {
 	return rv
 }
 
-func NewLazyUnionFeatureProviderWithFeaturesFromAddedToFeaturesFrom(from objectivec.IObject, from2 objectivec.IObject) MLLazyUnionFeatureProvider {
+func NewMLLazyUnionFeatureProviderWithFeaturesFromAddedToFeaturesFrom(from objectivec.IObject, from2 objectivec.IObject) MLLazyUnionFeatureProvider {
 	instance := getMLLazyUnionFeatureProviderClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithFeaturesFrom:addedToFeaturesFrom:"), from, from2)
 	return MLLazyUnionFeatureProviderFromID(rv)

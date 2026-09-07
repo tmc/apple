@@ -86,16 +86,16 @@ type ICPXLaunchServicesInterface interface {
 
 	// Topic: Methods
 
-	AddToPermittedFrontASNList(aSNList LSASNRef) int
-	ApplicationInformationSeed(seed LSASNRef) int
+	AddToPermittedFrontASNList(aSNList LSASNRef) int32
+	ApplicationInformationSeed(seed LSASNRef) int32
 	ApplicationType(type_ LSASNRef) byte
 	FrontApplication() objectivec.IObject
 	FrontApplicationSeed() uint32
 	PermittedFrontApplications() foundation.INSArray
-	RemoveFromPermittedFrontASNList(aSNList LSASNRef) int
+	RemoveFromPermittedFrontASNList(aSNList LSASNRef) int32
 	RunningApplications() foundation.INSArray
-	SessionID() int
-	InitWithSessionID(id int) CPXLaunchServicesInterface
+	SessionID() int32
+	InitWithSessionID(id int32) CPXLaunchServicesInterface
 }
 
 // Init initializes the instance.
@@ -117,29 +117,29 @@ func NewCPXLaunchServicesInterface() CPXLaunchServicesInterface {
 	return rv
 }
 
-func NewCPXLaunchServicesInterfaceWithSessionID(id int) CPXLaunchServicesInterface {
+func NewCPXLaunchServicesInterfaceWithSessionID(id int32) CPXLaunchServicesInterface {
 	instance := getCPXLaunchServicesInterfaceClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithSessionID:"), id)
 	return CPXLaunchServicesInterfaceFromID(rv)
 }
 
-func (c CPXLaunchServicesInterface) AddToPermittedFrontASNList(aSNList LSASNRef) int {
-	rv := objc.SendIfResponds[int](c.ID, objc.Sel("addToPermittedFrontASNList:"), aSNList)
+func (c CPXLaunchServicesInterface) AddToPermittedFrontASNList(aSNList LSASNRef) int32 {
+	rv := objc.SendIfResponds[int32](c.ID, objc.Sel("addToPermittedFrontASNList:"), aSNList)
 	return rv
 }
-func (c CPXLaunchServicesInterface) ApplicationInformationSeed(seed LSASNRef) int {
-	rv := objc.SendIfResponds[int](c.ID, objc.Sel("applicationInformationSeed:"), seed)
+func (c CPXLaunchServicesInterface) ApplicationInformationSeed(seed LSASNRef) int32 {
+	rv := objc.SendIfResponds[int32](c.ID, objc.Sel("applicationInformationSeed:"), seed)
 	return rv
 }
 func (c CPXLaunchServicesInterface) ApplicationType(type_ LSASNRef) byte {
 	rv := objc.SendIfResponds[byte](c.ID, objc.Sel("applicationType:"), type_)
 	return rv
 }
-func (c CPXLaunchServicesInterface) RemoveFromPermittedFrontASNList(aSNList LSASNRef) int {
-	rv := objc.SendIfResponds[int](c.ID, objc.Sel("removeFromPermittedFrontASNList:"), aSNList)
+func (c CPXLaunchServicesInterface) RemoveFromPermittedFrontASNList(aSNList LSASNRef) int32 {
+	rv := objc.SendIfResponds[int32](c.ID, objc.Sel("removeFromPermittedFrontASNList:"), aSNList)
 	return rv
 }
-func (c CPXLaunchServicesInterface) InitWithSessionID(id int) CPXLaunchServicesInterface {
+func (c CPXLaunchServicesInterface) InitWithSessionID(id int32) CPXLaunchServicesInterface {
 	rv := objc.SendIfResponds[CPXLaunchServicesInterface](c.ID, objc.Sel("initWithSessionID:"), id)
 	return rv
 }
@@ -160,7 +160,7 @@ func (c CPXLaunchServicesInterface) RunningApplications() foundation.INSArray {
 	rv := objc.SendIfResponds[objc.ID](c.ID, objc.Sel("runningApplications"))
 	return foundation.NSArrayFromID(objc.ID(rv))
 }
-func (c CPXLaunchServicesInterface) SessionID() int {
-	rv := objc.SendIfResponds[int](c.ID, objc.Sel("sessionID"))
+func (c CPXLaunchServicesInterface) SessionID() int32 {
+	rv := objc.SendIfResponds[int32](c.ID, objc.Sel("sessionID"))
 	return rv
 }

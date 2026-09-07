@@ -96,13 +96,13 @@ type ISLSWMBridgedWindow interface {
 	// Topic: Methods
 
 	_rebuildChildWindowInfos()
-	AddChildWindowOrdered(window objectivec.IObject, ordered int)
+	AddChildWindowOrdered(window objectivec.IObject, ordered int32)
 	ClearOrderingGroup()
-	OrderWindowRelativeToIDRelativeToOrderGroup(window int, id uint32, to objectivec.IObject, group bool)
+	OrderWindowRelativeToIDRelativeToOrderGroup(window int32, id uint32, to objectivec.IObject, group bool)
 	RemoveChildWindow(window objectivec.IObject)
 	RemoveFromParent()
 	SetFrameForceAsync(frame corefoundation.CGRect, async bool)
-	SetWindowLevel(level int)
+	SetWindowLevel(level int32)
 	WindowDidUpdateWithChangedProperties(window objectivec.IObject, properties uint64)
 	InitWithWindowID(id uint32) SLSWMBridgedWindow
 	DebugDescription() string
@@ -154,13 +154,13 @@ func (s SLSWMBridgedWindow) RebuildChildWindowInfos() error {
 func (s SLSWMBridgedWindow) CanRebuildChildWindowInfos() bool {
 	return objc.RespondsToSelector(s.ID, objc.Sel("_rebuildChildWindowInfos"))
 }
-func (s SLSWMBridgedWindow) AddChildWindowOrdered(window objectivec.IObject, ordered int) {
+func (s SLSWMBridgedWindow) AddChildWindowOrdered(window objectivec.IObject, ordered int32) {
 	objc.SendIfResponds[objc.ID](s.ID, objc.Sel("addChildWindow:ordered:"), window, ordered)
 }
 func (s SLSWMBridgedWindow) ClearOrderingGroup() {
 	objc.SendIfResponds[objc.ID](s.ID, objc.Sel("clearOrderingGroup"))
 }
-func (s SLSWMBridgedWindow) OrderWindowRelativeToIDRelativeToOrderGroup(window int, id uint32, to objectivec.IObject, group bool) {
+func (s SLSWMBridgedWindow) OrderWindowRelativeToIDRelativeToOrderGroup(window int32, id uint32, to objectivec.IObject, group bool) {
 	objc.SendIfResponds[objc.ID](s.ID, objc.Sel("orderWindow:relativeToID:relativeTo:orderGroup:"), window, id, to, group)
 }
 func (s SLSWMBridgedWindow) RemoveChildWindow(window objectivec.IObject) {
@@ -172,7 +172,7 @@ func (s SLSWMBridgedWindow) RemoveFromParent() {
 func (s SLSWMBridgedWindow) SetFrameForceAsync(frame corefoundation.CGRect, async bool) {
 	objc.SendIfResponds[objc.ID](s.ID, objc.Sel("setFrame:forceAsync:"), frame, async)
 }
-func (s SLSWMBridgedWindow) SetWindowLevel(level int) {
+func (s SLSWMBridgedWindow) SetWindowLevel(level int32) {
 	objc.SendIfResponds[objc.ID](s.ID, objc.Sel("setWindowLevel:"), level)
 }
 func (s SLSWMBridgedWindow) WindowDidUpdateWithChangedProperties(window objectivec.IObject, properties uint64) {

@@ -83,19 +83,19 @@ func NewDiskImageParamsRawXPC() DiskImageParamsRawXPC {
 	return rv
 }
 
-func NewDiskImageParamsRaw_XPCWithBackendXPC(xpc objectivec.IObject) DiskImageParamsRawXPC {
+func NewDiskImageParamsRawXPCWithBackendXPC(xpc objectivec.IObject) DiskImageParamsRawXPC {
 	instance := getDiskImageParamsRawXPCClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithBackendXPC:"), xpc)
 	return DiskImageParamsRawXPCFromID(rv)
 }
 
-func NewDiskImageParamsRaw_XPCWithBackendXPCBlockSize(xpc objectivec.IObject, size uint64) DiskImageParamsRawXPC {
+func NewDiskImageParamsRawXPCWithBackendXPCBlockSize(xpc objectivec.IObject, size uint64) DiskImageParamsRawXPC {
 	instance := getDiskImageParamsRawXPCClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithBackendXPC:blockSize:"), xpc, size)
 	return DiskImageParamsRawXPCFromID(rv)
 }
 
-func NewDiskImageParamsRaw_XPCWithCoder(coder objectivec.IObject) DiskImageParamsRawXPC {
+func NewDiskImageParamsRawXPCWithCoder(coder objectivec.IObject) DiskImageParamsRawXPC {
 	instance := getDiskImageParamsRawXPCClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
 	return DiskImageParamsRawXPCFromID(rv)

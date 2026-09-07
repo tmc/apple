@@ -1,4 +1,4 @@
-// Code generated from Apple documentation for CoreML. DO NOT EDIT.
+// Code generated from Apple documentation for coreml. DO NOT EDIT.
 
 package coreml
 
@@ -123,7 +123,7 @@ func NewMLClipBrick() MLClipBrick {
 	return rv
 }
 
-func NewClipBrickWithParameters(parameters objectivec.IObject) MLClipBrick {
+func NewMLClipBrickWithParameters(parameters objectivec.IObject) MLClipBrick {
 	instance := getMLClipBrickClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithParameters:"), parameters)
 	return MLClipBrickFromID(rv)

@@ -142,13 +142,13 @@ func NewIOGPUMetalCommandQueue() IOGPUMetalCommandQueue {
 	return rv
 }
 
-func NewGPUMetalCommandQueueWithDeviceDescriptor(device objectivec.IObject, descriptor objectivec.IObject) IOGPUMetalCommandQueue {
+func NewIOGPUMetalCommandQueueWithDeviceDescriptor(device objectivec.IObject, descriptor objectivec.IObject) IOGPUMetalCommandQueue {
 	instance := getIOGPUMetalCommandQueueClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithDevice:descriptor:"), device, descriptor)
 	return IOGPUMetalCommandQueueFromID(rv)
 }
 
-func NewGPUMetalCommandQueueWithDeviceDescriptorArgsArgsSize(device objectivec.IObject, descriptor objectivec.IObject, args *IOGPUDeviceNewCommandQueueArgs, size uint32) IOGPUMetalCommandQueue {
+func NewIOGPUMetalCommandQueueWithDeviceDescriptorArgsArgsSize(device objectivec.IObject, descriptor objectivec.IObject, args *IOGPUDeviceNewCommandQueueArgs, size uint32) IOGPUMetalCommandQueue {
 	instance := getIOGPUMetalCommandQueueClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithDevice:descriptor:args:argsSize:"), device, descriptor, unsafe.Pointer(args), size)
 	return IOGPUMetalCommandQueueFromID(rv)

@@ -89,7 +89,7 @@ func NewIOGPUMetalDeviceAssertion() IOGPUMetalDeviceAssertion {
 	return rv
 }
 
-func NewGPUMetalDeviceAssertionWithDeviceAssertionTypeOptions(device objectivec.IObject, type_ uint64, options uint64) IOGPUMetalDeviceAssertion {
+func NewIOGPUMetalDeviceAssertionWithDeviceAssertionTypeOptions(device objectivec.IObject, type_ uint64, options uint64) IOGPUMetalDeviceAssertion {
 	instance := getIOGPUMetalDeviceAssertionClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithDevice:assertionType:options:"), device, type_, options)
 	return IOGPUMetalDeviceAssertionFromID(rv)

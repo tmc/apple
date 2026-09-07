@@ -75,7 +75,7 @@ type IEspressoFaceLandmarkDetector interface {
 
 	Newface() corefoundation.CGRect
 	SetNewface(value corefoundation.CGRect)
-	InitWithNetworkAtPathContextObjCPlatformComputePath(path objectivec.IObject, c objectivec.IObject, platform int, path2 int) EspressoFaceLandmarkDetector
+	InitWithNetworkAtPathContextObjCPlatformComputePath(path objectivec.IObject, c objectivec.IObject, platform int32, path2 int32) EspressoFaceLandmarkDetector
 }
 
 // Init initializes the instance.
@@ -97,19 +97,19 @@ func NewEspressoFaceLandmarkDetector() EspressoFaceLandmarkDetector {
 	return rv
 }
 
-func NewEspressoFaceLandmarkDetectorWithNetworkAtPathContextObjCPlatformComputePath(path objectivec.IObject, c objectivec.IObject, platform int, path2 int) EspressoFaceLandmarkDetector {
+func NewEspressoFaceLandmarkDetectorWithNetworkAtPathContextObjCPlatformComputePath(path objectivec.IObject, c objectivec.IObject, platform int32, path2 int32) EspressoFaceLandmarkDetector {
 	instance := getEspressoFaceLandmarkDetectorClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithNetworkAtPath:contextObjC:platform:computePath:"), path, c, platform, path2)
 	return EspressoFaceLandmarkDetectorFromID(rv)
 }
 
-func NewEspressoFaceLandmarkDetectorWithNetworkAtPathContextPlatformComputePath(path objectivec.IObject, context unsafe.Pointer, platform int, path2 int) EspressoFaceLandmarkDetector {
+func NewEspressoFaceLandmarkDetectorWithNetworkAtPathContextPlatformComputePath(path objectivec.IObject, context unsafe.Pointer, platform int32, path2 int32) EspressoFaceLandmarkDetector {
 	instance := getEspressoFaceLandmarkDetectorClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithNetworkAtPath:context:platform:computePath:"), path, context, platform, path2)
 	return EspressoFaceLandmarkDetectorFromID(rv)
 }
 
-func (e EspressoFaceLandmarkDetector) InitWithNetworkAtPathContextObjCPlatformComputePath(path objectivec.IObject, c objectivec.IObject, platform int, path2 int) EspressoFaceLandmarkDetector {
+func (e EspressoFaceLandmarkDetector) InitWithNetworkAtPathContextObjCPlatformComputePath(path objectivec.IObject, c objectivec.IObject, platform int32, path2 int32) EspressoFaceLandmarkDetector {
 	rv := objc.SendIfResponds[EspressoFaceLandmarkDetector](e.ID, objc.Sel("initWithNetworkAtPath:contextObjC:platform:computePath:"), path, c, platform, path2)
 	return rv
 }

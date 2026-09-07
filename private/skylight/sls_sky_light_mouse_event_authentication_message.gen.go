@@ -102,7 +102,7 @@ func NewSLSSkyLightMouseEventAuthenticationMessageWithCoder(coder objectivec.IOb
 	return SLSSkyLightMouseEventAuthenticationMessageFromID(rv)
 }
 
-func NewSLSSkyLightMouseEventAuthenticationMessageWithEventRecordPidVersion(record *SLSEventRecord, pid int, version uint32) SLSSkyLightMouseEventAuthenticationMessage {
+func NewSLSSkyLightMouseEventAuthenticationMessageWithEventRecordPidVersion(record *SLSEventRecord, pid int32, version uint32) SLSSkyLightMouseEventAuthenticationMessage {
 	instance := getSLSSkyLightMouseEventAuthenticationMessageClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithEventRecord:pid:version:"), unsafe.Pointer(record), pid, version)
 	return SLSSkyLightMouseEventAuthenticationMessageFromID(rv)

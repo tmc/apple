@@ -1,4 +1,4 @@
-// Code generated from Apple documentation for AVFAudio. DO NOT EDIT.
+// Code generated from Apple documentation for avfaudio. DO NOT EDIT.
 
 package avfaudio
 
@@ -84,7 +84,7 @@ type IAVVCSessionManager interface {
 	SetAudioSession(value objectivec.IObject)
 	IsCurrentInputBuiltInMic() bool
 	SetIsUsingBuiltInMicForRecordingError(recording bool) (bool, error)
-	SetupOneTimeSessionSettingsForClient(client int64) int
+	SetupOneTimeSessionSettingsForClient(client int64) int32
 	InitWithSession(session objectivec.IObject) AVVCSessionManager
 }
 
@@ -107,7 +107,7 @@ func NewAVVCSessionManager() AVVCSessionManager {
 	return rv
 }
 
-func NewVCSessionManagerWithSession(session objectivec.IObject) AVVCSessionManager {
+func NewAVVCSessionManagerWithSession(session objectivec.IObject) AVVCSessionManager {
 	instance := getAVVCSessionManagerClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithSession:"), session)
 	return AVVCSessionManagerFromID(rv)
@@ -130,8 +130,8 @@ func (a AVVCSessionManager) SetIsUsingBuiltInMicForRecordingError(recording bool
 	return rv, nil
 
 }
-func (a AVVCSessionManager) SetupOneTimeSessionSettingsForClient(client int64) int {
-	rv := objc.SendIfResponds[int](a.ID, objc.Sel("setupOneTimeSessionSettingsForClient:"), client)
+func (a AVVCSessionManager) SetupOneTimeSessionSettingsForClient(client int64) int32 {
+	rv := objc.SendIfResponds[int32](a.ID, objc.Sel("setupOneTimeSessionSettingsForClient:"), client)
 	return rv
 }
 func (a AVVCSessionManager) InitWithSession(session objectivec.IObject) AVVCSessionManager {

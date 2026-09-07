@@ -113,15 +113,15 @@ func (s SLSDisplayWallConfiguration) SetDisplayIDs(value foundation.INSArray) {
 	objc.SendIfResponds[struct{}](s.ID, objc.Sel("setDisplayIDs:"), value)
 }
 func (s SLSDisplayWallConfiguration) GridHeight() foundation.NSNumber {
-	rv := objc.SendIfResponds[objc.ID](s.ID, objc.Sel("gridHeight"))
-	return foundation.NSNumberFromID(objc.ID(rv))
+	rv := objc.SendIfResponds[foundation.NSNumber](s.ID, objc.Sel("gridHeight"))
+	return foundation.NSNumber(rv)
 }
 func (s SLSDisplayWallConfiguration) SetGridHeight(value foundation.NSNumber) {
 	objc.SendIfResponds[struct{}](s.ID, objc.Sel("setGridHeight:"), value)
 }
 func (s SLSDisplayWallConfiguration) GridWidth() foundation.NSNumber {
-	rv := objc.SendIfResponds[objc.ID](s.ID, objc.Sel("gridWidth"))
-	return foundation.NSNumberFromID(objc.ID(rv))
+	rv := objc.SendIfResponds[foundation.NSNumber](s.ID, objc.Sel("gridWidth"))
+	return foundation.NSNumber(rv)
 }
 func (s SLSDisplayWallConfiguration) SetGridWidth(value foundation.NSNumber) {
 	objc.SendIfResponds[struct{}](s.ID, objc.Sel("setGridWidth:"), value)

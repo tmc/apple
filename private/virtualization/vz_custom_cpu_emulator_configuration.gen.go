@@ -1,4 +1,4 @@
-// Code generated from Apple documentation for Virtualization. DO NOT EDIT.
+// Code generated from Apple documentation for virtualization. DO NOT EDIT.
 
 package virtualization
 
@@ -105,15 +105,15 @@ func NewVZCustomCPUEmulatorConfiguration() VZCustomCPUEmulatorConfiguration {
 }
 
 func (v VZCustomCPUEmulatorConfiguration) EmulatorURL() foundation.NSURL {
-	rv := objc.SendIfResponds[objc.ID](v.ID, objc.Sel("emulatorURL"))
-	return foundation.NSURLFromID(objc.ID(rv))
+	rv := objc.SendIfResponds[foundation.NSURL](v.ID, objc.Sel("emulatorURL"))
+	return foundation.NSURL(rv)
 }
 func (v VZCustomCPUEmulatorConfiguration) SetEmulatorURL(value foundation.NSURL) {
 	objc.SendIfResponds[struct{}](v.ID, objc.Sel("setEmulatorURL:"), value)
 }
 func (v VZCustomCPUEmulatorConfiguration) MemorySize() foundation.NSNumber {
-	rv := objc.SendIfResponds[objc.ID](v.ID, objc.Sel("memorySize"))
-	return foundation.NSNumberFromID(objc.ID(rv))
+	rv := objc.SendIfResponds[foundation.NSNumber](v.ID, objc.Sel("memorySize"))
+	return foundation.NSNumber(rv)
 }
 func (v VZCustomCPUEmulatorConfiguration) SetMemorySize(value foundation.NSNumber) {
 	objc.SendIfResponds[struct{}](v.ID, objc.Sel("setMemorySize:"), value)

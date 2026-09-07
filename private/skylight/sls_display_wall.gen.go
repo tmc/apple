@@ -82,12 +82,12 @@ func (_SLSDisplayWallClass SLSDisplayWallClass) AvailableDisplayWallGroups() obj
 	rv := objc.SendIfResponds[objc.ID](objc.ID(_SLSDisplayWallClass.class), objc.Sel("availableDisplayWallGroups"))
 	return objectivec.Object{ID: rv}
 }
-func (_SLSDisplayWallClass SLSDisplayWallClass) DisableDisplayWall(wall objectivec.IObject) int {
-	rv := objc.SendIfResponds[int](objc.ID(_SLSDisplayWallClass.class), objc.Sel("disableDisplayWall:"), wall)
+func (_SLSDisplayWallClass SLSDisplayWallClass) DisableDisplayWall(wall objectivec.IObject) int32 {
+	rv := objc.SendIfResponds[int32](objc.ID(_SLSDisplayWallClass.class), objc.Sel("disableDisplayWall:"), wall)
 	return rv
 }
-func (_SLSDisplayWallClass SLSDisplayWallClass) EnableDisplayWallWithConfiguration(configuration objectivec.IObject) int {
-	rv := objc.SendIfResponds[int](objc.ID(_SLSDisplayWallClass.class), objc.Sel("enableDisplayWallWithConfiguration:"), configuration)
+func (_SLSDisplayWallClass SLSDisplayWallClass) EnableDisplayWallWithConfiguration(configuration objectivec.IObject) int32 {
+	rv := objc.SendIfResponds[int32](objc.ID(_SLSDisplayWallClass.class), objc.Sel("enableDisplayWallWithConfiguration:"), configuration)
 	return rv
 }
 func (_SLSDisplayWallClass SLSDisplayWallClass) IsDisplayWall(wall objectivec.IObject) bool {

@@ -7,6 +7,7 @@ type _undefined = int
 type (
 	AudioDevices      = _undefined
 	ConsoleDevice     = _undefined
+	GraphicsDevices   = _undefined
 	Keyboards         = _undefined
 	MultiTouchDevices = _undefined
 	NSError           = _undefined

@@ -1,4 +1,4 @@
-// Code generated from Apple documentation for CoreML. DO NOT EDIT.
+// Code generated from Apple documentation for coreml. DO NOT EDIT.
 
 package coreml
 
@@ -102,7 +102,7 @@ func NewMLNeuralEngineComputeDevice() MLNeuralEngineComputeDevice {
 	return rv
 }
 
-func NewNeuralEngineComputeDeviceWithTotalCoreCount(count int64) MLNeuralEngineComputeDevice {
+func NewMLNeuralEngineComputeDeviceWithTotalCoreCount(count int64) MLNeuralEngineComputeDevice {
 	instance := getMLNeuralEngineComputeDeviceClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithTotalCoreCount:"), count)
 	return MLNeuralEngineComputeDeviceFromID(rv)

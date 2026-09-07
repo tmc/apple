@@ -1,4 +1,4 @@
-// Code generated from Apple documentation for CoreML. DO NOT EDIT.
+// Code generated from Apple documentation for coreml. DO NOT EDIT.
 
 package coreml
 
@@ -96,7 +96,7 @@ func NewMLMetalDeviceChangeInfo() MLMetalDeviceChangeInfo {
 	return rv
 }
 
-func NewMetalDeviceChangeInfoWithMetalDeviceChangeType(device objectivec.IObject, type_ int64) MLMetalDeviceChangeInfo {
+func NewMLMetalDeviceChangeInfoWithMetalDeviceChangeType(device objectivec.IObject, type_ int64) MLMetalDeviceChangeInfo {
 	instance := getMLMetalDeviceChangeInfoClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithMetalDevice:changeType:"), device, type_)
 	return MLMetalDeviceChangeInfoFromID(rv)

@@ -167,8 +167,8 @@ func (d DIStatFS) MountedFrom() string {
 	return foundation.NSStringFromID(rv).String()
 }
 func (d DIStatFS) MountedOnURL() foundation.NSURL {
-	rv := objc.SendIfResponds[objc.ID](d.ID, objc.Sel("mountedOnURL"))
-	return foundation.NSURLFromID(objc.ID(rv))
+	rv := objc.SendIfResponds[foundation.NSURL](d.ID, objc.Sel("mountedOnURL"))
+	return foundation.NSURL(rv)
 }
 func (d DIStatFS) SupportsBarrier() bool {
 	rv := objc.SendIfResponds[bool](d.ID, objc.Sel("supportsBarrier"))

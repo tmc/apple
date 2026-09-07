@@ -1,4 +1,4 @@
-// Code generated from Apple documentation for CoreML. DO NOT EDIT.
+// Code generated from Apple documentation for coreml. DO NOT EDIT.
 
 package coreml
 
@@ -126,7 +126,7 @@ func NewMLPredictionEventMetric() MLPredictionEventMetric {
 	return rv
 }
 
-func NewPredictionEventMetricWithBundleIdentifierModelNameFirstPartyExecutableModelTypeFeaturesPredictionDurationFeaturesPredictionCountSoFar(identifier objectivec.IObject, name objectivec.IObject, executable objectivec.IObject, type_ objectivec.IObject, duration float64, far int64) MLPredictionEventMetric {
+func NewMLPredictionEventMetricWithBundleIdentifierModelNameFirstPartyExecutableModelTypeFeaturesPredictionDurationFeaturesPredictionCountSoFar(identifier objectivec.IObject, name objectivec.IObject, executable objectivec.IObject, type_ objectivec.IObject, duration float64, far int64) MLPredictionEventMetric {
 	instance := getMLPredictionEventMetricClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithBundleIdentifier:modelName:firstPartyExecutable:modelType:featuresPredictionDuration:featuresPredictionCountSoFar:"), identifier, name, executable, type_, duration, far)
 	return MLPredictionEventMetricFromID(rv)
@@ -162,8 +162,8 @@ func (m MLPredictionEventMetric) FeaturesPredictionDuration() float64 {
 	return rv
 }
 func (m MLPredictionEventMetric) FirstPartyExecutable() foundation.NSNumber {
-	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("firstPartyExecutable"))
-	return foundation.NSNumberFromID(objc.ID(rv))
+	rv := objc.SendIfResponds[foundation.NSNumber](m.ID, objc.Sel("firstPartyExecutable"))
+	return foundation.NSNumber(rv)
 }
 func (m MLPredictionEventMetric) Hash() uint64 {
 	rv := objc.SendIfResponds[uint64](m.ID, objc.Sel("hash"))
@@ -174,8 +174,8 @@ func (m MLPredictionEventMetric) ModelName() string {
 	return foundation.NSStringFromID(rv).String()
 }
 func (m MLPredictionEventMetric) ModelType() foundation.NSNumber {
-	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("modelType"))
-	return foundation.NSNumberFromID(objc.ID(rv))
+	rv := objc.SendIfResponds[foundation.NSNumber](m.ID, objc.Sel("modelType"))
+	return foundation.NSNumber(rv)
 }
 func (m MLPredictionEventMetric) Name() string {
 	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("name"))

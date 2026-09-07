@@ -1,4 +1,4 @@
-// Code generated from Apple documentation for CoreML. DO NOT EDIT.
+// Code generated from Apple documentation for coreml. DO NOT EDIT.
 
 package coreml
 
@@ -131,13 +131,13 @@ func NewMLNearestNeighborsSingleKdTreeIndex() MLNearestNeighborsSingleKdTreeInde
 	return rv
 }
 
-func NewNearestNeighborsSingleKdTreeIndexWithCoder(coder objectivec.IObject) MLNearestNeighborsSingleKdTreeIndex {
+func NewMLNearestNeighborsSingleKdTreeIndexWithCoder(coder objectivec.IObject) MLNearestNeighborsSingleKdTreeIndex {
 	instance := getMLNearestNeighborsSingleKdTreeIndexClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
 	return MLNearestNeighborsSingleKdTreeIndexFromID(rv)
 }
 
-func NewNearestNeighborsSingleKdTreeIndexWithDatasetNumberOfDimensionsLeafSizeError(dataset unsafe.Pointer, dimensions uint64, size uint64) (MLNearestNeighborsSingleKdTreeIndex, error) {
+func NewMLNearestNeighborsSingleKdTreeIndexWithDatasetNumberOfDimensionsLeafSizeError(dataset unsafe.Pointer, dimensions uint64, size uint64) (MLNearestNeighborsSingleKdTreeIndex, error) {
 	var errorPtr objc.ID
 	instance := getMLNearestNeighborsSingleKdTreeIndexClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithDataset:numberOfDimensions:leafSize:error:"), dataset, dimensions, size, unsafe.Pointer(&errorPtr))

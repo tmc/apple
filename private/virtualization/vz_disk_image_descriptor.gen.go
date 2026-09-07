@@ -1,4 +1,4 @@
-// Code generated from Apple documentation for Virtualization. DO NOT EDIT.
+// Code generated from Apple documentation for virtualization. DO NOT EDIT.
 
 package virtualization
 
@@ -51,6 +51,7 @@ func (vc VZDiskImageDescriptorClass) Alloc() VZDiskImageDescriptor {
 //   - [VZDiskImageDescriptor.CachingMode]
 //   - [VZDiskImageDescriptor.SetCachingMode]
 //   - [VZDiskImageDescriptor.IsReadOnly]
+//   - [VZDiskImageDescriptor.LayerDescriptors]
 //   - [VZDiskImageDescriptor.SetBackendType]
 //   - [VZDiskImageDescriptor.SynchronizationMode]
 //   - [VZDiskImageDescriptor.SetSynchronizationMode]
@@ -79,6 +80,7 @@ var _ IVZDiskImageDescriptor = VZDiskImageDescriptor{}
 //   - [IVZDiskImageDescriptor.CachingMode]
 //   - [IVZDiskImageDescriptor.SetCachingMode]
 //   - [IVZDiskImageDescriptor.IsReadOnly]
+//   - [IVZDiskImageDescriptor.LayerDescriptors]
 //   - [IVZDiskImageDescriptor.SetBackendType]
 //   - [IVZDiskImageDescriptor.SynchronizationMode]
 //   - [IVZDiskImageDescriptor.SetSynchronizationMode]
@@ -96,6 +98,7 @@ type IVZDiskImageDescriptor interface {
 	CachingMode() int64
 	SetCachingMode(value int64)
 	IsReadOnly() bool
+	LayerDescriptors() foundation.INSArray
 	SetBackendType(type_ int64)
 	SynchronizationMode() int64
 	SetSynchronizationMode(value int64)
@@ -146,8 +149,8 @@ func (v VZDiskImageDescriptor) InitWithURL(url foundation.NSURL) VZDiskImageDesc
 }
 
 func (v VZDiskImageDescriptor) URL() foundation.NSURL {
-	rv := objc.SendIfResponds[objc.ID](v.ID, objc.Sel("URL"))
-	return foundation.NSURLFromID(objc.ID(rv))
+	rv := objc.SendIfResponds[foundation.NSURL](v.ID, objc.Sel("URL"))
+	return foundation.NSURL(rv)
 }
 func (v VZDiskImageDescriptor) SetURL(value foundation.NSURL) {
 	objc.SendIfResponds[struct{}](v.ID, objc.Sel("setURL:"), value)
@@ -158,6 +161,10 @@ func (v VZDiskImageDescriptor) CachingMode() int64 {
 }
 func (v VZDiskImageDescriptor) SetCachingMode(value int64) {
 	objc.SendIfResponds[struct{}](v.ID, objc.Sel("setCachingMode:"), value)
+}
+func (v VZDiskImageDescriptor) LayerDescriptors() foundation.INSArray {
+	rv := objc.SendIfResponds[objc.ID](v.ID, objc.Sel("layerDescriptors"))
+	return foundation.NSArrayFromID(objc.ID(rv))
 }
 func (v VZDiskImageDescriptor) ReadOnly() bool {
 	rv := objc.SendIfResponds[bool](v.ID, objc.Sel("readOnly"))

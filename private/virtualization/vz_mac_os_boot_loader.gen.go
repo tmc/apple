@@ -1,4 +1,4 @@
-// Code generated from Apple documentation for Virtualization. DO NOT EDIT.
+// Code generated from Apple documentation for virtualization. DO NOT EDIT.
 
 package virtualization
 
@@ -115,8 +115,8 @@ func (v VZMacOSBootLoader) CanSetROMURL() bool {
 }
 
 func (v VZMacOSBootLoader) _romURL() foundation.NSURL {
-	rv := objc.SendIfResponds[objc.ID](v.ID, objc.Sel("_romURL"))
-	return foundation.NSURLFromID(objc.ID(rv))
+	rv := objc.SendIfResponds[foundation.NSURL](v.ID, objc.Sel("_romURL"))
+	return foundation.NSURL(rv)
 }
 
 // CanRomURL reports whether the receiver responds to the private selector _romURL.

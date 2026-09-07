@@ -83,19 +83,19 @@ func NewDiskImageParamsLockedXPC() DiskImageParamsLockedXPC {
 	return rv
 }
 
-func NewDiskImageParamsLocked_XPCWithBackendXPC(xpc objectivec.IObject) DiskImageParamsLockedXPC {
+func NewDiskImageParamsLockedXPCWithBackendXPC(xpc objectivec.IObject) DiskImageParamsLockedXPC {
 	instance := getDiskImageParamsLockedXPCClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithBackendXPC:"), xpc)
 	return DiskImageParamsLockedXPCFromID(rv)
 }
 
-func NewDiskImageParamsLocked_XPCWithBackendXPCBlockSize(xpc objectivec.IObject, size uint64) DiskImageParamsLockedXPC {
+func NewDiskImageParamsLockedXPCWithBackendXPCBlockSize(xpc objectivec.IObject, size uint64) DiskImageParamsLockedXPC {
 	instance := getDiskImageParamsLockedXPCClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithBackendXPC:blockSize:"), xpc, size)
 	return DiskImageParamsLockedXPCFromID(rv)
 }
 
-func NewDiskImageParamsLocked_XPCWithCoder(coder objectivec.IObject) DiskImageParamsLockedXPC {
+func NewDiskImageParamsLockedXPCWithCoder(coder objectivec.IObject) DiskImageParamsLockedXPC {
 	instance := getDiskImageParamsLockedXPCClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
 	return DiskImageParamsLockedXPCFromID(rv)

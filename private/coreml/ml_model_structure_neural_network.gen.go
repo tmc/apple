@@ -1,4 +1,4 @@
-// Code generated from Apple documentation for CoreML. DO NOT EDIT.
+// Code generated from Apple documentation for coreml. DO NOT EDIT.
 
 package coreml
 
@@ -89,7 +89,7 @@ func NewMLModelStructureNeuralNetwork() MLModelStructureNeuralNetwork {
 	return rv
 }
 
-func NewModelStructureNeuralNetworkWithLayers(layers objectivec.IObject) MLModelStructureNeuralNetwork {
+func NewMLModelStructureNeuralNetworkWithLayers(layers objectivec.IObject) MLModelStructureNeuralNetwork {
 	instance := getMLModelStructureNeuralNetworkClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithLayers:"), layers)
 	return MLModelStructureNeuralNetworkFromID(rv)

@@ -1,4 +1,4 @@
-// Code generated from Apple documentation for CoreML. DO NOT EDIT.
+// Code generated from Apple documentation for coreml. DO NOT EDIT.
 
 package coreml
 
@@ -262,7 +262,7 @@ func NewMLModelConfiguration() MLModelConfiguration {
 	return rv
 }
 
-func NewModelConfigurationWithComputeUnits(units int64) MLModelConfiguration {
+func NewMLModelConfigurationWithComputeUnits(units int64) MLModelConfiguration {
 	instance := getMLModelConfigurationClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithComputeUnits:"), units)
 	return MLModelConfigurationFromID(rv)
@@ -437,8 +437,8 @@ func (m MLModelConfiguration) SetProfilingOptions(value int64) {
 	objc.SendIfResponds[struct{}](m.ID, objc.Sel("setProfilingOptions:"), value)
 }
 func (m MLModelConfiguration) RootModelURL() foundation.NSURL {
-	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("rootModelURL"))
-	return foundation.NSURLFromID(objc.ID(rv))
+	rv := objc.SendIfResponds[foundation.NSURL](m.ID, objc.Sel("rootModelURL"))
+	return foundation.NSURL(rv)
 }
 func (m MLModelConfiguration) SetRootModelURL(value foundation.NSURL) {
 	objc.SendIfResponds[struct{}](m.ID, objc.Sel("setRootModelURL:"), value)

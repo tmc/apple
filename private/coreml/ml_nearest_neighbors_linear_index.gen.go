@@ -1,4 +1,4 @@
-// Code generated from Apple documentation for CoreML. DO NOT EDIT.
+// Code generated from Apple documentation for coreml. DO NOT EDIT.
 
 package coreml
 
@@ -113,13 +113,13 @@ func NewMLNearestNeighborsLinearIndex() MLNearestNeighborsLinearIndex {
 	return rv
 }
 
-func NewNearestNeighborsLinearIndexWithCoder(coder objectivec.IObject) MLNearestNeighborsLinearIndex {
+func NewMLNearestNeighborsLinearIndexWithCoder(coder objectivec.IObject) MLNearestNeighborsLinearIndex {
 	instance := getMLNearestNeighborsLinearIndexClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
 	return MLNearestNeighborsLinearIndexFromID(rv)
 }
 
-func NewNearestNeighborsLinearIndexWithDatasetNumberOfDimensions(dataset unsafe.Pointer, dimensions uint64) MLNearestNeighborsLinearIndex {
+func NewMLNearestNeighborsLinearIndexWithDatasetNumberOfDimensions(dataset unsafe.Pointer, dimensions uint64) MLNearestNeighborsLinearIndex {
 	instance := getMLNearestNeighborsLinearIndexClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithDataset:numberOfDimensions:"), dataset, dimensions)
 	return MLNearestNeighborsLinearIndexFromID(rv)

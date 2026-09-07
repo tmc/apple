@@ -1,4 +1,4 @@
-// Code generated from Apple documentation for CoreML. DO NOT EDIT.
+// Code generated from Apple documentation for coreml. DO NOT EDIT.
 
 package coreml
 
@@ -92,7 +92,7 @@ func NewMLAppleAudioFeatureExtractorSoundPrintParameters() MLAppleAudioFeatureEx
 	return rv
 }
 
-func NewAppleAudioFeatureExtractorSoundPrintParametersSoundPrintParameters(parameters int64) MLAppleAudioFeatureExtractorSoundPrintParameters {
+func NewMLAppleAudioFeatureExtractorSoundPrintParametersSoundPrintParameters(parameters int64) MLAppleAudioFeatureExtractorSoundPrintParameters {
 	instance := getMLAppleAudioFeatureExtractorSoundPrintParametersClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initSoundPrintParameters:"), parameters)
 	return MLAppleAudioFeatureExtractorSoundPrintParametersFromID(rv)

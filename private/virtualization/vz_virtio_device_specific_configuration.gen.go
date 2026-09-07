@@ -1,4 +1,4 @@
-// Code generated from Apple documentation for Virtualization. DO NOT EDIT.
+// Code generated from Apple documentation for virtualization. DO NOT EDIT.
 
 package virtualization
 
@@ -6,6 +6,7 @@ import (
 	"sync"
 	"unsafe"
 
+	"github.com/tmc/apple/foundation"
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -18,12 +19,12 @@ var (
 
 func getVZVirtioDeviceSpecificConfigurationClass() VZVirtioDeviceSpecificConfigurationClass {
 	_VZVirtioDeviceSpecificConfigurationClassOnce.Do(func() {
-		_VZVirtioDeviceSpecificConfigurationClass = VZVirtioDeviceSpecificConfigurationClass{class: objc.GetClass("_VZVirtioDeviceSpecificConfiguration")}
+		_VZVirtioDeviceSpecificConfigurationClass = VZVirtioDeviceSpecificConfigurationClass{class: objc.GetClass("VZVirtioDeviceSpecificConfiguration")}
 	})
 	return _VZVirtioDeviceSpecificConfigurationClass
 }
 
-// GetVZVirtioDeviceSpecificConfigurationClass returns the class object for _VZVirtioDeviceSpecificConfiguration.
+// GetVZVirtioDeviceSpecificConfigurationClass returns the class object for VZVirtioDeviceSpecificConfiguration.
 func GetVZVirtioDeviceSpecificConfigurationClass() VZVirtioDeviceSpecificConfigurationClass {
 	return getVZVirtioDeviceSpecificConfigurationClass()
 }
@@ -46,7 +47,8 @@ func (vc VZVirtioDeviceSpecificConfigurationClass) Alloc() VZVirtioDeviceSpecifi
 // # Methods
 //
 //   - [VZVirtioDeviceSpecificConfiguration._configuration]
-//   - [VZVirtioDeviceSpecificConfiguration._init]
+//   - [VZVirtioDeviceSpecificConfiguration.ConfigurationData]
+//   - [VZVirtioDeviceSpecificConfiguration.InitWithConfigurationData]
 type VZVirtioDeviceSpecificConfiguration struct {
 	objectivec.Object
 }
@@ -64,14 +66,16 @@ var _ IVZVirtioDeviceSpecificConfiguration = VZVirtioDeviceSpecificConfiguration
 // # Methods
 //
 //   - [IVZVirtioDeviceSpecificConfiguration._configuration]
-//   - [IVZVirtioDeviceSpecificConfiguration._init]
+//   - [IVZVirtioDeviceSpecificConfiguration.ConfigurationData]
+//   - [IVZVirtioDeviceSpecificConfiguration.InitWithConfigurationData]
 type IVZVirtioDeviceSpecificConfiguration interface {
 	objectivec.IObject
 
 	// Topic: Methods
 
 	_configuration() unsafe.Pointer
-	_init() objectivec.IObject
+	ConfigurationData() foundation.NSData
+	InitWithConfigurationData(data objectivec.IObject) VZVirtioDeviceSpecificConfiguration
 }
 
 // Init initializes the instance.
@@ -93,9 +97,15 @@ func NewVZVirtioDeviceSpecificConfiguration() VZVirtioDeviceSpecificConfiguratio
 	return rv
 }
 
-func (v VZVirtioDeviceSpecificConfiguration) _init() objectivec.IObject {
-	rv := objc.SendIfResponds[objc.ID](v.ID, objc.Sel("_init"))
-	return objectivec.Object{ID: rv}
+func NewVZVirtioDeviceSpecificConfigurationWithConfigurationData(data objectivec.IObject) VZVirtioDeviceSpecificConfiguration {
+	instance := getVZVirtioDeviceSpecificConfigurationClass().Alloc()
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithConfigurationData:"), data)
+	return VZVirtioDeviceSpecificConfigurationFromID(rv)
+}
+
+func (v VZVirtioDeviceSpecificConfiguration) InitWithConfigurationData(data objectivec.IObject) VZVirtioDeviceSpecificConfiguration {
+	rv := objc.SendIfResponds[VZVirtioDeviceSpecificConfiguration](v.ID, objc.Sel("initWithConfigurationData:"), data)
+	return rv
 }
 
 func (v VZVirtioDeviceSpecificConfiguration) _configuration() unsafe.Pointer {
@@ -114,4 +124,8 @@ func (v VZVirtioDeviceSpecificConfiguration) Configuration() (unsafe.Pointer, er
 		return nil, &objc.UnrecognizedSelectorError{Selector: "_configuration"}
 	}
 	return v._configuration(), nil
+}
+func (v VZVirtioDeviceSpecificConfiguration) ConfigurationData() foundation.NSData {
+	rv := objc.SendIfResponds[foundation.NSData](v.ID, objc.Sel("configurationData"))
+	return foundation.NSData(rv)
 }

@@ -1,4 +1,4 @@
-// Code generated from Apple documentation for CoreML. DO NOT EDIT.
+// Code generated from Apple documentation for coreml. DO NOT EDIT.
 
 package coreml
 
@@ -133,19 +133,19 @@ func NewMLModelAssetDescription() MLModelAssetDescription {
 	return rv
 }
 
-func NewModelAssetDescriptionFromModelDescriptionSpecification(specification MLModelDescriptionSpecificationRef) MLModelAssetDescription {
+func NewMLModelAssetDescriptionFromModelDescriptionSpecification(specification MLModelDescriptionSpecificationRef) MLModelAssetDescription {
 	instance := getMLModelAssetDescriptionClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initFromModelDescriptionSpecification:"), specification)
 	return MLModelAssetDescriptionFromID(rv)
 }
 
-func NewModelAssetDescriptionFromModelSpecification(specification MLModelSpecificationRef) MLModelAssetDescription {
+func NewMLModelAssetDescriptionFromModelSpecification(specification MLModelSpecificationRef) MLModelAssetDescription {
 	instance := getMLModelAssetDescriptionClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initFromModelSpecification:"), specification)
 	return MLModelAssetDescriptionFromID(rv)
 }
 
-func NewModelAssetDescriptionWithCompiledModelArchiveError(archive MLModelInputArchiverRef) (MLModelAssetDescription, error) {
+func NewMLModelAssetDescriptionWithCompiledModelArchiveError(archive MLModelInputArchiverRef) (MLModelAssetDescription, error) {
 	var errorPtr objc.ID
 	instance := getMLModelAssetDescriptionClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithCompiledModelArchive:error:"), archive, unsafe.Pointer(&errorPtr))
@@ -159,19 +159,19 @@ func NewModelAssetDescriptionWithCompiledModelArchiveError(archive MLModelInputA
 	return MLModelAssetDescriptionFromID(rv), nil
 }
 
-func NewModelAssetDescriptionWithModelDescription(description objectivec.IObject) MLModelAssetDescription {
+func NewMLModelAssetDescriptionWithModelDescription(description objectivec.IObject) MLModelAssetDescription {
 	instance := getMLModelAssetDescriptionClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithModelDescription:"), description)
 	return MLModelAssetDescriptionFromID(rv)
 }
 
-func NewModelAssetDescriptionWithModelDescriptionsByFunctionNameFunctionNamesDefaultFunctionName(name objectivec.IObject, names objectivec.IObject, name2 objectivec.IObject) MLModelAssetDescription {
+func NewMLModelAssetDescriptionWithModelDescriptionsByFunctionNameFunctionNamesDefaultFunctionName(name objectivec.IObject, names objectivec.IObject, name2 objectivec.IObject) MLModelAssetDescription {
 	instance := getMLModelAssetDescriptionClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithModelDescriptionsByFunctionName:functionNames:defaultFunctionName:"), name, names, name2)
 	return MLModelAssetDescriptionFromID(rv)
 }
 
-func NewModelAssetDescriptionWithRawModelDescription(description objectivec.IObject) MLModelAssetDescription {
+func NewMLModelAssetDescriptionWithRawModelDescription(description objectivec.IObject) MLModelAssetDescription {
 	instance := getMLModelAssetDescriptionClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithRawModelDescription:"), description)
 	return MLModelAssetDescriptionFromID(rv)

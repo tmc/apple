@@ -69,8 +69,8 @@ type IETModelDefLeNet interface {
 
 	// Topic: Methods
 
-	Output_size() int
-	SetOutput_size(value int)
+	Output_size() int32
+	SetOutput_size(value int32)
 }
 
 // Init initializes the instance.
@@ -98,10 +98,10 @@ func NewETModelDefLeNetWithNetwork(network objectivec.IObject) ETModelDefLeNet {
 	return ETModelDefLeNetFromID(rv)
 }
 
-func (e ETModelDefLeNet) Output_size() int {
-	rv := objc.SendIfResponds[int](e.ID, objc.Sel("output_size"))
+func (e ETModelDefLeNet) Output_size() int32 {
+	rv := objc.SendIfResponds[int32](e.ID, objc.Sel("output_size"))
 	return rv
 }
-func (e ETModelDefLeNet) SetOutput_size(value int) {
+func (e ETModelDefLeNet) SetOutput_size(value int32) {
 	objc.SendIfResponds[struct{}](e.ID, objc.Sel("setOutput_size:"), value)
 }

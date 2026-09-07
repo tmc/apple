@@ -1,4 +1,4 @@
-// Code generated from Apple documentation for CoreML. DO NOT EDIT.
+// Code generated from Apple documentation for coreml. DO NOT EDIT.
 
 package coreml
 
@@ -118,37 +118,37 @@ func NewMLProbabilityDictionary() MLProbabilityDictionary {
 	return rv
 }
 
-func NewProbabilityDictionaryWithLabelIndexMapStorage(map_ objectivec.IObject, storage objectivec.IObject) MLProbabilityDictionary {
+func NewMLProbabilityDictionaryWithLabelIndexMapStorage(map_ objectivec.IObject, storage objectivec.IObject) MLProbabilityDictionary {
 	instance := getMLProbabilityDictionaryClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithLabelIndexMap:storage:"), map_, storage)
 	return MLProbabilityDictionaryFromID(rv)
 }
 
-func NewProbabilityDictionaryWithLabelsProbabilities(labels objectivec.IObject, probabilities []float64) MLProbabilityDictionary {
+func NewMLProbabilityDictionaryWithLabelsProbabilities(labels objectivec.IObject, probabilities []float64) MLProbabilityDictionary {
 	instance := getMLProbabilityDictionaryClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithLabels:probabilities:"), labels, probabilities)
 	return MLProbabilityDictionaryFromID(rv)
 }
 
-func NewProbabilityDictionaryWithLabelsProbabilityArray(labels objectivec.IObject, array objectivec.IObject) MLProbabilityDictionary {
+func NewMLProbabilityDictionaryWithLabelsProbabilityArray(labels objectivec.IObject, array objectivec.IObject) MLProbabilityDictionary {
 	instance := getMLProbabilityDictionaryClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithLabels:probabilityArray:"), labels, array)
 	return MLProbabilityDictionaryFromID(rv)
 }
 
-func NewProbabilityDictionaryWithSharedKeySetProbabilities(set objectivec.IObject, probabilities []float64) MLProbabilityDictionary {
+func NewMLProbabilityDictionaryWithSharedKeySetProbabilities(set objectivec.IObject, probabilities []float64) MLProbabilityDictionary {
 	instance := getMLProbabilityDictionaryClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithSharedKeySet:probabilities:"), set, probabilities)
 	return MLProbabilityDictionaryFromID(rv)
 }
 
-func NewProbabilityDictionaryWithSharedKeySetProbabilityArray(set objectivec.IObject, array objectivec.IObject) MLProbabilityDictionary {
+func NewMLProbabilityDictionaryWithSharedKeySetProbabilityArray(set objectivec.IObject, array objectivec.IObject) MLProbabilityDictionary {
 	instance := getMLProbabilityDictionaryClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithSharedKeySet:probabilityArray:"), set, array)
 	return MLProbabilityDictionaryFromID(rv)
 }
 
-func NewProbabilityDictionaryWithSharedKeySetProbabilityMultiArray(set objectivec.IObject, array objectivec.IObject) MLProbabilityDictionary {
+func NewMLProbabilityDictionaryWithSharedKeySetProbabilityMultiArray(set objectivec.IObject, array objectivec.IObject) MLProbabilityDictionary {
 	instance := getMLProbabilityDictionaryClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithSharedKeySet:probabilityMultiArray:"), set, array)
 	return MLProbabilityDictionaryFromID(rv)

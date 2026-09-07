@@ -82,7 +82,7 @@ type ICPXConnectionManager interface {
 	// Topic: Methods
 
 	ConnectionForID(id uint32) *CGXConnection
-	PidForConnection(connection *CGXConnection) int
+	PidForConnection(connection *CGXConnection) int32
 	InitWithSession(session CGXSessionRef) CPXConnectionManager
 	DebugDescription() string
 	Description() string
@@ -119,8 +119,8 @@ func (c CPXConnectionManager) ConnectionForID(id uint32) *CGXConnection {
 	rv := objc.SendIfResponds[unsafe.Pointer](c.ID, objc.Sel("connectionForID:"), id)
 	return (*CGXConnection)(rv)
 }
-func (c CPXConnectionManager) PidForConnection(connection *CGXConnection) int {
-	rv := objc.SendIfResponds[int](c.ID, objc.Sel("pidForConnection:"), unsafe.Pointer(connection))
+func (c CPXConnectionManager) PidForConnection(connection *CGXConnection) int32 {
+	rv := objc.SendIfResponds[int32](c.ID, objc.Sel("pidForConnection:"), unsafe.Pointer(connection))
 	return rv
 }
 func (c CPXConnectionManager) InitWithSession(session CGXSessionRef) CPXConnectionManager {

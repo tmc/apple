@@ -100,7 +100,7 @@ func NewIOGPUMetalIOHandleCompressed() IOGPUMetalIOHandleCompressed {
 	return rv
 }
 
-func NewGPUMetalIOHandleCompressedWithDevicePathCompressionTypeErrorUncached(device objectivec.IObject, path string, type_ int64, error_ []objectivec.IObject, uncached bool) IOGPUMetalIOHandleCompressed {
+func NewIOGPUMetalIOHandleCompressedWithDevicePathCompressionTypeErrorUncached(device objectivec.IObject, path string, type_ int64, error_ []objectivec.IObject, uncached bool) IOGPUMetalIOHandleCompressed {
 	instance := getIOGPUMetalIOHandleCompressedClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithDevice:path:compressionType:error:uncached:"), device, unsafe.Pointer(unsafe.StringData(path+"\x00")), type_, objectivec.IObjectSliceToNSArray(error_), uncached)
 	return IOGPUMetalIOHandleCompressedFromID(rv)

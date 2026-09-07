@@ -72,8 +72,8 @@ type IETDataSourceBlobF4 interface {
 	// Topic: Methods
 
 	AddBlobForKey(blob objectivec.IObject, key objectivec.IObject)
-	DataPointAtIndex(index int) objectivec.IObject
-	NumberOfDataPoints() int
+	DataPointAtIndex(index int32) objectivec.IObject
+	NumberOfDataPoints() int32
 }
 
 // Init initializes the instance.
@@ -98,11 +98,11 @@ func NewETDataSourceBlobF4() ETDataSourceBlobF4 {
 func (e ETDataSourceBlobF4) AddBlobForKey(blob objectivec.IObject, key objectivec.IObject) {
 	objc.SendIfResponds[objc.ID](e.ID, objc.Sel("addBlob:forKey:"), blob, key)
 }
-func (e ETDataSourceBlobF4) DataPointAtIndex(index int) objectivec.IObject {
+func (e ETDataSourceBlobF4) DataPointAtIndex(index int32) objectivec.IObject {
 	rv := objc.SendIfResponds[objc.ID](e.ID, objc.Sel("dataPointAtIndex:"), index)
 	return objectivec.Object{ID: rv}
 }
-func (e ETDataSourceBlobF4) NumberOfDataPoints() int {
-	rv := objc.SendIfResponds[int](e.ID, objc.Sel("numberOfDataPoints"))
+func (e ETDataSourceBlobF4) NumberOfDataPoints() int32 {
+	rv := objc.SendIfResponds[int32](e.ID, objc.Sel("numberOfDataPoints"))
 	return rv
 }

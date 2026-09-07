@@ -1,4 +1,4 @@
-// Code generated from Apple documentation for CoreML. DO NOT EDIT.
+// Code generated from Apple documentation for coreml. DO NOT EDIT.
 
 package coreml
 
@@ -97,13 +97,13 @@ func NewMLImputer() MLImputer {
 	return rv
 }
 
-func NewImputerWithDescriptionConfiguration(description objectivec.IObject, configuration objectivec.IObject) MLImputer {
+func NewMLImputerWithDescriptionConfiguration(description objectivec.IObject, configuration objectivec.IObject) MLImputer {
 	instance := getMLImputerClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithDescription:configuration:"), description, configuration)
 	return MLImputerFromID(rv)
 }
 
-func NewImputerWithImputeValueReplaceValueInputDescriptionOutputDescriptionOrderedInputFeatureNamesOrderedOutputFeatureNamesConfigurationError(with objectivec.IObject, value objectivec.IObject, value2 objectivec.IObject, description objectivec.IObject, description2 objectivec.IObject, names objectivec.IObject, names2 objectivec.IObject, configuration objectivec.IObject) (MLImputer, error) {
+func NewMLImputerWithImputeValueReplaceValueInputDescriptionOutputDescriptionOrderedInputFeatureNamesOrderedOutputFeatureNamesConfigurationError(with objectivec.IObject, value objectivec.IObject, value2 objectivec.IObject, description objectivec.IObject, description2 objectivec.IObject, names objectivec.IObject, names2 objectivec.IObject, configuration objectivec.IObject) (MLImputer, error) {
 	var errorPtr objc.ID
 	instance := getMLImputerClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWith:imputeValue:replaceValue:inputDescription:outputDescription:orderedInputFeatureNames:orderedOutputFeatureNames:configuration:error:"), with, value, value2, description, description2, names, names2, configuration, unsafe.Pointer(&errorPtr))
@@ -117,7 +117,7 @@ func NewImputerWithImputeValueReplaceValueInputDescriptionOutputDescriptionOrder
 	return MLImputerFromID(rv), nil
 }
 
-func NewImputerWithNameInputDescriptionOutputDescriptionOrderedInputFeatureNamesOrderedOutputFeatureNamesConfiguration(name objectivec.IObject, description objectivec.IObject, description2 objectivec.IObject, names objectivec.IObject, names2 objectivec.IObject, configuration objectivec.IObject) MLImputer {
+func NewMLImputerWithNameInputDescriptionOutputDescriptionOrderedInputFeatureNamesOrderedOutputFeatureNamesConfiguration(name objectivec.IObject, description objectivec.IObject, description2 objectivec.IObject, names objectivec.IObject, names2 objectivec.IObject, configuration objectivec.IObject) MLImputer {
 	instance := getMLImputerClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithName:inputDescription:outputDescription:orderedInputFeatureNames:orderedOutputFeatureNames:configuration:"), name, description, description2, names, names2, configuration)
 	return MLImputerFromID(rv)

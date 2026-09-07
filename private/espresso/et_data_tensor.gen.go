@@ -246,8 +246,8 @@ func (e ETDataTensor) SetImageBuffer(value appleneuralengine.VImageBuffer) {
 	objc.SendIfResponds[struct{}](e.ID, objc.Sel("setImageBuffer:"), value)
 }
 func (e ETDataTensor) MaxNumberOfElements() foundation.NSNumber {
-	rv := objc.SendIfResponds[objc.ID](e.ID, objc.Sel("maxNumberOfElements"))
-	return foundation.NSNumberFromID(objc.ID(rv))
+	rv := objc.SendIfResponds[foundation.NSNumber](e.ID, objc.Sel("maxNumberOfElements"))
+	return foundation.NSNumber(rv)
 }
 func (e ETDataTensor) SetMaxNumberOfElements(value foundation.NSNumber) {
 	objc.SendIfResponds[struct{}](e.ID, objc.Sel("setMaxNumberOfElements:"), value)

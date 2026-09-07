@@ -147,6 +147,6 @@ func (a ANEBuffer) Source() int64 {
 	return rv
 }
 func (a ANEBuffer) SymbolIndex() foundation.NSNumber {
-	rv := objc.SendIfResponds[objc.ID](a.ID, objc.Sel("symbolIndex"))
-	return foundation.NSNumberFromID(objc.ID(rv))
+	rv := objc.SendIfResponds[foundation.NSNumber](a.ID, objc.Sel("symbolIndex"))
+	return foundation.NSNumber(rv)
 }

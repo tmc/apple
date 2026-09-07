@@ -1,4 +1,4 @@
-// Code generated from Apple documentation for CoreML. DO NOT EDIT.
+// Code generated from Apple documentation for coreml. DO NOT EDIT.
 
 package coreml
 
@@ -221,13 +221,13 @@ func NewMLModelDescription() MLModelDescription {
 	return rv
 }
 
-func NewModelDescriptionFromModelDescriptionSpecification(specification unsafe.Pointer) MLModelDescription {
+func NewMLModelDescriptionFromModelDescriptionSpecification(specification unsafe.Pointer) MLModelDescription {
 	instance := getMLModelDescriptionClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initFromModelDescriptionSpecification:"), specification)
 	return MLModelDescriptionFromID(rv)
 }
 
-func NewModelDescriptionFromRawCompiledModelArchiveError(archive MLModelInputArchiverRef) (MLModelDescription, error) {
+func NewMLModelDescriptionFromRawCompiledModelArchiveError(archive MLModelInputArchiverRef) (MLModelDescription, error) {
 	var errorPtr objc.ID
 	instance := getMLModelDescriptionClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initFromRawCompiledModelArchive:error:"), archive, unsafe.Pointer(&errorPtr))
@@ -241,19 +241,19 @@ func NewModelDescriptionFromRawCompiledModelArchiveError(archive MLModelInputArc
 	return MLModelDescriptionFromID(rv), nil
 }
 
-func NewModelDescriptionFromRawModelDescriptionSpecification(specification unsafe.Pointer) MLModelDescription {
+func NewMLModelDescriptionFromRawModelDescriptionSpecification(specification unsafe.Pointer) MLModelDescription {
 	instance := getMLModelDescriptionClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initFromRawModelDescriptionSpecification:"), specification)
 	return MLModelDescriptionFromID(rv)
 }
 
-func NewModelDescriptionFromRawModelSpecification(specification unsafe.Pointer) MLModelDescription {
+func NewMLModelDescriptionFromRawModelSpecification(specification unsafe.Pointer) MLModelDescription {
 	instance := getMLModelDescriptionClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initFromRawModelSpecification:"), specification)
 	return MLModelDescriptionFromID(rv)
 }
 
-func NewModelDescriptionFromSingleFunctionCompiledModelArchiveError(archive MLModelInputArchiverRef) (MLModelDescription, error) {
+func NewMLModelDescriptionFromSingleFunctionCompiledModelArchiveError(archive MLModelInputArchiverRef) (MLModelDescription, error) {
 	var errorPtr objc.ID
 	instance := getMLModelDescriptionClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initFromSingleFunctionCompiledModelArchive:error:"), archive, unsafe.Pointer(&errorPtr))
@@ -267,55 +267,55 @@ func NewModelDescriptionFromSingleFunctionCompiledModelArchiveError(archive MLMo
 	return MLModelDescriptionFromID(rv), nil
 }
 
-func NewModelDescriptionFromSingleFunctionModelDescriptionSpecification(specification unsafe.Pointer) MLModelDescription {
+func NewMLModelDescriptionFromSingleFunctionModelDescriptionSpecification(specification unsafe.Pointer) MLModelDescription {
 	instance := getMLModelDescriptionClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initFromSingleFunctionModelDescriptionSpecification:"), specification)
 	return MLModelDescriptionFromID(rv)
 }
 
-func NewModelDescriptionFromSingleFunctionModelSpecification(specification unsafe.Pointer) MLModelDescription {
+func NewMLModelDescriptionFromSingleFunctionModelSpecification(specification unsafe.Pointer) MLModelDescription {
 	instance := getMLModelDescriptionClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initFromSingleFunctionModelSpecification:"), specification)
 	return MLModelDescriptionFromID(rv)
 }
 
-func NewModelDescriptionWithInputDescriptionsOutputDescriptionsPredictedFeatureNamePredictedProbabilitiesNameFunctionDescriptionsIsUpdatableTrainingInputDescriptionsParameterDescriptionsOrderedInputFeatureNamesOrderedOutputFeatureNamesMetadataDefaultFunctionNameFunctionNameClassLabelsModelURLModelPath(descriptions objectivec.IObject, descriptions2 objectivec.IObject, name objectivec.IObject, name2 objectivec.IObject, descriptions3 objectivec.IObject, updatable bool, descriptions4 objectivec.IObject, descriptions5 objectivec.IObject, names objectivec.IObject, names2 objectivec.IObject, metadata objectivec.IObject, name3 objectivec.IObject, name4 objectivec.IObject, labels objectivec.IObject, url foundation.NSURL, path objectivec.IObject) MLModelDescription {
+func NewMLModelDescriptionWithInputDescriptionsOutputDescriptionsPredictedFeatureNamePredictedProbabilitiesNameFunctionDescriptionsIsUpdatableTrainingInputDescriptionsParameterDescriptionsOrderedInputFeatureNamesOrderedOutputFeatureNamesMetadataDefaultFunctionNameFunctionNameClassLabelsModelURLModelPath(descriptions objectivec.IObject, descriptions2 objectivec.IObject, name objectivec.IObject, name2 objectivec.IObject, descriptions3 objectivec.IObject, updatable bool, descriptions4 objectivec.IObject, descriptions5 objectivec.IObject, names objectivec.IObject, names2 objectivec.IObject, metadata objectivec.IObject, name3 objectivec.IObject, name4 objectivec.IObject, labels objectivec.IObject, url foundation.NSURL, path objectivec.IObject) MLModelDescription {
 	instance := getMLModelDescriptionClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithInputDescriptions:outputDescriptions:predictedFeatureName:predictedProbabilitiesName:functionDescriptions:isUpdatable:trainingInputDescriptions:parameterDescriptions:orderedInputFeatureNames:orderedOutputFeatureNames:metadata:defaultFunctionName:functionName:classLabels:modelURL:modelPath:"), descriptions, descriptions2, name, name2, descriptions3, updatable, descriptions4, descriptions5, names, names2, metadata, name3, name4, labels, url, path)
 	return MLModelDescriptionFromID(rv)
 }
 
-func NewModelDescriptionWithInputDescriptionsOutputDescriptionsPredictedFeatureNamePredictedProbabilitiesNameMetadata(descriptions objectivec.IObject, descriptions2 objectivec.IObject, name objectivec.IObject, name2 objectivec.IObject, metadata objectivec.IObject) MLModelDescription {
+func NewMLModelDescriptionWithInputDescriptionsOutputDescriptionsPredictedFeatureNamePredictedProbabilitiesNameMetadata(descriptions objectivec.IObject, descriptions2 objectivec.IObject, name objectivec.IObject, name2 objectivec.IObject, metadata objectivec.IObject) MLModelDescription {
 	instance := getMLModelDescriptionClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithInputDescriptions:outputDescriptions:predictedFeatureName:predictedProbabilitiesName:metadata:"), descriptions, descriptions2, name, name2, metadata)
 	return MLModelDescriptionFromID(rv)
 }
 
-func NewModelDescriptionWithInputDescriptionsOutputDescriptionsPredictedFeatureNamePredictedProbabilitiesNameTrainingInputDescriptionsMetadata(descriptions objectivec.IObject, descriptions2 objectivec.IObject, name objectivec.IObject, name2 objectivec.IObject, descriptions3 objectivec.IObject, metadata objectivec.IObject) MLModelDescription {
+func NewMLModelDescriptionWithInputDescriptionsOutputDescriptionsPredictedFeatureNamePredictedProbabilitiesNameTrainingInputDescriptionsMetadata(descriptions objectivec.IObject, descriptions2 objectivec.IObject, name objectivec.IObject, name2 objectivec.IObject, descriptions3 objectivec.IObject, metadata objectivec.IObject) MLModelDescription {
 	instance := getMLModelDescriptionClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithInputDescriptions:outputDescriptions:predictedFeatureName:predictedProbabilitiesName:trainingInputDescriptions:metadata:"), descriptions, descriptions2, name, name2, descriptions3, metadata)
 	return MLModelDescriptionFromID(rv)
 }
 
-func NewModelDescriptionWithInputDescriptionsOutputDescriptionsPredictedFeatureNamePredictedProbabilitiesNameTrainingInputDescriptionsOrderedInputFeatureNamesOrderedOutputFeatureNamesMetadata(descriptions objectivec.IObject, descriptions2 objectivec.IObject, name objectivec.IObject, name2 objectivec.IObject, descriptions3 objectivec.IObject, names objectivec.IObject, names2 objectivec.IObject, metadata objectivec.IObject) MLModelDescription {
+func NewMLModelDescriptionWithInputDescriptionsOutputDescriptionsPredictedFeatureNamePredictedProbabilitiesNameTrainingInputDescriptionsOrderedInputFeatureNamesOrderedOutputFeatureNamesMetadata(descriptions objectivec.IObject, descriptions2 objectivec.IObject, name objectivec.IObject, name2 objectivec.IObject, descriptions3 objectivec.IObject, names objectivec.IObject, names2 objectivec.IObject, metadata objectivec.IObject) MLModelDescription {
 	instance := getMLModelDescriptionClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithInputDescriptions:outputDescriptions:predictedFeatureName:predictedProbabilitiesName:trainingInputDescriptions:orderedInputFeatureNames:orderedOutputFeatureNames:metadata:"), descriptions, descriptions2, name, name2, descriptions3, names, names2, metadata)
 	return MLModelDescriptionFromID(rv)
 }
 
-func NewModelDescriptionWithInputDescriptionsOutputDescriptionsStateDescriptionsPredictedFeatureNamePredictedProbabilitiesNameFunctionDescriptionsIsUpdatableTrainingInputDescriptionsParameterDescriptionsOrderedInputFeatureNamesOrderedOutputFeatureNamesOrderedStateFeatureNamesMetadataDefaultFunctionNameFunctionNameClassLabelsModelURLModelPath(descriptions objectivec.IObject, descriptions2 objectivec.IObject, descriptions3 objectivec.IObject, name objectivec.IObject, name2 objectivec.IObject, descriptions4 objectivec.IObject, updatable bool, descriptions5 objectivec.IObject, descriptions6 objectivec.IObject, names objectivec.IObject, names2 objectivec.IObject, names3 objectivec.IObject, metadata objectivec.IObject, name3 objectivec.IObject, name4 objectivec.IObject, labels objectivec.IObject, url foundation.NSURL, path objectivec.IObject) MLModelDescription {
+func NewMLModelDescriptionWithInputDescriptionsOutputDescriptionsStateDescriptionsPredictedFeatureNamePredictedProbabilitiesNameFunctionDescriptionsIsUpdatableTrainingInputDescriptionsParameterDescriptionsOrderedInputFeatureNamesOrderedOutputFeatureNamesOrderedStateFeatureNamesMetadataDefaultFunctionNameFunctionNameClassLabelsModelURLModelPath(descriptions objectivec.IObject, descriptions2 objectivec.IObject, descriptions3 objectivec.IObject, name objectivec.IObject, name2 objectivec.IObject, descriptions4 objectivec.IObject, updatable bool, descriptions5 objectivec.IObject, descriptions6 objectivec.IObject, names objectivec.IObject, names2 objectivec.IObject, names3 objectivec.IObject, metadata objectivec.IObject, name3 objectivec.IObject, name4 objectivec.IObject, labels objectivec.IObject, url foundation.NSURL, path objectivec.IObject) MLModelDescription {
 	instance := getMLModelDescriptionClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithInputDescriptions:outputDescriptions:stateDescriptions:predictedFeatureName:predictedProbabilitiesName:functionDescriptions:isUpdatable:trainingInputDescriptions:parameterDescriptions:orderedInputFeatureNames:orderedOutputFeatureNames:orderedStateFeatureNames:metadata:defaultFunctionName:functionName:classLabels:modelURL:modelPath:"), descriptions, descriptions2, descriptions3, name, name2, descriptions4, updatable, descriptions5, descriptions6, names, names2, names3, metadata, name3, name4, labels, url, path)
 	return MLModelDescriptionFromID(rv)
 }
 
-func NewModelDescriptionWithInputDescriptionsOutputDescriptionsStateDescriptionsPredictedFeatureNamePredictedProbabilitiesNameFunctionName(descriptions objectivec.IObject, descriptions2 objectivec.IObject, descriptions3 objectivec.IObject, name objectivec.IObject, name2 objectivec.IObject, name3 objectivec.IObject) MLModelDescription {
+func NewMLModelDescriptionWithInputDescriptionsOutputDescriptionsStateDescriptionsPredictedFeatureNamePredictedProbabilitiesNameFunctionName(descriptions objectivec.IObject, descriptions2 objectivec.IObject, descriptions3 objectivec.IObject, name objectivec.IObject, name2 objectivec.IObject, name3 objectivec.IObject) MLModelDescription {
 	instance := getMLModelDescriptionClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithInputDescriptions:outputDescriptions:stateDescriptions:predictedFeatureName:predictedProbabilitiesName:functionName:"), descriptions, descriptions2, descriptions3, name, name2, name3)
 	return MLModelDescriptionFromID(rv)
 }
 
-func NewModelDescriptionWithModelDescriptionSpecificationError(specification unsafe.Pointer) (MLModelDescription, error) {
+func NewMLModelDescriptionWithModelDescriptionSpecificationError(specification unsafe.Pointer) (MLModelDescription, error) {
 	var errorPtr objc.ID
 	instance := getMLModelDescriptionClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithModelDescriptionSpecification:error:"), specification, unsafe.Pointer(&errorPtr))
@@ -329,7 +329,7 @@ func NewModelDescriptionWithModelDescriptionSpecificationError(specification uns
 	return MLModelDescriptionFromID(rv), nil
 }
 
-func NewModelDescriptionWithModelSpecificationError(specification unsafe.Pointer) (MLModelDescription, error) {
+func NewMLModelDescriptionWithModelSpecificationError(specification unsafe.Pointer) (MLModelDescription, error) {
 	var errorPtr objc.ID
 	instance := getMLModelDescriptionClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithModelSpecification:error:"), specification, unsafe.Pointer(&errorPtr))
@@ -542,8 +542,8 @@ func (m MLModelDescription) SetModelPath(value IMLLayerPath) {
 	objc.SendIfResponds[struct{}](m.ID, objc.Sel("setModelPath:"), value)
 }
 func (m MLModelDescription) ModelURL() foundation.NSURL {
-	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("modelURL"))
-	return foundation.NSURLFromID(objc.ID(rv))
+	rv := objc.SendIfResponds[foundation.NSURL](m.ID, objc.Sel("modelURL"))
+	return foundation.NSURL(rv)
 }
 func (m MLModelDescription) SetModelURL(value foundation.NSURL) {
 	objc.SendIfResponds[struct{}](m.ID, objc.Sel("setModelURL:"), value)

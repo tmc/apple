@@ -89,7 +89,7 @@ func NewIOGPUMetalTextureLayout() IOGPUMetalTextureLayout {
 	return rv
 }
 
-func NewGPUMetalTextureLayoutWithDeviceDescriptor(device objectivec.IObject, descriptor objectivec.IObject) IOGPUMetalTextureLayout {
+func NewIOGPUMetalTextureLayoutWithDeviceDescriptor(device objectivec.IObject, descriptor objectivec.IObject) IOGPUMetalTextureLayout {
 	instance := getIOGPUMetalTextureLayoutClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithDevice:descriptor:"), device, descriptor)
 	return IOGPUMetalTextureLayoutFromID(rv)

@@ -1,4 +1,4 @@
-// Code generated from Apple documentation for CoreML. DO NOT EDIT.
+// Code generated from Apple documentation for coreml. DO NOT EDIT.
 
 package coreml
 
@@ -109,7 +109,7 @@ type IMLDelegateModel interface {
 	_schedulePredictionRequestCompletionHandler(request objectivec.IObject, handler ErrorHandler)
 	_submitPredictionRequestCompletionHandler(request objectivec.IObject, handler ErrorHandler)
 	_validateStateFeatureNamedBackingMultiArray(named objectivec.IObject, array objectivec.IObject)
-	Engine() int
+	Engine() int32
 	MaxAsyncPredictionsInFlight() uint64
 	ParameterValueForKeyError(key objectivec.IObject) (objectivec.IObject, error)
 	PendingPredictionQueue() foundation.INSArray
@@ -140,7 +140,7 @@ func NewMLDelegateModel() MLDelegateModel {
 	return rv
 }
 
-func NewDelegateModelDescriptionOnlyWithSpecificationConfigurationError(specification unsafe.Pointer, configuration objectivec.IObject) (MLDelegateModel, error) {
+func NewMLDelegateModelDescriptionOnlyWithSpecificationConfigurationError(specification unsafe.Pointer, configuration objectivec.IObject) (MLDelegateModel, error) {
 	var errorPtr objc.ID
 	instance := getMLDelegateModelClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initDescriptionOnlyWithSpecification:configuration:error:"), specification, configuration, unsafe.Pointer(&errorPtr))
@@ -154,7 +154,7 @@ func NewDelegateModelDescriptionOnlyWithSpecificationConfigurationError(specific
 	return MLDelegateModelFromID(rv), nil
 }
 
-func NewDelegateModelInterfaceAndMetadataWithCompiledArchiveError(archive unsafe.Pointer) (MLDelegateModel, error) {
+func NewMLDelegateModelInterfaceAndMetadataWithCompiledArchiveError(archive unsafe.Pointer) (MLDelegateModel, error) {
 	var errorPtr objc.ID
 	instance := getMLDelegateModelClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initInterfaceAndMetadataWithCompiledArchive:error:"), archive, unsafe.Pointer(&errorPtr))
@@ -168,25 +168,25 @@ func NewDelegateModelInterfaceAndMetadataWithCompiledArchiveError(archive unsafe
 	return MLDelegateModelFromID(rv), nil
 }
 
-func NewDelegateModelWithConfiguration(configuration objectivec.IObject) MLDelegateModel {
+func NewMLDelegateModelWithConfiguration(configuration objectivec.IObject) MLDelegateModel {
 	instance := getMLDelegateModelClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithConfiguration:"), configuration)
 	return MLDelegateModelFromID(rv)
 }
 
-func NewDelegateModelWithDescription(description objectivec.IObject) MLDelegateModel {
+func NewMLDelegateModelWithDescription(description objectivec.IObject) MLDelegateModel {
 	instance := getMLDelegateModelClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithDescription:"), description)
 	return MLDelegateModelFromID(rv)
 }
 
-func NewDelegateModelWithDescriptionConfiguration(description objectivec.IObject, configuration objectivec.IObject) MLDelegateModel {
+func NewMLDelegateModelWithDescriptionConfiguration(description objectivec.IObject, configuration objectivec.IObject) MLDelegateModel {
 	instance := getMLDelegateModelClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithDescription:configuration:"), description, configuration)
 	return MLDelegateModelFromID(rv)
 }
 
-func NewDelegateModelWithEngineError(engine objectivec.IObject) (MLDelegateModel, error) {
+func NewMLDelegateModelWithEngineError(engine objectivec.IObject) (MLDelegateModel, error) {
 	var errorPtr objc.ID
 	instance := getMLDelegateModelClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithEngine:error:"), engine, unsafe.Pointer(&errorPtr))
@@ -200,7 +200,7 @@ func NewDelegateModelWithEngineError(engine objectivec.IObject) (MLDelegateModel
 	return MLDelegateModelFromID(rv), nil
 }
 
-func NewDelegateModelWithNameInputDescriptionOutputDescriptionOrderedInputFeatureNamesOrderedOutputFeatureNamesConfiguration(name objectivec.IObject, description objectivec.IObject, description2 objectivec.IObject, names objectivec.IObject, names2 objectivec.IObject, configuration objectivec.IObject) MLDelegateModel {
+func NewMLDelegateModelWithNameInputDescriptionOutputDescriptionOrderedInputFeatureNamesOrderedOutputFeatureNamesConfiguration(name objectivec.IObject, description objectivec.IObject, description2 objectivec.IObject, names objectivec.IObject, names2 objectivec.IObject, configuration objectivec.IObject) MLDelegateModel {
 	instance := getMLDelegateModelClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithName:inputDescription:outputDescription:orderedInputFeatureNames:orderedOutputFeatureNames:configuration:"), name, description, description2, names, names2, configuration)
 	return MLDelegateModelFromID(rv)
@@ -348,8 +348,8 @@ func (m MLDelegateModel) InitWithEngineError(engine objectivec.IObject) (MLDeleg
 
 }
 
-func (m MLDelegateModel) Engine() int {
-	rv := objc.SendIfResponds[int](m.ID, objc.Sel("engine"))
+func (m MLDelegateModel) Engine() int32 {
+	rv := objc.SendIfResponds[int32](m.ID, objc.Sel("engine"))
 	return rv
 }
 func (m MLDelegateModel) MaxAsyncPredictionsInFlight() uint64 {

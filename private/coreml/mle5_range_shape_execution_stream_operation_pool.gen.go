@@ -1,4 +1,4 @@
-// Code generated from Apple documentation for CoreML. DO NOT EDIT.
+// Code generated from Apple documentation for coreml. DO NOT EDIT.
 
 package coreml
 
@@ -152,7 +152,7 @@ func NewMLE5RangeShapeExecutionStreamOperationPool() MLE5RangeShapeExecutionStre
 	return rv
 }
 
-func NewE5RangeShapeExecutionStreamOperationPoolWithProgramLibraryFunctionNameModelDescriptionConfigurationModelSignpostIdCompilerVersionInfo(library objectivec.IObject, name objectivec.IObject, description objectivec.IObject, configuration objectivec.IObject, id uint64, info objectivec.IObject) MLE5RangeShapeExecutionStreamOperationPool {
+func NewMLE5RangeShapeExecutionStreamOperationPoolWithProgramLibraryFunctionNameModelDescriptionConfigurationModelSignpostIdCompilerVersionInfo(library objectivec.IObject, name objectivec.IObject, description objectivec.IObject, configuration objectivec.IObject, id uint64, info objectivec.IObject) MLE5RangeShapeExecutionStreamOperationPool {
 	instance := getMLE5RangeShapeExecutionStreamOperationPoolClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithProgramLibrary:functionName:modelDescription:configuration:modelSignpostId:compilerVersionInfo:"), library, name, description, configuration, id, info)
 	return MLE5RangeShapeExecutionStreamOperationPoolFromID(rv)

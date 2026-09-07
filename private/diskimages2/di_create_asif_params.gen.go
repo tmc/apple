@@ -44,6 +44,12 @@ func (dc DICreateASIFParamsClass) Alloc() DICreateASIFParams {
 	return rv
 }
 
+// # Methods
+//
+//   - [DICreateASIFParams.CacheImage]
+//   - [DICreateASIFParams.SetCacheImage]
+//   - [DICreateASIFParams.ParentUUID]
+//   - [DICreateASIFParams.SetParentUUID]
 type DICreateASIFParams struct {
 	DICreateParams
 }
@@ -57,8 +63,22 @@ func DICreateASIFParamsFromID(id objc.ID) DICreateASIFParams {
 var _ IDICreateASIFParams = DICreateASIFParams{}
 
 // An interface definition for the [DICreateASIFParams] class.
+//
+// # Methods
+//
+//   - [IDICreateASIFParams.CacheImage]
+//   - [IDICreateASIFParams.SetCacheImage]
+//   - [IDICreateASIFParams.ParentUUID]
+//   - [IDICreateASIFParams.SetParentUUID]
 type IDICreateASIFParams interface {
 	IDICreateParams
+
+	// Topic: Methods
+
+	CacheImage() bool
+	SetCacheImage(value bool)
+	ParentUUID() foundation.NSUUID
+	SetParentUUID(value foundation.NSUUID)
 }
 
 // Init initializes the instance.
@@ -112,4 +132,19 @@ func NewDICreateASIFParamsWithURLNumBlocksError(url foundation.NSURL, numBlocks 
 		return DICreateASIFParams{}, objc.ErrInitFailed
 	}
 	return DICreateASIFParamsFromID(rv), nil
+}
+
+func (d DICreateASIFParams) CacheImage() bool {
+	rv := objc.SendIfResponds[bool](d.ID, objc.Sel("cacheImage"))
+	return rv
+}
+func (d DICreateASIFParams) SetCacheImage(value bool) {
+	objc.SendIfResponds[struct{}](d.ID, objc.Sel("setCacheImage:"), value)
+}
+func (d DICreateASIFParams) ParentUUID() foundation.NSUUID {
+	rv := objc.SendIfResponds[foundation.NSUUID](d.ID, objc.Sel("parentUUID"))
+	return foundation.NSUUID(rv)
+}
+func (d DICreateASIFParams) SetParentUUID(value foundation.NSUUID) {
+	objc.SendIfResponds[struct{}](d.ID, objc.Sel("setParentUUID:"), value)
 }

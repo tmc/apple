@@ -1,4 +1,4 @@
-// Code generated from Apple documentation for AVFAudio. DO NOT EDIT.
+// Code generated from Apple documentation for avfaudio. DO NOT EDIT.
 
 package avfaudio
 
@@ -102,7 +102,7 @@ func NewAVVCDuckFadeDuration() AVVCDuckFadeDuration {
 	return rv
 }
 
-func NewVCDuckFadeDurationWithFadeInFadeOut(in objectivec.IObject, out objectivec.IObject) AVVCDuckFadeDuration {
+func NewAVVCDuckFadeDurationWithFadeInFadeOut(in objectivec.IObject, out objectivec.IObject) AVVCDuckFadeDuration {
 	instance := getAVVCDuckFadeDurationClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithFadeIn:fadeOut:"), in, out)
 	return AVVCDuckFadeDurationFromID(rv)
@@ -114,15 +114,15 @@ func (a AVVCDuckFadeDuration) InitWithFadeInFadeOut(in objectivec.IObject, out o
 }
 
 func (a AVVCDuckFadeDuration) FadeIn() foundation.NSNumber {
-	rv := objc.SendIfResponds[objc.ID](a.ID, objc.Sel("fadeIn"))
-	return foundation.NSNumberFromID(objc.ID(rv))
+	rv := objc.SendIfResponds[foundation.NSNumber](a.ID, objc.Sel("fadeIn"))
+	return foundation.NSNumber(rv)
 }
 func (a AVVCDuckFadeDuration) SetFadeIn(value foundation.NSNumber) {
 	objc.SendIfResponds[struct{}](a.ID, objc.Sel("setFadeIn:"), value)
 }
 func (a AVVCDuckFadeDuration) FadeOut() foundation.NSNumber {
-	rv := objc.SendIfResponds[objc.ID](a.ID, objc.Sel("fadeOut"))
-	return foundation.NSNumberFromID(objc.ID(rv))
+	rv := objc.SendIfResponds[foundation.NSNumber](a.ID, objc.Sel("fadeOut"))
+	return foundation.NSNumber(rv)
 }
 func (a AVVCDuckFadeDuration) SetFadeOut(value foundation.NSNumber) {
 	objc.SendIfResponds[struct{}](a.ID, objc.Sel("setFadeOut:"), value)

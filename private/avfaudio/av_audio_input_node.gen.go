@@ -1,8 +1,9 @@
-// Code generated from Apple documentation for AVFAudio. DO NOT EDIT.
+// Code generated from Apple documentation for avfaudio. DO NOT EDIT.
 
 package avfaudio
 
 import (
+	"context"
 	"sync"
 	"unsafe"
 
@@ -46,6 +47,7 @@ func (ac AVAudioInputNodeClass) Alloc() AVAudioInputNode {
 
 // # Methods
 //
+//   - [AVAudioInputNode.SetRealtimeSafeManualRenderingInputPCMFormatInputBlock]
 //   - [AVAudioInputNode.DebugDescription]
 //   - [AVAudioInputNode.Description]
 //   - [AVAudioInputNode.Hash]
@@ -72,6 +74,7 @@ var _ IAVAudioInputNode = AVAudioInputNode{}
 //
 // # Methods
 //
+//   - [IAVAudioInputNode.SetRealtimeSafeManualRenderingInputPCMFormatInputBlock]
 //   - [IAVAudioInputNode.DebugDescription]
 //   - [IAVAudioInputNode.Description]
 //   - [IAVAudioInputNode.Hash]
@@ -87,6 +90,7 @@ type IAVAudioInputNode interface {
 
 	// Topic: Methods
 
+	SetRealtimeSafeManualRenderingInputPCMFormatInputBlock(pCMFormat objectivec.IObject, block VoidHandler) bool
 	DebugDescription() string
 	Description() string
 	Hash() uint64
@@ -118,16 +122,22 @@ func NewAVAudioInputNode() AVAudioInputNode {
 	return rv
 }
 
-func NewAudioInputNodeWithIOUnitIsInput(iOUnit unsafe.Pointer, input bool) AVAudioInputNode {
+func NewAVAudioInputNodeWithIOUnitIsInput(iOUnit unsafe.Pointer, input bool) AVAudioInputNode {
 	instance := getAVAudioInputNodeClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithIOUnit:isInput:"), iOUnit, input)
 	return AVAudioInputNodeFromID(rv)
 }
 
-func NewAudioInputNodeWithImpl(impl unsafe.Pointer) AVAudioInputNode {
+func NewAVAudioInputNodeWithImpl(impl unsafe.Pointer) AVAudioInputNode {
 	instance := getAVAudioInputNodeClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithImpl:"), impl)
 	return AVAudioInputNodeFromID(rv)
+}
+
+func (a AVAudioInputNode) SetRealtimeSafeManualRenderingInputPCMFormatInputBlock(pCMFormat objectivec.IObject, block VoidHandler) bool {
+	_block1, _ := NewVoidBlock(block)
+	rv := objc.SendIfResponds[bool](a.ID, objc.Sel("setRealtimeSafeManualRenderingInputPCMFormat:inputBlock:"), pCMFormat, _block1)
+	return rv
 }
 
 func (a AVAudioInputNode) DebugDescription() string {
@@ -166,4 +176,19 @@ func (a AVAudioInputNode) VoiceProcessingInputMuted() bool {
 }
 func (a AVAudioInputNode) SetVoiceProcessingInputMuted(value bool) {
 	objc.SendIfResponds[struct{}](a.ID, objc.Sel("setVoiceProcessingInputMuted:"), value)
+}
+
+// SetRealtimeSafeManualRenderingInputPCMFormatInputBlockSync is a synchronous wrapper around [AVAudioInputNode.SetRealtimeSafeManualRenderingInputPCMFormatInputBlock].
+// It blocks until the completion handler fires or the context is cancelled.
+func (a AVAudioInputNode) SetRealtimeSafeManualRenderingInputPCMFormatInputBlockSync(ctx context.Context, pCMFormat objectivec.IObject) error {
+	done := make(chan struct{}, 1)
+	a.SetRealtimeSafeManualRenderingInputPCMFormatInputBlock(pCMFormat, func() {
+		done <- struct{}{}
+	})
+	select {
+	case <-done:
+		return nil
+	case <-ctx.Done():
+		return ctx.Err()
+	}
 }

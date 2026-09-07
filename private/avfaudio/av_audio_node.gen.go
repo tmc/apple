@@ -1,8 +1,9 @@
-// Code generated from Apple documentation for AVFAudio. DO NOT EDIT.
+// Code generated from Apple documentation for avfaudio. DO NOT EDIT.
 
 package avfaudio
 
 import (
+	"errors"
 	"sync"
 	"unsafe"
 
@@ -51,6 +52,8 @@ func (ac AVAudioNodeClass) Alloc() AVAudioNode {
 //   - [AVAudioNode.DidAttachToEngine]
 //   - [AVAudioNode.DidDetachFromEngineError]
 //   - [AVAudioNode.Impl]
+//   - [AVAudioNode.InstallTapOnBusBufferSizeFormatErrorBlock]
+//   - [AVAudioNode.Lock]
 //   - [AVAudioNode.Obstruction]
 //   - [AVAudioNode.Occlusion]
 //   - [AVAudioNode.Pan]
@@ -59,12 +62,12 @@ func (ac AVAudioNodeClass) Alloc() AVAudioNode {
 //   - [AVAudioNode.RenderingAlgorithm]
 //   - [AVAudioNode.ResetImpl]
 //   - [AVAudioNode.ReverbBlend]
-//   - [AVAudioNode.SetInputFormatForBus]
+//   - [AVAudioNode.SetInputFormatForBusError]
 //   - [AVAudioNode.SetNumberOfInputs]
 //   - [AVAudioNode.SetNumberOfOutputs]
 //   - [AVAudioNode.SetObstruction]
 //   - [AVAudioNode.SetOcclusion]
-//   - [AVAudioNode.SetOutputFormatForBus]
+//   - [AVAudioNode.SetOutputFormatForBusError]
 //   - [AVAudioNode.SetPan]
 //   - [AVAudioNode.SetPointSourceInHeadMode]
 //   - [AVAudioNode.SetRate]
@@ -96,6 +99,8 @@ var _ IAVAudioNode = AVAudioNode{}
 //   - [IAVAudioNode.DidAttachToEngine]
 //   - [IAVAudioNode.DidDetachFromEngineError]
 //   - [IAVAudioNode.Impl]
+//   - [IAVAudioNode.InstallTapOnBusBufferSizeFormatErrorBlock]
+//   - [IAVAudioNode.Lock]
 //   - [IAVAudioNode.Obstruction]
 //   - [IAVAudioNode.Occlusion]
 //   - [IAVAudioNode.Pan]
@@ -104,12 +109,12 @@ var _ IAVAudioNode = AVAudioNode{}
 //   - [IAVAudioNode.RenderingAlgorithm]
 //   - [IAVAudioNode.ResetImpl]
 //   - [IAVAudioNode.ReverbBlend]
-//   - [IAVAudioNode.SetInputFormatForBus]
+//   - [IAVAudioNode.SetInputFormatForBusError]
 //   - [IAVAudioNode.SetNumberOfInputs]
 //   - [IAVAudioNode.SetNumberOfOutputs]
 //   - [IAVAudioNode.SetObstruction]
 //   - [IAVAudioNode.SetOcclusion]
-//   - [IAVAudioNode.SetOutputFormatForBus]
+//   - [IAVAudioNode.SetOutputFormatForBusError]
 //   - [IAVAudioNode.SetPan]
 //   - [IAVAudioNode.SetPointSourceInHeadMode]
 //   - [IAVAudioNode.SetRate]
@@ -130,6 +135,8 @@ type IAVAudioNode interface {
 	DidAttachToEngine(engine objectivec.IObject)
 	DidDetachFromEngineError(engine objectivec.IObject) error
 	Impl() unsafe.Pointer
+	InstallTapOnBusBufferSizeFormatErrorBlock(bus uint64, size uint32, format objectivec.IObject, error_ []objectivec.IObject, block VoidHandler) bool
+	Lock() objectivec.IObject
 	Obstruction() float32
 	Occlusion() float32
 	Pan() float32
@@ -138,12 +145,12 @@ type IAVAudioNode interface {
 	RenderingAlgorithm() int64
 	ResetImpl(impl unsafe.Pointer) bool
 	ReverbBlend() float32
-	SetInputFormatForBus(format objectivec.IObject, bus uint64) bool
+	SetInputFormatForBusError(format objectivec.IObject, bus uint64) (bool, error)
 	SetNumberOfInputs(inputs uint32)
 	SetNumberOfOutputs(outputs uint32)
 	SetObstruction(obstruction float32)
 	SetOcclusion(occlusion float32)
-	SetOutputFormatForBus(format objectivec.IObject, bus uint64) bool
+	SetOutputFormatForBusError(format objectivec.IObject, bus uint64) (bool, error)
 	SetPan(pan float32)
 	SetPointSourceInHeadMode(mode int64)
 	SetRate(rate float32)
@@ -175,7 +182,7 @@ func NewAVAudioNode() AVAudioNode {
 	return rv
 }
 
-func NewAudioNodeWithImpl(impl unsafe.Pointer) AVAudioNode {
+func NewAVAudioNodeWithImpl(impl unsafe.Pointer) AVAudioNode {
 	instance := getAVAudioNodeClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithImpl:"), impl)
 	return AVAudioNodeFromID(rv)
@@ -201,6 +208,15 @@ func (a AVAudioNode) DidDetachFromEngineError(engine objectivec.IObject) error {
 	}
 	return nil
 
+}
+func (a AVAudioNode) InstallTapOnBusBufferSizeFormatErrorBlock(bus uint64, size uint32, format objectivec.IObject, error_ []objectivec.IObject, block VoidHandler) bool {
+	_block4, _ := NewVoidBlock(block)
+	rv := objc.SendIfResponds[bool](a.ID, objc.Sel("installTapOnBus:bufferSize:format:error:block:"), bus, size, format, error_, _block4)
+	return rv
+}
+func (a AVAudioNode) Lock() objectivec.IObject {
+	rv := objc.SendIfResponds[objc.ID](a.ID, objc.Sel("lock"))
+	return objectivec.Object{ID: rv}
 }
 func (a AVAudioNode) Obstruction() float32 {
 	rv := objc.SendIfResponds[float32](a.ID, objc.Sel("obstruction"))
@@ -234,9 +250,18 @@ func (a AVAudioNode) ReverbBlend() float32 {
 	rv := objc.SendIfResponds[float32](a.ID, objc.Sel("reverbBlend"))
 	return rv
 }
-func (a AVAudioNode) SetInputFormatForBus(format objectivec.IObject, bus uint64) bool {
-	rv := objc.SendIfResponds[bool](a.ID, objc.Sel("setInputFormat:forBus:"), format, bus)
-	return rv
+func (a AVAudioNode) SetInputFormatForBusError(format objectivec.IObject, bus uint64) (bool, error) {
+	var errorPtr objc.ID
+	rv := objc.Send[bool](a.ID, objc.Sel("setInputFormat:forBus:error:"), format, bus, unsafe.Pointer(&errorPtr))
+	if errorPtr != 0 {
+		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
+		return false, foundation.NSErrorFrom(errorPtr)
+	}
+	if !rv {
+		return false, errors.New("setInputFormat:forBus:error: returned NO with nil NSError")
+	}
+	return rv, nil
+
 }
 func (a AVAudioNode) SetNumberOfInputs(inputs uint32) {
 	objc.SendIfResponds[objc.ID](a.ID, objc.Sel("setNumberOfInputs:"), inputs)
@@ -250,9 +275,18 @@ func (a AVAudioNode) SetObstruction(obstruction float32) {
 func (a AVAudioNode) SetOcclusion(occlusion float32) {
 	objc.SendIfResponds[objc.ID](a.ID, objc.Sel("setOcclusion:"), occlusion)
 }
-func (a AVAudioNode) SetOutputFormatForBus(format objectivec.IObject, bus uint64) bool {
-	rv := objc.SendIfResponds[bool](a.ID, objc.Sel("setOutputFormat:forBus:"), format, bus)
-	return rv
+func (a AVAudioNode) SetOutputFormatForBusError(format objectivec.IObject, bus uint64) (bool, error) {
+	var errorPtr objc.ID
+	rv := objc.Send[bool](a.ID, objc.Sel("setOutputFormat:forBus:error:"), format, bus, unsafe.Pointer(&errorPtr))
+	if errorPtr != 0 {
+		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
+		return false, foundation.NSErrorFrom(errorPtr)
+	}
+	if !rv {
+		return false, errors.New("setOutputFormat:forBus:error: returned NO with nil NSError")
+	}
+	return rv, nil
+
 }
 func (a AVAudioNode) SetPan(pan float32) {
 	objc.SendIfResponds[objc.ID](a.ID, objc.Sel("setPan:"), pan)

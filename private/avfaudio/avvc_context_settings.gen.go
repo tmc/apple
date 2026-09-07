@@ -1,4 +1,4 @@
-// Code generated from Apple documentation for AVFAudio. DO NOT EDIT.
+// Code generated from Apple documentation for avfaudio. DO NOT EDIT.
 
 package avfaudio
 
@@ -51,6 +51,7 @@ func (ac AVVCContextSettingsClass) Alloc() AVVCContextSettings {
 //   - [AVVCContextSettings.SetActivationMode]
 //   - [AVVCContextSettings.AnnounceCallsEnabled]
 //   - [AVVCContextSettings.SetAnnounceCallsEnabled]
+//   - [AVVCContextSettings.ToDictionary]
 //   - [AVVCContextSettings.InitWithModeDeviceUID]
 type AVVCContextSettings struct {
 	objectivec.Object
@@ -74,6 +75,7 @@ var _ IAVVCContextSettings = AVVCContextSettings{}
 //   - [IAVVCContextSettings.SetActivationMode]
 //   - [IAVVCContextSettings.AnnounceCallsEnabled]
 //   - [IAVVCContextSettings.SetAnnounceCallsEnabled]
+//   - [IAVVCContextSettings.ToDictionary]
 //   - [IAVVCContextSettings.InitWithModeDeviceUID]
 type IAVVCContextSettings interface {
 	objectivec.IObject
@@ -86,6 +88,7 @@ type IAVVCContextSettings interface {
 	SetActivationMode(value int64)
 	AnnounceCallsEnabled() bool
 	SetAnnounceCallsEnabled(value bool)
+	ToDictionary() objectivec.IObject
 	InitWithModeDeviceUID(mode int64, uid objectivec.IObject) AVVCContextSettings
 }
 
@@ -108,12 +111,16 @@ func NewAVVCContextSettings() AVVCContextSettings {
 	return rv
 }
 
-func NewVCContextSettingsWithModeDeviceUID(mode int64, uid objectivec.IObject) AVVCContextSettings {
+func NewAVVCContextSettingsWithModeDeviceUID(mode int64, uid objectivec.IObject) AVVCContextSettings {
 	instance := getAVVCContextSettingsClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithMode:deviceUID:"), mode, uid)
 	return AVVCContextSettingsFromID(rv)
 }
 
+func (a AVVCContextSettings) ToDictionary() objectivec.IObject {
+	rv := objc.SendIfResponds[objc.ID](a.ID, objc.Sel("toDictionary"))
+	return objectivec.Object{ID: rv}
+}
 func (a AVVCContextSettings) InitWithModeDeviceUID(mode int64, uid objectivec.IObject) AVVCContextSettings {
 	rv := objc.SendIfResponds[AVVCContextSettings](a.ID, objc.Sel("initWithMode:deviceUID:"), mode, uid)
 	return rv

@@ -1,4 +1,4 @@
-// Code generated from Apple documentation for AVFAudio. DO NOT EDIT.
+// Code generated from Apple documentation for avfaudio. DO NOT EDIT.
 
 package avfaudio
 
@@ -114,7 +114,7 @@ func NewAVVCDuckOverride() AVVCDuckOverride {
 	return rv
 }
 
-func NewVCDuckOverrideWithDuckOthersDuckToLevelMixWithOthers(others objectivec.IObject, level objectivec.IObject, others2 objectivec.IObject) AVVCDuckOverride {
+func NewAVVCDuckOverrideWithDuckOthersDuckToLevelMixWithOthers(others objectivec.IObject, level objectivec.IObject, others2 objectivec.IObject) AVVCDuckOverride {
 	instance := getAVVCDuckOverrideClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithDuckOthers:duckToLevel:mixWithOthers:"), others, level, others2)
 	return AVVCDuckOverrideFromID(rv)
@@ -126,15 +126,15 @@ func (a AVVCDuckOverride) InitWithDuckOthersDuckToLevelMixWithOthers(others obje
 }
 
 func (a AVVCDuckOverride) DuckOthers() foundation.NSNumber {
-	rv := objc.SendIfResponds[objc.ID](a.ID, objc.Sel("duckOthers"))
-	return foundation.NSNumberFromID(objc.ID(rv))
+	rv := objc.SendIfResponds[foundation.NSNumber](a.ID, objc.Sel("duckOthers"))
+	return foundation.NSNumber(rv)
 }
 func (a AVVCDuckOverride) SetDuckOthers(value foundation.NSNumber) {
 	objc.SendIfResponds[struct{}](a.ID, objc.Sel("setDuckOthers:"), value)
 }
 func (a AVVCDuckOverride) DuckToLevel() foundation.NSNumber {
-	rv := objc.SendIfResponds[objc.ID](a.ID, objc.Sel("duckToLevel"))
-	return foundation.NSNumberFromID(objc.ID(rv))
+	rv := objc.SendIfResponds[foundation.NSNumber](a.ID, objc.Sel("duckToLevel"))
+	return foundation.NSNumber(rv)
 }
 func (a AVVCDuckOverride) SetDuckToLevel(value foundation.NSNumber) {
 	objc.SendIfResponds[struct{}](a.ID, objc.Sel("setDuckToLevel:"), value)
@@ -147,8 +147,8 @@ func (a AVVCDuckOverride) SetIsBlur(value bool) {
 	objc.SendIfResponds[struct{}](a.ID, objc.Sel("setIsBlur:"), value)
 }
 func (a AVVCDuckOverride) MixWithOthers() foundation.NSNumber {
-	rv := objc.SendIfResponds[objc.ID](a.ID, objc.Sel("mixWithOthers"))
-	return foundation.NSNumberFromID(objc.ID(rv))
+	rv := objc.SendIfResponds[foundation.NSNumber](a.ID, objc.Sel("mixWithOthers"))
+	return foundation.NSNumber(rv)
 }
 func (a AVVCDuckOverride) SetMixWithOthers(value foundation.NSNumber) {
 	objc.SendIfResponds[struct{}](a.ID, objc.Sel("setMixWithOthers:"), value)

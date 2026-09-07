@@ -99,8 +99,8 @@ func (_CoreMLVersionClass CoreMLVersionClass) GetInternalFrameworkVersion() obje
 }
 
 func (c CoreMLVersion) FrameworkVersionNumber() foundation.NSNumber {
-	rv := objc.SendIfResponds[objc.ID](c.ID, objc.Sel("frameworkVersionNumber"))
-	return foundation.NSNumberFromID(objc.ID(rv))
+	rv := objc.SendIfResponds[foundation.NSNumber](c.ID, objc.Sel("frameworkVersionNumber"))
+	return foundation.NSNumber(rv)
 }
 func (c CoreMLVersion) SetFrameworkVersionNumber(value foundation.NSNumber) {
 	objc.SendIfResponds[struct{}](c.ID, objc.Sel("setFrameworkVersionNumber:"), value)

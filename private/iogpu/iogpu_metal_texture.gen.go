@@ -225,7 +225,7 @@ type IIOGPUMetalTexture interface {
 	PlacementSparsePageSize() int64
 	RemoteStorageTexture() unsafe.Pointer
 	ReplaceRegionMipmapLevelWithBytesBytesPerRow(region unsafe.Pointer, level uint64, bytes unsafe.Pointer, row uint64)
-	RootResource() IIOGPUMetalResource
+	RootResource() IOGPUMetalResource
 	RootResourceIsSuballocatedBuffer() bool
 	Rotation() uint64
 	SampleCount() uint64
@@ -274,121 +274,121 @@ func NewIOGPUMetalTexture() IOGPUMetalTexture {
 	return rv
 }
 
-func NewGPUMetalTextureMemorylessDescriptor(memoryless objectivec.IObject, descriptor objectivec.IObject) IOGPUMetalTexture {
+func NewIOGPUMetalTextureMemorylessDescriptor(memoryless objectivec.IObject, descriptor objectivec.IObject) IOGPUMetalTexture {
 	instance := getIOGPUMetalTextureClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initMemoryless:descriptor:"), memoryless, descriptor)
 	return IOGPUMetalTextureFromID(rv)
 }
 
-func NewGPUMetalTextureStandinWithDevice(device objectivec.IObject) IOGPUMetalTexture {
+func NewIOGPUMetalTextureStandinWithDevice(device objectivec.IObject) IOGPUMetalTexture {
 	instance := getIOGPUMetalTextureClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initStandinWithDevice:"), device)
 	return IOGPUMetalTextureFromID(rv)
 }
 
-func NewGPUMetalTextureWithBufferDescriptorOffsetBytesPerRow(buffer objectivec.IObject, descriptor objectivec.IObject, offset uint64, row uint64) IOGPUMetalTexture {
+func NewIOGPUMetalTextureWithBufferDescriptorOffsetBytesPerRow(buffer objectivec.IObject, descriptor objectivec.IObject, offset uint64, row uint64) IOGPUMetalTexture {
 	instance := getIOGPUMetalTextureClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithBuffer:descriptor:offset:bytesPerRow:"), buffer, descriptor, offset, row)
 	return IOGPUMetalTextureFromID(rv)
 }
 
-func NewGPUMetalTextureWithBufferDescriptorSysMemOffsetSysMemRowBytesVidMemSizeVidMemRowBytesArgsArgsSize(buffer objectivec.IObject, descriptor objectivec.IObject, offset uint64, bytes uint64, size uint64, bytes2 uint64, args *IOGPUNewResourceArgs, size2 uint32) IOGPUMetalTexture {
+func NewIOGPUMetalTextureWithBufferDescriptorSysMemOffsetSysMemRowBytesVidMemSizeVidMemRowBytesArgsArgsSize(buffer objectivec.IObject, descriptor objectivec.IObject, offset uint64, bytes uint64, size uint64, bytes2 uint64, args *IOGPUNewResourceArgs, size2 uint32) IOGPUMetalTexture {
 	instance := getIOGPUMetalTextureClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithBuffer:descriptor:sysMemOffset:sysMemRowBytes:vidMemSize:vidMemRowBytes:args:argsSize:"), buffer, descriptor, offset, bytes, size, bytes2, unsafe.Pointer(args), size2)
 	return IOGPUMetalTextureFromID(rv)
 }
 
-func NewGPUMetalTextureWithBufferDescriptorSysMemOffsetSysMemRowBytesVidMemSizeVidMemRowBytesArgsArgsSizeIsStrideTexture(buffer objectivec.IObject, descriptor objectivec.IObject, offset uint64, bytes uint64, size uint64, bytes2 uint64, args *IOGPUNewResourceArgs, size2 uint32, texture bool) IOGPUMetalTexture {
+func NewIOGPUMetalTextureWithBufferDescriptorSysMemOffsetSysMemRowBytesVidMemSizeVidMemRowBytesArgsArgsSizeIsStrideTexture(buffer objectivec.IObject, descriptor objectivec.IObject, offset uint64, bytes uint64, size uint64, bytes2 uint64, args *IOGPUNewResourceArgs, size2 uint32, texture bool) IOGPUMetalTexture {
 	instance := getIOGPUMetalTextureClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithBuffer:descriptor:sysMemOffset:sysMemRowBytes:vidMemSize:vidMemRowBytes:args:argsSize:isStrideTexture:"), buffer, descriptor, offset, bytes, size, bytes2, unsafe.Pointer(args), size2, texture)
 	return IOGPUMetalTextureFromID(rv)
 }
 
-func NewGPUMetalTextureWithCompressedTexturePixelFormatTextureTypeLevelSlice(texture objectivec.IObject, format uint64, type_ uint64, level uint64, slice uint64) IOGPUMetalTexture {
+func NewIOGPUMetalTextureWithCompressedTexturePixelFormatTextureTypeLevelSlice(texture objectivec.IObject, format uint64, type_ uint64, level uint64, slice uint64) IOGPUMetalTexture {
 	instance := getIOGPUMetalTextureClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithCompressedTexture:pixelFormat:textureType:level:slice:"), texture, format, type_, level, slice)
 	return IOGPUMetalTextureFromID(rv)
 }
 
-func NewGPUMetalTextureWithDeviceDescriptorIosurfacePlaneFieldArgsArgsSize(device objectivec.IObject, descriptor objectivec.IObject, iosurface iosurface.IOSurfaceRef, plane uint32, field uint32, args *IOGPUNewResourceArgs, size uint32) IOGPUMetalTexture {
+func NewIOGPUMetalTextureWithDeviceDescriptorIosurfacePlaneFieldArgsArgsSize(device objectivec.IObject, descriptor objectivec.IObject, iosurface iosurface.IOSurfaceRef, plane uint32, field uint32, args *IOGPUNewResourceArgs, size uint32) IOGPUMetalTexture {
 	instance := getIOGPUMetalTextureClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithDevice:descriptor:iosurface:plane:field:args:argsSize:"), device, descriptor, iosurface, plane, field, unsafe.Pointer(args), size)
 	return IOGPUMetalTextureFromID(rv)
 }
 
-func NewGPUMetalTextureWithDeviceDescriptorPlacementSparseBytesPlacementSparsePageSizePlacementSparseMetaDataBytesArgsArgsSize(device objectivec.IObject, descriptor objectivec.IObject, bytes uint64, size int64, bytes2 uint64, args *IOGPUNewResourceArgs, size2 uint32) IOGPUMetalTexture {
+func NewIOGPUMetalTextureWithDeviceDescriptorPlacementSparseBytesPlacementSparsePageSizePlacementSparseMetaDataBytesArgsArgsSize(device objectivec.IObject, descriptor objectivec.IObject, bytes uint64, size int64, bytes2 uint64, args *IOGPUNewResourceArgs, size2 uint32) IOGPUMetalTexture {
 	instance := getIOGPUMetalTextureClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithDevice:descriptor:placementSparseBytes:placementSparsePageSize:placementSparseMetaDataBytes:args:argsSize:"), device, descriptor, bytes, size, bytes2, unsafe.Pointer(args), size2)
 	return IOGPUMetalTextureFromID(rv)
 }
 
-func NewGPUMetalTextureWithDeviceDescriptorPlacementSparseBytesPlacementSparsePageSizePlacementSparseMetaDataBytesPlacementSparseResidencyBytesArgsArgsSize(device objectivec.IObject, descriptor objectivec.IObject, bytes uint64, size int64, bytes2 uint64, bytes3 uint64, args *IOGPUNewResourceArgs, size2 uint32) IOGPUMetalTexture {
+func NewIOGPUMetalTextureWithDeviceDescriptorPlacementSparseBytesPlacementSparsePageSizePlacementSparseMetaDataBytesPlacementSparseResidencyBytesArgsArgsSize(device objectivec.IObject, descriptor objectivec.IObject, bytes uint64, size int64, bytes2 uint64, bytes3 uint64, args *IOGPUNewResourceArgs, size2 uint32) IOGPUMetalTexture {
 	instance := getIOGPUMetalTextureClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithDevice:descriptor:placementSparseBytes:placementSparsePageSize:placementSparseMetaDataBytes:placementSparseResidencyBytes:args:argsSize:"), device, descriptor, bytes, size, bytes2, bytes3, unsafe.Pointer(args), size2)
 	return IOGPUMetalTextureFromID(rv)
 }
 
-func NewGPUMetalTextureWithDeviceDescriptorSysMemSizeSysMemRowBytesVidMemSizeVidMemRowBytesArgsArgsSize(device objectivec.IObject, descriptor objectivec.IObject, size uint64, bytes uint64, size2 uint64, bytes2 uint64, args *IOGPUNewResourceArgs, size3 uint32) IOGPUMetalTexture {
+func NewIOGPUMetalTextureWithDeviceDescriptorSysMemSizeSysMemRowBytesVidMemSizeVidMemRowBytesArgsArgsSize(device objectivec.IObject, descriptor objectivec.IObject, size uint64, bytes uint64, size2 uint64, bytes2 uint64, args *IOGPUNewResourceArgs, size3 uint32) IOGPUMetalTexture {
 	instance := getIOGPUMetalTextureClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithDevice:descriptor:sysMemSize:sysMemRowBytes:vidMemSize:vidMemRowBytes:args:argsSize:"), device, descriptor, size, bytes, size2, bytes2, unsafe.Pointer(args), size3)
 	return IOGPUMetalTextureFromID(rv)
 }
 
-func NewGPUMetalTextureWithDeviceOptionsArgsArgsSize(device objectivec.IObject, options uint64, args *IOGPUNewResourceArgs, size uint32) IOGPUMetalTexture {
+func NewIOGPUMetalTextureWithDeviceOptionsArgsArgsSize(device objectivec.IObject, options uint64, args *IOGPUNewResourceArgs, size uint32) IOGPUMetalTexture {
 	instance := getIOGPUMetalTextureClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithDevice:options:args:argsSize:"), device, options, unsafe.Pointer(args), size)
 	return IOGPUMetalTextureFromID(rv)
 }
 
-func NewGPUMetalTextureWithDeviceRemoteStorageResourceOptionsArgsArgsSize(device objectivec.IObject, resource objectivec.IObject, options uint64, args *IOGPUNewResourceArgs, size uint32) IOGPUMetalTexture {
+func NewIOGPUMetalTextureWithDeviceRemoteStorageResourceOptionsArgsArgsSize(device objectivec.IObject, resource objectivec.IObject, options uint64, args *IOGPUNewResourceArgs, size uint32) IOGPUMetalTexture {
 	instance := getIOGPUMetalTextureClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithDevice:remoteStorageResource:options:args:argsSize:"), device, resource, options, unsafe.Pointer(args), size)
 	return IOGPUMetalTextureFromID(rv)
 }
 
-func NewGPUMetalTextureWithDeviceRemoteStorageTextureArgsArgsSize(device objectivec.IObject, texture objectivec.IObject, args *IOGPUNewResourceArgs, size uint32) IOGPUMetalTexture {
+func NewIOGPUMetalTextureWithDeviceRemoteStorageTextureArgsArgsSize(device objectivec.IObject, texture objectivec.IObject, args *IOGPUNewResourceArgs, size uint32) IOGPUMetalTexture {
 	instance := getIOGPUMetalTextureClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithDevice:remoteStorageTexture:args:argsSize:"), device, texture, unsafe.Pointer(args), size)
 	return IOGPUMetalTextureFromID(rv)
 }
 
-func NewGPUMetalTextureWithHeapResourceOffsetLengthDeviceDescriptor(heap objectivec.IObject, resource objectivec.IObject, offset uint64, length uint64, device objectivec.IObject, descriptor objectivec.IObject) IOGPUMetalTexture {
+func NewIOGPUMetalTextureWithHeapResourceOffsetLengthDeviceDescriptor(heap objectivec.IObject, resource objectivec.IObject, offset uint64, length uint64, device objectivec.IObject, descriptor objectivec.IObject) IOGPUMetalTexture {
 	instance := getIOGPUMetalTextureClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithHeap:resource:offset:length:device:descriptor:"), heap, resource, offset, length, device, descriptor)
 	return IOGPUMetalTextureFromID(rv)
 }
 
-func NewGPUMetalTextureWithPrimaryBufferHeapIndexBufferIndexBufferOffsetLengthDescriptorSysMemRowBytesVidMemSizeVidMemRowBytesArgsArgsSize(buffer objectivec.IObject, index int16, index2 int16, offset uint64, length uint64, descriptor objectivec.IObject, bytes uint64, size uint64, bytes2 uint64, args *IOGPUNewResourceArgs, size2 uint32) IOGPUMetalTexture {
+func NewIOGPUMetalTextureWithPrimaryBufferHeapIndexBufferIndexBufferOffsetLengthDescriptorSysMemRowBytesVidMemSizeVidMemRowBytesArgsArgsSize(buffer objectivec.IObject, index int16, index2 int16, offset uint64, length uint64, descriptor objectivec.IObject, bytes uint64, size uint64, bytes2 uint64, args *IOGPUNewResourceArgs, size2 uint32) IOGPUMetalTexture {
 	instance := getIOGPUMetalTextureClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithPrimaryBuffer:heapIndex:bufferIndex:bufferOffset:length:descriptor:sysMemRowBytes:vidMemSize:vidMemRowBytes:args:argsSize:"), buffer, index, index2, offset, length, descriptor, bytes, size, bytes2, unsafe.Pointer(args), size2)
 	return IOGPUMetalTextureFromID(rv)
 }
 
-func NewGPUMetalTextureWithResource(resource objectivec.IObject) IOGPUMetalTexture {
+func NewIOGPUMetalTextureWithResource(resource objectivec.IObject) IOGPUMetalTexture {
 	instance := getIOGPUMetalTextureClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithResource:"), resource)
 	return IOGPUMetalTextureFromID(rv)
 }
 
-func NewGPUMetalTextureWithTextureInternalPixelFormatTextureTypeLevelsSlicesSwizzleCompressedView(internal objectivec.IObject, format uint64, type_ uint64, levels foundation.NSRange, slices foundation.NSRange, swizzle unsafe.Pointer, view bool) IOGPUMetalTexture {
+func NewIOGPUMetalTextureWithTextureInternalPixelFormatTextureTypeLevelsSlicesSwizzleCompressedView(internal objectivec.IObject, format uint64, type_ uint64, levels foundation.NSRange, slices foundation.NSRange, swizzle unsafe.Pointer, view bool) IOGPUMetalTexture {
 	instance := getIOGPUMetalTextureClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithTextureInternal:pixelFormat:textureType:levels:slices:swizzle:compressedView:"), internal, format, type_, levels, slices, swizzle, view)
 	return IOGPUMetalTextureFromID(rv)
 }
 
-func NewGPUMetalTextureWithTexturePixelFormat(texture objectivec.IObject, format uint64) IOGPUMetalTexture {
+func NewIOGPUMetalTextureWithTexturePixelFormat(texture objectivec.IObject, format uint64) IOGPUMetalTexture {
 	instance := getIOGPUMetalTextureClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithTexture:pixelFormat:"), texture, format)
 	return IOGPUMetalTextureFromID(rv)
 }
 
-func NewGPUMetalTextureWithTexturePixelFormatTextureTypeLevelsSlices(texture objectivec.IObject, format uint64, type_ uint64, levels foundation.NSRange, slices foundation.NSRange) IOGPUMetalTexture {
+func NewIOGPUMetalTextureWithTexturePixelFormatTextureTypeLevelsSlices(texture objectivec.IObject, format uint64, type_ uint64, levels foundation.NSRange, slices foundation.NSRange) IOGPUMetalTexture {
 	instance := getIOGPUMetalTextureClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithTexture:pixelFormat:textureType:levels:slices:"), texture, format, type_, levels, slices)
 	return IOGPUMetalTextureFromID(rv)
 }
 
-func NewGPUMetalTextureWithTexturePixelFormatTextureTypeLevelsSlicesSwizzle(texture objectivec.IObject, format uint64, type_ uint64, levels foundation.NSRange, slices foundation.NSRange, swizzle unsafe.Pointer) IOGPUMetalTexture {
+func NewIOGPUMetalTextureWithTexturePixelFormatTextureTypeLevelsSlicesSwizzle(texture objectivec.IObject, format uint64, type_ uint64, levels foundation.NSRange, slices foundation.NSRange, swizzle unsafe.Pointer) IOGPUMetalTexture {
 	instance := getIOGPUMetalTextureClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithTexture:pixelFormat:textureType:levels:slices:swizzle:"), texture, format, type_, levels, slices, swizzle)
 	return IOGPUMetalTextureFromID(rv)
@@ -599,7 +599,7 @@ func (i IOGPUMetalTexture) RemoteStorageTexture() unsafe.Pointer {
 	rv := objc.SendIfResponds[unsafe.Pointer](i.ID, objc.Sel("remoteStorageTexture"))
 	return rv
 }
-func (i IOGPUMetalTexture) RootResource() IIOGPUMetalResource {
+func (i IOGPUMetalTexture) RootResource() IOGPUMetalResource {
 	rv := objc.SendIfResponds[objc.ID](i.ID, objc.Sel("rootResource"))
 	return IOGPUMetalResourceFromID(objc.ID(rv))
 }

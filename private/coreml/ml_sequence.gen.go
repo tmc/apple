@@ -1,4 +1,4 @@
-// Code generated from Apple documentation for CoreML. DO NOT EDIT.
+// Code generated from Apple documentation for coreml. DO NOT EDIT.
 
 package coreml
 
@@ -97,7 +97,7 @@ func NewMLSequence() MLSequence {
 	return rv
 }
 
-func NewSequenceWithArrayType(array objectivec.IObject, type_ int64) MLSequence {
+func NewMLSequenceWithArrayType(array objectivec.IObject, type_ int64) MLSequence {
 	instance := getMLSequenceClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithArray:type:"), array, type_)
 	return MLSequenceFromID(rv)

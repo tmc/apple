@@ -89,6 +89,6 @@ func (_TTSUnicodeUtilsClass TTSUnicodeUtilsClass) Utf16RangeFromUTF8RangeCharsSi
 	return foundation.NSRange(rv)
 }
 func (_TTSUnicodeUtilsClass TTSUnicodeUtilsClass) Utf8RangeFromUTF16RangeCharsSize(uTF16Range foundation.NSRange, chars *uint16, size uint64) foundation.NSRange {
-	rv := objc.SendIfResponds[foundation.NSRange](objc.ID(_TTSUnicodeUtilsClass.class), objc.Sel("utf8RangeFromUTF16Range:chars:size:"), uTF16Range, unsafe.Pointer(chars), size)
+	rv := objc.SendIfResponds[foundation.NSRange](objc.ID(_TTSUnicodeUtilsClass.class), objc.Sel("utf8RangeFromUTF16Range:chars:size:"), uTF16Range, chars, size)
 	return foundation.NSRange(rv)
 }

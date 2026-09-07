@@ -1,4 +1,4 @@
-// Code generated from Apple documentation for CoreML. DO NOT EDIT.
+// Code generated from Apple documentation for coreml. DO NOT EDIT.
 
 package coreml
 
@@ -130,7 +130,7 @@ func NewMLCustomLayerWrapper() MLCustomLayerWrapper {
 	return rv
 }
 
-func NewCustomLayerWrapperWithParameters(parameters objectivec.IObject) MLCustomLayerWrapper {
+func NewMLCustomLayerWrapperWithParameters(parameters objectivec.IObject) MLCustomLayerWrapper {
 	instance := getMLCustomLayerWrapperClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithParameters:"), parameters)
 	return MLCustomLayerWrapperFromID(rv)

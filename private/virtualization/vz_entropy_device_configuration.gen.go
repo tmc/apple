@@ -1,4 +1,4 @@
-// Code generated from Apple documentation for Virtualization. DO NOT EDIT.
+// Code generated from Apple documentation for virtualization. DO NOT EDIT.
 
 package virtualization
 
@@ -78,7 +78,7 @@ type IVZEntropyDeviceConfiguration interface {
 
 	// Topic: Methods
 
-	_entropyDevice() int
+	_entropyDevice() int32
 	_init() objectivec.IObject
 	DebugDescription() string
 	Description() string
@@ -110,8 +110,8 @@ func (v VZEntropyDeviceConfiguration) _init() objectivec.IObject {
 	return objectivec.Object{ID: rv}
 }
 
-func (v VZEntropyDeviceConfiguration) _entropyDevice() int {
-	rv := objc.SendIfResponds[int](v.ID, objc.Sel("_entropyDevice"))
+func (v VZEntropyDeviceConfiguration) _entropyDevice() int32 {
+	rv := objc.SendIfResponds[int32](v.ID, objc.Sel("_entropyDevice"))
 	return rv
 }
 
@@ -121,7 +121,7 @@ func (v VZEntropyDeviceConfiguration) CanEntropyDevice() bool {
 }
 
 // EntropyDevice is an exported wrapper for the private property _entropyDevice.
-func (v VZEntropyDeviceConfiguration) EntropyDevice() (int, error) {
+func (v VZEntropyDeviceConfiguration) EntropyDevice() (int32, error) {
 	if !objc.RespondsToSelector(v.ID, objc.Sel("_entropyDevice")) {
 		return 0, &objc.UnrecognizedSelectorError{Selector: "_entropyDevice"}
 	}

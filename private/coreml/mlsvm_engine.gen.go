@@ -1,4 +1,4 @@
-// Code generated from Apple documentation for CoreML. DO NOT EDIT.
+// Code generated from Apple documentation for coreml. DO NOT EDIT.
 
 package coreml
 
@@ -148,19 +148,19 @@ func NewMLSVMEngine() MLSVMEngine {
 	return rv
 }
 
-func NewSVMEngineWithLibSVMFileClassLabels(sVMFile objectivec.IObject, labels objectivec.IObject) MLSVMEngine {
+func NewMLSVMEngineWithLibSVMFileClassLabels(sVMFile objectivec.IObject, labels objectivec.IObject) MLSVMEngine {
 	instance := getMLSVMEngineClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithLibSVMFile:classLabels:"), sVMFile, labels)
 	return MLSVMEngineFromID(rv)
 }
 
-func NewSVMEngineWithSVMModelFreeOnDeallocIsInputSizeLowerBoundOnlyInputSizeClassLabels(sVMModel *SvmModel, dealloc bool, only bool, size uint64, labels objectivec.IObject) MLSVMEngine {
+func NewMLSVMEngineWithSVMModelFreeOnDeallocIsInputSizeLowerBoundOnlyInputSizeClassLabels(sVMModel *SvmModel, dealloc bool, only bool, size uint64, labels objectivec.IObject) MLSVMEngine {
 	instance := getMLSVMEngineClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithSVMModel:freeOnDealloc:isInputSizeLowerBoundOnly:inputSize:classLabels:"), sVMModel, dealloc, only, size, labels)
 	return MLSVMEngineFromID(rv)
 }
 
-func NewSVMEngineWithSpecificationError(specification unsafe.Pointer) (MLSVMEngine, error) {
+func NewMLSVMEngineWithSpecificationError(specification unsafe.Pointer) (MLSVMEngine, error) {
 	var errorPtr objc.ID
 	instance := getMLSVMEngineClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithSpecification:error:"), specification, unsafe.Pointer(&errorPtr))

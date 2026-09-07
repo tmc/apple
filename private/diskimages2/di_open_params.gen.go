@@ -73,7 +73,7 @@ type IDIOpenParams interface {
 
 	// Topic: Methods
 
-	UIOOpenMode() int
+	UIOOpenMode() int32
 	OpenWithError() (objectivec.IObject, error)
 	InitWithURLOpenModeError(url foundation.NSURL, mode int64) (DIOpenParams, error)
 }
@@ -152,7 +152,7 @@ func (d DIOpenParams) InitWithURLOpenModeError(url foundation.NSURL, mode int64)
 
 }
 
-func (d DIOpenParams) UIOOpenMode() int {
-	rv := objc.SendIfResponds[int](d.ID, objc.Sel("UIOOpenMode"))
+func (d DIOpenParams) UIOOpenMode() int32 {
+	rv := objc.SendIfResponds[int32](d.ID, objc.Sel("UIOOpenMode"))
 	return rv
 }

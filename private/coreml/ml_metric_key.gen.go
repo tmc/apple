@@ -1,4 +1,4 @@
-// Code generated from Apple documentation for CoreML. DO NOT EDIT.
+// Code generated from Apple documentation for coreml. DO NOT EDIT.
 
 package coreml
 
@@ -78,13 +78,13 @@ func NewMLMetricKey() MLMetricKey {
 	return rv
 }
 
-func NewMetricKeyWithKeyName(name objectivec.IObject) MLMetricKey {
+func NewMLMetricKeyWithKeyName(name objectivec.IObject) MLMetricKey {
 	instance := getMLMetricKeyClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithKeyName:"), name)
 	return MLMetricKeyFromID(rv)
 }
 
-func NewMetricKeyWithKeyNameScope(name objectivec.IObject, scope objectivec.IObject) MLMetricKey {
+func NewMLMetricKeyWithKeyNameScope(name objectivec.IObject, scope objectivec.IObject) MLMetricKey {
 	instance := getMLMetricKeyClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithKeyName:scope:"), name, scope)
 	return MLMetricKeyFromID(rv)

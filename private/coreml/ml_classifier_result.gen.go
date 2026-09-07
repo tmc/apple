@@ -1,4 +1,4 @@
-// Code generated from Apple documentation for CoreML. DO NOT EDIT.
+// Code generated from Apple documentation for coreml. DO NOT EDIT.
 
 package coreml
 
@@ -112,19 +112,19 @@ func NewMLClassifierResult() MLClassifierResult {
 	return rv
 }
 
-func NewClassifierResultWithClassProbabilityAdditionalFeaturesClassLabelOfMaxProbability(probability objectivec.IObject, features objectivec.IObject, probability2 objectivec.IObject) MLClassifierResult {
+func NewMLClassifierResultWithClassProbabilityAdditionalFeaturesClassLabelOfMaxProbability(probability objectivec.IObject, features objectivec.IObject, probability2 objectivec.IObject) MLClassifierResult {
 	instance := getMLClassifierResultClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithClassProbability:additionalFeatures:classLabelOfMaxProbability:"), probability, features, probability2)
 	return MLClassifierResultFromID(rv)
 }
 
-func NewClassifierResultWithIntClassProbabilityClassFeatureTypeAdditionalFeatures(probability objectivec.IObject, type_ int64, features objectivec.IObject) MLClassifierResult {
+func NewMLClassifierResultWithIntClassProbabilityClassFeatureTypeAdditionalFeatures(probability objectivec.IObject, type_ int64, features objectivec.IObject) MLClassifierResult {
 	instance := getMLClassifierResultClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithIntClassProbability:classFeatureType:additionalFeatures:"), probability, type_, features)
 	return MLClassifierResultFromID(rv)
 }
 
-func NewClassifierResultWithStringClassProbabilityClassFeatureTypeAdditionalFeatures(probability objectivec.IObject, type_ int64, features objectivec.IObject) MLClassifierResult {
+func NewMLClassifierResultWithStringClassProbabilityClassFeatureTypeAdditionalFeatures(probability objectivec.IObject, type_ int64, features objectivec.IObject) MLClassifierResult {
 	instance := getMLClassifierResultClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithStringClassProbability:classFeatureType:additionalFeatures:"), probability, type_, features)
 	return MLClassifierResultFromID(rv)

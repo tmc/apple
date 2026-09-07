@@ -1,4 +1,4 @@
-// Code generated from Apple documentation for CoreML. DO NOT EDIT.
+// Code generated from Apple documentation for coreml. DO NOT EDIT.
 
 package coreml
 
@@ -246,7 +246,7 @@ func NewMLModel() MLModel {
 	return rv
 }
 
-func NewModelDescriptionOnlyWithSpecificationConfigurationError(specification unsafe.Pointer, configuration objectivec.IObject) (MLModel, error) {
+func NewMLModelDescriptionOnlyWithSpecificationConfigurationError(specification unsafe.Pointer, configuration objectivec.IObject) (MLModel, error) {
 	var errorPtr objc.ID
 	instance := getMLModelClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initDescriptionOnlyWithSpecification:configuration:error:"), specification, configuration, unsafe.Pointer(&errorPtr))
@@ -260,7 +260,7 @@ func NewModelDescriptionOnlyWithSpecificationConfigurationError(specification un
 	return MLModelFromID(rv), nil
 }
 
-func NewModelInterfaceAndMetadataWithCompiledArchiveError(archive unsafe.Pointer) (MLModel, error) {
+func NewMLModelInterfaceAndMetadataWithCompiledArchiveError(archive unsafe.Pointer) (MLModel, error) {
 	var errorPtr objc.ID
 	instance := getMLModelClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initInterfaceAndMetadataWithCompiledArchive:error:"), archive, unsafe.Pointer(&errorPtr))
@@ -274,25 +274,25 @@ func NewModelInterfaceAndMetadataWithCompiledArchiveError(archive unsafe.Pointer
 	return MLModelFromID(rv), nil
 }
 
-func NewModelWithConfiguration(configuration objectivec.IObject) MLModel {
+func NewMLModelWithConfiguration(configuration objectivec.IObject) MLModel {
 	instance := getMLModelClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithConfiguration:"), configuration)
 	return MLModelFromID(rv)
 }
 
-func NewModelWithDescription(description objectivec.IObject) MLModel {
+func NewMLModelWithDescription(description objectivec.IObject) MLModel {
 	instance := getMLModelClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithDescription:"), description)
 	return MLModelFromID(rv)
 }
 
-func NewModelWithDescriptionConfiguration(description objectivec.IObject, configuration objectivec.IObject) MLModel {
+func NewMLModelWithDescriptionConfiguration(description objectivec.IObject, configuration objectivec.IObject) MLModel {
 	instance := getMLModelClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithDescription:configuration:"), description, configuration)
 	return MLModelFromID(rv)
 }
 
-func NewModelWithNameInputDescriptionOutputDescriptionOrderedInputFeatureNamesOrderedOutputFeatureNamesConfiguration(name objectivec.IObject, description objectivec.IObject, description2 objectivec.IObject, names objectivec.IObject, names2 objectivec.IObject, configuration objectivec.IObject) MLModel {
+func NewMLModelWithNameInputDescriptionOutputDescriptionOrderedInputFeatureNamesOrderedOutputFeatureNamesConfiguration(name objectivec.IObject, description objectivec.IObject, description2 objectivec.IObject, names objectivec.IObject, names2 objectivec.IObject, configuration objectivec.IObject) MLModel {
 	instance := getMLModelClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithName:inputDescription:outputDescription:orderedInputFeatureNames:orderedOutputFeatureNames:configuration:"), name, description, description2, names, names2, configuration)
 	return MLModelFromID(rv)

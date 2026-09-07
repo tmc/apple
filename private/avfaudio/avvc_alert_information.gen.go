@@ -1,4 +1,4 @@
-// Code generated from Apple documentation for AVFAudio. DO NOT EDIT.
+// Code generated from Apple documentation for avfaudio. DO NOT EDIT.
 
 package avfaudio
 
@@ -83,9 +83,9 @@ type IAVVCAlertInformation interface {
 	SetAlertEndTime(value uint64)
 	Mode() int64
 	SetMode(value int64)
-	Type() int
-	SetType(value int)
-	InitWithAlertTypeModeEndTime(type_ int, mode int64, time uint64) AVVCAlertInformation
+	Type() int32
+	SetType(value int32)
+	InitWithAlertTypeModeEndTime(type_ int32, mode int64, time uint64) AVVCAlertInformation
 }
 
 // Init initializes the instance.
@@ -107,13 +107,13 @@ func NewAVVCAlertInformation() AVVCAlertInformation {
 	return rv
 }
 
-func NewVCAlertInformationWithAlertTypeModeEndTime(type_ int, mode int64, time uint64) AVVCAlertInformation {
+func NewAVVCAlertInformationWithAlertTypeModeEndTime(type_ int32, mode int64, time uint64) AVVCAlertInformation {
 	instance := getAVVCAlertInformationClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithAlertType:mode:endTime:"), type_, mode, time)
 	return AVVCAlertInformationFromID(rv)
 }
 
-func (a AVVCAlertInformation) InitWithAlertTypeModeEndTime(type_ int, mode int64, time uint64) AVVCAlertInformation {
+func (a AVVCAlertInformation) InitWithAlertTypeModeEndTime(type_ int32, mode int64, time uint64) AVVCAlertInformation {
 	rv := objc.SendIfResponds[AVVCAlertInformation](a.ID, objc.Sel("initWithAlertType:mode:endTime:"), type_, mode, time)
 	return rv
 }
@@ -132,10 +132,10 @@ func (a AVVCAlertInformation) Mode() int64 {
 func (a AVVCAlertInformation) SetMode(value int64) {
 	objc.SendIfResponds[struct{}](a.ID, objc.Sel("setMode:"), value)
 }
-func (a AVVCAlertInformation) Type() int {
-	rv := objc.SendIfResponds[int](a.ID, objc.Sel("type"))
+func (a AVVCAlertInformation) Type() int32 {
+	rv := objc.SendIfResponds[int32](a.ID, objc.Sel("type"))
 	return rv
 }
-func (a AVVCAlertInformation) SetType(value int) {
+func (a AVVCAlertInformation) SetType(value int32) {
 	objc.SendIfResponds[struct{}](a.ID, objc.Sel("setType:"), value)
 }

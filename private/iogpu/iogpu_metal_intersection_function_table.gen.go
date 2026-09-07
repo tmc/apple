@@ -129,7 +129,7 @@ type IIOGPUMetalIntersectionFunctionTable interface {
 	SetVisibleFunctionTableAtBufferIndex(table objectivec.IObject, index uint64)
 	SetVisibleFunctionTablesWithBufferRange(tables []objectivec.IObject, range_ foundation.NSRange)
 	UniqueIdentifier() uint64
-	VisibleFunctionTable() IIOGPUMetalResource
+	VisibleFunctionTable() IOGPUMetalResource
 	InitWithVisibleFunctionTable(table objectivec.IObject) IOGPUMetalIntersectionFunctionTable
 }
 
@@ -152,37 +152,37 @@ func NewIOGPUMetalIntersectionFunctionTable() IOGPUMetalIntersectionFunctionTabl
 	return rv
 }
 
-func NewGPUMetalIntersectionFunctionTableMemorylessDescriptor(memoryless objectivec.IObject, descriptor objectivec.IObject) IOGPUMetalIntersectionFunctionTable {
+func NewIOGPUMetalIntersectionFunctionTableMemorylessDescriptor(memoryless objectivec.IObject, descriptor objectivec.IObject) IOGPUMetalIntersectionFunctionTable {
 	instance := getIOGPUMetalIntersectionFunctionTableClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initMemoryless:descriptor:"), memoryless, descriptor)
 	return IOGPUMetalIntersectionFunctionTableFromID(rv)
 }
 
-func NewGPUMetalIntersectionFunctionTableStandinWithDevice(device objectivec.IObject) IOGPUMetalIntersectionFunctionTable {
+func NewIOGPUMetalIntersectionFunctionTableStandinWithDevice(device objectivec.IObject) IOGPUMetalIntersectionFunctionTable {
 	instance := getIOGPUMetalIntersectionFunctionTableClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initStandinWithDevice:"), device)
 	return IOGPUMetalIntersectionFunctionTableFromID(rv)
 }
 
-func NewGPUMetalIntersectionFunctionTableWithDeviceOptionsArgsArgsSize(device objectivec.IObject, options uint64, args *IOGPUNewResourceArgs, size uint32) IOGPUMetalIntersectionFunctionTable {
+func NewIOGPUMetalIntersectionFunctionTableWithDeviceOptionsArgsArgsSize(device objectivec.IObject, options uint64, args *IOGPUNewResourceArgs, size uint32) IOGPUMetalIntersectionFunctionTable {
 	instance := getIOGPUMetalIntersectionFunctionTableClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithDevice:options:args:argsSize:"), device, options, unsafe.Pointer(args), size)
 	return IOGPUMetalIntersectionFunctionTableFromID(rv)
 }
 
-func NewGPUMetalIntersectionFunctionTableWithDeviceRemoteStorageResourceOptionsArgsArgsSize(device objectivec.IObject, resource objectivec.IObject, options uint64, args *IOGPUNewResourceArgs, size uint32) IOGPUMetalIntersectionFunctionTable {
+func NewIOGPUMetalIntersectionFunctionTableWithDeviceRemoteStorageResourceOptionsArgsArgsSize(device objectivec.IObject, resource objectivec.IObject, options uint64, args *IOGPUNewResourceArgs, size uint32) IOGPUMetalIntersectionFunctionTable {
 	instance := getIOGPUMetalIntersectionFunctionTableClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithDevice:remoteStorageResource:options:args:argsSize:"), device, resource, options, unsafe.Pointer(args), size)
 	return IOGPUMetalIntersectionFunctionTableFromID(rv)
 }
 
-func NewGPUMetalIntersectionFunctionTableWithResource(resource objectivec.IObject) IOGPUMetalIntersectionFunctionTable {
+func NewIOGPUMetalIntersectionFunctionTableWithResource(resource objectivec.IObject) IOGPUMetalIntersectionFunctionTable {
 	instance := getIOGPUMetalIntersectionFunctionTableClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithResource:"), resource)
 	return IOGPUMetalIntersectionFunctionTableFromID(rv)
 }
 
-func NewGPUMetalIntersectionFunctionTableWithVisibleFunctionTable(table objectivec.IObject) IOGPUMetalIntersectionFunctionTable {
+func NewIOGPUMetalIntersectionFunctionTableWithVisibleFunctionTable(table objectivec.IObject) IOGPUMetalIntersectionFunctionTable {
 	instance := getIOGPUMetalIntersectionFunctionTableClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithVisibleFunctionTable:"), table)
 	return IOGPUMetalIntersectionFunctionTableFromID(rv)
@@ -196,7 +196,7 @@ func (i IOGPUMetalIntersectionFunctionTable) SetBufferOffsetAtIndex(buffer objec
 	objc.SendIfResponds[objc.ID](i.ID, objc.Sel("setBuffer:offset:atIndex:"), buffer, offset, index)
 }
 func (i IOGPUMetalIntersectionFunctionTable) SetBuffersOffsetsWithRange(buffers []objectivec.IObject, offsets *uint64, range_ foundation.NSRange) {
-	objc.SendIfResponds[objc.ID](i.ID, objc.Sel("setBuffers:offsets:withRange:"), objectivec.IObjectSliceToNSArray(buffers), unsafe.Pointer(offsets), range_)
+	objc.SendIfResponds[objc.ID](i.ID, objc.Sel("setBuffers:offsets:withRange:"), objectivec.IObjectSliceToNSArray(buffers), offsets, range_)
 }
 func (i IOGPUMetalIntersectionFunctionTable) SetFunctionAtIndex(function objectivec.IObject, index uint64) {
 	objc.SendIfResponds[objc.ID](i.ID, objc.Sel("setFunction:atIndex:"), function, index)
@@ -257,7 +257,7 @@ func (i IOGPUMetalIntersectionFunctionTable) UniqueIdentifier() uint64 {
 	rv := objc.SendIfResponds[uint64](i.ID, objc.Sel("uniqueIdentifier"))
 	return rv
 }
-func (i IOGPUMetalIntersectionFunctionTable) VisibleFunctionTable() IIOGPUMetalResource {
+func (i IOGPUMetalIntersectionFunctionTable) VisibleFunctionTable() IOGPUMetalResource {
 	rv := objc.SendIfResponds[objc.ID](i.ID, objc.Sel("visibleFunctionTable"))
 	return IOGPUMetalResourceFromID(objc.ID(rv))
 }

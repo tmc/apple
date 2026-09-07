@@ -164,8 +164,8 @@ func (_ANEChainingRequestClass ANEChainingRequestClass) SupportsSecureCoding() b
 }
 
 func (a ANEChainingRequest) FwEnqueueDelay() foundation.NSNumber {
-	rv := objc.SendIfResponds[objc.ID](a.ID, objc.Sel("fwEnqueueDelay"))
-	return foundation.NSNumberFromID(objc.ID(rv))
+	rv := objc.SendIfResponds[foundation.NSNumber](a.ID, objc.Sel("fwEnqueueDelay"))
+	return foundation.NSNumber(rv)
 }
 func (a ANEChainingRequest) InputBuffer() foundation.INSArray {
 	rv := objc.SendIfResponds[objc.ID](a.ID, objc.Sel("inputBuffer"))
@@ -180,22 +180,22 @@ func (a ANEChainingRequest) LoopbackOutputSymbolIndex() foundation.INSArray {
 	return foundation.NSArrayFromID(objc.ID(rv))
 }
 func (a ANEChainingRequest) MemoryPoolId() foundation.NSNumber {
-	rv := objc.SendIfResponds[objc.ID](a.ID, objc.Sel("memoryPoolId"))
-	return foundation.NSNumberFromID(objc.ID(rv))
+	rv := objc.SendIfResponds[foundation.NSNumber](a.ID, objc.Sel("memoryPoolId"))
+	return foundation.NSNumber(rv)
 }
 func (a ANEChainingRequest) OutputSets() foundation.INSArray {
 	rv := objc.SendIfResponds[objc.ID](a.ID, objc.Sel("outputSets"))
 	return foundation.NSArrayFromID(objc.ID(rv))
 }
 func (a ANEChainingRequest) ProcedureIndex() foundation.NSNumber {
-	rv := objc.SendIfResponds[objc.ID](a.ID, objc.Sel("procedureIndex"))
-	return foundation.NSNumberFromID(objc.ID(rv))
+	rv := objc.SendIfResponds[foundation.NSNumber](a.ID, objc.Sel("procedureIndex"))
+	return foundation.NSNumber(rv)
 }
 func (a ANEChainingRequest) SignalEvents() foundation.INSArray {
 	rv := objc.SendIfResponds[objc.ID](a.ID, objc.Sel("signalEvents"))
 	return foundation.NSArrayFromID(objc.ID(rv))
 }
 func (a ANEChainingRequest) TransactionHandle() foundation.NSNumber {
-	rv := objc.SendIfResponds[objc.ID](a.ID, objc.Sel("transactionHandle"))
-	return foundation.NSNumberFromID(objc.ID(rv))
+	rv := objc.SendIfResponds[foundation.NSNumber](a.ID, objc.Sel("transactionHandle"))
+	return foundation.NSNumber(rv)
 }

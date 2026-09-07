@@ -1,4 +1,4 @@
-// Code generated from Apple documentation for CoreML. DO NOT EDIT.
+// Code generated from Apple documentation for coreml. DO NOT EDIT.
 
 package coreml
 
@@ -192,8 +192,8 @@ type IMLNeuralNetworkContainer interface {
 	SetCompilerVersionInfo(value IMLVersionInfo)
 	ConfigurationList() foundation.INSArray
 	SetConfigurationList(value foundation.INSArray)
-	Engine() int
-	SetEngine(value int)
+	Engine() int32
+	SetEngine(value int32)
 	HasBidirectionalLayer() bool
 	SetHasBidirectionalLayer(value bool)
 	HasDynamicLayer() bool
@@ -231,8 +231,8 @@ type IMLNeuralNetworkContainer interface {
 	SetOutputDescription(value foundation.INSDictionary)
 	OutputLayerNames() foundation.INSArray
 	SetOutputLayerNames(value foundation.INSArray)
-	Precision() int
-	SetPrecision(value int)
+	Precision() int32
+	SetPrecision(value int32)
 	UpdatableModelCompiledParams() IMLNeuralNetworksCompileTimeParams
 	SetUpdatableModelCompiledParams(value IMLNeuralNetworksCompileTimeParams)
 	InitWithFeatureDescriptionsModelDescriptionOutputLayerNamesClassScoreVectorNameClassLabelsIsEncryptedModelVersionInfo(descriptions objectivec.IObject, description objectivec.IObject, names objectivec.IObject, name objectivec.IObject, labels objectivec.IObject, encrypted bool, info objectivec.IObject) MLNeuralNetworkContainer
@@ -259,19 +259,19 @@ func NewMLNeuralNetworkContainer() MLNeuralNetworkContainer {
 	return rv
 }
 
-func NewNeuralNetworkContainerWithFeatureDescriptionsModelDescriptionOutputLayerNamesClassScoreVectorNameClassLabelsIsEncryptedModelVersionInfo(descriptions objectivec.IObject, description objectivec.IObject, names objectivec.IObject, name objectivec.IObject, labels objectivec.IObject, encrypted bool, info objectivec.IObject) MLNeuralNetworkContainer {
+func NewMLNeuralNetworkContainerWithFeatureDescriptionsModelDescriptionOutputLayerNamesClassScoreVectorNameClassLabelsIsEncryptedModelVersionInfo(descriptions objectivec.IObject, description objectivec.IObject, names objectivec.IObject, name objectivec.IObject, labels objectivec.IObject, encrypted bool, info objectivec.IObject) MLNeuralNetworkContainer {
 	instance := getMLNeuralNetworkContainerClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithFeatureDescriptions:modelDescription:outputLayerNames:classScoreVectorName:classLabels:isEncrypted:modelVersionInfo:"), descriptions, description, names, name, labels, encrypted, info)
 	return MLNeuralNetworkContainerFromID(rv)
 }
 
-func NewNeuralNetworkContainerWithFeatureDescriptionsModelDescriptionOutputLayerNamesClassScoreVectorNameClassLabelsIsEncryptedModelVersionInfoCompilerVersionInfo(descriptions objectivec.IObject, description objectivec.IObject, names objectivec.IObject, name objectivec.IObject, labels objectivec.IObject, encrypted bool, info objectivec.IObject, info2 objectivec.IObject) MLNeuralNetworkContainer {
+func NewMLNeuralNetworkContainerWithFeatureDescriptionsModelDescriptionOutputLayerNamesClassScoreVectorNameClassLabelsIsEncryptedModelVersionInfoCompilerVersionInfo(descriptions objectivec.IObject, description objectivec.IObject, names objectivec.IObject, name objectivec.IObject, labels objectivec.IObject, encrypted bool, info objectivec.IObject, info2 objectivec.IObject) MLNeuralNetworkContainer {
 	instance := getMLNeuralNetworkContainerClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithFeatureDescriptions:modelDescription:outputLayerNames:classScoreVectorName:classLabels:isEncrypted:modelVersionInfo:compilerVersionInfo:"), descriptions, description, names, name, labels, encrypted, info, info2)
 	return MLNeuralNetworkContainerFromID(rv)
 }
 
-func NewNeuralNetworkContainerWithFilePathInputLayerNamesOutputLayerNamesParameters(path objectivec.IObject, names objectivec.IObject, names2 objectivec.IObject, parameters objectivec.IObject) MLNeuralNetworkContainer {
+func NewMLNeuralNetworkContainerWithFilePathInputLayerNamesOutputLayerNamesParameters(path objectivec.IObject, names objectivec.IObject, names2 objectivec.IObject, parameters objectivec.IObject) MLNeuralNetworkContainer {
 	instance := getMLNeuralNetworkContainerClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithFilePath:inputLayerNames:outputLayerNames:parameters:"), path, names, names2, parameters)
 	return MLNeuralNetworkContainerFromID(rv)
@@ -354,11 +354,11 @@ func (m MLNeuralNetworkContainer) ConfigurationList() foundation.INSArray {
 func (m MLNeuralNetworkContainer) SetConfigurationList(value foundation.INSArray) {
 	objc.SendIfResponds[struct{}](m.ID, objc.Sel("setConfigurationList:"), value)
 }
-func (m MLNeuralNetworkContainer) Engine() int {
-	rv := objc.SendIfResponds[int](m.ID, objc.Sel("engine"))
+func (m MLNeuralNetworkContainer) Engine() int32 {
+	rv := objc.SendIfResponds[int32](m.ID, objc.Sel("engine"))
 	return rv
 }
-func (m MLNeuralNetworkContainer) SetEngine(value int) {
+func (m MLNeuralNetworkContainer) SetEngine(value int32) {
 	objc.SendIfResponds[struct{}](m.ID, objc.Sel("setEngine:"), value)
 }
 func (m MLNeuralNetworkContainer) HasBidirectionalLayer() bool {
@@ -491,11 +491,11 @@ func (m MLNeuralNetworkContainer) OutputLayerNames() foundation.INSArray {
 func (m MLNeuralNetworkContainer) SetOutputLayerNames(value foundation.INSArray) {
 	objc.SendIfResponds[struct{}](m.ID, objc.Sel("setOutputLayerNames:"), value)
 }
-func (m MLNeuralNetworkContainer) Precision() int {
-	rv := objc.SendIfResponds[int](m.ID, objc.Sel("precision"))
+func (m MLNeuralNetworkContainer) Precision() int32 {
+	rv := objc.SendIfResponds[int32](m.ID, objc.Sel("precision"))
 	return rv
 }
-func (m MLNeuralNetworkContainer) SetPrecision(value int) {
+func (m MLNeuralNetworkContainer) SetPrecision(value int32) {
 	objc.SendIfResponds[struct{}](m.ID, objc.Sel("setPrecision:"), value)
 }
 func (m MLNeuralNetworkContainer) UpdatableModelCompiledParams() IMLNeuralNetworksCompileTimeParams {

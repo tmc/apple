@@ -1,4 +1,4 @@
-// Code generated from Apple documentation for CoreML. DO NOT EDIT.
+// Code generated from Apple documentation for coreml. DO NOT EDIT.
 
 package coreml
 
@@ -115,7 +115,7 @@ func NewMLProgramEvaluator() MLProgramEvaluator {
 	return rv
 }
 
-func NewProgramEvaluatorWithProgramError(program objectivec.IObject) (MLProgramEvaluator, error) {
+func NewMLProgramEvaluatorWithProgramError(program objectivec.IObject) (MLProgramEvaluator, error) {
 	var errorPtr objc.ID
 	instance := getMLProgramEvaluatorClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithProgram:error:"), program, unsafe.Pointer(&errorPtr))

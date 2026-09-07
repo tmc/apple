@@ -85,7 +85,7 @@ type IIOGPUMetalResourcePool interface {
 	// Topic: Methods
 
 	AllocatedSize() uint64
-	AvailableCount() int
+	AvailableCount() int32
 	Purge()
 	PurgeWithLock()
 	ResourceArgs() *IOGPUNewResourceArgs
@@ -114,7 +114,7 @@ func NewIOGPUMetalResourcePool() IOGPUMetalResourcePool {
 	return rv
 }
 
-func NewGPUMetalResourcePoolWithDeviceResourceClassResourceArgsResourceArgsSizeOptions(device objectivec.IObject, class objectivec.Class, args *IOGPUNewResourceArgs, size uint32, options objectivec.IObject) IOGPUMetalResourcePool {
+func NewIOGPUMetalResourcePoolWithDeviceResourceClassResourceArgsResourceArgsSizeOptions(device objectivec.IObject, class objectivec.Class, args *IOGPUNewResourceArgs, size uint32, options objectivec.IObject) IOGPUMetalResourcePool {
 	instance := getIOGPUMetalResourcePoolClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithDevice:resourceClass:resourceArgs:resourceArgsSize:options:"), device, class, unsafe.Pointer(args), size, options)
 	return IOGPUMetalResourcePoolFromID(rv)
@@ -124,8 +124,8 @@ func (i IOGPUMetalResourcePool) AllocatedSize() uint64 {
 	rv := objc.SendIfResponds[uint64](i.ID, objc.Sel("allocatedSize"))
 	return rv
 }
-func (i IOGPUMetalResourcePool) AvailableCount() int {
-	rv := objc.SendIfResponds[int](i.ID, objc.Sel("availableCount"))
+func (i IOGPUMetalResourcePool) AvailableCount() int32 {
+	rv := objc.SendIfResponds[int32](i.ID, objc.Sel("availableCount"))
 	return rv
 }
 func (i IOGPUMetalResourcePool) Purge() {

@@ -1,4 +1,4 @@
-// Code generated from Apple documentation for CoreML. DO NOT EDIT.
+// Code generated from Apple documentation for coreml. DO NOT EDIT.
 
 package coreml
 
@@ -114,7 +114,7 @@ type IMLSliceNDBrick interface {
 	InputShapes() foundation.INSArray
 	OutputRanks() foundation.INSArray
 	OutputShapes() foundation.INSArray
-	Rank() int
+	Rank() int32
 	SetupForInputShapesWithParameters(shapes objectivec.IObject, parameters objectivec.IObject) objectivec.IObject
 	ShapeInfoNeeded() bool
 	Strides() foundation.INSArray
@@ -144,7 +144,7 @@ func NewMLSliceNDBrick() MLSliceNDBrick {
 	return rv
 }
 
-func NewSliceNDBrickWithParameters(parameters objectivec.IObject) MLSliceNDBrick {
+func NewMLSliceNDBrickWithParameters(parameters objectivec.IObject) MLSliceNDBrick {
 	instance := getMLSliceNDBrickClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithParameters:"), parameters)
 	return MLSliceNDBrickFromID(rv)
@@ -210,8 +210,8 @@ func (m MLSliceNDBrick) OutputShapes() foundation.INSArray {
 	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("outputShapes"))
 	return foundation.NSArrayFromID(objc.ID(rv))
 }
-func (m MLSliceNDBrick) Rank() int {
-	rv := objc.SendIfResponds[int](m.ID, objc.Sel("rank"))
+func (m MLSliceNDBrick) Rank() int32 {
+	rv := objc.SendIfResponds[int32](m.ID, objc.Sel("rank"))
 	return rv
 }
 func (m MLSliceNDBrick) ShapeInfoNeeded() bool {

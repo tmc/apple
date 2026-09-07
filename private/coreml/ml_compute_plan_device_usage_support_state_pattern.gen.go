@@ -1,4 +1,4 @@
-// Code generated from Apple documentation for CoreML. DO NOT EDIT.
+// Code generated from Apple documentation for coreml. DO NOT EDIT.
 
 package coreml
 
@@ -99,7 +99,7 @@ func NewMLComputePlanDeviceUsageSupportStatePattern() MLComputePlanDeviceUsageSu
 	return rv
 }
 
-func NewComputePlanDeviceUsageSupportStatePatternWithPatternSupportState(pattern objectivec.IObject, state int64) MLComputePlanDeviceUsageSupportStatePattern {
+func NewMLComputePlanDeviceUsageSupportStatePatternWithPatternSupportState(pattern objectivec.IObject, state int64) MLComputePlanDeviceUsageSupportStatePattern {
 	instance := getMLComputePlanDeviceUsageSupportStatePatternClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithPattern:supportState:"), pattern, state)
 	return MLComputePlanDeviceUsageSupportStatePatternFromID(rv)
@@ -120,8 +120,8 @@ func (_MLComputePlanDeviceUsageSupportStatePatternClass MLComputePlanDeviceUsage
 }
 
 func (m MLComputePlanDeviceUsageSupportStatePattern) Regex() foundation.NSRegularExpression {
-	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("regex"))
-	return foundation.NSRegularExpressionFromID(objc.ID(rv))
+	rv := objc.SendIfResponds[foundation.NSRegularExpression](m.ID, objc.Sel("regex"))
+	return foundation.NSRegularExpression(rv)
 }
 func (m MLComputePlanDeviceUsageSupportStatePattern) SupportState() int64 {
 	rv := objc.SendIfResponds[int64](m.ID, objc.Sel("supportState"))

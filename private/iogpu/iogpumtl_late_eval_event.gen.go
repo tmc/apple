@@ -95,7 +95,7 @@ func NewIOGPUMTLLateEvalEvent() IOGPUMTLLateEvalEvent {
 	return rv
 }
 
-func NewGPUMTLLateEvalEventWithDevice(device *uintptr) IOGPUMTLLateEvalEvent {
+func NewIOGPUMTLLateEvalEventWithDevice(device *uintptr) IOGPUMTLLateEvalEvent {
 	instance := getIOGPUMTLLateEvalEventClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithDevice:"), device)
 	return IOGPUMTLLateEvalEventFromID(rv)

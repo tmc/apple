@@ -1,4 +1,4 @@
-// Code generated from Apple documentation for Virtualization. DO NOT EDIT.
+// Code generated from Apple documentation for virtualization. DO NOT EDIT.
 
 package virtualization
 
@@ -47,10 +47,10 @@ func (vc VZGraphicsDeviceConfigurationClass) Alloc() VZGraphicsDeviceConfigurati
 
 // # Methods
 //
-//   - [VZGraphicsDeviceConfiguration._graphicsDevice]
 //   - [VZGraphicsDeviceConfiguration._init]
 //   - [VZGraphicsDeviceConfiguration._initWithConfiguration]
 //   - [VZGraphicsDeviceConfiguration.MakeGraphicsDeviceForVirtualMachineGraphicsDeviceIndex]
+//   - [VZGraphicsDeviceConfiguration.MakeGraphicsDeviceForVirtualMachineAccessorGraphicsDeviceIndex]
 //   - [VZGraphicsDeviceConfiguration.ValidateWithError]
 //   - [VZGraphicsDeviceConfiguration.DebugDescription]
 //   - [VZGraphicsDeviceConfiguration.Description]
@@ -72,10 +72,10 @@ var _ IVZGraphicsDeviceConfiguration = VZGraphicsDeviceConfiguration{}
 //
 // # Methods
 //
-//   - [IVZGraphicsDeviceConfiguration._graphicsDevice]
 //   - [IVZGraphicsDeviceConfiguration._init]
 //   - [IVZGraphicsDeviceConfiguration._initWithConfiguration]
 //   - [IVZGraphicsDeviceConfiguration.MakeGraphicsDeviceForVirtualMachineGraphicsDeviceIndex]
+//   - [IVZGraphicsDeviceConfiguration.MakeGraphicsDeviceForVirtualMachineAccessorGraphicsDeviceIndex]
 //   - [IVZGraphicsDeviceConfiguration.ValidateWithError]
 //   - [IVZGraphicsDeviceConfiguration.DebugDescription]
 //   - [IVZGraphicsDeviceConfiguration.Description]
@@ -86,10 +86,10 @@ type IVZGraphicsDeviceConfiguration interface {
 
 	// Topic: Methods
 
-	_graphicsDevice() unsafe.Pointer
 	_init() objectivec.IObject
 	_initWithConfiguration(configuration unsafe.Pointer) objectivec.IObject
 	MakeGraphicsDeviceForVirtualMachineGraphicsDeviceIndex(machine objectivec.IObject, index uint64) objectivec.IObject
+	MakeGraphicsDeviceForVirtualMachineAccessorGraphicsDeviceIndex(accessor objectivec.IObject, index uint64) objectivec.IObject
 	ValidateWithError() (bool, error)
 	DebugDescription() string
 	Description() string
@@ -142,6 +142,10 @@ func (v VZGraphicsDeviceConfiguration) MakeGraphicsDeviceForVirtualMachineGraphi
 	rv := objc.SendIfResponds[objc.ID](v.ID, objc.Sel("makeGraphicsDeviceForVirtualMachine:graphicsDeviceIndex:"), machine, index)
 	return objectivec.Object{ID: rv}
 }
+func (v VZGraphicsDeviceConfiguration) MakeGraphicsDeviceForVirtualMachineAccessorGraphicsDeviceIndex(accessor objectivec.IObject, index uint64) objectivec.IObject {
+	rv := objc.SendIfResponds[objc.ID](v.ID, objc.Sel("makeGraphicsDeviceForVirtualMachineAccessor:graphicsDeviceIndex:"), accessor, index)
+	return objectivec.Object{ID: rv}
+}
 func (v VZGraphicsDeviceConfiguration) ValidateWithError() (bool, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[bool](v.ID, objc.Sel("validateWithError:"), unsafe.Pointer(&errorPtr))
@@ -156,23 +160,6 @@ func (v VZGraphicsDeviceConfiguration) ValidateWithError() (bool, error) {
 
 }
 
-func (v VZGraphicsDeviceConfiguration) _graphicsDevice() unsafe.Pointer {
-	rv := objc.SendIfResponds[unsafe.Pointer](v.ID, objc.Sel("_graphicsDevice"))
-	return rv
-}
-
-// CanGraphicsDevice reports whether the receiver responds to the private selector _graphicsDevice.
-func (v VZGraphicsDeviceConfiguration) CanGraphicsDevice() bool {
-	return objc.RespondsToSelector(v.ID, objc.Sel("_graphicsDevice"))
-}
-
-// GraphicsDevice is an exported wrapper for the private property _graphicsDevice.
-func (v VZGraphicsDeviceConfiguration) GraphicsDevice() (unsafe.Pointer, error) {
-	if !objc.RespondsToSelector(v.ID, objc.Sel("_graphicsDevice")) {
-		return nil, &objc.UnrecognizedSelectorError{Selector: "_graphicsDevice"}
-	}
-	return v._graphicsDevice(), nil
-}
 func (v VZGraphicsDeviceConfiguration) DebugDescription() string {
 	rv := objc.SendIfResponds[objc.ID](v.ID, objc.Sel("debugDescription"))
 	return foundation.NSStringFromID(rv).String()

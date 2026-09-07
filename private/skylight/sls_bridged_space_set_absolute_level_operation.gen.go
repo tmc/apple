@@ -71,9 +71,9 @@ type ISLSBridgedSpaceSetAbsoluteLevelOperation interface {
 
 	// Topic: Methods
 
-	Level() int
+	Level() int32
 	SpaceID() uint64
-	InitWithSpaceIDLevel(id uint64, level int) SLSBridgedSpaceSetAbsoluteLevelOperation
+	InitWithSpaceIDLevel(id uint64, level int32) SLSBridgedSpaceSetAbsoluteLevelOperation
 }
 
 // Init initializes the instance.
@@ -101,19 +101,19 @@ func NewSLSBridgedSpaceSetAbsoluteLevelOperationWithCoder(coder objectivec.IObje
 	return SLSBridgedSpaceSetAbsoluteLevelOperationFromID(rv)
 }
 
-func NewSLSBridgedSpaceSetAbsoluteLevelOperationWithSpaceIDLevel(id uint64, level int) SLSBridgedSpaceSetAbsoluteLevelOperation {
+func NewSLSBridgedSpaceSetAbsoluteLevelOperationWithSpaceIDLevel(id uint64, level int32) SLSBridgedSpaceSetAbsoluteLevelOperation {
 	instance := getSLSBridgedSpaceSetAbsoluteLevelOperationClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithSpaceID:level:"), id, level)
 	return SLSBridgedSpaceSetAbsoluteLevelOperationFromID(rv)
 }
 
-func (s SLSBridgedSpaceSetAbsoluteLevelOperation) InitWithSpaceIDLevel(id uint64, level int) SLSBridgedSpaceSetAbsoluteLevelOperation {
+func (s SLSBridgedSpaceSetAbsoluteLevelOperation) InitWithSpaceIDLevel(id uint64, level int32) SLSBridgedSpaceSetAbsoluteLevelOperation {
 	rv := objc.SendIfResponds[SLSBridgedSpaceSetAbsoluteLevelOperation](s.ID, objc.Sel("initWithSpaceID:level:"), id, level)
 	return rv
 }
 
-func (s SLSBridgedSpaceSetAbsoluteLevelOperation) Level() int {
-	rv := objc.SendIfResponds[int](s.ID, objc.Sel("level"))
+func (s SLSBridgedSpaceSetAbsoluteLevelOperation) Level() int32 {
+	rv := objc.SendIfResponds[int32](s.ID, objc.Sel("level"))
 	return rv
 }
 func (s SLSBridgedSpaceSetAbsoluteLevelOperation) SpaceID() uint64 {

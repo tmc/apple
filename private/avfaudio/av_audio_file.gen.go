@@ -1,4 +1,4 @@
-// Code generated from Apple documentation for AVFAudio. DO NOT EDIT.
+// Code generated from Apple documentation for avfaudio. DO NOT EDIT.
 
 package avfaudio
 
@@ -100,7 +100,7 @@ func NewAVAudioFile() AVAudioFile {
 	return rv
 }
 
-func NewAudioFileForReadingFromExtAudioFileCommonFormatInterleavedError(file OpaqueExtAudioFileRef, format uint64, interleaved bool) (AVAudioFile, error) {
+func NewAVAudioFileForReadingFromExtAudioFileCommonFormatInterleavedError(file OpaqueExtAudioFileRef, format uint64, interleaved bool) (AVAudioFile, error) {
 	var errorPtr objc.ID
 	instance := getAVAudioFileClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initForReadingFromExtAudioFile:commonFormat:interleaved:error:"), file, format, interleaved, unsafe.Pointer(&errorPtr))
@@ -114,7 +114,7 @@ func NewAudioFileForReadingFromExtAudioFileCommonFormatInterleavedError(file Opa
 	return AVAudioFileFromID(rv), nil
 }
 
-func NewAudioFileForReadingFromExtAudioFileError(file OpaqueExtAudioFileRef) (AVAudioFile, error) {
+func NewAVAudioFileForReadingFromExtAudioFileError(file OpaqueExtAudioFileRef) (AVAudioFile, error) {
 	var errorPtr objc.ID
 	instance := getAVAudioFileClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initForReadingFromExtAudioFile:error:"), file, unsafe.Pointer(&errorPtr))
@@ -128,7 +128,7 @@ func NewAudioFileForReadingFromExtAudioFileError(file OpaqueExtAudioFileRef) (AV
 	return AVAudioFileFromID(rv), nil
 }
 
-func NewAudioFileSecondaryReaderFormatError(reader objectivec.IObject, format objectivec.IObject) (AVAudioFile, error) {
+func NewAVAudioFileSecondaryReaderFormatError(reader objectivec.IObject, format objectivec.IObject) (AVAudioFile, error) {
 	var errorPtr objc.ID
 	instance := getAVAudioFileClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initSecondaryReader:format:error:"), reader, format, unsafe.Pointer(&errorPtr))
@@ -174,6 +174,6 @@ func (a AVAudioFile) InitSecondaryReaderFormatError(reader objectivec.IObject, f
 }
 
 func (a AVAudioFile) Url() foundation.NSURL {
-	rv := objc.SendIfResponds[objc.ID](a.ID, objc.Sel("URL"))
-	return foundation.NSURLFromID(objc.ID(rv))
+	rv := objc.SendIfResponds[foundation.NSURL](a.ID, objc.Sel("URL"))
+	return foundation.NSURL(rv)
 }

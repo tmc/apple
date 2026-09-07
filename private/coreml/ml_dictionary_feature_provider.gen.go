@@ -1,4 +1,4 @@
-// Code generated from Apple documentation for CoreML. DO NOT EDIT.
+// Code generated from Apple documentation for coreml. DO NOT EDIT.
 
 package coreml
 
@@ -109,19 +109,19 @@ func NewMLDictionaryFeatureProvider() MLDictionaryFeatureProvider {
 	return rv
 }
 
-func NewDictionaryFeatureProviderWithFeatureProvider(provider objectivec.IObject) MLDictionaryFeatureProvider {
+func NewMLDictionaryFeatureProviderWithFeatureProvider(provider objectivec.IObject) MLDictionaryFeatureProvider {
 	instance := getMLDictionaryFeatureProviderClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithFeatureProvider:"), provider)
 	return MLDictionaryFeatureProviderFromID(rv)
 }
 
-func NewDictionaryFeatureProviderWithFeatureProviderFeatureNames(provider objectivec.IObject, names objectivec.IObject) MLDictionaryFeatureProvider {
+func NewMLDictionaryFeatureProviderWithFeatureProviderFeatureNames(provider objectivec.IObject, names objectivec.IObject) MLDictionaryFeatureProvider {
 	instance := getMLDictionaryFeatureProviderClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithFeatureProvider:featureNames:"), provider, names)
 	return MLDictionaryFeatureProviderFromID(rv)
 }
 
-func NewDictionaryFeatureProviderWithFeatureValueDictionary(dictionary objectivec.IObject) MLDictionaryFeatureProvider {
+func NewMLDictionaryFeatureProviderWithFeatureValueDictionary(dictionary objectivec.IObject) MLDictionaryFeatureProvider {
 	instance := getMLDictionaryFeatureProviderClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithFeatureValueDictionary:"), dictionary)
 	return MLDictionaryFeatureProviderFromID(rv)

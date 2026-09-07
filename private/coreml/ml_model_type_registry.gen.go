@@ -1,4 +1,4 @@
-// Code generated from Apple documentation for CoreML. DO NOT EDIT.
+// Code generated from Apple documentation for coreml. DO NOT EDIT.
 
 package coreml
 
@@ -73,9 +73,9 @@ type IMLModelTypeRegistry interface {
 
 	// Topic: Methods
 
-	ClassForCompilingModelType(type_ int) objectivec.Class
-	ClassesForLoadingModelType(type_ int) objectivec.IObject
-	ClassesForLoadingModelTypeConfigurationIsUpdatableIsEncrypted(type_ int, configuration objectivec.IObject, updatable bool, encrypted bool) objectivec.IObject
+	ClassForCompilingModelType(type_ int32) objectivec.Class
+	ClassesForLoadingModelType(type_ int32) objectivec.IObject
+	ClassesForLoadingModelTypeConfigurationIsUpdatableIsEncrypted(type_ int32, configuration objectivec.IObject, updatable bool, encrypted bool) objectivec.IObject
 	LoadNeuralNetworkClassesTrainWithMLCompute(classes bool, mLCompute bool) objectivec.IObject
 }
 
@@ -98,15 +98,15 @@ func NewMLModelTypeRegistry() MLModelTypeRegistry {
 	return rv
 }
 
-func (m MLModelTypeRegistry) ClassForCompilingModelType(type_ int) objectivec.Class {
+func (m MLModelTypeRegistry) ClassForCompilingModelType(type_ int32) objectivec.Class {
 	rv := objc.SendIfResponds[objectivec.Class](m.ID, objc.Sel("classForCompilingModelType:"), type_)
 	return objectivec.Class(rv)
 }
-func (m MLModelTypeRegistry) ClassesForLoadingModelType(type_ int) objectivec.IObject {
+func (m MLModelTypeRegistry) ClassesForLoadingModelType(type_ int32) objectivec.IObject {
 	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("classesForLoadingModelType:"), type_)
 	return objectivec.Object{ID: rv}
 }
-func (m MLModelTypeRegistry) ClassesForLoadingModelTypeConfigurationIsUpdatableIsEncrypted(type_ int, configuration objectivec.IObject, updatable bool, encrypted bool) objectivec.IObject {
+func (m MLModelTypeRegistry) ClassesForLoadingModelTypeConfigurationIsUpdatableIsEncrypted(type_ int32, configuration objectivec.IObject, updatable bool, encrypted bool) objectivec.IObject {
 	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("classesForLoadingModelType:configuration:isUpdatable:isEncrypted:"), type_, configuration, updatable, encrypted)
 	return objectivec.Object{ID: rv}
 }

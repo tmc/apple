@@ -83,19 +83,19 @@ func NewDiskImageParamsPluginXPC() DiskImageParamsPluginXPC {
 	return rv
 }
 
-func NewDiskImageParamsPlugin_XPCWithBackendXPC(xpc objectivec.IObject) DiskImageParamsPluginXPC {
+func NewDiskImageParamsPluginXPCWithBackendXPC(xpc objectivec.IObject) DiskImageParamsPluginXPC {
 	instance := getDiskImageParamsPluginXPCClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithBackendXPC:"), xpc)
 	return DiskImageParamsPluginXPCFromID(rv)
 }
 
-func NewDiskImageParamsPlugin_XPCWithBackendXPCBlockSize(xpc objectivec.IObject, size uint64) DiskImageParamsPluginXPC {
+func NewDiskImageParamsPluginXPCWithBackendXPCBlockSize(xpc objectivec.IObject, size uint64) DiskImageParamsPluginXPC {
 	instance := getDiskImageParamsPluginXPCClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithBackendXPC:blockSize:"), xpc, size)
 	return DiskImageParamsPluginXPCFromID(rv)
 }
 
-func NewDiskImageParamsPlugin_XPCWithCoder(coder objectivec.IObject) DiskImageParamsPluginXPC {
+func NewDiskImageParamsPluginXPCWithCoder(coder objectivec.IObject) DiskImageParamsPluginXPC {
 	instance := getDiskImageParamsPluginXPCClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
 	return DiskImageParamsPluginXPCFromID(rv)

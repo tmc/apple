@@ -209,8 +209,8 @@ func (_SLSharingSessionManagerClass SLSharingSessionManagerClass) Shared() SLSha
 }
 
 func (s SLSharingSessionManager) ClientContexts() foundation.NSMapTable {
-	rv := objc.SendIfResponds[objc.ID](s.ID, objc.Sel("clientContexts"))
-	return foundation.NSMapTableFromID(objc.ID(rv))
+	rv := objc.SendIfResponds[foundation.NSMapTable](s.ID, objc.Sel("clientContexts"))
+	return foundation.NSMapTable(rv)
 }
 func (s SLSharingSessionManager) SetClientContexts(value foundation.NSMapTable) {
 	objc.SendIfResponds[struct{}](s.ID, objc.Sel("setClientContexts:"), value)

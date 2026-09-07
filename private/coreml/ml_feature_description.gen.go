@@ -1,4 +1,4 @@
-// Code generated from Apple documentation for CoreML. DO NOT EDIT.
+// Code generated from Apple documentation for coreml. DO NOT EDIT.
 
 package coreml
 
@@ -122,7 +122,7 @@ func NewMLFeatureDescription() MLFeatureDescription {
 	return rv
 }
 
-func NewFeatureDescriptionWithNameTypeOptionalContraints(name objectivec.IObject, type_ int64, optional bool, contraints objectivec.IObject) MLFeatureDescription {
+func NewMLFeatureDescriptionWithNameTypeOptionalContraints(name objectivec.IObject, type_ int64, optional bool, contraints objectivec.IObject) MLFeatureDescription {
 	instance := getMLFeatureDescriptionClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithName:type:optional:contraints:"), name, type_, optional, contraints)
 	return MLFeatureDescriptionFromID(rv)

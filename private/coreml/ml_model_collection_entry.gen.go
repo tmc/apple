@@ -1,4 +1,4 @@
-// Code generated from Apple documentation for CoreML. DO NOT EDIT.
+// Code generated from Apple documentation for coreml. DO NOT EDIT.
 
 package coreml
 
@@ -132,6 +132,6 @@ func (m MLModelCollectionEntry) ModelIdentifier() string {
 	return foundation.NSStringFromID(rv).String()
 }
 func (m MLModelCollectionEntry) ModelURL() foundation.NSURL {
-	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("modelURL"))
-	return foundation.NSURLFromID(objc.ID(rv))
+	rv := objc.SendIfResponds[foundation.NSURL](m.ID, objc.Sel("modelURL"))
+	return foundation.NSURL(rv)
 }

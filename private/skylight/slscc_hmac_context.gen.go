@@ -110,6 +110,6 @@ func (s SLSCCHmacContext) UpdateSigningContextWithObject(object objectivec.IObje
 }
 
 func (s SLSCCHmacContext) FinalizedData() foundation.NSData {
-	rv := objc.SendIfResponds[objc.ID](s.ID, objc.Sel("finalizedData"))
-	return foundation.NSDataFromID(objc.ID(rv))
+	rv := objc.SendIfResponds[foundation.NSData](s.ID, objc.Sel("finalizedData"))
+	return foundation.NSData(rv)
 }

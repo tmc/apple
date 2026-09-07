@@ -4,12 +4,12 @@ package texttospeech
 
 // C struct types
 
-// OpaqueATAudioProcessingNode
-type OpaqueATAudioProcessingNode struct {
+// NSZone
+type NSZone struct {
 }
 
-// OpaqueAudioQueue
-type OpaqueAudioQueue struct {
+// OpaqueExtAudioFile
+type OpaqueExtAudioFile struct {
 }
 
 // URegularExpression

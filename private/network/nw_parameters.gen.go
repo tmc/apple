@@ -1,4 +1,4 @@
-// Code generated from Apple documentation for Network. DO NOT EDIT.
+// Code generated from Apple documentation for network. DO NOT EDIT.
 
 package network
 
@@ -425,7 +425,7 @@ type INWParameters interface {
 	CreateProtocolBufferObject() objectivec.IObject
 	DataMode() uint64
 	SetDataMode(value uint64)
-	DescriptionWithIndentShowFullContent(indent int, content bool) objectivec.IObject
+	DescriptionWithIndentShowFullContent(indent int32, content bool) objectivec.IObject
 	DisableNagleAlgorithm() bool
 	SetDisableNagleAlgorithm(value bool)
 	EffectiveBundleID() string
@@ -441,7 +441,7 @@ type INWParameters interface {
 	EncodeWithCoder(coder foundation.INSCoder)
 	FastOpenForceEnable() bool
 	SetFastOpenForceEnable(value bool)
-	HasDelegatedPIDForOriginatingPID(pid int) bool
+	HasDelegatedPIDForOriginatingPID(pid int32) bool
 	HasDelegatedProcessUUID() bool
 	HasNonEmptyProxyConfiguration() bool
 	HasPreferredNetworkAgents() bool
@@ -485,15 +485,15 @@ type INWParameters interface {
 	SetMultipath(value bool)
 	MultipathForceEnable() bool
 	SetMultipathForceEnable(value bool)
-	MultipathService() int
-	SetMultipathService(value int)
+	MultipathService() int32
+	SetMultipathService(value int32)
 	NoProxy() bool
 	SetNoProxy(value bool)
 	ParentID() foundation.NSUUID
 	SetParentID(value foundation.NSUUID)
 	ParentIDs() foundation.INSArray
-	Pid() int
-	SetPid(value int)
+	Pid() int32
+	SetPid(value int32)
 	PreferNetworkAgentWithDomainType(domain objectivec.IObject, type_ objectivec.IObject)
 	PreferNetworkAgentWithUUID(uuid objectivec.IObject)
 	PreferNoProxy() bool
@@ -543,7 +543,7 @@ type INWParameters interface {
 	SetInitialDataPayload(payload objectivec.IObject)
 	SetSourceApplicationWithBundleID(id objectivec.IObject)
 	SetSourceApplicationWithToken(token unsafe.Pointer)
-	TlsVersionWithSSLProtocol(sSLProtocol int) uint16
+	TlsVersionWithSSLProtocol(sSLProtocol int32) uint16
 	TrafficClass() uint64
 	SetTrafficClass(value uint64)
 	TransportProtocol() byte
@@ -620,14 +620,14 @@ func (n NWParameters) CreateProtocolBufferObject() objectivec.IObject {
 	rv := objc.SendIfResponds[objc.ID](n.ID, objc.Sel("createProtocolBufferObject"))
 	return objectivec.Object{ID: rv}
 }
-func (n NWParameters) DescriptionWithIndentShowFullContent(indent int, content bool) objectivec.IObject {
+func (n NWParameters) DescriptionWithIndentShowFullContent(indent int32, content bool) objectivec.IObject {
 	rv := objc.SendIfResponds[objc.ID](n.ID, objc.Sel("descriptionWithIndent:showFullContent:"), indent, content)
 	return objectivec.Object{ID: rv}
 }
 func (n NWParameters) EncodeWithCoder(coder foundation.INSCoder) {
 	objc.SendIfResponds[objc.ID](n.ID, objc.Sel("encodeWithCoder:"), coder)
 }
-func (n NWParameters) HasDelegatedPIDForOriginatingPID(pid int) bool {
+func (n NWParameters) HasDelegatedPIDForOriginatingPID(pid int32) bool {
 	rv := objc.SendIfResponds[bool](n.ID, objc.Sel("hasDelegatedPIDForOriginatingPID:"), pid)
 	return rv
 }
@@ -699,7 +699,7 @@ func (n NWParameters) SetSourceApplicationWithBundleID(id objectivec.IObject) {
 func (n NWParameters) SetSourceApplicationWithToken(token unsafe.Pointer) {
 	objc.SendIfResponds[objc.ID](n.ID, objc.Sel("setSourceApplicationWithToken:"), token)
 }
-func (n NWParameters) TlsVersionWithSSLProtocol(sSLProtocol int) uint16 {
+func (n NWParameters) TlsVersionWithSSLProtocol(sSLProtocol int32) uint16 {
 	rv := objc.SendIfResponds[uint16](n.ID, objc.Sel("tlsVersionWithSSLProtocol:"), sSLProtocol)
 	return rv
 }
@@ -740,8 +740,8 @@ func (n NWParameters) SetSSLCipherSuitesInternal(value foundation.INSSet) {
 	objc.SendIfResponds[struct{}](n.ID, objc.Sel("setSSLCipherSuitesInternal:"), value)
 }
 func (n NWParameters) TLSSessionID() foundation.NSData {
-	rv := objc.SendIfResponds[objc.ID](n.ID, objc.Sel("TLSSessionID"))
-	return foundation.NSDataFromID(objc.ID(rv))
+	rv := objc.SendIfResponds[foundation.NSData](n.ID, objc.Sel("TLSSessionID"))
+	return foundation.NSData(rv)
 }
 func (n NWParameters) SetTLSSessionID(value foundation.NSData) {
 	objc.SendIfResponds[struct{}](n.ID, objc.Sel("setTLSSessionID:"), value)
@@ -821,8 +821,8 @@ func (n NWParameters) SetEffectiveBundleID(value string) {
 	objc.SendIfResponds[struct{}](n.ID, objc.Sel("setEffectiveBundleID:"), objc.String(value))
 }
 func (n NWParameters) EffectiveProcessUUID() foundation.NSUUID {
-	rv := objc.SendIfResponds[objc.ID](n.ID, objc.Sel("effectiveProcessUUID"))
-	return foundation.NSUUIDFromID(objc.ID(rv))
+	rv := objc.SendIfResponds[foundation.NSUUID](n.ID, objc.Sel("effectiveProcessUUID"))
+	return foundation.NSUUID(rv)
 }
 func (n NWParameters) SetEffectiveProcessUUID(value foundation.NSUUID) {
 	objc.SendIfResponds[struct{}](n.ID, objc.Sel("setEffectiveProcessUUID:"), value)
@@ -944,8 +944,8 @@ func (n NWParameters) SetMaximumSSLProtocolVersionInternal(value uint64) {
 	objc.SendIfResponds[struct{}](n.ID, objc.Sel("setMaximumSSLProtocolVersionInternal:"), value)
 }
 func (n NWParameters) Metadata() foundation.NSData {
-	rv := objc.SendIfResponds[objc.ID](n.ID, objc.Sel("metadata"))
-	return foundation.NSDataFromID(objc.ID(rv))
+	rv := objc.SendIfResponds[foundation.NSData](n.ID, objc.Sel("metadata"))
+	return foundation.NSData(rv)
 }
 func (n NWParameters) SetMetadata(value foundation.NSData) {
 	objc.SendIfResponds[struct{}](n.ID, objc.Sel("setMetadata:"), value)
@@ -978,11 +978,11 @@ func (n NWParameters) MultipathForceEnable() bool {
 func (n NWParameters) SetMultipathForceEnable(value bool) {
 	objc.SendIfResponds[struct{}](n.ID, objc.Sel("setMultipathForceEnable:"), value)
 }
-func (n NWParameters) MultipathService() int {
-	rv := objc.SendIfResponds[int](n.ID, objc.Sel("multipathService"))
+func (n NWParameters) MultipathService() int32 {
+	rv := objc.SendIfResponds[int32](n.ID, objc.Sel("multipathService"))
 	return rv
 }
-func (n NWParameters) SetMultipathService(value int) {
+func (n NWParameters) SetMultipathService(value int32) {
 	objc.SendIfResponds[struct{}](n.ID, objc.Sel("setMultipathService:"), value)
 }
 func (n NWParameters) NoProxy() bool {
@@ -993,8 +993,8 @@ func (n NWParameters) SetNoProxy(value bool) {
 	objc.SendIfResponds[struct{}](n.ID, objc.Sel("setNoProxy:"), value)
 }
 func (n NWParameters) ParentID() foundation.NSUUID {
-	rv := objc.SendIfResponds[objc.ID](n.ID, objc.Sel("parentID"))
-	return foundation.NSUUIDFromID(objc.ID(rv))
+	rv := objc.SendIfResponds[foundation.NSUUID](n.ID, objc.Sel("parentID"))
+	return foundation.NSUUID(rv)
 }
 func (n NWParameters) SetParentID(value foundation.NSUUID) {
 	objc.SendIfResponds[struct{}](n.ID, objc.Sel("setParentID:"), value)
@@ -1003,11 +1003,11 @@ func (n NWParameters) ParentIDs() foundation.INSArray {
 	rv := objc.SendIfResponds[objc.ID](n.ID, objc.Sel("parentIDs"))
 	return foundation.NSArrayFromID(objc.ID(rv))
 }
-func (n NWParameters) Pid() int {
-	rv := objc.SendIfResponds[int](n.ID, objc.Sel("pid"))
+func (n NWParameters) Pid() int32 {
+	rv := objc.SendIfResponds[int32](n.ID, objc.Sel("pid"))
 	return rv
 }
-func (n NWParameters) SetPid(value int) {
+func (n NWParameters) SetPid(value int32) {
 	objc.SendIfResponds[struct{}](n.ID, objc.Sel("setPid:"), value)
 }
 func (n NWParameters) PreferNoProxy() bool {
@@ -1022,8 +1022,8 @@ func (n NWParameters) PrivateDescription() string {
 	return foundation.NSStringFromID(rv).String()
 }
 func (n NWParameters) ProcessUUID() foundation.NSUUID {
-	rv := objc.SendIfResponds[objc.ID](n.ID, objc.Sel("processUUID"))
-	return foundation.NSUUIDFromID(objc.ID(rv))
+	rv := objc.SendIfResponds[foundation.NSUUID](n.ID, objc.Sel("processUUID"))
+	return foundation.NSUUID(rv)
 }
 func (n NWParameters) SetProcessUUID(value foundation.NSUUID) {
 	objc.SendIfResponds[struct{}](n.ID, objc.Sel("setProcessUUID:"), value)
@@ -1138,8 +1138,8 @@ func (n NWParameters) SetReuseLocalAddress(value bool) {
 	objc.SendIfResponds[struct{}](n.ID, objc.Sel("setReuseLocalAddress:"), value)
 }
 func (n NWParameters) SanitizedURL() foundation.NSURL {
-	rv := objc.SendIfResponds[objc.ID](n.ID, objc.Sel("sanitizedURL"))
-	return foundation.NSURLFromID(objc.ID(rv))
+	rv := objc.SendIfResponds[foundation.NSURL](n.ID, objc.Sel("sanitizedURL"))
+	return foundation.NSURL(rv)
 }
 func (n NWParameters) TrafficClass() uint64 {
 	rv := objc.SendIfResponds[uint64](n.ID, objc.Sel("trafficClass"))
@@ -1167,8 +1167,8 @@ func (n NWParameters) SetUid(value uint32) {
 	objc.SendIfResponds[struct{}](n.ID, objc.Sel("setUid:"), value)
 }
 func (n NWParameters) Url() foundation.NSURL {
-	rv := objc.SendIfResponds[objc.ID](n.ID, objc.Sel("URL"))
-	return foundation.NSURLFromID(objc.ID(rv))
+	rv := objc.SendIfResponds[foundation.NSURL](n.ID, objc.Sel("URL"))
+	return foundation.NSURL(rv)
 }
 func (n NWParameters) SetUrl(value foundation.NSURL) {
 	objc.SendIfResponds[struct{}](n.ID, objc.Sel("setUrl:"), value)

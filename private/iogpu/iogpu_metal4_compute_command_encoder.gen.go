@@ -93,7 +93,7 @@ func NewIOGPUMetal4ComputeCommandEncoder() IOGPUMetal4ComputeCommandEncoder {
 	return rv
 }
 
-func NewGPUMetal4ComputeCommandEncoderWithCommandAllocator(allocator objectivec.IObject) IOGPUMetal4ComputeCommandEncoder {
+func NewIOGPUMetal4ComputeCommandEncoderWithCommandAllocator(allocator objectivec.IObject) IOGPUMetal4ComputeCommandEncoder {
 	instance := getIOGPUMetal4ComputeCommandEncoderClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithCommandAllocator:"), allocator)
 	return IOGPUMetal4ComputeCommandEncoderFromID(rv)

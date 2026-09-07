@@ -125,10 +125,10 @@ func (_SLSecureCursorAssertionManagerClass SLSecureCursorAssertionManagerClass) 
 }
 
 func (s SLSecureCursorAssertionManager) StrongAssertionUUIDs() foundation.NSHashTable {
-	rv := objc.SendIfResponds[objc.ID](s.ID, objc.Sel("strongAssertionUUIDs"))
-	return foundation.NSHashTableFromID(objc.ID(rv))
+	rv := objc.SendIfResponds[foundation.NSHashTable](s.ID, objc.Sel("strongAssertionUUIDs"))
+	return foundation.NSHashTable(rv)
 }
 func (s SLSecureCursorAssertionManager) WeakAssertionMap() foundation.NSMapTable {
-	rv := objc.SendIfResponds[objc.ID](s.ID, objc.Sel("weakAssertionMap"))
-	return foundation.NSMapTableFromID(objc.ID(rv))
+	rv := objc.SendIfResponds[foundation.NSMapTable](s.ID, objc.Sel("weakAssertionMap"))
+	return foundation.NSMapTable(rv)
 }

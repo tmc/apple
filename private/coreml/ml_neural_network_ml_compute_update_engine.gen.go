@@ -1,4 +1,4 @@
-// Code generated from Apple documentation for CoreML. DO NOT EDIT.
+// Code generated from Apple documentation for coreml. DO NOT EDIT.
 
 package coreml
 
@@ -188,7 +188,7 @@ func NewMLNeuralNetworkMLComputeUpdateEngine() MLNeuralNetworkMLComputeUpdateEng
 	return rv
 }
 
-func NewNeuralNetworkMLComputeUpdateEngineWithCompiledArchiveNnContainerConfigurationError(archive unsafe.Pointer, container objectivec.IObject, configuration objectivec.IObject) (MLNeuralNetworkMLComputeUpdateEngine, error) {
+func NewMLNeuralNetworkMLComputeUpdateEngineWithCompiledArchiveNnContainerConfigurationError(archive unsafe.Pointer, container objectivec.IObject, configuration objectivec.IObject) (MLNeuralNetworkMLComputeUpdateEngine, error) {
 	var errorPtr objc.ID
 	instance := getMLNeuralNetworkMLComputeUpdateEngineClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithCompiledArchive:nnContainer:configuration:error:"), archive, container, configuration, unsafe.Pointer(&errorPtr))
@@ -202,7 +202,7 @@ func NewNeuralNetworkMLComputeUpdateEngineWithCompiledArchiveNnContainerConfigur
 	return MLNeuralNetworkMLComputeUpdateEngineFromID(rv), nil
 }
 
-func NewNeuralNetworkMLComputeUpdateEngineWithContainerConfigurationError(container objectivec.IObject, configuration objectivec.IObject) (MLNeuralNetworkMLComputeUpdateEngine, error) {
+func NewMLNeuralNetworkMLComputeUpdateEngineWithContainerConfigurationError(container objectivec.IObject, configuration objectivec.IObject) (MLNeuralNetworkMLComputeUpdateEngine, error) {
 	var errorPtr objc.ID
 	instance := getMLNeuralNetworkMLComputeUpdateEngineClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithContainer:configuration:error:"), container, configuration, unsafe.Pointer(&errorPtr))
@@ -216,7 +216,7 @@ func NewNeuralNetworkMLComputeUpdateEngineWithContainerConfigurationError(contai
 	return MLNeuralNetworkMLComputeUpdateEngineFromID(rv), nil
 }
 
-func NewNeuralNetworkMLComputeUpdateEngineWithContainerError(container objectivec.IObject) (MLNeuralNetworkMLComputeUpdateEngine, error) {
+func NewMLNeuralNetworkMLComputeUpdateEngineWithContainerError(container objectivec.IObject) (MLNeuralNetworkMLComputeUpdateEngine, error) {
 	var errorPtr objc.ID
 	instance := getMLNeuralNetworkMLComputeUpdateEngineClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithContainer:error:"), container, unsafe.Pointer(&errorPtr))
@@ -230,13 +230,13 @@ func NewNeuralNetworkMLComputeUpdateEngineWithContainerError(container objective
 	return MLNeuralNetworkMLComputeUpdateEngineFromID(rv), nil
 }
 
-func NewNeuralNetworkMLComputeUpdateEngineWithDescriptionConfiguration(description objectivec.IObject, configuration objectivec.IObject) MLNeuralNetworkMLComputeUpdateEngine {
+func NewMLNeuralNetworkMLComputeUpdateEngineWithDescriptionConfiguration(description objectivec.IObject, configuration objectivec.IObject) MLNeuralNetworkMLComputeUpdateEngine {
 	instance := getMLNeuralNetworkMLComputeUpdateEngineClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithDescription:configuration:"), description, configuration)
 	return MLNeuralNetworkMLComputeUpdateEngineFromID(rv)
 }
 
-func NewNeuralNetworkMLComputeUpdateEngineWithNameInputDescriptionOutputDescriptionOrderedInputFeatureNamesOrderedOutputFeatureNamesConfiguration(name objectivec.IObject, description objectivec.IObject, description2 objectivec.IObject, names objectivec.IObject, names2 objectivec.IObject, configuration objectivec.IObject) MLNeuralNetworkMLComputeUpdateEngine {
+func NewMLNeuralNetworkMLComputeUpdateEngineWithNameInputDescriptionOutputDescriptionOrderedInputFeatureNamesOrderedOutputFeatureNamesConfiguration(name objectivec.IObject, description objectivec.IObject, description2 objectivec.IObject, names objectivec.IObject, names2 objectivec.IObject, configuration objectivec.IObject) MLNeuralNetworkMLComputeUpdateEngine {
 	instance := getMLNeuralNetworkMLComputeUpdateEngineClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithName:inputDescription:outputDescription:orderedInputFeatureNames:orderedOutputFeatureNames:configuration:"), name, description, description2, names, names2, configuration)
 	return MLNeuralNetworkMLComputeUpdateEngineFromID(rv)

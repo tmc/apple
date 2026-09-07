@@ -1,4 +1,4 @@
-// Code generated from Apple documentation for CoreML. DO NOT EDIT.
+// Code generated from Apple documentation for coreml. DO NOT EDIT.
 
 package coreml
 
@@ -120,19 +120,19 @@ func NewMLLayerExecutionSchedule() MLLayerExecutionSchedule {
 	return rv
 }
 
-func NewLayerExecutionScheduleWithComputeUnitsLayerNameLayerErrorLayerTypeNameSupportedComputeUnitsLayerIndex(units uint64, name objectivec.IObject, error_ int64, name2 objectivec.IObject, units2 uint64, index int64) MLLayerExecutionSchedule {
+func NewMLLayerExecutionScheduleWithComputeUnitsLayerNameLayerErrorLayerTypeNameSupportedComputeUnitsLayerIndex(units uint64, name objectivec.IObject, error_ int64, name2 objectivec.IObject, units2 uint64, index int64) MLLayerExecutionSchedule {
 	instance := getMLLayerExecutionScheduleClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithComputeUnits:layerName:layerError:layerTypeName:supportedComputeUnits:layerIndex:"), units, name, error_, name2, units2, index)
 	return MLLayerExecutionScheduleFromID(rv)
 }
 
-func NewLayerExecutionScheduleWithComputeUnitsLayerNameLayerErrorLayerTypeNameSupportedComputeUnitsLayerIndexSupportMessagesComputeTimeRatio(units uint64, name objectivec.IObject, error_ int64, name2 objectivec.IObject, units2 uint64, index int64, messages objectivec.IObject, ratio float64) MLLayerExecutionSchedule {
+func NewMLLayerExecutionScheduleWithComputeUnitsLayerNameLayerErrorLayerTypeNameSupportedComputeUnitsLayerIndexSupportMessagesComputeTimeRatio(units uint64, name objectivec.IObject, error_ int64, name2 objectivec.IObject, units2 uint64, index int64, messages objectivec.IObject, ratio float64) MLLayerExecutionSchedule {
 	instance := getMLLayerExecutionScheduleClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithComputeUnits:layerName:layerError:layerTypeName:supportedComputeUnits:layerIndex:supportMessages:computeTimeRatio:"), units, name, error_, name2, units2, index, messages, ratio)
 	return MLLayerExecutionScheduleFromID(rv)
 }
 
-func NewLayerExecutionScheduleWithLayerError(error_ int64) MLLayerExecutionSchedule {
+func NewMLLayerExecutionScheduleWithLayerError(error_ int64) MLLayerExecutionSchedule {
 	instance := getMLLayerExecutionScheduleClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithLayerError:"), error_)
 	return MLLayerExecutionScheduleFromID(rv)

@@ -80,11 +80,11 @@ type ITwoNetsStyleTransfer interface {
 	// Topic: Methods
 
 	ExecuteSyncWithImageSmallImage(image corevideo.CVImageBufferRef, image2 corevideo.CVImageBufferRef) iosurface.IOSurfaceRef
-	HeightBig() int
-	HeightSmall() int
-	LoadOutputName(load objectivec.IObject, name objectivec.IObject) int
-	WidthBig() int
-	WidthSmall() int
+	HeightBig() int32
+	HeightSmall() int32
+	LoadOutputName(load objectivec.IObject, name objectivec.IObject) int32
+	WidthBig() int32
+	WidthSmall() int32
 }
 
 // Init initializes the instance.
@@ -110,24 +110,24 @@ func (t TwoNetsStyleTransfer) ExecuteSyncWithImageSmallImage(image corevideo.CVI
 	rv := objc.SendIfResponds[iosurface.IOSurfaceRef](t.ID, objc.Sel("executeSyncWithImage:smallImage:"), image, image2)
 	return iosurface.IOSurfaceRef(rv)
 }
-func (t TwoNetsStyleTransfer) HeightBig() int {
-	rv := objc.SendIfResponds[int](t.ID, objc.Sel("heightBig"))
+func (t TwoNetsStyleTransfer) HeightBig() int32 {
+	rv := objc.SendIfResponds[int32](t.ID, objc.Sel("heightBig"))
 	return rv
 }
-func (t TwoNetsStyleTransfer) HeightSmall() int {
-	rv := objc.SendIfResponds[int](t.ID, objc.Sel("heightSmall"))
+func (t TwoNetsStyleTransfer) HeightSmall() int32 {
+	rv := objc.SendIfResponds[int32](t.ID, objc.Sel("heightSmall"))
 	return rv
 }
-func (t TwoNetsStyleTransfer) LoadOutputName(load objectivec.IObject, name objectivec.IObject) int {
-	rv := objc.SendIfResponds[int](t.ID, objc.Sel("load:outputName:"), load, name)
+func (t TwoNetsStyleTransfer) LoadOutputName(load objectivec.IObject, name objectivec.IObject) int32 {
+	rv := objc.SendIfResponds[int32](t.ID, objc.Sel("load:outputName:"), load, name)
 	return rv
 }
-func (t TwoNetsStyleTransfer) WidthBig() int {
-	rv := objc.SendIfResponds[int](t.ID, objc.Sel("widthBig"))
+func (t TwoNetsStyleTransfer) WidthBig() int32 {
+	rv := objc.SendIfResponds[int32](t.ID, objc.Sel("widthBig"))
 	return rv
 }
-func (t TwoNetsStyleTransfer) WidthSmall() int {
-	rv := objc.SendIfResponds[int](t.ID, objc.Sel("widthSmall"))
+func (t TwoNetsStyleTransfer) WidthSmall() int32 {
+	rv := objc.SendIfResponds[int32](t.ID, objc.Sel("widthSmall"))
 	return rv
 }
 

@@ -1,10 +1,9 @@
-// Code generated from Apple documentation for CoreML. DO NOT EDIT.
+// Code generated from Apple documentation for coreml. DO NOT EDIT.
 
 package coreml
 
 import (
 	"sync"
-	"unsafe"
 
 	"github.com/tmc/apple/foundation"
 	"github.com/tmc/apple/objc"
@@ -167,16 +166,16 @@ func NewKDNodeWithCoder(coder objectivec.IObject) KDNode {
 }
 
 func (k KDNode) AssignSplitsForDataIndicesNumDimensions(data *float32, indices *uint64, dimensions uint64) {
-	objc.SendIfResponds[objc.ID](k.ID, objc.Sel("assignSplitsForData:indices:numDimensions:"), data, unsafe.Pointer(indices), dimensions)
+	objc.SendIfResponds[objc.ID](k.ID, objc.Sel("assignSplitsForData:indices:numDimensions:"), data, indices, dimensions)
 }
 func (k KDNode) EncodeWithCoder(coder foundation.INSCoder) {
 	objc.SendIfResponds[objc.ID](k.ID, objc.Sel("encodeWithCoder:"), coder)
 }
 func (k KDNode) FindMinAndMaxAlongDimensionDataIndicesNumDimensions(min *float32, max *float32, dimension uint64, data *float32, indices *uint64, dimensions uint64) {
-	objc.SendIfResponds[objc.ID](k.ID, objc.Sel("findMin:andMax:alongDimension:data:indices:numDimensions:"), min, max, dimension, data, unsafe.Pointer(indices), dimensions)
+	objc.SendIfResponds[objc.ID](k.ID, objc.Sel("findMin:andMax:alongDimension:data:indices:numDimensions:"), min, max, dimension, data, indices, dimensions)
 }
 func (k KDNode) PartitionDataPointsIndicesNumDimensions(points *float32, indices *uint64, dimensions uint64) {
-	objc.SendIfResponds[objc.ID](k.ID, objc.Sel("partitionDataPoints:indices:numDimensions:"), points, unsafe.Pointer(indices), dimensions)
+	objc.SendIfResponds[objc.ID](k.ID, objc.Sel("partitionDataPoints:indices:numDimensions:"), points, indices, dimensions)
 }
 func (k KDNode) Print() {
 	objc.SendIfResponds[objc.ID](k.ID, objc.Sel("print"))

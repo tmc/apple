@@ -1,4 +1,4 @@
-// Code generated from Apple documentation for CoreML. DO NOT EDIT.
+// Code generated from Apple documentation for coreml. DO NOT EDIT.
 
 package coreml
 
@@ -133,7 +133,7 @@ func NewMLAppleGazetteerParameters() MLAppleGazetteerParameters {
 	return rv
 }
 
-func NewAppleGazetteerParametersWithDataLanguageInputFeatureNameOutputFeatureNameModelDataLabelNamesMetadataError(data uint64, language objectivec.IObject, name objectivec.IObject, name2 objectivec.IObject, data2 objectivec.IObject, names objectivec.IObject, metadata objectivec.IObject) (MLAppleGazetteerParameters, error) {
+func NewMLAppleGazetteerParametersWithDataLanguageInputFeatureNameOutputFeatureNameModelDataLabelNamesMetadataError(data uint64, language objectivec.IObject, name objectivec.IObject, name2 objectivec.IObject, data2 objectivec.IObject, names objectivec.IObject, metadata objectivec.IObject) (MLAppleGazetteerParameters, error) {
 	var errorPtr objc.ID
 	instance := getMLAppleGazetteerParametersClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithData:language:inputFeatureName:outputFeatureName:modelData:labelNames:metadata:error:"), data, language, name, name2, data2, names, metadata, unsafe.Pointer(&errorPtr))
@@ -187,8 +187,8 @@ func (m MLAppleGazetteerParameters) SetMetadata(value foundation.INSDictionary) 
 	objc.SendIfResponds[struct{}](m.ID, objc.Sel("setMetadata:"), value)
 }
 func (m MLAppleGazetteerParameters) ModelParameterData() foundation.NSData {
-	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("modelParameterData"))
-	return foundation.NSDataFromID(objc.ID(rv))
+	rv := objc.SendIfResponds[foundation.NSData](m.ID, objc.Sel("modelParameterData"))
+	return foundation.NSData(rv)
 }
 func (m MLAppleGazetteerParameters) SetModelParameterData(value foundation.NSData) {
 	objc.SendIfResponds[struct{}](m.ID, objc.Sel("setModelParameterData:"), value)

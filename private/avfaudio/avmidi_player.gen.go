@@ -1,4 +1,4 @@
-// Code generated from Apple documentation for AVFAudio. DO NOT EDIT.
+// Code generated from Apple documentation for avfaudio. DO NOT EDIT.
 
 package avfaudio
 
@@ -101,7 +101,7 @@ func NewAVMIDIPlayer() AVMIDIPlayer {
 	return rv
 }
 
-func NewMIDIPlayerBase() AVMIDIPlayer {
+func NewAVMIDIPlayerBase() AVMIDIPlayer {
 	instance := getAVMIDIPlayerClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initBase"))
 	return AVMIDIPlayerFromID(rv)

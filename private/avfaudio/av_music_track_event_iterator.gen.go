@@ -1,4 +1,4 @@
-// Code generated from Apple documentation for AVFAudio. DO NOT EDIT.
+// Code generated from Apple documentation for avfaudio. DO NOT EDIT.
 
 package avfaudio
 
@@ -93,8 +93,8 @@ type IAVMusicTrackEventIterator interface {
 	HasCurrentEvent() bool
 	HasNextEvent() bool
 	HasPreviousEvent() bool
-	NextEvent() int
-	PreviousEvent() int
+	NextEvent() int32
+	PreviousEvent() int32
 	Seek(seek float64)
 	SetEventInfoData(info uint32, data unsafe.Pointer) bool
 	SetEventTime(time float64) bool
@@ -120,7 +120,7 @@ func NewAVMusicTrackEventIterator() AVMusicTrackEventIterator {
 	return rv
 }
 
-func NewMusicTrackEventIteratorWithImpl(impl *MusicTrackEventIteratorImpl) AVMusicTrackEventIterator {
+func NewAVMusicTrackEventIteratorWithImpl(impl *MusicTrackEventIteratorImpl) AVMusicTrackEventIterator {
 	instance := getAVMusicTrackEventIteratorClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithImpl:"), unsafe.Pointer(impl))
 	return AVMusicTrackEventIteratorFromID(rv)
@@ -130,7 +130,7 @@ func (a AVMusicTrackEventIterator) DeleteEvent() {
 	objc.SendIfResponds[objc.ID](a.ID, objc.Sel("deleteEvent"))
 }
 func (a AVMusicTrackEventIterator) GetEventInfoOutEventTypeEventDataDataSize(info []float64, type_ *uint32, data unsafe.Pointer, size *uint32) {
-	objc.SendIfResponds[objc.ID](a.ID, objc.Sel("getEventInfo:outEventType:eventData:dataSize:"), info, unsafe.Pointer(type_), data, unsafe.Pointer(size))
+	objc.SendIfResponds[objc.ID](a.ID, objc.Sel("getEventInfo:outEventType:eventData:dataSize:"), info, type_, data, size)
 }
 func (a AVMusicTrackEventIterator) HasCurrentEvent() bool {
 	rv := objc.SendIfResponds[bool](a.ID, objc.Sel("hasCurrentEvent"))
@@ -144,12 +144,12 @@ func (a AVMusicTrackEventIterator) HasPreviousEvent() bool {
 	rv := objc.SendIfResponds[bool](a.ID, objc.Sel("hasPreviousEvent"))
 	return rv
 }
-func (a AVMusicTrackEventIterator) NextEvent() int {
-	rv := objc.SendIfResponds[int](a.ID, objc.Sel("nextEvent"))
+func (a AVMusicTrackEventIterator) NextEvent() int32 {
+	rv := objc.SendIfResponds[int32](a.ID, objc.Sel("nextEvent"))
 	return rv
 }
-func (a AVMusicTrackEventIterator) PreviousEvent() int {
-	rv := objc.SendIfResponds[int](a.ID, objc.Sel("previousEvent"))
+func (a AVMusicTrackEventIterator) PreviousEvent() int32 {
+	rv := objc.SendIfResponds[int32](a.ID, objc.Sel("previousEvent"))
 	return rv
 }
 func (a AVMusicTrackEventIterator) Seek(seek float64) {

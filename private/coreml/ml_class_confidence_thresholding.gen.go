@@ -1,4 +1,4 @@
-// Code generated from Apple documentation for CoreML. DO NOT EDIT.
+// Code generated from Apple documentation for coreml. DO NOT EDIT.
 
 package coreml
 
@@ -106,7 +106,7 @@ func NewMLClassConfidenceThresholding() MLClassConfidenceThresholding {
 	return rv
 }
 
-func NewClassConfidenceThresholdingDescriptionOnlyWithSpecificationConfigurationError(specification unsafe.Pointer, configuration objectivec.IObject) (MLClassConfidenceThresholding, error) {
+func NewMLClassConfidenceThresholdingDescriptionOnlyWithSpecificationConfigurationError(specification unsafe.Pointer, configuration objectivec.IObject) (MLClassConfidenceThresholding, error) {
 	var errorPtr objc.ID
 	instance := getMLClassConfidenceThresholdingClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initDescriptionOnlyWithSpecification:configuration:error:"), specification, configuration, unsafe.Pointer(&errorPtr))
@@ -120,7 +120,7 @@ func NewClassConfidenceThresholdingDescriptionOnlyWithSpecificationConfiguration
 	return MLClassConfidenceThresholdingFromID(rv), nil
 }
 
-func NewClassConfidenceThresholdingInterfaceAndMetadataWithCompiledArchiveError(archive unsafe.Pointer) (MLClassConfidenceThresholding, error) {
+func NewMLClassConfidenceThresholdingInterfaceAndMetadataWithCompiledArchiveError(archive unsafe.Pointer) (MLClassConfidenceThresholding, error) {
 	var errorPtr objc.ID
 	instance := getMLClassConfidenceThresholdingClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initInterfaceAndMetadataWithCompiledArchive:error:"), archive, unsafe.Pointer(&errorPtr))
@@ -134,25 +134,25 @@ func NewClassConfidenceThresholdingInterfaceAndMetadataWithCompiledArchiveError(
 	return MLClassConfidenceThresholdingFromID(rv), nil
 }
 
-func NewClassConfidenceThresholdingWithConfiguration(configuration objectivec.IObject) MLClassConfidenceThresholding {
+func NewMLClassConfidenceThresholdingWithConfiguration(configuration objectivec.IObject) MLClassConfidenceThresholding {
 	instance := getMLClassConfidenceThresholdingClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithConfiguration:"), configuration)
 	return MLClassConfidenceThresholdingFromID(rv)
 }
 
-func NewClassConfidenceThresholdingWithDescription(description objectivec.IObject) MLClassConfidenceThresholding {
+func NewMLClassConfidenceThresholdingWithDescription(description objectivec.IObject) MLClassConfidenceThresholding {
 	instance := getMLClassConfidenceThresholdingClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithDescription:"), description)
 	return MLClassConfidenceThresholdingFromID(rv)
 }
 
-func NewClassConfidenceThresholdingWithDescriptionConfiguration(description objectivec.IObject, configuration objectivec.IObject) MLClassConfidenceThresholding {
+func NewMLClassConfidenceThresholdingWithDescriptionConfiguration(description objectivec.IObject, configuration objectivec.IObject) MLClassConfidenceThresholding {
 	instance := getMLClassConfidenceThresholdingClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithDescription:configuration:"), description, configuration)
 	return MLClassConfidenceThresholdingFromID(rv)
 }
 
-func NewClassConfidenceThresholdingWithDescriptionConfigurationPrecisionRecallCurvesError(description objectivec.IObject, configuration objectivec.IObject, curves objectivec.IObject) (MLClassConfidenceThresholding, error) {
+func NewMLClassConfidenceThresholdingWithDescriptionConfigurationPrecisionRecallCurvesError(description objectivec.IObject, configuration objectivec.IObject, curves objectivec.IObject) (MLClassConfidenceThresholding, error) {
 	var errorPtr objc.ID
 	instance := getMLClassConfidenceThresholdingClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithDescription:configuration:precisionRecallCurves:error:"), description, configuration, curves, unsafe.Pointer(&errorPtr))
@@ -166,7 +166,7 @@ func NewClassConfidenceThresholdingWithDescriptionConfigurationPrecisionRecallCu
 	return MLClassConfidenceThresholdingFromID(rv), nil
 }
 
-func NewClassConfidenceThresholdingWithNameInputDescriptionOutputDescriptionOrderedInputFeatureNamesOrderedOutputFeatureNamesConfiguration(name objectivec.IObject, description objectivec.IObject, description2 objectivec.IObject, names objectivec.IObject, names2 objectivec.IObject, configuration objectivec.IObject) MLClassConfidenceThresholding {
+func NewMLClassConfidenceThresholdingWithNameInputDescriptionOutputDescriptionOrderedInputFeatureNamesOrderedOutputFeatureNamesConfiguration(name objectivec.IObject, description objectivec.IObject, description2 objectivec.IObject, names objectivec.IObject, names2 objectivec.IObject, configuration objectivec.IObject) MLClassConfidenceThresholding {
 	instance := getMLClassConfidenceThresholdingClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithName:inputDescription:outputDescription:orderedInputFeatureNames:orderedOutputFeatureNames:configuration:"), name, description, description2, names, names2, configuration)
 	return MLClassConfidenceThresholdingFromID(rv)

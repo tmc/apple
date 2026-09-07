@@ -1,4 +1,4 @@
-// Code generated from Apple documentation for CoreML. DO NOT EDIT.
+// Code generated from Apple documentation for coreml. DO NOT EDIT.
 
 package coreml
 
@@ -94,19 +94,19 @@ func NewMLNonMaximumSuppression() MLNonMaximumSuppression {
 	return rv
 }
 
-func NewNonMaximumSuppressionWithDescriptionConfiguration(description objectivec.IObject, configuration objectivec.IObject) MLNonMaximumSuppression {
+func NewMLNonMaximumSuppressionWithDescriptionConfiguration(description objectivec.IObject, configuration objectivec.IObject) MLNonMaximumSuppression {
 	instance := getMLNonMaximumSuppressionClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithDescription:configuration:"), description, configuration)
 	return MLNonMaximumSuppressionFromID(rv)
 }
 
-func NewNonMaximumSuppressionWithNameInputDescriptionOutputDescriptionOrderedInputFeatureNamesOrderedOutputFeatureNamesConfiguration(name objectivec.IObject, description objectivec.IObject, description2 objectivec.IObject, names objectivec.IObject, names2 objectivec.IObject, configuration objectivec.IObject) MLNonMaximumSuppression {
+func NewMLNonMaximumSuppressionWithNameInputDescriptionOutputDescriptionOrderedInputFeatureNamesOrderedOutputFeatureNamesConfiguration(name objectivec.IObject, description objectivec.IObject, description2 objectivec.IObject, names objectivec.IObject, names2 objectivec.IObject, configuration objectivec.IObject) MLNonMaximumSuppression {
 	instance := getMLNonMaximumSuppressionClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithName:inputDescription:outputDescription:orderedInputFeatureNames:orderedOutputFeatureNames:configuration:"), name, description, description2, names, names2, configuration)
 	return MLNonMaximumSuppressionFromID(rv)
 }
 
-func NewNonMaximumSuppressionWithParametersModelDescriptionConfigurationError(parameters objectivec.IObject, description objectivec.IObject, configuration objectivec.IObject) (MLNonMaximumSuppression, error) {
+func NewMLNonMaximumSuppressionWithParametersModelDescriptionConfigurationError(parameters objectivec.IObject, description objectivec.IObject, configuration objectivec.IObject) (MLNonMaximumSuppression, error) {
 	var errorPtr objc.ID
 	instance := getMLNonMaximumSuppressionClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithParameters:modelDescription:configuration:error:"), parameters, description, configuration, unsafe.Pointer(&errorPtr))

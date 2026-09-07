@@ -80,7 +80,7 @@ type ISLSDisplayPowerControlClient interface {
 	// Topic: Methods
 
 	RequestStateChangeError(change objectivec.IObject) (uint64, error)
-	SendStateChangeRequestUuid(request objectivec.IObject, uuid *uint64) int
+	SendStateChangeRequestUuid(request objectivec.IObject, uuid *uint64) int32
 	Service() ISLSXPCService
 	SetService(value ISLSXPCService)
 	InitAsyncPowerControlClientNotifyQueueNotificationTypeNotificationBlock(client []objectivec.IObject, queue objectivec.IObject, type_ uint64, block VoidHandler) SLSDisplayPowerControlClient
@@ -116,8 +116,8 @@ func (s SLSDisplayPowerControlClient) RequestStateChangeError(change objectivec.
 	return rv, nil
 
 }
-func (s SLSDisplayPowerControlClient) SendStateChangeRequestUuid(request objectivec.IObject, uuid *uint64) int {
-	rv := objc.SendIfResponds[int](s.ID, objc.Sel("sendStateChangeRequest:uuid:"), request, unsafe.Pointer(uuid))
+func (s SLSDisplayPowerControlClient) SendStateChangeRequestUuid(request objectivec.IObject, uuid *uint64) int32 {
+	rv := objc.SendIfResponds[int32](s.ID, objc.Sel("sendStateChangeRequest:uuid:"), request, uuid)
 	return rv
 }
 func (s SLSDisplayPowerControlClient) InitAsyncPowerControlClientNotifyQueueNotificationTypeNotificationBlock(client []objectivec.IObject, queue objectivec.IObject, type_ uint64, block VoidHandler) SLSDisplayPowerControlClient {

@@ -48,6 +48,10 @@ func (ac ANEProcedureDataClass) Alloc() ANEProcedureData {
 //   - [ANEProcedureData.EncodeWithCoder]
 //   - [ANEProcedureData.ProcedureSymbol]
 //   - [ANEProcedureData.WeightArray]
+//   - [ANEProcedureData.MutableWeightsBufferID]
+//   - [ANEProcedureData.SetMutableWeightsBufferID]
+//   - [ANEProcedureData.MutableWeightsBufferSize]
+//   - [ANEProcedureData.SetMutableWeightsBufferSize]
 //   - [ANEProcedureData.InitWithCoder]
 //   - [ANEProcedureData.InitWithProcedureWeightArray]
 type ANEProcedureData struct {
@@ -69,6 +73,10 @@ var _ IANEProcedureData = ANEProcedureData{}
 //   - [IANEProcedureData.EncodeWithCoder]
 //   - [IANEProcedureData.ProcedureSymbol]
 //   - [IANEProcedureData.WeightArray]
+//   - [IANEProcedureData.MutableWeightsBufferID]
+//   - [IANEProcedureData.SetMutableWeightsBufferID]
+//   - [IANEProcedureData.MutableWeightsBufferSize]
+//   - [IANEProcedureData.SetMutableWeightsBufferSize]
 //   - [IANEProcedureData.InitWithCoder]
 //   - [IANEProcedureData.InitWithProcedureWeightArray]
 type IANEProcedureData interface {
@@ -79,6 +87,10 @@ type IANEProcedureData interface {
 	EncodeWithCoder(coder foundation.INSCoder)
 	ProcedureSymbol() string
 	WeightArray() foundation.INSArray
+	MutableWeightsBufferID() uint64
+	SetMutableWeightsBufferID(value uint64)
+	MutableWeightsBufferSize() uint64
+	SetMutableWeightsBufferSize(value uint64)
 	InitWithCoder(coder foundation.INSCoder) ANEProcedureData
 	InitWithProcedureWeightArray(procedure objectivec.IObject, array objectivec.IObject) ANEProcedureData
 }
@@ -142,4 +154,18 @@ func (a ANEProcedureData) ProcedureSymbol() string {
 func (a ANEProcedureData) WeightArray() foundation.INSArray {
 	rv := objc.SendIfResponds[objc.ID](a.ID, objc.Sel("weightArray"))
 	return foundation.NSArrayFromID(objc.ID(rv))
+}
+func (a ANEProcedureData) MutableWeightsBufferID() uint64 {
+	rv := objc.SendIfResponds[uint64](a.ID, objc.Sel("mutableWeightsBufferID"))
+	return rv
+}
+func (a ANEProcedureData) SetMutableWeightsBufferID(value uint64) {
+	objc.SendIfResponds[struct{}](a.ID, objc.Sel("setMutableWeightsBufferID:"), value)
+}
+func (a ANEProcedureData) MutableWeightsBufferSize() uint64 {
+	rv := objc.SendIfResponds[uint64](a.ID, objc.Sel("mutableWeightsBufferSize"))
+	return rv
+}
+func (a ANEProcedureData) SetMutableWeightsBufferSize(value uint64) {
+	objc.SendIfResponds[struct{}](a.ID, objc.Sel("setMutableWeightsBufferSize:"), value)
 }

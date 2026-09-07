@@ -10,10 +10,7 @@ import (
 // ErrorHandler is the signature for a completion handler block.
 //
 // Used by:
-//   - [TTSWrappedAudioQueue.PlayBufferCompletionHandler]
-//   - [TTSWrappedAudioQueue.ScheduleBufferCompletionHandlerLastBuffer]
-//   - [TTSWrappedAudioQueue.ScheduleBufferCompletionHandler]
-//   - [TTSWrappedAudioQueueBuffer.SetCompletionHandler]
+//   - [TextToSpeechCoreSynthesisVoiceShim.CoreVoiceWithLanguageCodeCompletionHandler]
 //   - [TextToSpeechCoreSynthesisVoiceShim.InternalVoiceWithIdentifierCompletionHandler]
 //   - [TextToSpeechCoreSynthesisVoiceShim.InternalVoicesIncludingSiriCompletionHandler]
 //   - [TextToSpeechCoreSynthesisVoiceShim.PublicVoicesWithCompletionHandler]
@@ -22,15 +19,10 @@ import (
 //   - [TextToSpeechCoreSynthesisVoiceShim.ResourcesWithLanguageCodeCompletionHandler]
 //   - [TextToSpeechCoreSynthesisVoiceShim.VoiceWithIdentifierCompletionHandler]
 //   - [TextToSpeechCoreSynthesisVoiceShim.VoiceWithLanguageCodeCompletionHandler]
-//   - [TextToSpeechCoreSynthesizer.PauseSpeakingAtCompletionHandler]
-//   - [TextToSpeechCoreSynthesizer.SpeakSynthCompletionHandler]
 //   - [TextToSpeechCoreSynthesizer.SpeakWithRequestLanguageSynthesizerCompletionHandler]
-//   - [TextToSpeechCoreSynthesizer.StopSpeakingAtCompletionHandler]
 //   - [TextToSpeechCoreSynthesizer.StopWithCompletionHandler]
 //   - [TextToSpeechCoreSynthesizer.VoiceWithIdentifierCompletionHandler]
 //   - [TextToSpeechCoreSynthesizer.VoiceWithLocaleCompletionHandler]
-//   - [TextToSpeechCoreSynthesizer.WriteToBufferCallbackSynthCompletionHandler]
-//   - [TextToSpeechCoreSynthesizer.WriteToBufferCallbackToMarkerCallbackSynthCompletionHandler]
 //   - [TextToSpeechCoreSynthesizer.WriteWithSpeechPhraseToAudioFileWithAudioSettingsCompletionHandler]
 //   - [TextToSpeechTTSAURenderer.FormatForVoiceCompletionHandler]
 //   - [TextToSpeechVoiceResolver.CurrentLocaleIdentifiersWithCompletionHandler]
@@ -47,10 +39,7 @@ type ErrorHandler = func(error)
 // The caller must defer the returned cleanup function.
 //
 // Used by:
-//   - [TTSWrappedAudioQueue.PlayBufferCompletionHandler]
-//   - [TTSWrappedAudioQueue.ScheduleBufferCompletionHandlerLastBuffer]
-//   - [TTSWrappedAudioQueue.ScheduleBufferCompletionHandler]
-//   - [TTSWrappedAudioQueueBuffer.SetCompletionHandler]
+//   - [TextToSpeechCoreSynthesisVoiceShim.CoreVoiceWithLanguageCodeCompletionHandler]
 //   - [TextToSpeechCoreSynthesisVoiceShim.InternalVoiceWithIdentifierCompletionHandler]
 //   - [TextToSpeechCoreSynthesisVoiceShim.InternalVoicesIncludingSiriCompletionHandler]
 //   - [TextToSpeechCoreSynthesisVoiceShim.PublicVoicesWithCompletionHandler]
@@ -59,15 +48,10 @@ type ErrorHandler = func(error)
 //   - [TextToSpeechCoreSynthesisVoiceShim.ResourcesWithLanguageCodeCompletionHandler]
 //   - [TextToSpeechCoreSynthesisVoiceShim.VoiceWithIdentifierCompletionHandler]
 //   - [TextToSpeechCoreSynthesisVoiceShim.VoiceWithLanguageCodeCompletionHandler]
-//   - [TextToSpeechCoreSynthesizer.PauseSpeakingAtCompletionHandler]
-//   - [TextToSpeechCoreSynthesizer.SpeakSynthCompletionHandler]
 //   - [TextToSpeechCoreSynthesizer.SpeakWithRequestLanguageSynthesizerCompletionHandler]
-//   - [TextToSpeechCoreSynthesizer.StopSpeakingAtCompletionHandler]
 //   - [TextToSpeechCoreSynthesizer.StopWithCompletionHandler]
 //   - [TextToSpeechCoreSynthesizer.VoiceWithIdentifierCompletionHandler]
 //   - [TextToSpeechCoreSynthesizer.VoiceWithLocaleCompletionHandler]
-//   - [TextToSpeechCoreSynthesizer.WriteToBufferCallbackSynthCompletionHandler]
-//   - [TextToSpeechCoreSynthesizer.WriteToBufferCallbackToMarkerCallbackSynthCompletionHandler]
 //   - [TextToSpeechCoreSynthesizer.WriteWithSpeechPhraseToAudioFileWithAudioSettingsCompletionHandler]
 //   - [TextToSpeechTTSAURenderer.FormatForVoiceCompletionHandler]
 //   - [TextToSpeechVoiceResolver.CurrentLocaleIdentifiersWithCompletionHandler]
@@ -89,15 +73,43 @@ func NewErrorBlock(handler ErrorHandler) (objc.ID, func()) {
 	return objc.ID(block), func() { block.Release() }
 }
 
-// INSDictionaryDictionaryHandler is the signature for a completion handler block.
+// INSDictionaryINSDictionaryHandler handles a primitive value and returns a primitive value.
 //
 // Used by:
 //   - [AUMessageChannel.SetCallHostBlock]
-type INSDictionaryDictionaryHandler = func(*foundation.INSDictionary) foundation.INSDictionary
+type INSDictionaryINSDictionaryHandler = func(foundation.INSDictionary) foundation.INSDictionary
+
+// NewINSDictionaryINSDictionaryBlock wraps a Go [INSDictionaryINSDictionaryHandler] as an Objective-C block.
+// The caller must defer the returned cleanup function.
+//
+// Used by:
+//   - [AUMessageChannel.SetCallHostBlock]
+func NewINSDictionaryINSDictionaryBlock(handler INSDictionaryINSDictionaryHandler) (objc.ID, func()) {
+	if handler == nil {
+		return 0, func() {}
+	}
+	block := objc.NewBlock(func(b objc.Block, primitiveID objc.ID) foundation.INSDictionary {
+		var primitiveVal foundation.INSDictionary
+		if primitiveID != 0 {
+			objc.Send[objc.ID](primitiveID, objc.Sel("retain"))
+			primitiveVal = foundation.NSDictionaryFromID(primitiveID)
+		}
+		return handler(primitiveVal)
+	})
+	return objc.ID(block), func() { block.Release() }
+}
 
 // VoidHandler is the signature for a completion handler block.
 //
 // Used by:
+//   - [BFSpeechChannel.SetCfWordCallback]
+//   - [BFSpeechChannel.SetErrorCallback]
+//   - [BFSpeechChannel.SetPendingStopBlock]
+//   - [BFSpeechChannel.SetPhonemeCallback]
+//   - [BFSpeechChannel.SetSpeechDoneCallback]
+//   - [BFSpeechChannel.SetSyncCallback]
+//   - [BFSpeechChannel.SetWordCallback]
+//   - [BabelFish.PerformForChannelBlock]
 //   - [TTSAUMessagingAU.SetCallHostBlock]
 //   - [TTSAUMessagingAU.SetHostBlock]
 //   - [TTSAXResourceManager._performBlockOnObservers]
@@ -107,12 +119,6 @@ type INSDictionaryDictionaryHandler = func(*foundation.INSDictionary) foundation
 //   - [TTSRegex.EnumerateMatchesInCStringLengthUsingBlock]
 //   - [TTSRegex.EnumerateMatchesInCStringRangesUsingBlock]
 //   - [TTSRegex.EnumerateMatchesInCStringStartOffsetLengthUsingBlock]
-//   - [TTSRuleReplacement.SetPostMatch]
-//   - [TTSRulesetRunner.SetMatchLogger]
-//   - [TTSRulesetRunner.SetPostRuleWriter]
-//   - [TTSRulesetRunner.SetPreRuleWriter]
-//   - [TTSSiriAssetManager.DownloadAssetProgressHandler]
-//   - [TTSSiriAssetManager.DownloadVoiceResourceForLanguageCompletion]
 //   - [TTSSpeechAction.SetAudioBufferCallback]
 //   - [TTSSpeechAction.SetCompletionCallback]
 //   - [TTSSpeechAction.SetMarkerCallback]
@@ -127,13 +133,22 @@ type INSDictionaryDictionaryHandler = func(*foundation.INSDictionary) foundation
 //   - [TTSSpeechRequest.SetLatencyCallback]
 //   - [TTSSpeechSynthesizer.SetAudioBufferCallback]
 //   - [TTSStreamingZipReader.EnumerateFiles]
-//   - [TTSVoiceResourceManager.EnumerateLoadableResourcesInAssetUsingBlock]
+//   - [TextToSpeechCoreSynthesizer.WriteToBufferCallbackSynth]
+//   - [TextToSpeechCoreSynthesizer.WriteToBufferCallbackToMarkerCallbackSynth]
 type VoidHandler = func()
 
 // NewVoidBlock wraps a Go [VoidHandler] as an Objective-C block.
 // The caller must defer the returned cleanup function.
 //
 // Used by:
+//   - [BFSpeechChannel.SetCfWordCallback]
+//   - [BFSpeechChannel.SetErrorCallback]
+//   - [BFSpeechChannel.SetPendingStopBlock]
+//   - [BFSpeechChannel.SetPhonemeCallback]
+//   - [BFSpeechChannel.SetSpeechDoneCallback]
+//   - [BFSpeechChannel.SetSyncCallback]
+//   - [BFSpeechChannel.SetWordCallback]
+//   - [BabelFish.PerformForChannelBlock]
 //   - [TTSAUMessagingAU.SetCallHostBlock]
 //   - [TTSAUMessagingAU.SetHostBlock]
 //   - [TTSAXResourceManager._performBlockOnObservers]
@@ -143,12 +158,6 @@ type VoidHandler = func()
 //   - [TTSRegex.EnumerateMatchesInCStringLengthUsingBlock]
 //   - [TTSRegex.EnumerateMatchesInCStringRangesUsingBlock]
 //   - [TTSRegex.EnumerateMatchesInCStringStartOffsetLengthUsingBlock]
-//   - [TTSRuleReplacement.SetPostMatch]
-//   - [TTSRulesetRunner.SetMatchLogger]
-//   - [TTSRulesetRunner.SetPostRuleWriter]
-//   - [TTSRulesetRunner.SetPreRuleWriter]
-//   - [TTSSiriAssetManager.DownloadAssetProgressHandler]
-//   - [TTSSiriAssetManager.DownloadVoiceResourceForLanguageCompletion]
 //   - [TTSSpeechAction.SetAudioBufferCallback]
 //   - [TTSSpeechAction.SetCompletionCallback]
 //   - [TTSSpeechAction.SetMarkerCallback]
@@ -163,7 +172,8 @@ type VoidHandler = func()
 //   - [TTSSpeechRequest.SetLatencyCallback]
 //   - [TTSSpeechSynthesizer.SetAudioBufferCallback]
 //   - [TTSStreamingZipReader.EnumerateFiles]
-//   - [TTSVoiceResourceManager.EnumerateLoadableResourcesInAssetUsingBlock]
+//   - [TextToSpeechCoreSynthesizer.WriteToBufferCallbackSynth]
+//   - [TextToSpeechCoreSynthesizer.WriteToBufferCallbackToMarkerCallbackSynth]
 func NewVoidBlock(handler VoidHandler) (objc.ID, func()) {
 	if handler == nil {
 		return 0, func() {}

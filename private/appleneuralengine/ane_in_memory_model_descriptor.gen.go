@@ -54,6 +54,7 @@ func (ac ANEInMemoryModelDescriptorClass) Alloc() ANEInMemoryModelDescriptor {
 //   - [ANEInMemoryModelDescriptor.OptionsPlistHash]
 //   - [ANEInMemoryModelDescriptor.Weights]
 //   - [ANEInMemoryModelDescriptor.WeightsHash]
+//   - [ANEInMemoryModelDescriptor.PerFileHashes]
 //   - [ANEInMemoryModelDescriptor.InitWithNetworkTextWeightsOptionsPlistIsMILModel]
 type ANEInMemoryModelDescriptor struct {
 	objectivec.Object
@@ -80,6 +81,7 @@ var _ IANEInMemoryModelDescriptor = ANEInMemoryModelDescriptor{}
 //   - [IANEInMemoryModelDescriptor.OptionsPlistHash]
 //   - [IANEInMemoryModelDescriptor.Weights]
 //   - [IANEInMemoryModelDescriptor.WeightsHash]
+//   - [IANEInMemoryModelDescriptor.PerFileHashes]
 //   - [IANEInMemoryModelDescriptor.InitWithNetworkTextWeightsOptionsPlistIsMILModel]
 type IANEInMemoryModelDescriptor interface {
 	objectivec.IObject
@@ -95,6 +97,7 @@ type IANEInMemoryModelDescriptor interface {
 	OptionsPlistHash() string
 	Weights() foundation.INSDictionary
 	WeightsHash() string
+	PerFileHashes() foundation.INSDictionary
 	InitWithNetworkTextWeightsOptionsPlistIsMILModel(text objectivec.IObject, weights objectivec.IObject, plist objectivec.IObject, mILModel bool) ANEInMemoryModelDescriptor
 }
 
@@ -150,16 +153,16 @@ func (a ANEInMemoryModelDescriptor) IsMILModel() bool {
 	return rv
 }
 func (a ANEInMemoryModelDescriptor) NetworkText() foundation.NSData {
-	rv := objc.SendIfResponds[objc.ID](a.ID, objc.Sel("networkText"))
-	return foundation.NSDataFromID(objc.ID(rv))
+	rv := objc.SendIfResponds[foundation.NSData](a.ID, objc.Sel("networkText"))
+	return foundation.NSData(rv)
 }
 func (a ANEInMemoryModelDescriptor) NetworkTextHash() string {
 	rv := objc.SendIfResponds[objc.ID](a.ID, objc.Sel("networkTextHash"))
 	return foundation.NSStringFromID(rv).String()
 }
 func (a ANEInMemoryModelDescriptor) OptionsPlist() foundation.NSData {
-	rv := objc.SendIfResponds[objc.ID](a.ID, objc.Sel("optionsPlist"))
-	return foundation.NSDataFromID(objc.ID(rv))
+	rv := objc.SendIfResponds[foundation.NSData](a.ID, objc.Sel("optionsPlist"))
+	return foundation.NSData(rv)
 }
 func (a ANEInMemoryModelDescriptor) OptionsPlistHash() string {
 	rv := objc.SendIfResponds[objc.ID](a.ID, objc.Sel("optionsPlistHash"))
@@ -172,4 +175,8 @@ func (a ANEInMemoryModelDescriptor) Weights() foundation.INSDictionary {
 func (a ANEInMemoryModelDescriptor) WeightsHash() string {
 	rv := objc.SendIfResponds[objc.ID](a.ID, objc.Sel("weightsHash"))
 	return foundation.NSStringFromID(rv).String()
+}
+func (a ANEInMemoryModelDescriptor) PerFileHashes() foundation.INSDictionary {
+	rv := objc.SendIfResponds[objc.ID](a.ID, objc.Sel("perFileHashes"))
+	return foundation.NSDictionaryFromID(objc.ID(rv))
 }

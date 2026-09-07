@@ -1,4 +1,4 @@
-// Code generated from Apple documentation for CoreML. DO NOT EDIT.
+// Code generated from Apple documentation for coreml. DO NOT EDIT.
 
 package coreml
 
@@ -116,7 +116,7 @@ func NewMLGLMClassification() MLGLMClassification {
 	return rv
 }
 
-func NewGLMClassificationWithSpecificationConfigurationError(specification unsafe.Pointer, configuration objectivec.IObject) (MLGLMClassification, error) {
+func NewMLGLMClassificationWithSpecificationConfigurationError(specification unsafe.Pointer, configuration objectivec.IObject) (MLGLMClassification, error) {
 	var errorPtr objc.ID
 	instance := getMLGLMClassificationClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithSpecification:configuration:error:"), specification, configuration, unsafe.Pointer(&errorPtr))

@@ -71,7 +71,7 @@ type ISLSBridgedSpaceGetAbsoluteLevelOperation interface {
 
 	// Topic: Methods
 
-	MakeResultWithInt32Value(int32Value int) objectivec.IObject
+	MakeResultWithInt32Value(int32Value int32) objectivec.IObject
 	SpaceID() uint64
 	InitWithSpaceID(id uint64) SLSBridgedSpaceGetAbsoluteLevelOperation
 }
@@ -107,7 +107,7 @@ func NewSLSBridgedSpaceGetAbsoluteLevelOperationWithSpaceID(id uint64) SLSBridge
 	return SLSBridgedSpaceGetAbsoluteLevelOperationFromID(rv)
 }
 
-func (s SLSBridgedSpaceGetAbsoluteLevelOperation) MakeResultWithInt32Value(int32Value int) objectivec.IObject {
+func (s SLSBridgedSpaceGetAbsoluteLevelOperation) MakeResultWithInt32Value(int32Value int32) objectivec.IObject {
 	rv := objc.SendIfResponds[objc.ID](s.ID, objc.Sel("makeResultWithInt32Value:"), int32Value)
 	return objectivec.Object{ID: rv}
 }

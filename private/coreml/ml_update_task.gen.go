@@ -1,4 +1,4 @@
-// Code generated from Apple documentation for CoreML. DO NOT EDIT.
+// Code generated from Apple documentation for coreml. DO NOT EDIT.
 
 package coreml
 
@@ -149,7 +149,7 @@ func NewMLUpdateTask() MLUpdateTask {
 	return rv
 }
 
-func NewUpdateTaskWithModelAtURLTrainingDataConfigurationProgressHandlersError(url foundation.NSURL, data objectivec.IObject, configuration objectivec.IObject, handlers objectivec.IObject) (MLUpdateTask, error) {
+func NewMLUpdateTaskWithModelAtURLTrainingDataConfigurationProgressHandlersError(url foundation.NSURL, data objectivec.IObject, configuration objectivec.IObject, handlers objectivec.IObject) (MLUpdateTask, error) {
 	var errorPtr objc.ID
 	instance := getMLUpdateTaskClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithModelAtURL:trainingData:configuration:progressHandlers:error:"), url, data, configuration, handlers, unsafe.Pointer(&errorPtr))
@@ -163,7 +163,7 @@ func NewUpdateTaskWithModelAtURLTrainingDataConfigurationProgressHandlersError(u
 	return MLUpdateTaskFromID(rv), nil
 }
 
-func NewUpdateTaskWithState(state int64) MLUpdateTask {
+func NewMLUpdateTaskWithState(state int64) MLUpdateTask {
 	instance := getMLUpdateTaskClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithState:"), state)
 	return MLUpdateTaskFromID(rv)
@@ -312,8 +312,8 @@ func (m MLUpdateTask) UpdatableModel() IMLModel {
 	return MLModelFromID(objc.ID(rv))
 }
 func (m MLUpdateTask) UpdatableModelURL() foundation.NSURL {
-	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("updatableModelURL"))
-	return foundation.NSURLFromID(objc.ID(rv))
+	rv := objc.SendIfResponds[foundation.NSURL](m.ID, objc.Sel("updatableModelURL"))
+	return foundation.NSURL(rv)
 }
 func (m MLUpdateTask) UpdateHasStarted() bool {
 	rv := objc.SendIfResponds[bool](m.ID, objc.Sel("updateHasStarted"))

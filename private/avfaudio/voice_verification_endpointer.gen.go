@@ -1,4 +1,4 @@
-// Code generated from Apple documentation for AVFAudio. DO NOT EDIT.
+// Code generated from Apple documentation for avfaudio. DO NOT EDIT.
 
 package avfaudio
 
@@ -104,9 +104,9 @@ type IVoiceVerificationEndpointer interface {
 	ConfigureWithSampleRateAndFrameRate(rate float64, rate2 uint32) bool
 	EndWaitTime() float64
 	SetEndWaitTime(value float64)
-	EndpointMode() int
-	SetEndpointMode(value int)
-	GetStatus(status audiotoolbox.AudioQueueBuffer) int
+	EndpointMode() int32
+	SetEndpointMode(value int32)
+	GetStatus(status audiotoolbox.AudioQueueBuffer) int32
 	InterspeechWaitTime() float64
 	SetInterspeechWaitTime(value float64)
 	Reset()
@@ -145,8 +145,8 @@ func (v VoiceVerificationEndpointer) ConfigureWithSampleRateAndFrameRate(rate fl
 	rv := objc.SendIfResponds[bool](v.ID, objc.Sel("configureWithSampleRate:andFrameRate:"), rate, rate2)
 	return rv
 }
-func (v VoiceVerificationEndpointer) GetStatus(status audiotoolbox.AudioQueueBuffer) int {
-	rv := objc.SendIfResponds[int](v.ID, objc.Sel("getStatus:"), status)
+func (v VoiceVerificationEndpointer) GetStatus(status audiotoolbox.AudioQueueBuffer) int32 {
+	rv := objc.SendIfResponds[int32](v.ID, objc.Sel("getStatus:"), status)
 	return rv
 }
 func (v VoiceVerificationEndpointer) Reset() {
@@ -168,11 +168,11 @@ func (v VoiceVerificationEndpointer) EndWaitTime() float64 {
 func (v VoiceVerificationEndpointer) SetEndWaitTime(value float64) {
 	objc.SendIfResponds[struct{}](v.ID, objc.Sel("setEndWaitTime:"), value)
 }
-func (v VoiceVerificationEndpointer) EndpointMode() int {
-	rv := objc.SendIfResponds[int](v.ID, objc.Sel("endpointMode"))
+func (v VoiceVerificationEndpointer) EndpointMode() int32 {
+	rv := objc.SendIfResponds[int32](v.ID, objc.Sel("endpointMode"))
 	return rv
 }
-func (v VoiceVerificationEndpointer) SetEndpointMode(value int) {
+func (v VoiceVerificationEndpointer) SetEndpointMode(value int32) {
 	objc.SendIfResponds[struct{}](v.ID, objc.Sel("setEndpointMode:"), value)
 }
 func (v VoiceVerificationEndpointer) Hash() uint64 {

@@ -1,4 +1,4 @@
-// Code generated from Apple documentation for CoreML. DO NOT EDIT.
+// Code generated from Apple documentation for coreml. DO NOT EDIT.
 
 package coreml
 
@@ -103,7 +103,7 @@ func NewMLCustomModelWrapper() MLCustomModelWrapper {
 	return rv
 }
 
-func NewCustomModelWrapperDescriptionOnlyWithSpecificationConfigurationError(specification unsafe.Pointer, configuration objectivec.IObject) (MLCustomModelWrapper, error) {
+func NewMLCustomModelWrapperDescriptionOnlyWithSpecificationConfigurationError(specification unsafe.Pointer, configuration objectivec.IObject) (MLCustomModelWrapper, error) {
 	var errorPtr objc.ID
 	instance := getMLCustomModelWrapperClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initDescriptionOnlyWithSpecification:configuration:error:"), specification, configuration, unsafe.Pointer(&errorPtr))
@@ -117,7 +117,7 @@ func NewCustomModelWrapperDescriptionOnlyWithSpecificationConfigurationError(spe
 	return MLCustomModelWrapperFromID(rv), nil
 }
 
-func NewCustomModelWrapperInterfaceAndMetadataWithCompiledArchiveError(archive unsafe.Pointer) (MLCustomModelWrapper, error) {
+func NewMLCustomModelWrapperInterfaceAndMetadataWithCompiledArchiveError(archive unsafe.Pointer) (MLCustomModelWrapper, error) {
 	var errorPtr objc.ID
 	instance := getMLCustomModelWrapperClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initInterfaceAndMetadataWithCompiledArchive:error:"), archive, unsafe.Pointer(&errorPtr))
@@ -131,31 +131,31 @@ func NewCustomModelWrapperInterfaceAndMetadataWithCompiledArchiveError(archive u
 	return MLCustomModelWrapperFromID(rv), nil
 }
 
-func NewCustomModelWrapperWithConfiguration(configuration objectivec.IObject) MLCustomModelWrapper {
+func NewMLCustomModelWrapperWithConfiguration(configuration objectivec.IObject) MLCustomModelWrapper {
 	instance := getMLCustomModelWrapperClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithConfiguration:"), configuration)
 	return MLCustomModelWrapperFromID(rv)
 }
 
-func NewCustomModelWrapperWithDescription(description objectivec.IObject) MLCustomModelWrapper {
+func NewMLCustomModelWrapperWithDescription(description objectivec.IObject) MLCustomModelWrapper {
 	instance := getMLCustomModelWrapperClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithDescription:"), description)
 	return MLCustomModelWrapperFromID(rv)
 }
 
-func NewCustomModelWrapperWithDescriptionConfiguration(description objectivec.IObject, configuration objectivec.IObject) MLCustomModelWrapper {
+func NewMLCustomModelWrapperWithDescriptionConfiguration(description objectivec.IObject, configuration objectivec.IObject) MLCustomModelWrapper {
 	instance := getMLCustomModelWrapperClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithDescription:configuration:"), description, configuration)
 	return MLCustomModelWrapperFromID(rv)
 }
 
-func NewCustomModelWrapperWithModelDescriptionCustomModelConfiguration(description objectivec.IObject, model objectivec.IObject, configuration objectivec.IObject) MLCustomModelWrapper {
+func NewMLCustomModelWrapperWithModelDescriptionCustomModelConfiguration(description objectivec.IObject, model objectivec.IObject, configuration objectivec.IObject) MLCustomModelWrapper {
 	instance := getMLCustomModelWrapperClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithModelDescription:customModel:configuration:"), description, model, configuration)
 	return MLCustomModelWrapperFromID(rv)
 }
 
-func NewCustomModelWrapperWithNameInputDescriptionOutputDescriptionOrderedInputFeatureNamesOrderedOutputFeatureNamesConfiguration(name objectivec.IObject, description objectivec.IObject, description2 objectivec.IObject, names objectivec.IObject, names2 objectivec.IObject, configuration objectivec.IObject) MLCustomModelWrapper {
+func NewMLCustomModelWrapperWithNameInputDescriptionOutputDescriptionOrderedInputFeatureNamesOrderedOutputFeatureNamesConfiguration(name objectivec.IObject, description objectivec.IObject, description2 objectivec.IObject, names objectivec.IObject, names2 objectivec.IObject, configuration objectivec.IObject) MLCustomModelWrapper {
 	instance := getMLCustomModelWrapperClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithName:inputDescription:outputDescription:orderedInputFeatureNames:orderedOutputFeatureNames:configuration:"), name, description, description2, names, names2, configuration)
 	return MLCustomModelWrapperFromID(rv)

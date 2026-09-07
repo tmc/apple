@@ -1,4 +1,4 @@
-// Code generated from Apple documentation for CoreML. DO NOT EDIT.
+// Code generated from Apple documentation for coreml. DO NOT EDIT.
 
 package coreml
 
@@ -137,7 +137,7 @@ func NewMLModelCollection() MLModelCollection {
 	return rv
 }
 
-func NewModelCollectionWithIdentifier(identifier objectivec.IObject) MLModelCollection {
+func NewMLModelCollectionWithIdentifier(identifier objectivec.IObject) MLModelCollection {
 	instance := getMLModelCollectionClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithIdentifier:"), identifier)
 	return MLModelCollectionFromID(rv)

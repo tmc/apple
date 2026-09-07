@@ -75,7 +75,7 @@ type IPluginBackendXPC interface {
 
 	URL() IDIURL
 	PluginHeader() unsafe.Pointer
-	InitWithURLOpenMode(url foundation.NSURL, mode int) PluginBackendXPC
+	InitWithURLOpenMode(url foundation.NSURL, mode int32) PluginBackendXPC
 }
 
 // Init initializes the instance.
@@ -103,7 +103,7 @@ func NewPluginBackendXPCWithCoder(coder objectivec.IObject) PluginBackendXPC {
 	return PluginBackendXPCFromID(rv)
 }
 
-func NewPluginBackendXPCWithURLOpenMode(url foundation.NSURL, mode int) PluginBackendXPC {
+func NewPluginBackendXPCWithURLOpenMode(url foundation.NSURL, mode int32) PluginBackendXPC {
 	instance := getPluginBackendXPCClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithURL:openMode:"), url, mode)
 	return PluginBackendXPCFromID(rv)
@@ -113,7 +113,7 @@ func (p PluginBackendXPC) PluginHeader() unsafe.Pointer {
 	rv := objc.SendIfResponds[unsafe.Pointer](p.ID, objc.Sel("pluginHeader"))
 	return rv
 }
-func (p PluginBackendXPC) InitWithURLOpenMode(url foundation.NSURL, mode int) PluginBackendXPC {
+func (p PluginBackendXPC) InitWithURLOpenMode(url foundation.NSURL, mode int32) PluginBackendXPC {
 	rv := objc.SendIfResponds[PluginBackendXPC](p.ID, objc.Sel("initWithURL:openMode:"), url, mode)
 	return rv
 }

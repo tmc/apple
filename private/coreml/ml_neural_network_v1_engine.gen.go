@@ -1,4 +1,4 @@
-// Code generated from Apple documentation for CoreML. DO NOT EDIT.
+// Code generated from Apple documentation for coreml. DO NOT EDIT.
 
 package coreml
 
@@ -80,7 +80,7 @@ func NewMLNeuralNetworkV1Engine() MLNeuralNetworkV1Engine {
 	return rv
 }
 
-func NewNeuralNetworkV1EngineWithContainerConfigurationError(container objectivec.IObject, configuration objectivec.IObject) (MLNeuralNetworkV1Engine, error) {
+func NewMLNeuralNetworkV1EngineWithContainerConfigurationError(container objectivec.IObject, configuration objectivec.IObject) (MLNeuralNetworkV1Engine, error) {
 	var errorPtr objc.ID
 	instance := getMLNeuralNetworkV1EngineClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithContainer:configuration:error:"), container, configuration, unsafe.Pointer(&errorPtr))
@@ -94,7 +94,7 @@ func NewNeuralNetworkV1EngineWithContainerConfigurationError(container objective
 	return MLNeuralNetworkV1EngineFromID(rv), nil
 }
 
-func NewNeuralNetworkV1EngineWithContainerError(container objectivec.IObject) (MLNeuralNetworkV1Engine, error) {
+func NewMLNeuralNetworkV1EngineWithContainerError(container objectivec.IObject) (MLNeuralNetworkV1Engine, error) {
 	var errorPtr objc.ID
 	instance := getMLNeuralNetworkV1EngineClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithContainer:error:"), container, unsafe.Pointer(&errorPtr))
@@ -108,13 +108,13 @@ func NewNeuralNetworkV1EngineWithContainerError(container objectivec.IObject) (M
 	return MLNeuralNetworkV1EngineFromID(rv), nil
 }
 
-func NewNeuralNetworkV1EngineWithDescriptionConfiguration(description objectivec.IObject, configuration objectivec.IObject) MLNeuralNetworkV1Engine {
+func NewMLNeuralNetworkV1EngineWithDescriptionConfiguration(description objectivec.IObject, configuration objectivec.IObject) MLNeuralNetworkV1Engine {
 	instance := getMLNeuralNetworkV1EngineClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithDescription:configuration:"), description, configuration)
 	return MLNeuralNetworkV1EngineFromID(rv)
 }
 
-func NewNeuralNetworkV1EngineWithNameInputDescriptionOutputDescriptionOrderedInputFeatureNamesOrderedOutputFeatureNamesConfiguration(name objectivec.IObject, description objectivec.IObject, description2 objectivec.IObject, names objectivec.IObject, names2 objectivec.IObject, configuration objectivec.IObject) MLNeuralNetworkV1Engine {
+func NewMLNeuralNetworkV1EngineWithNameInputDescriptionOutputDescriptionOrderedInputFeatureNamesOrderedOutputFeatureNamesConfiguration(name objectivec.IObject, description objectivec.IObject, description2 objectivec.IObject, names objectivec.IObject, names2 objectivec.IObject, configuration objectivec.IObject) MLNeuralNetworkV1Engine {
 	instance := getMLNeuralNetworkV1EngineClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithName:inputDescription:outputDescription:orderedInputFeatureNames:orderedOutputFeatureNames:configuration:"), name, description, description2, names, names2, configuration)
 	return MLNeuralNetworkV1EngineFromID(rv)

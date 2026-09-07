@@ -139,13 +139,13 @@ func NewIOGPUMetalIOCommandBuffer() IOGPUMetalIOCommandBuffer {
 	return rv
 }
 
-func NewGPUMetalIOCommandBufferWithQueue(queue objectivec.IObject) IOGPUMetalIOCommandBuffer {
+func NewIOGPUMetalIOCommandBufferWithQueue(queue objectivec.IObject) IOGPUMetalIOCommandBuffer {
 	instance := getIOGPUMetalIOCommandBufferClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithQueue:"), queue)
 	return IOGPUMetalIOCommandBufferFromID(rv)
 }
 
-func NewGPUMetalIOCommandBufferWithQueueResourceListRetained(queue objectivec.IObject, list objectivec.IObject, retained bool) IOGPUMetalIOCommandBuffer {
+func NewIOGPUMetalIOCommandBufferWithQueueResourceListRetained(queue objectivec.IObject, list objectivec.IObject, retained bool) IOGPUMetalIOCommandBuffer {
 	instance := getIOGPUMetalIOCommandBufferClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithQueue:resourceList:retained:"), queue, list, retained)
 	return IOGPUMetalIOCommandBufferFromID(rv)

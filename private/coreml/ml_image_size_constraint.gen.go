@@ -1,4 +1,4 @@
-// Code generated from Apple documentation for CoreML. DO NOT EDIT.
+// Code generated from Apple documentation for coreml. DO NOT EDIT.
 
 package coreml
 
@@ -104,13 +104,13 @@ func NewMLImageSizeConstraint() MLImageSizeConstraint {
 	return rv
 }
 
-func NewImageSizeConstraintUnspecified() MLImageSizeConstraint {
+func NewMLImageSizeConstraintUnspecified() MLImageSizeConstraint {
 	instance := getMLImageSizeConstraintClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initUnspecified"))
 	return MLImageSizeConstraintFromID(rv)
 }
 
-func NewImageSizeConstraintWithEnumeratedImageSizes(sizes objectivec.IObject) MLImageSizeConstraint {
+func NewMLImageSizeConstraintWithEnumeratedImageSizes(sizes objectivec.IObject) MLImageSizeConstraint {
 	instance := getMLImageSizeConstraintClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithEnumeratedImageSizes:"), sizes)
 	return MLImageSizeConstraintFromID(rv)

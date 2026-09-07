@@ -99,7 +99,7 @@ func NewIOGPUMetalParallelRenderCommandEncoder() IOGPUMetalParallelRenderCommand
 	return rv
 }
 
-func NewGPUMetalParallelRenderCommandEncoderWithCommandBufferRenderPassDescriptor(buffer objectivec.IObject, descriptor objectivec.IObject) IOGPUMetalParallelRenderCommandEncoder {
+func NewIOGPUMetalParallelRenderCommandEncoderWithCommandBufferRenderPassDescriptor(buffer objectivec.IObject, descriptor objectivec.IObject) IOGPUMetalParallelRenderCommandEncoder {
 	instance := getIOGPUMetalParallelRenderCommandEncoderClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithCommandBuffer:renderPassDescriptor:"), buffer, descriptor)
 	return IOGPUMetalParallelRenderCommandEncoderFromID(rv)

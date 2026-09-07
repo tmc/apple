@@ -1,4 +1,4 @@
-// Code generated from Apple documentation for CoreML. DO NOT EDIT.
+// Code generated from Apple documentation for coreml. DO NOT EDIT.
 
 package coreml
 
@@ -127,7 +127,7 @@ func NewMLProgramContext() MLProgramContext {
 	return rv
 }
 
-func NewProgramContextWithExecutionStateFunctionNameToStateMap(state objectivec.IObject, map_ objectivec.IObject) MLProgramContext {
+func NewMLProgramContextWithExecutionStateFunctionNameToStateMap(state objectivec.IObject, map_ objectivec.IObject) MLProgramContext {
 	instance := getMLProgramContextClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithExecutionState:functionNameToStateMap:"), state, map_)
 	return MLProgramContextFromID(rv)

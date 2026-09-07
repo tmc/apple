@@ -66,7 +66,7 @@ func (dc DICreateParamsClass) Alloc() DICreateParams {
 //   - [DICreateParams.SetPassphrase]
 //   - [DICreateParams.PublicKey]
 //   - [DICreateParams.SetPublicKey]
-//   - [DICreateParams.ResizeWithDiskImageNumberOfBlocksError]
+//   - [DICreateParams.ResizeWithDiskImageBlockCountError]
 //   - [DICreateParams.ResizeWithNumBlocksError]
 //   - [DICreateParams.RootCopierWithDstFolderURLSrcFolderURLProgressError]
 //   - [DICreateParams.SetPassphraseEncryptionMethodError]
@@ -111,7 +111,7 @@ var _ IDICreateParams = DICreateParams{}
 //   - [IDICreateParams.SetPassphrase]
 //   - [IDICreateParams.PublicKey]
 //   - [IDICreateParams.SetPublicKey]
-//   - [IDICreateParams.ResizeWithDiskImageNumberOfBlocksError]
+//   - [IDICreateParams.ResizeWithDiskImageBlockCountError]
 //   - [IDICreateParams.ResizeWithNumBlocksError]
 //   - [IDICreateParams.RootCopierWithDstFolderURLSrcFolderURLProgressError]
 //   - [IDICreateParams.SetPassphraseEncryptionMethodError]
@@ -145,7 +145,7 @@ type IDICreateParams interface {
 	SetPassphrase(value bool)
 	PublicKey() string
 	SetPublicKey(value string)
-	ResizeWithDiskImageNumberOfBlocksError(image unsafe.Pointer, blocks uint64) (bool, error)
+	ResizeWithDiskImageBlockCountError(image unsafe.Pointer, count uint64) (bool, error)
 	ResizeWithNumBlocksError(blocks uint64) (bool, error)
 	RootCopierWithDstFolderURLSrcFolderURLProgressError(url foundation.NSURL, url2 foundation.NSURL, progress objectivec.IObject) (bool, error)
 	SetPassphraseEncryptionMethodError(passphrase string, method uint64) (bool, error)
@@ -253,15 +253,15 @@ func (d DICreateParams) OnErrorCleanup() bool {
 	rv := objc.SendIfResponds[bool](d.ID, objc.Sel("onErrorCleanup"))
 	return rv
 }
-func (d DICreateParams) ResizeWithDiskImageNumberOfBlocksError(image unsafe.Pointer, blocks uint64) (bool, error) {
+func (d DICreateParams) ResizeWithDiskImageBlockCountError(image unsafe.Pointer, count uint64) (bool, error) {
 	var errorPtr objc.ID
-	rv := objc.Send[bool](d.ID, objc.Sel("resizeWithDiskImage:numberOfBlocks:error:"), image, blocks, unsafe.Pointer(&errorPtr))
+	rv := objc.Send[bool](d.ID, objc.Sel("resizeWithDiskImage:blockCount:error:"), image, count, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
 		return false, foundation.NSErrorFrom(errorPtr)
 	}
 	if !rv {
-		return false, errors.New("resizeWithDiskImage:numberOfBlocks:error: returned NO with nil NSError")
+		return false, errors.New("resizeWithDiskImage:blockCount:error: returned NO with nil NSError")
 	}
 	return rv, nil
 

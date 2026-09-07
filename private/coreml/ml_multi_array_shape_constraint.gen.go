@@ -1,4 +1,4 @@
-// Code generated from Apple documentation for CoreML. DO NOT EDIT.
+// Code generated from Apple documentation for coreml. DO NOT EDIT.
 
 package coreml
 
@@ -107,19 +107,19 @@ func NewMLMultiArrayShapeConstraint() MLMultiArrayShapeConstraint {
 	return rv
 }
 
-func NewMultiArrayShapeConstraintUnspecified() MLMultiArrayShapeConstraint {
+func NewMLMultiArrayShapeConstraintUnspecified() MLMultiArrayShapeConstraint {
 	instance := getMLMultiArrayShapeConstraintClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initUnspecified"))
 	return MLMultiArrayShapeConstraintFromID(rv)
 }
 
-func NewMultiArrayShapeConstraintWithEnumeratedShapes(shapes objectivec.IObject) MLMultiArrayShapeConstraint {
+func NewMLMultiArrayShapeConstraintWithEnumeratedShapes(shapes objectivec.IObject) MLMultiArrayShapeConstraint {
 	instance := getMLMultiArrayShapeConstraintClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithEnumeratedShapes:"), shapes)
 	return MLMultiArrayShapeConstraintFromID(rv)
 }
 
-func NewMultiArrayShapeConstraintWithSizeRangeForDimension(dimension objectivec.IObject) MLMultiArrayShapeConstraint {
+func NewMLMultiArrayShapeConstraintWithSizeRangeForDimension(dimension objectivec.IObject) MLMultiArrayShapeConstraint {
 	instance := getMLMultiArrayShapeConstraintClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithSizeRangeForDimension:"), dimension)
 	return MLMultiArrayShapeConstraintFromID(rv)

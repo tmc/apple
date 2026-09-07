@@ -119,8 +119,8 @@ func (_SLSecureCursorAssertionClass SLSecureCursorAssertionClass) InvalidateAll(
 }
 
 func (s SLSecureCursorAssertion) Uuid() foundation.NSUUID {
-	rv := objc.SendIfResponds[objc.ID](s.ID, objc.Sel("uuid"))
-	return foundation.NSUUIDFromID(objc.ID(rv))
+	rv := objc.SendIfResponds[foundation.NSUUID](s.ID, objc.Sel("uuid"))
+	return foundation.NSUUID(rv)
 }
 func (s SLSecureCursorAssertion) SetUuid(value foundation.NSUUID) {
 	objc.SendIfResponds[struct{}](s.ID, objc.Sel("setUuid:"), value)

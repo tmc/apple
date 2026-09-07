@@ -1,4 +1,4 @@
-// Code generated from Apple documentation for CoreML. DO NOT EDIT.
+// Code generated from Apple documentation for coreml. DO NOT EDIT.
 
 package coreml
 
@@ -125,8 +125,8 @@ func (m MLFairPlayDecryptSession) SetModelPath(value string) {
 	objc.SendIfResponds[struct{}](m.ID, objc.Sel("setModelPath:"), objc.String(value))
 }
 func (m MLFairPlayDecryptSession) XpcConnection() foundation.NSXPCConnection {
-	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("xpcConnection"))
-	return foundation.NSXPCConnectionFromID(objc.ID(rv))
+	rv := objc.SendIfResponds[foundation.NSXPCConnection](m.ID, objc.Sel("xpcConnection"))
+	return foundation.NSXPCConnection(rv)
 }
 func (m MLFairPlayDecryptSession) SetXpcConnection(value foundation.NSXPCConnection) {
 	objc.SendIfResponds[struct{}](m.ID, objc.Sel("setXpcConnection:"), value)

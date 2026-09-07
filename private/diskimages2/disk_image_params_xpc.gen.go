@@ -62,16 +62,20 @@ func (dc DiskImageParamsXPCClass) Alloc() DiskImageParamsXPC {
 //   - [DiskImageParamsXPC.SetInstanceID]
 //   - [DiskImageParamsXPC.IsSparseFormat]
 //   - [DiskImageParamsXPC.IsWritableFormat]
+//   - [DiskImageParamsXPC.IssueRespawnTokensWithError]
 //   - [DiskImageParamsXPC.LockBackendsWithError]
 //   - [DiskImageParamsXPC.LockBackendsWithWritableOnlyError]
 //   - [DiskImageParamsXPC.LockWritableBackendsWithError]
 //   - [DiskImageParamsXPC.LockableResources]
+//   - [DiskImageParamsXPC.MainImageSandboxToken]
 //   - [DiskImageParamsXPC.MountedOnAPFS]
 //   - [DiskImageParamsXPC.NumBlocks]
 //   - [DiskImageParamsXPC.SetBlockSizeError]
 //   - [DiskImageParamsXPC.SetSizeWithDiskImageNewSize]
 //   - [DiskImageParamsXPC.ShadowChain]
 //   - [DiskImageParamsXPC.SetShadowChain]
+//   - [DiskImageParamsXPC.ShadowSandboxTokens]
+//   - [DiskImageParamsXPC.SupportsPersistentAttach]
 //   - [DiskImageParamsXPC.InitWithBackendXPC]
 //   - [DiskImageParamsXPC.InitWithBackendXPCBlockSize]
 //   - [DiskImageParamsXPC.InitWithCoder]
@@ -106,16 +110,20 @@ var _ IDiskImageParamsXPC = DiskImageParamsXPC{}
 //   - [IDiskImageParamsXPC.SetInstanceID]
 //   - [IDiskImageParamsXPC.IsSparseFormat]
 //   - [IDiskImageParamsXPC.IsWritableFormat]
+//   - [IDiskImageParamsXPC.IssueRespawnTokensWithError]
 //   - [IDiskImageParamsXPC.LockBackendsWithError]
 //   - [IDiskImageParamsXPC.LockBackendsWithWritableOnlyError]
 //   - [IDiskImageParamsXPC.LockWritableBackendsWithError]
 //   - [IDiskImageParamsXPC.LockableResources]
+//   - [IDiskImageParamsXPC.MainImageSandboxToken]
 //   - [IDiskImageParamsXPC.MountedOnAPFS]
 //   - [IDiskImageParamsXPC.NumBlocks]
 //   - [IDiskImageParamsXPC.SetBlockSizeError]
 //   - [IDiskImageParamsXPC.SetSizeWithDiskImageNewSize]
 //   - [IDiskImageParamsXPC.ShadowChain]
 //   - [IDiskImageParamsXPC.SetShadowChain]
+//   - [IDiskImageParamsXPC.ShadowSandboxTokens]
+//   - [IDiskImageParamsXPC.SupportsPersistentAttach]
 //   - [IDiskImageParamsXPC.InitWithBackendXPC]
 //   - [IDiskImageParamsXPC.InitWithBackendXPCBlockSize]
 //   - [IDiskImageParamsXPC.InitWithCoder]
@@ -139,16 +147,20 @@ type IDiskImageParamsXPC interface {
 	SetInstanceID(value foundation.NSUUID)
 	IsSparseFormat() bool
 	IsWritableFormat() bool
+	IssueRespawnTokensWithError() (bool, error)
 	LockBackendsWithError() (bool, error)
 	LockBackendsWithWritableOnlyError(only bool) (bool, error)
 	LockWritableBackendsWithError() (bool, error)
 	LockableResources() unsafe.Pointer
+	MainImageSandboxToken() objectivec.IObject
 	MountedOnAPFS() bool
 	NumBlocks() uint64
 	SetBlockSizeError(size uint64) (bool, error)
-	SetSizeWithDiskImageNewSize(image unsafe.Pointer, size uint64) int
+	SetSizeWithDiskImageNewSize(image unsafe.Pointer, size uint64) int32
 	ShadowChain() IDIShadowChain
 	SetShadowChain(value IDIShadowChain)
+	ShadowSandboxTokens() objectivec.IObject
+	SupportsPersistentAttach() bool
 	InitWithBackendXPC(xpc objectivec.IObject) DiskImageParamsXPC
 	InitWithBackendXPCBlockSize(xpc objectivec.IObject, size uint64) DiskImageParamsXPC
 	InitWithCoder(coder foundation.INSCoder) DiskImageParamsXPC
@@ -202,6 +214,19 @@ func (d DiskImageParamsXPC) CreateShadowDiskImageWithBackendNumBlocksSinkDiskIma
 func (d DiskImageParamsXPC) EncodeWithCoder(coder foundation.INSCoder) {
 	objc.SendIfResponds[objc.ID](d.ID, objc.Sel("encodeWithCoder:"), coder)
 }
+func (d DiskImageParamsXPC) IssueRespawnTokensWithError() (bool, error) {
+	var errorPtr objc.ID
+	rv := objc.Send[bool](d.ID, objc.Sel("issueRespawnTokensWithError:"), unsafe.Pointer(&errorPtr))
+	if errorPtr != 0 {
+		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
+		return false, foundation.NSErrorFrom(errorPtr)
+	}
+	if !rv {
+		return false, errors.New("issueRespawnTokensWithError: returned NO with nil NSError")
+	}
+	return rv, nil
+
+}
 func (d DiskImageParamsXPC) LockBackendsWithError() (bool, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[bool](d.ID, objc.Sel("lockBackendsWithError:"), unsafe.Pointer(&errorPtr))
@@ -241,6 +266,10 @@ func (d DiskImageParamsXPC) LockWritableBackendsWithError() (bool, error) {
 	return rv, nil
 
 }
+func (d DiskImageParamsXPC) MainImageSandboxToken() objectivec.IObject {
+	rv := objc.SendIfResponds[objc.ID](d.ID, objc.Sel("mainImageSandboxToken"))
+	return objectivec.Object{ID: rv}
+}
 func (d DiskImageParamsXPC) MountedOnAPFS() bool {
 	rv := objc.SendIfResponds[bool](d.ID, objc.Sel("mountedOnAPFS"))
 	return rv
@@ -258,8 +287,16 @@ func (d DiskImageParamsXPC) SetBlockSizeError(size uint64) (bool, error) {
 	return rv, nil
 
 }
-func (d DiskImageParamsXPC) SetSizeWithDiskImageNewSize(image unsafe.Pointer, size uint64) int {
-	rv := objc.SendIfResponds[int](d.ID, objc.Sel("setSizeWithDiskImage:newSize:"), image, size)
+func (d DiskImageParamsXPC) SetSizeWithDiskImageNewSize(image unsafe.Pointer, size uint64) int32 {
+	rv := objc.SendIfResponds[int32](d.ID, objc.Sel("setSizeWithDiskImage:newSize:"), image, size)
+	return rv
+}
+func (d DiskImageParamsXPC) ShadowSandboxTokens() objectivec.IObject {
+	rv := objc.SendIfResponds[objc.ID](d.ID, objc.Sel("shadowSandboxTokens"))
+	return objectivec.Object{ID: rv}
+}
+func (d DiskImageParamsXPC) SupportsPersistentAttach() bool {
+	rv := objc.SendIfResponds[bool](d.ID, objc.Sel("supportsPersistentAttach"))
 	return rv
 }
 func (d DiskImageParamsXPC) InitWithBackendXPC(xpc objectivec.IObject) DiskImageParamsXPC {
@@ -275,6 +312,16 @@ func (d DiskImageParamsXPC) InitWithCoder(coder foundation.INSCoder) DiskImagePa
 	return rv
 }
 
+func (_DiskImageParamsXPCClass DiskImageParamsXPCClass) S3KnoxResolveURLKeyKeySizeError(url foundation.NSURL, key unsafe.Pointer, size *uint64) (objectivec.IObject, error) {
+	var errorPtr objc.ID
+	rv := objc.Send[objc.ID](objc.ID(_DiskImageParamsXPCClass.class), objc.Sel("S3KnoxResolveURL:key:keySize:error:"), url, key, size, unsafe.Pointer(&errorPtr))
+	if errorPtr != 0 {
+		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
+		return nil, foundation.NSErrorFrom(errorPtr)
+	}
+	return objectivec.Object{ID: rv}, nil
+
+}
 func (_DiskImageParamsXPCClass DiskImageParamsXPCClass) GetAEAKeyFromSAKSWithMetadataKeyError(metadata objectivec.IObject, key string) (bool, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[bool](objc.ID(_DiskImageParamsXPCClass.class), objc.Sel("getAEAKeyFromSAKSWithMetadata:key:error:"), metadata, unsafe.Pointer(unsafe.StringData(key+"\x00")), unsafe.Pointer(&errorPtr))
@@ -381,15 +428,15 @@ func (d DiskImageParamsXPC) SetCacheBackendXPC(value IBackendXPC) {
 	objc.SendIfResponds[struct{}](d.ID, objc.Sel("setCacheBackendXPC:"), value)
 }
 func (d DiskImageParamsXPC) CacheURL() foundation.NSURL {
-	rv := objc.SendIfResponds[objc.ID](d.ID, objc.Sel("cacheURL"))
-	return foundation.NSURLFromID(objc.ID(rv))
+	rv := objc.SendIfResponds[foundation.NSURL](d.ID, objc.Sel("cacheURL"))
+	return foundation.NSURL(rv)
 }
 func (d DiskImageParamsXPC) SetCacheURL(value foundation.NSURL) {
 	objc.SendIfResponds[struct{}](d.ID, objc.Sel("setCacheURL:"), value)
 }
 func (d DiskImageParamsXPC) InstanceID() foundation.NSUUID {
-	rv := objc.SendIfResponds[objc.ID](d.ID, objc.Sel("instanceID"))
-	return foundation.NSUUIDFromID(objc.ID(rv))
+	rv := objc.SendIfResponds[foundation.NSUUID](d.ID, objc.Sel("instanceID"))
+	return foundation.NSUUID(rv)
 }
 func (d DiskImageParamsXPC) SetInstanceID(value foundation.NSUUID) {
 	objc.SendIfResponds[struct{}](d.ID, objc.Sel("setInstanceID:"), value)

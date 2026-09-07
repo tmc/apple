@@ -124,6 +124,6 @@ func (a ANEAnalyticsLayer) LayerName() string {
 	return foundation.NSStringFromID(rv).String()
 }
 func (a ANEAnalyticsLayer) Weight() foundation.NSNumber {
-	rv := objc.SendIfResponds[objc.ID](a.ID, objc.Sel("weight"))
-	return foundation.NSNumberFromID(objc.ID(rv))
+	rv := objc.SendIfResponds[foundation.NSNumber](a.ID, objc.Sel("weight"))
+	return foundation.NSNumber(rv)
 }

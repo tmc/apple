@@ -1,4 +1,4 @@
-// Code generated from Apple documentation for AVFAudio. DO NOT EDIT.
+// Code generated from Apple documentation for avfaudio. DO NOT EDIT.
 
 package avfaudio
 
@@ -96,7 +96,7 @@ func NewAVAudioUnit() AVAudioUnit {
 	return rv
 }
 
-func NewAudioUnitWithImpl(impl unsafe.Pointer) AVAudioUnit {
+func NewAVAudioUnitWithImpl(impl unsafe.Pointer) AVAudioUnit {
 	instance := getAVAudioUnitClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithImpl:"), impl)
 	return AVAudioUnitFromID(rv)
@@ -112,6 +112,6 @@ func (a AVAudioUnit) ValueForParam(param uint32) float32 {
 }
 
 func (a AVAudioUnit) AUAudioUnit() audiotoolbox.AUAudioUnit {
-	rv := objc.SendIfResponds[objc.ID](a.ID, objc.Sel("AUAudioUnit"))
-	return audiotoolbox.AUAudioUnitFromID(objc.ID(rv))
+	rv := objc.SendIfResponds[audiotoolbox.AUAudioUnit](a.ID, objc.Sel("AUAudioUnit"))
+	return audiotoolbox.AUAudioUnit(rv)
 }

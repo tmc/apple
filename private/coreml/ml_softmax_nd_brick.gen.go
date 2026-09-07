@@ -1,4 +1,4 @@
-// Code generated from Apple documentation for CoreML. DO NOT EDIT.
+// Code generated from Apple documentation for coreml. DO NOT EDIT.
 
 package coreml
 
@@ -129,7 +129,7 @@ func NewMLSoftmaxNDBrick() MLSoftmaxNDBrick {
 	return rv
 }
 
-func NewSoftmaxNDBrickWithParameters(parameters objectivec.IObject) MLSoftmaxNDBrick {
+func NewMLSoftmaxNDBrickWithParameters(parameters objectivec.IObject) MLSoftmaxNDBrick {
 	instance := getMLSoftmaxNDBrickClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithParameters:"), parameters)
 	return MLSoftmaxNDBrickFromID(rv)
@@ -152,8 +152,8 @@ func (m MLSoftmaxNDBrick) InitWithParameters(parameters objectivec.IObject) MLSo
 }
 
 func (m MLSoftmaxNDBrick) Axis() foundation.NSNumber {
-	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("axis"))
-	return foundation.NSNumberFromID(objc.ID(rv))
+	rv := objc.SendIfResponds[foundation.NSNumber](m.ID, objc.Sel("axis"))
+	return foundation.NSNumber(rv)
 }
 func (m MLSoftmaxNDBrick) DebugDescription() string {
 	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("debugDescription"))

@@ -39,6 +39,12 @@ type MTLTensorSPI interface {
 
 	// ResourceIndex protocol.
 	ResourceIndex() uint64
+
+	// SetShaderValidationDataBufferIndex protocol.
+	SetShaderValidationDataBufferIndex(index uint64)
+
+	// SetShaderValidationScalesBufferIndex protocol.
+	SetShaderValidationScalesBufferIndex(index uint64)
 }
 
 // MTLTensorSPIObject wraps an existing Objective-C object that conforms to the MTLTensorSPI protocol.
@@ -97,4 +103,10 @@ func (o MTLTensorSPIObject) ReplaceSliceWithBytesStrides(slice MTLTensorSlice, b
 func (o MTLTensorSPIObject) ResourceIndex() uint64 {
 	rv := objc.SendIfResponds[uint64](o.ID, objc.Sel("resourceIndex"))
 	return rv
+}
+func (o MTLTensorSPIObject) SetShaderValidationDataBufferIndex(index uint64) {
+	objc.SendIfResponds[struct{}](o.ID, objc.Sel("setShaderValidationDataBufferIndex:"), index)
+}
+func (o MTLTensorSPIObject) SetShaderValidationScalesBufferIndex(index uint64) {
+	objc.SendIfResponds[struct{}](o.ID, objc.Sel("setShaderValidationScalesBufferIndex:"), index)
 }

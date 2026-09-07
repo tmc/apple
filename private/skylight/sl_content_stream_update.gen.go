@@ -106,7 +106,7 @@ type ISLContentStreamUpdate interface {
 	BoundingRect() corefoundation.CGRect
 	ContentRect() corefoundation.CGRect
 	ContentScale() float64
-	CopyRects(rects int) objectivec.IObject
+	CopyRects(rects int32) objectivec.IObject
 	CornerRadius() float64
 	DirtyRects() foundation.INSArray
 	DisplayResolution() float64
@@ -116,10 +116,10 @@ type ISLContentStreamUpdate interface {
 	MetaData() foundation.INSDictionary
 	SetMetaData(value foundation.INSDictionary)
 	ScreenRect() corefoundation.CGRect
-	Status() int
+	Status() int32
 	UpdateRef() coregraphics.CGDisplayStreamUpdateRef
 	SetUpdateRef(value coregraphics.CGDisplayStreamUpdateRef)
-	InitWithStatusDisplayTimeFrameSurfaceUpdateRef(status int, time uint64, surface objectivec.IObject, ref coregraphics.CGDisplayStreamUpdateRef) SLContentStreamUpdate
+	InitWithStatusDisplayTimeFrameSurfaceUpdateRef(status int32, time uint64, surface objectivec.IObject, ref coregraphics.CGDisplayStreamUpdateRef) SLContentStreamUpdate
 }
 
 // Init initializes the instance.
@@ -141,17 +141,17 @@ func NewSLContentStreamUpdate() SLContentStreamUpdate {
 	return rv
 }
 
-func NewSLContentStreamUpdateWithStatusDisplayTimeFrameSurfaceUpdateRef(status int, time uint64, surface objectivec.IObject, ref coregraphics.CGDisplayStreamUpdateRef) SLContentStreamUpdate {
+func NewSLContentStreamUpdateWithStatusDisplayTimeFrameSurfaceUpdateRef(status int32, time uint64, surface objectivec.IObject, ref coregraphics.CGDisplayStreamUpdateRef) SLContentStreamUpdate {
 	instance := getSLContentStreamUpdateClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithStatus:displayTime:frameSurface:updateRef:"), status, time, surface, ref)
 	return SLContentStreamUpdateFromID(rv)
 }
 
-func (s SLContentStreamUpdate) CopyRects(rects int) objectivec.IObject {
+func (s SLContentStreamUpdate) CopyRects(rects int32) objectivec.IObject {
 	rv := objc.SendIfResponds[objc.ID](s.ID, objc.Sel("copyRects:"), rects)
 	return objectivec.Object{ID: rv}
 }
-func (s SLContentStreamUpdate) InitWithStatusDisplayTimeFrameSurfaceUpdateRef(status int, time uint64, surface objectivec.IObject, ref coregraphics.CGDisplayStreamUpdateRef) SLContentStreamUpdate {
+func (s SLContentStreamUpdate) InitWithStatusDisplayTimeFrameSurfaceUpdateRef(status int32, time uint64, surface objectivec.IObject, ref coregraphics.CGDisplayStreamUpdateRef) SLContentStreamUpdate {
 	rv := objc.SendIfResponds[SLContentStreamUpdate](s.ID, objc.Sel("initWithStatus:displayTime:frameSurface:updateRef:"), status, time, surface, ref)
 	return rv
 }
@@ -189,8 +189,8 @@ func (s SLContentStreamUpdate) DropCount() uint64 {
 	return rv
 }
 func (s SLContentStreamUpdate) FrameSurface() iosurface.IOSurface {
-	rv := objc.SendIfResponds[objc.ID](s.ID, objc.Sel("frameSurface"))
-	return iosurface.IOSurfaceFromID(objc.ID(rv))
+	rv := objc.SendIfResponds[iosurface.IOSurface](s.ID, objc.Sel("frameSurface"))
+	return iosurface.IOSurface(rv)
 }
 func (s SLContentStreamUpdate) MetaData() foundation.INSDictionary {
 	rv := objc.SendIfResponds[objc.ID](s.ID, objc.Sel("metaData"))
@@ -203,8 +203,8 @@ func (s SLContentStreamUpdate) ScreenRect() corefoundation.CGRect {
 	rv := objc.SendIfResponds[corefoundation.CGRect](s.ID, objc.Sel("screenRect"))
 	return corefoundation.CGRect(rv)
 }
-func (s SLContentStreamUpdate) Status() int {
-	rv := objc.SendIfResponds[int](s.ID, objc.Sel("status"))
+func (s SLContentStreamUpdate) Status() int32 {
+	rv := objc.SendIfResponds[int32](s.ID, objc.Sel("status"))
 	return rv
 }
 func (s SLContentStreamUpdate) UpdateRef() coregraphics.CGDisplayStreamUpdateRef {

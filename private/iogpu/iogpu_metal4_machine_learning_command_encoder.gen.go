@@ -93,7 +93,7 @@ func NewIOGPUMetal4MachineLearningCommandEncoder() IOGPUMetal4MachineLearningCom
 	return rv
 }
 
-func NewGPUMetal4MachineLearningCommandEncoderWithCommandBufferAllocator(buffer objectivec.IObject, allocator objectivec.IObject) IOGPUMetal4MachineLearningCommandEncoder {
+func NewIOGPUMetal4MachineLearningCommandEncoderWithCommandBufferAllocator(buffer objectivec.IObject, allocator objectivec.IObject) IOGPUMetal4MachineLearningCommandEncoder {
 	instance := getIOGPUMetal4MachineLearningCommandEncoderClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithCommandBuffer:allocator:"), buffer, allocator)
 	return IOGPUMetal4MachineLearningCommandEncoderFromID(rv)

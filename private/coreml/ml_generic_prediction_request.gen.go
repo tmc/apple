@@ -1,4 +1,4 @@
-// Code generated from Apple documentation for CoreML. DO NOT EDIT.
+// Code generated from Apple documentation for coreml. DO NOT EDIT.
 
 package coreml
 
@@ -122,7 +122,7 @@ func NewMLGenericPredictionRequest() MLGenericPredictionRequest {
 	return rv
 }
 
-func NewGenericPredictionRequestForModelInputFeaturesOptions(model objectivec.IObject, features objectivec.IObject, options objectivec.IObject) MLGenericPredictionRequest {
+func NewMLGenericPredictionRequestForModelInputFeaturesOptions(model objectivec.IObject, features objectivec.IObject, options objectivec.IObject) MLGenericPredictionRequest {
 	instance := getMLGenericPredictionRequestClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initForModel:inputFeatures:options:"), model, features, options)
 	return MLGenericPredictionRequestFromID(rv)

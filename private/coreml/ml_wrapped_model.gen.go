@@ -1,4 +1,4 @@
-// Code generated from Apple documentation for CoreML. DO NOT EDIT.
+// Code generated from Apple documentation for coreml. DO NOT EDIT.
 
 package coreml
 
@@ -121,7 +121,7 @@ func NewMLWrappedModel() MLWrappedModel {
 	return rv
 }
 
-func NewWrappedModelDescriptionOnlyWithSpecificationConfigurationError(specification unsafe.Pointer, configuration objectivec.IObject) (MLWrappedModel, error) {
+func NewMLWrappedModelDescriptionOnlyWithSpecificationConfigurationError(specification unsafe.Pointer, configuration objectivec.IObject) (MLWrappedModel, error) {
 	var errorPtr objc.ID
 	instance := getMLWrappedModelClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initDescriptionOnlyWithSpecification:configuration:error:"), specification, configuration, unsafe.Pointer(&errorPtr))
@@ -135,7 +135,7 @@ func NewWrappedModelDescriptionOnlyWithSpecificationConfigurationError(specifica
 	return MLWrappedModelFromID(rv), nil
 }
 
-func NewWrappedModelInterfaceAndMetadataWithCompiledArchiveError(archive unsafe.Pointer) (MLWrappedModel, error) {
+func NewMLWrappedModelInterfaceAndMetadataWithCompiledArchiveError(archive unsafe.Pointer) (MLWrappedModel, error) {
 	var errorPtr objc.ID
 	instance := getMLWrappedModelClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initInterfaceAndMetadataWithCompiledArchive:error:"), archive, unsafe.Pointer(&errorPtr))
@@ -149,31 +149,31 @@ func NewWrappedModelInterfaceAndMetadataWithCompiledArchiveError(archive unsafe.
 	return MLWrappedModelFromID(rv), nil
 }
 
-func NewWrappedModelWithConfiguration(configuration objectivec.IObject) MLWrappedModel {
+func NewMLWrappedModelWithConfiguration(configuration objectivec.IObject) MLWrappedModel {
 	instance := getMLWrappedModelClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithConfiguration:"), configuration)
 	return MLWrappedModelFromID(rv)
 }
 
-func NewWrappedModelWithDescription(description objectivec.IObject) MLWrappedModel {
+func NewMLWrappedModelWithDescription(description objectivec.IObject) MLWrappedModel {
 	instance := getMLWrappedModelClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithDescription:"), description)
 	return MLWrappedModelFromID(rv)
 }
 
-func NewWrappedModelWithDescriptionConfiguration(description objectivec.IObject, configuration objectivec.IObject) MLWrappedModel {
+func NewMLWrappedModelWithDescriptionConfiguration(description objectivec.IObject, configuration objectivec.IObject) MLWrappedModel {
 	instance := getMLWrappedModelClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithDescription:configuration:"), description, configuration)
 	return MLWrappedModelFromID(rv)
 }
 
-func NewWrappedModelWithInnerModel(model objectivec.IObject) MLWrappedModel {
+func NewMLWrappedModelWithInnerModel(model objectivec.IObject) MLWrappedModel {
 	instance := getMLWrappedModelClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithInnerModel:"), model)
 	return MLWrappedModelFromID(rv)
 }
 
-func NewWrappedModelWithNameInputDescriptionOutputDescriptionOrderedInputFeatureNamesOrderedOutputFeatureNamesConfiguration(name objectivec.IObject, description objectivec.IObject, description2 objectivec.IObject, names objectivec.IObject, names2 objectivec.IObject, configuration objectivec.IObject) MLWrappedModel {
+func NewMLWrappedModelWithNameInputDescriptionOutputDescriptionOrderedInputFeatureNamesOrderedOutputFeatureNamesConfiguration(name objectivec.IObject, description objectivec.IObject, description2 objectivec.IObject, names objectivec.IObject, names2 objectivec.IObject, configuration objectivec.IObject) MLWrappedModel {
 	instance := getMLWrappedModelClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithName:inputDescription:outputDescription:orderedInputFeatureNames:orderedOutputFeatureNames:configuration:"), name, description, description2, names, names2, configuration)
 	return MLWrappedModelFromID(rv)

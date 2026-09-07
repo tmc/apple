@@ -140,8 +140,8 @@ type IDIBaseParams interface {
 
 	RAMdisk() bool
 	Backend() unsafe.Pointer
-	BlockSize() uint32
-	SetBlockSize(value uint32)
+	BlockSize() uint64
+	SetBlockSize(value uint64)
 	CryptoHeader() unsafe.Pointer
 	DeserializationError() foundation.NSError
 	SetDeserializationError(value foundation.NSError)
@@ -334,11 +334,11 @@ func (d DIBaseParams) Backend() unsafe.Pointer {
 	rv := objc.SendIfResponds[unsafe.Pointer](d.ID, objc.Sel("backend"))
 	return rv
 }
-func (d DIBaseParams) BlockSize() uint32 {
-	rv := objc.SendIfResponds[uint32](d.ID, objc.Sel("blockSize"))
+func (d DIBaseParams) BlockSize() uint64 {
+	rv := objc.SendIfResponds[uint64](d.ID, objc.Sel("blockSize"))
 	return rv
 }
-func (d DIBaseParams) SetBlockSize(value uint32) {
+func (d DIBaseParams) SetBlockSize(value uint64) {
 	objc.SendIfResponds[struct{}](d.ID, objc.Sel("setBlockSize:"), value)
 }
 func (d DIBaseParams) CryptoHeader() unsafe.Pointer {
@@ -346,8 +346,8 @@ func (d DIBaseParams) CryptoHeader() unsafe.Pointer {
 	return rv
 }
 func (d DIBaseParams) DeserializationError() foundation.NSError {
-	rv := objc.SendIfResponds[objc.ID](d.ID, objc.Sel("deserializationError"))
-	return foundation.NSErrorFromID(objc.ID(rv))
+	rv := objc.SendIfResponds[foundation.NSError](d.ID, objc.Sel("deserializationError"))
+	return foundation.NSError(rv)
 }
 func (d DIBaseParams) SetDeserializationError(value foundation.NSError) {
 	objc.SendIfResponds[struct{}](d.ID, objc.Sel("setDeserializationError:"), value)
@@ -360,8 +360,8 @@ func (d DIBaseParams) SetDiskImageParamsXPC(value IDiskImageParamsXPC) {
 	objc.SendIfResponds[struct{}](d.ID, objc.Sel("setDiskImageParamsXPC:"), value)
 }
 func (d DIBaseParams) EncryptionUUID() foundation.NSUUID {
-	rv := objc.SendIfResponds[objc.ID](d.ID, objc.Sel("encryptionUUID"))
-	return foundation.NSUUIDFromID(objc.ID(rv))
+	rv := objc.SendIfResponds[foundation.NSUUID](d.ID, objc.Sel("encryptionUUID"))
+	return foundation.NSUUID(rv)
 }
 func (d DIBaseParams) HasUnlockedBackend() bool {
 	rv := objc.SendIfResponds[bool](d.ID, objc.Sel("hasUnlockedBackend"))
@@ -375,20 +375,20 @@ func (d DIBaseParams) SetInputURL(value IDIURL) {
 	objc.SendIfResponds[struct{}](d.ID, objc.Sel("setInputURL:"), value)
 }
 func (d DIBaseParams) InstanceID() foundation.NSUUID {
-	rv := objc.SendIfResponds[objc.ID](d.ID, objc.Sel("instanceID"))
-	return foundation.NSUUIDFromID(objc.ID(rv))
+	rv := objc.SendIfResponds[foundation.NSUUID](d.ID, objc.Sel("instanceID"))
+	return foundation.NSUUID(rv)
 }
 func (d DIBaseParams) IsPstack() bool {
 	rv := objc.SendIfResponds[bool](d.ID, objc.Sel("isPstack"))
 	return rv
 }
 func (d DIBaseParams) MutableSymmetricKey() foundation.NSMutableData {
-	rv := objc.SendIfResponds[objc.ID](d.ID, objc.Sel("mutableSymmetricKey"))
-	return foundation.NSMutableDataFromID(objc.ID(rv))
+	rv := objc.SendIfResponds[foundation.NSMutableData](d.ID, objc.Sel("mutableSymmetricKey"))
+	return foundation.NSMutableData(rv)
 }
 func (d DIBaseParams) OverrideBlockSize() foundation.NSNumber {
-	rv := objc.SendIfResponds[objc.ID](d.ID, objc.Sel("overrideBlockSize"))
-	return foundation.NSNumberFromID(objc.ID(rv))
+	rv := objc.SendIfResponds[foundation.NSNumber](d.ID, objc.Sel("overrideBlockSize"))
+	return foundation.NSNumber(rv)
 }
 func (d DIBaseParams) ReadPassphraseFlags() uint64 {
 	rv := objc.SendIfResponds[uint64](d.ID, objc.Sel("readPassphraseFlags"))
@@ -406,8 +406,8 @@ func (d DIBaseParams) ShadowChain() IDIShadowChain {
 	return DIShadowChainFromID(objc.ID(rv))
 }
 func (d DIBaseParams) SymmetricKey() foundation.NSData {
-	rv := objc.SendIfResponds[objc.ID](d.ID, objc.Sel("symmetricKey"))
-	return foundation.NSDataFromID(objc.ID(rv))
+	rv := objc.SendIfResponds[foundation.NSData](d.ID, objc.Sel("symmetricKey"))
+	return foundation.NSData(rv)
 }
 func (d DIBaseParams) SetSymmetricKey(value foundation.NSData) {
 	objc.SendIfResponds[struct{}](d.ID, objc.Sel("setSymmetricKey:"), value)

@@ -1,4 +1,4 @@
-// Code generated from Apple documentation for CoreML. DO NOT EDIT.
+// Code generated from Apple documentation for coreml. DO NOT EDIT.
 
 package coreml
 
@@ -100,19 +100,19 @@ func NewMLFeatureVectorizer() MLFeatureVectorizer {
 	return rv
 }
 
-func NewFeatureVectorizerWithDescriptionConfiguration(description objectivec.IObject, configuration objectivec.IObject) MLFeatureVectorizer {
+func NewMLFeatureVectorizerWithDescriptionConfiguration(description objectivec.IObject, configuration objectivec.IObject) MLFeatureVectorizer {
 	instance := getMLFeatureVectorizerClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithDescription:configuration:"), description, configuration)
 	return MLFeatureVectorizerFromID(rv)
 }
 
-func NewFeatureVectorizerWithDimensionEncodingDataTransformerNameInputDescriptionOutputDescriptionOrderedInputFeatureNamesOrderedOutputFeatureNamesConfiguration(with objectivec.IObject, encoding objectivec.IObject, name objectivec.IObject, description objectivec.IObject, description2 objectivec.IObject, names objectivec.IObject, names2 objectivec.IObject, configuration objectivec.IObject) MLFeatureVectorizer {
+func NewMLFeatureVectorizerWithDimensionEncodingDataTransformerNameInputDescriptionOutputDescriptionOrderedInputFeatureNamesOrderedOutputFeatureNamesConfiguration(with objectivec.IObject, encoding objectivec.IObject, name objectivec.IObject, description objectivec.IObject, description2 objectivec.IObject, names objectivec.IObject, names2 objectivec.IObject, configuration objectivec.IObject) MLFeatureVectorizer {
 	instance := getMLFeatureVectorizerClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWith:dimensionEncoding:dataTransformerName:inputDescription:outputDescription:orderedInputFeatureNames:orderedOutputFeatureNames:configuration:"), with, encoding, name, description, description2, names, names2, configuration)
 	return MLFeatureVectorizerFromID(rv)
 }
 
-func NewFeatureVectorizerWithNameInputDescriptionOutputDescriptionOrderedInputFeatureNamesOrderedOutputFeatureNamesConfiguration(name objectivec.IObject, description objectivec.IObject, description2 objectivec.IObject, names objectivec.IObject, names2 objectivec.IObject, configuration objectivec.IObject) MLFeatureVectorizer {
+func NewMLFeatureVectorizerWithNameInputDescriptionOutputDescriptionOrderedInputFeatureNamesOrderedOutputFeatureNamesConfiguration(name objectivec.IObject, description objectivec.IObject, description2 objectivec.IObject, names objectivec.IObject, names2 objectivec.IObject, configuration objectivec.IObject) MLFeatureVectorizer {
 	instance := getMLFeatureVectorizerClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithName:inputDescription:outputDescription:orderedInputFeatureNames:orderedOutputFeatureNames:configuration:"), name, description, description2, names, names2, configuration)
 	return MLFeatureVectorizerFromID(rv)

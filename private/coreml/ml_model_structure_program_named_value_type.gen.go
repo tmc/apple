@@ -1,4 +1,4 @@
-// Code generated from Apple documentation for CoreML. DO NOT EDIT.
+// Code generated from Apple documentation for coreml. DO NOT EDIT.
 
 package coreml
 
@@ -93,13 +93,13 @@ func NewMLModelStructureProgramNamedValueType() MLModelStructureProgramNamedValu
 	return rv
 }
 
-func NewModelStructureProgramNamedValueTypeWithMILNamedValueType(type_ unsafe.Pointer) MLModelStructureProgramNamedValueType {
+func NewMLModelStructureProgramNamedValueTypeWithMILNamedValueType(type_ unsafe.Pointer) MLModelStructureProgramNamedValueType {
 	instance := getMLModelStructureProgramNamedValueTypeClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithMILNamedValueType:"), type_)
 	return MLModelStructureProgramNamedValueTypeFromID(rv)
 }
 
-func NewModelStructureProgramNamedValueTypeWithNameType(name objectivec.IObject, type_ objectivec.IObject) MLModelStructureProgramNamedValueType {
+func NewMLModelStructureProgramNamedValueTypeWithNameType(name objectivec.IObject, type_ objectivec.IObject) MLModelStructureProgramNamedValueType {
 	instance := getMLModelStructureProgramNamedValueTypeClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithName:type:"), name, type_)
 	return MLModelStructureProgramNamedValueTypeFromID(rv)

@@ -79,7 +79,7 @@ type ISLDataTimelineSessionSnapshotEntry interface {
 
 	// Topic: Methods
 
-	ForegroundAppPID() int
+	ForegroundAppPID() int32
 	Processes() foundation.INSArray
 	ProcessesApplyBlock(block VoidHandler)
 	ProcessesArray() foundation.INSArray
@@ -117,8 +117,8 @@ func (s SLDataTimelineSessionSnapshotEntry) ProcessesApplyBlock(block VoidHandle
 	objc.SendIfResponds[objc.ID](s.ID, objc.Sel("processesApplyBlock:"), _block0)
 }
 
-func (s SLDataTimelineSessionSnapshotEntry) ForegroundAppPID() int {
-	rv := objc.SendIfResponds[int](s.ID, objc.Sel("foregroundAppPID"))
+func (s SLDataTimelineSessionSnapshotEntry) ForegroundAppPID() int32 {
+	rv := objc.SendIfResponds[int32](s.ID, objc.Sel("foregroundAppPID"))
 	return rv
 }
 func (s SLDataTimelineSessionSnapshotEntry) Processes() foundation.INSArray {

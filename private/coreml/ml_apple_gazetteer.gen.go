@@ -1,4 +1,4 @@
-// Code generated from Apple documentation for CoreML. DO NOT EDIT.
+// Code generated from Apple documentation for coreml. DO NOT EDIT.
 
 package coreml
 
@@ -98,7 +98,7 @@ func NewMLAppleGazetteer() MLAppleGazetteer {
 	return rv
 }
 
-func NewAppleGazetteerDescriptionOnlyWithSpecificationConfigurationError(specification unsafe.Pointer, configuration objectivec.IObject) (MLAppleGazetteer, error) {
+func NewMLAppleGazetteerDescriptionOnlyWithSpecificationConfigurationError(specification unsafe.Pointer, configuration objectivec.IObject) (MLAppleGazetteer, error) {
 	var errorPtr objc.ID
 	instance := getMLAppleGazetteerClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initDescriptionOnlyWithSpecification:configuration:error:"), specification, configuration, unsafe.Pointer(&errorPtr))
@@ -112,7 +112,7 @@ func NewAppleGazetteerDescriptionOnlyWithSpecificationConfigurationError(specifi
 	return MLAppleGazetteerFromID(rv), nil
 }
 
-func NewAppleGazetteerInterfaceAndMetadataWithCompiledArchiveError(archive unsafe.Pointer) (MLAppleGazetteer, error) {
+func NewMLAppleGazetteerInterfaceAndMetadataWithCompiledArchiveError(archive unsafe.Pointer) (MLAppleGazetteer, error) {
 	var errorPtr objc.ID
 	instance := getMLAppleGazetteerClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initInterfaceAndMetadataWithCompiledArchive:error:"), archive, unsafe.Pointer(&errorPtr))
@@ -126,31 +126,31 @@ func NewAppleGazetteerInterfaceAndMetadataWithCompiledArchiveError(archive unsaf
 	return MLAppleGazetteerFromID(rv), nil
 }
 
-func NewAppleGazetteerWithConfiguration(configuration objectivec.IObject) MLAppleGazetteer {
+func NewMLAppleGazetteerWithConfiguration(configuration objectivec.IObject) MLAppleGazetteer {
 	instance := getMLAppleGazetteerClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithConfiguration:"), configuration)
 	return MLAppleGazetteerFromID(rv)
 }
 
-func NewAppleGazetteerWithDescription(description objectivec.IObject) MLAppleGazetteer {
+func NewMLAppleGazetteerWithDescription(description objectivec.IObject) MLAppleGazetteer {
 	instance := getMLAppleGazetteerClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithDescription:"), description)
 	return MLAppleGazetteerFromID(rv)
 }
 
-func NewAppleGazetteerWithDescriptionConfiguration(description objectivec.IObject, configuration objectivec.IObject) MLAppleGazetteer {
+func NewMLAppleGazetteerWithDescriptionConfiguration(description objectivec.IObject, configuration objectivec.IObject) MLAppleGazetteer {
 	instance := getMLAppleGazetteerClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithDescription:configuration:"), description, configuration)
 	return MLAppleGazetteerFromID(rv)
 }
 
-func NewAppleGazetteerWithNameInputDescriptionOutputDescriptionOrderedInputFeatureNamesOrderedOutputFeatureNamesConfiguration(name objectivec.IObject, description objectivec.IObject, description2 objectivec.IObject, names objectivec.IObject, names2 objectivec.IObject, configuration objectivec.IObject) MLAppleGazetteer {
+func NewMLAppleGazetteerWithNameInputDescriptionOutputDescriptionOrderedInputFeatureNamesOrderedOutputFeatureNamesConfiguration(name objectivec.IObject, description objectivec.IObject, description2 objectivec.IObject, names objectivec.IObject, names2 objectivec.IObject, configuration objectivec.IObject) MLAppleGazetteer {
 	instance := getMLAppleGazetteerClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithName:inputDescription:outputDescription:orderedInputFeatureNames:orderedOutputFeatureNames:configuration:"), name, description, description2, names, names2, configuration)
 	return MLAppleGazetteerFromID(rv)
 }
 
-func NewAppleGazetteerWithParametersModelDescriptionNlpHandleConfigurationError(parameters objectivec.IObject, description objectivec.IObject, handle objectivec.IObject, configuration objectivec.IObject) (MLAppleGazetteer, error) {
+func NewMLAppleGazetteerWithParametersModelDescriptionNlpHandleConfigurationError(parameters objectivec.IObject, description objectivec.IObject, handle objectivec.IObject, configuration objectivec.IObject) (MLAppleGazetteer, error) {
 	var errorPtr objc.ID
 	instance := getMLAppleGazetteerClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithParameters:modelDescription:nlpHandle:configuration:error:"), parameters, description, handle, configuration, unsafe.Pointer(&errorPtr))

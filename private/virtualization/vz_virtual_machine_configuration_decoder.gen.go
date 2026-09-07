@@ -1,4 +1,4 @@
-// Code generated from Apple documentation for Virtualization. DO NOT EDIT.
+// Code generated from Apple documentation for virtualization. DO NOT EDIT.
 
 package virtualization
 
@@ -108,7 +108,7 @@ func NewVZVirtualMachineConfigurationDecoderWithBaseURL(url foundation.NSURL) VZ
 
 func (v VZVirtualMachineConfigurationDecoder) ConfigurationFromDataFormatError(data objectivec.IObject, format *uint64) (objectivec.IObject, error) {
 	var errorPtr objc.ID
-	rv := objc.Send[objc.ID](v.ID, objc.Sel("configurationFromData:format:error:"), data, unsafe.Pointer(format), unsafe.Pointer(&errorPtr))
+	rv := objc.Send[objc.ID](v.ID, objc.Sel("configurationFromData:format:error:"), data, format, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
 		return nil, foundation.NSErrorFrom(errorPtr)

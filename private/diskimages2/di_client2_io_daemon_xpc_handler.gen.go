@@ -48,6 +48,8 @@ func (dc DIClient2IODaemonXPCHandlerClass) Alloc() DIClient2IODaemonXPCHandler {
 // # Methods
 //
 //   - [DIClient2IODaemonXPCHandler.AddToRefCountWithError]
+//   - [DIClient2IODaemonXPCHandler.CancelSLAWithReason]
+//   - [DIClient2IODaemonXPCHandler.ConfirmSLAAcceptedWithError]
 //   - [DIClient2IODaemonXPCHandler.XpcListenerEndpoint]
 //   - [DIClient2IODaemonXPCHandler.SetXpcListenerEndpoint]
 //   - [DIClient2IODaemonXPCHandler.InitWithEndpoint]
@@ -68,6 +70,8 @@ var _ IDIClient2IODaemonXPCHandler = DIClient2IODaemonXPCHandler{}
 // # Methods
 //
 //   - [IDIClient2IODaemonXPCHandler.AddToRefCountWithError]
+//   - [IDIClient2IODaemonXPCHandler.CancelSLAWithReason]
+//   - [IDIClient2IODaemonXPCHandler.ConfirmSLAAcceptedWithError]
 //   - [IDIClient2IODaemonXPCHandler.XpcListenerEndpoint]
 //   - [IDIClient2IODaemonXPCHandler.SetXpcListenerEndpoint]
 //   - [IDIClient2IODaemonXPCHandler.InitWithEndpoint]
@@ -77,6 +81,8 @@ type IDIClient2IODaemonXPCHandler interface {
 	// Topic: Methods
 
 	AddToRefCountWithError() (bool, error)
+	CancelSLAWithReason(reason objectivec.IObject)
+	ConfirmSLAAcceptedWithError() (objectivec.IObject, error)
 	XpcListenerEndpoint() foundation.NSXPCListenerEndpoint
 	SetXpcListenerEndpoint(value foundation.NSXPCListenerEndpoint)
 	InitWithEndpoint(endpoint objectivec.IObject) DIClient2IODaemonXPCHandler
@@ -120,14 +126,27 @@ func (d DIClient2IODaemonXPCHandler) AddToRefCountWithError() (bool, error) {
 	return rv, nil
 
 }
+func (d DIClient2IODaemonXPCHandler) CancelSLAWithReason(reason objectivec.IObject) {
+	objc.SendIfResponds[objc.ID](d.ID, objc.Sel("cancelSLAWithReason:"), reason)
+}
+func (d DIClient2IODaemonXPCHandler) ConfirmSLAAcceptedWithError() (objectivec.IObject, error) {
+	var errorPtr objc.ID
+	rv := objc.Send[objc.ID](d.ID, objc.Sel("confirmSLAAcceptedWithError:"), unsafe.Pointer(&errorPtr))
+	if errorPtr != 0 {
+		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
+		return nil, foundation.NSErrorFrom(errorPtr)
+	}
+	return objectivec.Object{ID: rv}, nil
+
+}
 func (d DIClient2IODaemonXPCHandler) InitWithEndpoint(endpoint objectivec.IObject) DIClient2IODaemonXPCHandler {
 	rv := objc.SendIfResponds[DIClient2IODaemonXPCHandler](d.ID, objc.Sel("initWithEndpoint:"), endpoint)
 	return rv
 }
 
 func (d DIClient2IODaemonXPCHandler) XpcListenerEndpoint() foundation.NSXPCListenerEndpoint {
-	rv := objc.SendIfResponds[objc.ID](d.ID, objc.Sel("xpcListenerEndpoint"))
-	return foundation.NSXPCListenerEndpointFromID(objc.ID(rv))
+	rv := objc.SendIfResponds[foundation.NSXPCListenerEndpoint](d.ID, objc.Sel("xpcListenerEndpoint"))
+	return foundation.NSXPCListenerEndpoint(rv)
 }
 func (d DIClient2IODaemonXPCHandler) SetXpcListenerEndpoint(value foundation.NSXPCListenerEndpoint) {
 	objc.SendIfResponds[struct{}](d.ID, objc.Sel("setXpcListenerEndpoint:"), value)

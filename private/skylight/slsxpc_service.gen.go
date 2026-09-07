@@ -166,8 +166,8 @@ type ISLSXPCService interface {
 	SetNotifyQueue(value objectivec.Object)
 	ReinitConnection() bool
 	SendNSError(nSError objectivec.IObject)
-	SendXPCConnectionClosed() int
-	SendXPCDictionary(xPCDictionary objectivec.IObject) int
+	SendXPCConnectionClosed() int32
+	SendXPCDictionary(xPCDictionary objectivec.IObject) int32
 	SendXPCDictionarySync(sync objectivec.IObject) objectivec.IObject
 	SetClientErrorBlock(block VoidHandler)
 	SetClientNotificationBlock(block VoidHandler)
@@ -254,12 +254,12 @@ func (s SLSXPCService) ReinitConnection() bool {
 func (s SLSXPCService) SendNSError(nSError objectivec.IObject) {
 	objc.SendIfResponds[objc.ID](s.ID, objc.Sel("sendNSError:"), nSError)
 }
-func (s SLSXPCService) SendXPCConnectionClosed() int {
-	rv := objc.SendIfResponds[int](s.ID, objc.Sel("sendXPCConnectionClosed"))
+func (s SLSXPCService) SendXPCConnectionClosed() int32 {
+	rv := objc.SendIfResponds[int32](s.ID, objc.Sel("sendXPCConnectionClosed"))
 	return rv
 }
-func (s SLSXPCService) SendXPCDictionary(xPCDictionary objectivec.IObject) int {
-	rv := objc.SendIfResponds[int](s.ID, objc.Sel("sendXPCDictionary:"), xPCDictionary)
+func (s SLSXPCService) SendXPCDictionary(xPCDictionary objectivec.IObject) int32 {
+	rv := objc.SendIfResponds[int32](s.ID, objc.Sel("sendXPCDictionary:"), xPCDictionary)
 	return rv
 }
 func (s SLSXPCService) SendXPCDictionarySync(sync objectivec.IObject) objectivec.IObject {

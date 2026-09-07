@@ -1,4 +1,4 @@
-// Code generated from Apple documentation for CoreML. DO NOT EDIT.
+// Code generated from Apple documentation for coreml. DO NOT EDIT.
 
 package coreml
 
@@ -134,7 +134,7 @@ func NewMLE5ProgramLibrary() MLE5ProgramLibrary {
 	return rv
 }
 
-func NewE5ProgramLibraryWithContainerConfigurationError(container objectivec.IObject, configuration objectivec.IObject) (MLE5ProgramLibrary, error) {
+func NewMLE5ProgramLibraryWithContainerConfigurationError(container objectivec.IObject, configuration objectivec.IObject) (MLE5ProgramLibrary, error) {
 	var errorPtr objc.ID
 	instance := getMLE5ProgramLibraryClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithContainer:configuration:error:"), container, configuration, unsafe.Pointer(&errorPtr))
@@ -148,7 +148,7 @@ func NewE5ProgramLibraryWithContainerConfigurationError(container objectivec.IOb
 	return MLE5ProgramLibraryFromID(rv), nil
 }
 
-func NewE5ProgramLibraryWithImplContainerConfiguration(impl objectivec.IObject, container objectivec.IObject, configuration objectivec.IObject) MLE5ProgramLibrary {
+func NewMLE5ProgramLibraryWithImplContainerConfiguration(impl objectivec.IObject, container objectivec.IObject, configuration objectivec.IObject) MLE5ProgramLibrary {
 	instance := getMLE5ProgramLibraryClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithImpl:container:configuration:"), impl, container, configuration)
 	return MLE5ProgramLibraryFromID(rv)

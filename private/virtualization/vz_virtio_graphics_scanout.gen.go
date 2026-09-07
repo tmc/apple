@@ -1,4 +1,4 @@
-// Code generated from Apple documentation for Virtualization. DO NOT EDIT.
+// Code generated from Apple documentation for virtualization. DO NOT EDIT.
 
 package virtualization
 
@@ -95,7 +95,7 @@ func NewVZVirtioGraphicsScanout() VZVirtioGraphicsScanout {
 	return rv
 }
 
-func NewVirtioGraphicsScanoutWithConfigurationError(configuration objectivec.IObject) (VZVirtioGraphicsScanout, error) {
+func NewVZVirtioGraphicsScanoutWithConfigurationError(configuration objectivec.IObject) (VZVirtioGraphicsScanout, error) {
 	var errorPtr objc.ID
 	instance := getVZVirtioGraphicsScanoutClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithConfiguration:error:"), configuration, unsafe.Pointer(&errorPtr))
@@ -109,7 +109,13 @@ func NewVirtioGraphicsScanoutWithConfigurationError(configuration objectivec.IOb
 	return VZVirtioGraphicsScanoutFromID(rv), nil
 }
 
-func NewVirtioGraphicsScanoutWithVirtualMachineGraphicsDeviceIndexFramebufferIndexUuid(machine objectivec.IObject, index uint64, index2 uint64, uuid objectivec.IObject) VZVirtioGraphicsScanout {
+func NewVZVirtioGraphicsScanoutWithVirtualMachineAccessorGraphicsDeviceIndexFramebufferIndexUuid(accessor objectivec.IObject, index uint64, index2 uint64, uuid objectivec.IObject) VZVirtioGraphicsScanout {
+	instance := getVZVirtioGraphicsScanoutClass().Alloc()
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithVirtualMachineAccessor:graphicsDeviceIndex:framebufferIndex:uuid:"), accessor, index, index2, uuid)
+	return VZVirtioGraphicsScanoutFromID(rv)
+}
+
+func NewVZVirtioGraphicsScanoutWithVirtualMachineGraphicsDeviceIndexFramebufferIndexUuid(machine objectivec.IObject, index uint64, index2 uint64, uuid objectivec.IObject) VZVirtioGraphicsScanout {
 	instance := getVZVirtioGraphicsScanoutClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithVirtualMachine:graphicsDeviceIndex:framebufferIndex:uuid:"), machine, index, index2, uuid)
 	return VZVirtioGraphicsScanoutFromID(rv)

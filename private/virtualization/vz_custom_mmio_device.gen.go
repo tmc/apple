@@ -1,4 +1,4 @@
-// Code generated from Apple documentation for Virtualization. DO NOT EDIT.
+// Code generated from Apple documentation for virtualization. DO NOT EDIT.
 
 package virtualization
 
@@ -52,7 +52,6 @@ func (vc VZCustomMMIODeviceClass) Alloc() VZCustomMMIODevice {
 //   - [VZCustomMMIODevice.GuestRAMRegions]
 //   - [VZCustomMMIODevice.PulseIRQ]
 //   - [VZCustomMMIODevice.SetIRQValue]
-//   - [VZCustomMMIODevice.SharedInitializationWithDeviceQueueFromConfiguration]
 type VZCustomMMIODevice struct {
 	objectivec.Object
 }
@@ -76,7 +75,6 @@ var _ IVZCustomMMIODevice = VZCustomMMIODevice{}
 //   - [IVZCustomMMIODevice.GuestRAMRegions]
 //   - [IVZCustomMMIODevice.PulseIRQ]
 //   - [IVZCustomMMIODevice.SetIRQValue]
-//   - [IVZCustomMMIODevice.SharedInitializationWithDeviceQueueFromConfiguration]
 type IVZCustomMMIODevice interface {
 	objectivec.IObject
 
@@ -89,7 +87,6 @@ type IVZCustomMMIODevice interface {
 	GuestRAMRegions() objectivec.IObject
 	PulseIRQ(irq uint64)
 	SetIRQValue(irq uint64, value bool)
-	SharedInitializationWithDeviceQueueFromConfiguration(queue objectivec.IObject, configuration objectivec.IObject)
 }
 
 // Init initializes the instance.
@@ -124,9 +121,6 @@ func (v VZCustomMMIODevice) PulseIRQ(irq uint64) {
 }
 func (v VZCustomMMIODevice) SetIRQValue(irq uint64, value bool) {
 	objc.SendIfResponds[objc.ID](v.ID, objc.Sel("setIRQ:value:"), irq, value)
-}
-func (v VZCustomMMIODevice) SharedInitializationWithDeviceQueueFromConfiguration(queue objectivec.IObject, configuration objectivec.IObject) {
-	objc.SendIfResponds[objc.ID](v.ID, objc.Sel("sharedInitializationWithDeviceQueue:fromConfiguration:"), queue, configuration)
 }
 
 func (v VZCustomMMIODevice) Delegate() unsafe.Pointer {

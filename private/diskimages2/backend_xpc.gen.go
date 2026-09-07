@@ -95,7 +95,7 @@ type IBackendXPC interface {
 	EncodeWithCoder(coder foundation.INSCoder)
 	InstanceID() foundation.NSUUID
 	IsUnlocked() bool
-	Lock() int
+	Lock() int32
 	NewWithCryptoFormatError(format unsafe.Pointer) (objectivec.IObject, error)
 	ReplaceWithBackendXPC(xpc objectivec.IObject)
 	TryCreatingCryptoHeader() bool
@@ -134,8 +134,8 @@ func (b BackendXPC) IsUnlocked() bool {
 	rv := objc.SendIfResponds[bool](b.ID, objc.Sel("isUnlocked"))
 	return rv
 }
-func (b BackendXPC) Lock() int {
-	rv := objc.SendIfResponds[int](b.ID, objc.Sel("lock"))
+func (b BackendXPC) Lock() int32 {
+	rv := objc.SendIfResponds[int32](b.ID, objc.Sel("lock"))
 	return rv
 }
 func (b BackendXPC) NewWithCryptoFormatError(format unsafe.Pointer) (objectivec.IObject, error) {
@@ -187,6 +187,6 @@ func (b BackendXPC) CryptoHeader() unsafe.Pointer {
 	return rv
 }
 func (b BackendXPC) InstanceID() foundation.NSUUID {
-	rv := objc.SendIfResponds[objc.ID](b.ID, objc.Sel("instanceID"))
-	return foundation.NSUUIDFromID(objc.ID(rv))
+	rv := objc.SendIfResponds[foundation.NSUUID](b.ID, objc.Sel("instanceID"))
+	return foundation.NSUUID(rv)
 }

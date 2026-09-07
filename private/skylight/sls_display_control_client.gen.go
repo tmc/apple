@@ -141,7 +141,7 @@ type ISLSDisplayControlClient interface {
 	Semaphore() objectivec.Object
 	SetSemaphore(value objectivec.Object)
 	SemaphoreSignal()
-	SemaphoreWait(wait byte) int
+	SemaphoreWait(wait byte) int32
 	SetNotification(notification VoidHandler)
 	TerminateConnection()
 	XpcEventToNotification(notification objectivec.IObject) objectivec.IObject
@@ -187,10 +187,10 @@ func (s SLSDisplayControlClient) CreateNSErrorWithCGError(nSError []objectivec.I
 	objc.SendIfResponds[objc.ID](s.ID, objc.Sel("createNSError:withCGError:"), objectivec.IObjectSliceToNSArray(nSError), cGError)
 }
 func (s SLSDisplayControlClient) DecodeNotificationNotifyTypeUuidPayloadTypePayload(notification objectivec.IObject, type_ *uint64, uuid *uint64, type_2 *uint64, payload []objectivec.IObject) {
-	objc.SendIfResponds[objc.ID](s.ID, objc.Sel("decodeNotification:notifyType:uuid:payloadType:payload:"), notification, unsafe.Pointer(type_), unsafe.Pointer(uuid), unsafe.Pointer(type_2), objectivec.IObjectSliceToNSArray(payload))
+	objc.SendIfResponds[objc.ID](s.ID, objc.Sel("decodeNotification:notifyType:uuid:payloadType:payload:"), notification, type_, uuid, type_2, objectivec.IObjectSliceToNSArray(payload))
 }
 func (s SLSDisplayControlClient) EncodeCommandWithUUIDPayloadTypePayload(command uint64, uuid *uint64, type_ uint64, payload objectivec.IObject) objectivec.IObject {
-	rv := objc.SendIfResponds[objc.ID](s.ID, objc.Sel("encodeCommand:withUUID:payloadType:payload:"), command, unsafe.Pointer(uuid), type_, payload)
+	rv := objc.SendIfResponds[objc.ID](s.ID, objc.Sel("encodeCommand:withUUID:payloadType:payload:"), command, uuid, type_, payload)
 	return objectivec.Object{ID: rv}
 }
 func (s SLSDisplayControlClient) IsTypeOfClassAClassError(class objectivec.IObject, class2 objectivec.Class) (int, bool) {
@@ -219,8 +219,8 @@ func (s SLSDisplayControlClient) RegisterGUIClientConnectionPortErrorNotifyQueue
 func (s SLSDisplayControlClient) SemaphoreSignal() {
 	objc.SendIfResponds[objc.ID](s.ID, objc.Sel("semaphoreSignal"))
 }
-func (s SLSDisplayControlClient) SemaphoreWait(wait byte) int {
-	rv := objc.SendIfResponds[int](s.ID, objc.Sel("semaphoreWait:"), wait)
+func (s SLSDisplayControlClient) SemaphoreWait(wait byte) int32 {
+	rv := objc.SendIfResponds[int32](s.ID, objc.Sel("semaphoreWait:"), wait)
 	return rv
 }
 func (s SLSDisplayControlClient) SetNotification(notification VoidHandler) {

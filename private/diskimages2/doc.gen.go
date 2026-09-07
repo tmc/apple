@@ -8,12 +8,12 @@
 //   - [DiskImageGraph]
 //   - [DIAttachParams]
 //   - [BaseDiskImageCreator]
-//   - [DIEncryptionFrontend]
 //   - [DiskImageParamsXPC]
+//   - [DIEncryptionFrontend]
 //   - [DICreateParams]
 //   - [DIBaseParams]
 //   - [DiskImageGraphNode]
-//   - [DIError]
+//   - [AAS3DownloadSession]
 package diskimages2
 
 import (

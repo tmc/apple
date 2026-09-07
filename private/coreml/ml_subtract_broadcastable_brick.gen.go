@@ -1,4 +1,4 @@
-// Code generated from Apple documentation for CoreML. DO NOT EDIT.
+// Code generated from Apple documentation for coreml. DO NOT EDIT.
 
 package coreml
 
@@ -126,7 +126,7 @@ func NewMLSubtractBroadcastableBrick() MLSubtractBroadcastableBrick {
 	return rv
 }
 
-func NewSubtractBroadcastableBrickWithParameters(parameters objectivec.IObject) MLSubtractBroadcastableBrick {
+func NewMLSubtractBroadcastableBrickWithParameters(parameters objectivec.IObject) MLSubtractBroadcastableBrick {
 	instance := getMLSubtractBroadcastableBrickClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithParameters:"), parameters)
 	return MLSubtractBroadcastableBrickFromID(rv)

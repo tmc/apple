@@ -1,4 +1,4 @@
-// Code generated from Apple documentation for Virtualization. DO NOT EDIT.
+// Code generated from Apple documentation for virtualization. DO NOT EDIT.
 
 package virtualization
 
@@ -108,8 +108,8 @@ func (v VZBinaryBootLoaderSegment) InitWithBinaryURLLoadAddress(url foundation.N
 }
 
 func (v VZBinaryBootLoaderSegment) BinaryURL() foundation.NSURL {
-	rv := objc.SendIfResponds[objc.ID](v.ID, objc.Sel("binaryURL"))
-	return foundation.NSURLFromID(objc.ID(rv))
+	rv := objc.SendIfResponds[foundation.NSURL](v.ID, objc.Sel("binaryURL"))
+	return foundation.NSURL(rv)
 }
 func (v VZBinaryBootLoaderSegment) LoadAddress() uint64 {
 	rv := objc.SendIfResponds[uint64](v.ID, objc.Sel("loadAddress"))

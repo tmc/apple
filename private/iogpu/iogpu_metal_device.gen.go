@@ -223,7 +223,7 @@ type IIOGPUMetalDevice interface {
 	GetBuiltInGPUPropertiesTransferRate(gPUProperties *uint64, rate *uint64)
 	GetExternalGPUPropertiesTransferRate(gPUProperties *uint64, rate *uint64)
 	GetSlottedGPUPropertiesTransferRate(gPUProperties *uint64, rate *uint64)
-	GetSurfaceModeWidthHeightForId(mode *uint64, width *uint32, height *uint32, id uint32) int
+	GetSurfaceModeWidthHeightForId(mode *uint64, width *uint32, height *uint32, id uint32) int32
 	HwResourcePoolCount() uint32
 	HwResourcePools() []objectivec.IObject
 	IndirectArgumentBufferDecodingData() objectivec.IObject
@@ -254,11 +254,11 @@ type IIOGPUMetalDevice interface {
 	NewUncachedIOFileHandleWithURLError(url foundation.NSURL) (objectivec.IObject, error)
 	NewUncachedIOHandleWithURLCompressionTypeError(url foundation.NSURL, type_ int64) (objectivec.IObject, error)
 	NewUncachedIOHandleWithURLError(url foundation.NSURL) (objectivec.IObject, error)
-	NumCommandBuffers() int
+	NumCommandBuffers() int32
 	ReleasePeerConnection(connection objectivec.IObject)
 	RetainPeerConnection(connection objectivec.IObject) bool
 	SetComputePipelineStateCommandShmemSize(size uint32)
-	SetHwResourcePoolCount(pool []objectivec.IObject, count int)
+	SetHwResourcePoolCount(pool []objectivec.IObject, count int32)
 	SetIndirectArgumentBufferDecodingData(data objectivec.IObject)
 	SetSegmentListShmemSize(size uint32)
 	SharedMemorySize() uint64
@@ -293,13 +293,13 @@ func NewIOGPUMetalDevice() IOGPUMetalDevice {
 	return rv
 }
 
-func NewGPUMetalDeviceWithAcceleratorPort(port uint32) IOGPUMetalDevice {
+func NewIOGPUMetalDeviceWithAcceleratorPort(port uint32) IOGPUMetalDevice {
 	instance := getIOGPUMetalDeviceClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithAcceleratorPort:"), port)
 	return IOGPUMetalDeviceFromID(rv)
 }
 
-func NewGPUMetalDeviceWithAcceleratorPortOptions(port uint32, options uint64) IOGPUMetalDevice {
+func NewIOGPUMetalDeviceWithAcceleratorPortOptions(port uint32, options uint64) IOGPUMetalDevice {
 	instance := getIOGPUMetalDeviceClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithAcceleratorPort:options:"), port, options)
 	return IOGPUMetalDeviceFromID(rv)
@@ -422,11 +422,11 @@ func (i IOGPUMetalDevice) AkResourceListPool() objectivec.IObject {
 	return objectivec.Object{ID: rv}
 }
 func (i IOGPUMetalDevice) AllocBufferSubDataWithLengthOptionsAlignmentHeapIndexBufferIndexBufferOffset(length uint64, options uint64, alignment uint64, index *int16, index2 *int16, offset *uint64) objectivec.IObject {
-	rv := objc.SendIfResponds[objc.ID](i.ID, objc.Sel("allocBufferSubDataWithLength:options:alignment:heapIndex:bufferIndex:bufferOffset:"), length, options, alignment, index, index2, unsafe.Pointer(offset))
+	rv := objc.SendIfResponds[objc.ID](i.ID, objc.Sel("allocBufferSubDataWithLength:options:alignment:heapIndex:bufferIndex:bufferOffset:"), length, options, alignment, index, index2, offset)
 	return objectivec.Object{ID: rv}
 }
 func (i IOGPUMetalDevice) AllocBufferSubDataWithLengthOptionsAlignmentHeapIndexBufferIndexBufferOffsetParentAddressParentLength(length uint64, options uint64, alignment uint64, index *int16, index2 *int16, offset *uint64, address uint64, length2 uint64) objectivec.IObject {
-	rv := objc.SendIfResponds[objc.ID](i.ID, objc.Sel("allocBufferSubDataWithLength:options:alignment:heapIndex:bufferIndex:bufferOffset:parentAddress:parentLength:"), length, options, alignment, index, index2, unsafe.Pointer(offset), address, length2)
+	rv := objc.SendIfResponds[objc.ID](i.ID, objc.Sel("allocBufferSubDataWithLength:options:alignment:heapIndex:bufferIndex:bufferOffset:parentAddress:parentLength:"), length, options, alignment, index, index2, offset, address, length2)
 	return objectivec.Object{ID: rv}
 }
 func (i IOGPUMetalDevice) CmdBufArgsSize() uint32 {
@@ -441,16 +441,16 @@ func (i IOGPUMetalDevice) DeviceRef() uintptr {
 	return rv
 }
 func (i IOGPUMetalDevice) GetBuiltInGPUPropertiesTransferRate(gPUProperties *uint64, rate *uint64) {
-	objc.SendIfResponds[objc.ID](i.ID, objc.Sel("getBuiltInGPUProperties:transferRate:"), unsafe.Pointer(gPUProperties), unsafe.Pointer(rate))
+	objc.SendIfResponds[objc.ID](i.ID, objc.Sel("getBuiltInGPUProperties:transferRate:"), gPUProperties, rate)
 }
 func (i IOGPUMetalDevice) GetExternalGPUPropertiesTransferRate(gPUProperties *uint64, rate *uint64) {
-	objc.SendIfResponds[objc.ID](i.ID, objc.Sel("getExternalGPUProperties:transferRate:"), unsafe.Pointer(gPUProperties), unsafe.Pointer(rate))
+	objc.SendIfResponds[objc.ID](i.ID, objc.Sel("getExternalGPUProperties:transferRate:"), gPUProperties, rate)
 }
 func (i IOGPUMetalDevice) GetSlottedGPUPropertiesTransferRate(gPUProperties *uint64, rate *uint64) {
-	objc.SendIfResponds[objc.ID](i.ID, objc.Sel("getSlottedGPUProperties:transferRate:"), unsafe.Pointer(gPUProperties), unsafe.Pointer(rate))
+	objc.SendIfResponds[objc.ID](i.ID, objc.Sel("getSlottedGPUProperties:transferRate:"), gPUProperties, rate)
 }
-func (i IOGPUMetalDevice) GetSurfaceModeWidthHeightForId(mode *uint64, width *uint32, height *uint32, id uint32) int {
-	rv := objc.SendIfResponds[int](i.ID, objc.Sel("getSurfaceMode:width:height:forId:"), unsafe.Pointer(mode), unsafe.Pointer(width), unsafe.Pointer(height), id)
+func (i IOGPUMetalDevice) GetSurfaceModeWidthHeightForId(mode *uint64, width *uint32, height *uint32, id uint32) int32 {
+	rv := objc.SendIfResponds[int32](i.ID, objc.Sel("getSurfaceMode:width:height:forId:"), mode, width, height, id)
 	return rv
 }
 func (i IOGPUMetalDevice) IndirectArgumentBufferDecodingData() objectivec.IObject {
@@ -604,7 +604,7 @@ func (i IOGPUMetalDevice) RetainPeerConnection(connection objectivec.IObject) bo
 func (i IOGPUMetalDevice) SetComputePipelineStateCommandShmemSize(size uint32) {
 	objc.SendIfResponds[objc.ID](i.ID, objc.Sel("setComputePipelineStateCommandShmemSize:"), size)
 }
-func (i IOGPUMetalDevice) SetHwResourcePoolCount(pool []objectivec.IObject, count int) {
+func (i IOGPUMetalDevice) SetHwResourcePoolCount(pool []objectivec.IObject, count int32) {
 	objc.SendIfResponds[objc.ID](i.ID, objc.Sel("setHwResourcePool:count:"), objc.CArray(pool), count)
 }
 func (i IOGPUMetalDevice) SetIndirectArgumentBufferDecodingData(data objectivec.IObject) {
@@ -674,8 +674,8 @@ func (i IOGPUMetalDevice) MemoryInfo() IIOGPUMemoryInfo {
 	rv := objc.SendIfResponds[objc.ID](i.ID, objc.Sel("memoryInfo"))
 	return IOGPUMemoryInfoFromID(objc.ID(rv))
 }
-func (i IOGPUMetalDevice) NumCommandBuffers() int {
-	rv := objc.SendIfResponds[int](i.ID, objc.Sel("numCommandBuffers"))
+func (i IOGPUMetalDevice) NumCommandBuffers() int32 {
+	rv := objc.SendIfResponds[int32](i.ID, objc.Sel("numCommandBuffers"))
 	return rv
 }
 func (i IOGPUMetalDevice) Removable() bool {

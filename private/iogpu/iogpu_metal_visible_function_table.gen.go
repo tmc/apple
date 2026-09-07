@@ -141,79 +141,79 @@ func NewIOGPUMetalVisibleFunctionTable() IOGPUMetalVisibleFunctionTable {
 	return rv
 }
 
-func NewGPUMetalVisibleFunctionTableMemorylessDescriptor(memoryless objectivec.IObject, descriptor objectivec.IObject) IOGPUMetalVisibleFunctionTable {
+func NewIOGPUMetalVisibleFunctionTableMemorylessDescriptor(memoryless objectivec.IObject, descriptor objectivec.IObject) IOGPUMetalVisibleFunctionTable {
 	instance := getIOGPUMetalVisibleFunctionTableClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initMemoryless:descriptor:"), memoryless, descriptor)
 	return IOGPUMetalVisibleFunctionTableFromID(rv)
 }
 
-func NewGPUMetalVisibleFunctionTableStandinWithDevice(device objectivec.IObject) IOGPUMetalVisibleFunctionTable {
+func NewIOGPUMetalVisibleFunctionTableStandinWithDevice(device objectivec.IObject) IOGPUMetalVisibleFunctionTable {
 	instance := getIOGPUMetalVisibleFunctionTableClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initStandinWithDevice:"), device)
 	return IOGPUMetalVisibleFunctionTableFromID(rv)
 }
 
-func NewGPUMetalVisibleFunctionTableWithDeviceAddressRangesAddressRangeCountLengthOptionsGpuAddressArgsArgsSize(device objectivec.IObject, ranges *IOGPUAddressRange, count uint64, length uint64, options uint64, address uint64, args *IOGPUNewResourceArgs, size uint32) IOGPUMetalVisibleFunctionTable {
+func NewIOGPUMetalVisibleFunctionTableWithDeviceAddressRangesAddressRangeCountLengthOptionsGpuAddressArgsArgsSize(device objectivec.IObject, ranges *IOGPUAddressRange, count uint64, length uint64, options uint64, address uint64, args *IOGPUNewResourceArgs, size uint32) IOGPUMetalVisibleFunctionTable {
 	instance := getIOGPUMetalVisibleFunctionTableClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithDevice:addressRanges:addressRangeCount:length:options:gpuAddress:args:argsSize:"), device, unsafe.Pointer(ranges), count, length, options, address, unsafe.Pointer(args), size)
 	return IOGPUMetalVisibleFunctionTableFromID(rv)
 }
 
-func NewGPUMetalVisibleFunctionTableWithDeviceIosurfaceArgsArgsSize(device objectivec.IObject, iosurface iosurface.IOSurfaceRef, args *IOGPUNewResourceArgs, size uint32) IOGPUMetalVisibleFunctionTable {
+func NewIOGPUMetalVisibleFunctionTableWithDeviceIosurfaceArgsArgsSize(device objectivec.IObject, iosurface iosurface.IOSurfaceRef, args *IOGPUNewResourceArgs, size uint32) IOGPUMetalVisibleFunctionTable {
 	instance := getIOGPUMetalVisibleFunctionTableClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithDevice:iosurface:args:argsSize:"), device, iosurface, unsafe.Pointer(args), size)
 	return IOGPUMetalVisibleFunctionTableFromID(rv)
 }
 
-func NewGPUMetalVisibleFunctionTableWithDeviceIosurfaceGpuAddressArgsArgsSize(device objectivec.IObject, iosurface iosurface.IOSurfaceRef, address uint64, args *IOGPUNewResourceArgs, size uint32) IOGPUMetalVisibleFunctionTable {
+func NewIOGPUMetalVisibleFunctionTableWithDeviceIosurfaceGpuAddressArgsArgsSize(device objectivec.IObject, iosurface iosurface.IOSurfaceRef, address uint64, args *IOGPUNewResourceArgs, size uint32) IOGPUMetalVisibleFunctionTable {
 	instance := getIOGPUMetalVisibleFunctionTableClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithDevice:iosurface:gpuAddress:args:argsSize:"), device, iosurface, address, unsafe.Pointer(args), size)
 	return IOGPUMetalVisibleFunctionTableFromID(rv)
 }
 
-func NewGPUMetalVisibleFunctionTableWithDeviceOptionsArgsArgsSize(device objectivec.IObject, options uint64, args *IOGPUNewResourceArgs, size uint32) IOGPUMetalVisibleFunctionTable {
+func NewIOGPUMetalVisibleFunctionTableWithDeviceOptionsArgsArgsSize(device objectivec.IObject, options uint64, args *IOGPUNewResourceArgs, size uint32) IOGPUMetalVisibleFunctionTable {
 	instance := getIOGPUMetalVisibleFunctionTableClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithDevice:options:args:argsSize:"), device, options, unsafe.Pointer(args), size)
 	return IOGPUMetalVisibleFunctionTableFromID(rv)
 }
 
-func NewGPUMetalVisibleFunctionTableWithDeviceRemoteStorageBufferArgsArgsSize(device objectivec.IObject, buffer objectivec.IObject, args *IOGPUNewResourceArgs, size uint32) IOGPUMetalVisibleFunctionTable {
+func NewIOGPUMetalVisibleFunctionTableWithDeviceRemoteStorageBufferArgsArgsSize(device objectivec.IObject, buffer objectivec.IObject, args *IOGPUNewResourceArgs, size uint32) IOGPUMetalVisibleFunctionTable {
 	instance := getIOGPUMetalVisibleFunctionTableClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithDevice:remoteStorageBuffer:args:argsSize:"), device, buffer, unsafe.Pointer(args), size)
 	return IOGPUMetalVisibleFunctionTableFromID(rv)
 }
 
-func NewGPUMetalVisibleFunctionTableWithDeviceRemoteStorageResourceOptionsArgsArgsSize(device objectivec.IObject, resource objectivec.IObject, options uint64, args *IOGPUNewResourceArgs, size uint32) IOGPUMetalVisibleFunctionTable {
+func NewIOGPUMetalVisibleFunctionTableWithDeviceRemoteStorageResourceOptionsArgsArgsSize(device objectivec.IObject, resource objectivec.IObject, options uint64, args *IOGPUNewResourceArgs, size uint32) IOGPUMetalVisibleFunctionTable {
 	instance := getIOGPUMetalVisibleFunctionTableClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithDevice:remoteStorageResource:options:args:argsSize:"), device, resource, options, unsafe.Pointer(args), size)
 	return IOGPUMetalVisibleFunctionTableFromID(rv)
 }
 
-func NewGPUMetalVisibleFunctionTableWithHeapResourceOffsetLength(heap objectivec.IObject, resource objectivec.IObject, offset uint64, length uint64) IOGPUMetalVisibleFunctionTable {
+func NewIOGPUMetalVisibleFunctionTableWithHeapResourceOffsetLength(heap objectivec.IObject, resource objectivec.IObject, offset uint64, length uint64) IOGPUMetalVisibleFunctionTable {
 	instance := getIOGPUMetalVisibleFunctionTableClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithHeap:resource:offset:length:"), heap, resource, offset, length)
 	return IOGPUMetalVisibleFunctionTableFromID(rv)
 }
 
-func NewGPUMetalVisibleFunctionTableWithHeapResourceOffsetLengthGpuTag(heap objectivec.IObject, resource objectivec.IObject, offset uint64, length uint64, tag uint64) IOGPUMetalVisibleFunctionTable {
+func NewIOGPUMetalVisibleFunctionTableWithHeapResourceOffsetLengthGpuTag(heap objectivec.IObject, resource objectivec.IObject, offset uint64, length uint64, tag uint64) IOGPUMetalVisibleFunctionTable {
 	instance := getIOGPUMetalVisibleFunctionTableClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithHeap:resource:offset:length:gpuTag:"), heap, resource, offset, length, tag)
 	return IOGPUMetalVisibleFunctionTableFromID(rv)
 }
 
-func NewGPUMetalVisibleFunctionTableWithPrimaryBufferHeapIndexBufferIndexBufferOffsetLengthArgsArgsSize(buffer objectivec.IObject, index int16, index2 int16, offset uint64, length uint64, args *IOGPUNewResourceArgs, size uint32) IOGPUMetalVisibleFunctionTable {
+func NewIOGPUMetalVisibleFunctionTableWithPrimaryBufferHeapIndexBufferIndexBufferOffsetLengthArgsArgsSize(buffer objectivec.IObject, index int16, index2 int16, offset uint64, length uint64, args *IOGPUNewResourceArgs, size uint32) IOGPUMetalVisibleFunctionTable {
 	instance := getIOGPUMetalVisibleFunctionTableClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithPrimaryBuffer:heapIndex:bufferIndex:bufferOffset:length:args:argsSize:"), buffer, index, index2, offset, length, unsafe.Pointer(args), size)
 	return IOGPUMetalVisibleFunctionTableFromID(rv)
 }
 
-func NewGPUMetalVisibleFunctionTableWithPrimaryBufferHeapIndexBufferIndexBufferOffsetLengthArgsArgsSizeGpuTag(buffer objectivec.IObject, index int16, index2 int16, offset uint64, length uint64, args *IOGPUNewResourceArgs, size uint32, tag uint64) IOGPUMetalVisibleFunctionTable {
+func NewIOGPUMetalVisibleFunctionTableWithPrimaryBufferHeapIndexBufferIndexBufferOffsetLengthArgsArgsSizeGpuTag(buffer objectivec.IObject, index int16, index2 int16, offset uint64, length uint64, args *IOGPUNewResourceArgs, size uint32, tag uint64) IOGPUMetalVisibleFunctionTable {
 	instance := getIOGPUMetalVisibleFunctionTableClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithPrimaryBuffer:heapIndex:bufferIndex:bufferOffset:length:args:argsSize:gpuTag:"), buffer, index, index2, offset, length, unsafe.Pointer(args), size, tag)
 	return IOGPUMetalVisibleFunctionTableFromID(rv)
 }
 
-func NewGPUMetalVisibleFunctionTableWithResource(resource objectivec.IObject) IOGPUMetalVisibleFunctionTable {
+func NewIOGPUMetalVisibleFunctionTableWithResource(resource objectivec.IObject) IOGPUMetalVisibleFunctionTable {
 	instance := getIOGPUMetalVisibleFunctionTableClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithResource:"), resource)
 	return IOGPUMetalVisibleFunctionTableFromID(rv)
@@ -227,7 +227,7 @@ func (i IOGPUMetalVisibleFunctionTable) SetBufferOffsetAtIndex(buffer objectivec
 	objc.SendIfResponds[objc.ID](i.ID, objc.Sel("setBuffer:offset:atIndex:"), buffer, offset, index)
 }
 func (i IOGPUMetalVisibleFunctionTable) SetBuffersOffsetsWithRange(buffers []objectivec.IObject, offsets *uint64, range_ foundation.NSRange) {
-	objc.SendIfResponds[objc.ID](i.ID, objc.Sel("setBuffers:offsets:withRange:"), objectivec.IObjectSliceToNSArray(buffers), unsafe.Pointer(offsets), range_)
+	objc.SendIfResponds[objc.ID](i.ID, objc.Sel("setBuffers:offsets:withRange:"), objectivec.IObjectSliceToNSArray(buffers), offsets, range_)
 }
 func (i IOGPUMetalVisibleFunctionTable) SetFunctionAtIndex(function objectivec.IObject, index uint64) {
 	objc.SendIfResponds[objc.ID](i.ID, objc.Sel("setFunction:atIndex:"), function, index)

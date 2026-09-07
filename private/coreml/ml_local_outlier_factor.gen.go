@@ -1,4 +1,4 @@
-// Code generated from Apple documentation for CoreML. DO NOT EDIT.
+// Code generated from Apple documentation for coreml. DO NOT EDIT.
 
 package coreml
 
@@ -118,7 +118,7 @@ func NewMLLocalOutlierFactor() MLLocalOutlierFactor {
 	return rv
 }
 
-func NewLocalOutlierFactorDescriptionOnlyWithSpecificationConfigurationError(specification unsafe.Pointer, configuration objectivec.IObject) (MLLocalOutlierFactor, error) {
+func NewMLLocalOutlierFactorDescriptionOnlyWithSpecificationConfigurationError(specification unsafe.Pointer, configuration objectivec.IObject) (MLLocalOutlierFactor, error) {
 	var errorPtr objc.ID
 	instance := getMLLocalOutlierFactorClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initDescriptionOnlyWithSpecification:configuration:error:"), specification, configuration, unsafe.Pointer(&errorPtr))
@@ -132,7 +132,7 @@ func NewLocalOutlierFactorDescriptionOnlyWithSpecificationConfigurationError(spe
 	return MLLocalOutlierFactorFromID(rv), nil
 }
 
-func NewLocalOutlierFactorInterfaceAndMetadataWithCompiledArchiveError(archive unsafe.Pointer) (MLLocalOutlierFactor, error) {
+func NewMLLocalOutlierFactorInterfaceAndMetadataWithCompiledArchiveError(archive unsafe.Pointer) (MLLocalOutlierFactor, error) {
 	var errorPtr objc.ID
 	instance := getMLLocalOutlierFactorClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initInterfaceAndMetadataWithCompiledArchive:error:"), archive, unsafe.Pointer(&errorPtr))
@@ -146,25 +146,25 @@ func NewLocalOutlierFactorInterfaceAndMetadataWithCompiledArchiveError(archive u
 	return MLLocalOutlierFactorFromID(rv), nil
 }
 
-func NewLocalOutlierFactorWithConfiguration(configuration objectivec.IObject) MLLocalOutlierFactor {
+func NewMLLocalOutlierFactorWithConfiguration(configuration objectivec.IObject) MLLocalOutlierFactor {
 	instance := getMLLocalOutlierFactorClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithConfiguration:"), configuration)
 	return MLLocalOutlierFactorFromID(rv)
 }
 
-func NewLocalOutlierFactorWithDescription(description objectivec.IObject) MLLocalOutlierFactor {
+func NewMLLocalOutlierFactorWithDescription(description objectivec.IObject) MLLocalOutlierFactor {
 	instance := getMLLocalOutlierFactorClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithDescription:"), description)
 	return MLLocalOutlierFactorFromID(rv)
 }
 
-func NewLocalOutlierFactorWithDescriptionConfiguration(description objectivec.IObject, configuration objectivec.IObject) MLLocalOutlierFactor {
+func NewMLLocalOutlierFactorWithDescriptionConfiguration(description objectivec.IObject, configuration objectivec.IObject) MLLocalOutlierFactor {
 	instance := getMLLocalOutlierFactorClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithDescription:configuration:"), description, configuration)
 	return MLLocalOutlierFactorFromID(rv)
 }
 
-func NewLocalOutlierFactorWithKNearestNeighborsModelAtURLConfigurationError(url foundation.NSURL, configuration objectivec.IObject) (MLLocalOutlierFactor, error) {
+func NewMLLocalOutlierFactorWithKNearestNeighborsModelAtURLConfigurationError(url foundation.NSURL, configuration objectivec.IObject) (MLLocalOutlierFactor, error) {
 	var errorPtr objc.ID
 	instance := getMLLocalOutlierFactorClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithKNearestNeighborsModelAtURL:configuration:error:"), url, configuration, unsafe.Pointer(&errorPtr))
@@ -178,7 +178,7 @@ func NewLocalOutlierFactorWithKNearestNeighborsModelAtURLConfigurationError(url 
 	return MLLocalOutlierFactorFromID(rv), nil
 }
 
-func NewLocalOutlierFactorWithNameInputDescriptionOutputDescriptionOrderedInputFeatureNamesOrderedOutputFeatureNamesConfiguration(name objectivec.IObject, description objectivec.IObject, description2 objectivec.IObject, names objectivec.IObject, names2 objectivec.IObject, configuration objectivec.IObject) MLLocalOutlierFactor {
+func NewMLLocalOutlierFactorWithNameInputDescriptionOutputDescriptionOrderedInputFeatureNamesOrderedOutputFeatureNamesConfiguration(name objectivec.IObject, description objectivec.IObject, description2 objectivec.IObject, names objectivec.IObject, names2 objectivec.IObject, configuration objectivec.IObject) MLLocalOutlierFactor {
 	instance := getMLLocalOutlierFactorClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithName:inputDescription:outputDescription:orderedInputFeatureNames:orderedOutputFeatureNames:configuration:"), name, description, description2, names, names2, configuration)
 	return MLLocalOutlierFactorFromID(rv)

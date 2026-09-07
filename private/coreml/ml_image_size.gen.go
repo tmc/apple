@@ -1,4 +1,4 @@
-// Code generated from Apple documentation for CoreML. DO NOT EDIT.
+// Code generated from Apple documentation for coreml. DO NOT EDIT.
 
 package coreml
 
@@ -92,7 +92,7 @@ func NewMLImageSize() MLImageSize {
 	return rv
 }
 
-func NewImageSizeWithPixelsWidePixelsHigh(wide int64, high int64) MLImageSize {
+func NewMLImageSizeWithPixelsWidePixelsHigh(wide int64, high int64) MLImageSize {
 	instance := getMLImageSizeClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithPixelsWide:pixelsHigh:"), wide, high)
 	return MLImageSizeFromID(rv)

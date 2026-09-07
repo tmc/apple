@@ -97,8 +97,8 @@ type IIOGPUMetalAccelerationStructure interface {
 	Buffer() IIOGPUMetalBuffer
 	BufferOffset() uint64
 	CopyPropertiesFromBuffer(buffer objectivec.IObject)
-	Descriptor() metal.MTLAccelerationStructureDescriptor
-	SetDescriptor(value metal.MTLAccelerationStructureDescriptor)
+	Descriptor() *metal.MTLAccelerationStructureDescriptor
+	SetDescriptor(value *metal.MTLAccelerationStructureDescriptor)
 	GpuHandle() uint64
 	GpuResourceID() metal.MTLResourceID
 	ResourceIndex() uint64
@@ -127,43 +127,43 @@ func NewIOGPUMetalAccelerationStructure() IOGPUMetalAccelerationStructure {
 	return rv
 }
 
-func NewGPUMetalAccelerationStructureMemorylessDescriptor(memoryless objectivec.IObject, descriptor objectivec.IObject) IOGPUMetalAccelerationStructure {
+func NewIOGPUMetalAccelerationStructureMemorylessDescriptor(memoryless objectivec.IObject, descriptor objectivec.IObject) IOGPUMetalAccelerationStructure {
 	instance := getIOGPUMetalAccelerationStructureClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initMemoryless:descriptor:"), memoryless, descriptor)
 	return IOGPUMetalAccelerationStructureFromID(rv)
 }
 
-func NewGPUMetalAccelerationStructureStandinWithDevice(device objectivec.IObject) IOGPUMetalAccelerationStructure {
+func NewIOGPUMetalAccelerationStructureStandinWithDevice(device objectivec.IObject) IOGPUMetalAccelerationStructure {
 	instance := getIOGPUMetalAccelerationStructureClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initStandinWithDevice:"), device)
 	return IOGPUMetalAccelerationStructureFromID(rv)
 }
 
-func NewGPUMetalAccelerationStructureWithBufferOffset(buffer objectivec.IObject, offset uint64) IOGPUMetalAccelerationStructure {
+func NewIOGPUMetalAccelerationStructureWithBufferOffset(buffer objectivec.IObject, offset uint64) IOGPUMetalAccelerationStructure {
 	instance := getIOGPUMetalAccelerationStructureClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithBuffer:offset:"), buffer, offset)
 	return IOGPUMetalAccelerationStructureFromID(rv)
 }
 
-func NewGPUMetalAccelerationStructureWithBufferOffsetResourceIndex(buffer objectivec.IObject, offset uint64, index uint64) IOGPUMetalAccelerationStructure {
+func NewIOGPUMetalAccelerationStructureWithBufferOffsetResourceIndex(buffer objectivec.IObject, offset uint64, index uint64) IOGPUMetalAccelerationStructure {
 	instance := getIOGPUMetalAccelerationStructureClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithBuffer:offset:resourceIndex:"), buffer, offset, index)
 	return IOGPUMetalAccelerationStructureFromID(rv)
 }
 
-func NewGPUMetalAccelerationStructureWithDeviceOptionsArgsArgsSize(device objectivec.IObject, options uint64, args *IOGPUNewResourceArgs, size uint32) IOGPUMetalAccelerationStructure {
+func NewIOGPUMetalAccelerationStructureWithDeviceOptionsArgsArgsSize(device objectivec.IObject, options uint64, args *IOGPUNewResourceArgs, size uint32) IOGPUMetalAccelerationStructure {
 	instance := getIOGPUMetalAccelerationStructureClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithDevice:options:args:argsSize:"), device, options, unsafe.Pointer(args), size)
 	return IOGPUMetalAccelerationStructureFromID(rv)
 }
 
-func NewGPUMetalAccelerationStructureWithDeviceRemoteStorageResourceOptionsArgsArgsSize(device objectivec.IObject, resource objectivec.IObject, options uint64, args *IOGPUNewResourceArgs, size uint32) IOGPUMetalAccelerationStructure {
+func NewIOGPUMetalAccelerationStructureWithDeviceRemoteStorageResourceOptionsArgsArgsSize(device objectivec.IObject, resource objectivec.IObject, options uint64, args *IOGPUNewResourceArgs, size uint32) IOGPUMetalAccelerationStructure {
 	instance := getIOGPUMetalAccelerationStructureClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithDevice:remoteStorageResource:options:args:argsSize:"), device, resource, options, unsafe.Pointer(args), size)
 	return IOGPUMetalAccelerationStructureFromID(rv)
 }
 
-func NewGPUMetalAccelerationStructureWithResource(resource objectivec.IObject) IOGPUMetalAccelerationStructure {
+func NewIOGPUMetalAccelerationStructureWithResource(resource objectivec.IObject) IOGPUMetalAccelerationStructure {
 	instance := getIOGPUMetalAccelerationStructureClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithResource:"), resource)
 	return IOGPUMetalAccelerationStructureFromID(rv)
@@ -193,11 +193,15 @@ func (i IOGPUMetalAccelerationStructure) BufferOffset() uint64 {
 	rv := objc.SendIfResponds[uint64](i.ID, objc.Sel("bufferOffset"))
 	return rv
 }
-func (i IOGPUMetalAccelerationStructure) Descriptor() metal.MTLAccelerationStructureDescriptor {
+func (i IOGPUMetalAccelerationStructure) Descriptor() *metal.MTLAccelerationStructureDescriptor {
 	rv := objc.SendIfResponds[objc.ID](i.ID, objc.Sel("descriptor"))
-	return metal.MTLAccelerationStructureDescriptorFromID(objc.ID(rv))
+	if rv == 0 {
+		return nil
+	}
+	val := metal.MTLAccelerationStructureDescriptorFromID(objc.ID(rv))
+	return &val
 }
-func (i IOGPUMetalAccelerationStructure) SetDescriptor(value metal.MTLAccelerationStructureDescriptor) {
+func (i IOGPUMetalAccelerationStructure) SetDescriptor(value *metal.MTLAccelerationStructureDescriptor) {
 	objc.SendIfResponds[struct{}](i.ID, objc.Sel("setDescriptor:"), value)
 }
 func (i IOGPUMetalAccelerationStructure) GpuHandle() uint64 {

@@ -1,4 +1,4 @@
-// Code generated from Apple documentation for CoreML. DO NOT EDIT.
+// Code generated from Apple documentation for coreml. DO NOT EDIT.
 
 package coreml
 
@@ -80,7 +80,7 @@ func NewMLProgramEngine() MLProgramEngine {
 	return rv
 }
 
-func NewProgramEngineWithContainerConfigurationError(container objectivec.IObject, configuration objectivec.IObject) (MLProgramEngine, error) {
+func NewMLProgramEngineWithContainerConfigurationError(container objectivec.IObject, configuration objectivec.IObject) (MLProgramEngine, error) {
 	var errorPtr objc.ID
 	instance := getMLProgramEngineClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithContainer:configuration:error:"), container, configuration, unsafe.Pointer(&errorPtr))
@@ -94,7 +94,7 @@ func NewProgramEngineWithContainerConfigurationError(container objectivec.IObjec
 	return MLProgramEngineFromID(rv), nil
 }
 
-func NewProgramEngineWithContainerError(container objectivec.IObject) (MLProgramEngine, error) {
+func NewMLProgramEngineWithContainerError(container objectivec.IObject) (MLProgramEngine, error) {
 	var errorPtr objc.ID
 	instance := getMLProgramEngineClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithContainer:error:"), container, unsafe.Pointer(&errorPtr))
@@ -108,13 +108,13 @@ func NewProgramEngineWithContainerError(container objectivec.IObject) (MLProgram
 	return MLProgramEngineFromID(rv), nil
 }
 
-func NewProgramEngineWithDescriptionConfiguration(description objectivec.IObject, configuration objectivec.IObject) MLProgramEngine {
+func NewMLProgramEngineWithDescriptionConfiguration(description objectivec.IObject, configuration objectivec.IObject) MLProgramEngine {
 	instance := getMLProgramEngineClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithDescription:configuration:"), description, configuration)
 	return MLProgramEngineFromID(rv)
 }
 
-func NewProgramEngineWithNameInputDescriptionOutputDescriptionOrderedInputFeatureNamesOrderedOutputFeatureNamesConfiguration(name objectivec.IObject, description objectivec.IObject, description2 objectivec.IObject, names objectivec.IObject, names2 objectivec.IObject, configuration objectivec.IObject) MLProgramEngine {
+func NewMLProgramEngineWithNameInputDescriptionOutputDescriptionOrderedInputFeatureNamesOrderedOutputFeatureNamesConfiguration(name objectivec.IObject, description objectivec.IObject, description2 objectivec.IObject, names objectivec.IObject, names2 objectivec.IObject, configuration objectivec.IObject) MLProgramEngine {
 	instance := getMLProgramEngineClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithName:inputDescription:outputDescription:orderedInputFeatureNames:orderedOutputFeatureNames:configuration:"), name, description, description2, names, names2, configuration)
 	return MLProgramEngineFromID(rv)

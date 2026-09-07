@@ -1,4 +1,4 @@
-// Code generated from Apple documentation for CoreML. DO NOT EDIT.
+// Code generated from Apple documentation for coreml. DO NOT EDIT.
 
 package coreml
 
@@ -149,7 +149,7 @@ func NewMLE5StaticShapeExecutionStreamOperationPool() MLE5StaticShapeExecutionSt
 	return rv
 }
 
-func NewE5StaticShapeExecutionStreamOperationPoolWithProgramLibraryFunctionNameModelDescriptionConfigurationModelSignpostIdCompilerVersionInfo(library objectivec.IObject, name objectivec.IObject, description objectivec.IObject, configuration objectivec.IObject, id uint64, info objectivec.IObject) MLE5StaticShapeExecutionStreamOperationPool {
+func NewMLE5StaticShapeExecutionStreamOperationPoolWithProgramLibraryFunctionNameModelDescriptionConfigurationModelSignpostIdCompilerVersionInfo(library objectivec.IObject, name objectivec.IObject, description objectivec.IObject, configuration objectivec.IObject, id uint64, info objectivec.IObject) MLE5StaticShapeExecutionStreamOperationPool {
 	instance := getMLE5StaticShapeExecutionStreamOperationPoolClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithProgramLibrary:functionName:modelDescription:configuration:modelSignpostId:compilerVersionInfo:"), library, name, description, configuration, id, info)
 	return MLE5StaticShapeExecutionStreamOperationPoolFromID(rv)

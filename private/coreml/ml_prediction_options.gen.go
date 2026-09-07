@@ -1,4 +1,4 @@
-// Code generated from Apple documentation for CoreML. DO NOT EDIT.
+// Code generated from Apple documentation for coreml. DO NOT EDIT.
 
 package coreml
 
@@ -194,13 +194,13 @@ func NewMLPredictionOptions() MLPredictionOptions {
 	return rv
 }
 
-func NewPredictionOptionsWithCoder(coder objectivec.IObject) MLPredictionOptions {
+func NewMLPredictionOptionsWithCoder(coder objectivec.IObject) MLPredictionOptions {
 	instance := getMLPredictionOptionsClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
 	return MLPredictionOptionsFromID(rv)
 }
 
-func NewPredictionOptionsWithUsesCPUOnly(cPUOnly bool) MLPredictionOptions {
+func NewMLPredictionOptionsWithUsesCPUOnly(cPUOnly bool) MLPredictionOptions {
 	instance := getMLPredictionOptionsClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithUsesCPUOnly:"), cPUOnly)
 	return MLPredictionOptionsFromID(rv)

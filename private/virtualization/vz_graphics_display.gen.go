@@ -1,4 +1,4 @@
-// Code generated from Apple documentation for Virtualization. DO NOT EDIT.
+// Code generated from Apple documentation for virtualization. DO NOT EDIT.
 
 package virtualization
 
@@ -50,10 +50,13 @@ func (vc VZGraphicsDisplayClass) Alloc() VZGraphicsDisplay {
 //   - [VZGraphicsDisplay._graphicsOrientation]
 //   - [VZGraphicsDisplay._initDetached]
 //   - [VZGraphicsDisplay._matchesConfiguration]
+//   - [VZGraphicsDisplay._processReconfigurationWithConfiguration]
 //   - [VZGraphicsDisplay._setGraphicsDevice]
+//   - [VZGraphicsDisplay._supportsSinglePassHDR]
 //   - [VZGraphicsDisplay._takeScreenshotWithCompletionHandler]
 //   - [VZGraphicsDisplay._uuid]
 //   - [VZGraphicsDisplay.InitWithVirtualMachineGraphicsDeviceIndexFramebufferIndexUuid]
+//   - [VZGraphicsDisplay.InitWithVirtualMachineAccessorGraphicsDeviceIndexFramebufferIndexUuid]
 type VZGraphicsDisplay struct {
 	objectivec.Object
 }
@@ -75,10 +78,13 @@ var _ IVZGraphicsDisplay = VZGraphicsDisplay{}
 //   - [IVZGraphicsDisplay._graphicsOrientation]
 //   - [IVZGraphicsDisplay._initDetached]
 //   - [IVZGraphicsDisplay._matchesConfiguration]
+//   - [IVZGraphicsDisplay._processReconfigurationWithConfiguration]
 //   - [IVZGraphicsDisplay._setGraphicsDevice]
+//   - [IVZGraphicsDisplay._supportsSinglePassHDR]
 //   - [IVZGraphicsDisplay._takeScreenshotWithCompletionHandler]
 //   - [IVZGraphicsDisplay._uuid]
 //   - [IVZGraphicsDisplay.InitWithVirtualMachineGraphicsDeviceIndexFramebufferIndexUuid]
+//   - [IVZGraphicsDisplay.InitWithVirtualMachineAccessorGraphicsDeviceIndexFramebufferIndexUuid]
 type IVZGraphicsDisplay interface {
 	objectivec.IObject
 
@@ -89,10 +95,13 @@ type IVZGraphicsDisplay interface {
 	_graphicsOrientation() int64
 	_initDetached() objectivec.IObject
 	_matchesConfiguration(configuration objectivec.IObject) bool
+	_processReconfigurationWithConfiguration(configuration objectivec.IObject)
 	_setGraphicsDevice(device objectivec.IObject)
+	_supportsSinglePassHDR() bool
 	_takeScreenshotWithCompletionHandler(handler ErrorHandler)
 	_uuid() objectivec.IObject
 	InitWithVirtualMachineGraphicsDeviceIndexFramebufferIndexUuid(machine objectivec.IObject, index uint64, index2 uint64, uuid objectivec.IObject) VZGraphicsDisplay
+	InitWithVirtualMachineAccessorGraphicsDeviceIndexFramebufferIndexUuid(accessor objectivec.IObject, index uint64, index2 uint64, uuid objectivec.IObject) VZGraphicsDisplay
 }
 
 // Init initializes the instance.
@@ -114,7 +123,13 @@ func NewVZGraphicsDisplay() VZGraphicsDisplay {
 	return rv
 }
 
-func NewGraphicsDisplayWithVirtualMachineGraphicsDeviceIndexFramebufferIndexUuid(machine objectivec.IObject, index uint64, index2 uint64, uuid objectivec.IObject) VZGraphicsDisplay {
+func NewVZGraphicsDisplayWithVirtualMachineAccessorGraphicsDeviceIndexFramebufferIndexUuid(accessor objectivec.IObject, index uint64, index2 uint64, uuid objectivec.IObject) VZGraphicsDisplay {
+	instance := getVZGraphicsDisplayClass().Alloc()
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithVirtualMachineAccessor:graphicsDeviceIndex:framebufferIndex:uuid:"), accessor, index, index2, uuid)
+	return VZGraphicsDisplayFromID(rv)
+}
+
+func NewVZGraphicsDisplayWithVirtualMachineGraphicsDeviceIndexFramebufferIndexUuid(machine objectivec.IObject, index uint64, index2 uint64, uuid objectivec.IObject) VZGraphicsDisplay {
 	instance := getVZGraphicsDisplayClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithVirtualMachine:graphicsDeviceIndex:framebufferIndex:uuid:"), machine, index, index2, uuid)
 	return VZGraphicsDisplayFromID(rv)
@@ -210,6 +225,24 @@ func (v VZGraphicsDisplay) MatchesConfiguration(configuration objectivec.IObject
 func (v VZGraphicsDisplay) CanMatchesConfiguration() bool {
 	return objc.RespondsToSelector(v.ID, objc.Sel("_matchesConfiguration:"))
 }
+func (v VZGraphicsDisplay) _processReconfigurationWithConfiguration(configuration objectivec.IObject) {
+	objc.SendIfResponds[objc.ID](v.ID, objc.Sel("_processReconfigurationWithConfiguration:"), configuration)
+}
+
+// ProcessReconfigurationWithConfiguration is an exported wrapper for the private method _processReconfigurationWithConfiguration.
+func (v VZGraphicsDisplay) ProcessReconfigurationWithConfiguration(configuration objectivec.IObject) error {
+	if !objc.RespondsToSelector(v.ID, objc.Sel("_processReconfigurationWithConfiguration:")) {
+		err := &objc.UnrecognizedSelectorError{Selector: "_processReconfigurationWithConfiguration:"}
+		return err
+	}
+	v._processReconfigurationWithConfiguration(configuration)
+	return nil
+}
+
+// CanProcessReconfigurationWithConfiguration reports whether the receiver responds to the private selector _processReconfigurationWithConfiguration:.
+func (v VZGraphicsDisplay) CanProcessReconfigurationWithConfiguration() bool {
+	return objc.RespondsToSelector(v.ID, objc.Sel("_processReconfigurationWithConfiguration:"))
+}
 func (v VZGraphicsDisplay) _setGraphicsDevice(device objectivec.IObject) {
 	objc.SendIfResponds[objc.ID](v.ID, objc.Sel("_setGraphicsDevice:"), device)
 }
@@ -227,6 +260,24 @@ func (v VZGraphicsDisplay) SetGraphicsDevice(device objectivec.IObject) error {
 // CanSetGraphicsDevice reports whether the receiver responds to the private selector _setGraphicsDevice:.
 func (v VZGraphicsDisplay) CanSetGraphicsDevice() bool {
 	return objc.RespondsToSelector(v.ID, objc.Sel("_setGraphicsDevice:"))
+}
+func (v VZGraphicsDisplay) _supportsSinglePassHDR() bool {
+	rv := objc.SendIfResponds[bool](v.ID, objc.Sel("_supportsSinglePassHDR"))
+	return rv
+}
+
+// SupportsSinglePassHDR is an exported wrapper for the private method _supportsSinglePassHDR.
+func (v VZGraphicsDisplay) SupportsSinglePassHDR() (bool, error) {
+	if !objc.RespondsToSelector(v.ID, objc.Sel("_supportsSinglePassHDR")) {
+		err := &objc.UnrecognizedSelectorError{Selector: "_supportsSinglePassHDR"}
+		return false, err
+	}
+	return v._supportsSinglePassHDR(), nil
+}
+
+// CanSupportsSinglePassHDR reports whether the receiver responds to the private selector _supportsSinglePassHDR.
+func (v VZGraphicsDisplay) CanSupportsSinglePassHDR() bool {
+	return objc.RespondsToSelector(v.ID, objc.Sel("_supportsSinglePassHDR"))
 }
 func (v VZGraphicsDisplay) _takeScreenshotWithCompletionHandler(handler ErrorHandler) {
 	_block0, _ := NewErrorBlock(handler)
@@ -267,6 +318,10 @@ func (v VZGraphicsDisplay) CanUuid() bool {
 }
 func (v VZGraphicsDisplay) InitWithVirtualMachineGraphicsDeviceIndexFramebufferIndexUuid(machine objectivec.IObject, index uint64, index2 uint64, uuid objectivec.IObject) VZGraphicsDisplay {
 	rv := objc.SendIfResponds[VZGraphicsDisplay](v.ID, objc.Sel("initWithVirtualMachine:graphicsDeviceIndex:framebufferIndex:uuid:"), machine, index, index2, uuid)
+	return rv
+}
+func (v VZGraphicsDisplay) InitWithVirtualMachineAccessorGraphicsDeviceIndexFramebufferIndexUuid(accessor objectivec.IObject, index uint64, index2 uint64, uuid objectivec.IObject) VZGraphicsDisplay {
+	rv := objc.SendIfResponds[VZGraphicsDisplay](v.ID, objc.Sel("initWithVirtualMachineAccessor:graphicsDeviceIndex:framebufferIndex:uuid:"), accessor, index, index2, uuid)
 	return rv
 }
 

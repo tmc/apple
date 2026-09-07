@@ -1,4 +1,4 @@
-// Code generated from Apple documentation for CoreML. DO NOT EDIT.
+// Code generated from Apple documentation for coreml. DO NOT EDIT.
 
 package coreml
 
@@ -97,7 +97,7 @@ func NewMLAppleImageFeatureExtractorScenePrintParameters() MLAppleImageFeatureEx
 	return rv
 }
 
-func NewAppleImageFeatureExtractorScenePrintParametersScenePrintParametersRequestClassError(parameters uint64, class objectivec.IObject) (MLAppleImageFeatureExtractorScenePrintParameters, error) {
+func NewMLAppleImageFeatureExtractorScenePrintParametersScenePrintParametersRequestClassError(parameters uint64, class objectivec.IObject) (MLAppleImageFeatureExtractorScenePrintParameters, error) {
 	var errorPtr objc.ID
 	instance := getMLAppleImageFeatureExtractorScenePrintParametersClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initScenePrintParameters:requestClass:error:"), parameters, class, unsafe.Pointer(&errorPtr))

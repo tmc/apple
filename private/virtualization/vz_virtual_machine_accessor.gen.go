@@ -1,4 +1,4 @@
-// Code generated from Apple documentation for Virtualization. DO NOT EDIT.
+// Code generated from Apple documentation for virtualization. DO NOT EDIT.
 
 package virtualization
 
@@ -6,6 +6,7 @@ import (
 	"sync"
 	"unsafe"
 
+	"github.com/tmc/apple/foundation"
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -48,6 +49,8 @@ func (vc VZVirtualMachineAccessorClass) Alloc() VZVirtualMachineAccessor {
 //   - [VZVirtualMachineAccessor._hidEventMonitor]
 //   - [VZVirtualMachineAccessor._processHIDReportsForDeviceDeviceType]
 //   - [VZVirtualMachineAccessor._shouldSendHIDReports]
+//   - [VZVirtualMachineAccessor.GraphicsDevices]
+//   - [VZVirtualMachineAccessor.Queue]
 //   - [VZVirtualMachineAccessor.SendDigitizerEventsPointingDeviceIndex]
 //   - [VZVirtualMachineAccessor.SendIOHIDEventsHidDeviceIndex]
 //   - [VZVirtualMachineAccessor.SendKeyboardEventsKeyboardID]
@@ -59,6 +62,7 @@ func (vc VZVirtualMachineAccessorClass) Alloc() VZVirtualMachineAccessor {
 //   - [VZVirtualMachineAccessor.SendRotationEventsPointingDeviceIndex]
 //   - [VZVirtualMachineAccessor.SendScrollWheelEventsPointingDeviceIndex]
 //   - [VZVirtualMachineAccessor.SendSmartMagnifyEventsPointingDeviceIndex]
+//   - [VZVirtualMachineAccessor.InitWithAccessorEndpoint]
 type VZVirtualMachineAccessor struct {
 	objectivec.Object
 }
@@ -78,6 +82,8 @@ var _ IVZVirtualMachineAccessor = VZVirtualMachineAccessor{}
 //   - [IVZVirtualMachineAccessor._hidEventMonitor]
 //   - [IVZVirtualMachineAccessor._processHIDReportsForDeviceDeviceType]
 //   - [IVZVirtualMachineAccessor._shouldSendHIDReports]
+//   - [IVZVirtualMachineAccessor.GraphicsDevices]
+//   - [IVZVirtualMachineAccessor.Queue]
 //   - [IVZVirtualMachineAccessor.SendDigitizerEventsPointingDeviceIndex]
 //   - [IVZVirtualMachineAccessor.SendIOHIDEventsHidDeviceIndex]
 //   - [IVZVirtualMachineAccessor.SendKeyboardEventsKeyboardID]
@@ -89,6 +95,7 @@ var _ IVZVirtualMachineAccessor = VZVirtualMachineAccessor{}
 //   - [IVZVirtualMachineAccessor.SendRotationEventsPointingDeviceIndex]
 //   - [IVZVirtualMachineAccessor.SendScrollWheelEventsPointingDeviceIndex]
 //   - [IVZVirtualMachineAccessor.SendSmartMagnifyEventsPointingDeviceIndex]
+//   - [IVZVirtualMachineAccessor.InitWithAccessorEndpoint]
 type IVZVirtualMachineAccessor interface {
 	objectivec.IObject
 
@@ -97,6 +104,8 @@ type IVZVirtualMachineAccessor interface {
 	_hidEventMonitor() IVZHIDEventMonitor
 	_processHIDReportsForDeviceDeviceType(hIDReports VZOpaqueHIDReports, device uint32, type_ int32)
 	_shouldSendHIDReports() bool
+	GraphicsDevices() foundation.INSArray
+	Queue() objectivec.Object
 	SendDigitizerEventsPointingDeviceIndex(events unsafe.Pointer, index uint32)
 	SendIOHIDEventsHidDeviceIndex(iOHIDEvents VZOpaqueIOHIDEvents, index uint32)
 	SendKeyboardEventsKeyboardID(events VZOpaqueKeyboardEvents, id uint32)
@@ -108,6 +117,7 @@ type IVZVirtualMachineAccessor interface {
 	SendRotationEventsPointingDeviceIndex(events unsafe.Pointer, index uint32)
 	SendScrollWheelEventsPointingDeviceIndex(events unsafe.Pointer, index uint32)
 	SendSmartMagnifyEventsPointingDeviceIndex(events unsafe.Pointer, index uint32)
+	InitWithAccessorEndpoint(endpoint objectivec.IObject) VZVirtualMachineAccessor
 }
 
 // Init initializes the instance.
@@ -127,6 +137,12 @@ func NewVZVirtualMachineAccessor() VZVirtualMachineAccessor {
 	class := getVZVirtualMachineAccessorClass()
 	rv := objc.SendIfResponds[VZVirtualMachineAccessor](objc.ID(class.class), objc.Sel("new"))
 	return rv
+}
+
+func NewVZVirtualMachineAccessorWithAccessorEndpoint(endpoint objectivec.IObject) VZVirtualMachineAccessor {
+	instance := getVZVirtualMachineAccessorClass().Alloc()
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithAccessorEndpoint:"), endpoint)
+	return VZVirtualMachineAccessorFromID(rv)
 }
 
 func (v VZVirtualMachineAccessor) _processHIDReportsForDeviceDeviceType(hIDReports VZOpaqueHIDReports, device uint32, type_ int32) {
@@ -198,6 +214,10 @@ func (v VZVirtualMachineAccessor) SendScrollWheelEventsPointingDeviceIndex(event
 func (v VZVirtualMachineAccessor) SendSmartMagnifyEventsPointingDeviceIndex(events unsafe.Pointer, index uint32) {
 	objc.SendIfResponds[objc.ID](v.ID, objc.Sel("sendSmartMagnifyEvents:pointingDeviceIndex:"), events, index)
 }
+func (v VZVirtualMachineAccessor) InitWithAccessorEndpoint(endpoint objectivec.IObject) VZVirtualMachineAccessor {
+	rv := objc.SendIfResponds[VZVirtualMachineAccessor](v.ID, objc.Sel("initWithAccessorEndpoint:"), endpoint)
+	return rv
+}
 
 func (v VZVirtualMachineAccessor) _hidEventMonitor() IVZHIDEventMonitor {
 	rv := objc.SendIfResponds[objc.ID](v.ID, objc.Sel("_hidEventMonitor"))
@@ -215,4 +235,12 @@ func (v VZVirtualMachineAccessor) HidEventMonitor() (IVZHIDEventMonitor, error) 
 		return nil, &objc.UnrecognizedSelectorError{Selector: "_hidEventMonitor"}
 	}
 	return v._hidEventMonitor(), nil
+}
+func (v VZVirtualMachineAccessor) GraphicsDevices() foundation.INSArray {
+	rv := objc.SendIfResponds[objc.ID](v.ID, objc.Sel("graphicsDevices"))
+	return foundation.NSArrayFromID(objc.ID(rv))
+}
+func (v VZVirtualMachineAccessor) Queue() objectivec.Object {
+	rv := objc.SendIfResponds[objc.ID](v.ID, objc.Sel("queue"))
+	return objectivec.ObjectFromID(objc.ID(rv))
 }

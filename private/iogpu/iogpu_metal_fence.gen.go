@@ -103,7 +103,7 @@ func NewIOGPUMetalFence() IOGPUMetalFence {
 	return rv
 }
 
-func NewGPUMetalFenceWithDevice(device objectivec.IObject) IOGPUMetalFence {
+func NewIOGPUMetalFenceWithDevice(device objectivec.IObject) IOGPUMetalFence {
 	instance := getIOGPUMetalFenceClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithDevice:"), device)
 	return IOGPUMetalFenceFromID(rv)

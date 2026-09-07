@@ -104,6 +104,6 @@ func (v VoiceTableCellView) DownloadCheckbox() ISOVoiceRowCheckboxButton {
 	return SOVoiceRowCheckboxButtonFromID(objc.ID(rv))
 }
 func (v VoiceTableCellView) DownloadMessageTextField() appkit.NSTextField {
-	rv := objc.SendIfResponds[objc.ID](v.ID, objc.Sel("downloadMessageTextField"))
-	return appkit.NSTextFieldFromID(objc.ID(rv))
+	rv := objc.SendIfResponds[appkit.NSTextField](v.ID, objc.Sel("downloadMessageTextField"))
+	return appkit.NSTextField(rv)
 }

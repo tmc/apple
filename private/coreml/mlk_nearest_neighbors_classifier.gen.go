@@ -1,4 +1,4 @@
-// Code generated from Apple documentation for CoreML. DO NOT EDIT.
+// Code generated from Apple documentation for coreml. DO NOT EDIT.
 
 package coreml
 
@@ -215,7 +215,7 @@ func NewMLKNearestNeighborsClassifier() MLKNearestNeighborsClassifier {
 	return rv
 }
 
-func NewKNearestNeighborsClassifierDescriptionOnlyWithSpecificationConfigurationError(specification unsafe.Pointer, configuration objectivec.IObject) (MLKNearestNeighborsClassifier, error) {
+func NewMLKNearestNeighborsClassifierDescriptionOnlyWithSpecificationConfigurationError(specification unsafe.Pointer, configuration objectivec.IObject) (MLKNearestNeighborsClassifier, error) {
 	var errorPtr objc.ID
 	instance := getMLKNearestNeighborsClassifierClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initDescriptionOnlyWithSpecification:configuration:error:"), specification, configuration, unsafe.Pointer(&errorPtr))
@@ -229,7 +229,7 @@ func NewKNearestNeighborsClassifierDescriptionOnlyWithSpecificationConfiguration
 	return MLKNearestNeighborsClassifierFromID(rv), nil
 }
 
-func NewKNearestNeighborsClassifierInterfaceAndMetadataWithCompiledArchiveError(archive unsafe.Pointer) (MLKNearestNeighborsClassifier, error) {
+func NewMLKNearestNeighborsClassifierInterfaceAndMetadataWithCompiledArchiveError(archive unsafe.Pointer) (MLKNearestNeighborsClassifier, error) {
 	var errorPtr objc.ID
 	instance := getMLKNearestNeighborsClassifierClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initInterfaceAndMetadataWithCompiledArchive:error:"), archive, unsafe.Pointer(&errorPtr))
@@ -243,31 +243,31 @@ func NewKNearestNeighborsClassifierInterfaceAndMetadataWithCompiledArchiveError(
 	return MLKNearestNeighborsClassifierFromID(rv), nil
 }
 
-func NewKNearestNeighborsClassifierWithCoder(coder objectivec.IObject) MLKNearestNeighborsClassifier {
+func NewMLKNearestNeighborsClassifierWithCoder(coder objectivec.IObject) MLKNearestNeighborsClassifier {
 	instance := getMLKNearestNeighborsClassifierClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
 	return MLKNearestNeighborsClassifierFromID(rv)
 }
 
-func NewKNearestNeighborsClassifierWithConfiguration(configuration objectivec.IObject) MLKNearestNeighborsClassifier {
+func NewMLKNearestNeighborsClassifierWithConfiguration(configuration objectivec.IObject) MLKNearestNeighborsClassifier {
 	instance := getMLKNearestNeighborsClassifierClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithConfiguration:"), configuration)
 	return MLKNearestNeighborsClassifierFromID(rv)
 }
 
-func NewKNearestNeighborsClassifierWithDescription(description objectivec.IObject) MLKNearestNeighborsClassifier {
+func NewMLKNearestNeighborsClassifierWithDescription(description objectivec.IObject) MLKNearestNeighborsClassifier {
 	instance := getMLKNearestNeighborsClassifierClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithDescription:"), description)
 	return MLKNearestNeighborsClassifierFromID(rv)
 }
 
-func NewKNearestNeighborsClassifierWithDescriptionConfiguration(description objectivec.IObject, configuration objectivec.IObject) MLKNearestNeighborsClassifier {
+func NewMLKNearestNeighborsClassifierWithDescriptionConfiguration(description objectivec.IObject, configuration objectivec.IObject) MLKNearestNeighborsClassifier {
 	instance := getMLKNearestNeighborsClassifierClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithDescription:configuration:"), description, configuration)
 	return MLKNearestNeighborsClassifierFromID(rv)
 }
 
-func NewKNearestNeighborsClassifierWithDescriptionConfigurationParametersDataPointsLabelsError(description objectivec.IObject, configuration objectivec.IObject, parameters objectivec.IObject, points unsafe.Pointer, labels objectivec.IObject) (MLKNearestNeighborsClassifier, error) {
+func NewMLKNearestNeighborsClassifierWithDescriptionConfigurationParametersDataPointsLabelsError(description objectivec.IObject, configuration objectivec.IObject, parameters objectivec.IObject, points unsafe.Pointer, labels objectivec.IObject) (MLKNearestNeighborsClassifier, error) {
 	var errorPtr objc.ID
 	instance := getMLKNearestNeighborsClassifierClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithDescription:configuration:parameters:dataPoints:labels:error:"), description, configuration, parameters, points, labels, unsafe.Pointer(&errorPtr))
@@ -281,7 +281,7 @@ func NewKNearestNeighborsClassifierWithDescriptionConfigurationParametersDataPoi
 	return MLKNearestNeighborsClassifierFromID(rv), nil
 }
 
-func NewKNearestNeighborsClassifierWithNameInputDescriptionOutputDescriptionOrderedInputFeatureNamesOrderedOutputFeatureNamesConfiguration(name objectivec.IObject, description objectivec.IObject, description2 objectivec.IObject, names objectivec.IObject, names2 objectivec.IObject, configuration objectivec.IObject) MLKNearestNeighborsClassifier {
+func NewMLKNearestNeighborsClassifierWithNameInputDescriptionOutputDescriptionOrderedInputFeatureNamesOrderedOutputFeatureNamesConfiguration(name objectivec.IObject, description objectivec.IObject, description2 objectivec.IObject, names objectivec.IObject, names2 objectivec.IObject, configuration objectivec.IObject) MLKNearestNeighborsClassifier {
 	instance := getMLKNearestNeighborsClassifierClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithName:inputDescription:outputDescription:orderedInputFeatureNames:orderedOutputFeatureNames:configuration:"), name, description, description2, names, names2, configuration)
 	return MLKNearestNeighborsClassifierFromID(rv)

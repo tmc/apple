@@ -1,4 +1,4 @@
-// Code generated from Apple documentation for CoreML. DO NOT EDIT.
+// Code generated from Apple documentation for coreml. DO NOT EDIT.
 
 package coreml
 
@@ -102,7 +102,7 @@ func NewMLGPUComputeDevice() MLGPUComputeDevice {
 	return rv
 }
 
-func NewGPUComputeDeviceWithMetalDevice(device objectivec.IObject) MLGPUComputeDevice {
+func NewMLGPUComputeDeviceWithMetalDevice(device objectivec.IObject) MLGPUComputeDevice {
 	instance := getMLGPUComputeDeviceClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithMetalDevice:"), device)
 	return MLGPUComputeDeviceFromID(rv)

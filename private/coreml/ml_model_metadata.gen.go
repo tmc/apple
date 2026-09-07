@@ -1,4 +1,4 @@
-// Code generated from Apple documentation for CoreML. DO NOT EDIT.
+// Code generated from Apple documentation for coreml. DO NOT EDIT.
 
 package coreml
 
@@ -111,13 +111,13 @@ func NewMLModelMetadata() MLModelMetadata {
 	return rv
 }
 
-func NewModelMetadataWithName(name objectivec.IObject) MLModelMetadata {
+func NewMLModelMetadataWithName(name objectivec.IObject) MLModelMetadata {
 	instance := getMLModelMetadataClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithName:"), name)
 	return MLModelMetadataFromID(rv)
 }
 
-func NewModelMetadataWithNameShortDescriptionVersionStringAuthorLicenseCreatorDefined(name objectivec.IObject, description objectivec.IObject, string_ objectivec.IObject, author objectivec.IObject, license objectivec.IObject, defined objectivec.IObject) MLModelMetadata {
+func NewMLModelMetadataWithNameShortDescriptionVersionStringAuthorLicenseCreatorDefined(name objectivec.IObject, description objectivec.IObject, string_ objectivec.IObject, author objectivec.IObject, license objectivec.IObject, defined objectivec.IObject) MLModelMetadata {
 	instance := getMLModelMetadataClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithName:shortDescription:versionString:author:license:creatorDefined:"), name, description, string_, author, license, defined)
 	return MLModelMetadataFromID(rv)

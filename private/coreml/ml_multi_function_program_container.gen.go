@@ -1,4 +1,4 @@
-// Code generated from Apple documentation for CoreML. DO NOT EDIT.
+// Code generated from Apple documentation for coreml. DO NOT EDIT.
 
 package coreml
 
@@ -103,7 +103,7 @@ func NewMLMultiFunctionProgramContainer() MLMultiFunctionProgramContainer {
 	return rv
 }
 
-func NewMultiFunctionProgramContainerWithContainerProgramError(container objectivec.IObject, program unsafe.Pointer) (MLMultiFunctionProgramContainer, error) {
+func NewMLMultiFunctionProgramContainerWithContainerProgramError(container objectivec.IObject, program unsafe.Pointer) (MLMultiFunctionProgramContainer, error) {
 	var errorPtr objc.ID
 	instance := getMLMultiFunctionProgramContainerClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithContainer:program:error:"), container, program, unsafe.Pointer(&errorPtr))
@@ -117,19 +117,19 @@ func NewMultiFunctionProgramContainerWithContainerProgramError(container objecti
 	return MLMultiFunctionProgramContainerFromID(rv), nil
 }
 
-func NewMultiFunctionProgramContainerWithFeatureDescriptionsModelDescriptionOutputLayerNamesClassScoreVectorNameClassLabelsIsEncryptedModelVersionInfo(descriptions objectivec.IObject, description objectivec.IObject, names objectivec.IObject, name objectivec.IObject, labels objectivec.IObject, encrypted bool, info objectivec.IObject) MLMultiFunctionProgramContainer {
+func NewMLMultiFunctionProgramContainerWithFeatureDescriptionsModelDescriptionOutputLayerNamesClassScoreVectorNameClassLabelsIsEncryptedModelVersionInfo(descriptions objectivec.IObject, description objectivec.IObject, names objectivec.IObject, name objectivec.IObject, labels objectivec.IObject, encrypted bool, info objectivec.IObject) MLMultiFunctionProgramContainer {
 	instance := getMLMultiFunctionProgramContainerClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithFeatureDescriptions:modelDescription:outputLayerNames:classScoreVectorName:classLabels:isEncrypted:modelVersionInfo:"), descriptions, description, names, name, labels, encrypted, info)
 	return MLMultiFunctionProgramContainerFromID(rv)
 }
 
-func NewMultiFunctionProgramContainerWithFeatureDescriptionsModelDescriptionOutputLayerNamesClassScoreVectorNameClassLabelsIsEncryptedModelVersionInfoCompilerVersionInfo(descriptions objectivec.IObject, description objectivec.IObject, names objectivec.IObject, name objectivec.IObject, labels objectivec.IObject, encrypted bool, info objectivec.IObject, info2 objectivec.IObject) MLMultiFunctionProgramContainer {
+func NewMLMultiFunctionProgramContainerWithFeatureDescriptionsModelDescriptionOutputLayerNamesClassScoreVectorNameClassLabelsIsEncryptedModelVersionInfoCompilerVersionInfo(descriptions objectivec.IObject, description objectivec.IObject, names objectivec.IObject, name objectivec.IObject, labels objectivec.IObject, encrypted bool, info objectivec.IObject, info2 objectivec.IObject) MLMultiFunctionProgramContainer {
 	instance := getMLMultiFunctionProgramContainerClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithFeatureDescriptions:modelDescription:outputLayerNames:classScoreVectorName:classLabels:isEncrypted:modelVersionInfo:compilerVersionInfo:"), descriptions, description, names, name, labels, encrypted, info, info2)
 	return MLMultiFunctionProgramContainerFromID(rv)
 }
 
-func NewMultiFunctionProgramContainerWithFilePathInputLayerNamesOutputLayerNamesParameters(path objectivec.IObject, names objectivec.IObject, names2 objectivec.IObject, parameters objectivec.IObject) MLMultiFunctionProgramContainer {
+func NewMLMultiFunctionProgramContainerWithFilePathInputLayerNamesOutputLayerNamesParameters(path objectivec.IObject, names objectivec.IObject, names2 objectivec.IObject, parameters objectivec.IObject) MLMultiFunctionProgramContainer {
 	instance := getMLMultiFunctionProgramContainerClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithFilePath:inputLayerNames:outputLayerNames:parameters:"), path, names, names2, parameters)
 	return MLMultiFunctionProgramContainerFromID(rv)

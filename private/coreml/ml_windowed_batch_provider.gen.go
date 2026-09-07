@@ -1,4 +1,4 @@
-// Code generated from Apple documentation for CoreML. DO NOT EDIT.
+// Code generated from Apple documentation for coreml. DO NOT EDIT.
 
 package coreml
 
@@ -115,7 +115,7 @@ func NewMLWindowedBatchProvider() MLWindowedBatchProvider {
 	return rv
 }
 
-func NewWindowedBatchProviderWithBatchStartIndexWindowLengthError(batch objectivec.IObject, index int64, length int64) (MLWindowedBatchProvider, error) {
+func NewMLWindowedBatchProviderWithBatchStartIndexWindowLengthError(batch objectivec.IObject, index int64, length int64) (MLWindowedBatchProvider, error) {
 	var errorPtr objc.ID
 	instance := getMLWindowedBatchProviderClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithBatch:startIndex:windowLength:error:"), batch, index, length, unsafe.Pointer(&errorPtr))

@@ -247,13 +247,13 @@ func NewIOGPUMetalRenderCommandEncoder() IOGPUMetalRenderCommandEncoder {
 	return rv
 }
 
-func NewGPUMetalRenderCommandEncoderWithCommandBuffer(buffer objectivec.IObject) IOGPUMetalRenderCommandEncoder {
+func NewIOGPUMetalRenderCommandEncoderWithCommandBuffer(buffer objectivec.IObject) IOGPUMetalRenderCommandEncoder {
 	instance := getIOGPUMetalRenderCommandEncoderClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithCommandBuffer:"), buffer)
 	return IOGPUMetalRenderCommandEncoderFromID(rv)
 }
 
-func NewGPUMetalRenderCommandEncoderWithCommandBufferDescriptor(buffer objectivec.IObject, descriptor objectivec.IObject) IOGPUMetalRenderCommandEncoder {
+func NewIOGPUMetalRenderCommandEncoderWithCommandBufferDescriptor(buffer objectivec.IObject, descriptor objectivec.IObject) IOGPUMetalRenderCommandEncoder {
 	instance := getIOGPUMetalRenderCommandEncoderClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithCommandBuffer:descriptor:"), buffer, descriptor)
 	return IOGPUMetalRenderCommandEncoderFromID(rv)

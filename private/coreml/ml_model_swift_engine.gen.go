@@ -1,4 +1,4 @@
-// Code generated from Apple documentation for CoreML. DO NOT EDIT.
+// Code generated from Apple documentation for coreml. DO NOT EDIT.
 
 package coreml
 
@@ -80,13 +80,13 @@ func NewMLModelSwiftEngine() MLModelSwiftEngine {
 	return rv
 }
 
-func NewModelSwiftEngineWithDescriptionConfiguration(description objectivec.IObject, configuration objectivec.IObject) MLModelSwiftEngine {
+func NewMLModelSwiftEngineWithDescriptionConfiguration(description objectivec.IObject, configuration objectivec.IObject) MLModelSwiftEngine {
 	instance := getMLModelSwiftEngineClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithDescription:configuration:"), description, configuration)
 	return MLModelSwiftEngineFromID(rv)
 }
 
-func NewModelSwiftEngineWithNameInputDescriptionOutputDescriptionOrderedInputFeatureNamesOrderedOutputFeatureNamesConfiguration(name objectivec.IObject, description objectivec.IObject, description2 objectivec.IObject, names objectivec.IObject, names2 objectivec.IObject, configuration objectivec.IObject) MLModelSwiftEngine {
+func NewMLModelSwiftEngineWithNameInputDescriptionOutputDescriptionOrderedInputFeatureNamesOrderedOutputFeatureNamesConfiguration(name objectivec.IObject, description objectivec.IObject, description2 objectivec.IObject, names objectivec.IObject, names2 objectivec.IObject, configuration objectivec.IObject) MLModelSwiftEngine {
 	instance := getMLModelSwiftEngineClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithName:inputDescription:outputDescription:orderedInputFeatureNames:orderedOutputFeatureNames:configuration:"), name, description, description2, names, names2, configuration)
 	return MLModelSwiftEngineFromID(rv)

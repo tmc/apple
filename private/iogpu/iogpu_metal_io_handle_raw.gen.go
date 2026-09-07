@@ -100,7 +100,7 @@ func NewIOGPUMetalIOHandleRaw() IOGPUMetalIOHandleRaw {
 	return rv
 }
 
-func NewGPUMetalIOHandleRawWithDevicePathErrorUncached(device objectivec.IObject, path string, error_ []objectivec.IObject, uncached bool) IOGPUMetalIOHandleRaw {
+func NewIOGPUMetalIOHandleRawWithDevicePathErrorUncached(device objectivec.IObject, path string, error_ []objectivec.IObject, uncached bool) IOGPUMetalIOHandleRaw {
 	instance := getIOGPUMetalIOHandleRawClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithDevice:path:error:uncached:"), device, unsafe.Pointer(unsafe.StringData(path+"\x00")), objectivec.IObjectSliceToNSArray(error_), uncached)
 	return IOGPUMetalIOHandleRawFromID(rv)

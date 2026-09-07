@@ -1,4 +1,4 @@
-// Code generated from Apple documentation for CoreML. DO NOT EDIT.
+// Code generated from Apple documentation for coreml. DO NOT EDIT.
 
 package coreml
 
@@ -102,7 +102,7 @@ type IModelKeyServerAPIFetchKeyResponse interface {
 
 	// Topic: Methods
 
-	StringAsResult(result objectivec.IObject) int
+	StringAsResult(result objectivec.IObject) int32
 	ClearOneofValuesForResult()
 	CopyTo(to objectivec.IObject)
 	DictionaryRepresentation() objectivec.IObject
@@ -114,9 +114,9 @@ type IModelKeyServerAPIFetchKeyResponse interface {
 	HasSuccess() bool
 	MergeFrom(from objectivec.IObject)
 	ReadFrom(from objectivec.IObject) bool
-	Result() int
-	SetResult(value int)
-	ResultAsString(string_ int) objectivec.IObject
+	Result() int32
+	SetResult(value int32)
+	ResultAsString(string_ int32) objectivec.IObject
 	Success() IModelKeyServerAPIFetchKeyResult
 	SetSuccess(value IModelKeyServerAPIFetchKeyResult)
 	WriteTo(to objectivec.IObject)
@@ -141,8 +141,8 @@ func NewModelKeyServerAPIFetchKeyResponse() ModelKeyServerAPIFetchKeyResponse {
 	return rv
 }
 
-func (m ModelKeyServerAPIFetchKeyResponse) StringAsResult(result objectivec.IObject) int {
-	rv := objc.SendIfResponds[int](m.ID, objc.Sel("StringAsResult:"), result)
+func (m ModelKeyServerAPIFetchKeyResponse) StringAsResult(result objectivec.IObject) int32 {
+	rv := objc.SendIfResponds[int32](m.ID, objc.Sel("StringAsResult:"), result)
 	return rv
 }
 func (m ModelKeyServerAPIFetchKeyResponse) ClearOneofValuesForResult() {
@@ -162,7 +162,7 @@ func (m ModelKeyServerAPIFetchKeyResponse) ReadFrom(from objectivec.IObject) boo
 	rv := objc.SendIfResponds[bool](m.ID, objc.Sel("readFrom:"), from)
 	return rv
 }
-func (m ModelKeyServerAPIFetchKeyResponse) ResultAsString(string_ int) objectivec.IObject {
+func (m ModelKeyServerAPIFetchKeyResponse) ResultAsString(string_ int32) objectivec.IObject {
 	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("resultAsString:"), string_)
 	return objectivec.Object{ID: rv}
 }
@@ -192,11 +192,11 @@ func (m ModelKeyServerAPIFetchKeyResponse) HasSuccess() bool {
 	rv := objc.SendIfResponds[bool](m.ID, objc.Sel("hasSuccess"))
 	return rv
 }
-func (m ModelKeyServerAPIFetchKeyResponse) Result() int {
-	rv := objc.SendIfResponds[int](m.ID, objc.Sel("result"))
+func (m ModelKeyServerAPIFetchKeyResponse) Result() int32 {
+	rv := objc.SendIfResponds[int32](m.ID, objc.Sel("result"))
 	return rv
 }
-func (m ModelKeyServerAPIFetchKeyResponse) SetResult(value int) {
+func (m ModelKeyServerAPIFetchKeyResponse) SetResult(value int32) {
 	objc.SendIfResponds[struct{}](m.ID, objc.Sel("setResult:"), value)
 }
 func (m ModelKeyServerAPIFetchKeyResponse) Success() IModelKeyServerAPIFetchKeyResult {

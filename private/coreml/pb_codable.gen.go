@@ -1,4 +1,4 @@
-// Code generated from Apple documentation for CoreML. DO NOT EDIT.
+// Code generated from Apple documentation for coreml. DO NOT EDIT.
 
 package coreml
 
@@ -42,14 +42,14 @@ func (pc PBCodableClass) Alloc() PBCodable {
 	return rv
 }
 
-// A parent class referenced by other CoreML classes. [Full Topic]
+// A parent class referenced by other coreml classes. [Full Topic]
 type PBCodable struct {
 	objectivec.Object
 }
 
 // PBCodableFromID constructs a [PBCodable] from an objc.ID.
 //
-// A parent class referenced by other CoreML classes.
+// A parent class referenced by other coreml classes.
 func PBCodableFromID(id objc.ID) PBCodable {
 	return PBCodable{objectivec.Object{ID: id}}
 }

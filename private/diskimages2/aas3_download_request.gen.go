@@ -113,7 +113,7 @@ type IAAS3DownloadRequest interface {
 
 	Buf() string
 	SetBuf(value string)
-	CreateAndResumeTask() int
+	CreateAndResumeTask() int32
 	DownloadSession() IAAS3DownloadSession
 	SetDownloadSession(value IAAS3DownloadSession)
 	Nbyte() uint64
@@ -126,8 +126,8 @@ type IAAS3DownloadRequest interface {
 	SetRemainingAttempts(value uint32)
 	Sem() objectivec.Object
 	SetSem(value objectivec.Object)
-	Status() int
-	SetStatus(value int)
+	Status() int32
+	SetStatus(value int32)
 	Stream() unsafe.Pointer
 	SetStream(value unsafe.Pointer)
 	UrlRequest() foundation.NSMutableURLRequest
@@ -160,8 +160,8 @@ func NewAAS3DownloadRequestWithSessionSizeAtOffsetDestinationBufferDestinationSt
 	return AAS3DownloadRequestFromID(rv)
 }
 
-func (a AAS3DownloadRequest) CreateAndResumeTask() int {
-	rv := objc.SendIfResponds[int](a.ID, objc.Sel("createAndResumeTask"))
+func (a AAS3DownloadRequest) CreateAndResumeTask() int32 {
+	rv := objc.SendIfResponds[int32](a.ID, objc.Sel("createAndResumeTask"))
 	return rv
 }
 func (a AAS3DownloadRequest) InitWithSessionSizeAtOffsetDestinationBufferDestinationStreamCompletionSemaphore(session objectivec.IObject, size uint64, offset int64, buffer string, stream *AAAsyncByteStreamImpl, semaphore objectivec.IObject) AAS3DownloadRequest {
@@ -218,11 +218,11 @@ func (a AAS3DownloadRequest) Sem() objectivec.Object {
 func (a AAS3DownloadRequest) SetSem(value objectivec.Object) {
 	objc.SendIfResponds[struct{}](a.ID, objc.Sel("setSem:"), value)
 }
-func (a AAS3DownloadRequest) Status() int {
-	rv := objc.SendIfResponds[int](a.ID, objc.Sel("status"))
+func (a AAS3DownloadRequest) Status() int32 {
+	rv := objc.SendIfResponds[int32](a.ID, objc.Sel("status"))
 	return rv
 }
-func (a AAS3DownloadRequest) SetStatus(value int) {
+func (a AAS3DownloadRequest) SetStatus(value int32) {
 	objc.SendIfResponds[struct{}](a.ID, objc.Sel("setStatus:"), value)
 }
 func (a AAS3DownloadRequest) Stream() unsafe.Pointer {
@@ -233,8 +233,8 @@ func (a AAS3DownloadRequest) SetStream(value unsafe.Pointer) {
 	objc.SendIfResponds[struct{}](a.ID, objc.Sel("setStream:"), value)
 }
 func (a AAS3DownloadRequest) UrlRequest() foundation.NSMutableURLRequest {
-	rv := objc.SendIfResponds[objc.ID](a.ID, objc.Sel("urlRequest"))
-	return foundation.NSMutableURLRequestFromID(objc.ID(rv))
+	rv := objc.SendIfResponds[foundation.NSMutableURLRequest](a.ID, objc.Sel("urlRequest"))
+	return foundation.NSMutableURLRequest(rv)
 }
 func (a AAS3DownloadRequest) SetUrlRequest(value foundation.NSMutableURLRequest) {
 	objc.SendIfResponds[struct{}](a.ID, objc.Sel("setUrlRequest:"), value)

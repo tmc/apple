@@ -12,6 +12,7 @@ type (
 	IOGPUMetalCommandBufferResourceInfoRef  = _undefined
 	IOGPUMetalCommandBufferStoragePoolRef   = _undefined
 	IOGPUMetalCommandBufferStorageRef       = _undefined
+	IOGPUResourceRef                        = _undefined
 	IOGPUSegmentKernelCommmandListHeaderRef = _undefined
 	IOGPUSegmentListHeaderRef               = _undefined
 	IOGPUSegmentListShmemHeaderRef          = _undefined

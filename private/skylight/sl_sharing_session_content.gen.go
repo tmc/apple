@@ -146,8 +146,8 @@ func (s SLSharingSessionContent) InitWithWindowID(id objectivec.IObject) SLShari
 }
 
 func (s SLSharingSessionContent) DisplayID() foundation.NSNumber {
-	rv := objc.SendIfResponds[objc.ID](s.ID, objc.Sel("displayID"))
-	return foundation.NSNumberFromID(objc.ID(rv))
+	rv := objc.SendIfResponds[foundation.NSNumber](s.ID, objc.Sel("displayID"))
+	return foundation.NSNumber(rv)
 }
 func (s SLSharingSessionContent) SetDisplayID(value foundation.NSNumber) {
 	objc.SendIfResponds[struct{}](s.ID, objc.Sel("setDisplayID:"), value)

@@ -69,8 +69,8 @@ type IEspressoMetalSingleton interface {
 
 	// Topic: Methods
 
-	Is_memory_tight() int
-	SetIs_memory_tight(value int)
+	Is_memory_tight() int32
+	SetIs_memory_tight(value int32)
 }
 
 // Init initializes the instance.
@@ -97,10 +97,10 @@ func (_EspressoMetalSingletonClass EspressoMetalSingletonClass) Shared() Espress
 	return EspressoMetalSingletonFromID(rv)
 }
 
-func (e EspressoMetalSingleton) Is_memory_tight() int {
-	rv := objc.SendIfResponds[int](e.ID, objc.Sel("is_memory_tight"))
+func (e EspressoMetalSingleton) Is_memory_tight() int32 {
+	rv := objc.SendIfResponds[int32](e.ID, objc.Sel("is_memory_tight"))
 	return rv
 }
-func (e EspressoMetalSingleton) SetIs_memory_tight(value int) {
+func (e EspressoMetalSingleton) SetIs_memory_tight(value int32) {
 	objc.SendIfResponds[struct{}](e.ID, objc.Sel("setIs_memory_tight:"), value)
 }

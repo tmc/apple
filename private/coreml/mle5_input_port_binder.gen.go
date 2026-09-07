@@ -1,4 +1,4 @@
-// Code generated from Apple documentation for CoreML. DO NOT EDIT.
+// Code generated from Apple documentation for coreml. DO NOT EDIT.
 
 package coreml
 
@@ -143,7 +143,7 @@ func NewMLE5InputPortBinder() MLE5InputPortBinder {
 	return rv
 }
 
-func NewE5InputPortBinderWithPortFeatureDescription(port E5rtIOPortRef, description objectivec.IObject) MLE5InputPortBinder {
+func NewMLE5InputPortBinderWithPortFeatureDescription(port E5rtIOPortRef, description objectivec.IObject) MLE5InputPortBinder {
 	instance := getMLE5InputPortBinderClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithPort:featureDescription:"), port, description)
 	return MLE5InputPortBinderFromID(rv)

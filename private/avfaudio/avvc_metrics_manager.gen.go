@@ -1,4 +1,4 @@
-// Code generated from Apple documentation for AVFAudio. DO NOT EDIT.
+// Code generated from Apple documentation for avfaudio. DO NOT EDIT.
 
 package avfaudio
 
@@ -129,15 +129,15 @@ type IAVVCMetricsManager interface {
 
 	// Topic: Methods
 
-	_disposeADAM() int
-	AdamAnalyzeBufferNumFramesTimeStampShouldAnalyze(buffer coreaudiotypes.AudioBufferList, frames uint32, stamp coreaudiotypes.AudioTimeStamp, analyze bool) int
-	AudioIssueDetectorAnalyzeBufferNumFramesTimeStampShouldAnalyze(buffer coreaudiotypes.AudioBufferList, frames uint32, stamp coreaudiotypes.AudioTimeStamp, analyze bool) int
+	_disposeADAM() int32
+	AdamAnalyzeBufferNumFramesTimeStampShouldAnalyze(buffer coreaudiotypes.AudioBufferList, frames uint32, stamp coreaudiotypes.AudioTimeStamp, analyze bool) int32
+	AudioIssueDetectorAnalyzeBufferNumFramesTimeStampShouldAnalyze(buffer coreaudiotypes.AudioBufferList, frames uint32, stamp coreaudiotypes.AudioTimeStamp, analyze bool) int32
 	AvvcProfilingInfoDictionary() foundation.INSDictionary
 	SetAvvcProfilingInfoDictionary(value foundation.INSDictionary)
 	CallToStartRecordHostTime() uint64
 	SetCallToStartRecordHostTime(value uint64)
 	CheckAndUpdateReporterID(id int64)
-	DisposeADAM() int
+	DisposeADAM() int32
 	GetStringDate(date objectivec.IObject) objectivec.IObject
 	LogABCMetricCategoryTypeReporterID(aBCMetric objectivec.IObject, category uint32, type_ uint16, id int64)
 	LogProfileMetrics(metrics objectivec.IObject)
@@ -150,12 +150,12 @@ type IAVVCMetricsManager interface {
 	PublicMetrics() foundation.INSDictionary
 	SetPublicMetrics(value foundation.INSDictionary)
 	ReporterID() int64
-	ResetAudioIssueDetector() int
+	ResetAudioIssueDetector() int32
 	ResetProfileMetrics()
 	RetrieveMetrics() objectivec.IObject
 	RetrieveProfileMetrics() objectivec.IObject
-	SetADAMFormatNumFrames(aDAMFormat CAStreamBasicDescription, frames uint32) int
-	SetAudioIssueDetectorFormatNumFrames(format CAStreamBasicDescription, frames uint32) int
+	SetADAMFormatNumFrames(aDAMFormat CAStreamBasicDescription, frames uint32) int32
+	SetAudioIssueDetectorFormatNumFrames(format CAStreamBasicDescription, frames uint32) int32
 	UpdateWithReporterID(id int64)
 	VoiceTriggerStartHostTime() uint64
 	SetVoiceTriggerStartHostTime(value uint64)
@@ -180,23 +180,23 @@ func NewAVVCMetricsManager() AVVCMetricsManager {
 	return rv
 }
 
-func (a AVVCMetricsManager) _disposeADAM() int {
-	rv := objc.SendIfResponds[int](a.ID, objc.Sel("_disposeADAM"))
+func (a AVVCMetricsManager) _disposeADAM() int32 {
+	rv := objc.SendIfResponds[int32](a.ID, objc.Sel("_disposeADAM"))
 	return rv
 }
-func (a AVVCMetricsManager) AdamAnalyzeBufferNumFramesTimeStampShouldAnalyze(buffer coreaudiotypes.AudioBufferList, frames uint32, stamp coreaudiotypes.AudioTimeStamp, analyze bool) int {
-	rv := objc.SendIfResponds[int](a.ID, objc.Sel("adamAnalyzeBuffer:numFrames:timeStamp:shouldAnalyze:"), buffer, frames, stamp, analyze)
+func (a AVVCMetricsManager) AdamAnalyzeBufferNumFramesTimeStampShouldAnalyze(buffer coreaudiotypes.AudioBufferList, frames uint32, stamp coreaudiotypes.AudioTimeStamp, analyze bool) int32 {
+	rv := objc.SendIfResponds[int32](a.ID, objc.Sel("adamAnalyzeBuffer:numFrames:timeStamp:shouldAnalyze:"), buffer, frames, stamp, analyze)
 	return rv
 }
-func (a AVVCMetricsManager) AudioIssueDetectorAnalyzeBufferNumFramesTimeStampShouldAnalyze(buffer coreaudiotypes.AudioBufferList, frames uint32, stamp coreaudiotypes.AudioTimeStamp, analyze bool) int {
-	rv := objc.SendIfResponds[int](a.ID, objc.Sel("audioIssueDetectorAnalyzeBuffer:numFrames:timeStamp:shouldAnalyze:"), buffer, frames, stamp, analyze)
+func (a AVVCMetricsManager) AudioIssueDetectorAnalyzeBufferNumFramesTimeStampShouldAnalyze(buffer coreaudiotypes.AudioBufferList, frames uint32, stamp coreaudiotypes.AudioTimeStamp, analyze bool) int32 {
+	rv := objc.SendIfResponds[int32](a.ID, objc.Sel("audioIssueDetectorAnalyzeBuffer:numFrames:timeStamp:shouldAnalyze:"), buffer, frames, stamp, analyze)
 	return rv
 }
 func (a AVVCMetricsManager) CheckAndUpdateReporterID(id int64) {
 	objc.SendIfResponds[objc.ID](a.ID, objc.Sel("checkAndUpdateReporterID:"), id)
 }
-func (a AVVCMetricsManager) DisposeADAM() int {
-	rv := objc.SendIfResponds[int](a.ID, objc.Sel("disposeADAM"))
+func (a AVVCMetricsManager) DisposeADAM() int32 {
+	rv := objc.SendIfResponds[int32](a.ID, objc.Sel("disposeADAM"))
 	return rv
 }
 func (a AVVCMetricsManager) GetStringDate(date objectivec.IObject) objectivec.IObject {
@@ -233,8 +233,8 @@ func (a AVVCMetricsManager) ReporterID() int64 {
 	rv := objc.SendIfResponds[int64](a.ID, objc.Sel("reporterID"))
 	return rv
 }
-func (a AVVCMetricsManager) ResetAudioIssueDetector() int {
-	rv := objc.SendIfResponds[int](a.ID, objc.Sel("resetAudioIssueDetector"))
+func (a AVVCMetricsManager) ResetAudioIssueDetector() int32 {
+	rv := objc.SendIfResponds[int32](a.ID, objc.Sel("resetAudioIssueDetector"))
 	return rv
 }
 func (a AVVCMetricsManager) ResetProfileMetrics() {
@@ -248,12 +248,12 @@ func (a AVVCMetricsManager) RetrieveProfileMetrics() objectivec.IObject {
 	rv := objc.SendIfResponds[objc.ID](a.ID, objc.Sel("retrieveProfileMetrics"))
 	return objectivec.Object{ID: rv}
 }
-func (a AVVCMetricsManager) SetADAMFormatNumFrames(aDAMFormat CAStreamBasicDescription, frames uint32) int {
-	rv := objc.SendIfResponds[int](a.ID, objc.Sel("setADAMFormat:numFrames:"), aDAMFormat, frames)
+func (a AVVCMetricsManager) SetADAMFormatNumFrames(aDAMFormat CAStreamBasicDescription, frames uint32) int32 {
+	rv := objc.SendIfResponds[int32](a.ID, objc.Sel("setADAMFormat:numFrames:"), aDAMFormat, frames)
 	return rv
 }
-func (a AVVCMetricsManager) SetAudioIssueDetectorFormatNumFrames(format CAStreamBasicDescription, frames uint32) int {
-	rv := objc.SendIfResponds[int](a.ID, objc.Sel("setAudioIssueDetectorFormat:numFrames:"), format, frames)
+func (a AVVCMetricsManager) SetAudioIssueDetectorFormatNumFrames(format CAStreamBasicDescription, frames uint32) int32 {
+	rv := objc.SendIfResponds[int32](a.ID, objc.Sel("setAudioIssueDetectorFormat:numFrames:"), format, frames)
 	return rv
 }
 func (a AVVCMetricsManager) UpdateWithReporterID(id int64) {

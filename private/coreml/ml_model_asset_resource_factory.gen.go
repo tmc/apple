@@ -1,4 +1,4 @@
-// Code generated from Apple documentation for CoreML. DO NOT EDIT.
+// Code generated from Apple documentation for coreml. DO NOT EDIT.
 
 package coreml
 
@@ -119,7 +119,7 @@ func NewMLModelAssetResourceFactory() MLModelAssetResourceFactory {
 	return rv
 }
 
-func NewModelAssetResourceFactoryWithImpl(impl objectivec.IObject) MLModelAssetResourceFactory {
+func NewMLModelAssetResourceFactoryWithImpl(impl objectivec.IObject) MLModelAssetResourceFactory {
 	instance := getMLModelAssetResourceFactoryClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithImpl:"), impl)
 	return MLModelAssetResourceFactoryFromID(rv)
@@ -168,8 +168,8 @@ func (_MLModelAssetResourceFactoryClass MLModelAssetResourceFactoryClass) Resour
 }
 
 func (m MLModelAssetResourceFactory) CompiledModelURL() foundation.NSURL {
-	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("compiledModelURL"))
-	return foundation.NSURLFromID(objc.ID(rv))
+	rv := objc.SendIfResponds[foundation.NSURL](m.ID, objc.Sel("compiledModelURL"))
+	return foundation.NSURL(rv)
 }
 func (m MLModelAssetResourceFactory) DescriptionLoadQueue() objectivec.Object {
 	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("descriptionLoadQueue"))

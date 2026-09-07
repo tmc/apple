@@ -1,4 +1,4 @@
-// Code generated from Apple documentation for CoreML. DO NOT EDIT.
+// Code generated from Apple documentation for coreml. DO NOT EDIT.
 
 package coreml
 
@@ -109,7 +109,7 @@ func NewMLGLMRegression() MLGLMRegression {
 	return rv
 }
 
-func NewGLMRegressionWithLRSpecConfigurationError(lRSpec unsafe.Pointer, configuration objectivec.IObject) (MLGLMRegression, error) {
+func NewMLGLMRegressionWithLRSpecConfigurationError(lRSpec unsafe.Pointer, configuration objectivec.IObject) (MLGLMRegression, error) {
 	var errorPtr objc.ID
 	instance := getMLGLMRegressionClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithLRSpec:configuration:error:"), lRSpec, configuration, unsafe.Pointer(&errorPtr))
@@ -123,7 +123,7 @@ func NewGLMRegressionWithLRSpecConfigurationError(lRSpec unsafe.Pointer, configu
 	return MLGLMRegressionFromID(rv), nil
 }
 
-func NewGLMRegressionWithSpecificationConfigurationError(specification unsafe.Pointer, configuration objectivec.IObject) (MLGLMRegression, error) {
+func NewMLGLMRegressionWithSpecificationConfigurationError(specification unsafe.Pointer, configuration objectivec.IObject) (MLGLMRegression, error) {
 	var errorPtr objc.ID
 	instance := getMLGLMRegressionClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithSpecification:configuration:error:"), specification, configuration, unsafe.Pointer(&errorPtr))

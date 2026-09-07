@@ -1,19 +1,19 @@
-// Code generated from Apple documentation for Virtualization. DO NOT EDIT.
+// Code generated from Apple documentation for virtualization. DO NOT EDIT.
 
-// Package virtualization provides Go bindings for the Virtualization framework.
+// Package virtualization provides Go bindings for the virtualization framework.
 //
 // # Key Types
 //
-//   - [VZVirtualMachineConfiguration]
 //   - [VZVirtualMachineView]
+//   - [VZVirtualMachineConfiguration]
 //   - [VZVirtualMachine]
 //   - [VZCustomVirtioDeviceConfiguration]
 //   - [VZVNCServer]
-//   - [VZFramebufferView]
 //   - [VZMacPlatformConfiguration]
-//   - [VZCustomMMIODeviceConfiguration]
-//   - [VZIOUSBHostPassthroughDevice]
+//   - [VZFramebufferView]
 //   - [VZMacGraphicsDeviceConfiguration]
+//   - [VZVirtioQueueElement]
+//   - [VZCustomMMIODeviceConfiguration]
 package virtualization
 
 import (
@@ -23,7 +23,7 @@ import (
 	"github.com/ebitengine/purego"
 )
 
-// frameworkPaths lists paths to try when loading the Virtualization library,
+// frameworkPaths lists paths to try when loading the virtualization library,
 // in order. Frameworks whose symbols live in a known dylib resolve to that
 // dylib alone; the rest try the framework bundle first and then a /usr/lib
 // dylib fallback, which covers C-API frameworks that are not in the dyld
@@ -47,6 +47,6 @@ func init() {
 	// framework is harmless unless one of its symbols is actually called. Set
 	// APPLE_FRAMEWORK_LOAD_DEBUG to surface load failures while diagnosing.
 	if os.Getenv("APPLE_FRAMEWORK_LOAD_DEBUG") != "" {
-		fmt.Fprintf(os.Stderr, "warning: Virtualization: failed to load framework from any known path\n")
+		fmt.Fprintf(os.Stderr, "warning: virtualization: failed to load framework from any known path\n")
 	}
 }

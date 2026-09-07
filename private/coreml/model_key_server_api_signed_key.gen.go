@@ -1,4 +1,4 @@
-// Code generated from Apple documentation for CoreML. DO NOT EDIT.
+// Code generated from Apple documentation for coreml. DO NOT EDIT.
 
 package coreml
 
@@ -131,8 +131,8 @@ func (m ModelKeyServerAPISignedKey) WriteTo(to objectivec.IObject) {
 }
 
 func (m ModelKeyServerAPISignedKey) Data() foundation.NSData {
-	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("data"))
-	return foundation.NSDataFromID(objc.ID(rv))
+	rv := objc.SendIfResponds[foundation.NSData](m.ID, objc.Sel("data"))
+	return foundation.NSData(rv)
 }
 func (m ModelKeyServerAPISignedKey) SetData(value foundation.NSData) {
 	objc.SendIfResponds[struct{}](m.ID, objc.Sel("setData:"), value)

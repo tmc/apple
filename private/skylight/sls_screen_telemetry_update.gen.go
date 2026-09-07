@@ -127,8 +127,8 @@ func (s SLSScreenTelemetryUpdate) Connection() ISLScreenTelemetryConnection {
 	return SLScreenTelemetryConnectionFromID(objc.ID(rv))
 }
 func (s SLSScreenTelemetryUpdate) Error() foundation.NSError {
-	rv := objc.SendIfResponds[objc.ID](s.ID, objc.Sel("error"))
-	return foundation.NSErrorFromID(objc.ID(rv))
+	rv := objc.SendIfResponds[foundation.NSError](s.ID, objc.Sel("error"))
+	return foundation.NSError(rv)
 }
 func (s SLSScreenTelemetryUpdate) Snapshot() ISLSScreenTelemetryResultsSnapshotDataWrapper {
 	rv := objc.SendIfResponds[objc.ID](s.ID, objc.Sel("snapshot"))

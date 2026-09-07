@@ -1,4 +1,4 @@
-// Code generated from Apple documentation for CoreML. DO NOT EDIT.
+// Code generated from Apple documentation for coreml. DO NOT EDIT.
 
 package coreml
 
@@ -105,7 +105,7 @@ func NewMLProbabilityDictionarySharedKeySet() MLProbabilityDictionarySharedKeySe
 	return rv
 }
 
-func NewProbabilityDictionarySharedKeySetWithLabels(labels objectivec.IObject) MLProbabilityDictionarySharedKeySet {
+func NewMLProbabilityDictionarySharedKeySetWithLabels(labels objectivec.IObject) MLProbabilityDictionarySharedKeySet {
 	instance := getMLProbabilityDictionarySharedKeySetClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithLabels:"), labels)
 	return MLProbabilityDictionarySharedKeySetFromID(rv)
@@ -129,8 +129,8 @@ func (m MLProbabilityDictionarySharedKeySet) Count() uint64 {
 	return rv
 }
 func (m MLProbabilityDictionarySharedKeySet) LabelEnumerator() foundation.NSEnumerator {
-	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("labelEnumerator"))
-	return foundation.NSEnumeratorFromID(objc.ID(rv))
+	rv := objc.SendIfResponds[foundation.NSEnumerator](m.ID, objc.Sel("labelEnumerator"))
+	return foundation.NSEnumerator(rv)
 }
 func (m MLProbabilityDictionarySharedKeySet) UniqueLabelCount() uint64 {
 	rv := objc.SendIfResponds[uint64](m.ID, objc.Sel("uniqueLabelCount"))

@@ -198,12 +198,12 @@ func (_ANECompilerAnalyticsClass ANECompilerAnalyticsClass) ObjectWithBuffer(buf
 }
 
 func (a ANECompilerAnalytics) AnalyticsBuffer() foundation.NSData {
-	rv := objc.SendIfResponds[objc.ID](a.ID, objc.Sel("analyticsBuffer"))
-	return foundation.NSDataFromID(objc.ID(rv))
+	rv := objc.SendIfResponds[foundation.NSData](a.ID, objc.Sel("analyticsBuffer"))
+	return foundation.NSData(rv)
 }
 func (a ANECompilerAnalytics) BufferSizeInBytes() foundation.NSNumber {
-	rv := objc.SendIfResponds[objc.ID](a.ID, objc.Sel("bufferSizeInBytes"))
-	return foundation.NSNumberFromID(objc.ID(rv))
+	rv := objc.SendIfResponds[foundation.NSNumber](a.ID, objc.Sel("bufferSizeInBytes"))
+	return foundation.NSNumber(rv)
 }
 func (a ANECompilerAnalytics) ProcedureAnalytics() foundation.INSArray {
 	rv := objc.SendIfResponds[objc.ID](a.ID, objc.Sel("procedureAnalytics"))

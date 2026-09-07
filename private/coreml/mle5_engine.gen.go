@@ -1,4 +1,4 @@
-// Code generated from Apple documentation for CoreML. DO NOT EDIT.
+// Code generated from Apple documentation for coreml. DO NOT EDIT.
 
 package coreml
 
@@ -210,7 +210,7 @@ func NewMLE5Engine() MLE5Engine {
 	return rv
 }
 
-func NewE5EngineWithContainerConfigurationError(container objectivec.IObject, configuration objectivec.IObject) (MLE5Engine, error) {
+func NewMLE5EngineWithContainerConfigurationError(container objectivec.IObject, configuration objectivec.IObject) (MLE5Engine, error) {
 	var errorPtr objc.ID
 	instance := getMLE5EngineClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithContainer:configuration:error:"), container, configuration, unsafe.Pointer(&errorPtr))
@@ -224,19 +224,19 @@ func NewE5EngineWithContainerConfigurationError(container objectivec.IObject, co
 	return MLE5EngineFromID(rv), nil
 }
 
-func NewE5EngineWithDescriptionConfiguration(description objectivec.IObject, configuration objectivec.IObject) MLE5Engine {
+func NewMLE5EngineWithDescriptionConfiguration(description objectivec.IObject, configuration objectivec.IObject) MLE5Engine {
 	instance := getMLE5EngineClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithDescription:configuration:"), description, configuration)
 	return MLE5EngineFromID(rv)
 }
 
-func NewE5EngineWithNameInputDescriptionOutputDescriptionOrderedInputFeatureNamesOrderedOutputFeatureNamesConfiguration(name objectivec.IObject, description objectivec.IObject, description2 objectivec.IObject, names objectivec.IObject, names2 objectivec.IObject, configuration objectivec.IObject) MLE5Engine {
+func NewMLE5EngineWithNameInputDescriptionOutputDescriptionOrderedInputFeatureNamesOrderedOutputFeatureNamesConfiguration(name objectivec.IObject, description objectivec.IObject, description2 objectivec.IObject, names objectivec.IObject, names2 objectivec.IObject, configuration objectivec.IObject) MLE5Engine {
 	instance := getMLE5EngineClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithName:inputDescription:outputDescription:orderedInputFeatureNames:orderedOutputFeatureNames:configuration:"), name, description, description2, names, names2, configuration)
 	return MLE5EngineFromID(rv)
 }
 
-func NewE5EngineWithProgramLibraryModelDescriptionConfigurationFunctionNameClassProbabilitiesFeatureNameOptionalInputDefaultValuesCompilerVersionInfo(library objectivec.IObject, description objectivec.IObject, configuration objectivec.IObject, name objectivec.IObject, name2 objectivec.IObject, values objectivec.IObject, info objectivec.IObject) MLE5Engine {
+func NewMLE5EngineWithProgramLibraryModelDescriptionConfigurationFunctionNameClassProbabilitiesFeatureNameOptionalInputDefaultValuesCompilerVersionInfo(library objectivec.IObject, description objectivec.IObject, configuration objectivec.IObject, name objectivec.IObject, name2 objectivec.IObject, values objectivec.IObject, info objectivec.IObject) MLE5Engine {
 	instance := getMLE5EngineClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithProgramLibrary:modelDescription:configuration:functionName:classProbabilitiesFeatureName:optionalInputDefaultValues:compilerVersionInfo:"), library, description, configuration, name, name2, values, info)
 	return MLE5EngineFromID(rv)

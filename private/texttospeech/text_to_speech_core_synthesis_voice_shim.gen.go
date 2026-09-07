@@ -45,6 +45,8 @@ func (tc TextToSpeechCoreSynthesisVoiceShimClass) Alloc() TextToSpeechCoreSynthe
 
 // # Methods
 //
+//   - [TextToSpeechCoreSynthesisVoiceShim.CoreVoiceWithLanguageCode]
+//   - [TextToSpeechCoreSynthesisVoiceShim.CoreVoiceWithLanguageCodeCompletionHandler]
 //   - [TextToSpeechCoreSynthesisVoiceShim.InternalVoiceWithIdentifier]
 //   - [TextToSpeechCoreSynthesisVoiceShim.InternalVoiceWithIdentifierCompletionHandler]
 //   - [TextToSpeechCoreSynthesisVoiceShim.InternalVoicesIncludingSiri]
@@ -78,6 +80,8 @@ var _ ITextToSpeechCoreSynthesisVoiceShim = TextToSpeechCoreSynthesisVoiceShim{}
 //
 // # Methods
 //
+//   - [ITextToSpeechCoreSynthesisVoiceShim.CoreVoiceWithLanguageCode]
+//   - [ITextToSpeechCoreSynthesisVoiceShim.CoreVoiceWithLanguageCodeCompletionHandler]
 //   - [ITextToSpeechCoreSynthesisVoiceShim.InternalVoiceWithIdentifier]
 //   - [ITextToSpeechCoreSynthesisVoiceShim.InternalVoiceWithIdentifierCompletionHandler]
 //   - [ITextToSpeechCoreSynthesisVoiceShim.InternalVoicesIncludingSiri]
@@ -100,6 +104,8 @@ type ITextToSpeechCoreSynthesisVoiceShim interface {
 
 	// Topic: Methods
 
+	CoreVoiceWithLanguageCode(code objectivec.IObject) objectivec.IObject
+	CoreVoiceWithLanguageCodeCompletionHandler(code string, handler ErrorHandler)
 	InternalVoiceWithIdentifier(identifier objectivec.IObject) objectivec.IObject
 	InternalVoiceWithIdentifierCompletionHandler(identifier string, handler ErrorHandler)
 	InternalVoicesIncludingSiri(siri bool) objectivec.IObject
@@ -138,6 +144,14 @@ func NewTextToSpeechCoreSynthesisVoiceShim() TextToSpeechCoreSynthesisVoiceShim 
 	return rv
 }
 
+func (t TextToSpeechCoreSynthesisVoiceShim) CoreVoiceWithLanguageCode(code objectivec.IObject) objectivec.IObject {
+	rv := objc.SendIfResponds[objc.ID](t.ID, objc.Sel("coreVoiceWithLanguageCode:"), code)
+	return objectivec.Object{ID: rv}
+}
+func (t TextToSpeechCoreSynthesisVoiceShim) CoreVoiceWithLanguageCodeCompletionHandler(code string, handler ErrorHandler) {
+	_block1, _ := NewErrorBlock(handler)
+	objc.SendIfResponds[objc.ID](t.ID, objc.Sel("coreVoiceWithLanguageCode:completionHandler:"), objc.String(code), _block1)
+}
 func (t TextToSpeechCoreSynthesisVoiceShim) InternalVoiceWithIdentifier(identifier objectivec.IObject) objectivec.IObject {
 	rv := objc.SendIfResponds[objc.ID](t.ID, objc.Sel("internalVoiceWithIdentifier:"), identifier)
 	return objectivec.Object{ID: rv}
@@ -208,6 +222,21 @@ func (t TextToSpeechCoreSynthesisVoiceShim) VoiceWithLanguageCodeCompletionHandl
 
 func (_TextToSpeechCoreSynthesisVoiceShimClass TextToSpeechCoreSynthesisVoiceShimClass) SetShared(shared objectivec.IObject) {
 	objc.SendIfResponds[objc.ID](objc.ID(_TextToSpeechCoreSynthesisVoiceShimClass.class), objc.Sel("setShared:"), shared)
+}
+
+// CoreVoiceWithLanguageCodeSync is a synchronous wrapper around [TextToSpeechCoreSynthesisVoiceShim.CoreVoiceWithLanguageCodeCompletionHandler].
+// It blocks until the completion handler fires or the context is cancelled.
+func (t TextToSpeechCoreSynthesisVoiceShim) CoreVoiceWithLanguageCodeSync(ctx context.Context, code string) error {
+	done := make(chan error, 1)
+	t.CoreVoiceWithLanguageCodeCompletionHandler(code, func(err error) {
+		done <- err
+	})
+	select {
+	case err := <-done:
+		return err
+	case <-ctx.Done():
+		return ctx.Err()
+	}
 }
 
 // InternalVoiceWithIdentifierSync is a synchronous wrapper around [TextToSpeechCoreSynthesisVoiceShim.InternalVoiceWithIdentifierCompletionHandler].

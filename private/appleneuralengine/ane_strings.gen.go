@@ -426,3 +426,23 @@ func (_ANEStringsClass ANEStringsClass) Vm_tmpBaseDirectory() objectivec.IObject
 	rv := objc.SendIfResponds[objc.ID](objc.ID(_ANEStringsClass.class), objc.Sel("vm_tmpBaseDirectory"))
 	return objectivec.Object{ID: rv}
 }
+func (_ANEStringsClass ANEStringsClass) LargeModelCompilerServiceAccessEntitlement() objectivec.IObject {
+	rv := objc.SendIfResponds[objc.ID](objc.ID(_ANEStringsClass.class), objc.Sel("largeModelCompilerServiceAccessEntitlement"))
+	return objectivec.Object{ID: rv}
+}
+func (_ANEStringsClass ANEStringsClass) LargeModelCompilerServiceBundleID() objectivec.IObject {
+	rv := objc.SendIfResponds[objc.ID](objc.ID(_ANEStringsClass.class), objc.Sel("largeModelCompilerServiceBundleID"))
+	return objectivec.Object{ID: rv}
+}
+func (_ANEStringsClass ANEStringsClass) ModelSourceContainerName() objectivec.IObject {
+	rv := objc.SendIfResponds[objc.ID](objc.ID(_ANEStringsClass.class), objc.Sel("modelSourceContainerName"))
+	return objectivec.Object{ID: rv}
+}
+func (_ANEStringsClass ANEStringsClass) MutableWeightsMappingAccessEntitlement() objectivec.IObject {
+	rv := objc.SendIfResponds[objc.ID](objc.ID(_ANEStringsClass.class), objc.Sel("mutableWeightsMappingAccessEntitlement"))
+	return objectivec.Object{ID: rv}
+}
+func (_ANEStringsClass ANEStringsClass) TrimmedModelPathTrimmedPathOut(path objectivec.IObject, out []objectivec.IObject) bool {
+	rv := objc.SendIfResponds[bool](objc.ID(_ANEStringsClass.class), objc.Sel("trimmedModelPath:trimmedPathOut:"), path, objectivec.IObjectSliceToNSArray(out))
+	return rv
+}

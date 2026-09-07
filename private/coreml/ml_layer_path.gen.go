@@ -1,4 +1,4 @@
-// Code generated from Apple documentation for CoreML. DO NOT EDIT.
+// Code generated from Apple documentation for coreml. DO NOT EDIT.
 
 package coreml
 
@@ -108,7 +108,7 @@ func NewMLLayerPath() MLLayerPath {
 	return rv
 }
 
-func NewLayerPathWithScopedModelAndLayerNameLayerName(name objectivec.IObject, name2 objectivec.IObject) MLLayerPath {
+func NewMLLayerPathWithScopedModelAndLayerNameLayerName(name objectivec.IObject, name2 objectivec.IObject) MLLayerPath {
 	instance := getMLLayerPathClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithScopedModelAndLayerName:layerName:"), name, name2)
 	return MLLayerPathFromID(rv)

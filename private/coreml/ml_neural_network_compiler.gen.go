@@ -1,4 +1,4 @@
-// Code generated from Apple documentation for CoreML. DO NOT EDIT.
+// Code generated from Apple documentation for coreml. DO NOT EDIT.
 
 package coreml
 
@@ -81,7 +81,7 @@ func NewMLNeuralNetworkCompiler() MLNeuralNetworkCompiler {
 	return rv
 }
 
-func NewNeuralNetworkCompilerDescriptionOnlyWithSpecificationConfigurationError(specification unsafe.Pointer, configuration objectivec.IObject) (MLNeuralNetworkCompiler, error) {
+func NewMLNeuralNetworkCompilerDescriptionOnlyWithSpecificationConfigurationError(specification unsafe.Pointer, configuration objectivec.IObject) (MLNeuralNetworkCompiler, error) {
 	var errorPtr objc.ID
 	instance := getMLNeuralNetworkCompilerClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initDescriptionOnlyWithSpecification:configuration:error:"), specification, configuration, unsafe.Pointer(&errorPtr))
@@ -95,7 +95,7 @@ func NewNeuralNetworkCompilerDescriptionOnlyWithSpecificationConfigurationError(
 	return MLNeuralNetworkCompilerFromID(rv), nil
 }
 
-func NewNeuralNetworkCompilerInterfaceAndMetadataWithCompiledArchiveError(archive unsafe.Pointer) (MLNeuralNetworkCompiler, error) {
+func NewMLNeuralNetworkCompilerInterfaceAndMetadataWithCompiledArchiveError(archive unsafe.Pointer) (MLNeuralNetworkCompiler, error) {
 	var errorPtr objc.ID
 	instance := getMLNeuralNetworkCompilerClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initInterfaceAndMetadataWithCompiledArchive:error:"), archive, unsafe.Pointer(&errorPtr))
@@ -109,25 +109,25 @@ func NewNeuralNetworkCompilerInterfaceAndMetadataWithCompiledArchiveError(archiv
 	return MLNeuralNetworkCompilerFromID(rv), nil
 }
 
-func NewNeuralNetworkCompilerWithConfiguration(configuration objectivec.IObject) MLNeuralNetworkCompiler {
+func NewMLNeuralNetworkCompilerWithConfiguration(configuration objectivec.IObject) MLNeuralNetworkCompiler {
 	instance := getMLNeuralNetworkCompilerClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithConfiguration:"), configuration)
 	return MLNeuralNetworkCompilerFromID(rv)
 }
 
-func NewNeuralNetworkCompilerWithDescription(description objectivec.IObject) MLNeuralNetworkCompiler {
+func NewMLNeuralNetworkCompilerWithDescription(description objectivec.IObject) MLNeuralNetworkCompiler {
 	instance := getMLNeuralNetworkCompilerClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithDescription:"), description)
 	return MLNeuralNetworkCompilerFromID(rv)
 }
 
-func NewNeuralNetworkCompilerWithDescriptionConfiguration(description objectivec.IObject, configuration objectivec.IObject) MLNeuralNetworkCompiler {
+func NewMLNeuralNetworkCompilerWithDescriptionConfiguration(description objectivec.IObject, configuration objectivec.IObject) MLNeuralNetworkCompiler {
 	instance := getMLNeuralNetworkCompilerClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithDescription:configuration:"), description, configuration)
 	return MLNeuralNetworkCompilerFromID(rv)
 }
 
-func NewNeuralNetworkCompilerWithNameInputDescriptionOutputDescriptionOrderedInputFeatureNamesOrderedOutputFeatureNamesConfiguration(name objectivec.IObject, description objectivec.IObject, description2 objectivec.IObject, names objectivec.IObject, names2 objectivec.IObject, configuration objectivec.IObject) MLNeuralNetworkCompiler {
+func NewMLNeuralNetworkCompilerWithNameInputDescriptionOutputDescriptionOrderedInputFeatureNamesOrderedOutputFeatureNamesConfiguration(name objectivec.IObject, description objectivec.IObject, description2 objectivec.IObject, names objectivec.IObject, names2 objectivec.IObject, configuration objectivec.IObject) MLNeuralNetworkCompiler {
 	instance := getMLNeuralNetworkCompilerClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithName:inputDescription:outputDescription:orderedInputFeatureNames:orderedOutputFeatureNames:configuration:"), name, description, description2, names, names2, configuration)
 	return MLNeuralNetworkCompilerFromID(rv)

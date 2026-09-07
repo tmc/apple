@@ -1,4 +1,4 @@
-// Code generated from Apple documentation for CoreML. DO NOT EDIT.
+// Code generated from Apple documentation for coreml. DO NOT EDIT.
 
 package coreml
 
@@ -95,7 +95,7 @@ func NewMLDictionaryConstraint() MLDictionaryConstraint {
 	return rv
 }
 
-func NewDictionaryConstraintWithKeyType(type_ int64) MLDictionaryConstraint {
+func NewMLDictionaryConstraintWithKeyType(type_ int64) MLDictionaryConstraint {
 	instance := getMLDictionaryConstraintClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithKeyType:"), type_)
 	return MLDictionaryConstraintFromID(rv)

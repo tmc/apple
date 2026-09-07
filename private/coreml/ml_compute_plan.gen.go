@@ -1,4 +1,4 @@
-// Code generated from Apple documentation for CoreML. DO NOT EDIT.
+// Code generated from Apple documentation for coreml. DO NOT EDIT.
 
 package coreml
 
@@ -106,7 +106,7 @@ func NewMLComputePlan() MLComputePlan {
 	return rv
 }
 
-func NewComputePlanWithModelStructureModelDescriptionModelAssetStorageTypeExecutionScheduleConfiguration(structure objectivec.IObject, description objectivec.IObject, type_ int64, schedule objectivec.IObject, configuration objectivec.IObject) MLComputePlan {
+func NewMLComputePlanWithModelStructureModelDescriptionModelAssetStorageTypeExecutionScheduleConfiguration(structure objectivec.IObject, description objectivec.IObject, type_ int64, schedule objectivec.IObject, configuration objectivec.IObject) MLComputePlan {
 	instance := getMLComputePlanClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithModelStructure:modelDescription:modelAssetStorageType:executionSchedule:configuration:"), structure, description, type_, schedule, configuration)
 	return MLComputePlanFromID(rv)

@@ -120,8 +120,8 @@ type IETTask interface {
 	SetExtractor(value IETImageDescriptorExtractor)
 	FitNumberOfBatchesOutputNamesBatchCallback(fit objectivec.IObject, batches uint32, names objectivec.IObject, callback VoidHandler) bool
 	FitNumberOfBatchesWithProgress(fit objectivec.IObject, batches uint32, progress VoidHandler) float32
-	FitNumberOfEpochsOutputNamesBatchCallback(fit objectivec.IObject, epochs int, names objectivec.IObject, callback VoidHandler) bool
-	FitNumberOfEpochsWithProgress(fit objectivec.IObject, epochs int, progress VoidHandler) float32
+	FitNumberOfEpochsOutputNamesBatchCallback(fit objectivec.IObject, epochs int32, names objectivec.IObject, callback VoidHandler) bool
+	FitNumberOfEpochsWithProgress(fit objectivec.IObject, epochs int32, progress VoidHandler) float32
 	Model() IETModelDef
 	SetModel(value IETModelDef)
 	MoveToGPUError(gpu int) (bool, error)
@@ -194,12 +194,12 @@ func (e ETTask) FitNumberOfBatchesWithProgress(fit objectivec.IObject, batches u
 	rv := objc.SendIfResponds[float32](e.ID, objc.Sel("fit:numberOfBatches:withProgress:"), fit, batches, _block2)
 	return rv
 }
-func (e ETTask) FitNumberOfEpochsOutputNamesBatchCallback(fit objectivec.IObject, epochs int, names objectivec.IObject, callback VoidHandler) bool {
+func (e ETTask) FitNumberOfEpochsOutputNamesBatchCallback(fit objectivec.IObject, epochs int32, names objectivec.IObject, callback VoidHandler) bool {
 	_block3, _ := NewVoidBlock(callback)
 	rv := objc.SendIfResponds[bool](e.ID, objc.Sel("fit:numberOfEpochs:outputNames:batchCallback:"), fit, epochs, names, _block3)
 	return rv
 }
-func (e ETTask) FitNumberOfEpochsWithProgress(fit objectivec.IObject, epochs int, progress VoidHandler) float32 {
+func (e ETTask) FitNumberOfEpochsWithProgress(fit objectivec.IObject, epochs int32, progress VoidHandler) float32 {
 	_block2, _ := NewVoidBlock(progress)
 	rv := objc.SendIfResponds[float32](e.ID, objc.Sel("fit:numberOfEpochs:withProgress:"), fit, epochs, _block2)
 	return rv
@@ -311,7 +311,7 @@ func (e ETTask) FitNumberOfBatchesWithProgressSync(ctx context.Context, fit obje
 
 // FitNumberOfEpochsOutputNamesBatchCallbackSync is a synchronous wrapper around [ETTask.FitNumberOfEpochsOutputNamesBatchCallback].
 // It blocks until the completion handler fires or the context is cancelled.
-func (e ETTask) FitNumberOfEpochsOutputNamesBatchCallbackSync(ctx context.Context, fit objectivec.IObject, epochs int, names objectivec.IObject) error {
+func (e ETTask) FitNumberOfEpochsOutputNamesBatchCallbackSync(ctx context.Context, fit objectivec.IObject, epochs int32, names objectivec.IObject) error {
 	done := make(chan struct{}, 1)
 	e.FitNumberOfEpochsOutputNamesBatchCallback(fit, epochs, names, func() {
 		done <- struct{}{}
@@ -326,7 +326,7 @@ func (e ETTask) FitNumberOfEpochsOutputNamesBatchCallbackSync(ctx context.Contex
 
 // FitNumberOfEpochsWithProgressSync is a synchronous wrapper around [ETTask.FitNumberOfEpochsWithProgress].
 // It blocks until the completion handler fires or the context is cancelled.
-func (e ETTask) FitNumberOfEpochsWithProgressSync(ctx context.Context, fit objectivec.IObject, epochs int) error {
+func (e ETTask) FitNumberOfEpochsWithProgressSync(ctx context.Context, fit objectivec.IObject, epochs int32) error {
 	done := make(chan struct{}, 1)
 	e.FitNumberOfEpochsWithProgress(fit, epochs, func() {
 		done <- struct{}{}

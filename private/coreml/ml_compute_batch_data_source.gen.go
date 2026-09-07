@@ -1,4 +1,4 @@
-// Code generated from Apple documentation for CoreML. DO NOT EDIT.
+// Code generated from Apple documentation for coreml. DO NOT EDIT.
 
 package coreml
 
@@ -118,7 +118,7 @@ func NewMLComputeBatchDataSource() MLComputeBatchDataSource {
 	return rv
 }
 
-func NewComputeBatchDataSourceWithBatchProviderBatchSizeForPredictionNeuralNetworkEngineError(provider objectivec.IObject, size uint64, prediction bool, engine objectivec.IObject) (MLComputeBatchDataSource, error) {
+func NewMLComputeBatchDataSourceWithBatchProviderBatchSizeForPredictionNeuralNetworkEngineError(provider objectivec.IObject, size uint64, prediction bool, engine objectivec.IObject) (MLComputeBatchDataSource, error) {
 	var errorPtr objc.ID
 	instance := getMLComputeBatchDataSourceClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithBatchProvider:batchSize:forPrediction:neuralNetworkEngine:error:"), provider, size, prediction, engine, unsafe.Pointer(&errorPtr))

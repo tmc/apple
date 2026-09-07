@@ -149,8 +149,8 @@ type IBaseDiskImageCreator interface {
 	// Topic: Methods
 
 	URL() foundation.NSURL
-	BlockSize() uint32
-	SetBlockSize(value uint32)
+	BlockSize() uint64
+	SetBlockSize(value uint64)
 	Certificate() string
 	SetCertificate(value string)
 	CreateEmptyImageWithError() (objectivec.IObject, error)
@@ -319,14 +319,14 @@ func (_BaseDiskImageCreatorClass BaseDiskImageCreatorClass) SetForwardLogs(logs 
 }
 
 func (b BaseDiskImageCreator) URL() foundation.NSURL {
-	rv := objc.SendIfResponds[objc.ID](b.ID, objc.Sel("URL"))
-	return foundation.NSURLFromID(objc.ID(rv))
+	rv := objc.SendIfResponds[foundation.NSURL](b.ID, objc.Sel("URL"))
+	return foundation.NSURL(rv)
 }
-func (b BaseDiskImageCreator) BlockSize() uint32 {
-	rv := objc.SendIfResponds[uint32](b.ID, objc.Sel("blockSize"))
+func (b BaseDiskImageCreator) BlockSize() uint64 {
+	rv := objc.SendIfResponds[uint64](b.ID, objc.Sel("blockSize"))
 	return rv
 }
-func (b BaseDiskImageCreator) SetBlockSize(value uint32) {
+func (b BaseDiskImageCreator) SetBlockSize(value uint64) {
 	objc.SendIfResponds[struct{}](b.ID, objc.Sel("setBlockSize:"), value)
 }
 func (b BaseDiskImageCreator) Certificate() string {
@@ -372,8 +372,8 @@ func (b BaseDiskImageCreator) SetImageFormat(value int64) {
 	objc.SendIfResponds[struct{}](b.ID, objc.Sel("setImageFormat:"), value)
 }
 func (b BaseDiskImageCreator) MutableSymmetricKey() foundation.NSMutableData {
-	rv := objc.SendIfResponds[objc.ID](b.ID, objc.Sel("mutableSymmetricKey"))
-	return foundation.NSMutableDataFromID(objc.ID(rv))
+	rv := objc.SendIfResponds[foundation.NSMutableData](b.ID, objc.Sel("mutableSymmetricKey"))
+	return foundation.NSMutableData(rv)
 }
 func (b BaseDiskImageCreator) NumBlocks() uint64 {
 	rv := objc.SendIfResponds[uint64](b.ID, objc.Sel("numBlocks"))
@@ -411,8 +411,8 @@ func (b BaseDiskImageCreator) SetSparseBundleBandSize(value uint64) {
 	objc.SendIfResponds[struct{}](b.ID, objc.Sel("setSparseBundleBandSize:"), value)
 }
 func (b BaseDiskImageCreator) SymmetricKey() foundation.NSData {
-	rv := objc.SendIfResponds[objc.ID](b.ID, objc.Sel("symmetricKey"))
-	return foundation.NSDataFromID(objc.ID(rv))
+	rv := objc.SendIfResponds[foundation.NSData](b.ID, objc.Sel("symmetricKey"))
+	return foundation.NSData(rv)
 }
 func (b BaseDiskImageCreator) SetSymmetricKey(value foundation.NSData) {
 	objc.SendIfResponds[struct{}](b.ID, objc.Sel("setSymmetricKey:"), value)

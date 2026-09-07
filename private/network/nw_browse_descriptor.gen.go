@@ -1,4 +1,4 @@
-// Code generated from Apple documentation for Network. DO NOT EDIT.
+// Code generated from Apple documentation for network. DO NOT EDIT.
 
 package network
 
@@ -93,7 +93,7 @@ type INWBrowseDescriptor interface {
 	BonjourServiceType() string
 	BrowseWithCompletionHandler(handler ErrorHandler)
 	CreateProtocolBufferObject() objectivec.IObject
-	DescriptionWithIndentShowFullContent(indent int, content bool) objectivec.IObject
+	DescriptionWithIndentShowFullContent(indent int32, content bool) objectivec.IObject
 	EncodedData() objectivec.IObject
 	InternalDescriptor() objectivec.Object
 	SetInternalDescriptor(value objectivec.Object)
@@ -141,7 +141,7 @@ func (n NWBrowseDescriptor) CreateProtocolBufferObject() objectivec.IObject {
 	rv := objc.SendIfResponds[objc.ID](n.ID, objc.Sel("createProtocolBufferObject"))
 	return objectivec.Object{ID: rv}
 }
-func (n NWBrowseDescriptor) DescriptionWithIndentShowFullContent(indent int, content bool) objectivec.IObject {
+func (n NWBrowseDescriptor) DescriptionWithIndentShowFullContent(indent int32, content bool) objectivec.IObject {
 	rv := objc.SendIfResponds[objc.ID](n.ID, objc.Sel("descriptionWithIndent:showFullContent:"), indent, content)
 	return objectivec.Object{ID: rv}
 }
@@ -158,7 +158,7 @@ func (n NWBrowseDescriptor) InitWithEncodedData(data objectivec.IObject) NWBrows
 	return rv
 }
 
-func (_NWBrowseDescriptorClass NWBrowseDescriptorClass) CopyClassForDescriptorType(type_ int) objectivec.Class {
+func (_NWBrowseDescriptorClass NWBrowseDescriptorClass) CopyClassForDescriptorType(type_ int32) objectivec.Class {
 	rv := objc.SendIfResponds[objectivec.Class](objc.ID(_NWBrowseDescriptorClass.class), objc.Sel("copyClassForDescriptorType:"), type_)
 	return objectivec.Class(rv)
 }

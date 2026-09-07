@@ -1,4 +1,4 @@
-// Code generated from Apple documentation for AVFAudio. DO NOT EDIT.
+// Code generated from Apple documentation for avfaudio. DO NOT EDIT.
 
 package avfaudio
 
@@ -83,8 +83,8 @@ type IAVAudioRoutingArbiter interface {
 
 	BeginArbitrationWithAudioSessionCategoryModeOptionsCompletionHandler(category objectivec.IObject, mode objectivec.IObject, options uint64, handler ErrorHandler)
 	BeginArbitrationWithAudioSessionCategoryModeOptionsError(category objectivec.IObject, mode objectivec.IObject, options uint64) (bool, error)
-	BeginArbitrationWithBTSessionCategoryModeFlagsCompletionHandler(category int, mode int, flags uint32, handler ErrorHandler)
-	CreateBTSessionWithCategoryModeFlags(category int, mode int, flags uint32)
+	BeginArbitrationWithBTSessionCategoryModeFlagsCompletionHandler(category int32, mode int32, flags uint32, handler ErrorHandler)
+	CreateBTSessionWithCategoryModeFlags(category int32, mode int32, flags uint32)
 	DispatchQueue() objectivec.Object
 	SetDispatchQueue(value objectivec.Object)
 }
@@ -125,11 +125,11 @@ func (a AVAudioRoutingArbiter) BeginArbitrationWithAudioSessionCategoryModeOptio
 	return rv, nil
 
 }
-func (a AVAudioRoutingArbiter) BeginArbitrationWithBTSessionCategoryModeFlagsCompletionHandler(category int, mode int, flags uint32, handler ErrorHandler) {
+func (a AVAudioRoutingArbiter) BeginArbitrationWithBTSessionCategoryModeFlagsCompletionHandler(category int32, mode int32, flags uint32, handler ErrorHandler) {
 	_block3, _ := NewErrorBlock(handler)
 	objc.SendIfResponds[objc.ID](a.ID, objc.Sel("beginArbitrationWithBTSessionCategory:mode:flags:completionHandler:"), category, mode, flags, _block3)
 }
-func (a AVAudioRoutingArbiter) CreateBTSessionWithCategoryModeFlags(category int, mode int, flags uint32) {
+func (a AVAudioRoutingArbiter) CreateBTSessionWithCategoryModeFlags(category int32, mode int32, flags uint32) {
 	objc.SendIfResponds[objc.ID](a.ID, objc.Sel("createBTSessionWithCategory:mode:flags:"), category, mode, flags)
 }
 
@@ -158,7 +158,7 @@ func (a AVAudioRoutingArbiter) BeginArbitrationWithAudioSessionCategoryModeOptio
 
 // BeginArbitrationWithBTSessionCategoryModeFlags is a synchronous wrapper around [AVAudioRoutingArbiter.BeginArbitrationWithBTSessionCategoryModeFlagsCompletionHandler].
 // It blocks until the completion handler fires or the context is cancelled.
-func (a AVAudioRoutingArbiter) BeginArbitrationWithBTSessionCategoryModeFlags(ctx context.Context, category int, mode int, flags uint32) error {
+func (a AVAudioRoutingArbiter) BeginArbitrationWithBTSessionCategoryModeFlags(ctx context.Context, category int32, mode int32, flags uint32) error {
 	done := make(chan error, 1)
 	a.BeginArbitrationWithBTSessionCategoryModeFlagsCompletionHandler(category, mode, flags, func(err error) {
 		done <- err

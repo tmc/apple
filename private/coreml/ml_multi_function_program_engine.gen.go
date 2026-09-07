@@ -1,4 +1,4 @@
-// Code generated from Apple documentation for CoreML. DO NOT EDIT.
+// Code generated from Apple documentation for coreml. DO NOT EDIT.
 
 package coreml
 
@@ -134,19 +134,19 @@ func NewMLMultiFunctionProgramEngine() MLMultiFunctionProgramEngine {
 	return rv
 }
 
-func NewMultiFunctionProgramEngineWithDescriptionConfiguration(description objectivec.IObject, configuration objectivec.IObject) MLMultiFunctionProgramEngine {
+func NewMLMultiFunctionProgramEngineWithDescriptionConfiguration(description objectivec.IObject, configuration objectivec.IObject) MLMultiFunctionProgramEngine {
 	instance := getMLMultiFunctionProgramEngineClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithDescription:configuration:"), description, configuration)
 	return MLMultiFunctionProgramEngineFromID(rv)
 }
 
-func NewMultiFunctionProgramEngineWithNameInputDescriptionOutputDescriptionOrderedInputFeatureNamesOrderedOutputFeatureNamesConfiguration(name objectivec.IObject, description objectivec.IObject, description2 objectivec.IObject, names objectivec.IObject, names2 objectivec.IObject, configuration objectivec.IObject) MLMultiFunctionProgramEngine {
+func NewMLMultiFunctionProgramEngineWithNameInputDescriptionOutputDescriptionOrderedInputFeatureNamesOrderedOutputFeatureNamesConfiguration(name objectivec.IObject, description objectivec.IObject, description2 objectivec.IObject, names objectivec.IObject, names2 objectivec.IObject, configuration objectivec.IObject) MLMultiFunctionProgramEngine {
 	instance := getMLMultiFunctionProgramEngineClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithName:inputDescription:outputDescription:orderedInputFeatureNames:orderedOutputFeatureNames:configuration:"), name, description, description2, names, names2, configuration)
 	return MLMultiFunctionProgramEngineFromID(rv)
 }
 
-func NewMultiFunctionProgramEngineWithProgramContainerConfigurationError(container objectivec.IObject, configuration objectivec.IObject) (MLMultiFunctionProgramEngine, error) {
+func NewMLMultiFunctionProgramEngineWithProgramContainerConfigurationError(container objectivec.IObject, configuration objectivec.IObject) (MLMultiFunctionProgramEngine, error) {
 	var errorPtr objc.ID
 	instance := getMLMultiFunctionProgramEngineClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithProgramContainer:configuration:error:"), container, configuration, unsafe.Pointer(&errorPtr))

@@ -1,4 +1,4 @@
-// Code generated from Apple documentation for AVFAudio. DO NOT EDIT.
+// Code generated from Apple documentation for avfaudio. DO NOT EDIT.
 
 package avfaudio
 
@@ -47,6 +47,8 @@ func (ac AVAudioSourceNodeClass) Alloc() AVAudioSourceNode {
 
 // # Methods
 //
+//   - [AVAudioSourceNode.InitWithFormatRealtimeSafeRenderBlock]
+//   - [AVAudioSourceNode.InitWithRealtimeSafeRenderBlock]
 //   - [AVAudioSourceNode.DebugDescription]
 //   - [AVAudioSourceNode.Description]
 //   - [AVAudioSourceNode.Hash]
@@ -67,6 +69,8 @@ var _ IAVAudioSourceNode = AVAudioSourceNode{}
 //
 // # Methods
 //
+//   - [IAVAudioSourceNode.InitWithFormatRealtimeSafeRenderBlock]
+//   - [IAVAudioSourceNode.InitWithRealtimeSafeRenderBlock]
 //   - [IAVAudioSourceNode.DebugDescription]
 //   - [IAVAudioSourceNode.Description]
 //   - [IAVAudioSourceNode.Hash]
@@ -76,6 +80,8 @@ type IAVAudioSourceNode interface {
 
 	// Topic: Methods
 
+	InitWithFormatRealtimeSafeRenderBlock(format objectivec.IObject, block VoidHandler) AVAudioSourceNode
+	InitWithRealtimeSafeRenderBlock(block VoidHandler) AVAudioSourceNode
 	DebugDescription() string
 	Description() string
 	Hash() uint64
@@ -101,12 +107,32 @@ func NewAVAudioSourceNode() AVAudioSourceNode {
 	return rv
 }
 
-func NewAudioSourceNodeWithImpl(impl unsafe.Pointer) AVAudioSourceNode {
+func NewAVAudioSourceNodeWithImpl(impl unsafe.Pointer) AVAudioSourceNode {
 	instance := getAVAudioSourceNodeClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithImpl:"), impl)
 	return AVAudioSourceNodeFromID(rv)
 }
 
+var _avaudiosourcenode_initwithformat_realtimesaferenderblock_p1_key byte
+
+func (a AVAudioSourceNode) InitWithFormatRealtimeSafeRenderBlock(format objectivec.IObject, block VoidHandler) AVAudioSourceNode {
+	_block1, _ := NewVoidBlock(block)
+	rv := objc.SendIfResponds[AVAudioSourceNode](a.ID, objc.Sel("initWithFormat:realtimeSafeRenderBlock:"), format, _block1)
+	return rv
+}
+
+var _avaudiosourcenode_initwithrealtimesaferenderblock_p0_key byte
+
+func (a AVAudioSourceNode) InitWithRealtimeSafeRenderBlock(block VoidHandler) AVAudioSourceNode {
+	_block0, _ := NewVoidBlock(block)
+	rv := objc.SendIfResponds[AVAudioSourceNode](a.ID, objc.Sel("initWithRealtimeSafeRenderBlock:"), _block0)
+	return rv
+}
+
+func (_AVAudioSourceNodeClass AVAudioSourceNodeClass) PullInputBlockFromRealtimeSafeRenderBlock(block VoidHandler) {
+	_block0, _ := NewVoidBlock(block)
+	objc.SendIfResponds[objc.ID](objc.ID(_AVAudioSourceNodeClass.class), objc.Sel("pullInputBlockFromRealtimeSafeRenderBlock:"), _block0)
+}
 func (_AVAudioSourceNodeClass AVAudioSourceNodeClass) PullInputBlockFromRenderBlock(block VoidHandler) {
 	_block0, _ := NewVoidBlock(block)
 	objc.SendIfResponds[objc.ID](objc.ID(_AVAudioSourceNodeClass.class), objc.Sel("pullInputBlockFromRenderBlock:"), _block0)
@@ -127,6 +153,51 @@ func (a AVAudioSourceNode) Hash() uint64 {
 func (a AVAudioSourceNode) Superclass() objectivec.Class {
 	rv := objc.SendIfResponds[objectivec.Class](a.ID, objc.Sel("superclass"))
 	return objectivec.Class(rv)
+}
+
+// InitWithFormatRealtimeSafeRenderBlockSync is a synchronous wrapper around [AVAudioSourceNode.InitWithFormatRealtimeSafeRenderBlock].
+// It blocks until the completion handler fires or the context is cancelled.
+func (a AVAudioSourceNode) InitWithFormatRealtimeSafeRenderBlockSync(ctx context.Context, format objectivec.IObject) error {
+	done := make(chan struct{}, 1)
+	a.InitWithFormatRealtimeSafeRenderBlock(format, func() {
+		done <- struct{}{}
+	})
+	select {
+	case <-done:
+		return nil
+	case <-ctx.Done():
+		return ctx.Err()
+	}
+}
+
+// InitWithRealtimeSafeRenderBlockSync is a synchronous wrapper around [AVAudioSourceNode.InitWithRealtimeSafeRenderBlock].
+// It blocks until the completion handler fires or the context is cancelled.
+func (a AVAudioSourceNode) InitWithRealtimeSafeRenderBlockSync(ctx context.Context) error {
+	done := make(chan struct{}, 1)
+	a.InitWithRealtimeSafeRenderBlock(func() {
+		done <- struct{}{}
+	})
+	select {
+	case <-done:
+		return nil
+	case <-ctx.Done():
+		return ctx.Err()
+	}
+}
+
+// PullInputBlockFromRealtimeSafeRenderBlockSync is a synchronous wrapper around [AVAudioSourceNode.PullInputBlockFromRealtimeSafeRenderBlock].
+// It blocks until the completion handler fires or the context is cancelled.
+func (ac AVAudioSourceNodeClass) PullInputBlockFromRealtimeSafeRenderBlockSync(ctx context.Context) error {
+	done := make(chan struct{}, 1)
+	ac.PullInputBlockFromRealtimeSafeRenderBlock(func() {
+		done <- struct{}{}
+	})
+	select {
+	case <-done:
+		return nil
+	case <-ctx.Done():
+		return ctx.Err()
+	}
 }
 
 // PullInputBlockFromRenderBlockSync is a synchronous wrapper around [AVAudioSourceNode.PullInputBlockFromRenderBlock].

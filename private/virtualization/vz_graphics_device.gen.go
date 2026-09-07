@@ -1,4 +1,4 @@
-// Code generated from Apple documentation for Virtualization. DO NOT EDIT.
+// Code generated from Apple documentation for virtualization. DO NOT EDIT.
 
 package virtualization
 
@@ -52,6 +52,7 @@ func (vc VZGraphicsDeviceClass) Alloc() VZGraphicsDevice {
 //   - [VZGraphicsDevice._detachDisplayCompletionHandler]
 //   - [VZGraphicsDevice._displayPortCount]
 //   - [VZGraphicsDevice._initWithVirtualMachineGraphicsDeviceIndexDisplayPortCountDisplays]
+//   - [VZGraphicsDevice._initWithVirtualMachineAccessorGraphicsDeviceIndexDisplayPortCountDisplays]
 //   - [VZGraphicsDevice._validateDisplayForHotPlugError]
 type VZGraphicsDevice struct {
 	objectivec.Object
@@ -73,6 +74,7 @@ var _ IVZGraphicsDevice = VZGraphicsDevice{}
 //   - [IVZGraphicsDevice._detachDisplayCompletionHandler]
 //   - [IVZGraphicsDevice._displayPortCount]
 //   - [IVZGraphicsDevice._initWithVirtualMachineGraphicsDeviceIndexDisplayPortCountDisplays]
+//   - [IVZGraphicsDevice._initWithVirtualMachineAccessorGraphicsDeviceIndexDisplayPortCountDisplays]
 //   - [IVZGraphicsDevice._validateDisplayForHotPlugError]
 type IVZGraphicsDevice interface {
 	objectivec.IObject
@@ -83,6 +85,7 @@ type IVZGraphicsDevice interface {
 	_detachDisplayCompletionHandler(display objectivec.IObject, handler ErrorHandler)
 	_displayPortCount() uint64
 	_initWithVirtualMachineGraphicsDeviceIndexDisplayPortCountDisplays(machine objectivec.IObject, index uint64, count uint64, displays objectivec.IObject) objectivec.IObject
+	_initWithVirtualMachineAccessorGraphicsDeviceIndexDisplayPortCountDisplays(accessor objectivec.IObject, index uint64, count uint64, displays objectivec.IObject) objectivec.IObject
 	_validateDisplayForHotPlugError(plug objectivec.IObject) (bool, error)
 }
 
@@ -160,6 +163,24 @@ func (v VZGraphicsDevice) InitWithVirtualMachineGraphicsDeviceIndexDisplayPortCo
 // CanInitWithVirtualMachineGraphicsDeviceIndexDisplayPortCountDisplays reports whether the receiver responds to the private selector _initWithVirtualMachine:graphicsDeviceIndex:displayPortCount:displays:.
 func (v VZGraphicsDevice) CanInitWithVirtualMachineGraphicsDeviceIndexDisplayPortCountDisplays() bool {
 	return objc.RespondsToSelector(v.ID, objc.Sel("_initWithVirtualMachine:graphicsDeviceIndex:displayPortCount:displays:"))
+}
+func (v VZGraphicsDevice) _initWithVirtualMachineAccessorGraphicsDeviceIndexDisplayPortCountDisplays(accessor objectivec.IObject, index uint64, count uint64, displays objectivec.IObject) objectivec.IObject {
+	rv := objc.SendIfResponds[objc.ID](v.ID, objc.Sel("_initWithVirtualMachineAccessor:graphicsDeviceIndex:displayPortCount:displays:"), accessor, index, count, displays)
+	return objectivec.Object{ID: rv}
+}
+
+// InitWithVirtualMachineAccessorGraphicsDeviceIndexDisplayPortCountDisplays is an exported wrapper for the private method _initWithVirtualMachineAccessorGraphicsDeviceIndexDisplayPortCountDisplays.
+func (v VZGraphicsDevice) InitWithVirtualMachineAccessorGraphicsDeviceIndexDisplayPortCountDisplays(accessor objectivec.IObject, index uint64, count uint64, displays objectivec.IObject) (objectivec.IObject, error) {
+	if !objc.RespondsToSelector(v.ID, objc.Sel("_initWithVirtualMachineAccessor:graphicsDeviceIndex:displayPortCount:displays:")) {
+		err := &objc.UnrecognizedSelectorError{Selector: "_initWithVirtualMachineAccessor:graphicsDeviceIndex:displayPortCount:displays:"}
+		return nil, err
+	}
+	return v._initWithVirtualMachineAccessorGraphicsDeviceIndexDisplayPortCountDisplays(accessor, index, count, displays), nil
+}
+
+// CanInitWithVirtualMachineAccessorGraphicsDeviceIndexDisplayPortCountDisplays reports whether the receiver responds to the private selector _initWithVirtualMachineAccessor:graphicsDeviceIndex:displayPortCount:displays:.
+func (v VZGraphicsDevice) CanInitWithVirtualMachineAccessorGraphicsDeviceIndexDisplayPortCountDisplays() bool {
+	return objc.RespondsToSelector(v.ID, objc.Sel("_initWithVirtualMachineAccessor:graphicsDeviceIndex:displayPortCount:displays:"))
 }
 func (v VZGraphicsDevice) _validateDisplayForHotPlugError(plug objectivec.IObject) (bool, error) {
 	var errorPtr objc.ID

@@ -1,4 +1,4 @@
-// Code generated from Apple documentation for CoreML. DO NOT EDIT.
+// Code generated from Apple documentation for coreml. DO NOT EDIT.
 
 package coreml
 
@@ -143,7 +143,7 @@ func NewMLE5OutputPort() MLE5OutputPort {
 	return rv
 }
 
-func NewE5OutputPortWithPortHandleNameFeatureDescription(handle E5rtIOPortRef, name objectivec.IObject, description objectivec.IObject) MLE5OutputPort {
+func NewMLE5OutputPortWithPortHandleNameFeatureDescription(handle E5rtIOPortRef, name objectivec.IObject, description objectivec.IObject) MLE5OutputPort {
 	instance := getMLE5OutputPortClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithPortHandle:name:featureDescription:"), handle, name, description)
 	return MLE5OutputPortFromID(rv)

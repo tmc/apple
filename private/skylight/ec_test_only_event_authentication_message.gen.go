@@ -107,7 +107,7 @@ type IECTestOnlyEventAuthenticationMessage interface {
 	Context() uint64
 	EncodeWithCoder(coder foundation.INSCoder)
 	EventType() unsafe.Pointer
-	MatchesEvent(event coregraphics.CGEvent) bool
+	MatchesEvent(event coregraphics.CGEventRef) bool
 	OriginIdentifier() uint64
 	ProxyTargetProcess() unsafe.Pointer
 	TargetProcess() unsafe.Pointer
@@ -156,7 +156,7 @@ func NewECTestOnlyEventAuthenticationMessageWithValidity(validity bool) ECTestOn
 func (e ECTestOnlyEventAuthenticationMessage) EncodeWithCoder(coder foundation.INSCoder) {
 	objc.SendIfResponds[objc.ID](e.ID, objc.Sel("encodeWithCoder:"), coder)
 }
-func (e ECTestOnlyEventAuthenticationMessage) MatchesEvent(event coregraphics.CGEvent) bool {
+func (e ECTestOnlyEventAuthenticationMessage) MatchesEvent(event coregraphics.CGEventRef) bool {
 	rv := objc.SendIfResponds[bool](e.ID, objc.Sel("matchesEvent:"), event)
 	return rv
 }

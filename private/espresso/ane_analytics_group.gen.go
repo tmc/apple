@@ -123,8 +123,8 @@ func (_ANEAnalyticsGroupClass ANEAnalyticsGroupClass) ObjectWithIDLayersTasks(id
 }
 
 func (a ANEAnalyticsGroup) GroupID() foundation.NSNumber {
-	rv := objc.SendIfResponds[objc.ID](a.ID, objc.Sel("groupID"))
-	return foundation.NSNumberFromID(objc.ID(rv))
+	rv := objc.SendIfResponds[foundation.NSNumber](a.ID, objc.Sel("groupID"))
+	return foundation.NSNumber(rv)
 }
 func (a ANEAnalyticsGroup) LayerInfo() foundation.INSArray {
 	rv := objc.SendIfResponds[objc.ID](a.ID, objc.Sel("layerInfo"))

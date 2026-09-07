@@ -1,4 +1,4 @@
-// Code generated from Apple documentation for CoreML. DO NOT EDIT.
+// Code generated from Apple documentation for coreml. DO NOT EDIT.
 
 package coreml
 
@@ -93,13 +93,13 @@ func NewMLCompilerNeuralNetworkOutput() MLCompilerNeuralNetworkOutput {
 	return rv
 }
 
-func NewCompilerNeuralNetworkOutputWithEspressoNetwork(network unsafe.Pointer) MLCompilerNeuralNetworkOutput {
+func NewMLCompilerNeuralNetworkOutputWithEspressoNetwork(network unsafe.Pointer) MLCompilerNeuralNetworkOutput {
 	instance := getMLCompilerNeuralNetworkOutputClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithEspressoNetwork:"), network)
 	return MLCompilerNeuralNetworkOutputFromID(rv)
 }
 
-func NewCompilerNeuralNetworkOutputWithMILProgram(mILProgram unsafe.Pointer) MLCompilerNeuralNetworkOutput {
+func NewMLCompilerNeuralNetworkOutputWithMILProgram(mILProgram unsafe.Pointer) MLCompilerNeuralNetworkOutput {
 	instance := getMLCompilerNeuralNetworkOutputClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithMILProgram:"), mILProgram)
 	return MLCompilerNeuralNetworkOutputFromID(rv)

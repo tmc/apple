@@ -1,4 +1,4 @@
-// Code generated from Apple documentation for CoreML. DO NOT EDIT.
+// Code generated from Apple documentation for coreml. DO NOT EDIT.
 
 package coreml
 
@@ -98,7 +98,7 @@ func NewMLAppleWordTagger() MLAppleWordTagger {
 	return rv
 }
 
-func NewAppleWordTaggerDescriptionOnlyWithSpecificationConfigurationError(specification unsafe.Pointer, configuration objectivec.IObject) (MLAppleWordTagger, error) {
+func NewMLAppleWordTaggerDescriptionOnlyWithSpecificationConfigurationError(specification unsafe.Pointer, configuration objectivec.IObject) (MLAppleWordTagger, error) {
 	var errorPtr objc.ID
 	instance := getMLAppleWordTaggerClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initDescriptionOnlyWithSpecification:configuration:error:"), specification, configuration, unsafe.Pointer(&errorPtr))
@@ -112,7 +112,7 @@ func NewAppleWordTaggerDescriptionOnlyWithSpecificationConfigurationError(specif
 	return MLAppleWordTaggerFromID(rv), nil
 }
 
-func NewAppleWordTaggerInterfaceAndMetadataWithCompiledArchiveError(archive unsafe.Pointer) (MLAppleWordTagger, error) {
+func NewMLAppleWordTaggerInterfaceAndMetadataWithCompiledArchiveError(archive unsafe.Pointer) (MLAppleWordTagger, error) {
 	var errorPtr objc.ID
 	instance := getMLAppleWordTaggerClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initInterfaceAndMetadataWithCompiledArchive:error:"), archive, unsafe.Pointer(&errorPtr))
@@ -126,31 +126,31 @@ func NewAppleWordTaggerInterfaceAndMetadataWithCompiledArchiveError(archive unsa
 	return MLAppleWordTaggerFromID(rv), nil
 }
 
-func NewAppleWordTaggerWithConfiguration(configuration objectivec.IObject) MLAppleWordTagger {
+func NewMLAppleWordTaggerWithConfiguration(configuration objectivec.IObject) MLAppleWordTagger {
 	instance := getMLAppleWordTaggerClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithConfiguration:"), configuration)
 	return MLAppleWordTaggerFromID(rv)
 }
 
-func NewAppleWordTaggerWithDescription(description objectivec.IObject) MLAppleWordTagger {
+func NewMLAppleWordTaggerWithDescription(description objectivec.IObject) MLAppleWordTagger {
 	instance := getMLAppleWordTaggerClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithDescription:"), description)
 	return MLAppleWordTaggerFromID(rv)
 }
 
-func NewAppleWordTaggerWithDescriptionConfiguration(description objectivec.IObject, configuration objectivec.IObject) MLAppleWordTagger {
+func NewMLAppleWordTaggerWithDescriptionConfiguration(description objectivec.IObject, configuration objectivec.IObject) MLAppleWordTagger {
 	instance := getMLAppleWordTaggerClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithDescription:configuration:"), description, configuration)
 	return MLAppleWordTaggerFromID(rv)
 }
 
-func NewAppleWordTaggerWithNameInputDescriptionOutputDescriptionOrderedInputFeatureNamesOrderedOutputFeatureNamesConfiguration(name objectivec.IObject, description objectivec.IObject, description2 objectivec.IObject, names objectivec.IObject, names2 objectivec.IObject, configuration objectivec.IObject) MLAppleWordTagger {
+func NewMLAppleWordTaggerWithNameInputDescriptionOutputDescriptionOrderedInputFeatureNamesOrderedOutputFeatureNamesConfiguration(name objectivec.IObject, description objectivec.IObject, description2 objectivec.IObject, names objectivec.IObject, names2 objectivec.IObject, configuration objectivec.IObject) MLAppleWordTagger {
 	instance := getMLAppleWordTaggerClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithName:inputDescription:outputDescription:orderedInputFeatureNames:orderedOutputFeatureNames:configuration:"), name, description, description2, names, names2, configuration)
 	return MLAppleWordTaggerFromID(rv)
 }
 
-func NewAppleWordTaggerWithParametersModelDescriptionNlpHandleConfigurationError(parameters objectivec.IObject, description objectivec.IObject, handle objectivec.IObject, configuration objectivec.IObject) (MLAppleWordTagger, error) {
+func NewMLAppleWordTaggerWithParametersModelDescriptionNlpHandleConfigurationError(parameters objectivec.IObject, description objectivec.IObject, handle objectivec.IObject, configuration objectivec.IObject) (MLAppleWordTagger, error) {
 	var errorPtr objc.ID
 	instance := getMLAppleWordTaggerClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithParameters:modelDescription:nlpHandle:configuration:error:"), parameters, description, handle, configuration, unsafe.Pointer(&errorPtr))

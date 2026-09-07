@@ -9,10 +9,26 @@ import (
 
 // BoolErrorHandler handles completion with a boolean result and optional error
 // The error can be type-asserted to *foundation.NSError for Domain, Code, and UserInfo.
+//
+// Used by:
+//   - [ANECompilerServiceProtocol.MoveCachedModelFromSourceToDestinationWithReply]
+//   - [ANECompilerServiceProtocol.UpdateSourcePathAtToWithContainerAtWithContainerWithReply]
+//   - [ANEDaemonProtocol.CompiledModelExistsInCacheForLimitToCurrentProcessWithReply]
+//   - [ANEDaemonProtocol.UpdateCachedModelLocationForModelTrackedByHashToAppGroupWithReply]
+//   - [ANEDaemonProtocol.UpdatePurgeabilityLevelForModelTrackedByHashToWithReply]
+//   - [ANEDaemonProtocol.UpdateSourcePathForModelTrackedByHashToWithReply]
 type BoolErrorHandler = func(bool, error)
 
 // NewBoolErrorBlock wraps a Go [BoolErrorHandler] as an Objective-C block.
 // The caller must defer the returned cleanup function.
+//
+// Used by:
+//   - [ANECompilerServiceProtocol.MoveCachedModelFromSourceToDestinationWithReply]
+//   - [ANECompilerServiceProtocol.UpdateSourcePathAtToWithContainerAtWithContainerWithReply]
+//   - [ANEDaemonProtocol.CompiledModelExistsInCacheForLimitToCurrentProcessWithReply]
+//   - [ANEDaemonProtocol.UpdateCachedModelLocationForModelTrackedByHashToAppGroupWithReply]
+//   - [ANEDaemonProtocol.UpdatePurgeabilityLevelForModelTrackedByHashToWithReply]
+//   - [ANEDaemonProtocol.UpdateSourcePathForModelTrackedByHashToWithReply]
 func NewBoolErrorBlock(handler BoolErrorHandler) (objc.ID, func()) {
 	if handler == nil {
 		return 0, func() {}
@@ -26,7 +42,6 @@ func NewBoolErrorBlock(handler BoolErrorHandler) (objc.ID, func()) {
 // BoolHandler handles completion with a primitive value.
 //
 // Used by:
-//   - [ANECompilerServiceProtocol.CompileModelAtCsIdentitySandboxExtensionOptionsTempDirectoryCloneDirectoryOutputURLAotModelBinaryPathMaxModelMemorySizeWithReply]
 //   - [ANERequest.SetCompletionHandler]
 type BoolHandler = func(bool)
 
@@ -34,7 +49,6 @@ type BoolHandler = func(bool)
 // The caller must defer the returned cleanup function.
 //
 // Used by:
-//   - [ANECompilerServiceProtocol.CompileModelAtCsIdentitySandboxExtensionOptionsTempDirectoryCloneDirectoryOutputURLAotModelBinaryPathMaxModelMemorySizeWithReply]
 //   - [ANERequest.SetCompletionHandler]
 func NewBoolBlock(handler BoolHandler) (objc.ID, func()) {
 	if handler == nil {
@@ -46,6 +60,32 @@ func NewBoolBlock(handler BoolHandler) (objc.ID, func()) {
 	return objc.ID(block), func() { block.Release() }
 }
 
+// BoolINSDictionaryErrorHandler handles completion with primitive and object results.
+//
+// Used by:
+//   - [ANECompilerServiceProtocol.CompileModelAtCsIdentitySandboxExtensionOptionsTempDirectoryCloneDirectoryOutputURLAotModelBinaryPathMaxModelMemorySizeWithReply]
+type BoolINSDictionaryErrorHandler = func(bool, foundation.INSDictionary, error)
+
+// NewBoolINSDictionaryErrorBlock wraps a Go [BoolINSDictionaryErrorHandler] as an Objective-C block.
+// The caller must defer the returned cleanup function.
+//
+// Used by:
+//   - [ANECompilerServiceProtocol.CompileModelAtCsIdentitySandboxExtensionOptionsTempDirectoryCloneDirectoryOutputURLAotModelBinaryPathMaxModelMemorySizeWithReply]
+func NewBoolINSDictionaryErrorBlock(handler BoolINSDictionaryErrorHandler) (objc.ID, func()) {
+	if handler == nil {
+		return 0, func() {}
+	}
+	block := objc.NewBlock(func(b objc.Block, primitive bool, extra0ID objc.ID, errID objc.ID) {
+		var extra0 foundation.INSDictionary
+		if extra0ID != 0 {
+			objc.Send[objc.ID](extra0ID, objc.Sel("retain"))
+			extra0 = foundation.NSDictionaryFromID(extra0ID)
+		}
+		handler(primitive, extra0, foundation.SafeErrorFrom(errID))
+	})
+	return objc.ID(block), func() { block.Release() }
+}
+
 // VoidHandler is the signature for a completion handler block.
 //
 // Used by:
@@ -53,6 +93,7 @@ func NewBoolBlock(handler BoolHandler) (objc.ID, func()) {
 //   - [ANEDaemonConnection.BeginRealTimeTaskWithReply]
 //   - [ANEDaemonConnection.CompileModelSandboxExtensionOptionsQosWithReply]
 //   - [ANEDaemonConnection.CompiledModelExistsForWithReply]
+//   - [ANEDaemonConnection.CompiledModelExistsInCacheForLimitToCurrentProcessWithReply]
 //   - [ANEDaemonConnection.CompiledModelExistsMatchingHashWithReply]
 //   - [ANEDaemonConnection.EchoWithReply]
 //   - [ANEDaemonConnection.EndRealTimeTaskWithReply]
@@ -62,6 +103,9 @@ func NewBoolBlock(handler BoolHandler) (objc.ID, func()) {
 //   - [ANEDaemonConnection.PurgeCompiledModelMatchingHashWithReply]
 //   - [ANEDaemonConnection.PurgeCompiledModelWithReply]
 //   - [ANEDaemonConnection.UnloadModelOptionsQosWithReply]
+//   - [ANEDaemonConnection.UpdateCachedModelLocationForModelTrackedByHashToAppGroupWithReply]
+//   - [ANEDaemonConnection.UpdatePurgeabilityLevelForModelTrackedByHashToWithReply]
+//   - [ANEDaemonConnection.UpdateSourcePathForModelTrackedByHashToWithReply]
 //   - [ANEDaemonProtocol.CompileModelSandboxExtensionOptionsQosWithReply]
 //   - [ANEDaemonProtocol.CompiledModelExistsForWithReply]
 //   - [ANEDaemonProtocol.CompiledModelExistsMatchingHashWithReply]
@@ -71,6 +115,7 @@ func NewBoolBlock(handler BoolHandler) (objc.ID, func()) {
 //   - [ANEDaemonProtocol.PurgeCompiledModelMatchingHashWithReply]
 //   - [ANEDaemonProtocol.PurgeCompiledModelWithReply]
 //   - [ANEDaemonProtocol.UnloadModelOptionsQosWithReply]
+//   - [ANEHashEncoding._hexStringByFeeding]
 //   - [ANEStorageMaintainerProtocol.PurgeDanglingModelsAtWithReply]
 type VoidHandler = func()
 
@@ -82,6 +127,7 @@ type VoidHandler = func()
 //   - [ANEDaemonConnection.BeginRealTimeTaskWithReply]
 //   - [ANEDaemonConnection.CompileModelSandboxExtensionOptionsQosWithReply]
 //   - [ANEDaemonConnection.CompiledModelExistsForWithReply]
+//   - [ANEDaemonConnection.CompiledModelExistsInCacheForLimitToCurrentProcessWithReply]
 //   - [ANEDaemonConnection.CompiledModelExistsMatchingHashWithReply]
 //   - [ANEDaemonConnection.EchoWithReply]
 //   - [ANEDaemonConnection.EndRealTimeTaskWithReply]
@@ -91,6 +137,9 @@ type VoidHandler = func()
 //   - [ANEDaemonConnection.PurgeCompiledModelMatchingHashWithReply]
 //   - [ANEDaemonConnection.PurgeCompiledModelWithReply]
 //   - [ANEDaemonConnection.UnloadModelOptionsQosWithReply]
+//   - [ANEDaemonConnection.UpdateCachedModelLocationForModelTrackedByHashToAppGroupWithReply]
+//   - [ANEDaemonConnection.UpdatePurgeabilityLevelForModelTrackedByHashToWithReply]
+//   - [ANEDaemonConnection.UpdateSourcePathForModelTrackedByHashToWithReply]
 //   - [ANEDaemonProtocol.CompileModelSandboxExtensionOptionsQosWithReply]
 //   - [ANEDaemonProtocol.CompiledModelExistsForWithReply]
 //   - [ANEDaemonProtocol.CompiledModelExistsMatchingHashWithReply]
@@ -100,6 +149,7 @@ type VoidHandler = func()
 //   - [ANEDaemonProtocol.PurgeCompiledModelMatchingHashWithReply]
 //   - [ANEDaemonProtocol.PurgeCompiledModelWithReply]
 //   - [ANEDaemonProtocol.UnloadModelOptionsQosWithReply]
+//   - [ANEHashEncoding._hexStringByFeeding]
 //   - [ANEStorageMaintainerProtocol.PurgeDanglingModelsAtWithReply]
 func NewVoidBlock(handler VoidHandler) (objc.ID, func()) {
 	if handler == nil {

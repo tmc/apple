@@ -1,4 +1,4 @@
-// Code generated from Apple documentation for CoreML. DO NOT EDIT.
+// Code generated from Apple documentation for coreml. DO NOT EDIT.
 
 package coreml
 
@@ -110,7 +110,7 @@ func NewMLDelegateUpdatableModel() MLDelegateUpdatableModel {
 	return rv
 }
 
-func NewDelegateUpdatableModelDescriptionOnlyWithSpecificationConfigurationError(specification unsafe.Pointer, configuration objectivec.IObject) (MLDelegateUpdatableModel, error) {
+func NewMLDelegateUpdatableModelDescriptionOnlyWithSpecificationConfigurationError(specification unsafe.Pointer, configuration objectivec.IObject) (MLDelegateUpdatableModel, error) {
 	var errorPtr objc.ID
 	instance := getMLDelegateUpdatableModelClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initDescriptionOnlyWithSpecification:configuration:error:"), specification, configuration, unsafe.Pointer(&errorPtr))
@@ -124,7 +124,7 @@ func NewDelegateUpdatableModelDescriptionOnlyWithSpecificationConfigurationError
 	return MLDelegateUpdatableModelFromID(rv), nil
 }
 
-func NewDelegateUpdatableModelInterfaceAndMetadataWithCompiledArchiveError(archive unsafe.Pointer) (MLDelegateUpdatableModel, error) {
+func NewMLDelegateUpdatableModelInterfaceAndMetadataWithCompiledArchiveError(archive unsafe.Pointer) (MLDelegateUpdatableModel, error) {
 	var errorPtr objc.ID
 	instance := getMLDelegateUpdatableModelClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initInterfaceAndMetadataWithCompiledArchive:error:"), archive, unsafe.Pointer(&errorPtr))
@@ -138,25 +138,25 @@ func NewDelegateUpdatableModelInterfaceAndMetadataWithCompiledArchiveError(archi
 	return MLDelegateUpdatableModelFromID(rv), nil
 }
 
-func NewDelegateUpdatableModelWithConfiguration(configuration objectivec.IObject) MLDelegateUpdatableModel {
+func NewMLDelegateUpdatableModelWithConfiguration(configuration objectivec.IObject) MLDelegateUpdatableModel {
 	instance := getMLDelegateUpdatableModelClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithConfiguration:"), configuration)
 	return MLDelegateUpdatableModelFromID(rv)
 }
 
-func NewDelegateUpdatableModelWithDescription(description objectivec.IObject) MLDelegateUpdatableModel {
+func NewMLDelegateUpdatableModelWithDescription(description objectivec.IObject) MLDelegateUpdatableModel {
 	instance := getMLDelegateUpdatableModelClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithDescription:"), description)
 	return MLDelegateUpdatableModelFromID(rv)
 }
 
-func NewDelegateUpdatableModelWithDescriptionConfiguration(description objectivec.IObject, configuration objectivec.IObject) MLDelegateUpdatableModel {
+func NewMLDelegateUpdatableModelWithDescriptionConfiguration(description objectivec.IObject, configuration objectivec.IObject) MLDelegateUpdatableModel {
 	instance := getMLDelegateUpdatableModelClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithDescription:configuration:"), description, configuration)
 	return MLDelegateUpdatableModelFromID(rv)
 }
 
-func NewDelegateUpdatableModelWithEngineError(engine objectivec.IObject) (MLDelegateUpdatableModel, error) {
+func NewMLDelegateUpdatableModelWithEngineError(engine objectivec.IObject) (MLDelegateUpdatableModel, error) {
 	var errorPtr objc.ID
 	instance := getMLDelegateUpdatableModelClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithEngine:error:"), engine, unsafe.Pointer(&errorPtr))
@@ -170,7 +170,7 @@ func NewDelegateUpdatableModelWithEngineError(engine objectivec.IObject) (MLDele
 	return MLDelegateUpdatableModelFromID(rv), nil
 }
 
-func NewDelegateUpdatableModelWithNameInputDescriptionOutputDescriptionOrderedInputFeatureNamesOrderedOutputFeatureNamesConfiguration(name objectivec.IObject, description objectivec.IObject, description2 objectivec.IObject, names objectivec.IObject, names2 objectivec.IObject, configuration objectivec.IObject) MLDelegateUpdatableModel {
+func NewMLDelegateUpdatableModelWithNameInputDescriptionOutputDescriptionOrderedInputFeatureNamesOrderedOutputFeatureNamesConfiguration(name objectivec.IObject, description objectivec.IObject, description2 objectivec.IObject, names objectivec.IObject, names2 objectivec.IObject, configuration objectivec.IObject) MLDelegateUpdatableModel {
 	instance := getMLDelegateUpdatableModelClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithName:inputDescription:outputDescription:orderedInputFeatureNames:orderedOutputFeatureNames:configuration:"), name, description, description2, names, names2, configuration)
 	return MLDelegateUpdatableModelFromID(rv)

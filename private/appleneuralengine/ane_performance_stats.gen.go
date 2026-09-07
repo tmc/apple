@@ -90,7 +90,7 @@ type IANEPerformanceStats interface {
 	PStatsRawData() foundation.NSData
 	PerfCounterData() foundation.NSData
 	PerformanceCounters() objectivec.IObject
-	StringForPerfCounter(counter int) objectivec.IObject
+	StringForPerfCounter(counter int32) objectivec.IObject
 	InitWithHardwareExecutionPerfCounterDataANEStatsRawData(execution uint64, data objectivec.IObject, data2 objectivec.IObject) ANEPerformanceStats
 	InitWithReconstructedDataHardwareExecutionNS(data objectivec.IObject, ns uint64) ANEPerformanceStats
 	InitWithRequestPerformanceBufferStatsBufferSize(buffer unsafe.Pointer, size *uint32) ANEPerformanceStats
@@ -129,7 +129,7 @@ func NewANEPerformanceStatsWithReconstructedDataHardwareExecutionNS(data objecti
 
 func NewANEPerformanceStatsWithRequestPerformanceBufferStatsBufferSize(buffer unsafe.Pointer, size *uint32) ANEPerformanceStats {
 	instance := getANEPerformanceStatsClass().Alloc()
-	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithRequestPerformanceBuffer:statsBufferSize:"), buffer, unsafe.Pointer(size))
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithRequestPerformanceBuffer:statsBufferSize:"), buffer, size)
 	return ANEPerformanceStatsFromID(rv)
 }
 
@@ -140,7 +140,7 @@ func (a ANEPerformanceStats) PerformanceCounters() objectivec.IObject {
 	rv := objc.SendIfResponds[objc.ID](a.ID, objc.Sel("performanceCounters"))
 	return objectivec.Object{ID: rv}
 }
-func (a ANEPerformanceStats) StringForPerfCounter(counter int) objectivec.IObject {
+func (a ANEPerformanceStats) StringForPerfCounter(counter int32) objectivec.IObject {
 	rv := objc.SendIfResponds[objc.ID](a.ID, objc.Sel("stringForPerfCounter:"), counter)
 	return objectivec.Object{ID: rv}
 }
@@ -153,7 +153,7 @@ func (a ANEPerformanceStats) InitWithReconstructedDataHardwareExecutionNS(data o
 	return rv
 }
 func (a ANEPerformanceStats) InitWithRequestPerformanceBufferStatsBufferSize(buffer unsafe.Pointer, size *uint32) ANEPerformanceStats {
-	rv := objc.SendIfResponds[ANEPerformanceStats](a.ID, objc.Sel("initWithRequestPerformanceBuffer:statsBufferSize:"), buffer, unsafe.Pointer(size))
+	rv := objc.SendIfResponds[ANEPerformanceStats](a.ID, objc.Sel("initWithRequestPerformanceBuffer:statsBufferSize:"), buffer, size)
 	return rv
 }
 
@@ -170,7 +170,26 @@ func (_ANEPerformanceStatsClass ANEPerformanceStatsClass) StatsWithReconstructed
 	return objectivec.Object{ID: rv}
 }
 func (_ANEPerformanceStatsClass ANEPerformanceStatsClass) StatsWithRequestPerformanceBufferStatsBufferSize(buffer unsafe.Pointer, size *uint32) objectivec.IObject {
-	rv := objc.SendIfResponds[objc.ID](objc.ID(_ANEPerformanceStatsClass.class), objc.Sel("statsWithRequestPerformanceBuffer:statsBufferSize:"), buffer, unsafe.Pointer(size))
+	rv := objc.SendIfResponds[objc.ID](objc.ID(_ANEPerformanceStatsClass.class), objc.Sel("statsWithRequestPerformanceBuffer:statsBufferSize:"), buffer, size)
+	return objectivec.Object{ID: rv}
+}
+func (_ANEPerformanceStatsClass ANEPerformanceStatsClass) DecodeDescriptorPerTdPerfCounters(descriptor *ANEHwDebugEventDescriptorStruct, counters *ANEStatsPerTdPerfCountersStruct) objectivec.IObject {
+	rv := objc.SendIfResponds[objc.ID](objc.ID(_ANEPerformanceStatsClass.class), objc.Sel("decodeDescriptor:perTdPerfCounters:"), unsafe.Pointer(descriptor), unsafe.Pointer(counters))
+	return objectivec.Object{ID: rv}
+}
+func (_ANEPerformanceStatsClass ANEPerformanceStatsClass) DecodePerformanceStatsWithOptions(stats objectivec.IObject, options objectivec.IObject) objectivec.IObject {
+	rv := objc.SendIfResponds[objc.ID](objc.ID(_ANEPerformanceStatsClass.class), objc.Sel("decodePerformanceStats:withOptions:"), stats, options)
+	return objectivec.Object{ID: rv}
+}
+func (_ANEPerformanceStatsClass ANEPerformanceStatsClass) DecodeRawStatsData(data objectivec.IObject) objectivec.IObject {
+	rv := objc.SendIfResponds[objc.ID](objc.ID(_ANEPerformanceStatsClass.class), objc.Sel("decodeRawStatsData:"), data)
+	return objectivec.Object{ID: rv}
+}
+func (_ANEPerformanceStatsClass ANEPerformanceStatsClass) DumpPerformanceStatsRawData(data objectivec.IObject) {
+	objc.SendIfResponds[objc.ID](objc.ID(_ANEPerformanceStatsClass.class), objc.Sel("dumpPerformanceStatsRawData:"), data)
+}
+func (_ANEPerformanceStatsClass ANEPerformanceStatsClass) StringForEventType(type_ uint16) objectivec.IObject {
+	rv := objc.SendIfResponds[objc.ID](objc.ID(_ANEPerformanceStatsClass.class), objc.Sel("stringForEventType:"), type_)
 	return objectivec.Object{ID: rv}
 }
 
@@ -179,10 +198,10 @@ func (a ANEPerformanceStats) HwExecutionTime() uint64 {
 	return rv
 }
 func (a ANEPerformanceStats) PStatsRawData() foundation.NSData {
-	rv := objc.SendIfResponds[objc.ID](a.ID, objc.Sel("pStatsRawData"))
-	return foundation.NSDataFromID(objc.ID(rv))
+	rv := objc.SendIfResponds[foundation.NSData](a.ID, objc.Sel("pStatsRawData"))
+	return foundation.NSData(rv)
 }
 func (a ANEPerformanceStats) PerfCounterData() foundation.NSData {
-	rv := objc.SendIfResponds[objc.ID](a.ID, objc.Sel("perfCounterData"))
-	return foundation.NSDataFromID(objc.ID(rv))
+	rv := objc.SendIfResponds[foundation.NSData](a.ID, objc.Sel("perfCounterData"))
+	return foundation.NSData(rv)
 }

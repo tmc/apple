@@ -293,20 +293,20 @@ func (d DIAttachedDeviceInfo) BSDName() string {
 	return foundation.NSStringFromID(rv).String()
 }
 func (d DIAttachedDeviceInfo) BlockSize() foundation.NSNumber {
-	rv := objc.SendIfResponds[objc.ID](d.ID, objc.Sel("blockSize"))
-	return foundation.NSNumberFromID(objc.ID(rv))
+	rv := objc.SendIfResponds[foundation.NSNumber](d.ID, objc.Sel("blockSize"))
+	return foundation.NSNumber(rv)
 }
 func (d DIAttachedDeviceInfo) CacheURL() foundation.NSURL {
-	rv := objc.SendIfResponds[objc.ID](d.ID, objc.Sel("cacheURL"))
-	return foundation.NSURLFromID(objc.ID(rv))
+	rv := objc.SendIfResponds[foundation.NSURL](d.ID, objc.Sel("cacheURL"))
+	return foundation.NSURL(rv)
 }
 func (d DIAttachedDeviceInfo) FrameworkNum() int64 {
 	rv := objc.SendIfResponds[int64](d.ID, objc.Sel("frameworkNum"))
 	return rv
 }
 func (d DIAttachedDeviceInfo) ImageURL() foundation.NSURL {
-	rv := objc.SendIfResponds[objc.ID](d.ID, objc.Sel("imageURL"))
-	return foundation.NSURLFromID(objc.ID(rv))
+	rv := objc.SendIfResponds[foundation.NSURL](d.ID, objc.Sel("imageURL"))
+	return foundation.NSURL(rv)
 }
 func (d DIAttachedDeviceInfo) InstanceId() string {
 	rv := objc.SendIfResponds[objc.ID](d.ID, objc.Sel("instanceId"))
@@ -320,14 +320,14 @@ func (d DIAttachedDeviceInfo) SetIoMedia(value IDIIOMedia) {
 	objc.SendIfResponds[struct{}](d.ID, objc.Sel("setIoMedia:"), value)
 }
 func (d DIAttachedDeviceInfo) MediaSize() foundation.NSNumber {
-	rv := objc.SendIfResponds[objc.ID](d.ID, objc.Sel("mediaSize"))
-	return foundation.NSNumberFromID(objc.ID(rv))
+	rv := objc.SendIfResponds[foundation.NSNumber](d.ID, objc.Sel("mediaSize"))
+	return foundation.NSNumber(rv)
 }
 func (d DIAttachedDeviceInfo) Pid() foundation.NSNumber {
-	rv := objc.SendIfResponds[objc.ID](d.ID, objc.Sel("pid"))
-	return foundation.NSNumberFromID(objc.ID(rv))
+	rv := objc.SendIfResponds[foundation.NSNumber](d.ID, objc.Sel("pid"))
+	return foundation.NSNumber(rv)
 }
 func (d DIAttachedDeviceInfo) ShadowURL() foundation.NSURL {
-	rv := objc.SendIfResponds[objc.ID](d.ID, objc.Sel("shadowURL"))
-	return foundation.NSURLFromID(objc.ID(rv))
+	rv := objc.SendIfResponds[foundation.NSURL](d.ID, objc.Sel("shadowURL"))
+	return foundation.NSURL(rv)
 }

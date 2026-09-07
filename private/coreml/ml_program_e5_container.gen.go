@@ -1,4 +1,4 @@
-// Code generated from Apple documentation for CoreML. DO NOT EDIT.
+// Code generated from Apple documentation for coreml. DO NOT EDIT.
 
 package coreml
 
@@ -119,7 +119,7 @@ func NewMLProgramE5Container() MLProgramE5Container {
 	return rv
 }
 
-func NewProgramE5ContainerWithCompiledArchiveModelVersionInfoCompilerVersionInfoError(archive unsafe.Pointer, info objectivec.IObject, info2 objectivec.IObject) (MLProgramE5Container, error) {
+func NewMLProgramE5ContainerWithCompiledArchiveModelVersionInfoCompilerVersionInfoError(archive unsafe.Pointer, info objectivec.IObject, info2 objectivec.IObject) (MLProgramE5Container, error) {
 	var errorPtr objc.ID
 	instance := getMLProgramE5ContainerClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithCompiledArchive:modelVersionInfo:compilerVersionInfo:error:"), archive, info, info2, unsafe.Pointer(&errorPtr))
@@ -195,8 +195,8 @@ func (_MLProgramE5ContainerClass MLProgramE5ContainerClass) DeduceFunctionNameTo
 }
 
 func (m MLProgramE5Container) URLOfMILText() foundation.NSURL {
-	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("URLOfMILText"))
-	return foundation.NSURLFromID(objc.ID(rv))
+	rv := objc.SendIfResponds[foundation.NSURL](m.ID, objc.Sel("URLOfMILText"))
+	return foundation.NSURL(rv)
 }
 func (m MLProgramE5Container) CompilerOutput() IMLCompilerNeuralNetworkOutput {
 	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("compilerOutput"))

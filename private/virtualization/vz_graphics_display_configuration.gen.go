@@ -1,4 +1,4 @@
-// Code generated from Apple documentation for Virtualization. DO NOT EDIT.
+// Code generated from Apple documentation for virtualization. DO NOT EDIT.
 
 package virtualization
 
@@ -145,8 +145,8 @@ func (v VZGraphicsDisplayConfiguration) CanSetUUID() bool {
 }
 
 func (v VZGraphicsDisplayConfiguration) _uuid() foundation.NSUUID {
-	rv := objc.SendIfResponds[objc.ID](v.ID, objc.Sel("_uuid"))
-	return foundation.NSUUIDFromID(objc.ID(rv))
+	rv := objc.SendIfResponds[foundation.NSUUID](v.ID, objc.Sel("_uuid"))
+	return foundation.NSUUID(rv)
 }
 
 // CanUuid reports whether the receiver responds to the private selector _uuid.

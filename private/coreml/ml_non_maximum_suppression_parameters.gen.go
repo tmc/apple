@@ -1,4 +1,4 @@
-// Code generated from Apple documentation for CoreML. DO NOT EDIT.
+// Code generated from Apple documentation for coreml. DO NOT EDIT.
 
 package coreml
 
@@ -151,8 +151,8 @@ type IMLNonMaximumSuppressionParameters interface {
 	ObjectBoundingBoxOutputDescription() objectivec.IObject
 	PerClass() bool
 	SetPerClass(value bool)
-	SuppressionMethod() int
-	SetSuppressionMethod(value int)
+	SuppressionMethod() int32
+	SetSuppressionMethod(value int32)
 }
 
 // Init initializes the instance.
@@ -270,10 +270,10 @@ func (m MLNonMaximumSuppressionParameters) PerClass() bool {
 func (m MLNonMaximumSuppressionParameters) SetPerClass(value bool) {
 	objc.SendIfResponds[struct{}](m.ID, objc.Sel("setPerClass:"), value)
 }
-func (m MLNonMaximumSuppressionParameters) SuppressionMethod() int {
-	rv := objc.SendIfResponds[int](m.ID, objc.Sel("suppressionMethod"))
+func (m MLNonMaximumSuppressionParameters) SuppressionMethod() int32 {
+	rv := objc.SendIfResponds[int32](m.ID, objc.Sel("suppressionMethod"))
 	return rv
 }
-func (m MLNonMaximumSuppressionParameters) SetSuppressionMethod(value int) {
+func (m MLNonMaximumSuppressionParameters) SetSuppressionMethod(value int32) {
 	objc.SendIfResponds[struct{}](m.ID, objc.Sel("setSuppressionMethod:"), value)
 }

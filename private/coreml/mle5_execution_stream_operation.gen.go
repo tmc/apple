@@ -1,4 +1,4 @@
-// Code generated from Apple documentation for CoreML. DO NOT EDIT.
+// Code generated from Apple documentation for coreml. DO NOT EDIT.
 
 package coreml
 
@@ -269,7 +269,7 @@ func NewMLE5ExecutionStreamOperation() MLE5ExecutionStreamOperation {
 	return rv
 }
 
-func NewE5ExecutionStreamOperationWithProgramLibraryFunctionNameModelDescriptionConfigurationDebugLabelModelSignpostId(library objectivec.IObject, name objectivec.IObject, description objectivec.IObject, configuration objectivec.IObject, label objectivec.IObject, id uint64) MLE5ExecutionStreamOperation {
+func NewMLE5ExecutionStreamOperationWithProgramLibraryFunctionNameModelDescriptionConfigurationDebugLabelModelSignpostId(library objectivec.IObject, name objectivec.IObject, description objectivec.IObject, configuration objectivec.IObject, label objectivec.IObject, id uint64) MLE5ExecutionStreamOperation {
 	instance := getMLE5ExecutionStreamOperationClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithProgramLibrary:functionName:modelDescription:configuration:debugLabel:modelSignpostId:"), library, name, description, configuration, label, id)
 	return MLE5ExecutionStreamOperationFromID(rv)
@@ -820,8 +820,8 @@ func (m MLE5ExecutionStreamOperation) InitWithProgramLibraryFunctionNameModelDes
 }
 
 func (m MLE5ExecutionStreamOperation) AsyncSubmissionError() foundation.NSError {
-	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("asyncSubmissionError"))
-	return foundation.NSErrorFromID(objc.ID(rv))
+	rv := objc.SendIfResponds[foundation.NSError](m.ID, objc.Sel("asyncSubmissionError"))
+	return foundation.NSError(rv)
 }
 func (m MLE5ExecutionStreamOperation) SetAsyncSubmissionError(value foundation.NSError) {
 	objc.SendIfResponds[struct{}](m.ID, objc.Sel("setAsyncSubmissionError:"), value)

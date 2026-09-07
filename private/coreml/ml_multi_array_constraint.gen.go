@@ -1,4 +1,4 @@
-// Code generated from Apple documentation for CoreML. DO NOT EDIT.
+// Code generated from Apple documentation for coreml. DO NOT EDIT.
 
 package coreml
 
@@ -110,13 +110,13 @@ func NewMLMultiArrayConstraint() MLMultiArrayConstraint {
 	return rv
 }
 
-func NewMultiArrayConstraintWithShapeDataTypeShapeConstraint(shape objectivec.IObject, type_ int64, constraint objectivec.IObject) MLMultiArrayConstraint {
+func NewMLMultiArrayConstraintWithShapeDataTypeShapeConstraint(shape objectivec.IObject, type_ int64, constraint objectivec.IObject) MLMultiArrayConstraint {
 	instance := getMLMultiArrayConstraintClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithShape:dataType:shapeConstraint:"), shape, type_, constraint)
 	return MLMultiArrayConstraintFromID(rv)
 }
 
-func NewMultiArrayConstraintWithShapeDataTypeShapeConstraintDefaultOptionalValue(shape objectivec.IObject, type_ int64, constraint objectivec.IObject, value objectivec.IObject) MLMultiArrayConstraint {
+func NewMLMultiArrayConstraintWithShapeDataTypeShapeConstraintDefaultOptionalValue(shape objectivec.IObject, type_ int64, constraint objectivec.IObject, value objectivec.IObject) MLMultiArrayConstraint {
 	instance := getMLMultiArrayConstraintClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithShape:dataType:shapeConstraint:defaultOptionalValue:"), shape, type_, constraint, value)
 	return MLMultiArrayConstraintFromID(rv)

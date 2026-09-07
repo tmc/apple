@@ -69,8 +69,8 @@ type ISLSBridgedWindowManagementOperationWorkspaceTypeResult interface {
 
 	// Topic: Methods
 
-	WorkspaceType() int
-	InitWithWorkspaceType(type_ int) SLSBridgedWindowManagementOperationWorkspaceTypeResult
+	WorkspaceType() int32
+	InitWithWorkspaceType(type_ int32) SLSBridgedWindowManagementOperationWorkspaceTypeResult
 }
 
 // Init initializes the instance.
@@ -98,18 +98,18 @@ func NewSLSBridgedWindowManagementOperationWorkspaceTypeResultWithCoder(coder ob
 	return SLSBridgedWindowManagementOperationWorkspaceTypeResultFromID(rv)
 }
 
-func NewSLSBridgedWindowManagementOperationWorkspaceTypeResultWithWorkspaceType(type_ int) SLSBridgedWindowManagementOperationWorkspaceTypeResult {
+func NewSLSBridgedWindowManagementOperationWorkspaceTypeResultWithWorkspaceType(type_ int32) SLSBridgedWindowManagementOperationWorkspaceTypeResult {
 	instance := getSLSBridgedWindowManagementOperationWorkspaceTypeResultClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithWorkspaceType:"), type_)
 	return SLSBridgedWindowManagementOperationWorkspaceTypeResultFromID(rv)
 }
 
-func (s SLSBridgedWindowManagementOperationWorkspaceTypeResult) InitWithWorkspaceType(type_ int) SLSBridgedWindowManagementOperationWorkspaceTypeResult {
+func (s SLSBridgedWindowManagementOperationWorkspaceTypeResult) InitWithWorkspaceType(type_ int32) SLSBridgedWindowManagementOperationWorkspaceTypeResult {
 	rv := objc.SendIfResponds[SLSBridgedWindowManagementOperationWorkspaceTypeResult](s.ID, objc.Sel("initWithWorkspaceType:"), type_)
 	return rv
 }
 
-func (s SLSBridgedWindowManagementOperationWorkspaceTypeResult) WorkspaceType() int {
-	rv := objc.SendIfResponds[int](s.ID, objc.Sel("workspaceType"))
+func (s SLSBridgedWindowManagementOperationWorkspaceTypeResult) WorkspaceType() int32 {
+	rv := objc.SendIfResponds[int32](s.ID, objc.Sel("workspaceType"))
 	return rv
 }

@@ -1,4 +1,4 @@
-// Code generated from Apple documentation for CoreML. DO NOT EDIT.
+// Code generated from Apple documentation for coreml. DO NOT EDIT.
 
 package coreml
 
@@ -133,8 +133,8 @@ func (m MLPredictionEvent) SetBundleIdentifier(value string) {
 	objc.SendIfResponds[struct{}](m.ID, objc.Sel("setBundleIdentifier:"), objc.String(value))
 }
 func (m MLPredictionEvent) FirstPartyExecutable() foundation.NSNumber {
-	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("firstPartyExecutable"))
-	return foundation.NSNumberFromID(objc.ID(rv))
+	rv := objc.SendIfResponds[foundation.NSNumber](m.ID, objc.Sel("firstPartyExecutable"))
+	return foundation.NSNumber(rv)
 }
 func (m MLPredictionEvent) SetFirstPartyExecutable(value foundation.NSNumber) {
 	objc.SendIfResponds[struct{}](m.ID, objc.Sel("setFirstPartyExecutable:"), value)
@@ -147,8 +147,8 @@ func (m MLPredictionEvent) SetModelName(value string) {
 	objc.SendIfResponds[struct{}](m.ID, objc.Sel("setModelName:"), objc.String(value))
 }
 func (m MLPredictionEvent) ModelType() foundation.NSNumber {
-	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("modelType"))
-	return foundation.NSNumberFromID(objc.ID(rv))
+	rv := objc.SendIfResponds[foundation.NSNumber](m.ID, objc.Sel("modelType"))
+	return foundation.NSNumber(rv)
 }
 func (m MLPredictionEvent) SetModelType(value foundation.NSNumber) {
 	objc.SendIfResponds[struct{}](m.ID, objc.Sel("setModelType:"), value)

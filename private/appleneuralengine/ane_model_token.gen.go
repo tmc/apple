@@ -81,10 +81,10 @@ type IANEModelToken interface {
 
 	CsIdentity() string
 	ModelIdentifier() string
-	ProcessIdentifier() int
+	ProcessIdentifier() int32
 	TeamIdentity() string
-	InitWithAuditTokenModelIdentifierProcessIdentifier(token unsafe.Pointer, identifier objectivec.IObject, identifier2 int) ANEModelToken
-	InitWithCsIdentityTeamIdentityModelIdentifierProcessIdentifier(identity objectivec.IObject, identity2 objectivec.IObject, identifier objectivec.IObject, identifier2 int) ANEModelToken
+	InitWithAuditTokenModelIdentifierProcessIdentifier(token unsafe.Pointer, identifier objectivec.IObject, identifier2 int32) ANEModelToken
+	InitWithCsIdentityTeamIdentityModelIdentifierProcessIdentifier(identity objectivec.IObject, identity2 objectivec.IObject, identifier objectivec.IObject, identifier2 int32) ANEModelToken
 }
 
 // Init initializes the instance.
@@ -106,45 +106,53 @@ func NewANEModelToken() ANEModelToken {
 	return rv
 }
 
-func NewANEModelTokenWithAuditTokenModelIdentifierProcessIdentifier(token unsafe.Pointer, identifier objectivec.IObject, identifier2 int) ANEModelToken {
+func NewANEModelTokenWithAuditTokenModelIdentifierProcessIdentifier(token unsafe.Pointer, identifier objectivec.IObject, identifier2 int32) ANEModelToken {
 	instance := getANEModelTokenClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithAuditToken:modelIdentifier:processIdentifier:"), token, identifier, identifier2)
 	return ANEModelTokenFromID(rv)
 }
 
-func NewANEModelTokenWithCsIdentityTeamIdentityModelIdentifierProcessIdentifier(identity objectivec.IObject, identity2 objectivec.IObject, identifier objectivec.IObject, identifier2 int) ANEModelToken {
+func NewANEModelTokenWithCsIdentityTeamIdentityModelIdentifierProcessIdentifier(identity objectivec.IObject, identity2 objectivec.IObject, identifier objectivec.IObject, identifier2 int32) ANEModelToken {
 	instance := getANEModelTokenClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithCsIdentity:teamIdentity:modelIdentifier:processIdentifier:"), identity, identity2, identifier, identifier2)
 	return ANEModelTokenFromID(rv)
 }
 
-func (a ANEModelToken) InitWithAuditTokenModelIdentifierProcessIdentifier(token unsafe.Pointer, identifier objectivec.IObject, identifier2 int) ANEModelToken {
+func (a ANEModelToken) InitWithAuditTokenModelIdentifierProcessIdentifier(token unsafe.Pointer, identifier objectivec.IObject, identifier2 int32) ANEModelToken {
 	rv := objc.SendIfResponds[ANEModelToken](a.ID, objc.Sel("initWithAuditToken:modelIdentifier:processIdentifier:"), token, identifier, identifier2)
 	return rv
 }
-func (a ANEModelToken) InitWithCsIdentityTeamIdentityModelIdentifierProcessIdentifier(identity objectivec.IObject, identity2 objectivec.IObject, identifier objectivec.IObject, identifier2 int) ANEModelToken {
+func (a ANEModelToken) InitWithCsIdentityTeamIdentityModelIdentifierProcessIdentifier(identity objectivec.IObject, identity2 objectivec.IObject, identifier objectivec.IObject, identifier2 int32) ANEModelToken {
 	rv := objc.SendIfResponds[ANEModelToken](a.ID, objc.Sel("initWithCsIdentity:teamIdentity:modelIdentifier:processIdentifier:"), identity, identity2, identifier, identifier2)
 	return rv
 }
 
-func (_ANEModelTokenClass ANEModelTokenClass) CodeSigningIDForProcessIdentifier(iDFor unsafe.Pointer, identifier int) objectivec.IObject {
+func (_ANEModelTokenClass ANEModelTokenClass) CodeSigningIDForProcessIdentifier(iDFor unsafe.Pointer, identifier int32) objectivec.IObject {
 	rv := objc.SendIfResponds[objc.ID](objc.ID(_ANEModelTokenClass.class), objc.Sel("codeSigningIDFor:processIdentifier:"), iDFor, identifier)
 	return objectivec.Object{ID: rv}
 }
-func (_ANEModelTokenClass ANEModelTokenClass) ProcessNameForIdentifier(for_ unsafe.Pointer, identifier int) objectivec.IObject {
+func (_ANEModelTokenClass ANEModelTokenClass) ProcessNameForIdentifier(for_ unsafe.Pointer, identifier int32) objectivec.IObject {
 	rv := objc.SendIfResponds[objc.ID](objc.ID(_ANEModelTokenClass.class), objc.Sel("processNameFor:identifier:"), for_, identifier)
 	return objectivec.Object{ID: rv}
 }
-func (_ANEModelTokenClass ANEModelTokenClass) TeamIDForProcessIdentifier(iDFor unsafe.Pointer, identifier int) objectivec.IObject {
+func (_ANEModelTokenClass ANEModelTokenClass) TeamIDForProcessIdentifier(iDFor unsafe.Pointer, identifier int32) objectivec.IObject {
 	rv := objc.SendIfResponds[objc.ID](objc.ID(_ANEModelTokenClass.class), objc.Sel("teamIDFor:processIdentifier:"), iDFor, identifier)
 	return objectivec.Object{ID: rv}
 }
-func (_ANEModelTokenClass ANEModelTokenClass) TokenWithAuditTokenModelIdentifierProcessIdentifier(token unsafe.Pointer, identifier objectivec.IObject, identifier2 int) objectivec.IObject {
+func (_ANEModelTokenClass ANEModelTokenClass) TokenWithAuditTokenModelIdentifierProcessIdentifier(token unsafe.Pointer, identifier objectivec.IObject, identifier2 int32) objectivec.IObject {
 	rv := objc.SendIfResponds[objc.ID](objc.ID(_ANEModelTokenClass.class), objc.Sel("tokenWithAuditToken:modelIdentifier:processIdentifier:"), token, identifier, identifier2)
 	return objectivec.Object{ID: rv}
 }
-func (_ANEModelTokenClass ANEModelTokenClass) TokenWithCsIdentityTeamIdentityModelIdentifierProcessIdentifier(identity objectivec.IObject, identity2 objectivec.IObject, identifier objectivec.IObject, identifier2 int) objectivec.IObject {
+func (_ANEModelTokenClass ANEModelTokenClass) TokenWithCsIdentityTeamIdentityModelIdentifierProcessIdentifier(identity objectivec.IObject, identity2 objectivec.IObject, identifier objectivec.IObject, identifier2 int32) objectivec.IObject {
 	rv := objc.SendIfResponds[objc.ID](objc.ID(_ANEModelTokenClass.class), objc.Sel("tokenWithCsIdentity:teamIdentity:modelIdentifier:processIdentifier:"), identity, identity2, identifier, identifier2)
+	return objectivec.Object{ID: rv}
+}
+func (_ANEModelTokenClass ANEModelTokenClass) AppGroupIdentifiersForProcessIdentifier(for_ unsafe.Pointer, identifier int32) objectivec.IObject {
+	rv := objc.SendIfResponds[objc.ID](objc.ID(_ANEModelTokenClass.class), objc.Sel("appGroupIdentifiersFor:processIdentifier:"), for_, identifier)
+	return objectivec.Object{ID: rv}
+}
+func (_ANEModelTokenClass ANEModelTokenClass) TeamScopedCodeSigningIDForProcessIdentifier(iDFor unsafe.Pointer, identifier int32) objectivec.IObject {
+	rv := objc.SendIfResponds[objc.ID](objc.ID(_ANEModelTokenClass.class), objc.Sel("teamScopedCodeSigningIDFor:processIdentifier:"), iDFor, identifier)
 	return objectivec.Object{ID: rv}
 }
 
@@ -156,8 +164,8 @@ func (a ANEModelToken) ModelIdentifier() string {
 	rv := objc.SendIfResponds[objc.ID](a.ID, objc.Sel("modelIdentifier"))
 	return foundation.NSStringFromID(rv).String()
 }
-func (a ANEModelToken) ProcessIdentifier() int {
-	rv := objc.SendIfResponds[int](a.ID, objc.Sel("processIdentifier"))
+func (a ANEModelToken) ProcessIdentifier() int32 {
+	rv := objc.SendIfResponds[int32](a.ID, objc.Sel("processIdentifier"))
 	return rv
 }
 func (a ANEModelToken) TeamIdentity() string {

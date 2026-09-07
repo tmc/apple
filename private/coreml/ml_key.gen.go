@@ -1,4 +1,4 @@
-// Code generated from Apple documentation for CoreML. DO NOT EDIT.
+// Code generated from Apple documentation for coreml. DO NOT EDIT.
 
 package coreml
 
@@ -104,13 +104,13 @@ func NewMLKey() MLKey {
 	return rv
 }
 
-func NewKeyWithKeyName(name objectivec.IObject) MLKey {
+func NewMLKeyWithKeyName(name objectivec.IObject) MLKey {
 	instance := getMLKeyClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithKeyName:"), name)
 	return MLKeyFromID(rv)
 }
 
-func NewKeyWithKeyNameScope(name objectivec.IObject, scope objectivec.IObject) MLKey {
+func NewMLKeyWithKeyNameScope(name objectivec.IObject, scope objectivec.IObject) MLKey {
 	instance := getMLKeyClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithKeyName:scope:"), name, scope)
 	return MLKeyFromID(rv)

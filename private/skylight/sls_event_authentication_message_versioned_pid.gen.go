@@ -82,10 +82,10 @@ type ISLSEventAuthenticationMessageVersionedPID interface {
 
 	AddToSigningContext(context objectivec.IObject)
 	EncodeWithCoder(coder foundation.INSCoder)
-	Pid() int
+	Pid() int32
 	Token() uint64
 	InitWithCoder(coder foundation.INSCoder) SLSEventAuthenticationMessageVersionedPID
-	InitWithPIDVersion(pid int, version uint32) SLSEventAuthenticationMessageVersionedPID
+	InitWithPIDVersion(pid int32, version uint32) SLSEventAuthenticationMessageVersionedPID
 	Version() uint32
 }
 
@@ -114,7 +114,7 @@ func NewSLSEventAuthenticationMessageVersionedPIDWithCoder(coder objectivec.IObj
 	return SLSEventAuthenticationMessageVersionedPIDFromID(rv)
 }
 
-func NewSLSEventAuthenticationMessageVersionedPIDWithPIDVersion(pid int, version uint32) SLSEventAuthenticationMessageVersionedPID {
+func NewSLSEventAuthenticationMessageVersionedPIDWithPIDVersion(pid int32, version uint32) SLSEventAuthenticationMessageVersionedPID {
 	instance := getSLSEventAuthenticationMessageVersionedPIDClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithPID:version:"), pid, version)
 	return SLSEventAuthenticationMessageVersionedPIDFromID(rv)
@@ -130,7 +130,7 @@ func (s SLSEventAuthenticationMessageVersionedPID) InitWithCoder(coder foundatio
 	rv := objc.SendIfResponds[SLSEventAuthenticationMessageVersionedPID](s.ID, objc.Sel("initWithCoder:"), coder)
 	return rv
 }
-func (s SLSEventAuthenticationMessageVersionedPID) InitWithPIDVersion(pid int, version uint32) SLSEventAuthenticationMessageVersionedPID {
+func (s SLSEventAuthenticationMessageVersionedPID) InitWithPIDVersion(pid int32, version uint32) SLSEventAuthenticationMessageVersionedPID {
 	rv := objc.SendIfResponds[SLSEventAuthenticationMessageVersionedPID](s.ID, objc.Sel("initWithPID:version:"), pid, version)
 	return rv
 }
@@ -140,8 +140,8 @@ func (_SLSEventAuthenticationMessageVersionedPIDClass SLSEventAuthenticationMess
 	return rv
 }
 
-func (s SLSEventAuthenticationMessageVersionedPID) Pid() int {
-	rv := objc.SendIfResponds[int](s.ID, objc.Sel("pid"))
+func (s SLSEventAuthenticationMessageVersionedPID) Pid() int32 {
+	rv := objc.SendIfResponds[int32](s.ID, objc.Sel("pid"))
 	return rv
 }
 func (s SLSEventAuthenticationMessageVersionedPID) Token() uint64 {

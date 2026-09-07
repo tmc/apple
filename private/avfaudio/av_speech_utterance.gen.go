@@ -1,4 +1,4 @@
-// Code generated from Apple documentation for AVFAudio. DO NOT EDIT.
+// Code generated from Apple documentation for avfaudio. DO NOT EDIT.
 
 package avfaudio
 
@@ -208,8 +208,8 @@ func (a AVSpeechUtterance) SetAction(value texttospeech.TTSSpeechAction) {
 	objc.SendIfResponds[struct{}](a.ID, objc.Sel("setAction:"), value)
 }
 func (a AVSpeechUtterance) AttributedSpeechString() foundation.NSAttributedString {
-	rv := objc.SendIfResponds[objc.ID](a.ID, objc.Sel("attributedSpeechString"))
-	return foundation.NSAttributedStringFromID(objc.ID(rv))
+	rv := objc.SendIfResponds[foundation.NSAttributedString](a.ID, objc.Sel("attributedSpeechString"))
+	return foundation.NSAttributedString(rv)
 }
 func (a AVSpeechUtterance) SetAttributedSpeechString(value foundation.NSAttributedString) {
 	objc.SendIfResponds[struct{}](a.ID, objc.Sel("setAttributedSpeechString:"), value)

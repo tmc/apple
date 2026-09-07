@@ -1,4 +1,4 @@
-// Code generated from Apple documentation for CoreML. DO NOT EDIT.
+// Code generated from Apple documentation for coreml. DO NOT EDIT.
 
 package coreml
 
@@ -119,7 +119,7 @@ func NewMLParameterContainer() MLParameterContainer {
 	return rv
 }
 
-func NewParameterContainerWithCoder(coder objectivec.IObject) MLParameterContainer {
+func NewMLParameterContainerWithCoder(coder objectivec.IObject) MLParameterContainer {
 	instance := getMLParameterContainerClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
 	return MLParameterContainerFromID(rv)

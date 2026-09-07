@@ -1,4 +1,4 @@
-// Code generated from Apple documentation for AVFAudio. DO NOT EDIT.
+// Code generated from Apple documentation for avfaudio. DO NOT EDIT.
 
 package avfaudio
 
@@ -107,8 +107,8 @@ func (a AVVCDuckLevel) SetIsBlur(value bool) {
 	objc.SendIfResponds[struct{}](a.ID, objc.Sel("setIsBlur:"), value)
 }
 func (a AVVCDuckLevel) Value() foundation.NSNumber {
-	rv := objc.SendIfResponds[objc.ID](a.ID, objc.Sel("value"))
-	return foundation.NSNumberFromID(objc.ID(rv))
+	rv := objc.SendIfResponds[foundation.NSNumber](a.ID, objc.Sel("value"))
+	return foundation.NSNumber(rv)
 }
 func (a AVVCDuckLevel) SetValue(value foundation.NSNumber) {
 	objc.SendIfResponds[struct{}](a.ID, objc.Sel("setValue:"), value)

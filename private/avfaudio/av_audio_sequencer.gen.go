@@ -1,4 +1,4 @@
-// Code generated from Apple documentation for AVFAudio. DO NOT EDIT.
+// Code generated from Apple documentation for avfaudio. DO NOT EDIT.
 
 package avfaudio
 
@@ -117,7 +117,7 @@ func NewAVAudioSequencer() AVAudioSequencer {
 	return rv
 }
 
-func NewAudioSequencerWithImpl(impl unsafe.Pointer) AVAudioSequencer {
+func NewAVAudioSequencerWithImpl(impl unsafe.Pointer) AVAudioSequencer {
 	instance := getAVAudioSequencerClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithImpl:"), impl)
 	return AVAudioSequencerFromID(rv)

@@ -1,4 +1,4 @@
-// Code generated from Apple documentation for CoreML. DO NOT EDIT.
+// Code generated from Apple documentation for coreml. DO NOT EDIT.
 
 package coreml
 
@@ -78,13 +78,13 @@ func NewMLSupervisedOnlineUpdateOptions() MLSupervisedOnlineUpdateOptions {
 	return rv
 }
 
-func NewSupervisedOnlineUpdateOptionsWithCoder(coder objectivec.IObject) MLSupervisedOnlineUpdateOptions {
+func NewMLSupervisedOnlineUpdateOptionsWithCoder(coder objectivec.IObject) MLSupervisedOnlineUpdateOptions {
 	instance := getMLSupervisedOnlineUpdateOptionsClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
 	return MLSupervisedOnlineUpdateOptionsFromID(rv)
 }
 
-func NewSupervisedOnlineUpdateOptionsWithUsesCPUOnly(cPUOnly bool) MLSupervisedOnlineUpdateOptions {
+func NewMLSupervisedOnlineUpdateOptionsWithUsesCPUOnly(cPUOnly bool) MLSupervisedOnlineUpdateOptions {
 	instance := getMLSupervisedOnlineUpdateOptionsClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithUsesCPUOnly:"), cPUOnly)
 	return MLSupervisedOnlineUpdateOptionsFromID(rv)

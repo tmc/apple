@@ -6,9 +6,9 @@ type AEAAuthDataImplRef uintptr
 
 type AuthorizationOpaqueRefRef uintptr
 
-type DADiskRef = DADisk
+type DADiskRef uintptr
 
-type DASessionRef = DASession
+type DASessionRef uintptr
 
 type MKMediaRef uintptr
 

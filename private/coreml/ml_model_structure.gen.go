@@ -1,4 +1,4 @@
-// Code generated from Apple documentation for CoreML. DO NOT EDIT.
+// Code generated from Apple documentation for coreml. DO NOT EDIT.
 
 package coreml
 
@@ -98,25 +98,25 @@ func NewMLModelStructure() MLModelStructure {
 	return rv
 }
 
-func NewModelStructureWithNeuralNetwork(network objectivec.IObject) MLModelStructure {
+func NewMLModelStructureWithNeuralNetwork(network objectivec.IObject) MLModelStructure {
 	instance := getMLModelStructureClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithNeuralNetwork:"), network)
 	return MLModelStructureFromID(rv)
 }
 
-func NewModelStructureWithNeuralNetworkProgramPipeline(network objectivec.IObject, program objectivec.IObject, pipeline objectivec.IObject) MLModelStructure {
+func NewMLModelStructureWithNeuralNetworkProgramPipeline(network objectivec.IObject, program objectivec.IObject, pipeline objectivec.IObject) MLModelStructure {
 	instance := getMLModelStructureClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithNeuralNetwork:program:pipeline:"), network, program, pipeline)
 	return MLModelStructureFromID(rv)
 }
 
-func NewModelStructureWithPipeline(pipeline objectivec.IObject) MLModelStructure {
+func NewMLModelStructureWithPipeline(pipeline objectivec.IObject) MLModelStructure {
 	instance := getMLModelStructureClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithPipeline:"), pipeline)
 	return MLModelStructureFromID(rv)
 }
 
-func NewModelStructureWithProgram(program objectivec.IObject) MLModelStructure {
+func NewMLModelStructureWithProgram(program objectivec.IObject) MLModelStructure {
 	instance := getMLModelStructureClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithProgram:"), program)
 	return MLModelStructureFromID(rv)

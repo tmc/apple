@@ -1,4 +1,4 @@
-// Code generated from Apple documentation for AVFAudio. DO NOT EDIT.
+// Code generated from Apple documentation for avfaudio. DO NOT EDIT.
 
 package avfaudio
 
@@ -131,7 +131,7 @@ func NewAVVCStartRecordSettings() AVVCStartRecordSettings {
 	return rv
 }
 
-func NewVCStartRecordSettingsWithStreamIDAtStartHostTime(id uint64, time uint64) AVVCStartRecordSettings {
+func NewAVVCStartRecordSettingsWithStreamIDAtStartHostTime(id uint64, time uint64) AVVCStartRecordSettings {
 	instance := getAVVCStartRecordSettingsClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithStreamID:atStartHostTime:"), id, time)
 	return AVVCStartRecordSettingsFromID(rv)

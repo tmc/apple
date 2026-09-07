@@ -78,7 +78,7 @@ type ISLDataTimelineSessionEntry interface {
 
 	// Topic: Methods
 
-	AuditID() int
+	AuditID() int32
 	CgID() uint32
 	CreateXPCObject() objectivec.IObject
 	CurrentSnapshotMember() bool
@@ -125,8 +125,8 @@ func (_SLDataTimelineSessionEntryClass SLDataTimelineSessionEntryClass) EntryWit
 	return objectivec.Object{ID: rv}
 }
 
-func (s SLDataTimelineSessionEntry) AuditID() int {
-	rv := objc.SendIfResponds[int](s.ID, objc.Sel("auditID"))
+func (s SLDataTimelineSessionEntry) AuditID() int32 {
+	rv := objc.SendIfResponds[int32](s.ID, objc.Sel("auditID"))
 	return rv
 }
 func (s SLDataTimelineSessionEntry) CgID() uint32 {

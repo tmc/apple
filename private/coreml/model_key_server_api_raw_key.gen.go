@@ -1,4 +1,4 @@
-// Code generated from Apple documentation for CoreML. DO NOT EDIT.
+// Code generated from Apple documentation for coreml. DO NOT EDIT.
 
 package coreml
 
@@ -140,15 +140,15 @@ func (m ModelKeyServerAPIRawKey) WriteTo(to objectivec.IObject) {
 }
 
 func (m ModelKeyServerAPIRawKey) EncryptionIv() foundation.NSData {
-	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("encryptionIv"))
-	return foundation.NSDataFromID(objc.ID(rv))
+	rv := objc.SendIfResponds[foundation.NSData](m.ID, objc.Sel("encryptionIv"))
+	return foundation.NSData(rv)
 }
 func (m ModelKeyServerAPIRawKey) SetEncryptionIv(value foundation.NSData) {
 	objc.SendIfResponds[struct{}](m.ID, objc.Sel("setEncryptionIv:"), value)
 }
 func (m ModelKeyServerAPIRawKey) EncryptionKey() foundation.NSData {
-	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("encryptionKey"))
-	return foundation.NSDataFromID(objc.ID(rv))
+	rv := objc.SendIfResponds[foundation.NSData](m.ID, objc.Sel("encryptionKey"))
+	return foundation.NSData(rv)
 }
 func (m ModelKeyServerAPIRawKey) SetEncryptionKey(value foundation.NSData) {
 	objc.SendIfResponds[struct{}](m.ID, objc.Sel("setEncryptionKey:"), value)

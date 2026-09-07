@@ -98,9 +98,9 @@ func (_DIHelpersClass DIHelpersClass) ExecuteWithPathArgumentsError(path objecti
 	return rv, nil
 
 }
-func (_DIHelpersClass DIHelpersClass) GetBlockSizeFromStrError(str objectivec.IObject) (uint32, error) {
+func (_DIHelpersClass DIHelpersClass) GetBlockSizeFromStrError(str objectivec.IObject) (uint64, error) {
 	var errorPtr objc.ID
-	rv := objc.Send[uint32](objc.ID(_DIHelpersClass.class), objc.Sel("getBlockSizeFromStr:error:"), str, unsafe.Pointer(&errorPtr))
+	rv := objc.Send[uint64](objc.ID(_DIHelpersClass.class), objc.Sel("getBlockSizeFromStr:error:"), str, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
 		return 0, foundation.NSErrorFrom(errorPtr)
@@ -108,7 +108,7 @@ func (_DIHelpersClass DIHelpersClass) GetBlockSizeFromStrError(str objectivec.IO
 	return rv, nil
 
 }
-func (_DIHelpersClass DIHelpersClass) NumBlocksWithSizeStrBlockSize(str objectivec.IObject, size uint32) uint64 {
+func (_DIHelpersClass DIHelpersClass) NumBlocksWithSizeStrBlockSize(str objectivec.IObject, size uint64) uint64 {
 	rv := objc.SendIfResponds[uint64](objc.ID(_DIHelpersClass.class), objc.Sel("numBlocksWithSizeStr:blockSize:"), str, size)
 	return rv
 }

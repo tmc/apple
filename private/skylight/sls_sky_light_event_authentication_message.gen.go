@@ -127,7 +127,7 @@ func NewSLSSkyLightEventAuthenticationMessageWithCoder(coder objectivec.IObject)
 	return SLSSkyLightEventAuthenticationMessageFromID(rv)
 }
 
-func NewSLSSkyLightEventAuthenticationMessageWithEventRecordPidVersion(record *SLSEventRecord, pid int, version uint32) SLSSkyLightEventAuthenticationMessage {
+func NewSLSSkyLightEventAuthenticationMessageWithEventRecordPidVersion(record *SLSEventRecord, pid int32, version uint32) SLSSkyLightEventAuthenticationMessage {
 	instance := getSLSSkyLightEventAuthenticationMessageClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithEventRecord:pid:version:"), unsafe.Pointer(record), pid, version)
 	return SLSSkyLightEventAuthenticationMessageFromID(rv)

@@ -1,4 +1,4 @@
-// Code generated from Apple documentation for CoreML. DO NOT EDIT.
+// Code generated from Apple documentation for coreml. DO NOT EDIT.
 
 package coreml
 
@@ -140,13 +140,13 @@ func NewMLNeuralNetworksCompileTimeParams() MLNeuralNetworksCompileTimeParams {
 	return rv
 }
 
-func NewNeuralNetworksCompileTimeParamsWithCoder(coder objectivec.IObject) MLNeuralNetworksCompileTimeParams {
+func NewMLNeuralNetworksCompileTimeParamsWithCoder(coder objectivec.IObject) MLNeuralNetworksCompileTimeParams {
 	instance := getMLNeuralNetworksCompileTimeParamsClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
 	return MLNeuralNetworksCompileTimeParamsFromID(rv)
 }
 
-func NewNeuralNetworksCompileTimeParamsWithLossTypeOptimizerTypeOptimizerParametersLossParametersTrainableLayerNamesUpdateParameters(type_ int64, type_2 int64, parameters objectivec.IObject, parameters2 objectivec.IObject, names objectivec.IObject, parameters3 objectivec.IObject) MLNeuralNetworksCompileTimeParams {
+func NewMLNeuralNetworksCompileTimeParamsWithLossTypeOptimizerTypeOptimizerParametersLossParametersTrainableLayerNamesUpdateParameters(type_ int64, type_2 int64, parameters objectivec.IObject, parameters2 objectivec.IObject, names objectivec.IObject, parameters3 objectivec.IObject) MLNeuralNetworksCompileTimeParams {
 	instance := getMLNeuralNetworksCompileTimeParamsClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithLossType:optimizerType:optimizerParameters:lossParameters:trainableLayerNames:updateParameters:"), type_, type_2, parameters, parameters2, names, parameters3)
 	return MLNeuralNetworksCompileTimeParamsFromID(rv)

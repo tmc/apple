@@ -1,4 +1,4 @@
-// Code generated from Apple documentation for AVFAudio. DO NOT EDIT.
+// Code generated from Apple documentation for avfaudio. DO NOT EDIT.
 
 package avfaudio
 
@@ -202,7 +202,7 @@ func NewAVSpeechSynthesisVoice() AVSpeechSynthesisVoice {
 	return rv
 }
 
-func NewSpeechSynthesisVoiceWithLanguage(language objectivec.IObject) AVSpeechSynthesisVoice {
+func NewAVSpeechSynthesisVoiceWithLanguage(language objectivec.IObject) AVSpeechSynthesisVoice {
 	instance := getAVSpeechSynthesisVoiceClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithLanguage:"), language)
 	return AVSpeechSynthesisVoiceFromID(rv)

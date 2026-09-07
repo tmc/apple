@@ -1,4 +1,4 @@
-// Code generated from Apple documentation for AVFAudio. DO NOT EDIT.
+// Code generated from Apple documentation for avfaudio. DO NOT EDIT.
 
 package avfaudio
 
@@ -115,7 +115,7 @@ func NewAVVCRecordDeviceInfo() AVVCRecordDeviceInfo {
 	return rv
 }
 
-func NewVCRecordDeviceInfoWithRecordingEngine(engine unsafe.Pointer) AVVCRecordDeviceInfo {
+func NewAVVCRecordDeviceInfoWithRecordingEngine(engine unsafe.Pointer) AVVCRecordDeviceInfo {
 	instance := getAVVCRecordDeviceInfoClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithRecordingEngine:"), engine)
 	return AVVCRecordDeviceInfoFromID(rv)
@@ -147,8 +147,8 @@ func (a AVVCRecordDeviceInfo) RemoteDeviceCategory() uint32 {
 	return rv
 }
 func (a AVVCRecordDeviceInfo) RemoteDeviceUID() foundation.NSUUID {
-	rv := objc.SendIfResponds[objc.ID](a.ID, objc.Sel("remoteDeviceUID"))
-	return foundation.NSUUIDFromID(objc.ID(rv))
+	rv := objc.SendIfResponds[foundation.NSUUID](a.ID, objc.Sel("remoteDeviceUID"))
+	return foundation.NSUUID(rv)
 }
 func (a AVVCRecordDeviceInfo) RemoteDeviceUIDString() string {
 	rv := objc.SendIfResponds[objc.ID](a.ID, objc.Sel("remoteDeviceUIDString"))

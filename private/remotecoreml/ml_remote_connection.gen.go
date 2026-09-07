@@ -214,8 +214,8 @@ func (m MLRemoteConnection) NwOptions() uint {
 	return rv
 }
 func (m MLRemoteConnection) OutputResult() foundation.NSMutableData {
-	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("outputResult"))
-	return foundation.NSMutableDataFromID(objc.ID(rv))
+	rv := objc.SendIfResponds[foundation.NSMutableData](m.ID, objc.Sel("outputResult"))
+	return foundation.NSMutableData(rv)
 }
 func (m MLRemoteConnection) SetOutputResult(value foundation.NSMutableData) {
 	objc.SendIfResponds[struct{}](m.ID, objc.Sel("setOutputResult:"), value)

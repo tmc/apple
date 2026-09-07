@@ -78,13 +78,13 @@ func NewSecureMediaLayer() SecureMediaLayer {
 	return rv
 }
 
-func NewTtCC8SkyLight39PKGSystemStatusIndicatorsLayerGenerator16SecureMediaLayerWithCoder(coder objectivec.IObject) SecureMediaLayer {
+func NewSecureMediaLayerWithCoder(coder objectivec.IObject) SecureMediaLayer {
 	instance := getSecureMediaLayerClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
 	return SecureMediaLayerFromID(rv)
 }
 
-func NewTtCC8SkyLight39PKGSystemStatusIndicatorsLayerGenerator16SecureMediaLayerWithLayer(layer objectivec.IObject) SecureMediaLayer {
+func NewSecureMediaLayerWithLayer(layer objectivec.IObject) SecureMediaLayer {
 	instance := getSecureMediaLayerClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithLayer:"), layer)
 	return SecureMediaLayerFromID(rv)

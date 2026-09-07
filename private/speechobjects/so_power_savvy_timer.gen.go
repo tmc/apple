@@ -4,8 +4,8 @@ package speechobjects
 
 import (
 	"sync"
+	"unsafe"
 
-	"github.com/tmc/apple/foundation"
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -46,53 +46,75 @@ func (sc SOPowerSavvyTimerClass) Alloc() SOPowerSavvyTimer {
 // # Methods
 //
 //   - [SOPowerSavvyTimer._target]
+//   - [SOPowerSavvyTimer.Fire]
+//   - [SOPowerSavvyTimer.FireDate]
+//   - [SOPowerSavvyTimer.Invalidate]
+//   - [SOPowerSavvyTimer.IsValid]
 //   - [SOPowerSavvyTimer.Repeats]
 //   - [SOPowerSavvyTimer.SetRepeats]
 //   - [SOPowerSavvyTimer.Selector]
 //   - [SOPowerSavvyTimer.SetSelector]
+//   - [SOPowerSavvyTimer.SetFireDate]
 //   - [SOPowerSavvyTimer.Target]
 //   - [SOPowerSavvyTimer.SetTarget]
+//   - [SOPowerSavvyTimer.TimeInterval]
 //   - [SOPowerSavvyTimer.Timer]
 //   - [SOPowerSavvyTimer.SetTimer]
+//   - [SOPowerSavvyTimer.UserInfo]
 type SOPowerSavvyTimer struct {
-	foundation.NSTimer
+	objectivec.Object
 }
 
 // SOPowerSavvyTimerFromID constructs a [SOPowerSavvyTimer] from an objc.ID.
 func SOPowerSavvyTimerFromID(id objc.ID) SOPowerSavvyTimer {
-	return SOPowerSavvyTimer{NSTimer: foundation.NSTimerFromID(id)}
+	return SOPowerSavvyTimer{objectivec.Object{ID: id}}
 }
 
-// Ensure SOPowerSavvyTimer implements ISOPowerSavvyTimer.
-var _ ISOPowerSavvyTimer = SOPowerSavvyTimer{}
+// NOTE: SOPowerSavvyTimer embeds objectivec.Object because the parent type is
+// unavailable, but ISOPowerSavvyTimer embeds INSTimer, which that fallback
+// cannot satisfy; skip compile-time assertion.
 
 // An interface definition for the [SOPowerSavvyTimer] class.
 //
 // # Methods
 //
 //   - [ISOPowerSavvyTimer._target]
+//   - [ISOPowerSavvyTimer.Fire]
+//   - [ISOPowerSavvyTimer.FireDate]
+//   - [ISOPowerSavvyTimer.Invalidate]
+//   - [ISOPowerSavvyTimer.IsValid]
 //   - [ISOPowerSavvyTimer.Repeats]
 //   - [ISOPowerSavvyTimer.SetRepeats]
 //   - [ISOPowerSavvyTimer.Selector]
 //   - [ISOPowerSavvyTimer.SetSelector]
+//   - [ISOPowerSavvyTimer.SetFireDate]
 //   - [ISOPowerSavvyTimer.Target]
 //   - [ISOPowerSavvyTimer.SetTarget]
+//   - [ISOPowerSavvyTimer.TimeInterval]
 //   - [ISOPowerSavvyTimer.Timer]
 //   - [ISOPowerSavvyTimer.SetTimer]
+//   - [ISOPowerSavvyTimer.UserInfo]
 type ISOPowerSavvyTimer interface {
-	foundation.INSTimer
+	INSTimer
 
 	// Topic: Methods
 
 	_target(_target objectivec.IObject)
+	Fire()
+	FireDate() objectivec.IObject
+	Invalidate()
+	IsValid() bool
 	Repeats() bool
 	SetRepeats(value bool)
 	Selector() objectivec.SEL
 	SetSelector(value objectivec.SEL)
+	SetFireDate(date objectivec.IObject)
 	Target() objectivec.IObject
 	SetTarget(value objectivec.IObject)
-	Timer() foundation.Timer
-	SetTimer(value foundation.Timer)
+	TimeInterval() float64
+	Timer() unsafe.Pointer
+	SetTimer(value unsafe.Pointer)
+	UserInfo() objectivec.IObject
 }
 
 // Init initializes the instance.
@@ -116,6 +138,31 @@ func NewSOPowerSavvyTimer() SOPowerSavvyTimer {
 
 func (s SOPowerSavvyTimer) _target(_target objectivec.IObject) {
 	objc.SendIfResponds[objc.ID](s.ID, objc.Sel("_target:"), _target)
+}
+func (s SOPowerSavvyTimer) Fire() {
+	objc.SendIfResponds[objc.ID](s.ID, objc.Sel("fire"))
+}
+func (s SOPowerSavvyTimer) FireDate() objectivec.IObject {
+	rv := objc.SendIfResponds[objc.ID](s.ID, objc.Sel("fireDate"))
+	return objectivec.Object{ID: rv}
+}
+func (s SOPowerSavvyTimer) Invalidate() {
+	objc.SendIfResponds[objc.ID](s.ID, objc.Sel("invalidate"))
+}
+func (s SOPowerSavvyTimer) IsValid() bool {
+	rv := objc.SendIfResponds[bool](s.ID, objc.Sel("isValid"))
+	return rv
+}
+func (s SOPowerSavvyTimer) SetFireDate(date objectivec.IObject) {
+	objc.SendIfResponds[objc.ID](s.ID, objc.Sel("setFireDate:"), date)
+}
+func (s SOPowerSavvyTimer) TimeInterval() float64 {
+	rv := objc.SendIfResponds[float64](s.ID, objc.Sel("timeInterval"))
+	return rv
+}
+func (s SOPowerSavvyTimer) UserInfo() objectivec.IObject {
+	rv := objc.SendIfResponds[objc.ID](s.ID, objc.Sel("userInfo"))
+	return objectivec.Object{ID: rv}
 }
 
 func (_SOPowerSavvyTimerClass SOPowerSavvyTimerClass) RequestTargetPerformSelectorWithObjectAfterDelay(target objectivec.IObject, selector objc.SEL, object objectivec.IObject, delay float64) {
@@ -147,10 +194,10 @@ func (s SOPowerSavvyTimer) Target() objectivec.IObject {
 func (s SOPowerSavvyTimer) SetTarget(value objectivec.IObject) {
 	objc.SendIfResponds[struct{}](s.ID, objc.Sel("setTarget:"), value)
 }
-func (s SOPowerSavvyTimer) Timer() foundation.Timer {
-	rv := objc.SendIfResponds[objc.ID](s.ID, objc.Sel("timer"))
-	return foundation.TimerFromID(objc.ID(rv))
+func (s SOPowerSavvyTimer) Timer() unsafe.Pointer {
+	rv := objc.SendIfResponds[unsafe.Pointer](s.ID, objc.Sel("timer"))
+	return rv
 }
-func (s SOPowerSavvyTimer) SetTimer(value foundation.Timer) {
+func (s SOPowerSavvyTimer) SetTimer(value unsafe.Pointer) {
 	objc.SendIfResponds[struct{}](s.ID, objc.Sel("setTimer:"), value)
 }

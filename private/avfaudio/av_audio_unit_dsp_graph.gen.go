@@ -1,4 +1,4 @@
-// Code generated from Apple documentation for AVFAudio. DO NOT EDIT.
+// Code generated from Apple documentation for avfaudio. DO NOT EDIT.
 
 package avfaudio
 
@@ -103,7 +103,7 @@ func NewAVAudioUnitDSPGraph() AVAudioUnitDSPGraph {
 	return rv
 }
 
-func NewAudioUnitDSPGraphWithImpl(impl unsafe.Pointer) AVAudioUnitDSPGraph {
+func NewAVAudioUnitDSPGraphWithImpl(impl unsafe.Pointer) AVAudioUnitDSPGraph {
 	instance := getAVAudioUnitDSPGraphClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithImpl:"), impl)
 	return AVAudioUnitDSPGraphFromID(rv)
@@ -141,10 +141,10 @@ func (a AVAudioUnitDSPGraph) LoadDSPGraphAtURLError(url foundation.NSURL) (bool,
 }
 
 func (a AVAudioUnitDSPGraph) AuProcessingStripURL() foundation.NSURL {
-	rv := objc.SendIfResponds[objc.ID](a.ID, objc.Sel("auProcessingStripURL"))
-	return foundation.NSURLFromID(objc.ID(rv))
+	rv := objc.SendIfResponds[foundation.NSURL](a.ID, objc.Sel("auProcessingStripURL"))
+	return foundation.NSURL(rv)
 }
 func (a AVAudioUnitDSPGraph) DspGraphURL() foundation.NSURL {
-	rv := objc.SendIfResponds[objc.ID](a.ID, objc.Sel("dspGraphURL"))
-	return foundation.NSURLFromID(objc.ID(rv))
+	rv := objc.SendIfResponds[foundation.NSURL](a.ID, objc.Sel("dspGraphURL"))
+	return foundation.NSURL(rv)
 }

@@ -1,4 +1,4 @@
-// Code generated from Apple documentation for CoreML. DO NOT EDIT.
+// Code generated from Apple documentation for coreml. DO NOT EDIT.
 
 package coreml
 
@@ -99,7 +99,7 @@ func NewMLRegressorResult() MLRegressorResult {
 	return rv
 }
 
-func NewRegressorResultWithValueAdditionalFeatures(value objectivec.IObject, features objectivec.IObject) MLRegressorResult {
+func NewMLRegressorResultWithValueAdditionalFeatures(value objectivec.IObject, features objectivec.IObject) MLRegressorResult {
 	instance := getMLRegressorResultClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithValue:additionalFeatures:"), value, features)
 	return MLRegressorResultFromID(rv)

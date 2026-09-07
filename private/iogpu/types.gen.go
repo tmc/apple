@@ -5,8 +5,10 @@ package iogpu
 import (
 	"unsafe"
 
+	"github.com/tmc/apple/foundation"
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
+	"github.com/tmc/apple/private/virtualization"
 )
 
 // C struct types
@@ -30,8 +32,8 @@ type IOGPUCommandQueueCommandBufferArgs struct {
 	Field1 uint32
 	Field2 uint32
 	Field3 uint32
-	Field4 unsafe.Pointer
-	Field5 unsafe.Pointer
+	Field4 virtualization.Union
+	Field5 virtualization.Union
 	Field6 uint32
 	Field7 uint64
 }
@@ -123,7 +125,7 @@ type IOGPUMetalCommandBufferSidebandBuffer struct {
 type IOGPUMetalCommandBufferStorage struct {
 	Field1  objectivec.Object
 	Field2  IOGPUMetalCommandBufferStoragePoolRef
-	Field3  [2]uint64
+	Field3  unsafe.Pointer
 	Field4  objectivec.Object
 	Field5  *byte
 	Field6  *byte
@@ -189,11 +191,41 @@ type IOGPUMetalDeviceShmemPoolPrivate struct {
 // IOGPUMetalDeviceShmemPrivate
 type IOGPUMetalDeviceShmemPrivate struct {
 	Pool               *IOGPUMetalDeviceShmemPool
-	Entry              [2]uint64
+	Entry              unsafe.Pointer
 	Time_added         uint64
 	Trim_level         int64
 	Used_history       [8]int64
 	Used_history_index int32
+}
+
+// IOGPUMetalResourceCStruct
+type IOGPUMetalResourceCStruct struct {
+	Vendor                   virtualization.Union
+	Info                     IOGPUResourceInfo
+	SharedAllocationUniqueId uint64
+	CachedAllocationUniqueId uint64
+	GpuAddress               uint64
+	Device                   IOGPUMetalDevice
+	Label                    *foundation.NSString
+	GlobalTraceObjectID      uint64
+	LabelTraceID             uint64
+	ResourceRef              IOGPUResourceRef
+	ClientSharedRO           IOGPUClientSharedRORef
+	VirtualAddress           unsafe.Pointer
+	Options                  uint64
+	StorageMode              uint64
+	CpuCacheMode             uint64
+	ResponsibleProcess       int32
+	PurgeableState           uint64
+	PurgeableAllowed         bool
+	Heap                     *IOGPUMetalHeap
+	Resource                 *IOGPUMetalResourceCStruct
+	Offset                   uint64
+	Length                   uint64
+	Pinned                   bool
+	LabelLock                OSUnfairLockS
+	MetadataVirtualAddress   unsafe.Pointer
+	RemoteStorageResource    *IOGPUMetalResourceCStruct
 }
 
 // IOGPUMetalResourcePoolPrivate
@@ -207,7 +239,7 @@ type IOGPUMetalResourcePoolPrivate struct {
 // IOGPUMetalResourcePrivate
 type IOGPUMetalResourcePrivate struct {
 	Pool            *IOGPUMetalResourcePool
-	Entry           [2]uint64
+	Entry           unsafe.Pointer
 	Time_added      uint64
 	Pool_generation uint32
 }
@@ -245,7 +277,7 @@ type IOGPUNewResourceData struct {
 	Field14 uint64
 	Field15 uint32
 	Field16 uint32
-	Field17 unsafe.Pointer
+	Field17 virtualization.Union
 }
 
 // IOGPUResourceInfo

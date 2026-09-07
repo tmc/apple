@@ -1,4 +1,4 @@
-// Code generated from Apple documentation for CoreML. DO NOT EDIT.
+// Code generated from Apple documentation for coreml. DO NOT EDIT.
 
 package coreml
 
@@ -97,7 +97,7 @@ func NewMLAppleAudioFeatureExtractor() MLAppleAudioFeatureExtractor {
 	return rv
 }
 
-func NewAppleAudioFeatureExtractorDescriptionOnlyWithSpecificationConfigurationError(specification unsafe.Pointer, configuration objectivec.IObject) (MLAppleAudioFeatureExtractor, error) {
+func NewMLAppleAudioFeatureExtractorDescriptionOnlyWithSpecificationConfigurationError(specification unsafe.Pointer, configuration objectivec.IObject) (MLAppleAudioFeatureExtractor, error) {
 	var errorPtr objc.ID
 	instance := getMLAppleAudioFeatureExtractorClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initDescriptionOnlyWithSpecification:configuration:error:"), specification, configuration, unsafe.Pointer(&errorPtr))
@@ -111,7 +111,7 @@ func NewAppleAudioFeatureExtractorDescriptionOnlyWithSpecificationConfigurationE
 	return MLAppleAudioFeatureExtractorFromID(rv), nil
 }
 
-func NewAppleAudioFeatureExtractorInterfaceAndMetadataWithCompiledArchiveError(archive unsafe.Pointer) (MLAppleAudioFeatureExtractor, error) {
+func NewMLAppleAudioFeatureExtractorInterfaceAndMetadataWithCompiledArchiveError(archive unsafe.Pointer) (MLAppleAudioFeatureExtractor, error) {
 	var errorPtr objc.ID
 	instance := getMLAppleAudioFeatureExtractorClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initInterfaceAndMetadataWithCompiledArchive:error:"), archive, unsafe.Pointer(&errorPtr))
@@ -125,31 +125,31 @@ func NewAppleAudioFeatureExtractorInterfaceAndMetadataWithCompiledArchiveError(a
 	return MLAppleAudioFeatureExtractorFromID(rv), nil
 }
 
-func NewAppleAudioFeatureExtractorWithConfiguration(configuration objectivec.IObject) MLAppleAudioFeatureExtractor {
+func NewMLAppleAudioFeatureExtractorWithConfiguration(configuration objectivec.IObject) MLAppleAudioFeatureExtractor {
 	instance := getMLAppleAudioFeatureExtractorClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithConfiguration:"), configuration)
 	return MLAppleAudioFeatureExtractorFromID(rv)
 }
 
-func NewAppleAudioFeatureExtractorWithDescription(description objectivec.IObject) MLAppleAudioFeatureExtractor {
+func NewMLAppleAudioFeatureExtractorWithDescription(description objectivec.IObject) MLAppleAudioFeatureExtractor {
 	instance := getMLAppleAudioFeatureExtractorClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithDescription:"), description)
 	return MLAppleAudioFeatureExtractorFromID(rv)
 }
 
-func NewAppleAudioFeatureExtractorWithDescriptionConfiguration(description objectivec.IObject, configuration objectivec.IObject) MLAppleAudioFeatureExtractor {
+func NewMLAppleAudioFeatureExtractorWithDescriptionConfiguration(description objectivec.IObject, configuration objectivec.IObject) MLAppleAudioFeatureExtractor {
 	instance := getMLAppleAudioFeatureExtractorClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithDescription:configuration:"), description, configuration)
 	return MLAppleAudioFeatureExtractorFromID(rv)
 }
 
-func NewAppleAudioFeatureExtractorWithNameInputDescriptionOutputDescriptionOrderedInputFeatureNamesOrderedOutputFeatureNamesConfiguration(name objectivec.IObject, description objectivec.IObject, description2 objectivec.IObject, names objectivec.IObject, names2 objectivec.IObject, configuration objectivec.IObject) MLAppleAudioFeatureExtractor {
+func NewMLAppleAudioFeatureExtractorWithNameInputDescriptionOutputDescriptionOrderedInputFeatureNamesOrderedOutputFeatureNamesConfiguration(name objectivec.IObject, description objectivec.IObject, description2 objectivec.IObject, names objectivec.IObject, names2 objectivec.IObject, configuration objectivec.IObject) MLAppleAudioFeatureExtractor {
 	instance := getMLAppleAudioFeatureExtractorClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithName:inputDescription:outputDescription:orderedInputFeatureNames:orderedOutputFeatureNames:configuration:"), name, description, description2, names, names2, configuration)
 	return MLAppleAudioFeatureExtractorFromID(rv)
 }
 
-func NewAppleAudioFeatureExtractorWithParametersModelDescriptionConfigurationError(parameters objectivec.IObject, description objectivec.IObject, configuration objectivec.IObject) (MLAppleAudioFeatureExtractor, error) {
+func NewMLAppleAudioFeatureExtractorWithParametersModelDescriptionConfigurationError(parameters objectivec.IObject, description objectivec.IObject, configuration objectivec.IObject) (MLAppleAudioFeatureExtractor, error) {
 	var errorPtr objc.ID
 	instance := getMLAppleAudioFeatureExtractorClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithParameters:modelDescription:configuration:error:"), parameters, description, configuration, unsafe.Pointer(&errorPtr))

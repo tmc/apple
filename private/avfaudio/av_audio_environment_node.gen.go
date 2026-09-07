@@ -1,4 +1,4 @@
-// Code generated from Apple documentation for AVFAudio. DO NOT EDIT.
+// Code generated from Apple documentation for avfaudio. DO NOT EDIT.
 
 package avfaudio
 
@@ -106,7 +106,7 @@ func NewAVAudioEnvironmentNode() AVAudioEnvironmentNode {
 	return rv
 }
 
-func NewAudioEnvironmentNodeWithImpl(impl unsafe.Pointer) AVAudioEnvironmentNode {
+func NewAVAudioEnvironmentNodeWithImpl(impl unsafe.Pointer) AVAudioEnvironmentNode {
 	instance := getAVAudioEnvironmentNodeClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithImpl:"), impl)
 	return AVAudioEnvironmentNodeFromID(rv)

@@ -106,7 +106,7 @@ type ICPXFocusManagerDataSourceLaunchServices interface {
 	KeyThiefConnectionID() uint32
 	RemoveFromPermittedFrontList(list CPSProcessSerNum) int16
 	SetKeyThiefConnectionID(id uint32)
-	SetProcessToBringForwardAtNextCheckin(checkin CPSProcessSerNum) int
+	SetProcessToBringForwardAtNextCheckin(checkin CPSProcessSerNum) int32
 	InitWithLaunchServicesProviderProcessManager(provider objectivec.IObject, manager objectivec.IObject) CPXFocusManagerDataSourceLaunchServices
 	DebugDescription() string
 	Description() string
@@ -169,8 +169,8 @@ func (c CPXFocusManagerDataSourceLaunchServices) RemoveFromPermittedFrontList(li
 func (c CPXFocusManagerDataSourceLaunchServices) SetKeyThiefConnectionID(id uint32) {
 	objc.SendIfResponds[objc.ID](c.ID, objc.Sel("setKeyThiefConnectionID:"), id)
 }
-func (c CPXFocusManagerDataSourceLaunchServices) SetProcessToBringForwardAtNextCheckin(checkin CPSProcessSerNum) int {
-	rv := objc.SendIfResponds[int](c.ID, objc.Sel("setProcessToBringForwardAtNextCheckin:"), checkin)
+func (c CPXFocusManagerDataSourceLaunchServices) SetProcessToBringForwardAtNextCheckin(checkin CPSProcessSerNum) int32 {
+	rv := objc.SendIfResponds[int32](c.ID, objc.Sel("setProcessToBringForwardAtNextCheckin:"), checkin)
 	return rv
 }
 func (c CPXFocusManagerDataSourceLaunchServices) InitWithLaunchServicesProviderProcessManager(provider objectivec.IObject, manager objectivec.IObject) CPXFocusManagerDataSourceLaunchServices {

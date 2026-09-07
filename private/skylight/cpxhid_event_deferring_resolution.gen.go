@@ -91,7 +91,7 @@ type ICPXHIDEventDeferringResolution interface {
 
 	ConnectionID() uint32
 	Environment() unsafe.Pointer
-	Pid() int
+	Pid() int32
 	ProcessRecord() *CPSProcessRec
 	Token() unsafe.Pointer
 	InitWithProcess(process *CPSProcessRec) CPXHIDEventDeferringResolution
@@ -162,8 +162,8 @@ func (c CPXHIDEventDeferringResolution) Hash() uint64 {
 	rv := objc.SendIfResponds[uint64](c.ID, objc.Sel("hash"))
 	return rv
 }
-func (c CPXHIDEventDeferringResolution) Pid() int {
-	rv := objc.SendIfResponds[int](c.ID, objc.Sel("pid"))
+func (c CPXHIDEventDeferringResolution) Pid() int32 {
+	rv := objc.SendIfResponds[int32](c.ID, objc.Sel("pid"))
 	return rv
 }
 func (c CPXHIDEventDeferringResolution) ProcessRecord() *CPSProcessRec {

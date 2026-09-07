@@ -3,9 +3,12 @@
 package appleneuralengine
 
 import (
+	"context"
+	"errors"
 	"sync"
 	"unsafe"
 
+	"github.com/tmc/apple/foundation"
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -105,4 +108,55 @@ func (_ANEHashEncodingClass ANEHashEncodingClass) HexStringForDataArray(array ob
 func (_ANEHashEncodingClass ANEHashEncodingClass) HexStringForString(string_ objectivec.IObject) objectivec.IObject {
 	rv := objc.SendIfResponds[objc.ID](objc.ID(_ANEHashEncodingClass.class), objc.Sel("hexStringForString:"), string_)
 	return objectivec.Object{ID: rv}
+}
+func (_ANEHashEncodingClass ANEHashEncodingClass) _hexStringByFeeding(feeding VoidHandler) objectivec.IObject {
+	_block0, _ := NewVoidBlock(feeding)
+	rv := objc.SendIfResponds[objc.ID](objc.ID(_ANEHashEncodingClass.class), objc.Sel("_hexStringByFeeding:"), _block0)
+	return objectivec.Object{ID: rv}
+}
+
+// HexStringByFeeding is an exported wrapper for the private method _hexStringByFeeding.
+func (_ANEHashEncodingClass ANEHashEncodingClass) HexStringByFeeding(feeding VoidHandler) (objectivec.IObject, error) {
+	if !objc.RespondsToSelector(objc.ID(_ANEHashEncodingClass.class), objc.Sel("_hexStringByFeeding:")) {
+		err := &objc.UnrecognizedSelectorError{Selector: "_hexStringByFeeding:"}
+		return nil, err
+	}
+	return _ANEHashEncodingClass._hexStringByFeeding(feeding), nil
+}
+
+// CanHexStringByFeeding reports whether the receiver responds to the private selector _hexStringByFeeding:.
+func (_ANEHashEncodingClass ANEHashEncodingClass) CanHexStringByFeeding() bool {
+	return objc.RespondsToSelector(objc.ID(_ANEHashEncodingClass.class), objc.Sel("_hexStringByFeeding:"))
+}
+func (_ANEHashEncodingClass ANEHashEncodingClass) HexStringForFileAtPath(path objectivec.IObject) objectivec.IObject {
+	rv := objc.SendIfResponds[objc.ID](objc.ID(_ANEHashEncodingClass.class), objc.Sel("hexStringForFileAtPath:"), path)
+	return objectivec.Object{ID: rv}
+}
+func (_ANEHashEncodingClass ANEHashEncodingClass) VerifyBundleAtPathExpectedHashesError(path objectivec.IObject, hashes objectivec.IObject) (bool, error) {
+	var errorPtr objc.ID
+	rv := objc.Send[bool](objc.ID(_ANEHashEncodingClass.class), objc.Sel("verifyBundleAtPath:expectedHashes:error:"), path, hashes, unsafe.Pointer(&errorPtr))
+	if errorPtr != 0 {
+		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
+		return false, foundation.NSErrorFrom(errorPtr)
+	}
+	if !rv {
+		return false, errors.New("verifyBundleAtPath:expectedHashes:error: returned NO with nil NSError")
+	}
+	return rv, nil
+
+}
+
+// _hexStringByFeedingSync is a synchronous wrapper around [ANEHashEncoding._hexStringByFeeding].
+// It blocks until the completion handler fires or the context is cancelled.
+func (ac ANEHashEncodingClass) _hexStringByFeedingSync(ctx context.Context) error {
+	done := make(chan struct{}, 1)
+	ac._hexStringByFeeding(func() {
+		done <- struct{}{}
+	})
+	select {
+	case <-done:
+		return nil
+	case <-ctx.Done():
+		return ctx.Err()
+	}
 }

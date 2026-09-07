@@ -91,8 +91,8 @@ type IFastFolderCopierWrapper interface {
 	CopyWithDstFolderProgressError(folder objectivec.IObject, progress objectivec.IObject) (bool, error)
 	FolderSize() uint64
 	NumFiles() uint64
-	Progress() foundation.Progress
-	SetProgress(value foundation.Progress)
+	Progress() unsafe.Pointer
+	SetProgress(value unsafe.Pointer)
 	TraverseSrcFolderWithProgressError(progress objectivec.IObject) (bool, error)
 	InitWithSrcFolderParallelModeAuditToken(folder objectivec.IObject, mode bool, token unsafe.Pointer) FastFolderCopierWrapper
 }
@@ -168,10 +168,10 @@ func (f FastFolderCopierWrapper) NumFiles() uint64 {
 	rv := objc.SendIfResponds[uint64](f.ID, objc.Sel("numFiles"))
 	return rv
 }
-func (f FastFolderCopierWrapper) Progress() foundation.Progress {
-	rv := objc.SendIfResponds[objc.ID](f.ID, objc.Sel("progress"))
-	return foundation.ProgressFromID(objc.ID(rv))
+func (f FastFolderCopierWrapper) Progress() unsafe.Pointer {
+	rv := objc.SendIfResponds[unsafe.Pointer](f.ID, objc.Sel("progress"))
+	return rv
 }
-func (f FastFolderCopierWrapper) SetProgress(value foundation.Progress) {
+func (f FastFolderCopierWrapper) SetProgress(value unsafe.Pointer) {
 	objc.SendIfResponds[struct{}](f.ID, objc.Sel("setProgress:"), value)
 }

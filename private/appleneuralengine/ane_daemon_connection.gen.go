@@ -61,6 +61,10 @@ func (ac ANEDaemonConnectionClass) Alloc() ANEDaemonConnection {
 //   - [ANEDaemonConnection.ReportTelemetryToPPSPlayload]
 //   - [ANEDaemonConnection.Restricted]
 //   - [ANEDaemonConnection.UnloadModelOptionsQosWithReply]
+//   - [ANEDaemonConnection.CompiledModelExistsInCacheForLimitToCurrentProcessWithReply]
+//   - [ANEDaemonConnection.UpdateCachedModelLocationForModelTrackedByHashToAppGroupWithReply]
+//   - [ANEDaemonConnection.UpdatePurgeabilityLevelForModelTrackedByHashToWithReply]
+//   - [ANEDaemonConnection.UpdateSourcePathForModelTrackedByHashToWithReply]
 //   - [ANEDaemonConnection.InitWithMachServiceNameRestricted]
 type ANEDaemonConnection struct {
 	objectivec.Object
@@ -93,6 +97,10 @@ var _ IANEDaemonConnection = ANEDaemonConnection{}
 //   - [IANEDaemonConnection.ReportTelemetryToPPSPlayload]
 //   - [IANEDaemonConnection.Restricted]
 //   - [IANEDaemonConnection.UnloadModelOptionsQosWithReply]
+//   - [IANEDaemonConnection.CompiledModelExistsInCacheForLimitToCurrentProcessWithReply]
+//   - [IANEDaemonConnection.UpdateCachedModelLocationForModelTrackedByHashToAppGroupWithReply]
+//   - [IANEDaemonConnection.UpdatePurgeabilityLevelForModelTrackedByHashToWithReply]
+//   - [IANEDaemonConnection.UpdateSourcePathForModelTrackedByHashToWithReply]
 //   - [IANEDaemonConnection.InitWithMachServiceNameRestricted]
 type IANEDaemonConnection interface {
 	objectivec.IObject
@@ -114,6 +122,10 @@ type IANEDaemonConnection interface {
 	ReportTelemetryToPPSPlayload(pps objectivec.IObject, playload objectivec.IObject)
 	Restricted() bool
 	UnloadModelOptionsQosWithReply(model objectivec.IObject, options objectivec.IObject, qos uint32, reply VoidHandler)
+	CompiledModelExistsInCacheForLimitToCurrentProcessWithReply(for_ objectivec.IObject, process bool, reply VoidHandler)
+	UpdateCachedModelLocationForModelTrackedByHashToAppGroupWithReply(hash objectivec.IObject, group objectivec.IObject, reply VoidHandler)
+	UpdatePurgeabilityLevelForModelTrackedByHashToWithReply(hash objectivec.IObject, to objectivec.IObject, reply VoidHandler)
+	UpdateSourcePathForModelTrackedByHashToWithReply(hash objectivec.IObject, to objectivec.IObject, reply VoidHandler)
 	InitWithMachServiceNameRestricted(name objectivec.IObject, restricted bool) ANEDaemonConnection
 }
 
@@ -193,6 +205,22 @@ func (a ANEDaemonConnection) UnloadModelOptionsQosWithReply(model objectivec.IOb
 	_block3, _ := NewVoidBlock(reply)
 	objc.SendIfResponds[objc.ID](a.ID, objc.Sel("unloadModel:options:qos:withReply:"), model, options, qos, _block3)
 }
+func (a ANEDaemonConnection) CompiledModelExistsInCacheForLimitToCurrentProcessWithReply(for_ objectivec.IObject, process bool, reply VoidHandler) {
+	_block2, _ := NewVoidBlock(reply)
+	objc.SendIfResponds[objc.ID](a.ID, objc.Sel("compiledModelExistsInCacheFor:limitToCurrentProcess:withReply:"), for_, process, _block2)
+}
+func (a ANEDaemonConnection) UpdateCachedModelLocationForModelTrackedByHashToAppGroupWithReply(hash objectivec.IObject, group objectivec.IObject, reply VoidHandler) {
+	_block2, _ := NewVoidBlock(reply)
+	objc.SendIfResponds[objc.ID](a.ID, objc.Sel("updateCachedModelLocationForModelTrackedByHash:toAppGroup:withReply:"), hash, group, _block2)
+}
+func (a ANEDaemonConnection) UpdatePurgeabilityLevelForModelTrackedByHashToWithReply(hash objectivec.IObject, to objectivec.IObject, reply VoidHandler) {
+	_block2, _ := NewVoidBlock(reply)
+	objc.SendIfResponds[objc.ID](a.ID, objc.Sel("updatePurgeabilityLevelForModelTrackedByHash:to:withReply:"), hash, to, _block2)
+}
+func (a ANEDaemonConnection) UpdateSourcePathForModelTrackedByHashToWithReply(hash objectivec.IObject, to objectivec.IObject, reply VoidHandler) {
+	_block2, _ := NewVoidBlock(reply)
+	objc.SendIfResponds[objc.ID](a.ID, objc.Sel("updateSourcePathForModelTrackedByHash:to:withReply:"), hash, to, _block2)
+}
 func (a ANEDaemonConnection) InitWithMachServiceNameRestricted(name objectivec.IObject, restricted bool) ANEDaemonConnection {
 	rv := objc.SendIfResponds[ANEDaemonConnection](a.ID, objc.Sel("initWithMachServiceName:restricted:"), name, restricted)
 	return rv
@@ -208,8 +236,8 @@ func (_ANEDaemonConnectionClass ANEDaemonConnectionClass) UserDaemonConnection()
 }
 
 func (a ANEDaemonConnection) DaemonConnection() foundation.NSXPCConnection {
-	rv := objc.SendIfResponds[objc.ID](a.ID, objc.Sel("daemonConnection"))
-	return foundation.NSXPCConnectionFromID(objc.ID(rv))
+	rv := objc.SendIfResponds[foundation.NSXPCConnection](a.ID, objc.Sel("daemonConnection"))
+	return foundation.NSXPCConnection(rv)
 }
 func (a ANEDaemonConnection) Restricted() bool {
 	rv := objc.SendIfResponds[bool](a.ID, objc.Sel("restricted"))
@@ -386,6 +414,66 @@ func (a ANEDaemonConnection) PurgeCompiledModelMatchingHashWithReplySync(ctx con
 func (a ANEDaemonConnection) UnloadModelOptionsQosWithReplySync(ctx context.Context, model objectivec.IObject, options objectivec.IObject, qos uint32) error {
 	done := make(chan struct{}, 1)
 	a.UnloadModelOptionsQosWithReply(model, options, qos, func() {
+		done <- struct{}{}
+	})
+	select {
+	case <-done:
+		return nil
+	case <-ctx.Done():
+		return ctx.Err()
+	}
+}
+
+// CompiledModelExistsInCacheForLimitToCurrentProcessWithReplySync is a synchronous wrapper around [ANEDaemonConnection.CompiledModelExistsInCacheForLimitToCurrentProcessWithReply].
+// It blocks until the completion handler fires or the context is cancelled.
+func (a ANEDaemonConnection) CompiledModelExistsInCacheForLimitToCurrentProcessWithReplySync(ctx context.Context, for_ objectivec.IObject, process bool) error {
+	done := make(chan struct{}, 1)
+	a.CompiledModelExistsInCacheForLimitToCurrentProcessWithReply(for_, process, func() {
+		done <- struct{}{}
+	})
+	select {
+	case <-done:
+		return nil
+	case <-ctx.Done():
+		return ctx.Err()
+	}
+}
+
+// UpdateCachedModelLocationForModelTrackedByHashToAppGroupWithReplySync is a synchronous wrapper around [ANEDaemonConnection.UpdateCachedModelLocationForModelTrackedByHashToAppGroupWithReply].
+// It blocks until the completion handler fires or the context is cancelled.
+func (a ANEDaemonConnection) UpdateCachedModelLocationForModelTrackedByHashToAppGroupWithReplySync(ctx context.Context, hash objectivec.IObject, group objectivec.IObject) error {
+	done := make(chan struct{}, 1)
+	a.UpdateCachedModelLocationForModelTrackedByHashToAppGroupWithReply(hash, group, func() {
+		done <- struct{}{}
+	})
+	select {
+	case <-done:
+		return nil
+	case <-ctx.Done():
+		return ctx.Err()
+	}
+}
+
+// UpdatePurgeabilityLevelForModelTrackedByHashToWithReplySync is a synchronous wrapper around [ANEDaemonConnection.UpdatePurgeabilityLevelForModelTrackedByHashToWithReply].
+// It blocks until the completion handler fires or the context is cancelled.
+func (a ANEDaemonConnection) UpdatePurgeabilityLevelForModelTrackedByHashToWithReplySync(ctx context.Context, hash objectivec.IObject, to objectivec.IObject) error {
+	done := make(chan struct{}, 1)
+	a.UpdatePurgeabilityLevelForModelTrackedByHashToWithReply(hash, to, func() {
+		done <- struct{}{}
+	})
+	select {
+	case <-done:
+		return nil
+	case <-ctx.Done():
+		return ctx.Err()
+	}
+}
+
+// UpdateSourcePathForModelTrackedByHashToWithReplySync is a synchronous wrapper around [ANEDaemonConnection.UpdateSourcePathForModelTrackedByHashToWithReply].
+// It blocks until the completion handler fires or the context is cancelled.
+func (a ANEDaemonConnection) UpdateSourcePathForModelTrackedByHashToWithReplySync(ctx context.Context, hash objectivec.IObject, to objectivec.IObject) error {
+	done := make(chan struct{}, 1)
+	a.UpdateSourcePathForModelTrackedByHashToWithReply(hash, to, func() {
 		done <- struct{}{}
 	})
 	select {

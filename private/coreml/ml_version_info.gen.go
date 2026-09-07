@@ -1,4 +1,4 @@
-// Code generated from Apple documentation for CoreML. DO NOT EDIT.
+// Code generated from Apple documentation for coreml. DO NOT EDIT.
 
 package coreml
 
@@ -111,7 +111,7 @@ func NewMLVersionInfo() MLVersionInfo {
 	return rv
 }
 
-func NewVersionInfoWithMajorMinorPatchVariant(major int64, minor int64, patch int64, variant objectivec.IObject) MLVersionInfo {
+func NewMLVersionInfoWithMajorMinorPatchVariant(major int64, minor int64, patch int64, variant objectivec.IObject) MLVersionInfo {
 	instance := getMLVersionInfoClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithMajor:minor:patch:variant:"), major, minor, patch, variant)
 	return MLVersionInfoFromID(rv)

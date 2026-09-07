@@ -99,7 +99,7 @@ func NewCGXConnectionBox() CGXConnectionBox {
 	return rv
 }
 
-func NewXConnectionBoxWithCGXConnection(cGXConnection *CGXConnection) CGXConnectionBox {
+func NewCGXConnectionBoxWithCGXConnection(cGXConnection *CGXConnection) CGXConnectionBox {
 	instance := getCGXConnectionBoxClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithCGXConnection:"), unsafe.Pointer(cGXConnection))
 	return CGXConnectionBoxFromID(rv)

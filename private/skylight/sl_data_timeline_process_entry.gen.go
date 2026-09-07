@@ -87,7 +87,7 @@ type ISLDataTimelineProcessEntry interface {
 	OnScreenOccluded() uint64
 	OnScreenVisible() uint64
 	OrderedOut() uint64
-	Pid() int
+	Pid() int32
 	WindowData() unsafe.Pointer
 	InitWithXPCObject(xPCObject objectivec.IObject) SLDataTimelineProcessEntry
 }
@@ -147,8 +147,8 @@ func (s SLDataTimelineProcessEntry) OrderedOut() uint64 {
 	rv := objc.SendIfResponds[uint64](s.ID, objc.Sel("orderedOut"))
 	return rv
 }
-func (s SLDataTimelineProcessEntry) Pid() int {
-	rv := objc.SendIfResponds[int](s.ID, objc.Sel("pid"))
+func (s SLDataTimelineProcessEntry) Pid() int32 {
+	rv := objc.SendIfResponds[int32](s.ID, objc.Sel("pid"))
 	return rv
 }
 func (s SLDataTimelineProcessEntry) WindowData() unsafe.Pointer {

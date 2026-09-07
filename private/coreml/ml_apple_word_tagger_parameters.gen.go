@@ -1,4 +1,4 @@
-// Code generated from Apple documentation for CoreML. DO NOT EDIT.
+// Code generated from Apple documentation for coreml. DO NOT EDIT.
 
 package coreml
 
@@ -154,7 +154,7 @@ func NewMLAppleWordTaggerParameters() MLAppleWordTaggerParameters {
 	return rv
 }
 
-func NewAppleWordTaggerParametersWithDataLanguageInputFeatureNameTokensFeatureNameTokenTagsFeatureNameTokenLocationsFeatureNameTokenLengthsFeatureNameModelDataTagNamesError(data uint64, language objectivec.IObject, name objectivec.IObject, name2 objectivec.IObject, name3 objectivec.IObject, name4 objectivec.IObject, name5 objectivec.IObject, data2 objectivec.IObject, names objectivec.IObject) (MLAppleWordTaggerParameters, error) {
+func NewMLAppleWordTaggerParametersWithDataLanguageInputFeatureNameTokensFeatureNameTokenTagsFeatureNameTokenLocationsFeatureNameTokenLengthsFeatureNameModelDataTagNamesError(data uint64, language objectivec.IObject, name objectivec.IObject, name2 objectivec.IObject, name3 objectivec.IObject, name4 objectivec.IObject, name5 objectivec.IObject, data2 objectivec.IObject, names objectivec.IObject) (MLAppleWordTaggerParameters, error) {
 	var errorPtr objc.ID
 	instance := getMLAppleWordTaggerParametersClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithData:language:inputFeatureName:tokensFeatureName:tokenTagsFeatureName:tokenLocationsFeatureName:tokenLengthsFeatureName:modelData:tagNames:error:"), data, language, name, name2, name3, name4, name5, data2, names, unsafe.Pointer(&errorPtr))
@@ -168,7 +168,7 @@ func NewAppleWordTaggerParametersWithDataLanguageInputFeatureNameTokensFeatureNa
 	return MLAppleWordTaggerParametersFromID(rv), nil
 }
 
-func NewAppleWordTaggerParametersWithDataLanguageInputFeatureNameTokensFeatureNameTokenTagsFeatureNameTokenLocationsFeatureNameTokenLengthsFeatureNameModelDataTagNamesMetadataError(data uint64, language objectivec.IObject, name objectivec.IObject, name2 objectivec.IObject, name3 objectivec.IObject, name4 objectivec.IObject, name5 objectivec.IObject, data2 objectivec.IObject, names objectivec.IObject, metadata objectivec.IObject) (MLAppleWordTaggerParameters, error) {
+func NewMLAppleWordTaggerParametersWithDataLanguageInputFeatureNameTokensFeatureNameTokenTagsFeatureNameTokenLocationsFeatureNameTokenLengthsFeatureNameModelDataTagNamesMetadataError(data uint64, language objectivec.IObject, name objectivec.IObject, name2 objectivec.IObject, name3 objectivec.IObject, name4 objectivec.IObject, name5 objectivec.IObject, data2 objectivec.IObject, names objectivec.IObject, metadata objectivec.IObject) (MLAppleWordTaggerParameters, error) {
 	var errorPtr objc.ID
 	instance := getMLAppleWordTaggerParametersClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithData:language:inputFeatureName:tokensFeatureName:tokenTagsFeatureName:tokenLocationsFeatureName:tokenLengthsFeatureName:modelData:tagNames:metadata:error:"), data, language, name, name2, name3, name4, name5, data2, names, metadata, unsafe.Pointer(&errorPtr))
@@ -225,8 +225,8 @@ func (m MLAppleWordTaggerParameters) SetMetadata(value foundation.INSDictionary)
 	objc.SendIfResponds[struct{}](m.ID, objc.Sel("setMetadata:"), value)
 }
 func (m MLAppleWordTaggerParameters) ModelParameterData() foundation.NSData {
-	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("modelParameterData"))
-	return foundation.NSDataFromID(objc.ID(rv))
+	rv := objc.SendIfResponds[foundation.NSData](m.ID, objc.Sel("modelParameterData"))
+	return foundation.NSData(rv)
 }
 func (m MLAppleWordTaggerParameters) SetModelParameterData(value foundation.NSData) {
 	objc.SendIfResponds[struct{}](m.ID, objc.Sel("setModelParameterData:"), value)

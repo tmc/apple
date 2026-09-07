@@ -210,7 +210,43 @@ func (_ANEErrorsClass ANEErrorsClass) VirtualizationHostErrorError(hostError obj
 	rv := objc.SendIfResponds[objc.ID](objc.ID(_ANEErrorsClass.class), objc.Sel("virtualizationHostError:error:"), hostError, underlyingError)
 	return objectivec.Object{ID: rv}
 }
-func (_ANEErrorsClass ANEErrorsClass) VirtualizationKernelErrorKernelErrorCode(error_ objectivec.IObject, code int) objectivec.IObject {
+func (_ANEErrorsClass ANEErrorsClass) VirtualizationKernelErrorKernelErrorCode(error_ objectivec.IObject, code int32) objectivec.IObject {
 	rv := objc.SendIfResponds[objc.ID](objc.ID(_ANEErrorsClass.class), objc.Sel("virtualizationKernelError:kernelErrorCode:"), error_, code)
+	return objectivec.Object{ID: rv}
+}
+func (_ANEErrorsClass ANEErrorsClass) ErrorForCodeMethod(code uint64, method objectivec.IObject) objectivec.IObject {
+	rv := objc.SendIfResponds[objc.ID](objc.ID(_ANEErrorsClass.class), objc.Sel("errorForCode:method:"), code, method)
+	return objectivec.Object{ID: rv}
+}
+func (_ANEErrorsClass ANEErrorsClass) ErrorForCodeMethodUnderlyingCode(code uint64, method objectivec.IObject, code2 int64) objectivec.IObject {
+	rv := objc.SendIfResponds[objc.ID](objc.ID(_ANEErrorsClass.class), objc.Sel("errorForCode:method:underlyingCode:"), code, method, code2)
+	return objectivec.Object{ID: rv}
+}
+func (_ANEErrorsClass ANEErrorsClass) ErrorForCodeMethodUnderlyingCodeAdditionalUserInfo(code uint64, method objectivec.IObject, code2 int64, info objectivec.IObject) objectivec.IObject {
+	rv := objc.SendIfResponds[objc.ID](objc.ID(_ANEErrorsClass.class), objc.Sel("errorForCode:method:underlyingCode:additionalUserInfo:"), code, method, code2, info)
+	return objectivec.Object{ID: rv}
+}
+func (_ANEErrorsClass ANEErrorsClass) InferenceErrorForStatusMethod(status uint32, method objectivec.IObject) objectivec.IObject {
+	rv := objc.SendIfResponds[objc.ID](objc.ID(_ANEErrorsClass.class), objc.Sel("inferenceErrorForStatus:method:"), status, method)
+	return objectivec.Object{ID: rv}
+}
+func (_ANEErrorsClass ANEErrorsClass) MappingMutableWeightsBufferFailed(failed objectivec.IObject) objectivec.IObject {
+	rv := objc.SendIfResponds[objc.ID](objc.ID(_ANEErrorsClass.class), objc.Sel("mappingMutableWeightsBufferFailed:"), failed)
+	return objectivec.Object{ID: rv}
+}
+func (_ANEErrorsClass ANEErrorsClass) ProgramTooLargeErrorForMethod(method objectivec.IObject) objectivec.IObject {
+	rv := objc.SendIfResponds[objc.ID](objc.ID(_ANEErrorsClass.class), objc.Sel("programTooLargeErrorForMethod:"), method)
+	return objectivec.Object{ID: rv}
+}
+func (_ANEErrorsClass ANEErrorsClass) RequestCancelledErrorForMethod(method objectivec.IObject) objectivec.IObject {
+	rv := objc.SendIfResponds[objc.ID](objc.ID(_ANEErrorsClass.class), objc.Sel("requestCancelledErrorForMethod:"), method)
+	return objectivec.Object{ID: rv}
+}
+func (_ANEErrorsClass ANEErrorsClass) StringForCode(code uint64) objectivec.IObject {
+	rv := objc.SendIfResponds[objc.ID](objc.ID(_ANEErrorsClass.class), objc.Sel("stringForCode:"), code)
+	return objectivec.Object{ID: rv}
+}
+func (_ANEErrorsClass ANEErrorsClass) UnmappingMutableWeightsBufferFailed(failed objectivec.IObject) objectivec.IObject {
+	rv := objc.SendIfResponds[objc.ID](objc.ID(_ANEErrorsClass.class), objc.Sel("unmappingMutableWeightsBufferFailed:"), failed)
 	return objectivec.Object{ID: rv}
 }

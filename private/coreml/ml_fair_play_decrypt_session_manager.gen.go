@@ -1,4 +1,4 @@
-// Code generated from Apple documentation for CoreML. DO NOT EDIT.
+// Code generated from Apple documentation for coreml. DO NOT EDIT.
 
 package coreml
 
@@ -83,7 +83,7 @@ type IMLFairPlayDecryptSessionManager interface {
 	ModelPathToSessionID() foundation.INSDictionary
 	SessionContext() unsafe.Pointer
 	StartDecryptionOfModelAtPathUsingKeyBlobTeamIdentifierError(path objectivec.IObject, blob objectivec.IObject, identifier objectivec.IObject) (bool, error)
-	StopDecryptionOfModelAtPath(path objectivec.IObject) int
+	StopDecryptionOfModelAtPath(path objectivec.IObject) int32
 	StopDecryptionOfModelAtPathError(path objectivec.IObject) (bool, error)
 	SyncQueue() objectivec.Object
 }
@@ -120,8 +120,8 @@ func (m MLFairPlayDecryptSessionManager) StartDecryptionOfModelAtPathUsingKeyBlo
 	return rv, nil
 
 }
-func (m MLFairPlayDecryptSessionManager) StopDecryptionOfModelAtPath(path objectivec.IObject) int {
-	rv := objc.SendIfResponds[int](m.ID, objc.Sel("stopDecryptionOfModelAtPath:"), path)
+func (m MLFairPlayDecryptSessionManager) StopDecryptionOfModelAtPath(path objectivec.IObject) int32 {
+	rv := objc.SendIfResponds[int32](m.ID, objc.Sel("stopDecryptionOfModelAtPath:"), path)
 	return rv
 }
 func (m MLFairPlayDecryptSessionManager) StopDecryptionOfModelAtPathError(path objectivec.IObject) (bool, error) {

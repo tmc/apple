@@ -1,4 +1,4 @@
-// Code generated from Apple documentation for CoreML. DO NOT EDIT.
+// Code generated from Apple documentation for coreml. DO NOT EDIT.
 
 package coreml
 
@@ -99,7 +99,7 @@ func NewMLPredictionSyncPoint() MLPredictionSyncPoint {
 	return rv
 }
 
-func NewPredictionSyncPointWithSharedEventValue(event objectivec.IObject, value uint64) MLPredictionSyncPoint {
+func NewMLPredictionSyncPointWithSharedEventValue(event objectivec.IObject, value uint64) MLPredictionSyncPoint {
 	instance := getMLPredictionSyncPointClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithSharedEvent:value:"), event, value)
 	return MLPredictionSyncPointFromID(rv)

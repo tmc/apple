@@ -126,15 +126,15 @@ type IETImageDescriptorExtractor interface {
 	SetDescriptors_file_cache_size(value uint64)
 	Descriptors_mem_cache_size() uint64
 	SetDescriptors_mem_cache_size(value uint64)
-	DoBatchnormTuning() int
-	SetDoBatchnormTuning(value int)
+	DoBatchnormTuning() int32
+	SetDoBatchnormTuning(value int32)
 	ExtractDescriptorForDataPointFreeWhenDone(point appleneuralengine.VImageBuffer, done bool) unsafe.Pointer
 	ExtractForDataPoint(point objectivec.IObject)
 	Horizontal_flip() float32
 	SetHorizontal_flip(value float32)
-	NAugmentations() int
-	SetNAugmentations(value int)
-	NumberOfChannels() int
+	NAugmentations() int32
+	SetNAugmentations(value int32)
+	NumberOfChannels() int32
 	Rotation_range() float32
 	SetRotation_range(value float32)
 	Shear_range() float32
@@ -180,8 +180,8 @@ func (e ETImageDescriptorExtractor) ExtractDescriptorForDataPointFreeWhenDone(po
 func (e ETImageDescriptorExtractor) ExtractForDataPoint(point objectivec.IObject) {
 	objc.SendIfResponds[objc.ID](e.ID, objc.Sel("extractForDataPoint:"), point)
 }
-func (e ETImageDescriptorExtractor) NumberOfChannels() int {
-	rv := objc.SendIfResponds[int](e.ID, objc.Sel("numberOfChannels"))
+func (e ETImageDescriptorExtractor) NumberOfChannels() int32 {
+	rv := objc.SendIfResponds[int32](e.ID, objc.Sel("numberOfChannels"))
 	return rv
 }
 func (e ETImageDescriptorExtractor) InitWithNetwork(network objectivec.IObject) ETImageDescriptorExtractor {
@@ -234,11 +234,11 @@ func (e ETImageDescriptorExtractor) Descriptors_mem_cache_size() uint64 {
 func (e ETImageDescriptorExtractor) SetDescriptors_mem_cache_size(value uint64) {
 	objc.SendIfResponds[struct{}](e.ID, objc.Sel("setDescriptors_mem_cache_size:"), value)
 }
-func (e ETImageDescriptorExtractor) DoBatchnormTuning() int {
-	rv := objc.SendIfResponds[int](e.ID, objc.Sel("doBatchnormTuning"))
+func (e ETImageDescriptorExtractor) DoBatchnormTuning() int32 {
+	rv := objc.SendIfResponds[int32](e.ID, objc.Sel("doBatchnormTuning"))
 	return rv
 }
-func (e ETImageDescriptorExtractor) SetDoBatchnormTuning(value int) {
+func (e ETImageDescriptorExtractor) SetDoBatchnormTuning(value int32) {
 	objc.SendIfResponds[struct{}](e.ID, objc.Sel("setDoBatchnormTuning:"), value)
 }
 func (e ETImageDescriptorExtractor) Horizontal_flip() float32 {
@@ -248,11 +248,11 @@ func (e ETImageDescriptorExtractor) Horizontal_flip() float32 {
 func (e ETImageDescriptorExtractor) SetHorizontal_flip(value float32) {
 	objc.SendIfResponds[struct{}](e.ID, objc.Sel("setHorizontal_flip:"), value)
 }
-func (e ETImageDescriptorExtractor) NAugmentations() int {
-	rv := objc.SendIfResponds[int](e.ID, objc.Sel("nAugmentations"))
+func (e ETImageDescriptorExtractor) NAugmentations() int32 {
+	rv := objc.SendIfResponds[int32](e.ID, objc.Sel("nAugmentations"))
 	return rv
 }
-func (e ETImageDescriptorExtractor) SetNAugmentations(value int) {
+func (e ETImageDescriptorExtractor) SetNAugmentations(value int32) {
 	objc.SendIfResponds[struct{}](e.ID, objc.Sel("setNAugmentations:"), value)
 }
 func (e ETImageDescriptorExtractor) Rotation_range() float32 {

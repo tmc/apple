@@ -1,4 +1,4 @@
-// Code generated from Apple documentation for CoreML. DO NOT EDIT.
+// Code generated from Apple documentation for coreml. DO NOT EDIT.
 
 package coreml
 
@@ -42,14 +42,14 @@ func (mc MLPipelineClass) Alloc() MLPipeline {
 	return rv
 }
 
-// A parent class referenced by other CoreML classes. [Full Topic]
+// A parent class referenced by other coreml classes. [Full Topic]
 type MLPipeline struct {
 	objectivec.Object
 }
 
 // MLPipelineFromID constructs a [MLPipeline] from an objc.ID.
 //
-// A parent class referenced by other CoreML classes.
+// A parent class referenced by other coreml classes.
 func MLPipelineFromID(id objc.ID) MLPipeline {
 	return MLPipeline{objectivec.Object{ID: id}}
 }

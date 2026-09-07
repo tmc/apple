@@ -1,4 +1,4 @@
-// Code generated from Apple documentation for CoreML. DO NOT EDIT.
+// Code generated from Apple documentation for coreml. DO NOT EDIT.
 
 package coreml
 
@@ -102,7 +102,7 @@ func NewMLOptimizationHints() MLOptimizationHints {
 	return rv
 }
 
-func NewOptimizationHintsWithCoder(coder objectivec.IObject) MLOptimizationHints {
+func NewMLOptimizationHintsWithCoder(coder objectivec.IObject) MLOptimizationHints {
 	instance := getMLOptimizationHintsClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
 	return MLOptimizationHintsFromID(rv)

@@ -1,4 +1,4 @@
-// Code generated from Apple documentation for CoreML. DO NOT EDIT.
+// Code generated from Apple documentation for coreml. DO NOT EDIT.
 
 package coreml
 
@@ -82,8 +82,8 @@ func NewMLPersistentKeyStorage() MLPersistentKeyStorage {
 }
 
 func (_MLPersistentKeyStorageClass MLPersistentKeyStorageClass) PersistentKeyStorageURL() foundation.NSURL {
-	rv := objc.SendIfResponds[objc.ID](objc.ID(_MLPersistentKeyStorageClass.class), objc.Sel("persistentKeyStorageURL"))
-	return foundation.NSURLFromID(rv)
+	rv := objc.SendIfResponds[foundation.NSURL](objc.ID(_MLPersistentKeyStorageClass.class), objc.Sel("persistentKeyStorageURL"))
+	return foundation.NSURL(rv)
 }
 func (_MLPersistentKeyStorageClass MLPersistentKeyStorageClass) RetrieveKeyBlobForKeyIdentifier(identifier objectivec.IObject) objectivec.IObject {
 	rv := objc.SendIfResponds[objc.ID](objc.ID(_MLPersistentKeyStorageClass.class), objc.Sel("retrieveKeyBlobForKeyIdentifier:"), identifier)

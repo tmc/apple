@@ -1,4 +1,4 @@
-// Code generated from Apple documentation for AVFAudio. DO NOT EDIT.
+// Code generated from Apple documentation for avfaudio. DO NOT EDIT.
 
 package avfaudio
 
@@ -117,8 +117,8 @@ func (a AVAudioUnitComponent) ValidateWithResultsInCompletionHandler(results obj
 }
 
 func (a AVAudioUnitComponent) ComponentURL() foundation.NSURL {
-	rv := objc.SendIfResponds[objc.ID](a.ID, objc.Sel("componentURL"))
-	return foundation.NSURLFromID(objc.ID(rv))
+	rv := objc.SendIfResponds[foundation.NSURL](a.ID, objc.Sel("componentURL"))
+	return foundation.NSURL(rv)
 }
 func (a AVAudioUnitComponent) SandboxSafe() bool {
 	rv := objc.SendIfResponds[bool](a.ID, objc.Sel("sandboxSafe"))

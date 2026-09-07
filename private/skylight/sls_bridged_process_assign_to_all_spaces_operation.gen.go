@@ -69,8 +69,8 @@ type ISLSBridgedProcessAssignToAllSpacesOperation interface {
 
 	// Topic: Methods
 
-	Process() int
-	InitWithProcess(process int) SLSBridgedProcessAssignToAllSpacesOperation
+	Process() int32
+	InitWithProcess(process int32) SLSBridgedProcessAssignToAllSpacesOperation
 }
 
 // Init initializes the instance.
@@ -98,18 +98,18 @@ func NewSLSBridgedProcessAssignToAllSpacesOperationWithCoder(coder objectivec.IO
 	return SLSBridgedProcessAssignToAllSpacesOperationFromID(rv)
 }
 
-func NewSLSBridgedProcessAssignToAllSpacesOperationWithProcess(process int) SLSBridgedProcessAssignToAllSpacesOperation {
+func NewSLSBridgedProcessAssignToAllSpacesOperationWithProcess(process int32) SLSBridgedProcessAssignToAllSpacesOperation {
 	instance := getSLSBridgedProcessAssignToAllSpacesOperationClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithProcess:"), process)
 	return SLSBridgedProcessAssignToAllSpacesOperationFromID(rv)
 }
 
-func (s SLSBridgedProcessAssignToAllSpacesOperation) InitWithProcess(process int) SLSBridgedProcessAssignToAllSpacesOperation {
+func (s SLSBridgedProcessAssignToAllSpacesOperation) InitWithProcess(process int32) SLSBridgedProcessAssignToAllSpacesOperation {
 	rv := objc.SendIfResponds[SLSBridgedProcessAssignToAllSpacesOperation](s.ID, objc.Sel("initWithProcess:"), process)
 	return rv
 }
 
-func (s SLSBridgedProcessAssignToAllSpacesOperation) Process() int {
-	rv := objc.SendIfResponds[int](s.ID, objc.Sel("process"))
+func (s SLSBridgedProcessAssignToAllSpacesOperation) Process() int32 {
+	rv := objc.SendIfResponds[int32](s.ID, objc.Sel("process"))
 	return rv
 }

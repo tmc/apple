@@ -1,4 +1,4 @@
-// Code generated from Apple documentation for Virtualization. DO NOT EDIT.
+// Code generated from Apple documentation for virtualization. DO NOT EDIT.
 
 package virtualization
 
@@ -50,7 +50,6 @@ func (vc VZPointingDeviceClass) Alloc() VZPointingDevice {
 //   - [VZPointingDevice.SendScrollWheelEvents]
 //   - [VZPointingDevice.SendSmartMagnifyEvents]
 //   - [VZPointingDevice.Type]
-//   - [VZPointingDevice.InitWithTypeVirtualMachinePointingDeviceIndex]
 type VZPointingDevice struct {
 	objectivec.Object
 }
@@ -73,7 +72,6 @@ var _ IVZPointingDevice = VZPointingDevice{}
 //   - [IVZPointingDevice.SendScrollWheelEvents]
 //   - [IVZPointingDevice.SendSmartMagnifyEvents]
 //   - [IVZPointingDevice.Type]
-//   - [IVZPointingDevice.InitWithTypeVirtualMachinePointingDeviceIndex]
 type IVZPointingDevice interface {
 	objectivec.IObject
 
@@ -85,7 +83,6 @@ type IVZPointingDevice interface {
 	SendScrollWheelEvents(events objectivec.IObject)
 	SendSmartMagnifyEvents(events objectivec.IObject)
 	Type() int64
-	InitWithTypeVirtualMachinePointingDeviceIndex(type_ int64, machine objectivec.IObject, index uint64) VZPointingDevice
 }
 
 // Init initializes the instance.
@@ -107,12 +104,6 @@ func NewVZPointingDevice() VZPointingDevice {
 	return rv
 }
 
-func NewVZPointingDeviceWithTypeVirtualMachinePointingDeviceIndex(type_ int64, machine objectivec.IObject, index uint64) VZPointingDevice {
-	instance := getVZPointingDeviceClass().Alloc()
-	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithType:virtualMachine:pointingDeviceIndex:"), type_, machine, index)
-	return VZPointingDeviceFromID(rv)
-}
-
 func (v VZPointingDevice) SendMagnifyEvents(events objectivec.IObject) {
 	objc.SendIfResponds[objc.ID](v.ID, objc.Sel("sendMagnifyEvents:"), events)
 }
@@ -127,10 +118,6 @@ func (v VZPointingDevice) SendScrollWheelEvents(events objectivec.IObject) {
 }
 func (v VZPointingDevice) SendSmartMagnifyEvents(events objectivec.IObject) {
 	objc.SendIfResponds[objc.ID](v.ID, objc.Sel("sendSmartMagnifyEvents:"), events)
-}
-func (v VZPointingDevice) InitWithTypeVirtualMachinePointingDeviceIndex(type_ int64, machine objectivec.IObject, index uint64) VZPointingDevice {
-	rv := objc.SendIfResponds[VZPointingDevice](v.ID, objc.Sel("initWithType:virtualMachine:pointingDeviceIndex:"), type_, machine, index)
-	return rv
 }
 
 func (_VZPointingDeviceClass VZPointingDeviceClass) RequiresGrabbingMouseInput() bool {

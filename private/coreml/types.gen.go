@@ -1,4 +1,4 @@
-// Code generated from Apple documentation for CoreML. DO NOT EDIT.
+// Code generated from Apple documentation for coreml. DO NOT EDIT.
 
 package coreml
 
@@ -8,8 +8,8 @@ import (
 
 // C struct types
 
-// BayesianProbitRegression
-type BayesianProbitRegression struct {
+// BayesianProbitRegressionCStruct
+type BayesianProbitRegressionCStruct struct {
 }
 
 // CGImage
@@ -50,12 +50,16 @@ type MLModelSpecification struct {
 type MMappedFile struct {
 }
 
-// Model
-type Model struct {
+// ModelCStruct
+type ModelCStruct struct {
 }
 
-// MultiArrayBufferLayout
-type MultiArrayBufferLayout struct {
+// MultiArrayBufferLayoutCStruct
+type MultiArrayBufferLayoutCStruct struct {
+}
+
+// NSZone
+type NSZone struct {
 }
 
 // OpaqueVTPixelTransferSession

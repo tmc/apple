@@ -61,6 +61,9 @@ func (ac ANEProgramForEvaluationClass) Alloc() ANEProgramForEvaluation {
 //   - [ANEProgramForEvaluation.ProgramInferenceOtherErrorForMessageModelMethodName]
 //   - [ANEProgramForEvaluation.QueueDepth]
 //   - [ANEProgramForEvaluation.RequestsInFlight]
+//   - [ANEProgramForEvaluation.DeviceController]
+//   - [ANEProgramForEvaluation.MapMutableWeightsBufferDirectForProcedureBufferIDBufferSizeError]
+//   - [ANEProgramForEvaluation.UnmapMutableWeightsBufferDirectForProcedureBufferID]
 //   - [ANEProgramForEvaluation.InitWithControllerIntermediateBufferHandleQueueDepth]
 type ANEProgramForEvaluation struct {
 	objectivec.Object
@@ -92,6 +95,9 @@ var _ IANEProgramForEvaluation = ANEProgramForEvaluation{}
 //   - [IANEProgramForEvaluation.ProgramInferenceOtherErrorForMessageModelMethodName]
 //   - [IANEProgramForEvaluation.QueueDepth]
 //   - [IANEProgramForEvaluation.RequestsInFlight]
+//   - [IANEProgramForEvaluation.DeviceController]
+//   - [IANEProgramForEvaluation.MapMutableWeightsBufferDirectForProcedureBufferIDBufferSizeError]
+//   - [IANEProgramForEvaluation.UnmapMutableWeightsBufferDirectForProcedureBufferID]
 //   - [IANEProgramForEvaluation.InitWithControllerIntermediateBufferHandleQueueDepth]
 type IANEProgramForEvaluation interface {
 	objectivec.IObject
@@ -112,6 +118,9 @@ type IANEProgramForEvaluation interface {
 	ProgramInferenceOtherErrorForMessageModelMethodName(message *ANENotificationMessageStruct, model objectivec.IObject, name objectivec.IObject) objectivec.IObject
 	QueueDepth() int8
 	RequestsInFlight() objectivec.Object
+	DeviceController() objectivec.IObject
+	MapMutableWeightsBufferDirectForProcedureBufferIDBufferSizeError(procedure objectivec.IObject, id uint64, buffer unsafe.Pointer) (uint64, error)
+	UnmapMutableWeightsBufferDirectForProcedureBufferID(procedure objectivec.IObject, id uint64) bool
 	InitWithControllerIntermediateBufferHandleQueueDepth(controller objectivec.IObject, handle uint64, depth int8) ANEProgramForEvaluation
 }
 
@@ -168,7 +177,7 @@ func (a ANEProgramForEvaluation) ProcessOutputSetModelOptionsError(set objective
 }
 func (a ANEProgramForEvaluation) ProcessRequestModelQosQIndexModelStringIDOptionsReturnValueError(request objectivec.IObject, model objectivec.IObject, qos uint32, index uint64, id uint64, options objectivec.IObject, value *uint32) (bool, error) {
 	var errorPtr objc.ID
-	rv := objc.Send[bool](a.ID, objc.Sel("processRequest:model:qos:qIndex:modelStringID:options:returnValue:error:"), request, model, qos, index, id, options, unsafe.Pointer(value), unsafe.Pointer(&errorPtr))
+	rv := objc.Send[bool](a.ID, objc.Sel("processRequest:model:qos:qIndex:modelStringID:options:returnValue:error:"), request, model, qos, index, id, options, value, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
 		return false, foundation.NSErrorFrom(errorPtr)
@@ -195,6 +204,27 @@ func (a ANEProgramForEvaluation) ProcessSessionHintOptionsReportError(hint objec
 func (a ANEProgramForEvaluation) ProgramInferenceOtherErrorForMessageModelMethodName(message *ANENotificationMessageStruct, model objectivec.IObject, name objectivec.IObject) objectivec.IObject {
 	rv := objc.SendIfResponds[objc.ID](a.ID, objc.Sel("programInferenceOtherErrorForMessage:model:methodName:"), unsafe.Pointer(message), model, name)
 	return objectivec.Object{ID: rv}
+}
+func (a ANEProgramForEvaluation) DeviceController() objectivec.IObject {
+	rv := objc.SendIfResponds[objc.ID](a.ID, objc.Sel("deviceController"))
+	return objectivec.Object{ID: rv}
+}
+func (a ANEProgramForEvaluation) MapMutableWeightsBufferDirectForProcedureBufferIDBufferSizeError(procedure objectivec.IObject, id uint64, buffer unsafe.Pointer) (uint64, error) {
+	var size uint64
+	var errorPtr objc.ID
+	rv := objc.Send[bool](a.ID, objc.Sel("mapMutableWeightsBufferDirectForProcedure:bufferID:buffer:size:error:"), procedure, id, buffer, unsafe.Pointer(&size), unsafe.Pointer(&errorPtr))
+	if errorPtr != 0 {
+		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
+		return 0, foundation.NSErrorFrom(errorPtr)
+	}
+	if !rv {
+		return 0, errors.New("mapMutableWeightsBufferDirectForProcedure:bufferID:buffer:size:error: returned NO with nil NSError")
+	}
+	return size, nil
+}
+func (a ANEProgramForEvaluation) UnmapMutableWeightsBufferDirectForProcedureBufferID(procedure objectivec.IObject, id uint64) bool {
+	rv := objc.SendIfResponds[bool](a.ID, objc.Sel("unmapMutableWeightsBufferDirectForProcedure:bufferID:"), procedure, id)
+	return rv
 }
 func (a ANEProgramForEvaluation) InitWithControllerIntermediateBufferHandleQueueDepth(controller objectivec.IObject, handle uint64, depth int8) ANEProgramForEvaluation {
 	rv := objc.SendIfResponds[ANEProgramForEvaluation](a.ID, objc.Sel("initWithController:intermediateBufferHandle:queueDepth:"), controller, handle, depth)

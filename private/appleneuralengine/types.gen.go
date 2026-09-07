@@ -11,6 +11,12 @@ import (
 
 // C struct types
 
+// ANEBufferMapping
+type ANEBufferMapping struct {
+	Field1 uint64
+	Field2 uint64
+}
+
 // ANEBufferStruct
 type ANEBufferStruct struct {
 	Field1 unsafe.Pointer
@@ -30,6 +36,21 @@ type ANEDeviceStruct struct {
 	Field6 uint64
 }
 
+// ANEHwDebugEventDescriptorStruct
+type ANEHwDebugEventDescriptorStruct struct {
+	Field1 uint32
+	Field2 uint32
+	Field3 unsafe.Pointer
+}
+
+// ANEHwDebugEventStruct
+type ANEHwDebugEventStruct struct {
+	Field1 uint32
+	Field2 uint16
+	Field3 uint16
+	Field4 uint64
+}
+
 // ANEMemoryMappingParamsStruct
 type ANEMemoryMappingParamsStruct struct {
 	Field1 [128]ANEBufferStruct
@@ -39,6 +60,21 @@ type ANEMemoryMappingParamsStruct struct {
 	Field5 uint64
 }
 
+// ANENotificationMessage
+type ANENotificationMessage struct {
+	Field1  int32
+	Field2  int32
+	Field3  unsafe.Pointer
+	Field4  *objc.ID
+	Field5  [4]uint32
+	Field6  *objc.ID
+	Field7  [4][4]uint32
+	Field8  uint64
+	Field9  bool
+	Field10 uint8
+	Field11 uint8
+}
+
 // ANENotificationMessageStruct
 type ANENotificationMessageStruct struct {
 	Field1 int32
@@ -46,6 +82,12 @@ type ANENotificationMessageStruct struct {
 	Field3 unsafe.Pointer
 	Field4 *objc.ID
 	Field5 [4]uint32
+}
+
+// ANEStatsPerTdPerfCountersStruct
+type ANEStatsPerTdPerfCountersStruct struct {
+	Field1 bool
+	Field2 [4][128]int8
 }
 
 // AnalyticsData
@@ -86,6 +128,10 @@ type AnalyticsProcedureInfo struct {
 type AnalyticsTaskInfo struct {
 	Field1 uint32
 	Field2 uint64
+}
+
+// AsyncShapeShiftingPatternTracker
+type AsyncShapeShiftingPatternTracker struct {
 }
 
 // Attribute
@@ -131,6 +177,10 @@ type CGColorSpace struct {
 
 // CGImage
 type CGImage struct {
+}
+
+// CompiledProduct
+type CompiledProduct struct {
 }
 
 // DeviceExtendedInfo
@@ -239,6 +289,10 @@ type ModuleOp struct {
 type ModuleResourcesLoader struct {
 }
 
+// NSZone
+type NSZone struct {
+}
+
 // NamedAttribute
 type NamedAttribute struct {
 }
@@ -246,6 +300,19 @@ type NamedAttribute struct {
 // OriginalModuleRef
 type OriginalModuleRef struct {
 	_module [1]uint64
+}
+
+// PredictionResult
+type PredictionResult struct {
+	Field1 int64
+	Field2 bool
+	Field3 bool
+	Field4 [3]uint64
+	Field5 [5]uint64
+	Field6 [5]uint64
+	Field7 [5]uint64
+	Field8 [5]uint64
+	Field9 bool
 }
 
 // ReadDataFromFileCache
@@ -736,6 +803,21 @@ type SurfaceAndBuffer struct {
 
 // Surface_and_buffer is a type alias for SurfaceAndBuffer for use in objc.Send[T] calls.
 type Surface_and_buffer = SurfaceAndBuffer
+
+// TargetSpecOptions
+type TargetSpecOptions struct {
+	PreferredDevice       uint64
+	Compilation           uint64
+	IsIndependentAdapter  bool
+	DisableTypeInference  bool
+	UseParallelEncode     bool
+	NoFallbackCompilation bool
+	EnablePrewiring       bool
+	DisableNDX            bool
+}
+
+// TargetSpecOptions_t is a type alias for TargetSpecOptions for use in objc.Send[T] calls.
+type TargetSpecOptions_t = TargetSpecOptions
 
 // V9NoiseKernel
 type V9NoiseKernel struct {

@@ -1,4 +1,4 @@
-// Code generated from Apple documentation for CoreML. DO NOT EDIT.
+// Code generated from Apple documentation for coreml. DO NOT EDIT.
 
 package coreml
 
@@ -108,7 +108,7 @@ func NewMLNeuralEngineComputeDeviceRegistry() MLNeuralEngineComputeDeviceRegistr
 	return rv
 }
 
-func NewNeuralEngineComputeDeviceRegistryWithNeuralEngineDevice(device objectivec.IObject) MLNeuralEngineComputeDeviceRegistry {
+func NewMLNeuralEngineComputeDeviceRegistryWithNeuralEngineDevice(device objectivec.IObject) MLNeuralEngineComputeDeviceRegistry {
 	instance := getMLNeuralEngineComputeDeviceRegistryClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithNeuralEngineDevice:"), device)
 	return MLNeuralEngineComputeDeviceRegistryFromID(rv)

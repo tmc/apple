@@ -76,8 +76,8 @@ type ISLSScreenshotResult interface {
 
 	FrameSurfaceHDR() iosurface.IOSurface
 	FrameSurfaceSDR() iosurface.IOSurface
-	Status() int
-	InitWithStatusFrameSurfaceSDRFrameSurfaceHDR(status int, sdr objectivec.IObject, hdr objectivec.IObject) SLSScreenshotResult
+	Status() int32
+	InitWithStatusFrameSurfaceSDRFrameSurfaceHDR(status int32, sdr objectivec.IObject, hdr objectivec.IObject) SLSScreenshotResult
 }
 
 // Init initializes the instance.
@@ -99,26 +99,26 @@ func NewSLSScreenshotResult() SLSScreenshotResult {
 	return rv
 }
 
-func NewSLSScreenshotResultWithStatusFrameSurfaceSDRFrameSurfaceHDR(status int, sdr objectivec.IObject, hdr objectivec.IObject) SLSScreenshotResult {
+func NewSLSScreenshotResultWithStatusFrameSurfaceSDRFrameSurfaceHDR(status int32, sdr objectivec.IObject, hdr objectivec.IObject) SLSScreenshotResult {
 	instance := getSLSScreenshotResultClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithStatus:frameSurfaceSDR:frameSurfaceHDR:"), status, sdr, hdr)
 	return SLSScreenshotResultFromID(rv)
 }
 
-func (s SLSScreenshotResult) InitWithStatusFrameSurfaceSDRFrameSurfaceHDR(status int, sdr objectivec.IObject, hdr objectivec.IObject) SLSScreenshotResult {
+func (s SLSScreenshotResult) InitWithStatusFrameSurfaceSDRFrameSurfaceHDR(status int32, sdr objectivec.IObject, hdr objectivec.IObject) SLSScreenshotResult {
 	rv := objc.SendIfResponds[SLSScreenshotResult](s.ID, objc.Sel("initWithStatus:frameSurfaceSDR:frameSurfaceHDR:"), status, sdr, hdr)
 	return rv
 }
 
 func (s SLSScreenshotResult) FrameSurfaceHDR() iosurface.IOSurface {
-	rv := objc.SendIfResponds[objc.ID](s.ID, objc.Sel("frameSurfaceHDR"))
-	return iosurface.IOSurfaceFromID(objc.ID(rv))
+	rv := objc.SendIfResponds[iosurface.IOSurface](s.ID, objc.Sel("frameSurfaceHDR"))
+	return iosurface.IOSurface(rv)
 }
 func (s SLSScreenshotResult) FrameSurfaceSDR() iosurface.IOSurface {
-	rv := objc.SendIfResponds[objc.ID](s.ID, objc.Sel("frameSurfaceSDR"))
-	return iosurface.IOSurfaceFromID(objc.ID(rv))
+	rv := objc.SendIfResponds[iosurface.IOSurface](s.ID, objc.Sel("frameSurfaceSDR"))
+	return iosurface.IOSurface(rv)
 }
-func (s SLSScreenshotResult) Status() int {
-	rv := objc.SendIfResponds[int](s.ID, objc.Sel("status"))
+func (s SLSScreenshotResult) Status() int32 {
+	rv := objc.SendIfResponds[int32](s.ID, objc.Sel("status"))
 	return rv
 }

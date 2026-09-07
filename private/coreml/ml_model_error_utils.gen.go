@@ -1,4 +1,4 @@
-// Code generated from Apple documentation for CoreML. DO NOT EDIT.
+// Code generated from Apple documentation for coreml. DO NOT EDIT.
 
 package coreml
 
@@ -139,11 +139,11 @@ func (_MLModelErrorUtilsClass MLModelErrorUtilsClass) ProgramEvaluationErrorWith
 	rv := objc.SendIfResponds[objc.ID](objc.ID(_MLModelErrorUtilsClass.class), objc.Sel("programEvaluationErrorWithUnderlyingError:format:"), error_, format)
 	return objectivec.Object{ID: rv}
 }
-func (_MLModelErrorUtilsClass MLModelErrorUtilsClass) ProgramParsingAtLoadErrorWithReasonFormat(reason int, format objectivec.IObject) objectivec.IObject {
+func (_MLModelErrorUtilsClass MLModelErrorUtilsClass) ProgramParsingAtLoadErrorWithReasonFormat(reason int32, format objectivec.IObject) objectivec.IObject {
 	rv := objc.SendIfResponds[objc.ID](objc.ID(_MLModelErrorUtilsClass.class), objc.Sel("programParsingAtLoadErrorWithReason:format:"), reason, format)
 	return objectivec.Object{ID: rv}
 }
-func (_MLModelErrorUtilsClass MLModelErrorUtilsClass) ProgramValidationAtLoadErrorWithReasonFormat(reason int, format objectivec.IObject) objectivec.IObject {
+func (_MLModelErrorUtilsClass MLModelErrorUtilsClass) ProgramValidationAtLoadErrorWithReasonFormat(reason int32, format objectivec.IObject) objectivec.IObject {
 	rv := objc.SendIfResponds[objc.ID](objc.ID(_MLModelErrorUtilsClass.class), objc.Sel("programValidationAtLoadErrorWithReason:format:"), reason, format)
 	return objectivec.Object{ID: rv}
 }

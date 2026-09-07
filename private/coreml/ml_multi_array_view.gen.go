@@ -1,4 +1,4 @@
-// Code generated from Apple documentation for CoreML. DO NOT EDIT.
+// Code generated from Apple documentation for coreml. DO NOT EDIT.
 
 package coreml
 
@@ -101,13 +101,13 @@ func NewMLMultiArrayView() MLMultiArrayView {
 	return rv
 }
 
-func NewMultiArrayViewExpandingDimensionsOfMultiArrayAxis(array objectivec.IObject, axis int64) MLMultiArrayView {
+func NewMLMultiArrayViewExpandingDimensionsOfMultiArrayAxis(array objectivec.IObject, axis int64) MLMultiArrayView {
 	instance := getMLMultiArrayViewClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initExpandingDimensionsOfMultiArray:axis:"), array, axis)
 	return MLMultiArrayViewFromID(rv)
 }
 
-func NewMultiArrayViewSlicingMultiArrayOriginShapeSqueezeError(array objectivec.IObject, origin objectivec.IObject, shape objectivec.IObject, squeeze bool) (MLMultiArrayView, error) {
+func NewMLMultiArrayViewSlicingMultiArrayOriginShapeSqueezeError(array objectivec.IObject, origin objectivec.IObject, shape objectivec.IObject, squeeze bool) (MLMultiArrayView, error) {
 	var errorPtr objc.ID
 	instance := getMLMultiArrayViewClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initSlicingMultiArray:origin:shape:squeeze:error:"), array, origin, shape, squeeze, unsafe.Pointer(&errorPtr))
@@ -121,7 +121,7 @@ func NewMultiArrayViewSlicingMultiArrayOriginShapeSqueezeError(array objectivec.
 	return MLMultiArrayViewFromID(rv), nil
 }
 
-func NewMultiArrayViewSqueezingMultiArrayDimensionsError(array objectivec.IObject, dimensions objectivec.IObject) (MLMultiArrayView, error) {
+func NewMLMultiArrayViewSqueezingMultiArrayDimensionsError(array objectivec.IObject, dimensions objectivec.IObject) (MLMultiArrayView, error) {
 	var errorPtr objc.ID
 	instance := getMLMultiArrayViewClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initSqueezingMultiArray:dimensions:error:"), array, dimensions, unsafe.Pointer(&errorPtr))
@@ -135,37 +135,37 @@ func NewMultiArrayViewSqueezingMultiArrayDimensionsError(array objectivec.IObjec
 	return MLMultiArrayViewFromID(rv), nil
 }
 
-func NewMultiArrayViewWithArrayDataType(array objectivec.IObject, type_ int64) MLMultiArrayView {
+func NewMLMultiArrayViewWithArrayDataType(array objectivec.IObject, type_ int64) MLMultiArrayView {
 	instance := getMLMultiArrayViewClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithArray:dataType:"), array, type_)
 	return MLMultiArrayViewFromID(rv)
 }
 
-func NewMultiArrayViewWithMultiArrayBuffer(buffer unsafe.Pointer) MLMultiArrayView {
+func NewMLMultiArrayViewWithMultiArrayBuffer(buffer unsafe.Pointer) MLMultiArrayView {
 	instance := getMLMultiArrayViewClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithMultiArrayBuffer:"), buffer)
 	return MLMultiArrayViewFromID(rv)
 }
 
-func NewMultiArrayViewWithPixelBufferShapeStrides(buffer corevideo.CVImageBufferRef, shape objectivec.IObject, strides objectivec.IObject) MLMultiArrayView {
+func NewMLMultiArrayViewWithPixelBufferShapeStrides(buffer corevideo.CVImageBufferRef, shape objectivec.IObject, strides objectivec.IObject) MLMultiArrayView {
 	instance := getMLMultiArrayViewClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithPixelBuffer:shape:strides:"), buffer, shape, strides)
 	return MLMultiArrayViewFromID(rv)
 }
 
-func NewMultiArrayViewWithScalarsShapeDataType(scalars objectivec.IObject, shape objectivec.IObject, type_ int64) MLMultiArrayView {
+func NewMLMultiArrayViewWithScalarsShapeDataType(scalars objectivec.IObject, shape objectivec.IObject, type_ int64) MLMultiArrayView {
 	instance := getMLMultiArrayViewClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithScalars:shape:dataType:"), scalars, shape, type_)
 	return MLMultiArrayViewFromID(rv)
 }
 
-func NewMultiArrayViewWithShapeDataTypeStorageOrderBufferAlignment(shape objectivec.IObject, type_ int64, order int64, alignment uint64) MLMultiArrayView {
+func NewMLMultiArrayViewWithShapeDataTypeStorageOrderBufferAlignment(shape objectivec.IObject, type_ int64, order int64, alignment uint64) MLMultiArrayView {
 	instance := getMLMultiArrayViewClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithShape:dataType:storageOrder:bufferAlignment:"), shape, type_, order, alignment)
 	return MLMultiArrayViewFromID(rv)
 }
 
-func NewMultiArrayViewWithShapeDataTypeStorageOrderError(shape objectivec.IObject, type_ int64, order int64) (MLMultiArrayView, error) {
+func NewMLMultiArrayViewWithShapeDataTypeStorageOrderError(shape objectivec.IObject, type_ int64, order int64) (MLMultiArrayView, error) {
 	var errorPtr objc.ID
 	instance := getMLMultiArrayViewClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithShape:dataType:storageOrder:error:"), shape, type_, order, unsafe.Pointer(&errorPtr))

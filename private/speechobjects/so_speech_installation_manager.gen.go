@@ -165,7 +165,7 @@ type ISOSpeechInstallationManager interface {
 	_createLocalPort() corefoundation.CFMessagePortRef
 	_createServerPortIfNeeded() bool
 	_overriddenVoiceIdentifierDictionary() objectivec.IObject
-	_sendMessageWithDataWithReply(message int, data unsafe.Pointer, reply bool) objectivec.IObject
+	_sendMessageWithDataWithReply(message int32, data unsafe.Pointer, reply bool) objectivec.IObject
 	_serverIsRunning() bool
 	_startDownloadingHighestQualityIfNecessaryForVoiceIdentifierRequireACPowerInitiator(identifier objectivec.IObject, aCPower bool, initiator objectivec.IObject) bool
 	_voiceIdentifierForRootVoiceIdentifierStartDownloadingRequireACPowerInitiatorHighestQuality(identifier objectivec.IObject, downloading bool, aCPower bool, initiator objectivec.IObject, quality bool) objectivec.IObject
@@ -301,13 +301,13 @@ func (s SOSpeechInstallationManager) OverriddenVoiceIdentifierDictionary() (obje
 func (s SOSpeechInstallationManager) CanOverriddenVoiceIdentifierDictionary() bool {
 	return objc.RespondsToSelector(s.ID, objc.Sel("_overriddenVoiceIdentifierDictionary"))
 }
-func (s SOSpeechInstallationManager) _sendMessageWithDataWithReply(message int, data unsafe.Pointer, reply bool) objectivec.IObject {
+func (s SOSpeechInstallationManager) _sendMessageWithDataWithReply(message int32, data unsafe.Pointer, reply bool) objectivec.IObject {
 	rv := objc.SendIfResponds[objc.ID](s.ID, objc.Sel("_sendMessage:withData:withReply:"), message, data, reply)
 	return objectivec.Object{ID: rv}
 }
 
 // SendMessageWithDataWithReply is an exported wrapper for the private method _sendMessageWithDataWithReply.
-func (s SOSpeechInstallationManager) SendMessageWithDataWithReply(message int, data unsafe.Pointer, reply bool) (objectivec.IObject, error) {
+func (s SOSpeechInstallationManager) SendMessageWithDataWithReply(message int32, data unsafe.Pointer, reply bool) (objectivec.IObject, error) {
 	if !objc.RespondsToSelector(s.ID, objc.Sel("_sendMessage:withData:withReply:")) {
 		err := &objc.UnrecognizedSelectorError{Selector: "_sendMessage:withData:withReply:"}
 		return nil, err

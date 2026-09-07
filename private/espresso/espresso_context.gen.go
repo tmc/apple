@@ -79,11 +79,11 @@ type IEspressoContext interface {
 	// Topic: Methods
 
 	Ctx() unsafe.Pointer
-	Platform() int
+	Platform() int32
 	Set_priorityLow_priority_max_ms_per_command_bufferGpu_priority(set_priority bool, low_priority_max_ms_per_command_buffer float32, gpu_priority uint32)
 	InitWithDeviceAndWisdomParams(device objectivec.IObject, params objectivec.IObject) EspressoContext
 	InitWithNetworkContext(context objectivec.IObject) EspressoContext
-	InitWithPlatform(platform int) EspressoContext
+	InitWithPlatform(platform int32) EspressoContext
 }
 
 // Init initializes the instance.
@@ -123,7 +123,7 @@ func NewEspressoContextWithNetworkContext(context objectivec.IObject) EspressoCo
 	return EspressoContextFromID(rv)
 }
 
-func NewEspressoContextWithPlatform(platform int) EspressoContext {
+func NewEspressoContextWithPlatform(platform int32) EspressoContext {
 	instance := getEspressoContextClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithPlatform:"), platform)
 	return EspressoContextFromID(rv)
@@ -140,7 +140,7 @@ func (e EspressoContext) InitWithNetworkContext(context objectivec.IObject) Espr
 	rv := objc.SendIfResponds[EspressoContext](e.ID, objc.Sel("initWithNetworkContext:"), context)
 	return rv
 }
-func (e EspressoContext) InitWithPlatform(platform int) EspressoContext {
+func (e EspressoContext) InitWithPlatform(platform int32) EspressoContext {
 	rv := objc.SendIfResponds[EspressoContext](e.ID, objc.Sel("initWithPlatform:"), platform)
 	return rv
 }
@@ -149,7 +149,7 @@ func (e EspressoContext) Ctx() unsafe.Pointer {
 	rv := objc.SendIfResponds[unsafe.Pointer](e.ID, objc.Sel("ctx"))
 	return rv
 }
-func (e EspressoContext) Platform() int {
-	rv := objc.SendIfResponds[int](e.ID, objc.Sel("platform"))
+func (e EspressoContext) Platform() int32 {
+	rv := objc.SendIfResponds[int32](e.ID, objc.Sel("platform"))
 	return rv
 }

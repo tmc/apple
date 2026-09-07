@@ -112,6 +112,27 @@ func (ac ANEVirtualClientClass) Alloc() ANEVirtualClient {
 //   - [ANEVirtualClient.ValidateEnvironmentForPrecompiledBinarySupport]
 //   - [ANEVirtualClient.ValidateNetworkCreateUuidFunctionDirectoryPathScratchPadPathMilTextData]
 //   - [ANEVirtualClient.ValidateNetworkCreateMLIRValidation_params]
+//   - [ANEVirtualClient.AssetExistsOnHost]
+//   - [ANEVirtualClient.CompileModelLegacyOptionsQosError]
+//   - [ANEVirtualClient.CompiledModelExistsForLegacy]
+//   - [ANEVirtualClient.CopyModelAttributesToDictionaryDictionaryVmData]
+//   - [ANEVirtualClient.CopyModelMetaDataOptionsDictionaryVmDataShouldEncodeKey]
+//   - [ANEVirtualClient.CreateIOSurfaceWithDataLengthIoSID]
+//   - [ANEVirtualClient.CreateIOSurfaceWithDataSizeIoSID]
+//   - [ANEVirtualClient.CreateValidationResultForNetworkCreateMLIRValidation_params]
+//   - [ANEVirtualClient.DoMapMutableWeightsForModelAndProcedureMappedWeightsBufferSizeError]
+//   - [ANEVirtualClient.DoSyncMutableWeightsForModelAndProcedureFromOffsetWithSizeError]
+//   - [ANEVirtualClient.DoUnmapMutableWeightsForModelAndProcedure]
+//   - [ANEVirtualClient.LoadModelLegacyOptionsQosError]
+//   - [ANEVirtualClient.MapMutableWeightsForModelAndProcedureMappedWeightsBufferSizeError]
+//   - [ANEVirtualClient.PurgeCompiledModelLegacy]
+//   - [ANEVirtualClient.SyncMutableWeightsForModelAndProcedureFromOffsetWithSizeError]
+//   - [ANEVirtualClient.TransferAssetsToHostAtPathWithUUIDModelType]
+//   - [ANEVirtualClient.TransferDirectoryMetaDataToHostWithUUID]
+//   - [ANEVirtualClient.TransferFileToHostWithPathWithChunkSizeWithUUIDOverWriteFileNameWith]
+//   - [ANEVirtualClient.TransferFileToHostWithPathWithUUIDWithModelInputPathOverWriteFileNameWithChunkSizeBytesWithExistingIOSurface]
+//   - [ANEVirtualClient.TransferFileToHostWithPathWithUUIDWithModelInputPathOverWriteFileNameWithWithExistingIOSurface]
+//   - [ANEVirtualClient.UnmapMutableWeightsForModelAndProcedure]
 //   - [ANEVirtualClient.InitWithSingletonAccess]
 type ANEVirtualClient struct {
 	objectivec.Object
@@ -192,6 +213,27 @@ var _ IANEVirtualClient = ANEVirtualClient{}
 //   - [IANEVirtualClient.ValidateEnvironmentForPrecompiledBinarySupport]
 //   - [IANEVirtualClient.ValidateNetworkCreateUuidFunctionDirectoryPathScratchPadPathMilTextData]
 //   - [IANEVirtualClient.ValidateNetworkCreateMLIRValidation_params]
+//   - [IANEVirtualClient.AssetExistsOnHost]
+//   - [IANEVirtualClient.CompileModelLegacyOptionsQosError]
+//   - [IANEVirtualClient.CompiledModelExistsForLegacy]
+//   - [IANEVirtualClient.CopyModelAttributesToDictionaryDictionaryVmData]
+//   - [IANEVirtualClient.CopyModelMetaDataOptionsDictionaryVmDataShouldEncodeKey]
+//   - [IANEVirtualClient.CreateIOSurfaceWithDataLengthIoSID]
+//   - [IANEVirtualClient.CreateIOSurfaceWithDataSizeIoSID]
+//   - [IANEVirtualClient.CreateValidationResultForNetworkCreateMLIRValidation_params]
+//   - [IANEVirtualClient.DoMapMutableWeightsForModelAndProcedureMappedWeightsBufferSizeError]
+//   - [IANEVirtualClient.DoSyncMutableWeightsForModelAndProcedureFromOffsetWithSizeError]
+//   - [IANEVirtualClient.DoUnmapMutableWeightsForModelAndProcedure]
+//   - [IANEVirtualClient.LoadModelLegacyOptionsQosError]
+//   - [IANEVirtualClient.MapMutableWeightsForModelAndProcedureMappedWeightsBufferSizeError]
+//   - [IANEVirtualClient.PurgeCompiledModelLegacy]
+//   - [IANEVirtualClient.SyncMutableWeightsForModelAndProcedureFromOffsetWithSizeError]
+//   - [IANEVirtualClient.TransferAssetsToHostAtPathWithUUIDModelType]
+//   - [IANEVirtualClient.TransferDirectoryMetaDataToHostWithUUID]
+//   - [IANEVirtualClient.TransferFileToHostWithPathWithChunkSizeWithUUIDOverWriteFileNameWith]
+//   - [IANEVirtualClient.TransferFileToHostWithPathWithUUIDWithModelInputPathOverWriteFileNameWithChunkSizeBytesWithExistingIOSurface]
+//   - [IANEVirtualClient.TransferFileToHostWithPathWithUUIDWithModelInputPathOverWriteFileNameWithWithExistingIOSurface]
+//   - [IANEVirtualClient.UnmapMutableWeightsForModelAndProcedure]
 //   - [IANEVirtualClient.InitWithSingletonAccess]
 type IANEVirtualClient interface {
 	objectivec.IObject
@@ -204,7 +246,7 @@ type IANEVirtualClient interface {
 	BeginRealTimeTask() bool
 	CallIOUserClientInParamsOutParams(client uint32, params *VirtANEModel, params2 *VirtANEModel) bool
 	CallIOUserClientWithDictionaryInDictionaryError(dictionary uint32, dictionary2 corefoundation.CFDictionaryRef) (corefoundation.CFDictionaryRef, error)
-	CheckKernReturnValueSelectorOutParams(value int, selector uint32, params *VirtANEModel)
+	CheckKernReturnValueSelectorOutParams(value int32, selector uint32, params *VirtANEModel)
 	CompileModelOptionsQosError(model objectivec.IObject, options objectivec.IObject, qos uint32) (bool, error)
 	CompiledModelExistsFor(for_ objectivec.IObject) bool
 	CompiledModelExistsMatchingHash(hash objectivec.IObject) bool
@@ -261,6 +303,27 @@ type IANEVirtualClient interface {
 	ValidateEnvironmentForPrecompiledBinarySupport() bool
 	ValidateNetworkCreateUuidFunctionDirectoryPathScratchPadPathMilTextData(create uint64, uuid objectivec.IObject, function objectivec.IObject, path objectivec.IObject, path2 objectivec.IObject, data objectivec.IObject) corefoundation.CFDictionaryRef
 	ValidateNetworkCreateMLIRValidation_params(mlir uint64, validation_params corefoundation.CFDictionaryRef) corefoundation.CFDictionaryRef
+	AssetExistsOnHost(host objectivec.IObject) bool
+	CompileModelLegacyOptionsQosError(legacy objectivec.IObject, options objectivec.IObject, qos uint32) (bool, error)
+	CompiledModelExistsForLegacy(legacy objectivec.IObject) bool
+	CopyModelAttributesToDictionaryDictionaryVmData(dictionary objectivec.IObject, dictionary2 corefoundation.CFDictionaryRef, data *VMData)
+	CopyModelMetaDataOptionsDictionaryVmDataShouldEncodeKey(data objectivec.IObject, options objectivec.IObject, dictionary corefoundation.CFDictionaryRef, data2 *VMData, key bool)
+	CreateIOSurfaceWithDataLengthIoSID(data objectivec.IObject, length uint64, sid *uint32) iosurface.IOSurfaceRef
+	CreateIOSurfaceWithDataSizeIoSID(data string, size uint64, sid *uint32) iosurface.IOSurfaceRef
+	CreateValidationResultForNetworkCreateMLIRValidation_params(mlir uint64, validation_params corefoundation.CFDictionaryRef) corefoundation.CFDictionaryRef
+	DoMapMutableWeightsForModelAndProcedureMappedWeightsBufferSizeError(model objectivec.IObject, procedure objectivec.IObject, buffer unsafe.Pointer) (uint64, error)
+	DoSyncMutableWeightsForModelAndProcedureFromOffsetWithSizeError(model objectivec.IObject, procedure objectivec.IObject, offset uint64, size uint64) (bool, error)
+	DoUnmapMutableWeightsForModelAndProcedure(model objectivec.IObject, procedure objectivec.IObject) bool
+	LoadModelLegacyOptionsQosError(legacy objectivec.IObject, options objectivec.IObject, qos uint32) (bool, error)
+	MapMutableWeightsForModelAndProcedureMappedWeightsBufferSizeError(model objectivec.IObject, procedure objectivec.IObject, buffer unsafe.Pointer) (uint64, error)
+	PurgeCompiledModelLegacy(legacy objectivec.IObject)
+	SyncMutableWeightsForModelAndProcedureFromOffsetWithSizeError(model objectivec.IObject, procedure objectivec.IObject, offset uint64, size uint64) (bool, error)
+	TransferAssetsToHostAtPathWithUUIDModelType(path objectivec.IObject, uuid objectivec.IObject, type_ objectivec.IObject) bool
+	TransferDirectoryMetaDataToHostWithUUID(host objectivec.IObject, uuid objectivec.IObject) bool
+	TransferFileToHostWithPathWithChunkSizeWithUUIDOverWriteFileNameWith(path objectivec.IObject, size uint32, uuid objectivec.IObject, with objectivec.IObject) bool
+	TransferFileToHostWithPathWithUUIDWithModelInputPathOverWriteFileNameWithChunkSizeBytesWithExistingIOSurface(path objectivec.IObject, uuid objectivec.IObject, path2 objectivec.IObject, with objectivec.IObject, bytes uint32, iOSurface iosurface.IOSurfaceRef) bool
+	TransferFileToHostWithPathWithUUIDWithModelInputPathOverWriteFileNameWithWithExistingIOSurface(path objectivec.IObject, uuid objectivec.IObject, path2 objectivec.IObject, with objectivec.IObject, iOSurface iosurface.IOSurfaceRef) bool
+	UnmapMutableWeightsForModelAndProcedure(model objectivec.IObject, procedure objectivec.IObject) bool
 	InitWithSingletonAccess() ANEVirtualClient
 }
 
@@ -319,7 +382,7 @@ func (a ANEVirtualClient) CallIOUserClientWithDictionaryInDictionaryError(dictio
 	return rv, nil
 
 }
-func (a ANEVirtualClient) CheckKernReturnValueSelectorOutParams(value int, selector uint32, params *VirtANEModel) {
+func (a ANEVirtualClient) CheckKernReturnValueSelectorOutParams(value int32, selector uint32, params *VirtANEModel) {
 	objc.SendIfResponds[objc.ID](a.ID, objc.Sel("checkKernReturnValue:selector:outParams:"), value, selector, unsafe.Pointer(params))
 }
 func (a ANEVirtualClient) CompileModelOptionsQosError(model objectivec.IObject, options objectivec.IObject, qos uint32) (bool, error) {
@@ -348,7 +411,7 @@ func (a ANEVirtualClient) CopyAllModelFilesDictionaryIoSurfaceRefs(files objecti
 	return rv
 }
 func (a ANEVirtualClient) CopyDictionaryToIOSurfaceCopiedDataSizeCreatedIOSID(iOSurface objectivec.IObject, size *uint64, iosid *uint32) iosurface.IOSurfaceRef {
-	rv := objc.SendIfResponds[iosurface.IOSurfaceRef](a.ID, objc.Sel("copyDictionaryToIOSurface:copiedDataSize:createdIOSID:"), iOSurface, unsafe.Pointer(size), unsafe.Pointer(iosid))
+	rv := objc.SendIfResponds[iosurface.IOSurfaceRef](a.ID, objc.Sel("copyDictionaryToIOSurface:copiedDataSize:createdIOSID:"), iOSurface, size, iosid)
 	return iosurface.IOSurfaceRef(rv)
 }
 func (a ANEVirtualClient) CopyErrorValue(value *VMData) {
@@ -380,11 +443,11 @@ func (a ANEVirtualClient) CopyOptionsVmData(options objectivec.IObject, data *VM
 	objc.SendIfResponds[objc.ID](a.ID, objc.Sel("copyOptions:vmData:"), options, unsafe.Pointer(data))
 }
 func (a ANEVirtualClient) CopyToIOSurfaceLengthIoSID(iOSurface objectivec.IObject, length uint64, sid *uint32) iosurface.IOSurfaceRef {
-	rv := objc.SendIfResponds[iosurface.IOSurfaceRef](a.ID, objc.Sel("copyToIOSurface:length:ioSID:"), iOSurface, length, unsafe.Pointer(sid))
+	rv := objc.SendIfResponds[iosurface.IOSurfaceRef](a.ID, objc.Sel("copyToIOSurface:length:ioSID:"), iOSurface, length, sid)
 	return iosurface.IOSurfaceRef(rv)
 }
 func (a ANEVirtualClient) CopyToIOSurfaceSizeIoSID(iOSurface string, size uint64, sid *uint32) iosurface.IOSurfaceRef {
-	rv := objc.SendIfResponds[iosurface.IOSurfaceRef](a.ID, objc.Sel("copyToIOSurface:size:ioSID:"), unsafe.Pointer(unsafe.StringData(iOSurface+"\x00")), size, unsafe.Pointer(sid))
+	rv := objc.SendIfResponds[iosurface.IOSurfaceRef](a.ID, objc.Sel("copyToIOSurface:size:ioSID:"), unsafe.Pointer(unsafe.StringData(iOSurface+"\x00")), size, sid)
 	return iosurface.IOSurfaceRef(rv)
 }
 func (a ANEVirtualClient) DoEvaluateWithModelOptionsRequestQosCompletionEventError(model objectivec.IObject, options objectivec.IObject, request objectivec.IObject, qos uint32, event objectivec.IObject) (bool, error) {
@@ -633,6 +696,141 @@ func (a ANEVirtualClient) ValidateNetworkCreateMLIRValidation_params(mlir uint64
 	rv := objc.SendIfResponds[corefoundation.CFDictionaryRef](a.ID, objc.Sel("validateNetworkCreateMLIR:validation_params:"), mlir, validation_params)
 	return corefoundation.CFDictionaryRef(rv)
 }
+func (a ANEVirtualClient) AssetExistsOnHost(host objectivec.IObject) bool {
+	rv := objc.SendIfResponds[bool](a.ID, objc.Sel("assetExistsOnHost:"), host)
+	return rv
+}
+func (a ANEVirtualClient) CompileModelLegacyOptionsQosError(legacy objectivec.IObject, options objectivec.IObject, qos uint32) (bool, error) {
+	var errorPtr objc.ID
+	rv := objc.Send[bool](a.ID, objc.Sel("compileModelLegacy:options:qos:error:"), legacy, options, qos, unsafe.Pointer(&errorPtr))
+	if errorPtr != 0 {
+		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
+		return false, foundation.NSErrorFrom(errorPtr)
+	}
+	if !rv {
+		return false, errors.New("compileModelLegacy:options:qos:error: returned NO with nil NSError")
+	}
+	return rv, nil
+
+}
+func (a ANEVirtualClient) CompiledModelExistsForLegacy(legacy objectivec.IObject) bool {
+	rv := objc.SendIfResponds[bool](a.ID, objc.Sel("compiledModelExistsForLegacy:"), legacy)
+	return rv
+}
+func (a ANEVirtualClient) CopyModelAttributesToDictionaryDictionaryVmData(dictionary objectivec.IObject, dictionary2 corefoundation.CFDictionaryRef, data *VMData) {
+	objc.SendIfResponds[objc.ID](a.ID, objc.Sel("copyModelAttributesToDictionary:dictionary:vmData:"), dictionary, dictionary2, unsafe.Pointer(data))
+}
+func (a ANEVirtualClient) CopyModelMetaDataOptionsDictionaryVmDataShouldEncodeKey(data objectivec.IObject, options objectivec.IObject, dictionary corefoundation.CFDictionaryRef, data2 *VMData, key bool) {
+	objc.SendIfResponds[objc.ID](a.ID, objc.Sel("copyModelMetaData:options:dictionary:vmData:shouldEncodeKey:"), data, options, dictionary, unsafe.Pointer(data2), key)
+}
+func (a ANEVirtualClient) CreateIOSurfaceWithDataLengthIoSID(data objectivec.IObject, length uint64, sid *uint32) iosurface.IOSurfaceRef {
+	rv := objc.SendIfResponds[iosurface.IOSurfaceRef](a.ID, objc.Sel("createIOSurfaceWithData:length:ioSID:"), data, length, sid)
+	return iosurface.IOSurfaceRef(rv)
+}
+func (a ANEVirtualClient) CreateIOSurfaceWithDataSizeIoSID(data string, size uint64, sid *uint32) iosurface.IOSurfaceRef {
+	rv := objc.SendIfResponds[iosurface.IOSurfaceRef](a.ID, objc.Sel("createIOSurfaceWithData:size:ioSID:"), unsafe.Pointer(unsafe.StringData(data+"\x00")), size, sid)
+	return iosurface.IOSurfaceRef(rv)
+}
+func (a ANEVirtualClient) CreateValidationResultForNetworkCreateMLIRValidation_params(mlir uint64, validation_params corefoundation.CFDictionaryRef) corefoundation.CFDictionaryRef {
+	rv := objc.SendIfResponds[corefoundation.CFDictionaryRef](a.ID, objc.Sel("createValidationResultForNetworkCreateMLIR:validation_params:"), mlir, validation_params)
+	return corefoundation.CFDictionaryRef(rv)
+}
+func (a ANEVirtualClient) DoMapMutableWeightsForModelAndProcedureMappedWeightsBufferSizeError(model objectivec.IObject, procedure objectivec.IObject, buffer unsafe.Pointer) (uint64, error) {
+	var size uint64
+	var errorPtr objc.ID
+	rv := objc.Send[bool](a.ID, objc.Sel("doMapMutableWeightsForModel:andProcedure:mappedWeightsBuffer:size:error:"), model, procedure, buffer, unsafe.Pointer(&size), unsafe.Pointer(&errorPtr))
+	if errorPtr != 0 {
+		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
+		return 0, foundation.NSErrorFrom(errorPtr)
+	}
+	if !rv {
+		return 0, errors.New("doMapMutableWeightsForModel:andProcedure:mappedWeightsBuffer:size:error: returned NO with nil NSError")
+	}
+	return size, nil
+}
+func (a ANEVirtualClient) DoSyncMutableWeightsForModelAndProcedureFromOffsetWithSizeError(model objectivec.IObject, procedure objectivec.IObject, offset uint64, size uint64) (bool, error) {
+	var errorPtr objc.ID
+	rv := objc.Send[bool](a.ID, objc.Sel("doSyncMutableWeightsForModel:andProcedure:fromOffset:withSize:error:"), model, procedure, offset, size, unsafe.Pointer(&errorPtr))
+	if errorPtr != 0 {
+		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
+		return false, foundation.NSErrorFrom(errorPtr)
+	}
+	if !rv {
+		return false, errors.New("doSyncMutableWeightsForModel:andProcedure:fromOffset:withSize:error: returned NO with nil NSError")
+	}
+	return rv, nil
+
+}
+func (a ANEVirtualClient) DoUnmapMutableWeightsForModelAndProcedure(model objectivec.IObject, procedure objectivec.IObject) bool {
+	rv := objc.SendIfResponds[bool](a.ID, objc.Sel("doUnmapMutableWeightsForModel:andProcedure:"), model, procedure)
+	return rv
+}
+func (a ANEVirtualClient) LoadModelLegacyOptionsQosError(legacy objectivec.IObject, options objectivec.IObject, qos uint32) (bool, error) {
+	var errorPtr objc.ID
+	rv := objc.Send[bool](a.ID, objc.Sel("loadModelLegacy:options:qos:error:"), legacy, options, qos, unsafe.Pointer(&errorPtr))
+	if errorPtr != 0 {
+		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
+		return false, foundation.NSErrorFrom(errorPtr)
+	}
+	if !rv {
+		return false, errors.New("loadModelLegacy:options:qos:error: returned NO with nil NSError")
+	}
+	return rv, nil
+
+}
+func (a ANEVirtualClient) MapMutableWeightsForModelAndProcedureMappedWeightsBufferSizeError(model objectivec.IObject, procedure objectivec.IObject, buffer unsafe.Pointer) (uint64, error) {
+	var size uint64
+	var errorPtr objc.ID
+	rv := objc.Send[bool](a.ID, objc.Sel("mapMutableWeightsForModel:andProcedure:mappedWeightsBuffer:size:error:"), model, procedure, buffer, unsafe.Pointer(&size), unsafe.Pointer(&errorPtr))
+	if errorPtr != 0 {
+		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
+		return 0, foundation.NSErrorFrom(errorPtr)
+	}
+	if !rv {
+		return 0, errors.New("mapMutableWeightsForModel:andProcedure:mappedWeightsBuffer:size:error: returned NO with nil NSError")
+	}
+	return size, nil
+}
+func (a ANEVirtualClient) PurgeCompiledModelLegacy(legacy objectivec.IObject) {
+	objc.SendIfResponds[objc.ID](a.ID, objc.Sel("purgeCompiledModelLegacy:"), legacy)
+}
+func (a ANEVirtualClient) SyncMutableWeightsForModelAndProcedureFromOffsetWithSizeError(model objectivec.IObject, procedure objectivec.IObject, offset uint64, size uint64) (bool, error) {
+	var errorPtr objc.ID
+	rv := objc.Send[bool](a.ID, objc.Sel("syncMutableWeightsForModel:andProcedure:fromOffset:withSize:error:"), model, procedure, offset, size, unsafe.Pointer(&errorPtr))
+	if errorPtr != 0 {
+		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
+		return false, foundation.NSErrorFrom(errorPtr)
+	}
+	if !rv {
+		return false, errors.New("syncMutableWeightsForModel:andProcedure:fromOffset:withSize:error: returned NO with nil NSError")
+	}
+	return rv, nil
+
+}
+func (a ANEVirtualClient) TransferAssetsToHostAtPathWithUUIDModelType(path objectivec.IObject, uuid objectivec.IObject, type_ objectivec.IObject) bool {
+	rv := objc.SendIfResponds[bool](a.ID, objc.Sel("transferAssetsToHostAtPath:withUUID:modelType:"), path, uuid, type_)
+	return rv
+}
+func (a ANEVirtualClient) TransferDirectoryMetaDataToHostWithUUID(host objectivec.IObject, uuid objectivec.IObject) bool {
+	rv := objc.SendIfResponds[bool](a.ID, objc.Sel("transferDirectoryMetaDataToHost:withUUID:"), host, uuid)
+	return rv
+}
+func (a ANEVirtualClient) TransferFileToHostWithPathWithChunkSizeWithUUIDOverWriteFileNameWith(path objectivec.IObject, size uint32, uuid objectivec.IObject, with objectivec.IObject) bool {
+	rv := objc.SendIfResponds[bool](a.ID, objc.Sel("transferFileToHostWithPath:withChunkSize:withUUID:overWriteFileNameWith:"), path, size, uuid, with)
+	return rv
+}
+func (a ANEVirtualClient) TransferFileToHostWithPathWithUUIDWithModelInputPathOverWriteFileNameWithChunkSizeBytesWithExistingIOSurface(path objectivec.IObject, uuid objectivec.IObject, path2 objectivec.IObject, with objectivec.IObject, bytes uint32, iOSurface iosurface.IOSurfaceRef) bool {
+	rv := objc.SendIfResponds[bool](a.ID, objc.Sel("transferFileToHostWithPath:withUUID:withModelInputPath:overWriteFileNameWith:chunkSizeBytes:withExistingIOSurface:"), path, uuid, path2, with, bytes, iOSurface)
+	return rv
+}
+func (a ANEVirtualClient) TransferFileToHostWithPathWithUUIDWithModelInputPathOverWriteFileNameWithWithExistingIOSurface(path objectivec.IObject, uuid objectivec.IObject, path2 objectivec.IObject, with objectivec.IObject, iOSurface iosurface.IOSurfaceRef) bool {
+	rv := objc.SendIfResponds[bool](a.ID, objc.Sel("transferFileToHostWithPath:withUUID:withModelInputPath:overWriteFileNameWith:withExistingIOSurface:"), path, uuid, path2, with, iOSurface)
+	return rv
+}
+func (a ANEVirtualClient) UnmapMutableWeightsForModelAndProcedure(model objectivec.IObject, procedure objectivec.IObject) bool {
+	rv := objc.SendIfResponds[bool](a.ID, objc.Sel("unmapMutableWeightsForModel:andProcedure:"), model, procedure)
+	return rv
+}
 func (a ANEVirtualClient) InitWithSingletonAccess() ANEVirtualClient {
 	rv := objc.SendIfResponds[ANEVirtualClient](a.ID, objc.Sel("initWithSingletonAccess"))
 	return rv
@@ -646,11 +844,11 @@ func (_ANEVirtualClientClass ANEVirtualClientClass) CopyDictionaryDataToStructDi
 	objc.SendIfResponds[objc.ID](objc.ID(_ANEVirtualClientClass.class), objc.Sel("copyDictionaryDataToStruct:dictionary:"), unsafe.Pointer(struct_), dictionary)
 }
 func (_ANEVirtualClientClass ANEVirtualClientClass) CopyLLIRBundleToIOSurfaceWrittenDataSize(iOSurface objectivec.IObject, size *uint64) iosurface.IOSurfaceRef {
-	rv := objc.SendIfResponds[iosurface.IOSurfaceRef](objc.ID(_ANEVirtualClientClass.class), objc.Sel("copyLLIRBundleToIOSurface:writtenDataSize:"), iOSurface, unsafe.Pointer(size))
+	rv := objc.SendIfResponds[iosurface.IOSurfaceRef](objc.ID(_ANEVirtualClientClass.class), objc.Sel("copyLLIRBundleToIOSurface:writtenDataSize:"), iOSurface, size)
 	return iosurface.IOSurfaceRef(rv)
 }
 func (_ANEVirtualClientClass ANEVirtualClientClass) CreateIOSurfaceIoSID(iOSurface uint64, sid *uint32) iosurface.IOSurfaceRef {
-	rv := objc.SendIfResponds[iosurface.IOSurfaceRef](objc.ID(_ANEVirtualClientClass.class), objc.Sel("createIOSurface:ioSID:"), iOSurface, unsafe.Pointer(sid))
+	rv := objc.SendIfResponds[iosurface.IOSurfaceRef](objc.ID(_ANEVirtualClientClass.class), objc.Sel("createIOSurface:ioSID:"), iOSurface, sid)
 	return iosurface.IOSurfaceRef(rv)
 }
 func (_ANEVirtualClientClass ANEVirtualClientClass) DictionaryGetInt64ForKeyKey(key corefoundation.CFDictionaryRef, key2 corefoundation.CFStringRef) int64 {
@@ -740,6 +938,46 @@ func (_ANEVirtualClientClass ANEVirtualClientClass) UpdateErrorErrorLengthErrorC
 func (_ANEVirtualClientClass ANEVirtualClientClass) UpdatePerformanceStatsPerformanceStatsLengthPerfStatsRawIOSurfaceRefPerformanceStatsRawLengthHwExecutionTime(stats iosurface.IOSurfaceRef, length uint64, ref iosurface.IOSurfaceRef, length2 uint64, time uint64) objectivec.IObject {
 	rv := objc.SendIfResponds[objc.ID](objc.ID(_ANEVirtualClientClass.class), objc.Sel("updatePerformanceStats:performanceStatsLength:perfStatsRawIOSurfaceRef:performanceStatsRawLength:hwExecutionTime:"), stats, length, ref, length2, time)
 	return objectivec.Object{ID: rv}
+}
+func (_ANEVirtualClientClass ANEVirtualClientClass) CreateCFDictionaryFromIOSurfaceDataLength(iOSurface iosurface.IOSurfaceRef, length uint64) corefoundation.CFDictionaryRef {
+	rv := objc.SendIfResponds[corefoundation.CFDictionaryRef](objc.ID(_ANEVirtualClientClass.class), objc.Sel("createCFDictionaryFromIOSurface:dataLength:"), iOSurface, length)
+	return corefoundation.CFDictionaryRef(rv)
+}
+func (_ANEVirtualClientClass ANEVirtualClientClass) DeserializeHostErrorFromData(data objectivec.IObject) objectivec.IObject {
+	rv := objc.SendIfResponds[objc.ID](objc.ID(_ANEVirtualClientClass.class), objc.Sel("deserializeHostErrorFromData:"), data)
+	return objectivec.Object{ID: rv}
+}
+func (_ANEVirtualClientClass ANEVirtualClientClass) DoesPathMatchPatternWithFullPath(path objectivec.IObject, pattern objectivec.IObject, path2 objectivec.IObject) bool {
+	rv := objc.SendIfResponds[bool](objc.ID(_ANEVirtualClientClass.class), objc.Sel("doesPath:matchPattern:withFullPath:"), path, pattern, path2)
+	return rv
+}
+func (_ANEVirtualClientClass ANEVirtualClientClass) ExtractMpsConstantsIOSurfaceIDsIoSIDArrayKeysArray(iDs objectivec.IObject, sIDArray *uint32, array *[64]int8) uint32 {
+	rv := objc.SendIfResponds[uint32](objc.ID(_ANEVirtualClientClass.class), objc.Sel("extractMpsConstantsIOSurfaceIDs:ioSIDArray:keysArray:"), iDs, sIDArray, array)
+	return rv
+}
+func (_ANEVirtualClientClass ANEVirtualClientClass) FindMatchingAssetPathsInDirectory(paths objectivec.IObject, directory objectivec.IObject) objectivec.IObject {
+	rv := objc.SendIfResponds[objc.ID](objc.ID(_ANEVirtualClientClass.class), objc.Sel("findMatchingAssetPaths:inDirectory:"), paths, directory)
+	return objectivec.Object{ID: rv}
+}
+func (_ANEVirtualClientClass ANEVirtualClientClass) FindPathsMatchingPatternInDirectory(pattern objectivec.IObject, directory objectivec.IObject) objectivec.IObject {
+	rv := objc.SendIfResponds[objc.ID](objc.ID(_ANEVirtualClientClass.class), objc.Sel("findPathsMatchingPattern:inDirectory:"), pattern, directory)
+	return objectivec.Object{ID: rv}
+}
+func (_ANEVirtualClientClass ANEVirtualClientClass) GetPatternsForModelType(type_ objectivec.IObject) objectivec.IObject {
+	rv := objc.SendIfResponds[objc.ID](objc.ID(_ANEVirtualClientClass.class), objc.Sel("getPatternsForModelType:"), type_)
+	return objectivec.Object{ID: rv}
+}
+func (_ANEVirtualClientClass ANEVirtualClientClass) PopulateCSIdentityMaxLength(cSIdentity string, length uint64) bool {
+	rv := objc.SendIfResponds[bool](objc.ID(_ANEVirtualClientClass.class), objc.Sel("populateCSIdentity:maxLength:"), unsafe.Pointer(unsafe.StringData(cSIdentity+"\x00")), length)
+	return rv
+}
+func (_ANEVirtualClientClass ANEVirtualClientClass) PopulateNSStringToBufferMaxLength(nSString objectivec.IObject, buffer string, length uint64) bool {
+	rv := objc.SendIfResponds[bool](objc.ID(_ANEVirtualClientClass.class), objc.Sel("populateNSString:toBuffer:maxLength:"), nSString, unsafe.Pointer(unsafe.StringData(buffer+"\x00")), length)
+	return rv
+}
+func (_ANEVirtualClientClass ANEVirtualClientClass) PopulateUUIDMaxLengthFromString(uuid string, length uint64, string_ objectivec.IObject) bool {
+	rv := objc.SendIfResponds[bool](objc.ID(_ANEVirtualClientClass.class), objc.Sel("populateUUID:maxLength:fromString:"), unsafe.Pointer(unsafe.StringData(uuid+"\x00")), length, string_)
+	return rv
 }
 
 func (a ANEVirtualClient) Connect() uint32 {

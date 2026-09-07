@@ -176,7 +176,7 @@ func NewIOGPUMetalResidencySet() IOGPUMetalResidencySet {
 	return rv
 }
 
-func NewGPUMetalResidencySetWithDeviceDescriptorArgsArgsSize(device objectivec.IObject, descriptor objectivec.IObject, args *IOGPUNewResourceArgs, size uint64) IOGPUMetalResidencySet {
+func NewIOGPUMetalResidencySetWithDeviceDescriptorArgsArgsSize(device objectivec.IObject, descriptor objectivec.IObject, args *IOGPUNewResourceArgs, size uint64) IOGPUMetalResidencySet {
 	instance := getIOGPUMetalResidencySetClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithDevice:descriptor:args:argsSize:"), device, descriptor, unsafe.Pointer(args), size)
 	return IOGPUMetalResidencySetFromID(rv)

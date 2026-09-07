@@ -1,4 +1,4 @@
-// Code generated from Apple documentation for CoreML. DO NOT EDIT.
+// Code generated from Apple documentation for coreml. DO NOT EDIT.
 
 package coreml
 
@@ -114,7 +114,7 @@ func NewMLImageConstraint() MLImageConstraint {
 	return rv
 }
 
-func NewImageConstraintWithPixelsWidePixelsHighPixelTypeSizeConstraint(wide int64, high int64, type_ uint64, constraint objectivec.IObject) MLImageConstraint {
+func NewMLImageConstraintWithPixelsWidePixelsHighPixelTypeSizeConstraint(wide int64, high int64, type_ uint64, constraint objectivec.IObject) MLImageConstraint {
 	instance := getMLImageConstraintClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithPixelsWide:pixelsHigh:pixelType:sizeConstraint:"), wide, high, type_, constraint)
 	return MLImageConstraintFromID(rv)

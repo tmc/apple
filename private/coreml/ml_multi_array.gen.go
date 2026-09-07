@@ -1,4 +1,4 @@
-// Code generated from Apple documentation for CoreML. DO NOT EDIT.
+// Code generated from Apple documentation for coreml. DO NOT EDIT.
 
 package coreml
 
@@ -205,37 +205,37 @@ func NewMLMultiArray() MLMultiArray {
 	return rv
 }
 
-func NewMultiArrayWithArrayDataType(array objectivec.IObject, type_ int64) MLMultiArray {
+func NewMLMultiArrayWithArrayDataType(array objectivec.IObject, type_ int64) MLMultiArray {
 	instance := getMLMultiArrayClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithArray:dataType:"), array, type_)
 	return MLMultiArrayFromID(rv)
 }
 
-func NewMultiArrayWithMultiArrayBuffer(buffer unsafe.Pointer) MLMultiArray {
+func NewMLMultiArrayWithMultiArrayBuffer(buffer unsafe.Pointer) MLMultiArray {
 	instance := getMLMultiArrayClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithMultiArrayBuffer:"), buffer)
 	return MLMultiArrayFromID(rv)
 }
 
-func NewMultiArrayWithPixelBufferShapeStrides(buffer corevideo.CVImageBufferRef, shape objectivec.IObject, strides objectivec.IObject) MLMultiArray {
+func NewMLMultiArrayWithPixelBufferShapeStrides(buffer corevideo.CVImageBufferRef, shape objectivec.IObject, strides objectivec.IObject) MLMultiArray {
 	instance := getMLMultiArrayClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithPixelBuffer:shape:strides:"), buffer, shape, strides)
 	return MLMultiArrayFromID(rv)
 }
 
-func NewMultiArrayWithScalarsShapeDataType(scalars objectivec.IObject, shape objectivec.IObject, type_ int64) MLMultiArray {
+func NewMLMultiArrayWithScalarsShapeDataType(scalars objectivec.IObject, shape objectivec.IObject, type_ int64) MLMultiArray {
 	instance := getMLMultiArrayClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithScalars:shape:dataType:"), scalars, shape, type_)
 	return MLMultiArrayFromID(rv)
 }
 
-func NewMultiArrayWithShapeDataTypeStorageOrderBufferAlignment(shape objectivec.IObject, type_ int64, order int64, alignment uint64) MLMultiArray {
+func NewMLMultiArrayWithShapeDataTypeStorageOrderBufferAlignment(shape objectivec.IObject, type_ int64, order int64, alignment uint64) MLMultiArray {
 	instance := getMLMultiArrayClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithShape:dataType:storageOrder:bufferAlignment:"), shape, type_, order, alignment)
 	return MLMultiArrayFromID(rv)
 }
 
-func NewMultiArrayWithShapeDataTypeStorageOrderError(shape objectivec.IObject, type_ int64, order int64) (MLMultiArray, error) {
+func NewMLMultiArrayWithShapeDataTypeStorageOrderError(shape objectivec.IObject, type_ int64, order int64) (MLMultiArray, error) {
 	var errorPtr objc.ID
 	instance := getMLMultiArrayClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithShape:dataType:storageOrder:error:"), shape, type_, order, unsafe.Pointer(&errorPtr))
@@ -504,8 +504,8 @@ func (_MLMultiArrayClass MLMultiArrayClass) ShapeOfNestedArrayError(array object
 func (_MLMultiArrayClass MLMultiArrayClass) CanShapeOfNestedArrayError() bool {
 	return objc.RespondsToSelector(objc.ID(_MLMultiArrayClass.class), objc.Sel("_shapeOfNestedArray:error:"))
 }
-func (_MLMultiArrayClass MLMultiArrayClass) CppStorageOrder(order int64) int {
-	rv := objc.SendIfResponds[int](objc.ID(_MLMultiArrayClass.class), objc.Sel("cppStorageOrder:"), order)
+func (_MLMultiArrayClass MLMultiArrayClass) CppStorageOrder(order int64) int32 {
+	rv := objc.SendIfResponds[int32](objc.ID(_MLMultiArrayClass.class), objc.Sel("cppStorageOrder:"), order)
 	return rv
 }
 func (_MLMultiArrayClass MLMultiArrayClass) DoubleMatrixWithValuesError(values objectivec.IObject) (objectivec.IObject, error) {

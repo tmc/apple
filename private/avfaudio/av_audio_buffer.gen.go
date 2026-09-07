@@ -1,4 +1,4 @@
-// Code generated from Apple documentation for AVFAudio. DO NOT EDIT.
+// Code generated from Apple documentation for avfaudio. DO NOT EDIT.
 
 package avfaudio
 
@@ -98,7 +98,7 @@ func NewAVAudioBuffer() AVAudioBuffer {
 	return rv
 }
 
-func NewAudioBufferWithFormatByteCapacity(format objectivec.IObject, capacity uint32) AVAudioBuffer {
+func NewAVAudioBufferWithFormatByteCapacity(format objectivec.IObject, capacity uint32) AVAudioBuffer {
 	instance := getAVAudioBufferClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithFormat:byteCapacity:"), format, capacity)
 	return AVAudioBufferFromID(rv)

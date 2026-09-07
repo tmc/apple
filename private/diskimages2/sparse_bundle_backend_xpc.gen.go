@@ -70,8 +70,8 @@ type ISparseBundleBackendXPC interface {
 
 	// Topic: Methods
 
-	InitWithURLFileOpenFlags(url foundation.NSURL, flags int) SparseBundleBackendXPC
-	InitWithURLFileOpenFlagsBandSize(url foundation.NSURL, flags int, size uint64) SparseBundleBackendXPC
+	InitWithURLFileOpenFlags(url foundation.NSURL, flags int32) SparseBundleBackendXPC
+	InitWithURLFileOpenFlagsBandSize(url foundation.NSURL, flags int32, size uint64) SparseBundleBackendXPC
 }
 
 // Init initializes the instance.
@@ -99,23 +99,23 @@ func NewSparseBundleBackendXPCWithCoder(coder objectivec.IObject) SparseBundleBa
 	return SparseBundleBackendXPCFromID(rv)
 }
 
-func NewSparseBundleBackendXPCWithURLFileOpenFlags(url foundation.NSURL, flags int) SparseBundleBackendXPC {
+func NewSparseBundleBackendXPCWithURLFileOpenFlags(url foundation.NSURL, flags int32) SparseBundleBackendXPC {
 	instance := getSparseBundleBackendXPCClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithURL:fileOpenFlags:"), url, flags)
 	return SparseBundleBackendXPCFromID(rv)
 }
 
-func NewSparseBundleBackendXPCWithURLFileOpenFlagsBandSize(url foundation.NSURL, flags int, size uint64) SparseBundleBackendXPC {
+func NewSparseBundleBackendXPCWithURLFileOpenFlagsBandSize(url foundation.NSURL, flags int32, size uint64) SparseBundleBackendXPC {
 	instance := getSparseBundleBackendXPCClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithURL:fileOpenFlags:bandSize:"), url, flags, size)
 	return SparseBundleBackendXPCFromID(rv)
 }
 
-func (s SparseBundleBackendXPC) InitWithURLFileOpenFlags(url foundation.NSURL, flags int) SparseBundleBackendXPC {
+func (s SparseBundleBackendXPC) InitWithURLFileOpenFlags(url foundation.NSURL, flags int32) SparseBundleBackendXPC {
 	rv := objc.SendIfResponds[SparseBundleBackendXPC](s.ID, objc.Sel("initWithURL:fileOpenFlags:"), url, flags)
 	return rv
 }
-func (s SparseBundleBackendXPC) InitWithURLFileOpenFlagsBandSize(url foundation.NSURL, flags int, size uint64) SparseBundleBackendXPC {
+func (s SparseBundleBackendXPC) InitWithURLFileOpenFlagsBandSize(url foundation.NSURL, flags int32, size uint64) SparseBundleBackendXPC {
 	rv := objc.SendIfResponds[SparseBundleBackendXPC](s.ID, objc.Sel("initWithURL:fileOpenFlags:bandSize:"), url, flags, size)
 	return rv
 }

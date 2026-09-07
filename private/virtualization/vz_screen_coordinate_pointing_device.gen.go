@@ -1,4 +1,4 @@
-// Code generated from Apple documentation for Virtualization. DO NOT EDIT.
+// Code generated from Apple documentation for virtualization. DO NOT EDIT.
 
 package virtualization
 
@@ -87,12 +87,6 @@ func NewVZScreenCoordinatePointingDevice() VZScreenCoordinatePointingDevice {
 	class := getVZScreenCoordinatePointingDeviceClass()
 	rv := objc.SendIfResponds[VZScreenCoordinatePointingDevice](objc.ID(class.class), objc.Sel("new"))
 	return rv
-}
-
-func NewVZScreenCoordinatePointingDeviceWithTypeVirtualMachinePointingDeviceIndex(type_ int64, machine objectivec.IObject, index uint64) VZScreenCoordinatePointingDevice {
-	instance := getVZScreenCoordinatePointingDeviceClass().Alloc()
-	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithType:virtualMachine:pointingDeviceIndex:"), type_, machine, index)
-	return VZScreenCoordinatePointingDeviceFromID(rv)
 }
 
 func (v VZScreenCoordinatePointingDevice) SendPointerEvents(events objectivec.IObject) {

@@ -86,11 +86,23 @@ func (ac ANEModelClass) Alloc() ANEModel {
 //   - [ANEModel.SymbolIndicesForProcedureIndexIndexArrayKey]
 //   - [ANEModel.UpdateModelAttributesState]
 //   - [ANEModel.UpdateModelAttributesStateProgramHandleIntermediateBufferHandleQueueDepth]
+//   - [ANEModel.ExternConstants]
+//   - [ANEModel.SetExternConstants]
+//   - [ANEModel.NumInputs]
+//   - [ANEModel.SetNumInputs]
+//   - [ANEModel.NumOutputs]
+//   - [ANEModel.SetNumOutputs]
+//   - [ANEModel.Procedures]
+//   - [ANEModel.SetProcedures]
+//   - [ANEModel.ProceduresCount]
+//   - [ANEModel.UpdateFromModelShouldUpdateModelURLShouldUpdateUUID]
+//   - [ANEModel.UpdateModelAttributesStateProgramHandleIntermediateBufferHandleQueueDepthNumInputsNumOutputs]
 //   - [ANEModel.InitWithCoder]
 //   - [ANEModel.InitWithModelAtURLKeyIdentifierSourceCacheURLIdentifierModelAttributesStandardizeURL]
 //   - [ANEModel.InitWithModelAtURLSourceURLUUIDKeyIdentifierSourceCacheURLIdentifierModelAttributesStandardizeURLString_idGenerateNewStringId]
 //   - [ANEModel.InitWithModelAtURLSourceURLUUIDKeyIdentifierSourceCacheURLIdentifierModelAttributesStandardizeURLString_idGenerateNewStringIdMpsConstants]
 //   - [ANEModel.InitWithModelIdentifier]
+//   - [ANEModel.InitWithModelAtURLSourceURLUUIDKeyIdentifierSourceCacheURLIdentifierModelAttributesStandardizeURLString_idGenerateNewStringIdMpsConstantsExternConstantsProgramHandleIntermediateBufferHandleQueueDepthPerfStatsMaskState]
 type ANEModel struct {
 	objectivec.Object
 }
@@ -147,11 +159,23 @@ var _ IANEModel = ANEModel{}
 //   - [IANEModel.SymbolIndicesForProcedureIndexIndexArrayKey]
 //   - [IANEModel.UpdateModelAttributesState]
 //   - [IANEModel.UpdateModelAttributesStateProgramHandleIntermediateBufferHandleQueueDepth]
+//   - [IANEModel.ExternConstants]
+//   - [IANEModel.SetExternConstants]
+//   - [IANEModel.NumInputs]
+//   - [IANEModel.SetNumInputs]
+//   - [IANEModel.NumOutputs]
+//   - [IANEModel.SetNumOutputs]
+//   - [IANEModel.Procedures]
+//   - [IANEModel.SetProcedures]
+//   - [IANEModel.ProceduresCount]
+//   - [IANEModel.UpdateFromModelShouldUpdateModelURLShouldUpdateUUID]
+//   - [IANEModel.UpdateModelAttributesStateProgramHandleIntermediateBufferHandleQueueDepthNumInputsNumOutputs]
 //   - [IANEModel.InitWithCoder]
 //   - [IANEModel.InitWithModelAtURLKeyIdentifierSourceCacheURLIdentifierModelAttributesStandardizeURL]
 //   - [IANEModel.InitWithModelAtURLSourceURLUUIDKeyIdentifierSourceCacheURLIdentifierModelAttributesStandardizeURLString_idGenerateNewStringId]
 //   - [IANEModel.InitWithModelAtURLSourceURLUUIDKeyIdentifierSourceCacheURLIdentifierModelAttributesStandardizeURLString_idGenerateNewStringIdMpsConstants]
 //   - [IANEModel.InitWithModelIdentifier]
+//   - [IANEModel.InitWithModelAtURLSourceURLUUIDKeyIdentifierSourceCacheURLIdentifierModelAttributesStandardizeURLString_idGenerateNewStringIdMpsConstantsExternConstantsProgramHandleIntermediateBufferHandleQueueDepthPerfStatsMaskState]
 type IANEModel interface {
 	objectivec.IObject
 
@@ -197,11 +221,23 @@ type IANEModel interface {
 	SymbolIndicesForProcedureIndexIndexArrayKey(index uint32, key objectivec.IObject) objectivec.IObject
 	UpdateModelAttributesState(attributes objectivec.IObject, state uint64)
 	UpdateModelAttributesStateProgramHandleIntermediateBufferHandleQueueDepth(attributes objectivec.IObject, state uint64, handle uint64, handle2 uint64, depth int8)
+	ExternConstants() foundation.INSDictionary
+	SetExternConstants(value foundation.INSDictionary)
+	NumInputs() uint32
+	SetNumInputs(value uint32)
+	NumOutputs() uint32
+	SetNumOutputs(value uint32)
+	Procedures() foundation.INSArray
+	SetProcedures(value foundation.INSArray)
+	ProceduresCount() uint32
+	UpdateFromModelShouldUpdateModelURLShouldUpdateUUID(model objectivec.IObject, url bool, uuid bool)
+	UpdateModelAttributesStateProgramHandleIntermediateBufferHandleQueueDepthNumInputsNumOutputs(attributes objectivec.IObject, state uint64, handle uint64, handle2 uint64, depth int8, inputs uint32, outputs uint32)
 	InitWithCoder(coder foundation.INSCoder) ANEModel
 	InitWithModelAtURLKeyIdentifierSourceCacheURLIdentifierModelAttributesStandardizeURL(url foundation.NSURL, key objectivec.IObject, source int64, uRLIdentifier objectivec.IObject, attributes objectivec.IObject, url2 bool) ANEModel
 	InitWithModelAtURLSourceURLUUIDKeyIdentifierSourceCacheURLIdentifierModelAttributesStandardizeURLString_idGenerateNewStringId(url foundation.NSURL, url2 foundation.NSURL, uid objectivec.IObject, key objectivec.IObject, source int64, uRLIdentifier objectivec.IObject, attributes objectivec.IObject, url3 bool, string_id uint64, id bool) ANEModel
 	InitWithModelAtURLSourceURLUUIDKeyIdentifierSourceCacheURLIdentifierModelAttributesStandardizeURLString_idGenerateNewStringIdMpsConstants(url foundation.NSURL, url2 foundation.NSURL, uid objectivec.IObject, key objectivec.IObject, source int64, uRLIdentifier objectivec.IObject, attributes objectivec.IObject, url3 bool, string_id uint64, id bool, constants objectivec.IObject) ANEModel
 	InitWithModelIdentifier(identifier objectivec.IObject) ANEModel
+	InitWithModelAtURLSourceURLUUIDKeyIdentifierSourceCacheURLIdentifierModelAttributesStandardizeURLString_idGenerateNewStringIdMpsConstantsExternConstantsProgramHandleIntermediateBufferHandleQueueDepthPerfStatsMaskState(url foundation.NSURL, url2 foundation.NSURL, uid objectivec.IObject, key objectivec.IObject, source int64, uRLIdentifier objectivec.IObject, attributes objectivec.IObject, url3 bool, string_id uint64, id bool, constants objectivec.IObject, constants2 objectivec.IObject, handle uint64, handle2 uint64, depth int8, mask uint32, state uint64) ANEModel
 }
 
 // Init initializes the instance.
@@ -244,6 +280,12 @@ func NewANEModelWithModelAtURLSourceURLUUIDKeyIdentifierSourceCacheURLIdentifier
 func NewANEModelWithModelAtURLSourceURLUUIDKeyIdentifierSourceCacheURLIdentifierModelAttributesStandardizeURLString_idGenerateNewStringIdMpsConstants(url foundation.NSURL, url2 foundation.NSURL, uid objectivec.IObject, key objectivec.IObject, source int64, uRLIdentifier objectivec.IObject, attributes objectivec.IObject, url3 bool, string_id uint64, id bool, constants objectivec.IObject) ANEModel {
 	instance := getANEModelClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithModelAtURL:sourceURL:UUID:key:identifierSource:cacheURLIdentifier:modelAttributes:standardizeURL:string_id:generateNewStringId:mpsConstants:"), url, url2, uid, key, source, uRLIdentifier, attributes, url3, string_id, id, constants)
+	return ANEModelFromID(rv)
+}
+
+func NewANEModelWithModelAtURLSourceURLUUIDKeyIdentifierSourceCacheURLIdentifierModelAttributesStandardizeURLString_idGenerateNewStringIdMpsConstantsExternConstantsProgramHandleIntermediateBufferHandleQueueDepthPerfStatsMaskState(url foundation.NSURL, url2 foundation.NSURL, uid objectivec.IObject, key objectivec.IObject, source int64, uRLIdentifier objectivec.IObject, attributes objectivec.IObject, url3 bool, string_id uint64, id bool, constants objectivec.IObject, constants2 objectivec.IObject, handle uint64, handle2 uint64, depth int8, mask uint32, state uint64) ANEModel {
+	instance := getANEModelClass().Alloc()
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithModelAtURL:sourceURL:UUID:key:identifierSource:cacheURLIdentifier:modelAttributes:standardizeURL:string_id:generateNewStringId:mpsConstants:externConstants:programHandle:intermediateBufferHandle:queueDepth:perfStatsMask:state:"), url, url2, uid, key, source, uRLIdentifier, attributes, url3, string_id, id, constants, constants2, handle, handle2, depth, mask, state)
 	return ANEModelFromID(rv)
 }
 
@@ -297,6 +339,16 @@ func (a ANEModel) UpdateModelAttributesState(attributes objectivec.IObject, stat
 func (a ANEModel) UpdateModelAttributesStateProgramHandleIntermediateBufferHandleQueueDepth(attributes objectivec.IObject, state uint64, handle uint64, handle2 uint64, depth int8) {
 	objc.SendIfResponds[objc.ID](a.ID, objc.Sel("updateModelAttributes:state:programHandle:intermediateBufferHandle:queueDepth:"), attributes, state, handle, handle2, depth)
 }
+func (a ANEModel) ProceduresCount() uint32 {
+	rv := objc.SendIfResponds[uint32](a.ID, objc.Sel("proceduresCount"))
+	return rv
+}
+func (a ANEModel) UpdateFromModelShouldUpdateModelURLShouldUpdateUUID(model objectivec.IObject, url bool, uuid bool) {
+	objc.SendIfResponds[objc.ID](a.ID, objc.Sel("updateFromModel:shouldUpdateModelURL:shouldUpdateUUID:"), model, url, uuid)
+}
+func (a ANEModel) UpdateModelAttributesStateProgramHandleIntermediateBufferHandleQueueDepthNumInputsNumOutputs(attributes objectivec.IObject, state uint64, handle uint64, handle2 uint64, depth int8, inputs uint32, outputs uint32) {
+	objc.SendIfResponds[objc.ID](a.ID, objc.Sel("updateModelAttributes:state:programHandle:intermediateBufferHandle:queueDepth:numInputs:numOutputs:"), attributes, state, handle, handle2, depth, inputs, outputs)
+}
 func (a ANEModel) InitWithCoder(coder foundation.INSCoder) ANEModel {
 	rv := objc.SendIfResponds[ANEModel](a.ID, objc.Sel("initWithCoder:"), coder)
 	return rv
@@ -315,6 +367,10 @@ func (a ANEModel) InitWithModelAtURLSourceURLUUIDKeyIdentifierSourceCacheURLIden
 }
 func (a ANEModel) InitWithModelIdentifier(identifier objectivec.IObject) ANEModel {
 	rv := objc.SendIfResponds[ANEModel](a.ID, objc.Sel("initWithModelIdentifier:"), identifier)
+	return rv
+}
+func (a ANEModel) InitWithModelAtURLSourceURLUUIDKeyIdentifierSourceCacheURLIdentifierModelAttributesStandardizeURLString_idGenerateNewStringIdMpsConstantsExternConstantsProgramHandleIntermediateBufferHandleQueueDepthPerfStatsMaskState(url foundation.NSURL, url2 foundation.NSURL, uid objectivec.IObject, key objectivec.IObject, source int64, uRLIdentifier objectivec.IObject, attributes objectivec.IObject, url3 bool, string_id uint64, id bool, constants objectivec.IObject, constants2 objectivec.IObject, handle uint64, handle2 uint64, depth int8, mask uint32, state uint64) ANEModel {
+	rv := objc.SendIfResponds[ANEModel](a.ID, objc.Sel("initWithModelAtURL:sourceURL:UUID:key:identifierSource:cacheURLIdentifier:modelAttributes:standardizeURL:string_id:generateNewStringId:mpsConstants:externConstants:programHandle:intermediateBufferHandle:queueDepth:perfStatsMask:state:"), url, url2, uid, key, source, uRLIdentifier, attributes, url3, string_id, id, constants, constants2, handle, handle2, depth, mask, state)
 	return rv
 }
 
@@ -362,10 +418,22 @@ func (_ANEModelClass ANEModelClass) SupportsSecureCoding() bool {
 	rv := objc.SendIfResponds[bool](objc.ID(_ANEModelClass.class), objc.Sel("supportsSecureCoding"))
 	return rv
 }
+func (_ANEModelClass ANEModelClass) ModelAtURLKeyExternConstants(url foundation.NSURL, key objectivec.IObject, constants objectivec.IObject) objectivec.IObject {
+	rv := objc.SendIfResponds[objc.ID](objc.ID(_ANEModelClass.class), objc.Sel("modelAtURL:key:externConstants:"), url, key, constants)
+	return objectivec.Object{ID: rv}
+}
+func (_ANEModelClass ANEModelClass) UuidV5FromString(string_ objectivec.IObject) objectivec.IObject {
+	rv := objc.SendIfResponds[objc.ID](objc.ID(_ANEModelClass.class), objc.Sel("uuidV5FromString:"), string_)
+	return objectivec.Object{ID: rv}
+}
+func (_ANEModelClass ANEModelClass) UuidV5FromURL(url foundation.NSURL) objectivec.IObject {
+	rv := objc.SendIfResponds[objc.ID](objc.ID(_ANEModelClass.class), objc.Sel("uuidV5FromURL:"), url)
+	return objectivec.Object{ID: rv}
+}
 
 func (a ANEModel) UUID() foundation.NSUUID {
-	rv := objc.SendIfResponds[objc.ID](a.ID, objc.Sel("UUID"))
-	return foundation.NSUUIDFromID(objc.ID(rv))
+	rv := objc.SendIfResponds[foundation.NSUUID](a.ID, objc.Sel("UUID"))
+	return foundation.NSUUID(rv)
 }
 func (a ANEModel) CacheURLIdentifier() string {
 	rv := objc.SendIfResponds[objc.ID](a.ID, objc.Sel("cacheURLIdentifier"))
@@ -411,8 +479,8 @@ func (a ANEModel) SetModelAttributes(value foundation.INSDictionary) {
 	objc.SendIfResponds[struct{}](a.ID, objc.Sel("setModelAttributes:"), value)
 }
 func (a ANEModel) ModelURL() foundation.NSURL {
-	rv := objc.SendIfResponds[objc.ID](a.ID, objc.Sel("modelURL"))
-	return foundation.NSURLFromID(objc.ID(rv))
+	rv := objc.SendIfResponds[foundation.NSURL](a.ID, objc.Sel("modelURL"))
+	return foundation.NSURL(rv)
 }
 func (a ANEModel) MpsConstants() foundation.INSDictionary {
 	rv := objc.SendIfResponds[objc.ID](a.ID, objc.Sel("mpsConstants"))
@@ -447,8 +515,8 @@ func (a ANEModel) SetQueueDepth(value int8) {
 	objc.SendIfResponds[struct{}](a.ID, objc.Sel("setQueueDepth:"), value)
 }
 func (a ANEModel) SourceURL() foundation.NSURL {
-	rv := objc.SendIfResponds[objc.ID](a.ID, objc.Sel("sourceURL"))
-	return foundation.NSURLFromID(objc.ID(rv))
+	rv := objc.SendIfResponds[foundation.NSURL](a.ID, objc.Sel("sourceURL"))
+	return foundation.NSURL(rv)
 }
 func (a ANEModel) State() uint64 {
 	rv := objc.SendIfResponds[uint64](a.ID, objc.Sel("state"))
@@ -463,4 +531,32 @@ func (a ANEModel) String_id() uint64 {
 }
 func (a ANEModel) SetString_id(value uint64) {
 	objc.SendIfResponds[struct{}](a.ID, objc.Sel("setString_id:"), value)
+}
+func (a ANEModel) ExternConstants() foundation.INSDictionary {
+	rv := objc.SendIfResponds[objc.ID](a.ID, objc.Sel("externConstants"))
+	return foundation.NSDictionaryFromID(objc.ID(rv))
+}
+func (a ANEModel) SetExternConstants(value foundation.INSDictionary) {
+	objc.SendIfResponds[struct{}](a.ID, objc.Sel("setExternConstants:"), value)
+}
+func (a ANEModel) NumInputs() uint32 {
+	rv := objc.SendIfResponds[uint32](a.ID, objc.Sel("numInputs"))
+	return rv
+}
+func (a ANEModel) SetNumInputs(value uint32) {
+	objc.SendIfResponds[struct{}](a.ID, objc.Sel("setNumInputs:"), value)
+}
+func (a ANEModel) NumOutputs() uint32 {
+	rv := objc.SendIfResponds[uint32](a.ID, objc.Sel("numOutputs"))
+	return rv
+}
+func (a ANEModel) SetNumOutputs(value uint32) {
+	objc.SendIfResponds[struct{}](a.ID, objc.Sel("setNumOutputs:"), value)
+}
+func (a ANEModel) Procedures() foundation.INSArray {
+	rv := objc.SendIfResponds[objc.ID](a.ID, objc.Sel("procedures"))
+	return foundation.NSArrayFromID(objc.ID(rv))
+}
+func (a ANEModel) SetProcedures(value foundation.INSArray) {
+	objc.SendIfResponds[struct{}](a.ID, objc.Sel("setProcedures:"), value)
 }

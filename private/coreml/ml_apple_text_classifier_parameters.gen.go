@@ -1,4 +1,4 @@
-// Code generated from Apple documentation for CoreML. DO NOT EDIT.
+// Code generated from Apple documentation for coreml. DO NOT EDIT.
 
 package coreml
 
@@ -136,7 +136,7 @@ func NewMLAppleTextClassifierParameters() MLAppleTextClassifierParameters {
 	return rv
 }
 
-func NewAppleTextClassifierParametersWithDataLanguageInputFeatureNameOutputFeatureNameModelDataLabelNamesError(data uint64, language objectivec.IObject, name objectivec.IObject, name2 objectivec.IObject, data2 objectivec.IObject, names objectivec.IObject) (MLAppleTextClassifierParameters, error) {
+func NewMLAppleTextClassifierParametersWithDataLanguageInputFeatureNameOutputFeatureNameModelDataLabelNamesError(data uint64, language objectivec.IObject, name objectivec.IObject, name2 objectivec.IObject, data2 objectivec.IObject, names objectivec.IObject) (MLAppleTextClassifierParameters, error) {
 	var errorPtr objc.ID
 	instance := getMLAppleTextClassifierParametersClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithData:language:inputFeatureName:outputFeatureName:modelData:labelNames:error:"), data, language, name, name2, data2, names, unsafe.Pointer(&errorPtr))
@@ -150,7 +150,7 @@ func NewAppleTextClassifierParametersWithDataLanguageInputFeatureNameOutputFeatu
 	return MLAppleTextClassifierParametersFromID(rv), nil
 }
 
-func NewAppleTextClassifierParametersWithDataLanguageInputFeatureNameOutputFeatureNameModelDataLabelNamesMetadataError(data uint64, language objectivec.IObject, name objectivec.IObject, name2 objectivec.IObject, data2 objectivec.IObject, names objectivec.IObject, metadata objectivec.IObject) (MLAppleTextClassifierParameters, error) {
+func NewMLAppleTextClassifierParametersWithDataLanguageInputFeatureNameOutputFeatureNameModelDataLabelNamesMetadataError(data uint64, language objectivec.IObject, name objectivec.IObject, name2 objectivec.IObject, data2 objectivec.IObject, names objectivec.IObject, metadata objectivec.IObject) (MLAppleTextClassifierParameters, error) {
 	var errorPtr objc.ID
 	instance := getMLAppleTextClassifierParametersClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithData:language:inputFeatureName:outputFeatureName:modelData:labelNames:metadata:error:"), data, language, name, name2, data2, names, metadata, unsafe.Pointer(&errorPtr))
@@ -214,8 +214,8 @@ func (m MLAppleTextClassifierParameters) SetMetadata(value foundation.INSDiction
 	objc.SendIfResponds[struct{}](m.ID, objc.Sel("setMetadata:"), value)
 }
 func (m MLAppleTextClassifierParameters) ModelParameterData() foundation.NSData {
-	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("modelParameterData"))
-	return foundation.NSDataFromID(objc.ID(rv))
+	rv := objc.SendIfResponds[foundation.NSData](m.ID, objc.Sel("modelParameterData"))
+	return foundation.NSData(rv)
 }
 func (m MLAppleTextClassifierParameters) SetModelParameterData(value foundation.NSData) {
 	objc.SendIfResponds[struct{}](m.ID, objc.Sel("setModelParameterData:"), value)

@@ -1,4 +1,4 @@
-// Code generated from Apple documentation for Network. DO NOT EDIT.
+// Code generated from Apple documentation for network. DO NOT EDIT.
 
 package network
 
@@ -150,7 +150,7 @@ type INWInterface interface {
 	CopyLocalAddressForRemoteAddress(address objectivec.IObject) objectivec.IObject
 	CreateProtocolBufferObject() objectivec.IObject
 	DelegateInterface() INWInterface
-	DescriptionWithIndentShowFullContent(indent int, content bool) objectivec.IObject
+	DescriptionWithIndentShowFullContent(indent int32, content bool) objectivec.IObject
 	EncodeWithCoder(coder foundation.INSCoder)
 	Generation() uint64
 	HasDNS() bool
@@ -250,7 +250,7 @@ func (n NWInterface) CreateProtocolBufferObject() objectivec.IObject {
 	rv := objc.SendIfResponds[objc.ID](n.ID, objc.Sel("createProtocolBufferObject"))
 	return objectivec.Object{ID: rv}
 }
-func (n NWInterface) DescriptionWithIndentShowFullContent(indent int, content bool) objectivec.IObject {
+func (n NWInterface) DescriptionWithIndentShowFullContent(indent int32, content bool) objectivec.IObject {
 	rv := objc.SendIfResponds[objc.ID](n.ID, objc.Sel("descriptionWithIndent:showFullContent:"), indent, content)
 	return objectivec.Object{ID: rv}
 }

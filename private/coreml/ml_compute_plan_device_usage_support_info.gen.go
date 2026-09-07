@@ -1,4 +1,4 @@
-// Code generated from Apple documentation for CoreML. DO NOT EDIT.
+// Code generated from Apple documentation for coreml. DO NOT EDIT.
 
 package coreml
 
@@ -96,7 +96,7 @@ func NewMLComputePlanDeviceUsageSupportInfo() MLComputePlanDeviceUsageSupportInf
 	return rv
 }
 
-func NewComputePlanDeviceUsageSupportInfoWithComputeDeviceSupportState(device objectivec.IObject, state int64) MLComputePlanDeviceUsageSupportInfo {
+func NewMLComputePlanDeviceUsageSupportInfoWithComputeDeviceSupportState(device objectivec.IObject, state int64) MLComputePlanDeviceUsageSupportInfo {
 	instance := getMLComputePlanDeviceUsageSupportInfoClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithComputeDevice:supportState:"), device, state)
 	return MLComputePlanDeviceUsageSupportInfoFromID(rv)

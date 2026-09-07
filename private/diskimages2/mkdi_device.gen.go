@@ -80,7 +80,7 @@ type IMKDIDevice interface {
 
 	// Topic: Methods
 
-	BlockSize() int
+	BlockSize() int32
 	MediaRef() MKMediaRef
 	PartitionDiskWithGPTTypeIDError(id uint64) (bool, error)
 	ResizeDataPartitionWithPartitionUUIDPartitionNumBlocksError(uuid objectivec.IObject, blocks uint64) (bool, error)
@@ -171,8 +171,8 @@ func (m MKDIDevice) InitWithBSDNameNumBlocksBlockSizeError(bSDName objectivec.IO
 
 }
 
-func (m MKDIDevice) BlockSize() int {
-	rv := objc.SendIfResponds[int](m.ID, objc.Sel("blockSize"))
+func (m MKDIDevice) BlockSize() int32 {
+	rv := objc.SendIfResponds[int32](m.ID, objc.Sel("blockSize"))
 	return rv
 }
 func (m MKDIDevice) MediaRef() MKMediaRef {

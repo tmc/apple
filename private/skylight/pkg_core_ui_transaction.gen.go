@@ -102,7 +102,7 @@ func NewPKGCoreUITransaction() PKGCoreUITransaction {
 	return rv
 }
 
-func NewGCoreUITransactionWithThemeUseAX(theme uint32, ax bool) PKGCoreUITransaction {
+func NewPKGCoreUITransactionWithThemeUseAX(theme uint32, ax bool) PKGCoreUITransaction {
 	instance := getPKGCoreUITransactionClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithTheme:useAX:"), theme, ax)
 	return PKGCoreUITransactionFromID(rv)

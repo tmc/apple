@@ -1,4 +1,4 @@
-// Code generated from Apple documentation for CoreML. DO NOT EDIT.
+// Code generated from Apple documentation for coreml. DO NOT EDIT.
 
 package coreml
 
@@ -117,7 +117,7 @@ func NewMLE5ExecutionStreamPool() MLE5ExecutionStreamPool {
 	return rv
 }
 
-func NewE5ExecutionStreamPoolWithModelConfigurationModelSignpostId(configuration objectivec.IObject, id uint64) MLE5ExecutionStreamPool {
+func NewMLE5ExecutionStreamPoolWithModelConfigurationModelSignpostId(configuration objectivec.IObject, id uint64) MLE5ExecutionStreamPool {
 	instance := getMLE5ExecutionStreamPoolClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithModelConfiguration:modelSignpostId:"), configuration, id)
 	return MLE5ExecutionStreamPoolFromID(rv)

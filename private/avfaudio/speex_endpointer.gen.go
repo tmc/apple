@@ -1,4 +1,4 @@
-// Code generated from Apple documentation for AVFAudio. DO NOT EDIT.
+// Code generated from Apple documentation for avfaudio. DO NOT EDIT.
 
 package avfaudio
 
@@ -106,10 +106,10 @@ type ISpeexEndpointer interface {
 	ConfigureWithSampleRateAndFrameRate(rate float64, rate2 uint32) bool
 	EndWaitTime() float64
 	SetEndWaitTime(value float64)
-	EndpointMode() int
-	SetEndpointMode(value int)
-	GetStatus(status audiotoolbox.AudioQueueBuffer) int
-	GetStatusCount(status []float32, count uint32) int
+	EndpointMode() int32
+	SetEndpointMode(value int32)
+	GetStatus(status audiotoolbox.AudioQueueBuffer) int32
+	GetStatusCount(status []float32, count uint32) int32
 	InterspeechWaitTime() float64
 	SetInterspeechWaitTime(value float64)
 	Reset()
@@ -148,12 +148,12 @@ func (s SpeexEndpointer) ConfigureWithSampleRateAndFrameRate(rate float64, rate2
 	rv := objc.SendIfResponds[bool](s.ID, objc.Sel("configureWithSampleRate:andFrameRate:"), rate, rate2)
 	return rv
 }
-func (s SpeexEndpointer) GetStatus(status audiotoolbox.AudioQueueBuffer) int {
-	rv := objc.SendIfResponds[int](s.ID, objc.Sel("getStatus:"), status)
+func (s SpeexEndpointer) GetStatus(status audiotoolbox.AudioQueueBuffer) int32 {
+	rv := objc.SendIfResponds[int32](s.ID, objc.Sel("getStatus:"), status)
 	return rv
 }
-func (s SpeexEndpointer) GetStatusCount(status []float32, count uint32) int {
-	rv := objc.SendIfResponds[int](s.ID, objc.Sel("getStatus:count:"), objc.CArray(status), count)
+func (s SpeexEndpointer) GetStatusCount(status []float32, count uint32) int32 {
+	rv := objc.SendIfResponds[int32](s.ID, objc.Sel("getStatus:count:"), objc.CArray(status), count)
 	return rv
 }
 func (s SpeexEndpointer) Reset() {
@@ -175,11 +175,11 @@ func (s SpeexEndpointer) EndWaitTime() float64 {
 func (s SpeexEndpointer) SetEndWaitTime(value float64) {
 	objc.SendIfResponds[struct{}](s.ID, objc.Sel("setEndWaitTime:"), value)
 }
-func (s SpeexEndpointer) EndpointMode() int {
-	rv := objc.SendIfResponds[int](s.ID, objc.Sel("endpointMode"))
+func (s SpeexEndpointer) EndpointMode() int32 {
+	rv := objc.SendIfResponds[int32](s.ID, objc.Sel("endpointMode"))
 	return rv
 }
-func (s SpeexEndpointer) SetEndpointMode(value int) {
+func (s SpeexEndpointer) SetEndpointMode(value int32) {
 	objc.SendIfResponds[struct{}](s.ID, objc.Sel("setEndpointMode:"), value)
 }
 func (s SpeexEndpointer) Hash() uint64 {

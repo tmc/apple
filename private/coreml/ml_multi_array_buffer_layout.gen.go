@@ -1,4 +1,4 @@
-// Code generated from Apple documentation for CoreML. DO NOT EDIT.
+// Code generated from Apple documentation for coreml. DO NOT EDIT.
 
 package coreml
 
@@ -105,7 +105,7 @@ func NewMLMultiArrayBufferLayout() MLMultiArrayBufferLayout {
 	return rv
 }
 
-func NewMultiArrayBufferLayoutWithShapeStrides(shape objectivec.IObject, strides objectivec.IObject) MLMultiArrayBufferLayout {
+func NewMLMultiArrayBufferLayoutWithShapeStrides(shape objectivec.IObject, strides objectivec.IObject) MLMultiArrayBufferLayout {
 	instance := getMLMultiArrayBufferLayoutClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithShape:strides:"), shape, strides)
 	return MLMultiArrayBufferLayoutFromID(rv)

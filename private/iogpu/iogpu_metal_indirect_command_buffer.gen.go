@@ -93,7 +93,7 @@ type IIOGPUMetalIndirectCommandBuffer interface {
 	// Topic: Methods
 
 	CommandBufferType() uint64
-	Descriptor() metal.MTLIndirectCommandBufferDescriptor
+	Descriptor() *metal.MTLIndirectCommandBufferDescriptor
 	GetHeaderHeaderSize(header unsafe.Pointer, size *uint64)
 	GpuHandle() uint64
 	GpuResourceID() metal.MTLResourceID
@@ -125,44 +125,44 @@ func NewIOGPUMetalIndirectCommandBuffer() IOGPUMetalIndirectCommandBuffer {
 	return rv
 }
 
-func NewGPUMetalIndirectCommandBufferMemorylessDescriptor(memoryless objectivec.IObject, descriptor objectivec.IObject) IOGPUMetalIndirectCommandBuffer {
+func NewIOGPUMetalIndirectCommandBufferMemorylessDescriptor(memoryless objectivec.IObject, descriptor objectivec.IObject) IOGPUMetalIndirectCommandBuffer {
 	instance := getIOGPUMetalIndirectCommandBufferClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initMemoryless:descriptor:"), memoryless, descriptor)
 	return IOGPUMetalIndirectCommandBufferFromID(rv)
 }
 
-func NewGPUMetalIndirectCommandBufferStandinWithDevice(device objectivec.IObject) IOGPUMetalIndirectCommandBuffer {
+func NewIOGPUMetalIndirectCommandBufferStandinWithDevice(device objectivec.IObject) IOGPUMetalIndirectCommandBuffer {
 	instance := getIOGPUMetalIndirectCommandBufferClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initStandinWithDevice:"), device)
 	return IOGPUMetalIndirectCommandBufferFromID(rv)
 }
 
-func NewGPUMetalIndirectCommandBufferWithBufferDescriptorMaxCommandCount(buffer objectivec.IObject, descriptor objectivec.IObject, count uint64) IOGPUMetalIndirectCommandBuffer {
+func NewIOGPUMetalIndirectCommandBufferWithBufferDescriptorMaxCommandCount(buffer objectivec.IObject, descriptor objectivec.IObject, count uint64) IOGPUMetalIndirectCommandBuffer {
 	instance := getIOGPUMetalIndirectCommandBufferClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithBuffer:descriptor:maxCommandCount:"), buffer, descriptor, count)
 	return IOGPUMetalIndirectCommandBufferFromID(rv)
 }
 
-func NewGPUMetalIndirectCommandBufferWithDeviceOptionsArgsArgsSize(device objectivec.IObject, options uint64, args *IOGPUNewResourceArgs, size uint32) IOGPUMetalIndirectCommandBuffer {
+func NewIOGPUMetalIndirectCommandBufferWithDeviceOptionsArgsArgsSize(device objectivec.IObject, options uint64, args *IOGPUNewResourceArgs, size uint32) IOGPUMetalIndirectCommandBuffer {
 	instance := getIOGPUMetalIndirectCommandBufferClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithDevice:options:args:argsSize:"), device, options, unsafe.Pointer(args), size)
 	return IOGPUMetalIndirectCommandBufferFromID(rv)
 }
 
-func NewGPUMetalIndirectCommandBufferWithDeviceRemoteStorageResourceOptionsArgsArgsSize(device objectivec.IObject, resource objectivec.IObject, options uint64, args *IOGPUNewResourceArgs, size uint32) IOGPUMetalIndirectCommandBuffer {
+func NewIOGPUMetalIndirectCommandBufferWithDeviceRemoteStorageResourceOptionsArgsArgsSize(device objectivec.IObject, resource objectivec.IObject, options uint64, args *IOGPUNewResourceArgs, size uint32) IOGPUMetalIndirectCommandBuffer {
 	instance := getIOGPUMetalIndirectCommandBufferClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithDevice:remoteStorageResource:options:args:argsSize:"), device, resource, options, unsafe.Pointer(args), size)
 	return IOGPUMetalIndirectCommandBufferFromID(rv)
 }
 
-func NewGPUMetalIndirectCommandBufferWithResource(resource objectivec.IObject) IOGPUMetalIndirectCommandBuffer {
+func NewIOGPUMetalIndirectCommandBufferWithResource(resource objectivec.IObject) IOGPUMetalIndirectCommandBuffer {
 	instance := getIOGPUMetalIndirectCommandBufferClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithResource:"), resource)
 	return IOGPUMetalIndirectCommandBufferFromID(rv)
 }
 
 func (i IOGPUMetalIndirectCommandBuffer) GetHeaderHeaderSize(header unsafe.Pointer, size *uint64) {
-	objc.SendIfResponds[objc.ID](i.ID, objc.Sel("getHeader:headerSize:"), header, unsafe.Pointer(size))
+	objc.SendIfResponds[objc.ID](i.ID, objc.Sel("getHeader:headerSize:"), header, size)
 }
 func (i IOGPUMetalIndirectCommandBuffer) IndirectComputeCommandAtIndex(index uint64) objectivec.IObject {
 	rv := objc.SendIfResponds[objc.ID](i.ID, objc.Sel("indirectComputeCommandAtIndex:"), index)
@@ -188,9 +188,13 @@ func (i IOGPUMetalIndirectCommandBuffer) CommandBufferType() uint64 {
 	rv := objc.SendIfResponds[uint64](i.ID, objc.Sel("commandBufferType"))
 	return rv
 }
-func (i IOGPUMetalIndirectCommandBuffer) Descriptor() metal.MTLIndirectCommandBufferDescriptor {
+func (i IOGPUMetalIndirectCommandBuffer) Descriptor() *metal.MTLIndirectCommandBufferDescriptor {
 	rv := objc.SendIfResponds[objc.ID](i.ID, objc.Sel("descriptor"))
-	return metal.MTLIndirectCommandBufferDescriptorFromID(objc.ID(rv))
+	if rv == 0 {
+		return nil
+	}
+	val := metal.MTLIndirectCommandBufferDescriptorFromID(objc.ID(rv))
+	return &val
 }
 func (i IOGPUMetalIndirectCommandBuffer) GpuHandle() uint64 {
 	rv := objc.SendIfResponds[uint64](i.ID, objc.Sel("gpuHandle"))

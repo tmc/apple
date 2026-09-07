@@ -1,4 +1,4 @@
-// Code generated from Apple documentation for CoreML. DO NOT EDIT.
+// Code generated from Apple documentation for coreml. DO NOT EDIT.
 
 package coreml
 
@@ -103,13 +103,13 @@ func NewMLModelStructureProgramOperation() MLModelStructureProgramOperation {
 	return rv
 }
 
-func NewModelStructureProgramOperationWithMILOperationPath(mILOperation unsafe.Pointer, path unsafe.Pointer) MLModelStructureProgramOperation {
+func NewMLModelStructureProgramOperationWithMILOperationPath(mILOperation unsafe.Pointer, path unsafe.Pointer) MLModelStructureProgramOperation {
 	instance := getMLModelStructureProgramOperationClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithMILOperation:path:"), mILOperation, path)
 	return MLModelStructureProgramOperationFromID(rv)
 }
 
-func NewModelStructureProgramOperationWithOperatorNameInputsOutputsBlocksPathMilTextLocationMilId(name objectivec.IObject, inputs objectivec.IObject, outputs objectivec.IObject, blocks objectivec.IObject, path objectivec.IObject, location objectivec.IObject, id objectivec.IObject) MLModelStructureProgramOperation {
+func NewMLModelStructureProgramOperationWithOperatorNameInputsOutputsBlocksPathMilTextLocationMilId(name objectivec.IObject, inputs objectivec.IObject, outputs objectivec.IObject, blocks objectivec.IObject, path objectivec.IObject, location objectivec.IObject, id objectivec.IObject) MLModelStructureProgramOperation {
 	instance := getMLModelStructureProgramOperationClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithOperatorName:inputs:outputs:blocks:path:milTextLocation:milId:"), name, inputs, outputs, blocks, path, location, id)
 	return MLModelStructureProgramOperationFromID(rv)
@@ -125,8 +125,8 @@ func (m MLModelStructureProgramOperation) InitWithOperatorNameInputsOutputsBlock
 }
 
 func (m MLModelStructureProgramOperation) MilId() foundation.NSNumber {
-	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("milId"))
-	return foundation.NSNumberFromID(objc.ID(rv))
+	rv := objc.SendIfResponds[foundation.NSNumber](m.ID, objc.Sel("milId"))
+	return foundation.NSNumber(rv)
 }
 func (m MLModelStructureProgramOperation) MilTextLocation() string {
 	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("milTextLocation"))

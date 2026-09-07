@@ -141,37 +141,37 @@ type IEspressoImage2Image interface {
 	AddNoiseLayer()
 	AggregateWisdom(wisdom unsafe.Pointer)
 	Benchmark() float32
-	EncodeToCommandBufferSourceTextureDestinationTextureCropRect(buffer objectivec.IObject, texture objectivec.IObject, texture2 objectivec.IObject, rect unsafe.Pointer) int
-	EncodeToCommandBufferSourceTextureDestinationTextureCropRectDestinationRect(buffer objectivec.IObject, texture objectivec.IObject, texture2 objectivec.IObject, rect unsafe.Pointer, rect2 unsafe.Pointer) int
-	Flip_y() int
-	SetFlip_y(value int)
+	EncodeToCommandBufferSourceTextureDestinationTextureCropRect(buffer objectivec.IObject, texture objectivec.IObject, texture2 objectivec.IObject, rect unsafe.Pointer) int32
+	EncodeToCommandBufferSourceTextureDestinationTextureCropRectDestinationRect(buffer objectivec.IObject, texture objectivec.IObject, texture2 objectivec.IObject, rect unsafe.Pointer, rect2 unsafe.Pointer) int32
+	Flip_y() int32
+	SetFlip_y(value int32)
 	GetEspressoNetwork() unsafe.Pointer
 	GetInternalDataForKey(key objectivec.IObject) objectivec.IObject
-	Height() int
-	Load(load objectivec.IObject) int
-	LoadResolutionPreset(load objectivec.IObject, preset int64) int
+	Height() int32
+	Load(load objectivec.IObject) int32
+	LoadResolutionPreset(load objectivec.IObject, preset int64) int32
 	NewOutputTexture() objectivec.IObject
 	PostProcessCameraSourceTextureInputTextureDestinationTexture(process objectivec.IObject, texture objectivec.IObject, texture2 objectivec.IObject, texture3 objectivec.IObject)
-	Reload() int
+	Reload() int32
 	ResetTemporalState()
-	ReshapeToResolutionPreset(preset int64) int
-	ReshapeToResolutionPresetAspectRatio(preset int64, ratio float32) int
-	ReshapeToWidthAndHeight(width int, height int) int
+	ReshapeToResolutionPreset(preset int64) int32
+	ReshapeToResolutionPresetAspectRatio(preset int64, ratio float32) int32
+	ReshapeToWidthAndHeight(width int32, height int32) int32
 	ResolutionForPreset(preset int64) unsafe.Pointer
-	Rotation_degrees() int
-	SetRotation_degrees(value int)
+	Rotation_degrees() int32
+	SetRotation_degrees(value int32)
 	SetupWithQueue(queue objectivec.IObject) objectivec.IObject
 	SimpleLinearResizeSourceTextureDestinationTexture(resize objectivec.IObject, texture objectivec.IObject, texture2 objectivec.IObject)
 	StyleName() objectivec.IObject
-	SubmitToQueueWithSourceTextureDestinationTexture(texture objectivec.IObject, texture2 objectivec.IObject) int
-	SubmitToQueueWithSourceTextureDestinationTextureCropRect(texture objectivec.IObject, texture2 objectivec.IObject, rect unsafe.Pointer) int
+	SubmitToQueueWithSourceTextureDestinationTexture(texture objectivec.IObject, texture2 objectivec.IObject) int32
+	SubmitToQueueWithSourceTextureDestinationTextureCropRect(texture objectivec.IObject, texture2 objectivec.IObject, rect unsafe.Pointer) int32
 	Tune()
 	TweakValue(tweak objectivec.IObject, value float32)
-	WasReshaped() int
-	Width() int
+	WasReshaped() int32
+	Width() int32
 	_resetTemporalState()
-	_reshapeToResolutionPreset(preset int64) int
-	_reshapeToWidthAndHeight(width int, height int) int
+	_reshapeToResolutionPreset(preset int64) int32
+	_reshapeToWidthAndHeight(width int32, height int32) int32
 	_tune()
 	InitWithQueue(queue objectivec.IObject) EspressoImage2Image
 }
@@ -211,12 +211,12 @@ func (e EspressoImage2Image) Benchmark() float32 {
 	rv := objc.SendIfResponds[float32](e.ID, objc.Sel("benchmark"))
 	return rv
 }
-func (e EspressoImage2Image) EncodeToCommandBufferSourceTextureDestinationTextureCropRect(buffer objectivec.IObject, texture objectivec.IObject, texture2 objectivec.IObject, rect unsafe.Pointer) int {
-	rv := objc.SendIfResponds[int](e.ID, objc.Sel("encodeToCommandBuffer:sourceTexture:destinationTexture:cropRect:"), buffer, texture, texture2, rect)
+func (e EspressoImage2Image) EncodeToCommandBufferSourceTextureDestinationTextureCropRect(buffer objectivec.IObject, texture objectivec.IObject, texture2 objectivec.IObject, rect unsafe.Pointer) int32 {
+	rv := objc.SendIfResponds[int32](e.ID, objc.Sel("encodeToCommandBuffer:sourceTexture:destinationTexture:cropRect:"), buffer, texture, texture2, rect)
 	return rv
 }
-func (e EspressoImage2Image) EncodeToCommandBufferSourceTextureDestinationTextureCropRectDestinationRect(buffer objectivec.IObject, texture objectivec.IObject, texture2 objectivec.IObject, rect unsafe.Pointer, rect2 unsafe.Pointer) int {
-	rv := objc.SendIfResponds[int](e.ID, objc.Sel("encodeToCommandBuffer:sourceTexture:destinationTexture:cropRect:destinationRect:"), buffer, texture, texture2, rect, rect2)
+func (e EspressoImage2Image) EncodeToCommandBufferSourceTextureDestinationTextureCropRectDestinationRect(buffer objectivec.IObject, texture objectivec.IObject, texture2 objectivec.IObject, rect unsafe.Pointer, rect2 unsafe.Pointer) int32 {
+	rv := objc.SendIfResponds[int32](e.ID, objc.Sel("encodeToCommandBuffer:sourceTexture:destinationTexture:cropRect:destinationRect:"), buffer, texture, texture2, rect, rect2)
 	return rv
 }
 func (e EspressoImage2Image) GetEspressoNetwork() unsafe.Pointer {
@@ -227,16 +227,16 @@ func (e EspressoImage2Image) GetInternalDataForKey(key objectivec.IObject) objec
 	rv := objc.SendIfResponds[objc.ID](e.ID, objc.Sel("getInternalDataForKey:"), key)
 	return objectivec.Object{ID: rv}
 }
-func (e EspressoImage2Image) Height() int {
-	rv := objc.SendIfResponds[int](e.ID, objc.Sel("height"))
+func (e EspressoImage2Image) Height() int32 {
+	rv := objc.SendIfResponds[int32](e.ID, objc.Sel("height"))
 	return rv
 }
-func (e EspressoImage2Image) Load(load objectivec.IObject) int {
-	rv := objc.SendIfResponds[int](e.ID, objc.Sel("load:"), load)
+func (e EspressoImage2Image) Load(load objectivec.IObject) int32 {
+	rv := objc.SendIfResponds[int32](e.ID, objc.Sel("load:"), load)
 	return rv
 }
-func (e EspressoImage2Image) LoadResolutionPreset(load objectivec.IObject, preset int64) int {
-	rv := objc.SendIfResponds[int](e.ID, objc.Sel("load:resolutionPreset:"), load, preset)
+func (e EspressoImage2Image) LoadResolutionPreset(load objectivec.IObject, preset int64) int32 {
+	rv := objc.SendIfResponds[int32](e.ID, objc.Sel("load:resolutionPreset:"), load, preset)
 	return rv
 }
 func (e EspressoImage2Image) NewOutputTexture() objectivec.IObject {
@@ -246,23 +246,23 @@ func (e EspressoImage2Image) NewOutputTexture() objectivec.IObject {
 func (e EspressoImage2Image) PostProcessCameraSourceTextureInputTextureDestinationTexture(process objectivec.IObject, texture objectivec.IObject, texture2 objectivec.IObject, texture3 objectivec.IObject) {
 	objc.SendIfResponds[objc.ID](e.ID, objc.Sel("postProcess:cameraSourceTexture:inputTexture:destinationTexture:"), process, texture, texture2, texture3)
 }
-func (e EspressoImage2Image) Reload() int {
-	rv := objc.SendIfResponds[int](e.ID, objc.Sel("reload"))
+func (e EspressoImage2Image) Reload() int32 {
+	rv := objc.SendIfResponds[int32](e.ID, objc.Sel("reload"))
 	return rv
 }
 func (e EspressoImage2Image) ResetTemporalState() {
 	objc.SendIfResponds[objc.ID](e.ID, objc.Sel("resetTemporalState"))
 }
-func (e EspressoImage2Image) ReshapeToResolutionPreset(preset int64) int {
-	rv := objc.SendIfResponds[int](e.ID, objc.Sel("reshapeToResolutionPreset:"), preset)
+func (e EspressoImage2Image) ReshapeToResolutionPreset(preset int64) int32 {
+	rv := objc.SendIfResponds[int32](e.ID, objc.Sel("reshapeToResolutionPreset:"), preset)
 	return rv
 }
-func (e EspressoImage2Image) ReshapeToResolutionPresetAspectRatio(preset int64, ratio float32) int {
-	rv := objc.SendIfResponds[int](e.ID, objc.Sel("reshapeToResolutionPreset:aspectRatio:"), preset, ratio)
+func (e EspressoImage2Image) ReshapeToResolutionPresetAspectRatio(preset int64, ratio float32) int32 {
+	rv := objc.SendIfResponds[int32](e.ID, objc.Sel("reshapeToResolutionPreset:aspectRatio:"), preset, ratio)
 	return rv
 }
-func (e EspressoImage2Image) ReshapeToWidthAndHeight(width int, height int) int {
-	rv := objc.SendIfResponds[int](e.ID, objc.Sel("reshapeToWidth:andHeight:"), width, height)
+func (e EspressoImage2Image) ReshapeToWidthAndHeight(width int32, height int32) int32 {
+	rv := objc.SendIfResponds[int32](e.ID, objc.Sel("reshapeToWidth:andHeight:"), width, height)
 	return rv
 }
 func (e EspressoImage2Image) ResolutionForPreset(preset int64) unsafe.Pointer {
@@ -280,12 +280,12 @@ func (e EspressoImage2Image) StyleName() objectivec.IObject {
 	rv := objc.SendIfResponds[objc.ID](e.ID, objc.Sel("styleName"))
 	return objectivec.Object{ID: rv}
 }
-func (e EspressoImage2Image) SubmitToQueueWithSourceTextureDestinationTexture(texture objectivec.IObject, texture2 objectivec.IObject) int {
-	rv := objc.SendIfResponds[int](e.ID, objc.Sel("submitToQueueWithSourceTexture:destinationTexture:"), texture, texture2)
+func (e EspressoImage2Image) SubmitToQueueWithSourceTextureDestinationTexture(texture objectivec.IObject, texture2 objectivec.IObject) int32 {
+	rv := objc.SendIfResponds[int32](e.ID, objc.Sel("submitToQueueWithSourceTexture:destinationTexture:"), texture, texture2)
 	return rv
 }
-func (e EspressoImage2Image) SubmitToQueueWithSourceTextureDestinationTextureCropRect(texture objectivec.IObject, texture2 objectivec.IObject, rect unsafe.Pointer) int {
-	rv := objc.SendIfResponds[int](e.ID, objc.Sel("submitToQueueWithSourceTexture:destinationTexture:cropRect:"), texture, texture2, rect)
+func (e EspressoImage2Image) SubmitToQueueWithSourceTextureDestinationTextureCropRect(texture objectivec.IObject, texture2 objectivec.IObject, rect unsafe.Pointer) int32 {
+	rv := objc.SendIfResponds[int32](e.ID, objc.Sel("submitToQueueWithSourceTexture:destinationTexture:cropRect:"), texture, texture2, rect)
 	return rv
 }
 func (e EspressoImage2Image) Tune() {
@@ -294,23 +294,23 @@ func (e EspressoImage2Image) Tune() {
 func (e EspressoImage2Image) TweakValue(tweak objectivec.IObject, value float32) {
 	objc.SendIfResponds[objc.ID](e.ID, objc.Sel("tweak:value:"), tweak, value)
 }
-func (e EspressoImage2Image) WasReshaped() int {
-	rv := objc.SendIfResponds[int](e.ID, objc.Sel("wasReshaped"))
+func (e EspressoImage2Image) WasReshaped() int32 {
+	rv := objc.SendIfResponds[int32](e.ID, objc.Sel("wasReshaped"))
 	return rv
 }
-func (e EspressoImage2Image) Width() int {
-	rv := objc.SendIfResponds[int](e.ID, objc.Sel("width"))
+func (e EspressoImage2Image) Width() int32 {
+	rv := objc.SendIfResponds[int32](e.ID, objc.Sel("width"))
 	return rv
 }
 func (e EspressoImage2Image) _resetTemporalState() {
 	objc.SendIfResponds[objc.ID](e.ID, objc.Sel("_resetTemporalState"))
 }
-func (e EspressoImage2Image) _reshapeToResolutionPreset(preset int64) int {
-	rv := objc.SendIfResponds[int](e.ID, objc.Sel("_reshapeToResolutionPreset:"), preset)
+func (e EspressoImage2Image) _reshapeToResolutionPreset(preset int64) int32 {
+	rv := objc.SendIfResponds[int32](e.ID, objc.Sel("_reshapeToResolutionPreset:"), preset)
 	return rv
 }
-func (e EspressoImage2Image) _reshapeToWidthAndHeight(width int, height int) int {
-	rv := objc.SendIfResponds[int](e.ID, objc.Sel("_reshapeToWidth:andHeight:"), width, height)
+func (e EspressoImage2Image) _reshapeToWidthAndHeight(width int32, height int32) int32 {
+	rv := objc.SendIfResponds[int32](e.ID, objc.Sel("_reshapeToWidth:andHeight:"), width, height)
 	return rv
 }
 func (e EspressoImage2Image) _tune() {
@@ -321,8 +321,8 @@ func (e EspressoImage2Image) InitWithQueue(queue objectivec.IObject) EspressoIma
 	return rv
 }
 
-func (_EspressoImage2ImageClass EspressoImage2ImageClass) FeatureVersion() int {
-	rv := objc.SendIfResponds[int](objc.ID(_EspressoImage2ImageClass.class), objc.Sel("featureVersion"))
+func (_EspressoImage2ImageClass EspressoImage2ImageClass) FeatureVersion() int32 {
+	rv := objc.SendIfResponds[int32](objc.ID(_EspressoImage2ImageClass.class), objc.Sel("featureVersion"))
 	return rv
 }
 func (_EspressoImage2ImageClass EspressoImage2ImageClass) GetStylesKeys() objectivec.IObject {
@@ -350,17 +350,17 @@ func (_EspressoImage2ImageClass EspressoImage2ImageClass) TuneNetworksWGWindowSi
 	objc.SendIfResponds[objc.ID](objc.ID(_EspressoImage2ImageClass.class), objc.Sel("tuneNetworksWGWindowSize:"), size)
 }
 
-func (e EspressoImage2Image) Flip_y() int {
-	rv := objc.SendIfResponds[int](e.ID, objc.Sel("flip_y"))
+func (e EspressoImage2Image) Flip_y() int32 {
+	rv := objc.SendIfResponds[int32](e.ID, objc.Sel("flip_y"))
 	return rv
 }
-func (e EspressoImage2Image) SetFlip_y(value int) {
+func (e EspressoImage2Image) SetFlip_y(value int32) {
 	objc.SendIfResponds[struct{}](e.ID, objc.Sel("setFlip_y:"), value)
 }
-func (e EspressoImage2Image) Rotation_degrees() int {
-	rv := objc.SendIfResponds[int](e.ID, objc.Sel("rotation_degrees"))
+func (e EspressoImage2Image) Rotation_degrees() int32 {
+	rv := objc.SendIfResponds[int32](e.ID, objc.Sel("rotation_degrees"))
 	return rv
 }
-func (e EspressoImage2Image) SetRotation_degrees(value int) {
+func (e EspressoImage2Image) SetRotation_degrees(value int32) {
 	objc.SendIfResponds[struct{}](e.ID, objc.Sel("setRotation_degrees:"), value)
 }

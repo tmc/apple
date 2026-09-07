@@ -71,9 +71,9 @@ type ISLSBridgedSpaceRemoveOwnerOperation interface {
 
 	// Topic: Methods
 
-	Owner() int
+	Owner() int32
 	SpaceID() uint64
-	InitWithSpaceIDOwner(id uint64, owner int) SLSBridgedSpaceRemoveOwnerOperation
+	InitWithSpaceIDOwner(id uint64, owner int32) SLSBridgedSpaceRemoveOwnerOperation
 }
 
 // Init initializes the instance.
@@ -101,19 +101,19 @@ func NewSLSBridgedSpaceRemoveOwnerOperationWithCoder(coder objectivec.IObject) S
 	return SLSBridgedSpaceRemoveOwnerOperationFromID(rv)
 }
 
-func NewSLSBridgedSpaceRemoveOwnerOperationWithSpaceIDOwner(id uint64, owner int) SLSBridgedSpaceRemoveOwnerOperation {
+func NewSLSBridgedSpaceRemoveOwnerOperationWithSpaceIDOwner(id uint64, owner int32) SLSBridgedSpaceRemoveOwnerOperation {
 	instance := getSLSBridgedSpaceRemoveOwnerOperationClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithSpaceID:owner:"), id, owner)
 	return SLSBridgedSpaceRemoveOwnerOperationFromID(rv)
 }
 
-func (s SLSBridgedSpaceRemoveOwnerOperation) InitWithSpaceIDOwner(id uint64, owner int) SLSBridgedSpaceRemoveOwnerOperation {
+func (s SLSBridgedSpaceRemoveOwnerOperation) InitWithSpaceIDOwner(id uint64, owner int32) SLSBridgedSpaceRemoveOwnerOperation {
 	rv := objc.SendIfResponds[SLSBridgedSpaceRemoveOwnerOperation](s.ID, objc.Sel("initWithSpaceID:owner:"), id, owner)
 	return rv
 }
 
-func (s SLSBridgedSpaceRemoveOwnerOperation) Owner() int {
-	rv := objc.SendIfResponds[int](s.ID, objc.Sel("owner"))
+func (s SLSBridgedSpaceRemoveOwnerOperation) Owner() int32 {
+	rv := objc.SendIfResponds[int32](s.ID, objc.Sel("owner"))
 	return rv
 }
 func (s SLSBridgedSpaceRemoveOwnerOperation) SpaceID() uint64 {

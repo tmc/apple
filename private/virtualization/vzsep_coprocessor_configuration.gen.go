@@ -1,4 +1,4 @@
-// Code generated from Apple documentation for Virtualization. DO NOT EDIT.
+// Code generated from Apple documentation for virtualization. DO NOT EDIT.
 
 package virtualization
 
@@ -45,8 +45,6 @@ func (vc VZSEPCoprocessorConfigurationClass) Alloc() VZSEPCoprocessorConfigurati
 
 // # Methods
 //
-//   - [VZSEPCoprocessorConfiguration.DebugStub]
-//   - [VZSEPCoprocessorConfiguration.SetDebugStub]
 //   - [VZSEPCoprocessorConfiguration.RomBinaryURL]
 //   - [VZSEPCoprocessorConfiguration.SetRomBinaryURL]
 //   - [VZSEPCoprocessorConfiguration.Storage]
@@ -68,8 +66,6 @@ var _ IVZSEPCoprocessorConfiguration = VZSEPCoprocessorConfiguration{}
 //
 // # Methods
 //
-//   - [IVZSEPCoprocessorConfiguration.DebugStub]
-//   - [IVZSEPCoprocessorConfiguration.SetDebugStub]
 //   - [IVZSEPCoprocessorConfiguration.RomBinaryURL]
 //   - [IVZSEPCoprocessorConfiguration.SetRomBinaryURL]
 //   - [IVZSEPCoprocessorConfiguration.Storage]
@@ -80,8 +76,6 @@ type IVZSEPCoprocessorConfiguration interface {
 
 	// Topic: Methods
 
-	DebugStub() IVZDebugStubConfiguration
-	SetDebugStub(value IVZDebugStubConfiguration)
 	RomBinaryURL() foundation.NSURL
 	SetRomBinaryURL(value foundation.NSURL)
 	Storage() IVZSEPStorage
@@ -129,16 +123,9 @@ func (v VZSEPCoprocessorConfiguration) InitWithStorageURL(url foundation.NSURL) 
 	return rv
 }
 
-func (v VZSEPCoprocessorConfiguration) DebugStub() IVZDebugStubConfiguration {
-	rv := objc.SendIfResponds[objc.ID](v.ID, objc.Sel("debugStub"))
-	return VZDebugStubConfigurationFromID(objc.ID(rv))
-}
-func (v VZSEPCoprocessorConfiguration) SetDebugStub(value IVZDebugStubConfiguration) {
-	objc.SendIfResponds[struct{}](v.ID, objc.Sel("setDebugStub:"), value)
-}
 func (v VZSEPCoprocessorConfiguration) RomBinaryURL() foundation.NSURL {
-	rv := objc.SendIfResponds[objc.ID](v.ID, objc.Sel("romBinaryURL"))
-	return foundation.NSURLFromID(objc.ID(rv))
+	rv := objc.SendIfResponds[foundation.NSURL](v.ID, objc.Sel("romBinaryURL"))
+	return foundation.NSURL(rv)
 }
 func (v VZSEPCoprocessorConfiguration) SetRomBinaryURL(value foundation.NSURL) {
 	objc.SendIfResponds[struct{}](v.ID, objc.Sel("setRomBinaryURL:"), value)

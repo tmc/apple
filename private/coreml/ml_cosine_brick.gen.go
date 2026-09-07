@@ -1,4 +1,4 @@
-// Code generated from Apple documentation for CoreML. DO NOT EDIT.
+// Code generated from Apple documentation for coreml. DO NOT EDIT.
 
 package coreml
 
@@ -123,7 +123,7 @@ func NewMLCosineBrick() MLCosineBrick {
 	return rv
 }
 
-func NewCosineBrickWithParameters(parameters objectivec.IObject) MLCosineBrick {
+func NewMLCosineBrickWithParameters(parameters objectivec.IObject) MLCosineBrick {
 	instance := getMLCosineBrickClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithParameters:"), parameters)
 	return MLCosineBrickFromID(rv)

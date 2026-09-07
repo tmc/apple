@@ -22,6 +22,10 @@ type CGImage struct {
 type FaceLandmarkDetectorPoint struct {
 }
 
+// NSZone
+type NSZone struct {
+}
+
 // CVBuffer
 type CVBuffer struct {
 }

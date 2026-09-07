@@ -1,4 +1,4 @@
-// Code generated from Apple documentation for CoreML. DO NOT EDIT.
+// Code generated from Apple documentation for coreml. DO NOT EDIT.
 
 package coreml
 
@@ -156,8 +156,8 @@ type IMLCompilerOptions interface {
 	SetKeyID(value string)
 	KeyInfoVersion() foundation.NSNumber
 	SetKeyInfoVersion(value foundation.NSNumber)
-	MlProgramAddDuringCompilationMode() int
-	SetMlProgramAddDuringCompilationMode(value int)
+	MlProgramAddDuringCompilationMode() int32
+	SetMlProgramAddDuringCompilationMode(value int32)
 	Mlsinf() foundation.NSData
 	SetMlsinf(value foundation.NSData)
 	Platform() string
@@ -236,15 +236,15 @@ func (m MLCompilerOptions) SetEncryptModel(value bool) {
 	objc.SendIfResponds[struct{}](m.ID, objc.Sel("setEncryptModel:"), value)
 }
 func (m MLCompilerOptions) Iv() foundation.NSData {
-	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("iv"))
-	return foundation.NSDataFromID(objc.ID(rv))
+	rv := objc.SendIfResponds[foundation.NSData](m.ID, objc.Sel("iv"))
+	return foundation.NSData(rv)
 }
 func (m MLCompilerOptions) SetIv(value foundation.NSData) {
 	objc.SendIfResponds[struct{}](m.ID, objc.Sel("setIv:"), value)
 }
 func (m MLCompilerOptions) Key() foundation.NSData {
-	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("key"))
-	return foundation.NSDataFromID(objc.ID(rv))
+	rv := objc.SendIfResponds[foundation.NSData](m.ID, objc.Sel("key"))
+	return foundation.NSData(rv)
 }
 func (m MLCompilerOptions) SetKey(value foundation.NSData) {
 	objc.SendIfResponds[struct{}](m.ID, objc.Sel("setKey:"), value)
@@ -257,22 +257,22 @@ func (m MLCompilerOptions) SetKeyID(value string) {
 	objc.SendIfResponds[struct{}](m.ID, objc.Sel("setKeyID:"), objc.String(value))
 }
 func (m MLCompilerOptions) KeyInfoVersion() foundation.NSNumber {
-	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("keyInfoVersion"))
-	return foundation.NSNumberFromID(objc.ID(rv))
+	rv := objc.SendIfResponds[foundation.NSNumber](m.ID, objc.Sel("keyInfoVersion"))
+	return foundation.NSNumber(rv)
 }
 func (m MLCompilerOptions) SetKeyInfoVersion(value foundation.NSNumber) {
 	objc.SendIfResponds[struct{}](m.ID, objc.Sel("setKeyInfoVersion:"), value)
 }
-func (m MLCompilerOptions) MlProgramAddDuringCompilationMode() int {
-	rv := objc.SendIfResponds[int](m.ID, objc.Sel("mlProgramAddDuringCompilationMode"))
+func (m MLCompilerOptions) MlProgramAddDuringCompilationMode() int32 {
+	rv := objc.SendIfResponds[int32](m.ID, objc.Sel("mlProgramAddDuringCompilationMode"))
 	return rv
 }
-func (m MLCompilerOptions) SetMlProgramAddDuringCompilationMode(value int) {
+func (m MLCompilerOptions) SetMlProgramAddDuringCompilationMode(value int32) {
 	objc.SendIfResponds[struct{}](m.ID, objc.Sel("setMlProgramAddDuringCompilationMode:"), value)
 }
 func (m MLCompilerOptions) Mlsinf() foundation.NSData {
-	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("mlsinf"))
-	return foundation.NSDataFromID(objc.ID(rv))
+	rv := objc.SendIfResponds[foundation.NSData](m.ID, objc.Sel("mlsinf"))
+	return foundation.NSData(rv)
 }
 func (m MLCompilerOptions) SetMlsinf(value foundation.NSData) {
 	objc.SendIfResponds[struct{}](m.ID, objc.Sel("setMlsinf:"), value)
@@ -292,15 +292,15 @@ func (m MLCompilerOptions) SetPlatformVersion(value string) {
 	objc.SendIfResponds[struct{}](m.ID, objc.Sel("setPlatformVersion:"), objc.String(value))
 }
 func (m MLCompilerOptions) Sinf() foundation.NSData {
-	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("sinf"))
-	return foundation.NSDataFromID(objc.ID(rv))
+	rv := objc.SendIfResponds[foundation.NSData](m.ID, objc.Sel("sinf"))
+	return foundation.NSData(rv)
 }
 func (m MLCompilerOptions) SetSinf(value foundation.NSData) {
 	objc.SendIfResponds[struct{}](m.ID, objc.Sel("setSinf:"), value)
 }
 func (m MLCompilerOptions) SpecURL() foundation.NSURL {
-	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("specURL"))
-	return foundation.NSURLFromID(objc.ID(rv))
+	rv := objc.SendIfResponds[foundation.NSURL](m.ID, objc.Sel("specURL"))
+	return foundation.NSURL(rv)
 }
 func (m MLCompilerOptions) SetSpecURL(value foundation.NSURL) {
 	objc.SendIfResponds[struct{}](m.ID, objc.Sel("setSpecURL:"), value)

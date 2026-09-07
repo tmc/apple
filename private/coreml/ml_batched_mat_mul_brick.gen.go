@@ -1,4 +1,4 @@
-// Code generated from Apple documentation for CoreML. DO NOT EDIT.
+// Code generated from Apple documentation for coreml. DO NOT EDIT.
 
 package coreml
 
@@ -132,7 +132,7 @@ func NewMLBatchedMatMulBrick() MLBatchedMatMulBrick {
 	return rv
 }
 
-func NewBatchedMatMulBrickWithParameters(parameters objectivec.IObject) MLBatchedMatMulBrick {
+func NewMLBatchedMatMulBrickWithParameters(parameters objectivec.IObject) MLBatchedMatMulBrick {
 	instance := getMLBatchedMatMulBrickClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithParameters:"), parameters)
 	return MLBatchedMatMulBrickFromID(rv)
@@ -191,10 +191,10 @@ func (m MLBatchedMatMulBrick) Superclass() objectivec.Class {
 	return objectivec.Class(rv)
 }
 func (m MLBatchedMatMulBrick) TransposeA() foundation.NSNumber {
-	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("transposeA"))
-	return foundation.NSNumberFromID(objc.ID(rv))
+	rv := objc.SendIfResponds[foundation.NSNumber](m.ID, objc.Sel("transposeA"))
+	return foundation.NSNumber(rv)
 }
 func (m MLBatchedMatMulBrick) TransposeB() foundation.NSNumber {
-	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("transposeB"))
-	return foundation.NSNumberFromID(objc.ID(rv))
+	rv := objc.SendIfResponds[foundation.NSNumber](m.ID, objc.Sel("transposeB"))
+	return foundation.NSNumber(rv)
 }

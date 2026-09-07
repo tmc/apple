@@ -1,4 +1,4 @@
-// Code generated from Apple documentation for Network. DO NOT EDIT.
+// Code generated from Apple documentation for network. DO NOT EDIT.
 
 package network
 
@@ -91,7 +91,7 @@ type INWAdvertiseDescriptor interface {
 	BonjourServiceDomain() string
 	BonjourServiceName() string
 	BonjourServiceType() string
-	DescriptionWithIndentShowFullContent(indent int, content bool) objectivec.IObject
+	DescriptionWithIndentShowFullContent(indent int32, content bool) objectivec.IObject
 	InternalDescriptor() objectivec.Object
 	SetInternalDescriptor(value objectivec.Object)
 	PrivateDescription() objectivec.IObject
@@ -132,7 +132,7 @@ func NewNWAdvertiseDescriptorWithNameTypeDomain(name objectivec.IObject, type_ o
 	return NWAdvertiseDescriptorFromID(rv)
 }
 
-func (n NWAdvertiseDescriptor) DescriptionWithIndentShowFullContent(indent int, content bool) objectivec.IObject {
+func (n NWAdvertiseDescriptor) DescriptionWithIndentShowFullContent(indent int32, content bool) objectivec.IObject {
 	rv := objc.SendIfResponds[objc.ID](n.ID, objc.Sel("descriptionWithIndent:showFullContent:"), indent, content)
 	return objectivec.Object{ID: rv}
 }
@@ -169,8 +169,8 @@ func (n NWAdvertiseDescriptor) SetInternalDescriptor(value objectivec.Object) {
 	objc.SendIfResponds[struct{}](n.ID, objc.Sel("setInternalDescriptor:"), value)
 }
 func (n NWAdvertiseDescriptor) TxtRecord() foundation.NSData {
-	rv := objc.SendIfResponds[objc.ID](n.ID, objc.Sel("txtRecord"))
-	return foundation.NSDataFromID(objc.ID(rv))
+	rv := objc.SendIfResponds[foundation.NSData](n.ID, objc.Sel("txtRecord"))
+	return foundation.NSData(rv)
 }
 func (n NWAdvertiseDescriptor) SetTxtRecord(value foundation.NSData) {
 	objc.SendIfResponds[struct{}](n.ID, objc.Sel("setTxtRecord:"), value)

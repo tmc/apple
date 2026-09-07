@@ -1,4 +1,4 @@
-// Code generated from Apple documentation for CoreML. DO NOT EDIT.
+// Code generated from Apple documentation for coreml. DO NOT EDIT.
 
 package coreml
 
@@ -92,13 +92,13 @@ func NewMLModelStructureProgramBinding() MLModelStructureProgramBinding {
 	return rv
 }
 
-func NewModelStructureProgramBindingWithName(name objectivec.IObject) MLModelStructureProgramBinding {
+func NewMLModelStructureProgramBindingWithName(name objectivec.IObject) MLModelStructureProgramBinding {
 	instance := getMLModelStructureProgramBindingClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithName:"), name)
 	return MLModelStructureProgramBindingFromID(rv)
 }
 
-func NewModelStructureProgramBindingWithValue(value objectivec.IObject) MLModelStructureProgramBinding {
+func NewMLModelStructureProgramBindingWithValue(value objectivec.IObject) MLModelStructureProgramBinding {
 	instance := getMLModelStructureProgramBindingClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithValue:"), value)
 	return MLModelStructureProgramBindingFromID(rv)

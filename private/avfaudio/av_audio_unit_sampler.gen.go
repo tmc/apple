@@ -1,4 +1,4 @@
-// Code generated from Apple documentation for AVFAudio. DO NOT EDIT.
+// Code generated from Apple documentation for avfaudio. DO NOT EDIT.
 
 package avfaudio
 
@@ -92,7 +92,7 @@ func NewAVAudioUnitSampler() AVAudioUnitSampler {
 	return rv
 }
 
-func NewAudioUnitSamplerWithImpl(impl unsafe.Pointer) AVAudioUnitSampler {
+func NewAVAudioUnitSamplerWithImpl(impl unsafe.Pointer) AVAudioUnitSampler {
 	instance := getAVAudioUnitSamplerClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithImpl:"), impl)
 	return AVAudioUnitSamplerFromID(rv)

@@ -1,9 +1,10 @@
-// Code generated from Apple documentation for CoreML. DO NOT EDIT.
+// Code generated from Apple documentation for coreml. DO NOT EDIT.
 
 package coreml
 
 import (
 	"sync"
+	"unsafe"
 
 	"github.com/tmc/apple/foundation"
 	"github.com/tmc/apple/objc"
@@ -98,7 +99,7 @@ type IMLFeatureFlags interface {
 	OverrideOriginalValues() foundation.INSDictionary
 	RemoveOverrideForFeature(feature objectivec.IObject) bool
 	SetOverrideForFeature(override bool, feature objectivec.IObject) bool
-	UserDefaults() foundation.UserDefaults
+	UserDefaults() unsafe.Pointer
 }
 
 // Init initializes the instance.
@@ -164,7 +165,7 @@ func (m MLFeatureFlags) OverrideOriginalValues() foundation.INSDictionary {
 	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("overrideOriginalValues"))
 	return foundation.NSDictionaryFromID(objc.ID(rv))
 }
-func (m MLFeatureFlags) UserDefaults() foundation.UserDefaults {
-	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("userDefaults"))
-	return foundation.UserDefaultsFromID(objc.ID(rv))
+func (m MLFeatureFlags) UserDefaults() unsafe.Pointer {
+	rv := objc.SendIfResponds[unsafe.Pointer](m.ID, objc.Sel("userDefaults"))
+	return rv
 }

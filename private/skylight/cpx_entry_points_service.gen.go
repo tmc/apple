@@ -72,8 +72,8 @@ type ICPXEntryPointsService interface {
 
 	// Topic: Methods
 
-	ClientAddToPermittedFrontList(client *CGXConnection, list CPSProcessSerNum) int
-	ClientRemoveFromPermittedFrontList(client *CGXConnection, list CPSProcessSerNum) int
+	ClientAddToPermittedFrontList(client *CGXConnection, list CPSProcessSerNum) int32
+	ClientRemoveFromPermittedFrontList(client *CGXConnection, list CPSProcessSerNum) int32
 	InitWithFocusControllerProcessManager(controller objectivec.IObject, manager objectivec.IObject) CPXEntryPointsService
 }
 
@@ -102,12 +102,12 @@ func NewCPXEntryPointsServiceWithFocusControllerProcessManager(controller object
 	return CPXEntryPointsServiceFromID(rv)
 }
 
-func (c CPXEntryPointsService) ClientAddToPermittedFrontList(client *CGXConnection, list CPSProcessSerNum) int {
-	rv := objc.SendIfResponds[int](c.ID, objc.Sel("client:addToPermittedFrontList:"), unsafe.Pointer(client), list)
+func (c CPXEntryPointsService) ClientAddToPermittedFrontList(client *CGXConnection, list CPSProcessSerNum) int32 {
+	rv := objc.SendIfResponds[int32](c.ID, objc.Sel("client:addToPermittedFrontList:"), unsafe.Pointer(client), list)
 	return rv
 }
-func (c CPXEntryPointsService) ClientRemoveFromPermittedFrontList(client *CGXConnection, list CPSProcessSerNum) int {
-	rv := objc.SendIfResponds[int](c.ID, objc.Sel("client:removeFromPermittedFrontList:"), unsafe.Pointer(client), list)
+func (c CPXEntryPointsService) ClientRemoveFromPermittedFrontList(client *CGXConnection, list CPSProcessSerNum) int32 {
+	rv := objc.SendIfResponds[int32](c.ID, objc.Sel("client:removeFromPermittedFrontList:"), unsafe.Pointer(client), list)
 	return rv
 }
 func (c CPXEntryPointsService) InitWithFocusControllerProcessManager(controller objectivec.IObject, manager objectivec.IObject) CPXEntryPointsService {

@@ -1,4 +1,4 @@
-// Code generated from Apple documentation for Virtualization. DO NOT EDIT.
+// Code generated from Apple documentation for virtualization. DO NOT EDIT.
 
 package virtualization
 
@@ -153,8 +153,8 @@ func (v VZTemporaryRAMStorageDeviceAttachment) InitWithURLReadOnlyError(url foun
 }
 
 func (v VZTemporaryRAMStorageDeviceAttachment) URL() foundation.NSURL {
-	rv := objc.SendIfResponds[objc.ID](v.ID, objc.Sel("URL"))
-	return foundation.NSURLFromID(objc.ID(rv))
+	rv := objc.SendIfResponds[foundation.NSURL](v.ID, objc.Sel("URL"))
+	return foundation.NSURL(rv)
 }
 func (v VZTemporaryRAMStorageDeviceAttachment) ReadOnly() bool {
 	rv := objc.SendIfResponds[bool](v.ID, objc.Sel("readOnly"))

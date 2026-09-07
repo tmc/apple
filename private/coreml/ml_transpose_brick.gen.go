@@ -1,4 +1,4 @@
-// Code generated from Apple documentation for CoreML. DO NOT EDIT.
+// Code generated from Apple documentation for coreml. DO NOT EDIT.
 
 package coreml
 
@@ -126,7 +126,7 @@ func NewMLTransposeBrick() MLTransposeBrick {
 	return rv
 }
 
-func NewTransposeBrickWithParameters(parameters objectivec.IObject) MLTransposeBrick {
+func NewMLTransposeBrickWithParameters(parameters objectivec.IObject) MLTransposeBrick {
 	instance := getMLTransposeBrickClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithParameters:"), parameters)
 	return MLTransposeBrickFromID(rv)

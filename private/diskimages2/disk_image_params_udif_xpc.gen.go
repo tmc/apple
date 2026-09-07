@@ -84,25 +84,25 @@ func NewDiskImageParamsUDIFXPC() DiskImageParamsUDIFXPC {
 	return rv
 }
 
-func NewDiskImageParamsUDIF_XPCWithBackendXPC(xpc objectivec.IObject) DiskImageParamsUDIFXPC {
+func NewDiskImageParamsUDIFXPCWithBackendXPC(xpc objectivec.IObject) DiskImageParamsUDIFXPC {
 	instance := getDiskImageParamsUDIFXPCClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithBackendXPC:"), xpc)
 	return DiskImageParamsUDIFXPCFromID(rv)
 }
 
-func NewDiskImageParamsUDIF_XPCWithBackendXPCBlockSize(xpc objectivec.IObject, size uint64) DiskImageParamsUDIFXPC {
+func NewDiskImageParamsUDIFXPCWithBackendXPCBlockSize(xpc objectivec.IObject, size uint64) DiskImageParamsUDIFXPC {
 	instance := getDiskImageParamsUDIFXPCClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithBackendXPC:blockSize:"), xpc, size)
 	return DiskImageParamsUDIFXPCFromID(rv)
 }
 
-func NewDiskImageParamsUDIF_XPCWithBackendXPCHeader(xpc objectivec.IObject, header unsafe.Pointer) DiskImageParamsUDIFXPC {
+func NewDiskImageParamsUDIFXPCWithBackendXPCHeader(xpc objectivec.IObject, header unsafe.Pointer) DiskImageParamsUDIFXPC {
 	instance := getDiskImageParamsUDIFXPCClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithBackendXPC:header:"), xpc, header)
 	return DiskImageParamsUDIFXPCFromID(rv)
 }
 
-func NewDiskImageParamsUDIF_XPCWithCoder(coder objectivec.IObject) DiskImageParamsUDIFXPC {
+func NewDiskImageParamsUDIFXPCWithCoder(coder objectivec.IObject) DiskImageParamsUDIFXPC {
 	instance := getDiskImageParamsUDIFXPCClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
 	return DiskImageParamsUDIFXPCFromID(rv)

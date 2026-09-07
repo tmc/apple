@@ -1,4 +1,4 @@
-// Code generated from Apple documentation for CoreML. DO NOT EDIT.
+// Code generated from Apple documentation for coreml. DO NOT EDIT.
 
 package coreml
 
@@ -109,13 +109,13 @@ func NewMLModelStructurePath() MLModelStructurePath {
 	return rv
 }
 
-func NewModelStructurePathWithCppPath(path Path) MLModelStructurePath {
+func NewMLModelStructurePathWithCppPath(path Path) MLModelStructurePath {
 	instance := getMLModelStructurePathClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithCppPath:"), path)
 	return MLModelStructurePathFromID(rv)
 }
 
-func NewModelStructurePathWithMLProgramOperationPathComponentsScopedModelNamesError(components objectivec.IObject, names objectivec.IObject) (MLModelStructurePath, error) {
+func NewMLModelStructurePathWithMLProgramOperationPathComponentsScopedModelNamesError(components objectivec.IObject, names objectivec.IObject) (MLModelStructurePath, error) {
 	var errorPtr objc.ID
 	instance := getMLModelStructurePathClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithMLProgramOperationPathComponents:scopedModelNames:error:"), components, names, unsafe.Pointer(&errorPtr))
@@ -129,7 +129,7 @@ func NewModelStructurePathWithMLProgramOperationPathComponentsScopedModelNamesEr
 	return MLModelStructurePathFromID(rv), nil
 }
 
-func NewModelStructurePathWithNeuralNetworkLayerNameScopedModelNames(name objectivec.IObject, names objectivec.IObject) MLModelStructurePath {
+func NewMLModelStructurePathWithNeuralNetworkLayerNameScopedModelNames(name objectivec.IObject, names objectivec.IObject) MLModelStructurePath {
 	instance := getMLModelStructurePathClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithNeuralNetworkLayerName:scopedModelNames:"), name, names)
 	return MLModelStructurePathFromID(rv)

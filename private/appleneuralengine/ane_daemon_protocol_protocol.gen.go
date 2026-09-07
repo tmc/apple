@@ -40,6 +40,18 @@ type ANEDaemonProtocol interface {
 
 	// UnloadModelOptionsQosWithReply protocol.
 	UnloadModelOptionsQosWithReply(model objectivec.IObject, options objectivec.IObject, qos uint32, reply VoidHandler)
+
+	// CompiledModelExistsInCacheForLimitToCurrentProcessWithReply protocol.
+	CompiledModelExistsInCacheForLimitToCurrentProcessWithReply(for_ objectivec.IObject, process bool, reply BoolErrorHandler)
+
+	// UpdateCachedModelLocationForModelTrackedByHashToAppGroupWithReply protocol.
+	UpdateCachedModelLocationForModelTrackedByHashToAppGroupWithReply(hash objectivec.IObject, group objectivec.IObject, reply BoolErrorHandler)
+
+	// UpdatePurgeabilityLevelForModelTrackedByHashToWithReply protocol.
+	UpdatePurgeabilityLevelForModelTrackedByHashToWithReply(hash objectivec.IObject, to objectivec.IObject, reply BoolErrorHandler)
+
+	// UpdateSourcePathForModelTrackedByHashToWithReply protocol.
+	UpdateSourcePathForModelTrackedByHashToWithReply(hash objectivec.IObject, to objectivec.IObject, reply BoolErrorHandler)
 }
 
 // ANEDaemonProtocolObject wraps an existing Objective-C object that conforms to the ANEDaemonProtocol protocol.
@@ -106,4 +118,24 @@ func (o ANEDaemonProtocolObject) UnloadModelOptionsQosWithReply(model objectivec
 	_block3, _cleanup3 := NewVoidBlock(reply)
 	defer _cleanup3()
 	objc.SendIfResponds[struct{}](o.ID, objc.Sel("unloadModel:options:qos:withReply:"), model, options, qos, objc.ID(_block3))
+}
+func (o ANEDaemonProtocolObject) CompiledModelExistsInCacheForLimitToCurrentProcessWithReply(for_ objectivec.IObject, process bool, reply BoolErrorHandler) {
+	_block2, _cleanup2 := NewBoolErrorBlock(reply)
+	defer _cleanup2()
+	objc.SendIfResponds[struct{}](o.ID, objc.Sel("compiledModelExistsInCacheFor:limitToCurrentProcess:withReply:"), for_, process, objc.ID(_block2))
+}
+func (o ANEDaemonProtocolObject) UpdateCachedModelLocationForModelTrackedByHashToAppGroupWithReply(hash objectivec.IObject, group objectivec.IObject, reply BoolErrorHandler) {
+	_block2, _cleanup2 := NewBoolErrorBlock(reply)
+	defer _cleanup2()
+	objc.SendIfResponds[struct{}](o.ID, objc.Sel("updateCachedModelLocationForModelTrackedByHash:toAppGroup:withReply:"), hash, group, objc.ID(_block2))
+}
+func (o ANEDaemonProtocolObject) UpdatePurgeabilityLevelForModelTrackedByHashToWithReply(hash objectivec.IObject, to objectivec.IObject, reply BoolErrorHandler) {
+	_block2, _cleanup2 := NewBoolErrorBlock(reply)
+	defer _cleanup2()
+	objc.SendIfResponds[struct{}](o.ID, objc.Sel("updatePurgeabilityLevelForModelTrackedByHash:to:withReply:"), hash, to, objc.ID(_block2))
+}
+func (o ANEDaemonProtocolObject) UpdateSourcePathForModelTrackedByHashToWithReply(hash objectivec.IObject, to objectivec.IObject, reply BoolErrorHandler) {
+	_block2, _cleanup2 := NewBoolErrorBlock(reply)
+	defer _cleanup2()
+	objc.SendIfResponds[struct{}](o.ID, objc.Sel("updateSourcePathForModelTrackedByHash:to:withReply:"), hash, to, objc.ID(_block2))
 }

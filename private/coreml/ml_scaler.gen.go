@@ -1,4 +1,4 @@
-// Code generated from Apple documentation for CoreML. DO NOT EDIT.
+// Code generated from Apple documentation for coreml. DO NOT EDIT.
 
 package coreml
 
@@ -97,19 +97,19 @@ func NewMLScaler() MLScaler {
 	return rv
 }
 
-func NewScalerWithDescriptionConfiguration(description objectivec.IObject, configuration objectivec.IObject) MLScaler {
+func NewMLScalerWithDescriptionConfiguration(description objectivec.IObject, configuration objectivec.IObject) MLScaler {
 	instance := getMLScalerClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithDescription:configuration:"), description, configuration)
 	return MLScalerFromID(rv)
 }
 
-func NewScalerWithNameInputDescriptionOutputDescriptionOrderedInputFeatureNamesOrderedOutputFeatureNamesConfiguration(name objectivec.IObject, description objectivec.IObject, description2 objectivec.IObject, names objectivec.IObject, names2 objectivec.IObject, configuration objectivec.IObject) MLScaler {
+func NewMLScalerWithNameInputDescriptionOutputDescriptionOrderedInputFeatureNamesOrderedOutputFeatureNamesConfiguration(name objectivec.IObject, description objectivec.IObject, description2 objectivec.IObject, names objectivec.IObject, names2 objectivec.IObject, configuration objectivec.IObject) MLScaler {
 	instance := getMLScalerClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithName:inputDescription:outputDescription:orderedInputFeatureNames:orderedOutputFeatureNames:configuration:"), name, description, description2, names, names2, configuration)
 	return MLScalerFromID(rv)
 }
 
-func NewScalerWithShiftValueScaleValueDescriptionConfiguration(value objectivec.IObject, value2 objectivec.IObject, description objectivec.IObject, configuration objectivec.IObject) MLScaler {
+func NewMLScalerWithShiftValueScaleValueDescriptionConfiguration(value objectivec.IObject, value2 objectivec.IObject, description objectivec.IObject, configuration objectivec.IObject) MLScaler {
 	instance := getMLScalerClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithShiftValue:scaleValue:description:configuration:"), value, value2, description, configuration)
 	return MLScalerFromID(rv)

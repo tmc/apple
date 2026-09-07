@@ -1,4 +1,4 @@
-// Code generated from Apple documentation for CoreML. DO NOT EDIT.
+// Code generated from Apple documentation for coreml. DO NOT EDIT.
 
 package coreml
 
@@ -108,7 +108,7 @@ func NewMLOutputBackingsVerifier() MLOutputBackingsVerifier {
 	return rv
 }
 
-func NewOutputBackingsVerifierWithOutputDescriptions(descriptions objectivec.IObject) MLOutputBackingsVerifier {
+func NewMLOutputBackingsVerifierWithOutputDescriptions(descriptions objectivec.IObject) MLOutputBackingsVerifier {
 	instance := getMLOutputBackingsVerifierClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithOutputDescriptions:"), descriptions)
 	return MLOutputBackingsVerifierFromID(rv)

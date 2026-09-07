@@ -1,4 +1,4 @@
-// Code generated from Apple documentation for CoreML. DO NOT EDIT.
+// Code generated from Apple documentation for coreml. DO NOT EDIT.
 
 package coreml
 
@@ -151,7 +151,7 @@ func NewMLProgramTrainer() MLProgramTrainer {
 	return rv
 }
 
-func NewProgramTrainerWithProgramLearningRateError(program objectivec.IObject, rate float64) (MLProgramTrainer, error) {
+func NewMLProgramTrainerWithProgramLearningRateError(program objectivec.IObject, rate float64) (MLProgramTrainer, error) {
 	var errorPtr objc.ID
 	instance := getMLProgramTrainerClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithProgram:learningRate:error:"), program, rate, unsafe.Pointer(&errorPtr))

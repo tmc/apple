@@ -1,4 +1,4 @@
-// Code generated from Apple documentation for CoreML. DO NOT EDIT.
+// Code generated from Apple documentation for coreml. DO NOT EDIT.
 
 package coreml
 
@@ -218,7 +218,7 @@ func NewMLTreeEnsembleXGBoostUpdateEngine() MLTreeEnsembleXGBoostUpdateEngine {
 	return rv
 }
 
-func NewTreeEnsembleXGBoostUpdateEngineWithCompiledArchiveConfigurationError(archive unsafe.Pointer, configuration objectivec.IObject) (MLTreeEnsembleXGBoostUpdateEngine, error) {
+func NewMLTreeEnsembleXGBoostUpdateEngineWithCompiledArchiveConfigurationError(archive unsafe.Pointer, configuration objectivec.IObject) (MLTreeEnsembleXGBoostUpdateEngine, error) {
 	var errorPtr objc.ID
 	instance := getMLTreeEnsembleXGBoostUpdateEngineClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithCompiledArchive:configuration:error:"), archive, configuration, unsafe.Pointer(&errorPtr))
@@ -232,7 +232,7 @@ func NewTreeEnsembleXGBoostUpdateEngineWithCompiledArchiveConfigurationError(arc
 	return MLTreeEnsembleXGBoostUpdateEngineFromID(rv), nil
 }
 
-func NewTreeEnsembleXGBoostUpdateEngineWithDescriptionConfigurationIndexToStringLabelArrayIndexToIntLabelArrayModelURLError(description objectivec.IObject, configuration objectivec.IObject, array unsafe.Pointer, array2 unsafe.Pointer, url foundation.NSURL) (MLTreeEnsembleXGBoostUpdateEngine, error) {
+func NewMLTreeEnsembleXGBoostUpdateEngineWithDescriptionConfigurationIndexToStringLabelArrayIndexToIntLabelArrayModelURLError(description objectivec.IObject, configuration objectivec.IObject, array unsafe.Pointer, array2 unsafe.Pointer, url foundation.NSURL) (MLTreeEnsembleXGBoostUpdateEngine, error) {
 	var errorPtr objc.ID
 	instance := getMLTreeEnsembleXGBoostUpdateEngineClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithDescription:configuration:indexToStringLabelArray:indexToIntLabelArray:modelURL:error:"), description, configuration, array, array2, url, unsafe.Pointer(&errorPtr))

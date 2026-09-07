@@ -132,6 +132,42 @@ func (_TTSPhonemeSupportClass TTSPhonemeSupportClass) PhonemesFromIPALanguageSyn
 func (_TTSPhonemeSupportClass TTSPhonemeSupportClass) CanPhonemesFromIPALanguageSynth() bool {
 	return objc.RespondsToSelector(objc.ID(_TTSPhonemeSupportClass.class), objc.Sel("_phonemesFromIPA:language:synth:"))
 }
+func (_TTSPhonemeSupportClass TTSPhonemeSupportClass) _repositionStressBeforeVowelForLanguageInSPR(language objectivec.IObject, spr objectivec.IObject) objectivec.IObject {
+	rv := objc.SendIfResponds[objc.ID](objc.ID(_TTSPhonemeSupportClass.class), objc.Sel("_repositionStressBeforeVowelForLanguage:inSPR:"), language, spr)
+	return objectivec.Object{ID: rv}
+}
+
+// RepositionStressBeforeVowelForLanguageInSPR is an exported wrapper for the private method _repositionStressBeforeVowelForLanguageInSPR.
+func (_TTSPhonemeSupportClass TTSPhonemeSupportClass) RepositionStressBeforeVowelForLanguageInSPR(language objectivec.IObject, spr objectivec.IObject) (objectivec.IObject, error) {
+	if !objc.RespondsToSelector(objc.ID(_TTSPhonemeSupportClass.class), objc.Sel("_repositionStressBeforeVowelForLanguage:inSPR:")) {
+		err := &objc.UnrecognizedSelectorError{Selector: "_repositionStressBeforeVowelForLanguage:inSPR:"}
+		return nil, err
+	}
+	return _TTSPhonemeSupportClass._repositionStressBeforeVowelForLanguageInSPR(language, spr), nil
+}
+
+// CanRepositionStressBeforeVowelForLanguageInSPR reports whether the receiver responds to the private selector _repositionStressBeforeVowelForLanguage:inSPR:.
+func (_TTSPhonemeSupportClass TTSPhonemeSupportClass) CanRepositionStressBeforeVowelForLanguageInSPR() bool {
+	return objc.RespondsToSelector(objc.ID(_TTSPhonemeSupportClass.class), objc.Sel("_repositionStressBeforeVowelForLanguage:inSPR:"))
+}
+func (_TTSPhonemeSupportClass TTSPhonemeSupportClass) _sprVowelCharactersForLanguage(language objectivec.IObject) objectivec.IObject {
+	rv := objc.SendIfResponds[objc.ID](objc.ID(_TTSPhonemeSupportClass.class), objc.Sel("_sprVowelCharactersForLanguage:"), language)
+	return objectivec.Object{ID: rv}
+}
+
+// SprVowelCharactersForLanguage is an exported wrapper for the private method _sprVowelCharactersForLanguage.
+func (_TTSPhonemeSupportClass TTSPhonemeSupportClass) SprVowelCharactersForLanguage(language objectivec.IObject) (objectivec.IObject, error) {
+	if !objc.RespondsToSelector(objc.ID(_TTSPhonemeSupportClass.class), objc.Sel("_sprVowelCharactersForLanguage:")) {
+		err := &objc.UnrecognizedSelectorError{Selector: "_sprVowelCharactersForLanguage:"}
+		return nil, err
+	}
+	return _TTSPhonemeSupportClass._sprVowelCharactersForLanguage(language), nil
+}
+
+// CanSprVowelCharactersForLanguage reports whether the receiver responds to the private selector _sprVowelCharactersForLanguage:.
+func (_TTSPhonemeSupportClass TTSPhonemeSupportClass) CanSprVowelCharactersForLanguage() bool {
+	return objc.RespondsToSelector(objc.ID(_TTSPhonemeSupportClass.class), objc.Sel("_sprVowelCharactersForLanguage:"))
+}
 func (_TTSPhonemeSupportClass TTSPhonemeSupportClass) ApplebetPhonemesFromIPA(ipa objectivec.IObject) objectivec.IObject {
 	rv := objc.SendIfResponds[objc.ID](objc.ID(_TTSPhonemeSupportClass.class), objc.Sel("applebetPhonemesFromIPA:"), ipa)
 	return objectivec.Object{ID: rv}

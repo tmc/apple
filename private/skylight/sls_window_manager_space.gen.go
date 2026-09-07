@@ -48,6 +48,8 @@ func (sc SLSWindowManagerSpaceClass) Alloc() SLSWindowManagerSpace {
 //   - [SLSWindowManagerSpace._effectiveDisplayID]
 //   - [SLSWindowManagerSpace.DisplayUUID]
 //   - [SLSWindowManagerSpace.SetDisplayUUID]
+//   - [SLSWindowManagerSpace.FullscreenTiles]
+//   - [SLSWindowManagerSpace.SetFullscreenTiles]
 //   - [SLSWindowManagerSpace.IsCurrentSpace]
 //   - [SLSWindowManagerSpace.IsManagedSpace]
 //   - [SLSWindowManagerSpace.Manager]
@@ -80,6 +82,8 @@ var _ ISLSWindowManagerSpace = SLSWindowManagerSpace{}
 //   - [ISLSWindowManagerSpace._effectiveDisplayID]
 //   - [ISLSWindowManagerSpace.DisplayUUID]
 //   - [ISLSWindowManagerSpace.SetDisplayUUID]
+//   - [ISLSWindowManagerSpace.FullscreenTiles]
+//   - [ISLSWindowManagerSpace.SetFullscreenTiles]
 //   - [ISLSWindowManagerSpace.IsCurrentSpace]
 //   - [ISLSWindowManagerSpace.IsManagedSpace]
 //   - [ISLSWindowManagerSpace.Manager]
@@ -101,14 +105,16 @@ type ISLSWindowManagerSpace interface {
 	_effectiveDisplayID() objectivec.IObject
 	DisplayUUID() string
 	SetDisplayUUID(value string)
+	FullscreenTiles() foundation.INSArray
+	SetFullscreenTiles(value foundation.INSArray)
 	IsCurrentSpace() bool
 	IsManagedSpace() bool
 	Manager() ISLSSpaceWindowManager
 	SetManager(value ISLSSpaceWindowManager)
 	SpaceID() uint64
 	SetSpaceID(value uint64)
-	Type() int
-	SetType(value int)
+	Type() int32
+	SetType(value int32)
 	WindowIDs() foundation.INSSet
 	SetWindowIDs(value foundation.INSSet)
 	CurrentSpace() bool
@@ -173,6 +179,13 @@ func (s SLSWindowManagerSpace) DisplayUUID() string {
 func (s SLSWindowManagerSpace) SetDisplayUUID(value string) {
 	objc.SendIfResponds[struct{}](s.ID, objc.Sel("setDisplayUUID:"), objc.String(value))
 }
+func (s SLSWindowManagerSpace) FullscreenTiles() foundation.INSArray {
+	rv := objc.SendIfResponds[objc.ID](s.ID, objc.Sel("fullscreenTiles"))
+	return foundation.NSArrayFromID(objc.ID(rv))
+}
+func (s SLSWindowManagerSpace) SetFullscreenTiles(value foundation.INSArray) {
+	objc.SendIfResponds[struct{}](s.ID, objc.Sel("setFullscreenTiles:"), value)
+}
 func (s SLSWindowManagerSpace) ManagedSpace() bool {
 	rv := objc.SendIfResponds[bool](s.ID, objc.Sel("managedSpace"))
 	return rv
@@ -194,11 +207,11 @@ func (s SLSWindowManagerSpace) SpaceID() uint64 {
 func (s SLSWindowManagerSpace) SetSpaceID(value uint64) {
 	objc.SendIfResponds[struct{}](s.ID, objc.Sel("setSpaceID:"), value)
 }
-func (s SLSWindowManagerSpace) Type() int {
-	rv := objc.SendIfResponds[int](s.ID, objc.Sel("type"))
+func (s SLSWindowManagerSpace) Type() int32 {
+	rv := objc.SendIfResponds[int32](s.ID, objc.Sel("type"))
 	return rv
 }
-func (s SLSWindowManagerSpace) SetType(value int) {
+func (s SLSWindowManagerSpace) SetType(value int32) {
 	objc.SendIfResponds[struct{}](s.ID, objc.Sel("setType:"), value)
 }
 func (s SLSWindowManagerSpace) WindowIDs() foundation.INSSet {

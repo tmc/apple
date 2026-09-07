@@ -151,7 +151,7 @@ func NewIOGPUMetalComputeCommandEncoder() IOGPUMetalComputeCommandEncoder {
 	return rv
 }
 
-func NewGPUMetalComputeCommandEncoderWithCommandBuffer(buffer objectivec.IObject) IOGPUMetalComputeCommandEncoder {
+func NewIOGPUMetalComputeCommandEncoderWithCommandBuffer(buffer objectivec.IObject) IOGPUMetalComputeCommandEncoder {
 	instance := getIOGPUMetalComputeCommandEncoderClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithCommandBuffer:"), buffer)
 	return IOGPUMetalComputeCommandEncoderFromID(rv)

@@ -1,4 +1,4 @@
-// Code generated from Apple documentation for CoreML. DO NOT EDIT.
+// Code generated from Apple documentation for coreml. DO NOT EDIT.
 
 package coreml
 
@@ -109,7 +109,7 @@ func NewMLIndexedBatchProvider() MLIndexedBatchProvider {
 	return rv
 }
 
-func NewIndexedBatchProviderWithBatchIndicesError(batch objectivec.IObject, indices objectivec.IObject) (MLIndexedBatchProvider, error) {
+func NewMLIndexedBatchProviderWithBatchIndicesError(batch objectivec.IObject, indices objectivec.IObject) (MLIndexedBatchProvider, error) {
 	var errorPtr objc.ID
 	instance := getMLIndexedBatchProviderClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithBatch:indices:error:"), batch, indices, unsafe.Pointer(&errorPtr))

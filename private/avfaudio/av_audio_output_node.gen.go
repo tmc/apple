@@ -1,4 +1,4 @@
-// Code generated from Apple documentation for AVFAudio. DO NOT EDIT.
+// Code generated from Apple documentation for avfaudio. DO NOT EDIT.
 
 package avfaudio
 
@@ -96,13 +96,13 @@ func NewAVAudioOutputNode() AVAudioOutputNode {
 	return rv
 }
 
-func NewAudioOutputNodeWithIOUnitIsInput(iOUnit unsafe.Pointer, input bool) AVAudioOutputNode {
+func NewAVAudioOutputNodeWithIOUnitIsInput(iOUnit unsafe.Pointer, input bool) AVAudioOutputNode {
 	instance := getAVAudioOutputNodeClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithIOUnit:isInput:"), iOUnit, input)
 	return AVAudioOutputNodeFromID(rv)
 }
 
-func NewAudioOutputNodeWithImpl(impl unsafe.Pointer) AVAudioOutputNode {
+func NewAVAudioOutputNodeWithImpl(impl unsafe.Pointer) AVAudioOutputNode {
 	instance := getAVAudioOutputNodeClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithImpl:"), impl)
 	return AVAudioOutputNodeFromID(rv)

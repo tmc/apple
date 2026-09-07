@@ -1,4 +1,4 @@
-// Code generated from Apple documentation for CoreML. DO NOT EDIT.
+// Code generated from Apple documentation for coreml. DO NOT EDIT.
 
 package coreml
 
@@ -129,7 +129,7 @@ func NewMLBroadcastToBrick() MLBroadcastToBrick {
 	return rv
 }
 
-func NewBroadcastToBrickWithParameters(parameters objectivec.IObject) MLBroadcastToBrick {
+func NewMLBroadcastToBrickWithParameters(parameters objectivec.IObject) MLBroadcastToBrick {
 	instance := getMLBroadcastToBrickClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithParameters:"), parameters)
 	return MLBroadcastToBrickFromID(rv)

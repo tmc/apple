@@ -79,13 +79,13 @@ func NewIndicatorLayer() IndicatorLayer {
 	return rv
 }
 
-func NewTtCC8SkyLight39PKGSystemStatusIndicatorsLayerGenerator14IndicatorLayerWithCoder(coder objectivec.IObject) IndicatorLayer {
+func NewIndicatorLayerWithCoder(coder objectivec.IObject) IndicatorLayer {
 	instance := getIndicatorLayerClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
 	return IndicatorLayerFromID(rv)
 }
 
-func NewTtCC8SkyLight39PKGSystemStatusIndicatorsLayerGenerator14IndicatorLayerWithLayer(layer objectivec.IObject) IndicatorLayer {
+func NewIndicatorLayerWithLayer(layer objectivec.IObject) IndicatorLayer {
 	instance := getIndicatorLayerClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithLayer:"), layer)
 	return IndicatorLayerFromID(rv)

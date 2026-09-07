@@ -1,4 +1,4 @@
-// Code generated from Apple documentation for CoreML. DO NOT EDIT.
+// Code generated from Apple documentation for coreml. DO NOT EDIT.
 
 package coreml
 
@@ -190,8 +190,8 @@ func (m MLCompilerEvent) SetMilUpgradeFailureReason(value string) {
 	objc.SendIfResponds[struct{}](m.ID, objc.Sel("setMilUpgradeFailureReason:"), objc.String(value))
 }
 func (m MLCompilerEvent) MilUpgradeStatus() foundation.NSNumber {
-	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("milUpgradeStatus"))
-	return foundation.NSNumberFromID(objc.ID(rv))
+	rv := objc.SendIfResponds[foundation.NSNumber](m.ID, objc.Sel("milUpgradeStatus"))
+	return foundation.NSNumber(rv)
 }
 func (m MLCompilerEvent) SetMilUpgradeStatus(value foundation.NSNumber) {
 	objc.SendIfResponds[struct{}](m.ID, objc.Sel("setMilUpgradeStatus:"), value)
@@ -218,15 +218,15 @@ func (m MLCompilerEvent) SetModelName(value string) {
 	objc.SendIfResponds[struct{}](m.ID, objc.Sel("setModelName:"), objc.String(value))
 }
 func (m MLCompilerEvent) ModelOrigin() foundation.NSNumber {
-	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("modelOrigin"))
-	return foundation.NSNumberFromID(objc.ID(rv))
+	rv := objc.SendIfResponds[foundation.NSNumber](m.ID, objc.Sel("modelOrigin"))
+	return foundation.NSNumber(rv)
 }
 func (m MLCompilerEvent) SetModelOrigin(value foundation.NSNumber) {
 	objc.SendIfResponds[struct{}](m.ID, objc.Sel("setModelOrigin:"), value)
 }
 func (m MLCompilerEvent) ModelType() foundation.NSNumber {
-	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("modelType"))
-	return foundation.NSNumberFromID(objc.ID(rv))
+	rv := objc.SendIfResponds[foundation.NSNumber](m.ID, objc.Sel("modelType"))
+	return foundation.NSNumber(rv)
 }
 func (m MLCompilerEvent) SetModelType(value foundation.NSNumber) {
 	objc.SendIfResponds[struct{}](m.ID, objc.Sel("setModelType:"), value)

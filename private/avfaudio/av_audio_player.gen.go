@@ -1,4 +1,4 @@
-// Code generated from Apple documentation for AVFAudio. DO NOT EDIT.
+// Code generated from Apple documentation for avfaudio. DO NOT EDIT.
 
 package avfaudio
 
@@ -46,6 +46,7 @@ func (ac AVAudioPlayerClass) Alloc() AVAudioPlayer {
 // # Methods
 //
 //   - [AVAudioPlayer.STSLabel]
+//   - [AVAudioPlayer.AutoreleaseDelegate]
 //   - [AVAudioPlayer.DecodeError]
 //   - [AVAudioPlayer.FinishedPlaying]
 //   - [AVAudioPlayer.Impl]
@@ -77,6 +78,7 @@ var _ IAVAudioPlayer = AVAudioPlayer{}
 // # Methods
 //
 //   - [IAVAudioPlayer.STSLabel]
+//   - [IAVAudioPlayer.AutoreleaseDelegate]
 //   - [IAVAudioPlayer.DecodeError]
 //   - [IAVAudioPlayer.FinishedPlaying]
 //   - [IAVAudioPlayer.Impl]
@@ -97,6 +99,7 @@ type IAVAudioPlayer interface {
 	// Topic: Methods
 
 	STSLabel() objectivec.IObject
+	AutoreleaseDelegate() objectivec.IObject
 	DecodeError(error_ objectivec.IObject)
 	FinishedPlaying(playing objectivec.IObject)
 	Impl() objectivec.IObject
@@ -132,7 +135,7 @@ func NewAVAudioPlayer() AVAudioPlayer {
 	return rv
 }
 
-func NewAudioPlayerBase() AVAudioPlayer {
+func NewAVAudioPlayerBase() AVAudioPlayer {
 	instance := getAVAudioPlayerClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initBase"))
 	return AVAudioPlayerFromID(rv)
@@ -140,6 +143,10 @@ func NewAudioPlayerBase() AVAudioPlayer {
 
 func (a AVAudioPlayer) STSLabel() objectivec.IObject {
 	rv := objc.SendIfResponds[objc.ID](a.ID, objc.Sel("STSLabel"))
+	return objectivec.Object{ID: rv}
+}
+func (a AVAudioPlayer) AutoreleaseDelegate() objectivec.IObject {
+	rv := objc.SendIfResponds[objc.ID](a.ID, objc.Sel("autoreleaseDelegate"))
 	return objectivec.Object{ID: rv}
 }
 func (a AVAudioPlayer) DecodeError(error_ objectivec.IObject) {
@@ -189,6 +196,6 @@ func (a AVAudioPlayer) Playing() bool {
 	return rv
 }
 func (a AVAudioPlayer) Url() foundation.NSURL {
-	rv := objc.SendIfResponds[objc.ID](a.ID, objc.Sel("URL"))
-	return foundation.NSURLFromID(objc.ID(rv))
+	rv := objc.SendIfResponds[foundation.NSURL](a.ID, objc.Sel("URL"))
+	return foundation.NSURL(rv)
 }

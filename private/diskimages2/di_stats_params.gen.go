@@ -153,6 +153,6 @@ func (d DIStatsParams) InitWithURLInstanceIdError(url foundation.NSURL, id objec
 }
 
 func (d DIStatsParams) StatInstanceID() foundation.NSUUID {
-	rv := objc.SendIfResponds[objc.ID](d.ID, objc.Sel("statInstanceID"))
-	return foundation.NSUUIDFromID(objc.ID(rv))
+	rv := objc.SendIfResponds[foundation.NSUUID](d.ID, objc.Sel("statInstanceID"))
+	return foundation.NSUUID(rv)
 }

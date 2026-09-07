@@ -93,19 +93,19 @@ type IEspressoDataFrameExecutor interface {
 
 	// Topic: Methods
 
-	BindInputFromImageAttachmentToNetwork(input objectivec.IObject, attachment objectivec.IObject, network unsafe.Pointer) int
-	BindInputFromTensorAttachmentToNetwork(input objectivec.IObject, attachment objectivec.IObject, network unsafe.Pointer) int
-	BindInputsFromFrameToNetwork(frame objectivec.IObject, network unsafe.Pointer) int
-	BindOutputsFromFrameToNetwork(frame objectivec.IObject, network unsafe.Pointer) int
-	BindOutputsFromFrameToNetworkExecutionStatus(frame objectivec.IObject, network unsafe.Pointer, status int) int
-	BindOutputsFromFrameToNetworkReferenceNetwork(frame objectivec.IObject, network unsafe.Pointer, network2 unsafe.Pointer) int
+	BindInputFromImageAttachmentToNetwork(input objectivec.IObject, attachment objectivec.IObject, network unsafe.Pointer) int32
+	BindInputFromTensorAttachmentToNetwork(input objectivec.IObject, attachment objectivec.IObject, network unsafe.Pointer) int32
+	BindInputsFromFrameToNetwork(frame objectivec.IObject, network unsafe.Pointer) int32
+	BindOutputsFromFrameToNetwork(frame objectivec.IObject, network unsafe.Pointer) int32
+	BindOutputsFromFrameToNetworkExecutionStatus(frame objectivec.IObject, network unsafe.Pointer, status int32) int32
+	BindOutputsFromFrameToNetworkReferenceNetwork(frame objectivec.IObject, network unsafe.Pointer, network2 unsafe.Pointer) int32
 	FreeTemporaryResources()
 	OutputMatchingBuffers() foundation.INSArray
 	SetOutputMatchingBuffers(value foundation.INSArray)
 	UseCVPixelBuffers() bool
 	UseCVPixelBuffersForOutputs(outputs bool) bool
-	Use_cvpixelbuffer() int
-	SetUse_cvpixelbuffer(value int)
+	Use_cvpixelbuffer() int32
+	SetUse_cvpixelbuffer(value int32)
 }
 
 // Init initializes the instance.
@@ -127,28 +127,28 @@ func NewEspressoDataFrameExecutor() EspressoDataFrameExecutor {
 	return rv
 }
 
-func (e EspressoDataFrameExecutor) BindInputFromImageAttachmentToNetwork(input objectivec.IObject, attachment objectivec.IObject, network unsafe.Pointer) int {
-	rv := objc.SendIfResponds[int](e.ID, objc.Sel("bindInput:fromImageAttachment:toNetwork:"), input, attachment, network)
+func (e EspressoDataFrameExecutor) BindInputFromImageAttachmentToNetwork(input objectivec.IObject, attachment objectivec.IObject, network unsafe.Pointer) int32 {
+	rv := objc.SendIfResponds[int32](e.ID, objc.Sel("bindInput:fromImageAttachment:toNetwork:"), input, attachment, network)
 	return rv
 }
-func (e EspressoDataFrameExecutor) BindInputFromTensorAttachmentToNetwork(input objectivec.IObject, attachment objectivec.IObject, network unsafe.Pointer) int {
-	rv := objc.SendIfResponds[int](e.ID, objc.Sel("bindInput:fromTensorAttachment:toNetwork:"), input, attachment, network)
+func (e EspressoDataFrameExecutor) BindInputFromTensorAttachmentToNetwork(input objectivec.IObject, attachment objectivec.IObject, network unsafe.Pointer) int32 {
+	rv := objc.SendIfResponds[int32](e.ID, objc.Sel("bindInput:fromTensorAttachment:toNetwork:"), input, attachment, network)
 	return rv
 }
-func (e EspressoDataFrameExecutor) BindInputsFromFrameToNetwork(frame objectivec.IObject, network unsafe.Pointer) int {
-	rv := objc.SendIfResponds[int](e.ID, objc.Sel("bindInputsFromFrame:toNetwork:"), frame, network)
+func (e EspressoDataFrameExecutor) BindInputsFromFrameToNetwork(frame objectivec.IObject, network unsafe.Pointer) int32 {
+	rv := objc.SendIfResponds[int32](e.ID, objc.Sel("bindInputsFromFrame:toNetwork:"), frame, network)
 	return rv
 }
-func (e EspressoDataFrameExecutor) BindOutputsFromFrameToNetwork(frame objectivec.IObject, network unsafe.Pointer) int {
-	rv := objc.SendIfResponds[int](e.ID, objc.Sel("bindOutputsFromFrame:toNetwork:"), frame, network)
+func (e EspressoDataFrameExecutor) BindOutputsFromFrameToNetwork(frame objectivec.IObject, network unsafe.Pointer) int32 {
+	rv := objc.SendIfResponds[int32](e.ID, objc.Sel("bindOutputsFromFrame:toNetwork:"), frame, network)
 	return rv
 }
-func (e EspressoDataFrameExecutor) BindOutputsFromFrameToNetworkExecutionStatus(frame objectivec.IObject, network unsafe.Pointer, status int) int {
-	rv := objc.SendIfResponds[int](e.ID, objc.Sel("bindOutputsFromFrame:toNetwork:executionStatus:"), frame, network, status)
+func (e EspressoDataFrameExecutor) BindOutputsFromFrameToNetworkExecutionStatus(frame objectivec.IObject, network unsafe.Pointer, status int32) int32 {
+	rv := objc.SendIfResponds[int32](e.ID, objc.Sel("bindOutputsFromFrame:toNetwork:executionStatus:"), frame, network, status)
 	return rv
 }
-func (e EspressoDataFrameExecutor) BindOutputsFromFrameToNetworkReferenceNetwork(frame objectivec.IObject, network unsafe.Pointer, network2 unsafe.Pointer) int {
-	rv := objc.SendIfResponds[int](e.ID, objc.Sel("bindOutputsFromFrame:toNetwork:referenceNetwork:"), frame, network, network2)
+func (e EspressoDataFrameExecutor) BindOutputsFromFrameToNetworkReferenceNetwork(frame objectivec.IObject, network unsafe.Pointer, network2 unsafe.Pointer) int32 {
+	rv := objc.SendIfResponds[int32](e.ID, objc.Sel("bindOutputsFromFrame:toNetwork:referenceNetwork:"), frame, network, network2)
 	return rv
 }
 func (e EspressoDataFrameExecutor) FreeTemporaryResources() {
@@ -170,10 +170,10 @@ func (e EspressoDataFrameExecutor) OutputMatchingBuffers() foundation.INSArray {
 func (e EspressoDataFrameExecutor) SetOutputMatchingBuffers(value foundation.INSArray) {
 	objc.SendIfResponds[struct{}](e.ID, objc.Sel("setOutputMatchingBuffers:"), value)
 }
-func (e EspressoDataFrameExecutor) Use_cvpixelbuffer() int {
-	rv := objc.SendIfResponds[int](e.ID, objc.Sel("use_cvpixelbuffer"))
+func (e EspressoDataFrameExecutor) Use_cvpixelbuffer() int32 {
+	rv := objc.SendIfResponds[int32](e.ID, objc.Sel("use_cvpixelbuffer"))
 	return rv
 }
-func (e EspressoDataFrameExecutor) SetUse_cvpixelbuffer(value int) {
+func (e EspressoDataFrameExecutor) SetUse_cvpixelbuffer(value int32) {
 	objc.SendIfResponds[struct{}](e.ID, objc.Sel("setUse_cvpixelbuffer:"), value)
 }

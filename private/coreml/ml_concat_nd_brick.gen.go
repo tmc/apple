@@ -1,4 +1,4 @@
-// Code generated from Apple documentation for CoreML. DO NOT EDIT.
+// Code generated from Apple documentation for coreml. DO NOT EDIT.
 
 package coreml
 
@@ -129,7 +129,7 @@ func NewMLConcatNDBrick() MLConcatNDBrick {
 	return rv
 }
 
-func NewConcatNDBrickWithParameters(parameters objectivec.IObject) MLConcatNDBrick {
+func NewMLConcatNDBrickWithParameters(parameters objectivec.IObject) MLConcatNDBrick {
 	instance := getMLConcatNDBrickClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithParameters:"), parameters)
 	return MLConcatNDBrickFromID(rv)
@@ -152,8 +152,8 @@ func (m MLConcatNDBrick) InitWithParameters(parameters objectivec.IObject) MLCon
 }
 
 func (m MLConcatNDBrick) Axis() foundation.NSNumber {
-	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("axis"))
-	return foundation.NSNumberFromID(objc.ID(rv))
+	rv := objc.SendIfResponds[foundation.NSNumber](m.ID, objc.Sel("axis"))
+	return foundation.NSNumber(rv)
 }
 func (m MLConcatNDBrick) DebugDescription() string {
 	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("debugDescription"))

@@ -115,19 +115,19 @@ func NewIOGPUMetal4CommandAllocator() IOGPUMetal4CommandAllocator {
 	return rv
 }
 
-func NewGPUMetal4CommandAllocatorWithDevice(device objectivec.IObject) IOGPUMetal4CommandAllocator {
+func NewIOGPUMetal4CommandAllocatorWithDevice(device objectivec.IObject) IOGPUMetal4CommandAllocator {
 	instance := getIOGPUMetal4CommandAllocatorClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithDevice:"), device)
 	return IOGPUMetal4CommandAllocatorFromID(rv)
 }
 
-func NewGPUMetal4CommandAllocatorWithDeviceAndAliasToDevicePools(pools objectivec.IObject) IOGPUMetal4CommandAllocator {
+func NewIOGPUMetal4CommandAllocatorWithDeviceAndAliasToDevicePools(pools objectivec.IObject) IOGPUMetal4CommandAllocator {
 	instance := getIOGPUMetal4CommandAllocatorClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithDeviceAndAliasToDevicePools:"), pools)
 	return IOGPUMetal4CommandAllocatorFromID(rv)
 }
 
-func NewGPUMetal4CommandAllocatorWithDeviceDescriptor(device objectivec.IObject, descriptor objectivec.IObject) IOGPUMetal4CommandAllocator {
+func NewIOGPUMetal4CommandAllocatorWithDeviceDescriptor(device objectivec.IObject, descriptor objectivec.IObject) IOGPUMetal4CommandAllocator {
 	instance := getIOGPUMetal4CommandAllocatorClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithDevice:descriptor:"), device, descriptor)
 	return IOGPUMetal4CommandAllocatorFromID(rv)

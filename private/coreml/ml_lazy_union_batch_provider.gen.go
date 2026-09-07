@@ -1,4 +1,4 @@
-// Code generated from Apple documentation for CoreML. DO NOT EDIT.
+// Code generated from Apple documentation for coreml. DO NOT EDIT.
 
 package coreml
 
@@ -109,7 +109,7 @@ func NewMLLazyUnionBatchProvider() MLLazyUnionBatchProvider {
 	return rv
 }
 
-func NewLazyUnionBatchProviderWithFeaturesFromAddedToFeaturesFromError(from objectivec.IObject, from2 objectivec.IObject) (MLLazyUnionBatchProvider, error) {
+func NewMLLazyUnionBatchProviderWithFeaturesFromAddedToFeaturesFromError(from objectivec.IObject, from2 objectivec.IObject) (MLLazyUnionBatchProvider, error) {
 	var errorPtr objc.ID
 	instance := getMLLazyUnionBatchProviderClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithFeaturesFrom:addedToFeaturesFrom:error:"), from, from2, unsafe.Pointer(&errorPtr))

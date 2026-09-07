@@ -1,4 +1,4 @@
-// Code generated from Apple documentation for CoreML. DO NOT EDIT.
+// Code generated from Apple documentation for coreml. DO NOT EDIT.
 
 package coreml
 
@@ -108,7 +108,7 @@ func NewMLCPUComputeDeviceRegistry() MLCPUComputeDeviceRegistry {
 	return rv
 }
 
-func NewCPUComputeDeviceRegistryWithCpuDevice(device objectivec.IObject) MLCPUComputeDeviceRegistry {
+func NewMLCPUComputeDeviceRegistryWithCpuDevice(device objectivec.IObject) MLCPUComputeDeviceRegistry {
 	instance := getMLCPUComputeDeviceRegistryClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithCpuDevice:"), device)
 	return MLCPUComputeDeviceRegistryFromID(rv)

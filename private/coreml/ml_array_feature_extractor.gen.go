@@ -1,4 +1,4 @@
-// Code generated from Apple documentation for CoreML. DO NOT EDIT.
+// Code generated from Apple documentation for coreml. DO NOT EDIT.
 
 package coreml
 
@@ -103,7 +103,7 @@ func NewMLArrayFeatureExtractor() MLArrayFeatureExtractor {
 	return rv
 }
 
-func NewArrayFeatureExtractorDescriptionOnlyWithSpecificationConfigurationError(specification unsafe.Pointer, configuration objectivec.IObject) (MLArrayFeatureExtractor, error) {
+func NewMLArrayFeatureExtractorDescriptionOnlyWithSpecificationConfigurationError(specification unsafe.Pointer, configuration objectivec.IObject) (MLArrayFeatureExtractor, error) {
 	var errorPtr objc.ID
 	instance := getMLArrayFeatureExtractorClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initDescriptionOnlyWithSpecification:configuration:error:"), specification, configuration, unsafe.Pointer(&errorPtr))
@@ -117,7 +117,7 @@ func NewArrayFeatureExtractorDescriptionOnlyWithSpecificationConfigurationError(
 	return MLArrayFeatureExtractorFromID(rv), nil
 }
 
-func NewArrayFeatureExtractorInterfaceAndMetadataWithCompiledArchiveError(archive unsafe.Pointer) (MLArrayFeatureExtractor, error) {
+func NewMLArrayFeatureExtractorInterfaceAndMetadataWithCompiledArchiveError(archive unsafe.Pointer) (MLArrayFeatureExtractor, error) {
 	var errorPtr objc.ID
 	instance := getMLArrayFeatureExtractorClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initInterfaceAndMetadataWithCompiledArchive:error:"), archive, unsafe.Pointer(&errorPtr))
@@ -131,31 +131,31 @@ func NewArrayFeatureExtractorInterfaceAndMetadataWithCompiledArchiveError(archiv
 	return MLArrayFeatureExtractorFromID(rv), nil
 }
 
-func NewArrayFeatureExtractorWithConfiguration(configuration objectivec.IObject) MLArrayFeatureExtractor {
+func NewMLArrayFeatureExtractorWithConfiguration(configuration objectivec.IObject) MLArrayFeatureExtractor {
 	instance := getMLArrayFeatureExtractorClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithConfiguration:"), configuration)
 	return MLArrayFeatureExtractorFromID(rv)
 }
 
-func NewArrayFeatureExtractorWithDescription(description objectivec.IObject) MLArrayFeatureExtractor {
+func NewMLArrayFeatureExtractorWithDescription(description objectivec.IObject) MLArrayFeatureExtractor {
 	instance := getMLArrayFeatureExtractorClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithDescription:"), description)
 	return MLArrayFeatureExtractorFromID(rv)
 }
 
-func NewArrayFeatureExtractorWithDescriptionConfiguration(description objectivec.IObject, configuration objectivec.IObject) MLArrayFeatureExtractor {
+func NewMLArrayFeatureExtractorWithDescriptionConfiguration(description objectivec.IObject, configuration objectivec.IObject) MLArrayFeatureExtractor {
 	instance := getMLArrayFeatureExtractorClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithDescription:configuration:"), description, configuration)
 	return MLArrayFeatureExtractorFromID(rv)
 }
 
-func NewArrayFeatureExtractorWithIndicesDataTransformerNameInputDescriptionOutputDescriptionOrderedInputFeatureNamesOrderedOutputFeatureNamesConfiguration(with objectivec.IObject, indices objectivec.IObject, name objectivec.IObject, description objectivec.IObject, description2 objectivec.IObject, names objectivec.IObject, names2 objectivec.IObject, configuration objectivec.IObject) MLArrayFeatureExtractor {
+func NewMLArrayFeatureExtractorWithIndicesDataTransformerNameInputDescriptionOutputDescriptionOrderedInputFeatureNamesOrderedOutputFeatureNamesConfiguration(with objectivec.IObject, indices objectivec.IObject, name objectivec.IObject, description objectivec.IObject, description2 objectivec.IObject, names objectivec.IObject, names2 objectivec.IObject, configuration objectivec.IObject) MLArrayFeatureExtractor {
 	instance := getMLArrayFeatureExtractorClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWith:indices:dataTransformerName:inputDescription:outputDescription:orderedInputFeatureNames:orderedOutputFeatureNames:configuration:"), with, indices, name, description, description2, names, names2, configuration)
 	return MLArrayFeatureExtractorFromID(rv)
 }
 
-func NewArrayFeatureExtractorWithNameInputDescriptionOutputDescriptionOrderedInputFeatureNamesOrderedOutputFeatureNamesConfiguration(name objectivec.IObject, description objectivec.IObject, description2 objectivec.IObject, names objectivec.IObject, names2 objectivec.IObject, configuration objectivec.IObject) MLArrayFeatureExtractor {
+func NewMLArrayFeatureExtractorWithNameInputDescriptionOutputDescriptionOrderedInputFeatureNamesOrderedOutputFeatureNamesConfiguration(name objectivec.IObject, description objectivec.IObject, description2 objectivec.IObject, names objectivec.IObject, names2 objectivec.IObject, configuration objectivec.IObject) MLArrayFeatureExtractor {
 	instance := getMLArrayFeatureExtractorClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithName:inputDescription:outputDescription:orderedInputFeatureNames:orderedOutputFeatureNames:configuration:"), name, description, description2, names, names2, configuration)
 	return MLArrayFeatureExtractorFromID(rv)

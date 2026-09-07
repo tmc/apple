@@ -1,4 +1,4 @@
-// Code generated from Apple documentation for CoreML. DO NOT EDIT.
+// Code generated from Apple documentation for coreml. DO NOT EDIT.
 
 package coreml
 
@@ -100,7 +100,7 @@ func NewMLAppleImageFeatureExtractorObjectPrintParameters() MLAppleImageFeatureE
 	return rv
 }
 
-func NewAppleImageFeatureExtractorObjectPrintParametersObjectPrintParametersExpectedShapesExpectedKeysError(parameters uint64, shapes objectivec.IObject, keys objectivec.IObject) (MLAppleImageFeatureExtractorObjectPrintParameters, error) {
+func NewMLAppleImageFeatureExtractorObjectPrintParametersObjectPrintParametersExpectedShapesExpectedKeysError(parameters uint64, shapes objectivec.IObject, keys objectivec.IObject) (MLAppleImageFeatureExtractorObjectPrintParameters, error) {
 	var errorPtr objc.ID
 	instance := getMLAppleImageFeatureExtractorObjectPrintParametersClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initObjectPrintParameters:expectedShapes:expectedKeys:error:"), parameters, shapes, keys, unsafe.Pointer(&errorPtr))

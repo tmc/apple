@@ -1,4 +1,4 @@
-// Code generated from Apple documentation for CoreML. DO NOT EDIT.
+// Code generated from Apple documentation for coreml. DO NOT EDIT.
 
 package coreml
 
@@ -122,7 +122,7 @@ func NewMLLinkedModel() MLLinkedModel {
 	return rv
 }
 
-func NewLinkedModelDescriptionOnlyWithSpecificationConfigurationError(specification unsafe.Pointer, configuration objectivec.IObject) (MLLinkedModel, error) {
+func NewMLLinkedModelDescriptionOnlyWithSpecificationConfigurationError(specification unsafe.Pointer, configuration objectivec.IObject) (MLLinkedModel, error) {
 	var errorPtr objc.ID
 	instance := getMLLinkedModelClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initDescriptionOnlyWithSpecification:configuration:error:"), specification, configuration, unsafe.Pointer(&errorPtr))
@@ -136,7 +136,7 @@ func NewLinkedModelDescriptionOnlyWithSpecificationConfigurationError(specificat
 	return MLLinkedModelFromID(rv), nil
 }
 
-func NewLinkedModelInterfaceAndMetadataWithCompiledArchiveError(archive unsafe.Pointer) (MLLinkedModel, error) {
+func NewMLLinkedModelInterfaceAndMetadataWithCompiledArchiveError(archive unsafe.Pointer) (MLLinkedModel, error) {
 	var errorPtr objc.ID
 	instance := getMLLinkedModelClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initInterfaceAndMetadataWithCompiledArchive:error:"), archive, unsafe.Pointer(&errorPtr))
@@ -150,31 +150,31 @@ func NewLinkedModelInterfaceAndMetadataWithCompiledArchiveError(archive unsafe.P
 	return MLLinkedModelFromID(rv), nil
 }
 
-func NewLinkedModelWithConfiguration(configuration objectivec.IObject) MLLinkedModel {
+func NewMLLinkedModelWithConfiguration(configuration objectivec.IObject) MLLinkedModel {
 	instance := getMLLinkedModelClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithConfiguration:"), configuration)
 	return MLLinkedModelFromID(rv)
 }
 
-func NewLinkedModelWithDescription(description objectivec.IObject) MLLinkedModel {
+func NewMLLinkedModelWithDescription(description objectivec.IObject) MLLinkedModel {
 	instance := getMLLinkedModelClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithDescription:"), description)
 	return MLLinkedModelFromID(rv)
 }
 
-func NewLinkedModelWithDescriptionConfiguration(description objectivec.IObject, configuration objectivec.IObject) MLLinkedModel {
+func NewMLLinkedModelWithDescriptionConfiguration(description objectivec.IObject, configuration objectivec.IObject) MLLinkedModel {
 	instance := getMLLinkedModelClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithDescription:configuration:"), description, configuration)
 	return MLLinkedModelFromID(rv)
 }
 
-func NewLinkedModelWithLinkedModelModelFileNameModelSearchPathConfiguration(model objectivec.IObject, name objectivec.IObject, path objectivec.IObject, configuration objectivec.IObject) MLLinkedModel {
+func NewMLLinkedModelWithLinkedModelModelFileNameModelSearchPathConfiguration(model objectivec.IObject, name objectivec.IObject, path objectivec.IObject, configuration objectivec.IObject) MLLinkedModel {
 	instance := getMLLinkedModelClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithLinkedModel:modelFileName:modelSearchPath:configuration:"), model, name, path, configuration)
 	return MLLinkedModelFromID(rv)
 }
 
-func NewLinkedModelWithNameInputDescriptionOutputDescriptionOrderedInputFeatureNamesOrderedOutputFeatureNamesConfiguration(name objectivec.IObject, description objectivec.IObject, description2 objectivec.IObject, names objectivec.IObject, names2 objectivec.IObject, configuration objectivec.IObject) MLLinkedModel {
+func NewMLLinkedModelWithNameInputDescriptionOutputDescriptionOrderedInputFeatureNamesOrderedOutputFeatureNamesConfiguration(name objectivec.IObject, description objectivec.IObject, description2 objectivec.IObject, names objectivec.IObject, names2 objectivec.IObject, configuration objectivec.IObject) MLLinkedModel {
 	instance := getMLLinkedModelClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithName:inputDescription:outputDescription:orderedInputFeatureNames:orderedOutputFeatureNames:configuration:"), name, description, description2, names, names2, configuration)
 	return MLLinkedModelFromID(rv)

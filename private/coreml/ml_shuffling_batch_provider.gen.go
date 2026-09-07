@@ -1,4 +1,4 @@
-// Code generated from Apple documentation for CoreML. DO NOT EDIT.
+// Code generated from Apple documentation for coreml. DO NOT EDIT.
 
 package coreml
 
@@ -105,7 +105,7 @@ func NewMLShufflingBatchProvider() MLShufflingBatchProvider {
 	return rv
 }
 
-func NewShufflingBatchProviderWithBatchProviderSeed(provider objectivec.IObject, seed objectivec.IObject) MLShufflingBatchProvider {
+func NewMLShufflingBatchProviderWithBatchProviderSeed(provider objectivec.IObject, seed objectivec.IObject) MLShufflingBatchProvider {
 	instance := getMLShufflingBatchProviderClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithBatchProvider:seed:"), provider, seed)
 	return MLShufflingBatchProviderFromID(rv)

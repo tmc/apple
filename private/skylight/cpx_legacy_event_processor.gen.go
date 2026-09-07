@@ -101,8 +101,8 @@ type ICPXLegacyEventProcessor interface {
 	HotKeyChanged(changed unsafe.Pointer)
 	ProcessEventContextDispatcher(event *SLSEventRecord, context *CPXEventProcessorContext, dispatcher objectivec.IObject) int64
 	ProcessHotKeyEventHotKeyIDIsDownContextDispatcher(event *SLSEventRecord, id uint64, down bool, context *CPXEventProcessorContext, dispatcher objectivec.IObject) int64
-	RegisterSpecialKeyConnectionForProcess(key uint32, connection *CGXConnection, process *CPSProcessRec) int
-	UnregisterSpecialKeyForProcess(key uint32, process *CPSProcessRec) int
+	RegisterSpecialKeyConnectionForProcess(key uint32, connection *CGXConnection, process *CPSProcessRec) int32
+	UnregisterSpecialKeyForProcess(key uint32, process *CPSProcessRec) int32
 	InitWithProcessManagerFocusManagerSymbolicHotKeyRegistryCallbackSchedulerNotificationCenter(manager objectivec.IObject, manager2 objectivec.IObject, registry objectivec.IObject, scheduler objectivec.IObject, center objectivec.IObject) CPXLegacyEventProcessor
 	InitWithSession(session *CGXSession) CPXLegacyEventProcessor
 	DebugDescription() string
@@ -162,12 +162,12 @@ func (c CPXLegacyEventProcessor) ProcessHotKeyEventHotKeyIDIsDownContextDispatch
 	rv := objc.SendIfResponds[int64](c.ID, objc.Sel("processHotKeyEvent:hotKeyID:isDown:context:dispatcher:"), unsafe.Pointer(event), id, down, unsafe.Pointer(context), dispatcher)
 	return rv
 }
-func (c CPXLegacyEventProcessor) RegisterSpecialKeyConnectionForProcess(key uint32, connection *CGXConnection, process *CPSProcessRec) int {
-	rv := objc.SendIfResponds[int](c.ID, objc.Sel("registerSpecialKey:connection:forProcess:"), key, unsafe.Pointer(connection), unsafe.Pointer(process))
+func (c CPXLegacyEventProcessor) RegisterSpecialKeyConnectionForProcess(key uint32, connection *CGXConnection, process *CPSProcessRec) int32 {
+	rv := objc.SendIfResponds[int32](c.ID, objc.Sel("registerSpecialKey:connection:forProcess:"), key, unsafe.Pointer(connection), unsafe.Pointer(process))
 	return rv
 }
-func (c CPXLegacyEventProcessor) UnregisterSpecialKeyForProcess(key uint32, process *CPSProcessRec) int {
-	rv := objc.SendIfResponds[int](c.ID, objc.Sel("unregisterSpecialKey:forProcess:"), key, unsafe.Pointer(process))
+func (c CPXLegacyEventProcessor) UnregisterSpecialKeyForProcess(key uint32, process *CPSProcessRec) int32 {
+	rv := objc.SendIfResponds[int32](c.ID, objc.Sel("unregisterSpecialKey:forProcess:"), key, unsafe.Pointer(process))
 	return rv
 }
 func (c CPXLegacyEventProcessor) InitWithProcessManagerFocusManagerSymbolicHotKeyRegistryCallbackSchedulerNotificationCenter(manager objectivec.IObject, manager2 objectivec.IObject, registry objectivec.IObject, scheduler objectivec.IObject, center objectivec.IObject) CPXLegacyEventProcessor {

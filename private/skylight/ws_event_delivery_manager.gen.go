@@ -98,7 +98,7 @@ type IWSEventDeliveryManager interface {
 	DescriptionOfResolutionPathForEventDescriptorSenderDescriptor(descriptor objectivec.IObject, descriptor2 objectivec.IObject) objectivec.IObject
 	DestinationsForEvent(event *SLSEventRecord) objectivec.IObject
 	DispatchDiscreteEventsForReasonWithRules(reason objectivec.IObject, rules objectivec.IObject) objectivec.IObject
-	ResolveDestinationsForEventStartingFromPID(event *SLSEventRecord, pid int) objectivec.IObject
+	ResolveDestinationsForEventStartingFromPID(event *SLSEventRecord, pid int32) objectivec.IObject
 	TransactionAssertionWithReason(reason objectivec.IObject) objectivec.IObject
 	ValidateTokenAndEnvironmentForEventProcessManagerOutReason(event *SLSEventRecord, manager objectivec.IObject, reason []objectivec.IObject) bool
 	InitWithObserverService(service objectivec.IObject) WSEventDeliveryManager
@@ -153,7 +153,7 @@ func (w WSEventDeliveryManager) DispatchDiscreteEventsForReasonWithRules(reason 
 	rv := objc.SendIfResponds[objc.ID](w.ID, objc.Sel("dispatchDiscreteEventsForReason:withRules:"), reason, rules)
 	return objectivec.Object{ID: rv}
 }
-func (w WSEventDeliveryManager) ResolveDestinationsForEventStartingFromPID(event *SLSEventRecord, pid int) objectivec.IObject {
+func (w WSEventDeliveryManager) ResolveDestinationsForEventStartingFromPID(event *SLSEventRecord, pid int32) objectivec.IObject {
 	rv := objc.SendIfResponds[objc.ID](w.ID, objc.Sel("resolveDestinationsForEvent:startingFromPID:"), unsafe.Pointer(event), pid)
 	return objectivec.Object{ID: rv}
 }

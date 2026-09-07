@@ -6,14 +6,14 @@
 //
 //   - [TTSSpeechManager]
 //   - [TTSSpeechSynthesizer]
+//   - [BFSpeechChannel]
 //   - [TTSSpeechAction]
-//   - [TTSWrappedAudioQueue]
 //   - [TTSSpeechRequest]
+//   - [BabelFish]
 //   - [TTSAXResource]
 //   - [TextToSpeechCoreSynthesizer]
 //   - [TTSSubstitution]
-//   - [TTSSiriAssetManager]
-//   - [TTSSpeechString]
+//   - [BFPlaintalkParser]
 package texttospeech
 
 import (

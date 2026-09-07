@@ -204,8 +204,8 @@ func (s SLWindowFilter) SetExcludedWindows(value foundation.INSSet) {
 	objc.SendIfResponds[struct{}](s.ID, objc.Sel("setExcludedWindows:"), value)
 }
 func (s SLWindowFilter) FilterPolicy() foundation.NSNumber {
-	rv := objc.SendIfResponds[objc.ID](s.ID, objc.Sel("filterPolicy"))
-	return foundation.NSNumberFromID(objc.ID(rv))
+	rv := objc.SendIfResponds[foundation.NSNumber](s.ID, objc.Sel("filterPolicy"))
+	return foundation.NSNumber(rv)
 }
 func (s SLWindowFilter) SetFilterPolicy(value foundation.NSNumber) {
 	objc.SendIfResponds[struct{}](s.ID, objc.Sel("setFilterPolicy:"), value)
@@ -239,8 +239,8 @@ func (s SLWindowFilter) SetIncludedWindows(value foundation.INSSet) {
 	objc.SendIfResponds[struct{}](s.ID, objc.Sel("setIncludedWindows:"), value)
 }
 func (s SLWindowFilter) ShieldWindow() foundation.NSNumber {
-	rv := objc.SendIfResponds[objc.ID](s.ID, objc.Sel("shieldWindow"))
-	return foundation.NSNumberFromID(objc.ID(rv))
+	rv := objc.SendIfResponds[foundation.NSNumber](s.ID, objc.Sel("shieldWindow"))
+	return foundation.NSNumber(rv)
 }
 func (s SLWindowFilter) SetShieldWindow(value foundation.NSNumber) {
 	objc.SendIfResponds[struct{}](s.ID, objc.Sel("setShieldWindow:"), value)

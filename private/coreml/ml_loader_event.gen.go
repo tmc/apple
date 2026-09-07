@@ -1,4 +1,4 @@
-// Code generated from Apple documentation for CoreML. DO NOT EDIT.
+// Code generated from Apple documentation for coreml. DO NOT EDIT.
 
 package coreml
 
@@ -261,15 +261,15 @@ func (m MLLoaderEvent) SetCompilerVersion(value string) {
 	objc.SendIfResponds[struct{}](m.ID, objc.Sel("setCompilerVersion:"), objc.String(value))
 }
 func (m MLLoaderEvent) ComputeUnits() foundation.NSNumber {
-	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("computeUnits"))
-	return foundation.NSNumberFromID(objc.ID(rv))
+	rv := objc.SendIfResponds[foundation.NSNumber](m.ID, objc.Sel("computeUnits"))
+	return foundation.NSNumber(rv)
 }
 func (m MLLoaderEvent) SetComputeUnits(value foundation.NSNumber) {
 	objc.SendIfResponds[struct{}](m.ID, objc.Sel("setComputeUnits:"), value)
 }
 func (m MLLoaderEvent) ContainsCustomLayer() foundation.NSNumber {
-	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("containsCustomLayer"))
-	return foundation.NSNumberFromID(objc.ID(rv))
+	rv := objc.SendIfResponds[foundation.NSNumber](m.ID, objc.Sel("containsCustomLayer"))
+	return foundation.NSNumber(rv)
 }
 func (m MLLoaderEvent) SetContainsCustomLayer(value foundation.NSNumber) {
 	objc.SendIfResponds[struct{}](m.ID, objc.Sel("setContainsCustomLayer:"), value)
@@ -287,8 +287,8 @@ func (m MLLoaderEvent) DictionaryRepresentation() foundation.INSDictionary {
 	return foundation.NSDictionaryFromID(objc.ID(rv))
 }
 func (m MLLoaderEvent) FirstPartyExecutable() foundation.NSNumber {
-	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("firstPartyExecutable"))
-	return foundation.NSNumberFromID(objc.ID(rv))
+	rv := objc.SendIfResponds[foundation.NSNumber](m.ID, objc.Sel("firstPartyExecutable"))
+	return foundation.NSNumber(rv)
 }
 func (m MLLoaderEvent) SetFirstPartyExecutable(value foundation.NSNumber) {
 	objc.SendIfResponds[struct{}](m.ID, objc.Sel("setFirstPartyExecutable:"), value)
@@ -298,15 +298,15 @@ func (m MLLoaderEvent) Hash() uint64 {
 	return rv
 }
 func (m MLLoaderEvent) ModelDimension() foundation.NSNumber {
-	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("modelDimension"))
-	return foundation.NSNumberFromID(objc.ID(rv))
+	rv := objc.SendIfResponds[foundation.NSNumber](m.ID, objc.Sel("modelDimension"))
+	return foundation.NSNumber(rv)
 }
 func (m MLLoaderEvent) SetModelDimension(value foundation.NSNumber) {
 	objc.SendIfResponds[struct{}](m.ID, objc.Sel("setModelDimension:"), value)
 }
 func (m MLLoaderEvent) ModelEngineType() foundation.NSNumber {
-	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("modelEngineType"))
-	return foundation.NSNumberFromID(objc.ID(rv))
+	rv := objc.SendIfResponds[foundation.NSNumber](m.ID, objc.Sel("modelEngineType"))
+	return foundation.NSNumber(rv)
 }
 func (m MLLoaderEvent) SetModelEngineType(value foundation.NSNumber) {
 	objc.SendIfResponds[struct{}](m.ID, objc.Sel("setModelEngineType:"), value)
@@ -319,22 +319,22 @@ func (m MLLoaderEvent) SetModelHash(value string) {
 	objc.SendIfResponds[struct{}](m.ID, objc.Sel("setModelHash:"), objc.String(value))
 }
 func (m MLLoaderEvent) ModelIsEncrypted() foundation.NSNumber {
-	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("modelIsEncrypted"))
-	return foundation.NSNumberFromID(objc.ID(rv))
+	rv := objc.SendIfResponds[foundation.NSNumber](m.ID, objc.Sel("modelIsEncrypted"))
+	return foundation.NSNumber(rv)
 }
 func (m MLLoaderEvent) SetModelIsEncrypted(value foundation.NSNumber) {
 	objc.SendIfResponds[struct{}](m.ID, objc.Sel("setModelIsEncrypted:"), value)
 }
 func (m MLLoaderEvent) ModelLoadError() foundation.NSNumber {
-	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("modelLoadError"))
-	return foundation.NSNumberFromID(objc.ID(rv))
+	rv := objc.SendIfResponds[foundation.NSNumber](m.ID, objc.Sel("modelLoadError"))
+	return foundation.NSNumber(rv)
 }
 func (m MLLoaderEvent) SetModelLoadError(value foundation.NSNumber) {
 	objc.SendIfResponds[struct{}](m.ID, objc.Sel("setModelLoadError:"), value)
 }
 func (m MLLoaderEvent) ModelLoadTime() foundation.NSNumber {
-	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("modelLoadTime"))
-	return foundation.NSNumberFromID(objc.ID(rv))
+	rv := objc.SendIfResponds[foundation.NSNumber](m.ID, objc.Sel("modelLoadTime"))
+	return foundation.NSNumber(rv)
 }
 func (m MLLoaderEvent) SetModelLoadTime(value foundation.NSNumber) {
 	objc.SendIfResponds[struct{}](m.ID, objc.Sel("setModelLoadTime:"), value)
@@ -347,29 +347,29 @@ func (m MLLoaderEvent) SetModelName(value string) {
 	objc.SendIfResponds[struct{}](m.ID, objc.Sel("setModelName:"), objc.String(value))
 }
 func (m MLLoaderEvent) ModelOrigin() foundation.NSNumber {
-	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("modelOrigin"))
-	return foundation.NSNumberFromID(objc.ID(rv))
+	rv := objc.SendIfResponds[foundation.NSNumber](m.ID, objc.Sel("modelOrigin"))
+	return foundation.NSNumber(rv)
 }
 func (m MLLoaderEvent) SetModelOrigin(value foundation.NSNumber) {
 	objc.SendIfResponds[struct{}](m.ID, objc.Sel("setModelOrigin:"), value)
 }
 func (m MLLoaderEvent) ModelProgramParsingError() foundation.NSNumber {
-	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("modelProgramParsingError"))
-	return foundation.NSNumberFromID(objc.ID(rv))
+	rv := objc.SendIfResponds[foundation.NSNumber](m.ID, objc.Sel("modelProgramParsingError"))
+	return foundation.NSNumber(rv)
 }
 func (m MLLoaderEvent) SetModelProgramParsingError(value foundation.NSNumber) {
 	objc.SendIfResponds[struct{}](m.ID, objc.Sel("setModelProgramParsingError:"), value)
 }
 func (m MLLoaderEvent) ModelProgramValidationError() foundation.NSNumber {
-	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("modelProgramValidationError"))
-	return foundation.NSNumberFromID(objc.ID(rv))
+	rv := objc.SendIfResponds[foundation.NSNumber](m.ID, objc.Sel("modelProgramValidationError"))
+	return foundation.NSNumber(rv)
 }
 func (m MLLoaderEvent) SetModelProgramValidationError(value foundation.NSNumber) {
 	objc.SendIfResponds[struct{}](m.ID, objc.Sel("setModelProgramValidationError:"), value)
 }
 func (m MLLoaderEvent) ModelType() foundation.NSNumber {
-	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("modelType"))
-	return foundation.NSNumberFromID(objc.ID(rv))
+	rv := objc.SendIfResponds[foundation.NSNumber](m.ID, objc.Sel("modelType"))
+	return foundation.NSNumber(rv)
 }
 func (m MLLoaderEvent) SetModelType(value foundation.NSNumber) {
 	objc.SendIfResponds[struct{}](m.ID, objc.Sel("setModelType:"), value)

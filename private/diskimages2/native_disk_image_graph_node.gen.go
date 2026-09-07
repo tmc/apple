@@ -126,6 +126,6 @@ func (n NativeDiskImageGraphNode) InitWithURLTagUUIDParentNodeMetadataIsCache(ur
 }
 
 func (n NativeDiskImageGraphNode) FilePath() foundation.NSURL {
-	rv := objc.SendIfResponds[objc.ID](n.ID, objc.Sel("filePath"))
-	return foundation.NSURLFromID(objc.ID(rv))
+	rv := objc.SendIfResponds[foundation.NSURL](n.ID, objc.Sel("filePath"))
+	return foundation.NSURL(rv)
 }

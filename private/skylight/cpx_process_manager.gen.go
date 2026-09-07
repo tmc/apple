@@ -101,7 +101,7 @@ type ICPXProcessManager interface {
 
 	IsPSNEqualToPSN(psn CPSProcessSerNum, psn2 CPSProcessSerNum) bool
 	IsValidConnectionIDForPSN(id uint32, psn CPSProcessSerNum) bool
-	ProcessForPID(pid int) *CPSProcessRec
+	ProcessForPID(pid int32) *CPSProcessRec
 	ProcessForPSN(psn CPSProcessSerNum) *CPSProcessRec
 	ProcessOwningConnection(connection *CGXConnection) *CPSProcessRec
 	ProcessOwningConnectionID(id uint32) *CPSProcessRec
@@ -150,7 +150,7 @@ func (c CPXProcessManager) IsValidConnectionIDForPSN(id uint32, psn CPSProcessSe
 	rv := objc.SendIfResponds[bool](c.ID, objc.Sel("isValidConnectionID:forPSN:"), id, psn)
 	return rv
 }
-func (c CPXProcessManager) ProcessForPID(pid int) *CPSProcessRec {
+func (c CPXProcessManager) ProcessForPID(pid int32) *CPSProcessRec {
 	rv := objc.SendIfResponds[unsafe.Pointer](c.ID, objc.Sel("processForPID:"), pid)
 	return (*CPSProcessRec)(rv)
 }

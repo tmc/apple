@@ -100,10 +100,10 @@ func (s SOSRLanguageTableCellView) ActiveCheckbox() ISOSRLanguageRowCheckboxButt
 	return SOSRLanguageRowCheckboxButtonFromID(objc.ID(rv))
 }
 func (s SOSRLanguageTableCellView) DownloadMessageTextField() appkit.NSTextField {
-	rv := objc.SendIfResponds[objc.ID](s.ID, objc.Sel("downloadMessageTextField"))
-	return appkit.NSTextFieldFromID(objc.ID(rv))
+	rv := objc.SendIfResponds[appkit.NSTextField](s.ID, objc.Sel("downloadMessageTextField"))
+	return appkit.NSTextField(rv)
 }
 func (s SOSRLanguageTableCellView) DownloadVariantPopUpButton() appkit.NSPopUpButton {
-	rv := objc.SendIfResponds[objc.ID](s.ID, objc.Sel("downloadVariantPopUpButton"))
-	return appkit.NSPopUpButtonFromID(objc.ID(rv))
+	rv := objc.SendIfResponds[appkit.NSPopUpButton](s.ID, objc.Sel("downloadVariantPopUpButton"))
+	return appkit.NSPopUpButton(rv)
 }

@@ -1,4 +1,4 @@
-// Code generated from Apple documentation for Virtualization. DO NOT EDIT.
+// Code generated from Apple documentation for virtualization. DO NOT EDIT.
 
 package virtualization
 
@@ -20,12 +20,12 @@ var (
 
 func getVZVirtioQueueElementClass() VZVirtioQueueElementClass {
 	_VZVirtioQueueElementClassOnce.Do(func() {
-		_VZVirtioQueueElementClass = VZVirtioQueueElementClass{class: objc.GetClass("_VZVirtioQueueElement")}
+		_VZVirtioQueueElementClass = VZVirtioQueueElementClass{class: objc.GetClass("VZVirtioQueueElement")}
 	})
 	return _VZVirtioQueueElementClass
 }
 
-// GetVZVirtioQueueElementClass returns the class object for _VZVirtioQueueElement.
+// GetVZVirtioQueueElementClass returns the class object for VZVirtioQueueElement.
 func GetVZVirtioQueueElementClass() VZVirtioQueueElementClass {
 	return getVZVirtioQueueElementClass()
 }
@@ -48,15 +48,20 @@ func (vc VZVirtioQueueElementClass) Alloc() VZVirtioQueueElement {
 // # Methods
 //
 //   - [VZVirtioQueueElement.PeekIntoReadBuffersError]
+//   - [VZVirtioQueueElement.PeekIntoReadBuffersWithExactLengthError]
 //   - [VZVirtioQueueElement.ReadBuffers]
 //   - [VZVirtioQueueElement.ReadBuffersAvailableByteCount]
 //   - [VZVirtioQueueElement.ReadBuffersByteCount]
 //   - [VZVirtioQueueElement.ReadBytesError]
 //   - [VZVirtioQueueElement.ReadBytesIntoLengthError]
+//   - [VZVirtioQueueElement.ReadBytesIntoBufferExactLengthError]
+//   - [VZVirtioQueueElement.ReadBytesWithExactLengthError]
 //   - [VZVirtioQueueElement.ReturnToQueue]
 //   - [VZVirtioQueueElement.WriteError]
+//   - [VZVirtioQueueElement.WriteBufferExactLengthError]
 //   - [VZVirtioQueueElement.WriteBuffersAvailableByteCount]
 //   - [VZVirtioQueueElement.WriteBuffersByteCount]
+//   - [VZVirtioQueueElement.WriteDataError]
 //   - [VZVirtioQueueElement.WriteDataLengthError]
 //   - [VZVirtioQueueElement.WrittenByteCount]
 type VZVirtioQueueElement struct {
@@ -76,15 +81,20 @@ var _ IVZVirtioQueueElement = VZVirtioQueueElement{}
 // # Methods
 //
 //   - [IVZVirtioQueueElement.PeekIntoReadBuffersError]
+//   - [IVZVirtioQueueElement.PeekIntoReadBuffersWithExactLengthError]
 //   - [IVZVirtioQueueElement.ReadBuffers]
 //   - [IVZVirtioQueueElement.ReadBuffersAvailableByteCount]
 //   - [IVZVirtioQueueElement.ReadBuffersByteCount]
 //   - [IVZVirtioQueueElement.ReadBytesError]
 //   - [IVZVirtioQueueElement.ReadBytesIntoLengthError]
+//   - [IVZVirtioQueueElement.ReadBytesIntoBufferExactLengthError]
+//   - [IVZVirtioQueueElement.ReadBytesWithExactLengthError]
 //   - [IVZVirtioQueueElement.ReturnToQueue]
 //   - [IVZVirtioQueueElement.WriteError]
+//   - [IVZVirtioQueueElement.WriteBufferExactLengthError]
 //   - [IVZVirtioQueueElement.WriteBuffersAvailableByteCount]
 //   - [IVZVirtioQueueElement.WriteBuffersByteCount]
+//   - [IVZVirtioQueueElement.WriteDataError]
 //   - [IVZVirtioQueueElement.WriteDataLengthError]
 //   - [IVZVirtioQueueElement.WrittenByteCount]
 type IVZVirtioQueueElement interface {
@@ -93,15 +103,20 @@ type IVZVirtioQueueElement interface {
 	// Topic: Methods
 
 	PeekIntoReadBuffersError(buffers uint64) (objectivec.IObject, error)
+	PeekIntoReadBuffersWithExactLengthError(length uint64) (objectivec.IObject, error)
 	ReadBuffers() objectivec.IObject
 	ReadBuffersAvailableByteCount() uint64
 	ReadBuffersByteCount() uint64
 	ReadBytesError(bytes uint64) (objectivec.IObject, error)
 	ReadBytesIntoLengthError(into unsafe.Pointer, length uint64) (bool, error)
+	ReadBytesIntoBufferExactLengthError(buffer unsafe.Pointer, length uint64) (bool, error)
+	ReadBytesWithExactLengthError(length uint64) (objectivec.IObject, error)
 	ReturnToQueue()
 	WriteError(write objectivec.IObject) (bool, error)
+	WriteBufferExactLengthError(buffer unsafe.Pointer, length uint64) (bool, error)
 	WriteBuffersAvailableByteCount() uint64
 	WriteBuffersByteCount() uint64
+	WriteDataError(data objectivec.IObject) (bool, error)
 	WriteDataLengthError(data unsafe.Pointer, length uint64) (bool, error)
 	WrittenByteCount() uint64
 }
@@ -128,6 +143,16 @@ func NewVZVirtioQueueElement() VZVirtioQueueElement {
 func (v VZVirtioQueueElement) PeekIntoReadBuffersError(buffers uint64) (objectivec.IObject, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](v.ID, objc.Sel("peekIntoReadBuffers:error:"), buffers, unsafe.Pointer(&errorPtr))
+	if errorPtr != 0 {
+		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
+		return nil, foundation.NSErrorFrom(errorPtr)
+	}
+	return objectivec.Object{ID: rv}, nil
+
+}
+func (v VZVirtioQueueElement) PeekIntoReadBuffersWithExactLengthError(length uint64) (objectivec.IObject, error) {
+	var errorPtr objc.ID
+	rv := objc.Send[objc.ID](v.ID, objc.Sel("peekIntoReadBuffersWithExactLength:error:"), length, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
 		return nil, foundation.NSErrorFrom(errorPtr)
@@ -162,6 +187,29 @@ func (v VZVirtioQueueElement) ReadBytesIntoLengthError(into unsafe.Pointer, leng
 	return rv, nil
 
 }
+func (v VZVirtioQueueElement) ReadBytesIntoBufferExactLengthError(buffer unsafe.Pointer, length uint64) (bool, error) {
+	var errorPtr objc.ID
+	rv := objc.Send[bool](v.ID, objc.Sel("readBytesIntoBuffer:exactLength:error:"), buffer, length, unsafe.Pointer(&errorPtr))
+	if errorPtr != 0 {
+		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
+		return false, foundation.NSErrorFrom(errorPtr)
+	}
+	if !rv {
+		return false, errors.New("readBytesIntoBuffer:exactLength:error: returned NO with nil NSError")
+	}
+	return rv, nil
+
+}
+func (v VZVirtioQueueElement) ReadBytesWithExactLengthError(length uint64) (objectivec.IObject, error) {
+	var errorPtr objc.ID
+	rv := objc.Send[objc.ID](v.ID, objc.Sel("readBytesWithExactLength:error:"), length, unsafe.Pointer(&errorPtr))
+	if errorPtr != 0 {
+		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
+		return nil, foundation.NSErrorFrom(errorPtr)
+	}
+	return objectivec.Object{ID: rv}, nil
+
+}
 func (v VZVirtioQueueElement) ReturnToQueue() {
 	objc.SendIfResponds[objc.ID](v.ID, objc.Sel("returnToQueue"))
 }
@@ -174,6 +222,32 @@ func (v VZVirtioQueueElement) WriteError(write objectivec.IObject) (bool, error)
 	}
 	if !rv {
 		return false, errors.New("write:error: returned NO with nil NSError")
+	}
+	return rv, nil
+
+}
+func (v VZVirtioQueueElement) WriteBufferExactLengthError(buffer unsafe.Pointer, length uint64) (bool, error) {
+	var errorPtr objc.ID
+	rv := objc.Send[bool](v.ID, objc.Sel("writeBuffer:exactLength:error:"), buffer, length, unsafe.Pointer(&errorPtr))
+	if errorPtr != 0 {
+		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
+		return false, foundation.NSErrorFrom(errorPtr)
+	}
+	if !rv {
+		return false, errors.New("writeBuffer:exactLength:error: returned NO with nil NSError")
+	}
+	return rv, nil
+
+}
+func (v VZVirtioQueueElement) WriteDataError(data objectivec.IObject) (bool, error) {
+	var errorPtr objc.ID
+	rv := objc.Send[bool](v.ID, objc.Sel("writeData:error:"), data, unsafe.Pointer(&errorPtr))
+	if errorPtr != 0 {
+		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
+		return false, foundation.NSErrorFrom(errorPtr)
+	}
+	if !rv {
+		return false, errors.New("writeData:error: returned NO with nil NSError")
 	}
 	return rv, nil
 

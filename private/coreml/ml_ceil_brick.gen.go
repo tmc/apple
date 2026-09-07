@@ -1,4 +1,4 @@
-// Code generated from Apple documentation for CoreML. DO NOT EDIT.
+// Code generated from Apple documentation for coreml. DO NOT EDIT.
 
 package coreml
 
@@ -123,7 +123,7 @@ func NewMLCeilBrick() MLCeilBrick {
 	return rv
 }
 
-func NewCeilBrickWithParameters(parameters objectivec.IObject) MLCeilBrick {
+func NewMLCeilBrickWithParameters(parameters objectivec.IObject) MLCeilBrick {
 	instance := getMLCeilBrickClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithParameters:"), parameters)
 	return MLCeilBrickFromID(rv)

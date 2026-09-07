@@ -89,13 +89,13 @@ type IIOGPUMetalGLDrawable interface {
 
 	// Topic: Methods
 
-	ClearDrawable() int
+	ClearDrawable() int32
 	Height() uint32
 	LookupIOSurfaceAtIndex(index uint64) objectivec.IObject
-	SetDrawableSurfaceModeColorDepthModeFaceLevelVolatileFixedSourceScaleOptionsScaledWidthScaledHeight(surface uint32, mode uint64, mode2 uint32, face uint32, level uint32, volatile uint32, source uint32, options uint32, width uint32, height uint32) int
-	SetSwapIntervalLimit(interval int, limit int) int
-	SetSwapRectXYWH(x uint32, y uint32, w uint32, h uint32) int
-	SignalSharedEventValueOperation(event objectivec.IObject, value uint64, operation uint64) int
+	SetDrawableSurfaceModeColorDepthModeFaceLevelVolatileFixedSourceScaleOptionsScaledWidthScaledHeight(surface uint32, mode uint64, mode2 uint32, face uint32, level uint32, volatile uint32, source uint32, options uint32, width uint32, height uint32) int32
+	SetSwapIntervalLimit(interval int32, limit int32) int32
+	SetSwapRectXYWH(x uint32, y uint32, w uint32, h uint32) int32
+	SignalSharedEventValueOperation(event objectivec.IObject, value uint64, operation uint64) int32
 	SurfaceHeight() uint32
 	SurfaceWidth() uint32
 	Width() uint32
@@ -122,14 +122,14 @@ func NewIOGPUMetalGLDrawable() IOGPUMetalGLDrawable {
 	return rv
 }
 
-func NewGPUMetalGLDrawableWithDevice(device objectivec.IObject) IOGPUMetalGLDrawable {
+func NewIOGPUMetalGLDrawableWithDevice(device objectivec.IObject) IOGPUMetalGLDrawable {
 	instance := getIOGPUMetalGLDrawableClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithDevice:"), device)
 	return IOGPUMetalGLDrawableFromID(rv)
 }
 
-func (i IOGPUMetalGLDrawable) ClearDrawable() int {
-	rv := objc.SendIfResponds[int](i.ID, objc.Sel("clearDrawable"))
+func (i IOGPUMetalGLDrawable) ClearDrawable() int32 {
+	rv := objc.SendIfResponds[int32](i.ID, objc.Sel("clearDrawable"))
 	return rv
 }
 func (i IOGPUMetalGLDrawable) Height() uint32 {
@@ -140,20 +140,20 @@ func (i IOGPUMetalGLDrawable) LookupIOSurfaceAtIndex(index uint64) objectivec.IO
 	rv := objc.SendIfResponds[objc.ID](i.ID, objc.Sel("lookupIOSurfaceAtIndex:"), index)
 	return objectivec.Object{ID: rv}
 }
-func (i IOGPUMetalGLDrawable) SetDrawableSurfaceModeColorDepthModeFaceLevelVolatileFixedSourceScaleOptionsScaledWidthScaledHeight(surface uint32, mode uint64, mode2 uint32, face uint32, level uint32, volatile uint32, source uint32, options uint32, width uint32, height uint32) int {
-	rv := objc.SendIfResponds[int](i.ID, objc.Sel("setDrawableSurface:mode:colorDepthMode:face:level:volatile:fixedSource:scaleOptions:scaledWidth:scaledHeight:"), surface, mode, mode2, face, level, volatile, source, options, width, height)
+func (i IOGPUMetalGLDrawable) SetDrawableSurfaceModeColorDepthModeFaceLevelVolatileFixedSourceScaleOptionsScaledWidthScaledHeight(surface uint32, mode uint64, mode2 uint32, face uint32, level uint32, volatile uint32, source uint32, options uint32, width uint32, height uint32) int32 {
+	rv := objc.SendIfResponds[int32](i.ID, objc.Sel("setDrawableSurface:mode:colorDepthMode:face:level:volatile:fixedSource:scaleOptions:scaledWidth:scaledHeight:"), surface, mode, mode2, face, level, volatile, source, options, width, height)
 	return rv
 }
-func (i IOGPUMetalGLDrawable) SetSwapIntervalLimit(interval int, limit int) int {
-	rv := objc.SendIfResponds[int](i.ID, objc.Sel("setSwapInterval:limit:"), interval, limit)
+func (i IOGPUMetalGLDrawable) SetSwapIntervalLimit(interval int32, limit int32) int32 {
+	rv := objc.SendIfResponds[int32](i.ID, objc.Sel("setSwapInterval:limit:"), interval, limit)
 	return rv
 }
-func (i IOGPUMetalGLDrawable) SetSwapRectXYWH(x uint32, y uint32, w uint32, h uint32) int {
-	rv := objc.SendIfResponds[int](i.ID, objc.Sel("setSwapRectX:y:w:h:"), x, y, w, h)
+func (i IOGPUMetalGLDrawable) SetSwapRectXYWH(x uint32, y uint32, w uint32, h uint32) int32 {
+	rv := objc.SendIfResponds[int32](i.ID, objc.Sel("setSwapRectX:y:w:h:"), x, y, w, h)
 	return rv
 }
-func (i IOGPUMetalGLDrawable) SignalSharedEventValueOperation(event objectivec.IObject, value uint64, operation uint64) int {
-	rv := objc.SendIfResponds[int](i.ID, objc.Sel("signalSharedEvent:value:operation:"), event, value, operation)
+func (i IOGPUMetalGLDrawable) SignalSharedEventValueOperation(event objectivec.IObject, value uint64, operation uint64) int32 {
+	rv := objc.SendIfResponds[int32](i.ID, objc.Sel("signalSharedEvent:value:operation:"), event, value, operation)
 	return rv
 }
 func (i IOGPUMetalGLDrawable) SurfaceHeight() uint32 {

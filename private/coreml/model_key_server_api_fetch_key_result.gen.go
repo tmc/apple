@@ -1,4 +1,4 @@
-// Code generated from Apple documentation for CoreML. DO NOT EDIT.
+// Code generated from Apple documentation for coreml. DO NOT EDIT.
 
 package coreml
 
@@ -121,7 +121,7 @@ type IModelKeyServerAPIFetchKeyResult interface {
 
 	// Topic: Methods
 
-	StringAsKey(key objectivec.IObject) int
+	StringAsKey(key objectivec.IObject) int32
 	ClearOneofValuesForKey()
 	CopyTo(to objectivec.IObject)
 	DictionaryRepresentation() objectivec.IObject
@@ -132,9 +132,9 @@ type IModelKeyServerAPIFetchKeyResult interface {
 	HasRawKey() bool
 	HasSignedKey() bool
 	HasTeamId() bool
-	Key() int
-	SetKey(value int)
-	KeyAsString(string_ int) objectivec.IObject
+	Key() int32
+	SetKey(value int32)
+	KeyAsString(string_ int32) objectivec.IObject
 	KeyId() string
 	SetKeyId(value string)
 	MergeFrom(from objectivec.IObject)
@@ -169,8 +169,8 @@ func NewModelKeyServerAPIFetchKeyResult() ModelKeyServerAPIFetchKeyResult {
 	return rv
 }
 
-func (m ModelKeyServerAPIFetchKeyResult) StringAsKey(key objectivec.IObject) int {
-	rv := objc.SendIfResponds[int](m.ID, objc.Sel("StringAsKey:"), key)
+func (m ModelKeyServerAPIFetchKeyResult) StringAsKey(key objectivec.IObject) int32 {
+	rv := objc.SendIfResponds[int32](m.ID, objc.Sel("StringAsKey:"), key)
 	return rv
 }
 func (m ModelKeyServerAPIFetchKeyResult) ClearOneofValuesForKey() {
@@ -183,7 +183,7 @@ func (m ModelKeyServerAPIFetchKeyResult) DictionaryRepresentation() objectivec.I
 	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("dictionaryRepresentation"))
 	return objectivec.Object{ID: rv}
 }
-func (m ModelKeyServerAPIFetchKeyResult) KeyAsString(string_ int) objectivec.IObject {
+func (m ModelKeyServerAPIFetchKeyResult) KeyAsString(string_ int32) objectivec.IObject {
 	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("keyAsString:"), string_)
 	return objectivec.Object{ID: rv}
 }
@@ -225,11 +225,11 @@ func (m ModelKeyServerAPIFetchKeyResult) HasTeamId() bool {
 	rv := objc.SendIfResponds[bool](m.ID, objc.Sel("hasTeamId"))
 	return rv
 }
-func (m ModelKeyServerAPIFetchKeyResult) Key() int {
-	rv := objc.SendIfResponds[int](m.ID, objc.Sel("key"))
+func (m ModelKeyServerAPIFetchKeyResult) Key() int32 {
+	rv := objc.SendIfResponds[int32](m.ID, objc.Sel("key"))
 	return rv
 }
-func (m ModelKeyServerAPIFetchKeyResult) SetKey(value int) {
+func (m ModelKeyServerAPIFetchKeyResult) SetKey(value int32) {
 	objc.SendIfResponds[struct{}](m.ID, objc.Sel("setKey:"), value)
 }
 func (m ModelKeyServerAPIFetchKeyResult) KeyId() string {

@@ -133,13 +133,13 @@ func NewIOGPUMetalHeap() IOGPUMetalHeap {
 	return rv
 }
 
-func NewGPUMetalHeapWithDeviceSizeOptionsArgsArgsSize(device objectivec.IObject, size uint64, options uint64, args *IOGPUNewResourceArgs, size2 uint32) IOGPUMetalHeap {
+func NewIOGPUMetalHeapWithDeviceSizeOptionsArgsArgsSize(device objectivec.IObject, size uint64, options uint64, args *IOGPUNewResourceArgs, size2 uint32) IOGPUMetalHeap {
 	instance := getIOGPUMetalHeapClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithDevice:size:options:args:argsSize:"), device, size, options, unsafe.Pointer(args), size2)
 	return IOGPUMetalHeapFromID(rv)
 }
 
-func NewGPUMetalHeapWithDeviceSizeOptionsArgsArgsSizeDesc(device objectivec.IObject, size uint64, options uint64, args *IOGPUNewResourceArgs, size2 uint32, desc objectivec.IObject) IOGPUMetalHeap {
+func NewIOGPUMetalHeapWithDeviceSizeOptionsArgsArgsSizeDesc(device objectivec.IObject, size uint64, options uint64, args *IOGPUNewResourceArgs, size2 uint32, desc objectivec.IObject) IOGPUMetalHeap {
 	instance := getIOGPUMetalHeapClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithDevice:size:options:args:argsSize:desc:"), device, size, options, unsafe.Pointer(args), size2, desc)
 	return IOGPUMetalHeapFromID(rv)
@@ -169,7 +169,7 @@ func (i IOGPUMetalHeap) NewSubResourceAtOffsetWithLengthAlignmentOptions(offset 
 	return objectivec.Object{ID: rv}
 }
 func (i IOGPUMetalHeap) NewSubResourceWithLengthAlignmentOptionsOffset(length uint64, alignment uint64, options uint64, offset *uint64) objectivec.IObject {
-	rv := objc.SendIfResponds[objc.ID](i.ID, objc.Sel("newSubResourceWithLength:alignment:options:offset:"), length, alignment, options, unsafe.Pointer(offset))
+	rv := objc.SendIfResponds[objc.ID](i.ID, objc.Sel("newSubResourceWithLength:alignment:options:offset:"), length, alignment, options, offset)
 	return objectivec.Object{ID: rv}
 }
 func (i IOGPUMetalHeap) ReplaceBackingWithRangesReadOnly(ranges objectivec.IObject, only bool) bool {

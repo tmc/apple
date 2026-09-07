@@ -1,4 +1,4 @@
-// Code generated from Apple documentation for CoreML. DO NOT EDIT.
+// Code generated from Apple documentation for coreml. DO NOT EDIT.
 
 package coreml
 
@@ -94,7 +94,7 @@ func (_MLNeuralNetworkMLComputeLayerClass MLNeuralNetworkMLComputeLayerClass) Co
 	rv := objc.SendIfResponds[objc.ID](objc.ID(_MLNeuralNetworkMLComputeLayerClass.class), objc.Sel("concatNDLayerWithAxis:"), axis)
 	return objectivec.Object{ID: rv}
 }
-func (_MLNeuralNetworkMLComputeLayerClass MLNeuralNetworkMLComputeLayerClass) ConvolutionalLayerWithKernelHeightKernelWidthInputChannelsOutputChannelsStrideInXStrideInYDilationRateInXDilationRateInYNGroupsWeightBiasPaddingPolicy(height uint64, width uint64, channels uint64, channels2 uint64, x uint64, y uint64, x2 uint64, y2 uint64, groups uint64, weight objectivec.IObject, bias objectivec.IObject, policy int) objectivec.IObject {
+func (_MLNeuralNetworkMLComputeLayerClass MLNeuralNetworkMLComputeLayerClass) ConvolutionalLayerWithKernelHeightKernelWidthInputChannelsOutputChannelsStrideInXStrideInYDilationRateInXDilationRateInYNGroupsWeightBiasPaddingPolicy(height uint64, width uint64, channels uint64, channels2 uint64, x uint64, y uint64, x2 uint64, y2 uint64, groups uint64, weight objectivec.IObject, bias objectivec.IObject, policy int32) objectivec.IObject {
 	rv := objc.SendIfResponds[objc.ID](objc.ID(_MLNeuralNetworkMLComputeLayerClass.class), objc.Sel("convolutionalLayerWithKernelHeight:kernelWidth:inputChannels:outputChannels:strideInX:strideInY:dilationRateInX:dilationRateInY:nGroups:weight:bias:paddingPolicy:"), height, width, channels, channels2, x, y, x2, y2, groups, weight, bias, policy)
 	return objectivec.Object{ID: rv}
 }
@@ -114,7 +114,7 @@ func (_MLNeuralNetworkMLComputeLayerClass MLNeuralNetworkMLComputeLayerClass) Me
 	rv := objc.SendIfResponds[objc.ID](objc.ID(_MLNeuralNetworkMLComputeLayerClass.class), objc.Sel("meanSquaredErrorLoss"))
 	return objectivec.Object{ID: rv}
 }
-func (_MLNeuralNetworkMLComputeLayerClass MLNeuralNetworkMLComputeLayerClass) PoolingLayerWithKernelWidthKernelHeightStrideInXStrideInYPaddingPolicyPoolingType(width uint64, height uint64, x uint64, y uint64, policy int, type_ int) objectivec.IObject {
+func (_MLNeuralNetworkMLComputeLayerClass MLNeuralNetworkMLComputeLayerClass) PoolingLayerWithKernelWidthKernelHeightStrideInXStrideInYPaddingPolicyPoolingType(width uint64, height uint64, x uint64, y uint64, policy int32, type_ int32) objectivec.IObject {
 	rv := objc.SendIfResponds[objc.ID](objc.ID(_MLNeuralNetworkMLComputeLayerClass.class), objc.Sel("poolingLayerWithKernelWidth:kernelHeight:strideInX:strideInY:paddingPolicy:poolingType:"), width, height, x, y, policy, type_)
 	return objectivec.Object{ID: rv}
 }

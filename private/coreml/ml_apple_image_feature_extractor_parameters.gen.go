@@ -1,4 +1,4 @@
-// Code generated from Apple documentation for CoreML. DO NOT EDIT.
+// Code generated from Apple documentation for coreml. DO NOT EDIT.
 
 package coreml
 
@@ -97,7 +97,7 @@ func NewMLAppleImageFeatureExtractorParameters() MLAppleImageFeatureExtractorPar
 	return rv
 }
 
-func NewAppleImageFeatureExtractorParametersWithObjectPrintParametersError(parameters objectivec.IObject) (MLAppleImageFeatureExtractorParameters, error) {
+func NewMLAppleImageFeatureExtractorParametersWithObjectPrintParametersError(parameters objectivec.IObject) (MLAppleImageFeatureExtractorParameters, error) {
 	var errorPtr objc.ID
 	instance := getMLAppleImageFeatureExtractorParametersClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithObjectPrintParameters:error:"), parameters, unsafe.Pointer(&errorPtr))
@@ -111,7 +111,7 @@ func NewAppleImageFeatureExtractorParametersWithObjectPrintParametersError(param
 	return MLAppleImageFeatureExtractorParametersFromID(rv), nil
 }
 
-func NewAppleImageFeatureExtractorParametersWithScenePrintParametersError(parameters objectivec.IObject) (MLAppleImageFeatureExtractorParameters, error) {
+func NewMLAppleImageFeatureExtractorParametersWithScenePrintParametersError(parameters objectivec.IObject) (MLAppleImageFeatureExtractorParameters, error) {
 	var errorPtr objc.ID
 	instance := getMLAppleImageFeatureExtractorParametersClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithScenePrintParameters:error:"), parameters, unsafe.Pointer(&errorPtr))

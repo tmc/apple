@@ -1,4 +1,4 @@
-// Code generated from Apple documentation for Network. DO NOT EDIT.
+// Code generated from Apple documentation for network. DO NOT EDIT.
 
 package network
 
@@ -108,7 +108,7 @@ type INWEndpoint interface {
 	SetAlternatePort(value uint16)
 	CopyCEndpoint() objectivec.IObject
 	CreateProtocolBufferObject() objectivec.IObject
-	DescriptionWithIndentShowFullContent(indent int, content bool) objectivec.IObject
+	DescriptionWithIndentShowFullContent(indent int32, content bool) objectivec.IObject
 	EncodeWithCoder(coder foundation.INSCoder)
 	EncodedData() objectivec.IObject
 	Interface() INWInterface
@@ -164,7 +164,7 @@ func (n NWEndpoint) CreateProtocolBufferObject() objectivec.IObject {
 	rv := objc.SendIfResponds[objc.ID](n.ID, objc.Sel("createProtocolBufferObject"))
 	return objectivec.Object{ID: rv}
 }
-func (n NWEndpoint) DescriptionWithIndentShowFullContent(indent int, content bool) objectivec.IObject {
+func (n NWEndpoint) DescriptionWithIndentShowFullContent(indent int32, content bool) objectivec.IObject {
 	rv := objc.SendIfResponds[objc.ID](n.ID, objc.Sel("descriptionWithIndent:showFullContent:"), indent, content)
 	return objectivec.Object{ID: rv}
 }
@@ -184,7 +184,7 @@ func (n NWEndpoint) InitWithEndpoint(endpoint objectivec.IObject) NWEndpoint {
 	return rv
 }
 
-func (_NWEndpointClass NWEndpointClass) CopyClassForEndpointType(type_ int) objectivec.Class {
+func (_NWEndpointClass NWEndpointClass) CopyClassForEndpointType(type_ int32) objectivec.Class {
 	rv := objc.SendIfResponds[objectivec.Class](objc.ID(_NWEndpointClass.class), objc.Sel("copyClassForEndpointType:"), type_)
 	return objectivec.Class(rv)
 }
@@ -250,8 +250,8 @@ func (n NWEndpoint) SetRemoteInterfaceType(value int64) {
 	objc.SendIfResponds[struct{}](n.ID, objc.Sel("setRemoteInterfaceType:"), value)
 }
 func (n NWEndpoint) TxtRecord() foundation.NSData {
-	rv := objc.SendIfResponds[objc.ID](n.ID, objc.Sel("txtRecord"))
-	return foundation.NSDataFromID(objc.ID(rv))
+	rv := objc.SendIfResponds[foundation.NSData](n.ID, objc.Sel("txtRecord"))
+	return foundation.NSData(rv)
 }
 func (n NWEndpoint) SetTxtRecord(value foundation.NSData) {
 	objc.SendIfResponds[struct{}](n.ID, objc.Sel("setTxtRecord:"), value)

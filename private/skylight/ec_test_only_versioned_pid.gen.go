@@ -69,7 +69,7 @@ type IECTestOnlyVersionedPID interface {
 
 	// Topic: Methods
 
-	Pid() int
+	Pid() int32
 	Version() uint32
 }
 
@@ -92,8 +92,8 @@ func NewECTestOnlyVersionedPID() ECTestOnlyVersionedPID {
 	return rv
 }
 
-func (e ECTestOnlyVersionedPID) Pid() int {
-	rv := objc.SendIfResponds[int](e.ID, objc.Sel("pid"))
+func (e ECTestOnlyVersionedPID) Pid() int32 {
+	rv := objc.SendIfResponds[int32](e.ID, objc.Sel("pid"))
 	return rv
 }
 func (e ECTestOnlyVersionedPID) Version() uint32 {

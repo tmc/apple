@@ -1,4 +1,4 @@
-// Code generated from Apple documentation for Virtualization. DO NOT EDIT.
+// Code generated from Apple documentation for virtualization. DO NOT EDIT.
 
 package virtualization
 
@@ -78,7 +78,7 @@ func NewVZVirtioConsoleDevice() VZVirtioConsoleDevice {
 	return rv
 }
 
-func NewVirtioConsoleDeviceWithVirtualMachineConsoleDeviceIndexConfiguration(machine objectivec.IObject, index uint64, configuration objectivec.IObject) VZVirtioConsoleDevice {
+func NewVZVirtioConsoleDeviceWithVirtualMachineConsoleDeviceIndexConfiguration(machine objectivec.IObject, index uint64, configuration objectivec.IObject) VZVirtioConsoleDevice {
 	instance := getVZVirtioConsoleDeviceClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithVirtualMachine:consoleDeviceIndex:configuration:"), machine, index, configuration)
 	return VZVirtioConsoleDeviceFromID(rv)

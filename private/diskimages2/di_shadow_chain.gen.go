@@ -228,8 +228,8 @@ func (_DIShadowChainClass DIShadowChainClass) SupportsSecureCoding() bool {
 }
 
 func (d DIShadowChain) ActiveShadowURL() foundation.NSURL {
-	rv := objc.SendIfResponds[objc.ID](d.ID, objc.Sel("activeShadowURL"))
-	return foundation.NSURLFromID(objc.ID(rv))
+	rv := objc.SendIfResponds[foundation.NSURL](d.ID, objc.Sel("activeShadowURL"))
+	return foundation.NSURL(rv)
 }
 func (d DIShadowChain) HasBaseImageCache() bool {
 	rv := objc.SendIfResponds[bool](d.ID, objc.Sel("hasBaseImageCache"))

@@ -132,8 +132,8 @@ func (t TTSAudioEffectConfiguration) SetEnabled(value bool) {
 	objc.SendIfResponds[struct{}](t.ID, objc.Sel("setEnabled:"), value)
 }
 func (t TTSAudioEffectConfiguration) Identifier() foundation.NSUUID {
-	rv := objc.SendIfResponds[objc.ID](t.ID, objc.Sel("identifier"))
-	return foundation.NSUUIDFromID(objc.ID(rv))
+	rv := objc.SendIfResponds[foundation.NSUUID](t.ID, objc.Sel("identifier"))
+	return foundation.NSUUID(rv)
 }
 func (t TTSAudioEffectConfiguration) SetIdentifier(value foundation.NSUUID) {
 	objc.SendIfResponds[struct{}](t.ID, objc.Sel("setIdentifier:"), value)

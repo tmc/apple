@@ -1,4 +1,4 @@
-// Code generated from Apple documentation for CoreML. DO NOT EDIT.
+// Code generated from Apple documentation for coreml. DO NOT EDIT.
 
 package coreml
 
@@ -42,14 +42,14 @@ func (mc MLRegressorClass) Alloc() MLRegressor {
 	return rv
 }
 
-// A parent class referenced by other CoreML classes. [Full Topic]
+// A parent class referenced by other coreml classes. [Full Topic]
 type MLRegressor struct {
 	objectivec.Object
 }
 
 // MLRegressorFromID constructs a [MLRegressor] from an objc.ID.
 //
-// A parent class referenced by other CoreML classes.
+// A parent class referenced by other coreml classes.
 func MLRegressorFromID(id objc.ID) MLRegressor {
 	return MLRegressor{objectivec.Object{ID: id}}
 }

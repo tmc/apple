@@ -236,8 +236,8 @@ func (a ANERequest) PerfStatsArray() foundation.INSArray {
 	return foundation.NSArrayFromID(objc.ID(rv))
 }
 func (a ANERequest) ProcedureIndex() foundation.NSNumber {
-	rv := objc.SendIfResponds[objc.ID](a.ID, objc.Sel("procedureIndex"))
-	return foundation.NSNumberFromID(objc.ID(rv))
+	rv := objc.SendIfResponds[foundation.NSNumber](a.ID, objc.Sel("procedureIndex"))
+	return foundation.NSNumber(rv)
 }
 func (a ANERequest) SharedEvents() IANESharedEvents {
 	rv := objc.SendIfResponds[objc.ID](a.ID, objc.Sel("sharedEvents"))
@@ -247,8 +247,8 @@ func (a ANERequest) SetSharedEvents(value IANESharedEvents) {
 	objc.SendIfResponds[struct{}](a.ID, objc.Sel("setSharedEvents:"), value)
 }
 func (a ANERequest) TransactionHandle() foundation.NSNumber {
-	rv := objc.SendIfResponds[objc.ID](a.ID, objc.Sel("transactionHandle"))
-	return foundation.NSNumberFromID(objc.ID(rv))
+	rv := objc.SendIfResponds[foundation.NSNumber](a.ID, objc.Sel("transactionHandle"))
+	return foundation.NSNumber(rv)
 }
 func (a ANERequest) SetTransactionHandle(value foundation.NSNumber) {
 	objc.SendIfResponds[struct{}](a.ID, objc.Sel("setTransactionHandle:"), value)

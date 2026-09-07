@@ -50,7 +50,6 @@ func (wc WSHIDEventDeliveryObserverServerClass) Alloc() WSHIDEventDeliveryObserv
 //   - [WSHIDEventDeliveryObserverServer.Activate]
 //   - [WSHIDEventDeliveryObserverServer.AppendDescriptionToStream]
 //   - [WSHIDEventDeliveryObserverServer.BkServer]
-//   - [WSHIDEventDeliveryObserverServer.DeliveryObserverServiceForAuditToken]
 //   - [WSHIDEventDeliveryObserverServer.DebugDescription]
 //   - [WSHIDEventDeliveryObserverServer.Description]
 //   - [WSHIDEventDeliveryObserverServer.Hash]
@@ -75,7 +74,6 @@ var _ IWSHIDEventDeliveryObserverServer = WSHIDEventDeliveryObserverServer{}
 //   - [IWSHIDEventDeliveryObserverServer.Activate]
 //   - [IWSHIDEventDeliveryObserverServer.AppendDescriptionToStream]
 //   - [IWSHIDEventDeliveryObserverServer.BkServer]
-//   - [IWSHIDEventDeliveryObserverServer.DeliveryObserverServiceForAuditToken]
 //   - [IWSHIDEventDeliveryObserverServer.DebugDescription]
 //   - [IWSHIDEventDeliveryObserverServer.Description]
 //   - [IWSHIDEventDeliveryObserverServer.Hash]
@@ -89,7 +87,6 @@ type IWSHIDEventDeliveryObserverServer interface {
 	Activate()
 	AppendDescriptionToStream(stream objectivec.IObject)
 	BkServer() unsafe.Pointer
-	DeliveryObserverServiceForAuditToken(token objectivec.IObject) objectivec.IObject
 	DebugDescription() string
 	Description() string
 	Hash() uint64
@@ -124,10 +121,6 @@ func (w WSHIDEventDeliveryObserverServer) Activate() {
 }
 func (w WSHIDEventDeliveryObserverServer) AppendDescriptionToStream(stream objectivec.IObject) {
 	objc.SendIfResponds[objc.ID](w.ID, objc.Sel("appendDescriptionToStream:"), stream)
-}
-func (w WSHIDEventDeliveryObserverServer) DeliveryObserverServiceForAuditToken(token objectivec.IObject) objectivec.IObject {
-	rv := objc.SendIfResponds[objc.ID](w.ID, objc.Sel("deliveryObserverServiceForAuditToken:"), token)
-	return objectivec.Object{ID: rv}
 }
 
 func (_WSHIDEventDeliveryObserverServerClass WSHIDEventDeliveryObserverServerClass) SharedInstance() WSHIDEventDeliveryObserverServer {

@@ -183,7 +183,7 @@ type IIOGPUMetalCommandBuffer interface {
 	CommitAndReset()
 	CommitEncoder()
 	DidCompleteWithStartTimeEndTimeError(time uint64, time2 uint64, error_ objectivec.IObject)
-	DoCorruptCBSPI(cbspi int)
+	DoCorruptCBSPI(cbspi int32)
 	EncodeConditionalAbortEvent(event objectivec.IObject)
 	EncodeSignalEventValueAgentMask(event objectivec.IObject, value uint64, mask uint64)
 	EncodeSignalEventScheduledValue(scheduled objectivec.IObject, value uint64)
@@ -238,13 +238,13 @@ func NewIOGPUMetalCommandBuffer() IOGPUMetalCommandBuffer {
 	return rv
 }
 
-func NewGPUMetalCommandBufferWithQueueRetainedReferences(queue objectivec.IObject, references bool) IOGPUMetalCommandBuffer {
+func NewIOGPUMetalCommandBufferWithQueueRetainedReferences(queue objectivec.IObject, references bool) IOGPUMetalCommandBuffer {
 	instance := getIOGPUMetalCommandBufferClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithQueue:retainedReferences:"), queue, references)
 	return IOGPUMetalCommandBufferFromID(rv)
 }
 
-func NewGPUMetalCommandBufferWithQueueRetainedReferencesSynchronousDebugMode(queue objectivec.IObject, references bool, mode bool) IOGPUMetalCommandBuffer {
+func NewIOGPUMetalCommandBufferWithQueueRetainedReferencesSynchronousDebugMode(queue objectivec.IObject, references bool, mode bool) IOGPUMetalCommandBuffer {
 	instance := getIOGPUMetalCommandBufferClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithQueue:retainedReferences:synchronousDebugMode:"), queue, references, mode)
 	return IOGPUMetalCommandBufferFromID(rv)
@@ -339,7 +339,7 @@ func (i IOGPUMetalCommandBuffer) CommitEncoder() {
 func (i IOGPUMetalCommandBuffer) DidCompleteWithStartTimeEndTimeError(time uint64, time2 uint64, error_ objectivec.IObject) {
 	objc.SendIfResponds[objc.ID](i.ID, objc.Sel("didCompleteWithStartTime:endTime:error:"), time, time2, error_)
 }
-func (i IOGPUMetalCommandBuffer) DoCorruptCBSPI(cbspi int) {
+func (i IOGPUMetalCommandBuffer) DoCorruptCBSPI(cbspi int32) {
 	objc.SendIfResponds[objc.ID](i.ID, objc.Sel("doCorruptCBSPI:"), cbspi)
 }
 func (i IOGPUMetalCommandBuffer) EncodeConditionalAbortEvent(event objectivec.IObject) {
@@ -377,7 +377,7 @@ func (i IOGPUMetalCommandBuffer) GetSegmentListHeader() *IOGPUSegmentListHeader 
 	return (*IOGPUSegmentListHeader)(rv)
 }
 func (i IOGPUMetalCommandBuffer) GetSegmentListLockedPeerIndex(index *uint32) bool {
-	rv := objc.SendIfResponds[bool](i.ID, objc.Sel("getSegmentListLockedPeerIndex:"), unsafe.Pointer(index))
+	rv := objc.SendIfResponds[bool](i.ID, objc.Sel("getSegmentListLockedPeerIndex:"), index)
 	return rv
 }
 func (i IOGPUMetalCommandBuffer) GetSegmentListPointerStartCurrentEnd(start unsafe.Pointer, current unsafe.Pointer, end unsafe.Pointer) {

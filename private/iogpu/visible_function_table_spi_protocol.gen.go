@@ -3,8 +3,6 @@
 package iogpu
 
 import (
-	"unsafe"
-
 	"github.com/tmc/apple/foundation"
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
@@ -105,7 +103,7 @@ func (o MTLVisibleFunctionTableSPIObject) SetBufferOffsetAtIndex(buffer objectiv
 	objc.SendIfResponds[struct{}](o.ID, objc.Sel("setBuffer:offset:atIndex:"), buffer, offset, index)
 }
 func (o MTLVisibleFunctionTableSPIObject) SetBuffersOffsetsWithRange(buffers []objectivec.IObject, offsets *uint64, range_ foundation.NSRange) {
-	objc.SendIfResponds[struct{}](o.ID, objc.Sel("setBuffers:offsets:withRange:"), objectivec.IObjectSliceToNSArray(buffers), unsafe.Pointer(offsets), range_)
+	objc.SendIfResponds[struct{}](o.ID, objc.Sel("setBuffers:offsets:withRange:"), objectivec.IObjectSliceToNSArray(buffers), offsets, range_)
 }
 func (o MTLVisibleFunctionTableSPIObject) SetGlobalBuffer(buffer objectivec.IObject) {
 	objc.SendIfResponds[struct{}](o.ID, objc.Sel("setGlobalBuffer:"), buffer)

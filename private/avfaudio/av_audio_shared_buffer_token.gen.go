@@ -1,4 +1,4 @@
-// Code generated from Apple documentation for AVFAudio. DO NOT EDIT.
+// Code generated from Apple documentation for avfaudio. DO NOT EDIT.
 
 package avfaudio
 
@@ -110,13 +110,13 @@ func NewAVAudioSharedBufferToken() AVAudioSharedBufferToken {
 	return rv
 }
 
-func NewAudioSharedBufferTokenWithCoder(coder objectivec.IObject) AVAudioSharedBufferToken {
+func NewAVAudioSharedBufferTokenWithCoder(coder objectivec.IObject) AVAudioSharedBufferToken {
 	instance := getAVAudioSharedBufferTokenClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
 	return AVAudioSharedBufferTokenFromID(rv)
 }
 
-func NewAudioSharedBufferTokenWithSurfaceTaskToken(surface iosurface.IOSurfaceRef, token uint32) AVAudioSharedBufferToken {
+func NewAVAudioSharedBufferTokenWithSurfaceTaskToken(surface iosurface.IOSurfaceRef, token uint32) AVAudioSharedBufferToken {
 	instance := getAVAudioSharedBufferTokenClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithSurface:taskToken:"), surface, token)
 	return AVAudioSharedBufferTokenFromID(rv)

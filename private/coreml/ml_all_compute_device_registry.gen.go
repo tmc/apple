@@ -1,4 +1,4 @@
-// Code generated from Apple documentation for CoreML. DO NOT EDIT.
+// Code generated from Apple documentation for coreml. DO NOT EDIT.
 
 package coreml
 
@@ -108,7 +108,7 @@ func NewMLAllComputeDeviceRegistry() MLAllComputeDeviceRegistry {
 	return rv
 }
 
-func NewAllComputeDeviceRegistryWithDeviceRegistries(registries objectivec.IObject) MLAllComputeDeviceRegistry {
+func NewMLAllComputeDeviceRegistryWithDeviceRegistries(registries objectivec.IObject) MLAllComputeDeviceRegistry {
 	instance := getMLAllComputeDeviceRegistryClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithDeviceRegistries:"), registries)
 	return MLAllComputeDeviceRegistryFromID(rv)

@@ -89,18 +89,18 @@ type IEspressoBrickTensorShape interface {
 
 	// Topic: Methods
 
-	Batch() int
-	SetBatch(value int)
-	Channels() int
-	SetChannels(value int)
-	Height() int
-	SetHeight(value int)
-	Rank() int
-	SetRank(value int)
-	Sequence() int
-	SetSequence(value int)
-	Width() int
-	SetWidth(value int)
+	Batch() int32
+	SetBatch(value int32)
+	Channels() int32
+	SetChannels(value int32)
+	Height() int32
+	SetHeight(value int32)
+	Rank() int32
+	SetRank(value int32)
+	Sequence() int32
+	SetSequence(value int32)
+	Width() int32
+	SetWidth(value int32)
 }
 
 // Init initializes the instance.
@@ -122,45 +122,45 @@ func NewEspressoBrickTensorShape() EspressoBrickTensorShape {
 	return rv
 }
 
-func (e EspressoBrickTensorShape) Batch() int {
-	rv := objc.SendIfResponds[int](e.ID, objc.Sel("batch"))
+func (e EspressoBrickTensorShape) Batch() int32 {
+	rv := objc.SendIfResponds[int32](e.ID, objc.Sel("batch"))
 	return rv
 }
-func (e EspressoBrickTensorShape) SetBatch(value int) {
+func (e EspressoBrickTensorShape) SetBatch(value int32) {
 	objc.SendIfResponds[struct{}](e.ID, objc.Sel("setBatch:"), value)
 }
-func (e EspressoBrickTensorShape) Channels() int {
-	rv := objc.SendIfResponds[int](e.ID, objc.Sel("channels"))
+func (e EspressoBrickTensorShape) Channels() int32 {
+	rv := objc.SendIfResponds[int32](e.ID, objc.Sel("channels"))
 	return rv
 }
-func (e EspressoBrickTensorShape) SetChannels(value int) {
+func (e EspressoBrickTensorShape) SetChannels(value int32) {
 	objc.SendIfResponds[struct{}](e.ID, objc.Sel("setChannels:"), value)
 }
-func (e EspressoBrickTensorShape) Height() int {
-	rv := objc.SendIfResponds[int](e.ID, objc.Sel("height"))
+func (e EspressoBrickTensorShape) Height() int32 {
+	rv := objc.SendIfResponds[int32](e.ID, objc.Sel("height"))
 	return rv
 }
-func (e EspressoBrickTensorShape) SetHeight(value int) {
+func (e EspressoBrickTensorShape) SetHeight(value int32) {
 	objc.SendIfResponds[struct{}](e.ID, objc.Sel("setHeight:"), value)
 }
-func (e EspressoBrickTensorShape) Rank() int {
-	rv := objc.SendIfResponds[int](e.ID, objc.Sel("rank"))
+func (e EspressoBrickTensorShape) Rank() int32 {
+	rv := objc.SendIfResponds[int32](e.ID, objc.Sel("rank"))
 	return rv
 }
-func (e EspressoBrickTensorShape) SetRank(value int) {
+func (e EspressoBrickTensorShape) SetRank(value int32) {
 	objc.SendIfResponds[struct{}](e.ID, objc.Sel("setRank:"), value)
 }
-func (e EspressoBrickTensorShape) Sequence() int {
-	rv := objc.SendIfResponds[int](e.ID, objc.Sel("sequence"))
+func (e EspressoBrickTensorShape) Sequence() int32 {
+	rv := objc.SendIfResponds[int32](e.ID, objc.Sel("sequence"))
 	return rv
 }
-func (e EspressoBrickTensorShape) SetSequence(value int) {
+func (e EspressoBrickTensorShape) SetSequence(value int32) {
 	objc.SendIfResponds[struct{}](e.ID, objc.Sel("setSequence:"), value)
 }
-func (e EspressoBrickTensorShape) Width() int {
-	rv := objc.SendIfResponds[int](e.ID, objc.Sel("width"))
+func (e EspressoBrickTensorShape) Width() int32 {
+	rv := objc.SendIfResponds[int32](e.ID, objc.Sel("width"))
 	return rv
 }
-func (e EspressoBrickTensorShape) SetWidth(value int) {
+func (e EspressoBrickTensorShape) SetWidth(value int32) {
 	objc.SendIfResponds[struct{}](e.ID, objc.Sel("setWidth:"), value)
 }

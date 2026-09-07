@@ -1,4 +1,4 @@
-// Code generated from Apple documentation for AVFAudio. DO NOT EDIT.
+// Code generated from Apple documentation for avfaudio. DO NOT EDIT.
 
 package avfaudio
 
@@ -120,7 +120,7 @@ func NewAVVCPrepareRecordSettings() AVVCPrepareRecordSettings {
 	return rv
 }
 
-func NewVCPrepareRecordSettingsWithStreamIDSettingsBufferDuration(id uint64, settings objectivec.IObject, duration float64) AVVCPrepareRecordSettings {
+func NewAVVCPrepareRecordSettingsWithStreamIDSettingsBufferDuration(id uint64, settings objectivec.IObject, duration float64) AVVCPrepareRecordSettings {
 	instance := getAVVCPrepareRecordSettingsClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithStreamID:settings:bufferDuration:"), id, settings, duration)
 	return AVVCPrepareRecordSettingsFromID(rv)

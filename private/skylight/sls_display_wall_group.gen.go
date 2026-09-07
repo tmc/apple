@@ -113,6 +113,6 @@ func (s SLSDisplayWallGroup) DisplayIDs() foundation.INSArray {
 	return foundation.NSArrayFromID(objc.ID(rv))
 }
 func (s SLSDisplayWallGroup) GroupID() foundation.NSNumber {
-	rv := objc.SendIfResponds[objc.ID](s.ID, objc.Sel("groupID"))
-	return foundation.NSNumberFromID(objc.ID(rv))
+	rv := objc.SendIfResponds[foundation.NSNumber](s.ID, objc.Sel("groupID"))
+	return foundation.NSNumber(rv)
 }

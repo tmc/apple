@@ -1,4 +1,4 @@
-// Code generated from Apple documentation for CoreML. DO NOT EDIT.
+// Code generated from Apple documentation for coreml. DO NOT EDIT.
 
 package coreml
 
@@ -133,8 +133,8 @@ func (_MLUpdateContextClass MLUpdateContextClass) UpdateContextWithTaskModelEven
 }
 
 func (m MLUpdateContext) Error() foundation.NSError {
-	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("error"))
-	return foundation.NSErrorFromID(objc.ID(rv))
+	rv := objc.SendIfResponds[foundation.NSError](m.ID, objc.Sel("error"))
+	return foundation.NSError(rv)
 }
 func (m MLUpdateContext) SetError(value foundation.NSError) {
 	objc.SendIfResponds[struct{}](m.ID, objc.Sel("setError:"), value)

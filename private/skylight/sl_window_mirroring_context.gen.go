@@ -167,17 +167,17 @@ func (s SLWindowMirroringContext) InitWithDisplay(display objectivec.IObject) SL
 }
 
 func (s SLWindowMirroringContext) DisplayID() foundation.NSNumber {
-	rv := objc.SendIfResponds[objc.ID](s.ID, objc.Sel("displayID"))
-	return foundation.NSNumberFromID(objc.ID(rv))
+	rv := objc.SendIfResponds[foundation.NSNumber](s.ID, objc.Sel("displayID"))
+	return foundation.NSNumber(rv)
 }
 func (s SLWindowMirroringContext) ShieldWindowID() foundation.NSNumber {
-	rv := objc.SendIfResponds[objc.ID](s.ID, objc.Sel("shieldWindowID"))
-	return foundation.NSNumberFromID(objc.ID(rv))
+	rv := objc.SendIfResponds[foundation.NSNumber](s.ID, objc.Sel("shieldWindowID"))
+	return foundation.NSNumber(rv)
 }
 func (s SLWindowMirroringContext) SetShieldWindowID(value foundation.NSNumber) {
 	objc.SendIfResponds[struct{}](s.ID, objc.Sel("setShieldWindowID:"), value)
 }
 func (s SLWindowMirroringContext) SrcDisplayID() foundation.NSNumber {
-	rv := objc.SendIfResponds[objc.ID](s.ID, objc.Sel("srcDisplayID"))
-	return foundation.NSNumberFromID(objc.ID(rv))
+	rv := objc.SendIfResponds[foundation.NSNumber](s.ID, objc.Sel("srcDisplayID"))
+	return foundation.NSNumber(rv)
 }

@@ -155,7 +155,7 @@ type ICustomizeVoicesWindowController interface {
 	SoundDidFinishPlaying(sound objectivec.IObject, playing bool)
 	SpeechSynthesizerDidFinishSpeaking(synthesizer objectivec.IObject, speaking bool)
 	StartStopPlayingSelection(selection objectivec.IObject)
-	TableViewIsGroupRow(view objectivec.IObject, row int) bool
+	TableViewIsGroupRow(view objectivec.IObject, row int32) bool
 	TableViewShouldSelectRow(view objectivec.IObject, row int64) bool
 	TableViewViewForTableColumnRow(view objectivec.IObject, column objectivec.IObject, row int64) objectivec.IObject
 	TableViewSelectionDidChange(change objectivec.IObject)
@@ -497,7 +497,7 @@ func (c CustomizeVoicesWindowController) SpeechSynthesizerDidFinishSpeaking(synt
 func (c CustomizeVoicesWindowController) StartStopPlayingSelection(selection objectivec.IObject) {
 	objc.SendIfResponds[objc.ID](c.ID, objc.Sel("startStopPlayingSelection:"), selection)
 }
-func (c CustomizeVoicesWindowController) TableViewIsGroupRow(view objectivec.IObject, row int) bool {
+func (c CustomizeVoicesWindowController) TableViewIsGroupRow(view objectivec.IObject, row int32) bool {
 	rv := objc.SendIfResponds[bool](c.ID, objc.Sel("tableView:isGroupRow:"), view, row)
 	return rv
 }

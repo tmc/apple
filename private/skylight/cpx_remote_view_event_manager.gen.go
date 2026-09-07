@@ -84,8 +84,8 @@ type ICPXRemoteViewEventManager interface {
 	DidReceiveConnectionConfig(connection objectivec.IObject, config objectivec.IObject)
 	InvalidateConnections()
 	PassEventUpstreamToHostFullDispatchReply(host objectivec.IObject, dispatch objectivec.IObject, reply VoidHandler)
-	PidForCurrentConnection() int
-	SendEventToHostPidFullDispatchReply(event *CGEvent, pid int, dispatch objectivec.IObject, reply VoidHandler)
+	PidForCurrentConnection() int32
+	SendEventToHostPidFullDispatchReply(event *CGEvent, pid int32, dispatch objectivec.IObject, reply VoidHandler)
 	InitWithDeliveryManager(manager objectivec.IObject) CPXRemoteViewEventManager
 }
 
@@ -128,11 +128,11 @@ func (c CPXRemoteViewEventManager) PassEventUpstreamToHostFullDispatchReply(host
 	_block2, _ := NewVoidBlock(reply)
 	objc.SendIfResponds[objc.ID](c.ID, objc.Sel("passEventUpstreamToHost:fullDispatch:reply:"), host, dispatch, _block2)
 }
-func (c CPXRemoteViewEventManager) PidForCurrentConnection() int {
-	rv := objc.SendIfResponds[int](c.ID, objc.Sel("pidForCurrentConnection"))
+func (c CPXRemoteViewEventManager) PidForCurrentConnection() int32 {
+	rv := objc.SendIfResponds[int32](c.ID, objc.Sel("pidForCurrentConnection"))
 	return rv
 }
-func (c CPXRemoteViewEventManager) SendEventToHostPidFullDispatchReply(event *CGEvent, pid int, dispatch objectivec.IObject, reply VoidHandler) {
+func (c CPXRemoteViewEventManager) SendEventToHostPidFullDispatchReply(event *CGEvent, pid int32, dispatch objectivec.IObject, reply VoidHandler) {
 	_block3, _ := NewVoidBlock(reply)
 	objc.SendIfResponds[objc.ID](c.ID, objc.Sel("sendEvent:toHostPid:fullDispatch:reply:"), event, pid, dispatch, _block3)
 }
@@ -158,7 +158,7 @@ func (c CPXRemoteViewEventManager) PassEventUpstreamToHostFullDispatchReplySync(
 
 // SendEventToHostPidFullDispatchReplySync is a synchronous wrapper around [CPXRemoteViewEventManager.SendEventToHostPidFullDispatchReply].
 // It blocks until the completion handler fires or the context is cancelled.
-func (c CPXRemoteViewEventManager) SendEventToHostPidFullDispatchReplySync(ctx context.Context, event *CGEvent, pid int, dispatch objectivec.IObject) error {
+func (c CPXRemoteViewEventManager) SendEventToHostPidFullDispatchReplySync(ctx context.Context, event *CGEvent, pid int32, dispatch objectivec.IObject) error {
 	done := make(chan struct{}, 1)
 	c.SendEventToHostPidFullDispatchReply(event, pid, dispatch, func() {
 		done <- struct{}{}

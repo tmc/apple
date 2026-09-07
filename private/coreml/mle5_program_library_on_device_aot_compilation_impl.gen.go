@@ -1,4 +1,4 @@
-// Code generated from Apple documentation for CoreML. DO NOT EDIT.
+// Code generated from Apple documentation for coreml. DO NOT EDIT.
 
 package coreml
 
@@ -116,7 +116,7 @@ func NewMLE5ProgramLibraryOnDeviceAOTCompilationImpl() MLE5ProgramLibraryOnDevic
 	return rv
 }
 
-func NewE5ProgramLibraryOnDeviceAOTCompilationImplWithMILTextAtURLContainerConfiguration(url foundation.NSURL, container objectivec.IObject, configuration objectivec.IObject) MLE5ProgramLibraryOnDeviceAOTCompilationImpl {
+func NewMLE5ProgramLibraryOnDeviceAOTCompilationImplWithMILTextAtURLContainerConfiguration(url foundation.NSURL, container objectivec.IObject, configuration objectivec.IObject) MLE5ProgramLibraryOnDeviceAOTCompilationImpl {
 	instance := getMLE5ProgramLibraryOnDeviceAOTCompilationImplClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithMILTextAtURL:container:configuration:"), url, container, configuration)
 	return MLE5ProgramLibraryOnDeviceAOTCompilationImplFromID(rv)

@@ -1,4 +1,4 @@
-// Code generated from Apple documentation for AVFAudio. DO NOT EDIT.
+// Code generated from Apple documentation for avfaudio. DO NOT EDIT.
 
 package avfaudio
 
@@ -90,13 +90,13 @@ func NewAVAudioUnitSplitter() AVAudioUnitSplitter {
 	return rv
 }
 
-func NewAudioUnitSplitterWithAudioComponentDescription(description audiotoolbox.AudioComponentDescription) AVAudioUnitSplitter {
+func NewAVAudioUnitSplitterWithAudioComponentDescription(description audiotoolbox.AudioComponentDescription) AVAudioUnitSplitter {
 	instance := getAVAudioUnitSplitterClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithAudioComponentDescription:"), description)
 	return AVAudioUnitSplitterFromID(rv)
 }
 
-func NewAudioUnitSplitterWithImpl(impl unsafe.Pointer) AVAudioUnitSplitter {
+func NewAVAudioUnitSplitterWithImpl(impl unsafe.Pointer) AVAudioUnitSplitter {
 	instance := getAVAudioUnitSplitterClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithImpl:"), impl)
 	return AVAudioUnitSplitterFromID(rv)

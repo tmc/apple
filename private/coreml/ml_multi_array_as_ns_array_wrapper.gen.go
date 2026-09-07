@@ -1,4 +1,4 @@
-// Code generated from Apple documentation for CoreML. DO NOT EDIT.
+// Code generated from Apple documentation for coreml. DO NOT EDIT.
 
 package coreml
 
@@ -96,7 +96,7 @@ func NewMLMultiArrayAsNSArrayWrapper() MLMultiArrayAsNSArrayWrapper {
 	return rv
 }
 
-func NewMultiArrayAsNSArrayWrapperWrappingMultiArray(array objectivec.IObject) MLMultiArrayAsNSArrayWrapper {
+func NewMLMultiArrayAsNSArrayWrapperWrappingMultiArray(array objectivec.IObject) MLMultiArrayAsNSArrayWrapper {
 	instance := getMLMultiArrayAsNSArrayWrapperClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWrappingMultiArray:"), array)
 	return MLMultiArrayAsNSArrayWrapperFromID(rv)

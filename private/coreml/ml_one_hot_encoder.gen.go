@@ -1,4 +1,4 @@
-// Code generated from Apple documentation for CoreML. DO NOT EDIT.
+// Code generated from Apple documentation for coreml. DO NOT EDIT.
 
 package coreml
 
@@ -109,19 +109,19 @@ func NewMLOneHotEncoder() MLOneHotEncoder {
 	return rv
 }
 
-func NewOneHotEncoderWithDataTransformerNameOuputSparseHandleUnknownInputDescriptionOutputDescriptionOrderedInputFeatureNamesOrderedOutputFeatureNamesConfiguration(with objectivec.IObject, name objectivec.IObject, sparse bool, unknown bool, description objectivec.IObject, description2 objectivec.IObject, names objectivec.IObject, names2 objectivec.IObject, configuration objectivec.IObject) MLOneHotEncoder {
+func NewMLOneHotEncoderWithDataTransformerNameOuputSparseHandleUnknownInputDescriptionOutputDescriptionOrderedInputFeatureNamesOrderedOutputFeatureNamesConfiguration(with objectivec.IObject, name objectivec.IObject, sparse bool, unknown bool, description objectivec.IObject, description2 objectivec.IObject, names objectivec.IObject, names2 objectivec.IObject, configuration objectivec.IObject) MLOneHotEncoder {
 	instance := getMLOneHotEncoderClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWith:dataTransformerName:ouputSparse:handleUnknown:inputDescription:outputDescription:orderedInputFeatureNames:orderedOutputFeatureNames:configuration:"), with, name, sparse, unknown, description, description2, names, names2, configuration)
 	return MLOneHotEncoderFromID(rv)
 }
 
-func NewOneHotEncoderWithDescriptionConfiguration(description objectivec.IObject, configuration objectivec.IObject) MLOneHotEncoder {
+func NewMLOneHotEncoderWithDescriptionConfiguration(description objectivec.IObject, configuration objectivec.IObject) MLOneHotEncoder {
 	instance := getMLOneHotEncoderClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithDescription:configuration:"), description, configuration)
 	return MLOneHotEncoderFromID(rv)
 }
 
-func NewOneHotEncoderWithNameInputDescriptionOutputDescriptionOrderedInputFeatureNamesOrderedOutputFeatureNamesConfiguration(name objectivec.IObject, description objectivec.IObject, description2 objectivec.IObject, names objectivec.IObject, names2 objectivec.IObject, configuration objectivec.IObject) MLOneHotEncoder {
+func NewMLOneHotEncoderWithNameInputDescriptionOutputDescriptionOrderedInputFeatureNamesOrderedOutputFeatureNamesConfiguration(name objectivec.IObject, description objectivec.IObject, description2 objectivec.IObject, names objectivec.IObject, names2 objectivec.IObject, configuration objectivec.IObject) MLOneHotEncoder {
 	instance := getMLOneHotEncoderClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithName:inputDescription:outputDescription:orderedInputFeatureNames:orderedOutputFeatureNames:configuration:"), name, description, description2, names, names2, configuration)
 	return MLOneHotEncoderFromID(rv)

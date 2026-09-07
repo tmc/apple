@@ -1,4 +1,4 @@
-// Code generated from Apple documentation for Virtualization. DO NOT EDIT.
+// Code generated from Apple documentation for virtualization. DO NOT EDIT.
 
 package virtualization
 
@@ -54,6 +54,9 @@ func (vc VZGenericPlatformConfigurationClass) Alloc() VZGenericPlatformConfigura
 //   - [VZGenericPlatformConfiguration._setFineGrainedTrapsEmulationEnabled]
 //   - [VZGenericPlatformConfiguration._setGuestType]
 //   - [VZGenericPlatformConfiguration._setPerformanceMonitoringUnitEmulationEnabled]
+//   - [VZGenericPlatformConfiguration._setVirtualizationHostExtensionEnabled]
+//   - [VZGenericPlatformConfiguration._virtualizationHostExtensionEnabled]
+//   - [VZGenericPlatformConfiguration.Set_virtualizationHostExtensionEnabled]
 //   - [VZGenericPlatformConfiguration.NestedVirtualizationEnabled]
 //   - [VZGenericPlatformConfiguration.SetNestedVirtualizationEnabled]
 type VZGenericPlatformConfiguration struct {
@@ -81,6 +84,9 @@ var _ IVZGenericPlatformConfiguration = VZGenericPlatformConfiguration{}
 //   - [IVZGenericPlatformConfiguration._setFineGrainedTrapsEmulationEnabled]
 //   - [IVZGenericPlatformConfiguration._setGuestType]
 //   - [IVZGenericPlatformConfiguration._setPerformanceMonitoringUnitEmulationEnabled]
+//   - [IVZGenericPlatformConfiguration._setVirtualizationHostExtensionEnabled]
+//   - [IVZGenericPlatformConfiguration._virtualizationHostExtensionEnabled]
+//   - [IVZGenericPlatformConfiguration.Set_virtualizationHostExtensionEnabled]
 //   - [IVZGenericPlatformConfiguration.NestedVirtualizationEnabled]
 //   - [IVZGenericPlatformConfiguration.SetNestedVirtualizationEnabled]
 type IVZGenericPlatformConfiguration interface {
@@ -97,6 +103,9 @@ type IVZGenericPlatformConfiguration interface {
 	_setFineGrainedTrapsEmulationEnabled(enabled bool)
 	_setGuestType(type_ objectivec.IObject)
 	_setPerformanceMonitoringUnitEmulationEnabled(enabled bool)
+	_setVirtualizationHostExtensionEnabled(enabled bool)
+	_virtualizationHostExtensionEnabled() bool
+	Set_virtualizationHostExtensionEnabled(value bool)
 	NestedVirtualizationEnabled() bool
 	SetNestedVirtualizationEnabled(value bool)
 }
@@ -174,6 +183,24 @@ func (v VZGenericPlatformConfiguration) SetPerformanceMonitoringUnitEmulationEna
 func (v VZGenericPlatformConfiguration) CanSetPerformanceMonitoringUnitEmulationEnabled() bool {
 	return objc.RespondsToSelector(v.ID, objc.Sel("_setPerformanceMonitoringUnitEmulationEnabled:"))
 }
+func (v VZGenericPlatformConfiguration) _setVirtualizationHostExtensionEnabled(enabled bool) {
+	objc.SendIfResponds[objc.ID](v.ID, objc.Sel("_setVirtualizationHostExtensionEnabled:"), enabled)
+}
+
+// SetVirtualizationHostExtensionEnabled is an exported wrapper for the private method _setVirtualizationHostExtensionEnabled.
+func (v VZGenericPlatformConfiguration) SetVirtualizationHostExtensionEnabled(enabled bool) error {
+	if !objc.RespondsToSelector(v.ID, objc.Sel("_setVirtualizationHostExtensionEnabled:")) {
+		err := &objc.UnrecognizedSelectorError{Selector: "_setVirtualizationHostExtensionEnabled:"}
+		return err
+	}
+	v._setVirtualizationHostExtensionEnabled(enabled)
+	return nil
+}
+
+// CanSetVirtualizationHostExtensionEnabled reports whether the receiver responds to the private selector _setVirtualizationHostExtensionEnabled:.
+func (v VZGenericPlatformConfiguration) CanSetVirtualizationHostExtensionEnabled() bool {
+	return objc.RespondsToSelector(v.ID, objc.Sel("_setVirtualizationHostExtensionEnabled:"))
+}
 
 func (v VZGenericPlatformConfiguration) _fineGrainTrapsEmulationEnabled() bool {
 	rv := objc.SendIfResponds[bool](v.ID, objc.Sel("_fineGrainTrapsEmulationEnabled"))
@@ -234,6 +261,26 @@ func (v VZGenericPlatformConfiguration) PerformanceMonitoringUnitEmulationEnable
 }
 func (v VZGenericPlatformConfiguration) Set_performanceMonitoringUnitEmulationEnabled(value bool) {
 	objc.SendIfResponds[struct{}](v.ID, objc.Sel("set_performanceMonitoringUnitEmulationEnabled:"), value)
+}
+func (v VZGenericPlatformConfiguration) _virtualizationHostExtensionEnabled() bool {
+	rv := objc.SendIfResponds[bool](v.ID, objc.Sel("_virtualizationHostExtensionEnabled"))
+	return rv
+}
+
+// CanVirtualizationHostExtensionEnabled reports whether the receiver responds to the private selector _virtualizationHostExtensionEnabled.
+func (v VZGenericPlatformConfiguration) CanVirtualizationHostExtensionEnabled() bool {
+	return objc.RespondsToSelector(v.ID, objc.Sel("_virtualizationHostExtensionEnabled"))
+}
+
+// VirtualizationHostExtensionEnabled is an exported wrapper for the private property _virtualizationHostExtensionEnabled.
+func (v VZGenericPlatformConfiguration) VirtualizationHostExtensionEnabled() (bool, error) {
+	if !objc.RespondsToSelector(v.ID, objc.Sel("_virtualizationHostExtensionEnabled")) {
+		return false, &objc.UnrecognizedSelectorError{Selector: "_virtualizationHostExtensionEnabled"}
+	}
+	return v._virtualizationHostExtensionEnabled(), nil
+}
+func (v VZGenericPlatformConfiguration) Set_virtualizationHostExtensionEnabled(value bool) {
+	objc.SendIfResponds[struct{}](v.ID, objc.Sel("set_virtualizationHostExtensionEnabled:"), value)
 }
 func (v VZGenericPlatformConfiguration) NestedVirtualizationEnabled() bool {
 	rv := objc.SendIfResponds[bool](v.ID, objc.Sel("nestedVirtualizationEnabled"))

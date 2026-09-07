@@ -1,4 +1,4 @@
-// Code generated from Apple documentation for CoreML. DO NOT EDIT.
+// Code generated from Apple documentation for coreml. DO NOT EDIT.
 
 package coreml
 
@@ -105,7 +105,7 @@ func NewMLBackgroundPredictionTask() MLBackgroundPredictionTask {
 	return rv
 }
 
-func NewBackgroundPredictionTaskWithCoder(coder objectivec.IObject) MLBackgroundPredictionTask {
+func NewMLBackgroundPredictionTaskWithCoder(coder objectivec.IObject) MLBackgroundPredictionTask {
 	instance := getMLBackgroundPredictionTaskClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
 	return MLBackgroundPredictionTaskFromID(rv)
@@ -124,8 +124,8 @@ func (m MLBackgroundPredictionTask) SetModelConfiguration(value IMLModelConfigur
 	objc.SendIfResponds[struct{}](m.ID, objc.Sel("setModelConfiguration:"), value)
 }
 func (m MLBackgroundPredictionTask) ModelURL() foundation.NSURL {
-	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("modelURL"))
-	return foundation.NSURLFromID(objc.ID(rv))
+	rv := objc.SendIfResponds[foundation.NSURL](m.ID, objc.Sel("modelURL"))
+	return foundation.NSURL(rv)
 }
 func (m MLBackgroundPredictionTask) SetModelURL(value foundation.NSURL) {
 	objc.SendIfResponds[struct{}](m.ID, objc.Sel("setModelURL:"), value)

@@ -80,12 +80,12 @@ type IETModelDefMLP interface {
 	// Topic: Methods
 
 	BuildNetwork()
-	Hidden_size() int
-	SetHidden_size(value int)
-	Input_size() int
-	SetInput_size(value int)
-	Output_size() int
-	SetOutput_size(value int)
+	Hidden_size() int32
+	SetHidden_size(value int32)
+	Input_size() int32
+	SetInput_size(value int32)
+	Output_size() int32
+	SetOutput_size(value int32)
 }
 
 // Init initializes the instance.
@@ -117,24 +117,24 @@ func (e ETModelDefMLP) BuildNetwork() {
 	objc.SendIfResponds[objc.ID](e.ID, objc.Sel("buildNetwork"))
 }
 
-func (e ETModelDefMLP) Hidden_size() int {
-	rv := objc.SendIfResponds[int](e.ID, objc.Sel("hidden_size"))
+func (e ETModelDefMLP) Hidden_size() int32 {
+	rv := objc.SendIfResponds[int32](e.ID, objc.Sel("hidden_size"))
 	return rv
 }
-func (e ETModelDefMLP) SetHidden_size(value int) {
+func (e ETModelDefMLP) SetHidden_size(value int32) {
 	objc.SendIfResponds[struct{}](e.ID, objc.Sel("setHidden_size:"), value)
 }
-func (e ETModelDefMLP) Input_size() int {
-	rv := objc.SendIfResponds[int](e.ID, objc.Sel("input_size"))
+func (e ETModelDefMLP) Input_size() int32 {
+	rv := objc.SendIfResponds[int32](e.ID, objc.Sel("input_size"))
 	return rv
 }
-func (e ETModelDefMLP) SetInput_size(value int) {
+func (e ETModelDefMLP) SetInput_size(value int32) {
 	objc.SendIfResponds[struct{}](e.ID, objc.Sel("setInput_size:"), value)
 }
-func (e ETModelDefMLP) Output_size() int {
-	rv := objc.SendIfResponds[int](e.ID, objc.Sel("output_size"))
+func (e ETModelDefMLP) Output_size() int32 {
+	rv := objc.SendIfResponds[int32](e.ID, objc.Sel("output_size"))
 	return rv
 }
-func (e ETModelDefMLP) SetOutput_size(value int) {
+func (e ETModelDefMLP) SetOutput_size(value int32) {
 	objc.SendIfResponds[struct{}](e.ID, objc.Sel("setOutput_size:"), value)
 }

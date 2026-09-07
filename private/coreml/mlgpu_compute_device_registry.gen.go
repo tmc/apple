@@ -1,4 +1,4 @@
-// Code generated from Apple documentation for CoreML. DO NOT EDIT.
+// Code generated from Apple documentation for coreml. DO NOT EDIT.
 
 package coreml
 
@@ -124,7 +124,7 @@ func NewMLGPUComputeDeviceRegistry() MLGPUComputeDeviceRegistry {
 	return rv
 }
 
-func NewGPUComputeDeviceRegistryWithMetalDeviceObserver(observer objectivec.IObject) MLGPUComputeDeviceRegistry {
+func NewMLGPUComputeDeviceRegistryWithMetalDeviceObserver(observer objectivec.IObject) MLGPUComputeDeviceRegistry {
 	instance := getMLGPUComputeDeviceRegistryClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithMetalDeviceObserver:"), observer)
 	return MLGPUComputeDeviceRegistryFromID(rv)

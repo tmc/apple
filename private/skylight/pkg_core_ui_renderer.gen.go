@@ -95,7 +95,7 @@ func NewPKGCoreUIRenderer() PKGCoreUIRenderer {
 	return rv
 }
 
-func NewGCoreUIRendererWithRendererName(name objectivec.IObject) PKGCoreUIRenderer {
+func NewPKGCoreUIRendererWithRendererName(name objectivec.IObject) PKGCoreUIRenderer {
 	instance := getPKGCoreUIRendererClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithRendererName:"), name)
 	return PKGCoreUIRendererFromID(rv)

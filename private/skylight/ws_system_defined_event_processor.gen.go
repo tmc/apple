@@ -4,7 +4,6 @@ package skylight
 
 import (
 	"sync"
-	"unsafe"
 
 	"github.com/tmc/apple/objc"
 )
@@ -43,12 +42,12 @@ func (wc WSSystemDefinedEventProcessorClass) Alloc() WSSystemDefinedEventProcess
 }
 
 type WSSystemDefinedEventProcessor struct {
-	WSEventProcessor
+	WSLegacyEventProcessor
 }
 
 // WSSystemDefinedEventProcessorFromID constructs a [WSSystemDefinedEventProcessor] from an objc.ID.
 func WSSystemDefinedEventProcessorFromID(id objc.ID) WSSystemDefinedEventProcessor {
-	return WSSystemDefinedEventProcessor{WSEventProcessor: WSEventProcessorFromID(id)}
+	return WSSystemDefinedEventProcessor{WSLegacyEventProcessor: WSLegacyEventProcessorFromID(id)}
 }
 
 // Ensure WSSystemDefinedEventProcessor implements IWSSystemDefinedEventProcessor.
@@ -56,7 +55,7 @@ var _ IWSSystemDefinedEventProcessor = WSSystemDefinedEventProcessor{}
 
 // An interface definition for the [WSSystemDefinedEventProcessor] class.
 type IWSSystemDefinedEventProcessor interface {
-	IWSEventProcessor
+	IWSLegacyEventProcessor
 }
 
 // Init initializes the instance.
@@ -76,10 +75,4 @@ func NewWSSystemDefinedEventProcessor() WSSystemDefinedEventProcessor {
 	class := getWSSystemDefinedEventProcessorClass()
 	rv := objc.SendIfResponds[WSSystemDefinedEventProcessor](objc.ID(class.class), objc.Sel("new"))
 	return rv
-}
-
-func NewWSSystemDefinedEventProcessorWithSession(session *CGXSession) WSSystemDefinedEventProcessor {
-	instance := getWSSystemDefinedEventProcessorClass().Alloc()
-	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithSession:"), unsafe.Pointer(session))
-	return WSSystemDefinedEventProcessorFromID(rv)
 }

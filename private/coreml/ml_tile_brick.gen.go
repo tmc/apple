@@ -1,4 +1,4 @@
-// Code generated from Apple documentation for CoreML. DO NOT EDIT.
+// Code generated from Apple documentation for coreml. DO NOT EDIT.
 
 package coreml
 
@@ -129,7 +129,7 @@ func NewMLTileBrick() MLTileBrick {
 	return rv
 }
 
-func NewTileBrickWithParameters(parameters objectivec.IObject) MLTileBrick {
+func NewMLTileBrickWithParameters(parameters objectivec.IObject) MLTileBrick {
 	instance := getMLTileBrickClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithParameters:"), parameters)
 	return MLTileBrickFromID(rv)

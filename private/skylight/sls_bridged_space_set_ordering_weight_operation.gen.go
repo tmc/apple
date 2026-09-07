@@ -72,8 +72,8 @@ type ISLSBridgedSpaceSetOrderingWeightOperation interface {
 	// Topic: Methods
 
 	SpaceID() uint64
-	Weight() int
-	InitWithSpaceIDWeight(id uint64, weight int) SLSBridgedSpaceSetOrderingWeightOperation
+	Weight() int32
+	InitWithSpaceIDWeight(id uint64, weight int32) SLSBridgedSpaceSetOrderingWeightOperation
 }
 
 // Init initializes the instance.
@@ -101,13 +101,13 @@ func NewSLSBridgedSpaceSetOrderingWeightOperationWithCoder(coder objectivec.IObj
 	return SLSBridgedSpaceSetOrderingWeightOperationFromID(rv)
 }
 
-func NewSLSBridgedSpaceSetOrderingWeightOperationWithSpaceIDWeight(id uint64, weight int) SLSBridgedSpaceSetOrderingWeightOperation {
+func NewSLSBridgedSpaceSetOrderingWeightOperationWithSpaceIDWeight(id uint64, weight int32) SLSBridgedSpaceSetOrderingWeightOperation {
 	instance := getSLSBridgedSpaceSetOrderingWeightOperationClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithSpaceID:weight:"), id, weight)
 	return SLSBridgedSpaceSetOrderingWeightOperationFromID(rv)
 }
 
-func (s SLSBridgedSpaceSetOrderingWeightOperation) InitWithSpaceIDWeight(id uint64, weight int) SLSBridgedSpaceSetOrderingWeightOperation {
+func (s SLSBridgedSpaceSetOrderingWeightOperation) InitWithSpaceIDWeight(id uint64, weight int32) SLSBridgedSpaceSetOrderingWeightOperation {
 	rv := objc.SendIfResponds[SLSBridgedSpaceSetOrderingWeightOperation](s.ID, objc.Sel("initWithSpaceID:weight:"), id, weight)
 	return rv
 }
@@ -116,7 +116,7 @@ func (s SLSBridgedSpaceSetOrderingWeightOperation) SpaceID() uint64 {
 	rv := objc.SendIfResponds[uint64](s.ID, objc.Sel("spaceID"))
 	return rv
 }
-func (s SLSBridgedSpaceSetOrderingWeightOperation) Weight() int {
-	rv := objc.SendIfResponds[int](s.ID, objc.Sel("weight"))
+func (s SLSBridgedSpaceSetOrderingWeightOperation) Weight() int32 {
+	rv := objc.SendIfResponds[int32](s.ID, objc.Sel("weight"))
 	return rv
 }

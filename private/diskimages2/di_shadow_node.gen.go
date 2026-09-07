@@ -87,7 +87,7 @@ type IDIShadowNode interface {
 	// Topic: Methods
 
 	URL() IDIURL
-	CreateBackendWithFlags(flags int)
+	CreateBackendWithFlags(flags int32)
 	EncodeWithCoder(coder foundation.INSCoder)
 	FileBackend() IFileLocalXPC
 	SetFileBackend(value IFileLocalXPC)
@@ -129,7 +129,7 @@ func NewDIShadowNodeWithURLIsCache(url foundation.NSURL, cache bool) DIShadowNod
 	return DIShadowNodeFromID(rv)
 }
 
-func (d DIShadowNode) CreateBackendWithFlags(flags int) {
+func (d DIShadowNode) CreateBackendWithFlags(flags int32) {
 	objc.SendIfResponds[objc.ID](d.ID, objc.Sel("createBackendWithFlags:"), flags)
 }
 func (d DIShadowNode) EncodeWithCoder(coder foundation.INSCoder) {

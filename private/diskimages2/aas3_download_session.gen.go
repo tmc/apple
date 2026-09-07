@@ -122,31 +122,31 @@ type IAAS3DownloadSession interface {
 	// Topic: Methods
 
 	AddBytesDownloaded(downloaded uint64)
-	AddRequest(request objectivec.IObject) int
+	AddRequest(request objectivec.IObject) int32
 	BytesDownloaded() uint64
 	SetBytesDownloaded(value uint64)
 	Cache() foundation.NSData
 	SetCache(value foundation.NSData)
 	CacheDocument(document objectivec.IObject)
 	CacheLock() foundation.NSLock
-	Cancelled() int
-	SetCancelled(value int)
+	Cancelled() int32
+	SetCancelled(value int32)
 	EnqueueRequestWithSizeAtOffsetDestinationBufferDestinationStreamCompletionSemaphore(size uint64, offset int64, buffer string, stream *AAAsyncByteStreamImpl, semaphore objectivec.IObject) objectivec.IObject
 	InvalidateAndCancel()
-	IsCancelled() int
+	IsCancelled() int32
 	MaxAttempts() uint32
 	MaxRequests() uint32
 	PauseInterval() float32
-	ReadToAsyncByteStreamSizeAtOffset(stream *AAAsyncByteStreamImpl, size uint64, offset int64) int
+	ReadToAsyncByteStreamSizeAtOffset(stream *AAAsyncByteStreamImpl, size uint64, offset int64) int32
 	ReadToBufferSizeAtOffset(buffer unsafe.Pointer, size uint64, offset int64) int64
 	RemoveRequest(request objectivec.IObject)
 	Requests() foundation.INSSet
 	RequestsLock() foundation.NSLock
 	RequestsSem() objectivec.Object
 	StreamBase() unsafe.Pointer
-	SyncRequests() int
+	SyncRequests() int32
 	Url() foundation.NSURL
-	UrlSession() foundation.URLSession
+	UrlSession() unsafe.Pointer
 	InitWithURLStreamBaseMaxAttemptsPauseIntervalMaxRequestsInFlight(url foundation.NSURL, base unsafe.Pointer, attempts uint32, interval float32, flight uint32) AAS3DownloadSession
 }
 
@@ -178,8 +178,8 @@ func NewAAS3DownloadSessionWithURLStreamBaseMaxAttemptsPauseIntervalMaxRequestsI
 func (a AAS3DownloadSession) AddBytesDownloaded(downloaded uint64) {
 	objc.SendIfResponds[objc.ID](a.ID, objc.Sel("addBytesDownloaded:"), downloaded)
 }
-func (a AAS3DownloadSession) AddRequest(request objectivec.IObject) int {
-	rv := objc.SendIfResponds[int](a.ID, objc.Sel("addRequest:"), request)
+func (a AAS3DownloadSession) AddRequest(request objectivec.IObject) int32 {
+	rv := objc.SendIfResponds[int32](a.ID, objc.Sel("addRequest:"), request)
 	return rv
 }
 func (a AAS3DownloadSession) CacheDocument(document objectivec.IObject) {
@@ -192,12 +192,12 @@ func (a AAS3DownloadSession) EnqueueRequestWithSizeAtOffsetDestinationBufferDest
 func (a AAS3DownloadSession) InvalidateAndCancel() {
 	objc.SendIfResponds[objc.ID](a.ID, objc.Sel("invalidateAndCancel"))
 }
-func (a AAS3DownloadSession) IsCancelled() int {
-	rv := objc.SendIfResponds[int](a.ID, objc.Sel("isCancelled"))
+func (a AAS3DownloadSession) IsCancelled() int32 {
+	rv := objc.SendIfResponds[int32](a.ID, objc.Sel("isCancelled"))
 	return rv
 }
-func (a AAS3DownloadSession) ReadToAsyncByteStreamSizeAtOffset(stream *AAAsyncByteStreamImpl, size uint64, offset int64) int {
-	rv := objc.SendIfResponds[int](a.ID, objc.Sel("readToAsyncByteStream:size:atOffset:"), stream, size, offset)
+func (a AAS3DownloadSession) ReadToAsyncByteStreamSizeAtOffset(stream *AAAsyncByteStreamImpl, size uint64, offset int64) int32 {
+	rv := objc.SendIfResponds[int32](a.ID, objc.Sel("readToAsyncByteStream:size:atOffset:"), stream, size, offset)
 	return rv
 }
 func (a AAS3DownloadSession) ReadToBufferSizeAtOffset(buffer unsafe.Pointer, size uint64, offset int64) int64 {
@@ -207,8 +207,8 @@ func (a AAS3DownloadSession) ReadToBufferSizeAtOffset(buffer unsafe.Pointer, siz
 func (a AAS3DownloadSession) RemoveRequest(request objectivec.IObject) {
 	objc.SendIfResponds[objc.ID](a.ID, objc.Sel("removeRequest:"), request)
 }
-func (a AAS3DownloadSession) SyncRequests() int {
-	rv := objc.SendIfResponds[int](a.ID, objc.Sel("syncRequests"))
+func (a AAS3DownloadSession) SyncRequests() int32 {
+	rv := objc.SendIfResponds[int32](a.ID, objc.Sel("syncRequests"))
 	return rv
 }
 func (a AAS3DownloadSession) InitWithURLStreamBaseMaxAttemptsPauseIntervalMaxRequestsInFlight(url foundation.NSURL, base unsafe.Pointer, attempts uint32, interval float32, flight uint32) AAS3DownloadSession {
@@ -228,21 +228,21 @@ func (a AAS3DownloadSession) SetBytesDownloaded(value uint64) {
 	objc.SendIfResponds[struct{}](a.ID, objc.Sel("setBytesDownloaded:"), value)
 }
 func (a AAS3DownloadSession) Cache() foundation.NSData {
-	rv := objc.SendIfResponds[objc.ID](a.ID, objc.Sel("cache"))
-	return foundation.NSDataFromID(objc.ID(rv))
+	rv := objc.SendIfResponds[foundation.NSData](a.ID, objc.Sel("cache"))
+	return foundation.NSData(rv)
 }
 func (a AAS3DownloadSession) SetCache(value foundation.NSData) {
 	objc.SendIfResponds[struct{}](a.ID, objc.Sel("setCache:"), value)
 }
 func (a AAS3DownloadSession) CacheLock() foundation.NSLock {
-	rv := objc.SendIfResponds[objc.ID](a.ID, objc.Sel("cacheLock"))
-	return foundation.NSLockFromID(objc.ID(rv))
+	rv := objc.SendIfResponds[foundation.NSLock](a.ID, objc.Sel("cacheLock"))
+	return foundation.NSLock(rv)
 }
-func (a AAS3DownloadSession) Cancelled() int {
-	rv := objc.SendIfResponds[int](a.ID, objc.Sel("cancelled"))
+func (a AAS3DownloadSession) Cancelled() int32 {
+	rv := objc.SendIfResponds[int32](a.ID, objc.Sel("cancelled"))
 	return rv
 }
-func (a AAS3DownloadSession) SetCancelled(value int) {
+func (a AAS3DownloadSession) SetCancelled(value int32) {
 	objc.SendIfResponds[struct{}](a.ID, objc.Sel("setCancelled:"), value)
 }
 func (a AAS3DownloadSession) MaxAttempts() uint32 {
@@ -262,8 +262,8 @@ func (a AAS3DownloadSession) Requests() foundation.INSSet {
 	return foundation.NSSetFromID(objc.ID(rv))
 }
 func (a AAS3DownloadSession) RequestsLock() foundation.NSLock {
-	rv := objc.SendIfResponds[objc.ID](a.ID, objc.Sel("requestsLock"))
-	return foundation.NSLockFromID(objc.ID(rv))
+	rv := objc.SendIfResponds[foundation.NSLock](a.ID, objc.Sel("requestsLock"))
+	return foundation.NSLock(rv)
 }
 func (a AAS3DownloadSession) RequestsSem() objectivec.Object {
 	rv := objc.SendIfResponds[objc.ID](a.ID, objc.Sel("requestsSem"))
@@ -274,10 +274,10 @@ func (a AAS3DownloadSession) StreamBase() unsafe.Pointer {
 	return rv
 }
 func (a AAS3DownloadSession) Url() foundation.NSURL {
-	rv := objc.SendIfResponds[objc.ID](a.ID, objc.Sel("URL"))
-	return foundation.NSURLFromID(objc.ID(rv))
+	rv := objc.SendIfResponds[foundation.NSURL](a.ID, objc.Sel("URL"))
+	return foundation.NSURL(rv)
 }
-func (a AAS3DownloadSession) UrlSession() foundation.URLSession {
-	rv := objc.SendIfResponds[objc.ID](a.ID, objc.Sel("urlSession"))
-	return foundation.URLSessionFromID(objc.ID(rv))
+func (a AAS3DownloadSession) UrlSession() unsafe.Pointer {
+	rv := objc.SendIfResponds[unsafe.Pointer](a.ID, objc.Sel("urlSession"))
+	return rv
 }

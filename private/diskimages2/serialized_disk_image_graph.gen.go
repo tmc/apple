@@ -263,6 +263,6 @@ func (_SerializedDiskImageGraphClass SerializedDiskImageGraphClass) GetRelativeI
 }
 
 func (s SerializedDiskImageGraph) PstackURL() foundation.NSURL {
-	rv := objc.SendIfResponds[objc.ID](s.ID, objc.Sel("pstackURL"))
-	return foundation.NSURLFromID(objc.ID(rv))
+	rv := objc.SendIfResponds[foundation.NSURL](s.ID, objc.Sel("pstackURL"))
+	return foundation.NSURL(rv)
 }

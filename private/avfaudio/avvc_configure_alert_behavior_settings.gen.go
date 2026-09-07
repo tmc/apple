@@ -1,4 +1,4 @@
-// Code generated from Apple documentation for AVFAudio. DO NOT EDIT.
+// Code generated from Apple documentation for avfaudio. DO NOT EDIT.
 
 package avfaudio
 
@@ -113,7 +113,7 @@ func NewAVVCConfigureAlertBehaviorSettings() AVVCConfigureAlertBehaviorSettings 
 	return rv
 }
 
-func NewVCConfigureAlertBehaviorSettingsWithStreamID(id uint64) AVVCConfigureAlertBehaviorSettings {
+func NewAVVCConfigureAlertBehaviorSettingsWithStreamID(id uint64) AVVCConfigureAlertBehaviorSettings {
 	instance := getAVVCConfigureAlertBehaviorSettingsClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithStreamID:"), id)
 	return AVVCConfigureAlertBehaviorSettingsFromID(rv)

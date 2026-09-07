@@ -143,6 +143,29 @@ func (_DIKeyRetrieverClass DIKeyRetrieverClass) EnsureDeviceIdentityWithError() 
 	return rv, nil
 
 }
+func (_DIKeyRetrieverClass DIKeyRetrieverClass) GetKnoxDecryptionComponentsWithURLPayloadURIDestKeyKeySizeError(url foundation.NSURL, uri []objectivec.IObject, key string) (uint64, error) {
+	var size uint64
+	var errorPtr objc.ID
+	rv := objc.Send[bool](objc.ID(_DIKeyRetrieverClass.class), objc.Sel("getKnoxDecryptionComponentsWithURL:payloadURI:destKey:keySize:error:"), url, uri, key, unsafe.Pointer(&size), unsafe.Pointer(&errorPtr))
+	if errorPtr != 0 {
+		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
+		return 0, foundation.NSErrorFrom(errorPtr)
+	}
+	if !rv {
+		return 0, errors.New("getKnoxDecryptionComponentsWithURL:payloadURI:destKey:keySize:error: returned NO with nil NSError")
+	}
+	return size, nil
+}
+func (_DIKeyRetrieverClass DIKeyRetrieverClass) GetOIDCClientIDForHostError(host objectivec.IObject) (objectivec.IObject, error) {
+	var errorPtr objc.ID
+	rv := objc.Send[objc.ID](objc.ID(_DIKeyRetrieverClass.class), objc.Sel("getOIDCClientIDForHost:error:"), host, unsafe.Pointer(&errorPtr))
+	if errorPtr != 0 {
+		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
+		return nil, foundation.NSErrorFrom(errorPtr)
+	}
+	return objectivec.Object{ID: rv}, nil
+
+}
 func (_DIKeyRetrieverClass DIKeyRetrieverClass) GetRequestWithURLError(url foundation.NSURL) (objectivec.IObject, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](objc.ID(_DIKeyRetrieverClass.class), objc.Sel("getRequestWithURL:error:"), url, unsafe.Pointer(&errorPtr))
@@ -190,6 +213,16 @@ func (_DIKeyRetrieverClass DIKeyRetrieverClass) NewDawTokenWithError() (objectiv
 func (_DIKeyRetrieverClass DIKeyRetrieverClass) NewEnvWithDictionaryError(dictionary objectivec.IObject) (objectivec.IObject, error) {
 	var errorPtr objc.ID
 	rv := objc.Send[objc.ID](objc.ID(_DIKeyRetrieverClass.class), objc.Sel("newEnvWithDictionary:error:"), dictionary, unsafe.Pointer(&errorPtr))
+	if errorPtr != 0 {
+		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
+		return nil, foundation.NSErrorFrom(errorPtr)
+	}
+	return objectivec.Object{ID: rv}, nil
+
+}
+func (_DIKeyRetrieverClass DIKeyRetrieverClass) NewOIDCSessionForHostError(host objectivec.IObject) (objectivec.IObject, error) {
+	var errorPtr objc.ID
+	rv := objc.Send[objc.ID](objc.ID(_DIKeyRetrieverClass.class), objc.Sel("newOIDCSessionForHost:error:"), host, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
 		return nil, foundation.NSErrorFrom(errorPtr)

@@ -1,4 +1,4 @@
-// Code generated from Apple documentation for Network. DO NOT EDIT.
+// Code generated from Apple documentation for network. DO NOT EDIT.
 
 package network
 
@@ -144,7 +144,7 @@ type INWConnection interface {
 	Endpoint() INWEndpoint
 	Error() foundation.NSError
 	ForceCancel()
-	GetConnectedSocket() int
+	GetConnectedSocket() int32
 	HasBetterPath() bool
 	InternalConnection() unsafe.Pointer
 	SetInternalConnection(value unsafe.Pointer)
@@ -162,7 +162,7 @@ type INWConnection interface {
 	Parameters() INWParameters
 	Start()
 	TlsConnectionTime() uint32
-	InitWithConnectedSocket(socket int) NWConnection
+	InitWithConnectedSocket(socket int32) NWConnection
 	InitWithEndpointParameters(endpoint objectivec.IObject, parameters objectivec.IObject) NWConnection
 	InitWithInternalConnection(connection objectivec.IObject) NWConnection
 	Viable() bool
@@ -187,7 +187,7 @@ func NewNWConnection() NWConnection {
 	return rv
 }
 
-func NewNWConnectionWithConnectedSocket(socket int) NWConnection {
+func NewNWConnectionWithConnectedSocket(socket int32) NWConnection {
 	instance := getNWConnectionClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithConnectedSocket:"), socket)
 	return NWConnectionFromID(rv)
@@ -222,8 +222,8 @@ func (n NWConnection) CopyError() objectivec.IObject {
 func (n NWConnection) ForceCancel() {
 	objc.SendIfResponds[objc.ID](n.ID, objc.Sel("forceCancel"))
 }
-func (n NWConnection) GetConnectedSocket() int {
-	rv := objc.SendIfResponds[int](n.ID, objc.Sel("getConnectedSocket"))
+func (n NWConnection) GetConnectedSocket() int32 {
+	rv := objc.SendIfResponds[int32](n.ID, objc.Sel("getConnectedSocket"))
 	return rv
 }
 func (n NWConnection) IsViable() bool {
@@ -233,7 +233,7 @@ func (n NWConnection) IsViable() bool {
 func (n NWConnection) Start() {
 	objc.SendIfResponds[objc.ID](n.ID, objc.Sel("start"))
 }
-func (n NWConnection) InitWithConnectedSocket(socket int) NWConnection {
+func (n NWConnection) InitWithConnectedSocket(socket int32) NWConnection {
 	rv := objc.SendIfResponds[NWConnection](n.ID, objc.Sel("initWithConnectedSocket:"), socket)
 	return rv
 }
@@ -250,7 +250,7 @@ func (_NWConnectionClass NWConnectionClass) AutomaticallyNotifiesObserversForKey
 	rv := objc.SendIfResponds[bool](objc.ID(_NWConnectionClass.class), objc.Sel("automaticallyNotifiesObserversForKey:"), key)
 	return rv
 }
-func (_NWConnectionClass NWConnectionClass) ConnectionWithConnectedSocket(socket int) objectivec.IObject {
+func (_NWConnectionClass NWConnectionClass) ConnectionWithConnectedSocket(socket int32) objectivec.IObject {
 	rv := objc.SendIfResponds[objc.ID](objc.ID(_NWConnectionClass.class), objc.Sel("connectionWithConnectedSocket:"), socket)
 	return objectivec.Object{ID: rv}
 }
@@ -284,8 +284,8 @@ func (n NWConnection) Endpoint() INWEndpoint {
 	return NWEndpointFromID(objc.ID(rv))
 }
 func (n NWConnection) Error() foundation.NSError {
-	rv := objc.SendIfResponds[objc.ID](n.ID, objc.Sel("error"))
-	return foundation.NSErrorFromID(objc.ID(rv))
+	rv := objc.SendIfResponds[foundation.NSError](n.ID, objc.Sel("error"))
+	return foundation.NSError(rv)
 }
 func (n NWConnection) HasBetterPath() bool {
 	rv := objc.SendIfResponds[bool](n.ID, objc.Sel("hasBetterPath"))
@@ -306,8 +306,8 @@ func (n NWConnection) SetInternalConnectionState(value int64) {
 	objc.SendIfResponds[struct{}](n.ID, objc.Sel("setInternalConnectionState:"), value)
 }
 func (n NWConnection) InternalError() foundation.NSError {
-	rv := objc.SendIfResponds[objc.ID](n.ID, objc.Sel("internalError"))
-	return foundation.NSErrorFromID(objc.ID(rv))
+	rv := objc.SendIfResponds[foundation.NSError](n.ID, objc.Sel("internalError"))
+	return foundation.NSError(rv)
 }
 func (n NWConnection) SetInternalError(value foundation.NSError) {
 	objc.SendIfResponds[struct{}](n.ID, objc.Sel("setInternalError:"), value)

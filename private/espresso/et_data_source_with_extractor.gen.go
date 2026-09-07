@@ -71,8 +71,8 @@ type IETDataSourceWithExtractor interface {
 
 	// Topic: Methods
 
-	DataPointAtIndex(index int) objectivec.IObject
-	NumberOfDataPoints() int
+	DataPointAtIndex(index int32) objectivec.IObject
+	NumberOfDataPoints() int32
 	InitWithDataSourceExtractor(source objectivec.IObject, extractor objectivec.IObject) ETDataSourceWithExtractor
 }
 
@@ -101,12 +101,12 @@ func NewETDataSourceWithExtractorWithDataSourceExtractor(source objectivec.IObje
 	return ETDataSourceWithExtractorFromID(rv)
 }
 
-func (e ETDataSourceWithExtractor) DataPointAtIndex(index int) objectivec.IObject {
+func (e ETDataSourceWithExtractor) DataPointAtIndex(index int32) objectivec.IObject {
 	rv := objc.SendIfResponds[objc.ID](e.ID, objc.Sel("dataPointAtIndex:"), index)
 	return objectivec.Object{ID: rv}
 }
-func (e ETDataSourceWithExtractor) NumberOfDataPoints() int {
-	rv := objc.SendIfResponds[int](e.ID, objc.Sel("numberOfDataPoints"))
+func (e ETDataSourceWithExtractor) NumberOfDataPoints() int32 {
+	rv := objc.SendIfResponds[int32](e.ID, objc.Sel("numberOfDataPoints"))
 	return rv
 }
 func (e ETDataSourceWithExtractor) InitWithDataSourceExtractor(source objectivec.IObject, extractor objectivec.IObject) ETDataSourceWithExtractor {

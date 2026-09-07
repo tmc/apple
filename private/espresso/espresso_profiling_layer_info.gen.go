@@ -106,8 +106,8 @@ type IEspressoProfilingLayerInfo interface {
 	SetPer_platform_support(value foundation.INSDictionary)
 	Runtimes() foundation.INSArray
 	SetRuntimes(value foundation.INSArray)
-	Selected_runtime_engine() int
-	SetSelected_runtime_engine(value int)
+	Selected_runtime_engine() int32
+	SetSelected_runtime_engine(value int32)
 }
 
 // Init initializes the instance.
@@ -171,10 +171,10 @@ func (e EspressoProfilingLayerInfo) Runtimes() foundation.INSArray {
 func (e EspressoProfilingLayerInfo) SetRuntimes(value foundation.INSArray) {
 	objc.SendIfResponds[struct{}](e.ID, objc.Sel("setRuntimes:"), value)
 }
-func (e EspressoProfilingLayerInfo) Selected_runtime_engine() int {
-	rv := objc.SendIfResponds[int](e.ID, objc.Sel("selected_runtime_engine"))
+func (e EspressoProfilingLayerInfo) Selected_runtime_engine() int32 {
+	rv := objc.SendIfResponds[int32](e.ID, objc.Sel("selected_runtime_engine"))
 	return rv
 }
-func (e EspressoProfilingLayerInfo) SetSelected_runtime_engine(value int) {
+func (e EspressoProfilingLayerInfo) SetSelected_runtime_engine(value int32) {
 	objc.SendIfResponds[struct{}](e.ID, objc.Sel("setSelected_runtime_engine:"), value)
 }

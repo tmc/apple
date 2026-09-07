@@ -5,7 +5,6 @@ package texttospeech
 import (
 	"sync"
 
-	"github.com/tmc/apple/foundation"
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
 )
@@ -45,33 +44,40 @@ func (tc TTSSpeechThreadClass) Alloc() TTSSpeechThread {
 
 // # Methods
 //
+//   - [TTSSpeechThread.Cancel]
+//   - [TTSSpeechThread.Main]
 //   - [TTSSpeechThread.Stop]
 //   - [TTSSpeechThread.Voucher]
 //   - [TTSSpeechThread.SetVoucher]
 type TTSSpeechThread struct {
-	foundation.NSThread
+	objectivec.Object
 }
 
 // TTSSpeechThreadFromID constructs a [TTSSpeechThread] from an objc.ID.
 func TTSSpeechThreadFromID(id objc.ID) TTSSpeechThread {
-	return TTSSpeechThread{NSThread: foundation.NSThreadFromID(id)}
+	return TTSSpeechThread{objectivec.Object{ID: id}}
 }
 
-// Ensure TTSSpeechThread implements ITTSSpeechThread.
-var _ ITTSSpeechThread = TTSSpeechThread{}
+// NOTE: TTSSpeechThread embeds objectivec.Object because the parent type is
+// unavailable, but ITTSSpeechThread embeds INSThread, which that fallback
+// cannot satisfy; skip compile-time assertion.
 
 // An interface definition for the [TTSSpeechThread] class.
 //
 // # Methods
 //
+//   - [ITTSSpeechThread.Cancel]
+//   - [ITTSSpeechThread.Main]
 //   - [ITTSSpeechThread.Stop]
 //   - [ITTSSpeechThread.Voucher]
 //   - [ITTSSpeechThread.SetVoucher]
 type ITTSSpeechThread interface {
-	foundation.IThread
+	INSThread
 
 	// Topic: Methods
 
+	Cancel()
+	Main()
 	Stop()
 	Voucher() objectivec.Object
 	SetVoucher(value objectivec.Object)

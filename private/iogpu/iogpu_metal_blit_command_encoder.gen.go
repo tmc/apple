@@ -148,7 +148,7 @@ func NewIOGPUMetalBlitCommandEncoder() IOGPUMetalBlitCommandEncoder {
 	return rv
 }
 
-func NewGPUMetalBlitCommandEncoderWithCommandBuffer(buffer objectivec.IObject) IOGPUMetalBlitCommandEncoder {
+func NewIOGPUMetalBlitCommandEncoderWithCommandBuffer(buffer objectivec.IObject) IOGPUMetalBlitCommandEncoder {
 	instance := getIOGPUMetalBlitCommandEncoderClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithCommandBuffer:"), buffer)
 	return IOGPUMetalBlitCommandEncoderFromID(rv)

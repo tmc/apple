@@ -1,4 +1,4 @@
-// Code generated from Apple documentation for CoreML. DO NOT EDIT.
+// Code generated from Apple documentation for coreml. DO NOT EDIT.
 
 package coreml
 
@@ -127,19 +127,19 @@ func NewMLSVREngine() MLSVREngine {
 	return rv
 }
 
-func NewSVREngineWithLibSVMFile(sVMFile objectivec.IObject) MLSVREngine {
+func NewMLSVREngineWithLibSVMFile(sVMFile objectivec.IObject) MLSVREngine {
 	instance := getMLSVREngineClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithLibSVMFile:"), sVMFile)
 	return MLSVREngineFromID(rv)
 }
 
-func NewSVREngineWithSVMModelFreeOnDeallocIsInputSizeLowerBoundOnlyInputSize(sVMModel *SvmModel, dealloc bool, only bool, size uint64) MLSVREngine {
+func NewMLSVREngineWithSVMModelFreeOnDeallocIsInputSizeLowerBoundOnlyInputSize(sVMModel *SvmModel, dealloc bool, only bool, size uint64) MLSVREngine {
 	instance := getMLSVREngineClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithSVMModel:freeOnDealloc:isInputSizeLowerBoundOnly:inputSize:"), sVMModel, dealloc, only, size)
 	return MLSVREngineFromID(rv)
 }
 
-func NewSVREngineWithSpecificationError(specification unsafe.Pointer) (MLSVREngine, error) {
+func NewMLSVREngineWithSpecificationError(specification unsafe.Pointer) (MLSVREngine, error) {
 	var errorPtr objc.ID
 	instance := getMLSVREngineClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithSpecification:error:"), specification, unsafe.Pointer(&errorPtr))

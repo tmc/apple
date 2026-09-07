@@ -1,4 +1,4 @@
-// Code generated from Apple documentation for CoreML. DO NOT EDIT.
+// Code generated from Apple documentation for coreml. DO NOT EDIT.
 
 package coreml
 
@@ -104,7 +104,7 @@ func NewMLState() MLState {
 	return rv
 }
 
-func NewStateWithBackings(backings objectivec.IObject) MLState {
+func NewMLStateWithBackings(backings objectivec.IObject) MLState {
 	instance := getMLStateClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithBackings:"), backings)
 	return MLStateFromID(rv)

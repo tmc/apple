@@ -1,4 +1,4 @@
-// Code generated from Apple documentation for CoreML. DO NOT EDIT.
+// Code generated from Apple documentation for coreml. DO NOT EDIT.
 
 package coreml
 
@@ -106,7 +106,7 @@ func NewMLE5ProgramLibraryE5BundleImpl() MLE5ProgramLibraryE5BundleImpl {
 	return rv
 }
 
-func NewE5ProgramLibraryE5BundleImplWithE5BundleAtURLConfiguration(url foundation.NSURL, configuration objectivec.IObject) MLE5ProgramLibraryE5BundleImpl {
+func NewMLE5ProgramLibraryE5BundleImplWithE5BundleAtURLConfiguration(url foundation.NSURL, configuration objectivec.IObject) MLE5ProgramLibraryE5BundleImpl {
 	instance := getMLE5ProgramLibraryE5BundleImplClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithE5BundleAtURL:configuration:"), url, configuration)
 	return MLE5ProgramLibraryE5BundleImplFromID(rv)
@@ -132,8 +132,8 @@ func (m MLE5ProgramLibraryE5BundleImpl) Configuration() IMLModelConfiguration {
 	return MLModelConfigurationFromID(objc.ID(rv))
 }
 func (m MLE5ProgramLibraryE5BundleImpl) E5BundleURL() foundation.NSURL {
-	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("e5BundleURL"))
-	return foundation.NSURLFromID(objc.ID(rv))
+	rv := objc.SendIfResponds[foundation.NSURL](m.ID, objc.Sel("e5BundleURL"))
+	return foundation.NSURL(rv)
 }
 func (m MLE5ProgramLibraryE5BundleImpl) ModelDisplayName() string {
 	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("modelDisplayName"))

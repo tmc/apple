@@ -1,4 +1,4 @@
-// Code generated from Apple documentation for CoreML. DO NOT EDIT.
+// Code generated from Apple documentation for coreml. DO NOT EDIT.
 
 package coreml
 
@@ -126,7 +126,7 @@ func NewMLPowBroadcastableBrick() MLPowBroadcastableBrick {
 	return rv
 }
 
-func NewPowBroadcastableBrickWithParameters(parameters objectivec.IObject) MLPowBroadcastableBrick {
+func NewMLPowBroadcastableBrickWithParameters(parameters objectivec.IObject) MLPowBroadcastableBrick {
 	instance := getMLPowBroadcastableBrickClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithParameters:"), parameters)
 	return MLPowBroadcastableBrickFromID(rv)

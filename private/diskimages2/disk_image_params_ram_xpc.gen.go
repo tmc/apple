@@ -99,25 +99,25 @@ func NewDiskImageParamsRAMXPC() DiskImageParamsRAMXPC {
 	return rv
 }
 
-func NewDiskImageParamsRAM_XPCWithBackendXPC(xpc objectivec.IObject) DiskImageParamsRAMXPC {
+func NewDiskImageParamsRAMXPCWithBackendXPC(xpc objectivec.IObject) DiskImageParamsRAMXPC {
 	instance := getDiskImageParamsRAMXPCClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithBackendXPC:"), xpc)
 	return DiskImageParamsRAMXPCFromID(rv)
 }
 
-func NewDiskImageParamsRAM_XPCWithBackendXPCBlockSize(xpc objectivec.IObject, size uint64) DiskImageParamsRAMXPC {
+func NewDiskImageParamsRAMXPCWithBackendXPCBlockSize(xpc objectivec.IObject, size uint64) DiskImageParamsRAMXPC {
 	instance := getDiskImageParamsRAMXPCClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithBackendXPC:blockSize:"), xpc, size)
 	return DiskImageParamsRAMXPCFromID(rv)
 }
 
-func NewDiskImageParamsRAM_XPCWithCoder(coder objectivec.IObject) DiskImageParamsRAMXPC {
+func NewDiskImageParamsRAMXPCWithCoder(coder objectivec.IObject) DiskImageParamsRAMXPC {
 	instance := getDiskImageParamsRAMXPCClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
 	return DiskImageParamsRAMXPCFromID(rv)
 }
 
-func NewDiskImageParamsRAM_XPCWithURLError(url foundation.NSURL) (DiskImageParamsRAMXPC, error) {
+func NewDiskImageParamsRAMXPCWithURLError(url foundation.NSURL) (DiskImageParamsRAMXPC, error) {
 	var errorPtr objc.ID
 	instance := getDiskImageParamsRAMXPCClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithURL:error:"), url, unsafe.Pointer(&errorPtr))

@@ -211,8 +211,8 @@ func (e ETModelDefinition) LayerNames() foundation.INSArray {
 	return foundation.NSArrayFromID(objc.ID(rv))
 }
 func (e ETModelDefinition) ModelURL() foundation.NSURL {
-	rv := objc.SendIfResponds[objc.ID](e.ID, objc.Sel("modelURL"))
-	return foundation.NSURLFromID(objc.ID(rv))
+	rv := objc.SendIfResponds[foundation.NSURL](e.ID, objc.Sel("modelURL"))
+	return foundation.NSURL(rv)
 }
 func (e ETModelDefinition) Outputs() foundation.INSArray {
 	rv := objc.SendIfResponds[objc.ID](e.ID, objc.Sel("outputs"))

@@ -1,4 +1,4 @@
-// Code generated from Apple documentation for CoreML. DO NOT EDIT.
+// Code generated from Apple documentation for coreml. DO NOT EDIT.
 
 package coreml
 
@@ -105,13 +105,13 @@ func NewMLArrayDictionaryFeatureProvider() MLArrayDictionaryFeatureProvider {
 	return rv
 }
 
-func NewArrayDictionaryFeatureProviderWithCoder(coder objectivec.IObject) MLArrayDictionaryFeatureProvider {
+func NewMLArrayDictionaryFeatureProviderWithCoder(coder objectivec.IObject) MLArrayDictionaryFeatureProvider {
 	instance := getMLArrayDictionaryFeatureProviderClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
 	return MLArrayDictionaryFeatureProviderFromID(rv)
 }
 
-func NewArrayDictionaryFeatureProviderWithDictionaryFeatureProviderArray(array objectivec.IObject) MLArrayDictionaryFeatureProvider {
+func NewMLArrayDictionaryFeatureProviderWithDictionaryFeatureProviderArray(array objectivec.IObject) MLArrayDictionaryFeatureProvider {
 	instance := getMLArrayDictionaryFeatureProviderClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithDictionaryFeatureProviderArray:"), array)
 	return MLArrayDictionaryFeatureProviderFromID(rv)

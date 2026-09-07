@@ -1,4 +1,4 @@
-// Code generated from Apple documentation for CoreML. DO NOT EDIT.
+// Code generated from Apple documentation for coreml. DO NOT EDIT.
 
 package coreml
 
@@ -91,7 +91,7 @@ func NewMLIdentity() MLIdentity {
 	return rv
 }
 
-func NewIdentityDescriptionOnlyWithSpecificationConfigurationError(specification unsafe.Pointer, configuration objectivec.IObject) (MLIdentity, error) {
+func NewMLIdentityDescriptionOnlyWithSpecificationConfigurationError(specification unsafe.Pointer, configuration objectivec.IObject) (MLIdentity, error) {
 	var errorPtr objc.ID
 	instance := getMLIdentityClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initDescriptionOnlyWithSpecification:configuration:error:"), specification, configuration, unsafe.Pointer(&errorPtr))
@@ -105,7 +105,7 @@ func NewIdentityDescriptionOnlyWithSpecificationConfigurationError(specification
 	return MLIdentityFromID(rv), nil
 }
 
-func NewIdentityInterfaceAndMetadataWithCompiledArchiveError(archive unsafe.Pointer) (MLIdentity, error) {
+func NewMLIdentityInterfaceAndMetadataWithCompiledArchiveError(archive unsafe.Pointer) (MLIdentity, error) {
 	var errorPtr objc.ID
 	instance := getMLIdentityClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initInterfaceAndMetadataWithCompiledArchive:error:"), archive, unsafe.Pointer(&errorPtr))
@@ -119,25 +119,25 @@ func NewIdentityInterfaceAndMetadataWithCompiledArchiveError(archive unsafe.Poin
 	return MLIdentityFromID(rv), nil
 }
 
-func NewIdentityWithConfiguration(configuration objectivec.IObject) MLIdentity {
+func NewMLIdentityWithConfiguration(configuration objectivec.IObject) MLIdentity {
 	instance := getMLIdentityClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithConfiguration:"), configuration)
 	return MLIdentityFromID(rv)
 }
 
-func NewIdentityWithDescription(description objectivec.IObject) MLIdentity {
+func NewMLIdentityWithDescription(description objectivec.IObject) MLIdentity {
 	instance := getMLIdentityClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithDescription:"), description)
 	return MLIdentityFromID(rv)
 }
 
-func NewIdentityWithDescriptionConfiguration(description objectivec.IObject, configuration objectivec.IObject) MLIdentity {
+func NewMLIdentityWithDescriptionConfiguration(description objectivec.IObject, configuration objectivec.IObject) MLIdentity {
 	instance := getMLIdentityClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithDescription:configuration:"), description, configuration)
 	return MLIdentityFromID(rv)
 }
 
-func NewIdentityWithNameInputDescriptionOutputDescriptionOrderedInputFeatureNamesOrderedOutputFeatureNamesConfiguration(name objectivec.IObject, description objectivec.IObject, description2 objectivec.IObject, names objectivec.IObject, names2 objectivec.IObject, configuration objectivec.IObject) MLIdentity {
+func NewMLIdentityWithNameInputDescriptionOutputDescriptionOrderedInputFeatureNamesOrderedOutputFeatureNamesConfiguration(name objectivec.IObject, description objectivec.IObject, description2 objectivec.IObject, names objectivec.IObject, names2 objectivec.IObject, configuration objectivec.IObject) MLIdentity {
 	instance := getMLIdentityClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithName:inputDescription:outputDescription:orderedInputFeatureNames:orderedOutputFeatureNames:configuration:"), name, description, description2, names, names2, configuration)
 	return MLIdentityFromID(rv)

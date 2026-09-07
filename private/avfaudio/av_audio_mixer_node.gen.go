@@ -1,4 +1,4 @@
-// Code generated from Apple documentation for AVFAudio. DO NOT EDIT.
+// Code generated from Apple documentation for avfaudio. DO NOT EDIT.
 
 package avfaudio
 
@@ -109,7 +109,7 @@ func NewAVAudioMixerNode() AVAudioMixerNode {
 	return rv
 }
 
-func NewAudioMixerNodeWithImpl(impl unsafe.Pointer) AVAudioMixerNode {
+func NewAVAudioMixerNodeWithImpl(impl unsafe.Pointer) AVAudioMixerNode {
 	instance := getAVAudioMixerNodeClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithImpl:"), impl)
 	return AVAudioMixerNodeFromID(rv)

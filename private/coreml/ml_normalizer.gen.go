@@ -1,4 +1,4 @@
-// Code generated from Apple documentation for CoreML. DO NOT EDIT.
+// Code generated from Apple documentation for coreml. DO NOT EDIT.
 
 package coreml
 
@@ -71,8 +71,8 @@ type IMLNormalizer interface {
 
 	// Topic: Methods
 
-	Norm() int
-	InitWithDataTransformerNameInputDescriptionOutputDescriptionOrderedInputFeatureNamesOrderedOutputFeatureNamesConfiguration(with int, name objectivec.IObject, description objectivec.IObject, description2 objectivec.IObject, names objectivec.IObject, names2 objectivec.IObject, configuration objectivec.IObject) MLNormalizer
+	Norm() int32
+	InitWithDataTransformerNameInputDescriptionOutputDescriptionOrderedInputFeatureNamesOrderedOutputFeatureNamesConfiguration(with int32, name objectivec.IObject, description objectivec.IObject, description2 objectivec.IObject, names objectivec.IObject, names2 objectivec.IObject, configuration objectivec.IObject) MLNormalizer
 }
 
 // Init initializes the instance.
@@ -94,25 +94,25 @@ func NewMLNormalizer() MLNormalizer {
 	return rv
 }
 
-func NewNormalizerWithDataTransformerNameInputDescriptionOutputDescriptionOrderedInputFeatureNamesOrderedOutputFeatureNamesConfiguration(with int, name objectivec.IObject, description objectivec.IObject, description2 objectivec.IObject, names objectivec.IObject, names2 objectivec.IObject, configuration objectivec.IObject) MLNormalizer {
+func NewMLNormalizerWithDataTransformerNameInputDescriptionOutputDescriptionOrderedInputFeatureNamesOrderedOutputFeatureNamesConfiguration(with int32, name objectivec.IObject, description objectivec.IObject, description2 objectivec.IObject, names objectivec.IObject, names2 objectivec.IObject, configuration objectivec.IObject) MLNormalizer {
 	instance := getMLNormalizerClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWith:dataTransformerName:inputDescription:outputDescription:orderedInputFeatureNames:orderedOutputFeatureNames:configuration:"), with, name, description, description2, names, names2, configuration)
 	return MLNormalizerFromID(rv)
 }
 
-func NewNormalizerWithDescriptionConfiguration(description objectivec.IObject, configuration objectivec.IObject) MLNormalizer {
+func NewMLNormalizerWithDescriptionConfiguration(description objectivec.IObject, configuration objectivec.IObject) MLNormalizer {
 	instance := getMLNormalizerClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithDescription:configuration:"), description, configuration)
 	return MLNormalizerFromID(rv)
 }
 
-func NewNormalizerWithNameInputDescriptionOutputDescriptionOrderedInputFeatureNamesOrderedOutputFeatureNamesConfiguration(name objectivec.IObject, description objectivec.IObject, description2 objectivec.IObject, names objectivec.IObject, names2 objectivec.IObject, configuration objectivec.IObject) MLNormalizer {
+func NewMLNormalizerWithNameInputDescriptionOutputDescriptionOrderedInputFeatureNamesOrderedOutputFeatureNamesConfiguration(name objectivec.IObject, description objectivec.IObject, description2 objectivec.IObject, names objectivec.IObject, names2 objectivec.IObject, configuration objectivec.IObject) MLNormalizer {
 	instance := getMLNormalizerClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithName:inputDescription:outputDescription:orderedInputFeatureNames:orderedOutputFeatureNames:configuration:"), name, description, description2, names, names2, configuration)
 	return MLNormalizerFromID(rv)
 }
 
-func (m MLNormalizer) InitWithDataTransformerNameInputDescriptionOutputDescriptionOrderedInputFeatureNamesOrderedOutputFeatureNamesConfiguration(with int, name objectivec.IObject, description objectivec.IObject, description2 objectivec.IObject, names objectivec.IObject, names2 objectivec.IObject, configuration objectivec.IObject) MLNormalizer {
+func (m MLNormalizer) InitWithDataTransformerNameInputDescriptionOutputDescriptionOrderedInputFeatureNamesOrderedOutputFeatureNamesConfiguration(with int32, name objectivec.IObject, description objectivec.IObject, description2 objectivec.IObject, names objectivec.IObject, names2 objectivec.IObject, configuration objectivec.IObject) MLNormalizer {
 	rv := objc.SendIfResponds[MLNormalizer](m.ID, objc.Sel("initWith:dataTransformerName:inputDescription:outputDescription:orderedInputFeatureNames:orderedOutputFeatureNames:configuration:"), with, name, description, description2, names, names2, configuration)
 	return rv
 }
@@ -131,16 +131,16 @@ func (_MLNormalizerClass MLNormalizerClass) LoadModelFromSpecificationConfigurat
 	return objectivec.Object{ID: rv}, nil
 
 }
-func (_MLNormalizerClass MLNormalizerClass) NormFromDataTransformerNameInputDescriptionOutputDescriptionOrderedInputFeatureNamesOrderedOutputFeatureNames(from int, name objectivec.IObject, description objectivec.IObject, description2 objectivec.IObject, names objectivec.IObject, names2 objectivec.IObject) objectivec.IObject {
+func (_MLNormalizerClass MLNormalizerClass) NormFromDataTransformerNameInputDescriptionOutputDescriptionOrderedInputFeatureNamesOrderedOutputFeatureNames(from int32, name objectivec.IObject, description objectivec.IObject, description2 objectivec.IObject, names objectivec.IObject, names2 objectivec.IObject) objectivec.IObject {
 	rv := objc.SendIfResponds[objc.ID](objc.ID(_MLNormalizerClass.class), objc.Sel("normFrom:dataTransformerName:inputDescription:outputDescription:orderedInputFeatureNames:orderedOutputFeatureNames:"), from, name, description, description2, names, names2)
 	return objectivec.Object{ID: rv}
 }
-func (_MLNormalizerClass MLNormalizerClass) NormFromInputDescriptionOutputDescriptionOrderedInputFeatureNamesOrderedOutputFeatureNames(from int, description objectivec.IObject, description2 objectivec.IObject, names objectivec.IObject, names2 objectivec.IObject) objectivec.IObject {
+func (_MLNormalizerClass MLNormalizerClass) NormFromInputDescriptionOutputDescriptionOrderedInputFeatureNamesOrderedOutputFeatureNames(from int32, description objectivec.IObject, description2 objectivec.IObject, names objectivec.IObject, names2 objectivec.IObject) objectivec.IObject {
 	rv := objc.SendIfResponds[objc.ID](objc.ID(_MLNormalizerClass.class), objc.Sel("normFrom:inputDescription:outputDescription:orderedInputFeatureNames:orderedOutputFeatureNames:"), from, description, description2, names, names2)
 	return objectivec.Object{ID: rv}
 }
 
-func (m MLNormalizer) Norm() int {
-	rv := objc.SendIfResponds[int](m.ID, objc.Sel("norm"))
+func (m MLNormalizer) Norm() int32 {
+	rv := objc.SendIfResponds[int32](m.ID, objc.Sel("norm"))
 	return rv
 }

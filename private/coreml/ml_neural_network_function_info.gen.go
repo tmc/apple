@@ -1,4 +1,4 @@
-// Code generated from Apple documentation for CoreML. DO NOT EDIT.
+// Code generated from Apple documentation for coreml. DO NOT EDIT.
 
 package coreml
 
@@ -103,7 +103,7 @@ func NewMLNeuralNetworkFunctionInfo() MLNeuralNetworkFunctionInfo {
 	return rv
 }
 
-func NewNeuralNetworkFunctionInfoWithCompiledModelArchiveCompilerVersionInfoError(archive unsafe.Pointer, info objectivec.IObject) (MLNeuralNetworkFunctionInfo, error) {
+func NewMLNeuralNetworkFunctionInfoWithCompiledModelArchiveCompilerVersionInfoError(archive unsafe.Pointer, info objectivec.IObject) (MLNeuralNetworkFunctionInfo, error) {
 	var errorPtr objc.ID
 	instance := getMLNeuralNetworkFunctionInfoClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithCompiledModelArchive:compilerVersionInfo:error:"), archive, info, unsafe.Pointer(&errorPtr))

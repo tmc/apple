@@ -1,4 +1,4 @@
-// Code generated from Apple documentation for CoreML. DO NOT EDIT.
+// Code generated from Apple documentation for coreml. DO NOT EDIT.
 
 package coreml
 
@@ -89,7 +89,7 @@ func NewMLComputePlanCost() MLComputePlanCost {
 	return rv
 }
 
-func NewComputePlanCostWithWeight(weight float64) MLComputePlanCost {
+func NewMLComputePlanCostWithWeight(weight float64) MLComputePlanCost {
 	instance := getMLComputePlanCostClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithWeight:"), weight)
 	return MLComputePlanCostFromID(rv)

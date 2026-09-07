@@ -1,4 +1,4 @@
-// Code generated from Apple documentation for Virtualization. DO NOT EDIT.
+// Code generated from Apple documentation for virtualization. DO NOT EDIT.
 
 package virtualization
 
@@ -98,6 +98,6 @@ func (v VZMultiTouchDevice) SendMultiTouchEvents(events objectivec.IObject) {
 }
 
 func (v VZMultiTouchDevice) AssociationIdentifier() foundation.NSUUID {
-	rv := objc.SendIfResponds[objc.ID](v.ID, objc.Sel("associationIdentifier"))
-	return foundation.NSUUIDFromID(objc.ID(rv))
+	rv := objc.SendIfResponds[foundation.NSUUID](v.ID, objc.Sel("associationIdentifier"))
+	return foundation.NSUUID(rv)
 }

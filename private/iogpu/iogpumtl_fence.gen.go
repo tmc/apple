@@ -89,7 +89,7 @@ func NewIOGPUMTLFence() IOGPUMTLFence {
 	return rv
 }
 
-func NewGPUMTLFenceWithDevice(device *uintptr) IOGPUMTLFence {
+func NewIOGPUMTLFenceWithDevice(device *uintptr) IOGPUMTLFence {
 	instance := getIOGPUMTLFenceClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithDevice:"), device)
 	return IOGPUMTLFenceFromID(rv)

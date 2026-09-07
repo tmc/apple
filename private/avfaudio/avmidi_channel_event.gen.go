@@ -1,4 +1,4 @@
-// Code generated from Apple documentation for AVFAudio. DO NOT EDIT.
+// Code generated from Apple documentation for avfaudio. DO NOT EDIT.
 
 package avfaudio
 
@@ -102,7 +102,7 @@ func NewAVMIDIChannelEvent() AVMIDIChannelEvent {
 	return rv
 }
 
-func NewMIDIChannelEventWithChannelStatusData1Data2(channel byte, status byte, data1 byte, data2 byte) AVMIDIChannelEvent {
+func NewAVMIDIChannelEventWithChannelStatusData1Data2(channel byte, status byte, data1 byte, data2 byte) AVMIDIChannelEvent {
 	instance := getAVMIDIChannelEventClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithChannel:status:data1:data2:"), channel, status, data1, data2)
 	return AVMIDIChannelEventFromID(rv)

@@ -1,4 +1,4 @@
-// Code generated from Apple documentation for CoreML. DO NOT EDIT.
+// Code generated from Apple documentation for coreml. DO NOT EDIT.
 
 package coreml
 
@@ -100,19 +100,19 @@ func NewMLCategoricalMapping() MLCategoricalMapping {
 	return rv
 }
 
-func NewCategoricalMappingWithDescriptionConfiguration(description objectivec.IObject, configuration objectivec.IObject) MLCategoricalMapping {
+func NewMLCategoricalMappingWithDescriptionConfiguration(description objectivec.IObject, configuration objectivec.IObject) MLCategoricalMapping {
 	instance := getMLCategoricalMappingClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithDescription:configuration:"), description, configuration)
 	return MLCategoricalMappingFromID(rv)
 }
 
-func NewCategoricalMappingWithMappingValueOnUnknownDataTransformerNameInputDescriptionOutputDescriptionOrderedInputFeatureNamesOrderedOutputFeatureNamesConfiguration(mapping objectivec.IObject, unknown objectivec.IObject, name objectivec.IObject, description objectivec.IObject, description2 objectivec.IObject, names objectivec.IObject, names2 objectivec.IObject, configuration objectivec.IObject) MLCategoricalMapping {
+func NewMLCategoricalMappingWithMappingValueOnUnknownDataTransformerNameInputDescriptionOutputDescriptionOrderedInputFeatureNamesOrderedOutputFeatureNamesConfiguration(mapping objectivec.IObject, unknown objectivec.IObject, name objectivec.IObject, description objectivec.IObject, description2 objectivec.IObject, names objectivec.IObject, names2 objectivec.IObject, configuration objectivec.IObject) MLCategoricalMapping {
 	instance := getMLCategoricalMappingClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithMapping:valueOnUnknown:dataTransformerName:inputDescription:outputDescription:orderedInputFeatureNames:orderedOutputFeatureNames:configuration:"), mapping, unknown, name, description, description2, names, names2, configuration)
 	return MLCategoricalMappingFromID(rv)
 }
 
-func NewCategoricalMappingWithNameInputDescriptionOutputDescriptionOrderedInputFeatureNamesOrderedOutputFeatureNamesConfiguration(name objectivec.IObject, description objectivec.IObject, description2 objectivec.IObject, names objectivec.IObject, names2 objectivec.IObject, configuration objectivec.IObject) MLCategoricalMapping {
+func NewMLCategoricalMappingWithNameInputDescriptionOutputDescriptionOrderedInputFeatureNamesOrderedOutputFeatureNamesConfiguration(name objectivec.IObject, description objectivec.IObject, description2 objectivec.IObject, names objectivec.IObject, names2 objectivec.IObject, configuration objectivec.IObject) MLCategoricalMapping {
 	instance := getMLCategoricalMappingClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithName:inputDescription:outputDescription:orderedInputFeatureNames:orderedOutputFeatureNames:configuration:"), name, description, description2, names, names2, configuration)
 	return MLCategoricalMappingFromID(rv)

@@ -1,4 +1,4 @@
-// Code generated from Apple documentation for Virtualization. DO NOT EDIT.
+// Code generated from Apple documentation for virtualization. DO NOT EDIT.
 
 package virtualization
 
@@ -70,11 +70,12 @@ func (vc VZVirtualMachineConfigurationClass) Alloc() VZVirtualMachineConfigurati
 //   - [VZVirtualMachineConfiguration.Set_fatalErrorAction]
 //   - [VZVirtualMachineConfiguration._hidDevices]
 //   - [VZVirtualMachineConfiguration.Set_hidDevices]
-//   - [VZVirtualMachineConfiguration._isDuplicateUSBDeviceConfigurationAtUsbDeviceIndex]
 //   - [VZVirtualMachineConfiguration._mailboxDevices]
 //   - [VZVirtualMachineConfiguration.Set_mailboxDevices]
 //   - [VZVirtualMachineConfiguration._memoryOvercommitmentAllowed]
 //   - [VZVirtualMachineConfiguration.Set_memoryOvercommitmentAllowed]
+//   - [VZVirtualMachineConfiguration._mockVirtualMachineServiceFactory]
+//   - [VZVirtualMachineConfiguration.Set_mockVirtualMachineServiceFactory]
 //   - [VZVirtualMachineConfiguration._multiTouchDevices]
 //   - [VZVirtualMachineConfiguration.Set_multiTouchDevices]
 //   - [VZVirtualMachineConfiguration._panicAction]
@@ -99,6 +100,7 @@ func (vc VZVirtualMachineConfigurationClass) Alloc() VZVirtualMachineConfigurati
 //   - [VZVirtualMachineConfiguration._setHIDDevices]
 //   - [VZVirtualMachineConfiguration._setMailboxDevices]
 //   - [VZVirtualMachineConfiguration._setMemoryOvercommitmentAllowed]
+//   - [VZVirtualMachineConfiguration._setMockMockVirtualMachineServiceFactory]
 //   - [VZVirtualMachineConfiguration._setMultiTouchDevices]
 //   - [VZVirtualMachineConfiguration._setPCIPassthroughDevices]
 //   - [VZVirtualMachineConfiguration._setPanicAction]
@@ -113,6 +115,10 @@ func (vc VZVirtualMachineConfigurationClass) Alloc() VZVirtualMachineConfigurati
 //   - [VZVirtualMachineConfiguration.Set_terminationUnderMemoryPressureEnabled]
 //   - [VZVirtualMachineConfiguration._testIgnoreEntitlementChecks]
 //   - [VZVirtualMachineConfiguration.Set_testIgnoreEntitlementChecks]
+//   - [VZVirtualMachineConfiguration.CustomVirtioDevices]
+//   - [VZVirtualMachineConfiguration.SetCustomVirtioDevices]
+//   - [VZVirtualMachineConfiguration.Label]
+//   - [VZVirtualMachineConfiguration.SetLabel]
 type VZVirtualMachineConfiguration struct {
 	objectivec.Object
 }
@@ -153,11 +159,12 @@ var _ IVZVirtualMachineConfiguration = VZVirtualMachineConfiguration{}
 //   - [IVZVirtualMachineConfiguration.Set_fatalErrorAction]
 //   - [IVZVirtualMachineConfiguration._hidDevices]
 //   - [IVZVirtualMachineConfiguration.Set_hidDevices]
-//   - [IVZVirtualMachineConfiguration._isDuplicateUSBDeviceConfigurationAtUsbDeviceIndex]
 //   - [IVZVirtualMachineConfiguration._mailboxDevices]
 //   - [IVZVirtualMachineConfiguration.Set_mailboxDevices]
 //   - [IVZVirtualMachineConfiguration._memoryOvercommitmentAllowed]
 //   - [IVZVirtualMachineConfiguration.Set_memoryOvercommitmentAllowed]
+//   - [IVZVirtualMachineConfiguration._mockVirtualMachineServiceFactory]
+//   - [IVZVirtualMachineConfiguration.Set_mockVirtualMachineServiceFactory]
 //   - [IVZVirtualMachineConfiguration._multiTouchDevices]
 //   - [IVZVirtualMachineConfiguration.Set_multiTouchDevices]
 //   - [IVZVirtualMachineConfiguration._panicAction]
@@ -182,6 +189,7 @@ var _ IVZVirtualMachineConfiguration = VZVirtualMachineConfiguration{}
 //   - [IVZVirtualMachineConfiguration._setHIDDevices]
 //   - [IVZVirtualMachineConfiguration._setMailboxDevices]
 //   - [IVZVirtualMachineConfiguration._setMemoryOvercommitmentAllowed]
+//   - [IVZVirtualMachineConfiguration._setMockMockVirtualMachineServiceFactory]
 //   - [IVZVirtualMachineConfiguration._setMultiTouchDevices]
 //   - [IVZVirtualMachineConfiguration._setPCIPassthroughDevices]
 //   - [IVZVirtualMachineConfiguration._setPanicAction]
@@ -196,6 +204,10 @@ var _ IVZVirtualMachineConfiguration = VZVirtualMachineConfiguration{}
 //   - [IVZVirtualMachineConfiguration.Set_terminationUnderMemoryPressureEnabled]
 //   - [IVZVirtualMachineConfiguration._testIgnoreEntitlementChecks]
 //   - [IVZVirtualMachineConfiguration.Set_testIgnoreEntitlementChecks]
+//   - [IVZVirtualMachineConfiguration.CustomVirtioDevices]
+//   - [IVZVirtualMachineConfiguration.SetCustomVirtioDevices]
+//   - [IVZVirtualMachineConfiguration.Label]
+//   - [IVZVirtualMachineConfiguration.SetLabel]
 type IVZVirtualMachineConfiguration interface {
 	objectivec.IObject
 
@@ -225,11 +237,12 @@ type IVZVirtualMachineConfiguration interface {
 	Set_fatalErrorAction(value int64)
 	_hidDevices() foundation.INSArray
 	Set_hidDevices(value foundation.INSArray)
-	_isDuplicateUSBDeviceConfigurationAtUsbDeviceIndex(at uint64, index uint64) bool
 	_mailboxDevices() foundation.INSArray
 	Set_mailboxDevices(value foundation.INSArray)
 	_memoryOvercommitmentAllowed() bool
 	Set_memoryOvercommitmentAllowed(value bool)
+	_mockVirtualMachineServiceFactory() unsafe.Pointer
+	Set_mockVirtualMachineServiceFactory(value unsafe.Pointer)
 	_multiTouchDevices() foundation.INSArray
 	Set_multiTouchDevices(value foundation.INSArray)
 	_panicAction() int64
@@ -254,6 +267,7 @@ type IVZVirtualMachineConfiguration interface {
 	_setHIDDevices(hIDDevices objectivec.IObject)
 	_setMailboxDevices(devices objectivec.IObject)
 	_setMemoryOvercommitmentAllowed(allowed bool)
+	_setMockMockVirtualMachineServiceFactory(factory objectivec.IObject)
 	_setMultiTouchDevices(devices objectivec.IObject)
 	_setPCIPassthroughDevices(devices objectivec.IObject)
 	_setPanicAction(action int64)
@@ -268,13 +282,10 @@ type IVZVirtualMachineConfiguration interface {
 	Set_terminationUnderMemoryPressureEnabled(value bool)
 	_testIgnoreEntitlementChecks() bool
 	Set_testIgnoreEntitlementChecks(value bool)
-
-	// The number of CPUs for the virtual machine. Must be between minimumAllowedCPUCount and maximumAllowedCPUCount.
-	CPUCount() uint
-	SetCPUCount(value uint)
-	// The memory size in bytes for the virtual machine. Must be a multiple of 1MB and between minimumAllowedMemorySize and maximumAllowedMemorySize.
-	MemorySize() uint64
-	SetMemorySize(value uint64)
+	CustomVirtioDevices() foundation.INSArray
+	SetCustomVirtioDevices(value foundation.INSArray)
+	Label() string
+	SetLabel(value string)
 }
 
 // Init initializes the instance.
@@ -296,24 +307,6 @@ func NewVZVirtualMachineConfiguration() VZVirtualMachineConfiguration {
 	return rv
 }
 
-func (v VZVirtualMachineConfiguration) _isDuplicateUSBDeviceConfigurationAtUsbDeviceIndex(at uint64, index uint64) bool {
-	rv := objc.SendIfResponds[bool](v.ID, objc.Sel("_isDuplicateUSBDeviceConfigurationAt:usbDeviceIndex:"), at, index)
-	return rv
-}
-
-// IsDuplicateUSBDeviceConfigurationAtUsbDeviceIndex is an exported wrapper for the private method _isDuplicateUSBDeviceConfigurationAtUsbDeviceIndex.
-func (v VZVirtualMachineConfiguration) IsDuplicateUSBDeviceConfigurationAtUsbDeviceIndex(at uint64, index uint64) (bool, error) {
-	if !objc.RespondsToSelector(v.ID, objc.Sel("_isDuplicateUSBDeviceConfigurationAt:usbDeviceIndex:")) {
-		err := &objc.UnrecognizedSelectorError{Selector: "_isDuplicateUSBDeviceConfigurationAt:usbDeviceIndex:"}
-		return false, err
-	}
-	return v._isDuplicateUSBDeviceConfigurationAtUsbDeviceIndex(at, index), nil
-}
-
-// CanIsDuplicateUSBDeviceConfigurationAtUsbDeviceIndex reports whether the receiver responds to the private selector _isDuplicateUSBDeviceConfigurationAt:usbDeviceIndex:.
-func (v VZVirtualMachineConfiguration) CanIsDuplicateUSBDeviceConfigurationAtUsbDeviceIndex() bool {
-	return objc.RespondsToSelector(v.ID, objc.Sel("_isDuplicateUSBDeviceConfigurationAt:usbDeviceIndex:"))
-}
 func (v VZVirtualMachineConfiguration) _setAcceleratorDevices(devices objectivec.IObject) {
 	objc.SendIfResponds[objc.ID](v.ID, objc.Sel("_setAcceleratorDevices:"), devices)
 }
@@ -425,21 +418,6 @@ func (v VZVirtualMachineConfiguration) CanSetCustomMMIODevices() bool {
 func (v VZVirtualMachineConfiguration) _setCustomVirtioDevices(devices objectivec.IObject) {
 	objc.SendIfResponds[objc.ID](v.ID, objc.Sel("_setCustomVirtioDevices:"), devices)
 }
-
-// SetCustomVirtioDevices is an exported wrapper for the private method _setCustomVirtioDevices.
-func (v VZVirtualMachineConfiguration) SetCustomVirtioDevices(devices objectivec.IObject) error {
-	if !objc.RespondsToSelector(v.ID, objc.Sel("_setCustomVirtioDevices:")) {
-		err := &objc.UnrecognizedSelectorError{Selector: "_setCustomVirtioDevices:"}
-		return err
-	}
-	v._setCustomVirtioDevices(devices)
-	return nil
-}
-
-// CanSetCustomVirtioDevices reports whether the receiver responds to the private selector _setCustomVirtioDevices:.
-func (v VZVirtualMachineConfiguration) CanSetCustomVirtioDevices() bool {
-	return objc.RespondsToSelector(v.ID, objc.Sel("_setCustomVirtioDevices:"))
-}
 func (v VZVirtualMachineConfiguration) _setDebugStub(stub objectivec.IObject) {
 	objc.SendIfResponds[objc.ID](v.ID, objc.Sel("_setDebugStub:"), stub)
 }
@@ -529,6 +507,24 @@ func (v VZVirtualMachineConfiguration) SetMemoryOvercommitmentAllowed(allowed bo
 // CanSetMemoryOvercommitmentAllowed reports whether the receiver responds to the private selector _setMemoryOvercommitmentAllowed:.
 func (v VZVirtualMachineConfiguration) CanSetMemoryOvercommitmentAllowed() bool {
 	return objc.RespondsToSelector(v.ID, objc.Sel("_setMemoryOvercommitmentAllowed:"))
+}
+func (v VZVirtualMachineConfiguration) _setMockMockVirtualMachineServiceFactory(factory objectivec.IObject) {
+	objc.SendIfResponds[objc.ID](v.ID, objc.Sel("_setMockMockVirtualMachineServiceFactory:"), factory)
+}
+
+// SetMockMockVirtualMachineServiceFactory is an exported wrapper for the private method _setMockMockVirtualMachineServiceFactory.
+func (v VZVirtualMachineConfiguration) SetMockMockVirtualMachineServiceFactory(factory objectivec.IObject) error {
+	if !objc.RespondsToSelector(v.ID, objc.Sel("_setMockMockVirtualMachineServiceFactory:")) {
+		err := &objc.UnrecognizedSelectorError{Selector: "_setMockMockVirtualMachineServiceFactory:"}
+		return err
+	}
+	v._setMockMockVirtualMachineServiceFactory(factory)
+	return nil
+}
+
+// CanSetMockMockVirtualMachineServiceFactory reports whether the receiver responds to the private selector _setMockMockVirtualMachineServiceFactory:.
+func (v VZVirtualMachineConfiguration) CanSetMockMockVirtualMachineServiceFactory() bool {
+	return objc.RespondsToSelector(v.ID, objc.Sel("_setMockMockVirtualMachineServiceFactory:"))
 }
 func (v VZVirtualMachineConfiguration) _setMultiTouchDevices(devices objectivec.IObject) {
 	objc.SendIfResponds[objc.ID](v.ID, objc.Sel("_setMultiTouchDevices:"), devices)
@@ -858,19 +854,6 @@ func (v VZVirtualMachineConfiguration) _customVirtioDevices() foundation.INSArra
 	rv := objc.SendIfResponds[objc.ID](v.ID, objc.Sel("_customVirtioDevices"))
 	return foundation.NSArrayFromID(objc.ID(rv))
 }
-
-// CanCustomVirtioDevices reports whether the receiver responds to the private selector _customVirtioDevices.
-func (v VZVirtualMachineConfiguration) CanCustomVirtioDevices() bool {
-	return objc.RespondsToSelector(v.ID, objc.Sel("_customVirtioDevices"))
-}
-
-// CustomVirtioDevices is an exported wrapper for the private property _customVirtioDevices.
-func (v VZVirtualMachineConfiguration) CustomVirtioDevices() (foundation.INSArray, error) {
-	if !objc.RespondsToSelector(v.ID, objc.Sel("_customVirtioDevices")) {
-		return nil, &objc.UnrecognizedSelectorError{Selector: "_customVirtioDevices"}
-	}
-	return v._customVirtioDevices(), nil
-}
 func (v VZVirtualMachineConfiguration) Set_customVirtioDevices(value foundation.INSArray) {
 	objc.SendIfResponds[struct{}](v.ID, objc.Sel("set_customVirtioDevices:"), value)
 }
@@ -973,6 +956,26 @@ func (v VZVirtualMachineConfiguration) MemoryOvercommitmentAllowed() (bool, erro
 }
 func (v VZVirtualMachineConfiguration) Set_memoryOvercommitmentAllowed(value bool) {
 	objc.SendIfResponds[struct{}](v.ID, objc.Sel("set_memoryOvercommitmentAllowed:"), value)
+}
+func (v VZVirtualMachineConfiguration) _mockVirtualMachineServiceFactory() unsafe.Pointer {
+	rv := objc.SendIfResponds[unsafe.Pointer](v.ID, objc.Sel("_mockVirtualMachineServiceFactory"))
+	return rv
+}
+
+// CanMockVirtualMachineServiceFactory reports whether the receiver responds to the private selector _mockVirtualMachineServiceFactory.
+func (v VZVirtualMachineConfiguration) CanMockVirtualMachineServiceFactory() bool {
+	return objc.RespondsToSelector(v.ID, objc.Sel("_mockVirtualMachineServiceFactory"))
+}
+
+// MockVirtualMachineServiceFactory is an exported wrapper for the private property _mockVirtualMachineServiceFactory.
+func (v VZVirtualMachineConfiguration) MockVirtualMachineServiceFactory() (unsafe.Pointer, error) {
+	if !objc.RespondsToSelector(v.ID, objc.Sel("_mockVirtualMachineServiceFactory")) {
+		return nil, &objc.UnrecognizedSelectorError{Selector: "_mockVirtualMachineServiceFactory"}
+	}
+	return v._mockVirtualMachineServiceFactory(), nil
+}
+func (v VZVirtualMachineConfiguration) Set_mockVirtualMachineServiceFactory(value unsafe.Pointer) {
+	objc.SendIfResponds[struct{}](v.ID, objc.Sel("set_mockVirtualMachineServiceFactory:"), value)
 }
 func (v VZVirtualMachineConfiguration) _multiTouchDevices() foundation.INSArray {
 	rv := objc.SendIfResponds[objc.ID](v.ID, objc.Sel("_multiTouchDevices"))
@@ -1154,23 +1157,17 @@ func (v VZVirtualMachineConfiguration) TestIgnoreEntitlementChecks() (bool, erro
 func (v VZVirtualMachineConfiguration) Set_testIgnoreEntitlementChecks(value bool) {
 	objc.SendIfResponds[struct{}](v.ID, objc.Sel("set_testIgnoreEntitlementChecks:"), value)
 }
-
-// The number of CPUs for the virtual machine. Must be between
-// minimumAllowedCPUCount and maximumAllowedCPUCount. [Full Topic]
-func (v VZVirtualMachineConfiguration) CPUCount() uint {
-	rv := objc.SendIfResponds[uint](v.ID, objc.Sel("CPUCount"))
-	return rv
+func (v VZVirtualMachineConfiguration) CustomVirtioDevices() foundation.INSArray {
+	rv := objc.SendIfResponds[objc.ID](v.ID, objc.Sel("customVirtioDevices"))
+	return foundation.NSArrayFromID(objc.ID(rv))
 }
-func (v VZVirtualMachineConfiguration) SetCPUCount(value uint) {
-	objc.SendIfResponds[struct{}](v.ID, objc.Sel("setCPUCount:"), value)
+func (v VZVirtualMachineConfiguration) SetCustomVirtioDevices(value foundation.INSArray) {
+	objc.SendIfResponds[struct{}](v.ID, objc.Sel("setCustomVirtioDevices:"), value)
 }
-
-// The memory size in bytes for the virtual machine. Must be a multiple of 1MB
-// and between minimumAllowedMemorySize and maximumAllowedMemorySize. [Full Topic]
-func (v VZVirtualMachineConfiguration) MemorySize() uint64 {
-	rv := objc.SendIfResponds[uint64](v.ID, objc.Sel("memorySize"))
-	return rv
+func (v VZVirtualMachineConfiguration) Label() string {
+	rv := objc.SendIfResponds[objc.ID](v.ID, objc.Sel("label"))
+	return foundation.NSStringFromID(rv).String()
 }
-func (v VZVirtualMachineConfiguration) SetMemorySize(value uint64) {
-	objc.SendIfResponds[struct{}](v.ID, objc.Sel("setMemorySize:"), value)
+func (v VZVirtualMachineConfiguration) SetLabel(value string) {
+	objc.SendIfResponds[struct{}](v.ID, objc.Sel("setLabel:"), objc.String(value))
 }

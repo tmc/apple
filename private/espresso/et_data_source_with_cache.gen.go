@@ -73,8 +73,8 @@ type IETDataSourceWithCache interface {
 
 	// Topic: Methods
 
-	DataPointAtIndex(index int) objectivec.IObject
-	NumberOfDataPoints() int
+	DataPointAtIndex(index int32) objectivec.IObject
+	NumberOfDataPoints() int32
 	InitWithDataSource(source objectivec.IObject) ETDataSourceWithCache
 	InitWithDataSourceDumpPath(source objectivec.IObject, path objectivec.IObject) ETDataSourceWithCache
 }
@@ -110,12 +110,12 @@ func NewETDataSourceWithCacheWithDataSourceDumpPath(source objectivec.IObject, p
 	return ETDataSourceWithCacheFromID(rv)
 }
 
-func (e ETDataSourceWithCache) DataPointAtIndex(index int) objectivec.IObject {
+func (e ETDataSourceWithCache) DataPointAtIndex(index int32) objectivec.IObject {
 	rv := objc.SendIfResponds[objc.ID](e.ID, objc.Sel("dataPointAtIndex:"), index)
 	return objectivec.Object{ID: rv}
 }
-func (e ETDataSourceWithCache) NumberOfDataPoints() int {
-	rv := objc.SendIfResponds[int](e.ID, objc.Sel("numberOfDataPoints"))
+func (e ETDataSourceWithCache) NumberOfDataPoints() int32 {
+	rv := objc.SendIfResponds[int32](e.ID, objc.Sel("numberOfDataPoints"))
 	return rv
 }
 func (e ETDataSourceWithCache) InitWithDataSource(source objectivec.IObject) ETDataSourceWithCache {

@@ -4,7 +4,6 @@ package skylight
 
 import (
 	"sync"
-	"unsafe"
 
 	"github.com/tmc/apple/foundation"
 	"github.com/tmc/apple/objc"
@@ -47,8 +46,9 @@ func (wc WSUberEventProcessorClass) Alloc() WSUberEventProcessor {
 // # Methods
 //
 //   - [WSUberEventProcessor.ClearEventState]
-//   - [WSUberEventProcessor.ProcessEventContextDispatcher]
-//   - [WSUberEventProcessor.InitWithSession]
+//   - [WSUberEventProcessor.ModernSidecarEventProcessor]
+//   - [WSUberEventProcessor.ProcessEventDispatcher]
+//   - [WSUberEventProcessor.InitWithDeliveryManagerDispatcher]
 //   - [WSUberEventProcessor.DebugDescription]
 //   - [WSUberEventProcessor.Description]
 //   - [WSUberEventProcessor.Hash]
@@ -70,8 +70,9 @@ var _ IWSUberEventProcessor = WSUberEventProcessor{}
 // # Methods
 //
 //   - [IWSUberEventProcessor.ClearEventState]
-//   - [IWSUberEventProcessor.ProcessEventContextDispatcher]
-//   - [IWSUberEventProcessor.InitWithSession]
+//   - [IWSUberEventProcessor.ModernSidecarEventProcessor]
+//   - [IWSUberEventProcessor.ProcessEventDispatcher]
+//   - [IWSUberEventProcessor.InitWithDeliveryManagerDispatcher]
 //   - [IWSUberEventProcessor.DebugDescription]
 //   - [IWSUberEventProcessor.Description]
 //   - [IWSUberEventProcessor.Hash]
@@ -82,8 +83,9 @@ type IWSUberEventProcessor interface {
 	// Topic: Methods
 
 	ClearEventState()
-	ProcessEventContextDispatcher(event *SLSEventRecord, context *CPXEventProcessorContext, dispatcher objectivec.IObject) int64
-	InitWithSession(session *CGXSession) WSUberEventProcessor
+	ModernSidecarEventProcessor() IWSModernSidecarEventProcessor
+	ProcessEventDispatcher(event SLSEventRecordRef, dispatcher objectivec.IObject) int64
+	InitWithDeliveryManagerDispatcher(manager objectivec.IObject, dispatcher objectivec.IObject) WSUberEventProcessor
 	DebugDescription() string
 	Description() string
 	Hash() uint64
@@ -109,21 +111,21 @@ func NewWSUberEventProcessor() WSUberEventProcessor {
 	return rv
 }
 
-func NewWSUberEventProcessorWithSession(session *CGXSession) WSUberEventProcessor {
+func NewWSUberEventProcessorWithDeliveryManagerDispatcher(manager objectivec.IObject, dispatcher objectivec.IObject) WSUberEventProcessor {
 	instance := getWSUberEventProcessorClass().Alloc()
-	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithSession:"), unsafe.Pointer(session))
+	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithDeliveryManager:dispatcher:"), manager, dispatcher)
 	return WSUberEventProcessorFromID(rv)
 }
 
 func (w WSUberEventProcessor) ClearEventState() {
 	objc.SendIfResponds[objc.ID](w.ID, objc.Sel("clearEventState"))
 }
-func (w WSUberEventProcessor) ProcessEventContextDispatcher(event *SLSEventRecord, context *CPXEventProcessorContext, dispatcher objectivec.IObject) int64 {
-	rv := objc.SendIfResponds[int64](w.ID, objc.Sel("processEvent:context:dispatcher:"), unsafe.Pointer(event), unsafe.Pointer(context), dispatcher)
+func (w WSUberEventProcessor) ProcessEventDispatcher(event SLSEventRecordRef, dispatcher objectivec.IObject) int64 {
+	rv := objc.SendIfResponds[int64](w.ID, objc.Sel("processEvent:dispatcher:"), event, dispatcher)
 	return rv
 }
-func (w WSUberEventProcessor) InitWithSession(session *CGXSession) WSUberEventProcessor {
-	rv := objc.SendIfResponds[WSUberEventProcessor](w.ID, objc.Sel("initWithSession:"), unsafe.Pointer(session))
+func (w WSUberEventProcessor) InitWithDeliveryManagerDispatcher(manager objectivec.IObject, dispatcher objectivec.IObject) WSUberEventProcessor {
+	rv := objc.SendIfResponds[WSUberEventProcessor](w.ID, objc.Sel("initWithDeliveryManager:dispatcher:"), manager, dispatcher)
 	return rv
 }
 
@@ -138,6 +140,10 @@ func (w WSUberEventProcessor) Description() string {
 func (w WSUberEventProcessor) Hash() uint64 {
 	rv := objc.SendIfResponds[uint64](w.ID, objc.Sel("hash"))
 	return rv
+}
+func (w WSUberEventProcessor) ModernSidecarEventProcessor() IWSModernSidecarEventProcessor {
+	rv := objc.SendIfResponds[objc.ID](w.ID, objc.Sel("modernSidecarEventProcessor"))
+	return WSModernSidecarEventProcessorFromID(objc.ID(rv))
 }
 func (w WSUberEventProcessor) Superclass() objectivec.Class {
 	rv := objc.SendIfResponds[objectivec.Class](w.ID, objc.Sel("superclass"))

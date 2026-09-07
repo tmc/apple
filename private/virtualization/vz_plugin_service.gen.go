@@ -1,4 +1,4 @@
-// Code generated from Apple documentation for Virtualization. DO NOT EDIT.
+// Code generated from Apple documentation for virtualization. DO NOT EDIT.
 
 package virtualization
 
@@ -78,7 +78,7 @@ func NewVZPluginService() VZPluginService {
 	return rv
 }
 
-func (_VZPluginServiceClass VZPluginServiceClass) XpcMain() int {
-	rv := objc.SendIfResponds[int](objc.ID(_VZPluginServiceClass.class), objc.Sel("xpcMain"))
+func (_VZPluginServiceClass VZPluginServiceClass) XpcMain() int32 {
+	rv := objc.SendIfResponds[int32](objc.ID(_VZPluginServiceClass.class), objc.Sel("xpcMain"))
 	return rv
 }

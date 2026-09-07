@@ -1,4 +1,4 @@
-// Code generated from Apple documentation for CoreML. DO NOT EDIT.
+// Code generated from Apple documentation for coreml. DO NOT EDIT.
 
 package coreml
 
@@ -151,7 +151,7 @@ func NewMLTreeEnsembleXGBoostClassifier() MLTreeEnsembleXGBoostClassifier {
 	return rv
 }
 
-func NewTreeEnsembleXGBoostClassifierWithDescriptionConfigurationIndexToStringLabelArrayIndexToIntLabelArrayModelURLError(description objectivec.IObject, configuration objectivec.IObject, array unsafe.Pointer, array2 unsafe.Pointer, url foundation.NSURL) (MLTreeEnsembleXGBoostClassifier, error) {
+func NewMLTreeEnsembleXGBoostClassifierWithDescriptionConfigurationIndexToStringLabelArrayIndexToIntLabelArrayModelURLError(description objectivec.IObject, configuration objectivec.IObject, array unsafe.Pointer, array2 unsafe.Pointer, url foundation.NSURL) (MLTreeEnsembleXGBoostClassifier, error) {
 	var errorPtr objc.ID
 	instance := getMLTreeEnsembleXGBoostClassifierClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithDescription:configuration:indexToStringLabelArray:indexToIntLabelArray:modelURL:error:"), description, configuration, array, array2, url, unsafe.Pointer(&errorPtr))
@@ -279,8 +279,8 @@ func (m MLTreeEnsembleXGBoostClassifier) SetLabelsForDataPoints(value foundation
 	objc.SendIfResponds[struct{}](m.ID, objc.Sel("setLabelsForDataPoints:"), value)
 }
 func (m MLTreeEnsembleXGBoostClassifier) ModelURL() foundation.NSURL {
-	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("modelURL"))
-	return foundation.NSURLFromID(objc.ID(rv))
+	rv := objc.SendIfResponds[foundation.NSURL](m.ID, objc.Sel("modelURL"))
+	return foundation.NSURL(rv)
 }
 func (m MLTreeEnsembleXGBoostClassifier) SetModelURL(value foundation.NSURL) {
 	objc.SendIfResponds[struct{}](m.ID, objc.Sel("setModelURL:"), value)

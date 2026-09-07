@@ -1,4 +1,4 @@
-// Code generated from Apple documentation for CoreML. DO NOT EDIT.
+// Code generated from Apple documentation for coreml. DO NOT EDIT.
 
 package coreml
 
@@ -92,7 +92,7 @@ func NewMLWritableWrappedModel() MLWritableWrappedModel {
 	return rv
 }
 
-func NewWritableWrappedModelDescriptionOnlyWithSpecificationConfigurationError(specification unsafe.Pointer, configuration objectivec.IObject) (MLWritableWrappedModel, error) {
+func NewMLWritableWrappedModelDescriptionOnlyWithSpecificationConfigurationError(specification unsafe.Pointer, configuration objectivec.IObject) (MLWritableWrappedModel, error) {
 	var errorPtr objc.ID
 	instance := getMLWritableWrappedModelClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initDescriptionOnlyWithSpecification:configuration:error:"), specification, configuration, unsafe.Pointer(&errorPtr))
@@ -106,7 +106,7 @@ func NewWritableWrappedModelDescriptionOnlyWithSpecificationConfigurationError(s
 	return MLWritableWrappedModelFromID(rv), nil
 }
 
-func NewWritableWrappedModelInterfaceAndMetadataWithCompiledArchiveError(archive unsafe.Pointer) (MLWritableWrappedModel, error) {
+func NewMLWritableWrappedModelInterfaceAndMetadataWithCompiledArchiveError(archive unsafe.Pointer) (MLWritableWrappedModel, error) {
 	var errorPtr objc.ID
 	instance := getMLWritableWrappedModelClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initInterfaceAndMetadataWithCompiledArchive:error:"), archive, unsafe.Pointer(&errorPtr))
@@ -120,31 +120,31 @@ func NewWritableWrappedModelInterfaceAndMetadataWithCompiledArchiveError(archive
 	return MLWritableWrappedModelFromID(rv), nil
 }
 
-func NewWritableWrappedModelWithConfiguration(configuration objectivec.IObject) MLWritableWrappedModel {
+func NewMLWritableWrappedModelWithConfiguration(configuration objectivec.IObject) MLWritableWrappedModel {
 	instance := getMLWritableWrappedModelClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithConfiguration:"), configuration)
 	return MLWritableWrappedModelFromID(rv)
 }
 
-func NewWritableWrappedModelWithDescription(description objectivec.IObject) MLWritableWrappedModel {
+func NewMLWritableWrappedModelWithDescription(description objectivec.IObject) MLWritableWrappedModel {
 	instance := getMLWritableWrappedModelClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithDescription:"), description)
 	return MLWritableWrappedModelFromID(rv)
 }
 
-func NewWritableWrappedModelWithDescriptionConfiguration(description objectivec.IObject, configuration objectivec.IObject) MLWritableWrappedModel {
+func NewMLWritableWrappedModelWithDescriptionConfiguration(description objectivec.IObject, configuration objectivec.IObject) MLWritableWrappedModel {
 	instance := getMLWritableWrappedModelClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithDescription:configuration:"), description, configuration)
 	return MLWritableWrappedModelFromID(rv)
 }
 
-func NewWritableWrappedModelWithInnerModel(model objectivec.IObject) MLWritableWrappedModel {
+func NewMLWritableWrappedModelWithInnerModel(model objectivec.IObject) MLWritableWrappedModel {
 	instance := getMLWritableWrappedModelClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithInnerModel:"), model)
 	return MLWritableWrappedModelFromID(rv)
 }
 
-func NewWritableWrappedModelWithNameInputDescriptionOutputDescriptionOrderedInputFeatureNamesOrderedOutputFeatureNamesConfiguration(name objectivec.IObject, description objectivec.IObject, description2 objectivec.IObject, names objectivec.IObject, names2 objectivec.IObject, configuration objectivec.IObject) MLWritableWrappedModel {
+func NewMLWritableWrappedModelWithNameInputDescriptionOutputDescriptionOrderedInputFeatureNamesOrderedOutputFeatureNamesConfiguration(name objectivec.IObject, description objectivec.IObject, description2 objectivec.IObject, names objectivec.IObject, names2 objectivec.IObject, configuration objectivec.IObject) MLWritableWrappedModel {
 	instance := getMLWritableWrappedModelClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithName:inputDescription:outputDescription:orderedInputFeatureNames:orderedOutputFeatureNames:configuration:"), name, description, description2, names, names2, configuration)
 	return MLWritableWrappedModelFromID(rv)

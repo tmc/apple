@@ -1,4 +1,4 @@
-// Code generated from Apple documentation for AVFAudio. DO NOT EDIT.
+// Code generated from Apple documentation for avfaudio. DO NOT EDIT.
 
 package avfaudio
 
@@ -101,23 +101,23 @@ type IAVVCAudioBuffer interface {
 
 	// Topic: Methods
 
-	BytesCapacity() int
-	BytesDataSize() int
-	SetBytesDataSize(value int)
-	Channels() int
+	BytesCapacity() int32
+	BytesDataSize() int32
+	SetBytesDataSize(value int32)
+	Channels() int32
 	Data() unsafe.Pointer
-	PacketDescriptionCapacity() int
-	PacketDescriptionCount() int
+	PacketDescriptionCapacity() int32
+	PacketDescriptionCount() int32
 	PacketDescriptions() coreaudiotypes.AudioStreamPacketDescription
 	RemoteVoiceActivityAvailable() bool
 	RemoteVoiceActivityRMS() byte
 	RemoteVoiceActivityVAD() byte
-	SetPacketDescriptionsCount(descriptions []coreaudiotypes.AudioStreamPacketDescription, count int)
+	SetPacketDescriptionsCount(descriptions []coreaudiotypes.AudioStreamPacketDescription, count int32)
 	StreamDescription() coreaudiotypes.AudioStreamBasicDescription
 	TimeStamp() uint64
 	SetTimeStamp(value uint64)
 	UpsamplingSourceAudio() bool
-	InitWithAudioQueueBufferChannelsTimeStamp(buffer *MyAudioQueueBuffer, channels int, stamp uint64) AVVCAudioBuffer
+	InitWithAudioQueueBufferChannelsTimeStamp(buffer *MyAudioQueueBuffer, channels int32, stamp uint64) AVVCAudioBuffer
 }
 
 // Init initializes the instance.
@@ -139,45 +139,45 @@ func NewAVVCAudioBuffer() AVVCAudioBuffer {
 	return rv
 }
 
-func NewVCAudioBufferWithAudioQueueBufferChannelsTimeStamp(buffer *MyAudioQueueBuffer, channels int, stamp uint64) AVVCAudioBuffer {
+func NewAVVCAudioBufferWithAudioQueueBufferChannelsTimeStamp(buffer *MyAudioQueueBuffer, channels int32, stamp uint64) AVVCAudioBuffer {
 	instance := getAVVCAudioBufferClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithAudioQueueBuffer:channels:timeStamp:"), unsafe.Pointer(buffer), channels, stamp)
 	return AVVCAudioBufferFromID(rv)
 }
 
-func (a AVVCAudioBuffer) SetPacketDescriptionsCount(descriptions []coreaudiotypes.AudioStreamPacketDescription, count int) {
+func (a AVVCAudioBuffer) SetPacketDescriptionsCount(descriptions []coreaudiotypes.AudioStreamPacketDescription, count int32) {
 	objc.SendIfResponds[objc.ID](a.ID, objc.Sel("setPacketDescriptions:count:"), objc.CArray(descriptions), count)
 }
-func (a AVVCAudioBuffer) InitWithAudioQueueBufferChannelsTimeStamp(buffer *MyAudioQueueBuffer, channels int, stamp uint64) AVVCAudioBuffer {
+func (a AVVCAudioBuffer) InitWithAudioQueueBufferChannelsTimeStamp(buffer *MyAudioQueueBuffer, channels int32, stamp uint64) AVVCAudioBuffer {
 	rv := objc.SendIfResponds[AVVCAudioBuffer](a.ID, objc.Sel("initWithAudioQueueBuffer:channels:timeStamp:"), unsafe.Pointer(buffer), channels, stamp)
 	return rv
 }
 
-func (a AVVCAudioBuffer) BytesCapacity() int {
-	rv := objc.SendIfResponds[int](a.ID, objc.Sel("bytesCapacity"))
+func (a AVVCAudioBuffer) BytesCapacity() int32 {
+	rv := objc.SendIfResponds[int32](a.ID, objc.Sel("bytesCapacity"))
 	return rv
 }
-func (a AVVCAudioBuffer) BytesDataSize() int {
-	rv := objc.SendIfResponds[int](a.ID, objc.Sel("bytesDataSize"))
+func (a AVVCAudioBuffer) BytesDataSize() int32 {
+	rv := objc.SendIfResponds[int32](a.ID, objc.Sel("bytesDataSize"))
 	return rv
 }
-func (a AVVCAudioBuffer) SetBytesDataSize(value int) {
+func (a AVVCAudioBuffer) SetBytesDataSize(value int32) {
 	objc.SendIfResponds[struct{}](a.ID, objc.Sel("setBytesDataSize:"), value)
 }
-func (a AVVCAudioBuffer) Channels() int {
-	rv := objc.SendIfResponds[int](a.ID, objc.Sel("channels"))
+func (a AVVCAudioBuffer) Channels() int32 {
+	rv := objc.SendIfResponds[int32](a.ID, objc.Sel("channels"))
 	return rv
 }
 func (a AVVCAudioBuffer) Data() unsafe.Pointer {
 	rv := objc.SendIfResponds[unsafe.Pointer](a.ID, objc.Sel("data"))
 	return rv
 }
-func (a AVVCAudioBuffer) PacketDescriptionCapacity() int {
-	rv := objc.SendIfResponds[int](a.ID, objc.Sel("packetDescriptionCapacity"))
+func (a AVVCAudioBuffer) PacketDescriptionCapacity() int32 {
+	rv := objc.SendIfResponds[int32](a.ID, objc.Sel("packetDescriptionCapacity"))
 	return rv
 }
-func (a AVVCAudioBuffer) PacketDescriptionCount() int {
-	rv := objc.SendIfResponds[int](a.ID, objc.Sel("packetDescriptionCount"))
+func (a AVVCAudioBuffer) PacketDescriptionCount() int32 {
+	rv := objc.SendIfResponds[int32](a.ID, objc.Sel("packetDescriptionCount"))
 	return rv
 }
 func (a AVVCAudioBuffer) PacketDescriptions() coreaudiotypes.AudioStreamPacketDescription {

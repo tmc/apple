@@ -1,4 +1,4 @@
-// Code generated from Apple documentation for CoreML. DO NOT EDIT.
+// Code generated from Apple documentation for coreml. DO NOT EDIT.
 
 package coreml
 
@@ -126,7 +126,7 @@ func NewMLExpBrick() MLExpBrick {
 	return rv
 }
 
-func NewExpBrickWithParameters(parameters objectivec.IObject) MLExpBrick {
+func NewMLExpBrickWithParameters(parameters objectivec.IObject) MLExpBrick {
 	instance := getMLExpBrickClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithParameters:"), parameters)
 	return MLExpBrickFromID(rv)

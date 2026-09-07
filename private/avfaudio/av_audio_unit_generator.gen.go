@@ -1,4 +1,4 @@
-// Code generated from Apple documentation for AVFAudio. DO NOT EDIT.
+// Code generated from Apple documentation for avfaudio. DO NOT EDIT.
 
 package avfaudio
 
@@ -100,7 +100,7 @@ func NewAVAudioUnitGenerator() AVAudioUnitGenerator {
 	return rv
 }
 
-func NewAudioUnitGeneratorWithImpl(impl unsafe.Pointer) AVAudioUnitGenerator {
+func NewAVAudioUnitGeneratorWithImpl(impl unsafe.Pointer) AVAudioUnitGenerator {
 	instance := getAVAudioUnitGeneratorClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithImpl:"), impl)
 	return AVAudioUnitGeneratorFromID(rv)

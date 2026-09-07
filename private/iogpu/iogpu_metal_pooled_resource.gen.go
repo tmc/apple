@@ -79,31 +79,31 @@ func NewIOGPUMetalPooledResource() IOGPUMetalPooledResource {
 	return rv
 }
 
-func NewGPUMetalPooledResourceMemorylessDescriptor(memoryless objectivec.IObject, descriptor objectivec.IObject) IOGPUMetalPooledResource {
+func NewIOGPUMetalPooledResourceMemorylessDescriptor(memoryless objectivec.IObject, descriptor objectivec.IObject) IOGPUMetalPooledResource {
 	instance := getIOGPUMetalPooledResourceClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initMemoryless:descriptor:"), memoryless, descriptor)
 	return IOGPUMetalPooledResourceFromID(rv)
 }
 
-func NewGPUMetalPooledResourceStandinWithDevice(device objectivec.IObject) IOGPUMetalPooledResource {
+func NewIOGPUMetalPooledResourceStandinWithDevice(device objectivec.IObject) IOGPUMetalPooledResource {
 	instance := getIOGPUMetalPooledResourceClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initStandinWithDevice:"), device)
 	return IOGPUMetalPooledResourceFromID(rv)
 }
 
-func NewGPUMetalPooledResourceWithDeviceOptionsArgsArgsSize(device objectivec.IObject, options uint64, args *IOGPUNewResourceArgs, size uint32) IOGPUMetalPooledResource {
+func NewIOGPUMetalPooledResourceWithDeviceOptionsArgsArgsSize(device objectivec.IObject, options uint64, args *IOGPUNewResourceArgs, size uint32) IOGPUMetalPooledResource {
 	instance := getIOGPUMetalPooledResourceClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithDevice:options:args:argsSize:"), device, options, unsafe.Pointer(args), size)
 	return IOGPUMetalPooledResourceFromID(rv)
 }
 
-func NewGPUMetalPooledResourceWithDeviceRemoteStorageResourceOptionsArgsArgsSize(device objectivec.IObject, resource objectivec.IObject, options uint64, args *IOGPUNewResourceArgs, size uint32) IOGPUMetalPooledResource {
+func NewIOGPUMetalPooledResourceWithDeviceRemoteStorageResourceOptionsArgsArgsSize(device objectivec.IObject, resource objectivec.IObject, options uint64, args *IOGPUNewResourceArgs, size uint32) IOGPUMetalPooledResource {
 	instance := getIOGPUMetalPooledResourceClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithDevice:remoteStorageResource:options:args:argsSize:"), device, resource, options, unsafe.Pointer(args), size)
 	return IOGPUMetalPooledResourceFromID(rv)
 }
 
-func NewGPUMetalPooledResourceWithResource(resource objectivec.IObject) IOGPUMetalPooledResource {
+func NewIOGPUMetalPooledResourceWithResource(resource objectivec.IObject) IOGPUMetalPooledResource {
 	instance := getIOGPUMetalPooledResourceClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithResource:"), resource)
 	return IOGPUMetalPooledResourceFromID(rv)

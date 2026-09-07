@@ -1,4 +1,4 @@
-// Code generated from Apple documentation for CoreML. DO NOT EDIT.
+// Code generated from Apple documentation for coreml. DO NOT EDIT.
 
 package coreml
 
@@ -108,7 +108,7 @@ func NewMLInternalSettings() MLInternalSettings {
 	return rv
 }
 
-func NewInternalSettingsWithCoder(coder objectivec.IObject) MLInternalSettings {
+func NewMLInternalSettingsWithCoder(coder objectivec.IObject) MLInternalSettings {
 	instance := getMLInternalSettingsClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
 	return MLInternalSettingsFromID(rv)

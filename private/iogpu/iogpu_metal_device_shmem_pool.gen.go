@@ -80,12 +80,12 @@ type IIOGPUMetalDeviceShmemPool interface {
 	// Topic: Methods
 
 	AllocatedSize() uint64
-	AvailableCount() int
+	AvailableCount() int32
 	Prune()
 	Purge()
 	SetShmemSize(size uint32)
 	ShmemSize() uint32
-	InitWithDeviceResourceClassShmemSizeShmemTypeOptions(device objectivec.IObject, class objectivec.Class, size uint32, type_ int, options objectivec.IObject) IOGPUMetalDeviceShmemPool
+	InitWithDeviceResourceClassShmemSizeShmemTypeOptions(device objectivec.IObject, class objectivec.Class, size uint32, type_ int32, options objectivec.IObject) IOGPUMetalDeviceShmemPool
 }
 
 // Init initializes the instance.
@@ -107,7 +107,7 @@ func NewIOGPUMetalDeviceShmemPool() IOGPUMetalDeviceShmemPool {
 	return rv
 }
 
-func NewGPUMetalDeviceShmemPoolWithDeviceResourceClassShmemSizeShmemTypeOptions(device objectivec.IObject, class objectivec.Class, size uint32, type_ int, options objectivec.IObject) IOGPUMetalDeviceShmemPool {
+func NewIOGPUMetalDeviceShmemPoolWithDeviceResourceClassShmemSizeShmemTypeOptions(device objectivec.IObject, class objectivec.Class, size uint32, type_ int32, options objectivec.IObject) IOGPUMetalDeviceShmemPool {
 	instance := getIOGPUMetalDeviceShmemPoolClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithDevice:resourceClass:shmemSize:shmemType:options:"), device, class, size, type_, options)
 	return IOGPUMetalDeviceShmemPoolFromID(rv)
@@ -117,8 +117,8 @@ func (i IOGPUMetalDeviceShmemPool) AllocatedSize() uint64 {
 	rv := objc.SendIfResponds[uint64](i.ID, objc.Sel("allocatedSize"))
 	return rv
 }
-func (i IOGPUMetalDeviceShmemPool) AvailableCount() int {
-	rv := objc.SendIfResponds[int](i.ID, objc.Sel("availableCount"))
+func (i IOGPUMetalDeviceShmemPool) AvailableCount() int32 {
+	rv := objc.SendIfResponds[int32](i.ID, objc.Sel("availableCount"))
 	return rv
 }
 func (i IOGPUMetalDeviceShmemPool) Prune() {
@@ -134,7 +134,7 @@ func (i IOGPUMetalDeviceShmemPool) ShmemSize() uint32 {
 	rv := objc.SendIfResponds[uint32](i.ID, objc.Sel("shmemSize"))
 	return rv
 }
-func (i IOGPUMetalDeviceShmemPool) InitWithDeviceResourceClassShmemSizeShmemTypeOptions(device objectivec.IObject, class objectivec.Class, size uint32, type_ int, options objectivec.IObject) IOGPUMetalDeviceShmemPool {
+func (i IOGPUMetalDeviceShmemPool) InitWithDeviceResourceClassShmemSizeShmemTypeOptions(device objectivec.IObject, class objectivec.Class, size uint32, type_ int32, options objectivec.IObject) IOGPUMetalDeviceShmemPool {
 	rv := objc.SendIfResponds[IOGPUMetalDeviceShmemPool](i.ID, objc.Sel("initWithDevice:resourceClass:shmemSize:shmemType:options:"), device, class, size, type_, options)
 	return rv
 }

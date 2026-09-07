@@ -1,4 +1,4 @@
-// Code generated from Apple documentation for AVFAudio. DO NOT EDIT.
+// Code generated from Apple documentation for avfaudio. DO NOT EDIT.
 
 package avfaudio
 
@@ -50,6 +50,11 @@ type CAStreamBasicDescription struct {
 	Field7 uint32
 	Field8 uint32
 	Field9 uint32
+}
+
+// ComponentInstanceRecord
+type ComponentInstanceRecord struct {
+	Field1 [1]int64
 }
 
 // ControllerImpl
@@ -116,6 +121,14 @@ type OpaquePthreadMutex struct {
 // Opaque_pthread_mutex_t is a type alias for OpaquePthreadMutex for use in objc.Send[T] calls.
 type Opaque_pthread_mutex_t = OpaquePthreadMutex
 
+// OSUnfairLockS
+type OSUnfairLockS struct {
+	_os_unfair_lock_opaque uint32
+}
+
+// Os_unfair_lock_s is a type alias for OSUnfairLockS for use in objc.Send[T] calls.
+type Os_unfair_lock_s = OSUnfairLockS
+
 // RecursiveMutex
 type RecursiveMutex struct {
 	__m_ [8]uint64
@@ -123,6 +136,14 @@ type RecursiveMutex struct {
 
 // Recursive_mutex is a type alias for RecursiveMutex for use in objc.Send[T] calls.
 type Recursive_mutex = RecursiveMutex
+
+// UnfairLock
+type UnfairLock struct {
+	M_lock OSUnfairLockS
+}
+
+// Unfair_lock is a type alias for UnfairLock for use in objc.Send[T] calls.
+type Unfair_lock = UnfairLock
 
 // XPCTypeS
 type XPCTypeS struct {

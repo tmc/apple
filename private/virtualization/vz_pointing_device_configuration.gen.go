@@ -1,4 +1,4 @@
-// Code generated from Apple documentation for Virtualization. DO NOT EDIT.
+// Code generated from Apple documentation for virtualization. DO NOT EDIT.
 
 package virtualization
 
@@ -81,7 +81,7 @@ type IVZPointingDeviceConfiguration interface {
 	// Topic: Methods
 
 	_init() objectivec.IObject
-	_pointingDevice() int
+	_pointingDevice() int32
 	MakePointingDeviceForVirtualMachinePointingDeviceIndex(machine objectivec.IObject, index uint64) objectivec.IObject
 	DebugDescription() string
 	Description() string
@@ -117,8 +117,8 @@ func (v VZPointingDeviceConfiguration) MakePointingDeviceForVirtualMachinePointi
 	return objectivec.Object{ID: rv}
 }
 
-func (v VZPointingDeviceConfiguration) _pointingDevice() int {
-	rv := objc.SendIfResponds[int](v.ID, objc.Sel("_pointingDevice"))
+func (v VZPointingDeviceConfiguration) _pointingDevice() int32 {
+	rv := objc.SendIfResponds[int32](v.ID, objc.Sel("_pointingDevice"))
 	return rv
 }
 
@@ -128,7 +128,7 @@ func (v VZPointingDeviceConfiguration) CanPointingDevice() bool {
 }
 
 // PointingDevice is an exported wrapper for the private property _pointingDevice.
-func (v VZPointingDeviceConfiguration) PointingDevice() (int, error) {
+func (v VZPointingDeviceConfiguration) PointingDevice() (int32, error) {
 	if !objc.RespondsToSelector(v.ID, objc.Sel("_pointingDevice")) {
 		return 0, &objc.UnrecognizedSelectorError{Selector: "_pointingDevice"}
 	}

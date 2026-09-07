@@ -1,4 +1,4 @@
-// Code generated from Apple documentation for CoreML. DO NOT EDIT.
+// Code generated from Apple documentation for coreml. DO NOT EDIT.
 
 package coreml
 
@@ -366,7 +366,7 @@ type IMLNeuralNetworkEngine interface {
 	_addCompiledNetworkOrProgramToPlanError(plan unsafe.Pointer) (bool, error)
 	_addNetworkToPlanError(plan unsafe.Pointer) (bool, error)
 	_deallocContextAndPlan()
-	_espressoDeviceForConfigurationError(configuration objectivec.IObject) (int, error)
+	_espressoDeviceForConfigurationError(configuration objectivec.IObject) (int32, error)
 	_espressoOutputShapeForFeatureNameMatchesShapeOfMLMultiArray(name objectivec.IObject, array objectivec.IObject) bool
 	_handleAddNetworkToPlanStatusError(status int) (bool, error)
 	_matchEngineToOptionsError(options objectivec.IObject) (bool, error)
@@ -410,8 +410,8 @@ type IMLNeuralNetworkEngine interface {
 	DefaultOptionalValues() foundation.INSDictionary
 	SetDefaultOptionalValues(value foundation.INSDictionary)
 	DumpTestVectorsToPath(path objectivec.IObject)
-	Engine() int
-	SetEngine(value int)
+	Engine() int32
+	SetEngine(value int32)
 	EspressoInputShapes() foundation.INSDictionary
 	SetEspressoInputShapes(value foundation.INSDictionary)
 	EspressoInputStrides() foundation.INSDictionary
@@ -473,17 +473,17 @@ type IMLNeuralNetworkEngine interface {
 	SetPlan(value unsafe.Pointer)
 	PopulateMultiArrayShapeStridesForEbufFeatureDescriptionNdArrayInterpretation(shape []objectivec.IObject, strides []objectivec.IObject, ebuf unsafe.Pointer, description objectivec.IObject, interpretation bool)
 	PopulateOutputsOutputBackingsDirectlyBoundOutputFeatureNamesError(outputs uint64, backings objectivec.IObject, names objectivec.IObject) (objectivec.IObject, error)
-	Precision() int
-	SetPrecision(value int)
+	Precision() int32
+	SetPrecision(value int32)
 	PredictionsQueue() objectivec.Object
 	SetPredictionsQueue(value objectivec.Object)
-	PrepareBlobNamedForNewBlobBackingModeBindMode(named objectivec.IObject, mode int64, mode2 int)
-	Priority() int
-	SetPriority(value int)
+	PrepareBlobNamedForNewBlobBackingModeBindMode(named objectivec.IObject, mode int64, mode2 int32)
+	Priority() int32
+	SetPriority(value int32)
 	ProbabilityDictionarySharedKeySet() objectivec.IObject
 	SetProbabilityDictionarySharedKeySet(value objectivec.IObject)
-	Qos() int
-	SetQos(value int)
+	Qos() int32
+	SetQos(value int32)
 	RebuildPlan(plan []objectivec.IObject) bool
 	RebuildPlanError(plan bool) (bool, error)
 	RegressOptionsError(regress objectivec.IObject, options objectivec.IObject) (objectivec.IObject, error)
@@ -492,13 +492,13 @@ type IMLNeuralNetworkEngine interface {
 	ResetSizesNoAutoReleaseError(release objectivec.IObject) (bool, error)
 	ResetSizesWithEspressoConfigurationsError(configurations objectivec.IObject) (bool, error)
 	SequenceConcatConsumesOptionalInputNamed(named objectivec.IObject) bool
-	SequenceNamed(named objectivec.IObject) int
+	SequenceNamed(named objectivec.IObject) int32
 	SetEspressoBlobShapesWidthsHeightsKsBatchesSequencesRanksError(shapes unsafe.Pointer, widths unsafe.Pointer, heights unsafe.Pointer, ks unsafe.Pointer, batches unsafe.Pointer, sequences unsafe.Pointer, ranks unsafe.Pointer) (bool, error)
 	SortBatchByShapeWithMapError(shape objectivec.IObject, map_ []objectivec.IObject) (objectivec.IObject, error)
 	SubmitSemaphore() objectivec.Object
 	SetSubmitSemaphore(value objectivec.Object)
 	SupportFromEspressoLayerInfo(info objectivec.IObject) uint64
-	SupportFromEspressoPlatform(platform int) uint64
+	SupportFromEspressoPlatform(platform int32) uint64
 	TransferOneComponent16HalfPixelBufferToPixelBufferWithScaleBias(buffer corevideo.CVImageBufferRef, buffer2 corevideo.CVImageBufferRef, scale float32, bias float32) bool
 	TransferPixelBufferToPixelBuffer(buffer corevideo.CVImageBufferRef, buffer2 corevideo.CVImageBufferRef) bool
 	TryToSetOutputBackingForFeatureNameToEbufReportPointerFlagsError(backing objectivec.IObject, name objectivec.IObject, ebuf unsafe.Pointer) (int, error)
@@ -530,7 +530,7 @@ func NewMLNeuralNetworkEngine() MLNeuralNetworkEngine {
 	return rv
 }
 
-func NewNeuralNetworkEngineWithContainerConfigurationError(container objectivec.IObject, configuration objectivec.IObject) (MLNeuralNetworkEngine, error) {
+func NewMLNeuralNetworkEngineWithContainerConfigurationError(container objectivec.IObject, configuration objectivec.IObject) (MLNeuralNetworkEngine, error) {
 	var errorPtr objc.ID
 	instance := getMLNeuralNetworkEngineClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithContainer:configuration:error:"), container, configuration, unsafe.Pointer(&errorPtr))
@@ -544,7 +544,7 @@ func NewNeuralNetworkEngineWithContainerConfigurationError(container objectivec.
 	return MLNeuralNetworkEngineFromID(rv), nil
 }
 
-func NewNeuralNetworkEngineWithContainerError(container objectivec.IObject) (MLNeuralNetworkEngine, error) {
+func NewMLNeuralNetworkEngineWithContainerError(container objectivec.IObject) (MLNeuralNetworkEngine, error) {
 	var errorPtr objc.ID
 	instance := getMLNeuralNetworkEngineClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithContainer:error:"), container, unsafe.Pointer(&errorPtr))
@@ -558,13 +558,13 @@ func NewNeuralNetworkEngineWithContainerError(container objectivec.IObject) (MLN
 	return MLNeuralNetworkEngineFromID(rv), nil
 }
 
-func NewNeuralNetworkEngineWithDescriptionConfiguration(description objectivec.IObject, configuration objectivec.IObject) MLNeuralNetworkEngine {
+func NewMLNeuralNetworkEngineWithDescriptionConfiguration(description objectivec.IObject, configuration objectivec.IObject) MLNeuralNetworkEngine {
 	instance := getMLNeuralNetworkEngineClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithDescription:configuration:"), description, configuration)
 	return MLNeuralNetworkEngineFromID(rv)
 }
 
-func NewNeuralNetworkEngineWithNameInputDescriptionOutputDescriptionOrderedInputFeatureNamesOrderedOutputFeatureNamesConfiguration(name objectivec.IObject, description objectivec.IObject, description2 objectivec.IObject, names objectivec.IObject, names2 objectivec.IObject, configuration objectivec.IObject) MLNeuralNetworkEngine {
+func NewMLNeuralNetworkEngineWithNameInputDescriptionOutputDescriptionOrderedInputFeatureNamesOrderedOutputFeatureNamesConfiguration(name objectivec.IObject, description objectivec.IObject, description2 objectivec.IObject, names objectivec.IObject, names2 objectivec.IObject, configuration objectivec.IObject) MLNeuralNetworkEngine {
 	instance := getMLNeuralNetworkEngineClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithName:inputDescription:outputDescription:orderedInputFeatureNames:orderedOutputFeatureNames:configuration:"), name, description, description2, names, names2, configuration)
 	return MLNeuralNetworkEngineFromID(rv)
@@ -642,9 +642,9 @@ func (m MLNeuralNetworkEngine) DeallocContextAndPlan() error {
 func (m MLNeuralNetworkEngine) CanDeallocContextAndPlan() bool {
 	return objc.RespondsToSelector(m.ID, objc.Sel("_deallocContextAndPlan"))
 }
-func (m MLNeuralNetworkEngine) _espressoDeviceForConfigurationError(configuration objectivec.IObject) (int, error) {
+func (m MLNeuralNetworkEngine) _espressoDeviceForConfigurationError(configuration objectivec.IObject) (int32, error) {
 	var errorPtr objc.ID
-	rv := objc.Send[int](m.ID, objc.Sel("_espressoDeviceForConfiguration:error:"), configuration, unsafe.Pointer(&errorPtr))
+	rv := objc.Send[int32](m.ID, objc.Sel("_espressoDeviceForConfiguration:error:"), configuration, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
 		return 0, foundation.NSErrorFrom(errorPtr)
@@ -654,7 +654,7 @@ func (m MLNeuralNetworkEngine) _espressoDeviceForConfigurationError(configuratio
 }
 
 // EspressoDeviceForConfigurationError is an exported wrapper for the private method _espressoDeviceForConfigurationError.
-func (m MLNeuralNetworkEngine) EspressoDeviceForConfigurationError(configuration objectivec.IObject) (int, error) {
+func (m MLNeuralNetworkEngine) EspressoDeviceForConfigurationError(configuration objectivec.IObject) (int32, error) {
 	if !objc.RespondsToSelector(m.ID, objc.Sel("_espressoDeviceForConfiguration:error:")) {
 		err := &objc.UnrecognizedSelectorError{Selector: "_espressoDeviceForConfiguration:error:"}
 		return 0, err
@@ -1278,7 +1278,7 @@ func (m MLNeuralNetworkEngine) PopulateOutputsOutputBackingsDirectlyBoundOutputF
 	return objectivec.Object{ID: rv}, nil
 
 }
-func (m MLNeuralNetworkEngine) PrepareBlobNamedForNewBlobBackingModeBindMode(named objectivec.IObject, mode int64, mode2 int) {
+func (m MLNeuralNetworkEngine) PrepareBlobNamedForNewBlobBackingModeBindMode(named objectivec.IObject, mode int64, mode2 int32) {
 	objc.SendIfResponds[objc.ID](m.ID, objc.Sel("prepareBlobNamed:forNewBlobBackingMode:bindMode:"), named, mode, mode2)
 }
 func (m MLNeuralNetworkEngine) RebuildPlan(plan []objectivec.IObject) bool {
@@ -1354,8 +1354,8 @@ func (m MLNeuralNetworkEngine) SequenceConcatConsumesOptionalInputNamed(named ob
 	rv := objc.SendIfResponds[bool](m.ID, objc.Sel("sequenceConcatConsumesOptionalInputNamed:"), named)
 	return rv
 }
-func (m MLNeuralNetworkEngine) SequenceNamed(named objectivec.IObject) int {
-	rv := objc.SendIfResponds[int](m.ID, objc.Sel("sequenceNamed:"), named)
+func (m MLNeuralNetworkEngine) SequenceNamed(named objectivec.IObject) int32 {
+	rv := objc.SendIfResponds[int32](m.ID, objc.Sel("sequenceNamed:"), named)
 	return rv
 }
 func (m MLNeuralNetworkEngine) SetEspressoBlobShapesWidthsHeightsKsBatchesSequencesRanksError(shapes unsafe.Pointer, widths unsafe.Pointer, heights unsafe.Pointer, ks unsafe.Pointer, batches unsafe.Pointer, sequences unsafe.Pointer, ranks unsafe.Pointer) (bool, error) {
@@ -1385,7 +1385,7 @@ func (m MLNeuralNetworkEngine) SupportFromEspressoLayerInfo(info objectivec.IObj
 	rv := objc.SendIfResponds[uint64](m.ID, objc.Sel("supportFromEspressoLayerInfo:"), info)
 	return rv
 }
-func (m MLNeuralNetworkEngine) SupportFromEspressoPlatform(platform int) uint64 {
+func (m MLNeuralNetworkEngine) SupportFromEspressoPlatform(platform int32) uint64 {
 	rv := objc.SendIfResponds[uint64](m.ID, objc.Sel("supportFromEspressoPlatform:"), platform)
 	return rv
 }
@@ -1462,12 +1462,12 @@ func (_MLNeuralNetworkEngineClass MLNeuralNetworkEngineClass) ContainerClass() o
 	rv := objc.SendIfResponds[objectivec.Class](objc.ID(_MLNeuralNetworkEngineClass.class), objc.Sel("containerClass"))
 	return objectivec.Class(rv)
 }
-func (_MLNeuralNetworkEngineClass MLNeuralNetworkEngineClass) GpuEngine() int {
-	rv := objc.SendIfResponds[int](objc.ID(_MLNeuralNetworkEngineClass.class), objc.Sel("gpuEngine"))
+func (_MLNeuralNetworkEngineClass MLNeuralNetworkEngineClass) GpuEngine() int32 {
+	rv := objc.SendIfResponds[int32](objc.ID(_MLNeuralNetworkEngineClass.class), objc.Sel("gpuEngine"))
 	return rv
 }
-func (_MLNeuralNetworkEngineClass MLNeuralNetworkEngineClass) GpuPrecision() int {
-	rv := objc.SendIfResponds[int](objc.ID(_MLNeuralNetworkEngineClass.class), objc.Sel("gpuPrecision"))
+func (_MLNeuralNetworkEngineClass MLNeuralNetworkEngineClass) GpuPrecision() int32 {
+	rv := objc.SendIfResponds[int32](objc.ID(_MLNeuralNetworkEngineClass.class), objc.Sel("gpuPrecision"))
 	return rv
 }
 func (_MLNeuralNetworkEngineClass MLNeuralNetworkEngineClass) LoadModelAssetDescriptionFromCompiledArchiveModelVersionInfoCompilerVersionInfoConfigurationError(archive unsafe.Pointer, info objectivec.IObject, info2 objectivec.IObject, configuration objectivec.IObject) (objectivec.IObject, error) {
@@ -1557,11 +1557,11 @@ func (m MLNeuralNetworkEngine) DefaultOptionalValues() foundation.INSDictionary 
 func (m MLNeuralNetworkEngine) SetDefaultOptionalValues(value foundation.INSDictionary) {
 	objc.SendIfResponds[struct{}](m.ID, objc.Sel("setDefaultOptionalValues:"), value)
 }
-func (m MLNeuralNetworkEngine) Engine() int {
-	rv := objc.SendIfResponds[int](m.ID, objc.Sel("engine"))
+func (m MLNeuralNetworkEngine) Engine() int32 {
+	rv := objc.SendIfResponds[int32](m.ID, objc.Sel("engine"))
 	return rv
 }
-func (m MLNeuralNetworkEngine) SetEngine(value int) {
+func (m MLNeuralNetworkEngine) SetEngine(value int32) {
 	objc.SendIfResponds[struct{}](m.ID, objc.Sel("setEngine:"), value)
 }
 func (m MLNeuralNetworkEngine) EspressoInputShapes() foundation.INSDictionary {
@@ -1720,11 +1720,11 @@ func (m MLNeuralNetworkEngine) Plan() unsafe.Pointer {
 func (m MLNeuralNetworkEngine) SetPlan(value unsafe.Pointer) {
 	objc.SendIfResponds[struct{}](m.ID, objc.Sel("setPlan:"), value)
 }
-func (m MLNeuralNetworkEngine) Precision() int {
-	rv := objc.SendIfResponds[int](m.ID, objc.Sel("precision"))
+func (m MLNeuralNetworkEngine) Precision() int32 {
+	rv := objc.SendIfResponds[int32](m.ID, objc.Sel("precision"))
 	return rv
 }
-func (m MLNeuralNetworkEngine) SetPrecision(value int) {
+func (m MLNeuralNetworkEngine) SetPrecision(value int32) {
 	objc.SendIfResponds[struct{}](m.ID, objc.Sel("setPrecision:"), value)
 }
 func (m MLNeuralNetworkEngine) PredictionsQueue() objectivec.Object {
@@ -1734,11 +1734,11 @@ func (m MLNeuralNetworkEngine) PredictionsQueue() objectivec.Object {
 func (m MLNeuralNetworkEngine) SetPredictionsQueue(value objectivec.Object) {
 	objc.SendIfResponds[struct{}](m.ID, objc.Sel("setPredictionsQueue:"), value)
 }
-func (m MLNeuralNetworkEngine) Priority() int {
-	rv := objc.SendIfResponds[int](m.ID, objc.Sel("priority"))
+func (m MLNeuralNetworkEngine) Priority() int32 {
+	rv := objc.SendIfResponds[int32](m.ID, objc.Sel("priority"))
 	return rv
 }
-func (m MLNeuralNetworkEngine) SetPriority(value int) {
+func (m MLNeuralNetworkEngine) SetPriority(value int32) {
 	objc.SendIfResponds[struct{}](m.ID, objc.Sel("setPriority:"), value)
 }
 func (m MLNeuralNetworkEngine) ProbabilityDictionarySharedKeySet() objectivec.IObject {
@@ -1748,11 +1748,11 @@ func (m MLNeuralNetworkEngine) ProbabilityDictionarySharedKeySet() objectivec.IO
 func (m MLNeuralNetworkEngine) SetProbabilityDictionarySharedKeySet(value objectivec.IObject) {
 	objc.SendIfResponds[struct{}](m.ID, objc.Sel("setProbabilityDictionarySharedKeySet:"), value)
 }
-func (m MLNeuralNetworkEngine) Qos() int {
-	rv := objc.SendIfResponds[int](m.ID, objc.Sel("qos"))
+func (m MLNeuralNetworkEngine) Qos() int32 {
+	rv := objc.SendIfResponds[int32](m.ID, objc.Sel("qos"))
 	return rv
 }
-func (m MLNeuralNetworkEngine) SetQos(value int) {
+func (m MLNeuralNetworkEngine) SetQos(value int32) {
 	objc.SendIfResponds[struct{}](m.ID, objc.Sel("setQos:"), value)
 }
 func (m MLNeuralNetworkEngine) SubmitSemaphore() objectivec.Object {

@@ -83,19 +83,19 @@ func NewDiskImageParamsSparseBundleXPC() DiskImageParamsSparseBundleXPC {
 	return rv
 }
 
-func NewDiskImageParamsSparseBundle_XPCWithBackendXPC(xpc objectivec.IObject) DiskImageParamsSparseBundleXPC {
+func NewDiskImageParamsSparseBundleXPCWithBackendXPC(xpc objectivec.IObject) DiskImageParamsSparseBundleXPC {
 	instance := getDiskImageParamsSparseBundleXPCClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithBackendXPC:"), xpc)
 	return DiskImageParamsSparseBundleXPCFromID(rv)
 }
 
-func NewDiskImageParamsSparseBundle_XPCWithBackendXPCBlockSize(xpc objectivec.IObject, size uint64) DiskImageParamsSparseBundleXPC {
+func NewDiskImageParamsSparseBundleXPCWithBackendXPCBlockSize(xpc objectivec.IObject, size uint64) DiskImageParamsSparseBundleXPC {
 	instance := getDiskImageParamsSparseBundleXPCClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithBackendXPC:blockSize:"), xpc, size)
 	return DiskImageParamsSparseBundleXPCFromID(rv)
 }
 
-func NewDiskImageParamsSparseBundle_XPCWithCoder(coder objectivec.IObject) DiskImageParamsSparseBundleXPC {
+func NewDiskImageParamsSparseBundleXPCWithCoder(coder objectivec.IObject) DiskImageParamsSparseBundleXPC {
 	instance := getDiskImageParamsSparseBundleXPCClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
 	return DiskImageParamsSparseBundleXPCFromID(rv)

@@ -106,8 +106,8 @@ func NewTTSApplebetMapperPhonemeInfo() TTSApplebetMapperPhonemeInfo {
 }
 
 func (t TTSApplebetMapperPhonemeInfo) EndTime() foundation.NSNumber {
-	rv := objc.SendIfResponds[objc.ID](t.ID, objc.Sel("endTime"))
-	return foundation.NSNumberFromID(objc.ID(rv))
+	rv := objc.SendIfResponds[foundation.NSNumber](t.ID, objc.Sel("endTime"))
+	return foundation.NSNumber(rv)
 }
 func (t TTSApplebetMapperPhonemeInfo) SetEndTime(value foundation.NSNumber) {
 	objc.SendIfResponds[struct{}](t.ID, objc.Sel("setEndTime:"), value)
@@ -120,8 +120,8 @@ func (t TTSApplebetMapperPhonemeInfo) SetPhoneme(value string) {
 	objc.SendIfResponds[struct{}](t.ID, objc.Sel("setPhoneme:"), objc.String(value))
 }
 func (t TTSApplebetMapperPhonemeInfo) StartTime() foundation.NSNumber {
-	rv := objc.SendIfResponds[objc.ID](t.ID, objc.Sel("startTime"))
-	return foundation.NSNumberFromID(objc.ID(rv))
+	rv := objc.SendIfResponds[foundation.NSNumber](t.ID, objc.Sel("startTime"))
+	return foundation.NSNumber(rv)
 }
 func (t TTSApplebetMapperPhonemeInfo) SetStartTime(value foundation.NSNumber) {
 	objc.SendIfResponds[struct{}](t.ID, objc.Sel("setStartTime:"), value)

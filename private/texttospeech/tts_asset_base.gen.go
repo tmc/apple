@@ -144,15 +144,15 @@ func (t TTSAssetBase) SetBundleIdentifier(value string) {
 	objc.SendIfResponds[struct{}](t.ID, objc.Sel("setBundleIdentifier:"), objc.String(value))
 }
 func (t TTSAssetBase) CompatibilityVersion() foundation.NSNumber {
-	rv := objc.SendIfResponds[objc.ID](t.ID, objc.Sel("compatibilityVersion"))
-	return foundation.NSNumberFromID(objc.ID(rv))
+	rv := objc.SendIfResponds[foundation.NSNumber](t.ID, objc.Sel("compatibilityVersion"))
+	return foundation.NSNumber(rv)
 }
 func (t TTSAssetBase) SetCompatibilityVersion(value foundation.NSNumber) {
 	objc.SendIfResponds[struct{}](t.ID, objc.Sel("setCompatibilityVersion:"), value)
 }
 func (t TTSAssetBase) ContentVersion() foundation.NSNumber {
-	rv := objc.SendIfResponds[objc.ID](t.ID, objc.Sel("contentVersion"))
-	return foundation.NSNumberFromID(objc.ID(rv))
+	rv := objc.SendIfResponds[foundation.NSNumber](t.ID, objc.Sel("contentVersion"))
+	return foundation.NSNumber(rv)
 }
 func (t TTSAssetBase) SetContentVersion(value foundation.NSNumber) {
 	objc.SendIfResponds[struct{}](t.ID, objc.Sel("setContentVersion:"), value)

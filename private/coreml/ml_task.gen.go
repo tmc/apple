@@ -1,4 +1,4 @@
-// Code generated from Apple documentation for CoreML. DO NOT EDIT.
+// Code generated from Apple documentation for coreml. DO NOT EDIT.
 
 package coreml
 
@@ -138,7 +138,7 @@ func NewMLTask() MLTask {
 	return rv
 }
 
-func NewTaskWithState(state int64) MLTask {
+func NewMLTaskWithState(state int64) MLTask {
 	instance := getMLTaskClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithState:"), state)
 	return MLTaskFromID(rv)
@@ -259,8 +259,8 @@ func (m MLTask) InitWithState(state int64) MLTask {
 }
 
 func (m MLTask) Error() foundation.NSError {
-	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("error"))
-	return foundation.NSErrorFromID(objc.ID(rv))
+	rv := objc.SendIfResponds[foundation.NSError](m.ID, objc.Sel("error"))
+	return foundation.NSError(rv)
 }
 func (m MLTask) SetError(value foundation.NSError) {
 	objc.SendIfResponds[struct{}](m.ID, objc.Sel("setError:"), value)

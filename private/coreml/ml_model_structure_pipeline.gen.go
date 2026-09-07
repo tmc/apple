@@ -1,4 +1,4 @@
-// Code generated from Apple documentation for CoreML. DO NOT EDIT.
+// Code generated from Apple documentation for coreml. DO NOT EDIT.
 
 package coreml
 
@@ -89,7 +89,7 @@ func NewMLModelStructurePipeline() MLModelStructurePipeline {
 	return rv
 }
 
-func NewModelStructurePipelineWithSubModelNamesSubModels(names objectivec.IObject, models objectivec.IObject) MLModelStructurePipeline {
+func NewMLModelStructurePipelineWithSubModelNamesSubModels(names objectivec.IObject, models objectivec.IObject) MLModelStructurePipeline {
 	instance := getMLModelStructurePipelineClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithSubModelNames:subModels:"), names, models)
 	return MLModelStructurePipelineFromID(rv)

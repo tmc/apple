@@ -106,11 +106,11 @@ func (_ANEQoSMapperClass ANEQoSMapperClass) DispatchQueueArrayByMappingPrioritie
 	rv := objc.SendIfResponds[objc.ID](objc.ID(_ANEQoSMapperClass.class), objc.Sel("dispatchQueueArrayByMappingPrioritiesWithTag:"), tag)
 	return objectivec.Object{ID: rv}
 }
-func (_ANEQoSMapperClass ANEQoSMapperClass) ProgramPriorityForQoS(s uint32) int {
-	rv := objc.SendIfResponds[int](objc.ID(_ANEQoSMapperClass.class), objc.Sel("programPriorityForQoS:"), s)
+func (_ANEQoSMapperClass ANEQoSMapperClass) ProgramPriorityForQoS(s uint32) int32 {
+	rv := objc.SendIfResponds[int32](objc.ID(_ANEQoSMapperClass.class), objc.Sel("programPriorityForQoS:"), s)
 	return rv
 }
-func (_ANEQoSMapperClass ANEQoSMapperClass) QosForProgramPriority(priority int) uint32 {
+func (_ANEQoSMapperClass ANEQoSMapperClass) QosForProgramPriority(priority int32) uint32 {
 	rv := objc.SendIfResponds[uint32](objc.ID(_ANEQoSMapperClass.class), objc.Sel("qosForProgramPriority:"), priority)
 	return rv
 }
@@ -118,8 +118,8 @@ func (_ANEQoSMapperClass ANEQoSMapperClass) QueueIndexForQoS(s uint32) uint64 {
 	rv := objc.SendIfResponds[uint64](objc.ID(_ANEQoSMapperClass.class), objc.Sel("queueIndexForQoS:"), s)
 	return rv
 }
-func (_ANEQoSMapperClass ANEQoSMapperClass) RealTimeProgramPriority() int {
-	rv := objc.SendIfResponds[int](objc.ID(_ANEQoSMapperClass.class), objc.Sel("realTimeProgramPriority"))
+func (_ANEQoSMapperClass ANEQoSMapperClass) RealTimeProgramPriority() int32 {
+	rv := objc.SendIfResponds[int32](objc.ID(_ANEQoSMapperClass.class), objc.Sel("realTimeProgramPriority"))
 	return rv
 }
 func (_ANEQoSMapperClass ANEQoSMapperClass) RealTimeQueueIndex() uint64 {

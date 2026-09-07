@@ -1,4 +1,4 @@
-// Code generated from Apple documentation for CoreML. DO NOT EDIT.
+// Code generated from Apple documentation for coreml. DO NOT EDIT.
 
 package coreml
 
@@ -102,7 +102,7 @@ func NewMLBackgroundTask() MLBackgroundTask {
 	return rv
 }
 
-func NewBackgroundTaskWithCoder(coder objectivec.IObject) MLBackgroundTask {
+func NewMLBackgroundTaskWithCoder(coder objectivec.IObject) MLBackgroundTask {
 	instance := getMLBackgroundTaskClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
 	return MLBackgroundTaskFromID(rv)

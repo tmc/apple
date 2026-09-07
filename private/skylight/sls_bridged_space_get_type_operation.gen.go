@@ -71,7 +71,7 @@ type ISLSBridgedSpaceGetTypeOperation interface {
 
 	// Topic: Methods
 
-	MakeResultWithWorkspaceType(type_ int) objectivec.IObject
+	MakeResultWithWorkspaceType(type_ int32) objectivec.IObject
 	SpaceID() uint64
 	InitWithSpaceID(id uint64) SLSBridgedSpaceGetTypeOperation
 }
@@ -107,7 +107,7 @@ func NewSLSBridgedSpaceGetTypeOperationWithSpaceID(id uint64) SLSBridgedSpaceGet
 	return SLSBridgedSpaceGetTypeOperationFromID(rv)
 }
 
-func (s SLSBridgedSpaceGetTypeOperation) MakeResultWithWorkspaceType(type_ int) objectivec.IObject {
+func (s SLSBridgedSpaceGetTypeOperation) MakeResultWithWorkspaceType(type_ int32) objectivec.IObject {
 	rv := objc.SendIfResponds[objc.ID](s.ID, objc.Sel("makeResultWithWorkspaceType:"), type_)
 	return objectivec.Object{ID: rv}
 }

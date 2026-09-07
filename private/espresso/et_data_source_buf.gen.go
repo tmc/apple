@@ -75,9 +75,9 @@ type IETDataSourceBuf interface {
 	// Topic: Methods
 
 	DataAtIndexKey(index uint64, key unsafe.Pointer) unsafe.Pointer
-	DataPointAtIndex(index int) objectivec.IObject
-	NumberOfDataPoints() int
-	SetBlobsNumberOfDataPointsNonBatches(blobs unsafe.Pointer, points int, batches unsafe.Pointer)
+	DataPointAtIndex(index int32) objectivec.IObject
+	NumberOfDataPoints() int32
+	SetBlobsNumberOfDataPointsNonBatches(blobs unsafe.Pointer, points int32, batches unsafe.Pointer)
 }
 
 // Init initializes the instance.
@@ -103,14 +103,14 @@ func (e ETDataSourceBuf) DataAtIndexKey(index uint64, key unsafe.Pointer) unsafe
 	rv := objc.SendIfResponds[unsafe.Pointer](e.ID, objc.Sel("dataAtIndex:key:"), index, key)
 	return rv
 }
-func (e ETDataSourceBuf) DataPointAtIndex(index int) objectivec.IObject {
+func (e ETDataSourceBuf) DataPointAtIndex(index int32) objectivec.IObject {
 	rv := objc.SendIfResponds[objc.ID](e.ID, objc.Sel("dataPointAtIndex:"), index)
 	return objectivec.Object{ID: rv}
 }
-func (e ETDataSourceBuf) NumberOfDataPoints() int {
-	rv := objc.SendIfResponds[int](e.ID, objc.Sel("numberOfDataPoints"))
+func (e ETDataSourceBuf) NumberOfDataPoints() int32 {
+	rv := objc.SendIfResponds[int32](e.ID, objc.Sel("numberOfDataPoints"))
 	return rv
 }
-func (e ETDataSourceBuf) SetBlobsNumberOfDataPointsNonBatches(blobs unsafe.Pointer, points int, batches unsafe.Pointer) {
+func (e ETDataSourceBuf) SetBlobsNumberOfDataPointsNonBatches(blobs unsafe.Pointer, points int32, batches unsafe.Pointer) {
 	objc.SendIfResponds[objc.ID](e.ID, objc.Sel("setBlobs:numberOfDataPoints:nonBatches:"), blobs, points, batches)
 }

@@ -1,4 +1,4 @@
-// Code generated from Apple documentation for CoreML. DO NOT EDIT.
+// Code generated from Apple documentation for coreml. DO NOT EDIT.
 
 package coreml
 
@@ -167,19 +167,19 @@ func NewMLBayesianProbitRegression() MLBayesianProbitRegression {
 	return rv
 }
 
-func NewBayesianProbitRegressionWithDescriptionNumberOfFeaturesPriorMean(description objectivec.IObject, features int64, mean objectivec.IObject) MLBayesianProbitRegression {
+func NewMLBayesianProbitRegressionWithDescriptionNumberOfFeaturesPriorMean(description objectivec.IObject, features int64, mean objectivec.IObject) MLBayesianProbitRegression {
 	instance := getMLBayesianProbitRegressionClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithDescription:numberOfFeatures:priorMean:"), description, features, mean)
 	return MLBayesianProbitRegressionFromID(rv)
 }
 
-func NewBayesianProbitRegressionWithDescriptionNumberOfFeaturesPriorMeanRegressionInputNameOptimismInputNameSamplingScaleInputNameSamplingTruncationInputNameMeanOutputNameVarianceOutputNamePessimisticProbabilityOutputNameSampledProbabilityOutputName(description objectivec.IObject, features int64, mean objectivec.IObject, name objectivec.IObject, name2 objectivec.IObject, name3 objectivec.IObject, name4 objectivec.IObject, name5 objectivec.IObject, name6 objectivec.IObject, name7 objectivec.IObject, name8 objectivec.IObject) MLBayesianProbitRegression {
+func NewMLBayesianProbitRegressionWithDescriptionNumberOfFeaturesPriorMeanRegressionInputNameOptimismInputNameSamplingScaleInputNameSamplingTruncationInputNameMeanOutputNameVarianceOutputNamePessimisticProbabilityOutputNameSampledProbabilityOutputName(description objectivec.IObject, features int64, mean objectivec.IObject, name objectivec.IObject, name2 objectivec.IObject, name3 objectivec.IObject, name4 objectivec.IObject, name5 objectivec.IObject, name6 objectivec.IObject, name7 objectivec.IObject, name8 objectivec.IObject) MLBayesianProbitRegression {
 	instance := getMLBayesianProbitRegressionClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithDescription:numberOfFeatures:priorMean:regressionInputName:optimismInputName:samplingScaleInputName:samplingTruncationInputName:meanOutputName:varianceOutputName:pessimisticProbabilityOutputName:sampledProbabilityOutputName:"), description, features, mean, name, name2, name3, name4, name5, name6, name7, name8)
 	return MLBayesianProbitRegressionFromID(rv)
 }
 
-func NewBayesianProbitRegressionWithSpecificationConfigurationError(specification unsafe.Pointer, configuration objectivec.IObject) (MLBayesianProbitRegression, error) {
+func NewMLBayesianProbitRegressionWithSpecificationConfigurationError(specification unsafe.Pointer, configuration objectivec.IObject) (MLBayesianProbitRegression, error) {
 	var errorPtr objc.ID
 	instance := getMLBayesianProbitRegressionClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithSpecification:configuration:error:"), specification, configuration, unsafe.Pointer(&errorPtr))

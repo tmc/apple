@@ -77,7 +77,7 @@ type IIOGPUMetalDeviceShmem interface {
 	ShmemID() uint32
 	ShmemSize() uint32
 	VirtualAddress() unsafe.Pointer
-	InitWithDeviceShmemSizeShmemType(device objectivec.IObject, size uint32, type_ int) IOGPUMetalDeviceShmem
+	InitWithDeviceShmemSizeShmemType(device objectivec.IObject, size uint32, type_ int32) IOGPUMetalDeviceShmem
 }
 
 // Init initializes the instance.
@@ -99,13 +99,13 @@ func NewIOGPUMetalDeviceShmem() IOGPUMetalDeviceShmem {
 	return rv
 }
 
-func NewGPUMetalDeviceShmemWithDeviceShmemSizeShmemType(device objectivec.IObject, size uint32, type_ int) IOGPUMetalDeviceShmem {
+func NewIOGPUMetalDeviceShmemWithDeviceShmemSizeShmemType(device objectivec.IObject, size uint32, type_ int32) IOGPUMetalDeviceShmem {
 	instance := getIOGPUMetalDeviceShmemClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithDevice:shmemSize:shmemType:"), device, size, type_)
 	return IOGPUMetalDeviceShmemFromID(rv)
 }
 
-func (i IOGPUMetalDeviceShmem) InitWithDeviceShmemSizeShmemType(device objectivec.IObject, size uint32, type_ int) IOGPUMetalDeviceShmem {
+func (i IOGPUMetalDeviceShmem) InitWithDeviceShmemSizeShmemType(device objectivec.IObject, size uint32, type_ int32) IOGPUMetalDeviceShmem {
 	rv := objc.SendIfResponds[IOGPUMetalDeviceShmem](i.ID, objc.Sel("initWithDevice:shmemSize:shmemType:"), device, size, type_)
 	return rv
 }

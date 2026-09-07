@@ -164,8 +164,8 @@ type IIOGPUMetalResource interface {
 	ResourceID() uint32
 	ResourceRef() unsafe.Pointer
 	ResourceSize() uint64
-	ResponsibleProcess() int
-	SetResponsibleProcess(value int)
+	ResponsibleProcess() int32
+	SetResponsibleProcess(value int32)
 	RetainedLabel() objectivec.IObject
 	UnfilteredResourceOptions() uint64
 	VirtualAddress() unsafe.Pointer
@@ -201,31 +201,31 @@ func NewIOGPUMetalResource() IOGPUMetalResource {
 	return rv
 }
 
-func NewGPUMetalResourceMemorylessDescriptor(memoryless objectivec.IObject, descriptor objectivec.IObject) IOGPUMetalResource {
+func NewIOGPUMetalResourceMemorylessDescriptor(memoryless objectivec.IObject, descriptor objectivec.IObject) IOGPUMetalResource {
 	instance := getIOGPUMetalResourceClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initMemoryless:descriptor:"), memoryless, descriptor)
 	return IOGPUMetalResourceFromID(rv)
 }
 
-func NewGPUMetalResourceStandinWithDevice(device objectivec.IObject) IOGPUMetalResource {
+func NewIOGPUMetalResourceStandinWithDevice(device objectivec.IObject) IOGPUMetalResource {
 	instance := getIOGPUMetalResourceClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initStandinWithDevice:"), device)
 	return IOGPUMetalResourceFromID(rv)
 }
 
-func NewGPUMetalResourceWithDeviceOptionsArgsArgsSize(device objectivec.IObject, options uint64, args *IOGPUNewResourceArgs, size uint32) IOGPUMetalResource {
+func NewIOGPUMetalResourceWithDeviceOptionsArgsArgsSize(device objectivec.IObject, options uint64, args *IOGPUNewResourceArgs, size uint32) IOGPUMetalResource {
 	instance := getIOGPUMetalResourceClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithDevice:options:args:argsSize:"), device, options, unsafe.Pointer(args), size)
 	return IOGPUMetalResourceFromID(rv)
 }
 
-func NewGPUMetalResourceWithDeviceRemoteStorageResourceOptionsArgsArgsSize(device objectivec.IObject, resource objectivec.IObject, options uint64, args *IOGPUNewResourceArgs, size uint32) IOGPUMetalResource {
+func NewIOGPUMetalResourceWithDeviceRemoteStorageResourceOptionsArgsArgsSize(device objectivec.IObject, resource objectivec.IObject, options uint64, args *IOGPUNewResourceArgs, size uint32) IOGPUMetalResource {
 	instance := getIOGPUMetalResourceClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithDevice:remoteStorageResource:options:args:argsSize:"), device, resource, options, unsafe.Pointer(args), size)
 	return IOGPUMetalResourceFromID(rv)
 }
 
-func NewGPUMetalResourceWithResource(resource objectivec.IObject) IOGPUMetalResource {
+func NewIOGPUMetalResourceWithResource(resource objectivec.IObject) IOGPUMetalResource {
 	instance := getIOGPUMetalResourceClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithResource:"), resource)
 	return IOGPUMetalResourceFromID(rv)
@@ -350,11 +350,11 @@ func (i IOGPUMetalResource) ResourceSize() uint64 {
 	rv := objc.SendIfResponds[uint64](i.ID, objc.Sel("resourceSize"))
 	return rv
 }
-func (i IOGPUMetalResource) ResponsibleProcess() int {
-	rv := objc.SendIfResponds[int](i.ID, objc.Sel("responsibleProcess"))
+func (i IOGPUMetalResource) ResponsibleProcess() int32 {
+	rv := objc.SendIfResponds[int32](i.ID, objc.Sel("responsibleProcess"))
 	return rv
 }
-func (i IOGPUMetalResource) SetResponsibleProcess(value int) {
+func (i IOGPUMetalResource) SetResponsibleProcess(value int32) {
 	objc.SendIfResponds[struct{}](i.ID, objc.Sel("setResponsibleProcess:"), value)
 }
 func (i IOGPUMetalResource) Superclass() objectivec.Class {

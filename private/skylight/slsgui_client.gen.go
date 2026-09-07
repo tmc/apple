@@ -80,7 +80,7 @@ type ISLSGUIClient interface {
 	RequestDisplaysIdleError(idle objectivec.IObject) (uint64, error)
 	Service() ISLSXPCService
 	SetService(value ISLSXPCService)
-	ValidateIdleRequest(request objectivec.IObject) int
+	ValidateIdleRequest(request objectivec.IObject) int32
 	InitGUIClientErrorNotifyQueueNotificationTypeNotificationBlock(gUIClient objectivec.IObject, error_ []objectivec.IObject, queue objectivec.IObject, type_ uint64, block VoidHandler) SLSGUIClient
 }
 
@@ -113,8 +113,8 @@ func (s SLSGUIClient) RequestDisplaysIdleError(idle objectivec.IObject) (uint64,
 	return rv, nil
 
 }
-func (s SLSGUIClient) ValidateIdleRequest(request objectivec.IObject) int {
-	rv := objc.SendIfResponds[int](s.ID, objc.Sel("validateIdleRequest:"), request)
+func (s SLSGUIClient) ValidateIdleRequest(request objectivec.IObject) int32 {
+	rv := objc.SendIfResponds[int32](s.ID, objc.Sel("validateIdleRequest:"), request)
 	return rv
 }
 func (s SLSGUIClient) InitGUIClientErrorNotifyQueueNotificationTypeNotificationBlock(gUIClient objectivec.IObject, error_ []objectivec.IObject, queue objectivec.IObject, type_ uint64, block VoidHandler) SLSGUIClient {

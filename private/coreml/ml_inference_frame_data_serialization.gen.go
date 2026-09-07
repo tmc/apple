@@ -1,4 +1,4 @@
-// Code generated from Apple documentation for CoreML. DO NOT EDIT.
+// Code generated from Apple documentation for coreml. DO NOT EDIT.
 
 package coreml
 
@@ -123,13 +123,13 @@ func NewMLInferenceFrameDataSerialization() MLInferenceFrameDataSerialization {
 	return rv
 }
 
-func NewInferenceFrameDataSerializationWithOutputDirectoryPrefix(directory objectivec.IObject, prefix objectivec.IObject) MLInferenceFrameDataSerialization {
+func NewMLInferenceFrameDataSerializationWithOutputDirectoryPrefix(directory objectivec.IObject, prefix objectivec.IObject) MLInferenceFrameDataSerialization {
 	instance := getMLInferenceFrameDataSerializationClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithOutputDirectory:prefix:"), directory, prefix)
 	return MLInferenceFrameDataSerializationFromID(rv)
 }
 
-func NewInferenceFrameDataSerializationWithOutputDirectoryPrefixShouldOverwriteModelIOFrameDataSegmentIOFrameData(directory objectivec.IObject, prefix objectivec.IObject, overwrite bool, data bool, data2 bool) MLInferenceFrameDataSerialization {
+func NewMLInferenceFrameDataSerializationWithOutputDirectoryPrefixShouldOverwriteModelIOFrameDataSegmentIOFrameData(directory objectivec.IObject, prefix objectivec.IObject, overwrite bool, data bool, data2 bool) MLInferenceFrameDataSerialization {
 	instance := getMLInferenceFrameDataSerializationClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithOutputDirectory:prefix:shouldOverwrite:modelIOFrameData:segmentIOFrameData:"), directory, prefix, overwrite, data, data2)
 	return MLInferenceFrameDataSerializationFromID(rv)
@@ -152,8 +152,8 @@ func (m MLInferenceFrameDataSerialization) SetModelIOFrameData(value bool) {
 	objc.SendIfResponds[struct{}](m.ID, objc.Sel("setModelIOFrameData:"), value)
 }
 func (m MLInferenceFrameDataSerialization) OutputDirectoryURL() foundation.NSURL {
-	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("outputDirectoryURL"))
-	return foundation.NSURLFromID(objc.ID(rv))
+	rv := objc.SendIfResponds[foundation.NSURL](m.ID, objc.Sel("outputDirectoryURL"))
+	return foundation.NSURL(rv)
 }
 func (m MLInferenceFrameDataSerialization) SetOutputDirectoryURL(value foundation.NSURL) {
 	objc.SendIfResponds[struct{}](m.ID, objc.Sel("setOutputDirectoryURL:"), value)

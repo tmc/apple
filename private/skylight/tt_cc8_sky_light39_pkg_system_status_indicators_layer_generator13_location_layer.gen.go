@@ -78,13 +78,13 @@ func NewLocationLayer() LocationLayer {
 	return rv
 }
 
-func NewTtCC8SkyLight39PKGSystemStatusIndicatorsLayerGenerator13LocationLayerWithCoder(coder objectivec.IObject) LocationLayer {
+func NewLocationLayerWithCoder(coder objectivec.IObject) LocationLayer {
 	instance := getLocationLayerClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
 	return LocationLayerFromID(rv)
 }
 
-func NewTtCC8SkyLight39PKGSystemStatusIndicatorsLayerGenerator13LocationLayerWithLayer(layer objectivec.IObject) LocationLayer {
+func NewLocationLayerWithLayer(layer objectivec.IObject) LocationLayer {
 	instance := getLocationLayerClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithLayer:"), layer)
 	return LocationLayerFromID(rv)

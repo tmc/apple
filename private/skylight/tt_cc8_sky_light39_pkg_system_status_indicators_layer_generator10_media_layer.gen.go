@@ -78,13 +78,13 @@ func NewMediaLayer() MediaLayer {
 	return rv
 }
 
-func NewTtCC8SkyLight39PKGSystemStatusIndicatorsLayerGenerator10MediaLayerWithCoder(coder objectivec.IObject) MediaLayer {
+func NewMediaLayerWithCoder(coder objectivec.IObject) MediaLayer {
 	instance := getMediaLayerClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
 	return MediaLayerFromID(rv)
 }
 
-func NewTtCC8SkyLight39PKGSystemStatusIndicatorsLayerGenerator10MediaLayerWithLayer(layer objectivec.IObject) MediaLayer {
+func NewMediaLayerWithLayer(layer objectivec.IObject) MediaLayer {
 	instance := getMediaLayerClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithLayer:"), layer)
 	return MediaLayerFromID(rv)

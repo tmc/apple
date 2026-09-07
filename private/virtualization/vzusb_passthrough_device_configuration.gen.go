@@ -1,9 +1,11 @@
-// Code generated from Apple documentation for Virtualization. DO NOT EDIT.
+// Code generated from Apple documentation for virtualization. DO NOT EDIT.
 
 package virtualization
 
 import (
+	"errors"
 	"sync"
+	"unsafe"
 
 	"github.com/tmc/apple/foundation"
 	"github.com/tmc/apple/objc"
@@ -18,12 +20,12 @@ var (
 
 func getVZUSBPassthroughDeviceConfigurationClass() VZUSBPassthroughDeviceConfigurationClass {
 	_VZUSBPassthroughDeviceConfigurationClassOnce.Do(func() {
-		_VZUSBPassthroughDeviceConfigurationClass = VZUSBPassthroughDeviceConfigurationClass{class: objc.GetClass("_VZUSBPassthroughDeviceConfiguration")}
+		_VZUSBPassthroughDeviceConfigurationClass = VZUSBPassthroughDeviceConfigurationClass{class: objc.GetClass("VZUSBPassthroughDeviceConfiguration")}
 	})
 	return _VZUSBPassthroughDeviceConfigurationClass
 }
 
-// GetVZUSBPassthroughDeviceConfigurationClass returns the class object for _VZUSBPassthroughDeviceConfiguration.
+// GetVZUSBPassthroughDeviceConfigurationClass returns the class object for VZUSBPassthroughDeviceConfiguration.
 func GetVZUSBPassthroughDeviceConfigurationClass() VZUSBPassthroughDeviceConfigurationClass {
 	return getVZUSBPassthroughDeviceConfigurationClass()
 }
@@ -45,12 +47,12 @@ func (vc VZUSBPassthroughDeviceConfigurationClass) Alloc() VZUSBPassthroughDevic
 
 // # Methods
 //
-//   - [VZUSBPassthroughDeviceConfiguration.Accessory]
 //   - [VZUSBPassthroughDeviceConfiguration.IsDuplicateConfiguration]
 //   - [VZUSBPassthroughDeviceConfiguration.MakeUSBDeviceWithVirtualMachine]
 //   - [VZUSBPassthroughDeviceConfiguration.Signature]
 //   - [VZUSBPassthroughDeviceConfiguration.Uuid]
 //   - [VZUSBPassthroughDeviceConfiguration.SetUuid]
+//   - [VZUSBPassthroughDeviceConfiguration.ValidateWithError]
 //   - [VZUSBPassthroughDeviceConfiguration.InitWithDevice]
 //   - [VZUSBPassthroughDeviceConfiguration.DebugDescription]
 //   - [VZUSBPassthroughDeviceConfiguration.Description]
@@ -72,12 +74,12 @@ var _ IVZUSBPassthroughDeviceConfiguration = VZUSBPassthroughDeviceConfiguration
 //
 // # Methods
 //
-//   - [IVZUSBPassthroughDeviceConfiguration.Accessory]
 //   - [IVZUSBPassthroughDeviceConfiguration.IsDuplicateConfiguration]
 //   - [IVZUSBPassthroughDeviceConfiguration.MakeUSBDeviceWithVirtualMachine]
 //   - [IVZUSBPassthroughDeviceConfiguration.Signature]
 //   - [IVZUSBPassthroughDeviceConfiguration.Uuid]
 //   - [IVZUSBPassthroughDeviceConfiguration.SetUuid]
+//   - [IVZUSBPassthroughDeviceConfiguration.ValidateWithError]
 //   - [IVZUSBPassthroughDeviceConfiguration.InitWithDevice]
 //   - [IVZUSBPassthroughDeviceConfiguration.DebugDescription]
 //   - [IVZUSBPassthroughDeviceConfiguration.Description]
@@ -88,12 +90,12 @@ type IVZUSBPassthroughDeviceConfiguration interface {
 
 	// Topic: Methods
 
-	Accessory() objectivec.IObject
 	IsDuplicateConfiguration(configuration objectivec.IObject) bool
 	MakeUSBDeviceWithVirtualMachine(machine objectivec.IObject) objectivec.IObject
 	Signature() foundation.NSData
 	Uuid() foundation.NSUUID
 	SetUuid(value foundation.NSUUID)
+	ValidateWithError() (bool, error)
 	InitWithDevice(device objectivec.IObject) VZUSBPassthroughDeviceConfiguration
 	DebugDescription() string
 	Description() string
@@ -126,10 +128,6 @@ func NewVZUSBPassthroughDeviceConfigurationWithDevice(device objectivec.IObject)
 	return VZUSBPassthroughDeviceConfigurationFromID(rv)
 }
 
-func (v VZUSBPassthroughDeviceConfiguration) Accessory() objectivec.IObject {
-	rv := objc.SendIfResponds[objc.ID](v.ID, objc.Sel("accessory"))
-	return objectivec.Object{ID: rv}
-}
 func (v VZUSBPassthroughDeviceConfiguration) IsDuplicateConfiguration(configuration objectivec.IObject) bool {
 	rv := objc.SendIfResponds[bool](v.ID, objc.Sel("isDuplicateConfiguration:"), configuration)
 	return rv
@@ -137,6 +135,19 @@ func (v VZUSBPassthroughDeviceConfiguration) IsDuplicateConfiguration(configurat
 func (v VZUSBPassthroughDeviceConfiguration) MakeUSBDeviceWithVirtualMachine(machine objectivec.IObject) objectivec.IObject {
 	rv := objc.SendIfResponds[objc.ID](v.ID, objc.Sel("makeUSBDeviceWithVirtualMachine:"), machine)
 	return objectivec.Object{ID: rv}
+}
+func (v VZUSBPassthroughDeviceConfiguration) ValidateWithError() (bool, error) {
+	var errorPtr objc.ID
+	rv := objc.Send[bool](v.ID, objc.Sel("validateWithError:"), unsafe.Pointer(&errorPtr))
+	if errorPtr != 0 {
+		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
+		return false, foundation.NSErrorFrom(errorPtr)
+	}
+	if !rv {
+		return false, errors.New("validateWithError: returned NO with nil NSError")
+	}
+	return rv, nil
+
 }
 func (v VZUSBPassthroughDeviceConfiguration) InitWithDevice(device objectivec.IObject) VZUSBPassthroughDeviceConfiguration {
 	rv := objc.SendIfResponds[VZUSBPassthroughDeviceConfiguration](v.ID, objc.Sel("initWithDevice:"), device)
@@ -156,16 +167,16 @@ func (v VZUSBPassthroughDeviceConfiguration) Hash() uint64 {
 	return rv
 }
 func (v VZUSBPassthroughDeviceConfiguration) Signature() foundation.NSData {
-	rv := objc.SendIfResponds[objc.ID](v.ID, objc.Sel("signature"))
-	return foundation.NSDataFromID(objc.ID(rv))
+	rv := objc.SendIfResponds[foundation.NSData](v.ID, objc.Sel("signature"))
+	return foundation.NSData(rv)
 }
 func (v VZUSBPassthroughDeviceConfiguration) Superclass() objectivec.Class {
 	rv := objc.SendIfResponds[objectivec.Class](v.ID, objc.Sel("superclass"))
 	return objectivec.Class(rv)
 }
 func (v VZUSBPassthroughDeviceConfiguration) Uuid() foundation.NSUUID {
-	rv := objc.SendIfResponds[objc.ID](v.ID, objc.Sel("uuid"))
-	return foundation.NSUUIDFromID(objc.ID(rv))
+	rv := objc.SendIfResponds[foundation.NSUUID](v.ID, objc.Sel("uuid"))
+	return foundation.NSUUID(rv)
 }
 func (v VZUSBPassthroughDeviceConfiguration) SetUuid(value foundation.NSUUID) {
 	objc.SendIfResponds[struct{}](v.ID, objc.Sel("setUuid:"), value)

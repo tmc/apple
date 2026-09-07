@@ -1,4 +1,4 @@
-// Code generated from Apple documentation for CoreML. DO NOT EDIT.
+// Code generated from Apple documentation for coreml. DO NOT EDIT.
 
 package coreml
 
@@ -118,7 +118,7 @@ func NewMLModelAssetResourceFactoryOnDiskImpl() MLModelAssetResourceFactoryOnDis
 	return rv
 }
 
-func NewModelAssetResourceFactoryOnDiskImplWithModelURLError(url foundation.NSURL) (MLModelAssetResourceFactoryOnDiskImpl, error) {
+func NewMLModelAssetResourceFactoryOnDiskImplWithModelURLError(url foundation.NSURL) (MLModelAssetResourceFactoryOnDiskImpl, error) {
 	var errorPtr objc.ID
 	instance := getMLModelAssetResourceFactoryOnDiskImplClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithModelURL:error:"), url, unsafe.Pointer(&errorPtr))
@@ -174,8 +174,8 @@ func (m MLModelAssetResourceFactoryOnDiskImpl) InitWithModelURLError(url foundat
 }
 
 func (m MLModelAssetResourceFactoryOnDiskImpl) CompiledModelURL() foundation.NSURL {
-	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("compiledModelURL"))
-	return foundation.NSURLFromID(objc.ID(rv))
+	rv := objc.SendIfResponds[foundation.NSURL](m.ID, objc.Sel("compiledModelURL"))
+	return foundation.NSURL(rv)
 }
 func (m MLModelAssetResourceFactoryOnDiskImpl) DebugDescription() string {
 	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("debugDescription"))
@@ -190,8 +190,8 @@ func (m MLModelAssetResourceFactoryOnDiskImpl) Hash() uint64 {
 	return rv
 }
 func (m MLModelAssetResourceFactoryOnDiskImpl) ModelURL() foundation.NSURL {
-	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("modelURL"))
-	return foundation.NSURLFromID(objc.ID(rv))
+	rv := objc.SendIfResponds[foundation.NSURL](m.ID, objc.Sel("modelURL"))
+	return foundation.NSURL(rv)
 }
 func (m MLModelAssetResourceFactoryOnDiskImpl) Superclass() objectivec.Class {
 	rv := objc.SendIfResponds[objectivec.Class](m.ID, objc.Sel("superclass"))

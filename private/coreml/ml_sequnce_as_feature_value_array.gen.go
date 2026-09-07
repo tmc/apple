@@ -1,4 +1,4 @@
-// Code generated from Apple documentation for CoreML. DO NOT EDIT.
+// Code generated from Apple documentation for coreml. DO NOT EDIT.
 
 package coreml
 
@@ -93,7 +93,7 @@ func NewMLSequnceAsFeatureValueArray() MLSequnceAsFeatureValueArray {
 	return rv
 }
 
-func NewSequnceAsFeatureValueArrayWrappingSequence(sequence objectivec.IObject) MLSequnceAsFeatureValueArray {
+func NewMLSequnceAsFeatureValueArrayWrappingSequence(sequence objectivec.IObject) MLSequnceAsFeatureValueArray {
 	instance := getMLSequnceAsFeatureValueArrayClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWrappingSequence:"), sequence)
 	return MLSequnceAsFeatureValueArrayFromID(rv)

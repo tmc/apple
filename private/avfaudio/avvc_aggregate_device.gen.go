@@ -1,4 +1,4 @@
-// Code generated from Apple documentation for AVFAudio. DO NOT EDIT.
+// Code generated from Apple documentation for avfaudio. DO NOT EDIT.
 
 package avfaudio
 
@@ -79,9 +79,9 @@ type IAVVCAggregateDevice interface {
 
 	// Topic: Methods
 
-	BuildAggregateDevice() int
+	BuildAggregateDevice() int32
 	CreateDictionaryForDeviceEnableTap(device uint32, tap bool) corefoundation.CFDictionaryRef
-	DestroyAggregateDevice() int
+	DestroyAggregateDevice() int32
 	GetBuiltinSpeakerDevice() uint32
 	AggregateDeviceID() uint32
 	AggregateDeviceUID() string
@@ -106,16 +106,16 @@ func NewAVVCAggregateDevice() AVVCAggregateDevice {
 	return rv
 }
 
-func (a AVVCAggregateDevice) BuildAggregateDevice() int {
-	rv := objc.SendIfResponds[int](a.ID, objc.Sel("BuildAggregateDevice"))
+func (a AVVCAggregateDevice) BuildAggregateDevice() int32 {
+	rv := objc.SendIfResponds[int32](a.ID, objc.Sel("BuildAggregateDevice"))
 	return rv
 }
 func (a AVVCAggregateDevice) CreateDictionaryForDeviceEnableTap(device uint32, tap bool) corefoundation.CFDictionaryRef {
 	rv := objc.SendIfResponds[corefoundation.CFDictionaryRef](a.ID, objc.Sel("CreateDictionaryForDevice:enableTap:"), device, tap)
 	return corefoundation.CFDictionaryRef(rv)
 }
-func (a AVVCAggregateDevice) DestroyAggregateDevice() int {
-	rv := objc.SendIfResponds[int](a.ID, objc.Sel("DestroyAggregateDevice"))
+func (a AVVCAggregateDevice) DestroyAggregateDevice() int32 {
+	rv := objc.SendIfResponds[int32](a.ID, objc.Sel("DestroyAggregateDevice"))
 	return rv
 }
 func (a AVVCAggregateDevice) GetBuiltinSpeakerDevice() uint32 {

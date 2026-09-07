@@ -1,4 +1,4 @@
-// Code generated from Apple documentation for CoreML. DO NOT EDIT.
+// Code generated from Apple documentation for coreml. DO NOT EDIT.
 
 package coreml
 
@@ -126,15 +126,15 @@ func (m MLNumericConstraint) SetEnumeratedNumbers(value foundation.INSSet) {
 	objc.SendIfResponds[struct{}](m.ID, objc.Sel("setEnumeratedNumbers:"), value)
 }
 func (m MLNumericConstraint) MaxNumber() foundation.NSNumber {
-	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("maxNumber"))
-	return foundation.NSNumberFromID(objc.ID(rv))
+	rv := objc.SendIfResponds[foundation.NSNumber](m.ID, objc.Sel("maxNumber"))
+	return foundation.NSNumber(rv)
 }
 func (m MLNumericConstraint) SetMaxNumber(value foundation.NSNumber) {
 	objc.SendIfResponds[struct{}](m.ID, objc.Sel("setMaxNumber:"), value)
 }
 func (m MLNumericConstraint) MinNumber() foundation.NSNumber {
-	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("minNumber"))
-	return foundation.NSNumberFromID(objc.ID(rv))
+	rv := objc.SendIfResponds[foundation.NSNumber](m.ID, objc.Sel("minNumber"))
+	return foundation.NSNumber(rv)
 }
 func (m MLNumericConstraint) SetMinNumber(value foundation.NSNumber) {
 	objc.SendIfResponds[struct{}](m.ID, objc.Sel("setMinNumber:"), value)

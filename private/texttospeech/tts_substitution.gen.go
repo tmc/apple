@@ -269,8 +269,8 @@ func (t TTSSubstitution) SetReplacementString(value string) {
 	objc.SendIfResponds[struct{}](t.ID, objc.Sel("setReplacementString:"), objc.String(value))
 }
 func (t TTSSubstitution) Uuid() foundation.NSUUID {
-	rv := objc.SendIfResponds[objc.ID](t.ID, objc.Sel("uuid"))
-	return foundation.NSUUIDFromID(objc.ID(rv))
+	rv := objc.SendIfResponds[foundation.NSUUID](t.ID, objc.Sel("uuid"))
+	return foundation.NSUUID(rv)
 }
 func (t TTSSubstitution) SetUuid(value foundation.NSUUID) {
 	objc.SendIfResponds[struct{}](t.ID, objc.Sel("setUuid:"), value)

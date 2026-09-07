@@ -82,8 +82,8 @@ type IEspressoNetwork interface {
 	Layers_size() uint64
 	Net() unsafe.Pointer
 	Wipe_layers_blobs()
-	InitWithJSFileBinSerializerIdContextComputePath(jSFile string, id string, context objectivec.IObject, path int) EspressoNetwork
-	InitWithJSFileContextComputePath(jSFile string, context objectivec.IObject, path int) EspressoNetwork
+	InitWithJSFileBinSerializerIdContextComputePath(jSFile string, id string, context objectivec.IObject, path int32) EspressoNetwork
+	InitWithJSFileContextComputePath(jSFile string, context objectivec.IObject, path int32) EspressoNetwork
 }
 
 // Init initializes the instance.
@@ -105,13 +105,13 @@ func NewEspressoNetwork() EspressoNetwork {
 	return rv
 }
 
-func NewEspressoNetworkWithJSFileBinSerializerIdContextComputePath(jSFile string, id string, context objectivec.IObject, path int) EspressoNetwork {
+func NewEspressoNetworkWithJSFileBinSerializerIdContextComputePath(jSFile string, id string, context objectivec.IObject, path int32) EspressoNetwork {
 	instance := getEspressoNetworkClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithJSFile:binSerializerId:context:computePath:"), unsafe.Pointer(unsafe.StringData(jSFile+"\x00")), unsafe.Pointer(unsafe.StringData(id+"\x00")), context, path)
 	return EspressoNetworkFromID(rv)
 }
 
-func NewEspressoNetworkWithJSFileContextComputePath(jSFile string, context objectivec.IObject, path int) EspressoNetwork {
+func NewEspressoNetworkWithJSFileContextComputePath(jSFile string, context objectivec.IObject, path int32) EspressoNetwork {
 	instance := getEspressoNetworkClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithJSFile:context:computePath:"), unsafe.Pointer(unsafe.StringData(jSFile+"\x00")), context, path)
 	return EspressoNetworkFromID(rv)
@@ -120,11 +120,11 @@ func NewEspressoNetworkWithJSFileContextComputePath(jSFile string, context objec
 func (e EspressoNetwork) Wipe_layers_blobs() {
 	objc.SendIfResponds[objc.ID](e.ID, objc.Sel("wipe_layers_blobs"))
 }
-func (e EspressoNetwork) InitWithJSFileBinSerializerIdContextComputePath(jSFile string, id string, context objectivec.IObject, path int) EspressoNetwork {
+func (e EspressoNetwork) InitWithJSFileBinSerializerIdContextComputePath(jSFile string, id string, context objectivec.IObject, path int32) EspressoNetwork {
 	rv := objc.SendIfResponds[EspressoNetwork](e.ID, objc.Sel("initWithJSFile:binSerializerId:context:computePath:"), unsafe.Pointer(unsafe.StringData(jSFile+"\x00")), unsafe.Pointer(unsafe.StringData(id+"\x00")), context, path)
 	return rv
 }
-func (e EspressoNetwork) InitWithJSFileContextComputePath(jSFile string, context objectivec.IObject, path int) EspressoNetwork {
+func (e EspressoNetwork) InitWithJSFileContextComputePath(jSFile string, context objectivec.IObject, path int32) EspressoNetwork {
 	rv := objc.SendIfResponds[EspressoNetwork](e.ID, objc.Sel("initWithJSFile:context:computePath:"), unsafe.Pointer(unsafe.StringData(jSFile+"\x00")), context, path)
 	return rv
 }

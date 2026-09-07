@@ -1,4 +1,4 @@
-// Code generated from Apple documentation for AVFAudio. DO NOT EDIT.
+// Code generated from Apple documentation for avfaudio. DO NOT EDIT.
 
 package avfaudio
 
@@ -100,7 +100,7 @@ func NewAVAudioUnitMIDIInstrument() AVAudioUnitMIDIInstrument {
 	return rv
 }
 
-func NewAudioUnitMIDIInstrumentWithImpl(impl unsafe.Pointer) AVAudioUnitMIDIInstrument {
+func NewAVAudioUnitMIDIInstrumentWithImpl(impl unsafe.Pointer) AVAudioUnitMIDIInstrument {
 	instance := getAVAudioUnitMIDIInstrumentClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithImpl:"), impl)
 	return AVAudioUnitMIDIInstrumentFromID(rv)

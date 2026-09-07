@@ -299,12 +299,12 @@ func (_DiskImageGraphNodeClass DiskImageGraphNodeClass) ValidateWithDictionaryEr
 }
 
 func (d DiskImageGraphNode) URL() foundation.NSURL {
-	rv := objc.SendIfResponds[objc.ID](d.ID, objc.Sel("URL"))
-	return foundation.NSURLFromID(objc.ID(rv))
+	rv := objc.SendIfResponds[foundation.NSURL](d.ID, objc.Sel("URL"))
+	return foundation.NSURL(rv)
 }
 func (d DiskImageGraphNode) UUID() foundation.NSUUID {
-	rv := objc.SendIfResponds[objc.ID](d.ID, objc.Sel("UUID"))
-	return foundation.NSUUIDFromID(objc.ID(rv))
+	rv := objc.SendIfResponds[foundation.NSUUID](d.ID, objc.Sel("UUID"))
+	return foundation.NSUUID(rv)
 }
 func (d DiskImageGraphNode) SetUUID(value foundation.NSUUID) {
 	objc.SendIfResponds[struct{}](d.ID, objc.Sel("setUUID:"), value)
@@ -339,8 +339,8 @@ func (d DiskImageGraphNode) SetParent(value IDiskImageGraphNode) {
 	objc.SendIfResponds[struct{}](d.ID, objc.Sel("setParent:"), value)
 }
 func (d DiskImageGraphNode) ParentUUID() foundation.NSUUID {
-	rv := objc.SendIfResponds[objc.ID](d.ID, objc.Sel("parentUUID"))
-	return foundation.NSUUIDFromID(objc.ID(rv))
+	rv := objc.SendIfResponds[foundation.NSUUID](d.ID, objc.Sel("parentUUID"))
+	return foundation.NSUUID(rv)
 }
 func (d DiskImageGraphNode) PstackDict() foundation.INSDictionary {
 	rv := objc.SendIfResponds[objc.ID](d.ID, objc.Sel("pstackDict"))

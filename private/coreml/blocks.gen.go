@@ -152,11 +152,31 @@ func NewMLFeatureValueErrorBlock(handler MLFeatureValueErrorHandler) (objc.ID, f
 	return objc.ID(block), func() { block.Release() }
 }
 
-// SetErrorHandler is the signature for a completion handler block.
+// SetErrorHandler handles completion with primitive result and optional error.
 //
 // Used by:
 //   - [CoreMLModelSecurityServiceToClientProtocol.ClientFeatureNamesWithReply]
-type SetErrorHandler = func(*foundation.INSSet, error)
+type SetErrorHandler = func(foundation.INSSet, error)
+
+// NewSetErrorBlock wraps a Go [SetErrorHandler] as an Objective-C block.
+// The caller must defer the returned cleanup function.
+//
+// Used by:
+//   - [CoreMLModelSecurityServiceToClientProtocol.ClientFeatureNamesWithReply]
+func NewSetErrorBlock(handler SetErrorHandler) (objc.ID, func()) {
+	if handler == nil {
+		return 0, func() {}
+	}
+	block := objc.NewBlock(func(b objc.Block, primitiveID objc.ID, errID objc.ID) {
+		var primitiveVal foundation.INSSet
+		if primitiveID != 0 {
+			objc.Send[objc.ID](primitiveID, objc.Sel("retain"))
+			primitiveVal = foundation.NSSetFromID(primitiveID)
+		}
+		handler(primitiveVal, foundation.SafeErrorFrom(errID))
+	})
+	return objc.ID(block), func() { block.Release() }
+}
 
 // VoidHandler is the signature for a completion handler block.
 //

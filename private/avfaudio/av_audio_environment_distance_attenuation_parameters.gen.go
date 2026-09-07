@@ -1,4 +1,4 @@
-// Code generated from Apple documentation for AVFAudio. DO NOT EDIT.
+// Code generated from Apple documentation for avfaudio. DO NOT EDIT.
 
 package avfaudio
 
@@ -90,7 +90,7 @@ func NewAVAudioEnvironmentDistanceAttenuationParameters() AVAudioEnvironmentDist
 	return rv
 }
 
-func NewAudioEnvironmentDistanceAttenuationParametersWithEnvironment(environment unsafe.Pointer) AVAudioEnvironmentDistanceAttenuationParameters {
+func NewAVAudioEnvironmentDistanceAttenuationParametersWithEnvironment(environment unsafe.Pointer) AVAudioEnvironmentDistanceAttenuationParameters {
 	instance := getAVAudioEnvironmentDistanceAttenuationParametersClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithEnvironment:"), environment)
 	return AVAudioEnvironmentDistanceAttenuationParametersFromID(rv)

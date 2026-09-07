@@ -42,9 +42,6 @@ func (tc TextToSpeechVoicePreviewerClass) Alloc() TextToSpeechVoicePreviewer {
 	return rv
 }
 
-// # Methods
-//
-//   - [TextToSpeechVoicePreviewer.AudioPlayerDidFinishPlayingSuccessfully]
 type TextToSpeechVoicePreviewer struct {
 	objectivec.Object
 }
@@ -59,16 +56,8 @@ func TextToSpeechVoicePreviewerFromID(id objc.ID) TextToSpeechVoicePreviewer {
 // cannot satisfy; skip compile-time assertion.
 
 // An interface definition for the [TextToSpeechVoicePreviewer] class.
-//
-// # Methods
-//
-//   - [ITextToSpeechVoicePreviewer.AudioPlayerDidFinishPlayingSuccessfully]
 type ITextToSpeechVoicePreviewer interface {
 	ISwiftNativeNSObject
-
-	// Topic: Methods
-
-	AudioPlayerDidFinishPlayingSuccessfully(playing objectivec.IObject, successfully bool)
 }
 
 // Init initializes the instance.
@@ -88,8 +77,4 @@ func NewTextToSpeechVoicePreviewer() TextToSpeechVoicePreviewer {
 	class := getTextToSpeechVoicePreviewerClass()
 	rv := objc.SendIfResponds[TextToSpeechVoicePreviewer](objc.ID(class.class), objc.Sel("new"))
 	return rv
-}
-
-func (t TextToSpeechVoicePreviewer) AudioPlayerDidFinishPlayingSuccessfully(playing objectivec.IObject, successfully bool) {
-	objc.SendIfResponds[objc.ID](t.ID, objc.Sel("audioPlayerDidFinishPlaying:successfully:"), playing, successfully)
 }

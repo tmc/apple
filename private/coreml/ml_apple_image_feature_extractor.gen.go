@@ -1,4 +1,4 @@
-// Code generated from Apple documentation for CoreML. DO NOT EDIT.
+// Code generated from Apple documentation for coreml. DO NOT EDIT.
 
 package coreml
 
@@ -107,7 +107,7 @@ func NewMLAppleImageFeatureExtractor() MLAppleImageFeatureExtractor {
 	return rv
 }
 
-func NewAppleImageFeatureExtractorDescriptionOnlyWithSpecificationConfigurationError(specification unsafe.Pointer, configuration objectivec.IObject) (MLAppleImageFeatureExtractor, error) {
+func NewMLAppleImageFeatureExtractorDescriptionOnlyWithSpecificationConfigurationError(specification unsafe.Pointer, configuration objectivec.IObject) (MLAppleImageFeatureExtractor, error) {
 	var errorPtr objc.ID
 	instance := getMLAppleImageFeatureExtractorClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initDescriptionOnlyWithSpecification:configuration:error:"), specification, configuration, unsafe.Pointer(&errorPtr))
@@ -121,7 +121,7 @@ func NewAppleImageFeatureExtractorDescriptionOnlyWithSpecificationConfigurationE
 	return MLAppleImageFeatureExtractorFromID(rv), nil
 }
 
-func NewAppleImageFeatureExtractorInterfaceAndMetadataWithCompiledArchiveError(archive unsafe.Pointer) (MLAppleImageFeatureExtractor, error) {
+func NewMLAppleImageFeatureExtractorInterfaceAndMetadataWithCompiledArchiveError(archive unsafe.Pointer) (MLAppleImageFeatureExtractor, error) {
 	var errorPtr objc.ID
 	instance := getMLAppleImageFeatureExtractorClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initInterfaceAndMetadataWithCompiledArchive:error:"), archive, unsafe.Pointer(&errorPtr))
@@ -135,31 +135,31 @@ func NewAppleImageFeatureExtractorInterfaceAndMetadataWithCompiledArchiveError(a
 	return MLAppleImageFeatureExtractorFromID(rv), nil
 }
 
-func NewAppleImageFeatureExtractorWithConfiguration(configuration objectivec.IObject) MLAppleImageFeatureExtractor {
+func NewMLAppleImageFeatureExtractorWithConfiguration(configuration objectivec.IObject) MLAppleImageFeatureExtractor {
 	instance := getMLAppleImageFeatureExtractorClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithConfiguration:"), configuration)
 	return MLAppleImageFeatureExtractorFromID(rv)
 }
 
-func NewAppleImageFeatureExtractorWithDescription(description objectivec.IObject) MLAppleImageFeatureExtractor {
+func NewMLAppleImageFeatureExtractorWithDescription(description objectivec.IObject) MLAppleImageFeatureExtractor {
 	instance := getMLAppleImageFeatureExtractorClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithDescription:"), description)
 	return MLAppleImageFeatureExtractorFromID(rv)
 }
 
-func NewAppleImageFeatureExtractorWithDescriptionConfiguration(description objectivec.IObject, configuration objectivec.IObject) MLAppleImageFeatureExtractor {
+func NewMLAppleImageFeatureExtractorWithDescriptionConfiguration(description objectivec.IObject, configuration objectivec.IObject) MLAppleImageFeatureExtractor {
 	instance := getMLAppleImageFeatureExtractorClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithDescription:configuration:"), description, configuration)
 	return MLAppleImageFeatureExtractorFromID(rv)
 }
 
-func NewAppleImageFeatureExtractorWithNameInputDescriptionOutputDescriptionOrderedInputFeatureNamesOrderedOutputFeatureNamesConfiguration(name objectivec.IObject, description objectivec.IObject, description2 objectivec.IObject, names objectivec.IObject, names2 objectivec.IObject, configuration objectivec.IObject) MLAppleImageFeatureExtractor {
+func NewMLAppleImageFeatureExtractorWithNameInputDescriptionOutputDescriptionOrderedInputFeatureNamesOrderedOutputFeatureNamesConfiguration(name objectivec.IObject, description objectivec.IObject, description2 objectivec.IObject, names objectivec.IObject, names2 objectivec.IObject, configuration objectivec.IObject) MLAppleImageFeatureExtractor {
 	instance := getMLAppleImageFeatureExtractorClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithName:inputDescription:outputDescription:orderedInputFeatureNames:orderedOutputFeatureNames:configuration:"), name, description, description2, names, names2, configuration)
 	return MLAppleImageFeatureExtractorFromID(rv)
 }
 
-func NewAppleImageFeatureExtractorWithParametersModelDescriptionFeatureExtractorTypeConfigurationError(parameters objectivec.IObject, description objectivec.IObject, type_ int, configuration objectivec.IObject) (MLAppleImageFeatureExtractor, error) {
+func NewMLAppleImageFeatureExtractorWithParametersModelDescriptionFeatureExtractorTypeConfigurationError(parameters objectivec.IObject, description objectivec.IObject, type_ int, configuration objectivec.IObject) (MLAppleImageFeatureExtractor, error) {
 	var errorPtr objc.ID
 	instance := getMLAppleImageFeatureExtractorClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithParameters:modelDescription:featureExtractorType:configuration:error:"), parameters, description, type_, configuration, unsafe.Pointer(&errorPtr))

@@ -50,6 +50,8 @@ func (sc SLSWindowManagerDragContextClass) Alloc() SLSWindowManagerDragContext {
 //   - [SLSWindowManagerDragContext.DefaultWindowOrigin]
 //   - [SLSWindowManagerDragContext.DragOffset]
 //   - [SLSWindowManagerDragContext.SetDragOffset]
+//   - [SLSWindowManagerDragContext.IsMouseDrag]
+//   - [SLSWindowManagerDragContext.SetIsMouseDrag]
 //   - [SLSWindowManagerDragContext.MouseLocation]
 //   - [SLSWindowManagerDragContext.SetMouseLocation]
 //   - [SLSWindowManagerDragContext.ProposedWindowOrigin]
@@ -79,6 +81,8 @@ var _ ISLSWindowManagerDragContext = SLSWindowManagerDragContext{}
 //   - [ISLSWindowManagerDragContext.DefaultWindowOrigin]
 //   - [ISLSWindowManagerDragContext.DragOffset]
 //   - [ISLSWindowManagerDragContext.SetDragOffset]
+//   - [ISLSWindowManagerDragContext.IsMouseDrag]
+//   - [ISLSWindowManagerDragContext.SetIsMouseDrag]
 //   - [ISLSWindowManagerDragContext.MouseLocation]
 //   - [ISLSWindowManagerDragContext.SetMouseLocation]
 //   - [ISLSWindowManagerDragContext.ProposedWindowOrigin]
@@ -97,6 +101,8 @@ type ISLSWindowManagerDragContext interface {
 	DefaultWindowOrigin() corefoundation.CGPoint
 	DragOffset() corefoundation.CGPoint
 	SetDragOffset(value corefoundation.CGPoint)
+	IsMouseDrag() bool
+	SetIsMouseDrag(value bool)
 	MouseLocation() corefoundation.CGPoint
 	SetMouseLocation(value corefoundation.CGPoint)
 	ProposedWindowOrigin() corefoundation.CGPoint
@@ -143,6 +149,13 @@ func (s SLSWindowManagerDragContext) DragOffset() corefoundation.CGPoint {
 }
 func (s SLSWindowManagerDragContext) SetDragOffset(value corefoundation.CGPoint) {
 	objc.SendIfResponds[struct{}](s.ID, objc.Sel("setDragOffset:"), value)
+}
+func (s SLSWindowManagerDragContext) IsMouseDrag() bool {
+	rv := objc.SendIfResponds[bool](s.ID, objc.Sel("isMouseDrag"))
+	return rv
+}
+func (s SLSWindowManagerDragContext) SetIsMouseDrag(value bool) {
+	objc.SendIfResponds[struct{}](s.ID, objc.Sel("setIsMouseDrag:"), value)
 }
 func (s SLSWindowManagerDragContext) MouseLocation() corefoundation.CGPoint {
 	rv := objc.SendIfResponds[corefoundation.CGPoint](s.ID, objc.Sel("mouseLocation"))

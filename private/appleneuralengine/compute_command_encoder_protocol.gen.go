@@ -193,10 +193,10 @@ func (o MTLComputeCommandEncoderObject) SetBufferOffsetAttributeStrideAtIndex(of
 	objc.SendIfResponds[struct{}](o.ID, objc.Sel("setBufferOffset:attributeStride:atIndex:"), offset, stride, index)
 }
 func (o MTLComputeCommandEncoderObject) SetBuffersOffsetsAttributeStridesWithRange(buffers []objectivec.IObject, offsets *uint64, strides *uint64, range_ foundation.NSRange) {
-	objc.SendIfResponds[struct{}](o.ID, objc.Sel("setBuffers:offsets:attributeStrides:withRange:"), objectivec.IObjectSliceToNSArray(buffers), unsafe.Pointer(offsets), unsafe.Pointer(strides), range_)
+	objc.SendIfResponds[struct{}](o.ID, objc.Sel("setBuffers:offsets:attributeStrides:withRange:"), objectivec.IObjectSliceToNSArray(buffers), offsets, strides, range_)
 }
 func (o MTLComputeCommandEncoderObject) SetBuffersOffsetsWithRange(buffers []objectivec.IObject, offsets *uint64, range_ foundation.NSRange) {
-	objc.SendIfResponds[struct{}](o.ID, objc.Sel("setBuffers:offsets:withRange:"), objectivec.IObjectSliceToNSArray(buffers), unsafe.Pointer(offsets), range_)
+	objc.SendIfResponds[struct{}](o.ID, objc.Sel("setBuffers:offsets:withRange:"), objectivec.IObjectSliceToNSArray(buffers), offsets, range_)
 }
 func (o MTLComputeCommandEncoderObject) SetBytesLengthAtIndex(bytes []byte, index uint64) {
 	objc.SendIfResponds[struct{}](o.ID, objc.Sel("setBytes:length:atIndex:"), objc.BytesPointer(bytes), uint(len(bytes)), index)

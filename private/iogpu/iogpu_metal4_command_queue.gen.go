@@ -48,17 +48,23 @@ func (ic IOGPUMetal4CommandQueueClass) Alloc() IOGPUMetal4CommandQueue {
 // # Methods
 //
 //   - [IOGPUMetal4CommandQueue._commitCountCommitFeedback]
+//   - [IOGPUMetal4CommandQueue._setGPUPriorityBackgroundPriority]
 //   - [IOGPUMetal4CommandQueue.AddInternalResidencySet]
 //   - [IOGPUMetal4CommandQueue.AddInternalResidencySetsCount]
 //   - [IOGPUMetal4CommandQueue.AllocateMappingCommandBuffer]
 //   - [IOGPUMetal4CommandQueue.CommandAllocator]
-//   - [IOGPUMetal4CommandQueue.CommandBufferCompleteCommandAllocatorCommandAllocatorGenerationStorageSubmissionIDStartTimeCompletionTimeKernelErrorErrorCommitFeedbackCommitComplete]
+//   - [IOGPUMetal4CommandQueue.CommandBufferCompleteCommandAllocatorCommandAllocatorGenerationCommandBufferGenerationStorageSubmissionIDStartTimeCompletionTimeKernelErrorErrorCommitFeedbackCommitComplete]
+//   - [IOGPUMetal4CommandQueue.CommitBlock]
 //   - [IOGPUMetal4CommandQueue.CommitFillArgsCountArgsArgsSizeCommitFeedback]
 //   - [IOGPUMetal4CommandQueue.CommitMappingCommandBuffer]
 //   - [IOGPUMetal4CommandQueue.EndTier1MappingCommands]
+//   - [IOGPUMetal4CommandQueue.GetBackgroundGPUPriority]
+//   - [IOGPUMetal4CommandQueue.GetGPUPriority]
 //   - [IOGPUMetal4CommandQueue.PreCommitCountOptions]
 //   - [IOGPUMetal4CommandQueue.RemoveInternalResidencySet]
 //   - [IOGPUMetal4CommandQueue.RemoveInternalResidencySetsCount]
+//   - [IOGPUMetal4CommandQueue.SetBackgroundGPUPriority]
+//   - [IOGPUMetal4CommandQueue.SetGPUPriority]
 //   - [IOGPUMetal4CommandQueue.SetScheduledHandler]
 //   - [IOGPUMetal4CommandQueue.SupportsBackgroundAppRole]
 //   - [IOGPUMetal4CommandQueue.WaitForEventValueTimeout]
@@ -83,17 +89,23 @@ var _ IIOGPUMetal4CommandQueue = IOGPUMetal4CommandQueue{}
 // # Methods
 //
 //   - [IIOGPUMetal4CommandQueue._commitCountCommitFeedback]
+//   - [IIOGPUMetal4CommandQueue._setGPUPriorityBackgroundPriority]
 //   - [IIOGPUMetal4CommandQueue.AddInternalResidencySet]
 //   - [IIOGPUMetal4CommandQueue.AddInternalResidencySetsCount]
 //   - [IIOGPUMetal4CommandQueue.AllocateMappingCommandBuffer]
 //   - [IIOGPUMetal4CommandQueue.CommandAllocator]
-//   - [IIOGPUMetal4CommandQueue.CommandBufferCompleteCommandAllocatorCommandAllocatorGenerationStorageSubmissionIDStartTimeCompletionTimeKernelErrorErrorCommitFeedbackCommitComplete]
+//   - [IIOGPUMetal4CommandQueue.CommandBufferCompleteCommandAllocatorCommandAllocatorGenerationCommandBufferGenerationStorageSubmissionIDStartTimeCompletionTimeKernelErrorErrorCommitFeedbackCommitComplete]
+//   - [IIOGPUMetal4CommandQueue.CommitBlock]
 //   - [IIOGPUMetal4CommandQueue.CommitFillArgsCountArgsArgsSizeCommitFeedback]
 //   - [IIOGPUMetal4CommandQueue.CommitMappingCommandBuffer]
 //   - [IIOGPUMetal4CommandQueue.EndTier1MappingCommands]
+//   - [IIOGPUMetal4CommandQueue.GetBackgroundGPUPriority]
+//   - [IIOGPUMetal4CommandQueue.GetGPUPriority]
 //   - [IIOGPUMetal4CommandQueue.PreCommitCountOptions]
 //   - [IIOGPUMetal4CommandQueue.RemoveInternalResidencySet]
 //   - [IIOGPUMetal4CommandQueue.RemoveInternalResidencySetsCount]
+//   - [IIOGPUMetal4CommandQueue.SetBackgroundGPUPriority]
+//   - [IIOGPUMetal4CommandQueue.SetGPUPriority]
 //   - [IIOGPUMetal4CommandQueue.SetScheduledHandler]
 //   - [IIOGPUMetal4CommandQueue.SupportsBackgroundAppRole]
 //   - [IIOGPUMetal4CommandQueue.WaitForEventValueTimeout]
@@ -107,17 +119,23 @@ type IIOGPUMetal4CommandQueue interface {
 	// Topic: Methods
 
 	_commitCountCommitFeedback(_commit []objectivec.IObject, count uint64, feedback objectivec.IObject)
+	_setGPUPriorityBackgroundPriority(gPUPriority uint64, priority uint64) bool
 	AddInternalResidencySet(set objectivec.IObject)
 	AddInternalResidencySetsCount(sets []objectivec.IObject, count uint64)
 	AllocateMappingCommandBuffer()
 	CommandAllocator() objectivec.IObject
-	CommandBufferCompleteCommandAllocatorCommandAllocatorGenerationStorageSubmissionIDStartTimeCompletionTimeKernelErrorErrorCommitFeedbackCommitComplete(complete objectivec.IObject, allocator objectivec.IObject, generation uint32, storage *IOGPUMetalCommandBufferStorage, id uint64, time uint64, time2 uint64, kernelError uint32, underlyingError objectivec.IObject, feedback objectivec.IObject, complete2 bool)
+	CommandBufferCompleteCommandAllocatorCommandAllocatorGenerationCommandBufferGenerationStorageSubmissionIDStartTimeCompletionTimeKernelErrorErrorCommitFeedbackCommitComplete(complete objectivec.IObject, allocator objectivec.IObject, generation uint32, generation2 uint64, storage *IOGPUMetalCommandBufferStorage, id uint64, time uint64, time2 uint64, kernelError uint32, underlyingError objectivec.IObject, feedback objectivec.IObject, complete2 bool)
+	CommitBlock(block VoidHandler)
 	CommitFillArgsCountArgsArgsSizeCommitFeedback(args []objectivec.IObject, count uint64, args2 uint64, size uint32, feedback objectivec.IObject)
 	CommitMappingCommandBuffer()
 	EndTier1MappingCommands()
+	GetBackgroundGPUPriority() uint64
+	GetGPUPriority() uint64
 	PreCommitCountOptions(commit []objectivec.IObject, count uint64, options objectivec.IObject) objectivec.IObject
 	RemoveInternalResidencySet(set objectivec.IObject)
 	RemoveInternalResidencySetsCount(sets []objectivec.IObject, count uint64)
+	SetBackgroundGPUPriority(gPUPriority uint64) bool
+	SetGPUPriority(gPUPriority uint64) bool
 	SetScheduledHandler(handler VoidHandler)
 	SupportsBackgroundAppRole() bool
 	WaitForEventValueTimeout(event objectivec.IObject, value uint64, timeout uint16)
@@ -146,25 +164,25 @@ func NewIOGPUMetal4CommandQueue() IOGPUMetal4CommandQueue {
 	return rv
 }
 
-func NewGPUMetal4CommandQueueIOGPUMTL4CommandQueueDescriptorArgsArgsSize(queue objectivec.IObject, descriptor objectivec.IObject, args *IOGPUDeviceNewCommandQueueArgs, size uint32) IOGPUMetal4CommandQueue {
+func NewIOGPUMetal4CommandQueueIOGPUMTL4CommandQueueDescriptorArgsArgsSize(queue objectivec.IObject, descriptor objectivec.IObject, args *IOGPUDeviceNewCommandQueueArgs, size uint32) IOGPUMetal4CommandQueue {
 	instance := getIOGPUMetal4CommandQueueClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initIOGPUMTL4CommandQueue:descriptor:args:argsSize:"), queue, descriptor, unsafe.Pointer(args), size)
 	return IOGPUMetal4CommandQueueFromID(rv)
 }
 
-func NewGPUMetal4CommandQueueWithDevice(device objectivec.IObject) IOGPUMetal4CommandQueue {
+func NewIOGPUMetal4CommandQueueWithDevice(device objectivec.IObject) IOGPUMetal4CommandQueue {
 	instance := getIOGPUMetal4CommandQueueClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithDevice:"), device)
 	return IOGPUMetal4CommandQueueFromID(rv)
 }
 
-func NewGPUMetal4CommandQueueWithDeviceDescriptor(device objectivec.IObject, descriptor objectivec.IObject) IOGPUMetal4CommandQueue {
+func NewIOGPUMetal4CommandQueueWithDeviceDescriptor(device objectivec.IObject, descriptor objectivec.IObject) IOGPUMetal4CommandQueue {
 	instance := getIOGPUMetal4CommandQueueClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithDevice:descriptor:"), device, descriptor)
 	return IOGPUMetal4CommandQueueFromID(rv)
 }
 
-func NewGPUMetal4CommandQueueWithDeviceDescriptorArgsArgsSize(device objectivec.IObject, descriptor objectivec.IObject, args *IOGPUDeviceNewCommandQueueArgs, size uint32) IOGPUMetal4CommandQueue {
+func NewIOGPUMetal4CommandQueueWithDeviceDescriptorArgsArgsSize(device objectivec.IObject, descriptor objectivec.IObject, args *IOGPUDeviceNewCommandQueueArgs, size uint32) IOGPUMetal4CommandQueue {
 	instance := getIOGPUMetal4CommandQueueClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithDevice:descriptor:args:argsSize:"), device, descriptor, unsafe.Pointer(args), size)
 	return IOGPUMetal4CommandQueueFromID(rv)
@@ -188,6 +206,24 @@ func (i IOGPUMetal4CommandQueue) CommitCountCommitFeedback(_commit []objectivec.
 func (i IOGPUMetal4CommandQueue) CanCommitCountCommitFeedback() bool {
 	return objc.RespondsToSelector(i.ID, objc.Sel("_commit:count:commitFeedback:"))
 }
+func (i IOGPUMetal4CommandQueue) _setGPUPriorityBackgroundPriority(gPUPriority uint64, priority uint64) bool {
+	rv := objc.SendIfResponds[bool](i.ID, objc.Sel("_setGPUPriority:backgroundPriority:"), gPUPriority, priority)
+	return rv
+}
+
+// SetGPUPriorityBackgroundPriority is an exported wrapper for the private method _setGPUPriorityBackgroundPriority.
+func (i IOGPUMetal4CommandQueue) SetGPUPriorityBackgroundPriority(gPUPriority uint64, priority uint64) (bool, error) {
+	if !objc.RespondsToSelector(i.ID, objc.Sel("_setGPUPriority:backgroundPriority:")) {
+		err := &objc.UnrecognizedSelectorError{Selector: "_setGPUPriority:backgroundPriority:"}
+		return false, err
+	}
+	return i._setGPUPriorityBackgroundPriority(gPUPriority, priority), nil
+}
+
+// CanSetGPUPriorityBackgroundPriority reports whether the receiver responds to the private selector _setGPUPriority:backgroundPriority:.
+func (i IOGPUMetal4CommandQueue) CanSetGPUPriorityBackgroundPriority() bool {
+	return objc.RespondsToSelector(i.ID, objc.Sel("_setGPUPriority:backgroundPriority:"))
+}
 func (i IOGPUMetal4CommandQueue) AddInternalResidencySet(set objectivec.IObject) {
 	objc.SendIfResponds[objc.ID](i.ID, objc.Sel("addInternalResidencySet:"), set)
 }
@@ -201,8 +237,12 @@ func (i IOGPUMetal4CommandQueue) CommandAllocator() objectivec.IObject {
 	rv := objc.SendIfResponds[objc.ID](i.ID, objc.Sel("commandAllocator"))
 	return objectivec.Object{ID: rv}
 }
-func (i IOGPUMetal4CommandQueue) CommandBufferCompleteCommandAllocatorCommandAllocatorGenerationStorageSubmissionIDStartTimeCompletionTimeKernelErrorErrorCommitFeedbackCommitComplete(complete objectivec.IObject, allocator objectivec.IObject, generation uint32, storage *IOGPUMetalCommandBufferStorage, id uint64, time uint64, time2 uint64, kernelError uint32, underlyingError objectivec.IObject, feedback objectivec.IObject, complete2 bool) {
-	objc.SendIfResponds[objc.ID](i.ID, objc.Sel("commandBufferComplete:commandAllocator:commandAllocatorGeneration:storage:submissionID:startTime:completionTime:kernelError:error:commitFeedback:commitComplete:"), complete, allocator, generation, unsafe.Pointer(storage), id, time, time2, kernelError, underlyingError, feedback, complete2)
+func (i IOGPUMetal4CommandQueue) CommandBufferCompleteCommandAllocatorCommandAllocatorGenerationCommandBufferGenerationStorageSubmissionIDStartTimeCompletionTimeKernelErrorErrorCommitFeedbackCommitComplete(complete objectivec.IObject, allocator objectivec.IObject, generation uint32, generation2 uint64, storage *IOGPUMetalCommandBufferStorage, id uint64, time uint64, time2 uint64, kernelError uint32, underlyingError objectivec.IObject, feedback objectivec.IObject, complete2 bool) {
+	objc.SendIfResponds[objc.ID](i.ID, objc.Sel("commandBufferComplete:commandAllocator:commandAllocatorGeneration:commandBufferGeneration:storage:submissionID:startTime:completionTime:kernelError:error:commitFeedback:commitComplete:"), complete, allocator, generation, generation2, unsafe.Pointer(storage), id, time, time2, kernelError, underlyingError, feedback, complete2)
+}
+func (i IOGPUMetal4CommandQueue) CommitBlock(block VoidHandler) {
+	_block0, _ := NewVoidBlock(block)
+	objc.SendIfResponds[objc.ID](i.ID, objc.Sel("commitBlock:"), _block0)
 }
 func (i IOGPUMetal4CommandQueue) CommitFillArgsCountArgsArgsSizeCommitFeedback(args []objectivec.IObject, count uint64, args2 uint64, size uint32, feedback objectivec.IObject) {
 	objc.SendIfResponds[objc.ID](i.ID, objc.Sel("commitFillArgs:count:args:argsSize:commitFeedback:"), objc.CArray(args), count, args2, size, feedback)
@@ -213,6 +253,14 @@ func (i IOGPUMetal4CommandQueue) CommitMappingCommandBuffer() {
 func (i IOGPUMetal4CommandQueue) EndTier1MappingCommands() {
 	objc.SendIfResponds[objc.ID](i.ID, objc.Sel("endTier1MappingCommands"))
 }
+func (i IOGPUMetal4CommandQueue) GetBackgroundGPUPriority() uint64 {
+	rv := objc.SendIfResponds[uint64](i.ID, objc.Sel("getBackgroundGPUPriority"))
+	return rv
+}
+func (i IOGPUMetal4CommandQueue) GetGPUPriority() uint64 {
+	rv := objc.SendIfResponds[uint64](i.ID, objc.Sel("getGPUPriority"))
+	return rv
+}
 func (i IOGPUMetal4CommandQueue) PreCommitCountOptions(commit []objectivec.IObject, count uint64, options objectivec.IObject) objectivec.IObject {
 	rv := objc.SendIfResponds[objc.ID](i.ID, objc.Sel("preCommit:count:options:"), objc.CArray(commit), count, options)
 	return objectivec.Object{ID: rv}
@@ -222,6 +270,14 @@ func (i IOGPUMetal4CommandQueue) RemoveInternalResidencySet(set objectivec.IObje
 }
 func (i IOGPUMetal4CommandQueue) RemoveInternalResidencySetsCount(sets []objectivec.IObject, count uint64) {
 	objc.SendIfResponds[objc.ID](i.ID, objc.Sel("removeInternalResidencySets:count:"), objc.CArray(sets), count)
+}
+func (i IOGPUMetal4CommandQueue) SetBackgroundGPUPriority(gPUPriority uint64) bool {
+	rv := objc.SendIfResponds[bool](i.ID, objc.Sel("setBackgroundGPUPriority:"), gPUPriority)
+	return rv
+}
+func (i IOGPUMetal4CommandQueue) SetGPUPriority(gPUPriority uint64) bool {
+	rv := objc.SendIfResponds[bool](i.ID, objc.Sel("setGPUPriority:"), gPUPriority)
+	return rv
 }
 func (i IOGPUMetal4CommandQueue) SetScheduledHandler(handler VoidHandler) {
 	_block0, _ := NewVoidBlock(handler)
@@ -249,6 +305,21 @@ func (i IOGPUMetal4CommandQueue) InitWithDeviceDescriptor(device objectivec.IObj
 func (i IOGPUMetal4CommandQueue) InitWithDeviceDescriptorArgsArgsSize(device objectivec.IObject, descriptor objectivec.IObject, args *IOGPUDeviceNewCommandQueueArgs, size uint32) IOGPUMetal4CommandQueue {
 	rv := objc.SendIfResponds[IOGPUMetal4CommandQueue](i.ID, objc.Sel("initWithDevice:descriptor:args:argsSize:"), device, descriptor, unsafe.Pointer(args), size)
 	return rv
+}
+
+// CommitBlockSync is a synchronous wrapper around [IOGPUMetal4CommandQueue.CommitBlock].
+// It blocks until the completion handler fires or the context is cancelled.
+func (i IOGPUMetal4CommandQueue) CommitBlockSync(ctx context.Context) error {
+	done := make(chan struct{}, 1)
+	i.CommitBlock(func() {
+		done <- struct{}{}
+	})
+	select {
+	case <-done:
+		return nil
+	case <-ctx.Done():
+		return ctx.Err()
+	}
 }
 
 // SetScheduledHandlerSync is a synchronous wrapper around [IOGPUMetal4CommandQueue.SetScheduledHandler].

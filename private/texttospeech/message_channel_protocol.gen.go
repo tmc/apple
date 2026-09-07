@@ -18,6 +18,9 @@ type AUMessageChannel interface {
 
 	// CallHostBlock protocol.
 	CallHostBlock() unsafe.Pointer
+
+	// SetCallHostBlock protocol.
+	SetCallHostBlock(block INSDictionaryINSDictionaryHandler)
 }
 
 // AUMessageChannelObject wraps an existing Objective-C object that conforms to the AUMessageChannel protocol.
@@ -44,4 +47,12 @@ func (o AUMessageChannelObject) CallAudioUnit(unit objectivec.IObject) objective
 func (o AUMessageChannelObject) CallHostBlock() unsafe.Pointer {
 	rv := objc.SendIfResponds[unsafe.Pointer](o.ID, objc.Sel("callHostBlock"))
 	return rv
+}
+
+var _aumessagechannelobject_setcallhostblock_p0_key byte
+
+func (o AUMessageChannelObject) SetCallHostBlock(block INSDictionaryINSDictionaryHandler) {
+	_block0, _cleanup0 := NewINSDictionaryINSDictionaryBlock(block)
+	defer _cleanup0()
+	objc.SendIfResponds[struct{}](o.ID, objc.Sel("setCallHostBlock:"), objc.ID(_block0))
 }

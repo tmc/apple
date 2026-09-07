@@ -1,4 +1,4 @@
-// Code generated from Apple documentation for CoreML. DO NOT EDIT.
+// Code generated from Apple documentation for coreml. DO NOT EDIT.
 
 package coreml
 
@@ -104,7 +104,7 @@ type IMLRangeBrick interface {
 	HasDynamicOutputShape(shape uint64) bool
 	HasGPUSupport() bool
 	SetupForInputShapesWithParameters(shapes objectivec.IObject, parameters objectivec.IObject) objectivec.IObject
-	Size() int
+	Size() int32
 	Start() float32
 	StartValueParameter() float32
 	StepSize() float32
@@ -135,7 +135,7 @@ func NewMLRangeBrick() MLRangeBrick {
 	return rv
 }
 
-func NewRangeBrickWithParameters(parameters objectivec.IObject) MLRangeBrick {
+func NewMLRangeBrickWithParameters(parameters objectivec.IObject) MLRangeBrick {
 	instance := getMLRangeBrickClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithParameters:"), parameters)
 	return MLRangeBrickFromID(rv)
@@ -181,8 +181,8 @@ func (m MLRangeBrick) Hash() uint64 {
 	rv := objc.SendIfResponds[uint64](m.ID, objc.Sel("hash"))
 	return rv
 }
-func (m MLRangeBrick) Size() int {
-	rv := objc.SendIfResponds[int](m.ID, objc.Sel("size"))
+func (m MLRangeBrick) Size() int32 {
+	rv := objc.SendIfResponds[int32](m.ID, objc.Sel("size"))
 	return rv
 }
 func (m MLRangeBrick) Start() float32 {

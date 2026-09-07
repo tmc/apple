@@ -73,8 +73,8 @@ type IEspressoDataFrameImageAttachment interface {
 	// Topic: Methods
 
 	CopyAsImageGrayscaleOrBGRA() appleneuralengine.VImageBuffer
-	NChannels() int
-	SetNChannels(value int)
+	NChannels() int32
+	SetNChannels(value int32)
 }
 
 // Init initializes the instance.
@@ -106,10 +106,10 @@ func (_EspressoDataFrameImageAttachmentClass EspressoDataFrameImageAttachmentCla
 	return corevideo.CVImageBufferRef(rv)
 }
 
-func (e EspressoDataFrameImageAttachment) NChannels() int {
-	rv := objc.SendIfResponds[int](e.ID, objc.Sel("nChannels"))
+func (e EspressoDataFrameImageAttachment) NChannels() int32 {
+	rv := objc.SendIfResponds[int32](e.ID, objc.Sel("nChannels"))
 	return rv
 }
-func (e EspressoDataFrameImageAttachment) SetNChannels(value int) {
+func (e EspressoDataFrameImageAttachment) SetNChannels(value int32) {
 	objc.SendIfResponds[struct{}](e.ID, objc.Sel("setNChannels:"), value)
 }

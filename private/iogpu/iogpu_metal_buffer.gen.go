@@ -180,79 +180,79 @@ func NewIOGPUMetalBuffer() IOGPUMetalBuffer {
 	return rv
 }
 
-func NewGPUMetalBufferMemorylessDescriptor(memoryless objectivec.IObject, descriptor objectivec.IObject) IOGPUMetalBuffer {
+func NewIOGPUMetalBufferMemorylessDescriptor(memoryless objectivec.IObject, descriptor objectivec.IObject) IOGPUMetalBuffer {
 	instance := getIOGPUMetalBufferClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initMemoryless:descriptor:"), memoryless, descriptor)
 	return IOGPUMetalBufferFromID(rv)
 }
 
-func NewGPUMetalBufferStandinWithDevice(device objectivec.IObject) IOGPUMetalBuffer {
+func NewIOGPUMetalBufferStandinWithDevice(device objectivec.IObject) IOGPUMetalBuffer {
 	instance := getIOGPUMetalBufferClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initStandinWithDevice:"), device)
 	return IOGPUMetalBufferFromID(rv)
 }
 
-func NewGPUMetalBufferWithDeviceAddressRangesAddressRangeCountLengthOptionsGpuAddressArgsArgsSize(device objectivec.IObject, ranges *IOGPUAddressRange, count uint64, length uint64, options uint64, address uint64, args *IOGPUNewResourceArgs, size uint32) IOGPUMetalBuffer {
+func NewIOGPUMetalBufferWithDeviceAddressRangesAddressRangeCountLengthOptionsGpuAddressArgsArgsSize(device objectivec.IObject, ranges *IOGPUAddressRange, count uint64, length uint64, options uint64, address uint64, args *IOGPUNewResourceArgs, size uint32) IOGPUMetalBuffer {
 	instance := getIOGPUMetalBufferClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithDevice:addressRanges:addressRangeCount:length:options:gpuAddress:args:argsSize:"), device, unsafe.Pointer(ranges), count, length, options, address, unsafe.Pointer(args), size)
 	return IOGPUMetalBufferFromID(rv)
 }
 
-func NewGPUMetalBufferWithDeviceIosurfaceArgsArgsSize(device objectivec.IObject, iosurface iosurface.IOSurfaceRef, args *IOGPUNewResourceArgs, size uint32) IOGPUMetalBuffer {
+func NewIOGPUMetalBufferWithDeviceIosurfaceArgsArgsSize(device objectivec.IObject, iosurface iosurface.IOSurfaceRef, args *IOGPUNewResourceArgs, size uint32) IOGPUMetalBuffer {
 	instance := getIOGPUMetalBufferClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithDevice:iosurface:args:argsSize:"), device, iosurface, unsafe.Pointer(args), size)
 	return IOGPUMetalBufferFromID(rv)
 }
 
-func NewGPUMetalBufferWithDeviceIosurfaceGpuAddressArgsArgsSize(device objectivec.IObject, iosurface iosurface.IOSurfaceRef, address uint64, args *IOGPUNewResourceArgs, size uint32) IOGPUMetalBuffer {
+func NewIOGPUMetalBufferWithDeviceIosurfaceGpuAddressArgsArgsSize(device objectivec.IObject, iosurface iosurface.IOSurfaceRef, address uint64, args *IOGPUNewResourceArgs, size uint32) IOGPUMetalBuffer {
 	instance := getIOGPUMetalBufferClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithDevice:iosurface:gpuAddress:args:argsSize:"), device, iosurface, address, unsafe.Pointer(args), size)
 	return IOGPUMetalBufferFromID(rv)
 }
 
-func NewGPUMetalBufferWithDeviceOptionsArgsArgsSize(device objectivec.IObject, options uint64, args *IOGPUNewResourceArgs, size uint32) IOGPUMetalBuffer {
+func NewIOGPUMetalBufferWithDeviceOptionsArgsArgsSize(device objectivec.IObject, options uint64, args *IOGPUNewResourceArgs, size uint32) IOGPUMetalBuffer {
 	instance := getIOGPUMetalBufferClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithDevice:options:args:argsSize:"), device, options, unsafe.Pointer(args), size)
 	return IOGPUMetalBufferFromID(rv)
 }
 
-func NewGPUMetalBufferWithDeviceRemoteStorageBufferArgsArgsSize(device objectivec.IObject, buffer objectivec.IObject, args *IOGPUNewResourceArgs, size uint32) IOGPUMetalBuffer {
+func NewIOGPUMetalBufferWithDeviceRemoteStorageBufferArgsArgsSize(device objectivec.IObject, buffer objectivec.IObject, args *IOGPUNewResourceArgs, size uint32) IOGPUMetalBuffer {
 	instance := getIOGPUMetalBufferClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithDevice:remoteStorageBuffer:args:argsSize:"), device, buffer, unsafe.Pointer(args), size)
 	return IOGPUMetalBufferFromID(rv)
 }
 
-func NewGPUMetalBufferWithDeviceRemoteStorageResourceOptionsArgsArgsSize(device objectivec.IObject, resource objectivec.IObject, options uint64, args *IOGPUNewResourceArgs, size uint32) IOGPUMetalBuffer {
+func NewIOGPUMetalBufferWithDeviceRemoteStorageResourceOptionsArgsArgsSize(device objectivec.IObject, resource objectivec.IObject, options uint64, args *IOGPUNewResourceArgs, size uint32) IOGPUMetalBuffer {
 	instance := getIOGPUMetalBufferClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithDevice:remoteStorageResource:options:args:argsSize:"), device, resource, options, unsafe.Pointer(args), size)
 	return IOGPUMetalBufferFromID(rv)
 }
 
-func NewGPUMetalBufferWithHeapResourceOffsetLength(heap objectivec.IObject, resource objectivec.IObject, offset uint64, length uint64) IOGPUMetalBuffer {
+func NewIOGPUMetalBufferWithHeapResourceOffsetLength(heap objectivec.IObject, resource objectivec.IObject, offset uint64, length uint64) IOGPUMetalBuffer {
 	instance := getIOGPUMetalBufferClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithHeap:resource:offset:length:"), heap, resource, offset, length)
 	return IOGPUMetalBufferFromID(rv)
 }
 
-func NewGPUMetalBufferWithHeapResourceOffsetLengthGpuTag(heap objectivec.IObject, resource objectivec.IObject, offset uint64, length uint64, tag uint64) IOGPUMetalBuffer {
+func NewIOGPUMetalBufferWithHeapResourceOffsetLengthGpuTag(heap objectivec.IObject, resource objectivec.IObject, offset uint64, length uint64, tag uint64) IOGPUMetalBuffer {
 	instance := getIOGPUMetalBufferClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithHeap:resource:offset:length:gpuTag:"), heap, resource, offset, length, tag)
 	return IOGPUMetalBufferFromID(rv)
 }
 
-func NewGPUMetalBufferWithPrimaryBufferHeapIndexBufferIndexBufferOffsetLengthArgsArgsSize(buffer objectivec.IObject, index int16, index2 int16, offset uint64, length uint64, args *IOGPUNewResourceArgs, size uint32) IOGPUMetalBuffer {
+func NewIOGPUMetalBufferWithPrimaryBufferHeapIndexBufferIndexBufferOffsetLengthArgsArgsSize(buffer objectivec.IObject, index int16, index2 int16, offset uint64, length uint64, args *IOGPUNewResourceArgs, size uint32) IOGPUMetalBuffer {
 	instance := getIOGPUMetalBufferClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithPrimaryBuffer:heapIndex:bufferIndex:bufferOffset:length:args:argsSize:"), buffer, index, index2, offset, length, unsafe.Pointer(args), size)
 	return IOGPUMetalBufferFromID(rv)
 }
 
-func NewGPUMetalBufferWithPrimaryBufferHeapIndexBufferIndexBufferOffsetLengthArgsArgsSizeGpuTag(buffer objectivec.IObject, index int16, index2 int16, offset uint64, length uint64, args *IOGPUNewResourceArgs, size uint32, tag uint64) IOGPUMetalBuffer {
+func NewIOGPUMetalBufferWithPrimaryBufferHeapIndexBufferIndexBufferOffsetLengthArgsArgsSizeGpuTag(buffer objectivec.IObject, index int16, index2 int16, offset uint64, length uint64, args *IOGPUNewResourceArgs, size uint32, tag uint64) IOGPUMetalBuffer {
 	instance := getIOGPUMetalBufferClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithPrimaryBuffer:heapIndex:bufferIndex:bufferOffset:length:args:argsSize:gpuTag:"), buffer, index, index2, offset, length, unsafe.Pointer(args), size, tag)
 	return IOGPUMetalBufferFromID(rv)
 }
 
-func NewGPUMetalBufferWithResource(resource objectivec.IObject) IOGPUMetalBuffer {
+func NewIOGPUMetalBufferWithResource(resource objectivec.IObject) IOGPUMetalBuffer {
 	instance := getIOGPUMetalBufferClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithResource:"), resource)
 	return IOGPUMetalBufferFromID(rv)

@@ -1,4 +1,4 @@
-// Code generated from Apple documentation for Virtualization. DO NOT EDIT.
+// Code generated from Apple documentation for virtualization. DO NOT EDIT.
 
 package virtualization
 
@@ -172,8 +172,8 @@ func (v VZDiskImage) InitWithURLReadOnlyError(url foundation.NSURL, only bool) (
 }
 
 func (v VZDiskImage) URL() foundation.NSURL {
-	rv := objc.SendIfResponds[objc.ID](v.ID, objc.Sel("URL"))
-	return foundation.NSURLFromID(objc.ID(rv))
+	rv := objc.SendIfResponds[foundation.NSURL](v.ID, objc.Sel("URL"))
+	return foundation.NSURL(rv)
 }
 func (v VZDiskImage) CachingMode() int64 {
 	rv := objc.SendIfResponds[int64](v.ID, objc.Sel("cachingMode"))
@@ -192,8 +192,8 @@ func (v VZDiskImage) SynchronizationMode() int64 {
 	return rv
 }
 func (v VZDiskImage) UpdateDiskSize() foundation.NSNumber {
-	rv := objc.SendIfResponds[objc.ID](v.ID, objc.Sel("updateDiskSize"))
-	return foundation.NSNumberFromID(objc.ID(rv))
+	rv := objc.SendIfResponds[foundation.NSNumber](v.ID, objc.Sel("updateDiskSize"))
+	return foundation.NSNumber(rv)
 }
 func (v VZDiskImage) SetUpdateDiskSize(value foundation.NSNumber) {
 	objc.SendIfResponds[struct{}](v.ID, objc.Sel("setUpdateDiskSize:"), value)

@@ -1,4 +1,4 @@
-// Code generated from Apple documentation for AVFAudio. DO NOT EDIT.
+// Code generated from Apple documentation for avfaudio. DO NOT EDIT.
 
 package avfaudio
 
@@ -225,7 +225,7 @@ func NewAVVoiceTriggerClient() AVVoiceTriggerClient {
 	return rv
 }
 
-func NewVoiceTriggerClientWithValue(init_ int64) AVVoiceTriggerClient {
+func NewAVVoiceTriggerClientWithValue(init_ int64) AVVoiceTriggerClient {
 	instance := getAVVoiceTriggerClientClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("init:"), init_)
 	return AVVoiceTriggerClientFromID(rv)

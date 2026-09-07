@@ -1,4 +1,4 @@
-// Code generated from Apple documentation for CoreML. DO NOT EDIT.
+// Code generated from Apple documentation for coreml. DO NOT EDIT.
 
 package coreml
 
@@ -108,13 +108,13 @@ func NewMLPrecisionRecallCurve() MLPrecisionRecallCurve {
 	return rv
 }
 
-func NewPrecisionRecallCurveWithCoder(coder objectivec.IObject) MLPrecisionRecallCurve {
+func NewMLPrecisionRecallCurveWithCoder(coder objectivec.IObject) MLPrecisionRecallCurve {
 	instance := getMLPrecisionRecallCurveClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
 	return MLPrecisionRecallCurveFromID(rv)
 }
 
-func NewPrecisionRecallCurveWithPrecisionValuesPrecisionConfidenceThresholdsRecallValuesRecallConfidenceThresholds(values objectivec.IObject, thresholds objectivec.IObject, values2 objectivec.IObject, thresholds2 objectivec.IObject) MLPrecisionRecallCurve {
+func NewMLPrecisionRecallCurveWithPrecisionValuesPrecisionConfidenceThresholdsRecallValuesRecallConfidenceThresholds(values objectivec.IObject, thresholds objectivec.IObject, values2 objectivec.IObject, thresholds2 objectivec.IObject) MLPrecisionRecallCurve {
 	instance := getMLPrecisionRecallCurveClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithPrecisionValues:precisionConfidenceThresholds:recallValues:recallConfidenceThresholds:"), values, thresholds, values2, thresholds2)
 	return MLPrecisionRecallCurveFromID(rv)

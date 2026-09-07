@@ -1,4 +1,4 @@
-// Code generated from Apple documentation for CoreML. DO NOT EDIT.
+// Code generated from Apple documentation for coreml. DO NOT EDIT.
 
 package coreml
 
@@ -115,7 +115,7 @@ func NewMLFeatureProviderConformer() MLFeatureProviderConformer {
 	return rv
 }
 
-func NewFeatureProviderConformerWithFeatureDescriptionsDefaultValuesUsingRank5MappingOptionalInputTypesPassthroughStateFeatures(descriptions objectivec.IObject, values objectivec.IObject, rank5Mapping bool, types objectivec.IObject, features bool) MLFeatureProviderConformer {
+func NewMLFeatureProviderConformerWithFeatureDescriptionsDefaultValuesUsingRank5MappingOptionalInputTypesPassthroughStateFeatures(descriptions objectivec.IObject, values objectivec.IObject, rank5Mapping bool, types objectivec.IObject, features bool) MLFeatureProviderConformer {
 	instance := getMLFeatureProviderConformerClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithFeatureDescriptions:defaultValues:usingRank5Mapping:optionalInputTypes:passthroughStateFeatures:"), descriptions, values, rank5Mapping, types, features)
 	return MLFeatureProviderConformerFromID(rv)

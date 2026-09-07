@@ -41,7 +41,7 @@ func CPXSymbolicHotKeyRegistryObjectFromID(id objc.ID) CPXSymbolicHotKeyRegistry
 }
 
 func (o CPXSymbolicHotKeyRegistryObject) GetSymbolicHotKeyValueOutTriggerOutKeyCharOutVirtualKeyOutModifiers(value uint32, trigger *uint32, char *uint16, key *uint16, modifiers *uint32) int {
-	rv := objc.SendIfResponds[int](o.ID, objc.Sel("getSymbolicHotKeyValue:outTrigger:outKeyChar:outVirtualKey:outModifiers:"), value, unsafe.Pointer(trigger), unsafe.Pointer(char), unsafe.Pointer(key), unsafe.Pointer(modifiers))
+	rv := objc.SendIfResponds[int](o.ID, objc.Sel("getSymbolicHotKeyValue:outTrigger:outKeyChar:outVirtualKey:outModifiers:"), value, trigger, char, key, modifiers)
 	return rv
 }
 func (o CPXSymbolicHotKeyRegistryObject) RegisterSymbolicHotKeyConnectionHotKeyIDSymbolicHotKeyOptionCallbackFunc(connection *CGXConnection, id uint64, key uint32, option uint32, func_ VoidHandler) int {

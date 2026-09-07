@@ -1,4 +1,4 @@
-// Code generated from Apple documentation for CoreML. DO NOT EDIT.
+// Code generated from Apple documentation for coreml. DO NOT EDIT.
 
 package coreml
 
@@ -86,8 +86,8 @@ type IMLObjectBoundingBoxOutputDescription interface {
 	SetConfidenceFeatureName(value string)
 	CoordinatesFeatureName() string
 	SetCoordinatesFeatureName(value string)
-	Format() int
-	SetFormat(value int)
+	Format() int32
+	SetFormat(value int32)
 	LabelNames() foundation.INSArray
 	SetLabelNames(value foundation.INSArray)
 }
@@ -125,11 +125,11 @@ func (m MLObjectBoundingBoxOutputDescription) CoordinatesFeatureName() string {
 func (m MLObjectBoundingBoxOutputDescription) SetCoordinatesFeatureName(value string) {
 	objc.SendIfResponds[struct{}](m.ID, objc.Sel("setCoordinatesFeatureName:"), objc.String(value))
 }
-func (m MLObjectBoundingBoxOutputDescription) Format() int {
-	rv := objc.SendIfResponds[int](m.ID, objc.Sel("format"))
+func (m MLObjectBoundingBoxOutputDescription) Format() int32 {
+	rv := objc.SendIfResponds[int32](m.ID, objc.Sel("format"))
 	return rv
 }
-func (m MLObjectBoundingBoxOutputDescription) SetFormat(value int) {
+func (m MLObjectBoundingBoxOutputDescription) SetFormat(value int32) {
 	objc.SendIfResponds[struct{}](m.ID, objc.Sel("setFormat:"), value)
 }
 func (m MLObjectBoundingBoxOutputDescription) LabelNames() foundation.INSArray {

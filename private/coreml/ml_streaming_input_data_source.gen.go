@@ -1,4 +1,4 @@
-// Code generated from Apple documentation for CoreML. DO NOT EDIT.
+// Code generated from Apple documentation for coreml. DO NOT EDIT.
 
 package coreml
 
@@ -115,7 +115,7 @@ func NewMLStreamingInputDataSource() MLStreamingInputDataSource {
 	return rv
 }
 
-func NewStreamingInputDataSourceWithBatchSize(size uint64) MLStreamingInputDataSource {
+func NewMLStreamingInputDataSourceWithBatchSize(size uint64) MLStreamingInputDataSource {
 	instance := getMLStreamingInputDataSourceClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithBatchSize:"), size)
 	return MLStreamingInputDataSourceFromID(rv)

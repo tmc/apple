@@ -69,8 +69,8 @@ type ISLSBridgedWindowManagementOperationProcessIdentifierResult interface {
 
 	// Topic: Methods
 
-	ProcessIdentifier() int
-	InitWithProcessIdentifier(identifier int) SLSBridgedWindowManagementOperationProcessIdentifierResult
+	ProcessIdentifier() int32
+	InitWithProcessIdentifier(identifier int32) SLSBridgedWindowManagementOperationProcessIdentifierResult
 }
 
 // Init initializes the instance.
@@ -98,18 +98,18 @@ func NewSLSBridgedWindowManagementOperationProcessIdentifierResultWithCoder(code
 	return SLSBridgedWindowManagementOperationProcessIdentifierResultFromID(rv)
 }
 
-func NewSLSBridgedWindowManagementOperationProcessIdentifierResultWithProcessIdentifier(identifier int) SLSBridgedWindowManagementOperationProcessIdentifierResult {
+func NewSLSBridgedWindowManagementOperationProcessIdentifierResultWithProcessIdentifier(identifier int32) SLSBridgedWindowManagementOperationProcessIdentifierResult {
 	instance := getSLSBridgedWindowManagementOperationProcessIdentifierResultClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithProcessIdentifier:"), identifier)
 	return SLSBridgedWindowManagementOperationProcessIdentifierResultFromID(rv)
 }
 
-func (s SLSBridgedWindowManagementOperationProcessIdentifierResult) InitWithProcessIdentifier(identifier int) SLSBridgedWindowManagementOperationProcessIdentifierResult {
+func (s SLSBridgedWindowManagementOperationProcessIdentifierResult) InitWithProcessIdentifier(identifier int32) SLSBridgedWindowManagementOperationProcessIdentifierResult {
 	rv := objc.SendIfResponds[SLSBridgedWindowManagementOperationProcessIdentifierResult](s.ID, objc.Sel("initWithProcessIdentifier:"), identifier)
 	return rv
 }
 
-func (s SLSBridgedWindowManagementOperationProcessIdentifierResult) ProcessIdentifier() int {
-	rv := objc.SendIfResponds[int](s.ID, objc.Sel("processIdentifier"))
+func (s SLSBridgedWindowManagementOperationProcessIdentifierResult) ProcessIdentifier() int32 {
+	rv := objc.SendIfResponds[int32](s.ID, objc.Sel("processIdentifier"))
 	return rv
 }

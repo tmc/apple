@@ -4,7 +4,6 @@ package skylight
 
 import (
 	"sync"
-	"unsafe"
 
 	"github.com/tmc/apple/objc"
 )
@@ -43,12 +42,12 @@ func (wc WSTouchBarEventProcessorClass) Alloc() WSTouchBarEventProcessor {
 }
 
 type WSTouchBarEventProcessor struct {
-	WSEventProcessor
+	WSLegacyEventProcessor
 }
 
 // WSTouchBarEventProcessorFromID constructs a [WSTouchBarEventProcessor] from an objc.ID.
 func WSTouchBarEventProcessorFromID(id objc.ID) WSTouchBarEventProcessor {
-	return WSTouchBarEventProcessor{WSEventProcessor: WSEventProcessorFromID(id)}
+	return WSTouchBarEventProcessor{WSLegacyEventProcessor: WSLegacyEventProcessorFromID(id)}
 }
 
 // Ensure WSTouchBarEventProcessor implements IWSTouchBarEventProcessor.
@@ -56,7 +55,7 @@ var _ IWSTouchBarEventProcessor = WSTouchBarEventProcessor{}
 
 // An interface definition for the [WSTouchBarEventProcessor] class.
 type IWSTouchBarEventProcessor interface {
-	IWSEventProcessor
+	IWSLegacyEventProcessor
 }
 
 // Init initializes the instance.
@@ -76,10 +75,4 @@ func NewWSTouchBarEventProcessor() WSTouchBarEventProcessor {
 	class := getWSTouchBarEventProcessorClass()
 	rv := objc.SendIfResponds[WSTouchBarEventProcessor](objc.ID(class.class), objc.Sel("new"))
 	return rv
-}
-
-func NewWSTouchBarEventProcessorWithSession(session *CGXSession) WSTouchBarEventProcessor {
-	instance := getWSTouchBarEventProcessorClass().Alloc()
-	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithSession:"), unsafe.Pointer(session))
-	return WSTouchBarEventProcessorFromID(rv)
 }

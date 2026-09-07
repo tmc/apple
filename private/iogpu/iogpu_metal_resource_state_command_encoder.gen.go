@@ -102,7 +102,7 @@ func NewIOGPUMetalResourceStateCommandEncoder() IOGPUMetalResourceStateCommandEn
 	return rv
 }
 
-func NewGPUMetalResourceStateCommandEncoderWithCommandBuffer(buffer objectivec.IObject) IOGPUMetalResourceStateCommandEncoder {
+func NewIOGPUMetalResourceStateCommandEncoderWithCommandBuffer(buffer objectivec.IObject) IOGPUMetalResourceStateCommandEncoder {
 	instance := getIOGPUMetalResourceStateCommandEncoderClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithCommandBuffer:"), buffer)
 	return IOGPUMetalResourceStateCommandEncoderFromID(rv)
@@ -122,5 +122,5 @@ func (i IOGPUMetalResourceStateCommandEncoder) UpdateTextureMappingModeRegionMip
 	objc.SendIfResponds[objc.ID](i.ID, objc.Sel("updateTextureMapping:mode:region:mipLevel:slice:"), mapping, mode, region, level, slice)
 }
 func (i IOGPUMetalResourceStateCommandEncoder) UpdateTextureMappingsModeRegionsMipLevelsSlicesNumRegions(mappings objectivec.IObject, mode uint64, regions unsafe.Pointer, levels *uint64, slices *uint64, regions2 uint64) {
-	objc.SendIfResponds[objc.ID](i.ID, objc.Sel("updateTextureMappings:mode:regions:mipLevels:slices:numRegions:"), mappings, mode, regions, unsafe.Pointer(levels), unsafe.Pointer(slices), regions2)
+	objc.SendIfResponds[objc.ID](i.ID, objc.Sel("updateTextureMappings:mode:regions:mipLevels:slices:numRegions:"), mappings, mode, regions, levels, slices, regions2)
 }

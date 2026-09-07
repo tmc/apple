@@ -1,4 +1,4 @@
-// Code generated from Apple documentation for CoreML. DO NOT EDIT.
+// Code generated from Apple documentation for coreml. DO NOT EDIT.
 
 package coreml
 
@@ -126,13 +126,13 @@ func NewMLFeatureValue() MLFeatureValue {
 	return rv
 }
 
-func NewFeatureValueWithUndefinedValueAndType(type_ int64) MLFeatureValue {
+func NewMLFeatureValueWithUndefinedValueAndType(type_ int64) MLFeatureValue {
 	instance := getMLFeatureValueClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithUndefinedValueAndType:"), type_)
 	return MLFeatureValueFromID(rv)
 }
 
-func NewFeatureValueWithValueType(value objectivec.IObject, type_ int64) MLFeatureValue {
+func NewMLFeatureValueWithValueType(value objectivec.IObject, type_ int64) MLFeatureValue {
 	instance := getMLFeatureValueClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithValue:type:"), value, type_)
 	return MLFeatureValueFromID(rv)

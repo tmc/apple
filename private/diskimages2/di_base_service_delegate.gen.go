@@ -178,8 +178,8 @@ func (d DIBaseServiceDelegate) Hash() uint64 {
 	return rv
 }
 func (d DIBaseServiceDelegate) Listener() foundation.NSXPCListener {
-	rv := objc.SendIfResponds[objc.ID](d.ID, objc.Sel("listener"))
-	return foundation.NSXPCListenerFromID(objc.ID(rv))
+	rv := objc.SendIfResponds[foundation.NSXPCListener](d.ID, objc.Sel("listener"))
+	return foundation.NSXPCListener(rv)
 }
 func (d DIBaseServiceDelegate) SetListener(value foundation.NSXPCListener) {
 	objc.SendIfResponds[struct{}](d.ID, objc.Sel("setListener:"), value)

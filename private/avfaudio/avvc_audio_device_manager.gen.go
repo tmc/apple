@@ -1,4 +1,4 @@
-// Code generated from Apple documentation for AVFAudio. DO NOT EDIT.
+// Code generated from Apple documentation for avfaudio. DO NOT EDIT.
 
 package avfaudio
 
@@ -104,7 +104,7 @@ func NewAVVCAudioDeviceManager() AVVCAudioDeviceManager {
 	return rv
 }
 
-func NewVCAudioDeviceManagerWithActivationContextWithError(context objectivec.IObject) (AVVCAudioDeviceManager, error) {
+func NewAVVCAudioDeviceManagerWithActivationContextWithError(context objectivec.IObject) (AVVCAudioDeviceManager, error) {
 	var errorPtr objc.ID
 	instance := getAVVCAudioDeviceManagerClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithActivationContext:withError:"), context, unsafe.Pointer(&errorPtr))
@@ -118,7 +118,7 @@ func NewVCAudioDeviceManagerWithActivationContextWithError(context objectivec.IO
 	return AVVCAudioDeviceManagerFromID(rv), nil
 }
 
-func NewVCAudioDeviceManagerWithError() (AVVCAudioDeviceManager, error) {
+func NewAVVCAudioDeviceManagerWithError() (AVVCAudioDeviceManager, error) {
 	var errorPtr objc.ID
 	instance := getAVVCAudioDeviceManagerClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithError:"), unsafe.Pointer(&errorPtr))
@@ -191,10 +191,10 @@ func (_AVVCAudioDeviceManagerClass AVVCAudioDeviceManagerClass) GetDefaultAudioD
 	return rv
 }
 func (_AVVCAudioDeviceManagerClass AVVCAudioDeviceManagerClass) GetDevicesForActivationModeOutRecordDeviceOutPlaybackDevice(mode int64, device *uint32, device2 *uint32) {
-	objc.SendIfResponds[objc.ID](objc.ID(_AVVCAudioDeviceManagerClass.class), objc.Sel("GetDevicesForActivationMode:outRecordDevice:outPlaybackDevice:"), mode, unsafe.Pointer(device), unsafe.Pointer(device2))
+	objc.SendIfResponds[objc.ID](objc.ID(_AVVCAudioDeviceManagerClass.class), objc.Sel("GetDevicesForActivationMode:outRecordDevice:outPlaybackDevice:"), mode, device, device2)
 }
 func (_AVVCAudioDeviceManagerClass AVVCAudioDeviceManagerClass) GetHALDeviceForBuiltInDeviceOutHALDeviceIDOutHALDeviceUID(device objectivec.IObject, id *uint32, uid []objectivec.IObject) bool {
-	rv := objc.SendIfResponds[bool](objc.ID(_AVVCAudioDeviceManagerClass.class), objc.Sel("GetHALDeviceForBuiltInDevice:outHALDeviceID:outHALDeviceUID:"), device, unsafe.Pointer(id), objectivec.IObjectSliceToNSArray(uid))
+	rv := objc.SendIfResponds[bool](objc.ID(_AVVCAudioDeviceManagerClass.class), objc.Sel("GetHALDeviceForBuiltInDevice:outHALDeviceID:outHALDeviceUID:"), device, id, objectivec.IObjectSliceToNSArray(uid))
 	return rv
 }
 func (_AVVCAudioDeviceManagerClass AVVCAudioDeviceManagerClass) GetHALDeviceIdentifiersForDeviceUIDOutHALDeviceUIDOutPluginDeviceUUID(uid objectivec.IObject, uid2 []objectivec.IObject, uuid []objectivec.IObject) {
@@ -274,8 +274,8 @@ func (_AVVCAudioDeviceManagerClass AVVCAudioDeviceManagerClass) GetDeviceName(na
 	rv := objc.SendIfResponds[objc.ID](objc.ID(_AVVCAudioDeviceManagerClass.class), objc.Sel("getDeviceName:"), name)
 	return objectivec.Object{ID: rv}
 }
-func (_AVVCAudioDeviceManagerClass AVVCAudioDeviceManagerClass) GetPIDFromProcessObjectID(id uint32) int {
-	rv := objc.SendIfResponds[int](objc.ID(_AVVCAudioDeviceManagerClass.class), objc.Sel("getPIDFromProcessObjectID:"), id)
+func (_AVVCAudioDeviceManagerClass AVVCAudioDeviceManagerClass) GetPIDFromProcessObjectID(id uint32) int32 {
+	rv := objc.SendIfResponds[int32](objc.ID(_AVVCAudioDeviceManagerClass.class), objc.Sel("getPIDFromProcessObjectID:"), id)
 	return rv
 }
 func (_AVVCAudioDeviceManagerClass AVVCAudioDeviceManagerClass) GetRecordingAuditTokenList() objectivec.IObject {
@@ -313,8 +313,8 @@ func (_AVVCAudioDeviceManagerClass AVVCAudioDeviceManagerClass) IterateOverProce
 func (_AVVCAudioDeviceManagerClass AVVCAudioDeviceManagerClass) RemoveReporterIDFromDevice(id int64, device objectivec.IObject) {
 	objc.SendIfResponds[objc.ID](objc.ID(_AVVCAudioDeviceManagerClass.class), objc.Sel("removeReporterID:fromDevice:"), id, device)
 }
-func (_AVVCAudioDeviceManagerClass AVVCAudioDeviceManagerClass) SetBufferSizeOnDevice(size int, device objectivec.IObject) int {
-	rv := objc.SendIfResponds[int](objc.ID(_AVVCAudioDeviceManagerClass.class), objc.Sel("setBufferSize:onDevice:"), size, device)
+func (_AVVCAudioDeviceManagerClass AVVCAudioDeviceManagerClass) SetBufferSizeOnDevice(size int32, device objectivec.IObject) int32 {
+	rv := objc.SendIfResponds[int32](objc.ID(_AVVCAudioDeviceManagerClass.class), objc.Sel("setBufferSize:onDevice:"), size, device)
 	return rv
 }
 func (_AVVCAudioDeviceManagerClass AVVCAudioDeviceManagerClass) SetClientDescriptionKindOnDevice(kind uint32, device uint32) {

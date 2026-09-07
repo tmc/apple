@@ -214,22 +214,22 @@ func (_DiskImages2Class DiskImages2Class) RetrieveUserDataWithParamsError(params
 }
 func (_DiskImages2Class DiskImages2Class) ImageURLFromDeviceError(device string) (foundation.NSURL, error) {
 	var errorPtr objc.ID
-	rv := objc.Send[objc.ID](objc.ID(_DiskImages2Class.class), objc.Sel("imageURLFromDevice:error:"), objc.String(device), unsafe.Pointer(&errorPtr))
+	rv := objc.Send[foundation.NSURL](objc.ID(_DiskImages2Class.class), objc.Sel("imageURLFromDevice:error:"), objc.String(device), unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
 		return foundation.NSURL{}, foundation.NSErrorFrom(errorPtr)
 	}
-	return foundation.NSURLFromID(rv), nil
+	return rv, nil
 
 }
 func (_DiskImages2Class DiskImages2Class) IsEncryptedImageWithURLError(url foundation.NSURL) (foundation.NSNumber, error) {
 	var errorPtr objc.ID
-	rv := objc.Send[objc.ID](objc.ID(_DiskImages2Class.class), objc.Sel("isEncryptedImageWithURL:error:"), url, unsafe.Pointer(&errorPtr))
+	rv := objc.Send[foundation.NSNumber](objc.ID(_DiskImages2Class.class), objc.Sel("isEncryptedImageWithURL:error:"), url, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
 		return foundation.NSNumber{}, foundation.NSErrorFrom(errorPtr)
 	}
-	return foundation.NSNumberFromID(rv), nil
+	return rv, nil
 
 }
 func (_DiskImages2Class DiskImages2Class) DebugLogsEnabled() bool {

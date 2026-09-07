@@ -1,4 +1,4 @@
-// Code generated from Apple documentation for Virtualization. DO NOT EDIT.
+// Code generated from Apple documentation for virtualization. DO NOT EDIT.
 
 package virtualization
 
@@ -51,9 +51,12 @@ func (vc VZMacGraphicsDisplayConfigurationClass) Alloc() VZMacGraphicsDisplayCon
 //   - [VZMacGraphicsDisplayConfiguration.Set_displayIdentifier]
 //   - [VZMacGraphicsDisplayConfiguration._displayMode]
 //   - [VZMacGraphicsDisplayConfiguration.Set_displayMode]
+//   - [VZMacGraphicsDisplayConfiguration._enableHDR]
+//   - [VZMacGraphicsDisplayConfiguration.Set_enableHDR]
 //   - [VZMacGraphicsDisplayConfiguration._setConnectionType]
 //   - [VZMacGraphicsDisplayConfiguration._setDisplayIdentifier]
 //   - [VZMacGraphicsDisplayConfiguration._setDisplayMode]
+//   - [VZMacGraphicsDisplayConfiguration._setEnableHDR]
 type VZMacGraphicsDisplayConfiguration struct {
 	VZGraphicsDisplayConfiguration
 }
@@ -76,9 +79,12 @@ var _ IVZMacGraphicsDisplayConfiguration = VZMacGraphicsDisplayConfiguration{}
 //   - [IVZMacGraphicsDisplayConfiguration.Set_displayIdentifier]
 //   - [IVZMacGraphicsDisplayConfiguration._displayMode]
 //   - [IVZMacGraphicsDisplayConfiguration.Set_displayMode]
+//   - [IVZMacGraphicsDisplayConfiguration._enableHDR]
+//   - [IVZMacGraphicsDisplayConfiguration.Set_enableHDR]
 //   - [IVZMacGraphicsDisplayConfiguration._setConnectionType]
 //   - [IVZMacGraphicsDisplayConfiguration._setDisplayIdentifier]
 //   - [IVZMacGraphicsDisplayConfiguration._setDisplayMode]
+//   - [IVZMacGraphicsDisplayConfiguration._setEnableHDR]
 type IVZMacGraphicsDisplayConfiguration interface {
 	IVZGraphicsDisplayConfiguration
 
@@ -90,9 +96,12 @@ type IVZMacGraphicsDisplayConfiguration interface {
 	Set_displayIdentifier(value string)
 	_displayMode() int64
 	Set_displayMode(value int64)
+	_enableHDR() bool
+	Set_enableHDR(value bool)
 	_setConnectionType(type_ int64)
 	_setDisplayIdentifier(identifier objectivec.IObject)
 	_setDisplayMode(mode int64)
+	_setEnableHDR(hdr bool)
 }
 
 // Init initializes the instance.
@@ -168,6 +177,24 @@ func (v VZMacGraphicsDisplayConfiguration) SetDisplayMode(mode int64) error {
 func (v VZMacGraphicsDisplayConfiguration) CanSetDisplayMode() bool {
 	return objc.RespondsToSelector(v.ID, objc.Sel("_setDisplayMode:"))
 }
+func (v VZMacGraphicsDisplayConfiguration) _setEnableHDR(hdr bool) {
+	objc.SendIfResponds[objc.ID](v.ID, objc.Sel("_setEnableHDR:"), hdr)
+}
+
+// SetEnableHDR is an exported wrapper for the private method _setEnableHDR.
+func (v VZMacGraphicsDisplayConfiguration) SetEnableHDR(hdr bool) error {
+	if !objc.RespondsToSelector(v.ID, objc.Sel("_setEnableHDR:")) {
+		err := &objc.UnrecognizedSelectorError{Selector: "_setEnableHDR:"}
+		return err
+	}
+	v._setEnableHDR(hdr)
+	return nil
+}
+
+// CanSetEnableHDR reports whether the receiver responds to the private selector _setEnableHDR:.
+func (v VZMacGraphicsDisplayConfiguration) CanSetEnableHDR() bool {
+	return objc.RespondsToSelector(v.ID, objc.Sel("_setEnableHDR:"))
+}
 
 func (v VZMacGraphicsDisplayConfiguration) _connectionType() int64 {
 	rv := objc.SendIfResponds[int64](v.ID, objc.Sel("_connectionType"))
@@ -228,4 +255,24 @@ func (v VZMacGraphicsDisplayConfiguration) DisplayMode() (int64, error) {
 }
 func (v VZMacGraphicsDisplayConfiguration) Set_displayMode(value int64) {
 	objc.SendIfResponds[struct{}](v.ID, objc.Sel("set_displayMode:"), value)
+}
+func (v VZMacGraphicsDisplayConfiguration) _enableHDR() bool {
+	rv := objc.SendIfResponds[bool](v.ID, objc.Sel("_enableHDR"))
+	return rv
+}
+
+// CanEnableHDR reports whether the receiver responds to the private selector _enableHDR.
+func (v VZMacGraphicsDisplayConfiguration) CanEnableHDR() bool {
+	return objc.RespondsToSelector(v.ID, objc.Sel("_enableHDR"))
+}
+
+// EnableHDR is an exported wrapper for the private property _enableHDR.
+func (v VZMacGraphicsDisplayConfiguration) EnableHDR() (bool, error) {
+	if !objc.RespondsToSelector(v.ID, objc.Sel("_enableHDR")) {
+		return false, &objc.UnrecognizedSelectorError{Selector: "_enableHDR"}
+	}
+	return v._enableHDR(), nil
+}
+func (v VZMacGraphicsDisplayConfiguration) Set_enableHDR(value bool) {
+	objc.SendIfResponds[struct{}](v.ID, objc.Sel("set_enableHDR:"), value)
 }

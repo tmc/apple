@@ -1,4 +1,4 @@
-// Code generated from Apple documentation for CoreML. DO NOT EDIT.
+// Code generated from Apple documentation for coreml. DO NOT EDIT.
 
 package coreml
 
@@ -135,7 +135,7 @@ func NewMLSplitNDBrick() MLSplitNDBrick {
 	return rv
 }
 
-func NewSplitNDBrickWithParameters(parameters objectivec.IObject) MLSplitNDBrick {
+func NewMLSplitNDBrickWithParameters(parameters objectivec.IObject) MLSplitNDBrick {
 	instance := getMLSplitNDBrickClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithParameters:"), parameters)
 	return MLSplitNDBrickFromID(rv)
@@ -158,8 +158,8 @@ func (m MLSplitNDBrick) InitWithParameters(parameters objectivec.IObject) MLSpli
 }
 
 func (m MLSplitNDBrick) Axis() foundation.NSNumber {
-	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("axis"))
-	return foundation.NSNumberFromID(objc.ID(rv))
+	rv := objc.SendIfResponds[foundation.NSNumber](m.ID, objc.Sel("axis"))
+	return foundation.NSNumber(rv)
 }
 func (m MLSplitNDBrick) DebugDescription() string {
 	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("debugDescription"))
@@ -182,8 +182,8 @@ func (m MLSplitNDBrick) InputShapes() foundation.INSArray {
 	return foundation.NSArrayFromID(objc.ID(rv))
 }
 func (m MLSplitNDBrick) NumSplits() foundation.NSNumber {
-	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("numSplits"))
-	return foundation.NSNumberFromID(objc.ID(rv))
+	rv := objc.SendIfResponds[foundation.NSNumber](m.ID, objc.Sel("numSplits"))
+	return foundation.NSNumber(rv)
 }
 func (m MLSplitNDBrick) OutputRanks() foundation.INSArray {
 	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("outputRanks"))

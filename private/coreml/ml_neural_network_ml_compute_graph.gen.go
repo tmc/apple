@@ -1,4 +1,4 @@
-// Code generated from Apple documentation for CoreML. DO NOT EDIT.
+// Code generated from Apple documentation for coreml. DO NOT EDIT.
 
 package coreml
 
@@ -173,7 +173,7 @@ type IMLNeuralNetworkMLComputeGraph interface {
 	LayersMap() foundation.INSDictionary
 	SetLayersMap(value foundation.INSDictionary)
 	LossInputsFromUpdateParams(params unsafe.Pointer) objectivec.IObject
-	MlcDeviceTypeForComputeUnit(unit int64) int
+	MlcDeviceTypeForComputeUnit(unit int64) int32
 	MlcInputs() foundation.INSDictionary
 	SetMlcInputs(value foundation.INSDictionary)
 	MlcLabels() foundation.INSDictionary
@@ -206,7 +206,7 @@ func NewMLNeuralNetworkMLComputeGraph() MLNeuralNetworkMLComputeGraph {
 	return rv
 }
 
-func NewNeuralNetworkMLComputeGraphWithCompiledArchiveModelDescriptionBatchSizeNumberOfClassesComputeUnitsError(archive unsafe.Pointer, description objectivec.IObject, size uint64, classes uint64, units int64) (MLNeuralNetworkMLComputeGraph, error) {
+func NewMLNeuralNetworkMLComputeGraphWithCompiledArchiveModelDescriptionBatchSizeNumberOfClassesComputeUnitsError(archive unsafe.Pointer, description objectivec.IObject, size uint64, classes uint64, units int64) (MLNeuralNetworkMLComputeGraph, error) {
 	var errorPtr objc.ID
 	instance := getMLNeuralNetworkMLComputeGraphClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithCompiledArchive:modelDescription:batchSize:numberOfClasses:computeUnits:error:"), archive, description, size, classes, units, unsafe.Pointer(&errorPtr))
@@ -330,8 +330,8 @@ func (m MLNeuralNetworkMLComputeGraph) LossInputsFromUpdateParams(params unsafe.
 	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("lossInputsFromUpdateParams:"), params)
 	return objectivec.Object{ID: rv}
 }
-func (m MLNeuralNetworkMLComputeGraph) MlcDeviceTypeForComputeUnit(unit int64) int {
-	rv := objc.SendIfResponds[int](m.ID, objc.Sel("mlcDeviceTypeForComputeUnit:"), unit)
+func (m MLNeuralNetworkMLComputeGraph) MlcDeviceTypeForComputeUnit(unit int64) int32 {
+	rv := objc.SendIfResponds[int32](m.ID, objc.Sel("mlcDeviceTypeForComputeUnit:"), unit)
 	return rv
 }
 func (m MLNeuralNetworkMLComputeGraph) SaveUpdatedWeightsToError(to unsafe.Pointer) (bool, error) {

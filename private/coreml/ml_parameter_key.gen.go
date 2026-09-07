@@ -1,4 +1,4 @@
-// Code generated from Apple documentation for CoreML. DO NOT EDIT.
+// Code generated from Apple documentation for coreml. DO NOT EDIT.
 
 package coreml
 
@@ -78,13 +78,13 @@ func NewMLParameterKey() MLParameterKey {
 	return rv
 }
 
-func NewParameterKeyWithKeyName(name objectivec.IObject) MLParameterKey {
+func NewMLParameterKeyWithKeyName(name objectivec.IObject) MLParameterKey {
 	instance := getMLParameterKeyClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithKeyName:"), name)
 	return MLParameterKeyFromID(rv)
 }
 
-func NewParameterKeyWithKeyNameScope(name objectivec.IObject, scope objectivec.IObject) MLParameterKey {
+func NewMLParameterKeyWithKeyNameScope(name objectivec.IObject, scope objectivec.IObject) MLParameterKey {
 	instance := getMLParameterKeyClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithKeyName:scope:"), name, scope)
 	return MLParameterKeyFromID(rv)

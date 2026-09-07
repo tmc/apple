@@ -1,4 +1,4 @@
-// Code generated from Apple documentation for AVFAudio. DO NOT EDIT.
+// Code generated from Apple documentation for avfaudio. DO NOT EDIT.
 
 package avfaudio
 
@@ -95,7 +95,7 @@ func NewAVAudioSessionCapability() AVAudioSessionCapability {
 	return rv
 }
 
-func NewAudioSessionCapabilityWithIsSupportedIsEnabled(supported bool, enabled bool) AVAudioSessionCapability {
+func NewAVAudioSessionCapabilityWithIsSupportedIsEnabled(supported bool, enabled bool) AVAudioSessionCapability {
 	instance := getAVAudioSessionCapabilityClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithIsSupported:isEnabled:"), supported, enabled)
 	return AVAudioSessionCapabilityFromID(rv)

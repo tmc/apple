@@ -85,9 +85,9 @@ func (_DIErrorClass DIErrorClass) CopyDefaultLocalizedStringForDIErrorCode(code 
 	rv := objc.SendIfResponds[objc.ID](objc.ID(_DIErrorClass.class), objc.Sel("copyDefaultLocalizedStringForDIErrorCode:"), code)
 	return objectivec.Object{ID: rv}
 }
-func (_DIErrorClass DIErrorClass) ErrorWithDIExceptionDescriptionPrefixError(dIException unsafe.Pointer, description objectivec.IObject, prefix objectivec.IObject) (objectivec.IObject, error) {
+func (_DIErrorClass DIErrorClass) ErrorWithDIExceptionPrefixError(dIException unsafe.Pointer, prefix objectivec.IObject) (objectivec.IObject, error) {
 	var errorPtr objc.ID
-	rv := objc.Send[objc.ID](objc.ID(_DIErrorClass.class), objc.Sel("errorWithDIException:description:prefix:error:"), dIException, description, prefix, unsafe.Pointer(&errorPtr))
+	rv := objc.Send[objc.ID](objc.ID(_DIErrorClass.class), objc.Sel("errorWithDIException:prefix:error:"), dIException, prefix, unsafe.Pointer(&errorPtr))
 	if errorPtr != 0 {
 		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
 		return nil, foundation.NSErrorFrom(errorPtr)
@@ -109,22 +109,9 @@ func (_DIErrorClass DIErrorClass) ErrorWithEnumValueVerboseInfo(value int64, inf
 	rv := objc.SendIfResponds[objc.ID](objc.ID(_DIErrorClass.class), objc.Sel("errorWithEnumValue:verboseInfo:"), value, info)
 	return objectivec.Object{ID: rv}
 }
-func (_DIErrorClass DIErrorClass) ErrorWithPOSIXCodeVerboseInfo(pOSIXCode int, info objectivec.IObject) objectivec.IObject {
+func (_DIErrorClass DIErrorClass) ErrorWithPOSIXCodeVerboseInfo(pOSIXCode int32, info objectivec.IObject) objectivec.IObject {
 	rv := objc.SendIfResponds[objc.ID](objc.ID(_DIErrorClass.class), objc.Sel("errorWithPOSIXCode:verboseInfo:"), pOSIXCode, info)
 	return objectivec.Object{ID: rv}
-}
-func (_DIErrorClass DIErrorClass) FailWithDIExceptionDescriptionError(dIException unsafe.Pointer, description objectivec.IObject) (bool, error) {
-	var errorPtr objc.ID
-	rv := objc.Send[bool](objc.ID(_DIErrorClass.class), objc.Sel("failWithDIException:description:error:"), dIException, description, unsafe.Pointer(&errorPtr))
-	if errorPtr != 0 {
-		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
-		return false, foundation.NSErrorFrom(errorPtr)
-	}
-	if !rv {
-		return false, errors.New("failWithDIException:description:error: returned NO with nil NSError")
-	}
-	return rv, nil
-
 }
 func (_DIErrorClass DIErrorClass) FailWithDIExceptionPrefixError(dIException unsafe.Pointer, prefix objectivec.IObject) (bool, error) {
 	var errorPtr objc.ID
@@ -258,16 +245,6 @@ func (_DIErrorClass DIErrorClass) MandatoryArgumentFailWithError() (bool, error)
 		return false, errors.New("mandatoryArgumentFailWithError: returned NO with nil NSError")
 	}
 	return rv, nil
-
-}
-func (_DIErrorClass DIErrorClass) NilWithDIExceptionDescriptionError(dIException unsafe.Pointer, description objectivec.IObject) (objectivec.IObject, error) {
-	var errorPtr objc.ID
-	rv := objc.Send[objc.ID](objc.ID(_DIErrorClass.class), objc.Sel("nilWithDIException:description:error:"), dIException, description, unsafe.Pointer(&errorPtr))
-	if errorPtr != 0 {
-		objc.Send[objc.ID](errorPtr, objc.Sel("retain"))
-		return nil, foundation.NSErrorFrom(errorPtr)
-	}
-	return objectivec.Object{ID: rv}, nil
 
 }
 func (_DIErrorClass DIErrorClass) NilWithDIExceptionPrefixError(dIException unsafe.Pointer, prefix objectivec.IObject) (objectivec.IObject, error) {

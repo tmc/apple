@@ -1,4 +1,4 @@
-// Code generated from Apple documentation for CoreML. DO NOT EDIT.
+// Code generated from Apple documentation for coreml. DO NOT EDIT.
 
 package coreml
 
@@ -129,7 +129,7 @@ func NewMLGatherBrick() MLGatherBrick {
 	return rv
 }
 
-func NewGatherBrickWithParameters(parameters objectivec.IObject) MLGatherBrick {
+func NewMLGatherBrickWithParameters(parameters objectivec.IObject) MLGatherBrick {
 	instance := getMLGatherBrickClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithParameters:"), parameters)
 	return MLGatherBrickFromID(rv)
@@ -152,8 +152,8 @@ func (m MLGatherBrick) InitWithParameters(parameters objectivec.IObject) MLGathe
 }
 
 func (m MLGatherBrick) Axis() foundation.NSNumber {
-	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("axis"))
-	return foundation.NSNumberFromID(objc.ID(rv))
+	rv := objc.SendIfResponds[foundation.NSNumber](m.ID, objc.Sel("axis"))
+	return foundation.NSNumber(rv)
 }
 func (m MLGatherBrick) DebugDescription() string {
 	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("debugDescription"))

@@ -1,4 +1,4 @@
-// Code generated from Apple documentation for AVFAudio. DO NOT EDIT.
+// Code generated from Apple documentation for avfaudio. DO NOT EDIT.
 
 package avfaudio
 
@@ -103,14 +103,14 @@ func NewAVAudioClock() AVAudioClock {
 	return rv
 }
 
-func NewAudioClockWithNode(node unsafe.Pointer) AVAudioClock {
+func NewAVAudioClockWithNode(node unsafe.Pointer) AVAudioClock {
 	instance := getAVAudioClockClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithNode:"), node)
 	return AVAudioClockFromID(rv)
 }
 
 func (a AVAudioClock) AwaitIOCycle(iOCycle *uint32) objectivec.IObject {
-	rv := objc.SendIfResponds[objc.ID](a.ID, objc.Sel("awaitIOCycle:"), unsafe.Pointer(iOCycle))
+	rv := objc.SendIfResponds[objc.ID](a.ID, objc.Sel("awaitIOCycle:"), iOCycle)
 	return objectivec.Object{ID: rv}
 }
 func (a AVAudioClock) CurrentAudioTimeStamp() coreaudiotypes.AudioTimeStamp {

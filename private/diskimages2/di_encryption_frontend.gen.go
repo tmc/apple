@@ -572,8 +572,8 @@ func (d DIEncryptionFrontend) DiParams() IDIBaseParams {
 	return DIBaseParamsFromID(objc.ID(rv))
 }
 func (d DIEncryptionFrontend) EncryptionUUID() foundation.NSUUID {
-	rv := objc.SendIfResponds[objc.ID](d.ID, objc.Sel("encryptionUUID"))
-	return foundation.NSUUIDFromID(objc.ID(rv))
+	rv := objc.SendIfResponds[foundation.NSUUID](d.ID, objc.Sel("encryptionUUID"))
+	return foundation.NSUUID(rv)
 }
 func (d DIEncryptionFrontend) Flags() uint64 {
 	rv := objc.SendIfResponds[uint64](d.ID, objc.Sel("flags"))

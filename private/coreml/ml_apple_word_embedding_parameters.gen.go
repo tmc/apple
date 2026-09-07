@@ -1,4 +1,4 @@
-// Code generated from Apple documentation for CoreML. DO NOT EDIT.
+// Code generated from Apple documentation for coreml. DO NOT EDIT.
 
 package coreml
 
@@ -130,7 +130,7 @@ func NewMLAppleWordEmbeddingParameters() MLAppleWordEmbeddingParameters {
 	return rv
 }
 
-func NewAppleWordEmbeddingParametersWithDataLanguageInputFeatureNameOutputFeatureNameModelDataError(data uint64, language objectivec.IObject, name objectivec.IObject, name2 objectivec.IObject, data2 objectivec.IObject) (MLAppleWordEmbeddingParameters, error) {
+func NewMLAppleWordEmbeddingParametersWithDataLanguageInputFeatureNameOutputFeatureNameModelDataError(data uint64, language objectivec.IObject, name objectivec.IObject, name2 objectivec.IObject, data2 objectivec.IObject) (MLAppleWordEmbeddingParameters, error) {
 	var errorPtr objc.ID
 	instance := getMLAppleWordEmbeddingParametersClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithData:language:inputFeatureName:outputFeatureName:modelData:error:"), data, language, name, name2, data2, unsafe.Pointer(&errorPtr))
@@ -144,7 +144,7 @@ func NewAppleWordEmbeddingParametersWithDataLanguageInputFeatureNameOutputFeatur
 	return MLAppleWordEmbeddingParametersFromID(rv), nil
 }
 
-func NewAppleWordEmbeddingParametersWithDataLanguageInputFeatureNameOutputFeatureNameModelDataMetadataError(data uint64, language objectivec.IObject, name objectivec.IObject, name2 objectivec.IObject, data2 objectivec.IObject, metadata objectivec.IObject) (MLAppleWordEmbeddingParameters, error) {
+func NewMLAppleWordEmbeddingParametersWithDataLanguageInputFeatureNameOutputFeatureNameModelDataMetadataError(data uint64, language objectivec.IObject, name objectivec.IObject, name2 objectivec.IObject, data2 objectivec.IObject, metadata objectivec.IObject) (MLAppleWordEmbeddingParameters, error) {
 	var errorPtr objc.ID
 	instance := getMLAppleWordEmbeddingParametersClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithData:language:inputFeatureName:outputFeatureName:modelData:metadata:error:"), data, language, name, name2, data2, metadata, unsafe.Pointer(&errorPtr))
@@ -201,8 +201,8 @@ func (m MLAppleWordEmbeddingParameters) SetMetadata(value foundation.INSDictiona
 	objc.SendIfResponds[struct{}](m.ID, objc.Sel("setMetadata:"), value)
 }
 func (m MLAppleWordEmbeddingParameters) ModelParameterData() foundation.NSData {
-	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("modelParameterData"))
-	return foundation.NSDataFromID(objc.ID(rv))
+	rv := objc.SendIfResponds[foundation.NSData](m.ID, objc.Sel("modelParameterData"))
+	return foundation.NSData(rv)
 }
 func (m MLAppleWordEmbeddingParameters) SetModelParameterData(value foundation.NSData) {
 	objc.SendIfResponds[struct{}](m.ID, objc.Sel("setModelParameterData:"), value)

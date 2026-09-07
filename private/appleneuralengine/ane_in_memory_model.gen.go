@@ -84,6 +84,8 @@ func (ac ANEInMemoryModelClass) Alloc() ANEInMemoryModel {
 //   - [ANEInMemoryModel.String_id]
 //   - [ANEInMemoryModel.UnloadWithQoSError]
 //   - [ANEInMemoryModel.UnmapIOSurfacesWithRequest]
+//   - [ANEInMemoryModel.PerFileHashes]
+//   - [ANEInMemoryModel.SetPerFileHashes]
 //   - [ANEInMemoryModel.InitWithDesctiptor]
 type ANEInMemoryModel struct {
 	objectivec.Object
@@ -138,6 +140,8 @@ var _ IANEInMemoryModel = ANEInMemoryModel{}
 //   - [IANEInMemoryModel.String_id]
 //   - [IANEInMemoryModel.UnloadWithQoSError]
 //   - [IANEInMemoryModel.UnmapIOSurfacesWithRequest]
+//   - [IANEInMemoryModel.PerFileHashes]
+//   - [IANEInMemoryModel.SetPerFileHashes]
 //   - [IANEInMemoryModel.InitWithDesctiptor]
 type IANEInMemoryModel interface {
 	objectivec.IObject
@@ -181,6 +185,8 @@ type IANEInMemoryModel interface {
 	String_id() uint64
 	UnloadWithQoSError(s uint32) (bool, error)
 	UnmapIOSurfacesWithRequest(request objectivec.IObject)
+	PerFileHashes() foundation.INSDictionary
+	SetPerFileHashes(value foundation.INSDictionary)
 	InitWithDesctiptor(desctiptor objectivec.IObject) ANEInMemoryModel
 }
 
@@ -350,8 +356,8 @@ func (a ANEInMemoryModel) SetModelAttributes(value foundation.INSDictionary) {
 	objc.SendIfResponds[struct{}](a.ID, objc.Sel("setModelAttributes:"), value)
 }
 func (a ANEInMemoryModel) ModelURL() foundation.NSURL {
-	rv := objc.SendIfResponds[objc.ID](a.ID, objc.Sel("modelURL"))
-	return foundation.NSURLFromID(objc.ID(rv))
+	rv := objc.SendIfResponds[foundation.NSURL](a.ID, objc.Sel("modelURL"))
+	return foundation.NSURL(rv)
 }
 func (a ANEInMemoryModel) SetModelURL(value foundation.NSURL) {
 	objc.SendIfResponds[struct{}](a.ID, objc.Sel("setModelURL:"), value)
@@ -398,4 +404,11 @@ func (a ANEInMemoryModel) SetState(value uint64) {
 func (a ANEInMemoryModel) String_id() uint64 {
 	rv := objc.SendIfResponds[uint64](a.ID, objc.Sel("string_id"))
 	return rv
+}
+func (a ANEInMemoryModel) PerFileHashes() foundation.INSDictionary {
+	rv := objc.SendIfResponds[objc.ID](a.ID, objc.Sel("perFileHashes"))
+	return foundation.NSDictionaryFromID(objc.ID(rv))
+}
+func (a ANEInMemoryModel) SetPerFileHashes(value foundation.INSDictionary) {
+	objc.SendIfResponds[struct{}](a.ID, objc.Sel("setPerFileHashes:"), value)
 }

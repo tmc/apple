@@ -1,4 +1,4 @@
-// Code generated from Apple documentation for Network. DO NOT EDIT.
+// Code generated from Apple documentation for network. DO NOT EDIT.
 
 package network
 
@@ -70,6 +70,7 @@ func (nc NWPathClass) Alloc() NWPath {
 //   - [NWPath.FallbackEligible]
 //   - [NWPath.FallbackInterface]
 //   - [NWPath.FallbackInterfaceIndex]
+//   - [NWPath.FallbackIsOpportunistic]
 //   - [NWPath.FallbackIsPreferred]
 //   - [NWPath.FallbackIsWeak]
 //   - [NWPath.FilterControlUnit]
@@ -182,6 +183,7 @@ var _ INWPath = NWPath{}
 //   - [INWPath.FallbackEligible]
 //   - [INWPath.FallbackInterface]
 //   - [INWPath.FallbackInterfaceIndex]
+//   - [INWPath.FallbackIsOpportunistic]
 //   - [INWPath.FallbackIsPreferred]
 //   - [INWPath.FallbackIsWeak]
 //   - [INWPath.FilterControlUnit]
@@ -272,17 +274,18 @@ type INWPath interface {
 	CreateProtocolBufferObject() objectivec.IObject
 	DelegateInterface() objectivec.IObject
 	DerivedParameters() INWParameters
-	DescriptionWithIndentShowFullContent(indent int, content bool) objectivec.IObject
+	DescriptionWithIndentShowFullContent(indent int32, content bool) objectivec.IObject
 	DnsSearchDomains() foundation.INSArray
 	DnsServers() foundation.INSArray
 	DnsServersAsStrings() foundation.INSArray
-	DnsServiceID() int
+	DnsServiceID() int32
 	EffectiveLocalEndpoint() INWEndpoint
 	EffectiveRemoteEndpoint() INWEndpoint
 	Endpoint() INWEndpoint
 	FallbackEligible() bool
 	FallbackInterface() INWInterface
 	FallbackInterfaceIndex() uint32
+	FallbackIsOpportunistic() bool
 	FallbackIsPreferred() bool
 	FallbackIsWeak() bool
 	FilterControlUnit() uint32
@@ -410,7 +413,7 @@ func (n NWPath) DelegateInterface() objectivec.IObject {
 	rv := objc.SendIfResponds[objc.ID](n.ID, objc.Sel("delegateInterface"))
 	return objectivec.Object{ID: rv}
 }
-func (n NWPath) DescriptionWithIndentShowFullContent(indent int, content bool) objectivec.IObject {
+func (n NWPath) DescriptionWithIndentShowFullContent(indent int32, content bool) objectivec.IObject {
 	rv := objc.SendIfResponds[objc.ID](n.ID, objc.Sel("descriptionWithIndent:showFullContent:"), indent, content)
 	return objectivec.Object{ID: rv}
 }
@@ -554,8 +557,8 @@ func (n NWPath) CPath() objectivec.Object {
 	return objectivec.ObjectFromID(objc.ID(rv))
 }
 func (n NWPath) ClientID() foundation.NSUUID {
-	rv := objc.SendIfResponds[objc.ID](n.ID, objc.Sel("clientID"))
-	return foundation.NSUUIDFromID(objc.ID(rv))
+	rv := objc.SendIfResponds[foundation.NSUUID](n.ID, objc.Sel("clientID"))
+	return foundation.NSUUID(rv)
 }
 func (n NWPath) ConnectedInterface() INWInterface {
 	rv := objc.SendIfResponds[objc.ID](n.ID, objc.Sel("connectedInterface"))
@@ -585,8 +588,8 @@ func (n NWPath) DnsServersAsStrings() foundation.INSArray {
 	rv := objc.SendIfResponds[objc.ID](n.ID, objc.Sel("dnsServersAsStrings"))
 	return foundation.NSArrayFromID(objc.ID(rv))
 }
-func (n NWPath) DnsServiceID() int {
-	rv := objc.SendIfResponds[int](n.ID, objc.Sel("dnsServiceID"))
+func (n NWPath) DnsServiceID() int32 {
+	rv := objc.SendIfResponds[int32](n.ID, objc.Sel("dnsServiceID"))
 	return rv
 }
 func (n NWPath) EffectiveLocalEndpoint() INWEndpoint {
@@ -619,6 +622,10 @@ func (n NWPath) FallbackInterface() INWInterface {
 }
 func (n NWPath) FallbackInterfaceIndex() uint32 {
 	rv := objc.SendIfResponds[uint32](n.ID, objc.Sel("fallbackInterfaceIndex"))
+	return rv
+}
+func (n NWPath) FallbackIsOpportunistic() bool {
+	rv := objc.SendIfResponds[bool](n.ID, objc.Sel("fallbackIsOpportunistic"))
 	return rv
 }
 func (n NWPath) FallbackIsPreferred() bool {

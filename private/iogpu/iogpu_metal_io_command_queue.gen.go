@@ -127,7 +127,7 @@ func NewIOGPUMetalIOCommandQueue() IOGPUMetalIOCommandQueue {
 	return rv
 }
 
-func NewGPUMetalIOCommandQueueWithDeviceDescriptor(device objectivec.IObject, descriptor objectivec.IObject) IOGPUMetalIOCommandQueue {
+func NewIOGPUMetalIOCommandQueueWithDeviceDescriptor(device objectivec.IObject, descriptor objectivec.IObject) IOGPUMetalIOCommandQueue {
 	instance := getIOGPUMetalIOCommandQueueClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithDevice:descriptor:"), device, descriptor)
 	return IOGPUMetalIOCommandQueueFromID(rv)

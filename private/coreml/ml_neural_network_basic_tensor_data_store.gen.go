@@ -1,4 +1,4 @@
-// Code generated from Apple documentation for CoreML. DO NOT EDIT.
+// Code generated from Apple documentation for coreml. DO NOT EDIT.
 
 package coreml
 
@@ -169,8 +169,8 @@ func (m MLNeuralNetworkBasicTensorDataStore) InitWithData(data objectivec.IObjec
 }
 
 func (m MLNeuralNetworkBasicTensorDataStore) Data() foundation.NSMutableData {
-	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("data"))
-	return foundation.NSMutableDataFromID(objc.ID(rv))
+	rv := objc.SendIfResponds[foundation.NSMutableData](m.ID, objc.Sel("data"))
+	return foundation.NSMutableData(rv)
 }
 func (m MLNeuralNetworkBasicTensorDataStore) DebugDescription() string {
 	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("debugDescription"))

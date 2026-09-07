@@ -1,4 +1,4 @@
-// Code generated from Apple documentation for CoreML. DO NOT EDIT.
+// Code generated from Apple documentation for coreml. DO NOT EDIT.
 
 package coreml
 
@@ -98,7 +98,7 @@ func NewMLProbabilityDictionaryArrayStorage() MLProbabilityDictionaryArrayStorag
 	return rv
 }
 
-func NewProbabilityDictionaryArrayStorageWithArray(array objectivec.IObject) MLProbabilityDictionaryArrayStorage {
+func NewMLProbabilityDictionaryArrayStorageWithArray(array objectivec.IObject) MLProbabilityDictionaryArrayStorage {
 	instance := getMLProbabilityDictionaryArrayStorageClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithArray:"), array)
 	return MLProbabilityDictionaryArrayStorageFromID(rv)

@@ -137,8 +137,8 @@ func (m MLNetworkPacket) ResetMetadata() {
 }
 
 func (m MLNetworkPacket) Buffer() foundation.NSMutableData {
-	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("buffer"))
-	return foundation.NSMutableDataFromID(objc.ID(rv))
+	rv := objc.SendIfResponds[foundation.NSMutableData](m.ID, objc.Sel("buffer"))
+	return foundation.NSMutableData(rv)
 }
 func (m MLNetworkPacket) SetBuffer(value foundation.NSMutableData) {
 	objc.SendIfResponds[struct{}](m.ID, objc.Sel("setBuffer:"), value)
@@ -151,8 +151,8 @@ func (m MLNetworkPacket) SetCommand(value uint64) {
 	objc.SendIfResponds[struct{}](m.ID, objc.Sel("setCommand:"), value)
 }
 func (m MLNetworkPacket) DoubleBuffer() foundation.NSMutableData {
-	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("doubleBuffer"))
-	return foundation.NSMutableDataFromID(objc.ID(rv))
+	rv := objc.SendIfResponds[foundation.NSMutableData](m.ID, objc.Sel("doubleBuffer"))
+	return foundation.NSMutableData(rv)
 }
 func (m MLNetworkPacket) SetDoubleBuffer(value foundation.NSMutableData) {
 	objc.SendIfResponds[struct{}](m.ID, objc.Sel("setDoubleBuffer:"), value)

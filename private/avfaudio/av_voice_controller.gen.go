@@ -1,4 +1,4 @@
-// Code generated from Apple documentation for AVFAudio. DO NOT EDIT.
+// Code generated from Apple documentation for avfaudio. DO NOT EDIT.
 
 package avfaudio
 
@@ -253,7 +253,7 @@ type IAVVoiceController interface {
 	AlertPlaybackFinishedWithSettings(settings objectivec.IObject)
 	AlertVolume() float32
 	SetAlertVolume(value float32)
-	BeganRecordingStatus(recording uint64, status int)
+	BeganRecordingStatus(recording uint64, status int32)
 	CleanSlateWithError() error
 	ConfigureAlertBehaviorForStreamCompletion(stream objectivec.IObject, completion VoidHandler)
 	ConfigureAlertBehaviorForStreamError(stream objectivec.IObject) (bool, error)
@@ -263,11 +263,11 @@ type IAVVoiceController interface {
 	DeactivateAudioSessionWithOptions(options uint64)
 	EnableSmartRoutingConsiderationForStreamEnableError(stream uint64, enable bool) (bool, error)
 	EnableTriangleModeForStreamEnableWithCompletion(stream uint64, enable bool, completion VoidHandler)
-	EncodeError(error_ int)
+	EncodeError(error_ int32)
 	EndpointDetectedAtTime(time float64)
 	EndpointerDelegate() unsafe.Pointer
 	SetEndpointerDelegate(value unsafe.Pointer)
-	FinishedRecordingStatus(recording uint64, status int)
+	FinishedRecordingStatus(recording uint64, status int32)
 	GetAveragePowerForStreamForChannel(stream uint64, channel uint64) float32
 	GetCurrentSessionState() int64
 	GetCurrentSessionStateForStream(stream uint64) int64
@@ -292,22 +292,22 @@ type IAVVoiceController interface {
 	MockPluginEndpoint() objectivec.IObject
 	NotifyEventOccuredError(occured uint64, error_ objectivec.IObject)
 	NotifyStreamInvalidated(invalidated uint64)
-	PlayAlertWithOverrideCompletion(alert int, override int64, completion VoidHandler)
-	PlayAlertSoundForTypeOverrideMode(type_ int, mode int64) bool
+	PlayAlertWithOverrideCompletion(alert int32, override int64, completion VoidHandler)
+	PlayAlertSoundForTypeOverrideMode(type_ int32, mode int64) bool
 	PrepareRecordForStreamCompletion(stream objectivec.IObject, completion VoidHandler)
 	PrepareRecordForStreamError(stream objectivec.IObject) (bool, error)
 	RecordDelegate() unsafe.Pointer
 	SetRecordDelegate(value unsafe.Pointer)
 	RecordEndWaitTime() float64
 	SetRecordEndWaitTime(value float64)
-	RecordEndpointMode() int
-	SetRecordEndpointMode(value int)
+	RecordEndpointMode() int32
+	SetRecordEndpointMode(value int32)
 	RecordInterspeechWaitTime() float64
 	SetRecordInterspeechWaitTime(value float64)
 	RecordStartWaitTime() float64
 	SetRecordStartWaitTime(value float64)
 	RemoveStreamCompletion(stream uint64, completion VoidHandler)
-	SetAlertSoundFromURLForType(url foundation.NSURL, type_ int) bool
+	SetAlertSoundFromURLForType(url foundation.NSURL, type_ int32) bool
 	SetAnnounceCallsEnabledForStreamEnable(stream uint64, enable bool) bool
 	SetContextCompletion(context objectivec.IObject, completion VoidHandler)
 	SetContextError(context objectivec.IObject) (uint64, error)
@@ -354,7 +354,7 @@ func NewAVVoiceController() AVVoiceController {
 	return rv
 }
 
-func NewVoiceControllerVoiceControllerForClientWithError(client int64) (AVVoiceController, error) {
+func NewAVVoiceControllerVoiceControllerForClientWithError(client int64) (AVVoiceController, error) {
 	var errorPtr objc.ID
 	instance := getAVVoiceControllerClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initVoiceControllerForClient:withError:"), client, unsafe.Pointer(&errorPtr))
@@ -368,7 +368,7 @@ func NewVoiceControllerVoiceControllerForClientWithError(client int64) (AVVoiceC
 	return AVVoiceControllerFromID(rv), nil
 }
 
-func NewVoiceControllerWithError() (AVVoiceController, error) {
+func NewAVVoiceControllerWithError() (AVVoiceController, error) {
 	var errorPtr objc.ID
 	instance := getAVVoiceControllerClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithError:"), unsafe.Pointer(&errorPtr))
@@ -458,7 +458,7 @@ func (a AVVoiceController) ActivateAudioSessionForStreamIsPrewarmRecordModeError
 func (a AVVoiceController) AlertPlaybackFinishedWithSettings(settings objectivec.IObject) {
 	objc.SendIfResponds[objc.ID](a.ID, objc.Sel("alertPlaybackFinishedWithSettings:"), settings)
 }
-func (a AVVoiceController) BeganRecordingStatus(recording uint64, status int) {
+func (a AVVoiceController) BeganRecordingStatus(recording uint64, status int32) {
 	objc.SendIfResponds[objc.ID](a.ID, objc.Sel("beganRecording:status:"), recording, status)
 }
 func (a AVVoiceController) CleanSlateWithError() error {
@@ -525,13 +525,13 @@ func (a AVVoiceController) EnableTriangleModeForStreamEnableWithCompletion(strea
 	_block2, _ := NewVoidBlock(completion)
 	objc.SendIfResponds[objc.ID](a.ID, objc.Sel("enableTriangleModeForStream:enable:withCompletion:"), stream, enable, _block2)
 }
-func (a AVVoiceController) EncodeError(error_ int) {
+func (a AVVoiceController) EncodeError(error_ int32) {
 	objc.SendIfResponds[objc.ID](a.ID, objc.Sel("encodeError:"), error_)
 }
 func (a AVVoiceController) EndpointDetectedAtTime(time float64) {
 	objc.SendIfResponds[objc.ID](a.ID, objc.Sel("endpointDetectedAtTime:"), time)
 }
-func (a AVVoiceController) FinishedRecordingStatus(recording uint64, status int) {
+func (a AVVoiceController) FinishedRecordingStatus(recording uint64, status int32) {
 	objc.SendIfResponds[objc.ID](a.ID, objc.Sel("finishedRecording:status:"), recording, status)
 }
 func (a AVVoiceController) GetAveragePowerForStreamForChannel(stream uint64, channel uint64) float32 {
@@ -635,11 +635,11 @@ func (a AVVoiceController) NotifyEventOccuredError(occured uint64, error_ object
 func (a AVVoiceController) NotifyStreamInvalidated(invalidated uint64) {
 	objc.SendIfResponds[objc.ID](a.ID, objc.Sel("notifyStreamInvalidated:"), invalidated)
 }
-func (a AVVoiceController) PlayAlertWithOverrideCompletion(alert int, override int64, completion VoidHandler) {
+func (a AVVoiceController) PlayAlertWithOverrideCompletion(alert int32, override int64, completion VoidHandler) {
 	_block2, _ := NewVoidBlock(completion)
 	objc.SendIfResponds[objc.ID](a.ID, objc.Sel("playAlert:withOverride:completion:"), alert, override, _block2)
 }
-func (a AVVoiceController) PlayAlertSoundForTypeOverrideMode(type_ int, mode int64) bool {
+func (a AVVoiceController) PlayAlertSoundForTypeOverrideMode(type_ int32, mode int64) bool {
 	rv := objc.SendIfResponds[bool](a.ID, objc.Sel("playAlertSoundForType:overrideMode:"), type_, mode)
 	return rv
 }
@@ -664,7 +664,7 @@ func (a AVVoiceController) RemoveStreamCompletion(stream uint64, completion Void
 	_block1, _ := NewVoidBlock(completion)
 	objc.SendIfResponds[objc.ID](a.ID, objc.Sel("removeStream:completion:"), stream, _block1)
 }
-func (a AVVoiceController) SetAlertSoundFromURLForType(url foundation.NSURL, type_ int) bool {
+func (a AVVoiceController) SetAlertSoundFromURLForType(url foundation.NSURL, type_ int32) bool {
 	rv := objc.SendIfResponds[bool](a.ID, objc.Sel("setAlertSoundFromURL:forType:"), url, type_)
 	return rv
 }
@@ -885,11 +885,11 @@ func (a AVVoiceController) RecordEndWaitTime() float64 {
 func (a AVVoiceController) SetRecordEndWaitTime(value float64) {
 	objc.SendIfResponds[struct{}](a.ID, objc.Sel("setRecordEndWaitTime:"), value)
 }
-func (a AVVoiceController) RecordEndpointMode() int {
-	rv := objc.SendIfResponds[int](a.ID, objc.Sel("recordEndpointMode"))
+func (a AVVoiceController) RecordEndpointMode() int32 {
+	rv := objc.SendIfResponds[int32](a.ID, objc.Sel("recordEndpointMode"))
 	return rv
 }
-func (a AVVoiceController) SetRecordEndpointMode(value int) {
+func (a AVVoiceController) SetRecordEndpointMode(value int32) {
 	objc.SendIfResponds[struct{}](a.ID, objc.Sel("setRecordEndpointMode:"), value)
 }
 func (a AVVoiceController) RecordInterspeechWaitTime() float64 {
@@ -1003,7 +1003,7 @@ func (a AVVoiceController) GetPlaybackRouteForStream(ctx context.Context, stream
 
 // PlayAlertWithOverrideCompletionSync is a synchronous wrapper around [AVVoiceController.PlayAlertWithOverrideCompletion].
 // It blocks until the completion handler fires or the context is cancelled.
-func (a AVVoiceController) PlayAlertWithOverrideCompletionSync(ctx context.Context, alert int, override int64) error {
+func (a AVVoiceController) PlayAlertWithOverrideCompletionSync(ctx context.Context, alert int32, override int64) error {
 	done := make(chan struct{}, 1)
 	a.PlayAlertWithOverrideCompletion(alert, override, func() {
 		done <- struct{}{}

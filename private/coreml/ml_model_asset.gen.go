@@ -1,4 +1,4 @@
-// Code generated from Apple documentation for CoreML. DO NOT EDIT.
+// Code generated from Apple documentation for coreml. DO NOT EDIT.
 
 package coreml
 
@@ -162,19 +162,19 @@ func NewMLModelAsset() MLModelAsset {
 	return rv
 }
 
-func NewModelAssetWithArchiveData(data objectivec.IObject) MLModelAsset {
+func NewMLModelAssetWithArchiveData(data objectivec.IObject) MLModelAsset {
 	instance := getMLModelAssetClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithArchiveData:"), data)
 	return MLModelAssetFromID(rv)
 }
 
-func NewModelAssetWithResourceFactoryConfiguration(factory objectivec.IObject, configuration objectivec.IObject) MLModelAsset {
+func NewMLModelAssetWithResourceFactoryConfiguration(factory objectivec.IObject, configuration objectivec.IObject) MLModelAsset {
 	instance := getMLModelAssetClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithResourceFactory:configuration:"), factory, configuration)
 	return MLModelAssetFromID(rv)
 }
 
-func NewModelAssetWithURLConfigurationError(url foundation.NSURL, configuration objectivec.IObject) (MLModelAsset, error) {
+func NewMLModelAssetWithURLConfigurationError(url foundation.NSURL, configuration objectivec.IObject) (MLModelAsset, error) {
 	var errorPtr objc.ID
 	instance := getMLModelAssetClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithURL:configuration:error:"), url, configuration, unsafe.Pointer(&errorPtr))
@@ -188,7 +188,7 @@ func NewModelAssetWithURLConfigurationError(url foundation.NSURL, configuration 
 	return MLModelAssetFromID(rv), nil
 }
 
-func NewModelAssetWithURLError(url foundation.NSURL) (MLModelAsset, error) {
+func NewMLModelAssetWithURLError(url foundation.NSURL) (MLModelAsset, error) {
 	var errorPtr objc.ID
 	instance := getMLModelAssetClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithURL:error:"), url, unsafe.Pointer(&errorPtr))
@@ -459,12 +459,12 @@ func (m MLModelAsset) Classifier() unsafe.Pointer {
 	return rv
 }
 func (m MLModelAsset) CompiledModelURL() foundation.NSURL {
-	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("compiledModelURL"))
-	return foundation.NSURLFromID(objc.ID(rv))
+	rv := objc.SendIfResponds[foundation.NSURL](m.ID, objc.Sel("compiledModelURL"))
+	return foundation.NSURL(rv)
 }
 func (m MLModelAsset) CompiledURL() foundation.NSURL {
-	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("compiledURL"))
-	return foundation.NSURLFromID(objc.ID(rv))
+	rv := objc.SendIfResponds[foundation.NSURL](m.ID, objc.Sel("compiledURL"))
+	return foundation.NSURL(rv)
 }
 func (m MLModelAsset) DescriptionVendor() IMLModelAssetDescriptionVendor {
 	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("descriptionVendor"))

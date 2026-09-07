@@ -82,9 +82,9 @@ type ICPXSymbolicHotKeyRegistrar interface {
 
 	// Topic: Methods
 
-	GetSymbolicHotKeyValueOutTriggerOutKeyCharOutVirtualKeyOutModifiers(value uint32, trigger *uint32, char *uint16, key *uint16, modifiers *uint32) int
-	RegisterSymbolicHotKeyConnectionHotKeyIDSymbolicHotKeyOptionCallbackFunc(connection *CGXConnection, id uint64, key uint32, option uint32, func_ VoidHandler) int
-	UnregisterHotKeyConnectionHotKeyID(connection *CGXConnection, id uint64) int
+	GetSymbolicHotKeyValueOutTriggerOutKeyCharOutVirtualKeyOutModifiers(value uint32, trigger *uint32, char *uint16, key *uint16, modifiers *uint32) int32
+	RegisterSymbolicHotKeyConnectionHotKeyIDSymbolicHotKeyOptionCallbackFunc(connection *CGXConnection, id uint64, key uint32, option uint32, func_ VoidHandler) int32
+	UnregisterHotKeyConnectionHotKeyID(connection *CGXConnection, id uint64) int32
 	DebugDescription() string
 	Description() string
 	Hash() uint64
@@ -110,17 +110,17 @@ func NewCPXSymbolicHotKeyRegistrar() CPXSymbolicHotKeyRegistrar {
 	return rv
 }
 
-func (c CPXSymbolicHotKeyRegistrar) GetSymbolicHotKeyValueOutTriggerOutKeyCharOutVirtualKeyOutModifiers(value uint32, trigger *uint32, char *uint16, key *uint16, modifiers *uint32) int {
-	rv := objc.SendIfResponds[int](c.ID, objc.Sel("getSymbolicHotKeyValue:outTrigger:outKeyChar:outVirtualKey:outModifiers:"), value, unsafe.Pointer(trigger), unsafe.Pointer(char), unsafe.Pointer(key), unsafe.Pointer(modifiers))
+func (c CPXSymbolicHotKeyRegistrar) GetSymbolicHotKeyValueOutTriggerOutKeyCharOutVirtualKeyOutModifiers(value uint32, trigger *uint32, char *uint16, key *uint16, modifiers *uint32) int32 {
+	rv := objc.SendIfResponds[int32](c.ID, objc.Sel("getSymbolicHotKeyValue:outTrigger:outKeyChar:outVirtualKey:outModifiers:"), value, trigger, char, key, modifiers)
 	return rv
 }
-func (c CPXSymbolicHotKeyRegistrar) RegisterSymbolicHotKeyConnectionHotKeyIDSymbolicHotKeyOptionCallbackFunc(connection *CGXConnection, id uint64, key uint32, option uint32, func_ VoidHandler) int {
+func (c CPXSymbolicHotKeyRegistrar) RegisterSymbolicHotKeyConnectionHotKeyIDSymbolicHotKeyOptionCallbackFunc(connection *CGXConnection, id uint64, key uint32, option uint32, func_ VoidHandler) int32 {
 	_block4, _ := NewVoidBlock(func_)
-	rv := objc.SendIfResponds[int](c.ID, objc.Sel("registerSymbolicHotKeyConnection:hotKeyID:symbolicHotKey:option:callbackFunc:"), connection, id, key, option, _block4)
+	rv := objc.SendIfResponds[int32](c.ID, objc.Sel("registerSymbolicHotKeyConnection:hotKeyID:symbolicHotKey:option:callbackFunc:"), connection, id, key, option, _block4)
 	return rv
 }
-func (c CPXSymbolicHotKeyRegistrar) UnregisterHotKeyConnectionHotKeyID(connection *CGXConnection, id uint64) int {
-	rv := objc.SendIfResponds[int](c.ID, objc.Sel("unregisterHotKeyConnection:hotKeyID:"), unsafe.Pointer(connection), id)
+func (c CPXSymbolicHotKeyRegistrar) UnregisterHotKeyConnectionHotKeyID(connection *CGXConnection, id uint64) int32 {
+	rv := objc.SendIfResponds[int32](c.ID, objc.Sel("unregisterHotKeyConnection:hotKeyID:"), unsafe.Pointer(connection), id)
 	return rv
 }
 

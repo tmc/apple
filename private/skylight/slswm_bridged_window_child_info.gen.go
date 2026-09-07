@@ -73,8 +73,8 @@ type ISLSWMBridgedWindowChildInfo interface {
 
 	// Topic: Methods
 
-	Op() int
-	SetOp(value int)
+	Op() int32
+	SetOp(value int32)
 	Window() ISLSWMBridgedWindow
 	SetWindow(value ISLSWMBridgedWindow)
 }
@@ -98,11 +98,11 @@ func NewSLSWMBridgedWindowChildInfo() SLSWMBridgedWindowChildInfo {
 	return rv
 }
 
-func (s SLSWMBridgedWindowChildInfo) Op() int {
-	rv := objc.SendIfResponds[int](s.ID, objc.Sel("op"))
+func (s SLSWMBridgedWindowChildInfo) Op() int32 {
+	rv := objc.SendIfResponds[int32](s.ID, objc.Sel("op"))
 	return rv
 }
-func (s SLSWMBridgedWindowChildInfo) SetOp(value int) {
+func (s SLSWMBridgedWindowChildInfo) SetOp(value int32) {
 	objc.SendIfResponds[struct{}](s.ID, objc.Sel("setOp:"), value)
 }
 func (s SLSWMBridgedWindowChildInfo) Window() ISLSWMBridgedWindow {

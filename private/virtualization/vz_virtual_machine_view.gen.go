@@ -1,4 +1,4 @@
-// Code generated from Apple documentation for Virtualization. DO NOT EDIT.
+// Code generated from Apple documentation for virtualization. DO NOT EDIT.
 
 package virtualization
 
@@ -47,6 +47,8 @@ func (vc VZVirtualMachineViewClass) Alloc() VZVirtualMachineView {
 
 // # Methods
 //
+//   - [VZVirtualMachineView._automaticallyRotatesContent]
+//   - [VZVirtualMachineView.Set_automaticallyRotatesContent]
 //   - [VZVirtualMachineView._canGrabMouseInput]
 //   - [VZVirtualMachineView._canReleaseMouseInput]
 //   - [VZVirtualMachineView._delegate]
@@ -57,11 +59,22 @@ func (vc VZVirtualMachineViewClass) Alloc() VZVirtualMachineView {
 //   - [VZVirtualMachineView._releaseMouseInput]
 //   - [VZVirtualMachineView._scaleMode]
 //   - [VZVirtualMachineView.Set_scaleMode]
+//   - [VZVirtualMachineView._setAutomaticallyRotatesContent]
 //   - [VZVirtualMachineView._setDelegate]
 //   - [VZVirtualMachineView._setGraphicsDisplay]
 //   - [VZVirtualMachineView._setScaleMode]
+//   - [VZVirtualMachineView._setViewAdaptor]
+//   - [VZVirtualMachineView._setVirtualMachineAccessor]
+//   - [VZVirtualMachineView._viewAdaptor]
+//   - [VZVirtualMachineView.Set_viewAdaptor]
+//   - [VZVirtualMachineView._virtualMachineAccessor]
+//   - [VZVirtualMachineView.Set_virtualMachineAccessor]
+//   - [VZVirtualMachineView.DisplayDidUpdateColorSpace]
+//   - [VZVirtualMachineView.DisplayDidUpdateHeadroomRequest]
+//   - [VZVirtualMachineView.DisplayDidUpdateOrientation]
 //   - [VZVirtualMachineView.DisplayDidBeginReconfiguration]
 //   - [VZVirtualMachineView.DisplayDidEndReconfiguration]
+//   - [VZVirtualMachineView.VirtualMachineAccessorAssociateWithDisplayPresenter]
 //   - [VZVirtualMachineView.DebugDescription]
 //   - [VZVirtualMachineView.Description]
 //   - [VZVirtualMachineView.Hash]
@@ -82,6 +95,8 @@ var _ IVZVirtualMachineView = VZVirtualMachineView{}
 //
 // # Methods
 //
+//   - [IVZVirtualMachineView._automaticallyRotatesContent]
+//   - [IVZVirtualMachineView.Set_automaticallyRotatesContent]
 //   - [IVZVirtualMachineView._canGrabMouseInput]
 //   - [IVZVirtualMachineView._canReleaseMouseInput]
 //   - [IVZVirtualMachineView._delegate]
@@ -92,11 +107,22 @@ var _ IVZVirtualMachineView = VZVirtualMachineView{}
 //   - [IVZVirtualMachineView._releaseMouseInput]
 //   - [IVZVirtualMachineView._scaleMode]
 //   - [IVZVirtualMachineView.Set_scaleMode]
+//   - [IVZVirtualMachineView._setAutomaticallyRotatesContent]
 //   - [IVZVirtualMachineView._setDelegate]
 //   - [IVZVirtualMachineView._setGraphicsDisplay]
 //   - [IVZVirtualMachineView._setScaleMode]
+//   - [IVZVirtualMachineView._setViewAdaptor]
+//   - [IVZVirtualMachineView._setVirtualMachineAccessor]
+//   - [IVZVirtualMachineView._viewAdaptor]
+//   - [IVZVirtualMachineView.Set_viewAdaptor]
+//   - [IVZVirtualMachineView._virtualMachineAccessor]
+//   - [IVZVirtualMachineView.Set_virtualMachineAccessor]
+//   - [IVZVirtualMachineView.DisplayDidUpdateColorSpace]
+//   - [IVZVirtualMachineView.DisplayDidUpdateHeadroomRequest]
+//   - [IVZVirtualMachineView.DisplayDidUpdateOrientation]
 //   - [IVZVirtualMachineView.DisplayDidBeginReconfiguration]
 //   - [IVZVirtualMachineView.DisplayDidEndReconfiguration]
+//   - [IVZVirtualMachineView.VirtualMachineAccessorAssociateWithDisplayPresenter]
 //   - [IVZVirtualMachineView.DebugDescription]
 //   - [IVZVirtualMachineView.Description]
 //   - [IVZVirtualMachineView.Hash]
@@ -106,6 +132,8 @@ type IVZVirtualMachineView interface {
 
 	// Topic: Methods
 
+	_automaticallyRotatesContent() bool
+	Set_automaticallyRotatesContent(value bool)
 	_canGrabMouseInput() bool
 	_canReleaseMouseInput() bool
 	_delegate() unsafe.Pointer
@@ -116,11 +144,22 @@ type IVZVirtualMachineView interface {
 	_releaseMouseInput() bool
 	_scaleMode() int64
 	Set_scaleMode(value int64)
+	_setAutomaticallyRotatesContent(content bool)
 	_setDelegate(delegate objectivec.IObject)
 	_setGraphicsDisplay(display objectivec.IObject)
 	_setScaleMode(mode int64)
+	_setViewAdaptor(adaptor objectivec.IObject)
+	_setVirtualMachineAccessor(accessor objectivec.IObject)
+	_viewAdaptor() IVZVirtualMachineViewAdaptorInternal
+	Set_viewAdaptor(value IVZVirtualMachineViewAdaptorInternal)
+	_virtualMachineAccessor() IVZVirtualMachineAccessor
+	Set_virtualMachineAccessor(value IVZVirtualMachineAccessor)
+	DisplayDidUpdateColorSpace(display objectivec.IObject, space unsafe.Pointer)
+	DisplayDidUpdateHeadroomRequest(display objectivec.IObject, request float64)
+	DisplayDidUpdateOrientation(display objectivec.IObject, orientation int64)
 	DisplayDidBeginReconfiguration(reconfiguration objectivec.IObject)
 	DisplayDidEndReconfiguration(reconfiguration objectivec.IObject)
+	VirtualMachineAccessorAssociateWithDisplayPresenter(accessor objectivec.IObject, presenter objectivec.IObject)
 	DebugDescription() string
 	Description() string
 	Hash() uint64
@@ -146,7 +185,7 @@ func NewVZVirtualMachineView() VZVirtualMachineView {
 	return rv
 }
 
-func NewVirtualMachineViewWithCoder(coder objectivec.IObject) VZVirtualMachineView {
+func NewVZVirtualMachineViewWithCoder(coder objectivec.IObject) VZVirtualMachineView {
 	instance := getVZVirtualMachineViewClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithCoder:"), coder)
 	return VZVirtualMachineViewFromID(rv)
@@ -187,6 +226,24 @@ func (v VZVirtualMachineView) ReleaseMouseInput() (bool, error) {
 // CanReleaseMouseInput reports whether the receiver responds to the private selector _releaseMouseInput.
 func (v VZVirtualMachineView) CanReleaseMouseInput() bool {
 	return objc.RespondsToSelector(v.ID, objc.Sel("_releaseMouseInput"))
+}
+func (v VZVirtualMachineView) _setAutomaticallyRotatesContent(content bool) {
+	objc.SendIfResponds[objc.ID](v.ID, objc.Sel("_setAutomaticallyRotatesContent:"), content)
+}
+
+// SetAutomaticallyRotatesContent is an exported wrapper for the private method _setAutomaticallyRotatesContent.
+func (v VZVirtualMachineView) SetAutomaticallyRotatesContent(content bool) error {
+	if !objc.RespondsToSelector(v.ID, objc.Sel("_setAutomaticallyRotatesContent:")) {
+		err := &objc.UnrecognizedSelectorError{Selector: "_setAutomaticallyRotatesContent:"}
+		return err
+	}
+	v._setAutomaticallyRotatesContent(content)
+	return nil
+}
+
+// CanSetAutomaticallyRotatesContent reports whether the receiver responds to the private selector _setAutomaticallyRotatesContent:.
+func (v VZVirtualMachineView) CanSetAutomaticallyRotatesContent() bool {
+	return objc.RespondsToSelector(v.ID, objc.Sel("_setAutomaticallyRotatesContent:"))
 }
 func (v VZVirtualMachineView) _setDelegate(delegate objectivec.IObject) {
 	objc.SendIfResponds[objc.ID](v.ID, objc.Sel("_setDelegate:"), delegate)
@@ -242,13 +299,81 @@ func (v VZVirtualMachineView) SetScaleMode(mode int64) error {
 func (v VZVirtualMachineView) CanSetScaleMode() bool {
 	return objc.RespondsToSelector(v.ID, objc.Sel("_setScaleMode:"))
 }
+func (v VZVirtualMachineView) _setViewAdaptor(adaptor objectivec.IObject) {
+	objc.SendIfResponds[objc.ID](v.ID, objc.Sel("_setViewAdaptor:"), adaptor)
+}
+
+// SetViewAdaptor is an exported wrapper for the private method _setViewAdaptor.
+func (v VZVirtualMachineView) SetViewAdaptor(adaptor objectivec.IObject) error {
+	if !objc.RespondsToSelector(v.ID, objc.Sel("_setViewAdaptor:")) {
+		err := &objc.UnrecognizedSelectorError{Selector: "_setViewAdaptor:"}
+		return err
+	}
+	v._setViewAdaptor(adaptor)
+	return nil
+}
+
+// CanSetViewAdaptor reports whether the receiver responds to the private selector _setViewAdaptor:.
+func (v VZVirtualMachineView) CanSetViewAdaptor() bool {
+	return objc.RespondsToSelector(v.ID, objc.Sel("_setViewAdaptor:"))
+}
+func (v VZVirtualMachineView) _setVirtualMachineAccessor(accessor objectivec.IObject) {
+	objc.SendIfResponds[objc.ID](v.ID, objc.Sel("_setVirtualMachineAccessor:"), accessor)
+}
+
+// SetVirtualMachineAccessor is an exported wrapper for the private method _setVirtualMachineAccessor.
+func (v VZVirtualMachineView) SetVirtualMachineAccessor(accessor objectivec.IObject) error {
+	if !objc.RespondsToSelector(v.ID, objc.Sel("_setVirtualMachineAccessor:")) {
+		err := &objc.UnrecognizedSelectorError{Selector: "_setVirtualMachineAccessor:"}
+		return err
+	}
+	v._setVirtualMachineAccessor(accessor)
+	return nil
+}
+
+// CanSetVirtualMachineAccessor reports whether the receiver responds to the private selector _setVirtualMachineAccessor:.
+func (v VZVirtualMachineView) CanSetVirtualMachineAccessor() bool {
+	return objc.RespondsToSelector(v.ID, objc.Sel("_setVirtualMachineAccessor:"))
+}
+func (v VZVirtualMachineView) DisplayDidUpdateColorSpace(display objectivec.IObject, space unsafe.Pointer) {
+	objc.SendIfResponds[objc.ID](v.ID, objc.Sel("display:didUpdateColorSpace:"), display, space)
+}
+func (v VZVirtualMachineView) DisplayDidUpdateHeadroomRequest(display objectivec.IObject, request float64) {
+	objc.SendIfResponds[objc.ID](v.ID, objc.Sel("display:didUpdateHeadroomRequest:"), display, request)
+}
+func (v VZVirtualMachineView) DisplayDidUpdateOrientation(display objectivec.IObject, orientation int64) {
+	objc.SendIfResponds[objc.ID](v.ID, objc.Sel("display:didUpdateOrientation:"), display, orientation)
+}
 func (v VZVirtualMachineView) DisplayDidBeginReconfiguration(reconfiguration objectivec.IObject) {
 	objc.SendIfResponds[objc.ID](v.ID, objc.Sel("displayDidBeginReconfiguration:"), reconfiguration)
 }
 func (v VZVirtualMachineView) DisplayDidEndReconfiguration(reconfiguration objectivec.IObject) {
 	objc.SendIfResponds[objc.ID](v.ID, objc.Sel("displayDidEndReconfiguration:"), reconfiguration)
 }
+func (v VZVirtualMachineView) VirtualMachineAccessorAssociateWithDisplayPresenter(accessor objectivec.IObject, presenter objectivec.IObject) {
+	objc.SendIfResponds[objc.ID](v.ID, objc.Sel("virtualMachineAccessor:associateWithDisplayPresenter:"), accessor, presenter)
+}
 
+func (v VZVirtualMachineView) _automaticallyRotatesContent() bool {
+	rv := objc.SendIfResponds[bool](v.ID, objc.Sel("_automaticallyRotatesContent"))
+	return rv
+}
+
+// CanAutomaticallyRotatesContent reports whether the receiver responds to the private selector _automaticallyRotatesContent.
+func (v VZVirtualMachineView) CanAutomaticallyRotatesContent() bool {
+	return objc.RespondsToSelector(v.ID, objc.Sel("_automaticallyRotatesContent"))
+}
+
+// AutomaticallyRotatesContent is an exported wrapper for the private property _automaticallyRotatesContent.
+func (v VZVirtualMachineView) AutomaticallyRotatesContent() (bool, error) {
+	if !objc.RespondsToSelector(v.ID, objc.Sel("_automaticallyRotatesContent")) {
+		return false, &objc.UnrecognizedSelectorError{Selector: "_automaticallyRotatesContent"}
+	}
+	return v._automaticallyRotatesContent(), nil
+}
+func (v VZVirtualMachineView) Set_automaticallyRotatesContent(value bool) {
+	objc.SendIfResponds[struct{}](v.ID, objc.Sel("set_automaticallyRotatesContent:"), value)
+}
 func (v VZVirtualMachineView) _canGrabMouseInput() bool {
 	rv := objc.SendIfResponds[bool](v.ID, objc.Sel("_canGrabMouseInput"))
 	return rv
@@ -316,6 +441,46 @@ func (v VZVirtualMachineView) ScaleMode() (int64, error) {
 }
 func (v VZVirtualMachineView) Set_scaleMode(value int64) {
 	objc.SendIfResponds[struct{}](v.ID, objc.Sel("set_scaleMode:"), value)
+}
+func (v VZVirtualMachineView) _viewAdaptor() IVZVirtualMachineViewAdaptorInternal {
+	rv := objc.SendIfResponds[objc.ID](v.ID, objc.Sel("_viewAdaptor"))
+	return VZVirtualMachineViewAdaptorInternalFromID(objc.ID(rv))
+}
+
+// CanViewAdaptor reports whether the receiver responds to the private selector _viewAdaptor.
+func (v VZVirtualMachineView) CanViewAdaptor() bool {
+	return objc.RespondsToSelector(v.ID, objc.Sel("_viewAdaptor"))
+}
+
+// ViewAdaptor is an exported wrapper for the private property _viewAdaptor.
+func (v VZVirtualMachineView) ViewAdaptor() (IVZVirtualMachineViewAdaptorInternal, error) {
+	if !objc.RespondsToSelector(v.ID, objc.Sel("_viewAdaptor")) {
+		return nil, &objc.UnrecognizedSelectorError{Selector: "_viewAdaptor"}
+	}
+	return v._viewAdaptor(), nil
+}
+func (v VZVirtualMachineView) Set_viewAdaptor(value IVZVirtualMachineViewAdaptorInternal) {
+	objc.SendIfResponds[struct{}](v.ID, objc.Sel("set_viewAdaptor:"), value)
+}
+func (v VZVirtualMachineView) _virtualMachineAccessor() IVZVirtualMachineAccessor {
+	rv := objc.SendIfResponds[objc.ID](v.ID, objc.Sel("_virtualMachineAccessor"))
+	return VZVirtualMachineAccessorFromID(objc.ID(rv))
+}
+
+// CanVirtualMachineAccessor reports whether the receiver responds to the private selector _virtualMachineAccessor.
+func (v VZVirtualMachineView) CanVirtualMachineAccessor() bool {
+	return objc.RespondsToSelector(v.ID, objc.Sel("_virtualMachineAccessor"))
+}
+
+// VirtualMachineAccessor is an exported wrapper for the private property _virtualMachineAccessor.
+func (v VZVirtualMachineView) VirtualMachineAccessor() (IVZVirtualMachineAccessor, error) {
+	if !objc.RespondsToSelector(v.ID, objc.Sel("_virtualMachineAccessor")) {
+		return nil, &objc.UnrecognizedSelectorError{Selector: "_virtualMachineAccessor"}
+	}
+	return v._virtualMachineAccessor(), nil
+}
+func (v VZVirtualMachineView) Set_virtualMachineAccessor(value IVZVirtualMachineAccessor) {
+	objc.SendIfResponds[struct{}](v.ID, objc.Sel("set_virtualMachineAccessor:"), value)
 }
 func (v VZVirtualMachineView) DebugDescription() string {
 	rv := objc.SendIfResponds[objc.ID](v.ID, objc.Sel("debugDescription"))

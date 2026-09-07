@@ -160,7 +160,7 @@ func (i IOGPUMetalIndirectArgumentEncoder) SetBufferOffsetAtIndex(buffer objecti
 	objc.SendIfResponds[objc.ID](i.ID, objc.Sel("setBuffer:offset:atIndex:"), buffer, offset, index)
 }
 func (i IOGPUMetalIndirectArgumentEncoder) SetBuffersOffsetsWithRange(buffers []objectivec.IObject, offsets *uint64, range_ foundation.NSRange) {
-	objc.SendIfResponds[objc.ID](i.ID, objc.Sel("setBuffers:offsets:withRange:"), objectivec.IObjectSliceToNSArray(buffers), unsafe.Pointer(offsets), range_)
+	objc.SendIfResponds[objc.ID](i.ID, objc.Sel("setBuffers:offsets:withRange:"), objectivec.IObjectSliceToNSArray(buffers), offsets, range_)
 }
 func (i IOGPUMetalIndirectArgumentEncoder) SetFunctionTableAtIndex(table objectivec.IObject, index uint64) {
 	objc.SendIfResponds[objc.ID](i.ID, objc.Sel("setFunctionTable:atIndex:"), table, index)

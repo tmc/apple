@@ -69,8 +69,8 @@ type ISLSBridgedWindowManagementOperationInt32Result interface {
 
 	// Topic: Methods
 
-	Int32Value() int
-	InitWithInt32Value(int32Value int) SLSBridgedWindowManagementOperationInt32Result
+	Int32Value() int32
+	InitWithInt32Value(int32Value int32) SLSBridgedWindowManagementOperationInt32Result
 }
 
 // Init initializes the instance.
@@ -98,18 +98,18 @@ func NewSLSBridgedWindowManagementOperationInt32ResultWithCoder(coder objectivec
 	return SLSBridgedWindowManagementOperationInt32ResultFromID(rv)
 }
 
-func NewSLSBridgedWindowManagementOperationInt32ResultWithInt32Value(int32Value int) SLSBridgedWindowManagementOperationInt32Result {
+func NewSLSBridgedWindowManagementOperationInt32ResultWithInt32Value(int32Value int32) SLSBridgedWindowManagementOperationInt32Result {
 	instance := getSLSBridgedWindowManagementOperationInt32ResultClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithInt32Value:"), int32Value)
 	return SLSBridgedWindowManagementOperationInt32ResultFromID(rv)
 }
 
-func (s SLSBridgedWindowManagementOperationInt32Result) InitWithInt32Value(int32Value int) SLSBridgedWindowManagementOperationInt32Result {
+func (s SLSBridgedWindowManagementOperationInt32Result) InitWithInt32Value(int32Value int32) SLSBridgedWindowManagementOperationInt32Result {
 	rv := objc.SendIfResponds[SLSBridgedWindowManagementOperationInt32Result](s.ID, objc.Sel("initWithInt32Value:"), int32Value)
 	return rv
 }
 
-func (s SLSBridgedWindowManagementOperationInt32Result) Int32Value() int {
-	rv := objc.SendIfResponds[int](s.ID, objc.Sel("int32Value"))
+func (s SLSBridgedWindowManagementOperationInt32Result) Int32Value() int32 {
+	rv := objc.SendIfResponds[int32](s.ID, objc.Sel("int32Value"))
 	return rv
 }

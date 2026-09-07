@@ -1,4 +1,4 @@
-// Code generated from Apple documentation for CoreML. DO NOT EDIT.
+// Code generated from Apple documentation for coreml. DO NOT EDIT.
 
 package coreml
 
@@ -114,7 +114,7 @@ func NewMLErfActivationBrick() MLErfActivationBrick {
 	return rv
 }
 
-func NewErfActivationBrickWithParameters(parameters objectivec.IObject) MLErfActivationBrick {
+func NewMLErfActivationBrickWithParameters(parameters objectivec.IObject) MLErfActivationBrick {
 	instance := getMLErfActivationBrickClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithParameters:"), parameters)
 	return MLErfActivationBrickFromID(rv)

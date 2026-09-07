@@ -113,14 +113,14 @@ type ISLSharingSession interface {
 	SetPresentationDisplayPrimaryEnableShowCursor(display objectivec.IObject, primary objectivec.IObject, enable bool, cursor bool)
 	ShowPicker()
 	Title() string
-	Type() int
-	SetType(value int)
+	Type() int32
+	SetType(value int32)
 	Uuid() foundation.NSUUID
 	Uuid_internal() foundation.NSUUID
 	SetUuid_internal(value foundation.NSUUID)
 	InitFromUUID(uuid objectivec.IObject) SLSharingSession
 	InitWithTitleSuppressWindowSharingIndicatorSuppressMenuBarSharingIndicatorNotifications(title objectivec.IObject, indicator bool, notifications bool) SLSharingSession
-	InitWithUUIDTitleType(uuid objectivec.IObject, title objectivec.IObject, type_ int) SLSharingSession
+	InitWithUUIDTitleType(uuid objectivec.IObject, title objectivec.IObject, type_ int32) SLSharingSession
 }
 
 // Init initializes the instance.
@@ -154,7 +154,7 @@ func NewSLSharingSessionWithTitleSuppressWindowSharingIndicatorSuppressMenuBarSh
 	return SLSharingSessionFromID(rv)
 }
 
-func NewSLSharingSessionWithUUIDTitleType(uuid objectivec.IObject, title objectivec.IObject, type_ int) SLSharingSession {
+func NewSLSharingSessionWithUUIDTitleType(uuid objectivec.IObject, title objectivec.IObject, type_ int32) SLSharingSession {
 	instance := getSLSharingSessionClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithUUID:title:type:"), uuid, title, type_)
 	return SLSharingSessionFromID(rv)
@@ -193,7 +193,7 @@ func (s SLSharingSession) InitWithTitleSuppressWindowSharingIndicatorSuppressMen
 	rv := objc.SendIfResponds[SLSharingSession](s.ID, objc.Sel("initWithTitle:suppressWindowSharingIndicator:suppressMenuBarSharingIndicatorNotifications:"), title, indicator, notifications)
 	return rv
 }
-func (s SLSharingSession) InitWithUUIDTitleType(uuid objectivec.IObject, title objectivec.IObject, type_ int) SLSharingSession {
+func (s SLSharingSession) InitWithUUIDTitleType(uuid objectivec.IObject, title objectivec.IObject, type_ int32) SLSharingSession {
 	rv := objc.SendIfResponds[SLSharingSession](s.ID, objc.Sel("initWithUUID:title:type:"), uuid, title, type_)
 	return rv
 }
@@ -209,20 +209,20 @@ func (s SLSharingSession) Title() string {
 	rv := objc.SendIfResponds[objc.ID](s.ID, objc.Sel("title"))
 	return foundation.NSStringFromID(rv).String()
 }
-func (s SLSharingSession) Type() int {
-	rv := objc.SendIfResponds[int](s.ID, objc.Sel("type"))
+func (s SLSharingSession) Type() int32 {
+	rv := objc.SendIfResponds[int32](s.ID, objc.Sel("type"))
 	return rv
 }
-func (s SLSharingSession) SetType(value int) {
+func (s SLSharingSession) SetType(value int32) {
 	objc.SendIfResponds[struct{}](s.ID, objc.Sel("setType:"), value)
 }
 func (s SLSharingSession) Uuid() foundation.NSUUID {
-	rv := objc.SendIfResponds[objc.ID](s.ID, objc.Sel("uuid"))
-	return foundation.NSUUIDFromID(objc.ID(rv))
+	rv := objc.SendIfResponds[foundation.NSUUID](s.ID, objc.Sel("uuid"))
+	return foundation.NSUUID(rv)
 }
 func (s SLSharingSession) Uuid_internal() foundation.NSUUID {
-	rv := objc.SendIfResponds[objc.ID](s.ID, objc.Sel("uuid_internal"))
-	return foundation.NSUUIDFromID(objc.ID(rv))
+	rv := objc.SendIfResponds[foundation.NSUUID](s.ID, objc.Sel("uuid_internal"))
+	return foundation.NSUUID(rv)
 }
 func (s SLSharingSession) SetUuid_internal(value foundation.NSUUID) {
 	objc.SendIfResponds[struct{}](s.ID, objc.Sel("setUuid_internal:"), value)

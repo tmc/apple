@@ -168,13 +168,13 @@ func (_TTSLHPhonemeToApplebetPhonemeMapperClass TTSLHPhonemeToApplebetPhonemeMap
 func (_TTSLHPhonemeToApplebetPhonemeMapperClass TTSLHPhonemeToApplebetPhonemeMapperClass) CanPhonemeRules() bool {
 	return objc.RespondsToSelector(objc.ID(_TTSLHPhonemeToApplebetPhonemeMapperClass.class), objc.Sel("_phonemeRules"))
 }
-func (_TTSLHPhonemeToApplebetPhonemeMapperClass TTSLHPhonemeToApplebetPhonemeMapperClass) _phonoMatchMatchMatchposCount(match objectivec.IObject, match2 objectivec.IObject, matchpos []int, count int) objectivec.IObject {
+func (_TTSLHPhonemeToApplebetPhonemeMapperClass TTSLHPhonemeToApplebetPhonemeMapperClass) _phonoMatchMatchMatchposCount(match objectivec.IObject, match2 objectivec.IObject, matchpos []int32, count int32) objectivec.IObject {
 	rv := objc.SendIfResponds[objc.ID](objc.ID(_TTSLHPhonemeToApplebetPhonemeMapperClass.class), objc.Sel("_phonoMatch:match:matchpos:count:"), match, match2, objc.CArray(matchpos), count)
 	return objectivec.Object{ID: rv}
 }
 
 // PhonoMatchMatchMatchposCount is an exported wrapper for the private method _phonoMatchMatchMatchposCount.
-func (_TTSLHPhonemeToApplebetPhonemeMapperClass TTSLHPhonemeToApplebetPhonemeMapperClass) PhonoMatchMatchMatchposCount(match objectivec.IObject, match2 objectivec.IObject, matchpos []int, count int) (objectivec.IObject, error) {
+func (_TTSLHPhonemeToApplebetPhonemeMapperClass TTSLHPhonemeToApplebetPhonemeMapperClass) PhonoMatchMatchMatchposCount(match objectivec.IObject, match2 objectivec.IObject, matchpos []int32, count int32) (objectivec.IObject, error) {
 	if !objc.RespondsToSelector(objc.ID(_TTSLHPhonemeToApplebetPhonemeMapperClass.class), objc.Sel("_phonoMatch:match:matchpos:count:")) {
 		err := &objc.UnrecognizedSelectorError{Selector: "_phonoMatch:match:matchpos:count:"}
 		return nil, err

@@ -1,4 +1,4 @@
-// Code generated from Apple documentation for CoreML. DO NOT EDIT.
+// Code generated from Apple documentation for coreml. DO NOT EDIT.
 
 package coreml
 
@@ -93,7 +93,7 @@ func NewMLProgramTrainingDelta() MLProgramTrainingDelta {
 	return rv
 }
 
-func NewProgramTrainingDeltaWithFlattenedModelUpdate(update objectivec.IObject) MLProgramTrainingDelta {
+func NewMLProgramTrainingDeltaWithFlattenedModelUpdate(update objectivec.IObject) MLProgramTrainingDelta {
 	instance := getMLProgramTrainingDeltaClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithFlattenedModelUpdate:"), update)
 	return MLProgramTrainingDeltaFromID(rv)
@@ -105,6 +105,6 @@ func (m MLProgramTrainingDelta) InitWithFlattenedModelUpdate(update objectivec.I
 }
 
 func (m MLProgramTrainingDelta) FlattenedModelUpdate() foundation.NSData {
-	rv := objc.SendIfResponds[objc.ID](m.ID, objc.Sel("flattenedModelUpdate"))
-	return foundation.NSDataFromID(objc.ID(rv))
+	rv := objc.SendIfResponds[foundation.NSData](m.ID, objc.Sel("flattenedModelUpdate"))
+	return foundation.NSData(rv)
 }

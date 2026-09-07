@@ -45,17 +45,14 @@ func (tc TTSVoiceResourceAssetClass) Alloc() TTSVoiceResourceAsset {
 
 // # Methods
 //
-//   - [TTSVoiceResourceAsset.DefaultFootprintString]
-//   - [TTSVoiceResourceAsset.DefaultTypeString]
-//   - [TTSVoiceResourceAsset.DefaultVoice]
 //   - [TTSVoiceResourceAsset.Languages]
 //   - [TTSVoiceResourceAsset.SetLanguages]
 //   - [TTSVoiceResourceAsset.ResourceList]
 //   - [TTSVoiceResourceAsset.SetResourceList]
 //   - [TTSVoiceResourceAsset.SearchPathURL]
 //   - [TTSVoiceResourceAsset.SetSearchPathURL]
-//   - [TTSVoiceResourceAsset.SyncWithConfigDataVoiceType]
-//   - [TTSVoiceResourceAsset.SyncWithConfigFileVoiceType]
+//   - [TTSVoiceResourceAsset.SyncWithConfigData]
+//   - [TTSVoiceResourceAsset.SyncWithConfigFile]
 //   - [TTSVoiceResourceAsset.VoiceConfig]
 //   - [TTSVoiceResourceAsset.SetVoiceConfig]
 type TTSVoiceResourceAsset struct {
@@ -74,17 +71,14 @@ var _ ITTSVoiceResourceAsset = TTSVoiceResourceAsset{}
 //
 // # Methods
 //
-//   - [ITTSVoiceResourceAsset.DefaultFootprintString]
-//   - [ITTSVoiceResourceAsset.DefaultTypeString]
-//   - [ITTSVoiceResourceAsset.DefaultVoice]
 //   - [ITTSVoiceResourceAsset.Languages]
 //   - [ITTSVoiceResourceAsset.SetLanguages]
 //   - [ITTSVoiceResourceAsset.ResourceList]
 //   - [ITTSVoiceResourceAsset.SetResourceList]
 //   - [ITTSVoiceResourceAsset.SearchPathURL]
 //   - [ITTSVoiceResourceAsset.SetSearchPathURL]
-//   - [ITTSVoiceResourceAsset.SyncWithConfigDataVoiceType]
-//   - [ITTSVoiceResourceAsset.SyncWithConfigFileVoiceType]
+//   - [ITTSVoiceResourceAsset.SyncWithConfigData]
+//   - [ITTSVoiceResourceAsset.SyncWithConfigFile]
 //   - [ITTSVoiceResourceAsset.VoiceConfig]
 //   - [ITTSVoiceResourceAsset.SetVoiceConfig]
 type ITTSVoiceResourceAsset interface {
@@ -92,17 +86,14 @@ type ITTSVoiceResourceAsset interface {
 
 	// Topic: Methods
 
-	DefaultFootprintString() objectivec.IObject
-	DefaultTypeString() objectivec.IObject
-	DefaultVoice() objectivec.IObject
 	Languages() foundation.INSArray
 	SetLanguages(value foundation.INSArray)
 	ResourceList() foundation.INSArray
 	SetResourceList(value foundation.INSArray)
 	SearchPathURL() foundation.NSURL
 	SetSearchPathURL(value foundation.NSURL)
-	SyncWithConfigDataVoiceType(data objectivec.IObject, type_ int64)
-	SyncWithConfigFileVoiceType(file objectivec.IObject, type_ int64)
+	SyncWithConfigData(data objectivec.IObject)
+	SyncWithConfigFile(file objectivec.IObject)
 	VoiceConfig() foundation.INSDictionary
 	SetVoiceConfig(value foundation.INSDictionary)
 }
@@ -132,28 +123,11 @@ func NewTTSVoiceResourceAssetWithCoder(coder objectivec.IObject) TTSVoiceResourc
 	return TTSVoiceResourceAssetFromID(rv)
 }
 
-func (t TTSVoiceResourceAsset) DefaultFootprintString() objectivec.IObject {
-	rv := objc.SendIfResponds[objc.ID](t.ID, objc.Sel("defaultFootprintString"))
-	return objectivec.Object{ID: rv}
+func (t TTSVoiceResourceAsset) SyncWithConfigData(data objectivec.IObject) {
+	objc.SendIfResponds[objc.ID](t.ID, objc.Sel("syncWithConfigData:"), data)
 }
-func (t TTSVoiceResourceAsset) DefaultTypeString() objectivec.IObject {
-	rv := objc.SendIfResponds[objc.ID](t.ID, objc.Sel("defaultTypeString"))
-	return objectivec.Object{ID: rv}
-}
-func (t TTSVoiceResourceAsset) DefaultVoice() objectivec.IObject {
-	rv := objc.SendIfResponds[objc.ID](t.ID, objc.Sel("defaultVoice"))
-	return objectivec.Object{ID: rv}
-}
-func (t TTSVoiceResourceAsset) SyncWithConfigDataVoiceType(data objectivec.IObject, type_ int64) {
-	objc.SendIfResponds[objc.ID](t.ID, objc.Sel("syncWithConfigData:voiceType:"), data, type_)
-}
-func (t TTSVoiceResourceAsset) SyncWithConfigFileVoiceType(file objectivec.IObject, type_ int64) {
-	objc.SendIfResponds[objc.ID](t.ID, objc.Sel("syncWithConfigFile:voiceType:"), file, type_)
-}
-
-func (_TTSVoiceResourceAssetClass TTSVoiceResourceAssetClass) LegacyPlatforms() objectivec.IObject {
-	rv := objc.SendIfResponds[objc.ID](objc.ID(_TTSVoiceResourceAssetClass.class), objc.Sel("legacyPlatforms"))
-	return objectivec.Object{ID: rv}
+func (t TTSVoiceResourceAsset) SyncWithConfigFile(file objectivec.IObject) {
+	objc.SendIfResponds[objc.ID](t.ID, objc.Sel("syncWithConfigFile:"), file)
 }
 
 func (t TTSVoiceResourceAsset) Languages() foundation.INSArray {
@@ -171,8 +145,8 @@ func (t TTSVoiceResourceAsset) SetResourceList(value foundation.INSArray) {
 	objc.SendIfResponds[struct{}](t.ID, objc.Sel("setResourceList:"), value)
 }
 func (t TTSVoiceResourceAsset) SearchPathURL() foundation.NSURL {
-	rv := objc.SendIfResponds[objc.ID](t.ID, objc.Sel("searchPathURL"))
-	return foundation.NSURLFromID(objc.ID(rv))
+	rv := objc.SendIfResponds[foundation.NSURL](t.ID, objc.Sel("searchPathURL"))
+	return foundation.NSURL(rv)
 }
 func (t TTSVoiceResourceAsset) SetSearchPathURL(value foundation.NSURL) {
 	objc.SendIfResponds[struct{}](t.ID, objc.Sel("setSearchPathURL:"), value)

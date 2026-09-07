@@ -1,4 +1,4 @@
-// Code generated from Apple documentation for CoreML. DO NOT EDIT.
+// Code generated from Apple documentation for coreml. DO NOT EDIT.
 
 package coreml
 
@@ -96,7 +96,7 @@ func NewMLBatchedTensorsHolder() MLBatchedTensorsHolder {
 	return rv
 }
 
-func NewBatchedTensorsHolderWithBatchedTensorsNumberOfTensors(tensors objectivec.IObject, tensors2 uint64) MLBatchedTensorsHolder {
+func NewMLBatchedTensorsHolderWithBatchedTensorsNumberOfTensors(tensors objectivec.IObject, tensors2 uint64) MLBatchedTensorsHolder {
 	instance := getMLBatchedTensorsHolderClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithBatchedTensors:numberOfTensors:"), tensors, tensors2)
 	return MLBatchedTensorsHolderFromID(rv)

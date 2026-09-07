@@ -1,4 +1,4 @@
-// Code generated from Apple documentation for AVFAudio. DO NOT EDIT.
+// Code generated from Apple documentation for avfaudio. DO NOT EDIT.
 
 package avfaudio
 
@@ -42,14 +42,14 @@ func (ac AVMusicEventClass) Alloc() AVMusicEvent {
 	return rv
 }
 
-// A parent class referenced by other AVFAudio classes. [Full Topic]
+// A parent class referenced by other avfaudio classes. [Full Topic]
 type AVMusicEvent struct {
 	objectivec.Object
 }
 
 // AVMusicEventFromID constructs a [AVMusicEvent] from an objc.ID.
 //
-// A parent class referenced by other AVFAudio classes.
+// A parent class referenced by other avfaudio classes.
 func AVMusicEventFromID(id objc.ID) AVMusicEvent {
 	return AVMusicEvent{objectivec.Object{ID: id}}
 }

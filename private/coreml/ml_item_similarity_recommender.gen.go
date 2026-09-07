@@ -1,4 +1,4 @@
-// Code generated from Apple documentation for CoreML. DO NOT EDIT.
+// Code generated from Apple documentation for coreml. DO NOT EDIT.
 
 package coreml
 
@@ -101,7 +101,7 @@ func NewMLItemSimilarityRecommender() MLItemSimilarityRecommender {
 	return rv
 }
 
-func NewItemSimilarityRecommenderDescriptionOnlyWithSpecificationConfigurationError(specification unsafe.Pointer, configuration objectivec.IObject) (MLItemSimilarityRecommender, error) {
+func NewMLItemSimilarityRecommenderDescriptionOnlyWithSpecificationConfigurationError(specification unsafe.Pointer, configuration objectivec.IObject) (MLItemSimilarityRecommender, error) {
 	var errorPtr objc.ID
 	instance := getMLItemSimilarityRecommenderClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initDescriptionOnlyWithSpecification:configuration:error:"), specification, configuration, unsafe.Pointer(&errorPtr))
@@ -115,7 +115,7 @@ func NewItemSimilarityRecommenderDescriptionOnlyWithSpecificationConfigurationEr
 	return MLItemSimilarityRecommenderFromID(rv), nil
 }
 
-func NewItemSimilarityRecommenderInterfaceAndMetadataWithCompiledArchiveError(archive unsafe.Pointer) (MLItemSimilarityRecommender, error) {
+func NewMLItemSimilarityRecommenderInterfaceAndMetadataWithCompiledArchiveError(archive unsafe.Pointer) (MLItemSimilarityRecommender, error) {
 	var errorPtr objc.ID
 	instance := getMLItemSimilarityRecommenderClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initInterfaceAndMetadataWithCompiledArchive:error:"), archive, unsafe.Pointer(&errorPtr))
@@ -129,25 +129,25 @@ func NewItemSimilarityRecommenderInterfaceAndMetadataWithCompiledArchiveError(ar
 	return MLItemSimilarityRecommenderFromID(rv), nil
 }
 
-func NewItemSimilarityRecommenderWithConfiguration(configuration objectivec.IObject) MLItemSimilarityRecommender {
+func NewMLItemSimilarityRecommenderWithConfiguration(configuration objectivec.IObject) MLItemSimilarityRecommender {
 	instance := getMLItemSimilarityRecommenderClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithConfiguration:"), configuration)
 	return MLItemSimilarityRecommenderFromID(rv)
 }
 
-func NewItemSimilarityRecommenderWithDescription(description objectivec.IObject) MLItemSimilarityRecommender {
+func NewMLItemSimilarityRecommenderWithDescription(description objectivec.IObject) MLItemSimilarityRecommender {
 	instance := getMLItemSimilarityRecommenderClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithDescription:"), description)
 	return MLItemSimilarityRecommenderFromID(rv)
 }
 
-func NewItemSimilarityRecommenderWithDescriptionConfiguration(description objectivec.IObject, configuration objectivec.IObject) MLItemSimilarityRecommender {
+func NewMLItemSimilarityRecommenderWithDescriptionConfiguration(description objectivec.IObject, configuration objectivec.IObject) MLItemSimilarityRecommender {
 	instance := getMLItemSimilarityRecommenderClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithDescription:configuration:"), description, configuration)
 	return MLItemSimilarityRecommenderFromID(rv)
 }
 
-func NewItemSimilarityRecommenderWithNameInputDescriptionOutputDescriptionOrderedInputFeatureNamesOrderedOutputFeatureNamesConfiguration(name objectivec.IObject, description objectivec.IObject, description2 objectivec.IObject, names objectivec.IObject, names2 objectivec.IObject, configuration objectivec.IObject) MLItemSimilarityRecommender {
+func NewMLItemSimilarityRecommenderWithNameInputDescriptionOutputDescriptionOrderedInputFeatureNamesOrderedOutputFeatureNamesConfiguration(name objectivec.IObject, description objectivec.IObject, description2 objectivec.IObject, names objectivec.IObject, names2 objectivec.IObject, configuration objectivec.IObject) MLItemSimilarityRecommender {
 	instance := getMLItemSimilarityRecommenderClass().Alloc()
 	rv := objc.SendIfResponds[objc.ID](instance.ID, objc.Sel("initWithName:inputDescription:outputDescription:orderedInputFeatureNames:orderedOutputFeatureNames:configuration:"), name, description, description2, names, names2, configuration)
 	return MLItemSimilarityRecommenderFromID(rv)

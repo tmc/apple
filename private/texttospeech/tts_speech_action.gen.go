@@ -7,7 +7,6 @@ import (
 	"sync"
 	"unsafe"
 
-	"github.com/tmc/apple/avfaudio"
 	"github.com/tmc/apple/foundation"
 	"github.com/tmc/apple/objc"
 	"github.com/tmc/apple/objectivec"
@@ -98,8 +97,6 @@ func (tc TTSSpeechActionClass) Alloc() TTSSpeechAction {
 //   - [TTSSpeechAction.SetSynthesizeSilently]
 //   - [TTSSpeechAction.TaggedSSML]
 //   - [TTSSpeechAction.SetTaggedSSML]
-//   - [TTSSpeechAction.Utterance]
-//   - [TTSSpeechAction.SetUtterance]
 //   - [TTSSpeechAction.VoiceIdentifier]
 //   - [TTSSpeechAction.SetVoiceIdentifier]
 //   - [TTSSpeechAction.VoiceSelection]
@@ -174,8 +171,6 @@ var _ ITTSSpeechAction = TTSSpeechAction{}
 //   - [ITTSSpeechAction.SetSynthesizeSilently]
 //   - [ITTSSpeechAction.TaggedSSML]
 //   - [ITTSSpeechAction.SetTaggedSSML]
-//   - [ITTSSpeechAction.Utterance]
-//   - [ITTSSpeechAction.SetUtterance]
 //   - [ITTSSpeechAction.VoiceIdentifier]
 //   - [ITTSSpeechAction.SetVoiceIdentifier]
 //   - [ITTSSpeechAction.VoiceSelection]
@@ -239,8 +234,6 @@ type ITTSSpeechAction interface {
 	SetSynthesizeSilently(value bool)
 	TaggedSSML() unsafe.Pointer
 	SetTaggedSSML(value unsafe.Pointer)
-	Utterance() avfaudio.AVSpeechUtterance
-	SetUtterance(value avfaudio.AVSpeechUtterance)
 	VoiceIdentifier() string
 	SetVoiceIdentifier(value string)
 	VoiceSelection() unsafe.Pointer
@@ -365,8 +358,8 @@ func (_TTSSpeechActionClass TTSSpeechActionClass) Test_setUseMaxSpeechRate(rate 
 }
 
 func (t TTSSpeechAction) AttributedString() foundation.NSAttributedString {
-	rv := objc.SendIfResponds[objc.ID](t.ID, objc.Sel("attributedString"))
-	return foundation.NSAttributedStringFromID(objc.ID(rv))
+	rv := objc.SendIfResponds[foundation.NSAttributedString](t.ID, objc.Sel("attributedString"))
+	return foundation.NSAttributedString(rv)
 }
 func (t TTSSpeechAction) SetAttributedString(value foundation.NSAttributedString) {
 	objc.SendIfResponds[struct{}](t.ID, objc.Sel("setAttributedString:"), value)
@@ -503,13 +496,6 @@ func (t TTSSpeechAction) TaggedSSML() unsafe.Pointer {
 }
 func (t TTSSpeechAction) SetTaggedSSML(value unsafe.Pointer) {
 	objc.SendIfResponds[struct{}](t.ID, objc.Sel("setTaggedSSML:"), value)
-}
-func (t TTSSpeechAction) Utterance() avfaudio.AVSpeechUtterance {
-	rv := objc.SendIfResponds[objc.ID](t.ID, objc.Sel("utterance"))
-	return avfaudio.AVSpeechUtteranceFromID(objc.ID(rv))
-}
-func (t TTSSpeechAction) SetUtterance(value avfaudio.AVSpeechUtterance) {
-	objc.SendIfResponds[struct{}](t.ID, objc.Sel("setUtterance:"), value)
 }
 func (t TTSSpeechAction) VoiceIdentifier() string {
 	rv := objc.SendIfResponds[objc.ID](t.ID, objc.Sel("voiceIdentifier"))

@@ -1,6 +1,6 @@
-// Code generated from Apple documentation for CoreML. DO NOT EDIT.
+// Code generated from Apple documentation for coreml. DO NOT EDIT.
 
-// Package coreml provides Go bindings for the CoreML framework.
+// Package coreml provides Go bindings for the coreml framework.
 //
 // # Key Types
 //
@@ -23,7 +23,7 @@ import (
 	"github.com/ebitengine/purego"
 )
 
-// frameworkPaths lists paths to try when loading the CoreML library,
+// frameworkPaths lists paths to try when loading the coreml library,
 // in order. Frameworks whose symbols live in a known dylib resolve to that
 // dylib alone; the rest try the framework bundle first and then a /usr/lib
 // dylib fallback, which covers C-API frameworks that are not in the dyld
@@ -47,6 +47,6 @@ func init() {
 	// framework is harmless unless one of its symbols is actually called. Set
 	// APPLE_FRAMEWORK_LOAD_DEBUG to surface load failures while diagnosing.
 	if os.Getenv("APPLE_FRAMEWORK_LOAD_DEBUG") != "" {
-		fmt.Fprintf(os.Stderr, "warning: CoreML: failed to load framework from any known path\n")
+		fmt.Fprintf(os.Stderr, "warning: coreml: failed to load framework from any known path\n")
 	}
 }
