@@ -4,6 +4,8 @@ package objcbridge
 import (
 	"errors"
 	"fmt"
+	"reflect"
+	"strings"
 	"sync"
 	"unsafe"
 
@@ -15,15 +17,178 @@ import (
 //
 // Each method's Fn must take (objc.ID, objc.SEL) as its first two arguments;
 // objc.NewIMP panics otherwise. See its documentation for why a missing prefix
-// corrupts the call rather than failing it.
+// corrupts the call rather than failing it. AddMethods derives and records the
+// Objective-C type encoding from Fn so signature-based dispatch sees the same
+// arguments as the implementation.
 func AddMethods(cls objc.Class, className string, methods []objc.MethodDef) error {
 	for _, method := range methods {
-		if !objc.AddMethod(cls, method.Cmd, objc.NewIMP(method.Fn), "") {
+		types, err := methodTypeEncoding(method.Fn)
+		if err != nil {
+			return fmt.Errorf("encode method %v for %s: %w", method.Cmd, className, err)
+		}
+		if !objc.AddMethod(cls, method.Cmd, objc.NewIMP(method.Fn), types) {
 			return fmt.Errorf("add method %v to %s", method.Cmd, className)
 		}
 	}
 	return nil
 }
+
+func methodTypeEncoding(fn any) (string, error) {
+	typ := reflect.TypeOf(fn)
+	if typ == nil || typ.Kind() != reflect.Func || reflect.ValueOf(fn).IsNil() {
+		return "", errors.New("method implementation is not a function")
+	}
+	if typ.IsVariadic() {
+		return "", errors.New("method implementation is variadic")
+	}
+	if typ.NumIn() < 2 || typ.In(0) != reflect.TypeFor[objc.ID]() || typ.In(1) != reflect.TypeFor[objc.SEL]() {
+		return "", errors.New("method implementation must start with objc.ID and objc.SEL")
+	}
+
+	var encoding strings.Builder
+	switch typ.NumOut() {
+	case 0:
+		encoding.WriteByte('v')
+	case 1:
+		value, err := encodeMethodType(typ.Out(0), false)
+		if err != nil {
+			return "", err
+		}
+		encoding.WriteString(value)
+	default:
+		return "", errors.New("method implementation has more than one result")
+	}
+	for i := range typ.NumIn() {
+		value, err := encodeMethodType(typ.In(i), false)
+		if err != nil {
+			return "", err
+		}
+		encoding.WriteString(value)
+	}
+	return encoding.String(), nil
+}
+
+func encodeMethodType(typ reflect.Type, insidePointer bool) (string, error) {
+	switch typ {
+	case reflect.TypeFor[objc.Class]():
+		return "#", nil
+	case reflect.TypeFor[objc.ID]():
+		return "@", nil
+	case reflect.TypeFor[objc.Block]():
+		return "@?", nil
+	case reflect.TypeFor[objc.SEL]():
+		return ":", nil
+	}
+
+	switch typ.Kind() {
+	case reflect.Bool:
+		return "B", nil
+	case reflect.Int:
+		return "q", nil
+	case reflect.Int8:
+		return "c", nil
+	case reflect.Int16:
+		return "s", nil
+	case reflect.Int32:
+		return "i", nil
+	case reflect.Int64:
+		return "q", nil
+	case reflect.Uint:
+		return "Q", nil
+	case reflect.Uint8:
+		return "C", nil
+	case reflect.Uint16:
+		return "S", nil
+	case reflect.Uint32:
+		return "I", nil
+	case reflect.Uint64:
+		return "Q", nil
+	case reflect.Uintptr:
+		return "Q", nil
+	case reflect.Float32:
+		return "f", nil
+	case reflect.Float64:
+		return "d", nil
+	case reflect.Pointer:
+		value, err := encodeMethodType(typ.Elem(), true)
+		return "^" + value, err
+	case reflect.Struct:
+		if insidePointer {
+			return "{" + typ.Name() + "}", nil
+		}
+		var encoding strings.Builder
+		encoding.WriteByte('{')
+		encoding.WriteString(typ.Name())
+		encoding.WriteByte('=')
+		for i := range typ.NumField() {
+			value, err := encodeMethodType(typ.Field(i).Type, false)
+			if err != nil {
+				return "", err
+			}
+			encoding.WriteString(value)
+		}
+		encoding.WriteByte('}')
+		return encoding.String(), nil
+	case reflect.UnsafePointer:
+		return "^v", nil
+	case reflect.String:
+		return "*", nil
+	default:
+		return "", fmt.Errorf("unsupported method type %v", typ)
+	}
+}
+
+// AddProtocols declares that cls conforms to each protocol.
+//
+// [objc.RegisterClass] takes protocols only when it creates a class, so a
+// class that already exists -- one emitted statically into the binary, or
+// registered by an earlier caller -- has no way to gain a conformance without
+// this. The distinction is not cosmetic: frameworks dispatch on
+// conformsToProtocol:, so a class carrying every required method but no
+// conformance is rejected as if the methods were absent.
+//
+// Adding a protocol a class already conforms to is a no-op, so this is safe to
+// call more than once.
+func AddProtocols(cls objc.Class, className string, protocols []*objc.Protocol) error {
+	classProtocolOnce.Do(func() {
+		for _, fn := range []struct {
+			ptr  any
+			name string
+		}{
+			{&classAddProtocol, "class_addProtocol"},
+			{&classConformsToProtocol, "class_conformsToProtocol"},
+		} {
+			sym, err := purego.Dlsym(purego.RTLD_DEFAULT, fn.name)
+			if err != nil {
+				classProtocolErr = fmt.Errorf("resolve %s: %w", fn.name, err)
+				return
+			}
+			purego.RegisterFunc(fn.ptr, sym)
+		}
+	})
+	if classProtocolErr != nil {
+		return classProtocolErr
+	}
+	for _, protocol := range protocols {
+		if protocol == nil {
+			continue
+		}
+		// class_addProtocol returns false when the class already conforms,
+		// which is not a failure. Ask rather than assume, so a protocol the
+		// runtime genuinely rejected is still reported.
+		if !classAddProtocol(cls, protocol) && !classConformsToProtocol(cls, protocol) {
+			return fmt.Errorf("add protocol to %s", className)
+		}
+	}
+	return nil
+}
+
+var (
+	classAddProtocol        func(objc.Class, *objc.Protocol) bool
+	classConformsToProtocol func(objc.Class, *objc.Protocol) bool
+	classProtocolOnce       sync.Once
+	classProtocolErr        error
+)
 
 // ProtocolsByName resolves Objective-C protocols, skipping protocols not
 // present on the running system.

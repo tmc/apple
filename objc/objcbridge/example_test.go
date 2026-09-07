@@ -40,6 +40,22 @@ func ExampleProtocolsByName() {
 	// Resolved count: 1
 }
 
+func ExampleAddProtocols() {
+	class, err := objc.RegisterClass("ObjCBridgeProtocolExample", objc.GetClass("NSObject"), nil, nil, nil)
+	if err != nil {
+		fmt.Println("Error:", err)
+		return
+	}
+	if err := objcbridge.AddProtocols(class, "ObjCBridgeProtocolExample", objcbridge.ProtocolsByName("NSObject")); err != nil {
+		fmt.Println("Error:", err)
+		return
+	}
+	fmt.Println("protocol added")
+
+	// Output:
+	// protocol added
+}
+
 func ExampleRequiredProtocolsByName() {
 	// Look up required protocols, returning an error if any is missing.
 	protocols, err := objcbridge.RequiredProtocolsByName("NSObject")
