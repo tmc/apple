@@ -58,11 +58,25 @@ func TestValidateOpSchema(t *testing.T) {
 			opset: "ios26",
 		},
 		{
-			// linear is a real op outside the dump: absence from the table
+			// batch_norm is a real op outside the dump: absence from the table
 			// must not be read as absence from coremltools.
 			name:  "undumped op skips",
-			op:    op("linear", map[string]*Argument{"nonsense": ref("w")}),
+			op:    op("batch_norm", map[string]*Argument{"nonsense": ref("w")}),
 			opset: "ios18",
+		},
+		{
+			// write_state reaches the table only through gen/dumpops.py's
+			// synthesis step, and its inputs are named for the MIL backend's
+			// lowering rather than for coreml_update_state's own inputs.
+			name:  "write_state accepts its lowered input names",
+			op:    op("write_state", map[string]*Argument{"input": ref("s"), "data": ref("x")}),
+			opset: "ios18",
+		},
+		{
+			name:    "write_state rejects its source op's input names",
+			op:      op("write_state", map[string]*Argument{"state": ref("s"), "value": ref("x")}),
+			opset:   "ios18",
+			wantErr: `op write_state has no input "state"`,
 		},
 	}
 

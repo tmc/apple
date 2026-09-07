@@ -43,6 +43,28 @@ var opsets = map[string]map[string]*Op{
 		}, Domains: map[string][]DataType{
 			"T": []DataType{"fp16", "fp32"},
 		}},
+		"gelu": {Type: "gelu", Params: []Param{
+			{Name: "x", Kind: KindTensor, DomainID: "T"},
+			{Name: "mode", Kind: KindTensor, Const: true, Optional: true, Domain: []DataType{"string"}},
+		}, Domains: map[string][]DataType{
+			"T": []DataType{"fp16", "fp32"},
+		}},
+		"layer_norm": {Type: "layer_norm", Params: []Param{
+			{Name: "x", Kind: KindTensor, DomainID: "T"},
+			{Name: "axes", Kind: KindTensor, Const: true, Optional: true, Domain: []DataType{"int32"}},
+			{Name: "gamma", Kind: KindTensor, Const: true, Optional: true, DomainID: "T"},
+			{Name: "beta", Kind: KindTensor, Const: true, Optional: true, DomainID: "T"},
+			{Name: "epsilon", Kind: KindTensor, Const: true, Optional: true, DomainID: "T"},
+		}, Domains: map[string][]DataType{
+			"T": []DataType{"fp16", "fp32"},
+		}},
+		"linear": {Type: "linear", Params: []Param{
+			{Name: "x", Kind: KindTensor, DomainID: "T"},
+			{Name: "weight", Kind: KindTensor, Const: true, DomainID: "T"},
+			{Name: "bias", Kind: KindTensor, Const: true, Optional: true, DomainID: "T"},
+		}, Domains: map[string][]DataType{
+			"T": []DataType{"fp16", "fp32", "int32"},
+		}},
 		"matmul": {Type: "matmul", Params: []Param{
 			{Name: "x", Kind: KindTensor, DomainID: "T"},
 			{Name: "y", Kind: KindTensor, DomainID: "T"},
@@ -111,6 +133,22 @@ var opsets = map[string]map[string]*Op{
 			{Name: "x", Kind: KindTensor, DomainID: "T"},
 		}, Domains: map[string][]DataType{
 			"T": []DataType{"fp16", "fp32"},
+		}},
+		"silu": {Type: "silu", Params: []Param{
+			{Name: "x", Kind: KindTensor, DomainID: "T"},
+		}, Domains: map[string][]DataType{
+			"T": []DataType{"fp16", "fp32"},
+		}},
+		"slice_by_index": {Type: "slice_by_index", Params: []Param{
+			{Name: "x", Kind: KindTensor, DomainID: "T"},
+			{Name: "begin", Kind: KindTensor, Domain: []DataType{"int32"}},
+			{Name: "end", Kind: KindTensor, Domain: []DataType{"int32"}},
+			{Name: "stride", Kind: KindTensor, Const: true, Optional: true, Domain: []DataType{"int32"}},
+			{Name: "begin_mask", Kind: KindTensor, Const: true, Optional: true, Domain: []DataType{"bool"}},
+			{Name: "end_mask", Kind: KindTensor, Const: true, Optional: true, Domain: []DataType{"bool"}},
+			{Name: "squeeze_mask", Kind: KindTensor, Const: true, Optional: true, Domain: []DataType{"bool"}},
+		}, Domains: map[string][]DataType{
+			"T": []DataType{"fp16", "fp32", "int32", "bool"},
 		}},
 		"slice_by_size": {Type: "slice_by_size", Params: []Param{
 			{Name: "x", Kind: KindTensor, DomainID: "T"},
@@ -180,6 +218,16 @@ var opsets = map[string]map[string]*Op{
 		"const": {Type: "const", Params: []Param{
 			{Name: "val", Kind: KindInternal, Const: true},
 		}},
+		"constexpr_affine_dequantize": {Type: "constexpr_affine_dequantize", Params: []Param{
+			{Name: "quantized_data", Kind: KindTensor, Const: true, DomainID: "SrcT"},
+			{Name: "zero_point", Kind: KindTensor, Const: true, DomainID: "ZeroPointT"},
+			{Name: "scale", Kind: KindTensor, Const: true, DomainID: "DstT"},
+			{Name: "axis", Kind: KindTensor, Const: true, Domain: []DataType{"int32"}},
+		}, Domains: map[string][]DataType{
+			"DstT":       []DataType{"fp16", "fp32"},
+			"SrcT":       []DataType{"uint8", "int8"},
+			"ZeroPointT": []DataType{"uint8", "int8", "fp32"},
+		}},
 		"conv": {Type: "conv", Params: []Param{
 			{Name: "x", Kind: KindTensor, DomainID: "T"},
 			{Name: "weight", Kind: KindTensor, DomainID: "T"},
@@ -191,6 +239,28 @@ var opsets = map[string]map[string]*Op{
 			{Name: "groups", Kind: KindTensor, Const: true, Optional: true, Domain: []DataType{"int32"}},
 		}, Domains: map[string][]DataType{
 			"T": []DataType{"fp16", "fp32"},
+		}},
+		"gelu": {Type: "gelu", Params: []Param{
+			{Name: "x", Kind: KindTensor, DomainID: "T"},
+			{Name: "mode", Kind: KindTensor, Const: true, Optional: true, Domain: []DataType{"string"}},
+		}, Domains: map[string][]DataType{
+			"T": []DataType{"fp16", "fp32"},
+		}},
+		"layer_norm": {Type: "layer_norm", Params: []Param{
+			{Name: "x", Kind: KindTensor, DomainID: "T"},
+			{Name: "axes", Kind: KindTensor, Const: true, Optional: true, Domain: []DataType{"int32"}},
+			{Name: "gamma", Kind: KindTensor, Const: true, Optional: true, DomainID: "T"},
+			{Name: "beta", Kind: KindTensor, Const: true, Optional: true, DomainID: "T"},
+			{Name: "epsilon", Kind: KindTensor, Const: true, Optional: true, DomainID: "T"},
+		}, Domains: map[string][]DataType{
+			"T": []DataType{"fp16", "fp32"},
+		}},
+		"linear": {Type: "linear", Params: []Param{
+			{Name: "x", Kind: KindTensor, DomainID: "T"},
+			{Name: "weight", Kind: KindTensor, Const: true, DomainID: "T"},
+			{Name: "bias", Kind: KindTensor, Const: true, Optional: true, DomainID: "T"},
+		}, Domains: map[string][]DataType{
+			"T": []DataType{"fp16", "fp32", "int32"},
 		}},
 		"matmul": {Type: "matmul", Params: []Param{
 			{Name: "x", Kind: KindTensor, DomainID: "T"},
@@ -261,6 +331,22 @@ var opsets = map[string]map[string]*Op{
 		}, Domains: map[string][]DataType{
 			"T": []DataType{"fp16", "fp32"},
 		}},
+		"silu": {Type: "silu", Params: []Param{
+			{Name: "x", Kind: KindTensor, DomainID: "T"},
+		}, Domains: map[string][]DataType{
+			"T": []DataType{"fp16", "fp32"},
+		}},
+		"slice_by_index": {Type: "slice_by_index", Params: []Param{
+			{Name: "x", Kind: KindTensor, DomainID: "T"},
+			{Name: "begin", Kind: KindTensor, Domain: []DataType{"int32"}},
+			{Name: "end", Kind: KindTensor, Domain: []DataType{"int32"}},
+			{Name: "stride", Kind: KindTensor, Const: true, Optional: true, Domain: []DataType{"int32"}},
+			{Name: "begin_mask", Kind: KindTensor, Const: true, Optional: true, Domain: []DataType{"bool"}},
+			{Name: "end_mask", Kind: KindTensor, Const: true, Optional: true, Domain: []DataType{"bool"}},
+			{Name: "squeeze_mask", Kind: KindTensor, Const: true, Optional: true, Domain: []DataType{"bool"}},
+		}, Domains: map[string][]DataType{
+			"T": []DataType{"fp16", "fp32", "int32", "bool"},
+		}},
 		"slice_by_size": {Type: "slice_by_size", Params: []Param{
 			{Name: "x", Kind: KindTensor, DomainID: "T"},
 			{Name: "begin", Kind: KindTensor, Domain: []DataType{"int32"}},
@@ -329,6 +415,16 @@ var opsets = map[string]map[string]*Op{
 		"const": {Type: "const", Params: []Param{
 			{Name: "val", Kind: KindInternal, Const: true},
 		}},
+		"constexpr_affine_dequantize": {Type: "constexpr_affine_dequantize", Params: []Param{
+			{Name: "quantized_data", Kind: KindTensor, Const: true, DomainID: "SrcT"},
+			{Name: "zero_point", Kind: KindTensor, Const: true, DomainID: "ZeroPointT"},
+			{Name: "scale", Kind: KindTensor, Const: true, DomainID: "DstT"},
+			{Name: "axis", Kind: KindTensor, Const: true, Domain: []DataType{"int32"}},
+		}, Domains: map[string][]DataType{
+			"DstT":       []DataType{"fp16", "fp32"},
+			"SrcT":       []DataType{"uint8", "int8"},
+			"ZeroPointT": []DataType{"uint8", "int8", "fp32"},
+		}},
 		"conv": {Type: "conv", Params: []Param{
 			{Name: "x", Kind: KindTensor, DomainID: "T"},
 			{Name: "weight", Kind: KindTensor, DomainID: "U"},
@@ -341,6 +437,30 @@ var opsets = map[string]map[string]*Op{
 		}, Domains: map[string][]DataType{
 			"T": []DataType{"fp16", "fp32"},
 			"U": []DataType{"fp16", "fp32"},
+		}},
+		"gelu": {Type: "gelu", Params: []Param{
+			{Name: "x", Kind: KindTensor, DomainID: "T"},
+			{Name: "mode", Kind: KindTensor, Const: true, Optional: true, Domain: []DataType{"string"}},
+		}, Domains: map[string][]DataType{
+			"T": []DataType{"fp16", "fp32"},
+		}},
+		"layer_norm": {Type: "layer_norm", Params: []Param{
+			{Name: "x", Kind: KindTensor, DomainID: "T"},
+			{Name: "axes", Kind: KindTensor, Const: true, Optional: true, Domain: []DataType{"int32"}},
+			{Name: "gamma", Kind: KindTensor, Const: true, Optional: true, DomainID: "U"},
+			{Name: "beta", Kind: KindTensor, Const: true, Optional: true, DomainID: "U"},
+			{Name: "epsilon", Kind: KindTensor, Const: true, Optional: true, DomainID: "U"},
+		}, Domains: map[string][]DataType{
+			"T": []DataType{"fp16", "fp32"},
+			"U": []DataType{"fp16", "fp32"},
+		}},
+		"linear": {Type: "linear", Params: []Param{
+			{Name: "x", Kind: KindTensor, DomainID: "T"},
+			{Name: "weight", Kind: KindTensor, Const: true, DomainID: "U"},
+			{Name: "bias", Kind: KindTensor, Const: true, Optional: true, DomainID: "U"},
+		}, Domains: map[string][]DataType{
+			"T": []DataType{"fp16", "fp32", "int32"},
+			"U": []DataType{"fp16", "fp32", "int32"},
 		}},
 		"matmul": {Type: "matmul", Params: []Param{
 			{Name: "x", Kind: KindTensor, DomainID: "T"},
@@ -413,6 +533,23 @@ var opsets = map[string]map[string]*Op{
 		}, Domains: map[string][]DataType{
 			"T": []DataType{"fp16", "fp32"},
 		}},
+		"silu": {Type: "silu", Params: []Param{
+			{Name: "x", Kind: KindTensor, DomainID: "T"},
+		}, Domains: map[string][]DataType{
+			"T": []DataType{"fp16", "fp32"},
+		}},
+		"slice_by_index": {Type: "slice_by_index", Params: []Param{
+			{Name: "x", Kind: KindTensor, DomainID: "T"},
+			{Name: "begin", Kind: KindTensor, DomainID: "U"},
+			{Name: "end", Kind: KindTensor, DomainID: "U"},
+			{Name: "stride", Kind: KindTensor, Const: true, Optional: true, DomainID: "U"},
+			{Name: "begin_mask", Kind: KindTensor, Const: true, Optional: true, Domain: []DataType{"bool"}},
+			{Name: "end_mask", Kind: KindTensor, Const: true, Optional: true, Domain: []DataType{"bool"}},
+			{Name: "squeeze_mask", Kind: KindTensor, Const: true, Optional: true, Domain: []DataType{"bool"}},
+		}, Domains: map[string][]DataType{
+			"T": []DataType{"fp16", "fp32", "int8", "int16", "int32", "uint8", "uint16", "bool"},
+			"U": []DataType{"int8", "int16", "int32"},
+		}},
 		"slice_by_size": {Type: "slice_by_size", Params: []Param{
 			{Name: "x", Kind: KindTensor, DomainID: "T"},
 			{Name: "begin", Kind: KindTensor, DomainID: "U"},
@@ -482,6 +619,16 @@ var opsets = map[string]map[string]*Op{
 		"const": {Type: "const", Params: []Param{
 			{Name: "val", Kind: KindInternal, Const: true},
 		}},
+		"constexpr_affine_dequantize": {Type: "constexpr_affine_dequantize", Params: []Param{
+			{Name: "quantized_data", Kind: KindTensor, Const: true, DomainID: "SrcT"},
+			{Name: "zero_point", Kind: KindTensor, Const: true, DomainID: "ZeroPointT"},
+			{Name: "scale", Kind: KindTensor, Const: true, DomainID: "DstT"},
+			{Name: "axis", Kind: KindTensor, Const: true, Domain: []DataType{"int32"}},
+		}, Domains: map[string][]DataType{
+			"DstT":       []DataType{"fp16", "fp32"},
+			"SrcT":       []DataType{"uint8", "int8"},
+			"ZeroPointT": []DataType{"uint8", "int8", "fp32"},
+		}},
 		"conv": {Type: "conv", Params: []Param{
 			{Name: "x", Kind: KindTensor, DomainID: "T"},
 			{Name: "weight", Kind: KindTensor, DomainID: "U"},
@@ -494,6 +641,36 @@ var opsets = map[string]map[string]*Op{
 		}, Domains: map[string][]DataType{
 			"T": []DataType{"fp16", "fp32"},
 			"U": []DataType{"fp16", "fp32"},
+		}},
+		"coreml_update_state": {Type: "coreml_update_state", Params: []Param{
+			{Name: "state", Kind: KindState},
+			{Name: "value", Kind: KindTensor, DomainID: "T"},
+		}, Domains: map[string][]DataType{
+			"T": []DataType{"fp16", "fp32", "int8", "int16", "int32", "uint8", "uint16", "bool"},
+		}},
+		"gelu": {Type: "gelu", Params: []Param{
+			{Name: "x", Kind: KindTensor, DomainID: "T"},
+			{Name: "mode", Kind: KindTensor, Const: true, Optional: true, Domain: []DataType{"string"}},
+		}, Domains: map[string][]DataType{
+			"T": []DataType{"fp16", "fp32"},
+		}},
+		"layer_norm": {Type: "layer_norm", Params: []Param{
+			{Name: "x", Kind: KindTensor, DomainID: "T"},
+			{Name: "axes", Kind: KindTensor, Const: true, Optional: true, Domain: []DataType{"int32"}},
+			{Name: "gamma", Kind: KindTensor, Const: true, Optional: true, DomainID: "U"},
+			{Name: "beta", Kind: KindTensor, Const: true, Optional: true, DomainID: "U"},
+			{Name: "epsilon", Kind: KindTensor, Const: true, Optional: true, DomainID: "U"},
+		}, Domains: map[string][]DataType{
+			"T": []DataType{"fp16", "fp32"},
+			"U": []DataType{"fp16", "fp32"},
+		}},
+		"linear": {Type: "linear", Params: []Param{
+			{Name: "x", Kind: KindTensor, DomainID: "T"},
+			{Name: "weight", Kind: KindTensor, Const: true, DomainID: "U"},
+			{Name: "bias", Kind: KindTensor, Const: true, Optional: true, DomainID: "U"},
+		}, Domains: map[string][]DataType{
+			"T": []DataType{"fp16", "fp32", "int32"},
+			"U": []DataType{"fp16", "fp32", "int32"},
 		}},
 		"matmul": {Type: "matmul", Params: []Param{
 			{Name: "x", Kind: KindTensor, DomainID: "T"},
@@ -578,6 +755,23 @@ var opsets = map[string]map[string]*Op{
 		}, Domains: map[string][]DataType{
 			"T": []DataType{"fp16", "fp32"},
 		}},
+		"silu": {Type: "silu", Params: []Param{
+			{Name: "x", Kind: KindTensor, DomainID: "T"},
+		}, Domains: map[string][]DataType{
+			"T": []DataType{"fp16", "fp32"},
+		}},
+		"slice_by_index": {Type: "slice_by_index", Params: []Param{
+			{Name: "x", Kind: KindTensor, DomainID: "T"},
+			{Name: "begin", Kind: KindTensor, DomainID: "U"},
+			{Name: "end", Kind: KindTensor, DomainID: "U"},
+			{Name: "stride", Kind: KindTensor, Const: true, Optional: true, DomainID: "U"},
+			{Name: "begin_mask", Kind: KindTensor, Const: true, Optional: true, Domain: []DataType{"bool"}},
+			{Name: "end_mask", Kind: KindTensor, Const: true, Optional: true, Domain: []DataType{"bool"}},
+			{Name: "squeeze_mask", Kind: KindTensor, Const: true, Optional: true, Domain: []DataType{"bool"}},
+		}, Domains: map[string][]DataType{
+			"T": []DataType{"fp16", "fp32", "int8", "int16", "int32", "uint8", "uint16", "bool"},
+			"U": []DataType{"int8", "int16", "int32"},
+		}},
 		"slice_by_size": {Type: "slice_by_size", Params: []Param{
 			{Name: "x", Kind: KindTensor, DomainID: "T"},
 			{Name: "begin", Kind: KindTensor, DomainID: "U"},
@@ -620,6 +814,12 @@ var opsets = map[string]map[string]*Op{
 		}, Domains: map[string][]DataType{
 			"T": []DataType{"fp16", "fp32", "int8", "int16", "int32", "uint8", "uint16", "bool"},
 		}},
+		"write_state": {Type: "write_state", Params: []Param{
+			{Name: "input", Kind: KindState},
+			{Name: "data", Kind: KindTensor, DomainID: "T"},
+		}, Domains: map[string][]DataType{
+			"T": []DataType{"fp16", "fp32", "int8", "int16", "int32", "uint8", "uint16", "bool"},
+		}},
 	},
 }
 
@@ -629,7 +829,12 @@ var registered = map[string]bool{
 	"cast":                         true,
 	"concat":                       true,
 	"const":                        true,
+	"constexpr_affine_dequantize":  true,
 	"conv":                         true,
+	"coreml_update_state":          true,
+	"gelu":                         true,
+	"layer_norm":                   true,
+	"linear":                       true,
 	"matmul":                       true,
 	"maximum":                      true,
 	"mul":                          true,
@@ -643,6 +848,8 @@ var registered = map[string]bool{
 	"reshape":                      true,
 	"scaled_dot_product_attention": true,
 	"sigmoid":                      true,
+	"silu":                         true,
+	"slice_by_index":               true,
 	"slice_by_size":                true,
 	"softmax":                      true,
 	"sqrt":                         true,
@@ -650,4 +857,5 @@ var registered = map[string]bool{
 	"sub":                          true,
 	"tile":                         true,
 	"transpose":                    true,
+	"write_state":                  true,
 }

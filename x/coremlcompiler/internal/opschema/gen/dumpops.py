@@ -30,14 +30,19 @@ from coremltools.converters.mil.mil.input_type import (
 from coremltools.converters.mil.mil.ops.helper import _get_version_of_op
 from coremltools.converters.mil.mil.ops.registry import SSAOpRegistry
 
-# Tier 1: the ops x/ane/mil emits today.
+# Ops declared in coremltools' core registry: the ones x/ane/mil emits plus the
+# ones a transformer graph lowered by github.com/tmc/modelir reaches for.
 OPS = [
     "abs",
     "add",
     "cast",
     "concat",
     "const",
+    "constexpr_affine_dequantize",
     "conv",
+    "gelu",
+    "layer_norm",
+    "linear",
     "matmul",
     "maximum",
     "mul",
@@ -51,6 +56,8 @@ OPS = [
     "reshape",
     "scaled_dot_product_attention",
     "sigmoid",
+    "silu",
+    "slice_by_index",
     "slice_by_size",
     "softmax",
     "sqrt",
@@ -59,6 +66,28 @@ OPS = [
     "tile",
     "transpose",
 ]
+
+# Ops declared in the "coreml" dialect namespace rather than the core registry
+# (registry.py registers them into dialect_ops, so _get_version_of_op does not
+# see them). They carry a real InputSpec, so their schema is dumped the same way.
+DIALECT_OPS = [
+    "coreml_update_state",
+]
+
+# write_state has no Operation subclass anywhere in coremltools: the MIL backend
+# synthesizes it directly while lowering coreml_update_state
+# (converters/mil/backend/mil/load.py:299-325), binding coreml_update_state's
+# "state" input to "input" and its "value" input to "data". The frontend reader
+# inverts exactly that mapping (converters/mil/frontend/milproto/load.py:441-447).
+# So its declaration is derived from coreml_update_state's rather than invented.
+SYNTHESIZED = {
+    "write_state": ("coreml_update_state", {"state": "input", "value": "data"}),
+}
+
+# Ops that only exist once MIL has state types. They are gated on read_state,
+# the one state op with a real opset_version, so the gate follows coremltools
+# rather than a hardcoded opset name.
+STATE_GATE_OP = "read_state"
 
 OPSETS = ["iOS15", "iOS16", "iOS17", "iOS18"]
 
@@ -107,6 +136,25 @@ def op_schema(cls):
     return {"type": cls.__name__, "params": params, "domains": domains}
 
 
+def rename_params(op_type, schema, rename):
+    """Derive a schema from another op's by renaming its inputs.
+
+    Every declared input must be renamed: a missed one would silently keep the
+    source op's name and produce a schema that accepts the wrong argument.
+    """
+    missing = set(rename) - {p["name"] for p in schema["params"]}
+    if missing:
+        raise SystemExit("%s: %s has no input(s) %s" % (op_type, schema["type"], sorted(missing)))
+    params = []
+    for p in schema["params"]:
+        if p["name"] not in rename:
+            raise SystemExit("%s: no rename given for %s input %r" % (op_type, schema["type"], p["name"]))
+        q = dict(p)
+        q["name"] = rename[p["name"]]
+        params.append(q)
+    return {"type": op_type, "params": params, "domains": dict(schema["domains"])}
+
+
 def main():
     sha = subprocess.run(
         ["git", "-C", coremltools.__path__[0], "rev-parse", "HEAD"],
@@ -126,6 +174,30 @@ def main():
             except ValueError:
                 continue  # op does not exist in this opset
             ops[op_type] = op_schema(cls)
+
+        # State ops exist only from the opset that declares read_state.
+        if STATE_GATE_OP in ops:
+            for op_type in DIALECT_OPS:
+                cls = SSAOpRegistry.dialect_ops.get(op_type)
+                if cls is None:
+                    raise SystemExit("dialect op %s not registered" % op_type)
+                ops[op_type] = op_schema(cls)
+            for op_type, (src, rename) in SYNTHESIZED.items():
+                # Deriving a declaration is only defensible while coremltools
+                # has none. If a release ships a real one, it is authoritative
+                # and this must be rewritten to dump it -- silently preferring
+                # the derivation would ship a schema that disagrees with the
+                # tool it claims to mirror.
+                for bucket in ("core_ops", "dialect_ops"):
+                    if op_type in getattr(SSAOpRegistry, bucket):
+                        raise SystemExit(
+                            "%s is now declared in SSAOpRegistry.%s; dump it "
+                            "instead of deriving it from %s" % (op_type, bucket, src)
+                        )
+                if src not in ops:
+                    raise SystemExit("%s derives from %s, which is absent" % (op_type, src))
+                ops[op_type] = rename_params(op_type, ops[src], rename)
+
         opsets[opset.lower()] = ops
 
     out = {

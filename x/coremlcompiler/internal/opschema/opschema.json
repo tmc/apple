@@ -196,6 +196,114 @@
     ],
     "type": "conv"
    },
+   "gelu": {
+    "domains": {
+     "T": [
+      "fp16",
+      "fp32"
+     ]
+    },
+    "params": [
+     {
+      "const": false,
+      "domain_id": "T",
+      "kind": "tensor",
+      "name": "x",
+      "optional": false
+     },
+     {
+      "const": true,
+      "domain": [
+       "string"
+      ],
+      "kind": "tensor",
+      "name": "mode",
+      "optional": true
+     }
+    ],
+    "type": "gelu"
+   },
+   "layer_norm": {
+    "domains": {
+     "T": [
+      "fp16",
+      "fp32"
+     ]
+    },
+    "params": [
+     {
+      "const": false,
+      "domain_id": "T",
+      "kind": "tensor",
+      "name": "x",
+      "optional": false
+     },
+     {
+      "const": true,
+      "domain": [
+       "int32"
+      ],
+      "kind": "tensor",
+      "name": "axes",
+      "optional": true
+     },
+     {
+      "const": true,
+      "domain_id": "T",
+      "kind": "tensor",
+      "name": "gamma",
+      "optional": true
+     },
+     {
+      "const": true,
+      "domain_id": "T",
+      "kind": "tensor",
+      "name": "beta",
+      "optional": true
+     },
+     {
+      "const": true,
+      "domain_id": "T",
+      "kind": "tensor",
+      "name": "epsilon",
+      "optional": true
+     }
+    ],
+    "type": "layer_norm"
+   },
+   "linear": {
+    "domains": {
+     "T": [
+      "fp16",
+      "fp32",
+      "int32"
+     ]
+    },
+    "params": [
+     {
+      "const": false,
+      "domain_id": "T",
+      "kind": "tensor",
+      "name": "x",
+      "optional": false
+     },
+     {
+      "const": true,
+      "domain_id": "T",
+      "kind": "tensor",
+      "name": "weight",
+      "optional": false
+     },
+     {
+      "const": true,
+      "domain_id": "T",
+      "kind": "tensor",
+      "name": "bias",
+      "optional": true
+     }
+    ],
+    "type": "linear"
+   },
    "matmul": {
     "domains": {
      "T": [
@@ -519,6 +627,98 @@
      }
     ],
     "type": "sigmoid"
+   },
+   "silu": {
+    "domains": {
+     "T": [
+      "fp16",
+      "fp32"
+     ]
+    },
+    "params": [
+     {
+      "const": false,
+      "domain_id": "T",
+      "kind": "tensor",
+      "name": "x",
+      "optional": false
+     }
+    ],
+    "type": "silu"
+   },
+   "slice_by_index": {
+    "domains": {
+     "T": [
+      "fp16",
+      "fp32",
+      "int32",
+      "bool"
+     ]
+    },
+    "params": [
+     {
+      "const": false,
+      "domain_id": "T",
+      "kind": "tensor",
+      "name": "x",
+      "optional": false
+     },
+     {
+      "const": false,
+      "domain": [
+       "int32"
+      ],
+      "kind": "tensor",
+      "name": "begin",
+      "optional": false
+     },
+     {
+      "const": false,
+      "domain": [
+       "int32"
+      ],
+      "kind": "tensor",
+      "name": "end",
+      "optional": false
+     },
+     {
+      "const": true,
+      "domain": [
+       "int32"
+      ],
+      "kind": "tensor",
+      "name": "stride",
+      "optional": true
+     },
+     {
+      "const": true,
+      "domain": [
+       "bool"
+      ],
+      "kind": "tensor",
+      "name": "begin_mask",
+      "optional": true
+     },
+     {
+      "const": true,
+      "domain": [
+       "bool"
+      ],
+      "kind": "tensor",
+      "name": "end_mask",
+      "optional": true
+     },
+     {
+      "const": true,
+      "domain": [
+       "bool"
+      ],
+      "kind": "tensor",
+      "name": "squeeze_mask",
+      "optional": true
+     }
+    ],
+    "type": "slice_by_index"
    },
    "slice_by_size": {
     "domains": {
@@ -824,6 +1024,56 @@
     ],
     "type": "const"
    },
+   "constexpr_affine_dequantize": {
+    "domains": {
+     "DstT": [
+      "fp16",
+      "fp32"
+     ],
+     "SrcT": [
+      "uint8",
+      "int8"
+     ],
+     "ZeroPointT": [
+      "uint8",
+      "int8",
+      "fp32"
+     ]
+    },
+    "params": [
+     {
+      "const": true,
+      "domain_id": "SrcT",
+      "kind": "tensor",
+      "name": "quantized_data",
+      "optional": false
+     },
+     {
+      "const": true,
+      "domain_id": "ZeroPointT",
+      "kind": "tensor",
+      "name": "zero_point",
+      "optional": false
+     },
+     {
+      "const": true,
+      "domain_id": "DstT",
+      "kind": "tensor",
+      "name": "scale",
+      "optional": false
+     },
+     {
+      "const": true,
+      "domain": [
+       "int32"
+      ],
+      "kind": "tensor",
+      "name": "axis",
+      "optional": false
+     }
+    ],
+    "type": "constexpr_affine_dequantize"
+   },
    "conv": {
     "domains": {
      "T": [
@@ -900,6 +1150,114 @@
      }
     ],
     "type": "conv"
+   },
+   "gelu": {
+    "domains": {
+     "T": [
+      "fp16",
+      "fp32"
+     ]
+    },
+    "params": [
+     {
+      "const": false,
+      "domain_id": "T",
+      "kind": "tensor",
+      "name": "x",
+      "optional": false
+     },
+     {
+      "const": true,
+      "domain": [
+       "string"
+      ],
+      "kind": "tensor",
+      "name": "mode",
+      "optional": true
+     }
+    ],
+    "type": "gelu"
+   },
+   "layer_norm": {
+    "domains": {
+     "T": [
+      "fp16",
+      "fp32"
+     ]
+    },
+    "params": [
+     {
+      "const": false,
+      "domain_id": "T",
+      "kind": "tensor",
+      "name": "x",
+      "optional": false
+     },
+     {
+      "const": true,
+      "domain": [
+       "int32"
+      ],
+      "kind": "tensor",
+      "name": "axes",
+      "optional": true
+     },
+     {
+      "const": true,
+      "domain_id": "T",
+      "kind": "tensor",
+      "name": "gamma",
+      "optional": true
+     },
+     {
+      "const": true,
+      "domain_id": "T",
+      "kind": "tensor",
+      "name": "beta",
+      "optional": true
+     },
+     {
+      "const": true,
+      "domain_id": "T",
+      "kind": "tensor",
+      "name": "epsilon",
+      "optional": true
+     }
+    ],
+    "type": "layer_norm"
+   },
+   "linear": {
+    "domains": {
+     "T": [
+      "fp16",
+      "fp32",
+      "int32"
+     ]
+    },
+    "params": [
+     {
+      "const": false,
+      "domain_id": "T",
+      "kind": "tensor",
+      "name": "x",
+      "optional": false
+     },
+     {
+      "const": true,
+      "domain_id": "T",
+      "kind": "tensor",
+      "name": "weight",
+      "optional": false
+     },
+     {
+      "const": true,
+      "domain_id": "T",
+      "kind": "tensor",
+      "name": "bias",
+      "optional": true
+     }
+    ],
+    "type": "linear"
    },
    "matmul": {
     "domains": {
@@ -1224,6 +1582,98 @@
      }
     ],
     "type": "sigmoid"
+   },
+   "silu": {
+    "domains": {
+     "T": [
+      "fp16",
+      "fp32"
+     ]
+    },
+    "params": [
+     {
+      "const": false,
+      "domain_id": "T",
+      "kind": "tensor",
+      "name": "x",
+      "optional": false
+     }
+    ],
+    "type": "silu"
+   },
+   "slice_by_index": {
+    "domains": {
+     "T": [
+      "fp16",
+      "fp32",
+      "int32",
+      "bool"
+     ]
+    },
+    "params": [
+     {
+      "const": false,
+      "domain_id": "T",
+      "kind": "tensor",
+      "name": "x",
+      "optional": false
+     },
+     {
+      "const": false,
+      "domain": [
+       "int32"
+      ],
+      "kind": "tensor",
+      "name": "begin",
+      "optional": false
+     },
+     {
+      "const": false,
+      "domain": [
+       "int32"
+      ],
+      "kind": "tensor",
+      "name": "end",
+      "optional": false
+     },
+     {
+      "const": true,
+      "domain": [
+       "int32"
+      ],
+      "kind": "tensor",
+      "name": "stride",
+      "optional": true
+     },
+     {
+      "const": true,
+      "domain": [
+       "bool"
+      ],
+      "kind": "tensor",
+      "name": "begin_mask",
+      "optional": true
+     },
+     {
+      "const": true,
+      "domain": [
+       "bool"
+      ],
+      "kind": "tensor",
+      "name": "end_mask",
+      "optional": true
+     },
+     {
+      "const": true,
+      "domain": [
+       "bool"
+      ],
+      "kind": "tensor",
+      "name": "squeeze_mask",
+      "optional": true
+     }
+    ],
+    "type": "slice_by_index"
    },
    "slice_by_size": {
     "domains": {
@@ -1533,6 +1983,56 @@
     ],
     "type": "const"
    },
+   "constexpr_affine_dequantize": {
+    "domains": {
+     "DstT": [
+      "fp16",
+      "fp32"
+     ],
+     "SrcT": [
+      "uint8",
+      "int8"
+     ],
+     "ZeroPointT": [
+      "uint8",
+      "int8",
+      "fp32"
+     ]
+    },
+    "params": [
+     {
+      "const": true,
+      "domain_id": "SrcT",
+      "kind": "tensor",
+      "name": "quantized_data",
+      "optional": false
+     },
+     {
+      "const": true,
+      "domain_id": "ZeroPointT",
+      "kind": "tensor",
+      "name": "zero_point",
+      "optional": false
+     },
+     {
+      "const": true,
+      "domain_id": "DstT",
+      "kind": "tensor",
+      "name": "scale",
+      "optional": false
+     },
+     {
+      "const": true,
+      "domain": [
+       "int32"
+      ],
+      "kind": "tensor",
+      "name": "axis",
+      "optional": false
+     }
+    ],
+    "type": "constexpr_affine_dequantize"
+   },
    "conv": {
     "domains": {
      "T": [
@@ -1613,6 +2113,123 @@
      }
     ],
     "type": "conv"
+   },
+   "gelu": {
+    "domains": {
+     "T": [
+      "fp16",
+      "fp32"
+     ]
+    },
+    "params": [
+     {
+      "const": false,
+      "domain_id": "T",
+      "kind": "tensor",
+      "name": "x",
+      "optional": false
+     },
+     {
+      "const": true,
+      "domain": [
+       "string"
+      ],
+      "kind": "tensor",
+      "name": "mode",
+      "optional": true
+     }
+    ],
+    "type": "gelu"
+   },
+   "layer_norm": {
+    "domains": {
+     "T": [
+      "fp16",
+      "fp32"
+     ],
+     "U": [
+      "fp16",
+      "fp32"
+     ]
+    },
+    "params": [
+     {
+      "const": false,
+      "domain_id": "T",
+      "kind": "tensor",
+      "name": "x",
+      "optional": false
+     },
+     {
+      "const": true,
+      "domain": [
+       "int32"
+      ],
+      "kind": "tensor",
+      "name": "axes",
+      "optional": true
+     },
+     {
+      "const": true,
+      "domain_id": "U",
+      "kind": "tensor",
+      "name": "gamma",
+      "optional": true
+     },
+     {
+      "const": true,
+      "domain_id": "U",
+      "kind": "tensor",
+      "name": "beta",
+      "optional": true
+     },
+     {
+      "const": true,
+      "domain_id": "U",
+      "kind": "tensor",
+      "name": "epsilon",
+      "optional": true
+     }
+    ],
+    "type": "layer_norm"
+   },
+   "linear": {
+    "domains": {
+     "T": [
+      "fp16",
+      "fp32",
+      "int32"
+     ],
+     "U": [
+      "fp16",
+      "fp32",
+      "int32"
+     ]
+    },
+    "params": [
+     {
+      "const": false,
+      "domain_id": "T",
+      "kind": "tensor",
+      "name": "x",
+      "optional": false
+     },
+     {
+      "const": true,
+      "domain_id": "U",
+      "kind": "tensor",
+      "name": "weight",
+      "optional": false
+     },
+     {
+      "const": true,
+      "domain_id": "U",
+      "kind": "tensor",
+      "name": "bias",
+      "optional": true
+     }
+    ],
+    "type": "linear"
    },
    "matmul": {
     "domains": {
@@ -1949,6 +2566,101 @@
      }
     ],
     "type": "sigmoid"
+   },
+   "silu": {
+    "domains": {
+     "T": [
+      "fp16",
+      "fp32"
+     ]
+    },
+    "params": [
+     {
+      "const": false,
+      "domain_id": "T",
+      "kind": "tensor",
+      "name": "x",
+      "optional": false
+     }
+    ],
+    "type": "silu"
+   },
+   "slice_by_index": {
+    "domains": {
+     "T": [
+      "fp16",
+      "fp32",
+      "int8",
+      "int16",
+      "int32",
+      "uint8",
+      "uint16",
+      "bool"
+     ],
+     "U": [
+      "int8",
+      "int16",
+      "int32"
+     ]
+    },
+    "params": [
+     {
+      "const": false,
+      "domain_id": "T",
+      "kind": "tensor",
+      "name": "x",
+      "optional": false
+     },
+     {
+      "const": false,
+      "domain_id": "U",
+      "kind": "tensor",
+      "name": "begin",
+      "optional": false
+     },
+     {
+      "const": false,
+      "domain_id": "U",
+      "kind": "tensor",
+      "name": "end",
+      "optional": false
+     },
+     {
+      "const": true,
+      "domain_id": "U",
+      "kind": "tensor",
+      "name": "stride",
+      "optional": true
+     },
+     {
+      "const": true,
+      "domain": [
+       "bool"
+      ],
+      "kind": "tensor",
+      "name": "begin_mask",
+      "optional": true
+     },
+     {
+      "const": true,
+      "domain": [
+       "bool"
+      ],
+      "kind": "tensor",
+      "name": "end_mask",
+      "optional": true
+     },
+     {
+      "const": true,
+      "domain": [
+       "bool"
+      ],
+      "kind": "tensor",
+      "name": "squeeze_mask",
+      "optional": true
+     }
+    ],
+    "type": "slice_by_index"
    },
    "slice_by_size": {
     "domains": {
@@ -2267,6 +2979,56 @@
     ],
     "type": "const"
    },
+   "constexpr_affine_dequantize": {
+    "domains": {
+     "DstT": [
+      "fp16",
+      "fp32"
+     ],
+     "SrcT": [
+      "uint8",
+      "int8"
+     ],
+     "ZeroPointT": [
+      "uint8",
+      "int8",
+      "fp32"
+     ]
+    },
+    "params": [
+     {
+      "const": true,
+      "domain_id": "SrcT",
+      "kind": "tensor",
+      "name": "quantized_data",
+      "optional": false
+     },
+     {
+      "const": true,
+      "domain_id": "ZeroPointT",
+      "kind": "tensor",
+      "name": "zero_point",
+      "optional": false
+     },
+     {
+      "const": true,
+      "domain_id": "DstT",
+      "kind": "tensor",
+      "name": "scale",
+      "optional": false
+     },
+     {
+      "const": true,
+      "domain": [
+       "int32"
+      ],
+      "kind": "tensor",
+      "name": "axis",
+      "optional": false
+     }
+    ],
+    "type": "constexpr_affine_dequantize"
+   },
    "conv": {
     "domains": {
      "T": [
@@ -2347,6 +3109,153 @@
      }
     ],
     "type": "conv"
+   },
+   "coreml_update_state": {
+    "domains": {
+     "T": [
+      "fp16",
+      "fp32",
+      "int8",
+      "int16",
+      "int32",
+      "uint8",
+      "uint16",
+      "bool"
+     ]
+    },
+    "params": [
+     {
+      "const": false,
+      "kind": "state",
+      "name": "state",
+      "optional": false
+     },
+     {
+      "const": false,
+      "domain_id": "T",
+      "kind": "tensor",
+      "name": "value",
+      "optional": false
+     }
+    ],
+    "type": "coreml_update_state"
+   },
+   "gelu": {
+    "domains": {
+     "T": [
+      "fp16",
+      "fp32"
+     ]
+    },
+    "params": [
+     {
+      "const": false,
+      "domain_id": "T",
+      "kind": "tensor",
+      "name": "x",
+      "optional": false
+     },
+     {
+      "const": true,
+      "domain": [
+       "string"
+      ],
+      "kind": "tensor",
+      "name": "mode",
+      "optional": true
+     }
+    ],
+    "type": "gelu"
+   },
+   "layer_norm": {
+    "domains": {
+     "T": [
+      "fp16",
+      "fp32"
+     ],
+     "U": [
+      "fp16",
+      "fp32"
+     ]
+    },
+    "params": [
+     {
+      "const": false,
+      "domain_id": "T",
+      "kind": "tensor",
+      "name": "x",
+      "optional": false
+     },
+     {
+      "const": true,
+      "domain": [
+       "int32"
+      ],
+      "kind": "tensor",
+      "name": "axes",
+      "optional": true
+     },
+     {
+      "const": true,
+      "domain_id": "U",
+      "kind": "tensor",
+      "name": "gamma",
+      "optional": true
+     },
+     {
+      "const": true,
+      "domain_id": "U",
+      "kind": "tensor",
+      "name": "beta",
+      "optional": true
+     },
+     {
+      "const": true,
+      "domain_id": "U",
+      "kind": "tensor",
+      "name": "epsilon",
+      "optional": true
+     }
+    ],
+    "type": "layer_norm"
+   },
+   "linear": {
+    "domains": {
+     "T": [
+      "fp16",
+      "fp32",
+      "int32"
+     ],
+     "U": [
+      "fp16",
+      "fp32",
+      "int32"
+     ]
+    },
+    "params": [
+     {
+      "const": false,
+      "domain_id": "T",
+      "kind": "tensor",
+      "name": "x",
+      "optional": false
+     },
+     {
+      "const": true,
+      "domain_id": "U",
+      "kind": "tensor",
+      "name": "weight",
+      "optional": false
+     },
+     {
+      "const": true,
+      "domain_id": "U",
+      "kind": "tensor",
+      "name": "bias",
+      "optional": true
+     }
+    ],
+    "type": "linear"
    },
    "matmul": {
     "domains": {
@@ -2740,6 +3649,101 @@
     ],
     "type": "sigmoid"
    },
+   "silu": {
+    "domains": {
+     "T": [
+      "fp16",
+      "fp32"
+     ]
+    },
+    "params": [
+     {
+      "const": false,
+      "domain_id": "T",
+      "kind": "tensor",
+      "name": "x",
+      "optional": false
+     }
+    ],
+    "type": "silu"
+   },
+   "slice_by_index": {
+    "domains": {
+     "T": [
+      "fp16",
+      "fp32",
+      "int8",
+      "int16",
+      "int32",
+      "uint8",
+      "uint16",
+      "bool"
+     ],
+     "U": [
+      "int8",
+      "int16",
+      "int32"
+     ]
+    },
+    "params": [
+     {
+      "const": false,
+      "domain_id": "T",
+      "kind": "tensor",
+      "name": "x",
+      "optional": false
+     },
+     {
+      "const": false,
+      "domain_id": "U",
+      "kind": "tensor",
+      "name": "begin",
+      "optional": false
+     },
+     {
+      "const": false,
+      "domain_id": "U",
+      "kind": "tensor",
+      "name": "end",
+      "optional": false
+     },
+     {
+      "const": true,
+      "domain_id": "U",
+      "kind": "tensor",
+      "name": "stride",
+      "optional": true
+     },
+     {
+      "const": true,
+      "domain": [
+       "bool"
+      ],
+      "kind": "tensor",
+      "name": "begin_mask",
+      "optional": true
+     },
+     {
+      "const": true,
+      "domain": [
+       "bool"
+      ],
+      "kind": "tensor",
+      "name": "end_mask",
+      "optional": true
+     },
+     {
+      "const": true,
+      "domain": [
+       "bool"
+      ],
+      "kind": "tensor",
+      "name": "squeeze_mask",
+      "optional": true
+     }
+    ],
+    "type": "slice_by_index"
+   },
    "slice_by_size": {
     "domains": {
      "T": [
@@ -2934,6 +3938,36 @@
      }
     ],
     "type": "transpose"
+   },
+   "write_state": {
+    "domains": {
+     "T": [
+      "fp16",
+      "fp32",
+      "int8",
+      "int16",
+      "int32",
+      "uint8",
+      "uint16",
+      "bool"
+     ]
+    },
+    "params": [
+     {
+      "const": false,
+      "kind": "state",
+      "name": "input",
+      "optional": false
+     },
+     {
+      "const": false,
+      "domain_id": "T",
+      "kind": "tensor",
+      "name": "data",
+      "optional": false
+     }
+    ],
+    "type": "write_state"
    }
   }
  }
