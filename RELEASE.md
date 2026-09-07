@@ -26,6 +26,14 @@ integer widths, struct ABI compatibility, or receiver lifetime.
   They predate this preparation. Review the generator and ownership evidence
   before classifying them as regressions or accepted corrections; do not add
   blanket allowances or repair generated files by hand.
+- Anonymous union identity (Class C): the generator loses anonymous-union
+  encodings before ownership arbitration and misattributes unrelated fields to
+  `virtualization.Union`. The resulting named fields are not a resolution of
+  `gtshaderprofiler.GTAGX2ShaderProfilerProgramAddress`. Its `allOpaqueRecords`
+  entry is restored: the expected stale-entry failure exposes this unresolved
+  cross-framework misattribution. Removing it in `bde66274f` was incorrect.
+  Fix Class C in the generator before re-evaluating the entry; do not broaden
+  allowances or treat the opaque-record gate as green.
 - macOS 27 runtime qualification: `TestConstexprPlacementRuntime` crashes while
   loading its deliberately invalid parameters-as-inputs model on macOS 27.0
   build `26A5425a`. On macOS 26.6.2 build `25G83`, the runtime rejects that model

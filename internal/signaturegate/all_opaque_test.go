@@ -129,7 +129,10 @@ var allOpaqueRecords = map[string]string{
 	// gate reported all three as both unlisted and stale in one run. A key that
 	// names the wrong thing is suppression that protects nothing.
 	"diskimages2.AAAsyncByteStreamImpl": "UNADJUDICATED: private framework, no public header",
-	"virtualization.PluginIdentifier":   "UNADJUDICATED: private framework, no public header",
+	// Keep this entry until Class C is fixed: the virtualization.Union fields
+	// are cross-framework anonymous-union misattribution, not a resolution.
+	"gtshaderprofiler.GTAGX2ShaderProfilerProgramAddress": "UNADJUDICATED: private framework, no public header",
+	"virtualization.PluginIdentifier":                     "UNADJUDICATED: private framework, no public header",
 
 	// UNADJUDICATED. CSSM is a deprecated C API whose headers are no longer
 	// shipped in the SDK, so there is nothing to adjudicate against on this
