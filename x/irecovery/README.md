@@ -17,9 +17,16 @@ operations can cancel while waiting for that access.
   by an error requiring an explicit retry. Recovery-command failures propagate.
   The transfer has a two-minute ceiling or the caller's deadline.
 
-Upload completion is not firmware execution or a completed restore. DFU
-manifestation notification, reset and ECID-matched re-enumeration remain separate,
-unimplemented steps. Recovery uploads need their subsequent execution command.
+Upload completion is not firmware execution or a completed restore. `FinalizeDFU` sends
+manifestation notification after a successful DFU upload, polls the device, then
+resets and retires the connection. `WaitOpen` waits for a unique ECID and mode
+match before claiming a new connection. Raw `Control` or `BulkWrite` calls
+invalidate the recorded upload; finalization then requires another upload.
+
+Native reset has no timeout. Canceling `FinalizeDFU` stops the caller's wait,
+but the operation retains the handle and library until reset and cleanup return.
+`Close` waits for that cleanup; call `WaitOpen` only afterward. Reset accepts
+libusb success or NOT_FOUND (reenumeration required); other errors propagate. Recovery uploads need their subsequent execution command.
 No physical or research-VM upload has been qualified.
 
 ## Protocol evidence

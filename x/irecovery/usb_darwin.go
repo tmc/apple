@@ -5,6 +5,7 @@ package irecovery
 import (
 	"context"
 	"encoding/binary"
+	"errors"
 	"fmt"
 	"strconv"
 	"strings"
@@ -40,6 +41,7 @@ type library struct {
 	bulk       func(uintptr, uint8, *byte, int32, *int32, uint32) int32
 	claim      func(uintptr, int32) int32
 	release    func(uintptr, int32) int32
+	reset      func(uintptr) int32
 }
 
 func load(path string) (l *library, err error) {
@@ -62,7 +64,7 @@ func load(path string) (l *library, err error) {
 	}{
 		{"libusb_init", &l.init}, {"libusb_exit", &l.exit}, {"libusb_get_device_list", &l.list}, {"libusb_free_device_list", &l.freeList},
 		{"libusb_get_device_descriptor", &l.descriptor}, {"libusb_open", &l.open}, {"libusb_close", &l.close}, {"libusb_get_string_descriptor_ascii", &l.serial},
-		{"libusb_control_transfer", &l.control}, {"libusb_bulk_transfer", &l.bulk}, {"libusb_claim_interface", &l.claim}, {"libusb_release_interface", &l.release},
+		{"libusb_control_transfer", &l.control}, {"libusb_bulk_transfer", &l.bulk}, {"libusb_claim_interface", &l.claim}, {"libusb_release_interface", &l.release}, {"libusb_reset_device", &l.reset},
 	} {
 		var p uintptr
 		p, err = purego.Dlsym(image, s.name)
@@ -76,7 +78,12 @@ func load(path string) (l *library, err error) {
 	}
 	return l, nil
 }
-func (l *library) dispose() { l.exit(l.ctx); purego.Dlclose(l.image) }
+func (l *library) dispose() {
+	l.exit(l.ctx)
+	if l.image != 0 {
+		purego.Dlclose(l.image)
+	}
+}
 
 // Discover lists readable Apple DFU/recovery endpoints. A candidate that cannot
 // be opened or identified causes an error instead of silently disappearing.
@@ -107,7 +114,7 @@ func (l *library) each(ctx context.Context, visit func(Device, uintptr) (bool, e
 		dev := *(*uintptr)(unsafe.Pointer(list + uintptr(i)*unsafe.Sizeof(uintptr(0))))
 		var desc [18]byte
 		if code := l.descriptor(dev, &desc); code != 0 {
-			return fmt.Errorf("read USB descriptor: %d", code)
+			return usbError("read USB descriptor", code)
 		}
 		if binary.LittleEndian.Uint16(desc[8:]) != 0x05ac {
 			continue
@@ -123,13 +130,13 @@ func (l *library) each(ctx context.Context, visit func(Device, uintptr) (bool, e
 		}
 		var h uintptr
 		if code := l.open(dev, &h); code != 0 {
-			return fmt.Errorf("open Apple USB %04x: %d", pid, code)
+			return usbError(fmt.Sprintf("open Apple USB %04x", pid), code)
 		}
 		var b [1024]byte
 		n := l.serial(h, desc[16], &b[0], int32(len(b)))
 		if n < 0 {
 			l.close(h)
-			return fmt.Errorf("read Apple USB serial: %d", n)
+			return usbError("read Apple USB serial", n)
 		}
 		d, err := parseSerial(string(b[:n]))
 		if err != nil {
@@ -149,9 +156,7 @@ func (l *library) each(ctx context.Context, visit func(Device, uintptr) (bool, e
 		if err != nil {
 			return err
 		}
-		if keep {
-			return nil
-		}
+
 	}
 	return nil
 }
@@ -159,15 +164,24 @@ func (l *library) each(ctx context.Context, visit func(Device, uintptr) (bool, e
 // Conn owns a libusb context and a claimed interface. Its zero value is closed.
 // Close waits for any in-flight transfer; callers must close every successful Open.
 type Conn struct {
-	mu      sync.Mutex
-	library *library
-	handle  uintptr
-	info    Device
+	mu           sync.Mutex
+	library      *library
+	handle       uintptr
+	info         Device
+	dfuBlocks    uint16
+	finalization *finalization
 }
 
+// ErrNotFound means no endpoint matches the requested identity and mode.
+var ErrNotFound = errors.New("recovery endpoint not found")
+
 // Open claims interface zero of the endpoint with the exact requested ECID.
-// It never detaches a kernel driver automatically.
+// It rejects ambiguous matches and never detaches a kernel driver automatically.
 func Open(ctx context.Context, path string, ecid uint64) (*Conn, error) {
+	return openDevice(ctx, path, ecid, "")
+}
+
+func openDevice(ctx context.Context, path string, ecid uint64, mode string) (*Conn, error) {
 	if err := ctx.Err(); err != nil {
 		return nil, err
 	}
@@ -178,40 +192,76 @@ func Open(ctx context.Context, path string, ecid uint64) (*Conn, error) {
 	if err != nil {
 		return nil, err
 	}
+	conn, err := l.selectDevice(ctx, ecid, mode)
+	if err != nil {
+		l.dispose()
+	}
+	return conn, err
+}
+
+func (l *library) selectDevice(ctx context.Context, ecid uint64, mode string) (*Conn, error) {
 	var conn *Conn
-	err = l.each(ctx, func(d Device, h uintptr) (bool, error) {
+	matches := 0
+	err := l.each(ctx, func(d Device, h uintptr) (bool, error) {
 		if d.ECID != ecid {
 			return false, nil
 		}
-		if code := l.claim(h, 0); code != 0 {
-			return false, fmt.Errorf("claim recovery interface: %d", code)
+		matches++
+		if matches > 1 {
+			return false, fmt.Errorf("ambiguous recovery endpoints for ECID %x", ecid)
+		}
+		if mode != "" && d.Mode != mode {
+			return false, nil
 		}
 		conn = &Conn{library: l, handle: h, info: d}
 		return true, nil
 	})
-	if err != nil || conn == nil {
-		l.dispose()
-		if err == nil {
-			err = fmt.Errorf("recovery endpoint for ECID %x not found", ecid)
+	if err == nil {
+		err = ctx.Err()
+	}
+	if err == nil && conn != nil {
+		if code := l.claim(conn.handle, 0); code != 0 {
+			err = usbError("claim recovery interface", code)
+		}
+	}
+	if err != nil {
+		if conn != nil {
+			l.close(conn.handle)
 		}
 		return nil, err
+	}
+	if conn == nil {
+		return nil, fmt.Errorf("ECID %x mode %q: %w", ecid, mode, ErrNotFound)
 	}
 	return conn, nil
 }
 
 // Close releases the interface, device handle and libusb context. It is idempotent.
+// If finalization is in progress, Close waits for the native operation and returns
+// its result. Canceling a FinalizeDFU wait does not cancel a native USB reset.
 func (c *Conn) Close() error {
 	c.mu.Lock()
+	if op := c.finalization; op != nil {
+		c.mu.Unlock()
+		<-op.done
+		return op.err
+	}
 	defer c.mu.Unlock()
 	if c.library == nil {
 		return nil
 	}
+	err := c.release(false)
+	c.library = nil
+	c.handle = 0
+	c.dfuBlocks = 0
+	return err
+}
+
+func (c *Conn) release(allowGone bool) error {
 	code := c.library.release(c.handle, 0)
 	c.library.close(c.handle)
 	c.library.dispose()
-	c.library = nil
-	c.handle = 0
-	if code != 0 {
+	if code != 0 && !(allowGone && (code == -4 || code == -5)) {
 		return fmt.Errorf("release recovery interface: %d", code)
 	}
 	return nil
@@ -224,6 +274,7 @@ func (c *Conn) Control(ctx context.Context, kind, request uint8, value, index ui
 		return 0, err
 	}
 	defer c.mu.Unlock()
+	c.dfuBlocks = 0
 	return c.control(ctx, kind, request, value, index, data)
 }
 
@@ -254,6 +305,7 @@ func (c *Conn) BulkWrite(ctx context.Context, endpoint uint8, data []byte) (int,
 		return 0, err
 	}
 	defer c.mu.Unlock()
+	c.dfuBlocks = 0
 	return c.bulkWrite(ctx, endpoint, data)
 }
 
@@ -338,4 +390,11 @@ func (c *Conn) lock(ctx context.Context) error {
 		case <-timer.C:
 		}
 	}
+}
+
+func usbError(action string, code int32) error {
+	if code == -4 {
+		return fmt.Errorf("%s: %w", action, ErrNotFound)
+	}
+	return fmt.Errorf("%s: %d", action, code)
 }

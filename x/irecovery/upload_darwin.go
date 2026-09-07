@@ -48,6 +48,7 @@ func (c *Conn) Upload(ctx context.Context, data []byte) error {
 	if c.library == nil {
 		return fmt.Errorf("recovery connection is closed")
 	}
+	c.dfuBlocks = 0
 	switch c.info.Mode {
 	case "recovery":
 		return c.uploadRecovery(ctx, data)
@@ -56,7 +57,11 @@ func (c *Conn) Upload(ctx context.Context, data []byte) error {
 		if len(data) > 0xffff*0x800 {
 			return fmt.Errorf("dfu image exceeds transfer limit")
 		}
-		return c.uploadDFU(ctx, data)
+		if err := c.uploadDFU(ctx, data); err != nil {
+			return err
+		}
+		c.dfuBlocks = uint16((len(data) + 0x7ff) / 0x800)
+		return nil
 	default:
 		return fmt.Errorf("unsupported upload mode %q", c.info.Mode)
 	}
