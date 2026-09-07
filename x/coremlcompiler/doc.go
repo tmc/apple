@@ -32,6 +32,13 @@
 //
 //	err := coremlcompiler.CompileMILText(milText, 8, desc, weightRoot, "model.mlmodelc")
 //
+// A MIL generator reaches [CompileMILText] through
+// [TensorFeatureDescription] and [StateFeatureDescription], which build the
+// [ModelDescription] from element types spelled the way MIL spells them
+// ("fp16", "int32"), and [WriteWeightRoot], which lays out the weight blobs a
+// program's BLOBFILE paths name. Between them a generator needs no adapter of
+// its own, and this package needs no dependency on the generator.
+//
 // The Go types in this package model the mlprogram subset of the CoreML
 // specification. Fields outside that subset, such as Model.isUpdatable or an
 // input's shape flexibility, cannot be constructed from Go, but a model

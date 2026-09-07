@@ -12,6 +12,14 @@ const defaultMILSpecVersion = 9 // iOS18/CoreML8, the opset our emitters produce
 // CompileMILText compiles an already-emitted mlprogram MIL text into a
 // compiled bundle at outputPath.
 //
+// milText is not validated. This package has no MIL text parser, so there is
+// nothing to check it against: the text is written into the bundle verbatim,
+// and none of the program checks [CompileProgram] runs apply to it. desc is not
+// checked against it either, so a description disagreeing with the MIL text's
+// own signature is written out and fails at load time instead. A producer that
+// holds a structured program should call [CompileProgram], which emits the text
+// itself and validates first.
+//
 // desc names the model inputs, outputs, and states stored in coremldata.bin
 // and metadata.json. weightRoot, when non-empty, is copied into the bundle
 // preserving relative paths, so BLOBFILE paths like "@model_path/weights/..."
